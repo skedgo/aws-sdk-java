@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The name to use for your new database.
+     * The name to use for your new Lightsail database resource.
      * </p>
      * <p>
      * Constraints:
@@ -78,7 +78,14 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
     private String relationalDatabaseBundleId;
     /**
      * <p>
-     * The name of the master database created when the Lightsail database resource is created.
+     * The meaning of this parameter differs according to the database engine you use.
+     * </p>
+     * <p>
+     * <b>MySQL</b>
+     * </p>
+     * <p>
+     * The name of the database to create when the Lightsail database resource is created. If this parameter isn't
+     * specified, no database is created in the database resource.
      * </p>
      * <p>
      * Constraints:
@@ -86,12 +93,57 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 64 alphanumeric characters.
+     * Must contain 1 to 64 letters or numbers.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Cannot be a word reserved by the specified database engine
+     * Must begin with a letter. Subsequent characters can be letters, underscores, or digits (0- 9).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be a word reserved by the specified database engine.
+     * </p>
+     * <p>
+     * For more information about reserved words in MySQL, see the Keywords and Reserved Words articles for <a
+     * href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a>, <a
+     * href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a>, and <a
+     * href="https://dev.mysql.com/doc/refman/8.0/en/keywords.html">MySQL 8.0</a>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * The name of the database to create when the Lightsail database resource is created. If this parameter isn't
+     * specified, a database named <code>postgres</code> is created in the database resource.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must contain 1 to 63 letters or numbers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must begin with a letter. Subsequent characters can be letters, underscores, or digits (0- 9).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be a word reserved by the specified database engine.
+     * </p>
+     * <p>
+     * For more information about reserved words in PostgreSQL, see the SQL Key Words articles for <a
+     * href="https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html">PostgreSQL 9.6</a>, <a
+     * href="https://www.postgresql.org/docs/10/sql-keywords-appendix.html">PostgreSQL 10</a>, <a
+     * href="https://www.postgresql.org/docs/11/sql-keywords-appendix.html">PostgreSQL 11</a>, and <a
+     * href="https://www.postgresql.org/docs/12/sql-keywords-appendix.html">PostgreSQL 12</a>.
      * </p>
      * </li>
      * </ul>
@@ -99,7 +151,10 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
     private String masterDatabaseName;
     /**
      * <p>
-     * The master user name for your new database.
+     * The name for the master user.
+     * </p>
+     * <p>
+     * <b>MySQL</b>
      * </p>
      * <p>
      * Constraints:
@@ -107,27 +162,63 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * Master user name is required.
+     * Required for MySQL.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Must contain from 1 to 16 alphanumeric characters.
+     * Must be 1 to 16 letters or numbers. Can contain underscores.
      * </p>
      * </li>
      * <li>
      * <p>
-     * The first character must be a letter.
+     * First character must be a letter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Cannot be a reserved word for the database engine you choose.
+     * Can't be a reserved word for the chosen database engine.
      * </p>
      * <p>
      * For more information about reserved words in MySQL 5.6 or 5.7, see the Keywords and Reserved Words articles for
-     * <a href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a> or <a
-     * href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a> respectively.
+     * <a href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a>, <a
+     * href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a>, or <a
+     * href="https://dev.mysql.com/doc/refman/8.0/en/keywords.html">MySQL 8.0</a>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Required for PostgreSQL.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be 1 to 63 letters or numbers. Can contain underscores.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * First character must be a letter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be a reserved word for the chosen database engine.
+     * </p>
+     * <p>
+     * For more information about reserved words in MySQL 5.6 or 5.7, see the Keywords and Reserved Words articles for
+     * <a href="https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html">PostgreSQL 9.6</a>, <a
+     * href="https://www.postgresql.org/docs/10/sql-keywords-appendix.html">PostgreSQL 10</a>, <a
+     * href="https://www.postgresql.org/docs/11/sql-keywords-appendix.html">PostgreSQL 11</a>, and <a
+     * href="https://www.postgresql.org/docs/12/sql-keywords-appendix.html">PostgreSQL 12</a>.
      * </p>
      * </li>
      * </ul>
@@ -135,11 +226,20 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
     private String masterUsername;
     /**
      * <p>
-     * The password for the master user of your new database. The password can include any printable ASCII character
-     * except "/", """, or "@".
+     * The password for the master user. The password can include any printable ASCII character except "/", """, or "@".
+     * It cannot contain spaces.
      * </p>
      * <p>
-     * Constraints: Must contain 8 to 41 characters.
+     * <b>MySQL</b>
+     * </p>
+     * <p>
+     * Constraints: Must contain from 8 to 41 characters.
+     * </p>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * Constraints: Must contain from 8 to 128 characters.
      * </p>
      */
     private String masterUserPassword;
@@ -152,7 +252,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. For more
      * information about the preferred backup window time blocks for each region, see the <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow"
-     * >Working With Backups</a> guide in the Amazon Relational Database Service (Amazon RDS) documentation.
+     * >Working With Backups</a> guide in the Amazon Relational Database Service documentation.
      * </p>
      * <p>
      * Constraints:
@@ -168,7 +268,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Specified in Universal Coordinated Time (UTC).
+     * Specified in Coordinated Universal Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -213,7 +313,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Specified in Universal Coordinated Time (UTC).
+     * Specified in Coordinated Universal Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -237,14 +337,14 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      */
     private java.util.List<Tag> tags;
 
     /**
      * <p>
-     * The name to use for your new database.
+     * The name to use for your new Lightsail database resource.
      * </p>
      * <p>
      * Constraints:
@@ -263,7 +363,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * </ul>
      * 
      * @param relationalDatabaseName
-     *        The name to use for your new database.</p>
+     *        The name to use for your new Lightsail database resource.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -286,7 +386,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The name to use for your new database.
+     * The name to use for your new Lightsail database resource.
      * </p>
      * <p>
      * Constraints:
@@ -304,7 +404,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * </ul>
      * 
-     * @return The name to use for your new database.</p>
+     * @return The name to use for your new Lightsail database resource.</p>
      *         <p>
      *         Constraints:
      *         </p>
@@ -327,7 +427,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The name to use for your new database.
+     * The name to use for your new Lightsail database resource.
      * </p>
      * <p>
      * Constraints:
@@ -346,7 +446,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * </ul>
      * 
      * @param relationalDatabaseName
-     *        The name to use for your new database.</p>
+     *        The name to use for your new Lightsail database resource.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -560,7 +660,14 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The name of the master database created when the Lightsail database resource is created.
+     * The meaning of this parameter differs according to the database engine you use.
+     * </p>
+     * <p>
+     * <b>MySQL</b>
+     * </p>
+     * <p>
+     * The name of the database to create when the Lightsail database resource is created. If this parameter isn't
+     * specified, no database is created in the database resource.
      * </p>
      * <p>
      * Constraints:
@@ -568,30 +675,127 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 64 alphanumeric characters.
+     * Must contain 1 to 64 letters or numbers.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Cannot be a word reserved by the specified database engine
+     * Must begin with a letter. Subsequent characters can be letters, underscores, or digits (0- 9).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be a word reserved by the specified database engine.
+     * </p>
+     * <p>
+     * For more information about reserved words in MySQL, see the Keywords and Reserved Words articles for <a
+     * href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a>, <a
+     * href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a>, and <a
+     * href="https://dev.mysql.com/doc/refman/8.0/en/keywords.html">MySQL 8.0</a>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * The name of the database to create when the Lightsail database resource is created. If this parameter isn't
+     * specified, a database named <code>postgres</code> is created in the database resource.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must contain 1 to 63 letters or numbers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must begin with a letter. Subsequent characters can be letters, underscores, or digits (0- 9).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be a word reserved by the specified database engine.
+     * </p>
+     * <p>
+     * For more information about reserved words in PostgreSQL, see the SQL Key Words articles for <a
+     * href="https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html">PostgreSQL 9.6</a>, <a
+     * href="https://www.postgresql.org/docs/10/sql-keywords-appendix.html">PostgreSQL 10</a>, <a
+     * href="https://www.postgresql.org/docs/11/sql-keywords-appendix.html">PostgreSQL 11</a>, and <a
+     * href="https://www.postgresql.org/docs/12/sql-keywords-appendix.html">PostgreSQL 12</a>.
      * </p>
      * </li>
      * </ul>
      * 
      * @param masterDatabaseName
-     *        The name of the master database created when the Lightsail database resource is created.</p>
+     *        The meaning of this parameter differs according to the database engine you use.</p>
+     *        <p>
+     *        <b>MySQL</b>
+     *        </p>
+     *        <p>
+     *        The name of the database to create when the Lightsail database resource is created. If this parameter
+     *        isn't specified, no database is created in the database resource.
+     *        </p>
      *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 64 alphanumeric characters.
+     *        Must contain 1 to 64 letters or numbers.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Cannot be a word reserved by the specified database engine
+     *        Must begin with a letter. Subsequent characters can be letters, underscores, or digits (0- 9).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Can't be a word reserved by the specified database engine.
+     *        </p>
+     *        <p>
+     *        For more information about reserved words in MySQL, see the Keywords and Reserved Words articles for <a
+     *        href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a>, <a
+     *        href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a>, and <a
+     *        href="https://dev.mysql.com/doc/refman/8.0/en/keywords.html">MySQL 8.0</a>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        <b>PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        The name of the database to create when the Lightsail database resource is created. If this parameter
+     *        isn't specified, a database named <code>postgres</code> is created in the database resource.
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Must contain 1 to 63 letters or numbers.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Must begin with a letter. Subsequent characters can be letters, underscores, or digits (0- 9).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Can't be a word reserved by the specified database engine.
+     *        </p>
+     *        <p>
+     *        For more information about reserved words in PostgreSQL, see the SQL Key Words articles for <a
+     *        href="https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html">PostgreSQL 9.6</a>, <a
+     *        href="https://www.postgresql.org/docs/10/sql-keywords-appendix.html">PostgreSQL 10</a>, <a
+     *        href="https://www.postgresql.org/docs/11/sql-keywords-appendix.html">PostgreSQL 11</a>, and <a
+     *        href="https://www.postgresql.org/docs/12/sql-keywords-appendix.html">PostgreSQL 12</a>.
      *        </p>
      *        </li>
      */
@@ -602,7 +806,14 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The name of the master database created when the Lightsail database resource is created.
+     * The meaning of this parameter differs according to the database engine you use.
+     * </p>
+     * <p>
+     * <b>MySQL</b>
+     * </p>
+     * <p>
+     * The name of the database to create when the Lightsail database resource is created. If this parameter isn't
+     * specified, no database is created in the database resource.
      * </p>
      * <p>
      * Constraints:
@@ -610,29 +821,126 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 64 alphanumeric characters.
+     * Must contain 1 to 64 letters or numbers.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Cannot be a word reserved by the specified database engine
+     * Must begin with a letter. Subsequent characters can be letters, underscores, or digits (0- 9).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be a word reserved by the specified database engine.
+     * </p>
+     * <p>
+     * For more information about reserved words in MySQL, see the Keywords and Reserved Words articles for <a
+     * href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a>, <a
+     * href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a>, and <a
+     * href="https://dev.mysql.com/doc/refman/8.0/en/keywords.html">MySQL 8.0</a>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * The name of the database to create when the Lightsail database resource is created. If this parameter isn't
+     * specified, a database named <code>postgres</code> is created in the database resource.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must contain 1 to 63 letters or numbers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must begin with a letter. Subsequent characters can be letters, underscores, or digits (0- 9).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be a word reserved by the specified database engine.
+     * </p>
+     * <p>
+     * For more information about reserved words in PostgreSQL, see the SQL Key Words articles for <a
+     * href="https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html">PostgreSQL 9.6</a>, <a
+     * href="https://www.postgresql.org/docs/10/sql-keywords-appendix.html">PostgreSQL 10</a>, <a
+     * href="https://www.postgresql.org/docs/11/sql-keywords-appendix.html">PostgreSQL 11</a>, and <a
+     * href="https://www.postgresql.org/docs/12/sql-keywords-appendix.html">PostgreSQL 12</a>.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return The name of the master database created when the Lightsail database resource is created.</p>
+     * @return The meaning of this parameter differs according to the database engine you use.</p>
+     *         <p>
+     *         <b>MySQL</b>
+     *         </p>
+     *         <p>
+     *         The name of the database to create when the Lightsail database resource is created. If this parameter
+     *         isn't specified, no database is created in the database resource.
+     *         </p>
      *         <p>
      *         Constraints:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         Must contain from 1 to 64 alphanumeric characters.
+     *         Must contain 1 to 64 letters or numbers.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Cannot be a word reserved by the specified database engine
+     *         Must begin with a letter. Subsequent characters can be letters, underscores, or digits (0- 9).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Can't be a word reserved by the specified database engine.
+     *         </p>
+     *         <p>
+     *         For more information about reserved words in MySQL, see the Keywords and Reserved Words articles for <a
+     *         href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a>, <a
+     *         href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a>, and <a
+     *         href="https://dev.mysql.com/doc/refman/8.0/en/keywords.html">MySQL 8.0</a>.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         <b>PostgreSQL</b>
+     *         </p>
+     *         <p>
+     *         The name of the database to create when the Lightsail database resource is created. If this parameter
+     *         isn't specified, a database named <code>postgres</code> is created in the database resource.
+     *         </p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Must contain 1 to 63 letters or numbers.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Must begin with a letter. Subsequent characters can be letters, underscores, or digits (0- 9).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Can't be a word reserved by the specified database engine.
+     *         </p>
+     *         <p>
+     *         For more information about reserved words in PostgreSQL, see the SQL Key Words articles for <a
+     *         href="https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html">PostgreSQL 9.6</a>, <a
+     *         href="https://www.postgresql.org/docs/10/sql-keywords-appendix.html">PostgreSQL 10</a>, <a
+     *         href="https://www.postgresql.org/docs/11/sql-keywords-appendix.html">PostgreSQL 11</a>, and <a
+     *         href="https://www.postgresql.org/docs/12/sql-keywords-appendix.html">PostgreSQL 12</a>.
      *         </p>
      *         </li>
      */
@@ -643,7 +951,14 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The name of the master database created when the Lightsail database resource is created.
+     * The meaning of this parameter differs according to the database engine you use.
+     * </p>
+     * <p>
+     * <b>MySQL</b>
+     * </p>
+     * <p>
+     * The name of the database to create when the Lightsail database resource is created. If this parameter isn't
+     * specified, no database is created in the database resource.
      * </p>
      * <p>
      * Constraints:
@@ -651,30 +966,127 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 64 alphanumeric characters.
+     * Must contain 1 to 64 letters or numbers.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Cannot be a word reserved by the specified database engine
+     * Must begin with a letter. Subsequent characters can be letters, underscores, or digits (0- 9).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be a word reserved by the specified database engine.
+     * </p>
+     * <p>
+     * For more information about reserved words in MySQL, see the Keywords and Reserved Words articles for <a
+     * href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a>, <a
+     * href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a>, and <a
+     * href="https://dev.mysql.com/doc/refman/8.0/en/keywords.html">MySQL 8.0</a>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * The name of the database to create when the Lightsail database resource is created. If this parameter isn't
+     * specified, a database named <code>postgres</code> is created in the database resource.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must contain 1 to 63 letters or numbers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must begin with a letter. Subsequent characters can be letters, underscores, or digits (0- 9).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be a word reserved by the specified database engine.
+     * </p>
+     * <p>
+     * For more information about reserved words in PostgreSQL, see the SQL Key Words articles for <a
+     * href="https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html">PostgreSQL 9.6</a>, <a
+     * href="https://www.postgresql.org/docs/10/sql-keywords-appendix.html">PostgreSQL 10</a>, <a
+     * href="https://www.postgresql.org/docs/11/sql-keywords-appendix.html">PostgreSQL 11</a>, and <a
+     * href="https://www.postgresql.org/docs/12/sql-keywords-appendix.html">PostgreSQL 12</a>.
      * </p>
      * </li>
      * </ul>
      * 
      * @param masterDatabaseName
-     *        The name of the master database created when the Lightsail database resource is created.</p>
+     *        The meaning of this parameter differs according to the database engine you use.</p>
+     *        <p>
+     *        <b>MySQL</b>
+     *        </p>
+     *        <p>
+     *        The name of the database to create when the Lightsail database resource is created. If this parameter
+     *        isn't specified, no database is created in the database resource.
+     *        </p>
      *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 64 alphanumeric characters.
+     *        Must contain 1 to 64 letters or numbers.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Cannot be a word reserved by the specified database engine
+     *        Must begin with a letter. Subsequent characters can be letters, underscores, or digits (0- 9).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Can't be a word reserved by the specified database engine.
+     *        </p>
+     *        <p>
+     *        For more information about reserved words in MySQL, see the Keywords and Reserved Words articles for <a
+     *        href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a>, <a
+     *        href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a>, and <a
+     *        href="https://dev.mysql.com/doc/refman/8.0/en/keywords.html">MySQL 8.0</a>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        <b>PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        The name of the database to create when the Lightsail database resource is created. If this parameter
+     *        isn't specified, a database named <code>postgres</code> is created in the database resource.
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Must contain 1 to 63 letters or numbers.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Must begin with a letter. Subsequent characters can be letters, underscores, or digits (0- 9).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Can't be a word reserved by the specified database engine.
+     *        </p>
+     *        <p>
+     *        For more information about reserved words in PostgreSQL, see the SQL Key Words articles for <a
+     *        href="https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html">PostgreSQL 9.6</a>, <a
+     *        href="https://www.postgresql.org/docs/10/sql-keywords-appendix.html">PostgreSQL 10</a>, <a
+     *        href="https://www.postgresql.org/docs/11/sql-keywords-appendix.html">PostgreSQL 11</a>, and <a
+     *        href="https://www.postgresql.org/docs/12/sql-keywords-appendix.html">PostgreSQL 12</a>.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -687,7 +1099,10 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The master user name for your new database.
+     * The name for the master user.
+     * </p>
+     * <p>
+     * <b>MySQL</b>
      * </p>
      * <p>
      * Constraints:
@@ -695,60 +1110,135 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * Master user name is required.
+     * Required for MySQL.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Must contain from 1 to 16 alphanumeric characters.
+     * Must be 1 to 16 letters or numbers. Can contain underscores.
      * </p>
      * </li>
      * <li>
      * <p>
-     * The first character must be a letter.
+     * First character must be a letter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Cannot be a reserved word for the database engine you choose.
+     * Can't be a reserved word for the chosen database engine.
      * </p>
      * <p>
      * For more information about reserved words in MySQL 5.6 or 5.7, see the Keywords and Reserved Words articles for
-     * <a href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a> or <a
-     * href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a> respectively.
+     * <a href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a>, <a
+     * href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a>, or <a
+     * href="https://dev.mysql.com/doc/refman/8.0/en/keywords.html">MySQL 8.0</a>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Required for PostgreSQL.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be 1 to 63 letters or numbers. Can contain underscores.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * First character must be a letter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be a reserved word for the chosen database engine.
+     * </p>
+     * <p>
+     * For more information about reserved words in MySQL 5.6 or 5.7, see the Keywords and Reserved Words articles for
+     * <a href="https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html">PostgreSQL 9.6</a>, <a
+     * href="https://www.postgresql.org/docs/10/sql-keywords-appendix.html">PostgreSQL 10</a>, <a
+     * href="https://www.postgresql.org/docs/11/sql-keywords-appendix.html">PostgreSQL 11</a>, and <a
+     * href="https://www.postgresql.org/docs/12/sql-keywords-appendix.html">PostgreSQL 12</a>.
      * </p>
      * </li>
      * </ul>
      * 
      * @param masterUsername
-     *        The master user name for your new database.</p>
+     *        The name for the master user.</p>
+     *        <p>
+     *        <b>MySQL</b>
+     *        </p>
      *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Master user name is required.
+     *        Required for MySQL.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 16 alphanumeric characters.
+     *        Must be 1 to 16 letters or numbers. Can contain underscores.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The first character must be a letter.
+     *        First character must be a letter.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Cannot be a reserved word for the database engine you choose.
+     *        Can't be a reserved word for the chosen database engine.
      *        </p>
      *        <p>
      *        For more information about reserved words in MySQL 5.6 or 5.7, see the Keywords and Reserved Words
-     *        articles for <a href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a> or <a
-     *        href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a> respectively.
+     *        articles for <a href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a>, <a
+     *        href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a>, or <a
+     *        href="https://dev.mysql.com/doc/refman/8.0/en/keywords.html">MySQL 8.0</a>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        <b>PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Required for PostgreSQL.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Must be 1 to 63 letters or numbers. Can contain underscores.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        First character must be a letter.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Can't be a reserved word for the chosen database engine.
+     *        </p>
+     *        <p>
+     *        For more information about reserved words in MySQL 5.6 or 5.7, see the Keywords and Reserved Words
+     *        articles for <a href="https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html">PostgreSQL 9.6</a>,
+     *        <a href="https://www.postgresql.org/docs/10/sql-keywords-appendix.html">PostgreSQL 10</a>, <a
+     *        href="https://www.postgresql.org/docs/11/sql-keywords-appendix.html">PostgreSQL 11</a>, and <a
+     *        href="https://www.postgresql.org/docs/12/sql-keywords-appendix.html">PostgreSQL 12</a>.
      *        </p>
      *        </li>
      */
@@ -759,7 +1249,10 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The master user name for your new database.
+     * The name for the master user.
+     * </p>
+     * <p>
+     * <b>MySQL</b>
      * </p>
      * <p>
      * Constraints:
@@ -767,59 +1260,134 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * Master user name is required.
+     * Required for MySQL.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Must contain from 1 to 16 alphanumeric characters.
+     * Must be 1 to 16 letters or numbers. Can contain underscores.
      * </p>
      * </li>
      * <li>
      * <p>
-     * The first character must be a letter.
+     * First character must be a letter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Cannot be a reserved word for the database engine you choose.
+     * Can't be a reserved word for the chosen database engine.
      * </p>
      * <p>
      * For more information about reserved words in MySQL 5.6 or 5.7, see the Keywords and Reserved Words articles for
-     * <a href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a> or <a
-     * href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a> respectively.
+     * <a href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a>, <a
+     * href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a>, or <a
+     * href="https://dev.mysql.com/doc/refman/8.0/en/keywords.html">MySQL 8.0</a>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Required for PostgreSQL.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be 1 to 63 letters or numbers. Can contain underscores.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * First character must be a letter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be a reserved word for the chosen database engine.
+     * </p>
+     * <p>
+     * For more information about reserved words in MySQL 5.6 or 5.7, see the Keywords and Reserved Words articles for
+     * <a href="https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html">PostgreSQL 9.6</a>, <a
+     * href="https://www.postgresql.org/docs/10/sql-keywords-appendix.html">PostgreSQL 10</a>, <a
+     * href="https://www.postgresql.org/docs/11/sql-keywords-appendix.html">PostgreSQL 11</a>, and <a
+     * href="https://www.postgresql.org/docs/12/sql-keywords-appendix.html">PostgreSQL 12</a>.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return The master user name for your new database.</p>
+     * @return The name for the master user.</p>
+     *         <p>
+     *         <b>MySQL</b>
+     *         </p>
      *         <p>
      *         Constraints:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         Master user name is required.
+     *         Required for MySQL.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Must contain from 1 to 16 alphanumeric characters.
+     *         Must be 1 to 16 letters or numbers. Can contain underscores.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         The first character must be a letter.
+     *         First character must be a letter.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Cannot be a reserved word for the database engine you choose.
+     *         Can't be a reserved word for the chosen database engine.
      *         </p>
      *         <p>
      *         For more information about reserved words in MySQL 5.6 or 5.7, see the Keywords and Reserved Words
-     *         articles for <a href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a> or <a
-     *         href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a> respectively.
+     *         articles for <a href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a>, <a
+     *         href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a>, or <a
+     *         href="https://dev.mysql.com/doc/refman/8.0/en/keywords.html">MySQL 8.0</a>.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         <b>PostgreSQL</b>
+     *         </p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Required for PostgreSQL.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Must be 1 to 63 letters or numbers. Can contain underscores.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         First character must be a letter.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Can't be a reserved word for the chosen database engine.
+     *         </p>
+     *         <p>
+     *         For more information about reserved words in MySQL 5.6 or 5.7, see the Keywords and Reserved Words
+     *         articles for <a href="https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html">PostgreSQL 9.6</a>,
+     *         <a href="https://www.postgresql.org/docs/10/sql-keywords-appendix.html">PostgreSQL 10</a>, <a
+     *         href="https://www.postgresql.org/docs/11/sql-keywords-appendix.html">PostgreSQL 11</a>, and <a
+     *         href="https://www.postgresql.org/docs/12/sql-keywords-appendix.html">PostgreSQL 12</a>.
      *         </p>
      *         </li>
      */
@@ -830,7 +1398,10 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The master user name for your new database.
+     * The name for the master user.
+     * </p>
+     * <p>
+     * <b>MySQL</b>
      * </p>
      * <p>
      * Constraints:
@@ -838,60 +1409,135 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * Master user name is required.
+     * Required for MySQL.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Must contain from 1 to 16 alphanumeric characters.
+     * Must be 1 to 16 letters or numbers. Can contain underscores.
      * </p>
      * </li>
      * <li>
      * <p>
-     * The first character must be a letter.
+     * First character must be a letter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Cannot be a reserved word for the database engine you choose.
+     * Can't be a reserved word for the chosen database engine.
      * </p>
      * <p>
      * For more information about reserved words in MySQL 5.6 or 5.7, see the Keywords and Reserved Words articles for
-     * <a href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a> or <a
-     * href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a> respectively.
+     * <a href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a>, <a
+     * href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a>, or <a
+     * href="https://dev.mysql.com/doc/refman/8.0/en/keywords.html">MySQL 8.0</a>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Required for PostgreSQL.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be 1 to 63 letters or numbers. Can contain underscores.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * First character must be a letter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be a reserved word for the chosen database engine.
+     * </p>
+     * <p>
+     * For more information about reserved words in MySQL 5.6 or 5.7, see the Keywords and Reserved Words articles for
+     * <a href="https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html">PostgreSQL 9.6</a>, <a
+     * href="https://www.postgresql.org/docs/10/sql-keywords-appendix.html">PostgreSQL 10</a>, <a
+     * href="https://www.postgresql.org/docs/11/sql-keywords-appendix.html">PostgreSQL 11</a>, and <a
+     * href="https://www.postgresql.org/docs/12/sql-keywords-appendix.html">PostgreSQL 12</a>.
      * </p>
      * </li>
      * </ul>
      * 
      * @param masterUsername
-     *        The master user name for your new database.</p>
+     *        The name for the master user.</p>
+     *        <p>
+     *        <b>MySQL</b>
+     *        </p>
      *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Master user name is required.
+     *        Required for MySQL.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 16 alphanumeric characters.
+     *        Must be 1 to 16 letters or numbers. Can contain underscores.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The first character must be a letter.
+     *        First character must be a letter.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Cannot be a reserved word for the database engine you choose.
+     *        Can't be a reserved word for the chosen database engine.
      *        </p>
      *        <p>
      *        For more information about reserved words in MySQL 5.6 or 5.7, see the Keywords and Reserved Words
-     *        articles for <a href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a> or <a
-     *        href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a> respectively.
+     *        articles for <a href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a>, <a
+     *        href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a>, or <a
+     *        href="https://dev.mysql.com/doc/refman/8.0/en/keywords.html">MySQL 8.0</a>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        <b>PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Required for PostgreSQL.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Must be 1 to 63 letters or numbers. Can contain underscores.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        First character must be a letter.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Can't be a reserved word for the chosen database engine.
+     *        </p>
+     *        <p>
+     *        For more information about reserved words in MySQL 5.6 or 5.7, see the Keywords and Reserved Words
+     *        articles for <a href="https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html">PostgreSQL 9.6</a>,
+     *        <a href="https://www.postgresql.org/docs/10/sql-keywords-appendix.html">PostgreSQL 10</a>, <a
+     *        href="https://www.postgresql.org/docs/11/sql-keywords-appendix.html">PostgreSQL 11</a>, and <a
+     *        href="https://www.postgresql.org/docs/12/sql-keywords-appendix.html">PostgreSQL 12</a>.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -904,18 +1550,36 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The password for the master user of your new database. The password can include any printable ASCII character
-     * except "/", """, or "@".
+     * The password for the master user. The password can include any printable ASCII character except "/", """, or "@".
+     * It cannot contain spaces.
      * </p>
      * <p>
-     * Constraints: Must contain 8 to 41 characters.
+     * <b>MySQL</b>
+     * </p>
+     * <p>
+     * Constraints: Must contain from 8 to 41 characters.
+     * </p>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * Constraints: Must contain from 8 to 128 characters.
      * </p>
      * 
      * @param masterUserPassword
-     *        The password for the master user of your new database. The password can include any printable ASCII
-     *        character except "/", """, or "@".</p>
+     *        The password for the master user. The password can include any printable ASCII character except "/",
+     *        """, or "@". It cannot contain spaces.</p>
      *        <p>
-     *        Constraints: Must contain 8 to 41 characters.
+     *        <b>MySQL</b>
+     *        </p>
+     *        <p>
+     *        Constraints: Must contain from 8 to 41 characters.
+     *        </p>
+     *        <p>
+     *        <b>PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        Constraints: Must contain from 8 to 128 characters.
      */
 
     public void setMasterUserPassword(String masterUserPassword) {
@@ -924,17 +1588,35 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The password for the master user of your new database. The password can include any printable ASCII character
-     * except "/", """, or "@".
+     * The password for the master user. The password can include any printable ASCII character except "/", """, or "@".
+     * It cannot contain spaces.
      * </p>
      * <p>
-     * Constraints: Must contain 8 to 41 characters.
+     * <b>MySQL</b>
+     * </p>
+     * <p>
+     * Constraints: Must contain from 8 to 41 characters.
+     * </p>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * Constraints: Must contain from 8 to 128 characters.
      * </p>
      * 
-     * @return The password for the master user of your new database. The password can include any printable ASCII
-     *         character except "/", """, or "@".</p>
+     * @return The password for the master user. The password can include any printable ASCII character except "/",
+     *         """, or "@". It cannot contain spaces.</p>
      *         <p>
-     *         Constraints: Must contain 8 to 41 characters.
+     *         <b>MySQL</b>
+     *         </p>
+     *         <p>
+     *         Constraints: Must contain from 8 to 41 characters.
+     *         </p>
+     *         <p>
+     *         <b>PostgreSQL</b>
+     *         </p>
+     *         <p>
+     *         Constraints: Must contain from 8 to 128 characters.
      */
 
     public String getMasterUserPassword() {
@@ -943,18 +1625,36 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The password for the master user of your new database. The password can include any printable ASCII character
-     * except "/", """, or "@".
+     * The password for the master user. The password can include any printable ASCII character except "/", """, or "@".
+     * It cannot contain spaces.
      * </p>
      * <p>
-     * Constraints: Must contain 8 to 41 characters.
+     * <b>MySQL</b>
+     * </p>
+     * <p>
+     * Constraints: Must contain from 8 to 41 characters.
+     * </p>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * Constraints: Must contain from 8 to 128 characters.
      * </p>
      * 
      * @param masterUserPassword
-     *        The password for the master user of your new database. The password can include any printable ASCII
-     *        character except "/", """, or "@".</p>
+     *        The password for the master user. The password can include any printable ASCII character except "/",
+     *        """, or "@". It cannot contain spaces.</p>
      *        <p>
-     *        Constraints: Must contain 8 to 41 characters.
+     *        <b>MySQL</b>
+     *        </p>
+     *        <p>
+     *        Constraints: Must contain from 8 to 41 characters.
+     *        </p>
+     *        <p>
+     *        <b>PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        Constraints: Must contain from 8 to 128 characters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -972,7 +1672,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. For more
      * information about the preferred backup window time blocks for each region, see the <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow"
-     * >Working With Backups</a> guide in the Amazon Relational Database Service (Amazon RDS) documentation.
+     * >Working With Backups</a> guide in the Amazon Relational Database Service documentation.
      * </p>
      * <p>
      * Constraints:
@@ -988,7 +1688,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Specified in Universal Coordinated Time (UTC).
+     * Specified in Coordinated Universal Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -1010,7 +1710,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      *        The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. For
      *        more information about the preferred backup window time blocks for each region, see the <a href=
      *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow"
-     *        >Working With Backups</a> guide in the Amazon Relational Database Service (Amazon RDS) documentation.
+     *        >Working With Backups</a> guide in the Amazon Relational Database Service documentation.
      *        </p>
      *        <p>
      *        Constraints:
@@ -1026,7 +1726,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        Specified in Universal Coordinated Time (UTC).
+     *        Specified in Coordinated Universal Time (UTC).
      *        </p>
      *        </li>
      *        <li>
@@ -1054,7 +1754,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. For more
      * information about the preferred backup window time blocks for each region, see the <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow"
-     * >Working With Backups</a> guide in the Amazon Relational Database Service (Amazon RDS) documentation.
+     * >Working With Backups</a> guide in the Amazon Relational Database Service documentation.
      * </p>
      * <p>
      * Constraints:
@@ -1070,7 +1770,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Specified in Universal Coordinated Time (UTC).
+     * Specified in Coordinated Universal Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -1091,7 +1791,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      *         The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region.
      *         For more information about the preferred backup window time blocks for each region, see the <a href=
      *         "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow"
-     *         >Working With Backups</a> guide in the Amazon Relational Database Service (Amazon RDS) documentation.
+     *         >Working With Backups</a> guide in the Amazon Relational Database Service documentation.
      *         </p>
      *         <p>
      *         Constraints:
@@ -1107,7 +1807,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      *         </li>
      *         <li>
      *         <p>
-     *         Specified in Universal Coordinated Time (UTC).
+     *         Specified in Coordinated Universal Time (UTC).
      *         </p>
      *         </li>
      *         <li>
@@ -1135,7 +1835,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. For more
      * information about the preferred backup window time blocks for each region, see the <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow"
-     * >Working With Backups</a> guide in the Amazon Relational Database Service (Amazon RDS) documentation.
+     * >Working With Backups</a> guide in the Amazon Relational Database Service documentation.
      * </p>
      * <p>
      * Constraints:
@@ -1151,7 +1851,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Specified in Universal Coordinated Time (UTC).
+     * Specified in Coordinated Universal Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -1173,7 +1873,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      *        The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. For
      *        more information about the preferred backup window time blocks for each region, see the <a href=
      *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow"
-     *        >Working With Backups</a> guide in the Amazon Relational Database Service (Amazon RDS) documentation.
+     *        >Working With Backups</a> guide in the Amazon Relational Database Service documentation.
      *        </p>
      *        <p>
      *        Constraints:
@@ -1189,7 +1889,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        Specified in Universal Coordinated Time (UTC).
+     *        Specified in Coordinated Universal Time (UTC).
      *        </p>
      *        </li>
      *        <li>
@@ -1239,7 +1939,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Specified in Universal Coordinated Time (UTC).
+     * Specified in Coordinated Universal Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -1276,7 +1976,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        Specified in Universal Coordinated Time (UTC).
+     *        Specified in Coordinated Universal Time (UTC).
      *        </p>
      *        </li>
      *        <li>
@@ -1319,7 +2019,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Specified in Universal Coordinated Time (UTC).
+     * Specified in Coordinated Universal Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -1355,7 +2055,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      *         </li>
      *         <li>
      *         <p>
-     *         Specified in Universal Coordinated Time (UTC).
+     *         Specified in Coordinated Universal Time (UTC).
      *         </p>
      *         </li>
      *         <li>
@@ -1398,7 +2098,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Specified in Universal Coordinated Time (UTC).
+     * Specified in Coordinated Universal Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -1435,7 +2135,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        Specified in Universal Coordinated Time (UTC).
+     *        Specified in Coordinated Universal Time (UTC).
      *        </p>
      *        </li>
      *        <li>
@@ -1528,12 +2228,12 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      * 
      * @return The tag keys and optional values to add to the resource during create.</p>
      *         <p>
-     *         To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     *         Use the <code>TagResource</code> action to tag a resource after it's created.
      */
 
     public java.util.List<Tag> getTags() {
@@ -1545,13 +2245,13 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      * 
      * @param tags
      *        The tag keys and optional values to add to the resource during create.</p>
      *        <p>
-     *        To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     *        Use the <code>TagResource</code> action to tag a resource after it's created.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -1568,7 +2268,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1579,7 +2279,7 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * @param tags
      *        The tag keys and optional values to add to the resource during create.</p>
      *        <p>
-     *        To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     *        Use the <code>TagResource</code> action to tag a resource after it's created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1598,13 +2298,13 @@ public class CreateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      * 
      * @param tags
      *        The tag keys and optional values to add to the resource during create.</p>
      *        <p>
-     *        To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     *        Use the <code>TagResource</code> action to tag a resource after it's created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

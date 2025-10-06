@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,9 +26,9 @@ import com.amazonaws.services.glue.model.*;
  * {@link com.amazonaws.services.glue.AbstractAWSGlue} instead.
  * </p>
  * <p>
- * <fullname>AWS Glue</fullname>
+ * <fullname>Glue</fullname>
  * <p>
- * Defines the public endpoint for the AWS Glue service.
+ * Defines the public endpoint for the Glue service.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -113,12 +113,12 @@ public interface AWSGlue {
      * </p>
      * <note>
      * <p>
-     * After completing this operation, you will no longer have access to the table versions and partitions that belong
-     * to the deleted table. AWS Glue deletes these "orphaned" resources asynchronously in a timely manner, at the
-     * discretion of the service.
+     * After completing this operation, you no longer have access to the table versions and partitions that belong to
+     * the deleted table. Glue deletes these "orphaned" resources asynchronously in a timely manner, at the discretion
+     * of the service.
      * </p>
      * <p>
-     * To ensure immediate deletion of all related resources, before calling <code>BatchDeleteTable</code>, use
+     * To ensure the immediate deletion of all related resources, before calling <code>BatchDeleteTable</code>, use
      * <code>DeleteTableVersion</code> or <code>BatchDeleteTableVersion</code>, and <code>DeletePartition</code> or
      * <code>BatchDeletePartition</code>, to delete any resources that belong to the table.
      * </p>
@@ -134,6 +134,10 @@ public interface AWSGlue {
      *         An internal service error occurred.
      * @throws OperationTimeoutException
      *         The operation timed out.
+     * @throws GlueEncryptionException
+     *         An encryption operation failed.
+     * @throws ResourceNotReadyException
+     *         A resource was not ready for a transaction.
      * @sample AWSGlue.BatchDeleteTable
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/BatchDeleteTable" target="_top">AWS API
      *      Documentation</a>
@@ -163,6 +167,25 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Retrieves information about a list of blueprints.
+     * </p>
+     * 
+     * @param batchGetBlueprintsRequest
+     * @return Result of the BatchGetBlueprints operation returned by the service.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @sample AWSGlue.BatchGetBlueprints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/BatchGetBlueprints" target="_top">AWS API
+     *      Documentation</a>
+     */
+    BatchGetBlueprintsResult batchGetBlueprints(BatchGetBlueprintsRequest batchGetBlueprintsRequest);
+
+    /**
+     * <p>
      * Returns a list of resource metadata for a given list of crawler names. After calling the
      * <code>ListCrawlers</code> operation, you can call this operation to access the data to which you have been
      * granted permissions. This operation supports all IAM permissions, including permission conditions that uses tags.
@@ -179,6 +202,44 @@ public interface AWSGlue {
      *      Documentation</a>
      */
     BatchGetCrawlersResult batchGetCrawlers(BatchGetCrawlersRequest batchGetCrawlersRequest);
+
+    /**
+     * <p>
+     * Retrieves the details for the custom patterns specified by a list of names.
+     * </p>
+     * 
+     * @param batchGetCustomEntityTypesRequest
+     * @return Result of the BatchGetCustomEntityTypes operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @sample AWSGlue.BatchGetCustomEntityTypes
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/BatchGetCustomEntityTypes" target="_top">AWS
+     *      API Documentation</a>
+     */
+    BatchGetCustomEntityTypesResult batchGetCustomEntityTypes(BatchGetCustomEntityTypesRequest batchGetCustomEntityTypesRequest);
+
+    /**
+     * <p>
+     * Retrieves a list of data quality results for the specified result IDs.
+     * </p>
+     * 
+     * @param batchGetDataQualityResultRequest
+     * @return Result of the BatchGetDataQualityResult operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.BatchGetDataQualityResult
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/BatchGetDataQualityResult" target="_top">AWS
+     *      API Documentation</a>
+     */
+    BatchGetDataQualityResultResult batchGetDataQualityResult(BatchGetDataQualityResultRequest batchGetDataQualityResultRequest);
 
     /**
      * <p>
@@ -241,11 +302,32 @@ public interface AWSGlue {
      *         An internal service error occurred.
      * @throws GlueEncryptionException
      *         An encryption operation failed.
+     * @throws InvalidStateException
+     *         An error that indicates your data is in an invalid state.
+     * @throws FederationSourceException
+     *         A federation source failed.
+     * @throws FederationSourceRetryableException
+     *         A federation source failed, but the operation may be retried.
      * @sample AWSGlue.BatchGetPartition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/BatchGetPartition" target="_top">AWS API
      *      Documentation</a>
      */
     BatchGetPartitionResult batchGetPartition(BatchGetPartitionRequest batchGetPartitionRequest);
+
+    /**
+     * <p>
+     * Returns the configuration for the specified table optimizers.
+     * </p>
+     * 
+     * @param batchGetTableOptimizerRequest
+     * @return Result of the BatchGetTableOptimizer operation returned by the service.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.BatchGetTableOptimizer
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/BatchGetTableOptimizer" target="_top">AWS
+     *      API Documentation</a>
+     */
+    BatchGetTableOptimizerResult batchGetTableOptimizer(BatchGetTableOptimizerRequest batchGetTableOptimizerRequest);
 
     /**
      * <p>
@@ -310,6 +392,166 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Updates one or more partitions in a batch operation.
+     * </p>
+     * 
+     * @param batchUpdatePartitionRequest
+     * @return Result of the BatchUpdatePartition operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws GlueEncryptionException
+     *         An encryption operation failed.
+     * @sample AWSGlue.BatchUpdatePartition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/BatchUpdatePartition" target="_top">AWS API
+     *      Documentation</a>
+     */
+    BatchUpdatePartitionResult batchUpdatePartition(BatchUpdatePartitionRequest batchUpdatePartitionRequest);
+
+    /**
+     * <p>
+     * Cancels the specified recommendation run that was being used to generate rules.
+     * </p>
+     * 
+     * @param cancelDataQualityRuleRecommendationRunRequest
+     * @return Result of the CancelDataQualityRuleRecommendationRun operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.CancelDataQualityRuleRecommendationRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CancelDataQualityRuleRecommendationRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CancelDataQualityRuleRecommendationRunResult cancelDataQualityRuleRecommendationRun(
+            CancelDataQualityRuleRecommendationRunRequest cancelDataQualityRuleRecommendationRunRequest);
+
+    /**
+     * <p>
+     * Cancels a run where a ruleset is being evaluated against a data source.
+     * </p>
+     * 
+     * @param cancelDataQualityRulesetEvaluationRunRequest
+     * @return Result of the CancelDataQualityRulesetEvaluationRun operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.CancelDataQualityRulesetEvaluationRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CancelDataQualityRulesetEvaluationRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CancelDataQualityRulesetEvaluationRunResult cancelDataQualityRulesetEvaluationRun(
+            CancelDataQualityRulesetEvaluationRunRequest cancelDataQualityRulesetEvaluationRunRequest);
+
+    /**
+     * <p>
+     * Cancels (stops) a task run. Machine learning task runs are asynchronous tasks that Glue runs on your behalf as
+     * part of various machine learning workflows. You can cancel a machine learning task run at any time by calling
+     * <code>CancelMLTaskRun</code> with a task run's parent transform's <code>TransformID</code> and the task run's
+     * <code>TaskRunId</code>.
+     * </p>
+     * 
+     * @param cancelMLTaskRunRequest
+     * @return Result of the CancelMLTaskRun operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.CancelMLTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CancelMLTaskRun" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CancelMLTaskRunResult cancelMLTaskRun(CancelMLTaskRunRequest cancelMLTaskRunRequest);
+
+    /**
+     * <p>
+     * Cancels the statement.
+     * </p>
+     * 
+     * @param cancelStatementRequest
+     * @return Result of the CancelStatement operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws IllegalSessionStateException
+     *         The session is in an invalid state to perform a requested operation.
+     * @sample AWSGlue.CancelStatement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CancelStatement" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CancelStatementResult cancelStatement(CancelStatementRequest cancelStatementRequest);
+
+    /**
+     * <p>
+     * Validates the supplied schema. This call has no side effects, it simply validates using the supplied schema using
+     * <code>DataFormat</code> as the format. Since it does not take a schema set name, no compatibility checks are
+     * performed.
+     * </p>
+     * 
+     * @param checkSchemaVersionValidityRequest
+     * @return Result of the CheckSchemaVersionValidity operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.CheckSchemaVersionValidity
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CheckSchemaVersionValidity"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CheckSchemaVersionValidityResult checkSchemaVersionValidity(CheckSchemaVersionValidityRequest checkSchemaVersionValidityRequest);
+
+    /**
+     * <p>
+     * Registers a blueprint with Glue.
+     * </p>
+     * 
+     * @param createBlueprintRequest
+     * @return Result of the CreateBlueprint operation returned by the service.
+     * @throws AlreadyExistsException
+     *         A resource to be created or added already exists.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws ResourceNumberLimitExceededException
+     *         A resource numerical limit was exceeded.
+     * @sample AWSGlue.CreateBlueprint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateBlueprint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CreateBlueprintResult createBlueprint(CreateBlueprintRequest createBlueprintRequest);
+
+    /**
+     * <p>
      * Creates a classifier in the user's account. This can be a <code>GrokClassifier</code>, an
      * <code>XMLClassifier</code>, a <code>JsonClassifier</code>, or a <code>CsvClassifier</code>, depending on which
      * field of the request is present.
@@ -332,6 +574,9 @@ public interface AWSGlue {
     /**
      * <p>
      * Creates a connection definition in the Data Catalog.
+     * </p>
+     * <p>
+     * Connections used for creating federated resources require the IAM <code>glue:PassConnection</code> permission.
      * </p>
      * 
      * @param createConnectionRequest
@@ -377,6 +622,65 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Creates a custom pattern that is used to detect sensitive data across the columns and rows of your structured
+     * data.
+     * </p>
+     * <p>
+     * Each custom pattern you create specifies a regular expression and an optional list of context words. If no
+     * context words are passed only a regular expression is checked.
+     * </p>
+     * 
+     * @param createCustomEntityTypeRequest
+     * @return Result of the CreateCustomEntityType operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws AlreadyExistsException
+     *         A resource to be created or added already exists.
+     * @throws IdempotentParameterMismatchException
+     *         The same unique identifier was associated with two different records.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws ResourceNumberLimitExceededException
+     *         A resource numerical limit was exceeded.
+     * @sample AWSGlue.CreateCustomEntityType
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateCustomEntityType" target="_top">AWS
+     *      API Documentation</a>
+     */
+    CreateCustomEntityTypeResult createCustomEntityType(CreateCustomEntityTypeRequest createCustomEntityTypeRequest);
+
+    /**
+     * <p>
+     * Creates a data quality ruleset with DQDL rules applied to a specified Glue table.
+     * </p>
+     * <p>
+     * You create the ruleset using the Data Quality Definition Language (DQDL). For more information, see the Glue
+     * developer guide.
+     * </p>
+     * 
+     * @param createDataQualityRulesetRequest
+     * @return Result of the CreateDataQualityRuleset operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws AlreadyExistsException
+     *         A resource to be created or added already exists.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws ResourceNumberLimitExceededException
+     *         A resource numerical limit was exceeded.
+     * @sample AWSGlue.CreateDataQualityRuleset
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateDataQualityRuleset" target="_top">AWS
+     *      API Documentation</a>
+     */
+    CreateDataQualityRulesetResult createDataQualityRuleset(CreateDataQualityRulesetRequest createDataQualityRulesetRequest);
+
+    /**
+     * <p>
      * Creates a new database in a Data Catalog.
      * </p>
      * 
@@ -394,6 +698,10 @@ public interface AWSGlue {
      *         The operation timed out.
      * @throws GlueEncryptionException
      *         An encryption operation failed.
+     * @throws ConcurrentModificationException
+     *         Two processes are trying to modify a resource simultaneously.
+     * @throws FederatedResourceAlreadyExistsException
+     *         A federated resource already exists.
      * @sample AWSGlue.CreateDatabase
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateDatabase" target="_top">AWS API
      *      Documentation</a>
@@ -458,6 +766,45 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Creates an Glue machine learning transform. This operation creates the transform and all the necessary parameters
+     * to train it.
+     * </p>
+     * <p>
+     * Call this operation as the first step in the process of using a machine learning transform (such as the
+     * <code>FindMatches</code> transform) for deduplicating data. You can provide an optional <code>Description</code>,
+     * in addition to the parameters that you want to use for your algorithm.
+     * </p>
+     * <p>
+     * You must also specify certain parameters for the tasks that Glue runs on your behalf as part of learning from
+     * your data and creating a high-quality machine learning transform. These parameters include <code>Role</code>, and
+     * optionally, <code>AllocatedCapacity</code>, <code>Timeout</code>, and <code>MaxRetries</code>. For more
+     * information, see <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-jobs-job.html">Jobs</a>.
+     * </p>
+     * 
+     * @param createMLTransformRequest
+     * @return Result of the CreateMLTransform operation returned by the service.
+     * @throws AlreadyExistsException
+     *         A resource to be created or added already exists.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws ResourceNumberLimitExceededException
+     *         A resource numerical limit was exceeded.
+     * @throws IdempotentParameterMismatchException
+     *         The same unique identifier was associated with two different records.
+     * @sample AWSGlue.CreateMLTransform
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateMLTransform" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CreateMLTransformResult createMLTransform(CreateMLTransformRequest createMLTransformRequest);
+
+    /**
+     * <p>
      * Creates a new partition.
      * </p>
      * 
@@ -485,6 +832,96 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Creates a specified partition index in an existing table.
+     * </p>
+     * 
+     * @param createPartitionIndexRequest
+     * @return Result of the CreatePartitionIndex operation returned by the service.
+     * @throws AlreadyExistsException
+     *         A resource to be created or added already exists.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws ResourceNumberLimitExceededException
+     *         A resource numerical limit was exceeded.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws GlueEncryptionException
+     *         An encryption operation failed.
+     * @sample AWSGlue.CreatePartitionIndex
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreatePartitionIndex" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CreatePartitionIndexResult createPartitionIndex(CreatePartitionIndexRequest createPartitionIndexRequest);
+
+    /**
+     * <p>
+     * Creates a new registry which may be used to hold a collection of schemas.
+     * </p>
+     * 
+     * @param createRegistryRequest
+     * @return Result of the CreateRegistry operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws AlreadyExistsException
+     *         A resource to be created or added already exists.
+     * @throws ResourceNumberLimitExceededException
+     *         A resource numerical limit was exceeded.
+     * @throws ConcurrentModificationException
+     *         Two processes are trying to modify a resource simultaneously.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.CreateRegistry
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateRegistry" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CreateRegistryResult createRegistry(CreateRegistryRequest createRegistryRequest);
+
+    /**
+     * <p>
+     * Creates a new schema set and registers the schema definition. Returns an error if the schema set already exists
+     * without actually registering the version.
+     * </p>
+     * <p>
+     * When the schema set is created, a version checkpoint will be set to the first version. Compatibility mode
+     * "DISABLED" restricts any additional schema versions from being added after the first schema version. For all
+     * other compatibility modes, validation of compatibility settings will be applied only from the second version
+     * onwards when the <code>RegisterSchemaVersion</code> API is used.
+     * </p>
+     * <p>
+     * When this API is called without a <code>RegistryId</code>, this will create an entry for a "default-registry" in
+     * the registry database tables, if it is not already present.
+     * </p>
+     * 
+     * @param createSchemaRequest
+     * @return Result of the CreateSchema operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws AlreadyExistsException
+     *         A resource to be created or added already exists.
+     * @throws ResourceNumberLimitExceededException
+     *         A resource numerical limit was exceeded.
+     * @throws ConcurrentModificationException
+     *         Two processes are trying to modify a resource simultaneously.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.CreateSchema
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateSchema" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CreateSchemaResult createSchema(CreateSchemaRequest createSchemaRequest);
+
+    /**
+     * <p>
      * Transforms a directed acyclic graph (DAG) into code.
      * </p>
      * 
@@ -505,8 +942,8 @@ public interface AWSGlue {
     /**
      * <p>
      * Creates a new security configuration. A security configuration is a set of security properties that can be used
-     * by AWS Glue. You can use a security configuration to encrypt data at rest. For information about using security
-     * configurations in AWS Glue, see <a
+     * by Glue. You can use a security configuration to encrypt data at rest. For information about using security
+     * configurations in Glue, see <a
      * href="https://docs.aws.amazon.com/glue/latest/dg/encryption-security-configuration.html">Encrypting Data Written
      * by Crawlers, Jobs, and Development Endpoints</a>.
      * </p>
@@ -531,6 +968,36 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Creates a new session.
+     * </p>
+     * 
+     * @param createSessionRequest
+     *        Request to create a new session.
+     * @return Result of the CreateSession operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws IdempotentParameterMismatchException
+     *         The same unique identifier was associated with two different records.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws ValidationException
+     *         A value could not be validated.
+     * @throws AlreadyExistsException
+     *         A resource to be created or added already exists.
+     * @throws ResourceNumberLimitExceededException
+     *         A resource numerical limit was exceeded.
+     * @sample AWSGlue.CreateSession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateSession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CreateSessionResult createSession(CreateSessionRequest createSessionRequest);
+
+    /**
+     * <p>
      * Creates a new table definition in the Data Catalog.
      * </p>
      * 
@@ -550,11 +1017,39 @@ public interface AWSGlue {
      *         The operation timed out.
      * @throws GlueEncryptionException
      *         An encryption operation failed.
+     * @throws ConcurrentModificationException
+     *         Two processes are trying to modify a resource simultaneously.
+     * @throws ResourceNotReadyException
+     *         A resource was not ready for a transaction.
      * @sample AWSGlue.CreateTable
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateTable" target="_top">AWS API
      *      Documentation</a>
      */
     CreateTableResult createTable(CreateTableRequest createTableRequest);
+
+    /**
+     * <p>
+     * Creates a new table optimizer for a specific function. <code>compaction</code> is the only currently supported
+     * optimizer type.
+     * </p>
+     * 
+     * @param createTableOptimizerRequest
+     * @return Result of the CreateTableOptimizer operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws AlreadyExistsException
+     *         A resource to be created or added already exists.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.CreateTableOptimizer
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateTableOptimizer" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CreateTableOptimizerResult createTableOptimizer(CreateTableOptimizerRequest createTableOptimizerRequest);
 
     /**
      * <p>
@@ -584,6 +1079,31 @@ public interface AWSGlue {
      *      Documentation</a>
      */
     CreateTriggerResult createTrigger(CreateTriggerRequest createTriggerRequest);
+
+    /**
+     * <p>
+     * Creates an Glue usage profile.
+     * </p>
+     * 
+     * @param createUsageProfileRequest
+     * @return Result of the CreateUsageProfile operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws AlreadyExistsException
+     *         A resource to be created or added already exists.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws ResourceNumberLimitExceededException
+     *         A resource numerical limit was exceeded.
+     * @throws OperationNotSupportedException
+     *         The operation is not available in the region.
+     * @sample AWSGlue.CreateUsageProfile
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateUsageProfile" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CreateUsageProfileResult createUsageProfile(CreateUsageProfileRequest createUsageProfileRequest);
 
     /**
      * <p>
@@ -639,6 +1159,25 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Deletes an existing blueprint.
+     * </p>
+     * 
+     * @param deleteBlueprintRequest
+     * @return Result of the DeleteBlueprint operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.DeleteBlueprint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteBlueprint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeleteBlueprintResult deleteBlueprint(DeleteBlueprintRequest deleteBlueprintRequest);
+
+    /**
+     * <p>
      * Removes a classifier from the Data Catalog.
      * </p>
      * 
@@ -653,6 +1192,59 @@ public interface AWSGlue {
      *      Documentation</a>
      */
     DeleteClassifierResult deleteClassifier(DeleteClassifierRequest deleteClassifierRequest);
+
+    /**
+     * <p>
+     * Delete the partition column statistics of a column.
+     * </p>
+     * <p>
+     * The Identity and Access Management (IAM) permission required for this operation is <code>DeletePartition</code>.
+     * </p>
+     * 
+     * @param deleteColumnStatisticsForPartitionRequest
+     * @return Result of the DeleteColumnStatisticsForPartition operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws GlueEncryptionException
+     *         An encryption operation failed.
+     * @sample AWSGlue.DeleteColumnStatisticsForPartition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteColumnStatisticsForPartition"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteColumnStatisticsForPartitionResult deleteColumnStatisticsForPartition(
+            DeleteColumnStatisticsForPartitionRequest deleteColumnStatisticsForPartitionRequest);
+
+    /**
+     * <p>
+     * Retrieves table statistics of columns.
+     * </p>
+     * <p>
+     * The Identity and Access Management (IAM) permission required for this operation is <code>DeleteTable</code>.
+     * </p>
+     * 
+     * @param deleteColumnStatisticsForTableRequest
+     * @return Result of the DeleteColumnStatisticsForTable operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws GlueEncryptionException
+     *         An encryption operation failed.
+     * @sample AWSGlue.DeleteColumnStatisticsForTable
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteColumnStatisticsForTable"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteColumnStatisticsForTableResult deleteColumnStatisticsForTable(DeleteColumnStatisticsForTableRequest deleteColumnStatisticsForTableRequest);
 
     /**
      * <p>
@@ -673,7 +1265,7 @@ public interface AWSGlue {
 
     /**
      * <p>
-     * Removes a specified crawler from the AWS Glue Data Catalog, unless the crawler state is <code>RUNNING</code>.
+     * Removes a specified crawler from the Glue Data Catalog, unless the crawler state is <code>RUNNING</code>.
      * </p>
      * 
      * @param deleteCrawlerRequest
@@ -694,16 +1286,60 @@ public interface AWSGlue {
 
     /**
      * <p>
-     * Removes a specified Database from a Data Catalog.
+     * Deletes a custom pattern by specifying its name.
+     * </p>
+     * 
+     * @param deleteCustomEntityTypeRequest
+     * @return Result of the DeleteCustomEntityType operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @sample AWSGlue.DeleteCustomEntityType
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteCustomEntityType" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DeleteCustomEntityTypeResult deleteCustomEntityType(DeleteCustomEntityTypeRequest deleteCustomEntityTypeRequest);
+
+    /**
+     * <p>
+     * Deletes a data quality ruleset.
+     * </p>
+     * 
+     * @param deleteDataQualityRulesetRequest
+     * @return Result of the DeleteDataQualityRuleset operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.DeleteDataQualityRuleset
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteDataQualityRuleset" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DeleteDataQualityRulesetResult deleteDataQualityRuleset(DeleteDataQualityRulesetRequest deleteDataQualityRulesetRequest);
+
+    /**
+     * <p>
+     * Removes a specified database from a Data Catalog.
      * </p>
      * <note>
      * <p>
-     * After completing this operation, you will no longer have access to the tables (and all table versions and
-     * partitions that might belong to the tables) and the user-defined functions in the deleted database. AWS Glue
-     * deletes these "orphaned" resources asynchronously in a timely manner, at the discretion of the service.
+     * After completing this operation, you no longer have access to the tables (and all table versions and partitions
+     * that might belong to the tables) and the user-defined functions in the deleted database. Glue deletes these
+     * "orphaned" resources asynchronously in a timely manner, at the discretion of the service.
      * </p>
      * <p>
-     * To ensure immediate deletion of all related resources, before calling <code>DeleteDatabase</code>, use
+     * To ensure the immediate deletion of all related resources, before calling <code>DeleteDatabase</code>, use
      * <code>DeleteTableVersion</code> or <code>BatchDeleteTableVersion</code>, <code>DeletePartition</code> or
      * <code>BatchDeletePartition</code>, <code>DeleteUserDefinedFunction</code>, and <code>DeleteTable</code> or
      * <code>BatchDeleteTable</code>, to delete any resources that belong to the database.
@@ -720,6 +1356,8 @@ public interface AWSGlue {
      *         An internal service error occurred.
      * @throws OperationTimeoutException
      *         The operation timed out.
+     * @throws ConcurrentModificationException
+     *         Two processes are trying to modify a resource simultaneously.
      * @sample AWSGlue.DeleteDatabase
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteDatabase" target="_top">AWS API
      *      Documentation</a>
@@ -768,6 +1406,31 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Deletes an Glue machine learning transform. Machine learning transforms are a special type of transform that use
+     * machine learning to learn the details of the transformation to be performed by learning from examples provided by
+     * humans. These transformations are then saved by Glue. If you no longer need a transform, you can delete it by
+     * calling <code>DeleteMLTransforms</code>. However, any Glue jobs that still reference the deleted transform will
+     * no longer succeed.
+     * </p>
+     * 
+     * @param deleteMLTransformRequest
+     * @return Result of the DeleteMLTransform operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.DeleteMLTransform
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteMLTransform" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeleteMLTransformResult deleteMLTransform(DeleteMLTransformRequest deleteMLTransformRequest);
+
+    /**
+     * <p>
      * Deletes a specified partition.
      * </p>
      * 
@@ -786,6 +1449,55 @@ public interface AWSGlue {
      *      Documentation</a>
      */
     DeletePartitionResult deletePartition(DeletePartitionRequest deletePartitionRequest);
+
+    /**
+     * <p>
+     * Deletes a specified partition index from an existing table.
+     * </p>
+     * 
+     * @param deletePartitionIndexRequest
+     * @return Result of the DeletePartitionIndex operation returned by the service.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws ConflictException
+     *         The <code>CreatePartitions</code> API was called on a table that has indexes enabled.
+     * @throws GlueEncryptionException
+     *         An encryption operation failed.
+     * @sample AWSGlue.DeletePartitionIndex
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeletePartitionIndex" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeletePartitionIndexResult deletePartitionIndex(DeletePartitionIndexRequest deletePartitionIndexRequest);
+
+    /**
+     * <p>
+     * Delete the entire registry including schema and all of its versions. To get the status of the delete operation,
+     * you can call the <code>GetRegistry</code> API after the asynchronous call. Deleting a registry will deactivate
+     * all online operations for the registry such as the <code>UpdateRegistry</code>, <code>CreateSchema</code>,
+     * <code>UpdateSchema</code>, and <code>RegisterSchemaVersion</code> APIs.
+     * </p>
+     * 
+     * @param deleteRegistryRequest
+     * @return Result of the DeleteRegistry operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws ConcurrentModificationException
+     *         Two processes are trying to modify a resource simultaneously.
+     * @sample AWSGlue.DeleteRegistry
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteRegistry" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeleteRegistryResult deleteRegistry(DeleteRegistryRequest deleteRegistryRequest);
 
     /**
      * <p>
@@ -812,6 +1524,68 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Deletes the entire schema set, including the schema set and all of its versions. To get the status of the delete
+     * operation, you can call <code>GetSchema</code> API after the asynchronous call. Deleting a registry will
+     * deactivate all online operations for the schema, such as the <code>GetSchemaByDefinition</code>, and
+     * <code>RegisterSchemaVersion</code> APIs.
+     * </p>
+     * 
+     * @param deleteSchemaRequest
+     * @return Result of the DeleteSchema operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws ConcurrentModificationException
+     *         Two processes are trying to modify a resource simultaneously.
+     * @sample AWSGlue.DeleteSchema
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteSchema" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeleteSchemaResult deleteSchema(DeleteSchemaRequest deleteSchemaRequest);
+
+    /**
+     * <p>
+     * Remove versions from the specified schema. A version number or range may be supplied. If the compatibility mode
+     * forbids deleting of a version that is necessary, such as BACKWARDS_FULL, an error is returned. Calling the
+     * <code>GetSchemaVersions</code> API after this call will list the status of the deleted versions.
+     * </p>
+     * <p>
+     * When the range of version numbers contain check pointed version, the API will return a 409 conflict and will not
+     * proceed with the deletion. You have to remove the checkpoint first using the <code>DeleteSchemaCheckpoint</code>
+     * API before using this API.
+     * </p>
+     * <p>
+     * You cannot use the <code>DeleteSchemaVersions</code> API to delete the first schema version in the schema set.
+     * The first schema version can only be deleted by the <code>DeleteSchema</code> API. This operation will also
+     * delete the attached <code>SchemaVersionMetadata</code> under the schema versions. Hard deletes will be enforced
+     * on the database.
+     * </p>
+     * <p>
+     * If the compatibility mode forbids deleting of a version that is necessary, such as BACKWARDS_FULL, an error is
+     * returned.
+     * </p>
+     * 
+     * @param deleteSchemaVersionsRequest
+     * @return Result of the DeleteSchemaVersions operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws ConcurrentModificationException
+     *         Two processes are trying to modify a resource simultaneously.
+     * @sample AWSGlue.DeleteSchemaVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteSchemaVersions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeleteSchemaVersionsResult deleteSchemaVersions(DeleteSchemaVersionsRequest deleteSchemaVersionsRequest);
+
+    /**
+     * <p>
      * Deletes a specified security configuration.
      * </p>
      * 
@@ -833,16 +1607,41 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Deletes the session.
+     * </p>
+     * 
+     * @param deleteSessionRequest
+     * @return Result of the DeleteSession operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws IllegalSessionStateException
+     *         The session is in an invalid state to perform a requested operation.
+     * @throws ConcurrentModificationException
+     *         Two processes are trying to modify a resource simultaneously.
+     * @sample AWSGlue.DeleteSession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteSession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeleteSessionResult deleteSession(DeleteSessionRequest deleteSessionRequest);
+
+    /**
+     * <p>
      * Removes a table definition from the Data Catalog.
      * </p>
      * <note>
      * <p>
-     * After completing this operation, you will no longer have access to the table versions and partitions that belong
-     * to the deleted table. AWS Glue deletes these "orphaned" resources asynchronously in a timely manner, at the
-     * discretion of the service.
+     * After completing this operation, you no longer have access to the table versions and partitions that belong to
+     * the deleted table. Glue deletes these "orphaned" resources asynchronously in a timely manner, at the discretion
+     * of the service.
      * </p>
      * <p>
-     * To ensure immediate deletion of all related resources, before calling <code>DeleteTable</code>, use
+     * To ensure the immediate deletion of all related resources, before calling <code>DeleteTable</code>, use
      * <code>DeleteTableVersion</code> or <code>BatchDeleteTableVersion</code>, and <code>DeletePartition</code> or
      * <code>BatchDeletePartition</code>, to delete any resources that belong to the table.
      * </p>
@@ -858,11 +1657,37 @@ public interface AWSGlue {
      *         An internal service error occurred.
      * @throws OperationTimeoutException
      *         The operation timed out.
+     * @throws ConcurrentModificationException
+     *         Two processes are trying to modify a resource simultaneously.
+     * @throws ResourceNotReadyException
+     *         A resource was not ready for a transaction.
      * @sample AWSGlue.DeleteTable
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteTable" target="_top">AWS API
      *      Documentation</a>
      */
     DeleteTableResult deleteTable(DeleteTableRequest deleteTableRequest);
+
+    /**
+     * <p>
+     * Deletes an optimizer and all associated metadata for a table. The optimization will no longer be performed on the
+     * table.
+     * </p>
+     * 
+     * @param deleteTableOptimizerRequest
+     * @return Result of the DeleteTableOptimizer operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.DeleteTableOptimizer
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteTableOptimizer" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeleteTableOptimizerResult deleteTableOptimizer(DeleteTableOptimizerRequest deleteTableOptimizerRequest);
 
     /**
      * <p>
@@ -908,6 +1733,27 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Deletes the Glue specified usage profile.
+     * </p>
+     * 
+     * @param deleteUsageProfileRequest
+     * @return Result of the DeleteUsageProfile operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws OperationNotSupportedException
+     *         The operation is not available in the region.
+     * @sample AWSGlue.DeleteUsageProfile
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteUsageProfile" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeleteUsageProfileResult deleteUsageProfile(DeleteUsageProfileRequest deleteUsageProfileRequest);
+
+    /**
+     * <p>
      * Deletes an existing function definition from the Data Catalog.
      * </p>
      * 
@@ -947,6 +1793,67 @@ public interface AWSGlue {
      *      Documentation</a>
      */
     DeleteWorkflowResult deleteWorkflow(DeleteWorkflowRequest deleteWorkflowRequest);
+
+    /**
+     * <p>
+     * Retrieves the details of a blueprint.
+     * </p>
+     * 
+     * @param getBlueprintRequest
+     * @return Result of the GetBlueprint operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.GetBlueprint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetBlueprint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetBlueprintResult getBlueprint(GetBlueprintRequest getBlueprintRequest);
+
+    /**
+     * <p>
+     * Retrieves the details of a blueprint run.
+     * </p>
+     * 
+     * @param getBlueprintRunRequest
+     * @return Result of the GetBlueprintRun operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @sample AWSGlue.GetBlueprintRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetBlueprintRun" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetBlueprintRunResult getBlueprintRun(GetBlueprintRunRequest getBlueprintRunRequest);
+
+    /**
+     * <p>
+     * Retrieves the details of blueprint runs for a specified blueprint.
+     * </p>
+     * 
+     * @param getBlueprintRunsRequest
+     * @return Result of the GetBlueprintRuns operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @sample AWSGlue.GetBlueprintRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetBlueprintRuns" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetBlueprintRunsResult getBlueprintRuns(GetBlueprintRunsRequest getBlueprintRunsRequest);
 
     /**
      * <p>
@@ -996,6 +1903,92 @@ public interface AWSGlue {
      *      Documentation</a>
      */
     GetClassifiersResult getClassifiers(GetClassifiersRequest getClassifiersRequest);
+
+    /**
+     * <p>
+     * Retrieves partition statistics of columns.
+     * </p>
+     * <p>
+     * The Identity and Access Management (IAM) permission required for this operation is <code>GetPartition</code>.
+     * </p>
+     * 
+     * @param getColumnStatisticsForPartitionRequest
+     * @return Result of the GetColumnStatisticsForPartition operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws GlueEncryptionException
+     *         An encryption operation failed.
+     * @sample AWSGlue.GetColumnStatisticsForPartition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetColumnStatisticsForPartition"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetColumnStatisticsForPartitionResult getColumnStatisticsForPartition(GetColumnStatisticsForPartitionRequest getColumnStatisticsForPartitionRequest);
+
+    /**
+     * <p>
+     * Retrieves table statistics of columns.
+     * </p>
+     * <p>
+     * The Identity and Access Management (IAM) permission required for this operation is <code>GetTable</code>.
+     * </p>
+     * 
+     * @param getColumnStatisticsForTableRequest
+     * @return Result of the GetColumnStatisticsForTable operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws GlueEncryptionException
+     *         An encryption operation failed.
+     * @sample AWSGlue.GetColumnStatisticsForTable
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetColumnStatisticsForTable"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetColumnStatisticsForTableResult getColumnStatisticsForTable(GetColumnStatisticsForTableRequest getColumnStatisticsForTableRequest);
+
+    /**
+     * <p>
+     * Get the associated metadata/information for a task run, given a task run ID.
+     * </p>
+     * 
+     * @param getColumnStatisticsTaskRunRequest
+     * @return Result of the GetColumnStatisticsTaskRun operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @sample AWSGlue.GetColumnStatisticsTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetColumnStatisticsTaskRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetColumnStatisticsTaskRunResult getColumnStatisticsTaskRun(GetColumnStatisticsTaskRunRequest getColumnStatisticsTaskRunRequest);
+
+    /**
+     * <p>
+     * Retrieves information about all runs associated with the specified table.
+     * </p>
+     * 
+     * @param getColumnStatisticsTaskRunsRequest
+     * @return Result of the GetColumnStatisticsTaskRuns operation returned by the service.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @sample AWSGlue.GetColumnStatisticsTaskRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetColumnStatisticsTaskRuns"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetColumnStatisticsTaskRunsResult getColumnStatisticsTaskRuns(GetColumnStatisticsTaskRunsRequest getColumnStatisticsTaskRunsRequest);
 
     /**
      * <p>
@@ -1088,6 +2081,29 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Retrieves the details of a custom pattern by specifying its name.
+     * </p>
+     * 
+     * @param getCustomEntityTypeRequest
+     * @return Result of the GetCustomEntityType operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @sample AWSGlue.GetCustomEntityType
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetCustomEntityType" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetCustomEntityTypeResult getCustomEntityType(GetCustomEntityTypeRequest getCustomEntityTypeRequest);
+
+    /**
+     * <p>
      * Retrieves the security configuration for a specified catalog.
      * </p>
      * 
@@ -1107,6 +2123,92 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Retrieves the result of a data quality rule evaluation.
+     * </p>
+     * 
+     * @param getDataQualityResultRequest
+     * @return Result of the GetDataQualityResult operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @sample AWSGlue.GetDataQualityResult
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetDataQualityResult" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetDataQualityResultResult getDataQualityResult(GetDataQualityResultRequest getDataQualityResultRequest);
+
+    /**
+     * <p>
+     * Gets the specified recommendation run that was used to generate rules.
+     * </p>
+     * 
+     * @param getDataQualityRuleRecommendationRunRequest
+     * @return Result of the GetDataQualityRuleRecommendationRun operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.GetDataQualityRuleRecommendationRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetDataQualityRuleRecommendationRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetDataQualityRuleRecommendationRunResult getDataQualityRuleRecommendationRun(
+            GetDataQualityRuleRecommendationRunRequest getDataQualityRuleRecommendationRunRequest);
+
+    /**
+     * <p>
+     * Returns an existing ruleset by identifier or name.
+     * </p>
+     * 
+     * @param getDataQualityRulesetRequest
+     * @return Result of the GetDataQualityRuleset operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.GetDataQualityRuleset
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetDataQualityRuleset" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetDataQualityRulesetResult getDataQualityRuleset(GetDataQualityRulesetRequest getDataQualityRulesetRequest);
+
+    /**
+     * <p>
+     * Retrieves a specific run where a ruleset is evaluated against a data source.
+     * </p>
+     * 
+     * @param getDataQualityRulesetEvaluationRunRequest
+     * @return Result of the GetDataQualityRulesetEvaluationRun operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.GetDataQualityRulesetEvaluationRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetDataQualityRulesetEvaluationRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetDataQualityRulesetEvaluationRunResult getDataQualityRulesetEvaluationRun(
+            GetDataQualityRulesetEvaluationRunRequest getDataQualityRulesetEvaluationRunRequest);
+
+    /**
+     * <p>
      * Retrieves the definition of a specified database.
      * </p>
      * 
@@ -1122,6 +2224,8 @@ public interface AWSGlue {
      *         The operation timed out.
      * @throws GlueEncryptionException
      *         An encryption operation failed.
+     * @throws FederationSourceException
+     *         A federation source failed.
      * @sample AWSGlue.GetDatabase
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetDatabase" target="_top">AWS API
      *      Documentation</a>
@@ -1130,7 +2234,7 @@ public interface AWSGlue {
 
     /**
      * <p>
-     * Retrieves all Databases defined in a given Data Catalog.
+     * Retrieves all databases defined in a given Data Catalog.
      * </p>
      * 
      * @param getDatabasesRequest
@@ -1174,9 +2278,9 @@ public interface AWSGlue {
      * </p>
      * <note>
      * <p>
-     * When you create a development endpoint in a virtual private cloud (VPC), AWS Glue returns only a private IP
-     * address, and the public IP address field is not populated. When you create a non-VPC development endpoint, AWS
-     * Glue returns only a public IP address.
+     * When you create a development endpoint in a virtual private cloud (VPC), Glue returns only a private IP address,
+     * and the public IP address field is not populated. When you create a non-VPC development endpoint, Glue returns
+     * only a public IP address.
      * </p>
      * </note>
      * 
@@ -1198,13 +2302,13 @@ public interface AWSGlue {
 
     /**
      * <p>
-     * Retrieves all the development endpoints in this AWS account.
+     * Retrieves all the development endpoints in this Amazon Web Services account.
      * </p>
      * <note>
      * <p>
-     * When you create a development endpoint in a virtual private cloud (VPC), AWS Glue returns only a private IP
-     * address and the public IP address field is not populated. When you create a non-VPC development endpoint, AWS
-     * Glue returns only a public IP address.
+     * When you create a development endpoint in a virtual private cloud (VPC), Glue returns only a private IP address
+     * and the public IP address field is not populated. When you create a non-VPC development endpoint, Glue returns
+     * only a public IP address.
      * </p>
      * </note>
      * 
@@ -1249,6 +2353,29 @@ public interface AWSGlue {
      * <p>
      * Returns information on a job bookmark entry.
      * </p>
+     * <p>
+     * For more information about enabling and using job bookmarks, see:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-continuations.html">Tracking processed data using job
+     * bookmarks</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html">Job parameters
+     * used by Glue</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-jobs-job.html#aws-glue-api-jobs-job-Job">Job
+     * structure</a>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param getJobBookmarkRequest
      * @return Result of the GetJobBookmark operation returned by the service.
@@ -1270,28 +2397,8 @@ public interface AWSGlue {
 
     /**
      * <p>
-     * Returns information on the job bookmark entries. The list is ordered on decreasing version numbers.
-     * </p>
-     * 
-     * @param getJobBookmarksRequest
-     * @return Result of the GetJobBookmarks operation returned by the service.
-     * @throws InvalidInputException
-     *         The input provided was not valid.
-     * @throws EntityNotFoundException
-     *         A specified entity does not exist
-     * @throws InternalServiceException
-     *         An internal service error occurred.
-     * @throws OperationTimeoutException
-     *         The operation timed out.
-     * @sample AWSGlue.GetJobBookmarks
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetJobBookmarks" target="_top">AWS API
-     *      Documentation</a>
-     */
-    GetJobBookmarksResult getJobBookmarks(GetJobBookmarksRequest getJobBookmarksRequest);
-
-    /**
-     * <p>
-     * Retrieves the metadata for a given job run.
+     * Retrieves the metadata for a given job run. Job run history is accessible for 90 days for your workflow and job
+     * run.
      * </p>
      * 
      * @param getJobRunRequest
@@ -1354,6 +2461,105 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Gets details for a specific task run on a machine learning transform. Machine learning task runs are asynchronous
+     * tasks that Glue runs on your behalf as part of various machine learning workflows. You can check the stats of any
+     * task run by calling <code>GetMLTaskRun</code> with the <code>TaskRunID</code> and its parent transform's
+     * <code>TransformID</code>.
+     * </p>
+     * 
+     * @param getMLTaskRunRequest
+     * @return Result of the GetMLTaskRun operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.GetMLTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetMLTaskRun" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetMLTaskRunResult getMLTaskRun(GetMLTaskRunRequest getMLTaskRunRequest);
+
+    /**
+     * <p>
+     * Gets a list of runs for a machine learning transform. Machine learning task runs are asynchronous tasks that Glue
+     * runs on your behalf as part of various machine learning workflows. You can get a sortable, filterable list of
+     * machine learning task runs by calling <code>GetMLTaskRuns</code> with their parent transform's
+     * <code>TransformID</code> and other optional parameters as documented in this section.
+     * </p>
+     * <p>
+     * This operation returns a list of historic runs and must be paginated.
+     * </p>
+     * 
+     * @param getMLTaskRunsRequest
+     * @return Result of the GetMLTaskRuns operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.GetMLTaskRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetMLTaskRuns" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetMLTaskRunsResult getMLTaskRuns(GetMLTaskRunsRequest getMLTaskRunsRequest);
+
+    /**
+     * <p>
+     * Gets an Glue machine learning transform artifact and all its corresponding metadata. Machine learning transforms
+     * are a special type of transform that use machine learning to learn the details of the transformation to be
+     * performed by learning from examples provided by humans. These transformations are then saved by Glue. You can
+     * retrieve their metadata by calling <code>GetMLTransform</code>.
+     * </p>
+     * 
+     * @param getMLTransformRequest
+     * @return Result of the GetMLTransform operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.GetMLTransform
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetMLTransform" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetMLTransformResult getMLTransform(GetMLTransformRequest getMLTransformRequest);
+
+    /**
+     * <p>
+     * Gets a sortable, filterable list of existing Glue machine learning transforms. Machine learning transforms are a
+     * special type of transform that use machine learning to learn the details of the transformation to be performed by
+     * learning from examples provided by humans. These transformations are then saved by Glue, and you can retrieve
+     * their metadata by calling <code>GetMLTransforms</code>.
+     * </p>
+     * 
+     * @param getMLTransformsRequest
+     * @return Result of the GetMLTransforms operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.GetMLTransforms
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetMLTransforms" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetMLTransformsResult getMLTransforms(GetMLTransformsRequest getMLTransformsRequest);
+
+    /**
+     * <p>
      * Creates mappings.
      * </p>
      * 
@@ -1390,11 +2596,38 @@ public interface AWSGlue {
      *         The operation timed out.
      * @throws GlueEncryptionException
      *         An encryption operation failed.
+     * @throws FederationSourceException
+     *         A federation source failed.
+     * @throws FederationSourceRetryableException
+     *         A federation source failed, but the operation may be retried.
      * @sample AWSGlue.GetPartition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetPartition" target="_top">AWS API
      *      Documentation</a>
      */
     GetPartitionResult getPartition(GetPartitionRequest getPartitionRequest);
+
+    /**
+     * <p>
+     * Retrieves the partition indexes associated with a table.
+     * </p>
+     * 
+     * @param getPartitionIndexesRequest
+     * @return Result of the GetPartitionIndexes operation returned by the service.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws ConflictException
+     *         The <code>CreatePartitions</code> API was called on a table that has indexes enabled.
+     * @sample AWSGlue.GetPartitionIndexes
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetPartitionIndexes" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetPartitionIndexesResult getPartitionIndexes(GetPartitionIndexesRequest getPartitionIndexesRequest);
 
     /**
      * <p>
@@ -1413,6 +2646,14 @@ public interface AWSGlue {
      *         An internal service error occurred.
      * @throws GlueEncryptionException
      *         An encryption operation failed.
+     * @throws InvalidStateException
+     *         An error that indicates your data is in an invalid state.
+     * @throws ResourceNotReadyException
+     *         A resource was not ready for a transaction.
+     * @throws FederationSourceException
+     *         A federation source failed.
+     * @throws FederationSourceRetryableException
+     *         A federation source failed, but the operation may be retried.
      * @sample AWSGlue.GetPartitions
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetPartitions" target="_top">AWS API
      *      Documentation</a>
@@ -1440,6 +2681,53 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Describes the specified registry in detail.
+     * </p>
+     * 
+     * @param getRegistryRequest
+     * @return Result of the GetRegistry operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.GetRegistry
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetRegistry" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetRegistryResult getRegistry(GetRegistryRequest getRegistryRequest);
+
+    /**
+     * <p>
+     * Retrieves the resource policies set on individual resources by Resource Access Manager during cross-account
+     * permission grants. Also retrieves the Data Catalog resource policy.
+     * </p>
+     * <p>
+     * If you enabled metadata encryption in Data Catalog settings, and you do not have permission on the KMS key, the
+     * operation can't return the Data Catalog resource policy.
+     * </p>
+     * 
+     * @param getResourcePoliciesRequest
+     * @return Result of the GetResourcePolicies operation returned by the service.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws GlueEncryptionException
+     *         An encryption operation failed.
+     * @sample AWSGlue.GetResourcePolicies
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetResourcePolicies" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetResourcePoliciesResult getResourcePolicies(GetResourcePoliciesRequest getResourcePoliciesRequest);
+
+    /**
+     * <p>
      * Retrieves a specified resource policy.
      * </p>
      * 
@@ -1458,6 +2746,98 @@ public interface AWSGlue {
      *      Documentation</a>
      */
     GetResourcePolicyResult getResourcePolicy(GetResourcePolicyRequest getResourcePolicyRequest);
+
+    /**
+     * <p>
+     * Describes the specified schema in detail.
+     * </p>
+     * 
+     * @param getSchemaRequest
+     * @return Result of the GetSchema operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.GetSchema
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetSchema" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetSchemaResult getSchema(GetSchemaRequest getSchemaRequest);
+
+    /**
+     * <p>
+     * Retrieves a schema by the <code>SchemaDefinition</code>. The schema definition is sent to the Schema Registry,
+     * canonicalized, and hashed. If the hash is matched within the scope of the <code>SchemaName</code> or ARN (or the
+     * default registry, if none is supplied), that schema’s metadata is returned. Otherwise, a 404 or NotFound error is
+     * returned. Schema versions in <code>Deleted</code> statuses will not be included in the results.
+     * </p>
+     * 
+     * @param getSchemaByDefinitionRequest
+     * @return Result of the GetSchemaByDefinition operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.GetSchemaByDefinition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetSchemaByDefinition" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetSchemaByDefinitionResult getSchemaByDefinition(GetSchemaByDefinitionRequest getSchemaByDefinitionRequest);
+
+    /**
+     * <p>
+     * Get the specified schema by its unique ID assigned when a version of the schema is created or registered. Schema
+     * versions in Deleted status will not be included in the results.
+     * </p>
+     * 
+     * @param getSchemaVersionRequest
+     * @return Result of the GetSchemaVersion operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.GetSchemaVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetSchemaVersion" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetSchemaVersionResult getSchemaVersion(GetSchemaVersionRequest getSchemaVersionRequest);
+
+    /**
+     * <p>
+     * Fetches the schema version difference in the specified difference type between two stored schema versions in the
+     * Schema Registry.
+     * </p>
+     * <p>
+     * This API allows you to compare two schema versions between two schema definitions under the same schema.
+     * </p>
+     * 
+     * @param getSchemaVersionsDiffRequest
+     * @return Result of the GetSchemaVersionsDiff operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.GetSchemaVersionsDiff
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetSchemaVersionsDiff" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetSchemaVersionsDiffResult getSchemaVersionsDiff(GetSchemaVersionsDiffRequest getSchemaVersionsDiffRequest);
 
     /**
      * <p>
@@ -1503,6 +2883,54 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Retrieves the session.
+     * </p>
+     * 
+     * @param getSessionRequest
+     * @return Result of the GetSession operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @sample AWSGlue.GetSession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetSession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetSessionResult getSession(GetSessionRequest getSessionRequest);
+
+    /**
+     * <p>
+     * Retrieves the statement.
+     * </p>
+     * 
+     * @param getStatementRequest
+     * @return Result of the GetStatement operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws IllegalSessionStateException
+     *         The session is in an invalid state to perform a requested operation.
+     * @sample AWSGlue.GetStatement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetStatement" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetStatementResult getStatement(GetStatementRequest getStatementRequest);
+
+    /**
+     * <p>
      * Retrieves the <code>Table</code> definition in a Data Catalog for a specified table.
      * </p>
      * 
@@ -1518,11 +2946,38 @@ public interface AWSGlue {
      *         The operation timed out.
      * @throws GlueEncryptionException
      *         An encryption operation failed.
+     * @throws ResourceNotReadyException
+     *         A resource was not ready for a transaction.
+     * @throws FederationSourceException
+     *         A federation source failed.
+     * @throws FederationSourceRetryableException
+     *         A federation source failed, but the operation may be retried.
      * @sample AWSGlue.GetTable
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetTable" target="_top">AWS API
      *      Documentation</a>
      */
     GetTableResult getTable(GetTableRequest getTableRequest);
+
+    /**
+     * <p>
+     * Returns the configuration of all optimizers associated with a specified table.
+     * </p>
+     * 
+     * @param getTableOptimizerRequest
+     * @return Result of the GetTableOptimizer operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.GetTableOptimizer
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetTableOptimizer" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetTableOptimizerResult getTableOptimizer(GetTableOptimizerRequest getTableOptimizerRequest);
 
     /**
      * <p>
@@ -1587,6 +3042,10 @@ public interface AWSGlue {
      *         An internal service error occurred.
      * @throws GlueEncryptionException
      *         An encryption operation failed.
+     * @throws FederationSourceException
+     *         A federation source failed.
+     * @throws FederationSourceRetryableException
+     *         A federation source failed, but the operation may be retried.
      * @sample AWSGlue.GetTables
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetTables" target="_top">AWS API
      *      Documentation</a>
@@ -1658,6 +3117,125 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Retrieves partition metadata from the Data Catalog that contains unfiltered metadata.
+     * </p>
+     * <p>
+     * For IAM authorization, the public IAM action associated with this API is <code>glue:GetPartition</code>.
+     * </p>
+     * 
+     * @param getUnfilteredPartitionMetadataRequest
+     * @return Result of the GetUnfilteredPartitionMetadata operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws GlueEncryptionException
+     *         An encryption operation failed.
+     * @throws PermissionTypeMismatchException
+     *         The operation timed out.
+     * @throws FederationSourceException
+     *         A federation source failed.
+     * @throws FederationSourceRetryableException
+     *         A federation source failed, but the operation may be retried.
+     * @sample AWSGlue.GetUnfilteredPartitionMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetUnfilteredPartitionMetadata"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetUnfilteredPartitionMetadataResult getUnfilteredPartitionMetadata(GetUnfilteredPartitionMetadataRequest getUnfilteredPartitionMetadataRequest);
+
+    /**
+     * <p>
+     * Retrieves partition metadata from the Data Catalog that contains unfiltered metadata.
+     * </p>
+     * <p>
+     * For IAM authorization, the public IAM action associated with this API is <code>glue:GetPartitions</code>.
+     * </p>
+     * 
+     * @param getUnfilteredPartitionsMetadataRequest
+     * @return Result of the GetUnfilteredPartitionsMetadata operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws GlueEncryptionException
+     *         An encryption operation failed.
+     * @throws PermissionTypeMismatchException
+     *         The operation timed out.
+     * @throws FederationSourceException
+     *         A federation source failed.
+     * @throws FederationSourceRetryableException
+     *         A federation source failed, but the operation may be retried.
+     * @sample AWSGlue.GetUnfilteredPartitionsMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetUnfilteredPartitionsMetadata"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetUnfilteredPartitionsMetadataResult getUnfilteredPartitionsMetadata(GetUnfilteredPartitionsMetadataRequest getUnfilteredPartitionsMetadataRequest);
+
+    /**
+     * <p>
+     * Allows a third-party analytical engine to retrieve unfiltered table metadata from the Data Catalog.
+     * </p>
+     * <p>
+     * For IAM authorization, the public IAM action associated with this API is <code>glue:GetTable</code>.
+     * </p>
+     * 
+     * @param getUnfilteredTableMetadataRequest
+     * @return Result of the GetUnfilteredTableMetadata operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws GlueEncryptionException
+     *         An encryption operation failed.
+     * @throws PermissionTypeMismatchException
+     *         The operation timed out.
+     * @throws FederationSourceException
+     *         A federation source failed.
+     * @throws FederationSourceRetryableException
+     *         A federation source failed, but the operation may be retried.
+     * @sample AWSGlue.GetUnfilteredTableMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetUnfilteredTableMetadata"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetUnfilteredTableMetadataResult getUnfilteredTableMetadata(GetUnfilteredTableMetadataRequest getUnfilteredTableMetadataRequest);
+
+    /**
+     * <p>
+     * Retrieves information about the specified Glue usage profile.
+     * </p>
+     * 
+     * @param getUsageProfileRequest
+     * @return Result of the GetUsageProfile operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws OperationNotSupportedException
+     *         The operation is not available in the region.
+     * @sample AWSGlue.GetUsageProfile
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetUsageProfile" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetUsageProfileResult getUsageProfile(GetUsageProfileRequest getUsageProfileRequest);
+
+    /**
+     * <p>
      * Retrieves a specified function definition from the Data Catalog.
      * </p>
      * 
@@ -1681,7 +3259,7 @@ public interface AWSGlue {
 
     /**
      * <p>
-     * Retrieves a multiple function definitions from the Data Catalog.
+     * Retrieves multiple function definitions from the Data Catalog.
      * </p>
      * 
      * @param getUserDefinedFunctionsRequest
@@ -1725,7 +3303,8 @@ public interface AWSGlue {
 
     /**
      * <p>
-     * Retrieves the metadata for a given workflow run.
+     * Retrieves the metadata for a given workflow run. Job run history is accessible for 90 days for your workflow and
+     * job run.
      * </p>
      * 
      * @param getWorkflowRunRequest
@@ -1788,7 +3367,7 @@ public interface AWSGlue {
 
     /**
      * <p>
-     * Imports an existing Athena Data Catalog to AWS Glue
+     * Imports an existing Amazon Athena Data Catalog to Glue.
      * </p>
      * 
      * @param importCatalogToGlueRequest
@@ -1805,8 +3384,42 @@ public interface AWSGlue {
 
     /**
      * <p>
-     * Retrieves the names of all crawler resources in this AWS account, or the resources with the specified tag. This
-     * operation allows you to see which resources are available in your account, and their names.
+     * Lists all the blueprint names in an account.
+     * </p>
+     * 
+     * @param listBlueprintsRequest
+     * @return Result of the ListBlueprints operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @sample AWSGlue.ListBlueprints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListBlueprints" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListBlueprintsResult listBlueprints(ListBlueprintsRequest listBlueprintsRequest);
+
+    /**
+     * <p>
+     * List all task runs for a particular account.
+     * </p>
+     * 
+     * @param listColumnStatisticsTaskRunsRequest
+     * @return Result of the ListColumnStatisticsTaskRuns operation returned by the service.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @sample AWSGlue.ListColumnStatisticsTaskRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListColumnStatisticsTaskRuns"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListColumnStatisticsTaskRunsResult listColumnStatisticsTaskRuns(ListColumnStatisticsTaskRunsRequest listColumnStatisticsTaskRunsRequest);
+
+    /**
+     * <p>
+     * Retrieves the names of all crawler resources in this Amazon Web Services account, or the resources with the
+     * specified tag. This operation allows you to see which resources are available in your account, and their names.
      * </p>
      * <p>
      * This operation takes the optional <code>Tags</code> field, which you can use as a filter on the response so that
@@ -1826,8 +3439,153 @@ public interface AWSGlue {
 
     /**
      * <p>
-     * Retrieves the names of all <code>DevEndpoint</code> resources in this AWS account, or the resources with the
-     * specified tag. This operation allows you to see which resources are available in your account, and their names.
+     * Returns all the crawls of a specified crawler. Returns only the crawls that have occurred since the launch date
+     * of the crawler history feature, and only retains up to 12 months of crawls. Older crawls will not be returned.
+     * </p>
+     * <p>
+     * You may use this API to:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Retrive all the crawls of a specified crawler.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Retrieve all the crawls of a specified crawler within a limited count.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Retrieve all the crawls of a specified crawler in a specific time range.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Retrieve all the crawls of a specified crawler with a particular state, crawl ID, or DPU hour value.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param listCrawlsRequest
+     * @return Result of the ListCrawls operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @sample AWSGlue.ListCrawls
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListCrawls" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListCrawlsResult listCrawls(ListCrawlsRequest listCrawlsRequest);
+
+    /**
+     * <p>
+     * Lists all the custom patterns that have been created.
+     * </p>
+     * 
+     * @param listCustomEntityTypesRequest
+     * @return Result of the ListCustomEntityTypes operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.ListCustomEntityTypes
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListCustomEntityTypes" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListCustomEntityTypesResult listCustomEntityTypes(ListCustomEntityTypesRequest listCustomEntityTypesRequest);
+
+    /**
+     * <p>
+     * Returns all data quality execution results for your account.
+     * </p>
+     * 
+     * @param listDataQualityResultsRequest
+     * @return Result of the ListDataQualityResults operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.ListDataQualityResults
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListDataQualityResults" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ListDataQualityResultsResult listDataQualityResults(ListDataQualityResultsRequest listDataQualityResultsRequest);
+
+    /**
+     * <p>
+     * Lists the recommendation runs meeting the filter criteria.
+     * </p>
+     * 
+     * @param listDataQualityRuleRecommendationRunsRequest
+     * @return Result of the ListDataQualityRuleRecommendationRuns operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.ListDataQualityRuleRecommendationRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListDataQualityRuleRecommendationRuns"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListDataQualityRuleRecommendationRunsResult listDataQualityRuleRecommendationRuns(
+            ListDataQualityRuleRecommendationRunsRequest listDataQualityRuleRecommendationRunsRequest);
+
+    /**
+     * <p>
+     * Lists all the runs meeting the filter criteria, where a ruleset is evaluated against a data source.
+     * </p>
+     * 
+     * @param listDataQualityRulesetEvaluationRunsRequest
+     * @return Result of the ListDataQualityRulesetEvaluationRuns operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.ListDataQualityRulesetEvaluationRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListDataQualityRulesetEvaluationRuns"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListDataQualityRulesetEvaluationRunsResult listDataQualityRulesetEvaluationRuns(
+            ListDataQualityRulesetEvaluationRunsRequest listDataQualityRulesetEvaluationRunsRequest);
+
+    /**
+     * <p>
+     * Returns a paginated list of rulesets for the specified list of Glue tables.
+     * </p>
+     * 
+     * @param listDataQualityRulesetsRequest
+     * @return Result of the ListDataQualityRulesets operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.ListDataQualityRulesets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListDataQualityRulesets" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ListDataQualityRulesetsResult listDataQualityRulesets(ListDataQualityRulesetsRequest listDataQualityRulesetsRequest);
+
+    /**
+     * <p>
+     * Retrieves the names of all <code>DevEndpoint</code> resources in this Amazon Web Services account, or the
+     * resources with the specified tag. This operation allows you to see which resources are available in your account,
+     * and their names.
      * </p>
      * <p>
      * This operation takes the optional <code>Tags</code> field, which you can use as a filter on the response so that
@@ -1853,8 +3611,8 @@ public interface AWSGlue {
 
     /**
      * <p>
-     * Retrieves the names of all job resources in this AWS account, or the resources with the specified tag. This
-     * operation allows you to see which resources are available in your account, and their names.
+     * Retrieves the names of all job resources in this Amazon Web Services account, or the resources with the specified
+     * tag. This operation allows you to see which resources are available in your account, and their names.
      * </p>
      * <p>
      * This operation takes the optional <code>Tags</code> field, which you can use as a filter on the response so that
@@ -1880,8 +3638,169 @@ public interface AWSGlue {
 
     /**
      * <p>
-     * Retrieves the names of all trigger resources in this AWS account, or the resources with the specified tag. This
-     * operation allows you to see which resources are available in your account, and their names.
+     * Retrieves a sortable, filterable list of existing Glue machine learning transforms in this Amazon Web Services
+     * account, or the resources with the specified tag. This operation takes the optional <code>Tags</code> field,
+     * which you can use as a filter of the responses so that tagged resources can be retrieved as a group. If you
+     * choose to use tag filtering, only resources with the tags are retrieved.
+     * </p>
+     * 
+     * @param listMLTransformsRequest
+     * @return Result of the ListMLTransforms operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.ListMLTransforms
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListMLTransforms" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListMLTransformsResult listMLTransforms(ListMLTransformsRequest listMLTransformsRequest);
+
+    /**
+     * <p>
+     * Returns a list of registries that you have created, with minimal registry information. Registries in the
+     * <code>Deleting</code> status will not be included in the results. Empty results will be returned if there are no
+     * registries available.
+     * </p>
+     * 
+     * @param listRegistriesRequest
+     * @return Result of the ListRegistries operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.ListRegistries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListRegistries" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListRegistriesResult listRegistries(ListRegistriesRequest listRegistriesRequest);
+
+    /**
+     * <p>
+     * Returns a list of schema versions that you have created, with minimal information. Schema versions in Deleted
+     * status will not be included in the results. Empty results will be returned if there are no schema versions
+     * available.
+     * </p>
+     * 
+     * @param listSchemaVersionsRequest
+     * @return Result of the ListSchemaVersions operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.ListSchemaVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListSchemaVersions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListSchemaVersionsResult listSchemaVersions(ListSchemaVersionsRequest listSchemaVersionsRequest);
+
+    /**
+     * <p>
+     * Returns a list of schemas with minimal details. Schemas in Deleting status will not be included in the results.
+     * Empty results will be returned if there are no schemas available.
+     * </p>
+     * <p>
+     * When the <code>RegistryId</code> is not provided, all the schemas across registries will be part of the API
+     * response.
+     * </p>
+     * 
+     * @param listSchemasRequest
+     * @return Result of the ListSchemas operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.ListSchemas
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListSchemas" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListSchemasResult listSchemas(ListSchemasRequest listSchemasRequest);
+
+    /**
+     * <p>
+     * Retrieve a list of sessions.
+     * </p>
+     * 
+     * @param listSessionsRequest
+     * @return Result of the ListSessions operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @sample AWSGlue.ListSessions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListSessions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListSessionsResult listSessions(ListSessionsRequest listSessionsRequest);
+
+    /**
+     * <p>
+     * Lists statements for the session.
+     * </p>
+     * 
+     * @param listStatementsRequest
+     * @return Result of the ListStatements operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws IllegalSessionStateException
+     *         The session is in an invalid state to perform a requested operation.
+     * @sample AWSGlue.ListStatements
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListStatements" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListStatementsResult listStatements(ListStatementsRequest listStatementsRequest);
+
+    /**
+     * <p>
+     * Lists the history of previous optimizer runs for a specific table.
+     * </p>
+     * 
+     * @param listTableOptimizerRunsRequest
+     * @return Result of the ListTableOptimizerRuns operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.ListTableOptimizerRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListTableOptimizerRuns" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ListTableOptimizerRunsResult listTableOptimizerRuns(ListTableOptimizerRunsRequest listTableOptimizerRunsRequest);
+
+    /**
+     * <p>
+     * Retrieves the names of all trigger resources in this Amazon Web Services account, or the resources with the
+     * specified tag. This operation allows you to see which resources are available in your account, and their names.
      * </p>
      * <p>
      * This operation takes the optional <code>Tags</code> field, which you can use as a filter on the response so that
@@ -1904,6 +3823,27 @@ public interface AWSGlue {
      *      Documentation</a>
      */
     ListTriggersResult listTriggers(ListTriggersRequest listTriggersRequest);
+
+    /**
+     * <p>
+     * List all the Glue usage profiles.
+     * </p>
+     * 
+     * @param listUsageProfilesRequest
+     * @return Result of the ListUsageProfiles operation returned by the service.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationNotSupportedException
+     *         The operation is not available in the region.
+     * @sample AWSGlue.ListUsageProfiles
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListUsageProfiles" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListUsageProfilesResult listUsageProfiles(ListUsageProfilesRequest listUsageProfilesRequest);
 
     /**
      * <p>
@@ -1969,6 +3909,30 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Puts the metadata key value pair for a specified schema version ID. A maximum of 10 key value pairs will be
+     * allowed per schema version. They can be added over one or more calls.
+     * </p>
+     * 
+     * @param putSchemaVersionMetadataRequest
+     * @return Result of the PutSchemaVersionMetadata operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws AlreadyExistsException
+     *         A resource to be created or added already exists.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws ResourceNumberLimitExceededException
+     *         A resource numerical limit was exceeded.
+     * @sample AWSGlue.PutSchemaVersionMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/PutSchemaVersionMetadata" target="_top">AWS
+     *      API Documentation</a>
+     */
+    PutSchemaVersionMetadataResult putSchemaVersionMetadata(PutSchemaVersionMetadataRequest putSchemaVersionMetadataRequest);
+
+    /**
+     * <p>
      * Puts the specified workflow run properties for the given workflow run. If a property already exists for the
      * specified run, then it overrides the value otherwise adds the property to existing properties.
      * </p>
@@ -1997,8 +3961,106 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Queries for the schema version metadata information.
+     * </p>
+     * 
+     * @param querySchemaVersionMetadataRequest
+     * @return Result of the QuerySchemaVersionMetadata operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @sample AWSGlue.QuerySchemaVersionMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/QuerySchemaVersionMetadata"
+     *      target="_top">AWS API Documentation</a>
+     */
+    QuerySchemaVersionMetadataResult querySchemaVersionMetadata(QuerySchemaVersionMetadataRequest querySchemaVersionMetadataRequest);
+
+    /**
+     * <p>
+     * Adds a new version to the existing schema. Returns an error if new version of schema does not meet the
+     * compatibility requirements of the schema set. This API will not create a new schema set and will return a 404
+     * error if the schema set is not already present in the Schema Registry.
+     * </p>
+     * <p>
+     * If this is the first schema definition to be registered in the Schema Registry, this API will store the schema
+     * version and return immediately. Otherwise, this call has the potential to run longer than other operations due to
+     * compatibility modes. You can call the <code>GetSchemaVersion</code> API with the <code>SchemaVersionId</code> to
+     * check compatibility modes.
+     * </p>
+     * <p>
+     * If the same schema definition is already stored in Schema Registry as a version, the schema ID of the existing
+     * schema is returned to the caller.
+     * </p>
+     * 
+     * @param registerSchemaVersionRequest
+     * @return Result of the RegisterSchemaVersion operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws ResourceNumberLimitExceededException
+     *         A resource numerical limit was exceeded.
+     * @throws ConcurrentModificationException
+     *         Two processes are trying to modify a resource simultaneously.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.RegisterSchemaVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/RegisterSchemaVersion" target="_top">AWS API
+     *      Documentation</a>
+     */
+    RegisterSchemaVersionResult registerSchemaVersion(RegisterSchemaVersionRequest registerSchemaVersionRequest);
+
+    /**
+     * <p>
+     * Removes a key value pair from the schema version metadata for the specified schema version ID.
+     * </p>
+     * 
+     * @param removeSchemaVersionMetadataRequest
+     * @return Result of the RemoveSchemaVersionMetadata operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @sample AWSGlue.RemoveSchemaVersionMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/RemoveSchemaVersionMetadata"
+     *      target="_top">AWS API Documentation</a>
+     */
+    RemoveSchemaVersionMetadataResult removeSchemaVersionMetadata(RemoveSchemaVersionMetadataRequest removeSchemaVersionMetadataRequest);
+
+    /**
+     * <p>
      * Resets a bookmark entry.
      * </p>
+     * <p>
+     * For more information about enabling and using job bookmarks, see:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-continuations.html">Tracking processed data using job
+     * bookmarks</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html">Job parameters
+     * used by Glue</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-jobs-job.html#aws-glue-api-jobs-job-Job">Job
+     * structure</a>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param resetJobBookmarkRequest
      * @return Result of the ResetJobBookmark operation returned by the service.
@@ -2015,6 +4077,138 @@ public interface AWSGlue {
      *      Documentation</a>
      */
     ResetJobBookmarkResult resetJobBookmark(ResetJobBookmarkRequest resetJobBookmarkRequest);
+
+    /**
+     * <p>
+     * Restarts selected nodes of a previous partially completed workflow run and resumes the workflow run. The selected
+     * nodes and all nodes that are downstream from the selected nodes are run.
+     * </p>
+     * 
+     * @param resumeWorkflowRunRequest
+     * @return Result of the ResumeWorkflowRun operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws ConcurrentRunsExceededException
+     *         Too many jobs are being run concurrently.
+     * @throws IllegalWorkflowStateException
+     *         The workflow is in an invalid state to perform a requested operation.
+     * @sample AWSGlue.ResumeWorkflowRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ResumeWorkflowRun" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ResumeWorkflowRunResult resumeWorkflowRun(ResumeWorkflowRunRequest resumeWorkflowRunRequest);
+
+    /**
+     * <p>
+     * Executes the statement.
+     * </p>
+     * 
+     * @param runStatementRequest
+     * @return Result of the RunStatement operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws ValidationException
+     *         A value could not be validated.
+     * @throws ResourceNumberLimitExceededException
+     *         A resource numerical limit was exceeded.
+     * @throws IllegalSessionStateException
+     *         The session is in an invalid state to perform a requested operation.
+     * @sample AWSGlue.RunStatement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/RunStatement" target="_top">AWS API
+     *      Documentation</a>
+     */
+    RunStatementResult runStatement(RunStatementRequest runStatementRequest);
+
+    /**
+     * <p>
+     * Searches a set of tables based on properties in the table metadata as well as on the parent database. You can
+     * search against text or filter conditions.
+     * </p>
+     * <p>
+     * You can only get tables that you have access to based on the security policies defined in Lake Formation. You
+     * need at least a read-only access to the table for it to be returned. If you do not have access to all the columns
+     * in the table, these columns will not be searched against when returning the list of tables back to you. If you
+     * have access to the columns but not the data in the columns, those columns and the associated metadata for those
+     * columns will be included in the search.
+     * </p>
+     * 
+     * @param searchTablesRequest
+     * @return Result of the SearchTables operation returned by the service.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @sample AWSGlue.SearchTables
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/SearchTables" target="_top">AWS API
+     *      Documentation</a>
+     */
+    SearchTablesResult searchTables(SearchTablesRequest searchTablesRequest);
+
+    /**
+     * <p>
+     * Starts a new run of the specified blueprint.
+     * </p>
+     * 
+     * @param startBlueprintRunRequest
+     * @return Result of the StartBlueprintRun operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws ResourceNumberLimitExceededException
+     *         A resource numerical limit was exceeded.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws IllegalBlueprintStateException
+     *         The blueprint is in an invalid state to perform a requested operation.
+     * @sample AWSGlue.StartBlueprintRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartBlueprintRun" target="_top">AWS API
+     *      Documentation</a>
+     */
+    StartBlueprintRunResult startBlueprintRun(StartBlueprintRunRequest startBlueprintRunRequest);
+
+    /**
+     * <p>
+     * Starts a column statistics task run, for a specified table and columns.
+     * </p>
+     * 
+     * @param startColumnStatisticsTaskRunRequest
+     * @return Result of the StartColumnStatisticsTaskRun operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws ColumnStatisticsTaskRunningException
+     *         An exception thrown when you try to start another job while running a column stats generation job.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws ResourceNumberLimitExceededException
+     *         A resource numerical limit was exceeded.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @sample AWSGlue.StartColumnStatisticsTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartColumnStatisticsTaskRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    StartColumnStatisticsTaskRunResult startColumnStatisticsTaskRun(StartColumnStatisticsTaskRunRequest startColumnStatisticsTaskRunRequest);
 
     /**
      * <p>
@@ -2064,6 +4258,131 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Starts a recommendation run that is used to generate rules when you don't know what rules to write. Glue Data
+     * Quality analyzes the data and comes up with recommendations for a potential ruleset. You can then triage the
+     * ruleset and modify the generated ruleset to your liking.
+     * </p>
+     * <p>
+     * Recommendation runs are automatically deleted after 90 days.
+     * </p>
+     * 
+     * @param startDataQualityRuleRecommendationRunRequest
+     * @return Result of the StartDataQualityRuleRecommendationRun operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws ConflictException
+     *         The <code>CreatePartitions</code> API was called on a table that has indexes enabled.
+     * @sample AWSGlue.StartDataQualityRuleRecommendationRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartDataQualityRuleRecommendationRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    StartDataQualityRuleRecommendationRunResult startDataQualityRuleRecommendationRun(
+            StartDataQualityRuleRecommendationRunRequest startDataQualityRuleRecommendationRunRequest);
+
+    /**
+     * <p>
+     * Once you have a ruleset definition (either recommended or your own), you call this operation to evaluate the
+     * ruleset against a data source (Glue table). The evaluation computes results which you can retrieve with the
+     * <code>GetDataQualityResult</code> API.
+     * </p>
+     * 
+     * @param startDataQualityRulesetEvaluationRunRequest
+     * @return Result of the StartDataQualityRulesetEvaluationRun operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws ConflictException
+     *         The <code>CreatePartitions</code> API was called on a table that has indexes enabled.
+     * @sample AWSGlue.StartDataQualityRulesetEvaluationRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartDataQualityRulesetEvaluationRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    StartDataQualityRulesetEvaluationRunResult startDataQualityRulesetEvaluationRun(
+            StartDataQualityRulesetEvaluationRunRequest startDataQualityRulesetEvaluationRunRequest);
+
+    /**
+     * <p>
+     * Begins an asynchronous task to export all labeled data for a particular transform. This task is the only
+     * label-related API call that is not part of the typical active learning workflow. You typically use
+     * <code>StartExportLabelsTaskRun</code> when you want to work with all of your existing labels at the same time,
+     * such as when you want to remove or change labels that were previously submitted as truth. This API operation
+     * accepts the <code>TransformId</code> whose labels you want to export and an Amazon Simple Storage Service (Amazon
+     * S3) path to export the labels to. The operation returns a <code>TaskRunId</code>. You can check on the status of
+     * your task run by calling the <code>GetMLTaskRun</code> API.
+     * </p>
+     * 
+     * @param startExportLabelsTaskRunRequest
+     * @return Result of the StartExportLabelsTaskRun operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.StartExportLabelsTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartExportLabelsTaskRun" target="_top">AWS
+     *      API Documentation</a>
+     */
+    StartExportLabelsTaskRunResult startExportLabelsTaskRun(StartExportLabelsTaskRunRequest startExportLabelsTaskRunRequest);
+
+    /**
+     * <p>
+     * Enables you to provide additional labels (examples of truth) to be used to teach the machine learning transform
+     * and improve its quality. This API operation is generally used as part of the active learning workflow that starts
+     * with the <code>StartMLLabelingSetGenerationTaskRun</code> call and that ultimately results in improving the
+     * quality of your machine learning transform.
+     * </p>
+     * <p>
+     * After the <code>StartMLLabelingSetGenerationTaskRun</code> finishes, Glue machine learning will have generated a
+     * series of questions for humans to answer. (Answering these questions is often called 'labeling' in the machine
+     * learning workflows). In the case of the <code>FindMatches</code> transform, these questions are of the form,
+     * “What is the correct way to group these rows together into groups composed entirely of matching records?” After
+     * the labeling process is finished, users upload their answers/labels with a call to
+     * <code>StartImportLabelsTaskRun</code>. After <code>StartImportLabelsTaskRun</code> finishes, all future runs of
+     * the machine learning transform use the new and improved labels and perform a higher-quality transformation.
+     * </p>
+     * <p>
+     * By default, <code>StartMLLabelingSetGenerationTaskRun</code> continually learns from and combines all labels that
+     * you upload unless you set <code>Replace</code> to true. If you set <code>Replace</code> to true,
+     * <code>StartImportLabelsTaskRun</code> deletes and forgets all previously uploaded labels and learns only from the
+     * exact set that you upload. Replacing labels can be helpful if you realize that you previously uploaded incorrect
+     * labels, and you believe that they are having a negative effect on your transform quality.
+     * </p>
+     * <p>
+     * You can check on the status of your task run by calling the <code>GetMLTaskRun</code> operation.
+     * </p>
+     * 
+     * @param startImportLabelsTaskRunRequest
+     * @return Result of the StartImportLabelsTaskRun operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws ResourceNumberLimitExceededException
+     *         A resource numerical limit was exceeded.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.StartImportLabelsTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartImportLabelsTaskRun" target="_top">AWS
+     *      API Documentation</a>
+     */
+    StartImportLabelsTaskRunResult startImportLabelsTaskRun(StartImportLabelsTaskRunRequest startImportLabelsTaskRunRequest);
+
+    /**
+     * <p>
      * Starts a job run using a job definition.
      * </p>
      * 
@@ -2086,6 +4405,77 @@ public interface AWSGlue {
      *      Documentation</a>
      */
     StartJobRunResult startJobRun(StartJobRunRequest startJobRunRequest);
+
+    /**
+     * <p>
+     * Starts a task to estimate the quality of the transform.
+     * </p>
+     * <p>
+     * When you provide label sets as examples of truth, Glue machine learning uses some of those examples to learn from
+     * them. The rest of the labels are used as a test to estimate quality.
+     * </p>
+     * <p>
+     * Returns a unique identifier for the run. You can call <code>GetMLTaskRun</code> to get more information about the
+     * stats of the <code>EvaluationTaskRun</code>.
+     * </p>
+     * 
+     * @param startMLEvaluationTaskRunRequest
+     * @return Result of the StartMLEvaluationTaskRun operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws ConcurrentRunsExceededException
+     *         Too many jobs are being run concurrently.
+     * @throws MLTransformNotReadyException
+     *         The machine learning transform is not ready to run.
+     * @sample AWSGlue.StartMLEvaluationTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartMLEvaluationTaskRun" target="_top">AWS
+     *      API Documentation</a>
+     */
+    StartMLEvaluationTaskRunResult startMLEvaluationTaskRun(StartMLEvaluationTaskRunRequest startMLEvaluationTaskRunRequest);
+
+    /**
+     * <p>
+     * Starts the active learning workflow for your machine learning transform to improve the transform's quality by
+     * generating label sets and adding labels.
+     * </p>
+     * <p>
+     * When the <code>StartMLLabelingSetGenerationTaskRun</code> finishes, Glue will have generated a "labeling set" or
+     * a set of questions for humans to answer.
+     * </p>
+     * <p>
+     * In the case of the <code>FindMatches</code> transform, these questions are of the form, “What is the correct way
+     * to group these rows together into groups composed entirely of matching records?”
+     * </p>
+     * <p>
+     * After the labeling process is finished, you can upload your labels with a call to
+     * <code>StartImportLabelsTaskRun</code>. After <code>StartImportLabelsTaskRun</code> finishes, all future runs of
+     * the machine learning transform will use the new and improved labels and perform a higher-quality transformation.
+     * </p>
+     * 
+     * @param startMLLabelingSetGenerationTaskRunRequest
+     * @return Result of the StartMLLabelingSetGenerationTaskRun operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws ConcurrentRunsExceededException
+     *         Too many jobs are being run concurrently.
+     * @sample AWSGlue.StartMLLabelingSetGenerationTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartMLLabelingSetGenerationTaskRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    StartMLLabelingSetGenerationTaskRunResult startMLLabelingSetGenerationTaskRun(
+            StartMLLabelingSetGenerationTaskRunRequest startMLLabelingSetGenerationTaskRunRequest);
 
     /**
      * <p>
@@ -2140,6 +4530,27 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Stops a task run for the specified table.
+     * </p>
+     * 
+     * @param stopColumnStatisticsTaskRunRequest
+     * @return Result of the StopColumnStatisticsTaskRun operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws ColumnStatisticsTaskNotRunningException
+     *         An exception thrown when you try to stop a task run when there is no task running.
+     * @throws ColumnStatisticsTaskStoppingException
+     *         An exception thrown when you try to stop a task run.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @sample AWSGlue.StopColumnStatisticsTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StopColumnStatisticsTaskRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    StopColumnStatisticsTaskRunResult stopColumnStatisticsTaskRun(StopColumnStatisticsTaskRunRequest stopColumnStatisticsTaskRunRequest);
+
+    /**
+     * <p>
      * If the specified crawler is running, stops the crawl.
      * </p>
      * 
@@ -2183,6 +4594,31 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Stops the session.
+     * </p>
+     * 
+     * @param stopSessionRequest
+     * @return Result of the StopSession operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws IllegalSessionStateException
+     *         The session is in an invalid state to perform a requested operation.
+     * @throws ConcurrentModificationException
+     *         Two processes are trying to modify a resource simultaneously.
+     * @sample AWSGlue.StopSession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StopSession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    StopSessionResult stopSession(StopSessionRequest stopSessionRequest);
+
+    /**
+     * <p>
      * Stops a specified trigger.
      * </p>
      * 
@@ -2206,9 +4642,32 @@ public interface AWSGlue {
 
     /**
      * <p>
-     * Adds tags to a resource. A tag is a label you can assign to an AWS resource. In AWS Glue, you can tag only
-     * certain resources. For information about what resources you can tag, see <a
-     * href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">AWS Tags in AWS Glue</a>.
+     * Stops the execution of the specified workflow run.
+     * </p>
+     * 
+     * @param stopWorkflowRunRequest
+     * @return Result of the StopWorkflowRun operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws IllegalWorkflowStateException
+     *         The workflow is in an invalid state to perform a requested operation.
+     * @sample AWSGlue.StopWorkflowRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StopWorkflowRun" target="_top">AWS API
+     *      Documentation</a>
+     */
+    StopWorkflowRunResult stopWorkflowRun(StopWorkflowRunRequest stopWorkflowRunRequest);
+
+    /**
+     * <p>
+     * Adds tags to a resource. A tag is a label you can assign to an Amazon Web Services resource. In Glue, you can tag
+     * only certain resources. For information about what resources you can tag, see <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">Amazon Web Services Tags in Glue</a>.
      * </p>
      * 
      * @param tagResourceRequest
@@ -2250,6 +4709,31 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Updates a registered blueprint.
+     * </p>
+     * 
+     * @param updateBlueprintRequest
+     * @return Result of the UpdateBlueprint operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws ConcurrentModificationException
+     *         Two processes are trying to modify a resource simultaneously.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws IllegalBlueprintStateException
+     *         The blueprint is in an invalid state to perform a requested operation.
+     * @sample AWSGlue.UpdateBlueprint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateBlueprint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    UpdateBlueprintResult updateBlueprint(UpdateBlueprintRequest updateBlueprintRequest);
+
+    /**
+     * <p>
      * Modifies an existing classifier (a <code>GrokClassifier</code>, an <code>XMLClassifier</code>, a
      * <code>JsonClassifier</code>, or a <code>CsvClassifier</code>, depending on which field is present).
      * </p>
@@ -2269,6 +4753,59 @@ public interface AWSGlue {
      *      Documentation</a>
      */
     UpdateClassifierResult updateClassifier(UpdateClassifierRequest updateClassifierRequest);
+
+    /**
+     * <p>
+     * Creates or updates partition statistics of columns.
+     * </p>
+     * <p>
+     * The Identity and Access Management (IAM) permission required for this operation is <code>UpdatePartition</code>.
+     * </p>
+     * 
+     * @param updateColumnStatisticsForPartitionRequest
+     * @return Result of the UpdateColumnStatisticsForPartition operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws GlueEncryptionException
+     *         An encryption operation failed.
+     * @sample AWSGlue.UpdateColumnStatisticsForPartition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateColumnStatisticsForPartition"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateColumnStatisticsForPartitionResult updateColumnStatisticsForPartition(
+            UpdateColumnStatisticsForPartitionRequest updateColumnStatisticsForPartitionRequest);
+
+    /**
+     * <p>
+     * Creates or updates table statistics of columns.
+     * </p>
+     * <p>
+     * The Identity and Access Management (IAM) permission required for this operation is <code>UpdateTable</code>.
+     * </p>
+     * 
+     * @param updateColumnStatisticsForTableRequest
+     * @return Result of the UpdateColumnStatisticsForTable operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws GlueEncryptionException
+     *         An encryption operation failed.
+     * @sample AWSGlue.UpdateColumnStatisticsForTable
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateColumnStatisticsForTable"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateColumnStatisticsForTableResult updateColumnStatisticsForTable(UpdateColumnStatisticsForTableRequest updateColumnStatisticsForTableRequest);
 
     /**
      * <p>
@@ -2341,6 +4878,33 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Updates the specified data quality ruleset.
+     * </p>
+     * 
+     * @param updateDataQualityRulesetRequest
+     * @return Result of the UpdateDataQualityRuleset operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws AlreadyExistsException
+     *         A resource to be created or added already exists.
+     * @throws IdempotentParameterMismatchException
+     *         The same unique identifier was associated with two different records.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws ResourceNumberLimitExceededException
+     *         A resource numerical limit was exceeded.
+     * @sample AWSGlue.UpdateDataQualityRuleset
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateDataQualityRuleset" target="_top">AWS
+     *      API Documentation</a>
+     */
+    UpdateDataQualityRulesetResult updateDataQualityRuleset(UpdateDataQualityRulesetRequest updateDataQualityRulesetRequest);
+
+    /**
+     * <p>
      * Updates an existing database definition in a Data Catalog.
      * </p>
      * 
@@ -2356,6 +4920,8 @@ public interface AWSGlue {
      *         The operation timed out.
      * @throws GlueEncryptionException
      *         An encryption operation failed.
+     * @throws ConcurrentModificationException
+     *         Two processes are trying to modify a resource simultaneously.
      * @sample AWSGlue.UpdateDatabase
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateDatabase" target="_top">AWS API
      *      Documentation</a>
@@ -2387,7 +4953,7 @@ public interface AWSGlue {
 
     /**
      * <p>
-     * Updates an existing job definition.
+     * Updates an existing job definition. The previous job definition is completely overwritten by this information.
      * </p>
      * 
      * @param updateJobRequest
@@ -2407,6 +4973,66 @@ public interface AWSGlue {
      *      Documentation</a>
      */
     UpdateJobResult updateJob(UpdateJobRequest updateJobRequest);
+
+    /**
+     * <p>
+     * Synchronizes a job from the source control repository. This operation takes the job artifacts that are located in
+     * the remote repository and updates the Glue internal stores with these artifacts.
+     * </p>
+     * <p>
+     * This API supports optional parameters which take in the repository information.
+     * </p>
+     * 
+     * @param updateJobFromSourceControlRequest
+     * @return Result of the UpdateJobFromSourceControl operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws AlreadyExistsException
+     *         A resource to be created or added already exists.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws ValidationException
+     *         A value could not be validated.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @sample AWSGlue.UpdateJobFromSourceControl
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateJobFromSourceControl"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateJobFromSourceControlResult updateJobFromSourceControl(UpdateJobFromSourceControlRequest updateJobFromSourceControlRequest);
+
+    /**
+     * <p>
+     * Updates an existing machine learning transform. Call this operation to tune the algorithm parameters to achieve
+     * better results.
+     * </p>
+     * <p>
+     * After calling this operation, you can call the <code>StartMLEvaluationTaskRun</code> operation to assess how well
+     * your new parameters achieved your goals (such as improving the quality of your machine learning transform, or
+     * making it more cost-effective).
+     * </p>
+     * 
+     * @param updateMLTransformRequest
+     * @return Result of the UpdateMLTransform operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @sample AWSGlue.UpdateMLTransform
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateMLTransform" target="_top">AWS API
+     *      Documentation</a>
+     */
+    UpdateMLTransformResult updateMLTransform(UpdateMLTransformRequest updateMLTransformRequest);
 
     /**
      * <p>
@@ -2433,6 +5059,97 @@ public interface AWSGlue {
 
     /**
      * <p>
+     * Updates an existing registry which is used to hold a collection of schemas. The updated properties relate to the
+     * registry, and do not modify any of the schemas within the registry.
+     * </p>
+     * 
+     * @param updateRegistryRequest
+     * @return Result of the UpdateRegistry operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws ConcurrentModificationException
+     *         Two processes are trying to modify a resource simultaneously.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.UpdateRegistry
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateRegistry" target="_top">AWS API
+     *      Documentation</a>
+     */
+    UpdateRegistryResult updateRegistry(UpdateRegistryRequest updateRegistryRequest);
+
+    /**
+     * <p>
+     * Updates the description, compatibility setting, or version checkpoint for a schema set.
+     * </p>
+     * <p>
+     * For updating the compatibility setting, the call will not validate compatibility for the entire set of schema
+     * versions with the new compatibility setting. If the value for <code>Compatibility</code> is provided, the
+     * <code>VersionNumber</code> (a checkpoint) is also required. The API will validate the checkpoint version number
+     * for consistency.
+     * </p>
+     * <p>
+     * If the value for the <code>VersionNumber</code> (checkpoint) is provided, <code>Compatibility</code> is optional
+     * and this can be used to set/reset a checkpoint for the schema.
+     * </p>
+     * <p>
+     * This update will happen only if the schema is in the AVAILABLE state.
+     * </p>
+     * 
+     * @param updateSchemaRequest
+     * @return Result of the UpdateSchema operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws ConcurrentModificationException
+     *         Two processes are trying to modify a resource simultaneously.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.UpdateSchema
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateSchema" target="_top">AWS API
+     *      Documentation</a>
+     */
+    UpdateSchemaResult updateSchema(UpdateSchemaRequest updateSchemaRequest);
+
+    /**
+     * <p>
+     * Synchronizes a job to the source control repository. This operation takes the job artifacts from the Glue
+     * internal stores and makes a commit to the remote repository that is configured on the job.
+     * </p>
+     * <p>
+     * This API supports optional parameters which take in the repository information.
+     * </p>
+     * 
+     * @param updateSourceControlFromJobRequest
+     * @return Result of the UpdateSourceControlFromJob operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws AlreadyExistsException
+     *         A resource to be created or added already exists.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws ValidationException
+     *         A value could not be validated.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @sample AWSGlue.UpdateSourceControlFromJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateSourceControlFromJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateSourceControlFromJobResult updateSourceControlFromJob(UpdateSourceControlFromJobRequest updateSourceControlFromJobRequest);
+
+    /**
+     * <p>
      * Updates a metadata table in the Data Catalog.
      * </p>
      * 
@@ -2452,11 +5169,34 @@ public interface AWSGlue {
      *         A resource numerical limit was exceeded.
      * @throws GlueEncryptionException
      *         An encryption operation failed.
+     * @throws ResourceNotReadyException
+     *         A resource was not ready for a transaction.
      * @sample AWSGlue.UpdateTable
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateTable" target="_top">AWS API
      *      Documentation</a>
      */
     UpdateTableResult updateTable(UpdateTableRequest updateTableRequest);
+
+    /**
+     * <p>
+     * Updates the configuration for an existing table optimizer.
+     * </p>
+     * 
+     * @param updateTableOptimizerRequest
+     * @return Result of the UpdateTableOptimizer operation returned by the service.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws AccessDeniedException
+     *         Access to a resource was denied.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @sample AWSGlue.UpdateTableOptimizer
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateTableOptimizer" target="_top">AWS API
+     *      Documentation</a>
+     */
+    UpdateTableOptimizerResult updateTableOptimizer(UpdateTableOptimizerRequest updateTableOptimizerRequest);
 
     /**
      * <p>
@@ -2480,6 +5220,31 @@ public interface AWSGlue {
      *      Documentation</a>
      */
     UpdateTriggerResult updateTrigger(UpdateTriggerRequest updateTriggerRequest);
+
+    /**
+     * <p>
+     * Update an Glue usage profile.
+     * </p>
+     * 
+     * @param updateUsageProfileRequest
+     * @return Result of the UpdateUsageProfile operation returned by the service.
+     * @throws InvalidInputException
+     *         The input provided was not valid.
+     * @throws InternalServiceException
+     *         An internal service error occurred.
+     * @throws EntityNotFoundException
+     *         A specified entity does not exist
+     * @throws OperationTimeoutException
+     *         The operation timed out.
+     * @throws OperationNotSupportedException
+     *         The operation is not available in the region.
+     * @throws ConcurrentModificationException
+     *         Two processes are trying to modify a resource simultaneously.
+     * @sample AWSGlue.UpdateUsageProfile
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateUsageProfile" target="_top">AWS API
+     *      Documentation</a>
+     */
+    UpdateUsageProfileResult updateUsageProfile(UpdateUsageProfileRequest updateUsageProfileRequest);
 
     /**
      * <p>

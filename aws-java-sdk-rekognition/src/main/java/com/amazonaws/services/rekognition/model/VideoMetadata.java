@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -62,6 +62,12 @@ public class VideoMetadata implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private Long frameWidth;
+    /**
+     * <p>
+     * A description of the range of luminance values in a video, either LIMITED (16 to 235) or FULL (0 to 255).
+     * </p>
+     */
+    private String colorRange;
 
     /**
      * <p>
@@ -304,6 +310,65 @@ public class VideoMetadata implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * A description of the range of luminance values in a video, either LIMITED (16 to 235) or FULL (0 to 255).
+     * </p>
+     * 
+     * @param colorRange
+     *        A description of the range of luminance values in a video, either LIMITED (16 to 235) or FULL (0 to 255).
+     * @see VideoColorRange
+     */
+
+    public void setColorRange(String colorRange) {
+        this.colorRange = colorRange;
+    }
+
+    /**
+     * <p>
+     * A description of the range of luminance values in a video, either LIMITED (16 to 235) or FULL (0 to 255).
+     * </p>
+     * 
+     * @return A description of the range of luminance values in a video, either LIMITED (16 to 235) or FULL (0 to 255).
+     * @see VideoColorRange
+     */
+
+    public String getColorRange() {
+        return this.colorRange;
+    }
+
+    /**
+     * <p>
+     * A description of the range of luminance values in a video, either LIMITED (16 to 235) or FULL (0 to 255).
+     * </p>
+     * 
+     * @param colorRange
+     *        A description of the range of luminance values in a video, either LIMITED (16 to 235) or FULL (0 to 255).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see VideoColorRange
+     */
+
+    public VideoMetadata withColorRange(String colorRange) {
+        setColorRange(colorRange);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A description of the range of luminance values in a video, either LIMITED (16 to 235) or FULL (0 to 255).
+     * </p>
+     * 
+     * @param colorRange
+     *        A description of the range of luminance values in a video, either LIMITED (16 to 235) or FULL (0 to 255).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see VideoColorRange
+     */
+
+    public VideoMetadata withColorRange(VideoColorRange colorRange) {
+        this.colorRange = colorRange.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -326,7 +391,9 @@ public class VideoMetadata implements Serializable, Cloneable, StructuredPojo {
         if (getFrameHeight() != null)
             sb.append("FrameHeight: ").append(getFrameHeight()).append(",");
         if (getFrameWidth() != null)
-            sb.append("FrameWidth: ").append(getFrameWidth());
+            sb.append("FrameWidth: ").append(getFrameWidth()).append(",");
+        if (getColorRange() != null)
+            sb.append("ColorRange: ").append(getColorRange());
         sb.append("}");
         return sb.toString();
     }
@@ -365,6 +432,10 @@ public class VideoMetadata implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getFrameWidth() != null && other.getFrameWidth().equals(this.getFrameWidth()) == false)
             return false;
+        if (other.getColorRange() == null ^ this.getColorRange() == null)
+            return false;
+        if (other.getColorRange() != null && other.getColorRange().equals(this.getColorRange()) == false)
+            return false;
         return true;
     }
 
@@ -379,6 +450,7 @@ public class VideoMetadata implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getFrameRate() == null) ? 0 : getFrameRate().hashCode());
         hashCode = prime * hashCode + ((getFrameHeight() == null) ? 0 : getFrameHeight().hashCode());
         hashCode = prime * hashCode + ((getFrameWidth() == null) ? 0 : getFrameWidth().hashCode());
+        hashCode = prime * hashCode + ((getColorRange() == null) ? 0 : getColorRange().hashCode());
         return hashCode;
     }
 

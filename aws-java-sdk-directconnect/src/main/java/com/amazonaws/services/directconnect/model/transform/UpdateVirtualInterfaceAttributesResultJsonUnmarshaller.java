@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -127,12 +127,15 @@ public class UpdateVirtualInterfaceAttributesResultJsonUnmarshaller implements U
                 if (context.testExpression("routeFilterPrefixes", targetDepth)) {
                     context.nextToken();
                     updateVirtualInterfaceAttributesResult.setRouteFilterPrefixes(new ListUnmarshaller<RouteFilterPrefix>(RouteFilterPrefixJsonUnmarshaller
-                            .getInstance()).unmarshall(context));
+                            .getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("bgpPeers", targetDepth)) {
                     context.nextToken();
-                    updateVirtualInterfaceAttributesResult
-                            .setBgpPeers(new ListUnmarshaller<BGPPeer>(BGPPeerJsonUnmarshaller.getInstance()).unmarshall(context));
+                    updateVirtualInterfaceAttributesResult.setBgpPeers(new ListUnmarshaller<BGPPeer>(BGPPeerJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("region", targetDepth)) {
                     context.nextToken();
@@ -142,9 +145,19 @@ public class UpdateVirtualInterfaceAttributesResultJsonUnmarshaller implements U
                     context.nextToken();
                     updateVirtualInterfaceAttributesResult.setAwsDeviceV2(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("awsLogicalDeviceId", targetDepth)) {
+                    context.nextToken();
+                    updateVirtualInterfaceAttributesResult.setAwsLogicalDeviceId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("tags", targetDepth)) {
                     context.nextToken();
-                    updateVirtualInterfaceAttributesResult.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance()).unmarshall(context));
+                    updateVirtualInterfaceAttributesResult.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("siteLinkEnabled", targetDepth)) {
+                    context.nextToken();
+                    updateVirtualInterfaceAttributesResult.setSiteLinkEnabled(context.getUnmarshaller(Boolean.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

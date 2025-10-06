@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,8 +17,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Context information that enables AWS CloudFormation to uniquely identify a resource. AWS CloudFormation uses context
- * key-value pairs in cases where a resource's logical and physical IDs are not enough to uniquely identify that
+ * Context information that enables CloudFormation to uniquely identify a resource. CloudFormation uses context
+ * key-value pairs in cases where a resource's logical and physical IDs aren't enough to uniquely identify that
  * resource. Each context key-value pair specifies a resource that contains the targeted resource.
  * </p>
  * 

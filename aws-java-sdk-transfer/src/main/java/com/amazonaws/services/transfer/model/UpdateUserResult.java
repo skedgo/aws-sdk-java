@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,8 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * <code>UpdateUserResponse</code> returns the user name and server identifier for the request to update a user's
- * properties.
+ * <code>UpdateUserResponse</code> returns the user name and identifier for the request to update a user's properties.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/transfer-2018-11-05/UpdateUser" target="_top">AWS API
@@ -29,24 +28,24 @@ public class UpdateUserResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * A system-assigned unique identifier for an SFTP server instance that the user account is assigned to.
+     * A system-assigned unique identifier for a Transfer Family server instance that the account is assigned to.
      * </p>
      */
     private String serverId;
     /**
      * <p>
-     * The unique identifier for a user that is assigned to the SFTP server instance that was specified in the request.
+     * The unique identifier for a user that is assigned to a server instance that was specified in the request.
      * </p>
      */
     private String userName;
 
     /**
      * <p>
-     * A system-assigned unique identifier for an SFTP server instance that the user account is assigned to.
+     * A system-assigned unique identifier for a Transfer Family server instance that the account is assigned to.
      * </p>
      * 
      * @param serverId
-     *        A system-assigned unique identifier for an SFTP server instance that the user account is assigned to.
+     *        A system-assigned unique identifier for a Transfer Family server instance that the account is assigned to.
      */
 
     public void setServerId(String serverId) {
@@ -55,10 +54,11 @@ public class UpdateUserResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * A system-assigned unique identifier for an SFTP server instance that the user account is assigned to.
+     * A system-assigned unique identifier for a Transfer Family server instance that the account is assigned to.
      * </p>
      * 
-     * @return A system-assigned unique identifier for an SFTP server instance that the user account is assigned to.
+     * @return A system-assigned unique identifier for a Transfer Family server instance that the account is assigned
+     *         to.
      */
 
     public String getServerId() {
@@ -67,11 +67,11 @@ public class UpdateUserResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * A system-assigned unique identifier for an SFTP server instance that the user account is assigned to.
+     * A system-assigned unique identifier for a Transfer Family server instance that the account is assigned to.
      * </p>
      * 
      * @param serverId
-     *        A system-assigned unique identifier for an SFTP server instance that the user account is assigned to.
+     *        A system-assigned unique identifier for a Transfer Family server instance that the account is assigned to.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -82,12 +82,11 @@ public class UpdateUserResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * The unique identifier for a user that is assigned to the SFTP server instance that was specified in the request.
+     * The unique identifier for a user that is assigned to a server instance that was specified in the request.
      * </p>
      * 
      * @param userName
-     *        The unique identifier for a user that is assigned to the SFTP server instance that was specified in the
-     *        request.
+     *        The unique identifier for a user that is assigned to a server instance that was specified in the request.
      */
 
     public void setUserName(String userName) {
@@ -96,11 +95,10 @@ public class UpdateUserResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * The unique identifier for a user that is assigned to the SFTP server instance that was specified in the request.
+     * The unique identifier for a user that is assigned to a server instance that was specified in the request.
      * </p>
      * 
-     * @return The unique identifier for a user that is assigned to the SFTP server instance that was specified in the
-     *         request.
+     * @return The unique identifier for a user that is assigned to a server instance that was specified in the request.
      */
 
     public String getUserName() {
@@ -109,12 +107,11 @@ public class UpdateUserResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * The unique identifier for a user that is assigned to the SFTP server instance that was specified in the request.
+     * The unique identifier for a user that is assigned to a server instance that was specified in the request.
      * </p>
      * 
      * @param userName
-     *        The unique identifier for a user that is assigned to the SFTP server instance that was specified in the
-     *        request.
+     *        The unique identifier for a user that is assigned to a server instance that was specified in the request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * Updates a <a>GatewayResponse</a> of a specified response type on the given <a>RestApi</a>.
+ * Updates a GatewayResponse of a specified response type on the given RestApi.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -27,55 +27,31 @@ public class UpdateGatewayResponseRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      */
     private String restApiId;
     /**
      * <p>
-     * [Required]
-     * <p>
-     * The response type of the associated <a>GatewayResponse</a>. Valid values are
-     * <ul>
-     * <li>ACCESS_DENIED</li>
-     * <li>API_CONFIGURATION_ERROR</li>
-     * <li>AUTHORIZER_FAILURE</li>
-     * <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     * <li>BAD_REQUEST_PARAMETERS</li>
-     * <li>BAD_REQUEST_BODY</li>
-     * <li>DEFAULT_4XX</li>
-     * <li>DEFAULT_5XX</li>
-     * <li>EXPIRED_TOKEN</li>
-     * <li>INVALID_SIGNATURE</li>
-     * <li>INTEGRATION_FAILURE</li>
-     * <li>INTEGRATION_TIMEOUT</li>
-     * <li>INVALID_API_KEY</li>
-     * <li>MISSING_AUTHENTICATION_TOKEN</li>
-     * <li>QUOTA_EXCEEDED</li>
-     * <li>REQUEST_TOO_LARGE</li>
-     * <li>RESOURCE_NOT_FOUND</li>
-     * <li>THROTTLED</li>
-     * <li>UNAUTHORIZED</li>
-     * <li>UNSUPPORTED_MEDIA_TYPE</li>
-     * </ul>
-     * </p>
+     * The response type of the associated GatewayResponse.
      * </p>
      */
     private String responseType;
     /**
      * <p>
-     * A list of update operations to be applied to the specified resource and in the order specified in this list.
+     * For more information about supported patch operations, see <a
+     * href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.
      * </p>
      */
     private java.util.List<PatchOperation> patchOperations;
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
      * @param restApiId
-     *        [Required] The string identifier of the associated <a>RestApi</a>.
+     *        The string identifier of the associated RestApi.
      */
 
     public void setRestApiId(String restApiId) {
@@ -84,10 +60,10 @@ public class UpdateGatewayResponseRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
-     * @return [Required] The string identifier of the associated <a>RestApi</a>.
+     * @return The string identifier of the associated RestApi.
      */
 
     public String getRestApiId() {
@@ -96,11 +72,11 @@ public class UpdateGatewayResponseRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
      * @param restApiId
-     *        [Required] The string identifier of the associated <a>RestApi</a>.
+     *        The string identifier of the associated RestApi.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -111,61 +87,11 @@ public class UpdateGatewayResponseRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * [Required]
-     * <p>
-     * The response type of the associated <a>GatewayResponse</a>. Valid values are
-     * <ul>
-     * <li>ACCESS_DENIED</li>
-     * <li>API_CONFIGURATION_ERROR</li>
-     * <li>AUTHORIZER_FAILURE</li>
-     * <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     * <li>BAD_REQUEST_PARAMETERS</li>
-     * <li>BAD_REQUEST_BODY</li>
-     * <li>DEFAULT_4XX</li>
-     * <li>DEFAULT_5XX</li>
-     * <li>EXPIRED_TOKEN</li>
-     * <li>INVALID_SIGNATURE</li>
-     * <li>INTEGRATION_FAILURE</li>
-     * <li>INTEGRATION_TIMEOUT</li>
-     * <li>INVALID_API_KEY</li>
-     * <li>MISSING_AUTHENTICATION_TOKEN</li>
-     * <li>QUOTA_EXCEEDED</li>
-     * <li>REQUEST_TOO_LARGE</li>
-     * <li>RESOURCE_NOT_FOUND</li>
-     * <li>THROTTLED</li>
-     * <li>UNAUTHORIZED</li>
-     * <li>UNSUPPORTED_MEDIA_TYPE</li>
-     * </ul>
-     * </p>
+     * The response type of the associated GatewayResponse.
      * </p>
      * 
      * @param responseType
-     *        [Required]
-     *        <p>
-     *        The response type of the associated <a>GatewayResponse</a>. Valid values are
-     *        <ul>
-     *        <li>ACCESS_DENIED</li>
-     *        <li>API_CONFIGURATION_ERROR</li>
-     *        <li>AUTHORIZER_FAILURE</li>
-     *        <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     *        <li>BAD_REQUEST_PARAMETERS</li>
-     *        <li>BAD_REQUEST_BODY</li>
-     *        <li>DEFAULT_4XX</li>
-     *        <li>DEFAULT_5XX</li>
-     *        <li>EXPIRED_TOKEN</li>
-     *        <li>INVALID_SIGNATURE</li>
-     *        <li>INTEGRATION_FAILURE</li>
-     *        <li>INTEGRATION_TIMEOUT</li>
-     *        <li>INVALID_API_KEY</li>
-     *        <li>MISSING_AUTHENTICATION_TOKEN</li>
-     *        <li>QUOTA_EXCEEDED</li>
-     *        <li>REQUEST_TOO_LARGE</li>
-     *        <li>RESOURCE_NOT_FOUND</li>
-     *        <li>THROTTLED</li>
-     *        <li>UNAUTHORIZED</li>
-     *        <li>UNSUPPORTED_MEDIA_TYPE</li>
-     *        </ul>
-     *        </p>
+     *        The response type of the associated GatewayResponse.
      * @see GatewayResponseType
      */
 
@@ -175,60 +101,10 @@ public class UpdateGatewayResponseRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * [Required]
-     * <p>
-     * The response type of the associated <a>GatewayResponse</a>. Valid values are
-     * <ul>
-     * <li>ACCESS_DENIED</li>
-     * <li>API_CONFIGURATION_ERROR</li>
-     * <li>AUTHORIZER_FAILURE</li>
-     * <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     * <li>BAD_REQUEST_PARAMETERS</li>
-     * <li>BAD_REQUEST_BODY</li>
-     * <li>DEFAULT_4XX</li>
-     * <li>DEFAULT_5XX</li>
-     * <li>EXPIRED_TOKEN</li>
-     * <li>INVALID_SIGNATURE</li>
-     * <li>INTEGRATION_FAILURE</li>
-     * <li>INTEGRATION_TIMEOUT</li>
-     * <li>INVALID_API_KEY</li>
-     * <li>MISSING_AUTHENTICATION_TOKEN</li>
-     * <li>QUOTA_EXCEEDED</li>
-     * <li>REQUEST_TOO_LARGE</li>
-     * <li>RESOURCE_NOT_FOUND</li>
-     * <li>THROTTLED</li>
-     * <li>UNAUTHORIZED</li>
-     * <li>UNSUPPORTED_MEDIA_TYPE</li>
-     * </ul>
-     * </p>
+     * The response type of the associated GatewayResponse.
      * </p>
      * 
-     * @return [Required]
-     *         <p>
-     *         The response type of the associated <a>GatewayResponse</a>. Valid values are
-     *         <ul>
-     *         <li>ACCESS_DENIED</li>
-     *         <li>API_CONFIGURATION_ERROR</li>
-     *         <li>AUTHORIZER_FAILURE</li>
-     *         <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     *         <li>BAD_REQUEST_PARAMETERS</li>
-     *         <li>BAD_REQUEST_BODY</li>
-     *         <li>DEFAULT_4XX</li>
-     *         <li>DEFAULT_5XX</li>
-     *         <li>EXPIRED_TOKEN</li>
-     *         <li>INVALID_SIGNATURE</li>
-     *         <li>INTEGRATION_FAILURE</li>
-     *         <li>INTEGRATION_TIMEOUT</li>
-     *         <li>INVALID_API_KEY</li>
-     *         <li>MISSING_AUTHENTICATION_TOKEN</li>
-     *         <li>QUOTA_EXCEEDED</li>
-     *         <li>REQUEST_TOO_LARGE</li>
-     *         <li>RESOURCE_NOT_FOUND</li>
-     *         <li>THROTTLED</li>
-     *         <li>UNAUTHORIZED</li>
-     *         <li>UNSUPPORTED_MEDIA_TYPE</li>
-     *         </ul>
-     *         </p>
+     * @return The response type of the associated GatewayResponse.
      * @see GatewayResponseType
      */
 
@@ -238,61 +114,11 @@ public class UpdateGatewayResponseRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * [Required]
-     * <p>
-     * The response type of the associated <a>GatewayResponse</a>. Valid values are
-     * <ul>
-     * <li>ACCESS_DENIED</li>
-     * <li>API_CONFIGURATION_ERROR</li>
-     * <li>AUTHORIZER_FAILURE</li>
-     * <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     * <li>BAD_REQUEST_PARAMETERS</li>
-     * <li>BAD_REQUEST_BODY</li>
-     * <li>DEFAULT_4XX</li>
-     * <li>DEFAULT_5XX</li>
-     * <li>EXPIRED_TOKEN</li>
-     * <li>INVALID_SIGNATURE</li>
-     * <li>INTEGRATION_FAILURE</li>
-     * <li>INTEGRATION_TIMEOUT</li>
-     * <li>INVALID_API_KEY</li>
-     * <li>MISSING_AUTHENTICATION_TOKEN</li>
-     * <li>QUOTA_EXCEEDED</li>
-     * <li>REQUEST_TOO_LARGE</li>
-     * <li>RESOURCE_NOT_FOUND</li>
-     * <li>THROTTLED</li>
-     * <li>UNAUTHORIZED</li>
-     * <li>UNSUPPORTED_MEDIA_TYPE</li>
-     * </ul>
-     * </p>
+     * The response type of the associated GatewayResponse.
      * </p>
      * 
      * @param responseType
-     *        [Required]
-     *        <p>
-     *        The response type of the associated <a>GatewayResponse</a>. Valid values are
-     *        <ul>
-     *        <li>ACCESS_DENIED</li>
-     *        <li>API_CONFIGURATION_ERROR</li>
-     *        <li>AUTHORIZER_FAILURE</li>
-     *        <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     *        <li>BAD_REQUEST_PARAMETERS</li>
-     *        <li>BAD_REQUEST_BODY</li>
-     *        <li>DEFAULT_4XX</li>
-     *        <li>DEFAULT_5XX</li>
-     *        <li>EXPIRED_TOKEN</li>
-     *        <li>INVALID_SIGNATURE</li>
-     *        <li>INTEGRATION_FAILURE</li>
-     *        <li>INTEGRATION_TIMEOUT</li>
-     *        <li>INVALID_API_KEY</li>
-     *        <li>MISSING_AUTHENTICATION_TOKEN</li>
-     *        <li>QUOTA_EXCEEDED</li>
-     *        <li>REQUEST_TOO_LARGE</li>
-     *        <li>RESOURCE_NOT_FOUND</li>
-     *        <li>THROTTLED</li>
-     *        <li>UNAUTHORIZED</li>
-     *        <li>UNSUPPORTED_MEDIA_TYPE</li>
-     *        </ul>
-     *        </p>
+     *        The response type of the associated GatewayResponse.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see GatewayResponseType
      */
@@ -304,61 +130,11 @@ public class UpdateGatewayResponseRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * [Required]
-     * <p>
-     * The response type of the associated <a>GatewayResponse</a>. Valid values are
-     * <ul>
-     * <li>ACCESS_DENIED</li>
-     * <li>API_CONFIGURATION_ERROR</li>
-     * <li>AUTHORIZER_FAILURE</li>
-     * <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     * <li>BAD_REQUEST_PARAMETERS</li>
-     * <li>BAD_REQUEST_BODY</li>
-     * <li>DEFAULT_4XX</li>
-     * <li>DEFAULT_5XX</li>
-     * <li>EXPIRED_TOKEN</li>
-     * <li>INVALID_SIGNATURE</li>
-     * <li>INTEGRATION_FAILURE</li>
-     * <li>INTEGRATION_TIMEOUT</li>
-     * <li>INVALID_API_KEY</li>
-     * <li>MISSING_AUTHENTICATION_TOKEN</li>
-     * <li>QUOTA_EXCEEDED</li>
-     * <li>REQUEST_TOO_LARGE</li>
-     * <li>RESOURCE_NOT_FOUND</li>
-     * <li>THROTTLED</li>
-     * <li>UNAUTHORIZED</li>
-     * <li>UNSUPPORTED_MEDIA_TYPE</li>
-     * </ul>
-     * </p>
+     * The response type of the associated GatewayResponse.
      * </p>
      * 
      * @param responseType
-     *        [Required]
-     *        <p>
-     *        The response type of the associated <a>GatewayResponse</a>. Valid values are
-     *        <ul>
-     *        <li>ACCESS_DENIED</li>
-     *        <li>API_CONFIGURATION_ERROR</li>
-     *        <li>AUTHORIZER_FAILURE</li>
-     *        <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     *        <li>BAD_REQUEST_PARAMETERS</li>
-     *        <li>BAD_REQUEST_BODY</li>
-     *        <li>DEFAULT_4XX</li>
-     *        <li>DEFAULT_5XX</li>
-     *        <li>EXPIRED_TOKEN</li>
-     *        <li>INVALID_SIGNATURE</li>
-     *        <li>INTEGRATION_FAILURE</li>
-     *        <li>INTEGRATION_TIMEOUT</li>
-     *        <li>INVALID_API_KEY</li>
-     *        <li>MISSING_AUTHENTICATION_TOKEN</li>
-     *        <li>QUOTA_EXCEEDED</li>
-     *        <li>REQUEST_TOO_LARGE</li>
-     *        <li>RESOURCE_NOT_FOUND</li>
-     *        <li>THROTTLED</li>
-     *        <li>UNAUTHORIZED</li>
-     *        <li>UNSUPPORTED_MEDIA_TYPE</li>
-     *        </ul>
-     *        </p>
+     *        The response type of the associated GatewayResponse.
      * @see GatewayResponseType
      */
 
@@ -368,61 +144,11 @@ public class UpdateGatewayResponseRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * [Required]
-     * <p>
-     * The response type of the associated <a>GatewayResponse</a>. Valid values are
-     * <ul>
-     * <li>ACCESS_DENIED</li>
-     * <li>API_CONFIGURATION_ERROR</li>
-     * <li>AUTHORIZER_FAILURE</li>
-     * <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     * <li>BAD_REQUEST_PARAMETERS</li>
-     * <li>BAD_REQUEST_BODY</li>
-     * <li>DEFAULT_4XX</li>
-     * <li>DEFAULT_5XX</li>
-     * <li>EXPIRED_TOKEN</li>
-     * <li>INVALID_SIGNATURE</li>
-     * <li>INTEGRATION_FAILURE</li>
-     * <li>INTEGRATION_TIMEOUT</li>
-     * <li>INVALID_API_KEY</li>
-     * <li>MISSING_AUTHENTICATION_TOKEN</li>
-     * <li>QUOTA_EXCEEDED</li>
-     * <li>REQUEST_TOO_LARGE</li>
-     * <li>RESOURCE_NOT_FOUND</li>
-     * <li>THROTTLED</li>
-     * <li>UNAUTHORIZED</li>
-     * <li>UNSUPPORTED_MEDIA_TYPE</li>
-     * </ul>
-     * </p>
+     * The response type of the associated GatewayResponse.
      * </p>
      * 
      * @param responseType
-     *        [Required]
-     *        <p>
-     *        The response type of the associated <a>GatewayResponse</a>. Valid values are
-     *        <ul>
-     *        <li>ACCESS_DENIED</li>
-     *        <li>API_CONFIGURATION_ERROR</li>
-     *        <li>AUTHORIZER_FAILURE</li>
-     *        <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     *        <li>BAD_REQUEST_PARAMETERS</li>
-     *        <li>BAD_REQUEST_BODY</li>
-     *        <li>DEFAULT_4XX</li>
-     *        <li>DEFAULT_5XX</li>
-     *        <li>EXPIRED_TOKEN</li>
-     *        <li>INVALID_SIGNATURE</li>
-     *        <li>INTEGRATION_FAILURE</li>
-     *        <li>INTEGRATION_TIMEOUT</li>
-     *        <li>INVALID_API_KEY</li>
-     *        <li>MISSING_AUTHENTICATION_TOKEN</li>
-     *        <li>QUOTA_EXCEEDED</li>
-     *        <li>REQUEST_TOO_LARGE</li>
-     *        <li>RESOURCE_NOT_FOUND</li>
-     *        <li>THROTTLED</li>
-     *        <li>UNAUTHORIZED</li>
-     *        <li>UNSUPPORTED_MEDIA_TYPE</li>
-     *        </ul>
-     *        </p>
+     *        The response type of the associated GatewayResponse.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see GatewayResponseType
      */
@@ -434,11 +160,12 @@ public class UpdateGatewayResponseRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A list of update operations to be applied to the specified resource and in the order specified in this list.
+     * For more information about supported patch operations, see <a
+     * href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.
      * </p>
      * 
-     * @return A list of update operations to be applied to the specified resource and in the order specified in this
-     *         list.
+     * @return For more information about supported patch operations, see <a
+     *         href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.
      */
 
     public java.util.List<PatchOperation> getPatchOperations() {
@@ -447,12 +174,13 @@ public class UpdateGatewayResponseRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A list of update operations to be applied to the specified resource and in the order specified in this list.
+     * For more information about supported patch operations, see <a
+     * href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.
      * </p>
      * 
      * @param patchOperations
-     *        A list of update operations to be applied to the specified resource and in the order specified in this
-     *        list.
+     *        For more information about supported patch operations, see <a
+     *        href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.
      */
 
     public void setPatchOperations(java.util.Collection<PatchOperation> patchOperations) {
@@ -466,7 +194,8 @@ public class UpdateGatewayResponseRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A list of update operations to be applied to the specified resource and in the order specified in this list.
+     * For more information about supported patch operations, see <a
+     * href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -475,8 +204,8 @@ public class UpdateGatewayResponseRequest extends com.amazonaws.AmazonWebService
      * </p>
      * 
      * @param patchOperations
-     *        A list of update operations to be applied to the specified resource and in the order specified in this
-     *        list.
+     *        For more information about supported patch operations, see <a
+     *        href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -492,12 +221,13 @@ public class UpdateGatewayResponseRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A list of update operations to be applied to the specified resource and in the order specified in this list.
+     * For more information about supported patch operations, see <a
+     * href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.
      * </p>
      * 
      * @param patchOperations
-     *        A list of update operations to be applied to the specified resource and in the order specified in this
-     *        list.
+     *        For more information about supported patch operations, see <a
+     *        href="https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html">Patch Operations</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

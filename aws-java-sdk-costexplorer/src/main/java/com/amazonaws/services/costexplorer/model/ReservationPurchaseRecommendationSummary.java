@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A summary about this recommendation, such as the currency code, the amount that AWS estimates that you could save,
- * and the total amount of reservation to purchase.
+ * A summary about this recommendation, such as the currency code, the amount that Amazon Web Services estimates that
+ * you could save, and the total amount of reservation to purchase.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/ReservationPurchaseRecommendationSummary"
@@ -31,14 +31,14 @@ public class ReservationPurchaseRecommendationSummary implements Serializable, C
 
     /**
      * <p>
-     * The total amount that AWS estimates that this recommendation could save you in a month.
+     * The total amount that Amazon Web Services estimates that this recommendation could save you in a month.
      * </p>
      */
     private String totalEstimatedMonthlySavingsAmount;
     /**
      * <p>
-     * The total amount that AWS estimates that this recommendation could save you in a month, as a percentage of your
-     * costs.
+     * The total amount that Amazon Web Services estimates that this recommendation could save you in a month, as a
+     * percentage of your costs.
      * </p>
      */
     private String totalEstimatedMonthlySavingsPercentage;
@@ -51,11 +51,11 @@ public class ReservationPurchaseRecommendationSummary implements Serializable, C
 
     /**
      * <p>
-     * The total amount that AWS estimates that this recommendation could save you in a month.
+     * The total amount that Amazon Web Services estimates that this recommendation could save you in a month.
      * </p>
      * 
      * @param totalEstimatedMonthlySavingsAmount
-     *        The total amount that AWS estimates that this recommendation could save you in a month.
+     *        The total amount that Amazon Web Services estimates that this recommendation could save you in a month.
      */
 
     public void setTotalEstimatedMonthlySavingsAmount(String totalEstimatedMonthlySavingsAmount) {
@@ -64,10 +64,10 @@ public class ReservationPurchaseRecommendationSummary implements Serializable, C
 
     /**
      * <p>
-     * The total amount that AWS estimates that this recommendation could save you in a month.
+     * The total amount that Amazon Web Services estimates that this recommendation could save you in a month.
      * </p>
      * 
-     * @return The total amount that AWS estimates that this recommendation could save you in a month.
+     * @return The total amount that Amazon Web Services estimates that this recommendation could save you in a month.
      */
 
     public String getTotalEstimatedMonthlySavingsAmount() {
@@ -76,11 +76,11 @@ public class ReservationPurchaseRecommendationSummary implements Serializable, C
 
     /**
      * <p>
-     * The total amount that AWS estimates that this recommendation could save you in a month.
+     * The total amount that Amazon Web Services estimates that this recommendation could save you in a month.
      * </p>
      * 
      * @param totalEstimatedMonthlySavingsAmount
-     *        The total amount that AWS estimates that this recommendation could save you in a month.
+     *        The total amount that Amazon Web Services estimates that this recommendation could save you in a month.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -91,13 +91,13 @@ public class ReservationPurchaseRecommendationSummary implements Serializable, C
 
     /**
      * <p>
-     * The total amount that AWS estimates that this recommendation could save you in a month, as a percentage of your
-     * costs.
+     * The total amount that Amazon Web Services estimates that this recommendation could save you in a month, as a
+     * percentage of your costs.
      * </p>
      * 
      * @param totalEstimatedMonthlySavingsPercentage
-     *        The total amount that AWS estimates that this recommendation could save you in a month, as a percentage of
-     *        your costs.
+     *        The total amount that Amazon Web Services estimates that this recommendation could save you in a month, as
+     *        a percentage of your costs.
      */
 
     public void setTotalEstimatedMonthlySavingsPercentage(String totalEstimatedMonthlySavingsPercentage) {
@@ -106,12 +106,12 @@ public class ReservationPurchaseRecommendationSummary implements Serializable, C
 
     /**
      * <p>
-     * The total amount that AWS estimates that this recommendation could save you in a month, as a percentage of your
-     * costs.
+     * The total amount that Amazon Web Services estimates that this recommendation could save you in a month, as a
+     * percentage of your costs.
      * </p>
      * 
-     * @return The total amount that AWS estimates that this recommendation could save you in a month, as a percentage
-     *         of your costs.
+     * @return The total amount that Amazon Web Services estimates that this recommendation could save you in a month,
+     *         as a percentage of your costs.
      */
 
     public String getTotalEstimatedMonthlySavingsPercentage() {
@@ -120,13 +120,13 @@ public class ReservationPurchaseRecommendationSummary implements Serializable, C
 
     /**
      * <p>
-     * The total amount that AWS estimates that this recommendation could save you in a month, as a percentage of your
-     * costs.
+     * The total amount that Amazon Web Services estimates that this recommendation could save you in a month, as a
+     * percentage of your costs.
      * </p>
      * 
      * @param totalEstimatedMonthlySavingsPercentage
-     *        The total amount that AWS estimates that this recommendation could save you in a month, as a percentage of
-     *        your costs.
+     *        The total amount that Amazon Web Services estimates that this recommendation could save you in a month, as
+     *        a percentage of your costs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

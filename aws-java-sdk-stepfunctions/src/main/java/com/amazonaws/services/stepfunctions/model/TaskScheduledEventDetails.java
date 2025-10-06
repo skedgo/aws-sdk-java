@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,13 +30,13 @@ public class TaskScheduledEventDetails implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The action of the resource called by a task state.
+     * The service name of the resource in a task state.
      * </p>
      */
     private String resourceType;
     /**
      * <p>
-     * The service name of the resource in a task state.
+     * The action of the resource called by a task state.
      * </p>
      */
     private String resource;
@@ -48,7 +48,8 @@ public class TaskScheduledEventDetails implements Serializable, Cloneable, Struc
     private String region;
     /**
      * <p>
-     * The JSON data passed to the resource referenced in a task state.
+     * The JSON data passed to the resource referenced in a task state. Length constraints apply to the payload size,
+     * and are expressed as bytes in UTF-8 encoding.
      * </p>
      */
     private String parameters;
@@ -58,58 +59,30 @@ public class TaskScheduledEventDetails implements Serializable, Cloneable, Struc
      * </p>
      */
     private Long timeoutInSeconds;
-
     /**
      * <p>
-     * The action of the resource called by a task state.
+     * The maximum allowed duration between two heartbeats for the task.
      * </p>
-     * 
-     * @param resourceType
-     *        The action of the resource called by a task state.
      */
-
-    public void setResourceType(String resourceType) {
-        this.resourceType = resourceType;
-    }
-
+    private Long heartbeatInSeconds;
     /**
      * <p>
-     * The action of the resource called by a task state.
+     * The credentials that Step Functions uses for the task.
      * </p>
-     * 
-     * @return The action of the resource called by a task state.
      */
-
-    public String getResourceType() {
-        return this.resourceType;
-    }
-
-    /**
-     * <p>
-     * The action of the resource called by a task state.
-     * </p>
-     * 
-     * @param resourceType
-     *        The action of the resource called by a task state.
-     * @return Returns a reference to this object so that method calls can be chained together.
-     */
-
-    public TaskScheduledEventDetails withResourceType(String resourceType) {
-        setResourceType(resourceType);
-        return this;
-    }
+    private TaskCredentials taskCredentials;
 
     /**
      * <p>
      * The service name of the resource in a task state.
      * </p>
      * 
-     * @param resource
+     * @param resourceType
      *        The service name of the resource in a task state.
      */
 
-    public void setResource(String resource) {
-        this.resource = resource;
+    public void setResourceType(String resourceType) {
+        this.resourceType = resourceType;
     }
 
     /**
@@ -120,8 +93,8 @@ public class TaskScheduledEventDetails implements Serializable, Cloneable, Struc
      * @return The service name of the resource in a task state.
      */
 
-    public String getResource() {
-        return this.resource;
+    public String getResourceType() {
+        return this.resourceType;
     }
 
     /**
@@ -129,8 +102,48 @@ public class TaskScheduledEventDetails implements Serializable, Cloneable, Struc
      * The service name of the resource in a task state.
      * </p>
      * 
-     * @param resource
+     * @param resourceType
      *        The service name of the resource in a task state.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TaskScheduledEventDetails withResourceType(String resourceType) {
+        setResourceType(resourceType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The action of the resource called by a task state.
+     * </p>
+     * 
+     * @param resource
+     *        The action of the resource called by a task state.
+     */
+
+    public void setResource(String resource) {
+        this.resource = resource;
+    }
+
+    /**
+     * <p>
+     * The action of the resource called by a task state.
+     * </p>
+     * 
+     * @return The action of the resource called by a task state.
+     */
+
+    public String getResource() {
+        return this.resource;
+    }
+
+    /**
+     * <p>
+     * The action of the resource called by a task state.
+     * </p>
+     * 
+     * @param resource
+     *        The action of the resource called by a task state.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -181,11 +194,13 @@ public class TaskScheduledEventDetails implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The JSON data passed to the resource referenced in a task state.
+     * The JSON data passed to the resource referenced in a task state. Length constraints apply to the payload size,
+     * and are expressed as bytes in UTF-8 encoding.
      * </p>
      * 
      * @param parameters
-     *        The JSON data passed to the resource referenced in a task state.
+     *        The JSON data passed to the resource referenced in a task state. Length constraints apply to the payload
+     *        size, and are expressed as bytes in UTF-8 encoding.
      */
 
     public void setParameters(String parameters) {
@@ -194,10 +209,12 @@ public class TaskScheduledEventDetails implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The JSON data passed to the resource referenced in a task state.
+     * The JSON data passed to the resource referenced in a task state. Length constraints apply to the payload size,
+     * and are expressed as bytes in UTF-8 encoding.
      * </p>
      * 
-     * @return The JSON data passed to the resource referenced in a task state.
+     * @return The JSON data passed to the resource referenced in a task state. Length constraints apply to the payload
+     *         size, and are expressed as bytes in UTF-8 encoding.
      */
 
     public String getParameters() {
@@ -206,11 +223,13 @@ public class TaskScheduledEventDetails implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The JSON data passed to the resource referenced in a task state.
+     * The JSON data passed to the resource referenced in a task state. Length constraints apply to the payload size,
+     * and are expressed as bytes in UTF-8 encoding.
      * </p>
      * 
      * @param parameters
-     *        The JSON data passed to the resource referenced in a task state.
+     *        The JSON data passed to the resource referenced in a task state. Length constraints apply to the payload
+     *        size, and are expressed as bytes in UTF-8 encoding.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -260,6 +279,86 @@ public class TaskScheduledEventDetails implements Serializable, Cloneable, Struc
     }
 
     /**
+     * <p>
+     * The maximum allowed duration between two heartbeats for the task.
+     * </p>
+     * 
+     * @param heartbeatInSeconds
+     *        The maximum allowed duration between two heartbeats for the task.
+     */
+
+    public void setHeartbeatInSeconds(Long heartbeatInSeconds) {
+        this.heartbeatInSeconds = heartbeatInSeconds;
+    }
+
+    /**
+     * <p>
+     * The maximum allowed duration between two heartbeats for the task.
+     * </p>
+     * 
+     * @return The maximum allowed duration between two heartbeats for the task.
+     */
+
+    public Long getHeartbeatInSeconds() {
+        return this.heartbeatInSeconds;
+    }
+
+    /**
+     * <p>
+     * The maximum allowed duration between two heartbeats for the task.
+     * </p>
+     * 
+     * @param heartbeatInSeconds
+     *        The maximum allowed duration between two heartbeats for the task.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TaskScheduledEventDetails withHeartbeatInSeconds(Long heartbeatInSeconds) {
+        setHeartbeatInSeconds(heartbeatInSeconds);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The credentials that Step Functions uses for the task.
+     * </p>
+     * 
+     * @param taskCredentials
+     *        The credentials that Step Functions uses for the task.
+     */
+
+    public void setTaskCredentials(TaskCredentials taskCredentials) {
+        this.taskCredentials = taskCredentials;
+    }
+
+    /**
+     * <p>
+     * The credentials that Step Functions uses for the task.
+     * </p>
+     * 
+     * @return The credentials that Step Functions uses for the task.
+     */
+
+    public TaskCredentials getTaskCredentials() {
+        return this.taskCredentials;
+    }
+
+    /**
+     * <p>
+     * The credentials that Step Functions uses for the task.
+     * </p>
+     * 
+     * @param taskCredentials
+     *        The credentials that Step Functions uses for the task.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TaskScheduledEventDetails withTaskCredentials(TaskCredentials taskCredentials) {
+        setTaskCredentials(taskCredentials);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -280,7 +379,11 @@ public class TaskScheduledEventDetails implements Serializable, Cloneable, Struc
         if (getParameters() != null)
             sb.append("Parameters: ").append("***Sensitive Data Redacted***").append(",");
         if (getTimeoutInSeconds() != null)
-            sb.append("TimeoutInSeconds: ").append(getTimeoutInSeconds());
+            sb.append("TimeoutInSeconds: ").append(getTimeoutInSeconds()).append(",");
+        if (getHeartbeatInSeconds() != null)
+            sb.append("HeartbeatInSeconds: ").append(getHeartbeatInSeconds()).append(",");
+        if (getTaskCredentials() != null)
+            sb.append("TaskCredentials: ").append(getTaskCredentials());
         sb.append("}");
         return sb.toString();
     }
@@ -315,6 +418,14 @@ public class TaskScheduledEventDetails implements Serializable, Cloneable, Struc
             return false;
         if (other.getTimeoutInSeconds() != null && other.getTimeoutInSeconds().equals(this.getTimeoutInSeconds()) == false)
             return false;
+        if (other.getHeartbeatInSeconds() == null ^ this.getHeartbeatInSeconds() == null)
+            return false;
+        if (other.getHeartbeatInSeconds() != null && other.getHeartbeatInSeconds().equals(this.getHeartbeatInSeconds()) == false)
+            return false;
+        if (other.getTaskCredentials() == null ^ this.getTaskCredentials() == null)
+            return false;
+        if (other.getTaskCredentials() != null && other.getTaskCredentials().equals(this.getTaskCredentials()) == false)
+            return false;
         return true;
     }
 
@@ -328,6 +439,8 @@ public class TaskScheduledEventDetails implements Serializable, Cloneable, Struc
         hashCode = prime * hashCode + ((getRegion() == null) ? 0 : getRegion().hashCode());
         hashCode = prime * hashCode + ((getParameters() == null) ? 0 : getParameters().hashCode());
         hashCode = prime * hashCode + ((getTimeoutInSeconds() == null) ? 0 : getTimeoutInSeconds().hashCode());
+        hashCode = prime * hashCode + ((getHeartbeatInSeconds() == null) ? 0 : getHeartbeatInSeconds().hashCode());
+        hashCode = prime * hashCode + ((getTaskCredentials() == null) ? 0 : getTaskCredentials().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,22 @@ public class UpdateFileSystemLustreConfigurationMarshaller {
 
     private static final MarshallingInfo<String> WEEKLYMAINTENANCESTARTTIME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("WeeklyMaintenanceStartTime").build();
+    private static final MarshallingInfo<String> DAILYAUTOMATICBACKUPSTARTTIME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DailyAutomaticBackupStartTime").build();
+    private static final MarshallingInfo<Integer> AUTOMATICBACKUPRETENTIONDAYS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AutomaticBackupRetentionDays").build();
+    private static final MarshallingInfo<String> AUTOIMPORTPOLICY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AutoImportPolicy").build();
+    private static final MarshallingInfo<String> DATACOMPRESSIONTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DataCompressionType").build();
+    private static final MarshallingInfo<StructuredPojo> LOGCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LogConfiguration").build();
+    private static final MarshallingInfo<StructuredPojo> ROOTSQUASHCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RootSquashConfiguration").build();
+    private static final MarshallingInfo<Integer> PERUNITSTORAGETHROUGHPUT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PerUnitStorageThroughput").build();
+    private static final MarshallingInfo<StructuredPojo> METADATACONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MetadataConfiguration").build();
 
     private static final UpdateFileSystemLustreConfigurationMarshaller instance = new UpdateFileSystemLustreConfigurationMarshaller();
 
@@ -47,6 +63,14 @@ public class UpdateFileSystemLustreConfigurationMarshaller {
 
         try {
             protocolMarshaller.marshall(updateFileSystemLustreConfiguration.getWeeklyMaintenanceStartTime(), WEEKLYMAINTENANCESTARTTIME_BINDING);
+            protocolMarshaller.marshall(updateFileSystemLustreConfiguration.getDailyAutomaticBackupStartTime(), DAILYAUTOMATICBACKUPSTARTTIME_BINDING);
+            protocolMarshaller.marshall(updateFileSystemLustreConfiguration.getAutomaticBackupRetentionDays(), AUTOMATICBACKUPRETENTIONDAYS_BINDING);
+            protocolMarshaller.marshall(updateFileSystemLustreConfiguration.getAutoImportPolicy(), AUTOIMPORTPOLICY_BINDING);
+            protocolMarshaller.marshall(updateFileSystemLustreConfiguration.getDataCompressionType(), DATACOMPRESSIONTYPE_BINDING);
+            protocolMarshaller.marshall(updateFileSystemLustreConfiguration.getLogConfiguration(), LOGCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(updateFileSystemLustreConfiguration.getRootSquashConfiguration(), ROOTSQUASHCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(updateFileSystemLustreConfiguration.getPerUnitStorageThroughput(), PERUNITSTORAGETHROUGHPUT_BINDING);
+            protocolMarshaller.marshall(updateFileSystemLustreConfiguration.getMetadataConfiguration(), METADATACONFIGURATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

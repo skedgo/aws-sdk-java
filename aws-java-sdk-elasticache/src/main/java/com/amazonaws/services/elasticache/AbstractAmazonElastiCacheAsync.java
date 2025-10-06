@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -80,6 +80,32 @@ public class AbstractAmazonElastiCacheAsync extends AbstractAmazonElastiCache im
     }
 
     @Override
+    public java.util.concurrent.Future<ReplicationGroup> completeMigrationAsync(CompleteMigrationRequest request) {
+
+        return completeMigrationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ReplicationGroup> completeMigrationAsync(CompleteMigrationRequest request,
+            com.amazonaws.handlers.AsyncHandler<CompleteMigrationRequest, ReplicationGroup> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CopyServerlessCacheSnapshotResult> copyServerlessCacheSnapshotAsync(CopyServerlessCacheSnapshotRequest request) {
+
+        return copyServerlessCacheSnapshotAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CopyServerlessCacheSnapshotResult> copyServerlessCacheSnapshotAsync(CopyServerlessCacheSnapshotRequest request,
+            com.amazonaws.handlers.AsyncHandler<CopyServerlessCacheSnapshotRequest, CopyServerlessCacheSnapshotResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<Snapshot> copySnapshotAsync(CopySnapshotRequest request) {
 
         return copySnapshotAsync(request, null);
@@ -145,6 +171,19 @@ public class AbstractAmazonElastiCacheAsync extends AbstractAmazonElastiCache im
     }
 
     @Override
+    public java.util.concurrent.Future<GlobalReplicationGroup> createGlobalReplicationGroupAsync(CreateGlobalReplicationGroupRequest request) {
+
+        return createGlobalReplicationGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GlobalReplicationGroup> createGlobalReplicationGroupAsync(CreateGlobalReplicationGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateGlobalReplicationGroupRequest, GlobalReplicationGroup> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ReplicationGroup> createReplicationGroupAsync(CreateReplicationGroupRequest request) {
 
         return createReplicationGroupAsync(request, null);
@@ -158,6 +197,32 @@ public class AbstractAmazonElastiCacheAsync extends AbstractAmazonElastiCache im
     }
 
     @Override
+    public java.util.concurrent.Future<CreateServerlessCacheResult> createServerlessCacheAsync(CreateServerlessCacheRequest request) {
+
+        return createServerlessCacheAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateServerlessCacheResult> createServerlessCacheAsync(CreateServerlessCacheRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateServerlessCacheRequest, CreateServerlessCacheResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateServerlessCacheSnapshotResult> createServerlessCacheSnapshotAsync(CreateServerlessCacheSnapshotRequest request) {
+
+        return createServerlessCacheSnapshotAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateServerlessCacheSnapshotResult> createServerlessCacheSnapshotAsync(CreateServerlessCacheSnapshotRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateServerlessCacheSnapshotRequest, CreateServerlessCacheSnapshotResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<Snapshot> createSnapshotAsync(CreateSnapshotRequest request) {
 
         return createSnapshotAsync(request, null);
@@ -166,6 +231,47 @@ public class AbstractAmazonElastiCacheAsync extends AbstractAmazonElastiCache im
     @Override
     public java.util.concurrent.Future<Snapshot> createSnapshotAsync(CreateSnapshotRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateSnapshotRequest, Snapshot> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateUserResult> createUserAsync(CreateUserRequest request) {
+
+        return createUserAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateUserResult> createUserAsync(CreateUserRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateUserRequest, CreateUserResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateUserGroupResult> createUserGroupAsync(CreateUserGroupRequest request) {
+
+        return createUserGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateUserGroupResult> createUserGroupAsync(CreateUserGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateUserGroupRequest, CreateUserGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GlobalReplicationGroup> decreaseNodeGroupsInGlobalReplicationGroupAsync(
+            DecreaseNodeGroupsInGlobalReplicationGroupRequest request) {
+
+        return decreaseNodeGroupsInGlobalReplicationGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GlobalReplicationGroup> decreaseNodeGroupsInGlobalReplicationGroupAsync(
+            DecreaseNodeGroupsInGlobalReplicationGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<DecreaseNodeGroupsInGlobalReplicationGroupRequest, GlobalReplicationGroup> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -236,6 +342,19 @@ public class AbstractAmazonElastiCacheAsync extends AbstractAmazonElastiCache im
     }
 
     @Override
+    public java.util.concurrent.Future<GlobalReplicationGroup> deleteGlobalReplicationGroupAsync(DeleteGlobalReplicationGroupRequest request) {
+
+        return deleteGlobalReplicationGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GlobalReplicationGroup> deleteGlobalReplicationGroupAsync(DeleteGlobalReplicationGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteGlobalReplicationGroupRequest, GlobalReplicationGroup> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ReplicationGroup> deleteReplicationGroupAsync(DeleteReplicationGroupRequest request) {
 
         return deleteReplicationGroupAsync(request, null);
@@ -249,6 +368,32 @@ public class AbstractAmazonElastiCacheAsync extends AbstractAmazonElastiCache im
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteServerlessCacheResult> deleteServerlessCacheAsync(DeleteServerlessCacheRequest request) {
+
+        return deleteServerlessCacheAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteServerlessCacheResult> deleteServerlessCacheAsync(DeleteServerlessCacheRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteServerlessCacheRequest, DeleteServerlessCacheResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteServerlessCacheSnapshotResult> deleteServerlessCacheSnapshotAsync(DeleteServerlessCacheSnapshotRequest request) {
+
+        return deleteServerlessCacheSnapshotAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteServerlessCacheSnapshotResult> deleteServerlessCacheSnapshotAsync(DeleteServerlessCacheSnapshotRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteServerlessCacheSnapshotRequest, DeleteServerlessCacheSnapshotResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<Snapshot> deleteSnapshotAsync(DeleteSnapshotRequest request) {
 
         return deleteSnapshotAsync(request, null);
@@ -257,6 +402,32 @@ public class AbstractAmazonElastiCacheAsync extends AbstractAmazonElastiCache im
     @Override
     public java.util.concurrent.Future<Snapshot> deleteSnapshotAsync(DeleteSnapshotRequest request,
             com.amazonaws.handlers.AsyncHandler<DeleteSnapshotRequest, Snapshot> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteUserResult> deleteUserAsync(DeleteUserRequest request) {
+
+        return deleteUserAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteUserResult> deleteUserAsync(DeleteUserRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteUserRequest, DeleteUserResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteUserGroupResult> deleteUserGroupAsync(DeleteUserGroupRequest request) {
+
+        return deleteUserGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteUserGroupResult> deleteUserGroupAsync(DeleteUserGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteUserGroupRequest, DeleteUserGroupResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -504,6 +675,21 @@ public class AbstractAmazonElastiCacheAsync extends AbstractAmazonElastiCache im
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeGlobalReplicationGroupsResult> describeGlobalReplicationGroupsAsync(
+            DescribeGlobalReplicationGroupsRequest request) {
+
+        return describeGlobalReplicationGroupsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeGlobalReplicationGroupsResult> describeGlobalReplicationGroupsAsync(
+            DescribeGlobalReplicationGroupsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeGlobalReplicationGroupsRequest, DescribeGlobalReplicationGroupsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeReplicationGroupsResult> describeReplicationGroupsAsync(DescribeReplicationGroupsRequest request) {
 
         return describeReplicationGroupsAsync(request, null);
@@ -615,6 +801,34 @@ public class AbstractAmazonElastiCacheAsync extends AbstractAmazonElastiCache im
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeServerlessCacheSnapshotsResult> describeServerlessCacheSnapshotsAsync(
+            DescribeServerlessCacheSnapshotsRequest request) {
+
+        return describeServerlessCacheSnapshotsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeServerlessCacheSnapshotsResult> describeServerlessCacheSnapshotsAsync(
+            DescribeServerlessCacheSnapshotsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeServerlessCacheSnapshotsRequest, DescribeServerlessCacheSnapshotsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeServerlessCachesResult> describeServerlessCachesAsync(DescribeServerlessCachesRequest request) {
+
+        return describeServerlessCachesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeServerlessCachesResult> describeServerlessCachesAsync(DescribeServerlessCachesRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeServerlessCachesRequest, DescribeServerlessCachesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeServiceUpdatesResult> describeServiceUpdatesAsync(DescribeServiceUpdatesRequest request) {
 
         return describeServiceUpdatesAsync(request, null);
@@ -672,6 +886,86 @@ public class AbstractAmazonElastiCacheAsync extends AbstractAmazonElastiCache im
     @Override
     public java.util.concurrent.Future<DescribeUpdateActionsResult> describeUpdateActionsAsync(DescribeUpdateActionsRequest request,
             com.amazonaws.handlers.AsyncHandler<DescribeUpdateActionsRequest, DescribeUpdateActionsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeUserGroupsResult> describeUserGroupsAsync(DescribeUserGroupsRequest request) {
+
+        return describeUserGroupsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeUserGroupsResult> describeUserGroupsAsync(DescribeUserGroupsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeUserGroupsRequest, DescribeUserGroupsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeUsersResult> describeUsersAsync(DescribeUsersRequest request) {
+
+        return describeUsersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeUsersResult> describeUsersAsync(DescribeUsersRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeUsersRequest, DescribeUsersResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GlobalReplicationGroup> disassociateGlobalReplicationGroupAsync(DisassociateGlobalReplicationGroupRequest request) {
+
+        return disassociateGlobalReplicationGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GlobalReplicationGroup> disassociateGlobalReplicationGroupAsync(DisassociateGlobalReplicationGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<DisassociateGlobalReplicationGroupRequest, GlobalReplicationGroup> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ExportServerlessCacheSnapshotResult> exportServerlessCacheSnapshotAsync(ExportServerlessCacheSnapshotRequest request) {
+
+        return exportServerlessCacheSnapshotAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ExportServerlessCacheSnapshotResult> exportServerlessCacheSnapshotAsync(ExportServerlessCacheSnapshotRequest request,
+            com.amazonaws.handlers.AsyncHandler<ExportServerlessCacheSnapshotRequest, ExportServerlessCacheSnapshotResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GlobalReplicationGroup> failoverGlobalReplicationGroupAsync(FailoverGlobalReplicationGroupRequest request) {
+
+        return failoverGlobalReplicationGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GlobalReplicationGroup> failoverGlobalReplicationGroupAsync(FailoverGlobalReplicationGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<FailoverGlobalReplicationGroupRequest, GlobalReplicationGroup> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GlobalReplicationGroup> increaseNodeGroupsInGlobalReplicationGroupAsync(
+            IncreaseNodeGroupsInGlobalReplicationGroupRequest request) {
+
+        return increaseNodeGroupsInGlobalReplicationGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GlobalReplicationGroup> increaseNodeGroupsInGlobalReplicationGroupAsync(
+            IncreaseNodeGroupsInGlobalReplicationGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<IncreaseNodeGroupsInGlobalReplicationGroupRequest, GlobalReplicationGroup> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -781,6 +1075,19 @@ public class AbstractAmazonElastiCacheAsync extends AbstractAmazonElastiCache im
     }
 
     @Override
+    public java.util.concurrent.Future<GlobalReplicationGroup> modifyGlobalReplicationGroupAsync(ModifyGlobalReplicationGroupRequest request) {
+
+        return modifyGlobalReplicationGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GlobalReplicationGroup> modifyGlobalReplicationGroupAsync(ModifyGlobalReplicationGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<ModifyGlobalReplicationGroupRequest, GlobalReplicationGroup> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ReplicationGroup> modifyReplicationGroupAsync(ModifyReplicationGroupRequest request) {
 
         return modifyReplicationGroupAsync(request, null);
@@ -807,6 +1114,45 @@ public class AbstractAmazonElastiCacheAsync extends AbstractAmazonElastiCache im
     }
 
     @Override
+    public java.util.concurrent.Future<ModifyServerlessCacheResult> modifyServerlessCacheAsync(ModifyServerlessCacheRequest request) {
+
+        return modifyServerlessCacheAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyServerlessCacheResult> modifyServerlessCacheAsync(ModifyServerlessCacheRequest request,
+            com.amazonaws.handlers.AsyncHandler<ModifyServerlessCacheRequest, ModifyServerlessCacheResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyUserResult> modifyUserAsync(ModifyUserRequest request) {
+
+        return modifyUserAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyUserResult> modifyUserAsync(ModifyUserRequest request,
+            com.amazonaws.handlers.AsyncHandler<ModifyUserRequest, ModifyUserResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyUserGroupResult> modifyUserGroupAsync(ModifyUserGroupRequest request) {
+
+        return modifyUserGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyUserGroupResult> modifyUserGroupAsync(ModifyUserGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<ModifyUserGroupRequest, ModifyUserGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ReservedCacheNode> purchaseReservedCacheNodesOfferingAsync(PurchaseReservedCacheNodesOfferingRequest request) {
 
         return purchaseReservedCacheNodesOfferingAsync(request, null);
@@ -815,6 +1161,20 @@ public class AbstractAmazonElastiCacheAsync extends AbstractAmazonElastiCache im
     @Override
     public java.util.concurrent.Future<ReservedCacheNode> purchaseReservedCacheNodesOfferingAsync(PurchaseReservedCacheNodesOfferingRequest request,
             com.amazonaws.handlers.AsyncHandler<PurchaseReservedCacheNodesOfferingRequest, ReservedCacheNode> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GlobalReplicationGroup> rebalanceSlotsInGlobalReplicationGroupAsync(RebalanceSlotsInGlobalReplicationGroupRequest request) {
+
+        return rebalanceSlotsInGlobalReplicationGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GlobalReplicationGroup> rebalanceSlotsInGlobalReplicationGroupAsync(
+            RebalanceSlotsInGlobalReplicationGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<RebalanceSlotsInGlobalReplicationGroupRequest, GlobalReplicationGroup> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -872,6 +1232,19 @@ public class AbstractAmazonElastiCacheAsync extends AbstractAmazonElastiCache im
     }
 
     @Override
+    public java.util.concurrent.Future<ReplicationGroup> startMigrationAsync(StartMigrationRequest request) {
+
+        return startMigrationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ReplicationGroup> startMigrationAsync(StartMigrationRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartMigrationRequest, ReplicationGroup> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ReplicationGroup> testFailoverAsync(TestFailoverRequest request) {
 
         return testFailoverAsync(request, null);
@@ -880,6 +1253,19 @@ public class AbstractAmazonElastiCacheAsync extends AbstractAmazonElastiCache im
     @Override
     public java.util.concurrent.Future<ReplicationGroup> testFailoverAsync(TestFailoverRequest request,
             com.amazonaws.handlers.AsyncHandler<TestFailoverRequest, ReplicationGroup> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ReplicationGroup> testMigrationAsync(TestMigrationRequest request) {
+
+        return testMigrationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ReplicationGroup> testMigrationAsync(TestMigrationRequest request,
+            com.amazonaws.handlers.AsyncHandler<TestMigrationRequest, ReplicationGroup> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

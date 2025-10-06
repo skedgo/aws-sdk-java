@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,28 +19,23 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Defines a list of <code>NestedFilters</code> objects. To satisfy the conditions specified in the
- * <code>NestedFilters</code> call, a resource must satisfy the conditions of all of the filters.
+ * A list of nested <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Filter.html">Filter</a>
+ * objects. A resource must satisfy the conditions of all filters to be included in the results returned from the <a
+ * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Search.html">Search</a> API.
  * </p>
  * <p>
- * For example, you could define a <code>NestedFilters</code> using the training job's <code>InputDataConfig</code>
- * property to filter on <code>Channel</code> objects.
- * </p>
- * <p>
- * A <code>NestedFilters</code> object contains multiple filters. For example, to find all training jobs whose name
- * contains <code>train</code> and that have <code>cat/data</code> in their <code>S3Uri</code> (specified in
- * <code>InputDataConfig</code>), you need to create a <code>NestedFilters</code> object that specifies the
- * <code>InputDataConfig</code> property with the following <code>Filter</code> objects:
+ * For example, to filter on a training job's <code>InputDataConfig</code> property with a specific channel name and
+ * <code>S3Uri</code> prefix, define the following filters:
  * </p>
  * <ul>
  * <li>
  * <p>
- * <code>'{Name:"InputDataConfig.ChannelName", "Operator":"EQUALS", "Value":"train"}',</code>
+ * <code>'{Name:"InputDataConfig.ChannelName", "Operator":"Equals", "Value":"train"}',</code>
  * </p>
  * </li>
  * <li>
  * <p>
- * <code>'{Name:"InputDataConfig.DataSource.S3DataSource.S3Uri", "Operator":"CONTAINS", "Value":"cat/data"}'</code>
+ * <code>'{Name:"InputDataConfig.DataSource.S3DataSource.S3Uri", "Operator":"Contains", "Value":"mybucket/catdata"}'</code>
  * </p>
  * </li>
  * </ul>

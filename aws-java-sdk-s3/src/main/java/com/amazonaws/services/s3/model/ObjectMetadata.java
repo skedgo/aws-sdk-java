@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,14 +14,6 @@
  */
 package com.amazonaws.services.s3.model;
 
-import static com.amazonaws.util.DateUtils.cloneDate;
-
-import java.io.Serializable;
-import java.util.Collections;
-import java.util.Date;
-import java.util.TreeMap;
-import java.util.Map;
-
 import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.Headers;
 import com.amazonaws.services.s3.internal.Constants;
@@ -30,6 +22,14 @@ import com.amazonaws.services.s3.internal.ObjectRestoreResult;
 import com.amazonaws.services.s3.internal.S3RequesterChargedResult;
 import com.amazonaws.services.s3.internal.ServerSideEncryptionResult;
 import com.amazonaws.util.DateUtils;
+
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Map;
+import java.util.TreeMap;
+
+import static com.amazonaws.util.DateUtils.cloneDate;
 
 /**
  * Represents the object metadata that is stored with Amazon S3. This includes custom
@@ -93,6 +93,11 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
      */
     private Date restoreExpirationTime;
 
+    /**
+     * Whether or not the object is encrypted with Bucket Key
+     */
+    private Boolean bucketKeyEnabled;
+
     public ObjectMetadata() {}
 
     private ObjectMetadata(ObjectMetadata from) {
@@ -108,6 +113,7 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
         this.httpExpiresDate = cloneDate(from.httpExpiresDate);
         this.ongoingRestore = from.ongoingRestore;
         this.restoreExpirationTime = cloneDate(from.restoreExpirationTime);
+        this.bucketKeyEnabled = from.bucketKeyEnabled;
     }
 
     /**
@@ -274,7 +280,7 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
      * associated object in bytes.
      * </p>
      * <p>
-     * This field is required when uploading objects to S3, but the AWS S3 Java
+     * This field is required when uploading objects to S3, but the Amazon Web Services S3 Java
      * client will automatically set it when working directly with files. When
      * uploading directly from a stream, set this field if
      * possible. Otherwise the client must buffer the entire stream in
@@ -283,12 +289,12 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
      * </p>
      * <p>
      * For more information on the Content-Length HTTP header, see <a
-     * href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.13">
-     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.13</a>
+     * href="https://www.rfc-editor.org/rfc/rfc9110.html#section-8.6">
+     * https://www.rfc-editor.org/rfc/rfc9110.html#section-8.6</a>
      * </p>
      *
      * @return The Content-Length HTTP header indicating the size of the
-     *         associated object in bytes. Returns <code>null</code>
+     *         associated object in bytes. Returns <code>0</code>
      *         if it hasn't been set yet.
      *
      * @see ObjectMetadata#setContentLength(long)
@@ -306,7 +312,7 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
      */
     public long getInstanceLength() {
         // See Content-Range in
-        // http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
+        // https://www.rfc-editor.org/rfc/rfc9110.html#name-content-range
         String contentRange = (String)metadata.get(Headers.CONTENT_RANGE);
         if (contentRange != null) {
             int pos = contentRange.lastIndexOf("/");
@@ -322,7 +328,7 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
      * associated object in bytes.
      * </p>
      * <p>
-     * This field is required when uploading objects to S3, but the AWS S3 Java
+     * This field is required when uploading objects to S3, but the Amazon Web Services S3 Java
      * client will automatically set it when working directly with files. When
      * uploading directly from a stream, set this field if
      * possible. Otherwise the client must buffer the entire stream in
@@ -330,9 +336,14 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
      * Amazon S3.
      * </p>
      * <p>
+     * If a content length smaller than the actual size of the object is set,
+     * the client will truncate the stream to the specified content length, only sending
+     * exactly the number of bytes equal to the content length.
+     * </p>
+     * <p>
      * For more information on the Content-Length HTTP header, see <a
-     * href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.13">
-     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.13</a>
+     * href="https://www.rfc-editor.org/rfc/rfc9110.html#name-content-length">
+     * https://www.rfc-editor.org/rfc/rfc9110.html#name-content-length</a>
      * </p>
      *
      * @param contentLength
@@ -352,7 +363,7 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
      * MIME type.
      * </p>
      * <p>
-     * When uploading files, the AWS S3 Java client will attempt to determine
+     * When uploading files, the Amazon Web Services S3 Java client will attempt to determine
      * the correct content type if one hasn't been set yet. Users are
      * responsible for ensuring a suitable content type is set when uploading
      * streams. If no content type is provided and cannot be determined by
@@ -361,8 +372,8 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
      * </p>
      * <p>
      * For more information on the Content-Type header, see <a
-     * href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">
-     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17</a>
+     * href="https://www.rfc-editor.org/rfc/rfc9110.html#name-content-type">
+     * https://www.rfc-editor.org/rfc/rfc9110.html#name-content-type</a>
      * </p>
      *
      * @return The HTTP Content-Type header, indicating the type of content
@@ -383,7 +394,7 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
      * MIME type.
      * </p>
      * <p>
-     * When uploading files, the AWS S3 Java client will attempt to determine
+     * When uploading files, the Amazon Web Services S3 Java client will attempt to determine
      * the correct content type if one hasn't been set yet. Users are
      * responsible for ensuring a suitable content type is set when uploading
      * streams. If no content type is provided and cannot be determined by
@@ -392,8 +403,8 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
      * </p>
      * <p>
      * For more information on the Content-Type header, see <a
-     * href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">
-     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17</a>
+     * href="https://www.rfc-editor.org/rfc/rfc9110.html#name-content-type">
+     * https://www.rfc-editor.org/rfc/rfc9110.html#name-content-type</a>
      * </p>
      *
      * @param contentType
@@ -413,8 +424,8 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
      * </p>
      * <p>
      * For more information on the Content-Type header, see <a
-     * href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">
-     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17</a>
+     * href="https://www.rfc-editor.org/rfc/rfc9110.html#name-content-type">
+     * https://www.rfc-editor.org/rfc/rfc9110.html#name-content-type</a>
      * </p>
      *
      * @return The HTTP Content-Language header, which describes the natural language(s) of the
@@ -434,8 +445,8 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
      * </p>
      * <p>
      * For more information on the Content-Type header, see <a
-     * href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">
-     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17</a>
+     * href="https://www.rfc-editor.org/rfc/rfc9110.html#name-content-type">
+     * https://www.rfc-editor.org/rfc/rfc9110.html#name-content-type</a>
      * </p>
      *
      * @param contentLanguage
@@ -458,8 +469,8 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
      * <p>
      * For more information on how the Content-Encoding HTTP header works, see
      * <a
-     * href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.11">
-     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.11</a>
+     * href="https://www.rfc-editor.org/rfc/rfc9110.html#name-content-encoding">
+     * https://www.rfc-editor.org/rfc/rfc9110.html#name-content-encoding</a>
      * </p>
      *
      * @return The HTTP Content-Encoding header.
@@ -481,16 +492,16 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
      * <p>
      * For more information on how the Content-Encoding HTTP header works, see
      * <a
-     * href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.11">
-     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.11</a>
+     * href="https://www.rfc-editor.org/rfc/rfc9110.html#name-content-encoding">
+     * https://www.rfc-editor.org/rfc/rfc9110.html#name-content-encoding</a>
      * </p>
      *
      * @param encoding
      *            The HTTP Content-Encoding header, as defined in RFC 2616.
      *
      * @see <a
-     *      href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.11"
-     *      >http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.11</a>
+     *      href="https://www.rfc-editor.org/rfc/rfc9110.html#name-content-encoding"
+     *      >https://www.rfc-editor.org/rfc/rfc9110.html#name-content-encoding</a>
      *
      * @see ObjectMetadata#getContentEncoding()
      */
@@ -506,8 +517,8 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
      * <p>
      * For more information on how the Cache-Control HTTP header affects HTTP
      * requests and responses, see <a
-     * href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9">
-     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9</a>
+     * href="https://www.rfc-editor.org/rfc/rfc9111#name-cache-control">
+     * https://www.rfc-editor.org/rfc/rfc9111#name-cache-control</a>
      * </p>
      *
      * @return The HTTP Cache-Control header as defined in RFC 2616.
@@ -528,8 +539,8 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
      * <p>
      * For more information on how the Cache-Control HTTP header affects HTTP
      * requests and responses see <a
-     * href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9">
-     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9</a>
+     * href="https://www.rfc-editor.org/rfc/rfc9111#name-cache-control">
+     * https://www.rfc-editor.org/rfc/rfc9111#name-cache-control</a>
      * </p>
      *
      * @param cacheControl
@@ -556,7 +567,7 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
      * S3. See the documentation at {@link #getETag()} for more information on what the ETag field represents.
      * </p>
      * <p>
-     * The AWS S3 Java client will attempt to calculate this field automatically
+     * The Amazon Web Services S3 Java client will attempt to calculate this field automatically
      * when uploading files to Amazon S3.
      * </p>
      *
@@ -589,7 +600,7 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
      * S3. See the documentation at {@link #getETag()} for more information on what the ETag field represents.
      * </p>
      * <p>
-     * The AWS S3 Java client will attempt to calculate this field automatically
+     * The Amazon Web Services S3 Java client will attempt to calculate this field automatically
      * when uploading files to Amazon S3.
      * </p>
      *
@@ -612,8 +623,8 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
      * <p>
      * For more information on how the Content-Disposition header affects HTTP
      * client behavior, see <a
-     * href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec19.html#sec19.5.1">
-     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec19.html#sec19.5.1</a>
+     * href="https://www.rfc-editor.org/rfc/rfc2616.html#section-19.5.1">
+     * https://www.rfc-editor.org/rfc/rfc2616.html#section-19.5.1</a>
      * </p>
      *
      * @param disposition
@@ -634,8 +645,8 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
      * <p>
      * For more information on how the Content-Disposition header affects HTTP
      * client behavior, see <a
-     * href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec19.html#sec19.5.1">
-     * http://www.w3.org/Protocols/rfc2616/rfc2616-sec19.html#sec19.5.1</a>
+     * href="https://www.rfc-editor.org/rfc/rfc2616.html#section-19.5.1">
+     * https://www.rfc-editor.org/rfc/rfc2616.html#section-19.5.1</a>
      * </p>
      *
      * @return The value of the Content-Disposition header.
@@ -643,8 +654,8 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
      *         hasn't been set.
      *
      * @see <a
-     *      href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec19.html#sec19.5.1"
-     *      >http://www.w3.org/Protocols/rfc2616/rfc2616-sec19.html#sec19.5.1</a>
+     *      href="https://www.rfc-editor.org/rfc/rfc2616.html#section-19.5.1"
+     *      >https://www.rfc-editor.org/rfc/rfc2616.html#section-19.5.1</a>
      *
      * @see ObjectMetadata#setCacheControl(String)
      */
@@ -658,16 +669,17 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
      * and how it is encrypted as described below:
      * <ul>
      * <li>
-     * Objects created by the PUT Object, POST Object, or Copy operation, or through the AWS Management Console, and are encrypted
+     * Objects created by the PUT Object, POST Object, or Copy operation, or through the Amazon Web Services Management Console, and are encrypted
      * by SSE-S3 or plaintext, have ETags that are an MD5 digest of their object data.
      * </li>
      * <li>
-     * Objects created by the PUT Object, POST Object, or Copy operation, or through the AWS Management Console, and are encrypted
+     * Objects created by the PUT Object, POST Object, or Copy operation, or through the Amazon Web Services Management Console, and are encrypted
      * by SSE-C or SSE-KMS, have ETags that are not an MD5 digest of their object data.
      * </li>
      * <li>
      * If an object is created by either the Multipart Upload or Part Copy operation, the ETag is not an MD5 digest, regardless of
-     * the method of encryption.
+     * the method of encryption.If an object is larger than 16 MB, the Amazon Web Services Management Console will upload
+     * or copy that object as a Multipart Upload, and therefore the ETag will not be an MD5 digest.
      * </li>
      * </ul>
      *
@@ -690,7 +702,7 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
 
     /**
      * Returns the server-side encryption algorithm when encrypting the object
-     * using AWS-managed keys .
+     * using Amazon Web Services-managed keys .
      */
     @Override
     public String getSSEAlgorithm() {
@@ -707,11 +719,11 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
 
     /**
      * Sets the server-side encryption algorithm when encrypting the object
-     * using AWS-managed keys.
+     * using Amazon Web Services-managed keys.
      *
      * @param algorithm
      *            The server-side encryption algorithm when encrypting the
-     *            object using AWS-managed keys .
+     *            object using Amazon Web Services-managed keys .
      */
     @Override
     public void setSSEAlgorithm(String algorithm) {
@@ -866,6 +878,17 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
     }
 
     /**
+     * @return The archive status for the object. Returns null if the object is not archived.
+     */
+    public String getArchiveStatus() {
+        final Object archiveStatus = metadata.get(Headers.ARCHIVE_STATUS);
+        if (archiveStatus == null) {
+            return null;
+        }
+        return archiveStatus.toString();
+    }
+
+    /**
      * Returns the value of the specified user meta datum.
      */
     public String getUserMetaDataOf(String key) {
@@ -883,7 +906,7 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
     }
 
     /**
-     * Returns the AWS Key Management System key id used for Server Side
+     * Returns the Amazon Web Services Key Management System key id used for Server Side
      * Encryption of the Amazon S3 object.
      */
     public String getSSEAwsKmsKeyId() {
@@ -892,7 +915,7 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
     }
 
     /**
-     * Returns the AWS Key Management System encryption context used for Server Side
+     * Returns the Amazon Web Services Key Management System encryption context used for Server Side
      * Encryption of the Amazon S3 object.
      */
     public String getSSEAwsKmsEncryptionContext() {
@@ -990,4 +1013,22 @@ public class ObjectMetadata implements ServerSideEncryptionResult, S3RequesterCh
     public String getObjectLockLegalHoldStatus() {
         return (String) metadata.get(Headers.OBJECT_LOCK_LEGAL_HOLD_STATUS);
     }
+
+    /**
+     * Returns whether or not the object is encrypted with Bucket Key.
+     */
+    public Boolean getBucketKeyEnabled() {
+        return bucketKeyEnabled;
+    }
+
+    /**
+     * Sets whether or not the object is encrypted with Bucket Key.
+     *
+     * @param bucketKeyEnabled
+     *            Whether or not bucket key is enabled
+     */
+    public void setBucketKeyEnabled(Boolean bucketKeyEnabled) {
+        this.bucketKeyEnabled = bucketKeyEnabled;
+    }
+
 }

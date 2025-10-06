@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,24 +27,40 @@ public class GetBundlesRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A Boolean value that indicates whether to include inactive bundle results in your request.
+     * A Boolean value that indicates whether to include inactive (unavailable) bundles in the response of your request.
      * </p>
      */
     private Boolean includeInactive;
     /**
      * <p>
-     * A token used for advancing to the next page of results from your get bundles request.
+     * The token to advance to the next page of results from your request.
+     * </p>
+     * <p>
+     * To get a page token, perform an initial <code>GetBundles</code> request. If your results are paginated, the
+     * response will return a next page token that you can specify as the page token in a subsequent request.
      * </p>
      */
     private String pageToken;
+    /**
+     * <p>
+     * Returns a list of bundles that are specific to Lightsail for Research.
+     * </p>
+     * <important>
+     * <p>
+     * You must use this parameter to view Lightsail for Research bundles.
+     * </p>
+     * </important>
+     */
+    private String appCategory;
 
     /**
      * <p>
-     * A Boolean value that indicates whether to include inactive bundle results in your request.
+     * A Boolean value that indicates whether to include inactive (unavailable) bundles in the response of your request.
      * </p>
      * 
      * @param includeInactive
-     *        A Boolean value that indicates whether to include inactive bundle results in your request.
+     *        A Boolean value that indicates whether to include inactive (unavailable) bundles in the response of your
+     *        request.
      */
 
     public void setIncludeInactive(Boolean includeInactive) {
@@ -53,10 +69,11 @@ public class GetBundlesRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A Boolean value that indicates whether to include inactive bundle results in your request.
+     * A Boolean value that indicates whether to include inactive (unavailable) bundles in the response of your request.
      * </p>
      * 
-     * @return A Boolean value that indicates whether to include inactive bundle results in your request.
+     * @return A Boolean value that indicates whether to include inactive (unavailable) bundles in the response of your
+     *         request.
      */
 
     public Boolean getIncludeInactive() {
@@ -65,11 +82,12 @@ public class GetBundlesRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A Boolean value that indicates whether to include inactive bundle results in your request.
+     * A Boolean value that indicates whether to include inactive (unavailable) bundles in the response of your request.
      * </p>
      * 
      * @param includeInactive
-     *        A Boolean value that indicates whether to include inactive bundle results in your request.
+     *        A Boolean value that indicates whether to include inactive (unavailable) bundles in the response of your
+     *        request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -80,10 +98,11 @@ public class GetBundlesRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A Boolean value that indicates whether to include inactive bundle results in your request.
+     * A Boolean value that indicates whether to include inactive (unavailable) bundles in the response of your request.
      * </p>
      * 
-     * @return A Boolean value that indicates whether to include inactive bundle results in your request.
+     * @return A Boolean value that indicates whether to include inactive (unavailable) bundles in the response of your
+     *         request.
      */
 
     public Boolean isIncludeInactive() {
@@ -92,11 +111,18 @@ public class GetBundlesRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A token used for advancing to the next page of results from your get bundles request.
+     * The token to advance to the next page of results from your request.
+     * </p>
+     * <p>
+     * To get a page token, perform an initial <code>GetBundles</code> request. If your results are paginated, the
+     * response will return a next page token that you can specify as the page token in a subsequent request.
      * </p>
      * 
      * @param pageToken
-     *        A token used for advancing to the next page of results from your get bundles request.
+     *        The token to advance to the next page of results from your request.</p>
+     *        <p>
+     *        To get a page token, perform an initial <code>GetBundles</code> request. If your results are paginated,
+     *        the response will return a next page token that you can specify as the page token in a subsequent request.
      */
 
     public void setPageToken(String pageToken) {
@@ -105,10 +131,18 @@ public class GetBundlesRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A token used for advancing to the next page of results from your get bundles request.
+     * The token to advance to the next page of results from your request.
+     * </p>
+     * <p>
+     * To get a page token, perform an initial <code>GetBundles</code> request. If your results are paginated, the
+     * response will return a next page token that you can specify as the page token in a subsequent request.
      * </p>
      * 
-     * @return A token used for advancing to the next page of results from your get bundles request.
+     * @return The token to advance to the next page of results from your request.</p>
+     *         <p>
+     *         To get a page token, perform an initial <code>GetBundles</code> request. If your results are paginated,
+     *         the response will return a next page token that you can specify as the page token in a subsequent
+     *         request.
      */
 
     public String getPageToken() {
@@ -117,16 +151,114 @@ public class GetBundlesRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A token used for advancing to the next page of results from your get bundles request.
+     * The token to advance to the next page of results from your request.
+     * </p>
+     * <p>
+     * To get a page token, perform an initial <code>GetBundles</code> request. If your results are paginated, the
+     * response will return a next page token that you can specify as the page token in a subsequent request.
      * </p>
      * 
      * @param pageToken
-     *        A token used for advancing to the next page of results from your get bundles request.
+     *        The token to advance to the next page of results from your request.</p>
+     *        <p>
+     *        To get a page token, perform an initial <code>GetBundles</code> request. If your results are paginated,
+     *        the response will return a next page token that you can specify as the page token in a subsequent request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public GetBundlesRequest withPageToken(String pageToken) {
         setPageToken(pageToken);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Returns a list of bundles that are specific to Lightsail for Research.
+     * </p>
+     * <important>
+     * <p>
+     * You must use this parameter to view Lightsail for Research bundles.
+     * </p>
+     * </important>
+     * 
+     * @param appCategory
+     *        Returns a list of bundles that are specific to Lightsail for Research.</p> <important>
+     *        <p>
+     *        You must use this parameter to view Lightsail for Research bundles.
+     *        </p>
+     * @see AppCategory
+     */
+
+    public void setAppCategory(String appCategory) {
+        this.appCategory = appCategory;
+    }
+
+    /**
+     * <p>
+     * Returns a list of bundles that are specific to Lightsail for Research.
+     * </p>
+     * <important>
+     * <p>
+     * You must use this parameter to view Lightsail for Research bundles.
+     * </p>
+     * </important>
+     * 
+     * @return Returns a list of bundles that are specific to Lightsail for Research.</p> <important>
+     *         <p>
+     *         You must use this parameter to view Lightsail for Research bundles.
+     *         </p>
+     * @see AppCategory
+     */
+
+    public String getAppCategory() {
+        return this.appCategory;
+    }
+
+    /**
+     * <p>
+     * Returns a list of bundles that are specific to Lightsail for Research.
+     * </p>
+     * <important>
+     * <p>
+     * You must use this parameter to view Lightsail for Research bundles.
+     * </p>
+     * </important>
+     * 
+     * @param appCategory
+     *        Returns a list of bundles that are specific to Lightsail for Research.</p> <important>
+     *        <p>
+     *        You must use this parameter to view Lightsail for Research bundles.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AppCategory
+     */
+
+    public GetBundlesRequest withAppCategory(String appCategory) {
+        setAppCategory(appCategory);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Returns a list of bundles that are specific to Lightsail for Research.
+     * </p>
+     * <important>
+     * <p>
+     * You must use this parameter to view Lightsail for Research bundles.
+     * </p>
+     * </important>
+     * 
+     * @param appCategory
+     *        Returns a list of bundles that are specific to Lightsail for Research.</p> <important>
+     *        <p>
+     *        You must use this parameter to view Lightsail for Research bundles.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AppCategory
+     */
+
+    public GetBundlesRequest withAppCategory(AppCategory appCategory) {
+        this.appCategory = appCategory.toString();
         return this;
     }
 
@@ -145,7 +277,9 @@ public class GetBundlesRequest extends com.amazonaws.AmazonWebServiceRequest imp
         if (getIncludeInactive() != null)
             sb.append("IncludeInactive: ").append(getIncludeInactive()).append(",");
         if (getPageToken() != null)
-            sb.append("PageToken: ").append(getPageToken());
+            sb.append("PageToken: ").append(getPageToken()).append(",");
+        if (getAppCategory() != null)
+            sb.append("AppCategory: ").append(getAppCategory());
         sb.append("}");
         return sb.toString();
     }
@@ -168,6 +302,10 @@ public class GetBundlesRequest extends com.amazonaws.AmazonWebServiceRequest imp
             return false;
         if (other.getPageToken() != null && other.getPageToken().equals(this.getPageToken()) == false)
             return false;
+        if (other.getAppCategory() == null ^ this.getAppCategory() == null)
+            return false;
+        if (other.getAppCategory() != null && other.getAppCategory().equals(this.getAppCategory()) == false)
+            return false;
         return true;
     }
 
@@ -178,6 +316,7 @@ public class GetBundlesRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
         hashCode = prime * hashCode + ((getIncludeInactive() == null) ? 0 : getIncludeInactive().hashCode());
         hashCode = prime * hashCode + ((getPageToken() == null) ? 0 : getPageToken().hashCode());
+        hashCode = prime * hashCode + ((getAppCategory() == null) ? 0 : getAppCategory().hashCode());
         return hashCode;
     }
 

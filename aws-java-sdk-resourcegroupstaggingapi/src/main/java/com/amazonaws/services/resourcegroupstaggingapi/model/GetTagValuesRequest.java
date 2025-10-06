@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,28 +27,28 @@ public class GetTagValuesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A string that indicates that additional data is available. Leave this value empty for your initial request. If
-     * the response includes a PaginationToken, use that string for this value to request an additional page of data.
+     * Specifies a <code>PaginationToken</code> response value from a previous request to indicate that you want the
+     * next page of results. Leave this parameter empty in your initial request.
      * </p>
      */
     private String paginationToken;
     /**
      * <p>
-     * The key for which you want to list all existing values in the specified region for the AWS account.
+     * Specifies the tag key for which you want to list all existing values that are currently used in the specified
+     * Amazon Web Services Region for the calling account.
      * </p>
      */
     private String key;
 
     /**
      * <p>
-     * A string that indicates that additional data is available. Leave this value empty for your initial request. If
-     * the response includes a PaginationToken, use that string for this value to request an additional page of data.
+     * Specifies a <code>PaginationToken</code> response value from a previous request to indicate that you want the
+     * next page of results. Leave this parameter empty in your initial request.
      * </p>
      * 
      * @param paginationToken
-     *        A string that indicates that additional data is available. Leave this value empty for your initial
-     *        request. If the response includes a PaginationToken, use that string for this value to request an
-     *        additional page of data.
+     *        Specifies a <code>PaginationToken</code> response value from a previous request to indicate that you want
+     *        the next page of results. Leave this parameter empty in your initial request.
      */
 
     public void setPaginationToken(String paginationToken) {
@@ -57,13 +57,12 @@ public class GetTagValuesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A string that indicates that additional data is available. Leave this value empty for your initial request. If
-     * the response includes a PaginationToken, use that string for this value to request an additional page of data.
+     * Specifies a <code>PaginationToken</code> response value from a previous request to indicate that you want the
+     * next page of results. Leave this parameter empty in your initial request.
      * </p>
      * 
-     * @return A string that indicates that additional data is available. Leave this value empty for your initial
-     *         request. If the response includes a PaginationToken, use that string for this value to request an
-     *         additional page of data.
+     * @return Specifies a <code>PaginationToken</code> response value from a previous request to indicate that you want
+     *         the next page of results. Leave this parameter empty in your initial request.
      */
 
     public String getPaginationToken() {
@@ -72,14 +71,13 @@ public class GetTagValuesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A string that indicates that additional data is available. Leave this value empty for your initial request. If
-     * the response includes a PaginationToken, use that string for this value to request an additional page of data.
+     * Specifies a <code>PaginationToken</code> response value from a previous request to indicate that you want the
+     * next page of results. Leave this parameter empty in your initial request.
      * </p>
      * 
      * @param paginationToken
-     *        A string that indicates that additional data is available. Leave this value empty for your initial
-     *        request. If the response includes a PaginationToken, use that string for this value to request an
-     *        additional page of data.
+     *        Specifies a <code>PaginationToken</code> response value from a previous request to indicate that you want
+     *        the next page of results. Leave this parameter empty in your initial request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -90,11 +88,13 @@ public class GetTagValuesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The key for which you want to list all existing values in the specified region for the AWS account.
+     * Specifies the tag key for which you want to list all existing values that are currently used in the specified
+     * Amazon Web Services Region for the calling account.
      * </p>
      * 
      * @param key
-     *        The key for which you want to list all existing values in the specified region for the AWS account.
+     *        Specifies the tag key for which you want to list all existing values that are currently used in the
+     *        specified Amazon Web Services Region for the calling account.
      */
 
     public void setKey(String key) {
@@ -103,10 +103,12 @@ public class GetTagValuesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The key for which you want to list all existing values in the specified region for the AWS account.
+     * Specifies the tag key for which you want to list all existing values that are currently used in the specified
+     * Amazon Web Services Region for the calling account.
      * </p>
      * 
-     * @return The key for which you want to list all existing values in the specified region for the AWS account.
+     * @return Specifies the tag key for which you want to list all existing values that are currently used in the
+     *         specified Amazon Web Services Region for the calling account.
      */
 
     public String getKey() {
@@ -115,11 +117,13 @@ public class GetTagValuesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The key for which you want to list all existing values in the specified region for the AWS account.
+     * Specifies the tag key for which you want to list all existing values that are currently used in the specified
+     * Amazon Web Services Region for the calling account.
      * </p>
      * 
      * @param key
-     *        The key for which you want to list all existing values in the specified region for the AWS account.
+     *        Specifies the tag key for which you want to list all existing values that are currently used in the
+     *        specified Amazon Web Services Region for the calling account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

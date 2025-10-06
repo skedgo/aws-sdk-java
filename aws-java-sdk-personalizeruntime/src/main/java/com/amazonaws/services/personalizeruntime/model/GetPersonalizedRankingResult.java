@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,17 +25,23 @@ public class GetPersonalizedRankingResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A list of items in order of most likely interest to the user.
+     * A list of items in order of most likely interest to the user. The maximum is 500.
      * </p>
      */
     private java.util.List<PredictedItem> personalizedRanking;
+    /**
+     * <p>
+     * The ID of the recommendation.
+     * </p>
+     */
+    private String recommendationId;
 
     /**
      * <p>
-     * A list of items in order of most likely interest to the user.
+     * A list of items in order of most likely interest to the user. The maximum is 500.
      * </p>
      * 
-     * @return A list of items in order of most likely interest to the user.
+     * @return A list of items in order of most likely interest to the user. The maximum is 500.
      */
 
     public java.util.List<PredictedItem> getPersonalizedRanking() {
@@ -44,11 +50,11 @@ public class GetPersonalizedRankingResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A list of items in order of most likely interest to the user.
+     * A list of items in order of most likely interest to the user. The maximum is 500.
      * </p>
      * 
      * @param personalizedRanking
-     *        A list of items in order of most likely interest to the user.
+     *        A list of items in order of most likely interest to the user. The maximum is 500.
      */
 
     public void setPersonalizedRanking(java.util.Collection<PredictedItem> personalizedRanking) {
@@ -62,7 +68,7 @@ public class GetPersonalizedRankingResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A list of items in order of most likely interest to the user.
+     * A list of items in order of most likely interest to the user. The maximum is 500.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -71,7 +77,7 @@ public class GetPersonalizedRankingResult extends com.amazonaws.AmazonWebService
      * </p>
      * 
      * @param personalizedRanking
-     *        A list of items in order of most likely interest to the user.
+     *        A list of items in order of most likely interest to the user. The maximum is 500.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -87,16 +93,56 @@ public class GetPersonalizedRankingResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A list of items in order of most likely interest to the user.
+     * A list of items in order of most likely interest to the user. The maximum is 500.
      * </p>
      * 
      * @param personalizedRanking
-     *        A list of items in order of most likely interest to the user.
+     *        A list of items in order of most likely interest to the user. The maximum is 500.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public GetPersonalizedRankingResult withPersonalizedRanking(java.util.Collection<PredictedItem> personalizedRanking) {
         setPersonalizedRanking(personalizedRanking);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the recommendation.
+     * </p>
+     * 
+     * @param recommendationId
+     *        The ID of the recommendation.
+     */
+
+    public void setRecommendationId(String recommendationId) {
+        this.recommendationId = recommendationId;
+    }
+
+    /**
+     * <p>
+     * The ID of the recommendation.
+     * </p>
+     * 
+     * @return The ID of the recommendation.
+     */
+
+    public String getRecommendationId() {
+        return this.recommendationId;
+    }
+
+    /**
+     * <p>
+     * The ID of the recommendation.
+     * </p>
+     * 
+     * @param recommendationId
+     *        The ID of the recommendation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPersonalizedRankingResult withRecommendationId(String recommendationId) {
+        setRecommendationId(recommendationId);
         return this;
     }
 
@@ -113,7 +159,9 @@ public class GetPersonalizedRankingResult extends com.amazonaws.AmazonWebService
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getPersonalizedRanking() != null)
-            sb.append("PersonalizedRanking: ").append(getPersonalizedRanking());
+            sb.append("PersonalizedRanking: ").append(getPersonalizedRanking()).append(",");
+        if (getRecommendationId() != null)
+            sb.append("RecommendationId: ").append(getRecommendationId());
         sb.append("}");
         return sb.toString();
     }
@@ -132,6 +180,10 @@ public class GetPersonalizedRankingResult extends com.amazonaws.AmazonWebService
             return false;
         if (other.getPersonalizedRanking() != null && other.getPersonalizedRanking().equals(this.getPersonalizedRanking()) == false)
             return false;
+        if (other.getRecommendationId() == null ^ this.getRecommendationId() == null)
+            return false;
+        if (other.getRecommendationId() != null && other.getRecommendationId().equals(this.getRecommendationId()) == false)
+            return false;
         return true;
     }
 
@@ -141,6 +193,7 @@ public class GetPersonalizedRankingResult extends com.amazonaws.AmazonWebService
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getPersonalizedRanking() == null) ? 0 : getPersonalizedRanking().hashCode());
+        hashCode = prime * hashCode + ((getRecommendationId() == null) ? 0 : getRecommendationId().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2015-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,22 +56,21 @@ public interface IDynamoDBMapper {
     <T extends Object> DynamoDBMapperTableModel<T> getTableModel(Class<T> clazz, DynamoDBMapperConfig config);
 
     /**
-     * Loads an object with the hash key given and a configuration override. This configuration
-     * overrides the default provided at object construction.
+     * Returns an object with the given hash key, or null if no such item exists.
      *
      * @see DynamoDBMapper#load(Class, Object, Object, DynamoDBMapperConfig)
      */
     <T extends Object> T load(Class<T> clazz, Object hashKey, DynamoDBMapperConfig config);
 
     /**
-     * Loads an object with the hash key given, using the default configuration.
+     * Returns an object with the given hash key, or null if no such item exists.
      *
      * @see DynamoDBMapper#load(Class, Object, Object, DynamoDBMapperConfig)
      */
     <T extends Object> T load(Class<T> clazz, Object hashKey);
 
     /**
-     * Loads an object with a hash and range key, using the default configuration.
+     * Returns an object with the given hash and range key, or null if no such item exists.
      *
      * @see DynamoDBMapper#load(Class, Object, Object, DynamoDBMapperConfig)
      */
@@ -88,7 +87,7 @@ public interface IDynamoDBMapper {
     <T extends Object> T load(T keyObject);
 
     /**
-     * Returns an object whose keys match those of the prototype key object given, or null if no
+     * Returns an object whose keys match those of the given prototype key object, or null if no
      * such item exists.
      *
      * @param keyObject
@@ -100,7 +99,7 @@ public interface IDynamoDBMapper {
     <T extends Object> T load(T keyObject, DynamoDBMapperConfig config);
 
     /**
-     * Returns an object with the given hash key, or null if no such object exists.
+     * Returns an object with the given hash key and range key, or null if no such object exists.
      *
      * @param clazz
      *            The class to load, corresponding to a DynamoDB table.
@@ -232,8 +231,9 @@ public interface IDynamoDBMapper {
      * as if SaveBehavior is set as CLOBBER.</b>
      * </p>
      * <p>
-     * <b>This method does not support versioning annotations. It throws {@link com.amazonaws.SdkClientException} exception if
-     * class of any input object is annotated with {@link DynamoDBVersionAttribute} or {@link DynamoDBVersioned}</b>
+     * <b>This method supports versioning annotations, but not in conjunction with condition expressions. It throws
+     * {@link com.amazonaws.SdkClientException} exception if class of any input object is annotated with
+     * {@link DynamoDBVersionAttribute} or {@link DynamoDBVersioned} and a condition expression is also present</b>
      * </p>
      * <p>
      * Any exceptions from underlying API are thrown as is. For more information, please refer
@@ -256,8 +256,9 @@ public interface IDynamoDBMapper {
      * as if SaveBehavior is set as CLOBBER.</b>
      * </p>
      * <p>
-     * <b>This method does not support versioning annotations. It throws {@link com.amazonaws.SdkClientException} exception if
-     * class of any input object is annotated with {@link DynamoDBVersionAttribute} or {@link DynamoDBVersioned}</b>
+     * <b>This method supports versioning annotations, but not in conjunction with condition expressions. It throws
+     * {@link com.amazonaws.SdkClientException} exception if class of any input object is annotated with
+     * {@link DynamoDBVersionAttribute} or {@link DynamoDBVersioned} and a condition expression is also present</b>
      * </p>
      * <p>
      * Any exceptions from underlying API are thrown as is. For more information, please refer
@@ -719,7 +720,7 @@ public interface IDynamoDBMapper {
      * @param clazz
      *            The class mapped to a DynamoDB table.
      * @param queryExpression
-     *            The parameters for running the scan.
+     *            The parameters for running the query.
      * @param config
      *            The mapper configuration to use for the query, which overrides the default
      *            provided at object construction.

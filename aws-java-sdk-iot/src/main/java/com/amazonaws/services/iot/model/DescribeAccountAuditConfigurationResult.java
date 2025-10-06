@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,7 +21,7 @@ public class DescribeAccountAuditConfigurationResult extends com.amazonaws.Amazo
 
     /**
      * <p>
-     * The ARN of the role that grants permission to AWS IoT to access information about your devices, policies,
+     * The ARN of the role that grants permission to IoT to access information about your devices, policies,
      * certificates, and other items as required when performing an audit.
      * </p>
      * <p>
@@ -44,7 +44,7 @@ public class DescribeAccountAuditConfigurationResult extends com.amazonaws.Amazo
 
     /**
      * <p>
-     * The ARN of the role that grants permission to AWS IoT to access information about your devices, policies,
+     * The ARN of the role that grants permission to IoT to access information about your devices, policies,
      * certificates, and other items as required when performing an audit.
      * </p>
      * <p>
@@ -52,7 +52,7 @@ public class DescribeAccountAuditConfigurationResult extends com.amazonaws.Amazo
      * </p>
      * 
      * @param roleArn
-     *        The ARN of the role that grants permission to AWS IoT to access information about your devices, policies,
+     *        The ARN of the role that grants permission to IoT to access information about your devices, policies,
      *        certificates, and other items as required when performing an audit.</p>
      *        <p>
      *        On the first call to <code>UpdateAccountAuditConfiguration</code>, this parameter is required.
@@ -64,14 +64,14 @@ public class DescribeAccountAuditConfigurationResult extends com.amazonaws.Amazo
 
     /**
      * <p>
-     * The ARN of the role that grants permission to AWS IoT to access information about your devices, policies,
+     * The ARN of the role that grants permission to IoT to access information about your devices, policies,
      * certificates, and other items as required when performing an audit.
      * </p>
      * <p>
      * On the first call to <code>UpdateAccountAuditConfiguration</code>, this parameter is required.
      * </p>
      * 
-     * @return The ARN of the role that grants permission to AWS IoT to access information about your devices, policies,
+     * @return The ARN of the role that grants permission to IoT to access information about your devices, policies,
      *         certificates, and other items as required when performing an audit.</p>
      *         <p>
      *         On the first call to <code>UpdateAccountAuditConfiguration</code>, this parameter is required.
@@ -83,7 +83,7 @@ public class DescribeAccountAuditConfigurationResult extends com.amazonaws.Amazo
 
     /**
      * <p>
-     * The ARN of the role that grants permission to AWS IoT to access information about your devices, policies,
+     * The ARN of the role that grants permission to IoT to access information about your devices, policies,
      * certificates, and other items as required when performing an audit.
      * </p>
      * <p>
@@ -91,7 +91,7 @@ public class DescribeAccountAuditConfigurationResult extends com.amazonaws.Amazo
      * </p>
      * 
      * @param roleArn
-     *        The ARN of the role that grants permission to AWS IoT to access information about your devices, policies,
+     *        The ARN of the role that grants permission to IoT to access information about your devices, policies,
      *        certificates, and other items as required when performing an audit.</p>
      *        <p>
      *        On the first call to <code>UpdateAccountAuditConfiguration</code>, this parameter is required.
@@ -143,6 +143,13 @@ public class DescribeAccountAuditConfigurationResult extends com.amazonaws.Amazo
         setAuditNotificationTargetConfigurations(auditNotificationTargetConfigurations);
         return this;
     }
+
+    /**
+     * Add a single AuditNotificationTargetConfigurations entry
+     *
+     * @see DescribeAccountAuditConfigurationResult#withAuditNotificationTargetConfigurations
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public DescribeAccountAuditConfigurationResult addAuditNotificationTargetConfigurationsEntry(String key, AuditNotificationTarget value) {
         if (null == this.auditNotificationTargetConfigurations) {
@@ -204,6 +211,13 @@ public class DescribeAccountAuditConfigurationResult extends com.amazonaws.Amazo
         setAuditCheckConfigurations(auditCheckConfigurations);
         return this;
     }
+
+    /**
+     * Add a single AuditCheckConfigurations entry
+     *
+     * @see DescribeAccountAuditConfigurationResult#withAuditCheckConfigurations
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public DescribeAccountAuditConfigurationResult addAuditCheckConfigurationsEntry(String key, AuditCheckConfiguration value) {
         if (null == this.auditCheckConfigurations) {

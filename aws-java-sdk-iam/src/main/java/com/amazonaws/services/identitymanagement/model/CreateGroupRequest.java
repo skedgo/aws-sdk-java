@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,7 @@ public class CreateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * The path to the group. For more information about paths, see <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM Identifiers</a> in the <i>IAM
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM
      * User Guide</i>.
      * </p>
      * <p>
@@ -37,8 +37,8 @@ public class CreateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
      * characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward
-     * slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL character (\u007F),
-     * including most punctuation characters, digits, and upper and lowercased letters.
+     * slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through the DEL
+     * character (<code>\u007F</code>), including most punctuation characters, digits, and upper and lowercased letters.
      * </p>
      */
     private String path;
@@ -77,7 +77,7 @@ public class CreateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * The path to the group. For more information about paths, see <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM Identifiers</a> in the <i>IAM
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM
      * User Guide</i>.
      * </p>
      * <p>
@@ -86,13 +86,13 @@ public class CreateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
      * characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward
-     * slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL character (\u007F),
-     * including most punctuation characters, digits, and upper and lowercased letters.
+     * slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through the DEL
+     * character (<code>\u007F</code>), including most punctuation characters, digits, and upper and lowercased letters.
      * </p>
      * 
      * @param path
      *        The path to the group. For more information about paths, see <a
-     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM Identifiers</a> in the
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the
      *        <i>IAM User Guide</i>.</p>
      *        <p>
      *        This parameter is optional. If it is not included, it defaults to a slash (/).
@@ -100,8 +100,9 @@ public class CreateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        <p>
      *        This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string
      *        of characters consisting of either a forward slash (/) by itself or a string that must begin and end with
-     *        forward slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL
-     *        character (\u007F), including most punctuation characters, digits, and upper and lowercased letters.
+     *        forward slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through
+     *        the DEL character (<code>\u007F</code>), including most punctuation characters, digits, and upper and
+     *        lowercased letters.
      */
 
     public void setPath(String path) {
@@ -111,7 +112,7 @@ public class CreateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * The path to the group. For more information about paths, see <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM Identifiers</a> in the <i>IAM
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM
      * User Guide</i>.
      * </p>
      * <p>
@@ -120,12 +121,12 @@ public class CreateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
      * characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward
-     * slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL character (\u007F),
-     * including most punctuation characters, digits, and upper and lowercased letters.
+     * slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through the DEL
+     * character (<code>\u007F</code>), including most punctuation characters, digits, and upper and lowercased letters.
      * </p>
      * 
      * @return The path to the group. For more information about paths, see <a
-     *         href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM Identifiers</a> in the
+     *         href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the
      *         <i>IAM User Guide</i>.</p>
      *         <p>
      *         This parameter is optional. If it is not included, it defaults to a slash (/).
@@ -133,8 +134,9 @@ public class CreateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
      *         <p>
      *         This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string
      *         of characters consisting of either a forward slash (/) by itself or a string that must begin and end with
-     *         forward slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL
-     *         character (\u007F), including most punctuation characters, digits, and upper and lowercased letters.
+     *         forward slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through
+     *         the DEL character (<code>\u007F</code>), including most punctuation characters, digits, and upper and
+     *         lowercased letters.
      */
 
     public String getPath() {
@@ -144,7 +146,7 @@ public class CreateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * The path to the group. For more information about paths, see <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM Identifiers</a> in the <i>IAM
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM
      * User Guide</i>.
      * </p>
      * <p>
@@ -153,13 +155,13 @@ public class CreateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
      * characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward
-     * slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL character (\u007F),
-     * including most punctuation characters, digits, and upper and lowercased letters.
+     * slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through the DEL
+     * character (<code>\u007F</code>), including most punctuation characters, digits, and upper and lowercased letters.
      * </p>
      * 
      * @param path
      *        The path to the group. For more information about paths, see <a
-     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM Identifiers</a> in the
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the
      *        <i>IAM User Guide</i>.</p>
      *        <p>
      *        This parameter is optional. If it is not included, it defaults to a slash (/).
@@ -167,8 +169,9 @@ public class CreateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        <p>
      *        This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string
      *        of characters consisting of either a forward slash (/) by itself or a string that must begin and end with
-     *        forward slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL
-     *        character (\u007F), including most punctuation characters, digits, and upper and lowercased letters.
+     *        forward slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through
+     *        the DEL character (<code>\u007F</code>), including most punctuation characters, digits, and upper and
+     *        lowercased letters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

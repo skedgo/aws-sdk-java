@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Describes a scheduled scaling action. Used in response to <a>DescribeScheduledActions</a>.
+ * Describes a scheduled scaling action.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/ScheduledUpdateGroupAction"
@@ -46,7 +46,7 @@ public class ScheduledUpdateGroupAction implements Serializable, Cloneable {
     private String scheduledActionARN;
     /**
      * <p>
-     * This parameter is deprecated.
+     * This property is no longer used.
      * </p>
      */
     private java.util.Date time;
@@ -74,22 +74,29 @@ public class ScheduledUpdateGroupAction implements Serializable, Cloneable {
     private String recurrence;
     /**
      * <p>
-     * The minimum number of instances in the Auto Scaling group.
+     * The minimum size of the Auto Scaling group.
      * </p>
      */
     private Integer minSize;
     /**
      * <p>
-     * The maximum number of instances in the Auto Scaling group.
+     * The maximum size of the Auto Scaling group.
      * </p>
      */
     private Integer maxSize;
     /**
      * <p>
-     * The number of instances you prefer to maintain in the group.
+     * The desired capacity is the initial capacity of the Auto Scaling group after the scheduled action runs and the
+     * capacity it attempts to maintain.
      * </p>
      */
     private Integer desiredCapacity;
+    /**
+     * <p>
+     * The time zone for the cron expression.
+     * </p>
+     */
+    private String timeZone;
 
     /**
      * <p>
@@ -213,11 +220,11 @@ public class ScheduledUpdateGroupAction implements Serializable, Cloneable {
 
     /**
      * <p>
-     * This parameter is deprecated.
+     * This property is no longer used.
      * </p>
      * 
      * @param time
-     *        This parameter is deprecated.
+     *        This property is no longer used.
      */
 
     public void setTime(java.util.Date time) {
@@ -226,10 +233,10 @@ public class ScheduledUpdateGroupAction implements Serializable, Cloneable {
 
     /**
      * <p>
-     * This parameter is deprecated.
+     * This property is no longer used.
      * </p>
      * 
-     * @return This parameter is deprecated.
+     * @return This property is no longer used.
      */
 
     public java.util.Date getTime() {
@@ -238,11 +245,11 @@ public class ScheduledUpdateGroupAction implements Serializable, Cloneable {
 
     /**
      * <p>
-     * This parameter is deprecated.
+     * This property is no longer used.
      * </p>
      * 
      * @param time
-     *        This parameter is deprecated.
+     *        This property is no longer used.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -344,7 +351,7 @@ public class ScheduledUpdateGroupAction implements Serializable, Cloneable {
      * </p>
      * 
      * @param recurrence
-     *        The recurring schedule for the action, in Unix cron syntax format. </p>
+     *        The recurring schedule for the action, in Unix cron syntax format.</p>
      *        <p>
      *        When <code>StartTime</code> and <code>EndTime</code> are specified with <code>Recurrence</code>, they form
      *        the boundaries of when the recurring action starts and stops.
@@ -363,7 +370,7 @@ public class ScheduledUpdateGroupAction implements Serializable, Cloneable {
      * boundaries of when the recurring action starts and stops.
      * </p>
      * 
-     * @return The recurring schedule for the action, in Unix cron syntax format. </p>
+     * @return The recurring schedule for the action, in Unix cron syntax format.</p>
      *         <p>
      *         When <code>StartTime</code> and <code>EndTime</code> are specified with <code>Recurrence</code>, they
      *         form the boundaries of when the recurring action starts and stops.
@@ -383,7 +390,7 @@ public class ScheduledUpdateGroupAction implements Serializable, Cloneable {
      * </p>
      * 
      * @param recurrence
-     *        The recurring schedule for the action, in Unix cron syntax format. </p>
+     *        The recurring schedule for the action, in Unix cron syntax format.</p>
      *        <p>
      *        When <code>StartTime</code> and <code>EndTime</code> are specified with <code>Recurrence</code>, they form
      *        the boundaries of when the recurring action starts and stops.
@@ -397,11 +404,11 @@ public class ScheduledUpdateGroupAction implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The minimum number of instances in the Auto Scaling group.
+     * The minimum size of the Auto Scaling group.
      * </p>
      * 
      * @param minSize
-     *        The minimum number of instances in the Auto Scaling group.
+     *        The minimum size of the Auto Scaling group.
      */
 
     public void setMinSize(Integer minSize) {
@@ -410,10 +417,10 @@ public class ScheduledUpdateGroupAction implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The minimum number of instances in the Auto Scaling group.
+     * The minimum size of the Auto Scaling group.
      * </p>
      * 
-     * @return The minimum number of instances in the Auto Scaling group.
+     * @return The minimum size of the Auto Scaling group.
      */
 
     public Integer getMinSize() {
@@ -422,11 +429,11 @@ public class ScheduledUpdateGroupAction implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The minimum number of instances in the Auto Scaling group.
+     * The minimum size of the Auto Scaling group.
      * </p>
      * 
      * @param minSize
-     *        The minimum number of instances in the Auto Scaling group.
+     *        The minimum size of the Auto Scaling group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -437,11 +444,11 @@ public class ScheduledUpdateGroupAction implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum number of instances in the Auto Scaling group.
+     * The maximum size of the Auto Scaling group.
      * </p>
      * 
      * @param maxSize
-     *        The maximum number of instances in the Auto Scaling group.
+     *        The maximum size of the Auto Scaling group.
      */
 
     public void setMaxSize(Integer maxSize) {
@@ -450,10 +457,10 @@ public class ScheduledUpdateGroupAction implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum number of instances in the Auto Scaling group.
+     * The maximum size of the Auto Scaling group.
      * </p>
      * 
-     * @return The maximum number of instances in the Auto Scaling group.
+     * @return The maximum size of the Auto Scaling group.
      */
 
     public Integer getMaxSize() {
@@ -462,11 +469,11 @@ public class ScheduledUpdateGroupAction implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum number of instances in the Auto Scaling group.
+     * The maximum size of the Auto Scaling group.
      * </p>
      * 
      * @param maxSize
-     *        The maximum number of instances in the Auto Scaling group.
+     *        The maximum size of the Auto Scaling group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -477,11 +484,13 @@ public class ScheduledUpdateGroupAction implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of instances you prefer to maintain in the group.
+     * The desired capacity is the initial capacity of the Auto Scaling group after the scheduled action runs and the
+     * capacity it attempts to maintain.
      * </p>
      * 
      * @param desiredCapacity
-     *        The number of instances you prefer to maintain in the group.
+     *        The desired capacity is the initial capacity of the Auto Scaling group after the scheduled action runs and
+     *        the capacity it attempts to maintain.
      */
 
     public void setDesiredCapacity(Integer desiredCapacity) {
@@ -490,10 +499,12 @@ public class ScheduledUpdateGroupAction implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of instances you prefer to maintain in the group.
+     * The desired capacity is the initial capacity of the Auto Scaling group after the scheduled action runs and the
+     * capacity it attempts to maintain.
      * </p>
      * 
-     * @return The number of instances you prefer to maintain in the group.
+     * @return The desired capacity is the initial capacity of the Auto Scaling group after the scheduled action runs
+     *         and the capacity it attempts to maintain.
      */
 
     public Integer getDesiredCapacity() {
@@ -502,16 +513,58 @@ public class ScheduledUpdateGroupAction implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of instances you prefer to maintain in the group.
+     * The desired capacity is the initial capacity of the Auto Scaling group after the scheduled action runs and the
+     * capacity it attempts to maintain.
      * </p>
      * 
      * @param desiredCapacity
-     *        The number of instances you prefer to maintain in the group.
+     *        The desired capacity is the initial capacity of the Auto Scaling group after the scheduled action runs and
+     *        the capacity it attempts to maintain.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ScheduledUpdateGroupAction withDesiredCapacity(Integer desiredCapacity) {
         setDesiredCapacity(desiredCapacity);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The time zone for the cron expression.
+     * </p>
+     * 
+     * @param timeZone
+     *        The time zone for the cron expression.
+     */
+
+    public void setTimeZone(String timeZone) {
+        this.timeZone = timeZone;
+    }
+
+    /**
+     * <p>
+     * The time zone for the cron expression.
+     * </p>
+     * 
+     * @return The time zone for the cron expression.
+     */
+
+    public String getTimeZone() {
+        return this.timeZone;
+    }
+
+    /**
+     * <p>
+     * The time zone for the cron expression.
+     * </p>
+     * 
+     * @param timeZone
+     *        The time zone for the cron expression.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ScheduledUpdateGroupAction withTimeZone(String timeZone) {
+        setTimeZone(timeZone);
         return this;
     }
 
@@ -546,7 +599,9 @@ public class ScheduledUpdateGroupAction implements Serializable, Cloneable {
         if (getMaxSize() != null)
             sb.append("MaxSize: ").append(getMaxSize()).append(",");
         if (getDesiredCapacity() != null)
-            sb.append("DesiredCapacity: ").append(getDesiredCapacity());
+            sb.append("DesiredCapacity: ").append(getDesiredCapacity()).append(",");
+        if (getTimeZone() != null)
+            sb.append("TimeZone: ").append(getTimeZone());
         sb.append("}");
         return sb.toString();
     }
@@ -601,6 +656,10 @@ public class ScheduledUpdateGroupAction implements Serializable, Cloneable {
             return false;
         if (other.getDesiredCapacity() != null && other.getDesiredCapacity().equals(this.getDesiredCapacity()) == false)
             return false;
+        if (other.getTimeZone() == null ^ this.getTimeZone() == null)
+            return false;
+        if (other.getTimeZone() != null && other.getTimeZone().equals(this.getTimeZone()) == false)
+            return false;
         return true;
     }
 
@@ -619,6 +678,7 @@ public class ScheduledUpdateGroupAction implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getMinSize() == null) ? 0 : getMinSize().hashCode());
         hashCode = prime * hashCode + ((getMaxSize() == null) ? 0 : getMaxSize().hashCode());
         hashCode = prime * hashCode + ((getDesiredCapacity() == null) ? 0 : getDesiredCapacity().hashCode());
+        hashCode = prime * hashCode + ((getTimeZone() == null) ? 0 : getTimeZone().hashCode());
         return hashCode;
     }
 

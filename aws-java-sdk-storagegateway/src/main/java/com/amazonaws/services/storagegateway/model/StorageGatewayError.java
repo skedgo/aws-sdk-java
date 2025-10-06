@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Provides additional information about an error that was returned by the service as an or. See the
- * <code>errorCode</code> and <code>errorDetails</code> members for more information about the error.
+ * Provides additional information about an error that was returned by the service. See the <code>errorCode</code> and
+ * <code>errorDetails</code> members for more information about the error.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/StorageGatewayError" target="_top">AWS
@@ -154,6 +154,13 @@ public class StorageGatewayError implements Serializable, Cloneable, StructuredP
         setErrorDetails(errorDetails);
         return this;
     }
+
+    /**
+     * Add a single ErrorDetails entry
+     *
+     * @see StorageGatewayError#withErrorDetails
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public StorageGatewayError addErrorDetailsEntry(String key, String value) {
         if (null == this.errorDetails) {

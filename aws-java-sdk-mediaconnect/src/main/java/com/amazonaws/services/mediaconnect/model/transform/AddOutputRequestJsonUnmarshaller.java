@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,7 +50,9 @@ public class AddOutputRequestJsonUnmarshaller implements Unmarshaller<AddOutputR
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("cidrAllowList", targetDepth)) {
                     context.nextToken();
-                    addOutputRequest.setCidrAllowList(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    addOutputRequest.setCidrAllowList(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("description", targetDepth)) {
                     context.nextToken();
@@ -68,6 +70,17 @@ public class AddOutputRequestJsonUnmarshaller implements Unmarshaller<AddOutputR
                     context.nextToken();
                     addOutputRequest.setMaxLatency(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
+                if (context.testExpression("mediaStreamOutputConfigurations", targetDepth)) {
+                    context.nextToken();
+                    addOutputRequest.setMediaStreamOutputConfigurations(new ListUnmarshaller<MediaStreamOutputConfigurationRequest>(
+                            MediaStreamOutputConfigurationRequestJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("minLatency", targetDepth)) {
+                    context.nextToken();
+                    addOutputRequest.setMinLatency(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
                 if (context.testExpression("name", targetDepth)) {
                     context.nextToken();
                     addOutputRequest.setName(context.getUnmarshaller(String.class).unmarshall(context));
@@ -84,6 +97,10 @@ public class AddOutputRequestJsonUnmarshaller implements Unmarshaller<AddOutputR
                     context.nextToken();
                     addOutputRequest.setRemoteId(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("senderControlPort", targetDepth)) {
+                    context.nextToken();
+                    addOutputRequest.setSenderControlPort(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
                 if (context.testExpression("smoothingLatency", targetDepth)) {
                     context.nextToken();
                     addOutputRequest.setSmoothingLatency(context.getUnmarshaller(Integer.class).unmarshall(context));
@@ -91,6 +108,14 @@ public class AddOutputRequestJsonUnmarshaller implements Unmarshaller<AddOutputR
                 if (context.testExpression("streamId", targetDepth)) {
                     context.nextToken();
                     addOutputRequest.setStreamId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("vpcInterfaceAttachment", targetDepth)) {
+                    context.nextToken();
+                    addOutputRequest.setVpcInterfaceAttachment(VpcInterfaceAttachmentJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("outputStatus", targetDepth)) {
+                    context.nextToken();
+                    addOutputRequest.setOutputStatus(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

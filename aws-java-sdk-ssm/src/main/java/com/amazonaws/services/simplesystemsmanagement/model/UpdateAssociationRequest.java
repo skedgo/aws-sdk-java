@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,8 +33,9 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
     private String associationId;
     /**
      * <p>
-     * The parameters you want to update for the association. If you create a parameter using Parameter Store, you can
-     * reference the parameter using {{ssm:parameter-name}}
+     * The parameters you want to update for the association. If you create a parameter using Parameter Store, a
+     * capability of Amazon Web Services Systems Manager, you can reference the parameter using
+     * <code>{{ssm:parameter-name}}</code>.
      * </p>
      */
     private java.util.Map<String, java.util.List<String>> parameters;
@@ -42,6 +43,15 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      * <p>
      * The document version you want update for the association.
      * </p>
+     * <important>
+     * <p>
+     * State Manager doesn't support running associations that use a new version of a document if that document is
+     * shared from another account. State Manager always runs the <code>default</code> version of a document if shared
+     * from another account, even though the Systems Manager console shows that a new version was processed. If you want
+     * to run an association using a new version of a document shared form another account, you must set the document
+     * version to <code>default</code>.
+     * </p>
+     * </important>
      */
     private String documentVersion;
     /**
@@ -52,22 +62,22 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
     private String scheduleExpression;
     /**
      * <p>
-     * An Amazon S3 bucket where you want to store the results of this request.
+     * An S3 bucket where you want to store the results of this request.
      * </p>
      */
     private InstanceAssociationOutputLocation outputLocation;
     /**
      * <p>
-     * The name of the SSM document that contains the configuration information for the instance. You can specify
-     * Command or Automation documents.
+     * The name of the SSM Command document or Automation runbook that contains the configuration information for the
+     * managed node.
      * </p>
      * <p>
-     * You can specify AWS-predefined documents, documents you created, or a document that is shared with you from
-     * another account.
+     * You can specify Amazon Web Services-predefined documents, documents you created, or a document that is shared
+     * with you from another account.
      * </p>
      * <p>
-     * For SSM documents that are shared with you from other AWS accounts, you must specify the complete SSM document
-     * ARN, in the following format:
+     * For Systems Manager document (SSM document) that are shared with you from other Amazon Web Services accounts, you
+     * must specify the complete SSM document ARN, in the following format:
      * </p>
      * <p>
      * <code>arn:aws:ssm:<i>region</i>:<i>account-id</i>:document/<i>document-name</i> </code>
@@ -79,8 +89,8 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      * <code>arn:aws:ssm:us-east-2:12345678912:document/My-Shared-Document</code>
      * </p>
      * <p>
-     * For AWS-predefined documents and SSM documents you created in your account, you only need to specify the document
-     * name. For example, <code>AWS-ApplyPatchBaseline</code> or <code>My-Document</code>.
+     * For Amazon Web Services-predefined documents and SSM documents you created in your account, you only need to
+     * specify the document name. For example, <code>AWS-ApplyPatchBaseline</code> or <code>My-Document</code>.
      * </p>
      */
     private String name;
@@ -106,8 +116,9 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
     private String associationVersion;
     /**
      * <p>
-     * Specify the target for the association. This target is required for associations that use an Automation document
-     * and target resources by using rate controls.
+     * Choose the parameter that will define how your automation will branch out. This target is required for
+     * associations that use an Automation runbook and target resources by using rate controls. Automation is a
+     * capability of Amazon Web Services Systems Manager.
      * </p>
      */
     private String automationTargetParameterName;
@@ -117,13 +128,13 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      * additional targets. You can specify either an absolute number of errors, for example 10, or a percentage of the
      * target set, for example 10%. If you specify 3, for example, the system stops sending requests when the fourth
      * error is received. If you specify 0, then the system stops sending requests after the first error is returned. If
-     * you run an association on 50 instances and set MaxError to 10%, then the system stops sending the request when
-     * the sixth error is received.
+     * you run an association on 50 managed nodes and set <code>MaxError</code> to 10%, then the system stops sending
+     * the request when the sixth error is received.
      * </p>
      * <p>
-     * Executions that are already running an association when MaxErrors is reached are allowed to complete, but some of
-     * these executions may fail as well. If you need to ensure that there won't be more than max-errors failed
-     * executions, set MaxConcurrency to 1 so that executions proceed one at a time.
+     * Executions that are already running an association when <code>MaxErrors</code> is reached are allowed to
+     * complete, but some of these executions may fail as well. If you need to ensure that there won't be more than
+     * max-errors failed executions, set <code>MaxConcurrency</code> to 1 so that executions proceed one at a time.
      * </p>
      */
     private String maxErrors;
@@ -134,9 +145,10 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      * targets run the association at the same time.
      * </p>
      * <p>
-     * If a new instance starts and attempts to run an association while Systems Manager is running MaxConcurrency
-     * associations, the association is allowed to run. During the next association interval, the new instance will
-     * process its association within the limit specified for MaxConcurrency.
+     * If a new managed node starts and attempts to run an association while Systems Manager is running
+     * <code>MaxConcurrency</code> associations, the association is allowed to run. During the next association
+     * interval, the new managed node will process its association within the limit specified for
+     * <code>MaxConcurrency</code>.
      * </p>
      */
     private String maxConcurrency;
@@ -146,6 +158,115 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      */
     private String complianceSeverity;
+    /**
+     * <p>
+     * The mode for generating association compliance. You can specify <code>AUTO</code> or <code>MANUAL</code>. In
+     * <code>AUTO</code> mode, the system uses the status of the association execution to determine the compliance
+     * status. If the association execution runs successfully, then the association is <code>COMPLIANT</code>. If the
+     * association execution doesn't run successfully, the association is <code>NON-COMPLIANT</code>.
+     * </p>
+     * <p>
+     * In <code>MANUAL</code> mode, you must specify the <code>AssociationId</code> as a parameter for the
+     * <a>PutComplianceItems</a> API operation. In this case, compliance data isn't managed by State Manager, a
+     * capability of Amazon Web Services Systems Manager. It is managed by your direct call to the
+     * <a>PutComplianceItems</a> API operation.
+     * </p>
+     * <p>
+     * By default, all associations use <code>AUTO</code> mode.
+     * </p>
+     */
+    private String syncCompliance;
+    /**
+     * <p>
+     * By default, when you update an association, the system runs it immediately after it is updated and then according
+     * to the schedule you specified. Specify this option if you don't want an association to run immediately after you
+     * update it. This parameter isn't supported for rate expressions.
+     * </p>
+     * <p>
+     * If you chose this option when you created an association and later you edit that association or you make changes
+     * to the SSM document on which that association is based (by using the Documents page in the console), State
+     * Manager applies the association at the next specified cron interval. For example, if you chose the
+     * <code>Latest</code> version of an SSM document when you created an association and you edit the association by
+     * choosing a different document version on the Documents page, State Manager applies the association at the next
+     * specified cron interval if you previously selected this option. If this option wasn't selected, State Manager
+     * immediately runs the association.
+     * </p>
+     * <p>
+     * You can reset this option. To do so, specify the <code>no-apply-only-at-cron-interval</code> parameter when you
+     * update the association from the command line. This parameter forces the association to run immediately after
+     * updating it and according to the interval specified.
+     * </p>
+     */
+    private Boolean applyOnlyAtCronInterval;
+    /**
+     * <p>
+     * The names or Amazon Resource Names (ARNs) of the Change Calendar type documents you want to gate your
+     * associations under. The associations only run when that change calendar is open. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar">Amazon Web
+     * Services Systems Manager Change Calendar</a>.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> calendarNames;
+    /**
+     * <p>
+     * A location is a combination of Amazon Web Services Regions and Amazon Web Services accounts where you want to run
+     * the association. Use this action to update an association in multiple Regions and multiple accounts.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<TargetLocation> targetLocations;
+    /**
+     * <p>
+     * Number of days to wait after the scheduled day to run an association. For example, if you specified a cron
+     * schedule of <code>cron(0 0 ? * THU#2 *)</code>, you could specify an offset of 3 to run the association each
+     * Sunday after the second Thursday of the month. For more information about cron schedules for associations, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/reference-cron-and-rate-expressions.html">
+     * Reference: Cron and rate expressions for Systems Manager</a> in the <i>Amazon Web Services Systems Manager User
+     * Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * To use offsets, you must specify the <code>ApplyOnlyAtCronInterval</code> parameter. This option tells the system
+     * not to run an association immediately after you create it.
+     * </p>
+     * </note>
+     */
+    private Integer scheduleOffset;
+    /**
+     * <p>
+     * The number of hours the association can run before it is canceled. Duration applies to associations that are
+     * currently running, and any pending and in progress commands on all targets. If a target was taken offline for the
+     * association to run, it is made available again immediately, without a reboot.
+     * </p>
+     * <p>
+     * The <code>Duration</code> parameter applies only when both these conditions are true:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The association for which you specify a duration is cancelable according to the parameters of the SSM command
+     * document or Automation runbook associated with this execution.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The command specifies the
+     * <code> <a href="https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_UpdateAssociation.html#systemsmanager-UpdateAssociation-request-ApplyOnlyAtCronInterval">ApplyOnlyAtCronInterval</a> </code>
+     * parameter, which means that the association doesn't run immediately after it is updated, but only according to
+     * the specified schedule.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private Integer duration;
+    /**
+     * <p>
+     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be specified
+     * together.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<java.util.Map<String, java.util.List<String>>> targetMaps;
+
+    private AlarmConfiguration alarmConfiguration;
 
     /**
      * <p>
@@ -189,12 +310,14 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The parameters you want to update for the association. If you create a parameter using Parameter Store, you can
-     * reference the parameter using {{ssm:parameter-name}}
+     * The parameters you want to update for the association. If you create a parameter using Parameter Store, a
+     * capability of Amazon Web Services Systems Manager, you can reference the parameter using
+     * <code>{{ssm:parameter-name}}</code>.
      * </p>
      * 
-     * @return The parameters you want to update for the association. If you create a parameter using Parameter Store,
-     *         you can reference the parameter using {{ssm:parameter-name}}
+     * @return The parameters you want to update for the association. If you create a parameter using Parameter Store, a
+     *         capability of Amazon Web Services Systems Manager, you can reference the parameter using
+     *         <code>{{ssm:parameter-name}}</code>.
      */
 
     public java.util.Map<String, java.util.List<String>> getParameters() {
@@ -203,13 +326,15 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The parameters you want to update for the association. If you create a parameter using Parameter Store, you can
-     * reference the parameter using {{ssm:parameter-name}}
+     * The parameters you want to update for the association. If you create a parameter using Parameter Store, a
+     * capability of Amazon Web Services Systems Manager, you can reference the parameter using
+     * <code>{{ssm:parameter-name}}</code>.
      * </p>
      * 
      * @param parameters
-     *        The parameters you want to update for the association. If you create a parameter using Parameter Store,
-     *        you can reference the parameter using {{ssm:parameter-name}}
+     *        The parameters you want to update for the association. If you create a parameter using Parameter Store, a
+     *        capability of Amazon Web Services Systems Manager, you can reference the parameter using
+     *        <code>{{ssm:parameter-name}}</code>.
      */
 
     public void setParameters(java.util.Map<String, java.util.List<String>> parameters) {
@@ -218,13 +343,15 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The parameters you want to update for the association. If you create a parameter using Parameter Store, you can
-     * reference the parameter using {{ssm:parameter-name}}
+     * The parameters you want to update for the association. If you create a parameter using Parameter Store, a
+     * capability of Amazon Web Services Systems Manager, you can reference the parameter using
+     * <code>{{ssm:parameter-name}}</code>.
      * </p>
      * 
      * @param parameters
-     *        The parameters you want to update for the association. If you create a parameter using Parameter Store,
-     *        you can reference the parameter using {{ssm:parameter-name}}
+     *        The parameters you want to update for the association. If you create a parameter using Parameter Store, a
+     *        capability of Amazon Web Services Systems Manager, you can reference the parameter using
+     *        <code>{{ssm:parameter-name}}</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -232,6 +359,13 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
         setParameters(parameters);
         return this;
     }
+
+    /**
+     * Add a single Parameters entry
+     *
+     * @see UpdateAssociationRequest#withParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public UpdateAssociationRequest addParametersEntry(String key, java.util.List<String> value) {
         if (null == this.parameters) {
@@ -258,9 +392,25 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      * <p>
      * The document version you want update for the association.
      * </p>
+     * <important>
+     * <p>
+     * State Manager doesn't support running associations that use a new version of a document if that document is
+     * shared from another account. State Manager always runs the <code>default</code> version of a document if shared
+     * from another account, even though the Systems Manager console shows that a new version was processed. If you want
+     * to run an association using a new version of a document shared form another account, you must set the document
+     * version to <code>default</code>.
+     * </p>
+     * </important>
      * 
      * @param documentVersion
-     *        The document version you want update for the association.
+     *        The document version you want update for the association. </p> <important>
+     *        <p>
+     *        State Manager doesn't support running associations that use a new version of a document if that document
+     *        is shared from another account. State Manager always runs the <code>default</code> version of a document
+     *        if shared from another account, even though the Systems Manager console shows that a new version was
+     *        processed. If you want to run an association using a new version of a document shared form another
+     *        account, you must set the document version to <code>default</code>.
+     *        </p>
      */
 
     public void setDocumentVersion(String documentVersion) {
@@ -271,8 +421,24 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      * <p>
      * The document version you want update for the association.
      * </p>
+     * <important>
+     * <p>
+     * State Manager doesn't support running associations that use a new version of a document if that document is
+     * shared from another account. State Manager always runs the <code>default</code> version of a document if shared
+     * from another account, even though the Systems Manager console shows that a new version was processed. If you want
+     * to run an association using a new version of a document shared form another account, you must set the document
+     * version to <code>default</code>.
+     * </p>
+     * </important>
      * 
-     * @return The document version you want update for the association.
+     * @return The document version you want update for the association. </p> <important>
+     *         <p>
+     *         State Manager doesn't support running associations that use a new version of a document if that document
+     *         is shared from another account. State Manager always runs the <code>default</code> version of a document
+     *         if shared from another account, even though the Systems Manager console shows that a new version was
+     *         processed. If you want to run an association using a new version of a document shared form another
+     *         account, you must set the document version to <code>default</code>.
+     *         </p>
      */
 
     public String getDocumentVersion() {
@@ -283,9 +449,25 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      * <p>
      * The document version you want update for the association.
      * </p>
+     * <important>
+     * <p>
+     * State Manager doesn't support running associations that use a new version of a document if that document is
+     * shared from another account. State Manager always runs the <code>default</code> version of a document if shared
+     * from another account, even though the Systems Manager console shows that a new version was processed. If you want
+     * to run an association using a new version of a document shared form another account, you must set the document
+     * version to <code>default</code>.
+     * </p>
+     * </important>
      * 
      * @param documentVersion
-     *        The document version you want update for the association.
+     *        The document version you want update for the association. </p> <important>
+     *        <p>
+     *        State Manager doesn't support running associations that use a new version of a document if that document
+     *        is shared from another account. State Manager always runs the <code>default</code> version of a document
+     *        if shared from another account, even though the Systems Manager console shows that a new version was
+     *        processed. If you want to run an association using a new version of a document shared form another
+     *        account, you must set the document version to <code>default</code>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -336,11 +518,11 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * An Amazon S3 bucket where you want to store the results of this request.
+     * An S3 bucket where you want to store the results of this request.
      * </p>
      * 
      * @param outputLocation
-     *        An Amazon S3 bucket where you want to store the results of this request.
+     *        An S3 bucket where you want to store the results of this request.
      */
 
     public void setOutputLocation(InstanceAssociationOutputLocation outputLocation) {
@@ -349,10 +531,10 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * An Amazon S3 bucket where you want to store the results of this request.
+     * An S3 bucket where you want to store the results of this request.
      * </p>
      * 
-     * @return An Amazon S3 bucket where you want to store the results of this request.
+     * @return An S3 bucket where you want to store the results of this request.
      */
 
     public InstanceAssociationOutputLocation getOutputLocation() {
@@ -361,11 +543,11 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * An Amazon S3 bucket where you want to store the results of this request.
+     * An S3 bucket where you want to store the results of this request.
      * </p>
      * 
      * @param outputLocation
-     *        An Amazon S3 bucket where you want to store the results of this request.
+     *        An S3 bucket where you want to store the results of this request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -376,16 +558,16 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The name of the SSM document that contains the configuration information for the instance. You can specify
-     * Command or Automation documents.
+     * The name of the SSM Command document or Automation runbook that contains the configuration information for the
+     * managed node.
      * </p>
      * <p>
-     * You can specify AWS-predefined documents, documents you created, or a document that is shared with you from
-     * another account.
+     * You can specify Amazon Web Services-predefined documents, documents you created, or a document that is shared
+     * with you from another account.
      * </p>
      * <p>
-     * For SSM documents that are shared with you from other AWS accounts, you must specify the complete SSM document
-     * ARN, in the following format:
+     * For Systems Manager document (SSM document) that are shared with you from other Amazon Web Services accounts, you
+     * must specify the complete SSM document ARN, in the following format:
      * </p>
      * <p>
      * <code>arn:aws:ssm:<i>region</i>:<i>account-id</i>:document/<i>document-name</i> </code>
@@ -397,20 +579,20 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      * <code>arn:aws:ssm:us-east-2:12345678912:document/My-Shared-Document</code>
      * </p>
      * <p>
-     * For AWS-predefined documents and SSM documents you created in your account, you only need to specify the document
-     * name. For example, <code>AWS-ApplyPatchBaseline</code> or <code>My-Document</code>.
+     * For Amazon Web Services-predefined documents and SSM documents you created in your account, you only need to
+     * specify the document name. For example, <code>AWS-ApplyPatchBaseline</code> or <code>My-Document</code>.
      * </p>
      * 
      * @param name
-     *        The name of the SSM document that contains the configuration information for the instance. You can specify
-     *        Command or Automation documents.</p>
+     *        The name of the SSM Command document or Automation runbook that contains the configuration information for
+     *        the managed node.</p>
      *        <p>
-     *        You can specify AWS-predefined documents, documents you created, or a document that is shared with you
-     *        from another account.
+     *        You can specify Amazon Web Services-predefined documents, documents you created, or a document that is
+     *        shared with you from another account.
      *        </p>
      *        <p>
-     *        For SSM documents that are shared with you from other AWS accounts, you must specify the complete SSM
-     *        document ARN, in the following format:
+     *        For Systems Manager document (SSM document) that are shared with you from other Amazon Web Services
+     *        accounts, you must specify the complete SSM document ARN, in the following format:
      *        </p>
      *        <p>
      *        <code>arn:aws:ssm:<i>region</i>:<i>account-id</i>:document/<i>document-name</i> </code>
@@ -422,8 +604,8 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      *        <code>arn:aws:ssm:us-east-2:12345678912:document/My-Shared-Document</code>
      *        </p>
      *        <p>
-     *        For AWS-predefined documents and SSM documents you created in your account, you only need to specify the
-     *        document name. For example, <code>AWS-ApplyPatchBaseline</code> or <code>My-Document</code>.
+     *        For Amazon Web Services-predefined documents and SSM documents you created in your account, you only need
+     *        to specify the document name. For example, <code>AWS-ApplyPatchBaseline</code> or <code>My-Document</code>.
      */
 
     public void setName(String name) {
@@ -432,16 +614,16 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The name of the SSM document that contains the configuration information for the instance. You can specify
-     * Command or Automation documents.
+     * The name of the SSM Command document or Automation runbook that contains the configuration information for the
+     * managed node.
      * </p>
      * <p>
-     * You can specify AWS-predefined documents, documents you created, or a document that is shared with you from
-     * another account.
+     * You can specify Amazon Web Services-predefined documents, documents you created, or a document that is shared
+     * with you from another account.
      * </p>
      * <p>
-     * For SSM documents that are shared with you from other AWS accounts, you must specify the complete SSM document
-     * ARN, in the following format:
+     * For Systems Manager document (SSM document) that are shared with you from other Amazon Web Services accounts, you
+     * must specify the complete SSM document ARN, in the following format:
      * </p>
      * <p>
      * <code>arn:aws:ssm:<i>region</i>:<i>account-id</i>:document/<i>document-name</i> </code>
@@ -453,19 +635,19 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      * <code>arn:aws:ssm:us-east-2:12345678912:document/My-Shared-Document</code>
      * </p>
      * <p>
-     * For AWS-predefined documents and SSM documents you created in your account, you only need to specify the document
-     * name. For example, <code>AWS-ApplyPatchBaseline</code> or <code>My-Document</code>.
+     * For Amazon Web Services-predefined documents and SSM documents you created in your account, you only need to
+     * specify the document name. For example, <code>AWS-ApplyPatchBaseline</code> or <code>My-Document</code>.
      * </p>
      * 
-     * @return The name of the SSM document that contains the configuration information for the instance. You can
-     *         specify Command or Automation documents.</p>
+     * @return The name of the SSM Command document or Automation runbook that contains the configuration information
+     *         for the managed node.</p>
      *         <p>
-     *         You can specify AWS-predefined documents, documents you created, or a document that is shared with you
-     *         from another account.
+     *         You can specify Amazon Web Services-predefined documents, documents you created, or a document that is
+     *         shared with you from another account.
      *         </p>
      *         <p>
-     *         For SSM documents that are shared with you from other AWS accounts, you must specify the complete SSM
-     *         document ARN, in the following format:
+     *         For Systems Manager document (SSM document) that are shared with you from other Amazon Web Services
+     *         accounts, you must specify the complete SSM document ARN, in the following format:
      *         </p>
      *         <p>
      *         <code>arn:aws:ssm:<i>region</i>:<i>account-id</i>:document/<i>document-name</i> </code>
@@ -477,8 +659,9 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      *         <code>arn:aws:ssm:us-east-2:12345678912:document/My-Shared-Document</code>
      *         </p>
      *         <p>
-     *         For AWS-predefined documents and SSM documents you created in your account, you only need to specify the
-     *         document name. For example, <code>AWS-ApplyPatchBaseline</code> or <code>My-Document</code>.
+     *         For Amazon Web Services-predefined documents and SSM documents you created in your account, you only need
+     *         to specify the document name. For example, <code>AWS-ApplyPatchBaseline</code> or
+     *         <code>My-Document</code>.
      */
 
     public String getName() {
@@ -487,16 +670,16 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The name of the SSM document that contains the configuration information for the instance. You can specify
-     * Command or Automation documents.
+     * The name of the SSM Command document or Automation runbook that contains the configuration information for the
+     * managed node.
      * </p>
      * <p>
-     * You can specify AWS-predefined documents, documents you created, or a document that is shared with you from
-     * another account.
+     * You can specify Amazon Web Services-predefined documents, documents you created, or a document that is shared
+     * with you from another account.
      * </p>
      * <p>
-     * For SSM documents that are shared with you from other AWS accounts, you must specify the complete SSM document
-     * ARN, in the following format:
+     * For Systems Manager document (SSM document) that are shared with you from other Amazon Web Services accounts, you
+     * must specify the complete SSM document ARN, in the following format:
      * </p>
      * <p>
      * <code>arn:aws:ssm:<i>region</i>:<i>account-id</i>:document/<i>document-name</i> </code>
@@ -508,20 +691,20 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      * <code>arn:aws:ssm:us-east-2:12345678912:document/My-Shared-Document</code>
      * </p>
      * <p>
-     * For AWS-predefined documents and SSM documents you created in your account, you only need to specify the document
-     * name. For example, <code>AWS-ApplyPatchBaseline</code> or <code>My-Document</code>.
+     * For Amazon Web Services-predefined documents and SSM documents you created in your account, you only need to
+     * specify the document name. For example, <code>AWS-ApplyPatchBaseline</code> or <code>My-Document</code>.
      * </p>
      * 
      * @param name
-     *        The name of the SSM document that contains the configuration information for the instance. You can specify
-     *        Command or Automation documents.</p>
+     *        The name of the SSM Command document or Automation runbook that contains the configuration information for
+     *        the managed node.</p>
      *        <p>
-     *        You can specify AWS-predefined documents, documents you created, or a document that is shared with you
-     *        from another account.
+     *        You can specify Amazon Web Services-predefined documents, documents you created, or a document that is
+     *        shared with you from another account.
      *        </p>
      *        <p>
-     *        For SSM documents that are shared with you from other AWS accounts, you must specify the complete SSM
-     *        document ARN, in the following format:
+     *        For Systems Manager document (SSM document) that are shared with you from other Amazon Web Services
+     *        accounts, you must specify the complete SSM document ARN, in the following format:
      *        </p>
      *        <p>
      *        <code>arn:aws:ssm:<i>region</i>:<i>account-id</i>:document/<i>document-name</i> </code>
@@ -533,8 +716,8 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      *        <code>arn:aws:ssm:us-east-2:12345678912:document/My-Shared-Document</code>
      *        </p>
      *        <p>
-     *        For AWS-predefined documents and SSM documents you created in your account, you only need to specify the
-     *        document name. For example, <code>AWS-ApplyPatchBaseline</code> or <code>My-Document</code>.
+     *        For Amazon Web Services-predefined documents and SSM documents you created in your account, you only need
+     *        to specify the document name. For example, <code>AWS-ApplyPatchBaseline</code> or <code>My-Document</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -710,13 +893,15 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specify the target for the association. This target is required for associations that use an Automation document
-     * and target resources by using rate controls.
+     * Choose the parameter that will define how your automation will branch out. This target is required for
+     * associations that use an Automation runbook and target resources by using rate controls. Automation is a
+     * capability of Amazon Web Services Systems Manager.
      * </p>
      * 
      * @param automationTargetParameterName
-     *        Specify the target for the association. This target is required for associations that use an Automation
-     *        document and target resources by using rate controls.
+     *        Choose the parameter that will define how your automation will branch out. This target is required for
+     *        associations that use an Automation runbook and target resources by using rate controls. Automation is a
+     *        capability of Amazon Web Services Systems Manager.
      */
 
     public void setAutomationTargetParameterName(String automationTargetParameterName) {
@@ -725,12 +910,14 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specify the target for the association. This target is required for associations that use an Automation document
-     * and target resources by using rate controls.
+     * Choose the parameter that will define how your automation will branch out. This target is required for
+     * associations that use an Automation runbook and target resources by using rate controls. Automation is a
+     * capability of Amazon Web Services Systems Manager.
      * </p>
      * 
-     * @return Specify the target for the association. This target is required for associations that use an Automation
-     *         document and target resources by using rate controls.
+     * @return Choose the parameter that will define how your automation will branch out. This target is required for
+     *         associations that use an Automation runbook and target resources by using rate controls. Automation is a
+     *         capability of Amazon Web Services Systems Manager.
      */
 
     public String getAutomationTargetParameterName() {
@@ -739,13 +926,15 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specify the target for the association. This target is required for associations that use an Automation document
-     * and target resources by using rate controls.
+     * Choose the parameter that will define how your automation will branch out. This target is required for
+     * associations that use an Automation runbook and target resources by using rate controls. Automation is a
+     * capability of Amazon Web Services Systems Manager.
      * </p>
      * 
      * @param automationTargetParameterName
-     *        Specify the target for the association. This target is required for associations that use an Automation
-     *        document and target resources by using rate controls.
+     *        Choose the parameter that will define how your automation will branch out. This target is required for
+     *        associations that use an Automation runbook and target resources by using rate controls. Automation is a
+     *        capability of Amazon Web Services Systems Manager.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -760,13 +949,13 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      * additional targets. You can specify either an absolute number of errors, for example 10, or a percentage of the
      * target set, for example 10%. If you specify 3, for example, the system stops sending requests when the fourth
      * error is received. If you specify 0, then the system stops sending requests after the first error is returned. If
-     * you run an association on 50 instances and set MaxError to 10%, then the system stops sending the request when
-     * the sixth error is received.
+     * you run an association on 50 managed nodes and set <code>MaxError</code> to 10%, then the system stops sending
+     * the request when the sixth error is received.
      * </p>
      * <p>
-     * Executions that are already running an association when MaxErrors is reached are allowed to complete, but some of
-     * these executions may fail as well. If you need to ensure that there won't be more than max-errors failed
-     * executions, set MaxConcurrency to 1 so that executions proceed one at a time.
+     * Executions that are already running an association when <code>MaxErrors</code> is reached are allowed to
+     * complete, but some of these executions may fail as well. If you need to ensure that there won't be more than
+     * max-errors failed executions, set <code>MaxConcurrency</code> to 1 so that executions proceed one at a time.
      * </p>
      * 
      * @param maxErrors
@@ -774,12 +963,13 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      *        additional targets. You can specify either an absolute number of errors, for example 10, or a percentage
      *        of the target set, for example 10%. If you specify 3, for example, the system stops sending requests when
      *        the fourth error is received. If you specify 0, then the system stops sending requests after the first
-     *        error is returned. If you run an association on 50 instances and set MaxError to 10%, then the system
-     *        stops sending the request when the sixth error is received.</p>
+     *        error is returned. If you run an association on 50 managed nodes and set <code>MaxError</code> to 10%,
+     *        then the system stops sending the request when the sixth error is received.</p>
      *        <p>
-     *        Executions that are already running an association when MaxErrors is reached are allowed to complete, but
-     *        some of these executions may fail as well. If you need to ensure that there won't be more than max-errors
-     *        failed executions, set MaxConcurrency to 1 so that executions proceed one at a time.
+     *        Executions that are already running an association when <code>MaxErrors</code> is reached are allowed to
+     *        complete, but some of these executions may fail as well. If you need to ensure that there won't be more
+     *        than max-errors failed executions, set <code>MaxConcurrency</code> to 1 so that executions proceed one at
+     *        a time.
      */
 
     public void setMaxErrors(String maxErrors) {
@@ -792,25 +982,26 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      * additional targets. You can specify either an absolute number of errors, for example 10, or a percentage of the
      * target set, for example 10%. If you specify 3, for example, the system stops sending requests when the fourth
      * error is received. If you specify 0, then the system stops sending requests after the first error is returned. If
-     * you run an association on 50 instances and set MaxError to 10%, then the system stops sending the request when
-     * the sixth error is received.
+     * you run an association on 50 managed nodes and set <code>MaxError</code> to 10%, then the system stops sending
+     * the request when the sixth error is received.
      * </p>
      * <p>
-     * Executions that are already running an association when MaxErrors is reached are allowed to complete, but some of
-     * these executions may fail as well. If you need to ensure that there won't be more than max-errors failed
-     * executions, set MaxConcurrency to 1 so that executions proceed one at a time.
+     * Executions that are already running an association when <code>MaxErrors</code> is reached are allowed to
+     * complete, but some of these executions may fail as well. If you need to ensure that there won't be more than
+     * max-errors failed executions, set <code>MaxConcurrency</code> to 1 so that executions proceed one at a time.
      * </p>
      * 
      * @return The number of errors that are allowed before the system stops sending requests to run the association on
      *         additional targets. You can specify either an absolute number of errors, for example 10, or a percentage
      *         of the target set, for example 10%. If you specify 3, for example, the system stops sending requests when
      *         the fourth error is received. If you specify 0, then the system stops sending requests after the first
-     *         error is returned. If you run an association on 50 instances and set MaxError to 10%, then the system
-     *         stops sending the request when the sixth error is received.</p>
+     *         error is returned. If you run an association on 50 managed nodes and set <code>MaxError</code> to 10%,
+     *         then the system stops sending the request when the sixth error is received.</p>
      *         <p>
-     *         Executions that are already running an association when MaxErrors is reached are allowed to complete, but
-     *         some of these executions may fail as well. If you need to ensure that there won't be more than max-errors
-     *         failed executions, set MaxConcurrency to 1 so that executions proceed one at a time.
+     *         Executions that are already running an association when <code>MaxErrors</code> is reached are allowed to
+     *         complete, but some of these executions may fail as well. If you need to ensure that there won't be more
+     *         than max-errors failed executions, set <code>MaxConcurrency</code> to 1 so that executions proceed one at
+     *         a time.
      */
 
     public String getMaxErrors() {
@@ -823,13 +1014,13 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      * additional targets. You can specify either an absolute number of errors, for example 10, or a percentage of the
      * target set, for example 10%. If you specify 3, for example, the system stops sending requests when the fourth
      * error is received. If you specify 0, then the system stops sending requests after the first error is returned. If
-     * you run an association on 50 instances and set MaxError to 10%, then the system stops sending the request when
-     * the sixth error is received.
+     * you run an association on 50 managed nodes and set <code>MaxError</code> to 10%, then the system stops sending
+     * the request when the sixth error is received.
      * </p>
      * <p>
-     * Executions that are already running an association when MaxErrors is reached are allowed to complete, but some of
-     * these executions may fail as well. If you need to ensure that there won't be more than max-errors failed
-     * executions, set MaxConcurrency to 1 so that executions proceed one at a time.
+     * Executions that are already running an association when <code>MaxErrors</code> is reached are allowed to
+     * complete, but some of these executions may fail as well. If you need to ensure that there won't be more than
+     * max-errors failed executions, set <code>MaxConcurrency</code> to 1 so that executions proceed one at a time.
      * </p>
      * 
      * @param maxErrors
@@ -837,12 +1028,13 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      *        additional targets. You can specify either an absolute number of errors, for example 10, or a percentage
      *        of the target set, for example 10%. If you specify 3, for example, the system stops sending requests when
      *        the fourth error is received. If you specify 0, then the system stops sending requests after the first
-     *        error is returned. If you run an association on 50 instances and set MaxError to 10%, then the system
-     *        stops sending the request when the sixth error is received.</p>
+     *        error is returned. If you run an association on 50 managed nodes and set <code>MaxError</code> to 10%,
+     *        then the system stops sending the request when the sixth error is received.</p>
      *        <p>
-     *        Executions that are already running an association when MaxErrors is reached are allowed to complete, but
-     *        some of these executions may fail as well. If you need to ensure that there won't be more than max-errors
-     *        failed executions, set MaxConcurrency to 1 so that executions proceed one at a time.
+     *        Executions that are already running an association when <code>MaxErrors</code> is reached are allowed to
+     *        complete, but some of these executions may fail as well. If you need to ensure that there won't be more
+     *        than max-errors failed executions, set <code>MaxConcurrency</code> to 1 so that executions proceed one at
+     *        a time.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -858,9 +1050,10 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      * targets run the association at the same time.
      * </p>
      * <p>
-     * If a new instance starts and attempts to run an association while Systems Manager is running MaxConcurrency
-     * associations, the association is allowed to run. During the next association interval, the new instance will
-     * process its association within the limit specified for MaxConcurrency.
+     * If a new managed node starts and attempts to run an association while Systems Manager is running
+     * <code>MaxConcurrency</code> associations, the association is allowed to run. During the next association
+     * interval, the new managed node will process its association within the limit specified for
+     * <code>MaxConcurrency</code>.
      * </p>
      * 
      * @param maxConcurrency
@@ -868,9 +1061,10 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      *        for example 10, or a percentage of the target set, for example 10%. The default value is 100%, which means
      *        all targets run the association at the same time.</p>
      *        <p>
-     *        If a new instance starts and attempts to run an association while Systems Manager is running
-     *        MaxConcurrency associations, the association is allowed to run. During the next association interval, the
-     *        new instance will process its association within the limit specified for MaxConcurrency.
+     *        If a new managed node starts and attempts to run an association while Systems Manager is running
+     *        <code>MaxConcurrency</code> associations, the association is allowed to run. During the next association
+     *        interval, the new managed node will process its association within the limit specified for
+     *        <code>MaxConcurrency</code>.
      */
 
     public void setMaxConcurrency(String maxConcurrency) {
@@ -884,18 +1078,20 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      * targets run the association at the same time.
      * </p>
      * <p>
-     * If a new instance starts and attempts to run an association while Systems Manager is running MaxConcurrency
-     * associations, the association is allowed to run. During the next association interval, the new instance will
-     * process its association within the limit specified for MaxConcurrency.
+     * If a new managed node starts and attempts to run an association while Systems Manager is running
+     * <code>MaxConcurrency</code> associations, the association is allowed to run. During the next association
+     * interval, the new managed node will process its association within the limit specified for
+     * <code>MaxConcurrency</code>.
      * </p>
      * 
      * @return The maximum number of targets allowed to run the association at the same time. You can specify a number,
      *         for example 10, or a percentage of the target set, for example 10%. The default value is 100%, which
      *         means all targets run the association at the same time.</p>
      *         <p>
-     *         If a new instance starts and attempts to run an association while Systems Manager is running
-     *         MaxConcurrency associations, the association is allowed to run. During the next association interval, the
-     *         new instance will process its association within the limit specified for MaxConcurrency.
+     *         If a new managed node starts and attempts to run an association while Systems Manager is running
+     *         <code>MaxConcurrency</code> associations, the association is allowed to run. During the next association
+     *         interval, the new managed node will process its association within the limit specified for
+     *         <code>MaxConcurrency</code>.
      */
 
     public String getMaxConcurrency() {
@@ -909,9 +1105,10 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      * targets run the association at the same time.
      * </p>
      * <p>
-     * If a new instance starts and attempts to run an association while Systems Manager is running MaxConcurrency
-     * associations, the association is allowed to run. During the next association interval, the new instance will
-     * process its association within the limit specified for MaxConcurrency.
+     * If a new managed node starts and attempts to run an association while Systems Manager is running
+     * <code>MaxConcurrency</code> associations, the association is allowed to run. During the next association
+     * interval, the new managed node will process its association within the limit specified for
+     * <code>MaxConcurrency</code>.
      * </p>
      * 
      * @param maxConcurrency
@@ -919,9 +1116,10 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
      *        for example 10, or a percentage of the target set, for example 10%. The default value is 100%, which means
      *        all targets run the association at the same time.</p>
      *        <p>
-     *        If a new instance starts and attempts to run an association while Systems Manager is running
-     *        MaxConcurrency associations, the association is allowed to run. During the next association interval, the
-     *        new instance will process its association within the limit specified for MaxConcurrency.
+     *        If a new managed node starts and attempts to run an association while Systems Manager is running
+     *        <code>MaxConcurrency</code> associations, the association is allowed to run. During the next association
+     *        interval, the new managed node will process its association within the limit specified for
+     *        <code>MaxConcurrency</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -990,6 +1188,893 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
     }
 
     /**
+     * <p>
+     * The mode for generating association compliance. You can specify <code>AUTO</code> or <code>MANUAL</code>. In
+     * <code>AUTO</code> mode, the system uses the status of the association execution to determine the compliance
+     * status. If the association execution runs successfully, then the association is <code>COMPLIANT</code>. If the
+     * association execution doesn't run successfully, the association is <code>NON-COMPLIANT</code>.
+     * </p>
+     * <p>
+     * In <code>MANUAL</code> mode, you must specify the <code>AssociationId</code> as a parameter for the
+     * <a>PutComplianceItems</a> API operation. In this case, compliance data isn't managed by State Manager, a
+     * capability of Amazon Web Services Systems Manager. It is managed by your direct call to the
+     * <a>PutComplianceItems</a> API operation.
+     * </p>
+     * <p>
+     * By default, all associations use <code>AUTO</code> mode.
+     * </p>
+     * 
+     * @param syncCompliance
+     *        The mode for generating association compliance. You can specify <code>AUTO</code> or <code>MANUAL</code>.
+     *        In <code>AUTO</code> mode, the system uses the status of the association execution to determine the
+     *        compliance status. If the association execution runs successfully, then the association is
+     *        <code>COMPLIANT</code>. If the association execution doesn't run successfully, the association is
+     *        <code>NON-COMPLIANT</code>.</p>
+     *        <p>
+     *        In <code>MANUAL</code> mode, you must specify the <code>AssociationId</code> as a parameter for the
+     *        <a>PutComplianceItems</a> API operation. In this case, compliance data isn't managed by State Manager, a
+     *        capability of Amazon Web Services Systems Manager. It is managed by your direct call to the
+     *        <a>PutComplianceItems</a> API operation.
+     *        </p>
+     *        <p>
+     *        By default, all associations use <code>AUTO</code> mode.
+     * @see AssociationSyncCompliance
+     */
+
+    public void setSyncCompliance(String syncCompliance) {
+        this.syncCompliance = syncCompliance;
+    }
+
+    /**
+     * <p>
+     * The mode for generating association compliance. You can specify <code>AUTO</code> or <code>MANUAL</code>. In
+     * <code>AUTO</code> mode, the system uses the status of the association execution to determine the compliance
+     * status. If the association execution runs successfully, then the association is <code>COMPLIANT</code>. If the
+     * association execution doesn't run successfully, the association is <code>NON-COMPLIANT</code>.
+     * </p>
+     * <p>
+     * In <code>MANUAL</code> mode, you must specify the <code>AssociationId</code> as a parameter for the
+     * <a>PutComplianceItems</a> API operation. In this case, compliance data isn't managed by State Manager, a
+     * capability of Amazon Web Services Systems Manager. It is managed by your direct call to the
+     * <a>PutComplianceItems</a> API operation.
+     * </p>
+     * <p>
+     * By default, all associations use <code>AUTO</code> mode.
+     * </p>
+     * 
+     * @return The mode for generating association compliance. You can specify <code>AUTO</code> or <code>MANUAL</code>.
+     *         In <code>AUTO</code> mode, the system uses the status of the association execution to determine the
+     *         compliance status. If the association execution runs successfully, then the association is
+     *         <code>COMPLIANT</code>. If the association execution doesn't run successfully, the association is
+     *         <code>NON-COMPLIANT</code>.</p>
+     *         <p>
+     *         In <code>MANUAL</code> mode, you must specify the <code>AssociationId</code> as a parameter for the
+     *         <a>PutComplianceItems</a> API operation. In this case, compliance data isn't managed by State Manager, a
+     *         capability of Amazon Web Services Systems Manager. It is managed by your direct call to the
+     *         <a>PutComplianceItems</a> API operation.
+     *         </p>
+     *         <p>
+     *         By default, all associations use <code>AUTO</code> mode.
+     * @see AssociationSyncCompliance
+     */
+
+    public String getSyncCompliance() {
+        return this.syncCompliance;
+    }
+
+    /**
+     * <p>
+     * The mode for generating association compliance. You can specify <code>AUTO</code> or <code>MANUAL</code>. In
+     * <code>AUTO</code> mode, the system uses the status of the association execution to determine the compliance
+     * status. If the association execution runs successfully, then the association is <code>COMPLIANT</code>. If the
+     * association execution doesn't run successfully, the association is <code>NON-COMPLIANT</code>.
+     * </p>
+     * <p>
+     * In <code>MANUAL</code> mode, you must specify the <code>AssociationId</code> as a parameter for the
+     * <a>PutComplianceItems</a> API operation. In this case, compliance data isn't managed by State Manager, a
+     * capability of Amazon Web Services Systems Manager. It is managed by your direct call to the
+     * <a>PutComplianceItems</a> API operation.
+     * </p>
+     * <p>
+     * By default, all associations use <code>AUTO</code> mode.
+     * </p>
+     * 
+     * @param syncCompliance
+     *        The mode for generating association compliance. You can specify <code>AUTO</code> or <code>MANUAL</code>.
+     *        In <code>AUTO</code> mode, the system uses the status of the association execution to determine the
+     *        compliance status. If the association execution runs successfully, then the association is
+     *        <code>COMPLIANT</code>. If the association execution doesn't run successfully, the association is
+     *        <code>NON-COMPLIANT</code>.</p>
+     *        <p>
+     *        In <code>MANUAL</code> mode, you must specify the <code>AssociationId</code> as a parameter for the
+     *        <a>PutComplianceItems</a> API operation. In this case, compliance data isn't managed by State Manager, a
+     *        capability of Amazon Web Services Systems Manager. It is managed by your direct call to the
+     *        <a>PutComplianceItems</a> API operation.
+     *        </p>
+     *        <p>
+     *        By default, all associations use <code>AUTO</code> mode.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AssociationSyncCompliance
+     */
+
+    public UpdateAssociationRequest withSyncCompliance(String syncCompliance) {
+        setSyncCompliance(syncCompliance);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The mode for generating association compliance. You can specify <code>AUTO</code> or <code>MANUAL</code>. In
+     * <code>AUTO</code> mode, the system uses the status of the association execution to determine the compliance
+     * status. If the association execution runs successfully, then the association is <code>COMPLIANT</code>. If the
+     * association execution doesn't run successfully, the association is <code>NON-COMPLIANT</code>.
+     * </p>
+     * <p>
+     * In <code>MANUAL</code> mode, you must specify the <code>AssociationId</code> as a parameter for the
+     * <a>PutComplianceItems</a> API operation. In this case, compliance data isn't managed by State Manager, a
+     * capability of Amazon Web Services Systems Manager. It is managed by your direct call to the
+     * <a>PutComplianceItems</a> API operation.
+     * </p>
+     * <p>
+     * By default, all associations use <code>AUTO</code> mode.
+     * </p>
+     * 
+     * @param syncCompliance
+     *        The mode for generating association compliance. You can specify <code>AUTO</code> or <code>MANUAL</code>.
+     *        In <code>AUTO</code> mode, the system uses the status of the association execution to determine the
+     *        compliance status. If the association execution runs successfully, then the association is
+     *        <code>COMPLIANT</code>. If the association execution doesn't run successfully, the association is
+     *        <code>NON-COMPLIANT</code>.</p>
+     *        <p>
+     *        In <code>MANUAL</code> mode, you must specify the <code>AssociationId</code> as a parameter for the
+     *        <a>PutComplianceItems</a> API operation. In this case, compliance data isn't managed by State Manager, a
+     *        capability of Amazon Web Services Systems Manager. It is managed by your direct call to the
+     *        <a>PutComplianceItems</a> API operation.
+     *        </p>
+     *        <p>
+     *        By default, all associations use <code>AUTO</code> mode.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AssociationSyncCompliance
+     */
+
+    public UpdateAssociationRequest withSyncCompliance(AssociationSyncCompliance syncCompliance) {
+        this.syncCompliance = syncCompliance.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * By default, when you update an association, the system runs it immediately after it is updated and then according
+     * to the schedule you specified. Specify this option if you don't want an association to run immediately after you
+     * update it. This parameter isn't supported for rate expressions.
+     * </p>
+     * <p>
+     * If you chose this option when you created an association and later you edit that association or you make changes
+     * to the SSM document on which that association is based (by using the Documents page in the console), State
+     * Manager applies the association at the next specified cron interval. For example, if you chose the
+     * <code>Latest</code> version of an SSM document when you created an association and you edit the association by
+     * choosing a different document version on the Documents page, State Manager applies the association at the next
+     * specified cron interval if you previously selected this option. If this option wasn't selected, State Manager
+     * immediately runs the association.
+     * </p>
+     * <p>
+     * You can reset this option. To do so, specify the <code>no-apply-only-at-cron-interval</code> parameter when you
+     * update the association from the command line. This parameter forces the association to run immediately after
+     * updating it and according to the interval specified.
+     * </p>
+     * 
+     * @param applyOnlyAtCronInterval
+     *        By default, when you update an association, the system runs it immediately after it is updated and then
+     *        according to the schedule you specified. Specify this option if you don't want an association to run
+     *        immediately after you update it. This parameter isn't supported for rate expressions.</p>
+     *        <p>
+     *        If you chose this option when you created an association and later you edit that association or you make
+     *        changes to the SSM document on which that association is based (by using the Documents page in the
+     *        console), State Manager applies the association at the next specified cron interval. For example, if you
+     *        chose the <code>Latest</code> version of an SSM document when you created an association and you edit the
+     *        association by choosing a different document version on the Documents page, State Manager applies the
+     *        association at the next specified cron interval if you previously selected this option. If this option
+     *        wasn't selected, State Manager immediately runs the association.
+     *        </p>
+     *        <p>
+     *        You can reset this option. To do so, specify the <code>no-apply-only-at-cron-interval</code> parameter
+     *        when you update the association from the command line. This parameter forces the association to run
+     *        immediately after updating it and according to the interval specified.
+     */
+
+    public void setApplyOnlyAtCronInterval(Boolean applyOnlyAtCronInterval) {
+        this.applyOnlyAtCronInterval = applyOnlyAtCronInterval;
+    }
+
+    /**
+     * <p>
+     * By default, when you update an association, the system runs it immediately after it is updated and then according
+     * to the schedule you specified. Specify this option if you don't want an association to run immediately after you
+     * update it. This parameter isn't supported for rate expressions.
+     * </p>
+     * <p>
+     * If you chose this option when you created an association and later you edit that association or you make changes
+     * to the SSM document on which that association is based (by using the Documents page in the console), State
+     * Manager applies the association at the next specified cron interval. For example, if you chose the
+     * <code>Latest</code> version of an SSM document when you created an association and you edit the association by
+     * choosing a different document version on the Documents page, State Manager applies the association at the next
+     * specified cron interval if you previously selected this option. If this option wasn't selected, State Manager
+     * immediately runs the association.
+     * </p>
+     * <p>
+     * You can reset this option. To do so, specify the <code>no-apply-only-at-cron-interval</code> parameter when you
+     * update the association from the command line. This parameter forces the association to run immediately after
+     * updating it and according to the interval specified.
+     * </p>
+     * 
+     * @return By default, when you update an association, the system runs it immediately after it is updated and then
+     *         according to the schedule you specified. Specify this option if you don't want an association to run
+     *         immediately after you update it. This parameter isn't supported for rate expressions.</p>
+     *         <p>
+     *         If you chose this option when you created an association and later you edit that association or you make
+     *         changes to the SSM document on which that association is based (by using the Documents page in the
+     *         console), State Manager applies the association at the next specified cron interval. For example, if you
+     *         chose the <code>Latest</code> version of an SSM document when you created an association and you edit the
+     *         association by choosing a different document version on the Documents page, State Manager applies the
+     *         association at the next specified cron interval if you previously selected this option. If this option
+     *         wasn't selected, State Manager immediately runs the association.
+     *         </p>
+     *         <p>
+     *         You can reset this option. To do so, specify the <code>no-apply-only-at-cron-interval</code> parameter
+     *         when you update the association from the command line. This parameter forces the association to run
+     *         immediately after updating it and according to the interval specified.
+     */
+
+    public Boolean getApplyOnlyAtCronInterval() {
+        return this.applyOnlyAtCronInterval;
+    }
+
+    /**
+     * <p>
+     * By default, when you update an association, the system runs it immediately after it is updated and then according
+     * to the schedule you specified. Specify this option if you don't want an association to run immediately after you
+     * update it. This parameter isn't supported for rate expressions.
+     * </p>
+     * <p>
+     * If you chose this option when you created an association and later you edit that association or you make changes
+     * to the SSM document on which that association is based (by using the Documents page in the console), State
+     * Manager applies the association at the next specified cron interval. For example, if you chose the
+     * <code>Latest</code> version of an SSM document when you created an association and you edit the association by
+     * choosing a different document version on the Documents page, State Manager applies the association at the next
+     * specified cron interval if you previously selected this option. If this option wasn't selected, State Manager
+     * immediately runs the association.
+     * </p>
+     * <p>
+     * You can reset this option. To do so, specify the <code>no-apply-only-at-cron-interval</code> parameter when you
+     * update the association from the command line. This parameter forces the association to run immediately after
+     * updating it and according to the interval specified.
+     * </p>
+     * 
+     * @param applyOnlyAtCronInterval
+     *        By default, when you update an association, the system runs it immediately after it is updated and then
+     *        according to the schedule you specified. Specify this option if you don't want an association to run
+     *        immediately after you update it. This parameter isn't supported for rate expressions.</p>
+     *        <p>
+     *        If you chose this option when you created an association and later you edit that association or you make
+     *        changes to the SSM document on which that association is based (by using the Documents page in the
+     *        console), State Manager applies the association at the next specified cron interval. For example, if you
+     *        chose the <code>Latest</code> version of an SSM document when you created an association and you edit the
+     *        association by choosing a different document version on the Documents page, State Manager applies the
+     *        association at the next specified cron interval if you previously selected this option. If this option
+     *        wasn't selected, State Manager immediately runs the association.
+     *        </p>
+     *        <p>
+     *        You can reset this option. To do so, specify the <code>no-apply-only-at-cron-interval</code> parameter
+     *        when you update the association from the command line. This parameter forces the association to run
+     *        immediately after updating it and according to the interval specified.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateAssociationRequest withApplyOnlyAtCronInterval(Boolean applyOnlyAtCronInterval) {
+        setApplyOnlyAtCronInterval(applyOnlyAtCronInterval);
+        return this;
+    }
+
+    /**
+     * <p>
+     * By default, when you update an association, the system runs it immediately after it is updated and then according
+     * to the schedule you specified. Specify this option if you don't want an association to run immediately after you
+     * update it. This parameter isn't supported for rate expressions.
+     * </p>
+     * <p>
+     * If you chose this option when you created an association and later you edit that association or you make changes
+     * to the SSM document on which that association is based (by using the Documents page in the console), State
+     * Manager applies the association at the next specified cron interval. For example, if you chose the
+     * <code>Latest</code> version of an SSM document when you created an association and you edit the association by
+     * choosing a different document version on the Documents page, State Manager applies the association at the next
+     * specified cron interval if you previously selected this option. If this option wasn't selected, State Manager
+     * immediately runs the association.
+     * </p>
+     * <p>
+     * You can reset this option. To do so, specify the <code>no-apply-only-at-cron-interval</code> parameter when you
+     * update the association from the command line. This parameter forces the association to run immediately after
+     * updating it and according to the interval specified.
+     * </p>
+     * 
+     * @return By default, when you update an association, the system runs it immediately after it is updated and then
+     *         according to the schedule you specified. Specify this option if you don't want an association to run
+     *         immediately after you update it. This parameter isn't supported for rate expressions.</p>
+     *         <p>
+     *         If you chose this option when you created an association and later you edit that association or you make
+     *         changes to the SSM document on which that association is based (by using the Documents page in the
+     *         console), State Manager applies the association at the next specified cron interval. For example, if you
+     *         chose the <code>Latest</code> version of an SSM document when you created an association and you edit the
+     *         association by choosing a different document version on the Documents page, State Manager applies the
+     *         association at the next specified cron interval if you previously selected this option. If this option
+     *         wasn't selected, State Manager immediately runs the association.
+     *         </p>
+     *         <p>
+     *         You can reset this option. To do so, specify the <code>no-apply-only-at-cron-interval</code> parameter
+     *         when you update the association from the command line. This parameter forces the association to run
+     *         immediately after updating it and according to the interval specified.
+     */
+
+    public Boolean isApplyOnlyAtCronInterval() {
+        return this.applyOnlyAtCronInterval;
+    }
+
+    /**
+     * <p>
+     * The names or Amazon Resource Names (ARNs) of the Change Calendar type documents you want to gate your
+     * associations under. The associations only run when that change calendar is open. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar">Amazon Web
+     * Services Systems Manager Change Calendar</a>.
+     * </p>
+     * 
+     * @return The names or Amazon Resource Names (ARNs) of the Change Calendar type documents you want to gate your
+     *         associations under. The associations only run when that change calendar is open. For more information,
+     *         see <a
+     *         href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar"
+     *         >Amazon Web Services Systems Manager Change Calendar</a>.
+     */
+
+    public java.util.List<String> getCalendarNames() {
+        if (calendarNames == null) {
+            calendarNames = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return calendarNames;
+    }
+
+    /**
+     * <p>
+     * The names or Amazon Resource Names (ARNs) of the Change Calendar type documents you want to gate your
+     * associations under. The associations only run when that change calendar is open. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar">Amazon Web
+     * Services Systems Manager Change Calendar</a>.
+     * </p>
+     * 
+     * @param calendarNames
+     *        The names or Amazon Resource Names (ARNs) of the Change Calendar type documents you want to gate your
+     *        associations under. The associations only run when that change calendar is open. For more information, see
+     *        <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar">
+     *        Amazon Web Services Systems Manager Change Calendar</a>.
+     */
+
+    public void setCalendarNames(java.util.Collection<String> calendarNames) {
+        if (calendarNames == null) {
+            this.calendarNames = null;
+            return;
+        }
+
+        this.calendarNames = new com.amazonaws.internal.SdkInternalList<String>(calendarNames);
+    }
+
+    /**
+     * <p>
+     * The names or Amazon Resource Names (ARNs) of the Change Calendar type documents you want to gate your
+     * associations under. The associations only run when that change calendar is open. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar">Amazon Web
+     * Services Systems Manager Change Calendar</a>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setCalendarNames(java.util.Collection)} or {@link #withCalendarNames(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param calendarNames
+     *        The names or Amazon Resource Names (ARNs) of the Change Calendar type documents you want to gate your
+     *        associations under. The associations only run when that change calendar is open. For more information, see
+     *        <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar">
+     *        Amazon Web Services Systems Manager Change Calendar</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateAssociationRequest withCalendarNames(String... calendarNames) {
+        if (this.calendarNames == null) {
+            setCalendarNames(new com.amazonaws.internal.SdkInternalList<String>(calendarNames.length));
+        }
+        for (String ele : calendarNames) {
+            this.calendarNames.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The names or Amazon Resource Names (ARNs) of the Change Calendar type documents you want to gate your
+     * associations under. The associations only run when that change calendar is open. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar">Amazon Web
+     * Services Systems Manager Change Calendar</a>.
+     * </p>
+     * 
+     * @param calendarNames
+     *        The names or Amazon Resource Names (ARNs) of the Change Calendar type documents you want to gate your
+     *        associations under. The associations only run when that change calendar is open. For more information, see
+     *        <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar">
+     *        Amazon Web Services Systems Manager Change Calendar</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateAssociationRequest withCalendarNames(java.util.Collection<String> calendarNames) {
+        setCalendarNames(calendarNames);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A location is a combination of Amazon Web Services Regions and Amazon Web Services accounts where you want to run
+     * the association. Use this action to update an association in multiple Regions and multiple accounts.
+     * </p>
+     * 
+     * @return A location is a combination of Amazon Web Services Regions and Amazon Web Services accounts where you
+     *         want to run the association. Use this action to update an association in multiple Regions and multiple
+     *         accounts.
+     */
+
+    public java.util.List<TargetLocation> getTargetLocations() {
+        if (targetLocations == null) {
+            targetLocations = new com.amazonaws.internal.SdkInternalList<TargetLocation>();
+        }
+        return targetLocations;
+    }
+
+    /**
+     * <p>
+     * A location is a combination of Amazon Web Services Regions and Amazon Web Services accounts where you want to run
+     * the association. Use this action to update an association in multiple Regions and multiple accounts.
+     * </p>
+     * 
+     * @param targetLocations
+     *        A location is a combination of Amazon Web Services Regions and Amazon Web Services accounts where you want
+     *        to run the association. Use this action to update an association in multiple Regions and multiple
+     *        accounts.
+     */
+
+    public void setTargetLocations(java.util.Collection<TargetLocation> targetLocations) {
+        if (targetLocations == null) {
+            this.targetLocations = null;
+            return;
+        }
+
+        this.targetLocations = new com.amazonaws.internal.SdkInternalList<TargetLocation>(targetLocations);
+    }
+
+    /**
+     * <p>
+     * A location is a combination of Amazon Web Services Regions and Amazon Web Services accounts where you want to run
+     * the association. Use this action to update an association in multiple Regions and multiple accounts.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTargetLocations(java.util.Collection)} or {@link #withTargetLocations(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param targetLocations
+     *        A location is a combination of Amazon Web Services Regions and Amazon Web Services accounts where you want
+     *        to run the association. Use this action to update an association in multiple Regions and multiple
+     *        accounts.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateAssociationRequest withTargetLocations(TargetLocation... targetLocations) {
+        if (this.targetLocations == null) {
+            setTargetLocations(new com.amazonaws.internal.SdkInternalList<TargetLocation>(targetLocations.length));
+        }
+        for (TargetLocation ele : targetLocations) {
+            this.targetLocations.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A location is a combination of Amazon Web Services Regions and Amazon Web Services accounts where you want to run
+     * the association. Use this action to update an association in multiple Regions and multiple accounts.
+     * </p>
+     * 
+     * @param targetLocations
+     *        A location is a combination of Amazon Web Services Regions and Amazon Web Services accounts where you want
+     *        to run the association. Use this action to update an association in multiple Regions and multiple
+     *        accounts.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateAssociationRequest withTargetLocations(java.util.Collection<TargetLocation> targetLocations) {
+        setTargetLocations(targetLocations);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Number of days to wait after the scheduled day to run an association. For example, if you specified a cron
+     * schedule of <code>cron(0 0 ? * THU#2 *)</code>, you could specify an offset of 3 to run the association each
+     * Sunday after the second Thursday of the month. For more information about cron schedules for associations, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/reference-cron-and-rate-expressions.html">
+     * Reference: Cron and rate expressions for Systems Manager</a> in the <i>Amazon Web Services Systems Manager User
+     * Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * To use offsets, you must specify the <code>ApplyOnlyAtCronInterval</code> parameter. This option tells the system
+     * not to run an association immediately after you create it.
+     * </p>
+     * </note>
+     * 
+     * @param scheduleOffset
+     *        Number of days to wait after the scheduled day to run an association. For example, if you specified a cron
+     *        schedule of <code>cron(0 0 ? * THU#2 *)</code>, you could specify an offset of 3 to run the association
+     *        each Sunday after the second Thursday of the month. For more information about cron schedules for
+     *        associations, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/reference-cron-and-rate-expressions.html"
+     *        >Reference: Cron and rate expressions for Systems Manager</a> in the <i>Amazon Web Services Systems
+     *        Manager User Guide</i>. </p> <note>
+     *        <p>
+     *        To use offsets, you must specify the <code>ApplyOnlyAtCronInterval</code> parameter. This option tells the
+     *        system not to run an association immediately after you create it.
+     *        </p>
+     */
+
+    public void setScheduleOffset(Integer scheduleOffset) {
+        this.scheduleOffset = scheduleOffset;
+    }
+
+    /**
+     * <p>
+     * Number of days to wait after the scheduled day to run an association. For example, if you specified a cron
+     * schedule of <code>cron(0 0 ? * THU#2 *)</code>, you could specify an offset of 3 to run the association each
+     * Sunday after the second Thursday of the month. For more information about cron schedules for associations, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/reference-cron-and-rate-expressions.html">
+     * Reference: Cron and rate expressions for Systems Manager</a> in the <i>Amazon Web Services Systems Manager User
+     * Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * To use offsets, you must specify the <code>ApplyOnlyAtCronInterval</code> parameter. This option tells the system
+     * not to run an association immediately after you create it.
+     * </p>
+     * </note>
+     * 
+     * @return Number of days to wait after the scheduled day to run an association. For example, if you specified a
+     *         cron schedule of <code>cron(0 0 ? * THU#2 *)</code>, you could specify an offset of 3 to run the
+     *         association each Sunday after the second Thursday of the month. For more information about cron schedules
+     *         for associations, see <a href=
+     *         "https://docs.aws.amazon.com/systems-manager/latest/userguide/reference-cron-and-rate-expressions.html"
+     *         >Reference: Cron and rate expressions for Systems Manager</a> in the <i>Amazon Web Services Systems
+     *         Manager User Guide</i>. </p> <note>
+     *         <p>
+     *         To use offsets, you must specify the <code>ApplyOnlyAtCronInterval</code> parameter. This option tells
+     *         the system not to run an association immediately after you create it.
+     *         </p>
+     */
+
+    public Integer getScheduleOffset() {
+        return this.scheduleOffset;
+    }
+
+    /**
+     * <p>
+     * Number of days to wait after the scheduled day to run an association. For example, if you specified a cron
+     * schedule of <code>cron(0 0 ? * THU#2 *)</code>, you could specify an offset of 3 to run the association each
+     * Sunday after the second Thursday of the month. For more information about cron schedules for associations, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/reference-cron-and-rate-expressions.html">
+     * Reference: Cron and rate expressions for Systems Manager</a> in the <i>Amazon Web Services Systems Manager User
+     * Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * To use offsets, you must specify the <code>ApplyOnlyAtCronInterval</code> parameter. This option tells the system
+     * not to run an association immediately after you create it.
+     * </p>
+     * </note>
+     * 
+     * @param scheduleOffset
+     *        Number of days to wait after the scheduled day to run an association. For example, if you specified a cron
+     *        schedule of <code>cron(0 0 ? * THU#2 *)</code>, you could specify an offset of 3 to run the association
+     *        each Sunday after the second Thursday of the month. For more information about cron schedules for
+     *        associations, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/reference-cron-and-rate-expressions.html"
+     *        >Reference: Cron and rate expressions for Systems Manager</a> in the <i>Amazon Web Services Systems
+     *        Manager User Guide</i>. </p> <note>
+     *        <p>
+     *        To use offsets, you must specify the <code>ApplyOnlyAtCronInterval</code> parameter. This option tells the
+     *        system not to run an association immediately after you create it.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateAssociationRequest withScheduleOffset(Integer scheduleOffset) {
+        setScheduleOffset(scheduleOffset);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of hours the association can run before it is canceled. Duration applies to associations that are
+     * currently running, and any pending and in progress commands on all targets. If a target was taken offline for the
+     * association to run, it is made available again immediately, without a reboot.
+     * </p>
+     * <p>
+     * The <code>Duration</code> parameter applies only when both these conditions are true:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The association for which you specify a duration is cancelable according to the parameters of the SSM command
+     * document or Automation runbook associated with this execution.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The command specifies the
+     * <code> <a href="https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_UpdateAssociation.html#systemsmanager-UpdateAssociation-request-ApplyOnlyAtCronInterval">ApplyOnlyAtCronInterval</a> </code>
+     * parameter, which means that the association doesn't run immediately after it is updated, but only according to
+     * the specified schedule.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param duration
+     *        The number of hours the association can run before it is canceled. Duration applies to associations that
+     *        are currently running, and any pending and in progress commands on all targets. If a target was taken
+     *        offline for the association to run, it is made available again immediately, without a reboot. </p>
+     *        <p>
+     *        The <code>Duration</code> parameter applies only when both these conditions are true:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The association for which you specify a duration is cancelable according to the parameters of the SSM
+     *        command document or Automation runbook associated with this execution.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The command specifies the
+     *        <code> <a href="https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_UpdateAssociation.html#systemsmanager-UpdateAssociation-request-ApplyOnlyAtCronInterval">ApplyOnlyAtCronInterval</a> </code>
+     *        parameter, which means that the association doesn't run immediately after it is updated, but only
+     *        according to the specified schedule.
+     *        </p>
+     *        </li>
+     */
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
+
+    /**
+     * <p>
+     * The number of hours the association can run before it is canceled. Duration applies to associations that are
+     * currently running, and any pending and in progress commands on all targets. If a target was taken offline for the
+     * association to run, it is made available again immediately, without a reboot.
+     * </p>
+     * <p>
+     * The <code>Duration</code> parameter applies only when both these conditions are true:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The association for which you specify a duration is cancelable according to the parameters of the SSM command
+     * document or Automation runbook associated with this execution.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The command specifies the
+     * <code> <a href="https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_UpdateAssociation.html#systemsmanager-UpdateAssociation-request-ApplyOnlyAtCronInterval">ApplyOnlyAtCronInterval</a> </code>
+     * parameter, which means that the association doesn't run immediately after it is updated, but only according to
+     * the specified schedule.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The number of hours the association can run before it is canceled. Duration applies to associations that
+     *         are currently running, and any pending and in progress commands on all targets. If a target was taken
+     *         offline for the association to run, it is made available again immediately, without a reboot. </p>
+     *         <p>
+     *         The <code>Duration</code> parameter applies only when both these conditions are true:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         The association for which you specify a duration is cancelable according to the parameters of the SSM
+     *         command document or Automation runbook associated with this execution.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The command specifies the
+     *         <code> <a href="https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_UpdateAssociation.html#systemsmanager-UpdateAssociation-request-ApplyOnlyAtCronInterval">ApplyOnlyAtCronInterval</a> </code>
+     *         parameter, which means that the association doesn't run immediately after it is updated, but only
+     *         according to the specified schedule.
+     *         </p>
+     *         </li>
+     */
+
+    public Integer getDuration() {
+        return this.duration;
+    }
+
+    /**
+     * <p>
+     * The number of hours the association can run before it is canceled. Duration applies to associations that are
+     * currently running, and any pending and in progress commands on all targets. If a target was taken offline for the
+     * association to run, it is made available again immediately, without a reboot.
+     * </p>
+     * <p>
+     * The <code>Duration</code> parameter applies only when both these conditions are true:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The association for which you specify a duration is cancelable according to the parameters of the SSM command
+     * document or Automation runbook associated with this execution.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The command specifies the
+     * <code> <a href="https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_UpdateAssociation.html#systemsmanager-UpdateAssociation-request-ApplyOnlyAtCronInterval">ApplyOnlyAtCronInterval</a> </code>
+     * parameter, which means that the association doesn't run immediately after it is updated, but only according to
+     * the specified schedule.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param duration
+     *        The number of hours the association can run before it is canceled. Duration applies to associations that
+     *        are currently running, and any pending and in progress commands on all targets. If a target was taken
+     *        offline for the association to run, it is made available again immediately, without a reboot. </p>
+     *        <p>
+     *        The <code>Duration</code> parameter applies only when both these conditions are true:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The association for which you specify a duration is cancelable according to the parameters of the SSM
+     *        command document or Automation runbook associated with this execution.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The command specifies the
+     *        <code> <a href="https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_UpdateAssociation.html#systemsmanager-UpdateAssociation-request-ApplyOnlyAtCronInterval">ApplyOnlyAtCronInterval</a> </code>
+     *        parameter, which means that the association doesn't run immediately after it is updated, but only
+     *        according to the specified schedule.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateAssociationRequest withDuration(Integer duration) {
+        setDuration(duration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be specified
+     * together.
+     * </p>
+     * 
+     * @return A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be
+     *         specified together.
+     */
+
+    public java.util.List<java.util.Map<String, java.util.List<String>>> getTargetMaps() {
+        if (targetMaps == null) {
+            targetMaps = new com.amazonaws.internal.SdkInternalList<java.util.Map<String, java.util.List<String>>>();
+        }
+        return targetMaps;
+    }
+
+    /**
+     * <p>
+     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be specified
+     * together.
+     * </p>
+     * 
+     * @param targetMaps
+     *        A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be
+     *        specified together.
+     */
+
+    public void setTargetMaps(java.util.Collection<java.util.Map<String, java.util.List<String>>> targetMaps) {
+        if (targetMaps == null) {
+            this.targetMaps = null;
+            return;
+        }
+
+        this.targetMaps = new com.amazonaws.internal.SdkInternalList<java.util.Map<String, java.util.List<String>>>(targetMaps);
+    }
+
+    /**
+     * <p>
+     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be specified
+     * together.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTargetMaps(java.util.Collection)} or {@link #withTargetMaps(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param targetMaps
+     *        A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be
+     *        specified together.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateAssociationRequest withTargetMaps(java.util.Map<String, java.util.List<String>>... targetMaps) {
+        if (this.targetMaps == null) {
+            setTargetMaps(new com.amazonaws.internal.SdkInternalList<java.util.Map<String, java.util.List<String>>>(targetMaps.length));
+        }
+        for (java.util.Map<String, java.util.List<String>> ele : targetMaps) {
+            this.targetMaps.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be specified
+     * together.
+     * </p>
+     * 
+     * @param targetMaps
+     *        A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be
+     *        specified together.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateAssociationRequest withTargetMaps(java.util.Collection<java.util.Map<String, java.util.List<String>>> targetMaps) {
+        setTargetMaps(targetMaps);
+        return this;
+    }
+
+    /**
+     * @param alarmConfiguration
+     */
+
+    public void setAlarmConfiguration(AlarmConfiguration alarmConfiguration) {
+        this.alarmConfiguration = alarmConfiguration;
+    }
+
+    /**
+     * @return
+     */
+
+    public AlarmConfiguration getAlarmConfiguration() {
+        return this.alarmConfiguration;
+    }
+
+    /**
+     * @param alarmConfiguration
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateAssociationRequest withAlarmConfiguration(AlarmConfiguration alarmConfiguration) {
+        setAlarmConfiguration(alarmConfiguration);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1004,7 +2089,7 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
         if (getAssociationId() != null)
             sb.append("AssociationId: ").append(getAssociationId()).append(",");
         if (getParameters() != null)
-            sb.append("Parameters: ").append(getParameters()).append(",");
+            sb.append("Parameters: ").append("***Sensitive Data Redacted***").append(",");
         if (getDocumentVersion() != null)
             sb.append("DocumentVersion: ").append(getDocumentVersion()).append(",");
         if (getScheduleExpression() != null)
@@ -1026,7 +2111,23 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
         if (getMaxConcurrency() != null)
             sb.append("MaxConcurrency: ").append(getMaxConcurrency()).append(",");
         if (getComplianceSeverity() != null)
-            sb.append("ComplianceSeverity: ").append(getComplianceSeverity());
+            sb.append("ComplianceSeverity: ").append(getComplianceSeverity()).append(",");
+        if (getSyncCompliance() != null)
+            sb.append("SyncCompliance: ").append(getSyncCompliance()).append(",");
+        if (getApplyOnlyAtCronInterval() != null)
+            sb.append("ApplyOnlyAtCronInterval: ").append(getApplyOnlyAtCronInterval()).append(",");
+        if (getCalendarNames() != null)
+            sb.append("CalendarNames: ").append(getCalendarNames()).append(",");
+        if (getTargetLocations() != null)
+            sb.append("TargetLocations: ").append(getTargetLocations()).append(",");
+        if (getScheduleOffset() != null)
+            sb.append("ScheduleOffset: ").append(getScheduleOffset()).append(",");
+        if (getDuration() != null)
+            sb.append("Duration: ").append(getDuration()).append(",");
+        if (getTargetMaps() != null)
+            sb.append("TargetMaps: ").append(getTargetMaps()).append(",");
+        if (getAlarmConfiguration() != null)
+            sb.append("AlarmConfiguration: ").append(getAlarmConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -1094,6 +2195,38 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
             return false;
         if (other.getComplianceSeverity() != null && other.getComplianceSeverity().equals(this.getComplianceSeverity()) == false)
             return false;
+        if (other.getSyncCompliance() == null ^ this.getSyncCompliance() == null)
+            return false;
+        if (other.getSyncCompliance() != null && other.getSyncCompliance().equals(this.getSyncCompliance()) == false)
+            return false;
+        if (other.getApplyOnlyAtCronInterval() == null ^ this.getApplyOnlyAtCronInterval() == null)
+            return false;
+        if (other.getApplyOnlyAtCronInterval() != null && other.getApplyOnlyAtCronInterval().equals(this.getApplyOnlyAtCronInterval()) == false)
+            return false;
+        if (other.getCalendarNames() == null ^ this.getCalendarNames() == null)
+            return false;
+        if (other.getCalendarNames() != null && other.getCalendarNames().equals(this.getCalendarNames()) == false)
+            return false;
+        if (other.getTargetLocations() == null ^ this.getTargetLocations() == null)
+            return false;
+        if (other.getTargetLocations() != null && other.getTargetLocations().equals(this.getTargetLocations()) == false)
+            return false;
+        if (other.getScheduleOffset() == null ^ this.getScheduleOffset() == null)
+            return false;
+        if (other.getScheduleOffset() != null && other.getScheduleOffset().equals(this.getScheduleOffset()) == false)
+            return false;
+        if (other.getDuration() == null ^ this.getDuration() == null)
+            return false;
+        if (other.getDuration() != null && other.getDuration().equals(this.getDuration()) == false)
+            return false;
+        if (other.getTargetMaps() == null ^ this.getTargetMaps() == null)
+            return false;
+        if (other.getTargetMaps() != null && other.getTargetMaps().equals(this.getTargetMaps()) == false)
+            return false;
+        if (other.getAlarmConfiguration() == null ^ this.getAlarmConfiguration() == null)
+            return false;
+        if (other.getAlarmConfiguration() != null && other.getAlarmConfiguration().equals(this.getAlarmConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -1115,6 +2248,14 @@ public class UpdateAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
         hashCode = prime * hashCode + ((getMaxErrors() == null) ? 0 : getMaxErrors().hashCode());
         hashCode = prime * hashCode + ((getMaxConcurrency() == null) ? 0 : getMaxConcurrency().hashCode());
         hashCode = prime * hashCode + ((getComplianceSeverity() == null) ? 0 : getComplianceSeverity().hashCode());
+        hashCode = prime * hashCode + ((getSyncCompliance() == null) ? 0 : getSyncCompliance().hashCode());
+        hashCode = prime * hashCode + ((getApplyOnlyAtCronInterval() == null) ? 0 : getApplyOnlyAtCronInterval().hashCode());
+        hashCode = prime * hashCode + ((getCalendarNames() == null) ? 0 : getCalendarNames().hashCode());
+        hashCode = prime * hashCode + ((getTargetLocations() == null) ? 0 : getTargetLocations().hashCode());
+        hashCode = prime * hashCode + ((getScheduleOffset() == null) ? 0 : getScheduleOffset().hashCode());
+        hashCode = prime * hashCode + ((getDuration() == null) ? 0 : getDuration().hashCode());
+        hashCode = prime * hashCode + ((getTargetMaps() == null) ? 0 : getTargetMaps().hashCode());
+        hashCode = prime * hashCode + ((getAlarmConfiguration() == null) ? 0 : getAlarmConfiguration().hashCode());
         return hashCode;
     }
 

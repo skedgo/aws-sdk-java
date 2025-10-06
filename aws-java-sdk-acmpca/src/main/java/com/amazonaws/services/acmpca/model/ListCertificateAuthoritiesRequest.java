@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,6 +27,17 @@ public class ListCertificateAuthoritiesRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
+     * Use this parameter when paginating results to specify the maximum number of items to return in the response on
+     * each page. If additional items exist beyond the number you specify, the <code>NextToken</code> element is sent in
+     * the response. Use this <code>NextToken</code> value in a subsequent request to retrieve additional items.
+     * </p>
+     * <p>
+     * Although the maximum value is 1000, the action only returns a maximum of 100 items.
+     * </p>
+     */
+    private Integer maxResults;
+    /**
+     * <p>
      * Use this parameter when paginating results in a subsequent request after you receive a response with truncated
      * results. Set it to the value of the <code>NextToken</code> parameter from the response you just received.
      * </p>
@@ -34,12 +45,81 @@ public class ListCertificateAuthoritiesRequest extends com.amazonaws.AmazonWebSe
     private String nextToken;
     /**
      * <p>
+     * Use this parameter to filter the returned set of certificate authorities based on their owner. The default is
+     * SELF.
+     * </p>
+     */
+    private String resourceOwner;
+
+    /**
+     * <p>
      * Use this parameter when paginating results to specify the maximum number of items to return in the response on
      * each page. If additional items exist beyond the number you specify, the <code>NextToken</code> element is sent in
      * the response. Use this <code>NextToken</code> value in a subsequent request to retrieve additional items.
      * </p>
+     * <p>
+     * Although the maximum value is 1000, the action only returns a maximum of 100 items.
+     * </p>
+     * 
+     * @param maxResults
+     *        Use this parameter when paginating results to specify the maximum number of items to return in the
+     *        response on each page. If additional items exist beyond the number you specify, the <code>NextToken</code>
+     *        element is sent in the response. Use this <code>NextToken</code> value in a subsequent request to retrieve
+     *        additional items.</p>
+     *        <p>
+     *        Although the maximum value is 1000, the action only returns a maximum of 100 items.
      */
-    private Integer maxResults;
+
+    public void setMaxResults(Integer maxResults) {
+        this.maxResults = maxResults;
+    }
+
+    /**
+     * <p>
+     * Use this parameter when paginating results to specify the maximum number of items to return in the response on
+     * each page. If additional items exist beyond the number you specify, the <code>NextToken</code> element is sent in
+     * the response. Use this <code>NextToken</code> value in a subsequent request to retrieve additional items.
+     * </p>
+     * <p>
+     * Although the maximum value is 1000, the action only returns a maximum of 100 items.
+     * </p>
+     * 
+     * @return Use this parameter when paginating results to specify the maximum number of items to return in the
+     *         response on each page. If additional items exist beyond the number you specify, the
+     *         <code>NextToken</code> element is sent in the response. Use this <code>NextToken</code> value in a
+     *         subsequent request to retrieve additional items.</p>
+     *         <p>
+     *         Although the maximum value is 1000, the action only returns a maximum of 100 items.
+     */
+
+    public Integer getMaxResults() {
+        return this.maxResults;
+    }
+
+    /**
+     * <p>
+     * Use this parameter when paginating results to specify the maximum number of items to return in the response on
+     * each page. If additional items exist beyond the number you specify, the <code>NextToken</code> element is sent in
+     * the response. Use this <code>NextToken</code> value in a subsequent request to retrieve additional items.
+     * </p>
+     * <p>
+     * Although the maximum value is 1000, the action only returns a maximum of 100 items.
+     * </p>
+     * 
+     * @param maxResults
+     *        Use this parameter when paginating results to specify the maximum number of items to return in the
+     *        response on each page. If additional items exist beyond the number you specify, the <code>NextToken</code>
+     *        element is sent in the response. Use this <code>NextToken</code> value in a subsequent request to retrieve
+     *        additional items.</p>
+     *        <p>
+     *        Although the maximum value is 1000, the action only returns a maximum of 100 items.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListCertificateAuthoritiesRequest withMaxResults(Integer maxResults) {
+        setMaxResults(maxResults);
+        return this;
+    }
 
     /**
      * <p>
@@ -92,56 +172,68 @@ public class ListCertificateAuthoritiesRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Use this parameter when paginating results to specify the maximum number of items to return in the response on
-     * each page. If additional items exist beyond the number you specify, the <code>NextToken</code> element is sent in
-     * the response. Use this <code>NextToken</code> value in a subsequent request to retrieve additional items.
+     * Use this parameter to filter the returned set of certificate authorities based on their owner. The default is
+     * SELF.
      * </p>
      * 
-     * @param maxResults
-     *        Use this parameter when paginating results to specify the maximum number of items to return in the
-     *        response on each page. If additional items exist beyond the number you specify, the <code>NextToken</code>
-     *        element is sent in the response. Use this <code>NextToken</code> value in a subsequent request to retrieve
-     *        additional items.
+     * @param resourceOwner
+     *        Use this parameter to filter the returned set of certificate authorities based on their owner. The default
+     *        is SELF.
+     * @see ResourceOwner
      */
 
-    public void setMaxResults(Integer maxResults) {
-        this.maxResults = maxResults;
+    public void setResourceOwner(String resourceOwner) {
+        this.resourceOwner = resourceOwner;
     }
 
     /**
      * <p>
-     * Use this parameter when paginating results to specify the maximum number of items to return in the response on
-     * each page. If additional items exist beyond the number you specify, the <code>NextToken</code> element is sent in
-     * the response. Use this <code>NextToken</code> value in a subsequent request to retrieve additional items.
+     * Use this parameter to filter the returned set of certificate authorities based on their owner. The default is
+     * SELF.
      * </p>
      * 
-     * @return Use this parameter when paginating results to specify the maximum number of items to return in the
-     *         response on each page. If additional items exist beyond the number you specify, the
-     *         <code>NextToken</code> element is sent in the response. Use this <code>NextToken</code> value in a
-     *         subsequent request to retrieve additional items.
+     * @return Use this parameter to filter the returned set of certificate authorities based on their owner. The
+     *         default is SELF.
+     * @see ResourceOwner
      */
 
-    public Integer getMaxResults() {
-        return this.maxResults;
+    public String getResourceOwner() {
+        return this.resourceOwner;
     }
 
     /**
      * <p>
-     * Use this parameter when paginating results to specify the maximum number of items to return in the response on
-     * each page. If additional items exist beyond the number you specify, the <code>NextToken</code> element is sent in
-     * the response. Use this <code>NextToken</code> value in a subsequent request to retrieve additional items.
+     * Use this parameter to filter the returned set of certificate authorities based on their owner. The default is
+     * SELF.
      * </p>
      * 
-     * @param maxResults
-     *        Use this parameter when paginating results to specify the maximum number of items to return in the
-     *        response on each page. If additional items exist beyond the number you specify, the <code>NextToken</code>
-     *        element is sent in the response. Use this <code>NextToken</code> value in a subsequent request to retrieve
-     *        additional items.
+     * @param resourceOwner
+     *        Use this parameter to filter the returned set of certificate authorities based on their owner. The default
+     *        is SELF.
      * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ResourceOwner
      */
 
-    public ListCertificateAuthoritiesRequest withMaxResults(Integer maxResults) {
-        setMaxResults(maxResults);
+    public ListCertificateAuthoritiesRequest withResourceOwner(String resourceOwner) {
+        setResourceOwner(resourceOwner);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Use this parameter to filter the returned set of certificate authorities based on their owner. The default is
+     * SELF.
+     * </p>
+     * 
+     * @param resourceOwner
+     *        Use this parameter to filter the returned set of certificate authorities based on their owner. The default
+     *        is SELF.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ResourceOwner
+     */
+
+    public ListCertificateAuthoritiesRequest withResourceOwner(ResourceOwner resourceOwner) {
+        this.resourceOwner = resourceOwner.toString();
         return this;
     }
 
@@ -157,10 +249,12 @@ public class ListCertificateAuthoritiesRequest extends com.amazonaws.AmazonWebSe
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getMaxResults() != null)
+            sb.append("MaxResults: ").append(getMaxResults()).append(",");
         if (getNextToken() != null)
             sb.append("NextToken: ").append(getNextToken()).append(",");
-        if (getMaxResults() != null)
-            sb.append("MaxResults: ").append(getMaxResults());
+        if (getResourceOwner() != null)
+            sb.append("ResourceOwner: ").append(getResourceOwner());
         sb.append("}");
         return sb.toString();
     }
@@ -175,13 +269,17 @@ public class ListCertificateAuthoritiesRequest extends com.amazonaws.AmazonWebSe
         if (obj instanceof ListCertificateAuthoritiesRequest == false)
             return false;
         ListCertificateAuthoritiesRequest other = (ListCertificateAuthoritiesRequest) obj;
+        if (other.getMaxResults() == null ^ this.getMaxResults() == null)
+            return false;
+        if (other.getMaxResults() != null && other.getMaxResults().equals(this.getMaxResults()) == false)
+            return false;
         if (other.getNextToken() == null ^ this.getNextToken() == null)
             return false;
         if (other.getNextToken() != null && other.getNextToken().equals(this.getNextToken()) == false)
             return false;
-        if (other.getMaxResults() == null ^ this.getMaxResults() == null)
+        if (other.getResourceOwner() == null ^ this.getResourceOwner() == null)
             return false;
-        if (other.getMaxResults() != null && other.getMaxResults().equals(this.getMaxResults()) == false)
+        if (other.getResourceOwner() != null && other.getResourceOwner().equals(this.getResourceOwner()) == false)
             return false;
         return true;
     }
@@ -191,8 +289,9 @@ public class ListCertificateAuthoritiesRequest extends com.amazonaws.AmazonWebSe
         final int prime = 31;
         int hashCode = 1;
 
-        hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
         hashCode = prime * hashCode + ((getMaxResults() == null) ? 0 : getMaxResults().hashCode());
+        hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
+        hashCode = prime * hashCode + ((getResourceOwner() == null) ? 0 : getResourceOwner().hashCode());
         return hashCode;
     }
 

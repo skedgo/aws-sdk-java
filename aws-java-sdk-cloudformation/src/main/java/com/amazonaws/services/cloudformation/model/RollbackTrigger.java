@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,9 +17,9 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * A rollback trigger AWS CloudFormation monitors during creation and updating of stacks. If any of the alarms you
- * specify goes to ALARM state during the stack operation or within the specified monitoring period afterwards,
- * CloudFormation rolls back the entire stack operation.
+ * A rollback trigger CloudFormation monitors during creation and updating of stacks. If any of the alarms you specify
+ * goes to ALARM state during the stack operation or within the specified monitoring period afterwards, CloudFormation
+ * rolls back the entire stack operation.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/RollbackTrigger" target="_top">AWS API
@@ -39,9 +39,11 @@ public class RollbackTrigger implements Serializable, Cloneable {
     private String arn;
     /**
      * <p>
-     * The resource type of the rollback trigger. Currently, <a
+     * The resource type of the rollback trigger. Specify either <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html"
-     * >AWS::CloudWatch::Alarm</a> is the only supported resource type.
+     * >AWS::CloudWatch::Alarm</a> or <a href=
+     * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-compositealarm.html"
+     * >AWS::CloudWatch::CompositeAlarm</a> resource types.
      * </p>
      */
     private String type;
@@ -103,15 +105,19 @@ public class RollbackTrigger implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The resource type of the rollback trigger. Currently, <a
+     * The resource type of the rollback trigger. Specify either <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html"
-     * >AWS::CloudWatch::Alarm</a> is the only supported resource type.
+     * >AWS::CloudWatch::Alarm</a> or <a href=
+     * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-compositealarm.html"
+     * >AWS::CloudWatch::CompositeAlarm</a> resource types.
      * </p>
      * 
      * @param type
-     *        The resource type of the rollback trigger. Currently, <a
+     *        The resource type of the rollback trigger. Specify either <a
      *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html"
-     *        >AWS::CloudWatch::Alarm</a> is the only supported resource type.
+     *        >AWS::CloudWatch::Alarm</a> or <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-compositealarm.html"
+     *        >AWS::CloudWatch::CompositeAlarm</a> resource types.
      */
 
     public void setType(String type) {
@@ -120,14 +126,18 @@ public class RollbackTrigger implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The resource type of the rollback trigger. Currently, <a
+     * The resource type of the rollback trigger. Specify either <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html"
-     * >AWS::CloudWatch::Alarm</a> is the only supported resource type.
+     * >AWS::CloudWatch::Alarm</a> or <a href=
+     * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-compositealarm.html"
+     * >AWS::CloudWatch::CompositeAlarm</a> resource types.
      * </p>
      * 
-     * @return The resource type of the rollback trigger. Currently, <a
+     * @return The resource type of the rollback trigger. Specify either <a
      *         href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html"
-     *         >AWS::CloudWatch::Alarm</a> is the only supported resource type.
+     *         >AWS::CloudWatch::Alarm</a> or <a href=
+     *         "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-compositealarm.html"
+     *         >AWS::CloudWatch::CompositeAlarm</a> resource types.
      */
 
     public String getType() {
@@ -136,15 +146,19 @@ public class RollbackTrigger implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The resource type of the rollback trigger. Currently, <a
+     * The resource type of the rollback trigger. Specify either <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html"
-     * >AWS::CloudWatch::Alarm</a> is the only supported resource type.
+     * >AWS::CloudWatch::Alarm</a> or <a href=
+     * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-compositealarm.html"
+     * >AWS::CloudWatch::CompositeAlarm</a> resource types.
      * </p>
      * 
      * @param type
-     *        The resource type of the rollback trigger. Currently, <a
+     *        The resource type of the rollback trigger. Specify either <a
      *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html"
-     *        >AWS::CloudWatch::Alarm</a> is the only supported resource type.
+     *        >AWS::CloudWatch::Alarm</a> or <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-compositealarm.html"
+     *        >AWS::CloudWatch::CompositeAlarm</a> resource types.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

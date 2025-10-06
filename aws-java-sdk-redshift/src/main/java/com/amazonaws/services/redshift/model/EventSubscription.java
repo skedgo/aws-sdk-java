@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,7 @@ public class EventSubscription implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS customer account associated with the Amazon Redshift event notification subscription.
+     * The Amazon Web Services account associated with the Amazon Redshift event notification subscription.
      * </p>
      */
     private String customerAwsId;
@@ -74,8 +74,8 @@ public class EventSubscription implements Serializable, Cloneable {
     private java.util.Date subscriptionCreationTime;
     /**
      * <p>
-     * The source type of the events returned the Amazon Redshift event notification, such as cluster, or
-     * cluster-snapshot.
+     * The source type of the events returned by the Amazon Redshift event notification, such as cluster,
+     * cluster-snapshot, cluster-parameter-group, cluster-security-group, or scheduled-action.
      * </p>
      */
     private String sourceType;
@@ -90,7 +90,7 @@ public class EventSubscription implements Serializable, Cloneable {
      * The list of Amazon Redshift event categories specified in the event notification subscription.
      * </p>
      * <p>
-     * Values: Configuration, Management, Monitoring, Security
+     * Values: Configuration, Management, Monitoring, Security, Pending
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> eventCategoriesList;
@@ -119,11 +119,11 @@ public class EventSubscription implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS customer account associated with the Amazon Redshift event notification subscription.
+     * The Amazon Web Services account associated with the Amazon Redshift event notification subscription.
      * </p>
      * 
      * @param customerAwsId
-     *        The AWS customer account associated with the Amazon Redshift event notification subscription.
+     *        The Amazon Web Services account associated with the Amazon Redshift event notification subscription.
      */
 
     public void setCustomerAwsId(String customerAwsId) {
@@ -132,10 +132,10 @@ public class EventSubscription implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS customer account associated with the Amazon Redshift event notification subscription.
+     * The Amazon Web Services account associated with the Amazon Redshift event notification subscription.
      * </p>
      * 
-     * @return The AWS customer account associated with the Amazon Redshift event notification subscription.
+     * @return The Amazon Web Services account associated with the Amazon Redshift event notification subscription.
      */
 
     public String getCustomerAwsId() {
@@ -144,11 +144,11 @@ public class EventSubscription implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS customer account associated with the Amazon Redshift event notification subscription.
+     * The Amazon Web Services account associated with the Amazon Redshift event notification subscription.
      * </p>
      * 
      * @param customerAwsId
-     *        The AWS customer account associated with the Amazon Redshift event notification subscription.
+     *        The Amazon Web Services account associated with the Amazon Redshift event notification subscription.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -415,13 +415,13 @@ public class EventSubscription implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The source type of the events returned the Amazon Redshift event notification, such as cluster, or
-     * cluster-snapshot.
+     * The source type of the events returned by the Amazon Redshift event notification, such as cluster,
+     * cluster-snapshot, cluster-parameter-group, cluster-security-group, or scheduled-action.
      * </p>
      * 
      * @param sourceType
-     *        The source type of the events returned the Amazon Redshift event notification, such as cluster, or
-     *        cluster-snapshot.
+     *        The source type of the events returned by the Amazon Redshift event notification, such as cluster,
+     *        cluster-snapshot, cluster-parameter-group, cluster-security-group, or scheduled-action.
      */
 
     public void setSourceType(String sourceType) {
@@ -430,12 +430,12 @@ public class EventSubscription implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The source type of the events returned the Amazon Redshift event notification, such as cluster, or
-     * cluster-snapshot.
+     * The source type of the events returned by the Amazon Redshift event notification, such as cluster,
+     * cluster-snapshot, cluster-parameter-group, cluster-security-group, or scheduled-action.
      * </p>
      * 
-     * @return The source type of the events returned the Amazon Redshift event notification, such as cluster, or
-     *         cluster-snapshot.
+     * @return The source type of the events returned by the Amazon Redshift event notification, such as cluster,
+     *         cluster-snapshot, cluster-parameter-group, cluster-security-group, or scheduled-action.
      */
 
     public String getSourceType() {
@@ -444,13 +444,13 @@ public class EventSubscription implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The source type of the events returned the Amazon Redshift event notification, such as cluster, or
-     * cluster-snapshot.
+     * The source type of the events returned by the Amazon Redshift event notification, such as cluster,
+     * cluster-snapshot, cluster-parameter-group, cluster-security-group, or scheduled-action.
      * </p>
      * 
      * @param sourceType
-     *        The source type of the events returned the Amazon Redshift event notification, such as cluster, or
-     *        cluster-snapshot.
+     *        The source type of the events returned by the Amazon Redshift event notification, such as cluster,
+     *        cluster-snapshot, cluster-parameter-group, cluster-security-group, or scheduled-action.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -537,12 +537,12 @@ public class EventSubscription implements Serializable, Cloneable {
      * The list of Amazon Redshift event categories specified in the event notification subscription.
      * </p>
      * <p>
-     * Values: Configuration, Management, Monitoring, Security
+     * Values: Configuration, Management, Monitoring, Security, Pending
      * </p>
      * 
      * @return The list of Amazon Redshift event categories specified in the event notification subscription.</p>
      *         <p>
-     *         Values: Configuration, Management, Monitoring, Security
+     *         Values: Configuration, Management, Monitoring, Security, Pending
      */
 
     public java.util.List<String> getEventCategoriesList() {
@@ -557,13 +557,13 @@ public class EventSubscription implements Serializable, Cloneable {
      * The list of Amazon Redshift event categories specified in the event notification subscription.
      * </p>
      * <p>
-     * Values: Configuration, Management, Monitoring, Security
+     * Values: Configuration, Management, Monitoring, Security, Pending
      * </p>
      * 
      * @param eventCategoriesList
      *        The list of Amazon Redshift event categories specified in the event notification subscription.</p>
      *        <p>
-     *        Values: Configuration, Management, Monitoring, Security
+     *        Values: Configuration, Management, Monitoring, Security, Pending
      */
 
     public void setEventCategoriesList(java.util.Collection<String> eventCategoriesList) {
@@ -580,7 +580,7 @@ public class EventSubscription implements Serializable, Cloneable {
      * The list of Amazon Redshift event categories specified in the event notification subscription.
      * </p>
      * <p>
-     * Values: Configuration, Management, Monitoring, Security
+     * Values: Configuration, Management, Monitoring, Security, Pending
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -591,7 +591,7 @@ public class EventSubscription implements Serializable, Cloneable {
      * @param eventCategoriesList
      *        The list of Amazon Redshift event categories specified in the event notification subscription.</p>
      *        <p>
-     *        Values: Configuration, Management, Monitoring, Security
+     *        Values: Configuration, Management, Monitoring, Security, Pending
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -610,13 +610,13 @@ public class EventSubscription implements Serializable, Cloneable {
      * The list of Amazon Redshift event categories specified in the event notification subscription.
      * </p>
      * <p>
-     * Values: Configuration, Management, Monitoring, Security
+     * Values: Configuration, Management, Monitoring, Security, Pending
      * </p>
      * 
      * @param eventCategoriesList
      *        The list of Amazon Redshift event categories specified in the event notification subscription.</p>
      *        <p>
-     *        Values: Configuration, Management, Monitoring, Security
+     *        Values: Configuration, Management, Monitoring, Security, Pending
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

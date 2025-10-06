@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Returns properties of the server that was specified.
+ * Returns properties of a file transfer protocol-enabled server that was specified.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/transfer-2018-11-05/ListedServer" target="_top">AWS API
@@ -30,45 +30,69 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The unique Amazon Resource Name (ARN) for the server to be listed.
+     * Specifies the unique Amazon Resource Name (ARN) for a server to be listed.
      * </p>
      */
     private String arn;
     /**
      * <p>
-     * The authentication method used to validate a user for the server that was specified. listed. This can include
-     * Secure Shell (SSH), user name and password combinations, or your own custom authentication method. Valid values
-     * include <code>SERVICE_MANAGED</code> or <code>API_GATEWAY</code>.
+     * Specifies the domain of the storage system that is used for file transfers. There are two domains available:
+     * Amazon Simple Storage Service (Amazon S3) and Amazon Elastic File System (Amazon EFS). The default value is S3.
+     * </p>
+     */
+    private String domain;
+    /**
+     * <p>
+     * The mode of authentication for a server. The default value is <code>SERVICE_MANAGED</code>, which allows you to
+     * store and access user credentials within the Transfer Family service.
+     * </p>
+     * <p>
+     * Use <code>AWS_DIRECTORY_SERVICE</code> to provide access to Active Directory groups in Directory Service for
+     * Microsoft Active Directory or Microsoft Active Directory in your on-premises environment or in Amazon Web
+     * Services using AD Connector. This option also requires you to provide a Directory ID by using the
+     * <code>IdentityProviderDetails</code> parameter.
+     * </p>
+     * <p>
+     * Use the <code>API_GATEWAY</code> value to integrate with an identity provider of your choosing. The
+     * <code>API_GATEWAY</code> setting requires you to provide an Amazon API Gateway endpoint URL to call for
+     * authentication by using the <code>IdentityProviderDetails</code> parameter.
+     * </p>
+     * <p>
+     * Use the <code>AWS_LAMBDA</code> value to directly use an Lambda function as your identity provider. If you choose
+     * this value, you must specify the ARN for the Lambda function in the <code>Function</code> parameter for the
+     * <code>IdentityProviderDetails</code> data type.
      * </p>
      */
     private String identityProviderType;
     /**
      * <p>
-     * The type of VPC endpoint that your SFTP server is connected to. If your SFTP server is connected to a VPC
+     * Specifies the type of VPC endpoint that your server is connected to. If your server is connected to a VPC
      * endpoint, your server isn't accessible over the public internet.
      * </p>
      */
     private String endpointType;
     /**
      * <p>
-     * The AWS Identity and Access Management entity that allows the server to turn on Amazon CloudWatch logging.
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that allows a server to turn on
+     * Amazon CloudWatch logging for Amazon S3 or Amazon EFSevents. When set, you can view user activity in your
+     * CloudWatch logs.
      * </p>
      */
     private String loggingRole;
     /**
      * <p>
-     * This value is the unique system assigned identifier for the SFTP servers that were listed.
+     * Specifies the unique system assigned identifier for the servers that were listed.
      * </p>
      */
     private String serverId;
     /**
      * <p>
-     * This property describes the condition of the SFTP server for the server that was described. A value of
-     * <code>ONLINE</code>&gt; indicates that the server can accept jobs and transfer files. A <code>State</code> value
-     * of <code>OFFLINE</code> means that the server cannot perform file transfer operations.
+     * The condition of the server that was described. A value of <code>ONLINE</code> indicates that the server can
+     * accept jobs and transfer files. A <code>State</code> value of <code>OFFLINE</code> means that the server cannot
+     * perform file transfer operations.
      * </p>
      * <p>
-     * The states of <code>STARTING</code> and <code>STOPPING</code> indicated that the server is in an intermediate
+     * The states of <code>STARTING</code> and <code>STOPPING</code> indicate that the server is in an intermediate
      * state, either not fully able to respond, or not fully offline. The values of <code>START_FAILED</code> or
      * <code>STOP_FAILED</code> can indicate an error condition.
      * </p>
@@ -76,19 +100,18 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
     private String state;
     /**
      * <p>
-     * This property is a numeric value that indicates the number of users that are assigned to the SFTP server you
-     * specified with the <code>ServerId</code>.
+     * Specifies the number of users that are assigned to a server you specified with the <code>ServerId</code>.
      * </p>
      */
     private Integer userCount;
 
     /**
      * <p>
-     * The unique Amazon Resource Name (ARN) for the server to be listed.
+     * Specifies the unique Amazon Resource Name (ARN) for a server to be listed.
      * </p>
      * 
      * @param arn
-     *        The unique Amazon Resource Name (ARN) for the server to be listed.
+     *        Specifies the unique Amazon Resource Name (ARN) for a server to be listed.
      */
 
     public void setArn(String arn) {
@@ -97,10 +120,10 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The unique Amazon Resource Name (ARN) for the server to be listed.
+     * Specifies the unique Amazon Resource Name (ARN) for a server to be listed.
      * </p>
      * 
-     * @return The unique Amazon Resource Name (ARN) for the server to be listed.
+     * @return Specifies the unique Amazon Resource Name (ARN) for a server to be listed.
      */
 
     public String getArn() {
@@ -109,11 +132,11 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The unique Amazon Resource Name (ARN) for the server to be listed.
+     * Specifies the unique Amazon Resource Name (ARN) for a server to be listed.
      * </p>
      * 
      * @param arn
-     *        The unique Amazon Resource Name (ARN) for the server to be listed.
+     *        Specifies the unique Amazon Resource Name (ARN) for a server to be listed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -124,15 +147,115 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The authentication method used to validate a user for the server that was specified. listed. This can include
-     * Secure Shell (SSH), user name and password combinations, or your own custom authentication method. Valid values
-     * include <code>SERVICE_MANAGED</code> or <code>API_GATEWAY</code>.
+     * Specifies the domain of the storage system that is used for file transfers. There are two domains available:
+     * Amazon Simple Storage Service (Amazon S3) and Amazon Elastic File System (Amazon EFS). The default value is S3.
+     * </p>
+     * 
+     * @param domain
+     *        Specifies the domain of the storage system that is used for file transfers. There are two domains
+     *        available: Amazon Simple Storage Service (Amazon S3) and Amazon Elastic File System (Amazon EFS). The
+     *        default value is S3.
+     * @see Domain
+     */
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
+    /**
+     * <p>
+     * Specifies the domain of the storage system that is used for file transfers. There are two domains available:
+     * Amazon Simple Storage Service (Amazon S3) and Amazon Elastic File System (Amazon EFS). The default value is S3.
+     * </p>
+     * 
+     * @return Specifies the domain of the storage system that is used for file transfers. There are two domains
+     *         available: Amazon Simple Storage Service (Amazon S3) and Amazon Elastic File System (Amazon EFS). The
+     *         default value is S3.
+     * @see Domain
+     */
+
+    public String getDomain() {
+        return this.domain;
+    }
+
+    /**
+     * <p>
+     * Specifies the domain of the storage system that is used for file transfers. There are two domains available:
+     * Amazon Simple Storage Service (Amazon S3) and Amazon Elastic File System (Amazon EFS). The default value is S3.
+     * </p>
+     * 
+     * @param domain
+     *        Specifies the domain of the storage system that is used for file transfers. There are two domains
+     *        available: Amazon Simple Storage Service (Amazon S3) and Amazon Elastic File System (Amazon EFS). The
+     *        default value is S3.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Domain
+     */
+
+    public ListedServer withDomain(String domain) {
+        setDomain(domain);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the domain of the storage system that is used for file transfers. There are two domains available:
+     * Amazon Simple Storage Service (Amazon S3) and Amazon Elastic File System (Amazon EFS). The default value is S3.
+     * </p>
+     * 
+     * @param domain
+     *        Specifies the domain of the storage system that is used for file transfers. There are two domains
+     *        available: Amazon Simple Storage Service (Amazon S3) and Amazon Elastic File System (Amazon EFS). The
+     *        default value is S3.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Domain
+     */
+
+    public ListedServer withDomain(Domain domain) {
+        this.domain = domain.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The mode of authentication for a server. The default value is <code>SERVICE_MANAGED</code>, which allows you to
+     * store and access user credentials within the Transfer Family service.
+     * </p>
+     * <p>
+     * Use <code>AWS_DIRECTORY_SERVICE</code> to provide access to Active Directory groups in Directory Service for
+     * Microsoft Active Directory or Microsoft Active Directory in your on-premises environment or in Amazon Web
+     * Services using AD Connector. This option also requires you to provide a Directory ID by using the
+     * <code>IdentityProviderDetails</code> parameter.
+     * </p>
+     * <p>
+     * Use the <code>API_GATEWAY</code> value to integrate with an identity provider of your choosing. The
+     * <code>API_GATEWAY</code> setting requires you to provide an Amazon API Gateway endpoint URL to call for
+     * authentication by using the <code>IdentityProviderDetails</code> parameter.
+     * </p>
+     * <p>
+     * Use the <code>AWS_LAMBDA</code> value to directly use an Lambda function as your identity provider. If you choose
+     * this value, you must specify the ARN for the Lambda function in the <code>Function</code> parameter for the
+     * <code>IdentityProviderDetails</code> data type.
      * </p>
      * 
      * @param identityProviderType
-     *        The authentication method used to validate a user for the server that was specified. listed. This can
-     *        include Secure Shell (SSH), user name and password combinations, or your own custom authentication method.
-     *        Valid values include <code>SERVICE_MANAGED</code> or <code>API_GATEWAY</code>.
+     *        The mode of authentication for a server. The default value is <code>SERVICE_MANAGED</code>, which allows
+     *        you to store and access user credentials within the Transfer Family service.</p>
+     *        <p>
+     *        Use <code>AWS_DIRECTORY_SERVICE</code> to provide access to Active Directory groups in Directory Service
+     *        for Microsoft Active Directory or Microsoft Active Directory in your on-premises environment or in Amazon
+     *        Web Services using AD Connector. This option also requires you to provide a Directory ID by using the
+     *        <code>IdentityProviderDetails</code> parameter.
+     *        </p>
+     *        <p>
+     *        Use the <code>API_GATEWAY</code> value to integrate with an identity provider of your choosing. The
+     *        <code>API_GATEWAY</code> setting requires you to provide an Amazon API Gateway endpoint URL to call for
+     *        authentication by using the <code>IdentityProviderDetails</code> parameter.
+     *        </p>
+     *        <p>
+     *        Use the <code>AWS_LAMBDA</code> value to directly use an Lambda function as your identity provider. If you
+     *        choose this value, you must specify the ARN for the Lambda function in the <code>Function</code> parameter
+     *        for the <code>IdentityProviderDetails</code> data type.
      * @see IdentityProviderType
      */
 
@@ -142,14 +265,43 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The authentication method used to validate a user for the server that was specified. listed. This can include
-     * Secure Shell (SSH), user name and password combinations, or your own custom authentication method. Valid values
-     * include <code>SERVICE_MANAGED</code> or <code>API_GATEWAY</code>.
+     * The mode of authentication for a server. The default value is <code>SERVICE_MANAGED</code>, which allows you to
+     * store and access user credentials within the Transfer Family service.
+     * </p>
+     * <p>
+     * Use <code>AWS_DIRECTORY_SERVICE</code> to provide access to Active Directory groups in Directory Service for
+     * Microsoft Active Directory or Microsoft Active Directory in your on-premises environment or in Amazon Web
+     * Services using AD Connector. This option also requires you to provide a Directory ID by using the
+     * <code>IdentityProviderDetails</code> parameter.
+     * </p>
+     * <p>
+     * Use the <code>API_GATEWAY</code> value to integrate with an identity provider of your choosing. The
+     * <code>API_GATEWAY</code> setting requires you to provide an Amazon API Gateway endpoint URL to call for
+     * authentication by using the <code>IdentityProviderDetails</code> parameter.
+     * </p>
+     * <p>
+     * Use the <code>AWS_LAMBDA</code> value to directly use an Lambda function as your identity provider. If you choose
+     * this value, you must specify the ARN for the Lambda function in the <code>Function</code> parameter for the
+     * <code>IdentityProviderDetails</code> data type.
      * </p>
      * 
-     * @return The authentication method used to validate a user for the server that was specified. listed. This can
-     *         include Secure Shell (SSH), user name and password combinations, or your own custom authentication
-     *         method. Valid values include <code>SERVICE_MANAGED</code> or <code>API_GATEWAY</code>.
+     * @return The mode of authentication for a server. The default value is <code>SERVICE_MANAGED</code>, which allows
+     *         you to store and access user credentials within the Transfer Family service.</p>
+     *         <p>
+     *         Use <code>AWS_DIRECTORY_SERVICE</code> to provide access to Active Directory groups in Directory Service
+     *         for Microsoft Active Directory or Microsoft Active Directory in your on-premises environment or in Amazon
+     *         Web Services using AD Connector. This option also requires you to provide a Directory ID by using the
+     *         <code>IdentityProviderDetails</code> parameter.
+     *         </p>
+     *         <p>
+     *         Use the <code>API_GATEWAY</code> value to integrate with an identity provider of your choosing. The
+     *         <code>API_GATEWAY</code> setting requires you to provide an Amazon API Gateway endpoint URL to call for
+     *         authentication by using the <code>IdentityProviderDetails</code> parameter.
+     *         </p>
+     *         <p>
+     *         Use the <code>AWS_LAMBDA</code> value to directly use an Lambda function as your identity provider. If
+     *         you choose this value, you must specify the ARN for the Lambda function in the <code>Function</code>
+     *         parameter for the <code>IdentityProviderDetails</code> data type.
      * @see IdentityProviderType
      */
 
@@ -159,15 +311,44 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The authentication method used to validate a user for the server that was specified. listed. This can include
-     * Secure Shell (SSH), user name and password combinations, or your own custom authentication method. Valid values
-     * include <code>SERVICE_MANAGED</code> or <code>API_GATEWAY</code>.
+     * The mode of authentication for a server. The default value is <code>SERVICE_MANAGED</code>, which allows you to
+     * store and access user credentials within the Transfer Family service.
+     * </p>
+     * <p>
+     * Use <code>AWS_DIRECTORY_SERVICE</code> to provide access to Active Directory groups in Directory Service for
+     * Microsoft Active Directory or Microsoft Active Directory in your on-premises environment or in Amazon Web
+     * Services using AD Connector. This option also requires you to provide a Directory ID by using the
+     * <code>IdentityProviderDetails</code> parameter.
+     * </p>
+     * <p>
+     * Use the <code>API_GATEWAY</code> value to integrate with an identity provider of your choosing. The
+     * <code>API_GATEWAY</code> setting requires you to provide an Amazon API Gateway endpoint URL to call for
+     * authentication by using the <code>IdentityProviderDetails</code> parameter.
+     * </p>
+     * <p>
+     * Use the <code>AWS_LAMBDA</code> value to directly use an Lambda function as your identity provider. If you choose
+     * this value, you must specify the ARN for the Lambda function in the <code>Function</code> parameter for the
+     * <code>IdentityProviderDetails</code> data type.
      * </p>
      * 
      * @param identityProviderType
-     *        The authentication method used to validate a user for the server that was specified. listed. This can
-     *        include Secure Shell (SSH), user name and password combinations, or your own custom authentication method.
-     *        Valid values include <code>SERVICE_MANAGED</code> or <code>API_GATEWAY</code>.
+     *        The mode of authentication for a server. The default value is <code>SERVICE_MANAGED</code>, which allows
+     *        you to store and access user credentials within the Transfer Family service.</p>
+     *        <p>
+     *        Use <code>AWS_DIRECTORY_SERVICE</code> to provide access to Active Directory groups in Directory Service
+     *        for Microsoft Active Directory or Microsoft Active Directory in your on-premises environment or in Amazon
+     *        Web Services using AD Connector. This option also requires you to provide a Directory ID by using the
+     *        <code>IdentityProviderDetails</code> parameter.
+     *        </p>
+     *        <p>
+     *        Use the <code>API_GATEWAY</code> value to integrate with an identity provider of your choosing. The
+     *        <code>API_GATEWAY</code> setting requires you to provide an Amazon API Gateway endpoint URL to call for
+     *        authentication by using the <code>IdentityProviderDetails</code> parameter.
+     *        </p>
+     *        <p>
+     *        Use the <code>AWS_LAMBDA</code> value to directly use an Lambda function as your identity provider. If you
+     *        choose this value, you must specify the ARN for the Lambda function in the <code>Function</code> parameter
+     *        for the <code>IdentityProviderDetails</code> data type.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see IdentityProviderType
      */
@@ -179,15 +360,44 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The authentication method used to validate a user for the server that was specified. listed. This can include
-     * Secure Shell (SSH), user name and password combinations, or your own custom authentication method. Valid values
-     * include <code>SERVICE_MANAGED</code> or <code>API_GATEWAY</code>.
+     * The mode of authentication for a server. The default value is <code>SERVICE_MANAGED</code>, which allows you to
+     * store and access user credentials within the Transfer Family service.
+     * </p>
+     * <p>
+     * Use <code>AWS_DIRECTORY_SERVICE</code> to provide access to Active Directory groups in Directory Service for
+     * Microsoft Active Directory or Microsoft Active Directory in your on-premises environment or in Amazon Web
+     * Services using AD Connector. This option also requires you to provide a Directory ID by using the
+     * <code>IdentityProviderDetails</code> parameter.
+     * </p>
+     * <p>
+     * Use the <code>API_GATEWAY</code> value to integrate with an identity provider of your choosing. The
+     * <code>API_GATEWAY</code> setting requires you to provide an Amazon API Gateway endpoint URL to call for
+     * authentication by using the <code>IdentityProviderDetails</code> parameter.
+     * </p>
+     * <p>
+     * Use the <code>AWS_LAMBDA</code> value to directly use an Lambda function as your identity provider. If you choose
+     * this value, you must specify the ARN for the Lambda function in the <code>Function</code> parameter for the
+     * <code>IdentityProviderDetails</code> data type.
      * </p>
      * 
      * @param identityProviderType
-     *        The authentication method used to validate a user for the server that was specified. listed. This can
-     *        include Secure Shell (SSH), user name and password combinations, or your own custom authentication method.
-     *        Valid values include <code>SERVICE_MANAGED</code> or <code>API_GATEWAY</code>.
+     *        The mode of authentication for a server. The default value is <code>SERVICE_MANAGED</code>, which allows
+     *        you to store and access user credentials within the Transfer Family service.</p>
+     *        <p>
+     *        Use <code>AWS_DIRECTORY_SERVICE</code> to provide access to Active Directory groups in Directory Service
+     *        for Microsoft Active Directory or Microsoft Active Directory in your on-premises environment or in Amazon
+     *        Web Services using AD Connector. This option also requires you to provide a Directory ID by using the
+     *        <code>IdentityProviderDetails</code> parameter.
+     *        </p>
+     *        <p>
+     *        Use the <code>API_GATEWAY</code> value to integrate with an identity provider of your choosing. The
+     *        <code>API_GATEWAY</code> setting requires you to provide an Amazon API Gateway endpoint URL to call for
+     *        authentication by using the <code>IdentityProviderDetails</code> parameter.
+     *        </p>
+     *        <p>
+     *        Use the <code>AWS_LAMBDA</code> value to directly use an Lambda function as your identity provider. If you
+     *        choose this value, you must specify the ARN for the Lambda function in the <code>Function</code> parameter
+     *        for the <code>IdentityProviderDetails</code> data type.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see IdentityProviderType
      */
@@ -199,12 +409,12 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of VPC endpoint that your SFTP server is connected to. If your SFTP server is connected to a VPC
+     * Specifies the type of VPC endpoint that your server is connected to. If your server is connected to a VPC
      * endpoint, your server isn't accessible over the public internet.
      * </p>
      * 
      * @param endpointType
-     *        The type of VPC endpoint that your SFTP server is connected to. If your SFTP server is connected to a VPC
+     *        Specifies the type of VPC endpoint that your server is connected to. If your server is connected to a VPC
      *        endpoint, your server isn't accessible over the public internet.
      * @see EndpointType
      */
@@ -215,11 +425,11 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of VPC endpoint that your SFTP server is connected to. If your SFTP server is connected to a VPC
+     * Specifies the type of VPC endpoint that your server is connected to. If your server is connected to a VPC
      * endpoint, your server isn't accessible over the public internet.
      * </p>
      * 
-     * @return The type of VPC endpoint that your SFTP server is connected to. If your SFTP server is connected to a VPC
+     * @return Specifies the type of VPC endpoint that your server is connected to. If your server is connected to a VPC
      *         endpoint, your server isn't accessible over the public internet.
      * @see EndpointType
      */
@@ -230,12 +440,12 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of VPC endpoint that your SFTP server is connected to. If your SFTP server is connected to a VPC
+     * Specifies the type of VPC endpoint that your server is connected to. If your server is connected to a VPC
      * endpoint, your server isn't accessible over the public internet.
      * </p>
      * 
      * @param endpointType
-     *        The type of VPC endpoint that your SFTP server is connected to. If your SFTP server is connected to a VPC
+     *        Specifies the type of VPC endpoint that your server is connected to. If your server is connected to a VPC
      *        endpoint, your server isn't accessible over the public internet.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EndpointType
@@ -248,12 +458,12 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of VPC endpoint that your SFTP server is connected to. If your SFTP server is connected to a VPC
+     * Specifies the type of VPC endpoint that your server is connected to. If your server is connected to a VPC
      * endpoint, your server isn't accessible over the public internet.
      * </p>
      * 
      * @param endpointType
-     *        The type of VPC endpoint that your SFTP server is connected to. If your SFTP server is connected to a VPC
+     *        Specifies the type of VPC endpoint that your server is connected to. If your server is connected to a VPC
      *        endpoint, your server isn't accessible over the public internet.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EndpointType
@@ -266,11 +476,15 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Identity and Access Management entity that allows the server to turn on Amazon CloudWatch logging.
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that allows a server to turn on
+     * Amazon CloudWatch logging for Amazon S3 or Amazon EFSevents. When set, you can view user activity in your
+     * CloudWatch logs.
      * </p>
      * 
      * @param loggingRole
-     *        The AWS Identity and Access Management entity that allows the server to turn on Amazon CloudWatch logging.
+     *        The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that allows a server to
+     *        turn on Amazon CloudWatch logging for Amazon S3 or Amazon EFSevents. When set, you can view user activity
+     *        in your CloudWatch logs.
      */
 
     public void setLoggingRole(String loggingRole) {
@@ -279,11 +493,14 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Identity and Access Management entity that allows the server to turn on Amazon CloudWatch logging.
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that allows a server to turn on
+     * Amazon CloudWatch logging for Amazon S3 or Amazon EFSevents. When set, you can view user activity in your
+     * CloudWatch logs.
      * </p>
      * 
-     * @return The AWS Identity and Access Management entity that allows the server to turn on Amazon CloudWatch
-     *         logging.
+     * @return The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that allows a server to
+     *         turn on Amazon CloudWatch logging for Amazon S3 or Amazon EFSevents. When set, you can view user activity
+     *         in your CloudWatch logs.
      */
 
     public String getLoggingRole() {
@@ -292,11 +509,15 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Identity and Access Management entity that allows the server to turn on Amazon CloudWatch logging.
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that allows a server to turn on
+     * Amazon CloudWatch logging for Amazon S3 or Amazon EFSevents. When set, you can view user activity in your
+     * CloudWatch logs.
      * </p>
      * 
      * @param loggingRole
-     *        The AWS Identity and Access Management entity that allows the server to turn on Amazon CloudWatch logging.
+     *        The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that allows a server to
+     *        turn on Amazon CloudWatch logging for Amazon S3 or Amazon EFSevents. When set, you can view user activity
+     *        in your CloudWatch logs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -307,11 +528,11 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This value is the unique system assigned identifier for the SFTP servers that were listed.
+     * Specifies the unique system assigned identifier for the servers that were listed.
      * </p>
      * 
      * @param serverId
-     *        This value is the unique system assigned identifier for the SFTP servers that were listed.
+     *        Specifies the unique system assigned identifier for the servers that were listed.
      */
 
     public void setServerId(String serverId) {
@@ -320,10 +541,10 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This value is the unique system assigned identifier for the SFTP servers that were listed.
+     * Specifies the unique system assigned identifier for the servers that were listed.
      * </p>
      * 
-     * @return This value is the unique system assigned identifier for the SFTP servers that were listed.
+     * @return Specifies the unique system assigned identifier for the servers that were listed.
      */
 
     public String getServerId() {
@@ -332,11 +553,11 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This value is the unique system assigned identifier for the SFTP servers that were listed.
+     * Specifies the unique system assigned identifier for the servers that were listed.
      * </p>
      * 
      * @param serverId
-     *        This value is the unique system assigned identifier for the SFTP servers that were listed.
+     *        Specifies the unique system assigned identifier for the servers that were listed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -347,22 +568,22 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This property describes the condition of the SFTP server for the server that was described. A value of
-     * <code>ONLINE</code>&gt; indicates that the server can accept jobs and transfer files. A <code>State</code> value
-     * of <code>OFFLINE</code> means that the server cannot perform file transfer operations.
+     * The condition of the server that was described. A value of <code>ONLINE</code> indicates that the server can
+     * accept jobs and transfer files. A <code>State</code> value of <code>OFFLINE</code> means that the server cannot
+     * perform file transfer operations.
      * </p>
      * <p>
-     * The states of <code>STARTING</code> and <code>STOPPING</code> indicated that the server is in an intermediate
+     * The states of <code>STARTING</code> and <code>STOPPING</code> indicate that the server is in an intermediate
      * state, either not fully able to respond, or not fully offline. The values of <code>START_FAILED</code> or
      * <code>STOP_FAILED</code> can indicate an error condition.
      * </p>
      * 
      * @param state
-     *        This property describes the condition of the SFTP server for the server that was described. A value of
-     *        <code>ONLINE</code>&gt; indicates that the server can accept jobs and transfer files. A <code>State</code>
-     *        value of <code>OFFLINE</code> means that the server cannot perform file transfer operations.</p>
+     *        The condition of the server that was described. A value of <code>ONLINE</code> indicates that the server
+     *        can accept jobs and transfer files. A <code>State</code> value of <code>OFFLINE</code> means that the
+     *        server cannot perform file transfer operations.</p>
      *        <p>
-     *        The states of <code>STARTING</code> and <code>STOPPING</code> indicated that the server is in an
+     *        The states of <code>STARTING</code> and <code>STOPPING</code> indicate that the server is in an
      *        intermediate state, either not fully able to respond, or not fully offline. The values of
      *        <code>START_FAILED</code> or <code>STOP_FAILED</code> can indicate an error condition.
      * @see State
@@ -374,22 +595,21 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This property describes the condition of the SFTP server for the server that was described. A value of
-     * <code>ONLINE</code>&gt; indicates that the server can accept jobs and transfer files. A <code>State</code> value
-     * of <code>OFFLINE</code> means that the server cannot perform file transfer operations.
+     * The condition of the server that was described. A value of <code>ONLINE</code> indicates that the server can
+     * accept jobs and transfer files. A <code>State</code> value of <code>OFFLINE</code> means that the server cannot
+     * perform file transfer operations.
      * </p>
      * <p>
-     * The states of <code>STARTING</code> and <code>STOPPING</code> indicated that the server is in an intermediate
+     * The states of <code>STARTING</code> and <code>STOPPING</code> indicate that the server is in an intermediate
      * state, either not fully able to respond, or not fully offline. The values of <code>START_FAILED</code> or
      * <code>STOP_FAILED</code> can indicate an error condition.
      * </p>
      * 
-     * @return This property describes the condition of the SFTP server for the server that was described. A value of
-     *         <code>ONLINE</code>&gt; indicates that the server can accept jobs and transfer files. A
-     *         <code>State</code> value of <code>OFFLINE</code> means that the server cannot perform file transfer
-     *         operations.</p>
+     * @return The condition of the server that was described. A value of <code>ONLINE</code> indicates that the server
+     *         can accept jobs and transfer files. A <code>State</code> value of <code>OFFLINE</code> means that the
+     *         server cannot perform file transfer operations.</p>
      *         <p>
-     *         The states of <code>STARTING</code> and <code>STOPPING</code> indicated that the server is in an
+     *         The states of <code>STARTING</code> and <code>STOPPING</code> indicate that the server is in an
      *         intermediate state, either not fully able to respond, or not fully offline. The values of
      *         <code>START_FAILED</code> or <code>STOP_FAILED</code> can indicate an error condition.
      * @see State
@@ -401,22 +621,22 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This property describes the condition of the SFTP server for the server that was described. A value of
-     * <code>ONLINE</code>&gt; indicates that the server can accept jobs and transfer files. A <code>State</code> value
-     * of <code>OFFLINE</code> means that the server cannot perform file transfer operations.
+     * The condition of the server that was described. A value of <code>ONLINE</code> indicates that the server can
+     * accept jobs and transfer files. A <code>State</code> value of <code>OFFLINE</code> means that the server cannot
+     * perform file transfer operations.
      * </p>
      * <p>
-     * The states of <code>STARTING</code> and <code>STOPPING</code> indicated that the server is in an intermediate
+     * The states of <code>STARTING</code> and <code>STOPPING</code> indicate that the server is in an intermediate
      * state, either not fully able to respond, or not fully offline. The values of <code>START_FAILED</code> or
      * <code>STOP_FAILED</code> can indicate an error condition.
      * </p>
      * 
      * @param state
-     *        This property describes the condition of the SFTP server for the server that was described. A value of
-     *        <code>ONLINE</code>&gt; indicates that the server can accept jobs and transfer files. A <code>State</code>
-     *        value of <code>OFFLINE</code> means that the server cannot perform file transfer operations.</p>
+     *        The condition of the server that was described. A value of <code>ONLINE</code> indicates that the server
+     *        can accept jobs and transfer files. A <code>State</code> value of <code>OFFLINE</code> means that the
+     *        server cannot perform file transfer operations.</p>
      *        <p>
-     *        The states of <code>STARTING</code> and <code>STOPPING</code> indicated that the server is in an
+     *        The states of <code>STARTING</code> and <code>STOPPING</code> indicate that the server is in an
      *        intermediate state, either not fully able to respond, or not fully offline. The values of
      *        <code>START_FAILED</code> or <code>STOP_FAILED</code> can indicate an error condition.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -430,22 +650,22 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This property describes the condition of the SFTP server for the server that was described. A value of
-     * <code>ONLINE</code>&gt; indicates that the server can accept jobs and transfer files. A <code>State</code> value
-     * of <code>OFFLINE</code> means that the server cannot perform file transfer operations.
+     * The condition of the server that was described. A value of <code>ONLINE</code> indicates that the server can
+     * accept jobs and transfer files. A <code>State</code> value of <code>OFFLINE</code> means that the server cannot
+     * perform file transfer operations.
      * </p>
      * <p>
-     * The states of <code>STARTING</code> and <code>STOPPING</code> indicated that the server is in an intermediate
+     * The states of <code>STARTING</code> and <code>STOPPING</code> indicate that the server is in an intermediate
      * state, either not fully able to respond, or not fully offline. The values of <code>START_FAILED</code> or
      * <code>STOP_FAILED</code> can indicate an error condition.
      * </p>
      * 
      * @param state
-     *        This property describes the condition of the SFTP server for the server that was described. A value of
-     *        <code>ONLINE</code>&gt; indicates that the server can accept jobs and transfer files. A <code>State</code>
-     *        value of <code>OFFLINE</code> means that the server cannot perform file transfer operations.</p>
+     *        The condition of the server that was described. A value of <code>ONLINE</code> indicates that the server
+     *        can accept jobs and transfer files. A <code>State</code> value of <code>OFFLINE</code> means that the
+     *        server cannot perform file transfer operations.</p>
      *        <p>
-     *        The states of <code>STARTING</code> and <code>STOPPING</code> indicated that the server is in an
+     *        The states of <code>STARTING</code> and <code>STOPPING</code> indicate that the server is in an
      *        intermediate state, either not fully able to respond, or not fully offline. The values of
      *        <code>START_FAILED</code> or <code>STOP_FAILED</code> can indicate an error condition.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -459,13 +679,11 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This property is a numeric value that indicates the number of users that are assigned to the SFTP server you
-     * specified with the <code>ServerId</code>.
+     * Specifies the number of users that are assigned to a server you specified with the <code>ServerId</code>.
      * </p>
      * 
      * @param userCount
-     *        This property is a numeric value that indicates the number of users that are assigned to the SFTP server
-     *        you specified with the <code>ServerId</code>.
+     *        Specifies the number of users that are assigned to a server you specified with the <code>ServerId</code>.
      */
 
     public void setUserCount(Integer userCount) {
@@ -474,12 +692,10 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This property is a numeric value that indicates the number of users that are assigned to the SFTP server you
-     * specified with the <code>ServerId</code>.
+     * Specifies the number of users that are assigned to a server you specified with the <code>ServerId</code>.
      * </p>
      * 
-     * @return This property is a numeric value that indicates the number of users that are assigned to the SFTP server
-     *         you specified with the <code>ServerId</code>.
+     * @return Specifies the number of users that are assigned to a server you specified with the <code>ServerId</code>.
      */
 
     public Integer getUserCount() {
@@ -488,13 +704,11 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This property is a numeric value that indicates the number of users that are assigned to the SFTP server you
-     * specified with the <code>ServerId</code>.
+     * Specifies the number of users that are assigned to a server you specified with the <code>ServerId</code>.
      * </p>
      * 
      * @param userCount
-     *        This property is a numeric value that indicates the number of users that are assigned to the SFTP server
-     *        you specified with the <code>ServerId</code>.
+     *        Specifies the number of users that are assigned to a server you specified with the <code>ServerId</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -517,6 +731,8 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
         sb.append("{");
         if (getArn() != null)
             sb.append("Arn: ").append(getArn()).append(",");
+        if (getDomain() != null)
+            sb.append("Domain: ").append(getDomain()).append(",");
         if (getIdentityProviderType() != null)
             sb.append("IdentityProviderType: ").append(getIdentityProviderType()).append(",");
         if (getEndpointType() != null)
@@ -546,6 +762,10 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
         if (other.getArn() == null ^ this.getArn() == null)
             return false;
         if (other.getArn() != null && other.getArn().equals(this.getArn()) == false)
+            return false;
+        if (other.getDomain() == null ^ this.getDomain() == null)
+            return false;
+        if (other.getDomain() != null && other.getDomain().equals(this.getDomain()) == false)
             return false;
         if (other.getIdentityProviderType() == null ^ this.getIdentityProviderType() == null)
             return false;
@@ -580,6 +800,7 @@ public class ListedServer implements Serializable, Cloneable, StructuredPojo {
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getArn() == null) ? 0 : getArn().hashCode());
+        hashCode = prime * hashCode + ((getDomain() == null) ? 0 : getDomain().hashCode());
         hashCode = prime * hashCode + ((getIdentityProviderType() == null) ? 0 : getIdentityProviderType().hashCode());
         hashCode = prime * hashCode + ((getEndpointType() == null) ? 0 : getEndpointType().hashCode());
         hashCode = prime * hashCode + ((getLoggingRole() == null) ? 0 : getLoggingRole().hashCode());

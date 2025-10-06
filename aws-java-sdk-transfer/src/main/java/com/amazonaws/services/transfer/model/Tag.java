@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,7 +38,7 @@ public class Tag implements Serializable, Cloneable, StructuredPojo {
     private String key;
     /**
      * <p>
-     * This property contains one or more values that you assigned to the key name you create.
+     * Contains one or more values that you assigned to the key name you create.
      * </p>
      */
     private String value;
@@ -85,11 +85,11 @@ public class Tag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This property contains one or more values that you assigned to the key name you create.
+     * Contains one or more values that you assigned to the key name you create.
      * </p>
      * 
      * @param value
-     *        This property contains one or more values that you assigned to the key name you create.
+     *        Contains one or more values that you assigned to the key name you create.
      */
 
     public void setValue(String value) {
@@ -98,10 +98,10 @@ public class Tag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This property contains one or more values that you assigned to the key name you create.
+     * Contains one or more values that you assigned to the key name you create.
      * </p>
      * 
-     * @return This property contains one or more values that you assigned to the key name you create.
+     * @return Contains one or more values that you assigned to the key name you create.
      */
 
     public String getValue() {
@@ -110,11 +110,11 @@ public class Tag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This property contains one or more values that you assigned to the key name you create.
+     * Contains one or more values that you assigned to the key name you create.
      * </p>
      * 
      * @param value
-     *        This property contains one or more values that you assigned to the key name you create.
+     *        Contains one or more values that you assigned to the key name you create.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -11,6 +11,8 @@
  * and limitations under the License.
  */
 package com.amazonaws.services.sns.message;
+
+import static com.amazonaws.regions.Regions.AP_EAST_1;
 
 import com.amazonaws.SdkClientException;
 import com.amazonaws.annotation.SdkTestInternalApi;
@@ -113,19 +115,51 @@ public class SnsMessageManager {
     }
 
     //TODO SNS team will use a consistent pattern for certificate naming. Then remove the special handling based on region
-    private String resolveCertCommonName(String region) {
-        if (Regions.CN_NORTH_1.getName().equals(region)) {
-            return "sns-cn-north-1.amazonaws.com.cn";
+    @SdkTestInternalApi
+    String resolveCertCommonName(String regionStr) {
+        Regions region;
+        try {
+            region = Regions.fromName(regionStr);
+        } catch (IllegalArgumentException exception) {
+            return "sns." + RegionUtils.getRegion(regionStr).getDomain();
         }
 
-        if (Regions.CN_NORTHWEST_1.getName().equals(region)) {
-            return "sns-cn-northwest-1.amazonaws.com.cn";
+        switch (region) {
+            case CN_NORTH_1:
+                return "sns-cn-north-1.amazonaws.com.cn";
+            case CN_NORTHWEST_1:
+                return "sns-cn-northwest-1.amazonaws.com.cn";
+            case GovCloud:
+            case US_GOV_EAST_1:
+                return "sns-us-gov-west-1.amazonaws.com";
+            case US_ISO_EAST_1:
+                return "sns-us-iso-east-1.c2s.ic.gov";
+            case US_ISOB_EAST_1:
+                return "sns-us-isob-east-1.sc2s.sgov.gov";
+            case US_ISOF_EAST_1:
+            case US_ISOF_SOUTH_1:
+                return "sns-signing." + regionStr + ".csp.hci.ic.gov";
+            case EU_ISOE_WEST_1:
+                return "sns-signing.eu-isoe-west-1.cloud.adc-e.uk";
+            case AP_EAST_1:
+            case AP_EAST_2:
+            case AP_SOUTH_2:
+            case AP_SOUTHEAST_5:
+            case AP_SOUTHEAST_7:
+            case ME_SOUTH_1:
+            case ME_CENTRAL_1:
+            case EU_SOUTH_1:
+            case EU_SOUTH_2:
+            case EU_CENTRAL_2:
+            case AF_SOUTH_1:
+            case AP_SOUTHEAST_3:
+            case AP_SOUTHEAST_4:
+            case IL_CENTRAL_1:
+            case CA_WEST_1:
+            case MX_CENTRAL_1:
+                return "sns-signing." + regionStr + ".amazonaws.com";
+            default:
+                return "sns.amazonaws.com";
         }
-
-        if (Regions.GovCloud.getName().equals(region)) {
-            return "sns-us-gov-west-1.amazonaws.com";
-        }
-
-        return "sns." + RegionUtils.getRegion(region).getDomain();
     }
 }

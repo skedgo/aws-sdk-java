@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2019 Amazon Technologies, Inc.
+ * Copyright 2015-2025 Amazon Technologies, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,15 @@ import com.amazonaws.services.s3.AmazonS3;
  * @see AmazonS3#getBucketAccelerateConfiguration(GetBucketAccelerateConfigurationRequest)
  */
 public class GetBucketAccelerateConfigurationRequest extends
-        GenericBucketRequest {
+        GenericBucketRequest implements ExpectedBucketOwnerRequest {
+
+    private String expectedBucketOwner;
+
+    /**
+     * If enabled, the requester is charged for conducting this operation from
+     * Requester Pays Buckets.
+     */
+    private boolean isRequesterPays;
 
     /**
      * Creates a request object, ready to be executed to fetch the accelerate
@@ -36,4 +44,49 @@ public class GetBucketAccelerateConfigurationRequest extends
         super(bucketName);
     }
 
+    public String getExpectedBucketOwner() {
+        return expectedBucketOwner;
+    }
+
+    public GetBucketAccelerateConfigurationRequest withExpectedBucketOwner(String expectedBucketOwner) {
+        this.expectedBucketOwner = expectedBucketOwner;
+        return this;
+    }
+
+    public void setExpectedBucketOwner(String expectedBucketOwner) {
+        withExpectedBucketOwner(expectedBucketOwner);
+    }
+
+    /**
+     * Returns whether the requester knows that they will be charged for the request.
+     *
+     * @return true if the user has enabled Requester Pays option for
+     *         conducting this operation from Requester Pays Bucket.
+     */
+    public boolean isRequesterPays() {
+        return isRequesterPays;
+    }
+
+    /**
+     * Confirms whether the requester knows that they will be charged for the request. Bucket owners need not specify this
+     * parameter in their requests.
+     *
+     * @param isRequesterPays if Requester Pays option is enabled for the operation.
+     */
+    public void setRequesterPays(boolean isRequesterPays) {
+        this.isRequesterPays = isRequesterPays;
+    }
+
+    /**
+     * Confirms whether the requester knows that they will be charged for the request. Bucket owners need not specify this
+     * parameter in their requests.
+     *
+     * @param isRequesterPays if Requester Pays option is enabled for the operation.
+     *
+     * @return The updated GetBucketAccelerateConfigurationRequest object.
+     */
+    public GetBucketAccelerateConfigurationRequest withRequesterPays(boolean isRequesterPays) {
+        setRequesterPays(isRequesterPays);
+        return this;
+    }
 }

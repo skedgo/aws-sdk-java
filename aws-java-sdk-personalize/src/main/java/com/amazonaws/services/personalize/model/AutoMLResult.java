@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * When the solution performs AutoML (<code>performAutoML</code> is true in <a>CreateSolution</a>), specifies the recipe
- * that best optimized the specified metric.
+ * When the solution performs AutoML (<code>performAutoML</code> is true in <a
+ * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolution.html">CreateSolution</a>), specifies the
+ * recipe that best optimized the specified metric.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/AutoMLResult" target="_top">AWS API

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,6 +45,7 @@ import com.amazonaws.util.ServiceClientHolderInputStream;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.kinesisvideo.model.*;
+
 import com.amazonaws.services.kinesisvideo.model.transform.*;
 
 /**
@@ -75,25 +76,25 @@ public class AmazonKinesisVideoMediaClient extends AmazonWebServiceClient implem
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("NotAuthorizedException").withModeledClass(
-                                    com.amazonaws.services.kinesisvideo.model.NotAuthorizedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("NotAuthorizedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.kinesisvideo.model.transform.NotAuthorizedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidEndpointException").withModeledClass(
-                                    com.amazonaws.services.kinesisvideo.model.InvalidEndpointException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidEndpointException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.kinesisvideo.model.transform.InvalidEndpointExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidArgumentException").withModeledClass(
-                                    com.amazonaws.services.kinesisvideo.model.InvalidArgumentException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidArgumentException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.kinesisvideo.model.transform.InvalidArgumentExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ClientLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.kinesisvideo.model.ClientLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ClientLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.kinesisvideo.model.transform.ClientLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ConnectionLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.kinesisvideo.model.ConnectionLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConnectionLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.kinesisvideo.model.transform.ConnectionLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.kinesisvideo.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.kinesisvideo.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.kinesisvideo.model.AmazonKinesisVideoException.class));
 
     public static AmazonKinesisVideoMediaClientBuilder builder() {
@@ -252,6 +253,8 @@ public class AmazonKinesisVideoMediaClient extends AmazonWebServiceClient implem
                 request = new GetMediaRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getMediaRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Kinesis Video Media");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMedia");
@@ -266,6 +269,8 @@ public class AmazonKinesisVideoMediaClient extends AmazonWebServiceClient implem
             response = invoke(request, responseHandler, executionContext);
 
             response.getAwsResponse().setPayload(new com.amazonaws.util.ServiceClientHolderInputStream(response.getAwsResponse().getPayload(), this));
+
+            request.addHandlerContext(HandlerContextKey.HAS_STREAMING_OUTPUT, Boolean.TRUE);
 
             return response.getAwsResponse();
 
@@ -349,6 +354,11 @@ public class AmazonKinesisVideoMediaClient extends AmazonWebServiceClient implem
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,24 +25,24 @@ public class DescribeDRTAccessResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the role the DRT used to access your AWS account.
+     * The Amazon Resource Name (ARN) of the role the SRT used to access your Amazon Web Services account.
      * </p>
      */
     private String roleArn;
     /**
      * <p>
-     * The list of Amazon S3 buckets accessed by the DRT.
+     * The list of Amazon S3 buckets accessed by the SRT.
      * </p>
      */
     private java.util.List<String> logBucketList;
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the role the DRT used to access your AWS account.
+     * The Amazon Resource Name (ARN) of the role the SRT used to access your Amazon Web Services account.
      * </p>
      * 
      * @param roleArn
-     *        The Amazon Resource Name (ARN) of the role the DRT used to access your AWS account.
+     *        The Amazon Resource Name (ARN) of the role the SRT used to access your Amazon Web Services account.
      */
 
     public void setRoleArn(String roleArn) {
@@ -51,10 +51,10 @@ public class DescribeDRTAccessResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the role the DRT used to access your AWS account.
+     * The Amazon Resource Name (ARN) of the role the SRT used to access your Amazon Web Services account.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the role the DRT used to access your AWS account.
+     * @return The Amazon Resource Name (ARN) of the role the SRT used to access your Amazon Web Services account.
      */
 
     public String getRoleArn() {
@@ -63,11 +63,11 @@ public class DescribeDRTAccessResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the role the DRT used to access your AWS account.
+     * The Amazon Resource Name (ARN) of the role the SRT used to access your Amazon Web Services account.
      * </p>
      * 
      * @param roleArn
-     *        The Amazon Resource Name (ARN) of the role the DRT used to access your AWS account.
+     *        The Amazon Resource Name (ARN) of the role the SRT used to access your Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -78,10 +78,10 @@ public class DescribeDRTAccessResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The list of Amazon S3 buckets accessed by the DRT.
+     * The list of Amazon S3 buckets accessed by the SRT.
      * </p>
      * 
-     * @return The list of Amazon S3 buckets accessed by the DRT.
+     * @return The list of Amazon S3 buckets accessed by the SRT.
      */
 
     public java.util.List<String> getLogBucketList() {
@@ -90,11 +90,11 @@ public class DescribeDRTAccessResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The list of Amazon S3 buckets accessed by the DRT.
+     * The list of Amazon S3 buckets accessed by the SRT.
      * </p>
      * 
      * @param logBucketList
-     *        The list of Amazon S3 buckets accessed by the DRT.
+     *        The list of Amazon S3 buckets accessed by the SRT.
      */
 
     public void setLogBucketList(java.util.Collection<String> logBucketList) {
@@ -108,7 +108,7 @@ public class DescribeDRTAccessResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The list of Amazon S3 buckets accessed by the DRT.
+     * The list of Amazon S3 buckets accessed by the SRT.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -117,7 +117,7 @@ public class DescribeDRTAccessResult extends com.amazonaws.AmazonWebServiceResul
      * </p>
      * 
      * @param logBucketList
-     *        The list of Amazon S3 buckets accessed by the DRT.
+     *        The list of Amazon S3 buckets accessed by the SRT.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -133,11 +133,11 @@ public class DescribeDRTAccessResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The list of Amazon S3 buckets accessed by the DRT.
+     * The list of Amazon S3 buckets accessed by the SRT.
      * </p>
      * 
      * @param logBucketList
-     *        The list of Amazon S3 buckets accessed by the DRT.
+     *        The list of Amazon S3 buckets accessed by the SRT.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * Get an <a>SdkType</a> instance.
+ * Get an SdkType instance.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -27,18 +27,18 @@ public class GetSdkTypeRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * [Required] The identifier of the queried <a>SdkType</a> instance.
+     * The identifier of the queried SdkType instance.
      * </p>
      */
     private String id;
 
     /**
      * <p>
-     * [Required] The identifier of the queried <a>SdkType</a> instance.
+     * The identifier of the queried SdkType instance.
      * </p>
      * 
      * @param id
-     *        [Required] The identifier of the queried <a>SdkType</a> instance.
+     *        The identifier of the queried SdkType instance.
      */
 
     public void setId(String id) {
@@ -47,10 +47,10 @@ public class GetSdkTypeRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * [Required] The identifier of the queried <a>SdkType</a> instance.
+     * The identifier of the queried SdkType instance.
      * </p>
      * 
-     * @return [Required] The identifier of the queried <a>SdkType</a> instance.
+     * @return The identifier of the queried SdkType instance.
      */
 
     public String getId() {
@@ -59,11 +59,11 @@ public class GetSdkTypeRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * [Required] The identifier of the queried <a>SdkType</a> instance.
+     * The identifier of the queried SdkType instance.
      * </p>
      * 
      * @param id
-     *        [Required] The identifier of the queried <a>SdkType</a> instance.
+     *        The identifier of the queried SdkType instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

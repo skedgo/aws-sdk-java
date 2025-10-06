@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,8 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class JobDetailMarshaller {
 
+    private static final MarshallingInfo<String> JOBARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("jobArn").build();
     private static final MarshallingInfo<String> JOBNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("jobName").build();
     private static final MarshallingInfo<String> JOBID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -37,6 +39,10 @@ public class JobDetailMarshaller {
             .marshallLocationName("jobQueue").build();
     private static final MarshallingInfo<String> STATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("status").build();
+    private static final MarshallingInfo<String> SHAREIDENTIFIER_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("shareIdentifier").build();
+    private static final MarshallingInfo<Integer> SCHEDULINGPRIORITY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("schedulingPriority").build();
     private static final MarshallingInfo<List> ATTEMPTS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("attempts").build();
     private static final MarshallingInfo<String> STATUSREASON_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -65,6 +71,22 @@ public class JobDetailMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("arrayProperties").build();
     private static final MarshallingInfo<StructuredPojo> TIMEOUT_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("timeout").build();
+    private static final MarshallingInfo<Map> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("tags").build();
+    private static final MarshallingInfo<Boolean> PROPAGATETAGS_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("propagateTags").build();
+    private static final MarshallingInfo<List> PLATFORMCAPABILITIES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("platformCapabilities").build();
+    private static final MarshallingInfo<StructuredPojo> EKSPROPERTIES_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("eksProperties").build();
+    private static final MarshallingInfo<List> EKSATTEMPTS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("eksAttempts").build();
+    private static final MarshallingInfo<StructuredPojo> ECSPROPERTIES_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ecsProperties").build();
+    private static final MarshallingInfo<Boolean> ISCANCELLED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("isCancelled").build();
+    private static final MarshallingInfo<Boolean> ISTERMINATED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("isTerminated").build();
 
     private static final JobDetailMarshaller instance = new JobDetailMarshaller();
 
@@ -82,10 +104,13 @@ public class JobDetailMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(jobDetail.getJobArn(), JOBARN_BINDING);
             protocolMarshaller.marshall(jobDetail.getJobName(), JOBNAME_BINDING);
             protocolMarshaller.marshall(jobDetail.getJobId(), JOBID_BINDING);
             protocolMarshaller.marshall(jobDetail.getJobQueue(), JOBQUEUE_BINDING);
             protocolMarshaller.marshall(jobDetail.getStatus(), STATUS_BINDING);
+            protocolMarshaller.marshall(jobDetail.getShareIdentifier(), SHAREIDENTIFIER_BINDING);
+            protocolMarshaller.marshall(jobDetail.getSchedulingPriority(), SCHEDULINGPRIORITY_BINDING);
             protocolMarshaller.marshall(jobDetail.getAttempts(), ATTEMPTS_BINDING);
             protocolMarshaller.marshall(jobDetail.getStatusReason(), STATUSREASON_BINDING);
             protocolMarshaller.marshall(jobDetail.getCreatedAt(), CREATEDAT_BINDING);
@@ -100,6 +125,14 @@ public class JobDetailMarshaller {
             protocolMarshaller.marshall(jobDetail.getNodeProperties(), NODEPROPERTIES_BINDING);
             protocolMarshaller.marshall(jobDetail.getArrayProperties(), ARRAYPROPERTIES_BINDING);
             protocolMarshaller.marshall(jobDetail.getTimeout(), TIMEOUT_BINDING);
+            protocolMarshaller.marshall(jobDetail.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(jobDetail.getPropagateTags(), PROPAGATETAGS_BINDING);
+            protocolMarshaller.marshall(jobDetail.getPlatformCapabilities(), PLATFORMCAPABILITIES_BINDING);
+            protocolMarshaller.marshall(jobDetail.getEksProperties(), EKSPROPERTIES_BINDING);
+            protocolMarshaller.marshall(jobDetail.getEksAttempts(), EKSATTEMPTS_BINDING);
+            protocolMarshaller.marshall(jobDetail.getEcsProperties(), ECSPROPERTIES_BINDING);
+            protocolMarshaller.marshall(jobDetail.getIsCancelled(), ISCANCELLED_BINDING);
+            protocolMarshaller.marshall(jobDetail.getIsTerminated(), ISTERMINATED_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

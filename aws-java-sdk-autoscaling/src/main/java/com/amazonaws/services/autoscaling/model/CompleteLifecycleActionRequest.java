@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -47,7 +47,7 @@ public class CompleteLifecycleActionRequest extends com.amazonaws.AmazonWebServi
     private String lifecycleActionToken;
     /**
      * <p>
-     * The action for the group to take. This parameter can be either <code>CONTINUE</code> or <code>ABANDON</code>.
+     * The action for the group to take. You can specify either <code>CONTINUE</code> or <code>ABANDON</code>.
      * </p>
      */
     private String lifecycleActionResult;
@@ -192,12 +192,11 @@ public class CompleteLifecycleActionRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The action for the group to take. This parameter can be either <code>CONTINUE</code> or <code>ABANDON</code>.
+     * The action for the group to take. You can specify either <code>CONTINUE</code> or <code>ABANDON</code>.
      * </p>
      * 
      * @param lifecycleActionResult
-     *        The action for the group to take. This parameter can be either <code>CONTINUE</code> or
-     *        <code>ABANDON</code>.
+     *        The action for the group to take. You can specify either <code>CONTINUE</code> or <code>ABANDON</code>.
      */
 
     public void setLifecycleActionResult(String lifecycleActionResult) {
@@ -206,11 +205,10 @@ public class CompleteLifecycleActionRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The action for the group to take. This parameter can be either <code>CONTINUE</code> or <code>ABANDON</code>.
+     * The action for the group to take. You can specify either <code>CONTINUE</code> or <code>ABANDON</code>.
      * </p>
      * 
-     * @return The action for the group to take. This parameter can be either <code>CONTINUE</code> or
-     *         <code>ABANDON</code>.
+     * @return The action for the group to take. You can specify either <code>CONTINUE</code> or <code>ABANDON</code>.
      */
 
     public String getLifecycleActionResult() {
@@ -219,12 +217,11 @@ public class CompleteLifecycleActionRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The action for the group to take. This parameter can be either <code>CONTINUE</code> or <code>ABANDON</code>.
+     * The action for the group to take. You can specify either <code>CONTINUE</code> or <code>ABANDON</code>.
      * </p>
      * 
      * @param lifecycleActionResult
-     *        The action for the group to take. This parameter can be either <code>CONTINUE</code> or
-     *        <code>ABANDON</code>.
+     *        The action for the group to take. You can specify either <code>CONTINUE</code> or <code>ABANDON</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

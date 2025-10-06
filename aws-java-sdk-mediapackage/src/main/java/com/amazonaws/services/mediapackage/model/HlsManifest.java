@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,9 @@ public class HlsManifest implements Serializable, Cloneable, StructuredPojo {
      * This setting controls how ad markers are included in the packaged OriginEndpoint. "NONE" will omit all SCTE-35 ad
      * markers from the output. "PASSTHROUGH" causes the manifest to contain a copy of the SCTE-35 ad markers (comments)
      * taken directly from the input HTTP Live Streaming (HLS) manifest. "SCTE35_ENHANCED" generates ad markers and
-     * blackout tags based on SCTE-35 messages in the input source.
+     * blackout tags based on SCTE-35 messages in the input source. "DATERANGE" inserts EXT-X-DATERANGE tags to signal
+     * ad and program transition events in HLS and CMAF manifests. For this option, you must set a
+     * programDateTimeIntervalSeconds value that is greater than 0.
      */
     private String adMarkers;
     /**
@@ -63,17 +65,25 @@ public class HlsManifest implements Serializable, Cloneable, StructuredPojo {
     /** The URL of the packaged OriginEndpoint for consumption. */
     private String url;
 
+    private java.util.List<String> adTriggers;
+
+    private String adsOnDeliveryRestrictions;
+
     /**
      * This setting controls how ad markers are included in the packaged OriginEndpoint. "NONE" will omit all SCTE-35 ad
      * markers from the output. "PASSTHROUGH" causes the manifest to contain a copy of the SCTE-35 ad markers (comments)
      * taken directly from the input HTTP Live Streaming (HLS) manifest. "SCTE35_ENHANCED" generates ad markers and
-     * blackout tags based on SCTE-35 messages in the input source.
+     * blackout tags based on SCTE-35 messages in the input source. "DATERANGE" inserts EXT-X-DATERANGE tags to signal
+     * ad and program transition events in HLS and CMAF manifests. For this option, you must set a
+     * programDateTimeIntervalSeconds value that is greater than 0.
      * 
      * @param adMarkers
      *        This setting controls how ad markers are included in the packaged OriginEndpoint. "NONE" will omit all
      *        SCTE-35 ad markers from the output. "PASSTHROUGH" causes the manifest to contain a copy of the SCTE-35 ad
      *        markers (comments) taken directly from the input HTTP Live Streaming (HLS) manifest. "SCTE35_ENHANCED"
-     *        generates ad markers and blackout tags based on SCTE-35 messages in the input source.
+     *        generates ad markers and blackout tags based on SCTE-35 messages in the input source. "DATERANGE" inserts
+     *        EXT-X-DATERANGE tags to signal ad and program transition events in HLS and CMAF manifests. For this
+     *        option, you must set a programDateTimeIntervalSeconds value that is greater than 0.
      * @see AdMarkers
      */
 
@@ -85,12 +95,16 @@ public class HlsManifest implements Serializable, Cloneable, StructuredPojo {
      * This setting controls how ad markers are included in the packaged OriginEndpoint. "NONE" will omit all SCTE-35 ad
      * markers from the output. "PASSTHROUGH" causes the manifest to contain a copy of the SCTE-35 ad markers (comments)
      * taken directly from the input HTTP Live Streaming (HLS) manifest. "SCTE35_ENHANCED" generates ad markers and
-     * blackout tags based on SCTE-35 messages in the input source.
+     * blackout tags based on SCTE-35 messages in the input source. "DATERANGE" inserts EXT-X-DATERANGE tags to signal
+     * ad and program transition events in HLS and CMAF manifests. For this option, you must set a
+     * programDateTimeIntervalSeconds value that is greater than 0.
      * 
      * @return This setting controls how ad markers are included in the packaged OriginEndpoint. "NONE" will omit all
      *         SCTE-35 ad markers from the output. "PASSTHROUGH" causes the manifest to contain a copy of the SCTE-35 ad
      *         markers (comments) taken directly from the input HTTP Live Streaming (HLS) manifest. "SCTE35_ENHANCED"
-     *         generates ad markers and blackout tags based on SCTE-35 messages in the input source.
+     *         generates ad markers and blackout tags based on SCTE-35 messages in the input source. "DATERANGE" inserts
+     *         EXT-X-DATERANGE tags to signal ad and program transition events in HLS and CMAF manifests. For this
+     *         option, you must set a programDateTimeIntervalSeconds value that is greater than 0.
      * @see AdMarkers
      */
 
@@ -102,13 +116,17 @@ public class HlsManifest implements Serializable, Cloneable, StructuredPojo {
      * This setting controls how ad markers are included in the packaged OriginEndpoint. "NONE" will omit all SCTE-35 ad
      * markers from the output. "PASSTHROUGH" causes the manifest to contain a copy of the SCTE-35 ad markers (comments)
      * taken directly from the input HTTP Live Streaming (HLS) manifest. "SCTE35_ENHANCED" generates ad markers and
-     * blackout tags based on SCTE-35 messages in the input source.
+     * blackout tags based on SCTE-35 messages in the input source. "DATERANGE" inserts EXT-X-DATERANGE tags to signal
+     * ad and program transition events in HLS and CMAF manifests. For this option, you must set a
+     * programDateTimeIntervalSeconds value that is greater than 0.
      * 
      * @param adMarkers
      *        This setting controls how ad markers are included in the packaged OriginEndpoint. "NONE" will omit all
      *        SCTE-35 ad markers from the output. "PASSTHROUGH" causes the manifest to contain a copy of the SCTE-35 ad
      *        markers (comments) taken directly from the input HTTP Live Streaming (HLS) manifest. "SCTE35_ENHANCED"
-     *        generates ad markers and blackout tags based on SCTE-35 messages in the input source.
+     *        generates ad markers and blackout tags based on SCTE-35 messages in the input source. "DATERANGE" inserts
+     *        EXT-X-DATERANGE tags to signal ad and program transition events in HLS and CMAF manifests. For this
+     *        option, you must set a programDateTimeIntervalSeconds value that is greater than 0.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AdMarkers
      */
@@ -122,13 +140,17 @@ public class HlsManifest implements Serializable, Cloneable, StructuredPojo {
      * This setting controls how ad markers are included in the packaged OriginEndpoint. "NONE" will omit all SCTE-35 ad
      * markers from the output. "PASSTHROUGH" causes the manifest to contain a copy of the SCTE-35 ad markers (comments)
      * taken directly from the input HTTP Live Streaming (HLS) manifest. "SCTE35_ENHANCED" generates ad markers and
-     * blackout tags based on SCTE-35 messages in the input source.
+     * blackout tags based on SCTE-35 messages in the input source. "DATERANGE" inserts EXT-X-DATERANGE tags to signal
+     * ad and program transition events in HLS and CMAF manifests. For this option, you must set a
+     * programDateTimeIntervalSeconds value that is greater than 0.
      * 
      * @param adMarkers
      *        This setting controls how ad markers are included in the packaged OriginEndpoint. "NONE" will omit all
      *        SCTE-35 ad markers from the output. "PASSTHROUGH" causes the manifest to contain a copy of the SCTE-35 ad
      *        markers (comments) taken directly from the input HTTP Live Streaming (HLS) manifest. "SCTE35_ENHANCED"
-     *        generates ad markers and blackout tags based on SCTE-35 messages in the input source.
+     *        generates ad markers and blackout tags based on SCTE-35 messages in the input source. "DATERANGE" inserts
+     *        EXT-X-DATERANGE tags to signal ad and program transition events in HLS and CMAF manifests. For this
+     *        option, you must set a programDateTimeIntervalSeconds value that is greater than 0.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AdMarkers
      */
@@ -451,6 +473,121 @@ public class HlsManifest implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * @return
+     * @see AdTriggersElement
+     */
+
+    public java.util.List<String> getAdTriggers() {
+        return adTriggers;
+    }
+
+    /**
+     * @param adTriggers
+     * @see AdTriggersElement
+     */
+
+    public void setAdTriggers(java.util.Collection<String> adTriggers) {
+        if (adTriggers == null) {
+            this.adTriggers = null;
+            return;
+        }
+
+        this.adTriggers = new java.util.ArrayList<String>(adTriggers);
+    }
+
+    /**
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAdTriggers(java.util.Collection)} or {@link #withAdTriggers(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param adTriggers
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AdTriggersElement
+     */
+
+    public HlsManifest withAdTriggers(String... adTriggers) {
+        if (this.adTriggers == null) {
+            setAdTriggers(new java.util.ArrayList<String>(adTriggers.length));
+        }
+        for (String ele : adTriggers) {
+            this.adTriggers.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * @param adTriggers
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AdTriggersElement
+     */
+
+    public HlsManifest withAdTriggers(java.util.Collection<String> adTriggers) {
+        setAdTriggers(adTriggers);
+        return this;
+    }
+
+    /**
+     * @param adTriggers
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AdTriggersElement
+     */
+
+    public HlsManifest withAdTriggers(AdTriggersElement... adTriggers) {
+        java.util.ArrayList<String> adTriggersCopy = new java.util.ArrayList<String>(adTriggers.length);
+        for (AdTriggersElement value : adTriggers) {
+            adTriggersCopy.add(value.toString());
+        }
+        if (getAdTriggers() == null) {
+            setAdTriggers(adTriggersCopy);
+        } else {
+            getAdTriggers().addAll(adTriggersCopy);
+        }
+        return this;
+    }
+
+    /**
+     * @param adsOnDeliveryRestrictions
+     * @see AdsOnDeliveryRestrictions
+     */
+
+    public void setAdsOnDeliveryRestrictions(String adsOnDeliveryRestrictions) {
+        this.adsOnDeliveryRestrictions = adsOnDeliveryRestrictions;
+    }
+
+    /**
+     * @return
+     * @see AdsOnDeliveryRestrictions
+     */
+
+    public String getAdsOnDeliveryRestrictions() {
+        return this.adsOnDeliveryRestrictions;
+    }
+
+    /**
+     * @param adsOnDeliveryRestrictions
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AdsOnDeliveryRestrictions
+     */
+
+    public HlsManifest withAdsOnDeliveryRestrictions(String adsOnDeliveryRestrictions) {
+        setAdsOnDeliveryRestrictions(adsOnDeliveryRestrictions);
+        return this;
+    }
+
+    /**
+     * @param adsOnDeliveryRestrictions
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AdsOnDeliveryRestrictions
+     */
+
+    public HlsManifest withAdsOnDeliveryRestrictions(AdsOnDeliveryRestrictions adsOnDeliveryRestrictions) {
+        this.adsOnDeliveryRestrictions = adsOnDeliveryRestrictions.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -477,7 +614,11 @@ public class HlsManifest implements Serializable, Cloneable, StructuredPojo {
         if (getProgramDateTimeIntervalSeconds() != null)
             sb.append("ProgramDateTimeIntervalSeconds: ").append(getProgramDateTimeIntervalSeconds()).append(",");
         if (getUrl() != null)
-            sb.append("Url: ").append(getUrl());
+            sb.append("Url: ").append(getUrl()).append(",");
+        if (getAdTriggers() != null)
+            sb.append("AdTriggers: ").append(getAdTriggers()).append(",");
+        if (getAdsOnDeliveryRestrictions() != null)
+            sb.append("AdsOnDeliveryRestrictions: ").append(getAdsOnDeliveryRestrictions());
         sb.append("}");
         return sb.toString();
     }
@@ -525,6 +666,14 @@ public class HlsManifest implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getUrl() != null && other.getUrl().equals(this.getUrl()) == false)
             return false;
+        if (other.getAdTriggers() == null ^ this.getAdTriggers() == null)
+            return false;
+        if (other.getAdTriggers() != null && other.getAdTriggers().equals(this.getAdTriggers()) == false)
+            return false;
+        if (other.getAdsOnDeliveryRestrictions() == null ^ this.getAdsOnDeliveryRestrictions() == null)
+            return false;
+        if (other.getAdsOnDeliveryRestrictions() != null && other.getAdsOnDeliveryRestrictions().equals(this.getAdsOnDeliveryRestrictions()) == false)
+            return false;
         return true;
     }
 
@@ -541,6 +690,8 @@ public class HlsManifest implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getPlaylistWindowSeconds() == null) ? 0 : getPlaylistWindowSeconds().hashCode());
         hashCode = prime * hashCode + ((getProgramDateTimeIntervalSeconds() == null) ? 0 : getProgramDateTimeIntervalSeconds().hashCode());
         hashCode = prime * hashCode + ((getUrl() == null) ? 0 : getUrl().hashCode());
+        hashCode = prime * hashCode + ((getAdTriggers() == null) ? 0 : getAdTriggers().hashCode());
+        hashCode = prime * hashCode + ((getAdsOnDeliveryRestrictions() == null) ? 0 : getAdsOnDeliveryRestrictions().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,19 +33,32 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
     private String stackSetName;
     /**
      * <p>
-     * The names of the AWS accounts that you want to delete stack instances for.
+     * [Self-managed permissions] The names of the Amazon Web Services accounts that you want to delete stack instances
+     * for.
+     * </p>
+     * <p>
+     * You can specify <code>Accounts</code> or <code>DeploymentTargets</code>, but not both.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> accounts;
     /**
      * <p>
-     * The regions where you want to delete stack set instances.
+     * [Service-managed permissions] The Organizations accounts from which to delete stack instances.
+     * </p>
+     * <p>
+     * You can specify <code>Accounts</code> or <code>DeploymentTargets</code>, but not both.
+     * </p>
+     */
+    private DeploymentTargets deploymentTargets;
+    /**
+     * <p>
+     * The Amazon Web Services Regions where you want to delete stack set instances.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> regions;
     /**
      * <p>
-     * Preferences for how AWS CloudFormation performs this stack set operation.
+     * Preferences for how CloudFormation performs this stack set operation.
      * </p>
      */
     private StackSetOperationPreferences operationPreferences;
@@ -69,9 +82,9 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
      * If you don't specify an operation ID, the SDK generates one automatically.
      * </p>
      * <p>
-     * The operation ID also functions as an idempotency token, to ensure that AWS CloudFormation performs the stack set
+     * The operation ID also functions as an idempotency token, to ensure that CloudFormation performs the stack set
      * operation only once, even if you retry the request multiple times. You can retry stack set operation requests to
-     * ensure that AWS CloudFormation successfully received them.
+     * ensure that CloudFormation successfully received them.
      * </p>
      * <p>
      * Repeating this stack set operation with a new operation ID retries all stack instances whose status is
@@ -79,6 +92,34 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      */
     private String operationId;
+    /**
+     * <p>
+     * [Service-managed permissions] Specifies whether you are acting as an account administrator in the organization's
+     * management account or as a delegated administrator in a member account.
+     * </p>
+     * <p>
+     * By default, <code>SELF</code> is specified. Use <code>SELF</code> for stack sets with self-managed permissions.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you are signed in to the management account, specify <code>SELF</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you are signed in to a delegated administrator account, specify <code>DELEGATED_ADMIN</code>.
+     * </p>
+     * <p>
+     * Your Amazon Web Services account must be registered as a delegated administrator in the management account. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html"
+     * >Register a delegated administrator</a> in the <i>CloudFormation User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String callAs;
 
     /**
      * <p>
@@ -122,10 +163,17 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The names of the AWS accounts that you want to delete stack instances for.
+     * [Self-managed permissions] The names of the Amazon Web Services accounts that you want to delete stack instances
+     * for.
+     * </p>
+     * <p>
+     * You can specify <code>Accounts</code> or <code>DeploymentTargets</code>, but not both.
      * </p>
      * 
-     * @return The names of the AWS accounts that you want to delete stack instances for.
+     * @return [Self-managed permissions] The names of the Amazon Web Services accounts that you want to delete stack
+     *         instances for.</p>
+     *         <p>
+     *         You can specify <code>Accounts</code> or <code>DeploymentTargets</code>, but not both.
      */
 
     public java.util.List<String> getAccounts() {
@@ -137,11 +185,18 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The names of the AWS accounts that you want to delete stack instances for.
+     * [Self-managed permissions] The names of the Amazon Web Services accounts that you want to delete stack instances
+     * for.
+     * </p>
+     * <p>
+     * You can specify <code>Accounts</code> or <code>DeploymentTargets</code>, but not both.
      * </p>
      * 
      * @param accounts
-     *        The names of the AWS accounts that you want to delete stack instances for.
+     *        [Self-managed permissions] The names of the Amazon Web Services accounts that you want to delete stack
+     *        instances for.</p>
+     *        <p>
+     *        You can specify <code>Accounts</code> or <code>DeploymentTargets</code>, but not both.
      */
 
     public void setAccounts(java.util.Collection<String> accounts) {
@@ -155,7 +210,11 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The names of the AWS accounts that you want to delete stack instances for.
+     * [Self-managed permissions] The names of the Amazon Web Services accounts that you want to delete stack instances
+     * for.
+     * </p>
+     * <p>
+     * You can specify <code>Accounts</code> or <code>DeploymentTargets</code>, but not both.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -164,7 +223,10 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * 
      * @param accounts
-     *        The names of the AWS accounts that you want to delete stack instances for.
+     *        [Self-managed permissions] The names of the Amazon Web Services accounts that you want to delete stack
+     *        instances for.</p>
+     *        <p>
+     *        You can specify <code>Accounts</code> or <code>DeploymentTargets</code>, but not both.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -180,11 +242,18 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The names of the AWS accounts that you want to delete stack instances for.
+     * [Self-managed permissions] The names of the Amazon Web Services accounts that you want to delete stack instances
+     * for.
+     * </p>
+     * <p>
+     * You can specify <code>Accounts</code> or <code>DeploymentTargets</code>, but not both.
      * </p>
      * 
      * @param accounts
-     *        The names of the AWS accounts that you want to delete stack instances for.
+     *        [Self-managed permissions] The names of the Amazon Web Services accounts that you want to delete stack
+     *        instances for.</p>
+     *        <p>
+     *        You can specify <code>Accounts</code> or <code>DeploymentTargets</code>, but not both.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -195,10 +264,65 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The regions where you want to delete stack set instances.
+     * [Service-managed permissions] The Organizations accounts from which to delete stack instances.
+     * </p>
+     * <p>
+     * You can specify <code>Accounts</code> or <code>DeploymentTargets</code>, but not both.
      * </p>
      * 
-     * @return The regions where you want to delete stack set instances.
+     * @param deploymentTargets
+     *        [Service-managed permissions] The Organizations accounts from which to delete stack instances.</p>
+     *        <p>
+     *        You can specify <code>Accounts</code> or <code>DeploymentTargets</code>, but not both.
+     */
+
+    public void setDeploymentTargets(DeploymentTargets deploymentTargets) {
+        this.deploymentTargets = deploymentTargets;
+    }
+
+    /**
+     * <p>
+     * [Service-managed permissions] The Organizations accounts from which to delete stack instances.
+     * </p>
+     * <p>
+     * You can specify <code>Accounts</code> or <code>DeploymentTargets</code>, but not both.
+     * </p>
+     * 
+     * @return [Service-managed permissions] The Organizations accounts from which to delete stack instances.</p>
+     *         <p>
+     *         You can specify <code>Accounts</code> or <code>DeploymentTargets</code>, but not both.
+     */
+
+    public DeploymentTargets getDeploymentTargets() {
+        return this.deploymentTargets;
+    }
+
+    /**
+     * <p>
+     * [Service-managed permissions] The Organizations accounts from which to delete stack instances.
+     * </p>
+     * <p>
+     * You can specify <code>Accounts</code> or <code>DeploymentTargets</code>, but not both.
+     * </p>
+     * 
+     * @param deploymentTargets
+     *        [Service-managed permissions] The Organizations accounts from which to delete stack instances.</p>
+     *        <p>
+     *        You can specify <code>Accounts</code> or <code>DeploymentTargets</code>, but not both.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DeleteStackInstancesRequest withDeploymentTargets(DeploymentTargets deploymentTargets) {
+        setDeploymentTargets(deploymentTargets);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services Regions where you want to delete stack set instances.
+     * </p>
+     * 
+     * @return The Amazon Web Services Regions where you want to delete stack set instances.
      */
 
     public java.util.List<String> getRegions() {
@@ -210,11 +334,11 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The regions where you want to delete stack set instances.
+     * The Amazon Web Services Regions where you want to delete stack set instances.
      * </p>
      * 
      * @param regions
-     *        The regions where you want to delete stack set instances.
+     *        The Amazon Web Services Regions where you want to delete stack set instances.
      */
 
     public void setRegions(java.util.Collection<String> regions) {
@@ -228,7 +352,7 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The regions where you want to delete stack set instances.
+     * The Amazon Web Services Regions where you want to delete stack set instances.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -237,7 +361,7 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * 
      * @param regions
-     *        The regions where you want to delete stack set instances.
+     *        The Amazon Web Services Regions where you want to delete stack set instances.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -253,11 +377,11 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The regions where you want to delete stack set instances.
+     * The Amazon Web Services Regions where you want to delete stack set instances.
      * </p>
      * 
      * @param regions
-     *        The regions where you want to delete stack set instances.
+     *        The Amazon Web Services Regions where you want to delete stack set instances.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -268,11 +392,11 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Preferences for how AWS CloudFormation performs this stack set operation.
+     * Preferences for how CloudFormation performs this stack set operation.
      * </p>
      * 
      * @param operationPreferences
-     *        Preferences for how AWS CloudFormation performs this stack set operation.
+     *        Preferences for how CloudFormation performs this stack set operation.
      */
 
     public void setOperationPreferences(StackSetOperationPreferences operationPreferences) {
@@ -281,10 +405,10 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Preferences for how AWS CloudFormation performs this stack set operation.
+     * Preferences for how CloudFormation performs this stack set operation.
      * </p>
      * 
-     * @return Preferences for how AWS CloudFormation performs this stack set operation.
+     * @return Preferences for how CloudFormation performs this stack set operation.
      */
 
     public StackSetOperationPreferences getOperationPreferences() {
@@ -293,11 +417,11 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Preferences for how AWS CloudFormation performs this stack set operation.
+     * Preferences for how CloudFormation performs this stack set operation.
      * </p>
      * 
      * @param operationPreferences
-     *        Preferences for how AWS CloudFormation performs this stack set operation.
+     *        Preferences for how CloudFormation performs this stack set operation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -410,9 +534,9 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
      * If you don't specify an operation ID, the SDK generates one automatically.
      * </p>
      * <p>
-     * The operation ID also functions as an idempotency token, to ensure that AWS CloudFormation performs the stack set
+     * The operation ID also functions as an idempotency token, to ensure that CloudFormation performs the stack set
      * operation only once, even if you retry the request multiple times. You can retry stack set operation requests to
-     * ensure that AWS CloudFormation successfully received them.
+     * ensure that CloudFormation successfully received them.
      * </p>
      * <p>
      * Repeating this stack set operation with a new operation ID retries all stack instances whose status is
@@ -420,14 +544,14 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * 
      * @param operationId
-     *        The unique identifier for this stack set operation. </p>
+     *        The unique identifier for this stack set operation.</p>
      *        <p>
      *        If you don't specify an operation ID, the SDK generates one automatically.
      *        </p>
      *        <p>
-     *        The operation ID also functions as an idempotency token, to ensure that AWS CloudFormation performs the
-     *        stack set operation only once, even if you retry the request multiple times. You can retry stack set
-     *        operation requests to ensure that AWS CloudFormation successfully received them.
+     *        The operation ID also functions as an idempotency token, to ensure that CloudFormation performs the stack
+     *        set operation only once, even if you retry the request multiple times. You can retry stack set operation
+     *        requests to ensure that CloudFormation successfully received them.
      *        </p>
      *        <p>
      *        Repeating this stack set operation with a new operation ID retries all stack instances whose status is
@@ -446,23 +570,23 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
      * If you don't specify an operation ID, the SDK generates one automatically.
      * </p>
      * <p>
-     * The operation ID also functions as an idempotency token, to ensure that AWS CloudFormation performs the stack set
+     * The operation ID also functions as an idempotency token, to ensure that CloudFormation performs the stack set
      * operation only once, even if you retry the request multiple times. You can retry stack set operation requests to
-     * ensure that AWS CloudFormation successfully received them.
+     * ensure that CloudFormation successfully received them.
      * </p>
      * <p>
      * Repeating this stack set operation with a new operation ID retries all stack instances whose status is
      * <code>OUTDATED</code>.
      * </p>
      * 
-     * @return The unique identifier for this stack set operation. </p>
+     * @return The unique identifier for this stack set operation.</p>
      *         <p>
      *         If you don't specify an operation ID, the SDK generates one automatically.
      *         </p>
      *         <p>
-     *         The operation ID also functions as an idempotency token, to ensure that AWS CloudFormation performs the
-     *         stack set operation only once, even if you retry the request multiple times. You can retry stack set
-     *         operation requests to ensure that AWS CloudFormation successfully received them.
+     *         The operation ID also functions as an idempotency token, to ensure that CloudFormation performs the stack
+     *         set operation only once, even if you retry the request multiple times. You can retry stack set operation
+     *         requests to ensure that CloudFormation successfully received them.
      *         </p>
      *         <p>
      *         Repeating this stack set operation with a new operation ID retries all stack instances whose status is
@@ -481,9 +605,9 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
      * If you don't specify an operation ID, the SDK generates one automatically.
      * </p>
      * <p>
-     * The operation ID also functions as an idempotency token, to ensure that AWS CloudFormation performs the stack set
+     * The operation ID also functions as an idempotency token, to ensure that CloudFormation performs the stack set
      * operation only once, even if you retry the request multiple times. You can retry stack set operation requests to
-     * ensure that AWS CloudFormation successfully received them.
+     * ensure that CloudFormation successfully received them.
      * </p>
      * <p>
      * Repeating this stack set operation with a new operation ID retries all stack instances whose status is
@@ -491,14 +615,14 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * 
      * @param operationId
-     *        The unique identifier for this stack set operation. </p>
+     *        The unique identifier for this stack set operation.</p>
      *        <p>
      *        If you don't specify an operation ID, the SDK generates one automatically.
      *        </p>
      *        <p>
-     *        The operation ID also functions as an idempotency token, to ensure that AWS CloudFormation performs the
-     *        stack set operation only once, even if you retry the request multiple times. You can retry stack set
-     *        operation requests to ensure that AWS CloudFormation successfully received them.
+     *        The operation ID also functions as an idempotency token, to ensure that CloudFormation performs the stack
+     *        set operation only once, even if you retry the request multiple times. You can retry stack set operation
+     *        requests to ensure that CloudFormation successfully received them.
      *        </p>
      *        <p>
      *        Repeating this stack set operation with a new operation ID retries all stack instances whose status is
@@ -508,6 +632,241 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
 
     public DeleteStackInstancesRequest withOperationId(String operationId) {
         setOperationId(operationId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * [Service-managed permissions] Specifies whether you are acting as an account administrator in the organization's
+     * management account or as a delegated administrator in a member account.
+     * </p>
+     * <p>
+     * By default, <code>SELF</code> is specified. Use <code>SELF</code> for stack sets with self-managed permissions.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you are signed in to the management account, specify <code>SELF</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you are signed in to a delegated administrator account, specify <code>DELEGATED_ADMIN</code>.
+     * </p>
+     * <p>
+     * Your Amazon Web Services account must be registered as a delegated administrator in the management account. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html"
+     * >Register a delegated administrator</a> in the <i>CloudFormation User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param callAs
+     *        [Service-managed permissions] Specifies whether you are acting as an account administrator in the
+     *        organization's management account or as a delegated administrator in a member account.</p>
+     *        <p>
+     *        By default, <code>SELF</code> is specified. Use <code>SELF</code> for stack sets with self-managed
+     *        permissions.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If you are signed in to the management account, specify <code>SELF</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you are signed in to a delegated administrator account, specify <code>DELEGATED_ADMIN</code>.
+     *        </p>
+     *        <p>
+     *        Your Amazon Web Services account must be registered as a delegated administrator in the management
+     *        account. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html"
+     *        >Register a delegated administrator</a> in the <i>CloudFormation User Guide</i>.
+     *        </p>
+     *        </li>
+     * @see CallAs
+     */
+
+    public void setCallAs(String callAs) {
+        this.callAs = callAs;
+    }
+
+    /**
+     * <p>
+     * [Service-managed permissions] Specifies whether you are acting as an account administrator in the organization's
+     * management account or as a delegated administrator in a member account.
+     * </p>
+     * <p>
+     * By default, <code>SELF</code> is specified. Use <code>SELF</code> for stack sets with self-managed permissions.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you are signed in to the management account, specify <code>SELF</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you are signed in to a delegated administrator account, specify <code>DELEGATED_ADMIN</code>.
+     * </p>
+     * <p>
+     * Your Amazon Web Services account must be registered as a delegated administrator in the management account. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html"
+     * >Register a delegated administrator</a> in the <i>CloudFormation User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return [Service-managed permissions] Specifies whether you are acting as an account administrator in the
+     *         organization's management account or as a delegated administrator in a member account.</p>
+     *         <p>
+     *         By default, <code>SELF</code> is specified. Use <code>SELF</code> for stack sets with self-managed
+     *         permissions.
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If you are signed in to the management account, specify <code>SELF</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If you are signed in to a delegated administrator account, specify <code>DELEGATED_ADMIN</code>.
+     *         </p>
+     *         <p>
+     *         Your Amazon Web Services account must be registered as a delegated administrator in the management
+     *         account. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html"
+     *         >Register a delegated administrator</a> in the <i>CloudFormation User Guide</i>.
+     *         </p>
+     *         </li>
+     * @see CallAs
+     */
+
+    public String getCallAs() {
+        return this.callAs;
+    }
+
+    /**
+     * <p>
+     * [Service-managed permissions] Specifies whether you are acting as an account administrator in the organization's
+     * management account or as a delegated administrator in a member account.
+     * </p>
+     * <p>
+     * By default, <code>SELF</code> is specified. Use <code>SELF</code> for stack sets with self-managed permissions.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you are signed in to the management account, specify <code>SELF</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you are signed in to a delegated administrator account, specify <code>DELEGATED_ADMIN</code>.
+     * </p>
+     * <p>
+     * Your Amazon Web Services account must be registered as a delegated administrator in the management account. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html"
+     * >Register a delegated administrator</a> in the <i>CloudFormation User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param callAs
+     *        [Service-managed permissions] Specifies whether you are acting as an account administrator in the
+     *        organization's management account or as a delegated administrator in a member account.</p>
+     *        <p>
+     *        By default, <code>SELF</code> is specified. Use <code>SELF</code> for stack sets with self-managed
+     *        permissions.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If you are signed in to the management account, specify <code>SELF</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you are signed in to a delegated administrator account, specify <code>DELEGATED_ADMIN</code>.
+     *        </p>
+     *        <p>
+     *        Your Amazon Web Services account must be registered as a delegated administrator in the management
+     *        account. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html"
+     *        >Register a delegated administrator</a> in the <i>CloudFormation User Guide</i>.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CallAs
+     */
+
+    public DeleteStackInstancesRequest withCallAs(String callAs) {
+        setCallAs(callAs);
+        return this;
+    }
+
+    /**
+     * <p>
+     * [Service-managed permissions] Specifies whether you are acting as an account administrator in the organization's
+     * management account or as a delegated administrator in a member account.
+     * </p>
+     * <p>
+     * By default, <code>SELF</code> is specified. Use <code>SELF</code> for stack sets with self-managed permissions.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you are signed in to the management account, specify <code>SELF</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you are signed in to a delegated administrator account, specify <code>DELEGATED_ADMIN</code>.
+     * </p>
+     * <p>
+     * Your Amazon Web Services account must be registered as a delegated administrator in the management account. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html"
+     * >Register a delegated administrator</a> in the <i>CloudFormation User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param callAs
+     *        [Service-managed permissions] Specifies whether you are acting as an account administrator in the
+     *        organization's management account or as a delegated administrator in a member account.</p>
+     *        <p>
+     *        By default, <code>SELF</code> is specified. Use <code>SELF</code> for stack sets with self-managed
+     *        permissions.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If you are signed in to the management account, specify <code>SELF</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you are signed in to a delegated administrator account, specify <code>DELEGATED_ADMIN</code>.
+     *        </p>
+     *        <p>
+     *        Your Amazon Web Services account must be registered as a delegated administrator in the management
+     *        account. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html"
+     *        >Register a delegated administrator</a> in the <i>CloudFormation User Guide</i>.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CallAs
+     */
+
+    public DeleteStackInstancesRequest withCallAs(CallAs callAs) {
+        this.callAs = callAs.toString();
         return this;
     }
 
@@ -527,6 +886,8 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
             sb.append("StackSetName: ").append(getStackSetName()).append(",");
         if (getAccounts() != null)
             sb.append("Accounts: ").append(getAccounts()).append(",");
+        if (getDeploymentTargets() != null)
+            sb.append("DeploymentTargets: ").append(getDeploymentTargets()).append(",");
         if (getRegions() != null)
             sb.append("Regions: ").append(getRegions()).append(",");
         if (getOperationPreferences() != null)
@@ -534,7 +895,9 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
         if (getRetainStacks() != null)
             sb.append("RetainStacks: ").append(getRetainStacks()).append(",");
         if (getOperationId() != null)
-            sb.append("OperationId: ").append(getOperationId());
+            sb.append("OperationId: ").append(getOperationId()).append(",");
+        if (getCallAs() != null)
+            sb.append("CallAs: ").append(getCallAs());
         sb.append("}");
         return sb.toString();
     }
@@ -557,6 +920,10 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
             return false;
         if (other.getAccounts() != null && other.getAccounts().equals(this.getAccounts()) == false)
             return false;
+        if (other.getDeploymentTargets() == null ^ this.getDeploymentTargets() == null)
+            return false;
+        if (other.getDeploymentTargets() != null && other.getDeploymentTargets().equals(this.getDeploymentTargets()) == false)
+            return false;
         if (other.getRegions() == null ^ this.getRegions() == null)
             return false;
         if (other.getRegions() != null && other.getRegions().equals(this.getRegions()) == false)
@@ -573,6 +940,10 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
             return false;
         if (other.getOperationId() != null && other.getOperationId().equals(this.getOperationId()) == false)
             return false;
+        if (other.getCallAs() == null ^ this.getCallAs() == null)
+            return false;
+        if (other.getCallAs() != null && other.getCallAs().equals(this.getCallAs()) == false)
+            return false;
         return true;
     }
 
@@ -583,10 +954,12 @@ public class DeleteStackInstancesRequest extends com.amazonaws.AmazonWebServiceR
 
         hashCode = prime * hashCode + ((getStackSetName() == null) ? 0 : getStackSetName().hashCode());
         hashCode = prime * hashCode + ((getAccounts() == null) ? 0 : getAccounts().hashCode());
+        hashCode = prime * hashCode + ((getDeploymentTargets() == null) ? 0 : getDeploymentTargets().hashCode());
         hashCode = prime * hashCode + ((getRegions() == null) ? 0 : getRegions().hashCode());
         hashCode = prime * hashCode + ((getOperationPreferences() == null) ? 0 : getOperationPreferences().hashCode());
         hashCode = prime * hashCode + ((getRetainStacks() == null) ? 0 : getRetainStacks().hashCode());
         hashCode = prime * hashCode + ((getOperationId() == null) ? 0 : getOperationId().hashCode());
+        hashCode = prime * hashCode + ((getCallAs() == null) ? 0 : getCallAs().hashCode());
         return hashCode;
     }
 

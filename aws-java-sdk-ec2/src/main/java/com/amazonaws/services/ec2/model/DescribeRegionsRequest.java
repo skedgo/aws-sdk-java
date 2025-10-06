@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,12 @@ public class DescribeRegionsRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
+     * <code>opt-in-status</code> - The opt-in status of the Region (<code>opt-in-not-required</code> |
+     * <code>opted-in</code> | <code>not-opted-in</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>region-name</code> - The name of the Region (for example, <code>us-east-1</code>).
      * </p>
      * </li>
@@ -68,6 +74,12 @@ public class DescribeRegionsRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
+     * <code>opt-in-status</code> - The opt-in status of the Region (<code>opt-in-not-required</code> |
+     * <code>opted-in</code> | <code>not-opted-in</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>region-name</code> - The name of the Region (for example, <code>us-east-1</code>).
      * </p>
      * </li>
@@ -79,6 +91,12 @@ public class DescribeRegionsRequest extends AmazonWebServiceRequest implements S
      *         <p>
      *         <code>endpoint</code> - The endpoint of the Region (for example, <code>ec2.us-east-1.amazonaws.com</code>
      *         ).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>opt-in-status</code> - The opt-in status of the Region (<code>opt-in-not-required</code> |
+     *         <code>opted-in</code> | <code>not-opted-in</code>).
      *         </p>
      *         </li>
      *         <li>
@@ -107,6 +125,12 @@ public class DescribeRegionsRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
+     * <code>opt-in-status</code> - The opt-in status of the Region (<code>opt-in-not-required</code> |
+     * <code>opted-in</code> | <code>not-opted-in</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>region-name</code> - The name of the Region (for example, <code>us-east-1</code>).
      * </p>
      * </li>
@@ -119,6 +143,12 @@ public class DescribeRegionsRequest extends AmazonWebServiceRequest implements S
      *        <p>
      *        <code>endpoint</code> - The endpoint of the Region (for example, <code>ec2.us-east-1.amazonaws.com</code>
      *        ).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>opt-in-status</code> - The opt-in status of the Region (<code>opt-in-not-required</code> |
+     *        <code>opted-in</code> | <code>not-opted-in</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -149,6 +179,12 @@ public class DescribeRegionsRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
+     * <code>opt-in-status</code> - The opt-in status of the Region (<code>opt-in-not-required</code> |
+     * <code>opted-in</code> | <code>not-opted-in</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>region-name</code> - The name of the Region (for example, <code>us-east-1</code>).
      * </p>
      * </li>
@@ -166,6 +202,12 @@ public class DescribeRegionsRequest extends AmazonWebServiceRequest implements S
      *        <p>
      *        <code>endpoint</code> - The endpoint of the Region (for example, <code>ec2.us-east-1.amazonaws.com</code>
      *        ).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>opt-in-status</code> - The opt-in status of the Region (<code>opt-in-not-required</code> |
+     *        <code>opted-in</code> | <code>not-opted-in</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -198,6 +240,12 @@ public class DescribeRegionsRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
+     * <code>opt-in-status</code> - The opt-in status of the Region (<code>opt-in-not-required</code> |
+     * <code>opted-in</code> | <code>not-opted-in</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>region-name</code> - The name of the Region (for example, <code>us-east-1</code>).
      * </p>
      * </li>
@@ -210,6 +258,12 @@ public class DescribeRegionsRequest extends AmazonWebServiceRequest implements S
      *        <p>
      *        <code>endpoint</code> - The endpoint of the Region (for example, <code>ec2.us-east-1.amazonaws.com</code>
      *        ).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>opt-in-status</code> - The opt-in status of the Region (<code>opt-in-not-required</code> |
+     *        <code>opted-in</code> | <code>not-opted-in</code>).
      *        </p>
      *        </li>
      *        <li>

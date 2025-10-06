@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,11 +19,6 @@ import javax.annotation.Generated;
  * <p>
  * The collection of VPC links under the caller's account in a region.
  * </p>
- * <div class="seeAlso"> <a
- * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/getting-started-with-private-integration.html"
- * >Getting Started with Private Integrations</a>, <a
- * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-private-integration.html">Set up Private
- * Integrations</a> </div>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class GetVpcLinksResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,8 +37,14 @@ public class ViolationEventMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("behavior").build();
     private static final MarshallingInfo<StructuredPojo> METRICVALUE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("metricValue").build();
+    private static final MarshallingInfo<StructuredPojo> VIOLATIONEVENTADDITIONALINFO_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("violationEventAdditionalInfo").build();
     private static final MarshallingInfo<String> VIOLATIONEVENTTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("violationEventType").build();
+    private static final MarshallingInfo<String> VERIFICATIONSTATE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("verificationState").build();
+    private static final MarshallingInfo<String> VERIFICATIONSTATEDESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("verificationStateDescription").build();
     private static final MarshallingInfo<java.util.Date> VIOLATIONEVENTTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("violationEventTime").timestampFormat("unixTimestamp").build();
 
@@ -63,7 +69,10 @@ public class ViolationEventMarshaller {
             protocolMarshaller.marshall(violationEvent.getSecurityProfileName(), SECURITYPROFILENAME_BINDING);
             protocolMarshaller.marshall(violationEvent.getBehavior(), BEHAVIOR_BINDING);
             protocolMarshaller.marshall(violationEvent.getMetricValue(), METRICVALUE_BINDING);
+            protocolMarshaller.marshall(violationEvent.getViolationEventAdditionalInfo(), VIOLATIONEVENTADDITIONALINFO_BINDING);
             protocolMarshaller.marshall(violationEvent.getViolationEventType(), VIOLATIONEVENTTYPE_BINDING);
+            protocolMarshaller.marshall(violationEvent.getVerificationState(), VERIFICATIONSTATE_BINDING);
+            protocolMarshaller.marshall(violationEvent.getVerificationStateDescription(), VERIFICATIONSTATEDESCRIPTION_BINDING);
             protocolMarshaller.marshall(violationEvent.getViolationEventTime(), VIOLATIONEVENTTIME_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -24,72 +24,359 @@ import javax.annotation.Generated;
 public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {
 
     /**
-     * Required. Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions. The
-     * automatic upgrades occur during the maintenance window of the broker or after a manual broker reboot.
+     * <p>
+     * Actions required for a broker.
+     * </p>
+     */
+    private java.util.List<ActionRequired> actionsRequired;
+    /**
+     * <p>
+     * The authentication strategy used to secure the broker. The default is SIMPLE.
+     * </p>
+     */
+    private String authenticationStrategy;
+    /**
+     * <p>
+     * Enables automatic upgrades to new patch versions for brokers as new versions are released and supported by Amazon
+     * MQ. Automatic upgrades occur during the scheduled maintenance window or after a manual broker reboot.
+     * </p>
      */
     private Boolean autoMinorVersionUpgrade;
-    /** The Amazon Resource Name (ARN) of the broker. */
+    /**
+     * <p>
+     * The broker's Amazon Resource Name (ARN).
+     * </p>
+     */
     private String brokerArn;
-    /** The unique ID that Amazon MQ generates for the broker. */
+    /**
+     * <p>
+     * The unique ID that Amazon MQ generates for the broker.
+     * </p>
+     */
     private String brokerId;
-    /** A list of information about allocated brokers. */
+    /**
+     * <p>
+     * A list of information about allocated brokers.
+     * </p>
+     */
     private java.util.List<BrokerInstance> brokerInstances;
     /**
-     * The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain only
-     * letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard characters, or
-     * special characters.
+     * <p>
+     * The broker's name. This value must be unique in your Amazon Web Services account account, 1-50 characters long,
+     * must contain only letters, numbers, dashes, and underscores, and must not contain white spaces, brackets,
+     * wildcard characters, or special characters.
+     * </p>
      */
     private String brokerName;
-    /** The status of the broker. */
+    /**
+     * <p>
+     * The broker's status.
+     * </p>
+     */
     private String brokerState;
-    /** The list of all revisions for the specified configuration. */
+    /**
+     * <p>
+     * The list of all revisions for the specified configuration.
+     * </p>
+     */
     private Configurations configurations;
-    /** The time when the broker was created. */
+    /**
+     * <p>
+     * The time when the broker was created.
+     * </p>
+     */
     private java.util.Date created;
-    /** Required. The deployment mode of the broker. */
+    /**
+     * <p>
+     * The broker's deployment mode.
+     * </p>
+     */
     private String deploymentMode;
-    /** Encryption options for the broker. */
+    /**
+     * <p>
+     * Encryption options for the broker.
+     * </p>
+     */
     private EncryptionOptions encryptionOptions;
-    /** Required. The type of broker engine. Note: Currently, Amazon MQ supports only ACTIVEMQ. */
+    /**
+     * <p>
+     * The type of broker engine. Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
+     * </p>
+     */
     private String engineType;
     /**
-     * The version of the broker engine. For a list of supported engine versions, see
-     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     * <p>
+     * The broker engine version. For more information, see the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html">ActiveMQ
+     * version management</a> and the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html">RabbitMQ
+     * version management</a> sections in the Amazon MQ Developer Guide.
+     * </p>
      */
     private String engineVersion;
-    /** The broker's instance type. */
+    /**
+     * <p>
+     * The broker's instance type.
+     * </p>
+     */
     private String hostInstanceType;
-    /** The list of information about logs currently enabled and pending to be deployed for the specified broker. */
+    /**
+     * <p>
+     * The metadata of the LDAP server used to authenticate and authorize connections to the broker.
+     * </p>
+     */
+    private LdapServerMetadataOutput ldapServerMetadata;
+    /**
+     * <p>
+     * The list of information about logs currently enabled and pending to be deployed for the specified broker.
+     * </p>
+     */
     private LogsSummary logs;
-    /** The parameters that determine the WeeklyStartTime. */
+    /**
+     * <p>
+     * The parameters that determine the WeeklyStartTime.
+     * </p>
+     */
     private WeeklyStartTime maintenanceWindowStartTime;
     /**
-     * The version of the broker engine to upgrade to. For a list of supported engine versions, see
-     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     * <p>
+     * The authentication strategy that will be applied when the broker is rebooted. The default is SIMPLE.
+     * </p>
+     */
+    private String pendingAuthenticationStrategy;
+    /**
+     * <p>
+     * The broker engine version to upgrade to. For more information, see the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html">ActiveMQ
+     * version management</a> and the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html">RabbitMQ
+     * version management</a> sections in the Amazon MQ Developer Guide.
+     * </p>
      */
     private String pendingEngineVersion;
-    /** Required. Enables connections from applications outside of the VPC that hosts the broker's subnets. */
+    /**
+     * <p>
+     * The broker's host instance type to upgrade to. For a list of supported instance types, see <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/broker.html#broker-instance-types">Broker
+     * instance types</a>.
+     * </p>
+     */
+    private String pendingHostInstanceType;
+    /**
+     * <p>
+     * The metadata of the LDAP server that will be used to authenticate and authorize connections to the broker after
+     * it is rebooted.
+     * </p>
+     */
+    private LdapServerMetadataOutput pendingLdapServerMetadata;
+    /**
+     * <p>
+     * The list of pending security groups to authorize connections to brokers.
+     * </p>
+     */
+    private java.util.List<String> pendingSecurityGroups;
+    /**
+     * <p>
+     * Enables connections from applications outside of the VPC that hosts the broker's subnets.
+     * </p>
+     */
     private Boolean publiclyAccessible;
-    /** Required. The list of rules (1 minimum, 125 maximum) that authorize connections to brokers. */
+    /**
+     * <p>
+     * The list of rules (1 minimum, 125 maximum) that authorize connections to brokers.
+     * </p>
+     */
     private java.util.List<String> securityGroups;
     /**
-     * The list of groups (2 maximum) that define which subnets and IP ranges the broker can use from different
-     * Availability Zones. A SINGLE_INSTANCE deployment requires one subnet (for example, the default subnet). An
-     * ACTIVE_STANDBY_MULTI_AZ deployment requires two subnets.
+     * <p>
+     * The broker's storage type.
+     * </p>
+     */
+    private String storageType;
+    /**
+     * <p>
+     * The list of groups that define which subnets and IP ranges the broker can use from different Availability Zones.
+     * </p>
      */
     private java.util.List<String> subnetIds;
-    /** The list of all tags associated with this broker. */
+    /**
+     * <p>
+     * The list of all tags associated with this broker.
+     * </p>
+     */
     private java.util.Map<String, String> tags;
-    /** The list of all ActiveMQ usernames for the specified broker. */
+    /**
+     * <p>
+     * The list of all broker usernames for the specified broker.
+     * </p>
+     */
     private java.util.List<UserSummary> users;
+    /**
+     * <p>
+     * The replication details of the data replication-enabled broker. Only returned if dataReplicationMode is set to
+     * CRDR.
+     * </p>
+     */
+    private DataReplicationMetadataOutput dataReplicationMetadata;
+    /**
+     * <p>
+     * Describes whether this broker is a part of a data replication pair.
+     * </p>
+     */
+    private String dataReplicationMode;
+    /**
+     * <p>
+     * The pending replication details of the data replication-enabled broker. Only returned if
+     * pendingDataReplicationMode is set to CRDR.
+     * </p>
+     */
+    private DataReplicationMetadataOutput pendingDataReplicationMetadata;
+    /**
+     * <p>
+     * Describes whether this broker will be a part of a data replication pair after reboot.
+     * </p>
+     */
+    private String pendingDataReplicationMode;
 
     /**
-     * Required. Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions. The
-     * automatic upgrades occur during the maintenance window of the broker or after a manual broker reboot.
+     * <p>
+     * Actions required for a broker.
+     * </p>
+     * 
+     * @return Actions required for a broker.
+     */
+
+    public java.util.List<ActionRequired> getActionsRequired() {
+        return actionsRequired;
+    }
+
+    /**
+     * <p>
+     * Actions required for a broker.
+     * </p>
+     * 
+     * @param actionsRequired
+     *        Actions required for a broker.
+     */
+
+    public void setActionsRequired(java.util.Collection<ActionRequired> actionsRequired) {
+        if (actionsRequired == null) {
+            this.actionsRequired = null;
+            return;
+        }
+
+        this.actionsRequired = new java.util.ArrayList<ActionRequired>(actionsRequired);
+    }
+
+    /**
+     * <p>
+     * Actions required for a broker.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setActionsRequired(java.util.Collection)} or {@link #withActionsRequired(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param actionsRequired
+     *        Actions required for a broker.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeBrokerResult withActionsRequired(ActionRequired... actionsRequired) {
+        if (this.actionsRequired == null) {
+            setActionsRequired(new java.util.ArrayList<ActionRequired>(actionsRequired.length));
+        }
+        for (ActionRequired ele : actionsRequired) {
+            this.actionsRequired.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Actions required for a broker.
+     * </p>
+     * 
+     * @param actionsRequired
+     *        Actions required for a broker.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeBrokerResult withActionsRequired(java.util.Collection<ActionRequired> actionsRequired) {
+        setActionsRequired(actionsRequired);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The authentication strategy used to secure the broker. The default is SIMPLE.
+     * </p>
+     * 
+     * @param authenticationStrategy
+     *        The authentication strategy used to secure the broker. The default is SIMPLE.
+     * @see AuthenticationStrategy
+     */
+
+    public void setAuthenticationStrategy(String authenticationStrategy) {
+        this.authenticationStrategy = authenticationStrategy;
+    }
+
+    /**
+     * <p>
+     * The authentication strategy used to secure the broker. The default is SIMPLE.
+     * </p>
+     * 
+     * @return The authentication strategy used to secure the broker. The default is SIMPLE.
+     * @see AuthenticationStrategy
+     */
+
+    public String getAuthenticationStrategy() {
+        return this.authenticationStrategy;
+    }
+
+    /**
+     * <p>
+     * The authentication strategy used to secure the broker. The default is SIMPLE.
+     * </p>
+     * 
+     * @param authenticationStrategy
+     *        The authentication strategy used to secure the broker. The default is SIMPLE.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AuthenticationStrategy
+     */
+
+    public DescribeBrokerResult withAuthenticationStrategy(String authenticationStrategy) {
+        setAuthenticationStrategy(authenticationStrategy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The authentication strategy used to secure the broker. The default is SIMPLE.
+     * </p>
+     * 
+     * @param authenticationStrategy
+     *        The authentication strategy used to secure the broker. The default is SIMPLE.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AuthenticationStrategy
+     */
+
+    public DescribeBrokerResult withAuthenticationStrategy(AuthenticationStrategy authenticationStrategy) {
+        this.authenticationStrategy = authenticationStrategy.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enables automatic upgrades to new patch versions for brokers as new versions are released and supported by Amazon
+     * MQ. Automatic upgrades occur during the scheduled maintenance window or after a manual broker reboot.
+     * </p>
      * 
      * @param autoMinorVersionUpgrade
-     *        Required. Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions.
-     *        The automatic upgrades occur during the maintenance window of the broker or after a manual broker reboot.
+     *        Enables automatic upgrades to new patch versions for brokers as new versions are released and supported by
+     *        Amazon MQ. Automatic upgrades occur during the scheduled maintenance window or after a manual broker
+     *        reboot.
      */
 
     public void setAutoMinorVersionUpgrade(Boolean autoMinorVersionUpgrade) {
@@ -97,11 +384,14 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * Required. Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions. The
-     * automatic upgrades occur during the maintenance window of the broker or after a manual broker reboot.
+     * <p>
+     * Enables automatic upgrades to new patch versions for brokers as new versions are released and supported by Amazon
+     * MQ. Automatic upgrades occur during the scheduled maintenance window or after a manual broker reboot.
+     * </p>
      * 
-     * @return Required. Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions.
-     *         The automatic upgrades occur during the maintenance window of the broker or after a manual broker reboot.
+     * @return Enables automatic upgrades to new patch versions for brokers as new versions are released and supported
+     *         by Amazon MQ. Automatic upgrades occur during the scheduled maintenance window or after a manual broker
+     *         reboot.
      */
 
     public Boolean getAutoMinorVersionUpgrade() {
@@ -109,12 +399,15 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * Required. Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions. The
-     * automatic upgrades occur during the maintenance window of the broker or after a manual broker reboot.
+     * <p>
+     * Enables automatic upgrades to new patch versions for brokers as new versions are released and supported by Amazon
+     * MQ. Automatic upgrades occur during the scheduled maintenance window or after a manual broker reboot.
+     * </p>
      * 
      * @param autoMinorVersionUpgrade
-     *        Required. Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions.
-     *        The automatic upgrades occur during the maintenance window of the broker or after a manual broker reboot.
+     *        Enables automatic upgrades to new patch versions for brokers as new versions are released and supported by
+     *        Amazon MQ. Automatic upgrades occur during the scheduled maintenance window or after a manual broker
+     *        reboot.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -124,11 +417,14 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * Required. Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions. The
-     * automatic upgrades occur during the maintenance window of the broker or after a manual broker reboot.
+     * <p>
+     * Enables automatic upgrades to new patch versions for brokers as new versions are released and supported by Amazon
+     * MQ. Automatic upgrades occur during the scheduled maintenance window or after a manual broker reboot.
+     * </p>
      * 
-     * @return Required. Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions.
-     *         The automatic upgrades occur during the maintenance window of the broker or after a manual broker reboot.
+     * @return Enables automatic upgrades to new patch versions for brokers as new versions are released and supported
+     *         by Amazon MQ. Automatic upgrades occur during the scheduled maintenance window or after a manual broker
+     *         reboot.
      */
 
     public Boolean isAutoMinorVersionUpgrade() {
@@ -136,10 +432,12 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The Amazon Resource Name (ARN) of the broker.
+     * <p>
+     * The broker's Amazon Resource Name (ARN).
+     * </p>
      * 
      * @param brokerArn
-     *        The Amazon Resource Name (ARN) of the broker.
+     *        The broker's Amazon Resource Name (ARN).
      */
 
     public void setBrokerArn(String brokerArn) {
@@ -147,9 +445,11 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The Amazon Resource Name (ARN) of the broker.
+     * <p>
+     * The broker's Amazon Resource Name (ARN).
+     * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the broker.
+     * @return The broker's Amazon Resource Name (ARN).
      */
 
     public String getBrokerArn() {
@@ -157,10 +457,12 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The Amazon Resource Name (ARN) of the broker.
+     * <p>
+     * The broker's Amazon Resource Name (ARN).
+     * </p>
      * 
      * @param brokerArn
-     *        The Amazon Resource Name (ARN) of the broker.
+     *        The broker's Amazon Resource Name (ARN).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -170,7 +472,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * The unique ID that Amazon MQ generates for the broker.
+     * </p>
      * 
      * @param brokerId
      *        The unique ID that Amazon MQ generates for the broker.
@@ -181,7 +485,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * The unique ID that Amazon MQ generates for the broker.
+     * </p>
      * 
      * @return The unique ID that Amazon MQ generates for the broker.
      */
@@ -191,7 +497,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * The unique ID that Amazon MQ generates for the broker.
+     * </p>
      * 
      * @param brokerId
      *        The unique ID that Amazon MQ generates for the broker.
@@ -204,7 +512,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * A list of information about allocated brokers.
+     * </p>
      * 
      * @return A list of information about allocated brokers.
      */
@@ -214,7 +524,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * A list of information about allocated brokers.
+     * </p>
      * 
      * @param brokerInstances
      *        A list of information about allocated brokers.
@@ -230,7 +542,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * A list of information about allocated brokers.
+     * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setBrokerInstances(java.util.Collection)} or {@link #withBrokerInstances(java.util.Collection)} if you
@@ -253,7 +567,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * A list of information about allocated brokers.
+     * </p>
      * 
      * @param brokerInstances
      *        A list of information about allocated brokers.
@@ -266,14 +582,16 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain only
-     * letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard characters, or
-     * special characters.
+     * <p>
+     * The broker's name. This value must be unique in your Amazon Web Services account account, 1-50 characters long,
+     * must contain only letters, numbers, dashes, and underscores, and must not contain white spaces, brackets,
+     * wildcard characters, or special characters.
+     * </p>
      * 
      * @param brokerName
-     *        The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain
-     *        only letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard
-     *        characters, or special characters.
+     *        The broker's name. This value must be unique in your Amazon Web Services account account, 1-50 characters
+     *        long, must contain only letters, numbers, dashes, and underscores, and must not contain white spaces,
+     *        brackets, wildcard characters, or special characters.
      */
 
     public void setBrokerName(String brokerName) {
@@ -281,13 +599,15 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain only
-     * letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard characters, or
-     * special characters.
+     * <p>
+     * The broker's name. This value must be unique in your Amazon Web Services account account, 1-50 characters long,
+     * must contain only letters, numbers, dashes, and underscores, and must not contain white spaces, brackets,
+     * wildcard characters, or special characters.
+     * </p>
      * 
-     * @return The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain
-     *         only letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard
-     *         characters, or special characters.
+     * @return The broker's name. This value must be unique in your Amazon Web Services account account, 1-50 characters
+     *         long, must contain only letters, numbers, dashes, and underscores, and must not contain white spaces,
+     *         brackets, wildcard characters, or special characters.
      */
 
     public String getBrokerName() {
@@ -295,14 +615,16 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain only
-     * letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard characters, or
-     * special characters.
+     * <p>
+     * The broker's name. This value must be unique in your Amazon Web Services account account, 1-50 characters long,
+     * must contain only letters, numbers, dashes, and underscores, and must not contain white spaces, brackets,
+     * wildcard characters, or special characters.
+     * </p>
      * 
      * @param brokerName
-     *        The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain
-     *        only letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard
-     *        characters, or special characters.
+     *        The broker's name. This value must be unique in your Amazon Web Services account account, 1-50 characters
+     *        long, must contain only letters, numbers, dashes, and underscores, and must not contain white spaces,
+     *        brackets, wildcard characters, or special characters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -312,10 +634,12 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The status of the broker.
+     * <p>
+     * The broker's status.
+     * </p>
      * 
      * @param brokerState
-     *        The status of the broker.
+     *        The broker's status.
      * @see BrokerState
      */
 
@@ -324,9 +648,11 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The status of the broker.
+     * <p>
+     * The broker's status.
+     * </p>
      * 
-     * @return The status of the broker.
+     * @return The broker's status.
      * @see BrokerState
      */
 
@@ -335,10 +661,12 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The status of the broker.
+     * <p>
+     * The broker's status.
+     * </p>
      * 
      * @param brokerState
-     *        The status of the broker.
+     *        The broker's status.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see BrokerState
      */
@@ -349,10 +677,12 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The status of the broker.
+     * <p>
+     * The broker's status.
+     * </p>
      * 
      * @param brokerState
-     *        The status of the broker.
+     *        The broker's status.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see BrokerState
      */
@@ -363,7 +693,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * The list of all revisions for the specified configuration.
+     * </p>
      * 
      * @param configurations
      *        The list of all revisions for the specified configuration.
@@ -374,7 +706,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * The list of all revisions for the specified configuration.
+     * </p>
      * 
      * @return The list of all revisions for the specified configuration.
      */
@@ -384,7 +718,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * The list of all revisions for the specified configuration.
+     * </p>
      * 
      * @param configurations
      *        The list of all revisions for the specified configuration.
@@ -397,7 +733,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * The time when the broker was created.
+     * </p>
      * 
      * @param created
      *        The time when the broker was created.
@@ -408,7 +746,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * The time when the broker was created.
+     * </p>
      * 
      * @return The time when the broker was created.
      */
@@ -418,7 +758,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * The time when the broker was created.
+     * </p>
      * 
      * @param created
      *        The time when the broker was created.
@@ -431,10 +773,12 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * Required. The deployment mode of the broker.
+     * <p>
+     * The broker's deployment mode.
+     * </p>
      * 
      * @param deploymentMode
-     *        Required. The deployment mode of the broker.
+     *        The broker's deployment mode.
      * @see DeploymentMode
      */
 
@@ -443,9 +787,11 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * Required. The deployment mode of the broker.
+     * <p>
+     * The broker's deployment mode.
+     * </p>
      * 
-     * @return Required. The deployment mode of the broker.
+     * @return The broker's deployment mode.
      * @see DeploymentMode
      */
 
@@ -454,10 +800,12 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * Required. The deployment mode of the broker.
+     * <p>
+     * The broker's deployment mode.
+     * </p>
      * 
      * @param deploymentMode
-     *        Required. The deployment mode of the broker.
+     *        The broker's deployment mode.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DeploymentMode
      */
@@ -468,10 +816,12 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * Required. The deployment mode of the broker.
+     * <p>
+     * The broker's deployment mode.
+     * </p>
      * 
      * @param deploymentMode
-     *        Required. The deployment mode of the broker.
+     *        The broker's deployment mode.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DeploymentMode
      */
@@ -482,7 +832,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * Encryption options for the broker.
+     * </p>
      * 
      * @param encryptionOptions
      *        Encryption options for the broker.
@@ -493,7 +845,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * Encryption options for the broker.
+     * </p>
      * 
      * @return Encryption options for the broker.
      */
@@ -503,7 +857,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * Encryption options for the broker.
+     * </p>
      * 
      * @param encryptionOptions
      *        Encryption options for the broker.
@@ -516,10 +872,12 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * Required. The type of broker engine. Note: Currently, Amazon MQ supports only ACTIVEMQ.
+     * <p>
+     * The type of broker engine. Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
+     * </p>
      * 
      * @param engineType
-     *        Required. The type of broker engine. Note: Currently, Amazon MQ supports only ACTIVEMQ.
+     *        The type of broker engine. Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
      * @see EngineType
      */
 
@@ -528,9 +886,11 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * Required. The type of broker engine. Note: Currently, Amazon MQ supports only ACTIVEMQ.
+     * <p>
+     * The type of broker engine. Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
+     * </p>
      * 
-     * @return Required. The type of broker engine. Note: Currently, Amazon MQ supports only ACTIVEMQ.
+     * @return The type of broker engine. Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
      * @see EngineType
      */
 
@@ -539,10 +899,12 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * Required. The type of broker engine. Note: Currently, Amazon MQ supports only ACTIVEMQ.
+     * <p>
+     * The type of broker engine. Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
+     * </p>
      * 
      * @param engineType
-     *        Required. The type of broker engine. Note: Currently, Amazon MQ supports only ACTIVEMQ.
+     *        The type of broker engine. Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EngineType
      */
@@ -553,10 +915,12 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * Required. The type of broker engine. Note: Currently, Amazon MQ supports only ACTIVEMQ.
+     * <p>
+     * The type of broker engine. Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
+     * </p>
      * 
      * @param engineType
-     *        Required. The type of broker engine. Note: Currently, Amazon MQ supports only ACTIVEMQ.
+     *        The type of broker engine. Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EngineType
      */
@@ -567,12 +931,20 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The version of the broker engine. For a list of supported engine versions, see
-     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     * <p>
+     * The broker engine version. For more information, see the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html">ActiveMQ
+     * version management</a> and the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html">RabbitMQ
+     * version management</a> sections in the Amazon MQ Developer Guide.
+     * </p>
      * 
      * @param engineVersion
-     *        The version of the broker engine. For a list of supported engine versions, see
-     *        https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     *        The broker engine version. For more information, see the <a
+     *        href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html"
+     *        >ActiveMQ version management</a> and the <a
+     *        href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html"
+     *        >RabbitMQ version management</a> sections in the Amazon MQ Developer Guide.
      */
 
     public void setEngineVersion(String engineVersion) {
@@ -580,11 +952,19 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The version of the broker engine. For a list of supported engine versions, see
-     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     * <p>
+     * The broker engine version. For more information, see the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html">ActiveMQ
+     * version management</a> and the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html">RabbitMQ
+     * version management</a> sections in the Amazon MQ Developer Guide.
+     * </p>
      * 
-     * @return The version of the broker engine. For a list of supported engine versions, see
-     *         https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     * @return The broker engine version. For more information, see the <a
+     *         href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html"
+     *         >ActiveMQ version management</a> and the <a
+     *         href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html"
+     *         >RabbitMQ version management</a> sections in the Amazon MQ Developer Guide.
      */
 
     public String getEngineVersion() {
@@ -592,12 +972,20 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The version of the broker engine. For a list of supported engine versions, see
-     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     * <p>
+     * The broker engine version. For more information, see the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html">ActiveMQ
+     * version management</a> and the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html">RabbitMQ
+     * version management</a> sections in the Amazon MQ Developer Guide.
+     * </p>
      * 
      * @param engineVersion
-     *        The version of the broker engine. For a list of supported engine versions, see
-     *        https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     *        The broker engine version. For more information, see the <a
+     *        href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html"
+     *        >ActiveMQ version management</a> and the <a
+     *        href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html"
+     *        >RabbitMQ version management</a> sections in the Amazon MQ Developer Guide.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -607,7 +995,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * The broker's instance type.
+     * </p>
      * 
      * @param hostInstanceType
      *        The broker's instance type.
@@ -618,7 +1008,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * The broker's instance type.
+     * </p>
      * 
      * @return The broker's instance type.
      */
@@ -628,7 +1020,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * The broker's instance type.
+     * </p>
      * 
      * @param hostInstanceType
      *        The broker's instance type.
@@ -641,7 +1035,49 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
+     * The metadata of the LDAP server used to authenticate and authorize connections to the broker.
+     * </p>
+     * 
+     * @param ldapServerMetadata
+     *        The metadata of the LDAP server used to authenticate and authorize connections to the broker.
+     */
+
+    public void setLdapServerMetadata(LdapServerMetadataOutput ldapServerMetadata) {
+        this.ldapServerMetadata = ldapServerMetadata;
+    }
+
+    /**
+     * <p>
+     * The metadata of the LDAP server used to authenticate and authorize connections to the broker.
+     * </p>
+     * 
+     * @return The metadata of the LDAP server used to authenticate and authorize connections to the broker.
+     */
+
+    public LdapServerMetadataOutput getLdapServerMetadata() {
+        return this.ldapServerMetadata;
+    }
+
+    /**
+     * <p>
+     * The metadata of the LDAP server used to authenticate and authorize connections to the broker.
+     * </p>
+     * 
+     * @param ldapServerMetadata
+     *        The metadata of the LDAP server used to authenticate and authorize connections to the broker.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeBrokerResult withLdapServerMetadata(LdapServerMetadataOutput ldapServerMetadata) {
+        setLdapServerMetadata(ldapServerMetadata);
+        return this;
+    }
+
+    /**
+     * <p>
      * The list of information about logs currently enabled and pending to be deployed for the specified broker.
+     * </p>
      * 
      * @param logs
      *        The list of information about logs currently enabled and pending to be deployed for the specified broker.
@@ -652,7 +1088,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * The list of information about logs currently enabled and pending to be deployed for the specified broker.
+     * </p>
      * 
      * @return The list of information about logs currently enabled and pending to be deployed for the specified broker.
      */
@@ -662,7 +1100,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * The list of information about logs currently enabled and pending to be deployed for the specified broker.
+     * </p>
      * 
      * @param logs
      *        The list of information about logs currently enabled and pending to be deployed for the specified broker.
@@ -675,7 +1115,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * The parameters that determine the WeeklyStartTime.
+     * </p>
      * 
      * @param maintenanceWindowStartTime
      *        The parameters that determine the WeeklyStartTime.
@@ -686,7 +1128,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * The parameters that determine the WeeklyStartTime.
+     * </p>
      * 
      * @return The parameters that determine the WeeklyStartTime.
      */
@@ -696,7 +1140,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * The parameters that determine the WeeklyStartTime.
+     * </p>
      * 
      * @param maintenanceWindowStartTime
      *        The parameters that determine the WeeklyStartTime.
@@ -709,12 +1155,79 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The version of the broker engine to upgrade to. For a list of supported engine versions, see
-     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     * <p>
+     * The authentication strategy that will be applied when the broker is rebooted. The default is SIMPLE.
+     * </p>
+     * 
+     * @param pendingAuthenticationStrategy
+     *        The authentication strategy that will be applied when the broker is rebooted. The default is SIMPLE.
+     * @see AuthenticationStrategy
+     */
+
+    public void setPendingAuthenticationStrategy(String pendingAuthenticationStrategy) {
+        this.pendingAuthenticationStrategy = pendingAuthenticationStrategy;
+    }
+
+    /**
+     * <p>
+     * The authentication strategy that will be applied when the broker is rebooted. The default is SIMPLE.
+     * </p>
+     * 
+     * @return The authentication strategy that will be applied when the broker is rebooted. The default is SIMPLE.
+     * @see AuthenticationStrategy
+     */
+
+    public String getPendingAuthenticationStrategy() {
+        return this.pendingAuthenticationStrategy;
+    }
+
+    /**
+     * <p>
+     * The authentication strategy that will be applied when the broker is rebooted. The default is SIMPLE.
+     * </p>
+     * 
+     * @param pendingAuthenticationStrategy
+     *        The authentication strategy that will be applied when the broker is rebooted. The default is SIMPLE.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AuthenticationStrategy
+     */
+
+    public DescribeBrokerResult withPendingAuthenticationStrategy(String pendingAuthenticationStrategy) {
+        setPendingAuthenticationStrategy(pendingAuthenticationStrategy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The authentication strategy that will be applied when the broker is rebooted. The default is SIMPLE.
+     * </p>
+     * 
+     * @param pendingAuthenticationStrategy
+     *        The authentication strategy that will be applied when the broker is rebooted. The default is SIMPLE.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AuthenticationStrategy
+     */
+
+    public DescribeBrokerResult withPendingAuthenticationStrategy(AuthenticationStrategy pendingAuthenticationStrategy) {
+        this.pendingAuthenticationStrategy = pendingAuthenticationStrategy.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The broker engine version to upgrade to. For more information, see the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html">ActiveMQ
+     * version management</a> and the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html">RabbitMQ
+     * version management</a> sections in the Amazon MQ Developer Guide.
+     * </p>
      * 
      * @param pendingEngineVersion
-     *        The version of the broker engine to upgrade to. For a list of supported engine versions, see
-     *        https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     *        The broker engine version to upgrade to. For more information, see the <a
+     *        href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html"
+     *        >ActiveMQ version management</a> and the <a
+     *        href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html"
+     *        >RabbitMQ version management</a> sections in the Amazon MQ Developer Guide.
      */
 
     public void setPendingEngineVersion(String pendingEngineVersion) {
@@ -722,11 +1235,19 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The version of the broker engine to upgrade to. For a list of supported engine versions, see
-     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     * <p>
+     * The broker engine version to upgrade to. For more information, see the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html">ActiveMQ
+     * version management</a> and the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html">RabbitMQ
+     * version management</a> sections in the Amazon MQ Developer Guide.
+     * </p>
      * 
-     * @return The version of the broker engine to upgrade to. For a list of supported engine versions, see
-     *         https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     * @return The broker engine version to upgrade to. For more information, see the <a
+     *         href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html"
+     *         >ActiveMQ version management</a> and the <a
+     *         href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html"
+     *         >RabbitMQ version management</a> sections in the Amazon MQ Developer Guide.
      */
 
     public String getPendingEngineVersion() {
@@ -734,12 +1255,20 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The version of the broker engine to upgrade to. For a list of supported engine versions, see
-     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     * <p>
+     * The broker engine version to upgrade to. For more information, see the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html">ActiveMQ
+     * version management</a> and the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html">RabbitMQ
+     * version management</a> sections in the Amazon MQ Developer Guide.
+     * </p>
      * 
      * @param pendingEngineVersion
-     *        The version of the broker engine to upgrade to. For a list of supported engine versions, see
-     *        https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     *        The broker engine version to upgrade to. For more information, see the <a
+     *        href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html"
+     *        >ActiveMQ version management</a> and the <a
+     *        href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html"
+     *        >RabbitMQ version management</a> sections in the Amazon MQ Developer Guide.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -749,10 +1278,180 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * Required. Enables connections from applications outside of the VPC that hosts the broker's subnets.
+     * <p>
+     * The broker's host instance type to upgrade to. For a list of supported instance types, see <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/broker.html#broker-instance-types">Broker
+     * instance types</a>.
+     * </p>
+     * 
+     * @param pendingHostInstanceType
+     *        The broker's host instance type to upgrade to. For a list of supported instance types, see <a
+     *        href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/broker.html#broker-instance-types"
+     *        >Broker instance types</a>.
+     */
+
+    public void setPendingHostInstanceType(String pendingHostInstanceType) {
+        this.pendingHostInstanceType = pendingHostInstanceType;
+    }
+
+    /**
+     * <p>
+     * The broker's host instance type to upgrade to. For a list of supported instance types, see <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/broker.html#broker-instance-types">Broker
+     * instance types</a>.
+     * </p>
+     * 
+     * @return The broker's host instance type to upgrade to. For a list of supported instance types, see <a
+     *         href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/broker.html#broker-instance-types"
+     *         >Broker instance types</a>.
+     */
+
+    public String getPendingHostInstanceType() {
+        return this.pendingHostInstanceType;
+    }
+
+    /**
+     * <p>
+     * The broker's host instance type to upgrade to. For a list of supported instance types, see <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/broker.html#broker-instance-types">Broker
+     * instance types</a>.
+     * </p>
+     * 
+     * @param pendingHostInstanceType
+     *        The broker's host instance type to upgrade to. For a list of supported instance types, see <a
+     *        href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/broker.html#broker-instance-types"
+     *        >Broker instance types</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeBrokerResult withPendingHostInstanceType(String pendingHostInstanceType) {
+        setPendingHostInstanceType(pendingHostInstanceType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The metadata of the LDAP server that will be used to authenticate and authorize connections to the broker after
+     * it is rebooted.
+     * </p>
+     * 
+     * @param pendingLdapServerMetadata
+     *        The metadata of the LDAP server that will be used to authenticate and authorize connections to the broker
+     *        after it is rebooted.
+     */
+
+    public void setPendingLdapServerMetadata(LdapServerMetadataOutput pendingLdapServerMetadata) {
+        this.pendingLdapServerMetadata = pendingLdapServerMetadata;
+    }
+
+    /**
+     * <p>
+     * The metadata of the LDAP server that will be used to authenticate and authorize connections to the broker after
+     * it is rebooted.
+     * </p>
+     * 
+     * @return The metadata of the LDAP server that will be used to authenticate and authorize connections to the broker
+     *         after it is rebooted.
+     */
+
+    public LdapServerMetadataOutput getPendingLdapServerMetadata() {
+        return this.pendingLdapServerMetadata;
+    }
+
+    /**
+     * <p>
+     * The metadata of the LDAP server that will be used to authenticate and authorize connections to the broker after
+     * it is rebooted.
+     * </p>
+     * 
+     * @param pendingLdapServerMetadata
+     *        The metadata of the LDAP server that will be used to authenticate and authorize connections to the broker
+     *        after it is rebooted.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeBrokerResult withPendingLdapServerMetadata(LdapServerMetadataOutput pendingLdapServerMetadata) {
+        setPendingLdapServerMetadata(pendingLdapServerMetadata);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of pending security groups to authorize connections to brokers.
+     * </p>
+     * 
+     * @return The list of pending security groups to authorize connections to brokers.
+     */
+
+    public java.util.List<String> getPendingSecurityGroups() {
+        return pendingSecurityGroups;
+    }
+
+    /**
+     * <p>
+     * The list of pending security groups to authorize connections to brokers.
+     * </p>
+     * 
+     * @param pendingSecurityGroups
+     *        The list of pending security groups to authorize connections to brokers.
+     */
+
+    public void setPendingSecurityGroups(java.util.Collection<String> pendingSecurityGroups) {
+        if (pendingSecurityGroups == null) {
+            this.pendingSecurityGroups = null;
+            return;
+        }
+
+        this.pendingSecurityGroups = new java.util.ArrayList<String>(pendingSecurityGroups);
+    }
+
+    /**
+     * <p>
+     * The list of pending security groups to authorize connections to brokers.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setPendingSecurityGroups(java.util.Collection)} or
+     * {@link #withPendingSecurityGroups(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param pendingSecurityGroups
+     *        The list of pending security groups to authorize connections to brokers.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeBrokerResult withPendingSecurityGroups(String... pendingSecurityGroups) {
+        if (this.pendingSecurityGroups == null) {
+            setPendingSecurityGroups(new java.util.ArrayList<String>(pendingSecurityGroups.length));
+        }
+        for (String ele : pendingSecurityGroups) {
+            this.pendingSecurityGroups.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of pending security groups to authorize connections to brokers.
+     * </p>
+     * 
+     * @param pendingSecurityGroups
+     *        The list of pending security groups to authorize connections to brokers.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeBrokerResult withPendingSecurityGroups(java.util.Collection<String> pendingSecurityGroups) {
+        setPendingSecurityGroups(pendingSecurityGroups);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enables connections from applications outside of the VPC that hosts the broker's subnets.
+     * </p>
      * 
      * @param publiclyAccessible
-     *        Required. Enables connections from applications outside of the VPC that hosts the broker's subnets.
+     *        Enables connections from applications outside of the VPC that hosts the broker's subnets.
      */
 
     public void setPubliclyAccessible(Boolean publiclyAccessible) {
@@ -760,9 +1459,11 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * Required. Enables connections from applications outside of the VPC that hosts the broker's subnets.
+     * <p>
+     * Enables connections from applications outside of the VPC that hosts the broker's subnets.
+     * </p>
      * 
-     * @return Required. Enables connections from applications outside of the VPC that hosts the broker's subnets.
+     * @return Enables connections from applications outside of the VPC that hosts the broker's subnets.
      */
 
     public Boolean getPubliclyAccessible() {
@@ -770,10 +1471,12 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * Required. Enables connections from applications outside of the VPC that hosts the broker's subnets.
+     * <p>
+     * Enables connections from applications outside of the VPC that hosts the broker's subnets.
+     * </p>
      * 
      * @param publiclyAccessible
-     *        Required. Enables connections from applications outside of the VPC that hosts the broker's subnets.
+     *        Enables connections from applications outside of the VPC that hosts the broker's subnets.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -783,9 +1486,11 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * Required. Enables connections from applications outside of the VPC that hosts the broker's subnets.
+     * <p>
+     * Enables connections from applications outside of the VPC that hosts the broker's subnets.
+     * </p>
      * 
-     * @return Required. Enables connections from applications outside of the VPC that hosts the broker's subnets.
+     * @return Enables connections from applications outside of the VPC that hosts the broker's subnets.
      */
 
     public Boolean isPubliclyAccessible() {
@@ -793,9 +1498,11 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * Required. The list of rules (1 minimum, 125 maximum) that authorize connections to brokers.
+     * <p>
+     * The list of rules (1 minimum, 125 maximum) that authorize connections to brokers.
+     * </p>
      * 
-     * @return Required. The list of rules (1 minimum, 125 maximum) that authorize connections to brokers.
+     * @return The list of rules (1 minimum, 125 maximum) that authorize connections to brokers.
      */
 
     public java.util.List<String> getSecurityGroups() {
@@ -803,10 +1510,12 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * Required. The list of rules (1 minimum, 125 maximum) that authorize connections to brokers.
+     * <p>
+     * The list of rules (1 minimum, 125 maximum) that authorize connections to brokers.
+     * </p>
      * 
      * @param securityGroups
-     *        Required. The list of rules (1 minimum, 125 maximum) that authorize connections to brokers.
+     *        The list of rules (1 minimum, 125 maximum) that authorize connections to brokers.
      */
 
     public void setSecurityGroups(java.util.Collection<String> securityGroups) {
@@ -819,7 +1528,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * Required. The list of rules (1 minimum, 125 maximum) that authorize connections to brokers.
+     * <p>
+     * The list of rules (1 minimum, 125 maximum) that authorize connections to brokers.
+     * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setSecurityGroups(java.util.Collection)} or {@link #withSecurityGroups(java.util.Collection)} if you want
@@ -827,7 +1538,7 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
      * </p>
      * 
      * @param securityGroups
-     *        Required. The list of rules (1 minimum, 125 maximum) that authorize connections to brokers.
+     *        The list of rules (1 minimum, 125 maximum) that authorize connections to brokers.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -842,10 +1553,12 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * Required. The list of rules (1 minimum, 125 maximum) that authorize connections to brokers.
+     * <p>
+     * The list of rules (1 minimum, 125 maximum) that authorize connections to brokers.
+     * </p>
      * 
      * @param securityGroups
-     *        Required. The list of rules (1 minimum, 125 maximum) that authorize connections to brokers.
+     *        The list of rules (1 minimum, 125 maximum) that authorize connections to brokers.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -855,13 +1568,71 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The list of groups (2 maximum) that define which subnets and IP ranges the broker can use from different
-     * Availability Zones. A SINGLE_INSTANCE deployment requires one subnet (for example, the default subnet). An
-     * ACTIVE_STANDBY_MULTI_AZ deployment requires two subnets.
+     * <p>
+     * The broker's storage type.
+     * </p>
      * 
-     * @return The list of groups (2 maximum) that define which subnets and IP ranges the broker can use from different
-     *         Availability Zones. A SINGLE_INSTANCE deployment requires one subnet (for example, the default subnet).
-     *         An ACTIVE_STANDBY_MULTI_AZ deployment requires two subnets.
+     * @param storageType
+     *        The broker's storage type.
+     * @see BrokerStorageType
+     */
+
+    public void setStorageType(String storageType) {
+        this.storageType = storageType;
+    }
+
+    /**
+     * <p>
+     * The broker's storage type.
+     * </p>
+     * 
+     * @return The broker's storage type.
+     * @see BrokerStorageType
+     */
+
+    public String getStorageType() {
+        return this.storageType;
+    }
+
+    /**
+     * <p>
+     * The broker's storage type.
+     * </p>
+     * 
+     * @param storageType
+     *        The broker's storage type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see BrokerStorageType
+     */
+
+    public DescribeBrokerResult withStorageType(String storageType) {
+        setStorageType(storageType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The broker's storage type.
+     * </p>
+     * 
+     * @param storageType
+     *        The broker's storage type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see BrokerStorageType
+     */
+
+    public DescribeBrokerResult withStorageType(BrokerStorageType storageType) {
+        this.storageType = storageType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of groups that define which subnets and IP ranges the broker can use from different Availability Zones.
+     * </p>
+     * 
+     * @return The list of groups that define which subnets and IP ranges the broker can use from different Availability
+     *         Zones.
      */
 
     public java.util.List<String> getSubnetIds() {
@@ -869,14 +1640,13 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The list of groups (2 maximum) that define which subnets and IP ranges the broker can use from different
-     * Availability Zones. A SINGLE_INSTANCE deployment requires one subnet (for example, the default subnet). An
-     * ACTIVE_STANDBY_MULTI_AZ deployment requires two subnets.
+     * <p>
+     * The list of groups that define which subnets and IP ranges the broker can use from different Availability Zones.
+     * </p>
      * 
      * @param subnetIds
-     *        The list of groups (2 maximum) that define which subnets and IP ranges the broker can use from different
-     *        Availability Zones. A SINGLE_INSTANCE deployment requires one subnet (for example, the default subnet). An
-     *        ACTIVE_STANDBY_MULTI_AZ deployment requires two subnets.
+     *        The list of groups that define which subnets and IP ranges the broker can use from different Availability
+     *        Zones.
      */
 
     public void setSubnetIds(java.util.Collection<String> subnetIds) {
@@ -889,9 +1659,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The list of groups (2 maximum) that define which subnets and IP ranges the broker can use from different
-     * Availability Zones. A SINGLE_INSTANCE deployment requires one subnet (for example, the default subnet). An
-     * ACTIVE_STANDBY_MULTI_AZ deployment requires two subnets.
+     * <p>
+     * The list of groups that define which subnets and IP ranges the broker can use from different Availability Zones.
+     * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setSubnetIds(java.util.Collection)} or {@link #withSubnetIds(java.util.Collection)} if you want to
@@ -899,9 +1669,8 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
      * </p>
      * 
      * @param subnetIds
-     *        The list of groups (2 maximum) that define which subnets and IP ranges the broker can use from different
-     *        Availability Zones. A SINGLE_INSTANCE deployment requires one subnet (for example, the default subnet). An
-     *        ACTIVE_STANDBY_MULTI_AZ deployment requires two subnets.
+     *        The list of groups that define which subnets and IP ranges the broker can use from different Availability
+     *        Zones.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -916,14 +1685,13 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The list of groups (2 maximum) that define which subnets and IP ranges the broker can use from different
-     * Availability Zones. A SINGLE_INSTANCE deployment requires one subnet (for example, the default subnet). An
-     * ACTIVE_STANDBY_MULTI_AZ deployment requires two subnets.
+     * <p>
+     * The list of groups that define which subnets and IP ranges the broker can use from different Availability Zones.
+     * </p>
      * 
      * @param subnetIds
-     *        The list of groups (2 maximum) that define which subnets and IP ranges the broker can use from different
-     *        Availability Zones. A SINGLE_INSTANCE deployment requires one subnet (for example, the default subnet). An
-     *        ACTIVE_STANDBY_MULTI_AZ deployment requires two subnets.
+     *        The list of groups that define which subnets and IP ranges the broker can use from different Availability
+     *        Zones.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -933,7 +1701,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * The list of all tags associated with this broker.
+     * </p>
      * 
      * @return The list of all tags associated with this broker.
      */
@@ -943,7 +1713,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * The list of all tags associated with this broker.
+     * </p>
      * 
      * @param tags
      *        The list of all tags associated with this broker.
@@ -954,7 +1726,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
      * The list of all tags associated with this broker.
+     * </p>
      * 
      * @param tags
      *        The list of all tags associated with this broker.
@@ -965,6 +1739,13 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see DescribeBrokerResult#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public DescribeBrokerResult addTagsEntry(String key, String value) {
         if (null == this.tags) {
@@ -988,9 +1769,11 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The list of all ActiveMQ usernames for the specified broker.
+     * <p>
+     * The list of all broker usernames for the specified broker.
+     * </p>
      * 
-     * @return The list of all ActiveMQ usernames for the specified broker.
+     * @return The list of all broker usernames for the specified broker.
      */
 
     public java.util.List<UserSummary> getUsers() {
@@ -998,10 +1781,12 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The list of all ActiveMQ usernames for the specified broker.
+     * <p>
+     * The list of all broker usernames for the specified broker.
+     * </p>
      * 
      * @param users
-     *        The list of all ActiveMQ usernames for the specified broker.
+     *        The list of all broker usernames for the specified broker.
      */
 
     public void setUsers(java.util.Collection<UserSummary> users) {
@@ -1014,7 +1799,9 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The list of all ActiveMQ usernames for the specified broker.
+     * <p>
+     * The list of all broker usernames for the specified broker.
+     * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setUsers(java.util.Collection)} or {@link #withUsers(java.util.Collection)} if you want to override the
@@ -1022,7 +1809,7 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
      * </p>
      * 
      * @param users
-     *        The list of all ActiveMQ usernames for the specified broker.
+     *        The list of all broker usernames for the specified broker.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1037,15 +1824,227 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * The list of all ActiveMQ usernames for the specified broker.
+     * <p>
+     * The list of all broker usernames for the specified broker.
+     * </p>
      * 
      * @param users
-     *        The list of all ActiveMQ usernames for the specified broker.
+     *        The list of all broker usernames for the specified broker.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DescribeBrokerResult withUsers(java.util.Collection<UserSummary> users) {
         setUsers(users);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The replication details of the data replication-enabled broker. Only returned if dataReplicationMode is set to
+     * CRDR.
+     * </p>
+     * 
+     * @param dataReplicationMetadata
+     *        The replication details of the data replication-enabled broker. Only returned if dataReplicationMode is
+     *        set to CRDR.
+     */
+
+    public void setDataReplicationMetadata(DataReplicationMetadataOutput dataReplicationMetadata) {
+        this.dataReplicationMetadata = dataReplicationMetadata;
+    }
+
+    /**
+     * <p>
+     * The replication details of the data replication-enabled broker. Only returned if dataReplicationMode is set to
+     * CRDR.
+     * </p>
+     * 
+     * @return The replication details of the data replication-enabled broker. Only returned if dataReplicationMode is
+     *         set to CRDR.
+     */
+
+    public DataReplicationMetadataOutput getDataReplicationMetadata() {
+        return this.dataReplicationMetadata;
+    }
+
+    /**
+     * <p>
+     * The replication details of the data replication-enabled broker. Only returned if dataReplicationMode is set to
+     * CRDR.
+     * </p>
+     * 
+     * @param dataReplicationMetadata
+     *        The replication details of the data replication-enabled broker. Only returned if dataReplicationMode is
+     *        set to CRDR.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeBrokerResult withDataReplicationMetadata(DataReplicationMetadataOutput dataReplicationMetadata) {
+        setDataReplicationMetadata(dataReplicationMetadata);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Describes whether this broker is a part of a data replication pair.
+     * </p>
+     * 
+     * @param dataReplicationMode
+     *        Describes whether this broker is a part of a data replication pair.
+     * @see DataReplicationMode
+     */
+
+    public void setDataReplicationMode(String dataReplicationMode) {
+        this.dataReplicationMode = dataReplicationMode;
+    }
+
+    /**
+     * <p>
+     * Describes whether this broker is a part of a data replication pair.
+     * </p>
+     * 
+     * @return Describes whether this broker is a part of a data replication pair.
+     * @see DataReplicationMode
+     */
+
+    public String getDataReplicationMode() {
+        return this.dataReplicationMode;
+    }
+
+    /**
+     * <p>
+     * Describes whether this broker is a part of a data replication pair.
+     * </p>
+     * 
+     * @param dataReplicationMode
+     *        Describes whether this broker is a part of a data replication pair.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DataReplicationMode
+     */
+
+    public DescribeBrokerResult withDataReplicationMode(String dataReplicationMode) {
+        setDataReplicationMode(dataReplicationMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Describes whether this broker is a part of a data replication pair.
+     * </p>
+     * 
+     * @param dataReplicationMode
+     *        Describes whether this broker is a part of a data replication pair.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DataReplicationMode
+     */
+
+    public DescribeBrokerResult withDataReplicationMode(DataReplicationMode dataReplicationMode) {
+        this.dataReplicationMode = dataReplicationMode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The pending replication details of the data replication-enabled broker. Only returned if
+     * pendingDataReplicationMode is set to CRDR.
+     * </p>
+     * 
+     * @param pendingDataReplicationMetadata
+     *        The pending replication details of the data replication-enabled broker. Only returned if
+     *        pendingDataReplicationMode is set to CRDR.
+     */
+
+    public void setPendingDataReplicationMetadata(DataReplicationMetadataOutput pendingDataReplicationMetadata) {
+        this.pendingDataReplicationMetadata = pendingDataReplicationMetadata;
+    }
+
+    /**
+     * <p>
+     * The pending replication details of the data replication-enabled broker. Only returned if
+     * pendingDataReplicationMode is set to CRDR.
+     * </p>
+     * 
+     * @return The pending replication details of the data replication-enabled broker. Only returned if
+     *         pendingDataReplicationMode is set to CRDR.
+     */
+
+    public DataReplicationMetadataOutput getPendingDataReplicationMetadata() {
+        return this.pendingDataReplicationMetadata;
+    }
+
+    /**
+     * <p>
+     * The pending replication details of the data replication-enabled broker. Only returned if
+     * pendingDataReplicationMode is set to CRDR.
+     * </p>
+     * 
+     * @param pendingDataReplicationMetadata
+     *        The pending replication details of the data replication-enabled broker. Only returned if
+     *        pendingDataReplicationMode is set to CRDR.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeBrokerResult withPendingDataReplicationMetadata(DataReplicationMetadataOutput pendingDataReplicationMetadata) {
+        setPendingDataReplicationMetadata(pendingDataReplicationMetadata);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Describes whether this broker will be a part of a data replication pair after reboot.
+     * </p>
+     * 
+     * @param pendingDataReplicationMode
+     *        Describes whether this broker will be a part of a data replication pair after reboot.
+     * @see DataReplicationMode
+     */
+
+    public void setPendingDataReplicationMode(String pendingDataReplicationMode) {
+        this.pendingDataReplicationMode = pendingDataReplicationMode;
+    }
+
+    /**
+     * <p>
+     * Describes whether this broker will be a part of a data replication pair after reboot.
+     * </p>
+     * 
+     * @return Describes whether this broker will be a part of a data replication pair after reboot.
+     * @see DataReplicationMode
+     */
+
+    public String getPendingDataReplicationMode() {
+        return this.pendingDataReplicationMode;
+    }
+
+    /**
+     * <p>
+     * Describes whether this broker will be a part of a data replication pair after reboot.
+     * </p>
+     * 
+     * @param pendingDataReplicationMode
+     *        Describes whether this broker will be a part of a data replication pair after reboot.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DataReplicationMode
+     */
+
+    public DescribeBrokerResult withPendingDataReplicationMode(String pendingDataReplicationMode) {
+        setPendingDataReplicationMode(pendingDataReplicationMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Describes whether this broker will be a part of a data replication pair after reboot.
+     * </p>
+     * 
+     * @param pendingDataReplicationMode
+     *        Describes whether this broker will be a part of a data replication pair after reboot.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DataReplicationMode
+     */
+
+    public DescribeBrokerResult withPendingDataReplicationMode(DataReplicationMode pendingDataReplicationMode) {
+        this.pendingDataReplicationMode = pendingDataReplicationMode.toString();
         return this;
     }
 
@@ -1061,6 +2060,10 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getActionsRequired() != null)
+            sb.append("ActionsRequired: ").append(getActionsRequired()).append(",");
+        if (getAuthenticationStrategy() != null)
+            sb.append("AuthenticationStrategy: ").append(getAuthenticationStrategy()).append(",");
         if (getAutoMinorVersionUpgrade() != null)
             sb.append("AutoMinorVersionUpgrade: ").append(getAutoMinorVersionUpgrade()).append(",");
         if (getBrokerArn() != null)
@@ -1087,22 +2090,42 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
             sb.append("EngineVersion: ").append(getEngineVersion()).append(",");
         if (getHostInstanceType() != null)
             sb.append("HostInstanceType: ").append(getHostInstanceType()).append(",");
+        if (getLdapServerMetadata() != null)
+            sb.append("LdapServerMetadata: ").append(getLdapServerMetadata()).append(",");
         if (getLogs() != null)
             sb.append("Logs: ").append(getLogs()).append(",");
         if (getMaintenanceWindowStartTime() != null)
             sb.append("MaintenanceWindowStartTime: ").append(getMaintenanceWindowStartTime()).append(",");
+        if (getPendingAuthenticationStrategy() != null)
+            sb.append("PendingAuthenticationStrategy: ").append(getPendingAuthenticationStrategy()).append(",");
         if (getPendingEngineVersion() != null)
             sb.append("PendingEngineVersion: ").append(getPendingEngineVersion()).append(",");
+        if (getPendingHostInstanceType() != null)
+            sb.append("PendingHostInstanceType: ").append(getPendingHostInstanceType()).append(",");
+        if (getPendingLdapServerMetadata() != null)
+            sb.append("PendingLdapServerMetadata: ").append(getPendingLdapServerMetadata()).append(",");
+        if (getPendingSecurityGroups() != null)
+            sb.append("PendingSecurityGroups: ").append(getPendingSecurityGroups()).append(",");
         if (getPubliclyAccessible() != null)
             sb.append("PubliclyAccessible: ").append(getPubliclyAccessible()).append(",");
         if (getSecurityGroups() != null)
             sb.append("SecurityGroups: ").append(getSecurityGroups()).append(",");
+        if (getStorageType() != null)
+            sb.append("StorageType: ").append(getStorageType()).append(",");
         if (getSubnetIds() != null)
             sb.append("SubnetIds: ").append(getSubnetIds()).append(",");
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getUsers() != null)
-            sb.append("Users: ").append(getUsers());
+            sb.append("Users: ").append(getUsers()).append(",");
+        if (getDataReplicationMetadata() != null)
+            sb.append("DataReplicationMetadata: ").append(getDataReplicationMetadata()).append(",");
+        if (getDataReplicationMode() != null)
+            sb.append("DataReplicationMode: ").append(getDataReplicationMode()).append(",");
+        if (getPendingDataReplicationMetadata() != null)
+            sb.append("PendingDataReplicationMetadata: ").append(getPendingDataReplicationMetadata()).append(",");
+        if (getPendingDataReplicationMode() != null)
+            sb.append("PendingDataReplicationMode: ").append(getPendingDataReplicationMode());
         sb.append("}");
         return sb.toString();
     }
@@ -1117,6 +2140,14 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
         if (obj instanceof DescribeBrokerResult == false)
             return false;
         DescribeBrokerResult other = (DescribeBrokerResult) obj;
+        if (other.getActionsRequired() == null ^ this.getActionsRequired() == null)
+            return false;
+        if (other.getActionsRequired() != null && other.getActionsRequired().equals(this.getActionsRequired()) == false)
+            return false;
+        if (other.getAuthenticationStrategy() == null ^ this.getAuthenticationStrategy() == null)
+            return false;
+        if (other.getAuthenticationStrategy() != null && other.getAuthenticationStrategy().equals(this.getAuthenticationStrategy()) == false)
+            return false;
         if (other.getAutoMinorVersionUpgrade() == null ^ this.getAutoMinorVersionUpgrade() == null)
             return false;
         if (other.getAutoMinorVersionUpgrade() != null && other.getAutoMinorVersionUpgrade().equals(this.getAutoMinorVersionUpgrade()) == false)
@@ -1169,6 +2200,10 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
             return false;
         if (other.getHostInstanceType() != null && other.getHostInstanceType().equals(this.getHostInstanceType()) == false)
             return false;
+        if (other.getLdapServerMetadata() == null ^ this.getLdapServerMetadata() == null)
+            return false;
+        if (other.getLdapServerMetadata() != null && other.getLdapServerMetadata().equals(this.getLdapServerMetadata()) == false)
+            return false;
         if (other.getLogs() == null ^ this.getLogs() == null)
             return false;
         if (other.getLogs() != null && other.getLogs().equals(this.getLogs()) == false)
@@ -1177,9 +2212,26 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
             return false;
         if (other.getMaintenanceWindowStartTime() != null && other.getMaintenanceWindowStartTime().equals(this.getMaintenanceWindowStartTime()) == false)
             return false;
+        if (other.getPendingAuthenticationStrategy() == null ^ this.getPendingAuthenticationStrategy() == null)
+            return false;
+        if (other.getPendingAuthenticationStrategy() != null
+                && other.getPendingAuthenticationStrategy().equals(this.getPendingAuthenticationStrategy()) == false)
+            return false;
         if (other.getPendingEngineVersion() == null ^ this.getPendingEngineVersion() == null)
             return false;
         if (other.getPendingEngineVersion() != null && other.getPendingEngineVersion().equals(this.getPendingEngineVersion()) == false)
+            return false;
+        if (other.getPendingHostInstanceType() == null ^ this.getPendingHostInstanceType() == null)
+            return false;
+        if (other.getPendingHostInstanceType() != null && other.getPendingHostInstanceType().equals(this.getPendingHostInstanceType()) == false)
+            return false;
+        if (other.getPendingLdapServerMetadata() == null ^ this.getPendingLdapServerMetadata() == null)
+            return false;
+        if (other.getPendingLdapServerMetadata() != null && other.getPendingLdapServerMetadata().equals(this.getPendingLdapServerMetadata()) == false)
+            return false;
+        if (other.getPendingSecurityGroups() == null ^ this.getPendingSecurityGroups() == null)
+            return false;
+        if (other.getPendingSecurityGroups() != null && other.getPendingSecurityGroups().equals(this.getPendingSecurityGroups()) == false)
             return false;
         if (other.getPubliclyAccessible() == null ^ this.getPubliclyAccessible() == null)
             return false;
@@ -1188,6 +2240,10 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
         if (other.getSecurityGroups() == null ^ this.getSecurityGroups() == null)
             return false;
         if (other.getSecurityGroups() != null && other.getSecurityGroups().equals(this.getSecurityGroups()) == false)
+            return false;
+        if (other.getStorageType() == null ^ this.getStorageType() == null)
+            return false;
+        if (other.getStorageType() != null && other.getStorageType().equals(this.getStorageType()) == false)
             return false;
         if (other.getSubnetIds() == null ^ this.getSubnetIds() == null)
             return false;
@@ -1201,6 +2257,23 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
             return false;
         if (other.getUsers() != null && other.getUsers().equals(this.getUsers()) == false)
             return false;
+        if (other.getDataReplicationMetadata() == null ^ this.getDataReplicationMetadata() == null)
+            return false;
+        if (other.getDataReplicationMetadata() != null && other.getDataReplicationMetadata().equals(this.getDataReplicationMetadata()) == false)
+            return false;
+        if (other.getDataReplicationMode() == null ^ this.getDataReplicationMode() == null)
+            return false;
+        if (other.getDataReplicationMode() != null && other.getDataReplicationMode().equals(this.getDataReplicationMode()) == false)
+            return false;
+        if (other.getPendingDataReplicationMetadata() == null ^ this.getPendingDataReplicationMetadata() == null)
+            return false;
+        if (other.getPendingDataReplicationMetadata() != null
+                && other.getPendingDataReplicationMetadata().equals(this.getPendingDataReplicationMetadata()) == false)
+            return false;
+        if (other.getPendingDataReplicationMode() == null ^ this.getPendingDataReplicationMode() == null)
+            return false;
+        if (other.getPendingDataReplicationMode() != null && other.getPendingDataReplicationMode().equals(this.getPendingDataReplicationMode()) == false)
+            return false;
         return true;
     }
 
@@ -1209,6 +2282,8 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getActionsRequired() == null) ? 0 : getActionsRequired().hashCode());
+        hashCode = prime * hashCode + ((getAuthenticationStrategy() == null) ? 0 : getAuthenticationStrategy().hashCode());
         hashCode = prime * hashCode + ((getAutoMinorVersionUpgrade() == null) ? 0 : getAutoMinorVersionUpgrade().hashCode());
         hashCode = prime * hashCode + ((getBrokerArn() == null) ? 0 : getBrokerArn().hashCode());
         hashCode = prime * hashCode + ((getBrokerId() == null) ? 0 : getBrokerId().hashCode());
@@ -1222,14 +2297,24 @@ public class DescribeBrokerResult extends com.amazonaws.AmazonWebServiceResult<c
         hashCode = prime * hashCode + ((getEngineType() == null) ? 0 : getEngineType().hashCode());
         hashCode = prime * hashCode + ((getEngineVersion() == null) ? 0 : getEngineVersion().hashCode());
         hashCode = prime * hashCode + ((getHostInstanceType() == null) ? 0 : getHostInstanceType().hashCode());
+        hashCode = prime * hashCode + ((getLdapServerMetadata() == null) ? 0 : getLdapServerMetadata().hashCode());
         hashCode = prime * hashCode + ((getLogs() == null) ? 0 : getLogs().hashCode());
         hashCode = prime * hashCode + ((getMaintenanceWindowStartTime() == null) ? 0 : getMaintenanceWindowStartTime().hashCode());
+        hashCode = prime * hashCode + ((getPendingAuthenticationStrategy() == null) ? 0 : getPendingAuthenticationStrategy().hashCode());
         hashCode = prime * hashCode + ((getPendingEngineVersion() == null) ? 0 : getPendingEngineVersion().hashCode());
+        hashCode = prime * hashCode + ((getPendingHostInstanceType() == null) ? 0 : getPendingHostInstanceType().hashCode());
+        hashCode = prime * hashCode + ((getPendingLdapServerMetadata() == null) ? 0 : getPendingLdapServerMetadata().hashCode());
+        hashCode = prime * hashCode + ((getPendingSecurityGroups() == null) ? 0 : getPendingSecurityGroups().hashCode());
         hashCode = prime * hashCode + ((getPubliclyAccessible() == null) ? 0 : getPubliclyAccessible().hashCode());
         hashCode = prime * hashCode + ((getSecurityGroups() == null) ? 0 : getSecurityGroups().hashCode());
+        hashCode = prime * hashCode + ((getStorageType() == null) ? 0 : getStorageType().hashCode());
         hashCode = prime * hashCode + ((getSubnetIds() == null) ? 0 : getSubnetIds().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getUsers() == null) ? 0 : getUsers().hashCode());
+        hashCode = prime * hashCode + ((getDataReplicationMetadata() == null) ? 0 : getDataReplicationMetadata().hashCode());
+        hashCode = prime * hashCode + ((getDataReplicationMode() == null) ? 0 : getDataReplicationMode().hashCode());
+        hashCode = prime * hashCode + ((getPendingDataReplicationMetadata() == null) ? 0 : getPendingDataReplicationMetadata().hashCode());
+        hashCode = prime * hashCode + ((getPendingDataReplicationMode() == null) ? 0 : getPendingDataReplicationMode().hashCode());
         return hashCode;
     }
 

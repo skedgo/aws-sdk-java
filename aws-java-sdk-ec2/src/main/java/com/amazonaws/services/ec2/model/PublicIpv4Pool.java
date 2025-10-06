@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Describes an address pool.
+ * Describes an IPv4 address pool.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/PublicIpv4Pool" target="_top">AWS API
@@ -28,7 +28,7 @@ public class PublicIpv4Pool implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the IPv4 address pool.
+     * The ID of the address pool.
      * </p>
      */
     private String poolId;
@@ -56,14 +56,27 @@ public class PublicIpv4Pool implements Serializable, Cloneable {
      * </p>
      */
     private Integer totalAvailableAddressCount;
+    /**
+     * <p>
+     * The name of the location from which the address pool is advertised. A network border group is a unique set of
+     * Availability Zones or Local Zones from where Amazon Web Services advertises public IP addresses.
+     * </p>
+     */
+    private String networkBorderGroup;
+    /**
+     * <p>
+     * Any tags for the address pool.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<Tag> tags;
 
     /**
      * <p>
-     * The ID of the IPv4 address pool.
+     * The ID of the address pool.
      * </p>
      * 
      * @param poolId
-     *        The ID of the IPv4 address pool.
+     *        The ID of the address pool.
      */
 
     public void setPoolId(String poolId) {
@@ -72,10 +85,10 @@ public class PublicIpv4Pool implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the IPv4 address pool.
+     * The ID of the address pool.
      * </p>
      * 
-     * @return The ID of the IPv4 address pool.
+     * @return The ID of the address pool.
      */
 
     public String getPoolId() {
@@ -84,11 +97,11 @@ public class PublicIpv4Pool implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the IPv4 address pool.
+     * The ID of the address pool.
      * </p>
      * 
      * @param poolId
-     *        The ID of the IPv4 address pool.
+     *        The ID of the address pool.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -291,6 +304,125 @@ public class PublicIpv4Pool implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The name of the location from which the address pool is advertised. A network border group is a unique set of
+     * Availability Zones or Local Zones from where Amazon Web Services advertises public IP addresses.
+     * </p>
+     * 
+     * @param networkBorderGroup
+     *        The name of the location from which the address pool is advertised. A network border group is a unique set
+     *        of Availability Zones or Local Zones from where Amazon Web Services advertises public IP addresses.
+     */
+
+    public void setNetworkBorderGroup(String networkBorderGroup) {
+        this.networkBorderGroup = networkBorderGroup;
+    }
+
+    /**
+     * <p>
+     * The name of the location from which the address pool is advertised. A network border group is a unique set of
+     * Availability Zones or Local Zones from where Amazon Web Services advertises public IP addresses.
+     * </p>
+     * 
+     * @return The name of the location from which the address pool is advertised. A network border group is a unique
+     *         set of Availability Zones or Local Zones from where Amazon Web Services advertises public IP addresses.
+     */
+
+    public String getNetworkBorderGroup() {
+        return this.networkBorderGroup;
+    }
+
+    /**
+     * <p>
+     * The name of the location from which the address pool is advertised. A network border group is a unique set of
+     * Availability Zones or Local Zones from where Amazon Web Services advertises public IP addresses.
+     * </p>
+     * 
+     * @param networkBorderGroup
+     *        The name of the location from which the address pool is advertised. A network border group is a unique set
+     *        of Availability Zones or Local Zones from where Amazon Web Services advertises public IP addresses.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PublicIpv4Pool withNetworkBorderGroup(String networkBorderGroup) {
+        setNetworkBorderGroup(networkBorderGroup);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Any tags for the address pool.
+     * </p>
+     * 
+     * @return Any tags for the address pool.
+     */
+
+    public java.util.List<Tag> getTags() {
+        if (tags == null) {
+            tags = new com.amazonaws.internal.SdkInternalList<Tag>();
+        }
+        return tags;
+    }
+
+    /**
+     * <p>
+     * Any tags for the address pool.
+     * </p>
+     * 
+     * @param tags
+     *        Any tags for the address pool.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new com.amazonaws.internal.SdkInternalList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * Any tags for the address pool.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        Any tags for the address pool.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PublicIpv4Pool withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new com.amazonaws.internal.SdkInternalList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Any tags for the address pool.
+     * </p>
+     * 
+     * @param tags
+     *        Any tags for the address pool.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PublicIpv4Pool withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -311,7 +443,11 @@ public class PublicIpv4Pool implements Serializable, Cloneable {
         if (getTotalAddressCount() != null)
             sb.append("TotalAddressCount: ").append(getTotalAddressCount()).append(",");
         if (getTotalAvailableAddressCount() != null)
-            sb.append("TotalAvailableAddressCount: ").append(getTotalAvailableAddressCount());
+            sb.append("TotalAvailableAddressCount: ").append(getTotalAvailableAddressCount()).append(",");
+        if (getNetworkBorderGroup() != null)
+            sb.append("NetworkBorderGroup: ").append(getNetworkBorderGroup()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -346,6 +482,14 @@ public class PublicIpv4Pool implements Serializable, Cloneable {
             return false;
         if (other.getTotalAvailableAddressCount() != null && other.getTotalAvailableAddressCount().equals(this.getTotalAvailableAddressCount()) == false)
             return false;
+        if (other.getNetworkBorderGroup() == null ^ this.getNetworkBorderGroup() == null)
+            return false;
+        if (other.getNetworkBorderGroup() != null && other.getNetworkBorderGroup().equals(this.getNetworkBorderGroup()) == false)
+            return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
         return true;
     }
 
@@ -359,6 +503,8 @@ public class PublicIpv4Pool implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getPoolAddressRanges() == null) ? 0 : getPoolAddressRanges().hashCode());
         hashCode = prime * hashCode + ((getTotalAddressCount() == null) ? 0 : getTotalAddressCount().hashCode());
         hashCode = prime * hashCode + ((getTotalAvailableAddressCount() == null) ? 0 : getTotalAvailableAddressCount().hashCode());
+        hashCode = prime * hashCode + ((getNetworkBorderGroup() == null) ? 0 : getNetworkBorderGroup().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

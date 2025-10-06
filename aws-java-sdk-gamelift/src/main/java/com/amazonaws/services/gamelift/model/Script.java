@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -22,35 +22,13 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * Properties describing a Realtime script.
  * </p>
  * <p>
- * <b>Related operations</b>
+ * <b>Related actions</b>
  * </p>
- * <ul>
- * <li>
  * <p>
- * <a>CreateScript</a>
+ * <a href=
+ * "https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets"
+ * >All APIs by task</a>
  * </p>
- * </li>
- * <li>
- * <p>
- * <a>ListScripts</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DescribeScript</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>UpdateScript</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DeleteScript</a>
- * </p>
- * </li>
- * </ul>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/Script" target="_top">AWS API
  *      Documentation</a>
@@ -60,46 +38,62 @@ public class Script implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Unique identifier for a Realtime script
+     * A unique identifier for the Realtime script
      * </p>
      */
     private String scriptId;
     /**
      * <p>
-     * Descriptive label that is associated with a script. Script names do not need to be unique.
+     * The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>)
+     * that is assigned to a Amazon GameLift script resource and uniquely identifies it. ARNs are unique across all
+     * Regions. In a GameLift script ARN, the resource ID matches the <i>ScriptId</i> value.
+     * </p>
+     */
+    private String scriptArn;
+    /**
+     * <p>
+     * A descriptive label that is associated with a script. Script names don't need to be unique.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * Version that is associated with a build or script. Version strings do not need to be unique.
+     * Version information associated with a build or script. Version strings don't need to be unique.
      * </p>
      */
     private String version;
     /**
      * <p>
-     * File size of the uploaded Realtime script, expressed in bytes. When files are uploaded from an S3 location, this
-     * value remains at "0".
+     * The file size of the uploaded Realtime script, expressed in bytes. When files are uploaded from an S3 location,
+     * this value remains at "0".
      * </p>
      */
     private Long sizeOnDisk;
     /**
      * <p>
-     * Time stamp indicating when this data object was created. Format is a number expressed in Unix time as
-     * milliseconds (for example "1469498468.057").
+     * A time stamp indicating when this data object was created. Format is a number expressed in Unix time as
+     * milliseconds (for example <code>"1469498468.057"</code>).
      * </p>
      */
     private java.util.Date creationTime;
-
+    /**
+     * <p>
+     * The location of the Amazon S3 bucket where a zipped file containing your Realtime scripts is stored. The storage
+     * location must specify the Amazon S3 bucket name, the zip file name (the "key"), and a role ARN that allows Amazon
+     * GameLift to access the Amazon S3 storage location. The S3 bucket must be in the same Region where you want to
+     * create a new script. By default, Amazon GameLift uploads the latest version of the zip file; if you have S3
+     * object versioning turned on, you can use the <code>ObjectVersion</code> parameter to specify an earlier version.
+     * </p>
+     */
     private S3Location storageLocation;
 
     /**
      * <p>
-     * Unique identifier for a Realtime script
+     * A unique identifier for the Realtime script
      * </p>
      * 
      * @param scriptId
-     *        Unique identifier for a Realtime script
+     *        A unique identifier for the Realtime script
      */
 
     public void setScriptId(String scriptId) {
@@ -108,10 +102,10 @@ public class Script implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Unique identifier for a Realtime script
+     * A unique identifier for the Realtime script
      * </p>
      * 
-     * @return Unique identifier for a Realtime script
+     * @return A unique identifier for the Realtime script
      */
 
     public String getScriptId() {
@@ -120,11 +114,11 @@ public class Script implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Unique identifier for a Realtime script
+     * A unique identifier for the Realtime script
      * </p>
      * 
      * @param scriptId
-     *        Unique identifier for a Realtime script
+     *        A unique identifier for the Realtime script
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -135,11 +129,66 @@ public class Script implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Descriptive label that is associated with a script. Script names do not need to be unique.
+     * The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>)
+     * that is assigned to a Amazon GameLift script resource and uniquely identifies it. ARNs are unique across all
+     * Regions. In a GameLift script ARN, the resource ID matches the <i>ScriptId</i> value.
+     * </p>
+     * 
+     * @param scriptArn
+     *        The Amazon Resource Name (<a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that is assigned to a
+     *        Amazon GameLift script resource and uniquely identifies it. ARNs are unique across all Regions. In a
+     *        GameLift script ARN, the resource ID matches the <i>ScriptId</i> value.
+     */
+
+    public void setScriptArn(String scriptArn) {
+        this.scriptArn = scriptArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>)
+     * that is assigned to a Amazon GameLift script resource and uniquely identifies it. ARNs are unique across all
+     * Regions. In a GameLift script ARN, the resource ID matches the <i>ScriptId</i> value.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (<a
+     *         href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that is assigned to a
+     *         Amazon GameLift script resource and uniquely identifies it. ARNs are unique across all Regions. In a
+     *         GameLift script ARN, the resource ID matches the <i>ScriptId</i> value.
+     */
+
+    public String getScriptArn() {
+        return this.scriptArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>)
+     * that is assigned to a Amazon GameLift script resource and uniquely identifies it. ARNs are unique across all
+     * Regions. In a GameLift script ARN, the resource ID matches the <i>ScriptId</i> value.
+     * </p>
+     * 
+     * @param scriptArn
+     *        The Amazon Resource Name (<a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that is assigned to a
+     *        Amazon GameLift script resource and uniquely identifies it. ARNs are unique across all Regions. In a
+     *        GameLift script ARN, the resource ID matches the <i>ScriptId</i> value.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Script withScriptArn(String scriptArn) {
+        setScriptArn(scriptArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A descriptive label that is associated with a script. Script names don't need to be unique.
      * </p>
      * 
      * @param name
-     *        Descriptive label that is associated with a script. Script names do not need to be unique.
+     *        A descriptive label that is associated with a script. Script names don't need to be unique.
      */
 
     public void setName(String name) {
@@ -148,10 +197,10 @@ public class Script implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Descriptive label that is associated with a script. Script names do not need to be unique.
+     * A descriptive label that is associated with a script. Script names don't need to be unique.
      * </p>
      * 
-     * @return Descriptive label that is associated with a script. Script names do not need to be unique.
+     * @return A descriptive label that is associated with a script. Script names don't need to be unique.
      */
 
     public String getName() {
@@ -160,11 +209,11 @@ public class Script implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Descriptive label that is associated with a script. Script names do not need to be unique.
+     * A descriptive label that is associated with a script. Script names don't need to be unique.
      * </p>
      * 
      * @param name
-     *        Descriptive label that is associated with a script. Script names do not need to be unique.
+     *        A descriptive label that is associated with a script. Script names don't need to be unique.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -175,11 +224,11 @@ public class Script implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Version that is associated with a build or script. Version strings do not need to be unique.
+     * Version information associated with a build or script. Version strings don't need to be unique.
      * </p>
      * 
      * @param version
-     *        Version that is associated with a build or script. Version strings do not need to be unique.
+     *        Version information associated with a build or script. Version strings don't need to be unique.
      */
 
     public void setVersion(String version) {
@@ -188,10 +237,10 @@ public class Script implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Version that is associated with a build or script. Version strings do not need to be unique.
+     * Version information associated with a build or script. Version strings don't need to be unique.
      * </p>
      * 
-     * @return Version that is associated with a build or script. Version strings do not need to be unique.
+     * @return Version information associated with a build or script. Version strings don't need to be unique.
      */
 
     public String getVersion() {
@@ -200,11 +249,11 @@ public class Script implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Version that is associated with a build or script. Version strings do not need to be unique.
+     * Version information associated with a build or script. Version strings don't need to be unique.
      * </p>
      * 
      * @param version
-     *        Version that is associated with a build or script. Version strings do not need to be unique.
+     *        Version information associated with a build or script. Version strings don't need to be unique.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -215,12 +264,12 @@ public class Script implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * File size of the uploaded Realtime script, expressed in bytes. When files are uploaded from an S3 location, this
-     * value remains at "0".
+     * The file size of the uploaded Realtime script, expressed in bytes. When files are uploaded from an S3 location,
+     * this value remains at "0".
      * </p>
      * 
      * @param sizeOnDisk
-     *        File size of the uploaded Realtime script, expressed in bytes. When files are uploaded from an S3
+     *        The file size of the uploaded Realtime script, expressed in bytes. When files are uploaded from an S3
      *        location, this value remains at "0".
      */
 
@@ -230,11 +279,11 @@ public class Script implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * File size of the uploaded Realtime script, expressed in bytes. When files are uploaded from an S3 location, this
-     * value remains at "0".
+     * The file size of the uploaded Realtime script, expressed in bytes. When files are uploaded from an S3 location,
+     * this value remains at "0".
      * </p>
      * 
-     * @return File size of the uploaded Realtime script, expressed in bytes. When files are uploaded from an S3
+     * @return The file size of the uploaded Realtime script, expressed in bytes. When files are uploaded from an S3
      *         location, this value remains at "0".
      */
 
@@ -244,12 +293,12 @@ public class Script implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * File size of the uploaded Realtime script, expressed in bytes. When files are uploaded from an S3 location, this
-     * value remains at "0".
+     * The file size of the uploaded Realtime script, expressed in bytes. When files are uploaded from an S3 location,
+     * this value remains at "0".
      * </p>
      * 
      * @param sizeOnDisk
-     *        File size of the uploaded Realtime script, expressed in bytes. When files are uploaded from an S3
+     *        The file size of the uploaded Realtime script, expressed in bytes. When files are uploaded from an S3
      *        location, this value remains at "0".
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -261,13 +310,13 @@ public class Script implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Time stamp indicating when this data object was created. Format is a number expressed in Unix time as
-     * milliseconds (for example "1469498468.057").
+     * A time stamp indicating when this data object was created. Format is a number expressed in Unix time as
+     * milliseconds (for example <code>"1469498468.057"</code>).
      * </p>
      * 
      * @param creationTime
-     *        Time stamp indicating when this data object was created. Format is a number expressed in Unix time as
-     *        milliseconds (for example "1469498468.057").
+     *        A time stamp indicating when this data object was created. Format is a number expressed in Unix time as
+     *        milliseconds (for example <code>"1469498468.057"</code>).
      */
 
     public void setCreationTime(java.util.Date creationTime) {
@@ -276,12 +325,12 @@ public class Script implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Time stamp indicating when this data object was created. Format is a number expressed in Unix time as
-     * milliseconds (for example "1469498468.057").
+     * A time stamp indicating when this data object was created. Format is a number expressed in Unix time as
+     * milliseconds (for example <code>"1469498468.057"</code>).
      * </p>
      * 
-     * @return Time stamp indicating when this data object was created. Format is a number expressed in Unix time as
-     *         milliseconds (for example "1469498468.057").
+     * @return A time stamp indicating when this data object was created. Format is a number expressed in Unix time as
+     *         milliseconds (for example <code>"1469498468.057"</code>).
      */
 
     public java.util.Date getCreationTime() {
@@ -290,13 +339,13 @@ public class Script implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Time stamp indicating when this data object was created. Format is a number expressed in Unix time as
-     * milliseconds (for example "1469498468.057").
+     * A time stamp indicating when this data object was created. Format is a number expressed in Unix time as
+     * milliseconds (for example <code>"1469498468.057"</code>).
      * </p>
      * 
      * @param creationTime
-     *        Time stamp indicating when this data object was created. Format is a number expressed in Unix time as
-     *        milliseconds (for example "1469498468.057").
+     *        A time stamp indicating when this data object was created. Format is a number expressed in Unix time as
+     *        milliseconds (for example <code>"1469498468.057"</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -306,7 +355,21 @@ public class Script implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The location of the Amazon S3 bucket where a zipped file containing your Realtime scripts is stored. The storage
+     * location must specify the Amazon S3 bucket name, the zip file name (the "key"), and a role ARN that allows Amazon
+     * GameLift to access the Amazon S3 storage location. The S3 bucket must be in the same Region where you want to
+     * create a new script. By default, Amazon GameLift uploads the latest version of the zip file; if you have S3
+     * object versioning turned on, you can use the <code>ObjectVersion</code> parameter to specify an earlier version.
+     * </p>
+     * 
      * @param storageLocation
+     *        The location of the Amazon S3 bucket where a zipped file containing your Realtime scripts is stored. The
+     *        storage location must specify the Amazon S3 bucket name, the zip file name (the "key"), and a role ARN
+     *        that allows Amazon GameLift to access the Amazon S3 storage location. The S3 bucket must be in the same
+     *        Region where you want to create a new script. By default, Amazon GameLift uploads the latest version of
+     *        the zip file; if you have S3 object versioning turned on, you can use the <code>ObjectVersion</code>
+     *        parameter to specify an earlier version.
      */
 
     public void setStorageLocation(S3Location storageLocation) {
@@ -314,7 +377,20 @@ public class Script implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * @return
+     * <p>
+     * The location of the Amazon S3 bucket where a zipped file containing your Realtime scripts is stored. The storage
+     * location must specify the Amazon S3 bucket name, the zip file name (the "key"), and a role ARN that allows Amazon
+     * GameLift to access the Amazon S3 storage location. The S3 bucket must be in the same Region where you want to
+     * create a new script. By default, Amazon GameLift uploads the latest version of the zip file; if you have S3
+     * object versioning turned on, you can use the <code>ObjectVersion</code> parameter to specify an earlier version.
+     * </p>
+     * 
+     * @return The location of the Amazon S3 bucket where a zipped file containing your Realtime scripts is stored. The
+     *         storage location must specify the Amazon S3 bucket name, the zip file name (the "key"), and a role ARN
+     *         that allows Amazon GameLift to access the Amazon S3 storage location. The S3 bucket must be in the same
+     *         Region where you want to create a new script. By default, Amazon GameLift uploads the latest version of
+     *         the zip file; if you have S3 object versioning turned on, you can use the <code>ObjectVersion</code>
+     *         parameter to specify an earlier version.
      */
 
     public S3Location getStorageLocation() {
@@ -322,7 +398,21 @@ public class Script implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The location of the Amazon S3 bucket where a zipped file containing your Realtime scripts is stored. The storage
+     * location must specify the Amazon S3 bucket name, the zip file name (the "key"), and a role ARN that allows Amazon
+     * GameLift to access the Amazon S3 storage location. The S3 bucket must be in the same Region where you want to
+     * create a new script. By default, Amazon GameLift uploads the latest version of the zip file; if you have S3
+     * object versioning turned on, you can use the <code>ObjectVersion</code> parameter to specify an earlier version.
+     * </p>
+     * 
      * @param storageLocation
+     *        The location of the Amazon S3 bucket where a zipped file containing your Realtime scripts is stored. The
+     *        storage location must specify the Amazon S3 bucket name, the zip file name (the "key"), and a role ARN
+     *        that allows Amazon GameLift to access the Amazon S3 storage location. The S3 bucket must be in the same
+     *        Region where you want to create a new script. By default, Amazon GameLift uploads the latest version of
+     *        the zip file; if you have S3 object versioning turned on, you can use the <code>ObjectVersion</code>
+     *        parameter to specify an earlier version.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -345,6 +435,8 @@ public class Script implements Serializable, Cloneable, StructuredPojo {
         sb.append("{");
         if (getScriptId() != null)
             sb.append("ScriptId: ").append(getScriptId()).append(",");
+        if (getScriptArn() != null)
+            sb.append("ScriptArn: ").append(getScriptArn()).append(",");
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getVersion() != null)
@@ -372,6 +464,10 @@ public class Script implements Serializable, Cloneable, StructuredPojo {
         if (other.getScriptId() == null ^ this.getScriptId() == null)
             return false;
         if (other.getScriptId() != null && other.getScriptId().equals(this.getScriptId()) == false)
+            return false;
+        if (other.getScriptArn() == null ^ this.getScriptArn() == null)
+            return false;
+        if (other.getScriptArn() != null && other.getScriptArn().equals(this.getScriptArn()) == false)
             return false;
         if (other.getName() == null ^ this.getName() == null)
             return false;
@@ -402,6 +498,7 @@ public class Script implements Serializable, Cloneable, StructuredPojo {
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getScriptId() == null) ? 0 : getScriptId().hashCode());
+        hashCode = prime * hashCode + ((getScriptArn() == null) ? 0 : getScriptArn().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getVersion() == null) ? 0 : getVersion().hashCode());
         hashCode = prime * hashCode + ((getSizeOnDisk() == null) ? 0 : getSizeOnDisk().hashCode());

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,7 +46,19 @@ public class AmazonKinesisVideoAsyncClient extends AmazonKinesisVideoClient impl
      *        Object providing client parameters.
      */
     AmazonKinesisVideoAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Kinesis Video using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonKinesisVideoAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -57,6 +69,39 @@ public class AmazonKinesisVideoAsyncClient extends AmazonKinesisVideoClient impl
      */
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateSignalingChannelResult> createSignalingChannelAsync(CreateSignalingChannelRequest request) {
+
+        return createSignalingChannelAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateSignalingChannelResult> createSignalingChannelAsync(final CreateSignalingChannelRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateSignalingChannelRequest, CreateSignalingChannelResult> asyncHandler) {
+        final CreateSignalingChannelRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateSignalingChannelResult>() {
+            @Override
+            public CreateSignalingChannelResult call() throws Exception {
+                CreateSignalingChannelResult result = null;
+
+                try {
+                    result = executeCreateSignalingChannel(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -93,6 +138,72 @@ public class AmazonKinesisVideoAsyncClient extends AmazonKinesisVideoClient impl
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteEdgeConfigurationResult> deleteEdgeConfigurationAsync(DeleteEdgeConfigurationRequest request) {
+
+        return deleteEdgeConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteEdgeConfigurationResult> deleteEdgeConfigurationAsync(final DeleteEdgeConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteEdgeConfigurationRequest, DeleteEdgeConfigurationResult> asyncHandler) {
+        final DeleteEdgeConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteEdgeConfigurationResult>() {
+            @Override
+            public DeleteEdgeConfigurationResult call() throws Exception {
+                DeleteEdgeConfigurationResult result = null;
+
+                try {
+                    result = executeDeleteEdgeConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteSignalingChannelResult> deleteSignalingChannelAsync(DeleteSignalingChannelRequest request) {
+
+        return deleteSignalingChannelAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteSignalingChannelResult> deleteSignalingChannelAsync(final DeleteSignalingChannelRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteSignalingChannelRequest, DeleteSignalingChannelResult> asyncHandler) {
+        final DeleteSignalingChannelRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteSignalingChannelResult>() {
+            @Override
+            public DeleteSignalingChannelResult call() throws Exception {
+                DeleteSignalingChannelResult result = null;
+
+                try {
+                    result = executeDeleteSignalingChannel(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteStreamResult> deleteStreamAsync(DeleteStreamRequest request) {
 
         return deleteStreamAsync(request, null);
@@ -110,6 +221,212 @@ public class AmazonKinesisVideoAsyncClient extends AmazonKinesisVideoClient impl
 
                 try {
                     result = executeDeleteStream(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeEdgeConfigurationResult> describeEdgeConfigurationAsync(DescribeEdgeConfigurationRequest request) {
+
+        return describeEdgeConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeEdgeConfigurationResult> describeEdgeConfigurationAsync(final DescribeEdgeConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeEdgeConfigurationRequest, DescribeEdgeConfigurationResult> asyncHandler) {
+        final DescribeEdgeConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeEdgeConfigurationResult>() {
+            @Override
+            public DescribeEdgeConfigurationResult call() throws Exception {
+                DescribeEdgeConfigurationResult result = null;
+
+                try {
+                    result = executeDescribeEdgeConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeImageGenerationConfigurationResult> describeImageGenerationConfigurationAsync(
+            DescribeImageGenerationConfigurationRequest request) {
+
+        return describeImageGenerationConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeImageGenerationConfigurationResult> describeImageGenerationConfigurationAsync(
+            final DescribeImageGenerationConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeImageGenerationConfigurationRequest, DescribeImageGenerationConfigurationResult> asyncHandler) {
+        final DescribeImageGenerationConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeImageGenerationConfigurationResult>() {
+            @Override
+            public DescribeImageGenerationConfigurationResult call() throws Exception {
+                DescribeImageGenerationConfigurationResult result = null;
+
+                try {
+                    result = executeDescribeImageGenerationConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeMappedResourceConfigurationResult> describeMappedResourceConfigurationAsync(
+            DescribeMappedResourceConfigurationRequest request) {
+
+        return describeMappedResourceConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeMappedResourceConfigurationResult> describeMappedResourceConfigurationAsync(
+            final DescribeMappedResourceConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeMappedResourceConfigurationRequest, DescribeMappedResourceConfigurationResult> asyncHandler) {
+        final DescribeMappedResourceConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeMappedResourceConfigurationResult>() {
+            @Override
+            public DescribeMappedResourceConfigurationResult call() throws Exception {
+                DescribeMappedResourceConfigurationResult result = null;
+
+                try {
+                    result = executeDescribeMappedResourceConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeMediaStorageConfigurationResult> describeMediaStorageConfigurationAsync(
+            DescribeMediaStorageConfigurationRequest request) {
+
+        return describeMediaStorageConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeMediaStorageConfigurationResult> describeMediaStorageConfigurationAsync(
+            final DescribeMediaStorageConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeMediaStorageConfigurationRequest, DescribeMediaStorageConfigurationResult> asyncHandler) {
+        final DescribeMediaStorageConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeMediaStorageConfigurationResult>() {
+            @Override
+            public DescribeMediaStorageConfigurationResult call() throws Exception {
+                DescribeMediaStorageConfigurationResult result = null;
+
+                try {
+                    result = executeDescribeMediaStorageConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeNotificationConfigurationResult> describeNotificationConfigurationAsync(
+            DescribeNotificationConfigurationRequest request) {
+
+        return describeNotificationConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeNotificationConfigurationResult> describeNotificationConfigurationAsync(
+            final DescribeNotificationConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeNotificationConfigurationRequest, DescribeNotificationConfigurationResult> asyncHandler) {
+        final DescribeNotificationConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeNotificationConfigurationResult>() {
+            @Override
+            public DescribeNotificationConfigurationResult call() throws Exception {
+                DescribeNotificationConfigurationResult result = null;
+
+                try {
+                    result = executeDescribeNotificationConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeSignalingChannelResult> describeSignalingChannelAsync(DescribeSignalingChannelRequest request) {
+
+        return describeSignalingChannelAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeSignalingChannelResult> describeSignalingChannelAsync(final DescribeSignalingChannelRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeSignalingChannelRequest, DescribeSignalingChannelResult> asyncHandler) {
+        final DescribeSignalingChannelRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeSignalingChannelResult>() {
+            @Override
+            public DescribeSignalingChannelResult call() throws Exception {
+                DescribeSignalingChannelResult result = null;
+
+                try {
+                    result = executeDescribeSignalingChannel(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -192,6 +509,105 @@ public class AmazonKinesisVideoAsyncClient extends AmazonKinesisVideoClient impl
     }
 
     @Override
+    public java.util.concurrent.Future<GetSignalingChannelEndpointResult> getSignalingChannelEndpointAsync(GetSignalingChannelEndpointRequest request) {
+
+        return getSignalingChannelEndpointAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSignalingChannelEndpointResult> getSignalingChannelEndpointAsync(final GetSignalingChannelEndpointRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetSignalingChannelEndpointRequest, GetSignalingChannelEndpointResult> asyncHandler) {
+        final GetSignalingChannelEndpointRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetSignalingChannelEndpointResult>() {
+            @Override
+            public GetSignalingChannelEndpointResult call() throws Exception {
+                GetSignalingChannelEndpointResult result = null;
+
+                try {
+                    result = executeGetSignalingChannelEndpoint(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListEdgeAgentConfigurationsResult> listEdgeAgentConfigurationsAsync(ListEdgeAgentConfigurationsRequest request) {
+
+        return listEdgeAgentConfigurationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListEdgeAgentConfigurationsResult> listEdgeAgentConfigurationsAsync(final ListEdgeAgentConfigurationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListEdgeAgentConfigurationsRequest, ListEdgeAgentConfigurationsResult> asyncHandler) {
+        final ListEdgeAgentConfigurationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListEdgeAgentConfigurationsResult>() {
+            @Override
+            public ListEdgeAgentConfigurationsResult call() throws Exception {
+                ListEdgeAgentConfigurationsResult result = null;
+
+                try {
+                    result = executeListEdgeAgentConfigurations(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSignalingChannelsResult> listSignalingChannelsAsync(ListSignalingChannelsRequest request) {
+
+        return listSignalingChannelsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSignalingChannelsResult> listSignalingChannelsAsync(final ListSignalingChannelsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListSignalingChannelsRequest, ListSignalingChannelsResult> asyncHandler) {
+        final ListSignalingChannelsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListSignalingChannelsResult>() {
+            @Override
+            public ListSignalingChannelsResult call() throws Exception {
+                ListSignalingChannelsResult result = null;
+
+                try {
+                    result = executeListSignalingChannels(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListStreamsResult> listStreamsAsync(ListStreamsRequest request) {
 
         return listStreamsAsync(request, null);
@@ -209,6 +625,39 @@ public class AmazonKinesisVideoAsyncClient extends AmazonKinesisVideoClient impl
 
                 try {
                     result = executeListStreams(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(final ListTagsForResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+        final ListTagsForResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListTagsForResourceResult>() {
+            @Override
+            public ListTagsForResourceResult call() throws Exception {
+                ListTagsForResourceResult result = null;
+
+                try {
+                    result = executeListTagsForResource(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -258,6 +707,72 @@ public class AmazonKinesisVideoAsyncClient extends AmazonKinesisVideoClient impl
     }
 
     @Override
+    public java.util.concurrent.Future<StartEdgeConfigurationUpdateResult> startEdgeConfigurationUpdateAsync(StartEdgeConfigurationUpdateRequest request) {
+
+        return startEdgeConfigurationUpdateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartEdgeConfigurationUpdateResult> startEdgeConfigurationUpdateAsync(final StartEdgeConfigurationUpdateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartEdgeConfigurationUpdateRequest, StartEdgeConfigurationUpdateResult> asyncHandler) {
+        final StartEdgeConfigurationUpdateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartEdgeConfigurationUpdateResult>() {
+            @Override
+            public StartEdgeConfigurationUpdateResult call() throws Exception {
+                StartEdgeConfigurationUpdateResult result = null;
+
+                try {
+                    result = executeStartEdgeConfigurationUpdate(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(final TagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+        final TagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TagResourceResult>() {
+            @Override
+            public TagResourceResult call() throws Exception {
+                TagResourceResult result = null;
+
+                try {
+                    result = executeTagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<TagStreamResult> tagStreamAsync(TagStreamRequest request) {
 
         return tagStreamAsync(request, null);
@@ -275,6 +790,39 @@ public class AmazonKinesisVideoAsyncClient extends AmazonKinesisVideoClient impl
 
                 try {
                     result = executeTagStream(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(final UntagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+        final UntagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UntagResourceResult>() {
+            @Override
+            public UntagResourceResult call() throws Exception {
+                UntagResourceResult result = null;
+
+                try {
+                    result = executeUntagResource(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -341,6 +889,144 @@ public class AmazonKinesisVideoAsyncClient extends AmazonKinesisVideoClient impl
 
                 try {
                     result = executeUpdateDataRetention(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateImageGenerationConfigurationResult> updateImageGenerationConfigurationAsync(
+            UpdateImageGenerationConfigurationRequest request) {
+
+        return updateImageGenerationConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateImageGenerationConfigurationResult> updateImageGenerationConfigurationAsync(
+            final UpdateImageGenerationConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateImageGenerationConfigurationRequest, UpdateImageGenerationConfigurationResult> asyncHandler) {
+        final UpdateImageGenerationConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateImageGenerationConfigurationResult>() {
+            @Override
+            public UpdateImageGenerationConfigurationResult call() throws Exception {
+                UpdateImageGenerationConfigurationResult result = null;
+
+                try {
+                    result = executeUpdateImageGenerationConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateMediaStorageConfigurationResult> updateMediaStorageConfigurationAsync(
+            UpdateMediaStorageConfigurationRequest request) {
+
+        return updateMediaStorageConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateMediaStorageConfigurationResult> updateMediaStorageConfigurationAsync(
+            final UpdateMediaStorageConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateMediaStorageConfigurationRequest, UpdateMediaStorageConfigurationResult> asyncHandler) {
+        final UpdateMediaStorageConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateMediaStorageConfigurationResult>() {
+            @Override
+            public UpdateMediaStorageConfigurationResult call() throws Exception {
+                UpdateMediaStorageConfigurationResult result = null;
+
+                try {
+                    result = executeUpdateMediaStorageConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateNotificationConfigurationResult> updateNotificationConfigurationAsync(
+            UpdateNotificationConfigurationRequest request) {
+
+        return updateNotificationConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateNotificationConfigurationResult> updateNotificationConfigurationAsync(
+            final UpdateNotificationConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateNotificationConfigurationRequest, UpdateNotificationConfigurationResult> asyncHandler) {
+        final UpdateNotificationConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateNotificationConfigurationResult>() {
+            @Override
+            public UpdateNotificationConfigurationResult call() throws Exception {
+                UpdateNotificationConfigurationResult result = null;
+
+                try {
+                    result = executeUpdateNotificationConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateSignalingChannelResult> updateSignalingChannelAsync(UpdateSignalingChannelRequest request) {
+
+        return updateSignalingChannelAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateSignalingChannelResult> updateSignalingChannelAsync(final UpdateSignalingChannelRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateSignalingChannelRequest, UpdateSignalingChannelResult> asyncHandler) {
+        final UpdateSignalingChannelRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateSignalingChannelResult>() {
+            @Override
+            public UpdateSignalingChannelResult call() throws Exception {
+                UpdateSignalingChannelResult result = null;
+
+                try {
+                    result = executeUpdateSignalingChannel(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

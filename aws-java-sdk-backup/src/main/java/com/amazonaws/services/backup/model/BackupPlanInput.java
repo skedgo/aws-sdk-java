@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,8 +20,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 /**
  * <p>
  * Contains an optional backup plan display name and an array of <code>BackupRule</code> objects, each of which
- * specifies a backup rule. Each rule in a backup plan is a separate scheduled task and can back up a different
- * selection of AWS resources.
+ * specifies a backup rule. Each rule in a backup plan is a separate scheduled task.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/BackupPlanInput" target="_top">AWS API
@@ -32,7 +31,7 @@ public class BackupPlanInput implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The display name of a backup plan.
+     * The display name of a backup plan. Must contain 1 to 50 alphanumeric or '-_.' characters.
      * </p>
      */
     private String backupPlanName;
@@ -43,14 +42,21 @@ public class BackupPlanInput implements Serializable, Cloneable, StructuredPojo 
      * </p>
      */
     private java.util.List<BackupRuleInput> rules;
+    /**
+     * <p>
+     * Specifies a list of <code>BackupOptions</code> for each resource type. These settings are only available for
+     * Windows Volume Shadow Copy Service (VSS) backup jobs.
+     * </p>
+     */
+    private java.util.List<AdvancedBackupSetting> advancedBackupSettings;
 
     /**
      * <p>
-     * The display name of a backup plan.
+     * The display name of a backup plan. Must contain 1 to 50 alphanumeric or '-_.' characters.
      * </p>
      * 
      * @param backupPlanName
-     *        The display name of a backup plan.
+     *        The display name of a backup plan. Must contain 1 to 50 alphanumeric or '-_.' characters.
      */
 
     public void setBackupPlanName(String backupPlanName) {
@@ -59,10 +65,10 @@ public class BackupPlanInput implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The display name of a backup plan.
+     * The display name of a backup plan. Must contain 1 to 50 alphanumeric or '-_.' characters.
      * </p>
      * 
-     * @return The display name of a backup plan.
+     * @return The display name of a backup plan. Must contain 1 to 50 alphanumeric or '-_.' characters.
      */
 
     public String getBackupPlanName() {
@@ -71,11 +77,11 @@ public class BackupPlanInput implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The display name of a backup plan.
+     * The display name of a backup plan. Must contain 1 to 50 alphanumeric or '-_.' characters.
      * </p>
      * 
      * @param backupPlanName
-     *        The display name of a backup plan.
+     *        The display name of a backup plan. Must contain 1 to 50 alphanumeric or '-_.' characters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -163,6 +169,84 @@ public class BackupPlanInput implements Serializable, Cloneable, StructuredPojo 
     }
 
     /**
+     * <p>
+     * Specifies a list of <code>BackupOptions</code> for each resource type. These settings are only available for
+     * Windows Volume Shadow Copy Service (VSS) backup jobs.
+     * </p>
+     * 
+     * @return Specifies a list of <code>BackupOptions</code> for each resource type. These settings are only available
+     *         for Windows Volume Shadow Copy Service (VSS) backup jobs.
+     */
+
+    public java.util.List<AdvancedBackupSetting> getAdvancedBackupSettings() {
+        return advancedBackupSettings;
+    }
+
+    /**
+     * <p>
+     * Specifies a list of <code>BackupOptions</code> for each resource type. These settings are only available for
+     * Windows Volume Shadow Copy Service (VSS) backup jobs.
+     * </p>
+     * 
+     * @param advancedBackupSettings
+     *        Specifies a list of <code>BackupOptions</code> for each resource type. These settings are only available
+     *        for Windows Volume Shadow Copy Service (VSS) backup jobs.
+     */
+
+    public void setAdvancedBackupSettings(java.util.Collection<AdvancedBackupSetting> advancedBackupSettings) {
+        if (advancedBackupSettings == null) {
+            this.advancedBackupSettings = null;
+            return;
+        }
+
+        this.advancedBackupSettings = new java.util.ArrayList<AdvancedBackupSetting>(advancedBackupSettings);
+    }
+
+    /**
+     * <p>
+     * Specifies a list of <code>BackupOptions</code> for each resource type. These settings are only available for
+     * Windows Volume Shadow Copy Service (VSS) backup jobs.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAdvancedBackupSettings(java.util.Collection)} or
+     * {@link #withAdvancedBackupSettings(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param advancedBackupSettings
+     *        Specifies a list of <code>BackupOptions</code> for each resource type. These settings are only available
+     *        for Windows Volume Shadow Copy Service (VSS) backup jobs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BackupPlanInput withAdvancedBackupSettings(AdvancedBackupSetting... advancedBackupSettings) {
+        if (this.advancedBackupSettings == null) {
+            setAdvancedBackupSettings(new java.util.ArrayList<AdvancedBackupSetting>(advancedBackupSettings.length));
+        }
+        for (AdvancedBackupSetting ele : advancedBackupSettings) {
+            this.advancedBackupSettings.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies a list of <code>BackupOptions</code> for each resource type. These settings are only available for
+     * Windows Volume Shadow Copy Service (VSS) backup jobs.
+     * </p>
+     * 
+     * @param advancedBackupSettings
+     *        Specifies a list of <code>BackupOptions</code> for each resource type. These settings are only available
+     *        for Windows Volume Shadow Copy Service (VSS) backup jobs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BackupPlanInput withAdvancedBackupSettings(java.util.Collection<AdvancedBackupSetting> advancedBackupSettings) {
+        setAdvancedBackupSettings(advancedBackupSettings);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -177,7 +261,9 @@ public class BackupPlanInput implements Serializable, Cloneable, StructuredPojo 
         if (getBackupPlanName() != null)
             sb.append("BackupPlanName: ").append(getBackupPlanName()).append(",");
         if (getRules() != null)
-            sb.append("Rules: ").append(getRules());
+            sb.append("Rules: ").append(getRules()).append(",");
+        if (getAdvancedBackupSettings() != null)
+            sb.append("AdvancedBackupSettings: ").append(getAdvancedBackupSettings());
         sb.append("}");
         return sb.toString();
     }
@@ -200,6 +286,10 @@ public class BackupPlanInput implements Serializable, Cloneable, StructuredPojo 
             return false;
         if (other.getRules() != null && other.getRules().equals(this.getRules()) == false)
             return false;
+        if (other.getAdvancedBackupSettings() == null ^ this.getAdvancedBackupSettings() == null)
+            return false;
+        if (other.getAdvancedBackupSettings() != null && other.getAdvancedBackupSettings().equals(this.getAdvancedBackupSettings()) == false)
+            return false;
         return true;
     }
 
@@ -210,6 +300,7 @@ public class BackupPlanInput implements Serializable, Cloneable, StructuredPojo 
 
         hashCode = prime * hashCode + ((getBackupPlanName() == null) ? 0 : getBackupPlanName().hashCode());
         hashCode = prime * hashCode + ((getRules() == null) ? 0 : getRules().hashCode());
+        hashCode = prime * hashCode + ((getAdvancedBackupSettings() == null) ? 0 : getAdvancedBackupSettings().hashCode());
         return hashCode;
     }
 

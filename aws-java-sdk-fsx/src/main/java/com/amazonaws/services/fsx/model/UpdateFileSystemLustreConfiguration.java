@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,18 +30,145 @@ public class UpdateFileSystemLustreConfiguration implements Serializable, Clonea
 
     /**
      * <p>
-     * The preferred time to perform weekly maintenance, in the UTC time zone.
+     * (Optional) The preferred start time to perform weekly maintenance, formatted d:HH:MM in the UTC time zone. d is
+     * the weekday number, from 1 through 7, beginning with Monday and ending with Sunday.
      * </p>
      */
     private String weeklyMaintenanceStartTime;
 
+    private String dailyAutomaticBackupStartTime;
     /**
      * <p>
-     * The preferred time to perform weekly maintenance, in the UTC time zone.
+     * The number of days to retain automatic backups. Setting this property to <code>0</code> disables automatic
+     * backups. You can retain automatic backups for a maximum of 90 days. The default is <code>0</code>.
+     * </p>
+     */
+    private Integer automaticBackupRetentionDays;
+    /**
+     * <p>
+     * (Optional) When you create your file system, your existing S3 objects appear as file and directory listings. Use
+     * this property to choose how Amazon FSx keeps your file and directory listing up to date as you add or modify
+     * objects in your linked S3 bucket. <code>AutoImportPolicy</code> can have the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>NONE</code> - (Default) AutoImport is off. Amazon FSx only updates file and directory listings from the
+     * linked S3 bucket when the file system is created. FSx does not update the file and directory listing for any new
+     * or changed objects after choosing this option.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NEW</code> - AutoImport is on. Amazon FSx automatically imports directory listings of any new objects added
+     * to the linked S3 bucket that do not currently exist in the FSx file system.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NEW_CHANGED</code> - AutoImport is on. Amazon FSx automatically imports file and directory listings of any
+     * new objects added to the S3 bucket and any existing objects that are changed in the S3 bucket after you choose
+     * this option.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NEW_CHANGED_DELETED</code> - AutoImport is on. Amazon FSx automatically imports file and directory listings
+     * of any new objects added to the S3 bucket, any existing objects that are changed in the S3 bucket, and any
+     * objects that were deleted in the S3 bucket.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * This parameter is not supported for file systems with a data repository association.
+     * </p>
+     */
+    private String autoImportPolicy;
+    /**
+     * <p>
+     * Sets the data compression configuration for the file system. <code>DataCompressionType</code> can have the
+     * following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>NONE</code> - Data compression is turned off for the file system.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LZ4</code> - Data compression is turned on with the LZ4 algorithm.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you don't use <code>DataCompressionType</code>, the file system retains its current data compression
+     * configuration.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/data-compression.html">Lustre data compression</a>.
+     * </p>
+     */
+    private String dataCompressionType;
+    /**
+     * <p>
+     * The Lustre logging configuration used when updating an Amazon FSx for Lustre file system. When logging is
+     * enabled, Lustre logs error and warning events for data repositories associated with your file system to Amazon
+     * CloudWatch Logs.
+     * </p>
+     */
+    private LustreLogCreateConfiguration logConfiguration;
+    /**
+     * <p>
+     * The Lustre root squash configuration used when updating an Amazon FSx for Lustre file system. When enabled, root
+     * squash restricts root-level access from clients that try to access your file system as a root user.
+     * </p>
+     */
+    private LustreRootSquashConfiguration rootSquashConfiguration;
+    /**
+     * <p>
+     * The throughput of an Amazon FSx for Lustre Persistent SSD-based file system, measured in megabytes per second per
+     * tebibyte (MB/s/TiB). You can increase or decrease your file system's throughput. Valid values depend on the
+     * deployment type of the file system, as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For <code>PERSISTENT_1</code> SSD-based deployment types, valid values are 50, 100, and 200 MB/s/TiB.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For <code>PERSISTENT_2</code> SSD-based deployment types, valid values are 125, 250, 500, and 1000 MB/s/TiB.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/managing-throughput-capacity.html"> Managing throughput
+     * capacity</a>.
+     * </p>
+     */
+    private Integer perUnitStorageThroughput;
+    /**
+     * <p>
+     * The Lustre metadata performance configuration for an Amazon FSx for Lustre file system using a
+     * <code>PERSISTENT_2</code> deployment type. When this configuration is enabled, the file system supports
+     * increasing metadata performance.
+     * </p>
+     */
+    private UpdateFileSystemLustreMetadataConfiguration metadataConfiguration;
+
+    /**
+     * <p>
+     * (Optional) The preferred start time to perform weekly maintenance, formatted d:HH:MM in the UTC time zone. d is
+     * the weekday number, from 1 through 7, beginning with Monday and ending with Sunday.
      * </p>
      * 
      * @param weeklyMaintenanceStartTime
-     *        The preferred time to perform weekly maintenance, in the UTC time zone.
+     *        (Optional) The preferred start time to perform weekly maintenance, formatted d:HH:MM in the UTC time zone.
+     *        d is the weekday number, from 1 through 7, beginning with Monday and ending with Sunday.
      */
 
     public void setWeeklyMaintenanceStartTime(String weeklyMaintenanceStartTime) {
@@ -50,10 +177,12 @@ public class UpdateFileSystemLustreConfiguration implements Serializable, Clonea
 
     /**
      * <p>
-     * The preferred time to perform weekly maintenance, in the UTC time zone.
+     * (Optional) The preferred start time to perform weekly maintenance, formatted d:HH:MM in the UTC time zone. d is
+     * the weekday number, from 1 through 7, beginning with Monday and ending with Sunday.
      * </p>
      * 
-     * @return The preferred time to perform weekly maintenance, in the UTC time zone.
+     * @return (Optional) The preferred start time to perform weekly maintenance, formatted d:HH:MM in the UTC time
+     *         zone. d is the weekday number, from 1 through 7, beginning with Monday and ending with Sunday.
      */
 
     public String getWeeklyMaintenanceStartTime() {
@@ -62,16 +191,956 @@ public class UpdateFileSystemLustreConfiguration implements Serializable, Clonea
 
     /**
      * <p>
-     * The preferred time to perform weekly maintenance, in the UTC time zone.
+     * (Optional) The preferred start time to perform weekly maintenance, formatted d:HH:MM in the UTC time zone. d is
+     * the weekday number, from 1 through 7, beginning with Monday and ending with Sunday.
      * </p>
      * 
      * @param weeklyMaintenanceStartTime
-     *        The preferred time to perform weekly maintenance, in the UTC time zone.
+     *        (Optional) The preferred start time to perform weekly maintenance, formatted d:HH:MM in the UTC time zone.
+     *        d is the weekday number, from 1 through 7, beginning with Monday and ending with Sunday.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public UpdateFileSystemLustreConfiguration withWeeklyMaintenanceStartTime(String weeklyMaintenanceStartTime) {
         setWeeklyMaintenanceStartTime(weeklyMaintenanceStartTime);
+        return this;
+    }
+
+    /**
+     * @param dailyAutomaticBackupStartTime
+     */
+
+    public void setDailyAutomaticBackupStartTime(String dailyAutomaticBackupStartTime) {
+        this.dailyAutomaticBackupStartTime = dailyAutomaticBackupStartTime;
+    }
+
+    /**
+     * @return
+     */
+
+    public String getDailyAutomaticBackupStartTime() {
+        return this.dailyAutomaticBackupStartTime;
+    }
+
+    /**
+     * @param dailyAutomaticBackupStartTime
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateFileSystemLustreConfiguration withDailyAutomaticBackupStartTime(String dailyAutomaticBackupStartTime) {
+        setDailyAutomaticBackupStartTime(dailyAutomaticBackupStartTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of days to retain automatic backups. Setting this property to <code>0</code> disables automatic
+     * backups. You can retain automatic backups for a maximum of 90 days. The default is <code>0</code>.
+     * </p>
+     * 
+     * @param automaticBackupRetentionDays
+     *        The number of days to retain automatic backups. Setting this property to <code>0</code> disables automatic
+     *        backups. You can retain automatic backups for a maximum of 90 days. The default is <code>0</code>.
+     */
+
+    public void setAutomaticBackupRetentionDays(Integer automaticBackupRetentionDays) {
+        this.automaticBackupRetentionDays = automaticBackupRetentionDays;
+    }
+
+    /**
+     * <p>
+     * The number of days to retain automatic backups. Setting this property to <code>0</code> disables automatic
+     * backups. You can retain automatic backups for a maximum of 90 days. The default is <code>0</code>.
+     * </p>
+     * 
+     * @return The number of days to retain automatic backups. Setting this property to <code>0</code> disables
+     *         automatic backups. You can retain automatic backups for a maximum of 90 days. The default is
+     *         <code>0</code>.
+     */
+
+    public Integer getAutomaticBackupRetentionDays() {
+        return this.automaticBackupRetentionDays;
+    }
+
+    /**
+     * <p>
+     * The number of days to retain automatic backups. Setting this property to <code>0</code> disables automatic
+     * backups. You can retain automatic backups for a maximum of 90 days. The default is <code>0</code>.
+     * </p>
+     * 
+     * @param automaticBackupRetentionDays
+     *        The number of days to retain automatic backups. Setting this property to <code>0</code> disables automatic
+     *        backups. You can retain automatic backups for a maximum of 90 days. The default is <code>0</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateFileSystemLustreConfiguration withAutomaticBackupRetentionDays(Integer automaticBackupRetentionDays) {
+        setAutomaticBackupRetentionDays(automaticBackupRetentionDays);
+        return this;
+    }
+
+    /**
+     * <p>
+     * (Optional) When you create your file system, your existing S3 objects appear as file and directory listings. Use
+     * this property to choose how Amazon FSx keeps your file and directory listing up to date as you add or modify
+     * objects in your linked S3 bucket. <code>AutoImportPolicy</code> can have the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>NONE</code> - (Default) AutoImport is off. Amazon FSx only updates file and directory listings from the
+     * linked S3 bucket when the file system is created. FSx does not update the file and directory listing for any new
+     * or changed objects after choosing this option.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NEW</code> - AutoImport is on. Amazon FSx automatically imports directory listings of any new objects added
+     * to the linked S3 bucket that do not currently exist in the FSx file system.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NEW_CHANGED</code> - AutoImport is on. Amazon FSx automatically imports file and directory listings of any
+     * new objects added to the S3 bucket and any existing objects that are changed in the S3 bucket after you choose
+     * this option.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NEW_CHANGED_DELETED</code> - AutoImport is on. Amazon FSx automatically imports file and directory listings
+     * of any new objects added to the S3 bucket, any existing objects that are changed in the S3 bucket, and any
+     * objects that were deleted in the S3 bucket.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * This parameter is not supported for file systems with a data repository association.
+     * </p>
+     * 
+     * @param autoImportPolicy
+     *        (Optional) When you create your file system, your existing S3 objects appear as file and directory
+     *        listings. Use this property to choose how Amazon FSx keeps your file and directory listing up to date as
+     *        you add or modify objects in your linked S3 bucket. <code>AutoImportPolicy</code> can have the following
+     *        values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>NONE</code> - (Default) AutoImport is off. Amazon FSx only updates file and directory listings from
+     *        the linked S3 bucket when the file system is created. FSx does not update the file and directory listing
+     *        for any new or changed objects after choosing this option.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NEW</code> - AutoImport is on. Amazon FSx automatically imports directory listings of any new
+     *        objects added to the linked S3 bucket that do not currently exist in the FSx file system.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NEW_CHANGED</code> - AutoImport is on. Amazon FSx automatically imports file and directory listings
+     *        of any new objects added to the S3 bucket and any existing objects that are changed in the S3 bucket after
+     *        you choose this option.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NEW_CHANGED_DELETED</code> - AutoImport is on. Amazon FSx automatically imports file and directory
+     *        listings of any new objects added to the S3 bucket, any existing objects that are changed in the S3
+     *        bucket, and any objects that were deleted in the S3 bucket.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        This parameter is not supported for file systems with a data repository association.
+     * @see AutoImportPolicyType
+     */
+
+    public void setAutoImportPolicy(String autoImportPolicy) {
+        this.autoImportPolicy = autoImportPolicy;
+    }
+
+    /**
+     * <p>
+     * (Optional) When you create your file system, your existing S3 objects appear as file and directory listings. Use
+     * this property to choose how Amazon FSx keeps your file and directory listing up to date as you add or modify
+     * objects in your linked S3 bucket. <code>AutoImportPolicy</code> can have the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>NONE</code> - (Default) AutoImport is off. Amazon FSx only updates file and directory listings from the
+     * linked S3 bucket when the file system is created. FSx does not update the file and directory listing for any new
+     * or changed objects after choosing this option.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NEW</code> - AutoImport is on. Amazon FSx automatically imports directory listings of any new objects added
+     * to the linked S3 bucket that do not currently exist in the FSx file system.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NEW_CHANGED</code> - AutoImport is on. Amazon FSx automatically imports file and directory listings of any
+     * new objects added to the S3 bucket and any existing objects that are changed in the S3 bucket after you choose
+     * this option.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NEW_CHANGED_DELETED</code> - AutoImport is on. Amazon FSx automatically imports file and directory listings
+     * of any new objects added to the S3 bucket, any existing objects that are changed in the S3 bucket, and any
+     * objects that were deleted in the S3 bucket.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * This parameter is not supported for file systems with a data repository association.
+     * </p>
+     * 
+     * @return (Optional) When you create your file system, your existing S3 objects appear as file and directory
+     *         listings. Use this property to choose how Amazon FSx keeps your file and directory listing up to date as
+     *         you add or modify objects in your linked S3 bucket. <code>AutoImportPolicy</code> can have the following
+     *         values:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>NONE</code> - (Default) AutoImport is off. Amazon FSx only updates file and directory listings from
+     *         the linked S3 bucket when the file system is created. FSx does not update the file and directory listing
+     *         for any new or changed objects after choosing this option.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>NEW</code> - AutoImport is on. Amazon FSx automatically imports directory listings of any new
+     *         objects added to the linked S3 bucket that do not currently exist in the FSx file system.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>NEW_CHANGED</code> - AutoImport is on. Amazon FSx automatically imports file and directory listings
+     *         of any new objects added to the S3 bucket and any existing objects that are changed in the S3 bucket
+     *         after you choose this option.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>NEW_CHANGED_DELETED</code> - AutoImport is on. Amazon FSx automatically imports file and directory
+     *         listings of any new objects added to the S3 bucket, any existing objects that are changed in the S3
+     *         bucket, and any objects that were deleted in the S3 bucket.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         This parameter is not supported for file systems with a data repository association.
+     * @see AutoImportPolicyType
+     */
+
+    public String getAutoImportPolicy() {
+        return this.autoImportPolicy;
+    }
+
+    /**
+     * <p>
+     * (Optional) When you create your file system, your existing S3 objects appear as file and directory listings. Use
+     * this property to choose how Amazon FSx keeps your file and directory listing up to date as you add or modify
+     * objects in your linked S3 bucket. <code>AutoImportPolicy</code> can have the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>NONE</code> - (Default) AutoImport is off. Amazon FSx only updates file and directory listings from the
+     * linked S3 bucket when the file system is created. FSx does not update the file and directory listing for any new
+     * or changed objects after choosing this option.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NEW</code> - AutoImport is on. Amazon FSx automatically imports directory listings of any new objects added
+     * to the linked S3 bucket that do not currently exist in the FSx file system.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NEW_CHANGED</code> - AutoImport is on. Amazon FSx automatically imports file and directory listings of any
+     * new objects added to the S3 bucket and any existing objects that are changed in the S3 bucket after you choose
+     * this option.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NEW_CHANGED_DELETED</code> - AutoImport is on. Amazon FSx automatically imports file and directory listings
+     * of any new objects added to the S3 bucket, any existing objects that are changed in the S3 bucket, and any
+     * objects that were deleted in the S3 bucket.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * This parameter is not supported for file systems with a data repository association.
+     * </p>
+     * 
+     * @param autoImportPolicy
+     *        (Optional) When you create your file system, your existing S3 objects appear as file and directory
+     *        listings. Use this property to choose how Amazon FSx keeps your file and directory listing up to date as
+     *        you add or modify objects in your linked S3 bucket. <code>AutoImportPolicy</code> can have the following
+     *        values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>NONE</code> - (Default) AutoImport is off. Amazon FSx only updates file and directory listings from
+     *        the linked S3 bucket when the file system is created. FSx does not update the file and directory listing
+     *        for any new or changed objects after choosing this option.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NEW</code> - AutoImport is on. Amazon FSx automatically imports directory listings of any new
+     *        objects added to the linked S3 bucket that do not currently exist in the FSx file system.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NEW_CHANGED</code> - AutoImport is on. Amazon FSx automatically imports file and directory listings
+     *        of any new objects added to the S3 bucket and any existing objects that are changed in the S3 bucket after
+     *        you choose this option.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NEW_CHANGED_DELETED</code> - AutoImport is on. Amazon FSx automatically imports file and directory
+     *        listings of any new objects added to the S3 bucket, any existing objects that are changed in the S3
+     *        bucket, and any objects that were deleted in the S3 bucket.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        This parameter is not supported for file systems with a data repository association.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AutoImportPolicyType
+     */
+
+    public UpdateFileSystemLustreConfiguration withAutoImportPolicy(String autoImportPolicy) {
+        setAutoImportPolicy(autoImportPolicy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * (Optional) When you create your file system, your existing S3 objects appear as file and directory listings. Use
+     * this property to choose how Amazon FSx keeps your file and directory listing up to date as you add or modify
+     * objects in your linked S3 bucket. <code>AutoImportPolicy</code> can have the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>NONE</code> - (Default) AutoImport is off. Amazon FSx only updates file and directory listings from the
+     * linked S3 bucket when the file system is created. FSx does not update the file and directory listing for any new
+     * or changed objects after choosing this option.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NEW</code> - AutoImport is on. Amazon FSx automatically imports directory listings of any new objects added
+     * to the linked S3 bucket that do not currently exist in the FSx file system.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NEW_CHANGED</code> - AutoImport is on. Amazon FSx automatically imports file and directory listings of any
+     * new objects added to the S3 bucket and any existing objects that are changed in the S3 bucket after you choose
+     * this option.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NEW_CHANGED_DELETED</code> - AutoImport is on. Amazon FSx automatically imports file and directory listings
+     * of any new objects added to the S3 bucket, any existing objects that are changed in the S3 bucket, and any
+     * objects that were deleted in the S3 bucket.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * This parameter is not supported for file systems with a data repository association.
+     * </p>
+     * 
+     * @param autoImportPolicy
+     *        (Optional) When you create your file system, your existing S3 objects appear as file and directory
+     *        listings. Use this property to choose how Amazon FSx keeps your file and directory listing up to date as
+     *        you add or modify objects in your linked S3 bucket. <code>AutoImportPolicy</code> can have the following
+     *        values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>NONE</code> - (Default) AutoImport is off. Amazon FSx only updates file and directory listings from
+     *        the linked S3 bucket when the file system is created. FSx does not update the file and directory listing
+     *        for any new or changed objects after choosing this option.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NEW</code> - AutoImport is on. Amazon FSx automatically imports directory listings of any new
+     *        objects added to the linked S3 bucket that do not currently exist in the FSx file system.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NEW_CHANGED</code> - AutoImport is on. Amazon FSx automatically imports file and directory listings
+     *        of any new objects added to the S3 bucket and any existing objects that are changed in the S3 bucket after
+     *        you choose this option.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NEW_CHANGED_DELETED</code> - AutoImport is on. Amazon FSx automatically imports file and directory
+     *        listings of any new objects added to the S3 bucket, any existing objects that are changed in the S3
+     *        bucket, and any objects that were deleted in the S3 bucket.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        This parameter is not supported for file systems with a data repository association.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AutoImportPolicyType
+     */
+
+    public UpdateFileSystemLustreConfiguration withAutoImportPolicy(AutoImportPolicyType autoImportPolicy) {
+        this.autoImportPolicy = autoImportPolicy.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Sets the data compression configuration for the file system. <code>DataCompressionType</code> can have the
+     * following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>NONE</code> - Data compression is turned off for the file system.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LZ4</code> - Data compression is turned on with the LZ4 algorithm.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you don't use <code>DataCompressionType</code>, the file system retains its current data compression
+     * configuration.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/data-compression.html">Lustre data compression</a>.
+     * </p>
+     * 
+     * @param dataCompressionType
+     *        Sets the data compression configuration for the file system. <code>DataCompressionType</code> can have the
+     *        following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>NONE</code> - Data compression is turned off for the file system.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LZ4</code> - Data compression is turned on with the LZ4 algorithm.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you don't use <code>DataCompressionType</code>, the file system retains its current data compression
+     *        configuration.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/data-compression.html">Lustre data
+     *        compression</a>.
+     * @see DataCompressionType
+     */
+
+    public void setDataCompressionType(String dataCompressionType) {
+        this.dataCompressionType = dataCompressionType;
+    }
+
+    /**
+     * <p>
+     * Sets the data compression configuration for the file system. <code>DataCompressionType</code> can have the
+     * following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>NONE</code> - Data compression is turned off for the file system.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LZ4</code> - Data compression is turned on with the LZ4 algorithm.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you don't use <code>DataCompressionType</code>, the file system retains its current data compression
+     * configuration.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/data-compression.html">Lustre data compression</a>.
+     * </p>
+     * 
+     * @return Sets the data compression configuration for the file system. <code>DataCompressionType</code> can have
+     *         the following values:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>NONE</code> - Data compression is turned off for the file system.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>LZ4</code> - Data compression is turned on with the LZ4 algorithm.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         If you don't use <code>DataCompressionType</code>, the file system retains its current data compression
+     *         configuration.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/data-compression.html">Lustre data
+     *         compression</a>.
+     * @see DataCompressionType
+     */
+
+    public String getDataCompressionType() {
+        return this.dataCompressionType;
+    }
+
+    /**
+     * <p>
+     * Sets the data compression configuration for the file system. <code>DataCompressionType</code> can have the
+     * following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>NONE</code> - Data compression is turned off for the file system.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LZ4</code> - Data compression is turned on with the LZ4 algorithm.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you don't use <code>DataCompressionType</code>, the file system retains its current data compression
+     * configuration.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/data-compression.html">Lustre data compression</a>.
+     * </p>
+     * 
+     * @param dataCompressionType
+     *        Sets the data compression configuration for the file system. <code>DataCompressionType</code> can have the
+     *        following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>NONE</code> - Data compression is turned off for the file system.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LZ4</code> - Data compression is turned on with the LZ4 algorithm.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you don't use <code>DataCompressionType</code>, the file system retains its current data compression
+     *        configuration.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/data-compression.html">Lustre data
+     *        compression</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DataCompressionType
+     */
+
+    public UpdateFileSystemLustreConfiguration withDataCompressionType(String dataCompressionType) {
+        setDataCompressionType(dataCompressionType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Sets the data compression configuration for the file system. <code>DataCompressionType</code> can have the
+     * following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>NONE</code> - Data compression is turned off for the file system.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LZ4</code> - Data compression is turned on with the LZ4 algorithm.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you don't use <code>DataCompressionType</code>, the file system retains its current data compression
+     * configuration.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/data-compression.html">Lustre data compression</a>.
+     * </p>
+     * 
+     * @param dataCompressionType
+     *        Sets the data compression configuration for the file system. <code>DataCompressionType</code> can have the
+     *        following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>NONE</code> - Data compression is turned off for the file system.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LZ4</code> - Data compression is turned on with the LZ4 algorithm.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you don't use <code>DataCompressionType</code>, the file system retains its current data compression
+     *        configuration.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/data-compression.html">Lustre data
+     *        compression</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DataCompressionType
+     */
+
+    public UpdateFileSystemLustreConfiguration withDataCompressionType(DataCompressionType dataCompressionType) {
+        this.dataCompressionType = dataCompressionType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Lustre logging configuration used when updating an Amazon FSx for Lustre file system. When logging is
+     * enabled, Lustre logs error and warning events for data repositories associated with your file system to Amazon
+     * CloudWatch Logs.
+     * </p>
+     * 
+     * @param logConfiguration
+     *        The Lustre logging configuration used when updating an Amazon FSx for Lustre file system. When logging is
+     *        enabled, Lustre logs error and warning events for data repositories associated with your file system to
+     *        Amazon CloudWatch Logs.
+     */
+
+    public void setLogConfiguration(LustreLogCreateConfiguration logConfiguration) {
+        this.logConfiguration = logConfiguration;
+    }
+
+    /**
+     * <p>
+     * The Lustre logging configuration used when updating an Amazon FSx for Lustre file system. When logging is
+     * enabled, Lustre logs error and warning events for data repositories associated with your file system to Amazon
+     * CloudWatch Logs.
+     * </p>
+     * 
+     * @return The Lustre logging configuration used when updating an Amazon FSx for Lustre file system. When logging is
+     *         enabled, Lustre logs error and warning events for data repositories associated with your file system to
+     *         Amazon CloudWatch Logs.
+     */
+
+    public LustreLogCreateConfiguration getLogConfiguration() {
+        return this.logConfiguration;
+    }
+
+    /**
+     * <p>
+     * The Lustre logging configuration used when updating an Amazon FSx for Lustre file system. When logging is
+     * enabled, Lustre logs error and warning events for data repositories associated with your file system to Amazon
+     * CloudWatch Logs.
+     * </p>
+     * 
+     * @param logConfiguration
+     *        The Lustre logging configuration used when updating an Amazon FSx for Lustre file system. When logging is
+     *        enabled, Lustre logs error and warning events for data repositories associated with your file system to
+     *        Amazon CloudWatch Logs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateFileSystemLustreConfiguration withLogConfiguration(LustreLogCreateConfiguration logConfiguration) {
+        setLogConfiguration(logConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Lustre root squash configuration used when updating an Amazon FSx for Lustre file system. When enabled, root
+     * squash restricts root-level access from clients that try to access your file system as a root user.
+     * </p>
+     * 
+     * @param rootSquashConfiguration
+     *        The Lustre root squash configuration used when updating an Amazon FSx for Lustre file system. When
+     *        enabled, root squash restricts root-level access from clients that try to access your file system as a
+     *        root user.
+     */
+
+    public void setRootSquashConfiguration(LustreRootSquashConfiguration rootSquashConfiguration) {
+        this.rootSquashConfiguration = rootSquashConfiguration;
+    }
+
+    /**
+     * <p>
+     * The Lustre root squash configuration used when updating an Amazon FSx for Lustre file system. When enabled, root
+     * squash restricts root-level access from clients that try to access your file system as a root user.
+     * </p>
+     * 
+     * @return The Lustre root squash configuration used when updating an Amazon FSx for Lustre file system. When
+     *         enabled, root squash restricts root-level access from clients that try to access your file system as a
+     *         root user.
+     */
+
+    public LustreRootSquashConfiguration getRootSquashConfiguration() {
+        return this.rootSquashConfiguration;
+    }
+
+    /**
+     * <p>
+     * The Lustre root squash configuration used when updating an Amazon FSx for Lustre file system. When enabled, root
+     * squash restricts root-level access from clients that try to access your file system as a root user.
+     * </p>
+     * 
+     * @param rootSquashConfiguration
+     *        The Lustre root squash configuration used when updating an Amazon FSx for Lustre file system. When
+     *        enabled, root squash restricts root-level access from clients that try to access your file system as a
+     *        root user.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateFileSystemLustreConfiguration withRootSquashConfiguration(LustreRootSquashConfiguration rootSquashConfiguration) {
+        setRootSquashConfiguration(rootSquashConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The throughput of an Amazon FSx for Lustre Persistent SSD-based file system, measured in megabytes per second per
+     * tebibyte (MB/s/TiB). You can increase or decrease your file system's throughput. Valid values depend on the
+     * deployment type of the file system, as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For <code>PERSISTENT_1</code> SSD-based deployment types, valid values are 50, 100, and 200 MB/s/TiB.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For <code>PERSISTENT_2</code> SSD-based deployment types, valid values are 125, 250, 500, and 1000 MB/s/TiB.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/managing-throughput-capacity.html"> Managing throughput
+     * capacity</a>.
+     * </p>
+     * 
+     * @param perUnitStorageThroughput
+     *        The throughput of an Amazon FSx for Lustre Persistent SSD-based file system, measured in megabytes per
+     *        second per tebibyte (MB/s/TiB). You can increase or decrease your file system's throughput. Valid values
+     *        depend on the deployment type of the file system, as follows:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For <code>PERSISTENT_1</code> SSD-based deployment types, valid values are 50, 100, and 200 MB/s/TiB.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For <code>PERSISTENT_2</code> SSD-based deployment types, valid values are 125, 250, 500, and 1000
+     *        MB/s/TiB.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/managing-throughput-capacity.html"> Managing
+     *        throughput capacity</a>.
+     */
+
+    public void setPerUnitStorageThroughput(Integer perUnitStorageThroughput) {
+        this.perUnitStorageThroughput = perUnitStorageThroughput;
+    }
+
+    /**
+     * <p>
+     * The throughput of an Amazon FSx for Lustre Persistent SSD-based file system, measured in megabytes per second per
+     * tebibyte (MB/s/TiB). You can increase or decrease your file system's throughput. Valid values depend on the
+     * deployment type of the file system, as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For <code>PERSISTENT_1</code> SSD-based deployment types, valid values are 50, 100, and 200 MB/s/TiB.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For <code>PERSISTENT_2</code> SSD-based deployment types, valid values are 125, 250, 500, and 1000 MB/s/TiB.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/managing-throughput-capacity.html"> Managing throughput
+     * capacity</a>.
+     * </p>
+     * 
+     * @return The throughput of an Amazon FSx for Lustre Persistent SSD-based file system, measured in megabytes per
+     *         second per tebibyte (MB/s/TiB). You can increase or decrease your file system's throughput. Valid values
+     *         depend on the deployment type of the file system, as follows:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         For <code>PERSISTENT_1</code> SSD-based deployment types, valid values are 50, 100, and 200 MB/s/TiB.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For <code>PERSISTENT_2</code> SSD-based deployment types, valid values are 125, 250, 500, and 1000
+     *         MB/s/TiB.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/managing-throughput-capacity.html"> Managing
+     *         throughput capacity</a>.
+     */
+
+    public Integer getPerUnitStorageThroughput() {
+        return this.perUnitStorageThroughput;
+    }
+
+    /**
+     * <p>
+     * The throughput of an Amazon FSx for Lustre Persistent SSD-based file system, measured in megabytes per second per
+     * tebibyte (MB/s/TiB). You can increase or decrease your file system's throughput. Valid values depend on the
+     * deployment type of the file system, as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For <code>PERSISTENT_1</code> SSD-based deployment types, valid values are 50, 100, and 200 MB/s/TiB.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For <code>PERSISTENT_2</code> SSD-based deployment types, valid values are 125, 250, 500, and 1000 MB/s/TiB.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/managing-throughput-capacity.html"> Managing throughput
+     * capacity</a>.
+     * </p>
+     * 
+     * @param perUnitStorageThroughput
+     *        The throughput of an Amazon FSx for Lustre Persistent SSD-based file system, measured in megabytes per
+     *        second per tebibyte (MB/s/TiB). You can increase or decrease your file system's throughput. Valid values
+     *        depend on the deployment type of the file system, as follows:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For <code>PERSISTENT_1</code> SSD-based deployment types, valid values are 50, 100, and 200 MB/s/TiB.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For <code>PERSISTENT_2</code> SSD-based deployment types, valid values are 125, 250, 500, and 1000
+     *        MB/s/TiB.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/managing-throughput-capacity.html"> Managing
+     *        throughput capacity</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateFileSystemLustreConfiguration withPerUnitStorageThroughput(Integer perUnitStorageThroughput) {
+        setPerUnitStorageThroughput(perUnitStorageThroughput);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Lustre metadata performance configuration for an Amazon FSx for Lustre file system using a
+     * <code>PERSISTENT_2</code> deployment type. When this configuration is enabled, the file system supports
+     * increasing metadata performance.
+     * </p>
+     * 
+     * @param metadataConfiguration
+     *        The Lustre metadata performance configuration for an Amazon FSx for Lustre file system using a
+     *        <code>PERSISTENT_2</code> deployment type. When this configuration is enabled, the file system supports
+     *        increasing metadata performance.
+     */
+
+    public void setMetadataConfiguration(UpdateFileSystemLustreMetadataConfiguration metadataConfiguration) {
+        this.metadataConfiguration = metadataConfiguration;
+    }
+
+    /**
+     * <p>
+     * The Lustre metadata performance configuration for an Amazon FSx for Lustre file system using a
+     * <code>PERSISTENT_2</code> deployment type. When this configuration is enabled, the file system supports
+     * increasing metadata performance.
+     * </p>
+     * 
+     * @return The Lustre metadata performance configuration for an Amazon FSx for Lustre file system using a
+     *         <code>PERSISTENT_2</code> deployment type. When this configuration is enabled, the file system supports
+     *         increasing metadata performance.
+     */
+
+    public UpdateFileSystemLustreMetadataConfiguration getMetadataConfiguration() {
+        return this.metadataConfiguration;
+    }
+
+    /**
+     * <p>
+     * The Lustre metadata performance configuration for an Amazon FSx for Lustre file system using a
+     * <code>PERSISTENT_2</code> deployment type. When this configuration is enabled, the file system supports
+     * increasing metadata performance.
+     * </p>
+     * 
+     * @param metadataConfiguration
+     *        The Lustre metadata performance configuration for an Amazon FSx for Lustre file system using a
+     *        <code>PERSISTENT_2</code> deployment type. When this configuration is enabled, the file system supports
+     *        increasing metadata performance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateFileSystemLustreConfiguration withMetadataConfiguration(UpdateFileSystemLustreMetadataConfiguration metadataConfiguration) {
+        setMetadataConfiguration(metadataConfiguration);
         return this;
     }
 
@@ -88,7 +1157,23 @@ public class UpdateFileSystemLustreConfiguration implements Serializable, Clonea
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getWeeklyMaintenanceStartTime() != null)
-            sb.append("WeeklyMaintenanceStartTime: ").append(getWeeklyMaintenanceStartTime());
+            sb.append("WeeklyMaintenanceStartTime: ").append(getWeeklyMaintenanceStartTime()).append(",");
+        if (getDailyAutomaticBackupStartTime() != null)
+            sb.append("DailyAutomaticBackupStartTime: ").append(getDailyAutomaticBackupStartTime()).append(",");
+        if (getAutomaticBackupRetentionDays() != null)
+            sb.append("AutomaticBackupRetentionDays: ").append(getAutomaticBackupRetentionDays()).append(",");
+        if (getAutoImportPolicy() != null)
+            sb.append("AutoImportPolicy: ").append(getAutoImportPolicy()).append(",");
+        if (getDataCompressionType() != null)
+            sb.append("DataCompressionType: ").append(getDataCompressionType()).append(",");
+        if (getLogConfiguration() != null)
+            sb.append("LogConfiguration: ").append(getLogConfiguration()).append(",");
+        if (getRootSquashConfiguration() != null)
+            sb.append("RootSquashConfiguration: ").append(getRootSquashConfiguration()).append(",");
+        if (getPerUnitStorageThroughput() != null)
+            sb.append("PerUnitStorageThroughput: ").append(getPerUnitStorageThroughput()).append(",");
+        if (getMetadataConfiguration() != null)
+            sb.append("MetadataConfiguration: ").append(getMetadataConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -107,6 +1192,39 @@ public class UpdateFileSystemLustreConfiguration implements Serializable, Clonea
             return false;
         if (other.getWeeklyMaintenanceStartTime() != null && other.getWeeklyMaintenanceStartTime().equals(this.getWeeklyMaintenanceStartTime()) == false)
             return false;
+        if (other.getDailyAutomaticBackupStartTime() == null ^ this.getDailyAutomaticBackupStartTime() == null)
+            return false;
+        if (other.getDailyAutomaticBackupStartTime() != null
+                && other.getDailyAutomaticBackupStartTime().equals(this.getDailyAutomaticBackupStartTime()) == false)
+            return false;
+        if (other.getAutomaticBackupRetentionDays() == null ^ this.getAutomaticBackupRetentionDays() == null)
+            return false;
+        if (other.getAutomaticBackupRetentionDays() != null && other.getAutomaticBackupRetentionDays().equals(this.getAutomaticBackupRetentionDays()) == false)
+            return false;
+        if (other.getAutoImportPolicy() == null ^ this.getAutoImportPolicy() == null)
+            return false;
+        if (other.getAutoImportPolicy() != null && other.getAutoImportPolicy().equals(this.getAutoImportPolicy()) == false)
+            return false;
+        if (other.getDataCompressionType() == null ^ this.getDataCompressionType() == null)
+            return false;
+        if (other.getDataCompressionType() != null && other.getDataCompressionType().equals(this.getDataCompressionType()) == false)
+            return false;
+        if (other.getLogConfiguration() == null ^ this.getLogConfiguration() == null)
+            return false;
+        if (other.getLogConfiguration() != null && other.getLogConfiguration().equals(this.getLogConfiguration()) == false)
+            return false;
+        if (other.getRootSquashConfiguration() == null ^ this.getRootSquashConfiguration() == null)
+            return false;
+        if (other.getRootSquashConfiguration() != null && other.getRootSquashConfiguration().equals(this.getRootSquashConfiguration()) == false)
+            return false;
+        if (other.getPerUnitStorageThroughput() == null ^ this.getPerUnitStorageThroughput() == null)
+            return false;
+        if (other.getPerUnitStorageThroughput() != null && other.getPerUnitStorageThroughput().equals(this.getPerUnitStorageThroughput()) == false)
+            return false;
+        if (other.getMetadataConfiguration() == null ^ this.getMetadataConfiguration() == null)
+            return false;
+        if (other.getMetadataConfiguration() != null && other.getMetadataConfiguration().equals(this.getMetadataConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -116,6 +1234,14 @@ public class UpdateFileSystemLustreConfiguration implements Serializable, Clonea
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getWeeklyMaintenanceStartTime() == null) ? 0 : getWeeklyMaintenanceStartTime().hashCode());
+        hashCode = prime * hashCode + ((getDailyAutomaticBackupStartTime() == null) ? 0 : getDailyAutomaticBackupStartTime().hashCode());
+        hashCode = prime * hashCode + ((getAutomaticBackupRetentionDays() == null) ? 0 : getAutomaticBackupRetentionDays().hashCode());
+        hashCode = prime * hashCode + ((getAutoImportPolicy() == null) ? 0 : getAutoImportPolicy().hashCode());
+        hashCode = prime * hashCode + ((getDataCompressionType() == null) ? 0 : getDataCompressionType().hashCode());
+        hashCode = prime * hashCode + ((getLogConfiguration() == null) ? 0 : getLogConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getRootSquashConfiguration() == null) ? 0 : getRootSquashConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getPerUnitStorageThroughput() == null) ? 0 : getPerUnitStorageThroughput().hashCode());
+        hashCode = prime * hashCode + ((getMetadataConfiguration() == null) ? 0 : getMetadataConfiguration().hashCode());
         return hashCode;
     }
 

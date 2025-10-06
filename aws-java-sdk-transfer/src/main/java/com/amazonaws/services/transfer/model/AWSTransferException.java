@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -15,7 +15,7 @@ package com.amazonaws.services.transfer.model;
 import javax.annotation.Generated;
 
 /**
- * Base exception for all service exceptions thrown by AWS Transfer for SFTP
+ * Base exception for all service exceptions thrown by AWS Transfer Family
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class AWSTransferException extends com.amazonaws.AmazonServiceException {

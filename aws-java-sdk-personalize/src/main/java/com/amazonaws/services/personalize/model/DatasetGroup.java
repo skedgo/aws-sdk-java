@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,13 +19,17 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A dataset group is a collection of related datasets (Interactions, User, and Item). You create a dataset group by
- * calling <a>CreateDatasetGroup</a>. You then create a dataset and add it to a dataset group by calling
- * <a>CreateDataset</a>. The dataset group is used to create and train a solution by calling <a>CreateSolution</a>. A
- * dataset group can contain only one of each type of dataset.
+ * A dataset group is a collection of related datasets (Item interactions, Users, Items, Actions, Action interactions).
+ * You create a dataset group by calling <a
+ * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDatasetGroup.html">CreateDatasetGroup</a>. You then
+ * create a dataset and add it to a dataset group by calling <a
+ * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDataset.html">CreateDataset</a>. The dataset group
+ * is used to create and train a solution by calling <a
+ * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolution.html">CreateSolution</a>. A dataset group
+ * can contain only one of each type of dataset.
  * </p>
  * <p>
- * You can specify an AWS Key Management Service (KMS) key to encrypt the datasets in the group.
+ * You can specify an Key Management Service (KMS) key to encrypt the datasets in the group.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/DatasetGroup" target="_top">AWS API
@@ -69,13 +73,14 @@ public class DatasetGroup implements Serializable, Cloneable, StructuredPojo {
     private String status;
     /**
      * <p>
-     * The ARN of the IAM role that has permissions to create the dataset group.
+     * The ARN of the Identity and Access Management (IAM) role that has permissions to access the Key Management
+     * Service (KMS) key. Supplying an IAM role is only valid when also specifying a KMS key.
      * </p>
      */
     private String roleArn;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the KMS key used to encrypt the datasets.
+     * The Amazon Resource Name (ARN) of the Key Management Service (KMS) key used to encrypt the datasets.
      * </p>
      */
     private String kmsKeyArn;
@@ -97,6 +102,12 @@ public class DatasetGroup implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String failureReason;
+    /**
+     * <p>
+     * The domain of a Domain dataset group.
+     * </p>
+     */
+    private String domain;
 
     /**
      * <p>
@@ -307,11 +318,13 @@ public class DatasetGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN of the IAM role that has permissions to create the dataset group.
+     * The ARN of the Identity and Access Management (IAM) role that has permissions to access the Key Management
+     * Service (KMS) key. Supplying an IAM role is only valid when also specifying a KMS key.
      * </p>
      * 
      * @param roleArn
-     *        The ARN of the IAM role that has permissions to create the dataset group.
+     *        The ARN of the Identity and Access Management (IAM) role that has permissions to access the Key Management
+     *        Service (KMS) key. Supplying an IAM role is only valid when also specifying a KMS key.
      */
 
     public void setRoleArn(String roleArn) {
@@ -320,10 +333,12 @@ public class DatasetGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN of the IAM role that has permissions to create the dataset group.
+     * The ARN of the Identity and Access Management (IAM) role that has permissions to access the Key Management
+     * Service (KMS) key. Supplying an IAM role is only valid when also specifying a KMS key.
      * </p>
      * 
-     * @return The ARN of the IAM role that has permissions to create the dataset group.
+     * @return The ARN of the Identity and Access Management (IAM) role that has permissions to access the Key
+     *         Management Service (KMS) key. Supplying an IAM role is only valid when also specifying a KMS key.
      */
 
     public String getRoleArn() {
@@ -332,11 +347,13 @@ public class DatasetGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN of the IAM role that has permissions to create the dataset group.
+     * The ARN of the Identity and Access Management (IAM) role that has permissions to access the Key Management
+     * Service (KMS) key. Supplying an IAM role is only valid when also specifying a KMS key.
      * </p>
      * 
      * @param roleArn
-     *        The ARN of the IAM role that has permissions to create the dataset group.
+     *        The ARN of the Identity and Access Management (IAM) role that has permissions to access the Key Management
+     *        Service (KMS) key. Supplying an IAM role is only valid when also specifying a KMS key.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -347,11 +364,11 @@ public class DatasetGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the KMS key used to encrypt the datasets.
+     * The Amazon Resource Name (ARN) of the Key Management Service (KMS) key used to encrypt the datasets.
      * </p>
      * 
      * @param kmsKeyArn
-     *        The Amazon Resource Name (ARN) of the KMS key used to encrypt the datasets.
+     *        The Amazon Resource Name (ARN) of the Key Management Service (KMS) key used to encrypt the datasets.
      */
 
     public void setKmsKeyArn(String kmsKeyArn) {
@@ -360,10 +377,10 @@ public class DatasetGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the KMS key used to encrypt the datasets.
+     * The Amazon Resource Name (ARN) of the Key Management Service (KMS) key used to encrypt the datasets.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the KMS key used to encrypt the datasets.
+     * @return The Amazon Resource Name (ARN) of the Key Management Service (KMS) key used to encrypt the datasets.
      */
 
     public String getKmsKeyArn() {
@@ -372,11 +389,11 @@ public class DatasetGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the KMS key used to encrypt the datasets.
+     * The Amazon Resource Name (ARN) of the Key Management Service (KMS) key used to encrypt the datasets.
      * </p>
      * 
      * @param kmsKeyArn
-     *        The Amazon Resource Name (ARN) of the KMS key used to encrypt the datasets.
+     *        The Amazon Resource Name (ARN) of the Key Management Service (KMS) key used to encrypt the datasets.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -506,6 +523,65 @@ public class DatasetGroup implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The domain of a Domain dataset group.
+     * </p>
+     * 
+     * @param domain
+     *        The domain of a Domain dataset group.
+     * @see Domain
+     */
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
+    /**
+     * <p>
+     * The domain of a Domain dataset group.
+     * </p>
+     * 
+     * @return The domain of a Domain dataset group.
+     * @see Domain
+     */
+
+    public String getDomain() {
+        return this.domain;
+    }
+
+    /**
+     * <p>
+     * The domain of a Domain dataset group.
+     * </p>
+     * 
+     * @param domain
+     *        The domain of a Domain dataset group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Domain
+     */
+
+    public DatasetGroup withDomain(String domain) {
+        setDomain(domain);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The domain of a Domain dataset group.
+     * </p>
+     * 
+     * @param domain
+     *        The domain of a Domain dataset group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Domain
+     */
+
+    public DatasetGroup withDomain(Domain domain) {
+        this.domain = domain.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -532,7 +608,9 @@ public class DatasetGroup implements Serializable, Cloneable, StructuredPojo {
         if (getLastUpdatedDateTime() != null)
             sb.append("LastUpdatedDateTime: ").append(getLastUpdatedDateTime()).append(",");
         if (getFailureReason() != null)
-            sb.append("FailureReason: ").append(getFailureReason());
+            sb.append("FailureReason: ").append(getFailureReason()).append(",");
+        if (getDomain() != null)
+            sb.append("Domain: ").append(getDomain());
         sb.append("}");
         return sb.toString();
     }
@@ -579,6 +657,10 @@ public class DatasetGroup implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getFailureReason() != null && other.getFailureReason().equals(this.getFailureReason()) == false)
             return false;
+        if (other.getDomain() == null ^ this.getDomain() == null)
+            return false;
+        if (other.getDomain() != null && other.getDomain().equals(this.getDomain()) == false)
+            return false;
         return true;
     }
 
@@ -595,6 +677,7 @@ public class DatasetGroup implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getCreationDateTime() == null) ? 0 : getCreationDateTime().hashCode());
         hashCode = prime * hashCode + ((getLastUpdatedDateTime() == null) ? 0 : getLastUpdatedDateTime().hashCode());
         hashCode = prime * hashCode + ((getFailureReason() == null) ? 0 : getFailureReason().hashCode());
+        hashCode = prime * hashCode + ((getDomain() == null) ? 0 : getDomain().hashCode());
         return hashCode;
     }
 

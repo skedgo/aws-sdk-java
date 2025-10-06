@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,29 +28,68 @@ public class TestEventPatternRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * The event pattern. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     * Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events and
+     * Event Patterns</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
      * </p>
      */
     private String eventPattern;
     /**
      * <p>
-     * The event, in JSON format, to test against the event pattern.
+     * The event, in JSON format, to test against the event pattern. The JSON must follow the format specified in <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/aws-events.html">Amazon Web Services Events</a>,
+     * and the following fields are mandatory:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>id</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>account</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>source</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>time</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>region</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resources</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>detail-type</code>
+     * </p>
+     * </li>
+     * </ul>
      */
     private String event;
 
     /**
      * <p>
      * The event pattern. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     * Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events and
+     * Event Patterns</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
      * </p>
      * 
      * @param eventPattern
      *        The event pattern. For more information, see <a
-     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     *        Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events
+     *        and Event Patterns</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
      */
 
     public void setEventPattern(String eventPattern) {
@@ -60,13 +99,13 @@ public class TestEventPatternRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * The event pattern. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     * Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events and
+     * Event Patterns</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
      * </p>
      * 
      * @return The event pattern. For more information, see <a
-     *         href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     *         Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     *         href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html"
+     *         >Events and Event Patterns</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
      */
 
     public String getEventPattern() {
@@ -76,14 +115,14 @@ public class TestEventPatternRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * The event pattern. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     * Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events and
+     * Event Patterns</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
      * </p>
      * 
      * @param eventPattern
      *        The event pattern. For more information, see <a
-     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     *        Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events
+     *        and Event Patterns</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -94,11 +133,88 @@ public class TestEventPatternRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The event, in JSON format, to test against the event pattern.
+     * The event, in JSON format, to test against the event pattern. The JSON must follow the format specified in <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/aws-events.html">Amazon Web Services Events</a>,
+     * and the following fields are mandatory:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>id</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>account</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>source</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>time</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>region</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resources</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>detail-type</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param event
-     *        The event, in JSON format, to test against the event pattern.
+     *        The event, in JSON format, to test against the event pattern. The JSON must follow the format specified in
+     *        <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/aws-events.html">Amazon Web Services
+     *        Events</a>, and the following fields are mandatory:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>id</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>account</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>source</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>time</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>region</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>resources</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>detail-type</code>
+     *        </p>
+     *        </li>
      */
 
     public void setEvent(String event) {
@@ -107,10 +223,87 @@ public class TestEventPatternRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The event, in JSON format, to test against the event pattern.
+     * The event, in JSON format, to test against the event pattern. The JSON must follow the format specified in <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/aws-events.html">Amazon Web Services Events</a>,
+     * and the following fields are mandatory:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>id</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>account</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>source</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>time</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>region</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resources</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>detail-type</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The event, in JSON format, to test against the event pattern.
+     * @return The event, in JSON format, to test against the event pattern. The JSON must follow the format specified
+     *         in <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/aws-events.html">Amazon Web Services
+     *         Events</a>, and the following fields are mandatory:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>id</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>account</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>source</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>time</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>region</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>resources</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>detail-type</code>
+     *         </p>
+     *         </li>
      */
 
     public String getEvent() {
@@ -119,11 +312,88 @@ public class TestEventPatternRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The event, in JSON format, to test against the event pattern.
+     * The event, in JSON format, to test against the event pattern. The JSON must follow the format specified in <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/aws-events.html">Amazon Web Services Events</a>,
+     * and the following fields are mandatory:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>id</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>account</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>source</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>time</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>region</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resources</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>detail-type</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param event
-     *        The event, in JSON format, to test against the event pattern.
+     *        The event, in JSON format, to test against the event pattern. The JSON must follow the format specified in
+     *        <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/aws-events.html">Amazon Web Services
+     *        Events</a>, and the following fields are mandatory:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>id</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>account</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>source</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>time</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>region</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>resources</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>detail-type</code>
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

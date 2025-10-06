@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -56,9 +56,18 @@ public class ComputeEnvironmentDetailJsonUnmarshaller implements Unmarshaller<Co
                     context.nextToken();
                     computeEnvironmentDetail.setComputeEnvironmentArn(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("unmanagedvCpus", targetDepth)) {
+                    context.nextToken();
+                    computeEnvironmentDetail.setUnmanagedvCpus(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
                 if (context.testExpression("ecsClusterArn", targetDepth)) {
                     context.nextToken();
                     computeEnvironmentDetail.setEcsClusterArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("tags", targetDepth)) {
+                    context.nextToken();
+                    computeEnvironmentDetail.setTags(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context
+                            .getUnmarshaller(String.class)).unmarshall(context));
                 }
                 if (context.testExpression("type", targetDepth)) {
                     context.nextToken();
@@ -83,6 +92,22 @@ public class ComputeEnvironmentDetailJsonUnmarshaller implements Unmarshaller<Co
                 if (context.testExpression("serviceRole", targetDepth)) {
                     context.nextToken();
                     computeEnvironmentDetail.setServiceRole(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("updatePolicy", targetDepth)) {
+                    context.nextToken();
+                    computeEnvironmentDetail.setUpdatePolicy(UpdatePolicyJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("eksConfiguration", targetDepth)) {
+                    context.nextToken();
+                    computeEnvironmentDetail.setEksConfiguration(EksConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("containerOrchestrationType", targetDepth)) {
+                    context.nextToken();
+                    computeEnvironmentDetail.setContainerOrchestrationType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("uuid", targetDepth)) {
+                    context.nextToken();
+                    computeEnvironmentDetail.setUuid(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

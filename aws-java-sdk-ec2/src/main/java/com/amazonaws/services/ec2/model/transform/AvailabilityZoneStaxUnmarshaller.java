@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,6 +50,11 @@ public class AvailabilityZoneStaxUnmarshaller implements Unmarshaller<Availabili
                     continue;
                 }
 
+                if (context.testExpression("optInStatus", targetDepth)) {
+                    availabilityZone.setOptInStatus(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("messageSet", targetDepth)) {
                     availabilityZone.withMessages(new ArrayList<AvailabilityZoneMessage>());
                     continue;
@@ -72,6 +77,31 @@ public class AvailabilityZoneStaxUnmarshaller implements Unmarshaller<Availabili
 
                 if (context.testExpression("zoneId", targetDepth)) {
                     availabilityZone.setZoneId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("groupName", targetDepth)) {
+                    availabilityZone.setGroupName(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("networkBorderGroup", targetDepth)) {
+                    availabilityZone.setNetworkBorderGroup(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("zoneType", targetDepth)) {
+                    availabilityZone.setZoneType(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("parentZoneName", targetDepth)) {
+                    availabilityZone.setParentZoneName(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("parentZoneId", targetDepth)) {
+                    availabilityZone.setParentZoneId(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -23,25 +23,49 @@ import javax.annotation.Generated;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class DescribeUserResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {
 
-    /** Required. The unique ID that Amazon MQ generates for the broker. */
+    /**
+     * <p>
+     * Required. The unique ID that Amazon MQ generates for the broker.
+     * </p>
+     */
     private String brokerId;
-    /** Enables access to the the ActiveMQ Web Console for the ActiveMQ user. */
+    /**
+     * <p>
+     * Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
+     * </p>
+     */
     private Boolean consoleAccess;
     /**
+     * <p>
      * The list of groups (20 maximum) to which the ActiveMQ user belongs. This value can contain only alphanumeric
      * characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * </p>
      */
     private java.util.List<String> groups;
-    /** The status of the changes pending for the ActiveMQ user. */
+    /**
+     * <p>
+     * The status of the changes pending for the ActiveMQ user.
+     * </p>
+     */
     private UserPendingChanges pending;
     /**
+     * <p>
      * Required. The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes,
      * periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * </p>
      */
     private String username;
+    /**
+     * <p>
+     * Describes whether the user is intended for data replication
+     * </p>
+     */
+    private Boolean replicationUser;
 
     /**
+     * <p>
      * Required. The unique ID that Amazon MQ generates for the broker.
+     * </p>
      * 
      * @param brokerId
      *        Required. The unique ID that Amazon MQ generates for the broker.
@@ -52,7 +76,9 @@ public class DescribeUserResult extends com.amazonaws.AmazonWebServiceResult<com
     }
 
     /**
+     * <p>
      * Required. The unique ID that Amazon MQ generates for the broker.
+     * </p>
      * 
      * @return Required. The unique ID that Amazon MQ generates for the broker.
      */
@@ -62,7 +88,9 @@ public class DescribeUserResult extends com.amazonaws.AmazonWebServiceResult<com
     }
 
     /**
+     * <p>
      * Required. The unique ID that Amazon MQ generates for the broker.
+     * </p>
      * 
      * @param brokerId
      *        Required. The unique ID that Amazon MQ generates for the broker.
@@ -75,7 +103,9 @@ public class DescribeUserResult extends com.amazonaws.AmazonWebServiceResult<com
     }
 
     /**
+     * <p>
      * Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
+     * </p>
      * 
      * @param consoleAccess
      *        Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
@@ -86,7 +116,9 @@ public class DescribeUserResult extends com.amazonaws.AmazonWebServiceResult<com
     }
 
     /**
+     * <p>
      * Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
+     * </p>
      * 
      * @return Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
      */
@@ -96,7 +128,9 @@ public class DescribeUserResult extends com.amazonaws.AmazonWebServiceResult<com
     }
 
     /**
+     * <p>
      * Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
+     * </p>
      * 
      * @param consoleAccess
      *        Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
@@ -109,7 +143,9 @@ public class DescribeUserResult extends com.amazonaws.AmazonWebServiceResult<com
     }
 
     /**
+     * <p>
      * Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
+     * </p>
      * 
      * @return Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
      */
@@ -119,8 +155,10 @@ public class DescribeUserResult extends com.amazonaws.AmazonWebServiceResult<com
     }
 
     /**
+     * <p>
      * The list of groups (20 maximum) to which the ActiveMQ user belongs. This value can contain only alphanumeric
      * characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * </p>
      * 
      * @return The list of groups (20 maximum) to which the ActiveMQ user belongs. This value can contain only
      *         alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100
@@ -132,8 +170,10 @@ public class DescribeUserResult extends com.amazonaws.AmazonWebServiceResult<com
     }
 
     /**
+     * <p>
      * The list of groups (20 maximum) to which the ActiveMQ user belongs. This value can contain only alphanumeric
      * characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * </p>
      * 
      * @param groups
      *        The list of groups (20 maximum) to which the ActiveMQ user belongs. This value can contain only
@@ -151,8 +191,10 @@ public class DescribeUserResult extends com.amazonaws.AmazonWebServiceResult<com
     }
 
     /**
+     * <p>
      * The list of groups (20 maximum) to which the ActiveMQ user belongs. This value can contain only alphanumeric
      * characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setGroups(java.util.Collection)} or {@link #withGroups(java.util.Collection)} if you want to override the
@@ -177,8 +219,10 @@ public class DescribeUserResult extends com.amazonaws.AmazonWebServiceResult<com
     }
 
     /**
+     * <p>
      * The list of groups (20 maximum) to which the ActiveMQ user belongs. This value can contain only alphanumeric
      * characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * </p>
      * 
      * @param groups
      *        The list of groups (20 maximum) to which the ActiveMQ user belongs. This value can contain only
@@ -193,7 +237,9 @@ public class DescribeUserResult extends com.amazonaws.AmazonWebServiceResult<com
     }
 
     /**
+     * <p>
      * The status of the changes pending for the ActiveMQ user.
+     * </p>
      * 
      * @param pending
      *        The status of the changes pending for the ActiveMQ user.
@@ -204,7 +250,9 @@ public class DescribeUserResult extends com.amazonaws.AmazonWebServiceResult<com
     }
 
     /**
+     * <p>
      * The status of the changes pending for the ActiveMQ user.
+     * </p>
      * 
      * @return The status of the changes pending for the ActiveMQ user.
      */
@@ -214,7 +262,9 @@ public class DescribeUserResult extends com.amazonaws.AmazonWebServiceResult<com
     }
 
     /**
+     * <p>
      * The status of the changes pending for the ActiveMQ user.
+     * </p>
      * 
      * @param pending
      *        The status of the changes pending for the ActiveMQ user.
@@ -227,8 +277,10 @@ public class DescribeUserResult extends com.amazonaws.AmazonWebServiceResult<com
     }
 
     /**
+     * <p>
      * Required. The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes,
      * periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * </p>
      * 
      * @param username
      *        Required. The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes,
@@ -240,8 +292,10 @@ public class DescribeUserResult extends com.amazonaws.AmazonWebServiceResult<com
     }
 
     /**
+     * <p>
      * Required. The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes,
      * periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * </p>
      * 
      * @return Required. The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes,
      *         periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
@@ -252,8 +306,10 @@ public class DescribeUserResult extends com.amazonaws.AmazonWebServiceResult<com
     }
 
     /**
+     * <p>
      * Required. The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes,
      * periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+     * </p>
      * 
      * @param username
      *        Required. The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes,
@@ -264,6 +320,58 @@ public class DescribeUserResult extends com.amazonaws.AmazonWebServiceResult<com
     public DescribeUserResult withUsername(String username) {
         setUsername(username);
         return this;
+    }
+
+    /**
+     * <p>
+     * Describes whether the user is intended for data replication
+     * </p>
+     * 
+     * @param replicationUser
+     *        Describes whether the user is intended for data replication
+     */
+
+    public void setReplicationUser(Boolean replicationUser) {
+        this.replicationUser = replicationUser;
+    }
+
+    /**
+     * <p>
+     * Describes whether the user is intended for data replication
+     * </p>
+     * 
+     * @return Describes whether the user is intended for data replication
+     */
+
+    public Boolean getReplicationUser() {
+        return this.replicationUser;
+    }
+
+    /**
+     * <p>
+     * Describes whether the user is intended for data replication
+     * </p>
+     * 
+     * @param replicationUser
+     *        Describes whether the user is intended for data replication
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeUserResult withReplicationUser(Boolean replicationUser) {
+        setReplicationUser(replicationUser);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Describes whether the user is intended for data replication
+     * </p>
+     * 
+     * @return Describes whether the user is intended for data replication
+     */
+
+    public Boolean isReplicationUser() {
+        return this.replicationUser;
     }
 
     /**
@@ -287,7 +395,9 @@ public class DescribeUserResult extends com.amazonaws.AmazonWebServiceResult<com
         if (getPending() != null)
             sb.append("Pending: ").append(getPending()).append(",");
         if (getUsername() != null)
-            sb.append("Username: ").append(getUsername());
+            sb.append("Username: ").append(getUsername()).append(",");
+        if (getReplicationUser() != null)
+            sb.append("ReplicationUser: ").append(getReplicationUser());
         sb.append("}");
         return sb.toString();
     }
@@ -322,6 +432,10 @@ public class DescribeUserResult extends com.amazonaws.AmazonWebServiceResult<com
             return false;
         if (other.getUsername() != null && other.getUsername().equals(this.getUsername()) == false)
             return false;
+        if (other.getReplicationUser() == null ^ this.getReplicationUser() == null)
+            return false;
+        if (other.getReplicationUser() != null && other.getReplicationUser().equals(this.getReplicationUser()) == false)
+            return false;
         return true;
     }
 
@@ -335,6 +449,7 @@ public class DescribeUserResult extends com.amazonaws.AmazonWebServiceResult<com
         hashCode = prime * hashCode + ((getGroups() == null) ? 0 : getGroups().hashCode());
         hashCode = prime * hashCode + ((getPending() == null) ? 0 : getPending().hashCode());
         hashCode = prime * hashCode + ((getUsername() == null) ? 0 : getUsername().hashCode());
+        hashCode = prime * hashCode + ((getReplicationUser() == null) ? 0 : getReplicationUser().hashCode());
         return hashCode;
     }
 

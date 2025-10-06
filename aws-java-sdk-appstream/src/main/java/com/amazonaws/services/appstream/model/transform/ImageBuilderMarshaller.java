@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,8 @@ public class ImageBuilderMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("InstanceType").build();
     private static final MarshallingInfo<String> PLATFORM_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Platform").build();
+    private static final MarshallingInfo<String> IAMROLEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IamRoleArn").build();
     private static final MarshallingInfo<String> STATE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("State").build();
     private static final MarshallingInfo<StructuredPojo> STATECHANGEREASON_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
@@ -60,6 +62,8 @@ public class ImageBuilderMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ImageBuilderErrors").build();
     private static final MarshallingInfo<String> APPSTREAMAGENTVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AppstreamAgentVersion").build();
+    private static final MarshallingInfo<List> ACCESSENDPOINTS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AccessEndpoints").build();
 
     private static final ImageBuilderMarshaller instance = new ImageBuilderMarshaller();
 
@@ -85,6 +89,7 @@ public class ImageBuilderMarshaller {
             protocolMarshaller.marshall(imageBuilder.getVpcConfig(), VPCCONFIG_BINDING);
             protocolMarshaller.marshall(imageBuilder.getInstanceType(), INSTANCETYPE_BINDING);
             protocolMarshaller.marshall(imageBuilder.getPlatform(), PLATFORM_BINDING);
+            protocolMarshaller.marshall(imageBuilder.getIamRoleArn(), IAMROLEARN_BINDING);
             protocolMarshaller.marshall(imageBuilder.getState(), STATE_BINDING);
             protocolMarshaller.marshall(imageBuilder.getStateChangeReason(), STATECHANGEREASON_BINDING);
             protocolMarshaller.marshall(imageBuilder.getCreatedTime(), CREATEDTIME_BINDING);
@@ -93,6 +98,7 @@ public class ImageBuilderMarshaller {
             protocolMarshaller.marshall(imageBuilder.getNetworkAccessConfiguration(), NETWORKACCESSCONFIGURATION_BINDING);
             protocolMarshaller.marshall(imageBuilder.getImageBuilderErrors(), IMAGEBUILDERERRORS_BINDING);
             protocolMarshaller.marshall(imageBuilder.getAppstreamAgentVersion(), APPSTREAMAGENTVERSION_BINDING);
+            protocolMarshaller.marshall(imageBuilder.getAccessEndpoints(), ACCESSENDPOINTS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

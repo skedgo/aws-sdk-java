@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,7 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * The next item following a partial list of returned items. For example, if a request is made to return
-     * <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
+     * <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
      * starting at the location pointed to by the next token.
      * </p>
      */
@@ -49,13 +49,28 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * Returns only backup jobs that are in the specified state.
      * </p>
+     * <p>
+     * <code>Completed with issues</code> is a status found only in the Backup console. For API, this status refers to
+     * jobs with a state of <code>COMPLETED</code> and a <code>MessageCategory</code> with a value other than
+     * <code>SUCCESS</code>; that is, the status is completed but comes with a status message.
+     * </p>
+     * <p>
+     * To obtain the job count for <code>Completed with issues</code>, run two GET requests, and subtract the second,
+     * smaller number:
+     * </p>
+     * <p>
+     * GET /backup-jobs/?state=COMPLETED
+     * </p>
+     * <p>
+     * GET /backup-jobs/?messageCategory=SUCCESS&amp;state=COMPLETED
+     * </p>
      */
     private String byState;
     /**
      * <p>
      * Returns only backup jobs that will be stored in the specified backup vault. Backup vaults are identified by names
-     * that are unique to the account used to create them and the AWS Region where they are created. They consist of
-     * lowercase letters, numbers, and hyphens.
+     * that are unique to the account used to create them and the Amazon Web Services Region where they are created.
+     * They consist of lowercase letters, numbers, and hyphens.
      * </p>
      */
     private String byBackupVaultName;
@@ -78,12 +93,52 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
      * <ul>
      * <li>
      * <p>
+     * <code>Aurora</code> for Amazon Aurora
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CloudFormation</code> for CloudFormation
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DocumentDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DynamoDB</code> for Amazon DynamoDB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>EBS</code> for Amazon Elastic Block Store
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SGW</code> for AWS Storage Gateway
+     * <code>EC2</code> for Amazon Elastic Compute Cloud
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EFS</code> for Amazon Elastic File System
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>FSx</code> for Amazon FSx
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Neptune</code> for Amazon Neptune
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Redshift</code> for Amazon Redshift
      * </p>
      * </li>
      * <li>
@@ -93,28 +148,91 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
      * </li>
      * <li>
      * <p>
-     * <code>DDB</code> for Amazon DynamoDB
+     * <code>SAP HANA on Amazon EC2</code> for SAP HANA databases
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EFS</code> for Amazon Elastic File System
+     * <code>Storage Gateway</code> for Storage Gateway
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>S3</code> for Amazon S3
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Timestream</code> for Amazon Timestream
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>VirtualMachine</code> for virtual machines
      * </p>
      * </li>
      * </ul>
      */
     private String byResourceType;
+    /**
+     * <p>
+     * The account ID to list the jobs from. Returns only backup jobs associated with the specified account ID.
+     * </p>
+     * <p>
+     * If used from an Organizations management account, passing <code>*</code> returns all jobs across the
+     * organization.
+     * </p>
+     */
+    private String byAccountId;
+    /**
+     * <p>
+     * Returns only backup jobs completed after a date expressed in Unix format and Coordinated Universal Time (UTC).
+     * </p>
+     */
+    private java.util.Date byCompleteAfter;
+    /**
+     * <p>
+     * Returns only backup jobs completed before a date expressed in Unix format and Coordinated Universal Time (UTC).
+     * </p>
+     */
+    private java.util.Date byCompleteBefore;
+    /**
+     * <p>
+     * This is a filter to list child (nested) jobs based on parent job ID.
+     * </p>
+     */
+    private String byParentJobId;
+    /**
+     * <p>
+     * This is an optional parameter that can be used to filter out jobs with a MessageCategory which matches the value
+     * you input.
+     * </p>
+     * <p>
+     * Example strings may include <code>AccessDenied</code>, <code>SUCCESS</code>, <code>AGGREGATE_ALL</code>, and
+     * <code>InvalidParameters</code>.
+     * </p>
+     * <p>
+     * View <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html">Monitoring</a>
+     * </p>
+     * <p>
+     * The wildcard () returns count of all message categories.
+     * </p>
+     * <p>
+     * <code>AGGREGATE_ALL</code> aggregates job counts for all message categories and returns the sum.
+     * </p>
+     */
+    private String byMessageCategory;
 
     /**
      * <p>
      * The next item following a partial list of returned items. For example, if a request is made to return
-     * <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
+     * <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
      * starting at the location pointed to by the next token.
      * </p>
      * 
      * @param nextToken
      *        The next item following a partial list of returned items. For example, if a request is made to return
-     *        <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
+     *        <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
      *        list starting at the location pointed to by the next token.
      */
 
@@ -125,12 +243,12 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * The next item following a partial list of returned items. For example, if a request is made to return
-     * <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
+     * <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
      * starting at the location pointed to by the next token.
      * </p>
      * 
      * @return The next item following a partial list of returned items. For example, if a request is made to return
-     *         <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
+     *         <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
      *         list starting at the location pointed to by the next token.
      */
 
@@ -141,13 +259,13 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * The next item following a partial list of returned items. For example, if a request is made to return
-     * <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
+     * <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
      * starting at the location pointed to by the next token.
      * </p>
      * 
      * @param nextToken
      *        The next item following a partial list of returned items. For example, if a request is made to return
-     *        <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
+     *        <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
      *        list starting at the location pointed to by the next token.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -241,9 +359,38 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * Returns only backup jobs that are in the specified state.
      * </p>
+     * <p>
+     * <code>Completed with issues</code> is a status found only in the Backup console. For API, this status refers to
+     * jobs with a state of <code>COMPLETED</code> and a <code>MessageCategory</code> with a value other than
+     * <code>SUCCESS</code>; that is, the status is completed but comes with a status message.
+     * </p>
+     * <p>
+     * To obtain the job count for <code>Completed with issues</code>, run two GET requests, and subtract the second,
+     * smaller number:
+     * </p>
+     * <p>
+     * GET /backup-jobs/?state=COMPLETED
+     * </p>
+     * <p>
+     * GET /backup-jobs/?messageCategory=SUCCESS&amp;state=COMPLETED
+     * </p>
      * 
      * @param byState
-     *        Returns only backup jobs that are in the specified state.
+     *        Returns only backup jobs that are in the specified state.</p>
+     *        <p>
+     *        <code>Completed with issues</code> is a status found only in the Backup console. For API, this status
+     *        refers to jobs with a state of <code>COMPLETED</code> and a <code>MessageCategory</code> with a value
+     *        other than <code>SUCCESS</code>; that is, the status is completed but comes with a status message.
+     *        </p>
+     *        <p>
+     *        To obtain the job count for <code>Completed with issues</code>, run two GET requests, and subtract the
+     *        second, smaller number:
+     *        </p>
+     *        <p>
+     *        GET /backup-jobs/?state=COMPLETED
+     *        </p>
+     *        <p>
+     *        GET /backup-jobs/?messageCategory=SUCCESS&amp;state=COMPLETED
      * @see BackupJobState
      */
 
@@ -255,8 +402,37 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * Returns only backup jobs that are in the specified state.
      * </p>
+     * <p>
+     * <code>Completed with issues</code> is a status found only in the Backup console. For API, this status refers to
+     * jobs with a state of <code>COMPLETED</code> and a <code>MessageCategory</code> with a value other than
+     * <code>SUCCESS</code>; that is, the status is completed but comes with a status message.
+     * </p>
+     * <p>
+     * To obtain the job count for <code>Completed with issues</code>, run two GET requests, and subtract the second,
+     * smaller number:
+     * </p>
+     * <p>
+     * GET /backup-jobs/?state=COMPLETED
+     * </p>
+     * <p>
+     * GET /backup-jobs/?messageCategory=SUCCESS&amp;state=COMPLETED
+     * </p>
      * 
-     * @return Returns only backup jobs that are in the specified state.
+     * @return Returns only backup jobs that are in the specified state.</p>
+     *         <p>
+     *         <code>Completed with issues</code> is a status found only in the Backup console. For API, this status
+     *         refers to jobs with a state of <code>COMPLETED</code> and a <code>MessageCategory</code> with a value
+     *         other than <code>SUCCESS</code>; that is, the status is completed but comes with a status message.
+     *         </p>
+     *         <p>
+     *         To obtain the job count for <code>Completed with issues</code>, run two GET requests, and subtract the
+     *         second, smaller number:
+     *         </p>
+     *         <p>
+     *         GET /backup-jobs/?state=COMPLETED
+     *         </p>
+     *         <p>
+     *         GET /backup-jobs/?messageCategory=SUCCESS&amp;state=COMPLETED
      * @see BackupJobState
      */
 
@@ -268,9 +444,38 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * Returns only backup jobs that are in the specified state.
      * </p>
+     * <p>
+     * <code>Completed with issues</code> is a status found only in the Backup console. For API, this status refers to
+     * jobs with a state of <code>COMPLETED</code> and a <code>MessageCategory</code> with a value other than
+     * <code>SUCCESS</code>; that is, the status is completed but comes with a status message.
+     * </p>
+     * <p>
+     * To obtain the job count for <code>Completed with issues</code>, run two GET requests, and subtract the second,
+     * smaller number:
+     * </p>
+     * <p>
+     * GET /backup-jobs/?state=COMPLETED
+     * </p>
+     * <p>
+     * GET /backup-jobs/?messageCategory=SUCCESS&amp;state=COMPLETED
+     * </p>
      * 
      * @param byState
-     *        Returns only backup jobs that are in the specified state.
+     *        Returns only backup jobs that are in the specified state.</p>
+     *        <p>
+     *        <code>Completed with issues</code> is a status found only in the Backup console. For API, this status
+     *        refers to jobs with a state of <code>COMPLETED</code> and a <code>MessageCategory</code> with a value
+     *        other than <code>SUCCESS</code>; that is, the status is completed but comes with a status message.
+     *        </p>
+     *        <p>
+     *        To obtain the job count for <code>Completed with issues</code>, run two GET requests, and subtract the
+     *        second, smaller number:
+     *        </p>
+     *        <p>
+     *        GET /backup-jobs/?state=COMPLETED
+     *        </p>
+     *        <p>
+     *        GET /backup-jobs/?messageCategory=SUCCESS&amp;state=COMPLETED
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see BackupJobState
      */
@@ -284,9 +489,38 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * Returns only backup jobs that are in the specified state.
      * </p>
+     * <p>
+     * <code>Completed with issues</code> is a status found only in the Backup console. For API, this status refers to
+     * jobs with a state of <code>COMPLETED</code> and a <code>MessageCategory</code> with a value other than
+     * <code>SUCCESS</code>; that is, the status is completed but comes with a status message.
+     * </p>
+     * <p>
+     * To obtain the job count for <code>Completed with issues</code>, run two GET requests, and subtract the second,
+     * smaller number:
+     * </p>
+     * <p>
+     * GET /backup-jobs/?state=COMPLETED
+     * </p>
+     * <p>
+     * GET /backup-jobs/?messageCategory=SUCCESS&amp;state=COMPLETED
+     * </p>
      * 
      * @param byState
-     *        Returns only backup jobs that are in the specified state.
+     *        Returns only backup jobs that are in the specified state.</p>
+     *        <p>
+     *        <code>Completed with issues</code> is a status found only in the Backup console. For API, this status
+     *        refers to jobs with a state of <code>COMPLETED</code> and a <code>MessageCategory</code> with a value
+     *        other than <code>SUCCESS</code>; that is, the status is completed but comes with a status message.
+     *        </p>
+     *        <p>
+     *        To obtain the job count for <code>Completed with issues</code>, run two GET requests, and subtract the
+     *        second, smaller number:
+     *        </p>
+     *        <p>
+     *        GET /backup-jobs/?state=COMPLETED
+     *        </p>
+     *        <p>
+     *        GET /backup-jobs/?messageCategory=SUCCESS&amp;state=COMPLETED
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see BackupJobState
      */
@@ -299,14 +533,14 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Returns only backup jobs that will be stored in the specified backup vault. Backup vaults are identified by names
-     * that are unique to the account used to create them and the AWS Region where they are created. They consist of
-     * lowercase letters, numbers, and hyphens.
+     * that are unique to the account used to create them and the Amazon Web Services Region where they are created.
+     * They consist of lowercase letters, numbers, and hyphens.
      * </p>
      * 
      * @param byBackupVaultName
      *        Returns only backup jobs that will be stored in the specified backup vault. Backup vaults are identified
-     *        by names that are unique to the account used to create them and the AWS Region where they are created.
-     *        They consist of lowercase letters, numbers, and hyphens.
+     *        by names that are unique to the account used to create them and the Amazon Web Services Region where they
+     *        are created. They consist of lowercase letters, numbers, and hyphens.
      */
 
     public void setByBackupVaultName(String byBackupVaultName) {
@@ -316,13 +550,13 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Returns only backup jobs that will be stored in the specified backup vault. Backup vaults are identified by names
-     * that are unique to the account used to create them and the AWS Region where they are created. They consist of
-     * lowercase letters, numbers, and hyphens.
+     * that are unique to the account used to create them and the Amazon Web Services Region where they are created.
+     * They consist of lowercase letters, numbers, and hyphens.
      * </p>
      * 
      * @return Returns only backup jobs that will be stored in the specified backup vault. Backup vaults are identified
-     *         by names that are unique to the account used to create them and the AWS Region where they are created.
-     *         They consist of lowercase letters, numbers, and hyphens.
+     *         by names that are unique to the account used to create them and the Amazon Web Services Region where they
+     *         are created. They consist of lowercase letters, numbers, and hyphens.
      */
 
     public String getByBackupVaultName() {
@@ -332,14 +566,14 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Returns only backup jobs that will be stored in the specified backup vault. Backup vaults are identified by names
-     * that are unique to the account used to create them and the AWS Region where they are created. They consist of
-     * lowercase letters, numbers, and hyphens.
+     * that are unique to the account used to create them and the Amazon Web Services Region where they are created.
+     * They consist of lowercase letters, numbers, and hyphens.
      * </p>
      * 
      * @param byBackupVaultName
      *        Returns only backup jobs that will be stored in the specified backup vault. Backup vaults are identified
-     *        by names that are unique to the account used to create them and the AWS Region where they are created.
-     *        They consist of lowercase letters, numbers, and hyphens.
+     *        by names that are unique to the account used to create them and the Amazon Web Services Region where they
+     *        are created. They consist of lowercase letters, numbers, and hyphens.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -435,12 +669,52 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
      * <ul>
      * <li>
      * <p>
+     * <code>Aurora</code> for Amazon Aurora
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CloudFormation</code> for CloudFormation
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DocumentDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DynamoDB</code> for Amazon DynamoDB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>EBS</code> for Amazon Elastic Block Store
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SGW</code> for AWS Storage Gateway
+     * <code>EC2</code> for Amazon Elastic Compute Cloud
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EFS</code> for Amazon Elastic File System
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>FSx</code> for Amazon FSx
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Neptune</code> for Amazon Neptune
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Redshift</code> for Amazon Redshift
      * </p>
      * </li>
      * <li>
@@ -450,12 +724,27 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
      * </li>
      * <li>
      * <p>
-     * <code>DDB</code> for Amazon DynamoDB
+     * <code>SAP HANA on Amazon EC2</code> for SAP HANA databases
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EFS</code> for Amazon Elastic File System
+     * <code>Storage Gateway</code> for Storage Gateway
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>S3</code> for Amazon S3
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Timestream</code> for Amazon Timestream
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>VirtualMachine</code> for virtual machines
      * </p>
      * </li>
      * </ul>
@@ -465,12 +754,52 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
      *        <ul>
      *        <li>
      *        <p>
+     *        <code>Aurora</code> for Amazon Aurora
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CloudFormation</code> for CloudFormation
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DocumentDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DynamoDB</code> for Amazon DynamoDB
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>EBS</code> for Amazon Elastic Block Store
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>SGW</code> for AWS Storage Gateway
+     *        <code>EC2</code> for Amazon Elastic Compute Cloud
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EFS</code> for Amazon Elastic File System
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>FSx</code> for Amazon FSx
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Neptune</code> for Amazon Neptune
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Redshift</code> for Amazon Redshift
      *        </p>
      *        </li>
      *        <li>
@@ -480,12 +809,27 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
      *        </li>
      *        <li>
      *        <p>
-     *        <code>DDB</code> for Amazon DynamoDB
+     *        <code>SAP HANA on Amazon EC2</code> for SAP HANA databases
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>EFS</code> for Amazon Elastic File System
+     *        <code>Storage Gateway</code> for Storage Gateway
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>S3</code> for Amazon S3
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Timestream</code> for Amazon Timestream
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>VirtualMachine</code> for virtual machines
      *        </p>
      *        </li>
      */
@@ -501,12 +845,52 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
      * <ul>
      * <li>
      * <p>
+     * <code>Aurora</code> for Amazon Aurora
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CloudFormation</code> for CloudFormation
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DocumentDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DynamoDB</code> for Amazon DynamoDB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>EBS</code> for Amazon Elastic Block Store
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SGW</code> for AWS Storage Gateway
+     * <code>EC2</code> for Amazon Elastic Compute Cloud
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EFS</code> for Amazon Elastic File System
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>FSx</code> for Amazon FSx
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Neptune</code> for Amazon Neptune
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Redshift</code> for Amazon Redshift
      * </p>
      * </li>
      * <li>
@@ -516,12 +900,27 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
      * </li>
      * <li>
      * <p>
-     * <code>DDB</code> for Amazon DynamoDB
+     * <code>SAP HANA on Amazon EC2</code> for SAP HANA databases
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EFS</code> for Amazon Elastic File System
+     * <code>Storage Gateway</code> for Storage Gateway
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>S3</code> for Amazon S3
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Timestream</code> for Amazon Timestream
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>VirtualMachine</code> for virtual machines
      * </p>
      * </li>
      * </ul>
@@ -530,12 +929,52 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
      *         <ul>
      *         <li>
      *         <p>
+     *         <code>Aurora</code> for Amazon Aurora
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>CloudFormation</code> for CloudFormation
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>DocumentDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>DynamoDB</code> for Amazon DynamoDB
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
      *         <code>EBS</code> for Amazon Elastic Block Store
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>SGW</code> for AWS Storage Gateway
+     *         <code>EC2</code> for Amazon Elastic Compute Cloud
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>EFS</code> for Amazon Elastic File System
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>FSx</code> for Amazon FSx
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Neptune</code> for Amazon Neptune
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Redshift</code> for Amazon Redshift
      *         </p>
      *         </li>
      *         <li>
@@ -545,12 +984,27 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
      *         </li>
      *         <li>
      *         <p>
-     *         <code>DDB</code> for Amazon DynamoDB
+     *         <code>SAP HANA on Amazon EC2</code> for SAP HANA databases
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>EFS</code> for Amazon Elastic File System
+     *         <code>Storage Gateway</code> for Storage Gateway
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>S3</code> for Amazon S3
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Timestream</code> for Amazon Timestream
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>VirtualMachine</code> for virtual machines
      *         </p>
      *         </li>
      */
@@ -566,12 +1020,52 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
      * <ul>
      * <li>
      * <p>
+     * <code>Aurora</code> for Amazon Aurora
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CloudFormation</code> for CloudFormation
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DocumentDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DynamoDB</code> for Amazon DynamoDB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>EBS</code> for Amazon Elastic Block Store
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SGW</code> for AWS Storage Gateway
+     * <code>EC2</code> for Amazon Elastic Compute Cloud
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EFS</code> for Amazon Elastic File System
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>FSx</code> for Amazon FSx
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Neptune</code> for Amazon Neptune
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Redshift</code> for Amazon Redshift
      * </p>
      * </li>
      * <li>
@@ -581,12 +1075,27 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
      * </li>
      * <li>
      * <p>
-     * <code>DDB</code> for Amazon DynamoDB
+     * <code>SAP HANA on Amazon EC2</code> for SAP HANA databases
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EFS</code> for Amazon Elastic File System
+     * <code>Storage Gateway</code> for Storage Gateway
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>S3</code> for Amazon S3
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Timestream</code> for Amazon Timestream
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>VirtualMachine</code> for virtual machines
      * </p>
      * </li>
      * </ul>
@@ -596,12 +1105,52 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
      *        <ul>
      *        <li>
      *        <p>
+     *        <code>Aurora</code> for Amazon Aurora
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CloudFormation</code> for CloudFormation
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DocumentDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DynamoDB</code> for Amazon DynamoDB
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>EBS</code> for Amazon Elastic Block Store
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>SGW</code> for AWS Storage Gateway
+     *        <code>EC2</code> for Amazon Elastic Compute Cloud
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EFS</code> for Amazon Elastic File System
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>FSx</code> for Amazon FSx
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Neptune</code> for Amazon Neptune
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Redshift</code> for Amazon Redshift
      *        </p>
      *        </li>
      *        <li>
@@ -611,12 +1160,27 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
      *        </li>
      *        <li>
      *        <p>
-     *        <code>DDB</code> for Amazon DynamoDB
+     *        <code>SAP HANA on Amazon EC2</code> for SAP HANA databases
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>EFS</code> for Amazon Elastic File System
+     *        <code>Storage Gateway</code> for Storage Gateway
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>S3</code> for Amazon S3
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Timestream</code> for Amazon Timestream
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>VirtualMachine</code> for virtual machines
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -624,6 +1188,317 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
 
     public ListBackupJobsRequest withByResourceType(String byResourceType) {
         setByResourceType(byResourceType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The account ID to list the jobs from. Returns only backup jobs associated with the specified account ID.
+     * </p>
+     * <p>
+     * If used from an Organizations management account, passing <code>*</code> returns all jobs across the
+     * organization.
+     * </p>
+     * 
+     * @param byAccountId
+     *        The account ID to list the jobs from. Returns only backup jobs associated with the specified account
+     *        ID.</p>
+     *        <p>
+     *        If used from an Organizations management account, passing <code>*</code> returns all jobs across the
+     *        organization.
+     */
+
+    public void setByAccountId(String byAccountId) {
+        this.byAccountId = byAccountId;
+    }
+
+    /**
+     * <p>
+     * The account ID to list the jobs from. Returns only backup jobs associated with the specified account ID.
+     * </p>
+     * <p>
+     * If used from an Organizations management account, passing <code>*</code> returns all jobs across the
+     * organization.
+     * </p>
+     * 
+     * @return The account ID to list the jobs from. Returns only backup jobs associated with the specified account
+     *         ID.</p>
+     *         <p>
+     *         If used from an Organizations management account, passing <code>*</code> returns all jobs across the
+     *         organization.
+     */
+
+    public String getByAccountId() {
+        return this.byAccountId;
+    }
+
+    /**
+     * <p>
+     * The account ID to list the jobs from. Returns only backup jobs associated with the specified account ID.
+     * </p>
+     * <p>
+     * If used from an Organizations management account, passing <code>*</code> returns all jobs across the
+     * organization.
+     * </p>
+     * 
+     * @param byAccountId
+     *        The account ID to list the jobs from. Returns only backup jobs associated with the specified account
+     *        ID.</p>
+     *        <p>
+     *        If used from an Organizations management account, passing <code>*</code> returns all jobs across the
+     *        organization.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListBackupJobsRequest withByAccountId(String byAccountId) {
+        setByAccountId(byAccountId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Returns only backup jobs completed after a date expressed in Unix format and Coordinated Universal Time (UTC).
+     * </p>
+     * 
+     * @param byCompleteAfter
+     *        Returns only backup jobs completed after a date expressed in Unix format and Coordinated Universal Time
+     *        (UTC).
+     */
+
+    public void setByCompleteAfter(java.util.Date byCompleteAfter) {
+        this.byCompleteAfter = byCompleteAfter;
+    }
+
+    /**
+     * <p>
+     * Returns only backup jobs completed after a date expressed in Unix format and Coordinated Universal Time (UTC).
+     * </p>
+     * 
+     * @return Returns only backup jobs completed after a date expressed in Unix format and Coordinated Universal Time
+     *         (UTC).
+     */
+
+    public java.util.Date getByCompleteAfter() {
+        return this.byCompleteAfter;
+    }
+
+    /**
+     * <p>
+     * Returns only backup jobs completed after a date expressed in Unix format and Coordinated Universal Time (UTC).
+     * </p>
+     * 
+     * @param byCompleteAfter
+     *        Returns only backup jobs completed after a date expressed in Unix format and Coordinated Universal Time
+     *        (UTC).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListBackupJobsRequest withByCompleteAfter(java.util.Date byCompleteAfter) {
+        setByCompleteAfter(byCompleteAfter);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Returns only backup jobs completed before a date expressed in Unix format and Coordinated Universal Time (UTC).
+     * </p>
+     * 
+     * @param byCompleteBefore
+     *        Returns only backup jobs completed before a date expressed in Unix format and Coordinated Universal Time
+     *        (UTC).
+     */
+
+    public void setByCompleteBefore(java.util.Date byCompleteBefore) {
+        this.byCompleteBefore = byCompleteBefore;
+    }
+
+    /**
+     * <p>
+     * Returns only backup jobs completed before a date expressed in Unix format and Coordinated Universal Time (UTC).
+     * </p>
+     * 
+     * @return Returns only backup jobs completed before a date expressed in Unix format and Coordinated Universal Time
+     *         (UTC).
+     */
+
+    public java.util.Date getByCompleteBefore() {
+        return this.byCompleteBefore;
+    }
+
+    /**
+     * <p>
+     * Returns only backup jobs completed before a date expressed in Unix format and Coordinated Universal Time (UTC).
+     * </p>
+     * 
+     * @param byCompleteBefore
+     *        Returns only backup jobs completed before a date expressed in Unix format and Coordinated Universal Time
+     *        (UTC).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListBackupJobsRequest withByCompleteBefore(java.util.Date byCompleteBefore) {
+        setByCompleteBefore(byCompleteBefore);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This is a filter to list child (nested) jobs based on parent job ID.
+     * </p>
+     * 
+     * @param byParentJobId
+     *        This is a filter to list child (nested) jobs based on parent job ID.
+     */
+
+    public void setByParentJobId(String byParentJobId) {
+        this.byParentJobId = byParentJobId;
+    }
+
+    /**
+     * <p>
+     * This is a filter to list child (nested) jobs based on parent job ID.
+     * </p>
+     * 
+     * @return This is a filter to list child (nested) jobs based on parent job ID.
+     */
+
+    public String getByParentJobId() {
+        return this.byParentJobId;
+    }
+
+    /**
+     * <p>
+     * This is a filter to list child (nested) jobs based on parent job ID.
+     * </p>
+     * 
+     * @param byParentJobId
+     *        This is a filter to list child (nested) jobs based on parent job ID.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListBackupJobsRequest withByParentJobId(String byParentJobId) {
+        setByParentJobId(byParentJobId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This is an optional parameter that can be used to filter out jobs with a MessageCategory which matches the value
+     * you input.
+     * </p>
+     * <p>
+     * Example strings may include <code>AccessDenied</code>, <code>SUCCESS</code>, <code>AGGREGATE_ALL</code>, and
+     * <code>InvalidParameters</code>.
+     * </p>
+     * <p>
+     * View <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html">Monitoring</a>
+     * </p>
+     * <p>
+     * The wildcard () returns count of all message categories.
+     * </p>
+     * <p>
+     * <code>AGGREGATE_ALL</code> aggregates job counts for all message categories and returns the sum.
+     * </p>
+     * 
+     * @param byMessageCategory
+     *        This is an optional parameter that can be used to filter out jobs with a MessageCategory which matches the
+     *        value you input.</p>
+     *        <p>
+     *        Example strings may include <code>AccessDenied</code>, <code>SUCCESS</code>, <code>AGGREGATE_ALL</code>,
+     *        and <code>InvalidParameters</code>.
+     *        </p>
+     *        <p>
+     *        View <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html">Monitoring</a>
+     *        </p>
+     *        <p>
+     *        The wildcard () returns count of all message categories.
+     *        </p>
+     *        <p>
+     *        <code>AGGREGATE_ALL</code> aggregates job counts for all message categories and returns the sum.
+     */
+
+    public void setByMessageCategory(String byMessageCategory) {
+        this.byMessageCategory = byMessageCategory;
+    }
+
+    /**
+     * <p>
+     * This is an optional parameter that can be used to filter out jobs with a MessageCategory which matches the value
+     * you input.
+     * </p>
+     * <p>
+     * Example strings may include <code>AccessDenied</code>, <code>SUCCESS</code>, <code>AGGREGATE_ALL</code>, and
+     * <code>InvalidParameters</code>.
+     * </p>
+     * <p>
+     * View <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html">Monitoring</a>
+     * </p>
+     * <p>
+     * The wildcard () returns count of all message categories.
+     * </p>
+     * <p>
+     * <code>AGGREGATE_ALL</code> aggregates job counts for all message categories and returns the sum.
+     * </p>
+     * 
+     * @return This is an optional parameter that can be used to filter out jobs with a MessageCategory which matches
+     *         the value you input.</p>
+     *         <p>
+     *         Example strings may include <code>AccessDenied</code>, <code>SUCCESS</code>, <code>AGGREGATE_ALL</code>,
+     *         and <code>InvalidParameters</code>.
+     *         </p>
+     *         <p>
+     *         View <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html">Monitoring</a>
+     *         </p>
+     *         <p>
+     *         The wildcard () returns count of all message categories.
+     *         </p>
+     *         <p>
+     *         <code>AGGREGATE_ALL</code> aggregates job counts for all message categories and returns the sum.
+     */
+
+    public String getByMessageCategory() {
+        return this.byMessageCategory;
+    }
+
+    /**
+     * <p>
+     * This is an optional parameter that can be used to filter out jobs with a MessageCategory which matches the value
+     * you input.
+     * </p>
+     * <p>
+     * Example strings may include <code>AccessDenied</code>, <code>SUCCESS</code>, <code>AGGREGATE_ALL</code>, and
+     * <code>InvalidParameters</code>.
+     * </p>
+     * <p>
+     * View <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html">Monitoring</a>
+     * </p>
+     * <p>
+     * The wildcard () returns count of all message categories.
+     * </p>
+     * <p>
+     * <code>AGGREGATE_ALL</code> aggregates job counts for all message categories and returns the sum.
+     * </p>
+     * 
+     * @param byMessageCategory
+     *        This is an optional parameter that can be used to filter out jobs with a MessageCategory which matches the
+     *        value you input.</p>
+     *        <p>
+     *        Example strings may include <code>AccessDenied</code>, <code>SUCCESS</code>, <code>AGGREGATE_ALL</code>,
+     *        and <code>InvalidParameters</code>.
+     *        </p>
+     *        <p>
+     *        View <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html">Monitoring</a>
+     *        </p>
+     *        <p>
+     *        The wildcard () returns count of all message categories.
+     *        </p>
+     *        <p>
+     *        <code>AGGREGATE_ALL</code> aggregates job counts for all message categories and returns the sum.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListBackupJobsRequest withByMessageCategory(String byMessageCategory) {
+        setByMessageCategory(byMessageCategory);
         return this;
     }
 
@@ -654,7 +1529,17 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
         if (getByCreatedAfter() != null)
             sb.append("ByCreatedAfter: ").append(getByCreatedAfter()).append(",");
         if (getByResourceType() != null)
-            sb.append("ByResourceType: ").append(getByResourceType());
+            sb.append("ByResourceType: ").append(getByResourceType()).append(",");
+        if (getByAccountId() != null)
+            sb.append("ByAccountId: ").append(getByAccountId()).append(",");
+        if (getByCompleteAfter() != null)
+            sb.append("ByCompleteAfter: ").append(getByCompleteAfter()).append(",");
+        if (getByCompleteBefore() != null)
+            sb.append("ByCompleteBefore: ").append(getByCompleteBefore()).append(",");
+        if (getByParentJobId() != null)
+            sb.append("ByParentJobId: ").append(getByParentJobId()).append(",");
+        if (getByMessageCategory() != null)
+            sb.append("ByMessageCategory: ").append(getByMessageCategory());
         sb.append("}");
         return sb.toString();
     }
@@ -701,6 +1586,26 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
             return false;
         if (other.getByResourceType() != null && other.getByResourceType().equals(this.getByResourceType()) == false)
             return false;
+        if (other.getByAccountId() == null ^ this.getByAccountId() == null)
+            return false;
+        if (other.getByAccountId() != null && other.getByAccountId().equals(this.getByAccountId()) == false)
+            return false;
+        if (other.getByCompleteAfter() == null ^ this.getByCompleteAfter() == null)
+            return false;
+        if (other.getByCompleteAfter() != null && other.getByCompleteAfter().equals(this.getByCompleteAfter()) == false)
+            return false;
+        if (other.getByCompleteBefore() == null ^ this.getByCompleteBefore() == null)
+            return false;
+        if (other.getByCompleteBefore() != null && other.getByCompleteBefore().equals(this.getByCompleteBefore()) == false)
+            return false;
+        if (other.getByParentJobId() == null ^ this.getByParentJobId() == null)
+            return false;
+        if (other.getByParentJobId() != null && other.getByParentJobId().equals(this.getByParentJobId()) == false)
+            return false;
+        if (other.getByMessageCategory() == null ^ this.getByMessageCategory() == null)
+            return false;
+        if (other.getByMessageCategory() != null && other.getByMessageCategory().equals(this.getByMessageCategory()) == false)
+            return false;
         return true;
     }
 
@@ -717,6 +1622,11 @@ public class ListBackupJobsRequest extends com.amazonaws.AmazonWebServiceRequest
         hashCode = prime * hashCode + ((getByCreatedBefore() == null) ? 0 : getByCreatedBefore().hashCode());
         hashCode = prime * hashCode + ((getByCreatedAfter() == null) ? 0 : getByCreatedAfter().hashCode());
         hashCode = prime * hashCode + ((getByResourceType() == null) ? 0 : getByResourceType().hashCode());
+        hashCode = prime * hashCode + ((getByAccountId() == null) ? 0 : getByAccountId().hashCode());
+        hashCode = prime * hashCode + ((getByCompleteAfter() == null) ? 0 : getByCompleteAfter().hashCode());
+        hashCode = prime * hashCode + ((getByCompleteBefore() == null) ? 0 : getByCompleteBefore().hashCode());
+        hashCode = prime * hashCode + ((getByParentJobId() == null) ? 0 : getByParentJobId().hashCode());
+        hashCode = prime * hashCode + ((getByMessageCategory() == null) ? 0 : getByMessageCategory().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,7 +39,7 @@ public class DescribeActivityResult extends com.amazonaws.AmazonWebServiceResult
      * <ul>
      * <li>
      * <p>
-     * whitespace
+     * white space
      * </p>
      * </li>
      * <li>
@@ -63,6 +63,9 @@ public class DescribeActivityResult extends com.amazonaws.AmazonWebServiceResult
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
+     * </p>
      */
     private String name;
     /**
@@ -71,6 +74,12 @@ public class DescribeActivityResult extends com.amazonaws.AmazonWebServiceResult
      * </p>
      */
     private java.util.Date creationDate;
+    /**
+     * <p>
+     * Settings for configured server-side encryption.
+     * </p>
+     */
+    private EncryptionConfiguration encryptionConfiguration;
 
     /**
      * <p>
@@ -122,7 +131,7 @@ public class DescribeActivityResult extends com.amazonaws.AmazonWebServiceResult
      * <ul>
      * <li>
      * <p>
-     * whitespace
+     * white space
      * </p>
      * </li>
      * <li>
@@ -146,6 +155,9 @@ public class DescribeActivityResult extends com.amazonaws.AmazonWebServiceResult
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
+     * </p>
      * 
      * @param name
      *        The name of the activity.</p>
@@ -155,7 +167,7 @@ public class DescribeActivityResult extends com.amazonaws.AmazonWebServiceResult
      *        <ul>
      *        <li>
      *        <p>
-     *        whitespace
+     *        white space
      *        </p>
      *        </li>
      *        <li>
@@ -178,6 +190,9 @@ public class DescribeActivityResult extends com.amazonaws.AmazonWebServiceResult
      *        control characters (<code>U+0000-001F</code>, <code>U+007F-009F</code>)
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
      */
 
     public void setName(String name) {
@@ -194,7 +209,7 @@ public class DescribeActivityResult extends com.amazonaws.AmazonWebServiceResult
      * <ul>
      * <li>
      * <p>
-     * whitespace
+     * white space
      * </p>
      * </li>
      * <li>
@@ -218,6 +233,9 @@ public class DescribeActivityResult extends com.amazonaws.AmazonWebServiceResult
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
+     * </p>
      * 
      * @return The name of the activity.</p>
      *         <p>
@@ -226,7 +244,7 @@ public class DescribeActivityResult extends com.amazonaws.AmazonWebServiceResult
      *         <ul>
      *         <li>
      *         <p>
-     *         whitespace
+     *         white space
      *         </p>
      *         </li>
      *         <li>
@@ -249,6 +267,9 @@ public class DescribeActivityResult extends com.amazonaws.AmazonWebServiceResult
      *         control characters (<code>U+0000-001F</code>, <code>U+007F-009F</code>)
      *         </p>
      *         </li>
+     *         </ul>
+     *         <p>
+     *         To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
      */
 
     public String getName() {
@@ -265,7 +286,7 @@ public class DescribeActivityResult extends com.amazonaws.AmazonWebServiceResult
      * <ul>
      * <li>
      * <p>
-     * whitespace
+     * white space
      * </p>
      * </li>
      * <li>
@@ -289,6 +310,9 @@ public class DescribeActivityResult extends com.amazonaws.AmazonWebServiceResult
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
+     * </p>
      * 
      * @param name
      *        The name of the activity.</p>
@@ -298,7 +322,7 @@ public class DescribeActivityResult extends com.amazonaws.AmazonWebServiceResult
      *        <ul>
      *        <li>
      *        <p>
-     *        whitespace
+     *        white space
      *        </p>
      *        </li>
      *        <li>
@@ -321,6 +345,9 @@ public class DescribeActivityResult extends com.amazonaws.AmazonWebServiceResult
      *        control characters (<code>U+0000-001F</code>, <code>U+007F-009F</code>)
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -370,6 +397,46 @@ public class DescribeActivityResult extends com.amazonaws.AmazonWebServiceResult
     }
 
     /**
+     * <p>
+     * Settings for configured server-side encryption.
+     * </p>
+     * 
+     * @param encryptionConfiguration
+     *        Settings for configured server-side encryption.
+     */
+
+    public void setEncryptionConfiguration(EncryptionConfiguration encryptionConfiguration) {
+        this.encryptionConfiguration = encryptionConfiguration;
+    }
+
+    /**
+     * <p>
+     * Settings for configured server-side encryption.
+     * </p>
+     * 
+     * @return Settings for configured server-side encryption.
+     */
+
+    public EncryptionConfiguration getEncryptionConfiguration() {
+        return this.encryptionConfiguration;
+    }
+
+    /**
+     * <p>
+     * Settings for configured server-side encryption.
+     * </p>
+     * 
+     * @param encryptionConfiguration
+     *        Settings for configured server-side encryption.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeActivityResult withEncryptionConfiguration(EncryptionConfiguration encryptionConfiguration) {
+        setEncryptionConfiguration(encryptionConfiguration);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -386,7 +453,9 @@ public class DescribeActivityResult extends com.amazonaws.AmazonWebServiceResult
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getCreationDate() != null)
-            sb.append("CreationDate: ").append(getCreationDate());
+            sb.append("CreationDate: ").append(getCreationDate()).append(",");
+        if (getEncryptionConfiguration() != null)
+            sb.append("EncryptionConfiguration: ").append(getEncryptionConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -413,6 +482,10 @@ public class DescribeActivityResult extends com.amazonaws.AmazonWebServiceResult
             return false;
         if (other.getCreationDate() != null && other.getCreationDate().equals(this.getCreationDate()) == false)
             return false;
+        if (other.getEncryptionConfiguration() == null ^ this.getEncryptionConfiguration() == null)
+            return false;
+        if (other.getEncryptionConfiguration() != null && other.getEncryptionConfiguration().equals(this.getEncryptionConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -424,6 +497,7 @@ public class DescribeActivityResult extends com.amazonaws.AmazonWebServiceResult
         hashCode = prime * hashCode + ((getActivityArn() == null) ? 0 : getActivityArn().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getCreationDate() == null) ? 0 : getCreationDate().hashCode());
+        hashCode = prime * hashCode + ((getEncryptionConfiguration() == null) ? 0 : getEncryptionConfiguration().hashCode());
         return hashCode;
     }
 

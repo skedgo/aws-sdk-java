@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -58,6 +58,20 @@ public class UpdateFleetRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IdleDisconnectTimeoutInSeconds").build();
     private static final MarshallingInfo<List> ATTRIBUTESTODELETE_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AttributesToDelete").build();
+    private static final MarshallingInfo<String> IAMROLEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IamRoleArn").build();
+    private static final MarshallingInfo<String> STREAMVIEW_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StreamView").build();
+    private static final MarshallingInfo<String> PLATFORM_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Platform").build();
+    private static final MarshallingInfo<Integer> MAXCONCURRENTSESSIONS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MaxConcurrentSessions").build();
+    private static final MarshallingInfo<List> USBDEVICEFILTERSTRINGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("UsbDeviceFilterStrings").build();
+    private static final MarshallingInfo<StructuredPojo> SESSIONSCRIPTS3LOCATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SessionScriptS3Location").build();
+    private static final MarshallingInfo<Integer> MAXSESSIONSPERINSTANCE_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MaxSessionsPerInstance").build();
 
     private static final UpdateFleetRequestMarshaller instance = new UpdateFleetRequestMarshaller();
 
@@ -90,6 +104,13 @@ public class UpdateFleetRequestMarshaller {
             protocolMarshaller.marshall(updateFleetRequest.getDomainJoinInfo(), DOMAINJOININFO_BINDING);
             protocolMarshaller.marshall(updateFleetRequest.getIdleDisconnectTimeoutInSeconds(), IDLEDISCONNECTTIMEOUTINSECONDS_BINDING);
             protocolMarshaller.marshall(updateFleetRequest.getAttributesToDelete(), ATTRIBUTESTODELETE_BINDING);
+            protocolMarshaller.marshall(updateFleetRequest.getIamRoleArn(), IAMROLEARN_BINDING);
+            protocolMarshaller.marshall(updateFleetRequest.getStreamView(), STREAMVIEW_BINDING);
+            protocolMarshaller.marshall(updateFleetRequest.getPlatform(), PLATFORM_BINDING);
+            protocolMarshaller.marshall(updateFleetRequest.getMaxConcurrentSessions(), MAXCONCURRENTSESSIONS_BINDING);
+            protocolMarshaller.marshall(updateFleetRequest.getUsbDeviceFilterStrings(), USBDEVICEFILTERSTRINGS_BINDING);
+            protocolMarshaller.marshall(updateFleetRequest.getSessionScriptS3Location(), SESSIONSCRIPTS3LOCATION_BINDING);
+            protocolMarshaller.marshall(updateFleetRequest.getMaxSessionsPerInstance(), MAXSESSIONSPERINSTANCE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

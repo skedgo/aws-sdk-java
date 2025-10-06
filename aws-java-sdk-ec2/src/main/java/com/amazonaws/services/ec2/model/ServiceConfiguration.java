@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,19 +52,20 @@ public class ServiceConfiguration implements Serializable, Cloneable {
     private String serviceState;
     /**
      * <p>
-     * In the Availability Zones in which the service is available.
+     * The Availability Zones in which the service is available.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> availabilityZones;
     /**
      * <p>
-     * Indicates whether requests from other AWS accounts to create an endpoint to the service must first be accepted.
+     * Indicates whether requests from other Amazon Web Services accounts to create an endpoint to the service must
+     * first be accepted.
      * </p>
      */
     private Boolean acceptanceRequired;
     /**
      * <p>
-     * Indicates whether the service manages it's VPC endpoints. Management of the service VPC endpoints using the VPC
+     * Indicates whether the service manages its VPC endpoints. Management of the service VPC endpoints using the VPC
      * endpoint API is restricted.
      * </p>
      */
@@ -75,6 +76,18 @@ public class ServiceConfiguration implements Serializable, Cloneable {
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> networkLoadBalancerArns;
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) of the Gateway Load Balancers for the service.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> gatewayLoadBalancerArns;
+    /**
+     * <p>
+     * The supported IP address types.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> supportedIpAddressTypes;
     /**
      * <p>
      * The DNS names for the service.
@@ -89,7 +102,19 @@ public class ServiceConfiguration implements Serializable, Cloneable {
     private String privateDnsName;
     /**
      * <p>
-     * Any tags assigned to the service.
+     * Information about the endpoint service private DNS name configuration.
+     * </p>
+     */
+    private PrivateDnsNameConfiguration privateDnsNameConfiguration;
+    /**
+     * <p>
+     * The payer responsibility.
+     * </p>
+     */
+    private String payerResponsibility;
+    /**
+     * <p>
+     * The tags assigned to the service.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
@@ -308,10 +333,10 @@ public class ServiceConfiguration implements Serializable, Cloneable {
 
     /**
      * <p>
-     * In the Availability Zones in which the service is available.
+     * The Availability Zones in which the service is available.
      * </p>
      * 
-     * @return In the Availability Zones in which the service is available.
+     * @return The Availability Zones in which the service is available.
      */
 
     public java.util.List<String> getAvailabilityZones() {
@@ -323,11 +348,11 @@ public class ServiceConfiguration implements Serializable, Cloneable {
 
     /**
      * <p>
-     * In the Availability Zones in which the service is available.
+     * The Availability Zones in which the service is available.
      * </p>
      * 
      * @param availabilityZones
-     *        In the Availability Zones in which the service is available.
+     *        The Availability Zones in which the service is available.
      */
 
     public void setAvailabilityZones(java.util.Collection<String> availabilityZones) {
@@ -341,7 +366,7 @@ public class ServiceConfiguration implements Serializable, Cloneable {
 
     /**
      * <p>
-     * In the Availability Zones in which the service is available.
+     * The Availability Zones in which the service is available.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -350,7 +375,7 @@ public class ServiceConfiguration implements Serializable, Cloneable {
      * </p>
      * 
      * @param availabilityZones
-     *        In the Availability Zones in which the service is available.
+     *        The Availability Zones in which the service is available.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -366,11 +391,11 @@ public class ServiceConfiguration implements Serializable, Cloneable {
 
     /**
      * <p>
-     * In the Availability Zones in which the service is available.
+     * The Availability Zones in which the service is available.
      * </p>
      * 
      * @param availabilityZones
-     *        In the Availability Zones in which the service is available.
+     *        The Availability Zones in which the service is available.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -381,12 +406,13 @@ public class ServiceConfiguration implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether requests from other AWS accounts to create an endpoint to the service must first be accepted.
+     * Indicates whether requests from other Amazon Web Services accounts to create an endpoint to the service must
+     * first be accepted.
      * </p>
      * 
      * @param acceptanceRequired
-     *        Indicates whether requests from other AWS accounts to create an endpoint to the service must first be
-     *        accepted.
+     *        Indicates whether requests from other Amazon Web Services accounts to create an endpoint to the service
+     *        must first be accepted.
      */
 
     public void setAcceptanceRequired(Boolean acceptanceRequired) {
@@ -395,11 +421,12 @@ public class ServiceConfiguration implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether requests from other AWS accounts to create an endpoint to the service must first be accepted.
+     * Indicates whether requests from other Amazon Web Services accounts to create an endpoint to the service must
+     * first be accepted.
      * </p>
      * 
-     * @return Indicates whether requests from other AWS accounts to create an endpoint to the service must first be
-     *         accepted.
+     * @return Indicates whether requests from other Amazon Web Services accounts to create an endpoint to the service
+     *         must first be accepted.
      */
 
     public Boolean getAcceptanceRequired() {
@@ -408,12 +435,13 @@ public class ServiceConfiguration implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether requests from other AWS accounts to create an endpoint to the service must first be accepted.
+     * Indicates whether requests from other Amazon Web Services accounts to create an endpoint to the service must
+     * first be accepted.
      * </p>
      * 
      * @param acceptanceRequired
-     *        Indicates whether requests from other AWS accounts to create an endpoint to the service must first be
-     *        accepted.
+     *        Indicates whether requests from other Amazon Web Services accounts to create an endpoint to the service
+     *        must first be accepted.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -424,11 +452,12 @@ public class ServiceConfiguration implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether requests from other AWS accounts to create an endpoint to the service must first be accepted.
+     * Indicates whether requests from other Amazon Web Services accounts to create an endpoint to the service must
+     * first be accepted.
      * </p>
      * 
-     * @return Indicates whether requests from other AWS accounts to create an endpoint to the service must first be
-     *         accepted.
+     * @return Indicates whether requests from other Amazon Web Services accounts to create an endpoint to the service
+     *         must first be accepted.
      */
 
     public Boolean isAcceptanceRequired() {
@@ -437,13 +466,13 @@ public class ServiceConfiguration implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the service manages it's VPC endpoints. Management of the service VPC endpoints using the VPC
+     * Indicates whether the service manages its VPC endpoints. Management of the service VPC endpoints using the VPC
      * endpoint API is restricted.
      * </p>
      * 
      * @param managesVpcEndpoints
-     *        Indicates whether the service manages it's VPC endpoints. Management of the service VPC endpoints using
-     *        the VPC endpoint API is restricted.
+     *        Indicates whether the service manages its VPC endpoints. Management of the service VPC endpoints using the
+     *        VPC endpoint API is restricted.
      */
 
     public void setManagesVpcEndpoints(Boolean managesVpcEndpoints) {
@@ -452,11 +481,11 @@ public class ServiceConfiguration implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the service manages it's VPC endpoints. Management of the service VPC endpoints using the VPC
+     * Indicates whether the service manages its VPC endpoints. Management of the service VPC endpoints using the VPC
      * endpoint API is restricted.
      * </p>
      * 
-     * @return Indicates whether the service manages it's VPC endpoints. Management of the service VPC endpoints using
+     * @return Indicates whether the service manages its VPC endpoints. Management of the service VPC endpoints using
      *         the VPC endpoint API is restricted.
      */
 
@@ -466,13 +495,13 @@ public class ServiceConfiguration implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the service manages it's VPC endpoints. Management of the service VPC endpoints using the VPC
+     * Indicates whether the service manages its VPC endpoints. Management of the service VPC endpoints using the VPC
      * endpoint API is restricted.
      * </p>
      * 
      * @param managesVpcEndpoints
-     *        Indicates whether the service manages it's VPC endpoints. Management of the service VPC endpoints using
-     *        the VPC endpoint API is restricted.
+     *        Indicates whether the service manages its VPC endpoints. Management of the service VPC endpoints using the
+     *        VPC endpoint API is restricted.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -483,11 +512,11 @@ public class ServiceConfiguration implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the service manages it's VPC endpoints. Management of the service VPC endpoints using the VPC
+     * Indicates whether the service manages its VPC endpoints. Management of the service VPC endpoints using the VPC
      * endpoint API is restricted.
      * </p>
      * 
-     * @return Indicates whether the service manages it's VPC endpoints. Management of the service VPC endpoints using
+     * @return Indicates whether the service manages its VPC endpoints. Management of the service VPC endpoints using
      *         the VPC endpoint API is restricted.
      */
 
@@ -565,6 +594,181 @@ public class ServiceConfiguration implements Serializable, Cloneable {
 
     public ServiceConfiguration withNetworkLoadBalancerArns(java.util.Collection<String> networkLoadBalancerArns) {
         setNetworkLoadBalancerArns(networkLoadBalancerArns);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) of the Gateway Load Balancers for the service.
+     * </p>
+     * 
+     * @return The Amazon Resource Names (ARNs) of the Gateway Load Balancers for the service.
+     */
+
+    public java.util.List<String> getGatewayLoadBalancerArns() {
+        if (gatewayLoadBalancerArns == null) {
+            gatewayLoadBalancerArns = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return gatewayLoadBalancerArns;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) of the Gateway Load Balancers for the service.
+     * </p>
+     * 
+     * @param gatewayLoadBalancerArns
+     *        The Amazon Resource Names (ARNs) of the Gateway Load Balancers for the service.
+     */
+
+    public void setGatewayLoadBalancerArns(java.util.Collection<String> gatewayLoadBalancerArns) {
+        if (gatewayLoadBalancerArns == null) {
+            this.gatewayLoadBalancerArns = null;
+            return;
+        }
+
+        this.gatewayLoadBalancerArns = new com.amazonaws.internal.SdkInternalList<String>(gatewayLoadBalancerArns);
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) of the Gateway Load Balancers for the service.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setGatewayLoadBalancerArns(java.util.Collection)} or
+     * {@link #withGatewayLoadBalancerArns(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param gatewayLoadBalancerArns
+     *        The Amazon Resource Names (ARNs) of the Gateway Load Balancers for the service.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ServiceConfiguration withGatewayLoadBalancerArns(String... gatewayLoadBalancerArns) {
+        if (this.gatewayLoadBalancerArns == null) {
+            setGatewayLoadBalancerArns(new com.amazonaws.internal.SdkInternalList<String>(gatewayLoadBalancerArns.length));
+        }
+        for (String ele : gatewayLoadBalancerArns) {
+            this.gatewayLoadBalancerArns.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) of the Gateway Load Balancers for the service.
+     * </p>
+     * 
+     * @param gatewayLoadBalancerArns
+     *        The Amazon Resource Names (ARNs) of the Gateway Load Balancers for the service.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ServiceConfiguration withGatewayLoadBalancerArns(java.util.Collection<String> gatewayLoadBalancerArns) {
+        setGatewayLoadBalancerArns(gatewayLoadBalancerArns);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The supported IP address types.
+     * </p>
+     * 
+     * @return The supported IP address types.
+     * @see ServiceConnectivityType
+     */
+
+    public java.util.List<String> getSupportedIpAddressTypes() {
+        if (supportedIpAddressTypes == null) {
+            supportedIpAddressTypes = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return supportedIpAddressTypes;
+    }
+
+    /**
+     * <p>
+     * The supported IP address types.
+     * </p>
+     * 
+     * @param supportedIpAddressTypes
+     *        The supported IP address types.
+     * @see ServiceConnectivityType
+     */
+
+    public void setSupportedIpAddressTypes(java.util.Collection<String> supportedIpAddressTypes) {
+        if (supportedIpAddressTypes == null) {
+            this.supportedIpAddressTypes = null;
+            return;
+        }
+
+        this.supportedIpAddressTypes = new com.amazonaws.internal.SdkInternalList<String>(supportedIpAddressTypes);
+    }
+
+    /**
+     * <p>
+     * The supported IP address types.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSupportedIpAddressTypes(java.util.Collection)} or
+     * {@link #withSupportedIpAddressTypes(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param supportedIpAddressTypes
+     *        The supported IP address types.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ServiceConnectivityType
+     */
+
+    public ServiceConfiguration withSupportedIpAddressTypes(String... supportedIpAddressTypes) {
+        if (this.supportedIpAddressTypes == null) {
+            setSupportedIpAddressTypes(new com.amazonaws.internal.SdkInternalList<String>(supportedIpAddressTypes.length));
+        }
+        for (String ele : supportedIpAddressTypes) {
+            this.supportedIpAddressTypes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The supported IP address types.
+     * </p>
+     * 
+     * @param supportedIpAddressTypes
+     *        The supported IP address types.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ServiceConnectivityType
+     */
+
+    public ServiceConfiguration withSupportedIpAddressTypes(java.util.Collection<String> supportedIpAddressTypes) {
+        setSupportedIpAddressTypes(supportedIpAddressTypes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The supported IP address types.
+     * </p>
+     * 
+     * @param supportedIpAddressTypes
+     *        The supported IP address types.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ServiceConnectivityType
+     */
+
+    public ServiceConfiguration withSupportedIpAddressTypes(ServiceConnectivityType... supportedIpAddressTypes) {
+        com.amazonaws.internal.SdkInternalList<String> supportedIpAddressTypesCopy = new com.amazonaws.internal.SdkInternalList<String>(
+                supportedIpAddressTypes.length);
+        for (ServiceConnectivityType value : supportedIpAddressTypes) {
+            supportedIpAddressTypesCopy.add(value.toString());
+        }
+        if (getSupportedIpAddressTypes() == null) {
+            setSupportedIpAddressTypes(supportedIpAddressTypesCopy);
+        } else {
+            getSupportedIpAddressTypes().addAll(supportedIpAddressTypesCopy);
+        }
         return this;
     }
 
@@ -683,10 +887,109 @@ public class ServiceConfiguration implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Any tags assigned to the service.
+     * Information about the endpoint service private DNS name configuration.
      * </p>
      * 
-     * @return Any tags assigned to the service.
+     * @param privateDnsNameConfiguration
+     *        Information about the endpoint service private DNS name configuration.
+     */
+
+    public void setPrivateDnsNameConfiguration(PrivateDnsNameConfiguration privateDnsNameConfiguration) {
+        this.privateDnsNameConfiguration = privateDnsNameConfiguration;
+    }
+
+    /**
+     * <p>
+     * Information about the endpoint service private DNS name configuration.
+     * </p>
+     * 
+     * @return Information about the endpoint service private DNS name configuration.
+     */
+
+    public PrivateDnsNameConfiguration getPrivateDnsNameConfiguration() {
+        return this.privateDnsNameConfiguration;
+    }
+
+    /**
+     * <p>
+     * Information about the endpoint service private DNS name configuration.
+     * </p>
+     * 
+     * @param privateDnsNameConfiguration
+     *        Information about the endpoint service private DNS name configuration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ServiceConfiguration withPrivateDnsNameConfiguration(PrivateDnsNameConfiguration privateDnsNameConfiguration) {
+        setPrivateDnsNameConfiguration(privateDnsNameConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The payer responsibility.
+     * </p>
+     * 
+     * @param payerResponsibility
+     *        The payer responsibility.
+     * @see PayerResponsibility
+     */
+
+    public void setPayerResponsibility(String payerResponsibility) {
+        this.payerResponsibility = payerResponsibility;
+    }
+
+    /**
+     * <p>
+     * The payer responsibility.
+     * </p>
+     * 
+     * @return The payer responsibility.
+     * @see PayerResponsibility
+     */
+
+    public String getPayerResponsibility() {
+        return this.payerResponsibility;
+    }
+
+    /**
+     * <p>
+     * The payer responsibility.
+     * </p>
+     * 
+     * @param payerResponsibility
+     *        The payer responsibility.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PayerResponsibility
+     */
+
+    public ServiceConfiguration withPayerResponsibility(String payerResponsibility) {
+        setPayerResponsibility(payerResponsibility);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The payer responsibility.
+     * </p>
+     * 
+     * @param payerResponsibility
+     *        The payer responsibility.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PayerResponsibility
+     */
+
+    public ServiceConfiguration withPayerResponsibility(PayerResponsibility payerResponsibility) {
+        this.payerResponsibility = payerResponsibility.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags assigned to the service.
+     * </p>
+     * 
+     * @return The tags assigned to the service.
      */
 
     public java.util.List<Tag> getTags() {
@@ -698,11 +1001,11 @@ public class ServiceConfiguration implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Any tags assigned to the service.
+     * The tags assigned to the service.
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the service.
+     *        The tags assigned to the service.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -716,7 +1019,7 @@ public class ServiceConfiguration implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Any tags assigned to the service.
+     * The tags assigned to the service.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -725,7 +1028,7 @@ public class ServiceConfiguration implements Serializable, Cloneable {
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the service.
+     *        The tags assigned to the service.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -741,11 +1044,11 @@ public class ServiceConfiguration implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Any tags assigned to the service.
+     * The tags assigned to the service.
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the service.
+     *        The tags assigned to the service.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -782,10 +1085,18 @@ public class ServiceConfiguration implements Serializable, Cloneable {
             sb.append("ManagesVpcEndpoints: ").append(getManagesVpcEndpoints()).append(",");
         if (getNetworkLoadBalancerArns() != null)
             sb.append("NetworkLoadBalancerArns: ").append(getNetworkLoadBalancerArns()).append(",");
+        if (getGatewayLoadBalancerArns() != null)
+            sb.append("GatewayLoadBalancerArns: ").append(getGatewayLoadBalancerArns()).append(",");
+        if (getSupportedIpAddressTypes() != null)
+            sb.append("SupportedIpAddressTypes: ").append(getSupportedIpAddressTypes()).append(",");
         if (getBaseEndpointDnsNames() != null)
             sb.append("BaseEndpointDnsNames: ").append(getBaseEndpointDnsNames()).append(",");
         if (getPrivateDnsName() != null)
             sb.append("PrivateDnsName: ").append(getPrivateDnsName()).append(",");
+        if (getPrivateDnsNameConfiguration() != null)
+            sb.append("PrivateDnsNameConfiguration: ").append(getPrivateDnsNameConfiguration()).append(",");
+        if (getPayerResponsibility() != null)
+            sb.append("PayerResponsibility: ").append(getPayerResponsibility()).append(",");
         if (getTags() != null)
             sb.append("Tags: ").append(getTags());
         sb.append("}");
@@ -834,6 +1145,14 @@ public class ServiceConfiguration implements Serializable, Cloneable {
             return false;
         if (other.getNetworkLoadBalancerArns() != null && other.getNetworkLoadBalancerArns().equals(this.getNetworkLoadBalancerArns()) == false)
             return false;
+        if (other.getGatewayLoadBalancerArns() == null ^ this.getGatewayLoadBalancerArns() == null)
+            return false;
+        if (other.getGatewayLoadBalancerArns() != null && other.getGatewayLoadBalancerArns().equals(this.getGatewayLoadBalancerArns()) == false)
+            return false;
+        if (other.getSupportedIpAddressTypes() == null ^ this.getSupportedIpAddressTypes() == null)
+            return false;
+        if (other.getSupportedIpAddressTypes() != null && other.getSupportedIpAddressTypes().equals(this.getSupportedIpAddressTypes()) == false)
+            return false;
         if (other.getBaseEndpointDnsNames() == null ^ this.getBaseEndpointDnsNames() == null)
             return false;
         if (other.getBaseEndpointDnsNames() != null && other.getBaseEndpointDnsNames().equals(this.getBaseEndpointDnsNames()) == false)
@@ -841,6 +1160,14 @@ public class ServiceConfiguration implements Serializable, Cloneable {
         if (other.getPrivateDnsName() == null ^ this.getPrivateDnsName() == null)
             return false;
         if (other.getPrivateDnsName() != null && other.getPrivateDnsName().equals(this.getPrivateDnsName()) == false)
+            return false;
+        if (other.getPrivateDnsNameConfiguration() == null ^ this.getPrivateDnsNameConfiguration() == null)
+            return false;
+        if (other.getPrivateDnsNameConfiguration() != null && other.getPrivateDnsNameConfiguration().equals(this.getPrivateDnsNameConfiguration()) == false)
+            return false;
+        if (other.getPayerResponsibility() == null ^ this.getPayerResponsibility() == null)
+            return false;
+        if (other.getPayerResponsibility() != null && other.getPayerResponsibility().equals(this.getPayerResponsibility()) == false)
             return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
@@ -862,8 +1189,12 @@ public class ServiceConfiguration implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getAcceptanceRequired() == null) ? 0 : getAcceptanceRequired().hashCode());
         hashCode = prime * hashCode + ((getManagesVpcEndpoints() == null) ? 0 : getManagesVpcEndpoints().hashCode());
         hashCode = prime * hashCode + ((getNetworkLoadBalancerArns() == null) ? 0 : getNetworkLoadBalancerArns().hashCode());
+        hashCode = prime * hashCode + ((getGatewayLoadBalancerArns() == null) ? 0 : getGatewayLoadBalancerArns().hashCode());
+        hashCode = prime * hashCode + ((getSupportedIpAddressTypes() == null) ? 0 : getSupportedIpAddressTypes().hashCode());
         hashCode = prime * hashCode + ((getBaseEndpointDnsNames() == null) ? 0 : getBaseEndpointDnsNames().hashCode());
         hashCode = prime * hashCode + ((getPrivateDnsName() == null) ? 0 : getPrivateDnsName().hashCode());
+        hashCode = prime * hashCode + ((getPrivateDnsNameConfiguration() == null) ? 0 : getPrivateDnsNameConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getPayerResponsibility() == null) ? 0 : getPayerResponsibility().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }

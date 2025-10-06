@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,7 +39,7 @@ public class RenewDomainRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * The number of years that you want to renew the domain for. The maximum number of years depends on the top-level
      * domain. For the range of valid values for your domain, see <a
-     * href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can
      * Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * <p>
@@ -99,7 +99,7 @@ public class RenewDomainRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * The number of years that you want to renew the domain for. The maximum number of years depends on the top-level
      * domain. For the range of valid values for your domain, see <a
-     * href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can
      * Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * <p>
@@ -109,7 +109,7 @@ public class RenewDomainRequest extends com.amazonaws.AmazonWebServiceRequest im
      * @param durationInYears
      *        The number of years that you want to renew the domain for. The maximum number of years depends on the
      *        top-level domain. For the range of valid values for your domain, see <a
-     *        href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You
+     *        href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You
      *        Can Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.</p>
      *        <p>
      *        Default: 1
@@ -123,7 +123,7 @@ public class RenewDomainRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * The number of years that you want to renew the domain for. The maximum number of years depends on the top-level
      * domain. For the range of valid values for your domain, see <a
-     * href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can
      * Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * <p>
@@ -132,7 +132,7 @@ public class RenewDomainRequest extends com.amazonaws.AmazonWebServiceRequest im
      * 
      * @return The number of years that you want to renew the domain for. The maximum number of years depends on the
      *         top-level domain. For the range of valid values for your domain, see <a
-     *         href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You
+     *         href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You
      *         Can Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.</p>
      *         <p>
      *         Default: 1
@@ -146,7 +146,7 @@ public class RenewDomainRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * The number of years that you want to renew the domain for. The maximum number of years depends on the top-level
      * domain. For the range of valid values for your domain, see <a
-     * href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can
      * Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * <p>
@@ -156,7 +156,7 @@ public class RenewDomainRequest extends com.amazonaws.AmazonWebServiceRequest im
      * @param durationInYears
      *        The number of years that you want to renew the domain for. The maximum number of years depends on the
      *        top-level domain. For the range of valid values for your domain, see <a
-     *        href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You
+     *        href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You
      *        Can Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.</p>
      *        <p>
      *        Default: 1

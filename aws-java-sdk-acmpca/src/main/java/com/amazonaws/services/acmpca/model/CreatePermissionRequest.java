@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,8 +27,9 @@ public class CreatePermissionRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the CA that grants the permissions. You can find the ARN by calling the
-     * <a>ListCertificateAuthorities</a> action. This must have the following form:
+     * The Amazon Resource Name (ARN) of the CA that grants the permissions. You can find the ARN by calling the <a
+     * href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_ListCertificateAuthorities.html">
+     * ListCertificateAuthorities</a> action. This must have the following form:
      * </p>
      * <p>
      * <code>arn:aws:acm-pca:<i>region</i>:<i>account</i>:certificate-authority/<i>12345678-1234-1234-1234-123456789012</i> </code>
@@ -38,8 +39,8 @@ public class CreatePermissionRequest extends com.amazonaws.AmazonWebServiceReque
     private String certificateAuthorityArn;
     /**
      * <p>
-     * The AWS service or identity that receives the permission. At this time, the only valid principal is
-     * <code>acm.amazonaws.com</code>.
+     * The Amazon Web Services service or identity that receives the permission. At this time, the only valid principal
+     * is <code>acm.amazonaws.com</code>.
      * </p>
      */
     private String principal;
@@ -51,16 +52,17 @@ public class CreatePermissionRequest extends com.amazonaws.AmazonWebServiceReque
     private String sourceAccount;
     /**
      * <p>
-     * The actions that the specified AWS service principal can use. These include <code>IssueCertificate</code>,
-     * <code>GetCertificate</code>, and <code>ListPermissions</code>.
+     * The actions that the specified Amazon Web Services service principal can use. These include
+     * <code>IssueCertificate</code>, <code>GetCertificate</code>, and <code>ListPermissions</code>.
      * </p>
      */
     private java.util.List<String> actions;
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the CA that grants the permissions. You can find the ARN by calling the
-     * <a>ListCertificateAuthorities</a> action. This must have the following form:
+     * The Amazon Resource Name (ARN) of the CA that grants the permissions. You can find the ARN by calling the <a
+     * href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_ListCertificateAuthorities.html">
+     * ListCertificateAuthorities</a> action. This must have the following form:
      * </p>
      * <p>
      * <code>arn:aws:acm-pca:<i>region</i>:<i>account</i>:certificate-authority/<i>12345678-1234-1234-1234-123456789012</i> </code>
@@ -69,7 +71,8 @@ public class CreatePermissionRequest extends com.amazonaws.AmazonWebServiceReque
      * 
      * @param certificateAuthorityArn
      *        The Amazon Resource Name (ARN) of the CA that grants the permissions. You can find the ARN by calling the
-     *        <a>ListCertificateAuthorities</a> action. This must have the following form: </p>
+     *        <a href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_ListCertificateAuthorities.html">
+     *        ListCertificateAuthorities</a> action. This must have the following form: </p>
      *        <p>
      *        <code>arn:aws:acm-pca:<i>region</i>:<i>account</i>:certificate-authority/<i>12345678-1234-1234-1234-123456789012</i> </code>.
      */
@@ -80,8 +83,9 @@ public class CreatePermissionRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the CA that grants the permissions. You can find the ARN by calling the
-     * <a>ListCertificateAuthorities</a> action. This must have the following form:
+     * The Amazon Resource Name (ARN) of the CA that grants the permissions. You can find the ARN by calling the <a
+     * href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_ListCertificateAuthorities.html">
+     * ListCertificateAuthorities</a> action. This must have the following form:
      * </p>
      * <p>
      * <code>arn:aws:acm-pca:<i>region</i>:<i>account</i>:certificate-authority/<i>12345678-1234-1234-1234-123456789012</i> </code>
@@ -89,7 +93,8 @@ public class CreatePermissionRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * 
      * @return The Amazon Resource Name (ARN) of the CA that grants the permissions. You can find the ARN by calling the
-     *         <a>ListCertificateAuthorities</a> action. This must have the following form: </p>
+     *         <a href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_ListCertificateAuthorities.html">
+     *         ListCertificateAuthorities</a> action. This must have the following form: </p>
      *         <p>
      *         <code>arn:aws:acm-pca:<i>region</i>:<i>account</i>:certificate-authority/<i>12345678-1234-1234-1234-123456789012</i> </code>.
      */
@@ -100,8 +105,9 @@ public class CreatePermissionRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the CA that grants the permissions. You can find the ARN by calling the
-     * <a>ListCertificateAuthorities</a> action. This must have the following form:
+     * The Amazon Resource Name (ARN) of the CA that grants the permissions. You can find the ARN by calling the <a
+     * href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_ListCertificateAuthorities.html">
+     * ListCertificateAuthorities</a> action. This must have the following form:
      * </p>
      * <p>
      * <code>arn:aws:acm-pca:<i>region</i>:<i>account</i>:certificate-authority/<i>12345678-1234-1234-1234-123456789012</i> </code>
@@ -110,7 +116,8 @@ public class CreatePermissionRequest extends com.amazonaws.AmazonWebServiceReque
      * 
      * @param certificateAuthorityArn
      *        The Amazon Resource Name (ARN) of the CA that grants the permissions. You can find the ARN by calling the
-     *        <a>ListCertificateAuthorities</a> action. This must have the following form: </p>
+     *        <a href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_ListCertificateAuthorities.html">
+     *        ListCertificateAuthorities</a> action. This must have the following form: </p>
      *        <p>
      *        <code>arn:aws:acm-pca:<i>region</i>:<i>account</i>:certificate-authority/<i>12345678-1234-1234-1234-123456789012</i> </code>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -123,13 +130,13 @@ public class CreatePermissionRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The AWS service or identity that receives the permission. At this time, the only valid principal is
-     * <code>acm.amazonaws.com</code>.
+     * The Amazon Web Services service or identity that receives the permission. At this time, the only valid principal
+     * is <code>acm.amazonaws.com</code>.
      * </p>
      * 
      * @param principal
-     *        The AWS service or identity that receives the permission. At this time, the only valid principal is
-     *        <code>acm.amazonaws.com</code>.
+     *        The Amazon Web Services service or identity that receives the permission. At this time, the only valid
+     *        principal is <code>acm.amazonaws.com</code>.
      */
 
     public void setPrincipal(String principal) {
@@ -138,12 +145,12 @@ public class CreatePermissionRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The AWS service or identity that receives the permission. At this time, the only valid principal is
-     * <code>acm.amazonaws.com</code>.
+     * The Amazon Web Services service or identity that receives the permission. At this time, the only valid principal
+     * is <code>acm.amazonaws.com</code>.
      * </p>
      * 
-     * @return The AWS service or identity that receives the permission. At this time, the only valid principal is
-     *         <code>acm.amazonaws.com</code>.
+     * @return The Amazon Web Services service or identity that receives the permission. At this time, the only valid
+     *         principal is <code>acm.amazonaws.com</code>.
      */
 
     public String getPrincipal() {
@@ -152,13 +159,13 @@ public class CreatePermissionRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The AWS service or identity that receives the permission. At this time, the only valid principal is
-     * <code>acm.amazonaws.com</code>.
+     * The Amazon Web Services service or identity that receives the permission. At this time, the only valid principal
+     * is <code>acm.amazonaws.com</code>.
      * </p>
      * 
      * @param principal
-     *        The AWS service or identity that receives the permission. At this time, the only valid principal is
-     *        <code>acm.amazonaws.com</code>.
+     *        The Amazon Web Services service or identity that receives the permission. At this time, the only valid
+     *        principal is <code>acm.amazonaws.com</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -209,12 +216,12 @@ public class CreatePermissionRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The actions that the specified AWS service principal can use. These include <code>IssueCertificate</code>,
-     * <code>GetCertificate</code>, and <code>ListPermissions</code>.
+     * The actions that the specified Amazon Web Services service principal can use. These include
+     * <code>IssueCertificate</code>, <code>GetCertificate</code>, and <code>ListPermissions</code>.
      * </p>
      * 
-     * @return The actions that the specified AWS service principal can use. These include <code>IssueCertificate</code>
-     *         , <code>GetCertificate</code>, and <code>ListPermissions</code>.
+     * @return The actions that the specified Amazon Web Services service principal can use. These include
+     *         <code>IssueCertificate</code>, <code>GetCertificate</code>, and <code>ListPermissions</code>.
      * @see ActionType
      */
 
@@ -224,13 +231,13 @@ public class CreatePermissionRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The actions that the specified AWS service principal can use. These include <code>IssueCertificate</code>,
-     * <code>GetCertificate</code>, and <code>ListPermissions</code>.
+     * The actions that the specified Amazon Web Services service principal can use. These include
+     * <code>IssueCertificate</code>, <code>GetCertificate</code>, and <code>ListPermissions</code>.
      * </p>
      * 
      * @param actions
-     *        The actions that the specified AWS service principal can use. These include <code>IssueCertificate</code>,
-     *        <code>GetCertificate</code>, and <code>ListPermissions</code>.
+     *        The actions that the specified Amazon Web Services service principal can use. These include
+     *        <code>IssueCertificate</code>, <code>GetCertificate</code>, and <code>ListPermissions</code>.
      * @see ActionType
      */
 
@@ -245,8 +252,8 @@ public class CreatePermissionRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The actions that the specified AWS service principal can use. These include <code>IssueCertificate</code>,
-     * <code>GetCertificate</code>, and <code>ListPermissions</code>.
+     * The actions that the specified Amazon Web Services service principal can use. These include
+     * <code>IssueCertificate</code>, <code>GetCertificate</code>, and <code>ListPermissions</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -255,8 +262,8 @@ public class CreatePermissionRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * 
      * @param actions
-     *        The actions that the specified AWS service principal can use. These include <code>IssueCertificate</code>,
-     *        <code>GetCertificate</code>, and <code>ListPermissions</code>.
+     *        The actions that the specified Amazon Web Services service principal can use. These include
+     *        <code>IssueCertificate</code>, <code>GetCertificate</code>, and <code>ListPermissions</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ActionType
      */
@@ -273,13 +280,13 @@ public class CreatePermissionRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The actions that the specified AWS service principal can use. These include <code>IssueCertificate</code>,
-     * <code>GetCertificate</code>, and <code>ListPermissions</code>.
+     * The actions that the specified Amazon Web Services service principal can use. These include
+     * <code>IssueCertificate</code>, <code>GetCertificate</code>, and <code>ListPermissions</code>.
      * </p>
      * 
      * @param actions
-     *        The actions that the specified AWS service principal can use. These include <code>IssueCertificate</code>,
-     *        <code>GetCertificate</code>, and <code>ListPermissions</code>.
+     *        The actions that the specified Amazon Web Services service principal can use. These include
+     *        <code>IssueCertificate</code>, <code>GetCertificate</code>, and <code>ListPermissions</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ActionType
      */
@@ -291,13 +298,13 @@ public class CreatePermissionRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The actions that the specified AWS service principal can use. These include <code>IssueCertificate</code>,
-     * <code>GetCertificate</code>, and <code>ListPermissions</code>.
+     * The actions that the specified Amazon Web Services service principal can use. These include
+     * <code>IssueCertificate</code>, <code>GetCertificate</code>, and <code>ListPermissions</code>.
      * </p>
      * 
      * @param actions
-     *        The actions that the specified AWS service principal can use. These include <code>IssueCertificate</code>,
-     *        <code>GetCertificate</code>, and <code>ListPermissions</code>.
+     *        The actions that the specified Amazon Web Services service principal can use. These include
+     *        <code>IssueCertificate</code>, <code>GetCertificate</code>, and <code>ListPermissions</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ActionType
      */

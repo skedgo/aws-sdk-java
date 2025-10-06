@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,7 @@ import javax.annotation.Generated;
  * A summary of the information about a CloudFront distribution.
  * </p>
  * 
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/DistributionSummary" target="_top">AWS API
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DistributionSummary" target="_top">AWS API
  *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -36,7 +36,7 @@ public class DistributionSummary implements Serializable, Cloneable {
      * <p>
      * The ARN (Amazon Resource Name) for the distribution. For example:
      * <code>arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5</code>, where <code>123456789012</code> is
-     * your AWS account ID.
+     * your Amazon Web Services account ID.
      * </p>
      */
     private String aRN;
@@ -117,9 +117,7 @@ public class DistributionSummary implements Serializable, Cloneable {
     private Boolean enabled;
     /**
      * <p>
-     * A complex type that specifies whether you want viewers to use HTTP or HTTPS to request your objects, whether
-     * you're using an alternate domain name with HTTPS, and if so, if you're using AWS Certificate Manager (ACM) or a
-     * third-party certificate authority.
+     * A complex type that determines the distribution's SSL/TLS configuration for communicating with viewers.
      * </p>
      */
     private ViewerCertificate viewerCertificate;
@@ -151,17 +149,24 @@ public class DistributionSummary implements Serializable, Cloneable {
     private Boolean isIPV6Enabled;
     /**
      * <p>
-     * AWS services in China customers must file for an Internet Content Provider (ICP) recordal if they want to serve
-     * content publicly on an alternate domain name, also known as a CNAME, that they've added to CloudFront.
-     * AliasICPRecordal provides the ICP recordal status for CNAMEs associated with distributions.
+     * Amazon Web Services services in China customers must file for an Internet Content Provider (ICP) recordal if they
+     * want to serve content publicly on an alternate domain name, also known as a CNAME, that they've added to
+     * CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs associated with distributions.
      * </p>
      * <p>
      * For more information about ICP recordals, see <a
      * href="https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html"> Signup, Accounts, and
-     * Credentials</a> in <i>Getting Started with AWS services in China</i>.
+     * Credentials</a> in <i>Getting Started with Amazon Web Services services in China</i>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<AliasICPRecordal> aliasICPRecordals;
+    /**
+     * <p>
+     * A Boolean that indicates whether this is a staging distribution. When this value is <code>true</code>, this is a
+     * staging distribution. When this value is <code>false</code>, this is not a staging distribution.
+     * </p>
+     */
+    private Boolean staging;
 
     /**
      * <p>
@@ -207,13 +212,13 @@ public class DistributionSummary implements Serializable, Cloneable {
      * <p>
      * The ARN (Amazon Resource Name) for the distribution. For example:
      * <code>arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5</code>, where <code>123456789012</code> is
-     * your AWS account ID.
+     * your Amazon Web Services account ID.
      * </p>
      * 
      * @param aRN
      *        The ARN (Amazon Resource Name) for the distribution. For example:
      *        <code>arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5</code>, where
-     *        <code>123456789012</code> is your AWS account ID.
+     *        <code>123456789012</code> is your Amazon Web Services account ID.
      */
 
     public void setARN(String aRN) {
@@ -224,12 +229,12 @@ public class DistributionSummary implements Serializable, Cloneable {
      * <p>
      * The ARN (Amazon Resource Name) for the distribution. For example:
      * <code>arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5</code>, where <code>123456789012</code> is
-     * your AWS account ID.
+     * your Amazon Web Services account ID.
      * </p>
      * 
      * @return The ARN (Amazon Resource Name) for the distribution. For example:
      *         <code>arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5</code>, where
-     *         <code>123456789012</code> is your AWS account ID.
+     *         <code>123456789012</code> is your Amazon Web Services account ID.
      */
 
     public String getARN() {
@@ -240,13 +245,13 @@ public class DistributionSummary implements Serializable, Cloneable {
      * <p>
      * The ARN (Amazon Resource Name) for the distribution. For example:
      * <code>arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5</code>, where <code>123456789012</code> is
-     * your AWS account ID.
+     * your Amazon Web Services account ID.
      * </p>
      * 
      * @param aRN
      *        The ARN (Amazon Resource Name) for the distribution. For example:
      *        <code>arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5</code>, where
-     *        <code>123456789012</code> is your AWS account ID.
+     *        <code>123456789012</code> is your Amazon Web Services account ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -806,15 +811,11 @@ public class DistributionSummary implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A complex type that specifies whether you want viewers to use HTTP or HTTPS to request your objects, whether
-     * you're using an alternate domain name with HTTPS, and if so, if you're using AWS Certificate Manager (ACM) or a
-     * third-party certificate authority.
+     * A complex type that determines the distribution's SSL/TLS configuration for communicating with viewers.
      * </p>
      * 
      * @param viewerCertificate
-     *        A complex type that specifies whether you want viewers to use HTTP or HTTPS to request your objects,
-     *        whether you're using an alternate domain name with HTTPS, and if so, if you're using AWS Certificate
-     *        Manager (ACM) or a third-party certificate authority.
+     *        A complex type that determines the distribution's SSL/TLS configuration for communicating with viewers.
      */
 
     public void setViewerCertificate(ViewerCertificate viewerCertificate) {
@@ -823,14 +824,10 @@ public class DistributionSummary implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A complex type that specifies whether you want viewers to use HTTP or HTTPS to request your objects, whether
-     * you're using an alternate domain name with HTTPS, and if so, if you're using AWS Certificate Manager (ACM) or a
-     * third-party certificate authority.
+     * A complex type that determines the distribution's SSL/TLS configuration for communicating with viewers.
      * </p>
      * 
-     * @return A complex type that specifies whether you want viewers to use HTTP or HTTPS to request your objects,
-     *         whether you're using an alternate domain name with HTTPS, and if so, if you're using AWS Certificate
-     *         Manager (ACM) or a third-party certificate authority.
+     * @return A complex type that determines the distribution's SSL/TLS configuration for communicating with viewers.
      */
 
     public ViewerCertificate getViewerCertificate() {
@@ -839,15 +836,11 @@ public class DistributionSummary implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A complex type that specifies whether you want viewers to use HTTP or HTTPS to request your objects, whether
-     * you're using an alternate domain name with HTTPS, and if so, if you're using AWS Certificate Manager (ACM) or a
-     * third-party certificate authority.
+     * A complex type that determines the distribution's SSL/TLS configuration for communicating with viewers.
      * </p>
      * 
      * @param viewerCertificate
-     *        A complex type that specifies whether you want viewers to use HTTP or HTTPS to request your objects,
-     *        whether you're using an alternate domain name with HTTPS, and if so, if you're using AWS Certificate
-     *        Manager (ACM) or a third-party certificate authority.
+     *        A complex type that determines the distribution's SSL/TLS configuration for communicating with viewers.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1083,24 +1076,24 @@ public class DistributionSummary implements Serializable, Cloneable {
 
     /**
      * <p>
-     * AWS services in China customers must file for an Internet Content Provider (ICP) recordal if they want to serve
-     * content publicly on an alternate domain name, also known as a CNAME, that they've added to CloudFront.
-     * AliasICPRecordal provides the ICP recordal status for CNAMEs associated with distributions.
+     * Amazon Web Services services in China customers must file for an Internet Content Provider (ICP) recordal if they
+     * want to serve content publicly on an alternate domain name, also known as a CNAME, that they've added to
+     * CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs associated with distributions.
      * </p>
      * <p>
      * For more information about ICP recordals, see <a
      * href="https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html"> Signup, Accounts, and
-     * Credentials</a> in <i>Getting Started with AWS services in China</i>.
+     * Credentials</a> in <i>Getting Started with Amazon Web Services services in China</i>.
      * </p>
      * 
-     * @return AWS services in China customers must file for an Internet Content Provider (ICP) recordal if they want to
-     *         serve content publicly on an alternate domain name, also known as a CNAME, that they've added to
-     *         CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs associated with
+     * @return Amazon Web Services services in China customers must file for an Internet Content Provider (ICP) recordal
+     *         if they want to serve content publicly on an alternate domain name, also known as a CNAME, that they've
+     *         added to CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs associated with
      *         distributions.</p>
      *         <p>
      *         For more information about ICP recordals, see <a
      *         href="https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html"> Signup,
-     *         Accounts, and Credentials</a> in <i>Getting Started with AWS services in China</i>.
+     *         Accounts, and Credentials</a> in <i>Getting Started with Amazon Web Services services in China</i>.
      */
 
     public java.util.List<AliasICPRecordal> getAliasICPRecordals() {
@@ -1112,25 +1105,25 @@ public class DistributionSummary implements Serializable, Cloneable {
 
     /**
      * <p>
-     * AWS services in China customers must file for an Internet Content Provider (ICP) recordal if they want to serve
-     * content publicly on an alternate domain name, also known as a CNAME, that they've added to CloudFront.
-     * AliasICPRecordal provides the ICP recordal status for CNAMEs associated with distributions.
+     * Amazon Web Services services in China customers must file for an Internet Content Provider (ICP) recordal if they
+     * want to serve content publicly on an alternate domain name, also known as a CNAME, that they've added to
+     * CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs associated with distributions.
      * </p>
      * <p>
      * For more information about ICP recordals, see <a
      * href="https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html"> Signup, Accounts, and
-     * Credentials</a> in <i>Getting Started with AWS services in China</i>.
+     * Credentials</a> in <i>Getting Started with Amazon Web Services services in China</i>.
      * </p>
      * 
      * @param aliasICPRecordals
-     *        AWS services in China customers must file for an Internet Content Provider (ICP) recordal if they want to
-     *        serve content publicly on an alternate domain name, also known as a CNAME, that they've added to
-     *        CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs associated with
+     *        Amazon Web Services services in China customers must file for an Internet Content Provider (ICP) recordal
+     *        if they want to serve content publicly on an alternate domain name, also known as a CNAME, that they've
+     *        added to CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs associated with
      *        distributions.</p>
      *        <p>
      *        For more information about ICP recordals, see <a
      *        href="https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html"> Signup,
-     *        Accounts, and Credentials</a> in <i>Getting Started with AWS services in China</i>.
+     *        Accounts, and Credentials</a> in <i>Getting Started with Amazon Web Services services in China</i>.
      */
 
     public void setAliasICPRecordals(java.util.Collection<AliasICPRecordal> aliasICPRecordals) {
@@ -1144,14 +1137,14 @@ public class DistributionSummary implements Serializable, Cloneable {
 
     /**
      * <p>
-     * AWS services in China customers must file for an Internet Content Provider (ICP) recordal if they want to serve
-     * content publicly on an alternate domain name, also known as a CNAME, that they've added to CloudFront.
-     * AliasICPRecordal provides the ICP recordal status for CNAMEs associated with distributions.
+     * Amazon Web Services services in China customers must file for an Internet Content Provider (ICP) recordal if they
+     * want to serve content publicly on an alternate domain name, also known as a CNAME, that they've added to
+     * CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs associated with distributions.
      * </p>
      * <p>
      * For more information about ICP recordals, see <a
      * href="https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html"> Signup, Accounts, and
-     * Credentials</a> in <i>Getting Started with AWS services in China</i>.
+     * Credentials</a> in <i>Getting Started with Amazon Web Services services in China</i>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1160,14 +1153,14 @@ public class DistributionSummary implements Serializable, Cloneable {
      * </p>
      * 
      * @param aliasICPRecordals
-     *        AWS services in China customers must file for an Internet Content Provider (ICP) recordal if they want to
-     *        serve content publicly on an alternate domain name, also known as a CNAME, that they've added to
-     *        CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs associated with
+     *        Amazon Web Services services in China customers must file for an Internet Content Provider (ICP) recordal
+     *        if they want to serve content publicly on an alternate domain name, also known as a CNAME, that they've
+     *        added to CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs associated with
      *        distributions.</p>
      *        <p>
      *        For more information about ICP recordals, see <a
      *        href="https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html"> Signup,
-     *        Accounts, and Credentials</a> in <i>Getting Started with AWS services in China</i>.
+     *        Accounts, and Credentials</a> in <i>Getting Started with Amazon Web Services services in China</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1183,31 +1176,93 @@ public class DistributionSummary implements Serializable, Cloneable {
 
     /**
      * <p>
-     * AWS services in China customers must file for an Internet Content Provider (ICP) recordal if they want to serve
-     * content publicly on an alternate domain name, also known as a CNAME, that they've added to CloudFront.
-     * AliasICPRecordal provides the ICP recordal status for CNAMEs associated with distributions.
+     * Amazon Web Services services in China customers must file for an Internet Content Provider (ICP) recordal if they
+     * want to serve content publicly on an alternate domain name, also known as a CNAME, that they've added to
+     * CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs associated with distributions.
      * </p>
      * <p>
      * For more information about ICP recordals, see <a
      * href="https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html"> Signup, Accounts, and
-     * Credentials</a> in <i>Getting Started with AWS services in China</i>.
+     * Credentials</a> in <i>Getting Started with Amazon Web Services services in China</i>.
      * </p>
      * 
      * @param aliasICPRecordals
-     *        AWS services in China customers must file for an Internet Content Provider (ICP) recordal if they want to
-     *        serve content publicly on an alternate domain name, also known as a CNAME, that they've added to
-     *        CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs associated with
+     *        Amazon Web Services services in China customers must file for an Internet Content Provider (ICP) recordal
+     *        if they want to serve content publicly on an alternate domain name, also known as a CNAME, that they've
+     *        added to CloudFront. AliasICPRecordal provides the ICP recordal status for CNAMEs associated with
      *        distributions.</p>
      *        <p>
      *        For more information about ICP recordals, see <a
      *        href="https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html"> Signup,
-     *        Accounts, and Credentials</a> in <i>Getting Started with AWS services in China</i>.
+     *        Accounts, and Credentials</a> in <i>Getting Started with Amazon Web Services services in China</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DistributionSummary withAliasICPRecordals(java.util.Collection<AliasICPRecordal> aliasICPRecordals) {
         setAliasICPRecordals(aliasICPRecordals);
         return this;
+    }
+
+    /**
+     * <p>
+     * A Boolean that indicates whether this is a staging distribution. When this value is <code>true</code>, this is a
+     * staging distribution. When this value is <code>false</code>, this is not a staging distribution.
+     * </p>
+     * 
+     * @param staging
+     *        A Boolean that indicates whether this is a staging distribution. When this value is <code>true</code>,
+     *        this is a staging distribution. When this value is <code>false</code>, this is not a staging distribution.
+     */
+
+    public void setStaging(Boolean staging) {
+        this.staging = staging;
+    }
+
+    /**
+     * <p>
+     * A Boolean that indicates whether this is a staging distribution. When this value is <code>true</code>, this is a
+     * staging distribution. When this value is <code>false</code>, this is not a staging distribution.
+     * </p>
+     * 
+     * @return A Boolean that indicates whether this is a staging distribution. When this value is <code>true</code>,
+     *         this is a staging distribution. When this value is <code>false</code>, this is not a staging
+     *         distribution.
+     */
+
+    public Boolean getStaging() {
+        return this.staging;
+    }
+
+    /**
+     * <p>
+     * A Boolean that indicates whether this is a staging distribution. When this value is <code>true</code>, this is a
+     * staging distribution. When this value is <code>false</code>, this is not a staging distribution.
+     * </p>
+     * 
+     * @param staging
+     *        A Boolean that indicates whether this is a staging distribution. When this value is <code>true</code>,
+     *        this is a staging distribution. When this value is <code>false</code>, this is not a staging distribution.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DistributionSummary withStaging(Boolean staging) {
+        setStaging(staging);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A Boolean that indicates whether this is a staging distribution. When this value is <code>true</code>, this is a
+     * staging distribution. When this value is <code>false</code>, this is not a staging distribution.
+     * </p>
+     * 
+     * @return A Boolean that indicates whether this is a staging distribution. When this value is <code>true</code>,
+     *         this is a staging distribution. When this value is <code>false</code>, this is not a staging
+     *         distribution.
+     */
+
+    public Boolean isStaging() {
+        return this.staging;
     }
 
     /**
@@ -1261,7 +1316,9 @@ public class DistributionSummary implements Serializable, Cloneable {
         if (getIsIPV6Enabled() != null)
             sb.append("IsIPV6Enabled: ").append(getIsIPV6Enabled()).append(",");
         if (getAliasICPRecordals() != null)
-            sb.append("AliasICPRecordals: ").append(getAliasICPRecordals());
+            sb.append("AliasICPRecordals: ").append(getAliasICPRecordals()).append(",");
+        if (getStaging() != null)
+            sb.append("Staging: ").append(getStaging());
         sb.append("}");
         return sb.toString();
     }
@@ -1356,6 +1413,10 @@ public class DistributionSummary implements Serializable, Cloneable {
             return false;
         if (other.getAliasICPRecordals() != null && other.getAliasICPRecordals().equals(this.getAliasICPRecordals()) == false)
             return false;
+        if (other.getStaging() == null ^ this.getStaging() == null)
+            return false;
+        if (other.getStaging() != null && other.getStaging().equals(this.getStaging()) == false)
+            return false;
         return true;
     }
 
@@ -1384,6 +1445,7 @@ public class DistributionSummary implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getHttpVersion() == null) ? 0 : getHttpVersion().hashCode());
         hashCode = prime * hashCode + ((getIsIPV6Enabled() == null) ? 0 : getIsIPV6Enabled().hashCode());
         hashCode = prime * hashCode + ((getAliasICPRecordals() == null) ? 0 : getAliasICPRecordals().hashCode());
+        hashCode = prime * hashCode + ((getStaging() == null) ? 0 : getStaging().hashCode());
         return hashCode;
     }
 

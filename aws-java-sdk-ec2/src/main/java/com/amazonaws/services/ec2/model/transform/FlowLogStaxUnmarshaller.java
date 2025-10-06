@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -11,6 +11,8 @@
  * and limitations under the License.
  */
 package com.amazonaws.services.ec2.model.transform;
+
+import java.util.ArrayList;
 
 import javax.xml.stream.events.XMLEvent;
 import javax.annotation.Generated;
@@ -58,6 +60,11 @@ public class FlowLogStaxUnmarshaller implements Unmarshaller<FlowLog, StaxUnmars
                     continue;
                 }
 
+                if (context.testExpression("deliverCrossAccountRole", targetDepth)) {
+                    flowLog.setDeliverCrossAccountRole(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("deliverLogsStatus", targetDepth)) {
                     flowLog.setDeliverLogsStatus(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
@@ -95,6 +102,31 @@ public class FlowLogStaxUnmarshaller implements Unmarshaller<FlowLog, StaxUnmars
 
                 if (context.testExpression("logDestination", targetDepth)) {
                     flowLog.setLogDestination(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("logFormat", targetDepth)) {
+                    flowLog.setLogFormat(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("tagSet", targetDepth)) {
+                    flowLog.withTags(new ArrayList<Tag>());
+                    continue;
+                }
+
+                if (context.testExpression("tagSet/item", targetDepth)) {
+                    flowLog.withTags(TagStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("maxAggregationInterval", targetDepth)) {
+                    flowLog.setMaxAggregationInterval(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("destinationOptions", targetDepth)) {
+                    flowLog.setDestinationOptions(DestinationOptionsResponseStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.ecs.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -39,16 +40,34 @@ public class DeploymentMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("pendingCount").build();
     private static final MarshallingInfo<Integer> RUNNINGCOUNT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("runningCount").build();
+    private static final MarshallingInfo<Integer> FAILEDTASKS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("failedTasks").build();
     private static final MarshallingInfo<java.util.Date> CREATEDAT_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("createdAt").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<java.util.Date> UPDATEDAT_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("updatedAt").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<List> CAPACITYPROVIDERSTRATEGY_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("capacityProviderStrategy").build();
     private static final MarshallingInfo<String> LAUNCHTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("launchType").build();
     private static final MarshallingInfo<String> PLATFORMVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("platformVersion").build();
+    private static final MarshallingInfo<String> PLATFORMFAMILY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("platformFamily").build();
     private static final MarshallingInfo<StructuredPojo> NETWORKCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("networkConfiguration").build();
+    private static final MarshallingInfo<String> ROLLOUTSTATE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("rolloutState").build();
+    private static final MarshallingInfo<String> ROLLOUTSTATEREASON_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("rolloutStateReason").build();
+    private static final MarshallingInfo<StructuredPojo> SERVICECONNECTCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("serviceConnectConfiguration").build();
+    private static final MarshallingInfo<List> SERVICECONNECTRESOURCES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("serviceConnectResources").build();
+    private static final MarshallingInfo<List> VOLUMECONFIGURATIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("volumeConfigurations").build();
+    private static final MarshallingInfo<StructuredPojo> FARGATEEPHEMERALSTORAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("fargateEphemeralStorage").build();
 
     private static final DeploymentMarshaller instance = new DeploymentMarshaller();
 
@@ -72,11 +91,20 @@ public class DeploymentMarshaller {
             protocolMarshaller.marshall(deployment.getDesiredCount(), DESIREDCOUNT_BINDING);
             protocolMarshaller.marshall(deployment.getPendingCount(), PENDINGCOUNT_BINDING);
             protocolMarshaller.marshall(deployment.getRunningCount(), RUNNINGCOUNT_BINDING);
+            protocolMarshaller.marshall(deployment.getFailedTasks(), FAILEDTASKS_BINDING);
             protocolMarshaller.marshall(deployment.getCreatedAt(), CREATEDAT_BINDING);
             protocolMarshaller.marshall(deployment.getUpdatedAt(), UPDATEDAT_BINDING);
+            protocolMarshaller.marshall(deployment.getCapacityProviderStrategy(), CAPACITYPROVIDERSTRATEGY_BINDING);
             protocolMarshaller.marshall(deployment.getLaunchType(), LAUNCHTYPE_BINDING);
             protocolMarshaller.marshall(deployment.getPlatformVersion(), PLATFORMVERSION_BINDING);
+            protocolMarshaller.marshall(deployment.getPlatformFamily(), PLATFORMFAMILY_BINDING);
             protocolMarshaller.marshall(deployment.getNetworkConfiguration(), NETWORKCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(deployment.getRolloutState(), ROLLOUTSTATE_BINDING);
+            protocolMarshaller.marshall(deployment.getRolloutStateReason(), ROLLOUTSTATEREASON_BINDING);
+            protocolMarshaller.marshall(deployment.getServiceConnectConfiguration(), SERVICECONNECTCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(deployment.getServiceConnectResources(), SERVICECONNECTRESOURCES_BINDING);
+            protocolMarshaller.marshall(deployment.getVolumeConfigurations(), VOLUMECONFIGURATIONS_BINDING);
+            protocolMarshaller.marshall(deployment.getFargateEphemeralStorage(), FARGATEEPHEMERALSTORAGE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Describes an IPv6 CIDR block associated with a subnet.
+ * Describes an association between a subnet and an IPv6 CIDR block.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SubnetIpv6CidrBlockAssociation" target="_top">AWS
@@ -28,7 +28,7 @@ public class SubnetIpv6CidrBlockAssociation implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The association ID for the CIDR block.
+     * The ID of the association.
      * </p>
      */
     private String associationId;
@@ -40,18 +40,18 @@ public class SubnetIpv6CidrBlockAssociation implements Serializable, Cloneable {
     private String ipv6CidrBlock;
     /**
      * <p>
-     * Information about the state of the CIDR block.
+     * The state of the CIDR block.
      * </p>
      */
     private SubnetCidrBlockState ipv6CidrBlockState;
 
     /**
      * <p>
-     * The association ID for the CIDR block.
+     * The ID of the association.
      * </p>
      * 
      * @param associationId
-     *        The association ID for the CIDR block.
+     *        The ID of the association.
      */
 
     public void setAssociationId(String associationId) {
@@ -60,10 +60,10 @@ public class SubnetIpv6CidrBlockAssociation implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The association ID for the CIDR block.
+     * The ID of the association.
      * </p>
      * 
-     * @return The association ID for the CIDR block.
+     * @return The ID of the association.
      */
 
     public String getAssociationId() {
@@ -72,11 +72,11 @@ public class SubnetIpv6CidrBlockAssociation implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The association ID for the CIDR block.
+     * The ID of the association.
      * </p>
      * 
      * @param associationId
-     *        The association ID for the CIDR block.
+     *        The ID of the association.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -127,11 +127,11 @@ public class SubnetIpv6CidrBlockAssociation implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Information about the state of the CIDR block.
+     * The state of the CIDR block.
      * </p>
      * 
      * @param ipv6CidrBlockState
-     *        Information about the state of the CIDR block.
+     *        The state of the CIDR block.
      */
 
     public void setIpv6CidrBlockState(SubnetCidrBlockState ipv6CidrBlockState) {
@@ -140,10 +140,10 @@ public class SubnetIpv6CidrBlockAssociation implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Information about the state of the CIDR block.
+     * The state of the CIDR block.
      * </p>
      * 
-     * @return Information about the state of the CIDR block.
+     * @return The state of the CIDR block.
      */
 
     public SubnetCidrBlockState getIpv6CidrBlockState() {
@@ -152,11 +152,11 @@ public class SubnetIpv6CidrBlockAssociation implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Information about the state of the CIDR block.
+     * The state of the CIDR block.
      * </p>
      * 
      * @param ipv6CidrBlockState
-     *        Information about the state of the CIDR block.
+     *        The state of the CIDR block.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

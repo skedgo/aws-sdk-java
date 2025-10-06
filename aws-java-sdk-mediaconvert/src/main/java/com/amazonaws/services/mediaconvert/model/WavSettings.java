@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,7 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
- * Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value WAV.
+ * Required when you set Codec to the value WAV.
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/WavSettings" target="_top">AWS API
  *      Documentation</a>
@@ -26,11 +26,11 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class WavSettings implements Serializable, Cloneable, StructuredPojo {
 
-    /** Specify Bit depth (BitDepth), in bits per sample, to choose the encoding quality for this audio track. */
+    /** Specify Bit depth, in bits per sample, to choose the encoding quality for this audio track. */
     private Integer bitDepth;
     /**
-     * Set Channels to specify the number of channels in this output audio track. With WAV, valid values 1, 2, 4, and 8.
-     * In the console, these values are Mono, Stereo, 4-Channel, and 8-Channel, respectively.
+     * Specify the number of channels in this output audio track. Valid values are 1 and even numbers up to 64. For
+     * example, 1, 2, 4, 6, and so on, up to 64.
      */
     private Integer channels;
     /**
@@ -42,10 +42,10 @@ public class WavSettings implements Serializable, Cloneable, StructuredPojo {
     private Integer sampleRate;
 
     /**
-     * Specify Bit depth (BitDepth), in bits per sample, to choose the encoding quality for this audio track.
+     * Specify Bit depth, in bits per sample, to choose the encoding quality for this audio track.
      * 
      * @param bitDepth
-     *        Specify Bit depth (BitDepth), in bits per sample, to choose the encoding quality for this audio track.
+     *        Specify Bit depth, in bits per sample, to choose the encoding quality for this audio track.
      */
 
     public void setBitDepth(Integer bitDepth) {
@@ -53,9 +53,9 @@ public class WavSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Specify Bit depth (BitDepth), in bits per sample, to choose the encoding quality for this audio track.
+     * Specify Bit depth, in bits per sample, to choose the encoding quality for this audio track.
      * 
-     * @return Specify Bit depth (BitDepth), in bits per sample, to choose the encoding quality for this audio track.
+     * @return Specify Bit depth, in bits per sample, to choose the encoding quality for this audio track.
      */
 
     public Integer getBitDepth() {
@@ -63,10 +63,10 @@ public class WavSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Specify Bit depth (BitDepth), in bits per sample, to choose the encoding quality for this audio track.
+     * Specify Bit depth, in bits per sample, to choose the encoding quality for this audio track.
      * 
      * @param bitDepth
-     *        Specify Bit depth (BitDepth), in bits per sample, to choose the encoding quality for this audio track.
+     *        Specify Bit depth, in bits per sample, to choose the encoding quality for this audio track.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -76,12 +76,12 @@ public class WavSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Set Channels to specify the number of channels in this output audio track. With WAV, valid values 1, 2, 4, and 8.
-     * In the console, these values are Mono, Stereo, 4-Channel, and 8-Channel, respectively.
+     * Specify the number of channels in this output audio track. Valid values are 1 and even numbers up to 64. For
+     * example, 1, 2, 4, 6, and so on, up to 64.
      * 
      * @param channels
-     *        Set Channels to specify the number of channels in this output audio track. With WAV, valid values 1, 2, 4,
-     *        and 8. In the console, these values are Mono, Stereo, 4-Channel, and 8-Channel, respectively.
+     *        Specify the number of channels in this output audio track. Valid values are 1 and even numbers up to 64.
+     *        For example, 1, 2, 4, 6, and so on, up to 64.
      */
 
     public void setChannels(Integer channels) {
@@ -89,11 +89,11 @@ public class WavSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Set Channels to specify the number of channels in this output audio track. With WAV, valid values 1, 2, 4, and 8.
-     * In the console, these values are Mono, Stereo, 4-Channel, and 8-Channel, respectively.
+     * Specify the number of channels in this output audio track. Valid values are 1 and even numbers up to 64. For
+     * example, 1, 2, 4, 6, and so on, up to 64.
      * 
-     * @return Set Channels to specify the number of channels in this output audio track. With WAV, valid values 1, 2,
-     *         4, and 8. In the console, these values are Mono, Stereo, 4-Channel, and 8-Channel, respectively.
+     * @return Specify the number of channels in this output audio track. Valid values are 1 and even numbers up to 64.
+     *         For example, 1, 2, 4, 6, and so on, up to 64.
      */
 
     public Integer getChannels() {
@@ -101,12 +101,12 @@ public class WavSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Set Channels to specify the number of channels in this output audio track. With WAV, valid values 1, 2, 4, and 8.
-     * In the console, these values are Mono, Stereo, 4-Channel, and 8-Channel, respectively.
+     * Specify the number of channels in this output audio track. Valid values are 1 and even numbers up to 64. For
+     * example, 1, 2, 4, 6, and so on, up to 64.
      * 
      * @param channels
-     *        Set Channels to specify the number of channels in this output audio track. With WAV, valid values 1, 2, 4,
-     *        and 8. In the console, these values are Mono, Stereo, 4-Channel, and 8-Channel, respectively.
+     *        Specify the number of channels in this output audio track. Valid values are 1 and even numbers up to 64.
+     *        For example, 1, 2, 4, 6, and so on, up to 64.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,10 +19,10 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Provides information about the public Secure Shell (SSH) key that is associated with a user account for a specific
- * server (as identified by <code>ServerId</code>). The information returned includes the date the key was imported, the
- * public key contents, and the public key ID. A user can store more than one SSH public key associated with their user
- * name on a specific SFTP server.
+ * Provides information about the public Secure Shell (SSH) key that is associated with a Transfer Family user for the
+ * specific file transfer protocol-enabled server (as identified by <code>ServerId</code>). The information returned
+ * includes the date the key was imported, the public key contents, and the public key ID. A user can store more than
+ * one SSH public key associated with their user name on a specific server.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/transfer-2018-11-05/SshPublicKey" target="_top">AWS API
@@ -33,30 +33,33 @@ public class SshPublicKey implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The date that the public key was added to the user account.
+     * Specifies the date that the public key was added to the Transfer Family user.
      * </p>
      */
     private java.util.Date dateImported;
     /**
      * <p>
-     * The content of the SSH public key as specified by the <code>PublicKeyId</code>.
+     * Specifies the content of the SSH public key as specified by the <code>PublicKeyId</code>.
+     * </p>
+     * <p>
+     * Transfer Family accepts RSA, ECDSA, and ED25519 keys.
      * </p>
      */
     private String sshPublicKeyBody;
     /**
      * <p>
-     * The <code>SshPublicKeyId</code> parameter contains the identifier of the public key.
+     * Specifies the <code>SshPublicKeyId</code> parameter contains the identifier of the public key.
      * </p>
      */
     private String sshPublicKeyId;
 
     /**
      * <p>
-     * The date that the public key was added to the user account.
+     * Specifies the date that the public key was added to the Transfer Family user.
      * </p>
      * 
      * @param dateImported
-     *        The date that the public key was added to the user account.
+     *        Specifies the date that the public key was added to the Transfer Family user.
      */
 
     public void setDateImported(java.util.Date dateImported) {
@@ -65,10 +68,10 @@ public class SshPublicKey implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The date that the public key was added to the user account.
+     * Specifies the date that the public key was added to the Transfer Family user.
      * </p>
      * 
-     * @return The date that the public key was added to the user account.
+     * @return Specifies the date that the public key was added to the Transfer Family user.
      */
 
     public java.util.Date getDateImported() {
@@ -77,11 +80,11 @@ public class SshPublicKey implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The date that the public key was added to the user account.
+     * Specifies the date that the public key was added to the Transfer Family user.
      * </p>
      * 
      * @param dateImported
-     *        The date that the public key was added to the user account.
+     *        Specifies the date that the public key was added to the Transfer Family user.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -92,11 +95,16 @@ public class SshPublicKey implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The content of the SSH public key as specified by the <code>PublicKeyId</code>.
+     * Specifies the content of the SSH public key as specified by the <code>PublicKeyId</code>.
+     * </p>
+     * <p>
+     * Transfer Family accepts RSA, ECDSA, and ED25519 keys.
      * </p>
      * 
      * @param sshPublicKeyBody
-     *        The content of the SSH public key as specified by the <code>PublicKeyId</code>.
+     *        Specifies the content of the SSH public key as specified by the <code>PublicKeyId</code>.</p>
+     *        <p>
+     *        Transfer Family accepts RSA, ECDSA, and ED25519 keys.
      */
 
     public void setSshPublicKeyBody(String sshPublicKeyBody) {
@@ -105,10 +113,15 @@ public class SshPublicKey implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The content of the SSH public key as specified by the <code>PublicKeyId</code>.
+     * Specifies the content of the SSH public key as specified by the <code>PublicKeyId</code>.
+     * </p>
+     * <p>
+     * Transfer Family accepts RSA, ECDSA, and ED25519 keys.
      * </p>
      * 
-     * @return The content of the SSH public key as specified by the <code>PublicKeyId</code>.
+     * @return Specifies the content of the SSH public key as specified by the <code>PublicKeyId</code>.</p>
+     *         <p>
+     *         Transfer Family accepts RSA, ECDSA, and ED25519 keys.
      */
 
     public String getSshPublicKeyBody() {
@@ -117,11 +130,16 @@ public class SshPublicKey implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The content of the SSH public key as specified by the <code>PublicKeyId</code>.
+     * Specifies the content of the SSH public key as specified by the <code>PublicKeyId</code>.
+     * </p>
+     * <p>
+     * Transfer Family accepts RSA, ECDSA, and ED25519 keys.
      * </p>
      * 
      * @param sshPublicKeyBody
-     *        The content of the SSH public key as specified by the <code>PublicKeyId</code>.
+     *        Specifies the content of the SSH public key as specified by the <code>PublicKeyId</code>.</p>
+     *        <p>
+     *        Transfer Family accepts RSA, ECDSA, and ED25519 keys.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -132,11 +150,11 @@ public class SshPublicKey implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The <code>SshPublicKeyId</code> parameter contains the identifier of the public key.
+     * Specifies the <code>SshPublicKeyId</code> parameter contains the identifier of the public key.
      * </p>
      * 
      * @param sshPublicKeyId
-     *        The <code>SshPublicKeyId</code> parameter contains the identifier of the public key.
+     *        Specifies the <code>SshPublicKeyId</code> parameter contains the identifier of the public key.
      */
 
     public void setSshPublicKeyId(String sshPublicKeyId) {
@@ -145,10 +163,10 @@ public class SshPublicKey implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The <code>SshPublicKeyId</code> parameter contains the identifier of the public key.
+     * Specifies the <code>SshPublicKeyId</code> parameter contains the identifier of the public key.
      * </p>
      * 
-     * @return The <code>SshPublicKeyId</code> parameter contains the identifier of the public key.
+     * @return Specifies the <code>SshPublicKeyId</code> parameter contains the identifier of the public key.
      */
 
     public String getSshPublicKeyId() {
@@ -157,11 +175,11 @@ public class SshPublicKey implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The <code>SshPublicKeyId</code> parameter contains the identifier of the public key.
+     * Specifies the <code>SshPublicKeyId</code> parameter contains the identifier of the public key.
      * </p>
      * 
      * @param sshPublicKeyId
-     *        The <code>SshPublicKeyId</code> parameter contains the identifier of the public key.
+     *        Specifies the <code>SshPublicKeyId</code> parameter contains the identifier of the public key.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,8 @@ public class ListStreamsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The maximum number of streams to list.
+     * The maximum number of streams to list. The default value is 100. If you specify a value greater than 100, at most
+     * 100 results are returned.
      * </p>
      */
     private Integer limit;
@@ -40,14 +41,18 @@ public class ListStreamsRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      */
     private String exclusiveStartStreamName;
+    /** <p/> */
+    private String nextToken;
 
     /**
      * <p>
-     * The maximum number of streams to list.
+     * The maximum number of streams to list. The default value is 100. If you specify a value greater than 100, at most
+     * 100 results are returned.
      * </p>
      * 
      * @param limit
-     *        The maximum number of streams to list.
+     *        The maximum number of streams to list. The default value is 100. If you specify a value greater than 100,
+     *        at most 100 results are returned.
      */
 
     public void setLimit(Integer limit) {
@@ -56,10 +61,12 @@ public class ListStreamsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The maximum number of streams to list.
+     * The maximum number of streams to list. The default value is 100. If you specify a value greater than 100, at most
+     * 100 results are returned.
      * </p>
      * 
-     * @return The maximum number of streams to list.
+     * @return The maximum number of streams to list. The default value is 100. If you specify a value greater than 100,
+     *         at most 100 results are returned.
      */
 
     public Integer getLimit() {
@@ -68,11 +75,13 @@ public class ListStreamsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The maximum number of streams to list.
+     * The maximum number of streams to list. The default value is 100. If you specify a value greater than 100, at most
+     * 100 results are returned.
      * </p>
      * 
      * @param limit
-     *        The maximum number of streams to list.
+     *        The maximum number of streams to list. The default value is 100. If you specify a value greater than 100,
+     *        at most 100 results are returned.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -122,6 +131,38 @@ public class ListStreamsRequest extends com.amazonaws.AmazonWebServiceRequest im
     }
 
     /**
+     * <p/>
+     * 
+     * @param nextToken
+     */
+
+    public void setNextToken(String nextToken) {
+        this.nextToken = nextToken;
+    }
+
+    /**
+     * <p/>
+     * 
+     * @return
+     */
+
+    public String getNextToken() {
+        return this.nextToken;
+    }
+
+    /**
+     * <p/>
+     * 
+     * @param nextToken
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListStreamsRequest withNextToken(String nextToken) {
+        setNextToken(nextToken);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -136,7 +177,9 @@ public class ListStreamsRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (getLimit() != null)
             sb.append("Limit: ").append(getLimit()).append(",");
         if (getExclusiveStartStreamName() != null)
-            sb.append("ExclusiveStartStreamName: ").append(getExclusiveStartStreamName());
+            sb.append("ExclusiveStartStreamName: ").append(getExclusiveStartStreamName()).append(",");
+        if (getNextToken() != null)
+            sb.append("NextToken: ").append(getNextToken());
         sb.append("}");
         return sb.toString();
     }
@@ -159,6 +202,10 @@ public class ListStreamsRequest extends com.amazonaws.AmazonWebServiceRequest im
             return false;
         if (other.getExclusiveStartStreamName() != null && other.getExclusiveStartStreamName().equals(this.getExclusiveStartStreamName()) == false)
             return false;
+        if (other.getNextToken() == null ^ this.getNextToken() == null)
+            return false;
+        if (other.getNextToken() != null && other.getNextToken().equals(this.getNextToken()) == false)
+            return false;
         return true;
     }
 
@@ -169,6 +216,7 @@ public class ListStreamsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
         hashCode = prime * hashCode + ((getLimit() == null) ? 0 : getLimit().hashCode());
         hashCode = prime * hashCode + ((getExclusiveStartStreamName() == null) ? 0 : getExclusiveStartStreamName().hashCode());
+        hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
         return hashCode;
     }
 

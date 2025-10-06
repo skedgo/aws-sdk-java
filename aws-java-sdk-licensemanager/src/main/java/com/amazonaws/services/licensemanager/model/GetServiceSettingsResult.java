@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,7 +25,7 @@ public class GetServiceSettingsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * Regional S3 bucket path for storing reports, license trail event data, discovery data, etc.
+     * Regional S3 bucket path for storing reports, license trail event data, discovery data, and so on.
      * </p>
      */
     private String s3BucketArn;
@@ -37,24 +37,31 @@ public class GetServiceSettingsResult extends com.amazonaws.AmazonWebServiceResu
     private String snsTopicArn;
     /**
      * <p>
-     * Indicates whether AWS Organizations has been integrated with License Manager for cross-account discovery.
+     * Indicates whether Organizations is integrated with License Manager for cross-account discovery.
      * </p>
      */
     private OrganizationConfiguration organizationConfiguration;
     /**
      * <p>
-     * Indicates whether cross-account discovery has been enabled.
+     * Indicates whether cross-account discovery is enabled.
      * </p>
      */
     private Boolean enableCrossAccountsDiscovery;
+    /**
+     * <p>
+     * Amazon Resource Name (ARN) of the resource share. The License Manager management account provides member accounts
+     * with access to this share.
+     * </p>
+     */
+    private String licenseManagerResourceShareArn;
 
     /**
      * <p>
-     * Regional S3 bucket path for storing reports, license trail event data, discovery data, etc.
+     * Regional S3 bucket path for storing reports, license trail event data, discovery data, and so on.
      * </p>
      * 
      * @param s3BucketArn
-     *        Regional S3 bucket path for storing reports, license trail event data, discovery data, etc.
+     *        Regional S3 bucket path for storing reports, license trail event data, discovery data, and so on.
      */
 
     public void setS3BucketArn(String s3BucketArn) {
@@ -63,10 +70,10 @@ public class GetServiceSettingsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * Regional S3 bucket path for storing reports, license trail event data, discovery data, etc.
+     * Regional S3 bucket path for storing reports, license trail event data, discovery data, and so on.
      * </p>
      * 
-     * @return Regional S3 bucket path for storing reports, license trail event data, discovery data, etc.
+     * @return Regional S3 bucket path for storing reports, license trail event data, discovery data, and so on.
      */
 
     public String getS3BucketArn() {
@@ -75,11 +82,11 @@ public class GetServiceSettingsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * Regional S3 bucket path for storing reports, license trail event data, discovery data, etc.
+     * Regional S3 bucket path for storing reports, license trail event data, discovery data, and so on.
      * </p>
      * 
      * @param s3BucketArn
-     *        Regional S3 bucket path for storing reports, license trail event data, discovery data, etc.
+     *        Regional S3 bucket path for storing reports, license trail event data, discovery data, and so on.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -130,11 +137,11 @@ public class GetServiceSettingsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * Indicates whether AWS Organizations has been integrated with License Manager for cross-account discovery.
+     * Indicates whether Organizations is integrated with License Manager for cross-account discovery.
      * </p>
      * 
      * @param organizationConfiguration
-     *        Indicates whether AWS Organizations has been integrated with License Manager for cross-account discovery.
+     *        Indicates whether Organizations is integrated with License Manager for cross-account discovery.
      */
 
     public void setOrganizationConfiguration(OrganizationConfiguration organizationConfiguration) {
@@ -143,10 +150,10 @@ public class GetServiceSettingsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * Indicates whether AWS Organizations has been integrated with License Manager for cross-account discovery.
+     * Indicates whether Organizations is integrated with License Manager for cross-account discovery.
      * </p>
      * 
-     * @return Indicates whether AWS Organizations has been integrated with License Manager for cross-account discovery.
+     * @return Indicates whether Organizations is integrated with License Manager for cross-account discovery.
      */
 
     public OrganizationConfiguration getOrganizationConfiguration() {
@@ -155,11 +162,11 @@ public class GetServiceSettingsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * Indicates whether AWS Organizations has been integrated with License Manager for cross-account discovery.
+     * Indicates whether Organizations is integrated with License Manager for cross-account discovery.
      * </p>
      * 
      * @param organizationConfiguration
-     *        Indicates whether AWS Organizations has been integrated with License Manager for cross-account discovery.
+     *        Indicates whether Organizations is integrated with License Manager for cross-account discovery.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -170,11 +177,11 @@ public class GetServiceSettingsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * Indicates whether cross-account discovery has been enabled.
+     * Indicates whether cross-account discovery is enabled.
      * </p>
      * 
      * @param enableCrossAccountsDiscovery
-     *        Indicates whether cross-account discovery has been enabled.
+     *        Indicates whether cross-account discovery is enabled.
      */
 
     public void setEnableCrossAccountsDiscovery(Boolean enableCrossAccountsDiscovery) {
@@ -183,10 +190,10 @@ public class GetServiceSettingsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * Indicates whether cross-account discovery has been enabled.
+     * Indicates whether cross-account discovery is enabled.
      * </p>
      * 
-     * @return Indicates whether cross-account discovery has been enabled.
+     * @return Indicates whether cross-account discovery is enabled.
      */
 
     public Boolean getEnableCrossAccountsDiscovery() {
@@ -195,11 +202,11 @@ public class GetServiceSettingsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * Indicates whether cross-account discovery has been enabled.
+     * Indicates whether cross-account discovery is enabled.
      * </p>
      * 
      * @param enableCrossAccountsDiscovery
-     *        Indicates whether cross-account discovery has been enabled.
+     *        Indicates whether cross-account discovery is enabled.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -210,14 +217,60 @@ public class GetServiceSettingsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * Indicates whether cross-account discovery has been enabled.
+     * Indicates whether cross-account discovery is enabled.
      * </p>
      * 
-     * @return Indicates whether cross-account discovery has been enabled.
+     * @return Indicates whether cross-account discovery is enabled.
      */
 
     public Boolean isEnableCrossAccountsDiscovery() {
         return this.enableCrossAccountsDiscovery;
+    }
+
+    /**
+     * <p>
+     * Amazon Resource Name (ARN) of the resource share. The License Manager management account provides member accounts
+     * with access to this share.
+     * </p>
+     * 
+     * @param licenseManagerResourceShareArn
+     *        Amazon Resource Name (ARN) of the resource share. The License Manager management account provides member
+     *        accounts with access to this share.
+     */
+
+    public void setLicenseManagerResourceShareArn(String licenseManagerResourceShareArn) {
+        this.licenseManagerResourceShareArn = licenseManagerResourceShareArn;
+    }
+
+    /**
+     * <p>
+     * Amazon Resource Name (ARN) of the resource share. The License Manager management account provides member accounts
+     * with access to this share.
+     * </p>
+     * 
+     * @return Amazon Resource Name (ARN) of the resource share. The License Manager management account provides member
+     *         accounts with access to this share.
+     */
+
+    public String getLicenseManagerResourceShareArn() {
+        return this.licenseManagerResourceShareArn;
+    }
+
+    /**
+     * <p>
+     * Amazon Resource Name (ARN) of the resource share. The License Manager management account provides member accounts
+     * with access to this share.
+     * </p>
+     * 
+     * @param licenseManagerResourceShareArn
+     *        Amazon Resource Name (ARN) of the resource share. The License Manager management account provides member
+     *        accounts with access to this share.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetServiceSettingsResult withLicenseManagerResourceShareArn(String licenseManagerResourceShareArn) {
+        setLicenseManagerResourceShareArn(licenseManagerResourceShareArn);
+        return this;
     }
 
     /**
@@ -239,7 +292,9 @@ public class GetServiceSettingsResult extends com.amazonaws.AmazonWebServiceResu
         if (getOrganizationConfiguration() != null)
             sb.append("OrganizationConfiguration: ").append(getOrganizationConfiguration()).append(",");
         if (getEnableCrossAccountsDiscovery() != null)
-            sb.append("EnableCrossAccountsDiscovery: ").append(getEnableCrossAccountsDiscovery());
+            sb.append("EnableCrossAccountsDiscovery: ").append(getEnableCrossAccountsDiscovery()).append(",");
+        if (getLicenseManagerResourceShareArn() != null)
+            sb.append("LicenseManagerResourceShareArn: ").append(getLicenseManagerResourceShareArn());
         sb.append("}");
         return sb.toString();
     }
@@ -270,6 +325,11 @@ public class GetServiceSettingsResult extends com.amazonaws.AmazonWebServiceResu
             return false;
         if (other.getEnableCrossAccountsDiscovery() != null && other.getEnableCrossAccountsDiscovery().equals(this.getEnableCrossAccountsDiscovery()) == false)
             return false;
+        if (other.getLicenseManagerResourceShareArn() == null ^ this.getLicenseManagerResourceShareArn() == null)
+            return false;
+        if (other.getLicenseManagerResourceShareArn() != null
+                && other.getLicenseManagerResourceShareArn().equals(this.getLicenseManagerResourceShareArn()) == false)
+            return false;
         return true;
     }
 
@@ -282,6 +342,7 @@ public class GetServiceSettingsResult extends com.amazonaws.AmazonWebServiceResu
         hashCode = prime * hashCode + ((getSnsTopicArn() == null) ? 0 : getSnsTopicArn().hashCode());
         hashCode = prime * hashCode + ((getOrganizationConfiguration() == null) ? 0 : getOrganizationConfiguration().hashCode());
         hashCode = prime * hashCode + ((getEnableCrossAccountsDiscovery() == null) ? 0 : getEnableCrossAccountsDiscovery().hashCode());
+        hashCode = prime * hashCode + ((getLicenseManagerResourceShareArn() == null) ? 0 : getLicenseManagerResourceShareArn().hashCode());
         return hashCode;
     }
 

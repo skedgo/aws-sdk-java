@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,11 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Contains information about a backup of an AWS CloudHSM cluster.
+ * Contains information about a backup of an CloudHSM cluster. All backup objects contain the <code>BackupId</code>,
+ * <code>BackupState</code>, <code>ClusterId</code>, and <code>CreateTimestamp</code> parameters. Backups that were
+ * copied into a destination region additionally contain the <code>CopyTimestamp</code>, <code>SourceBackup</code>,
+ * <code>SourceCluster</code>, and <code>SourceRegion</code> parameters. A backup that is pending deletion will include
+ * the <code>DeleteTimestamp</code> parameter.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/Backup" target="_top">AWS API
@@ -34,6 +38,12 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String backupId;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the backup.
+     * </p>
+     */
+    private String backupArn;
     /**
      * <p>
      * The state of the backup.
@@ -52,13 +62,37 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private java.util.Date createTimestamp;
-
+    /**
+     * <p>
+     * The date and time when the backup was copied from a source backup.
+     * </p>
+     */
     private java.util.Date copyTimestamp;
-
+    /**
+     * <p>
+     * Specifies whether the service should exempt a backup from the retention policy for the cluster. <code>True</code>
+     * exempts a backup from the retention policy. <code>False</code> means the service applies the backup retention
+     * policy defined at the cluster.
+     * </p>
+     */
+    private Boolean neverExpires;
+    /**
+     * <p>
+     * The AWS Region that contains the source backup from which the new backup was copied.
+     * </p>
+     */
     private String sourceRegion;
-
+    /**
+     * <p>
+     * The identifier (ID) of the source backup from which the new backup was copied.
+     * </p>
+     */
     private String sourceBackup;
-
+    /**
+     * <p>
+     * The identifier (ID) of the cluster containing the source backup from which the new backup was copied.
+     * </p>
+     */
     private String sourceCluster;
     /**
      * <p>
@@ -66,6 +100,24 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private java.util.Date deleteTimestamp;
+    /**
+     * <p>
+     * The list of tags for the backup.
+     * </p>
+     */
+    private java.util.List<Tag> tagList;
+    /**
+     * <p>
+     * The HSM type used to create the backup.
+     * </p>
+     */
+    private String hsmType;
+    /**
+     * <p>
+     * The mode of the cluster that was backed up.
+     * </p>
+     */
+    private String mode;
 
     /**
      * <p>
@@ -104,6 +156,46 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
 
     public Backup withBackupId(String backupId) {
         setBackupId(backupId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the backup.
+     * </p>
+     * 
+     * @param backupArn
+     *        The Amazon Resource Name (ARN) of the backup.
+     */
+
+    public void setBackupArn(String backupArn) {
+        this.backupArn = backupArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the backup.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the backup.
+     */
+
+    public String getBackupArn() {
+        return this.backupArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the backup.
+     * </p>
+     * 
+     * @param backupArn
+     *        The Amazon Resource Name (ARN) of the backup.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Backup withBackupArn(String backupArn) {
+        setBackupArn(backupArn);
         return this;
     }
 
@@ -247,7 +339,12 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The date and time when the backup was copied from a source backup.
+     * </p>
+     * 
      * @param copyTimestamp
+     *        The date and time when the backup was copied from a source backup.
      */
 
     public void setCopyTimestamp(java.util.Date copyTimestamp) {
@@ -255,7 +352,11 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * @return
+     * <p>
+     * The date and time when the backup was copied from a source backup.
+     * </p>
+     * 
+     * @return The date and time when the backup was copied from a source backup.
      */
 
     public java.util.Date getCopyTimestamp() {
@@ -263,7 +364,12 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The date and time when the backup was copied from a source backup.
+     * </p>
+     * 
      * @param copyTimestamp
+     *        The date and time when the backup was copied from a source backup.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -273,7 +379,80 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * Specifies whether the service should exempt a backup from the retention policy for the cluster. <code>True</code>
+     * exempts a backup from the retention policy. <code>False</code> means the service applies the backup retention
+     * policy defined at the cluster.
+     * </p>
+     * 
+     * @param neverExpires
+     *        Specifies whether the service should exempt a backup from the retention policy for the cluster.
+     *        <code>True</code> exempts a backup from the retention policy. <code>False</code> means the service applies
+     *        the backup retention policy defined at the cluster.
+     */
+
+    public void setNeverExpires(Boolean neverExpires) {
+        this.neverExpires = neverExpires;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the service should exempt a backup from the retention policy for the cluster. <code>True</code>
+     * exempts a backup from the retention policy. <code>False</code> means the service applies the backup retention
+     * policy defined at the cluster.
+     * </p>
+     * 
+     * @return Specifies whether the service should exempt a backup from the retention policy for the cluster.
+     *         <code>True</code> exempts a backup from the retention policy. <code>False</code> means the service
+     *         applies the backup retention policy defined at the cluster.
+     */
+
+    public Boolean getNeverExpires() {
+        return this.neverExpires;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the service should exempt a backup from the retention policy for the cluster. <code>True</code>
+     * exempts a backup from the retention policy. <code>False</code> means the service applies the backup retention
+     * policy defined at the cluster.
+     * </p>
+     * 
+     * @param neverExpires
+     *        Specifies whether the service should exempt a backup from the retention policy for the cluster.
+     *        <code>True</code> exempts a backup from the retention policy. <code>False</code> means the service applies
+     *        the backup retention policy defined at the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Backup withNeverExpires(Boolean neverExpires) {
+        setNeverExpires(neverExpires);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the service should exempt a backup from the retention policy for the cluster. <code>True</code>
+     * exempts a backup from the retention policy. <code>False</code> means the service applies the backup retention
+     * policy defined at the cluster.
+     * </p>
+     * 
+     * @return Specifies whether the service should exempt a backup from the retention policy for the cluster.
+     *         <code>True</code> exempts a backup from the retention policy. <code>False</code> means the service
+     *         applies the backup retention policy defined at the cluster.
+     */
+
+    public Boolean isNeverExpires() {
+        return this.neverExpires;
+    }
+
+    /**
+     * <p>
+     * The AWS Region that contains the source backup from which the new backup was copied.
+     * </p>
+     * 
      * @param sourceRegion
+     *        The AWS Region that contains the source backup from which the new backup was copied.
      */
 
     public void setSourceRegion(String sourceRegion) {
@@ -281,7 +460,11 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * @return
+     * <p>
+     * The AWS Region that contains the source backup from which the new backup was copied.
+     * </p>
+     * 
+     * @return The AWS Region that contains the source backup from which the new backup was copied.
      */
 
     public String getSourceRegion() {
@@ -289,7 +472,12 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The AWS Region that contains the source backup from which the new backup was copied.
+     * </p>
+     * 
      * @param sourceRegion
+     *        The AWS Region that contains the source backup from which the new backup was copied.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -299,7 +487,12 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The identifier (ID) of the source backup from which the new backup was copied.
+     * </p>
+     * 
      * @param sourceBackup
+     *        The identifier (ID) of the source backup from which the new backup was copied.
      */
 
     public void setSourceBackup(String sourceBackup) {
@@ -307,7 +500,11 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * @return
+     * <p>
+     * The identifier (ID) of the source backup from which the new backup was copied.
+     * </p>
+     * 
+     * @return The identifier (ID) of the source backup from which the new backup was copied.
      */
 
     public String getSourceBackup() {
@@ -315,7 +512,12 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The identifier (ID) of the source backup from which the new backup was copied.
+     * </p>
+     * 
      * @param sourceBackup
+     *        The identifier (ID) of the source backup from which the new backup was copied.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -325,7 +527,12 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The identifier (ID) of the cluster containing the source backup from which the new backup was copied.
+     * </p>
+     * 
      * @param sourceCluster
+     *        The identifier (ID) of the cluster containing the source backup from which the new backup was copied.
      */
 
     public void setSourceCluster(String sourceCluster) {
@@ -333,7 +540,11 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * @return
+     * <p>
+     * The identifier (ID) of the cluster containing the source backup from which the new backup was copied.
+     * </p>
+     * 
+     * @return The identifier (ID) of the cluster containing the source backup from which the new backup was copied.
      */
 
     public String getSourceCluster() {
@@ -341,7 +552,12 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The identifier (ID) of the cluster containing the source backup from which the new backup was copied.
+     * </p>
+     * 
      * @param sourceCluster
+     *        The identifier (ID) of the cluster containing the source backup from which the new backup was copied.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -391,6 +607,175 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The list of tags for the backup.
+     * </p>
+     * 
+     * @return The list of tags for the backup.
+     */
+
+    public java.util.List<Tag> getTagList() {
+        return tagList;
+    }
+
+    /**
+     * <p>
+     * The list of tags for the backup.
+     * </p>
+     * 
+     * @param tagList
+     *        The list of tags for the backup.
+     */
+
+    public void setTagList(java.util.Collection<Tag> tagList) {
+        if (tagList == null) {
+            this.tagList = null;
+            return;
+        }
+
+        this.tagList = new java.util.ArrayList<Tag>(tagList);
+    }
+
+    /**
+     * <p>
+     * The list of tags for the backup.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTagList(java.util.Collection)} or {@link #withTagList(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param tagList
+     *        The list of tags for the backup.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Backup withTagList(Tag... tagList) {
+        if (this.tagList == null) {
+            setTagList(new java.util.ArrayList<Tag>(tagList.length));
+        }
+        for (Tag ele : tagList) {
+            this.tagList.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of tags for the backup.
+     * </p>
+     * 
+     * @param tagList
+     *        The list of tags for the backup.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Backup withTagList(java.util.Collection<Tag> tagList) {
+        setTagList(tagList);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The HSM type used to create the backup.
+     * </p>
+     * 
+     * @param hsmType
+     *        The HSM type used to create the backup.
+     */
+
+    public void setHsmType(String hsmType) {
+        this.hsmType = hsmType;
+    }
+
+    /**
+     * <p>
+     * The HSM type used to create the backup.
+     * </p>
+     * 
+     * @return The HSM type used to create the backup.
+     */
+
+    public String getHsmType() {
+        return this.hsmType;
+    }
+
+    /**
+     * <p>
+     * The HSM type used to create the backup.
+     * </p>
+     * 
+     * @param hsmType
+     *        The HSM type used to create the backup.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Backup withHsmType(String hsmType) {
+        setHsmType(hsmType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The mode of the cluster that was backed up.
+     * </p>
+     * 
+     * @param mode
+     *        The mode of the cluster that was backed up.
+     * @see ClusterMode
+     */
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
+    /**
+     * <p>
+     * The mode of the cluster that was backed up.
+     * </p>
+     * 
+     * @return The mode of the cluster that was backed up.
+     * @see ClusterMode
+     */
+
+    public String getMode() {
+        return this.mode;
+    }
+
+    /**
+     * <p>
+     * The mode of the cluster that was backed up.
+     * </p>
+     * 
+     * @param mode
+     *        The mode of the cluster that was backed up.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ClusterMode
+     */
+
+    public Backup withMode(String mode) {
+        setMode(mode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The mode of the cluster that was backed up.
+     * </p>
+     * 
+     * @param mode
+     *        The mode of the cluster that was backed up.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ClusterMode
+     */
+
+    public Backup withMode(ClusterMode mode) {
+        this.mode = mode.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -404,6 +789,8 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
         sb.append("{");
         if (getBackupId() != null)
             sb.append("BackupId: ").append(getBackupId()).append(",");
+        if (getBackupArn() != null)
+            sb.append("BackupArn: ").append(getBackupArn()).append(",");
         if (getBackupState() != null)
             sb.append("BackupState: ").append(getBackupState()).append(",");
         if (getClusterId() != null)
@@ -412,6 +799,8 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
             sb.append("CreateTimestamp: ").append(getCreateTimestamp()).append(",");
         if (getCopyTimestamp() != null)
             sb.append("CopyTimestamp: ").append(getCopyTimestamp()).append(",");
+        if (getNeverExpires() != null)
+            sb.append("NeverExpires: ").append(getNeverExpires()).append(",");
         if (getSourceRegion() != null)
             sb.append("SourceRegion: ").append(getSourceRegion()).append(",");
         if (getSourceBackup() != null)
@@ -419,7 +808,13 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
         if (getSourceCluster() != null)
             sb.append("SourceCluster: ").append(getSourceCluster()).append(",");
         if (getDeleteTimestamp() != null)
-            sb.append("DeleteTimestamp: ").append(getDeleteTimestamp());
+            sb.append("DeleteTimestamp: ").append(getDeleteTimestamp()).append(",");
+        if (getTagList() != null)
+            sb.append("TagList: ").append(getTagList()).append(",");
+        if (getHsmType() != null)
+            sb.append("HsmType: ").append(getHsmType()).append(",");
+        if (getMode() != null)
+            sb.append("Mode: ").append(getMode());
         sb.append("}");
         return sb.toString();
     }
@@ -438,6 +833,10 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getBackupId() != null && other.getBackupId().equals(this.getBackupId()) == false)
             return false;
+        if (other.getBackupArn() == null ^ this.getBackupArn() == null)
+            return false;
+        if (other.getBackupArn() != null && other.getBackupArn().equals(this.getBackupArn()) == false)
+            return false;
         if (other.getBackupState() == null ^ this.getBackupState() == null)
             return false;
         if (other.getBackupState() != null && other.getBackupState().equals(this.getBackupState()) == false)
@@ -453,6 +852,10 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
         if (other.getCopyTimestamp() == null ^ this.getCopyTimestamp() == null)
             return false;
         if (other.getCopyTimestamp() != null && other.getCopyTimestamp().equals(this.getCopyTimestamp()) == false)
+            return false;
+        if (other.getNeverExpires() == null ^ this.getNeverExpires() == null)
+            return false;
+        if (other.getNeverExpires() != null && other.getNeverExpires().equals(this.getNeverExpires()) == false)
             return false;
         if (other.getSourceRegion() == null ^ this.getSourceRegion() == null)
             return false;
@@ -470,6 +873,18 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getDeleteTimestamp() != null && other.getDeleteTimestamp().equals(this.getDeleteTimestamp()) == false)
             return false;
+        if (other.getTagList() == null ^ this.getTagList() == null)
+            return false;
+        if (other.getTagList() != null && other.getTagList().equals(this.getTagList()) == false)
+            return false;
+        if (other.getHsmType() == null ^ this.getHsmType() == null)
+            return false;
+        if (other.getHsmType() != null && other.getHsmType().equals(this.getHsmType()) == false)
+            return false;
+        if (other.getMode() == null ^ this.getMode() == null)
+            return false;
+        if (other.getMode() != null && other.getMode().equals(this.getMode()) == false)
+            return false;
         return true;
     }
 
@@ -479,14 +894,19 @@ public class Backup implements Serializable, Cloneable, StructuredPojo {
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getBackupId() == null) ? 0 : getBackupId().hashCode());
+        hashCode = prime * hashCode + ((getBackupArn() == null) ? 0 : getBackupArn().hashCode());
         hashCode = prime * hashCode + ((getBackupState() == null) ? 0 : getBackupState().hashCode());
         hashCode = prime * hashCode + ((getClusterId() == null) ? 0 : getClusterId().hashCode());
         hashCode = prime * hashCode + ((getCreateTimestamp() == null) ? 0 : getCreateTimestamp().hashCode());
         hashCode = prime * hashCode + ((getCopyTimestamp() == null) ? 0 : getCopyTimestamp().hashCode());
+        hashCode = prime * hashCode + ((getNeverExpires() == null) ? 0 : getNeverExpires().hashCode());
         hashCode = prime * hashCode + ((getSourceRegion() == null) ? 0 : getSourceRegion().hashCode());
         hashCode = prime * hashCode + ((getSourceBackup() == null) ? 0 : getSourceBackup().hashCode());
         hashCode = prime * hashCode + ((getSourceCluster() == null) ? 0 : getSourceCluster().hashCode());
         hashCode = prime * hashCode + ((getDeleteTimestamp() == null) ? 0 : getDeleteTimestamp().hashCode());
+        hashCode = prime * hashCode + ((getTagList() == null) ? 0 : getTagList().hashCode());
+        hashCode = prime * hashCode + ((getHsmType() == null) ? 0 : getHsmType().hashCode());
+        hashCode = prime * hashCode + ((getMode() == null) ? 0 : getMode().hashCode());
         return hashCode;
     }
 

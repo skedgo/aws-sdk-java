@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,7 +34,7 @@ public class CreateConfigurationTemplateResult extends com.amazonaws.AmazonWebSe
     private String solutionStackName;
     /**
      * <p>
-     * The ARN of the platform.
+     * The ARN of the platform version.
      * </p>
      */
     private String platformArn;
@@ -154,11 +154,11 @@ public class CreateConfigurationTemplateResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The ARN of the platform.
+     * The ARN of the platform version.
      * </p>
      * 
      * @param platformArn
-     *        The ARN of the platform.
+     *        The ARN of the platform version.
      */
 
     public void setPlatformArn(String platformArn) {
@@ -167,10 +167,10 @@ public class CreateConfigurationTemplateResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The ARN of the platform.
+     * The ARN of the platform version.
      * </p>
      * 
-     * @return The ARN of the platform.
+     * @return The ARN of the platform version.
      */
 
     public String getPlatformArn() {
@@ -179,11 +179,11 @@ public class CreateConfigurationTemplateResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The ARN of the platform.
+     * The ARN of the platform version.
      * </p>
      * 
      * @param platformArn
-     *        The ARN of the platform.
+     *        The ARN of the platform version.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

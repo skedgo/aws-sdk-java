@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class UpdateWebhookRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The name of the AWS CodeBuild project.
+     * The name of the CodeBuild project.
      * </p>
      */
     private String projectName;
@@ -54,18 +54,24 @@ public class UpdateWebhookRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * An array of arrays of <code>WebhookFilter</code> objects used to determine if a webhook event can trigger a
-     * build. A filter group must pcontain at least one <code>EVENT</code> <code>WebhookFilter</code>.
+     * build. A filter group must contain at least one <code>EVENT</code> <code>WebhookFilter</code>.
      * </p>
      */
     private java.util.List<java.util.List<WebhookFilter>> filterGroups;
+    /**
+     * <p>
+     * Specifies the type of build this webhook will trigger.
+     * </p>
+     */
+    private String buildType;
 
     /**
      * <p>
-     * The name of the AWS CodeBuild project.
+     * The name of the CodeBuild project.
      * </p>
      * 
      * @param projectName
-     *        The name of the AWS CodeBuild project.
+     *        The name of the CodeBuild project.
      */
 
     public void setProjectName(String projectName) {
@@ -74,10 +80,10 @@ public class UpdateWebhookRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The name of the AWS CodeBuild project.
+     * The name of the CodeBuild project.
      * </p>
      * 
-     * @return The name of the AWS CodeBuild project.
+     * @return The name of the CodeBuild project.
      */
 
     public String getProjectName() {
@@ -86,11 +92,11 @@ public class UpdateWebhookRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The name of the AWS CodeBuild project.
+     * The name of the CodeBuild project.
      * </p>
      * 
      * @param projectName
-     *        The name of the AWS CodeBuild project.
+     *        The name of the CodeBuild project.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -238,11 +244,11 @@ public class UpdateWebhookRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * An array of arrays of <code>WebhookFilter</code> objects used to determine if a webhook event can trigger a
-     * build. A filter group must pcontain at least one <code>EVENT</code> <code>WebhookFilter</code>.
+     * build. A filter group must contain at least one <code>EVENT</code> <code>WebhookFilter</code>.
      * </p>
      * 
      * @return An array of arrays of <code>WebhookFilter</code> objects used to determine if a webhook event can trigger
-     *         a build. A filter group must pcontain at least one <code>EVENT</code> <code>WebhookFilter</code>.
+     *         a build. A filter group must contain at least one <code>EVENT</code> <code>WebhookFilter</code>.
      */
 
     public java.util.List<java.util.List<WebhookFilter>> getFilterGroups() {
@@ -252,12 +258,12 @@ public class UpdateWebhookRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * An array of arrays of <code>WebhookFilter</code> objects used to determine if a webhook event can trigger a
-     * build. A filter group must pcontain at least one <code>EVENT</code> <code>WebhookFilter</code>.
+     * build. A filter group must contain at least one <code>EVENT</code> <code>WebhookFilter</code>.
      * </p>
      * 
      * @param filterGroups
      *        An array of arrays of <code>WebhookFilter</code> objects used to determine if a webhook event can trigger
-     *        a build. A filter group must pcontain at least one <code>EVENT</code> <code>WebhookFilter</code>.
+     *        a build. A filter group must contain at least one <code>EVENT</code> <code>WebhookFilter</code>.
      */
 
     public void setFilterGroups(java.util.Collection<java.util.List<WebhookFilter>> filterGroups) {
@@ -272,7 +278,7 @@ public class UpdateWebhookRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * An array of arrays of <code>WebhookFilter</code> objects used to determine if a webhook event can trigger a
-     * build. A filter group must pcontain at least one <code>EVENT</code> <code>WebhookFilter</code>.
+     * build. A filter group must contain at least one <code>EVENT</code> <code>WebhookFilter</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -282,7 +288,7 @@ public class UpdateWebhookRequest extends com.amazonaws.AmazonWebServiceRequest 
      * 
      * @param filterGroups
      *        An array of arrays of <code>WebhookFilter</code> objects used to determine if a webhook event can trigger
-     *        a build. A filter group must pcontain at least one <code>EVENT</code> <code>WebhookFilter</code>.
+     *        a build. A filter group must contain at least one <code>EVENT</code> <code>WebhookFilter</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -299,17 +305,76 @@ public class UpdateWebhookRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * An array of arrays of <code>WebhookFilter</code> objects used to determine if a webhook event can trigger a
-     * build. A filter group must pcontain at least one <code>EVENT</code> <code>WebhookFilter</code>.
+     * build. A filter group must contain at least one <code>EVENT</code> <code>WebhookFilter</code>.
      * </p>
      * 
      * @param filterGroups
      *        An array of arrays of <code>WebhookFilter</code> objects used to determine if a webhook event can trigger
-     *        a build. A filter group must pcontain at least one <code>EVENT</code> <code>WebhookFilter</code>.
+     *        a build. A filter group must contain at least one <code>EVENT</code> <code>WebhookFilter</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public UpdateWebhookRequest withFilterGroups(java.util.Collection<java.util.List<WebhookFilter>> filterGroups) {
         setFilterGroups(filterGroups);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the type of build this webhook will trigger.
+     * </p>
+     * 
+     * @param buildType
+     *        Specifies the type of build this webhook will trigger.
+     * @see WebhookBuildType
+     */
+
+    public void setBuildType(String buildType) {
+        this.buildType = buildType;
+    }
+
+    /**
+     * <p>
+     * Specifies the type of build this webhook will trigger.
+     * </p>
+     * 
+     * @return Specifies the type of build this webhook will trigger.
+     * @see WebhookBuildType
+     */
+
+    public String getBuildType() {
+        return this.buildType;
+    }
+
+    /**
+     * <p>
+     * Specifies the type of build this webhook will trigger.
+     * </p>
+     * 
+     * @param buildType
+     *        Specifies the type of build this webhook will trigger.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see WebhookBuildType
+     */
+
+    public UpdateWebhookRequest withBuildType(String buildType) {
+        setBuildType(buildType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the type of build this webhook will trigger.
+     * </p>
+     * 
+     * @param buildType
+     *        Specifies the type of build this webhook will trigger.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see WebhookBuildType
+     */
+
+    public UpdateWebhookRequest withBuildType(WebhookBuildType buildType) {
+        this.buildType = buildType.toString();
         return this;
     }
 
@@ -332,7 +397,9 @@ public class UpdateWebhookRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (getRotateSecret() != null)
             sb.append("RotateSecret: ").append(getRotateSecret()).append(",");
         if (getFilterGroups() != null)
-            sb.append("FilterGroups: ").append(getFilterGroups());
+            sb.append("FilterGroups: ").append(getFilterGroups()).append(",");
+        if (getBuildType() != null)
+            sb.append("BuildType: ").append(getBuildType());
         sb.append("}");
         return sb.toString();
     }
@@ -363,6 +430,10 @@ public class UpdateWebhookRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getFilterGroups() != null && other.getFilterGroups().equals(this.getFilterGroups()) == false)
             return false;
+        if (other.getBuildType() == null ^ this.getBuildType() == null)
+            return false;
+        if (other.getBuildType() != null && other.getBuildType().equals(this.getBuildType()) == false)
+            return false;
         return true;
     }
 
@@ -375,6 +446,7 @@ public class UpdateWebhookRequest extends com.amazonaws.AmazonWebServiceRequest 
         hashCode = prime * hashCode + ((getBranchFilter() == null) ? 0 : getBranchFilter().hashCode());
         hashCode = prime * hashCode + ((getRotateSecret() == null) ? 0 : getRotateSecret().hashCode());
         hashCode = prime * hashCode + ((getFilterGroups() == null) ? 0 : getFilterGroups().hashCode());
+        hashCode = prime * hashCode + ((getBuildType() == null) ? 0 : getBuildType().hashCode());
         return hashCode;
     }
 

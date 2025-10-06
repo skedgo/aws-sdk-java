@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Represents the response from the server to the request to get the header information for the .csv file for the user
+ * Represents the response from the server to the request to get the header information of the CSV file for the user
  * import job.
  * </p>
  * 
@@ -35,7 +35,7 @@ public class GetCSVHeaderResult extends com.amazonaws.AmazonWebServiceResult<com
     private String userPoolId;
     /**
      * <p>
-     * The header information for the .csv file for the user import job.
+     * The header information of the CSV file for the user import job.
      * </p>
      */
     private java.util.List<String> cSVHeader;
@@ -82,10 +82,10 @@ public class GetCSVHeaderResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The header information for the .csv file for the user import job.
+     * The header information of the CSV file for the user import job.
      * </p>
      * 
-     * @return The header information for the .csv file for the user import job.
+     * @return The header information of the CSV file for the user import job.
      */
 
     public java.util.List<String> getCSVHeader() {
@@ -94,11 +94,11 @@ public class GetCSVHeaderResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The header information for the .csv file for the user import job.
+     * The header information of the CSV file for the user import job.
      * </p>
      * 
      * @param cSVHeader
-     *        The header information for the .csv file for the user import job.
+     *        The header information of the CSV file for the user import job.
      */
 
     public void setCSVHeader(java.util.Collection<String> cSVHeader) {
@@ -112,7 +112,7 @@ public class GetCSVHeaderResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The header information for the .csv file for the user import job.
+     * The header information of the CSV file for the user import job.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -121,7 +121,7 @@ public class GetCSVHeaderResult extends com.amazonaws.AmazonWebServiceResult<com
      * </p>
      * 
      * @param cSVHeader
-     *        The header information for the .csv file for the user import job.
+     *        The header information of the CSV file for the user import job.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -137,11 +137,11 @@ public class GetCSVHeaderResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The header information for the .csv file for the user import job.
+     * The header information of the CSV file for the user import job.
      * </p>
      * 
      * @param cSVHeader
-     *        The header information for the .csv file for the user import job.
+     *        The header information of the CSV file for the user import job.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

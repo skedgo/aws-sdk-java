@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -60,6 +60,10 @@ public class CreateFileSystemResultJsonUnmarshaller implements Unmarshaller<Crea
                     context.nextToken();
                     createFileSystemResult.setFileSystemId(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("FileSystemArn", targetDepth)) {
+                    context.nextToken();
+                    createFileSystemResult.setFileSystemArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("CreationTime", targetDepth)) {
                     context.nextToken();
                     createFileSystemResult.setCreationTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
@@ -100,9 +104,23 @@ public class CreateFileSystemResultJsonUnmarshaller implements Unmarshaller<Crea
                     context.nextToken();
                     createFileSystemResult.setProvisionedThroughputInMibps(context.getUnmarshaller(Double.class).unmarshall(context));
                 }
+                if (context.testExpression("AvailabilityZoneName", targetDepth)) {
+                    context.nextToken();
+                    createFileSystemResult.setAvailabilityZoneName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("AvailabilityZoneId", targetDepth)) {
+                    context.nextToken();
+                    createFileSystemResult.setAvailabilityZoneId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("Tags", targetDepth)) {
                     context.nextToken();
-                    createFileSystemResult.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance()).unmarshall(context));
+                    createFileSystemResult.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("FileSystemProtection", targetDepth)) {
+                    context.nextToken();
+                    createFileSystemResult.setFileSystemProtection(FileSystemProtectionDescriptionJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

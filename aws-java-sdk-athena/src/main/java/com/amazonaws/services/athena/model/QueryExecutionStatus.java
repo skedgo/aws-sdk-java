@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,12 +30,18 @@ public class QueryExecutionStatus implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The state of query execution. <code>QUEUED</code> state is listed but is not used by Athena and is reserved for
-     * future use. <code>RUNNING</code> indicates that the query has been submitted to the service, and Athena will
-     * execute the query as soon as resources are available. <code>SUCCEEDED</code> indicates that the query completed
-     * without errors. <code>FAILED</code> indicates that the query experienced an error and did not complete
-     * processing. <code>CANCELLED</code> indicates that a user input interrupted query execution.
+     * The state of query execution. <code>QUEUED</code> indicates that the query has been submitted to the service, and
+     * Athena will execute the query as soon as resources are available. <code>RUNNING</code> indicates that the query
+     * is in execution phase. <code>SUCCEEDED</code> indicates that the query completed without errors.
+     * <code>FAILED</code> indicates that the query experienced an error and did not complete processing.
+     * <code>CANCELLED</code> indicates that a user input interrupted query execution.
      * </p>
+     * <note>
+     * <p>
+     * Athena automatically retries your queries in cases of certain transient errors. As a result, you may see the
+     * query state transition from <code>RUNNING</code> or <code>FAILED</code> to <code>QUEUED</code>.
+     * </p>
+     * </note>
      */
     private String state;
     /**
@@ -56,23 +62,38 @@ public class QueryExecutionStatus implements Serializable, Cloneable, Structured
      * </p>
      */
     private java.util.Date completionDateTime;
+    /**
+     * <p>
+     * Provides information about an Athena query error.
+     * </p>
+     */
+    private AthenaError athenaError;
 
     /**
      * <p>
-     * The state of query execution. <code>QUEUED</code> state is listed but is not used by Athena and is reserved for
-     * future use. <code>RUNNING</code> indicates that the query has been submitted to the service, and Athena will
-     * execute the query as soon as resources are available. <code>SUCCEEDED</code> indicates that the query completed
-     * without errors. <code>FAILED</code> indicates that the query experienced an error and did not complete
-     * processing. <code>CANCELLED</code> indicates that a user input interrupted query execution.
+     * The state of query execution. <code>QUEUED</code> indicates that the query has been submitted to the service, and
+     * Athena will execute the query as soon as resources are available. <code>RUNNING</code> indicates that the query
+     * is in execution phase. <code>SUCCEEDED</code> indicates that the query completed without errors.
+     * <code>FAILED</code> indicates that the query experienced an error and did not complete processing.
+     * <code>CANCELLED</code> indicates that a user input interrupted query execution.
      * </p>
+     * <note>
+     * <p>
+     * Athena automatically retries your queries in cases of certain transient errors. As a result, you may see the
+     * query state transition from <code>RUNNING</code> or <code>FAILED</code> to <code>QUEUED</code>.
+     * </p>
+     * </note>
      * 
      * @param state
-     *        The state of query execution. <code>QUEUED</code> state is listed but is not used by Athena and is
-     *        reserved for future use. <code>RUNNING</code> indicates that the query has been submitted to the service,
-     *        and Athena will execute the query as soon as resources are available. <code>SUCCEEDED</code> indicates
-     *        that the query completed without errors. <code>FAILED</code> indicates that the query experienced an error
-     *        and did not complete processing. <code>CANCELLED</code> indicates that a user input interrupted query
-     *        execution.
+     *        The state of query execution. <code>QUEUED</code> indicates that the query has been submitted to the
+     *        service, and Athena will execute the query as soon as resources are available. <code>RUNNING</code>
+     *        indicates that the query is in execution phase. <code>SUCCEEDED</code> indicates that the query completed
+     *        without errors. <code>FAILED</code> indicates that the query experienced an error and did not complete
+     *        processing. <code>CANCELLED</code> indicates that a user input interrupted query execution.</p> <note>
+     *        <p>
+     *        Athena automatically retries your queries in cases of certain transient errors. As a result, you may see
+     *        the query state transition from <code>RUNNING</code> or <code>FAILED</code> to <code>QUEUED</code>.
+     *        </p>
      * @see QueryExecutionState
      */
 
@@ -82,19 +103,28 @@ public class QueryExecutionStatus implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The state of query execution. <code>QUEUED</code> state is listed but is not used by Athena and is reserved for
-     * future use. <code>RUNNING</code> indicates that the query has been submitted to the service, and Athena will
-     * execute the query as soon as resources are available. <code>SUCCEEDED</code> indicates that the query completed
-     * without errors. <code>FAILED</code> indicates that the query experienced an error and did not complete
-     * processing. <code>CANCELLED</code> indicates that a user input interrupted query execution.
+     * The state of query execution. <code>QUEUED</code> indicates that the query has been submitted to the service, and
+     * Athena will execute the query as soon as resources are available. <code>RUNNING</code> indicates that the query
+     * is in execution phase. <code>SUCCEEDED</code> indicates that the query completed without errors.
+     * <code>FAILED</code> indicates that the query experienced an error and did not complete processing.
+     * <code>CANCELLED</code> indicates that a user input interrupted query execution.
      * </p>
+     * <note>
+     * <p>
+     * Athena automatically retries your queries in cases of certain transient errors. As a result, you may see the
+     * query state transition from <code>RUNNING</code> or <code>FAILED</code> to <code>QUEUED</code>.
+     * </p>
+     * </note>
      * 
-     * @return The state of query execution. <code>QUEUED</code> state is listed but is not used by Athena and is
-     *         reserved for future use. <code>RUNNING</code> indicates that the query has been submitted to the service,
-     *         and Athena will execute the query as soon as resources are available. <code>SUCCEEDED</code> indicates
-     *         that the query completed without errors. <code>FAILED</code> indicates that the query experienced an
-     *         error and did not complete processing. <code>CANCELLED</code> indicates that a user input interrupted
-     *         query execution.
+     * @return The state of query execution. <code>QUEUED</code> indicates that the query has been submitted to the
+     *         service, and Athena will execute the query as soon as resources are available. <code>RUNNING</code>
+     *         indicates that the query is in execution phase. <code>SUCCEEDED</code> indicates that the query completed
+     *         without errors. <code>FAILED</code> indicates that the query experienced an error and did not complete
+     *         processing. <code>CANCELLED</code> indicates that a user input interrupted query execution.</p> <note>
+     *         <p>
+     *         Athena automatically retries your queries in cases of certain transient errors. As a result, you may see
+     *         the query state transition from <code>RUNNING</code> or <code>FAILED</code> to <code>QUEUED</code>.
+     *         </p>
      * @see QueryExecutionState
      */
 
@@ -104,20 +134,29 @@ public class QueryExecutionStatus implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The state of query execution. <code>QUEUED</code> state is listed but is not used by Athena and is reserved for
-     * future use. <code>RUNNING</code> indicates that the query has been submitted to the service, and Athena will
-     * execute the query as soon as resources are available. <code>SUCCEEDED</code> indicates that the query completed
-     * without errors. <code>FAILED</code> indicates that the query experienced an error and did not complete
-     * processing. <code>CANCELLED</code> indicates that a user input interrupted query execution.
+     * The state of query execution. <code>QUEUED</code> indicates that the query has been submitted to the service, and
+     * Athena will execute the query as soon as resources are available. <code>RUNNING</code> indicates that the query
+     * is in execution phase. <code>SUCCEEDED</code> indicates that the query completed without errors.
+     * <code>FAILED</code> indicates that the query experienced an error and did not complete processing.
+     * <code>CANCELLED</code> indicates that a user input interrupted query execution.
      * </p>
+     * <note>
+     * <p>
+     * Athena automatically retries your queries in cases of certain transient errors. As a result, you may see the
+     * query state transition from <code>RUNNING</code> or <code>FAILED</code> to <code>QUEUED</code>.
+     * </p>
+     * </note>
      * 
      * @param state
-     *        The state of query execution. <code>QUEUED</code> state is listed but is not used by Athena and is
-     *        reserved for future use. <code>RUNNING</code> indicates that the query has been submitted to the service,
-     *        and Athena will execute the query as soon as resources are available. <code>SUCCEEDED</code> indicates
-     *        that the query completed without errors. <code>FAILED</code> indicates that the query experienced an error
-     *        and did not complete processing. <code>CANCELLED</code> indicates that a user input interrupted query
-     *        execution.
+     *        The state of query execution. <code>QUEUED</code> indicates that the query has been submitted to the
+     *        service, and Athena will execute the query as soon as resources are available. <code>RUNNING</code>
+     *        indicates that the query is in execution phase. <code>SUCCEEDED</code> indicates that the query completed
+     *        without errors. <code>FAILED</code> indicates that the query experienced an error and did not complete
+     *        processing. <code>CANCELLED</code> indicates that a user input interrupted query execution.</p> <note>
+     *        <p>
+     *        Athena automatically retries your queries in cases of certain transient errors. As a result, you may see
+     *        the query state transition from <code>RUNNING</code> or <code>FAILED</code> to <code>QUEUED</code>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see QueryExecutionState
      */
@@ -129,20 +168,29 @@ public class QueryExecutionStatus implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The state of query execution. <code>QUEUED</code> state is listed but is not used by Athena and is reserved for
-     * future use. <code>RUNNING</code> indicates that the query has been submitted to the service, and Athena will
-     * execute the query as soon as resources are available. <code>SUCCEEDED</code> indicates that the query completed
-     * without errors. <code>FAILED</code> indicates that the query experienced an error and did not complete
-     * processing. <code>CANCELLED</code> indicates that a user input interrupted query execution.
+     * The state of query execution. <code>QUEUED</code> indicates that the query has been submitted to the service, and
+     * Athena will execute the query as soon as resources are available. <code>RUNNING</code> indicates that the query
+     * is in execution phase. <code>SUCCEEDED</code> indicates that the query completed without errors.
+     * <code>FAILED</code> indicates that the query experienced an error and did not complete processing.
+     * <code>CANCELLED</code> indicates that a user input interrupted query execution.
      * </p>
+     * <note>
+     * <p>
+     * Athena automatically retries your queries in cases of certain transient errors. As a result, you may see the
+     * query state transition from <code>RUNNING</code> or <code>FAILED</code> to <code>QUEUED</code>.
+     * </p>
+     * </note>
      * 
      * @param state
-     *        The state of query execution. <code>QUEUED</code> state is listed but is not used by Athena and is
-     *        reserved for future use. <code>RUNNING</code> indicates that the query has been submitted to the service,
-     *        and Athena will execute the query as soon as resources are available. <code>SUCCEEDED</code> indicates
-     *        that the query completed without errors. <code>FAILED</code> indicates that the query experienced an error
-     *        and did not complete processing. <code>CANCELLED</code> indicates that a user input interrupted query
-     *        execution.
+     *        The state of query execution. <code>QUEUED</code> indicates that the query has been submitted to the
+     *        service, and Athena will execute the query as soon as resources are available. <code>RUNNING</code>
+     *        indicates that the query is in execution phase. <code>SUCCEEDED</code> indicates that the query completed
+     *        without errors. <code>FAILED</code> indicates that the query experienced an error and did not complete
+     *        processing. <code>CANCELLED</code> indicates that a user input interrupted query execution.</p> <note>
+     *        <p>
+     *        Athena automatically retries your queries in cases of certain transient errors. As a result, you may see
+     *        the query state transition from <code>RUNNING</code> or <code>FAILED</code> to <code>QUEUED</code>.
+     *        </p>
      * @see QueryExecutionState
      */
 
@@ -152,20 +200,29 @@ public class QueryExecutionStatus implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The state of query execution. <code>QUEUED</code> state is listed but is not used by Athena and is reserved for
-     * future use. <code>RUNNING</code> indicates that the query has been submitted to the service, and Athena will
-     * execute the query as soon as resources are available. <code>SUCCEEDED</code> indicates that the query completed
-     * without errors. <code>FAILED</code> indicates that the query experienced an error and did not complete
-     * processing. <code>CANCELLED</code> indicates that a user input interrupted query execution.
+     * The state of query execution. <code>QUEUED</code> indicates that the query has been submitted to the service, and
+     * Athena will execute the query as soon as resources are available. <code>RUNNING</code> indicates that the query
+     * is in execution phase. <code>SUCCEEDED</code> indicates that the query completed without errors.
+     * <code>FAILED</code> indicates that the query experienced an error and did not complete processing.
+     * <code>CANCELLED</code> indicates that a user input interrupted query execution.
      * </p>
+     * <note>
+     * <p>
+     * Athena automatically retries your queries in cases of certain transient errors. As a result, you may see the
+     * query state transition from <code>RUNNING</code> or <code>FAILED</code> to <code>QUEUED</code>.
+     * </p>
+     * </note>
      * 
      * @param state
-     *        The state of query execution. <code>QUEUED</code> state is listed but is not used by Athena and is
-     *        reserved for future use. <code>RUNNING</code> indicates that the query has been submitted to the service,
-     *        and Athena will execute the query as soon as resources are available. <code>SUCCEEDED</code> indicates
-     *        that the query completed without errors. <code>FAILED</code> indicates that the query experienced an error
-     *        and did not complete processing. <code>CANCELLED</code> indicates that a user input interrupted query
-     *        execution.
+     *        The state of query execution. <code>QUEUED</code> indicates that the query has been submitted to the
+     *        service, and Athena will execute the query as soon as resources are available. <code>RUNNING</code>
+     *        indicates that the query is in execution phase. <code>SUCCEEDED</code> indicates that the query completed
+     *        without errors. <code>FAILED</code> indicates that the query experienced an error and did not complete
+     *        processing. <code>CANCELLED</code> indicates that a user input interrupted query execution.</p> <note>
+     *        <p>
+     *        Athena automatically retries your queries in cases of certain transient errors. As a result, you may see
+     *        the query state transition from <code>RUNNING</code> or <code>FAILED</code> to <code>QUEUED</code>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see QueryExecutionState
      */
@@ -296,6 +353,46 @@ public class QueryExecutionStatus implements Serializable, Cloneable, Structured
     }
 
     /**
+     * <p>
+     * Provides information about an Athena query error.
+     * </p>
+     * 
+     * @param athenaError
+     *        Provides information about an Athena query error.
+     */
+
+    public void setAthenaError(AthenaError athenaError) {
+        this.athenaError = athenaError;
+    }
+
+    /**
+     * <p>
+     * Provides information about an Athena query error.
+     * </p>
+     * 
+     * @return Provides information about an Athena query error.
+     */
+
+    public AthenaError getAthenaError() {
+        return this.athenaError;
+    }
+
+    /**
+     * <p>
+     * Provides information about an Athena query error.
+     * </p>
+     * 
+     * @param athenaError
+     *        Provides information about an Athena query error.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public QueryExecutionStatus withAthenaError(AthenaError athenaError) {
+        setAthenaError(athenaError);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -314,7 +411,9 @@ public class QueryExecutionStatus implements Serializable, Cloneable, Structured
         if (getSubmissionDateTime() != null)
             sb.append("SubmissionDateTime: ").append(getSubmissionDateTime()).append(",");
         if (getCompletionDateTime() != null)
-            sb.append("CompletionDateTime: ").append(getCompletionDateTime());
+            sb.append("CompletionDateTime: ").append(getCompletionDateTime()).append(",");
+        if (getAthenaError() != null)
+            sb.append("AthenaError: ").append(getAthenaError());
         sb.append("}");
         return sb.toString();
     }
@@ -345,6 +444,10 @@ public class QueryExecutionStatus implements Serializable, Cloneable, Structured
             return false;
         if (other.getCompletionDateTime() != null && other.getCompletionDateTime().equals(this.getCompletionDateTime()) == false)
             return false;
+        if (other.getAthenaError() == null ^ this.getAthenaError() == null)
+            return false;
+        if (other.getAthenaError() != null && other.getAthenaError().equals(this.getAthenaError()) == false)
+            return false;
         return true;
     }
 
@@ -357,6 +460,7 @@ public class QueryExecutionStatus implements Serializable, Cloneable, Structured
         hashCode = prime * hashCode + ((getStateChangeReason() == null) ? 0 : getStateChangeReason().hashCode());
         hashCode = prime * hashCode + ((getSubmissionDateTime() == null) ? 0 : getSubmissionDateTime().hashCode());
         hashCode = prime * hashCode + ((getCompletionDateTime() == null) ? 0 : getCompletionDateTime().hashCode());
+        hashCode = prime * hashCode + ((getAthenaError() == null) ? 0 : getAthenaError().hashCode());
         return hashCode;
     }
 

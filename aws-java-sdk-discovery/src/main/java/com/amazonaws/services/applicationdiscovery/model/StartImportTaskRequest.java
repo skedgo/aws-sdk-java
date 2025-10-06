@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,7 +45,8 @@ public class StartImportTaskRequest extends com.amazonaws.AmazonWebServiceReques
      * </p>
      * <note>
      * <p>
-     * If you're using the AWS CLI, this URL is structured as follows: <code>s3://BucketName/ImportFileName.CSV</code>
+     * If you're using the Amazon Web Services CLI, this URL is structured as follows:
+     * <code>s3://BucketName/ImportFileName.CSV</code>
      * </p>
      * </note>
      */
@@ -176,14 +177,15 @@ public class StartImportTaskRequest extends com.amazonaws.AmazonWebServiceReques
      * </p>
      * <note>
      * <p>
-     * If you're using the AWS CLI, this URL is structured as follows: <code>s3://BucketName/ImportFileName.CSV</code>
+     * If you're using the Amazon Web Services CLI, this URL is structured as follows:
+     * <code>s3://BucketName/ImportFileName.CSV</code>
      * </p>
      * </note>
      * 
      * @param importUrl
      *        The URL for your import file that you've uploaded to Amazon S3.</p> <note>
      *        <p>
-     *        If you're using the AWS CLI, this URL is structured as follows:
+     *        If you're using the Amazon Web Services CLI, this URL is structured as follows:
      *        <code>s3://BucketName/ImportFileName.CSV</code>
      *        </p>
      */
@@ -198,13 +200,14 @@ public class StartImportTaskRequest extends com.amazonaws.AmazonWebServiceReques
      * </p>
      * <note>
      * <p>
-     * If you're using the AWS CLI, this URL is structured as follows: <code>s3://BucketName/ImportFileName.CSV</code>
+     * If you're using the Amazon Web Services CLI, this URL is structured as follows:
+     * <code>s3://BucketName/ImportFileName.CSV</code>
      * </p>
      * </note>
      * 
      * @return The URL for your import file that you've uploaded to Amazon S3.</p> <note>
      *         <p>
-     *         If you're using the AWS CLI, this URL is structured as follows:
+     *         If you're using the Amazon Web Services CLI, this URL is structured as follows:
      *         <code>s3://BucketName/ImportFileName.CSV</code>
      *         </p>
      */
@@ -219,14 +222,15 @@ public class StartImportTaskRequest extends com.amazonaws.AmazonWebServiceReques
      * </p>
      * <note>
      * <p>
-     * If you're using the AWS CLI, this URL is structured as follows: <code>s3://BucketName/ImportFileName.CSV</code>
+     * If you're using the Amazon Web Services CLI, this URL is structured as follows:
+     * <code>s3://BucketName/ImportFileName.CSV</code>
      * </p>
      * </note>
      * 
      * @param importUrl
      *        The URL for your import file that you've uploaded to Amazon S3.</p> <note>
      *        <p>
-     *        If you're using the AWS CLI, this URL is structured as follows:
+     *        If you're using the Amazon Web Services CLI, this URL is structured as follows:
      *        <code>s3://BucketName/ImportFileName.CSV</code>
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.

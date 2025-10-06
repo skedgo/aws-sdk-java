@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,8 +28,9 @@ public class DescribeReplicationTaskAssessmentResultsRequest extends com.amazona
 
     /**
      * <p>
-     * - The Amazon Resource Name (ARN) string that uniquely identifies the task. When this input parameter is specified
-     * the API will return only one result and ignore the values of the max-records and marker parameters.
+     * The Amazon Resource Name (ARN) string that uniquely identifies the task. When this input parameter is specified,
+     * the API returns only one result and ignore the values of the <code>MaxRecords</code> and <code>Marker</code>
+     * parameters.
      * </p>
      */
     private String replicationTaskArn;
@@ -57,14 +58,15 @@ public class DescribeReplicationTaskAssessmentResultsRequest extends com.amazona
 
     /**
      * <p>
-     * - The Amazon Resource Name (ARN) string that uniquely identifies the task. When this input parameter is specified
-     * the API will return only one result and ignore the values of the max-records and marker parameters.
+     * The Amazon Resource Name (ARN) string that uniquely identifies the task. When this input parameter is specified,
+     * the API returns only one result and ignore the values of the <code>MaxRecords</code> and <code>Marker</code>
+     * parameters.
      * </p>
      * 
      * @param replicationTaskArn
-     *        - The Amazon Resource Name (ARN) string that uniquely identifies the task. When this input parameter is
-     *        specified the API will return only one result and ignore the values of the max-records and marker
-     *        parameters.
+     *        The Amazon Resource Name (ARN) string that uniquely identifies the task. When this input parameter is
+     *        specified, the API returns only one result and ignore the values of the <code>MaxRecords</code> and
+     *        <code>Marker</code> parameters.
      */
 
     public void setReplicationTaskArn(String replicationTaskArn) {
@@ -73,13 +75,14 @@ public class DescribeReplicationTaskAssessmentResultsRequest extends com.amazona
 
     /**
      * <p>
-     * - The Amazon Resource Name (ARN) string that uniquely identifies the task. When this input parameter is specified
-     * the API will return only one result and ignore the values of the max-records and marker parameters.
+     * The Amazon Resource Name (ARN) string that uniquely identifies the task. When this input parameter is specified,
+     * the API returns only one result and ignore the values of the <code>MaxRecords</code> and <code>Marker</code>
+     * parameters.
      * </p>
      * 
-     * @return - The Amazon Resource Name (ARN) string that uniquely identifies the task. When this input parameter is
-     *         specified the API will return only one result and ignore the values of the max-records and marker
-     *         parameters.
+     * @return The Amazon Resource Name (ARN) string that uniquely identifies the task. When this input parameter is
+     *         specified, the API returns only one result and ignore the values of the <code>MaxRecords</code> and
+     *         <code>Marker</code> parameters.
      */
 
     public String getReplicationTaskArn() {
@@ -88,14 +91,15 @@ public class DescribeReplicationTaskAssessmentResultsRequest extends com.amazona
 
     /**
      * <p>
-     * - The Amazon Resource Name (ARN) string that uniquely identifies the task. When this input parameter is specified
-     * the API will return only one result and ignore the values of the max-records and marker parameters.
+     * The Amazon Resource Name (ARN) string that uniquely identifies the task. When this input parameter is specified,
+     * the API returns only one result and ignore the values of the <code>MaxRecords</code> and <code>Marker</code>
+     * parameters.
      * </p>
      * 
      * @param replicationTaskArn
-     *        - The Amazon Resource Name (ARN) string that uniquely identifies the task. When this input parameter is
-     *        specified the API will return only one result and ignore the values of the max-records and marker
-     *        parameters.
+     *        The Amazon Resource Name (ARN) string that uniquely identifies the task. When this input parameter is
+     *        specified, the API returns only one result and ignore the values of the <code>MaxRecords</code> and
+     *        <code>Marker</code> parameters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

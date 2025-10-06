@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -70,6 +70,11 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
      * </li>
      * <li>
      * <p>
+     * INVOICING_ENTITY
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * LINKED_ACCOUNT
      * </p>
      * </li>
@@ -98,8 +103,8 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
     private java.util.List<GroupDefinition> groupBy;
     /**
      * <p>
-     * The granularity of the AWS cost data for the reservation. Valid values are <code>MONTHLY</code> and
-     * <code>DAILY</code>.
+     * The granularity of the Amazon Web Services cost data for the reservation. Valid values are <code>MONTHLY</code>
+     * and <code>DAILY</code>.
      * </p>
      * <p>
      * If <code>GroupBy</code> is set, <code>Granularity</code> can't be set. If <code>Granularity</code> isn't set, the
@@ -179,12 +184,15 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
      * </ul>
      * <p>
      * <code>GetReservationCoverage</code> uses the same <a
-     * href="http://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html">Expression</a>
+     * href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html">Expression</a>
      * object as the other operations, but only <code>AND</code> is supported among each dimension. You can nest only
      * one level deep. If there are multiple values for a dimension, they are OR'd together.
      * </p>
      * <p>
      * If you don't provide a <code>SERVICE</code> filter, Cost Explorer defaults to EC2.
+     * </p>
+     * <p>
+     * Cost category is also supported.
      * </p>
      */
     private Expression filter;
@@ -200,11 +208,83 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
     private java.util.List<String> metrics;
     /**
      * <p>
-     * The token to retrieve the next set of results. AWS provides the token when the response from a previous call has
-     * more results than the maximum page size.
+     * The token to retrieve the next set of results. Amazon Web Services provides the token when the response from a
+     * previous call has more results than the maximum page size.
      * </p>
      */
     private String nextPageToken;
+    /**
+     * <p>
+     * The value by which you want to sort the data.
+     * </p>
+     * <p>
+     * The following values are supported for <code>Key</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>OnDemandCost</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CoverageHoursPercentage</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OnDemandHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ReservedHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalRunningHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CoverageNormalizedUnitsPercentage</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OnDemandNormalizedUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ReservedNormalizedUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalRunningNormalizedUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Time</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Supported values for <code>SortOrder</code> are <code>ASCENDING</code> or <code>DESCENDING</code>.
+     * </p>
+     */
+    private SortDefinition sortBy;
+    /**
+     * <p>
+     * The maximum number of objects that you returned for this request. If more objects are available, in the response,
+     * Amazon Web Services provides a NextPageToken value that you can use in a subsequent call to get the next batch of
+     * objects.
+     * </p>
+     */
+    private Integer maxResults;
 
     /**
      * <p>
@@ -305,6 +385,11 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
      * </li>
      * <li>
      * <p>
+     * INVOICING_ENTITY
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * LINKED_ACCOUNT
      * </p>
      * </li>
@@ -355,6 +440,11 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
      *         <li>
      *         <p>
      *         INSTANCE_TYPE
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         INVOICING_ENTITY
      *         </p>
      *         </li>
      *         <li>
@@ -420,6 +510,11 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
      * </li>
      * <li>
      * <p>
+     * INVOICING_ENTITY
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * LINKED_ACCOUNT
      * </p>
      * </li>
@@ -471,6 +566,11 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
      *        <li>
      *        <p>
      *        INSTANCE_TYPE
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        INVOICING_ENTITY
      *        </p>
      *        </li>
      *        <li>
@@ -541,6 +641,11 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
      * </li>
      * <li>
      * <p>
+     * INVOICING_ENTITY
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * LINKED_ACCOUNT
      * </p>
      * </li>
@@ -597,6 +702,11 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
      *        <li>
      *        <p>
      *        INSTANCE_TYPE
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        INVOICING_ENTITY
      *        </p>
      *        </li>
      *        <li>
@@ -669,6 +779,11 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
      * </li>
      * <li>
      * <p>
+     * INVOICING_ENTITY
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * LINKED_ACCOUNT
      * </p>
      * </li>
@@ -724,6 +839,11 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
      *        </li>
      *        <li>
      *        <p>
+     *        INVOICING_ENTITY
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        LINKED_ACCOUNT
      *        </p>
      *        </li>
@@ -757,8 +877,8 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The granularity of the AWS cost data for the reservation. Valid values are <code>MONTHLY</code> and
-     * <code>DAILY</code>.
+     * The granularity of the Amazon Web Services cost data for the reservation. Valid values are <code>MONTHLY</code>
+     * and <code>DAILY</code>.
      * </p>
      * <p>
      * If <code>GroupBy</code> is set, <code>Granularity</code> can't be set. If <code>Granularity</code> isn't set, the
@@ -770,8 +890,8 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
      * </p>
      * 
      * @param granularity
-     *        The granularity of the AWS cost data for the reservation. Valid values are <code>MONTHLY</code> and
-     *        <code>DAILY</code>.</p>
+     *        The granularity of the Amazon Web Services cost data for the reservation. Valid values are
+     *        <code>MONTHLY</code> and <code>DAILY</code>.</p>
      *        <p>
      *        If <code>GroupBy</code> is set, <code>Granularity</code> can't be set. If <code>Granularity</code> isn't
      *        set, the response object doesn't include <code>Granularity</code>, either <code>MONTHLY</code> or
@@ -789,8 +909,8 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The granularity of the AWS cost data for the reservation. Valid values are <code>MONTHLY</code> and
-     * <code>DAILY</code>.
+     * The granularity of the Amazon Web Services cost data for the reservation. Valid values are <code>MONTHLY</code>
+     * and <code>DAILY</code>.
      * </p>
      * <p>
      * If <code>GroupBy</code> is set, <code>Granularity</code> can't be set. If <code>Granularity</code> isn't set, the
@@ -801,8 +921,8 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
      * granularities.
      * </p>
      * 
-     * @return The granularity of the AWS cost data for the reservation. Valid values are <code>MONTHLY</code> and
-     *         <code>DAILY</code>.</p>
+     * @return The granularity of the Amazon Web Services cost data for the reservation. Valid values are
+     *         <code>MONTHLY</code> and <code>DAILY</code>.</p>
      *         <p>
      *         If <code>GroupBy</code> is set, <code>Granularity</code> can't be set. If <code>Granularity</code> isn't
      *         set, the response object doesn't include <code>Granularity</code>, either <code>MONTHLY</code> or
@@ -820,8 +940,8 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The granularity of the AWS cost data for the reservation. Valid values are <code>MONTHLY</code> and
-     * <code>DAILY</code>.
+     * The granularity of the Amazon Web Services cost data for the reservation. Valid values are <code>MONTHLY</code>
+     * and <code>DAILY</code>.
      * </p>
      * <p>
      * If <code>GroupBy</code> is set, <code>Granularity</code> can't be set. If <code>Granularity</code> isn't set, the
@@ -833,8 +953,8 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
      * </p>
      * 
      * @param granularity
-     *        The granularity of the AWS cost data for the reservation. Valid values are <code>MONTHLY</code> and
-     *        <code>DAILY</code>.</p>
+     *        The granularity of the Amazon Web Services cost data for the reservation. Valid values are
+     *        <code>MONTHLY</code> and <code>DAILY</code>.</p>
      *        <p>
      *        If <code>GroupBy</code> is set, <code>Granularity</code> can't be set. If <code>Granularity</code> isn't
      *        set, the response object doesn't include <code>Granularity</code>, either <code>MONTHLY</code> or
@@ -854,8 +974,8 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The granularity of the AWS cost data for the reservation. Valid values are <code>MONTHLY</code> and
-     * <code>DAILY</code>.
+     * The granularity of the Amazon Web Services cost data for the reservation. Valid values are <code>MONTHLY</code>
+     * and <code>DAILY</code>.
      * </p>
      * <p>
      * If <code>GroupBy</code> is set, <code>Granularity</code> can't be set. If <code>Granularity</code> isn't set, the
@@ -867,8 +987,8 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
      * </p>
      * 
      * @param granularity
-     *        The granularity of the AWS cost data for the reservation. Valid values are <code>MONTHLY</code> and
-     *        <code>DAILY</code>.</p>
+     *        The granularity of the Amazon Web Services cost data for the reservation. Valid values are
+     *        <code>MONTHLY</code> and <code>DAILY</code>.</p>
      *        <p>
      *        If <code>GroupBy</code> is set, <code>Granularity</code> can't be set. If <code>Granularity</code> isn't
      *        set, the response object doesn't include <code>Granularity</code>, either <code>MONTHLY</code> or
@@ -954,12 +1074,15 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
      * </ul>
      * <p>
      * <code>GetReservationCoverage</code> uses the same <a
-     * href="http://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html">Expression</a>
+     * href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html">Expression</a>
      * object as the other operations, but only <code>AND</code> is supported among each dimension. You can nest only
      * one level deep. If there are multiple values for a dimension, they are OR'd together.
      * </p>
      * <p>
      * If you don't provide a <code>SERVICE</code> filter, Cost Explorer defaults to EC2.
+     * </p>
+     * <p>
+     * Cost category is also supported.
      * </p>
      * 
      * @param filter
@@ -1028,13 +1151,16 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
      *        </ul>
      *        <p>
      *        <code>GetReservationCoverage</code> uses the same <a
-     *        href="http://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html"
+     *        href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html"
      *        >Expression</a> object as the other operations, but only <code>AND</code> is supported among each
      *        dimension. You can nest only one level deep. If there are multiple values for a dimension, they are OR'd
      *        together.
      *        </p>
      *        <p>
      *        If you don't provide a <code>SERVICE</code> filter, Cost Explorer defaults to EC2.
+     *        </p>
+     *        <p>
+     *        Cost category is also supported.
      */
 
     public void setFilter(Expression filter) {
@@ -1109,12 +1235,15 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
      * </ul>
      * <p>
      * <code>GetReservationCoverage</code> uses the same <a
-     * href="http://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html">Expression</a>
+     * href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html">Expression</a>
      * object as the other operations, but only <code>AND</code> is supported among each dimension. You can nest only
      * one level deep. If there are multiple values for a dimension, they are OR'd together.
      * </p>
      * <p>
      * If you don't provide a <code>SERVICE</code> filter, Cost Explorer defaults to EC2.
+     * </p>
+     * <p>
+     * Cost category is also supported.
      * </p>
      * 
      * @return Filters utilization data by dimensions. You can filter by the following dimensions:</p>
@@ -1182,13 +1311,16 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
      *         </ul>
      *         <p>
      *         <code>GetReservationCoverage</code> uses the same <a
-     *         href="http://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html"
+     *         href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html"
      *         >Expression</a> object as the other operations, but only <code>AND</code> is supported among each
      *         dimension. You can nest only one level deep. If there are multiple values for a dimension, they are OR'd
      *         together.
      *         </p>
      *         <p>
      *         If you don't provide a <code>SERVICE</code> filter, Cost Explorer defaults to EC2.
+     *         </p>
+     *         <p>
+     *         Cost category is also supported.
      */
 
     public Expression getFilter() {
@@ -1263,12 +1395,15 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
      * </ul>
      * <p>
      * <code>GetReservationCoverage</code> uses the same <a
-     * href="http://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html">Expression</a>
+     * href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html">Expression</a>
      * object as the other operations, but only <code>AND</code> is supported among each dimension. You can nest only
      * one level deep. If there are multiple values for a dimension, they are OR'd together.
      * </p>
      * <p>
      * If you don't provide a <code>SERVICE</code> filter, Cost Explorer defaults to EC2.
+     * </p>
+     * <p>
+     * Cost category is also supported.
      * </p>
      * 
      * @param filter
@@ -1337,13 +1472,16 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
      *        </ul>
      *        <p>
      *        <code>GetReservationCoverage</code> uses the same <a
-     *        href="http://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html"
+     *        href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html"
      *        >Expression</a> object as the other operations, but only <code>AND</code> is supported among each
      *        dimension. You can nest only one level deep. If there are multiple values for a dimension, they are OR'd
      *        together.
      *        </p>
      *        <p>
      *        If you don't provide a <code>SERVICE</code> filter, Cost Explorer defaults to EC2.
+     *        </p>
+     *        <p>
+     *        Cost category is also supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1452,13 +1590,13 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The token to retrieve the next set of results. AWS provides the token when the response from a previous call has
-     * more results than the maximum page size.
+     * The token to retrieve the next set of results. Amazon Web Services provides the token when the response from a
+     * previous call has more results than the maximum page size.
      * </p>
      * 
      * @param nextPageToken
-     *        The token to retrieve the next set of results. AWS provides the token when the response from a previous
-     *        call has more results than the maximum page size.
+     *        The token to retrieve the next set of results. Amazon Web Services provides the token when the response
+     *        from a previous call has more results than the maximum page size.
      */
 
     public void setNextPageToken(String nextPageToken) {
@@ -1467,12 +1605,12 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The token to retrieve the next set of results. AWS provides the token when the response from a previous call has
-     * more results than the maximum page size.
+     * The token to retrieve the next set of results. Amazon Web Services provides the token when the response from a
+     * previous call has more results than the maximum page size.
      * </p>
      * 
-     * @return The token to retrieve the next set of results. AWS provides the token when the response from a previous
-     *         call has more results than the maximum page size.
+     * @return The token to retrieve the next set of results. Amazon Web Services provides the token when the response
+     *         from a previous call has more results than the maximum page size.
      */
 
     public String getNextPageToken() {
@@ -1481,18 +1619,455 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The token to retrieve the next set of results. AWS provides the token when the response from a previous call has
-     * more results than the maximum page size.
+     * The token to retrieve the next set of results. Amazon Web Services provides the token when the response from a
+     * previous call has more results than the maximum page size.
      * </p>
      * 
      * @param nextPageToken
-     *        The token to retrieve the next set of results. AWS provides the token when the response from a previous
-     *        call has more results than the maximum page size.
+     *        The token to retrieve the next set of results. Amazon Web Services provides the token when the response
+     *        from a previous call has more results than the maximum page size.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public GetReservationCoverageRequest withNextPageToken(String nextPageToken) {
         setNextPageToken(nextPageToken);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The value by which you want to sort the data.
+     * </p>
+     * <p>
+     * The following values are supported for <code>Key</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>OnDemandCost</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CoverageHoursPercentage</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OnDemandHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ReservedHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalRunningHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CoverageNormalizedUnitsPercentage</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OnDemandNormalizedUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ReservedNormalizedUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalRunningNormalizedUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Time</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Supported values for <code>SortOrder</code> are <code>ASCENDING</code> or <code>DESCENDING</code>.
+     * </p>
+     * 
+     * @param sortBy
+     *        The value by which you want to sort the data.</p>
+     *        <p>
+     *        The following values are supported for <code>Key</code>:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>OnDemandCost</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CoverageHoursPercentage</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>OnDemandHours</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ReservedHours</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TotalRunningHours</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CoverageNormalizedUnitsPercentage</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>OnDemandNormalizedUnits</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ReservedNormalizedUnits</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TotalRunningNormalizedUnits</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Time</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Supported values for <code>SortOrder</code> are <code>ASCENDING</code> or <code>DESCENDING</code>.
+     */
+
+    public void setSortBy(SortDefinition sortBy) {
+        this.sortBy = sortBy;
+    }
+
+    /**
+     * <p>
+     * The value by which you want to sort the data.
+     * </p>
+     * <p>
+     * The following values are supported for <code>Key</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>OnDemandCost</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CoverageHoursPercentage</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OnDemandHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ReservedHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalRunningHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CoverageNormalizedUnitsPercentage</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OnDemandNormalizedUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ReservedNormalizedUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalRunningNormalizedUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Time</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Supported values for <code>SortOrder</code> are <code>ASCENDING</code> or <code>DESCENDING</code>.
+     * </p>
+     * 
+     * @return The value by which you want to sort the data.</p>
+     *         <p>
+     *         The following values are supported for <code>Key</code>:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>OnDemandCost</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>CoverageHoursPercentage</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>OnDemandHours</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ReservedHours</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>TotalRunningHours</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>CoverageNormalizedUnitsPercentage</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>OnDemandNormalizedUnits</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ReservedNormalizedUnits</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>TotalRunningNormalizedUnits</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Time</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Supported values for <code>SortOrder</code> are <code>ASCENDING</code> or <code>DESCENDING</code>.
+     */
+
+    public SortDefinition getSortBy() {
+        return this.sortBy;
+    }
+
+    /**
+     * <p>
+     * The value by which you want to sort the data.
+     * </p>
+     * <p>
+     * The following values are supported for <code>Key</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>OnDemandCost</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CoverageHoursPercentage</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OnDemandHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ReservedHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalRunningHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CoverageNormalizedUnitsPercentage</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OnDemandNormalizedUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ReservedNormalizedUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalRunningNormalizedUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Time</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Supported values for <code>SortOrder</code> are <code>ASCENDING</code> or <code>DESCENDING</code>.
+     * </p>
+     * 
+     * @param sortBy
+     *        The value by which you want to sort the data.</p>
+     *        <p>
+     *        The following values are supported for <code>Key</code>:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>OnDemandCost</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CoverageHoursPercentage</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>OnDemandHours</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ReservedHours</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TotalRunningHours</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CoverageNormalizedUnitsPercentage</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>OnDemandNormalizedUnits</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ReservedNormalizedUnits</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TotalRunningNormalizedUnits</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Time</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Supported values for <code>SortOrder</code> are <code>ASCENDING</code> or <code>DESCENDING</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetReservationCoverageRequest withSortBy(SortDefinition sortBy) {
+        setSortBy(sortBy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The maximum number of objects that you returned for this request. If more objects are available, in the response,
+     * Amazon Web Services provides a NextPageToken value that you can use in a subsequent call to get the next batch of
+     * objects.
+     * </p>
+     * 
+     * @param maxResults
+     *        The maximum number of objects that you returned for this request. If more objects are available, in the
+     *        response, Amazon Web Services provides a NextPageToken value that you can use in a subsequent call to get
+     *        the next batch of objects.
+     */
+
+    public void setMaxResults(Integer maxResults) {
+        this.maxResults = maxResults;
+    }
+
+    /**
+     * <p>
+     * The maximum number of objects that you returned for this request. If more objects are available, in the response,
+     * Amazon Web Services provides a NextPageToken value that you can use in a subsequent call to get the next batch of
+     * objects.
+     * </p>
+     * 
+     * @return The maximum number of objects that you returned for this request. If more objects are available, in the
+     *         response, Amazon Web Services provides a NextPageToken value that you can use in a subsequent call to get
+     *         the next batch of objects.
+     */
+
+    public Integer getMaxResults() {
+        return this.maxResults;
+    }
+
+    /**
+     * <p>
+     * The maximum number of objects that you returned for this request. If more objects are available, in the response,
+     * Amazon Web Services provides a NextPageToken value that you can use in a subsequent call to get the next batch of
+     * objects.
+     * </p>
+     * 
+     * @param maxResults
+     *        The maximum number of objects that you returned for this request. If more objects are available, in the
+     *        response, Amazon Web Services provides a NextPageToken value that you can use in a subsequent call to get
+     *        the next batch of objects.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetReservationCoverageRequest withMaxResults(Integer maxResults) {
+        setMaxResults(maxResults);
         return this;
     }
 
@@ -1519,7 +2094,11 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
         if (getMetrics() != null)
             sb.append("Metrics: ").append(getMetrics()).append(",");
         if (getNextPageToken() != null)
-            sb.append("NextPageToken: ").append(getNextPageToken());
+            sb.append("NextPageToken: ").append(getNextPageToken()).append(",");
+        if (getSortBy() != null)
+            sb.append("SortBy: ").append(getSortBy()).append(",");
+        if (getMaxResults() != null)
+            sb.append("MaxResults: ").append(getMaxResults());
         sb.append("}");
         return sb.toString();
     }
@@ -1558,6 +2137,14 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
             return false;
         if (other.getNextPageToken() != null && other.getNextPageToken().equals(this.getNextPageToken()) == false)
             return false;
+        if (other.getSortBy() == null ^ this.getSortBy() == null)
+            return false;
+        if (other.getSortBy() != null && other.getSortBy().equals(this.getSortBy()) == false)
+            return false;
+        if (other.getMaxResults() == null ^ this.getMaxResults() == null)
+            return false;
+        if (other.getMaxResults() != null && other.getMaxResults().equals(this.getMaxResults()) == false)
+            return false;
         return true;
     }
 
@@ -1572,6 +2159,8 @@ public class GetReservationCoverageRequest extends com.amazonaws.AmazonWebServic
         hashCode = prime * hashCode + ((getFilter() == null) ? 0 : getFilter().hashCode());
         hashCode = prime * hashCode + ((getMetrics() == null) ? 0 : getMetrics().hashCode());
         hashCode = prime * hashCode + ((getNextPageToken() == null) ? 0 : getNextPageToken().hashCode());
+        hashCode = prime * hashCode + ((getSortBy() == null) ? 0 : getSortBy().hashCode());
+        hashCode = prime * hashCode + ((getMaxResults() == null) ? 0 : getMaxResults().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,10 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
+ * <p>
+ * Describes a resize cluster operation. For example, a scheduled action to run the <code>ResizeCluster</code> API
+ * operation.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/ResizeCluster" target="_top">AWS API
  *      Documentation</a>
@@ -39,13 +43,13 @@ public class ResizeClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String clusterType;
     /**
      * <p>
-     * The new node type for the nodes you are adding.
+     * The new node type for the nodes you are adding. If not specified, the cluster's current node type is used.
      * </p>
      */
     private String nodeType;
     /**
      * <p>
-     * The new number of nodes for the cluster.
+     * The new number of nodes for the cluster. If not specified, the cluster's current number of nodes is used.
      * </p>
      */
     private Integer numberOfNodes;
@@ -56,6 +60,18 @@ public class ResizeClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      */
     private Boolean classic;
+    /**
+     * <p>
+     * The identifier of the reserved node.
+     * </p>
+     */
+    private String reservedNodeId;
+    /**
+     * <p>
+     * The identifier of the target reserved node offering.
+     * </p>
+     */
+    private String targetReservedNodeOfferingId;
 
     /**
      * <p>
@@ -139,11 +155,11 @@ public class ResizeClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The new node type for the nodes you are adding.
+     * The new node type for the nodes you are adding. If not specified, the cluster's current node type is used.
      * </p>
      * 
      * @param nodeType
-     *        The new node type for the nodes you are adding.
+     *        The new node type for the nodes you are adding. If not specified, the cluster's current node type is used.
      */
 
     public void setNodeType(String nodeType) {
@@ -152,10 +168,11 @@ public class ResizeClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The new node type for the nodes you are adding.
+     * The new node type for the nodes you are adding. If not specified, the cluster's current node type is used.
      * </p>
      * 
-     * @return The new node type for the nodes you are adding.
+     * @return The new node type for the nodes you are adding. If not specified, the cluster's current node type is
+     *         used.
      */
 
     public String getNodeType() {
@@ -164,11 +181,11 @@ public class ResizeClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The new node type for the nodes you are adding.
+     * The new node type for the nodes you are adding. If not specified, the cluster's current node type is used.
      * </p>
      * 
      * @param nodeType
-     *        The new node type for the nodes you are adding.
+     *        The new node type for the nodes you are adding. If not specified, the cluster's current node type is used.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -179,11 +196,11 @@ public class ResizeClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The new number of nodes for the cluster.
+     * The new number of nodes for the cluster. If not specified, the cluster's current number of nodes is used.
      * </p>
      * 
      * @param numberOfNodes
-     *        The new number of nodes for the cluster.
+     *        The new number of nodes for the cluster. If not specified, the cluster's current number of nodes is used.
      */
 
     public void setNumberOfNodes(Integer numberOfNodes) {
@@ -192,10 +209,10 @@ public class ResizeClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The new number of nodes for the cluster.
+     * The new number of nodes for the cluster. If not specified, the cluster's current number of nodes is used.
      * </p>
      * 
-     * @return The new number of nodes for the cluster.
+     * @return The new number of nodes for the cluster. If not specified, the cluster's current number of nodes is used.
      */
 
     public Integer getNumberOfNodes() {
@@ -204,11 +221,11 @@ public class ResizeClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The new number of nodes for the cluster.
+     * The new number of nodes for the cluster. If not specified, the cluster's current number of nodes is used.
      * </p>
      * 
      * @param numberOfNodes
-     *        The new number of nodes for the cluster.
+     *        The new number of nodes for the cluster. If not specified, the cluster's current number of nodes is used.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -278,6 +295,86 @@ public class ResizeClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
     }
 
     /**
+     * <p>
+     * The identifier of the reserved node.
+     * </p>
+     * 
+     * @param reservedNodeId
+     *        The identifier of the reserved node.
+     */
+
+    public void setReservedNodeId(String reservedNodeId) {
+        this.reservedNodeId = reservedNodeId;
+    }
+
+    /**
+     * <p>
+     * The identifier of the reserved node.
+     * </p>
+     * 
+     * @return The identifier of the reserved node.
+     */
+
+    public String getReservedNodeId() {
+        return this.reservedNodeId;
+    }
+
+    /**
+     * <p>
+     * The identifier of the reserved node.
+     * </p>
+     * 
+     * @param reservedNodeId
+     *        The identifier of the reserved node.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResizeClusterRequest withReservedNodeId(String reservedNodeId) {
+        setReservedNodeId(reservedNodeId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The identifier of the target reserved node offering.
+     * </p>
+     * 
+     * @param targetReservedNodeOfferingId
+     *        The identifier of the target reserved node offering.
+     */
+
+    public void setTargetReservedNodeOfferingId(String targetReservedNodeOfferingId) {
+        this.targetReservedNodeOfferingId = targetReservedNodeOfferingId;
+    }
+
+    /**
+     * <p>
+     * The identifier of the target reserved node offering.
+     * </p>
+     * 
+     * @return The identifier of the target reserved node offering.
+     */
+
+    public String getTargetReservedNodeOfferingId() {
+        return this.targetReservedNodeOfferingId;
+    }
+
+    /**
+     * <p>
+     * The identifier of the target reserved node offering.
+     * </p>
+     * 
+     * @param targetReservedNodeOfferingId
+     *        The identifier of the target reserved node offering.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResizeClusterRequest withTargetReservedNodeOfferingId(String targetReservedNodeOfferingId) {
+        setTargetReservedNodeOfferingId(targetReservedNodeOfferingId);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -298,7 +395,11 @@ public class ResizeClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (getNumberOfNodes() != null)
             sb.append("NumberOfNodes: ").append(getNumberOfNodes()).append(",");
         if (getClassic() != null)
-            sb.append("Classic: ").append(getClassic());
+            sb.append("Classic: ").append(getClassic()).append(",");
+        if (getReservedNodeId() != null)
+            sb.append("ReservedNodeId: ").append(getReservedNodeId()).append(",");
+        if (getTargetReservedNodeOfferingId() != null)
+            sb.append("TargetReservedNodeOfferingId: ").append(getTargetReservedNodeOfferingId());
         sb.append("}");
         return sb.toString();
     }
@@ -333,6 +434,14 @@ public class ResizeClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getClassic() != null && other.getClassic().equals(this.getClassic()) == false)
             return false;
+        if (other.getReservedNodeId() == null ^ this.getReservedNodeId() == null)
+            return false;
+        if (other.getReservedNodeId() != null && other.getReservedNodeId().equals(this.getReservedNodeId()) == false)
+            return false;
+        if (other.getTargetReservedNodeOfferingId() == null ^ this.getTargetReservedNodeOfferingId() == null)
+            return false;
+        if (other.getTargetReservedNodeOfferingId() != null && other.getTargetReservedNodeOfferingId().equals(this.getTargetReservedNodeOfferingId()) == false)
+            return false;
         return true;
     }
 
@@ -346,6 +455,8 @@ public class ResizeClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
         hashCode = prime * hashCode + ((getNodeType() == null) ? 0 : getNodeType().hashCode());
         hashCode = prime * hashCode + ((getNumberOfNodes() == null) ? 0 : getNumberOfNodes().hashCode());
         hashCode = prime * hashCode + ((getClassic() == null) ? 0 : getClassic().hashCode());
+        hashCode = prime * hashCode + ((getReservedNodeId() == null) ? 0 : getReservedNodeId().hashCode());
+        hashCode = prime * hashCode + ((getTargetReservedNodeOfferingId() == null) ? 0 : getTargetReservedNodeOfferingId().hashCode());
         return hashCode;
     }
 

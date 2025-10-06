@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -15,8 +15,8 @@ package com.amazonaws.services.mediaconvert.model;
 import javax.annotation.Generated;
 
 /**
- * Enable Deblock (InputDeblockFilter) to produce smoother motion in the output. Default is disabled. Only manaully
- * controllable for MPEG2 and uncompressed video inputs.
+ * Enable Deblock to produce smoother motion in the output. Default is disabled. Only manually controllable for MPEG2
+ * and uncompressed video inputs.
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public enum InputDeblockFilter {

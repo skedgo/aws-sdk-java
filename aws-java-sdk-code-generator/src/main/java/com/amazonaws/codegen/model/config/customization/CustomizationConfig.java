@@ -15,11 +15,13 @@
 
 package com.amazonaws.codegen.model.config.customization;
 
+import com.amazonaws.codegen.customization.processors.PruneUnsupportedShapesProcessor;
 import com.amazonaws.codegen.internal.Constants;
 import com.amazonaws.codegen.model.config.ConstructorFormsWrapper;
 import com.amazonaws.codegen.model.config.templates.CodeGenTemplatesConfig;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -172,6 +174,15 @@ public class CustomizationConfig {
     private boolean useModeledOutputShapeNames;
 
     /**
+     * Customization to use the actual shape name of input shapes (as defined in the service model)
+     * to name the corresponding Java class. Normally we derive a new name using the operation name
+     * (i.e. PutFooRequest). This is similar to the 'wrapper' trait in the normalized model but
+     * unlike for Query services, this customization has no affect on how the shape is represented
+     * on the wire.
+     */
+    private boolean useModeledInputShapeNames;
+
+    /**
      * Service specific base class for all modeled exceptions. By default this is syncInterface +
      * Exception (i.e. AmazonSQSException). Currently only DynamoDB Streams utilizes this
      * customization since it shares exception types with the DynamoDB client.
@@ -205,6 +216,18 @@ public class CustomizationConfig {
      * different type that is adapted to the real type
      */
     private final List<ConvenienceTypeOverload> convenienceTypeOverloads = new ArrayList<ConvenienceTypeOverload>();
+
+    /**
+     * A set of shapes to skip pruning. See {@link PruneUnsupportedShapesProcessor}.
+     * <p>
+     * <b>WARNING</b>
+     * <p>
+     * Shapes are pruned because they are not supported in the SDK and
+     * will never be supported. Even if you skip pruning, those shapes still don't work as expected.
+     * This customization config only exists for backwards compatibility reasons. DO
+     * NOT use it without consulting with the AWS SDK for Java team.
+     */
+    private Set<String> shapesToSkipPruning = new HashSet<>();
 
     /**
      * Skips generating smoketests if set to true.
@@ -249,6 +272,18 @@ public class CustomizationConfig {
      * True if uid is used as file name prefix, false otherwise
      */
     private boolean useUidAsFilePrefix;
+
+
+    /**
+     * Overrides empty list serialization behavior in json.  When true empty lists are NOT serialized to the
+     * body.  This matches behavior in query protocol when useAutoConstructList is true.
+     */
+    private boolean queryCompatibleAutoConstructListSerialization;
+
+    /**
+     * Arnable fields used in s3 control
+     */
+    private Map<String, S3ArnableField> s3ArnableFields;
 
     private CustomizationConfig(){
     }
@@ -468,6 +503,14 @@ public class CustomizationConfig {
         this.customErrorCodeFieldName = customErrorCodeFieldName;
     }
 
+    public boolean useModeledInputShapeNames() {
+        return useModeledInputShapeNames;
+    }
+
+    public void setUseModeledInputShapeNames(boolean useModeledInputShapeNames) {
+        this.useModeledInputShapeNames = useModeledInputShapeNames;
+    }
+
     public boolean useModeledOutputShapeNames() {
         return useModeledOutputShapeNames;
     }
@@ -600,5 +643,27 @@ public class CustomizationConfig {
         this.useUidAsFilePrefix = useUidAsFilePrefix;
     }
 
+    public Map<String, S3ArnableField> getS3ArnableFields() {
+        return s3ArnableFields;
+    }
 
+    public void setS3ArnableFields(Map<String, S3ArnableField> s3ArnableFields) {
+        this.s3ArnableFields = s3ArnableFields;
+    }
+
+    public Set<String> getShapesToSkipPruning() {
+        return shapesToSkipPruning;
+    }
+
+    public void setShapesToSkipPruning(Set<String> shapesToSkipPruning) {
+        this.shapesToSkipPruning = shapesToSkipPruning;
+    }
+
+    public boolean isQueryCompatibleAutoConstructListSerialization() {
+        return queryCompatibleAutoConstructListSerialization;
+    }
+
+    public void setQueryCompatibleAutoConstructListSerialization(boolean queryCompatibleAutoConstructListSerialization) {
+        this.queryCompatibleAutoConstructListSerialization = queryCompatibleAutoConstructListSerialization;
+    }
 }

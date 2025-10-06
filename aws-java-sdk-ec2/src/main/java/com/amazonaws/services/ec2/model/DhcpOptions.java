@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Describes a set of DHCP options.
+ * The set of DHCP options.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DhcpOptions" target="_top">AWS API
@@ -28,7 +28,7 @@ public class DhcpOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more DHCP options in the set.
+     * The DHCP options in the set.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<DhcpConfiguration> dhcpConfigurations;
@@ -40,7 +40,7 @@ public class DhcpOptions implements Serializable, Cloneable {
     private String dhcpOptionsId;
     /**
      * <p>
-     * The ID of the AWS account that owns the DHCP options set.
+     * The ID of the Amazon Web Services account that owns the DHCP options set.
      * </p>
      */
     private String ownerId;
@@ -53,10 +53,10 @@ public class DhcpOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more DHCP options in the set.
+     * The DHCP options in the set.
      * </p>
      * 
-     * @return One or more DHCP options in the set.
+     * @return The DHCP options in the set.
      */
 
     public java.util.List<DhcpConfiguration> getDhcpConfigurations() {
@@ -68,11 +68,11 @@ public class DhcpOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more DHCP options in the set.
+     * The DHCP options in the set.
      * </p>
      * 
      * @param dhcpConfigurations
-     *        One or more DHCP options in the set.
+     *        The DHCP options in the set.
      */
 
     public void setDhcpConfigurations(java.util.Collection<DhcpConfiguration> dhcpConfigurations) {
@@ -86,7 +86,7 @@ public class DhcpOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more DHCP options in the set.
+     * The DHCP options in the set.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -95,7 +95,7 @@ public class DhcpOptions implements Serializable, Cloneable {
      * </p>
      * 
      * @param dhcpConfigurations
-     *        One or more DHCP options in the set.
+     *        The DHCP options in the set.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -111,11 +111,11 @@ public class DhcpOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more DHCP options in the set.
+     * The DHCP options in the set.
      * </p>
      * 
      * @param dhcpConfigurations
-     *        One or more DHCP options in the set.
+     *        The DHCP options in the set.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -166,11 +166,11 @@ public class DhcpOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the DHCP options set.
+     * The ID of the Amazon Web Services account that owns the DHCP options set.
      * </p>
      * 
      * @param ownerId
-     *        The ID of the AWS account that owns the DHCP options set.
+     *        The ID of the Amazon Web Services account that owns the DHCP options set.
      */
 
     public void setOwnerId(String ownerId) {
@@ -179,10 +179,10 @@ public class DhcpOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the DHCP options set.
+     * The ID of the Amazon Web Services account that owns the DHCP options set.
      * </p>
      * 
-     * @return The ID of the AWS account that owns the DHCP options set.
+     * @return The ID of the Amazon Web Services account that owns the DHCP options set.
      */
 
     public String getOwnerId() {
@@ -191,11 +191,11 @@ public class DhcpOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the DHCP options set.
+     * The ID of the Amazon Web Services account that owns the DHCP options set.
      * </p>
      * 
      * @param ownerId
-     *        The ID of the AWS account that owns the DHCP options set.
+     *        The ID of the Amazon Web Services account that owns the DHCP options set.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

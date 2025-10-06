@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,8 +18,8 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
- * Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to CMAF_GROUP_SETTINGS. Each output in a CMAF
- * Output Group may only contain a single video, audio, or caption output.
+ * Settings related to your CMAF output package. For more information, see
+ * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CmafGroupSettings" target="_top">AWS API
  *      Documentation</a>
@@ -28,21 +28,48 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 public class CmafGroupSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
+     * By default, the service creates one top-level .m3u8 HLS manifest and one top -level .mpd DASH manifest for each
+     * CMAF output group in your job. These default manifests reference every output in the output group. To create
+     * additional top-level manifests that reference a subset of the outputs in the output group, specify a list of them
+     * here. For each additional manifest that you specify, the service creates one HLS manifest and one DASH manifest.
+     */
+    private java.util.List<CmafAdditionalManifest> additionalManifests;
+    /**
      * A partial URI prefix that will be put in the manifest file at the top level BaseURL element. Can be used if
      * streams are delivered from a different URL than the manifest file.
      */
     private String baseUrl;
     /**
-     * When set to ENABLED, sets #EXT-X-ALLOW-CACHE:no tag, which prevents client from saving media segments for later
-     * replay.
+     * Disable this setting only when your workflow requires the #EXT-X-ALLOW-CACHE:no tag. Otherwise, keep the default
+     * value Enabled and control caching in your video distribution set up. For example, use the Cache-Control http
+     * header.
      */
     private String clientCache;
     /** Specification to use (RFC-6381 or the default RFC-4281) during m3u8 playlist generation. */
     private String codecSpecification;
     /**
-     * Use Destination (Destination) to specify the S3 output location and the output filename base. Destination accepts
-     * format identifiers. If you do not specify the base filename in the URI, the service will use the filename of the
-     * input file. If your job has multiple inputs, the service uses the filename of the first input file.
+     * Specify whether MediaConvert generates I-frame only video segments for DASH trick play, also known as trick mode.
+     * When specified, the I-frame only video segments are included within an additional AdaptationSet in your DASH
+     * output manifest. To generate I-frame only video segments: Enter a name as a text string, up to 256 character long.
+     * This name is appended to the end of this output group's base filename, that you specify as part of your
+     * destination URI, and used for the I-frame only video segment files. You may also include format identifiers. For
+     * more information, see:
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/using-variables-in-your-job-settings.html
+     * #using-settings-variables-with-streaming-outputs To not generate I-frame only video segments: Leave blank.
+     */
+    private String dashIFrameTrickPlayNameModifier;
+    /**
+     * Specify how MediaConvert writes SegmentTimeline in your output DASH manifest. To write a SegmentTimeline in each
+     * video Representation: Keep the default value, Basic. To write a common SegmentTimeline in the video
+     * AdaptationSet: Choose Compact. Note that MediaConvert will still write a SegmentTimeline in any Representation
+     * that does not share a common timeline. To write a video AdaptationSet for each different output framerate, and a
+     * common SegmentTimeline in each AdaptationSet: Choose Distinct.
+     */
+    private String dashManifestStyle;
+    /**
+     * Use Destination to specify the S3 output location and the output filename base. Destination accepts format
+     * identifiers. If you do not specify the base filename in the URI, the service will use the filename of the input
+     * file. If your job has multiple inputs, the service uses the filename of the first input file.
      */
     private String destination;
     /** Settings associated with the destination. Will vary based on the type of destination */
@@ -50,12 +77,23 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
     /** DRM settings. */
     private CmafEncryptionSettings encryption;
     /**
-     * Length of fragments to generate (in seconds). Fragment length must be compatible with GOP size and Framerate.
-     * Note that fragments will end on the next keyframe after this number of seconds, so actual fragment length may be
-     * longer. When Emit Single File is checked, the fragmentation is internal to a single output file and it does not
-     * cause the creation of many output files as in other output types.
+     * Specify the length, in whole seconds, of the mp4 fragments. When you don't specify a value, MediaConvert defaults
+     * to 2. Related setting: Use Fragment length control to specify whether the encoder enforces this value strictly.
      */
     private Integer fragmentLength;
+    /**
+     * Specify whether MediaConvert generates images for trick play. Keep the default value, None, to not generate any
+     * images. Choose Thumbnail to generate tiled thumbnails. Choose Thumbnail and full frame to generate tiled
+     * thumbnails and full-resolution images of single frames. When you enable Write HLS manifest, MediaConvert creates a
+     * child manifest for each set of images that you generate and adds corresponding entries to the parent manifest.
+     * When you enable Write DASH manifest, MediaConvert adds an entry in the .mpd manifest for each set of images that
+     * you generate. A common application for these images is Roku trick mode. The thumbnails and full-frame images that
+     * MediaConvert creates with this feature are compatible with this Roku specification:
+     * https://developer.roku.com/docs/developer-program/media-playback/trick-mode/hls-and-dash.md
+     */
+    private String imageBasedTrickPlay;
+    /** Tile and thumbnail settings applicable when imageBasedTrickPlay is ADVANCED */
+    private CmafImageBasedTrickPlaySettings imageBasedTrickPlaySettings;
     /** When set to GZIP, compresses HLS playlist. */
     private String manifestCompression;
     /** Indicates whether the output manifest should use floating point values for segment duration. */
@@ -74,25 +112,166 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
      */
     private Double minFinalSegmentLength;
     /**
+     * Specify how the value for bandwidth is determined for each video Representation in your output MPD manifest. We
+     * recommend that you choose a MPD manifest bandwidth type that is compatible with your downstream player
+     * configuration. Max: Use the same value that you specify for Max bitrate in the video output, in bits per second.
+     * Average: Use the calculated average bitrate of the encoded video output, in bits per second.
+     */
+    private String mpdManifestBandwidthType;
+    /**
+     * Specify whether your DASH profile is on-demand or main. When you choose Main profile, the service signals
+     * urn:mpeg:dash:profile:isoff-main:2011 in your .mpd DASH manifest. When you choose On-demand, the service signals
+     * urn:mpeg:dash:profile:isoff-on-demand:2011 in your .mpd. When you choose On-demand, you must also set the output
+     * group setting Segment control to Single file.
+     */
+    private String mpdProfile;
+    /**
+     * Use this setting only when your output video stream has B-frames, which causes the initial presentation time
+     * stamp (PTS) to be offset from the initial decode time stamp (DTS). Specify how MediaConvert handles PTS when
+     * writing time stamps in output DASH manifests. Choose Match initial PTS when you want MediaConvert to use the
+     * initial PTS as the first time stamp in the manifest. Choose Zero-based to have MediaConvert ignore the initial PTS
+     * in the video stream and instead write the initial time stamp as zero in the manifest. For outputs that don't have
+     * B-frames, the time stamps in your DASH manifests start at zero regardless of your choice here.
+     */
+    private String ptsOffsetHandlingForBFrames;
+    /**
      * When set to SINGLE_FILE, a single output file is generated, which is internally segmented using the Fragment
      * Length and Segment Length. When set to SEGMENTED_FILES, separate segment files will be created.
      */
     private String segmentControl;
     /**
-     * Use this setting to specify the length, in seconds, of each individual CMAF segment. This value applies to the
-     * whole package; that is, to every output in the output group. Note that segments end on the first keyframe after
-     * this number of seconds, so the actual segment length might be slightly longer. If you set Segment control
-     * (CmafSegmentControl) to single file, the service puts the content of each output in a single file that has
-     * metadata that marks these segments. If you set it to segmented files, the service creates multiple files for each
-     * output, each with the content of one segment.
+     * Specify the length, in whole seconds, of each segment. When you don't specify a value, MediaConvert defaults to
+     * 10. Related settings: Use Segment length control to specify whether the encoder enforces this value strictly. Use
+     * Segment control to specify whether MediaConvert creates separate segment files or one content file that has
+     * metadata to mark the segment boundaries.
      */
     private Integer segmentLength;
+    /**
+     * Specify how you want MediaConvert to determine the segment length. Choose Exact to have the encoder use the exact
+     * length that you specify with the setting Segment length. This might result in extra I-frames. Choose Multiple of
+     * GOP to have the encoder round up the segment lengths to match the next GOP boundary.
+     */
+    private String segmentLengthControl;
     /** Include or exclude RESOLUTION attribute for video in EXT-X-STREAM-INF tag of variant manifest. */
     private String streamInfResolution;
+    /**
+     * When set to LEGACY, the segment target duration is always rounded up to the nearest integer value above its
+     * current value in seconds. When set to SPEC\\_COMPLIANT, the segment target duration is rounded up to the nearest
+     * integer value if fraction seconds are greater than or equal to 0.5 (>= 0.5) and rounded down if less than 0.5 (<
+     * 0.5). You may need to use LEGACY if your client needs to ensure that the target duration is always longer than the
+     * actual duration of the segment. Some older players may experience interrupted playback when the actual duration of
+     * a track in a segment is longer than the target duration.
+     */
+    private String targetDurationCompatibilityMode;
+    /**
+     * Specify the video sample composition time offset mode in the output fMP4 TRUN box. For wider player
+     * compatibility, set Video composition offsets to Unsigned or leave blank. The earliest presentation time may be
+     * greater than zero, and sample composition time offsets will increment using unsigned integers. For strict fMP4
+     * video and audio timing, set Video composition offsets to Signed. The earliest presentation time will be equal to
+     * zero, and sample composition time offsets will increment using signed integers.
+     */
+    private String videoCompositionOffsets;
     /** When set to ENABLED, a DASH MPD manifest will be generated for this output. */
     private String writeDashManifest;
     /** When set to ENABLED, an Apple HLS manifest will be generated for this output. */
     private String writeHlsManifest;
+    /**
+     * When you enable Precise segment duration in DASH manifests, your DASH manifest shows precise segment durations.
+     * The segment duration information appears inside the SegmentTimeline element, inside SegmentTemplate at the
+     * Representation level. When this feature isn't enabled, the segment durations in your DASH manifest are
+     * approximate. The segment duration information appears in the duration attribute of the SegmentTemplate element.
+     */
+    private String writeSegmentTimelineInRepresentation;
+
+    /**
+     * By default, the service creates one top-level .m3u8 HLS manifest and one top -level .mpd DASH manifest for each
+     * CMAF output group in your job. These default manifests reference every output in the output group. To create
+     * additional top-level manifests that reference a subset of the outputs in the output group, specify a list of them
+     * here. For each additional manifest that you specify, the service creates one HLS manifest and one DASH manifest.
+     * 
+     * @return By default, the service creates one top-level .m3u8 HLS manifest and one top -level .mpd DASH manifest
+     *         for each CMAF output group in your job. These default manifests reference every output in the output
+     *         group. To create additional top-level manifests that reference a subset of the outputs in the output
+     *         group, specify a list of them here. For each additional manifest that you specify, the service creates
+     *         one HLS manifest and one DASH manifest.
+     */
+
+    public java.util.List<CmafAdditionalManifest> getAdditionalManifests() {
+        return additionalManifests;
+    }
+
+    /**
+     * By default, the service creates one top-level .m3u8 HLS manifest and one top -level .mpd DASH manifest for each
+     * CMAF output group in your job. These default manifests reference every output in the output group. To create
+     * additional top-level manifests that reference a subset of the outputs in the output group, specify a list of them
+     * here. For each additional manifest that you specify, the service creates one HLS manifest and one DASH manifest.
+     * 
+     * @param additionalManifests
+     *        By default, the service creates one top-level .m3u8 HLS manifest and one top -level .mpd DASH manifest for
+     *        each CMAF output group in your job. These default manifests reference every output in the output group. To
+     *        create additional top-level manifests that reference a subset of the outputs in the output group, specify
+     *        a list of them here. For each additional manifest that you specify, the service creates one HLS manifest
+     *        and one DASH manifest.
+     */
+
+    public void setAdditionalManifests(java.util.Collection<CmafAdditionalManifest> additionalManifests) {
+        if (additionalManifests == null) {
+            this.additionalManifests = null;
+            return;
+        }
+
+        this.additionalManifests = new java.util.ArrayList<CmafAdditionalManifest>(additionalManifests);
+    }
+
+    /**
+     * By default, the service creates one top-level .m3u8 HLS manifest and one top -level .mpd DASH manifest for each
+     * CMAF output group in your job. These default manifests reference every output in the output group. To create
+     * additional top-level manifests that reference a subset of the outputs in the output group, specify a list of them
+     * here. For each additional manifest that you specify, the service creates one HLS manifest and one DASH manifest.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAdditionalManifests(java.util.Collection)} or {@link #withAdditionalManifests(java.util.Collection)}
+     * if you want to override the existing values.
+     * </p>
+     * 
+     * @param additionalManifests
+     *        By default, the service creates one top-level .m3u8 HLS manifest and one top -level .mpd DASH manifest for
+     *        each CMAF output group in your job. These default manifests reference every output in the output group. To
+     *        create additional top-level manifests that reference a subset of the outputs in the output group, specify
+     *        a list of them here. For each additional manifest that you specify, the service creates one HLS manifest
+     *        and one DASH manifest.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CmafGroupSettings withAdditionalManifests(CmafAdditionalManifest... additionalManifests) {
+        if (this.additionalManifests == null) {
+            setAdditionalManifests(new java.util.ArrayList<CmafAdditionalManifest>(additionalManifests.length));
+        }
+        for (CmafAdditionalManifest ele : additionalManifests) {
+            this.additionalManifests.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * By default, the service creates one top-level .m3u8 HLS manifest and one top -level .mpd DASH manifest for each
+     * CMAF output group in your job. These default manifests reference every output in the output group. To create
+     * additional top-level manifests that reference a subset of the outputs in the output group, specify a list of them
+     * here. For each additional manifest that you specify, the service creates one HLS manifest and one DASH manifest.
+     * 
+     * @param additionalManifests
+     *        By default, the service creates one top-level .m3u8 HLS manifest and one top -level .mpd DASH manifest for
+     *        each CMAF output group in your job. These default manifests reference every output in the output group. To
+     *        create additional top-level manifests that reference a subset of the outputs in the output group, specify
+     *        a list of them here. For each additional manifest that you specify, the service creates one HLS manifest
+     *        and one DASH manifest.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CmafGroupSettings withAdditionalManifests(java.util.Collection<CmafAdditionalManifest> additionalManifests) {
+        setAdditionalManifests(additionalManifests);
+        return this;
+    }
 
     /**
      * A partial URI prefix that will be put in the manifest file at the top level BaseURL element. Can be used if
@@ -135,12 +314,14 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * When set to ENABLED, sets #EXT-X-ALLOW-CACHE:no tag, which prevents client from saving media segments for later
-     * replay.
+     * Disable this setting only when your workflow requires the #EXT-X-ALLOW-CACHE:no tag. Otherwise, keep the default
+     * value Enabled and control caching in your video distribution set up. For example, use the Cache-Control http
+     * header.
      * 
      * @param clientCache
-     *        When set to ENABLED, sets #EXT-X-ALLOW-CACHE:no tag, which prevents client from saving media segments for
-     *        later replay.
+     *        Disable this setting only when your workflow requires the #EXT-X-ALLOW-CACHE:no tag. Otherwise, keep the
+     *        default value Enabled and control caching in your video distribution set up. For example, use the
+     *        Cache-Control http header.
      * @see CmafClientCache
      */
 
@@ -149,11 +330,13 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * When set to ENABLED, sets #EXT-X-ALLOW-CACHE:no tag, which prevents client from saving media segments for later
-     * replay.
+     * Disable this setting only when your workflow requires the #EXT-X-ALLOW-CACHE:no tag. Otherwise, keep the default
+     * value Enabled and control caching in your video distribution set up. For example, use the Cache-Control http
+     * header.
      * 
-     * @return When set to ENABLED, sets #EXT-X-ALLOW-CACHE:no tag, which prevents client from saving media segments for
-     *         later replay.
+     * @return Disable this setting only when your workflow requires the #EXT-X-ALLOW-CACHE:no tag. Otherwise, keep the
+     *         default value Enabled and control caching in your video distribution set up. For example, use the
+     *         Cache-Control http header.
      * @see CmafClientCache
      */
 
@@ -162,12 +345,14 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * When set to ENABLED, sets #EXT-X-ALLOW-CACHE:no tag, which prevents client from saving media segments for later
-     * replay.
+     * Disable this setting only when your workflow requires the #EXT-X-ALLOW-CACHE:no tag. Otherwise, keep the default
+     * value Enabled and control caching in your video distribution set up. For example, use the Cache-Control http
+     * header.
      * 
      * @param clientCache
-     *        When set to ENABLED, sets #EXT-X-ALLOW-CACHE:no tag, which prevents client from saving media segments for
-     *        later replay.
+     *        Disable this setting only when your workflow requires the #EXT-X-ALLOW-CACHE:no tag. Otherwise, keep the
+     *        default value Enabled and control caching in your video distribution set up. For example, use the
+     *        Cache-Control http header.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see CmafClientCache
      */
@@ -178,12 +363,14 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * When set to ENABLED, sets #EXT-X-ALLOW-CACHE:no tag, which prevents client from saving media segments for later
-     * replay.
+     * Disable this setting only when your workflow requires the #EXT-X-ALLOW-CACHE:no tag. Otherwise, keep the default
+     * value Enabled and control caching in your video distribution set up. For example, use the Cache-Control http
+     * header.
      * 
      * @param clientCache
-     *        When set to ENABLED, sets #EXT-X-ALLOW-CACHE:no tag, which prevents client from saving media segments for
-     *        later replay.
+     *        Disable this setting only when your workflow requires the #EXT-X-ALLOW-CACHE:no tag. Otherwise, keep the
+     *        default value Enabled and control caching in your video distribution set up. For example, use the
+     *        Cache-Control http header.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see CmafClientCache
      */
@@ -245,15 +432,176 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Use Destination (Destination) to specify the S3 output location and the output filename base. Destination accepts
-     * format identifiers. If you do not specify the base filename in the URI, the service will use the filename of the
-     * input file. If your job has multiple inputs, the service uses the filename of the first input file.
+     * Specify whether MediaConvert generates I-frame only video segments for DASH trick play, also known as trick mode.
+     * When specified, the I-frame only video segments are included within an additional AdaptationSet in your DASH
+     * output manifest. To generate I-frame only video segments: Enter a name as a text string, up to 256 character long.
+     * This name is appended to the end of this output group's base filename, that you specify as part of your
+     * destination URI, and used for the I-frame only video segment files. You may also include format identifiers. For
+     * more information, see:
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/using-variables-in-your-job-settings.html
+     * #using-settings-variables-with-streaming-outputs To not generate I-frame only video segments: Leave blank.
+     * 
+     * @param dashIFrameTrickPlayNameModifier
+     *        Specify whether MediaConvert generates I-frame only video segments for DASH trick play, also known as
+     *        trick mode. When specified, the I-frame only video segments are included within an additional
+     *        AdaptationSet in your DASH output manifest. To generate I-frame only video segments: Enter a name as a
+     *        text string, up to 256 character long. This name is appended to the end of this output group's base
+     *        filename, that you specify as part of your destination URI, and used for the I-frame only video segment
+     *        files. You may also include format identifiers. For more information, see:
+     *        https://docs.aws.amazon.com/mediaconvert
+     *        /latest/ug/using-variables-in-your-job-settings.html#using-settings-variables-with-streaming-outputs To
+     *        not generate I-frame only video segments: Leave blank.
+     */
+
+    public void setDashIFrameTrickPlayNameModifier(String dashIFrameTrickPlayNameModifier) {
+        this.dashIFrameTrickPlayNameModifier = dashIFrameTrickPlayNameModifier;
+    }
+
+    /**
+     * Specify whether MediaConvert generates I-frame only video segments for DASH trick play, also known as trick mode.
+     * When specified, the I-frame only video segments are included within an additional AdaptationSet in your DASH
+     * output manifest. To generate I-frame only video segments: Enter a name as a text string, up to 256 character long.
+     * This name is appended to the end of this output group's base filename, that you specify as part of your
+     * destination URI, and used for the I-frame only video segment files. You may also include format identifiers. For
+     * more information, see:
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/using-variables-in-your-job-settings.html
+     * #using-settings-variables-with-streaming-outputs To not generate I-frame only video segments: Leave blank.
+     * 
+     * @return Specify whether MediaConvert generates I-frame only video segments for DASH trick play, also known as
+     *         trick mode. When specified, the I-frame only video segments are included within an additional
+     *         AdaptationSet in your DASH output manifest. To generate I-frame only video segments: Enter a name as a
+     *         text string, up to 256 character long. This name is appended to the end of this output group's base
+     *         filename, that you specify as part of your destination URI, and used for the I-frame only video segment
+     *         files. You may also include format identifiers. For more information, see:
+     *         https://docs.aws.amazon.com/mediaconvert
+     *         /latest/ug/using-variables-in-your-job-settings.html#using-settings-variables-with-streaming-outputs To
+     *         not generate I-frame only video segments: Leave blank.
+     */
+
+    public String getDashIFrameTrickPlayNameModifier() {
+        return this.dashIFrameTrickPlayNameModifier;
+    }
+
+    /**
+     * Specify whether MediaConvert generates I-frame only video segments for DASH trick play, also known as trick mode.
+     * When specified, the I-frame only video segments are included within an additional AdaptationSet in your DASH
+     * output manifest. To generate I-frame only video segments: Enter a name as a text string, up to 256 character long.
+     * This name is appended to the end of this output group's base filename, that you specify as part of your
+     * destination URI, and used for the I-frame only video segment files. You may also include format identifiers. For
+     * more information, see:
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/using-variables-in-your-job-settings.html
+     * #using-settings-variables-with-streaming-outputs To not generate I-frame only video segments: Leave blank.
+     * 
+     * @param dashIFrameTrickPlayNameModifier
+     *        Specify whether MediaConvert generates I-frame only video segments for DASH trick play, also known as
+     *        trick mode. When specified, the I-frame only video segments are included within an additional
+     *        AdaptationSet in your DASH output manifest. To generate I-frame only video segments: Enter a name as a
+     *        text string, up to 256 character long. This name is appended to the end of this output group's base
+     *        filename, that you specify as part of your destination URI, and used for the I-frame only video segment
+     *        files. You may also include format identifiers. For more information, see:
+     *        https://docs.aws.amazon.com/mediaconvert
+     *        /latest/ug/using-variables-in-your-job-settings.html#using-settings-variables-with-streaming-outputs To
+     *        not generate I-frame only video segments: Leave blank.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CmafGroupSettings withDashIFrameTrickPlayNameModifier(String dashIFrameTrickPlayNameModifier) {
+        setDashIFrameTrickPlayNameModifier(dashIFrameTrickPlayNameModifier);
+        return this;
+    }
+
+    /**
+     * Specify how MediaConvert writes SegmentTimeline in your output DASH manifest. To write a SegmentTimeline in each
+     * video Representation: Keep the default value, Basic. To write a common SegmentTimeline in the video
+     * AdaptationSet: Choose Compact. Note that MediaConvert will still write a SegmentTimeline in any Representation
+     * that does not share a common timeline. To write a video AdaptationSet for each different output framerate, and a
+     * common SegmentTimeline in each AdaptationSet: Choose Distinct.
+     * 
+     * @param dashManifestStyle
+     *        Specify how MediaConvert writes SegmentTimeline in your output DASH manifest. To write a SegmentTimeline
+     *        in each video Representation: Keep the default value, Basic. To write a common SegmentTimeline in the
+     *        video AdaptationSet: Choose Compact. Note that MediaConvert will still write a SegmentTimeline in any
+     *        Representation that does not share a common timeline. To write a video AdaptationSet for each different
+     *        output framerate, and a common SegmentTimeline in each AdaptationSet: Choose Distinct.
+     * @see DashManifestStyle
+     */
+
+    public void setDashManifestStyle(String dashManifestStyle) {
+        this.dashManifestStyle = dashManifestStyle;
+    }
+
+    /**
+     * Specify how MediaConvert writes SegmentTimeline in your output DASH manifest. To write a SegmentTimeline in each
+     * video Representation: Keep the default value, Basic. To write a common SegmentTimeline in the video
+     * AdaptationSet: Choose Compact. Note that MediaConvert will still write a SegmentTimeline in any Representation
+     * that does not share a common timeline. To write a video AdaptationSet for each different output framerate, and a
+     * common SegmentTimeline in each AdaptationSet: Choose Distinct.
+     * 
+     * @return Specify how MediaConvert writes SegmentTimeline in your output DASH manifest. To write a SegmentTimeline
+     *         in each video Representation: Keep the default value, Basic. To write a common SegmentTimeline in the
+     *         video AdaptationSet: Choose Compact. Note that MediaConvert will still write a SegmentTimeline in any
+     *         Representation that does not share a common timeline. To write a video AdaptationSet for each different
+     *         output framerate, and a common SegmentTimeline in each AdaptationSet: Choose Distinct.
+     * @see DashManifestStyle
+     */
+
+    public String getDashManifestStyle() {
+        return this.dashManifestStyle;
+    }
+
+    /**
+     * Specify how MediaConvert writes SegmentTimeline in your output DASH manifest. To write a SegmentTimeline in each
+     * video Representation: Keep the default value, Basic. To write a common SegmentTimeline in the video
+     * AdaptationSet: Choose Compact. Note that MediaConvert will still write a SegmentTimeline in any Representation
+     * that does not share a common timeline. To write a video AdaptationSet for each different output framerate, and a
+     * common SegmentTimeline in each AdaptationSet: Choose Distinct.
+     * 
+     * @param dashManifestStyle
+     *        Specify how MediaConvert writes SegmentTimeline in your output DASH manifest. To write a SegmentTimeline
+     *        in each video Representation: Keep the default value, Basic. To write a common SegmentTimeline in the
+     *        video AdaptationSet: Choose Compact. Note that MediaConvert will still write a SegmentTimeline in any
+     *        Representation that does not share a common timeline. To write a video AdaptationSet for each different
+     *        output framerate, and a common SegmentTimeline in each AdaptationSet: Choose Distinct.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DashManifestStyle
+     */
+
+    public CmafGroupSettings withDashManifestStyle(String dashManifestStyle) {
+        setDashManifestStyle(dashManifestStyle);
+        return this;
+    }
+
+    /**
+     * Specify how MediaConvert writes SegmentTimeline in your output DASH manifest. To write a SegmentTimeline in each
+     * video Representation: Keep the default value, Basic. To write a common SegmentTimeline in the video
+     * AdaptationSet: Choose Compact. Note that MediaConvert will still write a SegmentTimeline in any Representation
+     * that does not share a common timeline. To write a video AdaptationSet for each different output framerate, and a
+     * common SegmentTimeline in each AdaptationSet: Choose Distinct.
+     * 
+     * @param dashManifestStyle
+     *        Specify how MediaConvert writes SegmentTimeline in your output DASH manifest. To write a SegmentTimeline
+     *        in each video Representation: Keep the default value, Basic. To write a common SegmentTimeline in the
+     *        video AdaptationSet: Choose Compact. Note that MediaConvert will still write a SegmentTimeline in any
+     *        Representation that does not share a common timeline. To write a video AdaptationSet for each different
+     *        output framerate, and a common SegmentTimeline in each AdaptationSet: Choose Distinct.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DashManifestStyle
+     */
+
+    public CmafGroupSettings withDashManifestStyle(DashManifestStyle dashManifestStyle) {
+        this.dashManifestStyle = dashManifestStyle.toString();
+        return this;
+    }
+
+    /**
+     * Use Destination to specify the S3 output location and the output filename base. Destination accepts format
+     * identifiers. If you do not specify the base filename in the URI, the service will use the filename of the input
+     * file. If your job has multiple inputs, the service uses the filename of the first input file.
      * 
      * @param destination
-     *        Use Destination (Destination) to specify the S3 output location and the output filename base. Destination
-     *        accepts format identifiers. If you do not specify the base filename in the URI, the service will use the
-     *        filename of the input file. If your job has multiple inputs, the service uses the filename of the first
-     *        input file.
+     *        Use Destination to specify the S3 output location and the output filename base. Destination accepts format
+     *        identifiers. If you do not specify the base filename in the URI, the service will use the filename of the
+     *        input file. If your job has multiple inputs, the service uses the filename of the first input file.
      */
 
     public void setDestination(String destination) {
@@ -261,14 +609,14 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Use Destination (Destination) to specify the S3 output location and the output filename base. Destination accepts
-     * format identifiers. If you do not specify the base filename in the URI, the service will use the filename of the
-     * input file. If your job has multiple inputs, the service uses the filename of the first input file.
+     * Use Destination to specify the S3 output location and the output filename base. Destination accepts format
+     * identifiers. If you do not specify the base filename in the URI, the service will use the filename of the input
+     * file. If your job has multiple inputs, the service uses the filename of the first input file.
      * 
-     * @return Use Destination (Destination) to specify the S3 output location and the output filename base. Destination
-     *         accepts format identifiers. If you do not specify the base filename in the URI, the service will use the
-     *         filename of the input file. If your job has multiple inputs, the service uses the filename of the first
-     *         input file.
+     * @return Use Destination to specify the S3 output location and the output filename base. Destination accepts
+     *         format identifiers. If you do not specify the base filename in the URI, the service will use the filename
+     *         of the input file. If your job has multiple inputs, the service uses the filename of the first input
+     *         file.
      */
 
     public String getDestination() {
@@ -276,15 +624,14 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Use Destination (Destination) to specify the S3 output location and the output filename base. Destination accepts
-     * format identifiers. If you do not specify the base filename in the URI, the service will use the filename of the
-     * input file. If your job has multiple inputs, the service uses the filename of the first input file.
+     * Use Destination to specify the S3 output location and the output filename base. Destination accepts format
+     * identifiers. If you do not specify the base filename in the URI, the service will use the filename of the input
+     * file. If your job has multiple inputs, the service uses the filename of the first input file.
      * 
      * @param destination
-     *        Use Destination (Destination) to specify the S3 output location and the output filename base. Destination
-     *        accepts format identifiers. If you do not specify the base filename in the URI, the service will use the
-     *        filename of the input file. If your job has multiple inputs, the service uses the filename of the first
-     *        input file.
+     *        Use Destination to specify the S3 output location and the output filename base. Destination accepts format
+     *        identifiers. If you do not specify the base filename in the URI, the service will use the filename of the
+     *        input file. If your job has multiple inputs, the service uses the filename of the first input file.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -362,16 +709,13 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Length of fragments to generate (in seconds). Fragment length must be compatible with GOP size and Framerate.
-     * Note that fragments will end on the next keyframe after this number of seconds, so actual fragment length may be
-     * longer. When Emit Single File is checked, the fragmentation is internal to a single output file and it does not
-     * cause the creation of many output files as in other output types.
+     * Specify the length, in whole seconds, of the mp4 fragments. When you don't specify a value, MediaConvert defaults
+     * to 2. Related setting: Use Fragment length control to specify whether the encoder enforces this value strictly.
      * 
      * @param fragmentLength
-     *        Length of fragments to generate (in seconds). Fragment length must be compatible with GOP size and
-     *        Framerate. Note that fragments will end on the next keyframe after this number of seconds, so actual
-     *        fragment length may be longer. When Emit Single File is checked, the fragmentation is internal to a single
-     *        output file and it does not cause the creation of many output files as in other output types.
+     *        Specify the length, in whole seconds, of the mp4 fragments. When you don't specify a value, MediaConvert
+     *        defaults to 2. Related setting: Use Fragment length control to specify whether the encoder enforces this
+     *        value strictly.
      */
 
     public void setFragmentLength(Integer fragmentLength) {
@@ -379,15 +723,12 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Length of fragments to generate (in seconds). Fragment length must be compatible with GOP size and Framerate.
-     * Note that fragments will end on the next keyframe after this number of seconds, so actual fragment length may be
-     * longer. When Emit Single File is checked, the fragmentation is internal to a single output file and it does not
-     * cause the creation of many output files as in other output types.
+     * Specify the length, in whole seconds, of the mp4 fragments. When you don't specify a value, MediaConvert defaults
+     * to 2. Related setting: Use Fragment length control to specify whether the encoder enforces this value strictly.
      * 
-     * @return Length of fragments to generate (in seconds). Fragment length must be compatible with GOP size and
-     *         Framerate. Note that fragments will end on the next keyframe after this number of seconds, so actual
-     *         fragment length may be longer. When Emit Single File is checked, the fragmentation is internal to a
-     *         single output file and it does not cause the creation of many output files as in other output types.
+     * @return Specify the length, in whole seconds, of the mp4 fragments. When you don't specify a value, MediaConvert
+     *         defaults to 2. Related setting: Use Fragment length control to specify whether the encoder enforces this
+     *         value strictly.
      */
 
     public Integer getFragmentLength() {
@@ -395,21 +736,163 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Length of fragments to generate (in seconds). Fragment length must be compatible with GOP size and Framerate.
-     * Note that fragments will end on the next keyframe after this number of seconds, so actual fragment length may be
-     * longer. When Emit Single File is checked, the fragmentation is internal to a single output file and it does not
-     * cause the creation of many output files as in other output types.
+     * Specify the length, in whole seconds, of the mp4 fragments. When you don't specify a value, MediaConvert defaults
+     * to 2. Related setting: Use Fragment length control to specify whether the encoder enforces this value strictly.
      * 
      * @param fragmentLength
-     *        Length of fragments to generate (in seconds). Fragment length must be compatible with GOP size and
-     *        Framerate. Note that fragments will end on the next keyframe after this number of seconds, so actual
-     *        fragment length may be longer. When Emit Single File is checked, the fragmentation is internal to a single
-     *        output file and it does not cause the creation of many output files as in other output types.
+     *        Specify the length, in whole seconds, of the mp4 fragments. When you don't specify a value, MediaConvert
+     *        defaults to 2. Related setting: Use Fragment length control to specify whether the encoder enforces this
+     *        value strictly.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CmafGroupSettings withFragmentLength(Integer fragmentLength) {
         setFragmentLength(fragmentLength);
+        return this;
+    }
+
+    /**
+     * Specify whether MediaConvert generates images for trick play. Keep the default value, None, to not generate any
+     * images. Choose Thumbnail to generate tiled thumbnails. Choose Thumbnail and full frame to generate tiled
+     * thumbnails and full-resolution images of single frames. When you enable Write HLS manifest, MediaConvert creates a
+     * child manifest for each set of images that you generate and adds corresponding entries to the parent manifest.
+     * When you enable Write DASH manifest, MediaConvert adds an entry in the .mpd manifest for each set of images that
+     * you generate. A common application for these images is Roku trick mode. The thumbnails and full-frame images that
+     * MediaConvert creates with this feature are compatible with this Roku specification:
+     * https://developer.roku.com/docs/developer-program/media-playback/trick-mode/hls-and-dash.md
+     * 
+     * @param imageBasedTrickPlay
+     *        Specify whether MediaConvert generates images for trick play. Keep the default value, None, to not
+     *        generate any images. Choose Thumbnail to generate tiled thumbnails. Choose Thumbnail and full frame to
+     *        generate tiled thumbnails and full-resolution images of single frames. When you enable Write HLS manifest,
+     *        MediaConvert creates a child manifest for each set of images that you generate and adds corresponding
+     *        entries to the parent manifest. When you enable Write DASH manifest, MediaConvert adds an entry in the
+     *        .mpd manifest for each set of images that you generate. A common application for these images is Roku
+     *        trick mode. The thumbnails and full-frame images that MediaConvert creates with this feature are
+     *        compatible with this Roku specification:
+     *        https://developer.roku.com/docs/developer-program/media-playback/trick-mode/hls-and-dash.md
+     * @see CmafImageBasedTrickPlay
+     */
+
+    public void setImageBasedTrickPlay(String imageBasedTrickPlay) {
+        this.imageBasedTrickPlay = imageBasedTrickPlay;
+    }
+
+    /**
+     * Specify whether MediaConvert generates images for trick play. Keep the default value, None, to not generate any
+     * images. Choose Thumbnail to generate tiled thumbnails. Choose Thumbnail and full frame to generate tiled
+     * thumbnails and full-resolution images of single frames. When you enable Write HLS manifest, MediaConvert creates a
+     * child manifest for each set of images that you generate and adds corresponding entries to the parent manifest.
+     * When you enable Write DASH manifest, MediaConvert adds an entry in the .mpd manifest for each set of images that
+     * you generate. A common application for these images is Roku trick mode. The thumbnails and full-frame images that
+     * MediaConvert creates with this feature are compatible with this Roku specification:
+     * https://developer.roku.com/docs/developer-program/media-playback/trick-mode/hls-and-dash.md
+     * 
+     * @return Specify whether MediaConvert generates images for trick play. Keep the default value, None, to not
+     *         generate any images. Choose Thumbnail to generate tiled thumbnails. Choose Thumbnail and full frame to
+     *         generate tiled thumbnails and full-resolution images of single frames. When you enable Write HLS
+     *         manifest, MediaConvert creates a child manifest for each set of images that you generate and adds
+     *         corresponding entries to the parent manifest. When you enable Write DASH manifest, MediaConvert adds an
+     *         entry in the .mpd manifest for each set of images that you generate. A common application for these
+     *         images is Roku trick mode. The thumbnails and full-frame images that MediaConvert creates with this
+     *         feature are compatible with this Roku specification:
+     *         https://developer.roku.com/docs/developer-program/media-playback/trick-mode/hls-and-dash.md
+     * @see CmafImageBasedTrickPlay
+     */
+
+    public String getImageBasedTrickPlay() {
+        return this.imageBasedTrickPlay;
+    }
+
+    /**
+     * Specify whether MediaConvert generates images for trick play. Keep the default value, None, to not generate any
+     * images. Choose Thumbnail to generate tiled thumbnails. Choose Thumbnail and full frame to generate tiled
+     * thumbnails and full-resolution images of single frames. When you enable Write HLS manifest, MediaConvert creates a
+     * child manifest for each set of images that you generate and adds corresponding entries to the parent manifest.
+     * When you enable Write DASH manifest, MediaConvert adds an entry in the .mpd manifest for each set of images that
+     * you generate. A common application for these images is Roku trick mode. The thumbnails and full-frame images that
+     * MediaConvert creates with this feature are compatible with this Roku specification:
+     * https://developer.roku.com/docs/developer-program/media-playback/trick-mode/hls-and-dash.md
+     * 
+     * @param imageBasedTrickPlay
+     *        Specify whether MediaConvert generates images for trick play. Keep the default value, None, to not
+     *        generate any images. Choose Thumbnail to generate tiled thumbnails. Choose Thumbnail and full frame to
+     *        generate tiled thumbnails and full-resolution images of single frames. When you enable Write HLS manifest,
+     *        MediaConvert creates a child manifest for each set of images that you generate and adds corresponding
+     *        entries to the parent manifest. When you enable Write DASH manifest, MediaConvert adds an entry in the
+     *        .mpd manifest for each set of images that you generate. A common application for these images is Roku
+     *        trick mode. The thumbnails and full-frame images that MediaConvert creates with this feature are
+     *        compatible with this Roku specification:
+     *        https://developer.roku.com/docs/developer-program/media-playback/trick-mode/hls-and-dash.md
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CmafImageBasedTrickPlay
+     */
+
+    public CmafGroupSettings withImageBasedTrickPlay(String imageBasedTrickPlay) {
+        setImageBasedTrickPlay(imageBasedTrickPlay);
+        return this;
+    }
+
+    /**
+     * Specify whether MediaConvert generates images for trick play. Keep the default value, None, to not generate any
+     * images. Choose Thumbnail to generate tiled thumbnails. Choose Thumbnail and full frame to generate tiled
+     * thumbnails and full-resolution images of single frames. When you enable Write HLS manifest, MediaConvert creates a
+     * child manifest for each set of images that you generate and adds corresponding entries to the parent manifest.
+     * When you enable Write DASH manifest, MediaConvert adds an entry in the .mpd manifest for each set of images that
+     * you generate. A common application for these images is Roku trick mode. The thumbnails and full-frame images that
+     * MediaConvert creates with this feature are compatible with this Roku specification:
+     * https://developer.roku.com/docs/developer-program/media-playback/trick-mode/hls-and-dash.md
+     * 
+     * @param imageBasedTrickPlay
+     *        Specify whether MediaConvert generates images for trick play. Keep the default value, None, to not
+     *        generate any images. Choose Thumbnail to generate tiled thumbnails. Choose Thumbnail and full frame to
+     *        generate tiled thumbnails and full-resolution images of single frames. When you enable Write HLS manifest,
+     *        MediaConvert creates a child manifest for each set of images that you generate and adds corresponding
+     *        entries to the parent manifest. When you enable Write DASH manifest, MediaConvert adds an entry in the
+     *        .mpd manifest for each set of images that you generate. A common application for these images is Roku
+     *        trick mode. The thumbnails and full-frame images that MediaConvert creates with this feature are
+     *        compatible with this Roku specification:
+     *        https://developer.roku.com/docs/developer-program/media-playback/trick-mode/hls-and-dash.md
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CmafImageBasedTrickPlay
+     */
+
+    public CmafGroupSettings withImageBasedTrickPlay(CmafImageBasedTrickPlay imageBasedTrickPlay) {
+        this.imageBasedTrickPlay = imageBasedTrickPlay.toString();
+        return this;
+    }
+
+    /**
+     * Tile and thumbnail settings applicable when imageBasedTrickPlay is ADVANCED
+     * 
+     * @param imageBasedTrickPlaySettings
+     *        Tile and thumbnail settings applicable when imageBasedTrickPlay is ADVANCED
+     */
+
+    public void setImageBasedTrickPlaySettings(CmafImageBasedTrickPlaySettings imageBasedTrickPlaySettings) {
+        this.imageBasedTrickPlaySettings = imageBasedTrickPlaySettings;
+    }
+
+    /**
+     * Tile and thumbnail settings applicable when imageBasedTrickPlay is ADVANCED
+     * 
+     * @return Tile and thumbnail settings applicable when imageBasedTrickPlay is ADVANCED
+     */
+
+    public CmafImageBasedTrickPlaySettings getImageBasedTrickPlaySettings() {
+        return this.imageBasedTrickPlaySettings;
+    }
+
+    /**
+     * Tile and thumbnail settings applicable when imageBasedTrickPlay is ADVANCED
+     * 
+     * @param imageBasedTrickPlaySettings
+     *        Tile and thumbnail settings applicable when imageBasedTrickPlay is ADVANCED
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CmafGroupSettings withImageBasedTrickPlaySettings(CmafImageBasedTrickPlaySettings imageBasedTrickPlaySettings) {
+        setImageBasedTrickPlaySettings(imageBasedTrickPlaySettings);
         return this;
     }
 
@@ -626,6 +1109,255 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
+     * Specify how the value for bandwidth is determined for each video Representation in your output MPD manifest. We
+     * recommend that you choose a MPD manifest bandwidth type that is compatible with your downstream player
+     * configuration. Max: Use the same value that you specify for Max bitrate in the video output, in bits per second.
+     * Average: Use the calculated average bitrate of the encoded video output, in bits per second.
+     * 
+     * @param mpdManifestBandwidthType
+     *        Specify how the value for bandwidth is determined for each video Representation in your output MPD
+     *        manifest. We recommend that you choose a MPD manifest bandwidth type that is compatible with your
+     *        downstream player configuration. Max: Use the same value that you specify for Max bitrate in the video
+     *        output, in bits per second. Average: Use the calculated average bitrate of the encoded video output, in
+     *        bits per second.
+     * @see CmafMpdManifestBandwidthType
+     */
+
+    public void setMpdManifestBandwidthType(String mpdManifestBandwidthType) {
+        this.mpdManifestBandwidthType = mpdManifestBandwidthType;
+    }
+
+    /**
+     * Specify how the value for bandwidth is determined for each video Representation in your output MPD manifest. We
+     * recommend that you choose a MPD manifest bandwidth type that is compatible with your downstream player
+     * configuration. Max: Use the same value that you specify for Max bitrate in the video output, in bits per second.
+     * Average: Use the calculated average bitrate of the encoded video output, in bits per second.
+     * 
+     * @return Specify how the value for bandwidth is determined for each video Representation in your output MPD
+     *         manifest. We recommend that you choose a MPD manifest bandwidth type that is compatible with your
+     *         downstream player configuration. Max: Use the same value that you specify for Max bitrate in the video
+     *         output, in bits per second. Average: Use the calculated average bitrate of the encoded video output, in
+     *         bits per second.
+     * @see CmafMpdManifestBandwidthType
+     */
+
+    public String getMpdManifestBandwidthType() {
+        return this.mpdManifestBandwidthType;
+    }
+
+    /**
+     * Specify how the value for bandwidth is determined for each video Representation in your output MPD manifest. We
+     * recommend that you choose a MPD manifest bandwidth type that is compatible with your downstream player
+     * configuration. Max: Use the same value that you specify for Max bitrate in the video output, in bits per second.
+     * Average: Use the calculated average bitrate of the encoded video output, in bits per second.
+     * 
+     * @param mpdManifestBandwidthType
+     *        Specify how the value for bandwidth is determined for each video Representation in your output MPD
+     *        manifest. We recommend that you choose a MPD manifest bandwidth type that is compatible with your
+     *        downstream player configuration. Max: Use the same value that you specify for Max bitrate in the video
+     *        output, in bits per second. Average: Use the calculated average bitrate of the encoded video output, in
+     *        bits per second.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CmafMpdManifestBandwidthType
+     */
+
+    public CmafGroupSettings withMpdManifestBandwidthType(String mpdManifestBandwidthType) {
+        setMpdManifestBandwidthType(mpdManifestBandwidthType);
+        return this;
+    }
+
+    /**
+     * Specify how the value for bandwidth is determined for each video Representation in your output MPD manifest. We
+     * recommend that you choose a MPD manifest bandwidth type that is compatible with your downstream player
+     * configuration. Max: Use the same value that you specify for Max bitrate in the video output, in bits per second.
+     * Average: Use the calculated average bitrate of the encoded video output, in bits per second.
+     * 
+     * @param mpdManifestBandwidthType
+     *        Specify how the value for bandwidth is determined for each video Representation in your output MPD
+     *        manifest. We recommend that you choose a MPD manifest bandwidth type that is compatible with your
+     *        downstream player configuration. Max: Use the same value that you specify for Max bitrate in the video
+     *        output, in bits per second. Average: Use the calculated average bitrate of the encoded video output, in
+     *        bits per second.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CmafMpdManifestBandwidthType
+     */
+
+    public CmafGroupSettings withMpdManifestBandwidthType(CmafMpdManifestBandwidthType mpdManifestBandwidthType) {
+        this.mpdManifestBandwidthType = mpdManifestBandwidthType.toString();
+        return this;
+    }
+
+    /**
+     * Specify whether your DASH profile is on-demand or main. When you choose Main profile, the service signals
+     * urn:mpeg:dash:profile:isoff-main:2011 in your .mpd DASH manifest. When you choose On-demand, the service signals
+     * urn:mpeg:dash:profile:isoff-on-demand:2011 in your .mpd. When you choose On-demand, you must also set the output
+     * group setting Segment control to Single file.
+     * 
+     * @param mpdProfile
+     *        Specify whether your DASH profile is on-demand or main. When you choose Main profile, the service signals
+     *        urn:mpeg:dash:profile:isoff-main:2011 in your .mpd DASH manifest. When you choose On-demand, the service
+     *        signals urn:mpeg:dash:profile:isoff-on-demand:2011 in your .mpd. When you choose On-demand, you must also
+     *        set the output group setting Segment control to Single file.
+     * @see CmafMpdProfile
+     */
+
+    public void setMpdProfile(String mpdProfile) {
+        this.mpdProfile = mpdProfile;
+    }
+
+    /**
+     * Specify whether your DASH profile is on-demand or main. When you choose Main profile, the service signals
+     * urn:mpeg:dash:profile:isoff-main:2011 in your .mpd DASH manifest. When you choose On-demand, the service signals
+     * urn:mpeg:dash:profile:isoff-on-demand:2011 in your .mpd. When you choose On-demand, you must also set the output
+     * group setting Segment control to Single file.
+     * 
+     * @return Specify whether your DASH profile is on-demand or main. When you choose Main profile, the service signals
+     *         urn:mpeg:dash:profile:isoff-main:2011 in your .mpd DASH manifest. When you choose On-demand, the service
+     *         signals urn:mpeg:dash:profile:isoff-on-demand:2011 in your .mpd. When you choose On-demand, you must also
+     *         set the output group setting Segment control to Single file.
+     * @see CmafMpdProfile
+     */
+
+    public String getMpdProfile() {
+        return this.mpdProfile;
+    }
+
+    /**
+     * Specify whether your DASH profile is on-demand or main. When you choose Main profile, the service signals
+     * urn:mpeg:dash:profile:isoff-main:2011 in your .mpd DASH manifest. When you choose On-demand, the service signals
+     * urn:mpeg:dash:profile:isoff-on-demand:2011 in your .mpd. When you choose On-demand, you must also set the output
+     * group setting Segment control to Single file.
+     * 
+     * @param mpdProfile
+     *        Specify whether your DASH profile is on-demand or main. When you choose Main profile, the service signals
+     *        urn:mpeg:dash:profile:isoff-main:2011 in your .mpd DASH manifest. When you choose On-demand, the service
+     *        signals urn:mpeg:dash:profile:isoff-on-demand:2011 in your .mpd. When you choose On-demand, you must also
+     *        set the output group setting Segment control to Single file.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CmafMpdProfile
+     */
+
+    public CmafGroupSettings withMpdProfile(String mpdProfile) {
+        setMpdProfile(mpdProfile);
+        return this;
+    }
+
+    /**
+     * Specify whether your DASH profile is on-demand or main. When you choose Main profile, the service signals
+     * urn:mpeg:dash:profile:isoff-main:2011 in your .mpd DASH manifest. When you choose On-demand, the service signals
+     * urn:mpeg:dash:profile:isoff-on-demand:2011 in your .mpd. When you choose On-demand, you must also set the output
+     * group setting Segment control to Single file.
+     * 
+     * @param mpdProfile
+     *        Specify whether your DASH profile is on-demand or main. When you choose Main profile, the service signals
+     *        urn:mpeg:dash:profile:isoff-main:2011 in your .mpd DASH manifest. When you choose On-demand, the service
+     *        signals urn:mpeg:dash:profile:isoff-on-demand:2011 in your .mpd. When you choose On-demand, you must also
+     *        set the output group setting Segment control to Single file.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CmafMpdProfile
+     */
+
+    public CmafGroupSettings withMpdProfile(CmafMpdProfile mpdProfile) {
+        this.mpdProfile = mpdProfile.toString();
+        return this;
+    }
+
+    /**
+     * Use this setting only when your output video stream has B-frames, which causes the initial presentation time
+     * stamp (PTS) to be offset from the initial decode time stamp (DTS). Specify how MediaConvert handles PTS when
+     * writing time stamps in output DASH manifests. Choose Match initial PTS when you want MediaConvert to use the
+     * initial PTS as the first time stamp in the manifest. Choose Zero-based to have MediaConvert ignore the initial PTS
+     * in the video stream and instead write the initial time stamp as zero in the manifest. For outputs that don't have
+     * B-frames, the time stamps in your DASH manifests start at zero regardless of your choice here.
+     * 
+     * @param ptsOffsetHandlingForBFrames
+     *        Use this setting only when your output video stream has B-frames, which causes the initial presentation
+     *        time stamp (PTS) to be offset from the initial decode time stamp (DTS). Specify how MediaConvert handles
+     *        PTS when writing time stamps in output DASH manifests. Choose Match initial PTS when you want MediaConvert
+     *        to use the initial PTS as the first time stamp in the manifest. Choose Zero-based to have MediaConvert
+     *        ignore the initial PTS in the video stream and instead write the initial time stamp as zero in the
+     *        manifest. For outputs that don't have B-frames, the time stamps in your DASH manifests start at zero
+     *        regardless of your choice here.
+     * @see CmafPtsOffsetHandlingForBFrames
+     */
+
+    public void setPtsOffsetHandlingForBFrames(String ptsOffsetHandlingForBFrames) {
+        this.ptsOffsetHandlingForBFrames = ptsOffsetHandlingForBFrames;
+    }
+
+    /**
+     * Use this setting only when your output video stream has B-frames, which causes the initial presentation time
+     * stamp (PTS) to be offset from the initial decode time stamp (DTS). Specify how MediaConvert handles PTS when
+     * writing time stamps in output DASH manifests. Choose Match initial PTS when you want MediaConvert to use the
+     * initial PTS as the first time stamp in the manifest. Choose Zero-based to have MediaConvert ignore the initial PTS
+     * in the video stream and instead write the initial time stamp as zero in the manifest. For outputs that don't have
+     * B-frames, the time stamps in your DASH manifests start at zero regardless of your choice here.
+     * 
+     * @return Use this setting only when your output video stream has B-frames, which causes the initial presentation
+     *         time stamp (PTS) to be offset from the initial decode time stamp (DTS). Specify how MediaConvert handles
+     *         PTS when writing time stamps in output DASH manifests. Choose Match initial PTS when you want
+     *         MediaConvert to use the initial PTS as the first time stamp in the manifest. Choose Zero-based to have
+     *         MediaConvert ignore the initial PTS in the video stream and instead write the initial time stamp as zero
+     *         in the manifest. For outputs that don't have B-frames, the time stamps in your DASH manifests start at
+     *         zero regardless of your choice here.
+     * @see CmafPtsOffsetHandlingForBFrames
+     */
+
+    public String getPtsOffsetHandlingForBFrames() {
+        return this.ptsOffsetHandlingForBFrames;
+    }
+
+    /**
+     * Use this setting only when your output video stream has B-frames, which causes the initial presentation time
+     * stamp (PTS) to be offset from the initial decode time stamp (DTS). Specify how MediaConvert handles PTS when
+     * writing time stamps in output DASH manifests. Choose Match initial PTS when you want MediaConvert to use the
+     * initial PTS as the first time stamp in the manifest. Choose Zero-based to have MediaConvert ignore the initial PTS
+     * in the video stream and instead write the initial time stamp as zero in the manifest. For outputs that don't have
+     * B-frames, the time stamps in your DASH manifests start at zero regardless of your choice here.
+     * 
+     * @param ptsOffsetHandlingForBFrames
+     *        Use this setting only when your output video stream has B-frames, which causes the initial presentation
+     *        time stamp (PTS) to be offset from the initial decode time stamp (DTS). Specify how MediaConvert handles
+     *        PTS when writing time stamps in output DASH manifests. Choose Match initial PTS when you want MediaConvert
+     *        to use the initial PTS as the first time stamp in the manifest. Choose Zero-based to have MediaConvert
+     *        ignore the initial PTS in the video stream and instead write the initial time stamp as zero in the
+     *        manifest. For outputs that don't have B-frames, the time stamps in your DASH manifests start at zero
+     *        regardless of your choice here.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CmafPtsOffsetHandlingForBFrames
+     */
+
+    public CmafGroupSettings withPtsOffsetHandlingForBFrames(String ptsOffsetHandlingForBFrames) {
+        setPtsOffsetHandlingForBFrames(ptsOffsetHandlingForBFrames);
+        return this;
+    }
+
+    /**
+     * Use this setting only when your output video stream has B-frames, which causes the initial presentation time
+     * stamp (PTS) to be offset from the initial decode time stamp (DTS). Specify how MediaConvert handles PTS when
+     * writing time stamps in output DASH manifests. Choose Match initial PTS when you want MediaConvert to use the
+     * initial PTS as the first time stamp in the manifest. Choose Zero-based to have MediaConvert ignore the initial PTS
+     * in the video stream and instead write the initial time stamp as zero in the manifest. For outputs that don't have
+     * B-frames, the time stamps in your DASH manifests start at zero regardless of your choice here.
+     * 
+     * @param ptsOffsetHandlingForBFrames
+     *        Use this setting only when your output video stream has B-frames, which causes the initial presentation
+     *        time stamp (PTS) to be offset from the initial decode time stamp (DTS). Specify how MediaConvert handles
+     *        PTS when writing time stamps in output DASH manifests. Choose Match initial PTS when you want MediaConvert
+     *        to use the initial PTS as the first time stamp in the manifest. Choose Zero-based to have MediaConvert
+     *        ignore the initial PTS in the video stream and instead write the initial time stamp as zero in the
+     *        manifest. For outputs that don't have B-frames, the time stamps in your DASH manifests start at zero
+     *        regardless of your choice here.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CmafPtsOffsetHandlingForBFrames
+     */
+
+    public CmafGroupSettings withPtsOffsetHandlingForBFrames(CmafPtsOffsetHandlingForBFrames ptsOffsetHandlingForBFrames) {
+        this.ptsOffsetHandlingForBFrames = ptsOffsetHandlingForBFrames.toString();
+        return this;
+    }
+
+    /**
      * When set to SINGLE_FILE, a single output file is generated, which is internally segmented using the Fragment
      * Length and Segment Length. When set to SEGMENTED_FILES, separate segment files will be created.
      * 
@@ -685,20 +1417,16 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Use this setting to specify the length, in seconds, of each individual CMAF segment. This value applies to the
-     * whole package; that is, to every output in the output group. Note that segments end on the first keyframe after
-     * this number of seconds, so the actual segment length might be slightly longer. If you set Segment control
-     * (CmafSegmentControl) to single file, the service puts the content of each output in a single file that has
-     * metadata that marks these segments. If you set it to segmented files, the service creates multiple files for each
-     * output, each with the content of one segment.
+     * Specify the length, in whole seconds, of each segment. When you don't specify a value, MediaConvert defaults to
+     * 10. Related settings: Use Segment length control to specify whether the encoder enforces this value strictly. Use
+     * Segment control to specify whether MediaConvert creates separate segment files or one content file that has
+     * metadata to mark the segment boundaries.
      * 
      * @param segmentLength
-     *        Use this setting to specify the length, in seconds, of each individual CMAF segment. This value applies to
-     *        the whole package; that is, to every output in the output group. Note that segments end on the first
-     *        keyframe after this number of seconds, so the actual segment length might be slightly longer. If you set
-     *        Segment control (CmafSegmentControl) to single file, the service puts the content of each output in a
-     *        single file that has metadata that marks these segments. If you set it to segmented files, the service
-     *        creates multiple files for each output, each with the content of one segment.
+     *        Specify the length, in whole seconds, of each segment. When you don't specify a value, MediaConvert
+     *        defaults to 10. Related settings: Use Segment length control to specify whether the encoder enforces this
+     *        value strictly. Use Segment control to specify whether MediaConvert creates separate segment files or one
+     *        content file that has metadata to mark the segment boundaries.
      */
 
     public void setSegmentLength(Integer segmentLength) {
@@ -706,19 +1434,15 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Use this setting to specify the length, in seconds, of each individual CMAF segment. This value applies to the
-     * whole package; that is, to every output in the output group. Note that segments end on the first keyframe after
-     * this number of seconds, so the actual segment length might be slightly longer. If you set Segment control
-     * (CmafSegmentControl) to single file, the service puts the content of each output in a single file that has
-     * metadata that marks these segments. If you set it to segmented files, the service creates multiple files for each
-     * output, each with the content of one segment.
+     * Specify the length, in whole seconds, of each segment. When you don't specify a value, MediaConvert defaults to
+     * 10. Related settings: Use Segment length control to specify whether the encoder enforces this value strictly. Use
+     * Segment control to specify whether MediaConvert creates separate segment files or one content file that has
+     * metadata to mark the segment boundaries.
      * 
-     * @return Use this setting to specify the length, in seconds, of each individual CMAF segment. This value applies
-     *         to the whole package; that is, to every output in the output group. Note that segments end on the first
-     *         keyframe after this number of seconds, so the actual segment length might be slightly longer. If you set
-     *         Segment control (CmafSegmentControl) to single file, the service puts the content of each output in a
-     *         single file that has metadata that marks these segments. If you set it to segmented files, the service
-     *         creates multiple files for each output, each with the content of one segment.
+     * @return Specify the length, in whole seconds, of each segment. When you don't specify a value, MediaConvert
+     *         defaults to 10. Related settings: Use Segment length control to specify whether the encoder enforces this
+     *         value strictly. Use Segment control to specify whether MediaConvert creates separate segment files or one
+     *         content file that has metadata to mark the segment boundaries.
      */
 
     public Integer getSegmentLength() {
@@ -726,25 +1450,88 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Use this setting to specify the length, in seconds, of each individual CMAF segment. This value applies to the
-     * whole package; that is, to every output in the output group. Note that segments end on the first keyframe after
-     * this number of seconds, so the actual segment length might be slightly longer. If you set Segment control
-     * (CmafSegmentControl) to single file, the service puts the content of each output in a single file that has
-     * metadata that marks these segments. If you set it to segmented files, the service creates multiple files for each
-     * output, each with the content of one segment.
+     * Specify the length, in whole seconds, of each segment. When you don't specify a value, MediaConvert defaults to
+     * 10. Related settings: Use Segment length control to specify whether the encoder enforces this value strictly. Use
+     * Segment control to specify whether MediaConvert creates separate segment files or one content file that has
+     * metadata to mark the segment boundaries.
      * 
      * @param segmentLength
-     *        Use this setting to specify the length, in seconds, of each individual CMAF segment. This value applies to
-     *        the whole package; that is, to every output in the output group. Note that segments end on the first
-     *        keyframe after this number of seconds, so the actual segment length might be slightly longer. If you set
-     *        Segment control (CmafSegmentControl) to single file, the service puts the content of each output in a
-     *        single file that has metadata that marks these segments. If you set it to segmented files, the service
-     *        creates multiple files for each output, each with the content of one segment.
+     *        Specify the length, in whole seconds, of each segment. When you don't specify a value, MediaConvert
+     *        defaults to 10. Related settings: Use Segment length control to specify whether the encoder enforces this
+     *        value strictly. Use Segment control to specify whether MediaConvert creates separate segment files or one
+     *        content file that has metadata to mark the segment boundaries.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CmafGroupSettings withSegmentLength(Integer segmentLength) {
         setSegmentLength(segmentLength);
+        return this;
+    }
+
+    /**
+     * Specify how you want MediaConvert to determine the segment length. Choose Exact to have the encoder use the exact
+     * length that you specify with the setting Segment length. This might result in extra I-frames. Choose Multiple of
+     * GOP to have the encoder round up the segment lengths to match the next GOP boundary.
+     * 
+     * @param segmentLengthControl
+     *        Specify how you want MediaConvert to determine the segment length. Choose Exact to have the encoder use
+     *        the exact length that you specify with the setting Segment length. This might result in extra I-frames.
+     *        Choose Multiple of GOP to have the encoder round up the segment lengths to match the next GOP boundary.
+     * @see CmafSegmentLengthControl
+     */
+
+    public void setSegmentLengthControl(String segmentLengthControl) {
+        this.segmentLengthControl = segmentLengthControl;
+    }
+
+    /**
+     * Specify how you want MediaConvert to determine the segment length. Choose Exact to have the encoder use the exact
+     * length that you specify with the setting Segment length. This might result in extra I-frames. Choose Multiple of
+     * GOP to have the encoder round up the segment lengths to match the next GOP boundary.
+     * 
+     * @return Specify how you want MediaConvert to determine the segment length. Choose Exact to have the encoder use
+     *         the exact length that you specify with the setting Segment length. This might result in extra I-frames.
+     *         Choose Multiple of GOP to have the encoder round up the segment lengths to match the next GOP boundary.
+     * @see CmafSegmentLengthControl
+     */
+
+    public String getSegmentLengthControl() {
+        return this.segmentLengthControl;
+    }
+
+    /**
+     * Specify how you want MediaConvert to determine the segment length. Choose Exact to have the encoder use the exact
+     * length that you specify with the setting Segment length. This might result in extra I-frames. Choose Multiple of
+     * GOP to have the encoder round up the segment lengths to match the next GOP boundary.
+     * 
+     * @param segmentLengthControl
+     *        Specify how you want MediaConvert to determine the segment length. Choose Exact to have the encoder use
+     *        the exact length that you specify with the setting Segment length. This might result in extra I-frames.
+     *        Choose Multiple of GOP to have the encoder round up the segment lengths to match the next GOP boundary.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CmafSegmentLengthControl
+     */
+
+    public CmafGroupSettings withSegmentLengthControl(String segmentLengthControl) {
+        setSegmentLengthControl(segmentLengthControl);
+        return this;
+    }
+
+    /**
+     * Specify how you want MediaConvert to determine the segment length. Choose Exact to have the encoder use the exact
+     * length that you specify with the setting Segment length. This might result in extra I-frames. Choose Multiple of
+     * GOP to have the encoder round up the segment lengths to match the next GOP boundary.
+     * 
+     * @param segmentLengthControl
+     *        Specify how you want MediaConvert to determine the segment length. Choose Exact to have the encoder use
+     *        the exact length that you specify with the setting Segment length. This might result in extra I-frames.
+     *        Choose Multiple of GOP to have the encoder round up the segment lengths to match the next GOP boundary.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CmafSegmentLengthControl
+     */
+
+    public CmafGroupSettings withSegmentLengthControl(CmafSegmentLengthControl segmentLengthControl) {
+        this.segmentLengthControl = segmentLengthControl.toString();
         return this;
     }
 
@@ -796,6 +1583,180 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
 
     public CmafGroupSettings withStreamInfResolution(CmafStreamInfResolution streamInfResolution) {
         this.streamInfResolution = streamInfResolution.toString();
+        return this;
+    }
+
+    /**
+     * When set to LEGACY, the segment target duration is always rounded up to the nearest integer value above its
+     * current value in seconds. When set to SPEC\\_COMPLIANT, the segment target duration is rounded up to the nearest
+     * integer value if fraction seconds are greater than or equal to 0.5 (>= 0.5) and rounded down if less than 0.5 (<
+     * 0.5). You may need to use LEGACY if your client needs to ensure that the target duration is always longer than the
+     * actual duration of the segment. Some older players may experience interrupted playback when the actual duration of
+     * a track in a segment is longer than the target duration.
+     * 
+     * @param targetDurationCompatibilityMode
+     *        When set to LEGACY, the segment target duration is always rounded up to the nearest integer value above
+     *        its current value in seconds. When set to SPEC\\_COMPLIANT, the segment target duration is rounded up to
+     *        the nearest integer value if fraction seconds are greater than or equal to 0.5 (>= 0.5) and rounded down
+     *        if less than 0.5 (< 0.5). You may need to use LEGACY if your client needs to ensure that the target
+     *        duration is always longer than the actual duration of the segment. Some older players may experience
+     *        interrupted playback when the actual duration of a track in a segment is longer than the target duration.
+     * @see CmafTargetDurationCompatibilityMode
+     */
+
+    public void setTargetDurationCompatibilityMode(String targetDurationCompatibilityMode) {
+        this.targetDurationCompatibilityMode = targetDurationCompatibilityMode;
+    }
+
+    /**
+     * When set to LEGACY, the segment target duration is always rounded up to the nearest integer value above its
+     * current value in seconds. When set to SPEC\\_COMPLIANT, the segment target duration is rounded up to the nearest
+     * integer value if fraction seconds are greater than or equal to 0.5 (>= 0.5) and rounded down if less than 0.5 (<
+     * 0.5). You may need to use LEGACY if your client needs to ensure that the target duration is always longer than the
+     * actual duration of the segment. Some older players may experience interrupted playback when the actual duration of
+     * a track in a segment is longer than the target duration.
+     * 
+     * @return When set to LEGACY, the segment target duration is always rounded up to the nearest integer value above
+     *         its current value in seconds. When set to SPEC\\_COMPLIANT, the segment target duration is rounded up to
+     *         the nearest integer value if fraction seconds are greater than or equal to 0.5 (>= 0.5) and rounded down
+     *         if less than 0.5 (< 0.5). You may need to use LEGACY if your client needs to ensure that the target
+     *         duration is always longer than the actual duration of the segment. Some older players may experience
+     *         interrupted playback when the actual duration of a track in a segment is longer than the target duration.
+     * @see CmafTargetDurationCompatibilityMode
+     */
+
+    public String getTargetDurationCompatibilityMode() {
+        return this.targetDurationCompatibilityMode;
+    }
+
+    /**
+     * When set to LEGACY, the segment target duration is always rounded up to the nearest integer value above its
+     * current value in seconds. When set to SPEC\\_COMPLIANT, the segment target duration is rounded up to the nearest
+     * integer value if fraction seconds are greater than or equal to 0.5 (>= 0.5) and rounded down if less than 0.5 (<
+     * 0.5). You may need to use LEGACY if your client needs to ensure that the target duration is always longer than the
+     * actual duration of the segment. Some older players may experience interrupted playback when the actual duration of
+     * a track in a segment is longer than the target duration.
+     * 
+     * @param targetDurationCompatibilityMode
+     *        When set to LEGACY, the segment target duration is always rounded up to the nearest integer value above
+     *        its current value in seconds. When set to SPEC\\_COMPLIANT, the segment target duration is rounded up to
+     *        the nearest integer value if fraction seconds are greater than or equal to 0.5 (>= 0.5) and rounded down
+     *        if less than 0.5 (< 0.5). You may need to use LEGACY if your client needs to ensure that the target
+     *        duration is always longer than the actual duration of the segment. Some older players may experience
+     *        interrupted playback when the actual duration of a track in a segment is longer than the target duration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CmafTargetDurationCompatibilityMode
+     */
+
+    public CmafGroupSettings withTargetDurationCompatibilityMode(String targetDurationCompatibilityMode) {
+        setTargetDurationCompatibilityMode(targetDurationCompatibilityMode);
+        return this;
+    }
+
+    /**
+     * When set to LEGACY, the segment target duration is always rounded up to the nearest integer value above its
+     * current value in seconds. When set to SPEC\\_COMPLIANT, the segment target duration is rounded up to the nearest
+     * integer value if fraction seconds are greater than or equal to 0.5 (>= 0.5) and rounded down if less than 0.5 (<
+     * 0.5). You may need to use LEGACY if your client needs to ensure that the target duration is always longer than the
+     * actual duration of the segment. Some older players may experience interrupted playback when the actual duration of
+     * a track in a segment is longer than the target duration.
+     * 
+     * @param targetDurationCompatibilityMode
+     *        When set to LEGACY, the segment target duration is always rounded up to the nearest integer value above
+     *        its current value in seconds. When set to SPEC\\_COMPLIANT, the segment target duration is rounded up to
+     *        the nearest integer value if fraction seconds are greater than or equal to 0.5 (>= 0.5) and rounded down
+     *        if less than 0.5 (< 0.5). You may need to use LEGACY if your client needs to ensure that the target
+     *        duration is always longer than the actual duration of the segment. Some older players may experience
+     *        interrupted playback when the actual duration of a track in a segment is longer than the target duration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CmafTargetDurationCompatibilityMode
+     */
+
+    public CmafGroupSettings withTargetDurationCompatibilityMode(CmafTargetDurationCompatibilityMode targetDurationCompatibilityMode) {
+        this.targetDurationCompatibilityMode = targetDurationCompatibilityMode.toString();
+        return this;
+    }
+
+    /**
+     * Specify the video sample composition time offset mode in the output fMP4 TRUN box. For wider player
+     * compatibility, set Video composition offsets to Unsigned or leave blank. The earliest presentation time may be
+     * greater than zero, and sample composition time offsets will increment using unsigned integers. For strict fMP4
+     * video and audio timing, set Video composition offsets to Signed. The earliest presentation time will be equal to
+     * zero, and sample composition time offsets will increment using signed integers.
+     * 
+     * @param videoCompositionOffsets
+     *        Specify the video sample composition time offset mode in the output fMP4 TRUN box. For wider player
+     *        compatibility, set Video composition offsets to Unsigned or leave blank. The earliest presentation time
+     *        may be greater than zero, and sample composition time offsets will increment using unsigned integers. For
+     *        strict fMP4 video and audio timing, set Video composition offsets to Signed. The earliest presentation
+     *        time will be equal to zero, and sample composition time offsets will increment using signed integers.
+     * @see CmafVideoCompositionOffsets
+     */
+
+    public void setVideoCompositionOffsets(String videoCompositionOffsets) {
+        this.videoCompositionOffsets = videoCompositionOffsets;
+    }
+
+    /**
+     * Specify the video sample composition time offset mode in the output fMP4 TRUN box. For wider player
+     * compatibility, set Video composition offsets to Unsigned or leave blank. The earliest presentation time may be
+     * greater than zero, and sample composition time offsets will increment using unsigned integers. For strict fMP4
+     * video and audio timing, set Video composition offsets to Signed. The earliest presentation time will be equal to
+     * zero, and sample composition time offsets will increment using signed integers.
+     * 
+     * @return Specify the video sample composition time offset mode in the output fMP4 TRUN box. For wider player
+     *         compatibility, set Video composition offsets to Unsigned or leave blank. The earliest presentation time
+     *         may be greater than zero, and sample composition time offsets will increment using unsigned integers. For
+     *         strict fMP4 video and audio timing, set Video composition offsets to Signed. The earliest presentation
+     *         time will be equal to zero, and sample composition time offsets will increment using signed integers.
+     * @see CmafVideoCompositionOffsets
+     */
+
+    public String getVideoCompositionOffsets() {
+        return this.videoCompositionOffsets;
+    }
+
+    /**
+     * Specify the video sample composition time offset mode in the output fMP4 TRUN box. For wider player
+     * compatibility, set Video composition offsets to Unsigned or leave blank. The earliest presentation time may be
+     * greater than zero, and sample composition time offsets will increment using unsigned integers. For strict fMP4
+     * video and audio timing, set Video composition offsets to Signed. The earliest presentation time will be equal to
+     * zero, and sample composition time offsets will increment using signed integers.
+     * 
+     * @param videoCompositionOffsets
+     *        Specify the video sample composition time offset mode in the output fMP4 TRUN box. For wider player
+     *        compatibility, set Video composition offsets to Unsigned or leave blank. The earliest presentation time
+     *        may be greater than zero, and sample composition time offsets will increment using unsigned integers. For
+     *        strict fMP4 video and audio timing, set Video composition offsets to Signed. The earliest presentation
+     *        time will be equal to zero, and sample composition time offsets will increment using signed integers.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CmafVideoCompositionOffsets
+     */
+
+    public CmafGroupSettings withVideoCompositionOffsets(String videoCompositionOffsets) {
+        setVideoCompositionOffsets(videoCompositionOffsets);
+        return this;
+    }
+
+    /**
+     * Specify the video sample composition time offset mode in the output fMP4 TRUN box. For wider player
+     * compatibility, set Video composition offsets to Unsigned or leave blank. The earliest presentation time may be
+     * greater than zero, and sample composition time offsets will increment using unsigned integers. For strict fMP4
+     * video and audio timing, set Video composition offsets to Signed. The earliest presentation time will be equal to
+     * zero, and sample composition time offsets will increment using signed integers.
+     * 
+     * @param videoCompositionOffsets
+     *        Specify the video sample composition time offset mode in the output fMP4 TRUN box. For wider player
+     *        compatibility, set Video composition offsets to Unsigned or leave blank. The earliest presentation time
+     *        may be greater than zero, and sample composition time offsets will increment using unsigned integers. For
+     *        strict fMP4 video and audio timing, set Video composition offsets to Signed. The earliest presentation
+     *        time will be equal to zero, and sample composition time offsets will increment using signed integers.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CmafVideoCompositionOffsets
+     */
+
+    public CmafGroupSettings withVideoCompositionOffsets(CmafVideoCompositionOffsets videoCompositionOffsets) {
+        this.videoCompositionOffsets = videoCompositionOffsets.toString();
         return this;
     }
 
@@ -902,6 +1863,85 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
+     * When you enable Precise segment duration in DASH manifests, your DASH manifest shows precise segment durations.
+     * The segment duration information appears inside the SegmentTimeline element, inside SegmentTemplate at the
+     * Representation level. When this feature isn't enabled, the segment durations in your DASH manifest are
+     * approximate. The segment duration information appears in the duration attribute of the SegmentTemplate element.
+     * 
+     * @param writeSegmentTimelineInRepresentation
+     *        When you enable Precise segment duration in DASH manifests, your DASH manifest shows precise segment
+     *        durations. The segment duration information appears inside the SegmentTimeline element, inside
+     *        SegmentTemplate at the Representation level. When this feature isn't enabled, the segment durations in
+     *        your DASH manifest are approximate. The segment duration information appears in the duration attribute of
+     *        the SegmentTemplate element.
+     * @see CmafWriteSegmentTimelineInRepresentation
+     */
+
+    public void setWriteSegmentTimelineInRepresentation(String writeSegmentTimelineInRepresentation) {
+        this.writeSegmentTimelineInRepresentation = writeSegmentTimelineInRepresentation;
+    }
+
+    /**
+     * When you enable Precise segment duration in DASH manifests, your DASH manifest shows precise segment durations.
+     * The segment duration information appears inside the SegmentTimeline element, inside SegmentTemplate at the
+     * Representation level. When this feature isn't enabled, the segment durations in your DASH manifest are
+     * approximate. The segment duration information appears in the duration attribute of the SegmentTemplate element.
+     * 
+     * @return When you enable Precise segment duration in DASH manifests, your DASH manifest shows precise segment
+     *         durations. The segment duration information appears inside the SegmentTimeline element, inside
+     *         SegmentTemplate at the Representation level. When this feature isn't enabled, the segment durations in
+     *         your DASH manifest are approximate. The segment duration information appears in the duration attribute of
+     *         the SegmentTemplate element.
+     * @see CmafWriteSegmentTimelineInRepresentation
+     */
+
+    public String getWriteSegmentTimelineInRepresentation() {
+        return this.writeSegmentTimelineInRepresentation;
+    }
+
+    /**
+     * When you enable Precise segment duration in DASH manifests, your DASH manifest shows precise segment durations.
+     * The segment duration information appears inside the SegmentTimeline element, inside SegmentTemplate at the
+     * Representation level. When this feature isn't enabled, the segment durations in your DASH manifest are
+     * approximate. The segment duration information appears in the duration attribute of the SegmentTemplate element.
+     * 
+     * @param writeSegmentTimelineInRepresentation
+     *        When you enable Precise segment duration in DASH manifests, your DASH manifest shows precise segment
+     *        durations. The segment duration information appears inside the SegmentTimeline element, inside
+     *        SegmentTemplate at the Representation level. When this feature isn't enabled, the segment durations in
+     *        your DASH manifest are approximate. The segment duration information appears in the duration attribute of
+     *        the SegmentTemplate element.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CmafWriteSegmentTimelineInRepresentation
+     */
+
+    public CmafGroupSettings withWriteSegmentTimelineInRepresentation(String writeSegmentTimelineInRepresentation) {
+        setWriteSegmentTimelineInRepresentation(writeSegmentTimelineInRepresentation);
+        return this;
+    }
+
+    /**
+     * When you enable Precise segment duration in DASH manifests, your DASH manifest shows precise segment durations.
+     * The segment duration information appears inside the SegmentTimeline element, inside SegmentTemplate at the
+     * Representation level. When this feature isn't enabled, the segment durations in your DASH manifest are
+     * approximate. The segment duration information appears in the duration attribute of the SegmentTemplate element.
+     * 
+     * @param writeSegmentTimelineInRepresentation
+     *        When you enable Precise segment duration in DASH manifests, your DASH manifest shows precise segment
+     *        durations. The segment duration information appears inside the SegmentTimeline element, inside
+     *        SegmentTemplate at the Representation level. When this feature isn't enabled, the segment durations in
+     *        your DASH manifest are approximate. The segment duration information appears in the duration attribute of
+     *        the SegmentTemplate element.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CmafWriteSegmentTimelineInRepresentation
+     */
+
+    public CmafGroupSettings withWriteSegmentTimelineInRepresentation(CmafWriteSegmentTimelineInRepresentation writeSegmentTimelineInRepresentation) {
+        this.writeSegmentTimelineInRepresentation = writeSegmentTimelineInRepresentation.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -913,12 +1953,18 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getAdditionalManifests() != null)
+            sb.append("AdditionalManifests: ").append(getAdditionalManifests()).append(",");
         if (getBaseUrl() != null)
             sb.append("BaseUrl: ").append(getBaseUrl()).append(",");
         if (getClientCache() != null)
             sb.append("ClientCache: ").append(getClientCache()).append(",");
         if (getCodecSpecification() != null)
             sb.append("CodecSpecification: ").append(getCodecSpecification()).append(",");
+        if (getDashIFrameTrickPlayNameModifier() != null)
+            sb.append("DashIFrameTrickPlayNameModifier: ").append(getDashIFrameTrickPlayNameModifier()).append(",");
+        if (getDashManifestStyle() != null)
+            sb.append("DashManifestStyle: ").append(getDashManifestStyle()).append(",");
         if (getDestination() != null)
             sb.append("Destination: ").append(getDestination()).append(",");
         if (getDestinationSettings() != null)
@@ -927,6 +1973,10 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
             sb.append("Encryption: ").append(getEncryption()).append(",");
         if (getFragmentLength() != null)
             sb.append("FragmentLength: ").append(getFragmentLength()).append(",");
+        if (getImageBasedTrickPlay() != null)
+            sb.append("ImageBasedTrickPlay: ").append(getImageBasedTrickPlay()).append(",");
+        if (getImageBasedTrickPlaySettings() != null)
+            sb.append("ImageBasedTrickPlaySettings: ").append(getImageBasedTrickPlaySettings()).append(",");
         if (getManifestCompression() != null)
             sb.append("ManifestCompression: ").append(getManifestCompression()).append(",");
         if (getManifestDurationFormat() != null)
@@ -935,16 +1985,30 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
             sb.append("MinBufferTime: ").append(getMinBufferTime()).append(",");
         if (getMinFinalSegmentLength() != null)
             sb.append("MinFinalSegmentLength: ").append(getMinFinalSegmentLength()).append(",");
+        if (getMpdManifestBandwidthType() != null)
+            sb.append("MpdManifestBandwidthType: ").append(getMpdManifestBandwidthType()).append(",");
+        if (getMpdProfile() != null)
+            sb.append("MpdProfile: ").append(getMpdProfile()).append(",");
+        if (getPtsOffsetHandlingForBFrames() != null)
+            sb.append("PtsOffsetHandlingForBFrames: ").append(getPtsOffsetHandlingForBFrames()).append(",");
         if (getSegmentControl() != null)
             sb.append("SegmentControl: ").append(getSegmentControl()).append(",");
         if (getSegmentLength() != null)
             sb.append("SegmentLength: ").append(getSegmentLength()).append(",");
+        if (getSegmentLengthControl() != null)
+            sb.append("SegmentLengthControl: ").append(getSegmentLengthControl()).append(",");
         if (getStreamInfResolution() != null)
             sb.append("StreamInfResolution: ").append(getStreamInfResolution()).append(",");
+        if (getTargetDurationCompatibilityMode() != null)
+            sb.append("TargetDurationCompatibilityMode: ").append(getTargetDurationCompatibilityMode()).append(",");
+        if (getVideoCompositionOffsets() != null)
+            sb.append("VideoCompositionOffsets: ").append(getVideoCompositionOffsets()).append(",");
         if (getWriteDashManifest() != null)
             sb.append("WriteDashManifest: ").append(getWriteDashManifest()).append(",");
         if (getWriteHlsManifest() != null)
-            sb.append("WriteHlsManifest: ").append(getWriteHlsManifest());
+            sb.append("WriteHlsManifest: ").append(getWriteHlsManifest()).append(",");
+        if (getWriteSegmentTimelineInRepresentation() != null)
+            sb.append("WriteSegmentTimelineInRepresentation: ").append(getWriteSegmentTimelineInRepresentation());
         sb.append("}");
         return sb.toString();
     }
@@ -959,6 +2023,10 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
         if (obj instanceof CmafGroupSettings == false)
             return false;
         CmafGroupSettings other = (CmafGroupSettings) obj;
+        if (other.getAdditionalManifests() == null ^ this.getAdditionalManifests() == null)
+            return false;
+        if (other.getAdditionalManifests() != null && other.getAdditionalManifests().equals(this.getAdditionalManifests()) == false)
+            return false;
         if (other.getBaseUrl() == null ^ this.getBaseUrl() == null)
             return false;
         if (other.getBaseUrl() != null && other.getBaseUrl().equals(this.getBaseUrl()) == false)
@@ -970,6 +2038,15 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
         if (other.getCodecSpecification() == null ^ this.getCodecSpecification() == null)
             return false;
         if (other.getCodecSpecification() != null && other.getCodecSpecification().equals(this.getCodecSpecification()) == false)
+            return false;
+        if (other.getDashIFrameTrickPlayNameModifier() == null ^ this.getDashIFrameTrickPlayNameModifier() == null)
+            return false;
+        if (other.getDashIFrameTrickPlayNameModifier() != null
+                && other.getDashIFrameTrickPlayNameModifier().equals(this.getDashIFrameTrickPlayNameModifier()) == false)
+            return false;
+        if (other.getDashManifestStyle() == null ^ this.getDashManifestStyle() == null)
+            return false;
+        if (other.getDashManifestStyle() != null && other.getDashManifestStyle().equals(this.getDashManifestStyle()) == false)
             return false;
         if (other.getDestination() == null ^ this.getDestination() == null)
             return false;
@@ -987,6 +2064,14 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
             return false;
         if (other.getFragmentLength() != null && other.getFragmentLength().equals(this.getFragmentLength()) == false)
             return false;
+        if (other.getImageBasedTrickPlay() == null ^ this.getImageBasedTrickPlay() == null)
+            return false;
+        if (other.getImageBasedTrickPlay() != null && other.getImageBasedTrickPlay().equals(this.getImageBasedTrickPlay()) == false)
+            return false;
+        if (other.getImageBasedTrickPlaySettings() == null ^ this.getImageBasedTrickPlaySettings() == null)
+            return false;
+        if (other.getImageBasedTrickPlaySettings() != null && other.getImageBasedTrickPlaySettings().equals(this.getImageBasedTrickPlaySettings()) == false)
+            return false;
         if (other.getManifestCompression() == null ^ this.getManifestCompression() == null)
             return false;
         if (other.getManifestCompression() != null && other.getManifestCompression().equals(this.getManifestCompression()) == false)
@@ -1003,6 +2088,18 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
             return false;
         if (other.getMinFinalSegmentLength() != null && other.getMinFinalSegmentLength().equals(this.getMinFinalSegmentLength()) == false)
             return false;
+        if (other.getMpdManifestBandwidthType() == null ^ this.getMpdManifestBandwidthType() == null)
+            return false;
+        if (other.getMpdManifestBandwidthType() != null && other.getMpdManifestBandwidthType().equals(this.getMpdManifestBandwidthType()) == false)
+            return false;
+        if (other.getMpdProfile() == null ^ this.getMpdProfile() == null)
+            return false;
+        if (other.getMpdProfile() != null && other.getMpdProfile().equals(this.getMpdProfile()) == false)
+            return false;
+        if (other.getPtsOffsetHandlingForBFrames() == null ^ this.getPtsOffsetHandlingForBFrames() == null)
+            return false;
+        if (other.getPtsOffsetHandlingForBFrames() != null && other.getPtsOffsetHandlingForBFrames().equals(this.getPtsOffsetHandlingForBFrames()) == false)
+            return false;
         if (other.getSegmentControl() == null ^ this.getSegmentControl() == null)
             return false;
         if (other.getSegmentControl() != null && other.getSegmentControl().equals(this.getSegmentControl()) == false)
@@ -1011,9 +2108,22 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
             return false;
         if (other.getSegmentLength() != null && other.getSegmentLength().equals(this.getSegmentLength()) == false)
             return false;
+        if (other.getSegmentLengthControl() == null ^ this.getSegmentLengthControl() == null)
+            return false;
+        if (other.getSegmentLengthControl() != null && other.getSegmentLengthControl().equals(this.getSegmentLengthControl()) == false)
+            return false;
         if (other.getStreamInfResolution() == null ^ this.getStreamInfResolution() == null)
             return false;
         if (other.getStreamInfResolution() != null && other.getStreamInfResolution().equals(this.getStreamInfResolution()) == false)
+            return false;
+        if (other.getTargetDurationCompatibilityMode() == null ^ this.getTargetDurationCompatibilityMode() == null)
+            return false;
+        if (other.getTargetDurationCompatibilityMode() != null
+                && other.getTargetDurationCompatibilityMode().equals(this.getTargetDurationCompatibilityMode()) == false)
+            return false;
+        if (other.getVideoCompositionOffsets() == null ^ this.getVideoCompositionOffsets() == null)
+            return false;
+        if (other.getVideoCompositionOffsets() != null && other.getVideoCompositionOffsets().equals(this.getVideoCompositionOffsets()) == false)
             return false;
         if (other.getWriteDashManifest() == null ^ this.getWriteDashManifest() == null)
             return false;
@@ -1023,6 +2133,11 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
             return false;
         if (other.getWriteHlsManifest() != null && other.getWriteHlsManifest().equals(this.getWriteHlsManifest()) == false)
             return false;
+        if (other.getWriteSegmentTimelineInRepresentation() == null ^ this.getWriteSegmentTimelineInRepresentation() == null)
+            return false;
+        if (other.getWriteSegmentTimelineInRepresentation() != null
+                && other.getWriteSegmentTimelineInRepresentation().equals(this.getWriteSegmentTimelineInRepresentation()) == false)
+            return false;
         return true;
     }
 
@@ -1031,22 +2146,34 @@ public class CmafGroupSettings implements Serializable, Cloneable, StructuredPoj
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getAdditionalManifests() == null) ? 0 : getAdditionalManifests().hashCode());
         hashCode = prime * hashCode + ((getBaseUrl() == null) ? 0 : getBaseUrl().hashCode());
         hashCode = prime * hashCode + ((getClientCache() == null) ? 0 : getClientCache().hashCode());
         hashCode = prime * hashCode + ((getCodecSpecification() == null) ? 0 : getCodecSpecification().hashCode());
+        hashCode = prime * hashCode + ((getDashIFrameTrickPlayNameModifier() == null) ? 0 : getDashIFrameTrickPlayNameModifier().hashCode());
+        hashCode = prime * hashCode + ((getDashManifestStyle() == null) ? 0 : getDashManifestStyle().hashCode());
         hashCode = prime * hashCode + ((getDestination() == null) ? 0 : getDestination().hashCode());
         hashCode = prime * hashCode + ((getDestinationSettings() == null) ? 0 : getDestinationSettings().hashCode());
         hashCode = prime * hashCode + ((getEncryption() == null) ? 0 : getEncryption().hashCode());
         hashCode = prime * hashCode + ((getFragmentLength() == null) ? 0 : getFragmentLength().hashCode());
+        hashCode = prime * hashCode + ((getImageBasedTrickPlay() == null) ? 0 : getImageBasedTrickPlay().hashCode());
+        hashCode = prime * hashCode + ((getImageBasedTrickPlaySettings() == null) ? 0 : getImageBasedTrickPlaySettings().hashCode());
         hashCode = prime * hashCode + ((getManifestCompression() == null) ? 0 : getManifestCompression().hashCode());
         hashCode = prime * hashCode + ((getManifestDurationFormat() == null) ? 0 : getManifestDurationFormat().hashCode());
         hashCode = prime * hashCode + ((getMinBufferTime() == null) ? 0 : getMinBufferTime().hashCode());
         hashCode = prime * hashCode + ((getMinFinalSegmentLength() == null) ? 0 : getMinFinalSegmentLength().hashCode());
+        hashCode = prime * hashCode + ((getMpdManifestBandwidthType() == null) ? 0 : getMpdManifestBandwidthType().hashCode());
+        hashCode = prime * hashCode + ((getMpdProfile() == null) ? 0 : getMpdProfile().hashCode());
+        hashCode = prime * hashCode + ((getPtsOffsetHandlingForBFrames() == null) ? 0 : getPtsOffsetHandlingForBFrames().hashCode());
         hashCode = prime * hashCode + ((getSegmentControl() == null) ? 0 : getSegmentControl().hashCode());
         hashCode = prime * hashCode + ((getSegmentLength() == null) ? 0 : getSegmentLength().hashCode());
+        hashCode = prime * hashCode + ((getSegmentLengthControl() == null) ? 0 : getSegmentLengthControl().hashCode());
         hashCode = prime * hashCode + ((getStreamInfResolution() == null) ? 0 : getStreamInfResolution().hashCode());
+        hashCode = prime * hashCode + ((getTargetDurationCompatibilityMode() == null) ? 0 : getTargetDurationCompatibilityMode().hashCode());
+        hashCode = prime * hashCode + ((getVideoCompositionOffsets() == null) ? 0 : getVideoCompositionOffsets().hashCode());
         hashCode = prime * hashCode + ((getWriteDashManifest() == null) ? 0 : getWriteDashManifest().hashCode());
         hashCode = prime * hashCode + ((getWriteHlsManifest() == null) ? 0 : getWriteHlsManifest().hashCode());
+        hashCode = prime * hashCode + ((getWriteSegmentTimelineInRepresentation() == null) ? 0 : getWriteSegmentTimelineInRepresentation().hashCode());
         return hashCode;
     }
 

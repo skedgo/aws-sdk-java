@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -93,6 +93,12 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      * </li>
      * <li>
      * <p>
+     * <code>entry.egress</code> - A Boolean that indicates the type of rule. Specify <code>true</code> for egress
+     * rules, or <code>false</code> for ingress rules.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>entry.rule-number</code> - The number of an entry (in other words, rule) in the set of ACL entries.
      * </p>
      * </li>
@@ -103,7 +109,7 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The ID of the AWS account that owns the network ACL.
+     * <code>owner-id</code> - The ID of the Amazon Web Services account that owns the network ACL.
      * </p>
      * </li>
      * <li>
@@ -130,30 +136,29 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
     private com.amazonaws.internal.SdkInternalList<Filter> filters;
     /**
      * <p>
-     * One or more network ACL IDs.
-     * </p>
-     * <p>
-     * Default: Describes all your network ACLs.
+     * The IDs of the network ACLs.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> networkAclIds;
     /**
      * <p>
-     * The token for the next page of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      */
     private Integer maxResults;
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -219,6 +224,12 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      * </li>
      * <li>
      * <p>
+     * <code>entry.egress</code> - A Boolean that indicates the type of rule. Specify <code>true</code> for egress
+     * rules, or <code>false</code> for ingress rules.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>entry.rule-number</code> - The number of an entry (in other words, rule) in the set of ACL entries.
      * </p>
      * </li>
@@ -229,7 +240,7 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The ID of the AWS account that owns the network ACL.
+     * <code>owner-id</code> - The ID of the Amazon Web Services account that owns the network ACL.
      * </p>
      * </li>
      * <li>
@@ -253,7 +264,7 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      * </li>
      * </ul>
      * 
-     * @return One or more filters.</p>
+     * @return The filters.</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -319,6 +330,12 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      *         </li>
      *         <li>
      *         <p>
+     *         <code>entry.egress</code> - A Boolean that indicates the type of rule. Specify <code>true</code> for
+     *         egress rules, or <code>false</code> for ingress rules.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
      *         <code>entry.rule-number</code> - The number of an entry (in other words, rule) in the set of ACL entries.
      *         </p>
      *         </li>
@@ -329,7 +346,7 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      *         </li>
      *         <li>
      *         <p>
-     *         <code>owner-id</code> - The ID of the AWS account that owns the network ACL.
+     *         <code>owner-id</code> - The ID of the Amazon Web Services account that owns the network ACL.
      *         </p>
      *         </li>
      *         <li>
@@ -362,7 +379,7 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -428,6 +445,12 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      * </li>
      * <li>
      * <p>
+     * <code>entry.egress</code> - A Boolean that indicates the type of rule. Specify <code>true</code> for egress
+     * rules, or <code>false</code> for ingress rules.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>entry.rule-number</code> - The number of an entry (in other words, rule) in the set of ACL entries.
      * </p>
      * </li>
@@ -438,7 +461,7 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The ID of the AWS account that owns the network ACL.
+     * <code>owner-id</code> - The ID of the Amazon Web Services account that owns the network ACL.
      * </p>
      * </li>
      * <li>
@@ -463,7 +486,7 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      * </ul>
      * 
      * @param filters
-     *        One or more filters.</p>
+     *        The filters.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -529,6 +552,12 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      *        </li>
      *        <li>
      *        <p>
+     *        <code>entry.egress</code> - A Boolean that indicates the type of rule. Specify <code>true</code> for
+     *        egress rules, or <code>false</code> for ingress rules.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>entry.rule-number</code> - The number of an entry (in other words, rule) in the set of ACL entries.
      *        </p>
      *        </li>
@@ -539,7 +568,7 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-id</code> - The ID of the AWS account that owns the network ACL.
+     *        <code>owner-id</code> - The ID of the Amazon Web Services account that owns the network ACL.
      *        </p>
      *        </li>
      *        <li>
@@ -574,7 +603,7 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -640,6 +669,12 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      * </li>
      * <li>
      * <p>
+     * <code>entry.egress</code> - A Boolean that indicates the type of rule. Specify <code>true</code> for egress
+     * rules, or <code>false</code> for ingress rules.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>entry.rule-number</code> - The number of an entry (in other words, rule) in the set of ACL entries.
      * </p>
      * </li>
@@ -650,7 +685,7 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The ID of the AWS account that owns the network ACL.
+     * <code>owner-id</code> - The ID of the Amazon Web Services account that owns the network ACL.
      * </p>
      * </li>
      * <li>
@@ -680,7 +715,7 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      * </p>
      * 
      * @param filters
-     *        One or more filters.</p>
+     *        The filters.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -746,6 +781,12 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      *        </li>
      *        <li>
      *        <p>
+     *        <code>entry.egress</code> - A Boolean that indicates the type of rule. Specify <code>true</code> for
+     *        egress rules, or <code>false</code> for ingress rules.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>entry.rule-number</code> - The number of an entry (in other words, rule) in the set of ACL entries.
      *        </p>
      *        </li>
@@ -756,7 +797,7 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-id</code> - The ID of the AWS account that owns the network ACL.
+     *        <code>owner-id</code> - The ID of the Amazon Web Services account that owns the network ACL.
      *        </p>
      *        </li>
      *        <li>
@@ -793,7 +834,7 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -859,6 +900,12 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      * </li>
      * <li>
      * <p>
+     * <code>entry.egress</code> - A Boolean that indicates the type of rule. Specify <code>true</code> for egress
+     * rules, or <code>false</code> for ingress rules.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>entry.rule-number</code> - The number of an entry (in other words, rule) in the set of ACL entries.
      * </p>
      * </li>
@@ -869,7 +916,7 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The ID of the AWS account that owns the network ACL.
+     * <code>owner-id</code> - The ID of the Amazon Web Services account that owns the network ACL.
      * </p>
      * </li>
      * <li>
@@ -894,7 +941,7 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      * </ul>
      * 
      * @param filters
-     *        One or more filters.</p>
+     *        The filters.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -960,6 +1007,12 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      *        </li>
      *        <li>
      *        <p>
+     *        <code>entry.egress</code> - A Boolean that indicates the type of rule. Specify <code>true</code> for
+     *        egress rules, or <code>false</code> for ingress rules.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>entry.rule-number</code> - The number of an entry (in other words, rule) in the set of ACL entries.
      *        </p>
      *        </li>
@@ -970,7 +1023,7 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-id</code> - The ID of the AWS account that owns the network ACL.
+     *        <code>owner-id</code> - The ID of the Amazon Web Services account that owns the network ACL.
      *        </p>
      *        </li>
      *        <li>
@@ -1002,15 +1055,10 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
 
     /**
      * <p>
-     * One or more network ACL IDs.
-     * </p>
-     * <p>
-     * Default: Describes all your network ACLs.
+     * The IDs of the network ACLs.
      * </p>
      * 
-     * @return One or more network ACL IDs.</p>
-     *         <p>
-     *         Default: Describes all your network ACLs.
+     * @return The IDs of the network ACLs.
      */
 
     public java.util.List<String> getNetworkAclIds() {
@@ -1022,16 +1070,11 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
 
     /**
      * <p>
-     * One or more network ACL IDs.
-     * </p>
-     * <p>
-     * Default: Describes all your network ACLs.
+     * The IDs of the network ACLs.
      * </p>
      * 
      * @param networkAclIds
-     *        One or more network ACL IDs.</p>
-     *        <p>
-     *        Default: Describes all your network ACLs.
+     *        The IDs of the network ACLs.
      */
 
     public void setNetworkAclIds(java.util.Collection<String> networkAclIds) {
@@ -1045,10 +1088,7 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
 
     /**
      * <p>
-     * One or more network ACL IDs.
-     * </p>
-     * <p>
-     * Default: Describes all your network ACLs.
+     * The IDs of the network ACLs.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1057,9 +1097,7 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
      * </p>
      * 
      * @param networkAclIds
-     *        One or more network ACL IDs.</p>
-     *        <p>
-     *        Default: Describes all your network ACLs.
+     *        The IDs of the network ACLs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1075,16 +1113,11 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
 
     /**
      * <p>
-     * One or more network ACL IDs.
-     * </p>
-     * <p>
-     * Default: Describes all your network ACLs.
+     * The IDs of the network ACLs.
      * </p>
      * 
      * @param networkAclIds
-     *        One or more network ACL IDs.</p>
-     *        <p>
-     *        Default: Describes all your network ACLs.
+     *        The IDs of the network ACLs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1095,11 +1128,13 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
 
     /**
      * <p>
-     * The token for the next page of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
      * @param nextToken
-     *        The token for the next page of results.
+     *        The token returned from a previous paginated request. Pagination continues from the end of the items
+     *        returned by the previous request.
      */
 
     public void setNextToken(String nextToken) {
@@ -1108,10 +1143,12 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
 
     /**
      * <p>
-     * The token for the next page of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
-     * @return The token for the next page of results.
+     * @return The token returned from a previous paginated request. Pagination continues from the end of the items
+     *         returned by the previous request.
      */
 
     public String getNextToken() {
@@ -1120,11 +1157,13 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
 
     /**
      * <p>
-     * The token for the next page of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
      * @param nextToken
-     *        The token for the next page of results.
+     *        The token returned from a previous paginated request. Pagination continues from the end of the items
+     *        returned by the previous request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1135,13 +1174,16 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
 
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return with a single call. To retrieve the remaining results, make
-     *        another call with the returned <code>nextToken</code> value.
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -1150,12 +1192,15 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
 
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
-     * @return The maximum number of results to return with a single call. To retrieve the remaining results, make
-     *         another call with the returned <code>nextToken</code> value.
+     * @return The maximum number of items to return for this request. To get the next page of items, make another
+     *         request with the token returned in the output. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *         >Pagination</a>.
      */
 
     public Integer getMaxResults() {
@@ -1164,13 +1209,16 @@ public class DescribeNetworkAclsRequest extends AmazonWebServiceRequest implemen
 
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return with a single call. To retrieve the remaining results, make
-     *        another call with the returned <code>nextToken</code> value.
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

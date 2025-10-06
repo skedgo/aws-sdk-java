@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -70,7 +70,7 @@ public class Image implements Serializable, Cloneable {
     private String kernelId;
     /**
      * <p>
-     * The AWS account ID of the image owner.
+     * The ID of the Amazon Web Services account that owns the image.
      * </p>
      */
     private String ownerId;
@@ -80,6 +80,30 @@ public class Image implements Serializable, Cloneable {
      * </p>
      */
     private String platform;
+    /**
+     * <p>
+     * The platform details associated with the billing code of the AMI. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-billing-info.html">Understand AMI billing
+     * information</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     */
+    private String platformDetails;
+    /**
+     * <p>
+     * The operation of the Amazon EC2 instance and the billing code that is associated with the AMI.
+     * <code>usageOperation</code> corresponds to the <a
+     * href="https://docs.aws.amazon.com/cur/latest/userguide/Lineitem-columns.html#Lineitem-details-O-Operation"
+     * >lineitem/Operation</a> column on your Amazon Web Services Cost and Usage Report and in the <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/price-changes.html">Amazon Web Services Price
+     * List API</a>. You can view these fields on the <b>Instances</b> or <b>AMIs</b> pages in the Amazon EC2 console,
+     * or in the responses that are returned by the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeImages.html">DescribeImages</a> command
+     * in the Amazon EC2 API, or the <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-images.html">describe-images</a> command in
+     * the CLI.
+     * </p>
+     */
+    private String usageOperation;
     /**
      * <p>
      * Any product codes associated with the AMI.
@@ -119,14 +143,13 @@ public class Image implements Serializable, Cloneable {
     private Boolean enaSupport;
     /**
      * <p>
-     * The hypervisor type of the image.
+     * The hypervisor type of the image. Only <code>xen</code> is supported. <code>ovm</code> is not supported.
      * </p>
      */
     private String hypervisor;
     /**
      * <p>
-     * The AWS account alias (for example, <code>amazon</code>, <code>self</code>) or the AWS account ID of the AMI
-     * owner.
+     * The owner alias (<code>amazon</code> | <code>aws-marketplace</code>).
      * </p>
      */
     private String imageOwnerAlias;
@@ -144,7 +167,7 @@ public class Image implements Serializable, Cloneable {
     private String rootDeviceName;
     /**
      * <p>
-     * The type of root device used by the AMI. The AMI can use an EBS volume or an instance store volume.
+     * The type of root device used by the AMI. The AMI can use an Amazon EBS volume or an instance store volume.
      * </p>
      */
     private String rootDeviceType;
@@ -172,6 +195,68 @@ public class Image implements Serializable, Cloneable {
      * </p>
      */
     private String virtualizationType;
+    /**
+     * <p>
+     * The boot mode of the image. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     */
+    private String bootMode;
+    /**
+     * <p>
+     * If the image is configured for NitroTPM support, the value is <code>v2.0</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     */
+    private String tpmSupport;
+    /**
+     * <p>
+     * The date and time to deprecate the AMI, in UTC, in the following format:
+     * <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z. If you specified a value for seconds, Amazon EC2
+     * rounds the seconds to the nearest minute.
+     * </p>
+     */
+    private String deprecationTime;
+    /**
+     * <p>
+     * If <code>v2.0</code>, it indicates that IMDSv2 is specified in the AMI. Instances launched from this AMI will
+     * have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the instance
+     * requires that IMDSv2 is used when requesting instance metadata. In addition, <code>HttpPutResponseHopLimit</code>
+     * is set to <code>2</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     * >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     */
+    private String imdsSupport;
+    /**
+     * <p>
+     * The ID of the instance that the AMI was created from if the AMI was created using <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateImage.html">CreateImage</a>. This field
+     * only appears if the AMI was created using CreateImage.
+     * </p>
+     */
+    private String sourceInstanceId;
+    /**
+     * <p>
+     * Indicates whether deregistration protection is enabled for the AMI.
+     * </p>
+     */
+    private String deregistrationProtection;
+    /**
+     * <p>
+     * The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the AMI was
+     * last used to launch an EC2 instance. When the AMI is used to launch an instance, there is a 24-hour delay before
+     * that usage is reported.
+     * </p>
+     * <note>
+     * <p>
+     * <code>lastLaunchedTime</code> data is available starting April 2017.
+     * </p>
+     * </note>
+     */
+    private String lastLaunchedTime;
 
     /**
      * <p>
@@ -545,11 +630,11 @@ public class Image implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the image owner.
+     * The ID of the Amazon Web Services account that owns the image.
      * </p>
      * 
      * @param ownerId
-     *        The AWS account ID of the image owner.
+     *        The ID of the Amazon Web Services account that owns the image.
      */
 
     public void setOwnerId(String ownerId) {
@@ -558,10 +643,10 @@ public class Image implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the image owner.
+     * The ID of the Amazon Web Services account that owns the image.
      * </p>
      * 
-     * @return The AWS account ID of the image owner.
+     * @return The ID of the Amazon Web Services account that owns the image.
      */
 
     public String getOwnerId() {
@@ -570,11 +655,11 @@ public class Image implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the image owner.
+     * The ID of the Amazon Web Services account that owns the image.
      * </p>
      * 
      * @param ownerId
-     *        The AWS account ID of the image owner.
+     *        The ID of the Amazon Web Services account that owns the image.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -653,6 +738,158 @@ public class Image implements Serializable, Cloneable {
 
     public Image withPlatform(PlatformValues platform) {
         this.platform = platform.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The platform details associated with the billing code of the AMI. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-billing-info.html">Understand AMI billing
+     * information</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param platformDetails
+     *        The platform details associated with the billing code of the AMI. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-billing-info.html">Understand AMI billing
+     *        information</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public void setPlatformDetails(String platformDetails) {
+        this.platformDetails = platformDetails;
+    }
+
+    /**
+     * <p>
+     * The platform details associated with the billing code of the AMI. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-billing-info.html">Understand AMI billing
+     * information</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return The platform details associated with the billing code of the AMI. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-billing-info.html">Understand AMI billing
+     *         information</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public String getPlatformDetails() {
+        return this.platformDetails;
+    }
+
+    /**
+     * <p>
+     * The platform details associated with the billing code of the AMI. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-billing-info.html">Understand AMI billing
+     * information</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param platformDetails
+     *        The platform details associated with the billing code of the AMI. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-billing-info.html">Understand AMI billing
+     *        information</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Image withPlatformDetails(String platformDetails) {
+        setPlatformDetails(platformDetails);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The operation of the Amazon EC2 instance and the billing code that is associated with the AMI.
+     * <code>usageOperation</code> corresponds to the <a
+     * href="https://docs.aws.amazon.com/cur/latest/userguide/Lineitem-columns.html#Lineitem-details-O-Operation"
+     * >lineitem/Operation</a> column on your Amazon Web Services Cost and Usage Report and in the <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/price-changes.html">Amazon Web Services Price
+     * List API</a>. You can view these fields on the <b>Instances</b> or <b>AMIs</b> pages in the Amazon EC2 console,
+     * or in the responses that are returned by the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeImages.html">DescribeImages</a> command
+     * in the Amazon EC2 API, or the <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-images.html">describe-images</a> command in
+     * the CLI.
+     * </p>
+     * 
+     * @param usageOperation
+     *        The operation of the Amazon EC2 instance and the billing code that is associated with the AMI.
+     *        <code>usageOperation</code> corresponds to the <a
+     *        href="https://docs.aws.amazon.com/cur/latest/userguide/Lineitem-columns.html#Lineitem-details-O-Operation"
+     *        >lineitem/Operation</a> column on your Amazon Web Services Cost and Usage Report and in the <a
+     *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/price-changes.html">Amazon Web Services
+     *        Price List API</a>. You can view these fields on the <b>Instances</b> or <b>AMIs</b> pages in the Amazon
+     *        EC2 console, or in the responses that are returned by the <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeImages.html">DescribeImages</a>
+     *        command in the Amazon EC2 API, or the <a
+     *        href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-images.html">describe-images</a>
+     *        command in the CLI.
+     */
+
+    public void setUsageOperation(String usageOperation) {
+        this.usageOperation = usageOperation;
+    }
+
+    /**
+     * <p>
+     * The operation of the Amazon EC2 instance and the billing code that is associated with the AMI.
+     * <code>usageOperation</code> corresponds to the <a
+     * href="https://docs.aws.amazon.com/cur/latest/userguide/Lineitem-columns.html#Lineitem-details-O-Operation"
+     * >lineitem/Operation</a> column on your Amazon Web Services Cost and Usage Report and in the <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/price-changes.html">Amazon Web Services Price
+     * List API</a>. You can view these fields on the <b>Instances</b> or <b>AMIs</b> pages in the Amazon EC2 console,
+     * or in the responses that are returned by the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeImages.html">DescribeImages</a> command
+     * in the Amazon EC2 API, or the <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-images.html">describe-images</a> command in
+     * the CLI.
+     * </p>
+     * 
+     * @return The operation of the Amazon EC2 instance and the billing code that is associated with the AMI.
+     *         <code>usageOperation</code> corresponds to the <a
+     *         href="https://docs.aws.amazon.com/cur/latest/userguide/Lineitem-columns.html#Lineitem-details-O-Operation"
+     *         >lineitem/Operation</a> column on your Amazon Web Services Cost and Usage Report and in the <a
+     *         href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/price-changes.html">Amazon Web
+     *         Services Price List API</a>. You can view these fields on the <b>Instances</b> or <b>AMIs</b> pages in
+     *         the Amazon EC2 console, or in the responses that are returned by the <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeImages.html">DescribeImages</a>
+     *         command in the Amazon EC2 API, or the <a
+     *         href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-images.html">describe-images</a>
+     *         command in the CLI.
+     */
+
+    public String getUsageOperation() {
+        return this.usageOperation;
+    }
+
+    /**
+     * <p>
+     * The operation of the Amazon EC2 instance and the billing code that is associated with the AMI.
+     * <code>usageOperation</code> corresponds to the <a
+     * href="https://docs.aws.amazon.com/cur/latest/userguide/Lineitem-columns.html#Lineitem-details-O-Operation"
+     * >lineitem/Operation</a> column on your Amazon Web Services Cost and Usage Report and in the <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/price-changes.html">Amazon Web Services Price
+     * List API</a>. You can view these fields on the <b>Instances</b> or <b>AMIs</b> pages in the Amazon EC2 console,
+     * or in the responses that are returned by the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeImages.html">DescribeImages</a> command
+     * in the Amazon EC2 API, or the <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-images.html">describe-images</a> command in
+     * the CLI.
+     * </p>
+     * 
+     * @param usageOperation
+     *        The operation of the Amazon EC2 instance and the billing code that is associated with the AMI.
+     *        <code>usageOperation</code> corresponds to the <a
+     *        href="https://docs.aws.amazon.com/cur/latest/userguide/Lineitem-columns.html#Lineitem-details-O-Operation"
+     *        >lineitem/Operation</a> column on your Amazon Web Services Cost and Usage Report and in the <a
+     *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/price-changes.html">Amazon Web Services
+     *        Price List API</a>. You can view these fields on the <b>Instances</b> or <b>AMIs</b> pages in the Amazon
+     *        EC2 console, or in the responses that are returned by the <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeImages.html">DescribeImages</a>
+     *        command in the Amazon EC2 API, or the <a
+     *        href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-images.html">describe-images</a>
+     *        command in the CLI.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Image withUsageOperation(String usageOperation) {
+        setUsageOperation(usageOperation);
         return this;
     }
 
@@ -1019,11 +1256,11 @@ public class Image implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The hypervisor type of the image.
+     * The hypervisor type of the image. Only <code>xen</code> is supported. <code>ovm</code> is not supported.
      * </p>
      * 
      * @param hypervisor
-     *        The hypervisor type of the image.
+     *        The hypervisor type of the image. Only <code>xen</code> is supported. <code>ovm</code> is not supported.
      * @see HypervisorType
      */
 
@@ -1033,10 +1270,10 @@ public class Image implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The hypervisor type of the image.
+     * The hypervisor type of the image. Only <code>xen</code> is supported. <code>ovm</code> is not supported.
      * </p>
      * 
-     * @return The hypervisor type of the image.
+     * @return The hypervisor type of the image. Only <code>xen</code> is supported. <code>ovm</code> is not supported.
      * @see HypervisorType
      */
 
@@ -1046,11 +1283,11 @@ public class Image implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The hypervisor type of the image.
+     * The hypervisor type of the image. Only <code>xen</code> is supported. <code>ovm</code> is not supported.
      * </p>
      * 
      * @param hypervisor
-     *        The hypervisor type of the image.
+     *        The hypervisor type of the image. Only <code>xen</code> is supported. <code>ovm</code> is not supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HypervisorType
      */
@@ -1062,11 +1299,11 @@ public class Image implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The hypervisor type of the image.
+     * The hypervisor type of the image. Only <code>xen</code> is supported. <code>ovm</code> is not supported.
      * </p>
      * 
      * @param hypervisor
-     *        The hypervisor type of the image.
+     *        The hypervisor type of the image. Only <code>xen</code> is supported. <code>ovm</code> is not supported.
      * @see HypervisorType
      */
 
@@ -1076,11 +1313,11 @@ public class Image implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The hypervisor type of the image.
+     * The hypervisor type of the image. Only <code>xen</code> is supported. <code>ovm</code> is not supported.
      * </p>
      * 
      * @param hypervisor
-     *        The hypervisor type of the image.
+     *        The hypervisor type of the image. Only <code>xen</code> is supported. <code>ovm</code> is not supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HypervisorType
      */
@@ -1092,13 +1329,11 @@ public class Image implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account alias (for example, <code>amazon</code>, <code>self</code>) or the AWS account ID of the AMI
-     * owner.
+     * The owner alias (<code>amazon</code> | <code>aws-marketplace</code>).
      * </p>
      * 
      * @param imageOwnerAlias
-     *        The AWS account alias (for example, <code>amazon</code>, <code>self</code>) or the AWS account ID of the
-     *        AMI owner.
+     *        The owner alias (<code>amazon</code> | <code>aws-marketplace</code>).
      */
 
     public void setImageOwnerAlias(String imageOwnerAlias) {
@@ -1107,12 +1342,10 @@ public class Image implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account alias (for example, <code>amazon</code>, <code>self</code>) or the AWS account ID of the AMI
-     * owner.
+     * The owner alias (<code>amazon</code> | <code>aws-marketplace</code>).
      * </p>
      * 
-     * @return The AWS account alias (for example, <code>amazon</code>, <code>self</code>) or the AWS account ID of the
-     *         AMI owner.
+     * @return The owner alias (<code>amazon</code> | <code>aws-marketplace</code>).
      */
 
     public String getImageOwnerAlias() {
@@ -1121,13 +1354,11 @@ public class Image implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account alias (for example, <code>amazon</code>, <code>self</code>) or the AWS account ID of the AMI
-     * owner.
+     * The owner alias (<code>amazon</code> | <code>aws-marketplace</code>).
      * </p>
      * 
      * @param imageOwnerAlias
-     *        The AWS account alias (for example, <code>amazon</code>, <code>self</code>) or the AWS account ID of the
-     *        AMI owner.
+     *        The owner alias (<code>amazon</code> | <code>aws-marketplace</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1218,11 +1449,11 @@ public class Image implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of root device used by the AMI. The AMI can use an EBS volume or an instance store volume.
+     * The type of root device used by the AMI. The AMI can use an Amazon EBS volume or an instance store volume.
      * </p>
      * 
      * @param rootDeviceType
-     *        The type of root device used by the AMI. The AMI can use an EBS volume or an instance store volume.
+     *        The type of root device used by the AMI. The AMI can use an Amazon EBS volume or an instance store volume.
      * @see DeviceType
      */
 
@@ -1232,10 +1463,11 @@ public class Image implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of root device used by the AMI. The AMI can use an EBS volume or an instance store volume.
+     * The type of root device used by the AMI. The AMI can use an Amazon EBS volume or an instance store volume.
      * </p>
      * 
-     * @return The type of root device used by the AMI. The AMI can use an EBS volume or an instance store volume.
+     * @return The type of root device used by the AMI. The AMI can use an Amazon EBS volume or an instance store
+     *         volume.
      * @see DeviceType
      */
 
@@ -1245,11 +1477,11 @@ public class Image implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of root device used by the AMI. The AMI can use an EBS volume or an instance store volume.
+     * The type of root device used by the AMI. The AMI can use an Amazon EBS volume or an instance store volume.
      * </p>
      * 
      * @param rootDeviceType
-     *        The type of root device used by the AMI. The AMI can use an EBS volume or an instance store volume.
+     *        The type of root device used by the AMI. The AMI can use an Amazon EBS volume or an instance store volume.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DeviceType
      */
@@ -1261,11 +1493,11 @@ public class Image implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of root device used by the AMI. The AMI can use an EBS volume or an instance store volume.
+     * The type of root device used by the AMI. The AMI can use an Amazon EBS volume or an instance store volume.
      * </p>
      * 
      * @param rootDeviceType
-     *        The type of root device used by the AMI. The AMI can use an EBS volume or an instance store volume.
+     *        The type of root device used by the AMI. The AMI can use an Amazon EBS volume or an instance store volume.
      * @see DeviceType
      */
 
@@ -1275,11 +1507,11 @@ public class Image implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of root device used by the AMI. The AMI can use an EBS volume or an instance store volume.
+     * The type of root device used by the AMI. The AMI can use an Amazon EBS volume or an instance store volume.
      * </p>
      * 
      * @param rootDeviceType
-     *        The type of root device used by the AMI. The AMI can use an EBS volume or an instance store volume.
+     *        The type of root device used by the AMI. The AMI can use an Amazon EBS volume or an instance store volume.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DeviceType
      */
@@ -1516,6 +1748,535 @@ public class Image implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The boot mode of the image. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @param bootMode
+     *        The boot mode of the image. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon
+     *        EC2 User Guide</i>.
+     * @see BootModeValues
+     */
+
+    public void setBootMode(String bootMode) {
+        this.bootMode = bootMode;
+    }
+
+    /**
+     * <p>
+     * The boot mode of the image. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @return The boot mode of the image. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon
+     *         EC2 User Guide</i>.
+     * @see BootModeValues
+     */
+
+    public String getBootMode() {
+        return this.bootMode;
+    }
+
+    /**
+     * <p>
+     * The boot mode of the image. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @param bootMode
+     *        The boot mode of the image. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon
+     *        EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see BootModeValues
+     */
+
+    public Image withBootMode(String bootMode) {
+        setBootMode(bootMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The boot mode of the image. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @param bootMode
+     *        The boot mode of the image. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon
+     *        EC2 User Guide</i>.
+     * @see BootModeValues
+     */
+
+    public void setBootMode(BootModeValues bootMode) {
+        withBootMode(bootMode);
+    }
+
+    /**
+     * <p>
+     * The boot mode of the image. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @param bootMode
+     *        The boot mode of the image. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon
+     *        EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see BootModeValues
+     */
+
+    public Image withBootMode(BootModeValues bootMode) {
+        this.bootMode = bootMode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * If the image is configured for NitroTPM support, the value is <code>v2.0</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @param tpmSupport
+     *        If the image is configured for NitroTPM support, the value is <code>v2.0</code>. For more information, see
+     *        <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon
+     *        EC2 User Guide</i>.
+     * @see TpmSupportValues
+     */
+
+    public void setTpmSupport(String tpmSupport) {
+        this.tpmSupport = tpmSupport;
+    }
+
+    /**
+     * <p>
+     * If the image is configured for NitroTPM support, the value is <code>v2.0</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @return If the image is configured for NitroTPM support, the value is <code>v2.0</code>. For more information,
+     *         see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the
+     *         <i>Amazon EC2 User Guide</i>.
+     * @see TpmSupportValues
+     */
+
+    public String getTpmSupport() {
+        return this.tpmSupport;
+    }
+
+    /**
+     * <p>
+     * If the image is configured for NitroTPM support, the value is <code>v2.0</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @param tpmSupport
+     *        If the image is configured for NitroTPM support, the value is <code>v2.0</code>. For more information, see
+     *        <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon
+     *        EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TpmSupportValues
+     */
+
+    public Image withTpmSupport(String tpmSupport) {
+        setTpmSupport(tpmSupport);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If the image is configured for NitroTPM support, the value is <code>v2.0</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @param tpmSupport
+     *        If the image is configured for NitroTPM support, the value is <code>v2.0</code>. For more information, see
+     *        <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon
+     *        EC2 User Guide</i>.
+     * @see TpmSupportValues
+     */
+
+    public void setTpmSupport(TpmSupportValues tpmSupport) {
+        withTpmSupport(tpmSupport);
+    }
+
+    /**
+     * <p>
+     * If the image is configured for NitroTPM support, the value is <code>v2.0</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @param tpmSupport
+     *        If the image is configured for NitroTPM support, the value is <code>v2.0</code>. For more information, see
+     *        <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon
+     *        EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TpmSupportValues
+     */
+
+    public Image withTpmSupport(TpmSupportValues tpmSupport) {
+        this.tpmSupport = tpmSupport.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The date and time to deprecate the AMI, in UTC, in the following format:
+     * <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z. If you specified a value for seconds, Amazon EC2
+     * rounds the seconds to the nearest minute.
+     * </p>
+     * 
+     * @param deprecationTime
+     *        The date and time to deprecate the AMI, in UTC, in the following format:
+     *        <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z. If you specified a value for seconds,
+     *        Amazon EC2 rounds the seconds to the nearest minute.
+     */
+
+    public void setDeprecationTime(String deprecationTime) {
+        this.deprecationTime = deprecationTime;
+    }
+
+    /**
+     * <p>
+     * The date and time to deprecate the AMI, in UTC, in the following format:
+     * <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z. If you specified a value for seconds, Amazon EC2
+     * rounds the seconds to the nearest minute.
+     * </p>
+     * 
+     * @return The date and time to deprecate the AMI, in UTC, in the following format:
+     *         <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z. If you specified a value for seconds,
+     *         Amazon EC2 rounds the seconds to the nearest minute.
+     */
+
+    public String getDeprecationTime() {
+        return this.deprecationTime;
+    }
+
+    /**
+     * <p>
+     * The date and time to deprecate the AMI, in UTC, in the following format:
+     * <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z. If you specified a value for seconds, Amazon EC2
+     * rounds the seconds to the nearest minute.
+     * </p>
+     * 
+     * @param deprecationTime
+     *        The date and time to deprecate the AMI, in UTC, in the following format:
+     *        <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z. If you specified a value for seconds,
+     *        Amazon EC2 rounds the seconds to the nearest minute.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Image withDeprecationTime(String deprecationTime) {
+        setDeprecationTime(deprecationTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If <code>v2.0</code>, it indicates that IMDSv2 is specified in the AMI. Instances launched from this AMI will
+     * have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the instance
+     * requires that IMDSv2 is used when requesting instance metadata. In addition, <code>HttpPutResponseHopLimit</code>
+     * is set to <code>2</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     * >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param imdsSupport
+     *        If <code>v2.0</code>, it indicates that IMDSv2 is specified in the AMI. Instances launched from this AMI
+     *        will have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the
+     *        instance requires that IMDSv2 is used when requesting instance metadata. In addition,
+     *        <code>HttpPutResponseHopLimit</code> is set to <code>2</code>. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     *        >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * @see ImdsSupportValues
+     */
+
+    public void setImdsSupport(String imdsSupport) {
+        this.imdsSupport = imdsSupport;
+    }
+
+    /**
+     * <p>
+     * If <code>v2.0</code>, it indicates that IMDSv2 is specified in the AMI. Instances launched from this AMI will
+     * have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the instance
+     * requires that IMDSv2 is used when requesting instance metadata. In addition, <code>HttpPutResponseHopLimit</code>
+     * is set to <code>2</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     * >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return If <code>v2.0</code>, it indicates that IMDSv2 is specified in the AMI. Instances launched from this AMI
+     *         will have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the
+     *         instance requires that IMDSv2 is used when requesting instance metadata. In addition,
+     *         <code>HttpPutResponseHopLimit</code> is set to <code>2</code>. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     *         >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * @see ImdsSupportValues
+     */
+
+    public String getImdsSupport() {
+        return this.imdsSupport;
+    }
+
+    /**
+     * <p>
+     * If <code>v2.0</code>, it indicates that IMDSv2 is specified in the AMI. Instances launched from this AMI will
+     * have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the instance
+     * requires that IMDSv2 is used when requesting instance metadata. In addition, <code>HttpPutResponseHopLimit</code>
+     * is set to <code>2</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     * >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param imdsSupport
+     *        If <code>v2.0</code>, it indicates that IMDSv2 is specified in the AMI. Instances launched from this AMI
+     *        will have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the
+     *        instance requires that IMDSv2 is used when requesting instance metadata. In addition,
+     *        <code>HttpPutResponseHopLimit</code> is set to <code>2</code>. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     *        >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ImdsSupportValues
+     */
+
+    public Image withImdsSupport(String imdsSupport) {
+        setImdsSupport(imdsSupport);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If <code>v2.0</code>, it indicates that IMDSv2 is specified in the AMI. Instances launched from this AMI will
+     * have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the instance
+     * requires that IMDSv2 is used when requesting instance metadata. In addition, <code>HttpPutResponseHopLimit</code>
+     * is set to <code>2</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     * >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param imdsSupport
+     *        If <code>v2.0</code>, it indicates that IMDSv2 is specified in the AMI. Instances launched from this AMI
+     *        will have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the
+     *        instance requires that IMDSv2 is used when requesting instance metadata. In addition,
+     *        <code>HttpPutResponseHopLimit</code> is set to <code>2</code>. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     *        >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * @see ImdsSupportValues
+     */
+
+    public void setImdsSupport(ImdsSupportValues imdsSupport) {
+        withImdsSupport(imdsSupport);
+    }
+
+    /**
+     * <p>
+     * If <code>v2.0</code>, it indicates that IMDSv2 is specified in the AMI. Instances launched from this AMI will
+     * have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the instance
+     * requires that IMDSv2 is used when requesting instance metadata. In addition, <code>HttpPutResponseHopLimit</code>
+     * is set to <code>2</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     * >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param imdsSupport
+     *        If <code>v2.0</code>, it indicates that IMDSv2 is specified in the AMI. Instances launched from this AMI
+     *        will have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the
+     *        instance requires that IMDSv2 is used when requesting instance metadata. In addition,
+     *        <code>HttpPutResponseHopLimit</code> is set to <code>2</code>. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     *        >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ImdsSupportValues
+     */
+
+    public Image withImdsSupport(ImdsSupportValues imdsSupport) {
+        this.imdsSupport = imdsSupport.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the instance that the AMI was created from if the AMI was created using <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateImage.html">CreateImage</a>. This field
+     * only appears if the AMI was created using CreateImage.
+     * </p>
+     * 
+     * @param sourceInstanceId
+     *        The ID of the instance that the AMI was created from if the AMI was created using <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateImage.html">CreateImage</a>. This
+     *        field only appears if the AMI was created using CreateImage.
+     */
+
+    public void setSourceInstanceId(String sourceInstanceId) {
+        this.sourceInstanceId = sourceInstanceId;
+    }
+
+    /**
+     * <p>
+     * The ID of the instance that the AMI was created from if the AMI was created using <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateImage.html">CreateImage</a>. This field
+     * only appears if the AMI was created using CreateImage.
+     * </p>
+     * 
+     * @return The ID of the instance that the AMI was created from if the AMI was created using <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateImage.html">CreateImage</a>. This
+     *         field only appears if the AMI was created using CreateImage.
+     */
+
+    public String getSourceInstanceId() {
+        return this.sourceInstanceId;
+    }
+
+    /**
+     * <p>
+     * The ID of the instance that the AMI was created from if the AMI was created using <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateImage.html">CreateImage</a>. This field
+     * only appears if the AMI was created using CreateImage.
+     * </p>
+     * 
+     * @param sourceInstanceId
+     *        The ID of the instance that the AMI was created from if the AMI was created using <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateImage.html">CreateImage</a>. This
+     *        field only appears if the AMI was created using CreateImage.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Image withSourceInstanceId(String sourceInstanceId) {
+        setSourceInstanceId(sourceInstanceId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether deregistration protection is enabled for the AMI.
+     * </p>
+     * 
+     * @param deregistrationProtection
+     *        Indicates whether deregistration protection is enabled for the AMI.
+     */
+
+    public void setDeregistrationProtection(String deregistrationProtection) {
+        this.deregistrationProtection = deregistrationProtection;
+    }
+
+    /**
+     * <p>
+     * Indicates whether deregistration protection is enabled for the AMI.
+     * </p>
+     * 
+     * @return Indicates whether deregistration protection is enabled for the AMI.
+     */
+
+    public String getDeregistrationProtection() {
+        return this.deregistrationProtection;
+    }
+
+    /**
+     * <p>
+     * Indicates whether deregistration protection is enabled for the AMI.
+     * </p>
+     * 
+     * @param deregistrationProtection
+     *        Indicates whether deregistration protection is enabled for the AMI.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Image withDeregistrationProtection(String deregistrationProtection) {
+        setDeregistrationProtection(deregistrationProtection);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the AMI was
+     * last used to launch an EC2 instance. When the AMI is used to launch an instance, there is a 24-hour delay before
+     * that usage is reported.
+     * </p>
+     * <note>
+     * <p>
+     * <code>lastLaunchedTime</code> data is available starting April 2017.
+     * </p>
+     * </note>
+     * 
+     * @param lastLaunchedTime
+     *        The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the AMI
+     *        was last used to launch an EC2 instance. When the AMI is used to launch an instance, there is a 24-hour
+     *        delay before that usage is reported.</p> <note>
+     *        <p>
+     *        <code>lastLaunchedTime</code> data is available starting April 2017.
+     *        </p>
+     */
+
+    public void setLastLaunchedTime(String lastLaunchedTime) {
+        this.lastLaunchedTime = lastLaunchedTime;
+    }
+
+    /**
+     * <p>
+     * The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the AMI was
+     * last used to launch an EC2 instance. When the AMI is used to launch an instance, there is a 24-hour delay before
+     * that usage is reported.
+     * </p>
+     * <note>
+     * <p>
+     * <code>lastLaunchedTime</code> data is available starting April 2017.
+     * </p>
+     * </note>
+     * 
+     * @return The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the
+     *         AMI was last used to launch an EC2 instance. When the AMI is used to launch an instance, there is a
+     *         24-hour delay before that usage is reported.</p> <note>
+     *         <p>
+     *         <code>lastLaunchedTime</code> data is available starting April 2017.
+     *         </p>
+     */
+
+    public String getLastLaunchedTime() {
+        return this.lastLaunchedTime;
+    }
+
+    /**
+     * <p>
+     * The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the AMI was
+     * last used to launch an EC2 instance. When the AMI is used to launch an instance, there is a 24-hour delay before
+     * that usage is reported.
+     * </p>
+     * <note>
+     * <p>
+     * <code>lastLaunchedTime</code> data is available starting April 2017.
+     * </p>
+     * </note>
+     * 
+     * @param lastLaunchedTime
+     *        The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the AMI
+     *        was last used to launch an EC2 instance. When the AMI is used to launch an instance, there is a 24-hour
+     *        delay before that usage is reported.</p> <note>
+     *        <p>
+     *        <code>lastLaunchedTime</code> data is available starting April 2017.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Image withLastLaunchedTime(String lastLaunchedTime) {
+        setLastLaunchedTime(lastLaunchedTime);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1545,6 +2306,10 @@ public class Image implements Serializable, Cloneable {
             sb.append("OwnerId: ").append(getOwnerId()).append(",");
         if (getPlatform() != null)
             sb.append("Platform: ").append(getPlatform()).append(",");
+        if (getPlatformDetails() != null)
+            sb.append("PlatformDetails: ").append(getPlatformDetails()).append(",");
+        if (getUsageOperation() != null)
+            sb.append("UsageOperation: ").append(getUsageOperation()).append(",");
         if (getProductCodes() != null)
             sb.append("ProductCodes: ").append(getProductCodes()).append(",");
         if (getRamdiskId() != null)
@@ -1574,7 +2339,21 @@ public class Image implements Serializable, Cloneable {
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getVirtualizationType() != null)
-            sb.append("VirtualizationType: ").append(getVirtualizationType());
+            sb.append("VirtualizationType: ").append(getVirtualizationType()).append(",");
+        if (getBootMode() != null)
+            sb.append("BootMode: ").append(getBootMode()).append(",");
+        if (getTpmSupport() != null)
+            sb.append("TpmSupport: ").append(getTpmSupport()).append(",");
+        if (getDeprecationTime() != null)
+            sb.append("DeprecationTime: ").append(getDeprecationTime()).append(",");
+        if (getImdsSupport() != null)
+            sb.append("ImdsSupport: ").append(getImdsSupport()).append(",");
+        if (getSourceInstanceId() != null)
+            sb.append("SourceInstanceId: ").append(getSourceInstanceId()).append(",");
+        if (getDeregistrationProtection() != null)
+            sb.append("DeregistrationProtection: ").append(getDeregistrationProtection()).append(",");
+        if (getLastLaunchedTime() != null)
+            sb.append("LastLaunchedTime: ").append(getLastLaunchedTime());
         sb.append("}");
         return sb.toString();
     }
@@ -1624,6 +2403,14 @@ public class Image implements Serializable, Cloneable {
         if (other.getPlatform() == null ^ this.getPlatform() == null)
             return false;
         if (other.getPlatform() != null && other.getPlatform().equals(this.getPlatform()) == false)
+            return false;
+        if (other.getPlatformDetails() == null ^ this.getPlatformDetails() == null)
+            return false;
+        if (other.getPlatformDetails() != null && other.getPlatformDetails().equals(this.getPlatformDetails()) == false)
+            return false;
+        if (other.getUsageOperation() == null ^ this.getUsageOperation() == null)
+            return false;
+        if (other.getUsageOperation() != null && other.getUsageOperation().equals(this.getUsageOperation()) == false)
             return false;
         if (other.getProductCodes() == null ^ this.getProductCodes() == null)
             return false;
@@ -1685,6 +2472,34 @@ public class Image implements Serializable, Cloneable {
             return false;
         if (other.getVirtualizationType() != null && other.getVirtualizationType().equals(this.getVirtualizationType()) == false)
             return false;
+        if (other.getBootMode() == null ^ this.getBootMode() == null)
+            return false;
+        if (other.getBootMode() != null && other.getBootMode().equals(this.getBootMode()) == false)
+            return false;
+        if (other.getTpmSupport() == null ^ this.getTpmSupport() == null)
+            return false;
+        if (other.getTpmSupport() != null && other.getTpmSupport().equals(this.getTpmSupport()) == false)
+            return false;
+        if (other.getDeprecationTime() == null ^ this.getDeprecationTime() == null)
+            return false;
+        if (other.getDeprecationTime() != null && other.getDeprecationTime().equals(this.getDeprecationTime()) == false)
+            return false;
+        if (other.getImdsSupport() == null ^ this.getImdsSupport() == null)
+            return false;
+        if (other.getImdsSupport() != null && other.getImdsSupport().equals(this.getImdsSupport()) == false)
+            return false;
+        if (other.getSourceInstanceId() == null ^ this.getSourceInstanceId() == null)
+            return false;
+        if (other.getSourceInstanceId() != null && other.getSourceInstanceId().equals(this.getSourceInstanceId()) == false)
+            return false;
+        if (other.getDeregistrationProtection() == null ^ this.getDeregistrationProtection() == null)
+            return false;
+        if (other.getDeregistrationProtection() != null && other.getDeregistrationProtection().equals(this.getDeregistrationProtection()) == false)
+            return false;
+        if (other.getLastLaunchedTime() == null ^ this.getLastLaunchedTime() == null)
+            return false;
+        if (other.getLastLaunchedTime() != null && other.getLastLaunchedTime().equals(this.getLastLaunchedTime()) == false)
+            return false;
         return true;
     }
 
@@ -1702,6 +2517,8 @@ public class Image implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getKernelId() == null) ? 0 : getKernelId().hashCode());
         hashCode = prime * hashCode + ((getOwnerId() == null) ? 0 : getOwnerId().hashCode());
         hashCode = prime * hashCode + ((getPlatform() == null) ? 0 : getPlatform().hashCode());
+        hashCode = prime * hashCode + ((getPlatformDetails() == null) ? 0 : getPlatformDetails().hashCode());
+        hashCode = prime * hashCode + ((getUsageOperation() == null) ? 0 : getUsageOperation().hashCode());
         hashCode = prime * hashCode + ((getProductCodes() == null) ? 0 : getProductCodes().hashCode());
         hashCode = prime * hashCode + ((getRamdiskId() == null) ? 0 : getRamdiskId().hashCode());
         hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
@@ -1717,6 +2534,13 @@ public class Image implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getStateReason() == null) ? 0 : getStateReason().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getVirtualizationType() == null) ? 0 : getVirtualizationType().hashCode());
+        hashCode = prime * hashCode + ((getBootMode() == null) ? 0 : getBootMode().hashCode());
+        hashCode = prime * hashCode + ((getTpmSupport() == null) ? 0 : getTpmSupport().hashCode());
+        hashCode = prime * hashCode + ((getDeprecationTime() == null) ? 0 : getDeprecationTime().hashCode());
+        hashCode = prime * hashCode + ((getImdsSupport() == null) ? 0 : getImdsSupport().hashCode());
+        hashCode = prime * hashCode + ((getSourceInstanceId() == null) ? 0 : getSourceInstanceId().hashCode());
+        hashCode = prime * hashCode + ((getDeregistrationProtection() == null) ? 0 : getDeregistrationProtection().hashCode());
+        hashCode = prime * hashCode + ((getLastLaunchedTime() == null) ? 0 : getLastLaunchedTime().hashCode());
         return hashCode;
     }
 

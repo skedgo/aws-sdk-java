@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,73 +44,73 @@ import com.amazonaws.services.storagegateway.AWSStorageGatewayClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.storagegateway.model.*;
+
 import com.amazonaws.services.storagegateway.model.transform.*;
 
 /**
  * Client for accessing AWS Storage Gateway. All service calls made using this client are blocking, and will not return
  * until the service call completes.
  * <p>
- * <fullname>AWS Storage Gateway Service</fullname>
+ * <fullname>Storage Gateway Service</fullname>
  * <p>
- * AWS Storage Gateway is the service that connects an on-premises software appliance with cloud-based storage to
- * provide seamless and secure integration between an organization's on-premises IT environment and the AWS storage
- * infrastructure. The service enables you to securely upload data to the AWS cloud for cost effective backup and rapid
- * disaster recovery.
+ * Storage Gateway is the service that connects an on-premises software appliance with cloud-based storage to provide
+ * seamless and secure integration between an organization's on-premises IT environment and the Amazon Web Services
+ * storage infrastructure. The service enables you to securely upload data to the Amazon Web Services Cloud for cost
+ * effective backup and rapid disaster recovery.
  * </p>
  * <p>
- * Use the following links to get started using the <i>AWS Storage Gateway Service API Reference</i>:
+ * Use the following links to get started using the <i>Storage Gateway Service API Reference</i>:
  * </p>
  * <ul>
  * <li>
  * <p>
  * <a href=
  * "https://docs.aws.amazon.com/storagegateway/latest/userguide/AWSStorageGatewayAPI.html#AWSStorageGatewayHTTPRequestsHeaders"
- * >AWS Storage Gateway Required Request Headers</a>: Describes the required headers that you must send with every POST
- * request to AWS Storage Gateway.
+ * >Storage Gateway required request headers</a>: Describes the required headers that you must send with every POST
+ * request to Storage Gateway.
  * </p>
  * </li>
  * <li>
  * <p>
  * <a href=
  * "https://docs.aws.amazon.com/storagegateway/latest/userguide/AWSStorageGatewayAPI.html#AWSStorageGatewaySigningRequests"
- * >Signing Requests</a>: AWS Storage Gateway requires that you authenticate every request you send; this topic
- * describes how sign such a request.
+ * >Signing requests</a>: Storage Gateway requires that you authenticate every request you send; this topic describes
+ * how sign such a request.
  * </p>
  * </li>
  * <li>
  * <p>
  * <a href="https://docs.aws.amazon.com/storagegateway/latest/userguide/AWSStorageGatewayAPI.html#APIErrorResponses">
- * Error Responses</a>: Provides reference information about AWS Storage Gateway errors.
+ * Error responses</a>: Provides reference information about Storage Gateway errors.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a href="https://docs.aws.amazon.com/storagegateway/latest/APIReference/API_Operations.html">Operations in AWS
- * Storage Gateway</a>: Contains detailed descriptions of all AWS Storage Gateway operations, their request parameters,
- * response elements, possible errors, and examples of requests and responses.
+ * <a href="https://docs.aws.amazon.com/storagegateway/latest/APIReference/API_Operations.html">Operations in Storage
+ * Gateway</a>: Contains detailed descriptions of all Storage Gateway operations, their request parameters, response
+ * elements, possible errors, and examples of requests and responses.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a href="http://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region">AWS Storage Gateway Regions and
- * Endpoints:</a> Provides a list of each AWS region and endpoints available for use with AWS Storage Gateway.
+ * <a href="https://docs.aws.amazon.com/general/latest/gr/sg.html">Storage Gateway endpoints and quotas</a>: Provides a
+ * list of each Amazon Web Services Region and the endpoints available for use with Storage Gateway.
  * </p>
  * </li>
  * </ul>
  * <note>
  * <p>
- * AWS Storage Gateway resource IDs are in uppercase. When you use these resource IDs with the Amazon EC2 API, EC2
- * expects resource IDs in lowercase. You must change your resource ID to lowercase to use it with the EC2 API. For
- * example, in Storage Gateway the ID for a volume might be <code>vol-AA22BB012345DAF670</code>. When you use this ID
- * with the EC2 API, you must change it to <code>vol-aa22bb012345daf670</code>. Otherwise, the EC2 API might not behave
- * as expected.
+ * Storage Gateway resource IDs are in uppercase. When you use these resource IDs with the Amazon EC2 API, EC2 expects
+ * resource IDs in lowercase. You must change your resource ID to lowercase to use it with the EC2 API. For example, in
+ * Storage Gateway the ID for a volume might be <code>vol-AA22BB012345DAF670</code>. When you use this ID with the EC2
+ * API, you must change it to <code>vol-aa22bb012345daf670</code>. Otherwise, the EC2 API might not behave as expected.
  * </p>
  * </note> <important>
  * <p>
  * IDs for Storage Gateway volumes and Amazon EBS snapshots created from gateway volumes are changing to a longer
  * format. Starting in December 2016, all new volumes and snapshots will be created with a 17-character string. Starting
  * in April 2016, you will be able to use these longer IDs so you can test your systems with the new format. For more
- * information, see <a href="https://aws.amazon.com/ec2/faqs/#longer-ids">Longer EC2 and EBS Resource IDs</a>.
+ * information, see <a href="http://aws.amazon.com/ec2/faqs/#longer-ids">Longer EC2 and EBS resource IDs</a>.
  * </p>
  * <p>
  * For example, a volume Amazon Resource Name (ARN) with the longer volume ID format looks like the following:
@@ -122,8 +122,8 @@ import com.amazonaws.services.storagegateway.model.transform.*;
  * A snapshot ID with the longer ID format looks like the following: <code>snap-78e226633445566ee</code>.
  * </p>
  * <p>
- * For more information, see <a href="https://forums.aws.amazon.com/ann.jspa?annID=3557">Announcement: Heads-up – Longer
- * AWS Storage Gateway volume and snapshot IDs coming in 2016</a>.
+ * For more information, see <a href="http://forums.aws.amazon.com/ann.jspa?annID=3557">Announcement: Heads-up – Longer
+ * Storage Gateway volume and snapshot IDs coming in 2016</a>.
  * </p>
  * </important>
  */
@@ -150,14 +150,14 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidGatewayRequestException").withModeledClass(
-                                    com.amazonaws.services.storagegateway.model.InvalidGatewayRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidGatewayRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.storagegateway.model.transform.InvalidGatewayRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableError").withModeledClass(
-                                    com.amazonaws.services.storagegateway.model.ServiceUnavailableErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableError").withExceptionUnmarshaller(
+                                    com.amazonaws.services.storagegateway.model.transform.ServiceUnavailableErrorExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServerError").withModeledClass(
-                                    com.amazonaws.services.storagegateway.model.InternalServerErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServerError").withExceptionUnmarshaller(
+                                    com.amazonaws.services.storagegateway.model.transform.InternalServerErrorExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.storagegateway.model.AWSStorageGatewayException.class));
 
     /**
@@ -363,9 +363,10 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
     /**
      * <p>
      * Activates the gateway you previously deployed on your host. In the activation process, you specify information
-     * such as the region you want to use for storing snapshots or tapes, the time zone for scheduled snapshots the
-     * gateway snapshot schedule window, an activation key, and a name for your gateway. The activation process also
-     * associates your gateway with your account; for more information, see <a>UpdateGatewayInformation</a>.
+     * such as the Amazon Web Services Region that you want to use for storing snapshots or tapes, the time zone for
+     * scheduled snapshots the gateway snapshot schedule window, an activation key, and a name for your gateway. The
+     * activation process also associates your gateway with your account. For more information, see
+     * <a>UpdateGatewayInformation</a>.
      * </p>
      * <note>
      * <p>
@@ -403,12 +404,12 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      *        </li>
      *        <li>
      *        <p>
-     *        <a>ActivateGatewayInput$TapeDriveType</a>
+     *        <a>ActivateGatewayInput$MediumChangerType</a>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <a>ActivateGatewayInput$MediumChangerType</a>
+     *        <a>ActivateGatewayInput$TapeDriveType</a>
      *        </p>
      *        </li>
      * @return Result of the ActivateGateway operation returned by the service.
@@ -443,6 +444,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new ActivateGatewayRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(activateGatewayRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ActivateGateway");
@@ -467,9 +470,9 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
     /**
      * <p>
      * Configures one or more gateway local disks as cache for a gateway. This operation is only supported in the cached
-     * volume, tape and file gateway type (see <a
-     * href="https://docs.aws.amazon.com/storagegateway/latest/userguide/StorageGatewayConcepts.html">Storage Gateway
-     * Concepts</a>).
+     * volume, tape, and file gateway type (see <a
+     * href="https://docs.aws.amazon.com/storagegateway/latest/userguide/StorageGatewayConcepts.html">How Storage
+     * Gateway works (architecture)</a>.
      * </p>
      * <p>
      * In the request, you specify the gateway Amazon Resource Name (ARN) to which you want to add cache, and one or
@@ -509,6 +512,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new AddCacheRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(addCacheRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddCache");
@@ -534,7 +539,7 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      * <p>
      * Adds one or more tags to the specified resource. You use tags to add metadata to resources, which you can use to
      * categorize these resources. For example, you can categorize resources by purpose, owner, environment, or team.
-     * Each tag consists of a key and a value, which you define. You can add tags to the following AWS Storage Gateway
+     * Each tag consists of a key and a value, which you define. You can add tags to the following Storage Gateway
      * resources:
      * </p>
      * <ul>
@@ -556,6 +561,11 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      * <li>
      * <p>
      * NFS and SMB file shares
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * File System associations
      * </p>
      * </li>
      * </ul>
@@ -598,6 +608,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new AddTagsToResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(addTagsToResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddTagsToResource");
@@ -622,7 +634,7 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
     /**
      * <p>
      * Configures one or more gateway local disks as upload buffer for a specified gateway. This operation is supported
-     * for the stored volume, cached volume and tape gateway types.
+     * for the stored volume, cached volume, and tape gateway types.
      * </p>
      * <p>
      * In the request, you specify the gateway Amazon Resource Name (ARN) to which you want to add upload buffer, and
@@ -662,6 +674,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new AddUploadBufferRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(addUploadBufferRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddUploadBuffer");
@@ -740,6 +754,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new AddWorkingStorageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(addWorkingStorageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddWorkingStorage");
@@ -765,10 +781,7 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      * <p>
      * Assigns a tape to a tape pool for archiving. The tape assigned to a pool is archived in the S3 storage class that
      * is associated with the pool. When you use your backup application to eject the tape, the tape is archived
-     * directly into the S3 storage class (Glacier or Deep Archive) that corresponds to the pool.
-     * </p>
-     * <p>
-     * Valid values: "GLACIER", "DEEP_ARCHIVE"
+     * directly into the S3 storage class (S3 Glacier or S3 Glacier Deep Archive) that corresponds to the pool.
      * </p>
      * 
      * @param assignTapePoolRequest
@@ -804,6 +817,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new AssignTapePoolRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(assignTapePoolRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssignTapePool");
@@ -815,6 +830,69 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
             HttpResponseHandler<AmazonWebServiceResponse<AssignTapePoolResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new AssignTapePoolResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Associate an Amazon FSx file system with the FSx File Gateway. After the association process is complete, the
+     * file shares on the Amazon FSx file system are available for access through the gateway. This operation only
+     * supports the FSx File Gateway type.
+     * </p>
+     * 
+     * @param associateFileSystemRequest
+     * @return Result of the AssociateFileSystem operation returned by the service.
+     * @throws InvalidGatewayRequestException
+     *         An exception occurred because an invalid gateway request was issued to the service. For more information,
+     *         see the error and message fields.
+     * @throws InternalServerErrorException
+     *         An internal server error has occurred during the request. For more information, see the error and message
+     *         fields.
+     * @sample AWSStorageGateway.AssociateFileSystem
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/AssociateFileSystem"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public AssociateFileSystemResult associateFileSystem(AssociateFileSystemRequest request) {
+        request = beforeClientExecution(request);
+        return executeAssociateFileSystem(request);
+    }
+
+    @SdkInternalApi
+    final AssociateFileSystemResult executeAssociateFileSystem(AssociateFileSystemRequest associateFileSystemRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(associateFileSystemRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<AssociateFileSystemRequest> request = null;
+        Response<AssociateFileSystemResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new AssociateFileSystemRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(associateFileSystemRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateFileSystem");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<AssociateFileSystemResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new AssociateFileSystemResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -867,6 +945,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new AttachVolumeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(attachVolumeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AttachVolume");
@@ -928,6 +1008,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new CancelArchivalRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(cancelArchivalRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelArchival");
@@ -989,6 +1071,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new CancelRetrievalRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(cancelRetrievalRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelRetrieval");
@@ -1067,6 +1151,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(createCachediSCSIVolumeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCachediSCSIVolume");
@@ -1091,19 +1177,22 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Creates a Network File System (NFS) file share on an existing file gateway. In Storage Gateway, a file share is a
-     * file system mount point backed by Amazon S3 cloud storage. Storage Gateway exposes file shares using a NFS
-     * interface. This operation is only supported for file gateways.
+     * Creates a Network File System (NFS) file share on an existing S3 File Gateway. In Storage Gateway, a file share
+     * is a file system mount point backed by Amazon S3 cloud storage. Storage Gateway exposes file shares using an NFS
+     * interface. This operation is only supported for S3 File Gateways.
      * </p>
      * <important>
      * <p>
-     * File gateway requires AWS Security Token Service (AWS STS) to be activated to enable you create a file share.
-     * Make sure AWS STS is activated in the region you are creating your file gateway in. If AWS STS is not activated
-     * in the region, activate it. For information about how to activate AWS STS, see Activating and Deactivating AWS
-     * STS in an AWS Region in the AWS Identity and Access Management User Guide.
+     * S3 File gateway requires Security Token Service (Amazon Web Services STS) to be activated to enable you to create
+     * a file share. Make sure Amazon Web Services STS is activated in the Amazon Web Services Region you are creating
+     * your S3 File Gateway in. If Amazon Web Services STS is not activated in the Amazon Web Services Region, activate
+     * it. For information about how to activate Amazon Web Services STS, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html">Activating and
+     * deactivating Amazon Web Services STS in an Amazon Web Services Region</a> in the <i>Identity and Access
+     * Management User Guide</i>.
      * </p>
      * <p>
-     * File gateway does not support creating hard or symbolic links on a file share.
+     * S3 File Gateways do not support creating hard or symbolic links on a file share.
      * </p>
      * </important>
      * 
@@ -1141,6 +1230,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new CreateNFSFileShareRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createNFSFileShareRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateNFSFileShare");
@@ -1164,17 +1255,19 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Creates a Server Message Block (SMB) file share on an existing file gateway. In Storage Gateway, a file share is
-     * a file system mount point backed by Amazon S3 cloud storage. Storage Gateway expose file shares using a SMB
-     * interface. This operation is only supported for file gateways.
+     * Creates a Server Message Block (SMB) file share on an existing S3 File Gateway. In Storage Gateway, a file share
+     * is a file system mount point backed by Amazon S3 cloud storage. Storage Gateway exposes file shares using an SMB
+     * interface. This operation is only supported for S3 File Gateways.
      * </p>
      * <important>
      * <p>
-     * File gateways require AWS Security Token Service (AWS STS) to be activated to enable you to create a file share.
-     * Make sure that AWS STS is activated in the AWS Region you are creating your file gateway in. If AWS STS is not
-     * activated in this AWS Region, activate it. For information about how to activate AWS STS, see <a
+     * S3 File Gateways require Security Token Service (Amazon Web Services STS) to be activated to enable you to create
+     * a file share. Make sure that Amazon Web Services STS is activated in the Amazon Web Services Region you are
+     * creating your S3 File Gateway in. If Amazon Web Services STS is not activated in this Amazon Web Services Region,
+     * activate it. For information about how to activate Amazon Web Services STS, see <a
      * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html">Activating and
-     * Deactivating AWS STS in an AWS Region</a> in the <i>AWS Identity and Access Management User Guide.</i>
+     * deactivating Amazon Web Services STS in an Amazon Web Services Region</a> in the <i>Identity and Access
+     * Management User Guide</i>.
      * </p>
      * <p>
      * File gateways don't support creating hard or symbolic links on a file share.
@@ -1215,6 +1308,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new CreateSMBFileShareRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createSMBFileShareRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSMBFileShare");
@@ -1241,25 +1336,26 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      * Initiates a snapshot of a volume.
      * </p>
      * <p>
-     * AWS Storage Gateway provides the ability to back up point-in-time snapshots of your data to Amazon Simple Storage
-     * (S3) for durable off-site recovery, as well as import the data to an Amazon Elastic Block Store (EBS) volume in
-     * Amazon Elastic Compute Cloud (EC2). You can take snapshots of your gateway volume on a scheduled or ad hoc basis.
-     * This API enables you to take ad-hoc snapshot. For more information, see <a
+     * Storage Gateway provides the ability to back up point-in-time snapshots of your data to Amazon Simple Storage
+     * (Amazon S3) for durable off-site recovery, and also import the data to an Amazon Elastic Block Store (EBS) volume
+     * in Amazon Elastic Compute Cloud (EC2). You can take snapshots of your gateway volume on a scheduled or ad hoc
+     * basis. This API enables you to take an ad hoc snapshot. For more information, see <a
      * href="https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#SchedulingSnapshot"
-     * >Editing a Snapshot Schedule</a>.
+     * >Editing a snapshot schedule</a>.
      * </p>
      * <p>
-     * In the CreateSnapshot request you identify the volume by providing its Amazon Resource Name (ARN). You must also
-     * provide description for the snapshot. When AWS Storage Gateway takes the snapshot of specified volume, the
-     * snapshot and description appears in the AWS Storage Gateway Console. In response, AWS Storage Gateway returns you
-     * a snapshot ID. You can use this snapshot ID to check the snapshot progress or later use it when you want to
-     * create a volume from a snapshot. This operation is only supported in stored and cached volume gateway type.
+     * In the <code>CreateSnapshot</code> request, you identify the volume by providing its Amazon Resource Name (ARN).
+     * You must also provide description for the snapshot. When Storage Gateway takes the snapshot of specified volume,
+     * the snapshot and description appears in the Storage Gateway console. In response, Storage Gateway returns you a
+     * snapshot ID. You can use this snapshot ID to check the snapshot progress or later use it when you want to create
+     * a volume from a snapshot. This operation is only supported in stored and cached volume gateway type.
      * </p>
      * <note>
      * <p>
-     * To list or delete a snapshot, you must use the Amazon EC2 API. For more information, see DescribeSnapshots or
-     * DeleteSnapshot in the <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_Operations.html">EC2
-     * API reference</a>.
+     * To list or delete a snapshot, you must use the Amazon EC2 API. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeSnapshots.html">DescribeSnapshots</a> or
+     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DeleteSnapshot.html">DeleteSnapshot</a> in
+     * the <i>Amazon Elastic Compute Cloud API Reference</i>.
      * </p>
      * </note> <important>
      * <p>
@@ -1316,6 +1412,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new CreateSnapshotRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createSnapshotRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSnapshot");
@@ -1350,14 +1448,16 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      * <p>
      * In the <code>CreateSnapshotFromVolumeRecoveryPoint</code> request, you identify the volume by providing its
      * Amazon Resource Name (ARN). You must also provide a description for the snapshot. When the gateway takes a
-     * snapshot of the specified volume, the snapshot and its description appear in the AWS Storage Gateway console. In
+     * snapshot of the specified volume, the snapshot and its description appear in the Storage Gateway console. In
      * response, the gateway returns you a snapshot ID. You can use this snapshot ID to check the snapshot progress or
      * later use it when you want to create a volume from a snapshot.
      * </p>
      * <note>
      * <p>
-     * To list or delete a snapshot, you must use the Amazon EC2 API. For more information, in <i>Amazon Elastic Compute
-     * Cloud API Reference</i>.
+     * To list or delete a snapshot, you must use the Amazon EC2 API. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeSnapshots.html">DescribeSnapshots</a> or
+     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DeleteSnapshot.html">DeleteSnapshot</a> in
+     * the <i>Amazon Elastic Compute Cloud API Reference</i>.
      * </p>
      * </note>
      * 
@@ -1400,6 +1500,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(createSnapshotFromVolumeRecoveryPointRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSnapshotFromVolumeRecoveryPoint");
@@ -1432,7 +1534,7 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      * gateway volume, then any existing data on the disk is erased.
      * </p>
      * <p>
-     * In the request you must specify the gateway and the disk information on which you are creating the volume. In
+     * In the request, you must specify the gateway and the disk information on which you are creating the volume. In
      * response, the gateway creates the volume and returns volume information such as the volume Amazon Resource Name
      * (ARN), its size, and the iSCSI target ARN that initiators can use to connect to the volume target.
      * </p>
@@ -1498,6 +1600,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(createStorediSCSIVolumeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateStorediSCSIVolume");
@@ -1522,8 +1626,70 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
+     * Creates a new custom tape pool. You can use custom tape pool to enable tape retention lock on tapes that are
+     * archived in the custom pool.
+     * </p>
+     * 
+     * @param createTapePoolRequest
+     * @return Result of the CreateTapePool operation returned by the service.
+     * @throws InvalidGatewayRequestException
+     *         An exception occurred because an invalid gateway request was issued to the service. For more information,
+     *         see the error and message fields.
+     * @throws InternalServerErrorException
+     *         An internal server error has occurred during the request. For more information, see the error and message
+     *         fields.
+     * @sample AWSStorageGateway.CreateTapePool
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/CreateTapePool" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreateTapePoolResult createTapePool(CreateTapePoolRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateTapePool(request);
+    }
+
+    @SdkInternalApi
+    final CreateTapePoolResult executeCreateTapePool(CreateTapePoolRequest createTapePoolRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createTapePoolRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateTapePoolRequest> request = null;
+        Response<CreateTapePoolResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateTapePoolRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createTapePoolRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateTapePool");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateTapePoolResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateTapePoolResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Creates a virtual tape by using your own barcode. You write data to the virtual tape and then archive the tape. A
-     * barcode is unique and can not be reused if it has already been used on a tape . This applies to barcodes used on
+     * barcode is unique and cannot be reused if it has already been used on a tape. This applies to barcodes used on
      * deleted tapes. This operation is only supported in the tape gateway type.
      * </p>
      * <note>
@@ -1567,6 +1733,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new CreateTapeWithBarcodeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createTapeWithBarcodeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateTapeWithBarcode");
@@ -1635,6 +1803,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new CreateTapesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createTapesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateTapes");
@@ -1658,9 +1828,75 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
+     * Deletes the automatic tape creation policy of a gateway. If you delete this policy, new virtual tapes must be
+     * created manually. Use the Amazon Resource Name (ARN) of the gateway in your request to remove the policy.
+     * </p>
+     * 
+     * @param deleteAutomaticTapeCreationPolicyRequest
+     * @return Result of the DeleteAutomaticTapeCreationPolicy operation returned by the service.
+     * @throws InvalidGatewayRequestException
+     *         An exception occurred because an invalid gateway request was issued to the service. For more information,
+     *         see the error and message fields.
+     * @throws InternalServerErrorException
+     *         An internal server error has occurred during the request. For more information, see the error and message
+     *         fields.
+     * @sample AWSStorageGateway.DeleteAutomaticTapeCreationPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeleteAutomaticTapeCreationPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteAutomaticTapeCreationPolicyResult deleteAutomaticTapeCreationPolicy(DeleteAutomaticTapeCreationPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteAutomaticTapeCreationPolicy(request);
+    }
+
+    @SdkInternalApi
+    final DeleteAutomaticTapeCreationPolicyResult executeDeleteAutomaticTapeCreationPolicy(
+            DeleteAutomaticTapeCreationPolicyRequest deleteAutomaticTapeCreationPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteAutomaticTapeCreationPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteAutomaticTapeCreationPolicyRequest> request = null;
+        Response<DeleteAutomaticTapeCreationPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteAutomaticTapeCreationPolicyRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteAutomaticTapeCreationPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteAutomaticTapeCreationPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteAutomaticTapeCreationPolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteAutomaticTapeCreationPolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Deletes the bandwidth rate limits of a gateway. You can delete either the upload and download bandwidth rate
      * limit, or you can delete both. If you delete only one of the limits, the other limit remains unchanged. To
-     * specify which gateway to work with, use the Amazon Resource Name (ARN) of the gateway in your request.
+     * specify which gateway to work with, use the Amazon Resource Name (ARN) of the gateway in your request. This
+     * operation is supported only for the stored volume, cached volume, and tape gateway types.
      * </p>
      * 
      * @param deleteBandwidthRateLimitRequest
@@ -1704,6 +1940,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(deleteBandwidthRateLimitRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteBandwidthRateLimit");
@@ -1729,7 +1967,7 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
     /**
      * <p>
      * Deletes Challenge-Handshake Authentication Protocol (CHAP) credentials for a specified iSCSI target and initiator
-     * pair.
+     * pair. This operation is supported in volume and tape gateway types.
      * </p>
      * 
      * @param deleteChapCredentialsRequest
@@ -1777,6 +2015,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new DeleteChapCredentialsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteChapCredentialsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteChapCredentials");
@@ -1801,7 +2041,7 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Deletes a file share from a file gateway. This operation is only supported for file gateways.
+     * Deletes a file share from an S3 File Gateway. This operation is only supported for S3 File Gateways.
      * </p>
      * 
      * @param deleteFileShareRequest
@@ -1838,6 +2078,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new DeleteFileShareRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteFileShareRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteFileShare");
@@ -1876,7 +2118,7 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      * persist and you will continue to be billed for these snapshots. You can choose to remove all remaining Amazon EBS
      * snapshots by canceling your Amazon EC2 subscription.  If you prefer not to cancel your Amazon EC2 subscription,
      * you can delete your snapshots using the Amazon EC2 console. For more information, see the <a
-     * href="http://aws.amazon.com/storagegateway"> AWS Storage Gateway Detail Page</a>.
+     * href="http://aws.amazon.com/storagegateway">Storage Gateway detail page</a>.
      * </p>
      * </important>
      * 
@@ -1914,6 +2156,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new DeleteGatewayRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteGatewayRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteGateway");
@@ -1942,14 +2186,15 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      * <p>
      * You can take snapshots of your gateway volumes on a scheduled or ad hoc basis. This API action enables you to
      * delete a snapshot schedule for a volume. For more information, see <a
-     * href="https://docs.aws.amazon.com/storagegateway/latest/userguide/WorkingWithSnapshots.html">Working with
-     * Snapshots</a>. In the <code>DeleteSnapshotSchedule</code> request, you identify the volume by providing its
-     * Amazon Resource Name (ARN). This operation is only supported in stored and cached volume gateway types.
+     * href="https://docs.aws.amazon.com/storagegateway/latest/userguide/backing-up-volumes.html">Backing up your
+     * volumes</a>. In the <code>DeleteSnapshotSchedule</code> request, you identify the volume by providing its Amazon
+     * Resource Name (ARN). This operation is only supported for cached volume gateway types.
      * </p>
      * <note>
      * <p>
-     * To list or delete a snapshot, you must use the Amazon EC2 API. in <i>Amazon Elastic Compute Cloud API
-     * Reference</i>.
+     * To list or delete a snapshot, you must use the Amazon EC2 API. For more information, go to <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeSnapshots.html">DescribeSnapshots</a> in
+     * the <i>Amazon Elastic Compute Cloud API Reference</i>.
      * </p>
      * </note>
      * 
@@ -1986,6 +2231,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new DeleteSnapshotScheduleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteSnapshotScheduleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteSnapshotSchedule");
@@ -2047,6 +2294,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new DeleteTapeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteTapeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteTape");
@@ -2108,6 +2357,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new DeleteTapeArchiveRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteTapeArchiveRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteTapeArchive");
@@ -2119,6 +2370,68 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
             HttpResponseHandler<AmazonWebServiceResponse<DeleteTapeArchiveResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteTapeArchiveResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Delete a custom tape pool. A custom tape pool can only be deleted if there are no tapes in the pool and if there
+     * are no automatic tape creation policies that reference the custom tape pool.
+     * </p>
+     * 
+     * @param deleteTapePoolRequest
+     * @return Result of the DeleteTapePool operation returned by the service.
+     * @throws InvalidGatewayRequestException
+     *         An exception occurred because an invalid gateway request was issued to the service. For more information,
+     *         see the error and message fields.
+     * @throws InternalServerErrorException
+     *         An internal server error has occurred during the request. For more information, see the error and message
+     *         fields.
+     * @sample AWSStorageGateway.DeleteTapePool
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeleteTapePool" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DeleteTapePoolResult deleteTapePool(DeleteTapePoolRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteTapePool(request);
+    }
+
+    @SdkInternalApi
+    final DeleteTapePoolResult executeDeleteTapePool(DeleteTapePoolRequest deleteTapePoolRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteTapePoolRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteTapePoolRequest> request = null;
+        Response<DeleteTapePoolResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteTapePoolRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteTapePoolRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteTapePool");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteTapePoolResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteTapePoolResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2181,6 +2494,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new DeleteVolumeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteVolumeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteVolume");
@@ -2204,17 +2519,84 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
+     * Returns information about the most recent high availability monitoring test that was performed on the host in a
+     * cluster. If a test isn't performed, the status and start time in the response would be null.
+     * </p>
+     * 
+     * @param describeAvailabilityMonitorTestRequest
+     * @return Result of the DescribeAvailabilityMonitorTest operation returned by the service.
+     * @throws InvalidGatewayRequestException
+     *         An exception occurred because an invalid gateway request was issued to the service. For more information,
+     *         see the error and message fields.
+     * @throws InternalServerErrorException
+     *         An internal server error has occurred during the request. For more information, see the error and message
+     *         fields.
+     * @sample AWSStorageGateway.DescribeAvailabilityMonitorTest
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeAvailabilityMonitorTest"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeAvailabilityMonitorTestResult describeAvailabilityMonitorTest(DescribeAvailabilityMonitorTestRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeAvailabilityMonitorTest(request);
+    }
+
+    @SdkInternalApi
+    final DescribeAvailabilityMonitorTestResult executeDescribeAvailabilityMonitorTest(
+            DescribeAvailabilityMonitorTestRequest describeAvailabilityMonitorTestRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeAvailabilityMonitorTestRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeAvailabilityMonitorTestRequest> request = null;
+        Response<DescribeAvailabilityMonitorTestResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeAvailabilityMonitorTestRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeAvailabilityMonitorTestRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAvailabilityMonitorTest");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeAvailabilityMonitorTestResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeAvailabilityMonitorTestResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Returns the bandwidth rate limits of a gateway. By default, these limits are not set, which means no bandwidth
-     * rate limiting is in effect.
+     * rate limiting is in effect. This operation is supported only for the stored volume, cached volume, and tape
+     * gateway types. To describe bandwidth rate limits for S3 file gateways, use
+     * <a>DescribeBandwidthRateLimitSchedule</a>.
      * </p>
      * <p>
-     * This operation only returns a value for a bandwidth rate limit only if the limit is set. If no limits are set for
-     * the gateway, then this operation returns only the gateway ARN in the response body. To specify which gateway to
+     * This operation returns a value for a bandwidth rate limit only if the limit is set. If no limits are set for the
+     * gateway, then this operation returns only the gateway ARN in the response body. To specify which gateway to
      * describe, use the Amazon Resource Name (ARN) of the gateway in your request.
      * </p>
      * 
      * @param describeBandwidthRateLimitRequest
-     *        A JSON object containing the of the gateway.
+     *        A JSON object containing the Amazon Resource Name (ARN) of the gateway.
      * @return Result of the DescribeBandwidthRateLimit operation returned by the service.
      * @throws InvalidGatewayRequestException
      *         An exception occurred because an invalid gateway request was issued to the service. For more information,
@@ -2248,6 +2630,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(describeBandwidthRateLimitRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBandwidthRateLimit");
@@ -2272,8 +2656,89 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Returns information about the cache of a gateway. This operation is only supported in the cached volume, tape and
-     * file gateway types.
+     * Returns information about the bandwidth rate limit schedule of a gateway. By default, gateways do not have
+     * bandwidth rate limit schedules, which means no bandwidth rate limiting is in effect. This operation is supported
+     * only for volume, tape and S3 file gateways. FSx file gateways do not support bandwidth rate limits.
+     * </p>
+     * <p>
+     * This operation returns information about a gateway's bandwidth rate limit schedule. A bandwidth rate limit
+     * schedule consists of one or more bandwidth rate limit intervals. A bandwidth rate limit interval defines a period
+     * of time on one or more days of the week, during which bandwidth rate limits are specified for uploading,
+     * downloading, or both.
+     * </p>
+     * <p>
+     * A bandwidth rate limit interval consists of one or more days of the week, a start hour and minute, an ending hour
+     * and minute, and bandwidth rate limits for uploading and downloading
+     * </p>
+     * <p>
+     * If no bandwidth rate limit schedule intervals are set for the gateway, this operation returns an empty response.
+     * To specify which gateway to describe, use the Amazon Resource Name (ARN) of the gateway in your request.
+     * </p>
+     * 
+     * @param describeBandwidthRateLimitScheduleRequest
+     * @return Result of the DescribeBandwidthRateLimitSchedule operation returned by the service.
+     * @throws InvalidGatewayRequestException
+     *         An exception occurred because an invalid gateway request was issued to the service. For more information,
+     *         see the error and message fields.
+     * @throws InternalServerErrorException
+     *         An internal server error has occurred during the request. For more information, see the error and message
+     *         fields.
+     * @sample AWSStorageGateway.DescribeBandwidthRateLimitSchedule
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeBandwidthRateLimitSchedule"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeBandwidthRateLimitScheduleResult describeBandwidthRateLimitSchedule(DescribeBandwidthRateLimitScheduleRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeBandwidthRateLimitSchedule(request);
+    }
+
+    @SdkInternalApi
+    final DescribeBandwidthRateLimitScheduleResult executeDescribeBandwidthRateLimitSchedule(
+            DescribeBandwidthRateLimitScheduleRequest describeBandwidthRateLimitScheduleRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeBandwidthRateLimitScheduleRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeBandwidthRateLimitScheduleRequest> request = null;
+        Response<DescribeBandwidthRateLimitScheduleResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeBandwidthRateLimitScheduleRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeBandwidthRateLimitScheduleRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBandwidthRateLimitSchedule");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeBandwidthRateLimitScheduleResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeBandwidthRateLimitScheduleResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns information about the cache of a gateway. This operation is only supported in the cached volume, tape,
+     * and file gateway types.
      * </p>
      * <p>
      * The response includes disk IDs that are configured as cache, and it includes the amount of cache allocated and
@@ -2313,6 +2778,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new DescribeCacheRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeCacheRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCache");
@@ -2340,8 +2807,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      * cached volume gateway types.
      * </p>
      * <p>
-     * The list of gateway volumes in the request must be from one gateway. In the response Amazon Storage Gateway
-     * returns volume information sorted by volume Amazon Resource Name (ARN).
+     * The list of gateway volumes in the request must be from one gateway. In the response, Storage Gateway returns
+     * volume information sorted by volume Amazon Resource Name (ARN).
      * </p>
      * 
      * @param describeCachediSCSIVolumesRequest
@@ -2378,6 +2845,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(describeCachediSCSIVolumesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCachediSCSIVolumes");
@@ -2403,7 +2872,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
     /**
      * <p>
      * Returns an array of Challenge-Handshake Authentication Protocol (CHAP) credentials information for a specified
-     * iSCSI target, one for each target-initiator pair.
+     * iSCSI target, one for each target-initiator pair. This operation is supported in the volume and tape gateway
+     * types.
      * </p>
      * 
      * @param describeChapCredentialsRequest
@@ -2441,6 +2911,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(describeChapCredentialsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeChapCredentials");
@@ -2465,9 +2937,71 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Returns metadata about a gateway such as its name, network interfaces, configured time zone, and the state
-     * (whether the gateway is running or not). To specify which gateway to describe, use the Amazon Resource Name (ARN)
-     * of the gateway in your request.
+     * Gets the file system association information. This operation is only supported for FSx File Gateways.
+     * </p>
+     * 
+     * @param describeFileSystemAssociationsRequest
+     * @return Result of the DescribeFileSystemAssociations operation returned by the service.
+     * @throws InvalidGatewayRequestException
+     *         An exception occurred because an invalid gateway request was issued to the service. For more information,
+     *         see the error and message fields.
+     * @throws InternalServerErrorException
+     *         An internal server error has occurred during the request. For more information, see the error and message
+     *         fields.
+     * @sample AWSStorageGateway.DescribeFileSystemAssociations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeFileSystemAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeFileSystemAssociationsResult describeFileSystemAssociations(DescribeFileSystemAssociationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeFileSystemAssociations(request);
+    }
+
+    @SdkInternalApi
+    final DescribeFileSystemAssociationsResult executeDescribeFileSystemAssociations(DescribeFileSystemAssociationsRequest describeFileSystemAssociationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeFileSystemAssociationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeFileSystemAssociationsRequest> request = null;
+        Response<DescribeFileSystemAssociationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeFileSystemAssociationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeFileSystemAssociationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeFileSystemAssociations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeFileSystemAssociationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeFileSystemAssociationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns metadata about a gateway such as its name, network interfaces, time zone, status, and software version.
+     * To specify which gateway to describe, use the Amazon Resource Name (ARN) of the gateway in your request.
      * </p>
      * 
      * @param describeGatewayInformationRequest
@@ -2505,6 +3039,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(describeGatewayInformationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeGatewayInformation");
@@ -2529,12 +3065,13 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Returns your gateway's weekly maintenance start time including the day and time of the week. Note that values are
-     * in terms of the gateway's time zone.
+     * Returns your gateway's maintenance window schedule information, with values for monthly or weekly cadence,
+     * specific day and time to begin maintenance, and which types of updates to apply. Time values returned are for the
+     * gateway's time zone.
      * </p>
      * 
      * @param describeMaintenanceStartTimeRequest
-     *        A JSON object containing the of the gateway.
+     *        A JSON object containing the Amazon Resource Name (ARN) of the gateway.
      * @return Result of the DescribeMaintenanceStartTime operation returned by the service.
      * @throws InvalidGatewayRequestException
      *         An exception occurred because an invalid gateway request was issued to the service. For more information,
@@ -2568,6 +3105,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(describeMaintenanceStartTimeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeMaintenanceStartTime");
@@ -2592,8 +3131,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Gets a description for one or more Network File System (NFS) file shares from a file gateway. This operation is
-     * only supported for file gateways.
+     * Gets a description for one or more Network File System (NFS) file shares from an S3 File Gateway. This operation
+     * is only supported for S3 File Gateways.
      * </p>
      * 
      * @param describeNFSFileSharesRequest
@@ -2630,6 +3169,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new DescribeNFSFileSharesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeNFSFileSharesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeNFSFileShares");
@@ -2654,8 +3195,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Gets a description for one or more Server Message Block (SMB) file shares from a file gateway. This operation is
-     * only supported for file gateways.
+     * Gets a description for one or more Server Message Block (SMB) file shares from a S3 File Gateway. This operation
+     * is only supported for S3 File Gateways.
      * </p>
      * 
      * @param describeSMBFileSharesRequest
@@ -2692,6 +3233,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new DescribeSMBFileSharesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeSMBFileSharesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeSMBFileShares");
@@ -2753,6 +3296,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new DescribeSMBSettingsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeSMBSettingsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeSMBSettings");
@@ -2816,6 +3361,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(describeSnapshotScheduleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeSnapshotSchedule");
@@ -2841,8 +3388,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
     /**
      * <p>
      * Returns the description of the gateway volumes specified in the request. The list of gateway volumes in the
-     * request must be from one gateway. In the response Amazon Storage Gateway returns volume information sorted by
-     * volume ARNs. This operation is only supported in stored volume gateway type.
+     * request must be from one gateway. In the response, Storage Gateway returns volume information sorted by volume
+     * ARNs. This operation is only supported in stored volume gateway type.
      * </p>
      * 
      * @param describeStorediSCSIVolumesRequest
@@ -2880,6 +3427,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(describeStorediSCSIVolumesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeStorediSCSIVolumes");
@@ -2908,8 +3457,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      * supported in the tape gateway type.
      * </p>
      * <p>
-     * If a specific <code>TapeARN</code> is not specified, AWS Storage Gateway returns a description of all virtual
-     * tapes found in the VTS associated with your account.
+     * If a specific <code>TapeARN</code> is not specified, Storage Gateway returns a description of all virtual tapes
+     * found in the VTS associated with your account.
      * </p>
      * 
      * @param describeTapeArchivesRequest
@@ -2946,6 +3495,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new DescribeTapeArchivesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeTapeArchivesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeTapeArchives");
@@ -3017,6 +3568,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(describeTapeRecoveryPointsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeTapeRecoveryPoints");
@@ -3041,9 +3594,15 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Returns a description of the specified Amazon Resource Name (ARN) of virtual tapes. If a <code>TapeARN</code> is
-     * not specified, returns a description of all virtual tapes associated with the specified gateway. This operation
-     * is only supported in the tape gateway type.
+     * Returns a description of virtual tapes that correspond to the specified Amazon Resource Names (ARNs). If
+     * <code>TapeARN</code> is not specified, returns a description of the virtual tapes associated with the specified
+     * gateway. This operation is only supported for the tape gateway type.
+     * </p>
+     * <p>
+     * The operation supports pagination. By default, the operation returns a maximum of up to 100 tapes. You can
+     * optionally specify the <code>Limit</code> field in the body to limit the number of tapes in the response. If the
+     * number of tapes returned in the response is truncated, the response includes a <code>Marker</code> field. You can
+     * use this <code>Marker</code> value in your subsequent request to retrieve the next set of tapes.
      * </p>
      * 
      * @param describeTapesRequest
@@ -3080,6 +3639,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new DescribeTapesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeTapesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeTapes");
@@ -3104,7 +3665,7 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
     /**
      * <p>
      * Returns information about the upload buffer of a gateway. This operation is supported for the stored volume,
-     * cached volume and tape gateway types.
+     * cached volume, and tape gateway types.
      * </p>
      * <p>
      * The response includes disk IDs that are configured as upload buffer space, and it includes the amount of upload
@@ -3144,6 +3705,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new DescribeUploadBufferRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeUploadBufferRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeUploadBuffer");
@@ -3167,7 +3730,7 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Returns a description of virtual tape library (VTL) devices for the specified tape gateway. In the response, AWS
+     * Returns a description of virtual tape library (VTL) devices for the specified tape gateway. In the response,
      * Storage Gateway returns VTL device information.
      * </p>
      * <p>
@@ -3208,6 +3771,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new DescribeVTLDevicesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeVTLDevicesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeVTLDevices");
@@ -3247,7 +3812,7 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      * </p>
      * 
      * @param describeWorkingStorageRequest
-     *        A JSON object containing the of the gateway.
+     *        A JSON object containing the Amazon Resource Name (ARN) of the gateway.
      * @return Result of the DescribeWorkingStorage operation returned by the service.
      * @throws InvalidGatewayRequestException
      *         An exception occurred because an invalid gateway request was issued to the service. For more information,
@@ -3280,6 +3845,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new DescribeWorkingStorageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeWorkingStorageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeWorkingStorage");
@@ -3307,7 +3874,7 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      * Disconnects a volume from an iSCSI connection and then detaches the volume from the specified gateway. Detaching
      * and attaching a volume enables you to recover your data from one gateway to a different gateway without creating
      * a snapshot. It also makes it easier to move your volumes from an on-premises gateway to a gateway hosted on an
-     * Amazon EC2 instance.
+     * Amazon EC2 instance. This operation is only supported in the volume gateway type.
      * </p>
      * 
      * @param detachVolumeRequest
@@ -3344,6 +3911,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new DetachVolumeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(detachVolumeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DetachVolume");
@@ -3376,7 +3945,7 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      * </p>
      * <important>
      * <p>
-     * Once a gateway is disabled it cannot be enabled.
+     * After a gateway is disabled, it cannot be enabled.
      * </p>
      * </important>
      * 
@@ -3414,6 +3983,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new DisableGatewayRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(disableGatewayRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisableGateway");
@@ -3437,9 +4008,85 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
+     * Disassociates an Amazon FSx file system from the specified gateway. After the disassociation process finishes,
+     * the gateway can no longer access the Amazon FSx file system. This operation is only supported in the FSx File
+     * Gateway type.
+     * </p>
+     * 
+     * @param disassociateFileSystemRequest
+     * @return Result of the DisassociateFileSystem operation returned by the service.
+     * @throws InvalidGatewayRequestException
+     *         An exception occurred because an invalid gateway request was issued to the service. For more information,
+     *         see the error and message fields.
+     * @throws InternalServerErrorException
+     *         An internal server error has occurred during the request. For more information, see the error and message
+     *         fields.
+     * @sample AWSStorageGateway.DisassociateFileSystem
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DisassociateFileSystem"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DisassociateFileSystemResult disassociateFileSystem(DisassociateFileSystemRequest request) {
+        request = beforeClientExecution(request);
+        return executeDisassociateFileSystem(request);
+    }
+
+    @SdkInternalApi
+    final DisassociateFileSystemResult executeDisassociateFileSystem(DisassociateFileSystemRequest disassociateFileSystemRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(disassociateFileSystemRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DisassociateFileSystemRequest> request = null;
+        Response<DisassociateFileSystemResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DisassociateFileSystemRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(disassociateFileSystemRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateFileSystem");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DisassociateFileSystemResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DisassociateFileSystemResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Adds a file gateway to an Active Directory domain. This operation is only supported for file gateways that
      * support the SMB file protocol.
      * </p>
+     * <note>
+     * <p>
+     * Joining a domain creates an Active Directory computer account in the default organizational unit, using the
+     * gateway's <b>Gateway ID</b> as the account name (for example, SGW-1234ADE). If your Active Directory environment
+     * requires that you pre-stage accounts to facilitate the join domain process, you will need to create this account
+     * ahead of time.
+     * </p>
+     * <p>
+     * To create the gateway's computer account in an organizational unit other than the default, you must specify the
+     * organizational unit when joining the domain.
+     * </p>
+     * </note>
      * 
      * @param joinDomainRequest
      *        JoinDomainInput
@@ -3475,6 +4122,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new JoinDomainRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(joinDomainRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "JoinDomain");
@@ -3498,8 +4147,76 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Gets a list of the file shares for a specific file gateway, or the list of file shares that belong to the calling
-     * user account. This operation is only supported for file gateways.
+     * Lists the automatic tape creation policies for a gateway. If there are no automatic tape creation policies for
+     * the gateway, it returns an empty list.
+     * </p>
+     * <p>
+     * This operation is only supported for tape gateways.
+     * </p>
+     * 
+     * @param listAutomaticTapeCreationPoliciesRequest
+     * @return Result of the ListAutomaticTapeCreationPolicies operation returned by the service.
+     * @throws InvalidGatewayRequestException
+     *         An exception occurred because an invalid gateway request was issued to the service. For more information,
+     *         see the error and message fields.
+     * @throws InternalServerErrorException
+     *         An internal server error has occurred during the request. For more information, see the error and message
+     *         fields.
+     * @sample AWSStorageGateway.ListAutomaticTapeCreationPolicies
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ListAutomaticTapeCreationPolicies"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListAutomaticTapeCreationPoliciesResult listAutomaticTapeCreationPolicies(ListAutomaticTapeCreationPoliciesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListAutomaticTapeCreationPolicies(request);
+    }
+
+    @SdkInternalApi
+    final ListAutomaticTapeCreationPoliciesResult executeListAutomaticTapeCreationPolicies(
+            ListAutomaticTapeCreationPoliciesRequest listAutomaticTapeCreationPoliciesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listAutomaticTapeCreationPoliciesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListAutomaticTapeCreationPoliciesRequest> request = null;
+        Response<ListAutomaticTapeCreationPoliciesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListAutomaticTapeCreationPoliciesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listAutomaticTapeCreationPoliciesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAutomaticTapeCreationPolicies");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListAutomaticTapeCreationPoliciesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListAutomaticTapeCreationPoliciesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a list of the file shares for a specific S3 File Gateway, or the list of file shares that belong to the
+     * calling Amazon Web Services account. This operation is only supported for S3 File Gateways.
      * </p>
      * 
      * @param listFileSharesRequest
@@ -3536,6 +4253,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new ListFileSharesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listFileSharesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListFileShares");
@@ -3559,8 +4278,72 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Lists gateways owned by an AWS account in a region specified in the request. The returned list is ordered by
-     * gateway Amazon Resource Name (ARN).
+     * Gets a list of <code>FileSystemAssociationSummary</code> objects. Each object contains a summary of a file system
+     * association. This operation is only supported for FSx File Gateways.
+     * </p>
+     * 
+     * @param listFileSystemAssociationsRequest
+     * @return Result of the ListFileSystemAssociations operation returned by the service.
+     * @throws InvalidGatewayRequestException
+     *         An exception occurred because an invalid gateway request was issued to the service. For more information,
+     *         see the error and message fields.
+     * @throws InternalServerErrorException
+     *         An internal server error has occurred during the request. For more information, see the error and message
+     *         fields.
+     * @sample AWSStorageGateway.ListFileSystemAssociations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ListFileSystemAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListFileSystemAssociationsResult listFileSystemAssociations(ListFileSystemAssociationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListFileSystemAssociations(request);
+    }
+
+    @SdkInternalApi
+    final ListFileSystemAssociationsResult executeListFileSystemAssociations(ListFileSystemAssociationsRequest listFileSystemAssociationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listFileSystemAssociationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListFileSystemAssociationsRequest> request = null;
+        Response<ListFileSystemAssociationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListFileSystemAssociationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listFileSystemAssociationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListFileSystemAssociations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListFileSystemAssociationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListFileSystemAssociationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists gateways owned by an Amazon Web Services account in an Amazon Web Services Region specified in the request.
+     * The returned list is ordered by gateway Amazon Resource Name (ARN).
      * </p>
      * <p>
      * By default, the operation returns a maximum of 100 gateways. This operation supports pagination that allows you
@@ -3617,6 +4400,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new ListGatewaysRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listGatewaysRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListGateways");
@@ -3656,7 +4441,7 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      * </p>
      * 
      * @param listLocalDisksRequest
-     *        A JSON object containing the of the gateway.
+     *        A JSON object containing the Amazon Resource Name (ARN) of the gateway.
      * @return Result of the ListLocalDisks operation returned by the service.
      * @throws InvalidGatewayRequestException
      *         An exception occurred because an invalid gateway request was issued to the service. For more information,
@@ -3689,6 +4474,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new ListLocalDisksRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listLocalDisksRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListLocalDisks");
@@ -3712,8 +4499,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Lists the tags that have been added to the specified resource. This operation is only supported in the cached
-     * volume, stored volume and tape gateway type.
+     * Lists the tags that have been added to the specified resource. This operation is supported in storage gateways of
+     * all types.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -3750,6 +4537,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -3774,6 +4563,74 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
     @Override
     public ListTagsForResourceResult listTagsForResource() {
         return listTagsForResource(new ListTagsForResourceRequest());
+    }
+
+    /**
+     * <p>
+     * Lists custom tape pools. You specify custom tape pools to list by specifying one or more custom tape pool Amazon
+     * Resource Names (ARNs). If you don't specify a custom tape pool ARN, the operation lists all custom tape pools.
+     * </p>
+     * <p>
+     * This operation supports pagination. You can optionally specify the <code>Limit</code> parameter in the body to
+     * limit the number of tape pools in the response. If the number of tape pools returned in the response is
+     * truncated, the response includes a <code>Marker</code> element that you can use in your subsequent request to
+     * retrieve the next set of tape pools.
+     * </p>
+     * 
+     * @param listTapePoolsRequest
+     * @return Result of the ListTapePools operation returned by the service.
+     * @throws InvalidGatewayRequestException
+     *         An exception occurred because an invalid gateway request was issued to the service. For more information,
+     *         see the error and message fields.
+     * @throws InternalServerErrorException
+     *         An internal server error has occurred during the request. For more information, see the error and message
+     *         fields.
+     * @sample AWSStorageGateway.ListTapePools
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ListTapePools" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListTapePoolsResult listTapePools(ListTapePoolsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListTapePools(request);
+    }
+
+    @SdkInternalApi
+    final ListTapePoolsResult executeListTapePools(ListTapePoolsRequest listTapePoolsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listTapePoolsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListTapePoolsRequest> request = null;
+        Response<ListTapePoolsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTapePoolsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTapePoolsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTapePools");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListTapePoolsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListTapePoolsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
     }
 
     /**
@@ -3840,6 +4697,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new ListTapesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTapesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTapes");
@@ -3901,6 +4760,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new ListVolumeInitiatorsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listVolumeInitiatorsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListVolumeInitiators");
@@ -3967,6 +4828,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(listVolumeRecoveryPointsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListVolumeRecoveryPoints");
@@ -4048,6 +4911,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new ListVolumesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listVolumesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListVolumes");
@@ -4071,21 +4936,21 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Sends you notification through CloudWatch Events when all files written to your NFS file share have been uploaded
-     * to Amazon S3.
+     * Sends you notification through CloudWatch Events when all files written to your file share have been uploaded to
+     * Amazon S3.
      * </p>
      * <p>
-     * AWS Storage Gateway can send a notification through Amazon CloudWatch Events when all files written to your file
-     * share up to that point in time have been uploaded to Amazon S3. These files include files written to the NFS file
+     * Storage Gateway can send a notification through Amazon CloudWatch Events when all files written to your file
+     * share up to that point in time have been uploaded to Amazon S3. These files include files written to the file
      * share up to the time that you make a request for notification. When the upload is done, Storage Gateway sends you
      * notification through an Amazon CloudWatch Event. You can configure CloudWatch Events to send the notification
-     * through event targets such as Amazon SNS or AWS Lambda function. This operation is only supported for file
-     * gateways.
+     * through event targets such as Amazon SNS or Lambda function. This operation is only supported for S3 File
+     * Gateways.
      * </p>
      * <p>
-     * For more information, see Getting File Upload Notification in the Storage Gateway User Guide
-     * (https://docs.aws.amazon
-     * .com/storagegateway/latest/userguide/monitoring-file-gateway.html#get-upload-notification).
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/filegateway/latest/files3/monitoring-file-gateway.html#get-notification"
+     * >Getting file upload notification</a> in the <i>Amazon S3 File Gateway User Guide</i>.
      * </p>
      * 
      * @param notifyWhenUploadedRequest
@@ -4121,6 +4986,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new NotifyWhenUploadedRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(notifyWhenUploadedRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "NotifyWhenUploaded");
@@ -4144,19 +5011,56 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Refreshes the cache for the specified file share. This operation finds objects in the Amazon S3 bucket that were
-     * added, removed or replaced since the gateway last listed the bucket's contents and cached the results. This
-     * operation is only supported in the file gateway type. You can subscribe to be notified through an Amazon
-     * CloudWatch event when your RefreshCache operation completes. For more information, see <a href=
-     * "https://docs.aws.amazon.com/storagegateway/latest/userguide/monitoring-file-gateway.html#get-notification"
-     * >Getting Notified About File Operations</a>.
+     * Refreshes the cached inventory of objects for the specified file share. This operation finds objects in the
+     * Amazon S3 bucket that were added, removed, or replaced since the gateway last listed the bucket's contents and
+     * cached the results. This operation does not import files into the S3 File Gateway cache storage. It only updates
+     * the cached inventory to reflect changes in the inventory of the objects in the S3 bucket. This operation is only
+     * supported in the S3 File Gateway types.
+     * </p>
+     * <p>
+     * You can subscribe to be notified through an Amazon CloudWatch event when your <code>RefreshCache</code> operation
+     * completes. For more information, see <a
+     * href="https://docs.aws.amazon.com/filegateway/latest/files3/monitoring-file-gateway.html#get-notification"
+     * >Getting notified about file operations</a> in the <i>Amazon S3 File Gateway User Guide</i>. This operation is
+     * Only supported for S3 File Gateways.
      * </p>
      * <p>
      * When this API is called, it only initiates the refresh operation. When the API call completes and returns a
      * success code, it doesn't necessarily mean that the file refresh has completed. You should use the
      * refresh-complete notification to determine that the operation has completed before you check for new files on the
-     * gateway file share. You can subscribe to be notified through an CloudWatch event when your
+     * gateway file share. You can subscribe to be notified through a CloudWatch event when your
      * <code>RefreshCache</code> operation completes.
+     * </p>
+     * <p>
+     * Throttle limit: This API is asynchronous, so the gateway will accept no more than two refreshes at any time. We
+     * recommend using the refresh-complete CloudWatch event notification before issuing additional requests. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/filegateway/latest/files3/monitoring-file-gateway.html#get-notification"
+     * >Getting notified about file operations</a> in the <i>Amazon S3 File Gateway User Guide</i>.
+     * </p>
+     * <important>
+     * <ul>
+     * <li>
+     * <p>
+     * Wait at least 60 seconds between consecutive RefreshCache API requests.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you invoke the RefreshCache API when two requests are already being processed, any new request will cause an
+     * <code>InvalidGatewayRequestException</code> error because too many requests were sent to the server.
+     * </p>
+     * </li>
+     * </ul>
+     * </important> <note>
+     * <p>
+     * The S3 bucket name does not need to be included when entering the list of folders in the FolderList parameter.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/filegateway/latest/files3/monitoring-file-gateway.html#get-notification"
+     * >Getting notified about file operations</a> in the <i>Amazon S3 File Gateway User Guide</i>.
      * </p>
      * 
      * @param refreshCacheRequest
@@ -4193,6 +5097,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new RefreshCacheRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(refreshCacheRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RefreshCache");
@@ -4216,8 +5122,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Removes one or more tags from the specified resource. This operation is only supported in the cached volume,
-     * stored volume and tape gateway types.
+     * Removes one or more tags from the specified resource. This operation is supported in storage gateways of all
+     * types.
      * </p>
      * 
      * @param removeTagsFromResourceRequest
@@ -4254,6 +5160,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new RemoveTagsFromResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(removeTagsFromResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RemoveTagsFromResource");
@@ -4283,10 +5191,10 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Resets all cache disks that have encountered a error and makes the disks available for reconfiguration as cache
-     * storage. If your cache disk encounters a error, the gateway prevents read and write operations on virtual tapes
+     * Resets all cache disks that have encountered an error and makes the disks available for reconfiguration as cache
+     * storage. If your cache disk encounters an error, the gateway prevents read and write operations on virtual tapes
      * in the gateway. For example, an error can occur when a disk is corrupted or removed from the gateway. When a
-     * cache is reset, the gateway loses its cache storage. At this point you can reconfigure the disks as cache disks.
+     * cache is reset, the gateway loses its cache storage. At this point, you can reconfigure the disks as cache disks.
      * This operation is only supported in the cached volume and tape types.
      * </p>
      * <important>
@@ -4330,6 +5238,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new ResetCacheRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(resetCacheRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ResetCache");
@@ -4398,6 +5308,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new RetrieveTapeArchiveRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(retrieveTapeArchiveRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RetrieveTapeArchive");
@@ -4470,6 +5382,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(retrieveTapeRecoveryPointRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RetrieveTapeRecoveryPoint");
@@ -4534,6 +5448,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(setLocalConsolePasswordRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SetLocalConsolePassword");
@@ -4559,7 +5475,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
     /**
      * <p>
      * Sets the password for the guest user <code>smbguest</code>. The <code>smbguest</code> user is the user when the
-     * authentication method for the file share is set to <code>GuestAccess</code>.
+     * authentication method for the file share is set to <code>GuestAccess</code>. This operation only supported for S3
+     * File Gateways
      * </p>
      * 
      * @param setSMBGuestPasswordRequest
@@ -4596,6 +5513,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new SetSMBGuestPasswordRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(setSMBGuestPasswordRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SetSMBGuestPassword");
@@ -4619,9 +5538,14 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Shuts down a gateway. To specify which gateway to shut down, use the Amazon Resource Name (ARN) of the gateway in
-     * the body of your request.
+     * Shuts down a Tape Gateway or Volume Gateway. To specify which gateway to shut down, use the Amazon Resource Name
+     * (ARN) of the gateway in the body of your request.
      * </p>
+     * <note>
+     * <p>
+     * This API action cannot be used to shut down S3 File Gateway or FSx File Gateway.
+     * </p>
+     * </note>
      * <p>
      * The operation shuts down the gateway service component running in the gateway's virtual machine (VM) and not the
      * host VM.
@@ -4650,7 +5574,7 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      * </p>
      * 
      * @param shutdownGatewayRequest
-     *        A JSON object containing the of the gateway to shut down.
+     *        A JSON object containing the Amazon Resource Name (ARN) of the gateway to shut down.
      * @return Result of the ShutdownGateway operation returned by the service.
      * @throws InvalidGatewayRequestException
      *         An exception occurred because an invalid gateway request was issued to the service. For more information,
@@ -4683,6 +5607,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new ShutdownGatewayRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(shutdownGatewayRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ShutdownGateway");
@@ -4694,6 +5620,77 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
             HttpResponseHandler<AmazonWebServiceResponse<ShutdownGatewayResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ShutdownGatewayResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Start a test that verifies that the specified gateway is configured for High Availability monitoring in your host
+     * environment. This request only initiates the test and that a successful response only indicates that the test was
+     * started. It doesn't indicate that the test passed. For the status of the test, invoke the
+     * <code>DescribeAvailabilityMonitorTest</code> API.
+     * </p>
+     * <note>
+     * <p>
+     * Starting this test will cause your gateway to go offline for a brief period.
+     * </p>
+     * </note>
+     * 
+     * @param startAvailabilityMonitorTestRequest
+     * @return Result of the StartAvailabilityMonitorTest operation returned by the service.
+     * @throws InvalidGatewayRequestException
+     *         An exception occurred because an invalid gateway request was issued to the service. For more information,
+     *         see the error and message fields.
+     * @throws InternalServerErrorException
+     *         An internal server error has occurred during the request. For more information, see the error and message
+     *         fields.
+     * @sample AWSStorageGateway.StartAvailabilityMonitorTest
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/StartAvailabilityMonitorTest"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public StartAvailabilityMonitorTestResult startAvailabilityMonitorTest(StartAvailabilityMonitorTestRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartAvailabilityMonitorTest(request);
+    }
+
+    @SdkInternalApi
+    final StartAvailabilityMonitorTestResult executeStartAvailabilityMonitorTest(StartAvailabilityMonitorTestRequest startAvailabilityMonitorTestRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startAvailabilityMonitorTestRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartAvailabilityMonitorTestRequest> request = null;
+        Response<StartAvailabilityMonitorTestResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartAvailabilityMonitorTestRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(startAvailabilityMonitorTestRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartAvailabilityMonitorTest");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartAvailabilityMonitorTestResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new StartAvailabilityMonitorTestResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -4722,7 +5719,7 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      * </p>
      * 
      * @param startGatewayRequest
-     *        A JSON object containing the of the gateway to start.
+     *        A JSON object containing the Amazon Resource Name (ARN) of the gateway to start.
      * @return Result of the StartGateway operation returned by the service.
      * @throws InvalidGatewayRequestException
      *         An exception occurred because an invalid gateway request was issued to the service. For more information,
@@ -4755,6 +5752,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new StartGatewayRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startGatewayRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartGateway");
@@ -4778,8 +5777,83 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
+     * Updates the automatic tape creation policy of a gateway. Use this to update the policy with a new set of
+     * automatic tape creation rules. This is only supported for tape gateways.
+     * </p>
+     * <p>
+     * By default, there is no automatic tape creation policy.
+     * </p>
+     * <note>
+     * <p>
+     * A gateway can have only one automatic tape creation policy.
+     * </p>
+     * </note>
+     * 
+     * @param updateAutomaticTapeCreationPolicyRequest
+     * @return Result of the UpdateAutomaticTapeCreationPolicy operation returned by the service.
+     * @throws InvalidGatewayRequestException
+     *         An exception occurred because an invalid gateway request was issued to the service. For more information,
+     *         see the error and message fields.
+     * @throws InternalServerErrorException
+     *         An internal server error has occurred during the request. For more information, see the error and message
+     *         fields.
+     * @sample AWSStorageGateway.UpdateAutomaticTapeCreationPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/UpdateAutomaticTapeCreationPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateAutomaticTapeCreationPolicyResult updateAutomaticTapeCreationPolicy(UpdateAutomaticTapeCreationPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateAutomaticTapeCreationPolicy(request);
+    }
+
+    @SdkInternalApi
+    final UpdateAutomaticTapeCreationPolicyResult executeUpdateAutomaticTapeCreationPolicy(
+            UpdateAutomaticTapeCreationPolicyRequest updateAutomaticTapeCreationPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateAutomaticTapeCreationPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateAutomaticTapeCreationPolicyRequest> request = null;
+        Response<UpdateAutomaticTapeCreationPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateAutomaticTapeCreationPolicyRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateAutomaticTapeCreationPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateAutomaticTapeCreationPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateAutomaticTapeCreationPolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateAutomaticTapeCreationPolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Updates the bandwidth rate limits of a gateway. You can update both the upload and download bandwidth rate limit
-     * or specify only one of the two. If you don't set a bandwidth rate limit, the existing rate limit remains.
+     * or specify only one of the two. If you don't set a bandwidth rate limit, the existing rate limit remains. This
+     * operation is supported only for the stored volume, cached volume, and tape gateway types. To update bandwidth
+     * rate limits for S3 file gateways, use <a>UpdateBandwidthRateLimitSchedule</a>.
      * </p>
      * <p>
      * By default, a gateway's bandwidth rate limits are not set. If you don't set any limit, the gateway does not have
@@ -4835,6 +5909,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(updateBandwidthRateLimitRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateBandwidthRateLimit");
@@ -4859,8 +5935,77 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
+     * Updates the bandwidth rate limit schedule for a specified gateway. By default, gateways do not have bandwidth
+     * rate limit schedules, which means no bandwidth rate limiting is in effect. Use this to initiate or update a
+     * gateway's bandwidth rate limit schedule. This operation is supported for volume, tape, and S3 file gateways. S3
+     * file gateways support bandwidth rate limits for upload only. FSx file gateways do not support bandwidth rate
+     * limits.
+     * </p>
+     * 
+     * @param updateBandwidthRateLimitScheduleRequest
+     * @return Result of the UpdateBandwidthRateLimitSchedule operation returned by the service.
+     * @throws InvalidGatewayRequestException
+     *         An exception occurred because an invalid gateway request was issued to the service. For more information,
+     *         see the error and message fields.
+     * @throws InternalServerErrorException
+     *         An internal server error has occurred during the request. For more information, see the error and message
+     *         fields.
+     * @sample AWSStorageGateway.UpdateBandwidthRateLimitSchedule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/UpdateBandwidthRateLimitSchedule"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateBandwidthRateLimitScheduleResult updateBandwidthRateLimitSchedule(UpdateBandwidthRateLimitScheduleRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateBandwidthRateLimitSchedule(request);
+    }
+
+    @SdkInternalApi
+    final UpdateBandwidthRateLimitScheduleResult executeUpdateBandwidthRateLimitSchedule(
+            UpdateBandwidthRateLimitScheduleRequest updateBandwidthRateLimitScheduleRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateBandwidthRateLimitScheduleRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateBandwidthRateLimitScheduleRequest> request = null;
+        Response<UpdateBandwidthRateLimitScheduleResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateBandwidthRateLimitScheduleRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateBandwidthRateLimitScheduleRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateBandwidthRateLimitSchedule");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateBandwidthRateLimitScheduleResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateBandwidthRateLimitScheduleResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Updates the Challenge-Handshake Authentication Protocol (CHAP) credentials for a specified iSCSI target. By
-     * default, a gateway does not have CHAP enabled; however, for added security, you might use it.
+     * default, a gateway does not have CHAP enabled; however, for added security, you might use it. This operation is
+     * supported in the volume and tape gateway types.
      * </p>
      * <important>
      * <p>
@@ -4924,6 +6069,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new UpdateChapCredentialsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateChapCredentialsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateChapCredentials");
@@ -4948,12 +6095,75 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Updates a gateway's metadata, which includes the gateway's name and time zone. To specify which gateway to
-     * update, use the Amazon Resource Name (ARN) of the gateway in your request.
+     * Updates a file system association. This operation is only supported in the FSx File Gateways.
+     * </p>
+     * 
+     * @param updateFileSystemAssociationRequest
+     * @return Result of the UpdateFileSystemAssociation operation returned by the service.
+     * @throws InvalidGatewayRequestException
+     *         An exception occurred because an invalid gateway request was issued to the service. For more information,
+     *         see the error and message fields.
+     * @throws InternalServerErrorException
+     *         An internal server error has occurred during the request. For more information, see the error and message
+     *         fields.
+     * @sample AWSStorageGateway.UpdateFileSystemAssociation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/UpdateFileSystemAssociation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateFileSystemAssociationResult updateFileSystemAssociation(UpdateFileSystemAssociationRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateFileSystemAssociation(request);
+    }
+
+    @SdkInternalApi
+    final UpdateFileSystemAssociationResult executeUpdateFileSystemAssociation(UpdateFileSystemAssociationRequest updateFileSystemAssociationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateFileSystemAssociationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateFileSystemAssociationRequest> request = null;
+        Response<UpdateFileSystemAssociationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateFileSystemAssociationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateFileSystemAssociationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateFileSystemAssociation");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateFileSystemAssociationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateFileSystemAssociationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates a gateway's metadata, which includes the gateway's name, time zone, and metadata cache size. To specify
+     * which gateway to update, use the Amazon Resource Name (ARN) of the gateway in your request.
      * </p>
      * <note>
      * <p>
-     * For Gateways activated after September 2, 2015, the gateway's ARN contains the gateway ID rather than the gateway
+     * For gateways activated after September 2, 2015, the gateway's ARN contains the gateway ID rather than the gateway
      * name. However, changing the name of the gateway has no effect on the gateway's ARN.
      * </p>
      * </note>
@@ -4992,6 +6202,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(updateGatewayInformationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateGatewayInformation");
@@ -5030,14 +6242,14 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      * applications by increasing your iSCSI Initiators' timeouts. For more information about increasing iSCSI Initiator
      * timeouts for Windows and Linux, see <a href=
      * "https://docs.aws.amazon.com/storagegateway/latest/userguide/ConfiguringiSCSIClientInitiatorWindowsClient.html#CustomizeWindowsiSCSISettings"
-     * >Customizing Your Windows iSCSI Settings</a> and <a href=
+     * >Customizing your Windows iSCSI settings</a> and <a href=
      * "https://docs.aws.amazon.com/storagegateway/latest/userguide/ConfiguringiSCSIClientInitiatorRedHatClient.html#CustomizeLinuxiSCSISettings"
-     * >Customizing Your Linux iSCSI Settings</a>, respectively.
+     * >Customizing your Linux iSCSI settings</a>, respectively.
      * </p>
      * </important>
      * 
      * @param updateGatewaySoftwareNowRequest
-     *        A JSON object containing the of the gateway to update.
+     *        A JSON object containing the Amazon Resource Name (ARN) of the gateway to update.
      * @return Result of the UpdateGatewaySoftwareNow operation returned by the service.
      * @throws InvalidGatewayRequestException
      *         An exception occurred because an invalid gateway request was issued to the service. For more information,
@@ -5071,6 +6283,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(updateGatewaySoftwareNowRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateGatewaySoftwareNow");
@@ -5095,13 +6309,31 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Updates a gateway's weekly maintenance start time information, including day and time of the week. The
-     * maintenance time is the time in your gateway's time zone.
+     * Updates a gateway's maintenance window schedule, with settings for monthly or weekly cadence, specific day and
+     * time to begin maintenance, and which types of updates to apply. Time configuration uses the gateway's time zone.
+     * You can pass values for a complete maintenance schedule, or update policy, or both. Previous values will persist
+     * for whichever setting you choose not to modify. If an incomplete or invalid maintenance schedule is passed, the
+     * entire request will be rejected with an error and no changes will occur.
      * </p>
+     * <p>
+     * A complete maintenance schedule must include values for <i>both</i> <code>MinuteOfHour</code> and
+     * <code>HourOfDay</code>, and <i>either</i> <code>DayOfMonth</code> <i>or</i> <code>DayOfWeek</code>.
+     * </p>
+     * <note>
+     * <p>
+     * We recommend keeping maintenance updates turned on, except in specific use cases where the brief disruptions
+     * caused by updating the gateway could critically impact your deployment.
+     * </p>
+     * </note>
      * 
      * @param updateMaintenanceStartTimeRequest
      *        A JSON object containing the following fields:</p>
      *        <ul>
+     *        <li>
+     *        <p>
+     *        <a>UpdateMaintenanceStartTimeInput$SoftwareUpdatePreferences</a>
+     *        </p>
+     *        </li>
      *        <li>
      *        <p>
      *        <a>UpdateMaintenanceStartTimeInput$DayOfMonth</a>
@@ -5155,6 +6387,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(updateMaintenanceStartTimeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateMaintenanceStartTime");
@@ -5179,7 +6413,7 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Updates a Network File System (NFS) file share. This operation is only supported in the file gateway type.
+     * Updates a Network File System (NFS) file share. This operation is only supported in S3 File Gateways.
      * </p>
      * <note>
      * <p>
@@ -5187,7 +6421,7 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      * </p>
      * </note>
      * <p>
-     * Updates the following file share setting:
+     * Updates the following file share settings:
      * </p>
      * <ul>
      * <li>
@@ -5216,12 +6450,6 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      * </p>
      * </li>
      * </ul>
-     * <note>
-     * <p>
-     * To leave a file share field unchanged, set the corresponding input field to null. This operation is only
-     * supported in file gateways.
-     * </p>
-     * </note>
      * 
      * @param updateNFSFileShareRequest
      *        UpdateNFSFileShareInput
@@ -5257,6 +6485,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new UpdateNFSFileShareRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateNFSFileShareRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateNFSFileShare");
@@ -5280,20 +6510,21 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Updates a Server Message Block (SMB) file share.
+     * Updates a Server Message Block (SMB) file share. This operation is only supported for S3 File Gateways.
      * </p>
      * <note>
      * <p>
-     * To leave a file share field unchanged, set the corresponding input field to null. This operation is only
-     * supported for file gateways.
+     * To leave a file share field unchanged, set the corresponding input field to null.
      * </p>
      * </note> <important>
      * <p>
-     * File gateways require AWS Security Token Service (AWS STS) to be activated to enable you to create a file share.
-     * Make sure that AWS STS is activated in the AWS Region you are creating your file gateway in. If AWS STS is not
-     * activated in this AWS Region, activate it. For information about how to activate AWS STS, see <a
+     * File gateways require Security Token Service (Amazon Web Services STS) to be activated to enable you to create a
+     * file share. Make sure that Amazon Web Services STS is activated in the Amazon Web Services Region you are
+     * creating your file gateway in. If Amazon Web Services STS is not activated in this Amazon Web Services Region,
+     * activate it. For information about how to activate Amazon Web Services STS, see <a
      * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html">Activating and
-     * Deactivating AWS STS in an AWS Region</a> in the <i>AWS Identity and Access Management User Guide.</i>
+     * deactivating Amazon Web Services STS in an Amazon Web Services Region</a> in the <i>Identity and Access
+     * Management User Guide</i>.
      * </p>
      * <p>
      * File gateways don't support creating hard or symbolic links on a file share.
@@ -5334,6 +6565,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new UpdateSMBFileShareRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateSMBFileShareRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateSMBFileShare");
@@ -5357,8 +6590,145 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Updates the SMB security strategy on a file gateway. This action is only supported in file gateways.
+     * Controls whether the shares on an S3 File Gateway are visible in a net view or browse list. The operation is only
+     * supported for S3 File Gateways.
      * </p>
+     * 
+     * @param updateSMBFileShareVisibilityRequest
+     * @return Result of the UpdateSMBFileShareVisibility operation returned by the service.
+     * @throws InvalidGatewayRequestException
+     *         An exception occurred because an invalid gateway request was issued to the service. For more information,
+     *         see the error and message fields.
+     * @throws InternalServerErrorException
+     *         An internal server error has occurred during the request. For more information, see the error and message
+     *         fields.
+     * @sample AWSStorageGateway.UpdateSMBFileShareVisibility
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/UpdateSMBFileShareVisibility"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateSMBFileShareVisibilityResult updateSMBFileShareVisibility(UpdateSMBFileShareVisibilityRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateSMBFileShareVisibility(request);
+    }
+
+    @SdkInternalApi
+    final UpdateSMBFileShareVisibilityResult executeUpdateSMBFileShareVisibility(UpdateSMBFileShareVisibilityRequest updateSMBFileShareVisibilityRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateSMBFileShareVisibilityRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateSMBFileShareVisibilityRequest> request = null;
+        Response<UpdateSMBFileShareVisibilityResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateSMBFileShareVisibilityRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateSMBFileShareVisibilityRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateSMBFileShareVisibility");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateSMBFileShareVisibilityResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateSMBFileShareVisibilityResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the list of Active Directory users and groups that have special permissions for SMB file shares on the
+     * gateway.
+     * </p>
+     * 
+     * @param updateSMBLocalGroupsRequest
+     * @return Result of the UpdateSMBLocalGroups operation returned by the service.
+     * @throws InvalidGatewayRequestException
+     *         An exception occurred because an invalid gateway request was issued to the service. For more information,
+     *         see the error and message fields.
+     * @throws InternalServerErrorException
+     *         An internal server error has occurred during the request. For more information, see the error and message
+     *         fields.
+     * @sample AWSStorageGateway.UpdateSMBLocalGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/UpdateSMBLocalGroups"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateSMBLocalGroupsResult updateSMBLocalGroups(UpdateSMBLocalGroupsRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateSMBLocalGroups(request);
+    }
+
+    @SdkInternalApi
+    final UpdateSMBLocalGroupsResult executeUpdateSMBLocalGroups(UpdateSMBLocalGroupsRequest updateSMBLocalGroupsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateSMBLocalGroupsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateSMBLocalGroupsRequest> request = null;
+        Response<UpdateSMBLocalGroupsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateSMBLocalGroupsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateSMBLocalGroupsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateSMBLocalGroups");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateSMBLocalGroupsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateSMBLocalGroupsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the SMB security strategy level for an Amazon S3 file gateway. This action is only supported for Amazon
+     * S3 file gateways.
+     * </p>
+     * <note>
+     * <p>
+     * For information about configuring this setting using the Amazon Web Services console, see <a
+     * href="https://docs.aws.amazon.com/filegateway/latest/files3/security-strategy.html">Setting a security level for
+     * your gateway</a> in the <i>Amazon S3 File Gateway User Guide</i>.
+     * </p>
+     * <p>
+     * A higher security strategy level can affect performance of the gateway.
+     * </p>
+     * </note>
      * 
      * @param updateSMBSecurityStrategyRequest
      * @return Result of the UpdateSMBSecurityStrategy operation returned by the service.
@@ -5394,6 +6764,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(updateSMBSecurityStrategyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateSMBSecurityStrategy");
@@ -5485,6 +6857,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new UpdateSnapshotScheduleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateSnapshotScheduleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateSnapshotSchedule");
@@ -5547,6 +6921,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 request = new UpdateVTLDeviceTypeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateVTLDeviceTypeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Storage Gateway");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateVTLDeviceType");
@@ -5642,6 +7018,11 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

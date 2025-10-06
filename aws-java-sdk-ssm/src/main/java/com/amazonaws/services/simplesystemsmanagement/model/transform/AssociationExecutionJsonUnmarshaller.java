@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -79,6 +79,16 @@ public class AssociationExecutionJsonUnmarshaller implements Unmarshaller<Associ
                 if (context.testExpression("ResourceCountByStatus", targetDepth)) {
                     context.nextToken();
                     associationExecution.setResourceCountByStatus(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("AlarmConfiguration", targetDepth)) {
+                    context.nextToken();
+                    associationExecution.setAlarmConfiguration(AlarmConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("TriggeredAlarms", targetDepth)) {
+                    context.nextToken();
+                    associationExecution.setTriggeredAlarms(new ListUnmarshaller<AlarmStateInformation>(AlarmStateInformationJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

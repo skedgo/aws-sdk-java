@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -136,13 +136,61 @@ public class EndpointJsonUnmarshaller implements Unmarshaller<Endpoint, JsonUnma
                     context.nextToken();
                     endpoint.setKinesisSettings(KinesisSettingsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("KafkaSettings", targetDepth)) {
+                    context.nextToken();
+                    endpoint.setKafkaSettings(KafkaSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("ElasticsearchSettings", targetDepth)) {
                     context.nextToken();
                     endpoint.setElasticsearchSettings(ElasticsearchSettingsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("NeptuneSettings", targetDepth)) {
+                    context.nextToken();
+                    endpoint.setNeptuneSettings(NeptuneSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("RedshiftSettings", targetDepth)) {
                     context.nextToken();
                     endpoint.setRedshiftSettings(RedshiftSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("PostgreSQLSettings", targetDepth)) {
+                    context.nextToken();
+                    endpoint.setPostgreSQLSettings(PostgreSQLSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("MySQLSettings", targetDepth)) {
+                    context.nextToken();
+                    endpoint.setMySQLSettings(MySQLSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("OracleSettings", targetDepth)) {
+                    context.nextToken();
+                    endpoint.setOracleSettings(OracleSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("SybaseSettings", targetDepth)) {
+                    context.nextToken();
+                    endpoint.setSybaseSettings(SybaseSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("MicrosoftSQLServerSettings", targetDepth)) {
+                    context.nextToken();
+                    endpoint.setMicrosoftSQLServerSettings(MicrosoftSQLServerSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("IBMDb2Settings", targetDepth)) {
+                    context.nextToken();
+                    endpoint.setIBMDb2Settings(IBMDb2SettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("DocDbSettings", targetDepth)) {
+                    context.nextToken();
+                    endpoint.setDocDbSettings(DocDbSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("RedisSettings", targetDepth)) {
+                    context.nextToken();
+                    endpoint.setRedisSettings(RedisSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("GcpMySQLSettings", targetDepth)) {
+                    context.nextToken();
+                    endpoint.setGcpMySQLSettings(GcpMySQLSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("TimestreamSettings", targetDepth)) {
+                    context.nextToken();
+                    endpoint.setTimestreamSettings(TimestreamSettingsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -22,6 +22,16 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * Contains an array of <code>Transition</code> objects specifying how long in days before a recovery point transitions
  * to cold storage or is deleted.
  * </p>
+ * <p>
+ * Backups transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore, on the
+ * console, the “retention” setting must be 90 days greater than the “transition to cold after days” setting. The
+ * “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+ * </p>
+ * <p>
+ * Resource types that are able to be transitioned to cold storage are listed in the "Lifecycle to cold storage" section
+ * of the <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource">
+ * Feature availability by resource</a> table. Backup ignores this expression for other resource types.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/Lifecycle" target="_top">AWS API
  *      Documentation</a>
@@ -37,11 +47,18 @@ public class Lifecycle implements Serializable, Cloneable, StructuredPojo {
     private Long moveToColdStorageAfterDays;
     /**
      * <p>
-     * Specifies the number of days after creation that a recovery point is deleted. Must be greater than
+     * Specifies the number of days after creation that a recovery point is deleted. Must be greater than 90 days plus
      * <code>MoveToColdStorageAfterDays</code>.
      * </p>
      */
     private Long deleteAfterDays;
+    /**
+     * <p>
+     * Optional Boolean. If this is true, this setting will instruct your backup plan to transition supported resources
+     * to archive (cold) storage tier in accordance with your lifecycle settings.
+     * </p>
+     */
+    private Boolean optInToArchiveForSupportedResources;
 
     /**
      * <p>
@@ -85,13 +102,13 @@ public class Lifecycle implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the number of days after creation that a recovery point is deleted. Must be greater than
+     * Specifies the number of days after creation that a recovery point is deleted. Must be greater than 90 days plus
      * <code>MoveToColdStorageAfterDays</code>.
      * </p>
      * 
      * @param deleteAfterDays
-     *        Specifies the number of days after creation that a recovery point is deleted. Must be greater than
-     *        <code>MoveToColdStorageAfterDays</code>.
+     *        Specifies the number of days after creation that a recovery point is deleted. Must be greater than 90 days
+     *        plus <code>MoveToColdStorageAfterDays</code>.
      */
 
     public void setDeleteAfterDays(Long deleteAfterDays) {
@@ -100,12 +117,12 @@ public class Lifecycle implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the number of days after creation that a recovery point is deleted. Must be greater than
+     * Specifies the number of days after creation that a recovery point is deleted. Must be greater than 90 days plus
      * <code>MoveToColdStorageAfterDays</code>.
      * </p>
      * 
-     * @return Specifies the number of days after creation that a recovery point is deleted. Must be greater than
-     *         <code>MoveToColdStorageAfterDays</code>.
+     * @return Specifies the number of days after creation that a recovery point is deleted. Must be greater than 90
+     *         days plus <code>MoveToColdStorageAfterDays</code>.
      */
 
     public Long getDeleteAfterDays() {
@@ -114,19 +131,79 @@ public class Lifecycle implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the number of days after creation that a recovery point is deleted. Must be greater than
+     * Specifies the number of days after creation that a recovery point is deleted. Must be greater than 90 days plus
      * <code>MoveToColdStorageAfterDays</code>.
      * </p>
      * 
      * @param deleteAfterDays
-     *        Specifies the number of days after creation that a recovery point is deleted. Must be greater than
-     *        <code>MoveToColdStorageAfterDays</code>.
+     *        Specifies the number of days after creation that a recovery point is deleted. Must be greater than 90 days
+     *        plus <code>MoveToColdStorageAfterDays</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Lifecycle withDeleteAfterDays(Long deleteAfterDays) {
         setDeleteAfterDays(deleteAfterDays);
         return this;
+    }
+
+    /**
+     * <p>
+     * Optional Boolean. If this is true, this setting will instruct your backup plan to transition supported resources
+     * to archive (cold) storage tier in accordance with your lifecycle settings.
+     * </p>
+     * 
+     * @param optInToArchiveForSupportedResources
+     *        Optional Boolean. If this is true, this setting will instruct your backup plan to transition supported
+     *        resources to archive (cold) storage tier in accordance with your lifecycle settings.
+     */
+
+    public void setOptInToArchiveForSupportedResources(Boolean optInToArchiveForSupportedResources) {
+        this.optInToArchiveForSupportedResources = optInToArchiveForSupportedResources;
+    }
+
+    /**
+     * <p>
+     * Optional Boolean. If this is true, this setting will instruct your backup plan to transition supported resources
+     * to archive (cold) storage tier in accordance with your lifecycle settings.
+     * </p>
+     * 
+     * @return Optional Boolean. If this is true, this setting will instruct your backup plan to transition supported
+     *         resources to archive (cold) storage tier in accordance with your lifecycle settings.
+     */
+
+    public Boolean getOptInToArchiveForSupportedResources() {
+        return this.optInToArchiveForSupportedResources;
+    }
+
+    /**
+     * <p>
+     * Optional Boolean. If this is true, this setting will instruct your backup plan to transition supported resources
+     * to archive (cold) storage tier in accordance with your lifecycle settings.
+     * </p>
+     * 
+     * @param optInToArchiveForSupportedResources
+     *        Optional Boolean. If this is true, this setting will instruct your backup plan to transition supported
+     *        resources to archive (cold) storage tier in accordance with your lifecycle settings.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Lifecycle withOptInToArchiveForSupportedResources(Boolean optInToArchiveForSupportedResources) {
+        setOptInToArchiveForSupportedResources(optInToArchiveForSupportedResources);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Optional Boolean. If this is true, this setting will instruct your backup plan to transition supported resources
+     * to archive (cold) storage tier in accordance with your lifecycle settings.
+     * </p>
+     * 
+     * @return Optional Boolean. If this is true, this setting will instruct your backup plan to transition supported
+     *         resources to archive (cold) storage tier in accordance with your lifecycle settings.
+     */
+
+    public Boolean isOptInToArchiveForSupportedResources() {
+        return this.optInToArchiveForSupportedResources;
     }
 
     /**
@@ -144,7 +221,9 @@ public class Lifecycle implements Serializable, Cloneable, StructuredPojo {
         if (getMoveToColdStorageAfterDays() != null)
             sb.append("MoveToColdStorageAfterDays: ").append(getMoveToColdStorageAfterDays()).append(",");
         if (getDeleteAfterDays() != null)
-            sb.append("DeleteAfterDays: ").append(getDeleteAfterDays());
+            sb.append("DeleteAfterDays: ").append(getDeleteAfterDays()).append(",");
+        if (getOptInToArchiveForSupportedResources() != null)
+            sb.append("OptInToArchiveForSupportedResources: ").append(getOptInToArchiveForSupportedResources());
         sb.append("}");
         return sb.toString();
     }
@@ -167,6 +246,11 @@ public class Lifecycle implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getDeleteAfterDays() != null && other.getDeleteAfterDays().equals(this.getDeleteAfterDays()) == false)
             return false;
+        if (other.getOptInToArchiveForSupportedResources() == null ^ this.getOptInToArchiveForSupportedResources() == null)
+            return false;
+        if (other.getOptInToArchiveForSupportedResources() != null
+                && other.getOptInToArchiveForSupportedResources().equals(this.getOptInToArchiveForSupportedResources()) == false)
+            return false;
         return true;
     }
 
@@ -177,6 +261,7 @@ public class Lifecycle implements Serializable, Cloneable, StructuredPojo {
 
         hashCode = prime * hashCode + ((getMoveToColdStorageAfterDays() == null) ? 0 : getMoveToColdStorageAfterDays().hashCode());
         hashCode = prime * hashCode + ((getDeleteAfterDays() == null) ? 0 : getDeleteAfterDays().hashCode());
+        hashCode = prime * hashCode + ((getOptInToArchiveForSupportedResources() == null) ? 0 : getOptInToArchiveForSupportedResources().hashCode());
         return hashCode;
     }
 

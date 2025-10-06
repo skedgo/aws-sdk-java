@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,8 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class CreateBrokerRequestMarshaller {
 
+    private static final MarshallingInfo<String> AUTHENTICATIONSTRATEGY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("authenticationStrategy").build();
     private static final MarshallingInfo<Boolean> AUTOMINORVERSIONUPGRADE_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("autoMinorVersionUpgrade").build();
     private static final MarshallingInfo<String> BROKERNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -50,6 +52,8 @@ public class CreateBrokerRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("engineVersion").build();
     private static final MarshallingInfo<String> HOSTINSTANCETYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("hostInstanceType").build();
+    private static final MarshallingInfo<StructuredPojo> LDAPSERVERMETADATA_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ldapServerMetadata").build();
     private static final MarshallingInfo<StructuredPojo> LOGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("logs").build();
     private static final MarshallingInfo<StructuredPojo> MAINTENANCEWINDOWSTARTTIME_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
@@ -58,12 +62,18 @@ public class CreateBrokerRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("publiclyAccessible").build();
     private static final MarshallingInfo<List> SECURITYGROUPS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("securityGroups").build();
+    private static final MarshallingInfo<String> STORAGETYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("storageType").build();
     private static final MarshallingInfo<List> SUBNETIDS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("subnetIds").build();
     private static final MarshallingInfo<Map> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("tags").build();
     private static final MarshallingInfo<List> USERS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("users").build();
+    private static final MarshallingInfo<String> DATAREPLICATIONMODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("dataReplicationMode").build();
+    private static final MarshallingInfo<String> DATAREPLICATIONPRIMARYBROKERARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("dataReplicationPrimaryBrokerArn").build();
 
     private static final CreateBrokerRequestMarshaller instance = new CreateBrokerRequestMarshaller();
 
@@ -81,6 +91,7 @@ public class CreateBrokerRequestMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(createBrokerRequest.getAuthenticationStrategy(), AUTHENTICATIONSTRATEGY_BINDING);
             protocolMarshaller.marshall(createBrokerRequest.getAutoMinorVersionUpgrade(), AUTOMINORVERSIONUPGRADE_BINDING);
             protocolMarshaller.marshall(createBrokerRequest.getBrokerName(), BROKERNAME_BINDING);
             protocolMarshaller.marshall(createBrokerRequest.getConfiguration(), CONFIGURATION_BINDING);
@@ -90,13 +101,17 @@ public class CreateBrokerRequestMarshaller {
             protocolMarshaller.marshall(createBrokerRequest.getEngineType(), ENGINETYPE_BINDING);
             protocolMarshaller.marshall(createBrokerRequest.getEngineVersion(), ENGINEVERSION_BINDING);
             protocolMarshaller.marshall(createBrokerRequest.getHostInstanceType(), HOSTINSTANCETYPE_BINDING);
+            protocolMarshaller.marshall(createBrokerRequest.getLdapServerMetadata(), LDAPSERVERMETADATA_BINDING);
             protocolMarshaller.marshall(createBrokerRequest.getLogs(), LOGS_BINDING);
             protocolMarshaller.marshall(createBrokerRequest.getMaintenanceWindowStartTime(), MAINTENANCEWINDOWSTARTTIME_BINDING);
             protocolMarshaller.marshall(createBrokerRequest.getPubliclyAccessible(), PUBLICLYACCESSIBLE_BINDING);
             protocolMarshaller.marshall(createBrokerRequest.getSecurityGroups(), SECURITYGROUPS_BINDING);
+            protocolMarshaller.marshall(createBrokerRequest.getStorageType(), STORAGETYPE_BINDING);
             protocolMarshaller.marshall(createBrokerRequest.getSubnetIds(), SUBNETIDS_BINDING);
             protocolMarshaller.marshall(createBrokerRequest.getTags(), TAGS_BINDING);
             protocolMarshaller.marshall(createBrokerRequest.getUsers(), USERS_BINDING);
+            protocolMarshaller.marshall(createBrokerRequest.getDataReplicationMode(), DATAREPLICATIONMODE_BINDING);
+            protocolMarshaller.marshall(createBrokerRequest.getDataReplicationPrimaryBrokerArn(), DATAREPLICATIONPRIMARYBROKERARN_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

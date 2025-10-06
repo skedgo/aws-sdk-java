@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -11,6 +11,8 @@
  * and limitations under the License.
  */
 package com.amazonaws.services.rds.model.transform;
+
+import java.util.ArrayList;
 
 import javax.xml.stream.events.XMLEvent;
 import javax.annotation.Generated;
@@ -155,6 +157,52 @@ public class DBInstanceAutomatedBackupStaxUnmarshaller implements Unmarshaller<D
 
                 if (context.testExpression("IAMDatabaseAuthenticationEnabled", targetDepth)) {
                     dBInstanceAutomatedBackup.setIAMDatabaseAuthenticationEnabled(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("BackupRetentionPeriod", targetDepth)) {
+                    dBInstanceAutomatedBackup.setBackupRetentionPeriod(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("DBInstanceAutomatedBackupsArn", targetDepth)) {
+                    dBInstanceAutomatedBackup.setDBInstanceAutomatedBackupsArn(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("DBInstanceAutomatedBackupsReplications", targetDepth)) {
+                    dBInstanceAutomatedBackup.withDBInstanceAutomatedBackupsReplications(new ArrayList<DBInstanceAutomatedBackupsReplication>());
+                    continue;
+                }
+
+                if (context.testExpression("DBInstanceAutomatedBackupsReplications/DBInstanceAutomatedBackupsReplication", targetDepth)) {
+                    dBInstanceAutomatedBackup.withDBInstanceAutomatedBackupsReplications(DBInstanceAutomatedBackupsReplicationStaxUnmarshaller.getInstance()
+                            .unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("BackupTarget", targetDepth)) {
+                    dBInstanceAutomatedBackup.setBackupTarget(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("StorageThroughput", targetDepth)) {
+                    dBInstanceAutomatedBackup.setStorageThroughput(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("AwsBackupRecoveryPointArn", targetDepth)) {
+                    dBInstanceAutomatedBackup.setAwsBackupRecoveryPointArn(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("DedicatedLogVolume", targetDepth)) {
+                    dBInstanceAutomatedBackup.setDedicatedLogVolume(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("MultiTenant", targetDepth)) {
+                    dBInstanceAutomatedBackup.setMultiTenant(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

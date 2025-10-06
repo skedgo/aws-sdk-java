@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.sagemakerruntime.AmazonSageMakerRuntimeClientBuild
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.sagemakerruntime.model.*;
+
 import com.amazonaws.services.sagemakerruntime.model.transform.*;
 
 /**
@@ -76,19 +77,25 @@ public class AmazonSageMakerRuntimeClient extends AmazonWebServiceClient impleme
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalFailure").withModeledClass(
-                                    com.amazonaws.services.sagemakerruntime.model.InternalFailureException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalFailure").withExceptionUnmarshaller(
+                                    com.amazonaws.services.sagemakerruntime.model.transform.InternalFailureExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ModelError").withModeledClass(
-                                    com.amazonaws.services.sagemakerruntime.model.ModelErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ModelError").withExceptionUnmarshaller(
+                                    com.amazonaws.services.sagemakerruntime.model.transform.ModelErrorExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ValidationError").withModeledClass(
-                                    com.amazonaws.services.sagemakerruntime.model.ValidationErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalDependencyException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.sagemakerruntime.model.transform.InternalDependencyExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailable").withModeledClass(
-                                    com.amazonaws.services.sagemakerruntime.model.ServiceUnavailableException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ValidationError").withExceptionUnmarshaller(
+                                    com.amazonaws.services.sagemakerruntime.model.transform.ValidationErrorExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ModelNotReadyException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.sagemakerruntime.model.transform.ModelNotReadyExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailable").withExceptionUnmarshaller(
+                                    com.amazonaws.services.sagemakerruntime.model.transform.ServiceUnavailableExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.sagemakerruntime.model.AmazonSageMakerRuntimeException.class));
 
     public static AmazonSageMakerRuntimeClientBuilder builder() {
@@ -144,16 +151,22 @@ public class AmazonSageMakerRuntimeClient extends AmazonWebServiceClient impleme
      * </p>
      * <p>
      * For an overview of Amazon SageMaker, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/how-it-works.html">How It Works</a>.
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/how-it-works.html">How It Works</a>.
      * </p>
      * <p>
      * Amazon SageMaker strips all POST headers except those supported by the API. Amazon SageMaker might add additional
      * headers. You should not rely on the behavior of headers outside those enumerated in the request syntax.
      * </p>
      * <p>
-     * Cals to <code>InvokeEndpoint</code> are authenticated by using AWS Signature Version 4. For information, see <a
-     * href="http://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html">Authenticating Requests
-     * (AWS Signature Version 4)</a> in the <i>Amazon S3 API Reference</i>.
+     * Calls to <code>InvokeEndpoint</code> are authenticated by using Amazon Web Services Signature Version 4. For
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html">Authenticating
+     * Requests (Amazon Web Services Signature Version 4)</a> in the <i>Amazon S3 API Reference</i>.
+     * </p>
+     * <p>
+     * A customer's model containers must respond to requests within 60 seconds. The model itself can have a maximum
+     * processing time of 60 seconds before responding to invocations. If your model is going to take 50-60 seconds of
+     * processing time, the SDK socket timeout should be set to be 70 seconds.
      * </p>
      * <note>
      * <p>
@@ -171,7 +184,12 @@ public class AmazonSageMakerRuntimeClient extends AmazonWebServiceClient impleme
      * @throws ValidationErrorException
      *         Inspect your request and try again.
      * @throws ModelErrorException
-     *         Model (owned by the customer in the container) returned an error 500.
+     *         Model (owned by the customer in the container) returned 4xx or 5xx error code.
+     * @throws InternalDependencyException
+     *         Your request caused an exception with an internal dependency. Contact customer support.
+     * @throws ModelNotReadyException
+     *         Either a serverless endpoint variant's resources are still being provisioned, or a multi-model endpoint
+     *         is still downloading or loading the target model. Wait and try your request again.
      * @sample AmazonSageMakerRuntime.InvokeEndpoint
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/runtime.sagemaker-2017-05-13/InvokeEndpoint"
      *      target="_top">AWS API Documentation</a>
@@ -197,6 +215,8 @@ public class AmazonSageMakerRuntimeClient extends AmazonWebServiceClient impleme
                 request = new InvokeEndpointRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(invokeEndpointRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SageMaker Runtime");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "InvokeEndpoint");
@@ -208,6 +228,83 @@ public class AmazonSageMakerRuntimeClient extends AmazonWebServiceClient impleme
 
             HttpResponseHandler<AmazonWebServiceResponse<InvokeEndpointResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(false).withHasStreamingSuccessResponse(false), new InvokeEndpointResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * After you deploy a model into production using Amazon SageMaker hosting services, your client applications use
+     * this API to get inferences from the model hosted at the specified endpoint in an asynchronous manner.
+     * </p>
+     * <p>
+     * Inference requests sent to this API are enqueued for asynchronous processing. The processing of the inference
+     * request may or may not complete before you receive a response from this API. The response from this API will not
+     * contain the result of the inference request but contain information about where you can locate it.
+     * </p>
+     * <p>
+     * Amazon SageMaker strips all POST headers except those supported by the API. Amazon SageMaker might add additional
+     * headers. You should not rely on the behavior of headers outside those enumerated in the request syntax.
+     * </p>
+     * <p>
+     * Calls to <code>InvokeEndpointAsync</code> are authenticated by using Amazon Web Services Signature Version 4. For
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html">Authenticating
+     * Requests (Amazon Web Services Signature Version 4)</a> in the <i>Amazon S3 API Reference</i>.
+     * </p>
+     * 
+     * @param invokeEndpointAsyncRequest
+     * @return Result of the InvokeEndpointAsync operation returned by the service.
+     * @throws InternalFailureException
+     *         An internal failure occurred.
+     * @throws ServiceUnavailableException
+     *         The service is unavailable. Try your call again.
+     * @throws ValidationErrorException
+     *         Inspect your request and try again.
+     * @sample AmazonSageMakerRuntime.InvokeEndpointAsync
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/runtime.sagemaker-2017-05-13/InvokeEndpointAsync"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public InvokeEndpointAsyncResult invokeEndpointAsync(InvokeEndpointAsyncRequest request) {
+        request = beforeClientExecution(request);
+        return executeInvokeEndpointAsync(request);
+    }
+
+    @SdkInternalApi
+    final InvokeEndpointAsyncResult executeInvokeEndpointAsync(InvokeEndpointAsyncRequest invokeEndpointAsyncRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(invokeEndpointAsyncRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<InvokeEndpointAsyncRequest> request = null;
+        Response<InvokeEndpointAsyncResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new InvokeEndpointAsyncRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(invokeEndpointAsyncRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SageMaker Runtime");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "InvokeEndpointAsync");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<InvokeEndpointAsyncResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new InvokeEndpointAsyncResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -292,6 +389,11 @@ public class AmazonSageMakerRuntimeClient extends AmazonWebServiceClient impleme
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,7 +46,7 @@ public class DescribeTransformJobResult extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * If the transform job failed, <code>FailureReason</code> describes why it failed. A transform job creates a log
      * file, which includes error messages, and stores it as an Amazon S3 object. For more information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/logging-cloudwatch.html">Log Amazon SageMaker Events with
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/logging-cloudwatch.html">Log Amazon SageMaker Events with
      * Amazon CloudWatch</a>.
      * </p>
      */
@@ -64,6 +64,12 @@ public class DescribeTransformJobResult extends com.amazonaws.AmazonWebServiceRe
      * </p>
      */
     private Integer maxConcurrentTransforms;
+    /**
+     * <p>
+     * The timeout and maximum number of retries for processing a transform job invocation.
+     * </p>
+     */
+    private ModelClientConfig modelClientConfig;
     /**
      * <p>
      * The maximum payload size, in MB, used in the transform job.
@@ -101,6 +107,12 @@ public class DescribeTransformJobResult extends com.amazonaws.AmazonWebServiceRe
     private TransformOutput transformOutput;
     /**
      * <p>
+     * Configuration to control how SageMaker captures inference data.
+     * </p>
+     */
+    private BatchDataCaptureConfig dataCaptureConfig;
+    /**
+     * <p>
      * Describes the resources, including ML instance types and ML instance count, to use for the transform job.
      * </p>
      */
@@ -132,8 +144,16 @@ public class DescribeTransformJobResult extends com.amazonaws.AmazonWebServiceRe
      * </p>
      */
     private String labelingJobArn;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the AutoML transform job.
+     * </p>
+     */
+    private String autoMLJobArn;
 
     private DataProcessing dataProcessing;
+
+    private ExperimentConfig experimentConfig;
 
     /**
      * <p>
@@ -286,14 +306,14 @@ public class DescribeTransformJobResult extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * If the transform job failed, <code>FailureReason</code> describes why it failed. A transform job creates a log
      * file, which includes error messages, and stores it as an Amazon S3 object. For more information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/logging-cloudwatch.html">Log Amazon SageMaker Events with
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/logging-cloudwatch.html">Log Amazon SageMaker Events with
      * Amazon CloudWatch</a>.
      * </p>
      * 
      * @param failureReason
      *        If the transform job failed, <code>FailureReason</code> describes why it failed. A transform job creates a
      *        log file, which includes error messages, and stores it as an Amazon S3 object. For more information, see
-     *        <a href="http://docs.aws.amazon.com/sagemaker/latest/dg/logging-cloudwatch.html">Log Amazon SageMaker
+     *        <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/logging-cloudwatch.html">Log Amazon SageMaker
      *        Events with Amazon CloudWatch</a>.
      */
 
@@ -305,14 +325,14 @@ public class DescribeTransformJobResult extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * If the transform job failed, <code>FailureReason</code> describes why it failed. A transform job creates a log
      * file, which includes error messages, and stores it as an Amazon S3 object. For more information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/logging-cloudwatch.html">Log Amazon SageMaker Events with
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/logging-cloudwatch.html">Log Amazon SageMaker Events with
      * Amazon CloudWatch</a>.
      * </p>
      * 
      * @return If the transform job failed, <code>FailureReason</code> describes why it failed. A transform job creates
      *         a log file, which includes error messages, and stores it as an Amazon S3 object. For more information,
-     *         see <a href="http://docs.aws.amazon.com/sagemaker/latest/dg/logging-cloudwatch.html">Log Amazon SageMaker
-     *         Events with Amazon CloudWatch</a>.
+     *         see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/logging-cloudwatch.html">Log Amazon
+     *         SageMaker Events with Amazon CloudWatch</a>.
      */
 
     public String getFailureReason() {
@@ -323,14 +343,14 @@ public class DescribeTransformJobResult extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * If the transform job failed, <code>FailureReason</code> describes why it failed. A transform job creates a log
      * file, which includes error messages, and stores it as an Amazon S3 object. For more information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/logging-cloudwatch.html">Log Amazon SageMaker Events with
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/logging-cloudwatch.html">Log Amazon SageMaker Events with
      * Amazon CloudWatch</a>.
      * </p>
      * 
      * @param failureReason
      *        If the transform job failed, <code>FailureReason</code> describes why it failed. A transform job creates a
      *        log file, which includes error messages, and stores it as an Amazon S3 object. For more information, see
-     *        <a href="http://docs.aws.amazon.com/sagemaker/latest/dg/logging-cloudwatch.html">Log Amazon SageMaker
+     *        <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/logging-cloudwatch.html">Log Amazon SageMaker
      *        Events with Amazon CloudWatch</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -423,6 +443,46 @@ public class DescribeTransformJobResult extends com.amazonaws.AmazonWebServiceRe
 
     public DescribeTransformJobResult withMaxConcurrentTransforms(Integer maxConcurrentTransforms) {
         setMaxConcurrentTransforms(maxConcurrentTransforms);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The timeout and maximum number of retries for processing a transform job invocation.
+     * </p>
+     * 
+     * @param modelClientConfig
+     *        The timeout and maximum number of retries for processing a transform job invocation.
+     */
+
+    public void setModelClientConfig(ModelClientConfig modelClientConfig) {
+        this.modelClientConfig = modelClientConfig;
+    }
+
+    /**
+     * <p>
+     * The timeout and maximum number of retries for processing a transform job invocation.
+     * </p>
+     * 
+     * @return The timeout and maximum number of retries for processing a transform job invocation.
+     */
+
+    public ModelClientConfig getModelClientConfig() {
+        return this.modelClientConfig;
+    }
+
+    /**
+     * <p>
+     * The timeout and maximum number of retries for processing a transform job invocation.
+     * </p>
+     * 
+     * @param modelClientConfig
+     *        The timeout and maximum number of retries for processing a transform job invocation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeTransformJobResult withModelClientConfig(ModelClientConfig modelClientConfig) {
+        setModelClientConfig(modelClientConfig);
         return this;
     }
 
@@ -608,6 +668,13 @@ public class DescribeTransformJobResult extends com.amazonaws.AmazonWebServiceRe
         return this;
     }
 
+    /**
+     * Add a single Environment entry
+     *
+     * @see DescribeTransformJobResult#withEnvironment
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public DescribeTransformJobResult addEnvironmentEntry(String key, String value) {
         if (null == this.environment) {
             this.environment = new java.util.HashMap<String, String>();
@@ -709,6 +776,46 @@ public class DescribeTransformJobResult extends com.amazonaws.AmazonWebServiceRe
 
     public DescribeTransformJobResult withTransformOutput(TransformOutput transformOutput) {
         setTransformOutput(transformOutput);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Configuration to control how SageMaker captures inference data.
+     * </p>
+     * 
+     * @param dataCaptureConfig
+     *        Configuration to control how SageMaker captures inference data.
+     */
+
+    public void setDataCaptureConfig(BatchDataCaptureConfig dataCaptureConfig) {
+        this.dataCaptureConfig = dataCaptureConfig;
+    }
+
+    /**
+     * <p>
+     * Configuration to control how SageMaker captures inference data.
+     * </p>
+     * 
+     * @return Configuration to control how SageMaker captures inference data.
+     */
+
+    public BatchDataCaptureConfig getDataCaptureConfig() {
+        return this.dataCaptureConfig;
+    }
+
+    /**
+     * <p>
+     * Configuration to control how SageMaker captures inference data.
+     * </p>
+     * 
+     * @param dataCaptureConfig
+     *        Configuration to control how SageMaker captures inference data.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeTransformJobResult withDataCaptureConfig(BatchDataCaptureConfig dataCaptureConfig) {
+        setDataCaptureConfig(dataCaptureConfig);
         return this;
     }
 
@@ -931,6 +1038,46 @@ public class DescribeTransformJobResult extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the AutoML transform job.
+     * </p>
+     * 
+     * @param autoMLJobArn
+     *        The Amazon Resource Name (ARN) of the AutoML transform job.
+     */
+
+    public void setAutoMLJobArn(String autoMLJobArn) {
+        this.autoMLJobArn = autoMLJobArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the AutoML transform job.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the AutoML transform job.
+     */
+
+    public String getAutoMLJobArn() {
+        return this.autoMLJobArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the AutoML transform job.
+     * </p>
+     * 
+     * @param autoMLJobArn
+     *        The Amazon Resource Name (ARN) of the AutoML transform job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeTransformJobResult withAutoMLJobArn(String autoMLJobArn) {
+        setAutoMLJobArn(autoMLJobArn);
+        return this;
+    }
+
+    /**
      * @param dataProcessing
      */
 
@@ -953,6 +1100,32 @@ public class DescribeTransformJobResult extends com.amazonaws.AmazonWebServiceRe
 
     public DescribeTransformJobResult withDataProcessing(DataProcessing dataProcessing) {
         setDataProcessing(dataProcessing);
+        return this;
+    }
+
+    /**
+     * @param experimentConfig
+     */
+
+    public void setExperimentConfig(ExperimentConfig experimentConfig) {
+        this.experimentConfig = experimentConfig;
+    }
+
+    /**
+     * @return
+     */
+
+    public ExperimentConfig getExperimentConfig() {
+        return this.experimentConfig;
+    }
+
+    /**
+     * @param experimentConfig
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeTransformJobResult withExperimentConfig(ExperimentConfig experimentConfig) {
+        setExperimentConfig(experimentConfig);
         return this;
     }
 
@@ -980,6 +1153,8 @@ public class DescribeTransformJobResult extends com.amazonaws.AmazonWebServiceRe
             sb.append("ModelName: ").append(getModelName()).append(",");
         if (getMaxConcurrentTransforms() != null)
             sb.append("MaxConcurrentTransforms: ").append(getMaxConcurrentTransforms()).append(",");
+        if (getModelClientConfig() != null)
+            sb.append("ModelClientConfig: ").append(getModelClientConfig()).append(",");
         if (getMaxPayloadInMB() != null)
             sb.append("MaxPayloadInMB: ").append(getMaxPayloadInMB()).append(",");
         if (getBatchStrategy() != null)
@@ -990,6 +1165,8 @@ public class DescribeTransformJobResult extends com.amazonaws.AmazonWebServiceRe
             sb.append("TransformInput: ").append(getTransformInput()).append(",");
         if (getTransformOutput() != null)
             sb.append("TransformOutput: ").append(getTransformOutput()).append(",");
+        if (getDataCaptureConfig() != null)
+            sb.append("DataCaptureConfig: ").append(getDataCaptureConfig()).append(",");
         if (getTransformResources() != null)
             sb.append("TransformResources: ").append(getTransformResources()).append(",");
         if (getCreationTime() != null)
@@ -1000,8 +1177,12 @@ public class DescribeTransformJobResult extends com.amazonaws.AmazonWebServiceRe
             sb.append("TransformEndTime: ").append(getTransformEndTime()).append(",");
         if (getLabelingJobArn() != null)
             sb.append("LabelingJobArn: ").append(getLabelingJobArn()).append(",");
+        if (getAutoMLJobArn() != null)
+            sb.append("AutoMLJobArn: ").append(getAutoMLJobArn()).append(",");
         if (getDataProcessing() != null)
-            sb.append("DataProcessing: ").append(getDataProcessing());
+            sb.append("DataProcessing: ").append(getDataProcessing()).append(",");
+        if (getExperimentConfig() != null)
+            sb.append("ExperimentConfig: ").append(getExperimentConfig());
         sb.append("}");
         return sb.toString();
     }
@@ -1040,6 +1221,10 @@ public class DescribeTransformJobResult extends com.amazonaws.AmazonWebServiceRe
             return false;
         if (other.getMaxConcurrentTransforms() != null && other.getMaxConcurrentTransforms().equals(this.getMaxConcurrentTransforms()) == false)
             return false;
+        if (other.getModelClientConfig() == null ^ this.getModelClientConfig() == null)
+            return false;
+        if (other.getModelClientConfig() != null && other.getModelClientConfig().equals(this.getModelClientConfig()) == false)
+            return false;
         if (other.getMaxPayloadInMB() == null ^ this.getMaxPayloadInMB() == null)
             return false;
         if (other.getMaxPayloadInMB() != null && other.getMaxPayloadInMB().equals(this.getMaxPayloadInMB()) == false)
@@ -1059,6 +1244,10 @@ public class DescribeTransformJobResult extends com.amazonaws.AmazonWebServiceRe
         if (other.getTransformOutput() == null ^ this.getTransformOutput() == null)
             return false;
         if (other.getTransformOutput() != null && other.getTransformOutput().equals(this.getTransformOutput()) == false)
+            return false;
+        if (other.getDataCaptureConfig() == null ^ this.getDataCaptureConfig() == null)
+            return false;
+        if (other.getDataCaptureConfig() != null && other.getDataCaptureConfig().equals(this.getDataCaptureConfig()) == false)
             return false;
         if (other.getTransformResources() == null ^ this.getTransformResources() == null)
             return false;
@@ -1080,9 +1269,17 @@ public class DescribeTransformJobResult extends com.amazonaws.AmazonWebServiceRe
             return false;
         if (other.getLabelingJobArn() != null && other.getLabelingJobArn().equals(this.getLabelingJobArn()) == false)
             return false;
+        if (other.getAutoMLJobArn() == null ^ this.getAutoMLJobArn() == null)
+            return false;
+        if (other.getAutoMLJobArn() != null && other.getAutoMLJobArn().equals(this.getAutoMLJobArn()) == false)
+            return false;
         if (other.getDataProcessing() == null ^ this.getDataProcessing() == null)
             return false;
         if (other.getDataProcessing() != null && other.getDataProcessing().equals(this.getDataProcessing()) == false)
+            return false;
+        if (other.getExperimentConfig() == null ^ this.getExperimentConfig() == null)
+            return false;
+        if (other.getExperimentConfig() != null && other.getExperimentConfig().equals(this.getExperimentConfig()) == false)
             return false;
         return true;
     }
@@ -1098,17 +1295,21 @@ public class DescribeTransformJobResult extends com.amazonaws.AmazonWebServiceRe
         hashCode = prime * hashCode + ((getFailureReason() == null) ? 0 : getFailureReason().hashCode());
         hashCode = prime * hashCode + ((getModelName() == null) ? 0 : getModelName().hashCode());
         hashCode = prime * hashCode + ((getMaxConcurrentTransforms() == null) ? 0 : getMaxConcurrentTransforms().hashCode());
+        hashCode = prime * hashCode + ((getModelClientConfig() == null) ? 0 : getModelClientConfig().hashCode());
         hashCode = prime * hashCode + ((getMaxPayloadInMB() == null) ? 0 : getMaxPayloadInMB().hashCode());
         hashCode = prime * hashCode + ((getBatchStrategy() == null) ? 0 : getBatchStrategy().hashCode());
         hashCode = prime * hashCode + ((getEnvironment() == null) ? 0 : getEnvironment().hashCode());
         hashCode = prime * hashCode + ((getTransformInput() == null) ? 0 : getTransformInput().hashCode());
         hashCode = prime * hashCode + ((getTransformOutput() == null) ? 0 : getTransformOutput().hashCode());
+        hashCode = prime * hashCode + ((getDataCaptureConfig() == null) ? 0 : getDataCaptureConfig().hashCode());
         hashCode = prime * hashCode + ((getTransformResources() == null) ? 0 : getTransformResources().hashCode());
         hashCode = prime * hashCode + ((getCreationTime() == null) ? 0 : getCreationTime().hashCode());
         hashCode = prime * hashCode + ((getTransformStartTime() == null) ? 0 : getTransformStartTime().hashCode());
         hashCode = prime * hashCode + ((getTransformEndTime() == null) ? 0 : getTransformEndTime().hashCode());
         hashCode = prime * hashCode + ((getLabelingJobArn() == null) ? 0 : getLabelingJobArn().hashCode());
+        hashCode = prime * hashCode + ((getAutoMLJobArn() == null) ? 0 : getAutoMLJobArn().hashCode());
         hashCode = prime * hashCode + ((getDataProcessing() == null) ? 0 : getDataProcessing().hashCode());
+        hashCode = prime * hashCode + ((getExperimentConfig() == null) ? 0 : getExperimentConfig().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,6 +48,10 @@ public class AudioSelectorJsonUnmarshaller implements Unmarshaller<AudioSelector
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("audioDurationCorrection", targetDepth)) {
+                    context.nextToken();
+                    audioSelector.setAudioDurationCorrection(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("customLanguageCode", targetDepth)) {
                     context.nextToken();
                     audioSelector.setCustomLanguageCode(context.getUnmarshaller(String.class).unmarshall(context));
@@ -60,6 +64,10 @@ public class AudioSelectorJsonUnmarshaller implements Unmarshaller<AudioSelector
                     context.nextToken();
                     audioSelector.setExternalAudioFileInput(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("hlsRenditionGroupSettings", targetDepth)) {
+                    context.nextToken();
+                    audioSelector.setHlsRenditionGroupSettings(HlsRenditionGroupSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("languageCode", targetDepth)) {
                     context.nextToken();
                     audioSelector.setLanguageCode(context.getUnmarshaller(String.class).unmarshall(context));
@@ -70,7 +78,9 @@ public class AudioSelectorJsonUnmarshaller implements Unmarshaller<AudioSelector
                 }
                 if (context.testExpression("pids", targetDepth)) {
                     context.nextToken();
-                    audioSelector.setPids(new ListUnmarshaller<Integer>(context.getUnmarshaller(Integer.class)).unmarshall(context));
+                    audioSelector.setPids(new ListUnmarshaller<Integer>(context.getUnmarshaller(Integer.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("programSelection", targetDepth)) {
                     context.nextToken();
@@ -86,7 +96,9 @@ public class AudioSelectorJsonUnmarshaller implements Unmarshaller<AudioSelector
                 }
                 if (context.testExpression("tracks", targetDepth)) {
                     context.nextToken();
-                    audioSelector.setTracks(new ListUnmarshaller<Integer>(context.getUnmarshaller(Integer.class)).unmarshall(context));
+                    audioSelector.setTracks(new ListUnmarshaller<Integer>(context.getUnmarshaller(Integer.class))
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

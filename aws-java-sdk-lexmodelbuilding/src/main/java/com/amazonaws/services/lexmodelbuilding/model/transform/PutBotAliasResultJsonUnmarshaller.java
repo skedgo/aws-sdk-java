@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -75,6 +75,16 @@ public class PutBotAliasResultJsonUnmarshaller implements Unmarshaller<PutBotAli
                 if (context.testExpression("checksum", targetDepth)) {
                     context.nextToken();
                     putBotAliasResult.setChecksum(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("conversationLogs", targetDepth)) {
+                    context.nextToken();
+                    putBotAliasResult.setConversationLogs(ConversationLogsResponseJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("tags", targetDepth)) {
+                    context.nextToken();
+                    putBotAliasResult.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -52,8 +52,13 @@ public class EndpointDiscoveryGeneratorTasks extends BaseGeneratorTasks {
                     "endpointOperation", model.getEndpointOperation(),
                     "metadata", model.getMetadata());
 
-            generatorTasks.add(new FreemarkerGeneratorTask(endpointDiscoveryDir, cacheName, freemarker.getEndpointDiscoveryCacheTemplate(), cachedataModel));
-            generatorTasks.add(new FreemarkerGeneratorTask(endpointDiscoveryDir, cacheLoaderName, freemarker.getEndpointDiscoveryCacheLoaderTemplate(), loaderDataModel));
+            if (model.getEndpointOperation().isEndpointCacheRequired()) {
+                generatorTasks.add(new FreemarkerGeneratorTask(endpointDiscoveryDir, cacheName, freemarker.getEndpointDiscoveryIdentifiersCacheTemplate(), cachedataModel));
+                generatorTasks.add(new FreemarkerGeneratorTask(endpointDiscoveryDir, cacheLoaderName, freemarker.getEndpointDiscoveryIdentifiersCacheLoaderTemplate(), loaderDataModel));
+            } else {
+                generatorTasks.add(new FreemarkerGeneratorTask(endpointDiscoveryDir, cacheName, freemarker.getEndpointDiscoveryCacheTemplate(), cachedataModel));
+                generatorTasks.add(new FreemarkerGeneratorTask(endpointDiscoveryDir, cacheLoaderName, freemarker.getEndpointDiscoveryCacheLoaderTemplate(), loaderDataModel));
+            }
         }
 
         return generatorTasks;

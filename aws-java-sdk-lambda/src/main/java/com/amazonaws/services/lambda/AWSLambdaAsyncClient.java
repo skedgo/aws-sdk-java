@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,16 +30,101 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * representing the asynchronous operation; overloads which accept an {@code AsyncHandler} can be used to receive
  * notification when an asynchronous operation completes.
  * <p>
- * <fullname>AWS Lambda</fullname>
+ * <fullname>Lambda</fullname>
  * <p>
  * <b>Overview</b>
  * </p>
  * <p>
- * This is the <i>AWS Lambda API Reference</i>. The AWS Lambda Developer Guide provides additional information. For the
- * service overview, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/welcome.html">What is AWS Lambda</a>, and
- * for information about how the service works, see <a
- * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-introduction.html">AWS Lambda: How it Works</a> in the
- * <b>AWS Lambda Developer Guide</b>.
+ * Lambda is a compute service that lets you run code without provisioning or managing servers. Lambda runs your code on
+ * a high-availability compute infrastructure and performs all of the administration of the compute resources, including
+ * server and operating system maintenance, capacity provisioning and automatic scaling, code monitoring and logging.
+ * With Lambda, you can run code for virtually any type of application or backend service. For more information about
+ * the Lambda service, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/welcome.html">What is Lambda</a> in the
+ * <b>Lambda Developer Guide</b>.
+ * </p>
+ * <p>
+ * The <i>Lambda API Reference</i> provides information about each of the API methods, including details about the
+ * parameters in each API request and response.
+ * </p>
+ * <p/>
+ * <p>
+ * You can use Software Development Kits (SDKs), Integrated Development Environment (IDE) Toolkits, and command line
+ * tools to access the API. For installation instructions, see <a href="http://aws.amazon.com/tools/">Tools for Amazon
+ * Web Services</a>.
+ * </p>
+ * <p>
+ * For a list of Region-specific endpoints that Lambda supports, see <a
+ * href="https://docs.aws.amazon.com/general/latest/gr/lambda-service.html/">Lambda endpoints and quotas </a> in the
+ * <i>Amazon Web Services General Reference.</i>.
+ * </p>
+ * <p>
+ * When making the API calls, you will need to authenticate your request by providing a signature. Lambda supports
+ * signature version 4. For more information, see <a
+ * href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">Signature Version 4 signing process</a>
+ * in the <i>Amazon Web Services General Reference.</i>.
+ * </p>
+ * <p>
+ * <b>CA certificates</b>
+ * </p>
+ * <p>
+ * Because Amazon Web Services SDKs use the CA certificates from your computer, changes to the certificates on the
+ * Amazon Web Services servers can cause connection failures when you attempt to use an SDK. You can prevent these
+ * failures by keeping your computer's CA certificates and operating system up-to-date. If you encounter this issue in a
+ * corporate environment and do not manage your own computer, you might need to ask an administrator to assist with the
+ * update process. The following list shows minimum operating system and Java versions:
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * Microsoft Windows versions that have updates from January 2005 or later installed contain at least one of the
+ * required CAs in their trust list.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Mac OS X 10.4 with Java for Mac OS X 10.4 Release 5 (February 2007), Mac OS X 10.5 (October 2007), and later versions
+ * contain at least one of the required CAs in their trust list.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Red Hat Enterprise Linux 5 (March 2007), 6, and 7 and CentOS 5, 6, and 7 all contain at least one of the required CAs
+ * in their default trusted CA list.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Java 1.4.2_12 (May 2006), 5 Update 2 (March 2005), and all later versions, including Java 6 (December 2006), 7, and
+ * 8, contain at least one of the required CAs in their default trusted CA list.
+ * </p>
+ * </li>
+ * </ul>
+ * <p>
+ * When accessing the Lambda management console or Lambda API endpoints, whether through browsers or programmatically,
+ * you will need to ensure your client machines support any of the following CAs:
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * Amazon Root CA 1
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Starfield Services Root Certificate Authority - G2
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Starfield Class 2 Certification Authority
+ * </p>
+ * </li>
+ * </ul>
+ * <p>
+ * Root certificates from the first two authorities are available from <a
+ * href="https://www.amazontrust.com/repository/">Amazon trust services</a>, but keeping your computer up-to-date is the
+ * more straightforward solution. To learn more about ACM-provided certificates, see <a
+ * href="http://aws.amazon.com/certificate-manager/faqs/#certificates">Amazon Web Services Certificate Manager FAQs.</a>
  * </p>
  */
 @ThreadSafe
@@ -238,7 +323,19 @@ public class AWSLambdaAsyncClient extends AWSLambdaClient implements AWSLambdaAs
      *        Object providing client parameters.
      */
     AWSLambdaAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on AWS Lambda using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSLambdaAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -351,6 +448,39 @@ public class AWSLambdaAsyncClient extends AWSLambdaClient implements AWSLambdaAs
     }
 
     @Override
+    public java.util.concurrent.Future<CreateCodeSigningConfigResult> createCodeSigningConfigAsync(CreateCodeSigningConfigRequest request) {
+
+        return createCodeSigningConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCodeSigningConfigResult> createCodeSigningConfigAsync(final CreateCodeSigningConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateCodeSigningConfigRequest, CreateCodeSigningConfigResult> asyncHandler) {
+        final CreateCodeSigningConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateCodeSigningConfigResult>() {
+            @Override
+            public CreateCodeSigningConfigResult call() throws Exception {
+                CreateCodeSigningConfigResult result = null;
+
+                try {
+                    result = executeCreateCodeSigningConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateEventSourceMappingResult> createEventSourceMappingAsync(CreateEventSourceMappingRequest request) {
 
         return createEventSourceMappingAsync(request, null);
@@ -417,6 +547,39 @@ public class AWSLambdaAsyncClient extends AWSLambdaClient implements AWSLambdaAs
     }
 
     @Override
+    public java.util.concurrent.Future<CreateFunctionUrlConfigResult> createFunctionUrlConfigAsync(CreateFunctionUrlConfigRequest request) {
+
+        return createFunctionUrlConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFunctionUrlConfigResult> createFunctionUrlConfigAsync(final CreateFunctionUrlConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateFunctionUrlConfigRequest, CreateFunctionUrlConfigResult> asyncHandler) {
+        final CreateFunctionUrlConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateFunctionUrlConfigResult>() {
+            @Override
+            public CreateFunctionUrlConfigResult call() throws Exception {
+                CreateFunctionUrlConfigResult result = null;
+
+                try {
+                    result = executeCreateFunctionUrlConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteAliasResult> deleteAliasAsync(DeleteAliasRequest request) {
 
         return deleteAliasAsync(request, null);
@@ -434,6 +597,39 @@ public class AWSLambdaAsyncClient extends AWSLambdaClient implements AWSLambdaAs
 
                 try {
                     result = executeDeleteAlias(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCodeSigningConfigResult> deleteCodeSigningConfigAsync(DeleteCodeSigningConfigRequest request) {
+
+        return deleteCodeSigningConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCodeSigningConfigResult> deleteCodeSigningConfigAsync(final DeleteCodeSigningConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteCodeSigningConfigRequest, DeleteCodeSigningConfigResult> asyncHandler) {
+        final DeleteCodeSigningConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteCodeSigningConfigResult>() {
+            @Override
+            public DeleteCodeSigningConfigResult call() throws Exception {
+                DeleteCodeSigningConfigResult result = null;
+
+                try {
+                    result = executeDeleteCodeSigningConfig(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -516,6 +712,41 @@ public class AWSLambdaAsyncClient extends AWSLambdaClient implements AWSLambdaAs
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteFunctionCodeSigningConfigResult> deleteFunctionCodeSigningConfigAsync(
+            DeleteFunctionCodeSigningConfigRequest request) {
+
+        return deleteFunctionCodeSigningConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteFunctionCodeSigningConfigResult> deleteFunctionCodeSigningConfigAsync(
+            final DeleteFunctionCodeSigningConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteFunctionCodeSigningConfigRequest, DeleteFunctionCodeSigningConfigResult> asyncHandler) {
+        final DeleteFunctionCodeSigningConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteFunctionCodeSigningConfigResult>() {
+            @Override
+            public DeleteFunctionCodeSigningConfigResult call() throws Exception {
+                DeleteFunctionCodeSigningConfigResult result = null;
+
+                try {
+                    result = executeDeleteFunctionCodeSigningConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteFunctionConcurrencyResult> deleteFunctionConcurrencyAsync(DeleteFunctionConcurrencyRequest request) {
 
         return deleteFunctionConcurrencyAsync(request, null);
@@ -549,6 +780,74 @@ public class AWSLambdaAsyncClient extends AWSLambdaClient implements AWSLambdaAs
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteFunctionEventInvokeConfigResult> deleteFunctionEventInvokeConfigAsync(
+            DeleteFunctionEventInvokeConfigRequest request) {
+
+        return deleteFunctionEventInvokeConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteFunctionEventInvokeConfigResult> deleteFunctionEventInvokeConfigAsync(
+            final DeleteFunctionEventInvokeConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteFunctionEventInvokeConfigRequest, DeleteFunctionEventInvokeConfigResult> asyncHandler) {
+        final DeleteFunctionEventInvokeConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteFunctionEventInvokeConfigResult>() {
+            @Override
+            public DeleteFunctionEventInvokeConfigResult call() throws Exception {
+                DeleteFunctionEventInvokeConfigResult result = null;
+
+                try {
+                    result = executeDeleteFunctionEventInvokeConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteFunctionUrlConfigResult> deleteFunctionUrlConfigAsync(DeleteFunctionUrlConfigRequest request) {
+
+        return deleteFunctionUrlConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteFunctionUrlConfigResult> deleteFunctionUrlConfigAsync(final DeleteFunctionUrlConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteFunctionUrlConfigRequest, DeleteFunctionUrlConfigResult> asyncHandler) {
+        final DeleteFunctionUrlConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteFunctionUrlConfigResult>() {
+            @Override
+            public DeleteFunctionUrlConfigResult call() throws Exception {
+                DeleteFunctionUrlConfigResult result = null;
+
+                try {
+                    result = executeDeleteFunctionUrlConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteLayerVersionResult> deleteLayerVersionAsync(DeleteLayerVersionRequest request) {
 
         return deleteLayerVersionAsync(request, null);
@@ -566,6 +865,41 @@ public class AWSLambdaAsyncClient extends AWSLambdaClient implements AWSLambdaAs
 
                 try {
                     result = executeDeleteLayerVersion(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteProvisionedConcurrencyConfigResult> deleteProvisionedConcurrencyConfigAsync(
+            DeleteProvisionedConcurrencyConfigRequest request) {
+
+        return deleteProvisionedConcurrencyConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteProvisionedConcurrencyConfigResult> deleteProvisionedConcurrencyConfigAsync(
+            final DeleteProvisionedConcurrencyConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteProvisionedConcurrencyConfigRequest, DeleteProvisionedConcurrencyConfigResult> asyncHandler) {
+        final DeleteProvisionedConcurrencyConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteProvisionedConcurrencyConfigResult>() {
+            @Override
+            public DeleteProvisionedConcurrencyConfigResult call() throws Exception {
+                DeleteProvisionedConcurrencyConfigResult result = null;
+
+                try {
+                    result = executeDeleteProvisionedConcurrencyConfig(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -648,6 +982,39 @@ public class AWSLambdaAsyncClient extends AWSLambdaClient implements AWSLambdaAs
     }
 
     @Override
+    public java.util.concurrent.Future<GetCodeSigningConfigResult> getCodeSigningConfigAsync(GetCodeSigningConfigRequest request) {
+
+        return getCodeSigningConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCodeSigningConfigResult> getCodeSigningConfigAsync(final GetCodeSigningConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetCodeSigningConfigRequest, GetCodeSigningConfigResult> asyncHandler) {
+        final GetCodeSigningConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetCodeSigningConfigResult>() {
+            @Override
+            public GetCodeSigningConfigResult call() throws Exception {
+                GetCodeSigningConfigResult result = null;
+
+                try {
+                    result = executeGetCodeSigningConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetEventSourceMappingResult> getEventSourceMappingAsync(GetEventSourceMappingRequest request) {
 
         return getEventSourceMappingAsync(request, null);
@@ -714,6 +1081,72 @@ public class AWSLambdaAsyncClient extends AWSLambdaClient implements AWSLambdaAs
     }
 
     @Override
+    public java.util.concurrent.Future<GetFunctionCodeSigningConfigResult> getFunctionCodeSigningConfigAsync(GetFunctionCodeSigningConfigRequest request) {
+
+        return getFunctionCodeSigningConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetFunctionCodeSigningConfigResult> getFunctionCodeSigningConfigAsync(final GetFunctionCodeSigningConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetFunctionCodeSigningConfigRequest, GetFunctionCodeSigningConfigResult> asyncHandler) {
+        final GetFunctionCodeSigningConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetFunctionCodeSigningConfigResult>() {
+            @Override
+            public GetFunctionCodeSigningConfigResult call() throws Exception {
+                GetFunctionCodeSigningConfigResult result = null;
+
+                try {
+                    result = executeGetFunctionCodeSigningConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetFunctionConcurrencyResult> getFunctionConcurrencyAsync(GetFunctionConcurrencyRequest request) {
+
+        return getFunctionConcurrencyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetFunctionConcurrencyResult> getFunctionConcurrencyAsync(final GetFunctionConcurrencyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetFunctionConcurrencyRequest, GetFunctionConcurrencyResult> asyncHandler) {
+        final GetFunctionConcurrencyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetFunctionConcurrencyResult>() {
+            @Override
+            public GetFunctionConcurrencyResult call() throws Exception {
+                GetFunctionConcurrencyResult result = null;
+
+                try {
+                    result = executeGetFunctionConcurrency(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetFunctionConfigurationResult> getFunctionConfigurationAsync(GetFunctionConfigurationRequest request) {
 
         return getFunctionConfigurationAsync(request, null);
@@ -731,6 +1164,72 @@ public class AWSLambdaAsyncClient extends AWSLambdaClient implements AWSLambdaAs
 
                 try {
                     result = executeGetFunctionConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetFunctionEventInvokeConfigResult> getFunctionEventInvokeConfigAsync(GetFunctionEventInvokeConfigRequest request) {
+
+        return getFunctionEventInvokeConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetFunctionEventInvokeConfigResult> getFunctionEventInvokeConfigAsync(final GetFunctionEventInvokeConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetFunctionEventInvokeConfigRequest, GetFunctionEventInvokeConfigResult> asyncHandler) {
+        final GetFunctionEventInvokeConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetFunctionEventInvokeConfigResult>() {
+            @Override
+            public GetFunctionEventInvokeConfigResult call() throws Exception {
+                GetFunctionEventInvokeConfigResult result = null;
+
+                try {
+                    result = executeGetFunctionEventInvokeConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetFunctionUrlConfigResult> getFunctionUrlConfigAsync(GetFunctionUrlConfigRequest request) {
+
+        return getFunctionUrlConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetFunctionUrlConfigResult> getFunctionUrlConfigAsync(final GetFunctionUrlConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetFunctionUrlConfigRequest, GetFunctionUrlConfigResult> asyncHandler) {
+        final GetFunctionUrlConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetFunctionUrlConfigResult>() {
+            @Override
+            public GetFunctionUrlConfigResult call() throws Exception {
+                GetFunctionUrlConfigResult result = null;
+
+                try {
+                    result = executeGetFunctionUrlConfig(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -879,6 +1378,74 @@ public class AWSLambdaAsyncClient extends AWSLambdaClient implements AWSLambdaAs
     }
 
     @Override
+    public java.util.concurrent.Future<GetProvisionedConcurrencyConfigResult> getProvisionedConcurrencyConfigAsync(
+            GetProvisionedConcurrencyConfigRequest request) {
+
+        return getProvisionedConcurrencyConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetProvisionedConcurrencyConfigResult> getProvisionedConcurrencyConfigAsync(
+            final GetProvisionedConcurrencyConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetProvisionedConcurrencyConfigRequest, GetProvisionedConcurrencyConfigResult> asyncHandler) {
+        final GetProvisionedConcurrencyConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetProvisionedConcurrencyConfigResult>() {
+            @Override
+            public GetProvisionedConcurrencyConfigResult call() throws Exception {
+                GetProvisionedConcurrencyConfigResult result = null;
+
+                try {
+                    result = executeGetProvisionedConcurrencyConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRuntimeManagementConfigResult> getRuntimeManagementConfigAsync(GetRuntimeManagementConfigRequest request) {
+
+        return getRuntimeManagementConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRuntimeManagementConfigResult> getRuntimeManagementConfigAsync(final GetRuntimeManagementConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetRuntimeManagementConfigRequest, GetRuntimeManagementConfigResult> asyncHandler) {
+        final GetRuntimeManagementConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetRuntimeManagementConfigResult>() {
+            @Override
+            public GetRuntimeManagementConfigResult call() throws Exception {
+                GetRuntimeManagementConfigResult result = null;
+
+                try {
+                    result = executeGetRuntimeManagementConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<InvokeResult> invokeAsync(InvokeRequest request) {
 
         return invokeAsync(request, null);
@@ -980,6 +1547,39 @@ public class AWSLambdaAsyncClient extends AWSLambdaClient implements AWSLambdaAs
     }
 
     @Override
+    public java.util.concurrent.Future<ListCodeSigningConfigsResult> listCodeSigningConfigsAsync(ListCodeSigningConfigsRequest request) {
+
+        return listCodeSigningConfigsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCodeSigningConfigsResult> listCodeSigningConfigsAsync(final ListCodeSigningConfigsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListCodeSigningConfigsRequest, ListCodeSigningConfigsResult> asyncHandler) {
+        final ListCodeSigningConfigsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListCodeSigningConfigsResult>() {
+            @Override
+            public ListCodeSigningConfigsResult call() throws Exception {
+                ListCodeSigningConfigsResult result = null;
+
+                try {
+                    result = executeListCodeSigningConfigs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListEventSourceMappingsResult> listEventSourceMappingsAsync(ListEventSourceMappingsRequest request) {
 
         return listEventSourceMappingsAsync(request, null);
@@ -1033,6 +1633,73 @@ public class AWSLambdaAsyncClient extends AWSLambdaClient implements AWSLambdaAs
             com.amazonaws.handlers.AsyncHandler<ListEventSourceMappingsRequest, ListEventSourceMappingsResult> asyncHandler) {
 
         return listEventSourceMappingsAsync(new ListEventSourceMappingsRequest(), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFunctionEventInvokeConfigsResult> listFunctionEventInvokeConfigsAsync(ListFunctionEventInvokeConfigsRequest request) {
+
+        return listFunctionEventInvokeConfigsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFunctionEventInvokeConfigsResult> listFunctionEventInvokeConfigsAsync(
+            final ListFunctionEventInvokeConfigsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListFunctionEventInvokeConfigsRequest, ListFunctionEventInvokeConfigsResult> asyncHandler) {
+        final ListFunctionEventInvokeConfigsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListFunctionEventInvokeConfigsResult>() {
+            @Override
+            public ListFunctionEventInvokeConfigsResult call() throws Exception {
+                ListFunctionEventInvokeConfigsResult result = null;
+
+                try {
+                    result = executeListFunctionEventInvokeConfigs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFunctionUrlConfigsResult> listFunctionUrlConfigsAsync(ListFunctionUrlConfigsRequest request) {
+
+        return listFunctionUrlConfigsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFunctionUrlConfigsResult> listFunctionUrlConfigsAsync(final ListFunctionUrlConfigsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListFunctionUrlConfigsRequest, ListFunctionUrlConfigsResult> asyncHandler) {
+        final ListFunctionUrlConfigsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListFunctionUrlConfigsResult>() {
+            @Override
+            public ListFunctionUrlConfigsResult call() throws Exception {
+                ListFunctionUrlConfigsResult result = null;
+
+                try {
+                    result = executeListFunctionUrlConfigs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -1092,6 +1759,41 @@ public class AWSLambdaAsyncClient extends AWSLambdaClient implements AWSLambdaAs
     }
 
     @Override
+    public java.util.concurrent.Future<ListFunctionsByCodeSigningConfigResult> listFunctionsByCodeSigningConfigAsync(
+            ListFunctionsByCodeSigningConfigRequest request) {
+
+        return listFunctionsByCodeSigningConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFunctionsByCodeSigningConfigResult> listFunctionsByCodeSigningConfigAsync(
+            final ListFunctionsByCodeSigningConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListFunctionsByCodeSigningConfigRequest, ListFunctionsByCodeSigningConfigResult> asyncHandler) {
+        final ListFunctionsByCodeSigningConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListFunctionsByCodeSigningConfigResult>() {
+            @Override
+            public ListFunctionsByCodeSigningConfigResult call() throws Exception {
+                ListFunctionsByCodeSigningConfigResult result = null;
+
+                try {
+                    result = executeListFunctionsByCodeSigningConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListLayerVersionsResult> listLayerVersionsAsync(ListLayerVersionsRequest request) {
 
         return listLayerVersionsAsync(request, null);
@@ -1142,6 +1844,41 @@ public class AWSLambdaAsyncClient extends AWSLambdaClient implements AWSLambdaAs
 
                 try {
                     result = executeListLayers(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListProvisionedConcurrencyConfigsResult> listProvisionedConcurrencyConfigsAsync(
+            ListProvisionedConcurrencyConfigsRequest request) {
+
+        return listProvisionedConcurrencyConfigsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListProvisionedConcurrencyConfigsResult> listProvisionedConcurrencyConfigsAsync(
+            final ListProvisionedConcurrencyConfigsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListProvisionedConcurrencyConfigsRequest, ListProvisionedConcurrencyConfigsResult> asyncHandler) {
+        final ListProvisionedConcurrencyConfigsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListProvisionedConcurrencyConfigsResult>() {
+            @Override
+            public ListProvisionedConcurrencyConfigsResult call() throws Exception {
+                ListProvisionedConcurrencyConfigsResult result = null;
+
+                try {
+                    result = executeListProvisionedConcurrencyConfigs(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1290,6 +2027,39 @@ public class AWSLambdaAsyncClient extends AWSLambdaClient implements AWSLambdaAs
     }
 
     @Override
+    public java.util.concurrent.Future<PutFunctionCodeSigningConfigResult> putFunctionCodeSigningConfigAsync(PutFunctionCodeSigningConfigRequest request) {
+
+        return putFunctionCodeSigningConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutFunctionCodeSigningConfigResult> putFunctionCodeSigningConfigAsync(final PutFunctionCodeSigningConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutFunctionCodeSigningConfigRequest, PutFunctionCodeSigningConfigResult> asyncHandler) {
+        final PutFunctionCodeSigningConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutFunctionCodeSigningConfigResult>() {
+            @Override
+            public PutFunctionCodeSigningConfigResult call() throws Exception {
+                PutFunctionCodeSigningConfigResult result = null;
+
+                try {
+                    result = executePutFunctionCodeSigningConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<PutFunctionConcurrencyResult> putFunctionConcurrencyAsync(PutFunctionConcurrencyRequest request) {
 
         return putFunctionConcurrencyAsync(request, null);
@@ -1307,6 +2077,107 @@ public class AWSLambdaAsyncClient extends AWSLambdaClient implements AWSLambdaAs
 
                 try {
                     result = executePutFunctionConcurrency(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutFunctionEventInvokeConfigResult> putFunctionEventInvokeConfigAsync(PutFunctionEventInvokeConfigRequest request) {
+
+        return putFunctionEventInvokeConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutFunctionEventInvokeConfigResult> putFunctionEventInvokeConfigAsync(final PutFunctionEventInvokeConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutFunctionEventInvokeConfigRequest, PutFunctionEventInvokeConfigResult> asyncHandler) {
+        final PutFunctionEventInvokeConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutFunctionEventInvokeConfigResult>() {
+            @Override
+            public PutFunctionEventInvokeConfigResult call() throws Exception {
+                PutFunctionEventInvokeConfigResult result = null;
+
+                try {
+                    result = executePutFunctionEventInvokeConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutProvisionedConcurrencyConfigResult> putProvisionedConcurrencyConfigAsync(
+            PutProvisionedConcurrencyConfigRequest request) {
+
+        return putProvisionedConcurrencyConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutProvisionedConcurrencyConfigResult> putProvisionedConcurrencyConfigAsync(
+            final PutProvisionedConcurrencyConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutProvisionedConcurrencyConfigRequest, PutProvisionedConcurrencyConfigResult> asyncHandler) {
+        final PutProvisionedConcurrencyConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutProvisionedConcurrencyConfigResult>() {
+            @Override
+            public PutProvisionedConcurrencyConfigResult call() throws Exception {
+                PutProvisionedConcurrencyConfigResult result = null;
+
+                try {
+                    result = executePutProvisionedConcurrencyConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutRuntimeManagementConfigResult> putRuntimeManagementConfigAsync(PutRuntimeManagementConfigRequest request) {
+
+        return putRuntimeManagementConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutRuntimeManagementConfigResult> putRuntimeManagementConfigAsync(final PutRuntimeManagementConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutRuntimeManagementConfigRequest, PutRuntimeManagementConfigResult> asyncHandler) {
+        final PutRuntimeManagementConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutRuntimeManagementConfigResult>() {
+            @Override
+            public PutRuntimeManagementConfigResult call() throws Exception {
+                PutRuntimeManagementConfigResult result = null;
+
+                try {
+                    result = executePutRuntimeManagementConfig(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1488,6 +2359,39 @@ public class AWSLambdaAsyncClient extends AWSLambdaClient implements AWSLambdaAs
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateCodeSigningConfigResult> updateCodeSigningConfigAsync(UpdateCodeSigningConfigRequest request) {
+
+        return updateCodeSigningConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCodeSigningConfigResult> updateCodeSigningConfigAsync(final UpdateCodeSigningConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateCodeSigningConfigRequest, UpdateCodeSigningConfigResult> asyncHandler) {
+        final UpdateCodeSigningConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateCodeSigningConfigResult>() {
+            @Override
+            public UpdateCodeSigningConfigResult call() throws Exception {
+                UpdateCodeSigningConfigResult result = null;
+
+                try {
+                    result = executeUpdateCodeSigningConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateEventSourceMappingResult> updateEventSourceMappingAsync(UpdateEventSourceMappingRequest request) {
 
         return updateEventSourceMappingAsync(request, null);
@@ -1571,6 +2475,74 @@ public class AWSLambdaAsyncClient extends AWSLambdaClient implements AWSLambdaAs
 
                 try {
                     result = executeUpdateFunctionConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateFunctionEventInvokeConfigResult> updateFunctionEventInvokeConfigAsync(
+            UpdateFunctionEventInvokeConfigRequest request) {
+
+        return updateFunctionEventInvokeConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateFunctionEventInvokeConfigResult> updateFunctionEventInvokeConfigAsync(
+            final UpdateFunctionEventInvokeConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateFunctionEventInvokeConfigRequest, UpdateFunctionEventInvokeConfigResult> asyncHandler) {
+        final UpdateFunctionEventInvokeConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateFunctionEventInvokeConfigResult>() {
+            @Override
+            public UpdateFunctionEventInvokeConfigResult call() throws Exception {
+                UpdateFunctionEventInvokeConfigResult result = null;
+
+                try {
+                    result = executeUpdateFunctionEventInvokeConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateFunctionUrlConfigResult> updateFunctionUrlConfigAsync(UpdateFunctionUrlConfigRequest request) {
+
+        return updateFunctionUrlConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateFunctionUrlConfigResult> updateFunctionUrlConfigAsync(final UpdateFunctionUrlConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateFunctionUrlConfigRequest, UpdateFunctionUrlConfigResult> asyncHandler) {
+        final UpdateFunctionUrlConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateFunctionUrlConfigResult>() {
+            @Override
+            public UpdateFunctionUrlConfigResult call() throws Exception {
+                UpdateFunctionUrlConfigResult result = null;
+
+                try {
+                    result = executeUpdateFunctionUrlConfig(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

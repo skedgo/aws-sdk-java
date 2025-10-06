@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -56,8 +56,55 @@ public class ProvisionByoipCidrRequestMarshaller implements Marshaller<Request<P
             }
         }
 
+        if (provisionByoipCidrRequest.getPubliclyAdvertisable() != null) {
+            request.addParameter("PubliclyAdvertisable", StringUtils.fromBoolean(provisionByoipCidrRequest.getPubliclyAdvertisable()));
+        }
+
         if (provisionByoipCidrRequest.getDescription() != null) {
             request.addParameter("Description", StringUtils.fromString(provisionByoipCidrRequest.getDescription()));
+        }
+
+        com.amazonaws.internal.SdkInternalList<TagSpecification> provisionByoipCidrRequestPoolTagSpecificationsList = (com.amazonaws.internal.SdkInternalList<TagSpecification>) provisionByoipCidrRequest
+                .getPoolTagSpecifications();
+        if (!provisionByoipCidrRequestPoolTagSpecificationsList.isEmpty() || !provisionByoipCidrRequestPoolTagSpecificationsList.isAutoConstruct()) {
+            int poolTagSpecificationsListIndex = 1;
+
+            for (TagSpecification provisionByoipCidrRequestPoolTagSpecificationsListValue : provisionByoipCidrRequestPoolTagSpecificationsList) {
+
+                if (provisionByoipCidrRequestPoolTagSpecificationsListValue.getResourceType() != null) {
+                    request.addParameter("PoolTagSpecification." + poolTagSpecificationsListIndex + ".ResourceType",
+                            StringUtils.fromString(provisionByoipCidrRequestPoolTagSpecificationsListValue.getResourceType()));
+                }
+
+                com.amazonaws.internal.SdkInternalList<Tag> tagSpecificationTagsList = (com.amazonaws.internal.SdkInternalList<Tag>) provisionByoipCidrRequestPoolTagSpecificationsListValue
+                        .getTags();
+                if (!tagSpecificationTagsList.isEmpty() || !tagSpecificationTagsList.isAutoConstruct()) {
+                    int tagsListIndex = 1;
+
+                    for (Tag tagSpecificationTagsListValue : tagSpecificationTagsList) {
+
+                        if (tagSpecificationTagsListValue.getKey() != null) {
+                            request.addParameter("PoolTagSpecification." + poolTagSpecificationsListIndex + ".Tag." + tagsListIndex + ".Key",
+                                    StringUtils.fromString(tagSpecificationTagsListValue.getKey()));
+                        }
+
+                        if (tagSpecificationTagsListValue.getValue() != null) {
+                            request.addParameter("PoolTagSpecification." + poolTagSpecificationsListIndex + ".Tag." + tagsListIndex + ".Value",
+                                    StringUtils.fromString(tagSpecificationTagsListValue.getValue()));
+                        }
+                        tagsListIndex++;
+                    }
+                }
+                poolTagSpecificationsListIndex++;
+            }
+        }
+
+        if (provisionByoipCidrRequest.getMultiRegion() != null) {
+            request.addParameter("MultiRegion", StringUtils.fromBoolean(provisionByoipCidrRequest.getMultiRegion()));
+        }
+
+        if (provisionByoipCidrRequest.getNetworkBorderGroup() != null) {
+            request.addParameter("NetworkBorderGroup", StringUtils.fromString(provisionByoipCidrRequest.getNetworkBorderGroup()));
         }
 
         return request;

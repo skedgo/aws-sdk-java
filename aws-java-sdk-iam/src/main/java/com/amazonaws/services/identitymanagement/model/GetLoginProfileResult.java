@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,18 +28,18 @@ public class GetLoginProfileResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * A structure containing the user name and password create date for the user.
+     * A structure containing the user name and the profile creation date for the user.
      * </p>
      */
     private LoginProfile loginProfile;
 
     /**
      * <p>
-     * A structure containing the user name and password create date for the user.
+     * A structure containing the user name and the profile creation date for the user.
      * </p>
      * 
      * @param loginProfile
-     *        A structure containing the user name and password create date for the user.
+     *        A structure containing the user name and the profile creation date for the user.
      */
 
     public void setLoginProfile(LoginProfile loginProfile) {
@@ -48,10 +48,10 @@ public class GetLoginProfileResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * A structure containing the user name and password create date for the user.
+     * A structure containing the user name and the profile creation date for the user.
      * </p>
      * 
-     * @return A structure containing the user name and password create date for the user.
+     * @return A structure containing the user name and the profile creation date for the user.
      */
 
     public LoginProfile getLoginProfile() {
@@ -60,11 +60,11 @@ public class GetLoginProfileResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * A structure containing the user name and password create date for the user.
+     * A structure containing the user name and the profile creation date for the user.
      * </p>
      * 
      * @param loginProfile
-     *        A structure containing the user name and password create date for the user.
+     *        A structure containing the user name and the profile creation date for the user.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

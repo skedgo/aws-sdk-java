@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,10 +32,24 @@ public class CreateEndpointConfigRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EndpointConfigName").build();
     private static final MarshallingInfo<List> PRODUCTIONVARIANTS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ProductionVariants").build();
+    private static final MarshallingInfo<StructuredPojo> DATACAPTURECONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DataCaptureConfig").build();
     private static final MarshallingInfo<List> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Tags").build();
     private static final MarshallingInfo<String> KMSKEYID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("KmsKeyId").build();
+    private static final MarshallingInfo<StructuredPojo> ASYNCINFERENCECONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AsyncInferenceConfig").build();
+    private static final MarshallingInfo<StructuredPojo> EXPLAINERCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ExplainerConfig").build();
+    private static final MarshallingInfo<List> SHADOWPRODUCTIONVARIANTS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ShadowProductionVariants").build();
+    private static final MarshallingInfo<String> EXECUTIONROLEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ExecutionRoleArn").build();
+    private static final MarshallingInfo<StructuredPojo> VPCCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VpcConfig").build();
+    private static final MarshallingInfo<Boolean> ENABLENETWORKISOLATION_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EnableNetworkIsolation").build();
 
     private static final CreateEndpointConfigRequestMarshaller instance = new CreateEndpointConfigRequestMarshaller();
 
@@ -55,8 +69,15 @@ public class CreateEndpointConfigRequestMarshaller {
         try {
             protocolMarshaller.marshall(createEndpointConfigRequest.getEndpointConfigName(), ENDPOINTCONFIGNAME_BINDING);
             protocolMarshaller.marshall(createEndpointConfigRequest.getProductionVariants(), PRODUCTIONVARIANTS_BINDING);
+            protocolMarshaller.marshall(createEndpointConfigRequest.getDataCaptureConfig(), DATACAPTURECONFIG_BINDING);
             protocolMarshaller.marshall(createEndpointConfigRequest.getTags(), TAGS_BINDING);
             protocolMarshaller.marshall(createEndpointConfigRequest.getKmsKeyId(), KMSKEYID_BINDING);
+            protocolMarshaller.marshall(createEndpointConfigRequest.getAsyncInferenceConfig(), ASYNCINFERENCECONFIG_BINDING);
+            protocolMarshaller.marshall(createEndpointConfigRequest.getExplainerConfig(), EXPLAINERCONFIG_BINDING);
+            protocolMarshaller.marshall(createEndpointConfigRequest.getShadowProductionVariants(), SHADOWPRODUCTIONVARIANTS_BINDING);
+            protocolMarshaller.marshall(createEndpointConfigRequest.getExecutionRoleArn(), EXECUTIONROLEARN_BINDING);
+            protocolMarshaller.marshall(createEndpointConfigRequest.getVpcConfig(), VPCCONFIG_BINDING);
+            protocolMarshaller.marshall(createEndpointConfigRequest.getEnableNetworkIsolation(), ENABLENETWORKISOLATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,7 +31,7 @@ public class DeleteAgentRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * The Amazon Resource Name (ARN) of the agent to delete. Use the <code>ListAgents</code> operation to return a list
-     * of agents for your account and AWS Region.
+     * of agents for your account and Amazon Web Services Region.
      * </p>
      */
     private String agentArn;
@@ -39,12 +39,12 @@ public class DeleteAgentRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * The Amazon Resource Name (ARN) of the agent to delete. Use the <code>ListAgents</code> operation to return a list
-     * of agents for your account and AWS Region.
+     * of agents for your account and Amazon Web Services Region.
      * </p>
      * 
      * @param agentArn
      *        The Amazon Resource Name (ARN) of the agent to delete. Use the <code>ListAgents</code> operation to return
-     *        a list of agents for your account and AWS Region.
+     *        a list of agents for your account and Amazon Web Services Region.
      */
 
     public void setAgentArn(String agentArn) {
@@ -54,11 +54,11 @@ public class DeleteAgentRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * The Amazon Resource Name (ARN) of the agent to delete. Use the <code>ListAgents</code> operation to return a list
-     * of agents for your account and AWS Region.
+     * of agents for your account and Amazon Web Services Region.
      * </p>
      * 
      * @return The Amazon Resource Name (ARN) of the agent to delete. Use the <code>ListAgents</code> operation to
-     *         return a list of agents for your account and AWS Region.
+     *         return a list of agents for your account and Amazon Web Services Region.
      */
 
     public String getAgentArn() {
@@ -68,12 +68,12 @@ public class DeleteAgentRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * The Amazon Resource Name (ARN) of the agent to delete. Use the <code>ListAgents</code> operation to return a list
-     * of agents for your account and AWS Region.
+     * of agents for your account and Amazon Web Services Region.
      * </p>
      * 
      * @param agentArn
      *        The Amazon Resource Name (ARN) of the agent to delete. Use the <code>ListAgents</code> operation to return
-     *        a list of agents for your account and AWS Region.
+     *        a list of agents for your account and Amazon Web Services Region.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -73,6 +73,12 @@ public class ClusterOperationInfo implements Serializable, Cloneable, Structured
     private String operationState;
     /**
      * <p>
+     * Steps completed during the operation.
+     * </p>
+     */
+    private java.util.List<ClusterOperationStep> operationSteps;
+    /**
+     * <p>
      * Type of the cluster operation.
      * </p>
      */
@@ -89,6 +95,12 @@ public class ClusterOperationInfo implements Serializable, Cloneable, Structured
      * </p>
      */
     private MutableClusterInfo targetClusterInfo;
+    /**
+     * <p>
+     * Description of the VPC connection for CreateVpcConnection and DeleteVpcConnection operations.
+     * </p>
+     */
+    private VpcConnectionInfo vpcConnectionInfo;
 
     /**
      * <p>
@@ -414,6 +426,85 @@ public class ClusterOperationInfo implements Serializable, Cloneable, Structured
 
     /**
      * <p>
+     * Steps completed during the operation.
+     * </p>
+     * 
+     * @return <p>
+     *         Steps completed during the operation.
+     *         </p>
+     */
+
+    public java.util.List<ClusterOperationStep> getOperationSteps() {
+        return operationSteps;
+    }
+
+    /**
+     * <p>
+     * Steps completed during the operation.
+     * </p>
+     * 
+     * @param operationSteps
+     *        <p>
+     *        Steps completed during the operation.
+     *        </p>
+     */
+
+    public void setOperationSteps(java.util.Collection<ClusterOperationStep> operationSteps) {
+        if (operationSteps == null) {
+            this.operationSteps = null;
+            return;
+        }
+
+        this.operationSteps = new java.util.ArrayList<ClusterOperationStep>(operationSteps);
+    }
+
+    /**
+     * <p>
+     * Steps completed during the operation.
+     * </p>
+     * 
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setOperationSteps(java.util.Collection)} or {@link #withOperationSteps(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param operationSteps
+     *        <p>
+     *        Steps completed during the operation.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ClusterOperationInfo withOperationSteps(ClusterOperationStep... operationSteps) {
+        if (this.operationSteps == null) {
+            setOperationSteps(new java.util.ArrayList<ClusterOperationStep>(operationSteps.length));
+        }
+        for (ClusterOperationStep ele : operationSteps) {
+            this.operationSteps.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Steps completed during the operation.
+     * </p>
+     * 
+     * @param operationSteps
+     *        <p>
+     *        Steps completed during the operation.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ClusterOperationInfo withOperationSteps(java.util.Collection<ClusterOperationStep> operationSteps) {
+        setOperationSteps(operationSteps);
+        return this;
+    }
+
+    /**
+     * <p>
      * Type of the cluster operation.
      * </p>
      * 
@@ -551,6 +642,52 @@ public class ClusterOperationInfo implements Serializable, Cloneable, Structured
     }
 
     /**
+     * <p>
+     * Description of the VPC connection for CreateVpcConnection and DeleteVpcConnection operations.
+     * </p>
+     * 
+     * @param vpcConnectionInfo
+     *        <p>
+     *        Description of the VPC connection for CreateVpcConnection and DeleteVpcConnection operations.
+     *        </p>
+     */
+
+    public void setVpcConnectionInfo(VpcConnectionInfo vpcConnectionInfo) {
+        this.vpcConnectionInfo = vpcConnectionInfo;
+    }
+
+    /**
+     * <p>
+     * Description of the VPC connection for CreateVpcConnection and DeleteVpcConnection operations.
+     * </p>
+     * 
+     * @return <p>
+     *         Description of the VPC connection for CreateVpcConnection and DeleteVpcConnection operations.
+     *         </p>
+     */
+
+    public VpcConnectionInfo getVpcConnectionInfo() {
+        return this.vpcConnectionInfo;
+    }
+
+    /**
+     * <p>
+     * Description of the VPC connection for CreateVpcConnection and DeleteVpcConnection operations.
+     * </p>
+     * 
+     * @param vpcConnectionInfo
+     *        <p>
+     *        Description of the VPC connection for CreateVpcConnection and DeleteVpcConnection operations.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ClusterOperationInfo withVpcConnectionInfo(VpcConnectionInfo vpcConnectionInfo) {
+        setVpcConnectionInfo(vpcConnectionInfo);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -576,12 +713,16 @@ public class ClusterOperationInfo implements Serializable, Cloneable, Structured
             sb.append("OperationArn: ").append(getOperationArn()).append(",");
         if (getOperationState() != null)
             sb.append("OperationState: ").append(getOperationState()).append(",");
+        if (getOperationSteps() != null)
+            sb.append("OperationSteps: ").append(getOperationSteps()).append(",");
         if (getOperationType() != null)
             sb.append("OperationType: ").append(getOperationType()).append(",");
         if (getSourceClusterInfo() != null)
             sb.append("SourceClusterInfo: ").append(getSourceClusterInfo()).append(",");
         if (getTargetClusterInfo() != null)
-            sb.append("TargetClusterInfo: ").append(getTargetClusterInfo());
+            sb.append("TargetClusterInfo: ").append(getTargetClusterInfo()).append(",");
+        if (getVpcConnectionInfo() != null)
+            sb.append("VpcConnectionInfo: ").append(getVpcConnectionInfo());
         sb.append("}");
         return sb.toString();
     }
@@ -624,6 +765,10 @@ public class ClusterOperationInfo implements Serializable, Cloneable, Structured
             return false;
         if (other.getOperationState() != null && other.getOperationState().equals(this.getOperationState()) == false)
             return false;
+        if (other.getOperationSteps() == null ^ this.getOperationSteps() == null)
+            return false;
+        if (other.getOperationSteps() != null && other.getOperationSteps().equals(this.getOperationSteps()) == false)
+            return false;
         if (other.getOperationType() == null ^ this.getOperationType() == null)
             return false;
         if (other.getOperationType() != null && other.getOperationType().equals(this.getOperationType()) == false)
@@ -635,6 +780,10 @@ public class ClusterOperationInfo implements Serializable, Cloneable, Structured
         if (other.getTargetClusterInfo() == null ^ this.getTargetClusterInfo() == null)
             return false;
         if (other.getTargetClusterInfo() != null && other.getTargetClusterInfo().equals(this.getTargetClusterInfo()) == false)
+            return false;
+        if (other.getVpcConnectionInfo() == null ^ this.getVpcConnectionInfo() == null)
+            return false;
+        if (other.getVpcConnectionInfo() != null && other.getVpcConnectionInfo().equals(this.getVpcConnectionInfo()) == false)
             return false;
         return true;
     }
@@ -651,9 +800,11 @@ public class ClusterOperationInfo implements Serializable, Cloneable, Structured
         hashCode = prime * hashCode + ((getErrorInfo() == null) ? 0 : getErrorInfo().hashCode());
         hashCode = prime * hashCode + ((getOperationArn() == null) ? 0 : getOperationArn().hashCode());
         hashCode = prime * hashCode + ((getOperationState() == null) ? 0 : getOperationState().hashCode());
+        hashCode = prime * hashCode + ((getOperationSteps() == null) ? 0 : getOperationSteps().hashCode());
         hashCode = prime * hashCode + ((getOperationType() == null) ? 0 : getOperationType().hashCode());
         hashCode = prime * hashCode + ((getSourceClusterInfo() == null) ? 0 : getSourceClusterInfo().hashCode());
         hashCode = prime * hashCode + ((getTargetClusterInfo() == null) ? 0 : getTargetClusterInfo().hashCode());
+        hashCode = prime * hashCode + ((getVpcConnectionInfo() == null) ? 0 : getVpcConnectionInfo().hashCode());
         return hashCode;
     }
 

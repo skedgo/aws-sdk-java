@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,33 +27,39 @@ public class TagResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A list of ARNs. An ARN (Amazon Resource Name) uniquely identifies a resource. You can specify a minimum of 1 and
-     * a maximum of 20 ARNs (resources) to tag. An ARN can be set to a maximum of 1600 characters. For more information,
-     * see <a href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     * (ARNs) and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * Specifies the list of ARNs of the resources that you want to apply tags to.
+     * </p>
+     * <p>
+     * An ARN (Amazon Resource Name) uniquely identifies a resource. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
+     * and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      */
     private java.util.List<String> resourceARNList;
     /**
      * <p>
-     * The tags that you want to add to the specified resources. A tag consists of a key and a value that you define.
+     * Specifies a list of tags that you want to add to the specified resources. A tag consists of a key and a value
+     * that you define.
      * </p>
      */
     private java.util.Map<String, String> tags;
 
     /**
      * <p>
-     * A list of ARNs. An ARN (Amazon Resource Name) uniquely identifies a resource. You can specify a minimum of 1 and
-     * a maximum of 20 ARNs (resources) to tag. An ARN can be set to a maximum of 1600 characters. For more information,
-     * see <a href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     * (ARNs) and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * Specifies the list of ARNs of the resources that you want to apply tags to.
+     * </p>
+     * <p>
+     * An ARN (Amazon Resource Name) uniquely identifies a resource. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
+     * and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
-     * @return A list of ARNs. An ARN (Amazon Resource Name) uniquely identifies a resource. You can specify a minimum
-     *         of 1 and a maximum of 20 ARNs (resources) to tag. An ARN can be set to a maximum of 1600 characters. For
-     *         more information, see <a
-     *         href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *         (ARNs) and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * @return Specifies the list of ARNs of the resources that you want to apply tags to.</p>
+     *         <p>
+     *         An ARN (Amazon Resource Name) uniquely identifies a resource. For more information, see <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     *         (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General
+     *         Reference</i>.
      */
 
     public java.util.List<String> getResourceARNList() {
@@ -62,18 +68,20 @@ public class TagResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A list of ARNs. An ARN (Amazon Resource Name) uniquely identifies a resource. You can specify a minimum of 1 and
-     * a maximum of 20 ARNs (resources) to tag. An ARN can be set to a maximum of 1600 characters. For more information,
-     * see <a href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     * (ARNs) and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * Specifies the list of ARNs of the resources that you want to apply tags to.
+     * </p>
+     * <p>
+     * An ARN (Amazon Resource Name) uniquely identifies a resource. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
+     * and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @param resourceARNList
-     *        A list of ARNs. An ARN (Amazon Resource Name) uniquely identifies a resource. You can specify a minimum of
-     *        1 and a maximum of 20 ARNs (resources) to tag. An ARN can be set to a maximum of 1600 characters. For more
-     *        information, see <a
-     *        href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *        (ARNs) and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     *        Specifies the list of ARNs of the resources that you want to apply tags to.</p>
+     *        <p>
+     *        An ARN (Amazon Resource Name) uniquely identifies a resource. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     *        (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      */
 
     public void setResourceARNList(java.util.Collection<String> resourceARNList) {
@@ -87,10 +95,12 @@ public class TagResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A list of ARNs. An ARN (Amazon Resource Name) uniquely identifies a resource. You can specify a minimum of 1 and
-     * a maximum of 20 ARNs (resources) to tag. An ARN can be set to a maximum of 1600 characters. For more information,
-     * see <a href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     * (ARNs) and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * Specifies the list of ARNs of the resources that you want to apply tags to.
+     * </p>
+     * <p>
+     * An ARN (Amazon Resource Name) uniquely identifies a resource. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
+     * and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -99,11 +109,11 @@ public class TagResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * 
      * @param resourceARNList
-     *        A list of ARNs. An ARN (Amazon Resource Name) uniquely identifies a resource. You can specify a minimum of
-     *        1 and a maximum of 20 ARNs (resources) to tag. An ARN can be set to a maximum of 1600 characters. For more
-     *        information, see <a
-     *        href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *        (ARNs) and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     *        Specifies the list of ARNs of the resources that you want to apply tags to.</p>
+     *        <p>
+     *        An ARN (Amazon Resource Name) uniquely identifies a resource. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     *        (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -119,18 +129,20 @@ public class TagResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A list of ARNs. An ARN (Amazon Resource Name) uniquely identifies a resource. You can specify a minimum of 1 and
-     * a maximum of 20 ARNs (resources) to tag. An ARN can be set to a maximum of 1600 characters. For more information,
-     * see <a href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     * (ARNs) and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * Specifies the list of ARNs of the resources that you want to apply tags to.
+     * </p>
+     * <p>
+     * An ARN (Amazon Resource Name) uniquely identifies a resource. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
+     * and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @param resourceARNList
-     *        A list of ARNs. An ARN (Amazon Resource Name) uniquely identifies a resource. You can specify a minimum of
-     *        1 and a maximum of 20 ARNs (resources) to tag. An ARN can be set to a maximum of 1600 characters. For more
-     *        information, see <a
-     *        href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *        (ARNs) and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     *        Specifies the list of ARNs of the resources that you want to apply tags to.</p>
+     *        <p>
+     *        An ARN (Amazon Resource Name) uniquely identifies a resource. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     *        (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -141,11 +153,12 @@ public class TagResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The tags that you want to add to the specified resources. A tag consists of a key and a value that you define.
+     * Specifies a list of tags that you want to add to the specified resources. A tag consists of a key and a value
+     * that you define.
      * </p>
      * 
-     * @return The tags that you want to add to the specified resources. A tag consists of a key and a value that you
-     *         define.
+     * @return Specifies a list of tags that you want to add to the specified resources. A tag consists of a key and a
+     *         value that you define.
      */
 
     public java.util.Map<String, String> getTags() {
@@ -154,12 +167,13 @@ public class TagResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The tags that you want to add to the specified resources. A tag consists of a key and a value that you define.
+     * Specifies a list of tags that you want to add to the specified resources. A tag consists of a key and a value
+     * that you define.
      * </p>
      * 
      * @param tags
-     *        The tags that you want to add to the specified resources. A tag consists of a key and a value that you
-     *        define.
+     *        Specifies a list of tags that you want to add to the specified resources. A tag consists of a key and a
+     *        value that you define.
      */
 
     public void setTags(java.util.Map<String, String> tags) {
@@ -168,12 +182,13 @@ public class TagResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The tags that you want to add to the specified resources. A tag consists of a key and a value that you define.
+     * Specifies a list of tags that you want to add to the specified resources. A tag consists of a key and a value
+     * that you define.
      * </p>
      * 
      * @param tags
-     *        The tags that you want to add to the specified resources. A tag consists of a key and a value that you
-     *        define.
+     *        Specifies a list of tags that you want to add to the specified resources. A tag consists of a key and a
+     *        value that you define.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -181,6 +196,13 @@ public class TagResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see TagResourcesRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public TagResourcesRequest addTagsEntry(String key, String value) {
         if (null == this.tags) {

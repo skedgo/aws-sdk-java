@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,69 +27,48 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The identifier for the secret that you want to attach tags to. You can specify either the Amazon Resource Name
-     * (ARN) or the friendly name of the secret.
+     * The identifier for the secret to attach tags to. You can specify either the Amazon Resource Name (ARN) or the
+     * friendly name of the secret.
      * </p>
-     * <note>
      * <p>
-     * If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial ARN
-     * too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager adds at the
-     * end of the ARN when you created the secret. A partial ARN match can work as long as it uniquely matches only one
-     * secret. However, if your secret has a name that ends in a hyphen followed by six characters (before Secrets
-     * Manager adds the hyphen and six characters to the ARN) and you try to use that as a partial ARN, then those
-     * characters cause Secrets Manager to assume that you’re specifying a complete ARN. This confusion can cause
-     * unexpected results. To avoid this situation, we recommend that you don’t create secret names that end with a
-     * hyphen followed by six characters.
+     * For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding
+     * a secret from a partial ARN</a>.
      * </p>
-     * </note>
      */
     private String secretId;
     /**
      * <p>
-     * The tags to attach to the secret. Each element in the list consists of a <code>Key</code> and a
-     * <code>Value</code>.
+     * The tags to attach to the secret as a JSON text string argument. Each element in the list consists of a
+     * <code>Key</code> and a <code>Value</code>.
      * </p>
      * <p>
-     * This parameter to the API requires a JSON text string argument. For information on how to format a JSON parameter
-     * for the various command line tool environments, see <a
-     * href="https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using JSON for
-     * Parameters</a> in the <i>AWS CLI User Guide</i>. For the AWS CLI, you can also use the syntax:
-     * <code>--Tags Key="Key1",Value="Value1",Key="Key2",Value="Value2"[,…]</code>
+     * For storing multiple values, we recommend that you use a JSON text string argument and specify key/value pairs.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters.html">Specifying parameter values for
+     * the Amazon Web Services CLI</a> in the Amazon Web Services CLI User Guide.
      * </p>
      */
     private java.util.List<Tag> tags;
 
     /**
      * <p>
-     * The identifier for the secret that you want to attach tags to. You can specify either the Amazon Resource Name
-     * (ARN) or the friendly name of the secret.
+     * The identifier for the secret to attach tags to. You can specify either the Amazon Resource Name (ARN) or the
+     * friendly name of the secret.
      * </p>
-     * <note>
      * <p>
-     * If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial ARN
-     * too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager adds at the
-     * end of the ARN when you created the secret. A partial ARN match can work as long as it uniquely matches only one
-     * secret. However, if your secret has a name that ends in a hyphen followed by six characters (before Secrets
-     * Manager adds the hyphen and six characters to the ARN) and you try to use that as a partial ARN, then those
-     * characters cause Secrets Manager to assume that you’re specifying a complete ARN. This confusion can cause
-     * unexpected results. To avoid this situation, we recommend that you don’t create secret names that end with a
-     * hyphen followed by six characters.
+     * For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding
+     * a secret from a partial ARN</a>.
      * </p>
-     * </note>
      * 
      * @param secretId
-     *        The identifier for the secret that you want to attach tags to. You can specify either the Amazon Resource
-     *        Name (ARN) or the friendly name of the secret.</p> <note>
+     *        The identifier for the secret to attach tags to. You can specify either the Amazon Resource Name (ARN) or
+     *        the friendly name of the secret.</p>
      *        <p>
-     *        If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial
-     *        ARN too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager
-     *        adds at the end of the ARN when you created the secret. A partial ARN match can work as long as it
-     *        uniquely matches only one secret. However, if your secret has a name that ends in a hyphen followed by six
-     *        characters (before Secrets Manager adds the hyphen and six characters to the ARN) and you try to use that
-     *        as a partial ARN, then those characters cause Secrets Manager to assume that you’re specifying a complete
-     *        ARN. This confusion can cause unexpected results. To avoid this situation, we recommend that you don’t
-     *        create secret names that end with a hyphen followed by six characters.
-     *        </p>
+     *        For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href=
+     *        "https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen"
+     *        >Finding a secret from a partial ARN</a>.
      */
 
     public void setSecretId(String secretId) {
@@ -98,34 +77,21 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The identifier for the secret that you want to attach tags to. You can specify either the Amazon Resource Name
-     * (ARN) or the friendly name of the secret.
+     * The identifier for the secret to attach tags to. You can specify either the Amazon Resource Name (ARN) or the
+     * friendly name of the secret.
      * </p>
-     * <note>
      * <p>
-     * If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial ARN
-     * too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager adds at the
-     * end of the ARN when you created the secret. A partial ARN match can work as long as it uniquely matches only one
-     * secret. However, if your secret has a name that ends in a hyphen followed by six characters (before Secrets
-     * Manager adds the hyphen and six characters to the ARN) and you try to use that as a partial ARN, then those
-     * characters cause Secrets Manager to assume that you’re specifying a complete ARN. This confusion can cause
-     * unexpected results. To avoid this situation, we recommend that you don’t create secret names that end with a
-     * hyphen followed by six characters.
+     * For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding
+     * a secret from a partial ARN</a>.
      * </p>
-     * </note>
      * 
-     * @return The identifier for the secret that you want to attach tags to. You can specify either the Amazon Resource
-     *         Name (ARN) or the friendly name of the secret.</p> <note>
+     * @return The identifier for the secret to attach tags to. You can specify either the Amazon Resource Name (ARN) or
+     *         the friendly name of the secret.</p>
      *         <p>
-     *         If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial
-     *         ARN too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager
-     *         adds at the end of the ARN when you created the secret. A partial ARN match can work as long as it
-     *         uniquely matches only one secret. However, if your secret has a name that ends in a hyphen followed by
-     *         six characters (before Secrets Manager adds the hyphen and six characters to the ARN) and you try to use
-     *         that as a partial ARN, then those characters cause Secrets Manager to assume that you’re specifying a
-     *         complete ARN. This confusion can cause unexpected results. To avoid this situation, we recommend that you
-     *         don’t create secret names that end with a hyphen followed by six characters.
-     *         </p>
+     *         For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href=
+     *         "https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen"
+     *         >Finding a secret from a partial ARN</a>.
      */
 
     public String getSecretId() {
@@ -134,35 +100,22 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The identifier for the secret that you want to attach tags to. You can specify either the Amazon Resource Name
-     * (ARN) or the friendly name of the secret.
+     * The identifier for the secret to attach tags to. You can specify either the Amazon Resource Name (ARN) or the
+     * friendly name of the secret.
      * </p>
-     * <note>
      * <p>
-     * If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial ARN
-     * too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager adds at the
-     * end of the ARN when you created the secret. A partial ARN match can work as long as it uniquely matches only one
-     * secret. However, if your secret has a name that ends in a hyphen followed by six characters (before Secrets
-     * Manager adds the hyphen and six characters to the ARN) and you try to use that as a partial ARN, then those
-     * characters cause Secrets Manager to assume that you’re specifying a complete ARN. This confusion can cause
-     * unexpected results. To avoid this situation, we recommend that you don’t create secret names that end with a
-     * hyphen followed by six characters.
+     * For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding
+     * a secret from a partial ARN</a>.
      * </p>
-     * </note>
      * 
      * @param secretId
-     *        The identifier for the secret that you want to attach tags to. You can specify either the Amazon Resource
-     *        Name (ARN) or the friendly name of the secret.</p> <note>
+     *        The identifier for the secret to attach tags to. You can specify either the Amazon Resource Name (ARN) or
+     *        the friendly name of the secret.</p>
      *        <p>
-     *        If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial
-     *        ARN too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager
-     *        adds at the end of the ARN when you created the secret. A partial ARN match can work as long as it
-     *        uniquely matches only one secret. However, if your secret has a name that ends in a hyphen followed by six
-     *        characters (before Secrets Manager adds the hyphen and six characters to the ARN) and you try to use that
-     *        as a partial ARN, then those characters cause Secrets Manager to assume that you’re specifying a complete
-     *        ARN. This confusion can cause unexpected results. To avoid this situation, we recommend that you don’t
-     *        create secret names that end with a hyphen followed by six characters.
-     *        </p>
+     *        For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href=
+     *        "https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen"
+     *        >Finding a secret from a partial ARN</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -173,25 +126,23 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The tags to attach to the secret. Each element in the list consists of a <code>Key</code> and a
-     * <code>Value</code>.
+     * The tags to attach to the secret as a JSON text string argument. Each element in the list consists of a
+     * <code>Key</code> and a <code>Value</code>.
      * </p>
      * <p>
-     * This parameter to the API requires a JSON text string argument. For information on how to format a JSON parameter
-     * for the various command line tool environments, see <a
-     * href="https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using JSON for
-     * Parameters</a> in the <i>AWS CLI User Guide</i>. For the AWS CLI, you can also use the syntax:
-     * <code>--Tags Key="Key1",Value="Value1",Key="Key2",Value="Value2"[,…]</code>
+     * For storing multiple values, we recommend that you use a JSON text string argument and specify key/value pairs.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters.html">Specifying parameter values for
+     * the Amazon Web Services CLI</a> in the Amazon Web Services CLI User Guide.
      * </p>
      * 
-     * @return The tags to attach to the secret. Each element in the list consists of a <code>Key</code> and a
-     *         <code>Value</code>.</p>
+     * @return The tags to attach to the secret as a JSON text string argument. Each element in the list consists of a
+     *         <code>Key</code> and a <code>Value</code>.</p>
      *         <p>
-     *         This parameter to the API requires a JSON text string argument. For information on how to format a JSON
-     *         parameter for the various command line tool environments, see <a
-     *         href="https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using
-     *         JSON for Parameters</a> in the <i>AWS CLI User Guide</i>. For the AWS CLI, you can also use the syntax:
-     *         <code>--Tags Key="Key1",Value="Value1",Key="Key2",Value="Value2"[,…]</code>
+     *         For storing multiple values, we recommend that you use a JSON text string argument and specify key/value
+     *         pairs. For more information, see <a
+     *         href="https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters.html">Specifying parameter
+     *         values for the Amazon Web Services CLI</a> in the Amazon Web Services CLI User Guide.
      */
 
     public java.util.List<Tag> getTags() {
@@ -200,26 +151,24 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The tags to attach to the secret. Each element in the list consists of a <code>Key</code> and a
-     * <code>Value</code>.
+     * The tags to attach to the secret as a JSON text string argument. Each element in the list consists of a
+     * <code>Key</code> and a <code>Value</code>.
      * </p>
      * <p>
-     * This parameter to the API requires a JSON text string argument. For information on how to format a JSON parameter
-     * for the various command line tool environments, see <a
-     * href="https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using JSON for
-     * Parameters</a> in the <i>AWS CLI User Guide</i>. For the AWS CLI, you can also use the syntax:
-     * <code>--Tags Key="Key1",Value="Value1",Key="Key2",Value="Value2"[,…]</code>
+     * For storing multiple values, we recommend that you use a JSON text string argument and specify key/value pairs.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters.html">Specifying parameter values for
+     * the Amazon Web Services CLI</a> in the Amazon Web Services CLI User Guide.
      * </p>
      * 
      * @param tags
-     *        The tags to attach to the secret. Each element in the list consists of a <code>Key</code> and a
-     *        <code>Value</code>.</p>
+     *        The tags to attach to the secret as a JSON text string argument. Each element in the list consists of a
+     *        <code>Key</code> and a <code>Value</code>.</p>
      *        <p>
-     *        This parameter to the API requires a JSON text string argument. For information on how to format a JSON
-     *        parameter for the various command line tool environments, see <a
-     *        href="https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using
-     *        JSON for Parameters</a> in the <i>AWS CLI User Guide</i>. For the AWS CLI, you can also use the syntax:
-     *        <code>--Tags Key="Key1",Value="Value1",Key="Key2",Value="Value2"[,…]</code>
+     *        For storing multiple values, we recommend that you use a JSON text string argument and specify key/value
+     *        pairs. For more information, see <a
+     *        href="https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters.html">Specifying parameter
+     *        values for the Amazon Web Services CLI</a> in the Amazon Web Services CLI User Guide.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -233,15 +182,14 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The tags to attach to the secret. Each element in the list consists of a <code>Key</code> and a
-     * <code>Value</code>.
+     * The tags to attach to the secret as a JSON text string argument. Each element in the list consists of a
+     * <code>Key</code> and a <code>Value</code>.
      * </p>
      * <p>
-     * This parameter to the API requires a JSON text string argument. For information on how to format a JSON parameter
-     * for the various command line tool environments, see <a
-     * href="https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using JSON for
-     * Parameters</a> in the <i>AWS CLI User Guide</i>. For the AWS CLI, you can also use the syntax:
-     * <code>--Tags Key="Key1",Value="Value1",Key="Key2",Value="Value2"[,…]</code>
+     * For storing multiple values, we recommend that you use a JSON text string argument and specify key/value pairs.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters.html">Specifying parameter values for
+     * the Amazon Web Services CLI</a> in the Amazon Web Services CLI User Guide.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -250,14 +198,13 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * 
      * @param tags
-     *        The tags to attach to the secret. Each element in the list consists of a <code>Key</code> and a
-     *        <code>Value</code>.</p>
+     *        The tags to attach to the secret as a JSON text string argument. Each element in the list consists of a
+     *        <code>Key</code> and a <code>Value</code>.</p>
      *        <p>
-     *        This parameter to the API requires a JSON text string argument. For information on how to format a JSON
-     *        parameter for the various command line tool environments, see <a
-     *        href="https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using
-     *        JSON for Parameters</a> in the <i>AWS CLI User Guide</i>. For the AWS CLI, you can also use the syntax:
-     *        <code>--Tags Key="Key1",Value="Value1",Key="Key2",Value="Value2"[,…]</code>
+     *        For storing multiple values, we recommend that you use a JSON text string argument and specify key/value
+     *        pairs. For more information, see <a
+     *        href="https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters.html">Specifying parameter
+     *        values for the Amazon Web Services CLI</a> in the Amazon Web Services CLI User Guide.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -273,26 +220,24 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The tags to attach to the secret. Each element in the list consists of a <code>Key</code> and a
-     * <code>Value</code>.
+     * The tags to attach to the secret as a JSON text string argument. Each element in the list consists of a
+     * <code>Key</code> and a <code>Value</code>.
      * </p>
      * <p>
-     * This parameter to the API requires a JSON text string argument. For information on how to format a JSON parameter
-     * for the various command line tool environments, see <a
-     * href="https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using JSON for
-     * Parameters</a> in the <i>AWS CLI User Guide</i>. For the AWS CLI, you can also use the syntax:
-     * <code>--Tags Key="Key1",Value="Value1",Key="Key2",Value="Value2"[,…]</code>
+     * For storing multiple values, we recommend that you use a JSON text string argument and specify key/value pairs.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters.html">Specifying parameter values for
+     * the Amazon Web Services CLI</a> in the Amazon Web Services CLI User Guide.
      * </p>
      * 
      * @param tags
-     *        The tags to attach to the secret. Each element in the list consists of a <code>Key</code> and a
-     *        <code>Value</code>.</p>
+     *        The tags to attach to the secret as a JSON text string argument. Each element in the list consists of a
+     *        <code>Key</code> and a <code>Value</code>.</p>
      *        <p>
-     *        This parameter to the API requires a JSON text string argument. For information on how to format a JSON
-     *        parameter for the various command line tool environments, see <a
-     *        href="https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using
-     *        JSON for Parameters</a> in the <i>AWS CLI User Guide</i>. For the AWS CLI, you can also use the syntax:
-     *        <code>--Tags Key="Key1",Value="Value1",Key="Key2",Value="Value2"[,…]</code>
+     *        For storing multiple values, we recommend that you use a JSON text string argument and specify key/value
+     *        pairs. For more information, see <a
+     *        href="https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters.html">Specifying parameter
+     *        values for the Amazon Web Services CLI</a> in the Amazon Web Services CLI User Guide.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

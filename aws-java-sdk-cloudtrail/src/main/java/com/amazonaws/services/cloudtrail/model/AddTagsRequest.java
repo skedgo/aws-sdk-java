@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * Specifies the tags to add to a trail.
+ * Specifies the tags to add to a trail, event data store, or channel.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudtrail-2013-11-01/AddTags" target="_top">AWS API
@@ -30,32 +30,53 @@ public class AddTagsRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * Specifies the ARN of the trail to which one or more tags will be added. The format of a trail ARN is:
+     * Specifies the ARN of the trail, event data store, or channel to which one or more tags will be added.
      * </p>
      * <p>
-     * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     * The format of a trail ARN is: <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     * </p>
+     * <p>
+     * The format of an event data store ARN is:
+     * <code>arn:aws:cloudtrail:us-east-2:123456789012:eventdatastore/EXAMPLE-f852-4e8f-8bd1-bcf6cEXAMPLE</code>
+     * </p>
+     * <p>
+     * The format of a channel ARN is: <code>arn:aws:cloudtrail:us-east-2:123456789012:channel/01234567890</code>
      * </p>
      */
     private String resourceId;
     /**
      * <p>
-     * Contains a list of CloudTrail tags, up to a limit of 50
+     * Contains a list of tags, up to a limit of 50
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tagsList;
 
     /**
      * <p>
-     * Specifies the ARN of the trail to which one or more tags will be added. The format of a trail ARN is:
+     * Specifies the ARN of the trail, event data store, or channel to which one or more tags will be added.
      * </p>
      * <p>
-     * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     * The format of a trail ARN is: <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     * </p>
+     * <p>
+     * The format of an event data store ARN is:
+     * <code>arn:aws:cloudtrail:us-east-2:123456789012:eventdatastore/EXAMPLE-f852-4e8f-8bd1-bcf6cEXAMPLE</code>
+     * </p>
+     * <p>
+     * The format of a channel ARN is: <code>arn:aws:cloudtrail:us-east-2:123456789012:channel/01234567890</code>
      * </p>
      * 
      * @param resourceId
-     *        Specifies the ARN of the trail to which one or more tags will be added. The format of a trail ARN is:</p>
+     *        Specifies the ARN of the trail, event data store, or channel to which one or more tags will be added.</p>
      *        <p>
-     *        <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     *        The format of a trail ARN is: <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     *        </p>
+     *        <p>
+     *        The format of an event data store ARN is:
+     *        <code>arn:aws:cloudtrail:us-east-2:123456789012:eventdatastore/EXAMPLE-f852-4e8f-8bd1-bcf6cEXAMPLE</code>
+     *        </p>
+     *        <p>
+     *        The format of a channel ARN is: <code>arn:aws:cloudtrail:us-east-2:123456789012:channel/01234567890</code>
      */
 
     public void setResourceId(String resourceId) {
@@ -64,15 +85,30 @@ public class AddTagsRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * Specifies the ARN of the trail to which one or more tags will be added. The format of a trail ARN is:
+     * Specifies the ARN of the trail, event data store, or channel to which one or more tags will be added.
      * </p>
      * <p>
-     * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     * The format of a trail ARN is: <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     * </p>
+     * <p>
+     * The format of an event data store ARN is:
+     * <code>arn:aws:cloudtrail:us-east-2:123456789012:eventdatastore/EXAMPLE-f852-4e8f-8bd1-bcf6cEXAMPLE</code>
+     * </p>
+     * <p>
+     * The format of a channel ARN is: <code>arn:aws:cloudtrail:us-east-2:123456789012:channel/01234567890</code>
      * </p>
      * 
-     * @return Specifies the ARN of the trail to which one or more tags will be added. The format of a trail ARN is:</p>
+     * @return Specifies the ARN of the trail, event data store, or channel to which one or more tags will be added.</p>
      *         <p>
-     *         <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     *         The format of a trail ARN is: <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     *         </p>
+     *         <p>
+     *         The format of an event data store ARN is:
+     *         <code>arn:aws:cloudtrail:us-east-2:123456789012:eventdatastore/EXAMPLE-f852-4e8f-8bd1-bcf6cEXAMPLE</code>
+     *         </p>
+     *         <p>
+     *         The format of a channel ARN is:
+     *         <code>arn:aws:cloudtrail:us-east-2:123456789012:channel/01234567890</code>
      */
 
     public String getResourceId() {
@@ -81,16 +117,30 @@ public class AddTagsRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * Specifies the ARN of the trail to which one or more tags will be added. The format of a trail ARN is:
+     * Specifies the ARN of the trail, event data store, or channel to which one or more tags will be added.
      * </p>
      * <p>
-     * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     * The format of a trail ARN is: <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     * </p>
+     * <p>
+     * The format of an event data store ARN is:
+     * <code>arn:aws:cloudtrail:us-east-2:123456789012:eventdatastore/EXAMPLE-f852-4e8f-8bd1-bcf6cEXAMPLE</code>
+     * </p>
+     * <p>
+     * The format of a channel ARN is: <code>arn:aws:cloudtrail:us-east-2:123456789012:channel/01234567890</code>
      * </p>
      * 
      * @param resourceId
-     *        Specifies the ARN of the trail to which one or more tags will be added. The format of a trail ARN is:</p>
+     *        Specifies the ARN of the trail, event data store, or channel to which one or more tags will be added.</p>
      *        <p>
-     *        <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     *        The format of a trail ARN is: <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
+     *        </p>
+     *        <p>
+     *        The format of an event data store ARN is:
+     *        <code>arn:aws:cloudtrail:us-east-2:123456789012:eventdatastore/EXAMPLE-f852-4e8f-8bd1-bcf6cEXAMPLE</code>
+     *        </p>
+     *        <p>
+     *        The format of a channel ARN is: <code>arn:aws:cloudtrail:us-east-2:123456789012:channel/01234567890</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -101,10 +151,10 @@ public class AddTagsRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * Contains a list of CloudTrail tags, up to a limit of 50
+     * Contains a list of tags, up to a limit of 50
      * </p>
      * 
-     * @return Contains a list of CloudTrail tags, up to a limit of 50
+     * @return Contains a list of tags, up to a limit of 50
      */
 
     public java.util.List<Tag> getTagsList() {
@@ -116,11 +166,11 @@ public class AddTagsRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * Contains a list of CloudTrail tags, up to a limit of 50
+     * Contains a list of tags, up to a limit of 50
      * </p>
      * 
      * @param tagsList
-     *        Contains a list of CloudTrail tags, up to a limit of 50
+     *        Contains a list of tags, up to a limit of 50
      */
 
     public void setTagsList(java.util.Collection<Tag> tagsList) {
@@ -134,7 +184,7 @@ public class AddTagsRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * Contains a list of CloudTrail tags, up to a limit of 50
+     * Contains a list of tags, up to a limit of 50
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -143,7 +193,7 @@ public class AddTagsRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * </p>
      * 
      * @param tagsList
-     *        Contains a list of CloudTrail tags, up to a limit of 50
+     *        Contains a list of tags, up to a limit of 50
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -159,11 +209,11 @@ public class AddTagsRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * Contains a list of CloudTrail tags, up to a limit of 50
+     * Contains a list of tags, up to a limit of 50
      * </p>
      * 
      * @param tagsList
-     *        Contains a list of CloudTrail tags, up to a limit of 50
+     *        Contains a list of tags, up to a limit of 50
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

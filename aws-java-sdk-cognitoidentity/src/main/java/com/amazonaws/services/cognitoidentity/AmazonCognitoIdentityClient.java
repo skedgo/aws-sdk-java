@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.cognitoidentity.AmazonCognitoIdentityClientBuilder
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.cognitoidentity.model.*;
+
 import com.amazonaws.services.cognitoidentity.model.transform.*;
 
 /**
@@ -95,38 +96,38 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ConcurrentModificationException").withModeledClass(
-                                    com.amazonaws.services.cognitoidentity.model.ConcurrentModificationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConcurrentModificationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cognitoidentity.model.transform.ConcurrentModificationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterException").withModeledClass(
-                                    com.amazonaws.services.cognitoidentity.model.InvalidParameterException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cognitoidentity.model.transform.InvalidParameterExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.cognitoidentity.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cognitoidentity.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DeveloperUserAlreadyRegisteredException").withModeledClass(
-                                    com.amazonaws.services.cognitoidentity.model.DeveloperUserAlreadyRegisteredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DeveloperUserAlreadyRegisteredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cognitoidentity.model.transform.DeveloperUserAlreadyRegisteredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceConflictException").withModeledClass(
-                                    com.amazonaws.services.cognitoidentity.model.ResourceConflictException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cognitoidentity.model.transform.ResourceConflictExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ExternalServiceException").withModeledClass(
-                                    com.amazonaws.services.cognitoidentity.model.ExternalServiceException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ExternalServiceException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cognitoidentity.model.transform.ExternalServiceExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("NotAuthorizedException").withModeledClass(
-                                    com.amazonaws.services.cognitoidentity.model.NotAuthorizedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("NotAuthorizedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cognitoidentity.model.transform.NotAuthorizedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidIdentityPoolConfigurationException").withModeledClass(
-                                    com.amazonaws.services.cognitoidentity.model.InvalidIdentityPoolConfigurationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidIdentityPoolConfigurationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cognitoidentity.model.transform.InvalidIdentityPoolConfigurationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalErrorException").withModeledClass(
-                                    com.amazonaws.services.cognitoidentity.model.InternalErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cognitoidentity.model.transform.InternalErrorExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withModeledClass(
-                                    com.amazonaws.services.cognitoidentity.model.TooManyRequestsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cognitoidentity.model.transform.TooManyRequestsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withModeledClass(
-                                    com.amazonaws.services.cognitoidentity.model.LimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cognitoidentity.model.transform.LimitExceededExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.cognitoidentity.model.AmazonCognitoIdentityException.class));
 
     /**
@@ -332,8 +333,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
     /**
      * <p>
      * Creates a new identity pool. The identity pool is a store of user identity information that is specific to your
-     * AWS account. The limit on identity pools is 60 per account. The keys for <code>SupportedLoginProviders</code> are
-     * as follows:
+     * AWS account. The keys for <code>SupportedLoginProviders</code> are as follows:
      * </p>
      * <ul>
      * <li>
@@ -406,6 +406,8 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
                 request = new CreateIdentityPoolRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createIdentityPoolRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateIdentityPool");
@@ -469,6 +471,8 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
                 request = new DeleteIdentitiesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteIdentitiesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteIdentities");
@@ -536,6 +540,8 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
                 request = new DeleteIdentityPoolRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteIdentityPoolRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteIdentityPool");
@@ -604,6 +610,8 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
                 request = new DescribeIdentityRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeIdentityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeIdentity");
@@ -672,6 +680,8 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
                 request = new DescribeIdentityPoolRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeIdentityPoolRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeIdentityPool");
@@ -749,6 +759,8 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
                         .beforeMarshalling(getCredentialsForIdentityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetCredentialsForIdentity");
@@ -761,7 +773,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
             HttpResponseHandler<AmazonWebServiceResponse<GetCredentialsForIdentityResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new GetCredentialsForIdentityResultJsonUnmarshaller());
-            response = invoke(request, responseHandler, executionContext);
+            response = anonymousInvoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -823,6 +835,8 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
                 request = new GetIdRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getIdRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetId");
@@ -834,7 +848,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
 
             HttpResponseHandler<AmazonWebServiceResponse<GetIdResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
                     .withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetIdResultJsonUnmarshaller());
-            response = invoke(request, responseHandler, executionContext);
+            response = anonymousInvoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -892,6 +906,8 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
                 request = new GetIdentityPoolRolesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getIdentityPoolRolesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetIdentityPoolRoles");
@@ -919,7 +935,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
      * optionally add additional logins for the identity. Supplying multiple logins creates an implicit link.
      * </p>
      * <p>
-     * The OpenId token is valid for 10 minutes.
+     * The OpenID token is valid for 10 minutes.
      * </p>
      * <p>
      * This is a public API. You do not need any credentials to call this API.
@@ -967,6 +983,8 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
                 request = new GetOpenIdTokenRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getOpenIdTokenRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetOpenIdToken");
@@ -978,7 +996,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
 
             HttpResponseHandler<AmazonWebServiceResponse<GetOpenIdTokenResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetOpenIdTokenResultJsonUnmarshaller());
-            response = invoke(request, responseHandler, executionContext);
+            response = anonymousInvoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1051,6 +1069,8 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
                         .beforeMarshalling(getOpenIdTokenForDeveloperIdentityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetOpenIdTokenForDeveloperIdentity");
@@ -1063,6 +1083,74 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
             HttpResponseHandler<AmazonWebServiceResponse<GetOpenIdTokenForDeveloperIdentityResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new GetOpenIdTokenForDeveloperIdentityResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Use <code>GetPrincipalTagAttributeMap</code> to list all mappings between <code>PrincipalTags</code> and user
+     * attributes.
+     * </p>
+     * 
+     * @param getPrincipalTagAttributeMapRequest
+     * @return Result of the GetPrincipalTagAttributeMap operation returned by the service.
+     * @throws InvalidParameterException
+     *         Thrown for missing or bad input parameter(s).
+     * @throws ResourceNotFoundException
+     *         Thrown when the requested resource (for example, a dataset or record) does not exist.
+     * @throws NotAuthorizedException
+     *         Thrown when a user is not authorized to access the requested resource.
+     * @throws TooManyRequestsException
+     *         Thrown when a request is throttled.
+     * @throws InternalErrorException
+     *         Thrown when the service encounters an error during processing the request.
+     * @sample AmazonCognitoIdentity.GetPrincipalTagAttributeMap
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cognito-identity-2014-06-30/GetPrincipalTagAttributeMap"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetPrincipalTagAttributeMapResult getPrincipalTagAttributeMap(GetPrincipalTagAttributeMapRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetPrincipalTagAttributeMap(request);
+    }
+
+    @SdkInternalApi
+    final GetPrincipalTagAttributeMapResult executeGetPrincipalTagAttributeMap(GetPrincipalTagAttributeMapRequest getPrincipalTagAttributeMapRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getPrincipalTagAttributeMapRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetPrincipalTagAttributeMapRequest> request = null;
+        Response<GetPrincipalTagAttributeMapResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetPrincipalTagAttributeMapRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getPrincipalTagAttributeMapRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPrincipalTagAttributeMap");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetPrincipalTagAttributeMapResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetPrincipalTagAttributeMapResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1119,6 +1207,8 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
                 request = new ListIdentitiesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listIdentitiesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListIdentities");
@@ -1186,6 +1276,8 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
                 request = new ListIdentityPoolsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listIdentityPoolsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListIdentityPools");
@@ -1256,6 +1348,8 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
                 request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -1338,6 +1432,8 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
                         .beforeMarshalling(lookupDeveloperIdentityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "LookupDeveloperIdentity");
@@ -1419,6 +1515,8 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
                         .beforeMarshalling(mergeDeveloperIdentitiesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "MergeDeveloperIdentities");
@@ -1492,6 +1590,8 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
                 request = new SetIdentityPoolRolesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(setIdentityPoolRolesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SetIdentityPoolRoles");
@@ -1515,8 +1615,76 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
 
     /**
      * <p>
-     * Assigns a set of tags to an Amazon Cognito identity pool. A tag is a label that you can use to categorize and
-     * manage identity pools in different ways, such as by purpose, owner, environment, or other criteria.
+     * You can use this operation to use default (username and clientID) attribute or custom attribute mappings.
+     * </p>
+     * 
+     * @param setPrincipalTagAttributeMapRequest
+     * @return Result of the SetPrincipalTagAttributeMap operation returned by the service.
+     * @throws InvalidParameterException
+     *         Thrown for missing or bad input parameter(s).
+     * @throws ResourceNotFoundException
+     *         Thrown when the requested resource (for example, a dataset or record) does not exist.
+     * @throws NotAuthorizedException
+     *         Thrown when a user is not authorized to access the requested resource.
+     * @throws TooManyRequestsException
+     *         Thrown when a request is throttled.
+     * @throws InternalErrorException
+     *         Thrown when the service encounters an error during processing the request.
+     * @sample AmazonCognitoIdentity.SetPrincipalTagAttributeMap
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cognito-identity-2014-06-30/SetPrincipalTagAttributeMap"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public SetPrincipalTagAttributeMapResult setPrincipalTagAttributeMap(SetPrincipalTagAttributeMapRequest request) {
+        request = beforeClientExecution(request);
+        return executeSetPrincipalTagAttributeMap(request);
+    }
+
+    @SdkInternalApi
+    final SetPrincipalTagAttributeMapResult executeSetPrincipalTagAttributeMap(SetPrincipalTagAttributeMapRequest setPrincipalTagAttributeMapRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(setPrincipalTagAttributeMapRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<SetPrincipalTagAttributeMapRequest> request = null;
+        Response<SetPrincipalTagAttributeMapResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new SetPrincipalTagAttributeMapRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(setPrincipalTagAttributeMapRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SetPrincipalTagAttributeMap");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<SetPrincipalTagAttributeMapResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new SetPrincipalTagAttributeMapResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Assigns a set of tags to the specified Amazon Cognito identity pool. A tag is a label that you can use to
+     * categorize and manage identity pools in different ways, such as by purpose, owner, environment, or other
+     * criteria.
      * </p>
      * <p>
      * Each tag consists of a key and value, both of which you define. A key is a general category for more specific
@@ -1570,6 +1738,8 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -1642,6 +1812,8 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
                         .beforeMarshalling(unlinkDeveloperIdentityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UnlinkDeveloperIdentity");
@@ -1715,6 +1887,8 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
                 request = new UnlinkIdentityRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(unlinkIdentityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UnlinkIdentity");
@@ -1726,7 +1900,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
 
             HttpResponseHandler<AmazonWebServiceResponse<UnlinkIdentityResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UnlinkIdentityResultJsonUnmarshaller());
-            response = invoke(request, responseHandler, executionContext);
+            response = anonymousInvoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1738,8 +1912,8 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
 
     /**
      * <p>
-     * Removes the specified tags from an Amazon Cognito identity pool. You can use this action up to 5 times per
-     * second, per account
+     * Removes the specified tags from the specified Amazon Cognito identity pool. You can use this action up to 5 times
+     * per second, per account
      * </p>
      * 
      * @param untagResourceRequest
@@ -1779,6 +1953,8 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -1852,6 +2028,8 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
                 request = new UpdateIdentityPoolRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateIdentityPoolRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cognito Identity");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateIdentityPool");
@@ -1947,6 +2125,11 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient implemen
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

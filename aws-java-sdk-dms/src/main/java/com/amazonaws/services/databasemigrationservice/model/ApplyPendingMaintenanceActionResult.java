@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,18 +27,18 @@ public class ApplyPendingMaintenanceActionResult extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The AWS DMS resource that the pending maintenance action will be applied to.
+     * The DMS resource that the pending maintenance action will be applied to.
      * </p>
      */
     private ResourcePendingMaintenanceActions resourcePendingMaintenanceActions;
 
     /**
      * <p>
-     * The AWS DMS resource that the pending maintenance action will be applied to.
+     * The DMS resource that the pending maintenance action will be applied to.
      * </p>
      * 
      * @param resourcePendingMaintenanceActions
-     *        The AWS DMS resource that the pending maintenance action will be applied to.
+     *        The DMS resource that the pending maintenance action will be applied to.
      */
 
     public void setResourcePendingMaintenanceActions(ResourcePendingMaintenanceActions resourcePendingMaintenanceActions) {
@@ -47,10 +47,10 @@ public class ApplyPendingMaintenanceActionResult extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The AWS DMS resource that the pending maintenance action will be applied to.
+     * The DMS resource that the pending maintenance action will be applied to.
      * </p>
      * 
-     * @return The AWS DMS resource that the pending maintenance action will be applied to.
+     * @return The DMS resource that the pending maintenance action will be applied to.
      */
 
     public ResourcePendingMaintenanceActions getResourcePendingMaintenanceActions() {
@@ -59,11 +59,11 @@ public class ApplyPendingMaintenanceActionResult extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The AWS DMS resource that the pending maintenance action will be applied to.
+     * The DMS resource that the pending maintenance action will be applied to.
      * </p>
      * 
      * @param resourcePendingMaintenanceActions
-     *        The AWS DMS resource that the pending maintenance action will be applied to.
+     *        The DMS resource that the pending maintenance action will be applied to.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

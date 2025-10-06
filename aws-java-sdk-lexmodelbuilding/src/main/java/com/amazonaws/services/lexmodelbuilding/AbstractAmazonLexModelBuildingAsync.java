@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -379,6 +379,32 @@ public class AbstractAmazonLexModelBuildingAsync extends AbstractAmazonLexModelB
     }
 
     @Override
+    public java.util.concurrent.Future<GetMigrationResult> getMigrationAsync(GetMigrationRequest request) {
+
+        return getMigrationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetMigrationResult> getMigrationAsync(GetMigrationRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetMigrationRequest, GetMigrationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetMigrationsResult> getMigrationsAsync(GetMigrationsRequest request) {
+
+        return getMigrationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetMigrationsResult> getMigrationsAsync(GetMigrationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetMigrationsRequest, GetMigrationsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<GetSlotTypeResult> getSlotTypeAsync(GetSlotTypeRequest request) {
 
         return getSlotTypeAsync(request, null);
@@ -426,6 +452,19 @@ public class AbstractAmazonLexModelBuildingAsync extends AbstractAmazonLexModelB
     @Override
     public java.util.concurrent.Future<GetUtterancesViewResult> getUtterancesViewAsync(GetUtterancesViewRequest request,
             com.amazonaws.handlers.AsyncHandler<GetUtterancesViewRequest, GetUtterancesViewResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -491,6 +530,45 @@ public class AbstractAmazonLexModelBuildingAsync extends AbstractAmazonLexModelB
     @Override
     public java.util.concurrent.Future<StartImportResult> startImportAsync(StartImportRequest request,
             com.amazonaws.handlers.AsyncHandler<StartImportRequest, StartImportResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartMigrationResult> startMigrationAsync(StartMigrationRequest request) {
+
+        return startMigrationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartMigrationResult> startMigrationAsync(StartMigrationRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartMigrationRequest, StartMigrationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

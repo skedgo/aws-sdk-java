@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,9 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Provides information about a single type of moderated content found in an image or video. Each type of moderated
- * content has a label within a hierarchical taxonomy. For more information, see Detecting Unsafe Content in the Amazon
- * Rekognition Developer Guide.
+ * Provides information about a single type of inappropriate, unwanted, or offensive content found in an image or video.
+ * Each type of moderated content has a label within a hierarchical taxonomy. For more information, see Content
+ * moderation in the Amazon Rekognition Developer Guide.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -39,7 +39,7 @@ public class ModerationLabel implements Serializable, Cloneable, StructuredPojo 
     private Float confidence;
     /**
      * <p>
-     * The label name for the type of content detected in the image.
+     * The label name for the type of unsafe content detected in the image.
      * </p>
      */
     private String name;
@@ -49,6 +49,12 @@ public class ModerationLabel implements Serializable, Cloneable, StructuredPojo 
      * </p>
      */
     private String parentName;
+    /**
+     * <p>
+     * The level of the moderation label with regard to its taxonomy, from 1 to 3.
+     * </p>
+     */
+    private Integer taxonomyLevel;
 
     /**
      * <p>
@@ -116,11 +122,11 @@ public class ModerationLabel implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The label name for the type of content detected in the image.
+     * The label name for the type of unsafe content detected in the image.
      * </p>
      * 
      * @param name
-     *        The label name for the type of content detected in the image.
+     *        The label name for the type of unsafe content detected in the image.
      */
 
     public void setName(String name) {
@@ -129,10 +135,10 @@ public class ModerationLabel implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The label name for the type of content detected in the image.
+     * The label name for the type of unsafe content detected in the image.
      * </p>
      * 
-     * @return The label name for the type of content detected in the image.
+     * @return The label name for the type of unsafe content detected in the image.
      */
 
     public String getName() {
@@ -141,11 +147,11 @@ public class ModerationLabel implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The label name for the type of content detected in the image.
+     * The label name for the type of unsafe content detected in the image.
      * </p>
      * 
      * @param name
-     *        The label name for the type of content detected in the image.
+     *        The label name for the type of unsafe content detected in the image.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -198,6 +204,46 @@ public class ModerationLabel implements Serializable, Cloneable, StructuredPojo 
     }
 
     /**
+     * <p>
+     * The level of the moderation label with regard to its taxonomy, from 1 to 3.
+     * </p>
+     * 
+     * @param taxonomyLevel
+     *        The level of the moderation label with regard to its taxonomy, from 1 to 3.
+     */
+
+    public void setTaxonomyLevel(Integer taxonomyLevel) {
+        this.taxonomyLevel = taxonomyLevel;
+    }
+
+    /**
+     * <p>
+     * The level of the moderation label with regard to its taxonomy, from 1 to 3.
+     * </p>
+     * 
+     * @return The level of the moderation label with regard to its taxonomy, from 1 to 3.
+     */
+
+    public Integer getTaxonomyLevel() {
+        return this.taxonomyLevel;
+    }
+
+    /**
+     * <p>
+     * The level of the moderation label with regard to its taxonomy, from 1 to 3.
+     * </p>
+     * 
+     * @param taxonomyLevel
+     *        The level of the moderation label with regard to its taxonomy, from 1 to 3.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModerationLabel withTaxonomyLevel(Integer taxonomyLevel) {
+        setTaxonomyLevel(taxonomyLevel);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -214,7 +260,9 @@ public class ModerationLabel implements Serializable, Cloneable, StructuredPojo 
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getParentName() != null)
-            sb.append("ParentName: ").append(getParentName());
+            sb.append("ParentName: ").append(getParentName()).append(",");
+        if (getTaxonomyLevel() != null)
+            sb.append("TaxonomyLevel: ").append(getTaxonomyLevel());
         sb.append("}");
         return sb.toString();
     }
@@ -241,6 +289,10 @@ public class ModerationLabel implements Serializable, Cloneable, StructuredPojo 
             return false;
         if (other.getParentName() != null && other.getParentName().equals(this.getParentName()) == false)
             return false;
+        if (other.getTaxonomyLevel() == null ^ this.getTaxonomyLevel() == null)
+            return false;
+        if (other.getTaxonomyLevel() != null && other.getTaxonomyLevel().equals(this.getTaxonomyLevel()) == false)
+            return false;
         return true;
     }
 
@@ -252,6 +304,7 @@ public class ModerationLabel implements Serializable, Cloneable, StructuredPojo 
         hashCode = prime * hashCode + ((getConfidence() == null) ? 0 : getConfidence().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getParentName() == null) ? 0 : getParentName().hashCode());
+        hashCode = prime * hashCode + ((getTaxonomyLevel() == null) ? 0 : getTaxonomyLevel().hashCode());
         return hashCode;
     }
 

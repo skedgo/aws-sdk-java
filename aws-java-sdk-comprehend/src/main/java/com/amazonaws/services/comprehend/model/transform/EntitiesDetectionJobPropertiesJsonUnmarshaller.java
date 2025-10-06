@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,6 +52,10 @@ public class EntitiesDetectionJobPropertiesJsonUnmarshaller implements Unmarshal
                     context.nextToken();
                     entitiesDetectionJobProperties.setJobId(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("JobArn", targetDepth)) {
+                    context.nextToken();
+                    entitiesDetectionJobProperties.setJobArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("JobName", targetDepth)) {
                     context.nextToken();
                     entitiesDetectionJobProperties.setJobName(context.getUnmarshaller(String.class).unmarshall(context));
@@ -99,6 +103,10 @@ public class EntitiesDetectionJobPropertiesJsonUnmarshaller implements Unmarshal
                 if (context.testExpression("VpcConfig", targetDepth)) {
                     context.nextToken();
                     entitiesDetectionJobProperties.setVpcConfig(VpcConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("FlywheelArn", targetDepth)) {
+                    context.nextToken();
+                    entitiesDetectionJobProperties.setFlywheelArn(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

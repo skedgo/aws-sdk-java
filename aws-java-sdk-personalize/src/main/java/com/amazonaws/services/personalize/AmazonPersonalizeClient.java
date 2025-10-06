@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.personalize.AmazonPersonalizeClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.personalize.model.*;
+
 import com.amazonaws.services.personalize.model.transform.*;
 
 /**
@@ -78,23 +79,29 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceInUseException").withModeledClass(
-                                    com.amazonaws.services.personalize.model.ResourceInUseException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TooManyTagKeysException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.personalize.model.transform.TooManyTagKeysExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidNextTokenException").withModeledClass(
-                                    com.amazonaws.services.personalize.model.InvalidNextTokenException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidNextTokenException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.personalize.model.transform.InvalidNextTokenExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withModeledClass(
-                                    com.amazonaws.services.personalize.model.LimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.personalize.model.transform.LimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.personalize.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.personalize.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidInputException").withModeledClass(
-                                    com.amazonaws.services.personalize.model.InvalidInputException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.personalize.model.transform.ResourceAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceAlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.personalize.model.ResourceAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceInUseException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.personalize.model.transform.ResourceInUseExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("TooManyTagsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.personalize.model.transform.TooManyTagsExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidInputException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.personalize.model.transform.InvalidInputExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.personalize.model.AmazonPersonalizeException.class));
 
     public static AmazonPersonalizeClientBuilder builder() {
@@ -145,7 +152,179 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Creates a campaign by deploying a solution version. When a client calls the <a
+     * Generates batch recommendations based on a list of items or users stored in Amazon S3 and exports the
+     * recommendations to an Amazon S3 bucket.
+     * </p>
+     * <p>
+     * To generate batch recommendations, specify the ARN of a solution version and an Amazon S3 URI for the input and
+     * output data. For user personalization, popular items, and personalized ranking solutions, the batch inference job
+     * generates a list of recommended items for each user ID in the input file. For related items solutions, the job
+     * generates a list of recommended items for each item ID in the input file.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/getting-batch-recommendations.html">Creating a batch
+     * inference job </a>.
+     * </p>
+     * <p>
+     * If you use the Similar-Items recipe, Amazon Personalize can add descriptive themes to batch recommendations. To
+     * generate themes, set the job's mode to <code>THEME_GENERATION</code> and specify the name of the field that
+     * contains item names in the input data.
+     * </p>
+     * <p>
+     * For more information about generating themes, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/themed-batch-recommendations.html">Batch recommendations
+     * with themes from Content Generator </a>.
+     * </p>
+     * <p>
+     * You can't get batch recommendations with the Trending-Now or Next-Best-Action recipes.
+     * </p>
+     * 
+     * @param createBatchInferenceJobRequest
+     * @return Result of the CreateBatchInferenceJob operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws LimitExceededException
+     *         The limit on the number of requests per second has been exceeded.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @throws TooManyTagsException
+     *         You have exceeded the maximum number of tags you can apply to this resource.
+     * @sample AmazonPersonalize.CreateBatchInferenceJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/CreateBatchInferenceJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateBatchInferenceJobResult createBatchInferenceJob(CreateBatchInferenceJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateBatchInferenceJob(request);
+    }
+
+    @SdkInternalApi
+    final CreateBatchInferenceJobResult executeCreateBatchInferenceJob(CreateBatchInferenceJobRequest createBatchInferenceJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createBatchInferenceJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateBatchInferenceJobRequest> request = null;
+        Response<CreateBatchInferenceJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateBatchInferenceJobRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createBatchInferenceJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateBatchInferenceJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateBatchInferenceJobResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateBatchInferenceJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a batch segment job. The operation can handle up to 50 million records and the input file must be in JSON
+     * format. For more information, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/recommendations-batch.html">Getting batch recommendations
+     * and user segments</a>.
+     * </p>
+     * 
+     * @param createBatchSegmentJobRequest
+     * @return Result of the CreateBatchSegmentJob operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws LimitExceededException
+     *         The limit on the number of requests per second has been exceeded.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @throws TooManyTagsException
+     *         You have exceeded the maximum number of tags you can apply to this resource.
+     * @sample AmazonPersonalize.CreateBatchSegmentJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/CreateBatchSegmentJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateBatchSegmentJobResult createBatchSegmentJob(CreateBatchSegmentJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateBatchSegmentJob(request);
+    }
+
+    @SdkInternalApi
+    final CreateBatchSegmentJobResult executeCreateBatchSegmentJob(CreateBatchSegmentJobRequest createBatchSegmentJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createBatchSegmentJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateBatchSegmentJobRequest> request = null;
+        Response<CreateBatchSegmentJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateBatchSegmentJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createBatchSegmentJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateBatchSegmentJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateBatchSegmentJobResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new CreateBatchSegmentJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <important>
+     * <p>
+     * You incur campaign costs while it is active. To avoid unnecessary costs, make sure to delete the campaign when
+     * you are finished. For information about campaign costs, see <a
+     * href="https://aws.amazon.com/personalize/pricing/">Amazon Personalize pricing</a>.
+     * </p>
+     * </important>
+     * <p>
+     * Creates a campaign that deploys a solution version. When a client calls the <a
      * href="https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetRecommendations.html">GetRecommendations</a>
      * and <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetPersonalizedRanking.html">
      * GetPersonalizedRanking</a> APIs, a campaign is specified in the request.
@@ -153,16 +332,35 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * <p>
      * <b>Minimum Provisioned TPS and Auto-Scaling</b>
      * </p>
+     * <important>
      * <p>
-     * A transaction is a single <code>GetRecommendations</code> or <code>GetPersonalizedRanking</code> call.
-     * Transactions per second (TPS) is the throughput and unit of billing for Amazon Personalize. The minimum
-     * provisioned TPS (<code>minProvisionedTPS</code>) specifies the baseline throughput provisioned by Amazon
-     * Personalize, and thus, the minimum billing charge. If your TPS increases beyond <code>minProvisionedTPS</code>,
-     * Amazon Personalize auto-scales the provisioned capacity up and down, but never below
-     * <code>minProvisionedTPS</code>, to maintain a 70% utilization. There's a short time delay while the capacity is
-     * increased that might cause loss of transactions. It's recommended to start with a low
-     * <code>minProvisionedTPS</code>, track your usage using Amazon CloudWatch metrics, and then increase the
+     * A high <code>minProvisionedTPS</code> will increase your cost. We recommend starting with 1 for
+     * <code>minProvisionedTPS</code> (the default). Track your usage using Amazon CloudWatch metrics, and increase the
      * <code>minProvisionedTPS</code> as necessary.
+     * </p>
+     * </important>
+     * <p>
+     * When you create an Amazon Personalize campaign, you can specify the minimum provisioned transactions per second (
+     * <code>minProvisionedTPS</code>) for the campaign. This is the baseline transaction throughput for the campaign
+     * provisioned by Amazon Personalize. It sets the minimum billing charge for the campaign while it is active. A
+     * transaction is a single <code>GetRecommendations</code> or <code>GetPersonalizedRanking</code> request. The
+     * default <code>minProvisionedTPS</code> is 1.
+     * </p>
+     * <p>
+     * If your TPS increases beyond the <code>minProvisionedTPS</code>, Amazon Personalize auto-scales the provisioned
+     * capacity up and down, but never below <code>minProvisionedTPS</code>. There's a short time delay while the
+     * capacity is increased that might cause loss of transactions. When your traffic reduces, capacity returns to the
+     * <code>minProvisionedTPS</code>.
+     * </p>
+     * <p>
+     * You are charged for the the minimum provisioned TPS or, if your requests exceed the
+     * <code>minProvisionedTPS</code>, the actual TPS. The actual TPS is the total number of recommendation requests you
+     * make. We recommend starting with a low <code>minProvisionedTPS</code>, track your usage using Amazon CloudWatch
+     * metrics, and then increase the <code>minProvisionedTPS</code> as necessary.
+     * </p>
+     * <p>
+     * For more information about campaign costs, see <a href="https://aws.amazon.com/personalize/pricing/">Amazon
+     * Personalize pricing</a>.
      * </p>
      * <p>
      * <b>Status</b>
@@ -183,7 +381,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * </li>
      * </ul>
      * <p>
-     * To get the campaign status, call <a>DescribeCampaign</a>.
+     * To get the campaign status, call <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeCampaign.html">DescribeCampaign</a>.
      * </p>
      * <note>
      * <p>
@@ -197,22 +396,22 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * <ul>
      * <li>
      * <p>
-     * <a>ListCampaigns</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_ListCampaigns.html">ListCampaigns</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>DescribeCampaign</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeCampaign.html">DescribeCampaign</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateCampaign</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_UpdateCampaign.html">UpdateCampaign</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>DeleteCampaign</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_DeleteCampaign.html">DeleteCampaign</a>
      * </p>
      * </li>
      * </ul>
@@ -229,6 +428,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      *         The limit on the number of requests per second has been exceeded.
      * @throws ResourceInUseException
      *         The specified resource is in use.
+     * @throws TooManyTagsException
+     *         You have exceeded the maximum number of tags you can apply to this resource.
      * @sample AmazonPersonalize.CreateCampaign
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/CreateCampaign" target="_top">AWS API
      *      Documentation</a>
@@ -254,6 +455,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new CreateCampaignRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createCampaignRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCampaign");
@@ -277,16 +480,150 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Creates an empty dataset and adds it to the specified dataset group. Use <a>CreateDatasetImportJob</a> to import
-     * your training data to a dataset.
-     * </p>
-     * <p>
-     * There are three types of datasets:
+     * Creates a batch job that deletes all references to specific users from an Amazon Personalize dataset group in
+     * batches. You specify the users to delete in a CSV file of userIds in an Amazon S3 bucket. After a job completes,
+     * Amazon Personalize no longer trains on the users’ data and no longer considers the users when generating user
+     * segments. For more information about creating a data deletion job, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/delete-records.html">Deleting users</a>.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Interactions
+     * Your input file must be a CSV file with a single USER_ID column that lists the users IDs. For more information
+     * about preparing the CSV file, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/prepare-deletion-input-file.html">Preparing your data
+     * deletion file and uploading it to Amazon S3</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * To give Amazon Personalize permission to access your input CSV file of userIds, you must specify an IAM service
+     * role that has permission to read from the data source. This role needs <code>GetObject</code> and
+     * <code>ListBucket</code> permissions for the bucket and its content. These permissions are the same as importing
+     * data. For information on granting access to your Amazon S3 bucket, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/granting-personalize-s3-access.html">Giving Amazon
+     * Personalize Access to Amazon S3 Resources</a>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * After you create a job, it can take up to a day to delete all references to the users from datasets and models.
+     * Until the job completes, Amazon Personalize continues to use the data when training. And if you use a User
+     * Segmentation recipe, the users might appear in user segments.
+     * </p>
+     * <p>
+     * <b>Status</b>
+     * </p>
+     * <p>
+     * A data deletion job can have one of the following statuses:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * PENDING &gt; IN_PROGRESS &gt; COMPLETED -or- FAILED
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To get the status of the data deletion job, call <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeDataDeletionJob.html"
+     * >DescribeDataDeletionJob</a> API operation and specify the Amazon Resource Name (ARN) of the job. If the status
+     * is FAILED, the response includes a <code>failureReason</code> key, which describes why the job failed.
+     * </p>
+     * <p class="title">
+     * <b>Related APIs</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_ListDataDeletionJobs.html">ListDataDeletionJobs</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeDataDeletionJob.html">
+     * DescribeDataDeletionJob</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param createDataDeletionJobRequest
+     * @return Result of the CreateDataDeletionJob operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws LimitExceededException
+     *         The limit on the number of requests per second has been exceeded.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @throws TooManyTagsException
+     *         You have exceeded the maximum number of tags you can apply to this resource.
+     * @sample AmazonPersonalize.CreateDataDeletionJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/CreateDataDeletionJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateDataDeletionJobResult createDataDeletionJob(CreateDataDeletionJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateDataDeletionJob(request);
+    }
+
+    @SdkInternalApi
+    final CreateDataDeletionJobResult executeCreateDataDeletionJob(CreateDataDeletionJobRequest createDataDeletionJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createDataDeletionJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateDataDeletionJobRequest> request = null;
+        Response<CreateDataDeletionJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateDataDeletionJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDataDeletionJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDataDeletionJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateDataDeletionJobResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new CreateDataDeletionJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates an empty dataset and adds it to the specified dataset group. Use <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDatasetImportJob.html"
+     * >CreateDatasetImportJob</a> to import your training data to a dataset.
+     * </p>
+     * <p>
+     * There are 5 types of datasets:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Item interactions
      * </p>
      * </li>
      * <li>
@@ -299,10 +636,20 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * Users
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * Action interactions
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Actions
+     * </p>
+     * </li>
      * </ul>
      * <p>
-     * Each dataset type has an associated schema with required field types. Only the <code>Interactions</code> dataset
-     * is required in order to train a model (also referred to as creating a solution).
+     * Each dataset type has an associated schema with required field types. Only the <code>Item interactions</code>
+     * dataset is required in order to train a model (also referred to as creating a solution).
      * </p>
      * <p>
      * A dataset can be in one of the following states:
@@ -320,7 +667,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * </li>
      * </ul>
      * <p>
-     * To get the status of the dataset, call <a>DescribeDataset</a>.
+     * To get the status of the dataset, call <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeDataset.html">DescribeDataset</a>.
      * </p>
      * <p class="title">
      * <b>Related APIs</b>
@@ -328,22 +676,22 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * <ul>
      * <li>
      * <p>
-     * <a>CreateDatasetGroup</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDatasetGroup.html">CreateDatasetGroup</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>ListDatasets</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_ListDatasets.html">ListDatasets</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>DescribeDataset</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeDataset.html">DescribeDataset</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>DeleteDataset</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_DeleteDataset.html">DeleteDataset</a>
      * </p>
      * </li>
      * </ul>
@@ -360,6 +708,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      *         The limit on the number of requests per second has been exceeded.
      * @throws ResourceInUseException
      *         The specified resource is in use.
+     * @throws TooManyTagsException
+     *         You have exceeded the maximum number of tags you can apply to this resource.
      * @sample AmazonPersonalize.CreateDataset
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/CreateDataset" target="_top">AWS API
      *      Documentation</a>
@@ -385,6 +735,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new CreateDatasetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDatasetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDataset");
@@ -408,13 +760,105 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Creates an empty dataset group. A dataset group contains related datasets that supply data for training a model.
-     * A dataset group can contain at most three datasets, one for each type of dataset:
+     * Creates a job that exports data from your dataset to an Amazon S3 bucket. To allow Amazon Personalize to export
+     * the training data, you must specify an service-linked IAM role that gives Amazon Personalize
+     * <code>PutObject</code> permissions for your Amazon S3 bucket. For information, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/export-data.html">Exporting a dataset</a> in the Amazon
+     * Personalize developer guide.
+     * </p>
+     * <p>
+     * <b>Status</b>
+     * </p>
+     * <p>
+     * A dataset export job can be in one of the following states:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Interactions
+     * CREATE PENDING &gt; CREATE IN_PROGRESS &gt; ACTIVE -or- CREATE FAILED
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To get the status of the export job, call <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeDatasetExportJob.html"
+     * >DescribeDatasetExportJob</a>, and specify the Amazon Resource Name (ARN) of the dataset export job. The dataset
+     * export is complete when the status shows as ACTIVE. If the status shows as CREATE FAILED, the response includes a
+     * <code>failureReason</code> key, which describes why the job failed.
+     * </p>
+     * 
+     * @param createDatasetExportJobRequest
+     * @return Result of the CreateDatasetExportJob operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws LimitExceededException
+     *         The limit on the number of requests per second has been exceeded.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @throws TooManyTagsException
+     *         You have exceeded the maximum number of tags you can apply to this resource.
+     * @sample AmazonPersonalize.CreateDatasetExportJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/CreateDatasetExportJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateDatasetExportJobResult createDatasetExportJob(CreateDatasetExportJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateDatasetExportJob(request);
+    }
+
+    @SdkInternalApi
+    final CreateDatasetExportJobResult executeCreateDatasetExportJob(CreateDatasetExportJobRequest createDatasetExportJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createDatasetExportJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateDatasetExportJobRequest> request = null;
+        Response<CreateDatasetExportJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateDatasetExportJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDatasetExportJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDatasetExportJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateDatasetExportJobResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateDatasetExportJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates an empty dataset group. A dataset group is a container for Amazon Personalize resources. A dataset group
+     * can contain at most three datasets, one for each type of dataset:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Item interactions
      * </p>
      * </li>
      * <li>
@@ -427,10 +871,23 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * Users
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * Actions
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Action interactions
+     * </p>
+     * </li>
      * </ul>
      * <p>
-     * To train a model (create a solution), a dataset group that contains an <code>Interactions</code> dataset is
-     * required. Call <a>CreateDataset</a> to add a dataset to the group.
+     * A dataset group can be a Domain dataset group, where you specify a domain and use pre-configured resources like
+     * recommenders, or a Custom dataset group, where you use custom resources, such as a solution with a solution
+     * version, that you deploy with a campaign. If you start with a Domain dataset group, you can still add custom
+     * resources such as solutions and solution versions trained with recipes for custom use cases and deployed with
+     * campaigns.
      * </p>
      * <p>
      * A dataset group can be in one of the following states:
@@ -448,8 +905,10 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * </li>
      * </ul>
      * <p>
-     * To get the status of the dataset group, call <a>DescribeDatasetGroup</a>. If the status shows as CREATE FAILED,
-     * the response includes a <code>failureReason</code> key, which describes why the creation failed.
+     * To get the status of the dataset group, call <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeDatasetGroup.html">DescribeDatasetGroup</a>.
+     * If the status shows as CREATE FAILED, the response includes a <code>failureReason</code> key, which describes why
+     * the creation failed.
      * </p>
      * <note>
      * <p>
@@ -458,9 +917,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * </p>
      * </note>
      * <p>
-     * You can specify an AWS Key Management Service (KMS) key to encrypt the datasets in the group. If you specify a
-     * KMS key, you must also include an AWS Identity and Access Management (IAM) role that has permission to access the
-     * key.
+     * You can specify an Key Management Service (KMS) key to encrypt the datasets in the group. If you specify a KMS
+     * key, you must also include an Identity and Access Management (IAM) role that has permission to access the key.
      * </p>
      * <p class="title">
      * <b>APIs that require a dataset group ARN in the request</b>
@@ -468,17 +926,17 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * <ul>
      * <li>
      * <p>
-     * <a>CreateDataset</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDataset.html">CreateDataset</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>CreateEventTracker</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateEventTracker.html">CreateEventTracker</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>CreateSolution</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolution.html">CreateSolution</a>
      * </p>
      * </li>
      * </ul>
@@ -488,17 +946,18 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * <ul>
      * <li>
      * <p>
-     * <a>ListDatasetGroups</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_ListDatasetGroups.html">ListDatasetGroups</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>DescribeDatasetGroup</a>
+     * <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeDatasetGroup.html">DescribeDatasetGroup</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>DeleteDatasetGroup</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_DeleteDatasetGroup.html">DeleteDatasetGroup</a>
      * </p>
      * </li>
      * </ul>
@@ -511,6 +970,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      *         The specified resource already exists.
      * @throws LimitExceededException
      *         The limit on the number of requests per second has been exceeded.
+     * @throws TooManyTagsException
+     *         You have exceeded the maximum number of tags you can apply to this resource.
      * @sample AmazonPersonalize.CreateDatasetGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/CreateDatasetGroup" target="_top">AWS
      *      API Documentation</a>
@@ -536,6 +997,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new CreateDatasetGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDatasetGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDatasetGroup");
@@ -560,32 +1023,15 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
     /**
      * <p>
      * Creates a job that imports training data from your data source (an Amazon S3 bucket) to an Amazon Personalize
-     * dataset. To allow Amazon Personalize to import the training data, you must specify an AWS Identity and Access
-     * Management (IAM) role that has permission to read from the data source.
+     * dataset. To allow Amazon Personalize to ACTIVE -or- CREATE FAILED
      * </p>
-     * <important>
+     * </li> </ul>
      * <p>
-     * The dataset import job replaces any previous data in the dataset.
-     * </p>
-     * </important>
-     * <p>
-     * <b>Status</b>
-     * </p>
-     * <p>
-     * A dataset import job can be in one of the following states:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * CREATE PENDING &gt; CREATE IN_PROGRESS &gt; ACTIVE -or- CREATE FAILED
-     * </p>
-     * </li>
-     * </ul>
-     * <p>
-     * To get the status of the import job, call <a>DescribeDatasetImportJob</a>, providing the Amazon Resource Name
-     * (ARN) of the dataset import job. The dataset import is complete when the status shows as ACTIVE. If the status
-     * shows as CREATE FAILED, the response includes a <code>failureReason</code> key, which describes why the job
-     * failed.
+     * To get the status of the import job, call <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeDatasetImportJob.html"
+     * >DescribeDatasetImportJob</a>, providing the Amazon Resource Name (ARN) of the dataset import job. The dataset
+     * import is complete when the status shows as ACTIVE. If the status shows as CREATE FAILED, the response includes a
+     * <code>failureReason</code> key, which describes why the job failed.
      * </p>
      * <note>
      * <p>
@@ -598,12 +1044,14 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * <ul>
      * <li>
      * <p>
-     * <a>ListDatasetImportJobs</a>
+     * <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_ListDatasetImportJobs.html">ListDatasetImportJobs</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>DescribeDatasetImportJob</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeDatasetImportJob.html">
+     * DescribeDatasetImportJob</a>
      * </p>
      * </li>
      * </ul>
@@ -618,6 +1066,10 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      *         The specified resource already exists.
      * @throws LimitExceededException
      *         The limit on the number of requests per second has been exceeded.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @throws TooManyTagsException
+     *         You have exceeded the maximum number of tags you can apply to this resource.
      * @sample AmazonPersonalize.CreateDatasetImportJob
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/CreateDatasetImportJob"
      *      target="_top">AWS API Documentation</a>
@@ -643,6 +1095,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new CreateDatasetImportJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDatasetImportJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDatasetImportJob");
@@ -667,13 +1121,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Creates an event tracker that you use when sending event data to the specified dataset group using the <a
+     * Creates an event tracker that you use when adding event data to a specified dataset group using the <a
      * href="https://docs.aws.amazon.com/personalize/latest/dg/API_UBS_PutEvents.html">PutEvents</a> API.
-     * </p>
-     * <p>
-     * When Amazon Personalize creates an event tracker, it also creates an <i>event-interactions</i> dataset in the
-     * dataset group associated with the event tracker. The event-interactions dataset stores the event data from the
-     * <code>PutEvents</code> call. The contents of this dataset are not available to the user.
      * </p>
      * <note>
      * <p>
@@ -682,8 +1131,10 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * </p>
      * </note>
      * <p>
-     * When you send event data you include your tracking ID. The tracking ID identifies the customer and authorizes the
-     * customer to send the data.
+     * When you create an event tracker, the response includes a tracking ID, which you pass as a parameter when you use
+     * the <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_UBS_PutEvents.html">PutEvents</a> operation.
+     * Amazon Personalize then appends the event data to the Item interactions dataset of the dataset group you specify
+     * in your event tracker.
      * </p>
      * <p>
      * The event tracker can be in one of the following states:
@@ -701,7 +1152,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * </li>
      * </ul>
      * <p>
-     * To get the status of the event tracker, call <a>DescribeEventTracker</a>.
+     * To get the status of the event tracker, call <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeEventTracker.html">DescribeEventTracker</a>.
      * </p>
      * <note>
      * <p>
@@ -714,17 +1166,18 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * <ul>
      * <li>
      * <p>
-     * <a>ListEventTrackers</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_ListEventTrackers.html">ListEventTrackers</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>DescribeEventTracker</a>
+     * <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeEventTracker.html">DescribeEventTracker</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>DeleteEventTracker</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_DeleteEventTracker.html">DeleteEventTracker</a>
      * </p>
      * </li>
      * </ul>
@@ -741,6 +1194,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      *         The limit on the number of requests per second has been exceeded.
      * @throws ResourceInUseException
      *         The specified resource is in use.
+     * @throws TooManyTagsException
+     *         You have exceeded the maximum number of tags you can apply to this resource.
      * @sample AmazonPersonalize.CreateEventTracker
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/CreateEventTracker" target="_top">AWS
      *      API Documentation</a>
@@ -766,6 +1221,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new CreateEventTrackerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createEventTrackerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateEventTracker");
@@ -789,12 +1246,311 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
+     * Creates a recommendation filter. For more information, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/filter.html">Filtering recommendations and user
+     * segments</a>.
+     * </p>
+     * 
+     * @param createFilterRequest
+     * @return Result of the CreateFilter operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws LimitExceededException
+     *         The limit on the number of requests per second has been exceeded.
+     * @throws TooManyTagsException
+     *         You have exceeded the maximum number of tags you can apply to this resource.
+     * @sample AmazonPersonalize.CreateFilter
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/CreateFilter" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public CreateFilterResult createFilter(CreateFilterRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateFilter(request);
+    }
+
+    @SdkInternalApi
+    final CreateFilterResult executeCreateFilter(CreateFilterRequest createFilterRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createFilterRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateFilterRequest> request = null;
+        Response<CreateFilterResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateFilterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createFilterRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateFilter");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateFilterResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateFilterResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a metric attribution. A metric attribution creates reports on the data that you import into Amazon
+     * Personalize. Depending on how you imported the data, you can view reports in Amazon CloudWatch or Amazon S3. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/measuring-recommendation-impact.html">Measuring impact of
+     * recommendations</a>.
+     * </p>
+     * 
+     * @param createMetricAttributionRequest
+     * @return Result of the CreateMetricAttribution operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @throws LimitExceededException
+     *         The limit on the number of requests per second has been exceeded.
+     * @sample AmazonPersonalize.CreateMetricAttribution
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/CreateMetricAttribution"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateMetricAttributionResult createMetricAttribution(CreateMetricAttributionRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateMetricAttribution(request);
+    }
+
+    @SdkInternalApi
+    final CreateMetricAttributionResult executeCreateMetricAttribution(CreateMetricAttributionRequest createMetricAttributionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createMetricAttributionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateMetricAttributionRequest> request = null;
+        Response<CreateMetricAttributionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateMetricAttributionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createMetricAttributionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateMetricAttribution");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateMetricAttributionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateMetricAttributionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a recommender with the recipe (a Domain dataset group use case) you specify. You create recommenders for
+     * a Domain dataset group and specify the recommender's Amazon Resource Name (ARN) when you make a <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetRecommendations.html">GetRecommendations</a>
+     * request.
+     * </p>
+     * <p>
+     * <b>Minimum recommendation requests per second</b>
+     * </p>
+     * <important>
+     * <p>
+     * A high <code>minRecommendationRequestsPerSecond</code> will increase your bill. We recommend starting with 1 for
+     * <code>minRecommendationRequestsPerSecond</code> (the default). Track your usage using Amazon CloudWatch metrics,
+     * and increase the <code>minRecommendationRequestsPerSecond</code> as necessary.
+     * </p>
+     * </important>
+     * <p>
+     * When you create a recommender, you can configure the recommender's minimum recommendation requests per second.
+     * The minimum recommendation requests per second (<code>minRecommendationRequestsPerSecond</code>) specifies the
+     * baseline recommendation request throughput provisioned by Amazon Personalize. The default
+     * minRecommendationRequestsPerSecond is <code>1</code>. A recommendation request is a single
+     * <code>GetRecommendations</code> operation. Request throughput is measured in requests per second and Amazon
+     * Personalize uses your requests per second to derive your requests per hour and the price of your recommender
+     * usage.
+     * </p>
+     * <p>
+     * If your requests per second increases beyond <code>minRecommendationRequestsPerSecond</code>, Amazon Personalize
+     * auto-scales the provisioned capacity up and down, but never below <code>minRecommendationRequestsPerSecond</code>
+     * . There's a short time delay while the capacity is increased that might cause loss of requests.
+     * </p>
+     * <p>
+     * Your bill is the greater of either the minimum requests per hour (based on minRecommendationRequestsPerSecond) or
+     * the actual number of requests. The actual request throughput used is calculated as the average requests/second
+     * within a one-hour window. We recommend starting with the default <code>minRecommendationRequestsPerSecond</code>,
+     * track your usage using Amazon CloudWatch metrics, and then increase the
+     * <code>minRecommendationRequestsPerSecond</code> as necessary.
+     * </p>
+     * <p>
+     * <b>Status</b>
+     * </p>
+     * <p>
+     * A recommender can be in one of the following states:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * CREATE PENDING &gt; CREATE IN_PROGRESS &gt; ACTIVE -or- CREATE FAILED
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * STOP PENDING &gt; STOP IN_PROGRESS &gt; INACTIVE &gt; START PENDING &gt; START IN_PROGRESS &gt; ACTIVE
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DELETE PENDING &gt; DELETE IN_PROGRESS
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To get the recommender status, call <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeRecommender.html">DescribeRecommender</a>.
+     * </p>
+     * <note>
+     * <p>
+     * Wait until the <code>status</code> of the recommender is <code>ACTIVE</code> before asking the recommender for
+     * recommendations.
+     * </p>
+     * </note>
+     * <p class="title">
+     * <b>Related APIs</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_ListRecommenders.html">ListRecommenders</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeRecommender.html">DescribeRecommender</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_UpdateRecommender.html">UpdateRecommender</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_DeleteRecommender.html">DeleteRecommender</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param createRecommenderRequest
+     * @return Result of the CreateRecommender operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws LimitExceededException
+     *         The limit on the number of requests per second has been exceeded.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @throws TooManyTagsException
+     *         You have exceeded the maximum number of tags you can apply to this resource.
+     * @sample AmazonPersonalize.CreateRecommender
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/CreateRecommender" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreateRecommenderResult createRecommender(CreateRecommenderRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateRecommender(request);
+    }
+
+    @SdkInternalApi
+    final CreateRecommenderResult executeCreateRecommender(CreateRecommenderRequest createRecommenderRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createRecommenderRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateRecommenderRequest> request = null;
+        Response<CreateRecommenderResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateRecommenderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createRecommenderRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateRecommender");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateRecommenderResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateRecommenderResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Creates an Amazon Personalize schema from the specified schema string. The schema you create must be in Avro JSON
      * format.
      * </p>
      * <p>
      * Amazon Personalize recognizes three schema variants. Each schema is associated with a dataset type and has a set
-     * of required field and keywords. You specify a schema when you call <a>CreateDataset</a>.
+     * of required field and keywords. If you are creating a schema for a dataset in a Domain dataset group, you provide
+     * the domain of the Domain dataset group. You specify a schema when you call <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDataset.html">CreateDataset</a>.
      * </p>
      * <p class="title">
      * <b>Related APIs</b>
@@ -802,17 +1558,17 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * <ul>
      * <li>
      * <p>
-     * <a>ListSchemas</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_ListSchemas.html">ListSchemas</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>DescribeSchema</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeSchema.html">DescribeSchema</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>DeleteSchema</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_DeleteSchema.html">DeleteSchema</a>
      * </p>
      * </li>
      * </ul>
@@ -850,6 +1606,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new CreateSchemaRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createSchemaRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSchema");
@@ -872,25 +1630,58 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
     }
 
     /**
+     * <important>
      * <p>
-     * Creates the configuration for training a model. A trained model is known as a solution. After the configuration
-     * is created, you train the model (create a solution) by calling the <a>CreateSolutionVersion</a> operation. Every
-     * time you call <code>CreateSolutionVersion</code>, a new version of the solution is created.
+     * After you create a solution, you can’t change its configuration. By default, all new solutions use automatic
+     * training. With automatic training, you incur training costs while your solution is active. You can't stop
+     * automatic training for a solution. To avoid unnecessary costs, make sure to delete the solution when you are
+     * finished. For information about training costs, see <a href="https://aws.amazon.com/personalize/pricing/">Amazon
+     * Personalize pricing</a>.
+     * </p>
+     * </important>
+     * <p>
+     * Creates the configuration for training a model (creating a solution version). This configuration includes the
+     * recipe to use for model training and optional training configuration, such as columns to use in training and
+     * feature transformation parameters. For more information about configuring a solution, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/customizing-solution-config.html">Creating and
+     * configuring a solution</a>.
      * </p>
      * <p>
-     * After creating a solution version, you check its accuracy by calling <a>GetSolutionMetrics</a>. When you are
-     * satisfied with the version, you deploy it using <a>CreateCampaign</a>. The campaign provides recommendations to a
-     * client through the <a
+     * By default, new solutions use automatic training to create solution versions every 7 days. You can change the
+     * training frequency. Automatic solution version creation starts one hour after the solution is ACTIVE. If you
+     * manually create a solution version within the hour, the solution skips the first automatic training. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/solution-config-auto-training.html">Configuring automatic
+     * training</a>.
+     * </p>
+     * <p>
+     * To turn off automatic training, set <code>performAutoTraining</code> to false. If you turn off automatic
+     * training, you must manually create a solution version by calling the <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolutionVersion.html">CreateSolutionVersion</a>
+     * operation.
+     * </p>
+     * <p>
+     * After training starts, you can get the solution version's Amazon Resource Name (ARN) with the <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_ListSolutionVersions.html">ListSolutionVersions</a>
+     * API operation. To get its status, use the <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeSolutionVersion.html"
+     * >DescribeSolutionVersion</a>.
+     * </p>
+     * <p>
+     * After training completes you can evaluate model accuracy by calling <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_GetSolutionMetrics.html">GetSolutionMetrics</a>. When
+     * you are satisfied with the solution version, you deploy it using <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateCampaign.html">CreateCampaign</a>. The campaign
+     * provides recommendations to a client through the <a
      * href="https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetRecommendations.html">GetRecommendations</a>
      * API.
      * </p>
+     * <note>
      * <p>
-     * To train a model, Amazon Personalize requires training data and a recipe. The training data comes from the
-     * dataset group that you provide in the request. A recipe specifies the training algorithm and a feature
-     * transformation. You can specify one of the predefined recipes provided by Amazon Personalize. Alternatively, you
-     * can specify <code>performAutoML</code> and Amazon Personalize will analyze your data and select the optimum
-     * USER_PERSONALIZATION recipe for you.
+     * Amazon Personalize doesn't support configuring the <code>hpoObjective</code> for solution hyperparameter
+     * optimization at this time.
      * </p>
+     * </note>
      * <p>
      * <b>Status</b>
      * </p>
@@ -910,8 +1701,9 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * </li>
      * </ul>
      * <p>
-     * To get the status of the solution, call <a>DescribeSolution</a>. Wait until the status shows as ACTIVE before
-     * calling <code>CreateSolutionVersion</code>.
+     * To get the status of the solution, call <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeSolution.html">DescribeSolution</a>. If you
+     * use manual training, the status must be ACTIVE before you call <code>CreateSolutionVersion</code>.
      * </p>
      * <p class="title">
      * <b>Related APIs</b>
@@ -919,34 +1711,37 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * <ul>
      * <li>
      * <p>
-     * <a>ListSolutions</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_ListSolutions.html">ListSolutions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>CreateSolutionVersion</a>
+     * <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolutionVersion.html">CreateSolutionVersion</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>DescribeSolution</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeSolution.html">DescribeSolution</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>DeleteSolution</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_DeleteSolution.html">DeleteSolution</a>
      * </p>
      * </li>
      * </ul>
      * <ul>
      * <li>
      * <p>
-     * <a>ListSolutionVersions</a>
+     * <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_ListSolutionVersions.html">ListSolutionVersions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>DescribeSolutionVersion</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeSolutionVersion.html">
+     * DescribeSolutionVersion</a>
      * </p>
      * </li>
      * </ul>
@@ -963,6 +1758,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      *         The limit on the number of requests per second has been exceeded.
      * @throws ResourceInUseException
      *         The specified resource is in use.
+     * @throws TooManyTagsException
+     *         You have exceeded the maximum number of tags you can apply to this resource.
      * @sample AmazonPersonalize.CreateSolution
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/CreateSolution" target="_top">AWS API
      *      Documentation</a>
@@ -988,6 +1785,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new CreateSolutionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createSolutionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSolution");
@@ -1011,8 +1810,9 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Trains or retrains an active solution. A solution is created using the <a>CreateSolution</a> operation and must
-     * be in the ACTIVE state before calling <code>CreateSolutionVersion</code>. A new version of the solution is
+     * Trains or retrains an active solution in a Custom dataset group. A solution is created using the <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolution.html">CreateSolution</a> operation and
+     * must be in the ACTIVE state before calling <code>CreateSolutionVersion</code>. A new version of the solution is
      * created every time you call this operation.
      * </p>
      * <p>
@@ -1024,13 +1824,39 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * <ul>
      * <li>
      * <p>
-     * CREATE PENDING &gt; CREATE IN_PROGRESS &gt; ACTIVE -or- CREATE FAILED
+     * CREATE PENDING
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CREATE IN_PROGRESS
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ACTIVE
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CREATE FAILED
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CREATE STOPPING
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CREATE STOPPED
      * </p>
      * </li>
      * </ul>
      * <p>
-     * To get the status of the version, call <a>DescribeSolutionVersion</a>. Wait until the status shows as ACTIVE
-     * before calling <code>CreateCampaign</code>.
+     * To get the status of the version, call <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeSolutionVersion.html"
+     * >DescribeSolutionVersion</a>. Wait until the status shows as ACTIVE before calling <code>CreateCampaign</code>.
      * </p>
      * <p>
      * If the status shows as CREATE FAILED, the response includes a <code>failureReason</code> key, which describes why
@@ -1042,34 +1868,34 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * <ul>
      * <li>
      * <p>
-     * <a>ListSolutionVersions</a>
+     * <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_ListSolutionVersions.html">ListSolutionVersions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>DescribeSolutionVersion</a>
-     * </p>
-     * </li>
-     * </ul>
-     * <ul>
-     * <li>
-     * <p>
-     * <a>ListSolutions</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeSolutionVersion.html">
+     * DescribeSolutionVersion</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>CreateSolution</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_ListSolutions.html">ListSolutions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>DescribeSolution</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolution.html">CreateSolution</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>DeleteSolution</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeSolution.html">DescribeSolution</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_DeleteSolution.html">DeleteSolution</a>
      * </p>
      * </li>
      * </ul>
@@ -1080,8 +1906,14 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      *         Provide a valid value for the field or parameter.
      * @throws ResourceNotFoundException
      *         Could not find the specified resource.
+     * @throws LimitExceededException
+     *         The limit on the number of requests per second has been exceeded.
      * @throws ResourceInUseException
      *         The specified resource is in use.
+     * @throws TooManyTagsException
+     *         You have exceeded the maximum number of tags you can apply to this resource.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
      * @sample AmazonPersonalize.CreateSolutionVersion
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/CreateSolutionVersion"
      *      target="_top">AWS API Documentation</a>
@@ -1107,6 +1939,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new CreateSolutionVersionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createSolutionVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSolutionVersion");
@@ -1134,7 +1968,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * Removes a campaign by deleting the solution deployment. The solution that the campaign is based on is not deleted
      * and can be redeployed when needed. A deleted campaign can no longer be specified in a <a
      * href="https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetRecommendations.html">GetRecommendations</a>
-     * request. For more information on campaigns, see <a>CreateCampaign</a>.
+     * request. For information on creating campaigns, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateCampaign.html">CreateCampaign</a>.
      * </p>
      * 
      * @param deleteCampaignRequest
@@ -1170,6 +2005,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new DeleteCampaignRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteCampaignRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCampaign");
@@ -1195,7 +2032,7 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * <p>
      * Deletes a dataset. You can't delete a dataset if an associated <code>DatasetImportJob</code> or
      * <code>SolutionVersion</code> is in the CREATE PENDING or IN PROGRESS state. For more information on datasets, see
-     * <a>CreateDataset</a>.
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDataset.html">CreateDataset</a>.
      * </p>
      * 
      * @param deleteDatasetRequest
@@ -1231,6 +2068,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new DeleteDatasetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteDatasetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDataset");
@@ -1307,6 +2146,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new DeleteDatasetGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteDatasetGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDatasetGroup");
@@ -1330,8 +2171,9 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Deletes the event tracker. Does not delete the event-interactions dataset from the associated dataset group. For
-     * more information on event trackers, see <a>CreateEventTracker</a>.
+     * Deletes the event tracker. Does not delete the dataset from the dataset group. For more information on event
+     * trackers, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateEventTracker.html">CreateEventTracker</a>.
      * </p>
      * 
      * @param deleteEventTrackerRequest
@@ -1367,6 +2209,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new DeleteEventTrackerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteEventTrackerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteEventTracker");
@@ -1390,8 +2234,196 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
+     * Deletes a filter.
+     * </p>
+     * 
+     * @param deleteFilterRequest
+     * @return Result of the DeleteFilter operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @sample AmazonPersonalize.DeleteFilter
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/DeleteFilter" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteFilterResult deleteFilter(DeleteFilterRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteFilter(request);
+    }
+
+    @SdkInternalApi
+    final DeleteFilterResult executeDeleteFilter(DeleteFilterRequest deleteFilterRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteFilterRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteFilterRequest> request = null;
+        Response<DeleteFilterResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteFilterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteFilterRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteFilter");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteFilterResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteFilterResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a metric attribution.
+     * </p>
+     * 
+     * @param deleteMetricAttributionRequest
+     * @return Result of the DeleteMetricAttribution operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @sample AmazonPersonalize.DeleteMetricAttribution
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/DeleteMetricAttribution"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteMetricAttributionResult deleteMetricAttribution(DeleteMetricAttributionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteMetricAttribution(request);
+    }
+
+    @SdkInternalApi
+    final DeleteMetricAttributionResult executeDeleteMetricAttribution(DeleteMetricAttributionRequest deleteMetricAttributionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteMetricAttributionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteMetricAttributionRequest> request = null;
+        Response<DeleteMetricAttributionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteMetricAttributionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteMetricAttributionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteMetricAttribution");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteMetricAttributionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteMetricAttributionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deactivates and removes a recommender. A deleted recommender can no longer be specified in a <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetRecommendations.html">GetRecommendations</a>
+     * request.
+     * </p>
+     * 
+     * @param deleteRecommenderRequest
+     * @return Result of the DeleteRecommender operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @sample AmazonPersonalize.DeleteRecommender
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/DeleteRecommender" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DeleteRecommenderResult deleteRecommender(DeleteRecommenderRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteRecommender(request);
+    }
+
+    @SdkInternalApi
+    final DeleteRecommenderResult executeDeleteRecommender(DeleteRecommenderRequest deleteRecommenderRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteRecommenderRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteRecommenderRequest> request = null;
+        Response<DeleteRecommenderResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteRecommenderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteRecommenderRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRecommender");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteRecommenderResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteRecommenderResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Deletes a schema. Before deleting a schema, you must delete all datasets referencing the schema. For more
-     * information on schemas, see <a>CreateSchema</a>.
+     * information on schemas, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSchema.html">CreateSchema</a>.
      * </p>
      * 
      * @param deleteSchemaRequest
@@ -1427,6 +2459,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new DeleteSchemaRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteSchemaRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteSchema");
@@ -1451,10 +2485,11 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
     /**
      * <p>
      * Deletes all versions of a solution and the <code>Solution</code> object itself. Before deleting a solution, you
-     * must delete all campaigns based on the solution. To determine what campaigns are using the solution, call
-     * <a>ListCampaigns</a> and supply the Amazon Resource Name (ARN) of the solution. You can't delete a solution if an
-     * associated <code>SolutionVersion</code> is in the CREATE PENDING or IN PROGRESS state. For more information on
-     * solutions, see <a>CreateSolution</a>.
+     * must delete all campaigns based on the solution. To determine what campaigns are using the solution, call <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_ListCampaigns.html">ListCampaigns</a> and supply the
+     * Amazon Resource Name (ARN) of the solution. You can't delete a solution if an associated
+     * <code>SolutionVersion</code> is in the CREATE PENDING or IN PROGRESS state. For more information on solutions,
+     * see <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolution.html">CreateSolution</a>.
      * </p>
      * 
      * @param deleteSolutionRequest
@@ -1490,6 +2525,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new DeleteSolutionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteSolutionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteSolution");
@@ -1547,6 +2584,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new DescribeAlgorithmRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeAlgorithmRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAlgorithm");
@@ -1558,6 +2597,130 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
 
             HttpResponseHandler<AmazonWebServiceResponse<DescribeAlgorithmResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeAlgorithmResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets the properties of a batch inference job including name, Amazon Resource Name (ARN), status, input and output
+     * configurations, and the ARN of the solution version used to generate the recommendations.
+     * </p>
+     * 
+     * @param describeBatchInferenceJobRequest
+     * @return Result of the DescribeBatchInferenceJob operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @sample AmazonPersonalize.DescribeBatchInferenceJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/DescribeBatchInferenceJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeBatchInferenceJobResult describeBatchInferenceJob(DescribeBatchInferenceJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeBatchInferenceJob(request);
+    }
+
+    @SdkInternalApi
+    final DescribeBatchInferenceJobResult executeDescribeBatchInferenceJob(DescribeBatchInferenceJobRequest describeBatchInferenceJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeBatchInferenceJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeBatchInferenceJobRequest> request = null;
+        Response<DescribeBatchInferenceJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeBatchInferenceJobRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeBatchInferenceJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBatchInferenceJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeBatchInferenceJobResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeBatchInferenceJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets the properties of a batch segment job including name, Amazon Resource Name (ARN), status, input and output
+     * configurations, and the ARN of the solution version used to generate segments.
+     * </p>
+     * 
+     * @param describeBatchSegmentJobRequest
+     * @return Result of the DescribeBatchSegmentJob operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @sample AmazonPersonalize.DescribeBatchSegmentJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/DescribeBatchSegmentJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeBatchSegmentJobResult describeBatchSegmentJob(DescribeBatchSegmentJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeBatchSegmentJob(request);
+    }
+
+    @SdkInternalApi
+    final DescribeBatchSegmentJobResult executeDescribeBatchSegmentJob(DescribeBatchSegmentJobRequest describeBatchSegmentJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeBatchSegmentJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeBatchSegmentJobRequest> request = null;
+        Response<DescribeBatchSegmentJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeBatchSegmentJobRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeBatchSegmentJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBatchSegmentJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeBatchSegmentJobResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeBatchSegmentJobResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1592,7 +2755,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * key, which describes why.
      * </p>
      * <p>
-     * For more information on campaigns, see <a>CreateCampaign</a>.
+     * For more information on campaigns, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateCampaign.html">CreateCampaign</a>.
      * </p>
      * 
      * @param describeCampaignRequest
@@ -1626,6 +2790,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new DescribeCampaignRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeCampaignRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCampaign");
@@ -1649,7 +2815,71 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Describes the given dataset. For more information on datasets, see <a>CreateDataset</a>.
+     * Describes the data deletion job created by <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDataDeletionJob.html"
+     * >CreateDataDeletionJob</a>, including the job status.
+     * </p>
+     * 
+     * @param describeDataDeletionJobRequest
+     * @return Result of the DescribeDataDeletionJob operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @sample AmazonPersonalize.DescribeDataDeletionJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/DescribeDataDeletionJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeDataDeletionJobResult describeDataDeletionJob(DescribeDataDeletionJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeDataDeletionJob(request);
+    }
+
+    @SdkInternalApi
+    final DescribeDataDeletionJobResult executeDescribeDataDeletionJob(DescribeDataDeletionJobRequest describeDataDeletionJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeDataDeletionJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeDataDeletionJobRequest> request = null;
+        Response<DescribeDataDeletionJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeDataDeletionJobRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeDataDeletionJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDataDeletionJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeDataDeletionJobResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeDataDeletionJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes the given dataset. For more information on datasets, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDataset.html">CreateDataset</a>.
      * </p>
      * 
      * @param describeDatasetRequest
@@ -1683,6 +2913,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new DescribeDatasetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeDatasetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDataset");
@@ -1706,7 +2938,71 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Describes the given dataset group. For more information on dataset groups, see <a>CreateDatasetGroup</a>.
+     * Describes the dataset export job created by <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDatasetExportJob.html"
+     * >CreateDatasetExportJob</a>, including the export job status.
+     * </p>
+     * 
+     * @param describeDatasetExportJobRequest
+     * @return Result of the DescribeDatasetExportJob operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @sample AmazonPersonalize.DescribeDatasetExportJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/DescribeDatasetExportJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeDatasetExportJobResult describeDatasetExportJob(DescribeDatasetExportJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeDatasetExportJob(request);
+    }
+
+    @SdkInternalApi
+    final DescribeDatasetExportJobResult executeDescribeDatasetExportJob(DescribeDatasetExportJobRequest describeDatasetExportJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeDatasetExportJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeDatasetExportJobRequest> request = null;
+        Response<DescribeDatasetExportJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeDatasetExportJobRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeDatasetExportJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDatasetExportJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeDatasetExportJobResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeDatasetExportJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes the given dataset group. For more information on dataset groups, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDatasetGroup.html">CreateDatasetGroup</a>.
      * </p>
      * 
      * @param describeDatasetGroupRequest
@@ -1740,6 +3036,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new DescribeDatasetGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeDatasetGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDatasetGroup");
@@ -1763,7 +3061,9 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Describes the dataset import job created by <a>CreateDatasetImportJob</a>, including the import job status.
+     * Describes the dataset import job created by <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDatasetImportJob.html"
+     * >CreateDatasetImportJob</a>, including the import job status.
      * </p>
      * 
      * @param describeDatasetImportJobRequest
@@ -1798,6 +3098,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(describeDatasetImportJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDatasetImportJob");
@@ -1823,7 +3125,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
     /**
      * <p>
      * Describes an event tracker. The response includes the <code>trackingId</code> and <code>status</code> of the
-     * event tracker. For more information on event trackers, see <a>CreateEventTracker</a>.
+     * event tracker. For more information on event trackers, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateEventTracker.html">CreateEventTracker</a>.
      * </p>
      * 
      * @param describeEventTrackerRequest
@@ -1857,6 +3160,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new DescribeEventTrackerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeEventTrackerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEventTracker");
@@ -1915,6 +3220,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(describeFeatureTransformationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeFeatureTransformation");
@@ -1927,6 +3234,126 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
             HttpResponseHandler<AmazonWebServiceResponse<DescribeFeatureTransformationResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new DescribeFeatureTransformationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes a filter's properties.
+     * </p>
+     * 
+     * @param describeFilterRequest
+     * @return Result of the DescribeFilter operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @sample AmazonPersonalize.DescribeFilter
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/DescribeFilter" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DescribeFilterResult describeFilter(DescribeFilterRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeFilter(request);
+    }
+
+    @SdkInternalApi
+    final DescribeFilterResult executeDescribeFilter(DescribeFilterRequest describeFilterRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeFilterRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeFilterRequest> request = null;
+        Response<DescribeFilterResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeFilterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeFilterRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeFilter");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeFilterResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeFilterResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes a metric attribution.
+     * </p>
+     * 
+     * @param describeMetricAttributionRequest
+     * @return Result of the DescribeMetricAttribution operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @sample AmazonPersonalize.DescribeMetricAttribution
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/DescribeMetricAttribution"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeMetricAttributionResult describeMetricAttribution(DescribeMetricAttributionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeMetricAttribution(request);
+    }
+
+    @SdkInternalApi
+    final DescribeMetricAttributionResult executeDescribeMetricAttribution(DescribeMetricAttributionRequest describeMetricAttributionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeMetricAttributionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeMetricAttributionRequest> request = null;
+        Response<DescribeMetricAttributionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeMetricAttributionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeMetricAttributionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeMetricAttribution");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeMetricAttributionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeMetricAttributionResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1963,9 +3390,10 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * </ul>
      * <p>
      * Amazon Personalize provides a set of predefined recipes. You specify a recipe when you create a solution with the
-     * <a>CreateSolution</a> API. <code>CreateSolution</code> trains a model by using the algorithm in the specified
-     * recipe and a training dataset. The solution, when deployed as a campaign, can provide recommendations using the
-     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetRecommendations.html">GetRecommendations</a>
+     * <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolution.html">CreateSolution</a> API.
+     * <code>CreateSolution</code> trains a model by using the algorithm in the specified recipe and a training dataset.
+     * The solution, when deployed as a campaign, can provide recommendations using the <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetRecommendations.html">GetRecommendations</a>
      * API.
      * </p>
      * 
@@ -2000,6 +3428,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new DescribeRecipeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeRecipeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeRecipe");
@@ -2023,7 +3453,98 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Describes a schema. For more information on schemas, see <a>CreateSchema</a>.
+     * Describes the given recommender, including its status.
+     * </p>
+     * <p>
+     * A recommender can be in one of the following states:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * CREATE PENDING &gt; CREATE IN_PROGRESS &gt; ACTIVE -or- CREATE FAILED
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * STOP PENDING &gt; STOP IN_PROGRESS &gt; INACTIVE &gt; START PENDING &gt; START IN_PROGRESS &gt; ACTIVE
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DELETE PENDING &gt; DELETE IN_PROGRESS
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * When the <code>status</code> is <code>CREATE FAILED</code>, the response includes the <code>failureReason</code>
+     * key, which describes why.
+     * </p>
+     * <p>
+     * The <code>modelMetrics</code> key is null when the recommender is being created or deleted.
+     * </p>
+     * <p>
+     * For more information on recommenders, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateRecommender.html">CreateRecommender</a>.
+     * </p>
+     * 
+     * @param describeRecommenderRequest
+     * @return Result of the DescribeRecommender operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @sample AmazonPersonalize.DescribeRecommender
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/DescribeRecommender"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeRecommenderResult describeRecommender(DescribeRecommenderRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeRecommender(request);
+    }
+
+    @SdkInternalApi
+    final DescribeRecommenderResult executeDescribeRecommender(DescribeRecommenderRequest describeRecommenderRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeRecommenderRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeRecommenderRequest> request = null;
+        Response<DescribeRecommenderResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeRecommenderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeRecommenderRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeRecommender");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeRecommenderResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeRecommenderResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes a schema. For more information on schemas, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSchema.html">CreateSchema</a>.
      * </p>
      * 
      * @param describeSchemaRequest
@@ -2057,6 +3578,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new DescribeSchemaRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeSchemaRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeSchema");
@@ -2080,7 +3603,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Describes a solution. For more information on solutions, see <a>CreateSolution</a>.
+     * Describes a solution. For more information on solutions, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolution.html">CreateSolution</a>.
      * </p>
      * 
      * @param describeSolutionRequest
@@ -2114,6 +3638,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new DescribeSolutionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeSolutionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeSolution");
@@ -2137,7 +3663,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Describes a specific version of a solution. For more information on solutions, see <a>CreateSolution</a>.
+     * Describes a specific version of a solution. For more information on solutions, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolution.html">CreateSolution</a>
      * </p>
      * 
      * @param describeSolutionVersionRequest
@@ -2172,6 +3699,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(describeSolutionVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeSolutionVersion");
@@ -2232,6 +3761,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new GetSolutionMetricsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getSolutionMetricsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSolutionMetrics");
@@ -2255,9 +3786,129 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
+     * Gets a list of the batch inference jobs that have been performed off of a solution version.
+     * </p>
+     * 
+     * @param listBatchInferenceJobsRequest
+     * @return Result of the ListBatchInferenceJobs operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws InvalidNextTokenException
+     *         The token is not valid.
+     * @sample AmazonPersonalize.ListBatchInferenceJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/ListBatchInferenceJobs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListBatchInferenceJobsResult listBatchInferenceJobs(ListBatchInferenceJobsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListBatchInferenceJobs(request);
+    }
+
+    @SdkInternalApi
+    final ListBatchInferenceJobsResult executeListBatchInferenceJobs(ListBatchInferenceJobsRequest listBatchInferenceJobsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listBatchInferenceJobsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListBatchInferenceJobsRequest> request = null;
+        Response<ListBatchInferenceJobsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListBatchInferenceJobsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listBatchInferenceJobsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListBatchInferenceJobs");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListBatchInferenceJobsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListBatchInferenceJobsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a list of the batch segment jobs that have been performed off of a solution version that you specify.
+     * </p>
+     * 
+     * @param listBatchSegmentJobsRequest
+     * @return Result of the ListBatchSegmentJobs operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws InvalidNextTokenException
+     *         The token is not valid.
+     * @sample AmazonPersonalize.ListBatchSegmentJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/ListBatchSegmentJobs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListBatchSegmentJobsResult listBatchSegmentJobs(ListBatchSegmentJobsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListBatchSegmentJobs(request);
+    }
+
+    @SdkInternalApi
+    final ListBatchSegmentJobsResult executeListBatchSegmentJobs(ListBatchSegmentJobsRequest listBatchSegmentJobsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listBatchSegmentJobsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListBatchSegmentJobsRequest> request = null;
+        Response<ListBatchSegmentJobsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListBatchSegmentJobsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listBatchSegmentJobsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListBatchSegmentJobs");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListBatchSegmentJobsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListBatchSegmentJobsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Returns a list of campaigns that use the given solution. When a solution is not specified, all the campaigns
      * associated with the account are listed. The response provides the properties for each campaign, including the
-     * Amazon Resource Name (ARN). For more information on campaigns, see <a>CreateCampaign</a>.
+     * Amazon Resource Name (ARN). For more information on campaigns, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateCampaign.html">CreateCampaign</a>.
      * </p>
      * 
      * @param listCampaignsRequest
@@ -2291,6 +3942,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new ListCampaignsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listCampaignsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCampaigns");
@@ -2314,8 +3967,137 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
+     * Returns a list of data deletion jobs for a dataset group ordered by creation time, with the most recent first.
+     * When a dataset group is not specified, all the data deletion jobs associated with the account are listed. The
+     * response provides the properties for each job, including the Amazon Resource Name (ARN). For more information on
+     * data deletion jobs, see <a href="https://docs.aws.amazon.com/personalize/latest/dg/delete-records.html">Deleting
+     * users</a>.
+     * </p>
+     * 
+     * @param listDataDeletionJobsRequest
+     * @return Result of the ListDataDeletionJobs operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws InvalidNextTokenException
+     *         The token is not valid.
+     * @sample AmazonPersonalize.ListDataDeletionJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/ListDataDeletionJobs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListDataDeletionJobsResult listDataDeletionJobs(ListDataDeletionJobsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListDataDeletionJobs(request);
+    }
+
+    @SdkInternalApi
+    final ListDataDeletionJobsResult executeListDataDeletionJobs(ListDataDeletionJobsRequest listDataDeletionJobsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listDataDeletionJobsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListDataDeletionJobsRequest> request = null;
+        Response<ListDataDeletionJobsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListDataDeletionJobsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDataDeletionJobsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDataDeletionJobs");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListDataDeletionJobsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListDataDeletionJobsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of dataset export jobs that use the given dataset. When a dataset is not specified, all the
+     * dataset export jobs associated with the account are listed. The response provides the properties for each dataset
+     * export job, including the Amazon Resource Name (ARN). For more information on dataset export jobs, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDatasetExportJob.html"
+     * >CreateDatasetExportJob</a>. For more information on datasets, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDataset.html">CreateDataset</a>.
+     * </p>
+     * 
+     * @param listDatasetExportJobsRequest
+     * @return Result of the ListDatasetExportJobs operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws InvalidNextTokenException
+     *         The token is not valid.
+     * @sample AmazonPersonalize.ListDatasetExportJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/ListDatasetExportJobs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListDatasetExportJobsResult listDatasetExportJobs(ListDatasetExportJobsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListDatasetExportJobs(request);
+    }
+
+    @SdkInternalApi
+    final ListDatasetExportJobsResult executeListDatasetExportJobs(ListDatasetExportJobsRequest listDatasetExportJobsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listDatasetExportJobsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListDatasetExportJobsRequest> request = null;
+        Response<ListDatasetExportJobsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListDatasetExportJobsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDatasetExportJobsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDatasetExportJobs");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListDatasetExportJobsResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new ListDatasetExportJobsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Returns a list of dataset groups. The response provides the properties for each dataset group, including the
-     * Amazon Resource Name (ARN). For more information on dataset groups, see <a>CreateDatasetGroup</a>.
+     * Amazon Resource Name (ARN). For more information on dataset groups, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDatasetGroup.html">CreateDatasetGroup</a>.
      * </p>
      * 
      * @param listDatasetGroupsRequest
@@ -2347,6 +4129,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new ListDatasetGroupsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDatasetGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDatasetGroups");
@@ -2372,8 +4156,10 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * <p>
      * Returns a list of dataset import jobs that use the given dataset. When a dataset is not specified, all the
      * dataset import jobs associated with the account are listed. The response provides the properties for each dataset
-     * import job, including the Amazon Resource Name (ARN). For more information on dataset import jobs, see
-     * <a>CreateDatasetImportJob</a>. For more information on datasets, see <a>CreateDataset</a>.
+     * import job, including the Amazon Resource Name (ARN). For more information on dataset import jobs, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDatasetImportJob.html"
+     * >CreateDatasetImportJob</a>. For more information on datasets, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDataset.html">CreateDataset</a>.
      * </p>
      * 
      * @param listDatasetImportJobsRequest
@@ -2407,6 +4193,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new ListDatasetImportJobsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDatasetImportJobsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDatasetImportJobs");
@@ -2432,7 +4220,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
     /**
      * <p>
      * Returns the list of datasets contained in the given dataset group. The response provides the properties for each
-     * dataset, including the Amazon Resource Name (ARN). For more information on datasets, see <a>CreateDataset</a>.
+     * dataset, including the Amazon Resource Name (ARN). For more information on datasets, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDataset.html">CreateDataset</a>.
      * </p>
      * 
      * @param listDatasetsRequest
@@ -2466,6 +4255,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new ListDatasetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDatasetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDatasets");
@@ -2491,7 +4282,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * <p>
      * Returns the list of event trackers associated with the account. The response provides the properties for each
      * event tracker, including the Amazon Resource Name (ARN) and tracking ID. For more information on event trackers,
-     * see <a>CreateEventTracker</a>.
+     * see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateEventTracker.html">CreateEventTracker</a>.
      * </p>
      * 
      * @param listEventTrackersRequest
@@ -2525,6 +4317,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new ListEventTrackersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listEventTrackersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListEventTrackers");
@@ -2548,6 +4342,186 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
+     * Lists all filters that belong to a given dataset group.
+     * </p>
+     * 
+     * @param listFiltersRequest
+     * @return Result of the ListFilters operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws InvalidNextTokenException
+     *         The token is not valid.
+     * @sample AmazonPersonalize.ListFilters
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/ListFilters" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListFiltersResult listFilters(ListFiltersRequest request) {
+        request = beforeClientExecution(request);
+        return executeListFilters(request);
+    }
+
+    @SdkInternalApi
+    final ListFiltersResult executeListFilters(ListFiltersRequest listFiltersRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listFiltersRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListFiltersRequest> request = null;
+        Response<ListFiltersResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListFiltersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listFiltersRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListFilters");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListFiltersResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListFiltersResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists the metrics for the metric attribution.
+     * </p>
+     * 
+     * @param listMetricAttributionMetricsRequest
+     * @return Result of the ListMetricAttributionMetrics operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws InvalidNextTokenException
+     *         The token is not valid.
+     * @sample AmazonPersonalize.ListMetricAttributionMetrics
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/ListMetricAttributionMetrics"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListMetricAttributionMetricsResult listMetricAttributionMetrics(ListMetricAttributionMetricsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListMetricAttributionMetrics(request);
+    }
+
+    @SdkInternalApi
+    final ListMetricAttributionMetricsResult executeListMetricAttributionMetrics(ListMetricAttributionMetricsRequest listMetricAttributionMetricsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listMetricAttributionMetricsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListMetricAttributionMetricsRequest> request = null;
+        Response<ListMetricAttributionMetricsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListMetricAttributionMetricsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listMetricAttributionMetricsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListMetricAttributionMetrics");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListMetricAttributionMetricsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListMetricAttributionMetricsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists metric attributions.
+     * </p>
+     * 
+     * @param listMetricAttributionsRequest
+     * @return Result of the ListMetricAttributions operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws InvalidNextTokenException
+     *         The token is not valid.
+     * @sample AmazonPersonalize.ListMetricAttributions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/ListMetricAttributions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListMetricAttributionsResult listMetricAttributions(ListMetricAttributionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListMetricAttributions(request);
+    }
+
+    @SdkInternalApi
+    final ListMetricAttributionsResult executeListMetricAttributions(ListMetricAttributionsRequest listMetricAttributionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listMetricAttributionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListMetricAttributionsRequest> request = null;
+        Response<ListMetricAttributionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListMetricAttributionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listMetricAttributionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListMetricAttributions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListMetricAttributionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListMetricAttributionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Returns a list of available recipes. The response provides the properties for each recipe, including the recipe's
      * Amazon Resource Name (ARN).
      * </p>
@@ -2556,6 +4530,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * @return Result of the ListRecipes operation returned by the service.
      * @throws InvalidNextTokenException
      *         The token is not valid.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
      * @sample AmazonPersonalize.ListRecipes
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/ListRecipes" target="_top">AWS API
      *      Documentation</a>
@@ -2581,6 +4557,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new ListRecipesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listRecipesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRecipes");
@@ -2604,8 +4582,71 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
+     * Returns a list of recommenders in a given Domain dataset group. When a Domain dataset group is not specified, all
+     * the recommenders associated with the account are listed. The response provides the properties for each
+     * recommender, including the Amazon Resource Name (ARN). For more information on recommenders, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateRecommender.html">CreateRecommender</a>.
+     * </p>
+     * 
+     * @param listRecommendersRequest
+     * @return Result of the ListRecommenders operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws InvalidNextTokenException
+     *         The token is not valid.
+     * @sample AmazonPersonalize.ListRecommenders
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/ListRecommenders" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListRecommendersResult listRecommenders(ListRecommendersRequest request) {
+        request = beforeClientExecution(request);
+        return executeListRecommenders(request);
+    }
+
+    @SdkInternalApi
+    final ListRecommendersResult executeListRecommenders(ListRecommendersRequest listRecommendersRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listRecommendersRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListRecommendersRequest> request = null;
+        Response<ListRecommendersResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListRecommendersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listRecommendersRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRecommenders");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListRecommendersResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListRecommendersResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Returns the list of schemas associated with the account. The response provides the properties for each schema,
-     * including the Amazon Resource Name (ARN). For more information on schemas, see <a>CreateSchema</a>.
+     * including the Amazon Resource Name (ARN). For more information on schemas, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSchema.html">CreateSchema</a>.
      * </p>
      * 
      * @param listSchemasRequest
@@ -2637,6 +4678,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new ListSchemasRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listSchemasRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListSchemas");
@@ -2662,7 +4705,7 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      * <p>
      * Returns a list of solution versions for the given solution. When a solution is not specified, all the solution
      * versions associated with the account are listed. The response provides the properties for each solution version,
-     * including the Amazon Resource Name (ARN). For more information on solutions, see <a>CreateSolution</a>.
+     * including the Amazon Resource Name (ARN).
      * </p>
      * 
      * @param listSolutionVersionsRequest
@@ -2671,6 +4714,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
      *         Provide a valid value for the field or parameter.
      * @throws ResourceNotFoundException
      *         Could not find the specified resource.
+     * @throws InvalidNextTokenException
+     *         The token is not valid.
      * @sample AmazonPersonalize.ListSolutionVersions
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/ListSolutionVersions"
      *      target="_top">AWS API Documentation</a>
@@ -2696,6 +4741,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new ListSolutionVersionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listSolutionVersionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListSolutionVersions");
@@ -2719,9 +4766,10 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Returns a list of solutions that use the given dataset group. When a dataset group is not specified, all the
-     * solutions associated with the account are listed. The response provides the properties for each solution,
-     * including the Amazon Resource Name (ARN). For more information on solutions, see <a>CreateSolution</a>.
+     * Returns a list of solutions in a given dataset group. When a dataset group is not specified, all the solutions
+     * associated with the account are listed. The response provides the properties for each solution, including the
+     * Amazon Resource Name (ARN). For more information on solutions, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolution.html">CreateSolution</a>.
      * </p>
      * 
      * @param listSolutionsRequest
@@ -2755,6 +4803,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new ListSolutionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listSolutionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListSolutions");
@@ -2778,21 +4828,444 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Updates a campaign by either deploying a new solution or changing the value of the campaign's
-     * <code>minProvisionedTPS</code> parameter.
+     * Get a list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a>
+     * attached to a resource.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @sample AmazonPersonalize.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/ListTagsForResource"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeListTagsForResource(request);
+    }
+
+    @SdkInternalApi
+    final ListTagsForResourceResult executeListTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listTagsForResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListTagsForResourceRequest> request = null;
+        Response<ListTagsForResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListTagsForResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListTagsForResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Starts a recommender that is INACTIVE. Starting a recommender does not create any new models, but resumes billing
+     * and automatic retraining for the recommender.
+     * </p>
+     * 
+     * @param startRecommenderRequest
+     * @return Result of the StartRecommender operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @sample AmazonPersonalize.StartRecommender
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/StartRecommender" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public StartRecommenderResult startRecommender(StartRecommenderRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartRecommender(request);
+    }
+
+    @SdkInternalApi
+    final StartRecommenderResult executeStartRecommender(StartRecommenderRequest startRecommenderRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startRecommenderRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartRecommenderRequest> request = null;
+        Response<StartRecommenderResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartRecommenderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startRecommenderRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartRecommender");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartRecommenderResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new StartRecommenderResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Stops a recommender that is ACTIVE. Stopping a recommender halts billing and automatic retraining for the
+     * recommender.
+     * </p>
+     * 
+     * @param stopRecommenderRequest
+     * @return Result of the StopRecommender operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @sample AmazonPersonalize.StopRecommender
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/StopRecommender" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public StopRecommenderResult stopRecommender(StopRecommenderRequest request) {
+        request = beforeClientExecution(request);
+        return executeStopRecommender(request);
+    }
+
+    @SdkInternalApi
+    final StopRecommenderResult executeStopRecommender(StopRecommenderRequest stopRecommenderRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(stopRecommenderRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StopRecommenderRequest> request = null;
+        Response<StopRecommenderResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StopRecommenderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(stopRecommenderRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StopRecommender");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StopRecommenderResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new StopRecommenderResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Stops creating a solution version that is in a state of CREATE_PENDING or CREATE IN_PROGRESS.
      * </p>
      * <p>
-     * To update a campaign, the campaign status must be ACTIVE or CREATE FAILED. Check the campaign status using the
-     * <a>DescribeCampaign</a> API.
+     * Depending on the current state of the solution version, the solution version state changes as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * CREATE_PENDING &gt; CREATE_STOPPED
+     * </p>
+     * <p>
+     * or
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CREATE_IN_PROGRESS &gt; CREATE_STOPPING &gt; CREATE_STOPPED
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * You are billed for all of the training completed up until you stop the solution version creation. You cannot
+     * resume creating a solution version once it has been stopped.
+     * </p>
+     * 
+     * @param stopSolutionVersionCreationRequest
+     * @return Result of the StopSolutionVersionCreation operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @sample AmazonPersonalize.StopSolutionVersionCreation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/StopSolutionVersionCreation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public StopSolutionVersionCreationResult stopSolutionVersionCreation(StopSolutionVersionCreationRequest request) {
+        request = beforeClientExecution(request);
+        return executeStopSolutionVersionCreation(request);
+    }
+
+    @SdkInternalApi
+    final StopSolutionVersionCreationResult executeStopSolutionVersionCreation(StopSolutionVersionCreationRequest stopSolutionVersionCreationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(stopSolutionVersionCreationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StopSolutionVersionCreationRequest> request = null;
+        Response<StopSolutionVersionCreationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StopSolutionVersionCreationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(stopSolutionVersionCreationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StopSolutionVersionCreation");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StopSolutionVersionCreationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new StopSolutionVersionCreationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Add a list of tags to a resource.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws TooManyTagsException
+     *         You have exceeded the maximum number of tags you can apply to this resource.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @throws LimitExceededException
+     *         The limit on the number of requests per second has been exceeded.
+     * @sample AmazonPersonalize.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/TagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeTagResource(request);
+    }
+
+    @SdkInternalApi
+    final TagResourceResult executeTagResource(TagResourceRequest tagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(tagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TagResourceRequest> request = null;
+        Response<TagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<TagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new TagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Removes the specified tags that are attached to a resource. For more information, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/tags-remove.html">Removing tags from Amazon Personalize
+     * resources</a>.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws TooManyTagKeysException
+     *         The request contains more tag keys than can be associated with a resource (50 tag keys per resource).
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @sample AmazonPersonalize.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/UntagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeUntagResource(request);
+    }
+
+    @SdkInternalApi
+    final UntagResourceResult executeUntagResource(UntagResourceRequest untagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(untagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UntagResourceRequest> request = null;
+        Response<UntagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UntagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UntagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates a campaign to deploy a retrained solution version with an existing campaign, change your campaign's
+     * <code>minProvisionedTPS</code>, or modify your campaign's configuration. For example, you can set
+     * <code>enableMetadataWithRecommendations</code> to true for an existing campaign.
+     * </p>
+     * <p>
+     * To update a campaign to start automatically using the latest solution version, specify the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For the <code>SolutionVersionArn</code> parameter, specify the Amazon Resource Name (ARN) of your solution in
+     * <code>SolutionArn/$LATEST</code> format.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In the <code>campaignConfig</code>, set <code>syncWithLatestSolutionVersion</code> to <code>true</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To update a campaign, the campaign status must be ACTIVE or CREATE FAILED. Check the campaign status using the <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeCampaign.html">DescribeCampaign</a>
+     * operation.
      * </p>
      * <note>
      * <p>
-     * You must wait until the <code>status</code> of the updated campaign is <code>ACTIVE</code> before asking the
-     * campaign for recommendations.
+     * You can still get recommendations from a campaign while an update is in progress. The campaign will use the
+     * previous solution version and campaign configuration to generate recommendations until the latest campaign update
+     * status is <code>Active</code>.
      * </p>
      * </note>
      * <p>
-     * For more information on campaigns, see <a>CreateCampaign</a>.
+     * For more information about updating a campaign, including code samples, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/update-campaigns.html">Updating a campaign</a>. For more
+     * information about campaigns, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/campaigns.html">Creating a campaign</a>.
      * </p>
      * 
      * @param updateCampaignRequest
@@ -2828,6 +5301,8 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
                 request = new UpdateCampaignRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateCampaignRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateCampaign");
@@ -2839,6 +5314,201 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
 
             HttpResponseHandler<AmazonWebServiceResponse<UpdateCampaignResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateCampaignResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Update a dataset to replace its schema with a new or existing one. For more information, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/updating-dataset-schema.html">Replacing a dataset's
+     * schema</a>.
+     * </p>
+     * 
+     * @param updateDatasetRequest
+     * @return Result of the UpdateDataset operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @sample AmazonPersonalize.UpdateDataset
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/UpdateDataset" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UpdateDatasetResult updateDataset(UpdateDatasetRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateDataset(request);
+    }
+
+    @SdkInternalApi
+    final UpdateDatasetResult executeUpdateDataset(UpdateDatasetRequest updateDatasetRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateDatasetRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateDatasetRequest> request = null;
+        Response<UpdateDatasetResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateDatasetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateDatasetRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDataset");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateDatasetResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateDatasetResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates a metric attribution.
+     * </p>
+     * 
+     * @param updateMetricAttributionRequest
+     * @return Result of the UpdateMetricAttribution operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @sample AmazonPersonalize.UpdateMetricAttribution
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/UpdateMetricAttribution"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateMetricAttributionResult updateMetricAttribution(UpdateMetricAttributionRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateMetricAttribution(request);
+    }
+
+    @SdkInternalApi
+    final UpdateMetricAttributionResult executeUpdateMetricAttribution(UpdateMetricAttributionRequest updateMetricAttributionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateMetricAttributionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateMetricAttributionRequest> request = null;
+        Response<UpdateMetricAttributionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateMetricAttributionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateMetricAttributionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateMetricAttribution");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateMetricAttributionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateMetricAttributionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the recommender to modify the recommender configuration. If you update the recommender to modify the
+     * columns used in training, Amazon Personalize automatically starts a full retraining of the models backing your
+     * recommender. While the update completes, you can still get recommendations from the recommender. The recommender
+     * uses the previous configuration until the update completes. To track the status of this update, use the
+     * <code>latestRecommenderUpdate</code> returned in the <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeRecommender.html">DescribeRecommender</a>
+     * operation.
+     * </p>
+     * 
+     * @param updateRecommenderRequest
+     * @return Result of the UpdateRecommender operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @sample AmazonPersonalize.UpdateRecommender
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/UpdateRecommender" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public UpdateRecommenderResult updateRecommender(UpdateRecommenderRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateRecommender(request);
+    }
+
+    @SdkInternalApi
+    final UpdateRecommenderResult executeUpdateRecommender(UpdateRecommenderRequest updateRecommenderRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateRecommenderRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateRecommenderRequest> request = null;
+        Response<UpdateRecommenderResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateRecommenderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateRecommenderRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRecommender");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateRecommenderResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateRecommenderResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2923,6 +5593,11 @@ public class AmazonPersonalizeClient extends AmazonWebServiceClient implements A
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

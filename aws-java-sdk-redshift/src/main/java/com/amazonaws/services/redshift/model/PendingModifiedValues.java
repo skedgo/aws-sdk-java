@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,7 +29,7 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The pending or in-progress change of the master user password for the cluster.
+     * The pending or in-progress change of the admin user password for the cluster.
      * </p>
      */
     private String masterUserPassword;
@@ -98,19 +98,18 @@ public class PendingModifiedValues implements Serializable, Cloneable {
     private String maintenanceTrackName;
     /**
      * <p>
-     * The encryption type for a cluster. Possible values are: KMS and None. For the China region the possible values
-     * are None, and Legacy.
+     * The encryption type for a cluster. Possible values are: KMS and None.
      * </p>
      */
     private String encryptionType;
 
     /**
      * <p>
-     * The pending or in-progress change of the master user password for the cluster.
+     * The pending or in-progress change of the admin user password for the cluster.
      * </p>
      * 
      * @param masterUserPassword
-     *        The pending or in-progress change of the master user password for the cluster.
+     *        The pending or in-progress change of the admin user password for the cluster.
      */
 
     public void setMasterUserPassword(String masterUserPassword) {
@@ -119,10 +118,10 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The pending or in-progress change of the master user password for the cluster.
+     * The pending or in-progress change of the admin user password for the cluster.
      * </p>
      * 
-     * @return The pending or in-progress change of the master user password for the cluster.
+     * @return The pending or in-progress change of the admin user password for the cluster.
      */
 
     public String getMasterUserPassword() {
@@ -131,11 +130,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The pending or in-progress change of the master user password for the cluster.
+     * The pending or in-progress change of the admin user password for the cluster.
      * </p>
      * 
      * @param masterUserPassword
-     *        The pending or in-progress change of the master user password for the cluster.
+     *        The pending or in-progress change of the admin user password for the cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -598,13 +597,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The encryption type for a cluster. Possible values are: KMS and None. For the China region the possible values
-     * are None, and Legacy.
+     * The encryption type for a cluster. Possible values are: KMS and None.
      * </p>
      * 
      * @param encryptionType
-     *        The encryption type for a cluster. Possible values are: KMS and None. For the China region the possible
-     *        values are None, and Legacy.
+     *        The encryption type for a cluster. Possible values are: KMS and None.
      */
 
     public void setEncryptionType(String encryptionType) {
@@ -613,12 +610,10 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The encryption type for a cluster. Possible values are: KMS and None. For the China region the possible values
-     * are None, and Legacy.
+     * The encryption type for a cluster. Possible values are: KMS and None.
      * </p>
      * 
-     * @return The encryption type for a cluster. Possible values are: KMS and None. For the China region the possible
-     *         values are None, and Legacy.
+     * @return The encryption type for a cluster. Possible values are: KMS and None.
      */
 
     public String getEncryptionType() {
@@ -627,13 +622,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The encryption type for a cluster. Possible values are: KMS and None. For the China region the possible values
-     * are None, and Legacy.
+     * The encryption type for a cluster. Possible values are: KMS and None.
      * </p>
      * 
      * @param encryptionType
-     *        The encryption type for a cluster. Possible values are: KMS and None. For the China region the possible
-     *        values are None, and Legacy.
+     *        The encryption type for a cluster. Possible values are: KMS and None.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -655,7 +648,7 @@ public class PendingModifiedValues implements Serializable, Cloneable {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getMasterUserPassword() != null)
-            sb.append("MasterUserPassword: ").append(getMasterUserPassword()).append(",");
+            sb.append("MasterUserPassword: ").append("***Sensitive Data Redacted***").append(",");
         if (getNodeType() != null)
             sb.append("NodeType: ").append(getNodeType()).append(",");
         if (getNumberOfNodes() != null)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,6 +21,12 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * <p>
  * Describes a command filter.
  * </p>
+ * <note>
+ * <p>
+ * A managed node ID can't be specified when a command status is <code>Pending</code> because the command hasn't run on
+ * the node yet.
+ * </p>
+ * </note>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CommandFilter" target="_top">AWS API
  *      Documentation</a>
@@ -32,6 +38,12 @@ public class CommandFilter implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The name of the filter.
      * </p>
+     * <note>
+     * <p>
+     * The <code>ExecutionStage</code> filter can't be used with the <code>ListCommandInvocations</code> operation, only
+     * with <code>ListCommands</code>.
+     * </p>
+     * </note>
      */
     private String key;
     /**
@@ -42,19 +54,22 @@ public class CommandFilter implements Serializable, Cloneable, StructuredPojo {
      * <li>
      * <p>
      * <b>InvokedAfter</b>: Specify a timestamp to limit your results. For example, specify
-     * <code>2018-07-07T00:00:00Z</code> to see a list of command executions occurring July 7, 2018, and later.
+     * <code>2021-07-07T00:00:00Z</code> to see a list of command executions occurring July 7, 2021, and later.
      * </p>
      * </li>
      * <li>
      * <p>
      * <b>InvokedBefore</b>: Specify a timestamp to limit your results. For example, specify
-     * <code>2018-07-07T00:00:00Z</code> to see a list of command executions from before July 7, 2018.
+     * <code>2021-07-07T00:00:00Z</code> to see a list of command executions from before July 7, 2021.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Status</b>: Specify a valid command status to see a list of all command executions with that status. Status
-     * values you can specify include:
+     * <b>Status</b>: Specify a valid command status to see a list of all command executions with that status. The
+     * status choices depend on the API you call.
+     * </p>
+     * <p>
+     * The status values you can specify for <code>ListCommands</code> are:
      * </p>
      * <ul>
      * <li>
@@ -84,26 +99,121 @@ public class CommandFilter implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>TimedOut</code>
+     * <code>TimedOut</code> (this includes both Delivery and Execution time outs)
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Cancelling</code>
+     * <code>AccessDenied</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DeliveryTimedOut</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ExecutionTimedOut</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Incomplete</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NoInstancesInTag</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LimitExceeded</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The status values you can specify for <code>ListCommandInvocations</code> are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Pending</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>InProgress</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Delayed</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Success</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Cancelled</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Failed</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TimedOut</code> (this includes both Delivery and Execution time outs)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AccessDenied</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DeliveryTimedOut</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ExecutionTimedOut</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Undeliverable</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>InvalidPlatform</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Terminated</code>
      * </p>
      * </li>
      * </ul>
      * </li>
      * <li>
      * <p>
-     * <b>DocumentName</b>: Specify name of the SSM document for which you want to see command execution results. For
-     * example, specify <code>AWS-RunPatchBaseline</code> to see command executions that used this SSM document to
-     * perform security patching operations on instances.
+     * <b>DocumentName</b>: Specify name of the Amazon Web Services Systems Manager document (SSM document) for which
+     * you want to see command execution results. For example, specify <code>AWS-RunPatchBaseline</code> to see command
+     * executions that used this SSM document to perform security patching operations on managed nodes.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>ExecutionStage</b>: Specify one of the following values:
+     * <b>ExecutionStage</b>: Specify one of the following values (<code>ListCommands</code> operations only):
      * </p>
      * <ul>
      * <li>
@@ -126,9 +236,19 @@ public class CommandFilter implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The name of the filter.
      * </p>
+     * <note>
+     * <p>
+     * The <code>ExecutionStage</code> filter can't be used with the <code>ListCommandInvocations</code> operation, only
+     * with <code>ListCommands</code>.
+     * </p>
+     * </note>
      * 
      * @param key
-     *        The name of the filter.
+     *        The name of the filter.</p> <note>
+     *        <p>
+     *        The <code>ExecutionStage</code> filter can't be used with the <code>ListCommandInvocations</code>
+     *        operation, only with <code>ListCommands</code>.
+     *        </p>
      * @see CommandFilterKey
      */
 
@@ -140,8 +260,18 @@ public class CommandFilter implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The name of the filter.
      * </p>
+     * <note>
+     * <p>
+     * The <code>ExecutionStage</code> filter can't be used with the <code>ListCommandInvocations</code> operation, only
+     * with <code>ListCommands</code>.
+     * </p>
+     * </note>
      * 
-     * @return The name of the filter.
+     * @return The name of the filter.</p> <note>
+     *         <p>
+     *         The <code>ExecutionStage</code> filter can't be used with the <code>ListCommandInvocations</code>
+     *         operation, only with <code>ListCommands</code>.
+     *         </p>
      * @see CommandFilterKey
      */
 
@@ -153,9 +283,19 @@ public class CommandFilter implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The name of the filter.
      * </p>
+     * <note>
+     * <p>
+     * The <code>ExecutionStage</code> filter can't be used with the <code>ListCommandInvocations</code> operation, only
+     * with <code>ListCommands</code>.
+     * </p>
+     * </note>
      * 
      * @param key
-     *        The name of the filter.
+     *        The name of the filter.</p> <note>
+     *        <p>
+     *        The <code>ExecutionStage</code> filter can't be used with the <code>ListCommandInvocations</code>
+     *        operation, only with <code>ListCommands</code>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see CommandFilterKey
      */
@@ -169,9 +309,19 @@ public class CommandFilter implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The name of the filter.
      * </p>
+     * <note>
+     * <p>
+     * The <code>ExecutionStage</code> filter can't be used with the <code>ListCommandInvocations</code> operation, only
+     * with <code>ListCommands</code>.
+     * </p>
+     * </note>
      * 
      * @param key
-     *        The name of the filter.
+     *        The name of the filter.</p> <note>
+     *        <p>
+     *        The <code>ExecutionStage</code> filter can't be used with the <code>ListCommandInvocations</code>
+     *        operation, only with <code>ListCommands</code>.
+     *        </p>
      * @see CommandFilterKey
      */
 
@@ -183,9 +333,19 @@ public class CommandFilter implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The name of the filter.
      * </p>
+     * <note>
+     * <p>
+     * The <code>ExecutionStage</code> filter can't be used with the <code>ListCommandInvocations</code> operation, only
+     * with <code>ListCommands</code>.
+     * </p>
+     * </note>
      * 
      * @param key
-     *        The name of the filter.
+     *        The name of the filter.</p> <note>
+     *        <p>
+     *        The <code>ExecutionStage</code> filter can't be used with the <code>ListCommandInvocations</code>
+     *        operation, only with <code>ListCommands</code>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see CommandFilterKey
      */
@@ -203,19 +363,22 @@ public class CommandFilter implements Serializable, Cloneable, StructuredPojo {
      * <li>
      * <p>
      * <b>InvokedAfter</b>: Specify a timestamp to limit your results. For example, specify
-     * <code>2018-07-07T00:00:00Z</code> to see a list of command executions occurring July 7, 2018, and later.
+     * <code>2021-07-07T00:00:00Z</code> to see a list of command executions occurring July 7, 2021, and later.
      * </p>
      * </li>
      * <li>
      * <p>
      * <b>InvokedBefore</b>: Specify a timestamp to limit your results. For example, specify
-     * <code>2018-07-07T00:00:00Z</code> to see a list of command executions from before July 7, 2018.
+     * <code>2021-07-07T00:00:00Z</code> to see a list of command executions from before July 7, 2021.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Status</b>: Specify a valid command status to see a list of all command executions with that status. Status
-     * values you can specify include:
+     * <b>Status</b>: Specify a valid command status to see a list of all command executions with that status. The
+     * status choices depend on the API you call.
+     * </p>
+     * <p>
+     * The status values you can specify for <code>ListCommands</code> are:
      * </p>
      * <ul>
      * <li>
@@ -245,26 +408,121 @@ public class CommandFilter implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>TimedOut</code>
+     * <code>TimedOut</code> (this includes both Delivery and Execution time outs)
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Cancelling</code>
+     * <code>AccessDenied</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DeliveryTimedOut</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ExecutionTimedOut</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Incomplete</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NoInstancesInTag</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LimitExceeded</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The status values you can specify for <code>ListCommandInvocations</code> are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Pending</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>InProgress</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Delayed</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Success</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Cancelled</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Failed</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TimedOut</code> (this includes both Delivery and Execution time outs)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AccessDenied</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DeliveryTimedOut</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ExecutionTimedOut</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Undeliverable</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>InvalidPlatform</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Terminated</code>
      * </p>
      * </li>
      * </ul>
      * </li>
      * <li>
      * <p>
-     * <b>DocumentName</b>: Specify name of the SSM document for which you want to see command execution results. For
-     * example, specify <code>AWS-RunPatchBaseline</code> to see command executions that used this SSM document to
-     * perform security patching operations on instances.
+     * <b>DocumentName</b>: Specify name of the Amazon Web Services Systems Manager document (SSM document) for which
+     * you want to see command execution results. For example, specify <code>AWS-RunPatchBaseline</code> to see command
+     * executions that used this SSM document to perform security patching operations on managed nodes.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>ExecutionStage</b>: Specify one of the following values:
+     * <b>ExecutionStage</b>: Specify one of the following values (<code>ListCommands</code> operations only):
      * </p>
      * <ul>
      * <li>
@@ -287,19 +545,22 @@ public class CommandFilter implements Serializable, Cloneable, StructuredPojo {
      *        <li>
      *        <p>
      *        <b>InvokedAfter</b>: Specify a timestamp to limit your results. For example, specify
-     *        <code>2018-07-07T00:00:00Z</code> to see a list of command executions occurring July 7, 2018, and later.
+     *        <code>2021-07-07T00:00:00Z</code> to see a list of command executions occurring July 7, 2021, and later.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <b>InvokedBefore</b>: Specify a timestamp to limit your results. For example, specify
-     *        <code>2018-07-07T00:00:00Z</code> to see a list of command executions from before July 7, 2018.
+     *        <code>2021-07-07T00:00:00Z</code> to see a list of command executions from before July 7, 2021.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <b>Status</b>: Specify a valid command status to see a list of all command executions with that status.
-     *        Status values you can specify include:
+     *        The status choices depend on the API you call.
+     *        </p>
+     *        <p>
+     *        The status values you can specify for <code>ListCommands</code> are:
      *        </p>
      *        <ul>
      *        <li>
@@ -329,26 +590,122 @@ public class CommandFilter implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>TimedOut</code>
+     *        <code>TimedOut</code> (this includes both Delivery and Execution time outs)
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Cancelling</code>
+     *        <code>AccessDenied</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DeliveryTimedOut</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ExecutionTimedOut</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Incomplete</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NoInstancesInTag</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LimitExceeded</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The status values you can specify for <code>ListCommandInvocations</code> are:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Pending</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>InProgress</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Delayed</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Success</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Cancelled</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Failed</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TimedOut</code> (this includes both Delivery and Execution time outs)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AccessDenied</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DeliveryTimedOut</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ExecutionTimedOut</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Undeliverable</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>InvalidPlatform</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Terminated</code>
      *        </p>
      *        </li>
      *        </ul>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>DocumentName</b>: Specify name of the SSM document for which you want to see command execution results.
-     *        For example, specify <code>AWS-RunPatchBaseline</code> to see command executions that used this SSM
-     *        document to perform security patching operations on instances.
+     *        <b>DocumentName</b>: Specify name of the Amazon Web Services Systems Manager document (SSM document) for
+     *        which you want to see command execution results. For example, specify <code>AWS-RunPatchBaseline</code> to
+     *        see command executions that used this SSM document to perform security patching operations on managed
+     *        nodes.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>ExecutionStage</b>: Specify one of the following values:
+     *        <b>ExecutionStage</b>: Specify one of the following values (<code>ListCommands</code> operations only):
      *        </p>
      *        <ul>
      *        <li>
@@ -377,19 +734,22 @@ public class CommandFilter implements Serializable, Cloneable, StructuredPojo {
      * <li>
      * <p>
      * <b>InvokedAfter</b>: Specify a timestamp to limit your results. For example, specify
-     * <code>2018-07-07T00:00:00Z</code> to see a list of command executions occurring July 7, 2018, and later.
+     * <code>2021-07-07T00:00:00Z</code> to see a list of command executions occurring July 7, 2021, and later.
      * </p>
      * </li>
      * <li>
      * <p>
      * <b>InvokedBefore</b>: Specify a timestamp to limit your results. For example, specify
-     * <code>2018-07-07T00:00:00Z</code> to see a list of command executions from before July 7, 2018.
+     * <code>2021-07-07T00:00:00Z</code> to see a list of command executions from before July 7, 2021.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Status</b>: Specify a valid command status to see a list of all command executions with that status. Status
-     * values you can specify include:
+     * <b>Status</b>: Specify a valid command status to see a list of all command executions with that status. The
+     * status choices depend on the API you call.
+     * </p>
+     * <p>
+     * The status values you can specify for <code>ListCommands</code> are:
      * </p>
      * <ul>
      * <li>
@@ -419,26 +779,121 @@ public class CommandFilter implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>TimedOut</code>
+     * <code>TimedOut</code> (this includes both Delivery and Execution time outs)
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Cancelling</code>
+     * <code>AccessDenied</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DeliveryTimedOut</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ExecutionTimedOut</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Incomplete</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NoInstancesInTag</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LimitExceeded</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The status values you can specify for <code>ListCommandInvocations</code> are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Pending</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>InProgress</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Delayed</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Success</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Cancelled</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Failed</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TimedOut</code> (this includes both Delivery and Execution time outs)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AccessDenied</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DeliveryTimedOut</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ExecutionTimedOut</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Undeliverable</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>InvalidPlatform</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Terminated</code>
      * </p>
      * </li>
      * </ul>
      * </li>
      * <li>
      * <p>
-     * <b>DocumentName</b>: Specify name of the SSM document for which you want to see command execution results. For
-     * example, specify <code>AWS-RunPatchBaseline</code> to see command executions that used this SSM document to
-     * perform security patching operations on instances.
+     * <b>DocumentName</b>: Specify name of the Amazon Web Services Systems Manager document (SSM document) for which
+     * you want to see command execution results. For example, specify <code>AWS-RunPatchBaseline</code> to see command
+     * executions that used this SSM document to perform security patching operations on managed nodes.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>ExecutionStage</b>: Specify one of the following values:
+     * <b>ExecutionStage</b>: Specify one of the following values (<code>ListCommands</code> operations only):
      * </p>
      * <ul>
      * <li>
@@ -460,19 +915,22 @@ public class CommandFilter implements Serializable, Cloneable, StructuredPojo {
      *         <li>
      *         <p>
      *         <b>InvokedAfter</b>: Specify a timestamp to limit your results. For example, specify
-     *         <code>2018-07-07T00:00:00Z</code> to see a list of command executions occurring July 7, 2018, and later.
+     *         <code>2021-07-07T00:00:00Z</code> to see a list of command executions occurring July 7, 2021, and later.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         <b>InvokedBefore</b>: Specify a timestamp to limit your results. For example, specify
-     *         <code>2018-07-07T00:00:00Z</code> to see a list of command executions from before July 7, 2018.
+     *         <code>2021-07-07T00:00:00Z</code> to see a list of command executions from before July 7, 2021.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         <b>Status</b>: Specify a valid command status to see a list of all command executions with that status.
-     *         Status values you can specify include:
+     *         The status choices depend on the API you call.
+     *         </p>
+     *         <p>
+     *         The status values you can specify for <code>ListCommands</code> are:
      *         </p>
      *         <ul>
      *         <li>
@@ -502,26 +960,122 @@ public class CommandFilter implements Serializable, Cloneable, StructuredPojo {
      *         </li>
      *         <li>
      *         <p>
-     *         <code>TimedOut</code>
+     *         <code>TimedOut</code> (this includes both Delivery and Execution time outs)
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>Cancelling</code>
+     *         <code>AccessDenied</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>DeliveryTimedOut</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ExecutionTimedOut</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Incomplete</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>NoInstancesInTag</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>LimitExceeded</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         The status values you can specify for <code>ListCommandInvocations</code> are:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>Pending</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>InProgress</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Delayed</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Success</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Cancelled</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Failed</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>TimedOut</code> (this includes both Delivery and Execution time outs)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>AccessDenied</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>DeliveryTimedOut</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ExecutionTimedOut</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Undeliverable</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>InvalidPlatform</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Terminated</code>
      *         </p>
      *         </li>
      *         </ul>
      *         </li>
      *         <li>
      *         <p>
-     *         <b>DocumentName</b>: Specify name of the SSM document for which you want to see command execution
-     *         results. For example, specify <code>AWS-RunPatchBaseline</code> to see command executions that used this
-     *         SSM document to perform security patching operations on instances.
+     *         <b>DocumentName</b>: Specify name of the Amazon Web Services Systems Manager document (SSM document) for
+     *         which you want to see command execution results. For example, specify <code>AWS-RunPatchBaseline</code>
+     *         to see command executions that used this SSM document to perform security patching operations on managed
+     *         nodes.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <b>ExecutionStage</b>: Specify one of the following values:
+     *         <b>ExecutionStage</b>: Specify one of the following values (<code>ListCommands</code> operations only):
      *         </p>
      *         <ul>
      *         <li>
@@ -550,19 +1104,22 @@ public class CommandFilter implements Serializable, Cloneable, StructuredPojo {
      * <li>
      * <p>
      * <b>InvokedAfter</b>: Specify a timestamp to limit your results. For example, specify
-     * <code>2018-07-07T00:00:00Z</code> to see a list of command executions occurring July 7, 2018, and later.
+     * <code>2021-07-07T00:00:00Z</code> to see a list of command executions occurring July 7, 2021, and later.
      * </p>
      * </li>
      * <li>
      * <p>
      * <b>InvokedBefore</b>: Specify a timestamp to limit your results. For example, specify
-     * <code>2018-07-07T00:00:00Z</code> to see a list of command executions from before July 7, 2018.
+     * <code>2021-07-07T00:00:00Z</code> to see a list of command executions from before July 7, 2021.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Status</b>: Specify a valid command status to see a list of all command executions with that status. Status
-     * values you can specify include:
+     * <b>Status</b>: Specify a valid command status to see a list of all command executions with that status. The
+     * status choices depend on the API you call.
+     * </p>
+     * <p>
+     * The status values you can specify for <code>ListCommands</code> are:
      * </p>
      * <ul>
      * <li>
@@ -592,26 +1149,121 @@ public class CommandFilter implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>TimedOut</code>
+     * <code>TimedOut</code> (this includes both Delivery and Execution time outs)
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Cancelling</code>
+     * <code>AccessDenied</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DeliveryTimedOut</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ExecutionTimedOut</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Incomplete</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NoInstancesInTag</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LimitExceeded</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The status values you can specify for <code>ListCommandInvocations</code> are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Pending</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>InProgress</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Delayed</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Success</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Cancelled</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Failed</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TimedOut</code> (this includes both Delivery and Execution time outs)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AccessDenied</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DeliveryTimedOut</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ExecutionTimedOut</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Undeliverable</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>InvalidPlatform</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Terminated</code>
      * </p>
      * </li>
      * </ul>
      * </li>
      * <li>
      * <p>
-     * <b>DocumentName</b>: Specify name of the SSM document for which you want to see command execution results. For
-     * example, specify <code>AWS-RunPatchBaseline</code> to see command executions that used this SSM document to
-     * perform security patching operations on instances.
+     * <b>DocumentName</b>: Specify name of the Amazon Web Services Systems Manager document (SSM document) for which
+     * you want to see command execution results. For example, specify <code>AWS-RunPatchBaseline</code> to see command
+     * executions that used this SSM document to perform security patching operations on managed nodes.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>ExecutionStage</b>: Specify one of the following values:
+     * <b>ExecutionStage</b>: Specify one of the following values (<code>ListCommands</code> operations only):
      * </p>
      * <ul>
      * <li>
@@ -634,19 +1286,22 @@ public class CommandFilter implements Serializable, Cloneable, StructuredPojo {
      *        <li>
      *        <p>
      *        <b>InvokedAfter</b>: Specify a timestamp to limit your results. For example, specify
-     *        <code>2018-07-07T00:00:00Z</code> to see a list of command executions occurring July 7, 2018, and later.
+     *        <code>2021-07-07T00:00:00Z</code> to see a list of command executions occurring July 7, 2021, and later.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <b>InvokedBefore</b>: Specify a timestamp to limit your results. For example, specify
-     *        <code>2018-07-07T00:00:00Z</code> to see a list of command executions from before July 7, 2018.
+     *        <code>2021-07-07T00:00:00Z</code> to see a list of command executions from before July 7, 2021.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <b>Status</b>: Specify a valid command status to see a list of all command executions with that status.
-     *        Status values you can specify include:
+     *        The status choices depend on the API you call.
+     *        </p>
+     *        <p>
+     *        The status values you can specify for <code>ListCommands</code> are:
      *        </p>
      *        <ul>
      *        <li>
@@ -676,26 +1331,122 @@ public class CommandFilter implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>TimedOut</code>
+     *        <code>TimedOut</code> (this includes both Delivery and Execution time outs)
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Cancelling</code>
+     *        <code>AccessDenied</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DeliveryTimedOut</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ExecutionTimedOut</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Incomplete</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NoInstancesInTag</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LimitExceeded</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The status values you can specify for <code>ListCommandInvocations</code> are:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Pending</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>InProgress</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Delayed</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Success</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Cancelled</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Failed</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TimedOut</code> (this includes both Delivery and Execution time outs)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AccessDenied</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DeliveryTimedOut</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ExecutionTimedOut</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Undeliverable</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>InvalidPlatform</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Terminated</code>
      *        </p>
      *        </li>
      *        </ul>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>DocumentName</b>: Specify name of the SSM document for which you want to see command execution results.
-     *        For example, specify <code>AWS-RunPatchBaseline</code> to see command executions that used this SSM
-     *        document to perform security patching operations on instances.
+     *        <b>DocumentName</b>: Specify name of the Amazon Web Services Systems Manager document (SSM document) for
+     *        which you want to see command execution results. For example, specify <code>AWS-RunPatchBaseline</code> to
+     *        see command executions that used this SSM document to perform security patching operations on managed
+     *        nodes.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>ExecutionStage</b>: Specify one of the following values:
+     *        <b>ExecutionStage</b>: Specify one of the following values (<code>ListCommands</code> operations only):
      *        </p>
      *        <ul>
      *        <li>

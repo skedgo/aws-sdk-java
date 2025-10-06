@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * This data type is used as a response element in the <code>ModifyDBInstance</code> action.
+ * This data type is used as a response element in the <code>ModifyDBInstance</code> operation and contains changes that
+ * will be applied during the next maintenance window.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/PendingModifiedValues" target="_top">AWS API
@@ -28,45 +29,43 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the new <code>DBInstanceClass</code> for the DB instance that will be applied or is currently being
-     * applied.
+     * The name of the compute and memory capacity class for the DB instance.
      * </p>
      */
     private String dBInstanceClass;
     /**
      * <p>
-     * Contains the new <code>AllocatedStorage</code> size for the DB instance that will be applied or is currently
-     * being applied.
+     * The allocated storage size for the DB instance specified in gibibytes (GiB).
      * </p>
      */
     private Integer allocatedStorage;
     /**
      * <p>
-     * Contains the pending or currently-in-progress change of the master credentials for the DB instance.
+     * The master credentials for the DB instance.
      * </p>
      */
     private String masterUserPassword;
     /**
      * <p>
-     * Specifies the pending port for the DB instance.
+     * The port for the DB instance.
      * </p>
      */
     private Integer port;
     /**
      * <p>
-     * Specifies the pending number of days for which automated backups are retained.
+     * The number of days for which automated backups are retained.
      * </p>
      */
     private Integer backupRetentionPeriod;
     /**
      * <p>
-     * Indicates that the Single-AZ DB instance is to change to a Multi-AZ deployment.
+     * Indicates whether the Single-AZ DB instance will change to a Multi-AZ deployment.
      * </p>
      */
     private Boolean multiAZ;
     /**
      * <p>
-     * Indicates the database engine version.
+     * The database engine version.
      * </p>
      */
     private String engineVersion;
@@ -82,32 +81,38 @@ public class PendingModifiedValues implements Serializable, Cloneable {
     private String licenseModel;
     /**
      * <p>
-     * Specifies the new Provisioned IOPS value for the DB instance that will be applied or is currently being applied.
+     * The Provisioned IOPS value for the DB instance.
      * </p>
      */
     private Integer iops;
     /**
      * <p>
-     * Contains the new <code>DBInstanceIdentifier</code> for the DB instance that will be applied or is currently being
-     * applied.
+     * The database identifier for the DB instance.
      * </p>
      */
     private String dBInstanceIdentifier;
     /**
      * <p>
-     * Specifies the storage type to be associated with the DB instance.
+     * The storage type of the DB instance.
      * </p>
      */
     private String storageType;
     /**
      * <p>
-     * Specifies the identifier of the CA certificate for the DB instance.
+     * The identifier of the CA certificate for the DB instance.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a
+     * connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS to
+     * encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      */
     private String cACertificateIdentifier;
     /**
      * <p>
-     * The new DB subnet group for the DB instance.
+     * The DB subnet group for the DB instance.
      * </p>
      */
     private String dBSubnetGroupName;
@@ -119,16 +124,61 @@ public class PendingModifiedValues implements Serializable, Cloneable {
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<ProcessorFeature> processorFeatures;
+    /**
+     * <p>
+     * Indicates whether mapping of Amazon Web Services Identity and Access Management (IAM) accounts to database
+     * accounts is enabled.
+     * </p>
+     */
+    private Boolean iAMDatabaseAuthenticationEnabled;
+    /**
+     * <p>
+     * The automation mode of the RDS Custom DB instance: <code>full</code> or <code>all-paused</code>. If
+     * <code>full</code>, the DB instance automates monitoring and instance recovery. If <code>all-paused</code>, the
+     * instance pauses automation for the duration set by <code>--resume-full-automation-mode-minutes</code>.
+     * </p>
+     */
+    private String automationMode;
+    /**
+     * <p>
+     * The number of minutes to pause the automation. When the time period ends, RDS Custom resumes full automation. The
+     * minimum value is 60 (default). The maximum value is 1,440.
+     * </p>
+     */
+    private java.util.Date resumeFullAutomationModeTime;
+    /**
+     * <p>
+     * The storage throughput of the DB instance.
+     * </p>
+     */
+    private Integer storageThroughput;
+    /**
+     * <p>
+     * The database engine of the DB instance.
+     * </p>
+     */
+    private String engine;
+    /**
+     * <p>
+     * Indicates whether the DB instance has a dedicated log volume (DLV) enabled.&gt;
+     * </p>
+     */
+    private Boolean dedicatedLogVolume;
+    /**
+     * <p>
+     * Indicates whether the DB instance will change to the multi-tenant configuration (TRUE) or the single-tenant
+     * configuration (FALSE).
+     * </p>
+     */
+    private Boolean multiTenant;
 
     /**
      * <p>
-     * Contains the new <code>DBInstanceClass</code> for the DB instance that will be applied or is currently being
-     * applied.
+     * The name of the compute and memory capacity class for the DB instance.
      * </p>
      * 
      * @param dBInstanceClass
-     *        Contains the new <code>DBInstanceClass</code> for the DB instance that will be applied or is currently
-     *        being applied.
+     *        The name of the compute and memory capacity class for the DB instance.
      */
 
     public void setDBInstanceClass(String dBInstanceClass) {
@@ -137,12 +187,10 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the new <code>DBInstanceClass</code> for the DB instance that will be applied or is currently being
-     * applied.
+     * The name of the compute and memory capacity class for the DB instance.
      * </p>
      * 
-     * @return Contains the new <code>DBInstanceClass</code> for the DB instance that will be applied or is currently
-     *         being applied.
+     * @return The name of the compute and memory capacity class for the DB instance.
      */
 
     public String getDBInstanceClass() {
@@ -151,13 +199,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the new <code>DBInstanceClass</code> for the DB instance that will be applied or is currently being
-     * applied.
+     * The name of the compute and memory capacity class for the DB instance.
      * </p>
      * 
      * @param dBInstanceClass
-     *        Contains the new <code>DBInstanceClass</code> for the DB instance that will be applied or is currently
-     *        being applied.
+     *        The name of the compute and memory capacity class for the DB instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -168,13 +214,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the new <code>AllocatedStorage</code> size for the DB instance that will be applied or is currently
-     * being applied.
+     * The allocated storage size for the DB instance specified in gibibytes (GiB).
      * </p>
      * 
      * @param allocatedStorage
-     *        Contains the new <code>AllocatedStorage</code> size for the DB instance that will be applied or is
-     *        currently being applied.
+     *        The allocated storage size for the DB instance specified in gibibytes (GiB).
      */
 
     public void setAllocatedStorage(Integer allocatedStorage) {
@@ -183,12 +227,10 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the new <code>AllocatedStorage</code> size for the DB instance that will be applied or is currently
-     * being applied.
+     * The allocated storage size for the DB instance specified in gibibytes (GiB).
      * </p>
      * 
-     * @return Contains the new <code>AllocatedStorage</code> size for the DB instance that will be applied or is
-     *         currently being applied.
+     * @return The allocated storage size for the DB instance specified in gibibytes (GiB).
      */
 
     public Integer getAllocatedStorage() {
@@ -197,13 +239,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the new <code>AllocatedStorage</code> size for the DB instance that will be applied or is currently
-     * being applied.
+     * The allocated storage size for the DB instance specified in gibibytes (GiB).
      * </p>
      * 
      * @param allocatedStorage
-     *        Contains the new <code>AllocatedStorage</code> size for the DB instance that will be applied or is
-     *        currently being applied.
+     *        The allocated storage size for the DB instance specified in gibibytes (GiB).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -214,11 +254,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the pending or currently-in-progress change of the master credentials for the DB instance.
+     * The master credentials for the DB instance.
      * </p>
      * 
      * @param masterUserPassword
-     *        Contains the pending or currently-in-progress change of the master credentials for the DB instance.
+     *        The master credentials for the DB instance.
      */
 
     public void setMasterUserPassword(String masterUserPassword) {
@@ -227,10 +267,10 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the pending or currently-in-progress change of the master credentials for the DB instance.
+     * The master credentials for the DB instance.
      * </p>
      * 
-     * @return Contains the pending or currently-in-progress change of the master credentials for the DB instance.
+     * @return The master credentials for the DB instance.
      */
 
     public String getMasterUserPassword() {
@@ -239,11 +279,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the pending or currently-in-progress change of the master credentials for the DB instance.
+     * The master credentials for the DB instance.
      * </p>
      * 
      * @param masterUserPassword
-     *        Contains the pending or currently-in-progress change of the master credentials for the DB instance.
+     *        The master credentials for the DB instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -254,11 +294,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the pending port for the DB instance.
+     * The port for the DB instance.
      * </p>
      * 
      * @param port
-     *        Specifies the pending port for the DB instance.
+     *        The port for the DB instance.
      */
 
     public void setPort(Integer port) {
@@ -267,10 +307,10 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the pending port for the DB instance.
+     * The port for the DB instance.
      * </p>
      * 
-     * @return Specifies the pending port for the DB instance.
+     * @return The port for the DB instance.
      */
 
     public Integer getPort() {
@@ -279,11 +319,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the pending port for the DB instance.
+     * The port for the DB instance.
      * </p>
      * 
      * @param port
-     *        Specifies the pending port for the DB instance.
+     *        The port for the DB instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -294,11 +334,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the pending number of days for which automated backups are retained.
+     * The number of days for which automated backups are retained.
      * </p>
      * 
      * @param backupRetentionPeriod
-     *        Specifies the pending number of days for which automated backups are retained.
+     *        The number of days for which automated backups are retained.
      */
 
     public void setBackupRetentionPeriod(Integer backupRetentionPeriod) {
@@ -307,10 +347,10 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the pending number of days for which automated backups are retained.
+     * The number of days for which automated backups are retained.
      * </p>
      * 
-     * @return Specifies the pending number of days for which automated backups are retained.
+     * @return The number of days for which automated backups are retained.
      */
 
     public Integer getBackupRetentionPeriod() {
@@ -319,11 +359,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the pending number of days for which automated backups are retained.
+     * The number of days for which automated backups are retained.
      * </p>
      * 
      * @param backupRetentionPeriod
-     *        Specifies the pending number of days for which automated backups are retained.
+     *        The number of days for which automated backups are retained.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -334,11 +374,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates that the Single-AZ DB instance is to change to a Multi-AZ deployment.
+     * Indicates whether the Single-AZ DB instance will change to a Multi-AZ deployment.
      * </p>
      * 
      * @param multiAZ
-     *        Indicates that the Single-AZ DB instance is to change to a Multi-AZ deployment.
+     *        Indicates whether the Single-AZ DB instance will change to a Multi-AZ deployment.
      */
 
     public void setMultiAZ(Boolean multiAZ) {
@@ -347,10 +387,10 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates that the Single-AZ DB instance is to change to a Multi-AZ deployment.
+     * Indicates whether the Single-AZ DB instance will change to a Multi-AZ deployment.
      * </p>
      * 
-     * @return Indicates that the Single-AZ DB instance is to change to a Multi-AZ deployment.
+     * @return Indicates whether the Single-AZ DB instance will change to a Multi-AZ deployment.
      */
 
     public Boolean getMultiAZ() {
@@ -359,11 +399,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates that the Single-AZ DB instance is to change to a Multi-AZ deployment.
+     * Indicates whether the Single-AZ DB instance will change to a Multi-AZ deployment.
      * </p>
      * 
      * @param multiAZ
-     *        Indicates that the Single-AZ DB instance is to change to a Multi-AZ deployment.
+     *        Indicates whether the Single-AZ DB instance will change to a Multi-AZ deployment.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -374,10 +414,10 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates that the Single-AZ DB instance is to change to a Multi-AZ deployment.
+     * Indicates whether the Single-AZ DB instance will change to a Multi-AZ deployment.
      * </p>
      * 
-     * @return Indicates that the Single-AZ DB instance is to change to a Multi-AZ deployment.
+     * @return Indicates whether the Single-AZ DB instance will change to a Multi-AZ deployment.
      */
 
     public Boolean isMultiAZ() {
@@ -386,11 +426,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the database engine version.
+     * The database engine version.
      * </p>
      * 
      * @param engineVersion
-     *        Indicates the database engine version.
+     *        The database engine version.
      */
 
     public void setEngineVersion(String engineVersion) {
@@ -399,10 +439,10 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the database engine version.
+     * The database engine version.
      * </p>
      * 
-     * @return Indicates the database engine version.
+     * @return The database engine version.
      */
 
     public String getEngineVersion() {
@@ -411,11 +451,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the database engine version.
+     * The database engine version.
      * </p>
      * 
      * @param engineVersion
-     *        Indicates the database engine version.
+     *        The database engine version.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -487,12 +527,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the new Provisioned IOPS value for the DB instance that will be applied or is currently being applied.
+     * The Provisioned IOPS value for the DB instance.
      * </p>
      * 
      * @param iops
-     *        Specifies the new Provisioned IOPS value for the DB instance that will be applied or is currently being
-     *        applied.
+     *        The Provisioned IOPS value for the DB instance.
      */
 
     public void setIops(Integer iops) {
@@ -501,11 +540,10 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the new Provisioned IOPS value for the DB instance that will be applied or is currently being applied.
+     * The Provisioned IOPS value for the DB instance.
      * </p>
      * 
-     * @return Specifies the new Provisioned IOPS value for the DB instance that will be applied or is currently being
-     *         applied.
+     * @return The Provisioned IOPS value for the DB instance.
      */
 
     public Integer getIops() {
@@ -514,12 +552,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the new Provisioned IOPS value for the DB instance that will be applied or is currently being applied.
+     * The Provisioned IOPS value for the DB instance.
      * </p>
      * 
      * @param iops
-     *        Specifies the new Provisioned IOPS value for the DB instance that will be applied or is currently being
-     *        applied.
+     *        The Provisioned IOPS value for the DB instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -530,13 +567,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the new <code>DBInstanceIdentifier</code> for the DB instance that will be applied or is currently being
-     * applied.
+     * The database identifier for the DB instance.
      * </p>
      * 
      * @param dBInstanceIdentifier
-     *        Contains the new <code>DBInstanceIdentifier</code> for the DB instance that will be applied or is
-     *        currently being applied.
+     *        The database identifier for the DB instance.
      */
 
     public void setDBInstanceIdentifier(String dBInstanceIdentifier) {
@@ -545,12 +580,10 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the new <code>DBInstanceIdentifier</code> for the DB instance that will be applied or is currently being
-     * applied.
+     * The database identifier for the DB instance.
      * </p>
      * 
-     * @return Contains the new <code>DBInstanceIdentifier</code> for the DB instance that will be applied or is
-     *         currently being applied.
+     * @return The database identifier for the DB instance.
      */
 
     public String getDBInstanceIdentifier() {
@@ -559,13 +592,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the new <code>DBInstanceIdentifier</code> for the DB instance that will be applied or is currently being
-     * applied.
+     * The database identifier for the DB instance.
      * </p>
      * 
      * @param dBInstanceIdentifier
-     *        Contains the new <code>DBInstanceIdentifier</code> for the DB instance that will be applied or is
-     *        currently being applied.
+     *        The database identifier for the DB instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -576,11 +607,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the storage type to be associated with the DB instance.
+     * The storage type of the DB instance.
      * </p>
      * 
      * @param storageType
-     *        Specifies the storage type to be associated with the DB instance.
+     *        The storage type of the DB instance.
      */
 
     public void setStorageType(String storageType) {
@@ -589,10 +620,10 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the storage type to be associated with the DB instance.
+     * The storage type of the DB instance.
      * </p>
      * 
-     * @return Specifies the storage type to be associated with the DB instance.
+     * @return The storage type of the DB instance.
      */
 
     public String getStorageType() {
@@ -601,11 +632,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the storage type to be associated with the DB instance.
+     * The storage type of the DB instance.
      * </p>
      * 
      * @param storageType
-     *        Specifies the storage type to be associated with the DB instance.
+     *        The storage type of the DB instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -616,11 +647,24 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the identifier of the CA certificate for the DB instance.
+     * The identifier of the CA certificate for the DB instance.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a
+     * connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS to
+     * encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * 
      * @param cACertificateIdentifier
-     *        Specifies the identifier of the CA certificate for the DB instance.
+     *        The identifier of the CA certificate for the DB instance.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to
+     *        encrypt a connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS
+     *        to encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
      */
 
     public void setCACertificateIdentifier(String cACertificateIdentifier) {
@@ -629,10 +673,23 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the identifier of the CA certificate for the DB instance.
+     * The identifier of the CA certificate for the DB instance.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a
+     * connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS to
+     * encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * 
-     * @return Specifies the identifier of the CA certificate for the DB instance.
+     * @return The identifier of the CA certificate for the DB instance.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to
+     *         encrypt a connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS
+     *         to encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
      */
 
     public String getCACertificateIdentifier() {
@@ -641,11 +698,24 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the identifier of the CA certificate for the DB instance.
+     * The identifier of the CA certificate for the DB instance.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a
+     * connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS to
+     * encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * 
      * @param cACertificateIdentifier
-     *        Specifies the identifier of the CA certificate for the DB instance.
+     *        The identifier of the CA certificate for the DB instance.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to
+     *        encrypt a connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS
+     *        to encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -656,11 +726,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The new DB subnet group for the DB instance.
+     * The DB subnet group for the DB instance.
      * </p>
      * 
      * @param dBSubnetGroupName
-     *        The new DB subnet group for the DB instance.
+     *        The DB subnet group for the DB instance.
      */
 
     public void setDBSubnetGroupName(String dBSubnetGroupName) {
@@ -669,10 +739,10 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The new DB subnet group for the DB instance.
+     * The DB subnet group for the DB instance.
      * </p>
      * 
-     * @return The new DB subnet group for the DB instance.
+     * @return The DB subnet group for the DB instance.
      */
 
     public String getDBSubnetGroupName() {
@@ -681,11 +751,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The new DB subnet group for the DB instance.
+     * The DB subnet group for the DB instance.
      * </p>
      * 
      * @param dBSubnetGroupName
-     *        The new DB subnet group for the DB instance.
+     *        The DB subnet group for the DB instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -794,6 +864,380 @@ public class PendingModifiedValues implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * Indicates whether mapping of Amazon Web Services Identity and Access Management (IAM) accounts to database
+     * accounts is enabled.
+     * </p>
+     * 
+     * @param iAMDatabaseAuthenticationEnabled
+     *        Indicates whether mapping of Amazon Web Services Identity and Access Management (IAM) accounts to database
+     *        accounts is enabled.
+     */
+
+    public void setIAMDatabaseAuthenticationEnabled(Boolean iAMDatabaseAuthenticationEnabled) {
+        this.iAMDatabaseAuthenticationEnabled = iAMDatabaseAuthenticationEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether mapping of Amazon Web Services Identity and Access Management (IAM) accounts to database
+     * accounts is enabled.
+     * </p>
+     * 
+     * @return Indicates whether mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     *         database accounts is enabled.
+     */
+
+    public Boolean getIAMDatabaseAuthenticationEnabled() {
+        return this.iAMDatabaseAuthenticationEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether mapping of Amazon Web Services Identity and Access Management (IAM) accounts to database
+     * accounts is enabled.
+     * </p>
+     * 
+     * @param iAMDatabaseAuthenticationEnabled
+     *        Indicates whether mapping of Amazon Web Services Identity and Access Management (IAM) accounts to database
+     *        accounts is enabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PendingModifiedValues withIAMDatabaseAuthenticationEnabled(Boolean iAMDatabaseAuthenticationEnabled) {
+        setIAMDatabaseAuthenticationEnabled(iAMDatabaseAuthenticationEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether mapping of Amazon Web Services Identity and Access Management (IAM) accounts to database
+     * accounts is enabled.
+     * </p>
+     * 
+     * @return Indicates whether mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     *         database accounts is enabled.
+     */
+
+    public Boolean isIAMDatabaseAuthenticationEnabled() {
+        return this.iAMDatabaseAuthenticationEnabled;
+    }
+
+    /**
+     * <p>
+     * The automation mode of the RDS Custom DB instance: <code>full</code> or <code>all-paused</code>. If
+     * <code>full</code>, the DB instance automates monitoring and instance recovery. If <code>all-paused</code>, the
+     * instance pauses automation for the duration set by <code>--resume-full-automation-mode-minutes</code>.
+     * </p>
+     * 
+     * @param automationMode
+     *        The automation mode of the RDS Custom DB instance: <code>full</code> or <code>all-paused</code>. If
+     *        <code>full</code>, the DB instance automates monitoring and instance recovery. If <code>all-paused</code>,
+     *        the instance pauses automation for the duration set by <code>--resume-full-automation-mode-minutes</code>.
+     * @see AutomationMode
+     */
+
+    public void setAutomationMode(String automationMode) {
+        this.automationMode = automationMode;
+    }
+
+    /**
+     * <p>
+     * The automation mode of the RDS Custom DB instance: <code>full</code> or <code>all-paused</code>. If
+     * <code>full</code>, the DB instance automates monitoring and instance recovery. If <code>all-paused</code>, the
+     * instance pauses automation for the duration set by <code>--resume-full-automation-mode-minutes</code>.
+     * </p>
+     * 
+     * @return The automation mode of the RDS Custom DB instance: <code>full</code> or <code>all-paused</code>. If
+     *         <code>full</code>, the DB instance automates monitoring and instance recovery. If <code>all-paused</code>
+     *         , the instance pauses automation for the duration set by
+     *         <code>--resume-full-automation-mode-minutes</code>.
+     * @see AutomationMode
+     */
+
+    public String getAutomationMode() {
+        return this.automationMode;
+    }
+
+    /**
+     * <p>
+     * The automation mode of the RDS Custom DB instance: <code>full</code> or <code>all-paused</code>. If
+     * <code>full</code>, the DB instance automates monitoring and instance recovery. If <code>all-paused</code>, the
+     * instance pauses automation for the duration set by <code>--resume-full-automation-mode-minutes</code>.
+     * </p>
+     * 
+     * @param automationMode
+     *        The automation mode of the RDS Custom DB instance: <code>full</code> or <code>all-paused</code>. If
+     *        <code>full</code>, the DB instance automates monitoring and instance recovery. If <code>all-paused</code>,
+     *        the instance pauses automation for the duration set by <code>--resume-full-automation-mode-minutes</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AutomationMode
+     */
+
+    public PendingModifiedValues withAutomationMode(String automationMode) {
+        setAutomationMode(automationMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The automation mode of the RDS Custom DB instance: <code>full</code> or <code>all-paused</code>. If
+     * <code>full</code>, the DB instance automates monitoring and instance recovery. If <code>all-paused</code>, the
+     * instance pauses automation for the duration set by <code>--resume-full-automation-mode-minutes</code>.
+     * </p>
+     * 
+     * @param automationMode
+     *        The automation mode of the RDS Custom DB instance: <code>full</code> or <code>all-paused</code>. If
+     *        <code>full</code>, the DB instance automates monitoring and instance recovery. If <code>all-paused</code>,
+     *        the instance pauses automation for the duration set by <code>--resume-full-automation-mode-minutes</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AutomationMode
+     */
+
+    public PendingModifiedValues withAutomationMode(AutomationMode automationMode) {
+        this.automationMode = automationMode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of minutes to pause the automation. When the time period ends, RDS Custom resumes full automation. The
+     * minimum value is 60 (default). The maximum value is 1,440.
+     * </p>
+     * 
+     * @param resumeFullAutomationModeTime
+     *        The number of minutes to pause the automation. When the time period ends, RDS Custom resumes full
+     *        automation. The minimum value is 60 (default). The maximum value is 1,440.
+     */
+
+    public void setResumeFullAutomationModeTime(java.util.Date resumeFullAutomationModeTime) {
+        this.resumeFullAutomationModeTime = resumeFullAutomationModeTime;
+    }
+
+    /**
+     * <p>
+     * The number of minutes to pause the automation. When the time period ends, RDS Custom resumes full automation. The
+     * minimum value is 60 (default). The maximum value is 1,440.
+     * </p>
+     * 
+     * @return The number of minutes to pause the automation. When the time period ends, RDS Custom resumes full
+     *         automation. The minimum value is 60 (default). The maximum value is 1,440.
+     */
+
+    public java.util.Date getResumeFullAutomationModeTime() {
+        return this.resumeFullAutomationModeTime;
+    }
+
+    /**
+     * <p>
+     * The number of minutes to pause the automation. When the time period ends, RDS Custom resumes full automation. The
+     * minimum value is 60 (default). The maximum value is 1,440.
+     * </p>
+     * 
+     * @param resumeFullAutomationModeTime
+     *        The number of minutes to pause the automation. When the time period ends, RDS Custom resumes full
+     *        automation. The minimum value is 60 (default). The maximum value is 1,440.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PendingModifiedValues withResumeFullAutomationModeTime(java.util.Date resumeFullAutomationModeTime) {
+        setResumeFullAutomationModeTime(resumeFullAutomationModeTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The storage throughput of the DB instance.
+     * </p>
+     * 
+     * @param storageThroughput
+     *        The storage throughput of the DB instance.
+     */
+
+    public void setStorageThroughput(Integer storageThroughput) {
+        this.storageThroughput = storageThroughput;
+    }
+
+    /**
+     * <p>
+     * The storage throughput of the DB instance.
+     * </p>
+     * 
+     * @return The storage throughput of the DB instance.
+     */
+
+    public Integer getStorageThroughput() {
+        return this.storageThroughput;
+    }
+
+    /**
+     * <p>
+     * The storage throughput of the DB instance.
+     * </p>
+     * 
+     * @param storageThroughput
+     *        The storage throughput of the DB instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PendingModifiedValues withStorageThroughput(Integer storageThroughput) {
+        setStorageThroughput(storageThroughput);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The database engine of the DB instance.
+     * </p>
+     * 
+     * @param engine
+     *        The database engine of the DB instance.
+     */
+
+    public void setEngine(String engine) {
+        this.engine = engine;
+    }
+
+    /**
+     * <p>
+     * The database engine of the DB instance.
+     * </p>
+     * 
+     * @return The database engine of the DB instance.
+     */
+
+    public String getEngine() {
+        return this.engine;
+    }
+
+    /**
+     * <p>
+     * The database engine of the DB instance.
+     * </p>
+     * 
+     * @param engine
+     *        The database engine of the DB instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PendingModifiedValues withEngine(String engine) {
+        setEngine(engine);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the DB instance has a dedicated log volume (DLV) enabled.&gt;
+     * </p>
+     * 
+     * @param dedicatedLogVolume
+     *        Indicates whether the DB instance has a dedicated log volume (DLV) enabled.&gt;
+     */
+
+    public void setDedicatedLogVolume(Boolean dedicatedLogVolume) {
+        this.dedicatedLogVolume = dedicatedLogVolume;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the DB instance has a dedicated log volume (DLV) enabled.&gt;
+     * </p>
+     * 
+     * @return Indicates whether the DB instance has a dedicated log volume (DLV) enabled.&gt;
+     */
+
+    public Boolean getDedicatedLogVolume() {
+        return this.dedicatedLogVolume;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the DB instance has a dedicated log volume (DLV) enabled.&gt;
+     * </p>
+     * 
+     * @param dedicatedLogVolume
+     *        Indicates whether the DB instance has a dedicated log volume (DLV) enabled.&gt;
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PendingModifiedValues withDedicatedLogVolume(Boolean dedicatedLogVolume) {
+        setDedicatedLogVolume(dedicatedLogVolume);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the DB instance has a dedicated log volume (DLV) enabled.&gt;
+     * </p>
+     * 
+     * @return Indicates whether the DB instance has a dedicated log volume (DLV) enabled.&gt;
+     */
+
+    public Boolean isDedicatedLogVolume() {
+        return this.dedicatedLogVolume;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the DB instance will change to the multi-tenant configuration (TRUE) or the single-tenant
+     * configuration (FALSE).
+     * </p>
+     * 
+     * @param multiTenant
+     *        Indicates whether the DB instance will change to the multi-tenant configuration (TRUE) or the
+     *        single-tenant configuration (FALSE).
+     */
+
+    public void setMultiTenant(Boolean multiTenant) {
+        this.multiTenant = multiTenant;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the DB instance will change to the multi-tenant configuration (TRUE) or the single-tenant
+     * configuration (FALSE).
+     * </p>
+     * 
+     * @return Indicates whether the DB instance will change to the multi-tenant configuration (TRUE) or the
+     *         single-tenant configuration (FALSE).
+     */
+
+    public Boolean getMultiTenant() {
+        return this.multiTenant;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the DB instance will change to the multi-tenant configuration (TRUE) or the single-tenant
+     * configuration (FALSE).
+     * </p>
+     * 
+     * @param multiTenant
+     *        Indicates whether the DB instance will change to the multi-tenant configuration (TRUE) or the
+     *        single-tenant configuration (FALSE).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PendingModifiedValues withMultiTenant(Boolean multiTenant) {
+        setMultiTenant(multiTenant);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the DB instance will change to the multi-tenant configuration (TRUE) or the single-tenant
+     * configuration (FALSE).
+     * </p>
+     * 
+     * @return Indicates whether the DB instance will change to the multi-tenant configuration (TRUE) or the
+     *         single-tenant configuration (FALSE).
+     */
+
+    public Boolean isMultiTenant() {
+        return this.multiTenant;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -834,7 +1278,21 @@ public class PendingModifiedValues implements Serializable, Cloneable {
         if (getPendingCloudwatchLogsExports() != null)
             sb.append("PendingCloudwatchLogsExports: ").append(getPendingCloudwatchLogsExports()).append(",");
         if (getProcessorFeatures() != null)
-            sb.append("ProcessorFeatures: ").append(getProcessorFeatures());
+            sb.append("ProcessorFeatures: ").append(getProcessorFeatures()).append(",");
+        if (getIAMDatabaseAuthenticationEnabled() != null)
+            sb.append("IAMDatabaseAuthenticationEnabled: ").append(getIAMDatabaseAuthenticationEnabled()).append(",");
+        if (getAutomationMode() != null)
+            sb.append("AutomationMode: ").append(getAutomationMode()).append(",");
+        if (getResumeFullAutomationModeTime() != null)
+            sb.append("ResumeFullAutomationModeTime: ").append(getResumeFullAutomationModeTime()).append(",");
+        if (getStorageThroughput() != null)
+            sb.append("StorageThroughput: ").append(getStorageThroughput()).append(",");
+        if (getEngine() != null)
+            sb.append("Engine: ").append(getEngine()).append(",");
+        if (getDedicatedLogVolume() != null)
+            sb.append("DedicatedLogVolume: ").append(getDedicatedLogVolume()).append(",");
+        if (getMultiTenant() != null)
+            sb.append("MultiTenant: ").append(getMultiTenant());
         sb.append("}");
         return sb.toString();
     }
@@ -909,6 +1367,35 @@ public class PendingModifiedValues implements Serializable, Cloneable {
             return false;
         if (other.getProcessorFeatures() != null && other.getProcessorFeatures().equals(this.getProcessorFeatures()) == false)
             return false;
+        if (other.getIAMDatabaseAuthenticationEnabled() == null ^ this.getIAMDatabaseAuthenticationEnabled() == null)
+            return false;
+        if (other.getIAMDatabaseAuthenticationEnabled() != null
+                && other.getIAMDatabaseAuthenticationEnabled().equals(this.getIAMDatabaseAuthenticationEnabled()) == false)
+            return false;
+        if (other.getAutomationMode() == null ^ this.getAutomationMode() == null)
+            return false;
+        if (other.getAutomationMode() != null && other.getAutomationMode().equals(this.getAutomationMode()) == false)
+            return false;
+        if (other.getResumeFullAutomationModeTime() == null ^ this.getResumeFullAutomationModeTime() == null)
+            return false;
+        if (other.getResumeFullAutomationModeTime() != null && other.getResumeFullAutomationModeTime().equals(this.getResumeFullAutomationModeTime()) == false)
+            return false;
+        if (other.getStorageThroughput() == null ^ this.getStorageThroughput() == null)
+            return false;
+        if (other.getStorageThroughput() != null && other.getStorageThroughput().equals(this.getStorageThroughput()) == false)
+            return false;
+        if (other.getEngine() == null ^ this.getEngine() == null)
+            return false;
+        if (other.getEngine() != null && other.getEngine().equals(this.getEngine()) == false)
+            return false;
+        if (other.getDedicatedLogVolume() == null ^ this.getDedicatedLogVolume() == null)
+            return false;
+        if (other.getDedicatedLogVolume() != null && other.getDedicatedLogVolume().equals(this.getDedicatedLogVolume()) == false)
+            return false;
+        if (other.getMultiTenant() == null ^ this.getMultiTenant() == null)
+            return false;
+        if (other.getMultiTenant() != null && other.getMultiTenant().equals(this.getMultiTenant()) == false)
+            return false;
         return true;
     }
 
@@ -932,6 +1419,13 @@ public class PendingModifiedValues implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getDBSubnetGroupName() == null) ? 0 : getDBSubnetGroupName().hashCode());
         hashCode = prime * hashCode + ((getPendingCloudwatchLogsExports() == null) ? 0 : getPendingCloudwatchLogsExports().hashCode());
         hashCode = prime * hashCode + ((getProcessorFeatures() == null) ? 0 : getProcessorFeatures().hashCode());
+        hashCode = prime * hashCode + ((getIAMDatabaseAuthenticationEnabled() == null) ? 0 : getIAMDatabaseAuthenticationEnabled().hashCode());
+        hashCode = prime * hashCode + ((getAutomationMode() == null) ? 0 : getAutomationMode().hashCode());
+        hashCode = prime * hashCode + ((getResumeFullAutomationModeTime() == null) ? 0 : getResumeFullAutomationModeTime().hashCode());
+        hashCode = prime * hashCode + ((getStorageThroughput() == null) ? 0 : getStorageThroughput().hashCode());
+        hashCode = prime * hashCode + ((getEngine() == null) ? 0 : getEngine().hashCode());
+        hashCode = prime * hashCode + ((getDedicatedLogVolume() == null) ? 0 : getDedicatedLogVolume().hashCode());
+        hashCode = prime * hashCode + ((getMultiTenant() == null) ? 0 : getMultiTenant().hashCode());
         return hashCode;
     }
 

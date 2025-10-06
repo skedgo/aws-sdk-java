@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Describes an IPv4 range.
+ * Describes an IPv4 address range.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/IpRange" target="_top">AWS API Documentation</a>
@@ -27,7 +27,7 @@ public class IpRange implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The IPv4 CIDR range. You can either specify a CIDR range or a source security group, not both. To specify a
+     * The IPv4 address range. You can either specify a CIDR block or a source security group, not both. To specify a
      * single IPv4 address, use the /32 prefix length.
      * </p>
      */
@@ -38,20 +38,20 @@ public class IpRange implements Serializable, Cloneable {
      * </p>
      * <p>
      * Constraints: Up to 255 characters in length. Allowed characters are a-z, A-Z, 0-9, spaces, and
-     * ._-:/()#,@[]+=;{}!$*
+     * ._-:/()#,@[]+=&amp;;{}!$*
      * </p>
      */
     private String description;
 
     /**
      * <p>
-     * The IPv4 CIDR range. You can either specify a CIDR range or a source security group, not both. To specify a
+     * The IPv4 address range. You can either specify a CIDR block or a source security group, not both. To specify a
      * single IPv4 address, use the /32 prefix length.
      * </p>
      * 
      * @param cidrIp
-     *        The IPv4 CIDR range. You can either specify a CIDR range or a source security group, not both. To specify
-     *        a single IPv4 address, use the /32 prefix length.
+     *        The IPv4 address range. You can either specify a CIDR block or a source security group, not both. To
+     *        specify a single IPv4 address, use the /32 prefix length.
      */
 
     public void setCidrIp(String cidrIp) {
@@ -60,12 +60,12 @@ public class IpRange implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The IPv4 CIDR range. You can either specify a CIDR range or a source security group, not both. To specify a
+     * The IPv4 address range. You can either specify a CIDR block or a source security group, not both. To specify a
      * single IPv4 address, use the /32 prefix length.
      * </p>
      * 
-     * @return The IPv4 CIDR range. You can either specify a CIDR range or a source security group, not both. To specify
-     *         a single IPv4 address, use the /32 prefix length.
+     * @return The IPv4 address range. You can either specify a CIDR block or a source security group, not both. To
+     *         specify a single IPv4 address, use the /32 prefix length.
      */
 
     public String getCidrIp() {
@@ -74,13 +74,13 @@ public class IpRange implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The IPv4 CIDR range. You can either specify a CIDR range or a source security group, not both. To specify a
+     * The IPv4 address range. You can either specify a CIDR block or a source security group, not both. To specify a
      * single IPv4 address, use the /32 prefix length.
      * </p>
      * 
      * @param cidrIp
-     *        The IPv4 CIDR range. You can either specify a CIDR range or a source security group, not both. To specify
-     *        a single IPv4 address, use the /32 prefix length.
+     *        The IPv4 address range. You can either specify a CIDR block or a source security group, not both. To
+     *        specify a single IPv4 address, use the /32 prefix length.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -95,14 +95,14 @@ public class IpRange implements Serializable, Cloneable {
      * </p>
      * <p>
      * Constraints: Up to 255 characters in length. Allowed characters are a-z, A-Z, 0-9, spaces, and
-     * ._-:/()#,@[]+=;{}!$*
+     * ._-:/()#,@[]+=&amp;;{}!$*
      * </p>
      * 
      * @param description
      *        A description for the security group rule that references this IPv4 address range.</p>
      *        <p>
      *        Constraints: Up to 255 characters in length. Allowed characters are a-z, A-Z, 0-9, spaces, and
-     *        ._-:/()#,@[]+=;{}!$
+     *        ._-:/()#,@[]+=&amp;;{}!$
      **/
 
     public void setDescription(String description) {
@@ -115,13 +115,13 @@ public class IpRange implements Serializable, Cloneable {
      * </p>
      * <p>
      * Constraints: Up to 255 characters in length. Allowed characters are a-z, A-Z, 0-9, spaces, and
-     * ._-:/()#,@[]+=;{}!$*
+     * ._-:/()#,@[]+=&amp;;{}!$*
      * </p>
      * 
      * @return A description for the security group rule that references this IPv4 address range.</p>
      *         <p>
      *         Constraints: Up to 255 characters in length. Allowed characters are a-z, A-Z, 0-9, spaces, and
-     *         ._-:/()#,@[]+=;{}!$
+     *         ._-:/()#,@[]+=&amp;;{}!$
      **/
 
     public String getDescription() {
@@ -134,14 +134,14 @@ public class IpRange implements Serializable, Cloneable {
      * </p>
      * <p>
      * Constraints: Up to 255 characters in length. Allowed characters are a-z, A-Z, 0-9, spaces, and
-     * ._-:/()#,@[]+=;{}!$*
+     * ._-:/()#,@[]+=&amp;;{}!$*
      * </p>
      * 
      * @param description
      *        A description for the security group rule that references this IPv4 address range.</p>
      *        <p>
      *        Constraints: Up to 255 characters in length. Allowed characters are a-z, A-Z, 0-9, spaces, and
-     *        ._-:/()#,@[]+=;{}!$*
+     *        ._-:/()#,@[]+=&amp;;{}!$*
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

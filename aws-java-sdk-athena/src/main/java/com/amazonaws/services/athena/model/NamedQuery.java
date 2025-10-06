@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A query, where <code>QueryString</code> is the list of SQL query statements that comprise the query.
+ * A query, where <code>QueryString</code> contains the SQL statements that make up the query.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/athena-2017-05-18/NamedQuery" target="_top">AWS API
@@ -48,7 +48,7 @@ public class NamedQuery implements Serializable, Cloneable, StructuredPojo {
     private String database;
     /**
      * <p>
-     * The SQL query statements that comprise the query.
+     * The SQL statements that make up the query.
      * </p>
      */
     private String queryString;
@@ -187,11 +187,11 @@ public class NamedQuery implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The SQL query statements that comprise the query.
+     * The SQL statements that make up the query.
      * </p>
      * 
      * @param queryString
-     *        The SQL query statements that comprise the query.
+     *        The SQL statements that make up the query.
      */
 
     public void setQueryString(String queryString) {
@@ -200,10 +200,10 @@ public class NamedQuery implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The SQL query statements that comprise the query.
+     * The SQL statements that make up the query.
      * </p>
      * 
-     * @return The SQL query statements that comprise the query.
+     * @return The SQL statements that make up the query.
      */
 
     public String getQueryString() {
@@ -212,11 +212,11 @@ public class NamedQuery implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The SQL query statements that comprise the query.
+     * The SQL statements that make up the query.
      * </p>
      * 
      * @param queryString
-     *        The SQL query statements that comprise the query.
+     *        The SQL statements that make up the query.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

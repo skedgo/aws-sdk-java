@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,28 +27,28 @@ public class BatchDetectSyntaxRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A list containing the text of the input documents. The list can contain a maximum of 25 documents. Each document
-     * must contain fewer that 5,000 bytes of UTF-8 encoded characters.
+     * A list containing the UTF-8 encoded text of the input documents. The list can contain a maximum of 25 documents.
+     * The maximum size for each document is 5 KB.
      * </p>
      */
     private java.util.List<String> textList;
     /**
      * <p>
-     * The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend:
-     * German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents
-     * must be in the same language.
+     * The language of the input documents. You can specify any of the following languages supported by Amazon
+     * Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt").
+     * All documents must be in the same language.
      * </p>
      */
     private String languageCode;
 
     /**
      * <p>
-     * A list containing the text of the input documents. The list can contain a maximum of 25 documents. Each document
-     * must contain fewer that 5,000 bytes of UTF-8 encoded characters.
+     * A list containing the UTF-8 encoded text of the input documents. The list can contain a maximum of 25 documents.
+     * The maximum size for each document is 5 KB.
      * </p>
      * 
-     * @return A list containing the text of the input documents. The list can contain a maximum of 25 documents. Each
-     *         document must contain fewer that 5,000 bytes of UTF-8 encoded characters.
+     * @return A list containing the UTF-8 encoded text of the input documents. The list can contain a maximum of 25
+     *         documents. The maximum size for each document is 5 KB.
      */
 
     public java.util.List<String> getTextList() {
@@ -57,13 +57,13 @@ public class BatchDetectSyntaxRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A list containing the text of the input documents. The list can contain a maximum of 25 documents. Each document
-     * must contain fewer that 5,000 bytes of UTF-8 encoded characters.
+     * A list containing the UTF-8 encoded text of the input documents. The list can contain a maximum of 25 documents.
+     * The maximum size for each document is 5 KB.
      * </p>
      * 
      * @param textList
-     *        A list containing the text of the input documents. The list can contain a maximum of 25 documents. Each
-     *        document must contain fewer that 5,000 bytes of UTF-8 encoded characters.
+     *        A list containing the UTF-8 encoded text of the input documents. The list can contain a maximum of 25
+     *        documents. The maximum size for each document is 5 KB.
      */
 
     public void setTextList(java.util.Collection<String> textList) {
@@ -77,8 +77,8 @@ public class BatchDetectSyntaxRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A list containing the text of the input documents. The list can contain a maximum of 25 documents. Each document
-     * must contain fewer that 5,000 bytes of UTF-8 encoded characters.
+     * A list containing the UTF-8 encoded text of the input documents. The list can contain a maximum of 25 documents.
+     * The maximum size for each document is 5 KB.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -87,8 +87,8 @@ public class BatchDetectSyntaxRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * 
      * @param textList
-     *        A list containing the text of the input documents. The list can contain a maximum of 25 documents. Each
-     *        document must contain fewer that 5,000 bytes of UTF-8 encoded characters.
+     *        A list containing the UTF-8 encoded text of the input documents. The list can contain a maximum of 25
+     *        documents. The maximum size for each document is 5 KB.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -104,13 +104,13 @@ public class BatchDetectSyntaxRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A list containing the text of the input documents. The list can contain a maximum of 25 documents. Each document
-     * must contain fewer that 5,000 bytes of UTF-8 encoded characters.
+     * A list containing the UTF-8 encoded text of the input documents. The list can contain a maximum of 25 documents.
+     * The maximum size for each document is 5 KB.
      * </p>
      * 
      * @param textList
-     *        A list containing the text of the input documents. The list can contain a maximum of 25 documents. Each
-     *        document must contain fewer that 5,000 bytes of UTF-8 encoded characters.
+     *        A list containing the UTF-8 encoded text of the input documents. The list can contain a maximum of 25
+     *        documents. The maximum size for each document is 5 KB.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -121,13 +121,13 @@ public class BatchDetectSyntaxRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend:
-     * German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents
-     * must be in the same language.
+     * The language of the input documents. You can specify any of the following languages supported by Amazon
+     * Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt").
+     * All documents must be in the same language.
      * </p>
      * 
      * @param languageCode
-     *        The language of the input documents. You can specify any of the primary languages supported by Amazon
+     *        The language of the input documents. You can specify any of the following languages supported by Amazon
      *        Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese
      *        ("pt"). All documents must be in the same language.
      * @see SyntaxLanguageCode
@@ -139,12 +139,12 @@ public class BatchDetectSyntaxRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend:
-     * German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents
-     * must be in the same language.
+     * The language of the input documents. You can specify any of the following languages supported by Amazon
+     * Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt").
+     * All documents must be in the same language.
      * </p>
      * 
-     * @return The language of the input documents. You can specify any of the primary languages supported by Amazon
+     * @return The language of the input documents. You can specify any of the following languages supported by Amazon
      *         Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese
      *         ("pt"). All documents must be in the same language.
      * @see SyntaxLanguageCode
@@ -156,13 +156,13 @@ public class BatchDetectSyntaxRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend:
-     * German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents
-     * must be in the same language.
+     * The language of the input documents. You can specify any of the following languages supported by Amazon
+     * Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt").
+     * All documents must be in the same language.
      * </p>
      * 
      * @param languageCode
-     *        The language of the input documents. You can specify any of the primary languages supported by Amazon
+     *        The language of the input documents. You can specify any of the following languages supported by Amazon
      *        Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese
      *        ("pt"). All documents must be in the same language.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -176,13 +176,13 @@ public class BatchDetectSyntaxRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend:
-     * German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents
-     * must be in the same language.
+     * The language of the input documents. You can specify any of the following languages supported by Amazon
+     * Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt").
+     * All documents must be in the same language.
      * </p>
      * 
      * @param languageCode
-     *        The language of the input documents. You can specify any of the primary languages supported by Amazon
+     *        The language of the input documents. You can specify any of the following languages supported by Amazon
      *        Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese
      *        ("pt"). All documents must be in the same language.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -207,7 +207,7 @@ public class BatchDetectSyntaxRequest extends com.amazonaws.AmazonWebServiceRequ
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getTextList() != null)
-            sb.append("TextList: ").append(getTextList()).append(",");
+            sb.append("TextList: ").append("***Sensitive Data Redacted***").append(",");
         if (getLanguageCode() != null)
             sb.append("LanguageCode: ").append(getLanguageCode());
         sb.append("}");

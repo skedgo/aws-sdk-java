@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,8 @@ public class H264SettingsMarshaller {
 
     private static final MarshallingInfo<String> ADAPTIVEQUANTIZATION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("adaptiveQuantization").build();
+    private static final MarshallingInfo<StructuredPojo> BANDWIDTHREDUCTIONFILTER_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("bandwidthReductionFilter").build();
     private static final MarshallingInfo<Integer> BITRATE_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("bitrate").build();
     private static final MarshallingInfo<String> CODECLEVEL_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -37,6 +39,8 @@ public class H264SettingsMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("codecProfile").build();
     private static final MarshallingInfo<String> DYNAMICSUBGOP_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("dynamicSubGop").build();
+    private static final MarshallingInfo<String> ENDOFSTREAMMARKERS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("endOfStreamMarkers").build();
     private static final MarshallingInfo<String> ENTROPYENCODING_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("entropyEncoding").build();
     private static final MarshallingInfo<String> FIELDENCODING_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -59,6 +63,8 @@ public class H264SettingsMarshaller {
             .marshallLocationName("gopSize").build();
     private static final MarshallingInfo<String> GOPSIZEUNITS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("gopSizeUnits").build();
+    private static final MarshallingInfo<Integer> HRDBUFFERFINALFILLPERCENTAGE_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("hrdBufferFinalFillPercentage").build();
     private static final MarshallingInfo<Integer> HRDBUFFERINITIALFILLPERCENTAGE_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("hrdBufferInitialFillPercentage").build();
     private static final MarshallingInfo<Integer> HRDBUFFERSIZE_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
@@ -87,6 +93,8 @@ public class H264SettingsMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("rateControlMode").build();
     private static final MarshallingInfo<String> REPEATPPS_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("repeatPps").build();
+    private static final MarshallingInfo<String> SCANTYPECONVERSIONMODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("scanTypeConversionMode").build();
     private static final MarshallingInfo<String> SCENECHANGEDETECT_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("sceneChangeDetect").build();
     private static final MarshallingInfo<Integer> SLICES_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER).marshallLocation(MarshallLocation.PAYLOAD)
@@ -123,10 +131,12 @@ public class H264SettingsMarshaller {
 
         try {
             protocolMarshaller.marshall(h264Settings.getAdaptiveQuantization(), ADAPTIVEQUANTIZATION_BINDING);
+            protocolMarshaller.marshall(h264Settings.getBandwidthReductionFilter(), BANDWIDTHREDUCTIONFILTER_BINDING);
             protocolMarshaller.marshall(h264Settings.getBitrate(), BITRATE_BINDING);
             protocolMarshaller.marshall(h264Settings.getCodecLevel(), CODECLEVEL_BINDING);
             protocolMarshaller.marshall(h264Settings.getCodecProfile(), CODECPROFILE_BINDING);
             protocolMarshaller.marshall(h264Settings.getDynamicSubGop(), DYNAMICSUBGOP_BINDING);
+            protocolMarshaller.marshall(h264Settings.getEndOfStreamMarkers(), ENDOFSTREAMMARKERS_BINDING);
             protocolMarshaller.marshall(h264Settings.getEntropyEncoding(), ENTROPYENCODING_BINDING);
             protocolMarshaller.marshall(h264Settings.getFieldEncoding(), FIELDENCODING_BINDING);
             protocolMarshaller.marshall(h264Settings.getFlickerAdaptiveQuantization(), FLICKERADAPTIVEQUANTIZATION_BINDING);
@@ -138,6 +148,7 @@ public class H264SettingsMarshaller {
             protocolMarshaller.marshall(h264Settings.getGopClosedCadence(), GOPCLOSEDCADENCE_BINDING);
             protocolMarshaller.marshall(h264Settings.getGopSize(), GOPSIZE_BINDING);
             protocolMarshaller.marshall(h264Settings.getGopSizeUnits(), GOPSIZEUNITS_BINDING);
+            protocolMarshaller.marshall(h264Settings.getHrdBufferFinalFillPercentage(), HRDBUFFERFINALFILLPERCENTAGE_BINDING);
             protocolMarshaller.marshall(h264Settings.getHrdBufferInitialFillPercentage(), HRDBUFFERINITIALFILLPERCENTAGE_BINDING);
             protocolMarshaller.marshall(h264Settings.getHrdBufferSize(), HRDBUFFERSIZE_BINDING);
             protocolMarshaller.marshall(h264Settings.getInterlaceMode(), INTERLACEMODE_BINDING);
@@ -152,6 +163,7 @@ public class H264SettingsMarshaller {
             protocolMarshaller.marshall(h264Settings.getQvbrSettings(), QVBRSETTINGS_BINDING);
             protocolMarshaller.marshall(h264Settings.getRateControlMode(), RATECONTROLMODE_BINDING);
             protocolMarshaller.marshall(h264Settings.getRepeatPps(), REPEATPPS_BINDING);
+            protocolMarshaller.marshall(h264Settings.getScanTypeConversionMode(), SCANTYPECONVERSIONMODE_BINDING);
             protocolMarshaller.marshall(h264Settings.getSceneChangeDetect(), SCENECHANGEDETECT_BINDING);
             protocolMarshaller.marshall(h264Settings.getSlices(), SLICES_BINDING);
             protocolMarshaller.marshall(h264Settings.getSlowPal(), SLOWPAL_BINDING);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,7 +36,7 @@ public class Timer implements Serializable, Cloneable, StructuredPojo {
     private String name;
     /**
      * <p>
-     * The number of seconds which have elapsed on the timer.
+     * The expiration time for the timer.
      * </p>
      */
     private java.util.Date timestamp;
@@ -83,11 +83,11 @@ public class Timer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The number of seconds which have elapsed on the timer.
+     * The expiration time for the timer.
      * </p>
      * 
      * @param timestamp
-     *        The number of seconds which have elapsed on the timer.
+     *        The expiration time for the timer.
      */
 
     public void setTimestamp(java.util.Date timestamp) {
@@ -96,10 +96,10 @@ public class Timer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The number of seconds which have elapsed on the timer.
+     * The expiration time for the timer.
      * </p>
      * 
-     * @return The number of seconds which have elapsed on the timer.
+     * @return The expiration time for the timer.
      */
 
     public java.util.Date getTimestamp() {
@@ -108,11 +108,11 @@ public class Timer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The number of seconds which have elapsed on the timer.
+     * The expiration time for the timer.
      * </p>
      * 
      * @param timestamp
-     *        The number of seconds which have elapsed on the timer.
+     *        The expiration time for the timer.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

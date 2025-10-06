@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.worklink.AmazonWorkLinkClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.worklink.model.*;
+
 import com.amazonaws.services.worklink.model.transform.*;
 
 /**
@@ -51,12 +52,12 @@ import com.amazonaws.services.worklink.model.transform.*;
  * service call completes.
  * <p>
  * <p>
- * Amazon WorkLink is a cloud-based service that provides secure access to internal websites and web apps from iOS
- * phones. In a single step, your users, such as employees, can access internal websites as efficiently as they access
- * any other public website. They enter a URL in their web browser, or choose a link to an internal website in an email.
- * Amazon WorkLink authenticates the user's access and securely renders authorized internal web content in a secure
- * rendering service in the AWS cloud. Amazon WorkLink doesn't download or store any internal web content on mobile
- * devices.
+ * Amazon WorkLink is a cloud-based service that provides secure access to internal websites and web apps from iOS and
+ * Android phones. In a single step, your users, such as employees, can access internal websites as efficiently as they
+ * access any other public website. They enter a URL in their web browser, or choose a link to an internal website in an
+ * email. Amazon WorkLink authenticates the user's access and securely renders authorized internal web content in a
+ * secure rendering service in the AWS cloud. Amazon WorkLink doesn't download or store any internal web content on
+ * mobile devices.
  * </p>
  */
 @ThreadSafe
@@ -81,25 +82,25 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withModeledClass(
-                                    com.amazonaws.services.worklink.model.InvalidRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.worklink.model.transform.InvalidRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.worklink.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.worklink.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("UnauthorizedException").withModeledClass(
-                                    com.amazonaws.services.worklink.model.UnauthorizedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("UnauthorizedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.worklink.model.transform.UnauthorizedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceAlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.worklink.model.ResourceAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.worklink.model.transform.ResourceAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withModeledClass(
-                                    com.amazonaws.services.worklink.model.TooManyRequestsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.worklink.model.transform.TooManyRequestsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServerErrorException").withModeledClass(
-                                    com.amazonaws.services.worklink.model.InternalServerErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServerErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.worklink.model.transform.InternalServerErrorExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.worklink.model.AmazonWorkLinkException.class));
 
     public static AmazonWorkLinkClientBuilder builder() {
@@ -172,6 +173,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public AssociateDomainResult associateDomain(AssociateDomainRequest request) {
         request = beforeClientExecution(request);
         return executeAssociateDomain(request);
@@ -192,6 +194,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                 request = new AssociateDomainRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(associateDomainRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateDomain");
@@ -238,6 +242,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public AssociateWebsiteAuthorizationProviderResult associateWebsiteAuthorizationProvider(AssociateWebsiteAuthorizationProviderRequest request) {
         request = beforeClientExecution(request);
         return executeAssociateWebsiteAuthorizationProvider(request);
@@ -260,6 +265,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(associateWebsiteAuthorizationProviderRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateWebsiteAuthorizationProvider");
@@ -307,6 +314,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public AssociateWebsiteCertificateAuthorityResult associateWebsiteCertificateAuthority(AssociateWebsiteCertificateAuthorityRequest request) {
         request = beforeClientExecution(request);
         return executeAssociateWebsiteCertificateAuthority(request);
@@ -329,6 +337,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(associateWebsiteCertificateAuthorityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateWebsiteCertificateAuthority");
@@ -376,6 +386,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public CreateFleetResult createFleet(CreateFleetRequest request) {
         request = beforeClientExecution(request);
         return executeCreateFleet(request);
@@ -396,6 +407,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                 request = new CreateFleetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createFleetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateFleet");
@@ -439,6 +452,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public DeleteFleetResult deleteFleet(DeleteFleetRequest request) {
         request = beforeClientExecution(request);
         return executeDeleteFleet(request);
@@ -459,6 +473,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                 request = new DeleteFleetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteFleetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteFleet");
@@ -502,6 +518,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public DescribeAuditStreamConfigurationResult describeAuditStreamConfiguration(DescribeAuditStreamConfigurationRequest request) {
         request = beforeClientExecution(request);
         return executeDescribeAuditStreamConfiguration(request);
@@ -524,6 +541,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(describeAuditStreamConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAuditStreamConfiguration");
@@ -568,6 +587,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public DescribeCompanyNetworkConfigurationResult describeCompanyNetworkConfiguration(DescribeCompanyNetworkConfigurationRequest request) {
         request = beforeClientExecution(request);
         return executeDescribeCompanyNetworkConfiguration(request);
@@ -590,6 +610,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(describeCompanyNetworkConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCompanyNetworkConfiguration");
@@ -634,6 +656,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public DescribeDeviceResult describeDevice(DescribeDeviceRequest request) {
         request = beforeClientExecution(request);
         return executeDescribeDevice(request);
@@ -654,6 +677,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                 request = new DescribeDeviceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeDeviceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDevice");
@@ -697,6 +722,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public DescribeDevicePolicyConfigurationResult describeDevicePolicyConfiguration(DescribeDevicePolicyConfigurationRequest request) {
         request = beforeClientExecution(request);
         return executeDescribeDevicePolicyConfiguration(request);
@@ -719,6 +745,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(describeDevicePolicyConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDevicePolicyConfiguration");
@@ -763,6 +791,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public DescribeDomainResult describeDomain(DescribeDomainRequest request) {
         request = beforeClientExecution(request);
         return executeDescribeDomain(request);
@@ -783,6 +812,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                 request = new DescribeDomainRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeDomainRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDomain");
@@ -827,6 +858,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      API Documentation</a>
      */
     @Override
+    @Deprecated
     public DescribeFleetMetadataResult describeFleetMetadata(DescribeFleetMetadataRequest request) {
         request = beforeClientExecution(request);
         return executeDescribeFleetMetadata(request);
@@ -847,6 +879,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                 request = new DescribeFleetMetadataRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeFleetMetadataRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeFleetMetadata");
@@ -891,6 +925,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public DescribeIdentityProviderConfigurationResult describeIdentityProviderConfiguration(DescribeIdentityProviderConfigurationRequest request) {
         request = beforeClientExecution(request);
         return executeDescribeIdentityProviderConfiguration(request);
@@ -913,6 +948,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(describeIdentityProviderConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeIdentityProviderConfiguration");
@@ -957,6 +994,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public DescribeWebsiteCertificateAuthorityResult describeWebsiteCertificateAuthority(DescribeWebsiteCertificateAuthorityRequest request) {
         request = beforeClientExecution(request);
         return executeDescribeWebsiteCertificateAuthority(request);
@@ -979,6 +1017,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(describeWebsiteCertificateAuthorityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeWebsiteCertificateAuthority");
@@ -1024,6 +1064,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      API Documentation</a>
      */
     @Override
+    @Deprecated
     public DisassociateDomainResult disassociateDomain(DisassociateDomainRequest request) {
         request = beforeClientExecution(request);
         return executeDisassociateDomain(request);
@@ -1044,6 +1085,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                 request = new DisassociateDomainRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(disassociateDomainRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateDomain");
@@ -1091,6 +1134,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public DisassociateWebsiteAuthorizationProviderResult disassociateWebsiteAuthorizationProvider(DisassociateWebsiteAuthorizationProviderRequest request) {
         request = beforeClientExecution(request);
         return executeDisassociateWebsiteAuthorizationProvider(request);
@@ -1113,6 +1157,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(disassociateWebsiteAuthorizationProviderRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateWebsiteAuthorizationProvider");
@@ -1157,6 +1203,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public DisassociateWebsiteCertificateAuthorityResult disassociateWebsiteCertificateAuthority(DisassociateWebsiteCertificateAuthorityRequest request) {
         request = beforeClientExecution(request);
         return executeDisassociateWebsiteCertificateAuthority(request);
@@ -1179,6 +1226,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(disassociateWebsiteCertificateAuthorityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateWebsiteCertificateAuthority");
@@ -1223,6 +1272,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public ListDevicesResult listDevices(ListDevicesRequest request) {
         request = beforeClientExecution(request);
         return executeListDevices(request);
@@ -1243,6 +1293,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                 request = new ListDevicesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDevicesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDevices");
@@ -1277,6 +1329,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *         The service is temporarily unavailable.
      * @throws InvalidRequestException
      *         The request is not valid.
+     * @throws ResourceNotFoundException
+     *         The requested resource was not found.
      * @throws TooManyRequestsException
      *         The number of requests exceeds the limit.
      * @sample AmazonWorkLink.ListDomains
@@ -1284,6 +1338,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public ListDomainsResult listDomains(ListDomainsRequest request) {
         request = beforeClientExecution(request);
         return executeListDomains(request);
@@ -1304,6 +1359,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                 request = new ListDomainsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDomainsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDomains");
@@ -1345,6 +1402,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public ListFleetsResult listFleets(ListFleetsRequest request) {
         request = beforeClientExecution(request);
         return executeListFleets(request);
@@ -1365,6 +1423,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                 request = new ListFleetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listFleetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListFleets");
@@ -1376,6 +1436,64 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
 
             HttpResponseHandler<AmazonWebServiceResponse<ListFleetsResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
                     .withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListFleetsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves a list of tags for the specified resource.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @sample AmazonWorkLink.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/ListTagsForResource" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    @Deprecated
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeListTagsForResource(request);
+    }
+
+    @SdkInternalApi
+    final ListTagsForResourceResult executeListTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listTagsForResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListTagsForResourceRequest> request = null;
+        Response<ListTagsForResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListTagsForResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListTagsForResourceResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1408,6 +1526,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public ListWebsiteAuthorizationProvidersResult listWebsiteAuthorizationProviders(ListWebsiteAuthorizationProvidersRequest request) {
         request = beforeClientExecution(request);
         return executeListWebsiteAuthorizationProviders(request);
@@ -1430,6 +1549,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(listWebsiteAuthorizationProvidersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListWebsiteAuthorizationProviders");
@@ -1472,6 +1593,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public ListWebsiteCertificateAuthoritiesResult listWebsiteCertificateAuthorities(ListWebsiteCertificateAuthoritiesRequest request) {
         request = beforeClientExecution(request);
         return executeListWebsiteCertificateAuthorities(request);
@@ -1494,6 +1616,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(listWebsiteCertificateAuthoritiesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListWebsiteCertificateAuthorities");
@@ -1538,6 +1662,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      API Documentation</a>
      */
     @Override
+    @Deprecated
     public RestoreDomainAccessResult restoreDomainAccess(RestoreDomainAccessRequest request) {
         request = beforeClientExecution(request);
         return executeRestoreDomainAccess(request);
@@ -1558,6 +1683,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                 request = new RestoreDomainAccessRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(restoreDomainAccessRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RestoreDomainAccess");
@@ -1601,6 +1728,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      API Documentation</a>
      */
     @Override
+    @Deprecated
     public RevokeDomainAccessResult revokeDomainAccess(RevokeDomainAccessRequest request) {
         request = beforeClientExecution(request);
         return executeRevokeDomainAccess(request);
@@ -1621,6 +1749,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                 request = new RevokeDomainAccessRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(revokeDomainAccessRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RevokeDomainAccess");
@@ -1664,6 +1794,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public SignOutUserResult signOutUser(SignOutUserRequest request) {
         request = beforeClientExecution(request);
         return executeSignOutUser(request);
@@ -1684,6 +1815,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                 request = new SignOutUserRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(signOutUserRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SignOutUser");
@@ -1695,6 +1828,123 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
 
             HttpResponseHandler<AmazonWebServiceResponse<SignOutUserResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new SignOutUserResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Adds or overwrites one or more tags for the specified resource, such as a fleet. Each tag consists of a key and
+     * an optional value. If a resource already has a tag with the same key, this operation updates its value.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @sample AmazonWorkLink.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/TagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    @Deprecated
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeTagResource(request);
+    }
+
+    @SdkInternalApi
+    final TagResourceResult executeTagResource(TagResourceRequest tagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(tagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TagResourceRequest> request = null;
+        Response<TagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<TagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new TagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Removes one or more tags from the specified resource.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @sample AmazonWorkLink.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/worklink-2018-09-25/UntagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    @Deprecated
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeUntagResource(request);
+    }
+
+    @SdkInternalApi
+    final UntagResourceResult executeUntagResource(UntagResourceRequest untagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(untagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UntagResourceRequest> request = null;
+        Response<UntagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UntagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UntagResourceResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1727,6 +1977,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public UpdateAuditStreamConfigurationResult updateAuditStreamConfiguration(UpdateAuditStreamConfigurationRequest request) {
         request = beforeClientExecution(request);
         return executeUpdateAuditStreamConfiguration(request);
@@ -1748,6 +1999,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(updateAuditStreamConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateAuditStreamConfiguration");
@@ -1792,6 +2045,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public UpdateCompanyNetworkConfigurationResult updateCompanyNetworkConfiguration(UpdateCompanyNetworkConfigurationRequest request) {
         request = beforeClientExecution(request);
         return executeUpdateCompanyNetworkConfiguration(request);
@@ -1814,6 +2068,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(updateCompanyNetworkConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateCompanyNetworkConfiguration");
@@ -1858,6 +2114,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public UpdateDevicePolicyConfigurationResult updateDevicePolicyConfiguration(UpdateDevicePolicyConfigurationRequest request) {
         request = beforeClientExecution(request);
         return executeUpdateDevicePolicyConfiguration(request);
@@ -1880,6 +2137,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(updateDevicePolicyConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDevicePolicyConfiguration");
@@ -1924,6 +2183,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      API Documentation</a>
      */
     @Override
+    @Deprecated
     public UpdateDomainMetadataResult updateDomainMetadata(UpdateDomainMetadataRequest request) {
         request = beforeClientExecution(request);
         return executeUpdateDomainMetadata(request);
@@ -1944,6 +2204,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                 request = new UpdateDomainMetadataRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateDomainMetadataRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDomainMetadata");
@@ -1987,6 +2249,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      API Documentation</a>
      */
     @Override
+    @Deprecated
     public UpdateFleetMetadataResult updateFleetMetadata(UpdateFleetMetadataRequest request) {
         request = beforeClientExecution(request);
         return executeUpdateFleetMetadata(request);
@@ -2007,6 +2270,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                 request = new UpdateFleetMetadataRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateFleetMetadataRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateFleetMetadata");
@@ -2050,6 +2315,7 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public UpdateIdentityProviderConfigurationResult updateIdentityProviderConfiguration(UpdateIdentityProviderConfigurationRequest request) {
         request = beforeClientExecution(request);
         return executeUpdateIdentityProviderConfiguration(request);
@@ -2072,6 +2338,8 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(updateIdentityProviderConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkLink");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateIdentityProviderConfiguration");
@@ -2168,6 +2436,11 @@ public class AmazonWorkLinkClient extends AmazonWebServiceClient implements Amaz
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

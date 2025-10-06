@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -55,6 +55,14 @@ public class HttpRouteJsonUnmarshaller implements Unmarshaller<HttpRoute, JsonUn
                 if (context.testExpression("match", targetDepth)) {
                     context.nextToken();
                     httpRoute.setMatch(HttpRouteMatchJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("retryPolicy", targetDepth)) {
+                    context.nextToken();
+                    httpRoute.setRetryPolicy(HttpRetryPolicyJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("timeout", targetDepth)) {
+                    context.nextToken();
+                    httpRoute.setTimeout(HttpTimeoutJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

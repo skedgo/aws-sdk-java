@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,6 +41,19 @@ public class AbstractAWSIotDataAsync extends AbstractAWSIotData implements AWSIo
     }
 
     @Override
+    public java.util.concurrent.Future<GetRetainedMessageResult> getRetainedMessageAsync(GetRetainedMessageRequest request) {
+
+        return getRetainedMessageAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRetainedMessageResult> getRetainedMessageAsync(GetRetainedMessageRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetRetainedMessageRequest, GetRetainedMessageResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<GetThingShadowResult> getThingShadowAsync(GetThingShadowRequest request) {
 
         return getThingShadowAsync(request, null);
@@ -49,6 +62,32 @@ public class AbstractAWSIotDataAsync extends AbstractAWSIotData implements AWSIo
     @Override
     public java.util.concurrent.Future<GetThingShadowResult> getThingShadowAsync(GetThingShadowRequest request,
             com.amazonaws.handlers.AsyncHandler<GetThingShadowRequest, GetThingShadowResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListNamedShadowsForThingResult> listNamedShadowsForThingAsync(ListNamedShadowsForThingRequest request) {
+
+        return listNamedShadowsForThingAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListNamedShadowsForThingResult> listNamedShadowsForThingAsync(ListNamedShadowsForThingRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListNamedShadowsForThingRequest, ListNamedShadowsForThingResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRetainedMessagesResult> listRetainedMessagesAsync(ListRetainedMessagesRequest request) {
+
+        return listRetainedMessagesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRetainedMessagesResult> listRetainedMessagesAsync(ListRetainedMessagesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListRetainedMessagesRequest, ListRetainedMessagesResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

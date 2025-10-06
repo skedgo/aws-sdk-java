@@ -1,0 +1,242 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.chimesdkmeetings.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
+
+/**
+ * <p>
+ * The Amazon Chime SDK attendee fields to create, used with the BatchCreateAttendee action.
+ * </p>
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-sdk-meetings-2021-07-15/CreateAttendeeRequestItem"
+ *      target="_top">AWS API Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class CreateAttendeeRequestItem implements Serializable, Cloneable, StructuredPojo {
+
+    /**
+     * <p>
+     * The Amazon Chime SDK external user ID. An idempotency token. Links the attendee to an identity managed by a
+     * builder application.
+     * </p>
+     * <p>
+     * Pattern: <code>[-_&amp;@+=,(){}\[\]\/«».:|'"#a-zA-Z0-9À-ÿ\s]*</code>
+     * </p>
+     * <p>
+     * Values that begin with <code>aws:</code> are reserved. You can't configure a value that uses this prefix. Case
+     * insensitive.
+     * </p>
+     */
+    private String externalUserId;
+    /**
+     * <p>
+     * A list of one or more capabilities.
+     * </p>
+     */
+    private AttendeeCapabilities capabilities;
+
+    /**
+     * <p>
+     * The Amazon Chime SDK external user ID. An idempotency token. Links the attendee to an identity managed by a
+     * builder application.
+     * </p>
+     * <p>
+     * Pattern: <code>[-_&amp;@+=,(){}\[\]\/«».:|'"#a-zA-Z0-9À-ÿ\s]*</code>
+     * </p>
+     * <p>
+     * Values that begin with <code>aws:</code> are reserved. You can't configure a value that uses this prefix. Case
+     * insensitive.
+     * </p>
+     * 
+     * @param externalUserId
+     *        The Amazon Chime SDK external user ID. An idempotency token. Links the attendee to an identity managed by
+     *        a builder application.</p>
+     *        <p>
+     *        Pattern: <code>[-_&amp;@+=,(){}\[\]\/«».:|'"#a-zA-Z0-9À-ÿ\s]*</code>
+     *        </p>
+     *        <p>
+     *        Values that begin with <code>aws:</code> are reserved. You can't configure a value that uses this prefix.
+     *        Case insensitive.
+     */
+
+    public void setExternalUserId(String externalUserId) {
+        this.externalUserId = externalUserId;
+    }
+
+    /**
+     * <p>
+     * The Amazon Chime SDK external user ID. An idempotency token. Links the attendee to an identity managed by a
+     * builder application.
+     * </p>
+     * <p>
+     * Pattern: <code>[-_&amp;@+=,(){}\[\]\/«».:|'"#a-zA-Z0-9À-ÿ\s]*</code>
+     * </p>
+     * <p>
+     * Values that begin with <code>aws:</code> are reserved. You can't configure a value that uses this prefix. Case
+     * insensitive.
+     * </p>
+     * 
+     * @return The Amazon Chime SDK external user ID. An idempotency token. Links the attendee to an identity managed by
+     *         a builder application.</p>
+     *         <p>
+     *         Pattern: <code>[-_&amp;@+=,(){}\[\]\/«».:|'"#a-zA-Z0-9À-ÿ\s]*</code>
+     *         </p>
+     *         <p>
+     *         Values that begin with <code>aws:</code> are reserved. You can't configure a value that uses this prefix.
+     *         Case insensitive.
+     */
+
+    public String getExternalUserId() {
+        return this.externalUserId;
+    }
+
+    /**
+     * <p>
+     * The Amazon Chime SDK external user ID. An idempotency token. Links the attendee to an identity managed by a
+     * builder application.
+     * </p>
+     * <p>
+     * Pattern: <code>[-_&amp;@+=,(){}\[\]\/«».:|'"#a-zA-Z0-9À-ÿ\s]*</code>
+     * </p>
+     * <p>
+     * Values that begin with <code>aws:</code> are reserved. You can't configure a value that uses this prefix. Case
+     * insensitive.
+     * </p>
+     * 
+     * @param externalUserId
+     *        The Amazon Chime SDK external user ID. An idempotency token. Links the attendee to an identity managed by
+     *        a builder application.</p>
+     *        <p>
+     *        Pattern: <code>[-_&amp;@+=,(){}\[\]\/«».:|'"#a-zA-Z0-9À-ÿ\s]*</code>
+     *        </p>
+     *        <p>
+     *        Values that begin with <code>aws:</code> are reserved. You can't configure a value that uses this prefix.
+     *        Case insensitive.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateAttendeeRequestItem withExternalUserId(String externalUserId) {
+        setExternalUserId(externalUserId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of one or more capabilities.
+     * </p>
+     * 
+     * @param capabilities
+     *        A list of one or more capabilities.
+     */
+
+    public void setCapabilities(AttendeeCapabilities capabilities) {
+        this.capabilities = capabilities;
+    }
+
+    /**
+     * <p>
+     * A list of one or more capabilities.
+     * </p>
+     * 
+     * @return A list of one or more capabilities.
+     */
+
+    public AttendeeCapabilities getCapabilities() {
+        return this.capabilities;
+    }
+
+    /**
+     * <p>
+     * A list of one or more capabilities.
+     * </p>
+     * 
+     * @param capabilities
+     *        A list of one or more capabilities.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateAttendeeRequestItem withCapabilities(AttendeeCapabilities capabilities) {
+        setCapabilities(capabilities);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getExternalUserId() != null)
+            sb.append("ExternalUserId: ").append("***Sensitive Data Redacted***").append(",");
+        if (getCapabilities() != null)
+            sb.append("Capabilities: ").append(getCapabilities());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof CreateAttendeeRequestItem == false)
+            return false;
+        CreateAttendeeRequestItem other = (CreateAttendeeRequestItem) obj;
+        if (other.getExternalUserId() == null ^ this.getExternalUserId() == null)
+            return false;
+        if (other.getExternalUserId() != null && other.getExternalUserId().equals(this.getExternalUserId()) == false)
+            return false;
+        if (other.getCapabilities() == null ^ this.getCapabilities() == null)
+            return false;
+        if (other.getCapabilities() != null && other.getCapabilities().equals(this.getCapabilities()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getExternalUserId() == null) ? 0 : getExternalUserId().hashCode());
+        hashCode = prime * hashCode + ((getCapabilities() == null) ? 0 : getCapabilities().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public CreateAttendeeRequestItem clone() {
+        try {
+            return (CreateAttendeeRequestItem) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.chimesdkmeetings.model.transform.CreateAttendeeRequestItemMarshaller.getInstance().marshall(this, protocolMarshaller);
+    }
+}

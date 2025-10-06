@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,12 +30,22 @@ public class StageStateMarshaller {
 
     private static final MarshallingInfo<String> STAGENAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("stageName").build();
+    private static final MarshallingInfo<StructuredPojo> INBOUNDEXECUTION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("inboundExecution").build();
+    private static final MarshallingInfo<List> INBOUNDEXECUTIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("inboundExecutions").build();
     private static final MarshallingInfo<StructuredPojo> INBOUNDTRANSITIONSTATE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("inboundTransitionState").build();
     private static final MarshallingInfo<List> ACTIONSTATES_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("actionStates").build();
     private static final MarshallingInfo<StructuredPojo> LATESTEXECUTION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("latestExecution").build();
+    private static final MarshallingInfo<StructuredPojo> BEFOREENTRYCONDITIONSTATE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("beforeEntryConditionState").build();
+    private static final MarshallingInfo<StructuredPojo> ONSUCCESSCONDITIONSTATE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("onSuccessConditionState").build();
+    private static final MarshallingInfo<StructuredPojo> ONFAILURECONDITIONSTATE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("onFailureConditionState").build();
 
     private static final StageStateMarshaller instance = new StageStateMarshaller();
 
@@ -54,9 +64,14 @@ public class StageStateMarshaller {
 
         try {
             protocolMarshaller.marshall(stageState.getStageName(), STAGENAME_BINDING);
+            protocolMarshaller.marshall(stageState.getInboundExecution(), INBOUNDEXECUTION_BINDING);
+            protocolMarshaller.marshall(stageState.getInboundExecutions(), INBOUNDEXECUTIONS_BINDING);
             protocolMarshaller.marshall(stageState.getInboundTransitionState(), INBOUNDTRANSITIONSTATE_BINDING);
             protocolMarshaller.marshall(stageState.getActionStates(), ACTIONSTATES_BINDING);
             protocolMarshaller.marshall(stageState.getLatestExecution(), LATESTEXECUTION_BINDING);
+            protocolMarshaller.marshall(stageState.getBeforeEntryConditionState(), BEFOREENTRYCONDITIONSTATE_BINDING);
+            protocolMarshaller.marshall(stageState.getOnSuccessConditionState(), ONSUCCESSCONDITIONSTATE_BINDING);
+            protocolMarshaller.marshall(stageState.getOnFailureConditionState(), ONFAILURECONDITIONSTATE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

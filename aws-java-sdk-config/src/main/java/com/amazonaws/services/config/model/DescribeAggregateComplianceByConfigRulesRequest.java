@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,15 +39,15 @@ public class DescribeAggregateComplianceByConfigRulesRequest extends com.amazona
     private ConfigRuleComplianceFilters filters;
     /**
      * <p>
-     * The maximum number of evaluation results returned on each page. The default is maximum. If you specify 0, AWS
-     * Config uses the default.
+     * The maximum number of evaluation results returned on each page. The default is maximum. If you specify 0, Config
+     * uses the default.
      * </p>
      */
     private Integer limit;
     /**
      * <p>
-     * The nextToken string returned on a previous page that you use to get the next page of results in a paginated
-     * response.
+     * The <code>nextToken</code> string returned on a previous page that you use to get the next page of results in a
+     * paginated response.
      * </p>
      */
     private String nextToken;
@@ -134,13 +134,13 @@ public class DescribeAggregateComplianceByConfigRulesRequest extends com.amazona
 
     /**
      * <p>
-     * The maximum number of evaluation results returned on each page. The default is maximum. If you specify 0, AWS
-     * Config uses the default.
+     * The maximum number of evaluation results returned on each page. The default is maximum. If you specify 0, Config
+     * uses the default.
      * </p>
      * 
      * @param limit
      *        The maximum number of evaluation results returned on each page. The default is maximum. If you specify 0,
-     *        AWS Config uses the default.
+     *        Config uses the default.
      */
 
     public void setLimit(Integer limit) {
@@ -149,12 +149,12 @@ public class DescribeAggregateComplianceByConfigRulesRequest extends com.amazona
 
     /**
      * <p>
-     * The maximum number of evaluation results returned on each page. The default is maximum. If you specify 0, AWS
-     * Config uses the default.
+     * The maximum number of evaluation results returned on each page. The default is maximum. If you specify 0, Config
+     * uses the default.
      * </p>
      * 
      * @return The maximum number of evaluation results returned on each page. The default is maximum. If you specify 0,
-     *         AWS Config uses the default.
+     *         Config uses the default.
      */
 
     public Integer getLimit() {
@@ -163,13 +163,13 @@ public class DescribeAggregateComplianceByConfigRulesRequest extends com.amazona
 
     /**
      * <p>
-     * The maximum number of evaluation results returned on each page. The default is maximum. If you specify 0, AWS
-     * Config uses the default.
+     * The maximum number of evaluation results returned on each page. The default is maximum. If you specify 0, Config
+     * uses the default.
      * </p>
      * 
      * @param limit
      *        The maximum number of evaluation results returned on each page. The default is maximum. If you specify 0,
-     *        AWS Config uses the default.
+     *        Config uses the default.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -180,13 +180,13 @@ public class DescribeAggregateComplianceByConfigRulesRequest extends com.amazona
 
     /**
      * <p>
-     * The nextToken string returned on a previous page that you use to get the next page of results in a paginated
-     * response.
+     * The <code>nextToken</code> string returned on a previous page that you use to get the next page of results in a
+     * paginated response.
      * </p>
      * 
      * @param nextToken
-     *        The nextToken string returned on a previous page that you use to get the next page of results in a
-     *        paginated response.
+     *        The <code>nextToken</code> string returned on a previous page that you use to get the next page of results
+     *        in a paginated response.
      */
 
     public void setNextToken(String nextToken) {
@@ -195,12 +195,12 @@ public class DescribeAggregateComplianceByConfigRulesRequest extends com.amazona
 
     /**
      * <p>
-     * The nextToken string returned on a previous page that you use to get the next page of results in a paginated
-     * response.
+     * The <code>nextToken</code> string returned on a previous page that you use to get the next page of results in a
+     * paginated response.
      * </p>
      * 
-     * @return The nextToken string returned on a previous page that you use to get the next page of results in a
-     *         paginated response.
+     * @return The <code>nextToken</code> string returned on a previous page that you use to get the next page of
+     *         results in a paginated response.
      */
 
     public String getNextToken() {
@@ -209,13 +209,13 @@ public class DescribeAggregateComplianceByConfigRulesRequest extends com.amazona
 
     /**
      * <p>
-     * The nextToken string returned on a previous page that you use to get the next page of results in a paginated
-     * response.
+     * The <code>nextToken</code> string returned on a previous page that you use to get the next page of results in a
+     * paginated response.
      * </p>
      * 
      * @param nextToken
-     *        The nextToken string returned on a previous page that you use to get the next page of results in a
-     *        paginated response.
+     *        The <code>nextToken</code> string returned on a previous page that you use to get the next page of results
+     *        in a paginated response.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

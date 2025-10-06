@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,10 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Connection information for the new game session that is created with matchmaking. (with <a>StartMatchmaking</a>).
- * Once a match is set, the FlexMatch engine places the match and creates a new game session for it. This information,
- * including the game session endpoint and player sessions for each player in the original matchmaking request, is added
- * to the <a>MatchmakingTicket</a>, which can be retrieved by calling <a>DescribeMatchmaking</a>.
+ * Connection information for a new game session that is created in response to a start matchmaking request. Once a
+ * match is made, the FlexMatch engine creates a new game session for it. This information, including the game session
+ * endpoint and player sessions for each player in the original matchmaking request, is added to the matchmaking ticket.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/GameSessionConnectionInfo" target="_top">AWS
@@ -33,42 +32,62 @@ public class GameSessionConnectionInfo implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that
-     * is assigned to a game session and uniquely identifies it.
+     * A unique identifier for the game session. Use the game session ID.
      * </p>
      */
     private String gameSessionArn;
     /**
      * <p>
-     * IP address of the game session. To connect to a Amazon GameLift game server, an app needs both the IP address and
-     * port number.
+     * The IP address of the game session. To connect to a Amazon GameLift game server, an app needs both the IP address
+     * and port number.
      * </p>
      */
     private String ipAddress;
     /**
      * <p>
-     * Port number for the game session. To connect to a Amazon GameLift game server, an app needs both the IP address
-     * and port number.
+     * The DNS identifier assigned to the instance that is running the game session. Values have the following format:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * TLS-enabled fleets: <code>&lt;unique identifier&gt;.&lt;region identifier&gt;.amazongamelift.com</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Non-TLS-enabled fleets: <code>ec2-&lt;unique identifier&gt;.compute.amazonaws.com</code>. (See <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#concepts-public-addresses"
+     * >Amazon EC2 Instance IP Addressing</a>.)
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * When connecting to a game session that is running on a TLS-enabled fleet, you must use the DNS name, not the IP
+     * address.
+     * </p>
+     */
+    private String dnsName;
+    /**
+     * <p>
+     * The port number for the game session. To connect to a Amazon GameLift game server, an app needs both the IP
+     * address and port number.
      * </p>
      */
     private Integer port;
     /**
      * <p>
-     * Collection of player session IDs, one for each player ID that was included in the original matchmaking request.
+     * A collection of player session IDs, one for each player ID that was included in the original matchmaking request.
      * </p>
      */
     private java.util.List<MatchedPlayerSession> matchedPlayerSessions;
 
     /**
      * <p>
-     * Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that
-     * is assigned to a game session and uniquely identifies it.
+     * A unique identifier for the game session. Use the game session ID.
      * </p>
      * 
      * @param gameSessionArn
-     *        Amazon Resource Name (<a
-     *        href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that is assigned to a
-     *        game session and uniquely identifies it.
+     *        A unique identifier for the game session. Use the game session ID.
      */
 
     public void setGameSessionArn(String gameSessionArn) {
@@ -77,13 +96,10 @@ public class GameSessionConnectionInfo implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that
-     * is assigned to a game session and uniquely identifies it.
+     * A unique identifier for the game session. Use the game session ID.
      * </p>
      * 
-     * @return Amazon Resource Name (<a
-     *         href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that is assigned to a
-     *         game session and uniquely identifies it.
+     * @return A unique identifier for the game session. Use the game session ID.
      */
 
     public String getGameSessionArn() {
@@ -92,14 +108,11 @@ public class GameSessionConnectionInfo implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that
-     * is assigned to a game session and uniquely identifies it.
+     * A unique identifier for the game session. Use the game session ID.
      * </p>
      * 
      * @param gameSessionArn
-     *        Amazon Resource Name (<a
-     *        href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that is assigned to a
-     *        game session and uniquely identifies it.
+     *        A unique identifier for the game session. Use the game session ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -110,12 +123,12 @@ public class GameSessionConnectionInfo implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * IP address of the game session. To connect to a Amazon GameLift game server, an app needs both the IP address and
-     * port number.
+     * The IP address of the game session. To connect to a Amazon GameLift game server, an app needs both the IP address
+     * and port number.
      * </p>
      * 
      * @param ipAddress
-     *        IP address of the game session. To connect to a Amazon GameLift game server, an app needs both the IP
+     *        The IP address of the game session. To connect to a Amazon GameLift game server, an app needs both the IP
      *        address and port number.
      */
 
@@ -125,11 +138,11 @@ public class GameSessionConnectionInfo implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * IP address of the game session. To connect to a Amazon GameLift game server, an app needs both the IP address and
-     * port number.
+     * The IP address of the game session. To connect to a Amazon GameLift game server, an app needs both the IP address
+     * and port number.
      * </p>
      * 
-     * @return IP address of the game session. To connect to a Amazon GameLift game server, an app needs both the IP
+     * @return The IP address of the game session. To connect to a Amazon GameLift game server, an app needs both the IP
      *         address and port number.
      */
 
@@ -139,12 +152,12 @@ public class GameSessionConnectionInfo implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * IP address of the game session. To connect to a Amazon GameLift game server, an app needs both the IP address and
-     * port number.
+     * The IP address of the game session. To connect to a Amazon GameLift game server, an app needs both the IP address
+     * and port number.
      * </p>
      * 
      * @param ipAddress
-     *        IP address of the game session. To connect to a Amazon GameLift game server, an app needs both the IP
+     *        The IP address of the game session. To connect to a Amazon GameLift game server, an app needs both the IP
      *        address and port number.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -156,13 +169,161 @@ public class GameSessionConnectionInfo implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Port number for the game session. To connect to a Amazon GameLift game server, an app needs both the IP address
-     * and port number.
+     * The DNS identifier assigned to the instance that is running the game session. Values have the following format:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * TLS-enabled fleets: <code>&lt;unique identifier&gt;.&lt;region identifier&gt;.amazongamelift.com</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Non-TLS-enabled fleets: <code>ec2-&lt;unique identifier&gt;.compute.amazonaws.com</code>. (See <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#concepts-public-addresses"
+     * >Amazon EC2 Instance IP Addressing</a>.)
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * When connecting to a game session that is running on a TLS-enabled fleet, you must use the DNS name, not the IP
+     * address.
+     * </p>
+     * 
+     * @param dnsName
+     *        The DNS identifier assigned to the instance that is running the game session. Values have the following
+     *        format:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        TLS-enabled fleets: <code>&lt;unique identifier&gt;.&lt;region identifier&gt;.amazongamelift.com</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Non-TLS-enabled fleets: <code>ec2-&lt;unique identifier&gt;.compute.amazonaws.com</code>. (See <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#concepts-public-addresses"
+     *        >Amazon EC2 Instance IP Addressing</a>.)
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        When connecting to a game session that is running on a TLS-enabled fleet, you must use the DNS name, not
+     *        the IP address.
+     */
+
+    public void setDnsName(String dnsName) {
+        this.dnsName = dnsName;
+    }
+
+    /**
+     * <p>
+     * The DNS identifier assigned to the instance that is running the game session. Values have the following format:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * TLS-enabled fleets: <code>&lt;unique identifier&gt;.&lt;region identifier&gt;.amazongamelift.com</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Non-TLS-enabled fleets: <code>ec2-&lt;unique identifier&gt;.compute.amazonaws.com</code>. (See <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#concepts-public-addresses"
+     * >Amazon EC2 Instance IP Addressing</a>.)
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * When connecting to a game session that is running on a TLS-enabled fleet, you must use the DNS name, not the IP
+     * address.
+     * </p>
+     * 
+     * @return The DNS identifier assigned to the instance that is running the game session. Values have the following
+     *         format:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         TLS-enabled fleets: <code>&lt;unique identifier&gt;.&lt;region identifier&gt;.amazongamelift.com</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Non-TLS-enabled fleets: <code>ec2-&lt;unique identifier&gt;.compute.amazonaws.com</code>. (See <a href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#concepts-public-addresses"
+     *         >Amazon EC2 Instance IP Addressing</a>.)
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         When connecting to a game session that is running on a TLS-enabled fleet, you must use the DNS name, not
+     *         the IP address.
+     */
+
+    public String getDnsName() {
+        return this.dnsName;
+    }
+
+    /**
+     * <p>
+     * The DNS identifier assigned to the instance that is running the game session. Values have the following format:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * TLS-enabled fleets: <code>&lt;unique identifier&gt;.&lt;region identifier&gt;.amazongamelift.com</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Non-TLS-enabled fleets: <code>ec2-&lt;unique identifier&gt;.compute.amazonaws.com</code>. (See <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#concepts-public-addresses"
+     * >Amazon EC2 Instance IP Addressing</a>.)
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * When connecting to a game session that is running on a TLS-enabled fleet, you must use the DNS name, not the IP
+     * address.
+     * </p>
+     * 
+     * @param dnsName
+     *        The DNS identifier assigned to the instance that is running the game session. Values have the following
+     *        format:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        TLS-enabled fleets: <code>&lt;unique identifier&gt;.&lt;region identifier&gt;.amazongamelift.com</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Non-TLS-enabled fleets: <code>ec2-&lt;unique identifier&gt;.compute.amazonaws.com</code>. (See <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#concepts-public-addresses"
+     *        >Amazon EC2 Instance IP Addressing</a>.)
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        When connecting to a game session that is running on a TLS-enabled fleet, you must use the DNS name, not
+     *        the IP address.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GameSessionConnectionInfo withDnsName(String dnsName) {
+        setDnsName(dnsName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The port number for the game session. To connect to a Amazon GameLift game server, an app needs both the IP
+     * address and port number.
      * </p>
      * 
      * @param port
-     *        Port number for the game session. To connect to a Amazon GameLift game server, an app needs both the IP
-     *        address and port number.
+     *        The port number for the game session. To connect to a Amazon GameLift game server, an app needs both the
+     *        IP address and port number.
      */
 
     public void setPort(Integer port) {
@@ -171,12 +332,12 @@ public class GameSessionConnectionInfo implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Port number for the game session. To connect to a Amazon GameLift game server, an app needs both the IP address
-     * and port number.
+     * The port number for the game session. To connect to a Amazon GameLift game server, an app needs both the IP
+     * address and port number.
      * </p>
      * 
-     * @return Port number for the game session. To connect to a Amazon GameLift game server, an app needs both the IP
-     *         address and port number.
+     * @return The port number for the game session. To connect to a Amazon GameLift game server, an app needs both the
+     *         IP address and port number.
      */
 
     public Integer getPort() {
@@ -185,13 +346,13 @@ public class GameSessionConnectionInfo implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Port number for the game session. To connect to a Amazon GameLift game server, an app needs both the IP address
-     * and port number.
+     * The port number for the game session. To connect to a Amazon GameLift game server, an app needs both the IP
+     * address and port number.
      * </p>
      * 
      * @param port
-     *        Port number for the game session. To connect to a Amazon GameLift game server, an app needs both the IP
-     *        address and port number.
+     *        The port number for the game session. To connect to a Amazon GameLift game server, an app needs both the
+     *        IP address and port number.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -202,10 +363,10 @@ public class GameSessionConnectionInfo implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Collection of player session IDs, one for each player ID that was included in the original matchmaking request.
+     * A collection of player session IDs, one for each player ID that was included in the original matchmaking request.
      * </p>
      * 
-     * @return Collection of player session IDs, one for each player ID that was included in the original matchmaking
+     * @return A collection of player session IDs, one for each player ID that was included in the original matchmaking
      *         request.
      */
 
@@ -215,11 +376,11 @@ public class GameSessionConnectionInfo implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Collection of player session IDs, one for each player ID that was included in the original matchmaking request.
+     * A collection of player session IDs, one for each player ID that was included in the original matchmaking request.
      * </p>
      * 
      * @param matchedPlayerSessions
-     *        Collection of player session IDs, one for each player ID that was included in the original matchmaking
+     *        A collection of player session IDs, one for each player ID that was included in the original matchmaking
      *        request.
      */
 
@@ -234,7 +395,7 @@ public class GameSessionConnectionInfo implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Collection of player session IDs, one for each player ID that was included in the original matchmaking request.
+     * A collection of player session IDs, one for each player ID that was included in the original matchmaking request.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -243,7 +404,7 @@ public class GameSessionConnectionInfo implements Serializable, Cloneable, Struc
      * </p>
      * 
      * @param matchedPlayerSessions
-     *        Collection of player session IDs, one for each player ID that was included in the original matchmaking
+     *        A collection of player session IDs, one for each player ID that was included in the original matchmaking
      *        request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -260,11 +421,11 @@ public class GameSessionConnectionInfo implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Collection of player session IDs, one for each player ID that was included in the original matchmaking request.
+     * A collection of player session IDs, one for each player ID that was included in the original matchmaking request.
      * </p>
      * 
      * @param matchedPlayerSessions
-     *        Collection of player session IDs, one for each player ID that was included in the original matchmaking
+     *        A collection of player session IDs, one for each player ID that was included in the original matchmaking
      *        request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -289,7 +450,9 @@ public class GameSessionConnectionInfo implements Serializable, Cloneable, Struc
         if (getGameSessionArn() != null)
             sb.append("GameSessionArn: ").append(getGameSessionArn()).append(",");
         if (getIpAddress() != null)
-            sb.append("IpAddress: ").append(getIpAddress()).append(",");
+            sb.append("IpAddress: ").append("***Sensitive Data Redacted***").append(",");
+        if (getDnsName() != null)
+            sb.append("DnsName: ").append(getDnsName()).append(",");
         if (getPort() != null)
             sb.append("Port: ").append(getPort()).append(",");
         if (getMatchedPlayerSessions() != null)
@@ -316,6 +479,10 @@ public class GameSessionConnectionInfo implements Serializable, Cloneable, Struc
             return false;
         if (other.getIpAddress() != null && other.getIpAddress().equals(this.getIpAddress()) == false)
             return false;
+        if (other.getDnsName() == null ^ this.getDnsName() == null)
+            return false;
+        if (other.getDnsName() != null && other.getDnsName().equals(this.getDnsName()) == false)
+            return false;
         if (other.getPort() == null ^ this.getPort() == null)
             return false;
         if (other.getPort() != null && other.getPort().equals(this.getPort()) == false)
@@ -334,6 +501,7 @@ public class GameSessionConnectionInfo implements Serializable, Cloneable, Struc
 
         hashCode = prime * hashCode + ((getGameSessionArn() == null) ? 0 : getGameSessionArn().hashCode());
         hashCode = prime * hashCode + ((getIpAddress() == null) ? 0 : getIpAddress().hashCode());
+        hashCode = prime * hashCode + ((getDnsName() == null) ? 0 : getDnsName().hashCode());
         hashCode = prime * hashCode + ((getPort() == null) ? 0 : getPort().hashCode());
         hashCode = prime * hashCode + ((getMatchedPlayerSessions() == null) ? 0 : getMatchedPlayerSessions().hashCode());
         return hashCode;

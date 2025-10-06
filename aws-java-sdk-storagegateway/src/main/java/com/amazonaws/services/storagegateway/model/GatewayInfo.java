@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,7 +38,7 @@ public class GatewayInfo implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The Amazon Resource Name (ARN) of the gateway. Use the <a>ListGateways</a> operation to return a list of gateways
-     * for your account and region.
+     * for your account and Amazon Web Services Region.
      * </p>
      */
     private String gatewayARN;
@@ -53,7 +53,7 @@ public class GatewayInfo implements Serializable, Cloneable, StructuredPojo {
      * The state of the gateway.
      * </p>
      * <p>
-     * Valid Values: DISABLED or ACTIVE
+     * Valid Values: <code>DISABLED</code> | <code>ACTIVE</code>
      * </p>
      */
     private String gatewayOperationalState;
@@ -71,10 +71,40 @@ public class GatewayInfo implements Serializable, Cloneable, StructuredPojo {
     private String ec2InstanceId;
     /**
      * <p>
-     * The AWS Region where the Amazon EC2 instance is located.
+     * The Amazon Web Services Region where the Amazon EC2 instance is located.
      * </p>
      */
     private String ec2InstanceRegion;
+    /**
+     * <p>
+     * The type of hardware or software platform on which the gateway is running.
+     * </p>
+     * <note>
+     * <p>
+     * Tape Gateway is no longer available on Snow Family devices.
+     * </p>
+     * </note>
+     */
+    private String hostEnvironment;
+    /**
+     * <p>
+     * A unique identifier for the specific instance of the host platform running the gateway. This value is only
+     * available for certain host environments, and its format depends on the host environment type.
+     * </p>
+     */
+    private String hostEnvironmentId;
+    /**
+     * <p>
+     * Date after which this gateway will not receive software updates for new features and bug fixes.
+     * </p>
+     */
+    private String deprecationDate;
+    /**
+     * <p>
+     * The version number of the software running on the gateway appliance.
+     * </p>
+     */
+    private String softwareVersion;
 
     /**
      * <p>
@@ -125,12 +155,12 @@ public class GatewayInfo implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The Amazon Resource Name (ARN) of the gateway. Use the <a>ListGateways</a> operation to return a list of gateways
-     * for your account and region.
+     * for your account and Amazon Web Services Region.
      * </p>
      * 
      * @param gatewayARN
      *        The Amazon Resource Name (ARN) of the gateway. Use the <a>ListGateways</a> operation to return a list of
-     *        gateways for your account and region.
+     *        gateways for your account and Amazon Web Services Region.
      */
 
     public void setGatewayARN(String gatewayARN) {
@@ -140,11 +170,11 @@ public class GatewayInfo implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The Amazon Resource Name (ARN) of the gateway. Use the <a>ListGateways</a> operation to return a list of gateways
-     * for your account and region.
+     * for your account and Amazon Web Services Region.
      * </p>
      * 
      * @return The Amazon Resource Name (ARN) of the gateway. Use the <a>ListGateways</a> operation to return a list of
-     *         gateways for your account and region.
+     *         gateways for your account and Amazon Web Services Region.
      */
 
     public String getGatewayARN() {
@@ -154,12 +184,12 @@ public class GatewayInfo implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The Amazon Resource Name (ARN) of the gateway. Use the <a>ListGateways</a> operation to return a list of gateways
-     * for your account and region.
+     * for your account and Amazon Web Services Region.
      * </p>
      * 
      * @param gatewayARN
      *        The Amazon Resource Name (ARN) of the gateway. Use the <a>ListGateways</a> operation to return a list of
-     *        gateways for your account and region.
+     *        gateways for your account and Amazon Web Services Region.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -213,13 +243,13 @@ public class GatewayInfo implements Serializable, Cloneable, StructuredPojo {
      * The state of the gateway.
      * </p>
      * <p>
-     * Valid Values: DISABLED or ACTIVE
+     * Valid Values: <code>DISABLED</code> | <code>ACTIVE</code>
      * </p>
      * 
      * @param gatewayOperationalState
      *        The state of the gateway.</p>
      *        <p>
-     *        Valid Values: DISABLED or ACTIVE
+     *        Valid Values: <code>DISABLED</code> | <code>ACTIVE</code>
      */
 
     public void setGatewayOperationalState(String gatewayOperationalState) {
@@ -231,12 +261,12 @@ public class GatewayInfo implements Serializable, Cloneable, StructuredPojo {
      * The state of the gateway.
      * </p>
      * <p>
-     * Valid Values: DISABLED or ACTIVE
+     * Valid Values: <code>DISABLED</code> | <code>ACTIVE</code>
      * </p>
      * 
      * @return The state of the gateway.</p>
      *         <p>
-     *         Valid Values: DISABLED or ACTIVE
+     *         Valid Values: <code>DISABLED</code> | <code>ACTIVE</code>
      */
 
     public String getGatewayOperationalState() {
@@ -248,13 +278,13 @@ public class GatewayInfo implements Serializable, Cloneable, StructuredPojo {
      * The state of the gateway.
      * </p>
      * <p>
-     * Valid Values: DISABLED or ACTIVE
+     * Valid Values: <code>DISABLED</code> | <code>ACTIVE</code>
      * </p>
      * 
      * @param gatewayOperationalState
      *        The state of the gateway.</p>
      *        <p>
-     *        Valid Values: DISABLED or ACTIVE
+     *        Valid Values: <code>DISABLED</code> | <code>ACTIVE</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -345,11 +375,11 @@ public class GatewayInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Region where the Amazon EC2 instance is located.
+     * The Amazon Web Services Region where the Amazon EC2 instance is located.
      * </p>
      * 
      * @param ec2InstanceRegion
-     *        The AWS Region where the Amazon EC2 instance is located.
+     *        The Amazon Web Services Region where the Amazon EC2 instance is located.
      */
 
     public void setEc2InstanceRegion(String ec2InstanceRegion) {
@@ -358,10 +388,10 @@ public class GatewayInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Region where the Amazon EC2 instance is located.
+     * The Amazon Web Services Region where the Amazon EC2 instance is located.
      * </p>
      * 
-     * @return The AWS Region where the Amazon EC2 instance is located.
+     * @return The Amazon Web Services Region where the Amazon EC2 instance is located.
      */
 
     public String getEc2InstanceRegion() {
@@ -370,16 +400,233 @@ public class GatewayInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Region where the Amazon EC2 instance is located.
+     * The Amazon Web Services Region where the Amazon EC2 instance is located.
      * </p>
      * 
      * @param ec2InstanceRegion
-     *        The AWS Region where the Amazon EC2 instance is located.
+     *        The Amazon Web Services Region where the Amazon EC2 instance is located.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public GatewayInfo withEc2InstanceRegion(String ec2InstanceRegion) {
         setEc2InstanceRegion(ec2InstanceRegion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of hardware or software platform on which the gateway is running.
+     * </p>
+     * <note>
+     * <p>
+     * Tape Gateway is no longer available on Snow Family devices.
+     * </p>
+     * </note>
+     * 
+     * @param hostEnvironment
+     *        The type of hardware or software platform on which the gateway is running.</p> <note>
+     *        <p>
+     *        Tape Gateway is no longer available on Snow Family devices.
+     *        </p>
+     * @see HostEnvironment
+     */
+
+    public void setHostEnvironment(String hostEnvironment) {
+        this.hostEnvironment = hostEnvironment;
+    }
+
+    /**
+     * <p>
+     * The type of hardware or software platform on which the gateway is running.
+     * </p>
+     * <note>
+     * <p>
+     * Tape Gateway is no longer available on Snow Family devices.
+     * </p>
+     * </note>
+     * 
+     * @return The type of hardware or software platform on which the gateway is running.</p> <note>
+     *         <p>
+     *         Tape Gateway is no longer available on Snow Family devices.
+     *         </p>
+     * @see HostEnvironment
+     */
+
+    public String getHostEnvironment() {
+        return this.hostEnvironment;
+    }
+
+    /**
+     * <p>
+     * The type of hardware or software platform on which the gateway is running.
+     * </p>
+     * <note>
+     * <p>
+     * Tape Gateway is no longer available on Snow Family devices.
+     * </p>
+     * </note>
+     * 
+     * @param hostEnvironment
+     *        The type of hardware or software platform on which the gateway is running.</p> <note>
+     *        <p>
+     *        Tape Gateway is no longer available on Snow Family devices.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HostEnvironment
+     */
+
+    public GatewayInfo withHostEnvironment(String hostEnvironment) {
+        setHostEnvironment(hostEnvironment);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of hardware or software platform on which the gateway is running.
+     * </p>
+     * <note>
+     * <p>
+     * Tape Gateway is no longer available on Snow Family devices.
+     * </p>
+     * </note>
+     * 
+     * @param hostEnvironment
+     *        The type of hardware or software platform on which the gateway is running.</p> <note>
+     *        <p>
+     *        Tape Gateway is no longer available on Snow Family devices.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HostEnvironment
+     */
+
+    public GatewayInfo withHostEnvironment(HostEnvironment hostEnvironment) {
+        this.hostEnvironment = hostEnvironment.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * A unique identifier for the specific instance of the host platform running the gateway. This value is only
+     * available for certain host environments, and its format depends on the host environment type.
+     * </p>
+     * 
+     * @param hostEnvironmentId
+     *        A unique identifier for the specific instance of the host platform running the gateway. This value is only
+     *        available for certain host environments, and its format depends on the host environment type.
+     */
+
+    public void setHostEnvironmentId(String hostEnvironmentId) {
+        this.hostEnvironmentId = hostEnvironmentId;
+    }
+
+    /**
+     * <p>
+     * A unique identifier for the specific instance of the host platform running the gateway. This value is only
+     * available for certain host environments, and its format depends on the host environment type.
+     * </p>
+     * 
+     * @return A unique identifier for the specific instance of the host platform running the gateway. This value is
+     *         only available for certain host environments, and its format depends on the host environment type.
+     */
+
+    public String getHostEnvironmentId() {
+        return this.hostEnvironmentId;
+    }
+
+    /**
+     * <p>
+     * A unique identifier for the specific instance of the host platform running the gateway. This value is only
+     * available for certain host environments, and its format depends on the host environment type.
+     * </p>
+     * 
+     * @param hostEnvironmentId
+     *        A unique identifier for the specific instance of the host platform running the gateway. This value is only
+     *        available for certain host environments, and its format depends on the host environment type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GatewayInfo withHostEnvironmentId(String hostEnvironmentId) {
+        setHostEnvironmentId(hostEnvironmentId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Date after which this gateway will not receive software updates for new features and bug fixes.
+     * </p>
+     * 
+     * @param deprecationDate
+     *        Date after which this gateway will not receive software updates for new features and bug fixes.
+     */
+
+    public void setDeprecationDate(String deprecationDate) {
+        this.deprecationDate = deprecationDate;
+    }
+
+    /**
+     * <p>
+     * Date after which this gateway will not receive software updates for new features and bug fixes.
+     * </p>
+     * 
+     * @return Date after which this gateway will not receive software updates for new features and bug fixes.
+     */
+
+    public String getDeprecationDate() {
+        return this.deprecationDate;
+    }
+
+    /**
+     * <p>
+     * Date after which this gateway will not receive software updates for new features and bug fixes.
+     * </p>
+     * 
+     * @param deprecationDate
+     *        Date after which this gateway will not receive software updates for new features and bug fixes.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GatewayInfo withDeprecationDate(String deprecationDate) {
+        setDeprecationDate(deprecationDate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The version number of the software running on the gateway appliance.
+     * </p>
+     * 
+     * @param softwareVersion
+     *        The version number of the software running on the gateway appliance.
+     */
+
+    public void setSoftwareVersion(String softwareVersion) {
+        this.softwareVersion = softwareVersion;
+    }
+
+    /**
+     * <p>
+     * The version number of the software running on the gateway appliance.
+     * </p>
+     * 
+     * @return The version number of the software running on the gateway appliance.
+     */
+
+    public String getSoftwareVersion() {
+        return this.softwareVersion;
+    }
+
+    /**
+     * <p>
+     * The version number of the software running on the gateway appliance.
+     * </p>
+     * 
+     * @param softwareVersion
+     *        The version number of the software running on the gateway appliance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GatewayInfo withSoftwareVersion(String softwareVersion) {
+        setSoftwareVersion(softwareVersion);
         return this;
     }
 
@@ -408,7 +655,15 @@ public class GatewayInfo implements Serializable, Cloneable, StructuredPojo {
         if (getEc2InstanceId() != null)
             sb.append("Ec2InstanceId: ").append(getEc2InstanceId()).append(",");
         if (getEc2InstanceRegion() != null)
-            sb.append("Ec2InstanceRegion: ").append(getEc2InstanceRegion());
+            sb.append("Ec2InstanceRegion: ").append(getEc2InstanceRegion()).append(",");
+        if (getHostEnvironment() != null)
+            sb.append("HostEnvironment: ").append(getHostEnvironment()).append(",");
+        if (getHostEnvironmentId() != null)
+            sb.append("HostEnvironmentId: ").append(getHostEnvironmentId()).append(",");
+        if (getDeprecationDate() != null)
+            sb.append("DeprecationDate: ").append(getDeprecationDate()).append(",");
+        if (getSoftwareVersion() != null)
+            sb.append("SoftwareVersion: ").append(getSoftwareVersion());
         sb.append("}");
         return sb.toString();
     }
@@ -451,6 +706,22 @@ public class GatewayInfo implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getEc2InstanceRegion() != null && other.getEc2InstanceRegion().equals(this.getEc2InstanceRegion()) == false)
             return false;
+        if (other.getHostEnvironment() == null ^ this.getHostEnvironment() == null)
+            return false;
+        if (other.getHostEnvironment() != null && other.getHostEnvironment().equals(this.getHostEnvironment()) == false)
+            return false;
+        if (other.getHostEnvironmentId() == null ^ this.getHostEnvironmentId() == null)
+            return false;
+        if (other.getHostEnvironmentId() != null && other.getHostEnvironmentId().equals(this.getHostEnvironmentId()) == false)
+            return false;
+        if (other.getDeprecationDate() == null ^ this.getDeprecationDate() == null)
+            return false;
+        if (other.getDeprecationDate() != null && other.getDeprecationDate().equals(this.getDeprecationDate()) == false)
+            return false;
+        if (other.getSoftwareVersion() == null ^ this.getSoftwareVersion() == null)
+            return false;
+        if (other.getSoftwareVersion() != null && other.getSoftwareVersion().equals(this.getSoftwareVersion()) == false)
+            return false;
         return true;
     }
 
@@ -466,6 +737,10 @@ public class GatewayInfo implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getGatewayName() == null) ? 0 : getGatewayName().hashCode());
         hashCode = prime * hashCode + ((getEc2InstanceId() == null) ? 0 : getEc2InstanceId().hashCode());
         hashCode = prime * hashCode + ((getEc2InstanceRegion() == null) ? 0 : getEc2InstanceRegion().hashCode());
+        hashCode = prime * hashCode + ((getHostEnvironment() == null) ? 0 : getHostEnvironment().hashCode());
+        hashCode = prime * hashCode + ((getHostEnvironmentId() == null) ? 0 : getHostEnvironmentId().hashCode());
+        hashCode = prime * hashCode + ((getDeprecationDate() == null) ? 0 : getDeprecationDate().hashCode());
+        hashCode = prime * hashCode + ((getSoftwareVersion() == null) ? 0 : getSoftwareVersion().hashCode());
         return hashCode;
     }
 

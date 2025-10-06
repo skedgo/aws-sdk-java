@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,7 +35,7 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a policy ID string requires "p-" followed by
-     * from 8 to 128 lower-case letters or digits.
+     * from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
      * </p>
      */
     private String id;
@@ -44,9 +44,9 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
      * The Amazon Resource Name (ARN) of the policy.
      * </p>
      * <p>
-     * For more information about ARNs in Organizations, see <a
-     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
-     * Formats Supported by Organizations</a> in the <i>AWS Organizations User Guide</i>.
+     * For more information about ARNs in Organizations, see <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies"
+     * >ARN Formats Supported by Organizations</a> in the <i>Amazon Web Services Service Authorization Reference</i>.
      * </p>
      */
     private String arn;
@@ -74,8 +74,8 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
     private String type;
     /**
      * <p>
-     * A boolean value that indicates whether the specified policy is an AWS managed policy. If true, then you can
-     * attach the policy to roots, OUs, or accounts, but you cannot edit it.
+     * A boolean value that indicates whether the specified policy is an Amazon Web Services managed policy. If true,
+     * then you can attach the policy to roots, OUs, or accounts, but you cannot edit it.
      * </p>
      */
     private Boolean awsManaged;
@@ -86,14 +86,14 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a policy ID string requires "p-" followed by
-     * from 8 to 128 lower-case letters or digits.
+     * from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
      * </p>
      * 
      * @param id
      *        The unique identifier (ID) of the policy.</p>
      *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a policy ID string requires "p-"
-     *        followed by from 8 to 128 lower-case letters or digits.
+     *        followed by from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
      */
 
     public void setId(String id) {
@@ -106,13 +106,13 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a policy ID string requires "p-" followed by
-     * from 8 to 128 lower-case letters or digits.
+     * from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
      * </p>
      * 
      * @return The unique identifier (ID) of the policy.</p>
      *         <p>
      *         The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a policy ID string requires "p-"
-     *         followed by from 8 to 128 lower-case letters or digits.
+     *         followed by from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
      */
 
     public String getId() {
@@ -125,14 +125,14 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a policy ID string requires "p-" followed by
-     * from 8 to 128 lower-case letters or digits.
+     * from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
      * </p>
      * 
      * @param id
      *        The unique identifier (ID) of the policy.</p>
      *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a policy ID string requires "p-"
-     *        followed by from 8 to 128 lower-case letters or digits.
+     *        followed by from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -146,17 +146,18 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
      * The Amazon Resource Name (ARN) of the policy.
      * </p>
      * <p>
-     * For more information about ARNs in Organizations, see <a
-     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
-     * Formats Supported by Organizations</a> in the <i>AWS Organizations User Guide</i>.
+     * For more information about ARNs in Organizations, see <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies"
+     * >ARN Formats Supported by Organizations</a> in the <i>Amazon Web Services Service Authorization Reference</i>.
      * </p>
      * 
      * @param arn
      *        The Amazon Resource Name (ARN) of the policy.</p>
      *        <p>
      *        For more information about ARNs in Organizations, see <a href=
-     *        "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns"
-     *        >ARN Formats Supported by Organizations</a> in the <i>AWS Organizations User Guide</i>.
+     *        "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies"
+     *        >ARN Formats Supported by Organizations</a> in the <i>Amazon Web Services Service Authorization
+     *        Reference</i>.
      */
 
     public void setArn(String arn) {
@@ -168,16 +169,17 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
      * The Amazon Resource Name (ARN) of the policy.
      * </p>
      * <p>
-     * For more information about ARNs in Organizations, see <a
-     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
-     * Formats Supported by Organizations</a> in the <i>AWS Organizations User Guide</i>.
+     * For more information about ARNs in Organizations, see <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies"
+     * >ARN Formats Supported by Organizations</a> in the <i>Amazon Web Services Service Authorization Reference</i>.
      * </p>
      * 
      * @return The Amazon Resource Name (ARN) of the policy.</p>
      *         <p>
      *         For more information about ARNs in Organizations, see <a href=
-     *         "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns"
-     *         >ARN Formats Supported by Organizations</a> in the <i>AWS Organizations User Guide</i>.
+     *         "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies"
+     *         >ARN Formats Supported by Organizations</a> in the <i>Amazon Web Services Service Authorization
+     *         Reference</i>.
      */
 
     public String getArn() {
@@ -189,17 +191,18 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
      * The Amazon Resource Name (ARN) of the policy.
      * </p>
      * <p>
-     * For more information about ARNs in Organizations, see <a
-     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN
-     * Formats Supported by Organizations</a> in the <i>AWS Organizations User Guide</i>.
+     * For more information about ARNs in Organizations, see <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies"
+     * >ARN Formats Supported by Organizations</a> in the <i>Amazon Web Services Service Authorization Reference</i>.
      * </p>
      * 
      * @param arn
      *        The Amazon Resource Name (ARN) of the policy.</p>
      *        <p>
      *        For more information about ARNs in Organizations, see <a href=
-     *        "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns"
-     *        >ARN Formats Supported by Organizations</a> in the <i>AWS Organizations User Guide</i>.
+     *        "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies"
+     *        >ARN Formats Supported by Organizations</a> in the <i>Amazon Web Services Service Authorization
+     *        Reference</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -384,13 +387,13 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A boolean value that indicates whether the specified policy is an AWS managed policy. If true, then you can
-     * attach the policy to roots, OUs, or accounts, but you cannot edit it.
+     * A boolean value that indicates whether the specified policy is an Amazon Web Services managed policy. If true,
+     * then you can attach the policy to roots, OUs, or accounts, but you cannot edit it.
      * </p>
      * 
      * @param awsManaged
-     *        A boolean value that indicates whether the specified policy is an AWS managed policy. If true, then you
-     *        can attach the policy to roots, OUs, or accounts, but you cannot edit it.
+     *        A boolean value that indicates whether the specified policy is an Amazon Web Services managed policy. If
+     *        true, then you can attach the policy to roots, OUs, or accounts, but you cannot edit it.
      */
 
     public void setAwsManaged(Boolean awsManaged) {
@@ -399,12 +402,12 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A boolean value that indicates whether the specified policy is an AWS managed policy. If true, then you can
-     * attach the policy to roots, OUs, or accounts, but you cannot edit it.
+     * A boolean value that indicates whether the specified policy is an Amazon Web Services managed policy. If true,
+     * then you can attach the policy to roots, OUs, or accounts, but you cannot edit it.
      * </p>
      * 
-     * @return A boolean value that indicates whether the specified policy is an AWS managed policy. If true, then you
-     *         can attach the policy to roots, OUs, or accounts, but you cannot edit it.
+     * @return A boolean value that indicates whether the specified policy is an Amazon Web Services managed policy. If
+     *         true, then you can attach the policy to roots, OUs, or accounts, but you cannot edit it.
      */
 
     public Boolean getAwsManaged() {
@@ -413,13 +416,13 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A boolean value that indicates whether the specified policy is an AWS managed policy. If true, then you can
-     * attach the policy to roots, OUs, or accounts, but you cannot edit it.
+     * A boolean value that indicates whether the specified policy is an Amazon Web Services managed policy. If true,
+     * then you can attach the policy to roots, OUs, or accounts, but you cannot edit it.
      * </p>
      * 
      * @param awsManaged
-     *        A boolean value that indicates whether the specified policy is an AWS managed policy. If true, then you
-     *        can attach the policy to roots, OUs, or accounts, but you cannot edit it.
+     *        A boolean value that indicates whether the specified policy is an Amazon Web Services managed policy. If
+     *        true, then you can attach the policy to roots, OUs, or accounts, but you cannot edit it.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -430,12 +433,12 @@ public class PolicySummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A boolean value that indicates whether the specified policy is an AWS managed policy. If true, then you can
-     * attach the policy to roots, OUs, or accounts, but you cannot edit it.
+     * A boolean value that indicates whether the specified policy is an Amazon Web Services managed policy. If true,
+     * then you can attach the policy to roots, OUs, or accounts, but you cannot edit it.
      * </p>
      * 
-     * @return A boolean value that indicates whether the specified policy is an AWS managed policy. If true, then you
-     *         can attach the policy to roots, OUs, or accounts, but you cannot edit it.
+     * @return A boolean value that indicates whether the specified policy is an Amazon Web Services managed policy. If
+     *         true, then you can attach the policy to roots, OUs, or accounts, but you cannot edit it.
      */
 
     public Boolean isAwsManaged() {

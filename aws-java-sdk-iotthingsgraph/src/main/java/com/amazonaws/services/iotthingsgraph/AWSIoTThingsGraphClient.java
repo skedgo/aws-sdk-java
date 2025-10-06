@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.iotthingsgraph.AWSIoTThingsGraphClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.iotthingsgraph.model.*;
+
 import com.amazonaws.services.iotthingsgraph.model.transform.*;
 
 /**
@@ -60,6 +61,9 @@ import com.amazonaws.services.iotthingsgraph.model.transform.*;
  * <p>
  * For more information about how AWS IoT Things Graph works, see the <a
  * href="https://docs.aws.amazon.com/thingsgraph/latest/ug/iot-tg-whatis.html">User Guide</a>.
+ * </p>
+ * <p>
+ * The AWS IoT Things Graph service is discontinued.
  * </p>
  */
 @ThreadSafe
@@ -85,26 +89,26 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalFailureException").withModeledClass(
-                                    com.amazonaws.services.iotthingsgraph.model.InternalFailureException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalFailureException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotthingsgraph.model.transform.InternalFailureExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceInUseException").withModeledClass(
-                                    com.amazonaws.services.iotthingsgraph.model.ResourceInUseException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceInUseException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotthingsgraph.model.transform.ResourceInUseExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withModeledClass(
-                                    com.amazonaws.services.iotthingsgraph.model.InvalidRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotthingsgraph.model.transform.InvalidRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ThrottlingException").withModeledClass(
-                                    com.amazonaws.services.iotthingsgraph.model.ThrottlingException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ThrottlingException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotthingsgraph.model.transform.ThrottlingExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withModeledClass(
-                                    com.amazonaws.services.iotthingsgraph.model.LimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotthingsgraph.model.transform.LimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.iotthingsgraph.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotthingsgraph.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceAlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.iotthingsgraph.model.ResourceAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotthingsgraph.model.transform.ResourceAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.iotthingsgraph.model.AWSIoTThingsGraphException.class));
 
     public static AWSIoTThingsGraphClientBuilder builder() {
@@ -173,6 +177,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public AssociateEntityToThingResult associateEntityToThing(AssociateEntityToThingRequest request) {
         request = beforeClientExecution(request);
         return executeAssociateEntityToThing(request);
@@ -193,6 +198,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new AssociateEntityToThingRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(associateEntityToThingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateEntityToThing");
@@ -235,6 +242,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public CreateFlowTemplateResult createFlowTemplate(CreateFlowTemplateRequest request) {
         request = beforeClientExecution(request);
         return executeCreateFlowTemplate(request);
@@ -255,6 +263,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new CreateFlowTemplateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createFlowTemplateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateFlowTemplate");
@@ -312,6 +322,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public CreateSystemInstanceResult createSystemInstance(CreateSystemInstanceRequest request) {
         request = beforeClientExecution(request);
         return executeCreateSystemInstance(request);
@@ -332,6 +343,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new CreateSystemInstanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createSystemInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSystemInstance");
@@ -370,6 +383,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public CreateSystemTemplateResult createSystemTemplate(CreateSystemTemplateRequest request) {
         request = beforeClientExecution(request);
         return executeCreateSystemTemplate(request);
@@ -390,6 +404,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new CreateSystemTemplateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createSystemTemplateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSystemTemplate");
@@ -429,6 +445,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public DeleteFlowTemplateResult deleteFlowTemplate(DeleteFlowTemplateRequest request) {
         request = beforeClientExecution(request);
         return executeDeleteFlowTemplate(request);
@@ -449,6 +466,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new DeleteFlowTemplateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteFlowTemplateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteFlowTemplate");
@@ -473,7 +492,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
     /**
      * <p>
      * Deletes the specified namespace. This action deletes all of the entities in the namespace. Delete the systems and
-     * flows that use entities in the namespace before performing this action.
+     * flows that use entities in the namespace before performing this action. This action takes no request parameters.
      * </p>
      * 
      * @param deleteNamespaceRequest
@@ -485,6 +504,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      API Documentation</a>
      */
     @Override
+    @Deprecated
     public DeleteNamespaceResult deleteNamespace(DeleteNamespaceRequest request) {
         request = beforeClientExecution(request);
         return executeDeleteNamespace(request);
@@ -505,6 +525,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new DeleteNamespaceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteNamespaceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteNamespace");
@@ -546,6 +568,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public DeleteSystemInstanceResult deleteSystemInstance(DeleteSystemInstanceRequest request) {
         request = beforeClientExecution(request);
         return executeDeleteSystemInstance(request);
@@ -566,6 +589,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new DeleteSystemInstanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteSystemInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteSystemInstance");
@@ -604,6 +629,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public DeleteSystemTemplateResult deleteSystemTemplate(DeleteSystemTemplateRequest request) {
         request = beforeClientExecution(request);
         return executeDeleteSystemTemplate(request);
@@ -624,6 +650,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new DeleteSystemTemplateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteSystemTemplateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteSystemTemplate");
@@ -681,6 +709,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public DeploySystemInstanceResult deploySystemInstance(DeploySystemInstanceRequest request) {
         request = beforeClientExecution(request);
         return executeDeploySystemInstance(request);
@@ -701,6 +730,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new DeploySystemInstanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deploySystemInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeploySystemInstance");
@@ -739,6 +770,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public DeprecateFlowTemplateResult deprecateFlowTemplate(DeprecateFlowTemplateRequest request) {
         request = beforeClientExecution(request);
         return executeDeprecateFlowTemplate(request);
@@ -759,6 +791,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new DeprecateFlowTemplateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deprecateFlowTemplateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeprecateFlowTemplate");
@@ -797,6 +831,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public DeprecateSystemTemplateResult deprecateSystemTemplate(DeprecateSystemTemplateRequest request) {
         request = beforeClientExecution(request);
         return executeDeprecateSystemTemplate(request);
@@ -818,6 +853,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(deprecateSystemTemplateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeprecateSystemTemplate");
@@ -856,6 +893,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public DescribeNamespaceResult describeNamespace(DescribeNamespaceRequest request) {
         request = beforeClientExecution(request);
         return executeDescribeNamespace(request);
@@ -876,6 +914,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new DescribeNamespaceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeNamespaceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeNamespace");
@@ -914,6 +954,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public DissociateEntityFromThingResult dissociateEntityFromThing(DissociateEntityFromThingRequest request) {
         request = beforeClientExecution(request);
         return executeDissociateEntityFromThing(request);
@@ -935,6 +976,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(dissociateEntityFromThingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DissociateEntityFromThing");
@@ -1024,6 +1067,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public GetEntitiesResult getEntities(GetEntitiesRequest request) {
         request = beforeClientExecution(request);
         return executeGetEntities(request);
@@ -1044,6 +1088,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new GetEntitiesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getEntitiesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetEntities");
@@ -1082,6 +1128,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      API Documentation</a>
      */
     @Override
+    @Deprecated
     public GetFlowTemplateResult getFlowTemplate(GetFlowTemplateRequest request) {
         request = beforeClientExecution(request);
         return executeGetFlowTemplate(request);
@@ -1102,6 +1149,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new GetFlowTemplateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getFlowTemplateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetFlowTemplate");
@@ -1141,6 +1190,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public GetFlowTemplateRevisionsResult getFlowTemplateRevisions(GetFlowTemplateRevisionsRequest request) {
         request = beforeClientExecution(request);
         return executeGetFlowTemplateRevisions(request);
@@ -1162,6 +1212,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(getFlowTemplateRevisionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetFlowTemplateRevisions");
@@ -1199,6 +1251,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public GetNamespaceDeletionStatusResult getNamespaceDeletionStatus(GetNamespaceDeletionStatusRequest request) {
         request = beforeClientExecution(request);
         return executeGetNamespaceDeletionStatus(request);
@@ -1220,6 +1273,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(getNamespaceDeletionStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetNamespaceDeletionStatus");
@@ -1258,6 +1313,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public GetSystemInstanceResult getSystemInstance(GetSystemInstanceRequest request) {
         request = beforeClientExecution(request);
         return executeGetSystemInstance(request);
@@ -1278,6 +1334,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new GetSystemInstanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getSystemInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSystemInstance");
@@ -1315,6 +1373,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public GetSystemTemplateResult getSystemTemplate(GetSystemTemplateRequest request) {
         request = beforeClientExecution(request);
         return executeGetSystemTemplate(request);
@@ -1335,6 +1394,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new GetSystemTemplateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getSystemTemplateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSystemTemplate");
@@ -1374,6 +1435,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public GetSystemTemplateRevisionsResult getSystemTemplateRevisions(GetSystemTemplateRevisionsRequest request) {
         request = beforeClientExecution(request);
         return executeGetSystemTemplateRevisions(request);
@@ -1395,6 +1457,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(getSystemTemplateRevisionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSystemTemplateRevisions");
@@ -1433,6 +1497,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      API Documentation</a>
      */
     @Override
+    @Deprecated
     public GetUploadStatusResult getUploadStatus(GetUploadStatusRequest request) {
         request = beforeClientExecution(request);
         return executeGetUploadStatus(request);
@@ -1453,6 +1518,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new GetUploadStatusRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getUploadStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetUploadStatus");
@@ -1490,6 +1557,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public ListFlowExecutionMessagesResult listFlowExecutionMessages(ListFlowExecutionMessagesRequest request) {
         request = beforeClientExecution(request);
         return executeListFlowExecutionMessages(request);
@@ -1511,6 +1579,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(listFlowExecutionMessagesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListFlowExecutionMessages");
@@ -1549,6 +1619,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
         request = beforeClientExecution(request);
         return executeListTagsForResource(request);
@@ -1569,6 +1640,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -1606,6 +1679,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      API Documentation</a>
      */
     @Override
+    @Deprecated
     public SearchEntitiesResult searchEntities(SearchEntitiesRequest request) {
         request = beforeClientExecution(request);
         return executeSearchEntities(request);
@@ -1626,6 +1700,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new SearchEntitiesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(searchEntitiesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SearchEntities");
@@ -1663,6 +1739,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public SearchFlowExecutionsResult searchFlowExecutions(SearchFlowExecutionsRequest request) {
         request = beforeClientExecution(request);
         return executeSearchFlowExecutions(request);
@@ -1683,6 +1760,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new SearchFlowExecutionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(searchFlowExecutionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SearchFlowExecutions");
@@ -1719,6 +1798,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public SearchFlowTemplatesResult searchFlowTemplates(SearchFlowTemplatesRequest request) {
         request = beforeClientExecution(request);
         return executeSearchFlowTemplates(request);
@@ -1739,6 +1819,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new SearchFlowTemplatesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(searchFlowTemplatesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SearchFlowTemplates");
@@ -1775,6 +1857,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public SearchSystemInstancesResult searchSystemInstances(SearchSystemInstancesRequest request) {
         request = beforeClientExecution(request);
         return executeSearchSystemInstances(request);
@@ -1795,6 +1878,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new SearchSystemInstancesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(searchSystemInstancesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SearchSystemInstances");
@@ -1833,6 +1918,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public SearchSystemTemplatesResult searchSystemTemplates(SearchSystemTemplatesRequest request) {
         request = beforeClientExecution(request);
         return executeSearchSystemTemplates(request);
@@ -1853,6 +1939,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new SearchSystemTemplatesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(searchSystemTemplatesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SearchSystemTemplates");
@@ -1899,6 +1987,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      API Documentation</a>
      */
     @Override
+    @Deprecated
     public SearchThingsResult searchThings(SearchThingsRequest request) {
         request = beforeClientExecution(request);
         return executeSearchThings(request);
@@ -1919,6 +2008,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new SearchThingsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(searchThingsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SearchThings");
@@ -1956,6 +2047,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public TagResourceResult tagResource(TagResourceRequest request) {
         request = beforeClientExecution(request);
         return executeTagResource(request);
@@ -1976,6 +2068,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -2014,6 +2108,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public UndeploySystemInstanceResult undeploySystemInstance(UndeploySystemInstanceRequest request) {
         request = beforeClientExecution(request);
         return executeUndeploySystemInstance(request);
@@ -2034,6 +2129,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new UndeploySystemInstanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(undeploySystemInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UndeploySystemInstance");
@@ -2072,6 +2169,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      API Documentation</a>
      */
     @Override
+    @Deprecated
     public UntagResourceResult untagResource(UntagResourceRequest request) {
         request = beforeClientExecution(request);
         return executeUntagResource(request);
@@ -2092,6 +2190,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -2132,6 +2232,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public UpdateFlowTemplateResult updateFlowTemplate(UpdateFlowTemplateRequest request) {
         request = beforeClientExecution(request);
         return executeUpdateFlowTemplate(request);
@@ -2152,6 +2253,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new UpdateFlowTemplateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateFlowTemplateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateFlowTemplate");
@@ -2190,6 +2293,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public UpdateSystemTemplateResult updateSystemTemplate(UpdateSystemTemplateRequest request) {
         request = beforeClientExecution(request);
         return executeUpdateSystemTemplate(request);
@@ -2210,6 +2314,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                 request = new UpdateSystemTemplateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateSystemTemplateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateSystemTemplate");
@@ -2267,6 +2373,7 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public UploadEntityDefinitionsResult uploadEntityDefinitions(UploadEntityDefinitionsRequest request) {
         request = beforeClientExecution(request);
         return executeUploadEntityDefinitions(request);
@@ -2288,6 +2395,8 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(uploadEntityDefinitionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoTThingsGraph");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UploadEntityDefinitions");
@@ -2384,6 +2493,11 @@ public class AWSIoTThingsGraphClient extends AmazonWebServiceClient implements A
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

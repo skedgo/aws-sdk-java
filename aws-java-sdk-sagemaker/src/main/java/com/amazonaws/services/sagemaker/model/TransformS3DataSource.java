@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -53,7 +53,7 @@ public class TransformS3DataSource implements Serializable, Cloneable, Structure
      * <ul>
      * <li>
      * <p>
-     * A key name prefix might look like this: <code>s3://bucketname/exampleprefix</code>.
+     * A key name prefix might look like this: <code>s3://bucketname/exampleprefix/</code>.
      * </p>
      * </li>
      * <li>
@@ -64,22 +64,22 @@ public class TransformS3DataSource implements Serializable, Cloneable, Structure
      * The manifest is an S3 object which is a JSON file with the following format:
      * </p>
      * <p>
-     * <code>[</code>
+     * <code>[ {"prefix": "s3://customer_bucket/some/prefix/"},</code>
      * </p>
      * <p>
-     * <code> {"prefix": "s3://customer_bucket/some/prefix/"},</code>
+     * <code>"relative/path/to/custdata-1",</code>
      * </p>
      * <p>
-     * <code> "relative/path/to/custdata-1",</code>
+     * <code>"relative/path/custdata-2",</code>
      * </p>
      * <p>
-     * <code> "relative/path/custdata-2",</code>
+     * <code>...</code>
      * </p>
      * <p>
-     * <code> ...</code>
+     * <code>"relative/path/custdata-N"</code>
      * </p>
      * <p>
-     * <code> ]</code>
+     * <code>]</code>
      * </p>
      * <p>
      * The preceding JSON matches the following <code>S3Uris</code>:
@@ -88,10 +88,13 @@ public class TransformS3DataSource implements Serializable, Cloneable, Structure
      * <code>s3://customer_bucket/some/prefix/relative/path/to/custdata-1</code>
      * </p>
      * <p>
-     * <code>s3://customer_bucket/some/prefix/relative/path/custdata-1</code>
+     * <code>s3://customer_bucket/some/prefix/relative/path/custdata-2</code>
      * </p>
      * <p>
      * <code>...</code>
+     * </p>
+     * <p>
+     * <code>s3://customer_bucket/some/prefix/relative/path/custdata-N</code>
      * </p>
      * <p>
      * The complete set of <code>S3Uris</code> in this manifest constitutes the input data for the channel for this
@@ -254,7 +257,7 @@ public class TransformS3DataSource implements Serializable, Cloneable, Structure
      * <ul>
      * <li>
      * <p>
-     * A key name prefix might look like this: <code>s3://bucketname/exampleprefix</code>.
+     * A key name prefix might look like this: <code>s3://bucketname/exampleprefix/</code>.
      * </p>
      * </li>
      * <li>
@@ -265,22 +268,22 @@ public class TransformS3DataSource implements Serializable, Cloneable, Structure
      * The manifest is an S3 object which is a JSON file with the following format:
      * </p>
      * <p>
-     * <code>[</code>
+     * <code>[ {"prefix": "s3://customer_bucket/some/prefix/"},</code>
      * </p>
      * <p>
-     * <code> {"prefix": "s3://customer_bucket/some/prefix/"},</code>
+     * <code>"relative/path/to/custdata-1",</code>
      * </p>
      * <p>
-     * <code> "relative/path/to/custdata-1",</code>
+     * <code>"relative/path/custdata-2",</code>
      * </p>
      * <p>
-     * <code> "relative/path/custdata-2",</code>
+     * <code>...</code>
      * </p>
      * <p>
-     * <code> ...</code>
+     * <code>"relative/path/custdata-N"</code>
      * </p>
      * <p>
-     * <code> ]</code>
+     * <code>]</code>
      * </p>
      * <p>
      * The preceding JSON matches the following <code>S3Uris</code>:
@@ -289,10 +292,13 @@ public class TransformS3DataSource implements Serializable, Cloneable, Structure
      * <code>s3://customer_bucket/some/prefix/relative/path/to/custdata-1</code>
      * </p>
      * <p>
-     * <code>s3://customer_bucket/some/prefix/relative/path/custdata-1</code>
+     * <code>s3://customer_bucket/some/prefix/relative/path/custdata-2</code>
      * </p>
      * <p>
      * <code>...</code>
+     * </p>
+     * <p>
+     * <code>s3://customer_bucket/some/prefix/relative/path/custdata-N</code>
      * </p>
      * <p>
      * The complete set of <code>S3Uris</code> in this manifest constitutes the input data for the channel for this
@@ -308,7 +314,7 @@ public class TransformS3DataSource implements Serializable, Cloneable, Structure
      *        <ul>
      *        <li>
      *        <p>
-     *        A key name prefix might look like this: <code>s3://bucketname/exampleprefix</code>.
+     *        A key name prefix might look like this: <code>s3://bucketname/exampleprefix/</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -319,22 +325,22 @@ public class TransformS3DataSource implements Serializable, Cloneable, Structure
      *        The manifest is an S3 object which is a JSON file with the following format:
      *        </p>
      *        <p>
-     *        <code>[</code>
+     *        <code>[ {"prefix": "s3://customer_bucket/some/prefix/"},</code>
      *        </p>
      *        <p>
-     *        <code> {"prefix": "s3://customer_bucket/some/prefix/"},</code>
+     *        <code>"relative/path/to/custdata-1",</code>
      *        </p>
      *        <p>
-     *        <code> "relative/path/to/custdata-1",</code>
+     *        <code>"relative/path/custdata-2",</code>
      *        </p>
      *        <p>
-     *        <code> "relative/path/custdata-2",</code>
+     *        <code>...</code>
      *        </p>
      *        <p>
-     *        <code> ...</code>
+     *        <code>"relative/path/custdata-N"</code>
      *        </p>
      *        <p>
-     *        <code> ]</code>
+     *        <code>]</code>
      *        </p>
      *        <p>
      *        The preceding JSON matches the following <code>S3Uris</code>:
@@ -343,10 +349,13 @@ public class TransformS3DataSource implements Serializable, Cloneable, Structure
      *        <code>s3://customer_bucket/some/prefix/relative/path/to/custdata-1</code>
      *        </p>
      *        <p>
-     *        <code>s3://customer_bucket/some/prefix/relative/path/custdata-1</code>
+     *        <code>s3://customer_bucket/some/prefix/relative/path/custdata-2</code>
      *        </p>
      *        <p>
      *        <code>...</code>
+     *        </p>
+     *        <p>
+     *        <code>s3://customer_bucket/some/prefix/relative/path/custdata-N</code>
      *        </p>
      *        <p>
      *        The complete set of <code>S3Uris</code> in this manifest constitutes the input data for the channel for
@@ -368,7 +377,7 @@ public class TransformS3DataSource implements Serializable, Cloneable, Structure
      * <ul>
      * <li>
      * <p>
-     * A key name prefix might look like this: <code>s3://bucketname/exampleprefix</code>.
+     * A key name prefix might look like this: <code>s3://bucketname/exampleprefix/</code>.
      * </p>
      * </li>
      * <li>
@@ -379,22 +388,22 @@ public class TransformS3DataSource implements Serializable, Cloneable, Structure
      * The manifest is an S3 object which is a JSON file with the following format:
      * </p>
      * <p>
-     * <code>[</code>
+     * <code>[ {"prefix": "s3://customer_bucket/some/prefix/"},</code>
      * </p>
      * <p>
-     * <code> {"prefix": "s3://customer_bucket/some/prefix/"},</code>
+     * <code>"relative/path/to/custdata-1",</code>
      * </p>
      * <p>
-     * <code> "relative/path/to/custdata-1",</code>
+     * <code>"relative/path/custdata-2",</code>
      * </p>
      * <p>
-     * <code> "relative/path/custdata-2",</code>
+     * <code>...</code>
      * </p>
      * <p>
-     * <code> ...</code>
+     * <code>"relative/path/custdata-N"</code>
      * </p>
      * <p>
-     * <code> ]</code>
+     * <code>]</code>
      * </p>
      * <p>
      * The preceding JSON matches the following <code>S3Uris</code>:
@@ -403,10 +412,13 @@ public class TransformS3DataSource implements Serializable, Cloneable, Structure
      * <code>s3://customer_bucket/some/prefix/relative/path/to/custdata-1</code>
      * </p>
      * <p>
-     * <code>s3://customer_bucket/some/prefix/relative/path/custdata-1</code>
+     * <code>s3://customer_bucket/some/prefix/relative/path/custdata-2</code>
      * </p>
      * <p>
      * <code>...</code>
+     * </p>
+     * <p>
+     * <code>s3://customer_bucket/some/prefix/relative/path/custdata-N</code>
      * </p>
      * <p>
      * The complete set of <code>S3Uris</code> in this manifest constitutes the input data for the channel for this
@@ -421,7 +433,7 @@ public class TransformS3DataSource implements Serializable, Cloneable, Structure
      *         <ul>
      *         <li>
      *         <p>
-     *         A key name prefix might look like this: <code>s3://bucketname/exampleprefix</code>.
+     *         A key name prefix might look like this: <code>s3://bucketname/exampleprefix/</code>.
      *         </p>
      *         </li>
      *         <li>
@@ -432,22 +444,22 @@ public class TransformS3DataSource implements Serializable, Cloneable, Structure
      *         The manifest is an S3 object which is a JSON file with the following format:
      *         </p>
      *         <p>
-     *         <code>[</code>
+     *         <code>[ {"prefix": "s3://customer_bucket/some/prefix/"},</code>
      *         </p>
      *         <p>
-     *         <code> {"prefix": "s3://customer_bucket/some/prefix/"},</code>
+     *         <code>"relative/path/to/custdata-1",</code>
      *         </p>
      *         <p>
-     *         <code> "relative/path/to/custdata-1",</code>
+     *         <code>"relative/path/custdata-2",</code>
      *         </p>
      *         <p>
-     *         <code> "relative/path/custdata-2",</code>
+     *         <code>...</code>
      *         </p>
      *         <p>
-     *         <code> ...</code>
+     *         <code>"relative/path/custdata-N"</code>
      *         </p>
      *         <p>
-     *         <code> ]</code>
+     *         <code>]</code>
      *         </p>
      *         <p>
      *         The preceding JSON matches the following <code>S3Uris</code>:
@@ -456,10 +468,13 @@ public class TransformS3DataSource implements Serializable, Cloneable, Structure
      *         <code>s3://customer_bucket/some/prefix/relative/path/to/custdata-1</code>
      *         </p>
      *         <p>
-     *         <code>s3://customer_bucket/some/prefix/relative/path/custdata-1</code>
+     *         <code>s3://customer_bucket/some/prefix/relative/path/custdata-2</code>
      *         </p>
      *         <p>
      *         <code>...</code>
+     *         </p>
+     *         <p>
+     *         <code>s3://customer_bucket/some/prefix/relative/path/custdata-N</code>
      *         </p>
      *         <p>
      *         The complete set of <code>S3Uris</code> in this manifest constitutes the input data for the channel for
@@ -481,7 +496,7 @@ public class TransformS3DataSource implements Serializable, Cloneable, Structure
      * <ul>
      * <li>
      * <p>
-     * A key name prefix might look like this: <code>s3://bucketname/exampleprefix</code>.
+     * A key name prefix might look like this: <code>s3://bucketname/exampleprefix/</code>.
      * </p>
      * </li>
      * <li>
@@ -492,22 +507,22 @@ public class TransformS3DataSource implements Serializable, Cloneable, Structure
      * The manifest is an S3 object which is a JSON file with the following format:
      * </p>
      * <p>
-     * <code>[</code>
+     * <code>[ {"prefix": "s3://customer_bucket/some/prefix/"},</code>
      * </p>
      * <p>
-     * <code> {"prefix": "s3://customer_bucket/some/prefix/"},</code>
+     * <code>"relative/path/to/custdata-1",</code>
      * </p>
      * <p>
-     * <code> "relative/path/to/custdata-1",</code>
+     * <code>"relative/path/custdata-2",</code>
      * </p>
      * <p>
-     * <code> "relative/path/custdata-2",</code>
+     * <code>...</code>
      * </p>
      * <p>
-     * <code> ...</code>
+     * <code>"relative/path/custdata-N"</code>
      * </p>
      * <p>
-     * <code> ]</code>
+     * <code>]</code>
      * </p>
      * <p>
      * The preceding JSON matches the following <code>S3Uris</code>:
@@ -516,10 +531,13 @@ public class TransformS3DataSource implements Serializable, Cloneable, Structure
      * <code>s3://customer_bucket/some/prefix/relative/path/to/custdata-1</code>
      * </p>
      * <p>
-     * <code>s3://customer_bucket/some/prefix/relative/path/custdata-1</code>
+     * <code>s3://customer_bucket/some/prefix/relative/path/custdata-2</code>
      * </p>
      * <p>
      * <code>...</code>
+     * </p>
+     * <p>
+     * <code>s3://customer_bucket/some/prefix/relative/path/custdata-N</code>
      * </p>
      * <p>
      * The complete set of <code>S3Uris</code> in this manifest constitutes the input data for the channel for this
@@ -535,7 +553,7 @@ public class TransformS3DataSource implements Serializable, Cloneable, Structure
      *        <ul>
      *        <li>
      *        <p>
-     *        A key name prefix might look like this: <code>s3://bucketname/exampleprefix</code>.
+     *        A key name prefix might look like this: <code>s3://bucketname/exampleprefix/</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -546,22 +564,22 @@ public class TransformS3DataSource implements Serializable, Cloneable, Structure
      *        The manifest is an S3 object which is a JSON file with the following format:
      *        </p>
      *        <p>
-     *        <code>[</code>
+     *        <code>[ {"prefix": "s3://customer_bucket/some/prefix/"},</code>
      *        </p>
      *        <p>
-     *        <code> {"prefix": "s3://customer_bucket/some/prefix/"},</code>
+     *        <code>"relative/path/to/custdata-1",</code>
      *        </p>
      *        <p>
-     *        <code> "relative/path/to/custdata-1",</code>
+     *        <code>"relative/path/custdata-2",</code>
      *        </p>
      *        <p>
-     *        <code> "relative/path/custdata-2",</code>
+     *        <code>...</code>
      *        </p>
      *        <p>
-     *        <code> ...</code>
+     *        <code>"relative/path/custdata-N"</code>
      *        </p>
      *        <p>
-     *        <code> ]</code>
+     *        <code>]</code>
      *        </p>
      *        <p>
      *        The preceding JSON matches the following <code>S3Uris</code>:
@@ -570,10 +588,13 @@ public class TransformS3DataSource implements Serializable, Cloneable, Structure
      *        <code>s3://customer_bucket/some/prefix/relative/path/to/custdata-1</code>
      *        </p>
      *        <p>
-     *        <code>s3://customer_bucket/some/prefix/relative/path/custdata-1</code>
+     *        <code>s3://customer_bucket/some/prefix/relative/path/custdata-2</code>
      *        </p>
      *        <p>
      *        <code>...</code>
+     *        </p>
+     *        <p>
+     *        <code>s3://customer_bucket/some/prefix/relative/path/custdata-N</code>
      *        </p>
      *        <p>
      *        The complete set of <code>S3Uris</code> in this manifest constitutes the input data for the channel for

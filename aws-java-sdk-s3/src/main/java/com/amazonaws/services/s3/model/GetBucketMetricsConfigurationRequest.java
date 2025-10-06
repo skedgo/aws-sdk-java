@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,16 +21,29 @@ import java.io.Serializable;
 /**
  * Request object to retrieve metrics configuration from a bucket.
  */
-public class GetBucketMetricsConfigurationRequest extends AmazonWebServiceRequest implements Serializable {
+public class GetBucketMetricsConfigurationRequest extends AmazonWebServiceRequest implements Serializable, ExpectedBucketOwnerRequest {
     private String bucketName;
     private String id;
+    private String expectedBucketOwner;
 
     public GetBucketMetricsConfigurationRequest() {
     }
-
     public GetBucketMetricsConfigurationRequest(String bucketName, String id) {
         this.bucketName = bucketName;
         this.id = id;
+    }
+
+    public String getExpectedBucketOwner() {
+        return expectedBucketOwner;
+    }
+
+    public GetBucketMetricsConfigurationRequest withExpectedBucketOwner(String expectedBucketOwner) {
+        this.expectedBucketOwner = expectedBucketOwner;
+        return this;
+    }
+
+    public void setExpectedBucketOwner(String expectedBucketOwner) {
+        withExpectedBucketOwner(expectedBucketOwner);
     }
 
     /**
@@ -57,14 +70,16 @@ public class GetBucketMetricsConfigurationRequest extends AmazonWebServiceReques
     }
 
     /**
-     * Returns the ID used to identify the metrics configuration.
+     * Returns the ID used to identify the metrics configuration. The ID has a 64 character limit and can only contain letters,
+     * numbers, periods, dashes, and underscores.
      */
     public String getId() {
         return id;
     }
 
     /**
-     * Sets the ID used to identify the metrics configuration.
+     * Sets the ID used to identify the metrics configuration. The ID has a 64 character limit and can only contain letters,
+     * numbers, periods, dashes, and underscores.
      */
     public void setId(String id) {
         this.id = id;
@@ -72,7 +87,8 @@ public class GetBucketMetricsConfigurationRequest extends AmazonWebServiceReques
 
     /**
      * Sets the ID used to identify the metrics configuration and
-     * returns {@link GetBucketMetricsConfigurationRequest} object for method chaining.
+     * returns {@link GetBucketMetricsConfigurationRequest} object for method chaining. The ID has a 64 character limit
+     * and can only contain letters, numbers, periods, dashes, and underscores.
      */
     public GetBucketMetricsConfigurationRequest withId(String id) {
         setId(id);

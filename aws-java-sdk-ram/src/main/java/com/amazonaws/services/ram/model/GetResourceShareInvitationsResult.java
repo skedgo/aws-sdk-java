@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,24 +25,26 @@ public class GetResourceShareInvitationsResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Information about the invitations.
+     * An array of objects that contain the details about the invitations.
      * </p>
      */
     private java.util.List<ResourceShareInvitation> resourceShareInvitations;
     /**
      * <p>
-     * The token to use to retrieve the next page of results. This value is <code>null</code> when there are no more
-     * results to return.
+     * If present, this value indicates that more output is available than is included in the current response. Use this
+     * value in the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part
+     * of the output. You should repeat this until the <code>NextToken</code> response element comes back as
+     * <code>null</code>. This indicates that this is the last page of results.
      * </p>
      */
     private String nextToken;
 
     /**
      * <p>
-     * Information about the invitations.
+     * An array of objects that contain the details about the invitations.
      * </p>
      * 
-     * @return Information about the invitations.
+     * @return An array of objects that contain the details about the invitations.
      */
 
     public java.util.List<ResourceShareInvitation> getResourceShareInvitations() {
@@ -51,11 +53,11 @@ public class GetResourceShareInvitationsResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Information about the invitations.
+     * An array of objects that contain the details about the invitations.
      * </p>
      * 
      * @param resourceShareInvitations
-     *        Information about the invitations.
+     *        An array of objects that contain the details about the invitations.
      */
 
     public void setResourceShareInvitations(java.util.Collection<ResourceShareInvitation> resourceShareInvitations) {
@@ -69,7 +71,7 @@ public class GetResourceShareInvitationsResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Information about the invitations.
+     * An array of objects that contain the details about the invitations.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -78,7 +80,7 @@ public class GetResourceShareInvitationsResult extends com.amazonaws.AmazonWebSe
      * </p>
      * 
      * @param resourceShareInvitations
-     *        Information about the invitations.
+     *        An array of objects that contain the details about the invitations.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -94,11 +96,11 @@ public class GetResourceShareInvitationsResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Information about the invitations.
+     * An array of objects that contain the details about the invitations.
      * </p>
      * 
      * @param resourceShareInvitations
-     *        Information about the invitations.
+     *        An array of objects that contain the details about the invitations.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -109,13 +111,17 @@ public class GetResourceShareInvitationsResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The token to use to retrieve the next page of results. This value is <code>null</code> when there are no more
-     * results to return.
+     * If present, this value indicates that more output is available than is included in the current response. Use this
+     * value in the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part
+     * of the output. You should repeat this until the <code>NextToken</code> response element comes back as
+     * <code>null</code>. This indicates that this is the last page of results.
      * </p>
      * 
      * @param nextToken
-     *        The token to use to retrieve the next page of results. This value is <code>null</code> when there are no
-     *        more results to return.
+     *        If present, this value indicates that more output is available than is included in the current response.
+     *        Use this value in the <code>NextToken</code> request parameter in a subsequent call to the operation to
+     *        get the next part of the output. You should repeat this until the <code>NextToken</code> response element
+     *        comes back as <code>null</code>. This indicates that this is the last page of results.
      */
 
     public void setNextToken(String nextToken) {
@@ -124,12 +130,16 @@ public class GetResourceShareInvitationsResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The token to use to retrieve the next page of results. This value is <code>null</code> when there are no more
-     * results to return.
+     * If present, this value indicates that more output is available than is included in the current response. Use this
+     * value in the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part
+     * of the output. You should repeat this until the <code>NextToken</code> response element comes back as
+     * <code>null</code>. This indicates that this is the last page of results.
      * </p>
      * 
-     * @return The token to use to retrieve the next page of results. This value is <code>null</code> when there are no
-     *         more results to return.
+     * @return If present, this value indicates that more output is available than is included in the current response.
+     *         Use this value in the <code>NextToken</code> request parameter in a subsequent call to the operation to
+     *         get the next part of the output. You should repeat this until the <code>NextToken</code> response element
+     *         comes back as <code>null</code>. This indicates that this is the last page of results.
      */
 
     public String getNextToken() {
@@ -138,13 +148,17 @@ public class GetResourceShareInvitationsResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The token to use to retrieve the next page of results. This value is <code>null</code> when there are no more
-     * results to return.
+     * If present, this value indicates that more output is available than is included in the current response. Use this
+     * value in the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part
+     * of the output. You should repeat this until the <code>NextToken</code> response element comes back as
+     * <code>null</code>. This indicates that this is the last page of results.
      * </p>
      * 
      * @param nextToken
-     *        The token to use to retrieve the next page of results. This value is <code>null</code> when there are no
-     *        more results to return.
+     *        If present, this value indicates that more output is available than is included in the current response.
+     *        Use this value in the <code>NextToken</code> request parameter in a subsequent call to the operation to
+     *        get the next part of the output. You should repeat this until the <code>NextToken</code> response element
+     *        comes back as <code>null</code>. This indicates that this is the last page of results.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

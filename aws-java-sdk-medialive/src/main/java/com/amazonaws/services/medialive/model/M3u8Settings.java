@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,6 +35,11 @@ public class M3u8Settings implements Serializable, Cloneable, StructuredPojo {
     private String audioPids;
     /** This parameter is unused and deprecated. */
     private String ecmPid;
+    /**
+     * If set to passthrough, Nielsen inaudible tones for media tracking will be detected in the input audio and an
+     * equivalent ID3 tag will be inserted in the output.
+     */
+    private String nielsenId3Behavior;
     /**
      * The number of milliseconds between instances of this table in the output transport stream. A value of \"0\"
      * writes out the PMT once per segment file.
@@ -86,6 +91,14 @@ public class M3u8Settings implements Serializable, Cloneable, StructuredPojo {
      * hexadecimal value.
      */
     private String videoPid;
+    /** If set to passthrough, passes any KLV data from the input source to this output. */
+    private String klvBehavior;
+    /**
+     * Packet Identifier (PID) for input source KLV data to this output. Multiple values are accepted, and can be
+     * entered in ranges and/or by comma separation. Can be entered as decimal or hexadecimal values. Each PID specified
+     * must be in the range of 32 (or 0x20)..8182 (or 0x1ff6).
+     */
+    private String klvDataPids;
 
     /**
      * The number of audio frames to insert for each PES packet.
@@ -195,6 +208,65 @@ public class M3u8Settings implements Serializable, Cloneable, StructuredPojo {
 
     public M3u8Settings withEcmPid(String ecmPid) {
         setEcmPid(ecmPid);
+        return this;
+    }
+
+    /**
+     * If set to passthrough, Nielsen inaudible tones for media tracking will be detected in the input audio and an
+     * equivalent ID3 tag will be inserted in the output.
+     * 
+     * @param nielsenId3Behavior
+     *        If set to passthrough, Nielsen inaudible tones for media tracking will be detected in the input audio and
+     *        an equivalent ID3 tag will be inserted in the output.
+     * @see M3u8NielsenId3Behavior
+     */
+
+    public void setNielsenId3Behavior(String nielsenId3Behavior) {
+        this.nielsenId3Behavior = nielsenId3Behavior;
+    }
+
+    /**
+     * If set to passthrough, Nielsen inaudible tones for media tracking will be detected in the input audio and an
+     * equivalent ID3 tag will be inserted in the output.
+     * 
+     * @return If set to passthrough, Nielsen inaudible tones for media tracking will be detected in the input audio and
+     *         an equivalent ID3 tag will be inserted in the output.
+     * @see M3u8NielsenId3Behavior
+     */
+
+    public String getNielsenId3Behavior() {
+        return this.nielsenId3Behavior;
+    }
+
+    /**
+     * If set to passthrough, Nielsen inaudible tones for media tracking will be detected in the input audio and an
+     * equivalent ID3 tag will be inserted in the output.
+     * 
+     * @param nielsenId3Behavior
+     *        If set to passthrough, Nielsen inaudible tones for media tracking will be detected in the input audio and
+     *        an equivalent ID3 tag will be inserted in the output.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see M3u8NielsenId3Behavior
+     */
+
+    public M3u8Settings withNielsenId3Behavior(String nielsenId3Behavior) {
+        setNielsenId3Behavior(nielsenId3Behavior);
+        return this;
+    }
+
+    /**
+     * If set to passthrough, Nielsen inaudible tones for media tracking will be detected in the input audio and an
+     * equivalent ID3 tag will be inserted in the output.
+     * 
+     * @param nielsenId3Behavior
+     *        If set to passthrough, Nielsen inaudible tones for media tracking will be detected in the input audio and
+     *        an equivalent ID3 tag will be inserted in the output.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see M3u8NielsenId3Behavior
+     */
+
+    public M3u8Settings withNielsenId3Behavior(M3u8NielsenId3Behavior nielsenId3Behavior) {
+        this.nielsenId3Behavior = nielsenId3Behavior.toString();
         return this;
     }
 
@@ -753,6 +825,103 @@ public class M3u8Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * If set to passthrough, passes any KLV data from the input source to this output.
+     * 
+     * @param klvBehavior
+     *        If set to passthrough, passes any KLV data from the input source to this output.
+     * @see M3u8KlvBehavior
+     */
+
+    public void setKlvBehavior(String klvBehavior) {
+        this.klvBehavior = klvBehavior;
+    }
+
+    /**
+     * If set to passthrough, passes any KLV data from the input source to this output.
+     * 
+     * @return If set to passthrough, passes any KLV data from the input source to this output.
+     * @see M3u8KlvBehavior
+     */
+
+    public String getKlvBehavior() {
+        return this.klvBehavior;
+    }
+
+    /**
+     * If set to passthrough, passes any KLV data from the input source to this output.
+     * 
+     * @param klvBehavior
+     *        If set to passthrough, passes any KLV data from the input source to this output.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see M3u8KlvBehavior
+     */
+
+    public M3u8Settings withKlvBehavior(String klvBehavior) {
+        setKlvBehavior(klvBehavior);
+        return this;
+    }
+
+    /**
+     * If set to passthrough, passes any KLV data from the input source to this output.
+     * 
+     * @param klvBehavior
+     *        If set to passthrough, passes any KLV data from the input source to this output.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see M3u8KlvBehavior
+     */
+
+    public M3u8Settings withKlvBehavior(M3u8KlvBehavior klvBehavior) {
+        this.klvBehavior = klvBehavior.toString();
+        return this;
+    }
+
+    /**
+     * Packet Identifier (PID) for input source KLV data to this output. Multiple values are accepted, and can be
+     * entered in ranges and/or by comma separation. Can be entered as decimal or hexadecimal values. Each PID specified
+     * must be in the range of 32 (or 0x20)..8182 (or 0x1ff6).
+     * 
+     * @param klvDataPids
+     *        Packet Identifier (PID) for input source KLV data to this output. Multiple values are accepted, and can be
+     *        entered in ranges and/or by comma separation. Can be entered as decimal or hexadecimal values. Each PID
+     *        specified must be in the range of 32 (or 0x20)..8182 (or 0x1ff6).
+     */
+
+    public void setKlvDataPids(String klvDataPids) {
+        this.klvDataPids = klvDataPids;
+    }
+
+    /**
+     * Packet Identifier (PID) for input source KLV data to this output. Multiple values are accepted, and can be
+     * entered in ranges and/or by comma separation. Can be entered as decimal or hexadecimal values. Each PID specified
+     * must be in the range of 32 (or 0x20)..8182 (or 0x1ff6).
+     * 
+     * @return Packet Identifier (PID) for input source KLV data to this output. Multiple values are accepted, and can
+     *         be entered in ranges and/or by comma separation. Can be entered as decimal or hexadecimal values. Each
+     *         PID specified must be in the range of 32 (or 0x20)..8182 (or 0x1ff6).
+     */
+
+    public String getKlvDataPids() {
+        return this.klvDataPids;
+    }
+
+    /**
+     * Packet Identifier (PID) for input source KLV data to this output. Multiple values are accepted, and can be
+     * entered in ranges and/or by comma separation. Can be entered as decimal or hexadecimal values. Each PID specified
+     * must be in the range of 32 (or 0x20)..8182 (or 0x1ff6).
+     * 
+     * @param klvDataPids
+     *        Packet Identifier (PID) for input source KLV data to this output. Multiple values are accepted, and can be
+     *        entered in ranges and/or by comma separation. Can be entered as decimal or hexadecimal values. Each PID
+     *        specified must be in the range of 32 (or 0x20)..8182 (or 0x1ff6).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public M3u8Settings withKlvDataPids(String klvDataPids) {
+        setKlvDataPids(klvDataPids);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -770,6 +939,8 @@ public class M3u8Settings implements Serializable, Cloneable, StructuredPojo {
             sb.append("AudioPids: ").append(getAudioPids()).append(",");
         if (getEcmPid() != null)
             sb.append("EcmPid: ").append(getEcmPid()).append(",");
+        if (getNielsenId3Behavior() != null)
+            sb.append("NielsenId3Behavior: ").append(getNielsenId3Behavior()).append(",");
         if (getPatInterval() != null)
             sb.append("PatInterval: ").append(getPatInterval()).append(",");
         if (getPcrControl() != null)
@@ -795,7 +966,11 @@ public class M3u8Settings implements Serializable, Cloneable, StructuredPojo {
         if (getTransportStreamId() != null)
             sb.append("TransportStreamId: ").append(getTransportStreamId()).append(",");
         if (getVideoPid() != null)
-            sb.append("VideoPid: ").append(getVideoPid());
+            sb.append("VideoPid: ").append(getVideoPid()).append(",");
+        if (getKlvBehavior() != null)
+            sb.append("KlvBehavior: ").append(getKlvBehavior()).append(",");
+        if (getKlvDataPids() != null)
+            sb.append("KlvDataPids: ").append(getKlvDataPids());
         sb.append("}");
         return sb.toString();
     }
@@ -821,6 +996,10 @@ public class M3u8Settings implements Serializable, Cloneable, StructuredPojo {
         if (other.getEcmPid() == null ^ this.getEcmPid() == null)
             return false;
         if (other.getEcmPid() != null && other.getEcmPid().equals(this.getEcmPid()) == false)
+            return false;
+        if (other.getNielsenId3Behavior() == null ^ this.getNielsenId3Behavior() == null)
+            return false;
+        if (other.getNielsenId3Behavior() != null && other.getNielsenId3Behavior().equals(this.getNielsenId3Behavior()) == false)
             return false;
         if (other.getPatInterval() == null ^ this.getPatInterval() == null)
             return false;
@@ -874,6 +1053,14 @@ public class M3u8Settings implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getVideoPid() != null && other.getVideoPid().equals(this.getVideoPid()) == false)
             return false;
+        if (other.getKlvBehavior() == null ^ this.getKlvBehavior() == null)
+            return false;
+        if (other.getKlvBehavior() != null && other.getKlvBehavior().equals(this.getKlvBehavior()) == false)
+            return false;
+        if (other.getKlvDataPids() == null ^ this.getKlvDataPids() == null)
+            return false;
+        if (other.getKlvDataPids() != null && other.getKlvDataPids().equals(this.getKlvDataPids()) == false)
+            return false;
         return true;
     }
 
@@ -885,6 +1072,7 @@ public class M3u8Settings implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getAudioFramesPerPes() == null) ? 0 : getAudioFramesPerPes().hashCode());
         hashCode = prime * hashCode + ((getAudioPids() == null) ? 0 : getAudioPids().hashCode());
         hashCode = prime * hashCode + ((getEcmPid() == null) ? 0 : getEcmPid().hashCode());
+        hashCode = prime * hashCode + ((getNielsenId3Behavior() == null) ? 0 : getNielsenId3Behavior().hashCode());
         hashCode = prime * hashCode + ((getPatInterval() == null) ? 0 : getPatInterval().hashCode());
         hashCode = prime * hashCode + ((getPcrControl() == null) ? 0 : getPcrControl().hashCode());
         hashCode = prime * hashCode + ((getPcrPeriod() == null) ? 0 : getPcrPeriod().hashCode());
@@ -898,6 +1086,8 @@ public class M3u8Settings implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getTimedMetadataPid() == null) ? 0 : getTimedMetadataPid().hashCode());
         hashCode = prime * hashCode + ((getTransportStreamId() == null) ? 0 : getTransportStreamId().hashCode());
         hashCode = prime * hashCode + ((getVideoPid() == null) ? 0 : getVideoPid().hashCode());
+        hashCode = prime * hashCode + ((getKlvBehavior() == null) ? 0 : getKlvBehavior().hashCode());
+        hashCode = prime * hashCode + ((getKlvDataPids() == null) ? 0 : getKlvDataPids().hashCode());
         return hashCode;
     }
 

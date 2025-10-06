@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,6 +42,14 @@ public class TargetTrackingConfiguration implements Serializable, Cloneable {
      * <p>
      * The target value for the metric.
      * </p>
+     * <note>
+     * <p>
+     * Some metrics are based on a count instead of a percentage, such as the request count for an Application Load
+     * Balancer or the number of messages in an SQS queue. If the scaling policy specifies one of these metrics, specify
+     * the target utilization as the optimal average request or message count per instance during any one-minute
+     * interval.
+     * </p>
+     * </note>
      */
     private Double targetValue;
     /**
@@ -137,9 +145,23 @@ public class TargetTrackingConfiguration implements Serializable, Cloneable {
      * <p>
      * The target value for the metric.
      * </p>
+     * <note>
+     * <p>
+     * Some metrics are based on a count instead of a percentage, such as the request count for an Application Load
+     * Balancer or the number of messages in an SQS queue. If the scaling policy specifies one of these metrics, specify
+     * the target utilization as the optimal average request or message count per instance during any one-minute
+     * interval.
+     * </p>
+     * </note>
      * 
      * @param targetValue
-     *        The target value for the metric.
+     *        The target value for the metric.</p> <note>
+     *        <p>
+     *        Some metrics are based on a count instead of a percentage, such as the request count for an Application
+     *        Load Balancer or the number of messages in an SQS queue. If the scaling policy specifies one of these
+     *        metrics, specify the target utilization as the optimal average request or message count per instance
+     *        during any one-minute interval.
+     *        </p>
      */
 
     public void setTargetValue(Double targetValue) {
@@ -150,8 +172,22 @@ public class TargetTrackingConfiguration implements Serializable, Cloneable {
      * <p>
      * The target value for the metric.
      * </p>
+     * <note>
+     * <p>
+     * Some metrics are based on a count instead of a percentage, such as the request count for an Application Load
+     * Balancer or the number of messages in an SQS queue. If the scaling policy specifies one of these metrics, specify
+     * the target utilization as the optimal average request or message count per instance during any one-minute
+     * interval.
+     * </p>
+     * </note>
      * 
-     * @return The target value for the metric.
+     * @return The target value for the metric.</p> <note>
+     *         <p>
+     *         Some metrics are based on a count instead of a percentage, such as the request count for an Application
+     *         Load Balancer or the number of messages in an SQS queue. If the scaling policy specifies one of these
+     *         metrics, specify the target utilization as the optimal average request or message count per instance
+     *         during any one-minute interval.
+     *         </p>
      */
 
     public Double getTargetValue() {
@@ -162,9 +198,23 @@ public class TargetTrackingConfiguration implements Serializable, Cloneable {
      * <p>
      * The target value for the metric.
      * </p>
+     * <note>
+     * <p>
+     * Some metrics are based on a count instead of a percentage, such as the request count for an Application Load
+     * Balancer or the number of messages in an SQS queue. If the scaling policy specifies one of these metrics, specify
+     * the target utilization as the optimal average request or message count per instance during any one-minute
+     * interval.
+     * </p>
+     * </note>
      * 
      * @param targetValue
-     *        The target value for the metric.
+     *        The target value for the metric.</p> <note>
+     *        <p>
+     *        Some metrics are based on a count instead of a percentage, such as the request count for an Application
+     *        Load Balancer or the number of messages in an SQS queue. If the scaling policy specifies one of these
+     *        metrics, specify the target utilization as the optimal average request or message count per instance
+     *        during any one-minute interval.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

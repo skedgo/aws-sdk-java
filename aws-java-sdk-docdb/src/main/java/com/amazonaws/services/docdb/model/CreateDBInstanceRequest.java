@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The DB instance identifier. This parameter is stored as a lowercase string.
+     * The instance identifier. This parameter is stored as a lowercase string.
      * </p>
      * <p>
      * Constraints:
@@ -59,7 +59,7 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     private String dBInstanceIdentifier;
     /**
      * <p>
-     * The compute and memory capacity of the DB instance; for example, <code>db.r5.large</code>.
+     * The compute and memory capacity of the instance; for example, <code>db.r5.large</code>.
      * </p>
      */
     private String dBInstanceClass;
@@ -74,18 +74,13 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     private String engine;
     /**
      * <p>
-     * The Amazon EC2 Availability Zone that the DB instance is created in.
+     * The Amazon EC2 Availability Zone that the instance is created in.
      * </p>
      * <p>
-     * Default: A random, system-chosen Availability Zone in the endpoint's AWS Region.
+     * Default: A random, system-chosen Availability Zone in the endpoint's Amazon Web Services Region.
      * </p>
      * <p>
      * Example: <code>us-east-1d</code>
-     * </p>
-     * <p>
-     * Constraint: The <code>AvailabilityZone</code> parameter can't be specified if the <code>MultiAZ</code> parameter
-     * is set to <code>true</code>. The specified Availability Zone must be in the same AWS Region as the current
-     * endpoint.
      * </p>
      */
     private String availabilityZone;
@@ -97,8 +92,8 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring
-     * on a random day of the week.
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services
+     * Region, occurring on a random day of the week.
      * </p>
      * <p>
      * Valid days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
@@ -110,25 +105,33 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     private String preferredMaintenanceWindow;
     /**
      * <p>
-     * Indicates that minor engine upgrades are applied automatically to the DB instance during the maintenance window.
+     * This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor version upgrades
+     * regardless of the value set.
      * </p>
      * <p>
-     * Default: <code>true</code>
+     * Default: <code>false</code>
      * </p>
      */
     private Boolean autoMinorVersionUpgrade;
     /**
      * <p>
-     * The tags to be assigned to the DB instance.
+     * The tags to be assigned to the instance. You can assign up to 10 tags to an instance.
      * </p>
      */
     private java.util.List<Tag> tags;
     /**
      * <p>
-     * The identifier of the DB cluster that the instance will belong to.
+     * The identifier of the cluster that the instance will belong to.
      * </p>
      */
     private String dBClusterIdentifier;
+    /**
+     * <p>
+     * A value that indicates whether to copy tags from the DB instance to snapshots of the DB instance. By default,
+     * tags are not copied.
+     * </p>
+     */
+    private Boolean copyTagsToSnapshot;
     /**
      * <p>
      * A value that specifies the order in which an Amazon DocumentDB replica is promoted to the primary instance after
@@ -142,10 +145,45 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      */
     private Integer promotionTier;
+    /**
+     * <p>
+     * A value that indicates whether to enable Performance Insights for the DB Instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/performance-insights.html">Using Amazon
+     * Performance Insights</a>.
+     * </p>
+     */
+    private Boolean enablePerformanceInsights;
+    /**
+     * <p>
+     * The KMS key identifier for encryption of Performance Insights data.
+     * </p>
+     * <p>
+     * The KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
+     * </p>
+     * <p>
+     * If you do not specify a value for PerformanceInsightsKMSKeyId, then Amazon DocumentDB uses your default KMS key.
+     * There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a different
+     * default KMS key for each Amazon Web Services region.
+     * </p>
+     */
+    private String performanceInsightsKMSKeyId;
+    /**
+     * <p>
+     * The CA certificate identifier to use for the DB instance's server certificate.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your Amazon
+     * DocumentDB TLS Certificates</a> and <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html"> Encrypting Data
+     * in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     * </p>
+     */
+    private String cACertificateIdentifier;
 
     /**
      * <p>
-     * The DB instance identifier. This parameter is stored as a lowercase string.
+     * The instance identifier. This parameter is stored as a lowercase string.
      * </p>
      * <p>
      * Constraints:
@@ -172,7 +210,7 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * 
      * @param dBInstanceIdentifier
-     *        The DB instance identifier. This parameter is stored as a lowercase string.</p>
+     *        The instance identifier. This parameter is stored as a lowercase string.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -203,7 +241,7 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The DB instance identifier. This parameter is stored as a lowercase string.
+     * The instance identifier. This parameter is stored as a lowercase string.
      * </p>
      * <p>
      * Constraints:
@@ -229,7 +267,7 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * Example: <code>mydbinstance</code>
      * </p>
      * 
-     * @return The DB instance identifier. This parameter is stored as a lowercase string.</p>
+     * @return The instance identifier. This parameter is stored as a lowercase string.</p>
      *         <p>
      *         Constraints:
      *         </p>
@@ -260,7 +298,7 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The DB instance identifier. This parameter is stored as a lowercase string.
+     * The instance identifier. This parameter is stored as a lowercase string.
      * </p>
      * <p>
      * Constraints:
@@ -287,7 +325,7 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * 
      * @param dBInstanceIdentifier
-     *        The DB instance identifier. This parameter is stored as a lowercase string.</p>
+     *        The instance identifier. This parameter is stored as a lowercase string.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -320,11 +358,11 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The compute and memory capacity of the DB instance; for example, <code>db.r5.large</code>.
+     * The compute and memory capacity of the instance; for example, <code>db.r5.large</code>.
      * </p>
      * 
      * @param dBInstanceClass
-     *        The compute and memory capacity of the DB instance; for example, <code>db.r5.large</code>.
+     *        The compute and memory capacity of the instance; for example, <code>db.r5.large</code>.
      */
 
     public void setDBInstanceClass(String dBInstanceClass) {
@@ -333,10 +371,10 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The compute and memory capacity of the DB instance; for example, <code>db.r5.large</code>.
+     * The compute and memory capacity of the instance; for example, <code>db.r5.large</code>.
      * </p>
      * 
-     * @return The compute and memory capacity of the DB instance; for example, <code>db.r5.large</code>.
+     * @return The compute and memory capacity of the instance; for example, <code>db.r5.large</code>.
      */
 
     public String getDBInstanceClass() {
@@ -345,11 +383,11 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The compute and memory capacity of the DB instance; for example, <code>db.r5.large</code>.
+     * The compute and memory capacity of the instance; for example, <code>db.r5.large</code>.
      * </p>
      * 
      * @param dBInstanceClass
-     *        The compute and memory capacity of the DB instance; for example, <code>db.r5.large</code>.
+     *        The compute and memory capacity of the instance; for example, <code>db.r5.large</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -415,32 +453,22 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The Amazon EC2 Availability Zone that the DB instance is created in.
+     * The Amazon EC2 Availability Zone that the instance is created in.
      * </p>
      * <p>
-     * Default: A random, system-chosen Availability Zone in the endpoint's AWS Region.
+     * Default: A random, system-chosen Availability Zone in the endpoint's Amazon Web Services Region.
      * </p>
      * <p>
      * Example: <code>us-east-1d</code>
      * </p>
-     * <p>
-     * Constraint: The <code>AvailabilityZone</code> parameter can't be specified if the <code>MultiAZ</code> parameter
-     * is set to <code>true</code>. The specified Availability Zone must be in the same AWS Region as the current
-     * endpoint.
-     * </p>
      * 
      * @param availabilityZone
-     *        The Amazon EC2 Availability Zone that the DB instance is created in.</p>
+     *        The Amazon EC2 Availability Zone that the instance is created in. </p>
      *        <p>
-     *        Default: A random, system-chosen Availability Zone in the endpoint's AWS Region.
+     *        Default: A random, system-chosen Availability Zone in the endpoint's Amazon Web Services Region.
      *        </p>
      *        <p>
      *        Example: <code>us-east-1d</code>
-     *        </p>
-     *        <p>
-     *        Constraint: The <code>AvailabilityZone</code> parameter can't be specified if the <code>MultiAZ</code>
-     *        parameter is set to <code>true</code>. The specified Availability Zone must be in the same AWS Region as
-     *        the current endpoint.
      */
 
     public void setAvailabilityZone(String availabilityZone) {
@@ -449,31 +477,21 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The Amazon EC2 Availability Zone that the DB instance is created in.
+     * The Amazon EC2 Availability Zone that the instance is created in.
      * </p>
      * <p>
-     * Default: A random, system-chosen Availability Zone in the endpoint's AWS Region.
+     * Default: A random, system-chosen Availability Zone in the endpoint's Amazon Web Services Region.
      * </p>
      * <p>
      * Example: <code>us-east-1d</code>
      * </p>
-     * <p>
-     * Constraint: The <code>AvailabilityZone</code> parameter can't be specified if the <code>MultiAZ</code> parameter
-     * is set to <code>true</code>. The specified Availability Zone must be in the same AWS Region as the current
-     * endpoint.
-     * </p>
      * 
-     * @return The Amazon EC2 Availability Zone that the DB instance is created in.</p>
+     * @return The Amazon EC2 Availability Zone that the instance is created in. </p>
      *         <p>
-     *         Default: A random, system-chosen Availability Zone in the endpoint's AWS Region.
+     *         Default: A random, system-chosen Availability Zone in the endpoint's Amazon Web Services Region.
      *         </p>
      *         <p>
      *         Example: <code>us-east-1d</code>
-     *         </p>
-     *         <p>
-     *         Constraint: The <code>AvailabilityZone</code> parameter can't be specified if the <code>MultiAZ</code>
-     *         parameter is set to <code>true</code>. The specified Availability Zone must be in the same AWS Region as
-     *         the current endpoint.
      */
 
     public String getAvailabilityZone() {
@@ -482,32 +500,22 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The Amazon EC2 Availability Zone that the DB instance is created in.
+     * The Amazon EC2 Availability Zone that the instance is created in.
      * </p>
      * <p>
-     * Default: A random, system-chosen Availability Zone in the endpoint's AWS Region.
+     * Default: A random, system-chosen Availability Zone in the endpoint's Amazon Web Services Region.
      * </p>
      * <p>
      * Example: <code>us-east-1d</code>
      * </p>
-     * <p>
-     * Constraint: The <code>AvailabilityZone</code> parameter can't be specified if the <code>MultiAZ</code> parameter
-     * is set to <code>true</code>. The specified Availability Zone must be in the same AWS Region as the current
-     * endpoint.
-     * </p>
      * 
      * @param availabilityZone
-     *        The Amazon EC2 Availability Zone that the DB instance is created in.</p>
+     *        The Amazon EC2 Availability Zone that the instance is created in. </p>
      *        <p>
-     *        Default: A random, system-chosen Availability Zone in the endpoint's AWS Region.
+     *        Default: A random, system-chosen Availability Zone in the endpoint's Amazon Web Services Region.
      *        </p>
      *        <p>
      *        Example: <code>us-east-1d</code>
-     *        </p>
-     *        <p>
-     *        Constraint: The <code>AvailabilityZone</code> parameter can't be specified if the <code>MultiAZ</code>
-     *        parameter is set to <code>true</code>. The specified Availability Zone must be in the same AWS Region as
-     *        the current endpoint.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -524,8 +532,8 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring
-     * on a random day of the week.
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services
+     * Region, occurring on a random day of the week.
      * </p>
      * <p>
      * Valid days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
@@ -541,8 +549,8 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      *        Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
      *        </p>
      *        <p>
-     *        The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region,
-     *        occurring on a random day of the week.
+     *        The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web
+     *        Services Region, occurring on a random day of the week.
      *        </p>
      *        <p>
      *        Valid days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
@@ -563,8 +571,8 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring
-     * on a random day of the week.
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services
+     * Region, occurring on a random day of the week.
      * </p>
      * <p>
      * Valid days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
@@ -579,8 +587,8 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      *         Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
      *         </p>
      *         <p>
-     *         The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region,
-     *         occurring on a random day of the week.
+     *         The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web
+     *         Services Region, occurring on a random day of the week.
      *         </p>
      *         <p>
      *         Valid days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
@@ -601,8 +609,8 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring
-     * on a random day of the week.
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services
+     * Region, occurring on a random day of the week.
      * </p>
      * <p>
      * Valid days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
@@ -618,8 +626,8 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      *        Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
      *        </p>
      *        <p>
-     *        The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region,
-     *        occurring on a random day of the week.
+     *        The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web
+     *        Services Region, occurring on a random day of the week.
      *        </p>
      *        <p>
      *        Valid days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
@@ -636,17 +644,18 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Indicates that minor engine upgrades are applied automatically to the DB instance during the maintenance window.
+     * This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor version upgrades
+     * regardless of the value set.
      * </p>
      * <p>
-     * Default: <code>true</code>
+     * Default: <code>false</code>
      * </p>
      * 
      * @param autoMinorVersionUpgrade
-     *        Indicates that minor engine upgrades are applied automatically to the DB instance during the maintenance
-     *        window.</p>
+     *        This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor version
+     *        upgrades regardless of the value set.</p>
      *        <p>
-     *        Default: <code>true</code>
+     *        Default: <code>false</code>
      */
 
     public void setAutoMinorVersionUpgrade(Boolean autoMinorVersionUpgrade) {
@@ -655,16 +664,17 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Indicates that minor engine upgrades are applied automatically to the DB instance during the maintenance window.
+     * This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor version upgrades
+     * regardless of the value set.
      * </p>
      * <p>
-     * Default: <code>true</code>
+     * Default: <code>false</code>
      * </p>
      * 
-     * @return Indicates that minor engine upgrades are applied automatically to the DB instance during the maintenance
-     *         window.</p>
+     * @return This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor version
+     *         upgrades regardless of the value set.</p>
      *         <p>
-     *         Default: <code>true</code>
+     *         Default: <code>false</code>
      */
 
     public Boolean getAutoMinorVersionUpgrade() {
@@ -673,17 +683,18 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Indicates that minor engine upgrades are applied automatically to the DB instance during the maintenance window.
+     * This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor version upgrades
+     * regardless of the value set.
      * </p>
      * <p>
-     * Default: <code>true</code>
+     * Default: <code>false</code>
      * </p>
      * 
      * @param autoMinorVersionUpgrade
-     *        Indicates that minor engine upgrades are applied automatically to the DB instance during the maintenance
-     *        window.</p>
+     *        This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor version
+     *        upgrades regardless of the value set.</p>
      *        <p>
-     *        Default: <code>true</code>
+     *        Default: <code>false</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -694,16 +705,17 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Indicates that minor engine upgrades are applied automatically to the DB instance during the maintenance window.
+     * This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor version upgrades
+     * regardless of the value set.
      * </p>
      * <p>
-     * Default: <code>true</code>
+     * Default: <code>false</code>
      * </p>
      * 
-     * @return Indicates that minor engine upgrades are applied automatically to the DB instance during the maintenance
-     *         window.</p>
+     * @return This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor version
+     *         upgrades regardless of the value set.</p>
      *         <p>
-     *         Default: <code>true</code>
+     *         Default: <code>false</code>
      */
 
     public Boolean isAutoMinorVersionUpgrade() {
@@ -712,10 +724,10 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The tags to be assigned to the DB instance.
+     * The tags to be assigned to the instance. You can assign up to 10 tags to an instance.
      * </p>
      * 
-     * @return The tags to be assigned to the DB instance.
+     * @return The tags to be assigned to the instance. You can assign up to 10 tags to an instance.
      */
 
     public java.util.List<Tag> getTags() {
@@ -724,11 +736,11 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The tags to be assigned to the DB instance.
+     * The tags to be assigned to the instance. You can assign up to 10 tags to an instance.
      * </p>
      * 
      * @param tags
-     *        The tags to be assigned to the DB instance.
+     *        The tags to be assigned to the instance. You can assign up to 10 tags to an instance.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -742,7 +754,7 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The tags to be assigned to the DB instance.
+     * The tags to be assigned to the instance. You can assign up to 10 tags to an instance.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -751,7 +763,7 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * 
      * @param tags
-     *        The tags to be assigned to the DB instance.
+     *        The tags to be assigned to the instance. You can assign up to 10 tags to an instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -767,11 +779,11 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The tags to be assigned to the DB instance.
+     * The tags to be assigned to the instance. You can assign up to 10 tags to an instance.
      * </p>
      * 
      * @param tags
-     *        The tags to be assigned to the DB instance.
+     *        The tags to be assigned to the instance. You can assign up to 10 tags to an instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -782,11 +794,11 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The identifier of the DB cluster that the instance will belong to.
+     * The identifier of the cluster that the instance will belong to.
      * </p>
      * 
      * @param dBClusterIdentifier
-     *        The identifier of the DB cluster that the instance will belong to.
+     *        The identifier of the cluster that the instance will belong to.
      */
 
     public void setDBClusterIdentifier(String dBClusterIdentifier) {
@@ -795,10 +807,10 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The identifier of the DB cluster that the instance will belong to.
+     * The identifier of the cluster that the instance will belong to.
      * </p>
      * 
-     * @return The identifier of the DB cluster that the instance will belong to.
+     * @return The identifier of the cluster that the instance will belong to.
      */
 
     public String getDBClusterIdentifier() {
@@ -807,17 +819,77 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The identifier of the DB cluster that the instance will belong to.
+     * The identifier of the cluster that the instance will belong to.
      * </p>
      * 
      * @param dBClusterIdentifier
-     *        The identifier of the DB cluster that the instance will belong to.
+     *        The identifier of the cluster that the instance will belong to.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateDBInstanceRequest withDBClusterIdentifier(String dBClusterIdentifier) {
         setDBClusterIdentifier(dBClusterIdentifier);
         return this;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether to copy tags from the DB instance to snapshots of the DB instance. By default,
+     * tags are not copied.
+     * </p>
+     * 
+     * @param copyTagsToSnapshot
+     *        A value that indicates whether to copy tags from the DB instance to snapshots of the DB instance. By
+     *        default, tags are not copied.
+     */
+
+    public void setCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
+        this.copyTagsToSnapshot = copyTagsToSnapshot;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether to copy tags from the DB instance to snapshots of the DB instance. By default,
+     * tags are not copied.
+     * </p>
+     * 
+     * @return A value that indicates whether to copy tags from the DB instance to snapshots of the DB instance. By
+     *         default, tags are not copied.
+     */
+
+    public Boolean getCopyTagsToSnapshot() {
+        return this.copyTagsToSnapshot;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether to copy tags from the DB instance to snapshots of the DB instance. By default,
+     * tags are not copied.
+     * </p>
+     * 
+     * @param copyTagsToSnapshot
+     *        A value that indicates whether to copy tags from the DB instance to snapshots of the DB instance. By
+     *        default, tags are not copied.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDBInstanceRequest withCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
+        setCopyTagsToSnapshot(copyTagsToSnapshot);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether to copy tags from the DB instance to snapshots of the DB instance. By default,
+     * tags are not copied.
+     * </p>
+     * 
+     * @return A value that indicates whether to copy tags from the DB instance to snapshots of the DB instance. By
+     *         default, tags are not copied.
+     */
+
+    public Boolean isCopyTagsToSnapshot() {
+        return this.copyTagsToSnapshot;
     }
 
     /**
@@ -900,6 +972,240 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
+     * <p>
+     * A value that indicates whether to enable Performance Insights for the DB Instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/performance-insights.html">Using Amazon
+     * Performance Insights</a>.
+     * </p>
+     * 
+     * @param enablePerformanceInsights
+     *        A value that indicates whether to enable Performance Insights for the DB Instance. For more information,
+     *        see <a href="https://docs.aws.amazon.com/documentdb/latest/developerguide/performance-insights.html">Using
+     *        Amazon Performance Insights</a>.
+     */
+
+    public void setEnablePerformanceInsights(Boolean enablePerformanceInsights) {
+        this.enablePerformanceInsights = enablePerformanceInsights;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether to enable Performance Insights for the DB Instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/performance-insights.html">Using Amazon
+     * Performance Insights</a>.
+     * </p>
+     * 
+     * @return A value that indicates whether to enable Performance Insights for the DB Instance. For more information,
+     *         see <a
+     *         href="https://docs.aws.amazon.com/documentdb/latest/developerguide/performance-insights.html">Using
+     *         Amazon Performance Insights</a>.
+     */
+
+    public Boolean getEnablePerformanceInsights() {
+        return this.enablePerformanceInsights;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether to enable Performance Insights for the DB Instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/performance-insights.html">Using Amazon
+     * Performance Insights</a>.
+     * </p>
+     * 
+     * @param enablePerformanceInsights
+     *        A value that indicates whether to enable Performance Insights for the DB Instance. For more information,
+     *        see <a href="https://docs.aws.amazon.com/documentdb/latest/developerguide/performance-insights.html">Using
+     *        Amazon Performance Insights</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDBInstanceRequest withEnablePerformanceInsights(Boolean enablePerformanceInsights) {
+        setEnablePerformanceInsights(enablePerformanceInsights);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether to enable Performance Insights for the DB Instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/performance-insights.html">Using Amazon
+     * Performance Insights</a>.
+     * </p>
+     * 
+     * @return A value that indicates whether to enable Performance Insights for the DB Instance. For more information,
+     *         see <a
+     *         href="https://docs.aws.amazon.com/documentdb/latest/developerguide/performance-insights.html">Using
+     *         Amazon Performance Insights</a>.
+     */
+
+    public Boolean isEnablePerformanceInsights() {
+        return this.enablePerformanceInsights;
+    }
+
+    /**
+     * <p>
+     * The KMS key identifier for encryption of Performance Insights data.
+     * </p>
+     * <p>
+     * The KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
+     * </p>
+     * <p>
+     * If you do not specify a value for PerformanceInsightsKMSKeyId, then Amazon DocumentDB uses your default KMS key.
+     * There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a different
+     * default KMS key for each Amazon Web Services region.
+     * </p>
+     * 
+     * @param performanceInsightsKMSKeyId
+     *        The KMS key identifier for encryption of Performance Insights data.</p>
+     *        <p>
+     *        The KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
+     *        </p>
+     *        <p>
+     *        If you do not specify a value for PerformanceInsightsKMSKeyId, then Amazon DocumentDB uses your default
+     *        KMS key. There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account
+     *        has a different default KMS key for each Amazon Web Services region.
+     */
+
+    public void setPerformanceInsightsKMSKeyId(String performanceInsightsKMSKeyId) {
+        this.performanceInsightsKMSKeyId = performanceInsightsKMSKeyId;
+    }
+
+    /**
+     * <p>
+     * The KMS key identifier for encryption of Performance Insights data.
+     * </p>
+     * <p>
+     * The KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
+     * </p>
+     * <p>
+     * If you do not specify a value for PerformanceInsightsKMSKeyId, then Amazon DocumentDB uses your default KMS key.
+     * There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a different
+     * default KMS key for each Amazon Web Services region.
+     * </p>
+     * 
+     * @return The KMS key identifier for encryption of Performance Insights data.</p>
+     *         <p>
+     *         The KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
+     *         </p>
+     *         <p>
+     *         If you do not specify a value for PerformanceInsightsKMSKeyId, then Amazon DocumentDB uses your default
+     *         KMS key. There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services
+     *         account has a different default KMS key for each Amazon Web Services region.
+     */
+
+    public String getPerformanceInsightsKMSKeyId() {
+        return this.performanceInsightsKMSKeyId;
+    }
+
+    /**
+     * <p>
+     * The KMS key identifier for encryption of Performance Insights data.
+     * </p>
+     * <p>
+     * The KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
+     * </p>
+     * <p>
+     * If you do not specify a value for PerformanceInsightsKMSKeyId, then Amazon DocumentDB uses your default KMS key.
+     * There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a different
+     * default KMS key for each Amazon Web Services region.
+     * </p>
+     * 
+     * @param performanceInsightsKMSKeyId
+     *        The KMS key identifier for encryption of Performance Insights data.</p>
+     *        <p>
+     *        The KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
+     *        </p>
+     *        <p>
+     *        If you do not specify a value for PerformanceInsightsKMSKeyId, then Amazon DocumentDB uses your default
+     *        KMS key. There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account
+     *        has a different default KMS key for each Amazon Web Services region.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDBInstanceRequest withPerformanceInsightsKMSKeyId(String performanceInsightsKMSKeyId) {
+        setPerformanceInsightsKMSKeyId(performanceInsightsKMSKeyId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The CA certificate identifier to use for the DB instance's server certificate.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your Amazon
+     * DocumentDB TLS Certificates</a> and <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html"> Encrypting Data
+     * in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     * </p>
+     * 
+     * @param cACertificateIdentifier
+     *        The CA certificate identifier to use for the DB instance's server certificate.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your
+     *        Amazon DocumentDB TLS Certificates</a> and <a
+     *        href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html">
+     *        Encrypting Data in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     */
+
+    public void setCACertificateIdentifier(String cACertificateIdentifier) {
+        this.cACertificateIdentifier = cACertificateIdentifier;
+    }
+
+    /**
+     * <p>
+     * The CA certificate identifier to use for the DB instance's server certificate.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your Amazon
+     * DocumentDB TLS Certificates</a> and <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html"> Encrypting Data
+     * in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     * </p>
+     * 
+     * @return The CA certificate identifier to use for the DB instance's server certificate.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your
+     *         Amazon DocumentDB TLS Certificates</a> and <a
+     *         href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html">
+     *         Encrypting Data in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     */
+
+    public String getCACertificateIdentifier() {
+        return this.cACertificateIdentifier;
+    }
+
+    /**
+     * <p>
+     * The CA certificate identifier to use for the DB instance's server certificate.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your Amazon
+     * DocumentDB TLS Certificates</a> and <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html"> Encrypting Data
+     * in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     * </p>
+     * 
+     * @param cACertificateIdentifier
+     *        The CA certificate identifier to use for the DB instance's server certificate.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your
+     *        Amazon DocumentDB TLS Certificates</a> and <a
+     *        href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html">
+     *        Encrypting Data in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDBInstanceRequest withCACertificateIdentifier(String cACertificateIdentifier) {
+        setCACertificateIdentifier(cACertificateIdentifier);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -927,8 +1233,16 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
             sb.append("Tags: ").append(getTags()).append(",");
         if (getDBClusterIdentifier() != null)
             sb.append("DBClusterIdentifier: ").append(getDBClusterIdentifier()).append(",");
+        if (getCopyTagsToSnapshot() != null)
+            sb.append("CopyTagsToSnapshot: ").append(getCopyTagsToSnapshot()).append(",");
         if (getPromotionTier() != null)
-            sb.append("PromotionTier: ").append(getPromotionTier());
+            sb.append("PromotionTier: ").append(getPromotionTier()).append(",");
+        if (getEnablePerformanceInsights() != null)
+            sb.append("EnablePerformanceInsights: ").append(getEnablePerformanceInsights()).append(",");
+        if (getPerformanceInsightsKMSKeyId() != null)
+            sb.append("PerformanceInsightsKMSKeyId: ").append(getPerformanceInsightsKMSKeyId()).append(",");
+        if (getCACertificateIdentifier() != null)
+            sb.append("CACertificateIdentifier: ").append(getCACertificateIdentifier());
         sb.append("}");
         return sb.toString();
     }
@@ -975,9 +1289,25 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
             return false;
         if (other.getDBClusterIdentifier() != null && other.getDBClusterIdentifier().equals(this.getDBClusterIdentifier()) == false)
             return false;
+        if (other.getCopyTagsToSnapshot() == null ^ this.getCopyTagsToSnapshot() == null)
+            return false;
+        if (other.getCopyTagsToSnapshot() != null && other.getCopyTagsToSnapshot().equals(this.getCopyTagsToSnapshot()) == false)
+            return false;
         if (other.getPromotionTier() == null ^ this.getPromotionTier() == null)
             return false;
         if (other.getPromotionTier() != null && other.getPromotionTier().equals(this.getPromotionTier()) == false)
+            return false;
+        if (other.getEnablePerformanceInsights() == null ^ this.getEnablePerformanceInsights() == null)
+            return false;
+        if (other.getEnablePerformanceInsights() != null && other.getEnablePerformanceInsights().equals(this.getEnablePerformanceInsights()) == false)
+            return false;
+        if (other.getPerformanceInsightsKMSKeyId() == null ^ this.getPerformanceInsightsKMSKeyId() == null)
+            return false;
+        if (other.getPerformanceInsightsKMSKeyId() != null && other.getPerformanceInsightsKMSKeyId().equals(this.getPerformanceInsightsKMSKeyId()) == false)
+            return false;
+        if (other.getCACertificateIdentifier() == null ^ this.getCACertificateIdentifier() == null)
+            return false;
+        if (other.getCACertificateIdentifier() != null && other.getCACertificateIdentifier().equals(this.getCACertificateIdentifier()) == false)
             return false;
         return true;
     }
@@ -995,7 +1325,11 @@ public class CreateDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
         hashCode = prime * hashCode + ((getAutoMinorVersionUpgrade() == null) ? 0 : getAutoMinorVersionUpgrade().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getDBClusterIdentifier() == null) ? 0 : getDBClusterIdentifier().hashCode());
+        hashCode = prime * hashCode + ((getCopyTagsToSnapshot() == null) ? 0 : getCopyTagsToSnapshot().hashCode());
         hashCode = prime * hashCode + ((getPromotionTier() == null) ? 0 : getPromotionTier().hashCode());
+        hashCode = prime * hashCode + ((getEnablePerformanceInsights() == null) ? 0 : getEnablePerformanceInsights().hashCode());
+        hashCode = prime * hashCode + ((getPerformanceInsightsKMSKeyId() == null) ? 0 : getPerformanceInsightsKMSKeyId().hashCode());
+        hashCode = prime * hashCode + ((getCACertificateIdentifier() == null) ? 0 : getCACertificateIdentifier().hashCode());
         return hashCode;
     }
 

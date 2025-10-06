@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,6 +43,32 @@ public class UpdateEnvironmentRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      */
     private String description;
+    /**
+     * <p>
+     * Allows the environment owner to turn on or turn off the Amazon Web Services managed temporary credentials for an
+     * Cloud9 environment by using one of the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ENABLE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DISABLE</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * Only the environment owner can change the status of managed temporary credentials. An
+     * <code>AccessDeniedException</code> is thrown if an attempt to turn on or turn off managed temporary credentials
+     * is made by an account that's not the environment owner.
+     * </p>
+     * </note>
+     */
+    private String managedCredentialsAction;
 
     /**
      * <p>
@@ -165,6 +191,221 @@ public class UpdateEnvironmentRequest extends com.amazonaws.AmazonWebServiceRequ
     }
 
     /**
+     * <p>
+     * Allows the environment owner to turn on or turn off the Amazon Web Services managed temporary credentials for an
+     * Cloud9 environment by using one of the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ENABLE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DISABLE</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * Only the environment owner can change the status of managed temporary credentials. An
+     * <code>AccessDeniedException</code> is thrown if an attempt to turn on or turn off managed temporary credentials
+     * is made by an account that's not the environment owner.
+     * </p>
+     * </note>
+     * 
+     * @param managedCredentialsAction
+     *        Allows the environment owner to turn on or turn off the Amazon Web Services managed temporary credentials
+     *        for an Cloud9 environment by using one of the following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ENABLE</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DISABLE</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        Only the environment owner can change the status of managed temporary credentials. An
+     *        <code>AccessDeniedException</code> is thrown if an attempt to turn on or turn off managed temporary
+     *        credentials is made by an account that's not the environment owner.
+     *        </p>
+     * @see ManagedCredentialsAction
+     */
+
+    public void setManagedCredentialsAction(String managedCredentialsAction) {
+        this.managedCredentialsAction = managedCredentialsAction;
+    }
+
+    /**
+     * <p>
+     * Allows the environment owner to turn on or turn off the Amazon Web Services managed temporary credentials for an
+     * Cloud9 environment by using one of the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ENABLE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DISABLE</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * Only the environment owner can change the status of managed temporary credentials. An
+     * <code>AccessDeniedException</code> is thrown if an attempt to turn on or turn off managed temporary credentials
+     * is made by an account that's not the environment owner.
+     * </p>
+     * </note>
+     * 
+     * @return Allows the environment owner to turn on or turn off the Amazon Web Services managed temporary credentials
+     *         for an Cloud9 environment by using one of the following values:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>ENABLE</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>DISABLE</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <note>
+     *         <p>
+     *         Only the environment owner can change the status of managed temporary credentials. An
+     *         <code>AccessDeniedException</code> is thrown if an attempt to turn on or turn off managed temporary
+     *         credentials is made by an account that's not the environment owner.
+     *         </p>
+     * @see ManagedCredentialsAction
+     */
+
+    public String getManagedCredentialsAction() {
+        return this.managedCredentialsAction;
+    }
+
+    /**
+     * <p>
+     * Allows the environment owner to turn on or turn off the Amazon Web Services managed temporary credentials for an
+     * Cloud9 environment by using one of the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ENABLE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DISABLE</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * Only the environment owner can change the status of managed temporary credentials. An
+     * <code>AccessDeniedException</code> is thrown if an attempt to turn on or turn off managed temporary credentials
+     * is made by an account that's not the environment owner.
+     * </p>
+     * </note>
+     * 
+     * @param managedCredentialsAction
+     *        Allows the environment owner to turn on or turn off the Amazon Web Services managed temporary credentials
+     *        for an Cloud9 environment by using one of the following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ENABLE</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DISABLE</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        Only the environment owner can change the status of managed temporary credentials. An
+     *        <code>AccessDeniedException</code> is thrown if an attempt to turn on or turn off managed temporary
+     *        credentials is made by an account that's not the environment owner.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ManagedCredentialsAction
+     */
+
+    public UpdateEnvironmentRequest withManagedCredentialsAction(String managedCredentialsAction) {
+        setManagedCredentialsAction(managedCredentialsAction);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Allows the environment owner to turn on or turn off the Amazon Web Services managed temporary credentials for an
+     * Cloud9 environment by using one of the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ENABLE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DISABLE</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * Only the environment owner can change the status of managed temporary credentials. An
+     * <code>AccessDeniedException</code> is thrown if an attempt to turn on or turn off managed temporary credentials
+     * is made by an account that's not the environment owner.
+     * </p>
+     * </note>
+     * 
+     * @param managedCredentialsAction
+     *        Allows the environment owner to turn on or turn off the Amazon Web Services managed temporary credentials
+     *        for an Cloud9 environment by using one of the following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ENABLE</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DISABLE</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        Only the environment owner can change the status of managed temporary credentials. An
+     *        <code>AccessDeniedException</code> is thrown if an attempt to turn on or turn off managed temporary
+     *        credentials is made by an account that's not the environment owner.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ManagedCredentialsAction
+     */
+
+    public UpdateEnvironmentRequest withManagedCredentialsAction(ManagedCredentialsAction managedCredentialsAction) {
+        this.managedCredentialsAction = managedCredentialsAction.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -181,7 +422,9 @@ public class UpdateEnvironmentRequest extends com.amazonaws.AmazonWebServiceRequ
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getDescription() != null)
-            sb.append("Description: ").append("***Sensitive Data Redacted***");
+            sb.append("Description: ").append("***Sensitive Data Redacted***").append(",");
+        if (getManagedCredentialsAction() != null)
+            sb.append("ManagedCredentialsAction: ").append(getManagedCredentialsAction());
         sb.append("}");
         return sb.toString();
     }
@@ -208,6 +451,10 @@ public class UpdateEnvironmentRequest extends com.amazonaws.AmazonWebServiceRequ
             return false;
         if (other.getDescription() != null && other.getDescription().equals(this.getDescription()) == false)
             return false;
+        if (other.getManagedCredentialsAction() == null ^ this.getManagedCredentialsAction() == null)
+            return false;
+        if (other.getManagedCredentialsAction() != null && other.getManagedCredentialsAction().equals(this.getManagedCredentialsAction()) == false)
+            return false;
         return true;
     }
 
@@ -219,6 +466,7 @@ public class UpdateEnvironmentRequest extends com.amazonaws.AmazonWebServiceRequ
         hashCode = prime * hashCode + ((getEnvironmentId() == null) ? 0 : getEnvironmentId().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
+        hashCode = prime * hashCode + ((getManagedCredentialsAction() == null) ? 0 : getManagedCredentialsAction().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,9 +26,9 @@ import com.amazonaws.services.budgets.model.*;
  * </p>
  * <p>
  * <p>
- * The AWS Budgets API enables you to use AWS Budgets to plan your service usage, service costs, and instance
- * reservations. The API reference provides descriptions, syntax, and usage examples for each of the actions and data
- * types for AWS Budgets.
+ * Use the Amazon Web Services Budgets API to plan your service usage, service costs, and instance reservations. This
+ * API reference provides descriptions, syntax, and usage examples for each of the actions and data types for the Amazon
+ * Web Services Budgets feature.
  * </p>
  * <p>
  * Budgets provide you with a way to see the following information:
@@ -46,8 +46,8 @@ import com.amazonaws.services.budgets.model.*;
  * </li>
  * <li>
  * <p>
- * Your current estimated charges from AWS, and how much your predicted usage will accrue in charges by the end of the
- * month
+ * Your current estimated charges from Amazon Web Services, and how much your predicted usage will accrue in charges by
+ * the end of the month
  * </p>
  * </li>
  * <li>
@@ -57,8 +57,8 @@ import com.amazonaws.services.budgets.model.*;
  * </li>
  * </ul>
  * <p>
- * AWS updates your budget status several times a day. Budgets track your unblended costs, subscriptions, refunds, and
- * RIs. You can create the following types of budgets:
+ * Amazon Web Services updates your budget status several times a day. Budgets track your unblended costs,
+ * subscriptions, refunds, and RIs. You can create the following types of budgets:
  * </p>
  * <ul>
  * <li>
@@ -89,7 +89,7 @@ import com.amazonaws.services.budgets.model.*;
  * Service Endpoint
  * </p>
  * <p>
- * The AWS Budgets API provides the following endpoint:
+ * The Amazon Web Services Budgets API provides the following endpoint:
  * </p>
  * <ul>
  * <li>
@@ -99,8 +99,8 @@ import com.amazonaws.services.budgets.model.*;
  * </li>
  * </ul>
  * <p>
- * For information about costs that are associated with the AWS Budgets API, see <a
- * href="https://aws.amazon.com/aws-cost-management/pricing/">AWS Cost Management Pricing</a>.
+ * For information about costs that are associated with the Amazon Web Services Budgets API, see <a
+ * href="https://aws.amazon.com/aws-cost-management/pricing/">Amazon Web Services Cost Management Pricing</a>.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -152,6 +152,33 @@ public interface AWSBudgetsAsync extends AWSBudgets {
      */
     java.util.concurrent.Future<CreateBudgetResult> createBudgetAsync(CreateBudgetRequest createBudgetRequest,
             com.amazonaws.handlers.AsyncHandler<CreateBudgetRequest, CreateBudgetResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a budget action.
+     * </p>
+     * 
+     * @param createBudgetActionRequest
+     * @return A Java Future containing the result of the CreateBudgetAction operation returned by the service.
+     * @sample AWSBudgetsAsync.CreateBudgetAction
+     */
+    java.util.concurrent.Future<CreateBudgetActionResult> createBudgetActionAsync(CreateBudgetActionRequest createBudgetActionRequest);
+
+    /**
+     * <p>
+     * Creates a budget action.
+     * </p>
+     * 
+     * @param createBudgetActionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateBudgetAction operation returned by the service.
+     * @sample AWSBudgetsAsyncHandler.CreateBudgetAction
+     */
+    java.util.concurrent.Future<CreateBudgetActionResult> createBudgetActionAsync(CreateBudgetActionRequest createBudgetActionRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateBudgetActionRequest, CreateBudgetActionResult> asyncHandler);
 
     /**
      * <p>
@@ -249,6 +276,33 @@ public interface AWSBudgetsAsync extends AWSBudgets {
      */
     java.util.concurrent.Future<DeleteBudgetResult> deleteBudgetAsync(DeleteBudgetRequest deleteBudgetRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteBudgetRequest, DeleteBudgetResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a budget action.
+     * </p>
+     * 
+     * @param deleteBudgetActionRequest
+     * @return A Java Future containing the result of the DeleteBudgetAction operation returned by the service.
+     * @sample AWSBudgetsAsync.DeleteBudgetAction
+     */
+    java.util.concurrent.Future<DeleteBudgetActionResult> deleteBudgetActionAsync(DeleteBudgetActionRequest deleteBudgetActionRequest);
+
+    /**
+     * <p>
+     * Deletes a budget action.
+     * </p>
+     * 
+     * @param deleteBudgetActionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteBudgetAction operation returned by the service.
+     * @sample AWSBudgetsAsyncHandler.DeleteBudgetAction
+     */
+    java.util.concurrent.Future<DeleteBudgetActionResult> deleteBudgetActionAsync(DeleteBudgetActionRequest deleteBudgetActionRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteBudgetActionRequest, DeleteBudgetActionResult> asyncHandler);
 
     /**
      * <p>
@@ -372,6 +426,157 @@ public interface AWSBudgetsAsync extends AWSBudgets {
      */
     java.util.concurrent.Future<DescribeBudgetResult> describeBudgetAsync(DescribeBudgetRequest describeBudgetRequest,
             com.amazonaws.handlers.AsyncHandler<DescribeBudgetRequest, DescribeBudgetResult> asyncHandler);
+
+    /**
+     * <p>
+     * Describes a budget action detail.
+     * </p>
+     * 
+     * @param describeBudgetActionRequest
+     * @return A Java Future containing the result of the DescribeBudgetAction operation returned by the service.
+     * @sample AWSBudgetsAsync.DescribeBudgetAction
+     */
+    java.util.concurrent.Future<DescribeBudgetActionResult> describeBudgetActionAsync(DescribeBudgetActionRequest describeBudgetActionRequest);
+
+    /**
+     * <p>
+     * Describes a budget action detail.
+     * </p>
+     * 
+     * @param describeBudgetActionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeBudgetAction operation returned by the service.
+     * @sample AWSBudgetsAsyncHandler.DescribeBudgetAction
+     */
+    java.util.concurrent.Future<DescribeBudgetActionResult> describeBudgetActionAsync(DescribeBudgetActionRequest describeBudgetActionRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeBudgetActionRequest, DescribeBudgetActionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Describes a budget action history detail.
+     * </p>
+     * 
+     * @param describeBudgetActionHistoriesRequest
+     * @return A Java Future containing the result of the DescribeBudgetActionHistories operation returned by the
+     *         service.
+     * @sample AWSBudgetsAsync.DescribeBudgetActionHistories
+     */
+    java.util.concurrent.Future<DescribeBudgetActionHistoriesResult> describeBudgetActionHistoriesAsync(
+            DescribeBudgetActionHistoriesRequest describeBudgetActionHistoriesRequest);
+
+    /**
+     * <p>
+     * Describes a budget action history detail.
+     * </p>
+     * 
+     * @param describeBudgetActionHistoriesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeBudgetActionHistories operation returned by the
+     *         service.
+     * @sample AWSBudgetsAsyncHandler.DescribeBudgetActionHistories
+     */
+    java.util.concurrent.Future<DescribeBudgetActionHistoriesResult> describeBudgetActionHistoriesAsync(
+            DescribeBudgetActionHistoriesRequest describeBudgetActionHistoriesRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeBudgetActionHistoriesRequest, DescribeBudgetActionHistoriesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Describes all of the budget actions for an account.
+     * </p>
+     * 
+     * @param describeBudgetActionsForAccountRequest
+     * @return A Java Future containing the result of the DescribeBudgetActionsForAccount operation returned by the
+     *         service.
+     * @sample AWSBudgetsAsync.DescribeBudgetActionsForAccount
+     */
+    java.util.concurrent.Future<DescribeBudgetActionsForAccountResult> describeBudgetActionsForAccountAsync(
+            DescribeBudgetActionsForAccountRequest describeBudgetActionsForAccountRequest);
+
+    /**
+     * <p>
+     * Describes all of the budget actions for an account.
+     * </p>
+     * 
+     * @param describeBudgetActionsForAccountRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeBudgetActionsForAccount operation returned by the
+     *         service.
+     * @sample AWSBudgetsAsyncHandler.DescribeBudgetActionsForAccount
+     */
+    java.util.concurrent.Future<DescribeBudgetActionsForAccountResult> describeBudgetActionsForAccountAsync(
+            DescribeBudgetActionsForAccountRequest describeBudgetActionsForAccountRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeBudgetActionsForAccountRequest, DescribeBudgetActionsForAccountResult> asyncHandler);
+
+    /**
+     * <p>
+     * Describes all of the budget actions for a budget.
+     * </p>
+     * 
+     * @param describeBudgetActionsForBudgetRequest
+     * @return A Java Future containing the result of the DescribeBudgetActionsForBudget operation returned by the
+     *         service.
+     * @sample AWSBudgetsAsync.DescribeBudgetActionsForBudget
+     */
+    java.util.concurrent.Future<DescribeBudgetActionsForBudgetResult> describeBudgetActionsForBudgetAsync(
+            DescribeBudgetActionsForBudgetRequest describeBudgetActionsForBudgetRequest);
+
+    /**
+     * <p>
+     * Describes all of the budget actions for a budget.
+     * </p>
+     * 
+     * @param describeBudgetActionsForBudgetRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeBudgetActionsForBudget operation returned by the
+     *         service.
+     * @sample AWSBudgetsAsyncHandler.DescribeBudgetActionsForBudget
+     */
+    java.util.concurrent.Future<DescribeBudgetActionsForBudgetResult> describeBudgetActionsForBudgetAsync(
+            DescribeBudgetActionsForBudgetRequest describeBudgetActionsForBudgetRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeBudgetActionsForBudgetRequest, DescribeBudgetActionsForBudgetResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists the budget names and notifications that are associated with an account.
+     * </p>
+     * 
+     * @param describeBudgetNotificationsForAccountRequest
+     * @return A Java Future containing the result of the DescribeBudgetNotificationsForAccount operation returned by
+     *         the service.
+     * @sample AWSBudgetsAsync.DescribeBudgetNotificationsForAccount
+     */
+    java.util.concurrent.Future<DescribeBudgetNotificationsForAccountResult> describeBudgetNotificationsForAccountAsync(
+            DescribeBudgetNotificationsForAccountRequest describeBudgetNotificationsForAccountRequest);
+
+    /**
+     * <p>
+     * Lists the budget names and notifications that are associated with an account.
+     * </p>
+     * 
+     * @param describeBudgetNotificationsForAccountRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeBudgetNotificationsForAccount operation returned by
+     *         the service.
+     * @sample AWSBudgetsAsyncHandler.DescribeBudgetNotificationsForAccount
+     */
+    java.util.concurrent.Future<DescribeBudgetNotificationsForAccountResult> describeBudgetNotificationsForAccountAsync(
+            DescribeBudgetNotificationsForAccountRequest describeBudgetNotificationsForAccountRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeBudgetNotificationsForAccountRequest, DescribeBudgetNotificationsForAccountResult> asyncHandler);
 
     /**
      * <p>
@@ -519,9 +724,117 @@ public interface AWSBudgetsAsync extends AWSBudgets {
 
     /**
      * <p>
+     * Executes a budget action.
+     * </p>
+     * 
+     * @param executeBudgetActionRequest
+     * @return A Java Future containing the result of the ExecuteBudgetAction operation returned by the service.
+     * @sample AWSBudgetsAsync.ExecuteBudgetAction
+     */
+    java.util.concurrent.Future<ExecuteBudgetActionResult> executeBudgetActionAsync(ExecuteBudgetActionRequest executeBudgetActionRequest);
+
+    /**
+     * <p>
+     * Executes a budget action.
+     * </p>
+     * 
+     * @param executeBudgetActionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ExecuteBudgetAction operation returned by the service.
+     * @sample AWSBudgetsAsyncHandler.ExecuteBudgetAction
+     */
+    java.util.concurrent.Future<ExecuteBudgetActionResult> executeBudgetActionAsync(ExecuteBudgetActionRequest executeBudgetActionRequest,
+            com.amazonaws.handlers.AsyncHandler<ExecuteBudgetActionRequest, ExecuteBudgetActionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists tags associated with a budget or budget action resource.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return A Java Future containing the result of the ListTagsForResource operation returned by the service.
+     * @sample AWSBudgetsAsync.ListTagsForResource
+     */
+    java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest listTagsForResourceRequest);
+
+    /**
+     * <p>
+     * Lists tags associated with a budget or budget action resource.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListTagsForResource operation returned by the service.
+     * @sample AWSBudgetsAsyncHandler.ListTagsForResource
+     */
+    java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest listTagsForResourceRequest,
+            com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates tags for a budget or budget action resource.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return A Java Future containing the result of the TagResource operation returned by the service.
+     * @sample AWSBudgetsAsync.TagResource
+     */
+    java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest tagResourceRequest);
+
+    /**
+     * <p>
+     * Creates tags for a budget or budget action resource.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the TagResource operation returned by the service.
+     * @sample AWSBudgetsAsyncHandler.TagResource
+     */
+    java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest tagResourceRequest,
+            com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes tags associated with a budget or budget action resource.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return A Java Future containing the result of the UntagResource operation returned by the service.
+     * @sample AWSBudgetsAsync.UntagResource
+     */
+    java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest untagResourceRequest);
+
+    /**
+     * <p>
+     * Deletes tags associated with a budget or budget action resource.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UntagResource operation returned by the service.
+     * @sample AWSBudgetsAsyncHandler.UntagResource
+     */
+    java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest untagResourceRequest,
+            com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler);
+
+    /**
+     * <p>
      * Updates a budget. You can change every part of a budget except for the <code>budgetName</code> and the
-     * <code>calculatedSpend</code>. When you modify a budget, the <code>calculatedSpend</code> drops to zero until AWS
-     * has new usage data to use for forecasting.
+     * <code>calculatedSpend</code>. When you modify a budget, the <code>calculatedSpend</code> drops to zero until
+     * Amazon Web Services has new usage data to use for forecasting.
      * </p>
      * <important>
      * <p>
@@ -543,8 +856,8 @@ public interface AWSBudgetsAsync extends AWSBudgets {
     /**
      * <p>
      * Updates a budget. You can change every part of a budget except for the <code>budgetName</code> and the
-     * <code>calculatedSpend</code>. When you modify a budget, the <code>calculatedSpend</code> drops to zero until AWS
-     * has new usage data to use for forecasting.
+     * <code>calculatedSpend</code>. When you modify a budget, the <code>calculatedSpend</code> drops to zero until
+     * Amazon Web Services has new usage data to use for forecasting.
      * </p>
      * <important>
      * <p>
@@ -567,6 +880,33 @@ public interface AWSBudgetsAsync extends AWSBudgets {
      */
     java.util.concurrent.Future<UpdateBudgetResult> updateBudgetAsync(UpdateBudgetRequest updateBudgetRequest,
             com.amazonaws.handlers.AsyncHandler<UpdateBudgetRequest, UpdateBudgetResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates a budget action.
+     * </p>
+     * 
+     * @param updateBudgetActionRequest
+     * @return A Java Future containing the result of the UpdateBudgetAction operation returned by the service.
+     * @sample AWSBudgetsAsync.UpdateBudgetAction
+     */
+    java.util.concurrent.Future<UpdateBudgetActionResult> updateBudgetActionAsync(UpdateBudgetActionRequest updateBudgetActionRequest);
+
+    /**
+     * <p>
+     * Updates a budget action.
+     * </p>
+     * 
+     * @param updateBudgetActionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateBudgetAction operation returned by the service.
+     * @sample AWSBudgetsAsyncHandler.UpdateBudgetAction
+     */
+    java.util.concurrent.Future<UpdateBudgetActionResult> updateBudgetActionAsync(UpdateBudgetActionRequest updateBudgetActionRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateBudgetActionRequest, UpdateBudgetActionResult> asyncHandler);
 
     /**
      * <p>

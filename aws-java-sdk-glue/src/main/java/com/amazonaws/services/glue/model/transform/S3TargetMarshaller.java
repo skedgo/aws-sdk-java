@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,6 +32,14 @@ public class S3TargetMarshaller {
             .marshallLocationName("Path").build();
     private static final MarshallingInfo<List> EXCLUSIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Exclusions").build();
+    private static final MarshallingInfo<String> CONNECTIONNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ConnectionName").build();
+    private static final MarshallingInfo<Integer> SAMPLESIZE_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SampleSize").build();
+    private static final MarshallingInfo<String> EVENTQUEUEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EventQueueArn").build();
+    private static final MarshallingInfo<String> DLQEVENTQUEUEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DlqEventQueueArn").build();
 
     private static final S3TargetMarshaller instance = new S3TargetMarshaller();
 
@@ -51,6 +59,10 @@ public class S3TargetMarshaller {
         try {
             protocolMarshaller.marshall(s3Target.getPath(), PATH_BINDING);
             protocolMarshaller.marshall(s3Target.getExclusions(), EXCLUSIONS_BINDING);
+            protocolMarshaller.marshall(s3Target.getConnectionName(), CONNECTIONNAME_BINDING);
+            protocolMarshaller.marshall(s3Target.getSampleSize(), SAMPLESIZE_BINDING);
+            protocolMarshaller.marshall(s3Target.getEventQueueArn(), EVENTQUEUEARN_BINDING);
+            protocolMarshaller.marshall(s3Target.getDlqEventQueueArn(), DLQEVENTQUEUEARN_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

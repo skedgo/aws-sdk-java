@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,27 +33,43 @@ public class UpdateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
     private String content;
     /**
      * <p>
-     * A list of key and value pairs that describe attachments to a version of a document.
+     * A list of key-value pairs that describe attachments to a version of a document.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<AttachmentsSource> attachments;
     /**
      * <p>
-     * The name of the document that you want to update.
+     * The name of the SSM document that you want to update.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * An optional field specifying the version of the artifact you are updating with the document. For example,
-     * "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     * The friendly name of the SSM document that you want to update. This value can differ for each version of the
+     * document. If you don't specify a value for this parameter in your request, the existing value is applied to the
+     * new document version.
+     * </p>
+     */
+    private String displayName;
+    /**
+     * <p>
+     * An optional field specifying the version of the artifact you are updating with the document. For example, 12.6.
+     * This value is unique across all versions of a document, and can't be changed.
      * </p>
      */
     private String versionName;
     /**
      * <p>
-     * The version of the document that you want to update.
+     * The version of the document that you want to update. Currently, Systems Manager supports updating only the latest
+     * version of the document. You can specify the version number of the latest version or use the <code>$LATEST</code>
+     * variable.
      * </p>
+     * <note>
+     * <p>
+     * If you change a document version for a State Manager association, Systems Manager immediately runs the
+     * association unless you previously specifed the <code>apply-only-at-cron-interval</code> parameter.
+     * </p>
+     * </note>
      */
     private String documentVersion;
     /**
@@ -112,10 +128,10 @@ public class UpdateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A list of key and value pairs that describe attachments to a version of a document.
+     * A list of key-value pairs that describe attachments to a version of a document.
      * </p>
      * 
-     * @return A list of key and value pairs that describe attachments to a version of a document.
+     * @return A list of key-value pairs that describe attachments to a version of a document.
      */
 
     public java.util.List<AttachmentsSource> getAttachments() {
@@ -127,11 +143,11 @@ public class UpdateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A list of key and value pairs that describe attachments to a version of a document.
+     * A list of key-value pairs that describe attachments to a version of a document.
      * </p>
      * 
      * @param attachments
-     *        A list of key and value pairs that describe attachments to a version of a document.
+     *        A list of key-value pairs that describe attachments to a version of a document.
      */
 
     public void setAttachments(java.util.Collection<AttachmentsSource> attachments) {
@@ -145,7 +161,7 @@ public class UpdateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A list of key and value pairs that describe attachments to a version of a document.
+     * A list of key-value pairs that describe attachments to a version of a document.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -154,7 +170,7 @@ public class UpdateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      * </p>
      * 
      * @param attachments
-     *        A list of key and value pairs that describe attachments to a version of a document.
+     *        A list of key-value pairs that describe attachments to a version of a document.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -170,11 +186,11 @@ public class UpdateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A list of key and value pairs that describe attachments to a version of a document.
+     * A list of key-value pairs that describe attachments to a version of a document.
      * </p>
      * 
      * @param attachments
-     *        A list of key and value pairs that describe attachments to a version of a document.
+     *        A list of key-value pairs that describe attachments to a version of a document.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -185,11 +201,11 @@ public class UpdateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the document that you want to update.
+     * The name of the SSM document that you want to update.
      * </p>
      * 
      * @param name
-     *        The name of the document that you want to update.
+     *        The name of the SSM document that you want to update.
      */
 
     public void setName(String name) {
@@ -198,10 +214,10 @@ public class UpdateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the document that you want to update.
+     * The name of the SSM document that you want to update.
      * </p>
      * 
-     * @return The name of the document that you want to update.
+     * @return The name of the SSM document that you want to update.
      */
 
     public String getName() {
@@ -210,11 +226,11 @@ public class UpdateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the document that you want to update.
+     * The name of the SSM document that you want to update.
      * </p>
      * 
      * @param name
-     *        The name of the document that you want to update.
+     *        The name of the SSM document that you want to update.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -225,13 +241,65 @@ public class UpdateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * An optional field specifying the version of the artifact you are updating with the document. For example,
-     * "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     * The friendly name of the SSM document that you want to update. This value can differ for each version of the
+     * document. If you don't specify a value for this parameter in your request, the existing value is applied to the
+     * new document version.
+     * </p>
+     * 
+     * @param displayName
+     *        The friendly name of the SSM document that you want to update. This value can differ for each version of
+     *        the document. If you don't specify a value for this parameter in your request, the existing value is
+     *        applied to the new document version.
+     */
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    /**
+     * <p>
+     * The friendly name of the SSM document that you want to update. This value can differ for each version of the
+     * document. If you don't specify a value for this parameter in your request, the existing value is applied to the
+     * new document version.
+     * </p>
+     * 
+     * @return The friendly name of the SSM document that you want to update. This value can differ for each version of
+     *         the document. If you don't specify a value for this parameter in your request, the existing value is
+     *         applied to the new document version.
+     */
+
+    public String getDisplayName() {
+        return this.displayName;
+    }
+
+    /**
+     * <p>
+     * The friendly name of the SSM document that you want to update. This value can differ for each version of the
+     * document. If you don't specify a value for this parameter in your request, the existing value is applied to the
+     * new document version.
+     * </p>
+     * 
+     * @param displayName
+     *        The friendly name of the SSM document that you want to update. This value can differ for each version of
+     *        the document. If you don't specify a value for this parameter in your request, the existing value is
+     *        applied to the new document version.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateDocumentRequest withDisplayName(String displayName) {
+        setDisplayName(displayName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An optional field specifying the version of the artifact you are updating with the document. For example, 12.6.
+     * This value is unique across all versions of a document, and can't be changed.
      * </p>
      * 
      * @param versionName
      *        An optional field specifying the version of the artifact you are updating with the document. For example,
-     *        "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     *        12.6. This value is unique across all versions of a document, and can't be changed.
      */
 
     public void setVersionName(String versionName) {
@@ -240,12 +308,12 @@ public class UpdateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * An optional field specifying the version of the artifact you are updating with the document. For example,
-     * "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     * An optional field specifying the version of the artifact you are updating with the document. For example, 12.6.
+     * This value is unique across all versions of a document, and can't be changed.
      * </p>
      * 
      * @return An optional field specifying the version of the artifact you are updating with the document. For example,
-     *         "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     *         12.6. This value is unique across all versions of a document, and can't be changed.
      */
 
     public String getVersionName() {
@@ -254,13 +322,13 @@ public class UpdateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * An optional field specifying the version of the artifact you are updating with the document. For example,
-     * "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     * An optional field specifying the version of the artifact you are updating with the document. For example, 12.6.
+     * This value is unique across all versions of a document, and can't be changed.
      * </p>
      * 
      * @param versionName
      *        An optional field specifying the version of the artifact you are updating with the document. For example,
-     *        "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     *        12.6. This value is unique across all versions of a document, and can't be changed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -271,11 +339,25 @@ public class UpdateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The version of the document that you want to update.
+     * The version of the document that you want to update. Currently, Systems Manager supports updating only the latest
+     * version of the document. You can specify the version number of the latest version or use the <code>$LATEST</code>
+     * variable.
      * </p>
+     * <note>
+     * <p>
+     * If you change a document version for a State Manager association, Systems Manager immediately runs the
+     * association unless you previously specifed the <code>apply-only-at-cron-interval</code> parameter.
+     * </p>
+     * </note>
      * 
      * @param documentVersion
-     *        The version of the document that you want to update.
+     *        The version of the document that you want to update. Currently, Systems Manager supports updating only the
+     *        latest version of the document. You can specify the version number of the latest version or use the
+     *        <code>$LATEST</code> variable.</p> <note>
+     *        <p>
+     *        If you change a document version for a State Manager association, Systems Manager immediately runs the
+     *        association unless you previously specifed the <code>apply-only-at-cron-interval</code> parameter.
+     *        </p>
      */
 
     public void setDocumentVersion(String documentVersion) {
@@ -284,10 +366,24 @@ public class UpdateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The version of the document that you want to update.
+     * The version of the document that you want to update. Currently, Systems Manager supports updating only the latest
+     * version of the document. You can specify the version number of the latest version or use the <code>$LATEST</code>
+     * variable.
      * </p>
+     * <note>
+     * <p>
+     * If you change a document version for a State Manager association, Systems Manager immediately runs the
+     * association unless you previously specifed the <code>apply-only-at-cron-interval</code> parameter.
+     * </p>
+     * </note>
      * 
-     * @return The version of the document that you want to update.
+     * @return The version of the document that you want to update. Currently, Systems Manager supports updating only
+     *         the latest version of the document. You can specify the version number of the latest version or use the
+     *         <code>$LATEST</code> variable.</p> <note>
+     *         <p>
+     *         If you change a document version for a State Manager association, Systems Manager immediately runs the
+     *         association unless you previously specifed the <code>apply-only-at-cron-interval</code> parameter.
+     *         </p>
      */
 
     public String getDocumentVersion() {
@@ -296,11 +392,25 @@ public class UpdateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The version of the document that you want to update.
+     * The version of the document that you want to update. Currently, Systems Manager supports updating only the latest
+     * version of the document. You can specify the version number of the latest version or use the <code>$LATEST</code>
+     * variable.
      * </p>
+     * <note>
+     * <p>
+     * If you change a document version for a State Manager association, Systems Manager immediately runs the
+     * association unless you previously specifed the <code>apply-only-at-cron-interval</code> parameter.
+     * </p>
+     * </note>
      * 
      * @param documentVersion
-     *        The version of the document that you want to update.
+     *        The version of the document that you want to update. Currently, Systems Manager supports updating only the
+     *        latest version of the document. You can specify the version number of the latest version or use the
+     *        <code>$LATEST</code> variable.</p> <note>
+     *        <p>
+     *        If you change a document version for a State Manager association, Systems Manager immediately runs the
+     *        association unless you previously specifed the <code>apply-only-at-cron-interval</code> parameter.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -434,6 +544,8 @@ public class UpdateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
             sb.append("Attachments: ").append(getAttachments()).append(",");
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
+        if (getDisplayName() != null)
+            sb.append("DisplayName: ").append(getDisplayName()).append(",");
         if (getVersionName() != null)
             sb.append("VersionName: ").append(getVersionName()).append(",");
         if (getDocumentVersion() != null)
@@ -468,6 +580,10 @@ public class UpdateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
             return false;
+        if (other.getDisplayName() == null ^ this.getDisplayName() == null)
+            return false;
+        if (other.getDisplayName() != null && other.getDisplayName().equals(this.getDisplayName()) == false)
+            return false;
         if (other.getVersionName() == null ^ this.getVersionName() == null)
             return false;
         if (other.getVersionName() != null && other.getVersionName().equals(this.getVersionName()) == false)
@@ -495,6 +611,7 @@ public class UpdateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
         hashCode = prime * hashCode + ((getContent() == null) ? 0 : getContent().hashCode());
         hashCode = prime * hashCode + ((getAttachments() == null) ? 0 : getAttachments().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
+        hashCode = prime * hashCode + ((getDisplayName() == null) ? 0 : getDisplayName().hashCode());
         hashCode = prime * hashCode + ((getVersionName() == null) ? 0 : getVersionName().hashCode());
         hashCode = prime * hashCode + ((getDocumentVersion() == null) ? 0 : getDocumentVersion().hashCode());
         hashCode = prime * hashCode + ((getDocumentFormat() == null) ? 0 : getDocumentFormat().hashCode());

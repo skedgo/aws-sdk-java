@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -92,13 +92,23 @@ public class InterconnectJsonUnmarshaller implements Unmarshaller<Interconnect, 
                     context.nextToken();
                     interconnect.setAwsDeviceV2(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("awsLogicalDeviceId", targetDepth)) {
+                    context.nextToken();
+                    interconnect.setAwsLogicalDeviceId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("hasLogicalRedundancy", targetDepth)) {
                     context.nextToken();
                     interconnect.setHasLogicalRedundancy(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("tags", targetDepth)) {
                     context.nextToken();
-                    interconnect.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance()).unmarshall(context));
+                    interconnect.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("providerName", targetDepth)) {
+                    context.nextToken();
+                    interconnect.setProviderName(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

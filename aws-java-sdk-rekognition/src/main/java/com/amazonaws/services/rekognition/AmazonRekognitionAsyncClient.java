@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,8 +31,433 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * notification when an asynchronous operation completes.
  * <p>
  * <p>
- * This is the Amazon Rekognition API reference.
+ * This is the API Reference for <a href="https://docs.aws.amazon.com/rekognition/latest/dg/images.html">Amazon
+ * Rekognition Image</a>, <a href="https://docs.aws.amazon.com/rekognition/latest/customlabels-dg/what-is.html">Amazon
+ * Rekognition Custom Labels</a>, <a href="https://docs.aws.amazon.com/rekognition/latest/dg/video.html">Amazon
+ * Rekognition Stored Video</a>, <a href="https://docs.aws.amazon.com/rekognition/latest/dg/streaming-video.html">Amazon
+ * Rekognition Streaming Video</a>. It provides descriptions of actions, data types, common parameters, and common
+ * errors.
  * </p>
+ * <p>
+ * <b>Amazon Rekognition Image</b>
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_AssociateFaces.html">AssociateFaces</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_CompareFaces.html">CompareFaces</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_CreateCollection.html">CreateCollection</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_CreateUser.html">CreateUser</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DeleteCollection.html">DeleteCollection</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DeleteFaces.html">DeleteFaces</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DeleteUser.html">DeleteUser</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DescribeCollection.html">DescribeCollection</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DetectFaces.html">DetectFaces</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DetectLabels.html">DetectLabels</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DetectModerationLabels.html">
+ * DetectModerationLabels</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DetectProtectiveEquipment.html">
+ * DetectProtectiveEquipment</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DetectText.html">DetectText</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DisassociateFaces.html">DisassociateFaces</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_GetCelebrityInfo.html">GetCelebrityInfo</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_GetMediaAnalysisJob.html">GetMediaAnalysisJob
+ * </a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_IndexFaces.html">IndexFaces</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_ListCollections.html">ListCollections</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_ListMediaAnalysisJob.html">
+ * ListMediaAnalysisJob</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_ListFaces.html">ListFaces</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_ListFaces.html">ListUsers</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_RecognizeCelebrities.html">
+ * RecognizeCelebrities</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_SearchFaces.html">SearchFaces</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_SearchFacesByImage.html">SearchFacesByImage</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_SearchUsers.html">SearchUsers</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_SearchUsersByImage.html">SearchUsersByImage</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StartMediaAnalysisJob.html">
+ * StartMediaAnalysisJob</a>
+ * </p>
+ * </li>
+ * </ul>
+ * <p>
+ * <b>Amazon Rekognition Custom Labels</b>
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_CopyProjectVersion.html">CopyProjectVersion</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_CreateDataset.html">CreateDataset</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_CreateProject.html">CreateProject</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_CreateProjectVersion.html">
+ * CreateProjectVersion</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DeleteDataset.html">DeleteDataset</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DeleteProject.html">DeleteProject</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DeleteProjectPolicy.html">DeleteProjectPolicy
+ * </a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DeleteProjectVersion.html">
+ * DeleteProjectVersion</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DescribeDataset.html">DescribeDataset</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DescribeProjects.html">DescribeProjects</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DescribeProjectVersions.html">
+ * DescribeProjectVersions</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DetectCustomLabels.html">DetectCustomLabels</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DistributeDatasetEntries.html">
+ * DistributeDatasetEntries</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_ListDatasetEntries.html">ListDatasetEntries</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_ListDatasetLabels.html">ListDatasetLabels</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_ListProjectPolicies.html">ListProjectPolicies
+ * </a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_PutProjectPolicy.html">PutProjectPolicy</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StartProjectVersion.html">StartProjectVersion
+ * </a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StopProjectVersion.html">StopProjectVersion</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_UpdateDatasetEntries.html">
+ * UpdateDatasetEntries</a>
+ * </p>
+ * </li>
+ * </ul>
+ * <p>
+ * <b>Amazon Rekognition Video Stored Video</b>
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_GetCelebrityRecognition.html">
+ * GetCelebrityRecognition</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_GetContentModeration.html">
+ * GetContentModeration</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_GetFaceDetection.html">GetFaceDetection</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_GetFaceSearch.html">GetFaceSearch</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_GetLabelDetection.html">GetLabelDetection</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_GetPersonTracking.html">GetPersonTracking</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_GetSegmentDetection.html">GetSegmentDetection
+ * </a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_GetTextDetection.html">GetTextDetection</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StartCelebrityRecognition.html">
+ * StartCelebrityRecognition</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StartContentModeration.html">
+ * StartContentModeration</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StartFaceDetection.html">StartFaceDetection</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StartFaceSearch.html">StartFaceSearch</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StartLabelDetection.html">StartLabelDetection
+ * </a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StartPersonTracking.html">StartPersonTracking
+ * </a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StartSegmentDetection.html">
+ * StartSegmentDetection</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StartTextDetection.html">StartTextDetection</a>
+ * </p>
+ * </li>
+ * </ul>
+ * <p>
+ * <b>Amazon Rekognition Video Streaming Video</b>
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_CreateStreamProcessor.html">
+ * CreateStreamProcessor</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DeleteStreamProcessor.html">
+ * DeleteStreamProcessor</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DescribeStreamProcessor.html">
+ * DescribeStreamProcessor</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_ListStreamProcessors.html">
+ * ListStreamProcessors</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StartStreamProcessor.html">
+ * StartStreamProcessor</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StopStreamProcessor.html">StopStreamProcessor
+ * </a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_UpdateStreamProcessor.html">
+ * UpdateStreamProcessor</a>
+ * </p>
+ * </li>
+ * </ul>
  */
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -231,7 +656,20 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
      *        Object providing client parameters.
      */
     AmazonRekognitionAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Amazon Rekognition using the specified
+     * parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonRekognitionAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -242,6 +680,39 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
      */
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateFacesResult> associateFacesAsync(AssociateFacesRequest request) {
+
+        return associateFacesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateFacesResult> associateFacesAsync(final AssociateFacesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AssociateFacesRequest, AssociateFacesResult> asyncHandler) {
+        final AssociateFacesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AssociateFacesResult>() {
+            @Override
+            public AssociateFacesResult call() throws Exception {
+                AssociateFacesResult result = null;
+
+                try {
+                    result = executeAssociateFaces(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -262,6 +733,39 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
 
                 try {
                     result = executeCompareFaces(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CopyProjectVersionResult> copyProjectVersionAsync(CopyProjectVersionRequest request) {
+
+        return copyProjectVersionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CopyProjectVersionResult> copyProjectVersionAsync(final CopyProjectVersionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CopyProjectVersionRequest, CopyProjectVersionResult> asyncHandler) {
+        final CopyProjectVersionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CopyProjectVersionResult>() {
+            @Override
+            public CopyProjectVersionResult call() throws Exception {
+                CopyProjectVersionResult result = null;
+
+                try {
+                    result = executeCopyProjectVersion(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -311,6 +815,138 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
     }
 
     @Override
+    public java.util.concurrent.Future<CreateDatasetResult> createDatasetAsync(CreateDatasetRequest request) {
+
+        return createDatasetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDatasetResult> createDatasetAsync(final CreateDatasetRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateDatasetRequest, CreateDatasetResult> asyncHandler) {
+        final CreateDatasetRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateDatasetResult>() {
+            @Override
+            public CreateDatasetResult call() throws Exception {
+                CreateDatasetResult result = null;
+
+                try {
+                    result = executeCreateDataset(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFaceLivenessSessionResult> createFaceLivenessSessionAsync(CreateFaceLivenessSessionRequest request) {
+
+        return createFaceLivenessSessionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFaceLivenessSessionResult> createFaceLivenessSessionAsync(final CreateFaceLivenessSessionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateFaceLivenessSessionRequest, CreateFaceLivenessSessionResult> asyncHandler) {
+        final CreateFaceLivenessSessionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateFaceLivenessSessionResult>() {
+            @Override
+            public CreateFaceLivenessSessionResult call() throws Exception {
+                CreateFaceLivenessSessionResult result = null;
+
+                try {
+                    result = executeCreateFaceLivenessSession(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateProjectResult> createProjectAsync(CreateProjectRequest request) {
+
+        return createProjectAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateProjectResult> createProjectAsync(final CreateProjectRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateProjectRequest, CreateProjectResult> asyncHandler) {
+        final CreateProjectRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateProjectResult>() {
+            @Override
+            public CreateProjectResult call() throws Exception {
+                CreateProjectResult result = null;
+
+                try {
+                    result = executeCreateProject(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateProjectVersionResult> createProjectVersionAsync(CreateProjectVersionRequest request) {
+
+        return createProjectVersionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateProjectVersionResult> createProjectVersionAsync(final CreateProjectVersionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateProjectVersionRequest, CreateProjectVersionResult> asyncHandler) {
+        final CreateProjectVersionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateProjectVersionResult>() {
+            @Override
+            public CreateProjectVersionResult call() throws Exception {
+                CreateProjectVersionResult result = null;
+
+                try {
+                    result = executeCreateProjectVersion(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateStreamProcessorResult> createStreamProcessorAsync(CreateStreamProcessorRequest request) {
 
         return createStreamProcessorAsync(request, null);
@@ -328,6 +964,39 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
 
                 try {
                     result = executeCreateStreamProcessor(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateUserResult> createUserAsync(CreateUserRequest request) {
+
+        return createUserAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateUserResult> createUserAsync(final CreateUserRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateUserRequest, CreateUserResult> asyncHandler) {
+        final CreateUserRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateUserResult>() {
+            @Override
+            public CreateUserResult call() throws Exception {
+                CreateUserResult result = null;
+
+                try {
+                    result = executeCreateUser(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -377,6 +1046,39 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteDatasetResult> deleteDatasetAsync(DeleteDatasetRequest request) {
+
+        return deleteDatasetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteDatasetResult> deleteDatasetAsync(final DeleteDatasetRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteDatasetRequest, DeleteDatasetResult> asyncHandler) {
+        final DeleteDatasetRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteDatasetResult>() {
+            @Override
+            public DeleteDatasetResult call() throws Exception {
+                DeleteDatasetResult result = null;
+
+                try {
+                    result = executeDeleteDataset(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteFacesResult> deleteFacesAsync(DeleteFacesRequest request) {
 
         return deleteFacesAsync(request, null);
@@ -394,6 +1096,105 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
 
                 try {
                     result = executeDeleteFaces(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteProjectResult> deleteProjectAsync(DeleteProjectRequest request) {
+
+        return deleteProjectAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteProjectResult> deleteProjectAsync(final DeleteProjectRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteProjectRequest, DeleteProjectResult> asyncHandler) {
+        final DeleteProjectRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteProjectResult>() {
+            @Override
+            public DeleteProjectResult call() throws Exception {
+                DeleteProjectResult result = null;
+
+                try {
+                    result = executeDeleteProject(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteProjectPolicyResult> deleteProjectPolicyAsync(DeleteProjectPolicyRequest request) {
+
+        return deleteProjectPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteProjectPolicyResult> deleteProjectPolicyAsync(final DeleteProjectPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteProjectPolicyRequest, DeleteProjectPolicyResult> asyncHandler) {
+        final DeleteProjectPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteProjectPolicyResult>() {
+            @Override
+            public DeleteProjectPolicyResult call() throws Exception {
+                DeleteProjectPolicyResult result = null;
+
+                try {
+                    result = executeDeleteProjectPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteProjectVersionResult> deleteProjectVersionAsync(DeleteProjectVersionRequest request) {
+
+        return deleteProjectVersionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteProjectVersionResult> deleteProjectVersionAsync(final DeleteProjectVersionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteProjectVersionRequest, DeleteProjectVersionResult> asyncHandler) {
+        final DeleteProjectVersionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteProjectVersionResult>() {
+            @Override
+            public DeleteProjectVersionResult call() throws Exception {
+                DeleteProjectVersionResult result = null;
+
+                try {
+                    result = executeDeleteProjectVersion(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -443,6 +1244,39 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteUserResult> deleteUserAsync(DeleteUserRequest request) {
+
+        return deleteUserAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteUserResult> deleteUserAsync(final DeleteUserRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteUserRequest, DeleteUserResult> asyncHandler) {
+        final DeleteUserRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteUserResult>() {
+            @Override
+            public DeleteUserResult call() throws Exception {
+                DeleteUserResult result = null;
+
+                try {
+                    result = executeDeleteUser(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeCollectionResult> describeCollectionAsync(DescribeCollectionRequest request) {
 
         return describeCollectionAsync(request, null);
@@ -476,6 +1310,105 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeDatasetResult> describeDatasetAsync(DescribeDatasetRequest request) {
+
+        return describeDatasetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDatasetResult> describeDatasetAsync(final DescribeDatasetRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeDatasetRequest, DescribeDatasetResult> asyncHandler) {
+        final DescribeDatasetRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeDatasetResult>() {
+            @Override
+            public DescribeDatasetResult call() throws Exception {
+                DescribeDatasetResult result = null;
+
+                try {
+                    result = executeDescribeDataset(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeProjectVersionsResult> describeProjectVersionsAsync(DescribeProjectVersionsRequest request) {
+
+        return describeProjectVersionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeProjectVersionsResult> describeProjectVersionsAsync(final DescribeProjectVersionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeProjectVersionsRequest, DescribeProjectVersionsResult> asyncHandler) {
+        final DescribeProjectVersionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeProjectVersionsResult>() {
+            @Override
+            public DescribeProjectVersionsResult call() throws Exception {
+                DescribeProjectVersionsResult result = null;
+
+                try {
+                    result = executeDescribeProjectVersions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeProjectsResult> describeProjectsAsync(DescribeProjectsRequest request) {
+
+        return describeProjectsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeProjectsResult> describeProjectsAsync(final DescribeProjectsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeProjectsRequest, DescribeProjectsResult> asyncHandler) {
+        final DescribeProjectsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeProjectsResult>() {
+            @Override
+            public DescribeProjectsResult call() throws Exception {
+                DescribeProjectsResult result = null;
+
+                try {
+                    result = executeDescribeProjects(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeStreamProcessorResult> describeStreamProcessorAsync(DescribeStreamProcessorRequest request) {
 
         return describeStreamProcessorAsync(request, null);
@@ -493,6 +1426,39 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
 
                 try {
                     result = executeDescribeStreamProcessor(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DetectCustomLabelsResult> detectCustomLabelsAsync(DetectCustomLabelsRequest request) {
+
+        return detectCustomLabelsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DetectCustomLabelsResult> detectCustomLabelsAsync(final DetectCustomLabelsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DetectCustomLabelsRequest, DetectCustomLabelsResult> asyncHandler) {
+        final DetectCustomLabelsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DetectCustomLabelsResult>() {
+            @Override
+            public DetectCustomLabelsResult call() throws Exception {
+                DetectCustomLabelsResult result = null;
+
+                try {
+                    result = executeDetectCustomLabels(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -608,6 +1574,39 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
     }
 
     @Override
+    public java.util.concurrent.Future<DetectProtectiveEquipmentResult> detectProtectiveEquipmentAsync(DetectProtectiveEquipmentRequest request) {
+
+        return detectProtectiveEquipmentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DetectProtectiveEquipmentResult> detectProtectiveEquipmentAsync(final DetectProtectiveEquipmentRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DetectProtectiveEquipmentRequest, DetectProtectiveEquipmentResult> asyncHandler) {
+        final DetectProtectiveEquipmentRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DetectProtectiveEquipmentResult>() {
+            @Override
+            public DetectProtectiveEquipmentResult call() throws Exception {
+                DetectProtectiveEquipmentResult result = null;
+
+                try {
+                    result = executeDetectProtectiveEquipment(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DetectTextResult> detectTextAsync(DetectTextRequest request) {
 
         return detectTextAsync(request, null);
@@ -625,6 +1624,72 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
 
                 try {
                     result = executeDetectText(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateFacesResult> disassociateFacesAsync(DisassociateFacesRequest request) {
+
+        return disassociateFacesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateFacesResult> disassociateFacesAsync(final DisassociateFacesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisassociateFacesRequest, DisassociateFacesResult> asyncHandler) {
+        final DisassociateFacesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisassociateFacesResult>() {
+            @Override
+            public DisassociateFacesResult call() throws Exception {
+                DisassociateFacesResult result = null;
+
+                try {
+                    result = executeDisassociateFaces(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DistributeDatasetEntriesResult> distributeDatasetEntriesAsync(DistributeDatasetEntriesRequest request) {
+
+        return distributeDatasetEntriesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DistributeDatasetEntriesResult> distributeDatasetEntriesAsync(final DistributeDatasetEntriesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DistributeDatasetEntriesRequest, DistributeDatasetEntriesResult> asyncHandler) {
+        final DistributeDatasetEntriesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DistributeDatasetEntriesResult>() {
+            @Override
+            public DistributeDatasetEntriesResult call() throws Exception {
+                DistributeDatasetEntriesResult result = null;
+
+                try {
+                    result = executeDistributeDatasetEntries(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -773,6 +1838,40 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
     }
 
     @Override
+    public java.util.concurrent.Future<GetFaceLivenessSessionResultsResult> getFaceLivenessSessionResultsAsync(GetFaceLivenessSessionResultsRequest request) {
+
+        return getFaceLivenessSessionResultsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetFaceLivenessSessionResultsResult> getFaceLivenessSessionResultsAsync(
+            final GetFaceLivenessSessionResultsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetFaceLivenessSessionResultsRequest, GetFaceLivenessSessionResultsResult> asyncHandler) {
+        final GetFaceLivenessSessionResultsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetFaceLivenessSessionResultsResult>() {
+            @Override
+            public GetFaceLivenessSessionResultsResult call() throws Exception {
+                GetFaceLivenessSessionResultsResult result = null;
+
+                try {
+                    result = executeGetFaceLivenessSessionResults(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetFaceSearchResult> getFaceSearchAsync(GetFaceSearchRequest request) {
 
         return getFaceSearchAsync(request, null);
@@ -839,6 +1938,39 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
     }
 
     @Override
+    public java.util.concurrent.Future<GetMediaAnalysisJobResult> getMediaAnalysisJobAsync(GetMediaAnalysisJobRequest request) {
+
+        return getMediaAnalysisJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetMediaAnalysisJobResult> getMediaAnalysisJobAsync(final GetMediaAnalysisJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetMediaAnalysisJobRequest, GetMediaAnalysisJobResult> asyncHandler) {
+        final GetMediaAnalysisJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetMediaAnalysisJobResult>() {
+            @Override
+            public GetMediaAnalysisJobResult call() throws Exception {
+                GetMediaAnalysisJobResult result = null;
+
+                try {
+                    result = executeGetMediaAnalysisJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetPersonTrackingResult> getPersonTrackingAsync(GetPersonTrackingRequest request) {
 
         return getPersonTrackingAsync(request, null);
@@ -856,6 +1988,72 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
 
                 try {
                     result = executeGetPersonTracking(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSegmentDetectionResult> getSegmentDetectionAsync(GetSegmentDetectionRequest request) {
+
+        return getSegmentDetectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSegmentDetectionResult> getSegmentDetectionAsync(final GetSegmentDetectionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetSegmentDetectionRequest, GetSegmentDetectionResult> asyncHandler) {
+        final GetSegmentDetectionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetSegmentDetectionResult>() {
+            @Override
+            public GetSegmentDetectionResult call() throws Exception {
+                GetSegmentDetectionResult result = null;
+
+                try {
+                    result = executeGetSegmentDetection(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetTextDetectionResult> getTextDetectionAsync(GetTextDetectionRequest request) {
+
+        return getTextDetectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetTextDetectionResult> getTextDetectionAsync(final GetTextDetectionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetTextDetectionRequest, GetTextDetectionResult> asyncHandler) {
+        final GetTextDetectionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetTextDetectionResult>() {
+            @Override
+            public GetTextDetectionResult call() throws Exception {
+                GetTextDetectionResult result = null;
+
+                try {
+                    result = executeGetTextDetection(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -938,6 +2136,72 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
     }
 
     @Override
+    public java.util.concurrent.Future<ListDatasetEntriesResult> listDatasetEntriesAsync(ListDatasetEntriesRequest request) {
+
+        return listDatasetEntriesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDatasetEntriesResult> listDatasetEntriesAsync(final ListDatasetEntriesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListDatasetEntriesRequest, ListDatasetEntriesResult> asyncHandler) {
+        final ListDatasetEntriesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListDatasetEntriesResult>() {
+            @Override
+            public ListDatasetEntriesResult call() throws Exception {
+                ListDatasetEntriesResult result = null;
+
+                try {
+                    result = executeListDatasetEntries(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDatasetLabelsResult> listDatasetLabelsAsync(ListDatasetLabelsRequest request) {
+
+        return listDatasetLabelsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDatasetLabelsResult> listDatasetLabelsAsync(final ListDatasetLabelsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListDatasetLabelsRequest, ListDatasetLabelsResult> asyncHandler) {
+        final ListDatasetLabelsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListDatasetLabelsResult>() {
+            @Override
+            public ListDatasetLabelsResult call() throws Exception {
+                ListDatasetLabelsResult result = null;
+
+                try {
+                    result = executeListDatasetLabels(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListFacesResult> listFacesAsync(ListFacesRequest request) {
 
         return listFacesAsync(request, null);
@@ -971,6 +2235,72 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
     }
 
     @Override
+    public java.util.concurrent.Future<ListMediaAnalysisJobsResult> listMediaAnalysisJobsAsync(ListMediaAnalysisJobsRequest request) {
+
+        return listMediaAnalysisJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListMediaAnalysisJobsResult> listMediaAnalysisJobsAsync(final ListMediaAnalysisJobsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListMediaAnalysisJobsRequest, ListMediaAnalysisJobsResult> asyncHandler) {
+        final ListMediaAnalysisJobsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListMediaAnalysisJobsResult>() {
+            @Override
+            public ListMediaAnalysisJobsResult call() throws Exception {
+                ListMediaAnalysisJobsResult result = null;
+
+                try {
+                    result = executeListMediaAnalysisJobs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListProjectPoliciesResult> listProjectPoliciesAsync(ListProjectPoliciesRequest request) {
+
+        return listProjectPoliciesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListProjectPoliciesResult> listProjectPoliciesAsync(final ListProjectPoliciesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListProjectPoliciesRequest, ListProjectPoliciesResult> asyncHandler) {
+        final ListProjectPoliciesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListProjectPoliciesResult>() {
+            @Override
+            public ListProjectPoliciesResult call() throws Exception {
+                ListProjectPoliciesResult result = null;
+
+                try {
+                    result = executeListProjectPolicies(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListStreamProcessorsResult> listStreamProcessorsAsync(ListStreamProcessorsRequest request) {
 
         return listStreamProcessorsAsync(request, null);
@@ -988,6 +2318,105 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
 
                 try {
                     result = executeListStreamProcessors(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(final ListTagsForResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+        final ListTagsForResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListTagsForResourceResult>() {
+            @Override
+            public ListTagsForResourceResult call() throws Exception {
+                ListTagsForResourceResult result = null;
+
+                try {
+                    result = executeListTagsForResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListUsersResult> listUsersAsync(ListUsersRequest request) {
+
+        return listUsersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListUsersResult> listUsersAsync(final ListUsersRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListUsersRequest, ListUsersResult> asyncHandler) {
+        final ListUsersRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListUsersResult>() {
+            @Override
+            public ListUsersResult call() throws Exception {
+                ListUsersResult result = null;
+
+                try {
+                    result = executeListUsers(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutProjectPolicyResult> putProjectPolicyAsync(PutProjectPolicyRequest request) {
+
+        return putProjectPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutProjectPolicyResult> putProjectPolicyAsync(final PutProjectPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutProjectPolicyRequest, PutProjectPolicyResult> asyncHandler) {
+        final PutProjectPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutProjectPolicyResult>() {
+            @Override
+            public PutProjectPolicyResult call() throws Exception {
+                PutProjectPolicyResult result = null;
+
+                try {
+                    result = executePutProjectPolicy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1087,6 +2516,72 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
 
                 try {
                     result = executeSearchFacesByImage(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<SearchUsersResult> searchUsersAsync(SearchUsersRequest request) {
+
+        return searchUsersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SearchUsersResult> searchUsersAsync(final SearchUsersRequest request,
+            final com.amazonaws.handlers.AsyncHandler<SearchUsersRequest, SearchUsersResult> asyncHandler) {
+        final SearchUsersRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<SearchUsersResult>() {
+            @Override
+            public SearchUsersResult call() throws Exception {
+                SearchUsersResult result = null;
+
+                try {
+                    result = executeSearchUsers(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<SearchUsersByImageResult> searchUsersByImageAsync(SearchUsersByImageRequest request) {
+
+        return searchUsersByImageAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SearchUsersByImageResult> searchUsersByImageAsync(final SearchUsersByImageRequest request,
+            final com.amazonaws.handlers.AsyncHandler<SearchUsersByImageRequest, SearchUsersByImageResult> asyncHandler) {
+        final SearchUsersByImageRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<SearchUsersByImageResult>() {
+            @Override
+            public SearchUsersByImageResult call() throws Exception {
+                SearchUsersByImageResult result = null;
+
+                try {
+                    result = executeSearchUsersByImage(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1268,6 +2763,39 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
     }
 
     @Override
+    public java.util.concurrent.Future<StartMediaAnalysisJobResult> startMediaAnalysisJobAsync(StartMediaAnalysisJobRequest request) {
+
+        return startMediaAnalysisJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartMediaAnalysisJobResult> startMediaAnalysisJobAsync(final StartMediaAnalysisJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartMediaAnalysisJobRequest, StartMediaAnalysisJobResult> asyncHandler) {
+        final StartMediaAnalysisJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartMediaAnalysisJobResult>() {
+            @Override
+            public StartMediaAnalysisJobResult call() throws Exception {
+                StartMediaAnalysisJobResult result = null;
+
+                try {
+                    result = executeStartMediaAnalysisJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<StartPersonTrackingResult> startPersonTrackingAsync(StartPersonTrackingRequest request) {
 
         return startPersonTrackingAsync(request, null);
@@ -1285,6 +2813,72 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
 
                 try {
                     result = executeStartPersonTracking(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartProjectVersionResult> startProjectVersionAsync(StartProjectVersionRequest request) {
+
+        return startProjectVersionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartProjectVersionResult> startProjectVersionAsync(final StartProjectVersionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartProjectVersionRequest, StartProjectVersionResult> asyncHandler) {
+        final StartProjectVersionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartProjectVersionResult>() {
+            @Override
+            public StartProjectVersionResult call() throws Exception {
+                StartProjectVersionResult result = null;
+
+                try {
+                    result = executeStartProjectVersion(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartSegmentDetectionResult> startSegmentDetectionAsync(StartSegmentDetectionRequest request) {
+
+        return startSegmentDetectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartSegmentDetectionResult> startSegmentDetectionAsync(final StartSegmentDetectionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartSegmentDetectionRequest, StartSegmentDetectionResult> asyncHandler) {
+        final StartSegmentDetectionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartSegmentDetectionResult>() {
+            @Override
+            public StartSegmentDetectionResult call() throws Exception {
+                StartSegmentDetectionResult result = null;
+
+                try {
+                    result = executeStartSegmentDetection(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1334,6 +2928,72 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
     }
 
     @Override
+    public java.util.concurrent.Future<StartTextDetectionResult> startTextDetectionAsync(StartTextDetectionRequest request) {
+
+        return startTextDetectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartTextDetectionResult> startTextDetectionAsync(final StartTextDetectionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartTextDetectionRequest, StartTextDetectionResult> asyncHandler) {
+        final StartTextDetectionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartTextDetectionResult>() {
+            @Override
+            public StartTextDetectionResult call() throws Exception {
+                StartTextDetectionResult result = null;
+
+                try {
+                    result = executeStartTextDetection(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopProjectVersionResult> stopProjectVersionAsync(StopProjectVersionRequest request) {
+
+        return stopProjectVersionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopProjectVersionResult> stopProjectVersionAsync(final StopProjectVersionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StopProjectVersionRequest, StopProjectVersionResult> asyncHandler) {
+        final StopProjectVersionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StopProjectVersionResult>() {
+            @Override
+            public StopProjectVersionResult call() throws Exception {
+                StopProjectVersionResult result = null;
+
+                try {
+                    result = executeStopProjectVersion(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<StopStreamProcessorResult> stopStreamProcessorAsync(StopStreamProcessorRequest request) {
 
         return stopStreamProcessorAsync(request, null);
@@ -1351,6 +3011,138 @@ public class AmazonRekognitionAsyncClient extends AmazonRekognitionClient implem
 
                 try {
                     result = executeStopStreamProcessor(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(final TagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+        final TagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TagResourceResult>() {
+            @Override
+            public TagResourceResult call() throws Exception {
+                TagResourceResult result = null;
+
+                try {
+                    result = executeTagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(final UntagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+        final UntagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UntagResourceResult>() {
+            @Override
+            public UntagResourceResult call() throws Exception {
+                UntagResourceResult result = null;
+
+                try {
+                    result = executeUntagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDatasetEntriesResult> updateDatasetEntriesAsync(UpdateDatasetEntriesRequest request) {
+
+        return updateDatasetEntriesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDatasetEntriesResult> updateDatasetEntriesAsync(final UpdateDatasetEntriesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateDatasetEntriesRequest, UpdateDatasetEntriesResult> asyncHandler) {
+        final UpdateDatasetEntriesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateDatasetEntriesResult>() {
+            @Override
+            public UpdateDatasetEntriesResult call() throws Exception {
+                UpdateDatasetEntriesResult result = null;
+
+                try {
+                    result = executeUpdateDatasetEntries(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateStreamProcessorResult> updateStreamProcessorAsync(UpdateStreamProcessorRequest request) {
+
+        return updateStreamProcessorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateStreamProcessorResult> updateStreamProcessorAsync(final UpdateStreamProcessorRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateStreamProcessorRequest, UpdateStreamProcessorResult> asyncHandler) {
+        final UpdateStreamProcessorRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateStreamProcessorResult>() {
+            @Override
+            public UpdateStreamProcessorResult call() throws Exception {
+                UpdateStreamProcessorResult result = null;
+
+                try {
+                    result = executeUpdateStreamProcessor(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

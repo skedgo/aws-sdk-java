@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,8 +28,60 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * The email address of the owner to assign to the new member account. This email address must not already be
-     * associated with another AWS account. You must use a valid email address to complete account creation. You can't
-     * access the root user of the account or remove an account that was created with an invalid email address.
+     * associated with another Amazon Web Services account. You must use a valid email address to complete account
+     * creation.
+     * </p>
+     * <p>
+     * The rules for a valid email address:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The address must be a minimum of 6 and a maximum of 64 characters long.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * All characters must be 7-bit ASCII characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * There must be one and only one @ symbol, which separates the local name from the domain name.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The local name can't contain any of the following characters:
+     * </p>
+     * <p>
+     * whitespace, " ' ( ) &lt; &gt; [ ] : ; , \ | % &amp;
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The local name can't begin with a dot (.)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The domain name can consist of only the characters [a-z],[A-Z],[0-9], hyphen (-), or dot (.)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The domain name can't begin or end with a hyphen (-) or dot (.)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The domain name must contain at least one dot
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * You can't access the root user of the account or remove an account that was created with an invalid email
+     * address.
      * </p>
      */
     private String email;
@@ -41,28 +93,37 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String accountName;
     /**
      * <p>
-     * (Optional)
-     * </p>
-     * <p>
-     * The name of an IAM role that AWS Organizations automatically preconfigures in the new member account. This role
-     * trusts the master account, allowing users in the master account to assume the role, as permitted by the master
-     * account administrator. The role has administrator permissions in the new member account.
+     * The name of an IAM role that Organizations automatically preconfigures in the new member account. This role
+     * trusts the management account, allowing users in the management account to assume the role, as permitted by the
+     * management account administrator. The role has administrator permissions in the new member account.
      * </p>
      * <p>
      * If you don't specify this parameter, the role name defaults to <code>OrganizationAccountAccessRole</code>.
      * </p>
      * <p>
-     * For more information about how to use this role to access the member account, see <a href=
-     * "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role"
-     * >Accessing and Administering the Member Accounts in Your Organization</a> in the <i>AWS Organizations User
-     * Guide</i>, and steps 2 and 3 in <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial: Delegate
-     * Access Across AWS Accounts Using IAM Roles</a> in the <i>IAM User Guide.</i>
+     * For more information about how to use this role to access the member account, see the following links:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> that is used to validate this parameter is a
-     * string of characters that can consist of uppercase letters, lowercase letters, digits with no spaces, and any of
-     * the following characters: =,.@-
+     * <a href=
+     * "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role"
+     * >Creating the OrganizationAccountAccessRole in an invited member account</a> in the <i>Organizations User
+     * Guide</i>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Steps 2 and 3 in <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">IAM Tutorial:
+     * Delegate access across Amazon Web Services accounts using IAM roles</a> in the <i>IAM User Guide</i>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> that is used to validate this parameter. The
+     * pattern can include uppercase letters, lowercase letters, digits with no spaces, and any of the following
+     * characters: =,.@-
      * </p>
      */
     private String roleName;
@@ -72,8 +133,8 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
      * they have the required permissions. If set to <code>DENY</code>, only the root user of the new account can access
      * account billing information. For more information, see <a href=
      * "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate"
-     * >Activating Access to the Billing and Cost Management Console</a> in the <i>AWS Billing and Cost Management User
-     * Guide</i>.
+     * >About IAM access to the Billing and Cost Management console</a> in the <i>Amazon Web Services Billing and Cost
+     * Management User Guide</i>.
      * </p>
      * <p>
      * If you don't specify this parameter, the value defaults to <code>ALLOW</code>, and IAM users and roles with the
@@ -81,18 +142,136 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      */
     private String iamUserAccessToBilling;
+    /**
+     * <p>
+     * A list of tags that you want to attach to the newly created account. For each tag in the list, you must specify
+     * both a tag key and a value. You can set the value to an empty string, but you can't set it to <code>null</code>.
+     * For more information about tagging, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html">Tagging Organizations
+     * resources</a> in the Organizations User Guide.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is not valid or if you exceed the maximum allowed number of tags for an account, then the
+     * entire request fails and the account is not created.
+     * </p>
+     * </note>
+     */
+    private java.util.List<Tag> tags;
 
     /**
      * <p>
      * The email address of the owner to assign to the new member account. This email address must not already be
-     * associated with another AWS account. You must use a valid email address to complete account creation. You can't
-     * access the root user of the account or remove an account that was created with an invalid email address.
+     * associated with another Amazon Web Services account. You must use a valid email address to complete account
+     * creation.
+     * </p>
+     * <p>
+     * The rules for a valid email address:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The address must be a minimum of 6 and a maximum of 64 characters long.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * All characters must be 7-bit ASCII characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * There must be one and only one @ symbol, which separates the local name from the domain name.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The local name can't contain any of the following characters:
+     * </p>
+     * <p>
+     * whitespace, " ' ( ) &lt; &gt; [ ] : ; , \ | % &amp;
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The local name can't begin with a dot (.)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The domain name can consist of only the characters [a-z],[A-Z],[0-9], hyphen (-), or dot (.)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The domain name can't begin or end with a hyphen (-) or dot (.)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The domain name must contain at least one dot
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * You can't access the root user of the account or remove an account that was created with an invalid email
+     * address.
      * </p>
      * 
      * @param email
      *        The email address of the owner to assign to the new member account. This email address must not already be
-     *        associated with another AWS account. You must use a valid email address to complete account creation. You
-     *        can't access the root user of the account or remove an account that was created with an invalid email
+     *        associated with another Amazon Web Services account. You must use a valid email address to complete
+     *        account creation.</p>
+     *        <p>
+     *        The rules for a valid email address:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The address must be a minimum of 6 and a maximum of 64 characters long.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        All characters must be 7-bit ASCII characters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        There must be one and only one @ symbol, which separates the local name from the domain name.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The local name can't contain any of the following characters:
+     *        </p>
+     *        <p>
+     *        whitespace, " ' ( ) &lt; &gt; [ ] : ; , \ | % &amp;
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The local name can't begin with a dot (.)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The domain name can consist of only the characters [a-z],[A-Z],[0-9], hyphen (-), or dot (.)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The domain name can't begin or end with a hyphen (-) or dot (.)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The domain name must contain at least one dot
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        You can't access the root user of the account or remove an account that was created with an invalid email
      *        address.
      */
 
@@ -103,12 +282,114 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * The email address of the owner to assign to the new member account. This email address must not already be
-     * associated with another AWS account. You must use a valid email address to complete account creation. You can't
-     * access the root user of the account or remove an account that was created with an invalid email address.
+     * associated with another Amazon Web Services account. You must use a valid email address to complete account
+     * creation.
+     * </p>
+     * <p>
+     * The rules for a valid email address:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The address must be a minimum of 6 and a maximum of 64 characters long.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * All characters must be 7-bit ASCII characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * There must be one and only one @ symbol, which separates the local name from the domain name.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The local name can't contain any of the following characters:
+     * </p>
+     * <p>
+     * whitespace, " ' ( ) &lt; &gt; [ ] : ; , \ | % &amp;
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The local name can't begin with a dot (.)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The domain name can consist of only the characters [a-z],[A-Z],[0-9], hyphen (-), or dot (.)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The domain name can't begin or end with a hyphen (-) or dot (.)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The domain name must contain at least one dot
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * You can't access the root user of the account or remove an account that was created with an invalid email
+     * address.
      * </p>
      * 
      * @return The email address of the owner to assign to the new member account. This email address must not already
-     *         be associated with another AWS account. You must use a valid email address to complete account creation.
+     *         be associated with another Amazon Web Services account. You must use a valid email address to complete
+     *         account creation.</p>
+     *         <p>
+     *         The rules for a valid email address:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         The address must be a minimum of 6 and a maximum of 64 characters long.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         All characters must be 7-bit ASCII characters.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         There must be one and only one @ symbol, which separates the local name from the domain name.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The local name can't contain any of the following characters:
+     *         </p>
+     *         <p>
+     *         whitespace, " ' ( ) &lt; &gt; [ ] : ; , \ | % &amp;
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The local name can't begin with a dot (.)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The domain name can consist of only the characters [a-z],[A-Z],[0-9], hyphen (-), or dot (.)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The domain name can't begin or end with a hyphen (-) or dot (.)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The domain name must contain at least one dot
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
      *         You can't access the root user of the account or remove an account that was created with an invalid email
      *         address.
      */
@@ -120,14 +401,116 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * The email address of the owner to assign to the new member account. This email address must not already be
-     * associated with another AWS account. You must use a valid email address to complete account creation. You can't
-     * access the root user of the account or remove an account that was created with an invalid email address.
+     * associated with another Amazon Web Services account. You must use a valid email address to complete account
+     * creation.
+     * </p>
+     * <p>
+     * The rules for a valid email address:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The address must be a minimum of 6 and a maximum of 64 characters long.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * All characters must be 7-bit ASCII characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * There must be one and only one @ symbol, which separates the local name from the domain name.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The local name can't contain any of the following characters:
+     * </p>
+     * <p>
+     * whitespace, " ' ( ) &lt; &gt; [ ] : ; , \ | % &amp;
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The local name can't begin with a dot (.)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The domain name can consist of only the characters [a-z],[A-Z],[0-9], hyphen (-), or dot (.)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The domain name can't begin or end with a hyphen (-) or dot (.)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The domain name must contain at least one dot
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * You can't access the root user of the account or remove an account that was created with an invalid email
+     * address.
      * </p>
      * 
      * @param email
      *        The email address of the owner to assign to the new member account. This email address must not already be
-     *        associated with another AWS account. You must use a valid email address to complete account creation. You
-     *        can't access the root user of the account or remove an account that was created with an invalid email
+     *        associated with another Amazon Web Services account. You must use a valid email address to complete
+     *        account creation.</p>
+     *        <p>
+     *        The rules for a valid email address:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The address must be a minimum of 6 and a maximum of 64 characters long.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        All characters must be 7-bit ASCII characters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        There must be one and only one @ symbol, which separates the local name from the domain name.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The local name can't contain any of the following characters:
+     *        </p>
+     *        <p>
+     *        whitespace, " ' ( ) &lt; &gt; [ ] : ; , \ | % &amp;
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The local name can't begin with a dot (.)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The domain name can consist of only the characters [a-z],[A-Z],[0-9], hyphen (-), or dot (.)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The domain name can't begin or end with a hyphen (-) or dot (.)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The domain name must contain at least one dot
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        You can't access the root user of the account or remove an account that was created with an invalid email
      *        address.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -179,52 +562,72 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * (Optional)
-     * </p>
-     * <p>
-     * The name of an IAM role that AWS Organizations automatically preconfigures in the new member account. This role
-     * trusts the master account, allowing users in the master account to assume the role, as permitted by the master
-     * account administrator. The role has administrator permissions in the new member account.
+     * The name of an IAM role that Organizations automatically preconfigures in the new member account. This role
+     * trusts the management account, allowing users in the management account to assume the role, as permitted by the
+     * management account administrator. The role has administrator permissions in the new member account.
      * </p>
      * <p>
      * If you don't specify this parameter, the role name defaults to <code>OrganizationAccountAccessRole</code>.
      * </p>
      * <p>
-     * For more information about how to use this role to access the member account, see <a href=
-     * "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role"
-     * >Accessing and Administering the Member Accounts in Your Organization</a> in the <i>AWS Organizations User
-     * Guide</i>, and steps 2 and 3 in <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial: Delegate
-     * Access Across AWS Accounts Using IAM Roles</a> in the <i>IAM User Guide.</i>
+     * For more information about how to use this role to access the member account, see the following links:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> that is used to validate this parameter is a
-     * string of characters that can consist of uppercase letters, lowercase letters, digits with no spaces, and any of
-     * the following characters: =,.@-
+     * <a href=
+     * "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role"
+     * >Creating the OrganizationAccountAccessRole in an invited member account</a> in the <i>Organizations User
+     * Guide</i>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Steps 2 and 3 in <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">IAM Tutorial:
+     * Delegate access across Amazon Web Services accounts using IAM roles</a> in the <i>IAM User Guide</i>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> that is used to validate this parameter. The
+     * pattern can include uppercase letters, lowercase letters, digits with no spaces, and any of the following
+     * characters: =,.@-
      * </p>
      * 
      * @param roleName
-     *        (Optional)</p>
-     *        <p>
-     *        The name of an IAM role that AWS Organizations automatically preconfigures in the new member account. This
-     *        role trusts the master account, allowing users in the master account to assume the role, as permitted by
-     *        the master account administrator. The role has administrator permissions in the new member account.
-     *        </p>
+     *        The name of an IAM role that Organizations automatically preconfigures in the new member account. This
+     *        role trusts the management account, allowing users in the management account to assume the role, as
+     *        permitted by the management account administrator. The role has administrator permissions in the new
+     *        member account.</p>
      *        <p>
      *        If you don't specify this parameter, the role name defaults to <code>OrganizationAccountAccessRole</code>.
      *        </p>
      *        <p>
-     *        For more information about how to use this role to access the member account, see <a href=
-     *        "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role"
-     *        >Accessing and Administering the Member Accounts in Your Organization</a> in the <i>AWS Organizations User
-     *        Guide</i>, and steps 2 and 3 in <a
-     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial:
-     *        Delegate Access Across AWS Accounts Using IAM Roles</a> in the <i>IAM User Guide.</i>
+     *        For more information about how to use this role to access the member account, see the following links:
      *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> that is used to validate this parameter is
-     *        a string of characters that can consist of uppercase letters, lowercase letters, digits with no spaces,
-     *        and any of the following characters: =,.@-
+     *        <a href=
+     *        "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role"
+     *        >Creating the OrganizationAccountAccessRole in an invited member account</a> in the <i>Organizations User
+     *        Guide</i>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Steps 2 and 3 in <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">IAM
+     *        Tutorial: Delegate access across Amazon Web Services accounts using IAM roles</a> in the <i>IAM User
+     *        Guide</i>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> that is used to validate this parameter.
+     *        The pattern can include uppercase letters, lowercase letters, digits with no spaces, and any of the
+     *        following characters: =,.@-
      */
 
     public void setRoleName(String roleName) {
@@ -233,53 +636,72 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * (Optional)
-     * </p>
-     * <p>
-     * The name of an IAM role that AWS Organizations automatically preconfigures in the new member account. This role
-     * trusts the master account, allowing users in the master account to assume the role, as permitted by the master
-     * account administrator. The role has administrator permissions in the new member account.
+     * The name of an IAM role that Organizations automatically preconfigures in the new member account. This role
+     * trusts the management account, allowing users in the management account to assume the role, as permitted by the
+     * management account administrator. The role has administrator permissions in the new member account.
      * </p>
      * <p>
      * If you don't specify this parameter, the role name defaults to <code>OrganizationAccountAccessRole</code>.
      * </p>
      * <p>
-     * For more information about how to use this role to access the member account, see <a href=
-     * "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role"
-     * >Accessing and Administering the Member Accounts in Your Organization</a> in the <i>AWS Organizations User
-     * Guide</i>, and steps 2 and 3 in <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial: Delegate
-     * Access Across AWS Accounts Using IAM Roles</a> in the <i>IAM User Guide.</i>
+     * For more information about how to use this role to access the member account, see the following links:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> that is used to validate this parameter is a
-     * string of characters that can consist of uppercase letters, lowercase letters, digits with no spaces, and any of
-     * the following characters: =,.@-
+     * <a href=
+     * "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role"
+     * >Creating the OrganizationAccountAccessRole in an invited member account</a> in the <i>Organizations User
+     * Guide</i>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Steps 2 and 3 in <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">IAM Tutorial:
+     * Delegate access across Amazon Web Services accounts using IAM roles</a> in the <i>IAM User Guide</i>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> that is used to validate this parameter. The
+     * pattern can include uppercase letters, lowercase letters, digits with no spaces, and any of the following
+     * characters: =,.@-
      * </p>
      * 
-     * @return (Optional)</p>
-     *         <p>
-     *         The name of an IAM role that AWS Organizations automatically preconfigures in the new member account.
-     *         This role trusts the master account, allowing users in the master account to assume the role, as
-     *         permitted by the master account administrator. The role has administrator permissions in the new member
-     *         account.
-     *         </p>
+     * @return The name of an IAM role that Organizations automatically preconfigures in the new member account. This
+     *         role trusts the management account, allowing users in the management account to assume the role, as
+     *         permitted by the management account administrator. The role has administrator permissions in the new
+     *         member account.</p>
      *         <p>
      *         If you don't specify this parameter, the role name defaults to <code>OrganizationAccountAccessRole</code>
      *         .
      *         </p>
      *         <p>
-     *         For more information about how to use this role to access the member account, see <a href=
-     *         "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role"
-     *         >Accessing and Administering the Member Accounts in Your Organization</a> in the <i>AWS Organizations
-     *         User Guide</i>, and steps 2 and 3 in <a
-     *         href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial:
-     *         Delegate Access Across AWS Accounts Using IAM Roles</a> in the <i>IAM User Guide.</i>
+     *         For more information about how to use this role to access the member account, see the following links:
      *         </p>
+     *         <ul>
+     *         <li>
      *         <p>
-     *         The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> that is used to validate this parameter
-     *         is a string of characters that can consist of uppercase letters, lowercase letters, digits with no
-     *         spaces, and any of the following characters: =,.@-
+     *         <a href=
+     *         "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role"
+     *         >Creating the OrganizationAccountAccessRole in an invited member account</a> in the <i>Organizations User
+     *         Guide</i>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Steps 2 and 3 in <a
+     *         href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">IAM
+     *         Tutorial: Delegate access across Amazon Web Services accounts using IAM roles</a> in the <i>IAM User
+     *         Guide</i>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> that is used to validate this parameter.
+     *         The pattern can include uppercase letters, lowercase letters, digits with no spaces, and any of the
+     *         following characters: =,.@-
      */
 
     public String getRoleName() {
@@ -288,52 +710,72 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * (Optional)
-     * </p>
-     * <p>
-     * The name of an IAM role that AWS Organizations automatically preconfigures in the new member account. This role
-     * trusts the master account, allowing users in the master account to assume the role, as permitted by the master
-     * account administrator. The role has administrator permissions in the new member account.
+     * The name of an IAM role that Organizations automatically preconfigures in the new member account. This role
+     * trusts the management account, allowing users in the management account to assume the role, as permitted by the
+     * management account administrator. The role has administrator permissions in the new member account.
      * </p>
      * <p>
      * If you don't specify this parameter, the role name defaults to <code>OrganizationAccountAccessRole</code>.
      * </p>
      * <p>
-     * For more information about how to use this role to access the member account, see <a href=
-     * "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role"
-     * >Accessing and Administering the Member Accounts in Your Organization</a> in the <i>AWS Organizations User
-     * Guide</i>, and steps 2 and 3 in <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial: Delegate
-     * Access Across AWS Accounts Using IAM Roles</a> in the <i>IAM User Guide.</i>
+     * For more information about how to use this role to access the member account, see the following links:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> that is used to validate this parameter is a
-     * string of characters that can consist of uppercase letters, lowercase letters, digits with no spaces, and any of
-     * the following characters: =,.@-
+     * <a href=
+     * "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role"
+     * >Creating the OrganizationAccountAccessRole in an invited member account</a> in the <i>Organizations User
+     * Guide</i>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Steps 2 and 3 in <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">IAM Tutorial:
+     * Delegate access across Amazon Web Services accounts using IAM roles</a> in the <i>IAM User Guide</i>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> that is used to validate this parameter. The
+     * pattern can include uppercase letters, lowercase letters, digits with no spaces, and any of the following
+     * characters: =,.@-
      * </p>
      * 
      * @param roleName
-     *        (Optional)</p>
-     *        <p>
-     *        The name of an IAM role that AWS Organizations automatically preconfigures in the new member account. This
-     *        role trusts the master account, allowing users in the master account to assume the role, as permitted by
-     *        the master account administrator. The role has administrator permissions in the new member account.
-     *        </p>
+     *        The name of an IAM role that Organizations automatically preconfigures in the new member account. This
+     *        role trusts the management account, allowing users in the management account to assume the role, as
+     *        permitted by the management account administrator. The role has administrator permissions in the new
+     *        member account.</p>
      *        <p>
      *        If you don't specify this parameter, the role name defaults to <code>OrganizationAccountAccessRole</code>.
      *        </p>
      *        <p>
-     *        For more information about how to use this role to access the member account, see <a href=
-     *        "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role"
-     *        >Accessing and Administering the Member Accounts in Your Organization</a> in the <i>AWS Organizations User
-     *        Guide</i>, and steps 2 and 3 in <a
-     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial:
-     *        Delegate Access Across AWS Accounts Using IAM Roles</a> in the <i>IAM User Guide.</i>
+     *        For more information about how to use this role to access the member account, see the following links:
      *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> that is used to validate this parameter is
-     *        a string of characters that can consist of uppercase letters, lowercase letters, digits with no spaces,
-     *        and any of the following characters: =,.@-
+     *        <a href=
+     *        "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role"
+     *        >Creating the OrganizationAccountAccessRole in an invited member account</a> in the <i>Organizations User
+     *        Guide</i>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Steps 2 and 3 in <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">IAM
+     *        Tutorial: Delegate access across Amazon Web Services accounts using IAM roles</a> in the <i>IAM User
+     *        Guide</i>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> that is used to validate this parameter.
+     *        The pattern can include uppercase letters, lowercase letters, digits with no spaces, and any of the
+     *        following characters: =,.@-
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -348,8 +790,8 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
      * they have the required permissions. If set to <code>DENY</code>, only the root user of the new account can access
      * account billing information. For more information, see <a href=
      * "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate"
-     * >Activating Access to the Billing and Cost Management Console</a> in the <i>AWS Billing and Cost Management User
-     * Guide</i>.
+     * >About IAM access to the Billing and Cost Management console</a> in the <i>Amazon Web Services Billing and Cost
+     * Management User Guide</i>.
      * </p>
      * <p>
      * If you don't specify this parameter, the value defaults to <code>ALLOW</code>, and IAM users and roles with the
@@ -361,8 +803,8 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <i>if</i> they have the required permissions. If set to <code>DENY</code>, only the root user of the new
      *        account can access account billing information. For more information, see <a href=
      *        "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate"
-     *        >Activating Access to the Billing and Cost Management Console</a> in the <i>AWS Billing and Cost
-     *        Management User Guide</i>.</p>
+     *        >About IAM access to the Billing and Cost Management console</a> in the <i>Amazon Web Services Billing and
+     *        Cost Management User Guide</i>.</p>
      *        <p>
      *        If you don't specify this parameter, the value defaults to <code>ALLOW</code>, and IAM users and roles
      *        with the required permissions can access billing information for the new account.
@@ -379,8 +821,8 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
      * they have the required permissions. If set to <code>DENY</code>, only the root user of the new account can access
      * account billing information. For more information, see <a href=
      * "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate"
-     * >Activating Access to the Billing and Cost Management Console</a> in the <i>AWS Billing and Cost Management User
-     * Guide</i>.
+     * >About IAM access to the Billing and Cost Management console</a> in the <i>Amazon Web Services Billing and Cost
+     * Management User Guide</i>.
      * </p>
      * <p>
      * If you don't specify this parameter, the value defaults to <code>ALLOW</code>, and IAM users and roles with the
@@ -391,8 +833,8 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
      *         <i>if</i> they have the required permissions. If set to <code>DENY</code>, only the root user of the new
      *         account can access account billing information. For more information, see <a href=
      *         "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate"
-     *         >Activating Access to the Billing and Cost Management Console</a> in the <i>AWS Billing and Cost
-     *         Management User Guide</i>.</p>
+     *         >About IAM access to the Billing and Cost Management console</a> in the <i>Amazon Web Services Billing
+     *         and Cost Management User Guide</i>.</p>
      *         <p>
      *         If you don't specify this parameter, the value defaults to <code>ALLOW</code>, and IAM users and roles
      *         with the required permissions can access billing information for the new account.
@@ -409,8 +851,8 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
      * they have the required permissions. If set to <code>DENY</code>, only the root user of the new account can access
      * account billing information. For more information, see <a href=
      * "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate"
-     * >Activating Access to the Billing and Cost Management Console</a> in the <i>AWS Billing and Cost Management User
-     * Guide</i>.
+     * >About IAM access to the Billing and Cost Management console</a> in the <i>Amazon Web Services Billing and Cost
+     * Management User Guide</i>.
      * </p>
      * <p>
      * If you don't specify this parameter, the value defaults to <code>ALLOW</code>, and IAM users and roles with the
@@ -422,8 +864,8 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <i>if</i> they have the required permissions. If set to <code>DENY</code>, only the root user of the new
      *        account can access account billing information. For more information, see <a href=
      *        "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate"
-     *        >Activating Access to the Billing and Cost Management Console</a> in the <i>AWS Billing and Cost
-     *        Management User Guide</i>.</p>
+     *        >About IAM access to the Billing and Cost Management console</a> in the <i>Amazon Web Services Billing and
+     *        Cost Management User Guide</i>.</p>
      *        <p>
      *        If you don't specify this parameter, the value defaults to <code>ALLOW</code>, and IAM users and roles
      *        with the required permissions can access billing information for the new account.
@@ -442,8 +884,8 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
      * they have the required permissions. If set to <code>DENY</code>, only the root user of the new account can access
      * account billing information. For more information, see <a href=
      * "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate"
-     * >Activating Access to the Billing and Cost Management Console</a> in the <i>AWS Billing and Cost Management User
-     * Guide</i>.
+     * >About IAM access to the Billing and Cost Management console</a> in the <i>Amazon Web Services Billing and Cost
+     * Management User Guide</i>.
      * </p>
      * <p>
      * If you don't specify this parameter, the value defaults to <code>ALLOW</code>, and IAM users and roles with the
@@ -455,8 +897,8 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <i>if</i> they have the required permissions. If set to <code>DENY</code>, only the root user of the new
      *        account can access account billing information. For more information, see <a href=
      *        "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate"
-     *        >Activating Access to the Billing and Cost Management Console</a> in the <i>AWS Billing and Cost
-     *        Management User Guide</i>.</p>
+     *        >About IAM access to the Billing and Cost Management console</a> in the <i>Amazon Web Services Billing and
+     *        Cost Management User Guide</i>.</p>
      *        <p>
      *        If you don't specify this parameter, the value defaults to <code>ALLOW</code>, and IAM users and roles
      *        with the required permissions can access billing information for the new account.
@@ -473,8 +915,8 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
      * they have the required permissions. If set to <code>DENY</code>, only the root user of the new account can access
      * account billing information. For more information, see <a href=
      * "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate"
-     * >Activating Access to the Billing and Cost Management Console</a> in the <i>AWS Billing and Cost Management User
-     * Guide</i>.
+     * >About IAM access to the Billing and Cost Management console</a> in the <i>Amazon Web Services Billing and Cost
+     * Management User Guide</i>.
      * </p>
      * <p>
      * If you don't specify this parameter, the value defaults to <code>ALLOW</code>, and IAM users and roles with the
@@ -486,8 +928,8 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <i>if</i> they have the required permissions. If set to <code>DENY</code>, only the root user of the new
      *        account can access account billing information. For more information, see <a href=
      *        "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate"
-     *        >Activating Access to the Billing and Cost Management Console</a> in the <i>AWS Billing and Cost
-     *        Management User Guide</i>.</p>
+     *        >About IAM access to the Billing and Cost Management console</a> in the <i>Amazon Web Services Billing and
+     *        Cost Management User Guide</i>.</p>
      *        <p>
      *        If you don't specify this parameter, the value defaults to <code>ALLOW</code>, and IAM users and roles
      *        with the required permissions can access billing information for the new account.
@@ -497,6 +939,148 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     public CreateAccountRequest withIamUserAccessToBilling(IAMUserAccessToBilling iamUserAccessToBilling) {
         this.iamUserAccessToBilling = iamUserAccessToBilling.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of tags that you want to attach to the newly created account. For each tag in the list, you must specify
+     * both a tag key and a value. You can set the value to an empty string, but you can't set it to <code>null</code>.
+     * For more information about tagging, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html">Tagging Organizations
+     * resources</a> in the Organizations User Guide.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is not valid or if you exceed the maximum allowed number of tags for an account, then the
+     * entire request fails and the account is not created.
+     * </p>
+     * </note>
+     * 
+     * @return A list of tags that you want to attach to the newly created account. For each tag in the list, you must
+     *         specify both a tag key and a value. You can set the value to an empty string, but you can't set it to
+     *         <code>null</code>. For more information about tagging, see <a
+     *         href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html">Tagging Organizations
+     *         resources</a> in the Organizations User Guide.</p> <note>
+     *         <p>
+     *         If any one of the tags is not valid or if you exceed the maximum allowed number of tags for an account,
+     *         then the entire request fails and the account is not created.
+     *         </p>
+     */
+
+    public java.util.List<Tag> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * A list of tags that you want to attach to the newly created account. For each tag in the list, you must specify
+     * both a tag key and a value. You can set the value to an empty string, but you can't set it to <code>null</code>.
+     * For more information about tagging, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html">Tagging Organizations
+     * resources</a> in the Organizations User Guide.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is not valid or if you exceed the maximum allowed number of tags for an account, then the
+     * entire request fails and the account is not created.
+     * </p>
+     * </note>
+     * 
+     * @param tags
+     *        A list of tags that you want to attach to the newly created account. For each tag in the list, you must
+     *        specify both a tag key and a value. You can set the value to an empty string, but you can't set it to
+     *        <code>null</code>. For more information about tagging, see <a
+     *        href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html">Tagging Organizations
+     *        resources</a> in the Organizations User Guide.</p> <note>
+     *        <p>
+     *        If any one of the tags is not valid or if you exceed the maximum allowed number of tags for an account,
+     *        then the entire request fails and the account is not created.
+     *        </p>
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new java.util.ArrayList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * A list of tags that you want to attach to the newly created account. For each tag in the list, you must specify
+     * both a tag key and a value. You can set the value to an empty string, but you can't set it to <code>null</code>.
+     * For more information about tagging, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html">Tagging Organizations
+     * resources</a> in the Organizations User Guide.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is not valid or if you exceed the maximum allowed number of tags for an account, then the
+     * entire request fails and the account is not created.
+     * </p>
+     * </note>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        A list of tags that you want to attach to the newly created account. For each tag in the list, you must
+     *        specify both a tag key and a value. You can set the value to an empty string, but you can't set it to
+     *        <code>null</code>. For more information about tagging, see <a
+     *        href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html">Tagging Organizations
+     *        resources</a> in the Organizations User Guide.</p> <note>
+     *        <p>
+     *        If any one of the tags is not valid or if you exceed the maximum allowed number of tags for an account,
+     *        then the entire request fails and the account is not created.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateAccountRequest withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new java.util.ArrayList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of tags that you want to attach to the newly created account. For each tag in the list, you must specify
+     * both a tag key and a value. You can set the value to an empty string, but you can't set it to <code>null</code>.
+     * For more information about tagging, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html">Tagging Organizations
+     * resources</a> in the Organizations User Guide.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is not valid or if you exceed the maximum allowed number of tags for an account, then the
+     * entire request fails and the account is not created.
+     * </p>
+     * </note>
+     * 
+     * @param tags
+     *        A list of tags that you want to attach to the newly created account. For each tag in the list, you must
+     *        specify both a tag key and a value. You can set the value to an empty string, but you can't set it to
+     *        <code>null</code>. For more information about tagging, see <a
+     *        href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html">Tagging Organizations
+     *        resources</a> in the Organizations User Guide.</p> <note>
+     *        <p>
+     *        If any one of the tags is not valid or if you exceed the maximum allowed number of tags for an account,
+     *        then the entire request fails and the account is not created.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateAccountRequest withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
         return this;
     }
 
@@ -519,7 +1103,9 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (getRoleName() != null)
             sb.append("RoleName: ").append(getRoleName()).append(",");
         if (getIamUserAccessToBilling() != null)
-            sb.append("IamUserAccessToBilling: ").append(getIamUserAccessToBilling());
+            sb.append("IamUserAccessToBilling: ").append(getIamUserAccessToBilling()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -550,6 +1136,10 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getIamUserAccessToBilling() != null && other.getIamUserAccessToBilling().equals(this.getIamUserAccessToBilling()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
         return true;
     }
 
@@ -562,6 +1152,7 @@ public class CreateAccountRequest extends com.amazonaws.AmazonWebServiceRequest 
         hashCode = prime * hashCode + ((getAccountName() == null) ? 0 : getAccountName().hashCode());
         hashCode = prime * hashCode + ((getRoleName() == null) ? 0 : getRoleName().hashCode());
         hashCode = prime * hashCode + ((getIamUserAccessToBilling() == null) ? 0 : getIamUserAccessToBilling().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

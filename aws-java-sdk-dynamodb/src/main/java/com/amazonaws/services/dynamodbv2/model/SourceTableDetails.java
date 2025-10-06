@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,7 +48,7 @@ public class SourceTableDetails implements Serializable, Cloneable, StructuredPo
     private String tableArn;
     /**
      * <p>
-     * Size of the table in bytes. Please note this is an approximate value.
+     * Size of the table in bytes. Note that this is an approximate value.
      * </p>
      */
     private Long tableSizeBytes;
@@ -70,9 +70,11 @@ public class SourceTableDetails implements Serializable, Cloneable, StructuredPo
      * </p>
      */
     private ProvisionedThroughput provisionedThroughput;
+
+    private OnDemandThroughput onDemandThroughput;
     /**
      * <p>
-     * Number of items in the table. Please note this is an approximate value.
+     * Number of items in the table. Note that this is an approximate value.
      * </p>
      */
     private Long itemCount;
@@ -220,11 +222,11 @@ public class SourceTableDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Size of the table in bytes. Please note this is an approximate value.
+     * Size of the table in bytes. Note that this is an approximate value.
      * </p>
      * 
      * @param tableSizeBytes
-     *        Size of the table in bytes. Please note this is an approximate value.
+     *        Size of the table in bytes. Note that this is an approximate value.
      */
 
     public void setTableSizeBytes(Long tableSizeBytes) {
@@ -233,10 +235,10 @@ public class SourceTableDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Size of the table in bytes. Please note this is an approximate value.
+     * Size of the table in bytes. Note that this is an approximate value.
      * </p>
      * 
-     * @return Size of the table in bytes. Please note this is an approximate value.
+     * @return Size of the table in bytes. Note that this is an approximate value.
      */
 
     public Long getTableSizeBytes() {
@@ -245,11 +247,11 @@ public class SourceTableDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Size of the table in bytes. Please note this is an approximate value.
+     * Size of the table in bytes. Note that this is an approximate value.
      * </p>
      * 
      * @param tableSizeBytes
-     *        Size of the table in bytes. Please note this is an approximate value.
+     *        Size of the table in bytes. Note that this is an approximate value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -409,12 +411,38 @@ public class SourceTableDetails implements Serializable, Cloneable, StructuredPo
     }
 
     /**
+     * @param onDemandThroughput
+     */
+
+    public void setOnDemandThroughput(OnDemandThroughput onDemandThroughput) {
+        this.onDemandThroughput = onDemandThroughput;
+    }
+
+    /**
+     * @return
+     */
+
+    public OnDemandThroughput getOnDemandThroughput() {
+        return this.onDemandThroughput;
+    }
+
+    /**
+     * @param onDemandThroughput
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SourceTableDetails withOnDemandThroughput(OnDemandThroughput onDemandThroughput) {
+        setOnDemandThroughput(onDemandThroughput);
+        return this;
+    }
+
+    /**
      * <p>
-     * Number of items in the table. Please note this is an approximate value.
+     * Number of items in the table. Note that this is an approximate value.
      * </p>
      * 
      * @param itemCount
-     *        Number of items in the table. Please note this is an approximate value.
+     *        Number of items in the table. Note that this is an approximate value.
      */
 
     public void setItemCount(Long itemCount) {
@@ -423,10 +451,10 @@ public class SourceTableDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Number of items in the table. Please note this is an approximate value.
+     * Number of items in the table. Note that this is an approximate value.
      * </p>
      * 
-     * @return Number of items in the table. Please note this is an approximate value.
+     * @return Number of items in the table. Note that this is an approximate value.
      */
 
     public Long getItemCount() {
@@ -435,11 +463,11 @@ public class SourceTableDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Number of items in the table. Please note this is an approximate value.
+     * Number of items in the table. Note that this is an approximate value.
      * </p>
      * 
      * @param itemCount
-     *        Number of items in the table. Please note this is an approximate value.
+     *        Number of items in the table. Note that this is an approximate value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -649,6 +677,8 @@ public class SourceTableDetails implements Serializable, Cloneable, StructuredPo
             sb.append("TableCreationDateTime: ").append(getTableCreationDateTime()).append(",");
         if (getProvisionedThroughput() != null)
             sb.append("ProvisionedThroughput: ").append(getProvisionedThroughput()).append(",");
+        if (getOnDemandThroughput() != null)
+            sb.append("OnDemandThroughput: ").append(getOnDemandThroughput()).append(",");
         if (getItemCount() != null)
             sb.append("ItemCount: ").append(getItemCount()).append(",");
         if (getBillingMode() != null)
@@ -695,6 +725,10 @@ public class SourceTableDetails implements Serializable, Cloneable, StructuredPo
             return false;
         if (other.getProvisionedThroughput() != null && other.getProvisionedThroughput().equals(this.getProvisionedThroughput()) == false)
             return false;
+        if (other.getOnDemandThroughput() == null ^ this.getOnDemandThroughput() == null)
+            return false;
+        if (other.getOnDemandThroughput() != null && other.getOnDemandThroughput().equals(this.getOnDemandThroughput()) == false)
+            return false;
         if (other.getItemCount() == null ^ this.getItemCount() == null)
             return false;
         if (other.getItemCount() != null && other.getItemCount().equals(this.getItemCount()) == false)
@@ -718,6 +752,7 @@ public class SourceTableDetails implements Serializable, Cloneable, StructuredPo
         hashCode = prime * hashCode + ((getKeySchema() == null) ? 0 : getKeySchema().hashCode());
         hashCode = prime * hashCode + ((getTableCreationDateTime() == null) ? 0 : getTableCreationDateTime().hashCode());
         hashCode = prime * hashCode + ((getProvisionedThroughput() == null) ? 0 : getProvisionedThroughput().hashCode());
+        hashCode = prime * hashCode + ((getOnDemandThroughput() == null) ? 0 : getOnDemandThroughput().hashCode());
         hashCode = prime * hashCode + ((getItemCount() == null) ? 0 : getItemCount().hashCode());
         hashCode = prime * hashCode + ((getBillingMode() == null) ? 0 : getBillingMode().hashCode());
         return hashCode;

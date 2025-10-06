@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class CreateSnapshotCopyGrantRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The name of the snapshot copy grant. This name must be unique in the region for the AWS account.
+     * The name of the snapshot copy grant. This name must be unique in the region for the Amazon Web Services account.
      * </p>
      * <p>
      * Constraints:
@@ -58,7 +58,7 @@ public class CreateSnapshotCopyGrantRequest extends com.amazonaws.AmazonWebServi
      * </li>
      * <li>
      * <p>
-     * Must be unique for all clusters within an AWS account.
+     * Must be unique for all clusters within an Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -66,7 +66,7 @@ public class CreateSnapshotCopyGrantRequest extends com.amazonaws.AmazonWebServi
     private String snapshotCopyGrantName;
     /**
      * <p>
-     * The unique identifier of the customer master key (CMK) to which to grant Amazon Redshift permission. If no key is
+     * The unique identifier of the encrypted symmetric key to which to grant Amazon Redshift permission. If no key is
      * specified, the default key is used.
      * </p>
      */
@@ -80,7 +80,7 @@ public class CreateSnapshotCopyGrantRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The name of the snapshot copy grant. This name must be unique in the region for the AWS account.
+     * The name of the snapshot copy grant. This name must be unique in the region for the Amazon Web Services account.
      * </p>
      * <p>
      * Constraints:
@@ -108,13 +108,14 @@ public class CreateSnapshotCopyGrantRequest extends com.amazonaws.AmazonWebServi
      * </li>
      * <li>
      * <p>
-     * Must be unique for all clusters within an AWS account.
+     * Must be unique for all clusters within an Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
      * 
      * @param snapshotCopyGrantName
-     *        The name of the snapshot copy grant. This name must be unique in the region for the AWS account.</p>
+     *        The name of the snapshot copy grant. This name must be unique in the region for the Amazon Web Services
+     *        account.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -141,7 +142,7 @@ public class CreateSnapshotCopyGrantRequest extends com.amazonaws.AmazonWebServi
      *        </li>
      *        <li>
      *        <p>
-     *        Must be unique for all clusters within an AWS account.
+     *        Must be unique for all clusters within an Amazon Web Services account.
      *        </p>
      *        </li>
      */
@@ -152,7 +153,7 @@ public class CreateSnapshotCopyGrantRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The name of the snapshot copy grant. This name must be unique in the region for the AWS account.
+     * The name of the snapshot copy grant. This name must be unique in the region for the Amazon Web Services account.
      * </p>
      * <p>
      * Constraints:
@@ -180,12 +181,13 @@ public class CreateSnapshotCopyGrantRequest extends com.amazonaws.AmazonWebServi
      * </li>
      * <li>
      * <p>
-     * Must be unique for all clusters within an AWS account.
+     * Must be unique for all clusters within an Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return The name of the snapshot copy grant. This name must be unique in the region for the AWS account.</p>
+     * @return The name of the snapshot copy grant. This name must be unique in the region for the Amazon Web Services
+     *         account.</p>
      *         <p>
      *         Constraints:
      *         </p>
@@ -212,7 +214,7 @@ public class CreateSnapshotCopyGrantRequest extends com.amazonaws.AmazonWebServi
      *         </li>
      *         <li>
      *         <p>
-     *         Must be unique for all clusters within an AWS account.
+     *         Must be unique for all clusters within an Amazon Web Services account.
      *         </p>
      *         </li>
      */
@@ -223,7 +225,7 @@ public class CreateSnapshotCopyGrantRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The name of the snapshot copy grant. This name must be unique in the region for the AWS account.
+     * The name of the snapshot copy grant. This name must be unique in the region for the Amazon Web Services account.
      * </p>
      * <p>
      * Constraints:
@@ -251,13 +253,14 @@ public class CreateSnapshotCopyGrantRequest extends com.amazonaws.AmazonWebServi
      * </li>
      * <li>
      * <p>
-     * Must be unique for all clusters within an AWS account.
+     * Must be unique for all clusters within an Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
      * 
      * @param snapshotCopyGrantName
-     *        The name of the snapshot copy grant. This name must be unique in the region for the AWS account.</p>
+     *        The name of the snapshot copy grant. This name must be unique in the region for the Amazon Web Services
+     *        account.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -284,7 +287,7 @@ public class CreateSnapshotCopyGrantRequest extends com.amazonaws.AmazonWebServi
      *        </li>
      *        <li>
      *        <p>
-     *        Must be unique for all clusters within an AWS account.
+     *        Must be unique for all clusters within an Amazon Web Services account.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -297,12 +300,12 @@ public class CreateSnapshotCopyGrantRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The unique identifier of the customer master key (CMK) to which to grant Amazon Redshift permission. If no key is
+     * The unique identifier of the encrypted symmetric key to which to grant Amazon Redshift permission. If no key is
      * specified, the default key is used.
      * </p>
      * 
      * @param kmsKeyId
-     *        The unique identifier of the customer master key (CMK) to which to grant Amazon Redshift permission. If no
+     *        The unique identifier of the encrypted symmetric key to which to grant Amazon Redshift permission. If no
      *        key is specified, the default key is used.
      */
 
@@ -312,12 +315,12 @@ public class CreateSnapshotCopyGrantRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The unique identifier of the customer master key (CMK) to which to grant Amazon Redshift permission. If no key is
+     * The unique identifier of the encrypted symmetric key to which to grant Amazon Redshift permission. If no key is
      * specified, the default key is used.
      * </p>
      * 
-     * @return The unique identifier of the customer master key (CMK) to which to grant Amazon Redshift permission. If
-     *         no key is specified, the default key is used.
+     * @return The unique identifier of the encrypted symmetric key to which to grant Amazon Redshift permission. If no
+     *         key is specified, the default key is used.
      */
 
     public String getKmsKeyId() {
@@ -326,12 +329,12 @@ public class CreateSnapshotCopyGrantRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The unique identifier of the customer master key (CMK) to which to grant Amazon Redshift permission. If no key is
+     * The unique identifier of the encrypted symmetric key to which to grant Amazon Redshift permission. If no key is
      * specified, the default key is used.
      * </p>
      * 
      * @param kmsKeyId
-     *        The unique identifier of the customer master key (CMK) to which to grant Amazon Redshift permission. If no
+     *        The unique identifier of the encrypted symmetric key to which to grant Amazon Redshift permission. If no
      *        key is specified, the default key is used.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

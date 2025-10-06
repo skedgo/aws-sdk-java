@@ -26,6 +26,7 @@ import com.amazonaws.codegen.model.service.ServiceMetadata;
 import com.amazonaws.codegen.model.service.ServiceModel;
 import com.amazonaws.codegen.model.service.Shape;
 import com.amazonaws.codegen.model.service.XmlNamespace;
+import com.amazonaws.codegen.utils.ProtocolUtils;
 import com.amazonaws.util.StringUtils;
 
 import java.io.Closeable;
@@ -160,6 +161,36 @@ public class Utils {
                         + dir.getAbsolutePath());
             }
         }
+    }
+
+    public static void deleteDirectoryIfExists(String path) {
+        if (isNullOrEmpty(path)) {
+            throw new IllegalArgumentException(
+                    "Invalid path directory. Path directory cannot be null or empty");
+        }
+        final File dir = new File(path);
+        deleteDirectoryIfExists(dir);
+    }
+
+    public static void deleteDirectoryIfExists(File dir) {
+        if (!dir.exists())
+            return;
+        if (!dir.isDirectory())
+            throw new RuntimeException("Not a directory: " + dir.getAbsolutePath());
+
+        File [] files = dir.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory())
+                    deleteDirectoryIfExists(file);
+                else {
+                    if (!file.delete())
+                        throw new RuntimeException("Failed delete: " + file.getAbsolutePath());
+                }
+            }
+        }
+        if (!dir.delete())
+            throw new RuntimeException("Failed directory delete: " + dir.getAbsolutePath());
     }
 
     public static File createFile(String dir, String fileName) throws IOException {
@@ -314,8 +345,15 @@ public class Utils {
                 marshaller.setXmlNameSpaceUri(xmlNamespace.getUri());
             }
         }
-        if (!StringUtils.isNullOrEmpty(service.getTargetPrefix()) && Metadata.isNotRestProtocol(service.getProtocol())) {
-            marshaller.setTarget(service.getTargetPrefix() + "." + operation.getName());
+        if (!StringUtils.isNullOrEmpty(service.getTargetPrefix())
+                && Metadata.isNotRestProtocol(ProtocolUtils.resolveProtocol(service))) {
+            if (service.getProtocol().equals("smithy-rpc-v2-cbor")) {
+                marshaller.setTarget(operation.getName());
+                // Modeled requestUri must be ignored: RPCv2 doesn't support HTTP bindings other than for the error code
+                marshaller.setRequestUri(String.format("service/%s/operation/%s", service.getTargetPrefix(), operation.getName()));
+            } else {
+                marshaller.setTarget(service.getTargetPrefix() + "." + operation.getName());
+            }
         }
         return marshaller;
 

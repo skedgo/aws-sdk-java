@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,8 @@ public class FirehoseActionMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("deliveryStreamName").build();
     private static final MarshallingInfo<String> SEPARATOR_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("separator").build();
+    private static final MarshallingInfo<StructuredPojo> PAYLOAD_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("payload").build();
 
     private static final FirehoseActionMarshaller instance = new FirehoseActionMarshaller();
 
@@ -50,6 +52,7 @@ public class FirehoseActionMarshaller {
         try {
             protocolMarshaller.marshall(firehoseAction.getDeliveryStreamName(), DELIVERYSTREAMNAME_BINDING);
             protocolMarshaller.marshall(firehoseAction.getSeparator(), SEPARATOR_BINDING);
+            protocolMarshaller.marshall(firehoseAction.getPayload(), PAYLOAD_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

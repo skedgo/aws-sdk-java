@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,6 +28,11 @@ public class AbstractAmazonManagedBlockchain implements AmazonManagedBlockchain 
     }
 
     @Override
+    public CreateAccessorResult createAccessor(CreateAccessorRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateMemberResult createMember(CreateMemberRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -48,12 +53,22 @@ public class AbstractAmazonManagedBlockchain implements AmazonManagedBlockchain 
     }
 
     @Override
+    public DeleteAccessorResult deleteAccessor(DeleteAccessorRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteMemberResult deleteMember(DeleteMemberRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public DeleteNodeResult deleteNode(DeleteNodeRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetAccessorResult getAccessor(GetAccessorRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -74,6 +89,11 @@ public class AbstractAmazonManagedBlockchain implements AmazonManagedBlockchain 
 
     @Override
     public GetProposalResult getProposal(GetProposalRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListAccessorsResult listAccessors(ListAccessorsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -108,7 +128,32 @@ public class AbstractAmazonManagedBlockchain implements AmazonManagedBlockchain 
     }
 
     @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public RejectInvitationResult rejectInvitation(RejectInvitationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateMemberResult updateMember(UpdateMemberRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateNodeResult updateNode(UpdateNodeRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

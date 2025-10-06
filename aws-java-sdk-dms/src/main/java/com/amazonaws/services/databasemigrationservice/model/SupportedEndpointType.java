@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,11 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
- * <p/>
+ * <p>
+ * Provides information about types of supported endpoints in response to a request by the
+ * <code>DescribeEndpointTypes</code> operation. This information includes the type of endpoint, the database engine
+ * name, and whether change data capture (CDC) is supported.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/SupportedEndpointType" target="_top">AWS API
  *      Documentation</a>
@@ -28,14 +32,18 @@ public class SupportedEndpointType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The database engine name. Valid values, depending on the EndpointType, include mysql, oracle, postgres, mariadb,
-     * aurora, aurora-postgresql, redshift, s3, db2, azuredb, sybase, dynamodb, mongodb, and sqlserver.
+     * The database engine name. Valid values, depending on the EndpointType, include <code>"mysql"</code>,
+     * <code>"oracle"</code>, <code>"postgres"</code>, <code>"mariadb"</code>, <code>"aurora"</code>,
+     * <code>"aurora-postgresql"</code>, <code>"redshift"</code>, <code>"s3"</code>, <code>"db2"</code>,
+     * <code>"db2-zos"</code>, <code>"azuredb"</code>, <code>"sybase"</code>, <code>"dynamodb"</code>,
+     * <code>"mongodb"</code>, <code>"kinesis"</code>, <code>"kafka"</code>, <code>"elasticsearch"</code>,
+     * <code>"documentdb"</code>, <code>"sqlserver"</code>, <code>"neptune"</code>, and <code>"babelfish"</code>.
      * </p>
      */
     private String engineName;
     /**
      * <p>
-     * Indicates if Change Data Capture (CDC) is supported.
+     * Indicates if change data capture (CDC) is supported.
      * </p>
      */
     private Boolean supportsCDC;
@@ -47,21 +55,36 @@ public class SupportedEndpointType implements Serializable, Cloneable, Structure
     private String endpointType;
     /**
      * <p>
-     * The expanded name for the engine name. For example, if the <code>EngineName</code> parameter is "aurora," this
-     * value would be "Amazon Aurora MySQL."
+     * The earliest DMS engine version that supports this endpoint engine. Note that endpoint engines released with DMS
+     * versions earlier than 3.1.1 do not return a value for this parameter.
+     * </p>
+     */
+    private String replicationInstanceEngineMinimumVersion;
+    /**
+     * <p>
+     * The expanded name for the engine name. For example, if the <code>EngineName</code> parameter is "aurora", this
+     * value would be "Amazon Aurora MySQL".
      * </p>
      */
     private String engineDisplayName;
 
     /**
      * <p>
-     * The database engine name. Valid values, depending on the EndpointType, include mysql, oracle, postgres, mariadb,
-     * aurora, aurora-postgresql, redshift, s3, db2, azuredb, sybase, dynamodb, mongodb, and sqlserver.
+     * The database engine name. Valid values, depending on the EndpointType, include <code>"mysql"</code>,
+     * <code>"oracle"</code>, <code>"postgres"</code>, <code>"mariadb"</code>, <code>"aurora"</code>,
+     * <code>"aurora-postgresql"</code>, <code>"redshift"</code>, <code>"s3"</code>, <code>"db2"</code>,
+     * <code>"db2-zos"</code>, <code>"azuredb"</code>, <code>"sybase"</code>, <code>"dynamodb"</code>,
+     * <code>"mongodb"</code>, <code>"kinesis"</code>, <code>"kafka"</code>, <code>"elasticsearch"</code>,
+     * <code>"documentdb"</code>, <code>"sqlserver"</code>, <code>"neptune"</code>, and <code>"babelfish"</code>.
      * </p>
      * 
      * @param engineName
-     *        The database engine name. Valid values, depending on the EndpointType, include mysql, oracle, postgres,
-     *        mariadb, aurora, aurora-postgresql, redshift, s3, db2, azuredb, sybase, dynamodb, mongodb, and sqlserver.
+     *        The database engine name. Valid values, depending on the EndpointType, include <code>"mysql"</code>,
+     *        <code>"oracle"</code>, <code>"postgres"</code>, <code>"mariadb"</code>, <code>"aurora"</code>,
+     *        <code>"aurora-postgresql"</code>, <code>"redshift"</code>, <code>"s3"</code>, <code>"db2"</code>,
+     *        <code>"db2-zos"</code>, <code>"azuredb"</code>, <code>"sybase"</code>, <code>"dynamodb"</code>,
+     *        <code>"mongodb"</code>, <code>"kinesis"</code>, <code>"kafka"</code>, <code>"elasticsearch"</code>,
+     *        <code>"documentdb"</code>, <code>"sqlserver"</code>, <code>"neptune"</code>, and <code>"babelfish"</code>.
      */
 
     public void setEngineName(String engineName) {
@@ -70,12 +93,21 @@ public class SupportedEndpointType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The database engine name. Valid values, depending on the EndpointType, include mysql, oracle, postgres, mariadb,
-     * aurora, aurora-postgresql, redshift, s3, db2, azuredb, sybase, dynamodb, mongodb, and sqlserver.
+     * The database engine name. Valid values, depending on the EndpointType, include <code>"mysql"</code>,
+     * <code>"oracle"</code>, <code>"postgres"</code>, <code>"mariadb"</code>, <code>"aurora"</code>,
+     * <code>"aurora-postgresql"</code>, <code>"redshift"</code>, <code>"s3"</code>, <code>"db2"</code>,
+     * <code>"db2-zos"</code>, <code>"azuredb"</code>, <code>"sybase"</code>, <code>"dynamodb"</code>,
+     * <code>"mongodb"</code>, <code>"kinesis"</code>, <code>"kafka"</code>, <code>"elasticsearch"</code>,
+     * <code>"documentdb"</code>, <code>"sqlserver"</code>, <code>"neptune"</code>, and <code>"babelfish"</code>.
      * </p>
      * 
-     * @return The database engine name. Valid values, depending on the EndpointType, include mysql, oracle, postgres,
-     *         mariadb, aurora, aurora-postgresql, redshift, s3, db2, azuredb, sybase, dynamodb, mongodb, and sqlserver.
+     * @return The database engine name. Valid values, depending on the EndpointType, include <code>"mysql"</code>,
+     *         <code>"oracle"</code>, <code>"postgres"</code>, <code>"mariadb"</code>, <code>"aurora"</code>,
+     *         <code>"aurora-postgresql"</code>, <code>"redshift"</code>, <code>"s3"</code>, <code>"db2"</code>,
+     *         <code>"db2-zos"</code>, <code>"azuredb"</code>, <code>"sybase"</code>, <code>"dynamodb"</code>,
+     *         <code>"mongodb"</code>, <code>"kinesis"</code>, <code>"kafka"</code>, <code>"elasticsearch"</code>,
+     *         <code>"documentdb"</code>, <code>"sqlserver"</code>, <code>"neptune"</code>, and <code>"babelfish"</code>
+     *         .
      */
 
     public String getEngineName() {
@@ -84,13 +116,21 @@ public class SupportedEndpointType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The database engine name. Valid values, depending on the EndpointType, include mysql, oracle, postgres, mariadb,
-     * aurora, aurora-postgresql, redshift, s3, db2, azuredb, sybase, dynamodb, mongodb, and sqlserver.
+     * The database engine name. Valid values, depending on the EndpointType, include <code>"mysql"</code>,
+     * <code>"oracle"</code>, <code>"postgres"</code>, <code>"mariadb"</code>, <code>"aurora"</code>,
+     * <code>"aurora-postgresql"</code>, <code>"redshift"</code>, <code>"s3"</code>, <code>"db2"</code>,
+     * <code>"db2-zos"</code>, <code>"azuredb"</code>, <code>"sybase"</code>, <code>"dynamodb"</code>,
+     * <code>"mongodb"</code>, <code>"kinesis"</code>, <code>"kafka"</code>, <code>"elasticsearch"</code>,
+     * <code>"documentdb"</code>, <code>"sqlserver"</code>, <code>"neptune"</code>, and <code>"babelfish"</code>.
      * </p>
      * 
      * @param engineName
-     *        The database engine name. Valid values, depending on the EndpointType, include mysql, oracle, postgres,
-     *        mariadb, aurora, aurora-postgresql, redshift, s3, db2, azuredb, sybase, dynamodb, mongodb, and sqlserver.
+     *        The database engine name. Valid values, depending on the EndpointType, include <code>"mysql"</code>,
+     *        <code>"oracle"</code>, <code>"postgres"</code>, <code>"mariadb"</code>, <code>"aurora"</code>,
+     *        <code>"aurora-postgresql"</code>, <code>"redshift"</code>, <code>"s3"</code>, <code>"db2"</code>,
+     *        <code>"db2-zos"</code>, <code>"azuredb"</code>, <code>"sybase"</code>, <code>"dynamodb"</code>,
+     *        <code>"mongodb"</code>, <code>"kinesis"</code>, <code>"kafka"</code>, <code>"elasticsearch"</code>,
+     *        <code>"documentdb"</code>, <code>"sqlserver"</code>, <code>"neptune"</code>, and <code>"babelfish"</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -101,11 +141,11 @@ public class SupportedEndpointType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * Indicates if Change Data Capture (CDC) is supported.
+     * Indicates if change data capture (CDC) is supported.
      * </p>
      * 
      * @param supportsCDC
-     *        Indicates if Change Data Capture (CDC) is supported.
+     *        Indicates if change data capture (CDC) is supported.
      */
 
     public void setSupportsCDC(Boolean supportsCDC) {
@@ -114,10 +154,10 @@ public class SupportedEndpointType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * Indicates if Change Data Capture (CDC) is supported.
+     * Indicates if change data capture (CDC) is supported.
      * </p>
      * 
-     * @return Indicates if Change Data Capture (CDC) is supported.
+     * @return Indicates if change data capture (CDC) is supported.
      */
 
     public Boolean getSupportsCDC() {
@@ -126,11 +166,11 @@ public class SupportedEndpointType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * Indicates if Change Data Capture (CDC) is supported.
+     * Indicates if change data capture (CDC) is supported.
      * </p>
      * 
      * @param supportsCDC
-     *        Indicates if Change Data Capture (CDC) is supported.
+     *        Indicates if change data capture (CDC) is supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -141,10 +181,10 @@ public class SupportedEndpointType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * Indicates if Change Data Capture (CDC) is supported.
+     * Indicates if change data capture (CDC) is supported.
      * </p>
      * 
-     * @return Indicates if Change Data Capture (CDC) is supported.
+     * @return Indicates if change data capture (CDC) is supported.
      */
 
     public Boolean isSupportsCDC() {
@@ -226,13 +266,59 @@ public class SupportedEndpointType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The expanded name for the engine name. For example, if the <code>EngineName</code> parameter is "aurora," this
-     * value would be "Amazon Aurora MySQL."
+     * The earliest DMS engine version that supports this endpoint engine. Note that endpoint engines released with DMS
+     * versions earlier than 3.1.1 do not return a value for this parameter.
+     * </p>
+     * 
+     * @param replicationInstanceEngineMinimumVersion
+     *        The earliest DMS engine version that supports this endpoint engine. Note that endpoint engines released
+     *        with DMS versions earlier than 3.1.1 do not return a value for this parameter.
+     */
+
+    public void setReplicationInstanceEngineMinimumVersion(String replicationInstanceEngineMinimumVersion) {
+        this.replicationInstanceEngineMinimumVersion = replicationInstanceEngineMinimumVersion;
+    }
+
+    /**
+     * <p>
+     * The earliest DMS engine version that supports this endpoint engine. Note that endpoint engines released with DMS
+     * versions earlier than 3.1.1 do not return a value for this parameter.
+     * </p>
+     * 
+     * @return The earliest DMS engine version that supports this endpoint engine. Note that endpoint engines released
+     *         with DMS versions earlier than 3.1.1 do not return a value for this parameter.
+     */
+
+    public String getReplicationInstanceEngineMinimumVersion() {
+        return this.replicationInstanceEngineMinimumVersion;
+    }
+
+    /**
+     * <p>
+     * The earliest DMS engine version that supports this endpoint engine. Note that endpoint engines released with DMS
+     * versions earlier than 3.1.1 do not return a value for this parameter.
+     * </p>
+     * 
+     * @param replicationInstanceEngineMinimumVersion
+     *        The earliest DMS engine version that supports this endpoint engine. Note that endpoint engines released
+     *        with DMS versions earlier than 3.1.1 do not return a value for this parameter.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SupportedEndpointType withReplicationInstanceEngineMinimumVersion(String replicationInstanceEngineMinimumVersion) {
+        setReplicationInstanceEngineMinimumVersion(replicationInstanceEngineMinimumVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The expanded name for the engine name. For example, if the <code>EngineName</code> parameter is "aurora", this
+     * value would be "Amazon Aurora MySQL".
      * </p>
      * 
      * @param engineDisplayName
-     *        The expanded name for the engine name. For example, if the <code>EngineName</code> parameter is "aurora,"
-     *        this value would be "Amazon Aurora MySQL."
+     *        The expanded name for the engine name. For example, if the <code>EngineName</code> parameter is "aurora",
+     *        this value would be "Amazon Aurora MySQL".
      */
 
     public void setEngineDisplayName(String engineDisplayName) {
@@ -241,12 +327,12 @@ public class SupportedEndpointType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The expanded name for the engine name. For example, if the <code>EngineName</code> parameter is "aurora," this
-     * value would be "Amazon Aurora MySQL."
+     * The expanded name for the engine name. For example, if the <code>EngineName</code> parameter is "aurora", this
+     * value would be "Amazon Aurora MySQL".
      * </p>
      * 
-     * @return The expanded name for the engine name. For example, if the <code>EngineName</code> parameter is "aurora,"
-     *         this value would be "Amazon Aurora MySQL."
+     * @return The expanded name for the engine name. For example, if the <code>EngineName</code> parameter is "aurora",
+     *         this value would be "Amazon Aurora MySQL".
      */
 
     public String getEngineDisplayName() {
@@ -255,13 +341,13 @@ public class SupportedEndpointType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The expanded name for the engine name. For example, if the <code>EngineName</code> parameter is "aurora," this
-     * value would be "Amazon Aurora MySQL."
+     * The expanded name for the engine name. For example, if the <code>EngineName</code> parameter is "aurora", this
+     * value would be "Amazon Aurora MySQL".
      * </p>
      * 
      * @param engineDisplayName
-     *        The expanded name for the engine name. For example, if the <code>EngineName</code> parameter is "aurora,"
-     *        this value would be "Amazon Aurora MySQL."
+     *        The expanded name for the engine name. For example, if the <code>EngineName</code> parameter is "aurora",
+     *        this value would be "Amazon Aurora MySQL".
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -288,6 +374,8 @@ public class SupportedEndpointType implements Serializable, Cloneable, Structure
             sb.append("SupportsCDC: ").append(getSupportsCDC()).append(",");
         if (getEndpointType() != null)
             sb.append("EndpointType: ").append(getEndpointType()).append(",");
+        if (getReplicationInstanceEngineMinimumVersion() != null)
+            sb.append("ReplicationInstanceEngineMinimumVersion: ").append(getReplicationInstanceEngineMinimumVersion()).append(",");
         if (getEngineDisplayName() != null)
             sb.append("EngineDisplayName: ").append(getEngineDisplayName());
         sb.append("}");
@@ -316,6 +404,11 @@ public class SupportedEndpointType implements Serializable, Cloneable, Structure
             return false;
         if (other.getEndpointType() != null && other.getEndpointType().equals(this.getEndpointType()) == false)
             return false;
+        if (other.getReplicationInstanceEngineMinimumVersion() == null ^ this.getReplicationInstanceEngineMinimumVersion() == null)
+            return false;
+        if (other.getReplicationInstanceEngineMinimumVersion() != null
+                && other.getReplicationInstanceEngineMinimumVersion().equals(this.getReplicationInstanceEngineMinimumVersion()) == false)
+            return false;
         if (other.getEngineDisplayName() == null ^ this.getEngineDisplayName() == null)
             return false;
         if (other.getEngineDisplayName() != null && other.getEngineDisplayName().equals(this.getEngineDisplayName()) == false)
@@ -331,6 +424,7 @@ public class SupportedEndpointType implements Serializable, Cloneable, Structure
         hashCode = prime * hashCode + ((getEngineName() == null) ? 0 : getEngineName().hashCode());
         hashCode = prime * hashCode + ((getSupportsCDC() == null) ? 0 : getSupportsCDC().hashCode());
         hashCode = prime * hashCode + ((getEndpointType() == null) ? 0 : getEndpointType().hashCode());
+        hashCode = prime * hashCode + ((getReplicationInstanceEngineMinimumVersion() == null) ? 0 : getReplicationInstanceEngineMinimumVersion().hashCode());
         hashCode = prime * hashCode + ((getEngineDisplayName() == null) ? 0 : getEngineDisplayName().hashCode());
         return hashCode;
     }

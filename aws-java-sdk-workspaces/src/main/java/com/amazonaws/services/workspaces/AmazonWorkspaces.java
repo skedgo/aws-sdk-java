@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,8 +28,27 @@ import com.amazonaws.services.workspaces.model.*;
  * <p>
  * <fullname>Amazon WorkSpaces Service</fullname>
  * <p>
- * Amazon WorkSpaces enables you to provision virtual, cloud-based Microsoft Windows and Amazon Linux desktops for your
- * users.
+ * Amazon WorkSpaces enables you to provision virtual, cloud-based Microsoft Windows or Amazon Linux desktops for your
+ * users, known as <i>WorkSpaces</i>. WorkSpaces eliminates the need to procure and deploy hardware or install complex
+ * software. You can quickly add or remove users as your needs change. Users can access their virtual desktops from
+ * multiple devices or web browsers.
+ * </p>
+ * <p>
+ * This API Reference provides detailed information about the actions, data types, parameters, and errors of the
+ * WorkSpaces service. For more information about the supported Amazon Web Services Regions, endpoints, and service
+ * quotas of the Amazon WorkSpaces service, see <a
+ * href="https://docs.aws.amazon.com/general/latest/gr/wsp.html">WorkSpaces endpoints and quotas</a> in the <i>Amazon
+ * Web Services General Reference</i>.
+ * </p>
+ * <p>
+ * You can also manage your WorkSpaces resources using the WorkSpaces console, Command Line Interface (CLI), and SDKs.
+ * For more information about administering WorkSpaces, see the <a
+ * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/">Amazon WorkSpaces Administration Guide</a>. For more
+ * information about using the Amazon WorkSpaces client application or web browser to access provisioned WorkSpaces, see
+ * the <a href="https://docs.aws.amazon.com/workspaces/latest/userguide/">Amazon WorkSpaces User Guide</a>. For more
+ * information about using the CLI to manage your WorkSpaces resources, see the <a
+ * href="https://docs.aws.amazon.com/cli/latest/reference/workspaces/index.html">WorkSpaces section of the CLI
+ * Reference</a>.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -97,6 +116,71 @@ public interface AmazonWorkspaces {
 
     /**
      * <p>
+     * Accepts the account link invitation.
+     * </p>
+     * <important>
+     * <p>
+     * There's currently no unlinking capability after you accept the account linking invitation.
+     * </p>
+     * </important>
+     * 
+     * @param acceptAccountLinkInvitationRequest
+     * @return Result of the AcceptAccountLinkInvitation operation returned by the service.
+     * @throws ValidationException
+     *         You either haven't provided a <code>TargetAccountId</code> or are using the same value for
+     *         <code>TargetAccountId</code> and <code>SourceAccountId</code>.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws ConflictException
+     *         The <code>TargetAccountId</code> is already linked or invited.
+     * @throws InternalServerException
+     *         Unexpected server error occured.
+     * @sample AmazonWorkspaces.AcceptAccountLinkInvitation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/AcceptAccountLinkInvitation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    AcceptAccountLinkInvitationResult acceptAccountLinkInvitation(AcceptAccountLinkInvitationRequest acceptAccountLinkInvitationRequest);
+
+    /**
+     * <p>
+     * Associates the specified connection alias with the specified directory to enable cross-Region redirection. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html"> Cross-Region
+     * Redirection for Amazon WorkSpaces</a>.
+     * </p>
+     * <note>
+     * <p>
+     * Before performing this operation, call <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeConnectionAliases.html">
+     * DescribeConnectionAliases</a> to make sure that the current state of the connection alias is <code>CREATED</code>
+     * .
+     * </p>
+     * </note>
+     * 
+     * @param associateConnectionAliasRequest
+     * @return Result of the AssociateConnectionAlias operation returned by the service.
+     * @throws ResourceAssociatedException
+     *         The resource is associated with a directory.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.AssociateConnectionAlias
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/AssociateConnectionAlias"
+     *      target="_top">AWS API Documentation</a>
+     */
+    AssociateConnectionAliasResult associateConnectionAlias(AssociateConnectionAliasRequest associateConnectionAliasRequest);
+
+    /**
+     * <p>
      * Associates the specified IP access control group with the specified directory.
      * </p>
      * 
@@ -119,6 +203,39 @@ public interface AmazonWorkspaces {
      *      API Documentation</a>
      */
     AssociateIpGroupsResult associateIpGroups(AssociateIpGroupsRequest associateIpGroupsRequest);
+
+    /**
+     * <p>
+     * Associates the specified application to the specified WorkSpace.
+     * </p>
+     * 
+     * @param associateWorkspaceApplicationRequest
+     * @return Result of the AssociateWorkspaceApplication operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws ResourceInUseException
+     *         The specified resource is currently in use.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ComputeNotCompatibleException
+     *         The compute type of the WorkSpace is not compatible with the application.
+     * @throws OperatingSystemNotCompatibleException
+     *         The operating system of the WorkSpace is not compatible with the application.
+     * @throws ApplicationNotSupportedException
+     *         The specified application is not supported.
+     * @throws IncompatibleApplicationsException
+     *         The specified application is not compatible with the resource.
+     * @sample AmazonWorkspaces.AssociateWorkspaceApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/AssociateWorkspaceApplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    AssociateWorkspaceApplicationResult associateWorkspaceApplication(AssociateWorkspaceApplicationRequest associateWorkspaceApplicationRequest);
 
     /**
      * <p>
@@ -149,8 +266,27 @@ public interface AmazonWorkspaces {
 
     /**
      * <p>
-     * Copies the specified image from the specified Region to the current Region.
+     * Copies the specified image from the specified Region to the current Region. For more information about copying
+     * images, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/copy-custom-image.html"> Copy a
+     * Custom WorkSpaces Image</a>.
      * </p>
+     * <p>
+     * In the China (Ningxia) Region, you can copy images only within the same Region.
+     * </p>
+     * <p>
+     * In Amazon Web Services GovCloud (US), to copy images to and from other Regions, contact Amazon Web Services
+     * Support.
+     * </p>
+     * <important>
+     * <p>
+     * Before copying a shared image, be sure to verify that it has been shared from the correct Amazon Web Services
+     * account. To determine if an image has been shared and to see the ID of the Amazon Web Services account that owns
+     * an image, use the <a href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceImages.html">
+     * DescribeWorkSpaceImages</a> and <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceImagePermissions.html"
+     * >DescribeWorkspaceImagePermissions</a> API operations.
+     * </p>
+     * </important>
      * 
      * @param copyWorkspaceImageRequest
      * @return Result of the CopyWorkspaceImage operation returned by the service.
@@ -173,6 +309,82 @@ public interface AmazonWorkspaces {
      *      API Documentation</a>
      */
     CopyWorkspaceImageResult copyWorkspaceImage(CopyWorkspaceImageRequest copyWorkspaceImageRequest);
+
+    /**
+     * <p>
+     * Creates the account link invitation.
+     * </p>
+     * 
+     * @param createAccountLinkInvitationRequest
+     * @return Result of the CreateAccountLinkInvitation operation returned by the service.
+     * @throws ValidationException
+     *         You either haven't provided a <code>TargetAccountId</code> or are using the same value for
+     *         <code>TargetAccountId</code> and <code>SourceAccountId</code>.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws ConflictException
+     *         The <code>TargetAccountId</code> is already linked or invited.
+     * @throws InternalServerException
+     *         Unexpected server error occured.
+     * @sample AmazonWorkspaces.CreateAccountLinkInvitation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/CreateAccountLinkInvitation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateAccountLinkInvitationResult createAccountLinkInvitation(CreateAccountLinkInvitationRequest createAccountLinkInvitationRequest);
+
+    /**
+     * <p>
+     * Creates a client-add-in for Amazon Connect within a directory. You can create only one Amazon Connect client
+     * add-in within a directory.
+     * </p>
+     * <p>
+     * This client add-in allows WorkSpaces users to seamlessly connect to Amazon Connect.
+     * </p>
+     * 
+     * @param createConnectClientAddInRequest
+     * @return Result of the CreateConnectClientAddIn operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ResourceCreationFailedException
+     *         The resource could not be created.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.CreateConnectClientAddIn
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/CreateConnectClientAddIn"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateConnectClientAddInResult createConnectClientAddIn(CreateConnectClientAddInRequest createConnectClientAddInRequest);
+
+    /**
+     * <p>
+     * Creates the specified connection alias for use with cross-Region redirection. For more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html"> Cross-Region
+     * Redirection for Amazon WorkSpaces</a>.
+     * </p>
+     * 
+     * @param createConnectionAliasRequest
+     * @return Result of the CreateConnectionAlias operation returned by the service.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceLimitExceededException
+     *         Your resource limits have been exceeded.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.CreateConnectionAlias
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/CreateConnectionAlias"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateConnectionAliasResult createConnectionAlias(CreateConnectionAliasRequest createConnectionAliasRequest);
 
     /**
      * <p>
@@ -211,6 +423,29 @@ public interface AmazonWorkspaces {
 
     /**
      * <p>
+     * Creates a standby WorkSpace in a secondary Region.
+     * </p>
+     * 
+     * @param createStandbyWorkspacesRequest
+     * @return Result of the CreateStandbyWorkspaces operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ResourceLimitExceededException
+     *         Your resource limits have been exceeded.
+     * @sample AmazonWorkspaces.CreateStandbyWorkspaces
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/CreateStandbyWorkspaces"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateStandbyWorkspacesResult createStandbyWorkspaces(CreateStandbyWorkspacesRequest createStandbyWorkspacesRequest);
+
+    /**
+     * <p>
      * Creates the specified tags for the specified WorkSpaces resource.
      * </p>
      * 
@@ -230,11 +465,149 @@ public interface AmazonWorkspaces {
 
     /**
      * <p>
+     * Creates a new updated WorkSpace image based on the specified source image. The new updated WorkSpace image has
+     * the latest drivers and other updates required by the Amazon WorkSpaces components.
+     * </p>
+     * <p>
+     * To determine which WorkSpace images need to be updated with the latest Amazon WorkSpaces requirements, use <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceImages.html">
+     * DescribeWorkspaceImages</a>.
+     * </p>
+     * <note>
+     * <ul>
+     * <li>
+     * <p>
+     * Only Windows 10, Windows Server 2016, and Windows Server 2019 WorkSpace images can be programmatically updated at
+     * this time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Microsoft Windows updates and other application updates are not included in the update process.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The source WorkSpace image is not deleted. You can delete the source image after you've verified your new updated
+     * image and created a new bundle.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * 
+     * @param createUpdatedWorkspaceImageRequest
+     * @return Result of the CreateUpdatedWorkspaceImage operation returned by the service.
+     * @throws ResourceLimitExceededException
+     *         Your resource limits have been exceeded.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @sample AmazonWorkspaces.CreateUpdatedWorkspaceImage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/CreateUpdatedWorkspaceImage"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateUpdatedWorkspaceImageResult createUpdatedWorkspaceImage(CreateUpdatedWorkspaceImageRequest createUpdatedWorkspaceImageRequest);
+
+    /**
+     * <p>
+     * Creates the specified WorkSpace bundle. For more information about creating WorkSpace bundles, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/create-custom-bundle.html"> Create a Custom
+     * WorkSpaces Image and Bundle</a>.
+     * </p>
+     * 
+     * @param createWorkspaceBundleRequest
+     * @return Result of the CreateWorkspaceBundle operation returned by the service.
+     * @throws ResourceUnavailableException
+     *         The specified resource is not available.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws ResourceLimitExceededException
+     *         Your resource limits have been exceeded.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.CreateWorkspaceBundle
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/CreateWorkspaceBundle"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateWorkspaceBundleResult createWorkspaceBundle(CreateWorkspaceBundleRequest createWorkspaceBundleRequest);
+
+    /**
+     * <p>
+     * Creates a new WorkSpace image from an existing WorkSpace.
+     * </p>
+     * 
+     * @param createWorkspaceImageRequest
+     * @return Result of the CreateWorkspaceImage operation returned by the service.
+     * @throws ResourceLimitExceededException
+     *         Your resource limits have been exceeded.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @sample AmazonWorkspaces.CreateWorkspaceImage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/CreateWorkspaceImage"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateWorkspaceImageResult createWorkspaceImage(CreateWorkspaceImageRequest createWorkspaceImageRequest);
+
+    /**
+     * <p>
      * Creates one or more WorkSpaces.
      * </p>
      * <p>
      * This operation is asynchronous and returns before the WorkSpaces are created.
      * </p>
+     * <note>
+     * <ul>
+     * <li>
+     * <p>
+     * The <code>MANUAL</code> running mode value is only supported by Amazon WorkSpaces Core. Contact your account team
+     * to be allow-listed to use this value. For more information, see <a
+     * href="http://aws.amazon.com/workspaces/core/">Amazon WorkSpaces Core</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You don't need to specify the <code>PCOIP</code> protocol for Linux bundles because <code>WSP</code> is the
+     * default protocol for those bundles.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * User-decoupled WorkSpaces are only supported by Amazon WorkSpaces Core.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Review your running mode to ensure you are using one that is optimal for your needs and budget. For more
+     * information on switching running modes, see <a href=
+     * "http://aws.amazon.com/workspaces-family/workspaces/faqs/#:~:text=Can%20I%20switch%20between%20hourly%20and%20monthly%20billing%20on%20WorkSpaces%20Personal%3F"
+     * > Can I switch between hourly and monthly billing?</a>
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
      * 
      * @param createWorkspacesRequest
      * @return Result of the CreateWorkspaces operation returned by the service.
@@ -247,6 +620,141 @@ public interface AmazonWorkspaces {
      *      API Documentation</a>
      */
     CreateWorkspacesResult createWorkspaces(CreateWorkspacesRequest createWorkspacesRequest);
+
+    /**
+     * <p>
+     * Creates a pool of WorkSpaces.
+     * </p>
+     * 
+     * @param createWorkspacesPoolRequest
+     * @return Result of the CreateWorkspacesPool operation returned by the service.
+     * @throws ResourceLimitExceededException
+     *         Your resource limits have been exceeded.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.CreateWorkspacesPool
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/CreateWorkspacesPool"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateWorkspacesPoolResult createWorkspacesPool(CreateWorkspacesPoolRequest createWorkspacesPoolRequest);
+
+    /**
+     * <p>
+     * Deletes the account link invitation.
+     * </p>
+     * 
+     * @param deleteAccountLinkInvitationRequest
+     * @return Result of the DeleteAccountLinkInvitation operation returned by the service.
+     * @throws ValidationException
+     *         You either haven't provided a <code>TargetAccountId</code> or are using the same value for
+     *         <code>TargetAccountId</code> and <code>SourceAccountId</code>.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ConflictException
+     *         The <code>TargetAccountId</code> is already linked or invited.
+     * @throws InternalServerException
+     *         Unexpected server error occured.
+     * @sample AmazonWorkspaces.DeleteAccountLinkInvitation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DeleteAccountLinkInvitation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteAccountLinkInvitationResult deleteAccountLinkInvitation(DeleteAccountLinkInvitationRequest deleteAccountLinkInvitationRequest);
+
+    /**
+     * <p>
+     * Deletes customized client branding. Client branding allows you to customize your WorkSpace's client login portal.
+     * You can tailor your login portal company logo, the support email address, support link, link to reset password,
+     * and a custom message for users trying to sign in.
+     * </p>
+     * <p>
+     * After you delete your customized client branding, your login portal reverts to the default client branding.
+     * </p>
+     * 
+     * @param deleteClientBrandingRequest
+     * @return Result of the DeleteClientBranding operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.DeleteClientBranding
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DeleteClientBranding"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteClientBrandingResult deleteClientBranding(DeleteClientBrandingRequest deleteClientBrandingRequest);
+
+    /**
+     * <p>
+     * Deletes a client-add-in for Amazon Connect that is configured within a directory.
+     * </p>
+     * 
+     * @param deleteConnectClientAddInRequest
+     * @return Result of the DeleteConnectClientAddIn operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.DeleteConnectClientAddIn
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DeleteConnectClientAddIn"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteConnectClientAddInResult deleteConnectClientAddIn(DeleteConnectClientAddInRequest deleteConnectClientAddInRequest);
+
+    /**
+     * <p>
+     * Deletes the specified connection alias. For more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html"> Cross-Region
+     * Redirection for Amazon WorkSpaces</a>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>If you will no longer be using a fully qualified domain name (FQDN) as the registration code for your
+     * WorkSpaces users, you must take certain precautions to prevent potential security issues.</b> For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html#cross-region-redirection-security-considerations"
+     * > Security Considerations if You Stop Using Cross-Region Redirection</a>.
+     * </p>
+     * </important> <note>
+     * <p>
+     * To delete a connection alias that has been shared, the shared account must first disassociate the connection
+     * alias from any directories it has been associated with. Then you must unshare the connection alias from the
+     * account it has been shared with. You can delete a connection alias only after it is no longer shared with any
+     * accounts or associated with any directories.
+     * </p>
+     * </note>
+     * 
+     * @param deleteConnectionAliasRequest
+     * @return Result of the DeleteConnectionAlias operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ResourceAssociatedException
+     *         The resource is associated with a directory.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.DeleteConnectionAlias
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DeleteConnectionAlias"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteConnectionAliasResult deleteConnectionAlias(DeleteConnectionAliasRequest deleteConnectionAliasRequest);
 
     /**
      * <p>
@@ -291,8 +799,31 @@ public interface AmazonWorkspaces {
 
     /**
      * <p>
+     * Deletes the specified WorkSpace bundle. For more information about deleting WorkSpace bundles, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/delete_bundle.html"> Delete a Custom WorkSpaces
+     * Bundle or Image</a>.
+     * </p>
+     * 
+     * @param deleteWorkspaceBundleRequest
+     * @return Result of the DeleteWorkspaceBundle operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ResourceAssociatedException
+     *         The resource is associated with a directory.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.DeleteWorkspaceBundle
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DeleteWorkspaceBundle"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteWorkspaceBundleResult deleteWorkspaceBundle(DeleteWorkspaceBundleRequest deleteWorkspaceBundleRequest);
+
+    /**
+     * <p>
      * Deletes the specified image from your account. To delete an image, you must first delete any bundles that are
-     * associated with the image and un-share the image if it is shared with other accounts.
+     * associated with the image and unshare the image if it is shared with other accounts.
      * </p>
      * 
      * @param deleteWorkspaceImageRequest
@@ -311,7 +842,71 @@ public interface AmazonWorkspaces {
 
     /**
      * <p>
-     * Retrieves a list that describes the configuration of bring your own license (BYOL) for the specified account.
+     * Deploys associated applications to the specified WorkSpace
+     * </p>
+     * 
+     * @param deployWorkspaceApplicationsRequest
+     * @return Result of the DeployWorkspaceApplications operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceInUseException
+     *         The specified resource is currently in use.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws IncompatibleApplicationsException
+     *         The specified application is not compatible with the resource.
+     * @sample AmazonWorkspaces.DeployWorkspaceApplications
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DeployWorkspaceApplications"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeployWorkspaceApplicationsResult deployWorkspaceApplications(DeployWorkspaceApplicationsRequest deployWorkspaceApplicationsRequest);
+
+    /**
+     * <p>
+     * Deregisters the specified directory. This operation is asynchronous and returns before the WorkSpace directory is
+     * deregistered. If any WorkSpaces are registered to this directory, you must remove them before you can deregister
+     * the directory.
+     * </p>
+     * <note>
+     * <p>
+     * Simple AD and AD Connector are made available to you free of charge to use with WorkSpaces. If there are no
+     * WorkSpaces being used with your Simple AD or AD Connector directory for 30 consecutive days, this directory will
+     * be automatically deregistered for use with Amazon WorkSpaces, and you will be charged for this directory as per
+     * the <a href="http://aws.amazon.com/directoryservice/pricing/">Directory Service pricing terms</a>.
+     * </p>
+     * <p>
+     * To delete empty directories, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/delete-workspaces-directory.html"> Delete the
+     * Directory for Your WorkSpaces</a>. If you delete your Simple AD or AD Connector directory, you can always create
+     * a new one when you want to start using WorkSpaces again.
+     * </p>
+     * </note>
+     * 
+     * @param deregisterWorkspaceDirectoryRequest
+     * @return Result of the DeregisterWorkspaceDirectory operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @sample AmazonWorkspaces.DeregisterWorkspaceDirectory
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DeregisterWorkspaceDirectory"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeregisterWorkspaceDirectoryResult deregisterWorkspaceDirectory(DeregisterWorkspaceDirectoryRequest deregisterWorkspaceDirectoryRequest);
+
+    /**
+     * <p>
+     * Retrieves a list that describes the configuration of Bring Your Own License (BYOL) for the specified account.
      * </p>
      * 
      * @param describeAccountRequest
@@ -326,7 +921,7 @@ public interface AmazonWorkspaces {
 
     /**
      * <p>
-     * Retrieves a list that describes modifications to the configuration of bring your own license (BYOL) for the
+     * Retrieves a list that describes modifications to the configuration of Bring Your Own License (BYOL) for the
      * specified account.
      * </p>
      * 
@@ -339,6 +934,96 @@ public interface AmazonWorkspaces {
      *      target="_top">AWS API Documentation</a>
      */
     DescribeAccountModificationsResult describeAccountModifications(DescribeAccountModificationsRequest describeAccountModificationsRequest);
+
+    /**
+     * <p>
+     * Describes the associations between the application and the specified associated resources.
+     * </p>
+     * 
+     * @param describeApplicationAssociationsRequest
+     * @return Result of the DescribeApplicationAssociations operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AmazonWorkspaces.DescribeApplicationAssociations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeApplicationAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeApplicationAssociationsResult describeApplicationAssociations(DescribeApplicationAssociationsRequest describeApplicationAssociationsRequest);
+
+    /**
+     * <p>
+     * Describes the specified applications by filtering based on their compute types, license availability, operating
+     * systems, and owners.
+     * </p>
+     * 
+     * @param describeApplicationsRequest
+     * @return Result of the DescribeApplications operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AmazonWorkspaces.DescribeApplications
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeApplications"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeApplicationsResult describeApplications(DescribeApplicationsRequest describeApplicationsRequest);
+
+    /**
+     * <p>
+     * Describes the associations between the applications and the specified bundle.
+     * </p>
+     * 
+     * @param describeBundleAssociationsRequest
+     * @return Result of the DescribeBundleAssociations operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AmazonWorkspaces.DescribeBundleAssociations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeBundleAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeBundleAssociationsResult describeBundleAssociations(DescribeBundleAssociationsRequest describeBundleAssociationsRequest);
+
+    /**
+     * <p>
+     * Describes the specified client branding. Client branding allows you to customize the log in page of various
+     * device types for your users. You can add your company logo, the support email address, support link, link to
+     * reset password, and a custom message for users trying to sign in.
+     * </p>
+     * <note>
+     * <p>
+     * Only device types that have branding information configured will be shown in the response.
+     * </p>
+     * </note>
+     * 
+     * @param describeClientBrandingRequest
+     * @return Result of the DescribeClientBranding operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.DescribeClientBranding
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeClientBranding"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeClientBrandingResult describeClientBranding(DescribeClientBrandingRequest describeClientBrandingRequest);
 
     /**
      * <p>
@@ -358,6 +1043,92 @@ public interface AmazonWorkspaces {
      *      target="_top">AWS API Documentation</a>
      */
     DescribeClientPropertiesResult describeClientProperties(DescribeClientPropertiesRequest describeClientPropertiesRequest);
+
+    /**
+     * <p>
+     * Retrieves a list of Amazon Connect client add-ins that have been created.
+     * </p>
+     * 
+     * @param describeConnectClientAddInsRequest
+     * @return Result of the DescribeConnectClientAddIns operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.DescribeConnectClientAddIns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeConnectClientAddIns"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeConnectClientAddInsResult describeConnectClientAddIns(DescribeConnectClientAddInsRequest describeConnectClientAddInsRequest);
+
+    /**
+     * <p>
+     * Describes the permissions that the owner of a connection alias has granted to another Amazon Web Services account
+     * for the specified connection alias. For more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html"> Cross-Region
+     * Redirection for Amazon WorkSpaces</a>.
+     * </p>
+     * 
+     * @param describeConnectionAliasPermissionsRequest
+     * @return Result of the DescribeConnectionAliasPermissions operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.DescribeConnectionAliasPermissions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeConnectionAliasPermissions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeConnectionAliasPermissionsResult describeConnectionAliasPermissions(
+            DescribeConnectionAliasPermissionsRequest describeConnectionAliasPermissionsRequest);
+
+    /**
+     * <p>
+     * Retrieves a list that describes the connection aliases used for cross-Region redirection. For more information,
+     * see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html">
+     * Cross-Region Redirection for Amazon WorkSpaces</a>.
+     * </p>
+     * 
+     * @param describeConnectionAliasesRequest
+     * @return Result of the DescribeConnectionAliases operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.DescribeConnectionAliases
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeConnectionAliases"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeConnectionAliasesResult describeConnectionAliases(DescribeConnectionAliasesRequest describeConnectionAliasesRequest);
+
+    /**
+     * <p>
+     * Describes the associations between the applications and the specified image.
+     * </p>
+     * 
+     * @param describeImageAssociationsRequest
+     * @return Result of the DescribeImageAssociations operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AmazonWorkspaces.DescribeImageAssociations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeImageAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeImageAssociationsResult describeImageAssociations(DescribeImageAssociationsRequest describeImageAssociationsRequest);
 
     /**
      * <p>
@@ -393,6 +1164,27 @@ public interface AmazonWorkspaces {
 
     /**
      * <p>
+     * Describes the associations betweens applications and the specified WorkSpace.
+     * </p>
+     * 
+     * @param describeWorkspaceAssociationsRequest
+     * @return Result of the DescribeWorkspaceAssociations operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AmazonWorkspaces.DescribeWorkspaceAssociations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeWorkspaceAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeWorkspaceAssociationsResult describeWorkspaceAssociations(DescribeWorkspaceAssociationsRequest describeWorkspaceAssociationsRequest);
+
+    /**
+     * <p>
      * Retrieves a list that describes the available WorkSpace bundles.
      * </p>
      * <p>
@@ -418,7 +1210,7 @@ public interface AmazonWorkspaces {
 
     /**
      * <p>
-     * Describes the available AWS Directory Service directories that are registered with Amazon WorkSpaces.
+     * Describes the available directories that are registered with Amazon WorkSpaces.
      * </p>
      * 
      * @param describeWorkspaceDirectoriesRequest
@@ -440,6 +1232,26 @@ public interface AmazonWorkspaces {
 
     /**
      * <p>
+     * Describes the permissions that the owner of an image has granted to other Amazon Web Services accounts for an
+     * image.
+     * </p>
+     * 
+     * @param describeWorkspaceImagePermissionsRequest
+     * @return Result of the DescribeWorkspaceImagePermissions operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @sample AmazonWorkspaces.DescribeWorkspaceImagePermissions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeWorkspaceImagePermissions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeWorkspaceImagePermissionsResult describeWorkspaceImagePermissions(DescribeWorkspaceImagePermissionsRequest describeWorkspaceImagePermissionsRequest);
+
+    /**
+     * <p>
      * Retrieves a list that describes one or more specified images, if the image identifiers are provided. Otherwise,
      * all images in the account are described.
      * </p>
@@ -453,6 +1265,25 @@ public interface AmazonWorkspaces {
      *      target="_top">AWS API Documentation</a>
      */
     DescribeWorkspaceImagesResult describeWorkspaceImages(DescribeWorkspaceImagesRequest describeWorkspaceImagesRequest);
+
+    /**
+     * <p>
+     * Describes the snapshots for the specified WorkSpace.
+     * </p>
+     * 
+     * @param describeWorkspaceSnapshotsRequest
+     * @return Result of the DescribeWorkspaceSnapshots operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.DescribeWorkspaceSnapshots
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeWorkspaceSnapshots"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeWorkspaceSnapshotsResult describeWorkspaceSnapshots(DescribeWorkspaceSnapshotsRequest describeWorkspaceSnapshotsRequest);
 
     /**
      * <p>
@@ -500,6 +1331,78 @@ public interface AmazonWorkspaces {
 
     /**
      * <p>
+     * Retrieves a list that describes the streaming sessions for a specified pool.
+     * </p>
+     * 
+     * @param describeWorkspacesPoolSessionsRequest
+     * @return Result of the DescribeWorkspacesPoolSessions operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.DescribeWorkspacesPoolSessions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeWorkspacesPoolSessions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeWorkspacesPoolSessionsResult describeWorkspacesPoolSessions(DescribeWorkspacesPoolSessionsRequest describeWorkspacesPoolSessionsRequest);
+
+    /**
+     * <p>
+     * Describes the specified WorkSpaces Pools.
+     * </p>
+     * 
+     * @param describeWorkspacesPoolsRequest
+     * @return Result of the DescribeWorkspacesPools operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.DescribeWorkspacesPools
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeWorkspacesPools"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeWorkspacesPoolsResult describeWorkspacesPools(DescribeWorkspacesPoolsRequest describeWorkspacesPoolsRequest);
+
+    /**
+     * <p>
+     * Disassociates a connection alias from a directory. Disassociating a connection alias disables cross-Region
+     * redirection between two directories in different Regions. For more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html"> Cross-Region
+     * Redirection for Amazon WorkSpaces</a>.
+     * </p>
+     * <note>
+     * <p>
+     * Before performing this operation, call <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeConnectionAliases.html">
+     * DescribeConnectionAliases</a> to make sure that the current state of the connection alias is <code>CREATED</code>
+     * .
+     * </p>
+     * </note>
+     * 
+     * @param disassociateConnectionAliasRequest
+     * @return Result of the DisassociateConnectionAlias operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.DisassociateConnectionAlias
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DisassociateConnectionAlias"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DisassociateConnectionAliasResult disassociateConnectionAlias(DisassociateConnectionAliasRequest disassociateConnectionAliasRequest);
+
+    /**
+     * <p>
      * Disassociates the specified IP access control group from the specified directory.
      * </p>
      * 
@@ -513,6 +1416,8 @@ public interface AmazonWorkspaces {
      *         The state of the resource is not valid for this operation.
      * @throws AccessDeniedException
      *         The user is not authorized to access a resource.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
      * @sample AmazonWorkspaces.DisassociateIpGroups
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DisassociateIpGroups"
      *      target="_top">AWS API Documentation</a>
@@ -521,8 +1426,109 @@ public interface AmazonWorkspaces {
 
     /**
      * <p>
-     * Imports the specified Windows 7 or Windows 10 bring your own license (BYOL) image into Amazon WorkSpaces. The
-     * image must be an already licensed EC2 image that is in your AWS account, and you must own the image.
+     * Disassociates the specified application from a WorkSpace.
+     * </p>
+     * 
+     * @param disassociateWorkspaceApplicationRequest
+     * @return Result of the DisassociateWorkspaceApplication operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceInUseException
+     *         The specified resource is currently in use.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AmazonWorkspaces.DisassociateWorkspaceApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DisassociateWorkspaceApplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DisassociateWorkspaceApplicationResult disassociateWorkspaceApplication(DisassociateWorkspaceApplicationRequest disassociateWorkspaceApplicationRequest);
+
+    /**
+     * <p>
+     * Retrieves account link information.
+     * </p>
+     * 
+     * @param getAccountLinkRequest
+     * @return Result of the GetAccountLink operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws ValidationException
+     *         You either haven't provided a <code>TargetAccountId</code> or are using the same value for
+     *         <code>TargetAccountId</code> and <code>SourceAccountId</code>.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InternalServerException
+     *         Unexpected server error occured.
+     * @sample AmazonWorkspaces.GetAccountLink
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/GetAccountLink" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetAccountLinkResult getAccountLink(GetAccountLinkRequest getAccountLinkRequest);
+
+    /**
+     * <p>
+     * Imports client branding. Client branding allows you to customize your WorkSpace's client login portal. You can
+     * tailor your login portal company logo, the support email address, support link, link to reset password, and a
+     * custom message for users trying to sign in.
+     * </p>
+     * <p>
+     * After you import client branding, the default branding experience for the specified platform type is replaced
+     * with the imported experience
+     * </p>
+     * <note>
+     * <ul>
+     * <li>
+     * <p>
+     * You must specify at least one platform type when importing client branding.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You can import up to 6 MB of data with each request. If your request exceeds this limit, you can import client
+     * branding for different platform types using separate requests.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In each platform type, the <code>SupportEmail</code> and <code>SupportLink</code> parameters are mutually
+     * exclusive. You can specify only one parameter for each platform type, but not both.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Imported data can take up to a minute to appear in the WorkSpaces client.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * 
+     * @param importClientBrandingRequest
+     * @return Result of the ImportClientBranding operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceLimitExceededException
+     *         Your resource limits have been exceeded.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.ImportClientBranding
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/ImportClientBranding"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ImportClientBrandingResult importClientBranding(ImportClientBrandingRequest importClientBrandingRequest);
+
+    /**
+     * <p>
+     * Imports the specified Windows 10 or 11 Bring Your Own License (BYOL) image into Amazon WorkSpaces. The image must
+     * be an already licensed Amazon EC2 image that is in your Amazon Web Services account, and you must own the image.
+     * For more information about creating BYOL images, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html"> Bring Your Own Windows
+     * Desktop Licenses</a>.
      * </p>
      * 
      * @param importWorkspaceImageRequest
@@ -547,8 +1553,32 @@ public interface AmazonWorkspaces {
 
     /**
      * <p>
+     * Lists all account links.
+     * </p>
+     * 
+     * @param listAccountLinksRequest
+     * @return Result of the ListAccountLinks operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws ValidationException
+     *         You either haven't provided a <code>TargetAccountId</code> or are using the same value for
+     *         <code>TargetAccountId</code> and <code>SourceAccountId</code>.
+     * @throws InternalServerException
+     *         Unexpected server error occured.
+     * @sample AmazonWorkspaces.ListAccountLinks
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/ListAccountLinks" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ListAccountLinksResult listAccountLinks(ListAccountLinksRequest listAccountLinksRequest);
+
+    /**
+     * <p>
      * Retrieves a list of IP address ranges, specified as IPv4 CIDR blocks, that you can use for the network management
-     * interface when you enable bring your own license (BYOL).
+     * interface when you enable Bring Your Own License (BYOL).
+     * </p>
+     * <p>
+     * This operation can be run only by Amazon Web Services accounts that are enabled for BYOL. If your account isn't
+     * enabled for BYOL, you'll receive an <code>AccessDeniedException</code> error.
      * </p>
      * <p>
      * The management network interface is connected to a secure Amazon WorkSpaces management network. It is used for
@@ -570,7 +1600,44 @@ public interface AmazonWorkspaces {
 
     /**
      * <p>
-     * Modifies the configuration of bring your own license (BYOL) for the specified account.
+     * Migrates a WorkSpace from one operating system or bundle type to another, while retaining the data on the user
+     * volume.
+     * </p>
+     * <p>
+     * The migration process recreates the WorkSpace by using a new root volume from the target bundle image and the
+     * user volume from the last available snapshot of the original WorkSpace. During migration, the original
+     * <code>D:\Users\%USERNAME%</code> user profile folder is renamed to
+     * <code>D:\Users\%USERNAME%MMddyyTHHmmss%.NotMigrated</code>. A new <code>D:\Users\%USERNAME%\</code> folder is
+     * generated by the new OS. Certain files in the old user profile are moved to the new user profile.
+     * </p>
+     * <p>
+     * For available migration scenarios, details about what happens during migration, and best practices, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/migrate-workspaces.html">Migrate a WorkSpace</a>.
+     * </p>
+     * 
+     * @param migrateWorkspaceRequest
+     * @return Result of the MigrateWorkspace operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws OperationInProgressException
+     *         The properties of this WorkSpace are currently being modified. Try again in a moment.
+     * @throws ResourceUnavailableException
+     *         The specified resource is not available.
+     * @sample AmazonWorkspaces.MigrateWorkspace
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/MigrateWorkspace" target="_top">AWS
+     *      API Documentation</a>
+     */
+    MigrateWorkspaceResult migrateWorkspace(MigrateWorkspaceRequest migrateWorkspaceRequest);
+
+    /**
+     * <p>
+     * Modifies the configuration of Bring Your Own License (BYOL) for the specified account.
      * </p>
      * 
      * @param modifyAccountRequest
@@ -593,6 +1660,28 @@ public interface AmazonWorkspaces {
 
     /**
      * <p>
+     * Modifies the properties of the certificate-based authentication you want to use with your WorkSpaces.
+     * </p>
+     * 
+     * @param modifyCertificateBasedAuthPropertiesRequest
+     * @return Result of the ModifyCertificateBasedAuthProperties operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AmazonWorkspaces.ModifyCertificateBasedAuthProperties
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/ModifyCertificateBasedAuthProperties"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ModifyCertificateBasedAuthPropertiesResult modifyCertificateBasedAuthProperties(
+            ModifyCertificateBasedAuthPropertiesRequest modifyCertificateBasedAuthPropertiesRequest);
+
+    /**
+     * <p>
      * Modifies the properties of the specified Amazon WorkSpaces clients.
      * </p>
      * 
@@ -604,6 +1693,8 @@ public interface AmazonWorkspaces {
      *         The resource could not be found.
      * @throws AccessDeniedException
      *         The user is not authorized to access a resource.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
      * @sample AmazonWorkspaces.ModifyClientProperties
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/ModifyClientProperties"
      *      target="_top">AWS API Documentation</a>
@@ -612,8 +1703,124 @@ public interface AmazonWorkspaces {
 
     /**
      * <p>
-     * Modifies the specified WorkSpace properties.
+     * Modifies multiple properties related to SAML 2.0 authentication, including the enablement status, user access
+     * URL, and relay state parameter name that are used for configuring federation with an SAML 2.0 identity provider.
      * </p>
+     * 
+     * @param modifySamlPropertiesRequest
+     * @return Result of the ModifySamlProperties operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AmazonWorkspaces.ModifySamlProperties
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/ModifySamlProperties"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ModifySamlPropertiesResult modifySamlProperties(ModifySamlPropertiesRequest modifySamlPropertiesRequest);
+
+    /**
+     * <p>
+     * Modifies the self-service WorkSpace management capabilities for your users. For more information, see <a href=
+     * "https://docs.aws.amazon.com/workspaces/latest/adminguide/enable-user-self-service-workspace-management.html"
+     * >Enable Self-Service WorkSpace Management Capabilities for Your Users</a>.
+     * </p>
+     * 
+     * @param modifySelfservicePermissionsRequest
+     * @return Result of the ModifySelfservicePermissions operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.ModifySelfservicePermissions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/ModifySelfservicePermissions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ModifySelfservicePermissionsResult modifySelfservicePermissions(ModifySelfservicePermissionsRequest modifySelfservicePermissionsRequest);
+
+    /**
+     * <p>
+     * Modifies the specified streaming properties.
+     * </p>
+     * 
+     * @param modifyStreamingPropertiesRequest
+     * @return Result of the ModifyStreamingProperties operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.ModifyStreamingProperties
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/ModifyStreamingProperties"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ModifyStreamingPropertiesResult modifyStreamingProperties(ModifyStreamingPropertiesRequest modifyStreamingPropertiesRequest);
+
+    /**
+     * <p>
+     * Specifies which devices and operating systems users can use to access their WorkSpaces. For more information, see
+     * <a href=
+     * "https://docs.aws.amazon.com/workspaces/latest/adminguide/update-directory-details.html#control-device-access">
+     * Control Device Access</a>.
+     * </p>
+     * 
+     * @param modifyWorkspaceAccessPropertiesRequest
+     * @return Result of the ModifyWorkspaceAccessProperties operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.ModifyWorkspaceAccessProperties
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/ModifyWorkspaceAccessProperties"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ModifyWorkspaceAccessPropertiesResult modifyWorkspaceAccessProperties(ModifyWorkspaceAccessPropertiesRequest modifyWorkspaceAccessPropertiesRequest);
+
+    /**
+     * <p>
+     * Modify the default properties used to create WorkSpaces.
+     * </p>
+     * 
+     * @param modifyWorkspaceCreationPropertiesRequest
+     * @return Result of the ModifyWorkspaceCreationProperties operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.ModifyWorkspaceCreationProperties
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/ModifyWorkspaceCreationProperties"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ModifyWorkspaceCreationPropertiesResult modifyWorkspaceCreationProperties(ModifyWorkspaceCreationPropertiesRequest modifyWorkspaceCreationPropertiesRequest);
+
+    /**
+     * <p>
+     * Modifies the specified WorkSpace properties. For important information about how to modify the size of the root
+     * and user volumes, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/modify-workspaces.html">
+     * Modify a WorkSpace</a>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>MANUAL</code> running mode value is only supported by Amazon WorkSpaces Core. Contact your account team
+     * to be allow-listed to use this value. For more information, see <a
+     * href="http://aws.amazon.com/workspaces/core/">Amazon WorkSpaces Core</a>.
+     * </p>
+     * </note>
      * 
      * @param modifyWorkspacePropertiesRequest
      * @return Result of the ModifyWorkspaceProperties operation returned by the service.
@@ -624,9 +1831,9 @@ public interface AmazonWorkspaces {
      * @throws OperationInProgressException
      *         The properties of this WorkSpace are currently being modified. Try again in a moment.
      * @throws UnsupportedWorkspaceConfigurationException
-     *         The configuration of this WorkSpace is not supported for this operation. For more information, see the <a
-     *         href="https://docs.aws.amazon.com/workspaces/latest/adminguide/">Amazon WorkSpaces Administration
-     *         Guide</a>.
+     *         The configuration of this WorkSpace is not supported for this operation. For more information, see <a
+     *         href="https://docs.aws.amazon.com/workspaces/latest/adminguide/required-service-components.html">Required
+     *         Configuration and Service Components for WorkSpaces </a>.
      * @throws ResourceNotFoundException
      *         The resource could not be found.
      * @throws AccessDeniedException
@@ -658,6 +1865,8 @@ public interface AmazonWorkspaces {
      *         The state of the resource is not valid for this operation.
      * @throws ResourceNotFoundException
      *         The resource could not be found.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
      * @sample AmazonWorkspaces.ModifyWorkspaceState
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/ModifyWorkspaceState"
      *      target="_top">AWS API Documentation</a>
@@ -669,7 +1878,9 @@ public interface AmazonWorkspaces {
      * Reboots the specified WorkSpaces.
      * </p>
      * <p>
-     * You cannot reboot a WorkSpace unless its state is <code>AVAILABLE</code> or <code>UNHEALTHY</code>.
+     * You cannot reboot a WorkSpace unless its state is <code>AVAILABLE</code>, <code>UNHEALTHY</code>, or
+     * <code>REBOOTING</code>. Reboot a WorkSpace in the <code>REBOOTING</code> state only if your WorkSpace has been
+     * stuck in the <code>REBOOTING</code> state for over 20 minutes.
      * </p>
      * <p>
      * This operation is asynchronous and returns before the WorkSpaces have rebooted.
@@ -677,6 +1888,8 @@ public interface AmazonWorkspaces {
      * 
      * @param rebootWorkspacesRequest
      * @return Result of the RebootWorkspaces operation returned by the service.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
      * @sample AmazonWorkspaces.RebootWorkspaces
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/RebootWorkspaces" target="_top">AWS
      *      API Documentation</a>
@@ -688,8 +1901,8 @@ public interface AmazonWorkspaces {
      * Rebuilds the specified WorkSpace.
      * </p>
      * <p>
-     * You cannot rebuild a WorkSpace unless its state is <code>AVAILABLE</code>, <code>ERROR</code>, or
-     * <code>UNHEALTHY</code>.
+     * You cannot rebuild a WorkSpace unless its state is <code>AVAILABLE</code>, <code>ERROR</code>,
+     * <code>UNHEALTHY</code>, <code>STOPPED</code>, or <code>REBOOTING</code>.
      * </p>
      * <p>
      * Rebuilding a WorkSpace is a potentially destructive action that can result in the loss of data. For more
@@ -702,11 +1915,112 @@ public interface AmazonWorkspaces {
      * 
      * @param rebuildWorkspacesRequest
      * @return Result of the RebuildWorkspaces operation returned by the service.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
      * @sample AmazonWorkspaces.RebuildWorkspaces
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/RebuildWorkspaces" target="_top">AWS
      *      API Documentation</a>
      */
     RebuildWorkspacesResult rebuildWorkspaces(RebuildWorkspacesRequest rebuildWorkspacesRequest);
+
+    /**
+     * <p>
+     * Registers the specified directory. This operation is asynchronous and returns before the WorkSpace directory is
+     * registered. If this is the first time you are registering a directory, you will need to create the
+     * workspaces_DefaultRole role before you can register a directory. For more information, see <a href=
+     * "https://docs.aws.amazon.com/workspaces/latest/adminguide/workspaces-access-control.html#create-default-role">
+     * Creating the workspaces_DefaultRole Role</a>.
+     * </p>
+     * 
+     * @param registerWorkspaceDirectoryRequest
+     * @return Result of the RegisterWorkspaceDirectory operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ResourceLimitExceededException
+     *         Your resource limits have been exceeded.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws WorkspacesDefaultRoleNotFoundException
+     *         The workspaces_DefaultRole role could not be found. If this is the first time you are registering a
+     *         directory, you will need to create the workspaces_DefaultRole role before you can register a directory.
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/workspaces/latest/adminguide/workspaces-access-control.html#create-default-role"
+     *         >Creating the workspaces_DefaultRole Role</a>.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws UnsupportedNetworkConfigurationException
+     *         The configuration of this network is not supported for this operation, or your network configuration
+     *         conflicts with the Amazon WorkSpaces management network IP range. For more information, see <a
+     *         href="https://docs.aws.amazon.com/workspaces/latest/adminguide/amazon-workspaces-vpc.html"> Configure a
+     *         VPC for Amazon WorkSpaces</a>.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @sample AmazonWorkspaces.RegisterWorkspaceDirectory
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/RegisterWorkspaceDirectory"
+     *      target="_top">AWS API Documentation</a>
+     */
+    RegisterWorkspaceDirectoryResult registerWorkspaceDirectory(RegisterWorkspaceDirectoryRequest registerWorkspaceDirectoryRequest);
+
+    /**
+     * <p>
+     * Rejects the account link invitation.
+     * </p>
+     * 
+     * @param rejectAccountLinkInvitationRequest
+     * @return Result of the RejectAccountLinkInvitation operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws ValidationException
+     *         You either haven't provided a <code>TargetAccountId</code> or are using the same value for
+     *         <code>TargetAccountId</code> and <code>SourceAccountId</code>.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ConflictException
+     *         The <code>TargetAccountId</code> is already linked or invited.
+     * @throws InternalServerException
+     *         Unexpected server error occured.
+     * @sample AmazonWorkspaces.RejectAccountLinkInvitation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/RejectAccountLinkInvitation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    RejectAccountLinkInvitationResult rejectAccountLinkInvitation(RejectAccountLinkInvitationRequest rejectAccountLinkInvitationRequest);
+
+    /**
+     * <p>
+     * Restores the specified WorkSpace to its last known healthy state.
+     * </p>
+     * <p>
+     * You cannot restore a WorkSpace unless its state is <code> AVAILABLE</code>, <code>ERROR</code>,
+     * <code>UNHEALTHY</code>, or <code>STOPPED</code>.
+     * </p>
+     * <p>
+     * Restoring a WorkSpace is a potentially destructive action that can result in the loss of data. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/restore-workspace.html">Restore a WorkSpace</a>.
+     * </p>
+     * <p>
+     * This operation is asynchronous and returns before the WorkSpace is completely restored.
+     * </p>
+     * 
+     * @param restoreWorkspaceRequest
+     * @return Result of the RestoreWorkspace operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.RestoreWorkspace
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/RestoreWorkspace" target="_top">AWS
+     *      API Documentation</a>
+     */
+    RestoreWorkspaceResult restoreWorkspace(RestoreWorkspaceRequest restoreWorkspaceRequest);
 
     /**
      * <p>
@@ -748,6 +2062,37 @@ public interface AmazonWorkspaces {
 
     /**
      * <p>
+     * Starts the specified pool.
+     * </p>
+     * <p>
+     * You cannot start a pool unless it has a running mode of <code>AutoStop</code> and a state of <code>STOPPED</code>
+     * .
+     * </p>
+     * 
+     * @param startWorkspacesPoolRequest
+     * @return Result of the StartWorkspacesPool operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws ResourceLimitExceededException
+     *         Your resource limits have been exceeded.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws OperationInProgressException
+     *         The properties of this WorkSpace are currently being modified. Try again in a moment.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.StartWorkspacesPool
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/StartWorkspacesPool" target="_top">AWS
+     *      API Documentation</a>
+     */
+    StartWorkspacesPoolResult startWorkspacesPool(StartWorkspacesPoolRequest startWorkspacesPoolRequest);
+
+    /**
+     * <p>
      * Stops the specified WorkSpaces.
      * </p>
      * <p>
@@ -765,18 +2110,66 @@ public interface AmazonWorkspaces {
 
     /**
      * <p>
-     * Terminates the specified WorkSpaces.
+     * Stops the specified pool.
      * </p>
      * <p>
-     * Terminating a WorkSpace is a permanent action and cannot be undone. The user's data is destroyed. If you need to
-     * archive any user data, contact Amazon Web Services before terminating the WorkSpace.
+     * You cannot stop a WorkSpace pool unless it has a running mode of <code>AutoStop</code> and a state of
+     * <code>AVAILABLE</code>, <code>IMPAIRED</code>, <code>UNHEALTHY</code>, or <code>ERROR</code>.
      * </p>
+     * 
+     * @param stopWorkspacesPoolRequest
+     * @return Result of the StopWorkspacesPool operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws OperationInProgressException
+     *         The properties of this WorkSpace are currently being modified. Try again in a moment.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.StopWorkspacesPool
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/StopWorkspacesPool" target="_top">AWS
+     *      API Documentation</a>
+     */
+    StopWorkspacesPoolResult stopWorkspacesPool(StopWorkspacesPoolRequest stopWorkspacesPoolRequest);
+
+    /**
+     * <p>
+     * Terminates the specified WorkSpaces.
+     * </p>
+     * <important>
+     * <p>
+     * Terminating a WorkSpace is a permanent action and cannot be undone. The user's data is destroyed. If you need to
+     * archive any user data, contact Amazon Web Services Support before terminating the WorkSpace.
+     * </p>
+     * </important>
      * <p>
      * You can terminate a WorkSpace that is in any state except <code>SUSPENDED</code>.
      * </p>
      * <p>
-     * This operation is asynchronous and returns before the WorkSpaces have been completely terminated.
+     * This operation is asynchronous and returns before the WorkSpaces have been completely terminated. After a
+     * WorkSpace is terminated, the <code>TERMINATED</code> state is returned only briefly before the WorkSpace
+     * directory metadata is cleaned up, so this state is rarely returned. To confirm that a WorkSpace is terminated,
+     * check for the WorkSpace ID by using <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaces.html"> DescribeWorkSpaces</a>. If
+     * the WorkSpace ID isn't returned, then the WorkSpace has been successfully terminated.
      * </p>
+     * <note>
+     * <p>
+     * Simple AD and AD Connector are made available to you free of charge to use with WorkSpaces. If there are no
+     * WorkSpaces being used with your Simple AD or AD Connector directory for 30 consecutive days, this directory will
+     * be automatically deregistered for use with Amazon WorkSpaces, and you will be charged for this directory as per
+     * the <a href="http://aws.amazon.com/directoryservice/pricing/">Directory Service pricing terms</a>.
+     * </p>
+     * <p>
+     * To delete empty directories, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/delete-workspaces-directory.html"> Delete the
+     * Directory for Your WorkSpaces</a>. If you delete your Simple AD or AD Connector directory, you can always create
+     * a new one when you want to start using WorkSpaces again.
+     * </p>
+     * </note>
      * 
      * @param terminateWorkspacesRequest
      * @return Result of the TerminateWorkspaces operation returned by the service.
@@ -785,6 +2178,124 @@ public interface AmazonWorkspaces {
      *      API Documentation</a>
      */
     TerminateWorkspacesResult terminateWorkspaces(TerminateWorkspacesRequest terminateWorkspacesRequest);
+
+    /**
+     * <p>
+     * Terminates the specified pool.
+     * </p>
+     * 
+     * @param terminateWorkspacesPoolRequest
+     * @return Result of the TerminateWorkspacesPool operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws OperationInProgressException
+     *         The properties of this WorkSpace are currently being modified. Try again in a moment.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.TerminateWorkspacesPool
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/TerminateWorkspacesPool"
+     *      target="_top">AWS API Documentation</a>
+     */
+    TerminateWorkspacesPoolResult terminateWorkspacesPool(TerminateWorkspacesPoolRequest terminateWorkspacesPoolRequest);
+
+    /**
+     * <p>
+     * Terminates the pool session.
+     * </p>
+     * 
+     * @param terminateWorkspacesPoolSessionRequest
+     * @return Result of the TerminateWorkspacesPoolSession operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws OperationInProgressException
+     *         The properties of this WorkSpace are currently being modified. Try again in a moment.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.TerminateWorkspacesPoolSession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/TerminateWorkspacesPoolSession"
+     *      target="_top">AWS API Documentation</a>
+     */
+    TerminateWorkspacesPoolSessionResult terminateWorkspacesPoolSession(TerminateWorkspacesPoolSessionRequest terminateWorkspacesPoolSessionRequest);
+
+    /**
+     * <p>
+     * Updates a Amazon Connect client add-in. Use this action to update the name and endpoint URL of a Amazon Connect
+     * client add-in.
+     * </p>
+     * 
+     * @param updateConnectClientAddInRequest
+     * @return Result of the UpdateConnectClientAddIn operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.UpdateConnectClientAddIn
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/UpdateConnectClientAddIn"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateConnectClientAddInResult updateConnectClientAddIn(UpdateConnectClientAddInRequest updateConnectClientAddInRequest);
+
+    /**
+     * <p>
+     * Shares or unshares a connection alias with one account by specifying whether that account has permission to
+     * associate the connection alias with a directory. If the association permission is granted, the connection alias
+     * is shared with that account. If the association permission is revoked, the connection alias is unshared with the
+     * account. For more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html"> Cross-Region
+     * Redirection for Amazon WorkSpaces</a>.
+     * </p>
+     * <note>
+     * <ul>
+     * <li>
+     * <p>
+     * Before performing this operation, call <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeConnectionAliases.html">
+     * DescribeConnectionAliases</a> to make sure that the current state of the connection alias is <code>CREATED</code>
+     * .
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * To delete a connection alias that has been shared, the shared account must first disassociate the connection
+     * alias from any directories it has been associated with. Then you must unshare the connection alias from the
+     * account it has been shared with. You can delete a connection alias only after it is no longer shared with any
+     * accounts or associated with any directories.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * 
+     * @param updateConnectionAliasPermissionRequest
+     * @return Result of the UpdateConnectionAliasPermission operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceLimitExceededException
+     *         Your resource limits have been exceeded.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ResourceAssociatedException
+     *         The resource is associated with a directory.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.UpdateConnectionAliasPermission
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/UpdateConnectionAliasPermission"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateConnectionAliasPermissionResult updateConnectionAliasPermission(UpdateConnectionAliasPermissionRequest updateConnectionAliasPermissionRequest);
 
     /**
      * <p>
@@ -808,6 +2319,121 @@ public interface AmazonWorkspaces {
      *      target="_top">AWS API Documentation</a>
      */
     UpdateRulesOfIpGroupResult updateRulesOfIpGroup(UpdateRulesOfIpGroupRequest updateRulesOfIpGroupRequest);
+
+    /**
+     * <p>
+     * Updates a WorkSpace bundle with a new image. For more information about updating WorkSpace bundles, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/update-custom-bundle.html"> Update a Custom
+     * WorkSpaces Bundle</a>.
+     * </p>
+     * <important>
+     * <p>
+     * Existing WorkSpaces aren't automatically updated when you update the bundle that they're based on. To update
+     * existing WorkSpaces that are based on a bundle that you've updated, you must either rebuild the WorkSpaces or
+     * delete and recreate them.
+     * </p>
+     * </important>
+     * 
+     * @param updateWorkspaceBundleRequest
+     * @return Result of the UpdateWorkspaceBundle operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ResourceUnavailableException
+     *         The specified resource is not available.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.UpdateWorkspaceBundle
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/UpdateWorkspaceBundle"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateWorkspaceBundleResult updateWorkspaceBundle(UpdateWorkspaceBundleRequest updateWorkspaceBundleRequest);
+
+    /**
+     * <p>
+     * Shares or unshares an image with one account in the same Amazon Web Services Region by specifying whether that
+     * account has permission to copy the image. If the copy image permission is granted, the image is shared with that
+     * account. If the copy image permission is revoked, the image is unshared with the account.
+     * </p>
+     * <p>
+     * After an image has been shared, the recipient account can copy the image to other Regions as needed.
+     * </p>
+     * <p>
+     * In the China (Ningxia) Region, you can copy images only within the same Region.
+     * </p>
+     * <p>
+     * In Amazon Web Services GovCloud (US), to copy images to and from other Regions, contact Amazon Web Services
+     * Support.
+     * </p>
+     * <p>
+     * For more information about sharing images, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/share-custom-image.html"> Share or Unshare a
+     * Custom WorkSpaces Image</a>.
+     * </p>
+     * <note>
+     * <ul>
+     * <li>
+     * <p>
+     * To delete an image that has been shared, you must unshare the image before you delete it.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Sharing Bring Your Own License (BYOL) images across Amazon Web Services accounts isn't supported at this time in
+     * Amazon Web Services GovCloud (US). To share BYOL images across accounts in Amazon Web Services GovCloud (US),
+     * contact Amazon Web Services Support.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * 
+     * @param updateWorkspaceImagePermissionRequest
+     * @return Result of the UpdateWorkspaceImagePermission operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ResourceUnavailableException
+     *         The specified resource is not available.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.UpdateWorkspaceImagePermission
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/UpdateWorkspaceImagePermission"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateWorkspaceImagePermissionResult updateWorkspaceImagePermission(UpdateWorkspaceImagePermissionRequest updateWorkspaceImagePermissionRequest);
+
+    /**
+     * <p>
+     * Updates the specified pool.
+     * </p>
+     * 
+     * @param updateWorkspacesPoolRequest
+     * @return Result of the UpdateWorkspacesPool operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ResourceLimitExceededException
+     *         Your resource limits have been exceeded.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws OperationInProgressException
+     *         The properties of this WorkSpace are currently being modified. Try again in a moment.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.UpdateWorkspacesPool
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/UpdateWorkspacesPool"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateWorkspacesPoolResult updateWorkspacesPool(UpdateWorkspacesPoolRequest updateWorkspacesPoolRequest);
 
     /**
      * Shuts down this client object, releasing any resources that might be held open. This is an optional method, and

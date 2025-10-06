@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An Amazon EC2 Systems Manager parameter in Parameter Store.
+ * An Amazon Web Services Systems Manager parameter in Parameter Store.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/Parameter" target="_top">AWS API
@@ -36,14 +36,27 @@ public class Parameter implements Serializable, Cloneable, StructuredPojo {
     private String name;
     /**
      * <p>
-     * The type of parameter. Valid values include the following: String, String list, Secure string.
+     * The type of parameter. Valid values include the following: <code>String</code>, <code>StringList</code>, and
+     * <code>SecureString</code>.
      * </p>
+     * <note>
+     * <p>
+     * If type is <code>StringList</code>, the system returns a comma-separated string with no spaces between commas in
+     * the <code>Value</code> field.
+     * </p>
+     * </note>
      */
     private String type;
     /**
      * <p>
      * The parameter value.
      * </p>
+     * <note>
+     * <p>
+     * If type is <code>StringList</code>, the system returns a comma-separated string with no spaces between commas in
+     * the <code>Value</code> field.
+     * </p>
+     * </note>
      */
     private String value;
     /**
@@ -67,8 +80,8 @@ public class Parameter implements Serializable, Cloneable, StructuredPojo {
     private String selector;
     /**
      * <p>
-     * Applies to parameters that reference information in other AWS services. SourceResult is the raw result or
-     * response from the source.
+     * Applies to parameters that reference information in other Amazon Web Services services. <code>SourceResult</code>
+     * is the raw result or response from the source.
      * </p>
      */
     private String sourceResult;
@@ -84,6 +97,13 @@ public class Parameter implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String aRN;
+    /**
+     * <p>
+     * The data type of the parameter, such as <code>text</code> or <code>aws:ec2:image</code>. The default is
+     * <code>text</code>.
+     * </p>
+     */
+    private String dataType;
 
     /**
      * <p>
@@ -127,11 +147,23 @@ public class Parameter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of parameter. Valid values include the following: String, String list, Secure string.
+     * The type of parameter. Valid values include the following: <code>String</code>, <code>StringList</code>, and
+     * <code>SecureString</code>.
      * </p>
+     * <note>
+     * <p>
+     * If type is <code>StringList</code>, the system returns a comma-separated string with no spaces between commas in
+     * the <code>Value</code> field.
+     * </p>
+     * </note>
      * 
      * @param type
-     *        The type of parameter. Valid values include the following: String, String list, Secure string.
+     *        The type of parameter. Valid values include the following: <code>String</code>, <code>StringList</code>,
+     *        and <code>SecureString</code>.</p> <note>
+     *        <p>
+     *        If type is <code>StringList</code>, the system returns a comma-separated string with no spaces between
+     *        commas in the <code>Value</code> field.
+     *        </p>
      * @see ParameterType
      */
 
@@ -141,10 +173,22 @@ public class Parameter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of parameter. Valid values include the following: String, String list, Secure string.
+     * The type of parameter. Valid values include the following: <code>String</code>, <code>StringList</code>, and
+     * <code>SecureString</code>.
      * </p>
+     * <note>
+     * <p>
+     * If type is <code>StringList</code>, the system returns a comma-separated string with no spaces between commas in
+     * the <code>Value</code> field.
+     * </p>
+     * </note>
      * 
-     * @return The type of parameter. Valid values include the following: String, String list, Secure string.
+     * @return The type of parameter. Valid values include the following: <code>String</code>, <code>StringList</code>,
+     *         and <code>SecureString</code>.</p> <note>
+     *         <p>
+     *         If type is <code>StringList</code>, the system returns a comma-separated string with no spaces between
+     *         commas in the <code>Value</code> field.
+     *         </p>
      * @see ParameterType
      */
 
@@ -154,11 +198,23 @@ public class Parameter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of parameter. Valid values include the following: String, String list, Secure string.
+     * The type of parameter. Valid values include the following: <code>String</code>, <code>StringList</code>, and
+     * <code>SecureString</code>.
      * </p>
+     * <note>
+     * <p>
+     * If type is <code>StringList</code>, the system returns a comma-separated string with no spaces between commas in
+     * the <code>Value</code> field.
+     * </p>
+     * </note>
      * 
      * @param type
-     *        The type of parameter. Valid values include the following: String, String list, Secure string.
+     *        The type of parameter. Valid values include the following: <code>String</code>, <code>StringList</code>,
+     *        and <code>SecureString</code>.</p> <note>
+     *        <p>
+     *        If type is <code>StringList</code>, the system returns a comma-separated string with no spaces between
+     *        commas in the <code>Value</code> field.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ParameterType
      */
@@ -170,11 +226,23 @@ public class Parameter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of parameter. Valid values include the following: String, String list, Secure string.
+     * The type of parameter. Valid values include the following: <code>String</code>, <code>StringList</code>, and
+     * <code>SecureString</code>.
      * </p>
+     * <note>
+     * <p>
+     * If type is <code>StringList</code>, the system returns a comma-separated string with no spaces between commas in
+     * the <code>Value</code> field.
+     * </p>
+     * </note>
      * 
      * @param type
-     *        The type of parameter. Valid values include the following: String, String list, Secure string.
+     *        The type of parameter. Valid values include the following: <code>String</code>, <code>StringList</code>,
+     *        and <code>SecureString</code>.</p> <note>
+     *        <p>
+     *        If type is <code>StringList</code>, the system returns a comma-separated string with no spaces between
+     *        commas in the <code>Value</code> field.
+     *        </p>
      * @see ParameterType
      */
 
@@ -184,11 +252,23 @@ public class Parameter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of parameter. Valid values include the following: String, String list, Secure string.
+     * The type of parameter. Valid values include the following: <code>String</code>, <code>StringList</code>, and
+     * <code>SecureString</code>.
      * </p>
+     * <note>
+     * <p>
+     * If type is <code>StringList</code>, the system returns a comma-separated string with no spaces between commas in
+     * the <code>Value</code> field.
+     * </p>
+     * </note>
      * 
      * @param type
-     *        The type of parameter. Valid values include the following: String, String list, Secure string.
+     *        The type of parameter. Valid values include the following: <code>String</code>, <code>StringList</code>,
+     *        and <code>SecureString</code>.</p> <note>
+     *        <p>
+     *        If type is <code>StringList</code>, the system returns a comma-separated string with no spaces between
+     *        commas in the <code>Value</code> field.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ParameterType
      */
@@ -202,9 +282,19 @@ public class Parameter implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The parameter value.
      * </p>
+     * <note>
+     * <p>
+     * If type is <code>StringList</code>, the system returns a comma-separated string with no spaces between commas in
+     * the <code>Value</code> field.
+     * </p>
+     * </note>
      * 
      * @param value
-     *        The parameter value.
+     *        The parameter value.</p> <note>
+     *        <p>
+     *        If type is <code>StringList</code>, the system returns a comma-separated string with no spaces between
+     *        commas in the <code>Value</code> field.
+     *        </p>
      */
 
     public void setValue(String value) {
@@ -215,8 +305,18 @@ public class Parameter implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The parameter value.
      * </p>
+     * <note>
+     * <p>
+     * If type is <code>StringList</code>, the system returns a comma-separated string with no spaces between commas in
+     * the <code>Value</code> field.
+     * </p>
+     * </note>
      * 
-     * @return The parameter value.
+     * @return The parameter value.</p> <note>
+     *         <p>
+     *         If type is <code>StringList</code>, the system returns a comma-separated string with no spaces between
+     *         commas in the <code>Value</code> field.
+     *         </p>
      */
 
     public String getValue() {
@@ -227,9 +327,19 @@ public class Parameter implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The parameter value.
      * </p>
+     * <note>
+     * <p>
+     * If type is <code>StringList</code>, the system returns a comma-separated string with no spaces between commas in
+     * the <code>Value</code> field.
+     * </p>
+     * </note>
      * 
      * @param value
-     *        The parameter value.
+     *        The parameter value.</p> <note>
+     *        <p>
+     *        If type is <code>StringList</code>, the system returns a comma-separated string with no spaces between
+     *        commas in the <code>Value</code> field.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -359,13 +469,13 @@ public class Parameter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Applies to parameters that reference information in other AWS services. SourceResult is the raw result or
-     * response from the source.
+     * Applies to parameters that reference information in other Amazon Web Services services. <code>SourceResult</code>
+     * is the raw result or response from the source.
      * </p>
      * 
      * @param sourceResult
-     *        Applies to parameters that reference information in other AWS services. SourceResult is the raw result or
-     *        response from the source.
+     *        Applies to parameters that reference information in other Amazon Web Services services.
+     *        <code>SourceResult</code> is the raw result or response from the source.
      */
 
     public void setSourceResult(String sourceResult) {
@@ -374,12 +484,12 @@ public class Parameter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Applies to parameters that reference information in other AWS services. SourceResult is the raw result or
-     * response from the source.
+     * Applies to parameters that reference information in other Amazon Web Services services. <code>SourceResult</code>
+     * is the raw result or response from the source.
      * </p>
      * 
-     * @return Applies to parameters that reference information in other AWS services. SourceResult is the raw result or
-     *         response from the source.
+     * @return Applies to parameters that reference information in other Amazon Web Services services.
+     *         <code>SourceResult</code> is the raw result or response from the source.
      */
 
     public String getSourceResult() {
@@ -388,13 +498,13 @@ public class Parameter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Applies to parameters that reference information in other AWS services. SourceResult is the raw result or
-     * response from the source.
+     * Applies to parameters that reference information in other Amazon Web Services services. <code>SourceResult</code>
+     * is the raw result or response from the source.
      * </p>
      * 
      * @param sourceResult
-     *        Applies to parameters that reference information in other AWS services. SourceResult is the raw result or
-     *        response from the source.
+     *        Applies to parameters that reference information in other Amazon Web Services services.
+     *        <code>SourceResult</code> is the raw result or response from the source.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -484,6 +594,52 @@ public class Parameter implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The data type of the parameter, such as <code>text</code> or <code>aws:ec2:image</code>. The default is
+     * <code>text</code>.
+     * </p>
+     * 
+     * @param dataType
+     *        The data type of the parameter, such as <code>text</code> or <code>aws:ec2:image</code>. The default is
+     *        <code>text</code>.
+     */
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
+    }
+
+    /**
+     * <p>
+     * The data type of the parameter, such as <code>text</code> or <code>aws:ec2:image</code>. The default is
+     * <code>text</code>.
+     * </p>
+     * 
+     * @return The data type of the parameter, such as <code>text</code> or <code>aws:ec2:image</code>. The default is
+     *         <code>text</code>.
+     */
+
+    public String getDataType() {
+        return this.dataType;
+    }
+
+    /**
+     * <p>
+     * The data type of the parameter, such as <code>text</code> or <code>aws:ec2:image</code>. The default is
+     * <code>text</code>.
+     * </p>
+     * 
+     * @param dataType
+     *        The data type of the parameter, such as <code>text</code> or <code>aws:ec2:image</code>. The default is
+     *        <code>text</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Parameter withDataType(String dataType) {
+        setDataType(dataType);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -500,7 +656,7 @@ public class Parameter implements Serializable, Cloneable, StructuredPojo {
         if (getType() != null)
             sb.append("Type: ").append(getType()).append(",");
         if (getValue() != null)
-            sb.append("Value: ").append(getValue()).append(",");
+            sb.append("Value: ").append("***Sensitive Data Redacted***").append(",");
         if (getVersion() != null)
             sb.append("Version: ").append(getVersion()).append(",");
         if (getSelector() != null)
@@ -510,7 +666,9 @@ public class Parameter implements Serializable, Cloneable, StructuredPojo {
         if (getLastModifiedDate() != null)
             sb.append("LastModifiedDate: ").append(getLastModifiedDate()).append(",");
         if (getARN() != null)
-            sb.append("ARN: ").append(getARN());
+            sb.append("ARN: ").append(getARN()).append(",");
+        if (getDataType() != null)
+            sb.append("DataType: ").append(getDataType());
         sb.append("}");
         return sb.toString();
     }
@@ -557,6 +715,10 @@ public class Parameter implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getARN() != null && other.getARN().equals(this.getARN()) == false)
             return false;
+        if (other.getDataType() == null ^ this.getDataType() == null)
+            return false;
+        if (other.getDataType() != null && other.getDataType().equals(this.getDataType()) == false)
+            return false;
         return true;
     }
 
@@ -573,6 +735,7 @@ public class Parameter implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getSourceResult() == null) ? 0 : getSourceResult().hashCode());
         hashCode = prime * hashCode + ((getLastModifiedDate() == null) ? 0 : getLastModifiedDate().hashCode());
         hashCode = prime * hashCode + ((getARN() == null) ? 0 : getARN().hashCode());
+        hashCode = prime * hashCode + ((getDataType() == null) ? 0 : getDataType().hashCode());
         return hashCode;
     }
 

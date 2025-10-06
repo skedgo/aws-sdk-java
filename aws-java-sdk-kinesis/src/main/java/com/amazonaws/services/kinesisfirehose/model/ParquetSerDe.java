@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 /**
  * <p>
  * A serializer to use for converting data to the Parquet format before storing it in Amazon S3. For more information,
- * see <a href="https://parquet.apache.org/documentation/latest/">Apache Parquet</a>.
+ * see <a href="https://parquet.apache.org/docs/">Apache Parquet</a>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/ParquetSerDe" target="_top">AWS API
@@ -32,8 +32,8 @@ public class ParquetSerDe implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The Hadoop Distributed File System (HDFS) block size. This is useful if you intend to copy the data from Amazon
-     * S3 to HDFS before querying. The default is 256 MiB and the minimum is 64 MiB. Kinesis Data Firehose uses this
-     * value for padding calculations.
+     * S3 to HDFS before querying. The default is 256 MiB and the minimum is 64 MiB. Firehose uses this value for
+     * padding calculations.
      * </p>
      */
     private Integer blockSizeBytes;
@@ -48,7 +48,7 @@ public class ParquetSerDe implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The compression code to use over data blocks. The possible values are <code>UNCOMPRESSED</code>,
      * <code>SNAPPY</code>, and <code>GZIP</code>, with the default being <code>SNAPPY</code>. Use <code>SNAPPY</code>
-     * for higher decompression speed. Use <code>GZIP</code> if the compression ration is more important than speed.
+     * for higher decompression speed. Use <code>GZIP</code> if the compression ratio is more important than speed.
      * </p>
      */
     private String compression;
@@ -76,14 +76,14 @@ public class ParquetSerDe implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The Hadoop Distributed File System (HDFS) block size. This is useful if you intend to copy the data from Amazon
-     * S3 to HDFS before querying. The default is 256 MiB and the minimum is 64 MiB. Kinesis Data Firehose uses this
-     * value for padding calculations.
+     * S3 to HDFS before querying. The default is 256 MiB and the minimum is 64 MiB. Firehose uses this value for
+     * padding calculations.
      * </p>
      * 
      * @param blockSizeBytes
      *        The Hadoop Distributed File System (HDFS) block size. This is useful if you intend to copy the data from
-     *        Amazon S3 to HDFS before querying. The default is 256 MiB and the minimum is 64 MiB. Kinesis Data Firehose
-     *        uses this value for padding calculations.
+     *        Amazon S3 to HDFS before querying. The default is 256 MiB and the minimum is 64 MiB. Firehose uses this
+     *        value for padding calculations.
      */
 
     public void setBlockSizeBytes(Integer blockSizeBytes) {
@@ -93,13 +93,13 @@ public class ParquetSerDe implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The Hadoop Distributed File System (HDFS) block size. This is useful if you intend to copy the data from Amazon
-     * S3 to HDFS before querying. The default is 256 MiB and the minimum is 64 MiB. Kinesis Data Firehose uses this
-     * value for padding calculations.
+     * S3 to HDFS before querying. The default is 256 MiB and the minimum is 64 MiB. Firehose uses this value for
+     * padding calculations.
      * </p>
      * 
      * @return The Hadoop Distributed File System (HDFS) block size. This is useful if you intend to copy the data from
-     *         Amazon S3 to HDFS before querying. The default is 256 MiB and the minimum is 64 MiB. Kinesis Data
-     *         Firehose uses this value for padding calculations.
+     *         Amazon S3 to HDFS before querying. The default is 256 MiB and the minimum is 64 MiB. Firehose uses this
+     *         value for padding calculations.
      */
 
     public Integer getBlockSizeBytes() {
@@ -109,14 +109,14 @@ public class ParquetSerDe implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The Hadoop Distributed File System (HDFS) block size. This is useful if you intend to copy the data from Amazon
-     * S3 to HDFS before querying. The default is 256 MiB and the minimum is 64 MiB. Kinesis Data Firehose uses this
-     * value for padding calculations.
+     * S3 to HDFS before querying. The default is 256 MiB and the minimum is 64 MiB. Firehose uses this value for
+     * padding calculations.
      * </p>
      * 
      * @param blockSizeBytes
      *        The Hadoop Distributed File System (HDFS) block size. This is useful if you intend to copy the data from
-     *        Amazon S3 to HDFS before querying. The default is 256 MiB and the minimum is 64 MiB. Kinesis Data Firehose
-     *        uses this value for padding calculations.
+     *        Amazon S3 to HDFS before querying. The default is 256 MiB and the minimum is 64 MiB. Firehose uses this
+     *        value for padding calculations.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -175,14 +175,14 @@ public class ParquetSerDe implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The compression code to use over data blocks. The possible values are <code>UNCOMPRESSED</code>,
      * <code>SNAPPY</code>, and <code>GZIP</code>, with the default being <code>SNAPPY</code>. Use <code>SNAPPY</code>
-     * for higher decompression speed. Use <code>GZIP</code> if the compression ration is more important than speed.
+     * for higher decompression speed. Use <code>GZIP</code> if the compression ratio is more important than speed.
      * </p>
      * 
      * @param compression
      *        The compression code to use over data blocks. The possible values are <code>UNCOMPRESSED</code>,
      *        <code>SNAPPY</code>, and <code>GZIP</code>, with the default being <code>SNAPPY</code>. Use
-     *        <code>SNAPPY</code> for higher decompression speed. Use <code>GZIP</code> if the compression ration is
-     *        more important than speed.
+     *        <code>SNAPPY</code> for higher decompression speed. Use <code>GZIP</code> if the compression ratio is more
+     *        important than speed.
      * @see ParquetCompression
      */
 
@@ -194,12 +194,12 @@ public class ParquetSerDe implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The compression code to use over data blocks. The possible values are <code>UNCOMPRESSED</code>,
      * <code>SNAPPY</code>, and <code>GZIP</code>, with the default being <code>SNAPPY</code>. Use <code>SNAPPY</code>
-     * for higher decompression speed. Use <code>GZIP</code> if the compression ration is more important than speed.
+     * for higher decompression speed. Use <code>GZIP</code> if the compression ratio is more important than speed.
      * </p>
      * 
      * @return The compression code to use over data blocks. The possible values are <code>UNCOMPRESSED</code>,
      *         <code>SNAPPY</code>, and <code>GZIP</code>, with the default being <code>SNAPPY</code>. Use
-     *         <code>SNAPPY</code> for higher decompression speed. Use <code>GZIP</code> if the compression ration is
+     *         <code>SNAPPY</code> for higher decompression speed. Use <code>GZIP</code> if the compression ratio is
      *         more important than speed.
      * @see ParquetCompression
      */
@@ -212,14 +212,14 @@ public class ParquetSerDe implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The compression code to use over data blocks. The possible values are <code>UNCOMPRESSED</code>,
      * <code>SNAPPY</code>, and <code>GZIP</code>, with the default being <code>SNAPPY</code>. Use <code>SNAPPY</code>
-     * for higher decompression speed. Use <code>GZIP</code> if the compression ration is more important than speed.
+     * for higher decompression speed. Use <code>GZIP</code> if the compression ratio is more important than speed.
      * </p>
      * 
      * @param compression
      *        The compression code to use over data blocks. The possible values are <code>UNCOMPRESSED</code>,
      *        <code>SNAPPY</code>, and <code>GZIP</code>, with the default being <code>SNAPPY</code>. Use
-     *        <code>SNAPPY</code> for higher decompression speed. Use <code>GZIP</code> if the compression ration is
-     *        more important than speed.
+     *        <code>SNAPPY</code> for higher decompression speed. Use <code>GZIP</code> if the compression ratio is more
+     *        important than speed.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ParquetCompression
      */
@@ -233,14 +233,14 @@ public class ParquetSerDe implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The compression code to use over data blocks. The possible values are <code>UNCOMPRESSED</code>,
      * <code>SNAPPY</code>, and <code>GZIP</code>, with the default being <code>SNAPPY</code>. Use <code>SNAPPY</code>
-     * for higher decompression speed. Use <code>GZIP</code> if the compression ration is more important than speed.
+     * for higher decompression speed. Use <code>GZIP</code> if the compression ratio is more important than speed.
      * </p>
      * 
      * @param compression
      *        The compression code to use over data blocks. The possible values are <code>UNCOMPRESSED</code>,
      *        <code>SNAPPY</code>, and <code>GZIP</code>, with the default being <code>SNAPPY</code>. Use
-     *        <code>SNAPPY</code> for higher decompression speed. Use <code>GZIP</code> if the compression ration is
-     *        more important than speed.
+     *        <code>SNAPPY</code> for higher decompression speed. Use <code>GZIP</code> if the compression ratio is more
+     *        important than speed.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ParquetCompression
      */

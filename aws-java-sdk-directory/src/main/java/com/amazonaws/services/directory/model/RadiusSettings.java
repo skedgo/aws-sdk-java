@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,15 +30,15 @@ public class RadiusSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An array of strings that contains the IP addresses of the RADIUS server endpoints, or the IP addresses of your
-     * RADIUS server load balancer.
+     * An array of strings that contains the fully qualified domain name (FQDN) or IP addresses of the RADIUS server
+     * endpoints, or the FQDN or IP addresses of your RADIUS server load balancer.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> radiusServers;
     /**
      * <p>
-     * The port that your RADIUS server is using for communications. Your on-premises network must allow inbound traffic
-     * over this port from the AWS Directory Service servers.
+     * The port that your RADIUS server is using for communications. Your self-managed network must allow inbound
+     * traffic over this port from the Directory Service servers.
      * </p>
      */
     private Integer radiusPort;
@@ -81,12 +81,12 @@ public class RadiusSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An array of strings that contains the IP addresses of the RADIUS server endpoints, or the IP addresses of your
-     * RADIUS server load balancer.
+     * An array of strings that contains the fully qualified domain name (FQDN) or IP addresses of the RADIUS server
+     * endpoints, or the FQDN or IP addresses of your RADIUS server load balancer.
      * </p>
      * 
-     * @return An array of strings that contains the IP addresses of the RADIUS server endpoints, or the IP addresses of
-     *         your RADIUS server load balancer.
+     * @return An array of strings that contains the fully qualified domain name (FQDN) or IP addresses of the RADIUS
+     *         server endpoints, or the FQDN or IP addresses of your RADIUS server load balancer.
      */
 
     public java.util.List<String> getRadiusServers() {
@@ -98,13 +98,13 @@ public class RadiusSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An array of strings that contains the IP addresses of the RADIUS server endpoints, or the IP addresses of your
-     * RADIUS server load balancer.
+     * An array of strings that contains the fully qualified domain name (FQDN) or IP addresses of the RADIUS server
+     * endpoints, or the FQDN or IP addresses of your RADIUS server load balancer.
      * </p>
      * 
      * @param radiusServers
-     *        An array of strings that contains the IP addresses of the RADIUS server endpoints, or the IP addresses of
-     *        your RADIUS server load balancer.
+     *        An array of strings that contains the fully qualified domain name (FQDN) or IP addresses of the RADIUS
+     *        server endpoints, or the FQDN or IP addresses of your RADIUS server load balancer.
      */
 
     public void setRadiusServers(java.util.Collection<String> radiusServers) {
@@ -118,8 +118,8 @@ public class RadiusSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An array of strings that contains the IP addresses of the RADIUS server endpoints, or the IP addresses of your
-     * RADIUS server load balancer.
+     * An array of strings that contains the fully qualified domain name (FQDN) or IP addresses of the RADIUS server
+     * endpoints, or the FQDN or IP addresses of your RADIUS server load balancer.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -128,8 +128,8 @@ public class RadiusSettings implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param radiusServers
-     *        An array of strings that contains the IP addresses of the RADIUS server endpoints, or the IP addresses of
-     *        your RADIUS server load balancer.
+     *        An array of strings that contains the fully qualified domain name (FQDN) or IP addresses of the RADIUS
+     *        server endpoints, or the FQDN or IP addresses of your RADIUS server load balancer.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -145,13 +145,13 @@ public class RadiusSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An array of strings that contains the IP addresses of the RADIUS server endpoints, or the IP addresses of your
-     * RADIUS server load balancer.
+     * An array of strings that contains the fully qualified domain name (FQDN) or IP addresses of the RADIUS server
+     * endpoints, or the FQDN or IP addresses of your RADIUS server load balancer.
      * </p>
      * 
      * @param radiusServers
-     *        An array of strings that contains the IP addresses of the RADIUS server endpoints, or the IP addresses of
-     *        your RADIUS server load balancer.
+     *        An array of strings that contains the fully qualified domain name (FQDN) or IP addresses of the RADIUS
+     *        server endpoints, or the FQDN or IP addresses of your RADIUS server load balancer.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -162,13 +162,13 @@ public class RadiusSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The port that your RADIUS server is using for communications. Your on-premises network must allow inbound traffic
-     * over this port from the AWS Directory Service servers.
+     * The port that your RADIUS server is using for communications. Your self-managed network must allow inbound
+     * traffic over this port from the Directory Service servers.
      * </p>
      * 
      * @param radiusPort
-     *        The port that your RADIUS server is using for communications. Your on-premises network must allow inbound
-     *        traffic over this port from the AWS Directory Service servers.
+     *        The port that your RADIUS server is using for communications. Your self-managed network must allow inbound
+     *        traffic over this port from the Directory Service servers.
      */
 
     public void setRadiusPort(Integer radiusPort) {
@@ -177,12 +177,12 @@ public class RadiusSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The port that your RADIUS server is using for communications. Your on-premises network must allow inbound traffic
-     * over this port from the AWS Directory Service servers.
+     * The port that your RADIUS server is using for communications. Your self-managed network must allow inbound
+     * traffic over this port from the Directory Service servers.
      * </p>
      * 
-     * @return The port that your RADIUS server is using for communications. Your on-premises network must allow inbound
-     *         traffic over this port from the AWS Directory Service servers.
+     * @return The port that your RADIUS server is using for communications. Your self-managed network must allow
+     *         inbound traffic over this port from the Directory Service servers.
      */
 
     public Integer getRadiusPort() {
@@ -191,13 +191,13 @@ public class RadiusSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The port that your RADIUS server is using for communications. Your on-premises network must allow inbound traffic
-     * over this port from the AWS Directory Service servers.
+     * The port that your RADIUS server is using for communications. Your self-managed network must allow inbound
+     * traffic over this port from the Directory Service servers.
      * </p>
      * 
      * @param radiusPort
-     *        The port that your RADIUS server is using for communications. Your on-premises network must allow inbound
-     *        traffic over this port from the AWS Directory Service servers.
+     *        The port that your RADIUS server is using for communications. Your self-managed network must allow inbound
+     *        traffic over this port from the Directory Service servers.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,56 +27,33 @@ public class StartTaskRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The short name or full Amazon Resource Name (ARN) of the cluster on which to start your task. If you do not
-     * specify a cluster, the default cluster is assumed.
+     * The short name or full Amazon Resource Name (ARN) of the cluster where to start your task. If you do not specify
+     * a cluster, the default cluster is assumed.
      * </p>
      */
     private String cluster;
     /**
      * <p>
-     * The <code>family</code> and <code>revision</code> (<code>family:revision</code>) or full ARN of the task
-     * definition to start. If a <code>revision</code> is not specified, the latest <code>ACTIVE</code> revision is
-     * used.
-     * </p>
-     */
-    private String taskDefinition;
-    /**
-     * <p>
-     * A list of container overrides in JSON format that specify the name of a container in the specified task
-     * definition and the overrides it should receive. You can override the default command for a container (that is
-     * specified in the task definition or Docker image) with a <code>command</code> override. You can also override
-     * existing environment variables (that are specified in the task definition or Docker image) on a container or add
-     * new environment variables to it with an <code>environment</code> override.
-     * </p>
-     * <note>
-     * <p>
-     * A total of 8192 characters are allowed for overrides. This limit includes the JSON formatting characters of the
-     * override structure.
-     * </p>
-     * </note>
-     */
-    private TaskOverride overrides;
-    /**
-     * <p>
-     * The container instance IDs or full ARN entries for the container instances on which you would like to place your
+     * The container instance IDs or full ARN entries for the container instances where you would like to place your
      * task. You can specify up to 10 container instances.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> containerInstances;
     /**
      * <p>
-     * An optional tag specified when a task is started. For example, if you automatically trigger a task to run a batch
-     * process job, you could apply a unique identifier for that job to your task with the <code>startedBy</code>
-     * parameter. You can then identify which tasks belong to that job by filtering the results of a <a>ListTasks</a>
-     * call with the <code>startedBy</code> value. Up to 36 letters (uppercase and lowercase), numbers, hyphens, and
-     * underscores are allowed.
-     * </p>
-     * <p>
-     * If a task is started by an Amazon ECS service, then the <code>startedBy</code> parameter contains the deployment
-     * ID of the service that starts it.
+     * Specifies whether to use Amazon ECS managed tags for the task. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging Your Amazon ECS
+     * Resources</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      */
-    private String startedBy;
+    private Boolean enableECSManagedTags;
+    /**
+     * <p>
+     * Whether or not the execute command functionality is turned on for the task. If <code>true</code>, this turns on
+     * the execute command functionality on all containers in the task.
+     * </p>
+     */
+    private Boolean enableExecuteCommand;
     /**
      * <p>
      * The name of the task group to associate with the task. The default value is the family name of the task
@@ -93,37 +70,125 @@ public class StartTaskRequest extends com.amazonaws.AmazonWebServiceRequest impl
     private NetworkConfiguration networkConfiguration;
     /**
      * <p>
-     * The metadata that you apply to the task to help you categorize and organize them. Each tag consists of a key and
-     * an optional value, both of which you define. Tag keys can have a maximum character length of 128 characters, and
-     * tag values can have a maximum length of 256 characters.
+     * A list of container overrides in JSON format that specify the name of a container in the specified task
+     * definition and the overrides it receives. You can override the default command for a container (that's specified
+     * in the task definition or Docker image) with a <code>command</code> override. You can also override existing
+     * environment variables (that are specified in the task definition or Docker image) on a container or add new
+     * environment variables to it with an <code>environment</code> override.
      * </p>
+     * <note>
+     * <p>
+     * A total of 8192 characters are allowed for overrides. This limit includes the JSON formatting characters of the
+     * override structure.
+     * </p>
+     * </note>
+     */
+    private TaskOverride overrides;
+    /**
+     * <p>
+     * Specifies whether to propagate the tags from the task definition or the service to the task. If no value is
+     * specified, the tags aren't propagated.
+     * </p>
+     */
+    private String propagateTags;
+    /**
+     * <p>
+     * The reference ID to use for the task.
+     * </p>
+     */
+    private String referenceId;
+    /**
+     * <p>
+     * An optional tag specified when a task is started. For example, if you automatically trigger a task to run a batch
+     * process job, you could apply a unique identifier for that job to your task with the <code>startedBy</code>
+     * parameter. You can then identify which tasks belong to that job by filtering the results of a <a>ListTasks</a>
+     * call with the <code>startedBy</code> value. Up to 36 letters (uppercase and lowercase), numbers, hyphens (-), and
+     * underscores (_) are allowed.
+     * </p>
+     * <p>
+     * If a task is started by an Amazon ECS service, the <code>startedBy</code> parameter contains the deployment ID of
+     * the service that starts it.
+     * </p>
+     */
+    private String startedBy;
+    /**
+     * <p>
+     * The metadata that you apply to the task to help you categorize and organize them. Each tag consists of a key and
+     * an optional value, both of which you define.
+     * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
     /**
      * <p>
-     * Specifies whether to enable Amazon ECS managed tags for the task. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging Your Amazon ECS
-     * Resources</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * The <code>family</code> and <code>revision</code> (<code>family:revision</code>) or full ARN of the task
+     * definition to start. If a <code>revision</code> isn't specified, the latest <code>ACTIVE</code> revision is used.
      * </p>
      */
-    private Boolean enableECSManagedTags;
+    private String taskDefinition;
     /**
      * <p>
-     * Specifies whether to propagate the tags from the task definition or the service to the task. If no value is
-     * specified, the tags are not propagated.
+     * The details of the volume that was <code>configuredAtLaunch</code>. You can configure the size, volumeType, IOPS,
+     * throughput, snapshot and encryption in <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_TaskManagedEBSVolumeConfiguration.html"
+     * >TaskManagedEBSVolumeConfiguration</a>. The <code>name</code> of the volume must match the <code>name</code> from
+     * the task definition.
      * </p>
      */
-    private String propagateTags;
+    private com.amazonaws.internal.SdkInternalList<TaskVolumeConfiguration> volumeConfigurations;
 
     /**
      * <p>
-     * The short name or full Amazon Resource Name (ARN) of the cluster on which to start your task. If you do not
-     * specify a cluster, the default cluster is assumed.
+     * The short name or full Amazon Resource Name (ARN) of the cluster where to start your task. If you do not specify
+     * a cluster, the default cluster is assumed.
      * </p>
      * 
      * @param cluster
-     *        The short name or full Amazon Resource Name (ARN) of the cluster on which to start your task. If you do
-     *        not specify a cluster, the default cluster is assumed.
+     *        The short name or full Amazon Resource Name (ARN) of the cluster where to start your task. If you do not
+     *        specify a cluster, the default cluster is assumed.
      */
 
     public void setCluster(String cluster) {
@@ -132,12 +197,12 @@ public class StartTaskRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The short name or full Amazon Resource Name (ARN) of the cluster on which to start your task. If you do not
-     * specify a cluster, the default cluster is assumed.
+     * The short name or full Amazon Resource Name (ARN) of the cluster where to start your task. If you do not specify
+     * a cluster, the default cluster is assumed.
      * </p>
      * 
-     * @return The short name or full Amazon Resource Name (ARN) of the cluster on which to start your task. If you do
-     *         not specify a cluster, the default cluster is assumed.
+     * @return The short name or full Amazon Resource Name (ARN) of the cluster where to start your task. If you do not
+     *         specify a cluster, the default cluster is assumed.
      */
 
     public String getCluster() {
@@ -146,13 +211,13 @@ public class StartTaskRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The short name or full Amazon Resource Name (ARN) of the cluster on which to start your task. If you do not
-     * specify a cluster, the default cluster is assumed.
+     * The short name or full Amazon Resource Name (ARN) of the cluster where to start your task. If you do not specify
+     * a cluster, the default cluster is assumed.
      * </p>
      * 
      * @param cluster
-     *        The short name or full Amazon Resource Name (ARN) of the cluster on which to start your task. If you do
-     *        not specify a cluster, the default cluster is assumed.
+     *        The short name or full Amazon Resource Name (ARN) of the cluster where to start your task. If you do not
+     *        specify a cluster, the default cluster is assumed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -163,159 +228,12 @@ public class StartTaskRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The <code>family</code> and <code>revision</code> (<code>family:revision</code>) or full ARN of the task
-     * definition to start. If a <code>revision</code> is not specified, the latest <code>ACTIVE</code> revision is
-     * used.
-     * </p>
-     * 
-     * @param taskDefinition
-     *        The <code>family</code> and <code>revision</code> (<code>family:revision</code>) or full ARN of the task
-     *        definition to start. If a <code>revision</code> is not specified, the latest <code>ACTIVE</code> revision
-     *        is used.
-     */
-
-    public void setTaskDefinition(String taskDefinition) {
-        this.taskDefinition = taskDefinition;
-    }
-
-    /**
-     * <p>
-     * The <code>family</code> and <code>revision</code> (<code>family:revision</code>) or full ARN of the task
-     * definition to start. If a <code>revision</code> is not specified, the latest <code>ACTIVE</code> revision is
-     * used.
-     * </p>
-     * 
-     * @return The <code>family</code> and <code>revision</code> (<code>family:revision</code>) or full ARN of the task
-     *         definition to start. If a <code>revision</code> is not specified, the latest <code>ACTIVE</code> revision
-     *         is used.
-     */
-
-    public String getTaskDefinition() {
-        return this.taskDefinition;
-    }
-
-    /**
-     * <p>
-     * The <code>family</code> and <code>revision</code> (<code>family:revision</code>) or full ARN of the task
-     * definition to start. If a <code>revision</code> is not specified, the latest <code>ACTIVE</code> revision is
-     * used.
-     * </p>
-     * 
-     * @param taskDefinition
-     *        The <code>family</code> and <code>revision</code> (<code>family:revision</code>) or full ARN of the task
-     *        definition to start. If a <code>revision</code> is not specified, the latest <code>ACTIVE</code> revision
-     *        is used.
-     * @return Returns a reference to this object so that method calls can be chained together.
-     */
-
-    public StartTaskRequest withTaskDefinition(String taskDefinition) {
-        setTaskDefinition(taskDefinition);
-        return this;
-    }
-
-    /**
-     * <p>
-     * A list of container overrides in JSON format that specify the name of a container in the specified task
-     * definition and the overrides it should receive. You can override the default command for a container (that is
-     * specified in the task definition or Docker image) with a <code>command</code> override. You can also override
-     * existing environment variables (that are specified in the task definition or Docker image) on a container or add
-     * new environment variables to it with an <code>environment</code> override.
-     * </p>
-     * <note>
-     * <p>
-     * A total of 8192 characters are allowed for overrides. This limit includes the JSON formatting characters of the
-     * override structure.
-     * </p>
-     * </note>
-     * 
-     * @param overrides
-     *        A list of container overrides in JSON format that specify the name of a container in the specified task
-     *        definition and the overrides it should receive. You can override the default command for a container (that
-     *        is specified in the task definition or Docker image) with a <code>command</code> override. You can also
-     *        override existing environment variables (that are specified in the task definition or Docker image) on a
-     *        container or add new environment variables to it with an <code>environment</code> override.</p> <note>
-     *        <p>
-     *        A total of 8192 characters are allowed for overrides. This limit includes the JSON formatting characters
-     *        of the override structure.
-     *        </p>
-     */
-
-    public void setOverrides(TaskOverride overrides) {
-        this.overrides = overrides;
-    }
-
-    /**
-     * <p>
-     * A list of container overrides in JSON format that specify the name of a container in the specified task
-     * definition and the overrides it should receive. You can override the default command for a container (that is
-     * specified in the task definition or Docker image) with a <code>command</code> override. You can also override
-     * existing environment variables (that are specified in the task definition or Docker image) on a container or add
-     * new environment variables to it with an <code>environment</code> override.
-     * </p>
-     * <note>
-     * <p>
-     * A total of 8192 characters are allowed for overrides. This limit includes the JSON formatting characters of the
-     * override structure.
-     * </p>
-     * </note>
-     * 
-     * @return A list of container overrides in JSON format that specify the name of a container in the specified task
-     *         definition and the overrides it should receive. You can override the default command for a container
-     *         (that is specified in the task definition or Docker image) with a <code>command</code> override. You can
-     *         also override existing environment variables (that are specified in the task definition or Docker image)
-     *         on a container or add new environment variables to it with an <code>environment</code> override.</p>
-     *         <note>
-     *         <p>
-     *         A total of 8192 characters are allowed for overrides. This limit includes the JSON formatting characters
-     *         of the override structure.
-     *         </p>
-     */
-
-    public TaskOverride getOverrides() {
-        return this.overrides;
-    }
-
-    /**
-     * <p>
-     * A list of container overrides in JSON format that specify the name of a container in the specified task
-     * definition and the overrides it should receive. You can override the default command for a container (that is
-     * specified in the task definition or Docker image) with a <code>command</code> override. You can also override
-     * existing environment variables (that are specified in the task definition or Docker image) on a container or add
-     * new environment variables to it with an <code>environment</code> override.
-     * </p>
-     * <note>
-     * <p>
-     * A total of 8192 characters are allowed for overrides. This limit includes the JSON formatting characters of the
-     * override structure.
-     * </p>
-     * </note>
-     * 
-     * @param overrides
-     *        A list of container overrides in JSON format that specify the name of a container in the specified task
-     *        definition and the overrides it should receive. You can override the default command for a container (that
-     *        is specified in the task definition or Docker image) with a <code>command</code> override. You can also
-     *        override existing environment variables (that are specified in the task definition or Docker image) on a
-     *        container or add new environment variables to it with an <code>environment</code> override.</p> <note>
-     *        <p>
-     *        A total of 8192 characters are allowed for overrides. This limit includes the JSON formatting characters
-     *        of the override structure.
-     *        </p>
-     * @return Returns a reference to this object so that method calls can be chained together.
-     */
-
-    public StartTaskRequest withOverrides(TaskOverride overrides) {
-        setOverrides(overrides);
-        return this;
-    }
-
-    /**
-     * <p>
-     * The container instance IDs or full ARN entries for the container instances on which you would like to place your
+     * The container instance IDs or full ARN entries for the container instances where you would like to place your
      * task. You can specify up to 10 container instances.
      * </p>
      * 
-     * @return The container instance IDs or full ARN entries for the container instances on which you would like to
-     *         place your task. You can specify up to 10 container instances.
+     * @return The container instance IDs or full ARN entries for the container instances where you would like to place
+     *         your task. You can specify up to 10 container instances.
      */
 
     public java.util.List<String> getContainerInstances() {
@@ -327,13 +245,13 @@ public class StartTaskRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The container instance IDs or full ARN entries for the container instances on which you would like to place your
+     * The container instance IDs or full ARN entries for the container instances where you would like to place your
      * task. You can specify up to 10 container instances.
      * </p>
      * 
      * @param containerInstances
-     *        The container instance IDs or full ARN entries for the container instances on which you would like to
-     *        place your task. You can specify up to 10 container instances.
+     *        The container instance IDs or full ARN entries for the container instances where you would like to place
+     *        your task. You can specify up to 10 container instances.
      */
 
     public void setContainerInstances(java.util.Collection<String> containerInstances) {
@@ -347,7 +265,7 @@ public class StartTaskRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The container instance IDs or full ARN entries for the container instances on which you would like to place your
+     * The container instance IDs or full ARN entries for the container instances where you would like to place your
      * task. You can specify up to 10 container instances.
      * </p>
      * <p>
@@ -357,8 +275,8 @@ public class StartTaskRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </p>
      * 
      * @param containerInstances
-     *        The container instance IDs or full ARN entries for the container instances on which you would like to
-     *        place your task. You can specify up to 10 container instances.
+     *        The container instance IDs or full ARN entries for the container instances where you would like to place
+     *        your task. You can specify up to 10 container instances.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -374,13 +292,13 @@ public class StartTaskRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The container instance IDs or full ARN entries for the container instances on which you would like to place your
+     * The container instance IDs or full ARN entries for the container instances where you would like to place your
      * task. You can specify up to 10 container instances.
      * </p>
      * 
      * @param containerInstances
-     *        The container instance IDs or full ARN entries for the container instances on which you would like to
-     *        place your task. You can specify up to 10 container instances.
+     *        The container instance IDs or full ARN entries for the container instances where you would like to place
+     *        your task. You can specify up to 10 container instances.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -391,87 +309,130 @@ public class StartTaskRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * An optional tag specified when a task is started. For example, if you automatically trigger a task to run a batch
-     * process job, you could apply a unique identifier for that job to your task with the <code>startedBy</code>
-     * parameter. You can then identify which tasks belong to that job by filtering the results of a <a>ListTasks</a>
-     * call with the <code>startedBy</code> value. Up to 36 letters (uppercase and lowercase), numbers, hyphens, and
-     * underscores are allowed.
-     * </p>
-     * <p>
-     * If a task is started by an Amazon ECS service, then the <code>startedBy</code> parameter contains the deployment
-     * ID of the service that starts it.
+     * Specifies whether to use Amazon ECS managed tags for the task. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging Your Amazon ECS
+     * Resources</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      * 
-     * @param startedBy
-     *        An optional tag specified when a task is started. For example, if you automatically trigger a task to run
-     *        a batch process job, you could apply a unique identifier for that job to your task with the
-     *        <code>startedBy</code> parameter. You can then identify which tasks belong to that job by filtering the
-     *        results of a <a>ListTasks</a> call with the <code>startedBy</code> value. Up to 36 letters (uppercase and
-     *        lowercase), numbers, hyphens, and underscores are allowed.</p>
-     *        <p>
-     *        If a task is started by an Amazon ECS service, then the <code>startedBy</code> parameter contains the
-     *        deployment ID of the service that starts it.
+     * @param enableECSManagedTags
+     *        Specifies whether to use Amazon ECS managed tags for the task. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging Your Amazon
+     *        ECS Resources</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      */
 
-    public void setStartedBy(String startedBy) {
-        this.startedBy = startedBy;
+    public void setEnableECSManagedTags(Boolean enableECSManagedTags) {
+        this.enableECSManagedTags = enableECSManagedTags;
     }
 
     /**
      * <p>
-     * An optional tag specified when a task is started. For example, if you automatically trigger a task to run a batch
-     * process job, you could apply a unique identifier for that job to your task with the <code>startedBy</code>
-     * parameter. You can then identify which tasks belong to that job by filtering the results of a <a>ListTasks</a>
-     * call with the <code>startedBy</code> value. Up to 36 letters (uppercase and lowercase), numbers, hyphens, and
-     * underscores are allowed.
-     * </p>
-     * <p>
-     * If a task is started by an Amazon ECS service, then the <code>startedBy</code> parameter contains the deployment
-     * ID of the service that starts it.
+     * Specifies whether to use Amazon ECS managed tags for the task. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging Your Amazon ECS
+     * Resources</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      * 
-     * @return An optional tag specified when a task is started. For example, if you automatically trigger a task to run
-     *         a batch process job, you could apply a unique identifier for that job to your task with the
-     *         <code>startedBy</code> parameter. You can then identify which tasks belong to that job by filtering the
-     *         results of a <a>ListTasks</a> call with the <code>startedBy</code> value. Up to 36 letters (uppercase and
-     *         lowercase), numbers, hyphens, and underscores are allowed.</p>
-     *         <p>
-     *         If a task is started by an Amazon ECS service, then the <code>startedBy</code> parameter contains the
-     *         deployment ID of the service that starts it.
+     * @return Specifies whether to use Amazon ECS managed tags for the task. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging Your
+     *         Amazon ECS Resources</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      */
 
-    public String getStartedBy() {
-        return this.startedBy;
+    public Boolean getEnableECSManagedTags() {
+        return this.enableECSManagedTags;
     }
 
     /**
      * <p>
-     * An optional tag specified when a task is started. For example, if you automatically trigger a task to run a batch
-     * process job, you could apply a unique identifier for that job to your task with the <code>startedBy</code>
-     * parameter. You can then identify which tasks belong to that job by filtering the results of a <a>ListTasks</a>
-     * call with the <code>startedBy</code> value. Up to 36 letters (uppercase and lowercase), numbers, hyphens, and
-     * underscores are allowed.
-     * </p>
-     * <p>
-     * If a task is started by an Amazon ECS service, then the <code>startedBy</code> parameter contains the deployment
-     * ID of the service that starts it.
+     * Specifies whether to use Amazon ECS managed tags for the task. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging Your Amazon ECS
+     * Resources</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      * 
-     * @param startedBy
-     *        An optional tag specified when a task is started. For example, if you automatically trigger a task to run
-     *        a batch process job, you could apply a unique identifier for that job to your task with the
-     *        <code>startedBy</code> parameter. You can then identify which tasks belong to that job by filtering the
-     *        results of a <a>ListTasks</a> call with the <code>startedBy</code> value. Up to 36 letters (uppercase and
-     *        lowercase), numbers, hyphens, and underscores are allowed.</p>
-     *        <p>
-     *        If a task is started by an Amazon ECS service, then the <code>startedBy</code> parameter contains the
-     *        deployment ID of the service that starts it.
+     * @param enableECSManagedTags
+     *        Specifies whether to use Amazon ECS managed tags for the task. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging Your Amazon
+     *        ECS Resources</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
-    public StartTaskRequest withStartedBy(String startedBy) {
-        setStartedBy(startedBy);
+    public StartTaskRequest withEnableECSManagedTags(Boolean enableECSManagedTags) {
+        setEnableECSManagedTags(enableECSManagedTags);
         return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to use Amazon ECS managed tags for the task. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging Your Amazon ECS
+     * Resources</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * </p>
+     * 
+     * @return Specifies whether to use Amazon ECS managed tags for the task. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging Your
+     *         Amazon ECS Resources</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     */
+
+    public Boolean isEnableECSManagedTags() {
+        return this.enableECSManagedTags;
+    }
+
+    /**
+     * <p>
+     * Whether or not the execute command functionality is turned on for the task. If <code>true</code>, this turns on
+     * the execute command functionality on all containers in the task.
+     * </p>
+     * 
+     * @param enableExecuteCommand
+     *        Whether or not the execute command functionality is turned on for the task. If <code>true</code>, this
+     *        turns on the execute command functionality on all containers in the task.
+     */
+
+    public void setEnableExecuteCommand(Boolean enableExecuteCommand) {
+        this.enableExecuteCommand = enableExecuteCommand;
+    }
+
+    /**
+     * <p>
+     * Whether or not the execute command functionality is turned on for the task. If <code>true</code>, this turns on
+     * the execute command functionality on all containers in the task.
+     * </p>
+     * 
+     * @return Whether or not the execute command functionality is turned on for the task. If <code>true</code>, this
+     *         turns on the execute command functionality on all containers in the task.
+     */
+
+    public Boolean getEnableExecuteCommand() {
+        return this.enableExecuteCommand;
+    }
+
+    /**
+     * <p>
+     * Whether or not the execute command functionality is turned on for the task. If <code>true</code>, this turns on
+     * the execute command functionality on all containers in the task.
+     * </p>
+     * 
+     * @param enableExecuteCommand
+     *        Whether or not the execute command functionality is turned on for the task. If <code>true</code>, this
+     *        turns on the execute command functionality on all containers in the task.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartTaskRequest withEnableExecuteCommand(Boolean enableExecuteCommand) {
+        setEnableExecuteCommand(enableExecuteCommand);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Whether or not the execute command functionality is turned on for the task. If <code>true</code>, this turns on
+     * the execute command functionality on all containers in the task.
+     * </p>
+     * 
+     * @return Whether or not the execute command functionality is turned on for the task. If <code>true</code>, this
+     *         turns on the execute command functionality on all containers in the task.
+     */
+
+    public Boolean isEnableExecuteCommand() {
+        return this.enableExecuteCommand;
     }
 
     /**
@@ -568,14 +529,386 @@ public class StartTaskRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The metadata that you apply to the task to help you categorize and organize them. Each tag consists of a key and
-     * an optional value, both of which you define. Tag keys can have a maximum character length of 128 characters, and
-     * tag values can have a maximum length of 256 characters.
+     * A list of container overrides in JSON format that specify the name of a container in the specified task
+     * definition and the overrides it receives. You can override the default command for a container (that's specified
+     * in the task definition or Docker image) with a <code>command</code> override. You can also override existing
+     * environment variables (that are specified in the task definition or Docker image) on a container or add new
+     * environment variables to it with an <code>environment</code> override.
+     * </p>
+     * <note>
+     * <p>
+     * A total of 8192 characters are allowed for overrides. This limit includes the JSON formatting characters of the
+     * override structure.
+     * </p>
+     * </note>
+     * 
+     * @param overrides
+     *        A list of container overrides in JSON format that specify the name of a container in the specified task
+     *        definition and the overrides it receives. You can override the default command for a container (that's
+     *        specified in the task definition or Docker image) with a <code>command</code> override. You can also
+     *        override existing environment variables (that are specified in the task definition or Docker image) on a
+     *        container or add new environment variables to it with an <code>environment</code> override.</p> <note>
+     *        <p>
+     *        A total of 8192 characters are allowed for overrides. This limit includes the JSON formatting characters
+     *        of the override structure.
+     *        </p>
+     */
+
+    public void setOverrides(TaskOverride overrides) {
+        this.overrides = overrides;
+    }
+
+    /**
+     * <p>
+     * A list of container overrides in JSON format that specify the name of a container in the specified task
+     * definition and the overrides it receives. You can override the default command for a container (that's specified
+     * in the task definition or Docker image) with a <code>command</code> override. You can also override existing
+     * environment variables (that are specified in the task definition or Docker image) on a container or add new
+     * environment variables to it with an <code>environment</code> override.
+     * </p>
+     * <note>
+     * <p>
+     * A total of 8192 characters are allowed for overrides. This limit includes the JSON formatting characters of the
+     * override structure.
+     * </p>
+     * </note>
+     * 
+     * @return A list of container overrides in JSON format that specify the name of a container in the specified task
+     *         definition and the overrides it receives. You can override the default command for a container (that's
+     *         specified in the task definition or Docker image) with a <code>command</code> override. You can also
+     *         override existing environment variables (that are specified in the task definition or Docker image) on a
+     *         container or add new environment variables to it with an <code>environment</code> override.</p> <note>
+     *         <p>
+     *         A total of 8192 characters are allowed for overrides. This limit includes the JSON formatting characters
+     *         of the override structure.
+     *         </p>
+     */
+
+    public TaskOverride getOverrides() {
+        return this.overrides;
+    }
+
+    /**
+     * <p>
+     * A list of container overrides in JSON format that specify the name of a container in the specified task
+     * definition and the overrides it receives. You can override the default command for a container (that's specified
+     * in the task definition or Docker image) with a <code>command</code> override. You can also override existing
+     * environment variables (that are specified in the task definition or Docker image) on a container or add new
+     * environment variables to it with an <code>environment</code> override.
+     * </p>
+     * <note>
+     * <p>
+     * A total of 8192 characters are allowed for overrides. This limit includes the JSON formatting characters of the
+     * override structure.
+     * </p>
+     * </note>
+     * 
+     * @param overrides
+     *        A list of container overrides in JSON format that specify the name of a container in the specified task
+     *        definition and the overrides it receives. You can override the default command for a container (that's
+     *        specified in the task definition or Docker image) with a <code>command</code> override. You can also
+     *        override existing environment variables (that are specified in the task definition or Docker image) on a
+     *        container or add new environment variables to it with an <code>environment</code> override.</p> <note>
+     *        <p>
+     *        A total of 8192 characters are allowed for overrides. This limit includes the JSON formatting characters
+     *        of the override structure.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartTaskRequest withOverrides(TaskOverride overrides) {
+        setOverrides(overrides);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to propagate the tags from the task definition or the service to the task. If no value is
+     * specified, the tags aren't propagated.
      * </p>
      * 
+     * @param propagateTags
+     *        Specifies whether to propagate the tags from the task definition or the service to the task. If no value
+     *        is specified, the tags aren't propagated.
+     * @see PropagateTags
+     */
+
+    public void setPropagateTags(String propagateTags) {
+        this.propagateTags = propagateTags;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to propagate the tags from the task definition or the service to the task. If no value is
+     * specified, the tags aren't propagated.
+     * </p>
+     * 
+     * @return Specifies whether to propagate the tags from the task definition or the service to the task. If no value
+     *         is specified, the tags aren't propagated.
+     * @see PropagateTags
+     */
+
+    public String getPropagateTags() {
+        return this.propagateTags;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to propagate the tags from the task definition or the service to the task. If no value is
+     * specified, the tags aren't propagated.
+     * </p>
+     * 
+     * @param propagateTags
+     *        Specifies whether to propagate the tags from the task definition or the service to the task. If no value
+     *        is specified, the tags aren't propagated.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PropagateTags
+     */
+
+    public StartTaskRequest withPropagateTags(String propagateTags) {
+        setPropagateTags(propagateTags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to propagate the tags from the task definition or the service to the task. If no value is
+     * specified, the tags aren't propagated.
+     * </p>
+     * 
+     * @param propagateTags
+     *        Specifies whether to propagate the tags from the task definition or the service to the task. If no value
+     *        is specified, the tags aren't propagated.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PropagateTags
+     */
+
+    public StartTaskRequest withPropagateTags(PropagateTags propagateTags) {
+        this.propagateTags = propagateTags.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The reference ID to use for the task.
+     * </p>
+     * 
+     * @param referenceId
+     *        The reference ID to use for the task.
+     */
+
+    public void setReferenceId(String referenceId) {
+        this.referenceId = referenceId;
+    }
+
+    /**
+     * <p>
+     * The reference ID to use for the task.
+     * </p>
+     * 
+     * @return The reference ID to use for the task.
+     */
+
+    public String getReferenceId() {
+        return this.referenceId;
+    }
+
+    /**
+     * <p>
+     * The reference ID to use for the task.
+     * </p>
+     * 
+     * @param referenceId
+     *        The reference ID to use for the task.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartTaskRequest withReferenceId(String referenceId) {
+        setReferenceId(referenceId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An optional tag specified when a task is started. For example, if you automatically trigger a task to run a batch
+     * process job, you could apply a unique identifier for that job to your task with the <code>startedBy</code>
+     * parameter. You can then identify which tasks belong to that job by filtering the results of a <a>ListTasks</a>
+     * call with the <code>startedBy</code> value. Up to 36 letters (uppercase and lowercase), numbers, hyphens (-), and
+     * underscores (_) are allowed.
+     * </p>
+     * <p>
+     * If a task is started by an Amazon ECS service, the <code>startedBy</code> parameter contains the deployment ID of
+     * the service that starts it.
+     * </p>
+     * 
+     * @param startedBy
+     *        An optional tag specified when a task is started. For example, if you automatically trigger a task to run
+     *        a batch process job, you could apply a unique identifier for that job to your task with the
+     *        <code>startedBy</code> parameter. You can then identify which tasks belong to that job by filtering the
+     *        results of a <a>ListTasks</a> call with the <code>startedBy</code> value. Up to 36 letters (uppercase and
+     *        lowercase), numbers, hyphens (-), and underscores (_) are allowed.</p>
+     *        <p>
+     *        If a task is started by an Amazon ECS service, the <code>startedBy</code> parameter contains the
+     *        deployment ID of the service that starts it.
+     */
+
+    public void setStartedBy(String startedBy) {
+        this.startedBy = startedBy;
+    }
+
+    /**
+     * <p>
+     * An optional tag specified when a task is started. For example, if you automatically trigger a task to run a batch
+     * process job, you could apply a unique identifier for that job to your task with the <code>startedBy</code>
+     * parameter. You can then identify which tasks belong to that job by filtering the results of a <a>ListTasks</a>
+     * call with the <code>startedBy</code> value. Up to 36 letters (uppercase and lowercase), numbers, hyphens (-), and
+     * underscores (_) are allowed.
+     * </p>
+     * <p>
+     * If a task is started by an Amazon ECS service, the <code>startedBy</code> parameter contains the deployment ID of
+     * the service that starts it.
+     * </p>
+     * 
+     * @return An optional tag specified when a task is started. For example, if you automatically trigger a task to run
+     *         a batch process job, you could apply a unique identifier for that job to your task with the
+     *         <code>startedBy</code> parameter. You can then identify which tasks belong to that job by filtering the
+     *         results of a <a>ListTasks</a> call with the <code>startedBy</code> value. Up to 36 letters (uppercase and
+     *         lowercase), numbers, hyphens (-), and underscores (_) are allowed.</p>
+     *         <p>
+     *         If a task is started by an Amazon ECS service, the <code>startedBy</code> parameter contains the
+     *         deployment ID of the service that starts it.
+     */
+
+    public String getStartedBy() {
+        return this.startedBy;
+    }
+
+    /**
+     * <p>
+     * An optional tag specified when a task is started. For example, if you automatically trigger a task to run a batch
+     * process job, you could apply a unique identifier for that job to your task with the <code>startedBy</code>
+     * parameter. You can then identify which tasks belong to that job by filtering the results of a <a>ListTasks</a>
+     * call with the <code>startedBy</code> value. Up to 36 letters (uppercase and lowercase), numbers, hyphens (-), and
+     * underscores (_) are allowed.
+     * </p>
+     * <p>
+     * If a task is started by an Amazon ECS service, the <code>startedBy</code> parameter contains the deployment ID of
+     * the service that starts it.
+     * </p>
+     * 
+     * @param startedBy
+     *        An optional tag specified when a task is started. For example, if you automatically trigger a task to run
+     *        a batch process job, you could apply a unique identifier for that job to your task with the
+     *        <code>startedBy</code> parameter. You can then identify which tasks belong to that job by filtering the
+     *        results of a <a>ListTasks</a> call with the <code>startedBy</code> value. Up to 36 letters (uppercase and
+     *        lowercase), numbers, hyphens (-), and underscores (_) are allowed.</p>
+     *        <p>
+     *        If a task is started by an Amazon ECS service, the <code>startedBy</code> parameter contains the
+     *        deployment ID of the service that starts it.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartTaskRequest withStartedBy(String startedBy) {
+        setStartedBy(startedBy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The metadata that you apply to the task to help you categorize and organize them. Each tag consists of a key and
+     * an optional value, both of which you define.
+     * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
+     * 
      * @return The metadata that you apply to the task to help you categorize and organize them. Each tag consists of a
-     *         key and an optional value, both of which you define. Tag keys can have a maximum character length of 128
-     *         characters, and tag values can have a maximum length of 256 characters.
+     *         key and an optional value, both of which you define.</p>
+     *         <p>
+     *         The following basic restrictions apply to tags:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Maximum number of tags per resource - 50
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For each resource, each tag key must be unique, and each tag key can have only one value.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Maximum key length - 128 Unicode characters in UTF-8
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Maximum value length - 256 Unicode characters in UTF-8
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If your tagging schema is used across multiple services and resources, remember that other services may
+     *         have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces
+     *         representable in UTF-8, and the following characters: + - = . _ : / @.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Tag keys and values are case-sensitive.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a
+     *         prefix for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete
+     *         tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource
+     *         limit.
+     *         </p>
+     *         </li>
      */
 
     public java.util.List<Tag> getTags() {
@@ -588,14 +921,99 @@ public class StartTaskRequest extends com.amazonaws.AmazonWebServiceRequest impl
     /**
      * <p>
      * The metadata that you apply to the task to help you categorize and organize them. Each tag consists of a key and
-     * an optional value, both of which you define. Tag keys can have a maximum character length of 128 characters, and
-     * tag values can have a maximum length of 256 characters.
+     * an optional value, both of which you define.
      * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param tags
      *        The metadata that you apply to the task to help you categorize and organize them. Each tag consists of a
-     *        key and an optional value, both of which you define. Tag keys can have a maximum character length of 128
-     *        characters, and tag values can have a maximum length of 256 characters.
+     *        key and an optional value, both of which you define.</p>
+     *        <p>
+     *        The following basic restrictions apply to tags:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Maximum number of tags per resource - 50
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For each resource, each tag key must be unique, and each tag key can have only one value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum key length - 128 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum value length - 256 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If your tagging schema is used across multiple services and resources, remember that other services may
+     *        have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces
+     *        representable in UTF-8, and the following characters: + - = . _ : / @.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Tag keys and values are case-sensitive.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix
+     *        for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag
+     *        keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     *        </p>
+     *        </li>
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -610,9 +1028,52 @@ public class StartTaskRequest extends com.amazonaws.AmazonWebServiceRequest impl
     /**
      * <p>
      * The metadata that you apply to the task to help you categorize and organize them. Each tag consists of a key and
-     * an optional value, both of which you define. Tag keys can have a maximum character length of 128 characters, and
-     * tag values can have a maximum length of 256 characters.
+     * an optional value, both of which you define.
      * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
@@ -621,8 +1082,50 @@ public class StartTaskRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * 
      * @param tags
      *        The metadata that you apply to the task to help you categorize and organize them. Each tag consists of a
-     *        key and an optional value, both of which you define. Tag keys can have a maximum character length of 128
-     *        characters, and tag values can have a maximum length of 256 characters.
+     *        key and an optional value, both of which you define.</p>
+     *        <p>
+     *        The following basic restrictions apply to tags:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Maximum number of tags per resource - 50
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For each resource, each tag key must be unique, and each tag key can have only one value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum key length - 128 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum value length - 256 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If your tagging schema is used across multiple services and resources, remember that other services may
+     *        have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces
+     *        representable in UTF-8, and the following characters: + - = . _ : / @.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Tag keys and values are case-sensitive.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix
+     *        for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag
+     *        keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -639,14 +1142,99 @@ public class StartTaskRequest extends com.amazonaws.AmazonWebServiceRequest impl
     /**
      * <p>
      * The metadata that you apply to the task to help you categorize and organize them. Each tag consists of a key and
-     * an optional value, both of which you define. Tag keys can have a maximum character length of 128 characters, and
-     * tag values can have a maximum length of 256 characters.
+     * an optional value, both of which you define.
      * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param tags
      *        The metadata that you apply to the task to help you categorize and organize them. Each tag consists of a
-     *        key and an optional value, both of which you define. Tag keys can have a maximum character length of 128
-     *        characters, and tag values can have a maximum length of 256 characters.
+     *        key and an optional value, both of which you define.</p>
+     *        <p>
+     *        The following basic restrictions apply to tags:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Maximum number of tags per resource - 50
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For each resource, each tag key must be unique, and each tag key can have only one value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum key length - 128 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum value length - 256 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If your tagging schema is used across multiple services and resources, remember that other services may
+     *        have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces
+     *        representable in UTF-8, and the following characters: + - = . _ : / @.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Tag keys and values are case-sensitive.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix
+     *        for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag
+     *        keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -657,136 +1245,155 @@ public class StartTaskRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Specifies whether to enable Amazon ECS managed tags for the task. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging Your Amazon ECS
-     * Resources</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * The <code>family</code> and <code>revision</code> (<code>family:revision</code>) or full ARN of the task
+     * definition to start. If a <code>revision</code> isn't specified, the latest <code>ACTIVE</code> revision is used.
      * </p>
      * 
-     * @param enableECSManagedTags
-     *        Specifies whether to enable Amazon ECS managed tags for the task. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging Your Amazon
-     *        ECS Resources</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * @param taskDefinition
+     *        The <code>family</code> and <code>revision</code> (<code>family:revision</code>) or full ARN of the task
+     *        definition to start. If a <code>revision</code> isn't specified, the latest <code>ACTIVE</code> revision
+     *        is used.
      */
 
-    public void setEnableECSManagedTags(Boolean enableECSManagedTags) {
-        this.enableECSManagedTags = enableECSManagedTags;
+    public void setTaskDefinition(String taskDefinition) {
+        this.taskDefinition = taskDefinition;
     }
 
     /**
      * <p>
-     * Specifies whether to enable Amazon ECS managed tags for the task. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging Your Amazon ECS
-     * Resources</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * The <code>family</code> and <code>revision</code> (<code>family:revision</code>) or full ARN of the task
+     * definition to start. If a <code>revision</code> isn't specified, the latest <code>ACTIVE</code> revision is used.
      * </p>
      * 
-     * @return Specifies whether to enable Amazon ECS managed tags for the task. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging Your
-     *         Amazon ECS Resources</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * @return The <code>family</code> and <code>revision</code> (<code>family:revision</code>) or full ARN of the task
+     *         definition to start. If a <code>revision</code> isn't specified, the latest <code>ACTIVE</code> revision
+     *         is used.
      */
 
-    public Boolean getEnableECSManagedTags() {
-        return this.enableECSManagedTags;
+    public String getTaskDefinition() {
+        return this.taskDefinition;
     }
 
     /**
      * <p>
-     * Specifies whether to enable Amazon ECS managed tags for the task. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging Your Amazon ECS
-     * Resources</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * The <code>family</code> and <code>revision</code> (<code>family:revision</code>) or full ARN of the task
+     * definition to start. If a <code>revision</code> isn't specified, the latest <code>ACTIVE</code> revision is used.
      * </p>
      * 
-     * @param enableECSManagedTags
-     *        Specifies whether to enable Amazon ECS managed tags for the task. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging Your Amazon
-     *        ECS Resources</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * @param taskDefinition
+     *        The <code>family</code> and <code>revision</code> (<code>family:revision</code>) or full ARN of the task
+     *        definition to start. If a <code>revision</code> isn't specified, the latest <code>ACTIVE</code> revision
+     *        is used.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
-    public StartTaskRequest withEnableECSManagedTags(Boolean enableECSManagedTags) {
-        setEnableECSManagedTags(enableECSManagedTags);
+    public StartTaskRequest withTaskDefinition(String taskDefinition) {
+        setTaskDefinition(taskDefinition);
         return this;
     }
 
     /**
      * <p>
-     * Specifies whether to enable Amazon ECS managed tags for the task. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging Your Amazon ECS
-     * Resources</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * The details of the volume that was <code>configuredAtLaunch</code>. You can configure the size, volumeType, IOPS,
+     * throughput, snapshot and encryption in <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_TaskManagedEBSVolumeConfiguration.html"
+     * >TaskManagedEBSVolumeConfiguration</a>. The <code>name</code> of the volume must match the <code>name</code> from
+     * the task definition.
      * </p>
      * 
-     * @return Specifies whether to enable Amazon ECS managed tags for the task. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html">Tagging Your
-     *         Amazon ECS Resources</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * @return The details of the volume that was <code>configuredAtLaunch</code>. You can configure the size,
+     *         volumeType, IOPS, throughput, snapshot and encryption in <a href=
+     *         "https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_TaskManagedEBSVolumeConfiguration.html"
+     *         >TaskManagedEBSVolumeConfiguration</a>. The <code>name</code> of the volume must match the
+     *         <code>name</code> from the task definition.
      */
 
-    public Boolean isEnableECSManagedTags() {
-        return this.enableECSManagedTags;
+    public java.util.List<TaskVolumeConfiguration> getVolumeConfigurations() {
+        if (volumeConfigurations == null) {
+            volumeConfigurations = new com.amazonaws.internal.SdkInternalList<TaskVolumeConfiguration>();
+        }
+        return volumeConfigurations;
     }
 
     /**
      * <p>
-     * Specifies whether to propagate the tags from the task definition or the service to the task. If no value is
-     * specified, the tags are not propagated.
+     * The details of the volume that was <code>configuredAtLaunch</code>. You can configure the size, volumeType, IOPS,
+     * throughput, snapshot and encryption in <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_TaskManagedEBSVolumeConfiguration.html"
+     * >TaskManagedEBSVolumeConfiguration</a>. The <code>name</code> of the volume must match the <code>name</code> from
+     * the task definition.
      * </p>
      * 
-     * @param propagateTags
-     *        Specifies whether to propagate the tags from the task definition or the service to the task. If no value
-     *        is specified, the tags are not propagated.
-     * @see PropagateTags
+     * @param volumeConfigurations
+     *        The details of the volume that was <code>configuredAtLaunch</code>. You can configure the size,
+     *        volumeType, IOPS, throughput, snapshot and encryption in <a href=
+     *        "https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_TaskManagedEBSVolumeConfiguration.html"
+     *        >TaskManagedEBSVolumeConfiguration</a>. The <code>name</code> of the volume must match the
+     *        <code>name</code> from the task definition.
      */
 
-    public void setPropagateTags(String propagateTags) {
-        this.propagateTags = propagateTags;
+    public void setVolumeConfigurations(java.util.Collection<TaskVolumeConfiguration> volumeConfigurations) {
+        if (volumeConfigurations == null) {
+            this.volumeConfigurations = null;
+            return;
+        }
+
+        this.volumeConfigurations = new com.amazonaws.internal.SdkInternalList<TaskVolumeConfiguration>(volumeConfigurations);
     }
 
     /**
      * <p>
-     * Specifies whether to propagate the tags from the task definition or the service to the task. If no value is
-     * specified, the tags are not propagated.
+     * The details of the volume that was <code>configuredAtLaunch</code>. You can configure the size, volumeType, IOPS,
+     * throughput, snapshot and encryption in <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_TaskManagedEBSVolumeConfiguration.html"
+     * >TaskManagedEBSVolumeConfiguration</a>. The <code>name</code> of the volume must match the <code>name</code> from
+     * the task definition.
      * </p>
-     * 
-     * @return Specifies whether to propagate the tags from the task definition or the service to the task. If no value
-     *         is specified, the tags are not propagated.
-     * @see PropagateTags
-     */
-
-    public String getPropagateTags() {
-        return this.propagateTags;
-    }
-
-    /**
      * <p>
-     * Specifies whether to propagate the tags from the task definition or the service to the task. If no value is
-     * specified, the tags are not propagated.
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setVolumeConfigurations(java.util.Collection)} or {@link #withVolumeConfigurations(java.util.Collection)}
+     * if you want to override the existing values.
      * </p>
      * 
-     * @param propagateTags
-     *        Specifies whether to propagate the tags from the task definition or the service to the task. If no value
-     *        is specified, the tags are not propagated.
+     * @param volumeConfigurations
+     *        The details of the volume that was <code>configuredAtLaunch</code>. You can configure the size,
+     *        volumeType, IOPS, throughput, snapshot and encryption in <a href=
+     *        "https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_TaskManagedEBSVolumeConfiguration.html"
+     *        >TaskManagedEBSVolumeConfiguration</a>. The <code>name</code> of the volume must match the
+     *        <code>name</code> from the task definition.
      * @return Returns a reference to this object so that method calls can be chained together.
-     * @see PropagateTags
      */
 
-    public StartTaskRequest withPropagateTags(String propagateTags) {
-        setPropagateTags(propagateTags);
+    public StartTaskRequest withVolumeConfigurations(TaskVolumeConfiguration... volumeConfigurations) {
+        if (this.volumeConfigurations == null) {
+            setVolumeConfigurations(new com.amazonaws.internal.SdkInternalList<TaskVolumeConfiguration>(volumeConfigurations.length));
+        }
+        for (TaskVolumeConfiguration ele : volumeConfigurations) {
+            this.volumeConfigurations.add(ele);
+        }
         return this;
     }
 
     /**
      * <p>
-     * Specifies whether to propagate the tags from the task definition or the service to the task. If no value is
-     * specified, the tags are not propagated.
+     * The details of the volume that was <code>configuredAtLaunch</code>. You can configure the size, volumeType, IOPS,
+     * throughput, snapshot and encryption in <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_TaskManagedEBSVolumeConfiguration.html"
+     * >TaskManagedEBSVolumeConfiguration</a>. The <code>name</code> of the volume must match the <code>name</code> from
+     * the task definition.
      * </p>
      * 
-     * @param propagateTags
-     *        Specifies whether to propagate the tags from the task definition or the service to the task. If no value
-     *        is specified, the tags are not propagated.
+     * @param volumeConfigurations
+     *        The details of the volume that was <code>configuredAtLaunch</code>. You can configure the size,
+     *        volumeType, IOPS, throughput, snapshot and encryption in <a href=
+     *        "https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_TaskManagedEBSVolumeConfiguration.html"
+     *        >TaskManagedEBSVolumeConfiguration</a>. The <code>name</code> of the volume must match the
+     *        <code>name</code> from the task definition.
      * @return Returns a reference to this object so that method calls can be chained together.
-     * @see PropagateTags
      */
 
-    public StartTaskRequest withPropagateTags(PropagateTags propagateTags) {
-        this.propagateTags = propagateTags.toString();
+    public StartTaskRequest withVolumeConfigurations(java.util.Collection<TaskVolumeConfiguration> volumeConfigurations) {
+        setVolumeConfigurations(volumeConfigurations);
         return this;
     }
 
@@ -804,24 +1411,30 @@ public class StartTaskRequest extends com.amazonaws.AmazonWebServiceRequest impl
         sb.append("{");
         if (getCluster() != null)
             sb.append("Cluster: ").append(getCluster()).append(",");
-        if (getTaskDefinition() != null)
-            sb.append("TaskDefinition: ").append(getTaskDefinition()).append(",");
-        if (getOverrides() != null)
-            sb.append("Overrides: ").append(getOverrides()).append(",");
         if (getContainerInstances() != null)
             sb.append("ContainerInstances: ").append(getContainerInstances()).append(",");
-        if (getStartedBy() != null)
-            sb.append("StartedBy: ").append(getStartedBy()).append(",");
+        if (getEnableECSManagedTags() != null)
+            sb.append("EnableECSManagedTags: ").append(getEnableECSManagedTags()).append(",");
+        if (getEnableExecuteCommand() != null)
+            sb.append("EnableExecuteCommand: ").append(getEnableExecuteCommand()).append(",");
         if (getGroup() != null)
             sb.append("Group: ").append(getGroup()).append(",");
         if (getNetworkConfiguration() != null)
             sb.append("NetworkConfiguration: ").append(getNetworkConfiguration()).append(",");
+        if (getOverrides() != null)
+            sb.append("Overrides: ").append(getOverrides()).append(",");
+        if (getPropagateTags() != null)
+            sb.append("PropagateTags: ").append(getPropagateTags()).append(",");
+        if (getReferenceId() != null)
+            sb.append("ReferenceId: ").append(getReferenceId()).append(",");
+        if (getStartedBy() != null)
+            sb.append("StartedBy: ").append(getStartedBy()).append(",");
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
-        if (getEnableECSManagedTags() != null)
-            sb.append("EnableECSManagedTags: ").append(getEnableECSManagedTags()).append(",");
-        if (getPropagateTags() != null)
-            sb.append("PropagateTags: ").append(getPropagateTags());
+        if (getTaskDefinition() != null)
+            sb.append("TaskDefinition: ").append(getTaskDefinition()).append(",");
+        if (getVolumeConfigurations() != null)
+            sb.append("VolumeConfigurations: ").append(getVolumeConfigurations());
         sb.append("}");
         return sb.toString();
     }
@@ -840,21 +1453,17 @@ public class StartTaskRequest extends com.amazonaws.AmazonWebServiceRequest impl
             return false;
         if (other.getCluster() != null && other.getCluster().equals(this.getCluster()) == false)
             return false;
-        if (other.getTaskDefinition() == null ^ this.getTaskDefinition() == null)
-            return false;
-        if (other.getTaskDefinition() != null && other.getTaskDefinition().equals(this.getTaskDefinition()) == false)
-            return false;
-        if (other.getOverrides() == null ^ this.getOverrides() == null)
-            return false;
-        if (other.getOverrides() != null && other.getOverrides().equals(this.getOverrides()) == false)
-            return false;
         if (other.getContainerInstances() == null ^ this.getContainerInstances() == null)
             return false;
         if (other.getContainerInstances() != null && other.getContainerInstances().equals(this.getContainerInstances()) == false)
             return false;
-        if (other.getStartedBy() == null ^ this.getStartedBy() == null)
+        if (other.getEnableECSManagedTags() == null ^ this.getEnableECSManagedTags() == null)
             return false;
-        if (other.getStartedBy() != null && other.getStartedBy().equals(this.getStartedBy()) == false)
+        if (other.getEnableECSManagedTags() != null && other.getEnableECSManagedTags().equals(this.getEnableECSManagedTags()) == false)
+            return false;
+        if (other.getEnableExecuteCommand() == null ^ this.getEnableExecuteCommand() == null)
+            return false;
+        if (other.getEnableExecuteCommand() != null && other.getEnableExecuteCommand().equals(this.getEnableExecuteCommand()) == false)
             return false;
         if (other.getGroup() == null ^ this.getGroup() == null)
             return false;
@@ -864,17 +1473,33 @@ public class StartTaskRequest extends com.amazonaws.AmazonWebServiceRequest impl
             return false;
         if (other.getNetworkConfiguration() != null && other.getNetworkConfiguration().equals(this.getNetworkConfiguration()) == false)
             return false;
-        if (other.getTags() == null ^ this.getTags() == null)
+        if (other.getOverrides() == null ^ this.getOverrides() == null)
             return false;
-        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
-            return false;
-        if (other.getEnableECSManagedTags() == null ^ this.getEnableECSManagedTags() == null)
-            return false;
-        if (other.getEnableECSManagedTags() != null && other.getEnableECSManagedTags().equals(this.getEnableECSManagedTags()) == false)
+        if (other.getOverrides() != null && other.getOverrides().equals(this.getOverrides()) == false)
             return false;
         if (other.getPropagateTags() == null ^ this.getPropagateTags() == null)
             return false;
         if (other.getPropagateTags() != null && other.getPropagateTags().equals(this.getPropagateTags()) == false)
+            return false;
+        if (other.getReferenceId() == null ^ this.getReferenceId() == null)
+            return false;
+        if (other.getReferenceId() != null && other.getReferenceId().equals(this.getReferenceId()) == false)
+            return false;
+        if (other.getStartedBy() == null ^ this.getStartedBy() == null)
+            return false;
+        if (other.getStartedBy() != null && other.getStartedBy().equals(this.getStartedBy()) == false)
+            return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getTaskDefinition() == null ^ this.getTaskDefinition() == null)
+            return false;
+        if (other.getTaskDefinition() != null && other.getTaskDefinition().equals(this.getTaskDefinition()) == false)
+            return false;
+        if (other.getVolumeConfigurations() == null ^ this.getVolumeConfigurations() == null)
+            return false;
+        if (other.getVolumeConfigurations() != null && other.getVolumeConfigurations().equals(this.getVolumeConfigurations()) == false)
             return false;
         return true;
     }
@@ -885,15 +1510,18 @@ public class StartTaskRequest extends com.amazonaws.AmazonWebServiceRequest impl
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getCluster() == null) ? 0 : getCluster().hashCode());
-        hashCode = prime * hashCode + ((getTaskDefinition() == null) ? 0 : getTaskDefinition().hashCode());
-        hashCode = prime * hashCode + ((getOverrides() == null) ? 0 : getOverrides().hashCode());
         hashCode = prime * hashCode + ((getContainerInstances() == null) ? 0 : getContainerInstances().hashCode());
-        hashCode = prime * hashCode + ((getStartedBy() == null) ? 0 : getStartedBy().hashCode());
+        hashCode = prime * hashCode + ((getEnableECSManagedTags() == null) ? 0 : getEnableECSManagedTags().hashCode());
+        hashCode = prime * hashCode + ((getEnableExecuteCommand() == null) ? 0 : getEnableExecuteCommand().hashCode());
         hashCode = prime * hashCode + ((getGroup() == null) ? 0 : getGroup().hashCode());
         hashCode = prime * hashCode + ((getNetworkConfiguration() == null) ? 0 : getNetworkConfiguration().hashCode());
-        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
-        hashCode = prime * hashCode + ((getEnableECSManagedTags() == null) ? 0 : getEnableECSManagedTags().hashCode());
+        hashCode = prime * hashCode + ((getOverrides() == null) ? 0 : getOverrides().hashCode());
         hashCode = prime * hashCode + ((getPropagateTags() == null) ? 0 : getPropagateTags().hashCode());
+        hashCode = prime * hashCode + ((getReferenceId() == null) ? 0 : getReferenceId().hashCode());
+        hashCode = prime * hashCode + ((getStartedBy() == null) ? 0 : getStartedBy().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getTaskDefinition() == null) ? 0 : getTaskDefinition().hashCode());
+        hashCode = prime * hashCode + ((getVolumeConfigurations() == null) ? 0 : getVolumeConfigurations().hashCode());
         return hashCode;
     }
 

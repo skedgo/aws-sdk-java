@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -57,8 +57,78 @@ public class CreateOptionGroupRequest extends com.amazonaws.AmazonWebServiceRequ
     private String optionGroupName;
     /**
      * <p>
-     * Specifies the name of the engine that this option group should be associated with.
+     * The name of the engine to associate this option group with.
      * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>db2-ae</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db2-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mariadb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>postgres</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ex</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-web</code>
+     * </p>
+     * </li>
+     * </ul>
      */
     private String engineName;
     /**
@@ -257,11 +327,150 @@ public class CreateOptionGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies the name of the engine that this option group should be associated with.
+     * The name of the engine to associate this option group with.
      * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>db2-ae</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db2-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mariadb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>postgres</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ex</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-web</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param engineName
-     *        Specifies the name of the engine that this option group should be associated with.
+     *        The name of the engine to associate this option group with.</p>
+     *        <p>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>db2-ae</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>db2-se</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>mariadb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>mysql</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-ee</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-ee-cdb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-se2</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-se2-cdb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>postgres</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-ee</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-se</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-ex</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-web</code>
+     *        </p>
+     *        </li>
      */
 
     public void setEngineName(String engineName) {
@@ -270,10 +479,149 @@ public class CreateOptionGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies the name of the engine that this option group should be associated with.
+     * The name of the engine to associate this option group with.
      * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>db2-ae</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db2-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mariadb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>postgres</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ex</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-web</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return Specifies the name of the engine that this option group should be associated with.
+     * @return The name of the engine to associate this option group with.</p>
+     *         <p>
+     *         Valid Values:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>db2-ae</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>db2-se</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>mariadb</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>mysql</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>oracle-ee</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>oracle-ee-cdb</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>oracle-se2</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>oracle-se2-cdb</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>postgres</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>sqlserver-ee</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>sqlserver-se</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>sqlserver-ex</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>sqlserver-web</code>
+     *         </p>
+     *         </li>
      */
 
     public String getEngineName() {
@@ -282,11 +630,150 @@ public class CreateOptionGroupRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies the name of the engine that this option group should be associated with.
+     * The name of the engine to associate this option group with.
      * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>db2-ae</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db2-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mariadb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-ee-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>oracle-se2-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>postgres</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-se</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-ex</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sqlserver-web</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param engineName
-     *        Specifies the name of the engine that this option group should be associated with.
+     *        The name of the engine to associate this option group with.</p>
+     *        <p>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>db2-ae</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>db2-se</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>mariadb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>mysql</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-ee</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-ee-cdb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-se2</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>oracle-se2-cdb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>postgres</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-ee</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-se</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-ex</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sqlserver-web</code>
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

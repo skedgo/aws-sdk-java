@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,111 +30,112 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The account that this RI recommendation is for.
+     * The account that this Reserved Instance (RI) recommendation is for.
      * </p>
      */
     private String accountId;
     /**
      * <p>
-     * Details about the instances that AWS recommends that you purchase.
+     * Details about the reservations that Amazon Web Services recommends that you purchase.
      * </p>
      */
     private InstanceDetails instanceDetails;
     /**
      * <p>
-     * The number of instances that AWS recommends that you purchase.
+     * The number of instances that Amazon Web Services recommends that you purchase.
      * </p>
      */
     private String recommendedNumberOfInstancesToPurchase;
     /**
      * <p>
-     * The number of normalized units that AWS recommends that you purchase.
+     * The number of normalized units that Amazon Web Services recommends that you purchase.
      * </p>
      */
     private String recommendedNormalizedUnitsToPurchase;
     /**
      * <p>
-     * The minimum number of instances that you used in an hour during the historical period. AWS uses this to calculate
-     * your recommended reservation purchases.
+     * The minimum number of instances that you used in an hour during the historical period. Amazon Web Services uses
+     * this to calculate your recommended reservation purchases.
      * </p>
      */
     private String minimumNumberOfInstancesUsedPerHour;
     /**
      * <p>
-     * The minimum number of normalized units that you used in an hour during the historical period. AWS uses this to
-     * calculate your recommended reservation purchases.
+     * The minimum number of normalized units that you used in an hour during the historical period. Amazon Web Services
+     * uses this to calculate your recommended reservation purchases.
      * </p>
      */
     private String minimumNormalizedUnitsUsedPerHour;
     /**
      * <p>
-     * The maximum number of instances that you used in an hour during the historical period. AWS uses this to calculate
-     * your recommended reservation purchases.
+     * The maximum number of instances that you used in an hour during the historical period. Amazon Web Services uses
+     * this to calculate your recommended reservation purchases.
      * </p>
      */
     private String maximumNumberOfInstancesUsedPerHour;
     /**
      * <p>
-     * The maximum number of normalized units that you used in an hour during the historical period. AWS uses this to
-     * calculate your recommended reservation purchases.
+     * The maximum number of normalized units that you used in an hour during the historical period. Amazon Web Services
+     * uses this to calculate your recommended reservation purchases.
      * </p>
      */
     private String maximumNormalizedUnitsUsedPerHour;
     /**
      * <p>
-     * The average number of instances that you used in an hour during the historical period. AWS uses this to calculate
-     * your recommended reservation purchases.
+     * The average number of instances that you used in an hour during the historical period. Amazon Web Services uses
+     * this to calculate your recommended reservation purchases.
      * </p>
      */
     private String averageNumberOfInstancesUsedPerHour;
     /**
      * <p>
-     * The average number of normalized units that you used in an hour during the historical period. AWS uses this to
-     * calculate your recommended reservation purchases.
+     * The average number of normalized units that you used in an hour during the historical period. Amazon Web Services
+     * uses this to calculate your recommended reservation purchases.
      * </p>
      */
     private String averageNormalizedUnitsUsedPerHour;
     /**
      * <p>
-     * The average utilization of your instances. AWS uses this to calculate your recommended reservation purchases.
+     * The average utilization of your instances. Amazon Web Services uses this to calculate your recommended
+     * reservation purchases.
      * </p>
      */
     private String averageUtilization;
     /**
      * <p>
-     * How long AWS estimates that it takes for this instance to start saving you money, in months.
+     * How long Amazon Web Services estimates that it takes for this instance to start saving you money, in months.
      * </p>
      */
     private String estimatedBreakEvenInMonths;
     /**
      * <p>
-     * The currency code that AWS used to calculate the costs for this instance.
+     * The currency code that Amazon Web Services used to calculate the costs for this instance.
      * </p>
      */
     private String currencyCode;
     /**
      * <p>
-     * How much AWS estimates that this specific recommendation could save you in a month.
+     * How much Amazon Web Services estimates that this specific recommendation might save you in a month.
      * </p>
      */
     private String estimatedMonthlySavingsAmount;
     /**
      * <p>
-     * How much AWS estimates that this specific recommendation could save you in a month, as a percentage of your
-     * overall costs.
+     * How much Amazon Web Services estimates that this specific recommendation might save you in a month, as a
+     * percentage of your overall costs.
      * </p>
      */
     private String estimatedMonthlySavingsPercentage;
     /**
      * <p>
-     * How much AWS estimates that you spend on On-Demand Instances in a month.
+     * How much Amazon Web Services estimates that you spend on On-Demand Instances in a month.
      * </p>
      */
     private String estimatedMonthlyOnDemandCost;
     /**
      * <p>
-     * How much AWS estimates that you would have spent for all usage during the specified historical period if you had
-     * had a reservation.
+     * How much Amazon Web Services estimates that you might spend for all usage during the specified historical period
+     * if you had a reservation.
      * </p>
      */
     private String estimatedReservationCostForLookbackPeriod;
@@ -153,11 +154,11 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The account that this RI recommendation is for.
+     * The account that this Reserved Instance (RI) recommendation is for.
      * </p>
      * 
      * @param accountId
-     *        The account that this RI recommendation is for.
+     *        The account that this Reserved Instance (RI) recommendation is for.
      */
 
     public void setAccountId(String accountId) {
@@ -166,10 +167,10 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The account that this RI recommendation is for.
+     * The account that this Reserved Instance (RI) recommendation is for.
      * </p>
      * 
-     * @return The account that this RI recommendation is for.
+     * @return The account that this Reserved Instance (RI) recommendation is for.
      */
 
     public String getAccountId() {
@@ -178,11 +179,11 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The account that this RI recommendation is for.
+     * The account that this Reserved Instance (RI) recommendation is for.
      * </p>
      * 
      * @param accountId
-     *        The account that this RI recommendation is for.
+     *        The account that this Reserved Instance (RI) recommendation is for.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -193,11 +194,11 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * Details about the instances that AWS recommends that you purchase.
+     * Details about the reservations that Amazon Web Services recommends that you purchase.
      * </p>
      * 
      * @param instanceDetails
-     *        Details about the instances that AWS recommends that you purchase.
+     *        Details about the reservations that Amazon Web Services recommends that you purchase.
      */
 
     public void setInstanceDetails(InstanceDetails instanceDetails) {
@@ -206,10 +207,10 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * Details about the instances that AWS recommends that you purchase.
+     * Details about the reservations that Amazon Web Services recommends that you purchase.
      * </p>
      * 
-     * @return Details about the instances that AWS recommends that you purchase.
+     * @return Details about the reservations that Amazon Web Services recommends that you purchase.
      */
 
     public InstanceDetails getInstanceDetails() {
@@ -218,11 +219,11 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * Details about the instances that AWS recommends that you purchase.
+     * Details about the reservations that Amazon Web Services recommends that you purchase.
      * </p>
      * 
      * @param instanceDetails
-     *        Details about the instances that AWS recommends that you purchase.
+     *        Details about the reservations that Amazon Web Services recommends that you purchase.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -233,11 +234,11 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The number of instances that AWS recommends that you purchase.
+     * The number of instances that Amazon Web Services recommends that you purchase.
      * </p>
      * 
      * @param recommendedNumberOfInstancesToPurchase
-     *        The number of instances that AWS recommends that you purchase.
+     *        The number of instances that Amazon Web Services recommends that you purchase.
      */
 
     public void setRecommendedNumberOfInstancesToPurchase(String recommendedNumberOfInstancesToPurchase) {
@@ -246,10 +247,10 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The number of instances that AWS recommends that you purchase.
+     * The number of instances that Amazon Web Services recommends that you purchase.
      * </p>
      * 
-     * @return The number of instances that AWS recommends that you purchase.
+     * @return The number of instances that Amazon Web Services recommends that you purchase.
      */
 
     public String getRecommendedNumberOfInstancesToPurchase() {
@@ -258,11 +259,11 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The number of instances that AWS recommends that you purchase.
+     * The number of instances that Amazon Web Services recommends that you purchase.
      * </p>
      * 
      * @param recommendedNumberOfInstancesToPurchase
-     *        The number of instances that AWS recommends that you purchase.
+     *        The number of instances that Amazon Web Services recommends that you purchase.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -273,11 +274,11 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The number of normalized units that AWS recommends that you purchase.
+     * The number of normalized units that Amazon Web Services recommends that you purchase.
      * </p>
      * 
      * @param recommendedNormalizedUnitsToPurchase
-     *        The number of normalized units that AWS recommends that you purchase.
+     *        The number of normalized units that Amazon Web Services recommends that you purchase.
      */
 
     public void setRecommendedNormalizedUnitsToPurchase(String recommendedNormalizedUnitsToPurchase) {
@@ -286,10 +287,10 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The number of normalized units that AWS recommends that you purchase.
+     * The number of normalized units that Amazon Web Services recommends that you purchase.
      * </p>
      * 
-     * @return The number of normalized units that AWS recommends that you purchase.
+     * @return The number of normalized units that Amazon Web Services recommends that you purchase.
      */
 
     public String getRecommendedNormalizedUnitsToPurchase() {
@@ -298,11 +299,11 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The number of normalized units that AWS recommends that you purchase.
+     * The number of normalized units that Amazon Web Services recommends that you purchase.
      * </p>
      * 
      * @param recommendedNormalizedUnitsToPurchase
-     *        The number of normalized units that AWS recommends that you purchase.
+     *        The number of normalized units that Amazon Web Services recommends that you purchase.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -313,13 +314,13 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The minimum number of instances that you used in an hour during the historical period. AWS uses this to calculate
-     * your recommended reservation purchases.
+     * The minimum number of instances that you used in an hour during the historical period. Amazon Web Services uses
+     * this to calculate your recommended reservation purchases.
      * </p>
      * 
      * @param minimumNumberOfInstancesUsedPerHour
-     *        The minimum number of instances that you used in an hour during the historical period. AWS uses this to
-     *        calculate your recommended reservation purchases.
+     *        The minimum number of instances that you used in an hour during the historical period. Amazon Web Services
+     *        uses this to calculate your recommended reservation purchases.
      */
 
     public void setMinimumNumberOfInstancesUsedPerHour(String minimumNumberOfInstancesUsedPerHour) {
@@ -328,12 +329,12 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The minimum number of instances that you used in an hour during the historical period. AWS uses this to calculate
-     * your recommended reservation purchases.
+     * The minimum number of instances that you used in an hour during the historical period. Amazon Web Services uses
+     * this to calculate your recommended reservation purchases.
      * </p>
      * 
-     * @return The minimum number of instances that you used in an hour during the historical period. AWS uses this to
-     *         calculate your recommended reservation purchases.
+     * @return The minimum number of instances that you used in an hour during the historical period. Amazon Web
+     *         Services uses this to calculate your recommended reservation purchases.
      */
 
     public String getMinimumNumberOfInstancesUsedPerHour() {
@@ -342,13 +343,13 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The minimum number of instances that you used in an hour during the historical period. AWS uses this to calculate
-     * your recommended reservation purchases.
+     * The minimum number of instances that you used in an hour during the historical period. Amazon Web Services uses
+     * this to calculate your recommended reservation purchases.
      * </p>
      * 
      * @param minimumNumberOfInstancesUsedPerHour
-     *        The minimum number of instances that you used in an hour during the historical period. AWS uses this to
-     *        calculate your recommended reservation purchases.
+     *        The minimum number of instances that you used in an hour during the historical period. Amazon Web Services
+     *        uses this to calculate your recommended reservation purchases.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -359,13 +360,13 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The minimum number of normalized units that you used in an hour during the historical period. AWS uses this to
-     * calculate your recommended reservation purchases.
+     * The minimum number of normalized units that you used in an hour during the historical period. Amazon Web Services
+     * uses this to calculate your recommended reservation purchases.
      * </p>
      * 
      * @param minimumNormalizedUnitsUsedPerHour
-     *        The minimum number of normalized units that you used in an hour during the historical period. AWS uses
-     *        this to calculate your recommended reservation purchases.
+     *        The minimum number of normalized units that you used in an hour during the historical period. Amazon Web
+     *        Services uses this to calculate your recommended reservation purchases.
      */
 
     public void setMinimumNormalizedUnitsUsedPerHour(String minimumNormalizedUnitsUsedPerHour) {
@@ -374,12 +375,12 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The minimum number of normalized units that you used in an hour during the historical period. AWS uses this to
-     * calculate your recommended reservation purchases.
+     * The minimum number of normalized units that you used in an hour during the historical period. Amazon Web Services
+     * uses this to calculate your recommended reservation purchases.
      * </p>
      * 
-     * @return The minimum number of normalized units that you used in an hour during the historical period. AWS uses
-     *         this to calculate your recommended reservation purchases.
+     * @return The minimum number of normalized units that you used in an hour during the historical period. Amazon Web
+     *         Services uses this to calculate your recommended reservation purchases.
      */
 
     public String getMinimumNormalizedUnitsUsedPerHour() {
@@ -388,13 +389,13 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The minimum number of normalized units that you used in an hour during the historical period. AWS uses this to
-     * calculate your recommended reservation purchases.
+     * The minimum number of normalized units that you used in an hour during the historical period. Amazon Web Services
+     * uses this to calculate your recommended reservation purchases.
      * </p>
      * 
      * @param minimumNormalizedUnitsUsedPerHour
-     *        The minimum number of normalized units that you used in an hour during the historical period. AWS uses
-     *        this to calculate your recommended reservation purchases.
+     *        The minimum number of normalized units that you used in an hour during the historical period. Amazon Web
+     *        Services uses this to calculate your recommended reservation purchases.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -405,13 +406,13 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The maximum number of instances that you used in an hour during the historical period. AWS uses this to calculate
-     * your recommended reservation purchases.
+     * The maximum number of instances that you used in an hour during the historical period. Amazon Web Services uses
+     * this to calculate your recommended reservation purchases.
      * </p>
      * 
      * @param maximumNumberOfInstancesUsedPerHour
-     *        The maximum number of instances that you used in an hour during the historical period. AWS uses this to
-     *        calculate your recommended reservation purchases.
+     *        The maximum number of instances that you used in an hour during the historical period. Amazon Web Services
+     *        uses this to calculate your recommended reservation purchases.
      */
 
     public void setMaximumNumberOfInstancesUsedPerHour(String maximumNumberOfInstancesUsedPerHour) {
@@ -420,12 +421,12 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The maximum number of instances that you used in an hour during the historical period. AWS uses this to calculate
-     * your recommended reservation purchases.
+     * The maximum number of instances that you used in an hour during the historical period. Amazon Web Services uses
+     * this to calculate your recommended reservation purchases.
      * </p>
      * 
-     * @return The maximum number of instances that you used in an hour during the historical period. AWS uses this to
-     *         calculate your recommended reservation purchases.
+     * @return The maximum number of instances that you used in an hour during the historical period. Amazon Web
+     *         Services uses this to calculate your recommended reservation purchases.
      */
 
     public String getMaximumNumberOfInstancesUsedPerHour() {
@@ -434,13 +435,13 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The maximum number of instances that you used in an hour during the historical period. AWS uses this to calculate
-     * your recommended reservation purchases.
+     * The maximum number of instances that you used in an hour during the historical period. Amazon Web Services uses
+     * this to calculate your recommended reservation purchases.
      * </p>
      * 
      * @param maximumNumberOfInstancesUsedPerHour
-     *        The maximum number of instances that you used in an hour during the historical period. AWS uses this to
-     *        calculate your recommended reservation purchases.
+     *        The maximum number of instances that you used in an hour during the historical period. Amazon Web Services
+     *        uses this to calculate your recommended reservation purchases.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -451,13 +452,13 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The maximum number of normalized units that you used in an hour during the historical period. AWS uses this to
-     * calculate your recommended reservation purchases.
+     * The maximum number of normalized units that you used in an hour during the historical period. Amazon Web Services
+     * uses this to calculate your recommended reservation purchases.
      * </p>
      * 
      * @param maximumNormalizedUnitsUsedPerHour
-     *        The maximum number of normalized units that you used in an hour during the historical period. AWS uses
-     *        this to calculate your recommended reservation purchases.
+     *        The maximum number of normalized units that you used in an hour during the historical period. Amazon Web
+     *        Services uses this to calculate your recommended reservation purchases.
      */
 
     public void setMaximumNormalizedUnitsUsedPerHour(String maximumNormalizedUnitsUsedPerHour) {
@@ -466,12 +467,12 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The maximum number of normalized units that you used in an hour during the historical period. AWS uses this to
-     * calculate your recommended reservation purchases.
+     * The maximum number of normalized units that you used in an hour during the historical period. Amazon Web Services
+     * uses this to calculate your recommended reservation purchases.
      * </p>
      * 
-     * @return The maximum number of normalized units that you used in an hour during the historical period. AWS uses
-     *         this to calculate your recommended reservation purchases.
+     * @return The maximum number of normalized units that you used in an hour during the historical period. Amazon Web
+     *         Services uses this to calculate your recommended reservation purchases.
      */
 
     public String getMaximumNormalizedUnitsUsedPerHour() {
@@ -480,13 +481,13 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The maximum number of normalized units that you used in an hour during the historical period. AWS uses this to
-     * calculate your recommended reservation purchases.
+     * The maximum number of normalized units that you used in an hour during the historical period. Amazon Web Services
+     * uses this to calculate your recommended reservation purchases.
      * </p>
      * 
      * @param maximumNormalizedUnitsUsedPerHour
-     *        The maximum number of normalized units that you used in an hour during the historical period. AWS uses
-     *        this to calculate your recommended reservation purchases.
+     *        The maximum number of normalized units that you used in an hour during the historical period. Amazon Web
+     *        Services uses this to calculate your recommended reservation purchases.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -497,13 +498,13 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The average number of instances that you used in an hour during the historical period. AWS uses this to calculate
-     * your recommended reservation purchases.
+     * The average number of instances that you used in an hour during the historical period. Amazon Web Services uses
+     * this to calculate your recommended reservation purchases.
      * </p>
      * 
      * @param averageNumberOfInstancesUsedPerHour
-     *        The average number of instances that you used in an hour during the historical period. AWS uses this to
-     *        calculate your recommended reservation purchases.
+     *        The average number of instances that you used in an hour during the historical period. Amazon Web Services
+     *        uses this to calculate your recommended reservation purchases.
      */
 
     public void setAverageNumberOfInstancesUsedPerHour(String averageNumberOfInstancesUsedPerHour) {
@@ -512,12 +513,12 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The average number of instances that you used in an hour during the historical period. AWS uses this to calculate
-     * your recommended reservation purchases.
+     * The average number of instances that you used in an hour during the historical period. Amazon Web Services uses
+     * this to calculate your recommended reservation purchases.
      * </p>
      * 
-     * @return The average number of instances that you used in an hour during the historical period. AWS uses this to
-     *         calculate your recommended reservation purchases.
+     * @return The average number of instances that you used in an hour during the historical period. Amazon Web
+     *         Services uses this to calculate your recommended reservation purchases.
      */
 
     public String getAverageNumberOfInstancesUsedPerHour() {
@@ -526,13 +527,13 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The average number of instances that you used in an hour during the historical period. AWS uses this to calculate
-     * your recommended reservation purchases.
+     * The average number of instances that you used in an hour during the historical period. Amazon Web Services uses
+     * this to calculate your recommended reservation purchases.
      * </p>
      * 
      * @param averageNumberOfInstancesUsedPerHour
-     *        The average number of instances that you used in an hour during the historical period. AWS uses this to
-     *        calculate your recommended reservation purchases.
+     *        The average number of instances that you used in an hour during the historical period. Amazon Web Services
+     *        uses this to calculate your recommended reservation purchases.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -543,13 +544,13 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The average number of normalized units that you used in an hour during the historical period. AWS uses this to
-     * calculate your recommended reservation purchases.
+     * The average number of normalized units that you used in an hour during the historical period. Amazon Web Services
+     * uses this to calculate your recommended reservation purchases.
      * </p>
      * 
      * @param averageNormalizedUnitsUsedPerHour
-     *        The average number of normalized units that you used in an hour during the historical period. AWS uses
-     *        this to calculate your recommended reservation purchases.
+     *        The average number of normalized units that you used in an hour during the historical period. Amazon Web
+     *        Services uses this to calculate your recommended reservation purchases.
      */
 
     public void setAverageNormalizedUnitsUsedPerHour(String averageNormalizedUnitsUsedPerHour) {
@@ -558,12 +559,12 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The average number of normalized units that you used in an hour during the historical period. AWS uses this to
-     * calculate your recommended reservation purchases.
+     * The average number of normalized units that you used in an hour during the historical period. Amazon Web Services
+     * uses this to calculate your recommended reservation purchases.
      * </p>
      * 
-     * @return The average number of normalized units that you used in an hour during the historical period. AWS uses
-     *         this to calculate your recommended reservation purchases.
+     * @return The average number of normalized units that you used in an hour during the historical period. Amazon Web
+     *         Services uses this to calculate your recommended reservation purchases.
      */
 
     public String getAverageNormalizedUnitsUsedPerHour() {
@@ -572,13 +573,13 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The average number of normalized units that you used in an hour during the historical period. AWS uses this to
-     * calculate your recommended reservation purchases.
+     * The average number of normalized units that you used in an hour during the historical period. Amazon Web Services
+     * uses this to calculate your recommended reservation purchases.
      * </p>
      * 
      * @param averageNormalizedUnitsUsedPerHour
-     *        The average number of normalized units that you used in an hour during the historical period. AWS uses
-     *        this to calculate your recommended reservation purchases.
+     *        The average number of normalized units that you used in an hour during the historical period. Amazon Web
+     *        Services uses this to calculate your recommended reservation purchases.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -589,12 +590,13 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The average utilization of your instances. AWS uses this to calculate your recommended reservation purchases.
+     * The average utilization of your instances. Amazon Web Services uses this to calculate your recommended
+     * reservation purchases.
      * </p>
      * 
      * @param averageUtilization
-     *        The average utilization of your instances. AWS uses this to calculate your recommended reservation
-     *        purchases.
+     *        The average utilization of your instances. Amazon Web Services uses this to calculate your recommended
+     *        reservation purchases.
      */
 
     public void setAverageUtilization(String averageUtilization) {
@@ -603,11 +605,12 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The average utilization of your instances. AWS uses this to calculate your recommended reservation purchases.
+     * The average utilization of your instances. Amazon Web Services uses this to calculate your recommended
+     * reservation purchases.
      * </p>
      * 
-     * @return The average utilization of your instances. AWS uses this to calculate your recommended reservation
-     *         purchases.
+     * @return The average utilization of your instances. Amazon Web Services uses this to calculate your recommended
+     *         reservation purchases.
      */
 
     public String getAverageUtilization() {
@@ -616,12 +619,13 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The average utilization of your instances. AWS uses this to calculate your recommended reservation purchases.
+     * The average utilization of your instances. Amazon Web Services uses this to calculate your recommended
+     * reservation purchases.
      * </p>
      * 
      * @param averageUtilization
-     *        The average utilization of your instances. AWS uses this to calculate your recommended reservation
-     *        purchases.
+     *        The average utilization of your instances. Amazon Web Services uses this to calculate your recommended
+     *        reservation purchases.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -632,11 +636,12 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * How long AWS estimates that it takes for this instance to start saving you money, in months.
+     * How long Amazon Web Services estimates that it takes for this instance to start saving you money, in months.
      * </p>
      * 
      * @param estimatedBreakEvenInMonths
-     *        How long AWS estimates that it takes for this instance to start saving you money, in months.
+     *        How long Amazon Web Services estimates that it takes for this instance to start saving you money, in
+     *        months.
      */
 
     public void setEstimatedBreakEvenInMonths(String estimatedBreakEvenInMonths) {
@@ -645,10 +650,11 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * How long AWS estimates that it takes for this instance to start saving you money, in months.
+     * How long Amazon Web Services estimates that it takes for this instance to start saving you money, in months.
      * </p>
      * 
-     * @return How long AWS estimates that it takes for this instance to start saving you money, in months.
+     * @return How long Amazon Web Services estimates that it takes for this instance to start saving you money, in
+     *         months.
      */
 
     public String getEstimatedBreakEvenInMonths() {
@@ -657,11 +663,12 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * How long AWS estimates that it takes for this instance to start saving you money, in months.
+     * How long Amazon Web Services estimates that it takes for this instance to start saving you money, in months.
      * </p>
      * 
      * @param estimatedBreakEvenInMonths
-     *        How long AWS estimates that it takes for this instance to start saving you money, in months.
+     *        How long Amazon Web Services estimates that it takes for this instance to start saving you money, in
+     *        months.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -672,11 +679,11 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The currency code that AWS used to calculate the costs for this instance.
+     * The currency code that Amazon Web Services used to calculate the costs for this instance.
      * </p>
      * 
      * @param currencyCode
-     *        The currency code that AWS used to calculate the costs for this instance.
+     *        The currency code that Amazon Web Services used to calculate the costs for this instance.
      */
 
     public void setCurrencyCode(String currencyCode) {
@@ -685,10 +692,10 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The currency code that AWS used to calculate the costs for this instance.
+     * The currency code that Amazon Web Services used to calculate the costs for this instance.
      * </p>
      * 
-     * @return The currency code that AWS used to calculate the costs for this instance.
+     * @return The currency code that Amazon Web Services used to calculate the costs for this instance.
      */
 
     public String getCurrencyCode() {
@@ -697,11 +704,11 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * The currency code that AWS used to calculate the costs for this instance.
+     * The currency code that Amazon Web Services used to calculate the costs for this instance.
      * </p>
      * 
      * @param currencyCode
-     *        The currency code that AWS used to calculate the costs for this instance.
+     *        The currency code that Amazon Web Services used to calculate the costs for this instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -712,11 +719,11 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * How much AWS estimates that this specific recommendation could save you in a month.
+     * How much Amazon Web Services estimates that this specific recommendation might save you in a month.
      * </p>
      * 
      * @param estimatedMonthlySavingsAmount
-     *        How much AWS estimates that this specific recommendation could save you in a month.
+     *        How much Amazon Web Services estimates that this specific recommendation might save you in a month.
      */
 
     public void setEstimatedMonthlySavingsAmount(String estimatedMonthlySavingsAmount) {
@@ -725,10 +732,10 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * How much AWS estimates that this specific recommendation could save you in a month.
+     * How much Amazon Web Services estimates that this specific recommendation might save you in a month.
      * </p>
      * 
-     * @return How much AWS estimates that this specific recommendation could save you in a month.
+     * @return How much Amazon Web Services estimates that this specific recommendation might save you in a month.
      */
 
     public String getEstimatedMonthlySavingsAmount() {
@@ -737,11 +744,11 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * How much AWS estimates that this specific recommendation could save you in a month.
+     * How much Amazon Web Services estimates that this specific recommendation might save you in a month.
      * </p>
      * 
      * @param estimatedMonthlySavingsAmount
-     *        How much AWS estimates that this specific recommendation could save you in a month.
+     *        How much Amazon Web Services estimates that this specific recommendation might save you in a month.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -752,13 +759,13 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * How much AWS estimates that this specific recommendation could save you in a month, as a percentage of your
-     * overall costs.
+     * How much Amazon Web Services estimates that this specific recommendation might save you in a month, as a
+     * percentage of your overall costs.
      * </p>
      * 
      * @param estimatedMonthlySavingsPercentage
-     *        How much AWS estimates that this specific recommendation could save you in a month, as a percentage of
-     *        your overall costs.
+     *        How much Amazon Web Services estimates that this specific recommendation might save you in a month, as a
+     *        percentage of your overall costs.
      */
 
     public void setEstimatedMonthlySavingsPercentage(String estimatedMonthlySavingsPercentage) {
@@ -767,12 +774,12 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * How much AWS estimates that this specific recommendation could save you in a month, as a percentage of your
-     * overall costs.
+     * How much Amazon Web Services estimates that this specific recommendation might save you in a month, as a
+     * percentage of your overall costs.
      * </p>
      * 
-     * @return How much AWS estimates that this specific recommendation could save you in a month, as a percentage of
-     *         your overall costs.
+     * @return How much Amazon Web Services estimates that this specific recommendation might save you in a month, as a
+     *         percentage of your overall costs.
      */
 
     public String getEstimatedMonthlySavingsPercentage() {
@@ -781,13 +788,13 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * How much AWS estimates that this specific recommendation could save you in a month, as a percentage of your
-     * overall costs.
+     * How much Amazon Web Services estimates that this specific recommendation might save you in a month, as a
+     * percentage of your overall costs.
      * </p>
      * 
      * @param estimatedMonthlySavingsPercentage
-     *        How much AWS estimates that this specific recommendation could save you in a month, as a percentage of
-     *        your overall costs.
+     *        How much Amazon Web Services estimates that this specific recommendation might save you in a month, as a
+     *        percentage of your overall costs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -798,11 +805,11 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * How much AWS estimates that you spend on On-Demand Instances in a month.
+     * How much Amazon Web Services estimates that you spend on On-Demand Instances in a month.
      * </p>
      * 
      * @param estimatedMonthlyOnDemandCost
-     *        How much AWS estimates that you spend on On-Demand Instances in a month.
+     *        How much Amazon Web Services estimates that you spend on On-Demand Instances in a month.
      */
 
     public void setEstimatedMonthlyOnDemandCost(String estimatedMonthlyOnDemandCost) {
@@ -811,10 +818,10 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * How much AWS estimates that you spend on On-Demand Instances in a month.
+     * How much Amazon Web Services estimates that you spend on On-Demand Instances in a month.
      * </p>
      * 
-     * @return How much AWS estimates that you spend on On-Demand Instances in a month.
+     * @return How much Amazon Web Services estimates that you spend on On-Demand Instances in a month.
      */
 
     public String getEstimatedMonthlyOnDemandCost() {
@@ -823,11 +830,11 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * How much AWS estimates that you spend on On-Demand Instances in a month.
+     * How much Amazon Web Services estimates that you spend on On-Demand Instances in a month.
      * </p>
      * 
      * @param estimatedMonthlyOnDemandCost
-     *        How much AWS estimates that you spend on On-Demand Instances in a month.
+     *        How much Amazon Web Services estimates that you spend on On-Demand Instances in a month.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -838,13 +845,13 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * How much AWS estimates that you would have spent for all usage during the specified historical period if you had
-     * had a reservation.
+     * How much Amazon Web Services estimates that you might spend for all usage during the specified historical period
+     * if you had a reservation.
      * </p>
      * 
      * @param estimatedReservationCostForLookbackPeriod
-     *        How much AWS estimates that you would have spent for all usage during the specified historical period if
-     *        you had had a reservation.
+     *        How much Amazon Web Services estimates that you might spend for all usage during the specified historical
+     *        period if you had a reservation.
      */
 
     public void setEstimatedReservationCostForLookbackPeriod(String estimatedReservationCostForLookbackPeriod) {
@@ -853,12 +860,12 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * How much AWS estimates that you would have spent for all usage during the specified historical period if you had
-     * had a reservation.
+     * How much Amazon Web Services estimates that you might spend for all usage during the specified historical period
+     * if you had a reservation.
      * </p>
      * 
-     * @return How much AWS estimates that you would have spent for all usage during the specified historical period if
-     *         you had had a reservation.
+     * @return How much Amazon Web Services estimates that you might spend for all usage during the specified historical
+     *         period if you had a reservation.
      */
 
     public String getEstimatedReservationCostForLookbackPeriod() {
@@ -867,13 +874,13 @@ public class ReservationPurchaseRecommendationDetail implements Serializable, Cl
 
     /**
      * <p>
-     * How much AWS estimates that you would have spent for all usage during the specified historical period if you had
-     * had a reservation.
+     * How much Amazon Web Services estimates that you might spend for all usage during the specified historical period
+     * if you had a reservation.
      * </p>
      * 
      * @param estimatedReservationCostForLookbackPeriod
-     *        How much AWS estimates that you would have spent for all usage during the specified historical period if
-     *        you had had a reservation.
+     *        How much Amazon Web Services estimates that you might spend for all usage during the specified historical
+     *        period if you had a reservation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

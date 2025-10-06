@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,7 +37,8 @@ public class Delete implements Serializable, Cloneable, StructuredPojo {
     private java.util.Map<String, AttributeValue> key;
     /**
      * <p>
-     * Name of the table in which the item to be deleted resides.
+     * Name of the table in which the item to be deleted resides. You can also provide the Amazon Resource Name (ARN) of
+     * the table in this parameter.
      * </p>
      */
     private String tableName;
@@ -113,6 +114,13 @@ public class Delete implements Serializable, Cloneable, StructuredPojo {
         return this;
     }
 
+    /**
+     * Add a single Key entry
+     *
+     * @see Delete#withKey
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public Delete addKeyEntry(String key, AttributeValue value) {
         if (null == this.key) {
             this.key = new java.util.HashMap<String, AttributeValue>();
@@ -136,11 +144,13 @@ public class Delete implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Name of the table in which the item to be deleted resides.
+     * Name of the table in which the item to be deleted resides. You can also provide the Amazon Resource Name (ARN) of
+     * the table in this parameter.
      * </p>
      * 
      * @param tableName
-     *        Name of the table in which the item to be deleted resides.
+     *        Name of the table in which the item to be deleted resides. You can also provide the Amazon Resource Name
+     *        (ARN) of the table in this parameter.
      */
 
     public void setTableName(String tableName) {
@@ -149,10 +159,12 @@ public class Delete implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Name of the table in which the item to be deleted resides.
+     * Name of the table in which the item to be deleted resides. You can also provide the Amazon Resource Name (ARN) of
+     * the table in this parameter.
      * </p>
      * 
-     * @return Name of the table in which the item to be deleted resides.
+     * @return Name of the table in which the item to be deleted resides. You can also provide the Amazon Resource Name
+     *         (ARN) of the table in this parameter.
      */
 
     public String getTableName() {
@@ -161,11 +173,13 @@ public class Delete implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Name of the table in which the item to be deleted resides.
+     * Name of the table in which the item to be deleted resides. You can also provide the Amazon Resource Name (ARN) of
+     * the table in this parameter.
      * </p>
      * 
      * @param tableName
-     *        Name of the table in which the item to be deleted resides.
+     *        Name of the table in which the item to be deleted resides. You can also provide the Amazon Resource Name
+     *        (ARN) of the table in this parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -254,6 +268,13 @@ public class Delete implements Serializable, Cloneable, StructuredPojo {
         return this;
     }
 
+    /**
+     * Add a single ExpressionAttributeNames entry
+     *
+     * @see Delete#withExpressionAttributeNames
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public Delete addExpressionAttributeNamesEntry(String key, String value) {
         if (null == this.expressionAttributeNames) {
             this.expressionAttributeNames = new java.util.HashMap<String, String>();
@@ -314,6 +335,13 @@ public class Delete implements Serializable, Cloneable, StructuredPojo {
         setExpressionAttributeValues(expressionAttributeValues);
         return this;
     }
+
+    /**
+     * Add a single ExpressionAttributeValues entry
+     *
+     * @see Delete#withExpressionAttributeValues
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public Delete addExpressionAttributeValuesEntry(String key, AttributeValue value) {
         if (null == this.expressionAttributeValues) {

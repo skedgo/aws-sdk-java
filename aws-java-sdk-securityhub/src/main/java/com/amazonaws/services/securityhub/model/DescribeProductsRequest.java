@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,12 @@ public class DescribeProductsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The token that is required for pagination.
+     * The token that is required for pagination. On your first call to the <code>DescribeProducts</code> operation, set
+     * the value of this parameter to <code>NULL</code>.
+     * </p>
+     * <p>
+     * For subsequent calls to the operation, to continue listing data, set the value of this parameter to the value
+     * returned from the previous response.
      * </p>
      */
     private String nextToken;
@@ -37,14 +42,29 @@ public class DescribeProductsRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      */
     private Integer maxResults;
+    /**
+     * <p>
+     * The ARN of the integration to return.
+     * </p>
+     */
+    private String productArn;
 
     /**
      * <p>
-     * The token that is required for pagination.
+     * The token that is required for pagination. On your first call to the <code>DescribeProducts</code> operation, set
+     * the value of this parameter to <code>NULL</code>.
+     * </p>
+     * <p>
+     * For subsequent calls to the operation, to continue listing data, set the value of this parameter to the value
+     * returned from the previous response.
      * </p>
      * 
      * @param nextToken
-     *        The token that is required for pagination.
+     *        The token that is required for pagination. On your first call to the <code>DescribeProducts</code>
+     *        operation, set the value of this parameter to <code>NULL</code>.</p>
+     *        <p>
+     *        For subsequent calls to the operation, to continue listing data, set the value of this parameter to the
+     *        value returned from the previous response.
      */
 
     public void setNextToken(String nextToken) {
@@ -53,10 +73,19 @@ public class DescribeProductsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The token that is required for pagination.
+     * The token that is required for pagination. On your first call to the <code>DescribeProducts</code> operation, set
+     * the value of this parameter to <code>NULL</code>.
+     * </p>
+     * <p>
+     * For subsequent calls to the operation, to continue listing data, set the value of this parameter to the value
+     * returned from the previous response.
      * </p>
      * 
-     * @return The token that is required for pagination.
+     * @return The token that is required for pagination. On your first call to the <code>DescribeProducts</code>
+     *         operation, set the value of this parameter to <code>NULL</code>.</p>
+     *         <p>
+     *         For subsequent calls to the operation, to continue listing data, set the value of this parameter to the
+     *         value returned from the previous response.
      */
 
     public String getNextToken() {
@@ -65,11 +94,20 @@ public class DescribeProductsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The token that is required for pagination.
+     * The token that is required for pagination. On your first call to the <code>DescribeProducts</code> operation, set
+     * the value of this parameter to <code>NULL</code>.
+     * </p>
+     * <p>
+     * For subsequent calls to the operation, to continue listing data, set the value of this parameter to the value
+     * returned from the previous response.
      * </p>
      * 
      * @param nextToken
-     *        The token that is required for pagination.
+     *        The token that is required for pagination. On your first call to the <code>DescribeProducts</code>
+     *        operation, set the value of this parameter to <code>NULL</code>.</p>
+     *        <p>
+     *        For subsequent calls to the operation, to continue listing data, set the value of this parameter to the
+     *        value returned from the previous response.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -119,6 +157,46 @@ public class DescribeProductsRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
+     * <p>
+     * The ARN of the integration to return.
+     * </p>
+     * 
+     * @param productArn
+     *        The ARN of the integration to return.
+     */
+
+    public void setProductArn(String productArn) {
+        this.productArn = productArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the integration to return.
+     * </p>
+     * 
+     * @return The ARN of the integration to return.
+     */
+
+    public String getProductArn() {
+        return this.productArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the integration to return.
+     * </p>
+     * 
+     * @param productArn
+     *        The ARN of the integration to return.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeProductsRequest withProductArn(String productArn) {
+        setProductArn(productArn);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -133,7 +211,9 @@ public class DescribeProductsRequest extends com.amazonaws.AmazonWebServiceReque
         if (getNextToken() != null)
             sb.append("NextToken: ").append(getNextToken()).append(",");
         if (getMaxResults() != null)
-            sb.append("MaxResults: ").append(getMaxResults());
+            sb.append("MaxResults: ").append(getMaxResults()).append(",");
+        if (getProductArn() != null)
+            sb.append("ProductArn: ").append(getProductArn());
         sb.append("}");
         return sb.toString();
     }
@@ -156,6 +236,10 @@ public class DescribeProductsRequest extends com.amazonaws.AmazonWebServiceReque
             return false;
         if (other.getMaxResults() != null && other.getMaxResults().equals(this.getMaxResults()) == false)
             return false;
+        if (other.getProductArn() == null ^ this.getProductArn() == null)
+            return false;
+        if (other.getProductArn() != null && other.getProductArn().equals(this.getProductArn()) == false)
+            return false;
         return true;
     }
 
@@ -166,6 +250,7 @@ public class DescribeProductsRequest extends com.amazonaws.AmazonWebServiceReque
 
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
         hashCode = prime * hashCode + ((getMaxResults() == null) ? 0 : getMaxResults().hashCode());
+        hashCode = prime * hashCode + ((getProductArn() == null) ? 0 : getProductArn().hashCode());
         return hashCode;
     }
 

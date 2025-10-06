@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
+ * Contains information about the criteria used for sorting findings.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/SortCriteria" target="_top">AWS API
  *      Documentation</a>
@@ -27,24 +30,24 @@ public class SortCriteria implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Represents the finding attribute (for example, accountId) by which to sort findings.
+     * Represents the finding attribute, such as <code>accountId</code>, that sorts the findings.
      * </p>
      */
     private String attributeName;
     /**
      * <p>
-     * Order by which the sorted findings are to be displayed.
+     * The order by which the sorted findings are to be displayed.
      * </p>
      */
     private String orderBy;
 
     /**
      * <p>
-     * Represents the finding attribute (for example, accountId) by which to sort findings.
+     * Represents the finding attribute, such as <code>accountId</code>, that sorts the findings.
      * </p>
      * 
      * @param attributeName
-     *        Represents the finding attribute (for example, accountId) by which to sort findings.
+     *        Represents the finding attribute, such as <code>accountId</code>, that sorts the findings.
      */
 
     public void setAttributeName(String attributeName) {
@@ -53,10 +56,10 @@ public class SortCriteria implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Represents the finding attribute (for example, accountId) by which to sort findings.
+     * Represents the finding attribute, such as <code>accountId</code>, that sorts the findings.
      * </p>
      * 
-     * @return Represents the finding attribute (for example, accountId) by which to sort findings.
+     * @return Represents the finding attribute, such as <code>accountId</code>, that sorts the findings.
      */
 
     public String getAttributeName() {
@@ -65,11 +68,11 @@ public class SortCriteria implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Represents the finding attribute (for example, accountId) by which to sort findings.
+     * Represents the finding attribute, such as <code>accountId</code>, that sorts the findings.
      * </p>
      * 
      * @param attributeName
-     *        Represents the finding attribute (for example, accountId) by which to sort findings.
+     *        Represents the finding attribute, such as <code>accountId</code>, that sorts the findings.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -80,11 +83,11 @@ public class SortCriteria implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Order by which the sorted findings are to be displayed.
+     * The order by which the sorted findings are to be displayed.
      * </p>
      * 
      * @param orderBy
-     *        Order by which the sorted findings are to be displayed.
+     *        The order by which the sorted findings are to be displayed.
      * @see OrderBy
      */
 
@@ -94,10 +97,10 @@ public class SortCriteria implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Order by which the sorted findings are to be displayed.
+     * The order by which the sorted findings are to be displayed.
      * </p>
      * 
-     * @return Order by which the sorted findings are to be displayed.
+     * @return The order by which the sorted findings are to be displayed.
      * @see OrderBy
      */
 
@@ -107,11 +110,11 @@ public class SortCriteria implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Order by which the sorted findings are to be displayed.
+     * The order by which the sorted findings are to be displayed.
      * </p>
      * 
      * @param orderBy
-     *        Order by which the sorted findings are to be displayed.
+     *        The order by which the sorted findings are to be displayed.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see OrderBy
      */
@@ -123,11 +126,11 @@ public class SortCriteria implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Order by which the sorted findings are to be displayed.
+     * The order by which the sorted findings are to be displayed.
      * </p>
      * 
      * @param orderBy
-     *        Order by which the sorted findings are to be displayed.
+     *        The order by which the sorted findings are to be displayed.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see OrderBy
      */

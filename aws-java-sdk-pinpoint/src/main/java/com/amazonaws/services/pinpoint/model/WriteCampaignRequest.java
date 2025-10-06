@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,7 +37,14 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
     private java.util.List<WriteTreatmentResource> additionalTreatments;
     /**
      * <p>
-     * The custom description of the campaign.
+     * The delivery configuration settings for sending the campaign through a custom channel. This object is required if
+     * the MessageConfiguration object for the campaign specifies a CustomMessage object.
+     * </p>
+     */
+    private CustomDeliveryConfiguration customDeliveryConfiguration;
+    /**
+     * <p>
+     * A custom description of the campaign.
      * </p>
      */
     private String description;
@@ -49,14 +56,15 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
     private Integer holdoutPercent;
     /**
      * <p>
-     * The settings for the AWS Lambda function to use as a code hook for the campaign.
+     * The settings for the AWS Lambda function to invoke as a code hook for the campaign. You can use this hook to
+     * customize the segment that's used by the campaign.
      * </p>
      */
     private CampaignHook hook;
     /**
      * <p>
-     * Specifies whether to pause the campaign. A paused campaign doesn't run unless you resume it by setting this value
-     * to false.
+     * Specifies whether to pause the campaign. A paused campaign doesn't run unless you resume it by changing this
+     * value to false.
      * </p>
      */
     private Boolean isPaused;
@@ -74,7 +82,7 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
     private MessageConfiguration messageConfiguration;
     /**
      * <p>
-     * The custom name of the campaign.
+     * A custom name for the campaign.
      * </p>
      */
     private String name;
@@ -97,24 +105,50 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
      */
     private Integer segmentVersion;
     /**
+     * <note>
      * <p>
-     * A string-to-string map of key-value pairs that defines the tags to associate with the campaign. Each tag consists
-     * of a required tag key and an associated tag value.
+     * As of <b>22-05-2023</b> tags has been deprecated for update operations. After this date any value in tags is not
+     * processed and an error code is not returned. To manage tags we recommend using either <a
+     * href="https://docs.aws.amazon.com/pinpoint/latest/apireference/tags-resource-arn.html">Tags</a> in the <i>API
+     * Reference for Amazon Pinpoint</i>, <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/resourcegroupstaggingapi/index.html"
+     * >resourcegroupstaggingapi</a> commands in the <i>AWS Command Line Interface Documentation</i> or <a href=
+     * "https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/resourcegroupstaggingapi/package-summary.html"
+     * >resourcegroupstaggingapi</a> in the <i>AWS SDK</i>.
+     * </p>
+     * </note>
+     * <p>
+     * (Deprecated) A string-to-string map of key-value pairs that defines the tags to associate with the campaign. Each
+     * tag consists of a required tag key and an associated tag value.
      * </p>
      */
     private java.util.Map<String, String> tags;
     /**
      * <p>
-     * The custom description of a variation of the campaign to use for A/B testing.
+     * The message template to use for the campaign.
+     * </p>
+     */
+    private TemplateConfiguration templateConfiguration;
+    /**
+     * <p>
+     * A custom description of the default treatment for the campaign.
      * </p>
      */
     private String treatmentDescription;
     /**
      * <p>
-     * The custom name of a variation of the campaign to use for A/B testing.
+     * A custom name of the default treatment for the campaign, if the campaign has multiple treatments. A
+     * <i>treatment</i> is a variation of a campaign that's used for A/B testing.
      * </p>
      */
     private String treatmentName;
+    /**
+     * <p>
+     * Defines the priority of the campaign, used to decide the order of messages displayed to user if there are
+     * multiple messages scheduled to be displayed at the same moment.
+     * </p>
+     */
+    private Integer priority;
 
     /**
      * <p>
@@ -196,11 +230,57 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The custom description of the campaign.
+     * The delivery configuration settings for sending the campaign through a custom channel. This object is required if
+     * the MessageConfiguration object for the campaign specifies a CustomMessage object.
+     * </p>
+     * 
+     * @param customDeliveryConfiguration
+     *        The delivery configuration settings for sending the campaign through a custom channel. This object is
+     *        required if the MessageConfiguration object for the campaign specifies a CustomMessage object.
+     */
+
+    public void setCustomDeliveryConfiguration(CustomDeliveryConfiguration customDeliveryConfiguration) {
+        this.customDeliveryConfiguration = customDeliveryConfiguration;
+    }
+
+    /**
+     * <p>
+     * The delivery configuration settings for sending the campaign through a custom channel. This object is required if
+     * the MessageConfiguration object for the campaign specifies a CustomMessage object.
+     * </p>
+     * 
+     * @return The delivery configuration settings for sending the campaign through a custom channel. This object is
+     *         required if the MessageConfiguration object for the campaign specifies a CustomMessage object.
+     */
+
+    public CustomDeliveryConfiguration getCustomDeliveryConfiguration() {
+        return this.customDeliveryConfiguration;
+    }
+
+    /**
+     * <p>
+     * The delivery configuration settings for sending the campaign through a custom channel. This object is required if
+     * the MessageConfiguration object for the campaign specifies a CustomMessage object.
+     * </p>
+     * 
+     * @param customDeliveryConfiguration
+     *        The delivery configuration settings for sending the campaign through a custom channel. This object is
+     *        required if the MessageConfiguration object for the campaign specifies a CustomMessage object.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteCampaignRequest withCustomDeliveryConfiguration(CustomDeliveryConfiguration customDeliveryConfiguration) {
+        setCustomDeliveryConfiguration(customDeliveryConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A custom description of the campaign.
      * </p>
      * 
      * @param description
-     *        The custom description of the campaign.
+     *        A custom description of the campaign.
      */
 
     public void setDescription(String description) {
@@ -209,10 +289,10 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The custom description of the campaign.
+     * A custom description of the campaign.
      * </p>
      * 
-     * @return The custom description of the campaign.
+     * @return A custom description of the campaign.
      */
 
     public String getDescription() {
@@ -221,11 +301,11 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The custom description of the campaign.
+     * A custom description of the campaign.
      * </p>
      * 
      * @param description
-     *        The custom description of the campaign.
+     *        A custom description of the campaign.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -276,11 +356,13 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The settings for the AWS Lambda function to use as a code hook for the campaign.
+     * The settings for the AWS Lambda function to invoke as a code hook for the campaign. You can use this hook to
+     * customize the segment that's used by the campaign.
      * </p>
      * 
      * @param hook
-     *        The settings for the AWS Lambda function to use as a code hook for the campaign.
+     *        The settings for the AWS Lambda function to invoke as a code hook for the campaign. You can use this hook
+     *        to customize the segment that's used by the campaign.
      */
 
     public void setHook(CampaignHook hook) {
@@ -289,10 +371,12 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The settings for the AWS Lambda function to use as a code hook for the campaign.
+     * The settings for the AWS Lambda function to invoke as a code hook for the campaign. You can use this hook to
+     * customize the segment that's used by the campaign.
      * </p>
      * 
-     * @return The settings for the AWS Lambda function to use as a code hook for the campaign.
+     * @return The settings for the AWS Lambda function to invoke as a code hook for the campaign. You can use this hook
+     *         to customize the segment that's used by the campaign.
      */
 
     public CampaignHook getHook() {
@@ -301,11 +385,13 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The settings for the AWS Lambda function to use as a code hook for the campaign.
+     * The settings for the AWS Lambda function to invoke as a code hook for the campaign. You can use this hook to
+     * customize the segment that's used by the campaign.
      * </p>
      * 
      * @param hook
-     *        The settings for the AWS Lambda function to use as a code hook for the campaign.
+     *        The settings for the AWS Lambda function to invoke as a code hook for the campaign. You can use this hook
+     *        to customize the segment that's used by the campaign.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -316,12 +402,12 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Specifies whether to pause the campaign. A paused campaign doesn't run unless you resume it by setting this value
-     * to false.
+     * Specifies whether to pause the campaign. A paused campaign doesn't run unless you resume it by changing this
+     * value to false.
      * </p>
      * 
      * @param isPaused
-     *        Specifies whether to pause the campaign. A paused campaign doesn't run unless you resume it by setting
+     *        Specifies whether to pause the campaign. A paused campaign doesn't run unless you resume it by changing
      *        this value to false.
      */
 
@@ -331,11 +417,11 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Specifies whether to pause the campaign. A paused campaign doesn't run unless you resume it by setting this value
-     * to false.
+     * Specifies whether to pause the campaign. A paused campaign doesn't run unless you resume it by changing this
+     * value to false.
      * </p>
      * 
-     * @return Specifies whether to pause the campaign. A paused campaign doesn't run unless you resume it by setting
+     * @return Specifies whether to pause the campaign. A paused campaign doesn't run unless you resume it by changing
      *         this value to false.
      */
 
@@ -345,12 +431,12 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Specifies whether to pause the campaign. A paused campaign doesn't run unless you resume it by setting this value
-     * to false.
+     * Specifies whether to pause the campaign. A paused campaign doesn't run unless you resume it by changing this
+     * value to false.
      * </p>
      * 
      * @param isPaused
-     *        Specifies whether to pause the campaign. A paused campaign doesn't run unless you resume it by setting
+     *        Specifies whether to pause the campaign. A paused campaign doesn't run unless you resume it by changing
      *        this value to false.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -362,11 +448,11 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Specifies whether to pause the campaign. A paused campaign doesn't run unless you resume it by setting this value
-     * to false.
+     * Specifies whether to pause the campaign. A paused campaign doesn't run unless you resume it by changing this
+     * value to false.
      * </p>
      * 
-     * @return Specifies whether to pause the campaign. A paused campaign doesn't run unless you resume it by setting
+     * @return Specifies whether to pause the campaign. A paused campaign doesn't run unless you resume it by changing
      *         this value to false.
      */
 
@@ -456,11 +542,11 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The custom name of the campaign.
+     * A custom name for the campaign.
      * </p>
      * 
      * @param name
-     *        The custom name of the campaign.
+     *        A custom name for the campaign.
      */
 
     public void setName(String name) {
@@ -469,10 +555,10 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The custom name of the campaign.
+     * A custom name for the campaign.
      * </p>
      * 
-     * @return The custom name of the campaign.
+     * @return A custom name for the campaign.
      */
 
     public String getName() {
@@ -481,11 +567,11 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The custom name of the campaign.
+     * A custom name for the campaign.
      * </p>
      * 
      * @param name
-     *        The custom name of the campaign.
+     *        A custom name for the campaign.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -615,13 +701,31 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
     }
 
     /**
+     * <note>
      * <p>
-     * A string-to-string map of key-value pairs that defines the tags to associate with the campaign. Each tag consists
-     * of a required tag key and an associated tag value.
+     * As of <b>22-05-2023</b> tags has been deprecated for update operations. After this date any value in tags is not
+     * processed and an error code is not returned. To manage tags we recommend using either <a
+     * href="https://docs.aws.amazon.com/pinpoint/latest/apireference/tags-resource-arn.html">Tags</a> in the <i>API
+     * Reference for Amazon Pinpoint</i>, <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/resourcegroupstaggingapi/index.html"
+     * >resourcegroupstaggingapi</a> commands in the <i>AWS Command Line Interface Documentation</i> or <a href=
+     * "https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/resourcegroupstaggingapi/package-summary.html"
+     * >resourcegroupstaggingapi</a> in the <i>AWS SDK</i>.
+     * </p>
+     * </note>
+     * <p>
+     * (Deprecated) A string-to-string map of key-value pairs that defines the tags to associate with the campaign. Each
+     * tag consists of a required tag key and an associated tag value.
      * </p>
      * 
-     * @return A string-to-string map of key-value pairs that defines the tags to associate with the campaign. Each tag
-     *         consists of a required tag key and an associated tag value.
+     * @return As of <b>22-05-2023</b> tags has been deprecated for update operations. After this date any value in tags
+     *         is not processed and an error code is not returned. To manage tags we recommend using either <a
+     *         href="https://docs.aws.amazon.com/pinpoint/latest/apireference/tags-resource-arn.html">Tags</a> in the
+     *         <i>API Reference for Amazon Pinpoint</i>, <a
+     *         href="https://docs.aws.amazon.com/cli/latest/reference/resourcegroupstaggingapi/index.html"
+     *         >resourcegroupstaggingapi</a> commands in the <i>AWS Command Line Interface Documentation</i> or <a href=
+     *         "https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/resourcegroupstaggingapi/package-summary.html"
+     *         >resourcegroupstaggingapi</a> in the <i>AWS SDK</i>.</p></note>
      */
 
     public java.util.Map<String, String> getTags() {
@@ -629,14 +733,32 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
     }
 
     /**
+     * <note>
      * <p>
-     * A string-to-string map of key-value pairs that defines the tags to associate with the campaign. Each tag consists
-     * of a required tag key and an associated tag value.
+     * As of <b>22-05-2023</b> tags has been deprecated for update operations. After this date any value in tags is not
+     * processed and an error code is not returned. To manage tags we recommend using either <a
+     * href="https://docs.aws.amazon.com/pinpoint/latest/apireference/tags-resource-arn.html">Tags</a> in the <i>API
+     * Reference for Amazon Pinpoint</i>, <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/resourcegroupstaggingapi/index.html"
+     * >resourcegroupstaggingapi</a> commands in the <i>AWS Command Line Interface Documentation</i> or <a href=
+     * "https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/resourcegroupstaggingapi/package-summary.html"
+     * >resourcegroupstaggingapi</a> in the <i>AWS SDK</i>.
+     * </p>
+     * </note>
+     * <p>
+     * (Deprecated) A string-to-string map of key-value pairs that defines the tags to associate with the campaign. Each
+     * tag consists of a required tag key and an associated tag value.
      * </p>
      * 
      * @param tags
-     *        A string-to-string map of key-value pairs that defines the tags to associate with the campaign. Each tag
-     *        consists of a required tag key and an associated tag value.
+     *        As of <b>22-05-2023</b> tags has been deprecated for update operations. After this date any value in tags
+     *        is not processed and an error code is not returned. To manage tags we recommend using either <a
+     *        href="https://docs.aws.amazon.com/pinpoint/latest/apireference/tags-resource-arn.html">Tags</a> in the
+     *        <i>API Reference for Amazon Pinpoint</i>, <a
+     *        href="https://docs.aws.amazon.com/cli/latest/reference/resourcegroupstaggingapi/index.html"
+     *        >resourcegroupstaggingapi</a> commands in the <i>AWS Command Line Interface Documentation</i> or <a href=
+     *        "https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/resourcegroupstaggingapi/package-summary.html"
+     *        >resourcegroupstaggingapi</a> in the <i>AWS SDK</i>.</p></note>
      */
 
     public void setTags(java.util.Map<String, String> tags) {
@@ -644,14 +766,32 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
     }
 
     /**
+     * <note>
      * <p>
-     * A string-to-string map of key-value pairs that defines the tags to associate with the campaign. Each tag consists
-     * of a required tag key and an associated tag value.
+     * As of <b>22-05-2023</b> tags has been deprecated for update operations. After this date any value in tags is not
+     * processed and an error code is not returned. To manage tags we recommend using either <a
+     * href="https://docs.aws.amazon.com/pinpoint/latest/apireference/tags-resource-arn.html">Tags</a> in the <i>API
+     * Reference for Amazon Pinpoint</i>, <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/resourcegroupstaggingapi/index.html"
+     * >resourcegroupstaggingapi</a> commands in the <i>AWS Command Line Interface Documentation</i> or <a href=
+     * "https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/resourcegroupstaggingapi/package-summary.html"
+     * >resourcegroupstaggingapi</a> in the <i>AWS SDK</i>.
+     * </p>
+     * </note>
+     * <p>
+     * (Deprecated) A string-to-string map of key-value pairs that defines the tags to associate with the campaign. Each
+     * tag consists of a required tag key and an associated tag value.
      * </p>
      * 
      * @param tags
-     *        A string-to-string map of key-value pairs that defines the tags to associate with the campaign. Each tag
-     *        consists of a required tag key and an associated tag value.
+     *        As of <b>22-05-2023</b> tags has been deprecated for update operations. After this date any value in tags
+     *        is not processed and an error code is not returned. To manage tags we recommend using either <a
+     *        href="https://docs.aws.amazon.com/pinpoint/latest/apireference/tags-resource-arn.html">Tags</a> in the
+     *        <i>API Reference for Amazon Pinpoint</i>, <a
+     *        href="https://docs.aws.amazon.com/cli/latest/reference/resourcegroupstaggingapi/index.html"
+     *        >resourcegroupstaggingapi</a> commands in the <i>AWS Command Line Interface Documentation</i> or <a href=
+     *        "https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/resourcegroupstaggingapi/package-summary.html"
+     *        >resourcegroupstaggingapi</a> in the <i>AWS SDK</i>.</p></note>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -659,6 +799,13 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see WriteCampaignRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public WriteCampaignRequest addTagsEntry(String key, String value) {
         if (null == this.tags) {
@@ -683,11 +830,51 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The custom description of a variation of the campaign to use for A/B testing.
+     * The message template to use for the campaign.
+     * </p>
+     * 
+     * @param templateConfiguration
+     *        The message template to use for the campaign.
+     */
+
+    public void setTemplateConfiguration(TemplateConfiguration templateConfiguration) {
+        this.templateConfiguration = templateConfiguration;
+    }
+
+    /**
+     * <p>
+     * The message template to use for the campaign.
+     * </p>
+     * 
+     * @return The message template to use for the campaign.
+     */
+
+    public TemplateConfiguration getTemplateConfiguration() {
+        return this.templateConfiguration;
+    }
+
+    /**
+     * <p>
+     * The message template to use for the campaign.
+     * </p>
+     * 
+     * @param templateConfiguration
+     *        The message template to use for the campaign.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteCampaignRequest withTemplateConfiguration(TemplateConfiguration templateConfiguration) {
+        setTemplateConfiguration(templateConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A custom description of the default treatment for the campaign.
      * </p>
      * 
      * @param treatmentDescription
-     *        The custom description of a variation of the campaign to use for A/B testing.
+     *        A custom description of the default treatment for the campaign.
      */
 
     public void setTreatmentDescription(String treatmentDescription) {
@@ -696,10 +883,10 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The custom description of a variation of the campaign to use for A/B testing.
+     * A custom description of the default treatment for the campaign.
      * </p>
      * 
-     * @return The custom description of a variation of the campaign to use for A/B testing.
+     * @return A custom description of the default treatment for the campaign.
      */
 
     public String getTreatmentDescription() {
@@ -708,11 +895,11 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The custom description of a variation of the campaign to use for A/B testing.
+     * A custom description of the default treatment for the campaign.
      * </p>
      * 
      * @param treatmentDescription
-     *        The custom description of a variation of the campaign to use for A/B testing.
+     *        A custom description of the default treatment for the campaign.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -723,11 +910,13 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The custom name of a variation of the campaign to use for A/B testing.
+     * A custom name of the default treatment for the campaign, if the campaign has multiple treatments. A
+     * <i>treatment</i> is a variation of a campaign that's used for A/B testing.
      * </p>
      * 
      * @param treatmentName
-     *        The custom name of a variation of the campaign to use for A/B testing.
+     *        A custom name of the default treatment for the campaign, if the campaign has multiple treatments. A
+     *        <i>treatment</i> is a variation of a campaign that's used for A/B testing.
      */
 
     public void setTreatmentName(String treatmentName) {
@@ -736,10 +925,12 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The custom name of a variation of the campaign to use for A/B testing.
+     * A custom name of the default treatment for the campaign, if the campaign has multiple treatments. A
+     * <i>treatment</i> is a variation of a campaign that's used for A/B testing.
      * </p>
      * 
-     * @return The custom name of a variation of the campaign to use for A/B testing.
+     * @return A custom name of the default treatment for the campaign, if the campaign has multiple treatments. A
+     *         <i>treatment</i> is a variation of a campaign that's used for A/B testing.
      */
 
     public String getTreatmentName() {
@@ -748,16 +939,64 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The custom name of a variation of the campaign to use for A/B testing.
+     * A custom name of the default treatment for the campaign, if the campaign has multiple treatments. A
+     * <i>treatment</i> is a variation of a campaign that's used for A/B testing.
      * </p>
      * 
      * @param treatmentName
-     *        The custom name of a variation of the campaign to use for A/B testing.
+     *        A custom name of the default treatment for the campaign, if the campaign has multiple treatments. A
+     *        <i>treatment</i> is a variation of a campaign that's used for A/B testing.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public WriteCampaignRequest withTreatmentName(String treatmentName) {
         setTreatmentName(treatmentName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Defines the priority of the campaign, used to decide the order of messages displayed to user if there are
+     * multiple messages scheduled to be displayed at the same moment.
+     * </p>
+     * 
+     * @param priority
+     *        Defines the priority of the campaign, used to decide the order of messages displayed to user if there are
+     *        multiple messages scheduled to be displayed at the same moment.
+     */
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
+
+    /**
+     * <p>
+     * Defines the priority of the campaign, used to decide the order of messages displayed to user if there are
+     * multiple messages scheduled to be displayed at the same moment.
+     * </p>
+     * 
+     * @return Defines the priority of the campaign, used to decide the order of messages displayed to user if there are
+     *         multiple messages scheduled to be displayed at the same moment.
+     */
+
+    public Integer getPriority() {
+        return this.priority;
+    }
+
+    /**
+     * <p>
+     * Defines the priority of the campaign, used to decide the order of messages displayed to user if there are
+     * multiple messages scheduled to be displayed at the same moment.
+     * </p>
+     * 
+     * @param priority
+     *        Defines the priority of the campaign, used to decide the order of messages displayed to user if there are
+     *        multiple messages scheduled to be displayed at the same moment.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteCampaignRequest withPriority(Integer priority) {
+        setPriority(priority);
         return this;
     }
 
@@ -775,6 +1014,8 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
         sb.append("{");
         if (getAdditionalTreatments() != null)
             sb.append("AdditionalTreatments: ").append(getAdditionalTreatments()).append(",");
+        if (getCustomDeliveryConfiguration() != null)
+            sb.append("CustomDeliveryConfiguration: ").append(getCustomDeliveryConfiguration()).append(",");
         if (getDescription() != null)
             sb.append("Description: ").append(getDescription()).append(",");
         if (getHoldoutPercent() != null)
@@ -797,10 +1038,14 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
             sb.append("SegmentVersion: ").append(getSegmentVersion()).append(",");
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
+        if (getTemplateConfiguration() != null)
+            sb.append("TemplateConfiguration: ").append(getTemplateConfiguration()).append(",");
         if (getTreatmentDescription() != null)
             sb.append("TreatmentDescription: ").append(getTreatmentDescription()).append(",");
         if (getTreatmentName() != null)
-            sb.append("TreatmentName: ").append(getTreatmentName());
+            sb.append("TreatmentName: ").append(getTreatmentName()).append(",");
+        if (getPriority() != null)
+            sb.append("Priority: ").append(getPriority());
         sb.append("}");
         return sb.toString();
     }
@@ -818,6 +1063,10 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
         if (other.getAdditionalTreatments() == null ^ this.getAdditionalTreatments() == null)
             return false;
         if (other.getAdditionalTreatments() != null && other.getAdditionalTreatments().equals(this.getAdditionalTreatments()) == false)
+            return false;
+        if (other.getCustomDeliveryConfiguration() == null ^ this.getCustomDeliveryConfiguration() == null)
+            return false;
+        if (other.getCustomDeliveryConfiguration() != null && other.getCustomDeliveryConfiguration().equals(this.getCustomDeliveryConfiguration()) == false)
             return false;
         if (other.getDescription() == null ^ this.getDescription() == null)
             return false;
@@ -863,6 +1112,10 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getTemplateConfiguration() == null ^ this.getTemplateConfiguration() == null)
+            return false;
+        if (other.getTemplateConfiguration() != null && other.getTemplateConfiguration().equals(this.getTemplateConfiguration()) == false)
+            return false;
         if (other.getTreatmentDescription() == null ^ this.getTreatmentDescription() == null)
             return false;
         if (other.getTreatmentDescription() != null && other.getTreatmentDescription().equals(this.getTreatmentDescription()) == false)
@@ -870,6 +1123,10 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
         if (other.getTreatmentName() == null ^ this.getTreatmentName() == null)
             return false;
         if (other.getTreatmentName() != null && other.getTreatmentName().equals(this.getTreatmentName()) == false)
+            return false;
+        if (other.getPriority() == null ^ this.getPriority() == null)
+            return false;
+        if (other.getPriority() != null && other.getPriority().equals(this.getPriority()) == false)
             return false;
         return true;
     }
@@ -880,6 +1137,7 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getAdditionalTreatments() == null) ? 0 : getAdditionalTreatments().hashCode());
+        hashCode = prime * hashCode + ((getCustomDeliveryConfiguration() == null) ? 0 : getCustomDeliveryConfiguration().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getHoldoutPercent() == null) ? 0 : getHoldoutPercent().hashCode());
         hashCode = prime * hashCode + ((getHook() == null) ? 0 : getHook().hashCode());
@@ -891,8 +1149,10 @@ public class WriteCampaignRequest implements Serializable, Cloneable, Structured
         hashCode = prime * hashCode + ((getSegmentId() == null) ? 0 : getSegmentId().hashCode());
         hashCode = prime * hashCode + ((getSegmentVersion() == null) ? 0 : getSegmentVersion().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getTemplateConfiguration() == null) ? 0 : getTemplateConfiguration().hashCode());
         hashCode = prime * hashCode + ((getTreatmentDescription() == null) ? 0 : getTreatmentDescription().hashCode());
         hashCode = prime * hashCode + ((getTreatmentName() == null) ? 0 : getTreatmentName().hashCode());
+        hashCode = prime * hashCode + ((getPriority() == null) ? 0 : getPriority().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -24,6 +24,19 @@ import com.amazonaws.services.backup.model.*;
 public class AbstractAWSBackupAsync extends AbstractAWSBackup implements AWSBackupAsync {
 
     protected AbstractAWSBackupAsync() {
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelLegalHoldResult> cancelLegalHoldAsync(CancelLegalHoldRequest request) {
+
+        return cancelLegalHoldAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelLegalHoldResult> cancelLegalHoldAsync(CancelLegalHoldRequest request,
+            com.amazonaws.handlers.AsyncHandler<CancelLegalHoldRequest, CancelLegalHoldResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
@@ -61,6 +74,86 @@ public class AbstractAWSBackupAsync extends AbstractAWSBackup implements AWSBack
     @Override
     public java.util.concurrent.Future<CreateBackupVaultResult> createBackupVaultAsync(CreateBackupVaultRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateBackupVaultRequest, CreateBackupVaultResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFrameworkResult> createFrameworkAsync(CreateFrameworkRequest request) {
+
+        return createFrameworkAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFrameworkResult> createFrameworkAsync(CreateFrameworkRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateFrameworkRequest, CreateFrameworkResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLegalHoldResult> createLegalHoldAsync(CreateLegalHoldRequest request) {
+
+        return createLegalHoldAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLegalHoldResult> createLegalHoldAsync(CreateLegalHoldRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateLegalHoldRequest, CreateLegalHoldResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLogicallyAirGappedBackupVaultResult> createLogicallyAirGappedBackupVaultAsync(
+            CreateLogicallyAirGappedBackupVaultRequest request) {
+
+        return createLogicallyAirGappedBackupVaultAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLogicallyAirGappedBackupVaultResult> createLogicallyAirGappedBackupVaultAsync(
+            CreateLogicallyAirGappedBackupVaultRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateLogicallyAirGappedBackupVaultRequest, CreateLogicallyAirGappedBackupVaultResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateReportPlanResult> createReportPlanAsync(CreateReportPlanRequest request) {
+
+        return createReportPlanAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateReportPlanResult> createReportPlanAsync(CreateReportPlanRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateReportPlanRequest, CreateReportPlanResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRestoreTestingPlanResult> createRestoreTestingPlanAsync(CreateRestoreTestingPlanRequest request) {
+
+        return createRestoreTestingPlanAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRestoreTestingPlanResult> createRestoreTestingPlanAsync(CreateRestoreTestingPlanRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateRestoreTestingPlanRequest, CreateRestoreTestingPlanResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRestoreTestingSelectionResult> createRestoreTestingSelectionAsync(CreateRestoreTestingSelectionRequest request) {
+
+        return createRestoreTestingSelectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRestoreTestingSelectionResult> createRestoreTestingSelectionAsync(CreateRestoreTestingSelectionRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateRestoreTestingSelectionRequest, CreateRestoreTestingSelectionResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -118,6 +211,21 @@ public class AbstractAWSBackupAsync extends AbstractAWSBackup implements AWSBack
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteBackupVaultLockConfigurationResult> deleteBackupVaultLockConfigurationAsync(
+            DeleteBackupVaultLockConfigurationRequest request) {
+
+        return deleteBackupVaultLockConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteBackupVaultLockConfigurationResult> deleteBackupVaultLockConfigurationAsync(
+            DeleteBackupVaultLockConfigurationRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteBackupVaultLockConfigurationRequest, DeleteBackupVaultLockConfigurationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteBackupVaultNotificationsResult> deleteBackupVaultNotificationsAsync(DeleteBackupVaultNotificationsRequest request) {
 
         return deleteBackupVaultNotificationsAsync(request, null);
@@ -131,6 +239,19 @@ public class AbstractAWSBackupAsync extends AbstractAWSBackup implements AWSBack
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteFrameworkResult> deleteFrameworkAsync(DeleteFrameworkRequest request) {
+
+        return deleteFrameworkAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteFrameworkResult> deleteFrameworkAsync(DeleteFrameworkRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteFrameworkRequest, DeleteFrameworkResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteRecoveryPointResult> deleteRecoveryPointAsync(DeleteRecoveryPointRequest request) {
 
         return deleteRecoveryPointAsync(request, null);
@@ -139,6 +260,45 @@ public class AbstractAWSBackupAsync extends AbstractAWSBackup implements AWSBack
     @Override
     public java.util.concurrent.Future<DeleteRecoveryPointResult> deleteRecoveryPointAsync(DeleteRecoveryPointRequest request,
             com.amazonaws.handlers.AsyncHandler<DeleteRecoveryPointRequest, DeleteRecoveryPointResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteReportPlanResult> deleteReportPlanAsync(DeleteReportPlanRequest request) {
+
+        return deleteReportPlanAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteReportPlanResult> deleteReportPlanAsync(DeleteReportPlanRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteReportPlanRequest, DeleteReportPlanResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRestoreTestingPlanResult> deleteRestoreTestingPlanAsync(DeleteRestoreTestingPlanRequest request) {
+
+        return deleteRestoreTestingPlanAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRestoreTestingPlanResult> deleteRestoreTestingPlanAsync(DeleteRestoreTestingPlanRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteRestoreTestingPlanRequest, DeleteRestoreTestingPlanResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRestoreTestingSelectionResult> deleteRestoreTestingSelectionAsync(DeleteRestoreTestingSelectionRequest request) {
+
+        return deleteRestoreTestingSelectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRestoreTestingSelectionResult> deleteRestoreTestingSelectionAsync(DeleteRestoreTestingSelectionRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteRestoreTestingSelectionRequest, DeleteRestoreTestingSelectionResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -170,6 +330,45 @@ public class AbstractAWSBackupAsync extends AbstractAWSBackup implements AWSBack
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeCopyJobResult> describeCopyJobAsync(DescribeCopyJobRequest request) {
+
+        return describeCopyJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCopyJobResult> describeCopyJobAsync(DescribeCopyJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeCopyJobRequest, DescribeCopyJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFrameworkResult> describeFrameworkAsync(DescribeFrameworkRequest request) {
+
+        return describeFrameworkAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFrameworkResult> describeFrameworkAsync(DescribeFrameworkRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeFrameworkRequest, DescribeFrameworkResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeGlobalSettingsResult> describeGlobalSettingsAsync(DescribeGlobalSettingsRequest request) {
+
+        return describeGlobalSettingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeGlobalSettingsResult> describeGlobalSettingsAsync(DescribeGlobalSettingsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeGlobalSettingsRequest, DescribeGlobalSettingsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeProtectedResourceResult> describeProtectedResourceAsync(DescribeProtectedResourceRequest request) {
 
         return describeProtectedResourceAsync(request, null);
@@ -196,6 +395,45 @@ public class AbstractAWSBackupAsync extends AbstractAWSBackup implements AWSBack
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeRegionSettingsResult> describeRegionSettingsAsync(DescribeRegionSettingsRequest request) {
+
+        return describeRegionSettingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeRegionSettingsResult> describeRegionSettingsAsync(DescribeRegionSettingsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeRegionSettingsRequest, DescribeRegionSettingsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeReportJobResult> describeReportJobAsync(DescribeReportJobRequest request) {
+
+        return describeReportJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeReportJobResult> describeReportJobAsync(DescribeReportJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeReportJobRequest, DescribeReportJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeReportPlanResult> describeReportPlanAsync(DescribeReportPlanRequest request) {
+
+        return describeReportPlanAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeReportPlanResult> describeReportPlanAsync(DescribeReportPlanRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeReportPlanRequest, DescribeReportPlanResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeRestoreJobResult> describeRestoreJobAsync(DescribeRestoreJobRequest request) {
 
         return describeRestoreJobAsync(request, null);
@@ -204,6 +442,34 @@ public class AbstractAWSBackupAsync extends AbstractAWSBackup implements AWSBack
     @Override
     public java.util.concurrent.Future<DescribeRestoreJobResult> describeRestoreJobAsync(DescribeRestoreJobRequest request,
             com.amazonaws.handlers.AsyncHandler<DescribeRestoreJobRequest, DescribeRestoreJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateRecoveryPointResult> disassociateRecoveryPointAsync(DisassociateRecoveryPointRequest request) {
+
+        return disassociateRecoveryPointAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateRecoveryPointResult> disassociateRecoveryPointAsync(DisassociateRecoveryPointRequest request,
+            com.amazonaws.handlers.AsyncHandler<DisassociateRecoveryPointRequest, DisassociateRecoveryPointResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateRecoveryPointFromParentResult> disassociateRecoveryPointFromParentAsync(
+            DisassociateRecoveryPointFromParentRequest request) {
+
+        return disassociateRecoveryPointFromParentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateRecoveryPointFromParentResult> disassociateRecoveryPointFromParentAsync(
+            DisassociateRecoveryPointFromParentRequest request,
+            com.amazonaws.handlers.AsyncHandler<DisassociateRecoveryPointFromParentRequest, DisassociateRecoveryPointFromParentResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -300,6 +566,19 @@ public class AbstractAWSBackupAsync extends AbstractAWSBackup implements AWSBack
     }
 
     @Override
+    public java.util.concurrent.Future<GetLegalHoldResult> getLegalHoldAsync(GetLegalHoldRequest request) {
+
+        return getLegalHoldAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetLegalHoldResult> getLegalHoldAsync(GetLegalHoldRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetLegalHoldRequest, GetLegalHoldResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<GetRecoveryPointRestoreMetadataResult> getRecoveryPointRestoreMetadataAsync(
             GetRecoveryPointRestoreMetadataRequest request) {
 
@@ -315,6 +594,60 @@ public class AbstractAWSBackupAsync extends AbstractAWSBackup implements AWSBack
     }
 
     @Override
+    public java.util.concurrent.Future<GetRestoreJobMetadataResult> getRestoreJobMetadataAsync(GetRestoreJobMetadataRequest request) {
+
+        return getRestoreJobMetadataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRestoreJobMetadataResult> getRestoreJobMetadataAsync(GetRestoreJobMetadataRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetRestoreJobMetadataRequest, GetRestoreJobMetadataResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRestoreTestingInferredMetadataResult> getRestoreTestingInferredMetadataAsync(
+            GetRestoreTestingInferredMetadataRequest request) {
+
+        return getRestoreTestingInferredMetadataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRestoreTestingInferredMetadataResult> getRestoreTestingInferredMetadataAsync(
+            GetRestoreTestingInferredMetadataRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetRestoreTestingInferredMetadataRequest, GetRestoreTestingInferredMetadataResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRestoreTestingPlanResult> getRestoreTestingPlanAsync(GetRestoreTestingPlanRequest request) {
+
+        return getRestoreTestingPlanAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRestoreTestingPlanResult> getRestoreTestingPlanAsync(GetRestoreTestingPlanRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetRestoreTestingPlanRequest, GetRestoreTestingPlanResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRestoreTestingSelectionResult> getRestoreTestingSelectionAsync(GetRestoreTestingSelectionRequest request) {
+
+        return getRestoreTestingSelectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRestoreTestingSelectionResult> getRestoreTestingSelectionAsync(GetRestoreTestingSelectionRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetRestoreTestingSelectionRequest, GetRestoreTestingSelectionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<GetSupportedResourceTypesResult> getSupportedResourceTypesAsync(GetSupportedResourceTypesRequest request) {
 
         return getSupportedResourceTypesAsync(request, null);
@@ -323,6 +656,19 @@ public class AbstractAWSBackupAsync extends AbstractAWSBackup implements AWSBack
     @Override
     public java.util.concurrent.Future<GetSupportedResourceTypesResult> getSupportedResourceTypesAsync(GetSupportedResourceTypesRequest request,
             com.amazonaws.handlers.AsyncHandler<GetSupportedResourceTypesRequest, GetSupportedResourceTypesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListBackupJobSummariesResult> listBackupJobSummariesAsync(ListBackupJobSummariesRequest request) {
+
+        return listBackupJobSummariesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListBackupJobSummariesResult> listBackupJobSummariesAsync(ListBackupJobSummariesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListBackupJobSummariesRequest, ListBackupJobSummariesResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -406,6 +752,58 @@ public class AbstractAWSBackupAsync extends AbstractAWSBackup implements AWSBack
     }
 
     @Override
+    public java.util.concurrent.Future<ListCopyJobSummariesResult> listCopyJobSummariesAsync(ListCopyJobSummariesRequest request) {
+
+        return listCopyJobSummariesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCopyJobSummariesResult> listCopyJobSummariesAsync(ListCopyJobSummariesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListCopyJobSummariesRequest, ListCopyJobSummariesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCopyJobsResult> listCopyJobsAsync(ListCopyJobsRequest request) {
+
+        return listCopyJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCopyJobsResult> listCopyJobsAsync(ListCopyJobsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListCopyJobsRequest, ListCopyJobsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFrameworksResult> listFrameworksAsync(ListFrameworksRequest request) {
+
+        return listFrameworksAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFrameworksResult> listFrameworksAsync(ListFrameworksRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListFrameworksRequest, ListFrameworksResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListLegalHoldsResult> listLegalHoldsAsync(ListLegalHoldsRequest request) {
+
+        return listLegalHoldsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListLegalHoldsResult> listLegalHoldsAsync(ListLegalHoldsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListLegalHoldsRequest, ListLegalHoldsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListProtectedResourcesResult> listProtectedResourcesAsync(ListProtectedResourcesRequest request) {
 
         return listProtectedResourcesAsync(request, null);
@@ -414,6 +812,21 @@ public class AbstractAWSBackupAsync extends AbstractAWSBackup implements AWSBack
     @Override
     public java.util.concurrent.Future<ListProtectedResourcesResult> listProtectedResourcesAsync(ListProtectedResourcesRequest request,
             com.amazonaws.handlers.AsyncHandler<ListProtectedResourcesRequest, ListProtectedResourcesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListProtectedResourcesByBackupVaultResult> listProtectedResourcesByBackupVaultAsync(
+            ListProtectedResourcesByBackupVaultRequest request) {
+
+        return listProtectedResourcesByBackupVaultAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListProtectedResourcesByBackupVaultResult> listProtectedResourcesByBackupVaultAsync(
+            ListProtectedResourcesByBackupVaultRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListProtectedResourcesByBackupVaultRequest, ListProtectedResourcesByBackupVaultResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -434,6 +847,19 @@ public class AbstractAWSBackupAsync extends AbstractAWSBackup implements AWSBack
     }
 
     @Override
+    public java.util.concurrent.Future<ListRecoveryPointsByLegalHoldResult> listRecoveryPointsByLegalHoldAsync(ListRecoveryPointsByLegalHoldRequest request) {
+
+        return listRecoveryPointsByLegalHoldAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRecoveryPointsByLegalHoldResult> listRecoveryPointsByLegalHoldAsync(ListRecoveryPointsByLegalHoldRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListRecoveryPointsByLegalHoldRequest, ListRecoveryPointsByLegalHoldResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListRecoveryPointsByResourceResult> listRecoveryPointsByResourceAsync(ListRecoveryPointsByResourceRequest request) {
 
         return listRecoveryPointsByResourceAsync(request, null);
@@ -447,6 +873,45 @@ public class AbstractAWSBackupAsync extends AbstractAWSBackup implements AWSBack
     }
 
     @Override
+    public java.util.concurrent.Future<ListReportJobsResult> listReportJobsAsync(ListReportJobsRequest request) {
+
+        return listReportJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListReportJobsResult> listReportJobsAsync(ListReportJobsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListReportJobsRequest, ListReportJobsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListReportPlansResult> listReportPlansAsync(ListReportPlansRequest request) {
+
+        return listReportPlansAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListReportPlansResult> listReportPlansAsync(ListReportPlansRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListReportPlansRequest, ListReportPlansResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRestoreJobSummariesResult> listRestoreJobSummariesAsync(ListRestoreJobSummariesRequest request) {
+
+        return listRestoreJobSummariesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRestoreJobSummariesResult> listRestoreJobSummariesAsync(ListRestoreJobSummariesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListRestoreJobSummariesRequest, ListRestoreJobSummariesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListRestoreJobsResult> listRestoreJobsAsync(ListRestoreJobsRequest request) {
 
         return listRestoreJobsAsync(request, null);
@@ -455,6 +920,47 @@ public class AbstractAWSBackupAsync extends AbstractAWSBackup implements AWSBack
     @Override
     public java.util.concurrent.Future<ListRestoreJobsResult> listRestoreJobsAsync(ListRestoreJobsRequest request,
             com.amazonaws.handlers.AsyncHandler<ListRestoreJobsRequest, ListRestoreJobsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRestoreJobsByProtectedResourceResult> listRestoreJobsByProtectedResourceAsync(
+            ListRestoreJobsByProtectedResourceRequest request) {
+
+        return listRestoreJobsByProtectedResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRestoreJobsByProtectedResourceResult> listRestoreJobsByProtectedResourceAsync(
+            ListRestoreJobsByProtectedResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListRestoreJobsByProtectedResourceRequest, ListRestoreJobsByProtectedResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRestoreTestingPlansResult> listRestoreTestingPlansAsync(ListRestoreTestingPlansRequest request) {
+
+        return listRestoreTestingPlansAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRestoreTestingPlansResult> listRestoreTestingPlansAsync(ListRestoreTestingPlansRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListRestoreTestingPlansRequest, ListRestoreTestingPlansResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRestoreTestingSelectionsResult> listRestoreTestingSelectionsAsync(ListRestoreTestingSelectionsRequest request) {
+
+        return listRestoreTestingSelectionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRestoreTestingSelectionsResult> listRestoreTestingSelectionsAsync(ListRestoreTestingSelectionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListRestoreTestingSelectionsRequest, ListRestoreTestingSelectionsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -486,6 +992,21 @@ public class AbstractAWSBackupAsync extends AbstractAWSBackup implements AWSBack
     }
 
     @Override
+    public java.util.concurrent.Future<PutBackupVaultLockConfigurationResult> putBackupVaultLockConfigurationAsync(
+            PutBackupVaultLockConfigurationRequest request) {
+
+        return putBackupVaultLockConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutBackupVaultLockConfigurationResult> putBackupVaultLockConfigurationAsync(
+            PutBackupVaultLockConfigurationRequest request,
+            com.amazonaws.handlers.AsyncHandler<PutBackupVaultLockConfigurationRequest, PutBackupVaultLockConfigurationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<PutBackupVaultNotificationsResult> putBackupVaultNotificationsAsync(PutBackupVaultNotificationsRequest request) {
 
         return putBackupVaultNotificationsAsync(request, null);
@@ -499,6 +1020,19 @@ public class AbstractAWSBackupAsync extends AbstractAWSBackup implements AWSBack
     }
 
     @Override
+    public java.util.concurrent.Future<PutRestoreValidationResultResult> putRestoreValidationResultAsync(PutRestoreValidationResultRequest request) {
+
+        return putRestoreValidationResultAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutRestoreValidationResultResult> putRestoreValidationResultAsync(PutRestoreValidationResultRequest request,
+            com.amazonaws.handlers.AsyncHandler<PutRestoreValidationResultRequest, PutRestoreValidationResultResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<StartBackupJobResult> startBackupJobAsync(StartBackupJobRequest request) {
 
         return startBackupJobAsync(request, null);
@@ -507,6 +1041,32 @@ public class AbstractAWSBackupAsync extends AbstractAWSBackup implements AWSBack
     @Override
     public java.util.concurrent.Future<StartBackupJobResult> startBackupJobAsync(StartBackupJobRequest request,
             com.amazonaws.handlers.AsyncHandler<StartBackupJobRequest, StartBackupJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartCopyJobResult> startCopyJobAsync(StartCopyJobRequest request) {
+
+        return startCopyJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartCopyJobResult> startCopyJobAsync(StartCopyJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartCopyJobRequest, StartCopyJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartReportJobResult> startReportJobAsync(StartReportJobRequest request) {
+
+        return startReportJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartReportJobResult> startReportJobAsync(StartReportJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartReportJobRequest, StartReportJobResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -577,6 +1137,32 @@ public class AbstractAWSBackupAsync extends AbstractAWSBackup implements AWSBack
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateFrameworkResult> updateFrameworkAsync(UpdateFrameworkRequest request) {
+
+        return updateFrameworkAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateFrameworkResult> updateFrameworkAsync(UpdateFrameworkRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateFrameworkRequest, UpdateFrameworkResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateGlobalSettingsResult> updateGlobalSettingsAsync(UpdateGlobalSettingsRequest request) {
+
+        return updateGlobalSettingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateGlobalSettingsResult> updateGlobalSettingsAsync(UpdateGlobalSettingsRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateGlobalSettingsRequest, UpdateGlobalSettingsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateRecoveryPointLifecycleResult> updateRecoveryPointLifecycleAsync(UpdateRecoveryPointLifecycleRequest request) {
 
         return updateRecoveryPointLifecycleAsync(request, null);
@@ -585,6 +1171,58 @@ public class AbstractAWSBackupAsync extends AbstractAWSBackup implements AWSBack
     @Override
     public java.util.concurrent.Future<UpdateRecoveryPointLifecycleResult> updateRecoveryPointLifecycleAsync(UpdateRecoveryPointLifecycleRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateRecoveryPointLifecycleRequest, UpdateRecoveryPointLifecycleResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRegionSettingsResult> updateRegionSettingsAsync(UpdateRegionSettingsRequest request) {
+
+        return updateRegionSettingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRegionSettingsResult> updateRegionSettingsAsync(UpdateRegionSettingsRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateRegionSettingsRequest, UpdateRegionSettingsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateReportPlanResult> updateReportPlanAsync(UpdateReportPlanRequest request) {
+
+        return updateReportPlanAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateReportPlanResult> updateReportPlanAsync(UpdateReportPlanRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateReportPlanRequest, UpdateReportPlanResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRestoreTestingPlanResult> updateRestoreTestingPlanAsync(UpdateRestoreTestingPlanRequest request) {
+
+        return updateRestoreTestingPlanAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRestoreTestingPlanResult> updateRestoreTestingPlanAsync(UpdateRestoreTestingPlanRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateRestoreTestingPlanRequest, UpdateRestoreTestingPlanResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRestoreTestingSelectionResult> updateRestoreTestingSelectionAsync(UpdateRestoreTestingSelectionRequest request) {
+
+        return updateRestoreTestingSelectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRestoreTestingSelectionResult> updateRestoreTestingSelectionAsync(UpdateRestoreTestingSelectionRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateRestoreTestingSelectionRequest, UpdateRestoreTestingSelectionResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

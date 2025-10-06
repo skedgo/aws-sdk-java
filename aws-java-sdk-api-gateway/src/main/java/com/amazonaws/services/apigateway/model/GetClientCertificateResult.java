@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,11 +20,6 @@ import javax.annotation.Generated;
  * Represents a client certificate used to configure client-side SSL authentication while sending requests to the
  * integration endpoint.
  * </p>
- * <div class="remarks">Client certificates are used to authenticate an API by the backend server. To authenticate an
- * API client (or user), use IAM roles and policies, a custom <a>Authorizer</a> or an Amazon Cognito user pool.</div>
- * <div class="seeAlso"> <a href=
- * "https://docs.aws.amazon.com/apigateway/latest/developerguide/getting-started-client-side-ssl-authentication.html"
- * >Use Client-Side Certificate</a> </div>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class GetClientCertificateResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {
@@ -312,6 +307,13 @@ public class GetClientCertificateResult extends com.amazonaws.AmazonWebServiceRe
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see GetClientCertificateResult#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public GetClientCertificateResult addTagsEntry(String key, String value) {
         if (null == this.tags) {

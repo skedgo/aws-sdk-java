@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,7 +36,7 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
     private String workspaceId;
     /**
      * <p>
-     * The identifier of the AWS Directory Service directory for the WorkSpace.
+     * The identifier of the Directory Service directory for the WorkSpace.
      * </p>
      */
     private String directoryId;
@@ -56,6 +56,102 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The operational state of the WorkSpace.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PENDING</code> – The WorkSpace is in a waiting state (for example, the WorkSpace is being created).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AVAILABLE</code> – The WorkSpace is running and has passed the health checks.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>IMPAIRED</code> – Refer to <code>UNHEALTHY</code> state.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UNHEALTHY</code> – The WorkSpace is not responding to health checks.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>REBOOTING</code> – The WorkSpace is being rebooted (restarted).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STARTING</code> – The WorkSpace is starting up and health checks are being run.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>REBUILDING</code> – The WorkSpace is being rebuilt.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESTORING</code> – The WorkSpace is being restored.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MAINTENANCE</code> – The WorkSpace is undergoing scheduled maintenance by Amazon Web Services.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ADMIN_MAINTENANCE</code> – The WorkSpace is undergoing maintenance by the WorkSpaces administrator.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TERMINATING</code> – The WorkSpace is being deleted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TERMINATED</code> – The WorkSpace has been deleted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SUSPENDED</code> – The WorkSpace has been suspended for image creation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UPDATING</code> – The WorkSpace is undergoing an update.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STOPPING</code> – The WorkSpace is being stopped.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STOPPED</code> – The WorkSpace has been stopped.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ERROR </code> – The WorkSpace is an error state (for example, an error occurred during startup).
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * After a WorkSpace is terminated, the <code>TERMINATED</code> state is returned only briefly before the WorkSpace
+     * directory metadata is cleaned up, so this state is rarely returned. To confirm that a WorkSpace is terminated,
+     * check for the WorkSpace ID by using <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaces.html"> DescribeWorkSpaces</a>. If
+     * the WorkSpace ID isn't returned, then the WorkSpace has been successfully terminated.
+     * </p>
+     * </note>
      */
     private String state;
     /**
@@ -84,13 +180,16 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
     private String errorCode;
     /**
      * <p>
-     * The name of the WorkSpace, as seen by the operating system.
+     * The name of the WorkSpace, as seen by the operating system. The format of this name varies. For more information,
+     * see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/launch-workspaces-tutorials.html"> Launch a
+     * WorkSpace</a>.
      * </p>
      */
     private String computerName;
     /**
      * <p>
-     * The KMS key used to encrypt data stored on your WorkSpace.
+     * The ARN of the symmetric KMS key used to encrypt data stored on your WorkSpace. Amazon WorkSpaces does not
+     * support asymmetric KMS keys.
      * </p>
      */
     private String volumeEncryptionKey;
@@ -108,6 +207,12 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
     private Boolean rootVolumeEncryptionEnabled;
     /**
      * <p>
+     * The name of the user-decoupled WorkSpace.
+     * </p>
+     */
+    private String workspaceName;
+    /**
+     * <p>
      * The properties of the WorkSpace.
      * </p>
      */
@@ -118,6 +223,24 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<ModificationState> modificationStates;
+    /**
+     * <p>
+     * The standby WorkSpace or primary WorkSpace related to the specified WorkSpace.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<RelatedWorkspaceProperties> relatedWorkspaces;
+    /**
+     * <p>
+     * Indicates the settings of the data replication.
+     * </p>
+     */
+    private DataReplicationSettings dataReplicationSettings;
+    /**
+     * <p>
+     * The properties of the standby WorkSpace
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<StandbyWorkspacesProperties> standbyWorkspacesProperties;
 
     /**
      * <p>
@@ -161,11 +284,11 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier of the AWS Directory Service directory for the WorkSpace.
+     * The identifier of the Directory Service directory for the WorkSpace.
      * </p>
      * 
      * @param directoryId
-     *        The identifier of the AWS Directory Service directory for the WorkSpace.
+     *        The identifier of the Directory Service directory for the WorkSpace.
      */
 
     public void setDirectoryId(String directoryId) {
@@ -174,10 +297,10 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier of the AWS Directory Service directory for the WorkSpace.
+     * The identifier of the Directory Service directory for the WorkSpace.
      * </p>
      * 
-     * @return The identifier of the AWS Directory Service directory for the WorkSpace.
+     * @return The identifier of the Directory Service directory for the WorkSpace.
      */
 
     public String getDirectoryId() {
@@ -186,11 +309,11 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier of the AWS Directory Service directory for the WorkSpace.
+     * The identifier of the Directory Service directory for the WorkSpace.
      * </p>
      * 
      * @param directoryId
-     *        The identifier of the AWS Directory Service directory for the WorkSpace.
+     *        The identifier of the Directory Service directory for the WorkSpace.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -283,9 +406,201 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The operational state of the WorkSpace.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PENDING</code> – The WorkSpace is in a waiting state (for example, the WorkSpace is being created).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AVAILABLE</code> – The WorkSpace is running and has passed the health checks.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>IMPAIRED</code> – Refer to <code>UNHEALTHY</code> state.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UNHEALTHY</code> – The WorkSpace is not responding to health checks.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>REBOOTING</code> – The WorkSpace is being rebooted (restarted).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STARTING</code> – The WorkSpace is starting up and health checks are being run.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>REBUILDING</code> – The WorkSpace is being rebuilt.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESTORING</code> – The WorkSpace is being restored.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MAINTENANCE</code> – The WorkSpace is undergoing scheduled maintenance by Amazon Web Services.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ADMIN_MAINTENANCE</code> – The WorkSpace is undergoing maintenance by the WorkSpaces administrator.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TERMINATING</code> – The WorkSpace is being deleted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TERMINATED</code> – The WorkSpace has been deleted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SUSPENDED</code> – The WorkSpace has been suspended for image creation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UPDATING</code> – The WorkSpace is undergoing an update.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STOPPING</code> – The WorkSpace is being stopped.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STOPPED</code> – The WorkSpace has been stopped.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ERROR </code> – The WorkSpace is an error state (for example, an error occurred during startup).
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * After a WorkSpace is terminated, the <code>TERMINATED</code> state is returned only briefly before the WorkSpace
+     * directory metadata is cleaned up, so this state is rarely returned. To confirm that a WorkSpace is terminated,
+     * check for the WorkSpace ID by using <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaces.html"> DescribeWorkSpaces</a>. If
+     * the WorkSpace ID isn't returned, then the WorkSpace has been successfully terminated.
+     * </p>
+     * </note>
      * 
      * @param state
-     *        The operational state of the WorkSpace.
+     *        The operational state of the WorkSpace.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>PENDING</code> – The WorkSpace is in a waiting state (for example, the WorkSpace is being created).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AVAILABLE</code> – The WorkSpace is running and has passed the health checks.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>IMPAIRED</code> – Refer to <code>UNHEALTHY</code> state.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UNHEALTHY</code> – The WorkSpace is not responding to health checks.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>REBOOTING</code> – The WorkSpace is being rebooted (restarted).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>STARTING</code> – The WorkSpace is starting up and health checks are being run.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>REBUILDING</code> – The WorkSpace is being rebuilt.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RESTORING</code> – The WorkSpace is being restored.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>MAINTENANCE</code> – The WorkSpace is undergoing scheduled maintenance by Amazon Web Services.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ADMIN_MAINTENANCE</code> – The WorkSpace is undergoing maintenance by the WorkSpaces administrator.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TERMINATING</code> – The WorkSpace is being deleted.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TERMINATED</code> – The WorkSpace has been deleted.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SUSPENDED</code> – The WorkSpace has been suspended for image creation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UPDATING</code> – The WorkSpace is undergoing an update.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>STOPPING</code> – The WorkSpace is being stopped.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>STOPPED</code> – The WorkSpace has been stopped.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ERROR </code> – The WorkSpace is an error state (for example, an error occurred during startup).
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        After a WorkSpace is terminated, the <code>TERMINATED</code> state is returned only briefly before the
+     *        WorkSpace directory metadata is cleaned up, so this state is rarely returned. To confirm that a WorkSpace
+     *        is terminated, check for the WorkSpace ID by using <a
+     *        href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaces.html">
+     *        DescribeWorkSpaces</a>. If the WorkSpace ID isn't returned, then the WorkSpace has been successfully
+     *        terminated.
+     *        </p>
      * @see WorkspaceState
      */
 
@@ -297,8 +612,200 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The operational state of the WorkSpace.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PENDING</code> – The WorkSpace is in a waiting state (for example, the WorkSpace is being created).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AVAILABLE</code> – The WorkSpace is running and has passed the health checks.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>IMPAIRED</code> – Refer to <code>UNHEALTHY</code> state.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UNHEALTHY</code> – The WorkSpace is not responding to health checks.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>REBOOTING</code> – The WorkSpace is being rebooted (restarted).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STARTING</code> – The WorkSpace is starting up and health checks are being run.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>REBUILDING</code> – The WorkSpace is being rebuilt.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESTORING</code> – The WorkSpace is being restored.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MAINTENANCE</code> – The WorkSpace is undergoing scheduled maintenance by Amazon Web Services.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ADMIN_MAINTENANCE</code> – The WorkSpace is undergoing maintenance by the WorkSpaces administrator.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TERMINATING</code> – The WorkSpace is being deleted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TERMINATED</code> – The WorkSpace has been deleted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SUSPENDED</code> – The WorkSpace has been suspended for image creation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UPDATING</code> – The WorkSpace is undergoing an update.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STOPPING</code> – The WorkSpace is being stopped.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STOPPED</code> – The WorkSpace has been stopped.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ERROR </code> – The WorkSpace is an error state (for example, an error occurred during startup).
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * After a WorkSpace is terminated, the <code>TERMINATED</code> state is returned only briefly before the WorkSpace
+     * directory metadata is cleaned up, so this state is rarely returned. To confirm that a WorkSpace is terminated,
+     * check for the WorkSpace ID by using <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaces.html"> DescribeWorkSpaces</a>. If
+     * the WorkSpace ID isn't returned, then the WorkSpace has been successfully terminated.
+     * </p>
+     * </note>
      * 
-     * @return The operational state of the WorkSpace.
+     * @return The operational state of the WorkSpace.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>PENDING</code> – The WorkSpace is in a waiting state (for example, the WorkSpace is being created).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>AVAILABLE</code> – The WorkSpace is running and has passed the health checks.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>IMPAIRED</code> – Refer to <code>UNHEALTHY</code> state.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>UNHEALTHY</code> – The WorkSpace is not responding to health checks.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>REBOOTING</code> – The WorkSpace is being rebooted (restarted).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>STARTING</code> – The WorkSpace is starting up and health checks are being run.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>REBUILDING</code> – The WorkSpace is being rebuilt.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>RESTORING</code> – The WorkSpace is being restored.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>MAINTENANCE</code> – The WorkSpace is undergoing scheduled maintenance by Amazon Web Services.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ADMIN_MAINTENANCE</code> – The WorkSpace is undergoing maintenance by the WorkSpaces administrator.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>TERMINATING</code> – The WorkSpace is being deleted.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>TERMINATED</code> – The WorkSpace has been deleted.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>SUSPENDED</code> – The WorkSpace has been suspended for image creation.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>UPDATING</code> – The WorkSpace is undergoing an update.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>STOPPING</code> – The WorkSpace is being stopped.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>STOPPED</code> – The WorkSpace has been stopped.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ERROR </code> – The WorkSpace is an error state (for example, an error occurred during startup).
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <note>
+     *         <p>
+     *         After a WorkSpace is terminated, the <code>TERMINATED</code> state is returned only briefly before the
+     *         WorkSpace directory metadata is cleaned up, so this state is rarely returned. To confirm that a WorkSpace
+     *         is terminated, check for the WorkSpace ID by using <a
+     *         href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaces.html">
+     *         DescribeWorkSpaces</a>. If the WorkSpace ID isn't returned, then the WorkSpace has been successfully
+     *         terminated.
+     *         </p>
      * @see WorkspaceState
      */
 
@@ -310,9 +817,201 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The operational state of the WorkSpace.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PENDING</code> – The WorkSpace is in a waiting state (for example, the WorkSpace is being created).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AVAILABLE</code> – The WorkSpace is running and has passed the health checks.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>IMPAIRED</code> – Refer to <code>UNHEALTHY</code> state.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UNHEALTHY</code> – The WorkSpace is not responding to health checks.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>REBOOTING</code> – The WorkSpace is being rebooted (restarted).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STARTING</code> – The WorkSpace is starting up and health checks are being run.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>REBUILDING</code> – The WorkSpace is being rebuilt.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESTORING</code> – The WorkSpace is being restored.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MAINTENANCE</code> – The WorkSpace is undergoing scheduled maintenance by Amazon Web Services.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ADMIN_MAINTENANCE</code> – The WorkSpace is undergoing maintenance by the WorkSpaces administrator.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TERMINATING</code> – The WorkSpace is being deleted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TERMINATED</code> – The WorkSpace has been deleted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SUSPENDED</code> – The WorkSpace has been suspended for image creation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UPDATING</code> – The WorkSpace is undergoing an update.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STOPPING</code> – The WorkSpace is being stopped.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STOPPED</code> – The WorkSpace has been stopped.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ERROR </code> – The WorkSpace is an error state (for example, an error occurred during startup).
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * After a WorkSpace is terminated, the <code>TERMINATED</code> state is returned only briefly before the WorkSpace
+     * directory metadata is cleaned up, so this state is rarely returned. To confirm that a WorkSpace is terminated,
+     * check for the WorkSpace ID by using <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaces.html"> DescribeWorkSpaces</a>. If
+     * the WorkSpace ID isn't returned, then the WorkSpace has been successfully terminated.
+     * </p>
+     * </note>
      * 
      * @param state
-     *        The operational state of the WorkSpace.
+     *        The operational state of the WorkSpace.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>PENDING</code> – The WorkSpace is in a waiting state (for example, the WorkSpace is being created).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AVAILABLE</code> – The WorkSpace is running and has passed the health checks.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>IMPAIRED</code> – Refer to <code>UNHEALTHY</code> state.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UNHEALTHY</code> – The WorkSpace is not responding to health checks.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>REBOOTING</code> – The WorkSpace is being rebooted (restarted).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>STARTING</code> – The WorkSpace is starting up and health checks are being run.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>REBUILDING</code> – The WorkSpace is being rebuilt.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RESTORING</code> – The WorkSpace is being restored.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>MAINTENANCE</code> – The WorkSpace is undergoing scheduled maintenance by Amazon Web Services.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ADMIN_MAINTENANCE</code> – The WorkSpace is undergoing maintenance by the WorkSpaces administrator.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TERMINATING</code> – The WorkSpace is being deleted.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TERMINATED</code> – The WorkSpace has been deleted.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SUSPENDED</code> – The WorkSpace has been suspended for image creation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UPDATING</code> – The WorkSpace is undergoing an update.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>STOPPING</code> – The WorkSpace is being stopped.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>STOPPED</code> – The WorkSpace has been stopped.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ERROR </code> – The WorkSpace is an error state (for example, an error occurred during startup).
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        After a WorkSpace is terminated, the <code>TERMINATED</code> state is returned only briefly before the
+     *        WorkSpace directory metadata is cleaned up, so this state is rarely returned. To confirm that a WorkSpace
+     *        is terminated, check for the WorkSpace ID by using <a
+     *        href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaces.html">
+     *        DescribeWorkSpaces</a>. If the WorkSpace ID isn't returned, then the WorkSpace has been successfully
+     *        terminated.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see WorkspaceState
      */
@@ -326,9 +1025,201 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The operational state of the WorkSpace.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PENDING</code> – The WorkSpace is in a waiting state (for example, the WorkSpace is being created).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AVAILABLE</code> – The WorkSpace is running and has passed the health checks.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>IMPAIRED</code> – Refer to <code>UNHEALTHY</code> state.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UNHEALTHY</code> – The WorkSpace is not responding to health checks.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>REBOOTING</code> – The WorkSpace is being rebooted (restarted).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STARTING</code> – The WorkSpace is starting up and health checks are being run.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>REBUILDING</code> – The WorkSpace is being rebuilt.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESTORING</code> – The WorkSpace is being restored.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MAINTENANCE</code> – The WorkSpace is undergoing scheduled maintenance by Amazon Web Services.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ADMIN_MAINTENANCE</code> – The WorkSpace is undergoing maintenance by the WorkSpaces administrator.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TERMINATING</code> – The WorkSpace is being deleted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TERMINATED</code> – The WorkSpace has been deleted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SUSPENDED</code> – The WorkSpace has been suspended for image creation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UPDATING</code> – The WorkSpace is undergoing an update.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STOPPING</code> – The WorkSpace is being stopped.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STOPPED</code> – The WorkSpace has been stopped.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ERROR </code> – The WorkSpace is an error state (for example, an error occurred during startup).
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * After a WorkSpace is terminated, the <code>TERMINATED</code> state is returned only briefly before the WorkSpace
+     * directory metadata is cleaned up, so this state is rarely returned. To confirm that a WorkSpace is terminated,
+     * check for the WorkSpace ID by using <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaces.html"> DescribeWorkSpaces</a>. If
+     * the WorkSpace ID isn't returned, then the WorkSpace has been successfully terminated.
+     * </p>
+     * </note>
      * 
      * @param state
-     *        The operational state of the WorkSpace.
+     *        The operational state of the WorkSpace.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>PENDING</code> – The WorkSpace is in a waiting state (for example, the WorkSpace is being created).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AVAILABLE</code> – The WorkSpace is running and has passed the health checks.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>IMPAIRED</code> – Refer to <code>UNHEALTHY</code> state.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UNHEALTHY</code> – The WorkSpace is not responding to health checks.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>REBOOTING</code> – The WorkSpace is being rebooted (restarted).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>STARTING</code> – The WorkSpace is starting up and health checks are being run.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>REBUILDING</code> – The WorkSpace is being rebuilt.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RESTORING</code> – The WorkSpace is being restored.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>MAINTENANCE</code> – The WorkSpace is undergoing scheduled maintenance by Amazon Web Services.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ADMIN_MAINTENANCE</code> – The WorkSpace is undergoing maintenance by the WorkSpaces administrator.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TERMINATING</code> – The WorkSpace is being deleted.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TERMINATED</code> – The WorkSpace has been deleted.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SUSPENDED</code> – The WorkSpace has been suspended for image creation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UPDATING</code> – The WorkSpace is undergoing an update.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>STOPPING</code> – The WorkSpace is being stopped.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>STOPPED</code> – The WorkSpace has been stopped.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ERROR </code> – The WorkSpace is an error state (for example, an error occurred during startup).
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        After a WorkSpace is terminated, the <code>TERMINATED</code> state is returned only briefly before the
+     *        WorkSpace directory metadata is cleaned up, so this state is rarely returned. To confirm that a WorkSpace
+     *        is terminated, check for the WorkSpace ID by using <a
+     *        href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaces.html">
+     *        DescribeWorkSpaces</a>. If the WorkSpace ID isn't returned, then the WorkSpace has been successfully
+     *        terminated.
+     *        </p>
      * @see WorkspaceState
      */
 
@@ -340,9 +1231,201 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The operational state of the WorkSpace.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PENDING</code> – The WorkSpace is in a waiting state (for example, the WorkSpace is being created).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AVAILABLE</code> – The WorkSpace is running and has passed the health checks.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>IMPAIRED</code> – Refer to <code>UNHEALTHY</code> state.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UNHEALTHY</code> – The WorkSpace is not responding to health checks.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>REBOOTING</code> – The WorkSpace is being rebooted (restarted).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STARTING</code> – The WorkSpace is starting up and health checks are being run.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>REBUILDING</code> – The WorkSpace is being rebuilt.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESTORING</code> – The WorkSpace is being restored.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MAINTENANCE</code> – The WorkSpace is undergoing scheduled maintenance by Amazon Web Services.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ADMIN_MAINTENANCE</code> – The WorkSpace is undergoing maintenance by the WorkSpaces administrator.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TERMINATING</code> – The WorkSpace is being deleted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TERMINATED</code> – The WorkSpace has been deleted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SUSPENDED</code> – The WorkSpace has been suspended for image creation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UPDATING</code> – The WorkSpace is undergoing an update.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STOPPING</code> – The WorkSpace is being stopped.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STOPPED</code> – The WorkSpace has been stopped.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ERROR </code> – The WorkSpace is an error state (for example, an error occurred during startup).
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * After a WorkSpace is terminated, the <code>TERMINATED</code> state is returned only briefly before the WorkSpace
+     * directory metadata is cleaned up, so this state is rarely returned. To confirm that a WorkSpace is terminated,
+     * check for the WorkSpace ID by using <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaces.html"> DescribeWorkSpaces</a>. If
+     * the WorkSpace ID isn't returned, then the WorkSpace has been successfully terminated.
+     * </p>
+     * </note>
      * 
      * @param state
-     *        The operational state of the WorkSpace.
+     *        The operational state of the WorkSpace.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>PENDING</code> – The WorkSpace is in a waiting state (for example, the WorkSpace is being created).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AVAILABLE</code> – The WorkSpace is running and has passed the health checks.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>IMPAIRED</code> – Refer to <code>UNHEALTHY</code> state.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UNHEALTHY</code> – The WorkSpace is not responding to health checks.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>REBOOTING</code> – The WorkSpace is being rebooted (restarted).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>STARTING</code> – The WorkSpace is starting up and health checks are being run.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>REBUILDING</code> – The WorkSpace is being rebuilt.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RESTORING</code> – The WorkSpace is being restored.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>MAINTENANCE</code> – The WorkSpace is undergoing scheduled maintenance by Amazon Web Services.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ADMIN_MAINTENANCE</code> – The WorkSpace is undergoing maintenance by the WorkSpaces administrator.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TERMINATING</code> – The WorkSpace is being deleted.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TERMINATED</code> – The WorkSpace has been deleted.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SUSPENDED</code> – The WorkSpace has been suspended for image creation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UPDATING</code> – The WorkSpace is undergoing an update.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>STOPPING</code> – The WorkSpace is being stopped.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>STOPPED</code> – The WorkSpace has been stopped.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ERROR </code> – The WorkSpace is an error state (for example, an error occurred during startup).
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        After a WorkSpace is terminated, the <code>TERMINATED</code> state is returned only briefly before the
+     *        WorkSpace directory metadata is cleaned up, so this state is rarely returned. To confirm that a WorkSpace
+     *        is terminated, check for the WorkSpace ID by using <a
+     *        href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaces.html">
+     *        DescribeWorkSpaces</a>. If the WorkSpace ID isn't returned, then the WorkSpace has been successfully
+     *        terminated.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see WorkspaceState
      */
@@ -514,11 +1597,16 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the WorkSpace, as seen by the operating system.
+     * The name of the WorkSpace, as seen by the operating system. The format of this name varies. For more information,
+     * see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/launch-workspaces-tutorials.html"> Launch a
+     * WorkSpace</a>.
      * </p>
      * 
      * @param computerName
-     *        The name of the WorkSpace, as seen by the operating system.
+     *        The name of the WorkSpace, as seen by the operating system. The format of this name varies. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/workspaces/latest/adminguide/launch-workspaces-tutorials.html"> Launch a
+     *        WorkSpace</a>.
      */
 
     public void setComputerName(String computerName) {
@@ -527,10 +1615,15 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the WorkSpace, as seen by the operating system.
+     * The name of the WorkSpace, as seen by the operating system. The format of this name varies. For more information,
+     * see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/launch-workspaces-tutorials.html"> Launch a
+     * WorkSpace</a>.
      * </p>
      * 
-     * @return The name of the WorkSpace, as seen by the operating system.
+     * @return The name of the WorkSpace, as seen by the operating system. The format of this name varies. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/workspaces/latest/adminguide/launch-workspaces-tutorials.html"> Launch
+     *         a WorkSpace</a>.
      */
 
     public String getComputerName() {
@@ -539,11 +1632,16 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the WorkSpace, as seen by the operating system.
+     * The name of the WorkSpace, as seen by the operating system. The format of this name varies. For more information,
+     * see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/launch-workspaces-tutorials.html"> Launch a
+     * WorkSpace</a>.
      * </p>
      * 
      * @param computerName
-     *        The name of the WorkSpace, as seen by the operating system.
+     *        The name of the WorkSpace, as seen by the operating system. The format of this name varies. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/workspaces/latest/adminguide/launch-workspaces-tutorials.html"> Launch a
+     *        WorkSpace</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -554,11 +1652,13 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The KMS key used to encrypt data stored on your WorkSpace.
+     * The ARN of the symmetric KMS key used to encrypt data stored on your WorkSpace. Amazon WorkSpaces does not
+     * support asymmetric KMS keys.
      * </p>
      * 
      * @param volumeEncryptionKey
-     *        The KMS key used to encrypt data stored on your WorkSpace.
+     *        The ARN of the symmetric KMS key used to encrypt data stored on your WorkSpace. Amazon WorkSpaces does not
+     *        support asymmetric KMS keys.
      */
 
     public void setVolumeEncryptionKey(String volumeEncryptionKey) {
@@ -567,10 +1667,12 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The KMS key used to encrypt data stored on your WorkSpace.
+     * The ARN of the symmetric KMS key used to encrypt data stored on your WorkSpace. Amazon WorkSpaces does not
+     * support asymmetric KMS keys.
      * </p>
      * 
-     * @return The KMS key used to encrypt data stored on your WorkSpace.
+     * @return The ARN of the symmetric KMS key used to encrypt data stored on your WorkSpace. Amazon WorkSpaces does
+     *         not support asymmetric KMS keys.
      */
 
     public String getVolumeEncryptionKey() {
@@ -579,11 +1681,13 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The KMS key used to encrypt data stored on your WorkSpace.
+     * The ARN of the symmetric KMS key used to encrypt data stored on your WorkSpace. Amazon WorkSpaces does not
+     * support asymmetric KMS keys.
      * </p>
      * 
      * @param volumeEncryptionKey
-     *        The KMS key used to encrypt data stored on your WorkSpace.
+     *        The ARN of the symmetric KMS key used to encrypt data stored on your WorkSpace. Amazon WorkSpaces does not
+     *        support asymmetric KMS keys.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -694,6 +1798,46 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
 
     public Boolean isRootVolumeEncryptionEnabled() {
         return this.rootVolumeEncryptionEnabled;
+    }
+
+    /**
+     * <p>
+     * The name of the user-decoupled WorkSpace.
+     * </p>
+     * 
+     * @param workspaceName
+     *        The name of the user-decoupled WorkSpace.
+     */
+
+    public void setWorkspaceName(String workspaceName) {
+        this.workspaceName = workspaceName;
+    }
+
+    /**
+     * <p>
+     * The name of the user-decoupled WorkSpace.
+     * </p>
+     * 
+     * @return The name of the user-decoupled WorkSpace.
+     */
+
+    public String getWorkspaceName() {
+        return this.workspaceName;
+    }
+
+    /**
+     * <p>
+     * The name of the user-decoupled WorkSpace.
+     * </p>
+     * 
+     * @param workspaceName
+     *        The name of the user-decoupled WorkSpace.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Workspace withWorkspaceName(String workspaceName) {
+        setWorkspaceName(workspaceName);
+        return this;
     }
 
     /**
@@ -810,6 +1954,192 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The standby WorkSpace or primary WorkSpace related to the specified WorkSpace.
+     * </p>
+     * 
+     * @return The standby WorkSpace or primary WorkSpace related to the specified WorkSpace.
+     */
+
+    public java.util.List<RelatedWorkspaceProperties> getRelatedWorkspaces() {
+        if (relatedWorkspaces == null) {
+            relatedWorkspaces = new com.amazonaws.internal.SdkInternalList<RelatedWorkspaceProperties>();
+        }
+        return relatedWorkspaces;
+    }
+
+    /**
+     * <p>
+     * The standby WorkSpace or primary WorkSpace related to the specified WorkSpace.
+     * </p>
+     * 
+     * @param relatedWorkspaces
+     *        The standby WorkSpace or primary WorkSpace related to the specified WorkSpace.
+     */
+
+    public void setRelatedWorkspaces(java.util.Collection<RelatedWorkspaceProperties> relatedWorkspaces) {
+        if (relatedWorkspaces == null) {
+            this.relatedWorkspaces = null;
+            return;
+        }
+
+        this.relatedWorkspaces = new com.amazonaws.internal.SdkInternalList<RelatedWorkspaceProperties>(relatedWorkspaces);
+    }
+
+    /**
+     * <p>
+     * The standby WorkSpace or primary WorkSpace related to the specified WorkSpace.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setRelatedWorkspaces(java.util.Collection)} or {@link #withRelatedWorkspaces(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param relatedWorkspaces
+     *        The standby WorkSpace or primary WorkSpace related to the specified WorkSpace.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Workspace withRelatedWorkspaces(RelatedWorkspaceProperties... relatedWorkspaces) {
+        if (this.relatedWorkspaces == null) {
+            setRelatedWorkspaces(new com.amazonaws.internal.SdkInternalList<RelatedWorkspaceProperties>(relatedWorkspaces.length));
+        }
+        for (RelatedWorkspaceProperties ele : relatedWorkspaces) {
+            this.relatedWorkspaces.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The standby WorkSpace or primary WorkSpace related to the specified WorkSpace.
+     * </p>
+     * 
+     * @param relatedWorkspaces
+     *        The standby WorkSpace or primary WorkSpace related to the specified WorkSpace.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Workspace withRelatedWorkspaces(java.util.Collection<RelatedWorkspaceProperties> relatedWorkspaces) {
+        setRelatedWorkspaces(relatedWorkspaces);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates the settings of the data replication.
+     * </p>
+     * 
+     * @param dataReplicationSettings
+     *        Indicates the settings of the data replication.
+     */
+
+    public void setDataReplicationSettings(DataReplicationSettings dataReplicationSettings) {
+        this.dataReplicationSettings = dataReplicationSettings;
+    }
+
+    /**
+     * <p>
+     * Indicates the settings of the data replication.
+     * </p>
+     * 
+     * @return Indicates the settings of the data replication.
+     */
+
+    public DataReplicationSettings getDataReplicationSettings() {
+        return this.dataReplicationSettings;
+    }
+
+    /**
+     * <p>
+     * Indicates the settings of the data replication.
+     * </p>
+     * 
+     * @param dataReplicationSettings
+     *        Indicates the settings of the data replication.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Workspace withDataReplicationSettings(DataReplicationSettings dataReplicationSettings) {
+        setDataReplicationSettings(dataReplicationSettings);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The properties of the standby WorkSpace
+     * </p>
+     * 
+     * @return The properties of the standby WorkSpace
+     */
+
+    public java.util.List<StandbyWorkspacesProperties> getStandbyWorkspacesProperties() {
+        if (standbyWorkspacesProperties == null) {
+            standbyWorkspacesProperties = new com.amazonaws.internal.SdkInternalList<StandbyWorkspacesProperties>();
+        }
+        return standbyWorkspacesProperties;
+    }
+
+    /**
+     * <p>
+     * The properties of the standby WorkSpace
+     * </p>
+     * 
+     * @param standbyWorkspacesProperties
+     *        The properties of the standby WorkSpace
+     */
+
+    public void setStandbyWorkspacesProperties(java.util.Collection<StandbyWorkspacesProperties> standbyWorkspacesProperties) {
+        if (standbyWorkspacesProperties == null) {
+            this.standbyWorkspacesProperties = null;
+            return;
+        }
+
+        this.standbyWorkspacesProperties = new com.amazonaws.internal.SdkInternalList<StandbyWorkspacesProperties>(standbyWorkspacesProperties);
+    }
+
+    /**
+     * <p>
+     * The properties of the standby WorkSpace
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setStandbyWorkspacesProperties(java.util.Collection)} or
+     * {@link #withStandbyWorkspacesProperties(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param standbyWorkspacesProperties
+     *        The properties of the standby WorkSpace
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Workspace withStandbyWorkspacesProperties(StandbyWorkspacesProperties... standbyWorkspacesProperties) {
+        if (this.standbyWorkspacesProperties == null) {
+            setStandbyWorkspacesProperties(new com.amazonaws.internal.SdkInternalList<StandbyWorkspacesProperties>(standbyWorkspacesProperties.length));
+        }
+        for (StandbyWorkspacesProperties ele : standbyWorkspacesProperties) {
+            this.standbyWorkspacesProperties.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The properties of the standby WorkSpace
+     * </p>
+     * 
+     * @param standbyWorkspacesProperties
+     *        The properties of the standby WorkSpace
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Workspace withStandbyWorkspacesProperties(java.util.Collection<StandbyWorkspacesProperties> standbyWorkspacesProperties) {
+        setStandbyWorkspacesProperties(standbyWorkspacesProperties);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -847,10 +2177,18 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
             sb.append("UserVolumeEncryptionEnabled: ").append(getUserVolumeEncryptionEnabled()).append(",");
         if (getRootVolumeEncryptionEnabled() != null)
             sb.append("RootVolumeEncryptionEnabled: ").append(getRootVolumeEncryptionEnabled()).append(",");
+        if (getWorkspaceName() != null)
+            sb.append("WorkspaceName: ").append(getWorkspaceName()).append(",");
         if (getWorkspaceProperties() != null)
             sb.append("WorkspaceProperties: ").append(getWorkspaceProperties()).append(",");
         if (getModificationStates() != null)
-            sb.append("ModificationStates: ").append(getModificationStates());
+            sb.append("ModificationStates: ").append(getModificationStates()).append(",");
+        if (getRelatedWorkspaces() != null)
+            sb.append("RelatedWorkspaces: ").append(getRelatedWorkspaces()).append(",");
+        if (getDataReplicationSettings() != null)
+            sb.append("DataReplicationSettings: ").append(getDataReplicationSettings()).append(",");
+        if (getStandbyWorkspacesProperties() != null)
+            sb.append("StandbyWorkspacesProperties: ").append(getStandbyWorkspacesProperties());
         sb.append("}");
         return sb.toString();
     }
@@ -917,6 +2255,10 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getRootVolumeEncryptionEnabled() != null && other.getRootVolumeEncryptionEnabled().equals(this.getRootVolumeEncryptionEnabled()) == false)
             return false;
+        if (other.getWorkspaceName() == null ^ this.getWorkspaceName() == null)
+            return false;
+        if (other.getWorkspaceName() != null && other.getWorkspaceName().equals(this.getWorkspaceName()) == false)
+            return false;
         if (other.getWorkspaceProperties() == null ^ this.getWorkspaceProperties() == null)
             return false;
         if (other.getWorkspaceProperties() != null && other.getWorkspaceProperties().equals(this.getWorkspaceProperties()) == false)
@@ -924,6 +2266,18 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
         if (other.getModificationStates() == null ^ this.getModificationStates() == null)
             return false;
         if (other.getModificationStates() != null && other.getModificationStates().equals(this.getModificationStates()) == false)
+            return false;
+        if (other.getRelatedWorkspaces() == null ^ this.getRelatedWorkspaces() == null)
+            return false;
+        if (other.getRelatedWorkspaces() != null && other.getRelatedWorkspaces().equals(this.getRelatedWorkspaces()) == false)
+            return false;
+        if (other.getDataReplicationSettings() == null ^ this.getDataReplicationSettings() == null)
+            return false;
+        if (other.getDataReplicationSettings() != null && other.getDataReplicationSettings().equals(this.getDataReplicationSettings()) == false)
+            return false;
+        if (other.getStandbyWorkspacesProperties() == null ^ this.getStandbyWorkspacesProperties() == null)
+            return false;
+        if (other.getStandbyWorkspacesProperties() != null && other.getStandbyWorkspacesProperties().equals(this.getStandbyWorkspacesProperties()) == false)
             return false;
         return true;
     }
@@ -946,8 +2300,12 @@ public class Workspace implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getVolumeEncryptionKey() == null) ? 0 : getVolumeEncryptionKey().hashCode());
         hashCode = prime * hashCode + ((getUserVolumeEncryptionEnabled() == null) ? 0 : getUserVolumeEncryptionEnabled().hashCode());
         hashCode = prime * hashCode + ((getRootVolumeEncryptionEnabled() == null) ? 0 : getRootVolumeEncryptionEnabled().hashCode());
+        hashCode = prime * hashCode + ((getWorkspaceName() == null) ? 0 : getWorkspaceName().hashCode());
         hashCode = prime * hashCode + ((getWorkspaceProperties() == null) ? 0 : getWorkspaceProperties().hashCode());
         hashCode = prime * hashCode + ((getModificationStates() == null) ? 0 : getModificationStates().hashCode());
+        hashCode = prime * hashCode + ((getRelatedWorkspaces() == null) ? 0 : getRelatedWorkspaces().hashCode());
+        hashCode = prime * hashCode + ((getDataReplicationSettings() == null) ? 0 : getDataReplicationSettings().hashCode());
+        hashCode = prime * hashCode + ((getStandbyWorkspacesProperties() == null) ? 0 : getStandbyWorkspacesProperties().hashCode());
         return hashCode;
     }
 

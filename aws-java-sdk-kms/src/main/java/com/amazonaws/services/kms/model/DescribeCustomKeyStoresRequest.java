@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,8 +30,8 @@ public class DescribeCustomKeyStoresRequest extends com.amazonaws.AmazonWebServi
      * Gets only information about the specified custom key store. Enter the key store ID.
      * </p>
      * <p>
-     * By default, this operation gets information about all custom key stores in the account and region. To limit the
-     * output to a particular custom key store, you can use either the <code>CustomKeyStoreId</code> or
+     * By default, this operation gets information about all custom key stores in the account and Region. To limit the
+     * output to a particular custom key store, provide either the <code>CustomKeyStoreId</code> or
      * <code>CustomKeyStoreName</code> parameter, but not both.
      * </p>
      */
@@ -41,15 +41,15 @@ public class DescribeCustomKeyStoresRequest extends com.amazonaws.AmazonWebServi
      * Gets only information about the specified custom key store. Enter the friendly name of the custom key store.
      * </p>
      * <p>
-     * By default, this operation gets information about all custom key stores in the account and region. To limit the
-     * output to a particular custom key store, you can use either the <code>CustomKeyStoreId</code> or
+     * By default, this operation gets information about all custom key stores in the account and Region. To limit the
+     * output to a particular custom key store, provide either the <code>CustomKeyStoreId</code> or
      * <code>CustomKeyStoreName</code> parameter, but not both.
      * </p>
      */
     private String customKeyStoreName;
     /**
      * <p>
-     * Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not
+     * Use this parameter to specify the maximum number of items to return. When this value is present, KMS does not
      * return more than the specified number of items, but it might return fewer.
      * </p>
      */
@@ -67,16 +67,16 @@ public class DescribeCustomKeyStoresRequest extends com.amazonaws.AmazonWebServi
      * Gets only information about the specified custom key store. Enter the key store ID.
      * </p>
      * <p>
-     * By default, this operation gets information about all custom key stores in the account and region. To limit the
-     * output to a particular custom key store, you can use either the <code>CustomKeyStoreId</code> or
+     * By default, this operation gets information about all custom key stores in the account and Region. To limit the
+     * output to a particular custom key store, provide either the <code>CustomKeyStoreId</code> or
      * <code>CustomKeyStoreName</code> parameter, but not both.
      * </p>
      * 
      * @param customKeyStoreId
      *        Gets only information about the specified custom key store. Enter the key store ID.</p>
      *        <p>
-     *        By default, this operation gets information about all custom key stores in the account and region. To
-     *        limit the output to a particular custom key store, you can use either the <code>CustomKeyStoreId</code> or
+     *        By default, this operation gets information about all custom key stores in the account and Region. To
+     *        limit the output to a particular custom key store, provide either the <code>CustomKeyStoreId</code> or
      *        <code>CustomKeyStoreName</code> parameter, but not both.
      */
 
@@ -89,16 +89,16 @@ public class DescribeCustomKeyStoresRequest extends com.amazonaws.AmazonWebServi
      * Gets only information about the specified custom key store. Enter the key store ID.
      * </p>
      * <p>
-     * By default, this operation gets information about all custom key stores in the account and region. To limit the
-     * output to a particular custom key store, you can use either the <code>CustomKeyStoreId</code> or
+     * By default, this operation gets information about all custom key stores in the account and Region. To limit the
+     * output to a particular custom key store, provide either the <code>CustomKeyStoreId</code> or
      * <code>CustomKeyStoreName</code> parameter, but not both.
      * </p>
      * 
      * @return Gets only information about the specified custom key store. Enter the key store ID.</p>
      *         <p>
-     *         By default, this operation gets information about all custom key stores in the account and region. To
-     *         limit the output to a particular custom key store, you can use either the <code>CustomKeyStoreId</code>
-     *         or <code>CustomKeyStoreName</code> parameter, but not both.
+     *         By default, this operation gets information about all custom key stores in the account and Region. To
+     *         limit the output to a particular custom key store, provide either the <code>CustomKeyStoreId</code> or
+     *         <code>CustomKeyStoreName</code> parameter, but not both.
      */
 
     public String getCustomKeyStoreId() {
@@ -110,16 +110,16 @@ public class DescribeCustomKeyStoresRequest extends com.amazonaws.AmazonWebServi
      * Gets only information about the specified custom key store. Enter the key store ID.
      * </p>
      * <p>
-     * By default, this operation gets information about all custom key stores in the account and region. To limit the
-     * output to a particular custom key store, you can use either the <code>CustomKeyStoreId</code> or
+     * By default, this operation gets information about all custom key stores in the account and Region. To limit the
+     * output to a particular custom key store, provide either the <code>CustomKeyStoreId</code> or
      * <code>CustomKeyStoreName</code> parameter, but not both.
      * </p>
      * 
      * @param customKeyStoreId
      *        Gets only information about the specified custom key store. Enter the key store ID.</p>
      *        <p>
-     *        By default, this operation gets information about all custom key stores in the account and region. To
-     *        limit the output to a particular custom key store, you can use either the <code>CustomKeyStoreId</code> or
+     *        By default, this operation gets information about all custom key stores in the account and Region. To
+     *        limit the output to a particular custom key store, provide either the <code>CustomKeyStoreId</code> or
      *        <code>CustomKeyStoreName</code> parameter, but not both.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -134,8 +134,8 @@ public class DescribeCustomKeyStoresRequest extends com.amazonaws.AmazonWebServi
      * Gets only information about the specified custom key store. Enter the friendly name of the custom key store.
      * </p>
      * <p>
-     * By default, this operation gets information about all custom key stores in the account and region. To limit the
-     * output to a particular custom key store, you can use either the <code>CustomKeyStoreId</code> or
+     * By default, this operation gets information about all custom key stores in the account and Region. To limit the
+     * output to a particular custom key store, provide either the <code>CustomKeyStoreId</code> or
      * <code>CustomKeyStoreName</code> parameter, but not both.
      * </p>
      * 
@@ -143,8 +143,8 @@ public class DescribeCustomKeyStoresRequest extends com.amazonaws.AmazonWebServi
      *        Gets only information about the specified custom key store. Enter the friendly name of the custom key
      *        store.</p>
      *        <p>
-     *        By default, this operation gets information about all custom key stores in the account and region. To
-     *        limit the output to a particular custom key store, you can use either the <code>CustomKeyStoreId</code> or
+     *        By default, this operation gets information about all custom key stores in the account and Region. To
+     *        limit the output to a particular custom key store, provide either the <code>CustomKeyStoreId</code> or
      *        <code>CustomKeyStoreName</code> parameter, but not both.
      */
 
@@ -157,17 +157,17 @@ public class DescribeCustomKeyStoresRequest extends com.amazonaws.AmazonWebServi
      * Gets only information about the specified custom key store. Enter the friendly name of the custom key store.
      * </p>
      * <p>
-     * By default, this operation gets information about all custom key stores in the account and region. To limit the
-     * output to a particular custom key store, you can use either the <code>CustomKeyStoreId</code> or
+     * By default, this operation gets information about all custom key stores in the account and Region. To limit the
+     * output to a particular custom key store, provide either the <code>CustomKeyStoreId</code> or
      * <code>CustomKeyStoreName</code> parameter, but not both.
      * </p>
      * 
      * @return Gets only information about the specified custom key store. Enter the friendly name of the custom key
      *         store.</p>
      *         <p>
-     *         By default, this operation gets information about all custom key stores in the account and region. To
-     *         limit the output to a particular custom key store, you can use either the <code>CustomKeyStoreId</code>
-     *         or <code>CustomKeyStoreName</code> parameter, but not both.
+     *         By default, this operation gets information about all custom key stores in the account and Region. To
+     *         limit the output to a particular custom key store, provide either the <code>CustomKeyStoreId</code> or
+     *         <code>CustomKeyStoreName</code> parameter, but not both.
      */
 
     public String getCustomKeyStoreName() {
@@ -179,8 +179,8 @@ public class DescribeCustomKeyStoresRequest extends com.amazonaws.AmazonWebServi
      * Gets only information about the specified custom key store. Enter the friendly name of the custom key store.
      * </p>
      * <p>
-     * By default, this operation gets information about all custom key stores in the account and region. To limit the
-     * output to a particular custom key store, you can use either the <code>CustomKeyStoreId</code> or
+     * By default, this operation gets information about all custom key stores in the account and Region. To limit the
+     * output to a particular custom key store, provide either the <code>CustomKeyStoreId</code> or
      * <code>CustomKeyStoreName</code> parameter, but not both.
      * </p>
      * 
@@ -188,8 +188,8 @@ public class DescribeCustomKeyStoresRequest extends com.amazonaws.AmazonWebServi
      *        Gets only information about the specified custom key store. Enter the friendly name of the custom key
      *        store.</p>
      *        <p>
-     *        By default, this operation gets information about all custom key stores in the account and region. To
-     *        limit the output to a particular custom key store, you can use either the <code>CustomKeyStoreId</code> or
+     *        By default, this operation gets information about all custom key stores in the account and Region. To
+     *        limit the output to a particular custom key store, provide either the <code>CustomKeyStoreId</code> or
      *        <code>CustomKeyStoreName</code> parameter, but not both.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -201,13 +201,13 @@ public class DescribeCustomKeyStoresRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not
+     * Use this parameter to specify the maximum number of items to return. When this value is present, KMS does not
      * return more than the specified number of items, but it might return fewer.
      * </p>
      * 
      * @param limit
-     *        Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS
-     *        does not return more than the specified number of items, but it might return fewer.
+     *        Use this parameter to specify the maximum number of items to return. When this value is present, KMS does
+     *        not return more than the specified number of items, but it might return fewer.
      */
 
     public void setLimit(Integer limit) {
@@ -216,12 +216,12 @@ public class DescribeCustomKeyStoresRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not
+     * Use this parameter to specify the maximum number of items to return. When this value is present, KMS does not
      * return more than the specified number of items, but it might return fewer.
      * </p>
      * 
-     * @return Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS
-     *         does not return more than the specified number of items, but it might return fewer.
+     * @return Use this parameter to specify the maximum number of items to return. When this value is present, KMS does
+     *         not return more than the specified number of items, but it might return fewer.
      */
 
     public Integer getLimit() {
@@ -230,13 +230,13 @@ public class DescribeCustomKeyStoresRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not
+     * Use this parameter to specify the maximum number of items to return. When this value is present, KMS does not
      * return more than the specified number of items, but it might return fewer.
      * </p>
      * 
      * @param limit
-     *        Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS
-     *        does not return more than the specified number of items, but it might return fewer.
+     *        Use this parameter to specify the maximum number of items to return. When this value is present, KMS does
+     *        not return more than the specified number of items, but it might return fewer.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

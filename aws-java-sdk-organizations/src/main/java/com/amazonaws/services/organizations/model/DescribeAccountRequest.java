@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,8 +27,8 @@ public class DescribeAccountRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The unique identifier (ID) of the AWS account that you want information about. You can get the ID from the
-     * <a>ListAccounts</a> or <a>ListAccountsForParent</a> operations.
+     * The unique identifier (ID) of the Amazon Web Services account that you want information about. You can get the ID
+     * from the <a>ListAccounts</a> or <a>ListAccountsForParent</a> operations.
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for an account ID string requires exactly 12
@@ -39,8 +39,8 @@ public class DescribeAccountRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The unique identifier (ID) of the AWS account that you want information about. You can get the ID from the
-     * <a>ListAccounts</a> or <a>ListAccountsForParent</a> operations.
+     * The unique identifier (ID) of the Amazon Web Services account that you want information about. You can get the ID
+     * from the <a>ListAccounts</a> or <a>ListAccountsForParent</a> operations.
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for an account ID string requires exactly 12
@@ -48,8 +48,8 @@ public class DescribeAccountRequest extends com.amazonaws.AmazonWebServiceReques
      * </p>
      * 
      * @param accountId
-     *        The unique identifier (ID) of the AWS account that you want information about. You can get the ID from the
-     *        <a>ListAccounts</a> or <a>ListAccountsForParent</a> operations.</p>
+     *        The unique identifier (ID) of the Amazon Web Services account that you want information about. You can get
+     *        the ID from the <a>ListAccounts</a> or <a>ListAccountsForParent</a> operations.</p>
      *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for an account ID string requires exactly
      *        12 digits.
@@ -61,16 +61,16 @@ public class DescribeAccountRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The unique identifier (ID) of the AWS account that you want information about. You can get the ID from the
-     * <a>ListAccounts</a> or <a>ListAccountsForParent</a> operations.
+     * The unique identifier (ID) of the Amazon Web Services account that you want information about. You can get the ID
+     * from the <a>ListAccounts</a> or <a>ListAccountsForParent</a> operations.
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for an account ID string requires exactly 12
      * digits.
      * </p>
      * 
-     * @return The unique identifier (ID) of the AWS account that you want information about. You can get the ID from
-     *         the <a>ListAccounts</a> or <a>ListAccountsForParent</a> operations.</p>
+     * @return The unique identifier (ID) of the Amazon Web Services account that you want information about. You can
+     *         get the ID from the <a>ListAccounts</a> or <a>ListAccountsForParent</a> operations.</p>
      *         <p>
      *         The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for an account ID string requires exactly
      *         12 digits.
@@ -82,8 +82,8 @@ public class DescribeAccountRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The unique identifier (ID) of the AWS account that you want information about. You can get the ID from the
-     * <a>ListAccounts</a> or <a>ListAccountsForParent</a> operations.
+     * The unique identifier (ID) of the Amazon Web Services account that you want information about. You can get the ID
+     * from the <a>ListAccounts</a> or <a>ListAccountsForParent</a> operations.
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for an account ID string requires exactly 12
@@ -91,8 +91,8 @@ public class DescribeAccountRequest extends com.amazonaws.AmazonWebServiceReques
      * </p>
      * 
      * @param accountId
-     *        The unique identifier (ID) of the AWS account that you want information about. You can get the ID from the
-     *        <a>ListAccounts</a> or <a>ListAccountsForParent</a> operations.</p>
+     *        The unique identifier (ID) of the Amazon Web Services account that you want information about. You can get
+     *        the ID from the <a>ListAccounts</a> or <a>ListAccountsForParent</a> operations.</p>
      *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for an account ID string requires exactly
      *        12 digits.

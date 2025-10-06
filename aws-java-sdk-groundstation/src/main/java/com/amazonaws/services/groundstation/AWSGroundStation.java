@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,7 @@ import com.amazonaws.*;
 import com.amazonaws.regions.*;
 
 import com.amazonaws.services.groundstation.model.*;
+import com.amazonaws.services.groundstation.waiters.AWSGroundStationWaiters;
 
 /**
  * Interface for accessing AWS Ground Station.
@@ -50,10 +51,10 @@ public interface AWSGroundStation {
      * 
      * @param cancelContactRequest
      * @return Result of the CancelContact operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.CancelContact
@@ -72,10 +73,12 @@ public interface AWSGroundStation {
      * 
      * @param createConfigRequest
      * @return Result of the CreateConfig operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
+     * @throws ResourceLimitExceededException
+     *         Account limits for this resource have been exceeded.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.CreateConfig
@@ -100,10 +103,10 @@ public interface AWSGroundStation {
      * 
      * @param createDataflowEndpointGroupRequest
      * @return Result of the CreateDataflowEndpointGroup operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.CreateDataflowEndpointGroup
@@ -114,19 +117,38 @@ public interface AWSGroundStation {
 
     /**
      * <p>
+     * Creates an Ephemeris with the specified <code>EphemerisData</code>.
+     * </p>
+     * 
+     * @param createEphemerisRequest
+     * @return Result of the CreateEphemeris operation returned by the service.
+     * @throws InvalidParameterException
+     *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
+     * @throws ResourceNotFoundException
+     *         Resource was not found.
+     * @sample AWSGroundStation.CreateEphemeris
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/CreateEphemeris" target="_top">AWS
+     *      API Documentation</a>
+     */
+    CreateEphemerisResult createEphemeris(CreateEphemerisRequest createEphemerisRequest);
+
+    /**
+     * <p>
      * Creates a mission profile.
      * </p>
      * <p>
      * <code>dataflowEdges</code> is a list of lists of strings. Each lower level list of strings has two elements: a
-     * <i>from ARN</i> and a <i>to ARN</i>.
+     * <i>from</i> ARN and a <i>to</i> ARN.
      * </p>
      * 
      * @param createMissionProfileRequest
      * @return Result of the CreateMissionProfile operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.CreateMissionProfile
@@ -142,10 +164,10 @@ public interface AWSGroundStation {
      * 
      * @param deleteConfigRequest
      * @return Result of the DeleteConfig operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.DeleteConfig
@@ -161,10 +183,10 @@ public interface AWSGroundStation {
      * 
      * @param deleteDataflowEndpointGroupRequest
      * @return Result of the DeleteDataflowEndpointGroup operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.DeleteDataflowEndpointGroup
@@ -175,15 +197,34 @@ public interface AWSGroundStation {
 
     /**
      * <p>
+     * Deletes an ephemeris
+     * </p>
+     * 
+     * @param deleteEphemerisRequest
+     * @return Result of the DeleteEphemeris operation returned by the service.
+     * @throws InvalidParameterException
+     *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
+     * @throws ResourceNotFoundException
+     *         Resource was not found.
+     * @sample AWSGroundStation.DeleteEphemeris
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/DeleteEphemeris" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DeleteEphemerisResult deleteEphemeris(DeleteEphemerisRequest deleteEphemerisRequest);
+
+    /**
+     * <p>
      * Deletes a mission profile.
      * </p>
      * 
      * @param deleteMissionProfileRequest
      * @return Result of the DeleteMissionProfile operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.DeleteMissionProfile
@@ -199,10 +240,10 @@ public interface AWSGroundStation {
      * 
      * @param describeContactRequest
      * @return Result of the DescribeContact operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.DescribeContact
@@ -210,6 +251,49 @@ public interface AWSGroundStation {
      *      API Documentation</a>
      */
     DescribeContactResult describeContact(DescribeContactRequest describeContactRequest);
+
+    /**
+     * <p>
+     * Describes an existing ephemeris.
+     * </p>
+     * 
+     * @param describeEphemerisRequest
+     * @return Result of the DescribeEphemeris operation returned by the service.
+     * @throws InvalidParameterException
+     *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
+     * @throws ResourceNotFoundException
+     *         Resource was not found.
+     * @sample AWSGroundStation.DescribeEphemeris
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/DescribeEphemeris"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeEphemerisResult describeEphemeris(DescribeEphemerisRequest describeEphemerisRequest);
+
+    /**
+     * <note>
+     * <p>
+     * For use by AWS Ground Station Agent and shouldn't be called directly.
+     * </p>
+     * </note>
+     * <p>
+     * Gets the latest configuration information for a registered agent.
+     * </p>
+     * 
+     * @param getAgentConfigurationRequest
+     * @return Result of the GetAgentConfiguration operation returned by the service.
+     * @throws InvalidParameterException
+     *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
+     * @throws ResourceNotFoundException
+     *         Resource was not found.
+     * @sample AWSGroundStation.GetAgentConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/GetAgentConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetAgentConfigurationResult getAgentConfiguration(GetAgentConfigurationRequest getAgentConfigurationRequest);
 
     /**
      * <p>
@@ -221,10 +305,10 @@ public interface AWSGroundStation {
      * 
      * @param getConfigRequest
      * @return Result of the GetConfig operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.GetConfig
@@ -240,10 +324,10 @@ public interface AWSGroundStation {
      * 
      * @param getDataflowEndpointGroupRequest
      * @return Result of the GetDataflowEndpointGroup operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.GetDataflowEndpointGroup
@@ -254,15 +338,15 @@ public interface AWSGroundStation {
 
     /**
      * <p>
-     * Returns the number of minutes used by account.
+     * Returns the number of reserved minutes used by account.
      * </p>
      * 
      * @param getMinuteUsageRequest
      * @return Result of the GetMinuteUsage operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.GetMinuteUsage
@@ -278,10 +362,10 @@ public interface AWSGroundStation {
      * 
      * @param getMissionProfileRequest
      * @return Result of the GetMissionProfile operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.GetMissionProfile
@@ -297,10 +381,10 @@ public interface AWSGroundStation {
      * 
      * @param getSatelliteRequest
      * @return Result of the GetSatellite operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.GetSatellite
@@ -316,10 +400,10 @@ public interface AWSGroundStation {
      * 
      * @param listConfigsRequest
      * @return Result of the ListConfigs operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.ListConfigs
@@ -333,16 +417,16 @@ public interface AWSGroundStation {
      * Returns a list of contacts.
      * </p>
      * <p>
-     * If <code>statusList</code> contains AVAILABLE, the request must include <code>groundstation</code>,
+     * If <code>statusList</code> contains AVAILABLE, the request must include <code>groundStation</code>,
      * <code>missionprofileArn</code>, and <code>satelliteArn</code>.
      * </p>
      * 
      * @param listContactsRequest
      * @return Result of the ListContacts operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.ListContacts
@@ -358,10 +442,10 @@ public interface AWSGroundStation {
      * 
      * @param listDataflowEndpointGroupsRequest
      * @return Result of the ListDataflowEndpointGroups operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.ListDataflowEndpointGroups
@@ -372,15 +456,34 @@ public interface AWSGroundStation {
 
     /**
      * <p>
+     * List existing ephemerides.
+     * </p>
+     * 
+     * @param listEphemeridesRequest
+     * @return Result of the ListEphemerides operation returned by the service.
+     * @throws InvalidParameterException
+     *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
+     * @throws ResourceNotFoundException
+     *         Resource was not found.
+     * @sample AWSGroundStation.ListEphemerides
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/ListEphemerides" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ListEphemeridesResult listEphemerides(ListEphemeridesRequest listEphemeridesRequest);
+
+    /**
+     * <p>
      * Returns a list of ground stations.
      * </p>
      * 
      * @param listGroundStationsRequest
      * @return Result of the ListGroundStations operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.ListGroundStations
@@ -396,10 +499,10 @@ public interface AWSGroundStation {
      * 
      * @param listMissionProfilesRequest
      * @return Result of the ListMissionProfiles operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.ListMissionProfiles
@@ -415,10 +518,10 @@ public interface AWSGroundStation {
      * 
      * @param listSatellitesRequest
      * @return Result of the ListSatellites operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.ListSatellites
@@ -429,15 +532,15 @@ public interface AWSGroundStation {
 
     /**
      * <p>
-     * Returns a list of tags or a specified resource.
+     * Returns a list of tags for a specified resource.
      * </p>
      * 
      * @param listTagsForResourceRequest
      * @return Result of the ListTagsForResource operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.ListTagsForResource
@@ -447,16 +550,40 @@ public interface AWSGroundStation {
     ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest);
 
     /**
+     * <note>
+     * <p>
+     * For use by AWS Ground Station Agent and shouldn't be called directly.
+     * </p>
+     * </note>
+     * <p>
+     * Registers a new agent with AWS Ground Station.
+     * </p>
+     * 
+     * @param registerAgentRequest
+     * @return Result of the RegisterAgent operation returned by the service.
+     * @throws InvalidParameterException
+     *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
+     * @throws ResourceNotFoundException
+     *         Resource was not found.
+     * @sample AWSGroundStation.RegisterAgent
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/RegisterAgent" target="_top">AWS
+     *      API Documentation</a>
+     */
+    RegisterAgentResult registerAgent(RegisterAgentRequest registerAgentRequest);
+
+    /**
      * <p>
      * Reserves a contact using specified parameters.
      * </p>
      * 
      * @param reserveContactRequest
      * @return Result of the ReserveContact operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.ReserveContact
@@ -472,10 +599,10 @@ public interface AWSGroundStation {
      * 
      * @param tagResourceRequest
      * @return Result of the TagResource operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.TagResource
@@ -491,10 +618,10 @@ public interface AWSGroundStation {
      * 
      * @param untagResourceRequest
      * @return Result of the UntagResource operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.UntagResource
@@ -502,6 +629,30 @@ public interface AWSGroundStation {
      *      API Documentation</a>
      */
     UntagResourceResult untagResource(UntagResourceRequest untagResourceRequest);
+
+    /**
+     * <note>
+     * <p>
+     * For use by AWS Ground Station Agent and shouldn't be called directly.
+     * </p>
+     * </note>
+     * <p>
+     * Update the status of the agent.
+     * </p>
+     * 
+     * @param updateAgentStatusRequest
+     * @return Result of the UpdateAgentStatus operation returned by the service.
+     * @throws InvalidParameterException
+     *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
+     * @throws ResourceNotFoundException
+     *         Resource was not found.
+     * @sample AWSGroundStation.UpdateAgentStatus
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/UpdateAgentStatus"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateAgentStatusResult updateAgentStatus(UpdateAgentStatusRequest updateAgentStatusRequest);
 
     /**
      * <p>
@@ -514,10 +665,10 @@ public interface AWSGroundStation {
      * 
      * @param updateConfigRequest
      * @return Result of the UpdateConfig operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.UpdateConfig
@@ -525,6 +676,25 @@ public interface AWSGroundStation {
      *      Documentation</a>
      */
     UpdateConfigResult updateConfig(UpdateConfigRequest updateConfigRequest);
+
+    /**
+     * <p>
+     * Updates an existing ephemeris
+     * </p>
+     * 
+     * @param updateEphemerisRequest
+     * @return Result of the UpdateEphemeris operation returned by the service.
+     * @throws InvalidParameterException
+     *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
+     * @throws ResourceNotFoundException
+     *         Resource was not found.
+     * @sample AWSGroundStation.UpdateEphemeris
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/UpdateEphemeris" target="_top">AWS
+     *      API Documentation</a>
+     */
+    UpdateEphemerisResult updateEphemeris(UpdateEphemerisRequest updateEphemerisRequest);
 
     /**
      * <p>
@@ -536,10 +706,10 @@ public interface AWSGroundStation {
      * 
      * @param updateMissionProfileRequest
      * @return Result of the UpdateMissionProfile operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.UpdateMissionProfile
@@ -570,5 +740,7 @@ public interface AWSGroundStation {
      * @return The response metadata for the specified request, or null if none is available.
      */
     ResponseMetadata getCachedResponseMetadata(AmazonWebServiceRequest request);
+
+    AWSGroundStationWaiters waiters();
 
 }

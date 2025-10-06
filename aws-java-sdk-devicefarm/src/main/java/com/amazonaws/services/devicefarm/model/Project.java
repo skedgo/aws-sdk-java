@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,8 +42,8 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
     private String name;
     /**
      * <p>
-     * The default number of minutes (at the project level) a test run will execute before it times out. The default
-     * value is 150 minutes.
+     * The default number of minutes (at the project level) a test run executes before it times out. The default value
+     * is 150 minutes.
      * </p>
      */
     private Integer defaultJobTimeoutMinutes;
@@ -53,6 +53,12 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private java.util.Date created;
+    /**
+     * <p>
+     * The VPC security groups and subnets that are attached to a project.
+     * </p>
+     */
+    private VpcConfig vpcConfig;
 
     /**
      * <p>
@@ -136,13 +142,13 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The default number of minutes (at the project level) a test run will execute before it times out. The default
-     * value is 150 minutes.
+     * The default number of minutes (at the project level) a test run executes before it times out. The default value
+     * is 150 minutes.
      * </p>
      * 
      * @param defaultJobTimeoutMinutes
-     *        The default number of minutes (at the project level) a test run will execute before it times out. The
-     *        default value is 150 minutes.
+     *        The default number of minutes (at the project level) a test run executes before it times out. The default
+     *        value is 150 minutes.
      */
 
     public void setDefaultJobTimeoutMinutes(Integer defaultJobTimeoutMinutes) {
@@ -151,12 +157,12 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The default number of minutes (at the project level) a test run will execute before it times out. The default
-     * value is 150 minutes.
+     * The default number of minutes (at the project level) a test run executes before it times out. The default value
+     * is 150 minutes.
      * </p>
      * 
-     * @return The default number of minutes (at the project level) a test run will execute before it times out. The
-     *         default value is 150 minutes.
+     * @return The default number of minutes (at the project level) a test run executes before it times out. The default
+     *         value is 150 minutes.
      */
 
     public Integer getDefaultJobTimeoutMinutes() {
@@ -165,13 +171,13 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The default number of minutes (at the project level) a test run will execute before it times out. The default
-     * value is 150 minutes.
+     * The default number of minutes (at the project level) a test run executes before it times out. The default value
+     * is 150 minutes.
      * </p>
      * 
      * @param defaultJobTimeoutMinutes
-     *        The default number of minutes (at the project level) a test run will execute before it times out. The
-     *        default value is 150 minutes.
+     *        The default number of minutes (at the project level) a test run executes before it times out. The default
+     *        value is 150 minutes.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -221,6 +227,46 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The VPC security groups and subnets that are attached to a project.
+     * </p>
+     * 
+     * @param vpcConfig
+     *        The VPC security groups and subnets that are attached to a project.
+     */
+
+    public void setVpcConfig(VpcConfig vpcConfig) {
+        this.vpcConfig = vpcConfig;
+    }
+
+    /**
+     * <p>
+     * The VPC security groups and subnets that are attached to a project.
+     * </p>
+     * 
+     * @return The VPC security groups and subnets that are attached to a project.
+     */
+
+    public VpcConfig getVpcConfig() {
+        return this.vpcConfig;
+    }
+
+    /**
+     * <p>
+     * The VPC security groups and subnets that are attached to a project.
+     * </p>
+     * 
+     * @param vpcConfig
+     *        The VPC security groups and subnets that are attached to a project.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Project withVpcConfig(VpcConfig vpcConfig) {
+        setVpcConfig(vpcConfig);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -239,7 +285,9 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
         if (getDefaultJobTimeoutMinutes() != null)
             sb.append("DefaultJobTimeoutMinutes: ").append(getDefaultJobTimeoutMinutes()).append(",");
         if (getCreated() != null)
-            sb.append("Created: ").append(getCreated());
+            sb.append("Created: ").append(getCreated()).append(",");
+        if (getVpcConfig() != null)
+            sb.append("VpcConfig: ").append(getVpcConfig());
         sb.append("}");
         return sb.toString();
     }
@@ -270,6 +318,10 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getCreated() != null && other.getCreated().equals(this.getCreated()) == false)
             return false;
+        if (other.getVpcConfig() == null ^ this.getVpcConfig() == null)
+            return false;
+        if (other.getVpcConfig() != null && other.getVpcConfig().equals(this.getVpcConfig()) == false)
+            return false;
         return true;
     }
 
@@ -282,6 +334,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getDefaultJobTimeoutMinutes() == null) ? 0 : getDefaultJobTimeoutMinutes().hashCode());
         hashCode = prime * hashCode + ((getCreated() == null) ? 0 : getCreated().hashCode());
+        hashCode = prime * hashCode + ((getVpcConfig() == null) ? 0 : getVpcConfig().hashCode());
         return hashCode;
     }
 

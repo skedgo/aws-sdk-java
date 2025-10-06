@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class DeleteRemediationConfigurationRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The name of the AWS Config rule for which you want to delete remediation configuration.
+     * The name of the Config rule for which you want to delete remediation configuration.
      * </p>
      */
     private String configRuleName;
@@ -40,11 +40,11 @@ public class DeleteRemediationConfigurationRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The name of the AWS Config rule for which you want to delete remediation configuration.
+     * The name of the Config rule for which you want to delete remediation configuration.
      * </p>
      * 
      * @param configRuleName
-     *        The name of the AWS Config rule for which you want to delete remediation configuration.
+     *        The name of the Config rule for which you want to delete remediation configuration.
      */
 
     public void setConfigRuleName(String configRuleName) {
@@ -53,10 +53,10 @@ public class DeleteRemediationConfigurationRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The name of the AWS Config rule for which you want to delete remediation configuration.
+     * The name of the Config rule for which you want to delete remediation configuration.
      * </p>
      * 
-     * @return The name of the AWS Config rule for which you want to delete remediation configuration.
+     * @return The name of the Config rule for which you want to delete remediation configuration.
      */
 
     public String getConfigRuleName() {
@@ -65,11 +65,11 @@ public class DeleteRemediationConfigurationRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The name of the AWS Config rule for which you want to delete remediation configuration.
+     * The name of the Config rule for which you want to delete remediation configuration.
      * </p>
      * 
      * @param configRuleName
-     *        The name of the AWS Config rule for which you want to delete remediation configuration.
+     *        The name of the Config rule for which you want to delete remediation configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

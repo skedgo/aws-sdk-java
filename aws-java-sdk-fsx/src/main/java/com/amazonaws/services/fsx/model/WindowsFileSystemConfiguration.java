@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,8 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The ID for an existing Microsoft Active Directory instance that the file system should join when it's created.
+     * The ID for an existing Amazon Web Services Managed Microsoft Active Directory instance that the file system is
+     * joined to.
      * </p>
      */
     private String activeDirectoryId;
@@ -38,7 +39,80 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
     private SelfManagedActiveDirectoryAttributes selfManagedActiveDirectoryConfiguration;
     /**
      * <p>
-     * The throughput of an Amazon FSx file system, measured in megabytes per second.
+     * Specifies the file system deployment type, valid values are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>MULTI_AZ_1</code> - Specifies a high availability file system that is configured for Multi-AZ redundancy to
+     * tolerate temporary Availability Zone (AZ) unavailability, and supports SSD and HDD storage.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SINGLE_AZ_1</code> - (Default) Specifies a file system that is configured for single AZ redundancy, only
+     * supports SSD storage.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SINGLE_AZ_2</code> - Latest generation Single AZ file system. Specifies a file system that is configured
+     * for single AZ redundancy and supports SSD and HDD storage.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html">Single-AZ and Multi-AZ
+     * File Systems</a>.
+     * </p>
+     */
+    private String deploymentType;
+    /**
+     * <p>
+     * For <code>MULTI_AZ_1</code> deployment types, use this endpoint when performing administrative tasks on the file
+     * system using Amazon FSx Remote PowerShell.
+     * </p>
+     * <p>
+     * For <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> deployment types, this is the DNS name of the file
+     * system.
+     * </p>
+     * <p>
+     * This endpoint is temporarily unavailable when the file system is undergoing maintenance.
+     * </p>
+     */
+    private String remoteAdministrationEndpoint;
+    /**
+     * <p>
+     * For <code>MULTI_AZ_1</code> deployment types, it specifies the ID of the subnet where the preferred file server
+     * is located. Must be one of the two subnet IDs specified in <code>SubnetIds</code> property. Amazon FSx serves
+     * traffic from this subnet except in the event of a failover to the secondary file server.
+     * </p>
+     * <p>
+     * For <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> deployment types, this value is the same as that for
+     * <code>SubnetIDs</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html#single-multi-az-resources"
+     * >Availability and durability: Single-AZ and Multi-AZ file systems</a>.
+     * </p>
+     */
+    private String preferredSubnetId;
+    /**
+     * <p>
+     * For <code>MULTI_AZ_1</code> deployment types, the IP address of the primary, or preferred, file server.
+     * </p>
+     * <p>
+     * Use this IP address when mounting the file system on Linux SMB clients or Windows SMB clients that are not joined
+     * to a Microsoft Active Directory. Applicable for all Windows file system deployment types. This IP address is
+     * temporarily unavailable when the file system is undergoing maintenance. For Linux and Windows SMB clients that
+     * are joined to an Active Directory, use the file system's DNSName instead. For more information on mapping and
+     * mounting file shares, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/accessing-file-shares.html">Accessing File Shares</a>.
+     * </p>
+     */
+    private String preferredFileServerIp;
+    /**
+     * <p>
+     * The throughput of the Amazon FSx file system, measured in megabytes per second.
      * </p>
      */
     private Integer throughputCapacity;
@@ -50,7 +124,8 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
     private java.util.List<String> maintenanceOperationsInProgress;
     /**
      * <p>
-     * The preferred time to perform weekly maintenance, in the UTC time zone.
+     * The preferred start time to perform weekly maintenance, formatted d:HH:MM in the UTC time zone. d is the weekday
+     * number, from 1 through 7, beginning with Monday and ending with Sunday.
      * </p>
      */
     private String weeklyMaintenanceStartTime;
@@ -63,7 +138,7 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
     /**
      * <p>
      * The number of days to retain automatic backups. Setting this to 0 disables automatic backups. You can retain
-     * automatic backups for a maximum of 35 days.
+     * automatic backups for a maximum of 90 days.
      * </p>
      */
     private Integer automaticBackupRetentionDays;
@@ -72,19 +147,38 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
      * A boolean flag indicating whether tags on the file system should be copied to backups. This value defaults to
      * false. If it's set to true, all tags on the file system are copied to all automatic backups and any
      * user-initiated backups where the user doesn't specify any tags. If this value is true, and you specify one or
-     * more tags, only the specified tags are copied to backups.
+     * more tags, only the specified tags are copied to backups. If you specify one or more tags when creating a
+     * user-initiated backup, no tags are copied from the file system, regardless of this value.
      * </p>
      */
     private Boolean copyTagsToBackups;
 
+    private java.util.List<Alias> aliases;
     /**
      * <p>
-     * The ID for an existing Microsoft Active Directory instance that the file system should join when it's created.
+     * The configuration that Amazon FSx for Windows File Server uses to audit and log user accesses of files, folders,
+     * and file shares on the Amazon FSx for Windows File Server file system.
+     * </p>
+     */
+    private WindowsAuditLogConfiguration auditLogConfiguration;
+    /**
+     * <p>
+     * The SSD IOPS (input/output operations per second) configuration for an Amazon FSx for Windows file system. By
+     * default, Amazon FSx automatically provisions 3 IOPS per GiB of storage capacity. You can provision additional
+     * IOPS per GiB of storage, up to the maximum limit associated with your chosen throughput capacity.
+     * </p>
+     */
+    private DiskIopsConfiguration diskIopsConfiguration;
+
+    /**
+     * <p>
+     * The ID for an existing Amazon Web Services Managed Microsoft Active Directory instance that the file system is
+     * joined to.
      * </p>
      * 
      * @param activeDirectoryId
-     *        The ID for an existing Microsoft Active Directory instance that the file system should join when it's
-     *        created.
+     *        The ID for an existing Amazon Web Services Managed Microsoft Active Directory instance that the file
+     *        system is joined to.
      */
 
     public void setActiveDirectoryId(String activeDirectoryId) {
@@ -93,11 +187,12 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The ID for an existing Microsoft Active Directory instance that the file system should join when it's created.
+     * The ID for an existing Amazon Web Services Managed Microsoft Active Directory instance that the file system is
+     * joined to.
      * </p>
      * 
-     * @return The ID for an existing Microsoft Active Directory instance that the file system should join when it's
-     *         created.
+     * @return The ID for an existing Amazon Web Services Managed Microsoft Active Directory instance that the file
+     *         system is joined to.
      */
 
     public String getActiveDirectoryId() {
@@ -106,12 +201,13 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The ID for an existing Microsoft Active Directory instance that the file system should join when it's created.
+     * The ID for an existing Amazon Web Services Managed Microsoft Active Directory instance that the file system is
+     * joined to.
      * </p>
      * 
      * @param activeDirectoryId
-     *        The ID for an existing Microsoft Active Directory instance that the file system should join when it's
-     *        created.
+     *        The ID for an existing Amazon Web Services Managed Microsoft Active Directory instance that the file
+     *        system is joined to.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -149,11 +245,527 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The throughput of an Amazon FSx file system, measured in megabytes per second.
+     * Specifies the file system deployment type, valid values are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>MULTI_AZ_1</code> - Specifies a high availability file system that is configured for Multi-AZ redundancy to
+     * tolerate temporary Availability Zone (AZ) unavailability, and supports SSD and HDD storage.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SINGLE_AZ_1</code> - (Default) Specifies a file system that is configured for single AZ redundancy, only
+     * supports SSD storage.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SINGLE_AZ_2</code> - Latest generation Single AZ file system. Specifies a file system that is configured
+     * for single AZ redundancy and supports SSD and HDD storage.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html">Single-AZ and Multi-AZ
+     * File Systems</a>.
+     * </p>
+     * 
+     * @param deploymentType
+     *        Specifies the file system deployment type, valid values are the following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>MULTI_AZ_1</code> - Specifies a high availability file system that is configured for Multi-AZ
+     *        redundancy to tolerate temporary Availability Zone (AZ) unavailability, and supports SSD and HDD storage.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SINGLE_AZ_1</code> - (Default) Specifies a file system that is configured for single AZ redundancy,
+     *        only supports SSD storage.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SINGLE_AZ_2</code> - Latest generation Single AZ file system. Specifies a file system that is
+     *        configured for single AZ redundancy and supports SSD and HDD storage.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html">Single-AZ and
+     *        Multi-AZ File Systems</a>.
+     * @see WindowsDeploymentType
+     */
+
+    public void setDeploymentType(String deploymentType) {
+        this.deploymentType = deploymentType;
+    }
+
+    /**
+     * <p>
+     * Specifies the file system deployment type, valid values are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>MULTI_AZ_1</code> - Specifies a high availability file system that is configured for Multi-AZ redundancy to
+     * tolerate temporary Availability Zone (AZ) unavailability, and supports SSD and HDD storage.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SINGLE_AZ_1</code> - (Default) Specifies a file system that is configured for single AZ redundancy, only
+     * supports SSD storage.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SINGLE_AZ_2</code> - Latest generation Single AZ file system. Specifies a file system that is configured
+     * for single AZ redundancy and supports SSD and HDD storage.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html">Single-AZ and Multi-AZ
+     * File Systems</a>.
+     * </p>
+     * 
+     * @return Specifies the file system deployment type, valid values are the following:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>MULTI_AZ_1</code> - Specifies a high availability file system that is configured for Multi-AZ
+     *         redundancy to tolerate temporary Availability Zone (AZ) unavailability, and supports SSD and HDD storage.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>SINGLE_AZ_1</code> - (Default) Specifies a file system that is configured for single AZ redundancy,
+     *         only supports SSD storage.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>SINGLE_AZ_2</code> - Latest generation Single AZ file system. Specifies a file system that is
+     *         configured for single AZ redundancy and supports SSD and HDD storage.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html">Single-AZ and
+     *         Multi-AZ File Systems</a>.
+     * @see WindowsDeploymentType
+     */
+
+    public String getDeploymentType() {
+        return this.deploymentType;
+    }
+
+    /**
+     * <p>
+     * Specifies the file system deployment type, valid values are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>MULTI_AZ_1</code> - Specifies a high availability file system that is configured for Multi-AZ redundancy to
+     * tolerate temporary Availability Zone (AZ) unavailability, and supports SSD and HDD storage.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SINGLE_AZ_1</code> - (Default) Specifies a file system that is configured for single AZ redundancy, only
+     * supports SSD storage.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SINGLE_AZ_2</code> - Latest generation Single AZ file system. Specifies a file system that is configured
+     * for single AZ redundancy and supports SSD and HDD storage.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html">Single-AZ and Multi-AZ
+     * File Systems</a>.
+     * </p>
+     * 
+     * @param deploymentType
+     *        Specifies the file system deployment type, valid values are the following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>MULTI_AZ_1</code> - Specifies a high availability file system that is configured for Multi-AZ
+     *        redundancy to tolerate temporary Availability Zone (AZ) unavailability, and supports SSD and HDD storage.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SINGLE_AZ_1</code> - (Default) Specifies a file system that is configured for single AZ redundancy,
+     *        only supports SSD storage.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SINGLE_AZ_2</code> - Latest generation Single AZ file system. Specifies a file system that is
+     *        configured for single AZ redundancy and supports SSD and HDD storage.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html">Single-AZ and
+     *        Multi-AZ File Systems</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see WindowsDeploymentType
+     */
+
+    public WindowsFileSystemConfiguration withDeploymentType(String deploymentType) {
+        setDeploymentType(deploymentType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the file system deployment type, valid values are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>MULTI_AZ_1</code> - Specifies a high availability file system that is configured for Multi-AZ redundancy to
+     * tolerate temporary Availability Zone (AZ) unavailability, and supports SSD and HDD storage.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SINGLE_AZ_1</code> - (Default) Specifies a file system that is configured for single AZ redundancy, only
+     * supports SSD storage.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SINGLE_AZ_2</code> - Latest generation Single AZ file system. Specifies a file system that is configured
+     * for single AZ redundancy and supports SSD and HDD storage.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html">Single-AZ and Multi-AZ
+     * File Systems</a>.
+     * </p>
+     * 
+     * @param deploymentType
+     *        Specifies the file system deployment type, valid values are the following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>MULTI_AZ_1</code> - Specifies a high availability file system that is configured for Multi-AZ
+     *        redundancy to tolerate temporary Availability Zone (AZ) unavailability, and supports SSD and HDD storage.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SINGLE_AZ_1</code> - (Default) Specifies a file system that is configured for single AZ redundancy,
+     *        only supports SSD storage.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SINGLE_AZ_2</code> - Latest generation Single AZ file system. Specifies a file system that is
+     *        configured for single AZ redundancy and supports SSD and HDD storage.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html">Single-AZ and
+     *        Multi-AZ File Systems</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see WindowsDeploymentType
+     */
+
+    public WindowsFileSystemConfiguration withDeploymentType(WindowsDeploymentType deploymentType) {
+        this.deploymentType = deploymentType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * For <code>MULTI_AZ_1</code> deployment types, use this endpoint when performing administrative tasks on the file
+     * system using Amazon FSx Remote PowerShell.
+     * </p>
+     * <p>
+     * For <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> deployment types, this is the DNS name of the file
+     * system.
+     * </p>
+     * <p>
+     * This endpoint is temporarily unavailable when the file system is undergoing maintenance.
+     * </p>
+     * 
+     * @param remoteAdministrationEndpoint
+     *        For <code>MULTI_AZ_1</code> deployment types, use this endpoint when performing administrative tasks on
+     *        the file system using Amazon FSx Remote PowerShell.</p>
+     *        <p>
+     *        For <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> deployment types, this is the DNS name of the
+     *        file system.
+     *        </p>
+     *        <p>
+     *        This endpoint is temporarily unavailable when the file system is undergoing maintenance.
+     */
+
+    public void setRemoteAdministrationEndpoint(String remoteAdministrationEndpoint) {
+        this.remoteAdministrationEndpoint = remoteAdministrationEndpoint;
+    }
+
+    /**
+     * <p>
+     * For <code>MULTI_AZ_1</code> deployment types, use this endpoint when performing administrative tasks on the file
+     * system using Amazon FSx Remote PowerShell.
+     * </p>
+     * <p>
+     * For <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> deployment types, this is the DNS name of the file
+     * system.
+     * </p>
+     * <p>
+     * This endpoint is temporarily unavailable when the file system is undergoing maintenance.
+     * </p>
+     * 
+     * @return For <code>MULTI_AZ_1</code> deployment types, use this endpoint when performing administrative tasks on
+     *         the file system using Amazon FSx Remote PowerShell.</p>
+     *         <p>
+     *         For <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> deployment types, this is the DNS name of the
+     *         file system.
+     *         </p>
+     *         <p>
+     *         This endpoint is temporarily unavailable when the file system is undergoing maintenance.
+     */
+
+    public String getRemoteAdministrationEndpoint() {
+        return this.remoteAdministrationEndpoint;
+    }
+
+    /**
+     * <p>
+     * For <code>MULTI_AZ_1</code> deployment types, use this endpoint when performing administrative tasks on the file
+     * system using Amazon FSx Remote PowerShell.
+     * </p>
+     * <p>
+     * For <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> deployment types, this is the DNS name of the file
+     * system.
+     * </p>
+     * <p>
+     * This endpoint is temporarily unavailable when the file system is undergoing maintenance.
+     * </p>
+     * 
+     * @param remoteAdministrationEndpoint
+     *        For <code>MULTI_AZ_1</code> deployment types, use this endpoint when performing administrative tasks on
+     *        the file system using Amazon FSx Remote PowerShell.</p>
+     *        <p>
+     *        For <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> deployment types, this is the DNS name of the
+     *        file system.
+     *        </p>
+     *        <p>
+     *        This endpoint is temporarily unavailable when the file system is undergoing maintenance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WindowsFileSystemConfiguration withRemoteAdministrationEndpoint(String remoteAdministrationEndpoint) {
+        setRemoteAdministrationEndpoint(remoteAdministrationEndpoint);
+        return this;
+    }
+
+    /**
+     * <p>
+     * For <code>MULTI_AZ_1</code> deployment types, it specifies the ID of the subnet where the preferred file server
+     * is located. Must be one of the two subnet IDs specified in <code>SubnetIds</code> property. Amazon FSx serves
+     * traffic from this subnet except in the event of a failover to the secondary file server.
+     * </p>
+     * <p>
+     * For <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> deployment types, this value is the same as that for
+     * <code>SubnetIDs</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html#single-multi-az-resources"
+     * >Availability and durability: Single-AZ and Multi-AZ file systems</a>.
+     * </p>
+     * 
+     * @param preferredSubnetId
+     *        For <code>MULTI_AZ_1</code> deployment types, it specifies the ID of the subnet where the preferred file
+     *        server is located. Must be one of the two subnet IDs specified in <code>SubnetIds</code> property. Amazon
+     *        FSx serves traffic from this subnet except in the event of a failover to the secondary file server.</p>
+     *        <p>
+     *        For <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> deployment types, this value is the same as that
+     *        for <code>SubnetIDs</code>. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html#single-multi-az-resources"
+     *        >Availability and durability: Single-AZ and Multi-AZ file systems</a>.
+     */
+
+    public void setPreferredSubnetId(String preferredSubnetId) {
+        this.preferredSubnetId = preferredSubnetId;
+    }
+
+    /**
+     * <p>
+     * For <code>MULTI_AZ_1</code> deployment types, it specifies the ID of the subnet where the preferred file server
+     * is located. Must be one of the two subnet IDs specified in <code>SubnetIds</code> property. Amazon FSx serves
+     * traffic from this subnet except in the event of a failover to the secondary file server.
+     * </p>
+     * <p>
+     * For <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> deployment types, this value is the same as that for
+     * <code>SubnetIDs</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html#single-multi-az-resources"
+     * >Availability and durability: Single-AZ and Multi-AZ file systems</a>.
+     * </p>
+     * 
+     * @return For <code>MULTI_AZ_1</code> deployment types, it specifies the ID of the subnet where the preferred file
+     *         server is located. Must be one of the two subnet IDs specified in <code>SubnetIds</code> property. Amazon
+     *         FSx serves traffic from this subnet except in the event of a failover to the secondary file server.</p>
+     *         <p>
+     *         For <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> deployment types, this value is the same as
+     *         that for <code>SubnetIDs</code>. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html#single-multi-az-resources"
+     *         >Availability and durability: Single-AZ and Multi-AZ file systems</a>.
+     */
+
+    public String getPreferredSubnetId() {
+        return this.preferredSubnetId;
+    }
+
+    /**
+     * <p>
+     * For <code>MULTI_AZ_1</code> deployment types, it specifies the ID of the subnet where the preferred file server
+     * is located. Must be one of the two subnet IDs specified in <code>SubnetIds</code> property. Amazon FSx serves
+     * traffic from this subnet except in the event of a failover to the secondary file server.
+     * </p>
+     * <p>
+     * For <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> deployment types, this value is the same as that for
+     * <code>SubnetIDs</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html#single-multi-az-resources"
+     * >Availability and durability: Single-AZ and Multi-AZ file systems</a>.
+     * </p>
+     * 
+     * @param preferredSubnetId
+     *        For <code>MULTI_AZ_1</code> deployment types, it specifies the ID of the subnet where the preferred file
+     *        server is located. Must be one of the two subnet IDs specified in <code>SubnetIds</code> property. Amazon
+     *        FSx serves traffic from this subnet except in the event of a failover to the secondary file server.</p>
+     *        <p>
+     *        For <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> deployment types, this value is the same as that
+     *        for <code>SubnetIDs</code>. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html#single-multi-az-resources"
+     *        >Availability and durability: Single-AZ and Multi-AZ file systems</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WindowsFileSystemConfiguration withPreferredSubnetId(String preferredSubnetId) {
+        setPreferredSubnetId(preferredSubnetId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * For <code>MULTI_AZ_1</code> deployment types, the IP address of the primary, or preferred, file server.
+     * </p>
+     * <p>
+     * Use this IP address when mounting the file system on Linux SMB clients or Windows SMB clients that are not joined
+     * to a Microsoft Active Directory. Applicable for all Windows file system deployment types. This IP address is
+     * temporarily unavailable when the file system is undergoing maintenance. For Linux and Windows SMB clients that
+     * are joined to an Active Directory, use the file system's DNSName instead. For more information on mapping and
+     * mounting file shares, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/accessing-file-shares.html">Accessing File Shares</a>.
+     * </p>
+     * 
+     * @param preferredFileServerIp
+     *        For <code>MULTI_AZ_1</code> deployment types, the IP address of the primary, or preferred, file
+     *        server.</p>
+     *        <p>
+     *        Use this IP address when mounting the file system on Linux SMB clients or Windows SMB clients that are not
+     *        joined to a Microsoft Active Directory. Applicable for all Windows file system deployment types. This IP
+     *        address is temporarily unavailable when the file system is undergoing maintenance. For Linux and Windows
+     *        SMB clients that are joined to an Active Directory, use the file system's DNSName instead. For more
+     *        information on mapping and mounting file shares, see <a
+     *        href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/accessing-file-shares.html">Accessing File
+     *        Shares</a>.
+     */
+
+    public void setPreferredFileServerIp(String preferredFileServerIp) {
+        this.preferredFileServerIp = preferredFileServerIp;
+    }
+
+    /**
+     * <p>
+     * For <code>MULTI_AZ_1</code> deployment types, the IP address of the primary, or preferred, file server.
+     * </p>
+     * <p>
+     * Use this IP address when mounting the file system on Linux SMB clients or Windows SMB clients that are not joined
+     * to a Microsoft Active Directory. Applicable for all Windows file system deployment types. This IP address is
+     * temporarily unavailable when the file system is undergoing maintenance. For Linux and Windows SMB clients that
+     * are joined to an Active Directory, use the file system's DNSName instead. For more information on mapping and
+     * mounting file shares, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/accessing-file-shares.html">Accessing File Shares</a>.
+     * </p>
+     * 
+     * @return For <code>MULTI_AZ_1</code> deployment types, the IP address of the primary, or preferred, file
+     *         server.</p>
+     *         <p>
+     *         Use this IP address when mounting the file system on Linux SMB clients or Windows SMB clients that are
+     *         not joined to a Microsoft Active Directory. Applicable for all Windows file system deployment types. This
+     *         IP address is temporarily unavailable when the file system is undergoing maintenance. For Linux and
+     *         Windows SMB clients that are joined to an Active Directory, use the file system's DNSName instead. For
+     *         more information on mapping and mounting file shares, see <a
+     *         href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/accessing-file-shares.html">Accessing File
+     *         Shares</a>.
+     */
+
+    public String getPreferredFileServerIp() {
+        return this.preferredFileServerIp;
+    }
+
+    /**
+     * <p>
+     * For <code>MULTI_AZ_1</code> deployment types, the IP address of the primary, or preferred, file server.
+     * </p>
+     * <p>
+     * Use this IP address when mounting the file system on Linux SMB clients or Windows SMB clients that are not joined
+     * to a Microsoft Active Directory. Applicable for all Windows file system deployment types. This IP address is
+     * temporarily unavailable when the file system is undergoing maintenance. For Linux and Windows SMB clients that
+     * are joined to an Active Directory, use the file system's DNSName instead. For more information on mapping and
+     * mounting file shares, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/accessing-file-shares.html">Accessing File Shares</a>.
+     * </p>
+     * 
+     * @param preferredFileServerIp
+     *        For <code>MULTI_AZ_1</code> deployment types, the IP address of the primary, or preferred, file
+     *        server.</p>
+     *        <p>
+     *        Use this IP address when mounting the file system on Linux SMB clients or Windows SMB clients that are not
+     *        joined to a Microsoft Active Directory. Applicable for all Windows file system deployment types. This IP
+     *        address is temporarily unavailable when the file system is undergoing maintenance. For Linux and Windows
+     *        SMB clients that are joined to an Active Directory, use the file system's DNSName instead. For more
+     *        information on mapping and mounting file shares, see <a
+     *        href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/accessing-file-shares.html">Accessing File
+     *        Shares</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WindowsFileSystemConfiguration withPreferredFileServerIp(String preferredFileServerIp) {
+        setPreferredFileServerIp(preferredFileServerIp);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The throughput of the Amazon FSx file system, measured in megabytes per second.
      * </p>
      * 
      * @param throughputCapacity
-     *        The throughput of an Amazon FSx file system, measured in megabytes per second.
+     *        The throughput of the Amazon FSx file system, measured in megabytes per second.
      */
 
     public void setThroughputCapacity(Integer throughputCapacity) {
@@ -162,10 +774,10 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The throughput of an Amazon FSx file system, measured in megabytes per second.
+     * The throughput of the Amazon FSx file system, measured in megabytes per second.
      * </p>
      * 
-     * @return The throughput of an Amazon FSx file system, measured in megabytes per second.
+     * @return The throughput of the Amazon FSx file system, measured in megabytes per second.
      */
 
     public Integer getThroughputCapacity() {
@@ -174,11 +786,11 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The throughput of an Amazon FSx file system, measured in megabytes per second.
+     * The throughput of the Amazon FSx file system, measured in megabytes per second.
      * </p>
      * 
      * @param throughputCapacity
-     *        The throughput of an Amazon FSx file system, measured in megabytes per second.
+     *        The throughput of the Amazon FSx file system, measured in megabytes per second.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -287,11 +899,13 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The preferred time to perform weekly maintenance, in the UTC time zone.
+     * The preferred start time to perform weekly maintenance, formatted d:HH:MM in the UTC time zone. d is the weekday
+     * number, from 1 through 7, beginning with Monday and ending with Sunday.
      * </p>
      * 
      * @param weeklyMaintenanceStartTime
-     *        The preferred time to perform weekly maintenance, in the UTC time zone.
+     *        The preferred start time to perform weekly maintenance, formatted d:HH:MM in the UTC time zone. d is the
+     *        weekday number, from 1 through 7, beginning with Monday and ending with Sunday.
      */
 
     public void setWeeklyMaintenanceStartTime(String weeklyMaintenanceStartTime) {
@@ -300,10 +914,12 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The preferred time to perform weekly maintenance, in the UTC time zone.
+     * The preferred start time to perform weekly maintenance, formatted d:HH:MM in the UTC time zone. d is the weekday
+     * number, from 1 through 7, beginning with Monday and ending with Sunday.
      * </p>
      * 
-     * @return The preferred time to perform weekly maintenance, in the UTC time zone.
+     * @return The preferred start time to perform weekly maintenance, formatted d:HH:MM in the UTC time zone. d is the
+     *         weekday number, from 1 through 7, beginning with Monday and ending with Sunday.
      */
 
     public String getWeeklyMaintenanceStartTime() {
@@ -312,11 +928,13 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The preferred time to perform weekly maintenance, in the UTC time zone.
+     * The preferred start time to perform weekly maintenance, formatted d:HH:MM in the UTC time zone. d is the weekday
+     * number, from 1 through 7, beginning with Monday and ending with Sunday.
      * </p>
      * 
      * @param weeklyMaintenanceStartTime
-     *        The preferred time to perform weekly maintenance, in the UTC time zone.
+     *        The preferred start time to perform weekly maintenance, formatted d:HH:MM in the UTC time zone. d is the
+     *        weekday number, from 1 through 7, beginning with Monday and ending with Sunday.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -368,12 +986,12 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
     /**
      * <p>
      * The number of days to retain automatic backups. Setting this to 0 disables automatic backups. You can retain
-     * automatic backups for a maximum of 35 days.
+     * automatic backups for a maximum of 90 days.
      * </p>
      * 
      * @param automaticBackupRetentionDays
      *        The number of days to retain automatic backups. Setting this to 0 disables automatic backups. You can
-     *        retain automatic backups for a maximum of 35 days.
+     *        retain automatic backups for a maximum of 90 days.
      */
 
     public void setAutomaticBackupRetentionDays(Integer automaticBackupRetentionDays) {
@@ -383,11 +1001,11 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
     /**
      * <p>
      * The number of days to retain automatic backups. Setting this to 0 disables automatic backups. You can retain
-     * automatic backups for a maximum of 35 days.
+     * automatic backups for a maximum of 90 days.
      * </p>
      * 
      * @return The number of days to retain automatic backups. Setting this to 0 disables automatic backups. You can
-     *         retain automatic backups for a maximum of 35 days.
+     *         retain automatic backups for a maximum of 90 days.
      */
 
     public Integer getAutomaticBackupRetentionDays() {
@@ -397,12 +1015,12 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
     /**
      * <p>
      * The number of days to retain automatic backups. Setting this to 0 disables automatic backups. You can retain
-     * automatic backups for a maximum of 35 days.
+     * automatic backups for a maximum of 90 days.
      * </p>
      * 
      * @param automaticBackupRetentionDays
      *        The number of days to retain automatic backups. Setting this to 0 disables automatic backups. You can
-     *        retain automatic backups for a maximum of 35 days.
+     *        retain automatic backups for a maximum of 90 days.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -416,14 +1034,16 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
      * A boolean flag indicating whether tags on the file system should be copied to backups. This value defaults to
      * false. If it's set to true, all tags on the file system are copied to all automatic backups and any
      * user-initiated backups where the user doesn't specify any tags. If this value is true, and you specify one or
-     * more tags, only the specified tags are copied to backups.
+     * more tags, only the specified tags are copied to backups. If you specify one or more tags when creating a
+     * user-initiated backup, no tags are copied from the file system, regardless of this value.
      * </p>
      * 
      * @param copyTagsToBackups
      *        A boolean flag indicating whether tags on the file system should be copied to backups. This value defaults
      *        to false. If it's set to true, all tags on the file system are copied to all automatic backups and any
      *        user-initiated backups where the user doesn't specify any tags. If this value is true, and you specify one
-     *        or more tags, only the specified tags are copied to backups.
+     *        or more tags, only the specified tags are copied to backups. If you specify one or more tags when creating
+     *        a user-initiated backup, no tags are copied from the file system, regardless of this value.
      */
 
     public void setCopyTagsToBackups(Boolean copyTagsToBackups) {
@@ -435,13 +1055,15 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
      * A boolean flag indicating whether tags on the file system should be copied to backups. This value defaults to
      * false. If it's set to true, all tags on the file system are copied to all automatic backups and any
      * user-initiated backups where the user doesn't specify any tags. If this value is true, and you specify one or
-     * more tags, only the specified tags are copied to backups.
+     * more tags, only the specified tags are copied to backups. If you specify one or more tags when creating a
+     * user-initiated backup, no tags are copied from the file system, regardless of this value.
      * </p>
      * 
      * @return A boolean flag indicating whether tags on the file system should be copied to backups. This value
      *         defaults to false. If it's set to true, all tags on the file system are copied to all automatic backups
      *         and any user-initiated backups where the user doesn't specify any tags. If this value is true, and you
-     *         specify one or more tags, only the specified tags are copied to backups.
+     *         specify one or more tags, only the specified tags are copied to backups. If you specify one or more tags
+     *         when creating a user-initiated backup, no tags are copied from the file system, regardless of this value.
      */
 
     public Boolean getCopyTagsToBackups() {
@@ -453,14 +1075,16 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
      * A boolean flag indicating whether tags on the file system should be copied to backups. This value defaults to
      * false. If it's set to true, all tags on the file system are copied to all automatic backups and any
      * user-initiated backups where the user doesn't specify any tags. If this value is true, and you specify one or
-     * more tags, only the specified tags are copied to backups.
+     * more tags, only the specified tags are copied to backups. If you specify one or more tags when creating a
+     * user-initiated backup, no tags are copied from the file system, regardless of this value.
      * </p>
      * 
      * @param copyTagsToBackups
      *        A boolean flag indicating whether tags on the file system should be copied to backups. This value defaults
      *        to false. If it's set to true, all tags on the file system are copied to all automatic backups and any
      *        user-initiated backups where the user doesn't specify any tags. If this value is true, and you specify one
-     *        or more tags, only the specified tags are copied to backups.
+     *        or more tags, only the specified tags are copied to backups. If you specify one or more tags when creating
+     *        a user-initiated backup, no tags are copied from the file system, regardless of this value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -474,17 +1098,172 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
      * A boolean flag indicating whether tags on the file system should be copied to backups. This value defaults to
      * false. If it's set to true, all tags on the file system are copied to all automatic backups and any
      * user-initiated backups where the user doesn't specify any tags. If this value is true, and you specify one or
-     * more tags, only the specified tags are copied to backups.
+     * more tags, only the specified tags are copied to backups. If you specify one or more tags when creating a
+     * user-initiated backup, no tags are copied from the file system, regardless of this value.
      * </p>
      * 
      * @return A boolean flag indicating whether tags on the file system should be copied to backups. This value
      *         defaults to false. If it's set to true, all tags on the file system are copied to all automatic backups
      *         and any user-initiated backups where the user doesn't specify any tags. If this value is true, and you
-     *         specify one or more tags, only the specified tags are copied to backups.
+     *         specify one or more tags, only the specified tags are copied to backups. If you specify one or more tags
+     *         when creating a user-initiated backup, no tags are copied from the file system, regardless of this value.
      */
 
     public Boolean isCopyTagsToBackups() {
         return this.copyTagsToBackups;
+    }
+
+    /**
+     * @return
+     */
+
+    public java.util.List<Alias> getAliases() {
+        return aliases;
+    }
+
+    /**
+     * @param aliases
+     */
+
+    public void setAliases(java.util.Collection<Alias> aliases) {
+        if (aliases == null) {
+            this.aliases = null;
+            return;
+        }
+
+        this.aliases = new java.util.ArrayList<Alias>(aliases);
+    }
+
+    /**
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAliases(java.util.Collection)} or {@link #withAliases(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param aliases
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WindowsFileSystemConfiguration withAliases(Alias... aliases) {
+        if (this.aliases == null) {
+            setAliases(new java.util.ArrayList<Alias>(aliases.length));
+        }
+        for (Alias ele : aliases) {
+            this.aliases.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * @param aliases
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WindowsFileSystemConfiguration withAliases(java.util.Collection<Alias> aliases) {
+        setAliases(aliases);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The configuration that Amazon FSx for Windows File Server uses to audit and log user accesses of files, folders,
+     * and file shares on the Amazon FSx for Windows File Server file system.
+     * </p>
+     * 
+     * @param auditLogConfiguration
+     *        The configuration that Amazon FSx for Windows File Server uses to audit and log user accesses of files,
+     *        folders, and file shares on the Amazon FSx for Windows File Server file system.
+     */
+
+    public void setAuditLogConfiguration(WindowsAuditLogConfiguration auditLogConfiguration) {
+        this.auditLogConfiguration = auditLogConfiguration;
+    }
+
+    /**
+     * <p>
+     * The configuration that Amazon FSx for Windows File Server uses to audit and log user accesses of files, folders,
+     * and file shares on the Amazon FSx for Windows File Server file system.
+     * </p>
+     * 
+     * @return The configuration that Amazon FSx for Windows File Server uses to audit and log user accesses of files,
+     *         folders, and file shares on the Amazon FSx for Windows File Server file system.
+     */
+
+    public WindowsAuditLogConfiguration getAuditLogConfiguration() {
+        return this.auditLogConfiguration;
+    }
+
+    /**
+     * <p>
+     * The configuration that Amazon FSx for Windows File Server uses to audit and log user accesses of files, folders,
+     * and file shares on the Amazon FSx for Windows File Server file system.
+     * </p>
+     * 
+     * @param auditLogConfiguration
+     *        The configuration that Amazon FSx for Windows File Server uses to audit and log user accesses of files,
+     *        folders, and file shares on the Amazon FSx for Windows File Server file system.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WindowsFileSystemConfiguration withAuditLogConfiguration(WindowsAuditLogConfiguration auditLogConfiguration) {
+        setAuditLogConfiguration(auditLogConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The SSD IOPS (input/output operations per second) configuration for an Amazon FSx for Windows file system. By
+     * default, Amazon FSx automatically provisions 3 IOPS per GiB of storage capacity. You can provision additional
+     * IOPS per GiB of storage, up to the maximum limit associated with your chosen throughput capacity.
+     * </p>
+     * 
+     * @param diskIopsConfiguration
+     *        The SSD IOPS (input/output operations per second) configuration for an Amazon FSx for Windows file system.
+     *        By default, Amazon FSx automatically provisions 3 IOPS per GiB of storage capacity. You can provision
+     *        additional IOPS per GiB of storage, up to the maximum limit associated with your chosen throughput
+     *        capacity.
+     */
+
+    public void setDiskIopsConfiguration(DiskIopsConfiguration diskIopsConfiguration) {
+        this.diskIopsConfiguration = diskIopsConfiguration;
+    }
+
+    /**
+     * <p>
+     * The SSD IOPS (input/output operations per second) configuration for an Amazon FSx for Windows file system. By
+     * default, Amazon FSx automatically provisions 3 IOPS per GiB of storage capacity. You can provision additional
+     * IOPS per GiB of storage, up to the maximum limit associated with your chosen throughput capacity.
+     * </p>
+     * 
+     * @return The SSD IOPS (input/output operations per second) configuration for an Amazon FSx for Windows file
+     *         system. By default, Amazon FSx automatically provisions 3 IOPS per GiB of storage capacity. You can
+     *         provision additional IOPS per GiB of storage, up to the maximum limit associated with your chosen
+     *         throughput capacity.
+     */
+
+    public DiskIopsConfiguration getDiskIopsConfiguration() {
+        return this.diskIopsConfiguration;
+    }
+
+    /**
+     * <p>
+     * The SSD IOPS (input/output operations per second) configuration for an Amazon FSx for Windows file system. By
+     * default, Amazon FSx automatically provisions 3 IOPS per GiB of storage capacity. You can provision additional
+     * IOPS per GiB of storage, up to the maximum limit associated with your chosen throughput capacity.
+     * </p>
+     * 
+     * @param diskIopsConfiguration
+     *        The SSD IOPS (input/output operations per second) configuration for an Amazon FSx for Windows file system.
+     *        By default, Amazon FSx automatically provisions 3 IOPS per GiB of storage capacity. You can provision
+     *        additional IOPS per GiB of storage, up to the maximum limit associated with your chosen throughput
+     *        capacity.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WindowsFileSystemConfiguration withDiskIopsConfiguration(DiskIopsConfiguration diskIopsConfiguration) {
+        setDiskIopsConfiguration(diskIopsConfiguration);
+        return this;
     }
 
     /**
@@ -503,6 +1282,14 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
             sb.append("ActiveDirectoryId: ").append(getActiveDirectoryId()).append(",");
         if (getSelfManagedActiveDirectoryConfiguration() != null)
             sb.append("SelfManagedActiveDirectoryConfiguration: ").append(getSelfManagedActiveDirectoryConfiguration()).append(",");
+        if (getDeploymentType() != null)
+            sb.append("DeploymentType: ").append(getDeploymentType()).append(",");
+        if (getRemoteAdministrationEndpoint() != null)
+            sb.append("RemoteAdministrationEndpoint: ").append(getRemoteAdministrationEndpoint()).append(",");
+        if (getPreferredSubnetId() != null)
+            sb.append("PreferredSubnetId: ").append(getPreferredSubnetId()).append(",");
+        if (getPreferredFileServerIp() != null)
+            sb.append("PreferredFileServerIp: ").append(getPreferredFileServerIp()).append(",");
         if (getThroughputCapacity() != null)
             sb.append("ThroughputCapacity: ").append(getThroughputCapacity()).append(",");
         if (getMaintenanceOperationsInProgress() != null)
@@ -514,7 +1301,13 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
         if (getAutomaticBackupRetentionDays() != null)
             sb.append("AutomaticBackupRetentionDays: ").append(getAutomaticBackupRetentionDays()).append(",");
         if (getCopyTagsToBackups() != null)
-            sb.append("CopyTagsToBackups: ").append(getCopyTagsToBackups());
+            sb.append("CopyTagsToBackups: ").append(getCopyTagsToBackups()).append(",");
+        if (getAliases() != null)
+            sb.append("Aliases: ").append(getAliases()).append(",");
+        if (getAuditLogConfiguration() != null)
+            sb.append("AuditLogConfiguration: ").append(getAuditLogConfiguration()).append(",");
+        if (getDiskIopsConfiguration() != null)
+            sb.append("DiskIopsConfiguration: ").append(getDiskIopsConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -537,6 +1330,22 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
             return false;
         if (other.getSelfManagedActiveDirectoryConfiguration() != null
                 && other.getSelfManagedActiveDirectoryConfiguration().equals(this.getSelfManagedActiveDirectoryConfiguration()) == false)
+            return false;
+        if (other.getDeploymentType() == null ^ this.getDeploymentType() == null)
+            return false;
+        if (other.getDeploymentType() != null && other.getDeploymentType().equals(this.getDeploymentType()) == false)
+            return false;
+        if (other.getRemoteAdministrationEndpoint() == null ^ this.getRemoteAdministrationEndpoint() == null)
+            return false;
+        if (other.getRemoteAdministrationEndpoint() != null && other.getRemoteAdministrationEndpoint().equals(this.getRemoteAdministrationEndpoint()) == false)
+            return false;
+        if (other.getPreferredSubnetId() == null ^ this.getPreferredSubnetId() == null)
+            return false;
+        if (other.getPreferredSubnetId() != null && other.getPreferredSubnetId().equals(this.getPreferredSubnetId()) == false)
+            return false;
+        if (other.getPreferredFileServerIp() == null ^ this.getPreferredFileServerIp() == null)
+            return false;
+        if (other.getPreferredFileServerIp() != null && other.getPreferredFileServerIp().equals(this.getPreferredFileServerIp()) == false)
             return false;
         if (other.getThroughputCapacity() == null ^ this.getThroughputCapacity() == null)
             return false;
@@ -564,6 +1373,18 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
             return false;
         if (other.getCopyTagsToBackups() != null && other.getCopyTagsToBackups().equals(this.getCopyTagsToBackups()) == false)
             return false;
+        if (other.getAliases() == null ^ this.getAliases() == null)
+            return false;
+        if (other.getAliases() != null && other.getAliases().equals(this.getAliases()) == false)
+            return false;
+        if (other.getAuditLogConfiguration() == null ^ this.getAuditLogConfiguration() == null)
+            return false;
+        if (other.getAuditLogConfiguration() != null && other.getAuditLogConfiguration().equals(this.getAuditLogConfiguration()) == false)
+            return false;
+        if (other.getDiskIopsConfiguration() == null ^ this.getDiskIopsConfiguration() == null)
+            return false;
+        if (other.getDiskIopsConfiguration() != null && other.getDiskIopsConfiguration().equals(this.getDiskIopsConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -574,12 +1395,19 @@ public class WindowsFileSystemConfiguration implements Serializable, Cloneable, 
 
         hashCode = prime * hashCode + ((getActiveDirectoryId() == null) ? 0 : getActiveDirectoryId().hashCode());
         hashCode = prime * hashCode + ((getSelfManagedActiveDirectoryConfiguration() == null) ? 0 : getSelfManagedActiveDirectoryConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getDeploymentType() == null) ? 0 : getDeploymentType().hashCode());
+        hashCode = prime * hashCode + ((getRemoteAdministrationEndpoint() == null) ? 0 : getRemoteAdministrationEndpoint().hashCode());
+        hashCode = prime * hashCode + ((getPreferredSubnetId() == null) ? 0 : getPreferredSubnetId().hashCode());
+        hashCode = prime * hashCode + ((getPreferredFileServerIp() == null) ? 0 : getPreferredFileServerIp().hashCode());
         hashCode = prime * hashCode + ((getThroughputCapacity() == null) ? 0 : getThroughputCapacity().hashCode());
         hashCode = prime * hashCode + ((getMaintenanceOperationsInProgress() == null) ? 0 : getMaintenanceOperationsInProgress().hashCode());
         hashCode = prime * hashCode + ((getWeeklyMaintenanceStartTime() == null) ? 0 : getWeeklyMaintenanceStartTime().hashCode());
         hashCode = prime * hashCode + ((getDailyAutomaticBackupStartTime() == null) ? 0 : getDailyAutomaticBackupStartTime().hashCode());
         hashCode = prime * hashCode + ((getAutomaticBackupRetentionDays() == null) ? 0 : getAutomaticBackupRetentionDays().hashCode());
         hashCode = prime * hashCode + ((getCopyTagsToBackups() == null) ? 0 : getCopyTagsToBackups().hashCode());
+        hashCode = prime * hashCode + ((getAliases() == null) ? 0 : getAliases().hashCode());
+        hashCode = prime * hashCode + ((getAuditLogConfiguration() == null) ? 0 : getAuditLogConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getDiskIopsConfiguration() == null) ? 0 : getDiskIopsConfiguration().hashCode());
         return hashCode;
     }
 

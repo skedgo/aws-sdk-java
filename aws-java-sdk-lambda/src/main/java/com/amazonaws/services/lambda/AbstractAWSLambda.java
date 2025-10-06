@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -54,6 +54,11 @@ public class AbstractAWSLambda implements AWSLambda {
     }
 
     @Override
+    public CreateCodeSigningConfigResult createCodeSigningConfig(CreateCodeSigningConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateEventSourceMappingResult createEventSourceMapping(CreateEventSourceMappingRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -64,7 +69,17 @@ public class AbstractAWSLambda implements AWSLambda {
     }
 
     @Override
+    public CreateFunctionUrlConfigResult createFunctionUrlConfig(CreateFunctionUrlConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteAliasResult deleteAlias(DeleteAliasRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteCodeSigningConfigResult deleteCodeSigningConfig(DeleteCodeSigningConfigRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -79,12 +94,32 @@ public class AbstractAWSLambda implements AWSLambda {
     }
 
     @Override
+    public DeleteFunctionCodeSigningConfigResult deleteFunctionCodeSigningConfig(DeleteFunctionCodeSigningConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteFunctionConcurrencyResult deleteFunctionConcurrency(DeleteFunctionConcurrencyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public DeleteFunctionEventInvokeConfigResult deleteFunctionEventInvokeConfig(DeleteFunctionEventInvokeConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteFunctionUrlConfigResult deleteFunctionUrlConfig(DeleteFunctionUrlConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteLayerVersionResult deleteLayerVersion(DeleteLayerVersionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteProvisionedConcurrencyConfigResult deleteProvisionedConcurrencyConfig(DeleteProvisionedConcurrencyConfigRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -99,6 +134,11 @@ public class AbstractAWSLambda implements AWSLambda {
     }
 
     @Override
+    public GetCodeSigningConfigResult getCodeSigningConfig(GetCodeSigningConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetEventSourceMappingResult getEventSourceMapping(GetEventSourceMappingRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -109,7 +149,27 @@ public class AbstractAWSLambda implements AWSLambda {
     }
 
     @Override
+    public GetFunctionCodeSigningConfigResult getFunctionCodeSigningConfig(GetFunctionCodeSigningConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetFunctionConcurrencyResult getFunctionConcurrency(GetFunctionConcurrencyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetFunctionConfigurationResult getFunctionConfiguration(GetFunctionConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetFunctionEventInvokeConfigResult getFunctionEventInvokeConfig(GetFunctionEventInvokeConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetFunctionUrlConfigResult getFunctionUrlConfig(GetFunctionUrlConfigRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -134,6 +194,16 @@ public class AbstractAWSLambda implements AWSLambda {
     }
 
     @Override
+    public GetProvisionedConcurrencyConfigResult getProvisionedConcurrencyConfig(GetProvisionedConcurrencyConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetRuntimeManagementConfigResult getRuntimeManagementConfig(GetRuntimeManagementConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public InvokeResult invoke(InvokeRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -150,6 +220,11 @@ public class AbstractAWSLambda implements AWSLambda {
     }
 
     @Override
+    public ListCodeSigningConfigsResult listCodeSigningConfigs(ListCodeSigningConfigsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListEventSourceMappingsResult listEventSourceMappings(ListEventSourceMappingsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -157,6 +232,16 @@ public class AbstractAWSLambda implements AWSLambda {
     @Override
     public ListEventSourceMappingsResult listEventSourceMappings() {
         return listEventSourceMappings(new ListEventSourceMappingsRequest());
+    }
+
+    @Override
+    public ListFunctionEventInvokeConfigsResult listFunctionEventInvokeConfigs(ListFunctionEventInvokeConfigsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListFunctionUrlConfigsResult listFunctionUrlConfigs(ListFunctionUrlConfigsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
@@ -170,12 +255,22 @@ public class AbstractAWSLambda implements AWSLambda {
     }
 
     @Override
+    public ListFunctionsByCodeSigningConfigResult listFunctionsByCodeSigningConfig(ListFunctionsByCodeSigningConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListLayerVersionsResult listLayerVersions(ListLayerVersionsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public ListLayersResult listLayers(ListLayersRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListProvisionedConcurrencyConfigsResult listProvisionedConcurrencyConfigs(ListProvisionedConcurrencyConfigsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -200,7 +295,27 @@ public class AbstractAWSLambda implements AWSLambda {
     }
 
     @Override
+    public PutFunctionCodeSigningConfigResult putFunctionCodeSigningConfig(PutFunctionCodeSigningConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public PutFunctionConcurrencyResult putFunctionConcurrency(PutFunctionConcurrencyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public PutFunctionEventInvokeConfigResult putFunctionEventInvokeConfig(PutFunctionEventInvokeConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public PutProvisionedConcurrencyConfigResult putProvisionedConcurrencyConfig(PutProvisionedConcurrencyConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public PutRuntimeManagementConfigResult putRuntimeManagementConfig(PutRuntimeManagementConfigRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -230,6 +345,11 @@ public class AbstractAWSLambda implements AWSLambda {
     }
 
     @Override
+    public UpdateCodeSigningConfigResult updateCodeSigningConfig(UpdateCodeSigningConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateEventSourceMappingResult updateEventSourceMapping(UpdateEventSourceMappingRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -241,6 +361,16 @@ public class AbstractAWSLambda implements AWSLambda {
 
     @Override
     public UpdateFunctionConfigurationResult updateFunctionConfiguration(UpdateFunctionConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateFunctionEventInvokeConfigResult updateFunctionEventInvokeConfig(UpdateFunctionEventInvokeConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateFunctionUrlConfigResult updateFunctionUrlConfig(UpdateFunctionUrlConfigRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

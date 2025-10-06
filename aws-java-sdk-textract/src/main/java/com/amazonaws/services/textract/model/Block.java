@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,10 +20,10 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 /**
  * <p>
  * A <code>Block</code> represents items that are recognized in a document within a group of pixels close to each other.
- * The information returned in a <code>Block</code> depends on the type of operation. In document-text detection (for
- * example <a>DetectDocumentText</a>), you get information about the detected words and lines of text. In text analysis
- * (for example <a>AnalyzeDocument</a>), you can also get information about the fields, tables and selection elements
- * that are detected in the document.
+ * The information returned in a <code>Block</code> object depends on the type of operation. In text detection for
+ * documents (for example <a>DetectDocumentText</a>), you get information about the detected words and lines of text. In
+ * text analysis (for example <a>AnalyzeDocument</a>), you can also get information about the fields, tables, and
+ * selection elements that are detected in the document.
  * </p>
  * <p>
  * An array of <code>Block</code> objects is returned by both synchronous and asynchronous operations. In synchronous
@@ -43,12 +43,12 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of text that's recognized in a block. In text-detection operations, the following types are returned:
+     * The type of text item that's recognized. In operations for text detection, the following types are returned:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <i>PAGE</i> - Contains a list of the LINE Block objects that are detected on a document page.
+     * <i>PAGE</i> - Contains a list of the LINE <code>Block</code> objects that are detected on a document page.
      * </p>
      * </li>
      * <li>
@@ -59,7 +59,7 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <i>LINE</i> - A string of tab-delimited, contiguous words that's detected on a document page.
+     * <i>LINE</i> - A string of tab-delimited, contiguous words that are detected on a document page.
      * </p>
      * </li>
      * </ul>
@@ -69,31 +69,43 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <i>PAGE</i> - Contains a list of child Block objects that are detected on a document page.
+     * <i>PAGE</i> - Contains a list of child <code>Block</code> objects that are detected on a document page.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <i>KEY_VALUE_SET</i> - Stores the KEY and VALUE Block objects for a field that's detected on a document page. Use
-     * the <code>EntityType</code> field to determine if a KEY_VALUE_SET object is a KEY Block object or a VALUE Block
-     * object.
+     * <i>KEY_VALUE_SET</i> - Stores the KEY and VALUE <code>Block</code> objects for linked text that's detected on a
+     * document page. Use the <code>EntityType</code> field to determine if a KEY_VALUE_SET object is a KEY
+     * <code>Block</code> object or a VALUE <code>Block</code> object.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <i>WORD</i> - A word detected on a document page. A word is one or more ISO basic Latin script characters that
-     * aren't separated by spaces that's detected on a document page.
+     * <i>WORD</i> - A word that's detected on a document page. A word is one or more ISO basic Latin script characters
+     * that aren't separated by spaces.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <i>LINE</i> - A string of tab-delimited, contiguous words that's detected on a document page.
+     * <i>LINE</i> - A string of tab-delimited, contiguous words that are detected on a document page.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <i>TABLE</i> - A table that's detected on a document page. A table is any grid-based information with 2 or more
-     * rows or columns with a cell span of 1 row and 1 column each.
+     * <i>TABLE</i> - A table that's detected on a document page. A table is grid-based information with two or more
+     * rows or columns, with a cell span of one row and one column each.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_TITLE</i> - The title of a table. A title is typically a line of text above or below a table, or
+     * embedded as the first row of a table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_FOOTER</i> - The footer associated with a table. A footer is typically a line or lines of text below a
+     * table or embedded as the last row of a table.
      * </p>
      * </li>
      * <li>
@@ -104,8 +116,88 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <i>SELECTION_ELEMENT</i> - A selectable element such as a radio button or checkbox that's detected on a document
-     * page. Use the value of <code>SelectionStatus</code> to determine the status of the selection element.
+     * <i>MERGED_CELL</i> - A cell in a table whose content spans more than one row or column. The
+     * <code>Relationships</code> array for this cell contain data from individual cells.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>SELECTION_ELEMENT</i> - A selection element such as an option button (radio button) or a check box that's
+     * detected on a document page. Use the value of <code>SelectionStatus</code> to determine the status of the
+     * selection element.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>SIGNATURE</i> - The location and confidence score of a signature detected on a document page. Can be returned
+     * as part of a Key-Value pair or a detected cell.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>QUERY</i> - A question asked during the call of AnalyzeDocument. Contains an alias and an ID that attaches it
+     * to its answer.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>QUERY_RESULT</i> - A response to a question asked during the call of analyze document. Comes with an alias and
+     * ID for ease of locating in a response. Also contains location and confidence score.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following BlockTypes are only returned for Amazon Textract Layout.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>LAYOUT_TITLE</code> - The main title of the document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_HEADER</code> - Text located in the top margin of the document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_FOOTER</code> - Text located in the bottom margin of the document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_SECTION_HEADER</code> - The titles of sections within a document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_PAGE_NUMBER</code> - The page number of the documents.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_LIST</code> - Any information grouped together in list form.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_FIGURE</code> - Indicates the location of an image in a document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_TABLE</code> - Indicates the location of a table in the document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_KEY_VALUE</code> - Indicates the location of form key-values in a document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_TEXT</code> - Text that is present typically as a part of paragraphs in documents.
      * </p>
      * </li>
      * </ul>
@@ -113,8 +205,8 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
     private String blockType;
     /**
      * <p>
-     * The confidence that Amazon Textract has in the accuracy of the recognized text and the accuracy of the geometry
-     * points around the recognized text.
+     * The confidence score that Amazon Textract has in the accuracy of the recognized text and the accuracy of the
+     * geometry points around the recognized text.
      * </p>
      */
     private Float confidence;
@@ -124,6 +216,12 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String text;
+    /**
+     * <p>
+     * The kind of text that Amazon Textract has detected. Can check for handwritten text and printed text.
+     * </p>
+     */
+    private String textType;
     /**
      * <p>
      * The row in which a table cell is located. The first row position is 1. <code>RowIndex</code> isn't returned by
@@ -140,8 +238,8 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
     private Integer columnIndex;
     /**
      * <p>
-     * The number of rows that a table spans. <code>RowSpan</code> isn't returned by <code>DetectDocumentText</code> and
-     * <code>GetDocumentTextDetection</code>.
+     * The number of rows that a table cell spans. <code>RowSpan</code> isn't returned by
+     * <code>DetectDocumentText</code> and <code>GetDocumentTextDetection</code>.
      * </p>
      */
     private Integer rowSpan;
@@ -167,27 +265,19 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
     private String id;
     /**
      * <p>
-     * A list of child blocks of the current block. For example a LINE object has child blocks for each WORD block
-     * that's part of the line of text. There aren't Relationship objects in the list for relationships that don't
-     * exist, such as when the current block has no child blocks. The list size can be the following:
+     * A list of relationship objects that describe how blocks are related to each other. For example, a LINE block
+     * object contains a CHILD relationship type with the WORD blocks that make up the line of text. There aren't
+     * Relationship objects in the list for relationships that don't exist, such as when the current block has no child
+     * blocks.
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * 0 - The block has no child blocks.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * 1 - The block has child blocks.
-     * </p>
-     * </li>
-     * </ul>
      */
     private java.util.List<Relationship> relationships;
     /**
      * <p>
-     * The type of entity. The following can be returned:
+     * The type of entity.
+     * </p>
+     * <p>
+     * The following entity types can be returned by FORMS analysis:
      * </p>
      * <ul>
      * <li>
@@ -202,6 +292,49 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * </ul>
      * <p>
+     * The following entity types can be returned by TABLES analysis:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <i>COLUMN_HEADER</i> - Identifies a cell that is a header of a column.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_TITLE</i> - Identifies a cell that is a title within the table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_SECTION_TITLE</i> - Identifies a cell that is a title of a section within a table. A section title is a
+     * cell that typically spans an entire row above a section.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_FOOTER</i> - Identifies a cell that is a footer of a table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_SUMMARY</i> - Identifies a summary cell of a table. A summary cell can be a row of a table or an
+     * additional, smaller table that contains summary information for another table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>STRUCTURED_TABLE </i> - Identifies a table with column headers where the content of each row corresponds to
+     * the headers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>SEMI_STRUCTURED_TABLE</i> - Identifies a non-structured table.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
      * <code>EntityTypes</code> isn't returned by <code>DetectDocumentText</code> and
      * <code>GetDocumentTextDetection</code>.
      * </p>
@@ -209,29 +342,30 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
     private java.util.List<String> entityTypes;
     /**
      * <p>
-     * The selection status of a selectable element such as a radio button or checkbox.
+     * The selection status of a selection element, such as an option button or check box.
      * </p>
      */
     private String selectionStatus;
     /**
      * <p>
-     * The page in which a block was detected. <code>Page</code> is returned by asynchronous operations. Page values
-     * greater than 1 are only returned for multi-page documents that are in PDF format. A scanned image (JPG/PNG), even
-     * if it contains multiple document pages, is always considered to be a single-page document and the value of
-     * <code>Page</code> is always 1. Synchronous operations don't return <code>Page</code> as every input document is
-     * considered to be a single-page document.
+     * The page on which a block was detected. <code>Page</code> is returned by synchronous and asynchronous operations.
+     * Page values greater than 1 are only returned for multipage documents that are in PDF or TIFF format. A scanned
+     * image (JPEG/PNG) provided to an asynchronous operation, even if it contains multiple document pages, is
+     * considered a single-page document. This means that for scanned images the value of <code>Page</code> is always 1.
      * </p>
      */
     private Integer page;
+    /** <p/> */
+    private Query query;
 
     /**
      * <p>
-     * The type of text that's recognized in a block. In text-detection operations, the following types are returned:
+     * The type of text item that's recognized. In operations for text detection, the following types are returned:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <i>PAGE</i> - Contains a list of the LINE Block objects that are detected on a document page.
+     * <i>PAGE</i> - Contains a list of the LINE <code>Block</code> objects that are detected on a document page.
      * </p>
      * </li>
      * <li>
@@ -242,7 +376,7 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <i>LINE</i> - A string of tab-delimited, contiguous words that's detected on a document page.
+     * <i>LINE</i> - A string of tab-delimited, contiguous words that are detected on a document page.
      * </p>
      * </li>
      * </ul>
@@ -252,31 +386,43 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <i>PAGE</i> - Contains a list of child Block objects that are detected on a document page.
+     * <i>PAGE</i> - Contains a list of child <code>Block</code> objects that are detected on a document page.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <i>KEY_VALUE_SET</i> - Stores the KEY and VALUE Block objects for a field that's detected on a document page. Use
-     * the <code>EntityType</code> field to determine if a KEY_VALUE_SET object is a KEY Block object or a VALUE Block
-     * object.
+     * <i>KEY_VALUE_SET</i> - Stores the KEY and VALUE <code>Block</code> objects for linked text that's detected on a
+     * document page. Use the <code>EntityType</code> field to determine if a KEY_VALUE_SET object is a KEY
+     * <code>Block</code> object or a VALUE <code>Block</code> object.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <i>WORD</i> - A word detected on a document page. A word is one or more ISO basic Latin script characters that
-     * aren't separated by spaces that's detected on a document page.
+     * <i>WORD</i> - A word that's detected on a document page. A word is one or more ISO basic Latin script characters
+     * that aren't separated by spaces.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <i>LINE</i> - A string of tab-delimited, contiguous words that's detected on a document page.
+     * <i>LINE</i> - A string of tab-delimited, contiguous words that are detected on a document page.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <i>TABLE</i> - A table that's detected on a document page. A table is any grid-based information with 2 or more
-     * rows or columns with a cell span of 1 row and 1 column each.
+     * <i>TABLE</i> - A table that's detected on a document page. A table is grid-based information with two or more
+     * rows or columns, with a cell span of one row and one column each.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_TITLE</i> - The title of a table. A title is typically a line of text above or below a table, or
+     * embedded as the first row of a table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_FOOTER</i> - The footer associated with a table. A footer is typically a line or lines of text below a
+     * table or embedded as the last row of a table.
      * </p>
      * </li>
      * <li>
@@ -287,19 +433,99 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <i>SELECTION_ELEMENT</i> - A selectable element such as a radio button or checkbox that's detected on a document
-     * page. Use the value of <code>SelectionStatus</code> to determine the status of the selection element.
+     * <i>MERGED_CELL</i> - A cell in a table whose content spans more than one row or column. The
+     * <code>Relationships</code> array for this cell contain data from individual cells.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>SELECTION_ELEMENT</i> - A selection element such as an option button (radio button) or a check box that's
+     * detected on a document page. Use the value of <code>SelectionStatus</code> to determine the status of the
+     * selection element.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>SIGNATURE</i> - The location and confidence score of a signature detected on a document page. Can be returned
+     * as part of a Key-Value pair or a detected cell.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>QUERY</i> - A question asked during the call of AnalyzeDocument. Contains an alias and an ID that attaches it
+     * to its answer.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>QUERY_RESULT</i> - A response to a question asked during the call of analyze document. Comes with an alias and
+     * ID for ease of locating in a response. Also contains location and confidence score.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following BlockTypes are only returned for Amazon Textract Layout.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>LAYOUT_TITLE</code> - The main title of the document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_HEADER</code> - Text located in the top margin of the document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_FOOTER</code> - Text located in the bottom margin of the document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_SECTION_HEADER</code> - The titles of sections within a document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_PAGE_NUMBER</code> - The page number of the documents.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_LIST</code> - Any information grouped together in list form.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_FIGURE</code> - Indicates the location of an image in a document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_TABLE</code> - Indicates the location of a table in the document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_KEY_VALUE</code> - Indicates the location of form key-values in a document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_TEXT</code> - Text that is present typically as a part of paragraphs in documents.
      * </p>
      * </li>
      * </ul>
      * 
      * @param blockType
-     *        The type of text that's recognized in a block. In text-detection operations, the following types are
+     *        The type of text item that's recognized. In operations for text detection, the following types are
      *        returned:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <i>PAGE</i> - Contains a list of the LINE Block objects that are detected on a document page.
+     *        <i>PAGE</i> - Contains a list of the LINE <code>Block</code> objects that are detected on a document page.
      *        </p>
      *        </li>
      *        <li>
@@ -310,7 +536,7 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <i>LINE</i> - A string of tab-delimited, contiguous words that's detected on a document page.
+     *        <i>LINE</i> - A string of tab-delimited, contiguous words that are detected on a document page.
      *        </p>
      *        </li>
      *        </ul>
@@ -320,31 +546,43 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        <i>PAGE</i> - Contains a list of child Block objects that are detected on a document page.
+     *        <i>PAGE</i> - Contains a list of child <code>Block</code> objects that are detected on a document page.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <i>KEY_VALUE_SET</i> - Stores the KEY and VALUE Block objects for a field that's detected on a document
-     *        page. Use the <code>EntityType</code> field to determine if a KEY_VALUE_SET object is a KEY Block object
-     *        or a VALUE Block object.
+     *        <i>KEY_VALUE_SET</i> - Stores the KEY and VALUE <code>Block</code> objects for linked text that's detected
+     *        on a document page. Use the <code>EntityType</code> field to determine if a KEY_VALUE_SET object is a KEY
+     *        <code>Block</code> object or a VALUE <code>Block</code> object.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <i>WORD</i> - A word detected on a document page. A word is one or more ISO basic Latin script characters
-     *        that aren't separated by spaces that's detected on a document page.
+     *        <i>WORD</i> - A word that's detected on a document page. A word is one or more ISO basic Latin script
+     *        characters that aren't separated by spaces.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <i>LINE</i> - A string of tab-delimited, contiguous words that's detected on a document page.
+     *        <i>LINE</i> - A string of tab-delimited, contiguous words that are detected on a document page.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <i>TABLE</i> - A table that's detected on a document page. A table is any grid-based information with 2 or
-     *        more rows or columns with a cell span of 1 row and 1 column each.
+     *        <i>TABLE</i> - A table that's detected on a document page. A table is grid-based information with two or
+     *        more rows or columns, with a cell span of one row and one column each.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>TABLE_TITLE</i> - The title of a table. A title is typically a line of text above or below a table, or
+     *        embedded as the first row of a table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>TABLE_FOOTER</i> - The footer associated with a table. A footer is typically a line or lines of text
+     *        below a table or embedded as the last row of a table.
      *        </p>
      *        </li>
      *        <li>
@@ -355,9 +593,88 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <i>SELECTION_ELEMENT</i> - A selectable element such as a radio button or checkbox that's detected on a
-     *        document page. Use the value of <code>SelectionStatus</code> to determine the status of the selection
-     *        element.
+     *        <i>MERGED_CELL</i> - A cell in a table whose content spans more than one row or column. The
+     *        <code>Relationships</code> array for this cell contain data from individual cells.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>SELECTION_ELEMENT</i> - A selection element such as an option button (radio button) or a check box
+     *        that's detected on a document page. Use the value of <code>SelectionStatus</code> to determine the status
+     *        of the selection element.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>SIGNATURE</i> - The location and confidence score of a signature detected on a document page. Can be
+     *        returned as part of a Key-Value pair or a detected cell.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>QUERY</i> - A question asked during the call of AnalyzeDocument. Contains an alias and an ID that
+     *        attaches it to its answer.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>QUERY_RESULT</i> - A response to a question asked during the call of analyze document. Comes with an
+     *        alias and ID for ease of locating in a response. Also contains location and confidence score.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following BlockTypes are only returned for Amazon Textract Layout.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_TITLE</code> - The main title of the document.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_HEADER</code> - Text located in the top margin of the document.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_FOOTER</code> - Text located in the bottom margin of the document.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_SECTION_HEADER</code> - The titles of sections within a document.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_PAGE_NUMBER</code> - The page number of the documents.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_LIST</code> - Any information grouped together in list form.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_FIGURE</code> - Indicates the location of an image in a document.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_TABLE</code> - Indicates the location of a table in the document.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_KEY_VALUE</code> - Indicates the location of form key-values in a document.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_TEXT</code> - Text that is present typically as a part of paragraphs in documents.
      *        </p>
      *        </li>
      * @see BlockType
@@ -369,12 +686,12 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of text that's recognized in a block. In text-detection operations, the following types are returned:
+     * The type of text item that's recognized. In operations for text detection, the following types are returned:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <i>PAGE</i> - Contains a list of the LINE Block objects that are detected on a document page.
+     * <i>PAGE</i> - Contains a list of the LINE <code>Block</code> objects that are detected on a document page.
      * </p>
      * </li>
      * <li>
@@ -385,7 +702,7 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <i>LINE</i> - A string of tab-delimited, contiguous words that's detected on a document page.
+     * <i>LINE</i> - A string of tab-delimited, contiguous words that are detected on a document page.
      * </p>
      * </li>
      * </ul>
@@ -395,31 +712,43 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <i>PAGE</i> - Contains a list of child Block objects that are detected on a document page.
+     * <i>PAGE</i> - Contains a list of child <code>Block</code> objects that are detected on a document page.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <i>KEY_VALUE_SET</i> - Stores the KEY and VALUE Block objects for a field that's detected on a document page. Use
-     * the <code>EntityType</code> field to determine if a KEY_VALUE_SET object is a KEY Block object or a VALUE Block
-     * object.
+     * <i>KEY_VALUE_SET</i> - Stores the KEY and VALUE <code>Block</code> objects for linked text that's detected on a
+     * document page. Use the <code>EntityType</code> field to determine if a KEY_VALUE_SET object is a KEY
+     * <code>Block</code> object or a VALUE <code>Block</code> object.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <i>WORD</i> - A word detected on a document page. A word is one or more ISO basic Latin script characters that
-     * aren't separated by spaces that's detected on a document page.
+     * <i>WORD</i> - A word that's detected on a document page. A word is one or more ISO basic Latin script characters
+     * that aren't separated by spaces.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <i>LINE</i> - A string of tab-delimited, contiguous words that's detected on a document page.
+     * <i>LINE</i> - A string of tab-delimited, contiguous words that are detected on a document page.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <i>TABLE</i> - A table that's detected on a document page. A table is any grid-based information with 2 or more
-     * rows or columns with a cell span of 1 row and 1 column each.
+     * <i>TABLE</i> - A table that's detected on a document page. A table is grid-based information with two or more
+     * rows or columns, with a cell span of one row and one column each.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_TITLE</i> - The title of a table. A title is typically a line of text above or below a table, or
+     * embedded as the first row of a table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_FOOTER</i> - The footer associated with a table. A footer is typically a line or lines of text below a
+     * table or embedded as the last row of a table.
      * </p>
      * </li>
      * <li>
@@ -430,18 +759,99 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <i>SELECTION_ELEMENT</i> - A selectable element such as a radio button or checkbox that's detected on a document
-     * page. Use the value of <code>SelectionStatus</code> to determine the status of the selection element.
+     * <i>MERGED_CELL</i> - A cell in a table whose content spans more than one row or column. The
+     * <code>Relationships</code> array for this cell contain data from individual cells.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>SELECTION_ELEMENT</i> - A selection element such as an option button (radio button) or a check box that's
+     * detected on a document page. Use the value of <code>SelectionStatus</code> to determine the status of the
+     * selection element.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>SIGNATURE</i> - The location and confidence score of a signature detected on a document page. Can be returned
+     * as part of a Key-Value pair or a detected cell.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>QUERY</i> - A question asked during the call of AnalyzeDocument. Contains an alias and an ID that attaches it
+     * to its answer.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>QUERY_RESULT</i> - A response to a question asked during the call of analyze document. Comes with an alias and
+     * ID for ease of locating in a response. Also contains location and confidence score.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following BlockTypes are only returned for Amazon Textract Layout.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>LAYOUT_TITLE</code> - The main title of the document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_HEADER</code> - Text located in the top margin of the document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_FOOTER</code> - Text located in the bottom margin of the document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_SECTION_HEADER</code> - The titles of sections within a document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_PAGE_NUMBER</code> - The page number of the documents.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_LIST</code> - Any information grouped together in list form.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_FIGURE</code> - Indicates the location of an image in a document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_TABLE</code> - Indicates the location of a table in the document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_KEY_VALUE</code> - Indicates the location of form key-values in a document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_TEXT</code> - Text that is present typically as a part of paragraphs in documents.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return The type of text that's recognized in a block. In text-detection operations, the following types are
+     * @return The type of text item that's recognized. In operations for text detection, the following types are
      *         returned:</p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <i>PAGE</i> - Contains a list of the LINE Block objects that are detected on a document page.
+     *         <i>PAGE</i> - Contains a list of the LINE <code>Block</code> objects that are detected on a document
+     *         page.
      *         </p>
      *         </li>
      *         <li>
@@ -452,7 +862,7 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      *         </li>
      *         <li>
      *         <p>
-     *         <i>LINE</i> - A string of tab-delimited, contiguous words that's detected on a document page.
+     *         <i>LINE</i> - A string of tab-delimited, contiguous words that are detected on a document page.
      *         </p>
      *         </li>
      *         </ul>
@@ -462,31 +872,43 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      *         <ul>
      *         <li>
      *         <p>
-     *         <i>PAGE</i> - Contains a list of child Block objects that are detected on a document page.
+     *         <i>PAGE</i> - Contains a list of child <code>Block</code> objects that are detected on a document page.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <i>KEY_VALUE_SET</i> - Stores the KEY and VALUE Block objects for a field that's detected on a document
-     *         page. Use the <code>EntityType</code> field to determine if a KEY_VALUE_SET object is a KEY Block object
-     *         or a VALUE Block object.
+     *         <i>KEY_VALUE_SET</i> - Stores the KEY and VALUE <code>Block</code> objects for linked text that's
+     *         detected on a document page. Use the <code>EntityType</code> field to determine if a KEY_VALUE_SET object
+     *         is a KEY <code>Block</code> object or a VALUE <code>Block</code> object.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <i>WORD</i> - A word detected on a document page. A word is one or more ISO basic Latin script characters
-     *         that aren't separated by spaces that's detected on a document page.
+     *         <i>WORD</i> - A word that's detected on a document page. A word is one or more ISO basic Latin script
+     *         characters that aren't separated by spaces.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <i>LINE</i> - A string of tab-delimited, contiguous words that's detected on a document page.
+     *         <i>LINE</i> - A string of tab-delimited, contiguous words that are detected on a document page.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <i>TABLE</i> - A table that's detected on a document page. A table is any grid-based information with 2
-     *         or more rows or columns with a cell span of 1 row and 1 column each.
+     *         <i>TABLE</i> - A table that's detected on a document page. A table is grid-based information with two or
+     *         more rows or columns, with a cell span of one row and one column each.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <i>TABLE_TITLE</i> - The title of a table. A title is typically a line of text above or below a table, or
+     *         embedded as the first row of a table.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <i>TABLE_FOOTER</i> - The footer associated with a table. A footer is typically a line or lines of text
+     *         below a table or embedded as the last row of a table.
      *         </p>
      *         </li>
      *         <li>
@@ -497,9 +919,88 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      *         </li>
      *         <li>
      *         <p>
-     *         <i>SELECTION_ELEMENT</i> - A selectable element such as a radio button or checkbox that's detected on a
-     *         document page. Use the value of <code>SelectionStatus</code> to determine the status of the selection
-     *         element.
+     *         <i>MERGED_CELL</i> - A cell in a table whose content spans more than one row or column. The
+     *         <code>Relationships</code> array for this cell contain data from individual cells.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <i>SELECTION_ELEMENT</i> - A selection element such as an option button (radio button) or a check box
+     *         that's detected on a document page. Use the value of <code>SelectionStatus</code> to determine the status
+     *         of the selection element.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <i>SIGNATURE</i> - The location and confidence score of a signature detected on a document page. Can be
+     *         returned as part of a Key-Value pair or a detected cell.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <i>QUERY</i> - A question asked during the call of AnalyzeDocument. Contains an alias and an ID that
+     *         attaches it to its answer.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <i>QUERY_RESULT</i> - A response to a question asked during the call of analyze document. Comes with an
+     *         alias and ID for ease of locating in a response. Also contains location and confidence score.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         The following BlockTypes are only returned for Amazon Textract Layout.
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>LAYOUT_TITLE</code> - The main title of the document.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>LAYOUT_HEADER</code> - Text located in the top margin of the document.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>LAYOUT_FOOTER</code> - Text located in the bottom margin of the document.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>LAYOUT_SECTION_HEADER</code> - The titles of sections within a document.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>LAYOUT_PAGE_NUMBER</code> - The page number of the documents.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>LAYOUT_LIST</code> - Any information grouped together in list form.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>LAYOUT_FIGURE</code> - Indicates the location of an image in a document.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>LAYOUT_TABLE</code> - Indicates the location of a table in the document.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>LAYOUT_KEY_VALUE</code> - Indicates the location of form key-values in a document.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>LAYOUT_TEXT</code> - Text that is present typically as a part of paragraphs in documents.
      *         </p>
      *         </li>
      * @see BlockType
@@ -511,12 +1012,12 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of text that's recognized in a block. In text-detection operations, the following types are returned:
+     * The type of text item that's recognized. In operations for text detection, the following types are returned:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <i>PAGE</i> - Contains a list of the LINE Block objects that are detected on a document page.
+     * <i>PAGE</i> - Contains a list of the LINE <code>Block</code> objects that are detected on a document page.
      * </p>
      * </li>
      * <li>
@@ -527,7 +1028,7 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <i>LINE</i> - A string of tab-delimited, contiguous words that's detected on a document page.
+     * <i>LINE</i> - A string of tab-delimited, contiguous words that are detected on a document page.
      * </p>
      * </li>
      * </ul>
@@ -537,31 +1038,43 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <i>PAGE</i> - Contains a list of child Block objects that are detected on a document page.
+     * <i>PAGE</i> - Contains a list of child <code>Block</code> objects that are detected on a document page.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <i>KEY_VALUE_SET</i> - Stores the KEY and VALUE Block objects for a field that's detected on a document page. Use
-     * the <code>EntityType</code> field to determine if a KEY_VALUE_SET object is a KEY Block object or a VALUE Block
-     * object.
+     * <i>KEY_VALUE_SET</i> - Stores the KEY and VALUE <code>Block</code> objects for linked text that's detected on a
+     * document page. Use the <code>EntityType</code> field to determine if a KEY_VALUE_SET object is a KEY
+     * <code>Block</code> object or a VALUE <code>Block</code> object.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <i>WORD</i> - A word detected on a document page. A word is one or more ISO basic Latin script characters that
-     * aren't separated by spaces that's detected on a document page.
+     * <i>WORD</i> - A word that's detected on a document page. A word is one or more ISO basic Latin script characters
+     * that aren't separated by spaces.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <i>LINE</i> - A string of tab-delimited, contiguous words that's detected on a document page.
+     * <i>LINE</i> - A string of tab-delimited, contiguous words that are detected on a document page.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <i>TABLE</i> - A table that's detected on a document page. A table is any grid-based information with 2 or more
-     * rows or columns with a cell span of 1 row and 1 column each.
+     * <i>TABLE</i> - A table that's detected on a document page. A table is grid-based information with two or more
+     * rows or columns, with a cell span of one row and one column each.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_TITLE</i> - The title of a table. A title is typically a line of text above or below a table, or
+     * embedded as the first row of a table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_FOOTER</i> - The footer associated with a table. A footer is typically a line or lines of text below a
+     * table or embedded as the last row of a table.
      * </p>
      * </li>
      * <li>
@@ -572,19 +1085,99 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <i>SELECTION_ELEMENT</i> - A selectable element such as a radio button or checkbox that's detected on a document
-     * page. Use the value of <code>SelectionStatus</code> to determine the status of the selection element.
+     * <i>MERGED_CELL</i> - A cell in a table whose content spans more than one row or column. The
+     * <code>Relationships</code> array for this cell contain data from individual cells.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>SELECTION_ELEMENT</i> - A selection element such as an option button (radio button) or a check box that's
+     * detected on a document page. Use the value of <code>SelectionStatus</code> to determine the status of the
+     * selection element.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>SIGNATURE</i> - The location and confidence score of a signature detected on a document page. Can be returned
+     * as part of a Key-Value pair or a detected cell.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>QUERY</i> - A question asked during the call of AnalyzeDocument. Contains an alias and an ID that attaches it
+     * to its answer.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>QUERY_RESULT</i> - A response to a question asked during the call of analyze document. Comes with an alias and
+     * ID for ease of locating in a response. Also contains location and confidence score.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following BlockTypes are only returned for Amazon Textract Layout.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>LAYOUT_TITLE</code> - The main title of the document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_HEADER</code> - Text located in the top margin of the document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_FOOTER</code> - Text located in the bottom margin of the document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_SECTION_HEADER</code> - The titles of sections within a document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_PAGE_NUMBER</code> - The page number of the documents.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_LIST</code> - Any information grouped together in list form.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_FIGURE</code> - Indicates the location of an image in a document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_TABLE</code> - Indicates the location of a table in the document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_KEY_VALUE</code> - Indicates the location of form key-values in a document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_TEXT</code> - Text that is present typically as a part of paragraphs in documents.
      * </p>
      * </li>
      * </ul>
      * 
      * @param blockType
-     *        The type of text that's recognized in a block. In text-detection operations, the following types are
+     *        The type of text item that's recognized. In operations for text detection, the following types are
      *        returned:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <i>PAGE</i> - Contains a list of the LINE Block objects that are detected on a document page.
+     *        <i>PAGE</i> - Contains a list of the LINE <code>Block</code> objects that are detected on a document page.
      *        </p>
      *        </li>
      *        <li>
@@ -595,7 +1188,7 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <i>LINE</i> - A string of tab-delimited, contiguous words that's detected on a document page.
+     *        <i>LINE</i> - A string of tab-delimited, contiguous words that are detected on a document page.
      *        </p>
      *        </li>
      *        </ul>
@@ -605,31 +1198,43 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        <i>PAGE</i> - Contains a list of child Block objects that are detected on a document page.
+     *        <i>PAGE</i> - Contains a list of child <code>Block</code> objects that are detected on a document page.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <i>KEY_VALUE_SET</i> - Stores the KEY and VALUE Block objects for a field that's detected on a document
-     *        page. Use the <code>EntityType</code> field to determine if a KEY_VALUE_SET object is a KEY Block object
-     *        or a VALUE Block object.
+     *        <i>KEY_VALUE_SET</i> - Stores the KEY and VALUE <code>Block</code> objects for linked text that's detected
+     *        on a document page. Use the <code>EntityType</code> field to determine if a KEY_VALUE_SET object is a KEY
+     *        <code>Block</code> object or a VALUE <code>Block</code> object.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <i>WORD</i> - A word detected on a document page. A word is one or more ISO basic Latin script characters
-     *        that aren't separated by spaces that's detected on a document page.
+     *        <i>WORD</i> - A word that's detected on a document page. A word is one or more ISO basic Latin script
+     *        characters that aren't separated by spaces.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <i>LINE</i> - A string of tab-delimited, contiguous words that's detected on a document page.
+     *        <i>LINE</i> - A string of tab-delimited, contiguous words that are detected on a document page.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <i>TABLE</i> - A table that's detected on a document page. A table is any grid-based information with 2 or
-     *        more rows or columns with a cell span of 1 row and 1 column each.
+     *        <i>TABLE</i> - A table that's detected on a document page. A table is grid-based information with two or
+     *        more rows or columns, with a cell span of one row and one column each.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>TABLE_TITLE</i> - The title of a table. A title is typically a line of text above or below a table, or
+     *        embedded as the first row of a table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>TABLE_FOOTER</i> - The footer associated with a table. A footer is typically a line or lines of text
+     *        below a table or embedded as the last row of a table.
      *        </p>
      *        </li>
      *        <li>
@@ -640,9 +1245,88 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <i>SELECTION_ELEMENT</i> - A selectable element such as a radio button or checkbox that's detected on a
-     *        document page. Use the value of <code>SelectionStatus</code> to determine the status of the selection
-     *        element.
+     *        <i>MERGED_CELL</i> - A cell in a table whose content spans more than one row or column. The
+     *        <code>Relationships</code> array for this cell contain data from individual cells.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>SELECTION_ELEMENT</i> - A selection element such as an option button (radio button) or a check box
+     *        that's detected on a document page. Use the value of <code>SelectionStatus</code> to determine the status
+     *        of the selection element.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>SIGNATURE</i> - The location and confidence score of a signature detected on a document page. Can be
+     *        returned as part of a Key-Value pair or a detected cell.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>QUERY</i> - A question asked during the call of AnalyzeDocument. Contains an alias and an ID that
+     *        attaches it to its answer.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>QUERY_RESULT</i> - A response to a question asked during the call of analyze document. Comes with an
+     *        alias and ID for ease of locating in a response. Also contains location and confidence score.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following BlockTypes are only returned for Amazon Textract Layout.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_TITLE</code> - The main title of the document.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_HEADER</code> - Text located in the top margin of the document.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_FOOTER</code> - Text located in the bottom margin of the document.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_SECTION_HEADER</code> - The titles of sections within a document.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_PAGE_NUMBER</code> - The page number of the documents.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_LIST</code> - Any information grouped together in list form.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_FIGURE</code> - Indicates the location of an image in a document.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_TABLE</code> - Indicates the location of a table in the document.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_KEY_VALUE</code> - Indicates the location of form key-values in a document.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_TEXT</code> - Text that is present typically as a part of paragraphs in documents.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -656,12 +1340,12 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of text that's recognized in a block. In text-detection operations, the following types are returned:
+     * The type of text item that's recognized. In operations for text detection, the following types are returned:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <i>PAGE</i> - Contains a list of the LINE Block objects that are detected on a document page.
+     * <i>PAGE</i> - Contains a list of the LINE <code>Block</code> objects that are detected on a document page.
      * </p>
      * </li>
      * <li>
@@ -672,7 +1356,7 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <i>LINE</i> - A string of tab-delimited, contiguous words that's detected on a document page.
+     * <i>LINE</i> - A string of tab-delimited, contiguous words that are detected on a document page.
      * </p>
      * </li>
      * </ul>
@@ -682,31 +1366,43 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <i>PAGE</i> - Contains a list of child Block objects that are detected on a document page.
+     * <i>PAGE</i> - Contains a list of child <code>Block</code> objects that are detected on a document page.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <i>KEY_VALUE_SET</i> - Stores the KEY and VALUE Block objects for a field that's detected on a document page. Use
-     * the <code>EntityType</code> field to determine if a KEY_VALUE_SET object is a KEY Block object or a VALUE Block
-     * object.
+     * <i>KEY_VALUE_SET</i> - Stores the KEY and VALUE <code>Block</code> objects for linked text that's detected on a
+     * document page. Use the <code>EntityType</code> field to determine if a KEY_VALUE_SET object is a KEY
+     * <code>Block</code> object or a VALUE <code>Block</code> object.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <i>WORD</i> - A word detected on a document page. A word is one or more ISO basic Latin script characters that
-     * aren't separated by spaces that's detected on a document page.
+     * <i>WORD</i> - A word that's detected on a document page. A word is one or more ISO basic Latin script characters
+     * that aren't separated by spaces.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <i>LINE</i> - A string of tab-delimited, contiguous words that's detected on a document page.
+     * <i>LINE</i> - A string of tab-delimited, contiguous words that are detected on a document page.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <i>TABLE</i> - A table that's detected on a document page. A table is any grid-based information with 2 or more
-     * rows or columns with a cell span of 1 row and 1 column each.
+     * <i>TABLE</i> - A table that's detected on a document page. A table is grid-based information with two or more
+     * rows or columns, with a cell span of one row and one column each.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_TITLE</i> - The title of a table. A title is typically a line of text above or below a table, or
+     * embedded as the first row of a table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_FOOTER</i> - The footer associated with a table. A footer is typically a line or lines of text below a
+     * table or embedded as the last row of a table.
      * </p>
      * </li>
      * <li>
@@ -717,19 +1413,99 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <i>SELECTION_ELEMENT</i> - A selectable element such as a radio button or checkbox that's detected on a document
-     * page. Use the value of <code>SelectionStatus</code> to determine the status of the selection element.
+     * <i>MERGED_CELL</i> - A cell in a table whose content spans more than one row or column. The
+     * <code>Relationships</code> array for this cell contain data from individual cells.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>SELECTION_ELEMENT</i> - A selection element such as an option button (radio button) or a check box that's
+     * detected on a document page. Use the value of <code>SelectionStatus</code> to determine the status of the
+     * selection element.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>SIGNATURE</i> - The location and confidence score of a signature detected on a document page. Can be returned
+     * as part of a Key-Value pair or a detected cell.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>QUERY</i> - A question asked during the call of AnalyzeDocument. Contains an alias and an ID that attaches it
+     * to its answer.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>QUERY_RESULT</i> - A response to a question asked during the call of analyze document. Comes with an alias and
+     * ID for ease of locating in a response. Also contains location and confidence score.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following BlockTypes are only returned for Amazon Textract Layout.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>LAYOUT_TITLE</code> - The main title of the document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_HEADER</code> - Text located in the top margin of the document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_FOOTER</code> - Text located in the bottom margin of the document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_SECTION_HEADER</code> - The titles of sections within a document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_PAGE_NUMBER</code> - The page number of the documents.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_LIST</code> - Any information grouped together in list form.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_FIGURE</code> - Indicates the location of an image in a document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_TABLE</code> - Indicates the location of a table in the document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_KEY_VALUE</code> - Indicates the location of form key-values in a document.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LAYOUT_TEXT</code> - Text that is present typically as a part of paragraphs in documents.
      * </p>
      * </li>
      * </ul>
      * 
      * @param blockType
-     *        The type of text that's recognized in a block. In text-detection operations, the following types are
+     *        The type of text item that's recognized. In operations for text detection, the following types are
      *        returned:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <i>PAGE</i> - Contains a list of the LINE Block objects that are detected on a document page.
+     *        <i>PAGE</i> - Contains a list of the LINE <code>Block</code> objects that are detected on a document page.
      *        </p>
      *        </li>
      *        <li>
@@ -740,7 +1516,7 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <i>LINE</i> - A string of tab-delimited, contiguous words that's detected on a document page.
+     *        <i>LINE</i> - A string of tab-delimited, contiguous words that are detected on a document page.
      *        </p>
      *        </li>
      *        </ul>
@@ -750,31 +1526,43 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        <i>PAGE</i> - Contains a list of child Block objects that are detected on a document page.
+     *        <i>PAGE</i> - Contains a list of child <code>Block</code> objects that are detected on a document page.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <i>KEY_VALUE_SET</i> - Stores the KEY and VALUE Block objects for a field that's detected on a document
-     *        page. Use the <code>EntityType</code> field to determine if a KEY_VALUE_SET object is a KEY Block object
-     *        or a VALUE Block object.
+     *        <i>KEY_VALUE_SET</i> - Stores the KEY and VALUE <code>Block</code> objects for linked text that's detected
+     *        on a document page. Use the <code>EntityType</code> field to determine if a KEY_VALUE_SET object is a KEY
+     *        <code>Block</code> object or a VALUE <code>Block</code> object.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <i>WORD</i> - A word detected on a document page. A word is one or more ISO basic Latin script characters
-     *        that aren't separated by spaces that's detected on a document page.
+     *        <i>WORD</i> - A word that's detected on a document page. A word is one or more ISO basic Latin script
+     *        characters that aren't separated by spaces.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <i>LINE</i> - A string of tab-delimited, contiguous words that's detected on a document page.
+     *        <i>LINE</i> - A string of tab-delimited, contiguous words that are detected on a document page.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <i>TABLE</i> - A table that's detected on a document page. A table is any grid-based information with 2 or
-     *        more rows or columns with a cell span of 1 row and 1 column each.
+     *        <i>TABLE</i> - A table that's detected on a document page. A table is grid-based information with two or
+     *        more rows or columns, with a cell span of one row and one column each.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>TABLE_TITLE</i> - The title of a table. A title is typically a line of text above or below a table, or
+     *        embedded as the first row of a table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>TABLE_FOOTER</i> - The footer associated with a table. A footer is typically a line or lines of text
+     *        below a table or embedded as the last row of a table.
      *        </p>
      *        </li>
      *        <li>
@@ -785,9 +1573,88 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <i>SELECTION_ELEMENT</i> - A selectable element such as a radio button or checkbox that's detected on a
-     *        document page. Use the value of <code>SelectionStatus</code> to determine the status of the selection
-     *        element.
+     *        <i>MERGED_CELL</i> - A cell in a table whose content spans more than one row or column. The
+     *        <code>Relationships</code> array for this cell contain data from individual cells.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>SELECTION_ELEMENT</i> - A selection element such as an option button (radio button) or a check box
+     *        that's detected on a document page. Use the value of <code>SelectionStatus</code> to determine the status
+     *        of the selection element.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>SIGNATURE</i> - The location and confidence score of a signature detected on a document page. Can be
+     *        returned as part of a Key-Value pair or a detected cell.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>QUERY</i> - A question asked during the call of AnalyzeDocument. Contains an alias and an ID that
+     *        attaches it to its answer.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>QUERY_RESULT</i> - A response to a question asked during the call of analyze document. Comes with an
+     *        alias and ID for ease of locating in a response. Also contains location and confidence score.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following BlockTypes are only returned for Amazon Textract Layout.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_TITLE</code> - The main title of the document.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_HEADER</code> - Text located in the top margin of the document.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_FOOTER</code> - Text located in the bottom margin of the document.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_SECTION_HEADER</code> - The titles of sections within a document.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_PAGE_NUMBER</code> - The page number of the documents.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_LIST</code> - Any information grouped together in list form.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_FIGURE</code> - Indicates the location of an image in a document.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_TABLE</code> - Indicates the location of a table in the document.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_KEY_VALUE</code> - Indicates the location of form key-values in a document.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LAYOUT_TEXT</code> - Text that is present typically as a part of paragraphs in documents.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -801,13 +1668,13 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The confidence that Amazon Textract has in the accuracy of the recognized text and the accuracy of the geometry
-     * points around the recognized text.
+     * The confidence score that Amazon Textract has in the accuracy of the recognized text and the accuracy of the
+     * geometry points around the recognized text.
      * </p>
      * 
      * @param confidence
-     *        The confidence that Amazon Textract has in the accuracy of the recognized text and the accuracy of the
-     *        geometry points around the recognized text.
+     *        The confidence score that Amazon Textract has in the accuracy of the recognized text and the accuracy of
+     *        the geometry points around the recognized text.
      */
 
     public void setConfidence(Float confidence) {
@@ -816,12 +1683,12 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The confidence that Amazon Textract has in the accuracy of the recognized text and the accuracy of the geometry
-     * points around the recognized text.
+     * The confidence score that Amazon Textract has in the accuracy of the recognized text and the accuracy of the
+     * geometry points around the recognized text.
      * </p>
      * 
-     * @return The confidence that Amazon Textract has in the accuracy of the recognized text and the accuracy of the
-     *         geometry points around the recognized text.
+     * @return The confidence score that Amazon Textract has in the accuracy of the recognized text and the accuracy of
+     *         the geometry points around the recognized text.
      */
 
     public Float getConfidence() {
@@ -830,13 +1697,13 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The confidence that Amazon Textract has in the accuracy of the recognized text and the accuracy of the geometry
-     * points around the recognized text.
+     * The confidence score that Amazon Textract has in the accuracy of the recognized text and the accuracy of the
+     * geometry points around the recognized text.
      * </p>
      * 
      * @param confidence
-     *        The confidence that Amazon Textract has in the accuracy of the recognized text and the accuracy of the
-     *        geometry points around the recognized text.
+     *        The confidence score that Amazon Textract has in the accuracy of the recognized text and the accuracy of
+     *        the geometry points around the recognized text.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -882,6 +1749,65 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     public Block withText(String text) {
         setText(text);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The kind of text that Amazon Textract has detected. Can check for handwritten text and printed text.
+     * </p>
+     * 
+     * @param textType
+     *        The kind of text that Amazon Textract has detected. Can check for handwritten text and printed text.
+     * @see TextType
+     */
+
+    public void setTextType(String textType) {
+        this.textType = textType;
+    }
+
+    /**
+     * <p>
+     * The kind of text that Amazon Textract has detected. Can check for handwritten text and printed text.
+     * </p>
+     * 
+     * @return The kind of text that Amazon Textract has detected. Can check for handwritten text and printed text.
+     * @see TextType
+     */
+
+    public String getTextType() {
+        return this.textType;
+    }
+
+    /**
+     * <p>
+     * The kind of text that Amazon Textract has detected. Can check for handwritten text and printed text.
+     * </p>
+     * 
+     * @param textType
+     *        The kind of text that Amazon Textract has detected. Can check for handwritten text and printed text.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TextType
+     */
+
+    public Block withTextType(String textType) {
+        setTextType(textType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The kind of text that Amazon Textract has detected. Can check for handwritten text and printed text.
+     * </p>
+     * 
+     * @param textType
+     *        The kind of text that Amazon Textract has detected. Can check for handwritten text and printed text.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TextType
+     */
+
+    public Block withTextType(TextType textType) {
+        this.textType = textType.toString();
         return this;
     }
 
@@ -979,12 +1905,12 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The number of rows that a table spans. <code>RowSpan</code> isn't returned by <code>DetectDocumentText</code> and
-     * <code>GetDocumentTextDetection</code>.
+     * The number of rows that a table cell spans. <code>RowSpan</code> isn't returned by
+     * <code>DetectDocumentText</code> and <code>GetDocumentTextDetection</code>.
      * </p>
      * 
      * @param rowSpan
-     *        The number of rows that a table spans. <code>RowSpan</code> isn't returned by
+     *        The number of rows that a table cell spans. <code>RowSpan</code> isn't returned by
      *        <code>DetectDocumentText</code> and <code>GetDocumentTextDetection</code>.
      */
 
@@ -994,11 +1920,11 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The number of rows that a table spans. <code>RowSpan</code> isn't returned by <code>DetectDocumentText</code> and
-     * <code>GetDocumentTextDetection</code>.
+     * The number of rows that a table cell spans. <code>RowSpan</code> isn't returned by
+     * <code>DetectDocumentText</code> and <code>GetDocumentTextDetection</code>.
      * </p>
      * 
-     * @return The number of rows that a table spans. <code>RowSpan</code> isn't returned by
+     * @return The number of rows that a table cell spans. <code>RowSpan</code> isn't returned by
      *         <code>DetectDocumentText</code> and <code>GetDocumentTextDetection</code>.
      */
 
@@ -1008,12 +1934,12 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The number of rows that a table spans. <code>RowSpan</code> isn't returned by <code>DetectDocumentText</code> and
-     * <code>GetDocumentTextDetection</code>.
+     * The number of rows that a table cell spans. <code>RowSpan</code> isn't returned by
+     * <code>DetectDocumentText</code> and <code>GetDocumentTextDetection</code>.
      * </p>
      * 
      * @param rowSpan
-     *        The number of rows that a table spans. <code>RowSpan</code> isn't returned by
+     *        The number of rows that a table cell spans. <code>RowSpan</code> isn't returned by
      *        <code>DetectDocumentText</code> and <code>GetDocumentTextDetection</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -1157,38 +2083,16 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of child blocks of the current block. For example a LINE object has child blocks for each WORD block
-     * that's part of the line of text. There aren't Relationship objects in the list for relationships that don't
-     * exist, such as when the current block has no child blocks. The list size can be the following:
+     * A list of relationship objects that describe how blocks are related to each other. For example, a LINE block
+     * object contains a CHILD relationship type with the WORD blocks that make up the line of text. There aren't
+     * Relationship objects in the list for relationships that don't exist, such as when the current block has no child
+     * blocks.
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * 0 - The block has no child blocks.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * 1 - The block has child blocks.
-     * </p>
-     * </li>
-     * </ul>
      * 
-     * @return A list of child blocks of the current block. For example a LINE object has child blocks for each WORD
-     *         block that's part of the line of text. There aren't Relationship objects in the list for relationships
-     *         that don't exist, such as when the current block has no child blocks. The list size can be the
-     *         following:</p>
-     *         <ul>
-     *         <li>
-     *         <p>
-     *         0 - The block has no child blocks.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         1 - The block has child blocks.
-     *         </p>
-     *         </li>
+     * @return A list of relationship objects that describe how blocks are related to each other. For example, a LINE
+     *         block object contains a CHILD relationship type with the WORD blocks that make up the line of text. There
+     *         aren't Relationship objects in the list for relationships that don't exist, such as when the current
+     *         block has no child blocks.
      */
 
     public java.util.List<Relationship> getRelationships() {
@@ -1197,39 +2101,17 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of child blocks of the current block. For example a LINE object has child blocks for each WORD block
-     * that's part of the line of text. There aren't Relationship objects in the list for relationships that don't
-     * exist, such as when the current block has no child blocks. The list size can be the following:
+     * A list of relationship objects that describe how blocks are related to each other. For example, a LINE block
+     * object contains a CHILD relationship type with the WORD blocks that make up the line of text. There aren't
+     * Relationship objects in the list for relationships that don't exist, such as when the current block has no child
+     * blocks.
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * 0 - The block has no child blocks.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * 1 - The block has child blocks.
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @param relationships
-     *        A list of child blocks of the current block. For example a LINE object has child blocks for each WORD
-     *        block that's part of the line of text. There aren't Relationship objects in the list for relationships
-     *        that don't exist, such as when the current block has no child blocks. The list size can be the
-     *        following:</p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        0 - The block has no child blocks.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        1 - The block has child blocks.
-     *        </p>
-     *        </li>
+     *        A list of relationship objects that describe how blocks are related to each other. For example, a LINE
+     *        block object contains a CHILD relationship type with the WORD blocks that make up the line of text. There
+     *        aren't Relationship objects in the list for relationships that don't exist, such as when the current block
+     *        has no child blocks.
      */
 
     public void setRelationships(java.util.Collection<Relationship> relationships) {
@@ -1243,22 +2125,11 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of child blocks of the current block. For example a LINE object has child blocks for each WORD block
-     * that's part of the line of text. There aren't Relationship objects in the list for relationships that don't
-     * exist, such as when the current block has no child blocks. The list size can be the following:
+     * A list of relationship objects that describe how blocks are related to each other. For example, a LINE block
+     * object contains a CHILD relationship type with the WORD blocks that make up the line of text. There aren't
+     * Relationship objects in the list for relationships that don't exist, such as when the current block has no child
+     * blocks.
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * 0 - The block has no child blocks.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * 1 - The block has child blocks.
-     * </p>
-     * </li>
-     * </ul>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setRelationships(java.util.Collection)} or {@link #withRelationships(java.util.Collection)} if you want
@@ -1266,21 +2137,10 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param relationships
-     *        A list of child blocks of the current block. For example a LINE object has child blocks for each WORD
-     *        block that's part of the line of text. There aren't Relationship objects in the list for relationships
-     *        that don't exist, such as when the current block has no child blocks. The list size can be the
-     *        following:</p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        0 - The block has no child blocks.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        1 - The block has child blocks.
-     *        </p>
-     *        </li>
+     *        A list of relationship objects that describe how blocks are related to each other. For example, a LINE
+     *        block object contains a CHILD relationship type with the WORD blocks that make up the line of text. There
+     *        aren't Relationship objects in the list for relationships that don't exist, such as when the current block
+     *        has no child blocks.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1296,39 +2156,17 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of child blocks of the current block. For example a LINE object has child blocks for each WORD block
-     * that's part of the line of text. There aren't Relationship objects in the list for relationships that don't
-     * exist, such as when the current block has no child blocks. The list size can be the following:
+     * A list of relationship objects that describe how blocks are related to each other. For example, a LINE block
+     * object contains a CHILD relationship type with the WORD blocks that make up the line of text. There aren't
+     * Relationship objects in the list for relationships that don't exist, such as when the current block has no child
+     * blocks.
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * 0 - The block has no child blocks.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * 1 - The block has child blocks.
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @param relationships
-     *        A list of child blocks of the current block. For example a LINE object has child blocks for each WORD
-     *        block that's part of the line of text. There aren't Relationship objects in the list for relationships
-     *        that don't exist, such as when the current block has no child blocks. The list size can be the
-     *        following:</p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        0 - The block has no child blocks.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        1 - The block has child blocks.
-     *        </p>
-     *        </li>
+     *        A list of relationship objects that describe how blocks are related to each other. For example, a LINE
+     *        block object contains a CHILD relationship type with the WORD blocks that make up the line of text. There
+     *        aren't Relationship objects in the list for relationships that don't exist, such as when the current block
+     *        has no child blocks.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1339,7 +2177,10 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of entity. The following can be returned:
+     * The type of entity.
+     * </p>
+     * <p>
+     * The following entity types can be returned by FORMS analysis:
      * </p>
      * <ul>
      * <li>
@@ -1354,11 +2195,57 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * </ul>
      * <p>
+     * The following entity types can be returned by TABLES analysis:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <i>COLUMN_HEADER</i> - Identifies a cell that is a header of a column.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_TITLE</i> - Identifies a cell that is a title within the table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_SECTION_TITLE</i> - Identifies a cell that is a title of a section within a table. A section title is a
+     * cell that typically spans an entire row above a section.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_FOOTER</i> - Identifies a cell that is a footer of a table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_SUMMARY</i> - Identifies a summary cell of a table. A summary cell can be a row of a table or an
+     * additional, smaller table that contains summary information for another table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>STRUCTURED_TABLE </i> - Identifies a table with column headers where the content of each row corresponds to
+     * the headers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>SEMI_STRUCTURED_TABLE</i> - Identifies a non-structured table.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
      * <code>EntityTypes</code> isn't returned by <code>DetectDocumentText</code> and
      * <code>GetDocumentTextDetection</code>.
      * </p>
      * 
-     * @return The type of entity. The following can be returned:</p>
+     * @return The type of entity. </p>
+     *         <p>
+     *         The following entity types can be returned by FORMS analysis:
+     *         </p>
      *         <ul>
      *         <li>
      *         <p>
@@ -1368,6 +2255,49 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      *         <li>
      *         <p>
      *         <i>VALUE</i> - The field text.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         The following entity types can be returned by TABLES analysis:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <i>COLUMN_HEADER</i> - Identifies a cell that is a header of a column.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <i>TABLE_TITLE</i> - Identifies a cell that is a title within the table.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <i>TABLE_SECTION_TITLE</i> - Identifies a cell that is a title of a section within a table. A section
+     *         title is a cell that typically spans an entire row above a section.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <i>TABLE_FOOTER</i> - Identifies a cell that is a footer of a table.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <i>TABLE_SUMMARY</i> - Identifies a summary cell of a table. A summary cell can be a row of a table or an
+     *         additional, smaller table that contains summary information for another table.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <i>STRUCTURED_TABLE </i> - Identifies a table with column headers where the content of each row
+     *         corresponds to the headers.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <i>SEMI_STRUCTURED_TABLE</i> - Identifies a non-structured table.
      *         </p>
      *         </li>
      *         </ul>
@@ -1383,7 +2313,10 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of entity. The following can be returned:
+     * The type of entity.
+     * </p>
+     * <p>
+     * The following entity types can be returned by FORMS analysis:
      * </p>
      * <ul>
      * <li>
@@ -1398,12 +2331,58 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * </ul>
      * <p>
+     * The following entity types can be returned by TABLES analysis:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <i>COLUMN_HEADER</i> - Identifies a cell that is a header of a column.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_TITLE</i> - Identifies a cell that is a title within the table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_SECTION_TITLE</i> - Identifies a cell that is a title of a section within a table. A section title is a
+     * cell that typically spans an entire row above a section.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_FOOTER</i> - Identifies a cell that is a footer of a table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_SUMMARY</i> - Identifies a summary cell of a table. A summary cell can be a row of a table or an
+     * additional, smaller table that contains summary information for another table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>STRUCTURED_TABLE </i> - Identifies a table with column headers where the content of each row corresponds to
+     * the headers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>SEMI_STRUCTURED_TABLE</i> - Identifies a non-structured table.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
      * <code>EntityTypes</code> isn't returned by <code>DetectDocumentText</code> and
      * <code>GetDocumentTextDetection</code>.
      * </p>
      * 
      * @param entityTypes
-     *        The type of entity. The following can be returned:</p>
+     *        The type of entity. </p>
+     *        <p>
+     *        The following entity types can be returned by FORMS analysis:
+     *        </p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1413,6 +2392,49 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      *        <li>
      *        <p>
      *        <i>VALUE</i> - The field text.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following entity types can be returned by TABLES analysis:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <i>COLUMN_HEADER</i> - Identifies a cell that is a header of a column.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>TABLE_TITLE</i> - Identifies a cell that is a title within the table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>TABLE_SECTION_TITLE</i> - Identifies a cell that is a title of a section within a table. A section
+     *        title is a cell that typically spans an entire row above a section.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>TABLE_FOOTER</i> - Identifies a cell that is a footer of a table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>TABLE_SUMMARY</i> - Identifies a summary cell of a table. A summary cell can be a row of a table or an
+     *        additional, smaller table that contains summary information for another table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>STRUCTURED_TABLE </i> - Identifies a table with column headers where the content of each row
+     *        corresponds to the headers.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>SEMI_STRUCTURED_TABLE</i> - Identifies a non-structured table.
      *        </p>
      *        </li>
      *        </ul>
@@ -1433,7 +2455,10 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of entity. The following can be returned:
+     * The type of entity.
+     * </p>
+     * <p>
+     * The following entity types can be returned by FORMS analysis:
      * </p>
      * <ul>
      * <li>
@@ -1448,6 +2473,49 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * </ul>
      * <p>
+     * The following entity types can be returned by TABLES analysis:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <i>COLUMN_HEADER</i> - Identifies a cell that is a header of a column.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_TITLE</i> - Identifies a cell that is a title within the table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_SECTION_TITLE</i> - Identifies a cell that is a title of a section within a table. A section title is a
+     * cell that typically spans an entire row above a section.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_FOOTER</i> - Identifies a cell that is a footer of a table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_SUMMARY</i> - Identifies a summary cell of a table. A summary cell can be a row of a table or an
+     * additional, smaller table that contains summary information for another table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>STRUCTURED_TABLE </i> - Identifies a table with column headers where the content of each row corresponds to
+     * the headers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>SEMI_STRUCTURED_TABLE</i> - Identifies a non-structured table.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
      * <code>EntityTypes</code> isn't returned by <code>DetectDocumentText</code> and
      * <code>GetDocumentTextDetection</code>.
      * </p>
@@ -1458,7 +2526,10 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param entityTypes
-     *        The type of entity. The following can be returned:</p>
+     *        The type of entity. </p>
+     *        <p>
+     *        The following entity types can be returned by FORMS analysis:
+     *        </p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1468,6 +2539,49 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      *        <li>
      *        <p>
      *        <i>VALUE</i> - The field text.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following entity types can be returned by TABLES analysis:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <i>COLUMN_HEADER</i> - Identifies a cell that is a header of a column.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>TABLE_TITLE</i> - Identifies a cell that is a title within the table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>TABLE_SECTION_TITLE</i> - Identifies a cell that is a title of a section within a table. A section
+     *        title is a cell that typically spans an entire row above a section.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>TABLE_FOOTER</i> - Identifies a cell that is a footer of a table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>TABLE_SUMMARY</i> - Identifies a summary cell of a table. A summary cell can be a row of a table or an
+     *        additional, smaller table that contains summary information for another table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>STRUCTURED_TABLE </i> - Identifies a table with column headers where the content of each row
+     *        corresponds to the headers.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>SEMI_STRUCTURED_TABLE</i> - Identifies a non-structured table.
      *        </p>
      *        </li>
      *        </ul>
@@ -1490,7 +2604,10 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of entity. The following can be returned:
+     * The type of entity.
+     * </p>
+     * <p>
+     * The following entity types can be returned by FORMS analysis:
      * </p>
      * <ul>
      * <li>
@@ -1505,12 +2622,58 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * </ul>
      * <p>
+     * The following entity types can be returned by TABLES analysis:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <i>COLUMN_HEADER</i> - Identifies a cell that is a header of a column.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_TITLE</i> - Identifies a cell that is a title within the table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_SECTION_TITLE</i> - Identifies a cell that is a title of a section within a table. A section title is a
+     * cell that typically spans an entire row above a section.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_FOOTER</i> - Identifies a cell that is a footer of a table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_SUMMARY</i> - Identifies a summary cell of a table. A summary cell can be a row of a table or an
+     * additional, smaller table that contains summary information for another table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>STRUCTURED_TABLE </i> - Identifies a table with column headers where the content of each row corresponds to
+     * the headers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>SEMI_STRUCTURED_TABLE</i> - Identifies a non-structured table.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
      * <code>EntityTypes</code> isn't returned by <code>DetectDocumentText</code> and
      * <code>GetDocumentTextDetection</code>.
      * </p>
      * 
      * @param entityTypes
-     *        The type of entity. The following can be returned:</p>
+     *        The type of entity. </p>
+     *        <p>
+     *        The following entity types can be returned by FORMS analysis:
+     *        </p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1520,6 +2683,49 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      *        <li>
      *        <p>
      *        <i>VALUE</i> - The field text.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following entity types can be returned by TABLES analysis:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <i>COLUMN_HEADER</i> - Identifies a cell that is a header of a column.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>TABLE_TITLE</i> - Identifies a cell that is a title within the table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>TABLE_SECTION_TITLE</i> - Identifies a cell that is a title of a section within a table. A section
+     *        title is a cell that typically spans an entire row above a section.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>TABLE_FOOTER</i> - Identifies a cell that is a footer of a table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>TABLE_SUMMARY</i> - Identifies a summary cell of a table. A summary cell can be a row of a table or an
+     *        additional, smaller table that contains summary information for another table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>STRUCTURED_TABLE </i> - Identifies a table with column headers where the content of each row
+     *        corresponds to the headers.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>SEMI_STRUCTURED_TABLE</i> - Identifies a non-structured table.
      *        </p>
      *        </li>
      *        </ul>
@@ -1537,7 +2743,10 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of entity. The following can be returned:
+     * The type of entity.
+     * </p>
+     * <p>
+     * The following entity types can be returned by FORMS analysis:
      * </p>
      * <ul>
      * <li>
@@ -1552,12 +2761,58 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * </ul>
      * <p>
+     * The following entity types can be returned by TABLES analysis:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <i>COLUMN_HEADER</i> - Identifies a cell that is a header of a column.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_TITLE</i> - Identifies a cell that is a title within the table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_SECTION_TITLE</i> - Identifies a cell that is a title of a section within a table. A section title is a
+     * cell that typically spans an entire row above a section.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_FOOTER</i> - Identifies a cell that is a footer of a table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>TABLE_SUMMARY</i> - Identifies a summary cell of a table. A summary cell can be a row of a table or an
+     * additional, smaller table that contains summary information for another table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>STRUCTURED_TABLE </i> - Identifies a table with column headers where the content of each row corresponds to
+     * the headers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>SEMI_STRUCTURED_TABLE</i> - Identifies a non-structured table.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
      * <code>EntityTypes</code> isn't returned by <code>DetectDocumentText</code> and
      * <code>GetDocumentTextDetection</code>.
      * </p>
      * 
      * @param entityTypes
-     *        The type of entity. The following can be returned:</p>
+     *        The type of entity. </p>
+     *        <p>
+     *        The following entity types can be returned by FORMS analysis:
+     *        </p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1567,6 +2822,49 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
      *        <li>
      *        <p>
      *        <i>VALUE</i> - The field text.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following entity types can be returned by TABLES analysis:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <i>COLUMN_HEADER</i> - Identifies a cell that is a header of a column.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>TABLE_TITLE</i> - Identifies a cell that is a title within the table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>TABLE_SECTION_TITLE</i> - Identifies a cell that is a title of a section within a table. A section
+     *        title is a cell that typically spans an entire row above a section.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>TABLE_FOOTER</i> - Identifies a cell that is a footer of a table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>TABLE_SUMMARY</i> - Identifies a summary cell of a table. A summary cell can be a row of a table or an
+     *        additional, smaller table that contains summary information for another table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>STRUCTURED_TABLE </i> - Identifies a table with column headers where the content of each row
+     *        corresponds to the headers.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>SEMI_STRUCTURED_TABLE</i> - Identifies a non-structured table.
      *        </p>
      *        </li>
      *        </ul>
@@ -1592,11 +2890,11 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The selection status of a selectable element such as a radio button or checkbox.
+     * The selection status of a selection element, such as an option button or check box.
      * </p>
      * 
      * @param selectionStatus
-     *        The selection status of a selectable element such as a radio button or checkbox.
+     *        The selection status of a selection element, such as an option button or check box.
      * @see SelectionStatus
      */
 
@@ -1606,10 +2904,10 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The selection status of a selectable element such as a radio button or checkbox.
+     * The selection status of a selection element, such as an option button or check box.
      * </p>
      * 
-     * @return The selection status of a selectable element such as a radio button or checkbox.
+     * @return The selection status of a selection element, such as an option button or check box.
      * @see SelectionStatus
      */
 
@@ -1619,11 +2917,11 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The selection status of a selectable element such as a radio button or checkbox.
+     * The selection status of a selection element, such as an option button or check box.
      * </p>
      * 
      * @param selectionStatus
-     *        The selection status of a selectable element such as a radio button or checkbox.
+     *        The selection status of a selection element, such as an option button or check box.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SelectionStatus
      */
@@ -1635,11 +2933,11 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The selection status of a selectable element such as a radio button or checkbox.
+     * The selection status of a selection element, such as an option button or check box.
      * </p>
      * 
      * @param selectionStatus
-     *        The selection status of a selectable element such as a radio button or checkbox.
+     *        The selection status of a selection element, such as an option button or check box.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SelectionStatus
      */
@@ -1651,19 +2949,18 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The page in which a block was detected. <code>Page</code> is returned by asynchronous operations. Page values
-     * greater than 1 are only returned for multi-page documents that are in PDF format. A scanned image (JPG/PNG), even
-     * if it contains multiple document pages, is always considered to be a single-page document and the value of
-     * <code>Page</code> is always 1. Synchronous operations don't return <code>Page</code> as every input document is
-     * considered to be a single-page document.
+     * The page on which a block was detected. <code>Page</code> is returned by synchronous and asynchronous operations.
+     * Page values greater than 1 are only returned for multipage documents that are in PDF or TIFF format. A scanned
+     * image (JPEG/PNG) provided to an asynchronous operation, even if it contains multiple document pages, is
+     * considered a single-page document. This means that for scanned images the value of <code>Page</code> is always 1.
      * </p>
      * 
      * @param page
-     *        The page in which a block was detected. <code>Page</code> is returned by asynchronous operations. Page
-     *        values greater than 1 are only returned for multi-page documents that are in PDF format. A scanned image
-     *        (JPG/PNG), even if it contains multiple document pages, is always considered to be a single-page document
-     *        and the value of <code>Page</code> is always 1. Synchronous operations don't return <code>Page</code> as
-     *        every input document is considered to be a single-page document.
+     *        The page on which a block was detected. <code>Page</code> is returned by synchronous and asynchronous
+     *        operations. Page values greater than 1 are only returned for multipage documents that are in PDF or TIFF
+     *        format. A scanned image (JPEG/PNG) provided to an asynchronous operation, even if it contains multiple
+     *        document pages, is considered a single-page document. This means that for scanned images the value of
+     *        <code>Page</code> is always 1.
      */
 
     public void setPage(Integer page) {
@@ -1672,18 +2969,17 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The page in which a block was detected. <code>Page</code> is returned by asynchronous operations. Page values
-     * greater than 1 are only returned for multi-page documents that are in PDF format. A scanned image (JPG/PNG), even
-     * if it contains multiple document pages, is always considered to be a single-page document and the value of
-     * <code>Page</code> is always 1. Synchronous operations don't return <code>Page</code> as every input document is
-     * considered to be a single-page document.
+     * The page on which a block was detected. <code>Page</code> is returned by synchronous and asynchronous operations.
+     * Page values greater than 1 are only returned for multipage documents that are in PDF or TIFF format. A scanned
+     * image (JPEG/PNG) provided to an asynchronous operation, even if it contains multiple document pages, is
+     * considered a single-page document. This means that for scanned images the value of <code>Page</code> is always 1.
      * </p>
      * 
-     * @return The page in which a block was detected. <code>Page</code> is returned by asynchronous operations. Page
-     *         values greater than 1 are only returned for multi-page documents that are in PDF format. A scanned image
-     *         (JPG/PNG), even if it contains multiple document pages, is always considered to be a single-page document
-     *         and the value of <code>Page</code> is always 1. Synchronous operations don't return <code>Page</code> as
-     *         every input document is considered to be a single-page document.
+     * @return The page on which a block was detected. <code>Page</code> is returned by synchronous and asynchronous
+     *         operations. Page values greater than 1 are only returned for multipage documents that are in PDF or TIFF
+     *         format. A scanned image (JPEG/PNG) provided to an asynchronous operation, even if it contains multiple
+     *         document pages, is considered a single-page document. This means that for scanned images the value of
+     *         <code>Page</code> is always 1.
      */
 
     public Integer getPage() {
@@ -1692,24 +2988,55 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The page in which a block was detected. <code>Page</code> is returned by asynchronous operations. Page values
-     * greater than 1 are only returned for multi-page documents that are in PDF format. A scanned image (JPG/PNG), even
-     * if it contains multiple document pages, is always considered to be a single-page document and the value of
-     * <code>Page</code> is always 1. Synchronous operations don't return <code>Page</code> as every input document is
-     * considered to be a single-page document.
+     * The page on which a block was detected. <code>Page</code> is returned by synchronous and asynchronous operations.
+     * Page values greater than 1 are only returned for multipage documents that are in PDF or TIFF format. A scanned
+     * image (JPEG/PNG) provided to an asynchronous operation, even if it contains multiple document pages, is
+     * considered a single-page document. This means that for scanned images the value of <code>Page</code> is always 1.
      * </p>
      * 
      * @param page
-     *        The page in which a block was detected. <code>Page</code> is returned by asynchronous operations. Page
-     *        values greater than 1 are only returned for multi-page documents that are in PDF format. A scanned image
-     *        (JPG/PNG), even if it contains multiple document pages, is always considered to be a single-page document
-     *        and the value of <code>Page</code> is always 1. Synchronous operations don't return <code>Page</code> as
-     *        every input document is considered to be a single-page document.
+     *        The page on which a block was detected. <code>Page</code> is returned by synchronous and asynchronous
+     *        operations. Page values greater than 1 are only returned for multipage documents that are in PDF or TIFF
+     *        format. A scanned image (JPEG/PNG) provided to an asynchronous operation, even if it contains multiple
+     *        document pages, is considered a single-page document. This means that for scanned images the value of
+     *        <code>Page</code> is always 1.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Block withPage(Integer page) {
         setPage(page);
+        return this;
+    }
+
+    /**
+     * <p/>
+     * 
+     * @param query
+     */
+
+    public void setQuery(Query query) {
+        this.query = query;
+    }
+
+    /**
+     * <p/>
+     * 
+     * @return
+     */
+
+    public Query getQuery() {
+        return this.query;
+    }
+
+    /**
+     * <p/>
+     * 
+     * @param query
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Block withQuery(Query query) {
+        setQuery(query);
         return this;
     }
 
@@ -1731,6 +3058,8 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
             sb.append("Confidence: ").append(getConfidence()).append(",");
         if (getText() != null)
             sb.append("Text: ").append(getText()).append(",");
+        if (getTextType() != null)
+            sb.append("TextType: ").append(getTextType()).append(",");
         if (getRowIndex() != null)
             sb.append("RowIndex: ").append(getRowIndex()).append(",");
         if (getColumnIndex() != null)
@@ -1750,7 +3079,9 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
         if (getSelectionStatus() != null)
             sb.append("SelectionStatus: ").append(getSelectionStatus()).append(",");
         if (getPage() != null)
-            sb.append("Page: ").append(getPage());
+            sb.append("Page: ").append(getPage()).append(",");
+        if (getQuery() != null)
+            sb.append("Query: ").append(getQuery());
         sb.append("}");
         return sb.toString();
     }
@@ -1776,6 +3107,10 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
         if (other.getText() == null ^ this.getText() == null)
             return false;
         if (other.getText() != null && other.getText().equals(this.getText()) == false)
+            return false;
+        if (other.getTextType() == null ^ this.getTextType() == null)
+            return false;
+        if (other.getTextType() != null && other.getTextType().equals(this.getTextType()) == false)
             return false;
         if (other.getRowIndex() == null ^ this.getRowIndex() == null)
             return false;
@@ -1817,6 +3152,10 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getPage() != null && other.getPage().equals(this.getPage()) == false)
             return false;
+        if (other.getQuery() == null ^ this.getQuery() == null)
+            return false;
+        if (other.getQuery() != null && other.getQuery().equals(this.getQuery()) == false)
+            return false;
         return true;
     }
 
@@ -1828,6 +3167,7 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getBlockType() == null) ? 0 : getBlockType().hashCode());
         hashCode = prime * hashCode + ((getConfidence() == null) ? 0 : getConfidence().hashCode());
         hashCode = prime * hashCode + ((getText() == null) ? 0 : getText().hashCode());
+        hashCode = prime * hashCode + ((getTextType() == null) ? 0 : getTextType().hashCode());
         hashCode = prime * hashCode + ((getRowIndex() == null) ? 0 : getRowIndex().hashCode());
         hashCode = prime * hashCode + ((getColumnIndex() == null) ? 0 : getColumnIndex().hashCode());
         hashCode = prime * hashCode + ((getRowSpan() == null) ? 0 : getRowSpan().hashCode());
@@ -1838,6 +3178,7 @@ public class Block implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getEntityTypes() == null) ? 0 : getEntityTypes().hashCode());
         hashCode = prime * hashCode + ((getSelectionStatus() == null) ? 0 : getSelectionStatus().hashCode());
         hashCode = prime * hashCode + ((getPage() == null) ? 0 : getPage().hashCode());
+        hashCode = prime * hashCode + ((getQuery() == null) ? 0 : getQuery().hashCode());
         return hashCode;
     }
 

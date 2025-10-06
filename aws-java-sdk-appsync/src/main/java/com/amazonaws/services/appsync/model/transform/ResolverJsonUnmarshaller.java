@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -79,6 +79,30 @@ public class ResolverJsonUnmarshaller implements Unmarshaller<Resolver, JsonUnma
                 if (context.testExpression("pipelineConfig", targetDepth)) {
                     context.nextToken();
                     resolver.setPipelineConfig(PipelineConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("syncConfig", targetDepth)) {
+                    context.nextToken();
+                    resolver.setSyncConfig(SyncConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("cachingConfig", targetDepth)) {
+                    context.nextToken();
+                    resolver.setCachingConfig(CachingConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("maxBatchSize", targetDepth)) {
+                    context.nextToken();
+                    resolver.setMaxBatchSize(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("runtime", targetDepth)) {
+                    context.nextToken();
+                    resolver.setRuntime(AppSyncRuntimeJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("code", targetDepth)) {
+                    context.nextToken();
+                    resolver.setCode(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("metricsConfig", targetDepth)) {
+                    context.nextToken();
+                    resolver.setMetricsConfig(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

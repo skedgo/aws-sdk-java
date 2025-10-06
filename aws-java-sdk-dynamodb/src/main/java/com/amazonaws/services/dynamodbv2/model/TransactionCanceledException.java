@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,12 +50,14 @@ import javax.annotation.Generated;
  * </li>
  * <li>
  * <p>
- * The aggregate size of the items in the transaction exceeds 4 MBs.
+ * There is a user error, such as an invalid data format.
  * </p>
  * </li>
  * <li>
  * <p>
- * There is a user error, such as an invalid data format.
+ * There is an ongoing <code>TransactWriteItems</code> operation that conflicts with a concurrent
+ * <code>TransactWriteItems</code> request. In this case the <code>TransactWriteItems</code> operation fails with a
+ * <code>TransactionCanceledException</code>.
  * </p>
  * </li>
  * </ul>
@@ -82,11 +84,6 @@ import javax.annotation.Generated;
  * </li>
  * <li>
  * <p>
- * The aggregate size of the items in the transaction exceeds 4 MBs.
- * </p>
- * </li>
- * <li>
- * <p>
  * There is a user error, such as an invalid data format.
  * </p>
  * </li>
@@ -95,7 +92,7 @@ import javax.annotation.Generated;
  * <p>
  * If using Java, DynamoDB lists the cancellation reasons on the <code>CancellationReasons</code> property. This
  * property is not set for other languages. Transaction cancellation reasons are ordered in the order of requested
- * items, if an item has no error it will have <code>NONE</code> code and <code>Null</code> message.
+ * items, if an item has no error it will have <code>None</code> code and <code>Null</code> message.
  * </p>
  * </note>
  * <p>
@@ -109,7 +106,7 @@ import javax.annotation.Generated;
  * <ul>
  * <li>
  * <p>
- * Code: <code>NONE</code>
+ * Code: <code>None</code>
  * </p>
  * </li>
  * <li>
@@ -244,8 +241,7 @@ import javax.annotation.Generated;
  * </p>
  * <note>
  * <p>
- * This message is returned when when writes get throttled on an On-Demand GSI as DynamoDB is automatically scaling the
- * GSI.
+ * This message is returned when writes get throttled on an On-Demand GSI as DynamoDB is automatically scaling the GSI.
  * </p>
  * </note></li>
  * </ul>

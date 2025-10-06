@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The AWS account that a partner event source has been offered to.
+ * The Amazon Web Services account that a partner event source has been offered to.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/events-2015-10-07/PartnerEventSourceAccount" target="_top">AWS
@@ -30,40 +30,40 @@ public class PartnerEventSourceAccount implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The AWS account ID that the partner event source was offered to.
+     * The Amazon Web Services account ID that the partner event source was offered to.
      * </p>
      */
     private String account;
     /**
      * <p>
-     * The date and time when the event source was created.
+     * The date and time the event source was created.
      * </p>
      */
     private java.util.Date creationTime;
     /**
      * <p>
-     * The date and time when the event source will expire if the AWS account doesn't create a matching event bus for
-     * it.
+     * The date and time that the event source will expire, if the Amazon Web Services account doesn't create a matching
+     * event bus for it.
      * </p>
      */
     private java.util.Date expirationTime;
     /**
      * <p>
-     * The state of the event source. If it's <code>ACTIVE</code>, you have already created a matching event bus for
-     * this event source, and that event bus is active. If it's <code>PENDING</code>, either you haven't yet created a
-     * matching event bus, or that event bus is deactivated. If it's <code>DELETED</code>, you have created a matching
-     * event bus, but the event source has since been deleted.
+     * The state of the event source. If it is ACTIVE, you have already created a matching event bus for this event
+     * source, and that event bus is active. If it is PENDING, either you haven't yet created a matching event bus, or
+     * that event bus is deactivated. If it is DELETED, you have created a matching event bus, but the event source has
+     * since been deleted.
      * </p>
      */
     private String state;
 
     /**
      * <p>
-     * The AWS account ID that the partner event source was offered to.
+     * The Amazon Web Services account ID that the partner event source was offered to.
      * </p>
      * 
      * @param account
-     *        The AWS account ID that the partner event source was offered to.
+     *        The Amazon Web Services account ID that the partner event source was offered to.
      */
 
     public void setAccount(String account) {
@@ -72,10 +72,10 @@ public class PartnerEventSourceAccount implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The AWS account ID that the partner event source was offered to.
+     * The Amazon Web Services account ID that the partner event source was offered to.
      * </p>
      * 
-     * @return The AWS account ID that the partner event source was offered to.
+     * @return The Amazon Web Services account ID that the partner event source was offered to.
      */
 
     public String getAccount() {
@@ -84,11 +84,11 @@ public class PartnerEventSourceAccount implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The AWS account ID that the partner event source was offered to.
+     * The Amazon Web Services account ID that the partner event source was offered to.
      * </p>
      * 
      * @param account
-     *        The AWS account ID that the partner event source was offered to.
+     *        The Amazon Web Services account ID that the partner event source was offered to.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -99,11 +99,11 @@ public class PartnerEventSourceAccount implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The date and time when the event source was created.
+     * The date and time the event source was created.
      * </p>
      * 
      * @param creationTime
-     *        The date and time when the event source was created.
+     *        The date and time the event source was created.
      */
 
     public void setCreationTime(java.util.Date creationTime) {
@@ -112,10 +112,10 @@ public class PartnerEventSourceAccount implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The date and time when the event source was created.
+     * The date and time the event source was created.
      * </p>
      * 
-     * @return The date and time when the event source was created.
+     * @return The date and time the event source was created.
      */
 
     public java.util.Date getCreationTime() {
@@ -124,11 +124,11 @@ public class PartnerEventSourceAccount implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The date and time when the event source was created.
+     * The date and time the event source was created.
      * </p>
      * 
      * @param creationTime
-     *        The date and time when the event source was created.
+     *        The date and time the event source was created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -139,13 +139,13 @@ public class PartnerEventSourceAccount implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The date and time when the event source will expire if the AWS account doesn't create a matching event bus for
-     * it.
+     * The date and time that the event source will expire, if the Amazon Web Services account doesn't create a matching
+     * event bus for it.
      * </p>
      * 
      * @param expirationTime
-     *        The date and time when the event source will expire if the AWS account doesn't create a matching event bus
-     *        for it.
+     *        The date and time that the event source will expire, if the Amazon Web Services account doesn't create a
+     *        matching event bus for it.
      */
 
     public void setExpirationTime(java.util.Date expirationTime) {
@@ -154,12 +154,12 @@ public class PartnerEventSourceAccount implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The date and time when the event source will expire if the AWS account doesn't create a matching event bus for
-     * it.
+     * The date and time that the event source will expire, if the Amazon Web Services account doesn't create a matching
+     * event bus for it.
      * </p>
      * 
-     * @return The date and time when the event source will expire if the AWS account doesn't create a matching event
-     *         bus for it.
+     * @return The date and time that the event source will expire, if the Amazon Web Services account doesn't create a
+     *         matching event bus for it.
      */
 
     public java.util.Date getExpirationTime() {
@@ -168,13 +168,13 @@ public class PartnerEventSourceAccount implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The date and time when the event source will expire if the AWS account doesn't create a matching event bus for
-     * it.
+     * The date and time that the event source will expire, if the Amazon Web Services account doesn't create a matching
+     * event bus for it.
      * </p>
      * 
      * @param expirationTime
-     *        The date and time when the event source will expire if the AWS account doesn't create a matching event bus
-     *        for it.
+     *        The date and time that the event source will expire, if the Amazon Web Services account doesn't create a
+     *        matching event bus for it.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -185,17 +185,17 @@ public class PartnerEventSourceAccount implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The state of the event source. If it's <code>ACTIVE</code>, you have already created a matching event bus for
-     * this event source, and that event bus is active. If it's <code>PENDING</code>, either you haven't yet created a
-     * matching event bus, or that event bus is deactivated. If it's <code>DELETED</code>, you have created a matching
-     * event bus, but the event source has since been deleted.
+     * The state of the event source. If it is ACTIVE, you have already created a matching event bus for this event
+     * source, and that event bus is active. If it is PENDING, either you haven't yet created a matching event bus, or
+     * that event bus is deactivated. If it is DELETED, you have created a matching event bus, but the event source has
+     * since been deleted.
      * </p>
      * 
      * @param state
-     *        The state of the event source. If it's <code>ACTIVE</code>, you have already created a matching event bus
-     *        for this event source, and that event bus is active. If it's <code>PENDING</code>, either you haven't yet
-     *        created a matching event bus, or that event bus is deactivated. If it's <code>DELETED</code>, you have
-     *        created a matching event bus, but the event source has since been deleted.
+     *        The state of the event source. If it is ACTIVE, you have already created a matching event bus for this
+     *        event source, and that event bus is active. If it is PENDING, either you haven't yet created a matching
+     *        event bus, or that event bus is deactivated. If it is DELETED, you have created a matching event bus, but
+     *        the event source has since been deleted.
      * @see EventSourceState
      */
 
@@ -205,16 +205,16 @@ public class PartnerEventSourceAccount implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The state of the event source. If it's <code>ACTIVE</code>, you have already created a matching event bus for
-     * this event source, and that event bus is active. If it's <code>PENDING</code>, either you haven't yet created a
-     * matching event bus, or that event bus is deactivated. If it's <code>DELETED</code>, you have created a matching
-     * event bus, but the event source has since been deleted.
+     * The state of the event source. If it is ACTIVE, you have already created a matching event bus for this event
+     * source, and that event bus is active. If it is PENDING, either you haven't yet created a matching event bus, or
+     * that event bus is deactivated. If it is DELETED, you have created a matching event bus, but the event source has
+     * since been deleted.
      * </p>
      * 
-     * @return The state of the event source. If it's <code>ACTIVE</code>, you have already created a matching event bus
-     *         for this event source, and that event bus is active. If it's <code>PENDING</code>, either you haven't yet
-     *         created a matching event bus, or that event bus is deactivated. If it's <code>DELETED</code>, you have
-     *         created a matching event bus, but the event source has since been deleted.
+     * @return The state of the event source. If it is ACTIVE, you have already created a matching event bus for this
+     *         event source, and that event bus is active. If it is PENDING, either you haven't yet created a matching
+     *         event bus, or that event bus is deactivated. If it is DELETED, you have created a matching event bus, but
+     *         the event source has since been deleted.
      * @see EventSourceState
      */
 
@@ -224,17 +224,17 @@ public class PartnerEventSourceAccount implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The state of the event source. If it's <code>ACTIVE</code>, you have already created a matching event bus for
-     * this event source, and that event bus is active. If it's <code>PENDING</code>, either you haven't yet created a
-     * matching event bus, or that event bus is deactivated. If it's <code>DELETED</code>, you have created a matching
-     * event bus, but the event source has since been deleted.
+     * The state of the event source. If it is ACTIVE, you have already created a matching event bus for this event
+     * source, and that event bus is active. If it is PENDING, either you haven't yet created a matching event bus, or
+     * that event bus is deactivated. If it is DELETED, you have created a matching event bus, but the event source has
+     * since been deleted.
      * </p>
      * 
      * @param state
-     *        The state of the event source. If it's <code>ACTIVE</code>, you have already created a matching event bus
-     *        for this event source, and that event bus is active. If it's <code>PENDING</code>, either you haven't yet
-     *        created a matching event bus, or that event bus is deactivated. If it's <code>DELETED</code>, you have
-     *        created a matching event bus, but the event source has since been deleted.
+     *        The state of the event source. If it is ACTIVE, you have already created a matching event bus for this
+     *        event source, and that event bus is active. If it is PENDING, either you haven't yet created a matching
+     *        event bus, or that event bus is deactivated. If it is DELETED, you have created a matching event bus, but
+     *        the event source has since been deleted.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EventSourceState
      */
@@ -246,17 +246,17 @@ public class PartnerEventSourceAccount implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The state of the event source. If it's <code>ACTIVE</code>, you have already created a matching event bus for
-     * this event source, and that event bus is active. If it's <code>PENDING</code>, either you haven't yet created a
-     * matching event bus, or that event bus is deactivated. If it's <code>DELETED</code>, you have created a matching
-     * event bus, but the event source has since been deleted.
+     * The state of the event source. If it is ACTIVE, you have already created a matching event bus for this event
+     * source, and that event bus is active. If it is PENDING, either you haven't yet created a matching event bus, or
+     * that event bus is deactivated. If it is DELETED, you have created a matching event bus, but the event source has
+     * since been deleted.
      * </p>
      * 
      * @param state
-     *        The state of the event source. If it's <code>ACTIVE</code>, you have already created a matching event bus
-     *        for this event source, and that event bus is active. If it's <code>PENDING</code>, either you haven't yet
-     *        created a matching event bus, or that event bus is deactivated. If it's <code>DELETED</code>, you have
-     *        created a matching event bus, but the event source has since been deleted.
+     *        The state of the event source. If it is ACTIVE, you have already created a matching event bus for this
+     *        event source, and that event bus is active. If it is PENDING, either you haven't yet created a matching
+     *        event bus, or that event bus is deactivated. If it is DELETED, you have created a matching event bus, but
+     *        the event source has since been deleted.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EventSourceState
      */

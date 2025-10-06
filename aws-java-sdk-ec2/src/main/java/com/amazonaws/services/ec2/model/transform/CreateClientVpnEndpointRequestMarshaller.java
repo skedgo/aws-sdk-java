@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -78,6 +78,21 @@ public class CreateClientVpnEndpointRequestMarshaller implements Marshaller<Requ
                                 StringUtils.fromString(mutualAuthentication.getClientRootCertificateChainArn()));
                     }
                 }
+
+                FederatedAuthenticationRequest federatedAuthentication = createClientVpnEndpointRequestAuthenticationOptionsListValue
+                        .getFederatedAuthentication();
+                if (federatedAuthentication != null) {
+
+                    if (federatedAuthentication.getSAMLProviderArn() != null) {
+                        request.addParameter("Authentication." + authenticationOptionsListIndex + ".FederatedAuthentication.SAMLProviderArn",
+                                StringUtils.fromString(federatedAuthentication.getSAMLProviderArn()));
+                    }
+
+                    if (federatedAuthentication.getSelfServiceSAMLProviderArn() != null) {
+                        request.addParameter("Authentication." + authenticationOptionsListIndex + ".FederatedAuthentication.SelfServiceSAMLProviderArn",
+                                StringUtils.fromString(federatedAuthentication.getSelfServiceSAMLProviderArn()));
+                    }
+                }
                 authenticationOptionsListIndex++;
             }
         }
@@ -113,6 +128,10 @@ public class CreateClientVpnEndpointRequestMarshaller implements Marshaller<Requ
 
         if (createClientVpnEndpointRequest.getTransportProtocol() != null) {
             request.addParameter("TransportProtocol", StringUtils.fromString(createClientVpnEndpointRequest.getTransportProtocol()));
+        }
+
+        if (createClientVpnEndpointRequest.getVpnPort() != null) {
+            request.addParameter("VpnPort", StringUtils.fromInteger(createClientVpnEndpointRequest.getVpnPort()));
         }
 
         if (createClientVpnEndpointRequest.getDescription() != null) {
@@ -157,6 +176,56 @@ public class CreateClientVpnEndpointRequestMarshaller implements Marshaller<Requ
                     }
                 }
                 tagSpecificationsListIndex++;
+            }
+        }
+
+        com.amazonaws.internal.SdkInternalList<String> createClientVpnEndpointRequestSecurityGroupIdsList = (com.amazonaws.internal.SdkInternalList<String>) createClientVpnEndpointRequest
+                .getSecurityGroupIds();
+        if (!createClientVpnEndpointRequestSecurityGroupIdsList.isEmpty() || !createClientVpnEndpointRequestSecurityGroupIdsList.isAutoConstruct()) {
+            int securityGroupIdsListIndex = 1;
+
+            for (String createClientVpnEndpointRequestSecurityGroupIdsListValue : createClientVpnEndpointRequestSecurityGroupIdsList) {
+                if (createClientVpnEndpointRequestSecurityGroupIdsListValue != null) {
+                    request.addParameter("SecurityGroupId." + securityGroupIdsListIndex,
+                            StringUtils.fromString(createClientVpnEndpointRequestSecurityGroupIdsListValue));
+                }
+                securityGroupIdsListIndex++;
+            }
+        }
+
+        if (createClientVpnEndpointRequest.getVpcId() != null) {
+            request.addParameter("VpcId", StringUtils.fromString(createClientVpnEndpointRequest.getVpcId()));
+        }
+
+        if (createClientVpnEndpointRequest.getSelfServicePortal() != null) {
+            request.addParameter("SelfServicePortal", StringUtils.fromString(createClientVpnEndpointRequest.getSelfServicePortal()));
+        }
+
+        ClientConnectOptions clientConnectOptions = createClientVpnEndpointRequest.getClientConnectOptions();
+        if (clientConnectOptions != null) {
+
+            if (clientConnectOptions.getEnabled() != null) {
+                request.addParameter("ClientConnectOptions.Enabled", StringUtils.fromBoolean(clientConnectOptions.getEnabled()));
+            }
+
+            if (clientConnectOptions.getLambdaFunctionArn() != null) {
+                request.addParameter("ClientConnectOptions.LambdaFunctionArn", StringUtils.fromString(clientConnectOptions.getLambdaFunctionArn()));
+            }
+        }
+
+        if (createClientVpnEndpointRequest.getSessionTimeoutHours() != null) {
+            request.addParameter("SessionTimeoutHours", StringUtils.fromInteger(createClientVpnEndpointRequest.getSessionTimeoutHours()));
+        }
+
+        ClientLoginBannerOptions clientLoginBannerOptions = createClientVpnEndpointRequest.getClientLoginBannerOptions();
+        if (clientLoginBannerOptions != null) {
+
+            if (clientLoginBannerOptions.getEnabled() != null) {
+                request.addParameter("ClientLoginBannerOptions.Enabled", StringUtils.fromBoolean(clientLoginBannerOptions.getEnabled()));
+            }
+
+            if (clientLoginBannerOptions.getBannerText() != null) {
+                request.addParameter("ClientLoginBannerOptions.BannerText", StringUtils.fromString(clientLoginBannerOptions.getBannerText()));
             }
         }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,15 +27,8 @@ public class CreateDomainRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The domain name to manage (e.g., <code>example.com</code>).
+     * The domain name to manage (<code>example.com</code>).
      * </p>
-     * <note>
-     * <p>
-     * You cannot register a new domain name using Lightsail. You must register a domain name using Amazon Route 53 or
-     * another domain name registrar. If you have already registered your domain, you can enter its name in this
-     * parameter to manage the DNS records for that domain.
-     * </p>
-     * </note>
      */
     private String domainName;
     /**
@@ -43,30 +36,18 @@ public class CreateDomainRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      */
     private java.util.List<Tag> tags;
 
     /**
      * <p>
-     * The domain name to manage (e.g., <code>example.com</code>).
+     * The domain name to manage (<code>example.com</code>).
      * </p>
-     * <note>
-     * <p>
-     * You cannot register a new domain name using Lightsail. You must register a domain name using Amazon Route 53 or
-     * another domain name registrar. If you have already registered your domain, you can enter its name in this
-     * parameter to manage the DNS records for that domain.
-     * </p>
-     * </note>
      * 
      * @param domainName
-     *        The domain name to manage (e.g., <code>example.com</code>).</p> <note>
-     *        <p>
-     *        You cannot register a new domain name using Lightsail. You must register a domain name using Amazon Route
-     *        53 or another domain name registrar. If you have already registered your domain, you can enter its name in
-     *        this parameter to manage the DNS records for that domain.
-     *        </p>
+     *        The domain name to manage (<code>example.com</code>).
      */
 
     public void setDomainName(String domainName) {
@@ -75,22 +56,10 @@ public class CreateDomainRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The domain name to manage (e.g., <code>example.com</code>).
+     * The domain name to manage (<code>example.com</code>).
      * </p>
-     * <note>
-     * <p>
-     * You cannot register a new domain name using Lightsail. You must register a domain name using Amazon Route 53 or
-     * another domain name registrar. If you have already registered your domain, you can enter its name in this
-     * parameter to manage the DNS records for that domain.
-     * </p>
-     * </note>
      * 
-     * @return The domain name to manage (e.g., <code>example.com</code>).</p> <note>
-     *         <p>
-     *         You cannot register a new domain name using Lightsail. You must register a domain name using Amazon Route
-     *         53 or another domain name registrar. If you have already registered your domain, you can enter its name
-     *         in this parameter to manage the DNS records for that domain.
-     *         </p>
+     * @return The domain name to manage (<code>example.com</code>).
      */
 
     public String getDomainName() {
@@ -99,23 +68,11 @@ public class CreateDomainRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The domain name to manage (e.g., <code>example.com</code>).
+     * The domain name to manage (<code>example.com</code>).
      * </p>
-     * <note>
-     * <p>
-     * You cannot register a new domain name using Lightsail. You must register a domain name using Amazon Route 53 or
-     * another domain name registrar. If you have already registered your domain, you can enter its name in this
-     * parameter to manage the DNS records for that domain.
-     * </p>
-     * </note>
      * 
      * @param domainName
-     *        The domain name to manage (e.g., <code>example.com</code>).</p> <note>
-     *        <p>
-     *        You cannot register a new domain name using Lightsail. You must register a domain name using Amazon Route
-     *        53 or another domain name registrar. If you have already registered your domain, you can enter its name in
-     *        this parameter to manage the DNS records for that domain.
-     *        </p>
+     *        The domain name to manage (<code>example.com</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -129,12 +86,12 @@ public class CreateDomainRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      * 
      * @return The tag keys and optional values to add to the resource during create.</p>
      *         <p>
-     *         To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     *         Use the <code>TagResource</code> action to tag a resource after it's created.
      */
 
     public java.util.List<Tag> getTags() {
@@ -146,13 +103,13 @@ public class CreateDomainRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      * 
      * @param tags
      *        The tag keys and optional values to add to the resource during create.</p>
      *        <p>
-     *        To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     *        Use the <code>TagResource</code> action to tag a resource after it's created.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -169,7 +126,7 @@ public class CreateDomainRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -180,7 +137,7 @@ public class CreateDomainRequest extends com.amazonaws.AmazonWebServiceRequest i
      * @param tags
      *        The tag keys and optional values to add to the resource during create.</p>
      *        <p>
-     *        To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     *        Use the <code>TagResource</code> action to tag a resource after it's created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -199,13 +156,13 @@ public class CreateDomainRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      * 
      * @param tags
      *        The tag keys and optional values to add to the resource during create.</p>
      *        <p>
-     *        To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     *        Use the <code>TagResource</code> action to tag a resource after it's created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

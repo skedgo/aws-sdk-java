@@ -1,0 +1,9 @@
+---
+blank_issues_enabled: false
+contact_links:
+  - name: "\U0001F4AC General Question"
+    url: https://github.com/aws/aws-sdk-java/discussions/categories/q-a
+    about: Please ask and answer questions as a discussion thread
+  - name: "\U0001F680 Feature Request"
+    url: https://aws.amazon.com/blogs/developer/the-aws-sdk-for-java-1-x-is-in-maintenance-mode-effective-july-31-2024/
+    about: New feature requests are no longer accepted for this project, because it is in maintenance mode

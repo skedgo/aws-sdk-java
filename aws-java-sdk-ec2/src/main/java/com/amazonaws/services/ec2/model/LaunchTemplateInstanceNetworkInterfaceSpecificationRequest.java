@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,7 +29,24 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
 
     /**
      * <p>
+     * Associates a Carrier IP address with eth0 for a new network interface.
+     * </p>
+     * <p>
+     * Use this option when you launch an instance in a Wavelength Zone and want to associate a Carrier IP address with
+     * the network interface. For more information about Carrier IP addresses, see <a
+     * href="https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip"
+     * >Carrier IP addresses</a> in the <i>Wavelength Developer Guide</i>.
+     * </p>
+     */
+    private Boolean associateCarrierIpAddress;
+    /**
+     * <p>
      * Associates a public IPv4 address with eth0 for a new network interface.
+     * </p>
+     * <p>
+     * Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with
+     * running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the
+     * <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
      * </p>
      */
     private Boolean associatePublicIpAddress;
@@ -47,7 +64,9 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
     private String description;
     /**
      * <p>
-     * The device index for the network interface attachment.
+     * The device index for the network interface attachment. Each network interface requires a device index. If you
+     * create a launch template that includes secondary network interfaces but not a primary network interface, then you
+     * must add a primary network interface as a launch parameter when you launch an instance from the template.
      * </p>
      */
     private Integer deviceIndex;
@@ -61,7 +80,7 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
      * <p>
      * The type of network interface. To create an Elastic Fabric Adapter (EFA), specify <code>efa</code>. For more
      * information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html">Elastic Fabric
-     * Adapter</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * Adapter</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * <p>
      * If you are not creating an EFA, specify <code>interface</code> or omit this parameter.
@@ -115,14 +134,178 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
      * </p>
      */
     private String subnetId;
+    /**
+     * <p>
+     * The index of the network card. Some instance types support multiple network cards. The primary network interface
+     * must be assigned to network card index 0. The default is network card index 0.
+     * </p>
+     */
+    private Integer networkCardIndex;
+    /**
+     * <p>
+     * One or more IPv4 prefixes to be assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv4PrefixCount</code> option.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecificationRequest> ipv4Prefixes;
+    /**
+     * <p>
+     * The number of IPv4 prefixes to be automatically assigned to the network interface. You cannot use this option if
+     * you use the <code>Ipv4Prefix</code> option.
+     * </p>
+     */
+    private Integer ipv4PrefixCount;
+    /**
+     * <p>
+     * One or more IPv6 prefixes to be assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv6PrefixCount</code> option.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<Ipv6PrefixSpecificationRequest> ipv6Prefixes;
+    /**
+     * <p>
+     * The number of IPv6 prefixes to be automatically assigned to the network interface. You cannot use this option if
+     * you use the <code>Ipv6Prefix</code> option.
+     * </p>
+     */
+    private Integer ipv6PrefixCount;
+    /**
+     * <p>
+     * The primary IPv6 address of the network interface. When you enable an IPv6 GUA address to be a primary IPv6, the
+     * first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the network interface is
+     * detached. For more information about primary IPv6 addresses, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     * </p>
+     */
+    private Boolean primaryIpv6;
+    /**
+     * <p>
+     * Configure ENA Express settings for your launch template.
+     * </p>
+     */
+    private EnaSrdSpecificationRequest enaSrdSpecification;
+    /**
+     * <p>
+     * A security group connection tracking specification that enables you to set the timeout for connection tracking on
+     * an Elastic network interface. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     * >Idle connection tracking timeout</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     */
+    private ConnectionTrackingSpecificationRequest connectionTrackingSpecification;
+
+    /**
+     * <p>
+     * Associates a Carrier IP address with eth0 for a new network interface.
+     * </p>
+     * <p>
+     * Use this option when you launch an instance in a Wavelength Zone and want to associate a Carrier IP address with
+     * the network interface. For more information about Carrier IP addresses, see <a
+     * href="https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip"
+     * >Carrier IP addresses</a> in the <i>Wavelength Developer Guide</i>.
+     * </p>
+     * 
+     * @param associateCarrierIpAddress
+     *        Associates a Carrier IP address with eth0 for a new network interface.</p>
+     *        <p>
+     *        Use this option when you launch an instance in a Wavelength Zone and want to associate a Carrier IP
+     *        address with the network interface. For more information about Carrier IP addresses, see <a href=
+     *        "https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip"
+     *        >Carrier IP addresses</a> in the <i>Wavelength Developer Guide</i>.
+     */
+
+    public void setAssociateCarrierIpAddress(Boolean associateCarrierIpAddress) {
+        this.associateCarrierIpAddress = associateCarrierIpAddress;
+    }
+
+    /**
+     * <p>
+     * Associates a Carrier IP address with eth0 for a new network interface.
+     * </p>
+     * <p>
+     * Use this option when you launch an instance in a Wavelength Zone and want to associate a Carrier IP address with
+     * the network interface. For more information about Carrier IP addresses, see <a
+     * href="https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip"
+     * >Carrier IP addresses</a> in the <i>Wavelength Developer Guide</i>.
+     * </p>
+     * 
+     * @return Associates a Carrier IP address with eth0 for a new network interface.</p>
+     *         <p>
+     *         Use this option when you launch an instance in a Wavelength Zone and want to associate a Carrier IP
+     *         address with the network interface. For more information about Carrier IP addresses, see <a href=
+     *         "https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip"
+     *         >Carrier IP addresses</a> in the <i>Wavelength Developer Guide</i>.
+     */
+
+    public Boolean getAssociateCarrierIpAddress() {
+        return this.associateCarrierIpAddress;
+    }
+
+    /**
+     * <p>
+     * Associates a Carrier IP address with eth0 for a new network interface.
+     * </p>
+     * <p>
+     * Use this option when you launch an instance in a Wavelength Zone and want to associate a Carrier IP address with
+     * the network interface. For more information about Carrier IP addresses, see <a
+     * href="https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip"
+     * >Carrier IP addresses</a> in the <i>Wavelength Developer Guide</i>.
+     * </p>
+     * 
+     * @param associateCarrierIpAddress
+     *        Associates a Carrier IP address with eth0 for a new network interface.</p>
+     *        <p>
+     *        Use this option when you launch an instance in a Wavelength Zone and want to associate a Carrier IP
+     *        address with the network interface. For more information about Carrier IP addresses, see <a href=
+     *        "https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip"
+     *        >Carrier IP addresses</a> in the <i>Wavelength Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LaunchTemplateInstanceNetworkInterfaceSpecificationRequest withAssociateCarrierIpAddress(Boolean associateCarrierIpAddress) {
+        setAssociateCarrierIpAddress(associateCarrierIpAddress);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Associates a Carrier IP address with eth0 for a new network interface.
+     * </p>
+     * <p>
+     * Use this option when you launch an instance in a Wavelength Zone and want to associate a Carrier IP address with
+     * the network interface. For more information about Carrier IP addresses, see <a
+     * href="https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip"
+     * >Carrier IP addresses</a> in the <i>Wavelength Developer Guide</i>.
+     * </p>
+     * 
+     * @return Associates a Carrier IP address with eth0 for a new network interface.</p>
+     *         <p>
+     *         Use this option when you launch an instance in a Wavelength Zone and want to associate a Carrier IP
+     *         address with the network interface. For more information about Carrier IP addresses, see <a href=
+     *         "https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip"
+     *         >Carrier IP addresses</a> in the <i>Wavelength Developer Guide</i>.
+     */
+
+    public Boolean isAssociateCarrierIpAddress() {
+        return this.associateCarrierIpAddress;
+    }
 
     /**
      * <p>
      * Associates a public IPv4 address with eth0 for a new network interface.
      * </p>
+     * <p>
+     * Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with
+     * running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the
+     * <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
+     * </p>
      * 
      * @param associatePublicIpAddress
-     *        Associates a public IPv4 address with eth0 for a new network interface.
+     *        Associates a public IPv4 address with eth0 for a new network interface.</p>
+     *        <p>
+     *        Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with
+     *        running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab
+     *        on the <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
      */
 
     public void setAssociatePublicIpAddress(Boolean associatePublicIpAddress) {
@@ -133,8 +316,17 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
      * <p>
      * Associates a public IPv4 address with eth0 for a new network interface.
      * </p>
+     * <p>
+     * Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with
+     * running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the
+     * <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
+     * </p>
      * 
-     * @return Associates a public IPv4 address with eth0 for a new network interface.
+     * @return Associates a public IPv4 address with eth0 for a new network interface.</p>
+     *         <p>
+     *         Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated
+     *         with running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i>
+     *         tab on the <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
      */
 
     public Boolean getAssociatePublicIpAddress() {
@@ -145,9 +337,18 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
      * <p>
      * Associates a public IPv4 address with eth0 for a new network interface.
      * </p>
+     * <p>
+     * Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with
+     * running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the
+     * <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
+     * </p>
      * 
      * @param associatePublicIpAddress
-     *        Associates a public IPv4 address with eth0 for a new network interface.
+     *        Associates a public IPv4 address with eth0 for a new network interface.</p>
+     *        <p>
+     *        Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with
+     *        running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab
+     *        on the <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -160,8 +361,17 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
      * <p>
      * Associates a public IPv4 address with eth0 for a new network interface.
      * </p>
+     * <p>
+     * Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with
+     * running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the
+     * <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
+     * </p>
      * 
-     * @return Associates a public IPv4 address with eth0 for a new network interface.
+     * @return Associates a public IPv4 address with eth0 for a new network interface.</p>
+     *         <p>
+     *         Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated
+     *         with running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i>
+     *         tab on the <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
      */
 
     public Boolean isAssociatePublicIpAddress() {
@@ -262,11 +472,16 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
 
     /**
      * <p>
-     * The device index for the network interface attachment.
+     * The device index for the network interface attachment. Each network interface requires a device index. If you
+     * create a launch template that includes secondary network interfaces but not a primary network interface, then you
+     * must add a primary network interface as a launch parameter when you launch an instance from the template.
      * </p>
      * 
      * @param deviceIndex
-     *        The device index for the network interface attachment.
+     *        The device index for the network interface attachment. Each network interface requires a device index. If
+     *        you create a launch template that includes secondary network interfaces but not a primary network
+     *        interface, then you must add a primary network interface as a launch parameter when you launch an instance
+     *        from the template.
      */
 
     public void setDeviceIndex(Integer deviceIndex) {
@@ -275,10 +490,15 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
 
     /**
      * <p>
-     * The device index for the network interface attachment.
+     * The device index for the network interface attachment. Each network interface requires a device index. If you
+     * create a launch template that includes secondary network interfaces but not a primary network interface, then you
+     * must add a primary network interface as a launch parameter when you launch an instance from the template.
      * </p>
      * 
-     * @return The device index for the network interface attachment.
+     * @return The device index for the network interface attachment. Each network interface requires a device index. If
+     *         you create a launch template that includes secondary network interfaces but not a primary network
+     *         interface, then you must add a primary network interface as a launch parameter when you launch an
+     *         instance from the template.
      */
 
     public Integer getDeviceIndex() {
@@ -287,11 +507,16 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
 
     /**
      * <p>
-     * The device index for the network interface attachment.
+     * The device index for the network interface attachment. Each network interface requires a device index. If you
+     * create a launch template that includes secondary network interfaces but not a primary network interface, then you
+     * must add a primary network interface as a launch parameter when you launch an instance from the template.
      * </p>
      * 
      * @param deviceIndex
-     *        The device index for the network interface attachment.
+     *        The device index for the network interface attachment. Each network interface requires a device index. If
+     *        you create a launch template that includes secondary network interfaces but not a primary network
+     *        interface, then you must add a primary network interface as a launch parameter when you launch an instance
+     *        from the template.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -377,7 +602,7 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
      * <p>
      * The type of network interface. To create an Elastic Fabric Adapter (EFA), specify <code>efa</code>. For more
      * information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html">Elastic Fabric
-     * Adapter</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * Adapter</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * <p>
      * If you are not creating an EFA, specify <code>interface</code> or omit this parameter.
@@ -389,7 +614,7 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
      * @param interfaceType
      *        The type of network interface. To create an Elastic Fabric Adapter (EFA), specify <code>efa</code>. For
      *        more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html">Elastic
-     *        Fabric Adapter</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+     *        Fabric Adapter</a> in the <i>Amazon EC2 User Guide</i>.</p>
      *        <p>
      *        If you are not creating an EFA, specify <code>interface</code> or omit this parameter.
      *        </p>
@@ -405,7 +630,7 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
      * <p>
      * The type of network interface. To create an Elastic Fabric Adapter (EFA), specify <code>efa</code>. For more
      * information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html">Elastic Fabric
-     * Adapter</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * Adapter</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * <p>
      * If you are not creating an EFA, specify <code>interface</code> or omit this parameter.
@@ -416,7 +641,7 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
      * 
      * @return The type of network interface. To create an Elastic Fabric Adapter (EFA), specify <code>efa</code>. For
      *         more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html">Elastic
-     *         Fabric Adapter</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+     *         Fabric Adapter</a> in the <i>Amazon EC2 User Guide</i>.</p>
      *         <p>
      *         If you are not creating an EFA, specify <code>interface</code> or omit this parameter.
      *         </p>
@@ -432,7 +657,7 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
      * <p>
      * The type of network interface. To create an Elastic Fabric Adapter (EFA), specify <code>efa</code>. For more
      * information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html">Elastic Fabric
-     * Adapter</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * Adapter</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * <p>
      * If you are not creating an EFA, specify <code>interface</code> or omit this parameter.
@@ -444,7 +669,7 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
      * @param interfaceType
      *        The type of network interface. To create an Elastic Fabric Adapter (EFA), specify <code>efa</code>. For
      *        more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html">Elastic
-     *        Fabric Adapter</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+     *        Fabric Adapter</a> in the <i>Amazon EC2 User Guide</i>.</p>
      *        <p>
      *        If you are not creating an EFA, specify <code>interface</code> or omit this parameter.
      *        </p>
@@ -820,6 +1045,481 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
     }
 
     /**
+     * <p>
+     * The index of the network card. Some instance types support multiple network cards. The primary network interface
+     * must be assigned to network card index 0. The default is network card index 0.
+     * </p>
+     * 
+     * @param networkCardIndex
+     *        The index of the network card. Some instance types support multiple network cards. The primary network
+     *        interface must be assigned to network card index 0. The default is network card index 0.
+     */
+
+    public void setNetworkCardIndex(Integer networkCardIndex) {
+        this.networkCardIndex = networkCardIndex;
+    }
+
+    /**
+     * <p>
+     * The index of the network card. Some instance types support multiple network cards. The primary network interface
+     * must be assigned to network card index 0. The default is network card index 0.
+     * </p>
+     * 
+     * @return The index of the network card. Some instance types support multiple network cards. The primary network
+     *         interface must be assigned to network card index 0. The default is network card index 0.
+     */
+
+    public Integer getNetworkCardIndex() {
+        return this.networkCardIndex;
+    }
+
+    /**
+     * <p>
+     * The index of the network card. Some instance types support multiple network cards. The primary network interface
+     * must be assigned to network card index 0. The default is network card index 0.
+     * </p>
+     * 
+     * @param networkCardIndex
+     *        The index of the network card. Some instance types support multiple network cards. The primary network
+     *        interface must be assigned to network card index 0. The default is network card index 0.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LaunchTemplateInstanceNetworkInterfaceSpecificationRequest withNetworkCardIndex(Integer networkCardIndex) {
+        setNetworkCardIndex(networkCardIndex);
+        return this;
+    }
+
+    /**
+     * <p>
+     * One or more IPv4 prefixes to be assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv4PrefixCount</code> option.
+     * </p>
+     * 
+     * @return One or more IPv4 prefixes to be assigned to the network interface. You cannot use this option if you use
+     *         the <code>Ipv4PrefixCount</code> option.
+     */
+
+    public java.util.List<Ipv4PrefixSpecificationRequest> getIpv4Prefixes() {
+        if (ipv4Prefixes == null) {
+            ipv4Prefixes = new com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecificationRequest>();
+        }
+        return ipv4Prefixes;
+    }
+
+    /**
+     * <p>
+     * One or more IPv4 prefixes to be assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv4PrefixCount</code> option.
+     * </p>
+     * 
+     * @param ipv4Prefixes
+     *        One or more IPv4 prefixes to be assigned to the network interface. You cannot use this option if you use
+     *        the <code>Ipv4PrefixCount</code> option.
+     */
+
+    public void setIpv4Prefixes(java.util.Collection<Ipv4PrefixSpecificationRequest> ipv4Prefixes) {
+        if (ipv4Prefixes == null) {
+            this.ipv4Prefixes = null;
+            return;
+        }
+
+        this.ipv4Prefixes = new com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecificationRequest>(ipv4Prefixes);
+    }
+
+    /**
+     * <p>
+     * One or more IPv4 prefixes to be assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv4PrefixCount</code> option.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setIpv4Prefixes(java.util.Collection)} or {@link #withIpv4Prefixes(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param ipv4Prefixes
+     *        One or more IPv4 prefixes to be assigned to the network interface. You cannot use this option if you use
+     *        the <code>Ipv4PrefixCount</code> option.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LaunchTemplateInstanceNetworkInterfaceSpecificationRequest withIpv4Prefixes(Ipv4PrefixSpecificationRequest... ipv4Prefixes) {
+        if (this.ipv4Prefixes == null) {
+            setIpv4Prefixes(new com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecificationRequest>(ipv4Prefixes.length));
+        }
+        for (Ipv4PrefixSpecificationRequest ele : ipv4Prefixes) {
+            this.ipv4Prefixes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * One or more IPv4 prefixes to be assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv4PrefixCount</code> option.
+     * </p>
+     * 
+     * @param ipv4Prefixes
+     *        One or more IPv4 prefixes to be assigned to the network interface. You cannot use this option if you use
+     *        the <code>Ipv4PrefixCount</code> option.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LaunchTemplateInstanceNetworkInterfaceSpecificationRequest withIpv4Prefixes(java.util.Collection<Ipv4PrefixSpecificationRequest> ipv4Prefixes) {
+        setIpv4Prefixes(ipv4Prefixes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of IPv4 prefixes to be automatically assigned to the network interface. You cannot use this option if
+     * you use the <code>Ipv4Prefix</code> option.
+     * </p>
+     * 
+     * @param ipv4PrefixCount
+     *        The number of IPv4 prefixes to be automatically assigned to the network interface. You cannot use this
+     *        option if you use the <code>Ipv4Prefix</code> option.
+     */
+
+    public void setIpv4PrefixCount(Integer ipv4PrefixCount) {
+        this.ipv4PrefixCount = ipv4PrefixCount;
+    }
+
+    /**
+     * <p>
+     * The number of IPv4 prefixes to be automatically assigned to the network interface. You cannot use this option if
+     * you use the <code>Ipv4Prefix</code> option.
+     * </p>
+     * 
+     * @return The number of IPv4 prefixes to be automatically assigned to the network interface. You cannot use this
+     *         option if you use the <code>Ipv4Prefix</code> option.
+     */
+
+    public Integer getIpv4PrefixCount() {
+        return this.ipv4PrefixCount;
+    }
+
+    /**
+     * <p>
+     * The number of IPv4 prefixes to be automatically assigned to the network interface. You cannot use this option if
+     * you use the <code>Ipv4Prefix</code> option.
+     * </p>
+     * 
+     * @param ipv4PrefixCount
+     *        The number of IPv4 prefixes to be automatically assigned to the network interface. You cannot use this
+     *        option if you use the <code>Ipv4Prefix</code> option.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LaunchTemplateInstanceNetworkInterfaceSpecificationRequest withIpv4PrefixCount(Integer ipv4PrefixCount) {
+        setIpv4PrefixCount(ipv4PrefixCount);
+        return this;
+    }
+
+    /**
+     * <p>
+     * One or more IPv6 prefixes to be assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv6PrefixCount</code> option.
+     * </p>
+     * 
+     * @return One or more IPv6 prefixes to be assigned to the network interface. You cannot use this option if you use
+     *         the <code>Ipv6PrefixCount</code> option.
+     */
+
+    public java.util.List<Ipv6PrefixSpecificationRequest> getIpv6Prefixes() {
+        if (ipv6Prefixes == null) {
+            ipv6Prefixes = new com.amazonaws.internal.SdkInternalList<Ipv6PrefixSpecificationRequest>();
+        }
+        return ipv6Prefixes;
+    }
+
+    /**
+     * <p>
+     * One or more IPv6 prefixes to be assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv6PrefixCount</code> option.
+     * </p>
+     * 
+     * @param ipv6Prefixes
+     *        One or more IPv6 prefixes to be assigned to the network interface. You cannot use this option if you use
+     *        the <code>Ipv6PrefixCount</code> option.
+     */
+
+    public void setIpv6Prefixes(java.util.Collection<Ipv6PrefixSpecificationRequest> ipv6Prefixes) {
+        if (ipv6Prefixes == null) {
+            this.ipv6Prefixes = null;
+            return;
+        }
+
+        this.ipv6Prefixes = new com.amazonaws.internal.SdkInternalList<Ipv6PrefixSpecificationRequest>(ipv6Prefixes);
+    }
+
+    /**
+     * <p>
+     * One or more IPv6 prefixes to be assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv6PrefixCount</code> option.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setIpv6Prefixes(java.util.Collection)} or {@link #withIpv6Prefixes(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param ipv6Prefixes
+     *        One or more IPv6 prefixes to be assigned to the network interface. You cannot use this option if you use
+     *        the <code>Ipv6PrefixCount</code> option.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LaunchTemplateInstanceNetworkInterfaceSpecificationRequest withIpv6Prefixes(Ipv6PrefixSpecificationRequest... ipv6Prefixes) {
+        if (this.ipv6Prefixes == null) {
+            setIpv6Prefixes(new com.amazonaws.internal.SdkInternalList<Ipv6PrefixSpecificationRequest>(ipv6Prefixes.length));
+        }
+        for (Ipv6PrefixSpecificationRequest ele : ipv6Prefixes) {
+            this.ipv6Prefixes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * One or more IPv6 prefixes to be assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv6PrefixCount</code> option.
+     * </p>
+     * 
+     * @param ipv6Prefixes
+     *        One or more IPv6 prefixes to be assigned to the network interface. You cannot use this option if you use
+     *        the <code>Ipv6PrefixCount</code> option.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LaunchTemplateInstanceNetworkInterfaceSpecificationRequest withIpv6Prefixes(java.util.Collection<Ipv6PrefixSpecificationRequest> ipv6Prefixes) {
+        setIpv6Prefixes(ipv6Prefixes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of IPv6 prefixes to be automatically assigned to the network interface. You cannot use this option if
+     * you use the <code>Ipv6Prefix</code> option.
+     * </p>
+     * 
+     * @param ipv6PrefixCount
+     *        The number of IPv6 prefixes to be automatically assigned to the network interface. You cannot use this
+     *        option if you use the <code>Ipv6Prefix</code> option.
+     */
+
+    public void setIpv6PrefixCount(Integer ipv6PrefixCount) {
+        this.ipv6PrefixCount = ipv6PrefixCount;
+    }
+
+    /**
+     * <p>
+     * The number of IPv6 prefixes to be automatically assigned to the network interface. You cannot use this option if
+     * you use the <code>Ipv6Prefix</code> option.
+     * </p>
+     * 
+     * @return The number of IPv6 prefixes to be automatically assigned to the network interface. You cannot use this
+     *         option if you use the <code>Ipv6Prefix</code> option.
+     */
+
+    public Integer getIpv6PrefixCount() {
+        return this.ipv6PrefixCount;
+    }
+
+    /**
+     * <p>
+     * The number of IPv6 prefixes to be automatically assigned to the network interface. You cannot use this option if
+     * you use the <code>Ipv6Prefix</code> option.
+     * </p>
+     * 
+     * @param ipv6PrefixCount
+     *        The number of IPv6 prefixes to be automatically assigned to the network interface. You cannot use this
+     *        option if you use the <code>Ipv6Prefix</code> option.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LaunchTemplateInstanceNetworkInterfaceSpecificationRequest withIpv6PrefixCount(Integer ipv6PrefixCount) {
+        setIpv6PrefixCount(ipv6PrefixCount);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The primary IPv6 address of the network interface. When you enable an IPv6 GUA address to be a primary IPv6, the
+     * first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the network interface is
+     * detached. For more information about primary IPv6 addresses, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     * </p>
+     * 
+     * @param primaryIpv6
+     *        The primary IPv6 address of the network interface. When you enable an IPv6 GUA address to be a primary
+     *        IPv6, the first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the
+     *        network interface is detached. For more information about primary IPv6 addresses, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     */
+
+    public void setPrimaryIpv6(Boolean primaryIpv6) {
+        this.primaryIpv6 = primaryIpv6;
+    }
+
+    /**
+     * <p>
+     * The primary IPv6 address of the network interface. When you enable an IPv6 GUA address to be a primary IPv6, the
+     * first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the network interface is
+     * detached. For more information about primary IPv6 addresses, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     * </p>
+     * 
+     * @return The primary IPv6 address of the network interface. When you enable an IPv6 GUA address to be a primary
+     *         IPv6, the first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the
+     *         network interface is detached. For more information about primary IPv6 addresses, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     */
+
+    public Boolean getPrimaryIpv6() {
+        return this.primaryIpv6;
+    }
+
+    /**
+     * <p>
+     * The primary IPv6 address of the network interface. When you enable an IPv6 GUA address to be a primary IPv6, the
+     * first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the network interface is
+     * detached. For more information about primary IPv6 addresses, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     * </p>
+     * 
+     * @param primaryIpv6
+     *        The primary IPv6 address of the network interface. When you enable an IPv6 GUA address to be a primary
+     *        IPv6, the first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the
+     *        network interface is detached. For more information about primary IPv6 addresses, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LaunchTemplateInstanceNetworkInterfaceSpecificationRequest withPrimaryIpv6(Boolean primaryIpv6) {
+        setPrimaryIpv6(primaryIpv6);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The primary IPv6 address of the network interface. When you enable an IPv6 GUA address to be a primary IPv6, the
+     * first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the network interface is
+     * detached. For more information about primary IPv6 addresses, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     * </p>
+     * 
+     * @return The primary IPv6 address of the network interface. When you enable an IPv6 GUA address to be a primary
+     *         IPv6, the first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the
+     *         network interface is detached. For more information about primary IPv6 addresses, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     */
+
+    public Boolean isPrimaryIpv6() {
+        return this.primaryIpv6;
+    }
+
+    /**
+     * <p>
+     * Configure ENA Express settings for your launch template.
+     * </p>
+     * 
+     * @param enaSrdSpecification
+     *        Configure ENA Express settings for your launch template.
+     */
+
+    public void setEnaSrdSpecification(EnaSrdSpecificationRequest enaSrdSpecification) {
+        this.enaSrdSpecification = enaSrdSpecification;
+    }
+
+    /**
+     * <p>
+     * Configure ENA Express settings for your launch template.
+     * </p>
+     * 
+     * @return Configure ENA Express settings for your launch template.
+     */
+
+    public EnaSrdSpecificationRequest getEnaSrdSpecification() {
+        return this.enaSrdSpecification;
+    }
+
+    /**
+     * <p>
+     * Configure ENA Express settings for your launch template.
+     * </p>
+     * 
+     * @param enaSrdSpecification
+     *        Configure ENA Express settings for your launch template.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LaunchTemplateInstanceNetworkInterfaceSpecificationRequest withEnaSrdSpecification(EnaSrdSpecificationRequest enaSrdSpecification) {
+        setEnaSrdSpecification(enaSrdSpecification);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A security group connection tracking specification that enables you to set the timeout for connection tracking on
+     * an Elastic network interface. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     * >Idle connection tracking timeout</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param connectionTrackingSpecification
+     *        A security group connection tracking specification that enables you to set the timeout for connection
+     *        tracking on an Elastic network interface. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     *        >Idle connection tracking timeout</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public void setConnectionTrackingSpecification(ConnectionTrackingSpecificationRequest connectionTrackingSpecification) {
+        this.connectionTrackingSpecification = connectionTrackingSpecification;
+    }
+
+    /**
+     * <p>
+     * A security group connection tracking specification that enables you to set the timeout for connection tracking on
+     * an Elastic network interface. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     * >Idle connection tracking timeout</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return A security group connection tracking specification that enables you to set the timeout for connection
+     *         tracking on an Elastic network interface. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     *         >Idle connection tracking timeout</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public ConnectionTrackingSpecificationRequest getConnectionTrackingSpecification() {
+        return this.connectionTrackingSpecification;
+    }
+
+    /**
+     * <p>
+     * A security group connection tracking specification that enables you to set the timeout for connection tracking on
+     * an Elastic network interface. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     * >Idle connection tracking timeout</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param connectionTrackingSpecification
+     *        A security group connection tracking specification that enables you to set the timeout for connection
+     *        tracking on an Elastic network interface. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     *        >Idle connection tracking timeout</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LaunchTemplateInstanceNetworkInterfaceSpecificationRequest withConnectionTrackingSpecification(
+            ConnectionTrackingSpecificationRequest connectionTrackingSpecification) {
+        setConnectionTrackingSpecification(connectionTrackingSpecification);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -831,6 +1531,8 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getAssociateCarrierIpAddress() != null)
+            sb.append("AssociateCarrierIpAddress: ").append(getAssociateCarrierIpAddress()).append(",");
         if (getAssociatePublicIpAddress() != null)
             sb.append("AssociatePublicIpAddress: ").append(getAssociatePublicIpAddress()).append(",");
         if (getDeleteOnTermination() != null)
@@ -856,7 +1558,23 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
         if (getSecondaryPrivateIpAddressCount() != null)
             sb.append("SecondaryPrivateIpAddressCount: ").append(getSecondaryPrivateIpAddressCount()).append(",");
         if (getSubnetId() != null)
-            sb.append("SubnetId: ").append(getSubnetId());
+            sb.append("SubnetId: ").append(getSubnetId()).append(",");
+        if (getNetworkCardIndex() != null)
+            sb.append("NetworkCardIndex: ").append(getNetworkCardIndex()).append(",");
+        if (getIpv4Prefixes() != null)
+            sb.append("Ipv4Prefixes: ").append(getIpv4Prefixes()).append(",");
+        if (getIpv4PrefixCount() != null)
+            sb.append("Ipv4PrefixCount: ").append(getIpv4PrefixCount()).append(",");
+        if (getIpv6Prefixes() != null)
+            sb.append("Ipv6Prefixes: ").append(getIpv6Prefixes()).append(",");
+        if (getIpv6PrefixCount() != null)
+            sb.append("Ipv6PrefixCount: ").append(getIpv6PrefixCount()).append(",");
+        if (getPrimaryIpv6() != null)
+            sb.append("PrimaryIpv6: ").append(getPrimaryIpv6()).append(",");
+        if (getEnaSrdSpecification() != null)
+            sb.append("EnaSrdSpecification: ").append(getEnaSrdSpecification()).append(",");
+        if (getConnectionTrackingSpecification() != null)
+            sb.append("ConnectionTrackingSpecification: ").append(getConnectionTrackingSpecification());
         sb.append("}");
         return sb.toString();
     }
@@ -871,6 +1589,10 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
         if (obj instanceof LaunchTemplateInstanceNetworkInterfaceSpecificationRequest == false)
             return false;
         LaunchTemplateInstanceNetworkInterfaceSpecificationRequest other = (LaunchTemplateInstanceNetworkInterfaceSpecificationRequest) obj;
+        if (other.getAssociateCarrierIpAddress() == null ^ this.getAssociateCarrierIpAddress() == null)
+            return false;
+        if (other.getAssociateCarrierIpAddress() != null && other.getAssociateCarrierIpAddress().equals(this.getAssociateCarrierIpAddress()) == false)
+            return false;
         if (other.getAssociatePublicIpAddress() == null ^ this.getAssociatePublicIpAddress() == null)
             return false;
         if (other.getAssociatePublicIpAddress() != null && other.getAssociatePublicIpAddress().equals(this.getAssociatePublicIpAddress()) == false)
@@ -924,6 +1646,39 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
             return false;
         if (other.getSubnetId() != null && other.getSubnetId().equals(this.getSubnetId()) == false)
             return false;
+        if (other.getNetworkCardIndex() == null ^ this.getNetworkCardIndex() == null)
+            return false;
+        if (other.getNetworkCardIndex() != null && other.getNetworkCardIndex().equals(this.getNetworkCardIndex()) == false)
+            return false;
+        if (other.getIpv4Prefixes() == null ^ this.getIpv4Prefixes() == null)
+            return false;
+        if (other.getIpv4Prefixes() != null && other.getIpv4Prefixes().equals(this.getIpv4Prefixes()) == false)
+            return false;
+        if (other.getIpv4PrefixCount() == null ^ this.getIpv4PrefixCount() == null)
+            return false;
+        if (other.getIpv4PrefixCount() != null && other.getIpv4PrefixCount().equals(this.getIpv4PrefixCount()) == false)
+            return false;
+        if (other.getIpv6Prefixes() == null ^ this.getIpv6Prefixes() == null)
+            return false;
+        if (other.getIpv6Prefixes() != null && other.getIpv6Prefixes().equals(this.getIpv6Prefixes()) == false)
+            return false;
+        if (other.getIpv6PrefixCount() == null ^ this.getIpv6PrefixCount() == null)
+            return false;
+        if (other.getIpv6PrefixCount() != null && other.getIpv6PrefixCount().equals(this.getIpv6PrefixCount()) == false)
+            return false;
+        if (other.getPrimaryIpv6() == null ^ this.getPrimaryIpv6() == null)
+            return false;
+        if (other.getPrimaryIpv6() != null && other.getPrimaryIpv6().equals(this.getPrimaryIpv6()) == false)
+            return false;
+        if (other.getEnaSrdSpecification() == null ^ this.getEnaSrdSpecification() == null)
+            return false;
+        if (other.getEnaSrdSpecification() != null && other.getEnaSrdSpecification().equals(this.getEnaSrdSpecification()) == false)
+            return false;
+        if (other.getConnectionTrackingSpecification() == null ^ this.getConnectionTrackingSpecification() == null)
+            return false;
+        if (other.getConnectionTrackingSpecification() != null
+                && other.getConnectionTrackingSpecification().equals(this.getConnectionTrackingSpecification()) == false)
+            return false;
         return true;
     }
 
@@ -932,6 +1687,7 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getAssociateCarrierIpAddress() == null) ? 0 : getAssociateCarrierIpAddress().hashCode());
         hashCode = prime * hashCode + ((getAssociatePublicIpAddress() == null) ? 0 : getAssociatePublicIpAddress().hashCode());
         hashCode = prime * hashCode + ((getDeleteOnTermination() == null) ? 0 : getDeleteOnTermination().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
@@ -945,6 +1701,14 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest implemen
         hashCode = prime * hashCode + ((getPrivateIpAddresses() == null) ? 0 : getPrivateIpAddresses().hashCode());
         hashCode = prime * hashCode + ((getSecondaryPrivateIpAddressCount() == null) ? 0 : getSecondaryPrivateIpAddressCount().hashCode());
         hashCode = prime * hashCode + ((getSubnetId() == null) ? 0 : getSubnetId().hashCode());
+        hashCode = prime * hashCode + ((getNetworkCardIndex() == null) ? 0 : getNetworkCardIndex().hashCode());
+        hashCode = prime * hashCode + ((getIpv4Prefixes() == null) ? 0 : getIpv4Prefixes().hashCode());
+        hashCode = prime * hashCode + ((getIpv4PrefixCount() == null) ? 0 : getIpv4PrefixCount().hashCode());
+        hashCode = prime * hashCode + ((getIpv6Prefixes() == null) ? 0 : getIpv6Prefixes().hashCode());
+        hashCode = prime * hashCode + ((getIpv6PrefixCount() == null) ? 0 : getIpv6PrefixCount().hashCode());
+        hashCode = prime * hashCode + ((getPrimaryIpv6() == null) ? 0 : getPrimaryIpv6().hashCode());
+        hashCode = prime * hashCode + ((getEnaSrdSpecification() == null) ? 0 : getEnaSrdSpecification().hashCode());
+        hashCode = prime * hashCode + ((getConnectionTrackingSpecification() == null) ? 0 : getConnectionTrackingSpecification().hashCode());
         return hashCode;
     }
 

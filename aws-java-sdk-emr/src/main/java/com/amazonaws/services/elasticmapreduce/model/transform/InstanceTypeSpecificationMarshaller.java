@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,6 +42,10 @@ public class InstanceTypeSpecificationMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EbsBlockDevices").build();
     private static final MarshallingInfo<Boolean> EBSOPTIMIZED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EbsOptimized").build();
+    private static final MarshallingInfo<String> CUSTOMAMIID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CustomAmiId").build();
+    private static final MarshallingInfo<Double> PRIORITY_BINDING = MarshallingInfo.builder(MarshallingType.DOUBLE).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Priority").build();
 
     private static final InstanceTypeSpecificationMarshaller instance = new InstanceTypeSpecificationMarshaller();
 
@@ -66,6 +70,8 @@ public class InstanceTypeSpecificationMarshaller {
             protocolMarshaller.marshall(instanceTypeSpecification.getConfigurations(), CONFIGURATIONS_BINDING);
             protocolMarshaller.marshall(instanceTypeSpecification.getEbsBlockDevices(), EBSBLOCKDEVICES_BINDING);
             protocolMarshaller.marshall(instanceTypeSpecification.getEbsOptimized(), EBSOPTIMIZED_BINDING);
+            protocolMarshaller.marshall(instanceTypeSpecification.getCustomAmiId(), CUSTOMAMIID_BINDING);
+            protocolMarshaller.marshall(instanceTypeSpecification.getPriority(), PRIORITY_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

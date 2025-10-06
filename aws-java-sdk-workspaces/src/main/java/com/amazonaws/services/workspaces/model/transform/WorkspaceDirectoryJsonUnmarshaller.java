@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -66,11 +66,15 @@ public class WorkspaceDirectoryJsonUnmarshaller implements Unmarshaller<Workspac
                 }
                 if (context.testExpression("SubnetIds", targetDepth)) {
                     context.nextToken();
-                    workspaceDirectory.setSubnetIds(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    workspaceDirectory.setSubnetIds(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("DnsIpAddresses", targetDepth)) {
                     context.nextToken();
-                    workspaceDirectory.setDnsIpAddresses(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    workspaceDirectory.setDnsIpAddresses(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("CustomerUserName", targetDepth)) {
                     context.nextToken();
@@ -98,7 +102,57 @@ public class WorkspaceDirectoryJsonUnmarshaller implements Unmarshaller<Workspac
                 }
                 if (context.testExpression("ipGroupIds", targetDepth)) {
                     context.nextToken();
-                    workspaceDirectory.setIpGroupIds(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    workspaceDirectory.setIpGroupIds(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("WorkspaceAccessProperties", targetDepth)) {
+                    context.nextToken();
+                    workspaceDirectory.setWorkspaceAccessProperties(WorkspaceAccessPropertiesJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("Tenancy", targetDepth)) {
+                    context.nextToken();
+                    workspaceDirectory.setTenancy(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("SelfservicePermissions", targetDepth)) {
+                    context.nextToken();
+                    workspaceDirectory.setSelfservicePermissions(SelfservicePermissionsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("SamlProperties", targetDepth)) {
+                    context.nextToken();
+                    workspaceDirectory.setSamlProperties(SamlPropertiesJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("CertificateBasedAuthProperties", targetDepth)) {
+                    context.nextToken();
+                    workspaceDirectory.setCertificateBasedAuthProperties(CertificateBasedAuthPropertiesJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("WorkspaceDirectoryName", targetDepth)) {
+                    context.nextToken();
+                    workspaceDirectory.setWorkspaceDirectoryName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("WorkspaceDirectoryDescription", targetDepth)) {
+                    context.nextToken();
+                    workspaceDirectory.setWorkspaceDirectoryDescription(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("UserIdentityType", targetDepth)) {
+                    context.nextToken();
+                    workspaceDirectory.setUserIdentityType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("WorkspaceType", targetDepth)) {
+                    context.nextToken();
+                    workspaceDirectory.setWorkspaceType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ActiveDirectoryConfig", targetDepth)) {
+                    context.nextToken();
+                    workspaceDirectory.setActiveDirectoryConfig(ActiveDirectoryConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("StreamingProperties", targetDepth)) {
+                    context.nextToken();
+                    workspaceDirectory.setStreamingProperties(StreamingPropertiesJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ErrorMessage", targetDepth)) {
+                    context.nextToken();
+                    workspaceDirectory.setErrorMessage(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -95,6 +95,129 @@ public interface AmazonRoute53Domains {
 
     /**
      * <p>
+     * Accepts the transfer of a domain from another Amazon Web Services account to the currentAmazon Web Services
+     * account. You initiate a transfer between Amazon Web Services accounts using <a href=
+     * "https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_TransferDomainToAnotherAwsAccount.html"
+     * >TransferDomainToAnotherAwsAccount</a>.
+     * </p>
+     * <p>
+     * If you use the CLI command at <a href=
+     * "https://docs.aws.amazon.com/cli/latest/reference/route53domains/accept-domain-transfer-from-another-aws-account.html"
+     * >accept-domain-transfer-from-another-aws-account</a>, use JSON format as input instead of text because otherwise
+     * CLI will throw an error from domain transfer input that includes single quotes.
+     * </p>
+     * <p>
+     * Use either <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_ListOperations.html">ListOperations</a>
+     * or <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html">
+     * GetOperationDetail</a> to determine whether the operation succeeded. <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html"
+     * >GetOperationDetail</a> provides additional information, for example,
+     * <code>Domain Transfer from Aws Account 111122223333 has been cancelled</code>.
+     * </p>
+     * 
+     * @param acceptDomainTransferFromAnotherAwsAccountRequest
+     *        The AcceptDomainTransferFromAnotherAwsAccount request includes the following elements.
+     * @return Result of the AcceptDomainTransferFromAnotherAwsAccount operation returned by the service.
+     * @throws InvalidInputException
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
+     * @throws OperationLimitExceededException
+     *         The number of operations or jobs running exceeded the allowed threshold for the account.
+     * @throws DomainLimitExceededException
+     *         The number of domains has exceeded the allowed threshold for the account.
+     * @throws UnsupportedTLDException
+     *         Amazon Route 53 does not support this top-level domain (TLD).
+     * @sample AmazonRoute53Domains.AcceptDomainTransferFromAnotherAwsAccount
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/AcceptDomainTransferFromAnotherAwsAccount"
+     *      target="_top">AWS API Documentation</a>
+     */
+    AcceptDomainTransferFromAnotherAwsAccountResult acceptDomainTransferFromAnotherAwsAccount(
+            AcceptDomainTransferFromAnotherAwsAccountRequest acceptDomainTransferFromAnotherAwsAccountRequest);
+
+    /**
+     * <p>
+     * Creates a delegation signer (DS) record in the registry zone for this domain name.
+     * </p>
+     * <p>
+     * Note that creating DS record at the registry impacts DNSSEC validation of your DNS records. This action may
+     * render your domain name unavailable on the internet if the steps are completed in the wrong order, or with
+     * incorrect timing. For more information about DNSSEC signing, see <a
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-configuring-dnssec.html">Configuring DNSSEC
+     * signing</a> in the <i>Route 53 developer guide</i>.
+     * </p>
+     * 
+     * @param associateDelegationSignerToDomainRequest
+     * @return Result of the AssociateDelegationSignerToDomain operation returned by the service.
+     * @throws DuplicateRequestException
+     *         The request is already in progress for the domain.
+     * @throws InvalidInputException
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
+     * @throws OperationLimitExceededException
+     *         The number of operations or jobs running exceeded the allowed threshold for the account.
+     * @throws TLDRulesViolationException
+     *         The top-level domain does not support this operation.
+     * @throws UnsupportedTLDException
+     *         Amazon Route 53 does not support this top-level domain (TLD).
+     * @throws DnssecLimitExceededException
+     *         This error is returned if you call <code>AssociateDelegationSignerToDomain</code> when the specified
+     *         domain has reached the maximum number of DS records. You can't add any additional DS records unless you
+     *         delete an existing one first.
+     * @sample AmazonRoute53Domains.AssociateDelegationSignerToDomain
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/AssociateDelegationSignerToDomain"
+     *      target="_top">AWS API Documentation</a>
+     */
+    AssociateDelegationSignerToDomainResult associateDelegationSignerToDomain(AssociateDelegationSignerToDomainRequest associateDelegationSignerToDomainRequest);
+
+    /**
+     * <p>
+     * Cancels the transfer of a domain from the current Amazon Web Services account to another Amazon Web Services
+     * account. You initiate a transfer betweenAmazon Web Services accounts using <a href=
+     * "https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_TransferDomainToAnotherAwsAccount.html"
+     * >TransferDomainToAnotherAwsAccount</a>.
+     * </p>
+     * <important>
+     * <p>
+     * You must cancel the transfer before the other Amazon Web Services account accepts the transfer using <a href=
+     * "https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_AcceptDomainTransferFromAnotherAwsAccount.html"
+     * >AcceptDomainTransferFromAnotherAwsAccount</a>.
+     * </p>
+     * </important>
+     * <p>
+     * Use either <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_ListOperations.html">ListOperations</a>
+     * or <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html">
+     * GetOperationDetail</a> to determine whether the operation succeeded. <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html"
+     * >GetOperationDetail</a> provides additional information, for example,
+     * <code>Domain Transfer from Aws Account 111122223333 has been cancelled</code>.
+     * </p>
+     * 
+     * @param cancelDomainTransferToAnotherAwsAccountRequest
+     *        The CancelDomainTransferToAnotherAwsAccount request includes the following element.
+     * @return Result of the CancelDomainTransferToAnotherAwsAccount operation returned by the service.
+     * @throws InvalidInputException
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
+     * @throws OperationLimitExceededException
+     *         The number of operations or jobs running exceeded the allowed threshold for the account.
+     * @throws UnsupportedTLDException
+     *         Amazon Route 53 does not support this top-level domain (TLD).
+     * @sample AmazonRoute53Domains.CancelDomainTransferToAnotherAwsAccount
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/CancelDomainTransferToAnotherAwsAccount"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CancelDomainTransferToAnotherAwsAccountResult cancelDomainTransferToAnotherAwsAccount(
+            CancelDomainTransferToAnotherAwsAccountRequest cancelDomainTransferToAnotherAwsAccountRequest);
+
+    /**
+     * <p>
      * This operation checks the availability of one domain name. Note that if the availability status of a domain is
      * pending, you must submit another request to determine the availability of the domain name.
      * </p>
@@ -103,9 +226,9 @@ public interface AmazonRoute53Domains {
      *        The CheckDomainAvailability request contains the following elements.
      * @return Result of the CheckDomainAvailability operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @throws UnsupportedTLDException
      *         Amazon Route 53 does not support this top-level domain (TLD).
      * @sample AmazonRoute53Domains.CheckDomainAvailability
@@ -123,9 +246,9 @@ public interface AmazonRoute53Domains {
      *        The CheckDomainTransferability request contains the following elements.
      * @return Result of the CheckDomainTransferability operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @throws UnsupportedTLDException
      *         Amazon Route 53 does not support this top-level domain (TLD).
      * @sample AmazonRoute53Domains.CheckDomainTransferability
@@ -133,6 +256,54 @@ public interface AmazonRoute53Domains {
      *      target="_top">AWS API Documentation</a>
      */
     CheckDomainTransferabilityResult checkDomainTransferability(CheckDomainTransferabilityRequest checkDomainTransferabilityRequest);
+
+    /**
+     * <p>
+     * This operation deletes the specified domain. This action is permanent. For more information, see <a
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-delete.html">Deleting a domain name
+     * registration</a>.
+     * </p>
+     * <p>
+     * To transfer the domain registration to another registrar, use the transfer process that’s provided by the
+     * registrar to which you want to transfer the registration. Otherwise, the following apply:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * You can’t get a refund for the cost of a deleted domain registration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The registry for the top-level domain might hold the domain name for a brief time before releasing it for other
+     * users to register (varies by registry).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * When the registration has been deleted, we'll send you a confirmation to the registrant contact. The email will
+     * come from <code>noreply@domainnameverification.net</code> or <code>noreply@registrar.amazon.com</code>.
+     * </p>
+     * </li>
+     * </ol>
+     * 
+     * @param deleteDomainRequest
+     * @return Result of the DeleteDomain operation returned by the service.
+     * @throws InvalidInputException
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
+     * @throws DuplicateRequestException
+     *         The request is already in progress for the domain.
+     * @throws TLDRulesViolationException
+     *         The top-level domain does not support this operation.
+     * @throws UnsupportedTLDException
+     *         Amazon Route 53 does not support this top-level domain (TLD).
+     * @sample AmazonRoute53Domains.DeleteDomain
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/DeleteDomain" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DeleteDomainResult deleteDomain(DeleteDomainRequest deleteDomainRequest);
 
     /**
      * <p>
@@ -147,9 +318,9 @@ public interface AmazonRoute53Domains {
      *        The DeleteTagsForDomainRequest includes the following elements.
      * @return Result of the DeleteTagsForDomain operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @throws OperationLimitExceededException
      *         The number of operations or jobs running exceeded the allowed threshold for the account.
      * @throws UnsupportedTLDException
@@ -168,9 +339,9 @@ public interface AmazonRoute53Domains {
      * @param disableDomainAutoRenewRequest
      * @return Result of the DisableDomainAutoRenew operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @throws UnsupportedTLDException
      *         Amazon Route 53 does not support this top-level domain (TLD).
      * @sample AmazonRoute53Domains.DisableDomainAutoRenew
@@ -192,9 +363,9 @@ public interface AmazonRoute53Domains {
      *        The DisableDomainTransferLock request includes the following element.
      * @return Result of the DisableDomainTransferLock operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @throws DuplicateRequestException
      *         The request is already in progress for the domain.
      * @throws TLDRulesViolationException
@@ -211,23 +382,50 @@ public interface AmazonRoute53Domains {
 
     /**
      * <p>
+     * Deletes a delegation signer (DS) record in the registry zone for this domain name.
+     * </p>
+     * 
+     * @param disassociateDelegationSignerFromDomainRequest
+     * @return Result of the DisassociateDelegationSignerFromDomain operation returned by the service.
+     * @throws DuplicateRequestException
+     *         The request is already in progress for the domain.
+     * @throws InvalidInputException
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
+     * @throws OperationLimitExceededException
+     *         The number of operations or jobs running exceeded the allowed threshold for the account.
+     * @throws TLDRulesViolationException
+     *         The top-level domain does not support this operation.
+     * @throws UnsupportedTLDException
+     *         Amazon Route 53 does not support this top-level domain (TLD).
+     * @sample AmazonRoute53Domains.DisassociateDelegationSignerFromDomain
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/DisassociateDelegationSignerFromDomain"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DisassociateDelegationSignerFromDomainResult disassociateDelegationSignerFromDomain(
+            DisassociateDelegationSignerFromDomainRequest disassociateDelegationSignerFromDomainRequest);
+
+    /**
+     * <p>
      * This operation configures Amazon Route 53 to automatically renew the specified domain before the domain
-     * registration expires. The cost of renewing your domain registration is billed to your AWS account.
+     * registration expires. The cost of renewing your domain registration is billed to your Amazon Web Services
+     * account.
      * </p>
      * <p>
      * The period during which you can renew a domain name varies by TLD. For a list of TLDs and their renewal policies,
-     * see <a href="http://wiki.gandi.net/en/domains/renew#renewal_restoration_and_deletion_times">
-     * "Renewal, restoration, and deletion times"</a> on the website for our registrar associate, Gandi. Amazon Route 53
-     * requires that you renew before the end of the renewal period that is listed on the Gandi website so we can
-     * complete processing before the deadline.
+     * see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains That You
+     * Can Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>. Route 53 requires that you
+     * renew before the end of the renewal period so we can complete processing before the deadline.
      * </p>
      * 
      * @param enableDomainAutoRenewRequest
      * @return Result of the EnableDomainAutoRenew operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @throws UnsupportedTLDException
      *         Amazon Route 53 does not support this top-level domain (TLD).
      * @throws TLDRulesViolationException
@@ -250,9 +448,9 @@ public interface AmazonRoute53Domains {
      *        A request to set the transfer lock for the specified domain.
      * @return Result of the EnableDomainTransferLock operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @throws DuplicateRequestException
      *         The request is already in progress for the domain.
      * @throws TLDRulesViolationException
@@ -279,9 +477,9 @@ public interface AmazonRoute53Domains {
      * @param getContactReachabilityStatusRequest
      * @return Result of the GetContactReachabilityStatus operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @throws OperationLimitExceededException
      *         The number of operations or jobs running exceeded the allowed threshold for the account.
      * @throws UnsupportedTLDException
@@ -294,17 +492,17 @@ public interface AmazonRoute53Domains {
 
     /**
      * <p>
-     * This operation returns detailed information about a specified domain that is associated with the current AWS
-     * account. Contact information for the domain is also returned as part of the output.
+     * This operation returns detailed information about a specified domain that is associated with the current Amazon
+     * Web Services account. Contact information for the domain is also returned as part of the output.
      * </p>
      * 
      * @param getDomainDetailRequest
      *        The GetDomainDetail request includes the following element.
      * @return Result of the GetDomainDetail operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @throws UnsupportedTLDException
      *         Amazon Route 53 does not support this top-level domain (TLD).
      * @sample AmazonRoute53Domains.GetDomainDetail
@@ -315,16 +513,15 @@ public interface AmazonRoute53Domains {
 
     /**
      * <p>
-     * The GetDomainSuggestions operation returns a list of suggested domain names given a string, which can either be a
-     * domain name or simply a word or phrase (without spaces).
+     * The GetDomainSuggestions operation returns a list of suggested domain names.
      * </p>
      * 
      * @param getDomainSuggestionsRequest
      * @return Result of the GetDomainSuggestions operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @throws UnsupportedTLDException
      *         Amazon Route 53 does not support this top-level domain (TLD).
      * @sample AmazonRoute53Domains.GetDomainSuggestions
@@ -339,12 +536,13 @@ public interface AmazonRoute53Domains {
      * </p>
      * 
      * @param getOperationDetailRequest
-     *        The <a>GetOperationDetail</a> request includes the following element.
+     *        The <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html">
+     *        GetOperationDetail</a> request includes the following element.
      * @return Result of the GetOperationDetail operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @sample AmazonRoute53Domains.GetOperationDetail
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/GetOperationDetail"
      *      target="_top">AWS API Documentation</a>
@@ -353,16 +551,17 @@ public interface AmazonRoute53Domains {
 
     /**
      * <p>
-     * This operation returns all the domain names registered with Amazon Route 53 for the current AWS account.
+     * This operation returns all the domain names registered with Amazon Route 53 for the current Amazon Web Services
+     * account if no filtering conditions are used.
      * </p>
      * 
      * @param listDomainsRequest
      *        The ListDomains request includes the following elements.
      * @return Result of the ListDomains operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @sample AmazonRoute53Domains.ListDomains
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/ListDomains" target="_top">AWS API
      *      Documentation</a>
@@ -378,16 +577,20 @@ public interface AmazonRoute53Domains {
 
     /**
      * <p>
-     * This operation returns the operation IDs of operations that are not yet complete.
+     * Returns information about all of the operations that return an operation ID and that have ever been performed on
+     * domains that were registered by the current account.
+     * </p>
+     * <p>
+     * This command runs only in the us-east-1 Region.
      * </p>
      * 
      * @param listOperationsRequest
      *        The ListOperations request includes the following elements.
      * @return Result of the ListOperations operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @sample AmazonRoute53Domains.ListOperations
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/ListOperations" target="_top">AWS
      *      API Documentation</a>
@@ -403,6 +606,52 @@ public interface AmazonRoute53Domains {
 
     /**
      * <p>
+     * Lists the following prices for either all the TLDs supported by Route 53, or the specified TLD:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Registration
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Transfer
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Owner change
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Domain renewal
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Domain restoration
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param listPricesRequest
+     * @return Result of the ListPrices operation returned by the service.
+     * @throws InvalidInputException
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
+     * @throws UnsupportedTLDException
+     *         Amazon Route 53 does not support this top-level domain (TLD).
+     * @sample AmazonRoute53Domains.ListPrices
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/ListPrices" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListPricesResult listPrices(ListPricesRequest listPricesRequest);
+
+    /**
+     * <p>
      * This operation returns all of the tags that are associated with the specified domain.
      * </p>
      * <p>
@@ -414,9 +663,9 @@ public interface AmazonRoute53Domains {
      *        The ListTagsForDomainRequest includes the following elements.
      * @return Result of the ListTagsForDomain operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @throws OperationLimitExceededException
      *         The number of operations or jobs running exceeded the allowed threshold for the account.
      * @throws UnsupportedTLDException
@@ -429,9 +678,39 @@ public interface AmazonRoute53Domains {
 
     /**
      * <p>
-     * This operation registers a domain. Domains are registered either by Amazon Registrar (for .com, .net, and .org
-     * domains) or by our registrar associate, Gandi (for all other domains). For some top-level domains (TLDs), this
-     * operation requires extra parameters.
+     * Moves a domain from Amazon Web Services to another registrar.
+     * </p>
+     * <p>
+     * Supported actions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Changes the IPS tags of a .uk domain, and pushes it to transit. Transit means that the domain is ready to be
+     * transferred to another registrar.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param pushDomainRequest
+     * @return Result of the PushDomain operation returned by the service.
+     * @throws InvalidInputException
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
+     * @throws OperationLimitExceededException
+     *         The number of operations or jobs running exceeded the allowed threshold for the account.
+     * @throws UnsupportedTLDException
+     *         Amazon Route 53 does not support this top-level domain (TLD).
+     * @sample AmazonRoute53Domains.PushDomain
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/PushDomain" target="_top">AWS API
+     *      Documentation</a>
+     */
+    PushDomainResult pushDomain(PushDomainRequest pushDomainRequest);
+
+    /**
+     * <p>
+     * This operation registers a domain. For some top-level domains (TLDs), this operation requires extra parameters.
      * </p>
      * <p>
      * When you register a domain, Amazon Route 53 does the following:
@@ -439,25 +718,28 @@ public interface AmazonRoute53Domains {
      * <ul>
      * <li>
      * <p>
-     * Creates a Amazon Route 53 hosted zone that has the same name as the domain. Amazon Route 53 assigns four name
-     * servers to your hosted zone and automatically updates your domain registration with the names of these name
-     * servers.
+     * Creates a Route 53 hosted zone that has the same name as the domain. Route 53 assigns four name servers to your
+     * hosted zone and automatically updates your domain registration with the names of these name servers.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Enables autorenew, so your domain registration will renew automatically each year. We'll notify you in advance of
-     * the renewal date so you can choose whether to renew the registration.
+     * Enables auto renew, so your domain registration will renew automatically each year. We'll notify you in advance
+     * of the renewal date so you can choose whether to renew the registration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Optionally enables privacy protection, so WHOIS queries return contact information either for Amazon Registrar
-     * (for .com, .net, and .org domains) or for our registrar associate, Gandi (for all other TLDs). If you don't
-     * enable privacy protection, WHOIS queries return the information that you entered for the registrant, admin, and
-     * tech contacts.
+     * Optionally enables privacy protection, so WHOIS queries return contact for the registrar or the phrase
+     * "REDACTED FOR PRIVACY", or "On behalf of &lt;domain name&gt; owner." If you don't enable privacy protection,
+     * WHOIS queries return the information that you entered for the administrative, registrant, and technical contacts.
      * </p>
-     * </li>
+     * <note>
+     * <p>
+     * While some domains may allow different privacy settings per contact, we recommend specifying the same privacy
+     * setting for all contacts.
+     * </p>
+     * </note></li>
      * <li>
      * <p>
      * If registration is successful, returns an operation ID that you can use to track the progress and completion of
@@ -466,7 +748,7 @@ public interface AmazonRoute53Domains {
      * </li>
      * <li>
      * <p>
-     * Charges your AWS account an amount based on the top-level domain. For more information, see <a
+     * Charges your Amazon Web Services account an amount based on the top-level domain. For more information, see <a
      * href="http://aws.amazon.com/route53/pricing/">Amazon Route 53 Pricing</a>.
      * </p>
      * </li>
@@ -476,9 +758,9 @@ public interface AmazonRoute53Domains {
      *        The RegisterDomain request includes the following elements.
      * @return Result of the RegisterDomain operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @throws UnsupportedTLDException
      *         Amazon Route 53 does not support this top-level domain (TLD).
      * @throws DuplicateRequestException
@@ -497,15 +779,51 @@ public interface AmazonRoute53Domains {
 
     /**
      * <p>
+     * Rejects the transfer of a domain from another Amazon Web Services account to the current Amazon Web Services
+     * account. You initiate a transfer betweenAmazon Web Services accounts using <a href=
+     * "https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_TransferDomainToAnotherAwsAccount.html"
+     * >TransferDomainToAnotherAwsAccount</a>.
+     * </p>
+     * <p>
+     * Use either <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_ListOperations.html">ListOperations</a>
+     * or <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html">
+     * GetOperationDetail</a> to determine whether the operation succeeded. <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html"
+     * >GetOperationDetail</a> provides additional information, for example,
+     * <code>Domain Transfer from Aws Account 111122223333 has been cancelled</code>.
+     * </p>
+     * 
+     * @param rejectDomainTransferFromAnotherAwsAccountRequest
+     *        The RejectDomainTransferFromAnotherAwsAccount request includes the following element.
+     * @return Result of the RejectDomainTransferFromAnotherAwsAccount operation returned by the service.
+     * @throws InvalidInputException
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
+     * @throws OperationLimitExceededException
+     *         The number of operations or jobs running exceeded the allowed threshold for the account.
+     * @throws UnsupportedTLDException
+     *         Amazon Route 53 does not support this top-level domain (TLD).
+     * @sample AmazonRoute53Domains.RejectDomainTransferFromAnotherAwsAccount
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/RejectDomainTransferFromAnotherAwsAccount"
+     *      target="_top">AWS API Documentation</a>
+     */
+    RejectDomainTransferFromAnotherAwsAccountResult rejectDomainTransferFromAnotherAwsAccount(
+            RejectDomainTransferFromAnotherAwsAccountRequest rejectDomainTransferFromAnotherAwsAccountRequest);
+
+    /**
+     * <p>
      * This operation renews a domain for the specified number of years. The cost of renewing your domain is billed to
-     * your AWS account.
+     * your Amazon Web Services account.
      * </p>
      * <p>
      * We recommend that you renew your domain several weeks before the expiration date. Some TLD registries delete
      * domains before the expiration date if you haven't renewed far enough in advance. For more information about
      * renewing domain registration, see <a
-     * href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-renew.html">Renewing Registration for a
-     * Domain</a> in the Amazon Route 53 Developer Guide.
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-renew.html">Renewing Registration for a
+     * Domain</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * 
      * @param renewDomainRequest
@@ -513,9 +831,9 @@ public interface AmazonRoute53Domains {
      *        expiration year.
      * @return Result of the RenewDomain operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @throws UnsupportedTLDException
      *         Amazon Route 53 does not support this top-level domain (TLD).
      * @throws DuplicateRequestException
@@ -540,9 +858,9 @@ public interface AmazonRoute53Domains {
      * @param resendContactReachabilityEmailRequest
      * @return Result of the ResendContactReachabilityEmail operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @throws OperationLimitExceededException
      *         The number of operations or jobs running exceeded the allowed threshold for the account.
      * @throws UnsupportedTLDException
@@ -555,8 +873,25 @@ public interface AmazonRoute53Domains {
 
     /**
      * <p>
-     * This operation returns the AuthCode for the domain. To transfer a domain to another registrar, you provide this
-     * value to the new registrar.
+     * Resend the form of authorization email for this operation.
+     * </p>
+     * 
+     * @param resendOperationAuthorizationRequest
+     * @return Result of the ResendOperationAuthorization operation returned by the service.
+     * @throws InvalidInputException
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
+     * @sample AmazonRoute53Domains.ResendOperationAuthorization
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/ResendOperationAuthorization"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ResendOperationAuthorizationResult resendOperationAuthorization(ResendOperationAuthorizationRequest resendOperationAuthorizationRequest);
+
+    /**
+     * <p>
+     * This operation returns the authorization code for the domain. To transfer a domain to another registrar, you
+     * provide this value to the new registrar.
      * </p>
      * 
      * @param retrieveDomainAuthCodeRequest
@@ -564,9 +899,9 @@ public interface AmazonRoute53Domains {
      *        you provide this value to the new registrar.
      * @return Result of the RetrieveDomainAuthCode operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @throws UnsupportedTLDException
      *         Amazon Route 53 does not support this top-level domain (TLD).
      * @sample AmazonRoute53Domains.RetrieveDomainAuthCode
@@ -577,22 +912,50 @@ public interface AmazonRoute53Domains {
 
     /**
      * <p>
-     * This operation transfers a domain from another registrar to Amazon Route 53. When the transfer is complete, the
-     * domain is registered either with Amazon Registrar (for .com, .net, and .org domains) or with our registrar
-     * associate, Gandi (for all other TLDs).
+     * Transfers a domain from another registrar to Amazon Route 53.
      * </p>
      * <p>
-     * For transfer requirements, a detailed procedure, and information about viewing the status of a domain transfer,
-     * see <a
-     * href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-transfer-to-route-53.html">Transferring
+     * For more information about transferring domains, see the following topics:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For transfer requirements, a detailed procedure, and information about viewing the status of a domain that you're
+     * transferring to Route 53, see <a
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-transfer-to-route-53.html">Transferring
      * Registration for a Domain to Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For information about how to transfer a domain from one Amazon Web Services account to another, see <a href=
+     * "https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_TransferDomainToAnotherAwsAccount.html"
+     * >TransferDomainToAnotherAwsAccount</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For information about how to transfer a domain to another domain registrar, see <a
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-transfer-from-route-53.html">Transferring
+     * a Domain from Amazon Route 53 to Another Registrar</a> in the <i>Amazon Route 53 Developer Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <important>
+     * <p>
+     * During the transfer of any country code top-level domains (ccTLDs) to Route 53, except for .cc and .tv, updates
+     * to the owner contact are ignored and the owner contact data from the registry is used. You can update the owner
+     * contact after the transfer is complete. For more information, see <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_UpdateDomainContact.html"
+     * >UpdateDomainContact</a>.
+     * </p>
+     * </important>
      * <p>
      * If the registrar for your domain is also the DNS service provider for the domain, we highly recommend that you
-     * consider transferring your DNS service to Amazon Route 53 or to another DNS service provider before you transfer
-     * your registration. Some registrars provide free DNS service when you purchase a domain registration. When you
-     * transfer the registration, the previous registrar will not renew your domain registration and could end your DNS
-     * service at any time.
+     * transfer your DNS service to Route 53 or to another DNS service provider before you transfer your registration.
+     * Some registrars provide free DNS service when you purchase a domain registration. When you transfer the
+     * registration, the previous registrar will not renew your domain registration and could end your DNS service at
+     * any time.
      * </p>
      * <important>
      * <p>
@@ -611,9 +974,9 @@ public interface AmazonRoute53Domains {
      *        The TransferDomain request includes the following elements.
      * @return Result of the TransferDomain operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @throws UnsupportedTLDException
      *         Amazon Route 53 does not support this top-level domain (TLD).
      * @throws DuplicateRequestException
@@ -632,22 +995,90 @@ public interface AmazonRoute53Domains {
 
     /**
      * <p>
+     * Transfers a domain from the current Amazon Web Services account to another Amazon Web Services account. Note the
+     * following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The Amazon Web Services account that you're transferring the domain to must accept the transfer. If the other
+     * account doesn't accept the transfer within 3 days, we cancel the transfer. See <a href=
+     * "https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_AcceptDomainTransferFromAnotherAwsAccount.html"
+     * >AcceptDomainTransferFromAnotherAwsAccount</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You can cancel the transfer before the other account accepts it. See <a href=
+     * "https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_CancelDomainTransferToAnotherAwsAccount.html"
+     * >CancelDomainTransferToAnotherAwsAccount</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The other account can reject the transfer. See <a href=
+     * "https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_RejectDomainTransferFromAnotherAwsAccount.html"
+     * >RejectDomainTransferFromAnotherAwsAccount</a>.
+     * </p>
+     * </li>
+     * </ul>
+     * <important>
+     * <p>
+     * When you transfer a domain from one Amazon Web Services account to another, Route 53 doesn't transfer the hosted
+     * zone that is associated with the domain. DNS resolution isn't affected if the domain and the hosted zone are
+     * owned by separate accounts, so transferring the hosted zone is optional. For information about transferring the
+     * hosted zone to another Amazon Web Services account, see <a
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/hosted-zones-migrating.html">Migrating a Hosted
+     * Zone to a Different Amazon Web Services Account</a> in the <i>Amazon Route 53 Developer Guide</i>.
+     * </p>
+     * </important>
+     * <p>
+     * Use either <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_ListOperations.html">ListOperations</a>
+     * or <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html">
+     * GetOperationDetail</a> to determine whether the operation succeeded. <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html"
+     * >GetOperationDetail</a> provides additional information, for example,
+     * <code>Domain Transfer from Aws Account 111122223333 has been cancelled</code>.
+     * </p>
+     * 
+     * @param transferDomainToAnotherAwsAccountRequest
+     *        The TransferDomainToAnotherAwsAccount request includes the following elements.
+     * @return Result of the TransferDomainToAnotherAwsAccount operation returned by the service.
+     * @throws InvalidInputException
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
+     * @throws OperationLimitExceededException
+     *         The number of operations or jobs running exceeded the allowed threshold for the account.
+     * @throws DuplicateRequestException
+     *         The request is already in progress for the domain.
+     * @throws UnsupportedTLDException
+     *         Amazon Route 53 does not support this top-level domain (TLD).
+     * @sample AmazonRoute53Domains.TransferDomainToAnotherAwsAccount
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/TransferDomainToAnotherAwsAccount"
+     *      target="_top">AWS API Documentation</a>
+     */
+    TransferDomainToAnotherAwsAccountResult transferDomainToAnotherAwsAccount(TransferDomainToAnotherAwsAccountRequest transferDomainToAnotherAwsAccountRequest);
+
+    /**
+     * <p>
      * This operation updates the contact information for a particular domain. You must specify information for at least
      * one contact: registrant, administrator, or technical.
      * </p>
      * <p>
      * If the update is successful, this method returns an operation ID that you can use to track the progress and
-     * completion of the action. If the request is not completed successfully, the domain registrant will be notified by
-     * email.
+     * completion of the operation. If the request is not completed successfully, the domain registrant will be notified
+     * by email.
      * </p>
      * 
      * @param updateDomainContactRequest
      *        The UpdateDomainContact request includes the following elements.
      * @return Result of the UpdateDomainContact operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @throws DuplicateRequestException
      *         The request is already in progress for the domain.
      * @throws TLDRulesViolationException
@@ -664,24 +1095,41 @@ public interface AmazonRoute53Domains {
 
     /**
      * <p>
-     * This operation updates the specified domain contact's privacy setting. When privacy protection is enabled,
-     * contact information such as email address is replaced either with contact information for Amazon Registrar (for
-     * .com, .net, and .org domains) or with contact information for our registrar associate, Gandi.
+     * This operation updates the specified domain contact's privacy setting. When privacy protection is enabled, your
+     * contact information is replaced with contact information for the registrar or with the phrase
+     * "REDACTED FOR PRIVACY", or "On behalf of &lt;domain name&gt; owner."
      * </p>
+     * <note>
      * <p>
-     * This operation affects only the contact information for the specified contact type (registrant, administrator, or
-     * tech). If the request succeeds, Amazon Route 53 returns an operation ID that you can use with
-     * <a>GetOperationDetail</a> to track the progress and completion of the action. If the request doesn't complete
+     * While some domains may allow different privacy settings per contact, we recommend specifying the same privacy
+     * setting for all contacts.
+     * </p>
+     * </note>
+     * <p>
+     * This operation affects only the contact information for the specified contact type (administrative, registrant,
+     * or technical). If the request succeeds, Amazon Route 53 returns an operation ID that you can use with <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html"
+     * >GetOperationDetail</a> to track the progress and completion of the action. If the request doesn't complete
      * successfully, the domain registrant will be notified by email.
      * </p>
+     * <important>
+     * <p>
+     * By disabling the privacy service via API, you consent to the publication of the contact information provided for
+     * this domain via the public WHOIS database. You certify that you are the registrant of this domain name and have
+     * the authority to make this decision. You may withdraw your consent at any time by enabling privacy protection
+     * using either <code>UpdateDomainContactPrivacy</code> or the Route 53 console. Enabling privacy protection removes
+     * the contact information provided for this domain from the WHOIS database. For more information on our privacy
+     * practices, see <a href="https://aws.amazon.com/privacy/">https://aws.amazon.com/privacy/</a>.
+     * </p>
+     * </important>
      * 
      * @param updateDomainContactPrivacyRequest
      *        The UpdateDomainContactPrivacy request includes the following elements.
      * @return Result of the UpdateDomainContactPrivacy operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @throws DuplicateRequestException
      *         The request is already in progress for the domain.
      * @throws TLDRulesViolationException
@@ -717,9 +1165,9 @@ public interface AmazonRoute53Domains {
      *        notified by email.
      * @return Result of the UpdateDomainNameservers operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @throws DuplicateRequestException
      *         The request is already in progress for the domain.
      * @throws TLDRulesViolationException
@@ -747,9 +1195,9 @@ public interface AmazonRoute53Domains {
      *        The UpdateTagsForDomainRequest includes the following elements.
      * @return Result of the UpdateTagsForDomain operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @throws OperationLimitExceededException
      *         The number of operations or jobs running exceeded the allowed threshold for the account.
      * @throws UnsupportedTLDException
@@ -762,16 +1210,16 @@ public interface AmazonRoute53Domains {
 
     /**
      * <p>
-     * Returns all the domain-related billing records for the current AWS account for a specified period
+     * Returns all the domain-related billing records for the current Amazon Web Services account for a specified period
      * </p>
      * 
      * @param viewBillingRequest
      *        The ViewBilling request includes the following elements.
      * @return Result of the ViewBilling operation returned by the service.
      * @throws InvalidInputException
-     *         The requested item is not acceptable. For example, for an OperationId it might refer to the ID of an
-     *         operation that is already completed. For a domain name, it might not be a valid domain name or belong to
-     *         the requester account.
+     *         The requested item is not acceptable. For example, for APIs that accept a domain name, the request might
+     *         specify a domain name that doesn't belong to the account that submitted the request. For
+     *         <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.
      * @sample AmazonRoute53Domains.ViewBilling
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/ViewBilling" target="_top">AWS API
      *      Documentation</a>

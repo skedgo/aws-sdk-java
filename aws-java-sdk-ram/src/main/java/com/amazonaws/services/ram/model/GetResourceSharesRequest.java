@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,54 +27,92 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The Amazon Resource Names (ARN) of the resource shares.
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Names (ARNs)</a> of individual resource shares that you want information about.
      * </p>
      */
     private java.util.List<String> resourceShareArns;
     /**
      * <p>
-     * The status of the resource share.
+     * Specifies that you want to retrieve details of only those resource shares that have this status.
      * </p>
      */
     private String resourceShareStatus;
     /**
      * <p>
-     * The type of owner.
+     * Specifies that you want to retrieve details of only those resource shares that match the following:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b> <code>SELF</code> </b> – resource shares that your account shares with other accounts
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>OTHER-ACCOUNTS</code> </b> – resource shares that other accounts share with your account
+     * </p>
+     * </li>
+     * </ul>
      */
     private String resourceOwner;
     /**
      * <p>
-     * The name of the resource share.
+     * Specifies the name of an individual resource share that you want to retrieve details about.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * One or more tag filters.
+     * Specifies that you want to retrieve details of only those resource shares that match the specified tag keys and
+     * values.
      * </p>
      */
     private java.util.List<TagFilter> tagFilters;
     /**
      * <p>
-     * The token for the next page of results.
+     * Specifies that you want to receive the next page of results. Valid only if you received a <code>NextToken</code>
+     * response in the previous request. If you did, it indicates that more output is available. Set this parameter to
+     * the value provided by the previous call's <code>NextToken</code> response to request the next page of results.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * Specifies the total number of results that you want included on each page of the response. If you do not include
+     * this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the
+     * number you specify, the <code>NextToken</code> response element is returned with a value (not null). Include the
+     * specified value as the <code>NextToken</code> request parameter in the next call to the operation to get the next
+     * part of the results. Note that the service might return fewer results than the maximum even when there are more
+     * results available. You should check <code>NextToken</code> after every operation to ensure that you receive all
+     * of the results.
      * </p>
      */
     private Integer maxResults;
+    /**
+     * <p>
+     * Specifies that you want to retrieve details of only those resource shares that use the managed permission with
+     * this <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a>.
+     * </p>
+     */
+    private String permissionArn;
+    /**
+     * <p>
+     * Specifies that you want to retrieve details for only those resource shares that use the specified version of the
+     * managed permission.
+     * </p>
+     */
+    private Integer permissionVersion;
 
     /**
      * <p>
-     * The Amazon Resource Names (ARN) of the resource shares.
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Names (ARNs)</a> of individual resource shares that you want information about.
      * </p>
      * 
-     * @return The Amazon Resource Names (ARN) of the resource shares.
+     * @return Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *         Resource Names (ARNs)</a> of individual resource shares that you want information about.
      */
 
     public java.util.List<String> getResourceShareArns() {
@@ -83,11 +121,13 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The Amazon Resource Names (ARN) of the resource shares.
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Names (ARNs)</a> of individual resource shares that you want information about.
      * </p>
      * 
      * @param resourceShareArns
-     *        The Amazon Resource Names (ARN) of the resource shares.
+     *        Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *        Resource Names (ARNs)</a> of individual resource shares that you want information about.
      */
 
     public void setResourceShareArns(java.util.Collection<String> resourceShareArns) {
@@ -101,7 +141,8 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The Amazon Resource Names (ARN) of the resource shares.
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Names (ARNs)</a> of individual resource shares that you want information about.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -110,7 +151,8 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * 
      * @param resourceShareArns
-     *        The Amazon Resource Names (ARN) of the resource shares.
+     *        Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *        Resource Names (ARNs)</a> of individual resource shares that you want information about.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -126,11 +168,13 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The Amazon Resource Names (ARN) of the resource shares.
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Names (ARNs)</a> of individual resource shares that you want information about.
      * </p>
      * 
      * @param resourceShareArns
-     *        The Amazon Resource Names (ARN) of the resource shares.
+     *        Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *        Resource Names (ARNs)</a> of individual resource shares that you want information about.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -141,11 +185,11 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The status of the resource share.
+     * Specifies that you want to retrieve details of only those resource shares that have this status.
      * </p>
      * 
      * @param resourceShareStatus
-     *        The status of the resource share.
+     *        Specifies that you want to retrieve details of only those resource shares that have this status.
      * @see ResourceShareStatus
      */
 
@@ -155,10 +199,10 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The status of the resource share.
+     * Specifies that you want to retrieve details of only those resource shares that have this status.
      * </p>
      * 
-     * @return The status of the resource share.
+     * @return Specifies that you want to retrieve details of only those resource shares that have this status.
      * @see ResourceShareStatus
      */
 
@@ -168,11 +212,11 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The status of the resource share.
+     * Specifies that you want to retrieve details of only those resource shares that have this status.
      * </p>
      * 
      * @param resourceShareStatus
-     *        The status of the resource share.
+     *        Specifies that you want to retrieve details of only those resource shares that have this status.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceShareStatus
      */
@@ -184,11 +228,11 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The status of the resource share.
+     * Specifies that you want to retrieve details of only those resource shares that have this status.
      * </p>
      * 
      * @param resourceShareStatus
-     *        The status of the resource share.
+     *        Specifies that you want to retrieve details of only those resource shares that have this status.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceShareStatus
      */
@@ -200,11 +244,34 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The type of owner.
+     * Specifies that you want to retrieve details of only those resource shares that match the following:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b> <code>SELF</code> </b> – resource shares that your account shares with other accounts
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>OTHER-ACCOUNTS</code> </b> – resource shares that other accounts share with your account
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param resourceOwner
-     *        The type of owner.
+     *        Specifies that you want to retrieve details of only those resource shares that match the following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b> <code>SELF</code> </b> – resource shares that your account shares with other accounts
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b> <code>OTHER-ACCOUNTS</code> </b> – resource shares that other accounts share with your account
+     *        </p>
+     *        </li>
      * @see ResourceOwner
      */
 
@@ -214,10 +281,33 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The type of owner.
+     * Specifies that you want to retrieve details of only those resource shares that match the following:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b> <code>SELF</code> </b> – resource shares that your account shares with other accounts
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>OTHER-ACCOUNTS</code> </b> – resource shares that other accounts share with your account
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The type of owner.
+     * @return Specifies that you want to retrieve details of only those resource shares that match the following:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <b> <code>SELF</code> </b> – resource shares that your account shares with other accounts
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b> <code>OTHER-ACCOUNTS</code> </b> – resource shares that other accounts share with your account
+     *         </p>
+     *         </li>
      * @see ResourceOwner
      */
 
@@ -227,11 +317,34 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The type of owner.
+     * Specifies that you want to retrieve details of only those resource shares that match the following:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b> <code>SELF</code> </b> – resource shares that your account shares with other accounts
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>OTHER-ACCOUNTS</code> </b> – resource shares that other accounts share with your account
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param resourceOwner
-     *        The type of owner.
+     *        Specifies that you want to retrieve details of only those resource shares that match the following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b> <code>SELF</code> </b> – resource shares that your account shares with other accounts
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b> <code>OTHER-ACCOUNTS</code> </b> – resource shares that other accounts share with your account
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceOwner
      */
@@ -243,11 +356,34 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The type of owner.
+     * Specifies that you want to retrieve details of only those resource shares that match the following:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b> <code>SELF</code> </b> – resource shares that your account shares with other accounts
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>OTHER-ACCOUNTS</code> </b> – resource shares that other accounts share with your account
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param resourceOwner
-     *        The type of owner.
+     *        Specifies that you want to retrieve details of only those resource shares that match the following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b> <code>SELF</code> </b> – resource shares that your account shares with other accounts
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b> <code>OTHER-ACCOUNTS</code> </b> – resource shares that other accounts share with your account
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceOwner
      */
@@ -259,11 +395,11 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The name of the resource share.
+     * Specifies the name of an individual resource share that you want to retrieve details about.
      * </p>
      * 
      * @param name
-     *        The name of the resource share.
+     *        Specifies the name of an individual resource share that you want to retrieve details about.
      */
 
     public void setName(String name) {
@@ -272,10 +408,10 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The name of the resource share.
+     * Specifies the name of an individual resource share that you want to retrieve details about.
      * </p>
      * 
-     * @return The name of the resource share.
+     * @return Specifies the name of an individual resource share that you want to retrieve details about.
      */
 
     public String getName() {
@@ -284,11 +420,11 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The name of the resource share.
+     * Specifies the name of an individual resource share that you want to retrieve details about.
      * </p>
      * 
      * @param name
-     *        The name of the resource share.
+     *        Specifies the name of an individual resource share that you want to retrieve details about.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -299,10 +435,12 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * One or more tag filters.
+     * Specifies that you want to retrieve details of only those resource shares that match the specified tag keys and
+     * values.
      * </p>
      * 
-     * @return One or more tag filters.
+     * @return Specifies that you want to retrieve details of only those resource shares that match the specified tag
+     *         keys and values.
      */
 
     public java.util.List<TagFilter> getTagFilters() {
@@ -311,11 +449,13 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * One or more tag filters.
+     * Specifies that you want to retrieve details of only those resource shares that match the specified tag keys and
+     * values.
      * </p>
      * 
      * @param tagFilters
-     *        One or more tag filters.
+     *        Specifies that you want to retrieve details of only those resource shares that match the specified tag
+     *        keys and values.
      */
 
     public void setTagFilters(java.util.Collection<TagFilter> tagFilters) {
@@ -329,7 +469,8 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * One or more tag filters.
+     * Specifies that you want to retrieve details of only those resource shares that match the specified tag keys and
+     * values.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -338,7 +479,8 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * 
      * @param tagFilters
-     *        One or more tag filters.
+     *        Specifies that you want to retrieve details of only those resource shares that match the specified tag
+     *        keys and values.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -354,11 +496,13 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * One or more tag filters.
+     * Specifies that you want to retrieve details of only those resource shares that match the specified tag keys and
+     * values.
      * </p>
      * 
      * @param tagFilters
-     *        One or more tag filters.
+     *        Specifies that you want to retrieve details of only those resource shares that match the specified tag
+     *        keys and values.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -369,11 +513,16 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The token for the next page of results.
+     * Specifies that you want to receive the next page of results. Valid only if you received a <code>NextToken</code>
+     * response in the previous request. If you did, it indicates that more output is available. Set this parameter to
+     * the value provided by the previous call's <code>NextToken</code> response to request the next page of results.
      * </p>
      * 
      * @param nextToken
-     *        The token for the next page of results.
+     *        Specifies that you want to receive the next page of results. Valid only if you received a
+     *        <code>NextToken</code> response in the previous request. If you did, it indicates that more output is
+     *        available. Set this parameter to the value provided by the previous call's <code>NextToken</code> response
+     *        to request the next page of results.
      */
 
     public void setNextToken(String nextToken) {
@@ -382,10 +531,15 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The token for the next page of results.
+     * Specifies that you want to receive the next page of results. Valid only if you received a <code>NextToken</code>
+     * response in the previous request. If you did, it indicates that more output is available. Set this parameter to
+     * the value provided by the previous call's <code>NextToken</code> response to request the next page of results.
      * </p>
      * 
-     * @return The token for the next page of results.
+     * @return Specifies that you want to receive the next page of results. Valid only if you received a
+     *         <code>NextToken</code> response in the previous request. If you did, it indicates that more output is
+     *         available. Set this parameter to the value provided by the previous call's <code>NextToken</code>
+     *         response to request the next page of results.
      */
 
     public String getNextToken() {
@@ -394,11 +548,16 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The token for the next page of results.
+     * Specifies that you want to receive the next page of results. Valid only if you received a <code>NextToken</code>
+     * response in the previous request. If you did, it indicates that more output is available. Set this parameter to
+     * the value provided by the previous call's <code>NextToken</code> response to request the next page of results.
      * </p>
      * 
      * @param nextToken
-     *        The token for the next page of results.
+     *        Specifies that you want to receive the next page of results. Valid only if you received a
+     *        <code>NextToken</code> response in the previous request. If you did, it indicates that more output is
+     *        available. Set this parameter to the value provided by the previous call's <code>NextToken</code> response
+     *        to request the next page of results.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -409,13 +568,23 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * Specifies the total number of results that you want included on each page of the response. If you do not include
+     * this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the
+     * number you specify, the <code>NextToken</code> response element is returned with a value (not null). Include the
+     * specified value as the <code>NextToken</code> request parameter in the next call to the operation to get the next
+     * part of the results. Note that the service might return fewer results than the maximum even when there are more
+     * results available. You should check <code>NextToken</code> after every operation to ensure that you receive all
+     * of the results.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return with a single call. To retrieve the remaining results, make
-     *        another call with the returned <code>nextToken</code> value.
+     *        Specifies the total number of results that you want included on each page of the response. If you do not
+     *        include this parameter, it defaults to a value that is specific to the operation. If additional items
+     *        exist beyond the number you specify, the <code>NextToken</code> response element is returned with a value
+     *        (not null). Include the specified value as the <code>NextToken</code> request parameter in the next call
+     *        to the operation to get the next part of the results. Note that the service might return fewer results
+     *        than the maximum even when there are more results available. You should check <code>NextToken</code> after
+     *        every operation to ensure that you receive all of the results.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -424,12 +593,22 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * Specifies the total number of results that you want included on each page of the response. If you do not include
+     * this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the
+     * number you specify, the <code>NextToken</code> response element is returned with a value (not null). Include the
+     * specified value as the <code>NextToken</code> request parameter in the next call to the operation to get the next
+     * part of the results. Note that the service might return fewer results than the maximum even when there are more
+     * results available. You should check <code>NextToken</code> after every operation to ensure that you receive all
+     * of the results.
      * </p>
      * 
-     * @return The maximum number of results to return with a single call. To retrieve the remaining results, make
-     *         another call with the returned <code>nextToken</code> value.
+     * @return Specifies the total number of results that you want included on each page of the response. If you do not
+     *         include this parameter, it defaults to a value that is specific to the operation. If additional items
+     *         exist beyond the number you specify, the <code>NextToken</code> response element is returned with a value
+     *         (not null). Include the specified value as the <code>NextToken</code> request parameter in the next call
+     *         to the operation to get the next part of the results. Note that the service might return fewer results
+     *         than the maximum even when there are more results available. You should check <code>NextToken</code>
+     *         after every operation to ensure that you receive all of the results.
      */
 
     public Integer getMaxResults() {
@@ -438,18 +617,126 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * Specifies the total number of results that you want included on each page of the response. If you do not include
+     * this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the
+     * number you specify, the <code>NextToken</code> response element is returned with a value (not null). Include the
+     * specified value as the <code>NextToken</code> request parameter in the next call to the operation to get the next
+     * part of the results. Note that the service might return fewer results than the maximum even when there are more
+     * results available. You should check <code>NextToken</code> after every operation to ensure that you receive all
+     * of the results.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return with a single call. To retrieve the remaining results, make
-     *        another call with the returned <code>nextToken</code> value.
+     *        Specifies the total number of results that you want included on each page of the response. If you do not
+     *        include this parameter, it defaults to a value that is specific to the operation. If additional items
+     *        exist beyond the number you specify, the <code>NextToken</code> response element is returned with a value
+     *        (not null). Include the specified value as the <code>NextToken</code> request parameter in the next call
+     *        to the operation to get the next part of the results. Note that the service might return fewer results
+     *        than the maximum even when there are more results available. You should check <code>NextToken</code> after
+     *        every operation to ensure that you receive all of the results.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public GetResourceSharesRequest withMaxResults(Integer maxResults) {
         setMaxResults(maxResults);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies that you want to retrieve details of only those resource shares that use the managed permission with
+     * this <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a>.
+     * </p>
+     * 
+     * @param permissionArn
+     *        Specifies that you want to retrieve details of only those resource shares that use the managed permission
+     *        with this <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *        Resource Name (ARN)</a>.
+     */
+
+    public void setPermissionArn(String permissionArn) {
+        this.permissionArn = permissionArn;
+    }
+
+    /**
+     * <p>
+     * Specifies that you want to retrieve details of only those resource shares that use the managed permission with
+     * this <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a>.
+     * </p>
+     * 
+     * @return Specifies that you want to retrieve details of only those resource shares that use the managed permission
+     *         with this <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *         Resource Name (ARN)</a>.
+     */
+
+    public String getPermissionArn() {
+        return this.permissionArn;
+    }
+
+    /**
+     * <p>
+     * Specifies that you want to retrieve details of only those resource shares that use the managed permission with
+     * this <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a>.
+     * </p>
+     * 
+     * @param permissionArn
+     *        Specifies that you want to retrieve details of only those resource shares that use the managed permission
+     *        with this <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *        Resource Name (ARN)</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetResourceSharesRequest withPermissionArn(String permissionArn) {
+        setPermissionArn(permissionArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies that you want to retrieve details for only those resource shares that use the specified version of the
+     * managed permission.
+     * </p>
+     * 
+     * @param permissionVersion
+     *        Specifies that you want to retrieve details for only those resource shares that use the specified version
+     *        of the managed permission.
+     */
+
+    public void setPermissionVersion(Integer permissionVersion) {
+        this.permissionVersion = permissionVersion;
+    }
+
+    /**
+     * <p>
+     * Specifies that you want to retrieve details for only those resource shares that use the specified version of the
+     * managed permission.
+     * </p>
+     * 
+     * @return Specifies that you want to retrieve details for only those resource shares that use the specified version
+     *         of the managed permission.
+     */
+
+    public Integer getPermissionVersion() {
+        return this.permissionVersion;
+    }
+
+    /**
+     * <p>
+     * Specifies that you want to retrieve details for only those resource shares that use the specified version of the
+     * managed permission.
+     * </p>
+     * 
+     * @param permissionVersion
+     *        Specifies that you want to retrieve details for only those resource shares that use the specified version
+     *        of the managed permission.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetResourceSharesRequest withPermissionVersion(Integer permissionVersion) {
+        setPermissionVersion(permissionVersion);
         return this;
     }
 
@@ -478,7 +765,11 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
         if (getNextToken() != null)
             sb.append("NextToken: ").append(getNextToken()).append(",");
         if (getMaxResults() != null)
-            sb.append("MaxResults: ").append(getMaxResults());
+            sb.append("MaxResults: ").append(getMaxResults()).append(",");
+        if (getPermissionArn() != null)
+            sb.append("PermissionArn: ").append(getPermissionArn()).append(",");
+        if (getPermissionVersion() != null)
+            sb.append("PermissionVersion: ").append(getPermissionVersion());
         sb.append("}");
         return sb.toString();
     }
@@ -521,6 +812,14 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
             return false;
         if (other.getMaxResults() != null && other.getMaxResults().equals(this.getMaxResults()) == false)
             return false;
+        if (other.getPermissionArn() == null ^ this.getPermissionArn() == null)
+            return false;
+        if (other.getPermissionArn() != null && other.getPermissionArn().equals(this.getPermissionArn()) == false)
+            return false;
+        if (other.getPermissionVersion() == null ^ this.getPermissionVersion() == null)
+            return false;
+        if (other.getPermissionVersion() != null && other.getPermissionVersion().equals(this.getPermissionVersion()) == false)
+            return false;
         return true;
     }
 
@@ -536,6 +835,8 @@ public class GetResourceSharesRequest extends com.amazonaws.AmazonWebServiceRequ
         hashCode = prime * hashCode + ((getTagFilters() == null) ? 0 : getTagFilters().hashCode());
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
         hashCode = prime * hashCode + ((getMaxResults() == null) ? 0 : getMaxResults().hashCode());
+        hashCode = prime * hashCode + ((getPermissionArn() == null) ? 0 : getPermissionArn().hashCode());
+        hashCode = prime * hashCode + ((getPermissionVersion() == null) ? 0 : getPermissionVersion().hashCode());
         return hashCode;
     }
 

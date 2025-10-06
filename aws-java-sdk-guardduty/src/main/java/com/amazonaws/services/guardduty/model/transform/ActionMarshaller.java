@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,16 @@ public class ActionMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("networkConnectionAction").build();
     private static final MarshallingInfo<StructuredPojo> PORTPROBEACTION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("portProbeAction").build();
+    private static final MarshallingInfo<StructuredPojo> KUBERNETESAPICALLACTION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("kubernetesApiCallAction").build();
+    private static final MarshallingInfo<StructuredPojo> RDSLOGINATTEMPTACTION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("rdsLoginAttemptAction").build();
+    private static final MarshallingInfo<StructuredPojo> KUBERNETESPERMISSIONCHECKEDDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("kubernetesPermissionCheckedDetails").build();
+    private static final MarshallingInfo<StructuredPojo> KUBERNETESROLEBINDINGDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("kubernetesRoleBindingDetails").build();
+    private static final MarshallingInfo<StructuredPojo> KUBERNETESROLEDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("kubernetesRoleDetails").build();
 
     private static final ActionMarshaller instance = new ActionMarshaller();
 
@@ -59,6 +69,11 @@ public class ActionMarshaller {
             protocolMarshaller.marshall(action.getDnsRequestAction(), DNSREQUESTACTION_BINDING);
             protocolMarshaller.marshall(action.getNetworkConnectionAction(), NETWORKCONNECTIONACTION_BINDING);
             protocolMarshaller.marshall(action.getPortProbeAction(), PORTPROBEACTION_BINDING);
+            protocolMarshaller.marshall(action.getKubernetesApiCallAction(), KUBERNETESAPICALLACTION_BINDING);
+            protocolMarshaller.marshall(action.getRdsLoginAttemptAction(), RDSLOGINATTEMPTACTION_BINDING);
+            protocolMarshaller.marshall(action.getKubernetesPermissionCheckedDetails(), KUBERNETESPERMISSIONCHECKEDDETAILS_BINDING);
+            protocolMarshaller.marshall(action.getKubernetesRoleBindingDetails(), KUBERNETESROLEBINDINGDETAILS_BINDING);
+            protocolMarshaller.marshall(action.getKubernetesRoleDetails(), KUBERNETESROLEDETAILS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

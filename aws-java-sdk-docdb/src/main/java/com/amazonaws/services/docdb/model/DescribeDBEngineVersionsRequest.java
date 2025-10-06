@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,13 +39,13 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      * The database engine version to return.
      * </p>
      * <p>
-     * Example: <code>5.1.49</code>
+     * Example: <code>3.6.0</code>
      * </p>
      */
     private String engineVersion;
     /**
      * <p>
-     * The name of a specific DB parameter group family to return details for.
+     * The name of a specific parameter group family to return details for.
      * </p>
      * <p>
      * Constraints:
@@ -153,13 +153,13 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      * The database engine version to return.
      * </p>
      * <p>
-     * Example: <code>5.1.49</code>
+     * Example: <code>3.6.0</code>
      * </p>
      * 
      * @param engineVersion
      *        The database engine version to return.</p>
      *        <p>
-     *        Example: <code>5.1.49</code>
+     *        Example: <code>3.6.0</code>
      */
 
     public void setEngineVersion(String engineVersion) {
@@ -171,12 +171,12 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      * The database engine version to return.
      * </p>
      * <p>
-     * Example: <code>5.1.49</code>
+     * Example: <code>3.6.0</code>
      * </p>
      * 
      * @return The database engine version to return.</p>
      *         <p>
-     *         Example: <code>5.1.49</code>
+     *         Example: <code>3.6.0</code>
      */
 
     public String getEngineVersion() {
@@ -188,13 +188,13 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      * The database engine version to return.
      * </p>
      * <p>
-     * Example: <code>5.1.49</code>
+     * Example: <code>3.6.0</code>
      * </p>
      * 
      * @param engineVersion
      *        The database engine version to return.</p>
      *        <p>
-     *        Example: <code>5.1.49</code>
+     *        Example: <code>3.6.0</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -205,7 +205,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The name of a specific DB parameter group family to return details for.
+     * The name of a specific parameter group family to return details for.
      * </p>
      * <p>
      * Constraints:
@@ -219,7 +219,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      * </ul>
      * 
      * @param dBParameterGroupFamily
-     *        The name of a specific DB parameter group family to return details for.</p>
+     *        The name of a specific parameter group family to return details for.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -237,7 +237,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The name of a specific DB parameter group family to return details for.
+     * The name of a specific parameter group family to return details for.
      * </p>
      * <p>
      * Constraints:
@@ -250,7 +250,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * </ul>
      * 
-     * @return The name of a specific DB parameter group family to return details for.</p>
+     * @return The name of a specific parameter group family to return details for.</p>
      *         <p>
      *         Constraints:
      *         </p>
@@ -268,7 +268,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The name of a specific DB parameter group family to return details for.
+     * The name of a specific parameter group family to return details for.
      * </p>
      * <p>
      * Constraints:
@@ -282,7 +282,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      * </ul>
      * 
      * @param dBParameterGroupFamily
-     *        The name of a specific DB parameter group family to return details for.</p>
+     *        The name of a specific parameter group family to return details for.</p>
      *        <p>
      *        Constraints:
      *        </p>

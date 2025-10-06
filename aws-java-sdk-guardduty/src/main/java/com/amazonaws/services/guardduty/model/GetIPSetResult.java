@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,8 +25,7 @@ public class GetIPSetResult extends com.amazonaws.AmazonWebServiceResult<com.ama
 
     /**
      * <p>
-     * The user friendly name to identify the IPSet. This name is displayed in all findings that are triggered by
-     * activity that involves IP addresses included in this IPSet.
+     * The user-friendly name for the IPSet.
      * </p>
      */
     private String name;
@@ -38,33 +37,30 @@ public class GetIPSetResult extends com.amazonaws.AmazonWebServiceResult<com.ama
     private String format;
     /**
      * <p>
-     * The URI of the file that contains the IPSet. For example
-     * (https://s3.us-west-2.amazonaws.com/my-bucket/my-object-key)
+     * The URI of the file that contains the IPSet.
      * </p>
      */
     private String location;
     /**
      * <p>
-     * The status of ipSet file uploaded.
+     * The status of IPSet file that was uploaded.
      * </p>
      */
     private String status;
     /**
      * <p>
-     * The tags of the IP set resource.
+     * The tags of the IPSet resource.
      * </p>
      */
     private java.util.Map<String, String> tags;
 
     /**
      * <p>
-     * The user friendly name to identify the IPSet. This name is displayed in all findings that are triggered by
-     * activity that involves IP addresses included in this IPSet.
+     * The user-friendly name for the IPSet.
      * </p>
      * 
      * @param name
-     *        The user friendly name to identify the IPSet. This name is displayed in all findings that are triggered by
-     *        activity that involves IP addresses included in this IPSet.
+     *        The user-friendly name for the IPSet.
      */
 
     public void setName(String name) {
@@ -73,12 +69,10 @@ public class GetIPSetResult extends com.amazonaws.AmazonWebServiceResult<com.ama
 
     /**
      * <p>
-     * The user friendly name to identify the IPSet. This name is displayed in all findings that are triggered by
-     * activity that involves IP addresses included in this IPSet.
+     * The user-friendly name for the IPSet.
      * </p>
      * 
-     * @return The user friendly name to identify the IPSet. This name is displayed in all findings that are triggered
-     *         by activity that involves IP addresses included in this IPSet.
+     * @return The user-friendly name for the IPSet.
      */
 
     public String getName() {
@@ -87,13 +81,11 @@ public class GetIPSetResult extends com.amazonaws.AmazonWebServiceResult<com.ama
 
     /**
      * <p>
-     * The user friendly name to identify the IPSet. This name is displayed in all findings that are triggered by
-     * activity that involves IP addresses included in this IPSet.
+     * The user-friendly name for the IPSet.
      * </p>
      * 
      * @param name
-     *        The user friendly name to identify the IPSet. This name is displayed in all findings that are triggered by
-     *        activity that involves IP addresses included in this IPSet.
+     *        The user-friendly name for the IPSet.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -163,13 +155,11 @@ public class GetIPSetResult extends com.amazonaws.AmazonWebServiceResult<com.ama
 
     /**
      * <p>
-     * The URI of the file that contains the IPSet. For example
-     * (https://s3.us-west-2.amazonaws.com/my-bucket/my-object-key)
+     * The URI of the file that contains the IPSet.
      * </p>
      * 
      * @param location
-     *        The URI of the file that contains the IPSet. For example
-     *        (https://s3.us-west-2.amazonaws.com/my-bucket/my-object-key)
+     *        The URI of the file that contains the IPSet.
      */
 
     public void setLocation(String location) {
@@ -178,12 +168,10 @@ public class GetIPSetResult extends com.amazonaws.AmazonWebServiceResult<com.ama
 
     /**
      * <p>
-     * The URI of the file that contains the IPSet. For example
-     * (https://s3.us-west-2.amazonaws.com/my-bucket/my-object-key)
+     * The URI of the file that contains the IPSet.
      * </p>
      * 
-     * @return The URI of the file that contains the IPSet. For example
-     *         (https://s3.us-west-2.amazonaws.com/my-bucket/my-object-key)
+     * @return The URI of the file that contains the IPSet.
      */
 
     public String getLocation() {
@@ -192,13 +180,11 @@ public class GetIPSetResult extends com.amazonaws.AmazonWebServiceResult<com.ama
 
     /**
      * <p>
-     * The URI of the file that contains the IPSet. For example
-     * (https://s3.us-west-2.amazonaws.com/my-bucket/my-object-key)
+     * The URI of the file that contains the IPSet.
      * </p>
      * 
      * @param location
-     *        The URI of the file that contains the IPSet. For example
-     *        (https://s3.us-west-2.amazonaws.com/my-bucket/my-object-key)
+     *        The URI of the file that contains the IPSet.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -209,11 +195,11 @@ public class GetIPSetResult extends com.amazonaws.AmazonWebServiceResult<com.ama
 
     /**
      * <p>
-     * The status of ipSet file uploaded.
+     * The status of IPSet file that was uploaded.
      * </p>
      * 
      * @param status
-     *        The status of ipSet file uploaded.
+     *        The status of IPSet file that was uploaded.
      * @see IpSetStatus
      */
 
@@ -223,10 +209,10 @@ public class GetIPSetResult extends com.amazonaws.AmazonWebServiceResult<com.ama
 
     /**
      * <p>
-     * The status of ipSet file uploaded.
+     * The status of IPSet file that was uploaded.
      * </p>
      * 
-     * @return The status of ipSet file uploaded.
+     * @return The status of IPSet file that was uploaded.
      * @see IpSetStatus
      */
 
@@ -236,11 +222,11 @@ public class GetIPSetResult extends com.amazonaws.AmazonWebServiceResult<com.ama
 
     /**
      * <p>
-     * The status of ipSet file uploaded.
+     * The status of IPSet file that was uploaded.
      * </p>
      * 
      * @param status
-     *        The status of ipSet file uploaded.
+     *        The status of IPSet file that was uploaded.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see IpSetStatus
      */
@@ -252,11 +238,11 @@ public class GetIPSetResult extends com.amazonaws.AmazonWebServiceResult<com.ama
 
     /**
      * <p>
-     * The status of ipSet file uploaded.
+     * The status of IPSet file that was uploaded.
      * </p>
      * 
      * @param status
-     *        The status of ipSet file uploaded.
+     *        The status of IPSet file that was uploaded.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see IpSetStatus
      */
@@ -268,10 +254,10 @@ public class GetIPSetResult extends com.amazonaws.AmazonWebServiceResult<com.ama
 
     /**
      * <p>
-     * The tags of the IP set resource.
+     * The tags of the IPSet resource.
      * </p>
      * 
-     * @return The tags of the IP set resource.
+     * @return The tags of the IPSet resource.
      */
 
     public java.util.Map<String, String> getTags() {
@@ -280,11 +266,11 @@ public class GetIPSetResult extends com.amazonaws.AmazonWebServiceResult<com.ama
 
     /**
      * <p>
-     * The tags of the IP set resource.
+     * The tags of the IPSet resource.
      * </p>
      * 
      * @param tags
-     *        The tags of the IP set resource.
+     *        The tags of the IPSet resource.
      */
 
     public void setTags(java.util.Map<String, String> tags) {
@@ -293,11 +279,11 @@ public class GetIPSetResult extends com.amazonaws.AmazonWebServiceResult<com.ama
 
     /**
      * <p>
-     * The tags of the IP set resource.
+     * The tags of the IPSet resource.
      * </p>
      * 
      * @param tags
-     *        The tags of the IP set resource.
+     *        The tags of the IPSet resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -305,6 +291,13 @@ public class GetIPSetResult extends com.amazonaws.AmazonWebServiceResult<com.ama
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see GetIPSetResult#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public GetIPSetResult addTagsEntry(String key, String value) {
         if (null == this.tags) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,6 +36,9 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
      * Constraints: Topic names must be made up of only uppercase and lowercase ASCII letters, numbers, underscores, and
      * hyphens, and must be between 1 and 256 characters long.
      * </p>
+     * <p>
+     * For a FIFO (first-in-first-out) topic, the name must end with the <code>.fifo</code> suffix.
+     * </p>
      */
     private String name;
     /**
@@ -43,7 +46,7 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
      * A map of attributes with their corresponding values.
      * </p>
      * <p>
-     * The following lists the names, descriptions, and values of the special request parameters that the
+     * The following lists names, descriptions, and values of the special request parameters that the
      * <code>CreateTopic</code> action uses:
      * </p>
      * <ul>
@@ -60,25 +63,89 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </li>
      * <li>
      * <p>
+     * <code>FifoTopic</code> – Set to true to create a FIFO topic.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>Policy</code> – The policy that defines who can access your topic. By default, only the topic owner can
      * publish or subscribe to the topic.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SignatureVersion</code> – The signature version corresponds to the hashing algorithm used while creating
+     * the signature of the notifications, subscription confirmations, or unsubscribe confirmation messages sent by
+     * Amazon SNS. By default, <code>SignatureVersion</code> is set to <code>1</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TracingConfig</code> – Tracing mode of an Amazon SNS topic. By default <code>TracingConfig</code> is set to
+     * <code>PassThrough</code>, and the topic passes through the tracing header it receives from an Amazon SNS
+     * publisher to its subscriptions. If set to <code>Active</code>, Amazon SNS will vend X-Ray segment data to topic
+     * owner account if the sampled flag in the tracing header is true. This is only supported on standard topics.
      * </p>
      * </li>
      * </ul>
      * <p>
      * The following attribute applies only to <a
-     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html">server-side-encryption</a>:
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html">server-side encryption</a>:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>KmsMasterKeyId</code> - The ID of an AWS-managed customer master key (CMK) for Amazon SNS or a custom CMK.
-     * For more information, see <a
+     * <code>KmsMasterKeyId</code> – The ID of an Amazon Web Services managed customer master key (CMK) for Amazon SNS
+     * or a custom CMK. For more information, see <a
      * href="https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html#sse-key-terms">Key Terms</a>. For
      * more examples, see <a href=
      * "https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters"
-     * >KeyId</a> in the <i>AWS Key Management Service API Reference</i>.
+     * >KeyId</a> in the <i>Key Management Service API Reference</i>.
      * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes apply only to <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html">FIFO topics</a>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ArchivePolicy</code> – Adds or updates an inline policy document to archive messages stored in the
+     * specified Amazon SNS topic.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BeginningArchiveTime</code> – The earliest starting point at which a message in the topic’s archive can be
+     * replayed from. This point in time is based on the configured message retention period set by the topic’s message
+     * archiving policy.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ContentBasedDeduplication</code> – Enables content-based deduplication for FIFO topics.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * By default, <code>ContentBasedDeduplication</code> is set to <code>false</code>. If you create a FIFO topic and
+     * this attribute is <code>false</code>, you must specify a value for the <code>MessageDeduplicationId</code>
+     * parameter for the <a href="https://docs.aws.amazon.com/sns/latest/api/API_Publish.html">Publish</a> action.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * When you set <code>ContentBasedDeduplication</code> to <code>true</code>, Amazon SNS uses a SHA-256 hash to
+     * generate the <code>MessageDeduplicationId</code> using the body of the message (but not the attributes of the
+     * message).
+     * </p>
+     * <p>
+     * (Optional) To override the generated value, you can specify a value for the <code>MessageDeduplicationId</code>
+     * parameter for the <code>Publish</code> action.
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * </ul>
      */
@@ -87,8 +154,29 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * The list of tags to add to a new topic.
      * </p>
+     * <note>
+     * <p>
+     * To be able to tag a topic on creation, you must have the <code>sns:CreateTopic</code> and
+     * <code>sns:TagResource</code> permissions.
+     * </p>
+     * </note>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
+    /**
+     * <p>
+     * The body of the policy document you want to use for this topic.
+     * </p>
+     * <p>
+     * You can only add one policy per topic.
+     * </p>
+     * <p>
+     * The policy must be in JSON string format.
+     * </p>
+     * <p>
+     * Length Constraints: Maximum length of 30,720.
+     * </p>
+     */
+    private String dataProtectionPolicy;
 
     /**
      * Default constructor for CreateTopicRequest object. Callers should use the setter or fluent setter (with...)
@@ -106,6 +194,9 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        <p>
      *        Constraints: Topic names must be made up of only uppercase and lowercase ASCII letters, numbers,
      *        underscores, and hyphens, and must be between 1 and 256 characters long.
+     *        </p>
+     *        <p>
+     *        For a FIFO (first-in-first-out) topic, the name must end with the <code>.fifo</code> suffix.
      */
     public CreateTopicRequest(String name) {
         setName(name);
@@ -119,12 +210,18 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
      * Constraints: Topic names must be made up of only uppercase and lowercase ASCII letters, numbers, underscores, and
      * hyphens, and must be between 1 and 256 characters long.
      * </p>
+     * <p>
+     * For a FIFO (first-in-first-out) topic, the name must end with the <code>.fifo</code> suffix.
+     * </p>
      * 
      * @param name
      *        The name of the topic you want to create.</p>
      *        <p>
      *        Constraints: Topic names must be made up of only uppercase and lowercase ASCII letters, numbers,
      *        underscores, and hyphens, and must be between 1 and 256 characters long.
+     *        </p>
+     *        <p>
+     *        For a FIFO (first-in-first-out) topic, the name must end with the <code>.fifo</code> suffix.
      */
 
     public void setName(String name) {
@@ -139,11 +236,17 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
      * Constraints: Topic names must be made up of only uppercase and lowercase ASCII letters, numbers, underscores, and
      * hyphens, and must be between 1 and 256 characters long.
      * </p>
+     * <p>
+     * For a FIFO (first-in-first-out) topic, the name must end with the <code>.fifo</code> suffix.
+     * </p>
      * 
      * @return The name of the topic you want to create.</p>
      *         <p>
      *         Constraints: Topic names must be made up of only uppercase and lowercase ASCII letters, numbers,
      *         underscores, and hyphens, and must be between 1 and 256 characters long.
+     *         </p>
+     *         <p>
+     *         For a FIFO (first-in-first-out) topic, the name must end with the <code>.fifo</code> suffix.
      */
 
     public String getName() {
@@ -158,12 +261,18 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
      * Constraints: Topic names must be made up of only uppercase and lowercase ASCII letters, numbers, underscores, and
      * hyphens, and must be between 1 and 256 characters long.
      * </p>
+     * <p>
+     * For a FIFO (first-in-first-out) topic, the name must end with the <code>.fifo</code> suffix.
+     * </p>
      * 
      * @param name
      *        The name of the topic you want to create.</p>
      *        <p>
      *        Constraints: Topic names must be made up of only uppercase and lowercase ASCII letters, numbers,
      *        underscores, and hyphens, and must be between 1 and 256 characters long.
+     *        </p>
+     *        <p>
+     *        For a FIFO (first-in-first-out) topic, the name must end with the <code>.fifo</code> suffix.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -177,7 +286,7 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
      * A map of attributes with their corresponding values.
      * </p>
      * <p>
-     * The following lists the names, descriptions, and values of the special request parameters that the
+     * The following lists names, descriptions, and values of the special request parameters that the
      * <code>CreateTopic</code> action uses:
      * </p>
      * <ul>
@@ -194,31 +303,95 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </li>
      * <li>
      * <p>
+     * <code>FifoTopic</code> – Set to true to create a FIFO topic.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>Policy</code> – The policy that defines who can access your topic. By default, only the topic owner can
      * publish or subscribe to the topic.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SignatureVersion</code> – The signature version corresponds to the hashing algorithm used while creating
+     * the signature of the notifications, subscription confirmations, or unsubscribe confirmation messages sent by
+     * Amazon SNS. By default, <code>SignatureVersion</code> is set to <code>1</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TracingConfig</code> – Tracing mode of an Amazon SNS topic. By default <code>TracingConfig</code> is set to
+     * <code>PassThrough</code>, and the topic passes through the tracing header it receives from an Amazon SNS
+     * publisher to its subscriptions. If set to <code>Active</code>, Amazon SNS will vend X-Ray segment data to topic
+     * owner account if the sampled flag in the tracing header is true. This is only supported on standard topics.
      * </p>
      * </li>
      * </ul>
      * <p>
      * The following attribute applies only to <a
-     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html">server-side-encryption</a>:
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html">server-side encryption</a>:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>KmsMasterKeyId</code> - The ID of an AWS-managed customer master key (CMK) for Amazon SNS or a custom CMK.
-     * For more information, see <a
+     * <code>KmsMasterKeyId</code> – The ID of an Amazon Web Services managed customer master key (CMK) for Amazon SNS
+     * or a custom CMK. For more information, see <a
      * href="https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html#sse-key-terms">Key Terms</a>. For
      * more examples, see <a href=
      * "https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters"
-     * >KeyId</a> in the <i>AWS Key Management Service API Reference</i>.
+     * >KeyId</a> in the <i>Key Management Service API Reference</i>.
      * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes apply only to <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html">FIFO topics</a>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ArchivePolicy</code> – Adds or updates an inline policy document to archive messages stored in the
+     * specified Amazon SNS topic.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BeginningArchiveTime</code> – The earliest starting point at which a message in the topic’s archive can be
+     * replayed from. This point in time is based on the configured message retention period set by the topic’s message
+     * archiving policy.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ContentBasedDeduplication</code> – Enables content-based deduplication for FIFO topics.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * By default, <code>ContentBasedDeduplication</code> is set to <code>false</code>. If you create a FIFO topic and
+     * this attribute is <code>false</code>, you must specify a value for the <code>MessageDeduplicationId</code>
+     * parameter for the <a href="https://docs.aws.amazon.com/sns/latest/api/API_Publish.html">Publish</a> action.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * When you set <code>ContentBasedDeduplication</code> to <code>true</code>, Amazon SNS uses a SHA-256 hash to
+     * generate the <code>MessageDeduplicationId</code> using the body of the message (but not the attributes of the
+     * message).
+     * </p>
+     * <p>
+     * (Optional) To override the generated value, you can specify a value for the <code>MessageDeduplicationId</code>
+     * parameter for the <code>Publish</code> action.
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * </ul>
      * 
      * @return A map of attributes with their corresponding values.</p>
      *         <p>
-     *         The following lists the names, descriptions, and values of the special request parameters that the
+     *         The following lists names, descriptions, and values of the special request parameters that the
      *         <code>CreateTopic</code> action uses:
      *         </p>
      *         <ul>
@@ -235,26 +408,92 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
      *         </li>
      *         <li>
      *         <p>
+     *         <code>FifoTopic</code> – Set to true to create a FIFO topic.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
      *         <code>Policy</code> – The policy that defines who can access your topic. By default, only the topic owner
      *         can publish or subscribe to the topic.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>SignatureVersion</code> – The signature version corresponds to the hashing algorithm used while
+     *         creating the signature of the notifications, subscription confirmations, or unsubscribe confirmation
+     *         messages sent by Amazon SNS. By default, <code>SignatureVersion</code> is set to <code>1</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>TracingConfig</code> – Tracing mode of an Amazon SNS topic. By default <code>TracingConfig</code>
+     *         is set to <code>PassThrough</code>, and the topic passes through the tracing header it receives from an
+     *         Amazon SNS publisher to its subscriptions. If set to <code>Active</code>, Amazon SNS will vend X-Ray
+     *         segment data to topic owner account if the sampled flag in the tracing header is true. This is only
+     *         supported on standard topics.
      *         </p>
      *         </li>
      *         </ul>
      *         <p>
      *         The following attribute applies only to <a
-     *         href="https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html"
-     *         >server-side-encryption</a>:
+     *         href="https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html">server-side
+     *         encryption</a>:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>KmsMasterKeyId</code> - The ID of an AWS-managed customer master key (CMK) for Amazon SNS or a
-     *         custom CMK. For more information, see <a
+     *         <code>KmsMasterKeyId</code> – The ID of an Amazon Web Services managed customer master key (CMK) for
+     *         Amazon SNS or a custom CMK. For more information, see <a
      *         href="https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html#sse-key-terms">Key
      *         Terms</a>. For more examples, see <a href=
      *         "https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters"
-     *         >KeyId</a> in the <i>AWS Key Management Service API Reference</i>.
+     *         >KeyId</a> in the <i>Key Management Service API Reference</i>.
      *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         The following attributes apply only to <a
+     *         href="https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html">FIFO topics</a>:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>ArchivePolicy</code> – Adds or updates an inline policy document to archive messages stored in the
+     *         specified Amazon SNS topic.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>BeginningArchiveTime</code> – The earliest starting point at which a message in the topic’s archive
+     *         can be replayed from. This point in time is based on the configured message retention period set by the
+     *         topic’s message archiving policy.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ContentBasedDeduplication</code> – Enables content-based deduplication for FIFO topics.
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         By default, <code>ContentBasedDeduplication</code> is set to <code>false</code>. If you create a FIFO
+     *         topic and this attribute is <code>false</code>, you must specify a value for the
+     *         <code>MessageDeduplicationId</code> parameter for the <a
+     *         href="https://docs.aws.amazon.com/sns/latest/api/API_Publish.html">Publish</a> action.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         When you set <code>ContentBasedDeduplication</code> to <code>true</code>, Amazon SNS uses a SHA-256 hash
+     *         to generate the <code>MessageDeduplicationId</code> using the body of the message (but not the attributes
+     *         of the message).
+     *         </p>
+     *         <p>
+     *         (Optional) To override the generated value, you can specify a value for the
+     *         <code>MessageDeduplicationId</code> parameter for the <code>Publish</code> action.
+     *         </p>
+     *         </li>
+     *         </ul>
      *         </li>
      */
 
@@ -270,7 +509,7 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
      * A map of attributes with their corresponding values.
      * </p>
      * <p>
-     * The following lists the names, descriptions, and values of the special request parameters that the
+     * The following lists names, descriptions, and values of the special request parameters that the
      * <code>CreateTopic</code> action uses:
      * </p>
      * <ul>
@@ -287,32 +526,96 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </li>
      * <li>
      * <p>
+     * <code>FifoTopic</code> – Set to true to create a FIFO topic.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>Policy</code> – The policy that defines who can access your topic. By default, only the topic owner can
      * publish or subscribe to the topic.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SignatureVersion</code> – The signature version corresponds to the hashing algorithm used while creating
+     * the signature of the notifications, subscription confirmations, or unsubscribe confirmation messages sent by
+     * Amazon SNS. By default, <code>SignatureVersion</code> is set to <code>1</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TracingConfig</code> – Tracing mode of an Amazon SNS topic. By default <code>TracingConfig</code> is set to
+     * <code>PassThrough</code>, and the topic passes through the tracing header it receives from an Amazon SNS
+     * publisher to its subscriptions. If set to <code>Active</code>, Amazon SNS will vend X-Ray segment data to topic
+     * owner account if the sampled flag in the tracing header is true. This is only supported on standard topics.
      * </p>
      * </li>
      * </ul>
      * <p>
      * The following attribute applies only to <a
-     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html">server-side-encryption</a>:
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html">server-side encryption</a>:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>KmsMasterKeyId</code> - The ID of an AWS-managed customer master key (CMK) for Amazon SNS or a custom CMK.
-     * For more information, see <a
+     * <code>KmsMasterKeyId</code> – The ID of an Amazon Web Services managed customer master key (CMK) for Amazon SNS
+     * or a custom CMK. For more information, see <a
      * href="https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html#sse-key-terms">Key Terms</a>. For
      * more examples, see <a href=
      * "https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters"
-     * >KeyId</a> in the <i>AWS Key Management Service API Reference</i>.
+     * >KeyId</a> in the <i>Key Management Service API Reference</i>.
      * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes apply only to <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html">FIFO topics</a>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ArchivePolicy</code> – Adds or updates an inline policy document to archive messages stored in the
+     * specified Amazon SNS topic.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BeginningArchiveTime</code> – The earliest starting point at which a message in the topic’s archive can be
+     * replayed from. This point in time is based on the configured message retention period set by the topic’s message
+     * archiving policy.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ContentBasedDeduplication</code> – Enables content-based deduplication for FIFO topics.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * By default, <code>ContentBasedDeduplication</code> is set to <code>false</code>. If you create a FIFO topic and
+     * this attribute is <code>false</code>, you must specify a value for the <code>MessageDeduplicationId</code>
+     * parameter for the <a href="https://docs.aws.amazon.com/sns/latest/api/API_Publish.html">Publish</a> action.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * When you set <code>ContentBasedDeduplication</code> to <code>true</code>, Amazon SNS uses a SHA-256 hash to
+     * generate the <code>MessageDeduplicationId</code> using the body of the message (but not the attributes of the
+     * message).
+     * </p>
+     * <p>
+     * (Optional) To override the generated value, you can specify a value for the <code>MessageDeduplicationId</code>
+     * parameter for the <code>Publish</code> action.
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * </ul>
      * 
      * @param attributes
      *        A map of attributes with their corresponding values.</p>
      *        <p>
-     *        The following lists the names, descriptions, and values of the special request parameters that the
+     *        The following lists names, descriptions, and values of the special request parameters that the
      *        <code>CreateTopic</code> action uses:
      *        </p>
      *        <ul>
@@ -329,26 +632,92 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        </li>
      *        <li>
      *        <p>
+     *        <code>FifoTopic</code> – Set to true to create a FIFO topic.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>Policy</code> – The policy that defines who can access your topic. By default, only the topic owner
      *        can publish or subscribe to the topic.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SignatureVersion</code> – The signature version corresponds to the hashing algorithm used while
+     *        creating the signature of the notifications, subscription confirmations, or unsubscribe confirmation
+     *        messages sent by Amazon SNS. By default, <code>SignatureVersion</code> is set to <code>1</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TracingConfig</code> – Tracing mode of an Amazon SNS topic. By default <code>TracingConfig</code> is
+     *        set to <code>PassThrough</code>, and the topic passes through the tracing header it receives from an
+     *        Amazon SNS publisher to its subscriptions. If set to <code>Active</code>, Amazon SNS will vend X-Ray
+     *        segment data to topic owner account if the sampled flag in the tracing header is true. This is only
+     *        supported on standard topics.
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
      *        The following attribute applies only to <a
-     *        href="https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html"
-     *        >server-side-encryption</a>:
+     *        href="https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html">server-side
+     *        encryption</a>:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>KmsMasterKeyId</code> - The ID of an AWS-managed customer master key (CMK) for Amazon SNS or a
-     *        custom CMK. For more information, see <a
+     *        <code>KmsMasterKeyId</code> – The ID of an Amazon Web Services managed customer master key (CMK) for
+     *        Amazon SNS or a custom CMK. For more information, see <a
      *        href="https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html#sse-key-terms">Key
      *        Terms</a>. For more examples, see <a href=
      *        "https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters"
-     *        >KeyId</a> in the <i>AWS Key Management Service API Reference</i>.
+     *        >KeyId</a> in the <i>Key Management Service API Reference</i>.
      *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following attributes apply only to <a
+     *        href="https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html">FIFO topics</a>:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ArchivePolicy</code> – Adds or updates an inline policy document to archive messages stored in the
+     *        specified Amazon SNS topic.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BeginningArchiveTime</code> – The earliest starting point at which a message in the topic’s archive
+     *        can be replayed from. This point in time is based on the configured message retention period set by the
+     *        topic’s message archiving policy.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ContentBasedDeduplication</code> – Enables content-based deduplication for FIFO topics.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        By default, <code>ContentBasedDeduplication</code> is set to <code>false</code>. If you create a FIFO
+     *        topic and this attribute is <code>false</code>, you must specify a value for the
+     *        <code>MessageDeduplicationId</code> parameter for the <a
+     *        href="https://docs.aws.amazon.com/sns/latest/api/API_Publish.html">Publish</a> action.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        When you set <code>ContentBasedDeduplication</code> to <code>true</code>, Amazon SNS uses a SHA-256 hash
+     *        to generate the <code>MessageDeduplicationId</code> using the body of the message (but not the attributes
+     *        of the message).
+     *        </p>
+     *        <p>
+     *        (Optional) To override the generated value, you can specify a value for the
+     *        <code>MessageDeduplicationId</code> parameter for the <code>Publish</code> action.
+     *        </p>
+     *        </li>
+     *        </ul>
      *        </li>
      */
 
@@ -361,7 +730,7 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
      * A map of attributes with their corresponding values.
      * </p>
      * <p>
-     * The following lists the names, descriptions, and values of the special request parameters that the
+     * The following lists names, descriptions, and values of the special request parameters that the
      * <code>CreateTopic</code> action uses:
      * </p>
      * <ul>
@@ -378,32 +747,96 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </li>
      * <li>
      * <p>
+     * <code>FifoTopic</code> – Set to true to create a FIFO topic.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>Policy</code> – The policy that defines who can access your topic. By default, only the topic owner can
      * publish or subscribe to the topic.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SignatureVersion</code> – The signature version corresponds to the hashing algorithm used while creating
+     * the signature of the notifications, subscription confirmations, or unsubscribe confirmation messages sent by
+     * Amazon SNS. By default, <code>SignatureVersion</code> is set to <code>1</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TracingConfig</code> – Tracing mode of an Amazon SNS topic. By default <code>TracingConfig</code> is set to
+     * <code>PassThrough</code>, and the topic passes through the tracing header it receives from an Amazon SNS
+     * publisher to its subscriptions. If set to <code>Active</code>, Amazon SNS will vend X-Ray segment data to topic
+     * owner account if the sampled flag in the tracing header is true. This is only supported on standard topics.
      * </p>
      * </li>
      * </ul>
      * <p>
      * The following attribute applies only to <a
-     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html">server-side-encryption</a>:
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html">server-side encryption</a>:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>KmsMasterKeyId</code> - The ID of an AWS-managed customer master key (CMK) for Amazon SNS or a custom CMK.
-     * For more information, see <a
+     * <code>KmsMasterKeyId</code> – The ID of an Amazon Web Services managed customer master key (CMK) for Amazon SNS
+     * or a custom CMK. For more information, see <a
      * href="https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html#sse-key-terms">Key Terms</a>. For
      * more examples, see <a href=
      * "https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters"
-     * >KeyId</a> in the <i>AWS Key Management Service API Reference</i>.
+     * >KeyId</a> in the <i>Key Management Service API Reference</i>.
      * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes apply only to <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html">FIFO topics</a>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ArchivePolicy</code> – Adds or updates an inline policy document to archive messages stored in the
+     * specified Amazon SNS topic.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BeginningArchiveTime</code> – The earliest starting point at which a message in the topic’s archive can be
+     * replayed from. This point in time is based on the configured message retention period set by the topic’s message
+     * archiving policy.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ContentBasedDeduplication</code> – Enables content-based deduplication for FIFO topics.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * By default, <code>ContentBasedDeduplication</code> is set to <code>false</code>. If you create a FIFO topic and
+     * this attribute is <code>false</code>, you must specify a value for the <code>MessageDeduplicationId</code>
+     * parameter for the <a href="https://docs.aws.amazon.com/sns/latest/api/API_Publish.html">Publish</a> action.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * When you set <code>ContentBasedDeduplication</code> to <code>true</code>, Amazon SNS uses a SHA-256 hash to
+     * generate the <code>MessageDeduplicationId</code> using the body of the message (but not the attributes of the
+     * message).
+     * </p>
+     * <p>
+     * (Optional) To override the generated value, you can specify a value for the <code>MessageDeduplicationId</code>
+     * parameter for the <code>Publish</code> action.
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * </ul>
      * 
      * @param attributes
      *        A map of attributes with their corresponding values.</p>
      *        <p>
-     *        The following lists the names, descriptions, and values of the special request parameters that the
+     *        The following lists names, descriptions, and values of the special request parameters that the
      *        <code>CreateTopic</code> action uses:
      *        </p>
      *        <ul>
@@ -420,26 +853,92 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        </li>
      *        <li>
      *        <p>
+     *        <code>FifoTopic</code> – Set to true to create a FIFO topic.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>Policy</code> – The policy that defines who can access your topic. By default, only the topic owner
      *        can publish or subscribe to the topic.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SignatureVersion</code> – The signature version corresponds to the hashing algorithm used while
+     *        creating the signature of the notifications, subscription confirmations, or unsubscribe confirmation
+     *        messages sent by Amazon SNS. By default, <code>SignatureVersion</code> is set to <code>1</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TracingConfig</code> – Tracing mode of an Amazon SNS topic. By default <code>TracingConfig</code> is
+     *        set to <code>PassThrough</code>, and the topic passes through the tracing header it receives from an
+     *        Amazon SNS publisher to its subscriptions. If set to <code>Active</code>, Amazon SNS will vend X-Ray
+     *        segment data to topic owner account if the sampled flag in the tracing header is true. This is only
+     *        supported on standard topics.
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
      *        The following attribute applies only to <a
-     *        href="https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html"
-     *        >server-side-encryption</a>:
+     *        href="https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html">server-side
+     *        encryption</a>:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>KmsMasterKeyId</code> - The ID of an AWS-managed customer master key (CMK) for Amazon SNS or a
-     *        custom CMK. For more information, see <a
+     *        <code>KmsMasterKeyId</code> – The ID of an Amazon Web Services managed customer master key (CMK) for
+     *        Amazon SNS or a custom CMK. For more information, see <a
      *        href="https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html#sse-key-terms">Key
      *        Terms</a>. For more examples, see <a href=
      *        "https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters"
-     *        >KeyId</a> in the <i>AWS Key Management Service API Reference</i>.
+     *        >KeyId</a> in the <i>Key Management Service API Reference</i>.
      *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following attributes apply only to <a
+     *        href="https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html">FIFO topics</a>:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ArchivePolicy</code> – Adds or updates an inline policy document to archive messages stored in the
+     *        specified Amazon SNS topic.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BeginningArchiveTime</code> – The earliest starting point at which a message in the topic’s archive
+     *        can be replayed from. This point in time is based on the configured message retention period set by the
+     *        topic’s message archiving policy.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ContentBasedDeduplication</code> – Enables content-based deduplication for FIFO topics.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        By default, <code>ContentBasedDeduplication</code> is set to <code>false</code>. If you create a FIFO
+     *        topic and this attribute is <code>false</code>, you must specify a value for the
+     *        <code>MessageDeduplicationId</code> parameter for the <a
+     *        href="https://docs.aws.amazon.com/sns/latest/api/API_Publish.html">Publish</a> action.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        When you set <code>ContentBasedDeduplication</code> to <code>true</code>, Amazon SNS uses a SHA-256 hash
+     *        to generate the <code>MessageDeduplicationId</code> using the body of the message (but not the attributes
+     *        of the message).
+     *        </p>
+     *        <p>
+     *        (Optional) To override the generated value, you can specify a value for the
+     *        <code>MessageDeduplicationId</code> parameter for the <code>Publish</code> action.
+     *        </p>
+     *        </li>
+     *        </ul>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -448,6 +947,13 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
         setAttributes(attributes);
         return this;
     }
+
+    /**
+     * Add a single Attributes entry
+     *
+     * @see CreateTopicRequest#withAttributes
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public CreateTopicRequest addAttributesEntry(String key, String value) {
         if (null == this.attributes) {
@@ -474,8 +980,18 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * The list of tags to add to a new topic.
      * </p>
+     * <note>
+     * <p>
+     * To be able to tag a topic on creation, you must have the <code>sns:CreateTopic</code> and
+     * <code>sns:TagResource</code> permissions.
+     * </p>
+     * </note>
      * 
-     * @return The list of tags to add to a new topic.
+     * @return The list of tags to add to a new topic.</p> <note>
+     *         <p>
+     *         To be able to tag a topic on creation, you must have the <code>sns:CreateTopic</code> and
+     *         <code>sns:TagResource</code> permissions.
+     *         </p>
      */
 
     public java.util.List<Tag> getTags() {
@@ -489,9 +1005,19 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * The list of tags to add to a new topic.
      * </p>
+     * <note>
+     * <p>
+     * To be able to tag a topic on creation, you must have the <code>sns:CreateTopic</code> and
+     * <code>sns:TagResource</code> permissions.
+     * </p>
+     * </note>
      * 
      * @param tags
-     *        The list of tags to add to a new topic.
+     *        The list of tags to add to a new topic.</p> <note>
+     *        <p>
+     *        To be able to tag a topic on creation, you must have the <code>sns:CreateTopic</code> and
+     *        <code>sns:TagResource</code> permissions.
+     *        </p>
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -507,6 +1033,12 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * The list of tags to add to a new topic.
      * </p>
+     * <note>
+     * <p>
+     * To be able to tag a topic on creation, you must have the <code>sns:CreateTopic</code> and
+     * <code>sns:TagResource</code> permissions.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
@@ -514,7 +1046,11 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * 
      * @param tags
-     *        The list of tags to add to a new topic.
+     *        The list of tags to add to a new topic.</p> <note>
+     *        <p>
+     *        To be able to tag a topic on creation, you must have the <code>sns:CreateTopic</code> and
+     *        <code>sns:TagResource</code> permissions.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -532,14 +1068,115 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * The list of tags to add to a new topic.
      * </p>
+     * <note>
+     * <p>
+     * To be able to tag a topic on creation, you must have the <code>sns:CreateTopic</code> and
+     * <code>sns:TagResource</code> permissions.
+     * </p>
+     * </note>
      * 
      * @param tags
-     *        The list of tags to add to a new topic.
+     *        The list of tags to add to a new topic.</p> <note>
+     *        <p>
+     *        To be able to tag a topic on creation, you must have the <code>sns:CreateTopic</code> and
+     *        <code>sns:TagResource</code> permissions.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateTopicRequest withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The body of the policy document you want to use for this topic.
+     * </p>
+     * <p>
+     * You can only add one policy per topic.
+     * </p>
+     * <p>
+     * The policy must be in JSON string format.
+     * </p>
+     * <p>
+     * Length Constraints: Maximum length of 30,720.
+     * </p>
+     * 
+     * @param dataProtectionPolicy
+     *        The body of the policy document you want to use for this topic.</p>
+     *        <p>
+     *        You can only add one policy per topic.
+     *        </p>
+     *        <p>
+     *        The policy must be in JSON string format.
+     *        </p>
+     *        <p>
+     *        Length Constraints: Maximum length of 30,720.
+     */
+
+    public void setDataProtectionPolicy(String dataProtectionPolicy) {
+        this.dataProtectionPolicy = dataProtectionPolicy;
+    }
+
+    /**
+     * <p>
+     * The body of the policy document you want to use for this topic.
+     * </p>
+     * <p>
+     * You can only add one policy per topic.
+     * </p>
+     * <p>
+     * The policy must be in JSON string format.
+     * </p>
+     * <p>
+     * Length Constraints: Maximum length of 30,720.
+     * </p>
+     * 
+     * @return The body of the policy document you want to use for this topic.</p>
+     *         <p>
+     *         You can only add one policy per topic.
+     *         </p>
+     *         <p>
+     *         The policy must be in JSON string format.
+     *         </p>
+     *         <p>
+     *         Length Constraints: Maximum length of 30,720.
+     */
+
+    public String getDataProtectionPolicy() {
+        return this.dataProtectionPolicy;
+    }
+
+    /**
+     * <p>
+     * The body of the policy document you want to use for this topic.
+     * </p>
+     * <p>
+     * You can only add one policy per topic.
+     * </p>
+     * <p>
+     * The policy must be in JSON string format.
+     * </p>
+     * <p>
+     * Length Constraints: Maximum length of 30,720.
+     * </p>
+     * 
+     * @param dataProtectionPolicy
+     *        The body of the policy document you want to use for this topic.</p>
+     *        <p>
+     *        You can only add one policy per topic.
+     *        </p>
+     *        <p>
+     *        The policy must be in JSON string format.
+     *        </p>
+     *        <p>
+     *        Length Constraints: Maximum length of 30,720.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTopicRequest withDataProtectionPolicy(String dataProtectionPolicy) {
+        setDataProtectionPolicy(dataProtectionPolicy);
         return this;
     }
 
@@ -560,7 +1197,9 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (getAttributes() != null)
             sb.append("Attributes: ").append(getAttributes()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getDataProtectionPolicy() != null)
+            sb.append("DataProtectionPolicy: ").append(getDataProtectionPolicy());
         sb.append("}");
         return sb.toString();
     }
@@ -587,6 +1226,10 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getDataProtectionPolicy() == null ^ this.getDataProtectionPolicy() == null)
+            return false;
+        if (other.getDataProtectionPolicy() != null && other.getDataProtectionPolicy().equals(this.getDataProtectionPolicy()) == false)
+            return false;
         return true;
     }
 
@@ -598,6 +1241,7 @@ public class CreateTopicRequest extends com.amazonaws.AmazonWebServiceRequest im
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getAttributes() == null) ? 0 : getAttributes().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getDataProtectionPolicy() == null) ? 0 : getDataProtectionPolicy().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,7 +38,7 @@ public class StateExitedEventDetails implements Serializable, Cloneable, Structu
      * <ul>
      * <li>
      * <p>
-     * whitespace
+     * white space
      * </p>
      * </li>
      * <li>
@@ -62,14 +62,24 @@ public class StateExitedEventDetails implements Serializable, Cloneable, Structu
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
+     * </p>
      */
     private String name;
     /**
      * <p>
-     * The JSON output data of the state.
+     * The JSON output data of the state. Length constraints apply to the payload size, and are expressed as bytes in
+     * UTF-8 encoding.
      * </p>
      */
     private String output;
+    /**
+     * <p>
+     * Contains details about the output of an execution history event.
+     * </p>
+     */
+    private HistoryEventExecutionDataDetails outputDetails;
 
     /**
      * <p>
@@ -81,7 +91,7 @@ public class StateExitedEventDetails implements Serializable, Cloneable, Structu
      * <ul>
      * <li>
      * <p>
-     * whitespace
+     * white space
      * </p>
      * </li>
      * <li>
@@ -105,6 +115,9 @@ public class StateExitedEventDetails implements Serializable, Cloneable, Structu
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
+     * </p>
      * 
      * @param name
      *        The name of the state.</p>
@@ -114,7 +127,7 @@ public class StateExitedEventDetails implements Serializable, Cloneable, Structu
      *        <ul>
      *        <li>
      *        <p>
-     *        whitespace
+     *        white space
      *        </p>
      *        </li>
      *        <li>
@@ -137,6 +150,9 @@ public class StateExitedEventDetails implements Serializable, Cloneable, Structu
      *        control characters (<code>U+0000-001F</code>, <code>U+007F-009F</code>)
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
      */
 
     public void setName(String name) {
@@ -153,7 +169,7 @@ public class StateExitedEventDetails implements Serializable, Cloneable, Structu
      * <ul>
      * <li>
      * <p>
-     * whitespace
+     * white space
      * </p>
      * </li>
      * <li>
@@ -177,6 +193,9 @@ public class StateExitedEventDetails implements Serializable, Cloneable, Structu
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
+     * </p>
      * 
      * @return The name of the state.</p>
      *         <p>
@@ -185,7 +204,7 @@ public class StateExitedEventDetails implements Serializable, Cloneable, Structu
      *         <ul>
      *         <li>
      *         <p>
-     *         whitespace
+     *         white space
      *         </p>
      *         </li>
      *         <li>
@@ -208,6 +227,9 @@ public class StateExitedEventDetails implements Serializable, Cloneable, Structu
      *         control characters (<code>U+0000-001F</code>, <code>U+007F-009F</code>)
      *         </p>
      *         </li>
+     *         </ul>
+     *         <p>
+     *         To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
      */
 
     public String getName() {
@@ -224,7 +246,7 @@ public class StateExitedEventDetails implements Serializable, Cloneable, Structu
      * <ul>
      * <li>
      * <p>
-     * whitespace
+     * white space
      * </p>
      * </li>
      * <li>
@@ -248,6 +270,9 @@ public class StateExitedEventDetails implements Serializable, Cloneable, Structu
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
+     * </p>
      * 
      * @param name
      *        The name of the state.</p>
@@ -257,7 +282,7 @@ public class StateExitedEventDetails implements Serializable, Cloneable, Structu
      *        <ul>
      *        <li>
      *        <p>
-     *        whitespace
+     *        white space
      *        </p>
      *        </li>
      *        <li>
@@ -280,6 +305,9 @@ public class StateExitedEventDetails implements Serializable, Cloneable, Structu
      *        control characters (<code>U+0000-001F</code>, <code>U+007F-009F</code>)
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -290,11 +318,13 @@ public class StateExitedEventDetails implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * The JSON output data of the state.
+     * The JSON output data of the state. Length constraints apply to the payload size, and are expressed as bytes in
+     * UTF-8 encoding.
      * </p>
      * 
      * @param output
-     *        The JSON output data of the state.
+     *        The JSON output data of the state. Length constraints apply to the payload size, and are expressed as
+     *        bytes in UTF-8 encoding.
      */
 
     public void setOutput(String output) {
@@ -303,10 +333,12 @@ public class StateExitedEventDetails implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * The JSON output data of the state.
+     * The JSON output data of the state. Length constraints apply to the payload size, and are expressed as bytes in
+     * UTF-8 encoding.
      * </p>
      * 
-     * @return The JSON output data of the state.
+     * @return The JSON output data of the state. Length constraints apply to the payload size, and are expressed as
+     *         bytes in UTF-8 encoding.
      */
 
     public String getOutput() {
@@ -315,16 +347,58 @@ public class StateExitedEventDetails implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * The JSON output data of the state.
+     * The JSON output data of the state. Length constraints apply to the payload size, and are expressed as bytes in
+     * UTF-8 encoding.
      * </p>
      * 
      * @param output
-     *        The JSON output data of the state.
+     *        The JSON output data of the state. Length constraints apply to the payload size, and are expressed as
+     *        bytes in UTF-8 encoding.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public StateExitedEventDetails withOutput(String output) {
         setOutput(output);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Contains details about the output of an execution history event.
+     * </p>
+     * 
+     * @param outputDetails
+     *        Contains details about the output of an execution history event.
+     */
+
+    public void setOutputDetails(HistoryEventExecutionDataDetails outputDetails) {
+        this.outputDetails = outputDetails;
+    }
+
+    /**
+     * <p>
+     * Contains details about the output of an execution history event.
+     * </p>
+     * 
+     * @return Contains details about the output of an execution history event.
+     */
+
+    public HistoryEventExecutionDataDetails getOutputDetails() {
+        return this.outputDetails;
+    }
+
+    /**
+     * <p>
+     * Contains details about the output of an execution history event.
+     * </p>
+     * 
+     * @param outputDetails
+     *        Contains details about the output of an execution history event.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StateExitedEventDetails withOutputDetails(HistoryEventExecutionDataDetails outputDetails) {
+        setOutputDetails(outputDetails);
         return this;
     }
 
@@ -343,7 +417,9 @@ public class StateExitedEventDetails implements Serializable, Cloneable, Structu
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getOutput() != null)
-            sb.append("Output: ").append("***Sensitive Data Redacted***");
+            sb.append("Output: ").append("***Sensitive Data Redacted***").append(",");
+        if (getOutputDetails() != null)
+            sb.append("OutputDetails: ").append(getOutputDetails());
         sb.append("}");
         return sb.toString();
     }
@@ -366,6 +442,10 @@ public class StateExitedEventDetails implements Serializable, Cloneable, Structu
             return false;
         if (other.getOutput() != null && other.getOutput().equals(this.getOutput()) == false)
             return false;
+        if (other.getOutputDetails() == null ^ this.getOutputDetails() == null)
+            return false;
+        if (other.getOutputDetails() != null && other.getOutputDetails().equals(this.getOutputDetails()) == false)
+            return false;
         return true;
     }
 
@@ -376,6 +456,7 @@ public class StateExitedEventDetails implements Serializable, Cloneable, Structu
 
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getOutput() == null) ? 0 : getOutput().hashCode());
+        hashCode = prime * hashCode + ((getOutputDetails() == null) ? 0 : getOutputDetails().hashCode());
         return hashCode;
     }
 

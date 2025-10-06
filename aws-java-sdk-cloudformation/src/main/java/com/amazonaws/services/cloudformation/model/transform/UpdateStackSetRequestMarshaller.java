@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -72,25 +72,27 @@ public class UpdateStackSetRequestMarshaller implements Marshaller<Request<Updat
             int parametersListIndex = 1;
 
             for (Parameter parametersListValue : parametersList) {
+                if (parametersListValue != null) {
 
-                if (parametersListValue.getParameterKey() != null) {
-                    request.addParameter("Parameters.member." + parametersListIndex + ".ParameterKey",
-                            StringUtils.fromString(parametersListValue.getParameterKey()));
-                }
+                    if (parametersListValue.getParameterKey() != null) {
+                        request.addParameter("Parameters.member." + parametersListIndex + ".ParameterKey",
+                                StringUtils.fromString(parametersListValue.getParameterKey()));
+                    }
 
-                if (parametersListValue.getParameterValue() != null) {
-                    request.addParameter("Parameters.member." + parametersListIndex + ".ParameterValue",
-                            StringUtils.fromString(parametersListValue.getParameterValue()));
-                }
+                    if (parametersListValue.getParameterValue() != null) {
+                        request.addParameter("Parameters.member." + parametersListIndex + ".ParameterValue",
+                                StringUtils.fromString(parametersListValue.getParameterValue()));
+                    }
 
-                if (parametersListValue.getUsePreviousValue() != null) {
-                    request.addParameter("Parameters.member." + parametersListIndex + ".UsePreviousValue",
-                            StringUtils.fromBoolean(parametersListValue.getUsePreviousValue()));
-                }
+                    if (parametersListValue.getUsePreviousValue() != null) {
+                        request.addParameter("Parameters.member." + parametersListIndex + ".UsePreviousValue",
+                                StringUtils.fromBoolean(parametersListValue.getUsePreviousValue()));
+                    }
 
-                if (parametersListValue.getResolvedValue() != null) {
-                    request.addParameter("Parameters.member." + parametersListIndex + ".ResolvedValue",
-                            StringUtils.fromString(parametersListValue.getResolvedValue()));
+                    if (parametersListValue.getResolvedValue() != null) {
+                        request.addParameter("Parameters.member." + parametersListIndex + ".ResolvedValue",
+                                StringUtils.fromString(parametersListValue.getResolvedValue()));
+                    }
                 }
                 parametersListIndex++;
             }
@@ -122,13 +124,15 @@ public class UpdateStackSetRequestMarshaller implements Marshaller<Request<Updat
             int tagsListIndex = 1;
 
             for (Tag tagsListValue : tagsList) {
+                if (tagsListValue != null) {
 
-                if (tagsListValue.getKey() != null) {
-                    request.addParameter("Tags.member." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
-                }
+                    if (tagsListValue.getKey() != null) {
+                        request.addParameter("Tags.member." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
+                    }
 
-                if (tagsListValue.getValue() != null) {
-                    request.addParameter("Tags.member." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                    if (tagsListValue.getValue() != null) {
+                        request.addParameter("Tags.member." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                    }
                 }
                 tagsListIndex++;
             }
@@ -137,6 +141,10 @@ public class UpdateStackSetRequestMarshaller implements Marshaller<Request<Updat
         {
             StackSetOperationPreferences operationPreferences = updateStackSetRequest.getOperationPreferences();
             if (operationPreferences != null) {
+
+                if (operationPreferences.getRegionConcurrencyType() != null) {
+                    request.addParameter("OperationPreferences.RegionConcurrencyType", StringUtils.fromString(operationPreferences.getRegionConcurrencyType()));
+                }
 
                 if (operationPreferences.getRegionOrder().isEmpty()
                         && !((com.amazonaws.internal.SdkInternalList<String>) operationPreferences.getRegionOrder()).isAutoConstruct()) {
@@ -174,6 +182,10 @@ public class UpdateStackSetRequestMarshaller implements Marshaller<Request<Updat
                     request.addParameter("OperationPreferences.MaxConcurrentPercentage",
                             StringUtils.fromInteger(operationPreferences.getMaxConcurrentPercentage()));
                 }
+
+                if (operationPreferences.getConcurrencyMode() != null) {
+                    request.addParameter("OperationPreferences.ConcurrencyMode", StringUtils.fromString(operationPreferences.getConcurrencyMode()));
+                }
             }
         }
 
@@ -183,6 +195,76 @@ public class UpdateStackSetRequestMarshaller implements Marshaller<Request<Updat
 
         if (updateStackSetRequest.getExecutionRoleName() != null) {
             request.addParameter("ExecutionRoleName", StringUtils.fromString(updateStackSetRequest.getExecutionRoleName()));
+        }
+
+        {
+            DeploymentTargets deploymentTargets = updateStackSetRequest.getDeploymentTargets();
+            if (deploymentTargets != null) {
+
+                if (deploymentTargets.getAccounts().isEmpty()
+                        && !((com.amazonaws.internal.SdkInternalList<String>) deploymentTargets.getAccounts()).isAutoConstruct()) {
+                    request.addParameter("DeploymentTargets.Accounts", "");
+                }
+                if (!deploymentTargets.getAccounts().isEmpty()
+                        || !((com.amazonaws.internal.SdkInternalList<String>) deploymentTargets.getAccounts()).isAutoConstruct()) {
+                    com.amazonaws.internal.SdkInternalList<String> accountsList = (com.amazonaws.internal.SdkInternalList<String>) deploymentTargets
+                            .getAccounts();
+                    int accountsListIndex = 1;
+
+                    for (String accountsListValue : accountsList) {
+                        if (accountsListValue != null) {
+                            request.addParameter("DeploymentTargets.Accounts.member." + accountsListIndex, StringUtils.fromString(accountsListValue));
+                        }
+                        accountsListIndex++;
+                    }
+                }
+
+                if (deploymentTargets.getAccountsUrl() != null) {
+                    request.addParameter("DeploymentTargets.AccountsUrl", StringUtils.fromString(deploymentTargets.getAccountsUrl()));
+                }
+
+                if (deploymentTargets.getOrganizationalUnitIds().isEmpty()
+                        && !((com.amazonaws.internal.SdkInternalList<String>) deploymentTargets.getOrganizationalUnitIds()).isAutoConstruct()) {
+                    request.addParameter("DeploymentTargets.OrganizationalUnitIds", "");
+                }
+                if (!deploymentTargets.getOrganizationalUnitIds().isEmpty()
+                        || !((com.amazonaws.internal.SdkInternalList<String>) deploymentTargets.getOrganizationalUnitIds()).isAutoConstruct()) {
+                    com.amazonaws.internal.SdkInternalList<String> organizationalUnitIdsList = (com.amazonaws.internal.SdkInternalList<String>) deploymentTargets
+                            .getOrganizationalUnitIds();
+                    int organizationalUnitIdsListIndex = 1;
+
+                    for (String organizationalUnitIdsListValue : organizationalUnitIdsList) {
+                        if (organizationalUnitIdsListValue != null) {
+                            request.addParameter("DeploymentTargets.OrganizationalUnitIds.member." + organizationalUnitIdsListIndex,
+                                    StringUtils.fromString(organizationalUnitIdsListValue));
+                        }
+                        organizationalUnitIdsListIndex++;
+                    }
+                }
+
+                if (deploymentTargets.getAccountFilterType() != null) {
+                    request.addParameter("DeploymentTargets.AccountFilterType", StringUtils.fromString(deploymentTargets.getAccountFilterType()));
+                }
+            }
+        }
+
+        if (updateStackSetRequest.getPermissionModel() != null) {
+            request.addParameter("PermissionModel", StringUtils.fromString(updateStackSetRequest.getPermissionModel()));
+        }
+
+        {
+            AutoDeployment autoDeployment = updateStackSetRequest.getAutoDeployment();
+            if (autoDeployment != null) {
+
+                if (autoDeployment.getEnabled() != null) {
+                    request.addParameter("AutoDeployment.Enabled", StringUtils.fromBoolean(autoDeployment.getEnabled()));
+                }
+
+                if (autoDeployment.getRetainStacksOnAccountRemoval() != null) {
+                    request.addParameter("AutoDeployment.RetainStacksOnAccountRemoval",
+                            StringUtils.fromBoolean(autoDeployment.getRetainStacksOnAccountRemoval()));
+                }
+            }
         }
 
         request.addParameter("OperationId", IdempotentUtils.resolveString(updateStackSetRequest.getOperationId()));
@@ -218,6 +300,20 @@ public class UpdateStackSetRequestMarshaller implements Marshaller<Request<Updat
                     request.addParameter("Regions.member." + regionsListIndex, StringUtils.fromString(regionsListValue));
                 }
                 regionsListIndex++;
+            }
+        }
+
+        if (updateStackSetRequest.getCallAs() != null) {
+            request.addParameter("CallAs", StringUtils.fromString(updateStackSetRequest.getCallAs()));
+        }
+
+        {
+            ManagedExecution managedExecution = updateStackSetRequest.getManagedExecution();
+            if (managedExecution != null) {
+
+                if (managedExecution.getActive() != null) {
+                    request.addParameter("ManagedExecution.Active", StringUtils.fromBoolean(managedExecution.getActive()));
+                }
             }
         }
 

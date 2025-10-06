@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,8 +39,8 @@ public class ListServiceSpecificCredentialsRequest extends com.amazonaws.AmazonW
     private String userName;
     /**
      * <p>
-     * Filters the returned results to only those for the specified AWS service. If not specified, then AWS returns
-     * service-specific credentials for all services.
+     * Filters the returned results to only those for the specified Amazon Web Services service. If not specified, then
+     * Amazon Web Services returns service-specific credentials for all services.
      * </p>
      */
     private String serviceName;
@@ -120,13 +120,13 @@ public class ListServiceSpecificCredentialsRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Filters the returned results to only those for the specified AWS service. If not specified, then AWS returns
-     * service-specific credentials for all services.
+     * Filters the returned results to only those for the specified Amazon Web Services service. If not specified, then
+     * Amazon Web Services returns service-specific credentials for all services.
      * </p>
      * 
      * @param serviceName
-     *        Filters the returned results to only those for the specified AWS service. If not specified, then AWS
-     *        returns service-specific credentials for all services.
+     *        Filters the returned results to only those for the specified Amazon Web Services service. If not
+     *        specified, then Amazon Web Services returns service-specific credentials for all services.
      */
 
     public void setServiceName(String serviceName) {
@@ -135,12 +135,12 @@ public class ListServiceSpecificCredentialsRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Filters the returned results to only those for the specified AWS service. If not specified, then AWS returns
-     * service-specific credentials for all services.
+     * Filters the returned results to only those for the specified Amazon Web Services service. If not specified, then
+     * Amazon Web Services returns service-specific credentials for all services.
      * </p>
      * 
-     * @return Filters the returned results to only those for the specified AWS service. If not specified, then AWS
-     *         returns service-specific credentials for all services.
+     * @return Filters the returned results to only those for the specified Amazon Web Services service. If not
+     *         specified, then Amazon Web Services returns service-specific credentials for all services.
      */
 
     public String getServiceName() {
@@ -149,13 +149,13 @@ public class ListServiceSpecificCredentialsRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Filters the returned results to only those for the specified AWS service. If not specified, then AWS returns
-     * service-specific credentials for all services.
+     * Filters the returned results to only those for the specified Amazon Web Services service. If not specified, then
+     * Amazon Web Services returns service-specific credentials for all services.
      * </p>
      * 
      * @param serviceName
-     *        Filters the returned results to only those for the specified AWS service. If not specified, then AWS
-     *        returns service-specific credentials for all services.
+     *        Filters the returned results to only those for the specified Amazon Web Services service. If not
+     *        specified, then Amazon Web Services returns service-specific credentials for all services.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

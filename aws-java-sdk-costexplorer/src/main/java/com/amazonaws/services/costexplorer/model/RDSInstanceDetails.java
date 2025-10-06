@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Details about the Amazon RDS instances that AWS recommends that you purchase.
+ * Details about the Amazon RDS reservations that Amazon Web Services recommends that you purchase.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/RDSInstanceDetails" target="_top">AWS API
@@ -36,13 +36,13 @@ public class RDSInstanceDetails implements Serializable, Cloneable, StructuredPo
     private String family;
     /**
      * <p>
-     * The type of instance that AWS recommends.
+     * The type of instance that Amazon Web Services recommends.
      * </p>
      */
     private String instanceType;
     /**
      * <p>
-     * The AWS Region of the recommended reservation.
+     * The Amazon Web Services Region of the recommended reservation.
      * </p>
      */
     private String region;
@@ -60,8 +60,8 @@ public class RDSInstanceDetails implements Serializable, Cloneable, StructuredPo
     private String databaseEdition;
     /**
      * <p>
-     * Whether the recommendation is for a reservation in a single Availability Zone or a reservation with a backup in a
-     * second Availability Zone.
+     * Determines whether the recommendation is for a reservation in a single Availability Zone or a reservation with a
+     * backup in a second Availability Zone.
      * </p>
      */
     private String deploymentOption;
@@ -73,13 +73,13 @@ public class RDSInstanceDetails implements Serializable, Cloneable, StructuredPo
     private String licenseModel;
     /**
      * <p>
-     * Whether the recommendation is for a current-generation instance.
+     * Determines whether the recommendation is for a current-generation instance.
      * </p>
      */
     private Boolean currentGeneration;
     /**
      * <p>
-     * Whether the recommended reservation is size flexible.
+     * Determines whether the recommended reservation is size flexible.
      * </p>
      */
     private Boolean sizeFlexEligible;
@@ -126,11 +126,11 @@ public class RDSInstanceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The type of instance that AWS recommends.
+     * The type of instance that Amazon Web Services recommends.
      * </p>
      * 
      * @param instanceType
-     *        The type of instance that AWS recommends.
+     *        The type of instance that Amazon Web Services recommends.
      */
 
     public void setInstanceType(String instanceType) {
@@ -139,10 +139,10 @@ public class RDSInstanceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The type of instance that AWS recommends.
+     * The type of instance that Amazon Web Services recommends.
      * </p>
      * 
-     * @return The type of instance that AWS recommends.
+     * @return The type of instance that Amazon Web Services recommends.
      */
 
     public String getInstanceType() {
@@ -151,11 +151,11 @@ public class RDSInstanceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The type of instance that AWS recommends.
+     * The type of instance that Amazon Web Services recommends.
      * </p>
      * 
      * @param instanceType
-     *        The type of instance that AWS recommends.
+     *        The type of instance that Amazon Web Services recommends.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -166,11 +166,11 @@ public class RDSInstanceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The AWS Region of the recommended reservation.
+     * The Amazon Web Services Region of the recommended reservation.
      * </p>
      * 
      * @param region
-     *        The AWS Region of the recommended reservation.
+     *        The Amazon Web Services Region of the recommended reservation.
      */
 
     public void setRegion(String region) {
@@ -179,10 +179,10 @@ public class RDSInstanceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The AWS Region of the recommended reservation.
+     * The Amazon Web Services Region of the recommended reservation.
      * </p>
      * 
-     * @return The AWS Region of the recommended reservation.
+     * @return The Amazon Web Services Region of the recommended reservation.
      */
 
     public String getRegion() {
@@ -191,11 +191,11 @@ public class RDSInstanceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The AWS Region of the recommended reservation.
+     * The Amazon Web Services Region of the recommended reservation.
      * </p>
      * 
      * @param region
-     *        The AWS Region of the recommended reservation.
+     *        The Amazon Web Services Region of the recommended reservation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -286,13 +286,13 @@ public class RDSInstanceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Whether the recommendation is for a reservation in a single Availability Zone or a reservation with a backup in a
-     * second Availability Zone.
+     * Determines whether the recommendation is for a reservation in a single Availability Zone or a reservation with a
+     * backup in a second Availability Zone.
      * </p>
      * 
      * @param deploymentOption
-     *        Whether the recommendation is for a reservation in a single Availability Zone or a reservation with a
-     *        backup in a second Availability Zone.
+     *        Determines whether the recommendation is for a reservation in a single Availability Zone or a reservation
+     *        with a backup in a second Availability Zone.
      */
 
     public void setDeploymentOption(String deploymentOption) {
@@ -301,12 +301,12 @@ public class RDSInstanceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Whether the recommendation is for a reservation in a single Availability Zone or a reservation with a backup in a
-     * second Availability Zone.
+     * Determines whether the recommendation is for a reservation in a single Availability Zone or a reservation with a
+     * backup in a second Availability Zone.
      * </p>
      * 
-     * @return Whether the recommendation is for a reservation in a single Availability Zone or a reservation with a
-     *         backup in a second Availability Zone.
+     * @return Determines whether the recommendation is for a reservation in a single Availability Zone or a reservation
+     *         with a backup in a second Availability Zone.
      */
 
     public String getDeploymentOption() {
@@ -315,13 +315,13 @@ public class RDSInstanceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Whether the recommendation is for a reservation in a single Availability Zone or a reservation with a backup in a
-     * second Availability Zone.
+     * Determines whether the recommendation is for a reservation in a single Availability Zone or a reservation with a
+     * backup in a second Availability Zone.
      * </p>
      * 
      * @param deploymentOption
-     *        Whether the recommendation is for a reservation in a single Availability Zone or a reservation with a
-     *        backup in a second Availability Zone.
+     *        Determines whether the recommendation is for a reservation in a single Availability Zone or a reservation
+     *        with a backup in a second Availability Zone.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -372,11 +372,11 @@ public class RDSInstanceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Whether the recommendation is for a current-generation instance.
+     * Determines whether the recommendation is for a current-generation instance.
      * </p>
      * 
      * @param currentGeneration
-     *        Whether the recommendation is for a current-generation instance.
+     *        Determines whether the recommendation is for a current-generation instance.
      */
 
     public void setCurrentGeneration(Boolean currentGeneration) {
@@ -385,10 +385,10 @@ public class RDSInstanceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Whether the recommendation is for a current-generation instance.
+     * Determines whether the recommendation is for a current-generation instance.
      * </p>
      * 
-     * @return Whether the recommendation is for a current-generation instance.
+     * @return Determines whether the recommendation is for a current-generation instance.
      */
 
     public Boolean getCurrentGeneration() {
@@ -397,11 +397,11 @@ public class RDSInstanceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Whether the recommendation is for a current-generation instance.
+     * Determines whether the recommendation is for a current-generation instance.
      * </p>
      * 
      * @param currentGeneration
-     *        Whether the recommendation is for a current-generation instance.
+     *        Determines whether the recommendation is for a current-generation instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -412,10 +412,10 @@ public class RDSInstanceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Whether the recommendation is for a current-generation instance.
+     * Determines whether the recommendation is for a current-generation instance.
      * </p>
      * 
-     * @return Whether the recommendation is for a current-generation instance.
+     * @return Determines whether the recommendation is for a current-generation instance.
      */
 
     public Boolean isCurrentGeneration() {
@@ -424,11 +424,11 @@ public class RDSInstanceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Whether the recommended reservation is size flexible.
+     * Determines whether the recommended reservation is size flexible.
      * </p>
      * 
      * @param sizeFlexEligible
-     *        Whether the recommended reservation is size flexible.
+     *        Determines whether the recommended reservation is size flexible.
      */
 
     public void setSizeFlexEligible(Boolean sizeFlexEligible) {
@@ -437,10 +437,10 @@ public class RDSInstanceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Whether the recommended reservation is size flexible.
+     * Determines whether the recommended reservation is size flexible.
      * </p>
      * 
-     * @return Whether the recommended reservation is size flexible.
+     * @return Determines whether the recommended reservation is size flexible.
      */
 
     public Boolean getSizeFlexEligible() {
@@ -449,11 +449,11 @@ public class RDSInstanceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Whether the recommended reservation is size flexible.
+     * Determines whether the recommended reservation is size flexible.
      * </p>
      * 
      * @param sizeFlexEligible
-     *        Whether the recommended reservation is size flexible.
+     *        Determines whether the recommended reservation is size flexible.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -464,10 +464,10 @@ public class RDSInstanceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Whether the recommended reservation is size flexible.
+     * Determines whether the recommended reservation is size flexible.
      * </p>
      * 
-     * @return Whether the recommended reservation is size flexible.
+     * @return Determines whether the recommended reservation is size flexible.
      */
 
     public Boolean isSizeFlexEligible() {

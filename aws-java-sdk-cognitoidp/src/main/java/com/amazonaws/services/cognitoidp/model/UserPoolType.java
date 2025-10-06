@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,67 +48,98 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
     private UserPoolPolicyType policies;
     /**
      * <p>
-     * The AWS Lambda triggers associated with the user pool.
+     * When active, <code>DeletionProtection</code> prevents accidental deletion of your user pool. Before you can
+     * delete a user pool that you have protected against deletion, you must deactivate this feature.
+     * </p>
+     * <p>
+     * When you try to delete a protected user pool in a <code>DeleteUserPool</code> API request, Amazon Cognito returns
+     * an <code>InvalidParameterException</code> error. To delete a protected user pool, send a new
+     * <code>DeleteUserPool</code> request after you deactivate deletion protection in an <code>UpdateUserPool</code>
+     * API request.
+     * </p>
+     */
+    private String deletionProtection;
+    /**
+     * <p>
+     * The Lambda triggers associated with the user pool.
      * </p>
      */
     private LambdaConfigType lambdaConfig;
     /**
      * <p>
-     * The status of a user pool.
+     * This parameter is no longer used.
      * </p>
      */
+    @Deprecated
     private String status;
     /**
      * <p>
-     * The date the user pool was last modified.
+     * The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      */
     private java.util.Date lastModifiedDate;
     /**
      * <p>
-     * The date the user pool was created.
+     * The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      */
     private java.util.Date creationDate;
     /**
      * <p>
-     * A container with the schema attributes of a user pool.
+     * A list of the user attributes and their properties in your user pool. The attribute schema contains standard
+     * attributes, custom attributes with a <code>custom:</code> prefix, and developer attributes with a
+     * <code>dev:</code> prefix. For more information, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html">User pool
+     * attributes</a>.
+     * </p>
+     * <p>
+     * Developer-only attributes are a legacy feature of user pools, are read-only to all app clients. You can create
+     * and update developer-only attributes only with IAM-authenticated API operations. Use app client read/write
+     * permissions instead.
      * </p>
      */
     private java.util.List<SchemaAttributeType> schemaAttributes;
     /**
      * <p>
-     * Specifies the attributes that are auto-verified in a user pool.
+     * The attributes that are auto-verified in a user pool.
      * </p>
      */
     private java.util.List<String> autoVerifiedAttributes;
     /**
      * <p>
-     * Specifies the attributes that are aliased in a user pool.
+     * The attributes that are aliased in a user pool.
      * </p>
      */
     private java.util.List<String> aliasAttributes;
     /**
      * <p>
-     * Specifies whether email addresses or phone numbers can be specified as usernames when a user signs up.
+     * Specifies whether a user can use an email address or phone number as a username when they sign up.
      * </p>
      */
     private java.util.List<String> usernameAttributes;
     /**
      * <p>
-     * The contents of the SMS verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      */
     private String smsVerificationMessage;
     /**
      * <p>
-     * The contents of the email verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      */
     private String emailVerificationMessage;
     /**
      * <p>
-     * The subject of the email verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      */
     private String emailVerificationSubject;
@@ -126,17 +157,28 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
     private String smsAuthenticationMessage;
     /**
      * <p>
+     * The settings for updates to user attributes. These settings include the property
+     * <code>AttributesRequireVerificationBeforeUpdate</code>, a user-pool setting that tells Amazon Cognito how to
+     * handle changes to the value of your users' email address and phone number attributes. For more information, see
+     * <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-email-phone-verification.html#user-pool-settings-verifications-verify-attribute-updates"
+     * > Verifying updates to email addresses and phone numbers</a>.
+     * </p>
+     */
+    private UserAttributeUpdateSettingsType userAttributeUpdateSettings;
+    /**
+     * <p>
      * Can be one of the following values:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>OFF</code> - MFA tokens are not required and cannot be specified during user registration.
+     * <code>OFF</code> - MFA tokens aren't required and can't be specified during user registration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when you are
+     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when you're
      * initially creating a user pool.
      * </p>
      * </li>
@@ -150,8 +192,15 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
     private String mfaConfiguration;
     /**
      * <p>
-     * The device configuration.
+     * The device-remembering configuration for a user pool. A null value indicates that you have deactivated device
+     * remembering in your user pool.
      * </p>
+     * <note>
+     * <p>
+     * When you provide a value for any <code>DeviceConfiguration</code> field, you activate the Amazon Cognito
+     * device-remembering feature.
+     * </p>
+     * </note>
      */
     private DeviceConfigurationType deviceConfiguration;
     /**
@@ -162,13 +211,17 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
     private Integer estimatedNumberOfUsers;
     /**
      * <p>
-     * The email configuration.
+     * The email configuration of your user pool. The email configuration type sets your preferred sending method,
+     * Amazon Web Services Region, and sender for messages from your user pool.
      * </p>
      */
     private EmailConfigurationType emailConfiguration;
     /**
      * <p>
-     * The SMS configuration.
+     * The SMS configuration with the settings that your Amazon Cognito user pool must use to send an SMS message from
+     * your Amazon Web Services account through Amazon Simple Notification Service. To send SMS messages with Amazon SNS
+     * in the Amazon Web Services Region that you want, the Amazon Cognito user pool uses an Identity and Access
+     * Management (IAM) role in your Amazon Web Services account.
      * </p>
      */
     private SmsConfigurationType smsConfiguration;
@@ -181,26 +234,53 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
     private java.util.Map<String, String> userPoolTags;
     /**
      * <p>
-     * The reason why the SMS configuration cannot send the messages to your users.
+     * The reason why the SMS configuration can't send the messages to your users.
      * </p>
+     * <p>
+     * This message might include comma-separated values to describe why your SMS configuration can't send messages to
+     * user pool end users.
+     * </p>
+     * <dl>
+     * <dt>InvalidSmsRoleAccessPolicyException</dt>
+     * <dd>
+     * <p>
+     * The Identity and Access Management role that Amazon Cognito uses to send SMS messages isn't properly configured.
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SmsConfigurationType.html"
+     * >SmsConfigurationType</a>.
+     * </p>
+     * </dd>
+     * <dt>SNSSandbox</dt>
+     * <dd>
+     * <p>
+     * The Amazon Web Services account is in the SNS SMS Sandbox and messages will only reach verified end users. This
+     * parameter won’t get populated with SNSSandbox if the user creating the user pool doesn’t have SNS permissions. To
+     * learn how to move your Amazon Web Services account out of the sandbox, see <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox-moving-to-production.html">Moving out of the SMS
+     * sandbox</a>.
+     * </p>
+     * </dd>
+     * </dl>
      */
     private String smsConfigurationFailure;
     /**
      * <p>
-     * The reason why the email configuration cannot send the messages to your users.
+     * Deprecated. Review error codes from API requests with <code>EventSource:cognito-idp.amazonaws.com</code> in
+     * CloudTrail for information about problems with user pool email configuration.
      * </p>
      */
     private String emailConfigurationFailure;
     /**
      * <p>
-     * Holds the domain prefix if the user pool has a domain associated with it.
+     * The domain prefix, if the user pool has a domain associated with it.
      * </p>
      */
     private String domain;
     /**
      * <p>
      * A custom domain name that you provide to Amazon Cognito. This parameter applies only if you use a custom domain
-     * to host the sign-up and sign-in pages for your application. For example: <code>auth.example.com</code>.
+     * to host the sign-up and sign-in pages for your application. An example of a custom domain name might be
+     * <code>auth.example.com</code>.
      * </p>
      * <p>
      * For more information about adding a custom domain to your user pool, see <a
@@ -217,16 +297,43 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
     private AdminCreateUserConfigType adminCreateUserConfig;
     /**
      * <p>
-     * The user pool add-ons.
+     * User pool add-ons. Contains settings for activation of advanced security features. To log user security
+     * information but take no action, set to <code>AUDIT</code>. To configure automatic security responses to risky
+     * traffic to your user pool, set to <code>ENFORCED</code>.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html"
+     * >Adding advanced security to a user pool</a>.
      * </p>
      */
     private UserPoolAddOnsType userPoolAddOns;
+    /**
+     * <p>
+     * Case sensitivity of the username input for the selected sign-in option. For example, when case sensitivity is set
+     * to <code>False</code>, users can sign in using either "username" or "Username". This configuration is immutable
+     * once it has been set. For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UsernameConfigurationType.html"
+     * >UsernameConfigurationType</a>.
+     * </p>
+     */
+    private UsernameConfigurationType usernameConfiguration;
     /**
      * <p>
      * The Amazon Resource Name (ARN) for the user pool.
      * </p>
      */
     private String arn;
+    /**
+     * <p>
+     * The available verified method a user can use to recover their password when they call <code>ForgotPassword</code>
+     * . You can use this setting to define a preferred method when a user has more than one method available. With this
+     * setting, SMS doesn't qualify for a valid password recovery mechanism if the user also has SMS multi-factor
+     * authentication (MFA) activated. In the absence of this setting, Amazon Cognito uses the legacy behavior to
+     * determine the recovery method where SMS is preferred through email.
+     * </p>
+     */
+    private AccountRecoverySettingType accountRecoverySetting;
 
     /**
      * <p>
@@ -350,11 +457,149 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Lambda triggers associated with the user pool.
+     * When active, <code>DeletionProtection</code> prevents accidental deletion of your user pool. Before you can
+     * delete a user pool that you have protected against deletion, you must deactivate this feature.
+     * </p>
+     * <p>
+     * When you try to delete a protected user pool in a <code>DeleteUserPool</code> API request, Amazon Cognito returns
+     * an <code>InvalidParameterException</code> error. To delete a protected user pool, send a new
+     * <code>DeleteUserPool</code> request after you deactivate deletion protection in an <code>UpdateUserPool</code>
+     * API request.
+     * </p>
+     * 
+     * @param deletionProtection
+     *        When active, <code>DeletionProtection</code> prevents accidental deletion of your user pool. Before you
+     *        can delete a user pool that you have protected against deletion, you must deactivate this feature.</p>
+     *        <p>
+     *        When you try to delete a protected user pool in a <code>DeleteUserPool</code> API request, Amazon Cognito
+     *        returns an <code>InvalidParameterException</code> error. To delete a protected user pool, send a new
+     *        <code>DeleteUserPool</code> request after you deactivate deletion protection in an
+     *        <code>UpdateUserPool</code> API request.
+     * @see DeletionProtectionType
+     */
+
+    public void setDeletionProtection(String deletionProtection) {
+        this.deletionProtection = deletionProtection;
+    }
+
+    /**
+     * <p>
+     * When active, <code>DeletionProtection</code> prevents accidental deletion of your user pool. Before you can
+     * delete a user pool that you have protected against deletion, you must deactivate this feature.
+     * </p>
+     * <p>
+     * When you try to delete a protected user pool in a <code>DeleteUserPool</code> API request, Amazon Cognito returns
+     * an <code>InvalidParameterException</code> error. To delete a protected user pool, send a new
+     * <code>DeleteUserPool</code> request after you deactivate deletion protection in an <code>UpdateUserPool</code>
+     * API request.
+     * </p>
+     * 
+     * @return When active, <code>DeletionProtection</code> prevents accidental deletion of your user pool. Before you
+     *         can delete a user pool that you have protected against deletion, you must deactivate this feature.</p>
+     *         <p>
+     *         When you try to delete a protected user pool in a <code>DeleteUserPool</code> API request, Amazon Cognito
+     *         returns an <code>InvalidParameterException</code> error. To delete a protected user pool, send a new
+     *         <code>DeleteUserPool</code> request after you deactivate deletion protection in an
+     *         <code>UpdateUserPool</code> API request.
+     * @see DeletionProtectionType
+     */
+
+    public String getDeletionProtection() {
+        return this.deletionProtection;
+    }
+
+    /**
+     * <p>
+     * When active, <code>DeletionProtection</code> prevents accidental deletion of your user pool. Before you can
+     * delete a user pool that you have protected against deletion, you must deactivate this feature.
+     * </p>
+     * <p>
+     * When you try to delete a protected user pool in a <code>DeleteUserPool</code> API request, Amazon Cognito returns
+     * an <code>InvalidParameterException</code> error. To delete a protected user pool, send a new
+     * <code>DeleteUserPool</code> request after you deactivate deletion protection in an <code>UpdateUserPool</code>
+     * API request.
+     * </p>
+     * 
+     * @param deletionProtection
+     *        When active, <code>DeletionProtection</code> prevents accidental deletion of your user pool. Before you
+     *        can delete a user pool that you have protected against deletion, you must deactivate this feature.</p>
+     *        <p>
+     *        When you try to delete a protected user pool in a <code>DeleteUserPool</code> API request, Amazon Cognito
+     *        returns an <code>InvalidParameterException</code> error. To delete a protected user pool, send a new
+     *        <code>DeleteUserPool</code> request after you deactivate deletion protection in an
+     *        <code>UpdateUserPool</code> API request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DeletionProtectionType
+     */
+
+    public UserPoolType withDeletionProtection(String deletionProtection) {
+        setDeletionProtection(deletionProtection);
+        return this;
+    }
+
+    /**
+     * <p>
+     * When active, <code>DeletionProtection</code> prevents accidental deletion of your user pool. Before you can
+     * delete a user pool that you have protected against deletion, you must deactivate this feature.
+     * </p>
+     * <p>
+     * When you try to delete a protected user pool in a <code>DeleteUserPool</code> API request, Amazon Cognito returns
+     * an <code>InvalidParameterException</code> error. To delete a protected user pool, send a new
+     * <code>DeleteUserPool</code> request after you deactivate deletion protection in an <code>UpdateUserPool</code>
+     * API request.
+     * </p>
+     * 
+     * @param deletionProtection
+     *        When active, <code>DeletionProtection</code> prevents accidental deletion of your user pool. Before you
+     *        can delete a user pool that you have protected against deletion, you must deactivate this feature.</p>
+     *        <p>
+     *        When you try to delete a protected user pool in a <code>DeleteUserPool</code> API request, Amazon Cognito
+     *        returns an <code>InvalidParameterException</code> error. To delete a protected user pool, send a new
+     *        <code>DeleteUserPool</code> request after you deactivate deletion protection in an
+     *        <code>UpdateUserPool</code> API request.
+     * @see DeletionProtectionType
+     */
+
+    public void setDeletionProtection(DeletionProtectionType deletionProtection) {
+        withDeletionProtection(deletionProtection);
+    }
+
+    /**
+     * <p>
+     * When active, <code>DeletionProtection</code> prevents accidental deletion of your user pool. Before you can
+     * delete a user pool that you have protected against deletion, you must deactivate this feature.
+     * </p>
+     * <p>
+     * When you try to delete a protected user pool in a <code>DeleteUserPool</code> API request, Amazon Cognito returns
+     * an <code>InvalidParameterException</code> error. To delete a protected user pool, send a new
+     * <code>DeleteUserPool</code> request after you deactivate deletion protection in an <code>UpdateUserPool</code>
+     * API request.
+     * </p>
+     * 
+     * @param deletionProtection
+     *        When active, <code>DeletionProtection</code> prevents accidental deletion of your user pool. Before you
+     *        can delete a user pool that you have protected against deletion, you must deactivate this feature.</p>
+     *        <p>
+     *        When you try to delete a protected user pool in a <code>DeleteUserPool</code> API request, Amazon Cognito
+     *        returns an <code>InvalidParameterException</code> error. To delete a protected user pool, send a new
+     *        <code>DeleteUserPool</code> request after you deactivate deletion protection in an
+     *        <code>UpdateUserPool</code> API request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DeletionProtectionType
+     */
+
+    public UserPoolType withDeletionProtection(DeletionProtectionType deletionProtection) {
+        this.deletionProtection = deletionProtection.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Lambda triggers associated with the user pool.
      * </p>
      * 
      * @param lambdaConfig
-     *        The AWS Lambda triggers associated with the user pool.
+     *        The Lambda triggers associated with the user pool.
      */
 
     public void setLambdaConfig(LambdaConfigType lambdaConfig) {
@@ -363,10 +608,10 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Lambda triggers associated with the user pool.
+     * The Lambda triggers associated with the user pool.
      * </p>
      * 
-     * @return The AWS Lambda triggers associated with the user pool.
+     * @return The Lambda triggers associated with the user pool.
      */
 
     public LambdaConfigType getLambdaConfig() {
@@ -375,11 +620,11 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Lambda triggers associated with the user pool.
+     * The Lambda triggers associated with the user pool.
      * </p>
      * 
      * @param lambdaConfig
-     *        The AWS Lambda triggers associated with the user pool.
+     *        The Lambda triggers associated with the user pool.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -390,42 +635,42 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of a user pool.
+     * This parameter is no longer used.
      * </p>
      * 
      * @param status
-     *        The status of a user pool.
+     *        This parameter is no longer used.
      * @see StatusType
      */
-
+    @Deprecated
     public void setStatus(String status) {
         this.status = status;
     }
 
     /**
      * <p>
-     * The status of a user pool.
+     * This parameter is no longer used.
      * </p>
      * 
-     * @return The status of a user pool.
+     * @return This parameter is no longer used.
      * @see StatusType
      */
-
+    @Deprecated
     public String getStatus() {
         return this.status;
     }
 
     /**
      * <p>
-     * The status of a user pool.
+     * This parameter is no longer used.
      * </p>
      * 
      * @param status
-     *        The status of a user pool.
+     *        This parameter is no longer used.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see StatusType
      */
-
+    @Deprecated
     public UserPoolType withStatus(String status) {
         setStatus(status);
         return this;
@@ -433,29 +678,29 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of a user pool.
+     * This parameter is no longer used.
      * </p>
      * 
      * @param status
-     *        The status of a user pool.
+     *        This parameter is no longer used.
      * @see StatusType
      */
-
+    @Deprecated
     public void setStatus(StatusType status) {
         withStatus(status);
     }
 
     /**
      * <p>
-     * The status of a user pool.
+     * This parameter is no longer used.
      * </p>
      * 
      * @param status
-     *        The status of a user pool.
+     *        This parameter is no longer used.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see StatusType
      */
-
+    @Deprecated
     public UserPoolType withStatus(StatusType status) {
         this.status = status.toString();
         return this;
@@ -463,11 +708,14 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The date the user pool was last modified.
+     * The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      * 
      * @param lastModifiedDate
-     *        The date the user pool was last modified.
+     *        The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time
+     *        format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java
+     *        <code>Date</code> object.
      */
 
     public void setLastModifiedDate(java.util.Date lastModifiedDate) {
@@ -476,10 +724,13 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The date the user pool was last modified.
+     * The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      * 
-     * @return The date the user pool was last modified.
+     * @return The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time
+     *         format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java
+     *         <code>Date</code> object.
      */
 
     public java.util.Date getLastModifiedDate() {
@@ -488,11 +739,14 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The date the user pool was last modified.
+     * The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      * 
      * @param lastModifiedDate
-     *        The date the user pool was last modified.
+     *        The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time
+     *        format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java
+     *        <code>Date</code> object.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -503,11 +757,14 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The date the user pool was created.
+     * The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      * 
      * @param creationDate
-     *        The date the user pool was created.
+     *        The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time
+     *        format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java
+     *        <code>Date</code> object.
      */
 
     public void setCreationDate(java.util.Date creationDate) {
@@ -516,10 +773,13 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The date the user pool was created.
+     * The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      * 
-     * @return The date the user pool was created.
+     * @return The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time
+     *         format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java
+     *         <code>Date</code> object.
      */
 
     public java.util.Date getCreationDate() {
@@ -528,11 +788,14 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The date the user pool was created.
+     * The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      * 
      * @param creationDate
-     *        The date the user pool was created.
+     *        The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time
+     *        format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java
+     *        <code>Date</code> object.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -543,10 +806,27 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A container with the schema attributes of a user pool.
+     * A list of the user attributes and their properties in your user pool. The attribute schema contains standard
+     * attributes, custom attributes with a <code>custom:</code> prefix, and developer attributes with a
+     * <code>dev:</code> prefix. For more information, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html">User pool
+     * attributes</a>.
+     * </p>
+     * <p>
+     * Developer-only attributes are a legacy feature of user pools, are read-only to all app clients. You can create
+     * and update developer-only attributes only with IAM-authenticated API operations. Use app client read/write
+     * permissions instead.
      * </p>
      * 
-     * @return A container with the schema attributes of a user pool.
+     * @return A list of the user attributes and their properties in your user pool. The attribute schema contains
+     *         standard attributes, custom attributes with a <code>custom:</code> prefix, and developer attributes with
+     *         a <code>dev:</code> prefix. For more information, see <a
+     *         href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html">User
+     *         pool attributes</a>.</p>
+     *         <p>
+     *         Developer-only attributes are a legacy feature of user pools, are read-only to all app clients. You can
+     *         create and update developer-only attributes only with IAM-authenticated API operations. Use app client
+     *         read/write permissions instead.
      */
 
     public java.util.List<SchemaAttributeType> getSchemaAttributes() {
@@ -555,11 +835,28 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A container with the schema attributes of a user pool.
+     * A list of the user attributes and their properties in your user pool. The attribute schema contains standard
+     * attributes, custom attributes with a <code>custom:</code> prefix, and developer attributes with a
+     * <code>dev:</code> prefix. For more information, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html">User pool
+     * attributes</a>.
+     * </p>
+     * <p>
+     * Developer-only attributes are a legacy feature of user pools, are read-only to all app clients. You can create
+     * and update developer-only attributes only with IAM-authenticated API operations. Use app client read/write
+     * permissions instead.
      * </p>
      * 
      * @param schemaAttributes
-     *        A container with the schema attributes of a user pool.
+     *        A list of the user attributes and their properties in your user pool. The attribute schema contains
+     *        standard attributes, custom attributes with a <code>custom:</code> prefix, and developer attributes with a
+     *        <code>dev:</code> prefix. For more information, see <a
+     *        href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html">User
+     *        pool attributes</a>.</p>
+     *        <p>
+     *        Developer-only attributes are a legacy feature of user pools, are read-only to all app clients. You can
+     *        create and update developer-only attributes only with IAM-authenticated API operations. Use app client
+     *        read/write permissions instead.
      */
 
     public void setSchemaAttributes(java.util.Collection<SchemaAttributeType> schemaAttributes) {
@@ -573,7 +870,16 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A container with the schema attributes of a user pool.
+     * A list of the user attributes and their properties in your user pool. The attribute schema contains standard
+     * attributes, custom attributes with a <code>custom:</code> prefix, and developer attributes with a
+     * <code>dev:</code> prefix. For more information, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html">User pool
+     * attributes</a>.
+     * </p>
+     * <p>
+     * Developer-only attributes are a legacy feature of user pools, are read-only to all app clients. You can create
+     * and update developer-only attributes only with IAM-authenticated API operations. Use app client read/write
+     * permissions instead.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -582,7 +888,15 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param schemaAttributes
-     *        A container with the schema attributes of a user pool.
+     *        A list of the user attributes and their properties in your user pool. The attribute schema contains
+     *        standard attributes, custom attributes with a <code>custom:</code> prefix, and developer attributes with a
+     *        <code>dev:</code> prefix. For more information, see <a
+     *        href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html">User
+     *        pool attributes</a>.</p>
+     *        <p>
+     *        Developer-only attributes are a legacy feature of user pools, are read-only to all app clients. You can
+     *        create and update developer-only attributes only with IAM-authenticated API operations. Use app client
+     *        read/write permissions instead.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -598,11 +912,28 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A container with the schema attributes of a user pool.
+     * A list of the user attributes and their properties in your user pool. The attribute schema contains standard
+     * attributes, custom attributes with a <code>custom:</code> prefix, and developer attributes with a
+     * <code>dev:</code> prefix. For more information, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html">User pool
+     * attributes</a>.
+     * </p>
+     * <p>
+     * Developer-only attributes are a legacy feature of user pools, are read-only to all app clients. You can create
+     * and update developer-only attributes only with IAM-authenticated API operations. Use app client read/write
+     * permissions instead.
      * </p>
      * 
      * @param schemaAttributes
-     *        A container with the schema attributes of a user pool.
+     *        A list of the user attributes and their properties in your user pool. The attribute schema contains
+     *        standard attributes, custom attributes with a <code>custom:</code> prefix, and developer attributes with a
+     *        <code>dev:</code> prefix. For more information, see <a
+     *        href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html">User
+     *        pool attributes</a>.</p>
+     *        <p>
+     *        Developer-only attributes are a legacy feature of user pools, are read-only to all app clients. You can
+     *        create and update developer-only attributes only with IAM-authenticated API operations. Use app client
+     *        read/write permissions instead.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -613,10 +944,10 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the attributes that are auto-verified in a user pool.
+     * The attributes that are auto-verified in a user pool.
      * </p>
      * 
-     * @return Specifies the attributes that are auto-verified in a user pool.
+     * @return The attributes that are auto-verified in a user pool.
      * @see VerifiedAttributeType
      */
 
@@ -626,11 +957,11 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the attributes that are auto-verified in a user pool.
+     * The attributes that are auto-verified in a user pool.
      * </p>
      * 
      * @param autoVerifiedAttributes
-     *        Specifies the attributes that are auto-verified in a user pool.
+     *        The attributes that are auto-verified in a user pool.
      * @see VerifiedAttributeType
      */
 
@@ -645,7 +976,7 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the attributes that are auto-verified in a user pool.
+     * The attributes that are auto-verified in a user pool.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -654,7 +985,7 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param autoVerifiedAttributes
-     *        Specifies the attributes that are auto-verified in a user pool.
+     *        The attributes that are auto-verified in a user pool.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see VerifiedAttributeType
      */
@@ -671,11 +1002,11 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the attributes that are auto-verified in a user pool.
+     * The attributes that are auto-verified in a user pool.
      * </p>
      * 
      * @param autoVerifiedAttributes
-     *        Specifies the attributes that are auto-verified in a user pool.
+     *        The attributes that are auto-verified in a user pool.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see VerifiedAttributeType
      */
@@ -687,11 +1018,11 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the attributes that are auto-verified in a user pool.
+     * The attributes that are auto-verified in a user pool.
      * </p>
      * 
      * @param autoVerifiedAttributes
-     *        Specifies the attributes that are auto-verified in a user pool.
+     *        The attributes that are auto-verified in a user pool.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see VerifiedAttributeType
      */
@@ -711,10 +1042,10 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the attributes that are aliased in a user pool.
+     * The attributes that are aliased in a user pool.
      * </p>
      * 
-     * @return Specifies the attributes that are aliased in a user pool.
+     * @return The attributes that are aliased in a user pool.
      * @see AliasAttributeType
      */
 
@@ -724,11 +1055,11 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the attributes that are aliased in a user pool.
+     * The attributes that are aliased in a user pool.
      * </p>
      * 
      * @param aliasAttributes
-     *        Specifies the attributes that are aliased in a user pool.
+     *        The attributes that are aliased in a user pool.
      * @see AliasAttributeType
      */
 
@@ -743,7 +1074,7 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the attributes that are aliased in a user pool.
+     * The attributes that are aliased in a user pool.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -752,7 +1083,7 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param aliasAttributes
-     *        Specifies the attributes that are aliased in a user pool.
+     *        The attributes that are aliased in a user pool.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AliasAttributeType
      */
@@ -769,11 +1100,11 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the attributes that are aliased in a user pool.
+     * The attributes that are aliased in a user pool.
      * </p>
      * 
      * @param aliasAttributes
-     *        Specifies the attributes that are aliased in a user pool.
+     *        The attributes that are aliased in a user pool.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AliasAttributeType
      */
@@ -785,11 +1116,11 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the attributes that are aliased in a user pool.
+     * The attributes that are aliased in a user pool.
      * </p>
      * 
      * @param aliasAttributes
-     *        Specifies the attributes that are aliased in a user pool.
+     *        The attributes that are aliased in a user pool.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AliasAttributeType
      */
@@ -809,10 +1140,10 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies whether email addresses or phone numbers can be specified as usernames when a user signs up.
+     * Specifies whether a user can use an email address or phone number as a username when they sign up.
      * </p>
      * 
-     * @return Specifies whether email addresses or phone numbers can be specified as usernames when a user signs up.
+     * @return Specifies whether a user can use an email address or phone number as a username when they sign up.
      * @see UsernameAttributeType
      */
 
@@ -822,11 +1153,11 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies whether email addresses or phone numbers can be specified as usernames when a user signs up.
+     * Specifies whether a user can use an email address or phone number as a username when they sign up.
      * </p>
      * 
      * @param usernameAttributes
-     *        Specifies whether email addresses or phone numbers can be specified as usernames when a user signs up.
+     *        Specifies whether a user can use an email address or phone number as a username when they sign up.
      * @see UsernameAttributeType
      */
 
@@ -841,7 +1172,7 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies whether email addresses or phone numbers can be specified as usernames when a user signs up.
+     * Specifies whether a user can use an email address or phone number as a username when they sign up.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -850,7 +1181,7 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param usernameAttributes
-     *        Specifies whether email addresses or phone numbers can be specified as usernames when a user signs up.
+     *        Specifies whether a user can use an email address or phone number as a username when they sign up.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see UsernameAttributeType
      */
@@ -867,11 +1198,11 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies whether email addresses or phone numbers can be specified as usernames when a user signs up.
+     * Specifies whether a user can use an email address or phone number as a username when they sign up.
      * </p>
      * 
      * @param usernameAttributes
-     *        Specifies whether email addresses or phone numbers can be specified as usernames when a user signs up.
+     *        Specifies whether a user can use an email address or phone number as a username when they sign up.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see UsernameAttributeType
      */
@@ -883,11 +1214,11 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies whether email addresses or phone numbers can be specified as usernames when a user signs up.
+     * Specifies whether a user can use an email address or phone number as a username when they sign up.
      * </p>
      * 
      * @param usernameAttributes
-     *        Specifies whether email addresses or phone numbers can be specified as usernames when a user signs up.
+     *        Specifies whether a user can use an email address or phone number as a username when they sign up.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see UsernameAttributeType
      */
@@ -907,11 +1238,15 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The contents of the SMS verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      * 
      * @param smsVerificationMessage
-     *        The contents of the SMS verification message.
+     *        This parameter is no longer used. See <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     *        >VerificationMessageTemplateType</a>.
      */
 
     public void setSmsVerificationMessage(String smsVerificationMessage) {
@@ -920,10 +1255,14 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The contents of the SMS verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      * 
-     * @return The contents of the SMS verification message.
+     * @return This parameter is no longer used. See <a href=
+     *         "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     *         >VerificationMessageTemplateType</a>.
      */
 
     public String getSmsVerificationMessage() {
@@ -932,11 +1271,15 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The contents of the SMS verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      * 
      * @param smsVerificationMessage
-     *        The contents of the SMS verification message.
+     *        This parameter is no longer used. See <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     *        >VerificationMessageTemplateType</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -947,11 +1290,15 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The contents of the email verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      * 
      * @param emailVerificationMessage
-     *        The contents of the email verification message.
+     *        This parameter is no longer used. See <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     *        >VerificationMessageTemplateType</a>.
      */
 
     public void setEmailVerificationMessage(String emailVerificationMessage) {
@@ -960,10 +1307,14 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The contents of the email verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      * 
-     * @return The contents of the email verification message.
+     * @return This parameter is no longer used. See <a href=
+     *         "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     *         >VerificationMessageTemplateType</a>.
      */
 
     public String getEmailVerificationMessage() {
@@ -972,11 +1323,15 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The contents of the email verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      * 
      * @param emailVerificationMessage
-     *        The contents of the email verification message.
+     *        This parameter is no longer used. See <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     *        >VerificationMessageTemplateType</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -987,11 +1342,15 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The subject of the email verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      * 
      * @param emailVerificationSubject
-     *        The subject of the email verification message.
+     *        This parameter is no longer used. See <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     *        >VerificationMessageTemplateType</a>.
      */
 
     public void setEmailVerificationSubject(String emailVerificationSubject) {
@@ -1000,10 +1359,14 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The subject of the email verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      * 
-     * @return The subject of the email verification message.
+     * @return This parameter is no longer used. See <a href=
+     *         "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     *         >VerificationMessageTemplateType</a>.
      */
 
     public String getEmailVerificationSubject() {
@@ -1012,11 +1375,15 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The subject of the email verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      * 
      * @param emailVerificationSubject
-     *        The subject of the email verification message.
+     *        This parameter is no longer used. See <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     *        >VerificationMessageTemplateType</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1107,17 +1474,87 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
+     * The settings for updates to user attributes. These settings include the property
+     * <code>AttributesRequireVerificationBeforeUpdate</code>, a user-pool setting that tells Amazon Cognito how to
+     * handle changes to the value of your users' email address and phone number attributes. For more information, see
+     * <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-email-phone-verification.html#user-pool-settings-verifications-verify-attribute-updates"
+     * > Verifying updates to email addresses and phone numbers</a>.
+     * </p>
+     * 
+     * @param userAttributeUpdateSettings
+     *        The settings for updates to user attributes. These settings include the property
+     *        <code>AttributesRequireVerificationBeforeUpdate</code>, a user-pool setting that tells Amazon Cognito how
+     *        to handle changes to the value of your users' email address and phone number attributes. For more
+     *        information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-email-phone-verification.html#user-pool-settings-verifications-verify-attribute-updates"
+     *        > Verifying updates to email addresses and phone numbers</a>.
+     */
+
+    public void setUserAttributeUpdateSettings(UserAttributeUpdateSettingsType userAttributeUpdateSettings) {
+        this.userAttributeUpdateSettings = userAttributeUpdateSettings;
+    }
+
+    /**
+     * <p>
+     * The settings for updates to user attributes. These settings include the property
+     * <code>AttributesRequireVerificationBeforeUpdate</code>, a user-pool setting that tells Amazon Cognito how to
+     * handle changes to the value of your users' email address and phone number attributes. For more information, see
+     * <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-email-phone-verification.html#user-pool-settings-verifications-verify-attribute-updates"
+     * > Verifying updates to email addresses and phone numbers</a>.
+     * </p>
+     * 
+     * @return The settings for updates to user attributes. These settings include the property
+     *         <code>AttributesRequireVerificationBeforeUpdate</code>, a user-pool setting that tells Amazon Cognito how
+     *         to handle changes to the value of your users' email address and phone number attributes. For more
+     *         information, see <a href=
+     *         "https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-email-phone-verification.html#user-pool-settings-verifications-verify-attribute-updates"
+     *         > Verifying updates to email addresses and phone numbers</a>.
+     */
+
+    public UserAttributeUpdateSettingsType getUserAttributeUpdateSettings() {
+        return this.userAttributeUpdateSettings;
+    }
+
+    /**
+     * <p>
+     * The settings for updates to user attributes. These settings include the property
+     * <code>AttributesRequireVerificationBeforeUpdate</code>, a user-pool setting that tells Amazon Cognito how to
+     * handle changes to the value of your users' email address and phone number attributes. For more information, see
+     * <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-email-phone-verification.html#user-pool-settings-verifications-verify-attribute-updates"
+     * > Verifying updates to email addresses and phone numbers</a>.
+     * </p>
+     * 
+     * @param userAttributeUpdateSettings
+     *        The settings for updates to user attributes. These settings include the property
+     *        <code>AttributesRequireVerificationBeforeUpdate</code>, a user-pool setting that tells Amazon Cognito how
+     *        to handle changes to the value of your users' email address and phone number attributes. For more
+     *        information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-email-phone-verification.html#user-pool-settings-verifications-verify-attribute-updates"
+     *        > Verifying updates to email addresses and phone numbers</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UserPoolType withUserAttributeUpdateSettings(UserAttributeUpdateSettingsType userAttributeUpdateSettings) {
+        setUserAttributeUpdateSettings(userAttributeUpdateSettings);
+        return this;
+    }
+
+    /**
+     * <p>
      * Can be one of the following values:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>OFF</code> - MFA tokens are not required and cannot be specified during user registration.
+     * <code>OFF</code> - MFA tokens aren't required and can't be specified during user registration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when you are
+     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when you're
      * initially creating a user pool.
      * </p>
      * </li>
@@ -1133,13 +1570,13 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>OFF</code> - MFA tokens are not required and cannot be specified during user registration.
+     *        <code>OFF</code> - MFA tokens aren't required and can't be specified during user registration.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when
-     *        you are initially creating a user pool.
+     *        you're initially creating a user pool.
      *        </p>
      *        </li>
      *        <li>
@@ -1161,12 +1598,12 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <code>OFF</code> - MFA tokens are not required and cannot be specified during user registration.
+     * <code>OFF</code> - MFA tokens aren't required and can't be specified during user registration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when you are
+     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when you're
      * initially creating a user pool.
      * </p>
      * </li>
@@ -1181,13 +1618,13 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>OFF</code> - MFA tokens are not required and cannot be specified during user registration.
+     *         <code>OFF</code> - MFA tokens aren't required and can't be specified during user registration.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when
-     *         you are initially creating a user pool.
+     *         you're initially creating a user pool.
      *         </p>
      *         </li>
      *         <li>
@@ -1209,12 +1646,12 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <code>OFF</code> - MFA tokens are not required and cannot be specified during user registration.
+     * <code>OFF</code> - MFA tokens aren't required and can't be specified during user registration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when you are
+     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when you're
      * initially creating a user pool.
      * </p>
      * </li>
@@ -1230,13 +1667,13 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>OFF</code> - MFA tokens are not required and cannot be specified during user registration.
+     *        <code>OFF</code> - MFA tokens aren't required and can't be specified during user registration.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when
-     *        you are initially creating a user pool.
+     *        you're initially creating a user pool.
      *        </p>
      *        </li>
      *        <li>
@@ -1260,12 +1697,12 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <code>OFF</code> - MFA tokens are not required and cannot be specified during user registration.
+     * <code>OFF</code> - MFA tokens aren't required and can't be specified during user registration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when you are
+     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when you're
      * initially creating a user pool.
      * </p>
      * </li>
@@ -1281,13 +1718,13 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>OFF</code> - MFA tokens are not required and cannot be specified during user registration.
+     *        <code>OFF</code> - MFA tokens aren't required and can't be specified during user registration.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when
-     *        you are initially creating a user pool.
+     *        you're initially creating a user pool.
      *        </p>
      *        </li>
      *        <li>
@@ -1309,12 +1746,12 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <code>OFF</code> - MFA tokens are not required and cannot be specified during user registration.
+     * <code>OFF</code> - MFA tokens aren't required and can't be specified during user registration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when you are
+     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when you're
      * initially creating a user pool.
      * </p>
      * </li>
@@ -1330,13 +1767,13 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>OFF</code> - MFA tokens are not required and cannot be specified during user registration.
+     *        <code>OFF</code> - MFA tokens aren't required and can't be specified during user registration.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when
-     *        you are initially creating a user pool.
+     *        you're initially creating a user pool.
      *        </p>
      *        </li>
      *        <li>
@@ -1355,11 +1792,23 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The device configuration.
+     * The device-remembering configuration for a user pool. A null value indicates that you have deactivated device
+     * remembering in your user pool.
      * </p>
+     * <note>
+     * <p>
+     * When you provide a value for any <code>DeviceConfiguration</code> field, you activate the Amazon Cognito
+     * device-remembering feature.
+     * </p>
+     * </note>
      * 
      * @param deviceConfiguration
-     *        The device configuration.
+     *        The device-remembering configuration for a user pool. A null value indicates that you have deactivated
+     *        device remembering in your user pool.</p> <note>
+     *        <p>
+     *        When you provide a value for any <code>DeviceConfiguration</code> field, you activate the Amazon Cognito
+     *        device-remembering feature.
+     *        </p>
      */
 
     public void setDeviceConfiguration(DeviceConfigurationType deviceConfiguration) {
@@ -1368,10 +1817,22 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The device configuration.
+     * The device-remembering configuration for a user pool. A null value indicates that you have deactivated device
+     * remembering in your user pool.
      * </p>
+     * <note>
+     * <p>
+     * When you provide a value for any <code>DeviceConfiguration</code> field, you activate the Amazon Cognito
+     * device-remembering feature.
+     * </p>
+     * </note>
      * 
-     * @return The device configuration.
+     * @return The device-remembering configuration for a user pool. A null value indicates that you have deactivated
+     *         device remembering in your user pool.</p> <note>
+     *         <p>
+     *         When you provide a value for any <code>DeviceConfiguration</code> field, you activate the Amazon Cognito
+     *         device-remembering feature.
+     *         </p>
      */
 
     public DeviceConfigurationType getDeviceConfiguration() {
@@ -1380,11 +1841,23 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The device configuration.
+     * The device-remembering configuration for a user pool. A null value indicates that you have deactivated device
+     * remembering in your user pool.
      * </p>
+     * <note>
+     * <p>
+     * When you provide a value for any <code>DeviceConfiguration</code> field, you activate the Amazon Cognito
+     * device-remembering feature.
+     * </p>
+     * </note>
      * 
      * @param deviceConfiguration
-     *        The device configuration.
+     *        The device-remembering configuration for a user pool. A null value indicates that you have deactivated
+     *        device remembering in your user pool.</p> <note>
+     *        <p>
+     *        When you provide a value for any <code>DeviceConfiguration</code> field, you activate the Amazon Cognito
+     *        device-remembering feature.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1435,11 +1908,13 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The email configuration.
+     * The email configuration of your user pool. The email configuration type sets your preferred sending method,
+     * Amazon Web Services Region, and sender for messages from your user pool.
      * </p>
      * 
      * @param emailConfiguration
-     *        The email configuration.
+     *        The email configuration of your user pool. The email configuration type sets your preferred sending
+     *        method, Amazon Web Services Region, and sender for messages from your user pool.
      */
 
     public void setEmailConfiguration(EmailConfigurationType emailConfiguration) {
@@ -1448,10 +1923,12 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The email configuration.
+     * The email configuration of your user pool. The email configuration type sets your preferred sending method,
+     * Amazon Web Services Region, and sender for messages from your user pool.
      * </p>
      * 
-     * @return The email configuration.
+     * @return The email configuration of your user pool. The email configuration type sets your preferred sending
+     *         method, Amazon Web Services Region, and sender for messages from your user pool.
      */
 
     public EmailConfigurationType getEmailConfiguration() {
@@ -1460,11 +1937,13 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The email configuration.
+     * The email configuration of your user pool. The email configuration type sets your preferred sending method,
+     * Amazon Web Services Region, and sender for messages from your user pool.
      * </p>
      * 
      * @param emailConfiguration
-     *        The email configuration.
+     *        The email configuration of your user pool. The email configuration type sets your preferred sending
+     *        method, Amazon Web Services Region, and sender for messages from your user pool.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1475,11 +1954,17 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The SMS configuration.
+     * The SMS configuration with the settings that your Amazon Cognito user pool must use to send an SMS message from
+     * your Amazon Web Services account through Amazon Simple Notification Service. To send SMS messages with Amazon SNS
+     * in the Amazon Web Services Region that you want, the Amazon Cognito user pool uses an Identity and Access
+     * Management (IAM) role in your Amazon Web Services account.
      * </p>
      * 
      * @param smsConfiguration
-     *        The SMS configuration.
+     *        The SMS configuration with the settings that your Amazon Cognito user pool must use to send an SMS message
+     *        from your Amazon Web Services account through Amazon Simple Notification Service. To send SMS messages
+     *        with Amazon SNS in the Amazon Web Services Region that you want, the Amazon Cognito user pool uses an
+     *        Identity and Access Management (IAM) role in your Amazon Web Services account.
      */
 
     public void setSmsConfiguration(SmsConfigurationType smsConfiguration) {
@@ -1488,10 +1973,16 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The SMS configuration.
+     * The SMS configuration with the settings that your Amazon Cognito user pool must use to send an SMS message from
+     * your Amazon Web Services account through Amazon Simple Notification Service. To send SMS messages with Amazon SNS
+     * in the Amazon Web Services Region that you want, the Amazon Cognito user pool uses an Identity and Access
+     * Management (IAM) role in your Amazon Web Services account.
      * </p>
      * 
-     * @return The SMS configuration.
+     * @return The SMS configuration with the settings that your Amazon Cognito user pool must use to send an SMS
+     *         message from your Amazon Web Services account through Amazon Simple Notification Service. To send SMS
+     *         messages with Amazon SNS in the Amazon Web Services Region that you want, the Amazon Cognito user pool
+     *         uses an Identity and Access Management (IAM) role in your Amazon Web Services account.
      */
 
     public SmsConfigurationType getSmsConfiguration() {
@@ -1500,11 +1991,17 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The SMS configuration.
+     * The SMS configuration with the settings that your Amazon Cognito user pool must use to send an SMS message from
+     * your Amazon Web Services account through Amazon Simple Notification Service. To send SMS messages with Amazon SNS
+     * in the Amazon Web Services Region that you want, the Amazon Cognito user pool uses an Identity and Access
+     * Management (IAM) role in your Amazon Web Services account.
      * </p>
      * 
      * @param smsConfiguration
-     *        The SMS configuration.
+     *        The SMS configuration with the settings that your Amazon Cognito user pool must use to send an SMS message
+     *        from your Amazon Web Services account through Amazon Simple Notification Service. To send SMS messages
+     *        with Amazon SNS in the Amazon Web Services Region that you want, the Amazon Cognito user pool uses an
+     *        Identity and Access Management (IAM) role in your Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1559,6 +2056,13 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
         return this;
     }
 
+    /**
+     * Add a single UserPoolTags entry
+     *
+     * @see UserPoolType#withUserPoolTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public UserPoolType addUserPoolTagsEntry(String key, String value) {
         if (null == this.userPoolTags) {
             this.userPoolTags = new java.util.HashMap<String, String>();
@@ -1582,11 +2086,60 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The reason why the SMS configuration cannot send the messages to your users.
+     * The reason why the SMS configuration can't send the messages to your users.
      * </p>
+     * <p>
+     * This message might include comma-separated values to describe why your SMS configuration can't send messages to
+     * user pool end users.
+     * </p>
+     * <dl>
+     * <dt>InvalidSmsRoleAccessPolicyException</dt>
+     * <dd>
+     * <p>
+     * The Identity and Access Management role that Amazon Cognito uses to send SMS messages isn't properly configured.
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SmsConfigurationType.html"
+     * >SmsConfigurationType</a>.
+     * </p>
+     * </dd>
+     * <dt>SNSSandbox</dt>
+     * <dd>
+     * <p>
+     * The Amazon Web Services account is in the SNS SMS Sandbox and messages will only reach verified end users. This
+     * parameter won’t get populated with SNSSandbox if the user creating the user pool doesn’t have SNS permissions. To
+     * learn how to move your Amazon Web Services account out of the sandbox, see <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox-moving-to-production.html">Moving out of the SMS
+     * sandbox</a>.
+     * </p>
+     * </dd>
+     * </dl>
      * 
      * @param smsConfigurationFailure
-     *        The reason why the SMS configuration cannot send the messages to your users.
+     *        The reason why the SMS configuration can't send the messages to your users.</p>
+     *        <p>
+     *        This message might include comma-separated values to describe why your SMS configuration can't send
+     *        messages to user pool end users.
+     *        </p>
+     *        <dl>
+     *        <dt>InvalidSmsRoleAccessPolicyException</dt>
+     *        <dd>
+     *        <p>
+     *        The Identity and Access Management role that Amazon Cognito uses to send SMS messages isn't properly
+     *        configured. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SmsConfigurationType.html"
+     *        >SmsConfigurationType</a>.
+     *        </p>
+     *        </dd>
+     *        <dt>SNSSandbox</dt>
+     *        <dd>
+     *        <p>
+     *        The Amazon Web Services account is in the SNS SMS Sandbox and messages will only reach verified end users.
+     *        This parameter won’t get populated with SNSSandbox if the user creating the user pool doesn’t have SNS
+     *        permissions. To learn how to move your Amazon Web Services account out of the sandbox, see <a
+     *        href="https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox-moving-to-production.html">Moving out of
+     *        the SMS sandbox</a>.
+     *        </p>
+     *        </dd>
      */
 
     public void setSmsConfigurationFailure(String smsConfigurationFailure) {
@@ -1595,10 +2148,59 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The reason why the SMS configuration cannot send the messages to your users.
+     * The reason why the SMS configuration can't send the messages to your users.
      * </p>
+     * <p>
+     * This message might include comma-separated values to describe why your SMS configuration can't send messages to
+     * user pool end users.
+     * </p>
+     * <dl>
+     * <dt>InvalidSmsRoleAccessPolicyException</dt>
+     * <dd>
+     * <p>
+     * The Identity and Access Management role that Amazon Cognito uses to send SMS messages isn't properly configured.
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SmsConfigurationType.html"
+     * >SmsConfigurationType</a>.
+     * </p>
+     * </dd>
+     * <dt>SNSSandbox</dt>
+     * <dd>
+     * <p>
+     * The Amazon Web Services account is in the SNS SMS Sandbox and messages will only reach verified end users. This
+     * parameter won’t get populated with SNSSandbox if the user creating the user pool doesn’t have SNS permissions. To
+     * learn how to move your Amazon Web Services account out of the sandbox, see <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox-moving-to-production.html">Moving out of the SMS
+     * sandbox</a>.
+     * </p>
+     * </dd>
+     * </dl>
      * 
-     * @return The reason why the SMS configuration cannot send the messages to your users.
+     * @return The reason why the SMS configuration can't send the messages to your users.</p>
+     *         <p>
+     *         This message might include comma-separated values to describe why your SMS configuration can't send
+     *         messages to user pool end users.
+     *         </p>
+     *         <dl>
+     *         <dt>InvalidSmsRoleAccessPolicyException</dt>
+     *         <dd>
+     *         <p>
+     *         The Identity and Access Management role that Amazon Cognito uses to send SMS messages isn't properly
+     *         configured. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SmsConfigurationType.html"
+     *         >SmsConfigurationType</a>.
+     *         </p>
+     *         </dd>
+     *         <dt>SNSSandbox</dt>
+     *         <dd>
+     *         <p>
+     *         The Amazon Web Services account is in the SNS SMS Sandbox and messages will only reach verified end
+     *         users. This parameter won’t get populated with SNSSandbox if the user creating the user pool doesn’t have
+     *         SNS permissions. To learn how to move your Amazon Web Services account out of the sandbox, see <a
+     *         href="https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox-moving-to-production.html">Moving out of
+     *         the SMS sandbox</a>.
+     *         </p>
+     *         </dd>
      */
 
     public String getSmsConfigurationFailure() {
@@ -1607,11 +2209,60 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The reason why the SMS configuration cannot send the messages to your users.
+     * The reason why the SMS configuration can't send the messages to your users.
      * </p>
+     * <p>
+     * This message might include comma-separated values to describe why your SMS configuration can't send messages to
+     * user pool end users.
+     * </p>
+     * <dl>
+     * <dt>InvalidSmsRoleAccessPolicyException</dt>
+     * <dd>
+     * <p>
+     * The Identity and Access Management role that Amazon Cognito uses to send SMS messages isn't properly configured.
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SmsConfigurationType.html"
+     * >SmsConfigurationType</a>.
+     * </p>
+     * </dd>
+     * <dt>SNSSandbox</dt>
+     * <dd>
+     * <p>
+     * The Amazon Web Services account is in the SNS SMS Sandbox and messages will only reach verified end users. This
+     * parameter won’t get populated with SNSSandbox if the user creating the user pool doesn’t have SNS permissions. To
+     * learn how to move your Amazon Web Services account out of the sandbox, see <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox-moving-to-production.html">Moving out of the SMS
+     * sandbox</a>.
+     * </p>
+     * </dd>
+     * </dl>
      * 
      * @param smsConfigurationFailure
-     *        The reason why the SMS configuration cannot send the messages to your users.
+     *        The reason why the SMS configuration can't send the messages to your users.</p>
+     *        <p>
+     *        This message might include comma-separated values to describe why your SMS configuration can't send
+     *        messages to user pool end users.
+     *        </p>
+     *        <dl>
+     *        <dt>InvalidSmsRoleAccessPolicyException</dt>
+     *        <dd>
+     *        <p>
+     *        The Identity and Access Management role that Amazon Cognito uses to send SMS messages isn't properly
+     *        configured. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SmsConfigurationType.html"
+     *        >SmsConfigurationType</a>.
+     *        </p>
+     *        </dd>
+     *        <dt>SNSSandbox</dt>
+     *        <dd>
+     *        <p>
+     *        The Amazon Web Services account is in the SNS SMS Sandbox and messages will only reach verified end users.
+     *        This parameter won’t get populated with SNSSandbox if the user creating the user pool doesn’t have SNS
+     *        permissions. To learn how to move your Amazon Web Services account out of the sandbox, see <a
+     *        href="https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox-moving-to-production.html">Moving out of
+     *        the SMS sandbox</a>.
+     *        </p>
+     *        </dd>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1622,11 +2273,13 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The reason why the email configuration cannot send the messages to your users.
+     * Deprecated. Review error codes from API requests with <code>EventSource:cognito-idp.amazonaws.com</code> in
+     * CloudTrail for information about problems with user pool email configuration.
      * </p>
      * 
      * @param emailConfigurationFailure
-     *        The reason why the email configuration cannot send the messages to your users.
+     *        Deprecated. Review error codes from API requests with <code>EventSource:cognito-idp.amazonaws.com</code>
+     *        in CloudTrail for information about problems with user pool email configuration.
      */
 
     public void setEmailConfigurationFailure(String emailConfigurationFailure) {
@@ -1635,10 +2288,12 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The reason why the email configuration cannot send the messages to your users.
+     * Deprecated. Review error codes from API requests with <code>EventSource:cognito-idp.amazonaws.com</code> in
+     * CloudTrail for information about problems with user pool email configuration.
      * </p>
      * 
-     * @return The reason why the email configuration cannot send the messages to your users.
+     * @return Deprecated. Review error codes from API requests with <code>EventSource:cognito-idp.amazonaws.com</code>
+     *         in CloudTrail for information about problems with user pool email configuration.
      */
 
     public String getEmailConfigurationFailure() {
@@ -1647,11 +2302,13 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The reason why the email configuration cannot send the messages to your users.
+     * Deprecated. Review error codes from API requests with <code>EventSource:cognito-idp.amazonaws.com</code> in
+     * CloudTrail for information about problems with user pool email configuration.
      * </p>
      * 
      * @param emailConfigurationFailure
-     *        The reason why the email configuration cannot send the messages to your users.
+     *        Deprecated. Review error codes from API requests with <code>EventSource:cognito-idp.amazonaws.com</code>
+     *        in CloudTrail for information about problems with user pool email configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1662,11 +2319,11 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Holds the domain prefix if the user pool has a domain associated with it.
+     * The domain prefix, if the user pool has a domain associated with it.
      * </p>
      * 
      * @param domain
-     *        Holds the domain prefix if the user pool has a domain associated with it.
+     *        The domain prefix, if the user pool has a domain associated with it.
      */
 
     public void setDomain(String domain) {
@@ -1675,10 +2332,10 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Holds the domain prefix if the user pool has a domain associated with it.
+     * The domain prefix, if the user pool has a domain associated with it.
      * </p>
      * 
-     * @return Holds the domain prefix if the user pool has a domain associated with it.
+     * @return The domain prefix, if the user pool has a domain associated with it.
      */
 
     public String getDomain() {
@@ -1687,11 +2344,11 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Holds the domain prefix if the user pool has a domain associated with it.
+     * The domain prefix, if the user pool has a domain associated with it.
      * </p>
      * 
      * @param domain
-     *        Holds the domain prefix if the user pool has a domain associated with it.
+     *        The domain prefix, if the user pool has a domain associated with it.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1703,7 +2360,8 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * A custom domain name that you provide to Amazon Cognito. This parameter applies only if you use a custom domain
-     * to host the sign-up and sign-in pages for your application. For example: <code>auth.example.com</code>.
+     * to host the sign-up and sign-in pages for your application. An example of a custom domain name might be
+     * <code>auth.example.com</code>.
      * </p>
      * <p>
      * For more information about adding a custom domain to your user pool, see <a
@@ -1713,8 +2371,8 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
      * 
      * @param customDomain
      *        A custom domain name that you provide to Amazon Cognito. This parameter applies only if you use a custom
-     *        domain to host the sign-up and sign-in pages for your application. For example:
-     *        <code>auth.example.com</code>.</p>
+     *        domain to host the sign-up and sign-in pages for your application. An example of a custom domain name
+     *        might be <code>auth.example.com</code>.</p>
      *        <p>
      *        For more information about adding a custom domain to your user pool, see <a href=
      *        "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-add-custom-domain.html"
@@ -1728,7 +2386,8 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * A custom domain name that you provide to Amazon Cognito. This parameter applies only if you use a custom domain
-     * to host the sign-up and sign-in pages for your application. For example: <code>auth.example.com</code>.
+     * to host the sign-up and sign-in pages for your application. An example of a custom domain name might be
+     * <code>auth.example.com</code>.
      * </p>
      * <p>
      * For more information about adding a custom domain to your user pool, see <a
@@ -1737,8 +2396,8 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @return A custom domain name that you provide to Amazon Cognito. This parameter applies only if you use a custom
-     *         domain to host the sign-up and sign-in pages for your application. For example:
-     *         <code>auth.example.com</code>.</p>
+     *         domain to host the sign-up and sign-in pages for your application. An example of a custom domain name
+     *         might be <code>auth.example.com</code>.</p>
      *         <p>
      *         For more information about adding a custom domain to your user pool, see <a href=
      *         "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-add-custom-domain.html"
@@ -1752,7 +2411,8 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * A custom domain name that you provide to Amazon Cognito. This parameter applies only if you use a custom domain
-     * to host the sign-up and sign-in pages for your application. For example: <code>auth.example.com</code>.
+     * to host the sign-up and sign-in pages for your application. An example of a custom domain name might be
+     * <code>auth.example.com</code>.
      * </p>
      * <p>
      * For more information about adding a custom domain to your user pool, see <a
@@ -1762,8 +2422,8 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
      * 
      * @param customDomain
      *        A custom domain name that you provide to Amazon Cognito. This parameter applies only if you use a custom
-     *        domain to host the sign-up and sign-in pages for your application. For example:
-     *        <code>auth.example.com</code>.</p>
+     *        domain to host the sign-up and sign-in pages for your application. An example of a custom domain name
+     *        might be <code>auth.example.com</code>.</p>
      *        <p>
      *        For more information about adding a custom domain to your user pool, see <a href=
      *        "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-add-custom-domain.html"
@@ -1818,11 +2478,24 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The user pool add-ons.
+     * User pool add-ons. Contains settings for activation of advanced security features. To log user security
+     * information but take no action, set to <code>AUDIT</code>. To configure automatic security responses to risky
+     * traffic to your user pool, set to <code>ENFORCED</code>.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html"
+     * >Adding advanced security to a user pool</a>.
      * </p>
      * 
      * @param userPoolAddOns
-     *        The user pool add-ons.
+     *        User pool add-ons. Contains settings for activation of advanced security features. To log user security
+     *        information but take no action, set to <code>AUDIT</code>. To configure automatic security responses to
+     *        risky traffic to your user pool, set to <code>ENFORCED</code>.</p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html"
+     *        >Adding advanced security to a user pool</a>.
      */
 
     public void setUserPoolAddOns(UserPoolAddOnsType userPoolAddOns) {
@@ -1831,10 +2504,23 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The user pool add-ons.
+     * User pool add-ons. Contains settings for activation of advanced security features. To log user security
+     * information but take no action, set to <code>AUDIT</code>. To configure automatic security responses to risky
+     * traffic to your user pool, set to <code>ENFORCED</code>.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html"
+     * >Adding advanced security to a user pool</a>.
      * </p>
      * 
-     * @return The user pool add-ons.
+     * @return User pool add-ons. Contains settings for activation of advanced security features. To log user security
+     *         information but take no action, set to <code>AUDIT</code>. To configure automatic security responses to
+     *         risky traffic to your user pool, set to <code>ENFORCED</code>.</p>
+     *         <p>
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html"
+     *         >Adding advanced security to a user pool</a>.
      */
 
     public UserPoolAddOnsType getUserPoolAddOns() {
@@ -1843,16 +2529,93 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The user pool add-ons.
+     * User pool add-ons. Contains settings for activation of advanced security features. To log user security
+     * information but take no action, set to <code>AUDIT</code>. To configure automatic security responses to risky
+     * traffic to your user pool, set to <code>ENFORCED</code>.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html"
+     * >Adding advanced security to a user pool</a>.
      * </p>
      * 
      * @param userPoolAddOns
-     *        The user pool add-ons.
+     *        User pool add-ons. Contains settings for activation of advanced security features. To log user security
+     *        information but take no action, set to <code>AUDIT</code>. To configure automatic security responses to
+     *        risky traffic to your user pool, set to <code>ENFORCED</code>.</p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html"
+     *        >Adding advanced security to a user pool</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public UserPoolType withUserPoolAddOns(UserPoolAddOnsType userPoolAddOns) {
         setUserPoolAddOns(userPoolAddOns);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Case sensitivity of the username input for the selected sign-in option. For example, when case sensitivity is set
+     * to <code>False</code>, users can sign in using either "username" or "Username". This configuration is immutable
+     * once it has been set. For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UsernameConfigurationType.html"
+     * >UsernameConfigurationType</a>.
+     * </p>
+     * 
+     * @param usernameConfiguration
+     *        Case sensitivity of the username input for the selected sign-in option. For example, when case sensitivity
+     *        is set to <code>False</code>, users can sign in using either "username" or "Username". This configuration
+     *        is immutable once it has been set. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UsernameConfigurationType.html"
+     *        >UsernameConfigurationType</a>.
+     */
+
+    public void setUsernameConfiguration(UsernameConfigurationType usernameConfiguration) {
+        this.usernameConfiguration = usernameConfiguration;
+    }
+
+    /**
+     * <p>
+     * Case sensitivity of the username input for the selected sign-in option. For example, when case sensitivity is set
+     * to <code>False</code>, users can sign in using either "username" or "Username". This configuration is immutable
+     * once it has been set. For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UsernameConfigurationType.html"
+     * >UsernameConfigurationType</a>.
+     * </p>
+     * 
+     * @return Case sensitivity of the username input for the selected sign-in option. For example, when case
+     *         sensitivity is set to <code>False</code>, users can sign in using either "username" or "Username". This
+     *         configuration is immutable once it has been set. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UsernameConfigurationType.html"
+     *         >UsernameConfigurationType</a>.
+     */
+
+    public UsernameConfigurationType getUsernameConfiguration() {
+        return this.usernameConfiguration;
+    }
+
+    /**
+     * <p>
+     * Case sensitivity of the username input for the selected sign-in option. For example, when case sensitivity is set
+     * to <code>False</code>, users can sign in using either "username" or "Username". This configuration is immutable
+     * once it has been set. For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UsernameConfigurationType.html"
+     * >UsernameConfigurationType</a>.
+     * </p>
+     * 
+     * @param usernameConfiguration
+     *        Case sensitivity of the username input for the selected sign-in option. For example, when case sensitivity
+     *        is set to <code>False</code>, users can sign in using either "username" or "Username". This configuration
+     *        is immutable once it has been set. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UsernameConfigurationType.html"
+     *        >UsernameConfigurationType</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UserPoolType withUsernameConfiguration(UsernameConfigurationType usernameConfiguration) {
+        setUsernameConfiguration(usernameConfiguration);
         return this;
     }
 
@@ -1897,6 +2660,73 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The available verified method a user can use to recover their password when they call <code>ForgotPassword</code>
+     * . You can use this setting to define a preferred method when a user has more than one method available. With this
+     * setting, SMS doesn't qualify for a valid password recovery mechanism if the user also has SMS multi-factor
+     * authentication (MFA) activated. In the absence of this setting, Amazon Cognito uses the legacy behavior to
+     * determine the recovery method where SMS is preferred through email.
+     * </p>
+     * 
+     * @param accountRecoverySetting
+     *        The available verified method a user can use to recover their password when they call
+     *        <code>ForgotPassword</code>. You can use this setting to define a preferred method when a user has more
+     *        than one method available. With this setting, SMS doesn't qualify for a valid password recovery mechanism
+     *        if the user also has SMS multi-factor authentication (MFA) activated. In the absence of this setting,
+     *        Amazon Cognito uses the legacy behavior to determine the recovery method where SMS is preferred through
+     *        email.
+     */
+
+    public void setAccountRecoverySetting(AccountRecoverySettingType accountRecoverySetting) {
+        this.accountRecoverySetting = accountRecoverySetting;
+    }
+
+    /**
+     * <p>
+     * The available verified method a user can use to recover their password when they call <code>ForgotPassword</code>
+     * . You can use this setting to define a preferred method when a user has more than one method available. With this
+     * setting, SMS doesn't qualify for a valid password recovery mechanism if the user also has SMS multi-factor
+     * authentication (MFA) activated. In the absence of this setting, Amazon Cognito uses the legacy behavior to
+     * determine the recovery method where SMS is preferred through email.
+     * </p>
+     * 
+     * @return The available verified method a user can use to recover their password when they call
+     *         <code>ForgotPassword</code>. You can use this setting to define a preferred method when a user has more
+     *         than one method available. With this setting, SMS doesn't qualify for a valid password recovery mechanism
+     *         if the user also has SMS multi-factor authentication (MFA) activated. In the absence of this setting,
+     *         Amazon Cognito uses the legacy behavior to determine the recovery method where SMS is preferred through
+     *         email.
+     */
+
+    public AccountRecoverySettingType getAccountRecoverySetting() {
+        return this.accountRecoverySetting;
+    }
+
+    /**
+     * <p>
+     * The available verified method a user can use to recover their password when they call <code>ForgotPassword</code>
+     * . You can use this setting to define a preferred method when a user has more than one method available. With this
+     * setting, SMS doesn't qualify for a valid password recovery mechanism if the user also has SMS multi-factor
+     * authentication (MFA) activated. In the absence of this setting, Amazon Cognito uses the legacy behavior to
+     * determine the recovery method where SMS is preferred through email.
+     * </p>
+     * 
+     * @param accountRecoverySetting
+     *        The available verified method a user can use to recover their password when they call
+     *        <code>ForgotPassword</code>. You can use this setting to define a preferred method when a user has more
+     *        than one method available. With this setting, SMS doesn't qualify for a valid password recovery mechanism
+     *        if the user also has SMS multi-factor authentication (MFA) activated. In the absence of this setting,
+     *        Amazon Cognito uses the legacy behavior to determine the recovery method where SMS is preferred through
+     *        email.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UserPoolType withAccountRecoverySetting(AccountRecoverySettingType accountRecoverySetting) {
+        setAccountRecoverySetting(accountRecoverySetting);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1914,6 +2744,8 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
             sb.append("Name: ").append(getName()).append(",");
         if (getPolicies() != null)
             sb.append("Policies: ").append(getPolicies()).append(",");
+        if (getDeletionProtection() != null)
+            sb.append("DeletionProtection: ").append(getDeletionProtection()).append(",");
         if (getLambdaConfig() != null)
             sb.append("LambdaConfig: ").append(getLambdaConfig()).append(",");
         if (getStatus() != null)
@@ -1940,6 +2772,8 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
             sb.append("VerificationMessageTemplate: ").append(getVerificationMessageTemplate()).append(",");
         if (getSmsAuthenticationMessage() != null)
             sb.append("SmsAuthenticationMessage: ").append(getSmsAuthenticationMessage()).append(",");
+        if (getUserAttributeUpdateSettings() != null)
+            sb.append("UserAttributeUpdateSettings: ").append(getUserAttributeUpdateSettings()).append(",");
         if (getMfaConfiguration() != null)
             sb.append("MfaConfiguration: ").append(getMfaConfiguration()).append(",");
         if (getDeviceConfiguration() != null)
@@ -1964,8 +2798,12 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
             sb.append("AdminCreateUserConfig: ").append(getAdminCreateUserConfig()).append(",");
         if (getUserPoolAddOns() != null)
             sb.append("UserPoolAddOns: ").append(getUserPoolAddOns()).append(",");
+        if (getUsernameConfiguration() != null)
+            sb.append("UsernameConfiguration: ").append(getUsernameConfiguration()).append(",");
         if (getArn() != null)
-            sb.append("Arn: ").append(getArn());
+            sb.append("Arn: ").append(getArn()).append(",");
+        if (getAccountRecoverySetting() != null)
+            sb.append("AccountRecoverySetting: ").append(getAccountRecoverySetting());
         sb.append("}");
         return sb.toString();
     }
@@ -1991,6 +2829,10 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
         if (other.getPolicies() == null ^ this.getPolicies() == null)
             return false;
         if (other.getPolicies() != null && other.getPolicies().equals(this.getPolicies()) == false)
+            return false;
+        if (other.getDeletionProtection() == null ^ this.getDeletionProtection() == null)
+            return false;
+        if (other.getDeletionProtection() != null && other.getDeletionProtection().equals(this.getDeletionProtection()) == false)
             return false;
         if (other.getLambdaConfig() == null ^ this.getLambdaConfig() == null)
             return false;
@@ -2044,6 +2886,10 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getSmsAuthenticationMessage() != null && other.getSmsAuthenticationMessage().equals(this.getSmsAuthenticationMessage()) == false)
             return false;
+        if (other.getUserAttributeUpdateSettings() == null ^ this.getUserAttributeUpdateSettings() == null)
+            return false;
+        if (other.getUserAttributeUpdateSettings() != null && other.getUserAttributeUpdateSettings().equals(this.getUserAttributeUpdateSettings()) == false)
+            return false;
         if (other.getMfaConfiguration() == null ^ this.getMfaConfiguration() == null)
             return false;
         if (other.getMfaConfiguration() != null && other.getMfaConfiguration().equals(this.getMfaConfiguration()) == false)
@@ -2092,9 +2938,17 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getUserPoolAddOns() != null && other.getUserPoolAddOns().equals(this.getUserPoolAddOns()) == false)
             return false;
+        if (other.getUsernameConfiguration() == null ^ this.getUsernameConfiguration() == null)
+            return false;
+        if (other.getUsernameConfiguration() != null && other.getUsernameConfiguration().equals(this.getUsernameConfiguration()) == false)
+            return false;
         if (other.getArn() == null ^ this.getArn() == null)
             return false;
         if (other.getArn() != null && other.getArn().equals(this.getArn()) == false)
+            return false;
+        if (other.getAccountRecoverySetting() == null ^ this.getAccountRecoverySetting() == null)
+            return false;
+        if (other.getAccountRecoverySetting() != null && other.getAccountRecoverySetting().equals(this.getAccountRecoverySetting()) == false)
             return false;
         return true;
     }
@@ -2107,6 +2961,7 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getId() == null) ? 0 : getId().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getPolicies() == null) ? 0 : getPolicies().hashCode());
+        hashCode = prime * hashCode + ((getDeletionProtection() == null) ? 0 : getDeletionProtection().hashCode());
         hashCode = prime * hashCode + ((getLambdaConfig() == null) ? 0 : getLambdaConfig().hashCode());
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
         hashCode = prime * hashCode + ((getLastModifiedDate() == null) ? 0 : getLastModifiedDate().hashCode());
@@ -2120,6 +2975,7 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getEmailVerificationSubject() == null) ? 0 : getEmailVerificationSubject().hashCode());
         hashCode = prime * hashCode + ((getVerificationMessageTemplate() == null) ? 0 : getVerificationMessageTemplate().hashCode());
         hashCode = prime * hashCode + ((getSmsAuthenticationMessage() == null) ? 0 : getSmsAuthenticationMessage().hashCode());
+        hashCode = prime * hashCode + ((getUserAttributeUpdateSettings() == null) ? 0 : getUserAttributeUpdateSettings().hashCode());
         hashCode = prime * hashCode + ((getMfaConfiguration() == null) ? 0 : getMfaConfiguration().hashCode());
         hashCode = prime * hashCode + ((getDeviceConfiguration() == null) ? 0 : getDeviceConfiguration().hashCode());
         hashCode = prime * hashCode + ((getEstimatedNumberOfUsers() == null) ? 0 : getEstimatedNumberOfUsers().hashCode());
@@ -2132,7 +2988,9 @@ public class UserPoolType implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getCustomDomain() == null) ? 0 : getCustomDomain().hashCode());
         hashCode = prime * hashCode + ((getAdminCreateUserConfig() == null) ? 0 : getAdminCreateUserConfig().hashCode());
         hashCode = prime * hashCode + ((getUserPoolAddOns() == null) ? 0 : getUserPoolAddOns().hashCode());
+        hashCode = prime * hashCode + ((getUsernameConfiguration() == null) ? 0 : getUsernameConfiguration().hashCode());
         hashCode = prime * hashCode + ((getArn() == null) ? 0 : getArn().hashCode());
+        hashCode = prime * hashCode + ((getAccountRecoverySetting() == null) ? 0 : getAccountRecoverySetting().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -11,6 +11,8 @@
  * and limitations under the License.
  */
 package com.amazonaws.services.connect.model.transform;
+
+import java.util.Map;
 
 import javax.annotation.Generated;
 
@@ -37,6 +39,12 @@ public class HierarchyGroupMarshaller {
             .marshallLocationName("LevelId").build();
     private static final MarshallingInfo<StructuredPojo> HIERARCHYPATH_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("HierarchyPath").build();
+    private static final MarshallingInfo<Map> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Tags").build();
+    private static final MarshallingInfo<java.util.Date> LASTMODIFIEDTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LastModifiedTime").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<String> LASTMODIFIEDREGION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LastModifiedRegion").build();
 
     private static final HierarchyGroupMarshaller instance = new HierarchyGroupMarshaller();
 
@@ -59,6 +67,9 @@ public class HierarchyGroupMarshaller {
             protocolMarshaller.marshall(hierarchyGroup.getName(), NAME_BINDING);
             protocolMarshaller.marshall(hierarchyGroup.getLevelId(), LEVELID_BINDING);
             protocolMarshaller.marshall(hierarchyGroup.getHierarchyPath(), HIERARCHYPATH_BINDING);
+            protocolMarshaller.marshall(hierarchyGroup.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(hierarchyGroup.getLastModifiedTime(), LASTMODIFIEDTIME_BINDING);
+            protocolMarshaller.marshall(hierarchyGroup.getLastModifiedRegion(), LASTMODIFIEDREGION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

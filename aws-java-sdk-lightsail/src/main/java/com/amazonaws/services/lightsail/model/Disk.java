@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Describes a system disk or an block storage disk.
+ * Describes a block storage disk.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/Disk" target="_top">AWS API
@@ -61,17 +61,24 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
     private ResourceLocation location;
     /**
      * <p>
-     * The Lightsail resource type (e.g., <code>Disk</code>).
+     * The Lightsail resource type (<code>Disk</code>).
      * </p>
      */
     private String resourceType;
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      */
     private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * An array of objects representing the add-ons enabled on the disk.
+     * </p>
+     */
+    private java.util.List<AddOn> addOns;
     /**
      * <p>
      * The size of the disk in GB.
@@ -116,12 +123,12 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
     private Boolean isAttached;
     /**
      * <p>
-     * (Deprecated) The attachment state of the disk.
+     * (Discontinued) The attachment state of the disk.
      * </p>
      * <note>
      * <p>
      * In releases prior to November 14, 2017, this parameter returned <code>attached</code> for system disks in the API
-     * response. It is now deprecated, but still included in the response. Use <code>isAttached</code> instead.
+     * response. It is now discontinued, but still included in the response. Use <code>isAttached</code> instead.
      * </p>
      * </note>
      */
@@ -129,17 +136,28 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
     private String attachmentState;
     /**
      * <p>
-     * (Deprecated) The number of GB in use by the disk.
+     * (Discontinued) The number of GB in use by the disk.
      * </p>
      * <note>
      * <p>
      * In releases prior to November 14, 2017, this parameter was not included in the API response. It is now
-     * deprecated.
+     * discontinued.
      * </p>
      * </note>
      */
     @Deprecated
     private Integer gbInUse;
+    /**
+     * <p>
+     * The status of automatically mounting a storage disk to a virtual computer.
+     * </p>
+     * <important>
+     * <p>
+     * This parameter only applies to Lightsail for Research resources.
+     * </p>
+     * </important>
+     */
+    private String autoMountStatus;
 
     /**
      * <p>
@@ -352,11 +370,11 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Lightsail resource type (e.g., <code>Disk</code>).
+     * The Lightsail resource type (<code>Disk</code>).
      * </p>
      * 
      * @param resourceType
-     *        The Lightsail resource type (e.g., <code>Disk</code>).
+     *        The Lightsail resource type (<code>Disk</code>).
      * @see ResourceType
      */
 
@@ -366,10 +384,10 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Lightsail resource type (e.g., <code>Disk</code>).
+     * The Lightsail resource type (<code>Disk</code>).
      * </p>
      * 
-     * @return The Lightsail resource type (e.g., <code>Disk</code>).
+     * @return The Lightsail resource type (<code>Disk</code>).
      * @see ResourceType
      */
 
@@ -379,11 +397,11 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Lightsail resource type (e.g., <code>Disk</code>).
+     * The Lightsail resource type (<code>Disk</code>).
      * </p>
      * 
      * @param resourceType
-     *        The Lightsail resource type (e.g., <code>Disk</code>).
+     *        The Lightsail resource type (<code>Disk</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceType
      */
@@ -395,11 +413,11 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Lightsail resource type (e.g., <code>Disk</code>).
+     * The Lightsail resource type (<code>Disk</code>).
      * </p>
      * 
      * @param resourceType
-     *        The Lightsail resource type (e.g., <code>Disk</code>).
+     *        The Lightsail resource type (<code>Disk</code>).
      * @see ResourceType
      */
 
@@ -409,11 +427,11 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Lightsail resource type (e.g., <code>Disk</code>).
+     * The Lightsail resource type (<code>Disk</code>).
      * </p>
      * 
      * @param resourceType
-     *        The Lightsail resource type (e.g., <code>Disk</code>).
+     *        The Lightsail resource type (<code>Disk</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceType
      */
@@ -426,12 +444,13 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      * 
      * @return The tag keys and optional values for the resource. For more information about tags in Lightsail, see the
-     *         <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev
-     *         Guide</a>.
+     *         <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail
+     *         Developer Guide</a>.
      */
 
     public java.util.List<Tag> getTags() {
@@ -441,13 +460,14 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      * 
      * @param tags
      *        The tag keys and optional values for the resource. For more information about tags in Lightsail, see the
-     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev
-     *        Guide</a>.
+     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail
+     *        Developer Guide</a>.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -462,7 +482,8 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -472,8 +493,8 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
      * 
      * @param tags
      *        The tag keys and optional values for the resource. For more information about tags in Lightsail, see the
-     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev
-     *        Guide</a>.
+     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail
+     *        Developer Guide</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -490,18 +511,89 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      * 
      * @param tags
      *        The tag keys and optional values for the resource. For more information about tags in Lightsail, see the
-     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev
-     *        Guide</a>.
+     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail
+     *        Developer Guide</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Disk withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of objects representing the add-ons enabled on the disk.
+     * </p>
+     * 
+     * @return An array of objects representing the add-ons enabled on the disk.
+     */
+
+    public java.util.List<AddOn> getAddOns() {
+        return addOns;
+    }
+
+    /**
+     * <p>
+     * An array of objects representing the add-ons enabled on the disk.
+     * </p>
+     * 
+     * @param addOns
+     *        An array of objects representing the add-ons enabled on the disk.
+     */
+
+    public void setAddOns(java.util.Collection<AddOn> addOns) {
+        if (addOns == null) {
+            this.addOns = null;
+            return;
+        }
+
+        this.addOns = new java.util.ArrayList<AddOn>(addOns);
+    }
+
+    /**
+     * <p>
+     * An array of objects representing the add-ons enabled on the disk.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAddOns(java.util.Collection)} or {@link #withAddOns(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param addOns
+     *        An array of objects representing the add-ons enabled on the disk.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Disk withAddOns(AddOn... addOns) {
+        if (this.addOns == null) {
+            setAddOns(new java.util.ArrayList<AddOn>(addOns.length));
+        }
+        for (AddOn ele : addOns) {
+            this.addOns.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of objects representing the add-ons enabled on the disk.
+     * </p>
+     * 
+     * @param addOns
+     *        An array of objects representing the add-ons enabled on the disk.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Disk withAddOns(java.util.Collection<AddOn> addOns) {
+        setAddOns(addOns);
         return this;
     }
 
@@ -844,20 +936,20 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * (Deprecated) The attachment state of the disk.
+     * (Discontinued) The attachment state of the disk.
      * </p>
      * <note>
      * <p>
      * In releases prior to November 14, 2017, this parameter returned <code>attached</code> for system disks in the API
-     * response. It is now deprecated, but still included in the response. Use <code>isAttached</code> instead.
+     * response. It is now discontinued, but still included in the response. Use <code>isAttached</code> instead.
      * </p>
      * </note>
      * 
      * @param attachmentState
-     *        (Deprecated) The attachment state of the disk.</p> <note>
+     *        (Discontinued) The attachment state of the disk.</p> <note>
      *        <p>
      *        In releases prior to November 14, 2017, this parameter returned <code>attached</code> for system disks in
-     *        the API response. It is now deprecated, but still included in the response. Use <code>isAttached</code>
+     *        the API response. It is now discontinued, but still included in the response. Use <code>isAttached</code>
      *        instead.
      *        </p>
      */
@@ -868,19 +960,19 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * (Deprecated) The attachment state of the disk.
+     * (Discontinued) The attachment state of the disk.
      * </p>
      * <note>
      * <p>
      * In releases prior to November 14, 2017, this parameter returned <code>attached</code> for system disks in the API
-     * response. It is now deprecated, but still included in the response. Use <code>isAttached</code> instead.
+     * response. It is now discontinued, but still included in the response. Use <code>isAttached</code> instead.
      * </p>
      * </note>
      * 
-     * @return (Deprecated) The attachment state of the disk.</p> <note>
+     * @return (Discontinued) The attachment state of the disk.</p> <note>
      *         <p>
      *         In releases prior to November 14, 2017, this parameter returned <code>attached</code> for system disks in
-     *         the API response. It is now deprecated, but still included in the response. Use <code>isAttached</code>
+     *         the API response. It is now discontinued, but still included in the response. Use <code>isAttached</code>
      *         instead.
      *         </p>
      */
@@ -891,20 +983,20 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * (Deprecated) The attachment state of the disk.
+     * (Discontinued) The attachment state of the disk.
      * </p>
      * <note>
      * <p>
      * In releases prior to November 14, 2017, this parameter returned <code>attached</code> for system disks in the API
-     * response. It is now deprecated, but still included in the response. Use <code>isAttached</code> instead.
+     * response. It is now discontinued, but still included in the response. Use <code>isAttached</code> instead.
      * </p>
      * </note>
      * 
      * @param attachmentState
-     *        (Deprecated) The attachment state of the disk.</p> <note>
+     *        (Discontinued) The attachment state of the disk.</p> <note>
      *        <p>
      *        In releases prior to November 14, 2017, this parameter returned <code>attached</code> for system disks in
-     *        the API response. It is now deprecated, but still included in the response. Use <code>isAttached</code>
+     *        the API response. It is now discontinued, but still included in the response. Use <code>isAttached</code>
      *        instead.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -917,20 +1009,20 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * (Deprecated) The number of GB in use by the disk.
+     * (Discontinued) The number of GB in use by the disk.
      * </p>
      * <note>
      * <p>
      * In releases prior to November 14, 2017, this parameter was not included in the API response. It is now
-     * deprecated.
+     * discontinued.
      * </p>
      * </note>
      * 
      * @param gbInUse
-     *        (Deprecated) The number of GB in use by the disk.</p> <note>
+     *        (Discontinued) The number of GB in use by the disk.</p> <note>
      *        <p>
      *        In releases prior to November 14, 2017, this parameter was not included in the API response. It is now
-     *        deprecated.
+     *        discontinued.
      *        </p>
      */
     @Deprecated
@@ -940,19 +1032,19 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * (Deprecated) The number of GB in use by the disk.
+     * (Discontinued) The number of GB in use by the disk.
      * </p>
      * <note>
      * <p>
      * In releases prior to November 14, 2017, this parameter was not included in the API response. It is now
-     * deprecated.
+     * discontinued.
      * </p>
      * </note>
      * 
-     * @return (Deprecated) The number of GB in use by the disk.</p> <note>
+     * @return (Discontinued) The number of GB in use by the disk.</p> <note>
      *         <p>
      *         In releases prior to November 14, 2017, this parameter was not included in the API response. It is now
-     *         deprecated.
+     *         discontinued.
      *         </p>
      */
     @Deprecated
@@ -962,26 +1054,139 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * (Deprecated) The number of GB in use by the disk.
+     * (Discontinued) The number of GB in use by the disk.
      * </p>
      * <note>
      * <p>
      * In releases prior to November 14, 2017, this parameter was not included in the API response. It is now
-     * deprecated.
+     * discontinued.
      * </p>
      * </note>
      * 
      * @param gbInUse
-     *        (Deprecated) The number of GB in use by the disk.</p> <note>
+     *        (Discontinued) The number of GB in use by the disk.</p> <note>
      *        <p>
      *        In releases prior to November 14, 2017, this parameter was not included in the API response. It is now
-     *        deprecated.
+     *        discontinued.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
     @Deprecated
     public Disk withGbInUse(Integer gbInUse) {
         setGbInUse(gbInUse);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The status of automatically mounting a storage disk to a virtual computer.
+     * </p>
+     * <important>
+     * <p>
+     * This parameter only applies to Lightsail for Research resources.
+     * </p>
+     * </important>
+     * 
+     * @param autoMountStatus
+     *        The status of automatically mounting a storage disk to a virtual computer.</p> <important>
+     *        <p>
+     *        This parameter only applies to Lightsail for Research resources.
+     *        </p>
+     * @see AutoMountStatus
+     */
+
+    public void setAutoMountStatus(String autoMountStatus) {
+        this.autoMountStatus = autoMountStatus;
+    }
+
+    /**
+     * <p>
+     * The status of automatically mounting a storage disk to a virtual computer.
+     * </p>
+     * <important>
+     * <p>
+     * This parameter only applies to Lightsail for Research resources.
+     * </p>
+     * </important>
+     * 
+     * @return The status of automatically mounting a storage disk to a virtual computer.</p> <important>
+     *         <p>
+     *         This parameter only applies to Lightsail for Research resources.
+     *         </p>
+     * @see AutoMountStatus
+     */
+
+    public String getAutoMountStatus() {
+        return this.autoMountStatus;
+    }
+
+    /**
+     * <p>
+     * The status of automatically mounting a storage disk to a virtual computer.
+     * </p>
+     * <important>
+     * <p>
+     * This parameter only applies to Lightsail for Research resources.
+     * </p>
+     * </important>
+     * 
+     * @param autoMountStatus
+     *        The status of automatically mounting a storage disk to a virtual computer.</p> <important>
+     *        <p>
+     *        This parameter only applies to Lightsail for Research resources.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AutoMountStatus
+     */
+
+    public Disk withAutoMountStatus(String autoMountStatus) {
+        setAutoMountStatus(autoMountStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The status of automatically mounting a storage disk to a virtual computer.
+     * </p>
+     * <important>
+     * <p>
+     * This parameter only applies to Lightsail for Research resources.
+     * </p>
+     * </important>
+     * 
+     * @param autoMountStatus
+     *        The status of automatically mounting a storage disk to a virtual computer.</p> <important>
+     *        <p>
+     *        This parameter only applies to Lightsail for Research resources.
+     *        </p>
+     * @see AutoMountStatus
+     */
+
+    public void setAutoMountStatus(AutoMountStatus autoMountStatus) {
+        withAutoMountStatus(autoMountStatus);
+    }
+
+    /**
+     * <p>
+     * The status of automatically mounting a storage disk to a virtual computer.
+     * </p>
+     * <important>
+     * <p>
+     * This parameter only applies to Lightsail for Research resources.
+     * </p>
+     * </important>
+     * 
+     * @param autoMountStatus
+     *        The status of automatically mounting a storage disk to a virtual computer.</p> <important>
+     *        <p>
+     *        This parameter only applies to Lightsail for Research resources.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AutoMountStatus
+     */
+
+    public Disk withAutoMountStatus(AutoMountStatus autoMountStatus) {
+        this.autoMountStatus = autoMountStatus.toString();
         return this;
     }
 
@@ -1011,6 +1216,8 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
             sb.append("ResourceType: ").append(getResourceType()).append(",");
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
+        if (getAddOns() != null)
+            sb.append("AddOns: ").append(getAddOns()).append(",");
         if (getSizeInGb() != null)
             sb.append("SizeInGb: ").append(getSizeInGb()).append(",");
         if (getIsSystemDisk() != null)
@@ -1028,7 +1235,9 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
         if (getAttachmentState() != null)
             sb.append("AttachmentState: ").append(getAttachmentState()).append(",");
         if (getGbInUse() != null)
-            sb.append("GbInUse: ").append(getGbInUse());
+            sb.append("GbInUse: ").append(getGbInUse()).append(",");
+        if (getAutoMountStatus() != null)
+            sb.append("AutoMountStatus: ").append(getAutoMountStatus());
         sb.append("}");
         return sb.toString();
     }
@@ -1071,6 +1280,10 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getAddOns() == null ^ this.getAddOns() == null)
+            return false;
+        if (other.getAddOns() != null && other.getAddOns().equals(this.getAddOns()) == false)
+            return false;
         if (other.getSizeInGb() == null ^ this.getSizeInGb() == null)
             return false;
         if (other.getSizeInGb() != null && other.getSizeInGb().equals(this.getSizeInGb()) == false)
@@ -1107,6 +1320,10 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getGbInUse() != null && other.getGbInUse().equals(this.getGbInUse()) == false)
             return false;
+        if (other.getAutoMountStatus() == null ^ this.getAutoMountStatus() == null)
+            return false;
+        if (other.getAutoMountStatus() != null && other.getAutoMountStatus().equals(this.getAutoMountStatus()) == false)
+            return false;
         return true;
     }
 
@@ -1122,6 +1339,7 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getLocation() == null) ? 0 : getLocation().hashCode());
         hashCode = prime * hashCode + ((getResourceType() == null) ? 0 : getResourceType().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getAddOns() == null) ? 0 : getAddOns().hashCode());
         hashCode = prime * hashCode + ((getSizeInGb() == null) ? 0 : getSizeInGb().hashCode());
         hashCode = prime * hashCode + ((getIsSystemDisk() == null) ? 0 : getIsSystemDisk().hashCode());
         hashCode = prime * hashCode + ((getIops() == null) ? 0 : getIops().hashCode());
@@ -1131,6 +1349,7 @@ public class Disk implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getIsAttached() == null) ? 0 : getIsAttached().hashCode());
         hashCode = prime * hashCode + ((getAttachmentState() == null) ? 0 : getAttachmentState().hashCode());
         hashCode = prime * hashCode + ((getGbInUse() == null) ? 0 : getGbInUse().hashCode());
+        hashCode = prime * hashCode + ((getAutoMountStatus() == null) ? 0 : getAutoMountStatus().hashCode());
         return hashCode;
     }
 

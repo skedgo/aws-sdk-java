@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,8 +30,9 @@ public class SynthesisTask implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the engine (<code>standard</code> or <code>neural</code>) for Amazon Polly to use when processing input
-     * text for speech synthesis. Using a voice that is not supported for the engine selected will result in an error.
+     * Specifies the engine (<code>standard</code>, <code>neural</code>, <code>long-form</code> or
+     * <code>generative</code>) for Amazon Polly to use when processing input text for speech synthesis. Using a voice
+     * that is not supported for the engine selected will result in an error.
      * </p>
      */
     private String engine;
@@ -97,7 +98,8 @@ public class SynthesisTask implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * <p>
      * The valid values for mp3 and ogg_vorbis are "8000", "16000", "22050", and "24000". The default value for standard
-     * voices is "22050". The default value for neural voices is "24000".
+     * voices is "22050". The default value for neural voices is "24000". The default value for long-form voices is
+     * "24000". The default value for generative voices is "24000".
      * </p>
      * <p>
      * Valid values for pcm are "8000" and "16000" The default value is "16000".
@@ -128,7 +130,7 @@ public class SynthesisTask implements Serializable, Cloneable, StructuredPojo {
      * which can be used for either Indian English (en-IN) or Hindi (hi-IN).
      * </p>
      * <p>
-     * If a bilingual voice is used and no language code is specified, Amazon Polly will use the default language of the
+     * If a bilingual voice is used and no language code is specified, Amazon Polly uses the default language of the
      * bilingual voice. The default language for any voice is the one returned by the <a
      * href="https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html">DescribeVoices</a> operation for the
      * <code>LanguageCode</code> parameter. For example, if no language code is specified, Aditi will use Indian English
@@ -139,14 +141,15 @@ public class SynthesisTask implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the engine (<code>standard</code> or <code>neural</code>) for Amazon Polly to use when processing input
-     * text for speech synthesis. Using a voice that is not supported for the engine selected will result in an error.
+     * Specifies the engine (<code>standard</code>, <code>neural</code>, <code>long-form</code> or
+     * <code>generative</code>) for Amazon Polly to use when processing input text for speech synthesis. Using a voice
+     * that is not supported for the engine selected will result in an error.
      * </p>
      * 
      * @param engine
-     *        Specifies the engine (<code>standard</code> or <code>neural</code>) for Amazon Polly to use when
-     *        processing input text for speech synthesis. Using a voice that is not supported for the engine selected
-     *        will result in an error.
+     *        Specifies the engine (<code>standard</code>, <code>neural</code>, <code>long-form</code> or
+     *        <code>generative</code>) for Amazon Polly to use when processing input text for speech synthesis. Using a
+     *        voice that is not supported for the engine selected will result in an error.
      * @see Engine
      */
 
@@ -156,13 +159,14 @@ public class SynthesisTask implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the engine (<code>standard</code> or <code>neural</code>) for Amazon Polly to use when processing input
-     * text for speech synthesis. Using a voice that is not supported for the engine selected will result in an error.
+     * Specifies the engine (<code>standard</code>, <code>neural</code>, <code>long-form</code> or
+     * <code>generative</code>) for Amazon Polly to use when processing input text for speech synthesis. Using a voice
+     * that is not supported for the engine selected will result in an error.
      * </p>
      * 
-     * @return Specifies the engine (<code>standard</code> or <code>neural</code>) for Amazon Polly to use when
-     *         processing input text for speech synthesis. Using a voice that is not supported for the engine selected
-     *         will result in an error.
+     * @return Specifies the engine (<code>standard</code>, <code>neural</code>, <code>long-form</code> or
+     *         <code>generative</code>) for Amazon Polly to use when processing input text for speech synthesis. Using a
+     *         voice that is not supported for the engine selected will result in an error.
      * @see Engine
      */
 
@@ -172,14 +176,15 @@ public class SynthesisTask implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the engine (<code>standard</code> or <code>neural</code>) for Amazon Polly to use when processing input
-     * text for speech synthesis. Using a voice that is not supported for the engine selected will result in an error.
+     * Specifies the engine (<code>standard</code>, <code>neural</code>, <code>long-form</code> or
+     * <code>generative</code>) for Amazon Polly to use when processing input text for speech synthesis. Using a voice
+     * that is not supported for the engine selected will result in an error.
      * </p>
      * 
      * @param engine
-     *        Specifies the engine (<code>standard</code> or <code>neural</code>) for Amazon Polly to use when
-     *        processing input text for speech synthesis. Using a voice that is not supported for the engine selected
-     *        will result in an error.
+     *        Specifies the engine (<code>standard</code>, <code>neural</code>, <code>long-form</code> or
+     *        <code>generative</code>) for Amazon Polly to use when processing input text for speech synthesis. Using a
+     *        voice that is not supported for the engine selected will result in an error.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Engine
      */
@@ -191,14 +196,15 @@ public class SynthesisTask implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the engine (<code>standard</code> or <code>neural</code>) for Amazon Polly to use when processing input
-     * text for speech synthesis. Using a voice that is not supported for the engine selected will result in an error.
+     * Specifies the engine (<code>standard</code>, <code>neural</code>, <code>long-form</code> or
+     * <code>generative</code>) for Amazon Polly to use when processing input text for speech synthesis. Using a voice
+     * that is not supported for the engine selected will result in an error.
      * </p>
      * 
      * @param engine
-     *        Specifies the engine (<code>standard</code> or <code>neural</code>) for Amazon Polly to use when
-     *        processing input text for speech synthesis. Using a voice that is not supported for the engine selected
-     *        will result in an error.
+     *        Specifies the engine (<code>standard</code>, <code>neural</code>, <code>long-form</code> or
+     *        <code>generative</code>) for Amazon Polly to use when processing input text for speech synthesis. Using a
+     *        voice that is not supported for the engine selected will result in an error.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Engine
      */
@@ -661,7 +667,8 @@ public class SynthesisTask implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * <p>
      * The valid values for mp3 and ogg_vorbis are "8000", "16000", "22050", and "24000". The default value for standard
-     * voices is "22050". The default value for neural voices is "24000".
+     * voices is "22050". The default value for neural voices is "24000". The default value for long-form voices is
+     * "24000". The default value for generative voices is "24000".
      * </p>
      * <p>
      * Valid values for pcm are "8000" and "16000" The default value is "16000".
@@ -671,7 +678,8 @@ public class SynthesisTask implements Serializable, Cloneable, StructuredPojo {
      *        The audio frequency specified in Hz.</p>
      *        <p>
      *        The valid values for mp3 and ogg_vorbis are "8000", "16000", "22050", and "24000". The default value for
-     *        standard voices is "22050". The default value for neural voices is "24000".
+     *        standard voices is "22050". The default value for neural voices is "24000". The default value for
+     *        long-form voices is "24000". The default value for generative voices is "24000".
      *        </p>
      *        <p>
      *        Valid values for pcm are "8000" and "16000" The default value is "16000".
@@ -687,7 +695,8 @@ public class SynthesisTask implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * <p>
      * The valid values for mp3 and ogg_vorbis are "8000", "16000", "22050", and "24000". The default value for standard
-     * voices is "22050". The default value for neural voices is "24000".
+     * voices is "22050". The default value for neural voices is "24000". The default value for long-form voices is
+     * "24000". The default value for generative voices is "24000".
      * </p>
      * <p>
      * Valid values for pcm are "8000" and "16000" The default value is "16000".
@@ -696,7 +705,8 @@ public class SynthesisTask implements Serializable, Cloneable, StructuredPojo {
      * @return The audio frequency specified in Hz.</p>
      *         <p>
      *         The valid values for mp3 and ogg_vorbis are "8000", "16000", "22050", and "24000". The default value for
-     *         standard voices is "22050". The default value for neural voices is "24000".
+     *         standard voices is "22050". The default value for neural voices is "24000". The default value for
+     *         long-form voices is "24000". The default value for generative voices is "24000".
      *         </p>
      *         <p>
      *         Valid values for pcm are "8000" and "16000" The default value is "16000".
@@ -712,7 +722,8 @@ public class SynthesisTask implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * <p>
      * The valid values for mp3 and ogg_vorbis are "8000", "16000", "22050", and "24000". The default value for standard
-     * voices is "22050". The default value for neural voices is "24000".
+     * voices is "22050". The default value for neural voices is "24000". The default value for long-form voices is
+     * "24000". The default value for generative voices is "24000".
      * </p>
      * <p>
      * Valid values for pcm are "8000" and "16000" The default value is "16000".
@@ -722,7 +733,8 @@ public class SynthesisTask implements Serializable, Cloneable, StructuredPojo {
      *        The audio frequency specified in Hz.</p>
      *        <p>
      *        The valid values for mp3 and ogg_vorbis are "8000", "16000", "22050", and "24000". The default value for
-     *        standard voices is "22050". The default value for neural voices is "24000".
+     *        standard voices is "22050". The default value for neural voices is "24000". The default value for
+     *        long-form voices is "24000". The default value for generative voices is "24000".
      *        </p>
      *        <p>
      *        Valid values for pcm are "8000" and "16000" The default value is "16000".
@@ -956,7 +968,7 @@ public class SynthesisTask implements Serializable, Cloneable, StructuredPojo {
      * which can be used for either Indian English (en-IN) or Hindi (hi-IN).
      * </p>
      * <p>
-     * If a bilingual voice is used and no language code is specified, Amazon Polly will use the default language of the
+     * If a bilingual voice is used and no language code is specified, Amazon Polly uses the default language of the
      * bilingual voice. The default language for any voice is the one returned by the <a
      * href="https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html">DescribeVoices</a> operation for the
      * <code>LanguageCode</code> parameter. For example, if no language code is specified, Aditi will use Indian English
@@ -967,8 +979,8 @@ public class SynthesisTask implements Serializable, Cloneable, StructuredPojo {
      *        Optional language code for a synthesis task. This is only necessary if using a bilingual voice, such as
      *        Aditi, which can be used for either Indian English (en-IN) or Hindi (hi-IN). </p>
      *        <p>
-     *        If a bilingual voice is used and no language code is specified, Amazon Polly will use the default language
-     *        of the bilingual voice. The default language for any voice is the one returned by the <a
+     *        If a bilingual voice is used and no language code is specified, Amazon Polly uses the default language of
+     *        the bilingual voice. The default language for any voice is the one returned by the <a
      *        href="https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html">DescribeVoices</a> operation
      *        for the <code>LanguageCode</code> parameter. For example, if no language code is specified, Aditi will use
      *        Indian English rather than Hindi.
@@ -985,7 +997,7 @@ public class SynthesisTask implements Serializable, Cloneable, StructuredPojo {
      * which can be used for either Indian English (en-IN) or Hindi (hi-IN).
      * </p>
      * <p>
-     * If a bilingual voice is used and no language code is specified, Amazon Polly will use the default language of the
+     * If a bilingual voice is used and no language code is specified, Amazon Polly uses the default language of the
      * bilingual voice. The default language for any voice is the one returned by the <a
      * href="https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html">DescribeVoices</a> operation for the
      * <code>LanguageCode</code> parameter. For example, if no language code is specified, Aditi will use Indian English
@@ -995,8 +1007,8 @@ public class SynthesisTask implements Serializable, Cloneable, StructuredPojo {
      * @return Optional language code for a synthesis task. This is only necessary if using a bilingual voice, such as
      *         Aditi, which can be used for either Indian English (en-IN) or Hindi (hi-IN). </p>
      *         <p>
-     *         If a bilingual voice is used and no language code is specified, Amazon Polly will use the default
-     *         language of the bilingual voice. The default language for any voice is the one returned by the <a
+     *         If a bilingual voice is used and no language code is specified, Amazon Polly uses the default language of
+     *         the bilingual voice. The default language for any voice is the one returned by the <a
      *         href="https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html">DescribeVoices</a> operation
      *         for the <code>LanguageCode</code> parameter. For example, if no language code is specified, Aditi will
      *         use Indian English rather than Hindi.
@@ -1013,7 +1025,7 @@ public class SynthesisTask implements Serializable, Cloneable, StructuredPojo {
      * which can be used for either Indian English (en-IN) or Hindi (hi-IN).
      * </p>
      * <p>
-     * If a bilingual voice is used and no language code is specified, Amazon Polly will use the default language of the
+     * If a bilingual voice is used and no language code is specified, Amazon Polly uses the default language of the
      * bilingual voice. The default language for any voice is the one returned by the <a
      * href="https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html">DescribeVoices</a> operation for the
      * <code>LanguageCode</code> parameter. For example, if no language code is specified, Aditi will use Indian English
@@ -1024,8 +1036,8 @@ public class SynthesisTask implements Serializable, Cloneable, StructuredPojo {
      *        Optional language code for a synthesis task. This is only necessary if using a bilingual voice, such as
      *        Aditi, which can be used for either Indian English (en-IN) or Hindi (hi-IN). </p>
      *        <p>
-     *        If a bilingual voice is used and no language code is specified, Amazon Polly will use the default language
-     *        of the bilingual voice. The default language for any voice is the one returned by the <a
+     *        If a bilingual voice is used and no language code is specified, Amazon Polly uses the default language of
+     *        the bilingual voice. The default language for any voice is the one returned by the <a
      *        href="https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html">DescribeVoices</a> operation
      *        for the <code>LanguageCode</code> parameter. For example, if no language code is specified, Aditi will use
      *        Indian English rather than Hindi.
@@ -1044,7 +1056,7 @@ public class SynthesisTask implements Serializable, Cloneable, StructuredPojo {
      * which can be used for either Indian English (en-IN) or Hindi (hi-IN).
      * </p>
      * <p>
-     * If a bilingual voice is used and no language code is specified, Amazon Polly will use the default language of the
+     * If a bilingual voice is used and no language code is specified, Amazon Polly uses the default language of the
      * bilingual voice. The default language for any voice is the one returned by the <a
      * href="https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html">DescribeVoices</a> operation for the
      * <code>LanguageCode</code> parameter. For example, if no language code is specified, Aditi will use Indian English
@@ -1055,8 +1067,8 @@ public class SynthesisTask implements Serializable, Cloneable, StructuredPojo {
      *        Optional language code for a synthesis task. This is only necessary if using a bilingual voice, such as
      *        Aditi, which can be used for either Indian English (en-IN) or Hindi (hi-IN). </p>
      *        <p>
-     *        If a bilingual voice is used and no language code is specified, Amazon Polly will use the default language
-     *        of the bilingual voice. The default language for any voice is the one returned by the <a
+     *        If a bilingual voice is used and no language code is specified, Amazon Polly uses the default language of
+     *        the bilingual voice. The default language for any voice is the one returned by the <a
      *        href="https://docs.aws.amazon.com/polly/latest/dg/API_DescribeVoices.html">DescribeVoices</a> operation
      *        for the <code>LanguageCode</code> parameter. For example, if no language code is specified, Aditi will use
      *        Indian English rather than Hindi.
@@ -1098,7 +1110,7 @@ public class SynthesisTask implements Serializable, Cloneable, StructuredPojo {
         if (getSnsTopicArn() != null)
             sb.append("SnsTopicArn: ").append(getSnsTopicArn()).append(",");
         if (getLexiconNames() != null)
-            sb.append("LexiconNames: ").append("***Sensitive Data Redacted***").append(",");
+            sb.append("LexiconNames: ").append(getLexiconNames()).append(",");
         if (getOutputFormat() != null)
             sb.append("OutputFormat: ").append(getOutputFormat()).append(",");
         if (getSampleRate() != null)

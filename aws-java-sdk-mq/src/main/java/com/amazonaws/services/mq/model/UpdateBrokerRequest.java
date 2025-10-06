@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,9 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
+ * <p>
  * Updates the broker using the specified properties.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateBroker" target="_top">AWS API
  *      Documentation</a>
@@ -27,33 +29,169 @@ import com.amazonaws.AmazonWebServiceRequest;
 public class UpdateBrokerRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
 
     /**
-     * Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions. The automatic
-     * upgrades occur during the maintenance window of the broker or after a manual broker reboot.
+     * <p>
+     * Optional. The authentication strategy used to secure the broker. The default is SIMPLE.
+     * </p>
+     */
+    private String authenticationStrategy;
+    /**
+     * <p>
+     * Enables automatic upgrades to new patch versions for brokers as new versions are released and supported by Amazon
+     * MQ. Automatic upgrades occur during the scheduled maintenance window or after a manual broker reboot.
+     * </p>
+     * <note>
+     * <p>
+     * Must be set to true for ActiveMQ brokers version 5.18 and above and for RabbitMQ brokers version 3.13 and above.
+     * </p>
+     * </note>
      */
     private Boolean autoMinorVersionUpgrade;
     /**
-     * The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain only
-     * letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard characters, or
-     * special characters.
+     * <p>
+     * The unique ID that Amazon MQ generates for the broker.
+     * </p>
      */
     private String brokerId;
-    /** A list of information about the configuration. */
+    /**
+     * <p>
+     * A list of information about the configuration.
+     * </p>
+     */
     private ConfigurationId configuration;
     /**
-     * The version of the broker engine. For a list of supported engine versions, see
-     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     * <p>
+     * The broker engine version. For more information, see the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html">ActiveMQ
+     * version management</a> and the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html">RabbitMQ
+     * version management</a> sections in the Amazon MQ Developer Guide.
+     * </p>
+     * <note>
+     * <p>
+     * When upgrading to ActiveMQ version 5.18 and above or RabbitMQ version 3.13 and above, you must have
+     * autoMinorVersionUpgrade set to true for the broker.
+     * </p>
+     * </note>
      */
     private String engineVersion;
-    /** Enables Amazon CloudWatch logging for brokers. */
+    /**
+     * <p>
+     * The broker's host instance type to upgrade to. For a list of supported instance types, see <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/broker.html#broker-instance-types">Broker
+     * instance types</a>.
+     * </p>
+     */
+    private String hostInstanceType;
+    /**
+     * <p>
+     * Optional. The metadata of the LDAP server used to authenticate and authorize connections to the broker. Does not
+     * apply to RabbitMQ brokers.
+     * </p>
+     */
+    private LdapServerMetadataInput ldapServerMetadata;
+    /**
+     * <p>
+     * Enables Amazon CloudWatch logging for brokers.
+     * </p>
+     */
     private Logs logs;
+    /**
+     * <p>
+     * The parameters that determine the WeeklyStartTime.
+     * </p>
+     */
+    private WeeklyStartTime maintenanceWindowStartTime;
+    /**
+     * <p>
+     * The list of security groups (1 minimum, 5 maximum) that authorizes connections to brokers.
+     * </p>
+     */
+    private java.util.List<String> securityGroups;
+    /**
+     * <p>
+     * Defines whether this broker is a part of a data replication pair.
+     * </p>
+     */
+    private String dataReplicationMode;
 
     /**
-     * Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions. The automatic
-     * upgrades occur during the maintenance window of the broker or after a manual broker reboot.
+     * <p>
+     * Optional. The authentication strategy used to secure the broker. The default is SIMPLE.
+     * </p>
+     * 
+     * @param authenticationStrategy
+     *        Optional. The authentication strategy used to secure the broker. The default is SIMPLE.
+     * @see AuthenticationStrategy
+     */
+
+    public void setAuthenticationStrategy(String authenticationStrategy) {
+        this.authenticationStrategy = authenticationStrategy;
+    }
+
+    /**
+     * <p>
+     * Optional. The authentication strategy used to secure the broker. The default is SIMPLE.
+     * </p>
+     * 
+     * @return Optional. The authentication strategy used to secure the broker. The default is SIMPLE.
+     * @see AuthenticationStrategy
+     */
+
+    public String getAuthenticationStrategy() {
+        return this.authenticationStrategy;
+    }
+
+    /**
+     * <p>
+     * Optional. The authentication strategy used to secure the broker. The default is SIMPLE.
+     * </p>
+     * 
+     * @param authenticationStrategy
+     *        Optional. The authentication strategy used to secure the broker. The default is SIMPLE.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AuthenticationStrategy
+     */
+
+    public UpdateBrokerRequest withAuthenticationStrategy(String authenticationStrategy) {
+        setAuthenticationStrategy(authenticationStrategy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Optional. The authentication strategy used to secure the broker. The default is SIMPLE.
+     * </p>
+     * 
+     * @param authenticationStrategy
+     *        Optional. The authentication strategy used to secure the broker. The default is SIMPLE.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AuthenticationStrategy
+     */
+
+    public UpdateBrokerRequest withAuthenticationStrategy(AuthenticationStrategy authenticationStrategy) {
+        this.authenticationStrategy = authenticationStrategy.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enables automatic upgrades to new patch versions for brokers as new versions are released and supported by Amazon
+     * MQ. Automatic upgrades occur during the scheduled maintenance window or after a manual broker reboot.
+     * </p>
+     * <note>
+     * <p>
+     * Must be set to true for ActiveMQ brokers version 5.18 and above and for RabbitMQ brokers version 3.13 and above.
+     * </p>
+     * </note>
      * 
      * @param autoMinorVersionUpgrade
-     *        Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions. The
-     *        automatic upgrades occur during the maintenance window of the broker or after a manual broker reboot.
+     *        Enables automatic upgrades to new patch versions for brokers as new versions are released and supported by
+     *        Amazon MQ. Automatic upgrades occur during the scheduled maintenance window or after a manual broker
+     *        reboot.</p> <note>
+     *        <p>
+     *        Must be set to true for ActiveMQ brokers version 5.18 and above and for RabbitMQ brokers version 3.13 and
+     *        above.
+     *        </p>
      */
 
     public void setAutoMinorVersionUpgrade(Boolean autoMinorVersionUpgrade) {
@@ -61,11 +199,23 @@ public class UpdateBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
-     * Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions. The automatic
-     * upgrades occur during the maintenance window of the broker or after a manual broker reboot.
+     * <p>
+     * Enables automatic upgrades to new patch versions for brokers as new versions are released and supported by Amazon
+     * MQ. Automatic upgrades occur during the scheduled maintenance window or after a manual broker reboot.
+     * </p>
+     * <note>
+     * <p>
+     * Must be set to true for ActiveMQ brokers version 5.18 and above and for RabbitMQ brokers version 3.13 and above.
+     * </p>
+     * </note>
      * 
-     * @return Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions. The
-     *         automatic upgrades occur during the maintenance window of the broker or after a manual broker reboot.
+     * @return Enables automatic upgrades to new patch versions for brokers as new versions are released and supported
+     *         by Amazon MQ. Automatic upgrades occur during the scheduled maintenance window or after a manual broker
+     *         reboot.</p> <note>
+     *         <p>
+     *         Must be set to true for ActiveMQ brokers version 5.18 and above and for RabbitMQ brokers version 3.13 and
+     *         above.
+     *         </p>
      */
 
     public Boolean getAutoMinorVersionUpgrade() {
@@ -73,12 +223,24 @@ public class UpdateBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
-     * Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions. The automatic
-     * upgrades occur during the maintenance window of the broker or after a manual broker reboot.
+     * <p>
+     * Enables automatic upgrades to new patch versions for brokers as new versions are released and supported by Amazon
+     * MQ. Automatic upgrades occur during the scheduled maintenance window or after a manual broker reboot.
+     * </p>
+     * <note>
+     * <p>
+     * Must be set to true for ActiveMQ brokers version 5.18 and above and for RabbitMQ brokers version 3.13 and above.
+     * </p>
+     * </note>
      * 
      * @param autoMinorVersionUpgrade
-     *        Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions. The
-     *        automatic upgrades occur during the maintenance window of the broker or after a manual broker reboot.
+     *        Enables automatic upgrades to new patch versions for brokers as new versions are released and supported by
+     *        Amazon MQ. Automatic upgrades occur during the scheduled maintenance window or after a manual broker
+     *        reboot.</p> <note>
+     *        <p>
+     *        Must be set to true for ActiveMQ brokers version 5.18 and above and for RabbitMQ brokers version 3.13 and
+     *        above.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -88,11 +250,23 @@ public class UpdateBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
-     * Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions. The automatic
-     * upgrades occur during the maintenance window of the broker or after a manual broker reboot.
+     * <p>
+     * Enables automatic upgrades to new patch versions for brokers as new versions are released and supported by Amazon
+     * MQ. Automatic upgrades occur during the scheduled maintenance window or after a manual broker reboot.
+     * </p>
+     * <note>
+     * <p>
+     * Must be set to true for ActiveMQ brokers version 5.18 and above and for RabbitMQ brokers version 3.13 and above.
+     * </p>
+     * </note>
      * 
-     * @return Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions. The
-     *         automatic upgrades occur during the maintenance window of the broker or after a manual broker reboot.
+     * @return Enables automatic upgrades to new patch versions for brokers as new versions are released and supported
+     *         by Amazon MQ. Automatic upgrades occur during the scheduled maintenance window or after a manual broker
+     *         reboot.</p> <note>
+     *         <p>
+     *         Must be set to true for ActiveMQ brokers version 5.18 and above and for RabbitMQ brokers version 3.13 and
+     *         above.
+     *         </p>
      */
 
     public Boolean isAutoMinorVersionUpgrade() {
@@ -100,14 +274,12 @@ public class UpdateBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
-     * The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain only
-     * letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard characters, or
-     * special characters.
+     * <p>
+     * The unique ID that Amazon MQ generates for the broker.
+     * </p>
      * 
      * @param brokerId
-     *        The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain
-     *        only letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard
-     *        characters, or special characters.
+     *        The unique ID that Amazon MQ generates for the broker.
      */
 
     public void setBrokerId(String brokerId) {
@@ -115,13 +287,11 @@ public class UpdateBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
-     * The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain only
-     * letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard characters, or
-     * special characters.
+     * <p>
+     * The unique ID that Amazon MQ generates for the broker.
+     * </p>
      * 
-     * @return The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain
-     *         only letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard
-     *         characters, or special characters.
+     * @return The unique ID that Amazon MQ generates for the broker.
      */
 
     public String getBrokerId() {
@@ -129,14 +299,12 @@ public class UpdateBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
-     * The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain only
-     * letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard characters, or
-     * special characters.
+     * <p>
+     * The unique ID that Amazon MQ generates for the broker.
+     * </p>
      * 
      * @param brokerId
-     *        The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain
-     *        only letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard
-     *        characters, or special characters.
+     *        The unique ID that Amazon MQ generates for the broker.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -146,7 +314,9 @@ public class UpdateBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
+     * <p>
      * A list of information about the configuration.
+     * </p>
      * 
      * @param configuration
      *        A list of information about the configuration.
@@ -157,7 +327,9 @@ public class UpdateBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
+     * <p>
      * A list of information about the configuration.
+     * </p>
      * 
      * @return A list of information about the configuration.
      */
@@ -167,7 +339,9 @@ public class UpdateBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
+     * <p>
      * A list of information about the configuration.
+     * </p>
      * 
      * @param configuration
      *        A list of information about the configuration.
@@ -180,12 +354,30 @@ public class UpdateBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
-     * The version of the broker engine. For a list of supported engine versions, see
-     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     * <p>
+     * The broker engine version. For more information, see the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html">ActiveMQ
+     * version management</a> and the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html">RabbitMQ
+     * version management</a> sections in the Amazon MQ Developer Guide.
+     * </p>
+     * <note>
+     * <p>
+     * When upgrading to ActiveMQ version 5.18 and above or RabbitMQ version 3.13 and above, you must have
+     * autoMinorVersionUpgrade set to true for the broker.
+     * </p>
+     * </note>
      * 
      * @param engineVersion
-     *        The version of the broker engine. For a list of supported engine versions, see
-     *        https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     *        The broker engine version. For more information, see the <a
+     *        href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html"
+     *        >ActiveMQ version management</a> and the <a
+     *        href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html"
+     *        >RabbitMQ version management</a> sections in the Amazon MQ Developer Guide.</p> <note>
+     *        <p>
+     *        When upgrading to ActiveMQ version 5.18 and above or RabbitMQ version 3.13 and above, you must have
+     *        autoMinorVersionUpgrade set to true for the broker.
+     *        </p>
      */
 
     public void setEngineVersion(String engineVersion) {
@@ -193,11 +385,29 @@ public class UpdateBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
-     * The version of the broker engine. For a list of supported engine versions, see
-     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     * <p>
+     * The broker engine version. For more information, see the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html">ActiveMQ
+     * version management</a> and the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html">RabbitMQ
+     * version management</a> sections in the Amazon MQ Developer Guide.
+     * </p>
+     * <note>
+     * <p>
+     * When upgrading to ActiveMQ version 5.18 and above or RabbitMQ version 3.13 and above, you must have
+     * autoMinorVersionUpgrade set to true for the broker.
+     * </p>
+     * </note>
      * 
-     * @return The version of the broker engine. For a list of supported engine versions, see
-     *         https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     * @return The broker engine version. For more information, see the <a
+     *         href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html"
+     *         >ActiveMQ version management</a> and the <a
+     *         href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html"
+     *         >RabbitMQ version management</a> sections in the Amazon MQ Developer Guide.</p> <note>
+     *         <p>
+     *         When upgrading to ActiveMQ version 5.18 and above or RabbitMQ version 3.13 and above, you must have
+     *         autoMinorVersionUpgrade set to true for the broker.
+     *         </p>
      */
 
     public String getEngineVersion() {
@@ -205,12 +415,30 @@ public class UpdateBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
-     * The version of the broker engine. For a list of supported engine versions, see
-     * https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     * <p>
+     * The broker engine version. For more information, see the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html">ActiveMQ
+     * version management</a> and the <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html">RabbitMQ
+     * version management</a> sections in the Amazon MQ Developer Guide.
+     * </p>
+     * <note>
+     * <p>
+     * When upgrading to ActiveMQ version 5.18 and above or RabbitMQ version 3.13 and above, you must have
+     * autoMinorVersionUpgrade set to true for the broker.
+     * </p>
+     * </note>
      * 
      * @param engineVersion
-     *        The version of the broker engine. For a list of supported engine versions, see
-     *        https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+     *        The broker engine version. For more information, see the <a
+     *        href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/activemq-version-management.html"
+     *        >ActiveMQ version management</a> and the <a
+     *        href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/rabbitmq-version-management.html"
+     *        >RabbitMQ version management</a> sections in the Amazon MQ Developer Guide.</p> <note>
+     *        <p>
+     *        When upgrading to ActiveMQ version 5.18 and above or RabbitMQ version 3.13 and above, you must have
+     *        autoMinorVersionUpgrade set to true for the broker.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -220,7 +448,107 @@ public class UpdateBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
+     * <p>
+     * The broker's host instance type to upgrade to. For a list of supported instance types, see <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/broker.html#broker-instance-types">Broker
+     * instance types</a>.
+     * </p>
+     * 
+     * @param hostInstanceType
+     *        The broker's host instance type to upgrade to. For a list of supported instance types, see <a
+     *        href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/broker.html#broker-instance-types"
+     *        >Broker instance types</a>.
+     */
+
+    public void setHostInstanceType(String hostInstanceType) {
+        this.hostInstanceType = hostInstanceType;
+    }
+
+    /**
+     * <p>
+     * The broker's host instance type to upgrade to. For a list of supported instance types, see <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/broker.html#broker-instance-types">Broker
+     * instance types</a>.
+     * </p>
+     * 
+     * @return The broker's host instance type to upgrade to. For a list of supported instance types, see <a
+     *         href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/broker.html#broker-instance-types"
+     *         >Broker instance types</a>.
+     */
+
+    public String getHostInstanceType() {
+        return this.hostInstanceType;
+    }
+
+    /**
+     * <p>
+     * The broker's host instance type to upgrade to. For a list of supported instance types, see <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/broker.html#broker-instance-types">Broker
+     * instance types</a>.
+     * </p>
+     * 
+     * @param hostInstanceType
+     *        The broker's host instance type to upgrade to. For a list of supported instance types, see <a
+     *        href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/broker.html#broker-instance-types"
+     *        >Broker instance types</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateBrokerRequest withHostInstanceType(String hostInstanceType) {
+        setHostInstanceType(hostInstanceType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Optional. The metadata of the LDAP server used to authenticate and authorize connections to the broker. Does not
+     * apply to RabbitMQ brokers.
+     * </p>
+     * 
+     * @param ldapServerMetadata
+     *        Optional. The metadata of the LDAP server used to authenticate and authorize connections to the broker.
+     *        Does not apply to RabbitMQ brokers.
+     */
+
+    public void setLdapServerMetadata(LdapServerMetadataInput ldapServerMetadata) {
+        this.ldapServerMetadata = ldapServerMetadata;
+    }
+
+    /**
+     * <p>
+     * Optional. The metadata of the LDAP server used to authenticate and authorize connections to the broker. Does not
+     * apply to RabbitMQ brokers.
+     * </p>
+     * 
+     * @return Optional. The metadata of the LDAP server used to authenticate and authorize connections to the broker.
+     *         Does not apply to RabbitMQ brokers.
+     */
+
+    public LdapServerMetadataInput getLdapServerMetadata() {
+        return this.ldapServerMetadata;
+    }
+
+    /**
+     * <p>
+     * Optional. The metadata of the LDAP server used to authenticate and authorize connections to the broker. Does not
+     * apply to RabbitMQ brokers.
+     * </p>
+     * 
+     * @param ldapServerMetadata
+     *        Optional. The metadata of the LDAP server used to authenticate and authorize connections to the broker.
+     *        Does not apply to RabbitMQ brokers.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateBrokerRequest withLdapServerMetadata(LdapServerMetadataInput ldapServerMetadata) {
+        setLdapServerMetadata(ldapServerMetadata);
+        return this;
+    }
+
+    /**
+     * <p>
      * Enables Amazon CloudWatch logging for brokers.
+     * </p>
      * 
      * @param logs
      *        Enables Amazon CloudWatch logging for brokers.
@@ -231,7 +559,9 @@ public class UpdateBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
+     * <p>
      * Enables Amazon CloudWatch logging for brokers.
+     * </p>
      * 
      * @return Enables Amazon CloudWatch logging for brokers.
      */
@@ -241,7 +571,9 @@ public class UpdateBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
+     * <p>
      * Enables Amazon CloudWatch logging for brokers.
+     * </p>
      * 
      * @param logs
      *        Enables Amazon CloudWatch logging for brokers.
@@ -250,6 +582,175 @@ public class UpdateBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     public UpdateBrokerRequest withLogs(Logs logs) {
         setLogs(logs);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The parameters that determine the WeeklyStartTime.
+     * </p>
+     * 
+     * @param maintenanceWindowStartTime
+     *        The parameters that determine the WeeklyStartTime.
+     */
+
+    public void setMaintenanceWindowStartTime(WeeklyStartTime maintenanceWindowStartTime) {
+        this.maintenanceWindowStartTime = maintenanceWindowStartTime;
+    }
+
+    /**
+     * <p>
+     * The parameters that determine the WeeklyStartTime.
+     * </p>
+     * 
+     * @return The parameters that determine the WeeklyStartTime.
+     */
+
+    public WeeklyStartTime getMaintenanceWindowStartTime() {
+        return this.maintenanceWindowStartTime;
+    }
+
+    /**
+     * <p>
+     * The parameters that determine the WeeklyStartTime.
+     * </p>
+     * 
+     * @param maintenanceWindowStartTime
+     *        The parameters that determine the WeeklyStartTime.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateBrokerRequest withMaintenanceWindowStartTime(WeeklyStartTime maintenanceWindowStartTime) {
+        setMaintenanceWindowStartTime(maintenanceWindowStartTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of security groups (1 minimum, 5 maximum) that authorizes connections to brokers.
+     * </p>
+     * 
+     * @return The list of security groups (1 minimum, 5 maximum) that authorizes connections to brokers.
+     */
+
+    public java.util.List<String> getSecurityGroups() {
+        return securityGroups;
+    }
+
+    /**
+     * <p>
+     * The list of security groups (1 minimum, 5 maximum) that authorizes connections to brokers.
+     * </p>
+     * 
+     * @param securityGroups
+     *        The list of security groups (1 minimum, 5 maximum) that authorizes connections to brokers.
+     */
+
+    public void setSecurityGroups(java.util.Collection<String> securityGroups) {
+        if (securityGroups == null) {
+            this.securityGroups = null;
+            return;
+        }
+
+        this.securityGroups = new java.util.ArrayList<String>(securityGroups);
+    }
+
+    /**
+     * <p>
+     * The list of security groups (1 minimum, 5 maximum) that authorizes connections to brokers.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSecurityGroups(java.util.Collection)} or {@link #withSecurityGroups(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param securityGroups
+     *        The list of security groups (1 minimum, 5 maximum) that authorizes connections to brokers.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateBrokerRequest withSecurityGroups(String... securityGroups) {
+        if (this.securityGroups == null) {
+            setSecurityGroups(new java.util.ArrayList<String>(securityGroups.length));
+        }
+        for (String ele : securityGroups) {
+            this.securityGroups.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of security groups (1 minimum, 5 maximum) that authorizes connections to brokers.
+     * </p>
+     * 
+     * @param securityGroups
+     *        The list of security groups (1 minimum, 5 maximum) that authorizes connections to brokers.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateBrokerRequest withSecurityGroups(java.util.Collection<String> securityGroups) {
+        setSecurityGroups(securityGroups);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Defines whether this broker is a part of a data replication pair.
+     * </p>
+     * 
+     * @param dataReplicationMode
+     *        Defines whether this broker is a part of a data replication pair.
+     * @see DataReplicationMode
+     */
+
+    public void setDataReplicationMode(String dataReplicationMode) {
+        this.dataReplicationMode = dataReplicationMode;
+    }
+
+    /**
+     * <p>
+     * Defines whether this broker is a part of a data replication pair.
+     * </p>
+     * 
+     * @return Defines whether this broker is a part of a data replication pair.
+     * @see DataReplicationMode
+     */
+
+    public String getDataReplicationMode() {
+        return this.dataReplicationMode;
+    }
+
+    /**
+     * <p>
+     * Defines whether this broker is a part of a data replication pair.
+     * </p>
+     * 
+     * @param dataReplicationMode
+     *        Defines whether this broker is a part of a data replication pair.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DataReplicationMode
+     */
+
+    public UpdateBrokerRequest withDataReplicationMode(String dataReplicationMode) {
+        setDataReplicationMode(dataReplicationMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Defines whether this broker is a part of a data replication pair.
+     * </p>
+     * 
+     * @param dataReplicationMode
+     *        Defines whether this broker is a part of a data replication pair.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DataReplicationMode
+     */
+
+    public UpdateBrokerRequest withDataReplicationMode(DataReplicationMode dataReplicationMode) {
+        this.dataReplicationMode = dataReplicationMode.toString();
         return this;
     }
 
@@ -265,6 +766,8 @@ public class UpdateBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getAuthenticationStrategy() != null)
+            sb.append("AuthenticationStrategy: ").append(getAuthenticationStrategy()).append(",");
         if (getAutoMinorVersionUpgrade() != null)
             sb.append("AutoMinorVersionUpgrade: ").append(getAutoMinorVersionUpgrade()).append(",");
         if (getBrokerId() != null)
@@ -273,8 +776,18 @@ public class UpdateBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
             sb.append("Configuration: ").append(getConfiguration()).append(",");
         if (getEngineVersion() != null)
             sb.append("EngineVersion: ").append(getEngineVersion()).append(",");
+        if (getHostInstanceType() != null)
+            sb.append("HostInstanceType: ").append(getHostInstanceType()).append(",");
+        if (getLdapServerMetadata() != null)
+            sb.append("LdapServerMetadata: ").append(getLdapServerMetadata()).append(",");
         if (getLogs() != null)
-            sb.append("Logs: ").append(getLogs());
+            sb.append("Logs: ").append(getLogs()).append(",");
+        if (getMaintenanceWindowStartTime() != null)
+            sb.append("MaintenanceWindowStartTime: ").append(getMaintenanceWindowStartTime()).append(",");
+        if (getSecurityGroups() != null)
+            sb.append("SecurityGroups: ").append(getSecurityGroups()).append(",");
+        if (getDataReplicationMode() != null)
+            sb.append("DataReplicationMode: ").append(getDataReplicationMode());
         sb.append("}");
         return sb.toString();
     }
@@ -289,6 +802,10 @@ public class UpdateBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
         if (obj instanceof UpdateBrokerRequest == false)
             return false;
         UpdateBrokerRequest other = (UpdateBrokerRequest) obj;
+        if (other.getAuthenticationStrategy() == null ^ this.getAuthenticationStrategy() == null)
+            return false;
+        if (other.getAuthenticationStrategy() != null && other.getAuthenticationStrategy().equals(this.getAuthenticationStrategy()) == false)
+            return false;
         if (other.getAutoMinorVersionUpgrade() == null ^ this.getAutoMinorVersionUpgrade() == null)
             return false;
         if (other.getAutoMinorVersionUpgrade() != null && other.getAutoMinorVersionUpgrade().equals(this.getAutoMinorVersionUpgrade()) == false)
@@ -305,9 +822,29 @@ public class UpdateBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
             return false;
         if (other.getEngineVersion() != null && other.getEngineVersion().equals(this.getEngineVersion()) == false)
             return false;
+        if (other.getHostInstanceType() == null ^ this.getHostInstanceType() == null)
+            return false;
+        if (other.getHostInstanceType() != null && other.getHostInstanceType().equals(this.getHostInstanceType()) == false)
+            return false;
+        if (other.getLdapServerMetadata() == null ^ this.getLdapServerMetadata() == null)
+            return false;
+        if (other.getLdapServerMetadata() != null && other.getLdapServerMetadata().equals(this.getLdapServerMetadata()) == false)
+            return false;
         if (other.getLogs() == null ^ this.getLogs() == null)
             return false;
         if (other.getLogs() != null && other.getLogs().equals(this.getLogs()) == false)
+            return false;
+        if (other.getMaintenanceWindowStartTime() == null ^ this.getMaintenanceWindowStartTime() == null)
+            return false;
+        if (other.getMaintenanceWindowStartTime() != null && other.getMaintenanceWindowStartTime().equals(this.getMaintenanceWindowStartTime()) == false)
+            return false;
+        if (other.getSecurityGroups() == null ^ this.getSecurityGroups() == null)
+            return false;
+        if (other.getSecurityGroups() != null && other.getSecurityGroups().equals(this.getSecurityGroups()) == false)
+            return false;
+        if (other.getDataReplicationMode() == null ^ this.getDataReplicationMode() == null)
+            return false;
+        if (other.getDataReplicationMode() != null && other.getDataReplicationMode().equals(this.getDataReplicationMode()) == false)
             return false;
         return true;
     }
@@ -317,11 +854,17 @@ public class UpdateBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getAuthenticationStrategy() == null) ? 0 : getAuthenticationStrategy().hashCode());
         hashCode = prime * hashCode + ((getAutoMinorVersionUpgrade() == null) ? 0 : getAutoMinorVersionUpgrade().hashCode());
         hashCode = prime * hashCode + ((getBrokerId() == null) ? 0 : getBrokerId().hashCode());
         hashCode = prime * hashCode + ((getConfiguration() == null) ? 0 : getConfiguration().hashCode());
         hashCode = prime * hashCode + ((getEngineVersion() == null) ? 0 : getEngineVersion().hashCode());
+        hashCode = prime * hashCode + ((getHostInstanceType() == null) ? 0 : getHostInstanceType().hashCode());
+        hashCode = prime * hashCode + ((getLdapServerMetadata() == null) ? 0 : getLdapServerMetadata().hashCode());
         hashCode = prime * hashCode + ((getLogs() == null) ? 0 : getLogs().hashCode());
+        hashCode = prime * hashCode + ((getMaintenanceWindowStartTime() == null) ? 0 : getMaintenanceWindowStartTime().hashCode());
+        hashCode = prime * hashCode + ((getSecurityGroups() == null) ? 0 : getSecurityGroups().hashCode());
+        hashCode = prime * hashCode + ((getDataReplicationMode() == null) ? 0 : getDataReplicationMode().hashCode());
         return hashCode;
     }
 

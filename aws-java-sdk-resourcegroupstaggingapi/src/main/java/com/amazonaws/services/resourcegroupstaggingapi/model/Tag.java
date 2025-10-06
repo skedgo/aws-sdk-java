@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,10 +19,10 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The metadata that you apply to AWS resources to help you categorize and organize them. Each tag consists of a key and
- * an optional value, both of which you define. For more information, see <a
- * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-basics">Tag Basics</a> in the <i>Amazon
- * EC2 User Guide for Linux Instances</i>.
+ * The metadata that you apply to Amazon Web Services resources to help you categorize and organize them. Each tag
+ * consists of a key and a value, both of which you define. For more information, see <a
+ * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a> in
+ * the <i>Amazon Web Services General Reference</i>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/resourcegroupstaggingapi-2017-01-26/Tag" target="_top">AWS API
@@ -33,27 +33,27 @@ public class Tag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * One part of a key-value pair that make up a tag. A key is a general label that acts like a category for more
+     * One part of a key-value pair that makes up a tag. A key is a general label that acts like a category for more
      * specific tag values.
      * </p>
      */
     private String key;
     /**
      * <p>
-     * The optional part of a key-value pair that make up a tag. A value acts as a descriptor within a tag category
-     * (key).
+     * One part of a key-value pair that make up a tag. A value acts as a descriptor within a tag category (key). The
+     * value can be empty or null.
      * </p>
      */
     private String value;
 
     /**
      * <p>
-     * One part of a key-value pair that make up a tag. A key is a general label that acts like a category for more
+     * One part of a key-value pair that makes up a tag. A key is a general label that acts like a category for more
      * specific tag values.
      * </p>
      * 
      * @param key
-     *        One part of a key-value pair that make up a tag. A key is a general label that acts like a category for
+     *        One part of a key-value pair that makes up a tag. A key is a general label that acts like a category for
      *        more specific tag values.
      */
 
@@ -63,11 +63,11 @@ public class Tag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * One part of a key-value pair that make up a tag. A key is a general label that acts like a category for more
+     * One part of a key-value pair that makes up a tag. A key is a general label that acts like a category for more
      * specific tag values.
      * </p>
      * 
-     * @return One part of a key-value pair that make up a tag. A key is a general label that acts like a category for
+     * @return One part of a key-value pair that makes up a tag. A key is a general label that acts like a category for
      *         more specific tag values.
      */
 
@@ -77,12 +77,12 @@ public class Tag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * One part of a key-value pair that make up a tag. A key is a general label that acts like a category for more
+     * One part of a key-value pair that makes up a tag. A key is a general label that acts like a category for more
      * specific tag values.
      * </p>
      * 
      * @param key
-     *        One part of a key-value pair that make up a tag. A key is a general label that acts like a category for
+     *        One part of a key-value pair that makes up a tag. A key is a general label that acts like a category for
      *        more specific tag values.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -94,13 +94,13 @@ public class Tag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The optional part of a key-value pair that make up a tag. A value acts as a descriptor within a tag category
-     * (key).
+     * One part of a key-value pair that make up a tag. A value acts as a descriptor within a tag category (key). The
+     * value can be empty or null.
      * </p>
      * 
      * @param value
-     *        The optional part of a key-value pair that make up a tag. A value acts as a descriptor within a tag
-     *        category (key).
+     *        One part of a key-value pair that make up a tag. A value acts as a descriptor within a tag category (key).
+     *        The value can be empty or null.
      */
 
     public void setValue(String value) {
@@ -109,12 +109,12 @@ public class Tag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The optional part of a key-value pair that make up a tag. A value acts as a descriptor within a tag category
-     * (key).
+     * One part of a key-value pair that make up a tag. A value acts as a descriptor within a tag category (key). The
+     * value can be empty or null.
      * </p>
      * 
-     * @return The optional part of a key-value pair that make up a tag. A value acts as a descriptor within a tag
-     *         category (key).
+     * @return One part of a key-value pair that make up a tag. A value acts as a descriptor within a tag category
+     *         (key). The value can be empty or null.
      */
 
     public String getValue() {
@@ -123,13 +123,13 @@ public class Tag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The optional part of a key-value pair that make up a tag. A value acts as a descriptor within a tag category
-     * (key).
+     * One part of a key-value pair that make up a tag. A value acts as a descriptor within a tag category (key). The
+     * value can be empty or null.
      * </p>
      * 
      * @param value
-     *        The optional part of a key-value pair that make up a tag. A value acts as a descriptor within a tag
-     *        category (key).
+     *        One part of a key-value pair that make up a tag. A value acts as a descriptor within a tag category (key).
+     *        The value can be empty or null.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

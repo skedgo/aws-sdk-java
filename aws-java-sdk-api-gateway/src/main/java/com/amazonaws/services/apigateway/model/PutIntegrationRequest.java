@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,67 +27,53 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      */
     private String restApiId;
     /**
      * <p>
-     * [Required] Specifies a put integration request's resource ID.
+     * Specifies a put integration request's resource ID.
      * </p>
      */
     private String resourceId;
     /**
      * <p>
-     * [Required] Specifies a put integration request's HTTP method.
+     * Specifies the HTTP method for the integration.
      * </p>
      */
     private String httpMethod;
     /**
      * <p>
-     * [Required] Specifies a put integration input's type.
+     * Specifies a put integration input's type.
      * </p>
      */
     private String type;
     /**
      * <p>
-     * Specifies a put integration HTTP method. When the integration type is HTTP or AWS, this field is required.
+     * The HTTP method for the integration.
      * </p>
      */
     private String integrationHttpMethod;
     /**
      * <p>
-     * Specifies Uniform Resource Identifier (URI) of the integration endpoint.
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * For <code>HTTP</code> or <code>HTTP_PROXY</code> integrations, the URI must be a fully formed, encoded HTTP(S)
-     * URL according to the <a target="_blank" href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">RFC-3986
-     * specification</a>, for either standard integration, where <code>connectionType</code> is not
-     * <code>VPC_LINK</code>, or private integration, where <code>connectionType</code> is <code>VPC_LINK</code>. For a
-     * private HTTP integration, the URI is not used for routing.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * For <code>AWS</code> or <code>AWS_PROXY</code> integrations, the URI is of the form
-     * <code>arn:aws:apigateway:{region}:{subdomain.service|service}:path|action/{service_api}</code>. Here,
-     * <code>{Region}</code> is the API Gateway region (e.g., <code>us-east-1</code>); <code>{service}</code> is the
-     * name of the integrated AWS service (e.g., <code>s3</code>); and <code>{subdomain}</code> is a designated
-     * subdomain supported by certain AWS service for fast host-name lookup. <code>action</code> can be used for an AWS
-     * service action-based API, using an <code>Action={name}&amp;{p1}={v1}&amp;p2={v2}...</code> query string. The
-     * ensuing <code>{service_api}</code> refers to a supported action <code>{name}</code> plus any required input
-     * parameters. Alternatively, <code>path</code> can be used for an AWS service path-based API. The ensuing
-     * <code>service_api</code> refers to the path to an AWS service resource, including the region of the integrated
-     * AWS service, if applicable. For example, for integration with the S3 API of
-     * <code><a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectGET.html">GetObject</a></code>, the
-     * <code>uri</code> can be either
+     * Specifies Uniform Resource Identifier (URI) of the integration endpoint. For HTTP or <code>HTTP_PROXY</code>
+     * integrations, the URI must be a fully formed, encoded HTTP(S) URL according to the RFC-3986 specification, for
+     * either standard integration, where <code>connectionType</code> is not <code>VPC_LINK</code>, or private
+     * integration, where <code>connectionType</code> is <code>VPC_LINK</code>. For a private HTTP integration, the URI
+     * is not used for routing. For <code>AWS</code> or <code>AWS_PROXY</code> integrations, the URI is of the form
+     * <code>arn:aws:apigateway:{region}:{subdomain.service|service}:path|action/{service_api</code> . Here, {Region} is
+     * the API Gateway region (e.g., us-east-1); {service} is the name of the integrated Amazon Web Services service
+     * (e.g., s3); and {subdomain} is a designated subdomain supported by certain Amazon Web Services service for fast
+     * host-name lookup. action can be used for an Amazon Web Services service action-based API, using an
+     * Action={name}&amp;{p1}={v1}&amp;p2={v2}... query string. The ensuing {service_api} refers to a supported action
+     * {name} plus any required input parameters. Alternatively, path can be used for an Amazon Web Services service
+     * path-based API. The ensuing service_api refers to the path to an Amazon Web Services service resource, including
+     * the region of the integrated Amazon Web Services service, if applicable. For example, for integration with the S3
+     * API of <code>GetObject</code>, the <code>uri</code> can be either
      * <code>arn:aws:apigateway:us-west-2:s3:action/GetObject&amp;Bucket={bucket}&amp;Key={key}</code> or
-     * <code>arn:aws:apigateway:us-west-2:s3:path/{bucket}/{key}</code>
+     * <code>arn:aws:apigateway:us-west-2:s3:path/{bucket}/{key}</code>.
      * </p>
-     * </li>
-     * </ul>
      */
     private String uri;
     /**
@@ -100,8 +86,8 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
     private String connectionType;
     /**
      * <p>
-     * The (<a href="https://docs.aws.amazon.com/apigateway/api-reference/resource/vpc-link/#id"><code>id</code></a>) of
-     * the <a>VpcLink</a> used for the integration when <code>connectionType=VPC_LINK</code> and undefined, otherwise.
+     * The ID of the VpcLink used for the integration. Specify this value only if you specify <code>VPC_LINK</code> as
+     * the connection type.
      * </p>
      */
     private String connectionId;
@@ -137,37 +123,21 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
      * resource. There are three valid values: <code>WHEN_NO_MATCH</code>, <code>WHEN_NO_TEMPLATES</code>, and
      * <code>NEVER</code>.
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <code>WHEN_NO_MATCH</code> passes the request body for unmapped content types through to the integration back end
-     * without transformation.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>NEVER</code> rejects unmapped content types with an HTTP 415 'Unsupported Media Type' response.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>WHEN_NO_TEMPLATES</code> allows pass-through when the integration has NO content types mapped to templates.
-     * However if there is at least one content type defined, unmapped content types will be rejected with the same 415
-     * response.
-     * </p>
-     * </li>
-     * </ul>
      */
     private String passthroughBehavior;
     /**
      * <p>
-     * A list of request parameters whose values are to be cached.
+     * Specifies a group of related cached parameters. By default, API Gateway uses the resource ID as the
+     * <code>cacheNamespace</code>. You can specify the same <code>cacheNamespace</code> across resources to return the
+     * same cached data for requests to different resources.
      * </p>
      */
     private String cacheNamespace;
     /**
      * <p>
-     * An API-specific tag group of related cached parameters.
+     * A list of request parameters whose values API Gateway caches. To be valid values for
+     * <code>cacheKeyParameters</code>, these parameters must also be specified for Method
+     * <code>requestParameters</code>.
      * </p>
      */
     private java.util.List<String> cacheKeyParameters;
@@ -176,19 +146,6 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
      * Specifies how to handle request payload content type conversions. Supported values are
      * <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_BINARY</code>: Converts a request payload from a Base64-encoded string to the corresponding
-     * binary blob.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_TEXT</code>: Converts a request payload from a binary blob to a Base64-encoded string.
-     * </p>
-     * </li>
-     * </ul>
      * <p>
      * If this property is not defined, the request payload will be passed through from the method request to
      * integration request without modification, provided that the <code>passthroughBehavior</code> is configured to
@@ -203,13 +160,15 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
      */
     private Integer timeoutInMillis;
 
+    private TlsConfig tlsConfig;
+
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
      * @param restApiId
-     *        [Required] The string identifier of the associated <a>RestApi</a>.
+     *        The string identifier of the associated RestApi.
      */
 
     public void setRestApiId(String restApiId) {
@@ -218,10 +177,10 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
-     * @return [Required] The string identifier of the associated <a>RestApi</a>.
+     * @return The string identifier of the associated RestApi.
      */
 
     public String getRestApiId() {
@@ -230,11 +189,11 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
      * @param restApiId
-     *        [Required] The string identifier of the associated <a>RestApi</a>.
+     *        The string identifier of the associated RestApi.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -245,11 +204,11 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * [Required] Specifies a put integration request's resource ID.
+     * Specifies a put integration request's resource ID.
      * </p>
      * 
      * @param resourceId
-     *        [Required] Specifies a put integration request's resource ID.
+     *        Specifies a put integration request's resource ID.
      */
 
     public void setResourceId(String resourceId) {
@@ -258,10 +217,10 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * [Required] Specifies a put integration request's resource ID.
+     * Specifies a put integration request's resource ID.
      * </p>
      * 
-     * @return [Required] Specifies a put integration request's resource ID.
+     * @return Specifies a put integration request's resource ID.
      */
 
     public String getResourceId() {
@@ -270,11 +229,11 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * [Required] Specifies a put integration request's resource ID.
+     * Specifies a put integration request's resource ID.
      * </p>
      * 
      * @param resourceId
-     *        [Required] Specifies a put integration request's resource ID.
+     *        Specifies a put integration request's resource ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -285,11 +244,11 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * [Required] Specifies a put integration request's HTTP method.
+     * Specifies the HTTP method for the integration.
      * </p>
      * 
      * @param httpMethod
-     *        [Required] Specifies a put integration request's HTTP method.
+     *        Specifies the HTTP method for the integration.
      */
 
     public void setHttpMethod(String httpMethod) {
@@ -298,10 +257,10 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * [Required] Specifies a put integration request's HTTP method.
+     * Specifies the HTTP method for the integration.
      * </p>
      * 
-     * @return [Required] Specifies a put integration request's HTTP method.
+     * @return Specifies the HTTP method for the integration.
      */
 
     public String getHttpMethod() {
@@ -310,11 +269,11 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * [Required] Specifies a put integration request's HTTP method.
+     * Specifies the HTTP method for the integration.
      * </p>
      * 
      * @param httpMethod
-     *        [Required] Specifies a put integration request's HTTP method.
+     *        Specifies the HTTP method for the integration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -325,11 +284,11 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * [Required] Specifies a put integration input's type.
+     * Specifies a put integration input's type.
      * </p>
      * 
      * @param type
-     *        [Required] Specifies a put integration input's type.
+     *        Specifies a put integration input's type.
      * @see IntegrationType
      */
 
@@ -339,10 +298,10 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * [Required] Specifies a put integration input's type.
+     * Specifies a put integration input's type.
      * </p>
      * 
-     * @return [Required] Specifies a put integration input's type.
+     * @return Specifies a put integration input's type.
      * @see IntegrationType
      */
 
@@ -352,11 +311,11 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * [Required] Specifies a put integration input's type.
+     * Specifies a put integration input's type.
      * </p>
      * 
      * @param type
-     *        [Required] Specifies a put integration input's type.
+     *        Specifies a put integration input's type.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see IntegrationType
      */
@@ -368,11 +327,11 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * [Required] Specifies a put integration input's type.
+     * Specifies a put integration input's type.
      * </p>
      * 
      * @param type
-     *        [Required] Specifies a put integration input's type.
+     *        Specifies a put integration input's type.
      * @see IntegrationType
      */
 
@@ -382,11 +341,11 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * [Required] Specifies a put integration input's type.
+     * Specifies a put integration input's type.
      * </p>
      * 
      * @param type
-     *        [Required] Specifies a put integration input's type.
+     *        Specifies a put integration input's type.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see IntegrationType
      */
@@ -398,11 +357,11 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Specifies a put integration HTTP method. When the integration type is HTTP or AWS, this field is required.
+     * The HTTP method for the integration.
      * </p>
      * 
      * @param integrationHttpMethod
-     *        Specifies a put integration HTTP method. When the integration type is HTTP or AWS, this field is required.
+     *        The HTTP method for the integration.
      */
 
     public void setIntegrationHttpMethod(String integrationHttpMethod) {
@@ -411,11 +370,10 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Specifies a put integration HTTP method. When the integration type is HTTP or AWS, this field is required.
+     * The HTTP method for the integration.
      * </p>
      * 
-     * @return Specifies a put integration HTTP method. When the integration type is HTTP or AWS, this field is
-     *         required.
+     * @return The HTTP method for the integration.
      */
 
     public String getIntegrationHttpMethod() {
@@ -424,11 +382,11 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Specifies a put integration HTTP method. When the integration type is HTTP or AWS, this field is required.
+     * The HTTP method for the integration.
      * </p>
      * 
      * @param integrationHttpMethod
-     *        Specifies a put integration HTTP method. When the integration type is HTTP or AWS, this field is required.
+     *        The HTTP method for the integration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -439,70 +397,43 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Specifies Uniform Resource Identifier (URI) of the integration endpoint.
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * For <code>HTTP</code> or <code>HTTP_PROXY</code> integrations, the URI must be a fully formed, encoded HTTP(S)
-     * URL according to the <a target="_blank" href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">RFC-3986
-     * specification</a>, for either standard integration, where <code>connectionType</code> is not
-     * <code>VPC_LINK</code>, or private integration, where <code>connectionType</code> is <code>VPC_LINK</code>. For a
-     * private HTTP integration, the URI is not used for routing.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * For <code>AWS</code> or <code>AWS_PROXY</code> integrations, the URI is of the form
-     * <code>arn:aws:apigateway:{region}:{subdomain.service|service}:path|action/{service_api}</code>. Here,
-     * <code>{Region}</code> is the API Gateway region (e.g., <code>us-east-1</code>); <code>{service}</code> is the
-     * name of the integrated AWS service (e.g., <code>s3</code>); and <code>{subdomain}</code> is a designated
-     * subdomain supported by certain AWS service for fast host-name lookup. <code>action</code> can be used for an AWS
-     * service action-based API, using an <code>Action={name}&amp;{p1}={v1}&amp;p2={v2}...</code> query string. The
-     * ensuing <code>{service_api}</code> refers to a supported action <code>{name}</code> plus any required input
-     * parameters. Alternatively, <code>path</code> can be used for an AWS service path-based API. The ensuing
-     * <code>service_api</code> refers to the path to an AWS service resource, including the region of the integrated
-     * AWS service, if applicable. For example, for integration with the S3 API of
-     * <code><a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectGET.html">GetObject</a></code>, the
-     * <code>uri</code> can be either
+     * Specifies Uniform Resource Identifier (URI) of the integration endpoint. For HTTP or <code>HTTP_PROXY</code>
+     * integrations, the URI must be a fully formed, encoded HTTP(S) URL according to the RFC-3986 specification, for
+     * either standard integration, where <code>connectionType</code> is not <code>VPC_LINK</code>, or private
+     * integration, where <code>connectionType</code> is <code>VPC_LINK</code>. For a private HTTP integration, the URI
+     * is not used for routing. For <code>AWS</code> or <code>AWS_PROXY</code> integrations, the URI is of the form
+     * <code>arn:aws:apigateway:{region}:{subdomain.service|service}:path|action/{service_api</code> . Here, {Region} is
+     * the API Gateway region (e.g., us-east-1); {service} is the name of the integrated Amazon Web Services service
+     * (e.g., s3); and {subdomain} is a designated subdomain supported by certain Amazon Web Services service for fast
+     * host-name lookup. action can be used for an Amazon Web Services service action-based API, using an
+     * Action={name}&amp;{p1}={v1}&amp;p2={v2}... query string. The ensuing {service_api} refers to a supported action
+     * {name} plus any required input parameters. Alternatively, path can be used for an Amazon Web Services service
+     * path-based API. The ensuing service_api refers to the path to an Amazon Web Services service resource, including
+     * the region of the integrated Amazon Web Services service, if applicable. For example, for integration with the S3
+     * API of <code>GetObject</code>, the <code>uri</code> can be either
      * <code>arn:aws:apigateway:us-west-2:s3:action/GetObject&amp;Bucket={bucket}&amp;Key={key}</code> or
-     * <code>arn:aws:apigateway:us-west-2:s3:path/{bucket}/{key}</code>
+     * <code>arn:aws:apigateway:us-west-2:s3:path/{bucket}/{key}</code>.
      * </p>
-     * </li>
-     * </ul>
      * 
      * @param uri
-     *        Specifies Uniform Resource Identifier (URI) of the integration endpoint.</p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        For <code>HTTP</code> or <code>HTTP_PROXY</code> integrations, the URI must be a fully formed, encoded
-     *        HTTP(S) URL according to the <a target="_blank"
-     *        href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">RFC-3986 specification</a>, for either
-     *        standard integration, where <code>connectionType</code> is not <code>VPC_LINK</code>, or private
-     *        integration, where <code>connectionType</code> is <code>VPC_LINK</code>. For a private HTTP integration,
-     *        the URI is not used for routing.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        For <code>AWS</code> or <code>AWS_PROXY</code> integrations, the URI is of the form
-     *        <code>arn:aws:apigateway:{region}:{subdomain.service|service}:path|action/{service_api}</code>. Here,
-     *        <code>{Region}</code> is the API Gateway region (e.g., <code>us-east-1</code>); <code>{service}</code> is
-     *        the name of the integrated AWS service (e.g., <code>s3</code>); and <code>{subdomain}</code> is a
-     *        designated subdomain supported by certain AWS service for fast host-name lookup. <code>action</code> can
-     *        be used for an AWS service action-based API, using an
-     *        <code>Action={name}&amp;{p1}={v1}&amp;p2={v2}...</code> query string. The ensuing
-     *        <code>{service_api}</code> refers to a supported action <code>{name}</code> plus any required input
-     *        parameters. Alternatively, <code>path</code> can be used for an AWS service path-based API. The ensuing
-     *        <code>service_api</code> refers to the path to an AWS service resource, including the region of the
-     *        integrated AWS service, if applicable. For example, for integration with the S3 API of
-     *        <code><a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectGET.html">GetObject</a></code>,
-     *        the <code>uri</code> can be either
+     *        Specifies Uniform Resource Identifier (URI) of the integration endpoint. For HTTP or
+     *        <code>HTTP_PROXY</code> integrations, the URI must be a fully formed, encoded HTTP(S) URL according to the
+     *        RFC-3986 specification, for either standard integration, where <code>connectionType</code> is not
+     *        <code>VPC_LINK</code>, or private integration, where <code>connectionType</code> is <code>VPC_LINK</code>.
+     *        For a private HTTP integration, the URI is not used for routing. For <code>AWS</code> or
+     *        <code>AWS_PROXY</code> integrations, the URI is of the form
+     *        <code>arn:aws:apigateway:{region}:{subdomain.service|service}:path|action/{service_api</code> . Here,
+     *        {Region} is the API Gateway region (e.g., us-east-1); {service} is the name of the integrated Amazon Web
+     *        Services service (e.g., s3); and {subdomain} is a designated subdomain supported by certain Amazon Web
+     *        Services service for fast host-name lookup. action can be used for an Amazon Web Services service
+     *        action-based API, using an Action={name}&amp;{p1}={v1}&amp;p2={v2}... query string. The ensuing
+     *        {service_api} refers to a supported action {name} plus any required input parameters. Alternatively, path
+     *        can be used for an Amazon Web Services service path-based API. The ensuing service_api refers to the path
+     *        to an Amazon Web Services service resource, including the region of the integrated Amazon Web Services
+     *        service, if applicable. For example, for integration with the S3 API of <code>GetObject</code>, the
+     *        <code>uri</code> can be either
      *        <code>arn:aws:apigateway:us-west-2:s3:action/GetObject&amp;Bucket={bucket}&amp;Key={key}</code> or
-     *        <code>arn:aws:apigateway:us-west-2:s3:path/{bucket}/{key}</code>
-     *        </p>
-     *        </li>
+     *        <code>arn:aws:apigateway:us-west-2:s3:path/{bucket}/{key}</code>.
      */
 
     public void setUri(String uri) {
@@ -511,69 +442,42 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Specifies Uniform Resource Identifier (URI) of the integration endpoint.
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * For <code>HTTP</code> or <code>HTTP_PROXY</code> integrations, the URI must be a fully formed, encoded HTTP(S)
-     * URL according to the <a target="_blank" href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">RFC-3986
-     * specification</a>, for either standard integration, where <code>connectionType</code> is not
-     * <code>VPC_LINK</code>, or private integration, where <code>connectionType</code> is <code>VPC_LINK</code>. For a
-     * private HTTP integration, the URI is not used for routing.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * For <code>AWS</code> or <code>AWS_PROXY</code> integrations, the URI is of the form
-     * <code>arn:aws:apigateway:{region}:{subdomain.service|service}:path|action/{service_api}</code>. Here,
-     * <code>{Region}</code> is the API Gateway region (e.g., <code>us-east-1</code>); <code>{service}</code> is the
-     * name of the integrated AWS service (e.g., <code>s3</code>); and <code>{subdomain}</code> is a designated
-     * subdomain supported by certain AWS service for fast host-name lookup. <code>action</code> can be used for an AWS
-     * service action-based API, using an <code>Action={name}&amp;{p1}={v1}&amp;p2={v2}...</code> query string. The
-     * ensuing <code>{service_api}</code> refers to a supported action <code>{name}</code> plus any required input
-     * parameters. Alternatively, <code>path</code> can be used for an AWS service path-based API. The ensuing
-     * <code>service_api</code> refers to the path to an AWS service resource, including the region of the integrated
-     * AWS service, if applicable. For example, for integration with the S3 API of
-     * <code><a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectGET.html">GetObject</a></code>, the
-     * <code>uri</code> can be either
+     * Specifies Uniform Resource Identifier (URI) of the integration endpoint. For HTTP or <code>HTTP_PROXY</code>
+     * integrations, the URI must be a fully formed, encoded HTTP(S) URL according to the RFC-3986 specification, for
+     * either standard integration, where <code>connectionType</code> is not <code>VPC_LINK</code>, or private
+     * integration, where <code>connectionType</code> is <code>VPC_LINK</code>. For a private HTTP integration, the URI
+     * is not used for routing. For <code>AWS</code> or <code>AWS_PROXY</code> integrations, the URI is of the form
+     * <code>arn:aws:apigateway:{region}:{subdomain.service|service}:path|action/{service_api</code> . Here, {Region} is
+     * the API Gateway region (e.g., us-east-1); {service} is the name of the integrated Amazon Web Services service
+     * (e.g., s3); and {subdomain} is a designated subdomain supported by certain Amazon Web Services service for fast
+     * host-name lookup. action can be used for an Amazon Web Services service action-based API, using an
+     * Action={name}&amp;{p1}={v1}&amp;p2={v2}... query string. The ensuing {service_api} refers to a supported action
+     * {name} plus any required input parameters. Alternatively, path can be used for an Amazon Web Services service
+     * path-based API. The ensuing service_api refers to the path to an Amazon Web Services service resource, including
+     * the region of the integrated Amazon Web Services service, if applicable. For example, for integration with the S3
+     * API of <code>GetObject</code>, the <code>uri</code> can be either
      * <code>arn:aws:apigateway:us-west-2:s3:action/GetObject&amp;Bucket={bucket}&amp;Key={key}</code> or
-     * <code>arn:aws:apigateway:us-west-2:s3:path/{bucket}/{key}</code>
+     * <code>arn:aws:apigateway:us-west-2:s3:path/{bucket}/{key}</code>.
      * </p>
-     * </li>
-     * </ul>
      * 
-     * @return Specifies Uniform Resource Identifier (URI) of the integration endpoint.</p>
-     *         <ul>
-     *         <li>
-     *         <p>
-     *         For <code>HTTP</code> or <code>HTTP_PROXY</code> integrations, the URI must be a fully formed, encoded
-     *         HTTP(S) URL according to the <a target="_blank"
-     *         href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">RFC-3986 specification</a>, for either
-     *         standard integration, where <code>connectionType</code> is not <code>VPC_LINK</code>, or private
-     *         integration, where <code>connectionType</code> is <code>VPC_LINK</code>. For a private HTTP integration,
-     *         the URI is not used for routing.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         For <code>AWS</code> or <code>AWS_PROXY</code> integrations, the URI is of the form
-     *         <code>arn:aws:apigateway:{region}:{subdomain.service|service}:path|action/{service_api}</code>. Here,
-     *         <code>{Region}</code> is the API Gateway region (e.g., <code>us-east-1</code>); <code>{service}</code> is
-     *         the name of the integrated AWS service (e.g., <code>s3</code>); and <code>{subdomain}</code> is a
-     *         designated subdomain supported by certain AWS service for fast host-name lookup. <code>action</code> can
-     *         be used for an AWS service action-based API, using an
-     *         <code>Action={name}&amp;{p1}={v1}&amp;p2={v2}...</code> query string. The ensuing
-     *         <code>{service_api}</code> refers to a supported action <code>{name}</code> plus any required input
-     *         parameters. Alternatively, <code>path</code> can be used for an AWS service path-based API. The ensuing
-     *         <code>service_api</code> refers to the path to an AWS service resource, including the region of the
-     *         integrated AWS service, if applicable. For example, for integration with the S3 API of
-     *         <code><a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectGET.html">GetObject</a></code>,
-     *         the <code>uri</code> can be either
+     * @return Specifies Uniform Resource Identifier (URI) of the integration endpoint. For HTTP or
+     *         <code>HTTP_PROXY</code> integrations, the URI must be a fully formed, encoded HTTP(S) URL according to
+     *         the RFC-3986 specification, for either standard integration, where <code>connectionType</code> is not
+     *         <code>VPC_LINK</code>, or private integration, where <code>connectionType</code> is <code>VPC_LINK</code>
+     *         . For a private HTTP integration, the URI is not used for routing. For <code>AWS</code> or
+     *         <code>AWS_PROXY</code> integrations, the URI is of the form
+     *         <code>arn:aws:apigateway:{region}:{subdomain.service|service}:path|action/{service_api</code> . Here,
+     *         {Region} is the API Gateway region (e.g., us-east-1); {service} is the name of the integrated Amazon Web
+     *         Services service (e.g., s3); and {subdomain} is a designated subdomain supported by certain Amazon Web
+     *         Services service for fast host-name lookup. action can be used for an Amazon Web Services service
+     *         action-based API, using an Action={name}&amp;{p1}={v1}&amp;p2={v2}... query string. The ensuing
+     *         {service_api} refers to a supported action {name} plus any required input parameters. Alternatively, path
+     *         can be used for an Amazon Web Services service path-based API. The ensuing service_api refers to the path
+     *         to an Amazon Web Services service resource, including the region of the integrated Amazon Web Services
+     *         service, if applicable. For example, for integration with the S3 API of <code>GetObject</code>, the
+     *         <code>uri</code> can be either
      *         <code>arn:aws:apigateway:us-west-2:s3:action/GetObject&amp;Bucket={bucket}&amp;Key={key}</code> or
-     *         <code>arn:aws:apigateway:us-west-2:s3:path/{bucket}/{key}</code>
-     *         </p>
-     *         </li>
+     *         <code>arn:aws:apigateway:us-west-2:s3:path/{bucket}/{key}</code>.
      */
 
     public String getUri() {
@@ -582,70 +486,43 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Specifies Uniform Resource Identifier (URI) of the integration endpoint.
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * For <code>HTTP</code> or <code>HTTP_PROXY</code> integrations, the URI must be a fully formed, encoded HTTP(S)
-     * URL according to the <a target="_blank" href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">RFC-3986
-     * specification</a>, for either standard integration, where <code>connectionType</code> is not
-     * <code>VPC_LINK</code>, or private integration, where <code>connectionType</code> is <code>VPC_LINK</code>. For a
-     * private HTTP integration, the URI is not used for routing.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * For <code>AWS</code> or <code>AWS_PROXY</code> integrations, the URI is of the form
-     * <code>arn:aws:apigateway:{region}:{subdomain.service|service}:path|action/{service_api}</code>. Here,
-     * <code>{Region}</code> is the API Gateway region (e.g., <code>us-east-1</code>); <code>{service}</code> is the
-     * name of the integrated AWS service (e.g., <code>s3</code>); and <code>{subdomain}</code> is a designated
-     * subdomain supported by certain AWS service for fast host-name lookup. <code>action</code> can be used for an AWS
-     * service action-based API, using an <code>Action={name}&amp;{p1}={v1}&amp;p2={v2}...</code> query string. The
-     * ensuing <code>{service_api}</code> refers to a supported action <code>{name}</code> plus any required input
-     * parameters. Alternatively, <code>path</code> can be used for an AWS service path-based API. The ensuing
-     * <code>service_api</code> refers to the path to an AWS service resource, including the region of the integrated
-     * AWS service, if applicable. For example, for integration with the S3 API of
-     * <code><a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectGET.html">GetObject</a></code>, the
-     * <code>uri</code> can be either
+     * Specifies Uniform Resource Identifier (URI) of the integration endpoint. For HTTP or <code>HTTP_PROXY</code>
+     * integrations, the URI must be a fully formed, encoded HTTP(S) URL according to the RFC-3986 specification, for
+     * either standard integration, where <code>connectionType</code> is not <code>VPC_LINK</code>, or private
+     * integration, where <code>connectionType</code> is <code>VPC_LINK</code>. For a private HTTP integration, the URI
+     * is not used for routing. For <code>AWS</code> or <code>AWS_PROXY</code> integrations, the URI is of the form
+     * <code>arn:aws:apigateway:{region}:{subdomain.service|service}:path|action/{service_api</code> . Here, {Region} is
+     * the API Gateway region (e.g., us-east-1); {service} is the name of the integrated Amazon Web Services service
+     * (e.g., s3); and {subdomain} is a designated subdomain supported by certain Amazon Web Services service for fast
+     * host-name lookup. action can be used for an Amazon Web Services service action-based API, using an
+     * Action={name}&amp;{p1}={v1}&amp;p2={v2}... query string. The ensuing {service_api} refers to a supported action
+     * {name} plus any required input parameters. Alternatively, path can be used for an Amazon Web Services service
+     * path-based API. The ensuing service_api refers to the path to an Amazon Web Services service resource, including
+     * the region of the integrated Amazon Web Services service, if applicable. For example, for integration with the S3
+     * API of <code>GetObject</code>, the <code>uri</code> can be either
      * <code>arn:aws:apigateway:us-west-2:s3:action/GetObject&amp;Bucket={bucket}&amp;Key={key}</code> or
-     * <code>arn:aws:apigateway:us-west-2:s3:path/{bucket}/{key}</code>
+     * <code>arn:aws:apigateway:us-west-2:s3:path/{bucket}/{key}</code>.
      * </p>
-     * </li>
-     * </ul>
      * 
      * @param uri
-     *        Specifies Uniform Resource Identifier (URI) of the integration endpoint.</p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        For <code>HTTP</code> or <code>HTTP_PROXY</code> integrations, the URI must be a fully formed, encoded
-     *        HTTP(S) URL according to the <a target="_blank"
-     *        href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">RFC-3986 specification</a>, for either
-     *        standard integration, where <code>connectionType</code> is not <code>VPC_LINK</code>, or private
-     *        integration, where <code>connectionType</code> is <code>VPC_LINK</code>. For a private HTTP integration,
-     *        the URI is not used for routing.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        For <code>AWS</code> or <code>AWS_PROXY</code> integrations, the URI is of the form
-     *        <code>arn:aws:apigateway:{region}:{subdomain.service|service}:path|action/{service_api}</code>. Here,
-     *        <code>{Region}</code> is the API Gateway region (e.g., <code>us-east-1</code>); <code>{service}</code> is
-     *        the name of the integrated AWS service (e.g., <code>s3</code>); and <code>{subdomain}</code> is a
-     *        designated subdomain supported by certain AWS service for fast host-name lookup. <code>action</code> can
-     *        be used for an AWS service action-based API, using an
-     *        <code>Action={name}&amp;{p1}={v1}&amp;p2={v2}...</code> query string. The ensuing
-     *        <code>{service_api}</code> refers to a supported action <code>{name}</code> plus any required input
-     *        parameters. Alternatively, <code>path</code> can be used for an AWS service path-based API. The ensuing
-     *        <code>service_api</code> refers to the path to an AWS service resource, including the region of the
-     *        integrated AWS service, if applicable. For example, for integration with the S3 API of
-     *        <code><a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectGET.html">GetObject</a></code>,
-     *        the <code>uri</code> can be either
+     *        Specifies Uniform Resource Identifier (URI) of the integration endpoint. For HTTP or
+     *        <code>HTTP_PROXY</code> integrations, the URI must be a fully formed, encoded HTTP(S) URL according to the
+     *        RFC-3986 specification, for either standard integration, where <code>connectionType</code> is not
+     *        <code>VPC_LINK</code>, or private integration, where <code>connectionType</code> is <code>VPC_LINK</code>.
+     *        For a private HTTP integration, the URI is not used for routing. For <code>AWS</code> or
+     *        <code>AWS_PROXY</code> integrations, the URI is of the form
+     *        <code>arn:aws:apigateway:{region}:{subdomain.service|service}:path|action/{service_api</code> . Here,
+     *        {Region} is the API Gateway region (e.g., us-east-1); {service} is the name of the integrated Amazon Web
+     *        Services service (e.g., s3); and {subdomain} is a designated subdomain supported by certain Amazon Web
+     *        Services service for fast host-name lookup. action can be used for an Amazon Web Services service
+     *        action-based API, using an Action={name}&amp;{p1}={v1}&amp;p2={v2}... query string. The ensuing
+     *        {service_api} refers to a supported action {name} plus any required input parameters. Alternatively, path
+     *        can be used for an Amazon Web Services service path-based API. The ensuing service_api refers to the path
+     *        to an Amazon Web Services service resource, including the region of the integrated Amazon Web Services
+     *        service, if applicable. For example, for integration with the S3 API of <code>GetObject</code>, the
+     *        <code>uri</code> can be either
      *        <code>arn:aws:apigateway:us-west-2:s3:action/GetObject&amp;Bucket={bucket}&amp;Key={key}</code> or
-     *        <code>arn:aws:apigateway:us-west-2:s3:path/{bucket}/{key}</code>
-     *        </p>
-     *        </li>
+     *        <code>arn:aws:apigateway:us-west-2:s3:path/{bucket}/{key}</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -749,14 +626,13 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The (<a href="https://docs.aws.amazon.com/apigateway/api-reference/resource/vpc-link/#id"><code>id</code></a>) of
-     * the <a>VpcLink</a> used for the integration when <code>connectionType=VPC_LINK</code> and undefined, otherwise.
+     * The ID of the VpcLink used for the integration. Specify this value only if you specify <code>VPC_LINK</code> as
+     * the connection type.
      * </p>
      * 
      * @param connectionId
-     *        The (<a href="https://docs.aws.amazon.com/apigateway/api-reference/resource/vpc-link/#id"><code>id</code>
-     *        </a>) of the <a>VpcLink</a> used for the integration when <code>connectionType=VPC_LINK</code> and
-     *        undefined, otherwise.
+     *        The ID of the VpcLink used for the integration. Specify this value only if you specify
+     *        <code>VPC_LINK</code> as the connection type.
      */
 
     public void setConnectionId(String connectionId) {
@@ -765,13 +641,12 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The (<a href="https://docs.aws.amazon.com/apigateway/api-reference/resource/vpc-link/#id"><code>id</code></a>) of
-     * the <a>VpcLink</a> used for the integration when <code>connectionType=VPC_LINK</code> and undefined, otherwise.
+     * The ID of the VpcLink used for the integration. Specify this value only if you specify <code>VPC_LINK</code> as
+     * the connection type.
      * </p>
      * 
-     * @return The (<a href="https://docs.aws.amazon.com/apigateway/api-reference/resource/vpc-link/#id"><code>id</code>
-     *         </a>) of the <a>VpcLink</a> used for the integration when <code>connectionType=VPC_LINK</code> and
-     *         undefined, otherwise.
+     * @return The ID of the VpcLink used for the integration. Specify this value only if you specify
+     *         <code>VPC_LINK</code> as the connection type.
      */
 
     public String getConnectionId() {
@@ -780,14 +655,13 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The (<a href="https://docs.aws.amazon.com/apigateway/api-reference/resource/vpc-link/#id"><code>id</code></a>) of
-     * the <a>VpcLink</a> used for the integration when <code>connectionType=VPC_LINK</code> and undefined, otherwise.
+     * The ID of the VpcLink used for the integration. Specify this value only if you specify <code>VPC_LINK</code> as
+     * the connection type.
      * </p>
      * 
      * @param connectionId
-     *        The (<a href="https://docs.aws.amazon.com/apigateway/api-reference/resource/vpc-link/#id"><code>id</code>
-     *        </a>) of the <a>VpcLink</a> used for the integration when <code>connectionType=VPC_LINK</code> and
-     *        undefined, otherwise.
+     *        The ID of the VpcLink used for the integration. Specify this value only if you specify
+     *        <code>VPC_LINK</code> as the connection type.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -907,6 +781,13 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
         return this;
     }
 
+    /**
+     * Add a single RequestParameters entry
+     *
+     * @see PutIntegrationRequest#withRequestParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public PutIntegrationRequest addRequestParametersEntry(String key, String value) {
         if (null == this.requestParameters) {
             this.requestParameters = new java.util.HashMap<String, String>();
@@ -980,6 +861,13 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
         return this;
     }
 
+    /**
+     * Add a single RequestTemplates entry
+     *
+     * @see PutIntegrationRequest#withRequestTemplates
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public PutIntegrationRequest addRequestTemplatesEntry(String key, String value) {
         if (null == this.requestTemplates) {
             this.requestTemplates = new java.util.HashMap<String, String>();
@@ -1008,51 +896,12 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
      * resource. There are three valid values: <code>WHEN_NO_MATCH</code>, <code>WHEN_NO_TEMPLATES</code>, and
      * <code>NEVER</code>.
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <code>WHEN_NO_MATCH</code> passes the request body for unmapped content types through to the integration back end
-     * without transformation.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>NEVER</code> rejects unmapped content types with an HTTP 415 'Unsupported Media Type' response.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>WHEN_NO_TEMPLATES</code> allows pass-through when the integration has NO content types mapped to templates.
-     * However if there is at least one content type defined, unmapped content types will be rejected with the same 415
-     * response.
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @param passthroughBehavior
      *        Specifies the pass-through behavior for incoming requests based on the Content-Type header in the request,
      *        and the available mapping templates specified as the <code>requestTemplates</code> property on the
      *        Integration resource. There are three valid values: <code>WHEN_NO_MATCH</code>,
-     *        <code>WHEN_NO_TEMPLATES</code>, and <code>NEVER</code>. </p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>WHEN_NO_MATCH</code> passes the request body for unmapped content types through to the integration
-     *        back end without transformation.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>NEVER</code> rejects unmapped content types with an HTTP 415 'Unsupported Media Type' response.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>WHEN_NO_TEMPLATES</code> allows pass-through when the integration has NO content types mapped to
-     *        templates. However if there is at least one content type defined, unmapped content types will be rejected
-     *        with the same 415 response.
-     *        </p>
-     *        </li>
+     *        <code>WHEN_NO_TEMPLATES</code>, and <code>NEVER</code>.
      */
 
     public void setPassthroughBehavior(String passthroughBehavior) {
@@ -1066,50 +915,11 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
      * resource. There are three valid values: <code>WHEN_NO_MATCH</code>, <code>WHEN_NO_TEMPLATES</code>, and
      * <code>NEVER</code>.
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <code>WHEN_NO_MATCH</code> passes the request body for unmapped content types through to the integration back end
-     * without transformation.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>NEVER</code> rejects unmapped content types with an HTTP 415 'Unsupported Media Type' response.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>WHEN_NO_TEMPLATES</code> allows pass-through when the integration has NO content types mapped to templates.
-     * However if there is at least one content type defined, unmapped content types will be rejected with the same 415
-     * response.
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @return Specifies the pass-through behavior for incoming requests based on the Content-Type header in the
      *         request, and the available mapping templates specified as the <code>requestTemplates</code> property on
      *         the Integration resource. There are three valid values: <code>WHEN_NO_MATCH</code>,
-     *         <code>WHEN_NO_TEMPLATES</code>, and <code>NEVER</code>. </p>
-     *         <ul>
-     *         <li>
-     *         <p>
-     *         <code>WHEN_NO_MATCH</code> passes the request body for unmapped content types through to the integration
-     *         back end without transformation.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         <code>NEVER</code> rejects unmapped content types with an HTTP 415 'Unsupported Media Type' response.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         <code>WHEN_NO_TEMPLATES</code> allows pass-through when the integration has NO content types mapped to
-     *         templates. However if there is at least one content type defined, unmapped content types will be rejected
-     *         with the same 415 response.
-     *         </p>
-     *         </li>
+     *         <code>WHEN_NO_TEMPLATES</code>, and <code>NEVER</code>.
      */
 
     public String getPassthroughBehavior() {
@@ -1123,51 +933,12 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
      * resource. There are three valid values: <code>WHEN_NO_MATCH</code>, <code>WHEN_NO_TEMPLATES</code>, and
      * <code>NEVER</code>.
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <code>WHEN_NO_MATCH</code> passes the request body for unmapped content types through to the integration back end
-     * without transformation.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>NEVER</code> rejects unmapped content types with an HTTP 415 'Unsupported Media Type' response.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>WHEN_NO_TEMPLATES</code> allows pass-through when the integration has NO content types mapped to templates.
-     * However if there is at least one content type defined, unmapped content types will be rejected with the same 415
-     * response.
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @param passthroughBehavior
      *        Specifies the pass-through behavior for incoming requests based on the Content-Type header in the request,
      *        and the available mapping templates specified as the <code>requestTemplates</code> property on the
      *        Integration resource. There are three valid values: <code>WHEN_NO_MATCH</code>,
-     *        <code>WHEN_NO_TEMPLATES</code>, and <code>NEVER</code>. </p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>WHEN_NO_MATCH</code> passes the request body for unmapped content types through to the integration
-     *        back end without transformation.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>NEVER</code> rejects unmapped content types with an HTTP 415 'Unsupported Media Type' response.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>WHEN_NO_TEMPLATES</code> allows pass-through when the integration has NO content types mapped to
-     *        templates. However if there is at least one content type defined, unmapped content types will be rejected
-     *        with the same 415 response.
-     *        </p>
-     *        </li>
+     *        <code>WHEN_NO_TEMPLATES</code>, and <code>NEVER</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1178,11 +949,15 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A list of request parameters whose values are to be cached.
+     * Specifies a group of related cached parameters. By default, API Gateway uses the resource ID as the
+     * <code>cacheNamespace</code>. You can specify the same <code>cacheNamespace</code> across resources to return the
+     * same cached data for requests to different resources.
      * </p>
      * 
      * @param cacheNamespace
-     *        A list of request parameters whose values are to be cached.
+     *        Specifies a group of related cached parameters. By default, API Gateway uses the resource ID as the
+     *        <code>cacheNamespace</code>. You can specify the same <code>cacheNamespace</code> across resources to
+     *        return the same cached data for requests to different resources.
      */
 
     public void setCacheNamespace(String cacheNamespace) {
@@ -1191,10 +966,14 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A list of request parameters whose values are to be cached.
+     * Specifies a group of related cached parameters. By default, API Gateway uses the resource ID as the
+     * <code>cacheNamespace</code>. You can specify the same <code>cacheNamespace</code> across resources to return the
+     * same cached data for requests to different resources.
      * </p>
      * 
-     * @return A list of request parameters whose values are to be cached.
+     * @return Specifies a group of related cached parameters. By default, API Gateway uses the resource ID as the
+     *         <code>cacheNamespace</code>. You can specify the same <code>cacheNamespace</code> across resources to
+     *         return the same cached data for requests to different resources.
      */
 
     public String getCacheNamespace() {
@@ -1203,11 +982,15 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A list of request parameters whose values are to be cached.
+     * Specifies a group of related cached parameters. By default, API Gateway uses the resource ID as the
+     * <code>cacheNamespace</code>. You can specify the same <code>cacheNamespace</code> across resources to return the
+     * same cached data for requests to different resources.
      * </p>
      * 
      * @param cacheNamespace
-     *        A list of request parameters whose values are to be cached.
+     *        Specifies a group of related cached parameters. By default, API Gateway uses the resource ID as the
+     *        <code>cacheNamespace</code>. You can specify the same <code>cacheNamespace</code> across resources to
+     *        return the same cached data for requests to different resources.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1218,10 +1001,14 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * An API-specific tag group of related cached parameters.
+     * A list of request parameters whose values API Gateway caches. To be valid values for
+     * <code>cacheKeyParameters</code>, these parameters must also be specified for Method
+     * <code>requestParameters</code>.
      * </p>
      * 
-     * @return An API-specific tag group of related cached parameters.
+     * @return A list of request parameters whose values API Gateway caches. To be valid values for
+     *         <code>cacheKeyParameters</code>, these parameters must also be specified for Method
+     *         <code>requestParameters</code>.
      */
 
     public java.util.List<String> getCacheKeyParameters() {
@@ -1230,11 +1017,15 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * An API-specific tag group of related cached parameters.
+     * A list of request parameters whose values API Gateway caches. To be valid values for
+     * <code>cacheKeyParameters</code>, these parameters must also be specified for Method
+     * <code>requestParameters</code>.
      * </p>
      * 
      * @param cacheKeyParameters
-     *        An API-specific tag group of related cached parameters.
+     *        A list of request parameters whose values API Gateway caches. To be valid values for
+     *        <code>cacheKeyParameters</code>, these parameters must also be specified for Method
+     *        <code>requestParameters</code>.
      */
 
     public void setCacheKeyParameters(java.util.Collection<String> cacheKeyParameters) {
@@ -1248,7 +1039,9 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * An API-specific tag group of related cached parameters.
+     * A list of request parameters whose values API Gateway caches. To be valid values for
+     * <code>cacheKeyParameters</code>, these parameters must also be specified for Method
+     * <code>requestParameters</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1257,7 +1050,9 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
      * </p>
      * 
      * @param cacheKeyParameters
-     *        An API-specific tag group of related cached parameters.
+     *        A list of request parameters whose values API Gateway caches. To be valid values for
+     *        <code>cacheKeyParameters</code>, these parameters must also be specified for Method
+     *        <code>requestParameters</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1273,11 +1068,15 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * An API-specific tag group of related cached parameters.
+     * A list of request parameters whose values API Gateway caches. To be valid values for
+     * <code>cacheKeyParameters</code>, these parameters must also be specified for Method
+     * <code>requestParameters</code>.
      * </p>
      * 
      * @param cacheKeyParameters
-     *        An API-specific tag group of related cached parameters.
+     *        A list of request parameters whose values API Gateway caches. To be valid values for
+     *        <code>cacheKeyParameters</code>, these parameters must also be specified for Method
+     *        <code>requestParameters</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1291,19 +1090,6 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
      * Specifies how to handle request payload content type conversions. Supported values are
      * <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_BINARY</code>: Converts a request payload from a Base64-encoded string to the corresponding
-     * binary blob.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_TEXT</code>: Converts a request payload from a binary blob to a Base64-encoded string.
-     * </p>
-     * </li>
-     * </ul>
      * <p>
      * If this property is not defined, the request payload will be passed through from the method request to
      * integration request without modification, provided that the <code>passthroughBehavior</code> is configured to
@@ -1313,19 +1099,6 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
      * @param contentHandling
      *        Specifies how to handle request payload content type conversions. Supported values are
      *        <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:</p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>CONVERT_TO_BINARY</code>: Converts a request payload from a Base64-encoded string to the
-     *        corresponding binary blob.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>CONVERT_TO_TEXT</code>: Converts a request payload from a binary blob to a Base64-encoded string.
-     *        </p>
-     *        </li>
-     *        </ul>
      *        <p>
      *        If this property is not defined, the request payload will be passed through from the method request to
      *        integration request without modification, provided that the <code>passthroughBehavior</code> is configured
@@ -1342,19 +1115,6 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
      * Specifies how to handle request payload content type conversions. Supported values are
      * <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_BINARY</code>: Converts a request payload from a Base64-encoded string to the corresponding
-     * binary blob.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_TEXT</code>: Converts a request payload from a binary blob to a Base64-encoded string.
-     * </p>
-     * </li>
-     * </ul>
      * <p>
      * If this property is not defined, the request payload will be passed through from the method request to
      * integration request without modification, provided that the <code>passthroughBehavior</code> is configured to
@@ -1363,19 +1123,6 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
      * 
      * @return Specifies how to handle request payload content type conversions. Supported values are
      *         <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:</p>
-     *         <ul>
-     *         <li>
-     *         <p>
-     *         <code>CONVERT_TO_BINARY</code>: Converts a request payload from a Base64-encoded string to the
-     *         corresponding binary blob.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         <code>CONVERT_TO_TEXT</code>: Converts a request payload from a binary blob to a Base64-encoded string.
-     *         </p>
-     *         </li>
-     *         </ul>
      *         <p>
      *         If this property is not defined, the request payload will be passed through from the method request to
      *         integration request without modification, provided that the <code>passthroughBehavior</code> is
@@ -1392,19 +1139,6 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
      * Specifies how to handle request payload content type conversions. Supported values are
      * <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_BINARY</code>: Converts a request payload from a Base64-encoded string to the corresponding
-     * binary blob.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_TEXT</code>: Converts a request payload from a binary blob to a Base64-encoded string.
-     * </p>
-     * </li>
-     * </ul>
      * <p>
      * If this property is not defined, the request payload will be passed through from the method request to
      * integration request without modification, provided that the <code>passthroughBehavior</code> is configured to
@@ -1414,19 +1148,6 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
      * @param contentHandling
      *        Specifies how to handle request payload content type conversions. Supported values are
      *        <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:</p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>CONVERT_TO_BINARY</code>: Converts a request payload from a Base64-encoded string to the
-     *        corresponding binary blob.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>CONVERT_TO_TEXT</code>: Converts a request payload from a binary blob to a Base64-encoded string.
-     *        </p>
-     *        </li>
-     *        </ul>
      *        <p>
      *        If this property is not defined, the request payload will be passed through from the method request to
      *        integration request without modification, provided that the <code>passthroughBehavior</code> is configured
@@ -1445,19 +1166,6 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
      * Specifies how to handle request payload content type conversions. Supported values are
      * <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_BINARY</code>: Converts a request payload from a Base64-encoded string to the corresponding
-     * binary blob.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_TEXT</code>: Converts a request payload from a binary blob to a Base64-encoded string.
-     * </p>
-     * </li>
-     * </ul>
      * <p>
      * If this property is not defined, the request payload will be passed through from the method request to
      * integration request without modification, provided that the <code>passthroughBehavior</code> is configured to
@@ -1467,19 +1175,6 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
      * @param contentHandling
      *        Specifies how to handle request payload content type conversions. Supported values are
      *        <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:</p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>CONVERT_TO_BINARY</code>: Converts a request payload from a Base64-encoded string to the
-     *        corresponding binary blob.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>CONVERT_TO_TEXT</code>: Converts a request payload from a binary blob to a Base64-encoded string.
-     *        </p>
-     *        </li>
-     *        </ul>
      *        <p>
      *        If this property is not defined, the request payload will be passed through from the method request to
      *        integration request without modification, provided that the <code>passthroughBehavior</code> is configured
@@ -1496,19 +1191,6 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
      * Specifies how to handle request payload content type conversions. Supported values are
      * <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_BINARY</code>: Converts a request payload from a Base64-encoded string to the corresponding
-     * binary blob.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>CONVERT_TO_TEXT</code>: Converts a request payload from a binary blob to a Base64-encoded string.
-     * </p>
-     * </li>
-     * </ul>
      * <p>
      * If this property is not defined, the request payload will be passed through from the method request to
      * integration request without modification, provided that the <code>passthroughBehavior</code> is configured to
@@ -1518,19 +1200,6 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
      * @param contentHandling
      *        Specifies how to handle request payload content type conversions. Supported values are
      *        <code>CONVERT_TO_BINARY</code> and <code>CONVERT_TO_TEXT</code>, with the following behaviors:</p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>CONVERT_TO_BINARY</code>: Converts a request payload from a Base64-encoded string to the
-     *        corresponding binary blob.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>CONVERT_TO_TEXT</code>: Converts a request payload from a binary blob to a Base64-encoded string.
-     *        </p>
-     *        </li>
-     *        </ul>
      *        <p>
      *        If this property is not defined, the request payload will be passed through from the method request to
      *        integration request without modification, provided that the <code>passthroughBehavior</code> is configured
@@ -1586,6 +1255,32 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
     }
 
     /**
+     * @param tlsConfig
+     */
+
+    public void setTlsConfig(TlsConfig tlsConfig) {
+        this.tlsConfig = tlsConfig;
+    }
+
+    /**
+     * @return
+     */
+
+    public TlsConfig getTlsConfig() {
+        return this.tlsConfig;
+    }
+
+    /**
+     * @param tlsConfig
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutIntegrationRequest withTlsConfig(TlsConfig tlsConfig) {
+        setTlsConfig(tlsConfig);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1628,7 +1323,9 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
         if (getContentHandling() != null)
             sb.append("ContentHandling: ").append(getContentHandling()).append(",");
         if (getTimeoutInMillis() != null)
-            sb.append("TimeoutInMillis: ").append(getTimeoutInMillis());
+            sb.append("TimeoutInMillis: ").append(getTimeoutInMillis()).append(",");
+        if (getTlsConfig() != null)
+            sb.append("TlsConfig: ").append(getTlsConfig());
         sb.append("}");
         return sb.toString();
     }
@@ -1707,6 +1404,10 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
             return false;
         if (other.getTimeoutInMillis() != null && other.getTimeoutInMillis().equals(this.getTimeoutInMillis()) == false)
             return false;
+        if (other.getTlsConfig() == null ^ this.getTlsConfig() == null)
+            return false;
+        if (other.getTlsConfig() != null && other.getTlsConfig().equals(this.getTlsConfig()) == false)
+            return false;
         return true;
     }
 
@@ -1731,6 +1432,7 @@ public class PutIntegrationRequest extends com.amazonaws.AmazonWebServiceRequest
         hashCode = prime * hashCode + ((getCacheKeyParameters() == null) ? 0 : getCacheKeyParameters().hashCode());
         hashCode = prime * hashCode + ((getContentHandling() == null) ? 0 : getContentHandling().hashCode());
         hashCode = prime * hashCode + ((getTimeoutInMillis() == null) ? 0 : getTimeoutInMillis().hashCode());
+        hashCode = prime * hashCode + ((getTlsConfig() == null) ? 0 : getTlsConfig().hashCode());
         return hashCode;
     }
 

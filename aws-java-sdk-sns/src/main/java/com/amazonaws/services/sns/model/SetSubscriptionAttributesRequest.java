@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,8 +39,7 @@ public class SetSubscriptionAttributesRequest extends com.amazonaws.AmazonWebSer
      * A map of attributes with their corresponding values.
      * </p>
      * <p>
-     * The following lists the names, descriptions, and values of the special request parameters that the
-     * <code>SetTopicAttributes</code> action uses:
+     * The following lists the names, descriptions, and values of the special request parameters that this action uses:
      * </p>
      * <ul>
      * <li>
@@ -57,9 +56,62 @@ public class SetSubscriptionAttributesRequest extends com.amazonaws.AmazonWebSer
      * </li>
      * <li>
      * <p>
+     * <code>FilterPolicyScope</code> – This attribute lets you choose the filtering scope by using one of the following
+     * string value types:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>MessageAttributes</code> (default) – The filter is applied on the message attributes.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MessageBody</code> – The filter is applied on the message body.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
      * <code>RawMessageDelivery</code> – When set to <code>true</code>, enables raw message delivery to Amazon SQS or
      * HTTP/S endpoints. This eliminates the need for the endpoints to process JSON formatting, which is otherwise
      * created for Amazon SNS metadata.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RedrivePolicy</code> – When specified, sends undeliverable messages to the specified Amazon SQS dead-letter
+     * queue. Messages that can't be delivered due to client errors (for example, when the subscribed endpoint is
+     * unreachable) or server errors (for example, when the service that powers the subscribed endpoint becomes
+     * unavailable) are held in the dead-letter queue for further analysis or reprocessing.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attribute applies only to Amazon Data Firehose delivery stream subscriptions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>SubscriptionRoleArn</code> – The ARN of the IAM role that has the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Permission to write to the Firehose delivery stream
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon SNS listed as a trusted entity
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Specifying a valid ARN for this attribute is required for Firehose delivery stream subscriptions. For more
+     * information, see <a href="https://docs.aws.amazon.com/sns/latest/dg/sns-firehose-as-subscriber.html">Fanout to
+     * Firehose delivery streams</a> in the <i>Amazon SNS Developer Guide</i>.
      * </p>
      * </li>
      * </ul>
@@ -88,8 +140,8 @@ public class SetSubscriptionAttributesRequest extends com.amazonaws.AmazonWebSer
      * @param attributeName
      *        A map of attributes with their corresponding values.</p>
      *        <p>
-     *        The following lists the names, descriptions, and values of the special request parameters that the
-     *        <code>SetTopicAttributes</code> action uses:
+     *        The following lists the names, descriptions, and values of the special request parameters that this action
+     *        uses:
      *        </p>
      *        <ul>
      *        <li>
@@ -106,9 +158,63 @@ public class SetSubscriptionAttributesRequest extends com.amazonaws.AmazonWebSer
      *        </li>
      *        <li>
      *        <p>
+     *        <code>FilterPolicyScope</code> – This attribute lets you choose the filtering scope by using one of the
+     *        following string value types:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>MessageAttributes</code> (default) – The filter is applied on the message attributes.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>MessageBody</code> – The filter is applied on the message body.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>RawMessageDelivery</code> – When set to <code>true</code>, enables raw message delivery to Amazon
      *        SQS or HTTP/S endpoints. This eliminates the need for the endpoints to process JSON formatting, which is
      *        otherwise created for Amazon SNS metadata.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RedrivePolicy</code> – When specified, sends undeliverable messages to the specified Amazon SQS
+     *        dead-letter queue. Messages that can't be delivered due to client errors (for example, when the subscribed
+     *        endpoint is unreachable) or server errors (for example, when the service that powers the subscribed
+     *        endpoint becomes unavailable) are held in the dead-letter queue for further analysis or reprocessing.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following attribute applies only to Amazon Data Firehose delivery stream subscriptions:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>SubscriptionRoleArn</code> – The ARN of the IAM role that has the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Permission to write to the Firehose delivery stream
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon SNS listed as a trusted entity
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Specifying a valid ARN for this attribute is required for Firehose delivery stream subscriptions. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/sns/latest/dg/sns-firehose-as-subscriber.html">Fanout to Firehose
+     *        delivery streams</a> in the <i>Amazon SNS Developer Guide</i>.
      *        </p>
      *        </li>
      * @param attributeValue
@@ -165,8 +271,7 @@ public class SetSubscriptionAttributesRequest extends com.amazonaws.AmazonWebSer
      * A map of attributes with their corresponding values.
      * </p>
      * <p>
-     * The following lists the names, descriptions, and values of the special request parameters that the
-     * <code>SetTopicAttributes</code> action uses:
+     * The following lists the names, descriptions, and values of the special request parameters that this action uses:
      * </p>
      * <ul>
      * <li>
@@ -183,9 +288,62 @@ public class SetSubscriptionAttributesRequest extends com.amazonaws.AmazonWebSer
      * </li>
      * <li>
      * <p>
+     * <code>FilterPolicyScope</code> – This attribute lets you choose the filtering scope by using one of the following
+     * string value types:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>MessageAttributes</code> (default) – The filter is applied on the message attributes.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MessageBody</code> – The filter is applied on the message body.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
      * <code>RawMessageDelivery</code> – When set to <code>true</code>, enables raw message delivery to Amazon SQS or
      * HTTP/S endpoints. This eliminates the need for the endpoints to process JSON formatting, which is otherwise
      * created for Amazon SNS metadata.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RedrivePolicy</code> – When specified, sends undeliverable messages to the specified Amazon SQS dead-letter
+     * queue. Messages that can't be delivered due to client errors (for example, when the subscribed endpoint is
+     * unreachable) or server errors (for example, when the service that powers the subscribed endpoint becomes
+     * unavailable) are held in the dead-letter queue for further analysis or reprocessing.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attribute applies only to Amazon Data Firehose delivery stream subscriptions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>SubscriptionRoleArn</code> – The ARN of the IAM role that has the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Permission to write to the Firehose delivery stream
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon SNS listed as a trusted entity
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Specifying a valid ARN for this attribute is required for Firehose delivery stream subscriptions. For more
+     * information, see <a href="https://docs.aws.amazon.com/sns/latest/dg/sns-firehose-as-subscriber.html">Fanout to
+     * Firehose delivery streams</a> in the <i>Amazon SNS Developer Guide</i>.
      * </p>
      * </li>
      * </ul>
@@ -193,8 +351,8 @@ public class SetSubscriptionAttributesRequest extends com.amazonaws.AmazonWebSer
      * @param attributeName
      *        A map of attributes with their corresponding values.</p>
      *        <p>
-     *        The following lists the names, descriptions, and values of the special request parameters that the
-     *        <code>SetTopicAttributes</code> action uses:
+     *        The following lists the names, descriptions, and values of the special request parameters that this action
+     *        uses:
      *        </p>
      *        <ul>
      *        <li>
@@ -211,9 +369,63 @@ public class SetSubscriptionAttributesRequest extends com.amazonaws.AmazonWebSer
      *        </li>
      *        <li>
      *        <p>
+     *        <code>FilterPolicyScope</code> – This attribute lets you choose the filtering scope by using one of the
+     *        following string value types:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>MessageAttributes</code> (default) – The filter is applied on the message attributes.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>MessageBody</code> – The filter is applied on the message body.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>RawMessageDelivery</code> – When set to <code>true</code>, enables raw message delivery to Amazon
      *        SQS or HTTP/S endpoints. This eliminates the need for the endpoints to process JSON formatting, which is
      *        otherwise created for Amazon SNS metadata.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RedrivePolicy</code> – When specified, sends undeliverable messages to the specified Amazon SQS
+     *        dead-letter queue. Messages that can't be delivered due to client errors (for example, when the subscribed
+     *        endpoint is unreachable) or server errors (for example, when the service that powers the subscribed
+     *        endpoint becomes unavailable) are held in the dead-letter queue for further analysis or reprocessing.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following attribute applies only to Amazon Data Firehose delivery stream subscriptions:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>SubscriptionRoleArn</code> – The ARN of the IAM role that has the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Permission to write to the Firehose delivery stream
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon SNS listed as a trusted entity
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Specifying a valid ARN for this attribute is required for Firehose delivery stream subscriptions. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/sns/latest/dg/sns-firehose-as-subscriber.html">Fanout to Firehose
+     *        delivery streams</a> in the <i>Amazon SNS Developer Guide</i>.
      *        </p>
      *        </li>
      */
@@ -227,8 +439,7 @@ public class SetSubscriptionAttributesRequest extends com.amazonaws.AmazonWebSer
      * A map of attributes with their corresponding values.
      * </p>
      * <p>
-     * The following lists the names, descriptions, and values of the special request parameters that the
-     * <code>SetTopicAttributes</code> action uses:
+     * The following lists the names, descriptions, and values of the special request parameters that this action uses:
      * </p>
      * <ul>
      * <li>
@@ -245,17 +456,70 @@ public class SetSubscriptionAttributesRequest extends com.amazonaws.AmazonWebSer
      * </li>
      * <li>
      * <p>
+     * <code>FilterPolicyScope</code> – This attribute lets you choose the filtering scope by using one of the following
+     * string value types:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>MessageAttributes</code> (default) – The filter is applied on the message attributes.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MessageBody</code> – The filter is applied on the message body.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
      * <code>RawMessageDelivery</code> – When set to <code>true</code>, enables raw message delivery to Amazon SQS or
      * HTTP/S endpoints. This eliminates the need for the endpoints to process JSON formatting, which is otherwise
      * created for Amazon SNS metadata.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RedrivePolicy</code> – When specified, sends undeliverable messages to the specified Amazon SQS dead-letter
+     * queue. Messages that can't be delivered due to client errors (for example, when the subscribed endpoint is
+     * unreachable) or server errors (for example, when the service that powers the subscribed endpoint becomes
+     * unavailable) are held in the dead-letter queue for further analysis or reprocessing.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attribute applies only to Amazon Data Firehose delivery stream subscriptions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>SubscriptionRoleArn</code> – The ARN of the IAM role that has the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Permission to write to the Firehose delivery stream
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon SNS listed as a trusted entity
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Specifying a valid ARN for this attribute is required for Firehose delivery stream subscriptions. For more
+     * information, see <a href="https://docs.aws.amazon.com/sns/latest/dg/sns-firehose-as-subscriber.html">Fanout to
+     * Firehose delivery streams</a> in the <i>Amazon SNS Developer Guide</i>.
      * </p>
      * </li>
      * </ul>
      * 
      * @return A map of attributes with their corresponding values.</p>
      *         <p>
-     *         The following lists the names, descriptions, and values of the special request parameters that the
-     *         <code>SetTopicAttributes</code> action uses:
+     *         The following lists the names, descriptions, and values of the special request parameters that this
+     *         action uses:
      *         </p>
      *         <ul>
      *         <li>
@@ -272,9 +536,64 @@ public class SetSubscriptionAttributesRequest extends com.amazonaws.AmazonWebSer
      *         </li>
      *         <li>
      *         <p>
+     *         <code>FilterPolicyScope</code> – This attribute lets you choose the filtering scope by using one of the
+     *         following string value types:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>MessageAttributes</code> (default) – The filter is applied on the message attributes.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>MessageBody</code> – The filter is applied on the message body.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         </li>
+     *         <li>
+     *         <p>
      *         <code>RawMessageDelivery</code> – When set to <code>true</code>, enables raw message delivery to Amazon
      *         SQS or HTTP/S endpoints. This eliminates the need for the endpoints to process JSON formatting, which is
      *         otherwise created for Amazon SNS metadata.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>RedrivePolicy</code> – When specified, sends undeliverable messages to the specified Amazon SQS
+     *         dead-letter queue. Messages that can't be delivered due to client errors (for example, when the
+     *         subscribed endpoint is unreachable) or server errors (for example, when the service that powers the
+     *         subscribed endpoint becomes unavailable) are held in the dead-letter queue for further analysis or
+     *         reprocessing.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         The following attribute applies only to Amazon Data Firehose delivery stream subscriptions:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>SubscriptionRoleArn</code> – The ARN of the IAM role that has the following:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Permission to write to the Firehose delivery stream
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Amazon SNS listed as a trusted entity
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Specifying a valid ARN for this attribute is required for Firehose delivery stream subscriptions. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/sns/latest/dg/sns-firehose-as-subscriber.html">Fanout to Firehose
+     *         delivery streams</a> in the <i>Amazon SNS Developer Guide</i>.
      *         </p>
      *         </li>
      */
@@ -288,8 +607,7 @@ public class SetSubscriptionAttributesRequest extends com.amazonaws.AmazonWebSer
      * A map of attributes with their corresponding values.
      * </p>
      * <p>
-     * The following lists the names, descriptions, and values of the special request parameters that the
-     * <code>SetTopicAttributes</code> action uses:
+     * The following lists the names, descriptions, and values of the special request parameters that this action uses:
      * </p>
      * <ul>
      * <li>
@@ -306,9 +624,62 @@ public class SetSubscriptionAttributesRequest extends com.amazonaws.AmazonWebSer
      * </li>
      * <li>
      * <p>
+     * <code>FilterPolicyScope</code> – This attribute lets you choose the filtering scope by using one of the following
+     * string value types:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>MessageAttributes</code> (default) – The filter is applied on the message attributes.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MessageBody</code> – The filter is applied on the message body.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
      * <code>RawMessageDelivery</code> – When set to <code>true</code>, enables raw message delivery to Amazon SQS or
      * HTTP/S endpoints. This eliminates the need for the endpoints to process JSON formatting, which is otherwise
      * created for Amazon SNS metadata.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RedrivePolicy</code> – When specified, sends undeliverable messages to the specified Amazon SQS dead-letter
+     * queue. Messages that can't be delivered due to client errors (for example, when the subscribed endpoint is
+     * unreachable) or server errors (for example, when the service that powers the subscribed endpoint becomes
+     * unavailable) are held in the dead-letter queue for further analysis or reprocessing.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attribute applies only to Amazon Data Firehose delivery stream subscriptions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>SubscriptionRoleArn</code> – The ARN of the IAM role that has the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Permission to write to the Firehose delivery stream
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon SNS listed as a trusted entity
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Specifying a valid ARN for this attribute is required for Firehose delivery stream subscriptions. For more
+     * information, see <a href="https://docs.aws.amazon.com/sns/latest/dg/sns-firehose-as-subscriber.html">Fanout to
+     * Firehose delivery streams</a> in the <i>Amazon SNS Developer Guide</i>.
      * </p>
      * </li>
      * </ul>
@@ -316,8 +687,8 @@ public class SetSubscriptionAttributesRequest extends com.amazonaws.AmazonWebSer
      * @param attributeName
      *        A map of attributes with their corresponding values.</p>
      *        <p>
-     *        The following lists the names, descriptions, and values of the special request parameters that the
-     *        <code>SetTopicAttributes</code> action uses:
+     *        The following lists the names, descriptions, and values of the special request parameters that this action
+     *        uses:
      *        </p>
      *        <ul>
      *        <li>
@@ -334,9 +705,63 @@ public class SetSubscriptionAttributesRequest extends com.amazonaws.AmazonWebSer
      *        </li>
      *        <li>
      *        <p>
+     *        <code>FilterPolicyScope</code> – This attribute lets you choose the filtering scope by using one of the
+     *        following string value types:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>MessageAttributes</code> (default) – The filter is applied on the message attributes.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>MessageBody</code> – The filter is applied on the message body.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>RawMessageDelivery</code> – When set to <code>true</code>, enables raw message delivery to Amazon
      *        SQS or HTTP/S endpoints. This eliminates the need for the endpoints to process JSON formatting, which is
      *        otherwise created for Amazon SNS metadata.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RedrivePolicy</code> – When specified, sends undeliverable messages to the specified Amazon SQS
+     *        dead-letter queue. Messages that can't be delivered due to client errors (for example, when the subscribed
+     *        endpoint is unreachable) or server errors (for example, when the service that powers the subscribed
+     *        endpoint becomes unavailable) are held in the dead-letter queue for further analysis or reprocessing.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following attribute applies only to Amazon Data Firehose delivery stream subscriptions:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>SubscriptionRoleArn</code> – The ARN of the IAM role that has the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Permission to write to the Firehose delivery stream
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon SNS listed as a trusted entity
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Specifying a valid ARN for this attribute is required for Firehose delivery stream subscriptions. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/sns/latest/dg/sns-firehose-as-subscriber.html">Fanout to Firehose
+     *        delivery streams</a> in the <i>Amazon SNS Developer Guide</i>.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.

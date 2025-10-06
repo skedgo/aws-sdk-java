@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -22,10 +22,22 @@ import com.amazonaws.AmazonWebServiceRequest;
  * 
  * @see SetBucketCrossOriginConfigurationRequest#SetBucketCrossOriginConfigurationRequest(String, BucketCrossOriginConfiguration)
  */
-public class SetBucketCrossOriginConfigurationRequest extends AmazonWebServiceRequest implements Serializable {
+public class SetBucketCrossOriginConfigurationRequest extends AmazonWebServiceRequest implements Serializable, ExpectedBucketOwnerRequest {
     
     /**
      * The bucket whose cross origin configuration is being set.
+     *
+     * <p>
+     * When using this API with an access point, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * </p>
+     * <p>
+     * When using this operation using an access point through the Amazon Web Services SDKs, you provide
+     * the access point ARN in place of the bucket name. For more information about access point
+     * ARNs, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html\">
+     * Using access points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
      */
     private String bucketName;
 
@@ -33,14 +45,28 @@ public class SetBucketCrossOriginConfigurationRequest extends AmazonWebServiceRe
      * The new cross origin configuration for the specified bucket.
      */
     private BucketCrossOriginConfiguration crossOriginConfiguration;
-    
+
+    private String expectedBucketOwner;
+
     /**
-     * Constructs a new {@link SetBucketCrossOriginConfigurationRequest} 
+     * Constructs a new {@link SetBucketCrossOriginConfigurationRequest}
      * to set the bucket cross origin configuration of
      * the specified bucket.
-     * 
+     *
+     * <p>
+     * When using this API with an access point, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * </p>
+     * <p>
+     * When using this operation using an access point through the Amazon Web Services SDKs, you provide
+     * the access point ARN in place of the bucket name. For more information about access point
+     * ARNs, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html\">
+     * Using access points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
+     *
      * @param bucketName
-     *            The name of the bucket for which to set the cross origin
+     *            The name of the bucket, or access point ARN, for which to set the cross origin
      *            configuration.
      * @param crossOriginConfiguration
      *            The new cross origin configuration for this bucket, which
@@ -52,6 +78,18 @@ public class SetBucketCrossOriginConfigurationRequest extends AmazonWebServiceRe
         this.crossOriginConfiguration = crossOriginConfiguration;
     }
 
+    public String getExpectedBucketOwner() {
+        return expectedBucketOwner;
+    }
+
+    public SetBucketCrossOriginConfigurationRequest withExpectedBucketOwner(String expectedBucketOwner) {
+        this.expectedBucketOwner = expectedBucketOwner;
+        return this;
+    }
+
+    public void setExpectedBucketOwner(String expectedBucketOwner) {
+        withExpectedBucketOwner(expectedBucketOwner);
+    }
     
     /**
      * Gets the name of the bucket whose cross origin configuration is being
@@ -70,7 +108,7 @@ public class SetBucketCrossOriginConfigurationRequest extends AmazonWebServiceRe
      * Sets the name of the bucket whose cross origin configuration is being set.
      * 
      * @param bucketName
-     *            The name of the bucket whose cross origin configuration is being
+     *            The name of the bucket, or access point ARN, whose cross origin configuration is being
      *            set.
      *            
      * @see SetBucketCrossOriginConfigurationRequest#getBucketName()           
@@ -85,7 +123,7 @@ public class SetBucketCrossOriginConfigurationRequest extends AmazonWebServiceRe
      * together.
      * 
      * @param bucketName
-     *            The name of the bucket whose cross origin configuration is being
+     *            The name of the bucket, or access point ARN, whose cross origin configuration is being
      *            set.
      * 
      * @return This {@link SetBucketCrossOriginConfigurationRequest} object so that

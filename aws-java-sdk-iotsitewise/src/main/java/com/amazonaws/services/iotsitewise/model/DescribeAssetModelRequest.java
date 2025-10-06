@@ -1,0 +1,210 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.iotsitewise.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+
+import com.amazonaws.AmazonWebServiceRequest;
+
+/**
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/iotsitewise-2019-12-02/DescribeAssetModel" target="_top">AWS API
+ *      Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class DescribeAssetModelRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
+
+    /**
+     * <p>
+     * The ID of the asset model. This can be either the actual ID in UUID format, or else <code>externalId:</code>
+     * followed by the external ID, if it has one. For more information, see <a
+     * href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references"
+     * >Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.
+     * </p>
+     */
+    private String assetModelId;
+    /**
+     * <p>
+     * Whether or not to exclude asset model properties from the response.
+     * </p>
+     */
+    private Boolean excludeProperties;
+
+    /**
+     * <p>
+     * The ID of the asset model. This can be either the actual ID in UUID format, or else <code>externalId:</code>
+     * followed by the external ID, if it has one. For more information, see <a
+     * href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references"
+     * >Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.
+     * </p>
+     * 
+     * @param assetModelId
+     *        The ID of the asset model. This can be either the actual ID in UUID format, or else
+     *        <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a
+     *        href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references"
+     *        >Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.
+     */
+
+    public void setAssetModelId(String assetModelId) {
+        this.assetModelId = assetModelId;
+    }
+
+    /**
+     * <p>
+     * The ID of the asset model. This can be either the actual ID in UUID format, or else <code>externalId:</code>
+     * followed by the external ID, if it has one. For more information, see <a
+     * href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references"
+     * >Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.
+     * </p>
+     * 
+     * @return The ID of the asset model. This can be either the actual ID in UUID format, or else
+     *         <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a
+     *         href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references"
+     *         >Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.
+     */
+
+    public String getAssetModelId() {
+        return this.assetModelId;
+    }
+
+    /**
+     * <p>
+     * The ID of the asset model. This can be either the actual ID in UUID format, or else <code>externalId:</code>
+     * followed by the external ID, if it has one. For more information, see <a
+     * href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references"
+     * >Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.
+     * </p>
+     * 
+     * @param assetModelId
+     *        The ID of the asset model. This can be either the actual ID in UUID format, or else
+     *        <code>externalId:</code> followed by the external ID, if it has one. For more information, see <a
+     *        href="https://docs.aws.amazon.com/iot-sitewise/latest/userguide/object-ids.html#external-id-references"
+     *        >Referencing objects with external IDs</a> in the <i>IoT SiteWise User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeAssetModelRequest withAssetModelId(String assetModelId) {
+        setAssetModelId(assetModelId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Whether or not to exclude asset model properties from the response.
+     * </p>
+     * 
+     * @param excludeProperties
+     *        Whether or not to exclude asset model properties from the response.
+     */
+
+    public void setExcludeProperties(Boolean excludeProperties) {
+        this.excludeProperties = excludeProperties;
+    }
+
+    /**
+     * <p>
+     * Whether or not to exclude asset model properties from the response.
+     * </p>
+     * 
+     * @return Whether or not to exclude asset model properties from the response.
+     */
+
+    public Boolean getExcludeProperties() {
+        return this.excludeProperties;
+    }
+
+    /**
+     * <p>
+     * Whether or not to exclude asset model properties from the response.
+     * </p>
+     * 
+     * @param excludeProperties
+     *        Whether or not to exclude asset model properties from the response.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeAssetModelRequest withExcludeProperties(Boolean excludeProperties) {
+        setExcludeProperties(excludeProperties);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Whether or not to exclude asset model properties from the response.
+     * </p>
+     * 
+     * @return Whether or not to exclude asset model properties from the response.
+     */
+
+    public Boolean isExcludeProperties() {
+        return this.excludeProperties;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getAssetModelId() != null)
+            sb.append("AssetModelId: ").append(getAssetModelId()).append(",");
+        if (getExcludeProperties() != null)
+            sb.append("ExcludeProperties: ").append(getExcludeProperties());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof DescribeAssetModelRequest == false)
+            return false;
+        DescribeAssetModelRequest other = (DescribeAssetModelRequest) obj;
+        if (other.getAssetModelId() == null ^ this.getAssetModelId() == null)
+            return false;
+        if (other.getAssetModelId() != null && other.getAssetModelId().equals(this.getAssetModelId()) == false)
+            return false;
+        if (other.getExcludeProperties() == null ^ this.getExcludeProperties() == null)
+            return false;
+        if (other.getExcludeProperties() != null && other.getExcludeProperties().equals(this.getExcludeProperties()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getAssetModelId() == null) ? 0 : getAssetModelId().hashCode());
+        hashCode = prime * hashCode + ((getExcludeProperties() == null) ? 0 : getExcludeProperties().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public DescribeAssetModelRequest clone() {
+        return (DescribeAssetModelRequest) super.clone();
+    }
+
+}

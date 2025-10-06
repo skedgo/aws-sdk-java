@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,15 +30,15 @@ public class DescribeEventTopicsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The Directory ID for which to get the list of associated SNS topics. If this member is null, associations for all
-     * Directory IDs are returned.
+     * The Directory ID for which to get the list of associated Amazon SNS topics. If this member is null, associations
+     * for all Directory IDs are returned.
      * </p>
      */
     private String directoryId;
     /**
      * <p>
-     * A list of SNS topic names for which to obtain the information. If this member is null, all associations for the
-     * specified Directory ID are returned.
+     * A list of Amazon SNS topic names for which to obtain the information. If this member is null, all associations
+     * for the specified Directory ID are returned.
      * </p>
      * <p>
      * An empty list results in an <code>InvalidParameterException</code> being thrown.
@@ -48,13 +48,13 @@ public class DescribeEventTopicsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The Directory ID for which to get the list of associated SNS topics. If this member is null, associations for all
-     * Directory IDs are returned.
+     * The Directory ID for which to get the list of associated Amazon SNS topics. If this member is null, associations
+     * for all Directory IDs are returned.
      * </p>
      * 
      * @param directoryId
-     *        The Directory ID for which to get the list of associated SNS topics. If this member is null, associations
-     *        for all Directory IDs are returned.
+     *        The Directory ID for which to get the list of associated Amazon SNS topics. If this member is null,
+     *        associations for all Directory IDs are returned.
      */
 
     public void setDirectoryId(String directoryId) {
@@ -63,12 +63,12 @@ public class DescribeEventTopicsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The Directory ID for which to get the list of associated SNS topics. If this member is null, associations for all
-     * Directory IDs are returned.
+     * The Directory ID for which to get the list of associated Amazon SNS topics. If this member is null, associations
+     * for all Directory IDs are returned.
      * </p>
      * 
-     * @return The Directory ID for which to get the list of associated SNS topics. If this member is null, associations
-     *         for all Directory IDs are returned.
+     * @return The Directory ID for which to get the list of associated Amazon SNS topics. If this member is null,
+     *         associations for all Directory IDs are returned.
      */
 
     public String getDirectoryId() {
@@ -77,13 +77,13 @@ public class DescribeEventTopicsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The Directory ID for which to get the list of associated SNS topics. If this member is null, associations for all
-     * Directory IDs are returned.
+     * The Directory ID for which to get the list of associated Amazon SNS topics. If this member is null, associations
+     * for all Directory IDs are returned.
      * </p>
      * 
      * @param directoryId
-     *        The Directory ID for which to get the list of associated SNS topics. If this member is null, associations
-     *        for all Directory IDs are returned.
+     *        The Directory ID for which to get the list of associated Amazon SNS topics. If this member is null,
+     *        associations for all Directory IDs are returned.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -94,15 +94,15 @@ public class DescribeEventTopicsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A list of SNS topic names for which to obtain the information. If this member is null, all associations for the
-     * specified Directory ID are returned.
+     * A list of Amazon SNS topic names for which to obtain the information. If this member is null, all associations
+     * for the specified Directory ID are returned.
      * </p>
      * <p>
      * An empty list results in an <code>InvalidParameterException</code> being thrown.
      * </p>
      * 
-     * @return A list of SNS topic names for which to obtain the information. If this member is null, all associations
-     *         for the specified Directory ID are returned.</p>
+     * @return A list of Amazon SNS topic names for which to obtain the information. If this member is null, all
+     *         associations for the specified Directory ID are returned.</p>
      *         <p>
      *         An empty list results in an <code>InvalidParameterException</code> being thrown.
      */
@@ -116,16 +116,16 @@ public class DescribeEventTopicsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A list of SNS topic names for which to obtain the information. If this member is null, all associations for the
-     * specified Directory ID are returned.
+     * A list of Amazon SNS topic names for which to obtain the information. If this member is null, all associations
+     * for the specified Directory ID are returned.
      * </p>
      * <p>
      * An empty list results in an <code>InvalidParameterException</code> being thrown.
      * </p>
      * 
      * @param topicNames
-     *        A list of SNS topic names for which to obtain the information. If this member is null, all associations
-     *        for the specified Directory ID are returned.</p>
+     *        A list of Amazon SNS topic names for which to obtain the information. If this member is null, all
+     *        associations for the specified Directory ID are returned.</p>
      *        <p>
      *        An empty list results in an <code>InvalidParameterException</code> being thrown.
      */
@@ -141,8 +141,8 @@ public class DescribeEventTopicsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A list of SNS topic names for which to obtain the information. If this member is null, all associations for the
-     * specified Directory ID are returned.
+     * A list of Amazon SNS topic names for which to obtain the information. If this member is null, all associations
+     * for the specified Directory ID are returned.
      * </p>
      * <p>
      * An empty list results in an <code>InvalidParameterException</code> being thrown.
@@ -154,8 +154,8 @@ public class DescribeEventTopicsRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @param topicNames
-     *        A list of SNS topic names for which to obtain the information. If this member is null, all associations
-     *        for the specified Directory ID are returned.</p>
+     *        A list of Amazon SNS topic names for which to obtain the information. If this member is null, all
+     *        associations for the specified Directory ID are returned.</p>
      *        <p>
      *        An empty list results in an <code>InvalidParameterException</code> being thrown.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -173,16 +173,16 @@ public class DescribeEventTopicsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A list of SNS topic names for which to obtain the information. If this member is null, all associations for the
-     * specified Directory ID are returned.
+     * A list of Amazon SNS topic names for which to obtain the information. If this member is null, all associations
+     * for the specified Directory ID are returned.
      * </p>
      * <p>
      * An empty list results in an <code>InvalidParameterException</code> being thrown.
      * </p>
      * 
      * @param topicNames
-     *        A list of SNS topic names for which to obtain the information. If this member is null, all associations
-     *        for the specified Directory ID are returned.</p>
+     *        A list of Amazon SNS topic names for which to obtain the information. If this member is null, all
+     *        associations for the specified Directory ID are returned.</p>
      *        <p>
      *        An empty list results in an <code>InvalidParameterException</code> being thrown.
      * @return Returns a reference to this object so that method calls can be chained together.

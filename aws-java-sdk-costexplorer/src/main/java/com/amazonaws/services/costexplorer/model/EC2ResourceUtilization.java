@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Utilization metrics of the instance.
+ * Utilization metrics for the instance.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/EC2ResourceUtilization" target="_top">AWS API
@@ -30,30 +30,48 @@ public class EC2ResourceUtilization implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Maximum observed or expected CPU utilization of the instance.
+     * The maximum observed or expected CPU utilization of the instance.
      * </p>
      */
     private String maxCpuUtilizationPercentage;
     /**
      * <p>
-     * Maximum observed or expected memory utilization of the instance.
+     * The maximum observed or expected memory utilization of the instance.
      * </p>
      */
     private String maxMemoryUtilizationPercentage;
     /**
      * <p>
-     * Maximum observed or expected storage utilization of the instance (does not measure EBS storage).
+     * The maximum observed or expected storage utilization of the instance. This doesn't include EBS storage.
      * </p>
      */
     private String maxStorageUtilizationPercentage;
+    /**
+     * <p>
+     * The EBS field that contains a list of EBS metrics that are associated with the current instance.
+     * </p>
+     */
+    private EBSResourceUtilization eBSResourceUtilization;
+    /**
+     * <p>
+     * The field that contains a list of disk (local storage) metrics that are associated with the current instance.
+     * </p>
+     */
+    private DiskResourceUtilization diskResourceUtilization;
+    /**
+     * <p>
+     * The network field that contains a list of network metrics that are associated with the current instance.
+     * </p>
+     */
+    private NetworkResourceUtilization networkResourceUtilization;
 
     /**
      * <p>
-     * Maximum observed or expected CPU utilization of the instance.
+     * The maximum observed or expected CPU utilization of the instance.
      * </p>
      * 
      * @param maxCpuUtilizationPercentage
-     *        Maximum observed or expected CPU utilization of the instance.
+     *        The maximum observed or expected CPU utilization of the instance.
      */
 
     public void setMaxCpuUtilizationPercentage(String maxCpuUtilizationPercentage) {
@@ -62,10 +80,10 @@ public class EC2ResourceUtilization implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Maximum observed or expected CPU utilization of the instance.
+     * The maximum observed or expected CPU utilization of the instance.
      * </p>
      * 
-     * @return Maximum observed or expected CPU utilization of the instance.
+     * @return The maximum observed or expected CPU utilization of the instance.
      */
 
     public String getMaxCpuUtilizationPercentage() {
@@ -74,11 +92,11 @@ public class EC2ResourceUtilization implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Maximum observed or expected CPU utilization of the instance.
+     * The maximum observed or expected CPU utilization of the instance.
      * </p>
      * 
      * @param maxCpuUtilizationPercentage
-     *        Maximum observed or expected CPU utilization of the instance.
+     *        The maximum observed or expected CPU utilization of the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -89,11 +107,11 @@ public class EC2ResourceUtilization implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Maximum observed or expected memory utilization of the instance.
+     * The maximum observed or expected memory utilization of the instance.
      * </p>
      * 
      * @param maxMemoryUtilizationPercentage
-     *        Maximum observed or expected memory utilization of the instance.
+     *        The maximum observed or expected memory utilization of the instance.
      */
 
     public void setMaxMemoryUtilizationPercentage(String maxMemoryUtilizationPercentage) {
@@ -102,10 +120,10 @@ public class EC2ResourceUtilization implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Maximum observed or expected memory utilization of the instance.
+     * The maximum observed or expected memory utilization of the instance.
      * </p>
      * 
-     * @return Maximum observed or expected memory utilization of the instance.
+     * @return The maximum observed or expected memory utilization of the instance.
      */
 
     public String getMaxMemoryUtilizationPercentage() {
@@ -114,11 +132,11 @@ public class EC2ResourceUtilization implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Maximum observed or expected memory utilization of the instance.
+     * The maximum observed or expected memory utilization of the instance.
      * </p>
      * 
      * @param maxMemoryUtilizationPercentage
-     *        Maximum observed or expected memory utilization of the instance.
+     *        The maximum observed or expected memory utilization of the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -129,11 +147,11 @@ public class EC2ResourceUtilization implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Maximum observed or expected storage utilization of the instance (does not measure EBS storage).
+     * The maximum observed or expected storage utilization of the instance. This doesn't include EBS storage.
      * </p>
      * 
      * @param maxStorageUtilizationPercentage
-     *        Maximum observed or expected storage utilization of the instance (does not measure EBS storage).
+     *        The maximum observed or expected storage utilization of the instance. This doesn't include EBS storage.
      */
 
     public void setMaxStorageUtilizationPercentage(String maxStorageUtilizationPercentage) {
@@ -142,10 +160,10 @@ public class EC2ResourceUtilization implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Maximum observed or expected storage utilization of the instance (does not measure EBS storage).
+     * The maximum observed or expected storage utilization of the instance. This doesn't include EBS storage.
      * </p>
      * 
-     * @return Maximum observed or expected storage utilization of the instance (does not measure EBS storage).
+     * @return The maximum observed or expected storage utilization of the instance. This doesn't include EBS storage.
      */
 
     public String getMaxStorageUtilizationPercentage() {
@@ -154,16 +172,139 @@ public class EC2ResourceUtilization implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Maximum observed or expected storage utilization of the instance (does not measure EBS storage).
+     * The maximum observed or expected storage utilization of the instance. This doesn't include EBS storage.
      * </p>
      * 
      * @param maxStorageUtilizationPercentage
-     *        Maximum observed or expected storage utilization of the instance (does not measure EBS storage).
+     *        The maximum observed or expected storage utilization of the instance. This doesn't include EBS storage.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public EC2ResourceUtilization withMaxStorageUtilizationPercentage(String maxStorageUtilizationPercentage) {
         setMaxStorageUtilizationPercentage(maxStorageUtilizationPercentage);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The EBS field that contains a list of EBS metrics that are associated with the current instance.
+     * </p>
+     * 
+     * @param eBSResourceUtilization
+     *        The EBS field that contains a list of EBS metrics that are associated with the current instance.
+     */
+
+    public void setEBSResourceUtilization(EBSResourceUtilization eBSResourceUtilization) {
+        this.eBSResourceUtilization = eBSResourceUtilization;
+    }
+
+    /**
+     * <p>
+     * The EBS field that contains a list of EBS metrics that are associated with the current instance.
+     * </p>
+     * 
+     * @return The EBS field that contains a list of EBS metrics that are associated with the current instance.
+     */
+
+    public EBSResourceUtilization getEBSResourceUtilization() {
+        return this.eBSResourceUtilization;
+    }
+
+    /**
+     * <p>
+     * The EBS field that contains a list of EBS metrics that are associated with the current instance.
+     * </p>
+     * 
+     * @param eBSResourceUtilization
+     *        The EBS field that contains a list of EBS metrics that are associated with the current instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EC2ResourceUtilization withEBSResourceUtilization(EBSResourceUtilization eBSResourceUtilization) {
+        setEBSResourceUtilization(eBSResourceUtilization);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The field that contains a list of disk (local storage) metrics that are associated with the current instance.
+     * </p>
+     * 
+     * @param diskResourceUtilization
+     *        The field that contains a list of disk (local storage) metrics that are associated with the current
+     *        instance.
+     */
+
+    public void setDiskResourceUtilization(DiskResourceUtilization diskResourceUtilization) {
+        this.diskResourceUtilization = diskResourceUtilization;
+    }
+
+    /**
+     * <p>
+     * The field that contains a list of disk (local storage) metrics that are associated with the current instance.
+     * </p>
+     * 
+     * @return The field that contains a list of disk (local storage) metrics that are associated with the current
+     *         instance.
+     */
+
+    public DiskResourceUtilization getDiskResourceUtilization() {
+        return this.diskResourceUtilization;
+    }
+
+    /**
+     * <p>
+     * The field that contains a list of disk (local storage) metrics that are associated with the current instance.
+     * </p>
+     * 
+     * @param diskResourceUtilization
+     *        The field that contains a list of disk (local storage) metrics that are associated with the current
+     *        instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EC2ResourceUtilization withDiskResourceUtilization(DiskResourceUtilization diskResourceUtilization) {
+        setDiskResourceUtilization(diskResourceUtilization);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The network field that contains a list of network metrics that are associated with the current instance.
+     * </p>
+     * 
+     * @param networkResourceUtilization
+     *        The network field that contains a list of network metrics that are associated with the current instance.
+     */
+
+    public void setNetworkResourceUtilization(NetworkResourceUtilization networkResourceUtilization) {
+        this.networkResourceUtilization = networkResourceUtilization;
+    }
+
+    /**
+     * <p>
+     * The network field that contains a list of network metrics that are associated with the current instance.
+     * </p>
+     * 
+     * @return The network field that contains a list of network metrics that are associated with the current instance.
+     */
+
+    public NetworkResourceUtilization getNetworkResourceUtilization() {
+        return this.networkResourceUtilization;
+    }
+
+    /**
+     * <p>
+     * The network field that contains a list of network metrics that are associated with the current instance.
+     * </p>
+     * 
+     * @param networkResourceUtilization
+     *        The network field that contains a list of network metrics that are associated with the current instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EC2ResourceUtilization withNetworkResourceUtilization(NetworkResourceUtilization networkResourceUtilization) {
+        setNetworkResourceUtilization(networkResourceUtilization);
         return this;
     }
 
@@ -184,7 +325,13 @@ public class EC2ResourceUtilization implements Serializable, Cloneable, Structur
         if (getMaxMemoryUtilizationPercentage() != null)
             sb.append("MaxMemoryUtilizationPercentage: ").append(getMaxMemoryUtilizationPercentage()).append(",");
         if (getMaxStorageUtilizationPercentage() != null)
-            sb.append("MaxStorageUtilizationPercentage: ").append(getMaxStorageUtilizationPercentage());
+            sb.append("MaxStorageUtilizationPercentage: ").append(getMaxStorageUtilizationPercentage()).append(",");
+        if (getEBSResourceUtilization() != null)
+            sb.append("EBSResourceUtilization: ").append(getEBSResourceUtilization()).append(",");
+        if (getDiskResourceUtilization() != null)
+            sb.append("DiskResourceUtilization: ").append(getDiskResourceUtilization()).append(",");
+        if (getNetworkResourceUtilization() != null)
+            sb.append("NetworkResourceUtilization: ").append(getNetworkResourceUtilization());
         sb.append("}");
         return sb.toString();
     }
@@ -213,6 +360,18 @@ public class EC2ResourceUtilization implements Serializable, Cloneable, Structur
         if (other.getMaxStorageUtilizationPercentage() != null
                 && other.getMaxStorageUtilizationPercentage().equals(this.getMaxStorageUtilizationPercentage()) == false)
             return false;
+        if (other.getEBSResourceUtilization() == null ^ this.getEBSResourceUtilization() == null)
+            return false;
+        if (other.getEBSResourceUtilization() != null && other.getEBSResourceUtilization().equals(this.getEBSResourceUtilization()) == false)
+            return false;
+        if (other.getDiskResourceUtilization() == null ^ this.getDiskResourceUtilization() == null)
+            return false;
+        if (other.getDiskResourceUtilization() != null && other.getDiskResourceUtilization().equals(this.getDiskResourceUtilization()) == false)
+            return false;
+        if (other.getNetworkResourceUtilization() == null ^ this.getNetworkResourceUtilization() == null)
+            return false;
+        if (other.getNetworkResourceUtilization() != null && other.getNetworkResourceUtilization().equals(this.getNetworkResourceUtilization()) == false)
+            return false;
         return true;
     }
 
@@ -224,6 +383,9 @@ public class EC2ResourceUtilization implements Serializable, Cloneable, Structur
         hashCode = prime * hashCode + ((getMaxCpuUtilizationPercentage() == null) ? 0 : getMaxCpuUtilizationPercentage().hashCode());
         hashCode = prime * hashCode + ((getMaxMemoryUtilizationPercentage() == null) ? 0 : getMaxMemoryUtilizationPercentage().hashCode());
         hashCode = prime * hashCode + ((getMaxStorageUtilizationPercentage() == null) ? 0 : getMaxStorageUtilizationPercentage().hashCode());
+        hashCode = prime * hashCode + ((getEBSResourceUtilization() == null) ? 0 : getEBSResourceUtilization().hashCode());
+        hashCode = prime * hashCode + ((getDiskResourceUtilization() == null) ? 0 : getDiskResourceUtilization().hashCode());
+        hashCode = prime * hashCode + ((getNetworkResourceUtilization() == null) ? 0 : getNetworkResourceUtilization().hashCode());
         return hashCode;
     }
 

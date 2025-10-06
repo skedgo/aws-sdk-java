@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,23 +42,24 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
     private String windowTaskId;
     /**
      * <p>
-     * The resource that the task uses during execution. For RUN_COMMAND and AUTOMATION task types, <code>TaskArn</code>
-     * is the Systems Manager document name or ARN. For LAMBDA tasks, it's the function name or ARN. For STEP_FUNCTIONS
-     * tasks, it's the state machine ARN.
+     * The resource that the task uses during execution. For <code>RUN_COMMAND</code> and <code>AUTOMATION</code> task
+     * types, <code>TaskArn</code> is the Amazon Web Services Systems Manager (SSM document) name or ARN. For
+     * <code>LAMBDA</code> tasks, it's the function name or ARN. For <code>STEP_FUNCTIONS</code> tasks, it's the state
+     * machine ARN.
      * </p>
      */
     private String taskArn;
     /**
      * <p>
-     * The type of task. The type can be one of the following: RUN_COMMAND, AUTOMATION, LAMBDA, or STEP_FUNCTIONS.
+     * The type of task.
      * </p>
      */
     private String type;
     /**
      * <p>
-     * The targets (either instances or tags). Instances are specified using
-     * Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;. Tags are specified using Key=&lt;tag
-     * name&gt;,Values=&lt;tag value&gt;.
+     * The targets (either managed nodes or tags). Managed nodes are specified using
+     * <code>Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;</code>. Tags are specified using
+     * <code>Key=&lt;tag name&gt;,Values=&lt;tag value&gt;</code>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Target> targets;
@@ -85,22 +86,23 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
     private Integer priority;
     /**
      * <p>
-     * Information about an Amazon S3 bucket to write task-level logs to.
+     * Information about an S3 bucket to write task-level logs to.
      * </p>
      * <note>
      * <p>
-     * <code>LoggingInfo</code> has been deprecated. To specify an S3 bucket to contain logs, instead use the
-     * <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
-     * <code>TaskInvocationParameters</code> structure. For information about how Systems Manager handles these options
-     * for the supported maintenance window task types, see <a>MaintenanceWindowTaskInvocationParameters</a>.
+     * <code>LoggingInfo</code> has been deprecated. To specify an Amazon Simple Storage Service (Amazon S3) bucket to
+     * contain logs, instead use the <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
+     * <code>TaskInvocationParameters</code> structure. For information about how Amazon Web Services Systems Manager
+     * handles these options for the supported maintenance window task types, see
+     * <a>MaintenanceWindowTaskInvocationParameters</a>.
      * </p>
      * </note>
      */
     private LoggingInfo loggingInfo;
     /**
      * <p>
-     * The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS) notifications
-     * for maintenance window Run Command tasks.
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) service role to use to publish Amazon
+     * Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
      * </p>
      */
     private String serviceRoleArn;
@@ -108,12 +110,36 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
      * <p>
      * The maximum number of targets this task can be run for, in parallel.
      * </p>
+     * <note>
+     * <p>
+     * Although this element is listed as "Required: No", a value can be omitted only when you are registering or
+     * updating a <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/maintenance-windows-targetless-tasks.html"
+     * >targetless task</a> You must provide a value in all other cases.
+     * </p>
+     * <p>
+     * For maintenance window tasks without a target specified, you can't supply a value for this option. Instead, the
+     * system inserts a placeholder value of <code>1</code>. This value doesn't affect the running of your task.
+     * </p>
+     * </note>
      */
     private String maxConcurrency;
     /**
      * <p>
      * The maximum number of errors allowed before this task stops being scheduled.
      * </p>
+     * <note>
+     * <p>
+     * Although this element is listed as "Required: No", a value can be omitted only when you are registering or
+     * updating a <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/maintenance-windows-targetless-tasks.html"
+     * >targetless task</a> You must provide a value in all other cases.
+     * </p>
+     * <p>
+     * For maintenance window tasks without a target specified, you can't supply a value for this option. Instead, the
+     * system inserts a placeholder value of <code>1</code>. This value doesn't affect the running of your task.
+     * </p>
+     * </note>
      */
     private String maxErrors;
     /**
@@ -128,6 +154,19 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
      * </p>
      */
     private String description;
+    /**
+     * <p>
+     * The specification for whether tasks should continue to run after the cutoff time specified in the maintenance
+     * windows is reached.
+     * </p>
+     */
+    private String cutoffBehavior;
+    /**
+     * <p>
+     * The details for the CloudWatch alarm applied to your maintenance window task.
+     * </p>
+     */
+    private AlarmConfiguration alarmConfiguration;
 
     /**
      * <p>
@@ -211,15 +250,17 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The resource that the task uses during execution. For RUN_COMMAND and AUTOMATION task types, <code>TaskArn</code>
-     * is the Systems Manager document name or ARN. For LAMBDA tasks, it's the function name or ARN. For STEP_FUNCTIONS
-     * tasks, it's the state machine ARN.
+     * The resource that the task uses during execution. For <code>RUN_COMMAND</code> and <code>AUTOMATION</code> task
+     * types, <code>TaskArn</code> is the Amazon Web Services Systems Manager (SSM document) name or ARN. For
+     * <code>LAMBDA</code> tasks, it's the function name or ARN. For <code>STEP_FUNCTIONS</code> tasks, it's the state
+     * machine ARN.
      * </p>
      * 
      * @param taskArn
-     *        The resource that the task uses during execution. For RUN_COMMAND and AUTOMATION task types,
-     *        <code>TaskArn</code> is the Systems Manager document name or ARN. For LAMBDA tasks, it's the function name
-     *        or ARN. For STEP_FUNCTIONS tasks, it's the state machine ARN.
+     *        The resource that the task uses during execution. For <code>RUN_COMMAND</code> and <code>AUTOMATION</code>
+     *        task types, <code>TaskArn</code> is the Amazon Web Services Systems Manager (SSM document) name or ARN.
+     *        For <code>LAMBDA</code> tasks, it's the function name or ARN. For <code>STEP_FUNCTIONS</code> tasks, it's
+     *        the state machine ARN.
      */
 
     public void setTaskArn(String taskArn) {
@@ -228,14 +269,16 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The resource that the task uses during execution. For RUN_COMMAND and AUTOMATION task types, <code>TaskArn</code>
-     * is the Systems Manager document name or ARN. For LAMBDA tasks, it's the function name or ARN. For STEP_FUNCTIONS
-     * tasks, it's the state machine ARN.
+     * The resource that the task uses during execution. For <code>RUN_COMMAND</code> and <code>AUTOMATION</code> task
+     * types, <code>TaskArn</code> is the Amazon Web Services Systems Manager (SSM document) name or ARN. For
+     * <code>LAMBDA</code> tasks, it's the function name or ARN. For <code>STEP_FUNCTIONS</code> tasks, it's the state
+     * machine ARN.
      * </p>
      * 
-     * @return The resource that the task uses during execution. For RUN_COMMAND and AUTOMATION task types,
-     *         <code>TaskArn</code> is the Systems Manager document name or ARN. For LAMBDA tasks, it's the function
-     *         name or ARN. For STEP_FUNCTIONS tasks, it's the state machine ARN.
+     * @return The resource that the task uses during execution. For <code>RUN_COMMAND</code> and
+     *         <code>AUTOMATION</code> task types, <code>TaskArn</code> is the Amazon Web Services Systems Manager (SSM
+     *         document) name or ARN. For <code>LAMBDA</code> tasks, it's the function name or ARN. For
+     *         <code>STEP_FUNCTIONS</code> tasks, it's the state machine ARN.
      */
 
     public String getTaskArn() {
@@ -244,15 +287,17 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The resource that the task uses during execution. For RUN_COMMAND and AUTOMATION task types, <code>TaskArn</code>
-     * is the Systems Manager document name or ARN. For LAMBDA tasks, it's the function name or ARN. For STEP_FUNCTIONS
-     * tasks, it's the state machine ARN.
+     * The resource that the task uses during execution. For <code>RUN_COMMAND</code> and <code>AUTOMATION</code> task
+     * types, <code>TaskArn</code> is the Amazon Web Services Systems Manager (SSM document) name or ARN. For
+     * <code>LAMBDA</code> tasks, it's the function name or ARN. For <code>STEP_FUNCTIONS</code> tasks, it's the state
+     * machine ARN.
      * </p>
      * 
      * @param taskArn
-     *        The resource that the task uses during execution. For RUN_COMMAND and AUTOMATION task types,
-     *        <code>TaskArn</code> is the Systems Manager document name or ARN. For LAMBDA tasks, it's the function name
-     *        or ARN. For STEP_FUNCTIONS tasks, it's the state machine ARN.
+     *        The resource that the task uses during execution. For <code>RUN_COMMAND</code> and <code>AUTOMATION</code>
+     *        task types, <code>TaskArn</code> is the Amazon Web Services Systems Manager (SSM document) name or ARN.
+     *        For <code>LAMBDA</code> tasks, it's the function name or ARN. For <code>STEP_FUNCTIONS</code> tasks, it's
+     *        the state machine ARN.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -263,12 +308,11 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The type of task. The type can be one of the following: RUN_COMMAND, AUTOMATION, LAMBDA, or STEP_FUNCTIONS.
+     * The type of task.
      * </p>
      * 
      * @param type
-     *        The type of task. The type can be one of the following: RUN_COMMAND, AUTOMATION, LAMBDA, or
-     *        STEP_FUNCTIONS.
+     *        The type of task.
      * @see MaintenanceWindowTaskType
      */
 
@@ -278,11 +322,10 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The type of task. The type can be one of the following: RUN_COMMAND, AUTOMATION, LAMBDA, or STEP_FUNCTIONS.
+     * The type of task.
      * </p>
      * 
-     * @return The type of task. The type can be one of the following: RUN_COMMAND, AUTOMATION, LAMBDA, or
-     *         STEP_FUNCTIONS.
+     * @return The type of task.
      * @see MaintenanceWindowTaskType
      */
 
@@ -292,12 +335,11 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The type of task. The type can be one of the following: RUN_COMMAND, AUTOMATION, LAMBDA, or STEP_FUNCTIONS.
+     * The type of task.
      * </p>
      * 
      * @param type
-     *        The type of task. The type can be one of the following: RUN_COMMAND, AUTOMATION, LAMBDA, or
-     *        STEP_FUNCTIONS.
+     *        The type of task.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see MaintenanceWindowTaskType
      */
@@ -309,12 +351,11 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The type of task. The type can be one of the following: RUN_COMMAND, AUTOMATION, LAMBDA, or STEP_FUNCTIONS.
+     * The type of task.
      * </p>
      * 
      * @param type
-     *        The type of task. The type can be one of the following: RUN_COMMAND, AUTOMATION, LAMBDA, or
-     *        STEP_FUNCTIONS.
+     *        The type of task.
      * @see MaintenanceWindowTaskType
      */
 
@@ -324,12 +365,11 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The type of task. The type can be one of the following: RUN_COMMAND, AUTOMATION, LAMBDA, or STEP_FUNCTIONS.
+     * The type of task.
      * </p>
      * 
      * @param type
-     *        The type of task. The type can be one of the following: RUN_COMMAND, AUTOMATION, LAMBDA, or
-     *        STEP_FUNCTIONS.
+     *        The type of task.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see MaintenanceWindowTaskType
      */
@@ -341,14 +381,14 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The targets (either instances or tags). Instances are specified using
-     * Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;. Tags are specified using Key=&lt;tag
-     * name&gt;,Values=&lt;tag value&gt;.
+     * The targets (either managed nodes or tags). Managed nodes are specified using
+     * <code>Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;</code>. Tags are specified using
+     * <code>Key=&lt;tag name&gt;,Values=&lt;tag value&gt;</code>.
      * </p>
      * 
-     * @return The targets (either instances or tags). Instances are specified using
-     *         Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;. Tags are specified using Key=&lt;tag
-     *         name&gt;,Values=&lt;tag value&gt;.
+     * @return The targets (either managed nodes or tags). Managed nodes are specified using
+     *         <code>Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;</code>. Tags are specified using
+     *         <code>Key=&lt;tag name&gt;,Values=&lt;tag value&gt;</code>.
      */
 
     public java.util.List<Target> getTargets() {
@@ -360,15 +400,15 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The targets (either instances or tags). Instances are specified using
-     * Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;. Tags are specified using Key=&lt;tag
-     * name&gt;,Values=&lt;tag value&gt;.
+     * The targets (either managed nodes or tags). Managed nodes are specified using
+     * <code>Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;</code>. Tags are specified using
+     * <code>Key=&lt;tag name&gt;,Values=&lt;tag value&gt;</code>.
      * </p>
      * 
      * @param targets
-     *        The targets (either instances or tags). Instances are specified using
-     *        Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;. Tags are specified using Key=&lt;tag
-     *        name&gt;,Values=&lt;tag value&gt;.
+     *        The targets (either managed nodes or tags). Managed nodes are specified using
+     *        <code>Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;</code>. Tags are specified using
+     *        <code>Key=&lt;tag name&gt;,Values=&lt;tag value&gt;</code>.
      */
 
     public void setTargets(java.util.Collection<Target> targets) {
@@ -382,9 +422,9 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The targets (either instances or tags). Instances are specified using
-     * Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;. Tags are specified using Key=&lt;tag
-     * name&gt;,Values=&lt;tag value&gt;.
+     * The targets (either managed nodes or tags). Managed nodes are specified using
+     * <code>Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;</code>. Tags are specified using
+     * <code>Key=&lt;tag name&gt;,Values=&lt;tag value&gt;</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -393,9 +433,9 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
      * </p>
      * 
      * @param targets
-     *        The targets (either instances or tags). Instances are specified using
-     *        Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;. Tags are specified using Key=&lt;tag
-     *        name&gt;,Values=&lt;tag value&gt;.
+     *        The targets (either managed nodes or tags). Managed nodes are specified using
+     *        <code>Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;</code>. Tags are specified using
+     *        <code>Key=&lt;tag name&gt;,Values=&lt;tag value&gt;</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -411,15 +451,15 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The targets (either instances or tags). Instances are specified using
-     * Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;. Tags are specified using Key=&lt;tag
-     * name&gt;,Values=&lt;tag value&gt;.
+     * The targets (either managed nodes or tags). Managed nodes are specified using
+     * <code>Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;</code>. Tags are specified using
+     * <code>Key=&lt;tag name&gt;,Values=&lt;tag value&gt;</code>.
      * </p>
      * 
      * @param targets
-     *        The targets (either instances or tags). Instances are specified using
-     *        Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;. Tags are specified using Key=&lt;tag
-     *        name&gt;,Values=&lt;tag value&gt;.
+     *        The targets (either managed nodes or tags). Managed nodes are specified using
+     *        <code>Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;</code>. Tags are specified using
+     *        <code>Key=&lt;tag name&gt;,Values=&lt;tag value&gt;</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -510,6 +550,13 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
         return this;
     }
 
+    /**
+     * Add a single TaskParameters entry
+     *
+     * @see MaintenanceWindowTask#withTaskParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public MaintenanceWindowTask addTaskParametersEntry(String key, MaintenanceWindowTaskParameterValueExpression value) {
         if (null == this.taskParameters) {
             this.taskParameters = new java.util.HashMap<String, MaintenanceWindowTaskParameterValueExpression>();
@@ -579,24 +626,25 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * Information about an Amazon S3 bucket to write task-level logs to.
+     * Information about an S3 bucket to write task-level logs to.
      * </p>
      * <note>
      * <p>
-     * <code>LoggingInfo</code> has been deprecated. To specify an S3 bucket to contain logs, instead use the
-     * <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
-     * <code>TaskInvocationParameters</code> structure. For information about how Systems Manager handles these options
-     * for the supported maintenance window task types, see <a>MaintenanceWindowTaskInvocationParameters</a>.
+     * <code>LoggingInfo</code> has been deprecated. To specify an Amazon Simple Storage Service (Amazon S3) bucket to
+     * contain logs, instead use the <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
+     * <code>TaskInvocationParameters</code> structure. For information about how Amazon Web Services Systems Manager
+     * handles these options for the supported maintenance window task types, see
+     * <a>MaintenanceWindowTaskInvocationParameters</a>.
      * </p>
      * </note>
      * 
      * @param loggingInfo
-     *        Information about an Amazon S3 bucket to write task-level logs to.</p> <note>
+     *        Information about an S3 bucket to write task-level logs to.</p> <note>
      *        <p>
-     *        <code>LoggingInfo</code> has been deprecated. To specify an S3 bucket to contain logs, instead use the
-     *        <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
-     *        <code>TaskInvocationParameters</code> structure. For information about how Systems Manager handles these
-     *        options for the supported maintenance window task types, see
+     *        <code>LoggingInfo</code> has been deprecated. To specify an Amazon Simple Storage Service (Amazon S3)
+     *        bucket to contain logs, instead use the <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code>
+     *        options in the <code>TaskInvocationParameters</code> structure. For information about how Amazon Web
+     *        Services Systems Manager handles these options for the supported maintenance window task types, see
      *        <a>MaintenanceWindowTaskInvocationParameters</a>.
      *        </p>
      */
@@ -607,24 +655,25 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * Information about an Amazon S3 bucket to write task-level logs to.
+     * Information about an S3 bucket to write task-level logs to.
      * </p>
      * <note>
      * <p>
-     * <code>LoggingInfo</code> has been deprecated. To specify an S3 bucket to contain logs, instead use the
-     * <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
-     * <code>TaskInvocationParameters</code> structure. For information about how Systems Manager handles these options
-     * for the supported maintenance window task types, see <a>MaintenanceWindowTaskInvocationParameters</a>.
+     * <code>LoggingInfo</code> has been deprecated. To specify an Amazon Simple Storage Service (Amazon S3) bucket to
+     * contain logs, instead use the <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
+     * <code>TaskInvocationParameters</code> structure. For information about how Amazon Web Services Systems Manager
+     * handles these options for the supported maintenance window task types, see
+     * <a>MaintenanceWindowTaskInvocationParameters</a>.
      * </p>
      * </note>
      * 
-     * @return Information about an Amazon S3 bucket to write task-level logs to.</p> <note>
+     * @return Information about an S3 bucket to write task-level logs to.</p> <note>
      *         <p>
-     *         <code>LoggingInfo</code> has been deprecated. To specify an S3 bucket to contain logs, instead use the
-     *         <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
-     *         <code>TaskInvocationParameters</code> structure. For information about how Systems Manager handles these
-     *         options for the supported maintenance window task types, see
-     *         <a>MaintenanceWindowTaskInvocationParameters</a>.
+     *         <code>LoggingInfo</code> has been deprecated. To specify an Amazon Simple Storage Service (Amazon S3)
+     *         bucket to contain logs, instead use the <code>OutputS3BucketName</code> and
+     *         <code>OutputS3KeyPrefix</code> options in the <code>TaskInvocationParameters</code> structure. For
+     *         information about how Amazon Web Services Systems Manager handles these options for the supported
+     *         maintenance window task types, see <a>MaintenanceWindowTaskInvocationParameters</a>.
      *         </p>
      */
 
@@ -634,24 +683,25 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * Information about an Amazon S3 bucket to write task-level logs to.
+     * Information about an S3 bucket to write task-level logs to.
      * </p>
      * <note>
      * <p>
-     * <code>LoggingInfo</code> has been deprecated. To specify an S3 bucket to contain logs, instead use the
-     * <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
-     * <code>TaskInvocationParameters</code> structure. For information about how Systems Manager handles these options
-     * for the supported maintenance window task types, see <a>MaintenanceWindowTaskInvocationParameters</a>.
+     * <code>LoggingInfo</code> has been deprecated. To specify an Amazon Simple Storage Service (Amazon S3) bucket to
+     * contain logs, instead use the <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
+     * <code>TaskInvocationParameters</code> structure. For information about how Amazon Web Services Systems Manager
+     * handles these options for the supported maintenance window task types, see
+     * <a>MaintenanceWindowTaskInvocationParameters</a>.
      * </p>
      * </note>
      * 
      * @param loggingInfo
-     *        Information about an Amazon S3 bucket to write task-level logs to.</p> <note>
+     *        Information about an S3 bucket to write task-level logs to.</p> <note>
      *        <p>
-     *        <code>LoggingInfo</code> has been deprecated. To specify an S3 bucket to contain logs, instead use the
-     *        <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
-     *        <code>TaskInvocationParameters</code> structure. For information about how Systems Manager handles these
-     *        options for the supported maintenance window task types, see
+     *        <code>LoggingInfo</code> has been deprecated. To specify an Amazon Simple Storage Service (Amazon S3)
+     *        bucket to contain logs, instead use the <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code>
+     *        options in the <code>TaskInvocationParameters</code> structure. For information about how Amazon Web
+     *        Services Systems Manager handles these options for the supported maintenance window task types, see
      *        <a>MaintenanceWindowTaskInvocationParameters</a>.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -664,13 +714,13 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS) notifications
-     * for maintenance window Run Command tasks.
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) service role to use to publish Amazon
+     * Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
      * </p>
      * 
      * @param serviceRoleArn
-     *        The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS)
-     *        notifications for maintenance window Run Command tasks.
+     *        The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) service role to use to publish
+     *        Amazon Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
      */
 
     public void setServiceRoleArn(String serviceRoleArn) {
@@ -679,12 +729,12 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS) notifications
-     * for maintenance window Run Command tasks.
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) service role to use to publish Amazon
+     * Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
      * </p>
      * 
-     * @return The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS)
-     *         notifications for maintenance window Run Command tasks.
+     * @return The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) service role to use to publish
+     *         Amazon Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
      */
 
     public String getServiceRoleArn() {
@@ -693,13 +743,13 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS) notifications
-     * for maintenance window Run Command tasks.
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) service role to use to publish Amazon
+     * Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
      * </p>
      * 
      * @param serviceRoleArn
-     *        The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS)
-     *        notifications for maintenance window Run Command tasks.
+     *        The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) service role to use to publish
+     *        Amazon Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -712,9 +762,32 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
      * <p>
      * The maximum number of targets this task can be run for, in parallel.
      * </p>
+     * <note>
+     * <p>
+     * Although this element is listed as "Required: No", a value can be omitted only when you are registering or
+     * updating a <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/maintenance-windows-targetless-tasks.html"
+     * >targetless task</a> You must provide a value in all other cases.
+     * </p>
+     * <p>
+     * For maintenance window tasks without a target specified, you can't supply a value for this option. Instead, the
+     * system inserts a placeholder value of <code>1</code>. This value doesn't affect the running of your task.
+     * </p>
+     * </note>
      * 
      * @param maxConcurrency
-     *        The maximum number of targets this task can be run for, in parallel.
+     *        The maximum number of targets this task can be run for, in parallel.</p> <note>
+     *        <p>
+     *        Although this element is listed as "Required: No", a value can be omitted only when you are registering or
+     *        updating a <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/maintenance-windows-targetless-tasks.html"
+     *        >targetless task</a> You must provide a value in all other cases.
+     *        </p>
+     *        <p>
+     *        For maintenance window tasks without a target specified, you can't supply a value for this option.
+     *        Instead, the system inserts a placeholder value of <code>1</code>. This value doesn't affect the running
+     *        of your task.
+     *        </p>
      */
 
     public void setMaxConcurrency(String maxConcurrency) {
@@ -725,8 +798,31 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
      * <p>
      * The maximum number of targets this task can be run for, in parallel.
      * </p>
+     * <note>
+     * <p>
+     * Although this element is listed as "Required: No", a value can be omitted only when you are registering or
+     * updating a <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/maintenance-windows-targetless-tasks.html"
+     * >targetless task</a> You must provide a value in all other cases.
+     * </p>
+     * <p>
+     * For maintenance window tasks without a target specified, you can't supply a value for this option. Instead, the
+     * system inserts a placeholder value of <code>1</code>. This value doesn't affect the running of your task.
+     * </p>
+     * </note>
      * 
-     * @return The maximum number of targets this task can be run for, in parallel.
+     * @return The maximum number of targets this task can be run for, in parallel.</p> <note>
+     *         <p>
+     *         Although this element is listed as "Required: No", a value can be omitted only when you are registering
+     *         or updating a <a href=
+     *         "https://docs.aws.amazon.com/systems-manager/latest/userguide/maintenance-windows-targetless-tasks.html"
+     *         >targetless task</a> You must provide a value in all other cases.
+     *         </p>
+     *         <p>
+     *         For maintenance window tasks without a target specified, you can't supply a value for this option.
+     *         Instead, the system inserts a placeholder value of <code>1</code>. This value doesn't affect the running
+     *         of your task.
+     *         </p>
      */
 
     public String getMaxConcurrency() {
@@ -737,9 +833,32 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
      * <p>
      * The maximum number of targets this task can be run for, in parallel.
      * </p>
+     * <note>
+     * <p>
+     * Although this element is listed as "Required: No", a value can be omitted only when you are registering or
+     * updating a <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/maintenance-windows-targetless-tasks.html"
+     * >targetless task</a> You must provide a value in all other cases.
+     * </p>
+     * <p>
+     * For maintenance window tasks without a target specified, you can't supply a value for this option. Instead, the
+     * system inserts a placeholder value of <code>1</code>. This value doesn't affect the running of your task.
+     * </p>
+     * </note>
      * 
      * @param maxConcurrency
-     *        The maximum number of targets this task can be run for, in parallel.
+     *        The maximum number of targets this task can be run for, in parallel.</p> <note>
+     *        <p>
+     *        Although this element is listed as "Required: No", a value can be omitted only when you are registering or
+     *        updating a <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/maintenance-windows-targetless-tasks.html"
+     *        >targetless task</a> You must provide a value in all other cases.
+     *        </p>
+     *        <p>
+     *        For maintenance window tasks without a target specified, you can't supply a value for this option.
+     *        Instead, the system inserts a placeholder value of <code>1</code>. This value doesn't affect the running
+     *        of your task.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -752,9 +871,32 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
      * <p>
      * The maximum number of errors allowed before this task stops being scheduled.
      * </p>
+     * <note>
+     * <p>
+     * Although this element is listed as "Required: No", a value can be omitted only when you are registering or
+     * updating a <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/maintenance-windows-targetless-tasks.html"
+     * >targetless task</a> You must provide a value in all other cases.
+     * </p>
+     * <p>
+     * For maintenance window tasks without a target specified, you can't supply a value for this option. Instead, the
+     * system inserts a placeholder value of <code>1</code>. This value doesn't affect the running of your task.
+     * </p>
+     * </note>
      * 
      * @param maxErrors
-     *        The maximum number of errors allowed before this task stops being scheduled.
+     *        The maximum number of errors allowed before this task stops being scheduled.</p> <note>
+     *        <p>
+     *        Although this element is listed as "Required: No", a value can be omitted only when you are registering or
+     *        updating a <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/maintenance-windows-targetless-tasks.html"
+     *        >targetless task</a> You must provide a value in all other cases.
+     *        </p>
+     *        <p>
+     *        For maintenance window tasks without a target specified, you can't supply a value for this option.
+     *        Instead, the system inserts a placeholder value of <code>1</code>. This value doesn't affect the running
+     *        of your task.
+     *        </p>
      */
 
     public void setMaxErrors(String maxErrors) {
@@ -765,8 +907,31 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
      * <p>
      * The maximum number of errors allowed before this task stops being scheduled.
      * </p>
+     * <note>
+     * <p>
+     * Although this element is listed as "Required: No", a value can be omitted only when you are registering or
+     * updating a <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/maintenance-windows-targetless-tasks.html"
+     * >targetless task</a> You must provide a value in all other cases.
+     * </p>
+     * <p>
+     * For maintenance window tasks without a target specified, you can't supply a value for this option. Instead, the
+     * system inserts a placeholder value of <code>1</code>. This value doesn't affect the running of your task.
+     * </p>
+     * </note>
      * 
-     * @return The maximum number of errors allowed before this task stops being scheduled.
+     * @return The maximum number of errors allowed before this task stops being scheduled.</p> <note>
+     *         <p>
+     *         Although this element is listed as "Required: No", a value can be omitted only when you are registering
+     *         or updating a <a href=
+     *         "https://docs.aws.amazon.com/systems-manager/latest/userguide/maintenance-windows-targetless-tasks.html"
+     *         >targetless task</a> You must provide a value in all other cases.
+     *         </p>
+     *         <p>
+     *         For maintenance window tasks without a target specified, you can't supply a value for this option.
+     *         Instead, the system inserts a placeholder value of <code>1</code>. This value doesn't affect the running
+     *         of your task.
+     *         </p>
      */
 
     public String getMaxErrors() {
@@ -777,9 +942,32 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
      * <p>
      * The maximum number of errors allowed before this task stops being scheduled.
      * </p>
+     * <note>
+     * <p>
+     * Although this element is listed as "Required: No", a value can be omitted only when you are registering or
+     * updating a <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/maintenance-windows-targetless-tasks.html"
+     * >targetless task</a> You must provide a value in all other cases.
+     * </p>
+     * <p>
+     * For maintenance window tasks without a target specified, you can't supply a value for this option. Instead, the
+     * system inserts a placeholder value of <code>1</code>. This value doesn't affect the running of your task.
+     * </p>
+     * </note>
      * 
      * @param maxErrors
-     *        The maximum number of errors allowed before this task stops being scheduled.
+     *        The maximum number of errors allowed before this task stops being scheduled.</p> <note>
+     *        <p>
+     *        Although this element is listed as "Required: No", a value can be omitted only when you are registering or
+     *        updating a <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/maintenance-windows-targetless-tasks.html"
+     *        >targetless task</a> You must provide a value in all other cases.
+     *        </p>
+     *        <p>
+     *        For maintenance window tasks without a target specified, you can't supply a value for this option.
+     *        Instead, the system inserts a placeholder value of <code>1</code>. This value doesn't affect the running
+     *        of your task.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -869,6 +1057,129 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
     }
 
     /**
+     * <p>
+     * The specification for whether tasks should continue to run after the cutoff time specified in the maintenance
+     * windows is reached.
+     * </p>
+     * 
+     * @param cutoffBehavior
+     *        The specification for whether tasks should continue to run after the cutoff time specified in the
+     *        maintenance windows is reached.
+     * @see MaintenanceWindowTaskCutoffBehavior
+     */
+
+    public void setCutoffBehavior(String cutoffBehavior) {
+        this.cutoffBehavior = cutoffBehavior;
+    }
+
+    /**
+     * <p>
+     * The specification for whether tasks should continue to run after the cutoff time specified in the maintenance
+     * windows is reached.
+     * </p>
+     * 
+     * @return The specification for whether tasks should continue to run after the cutoff time specified in the
+     *         maintenance windows is reached.
+     * @see MaintenanceWindowTaskCutoffBehavior
+     */
+
+    public String getCutoffBehavior() {
+        return this.cutoffBehavior;
+    }
+
+    /**
+     * <p>
+     * The specification for whether tasks should continue to run after the cutoff time specified in the maintenance
+     * windows is reached.
+     * </p>
+     * 
+     * @param cutoffBehavior
+     *        The specification for whether tasks should continue to run after the cutoff time specified in the
+     *        maintenance windows is reached.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see MaintenanceWindowTaskCutoffBehavior
+     */
+
+    public MaintenanceWindowTask withCutoffBehavior(String cutoffBehavior) {
+        setCutoffBehavior(cutoffBehavior);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The specification for whether tasks should continue to run after the cutoff time specified in the maintenance
+     * windows is reached.
+     * </p>
+     * 
+     * @param cutoffBehavior
+     *        The specification for whether tasks should continue to run after the cutoff time specified in the
+     *        maintenance windows is reached.
+     * @see MaintenanceWindowTaskCutoffBehavior
+     */
+
+    public void setCutoffBehavior(MaintenanceWindowTaskCutoffBehavior cutoffBehavior) {
+        withCutoffBehavior(cutoffBehavior);
+    }
+
+    /**
+     * <p>
+     * The specification for whether tasks should continue to run after the cutoff time specified in the maintenance
+     * windows is reached.
+     * </p>
+     * 
+     * @param cutoffBehavior
+     *        The specification for whether tasks should continue to run after the cutoff time specified in the
+     *        maintenance windows is reached.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see MaintenanceWindowTaskCutoffBehavior
+     */
+
+    public MaintenanceWindowTask withCutoffBehavior(MaintenanceWindowTaskCutoffBehavior cutoffBehavior) {
+        this.cutoffBehavior = cutoffBehavior.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The details for the CloudWatch alarm applied to your maintenance window task.
+     * </p>
+     * 
+     * @param alarmConfiguration
+     *        The details for the CloudWatch alarm applied to your maintenance window task.
+     */
+
+    public void setAlarmConfiguration(AlarmConfiguration alarmConfiguration) {
+        this.alarmConfiguration = alarmConfiguration;
+    }
+
+    /**
+     * <p>
+     * The details for the CloudWatch alarm applied to your maintenance window task.
+     * </p>
+     * 
+     * @return The details for the CloudWatch alarm applied to your maintenance window task.
+     */
+
+    public AlarmConfiguration getAlarmConfiguration() {
+        return this.alarmConfiguration;
+    }
+
+    /**
+     * <p>
+     * The details for the CloudWatch alarm applied to your maintenance window task.
+     * </p>
+     * 
+     * @param alarmConfiguration
+     *        The details for the CloudWatch alarm applied to your maintenance window task.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MaintenanceWindowTask withAlarmConfiguration(AlarmConfiguration alarmConfiguration) {
+        setAlarmConfiguration(alarmConfiguration);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -905,7 +1216,11 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getDescription() != null)
-            sb.append("Description: ").append("***Sensitive Data Redacted***");
+            sb.append("Description: ").append("***Sensitive Data Redacted***").append(",");
+        if (getCutoffBehavior() != null)
+            sb.append("CutoffBehavior: ").append(getCutoffBehavior()).append(",");
+        if (getAlarmConfiguration() != null)
+            sb.append("AlarmConfiguration: ").append(getAlarmConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -972,6 +1287,14 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
             return false;
         if (other.getDescription() != null && other.getDescription().equals(this.getDescription()) == false)
             return false;
+        if (other.getCutoffBehavior() == null ^ this.getCutoffBehavior() == null)
+            return false;
+        if (other.getCutoffBehavior() != null && other.getCutoffBehavior().equals(this.getCutoffBehavior()) == false)
+            return false;
+        if (other.getAlarmConfiguration() == null ^ this.getAlarmConfiguration() == null)
+            return false;
+        if (other.getAlarmConfiguration() != null && other.getAlarmConfiguration().equals(this.getAlarmConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -993,6 +1316,8 @@ public class MaintenanceWindowTask implements Serializable, Cloneable, Structure
         hashCode = prime * hashCode + ((getMaxErrors() == null) ? 0 : getMaxErrors().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
+        hashCode = prime * hashCode + ((getCutoffBehavior() == null) ? 0 : getCutoffBehavior().hashCode());
+        hashCode = prime * hashCode + ((getAlarmConfiguration() == null) ? 0 : getAlarmConfiguration().hashCode());
         return hashCode;
     }
 

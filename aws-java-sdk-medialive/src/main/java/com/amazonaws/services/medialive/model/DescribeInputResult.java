@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,9 +40,13 @@ public class DescribeInputResult extends com.amazonaws.AmazonWebServiceResult<co
      * this value is not valid because the channel requires two sources in the input.
      */
     private String inputClass;
+    /** Settings for the input devices. */
+    private java.util.List<InputDeviceSettings> inputDevices;
+    /** A list of IDs for all Inputs which are partners of this one. */
+    private java.util.List<String> inputPartnerIds;
     /**
      * Certain pull input sources can be dynamic, meaning that they can have their URL's dynamically changes during
-     * input switch actions. Presently, this functionality only works with MP4_FILE inputs.
+     * input switch actions. Presently, this functionality only works with MP4_FILE and TS_FILE inputs.
      */
     private String inputSourceType;
     /** A list of MediaConnect Flows for this input. */
@@ -61,6 +65,8 @@ public class DescribeInputResult extends com.amazonaws.AmazonWebServiceResult<co
     private java.util.Map<String, String> tags;
 
     private String type;
+    /** The settings associated with an SRT input. */
+    private SrtSettings srtSettings;
 
     /**
      * The Unique ARN of the input (generated, immutable).
@@ -346,12 +352,136 @@ public class DescribeInputResult extends com.amazonaws.AmazonWebServiceResult<co
     }
 
     /**
+     * Settings for the input devices.
+     * 
+     * @return Settings for the input devices.
+     */
+
+    public java.util.List<InputDeviceSettings> getInputDevices() {
+        return inputDevices;
+    }
+
+    /**
+     * Settings for the input devices.
+     * 
+     * @param inputDevices
+     *        Settings for the input devices.
+     */
+
+    public void setInputDevices(java.util.Collection<InputDeviceSettings> inputDevices) {
+        if (inputDevices == null) {
+            this.inputDevices = null;
+            return;
+        }
+
+        this.inputDevices = new java.util.ArrayList<InputDeviceSettings>(inputDevices);
+    }
+
+    /**
+     * Settings for the input devices.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setInputDevices(java.util.Collection)} or {@link #withInputDevices(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param inputDevices
+     *        Settings for the input devices.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeInputResult withInputDevices(InputDeviceSettings... inputDevices) {
+        if (this.inputDevices == null) {
+            setInputDevices(new java.util.ArrayList<InputDeviceSettings>(inputDevices.length));
+        }
+        for (InputDeviceSettings ele : inputDevices) {
+            this.inputDevices.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * Settings for the input devices.
+     * 
+     * @param inputDevices
+     *        Settings for the input devices.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeInputResult withInputDevices(java.util.Collection<InputDeviceSettings> inputDevices) {
+        setInputDevices(inputDevices);
+        return this;
+    }
+
+    /**
+     * A list of IDs for all Inputs which are partners of this one.
+     * 
+     * @return A list of IDs for all Inputs which are partners of this one.
+     */
+
+    public java.util.List<String> getInputPartnerIds() {
+        return inputPartnerIds;
+    }
+
+    /**
+     * A list of IDs for all Inputs which are partners of this one.
+     * 
+     * @param inputPartnerIds
+     *        A list of IDs for all Inputs which are partners of this one.
+     */
+
+    public void setInputPartnerIds(java.util.Collection<String> inputPartnerIds) {
+        if (inputPartnerIds == null) {
+            this.inputPartnerIds = null;
+            return;
+        }
+
+        this.inputPartnerIds = new java.util.ArrayList<String>(inputPartnerIds);
+    }
+
+    /**
+     * A list of IDs for all Inputs which are partners of this one.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setInputPartnerIds(java.util.Collection)} or {@link #withInputPartnerIds(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param inputPartnerIds
+     *        A list of IDs for all Inputs which are partners of this one.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeInputResult withInputPartnerIds(String... inputPartnerIds) {
+        if (this.inputPartnerIds == null) {
+            setInputPartnerIds(new java.util.ArrayList<String>(inputPartnerIds.length));
+        }
+        for (String ele : inputPartnerIds) {
+            this.inputPartnerIds.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * A list of IDs for all Inputs which are partners of this one.
+     * 
+     * @param inputPartnerIds
+     *        A list of IDs for all Inputs which are partners of this one.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeInputResult withInputPartnerIds(java.util.Collection<String> inputPartnerIds) {
+        setInputPartnerIds(inputPartnerIds);
+        return this;
+    }
+
+    /**
      * Certain pull input sources can be dynamic, meaning that they can have their URL's dynamically changes during
-     * input switch actions. Presently, this functionality only works with MP4_FILE inputs.
+     * input switch actions. Presently, this functionality only works with MP4_FILE and TS_FILE inputs.
      * 
      * @param inputSourceType
      *        Certain pull input sources can be dynamic, meaning that they can have their URL's dynamically changes
-     *        during input switch actions. Presently, this functionality only works with MP4_FILE inputs.
+     *        during input switch actions. Presently, this functionality only works with MP4_FILE and TS_FILE inputs.
      * @see InputSourceType
      */
 
@@ -361,10 +491,10 @@ public class DescribeInputResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * Certain pull input sources can be dynamic, meaning that they can have their URL's dynamically changes during
-     * input switch actions. Presently, this functionality only works with MP4_FILE inputs.
+     * input switch actions. Presently, this functionality only works with MP4_FILE and TS_FILE inputs.
      * 
      * @return Certain pull input sources can be dynamic, meaning that they can have their URL's dynamically changes
-     *         during input switch actions. Presently, this functionality only works with MP4_FILE inputs.
+     *         during input switch actions. Presently, this functionality only works with MP4_FILE and TS_FILE inputs.
      * @see InputSourceType
      */
 
@@ -374,11 +504,11 @@ public class DescribeInputResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * Certain pull input sources can be dynamic, meaning that they can have their URL's dynamically changes during
-     * input switch actions. Presently, this functionality only works with MP4_FILE inputs.
+     * input switch actions. Presently, this functionality only works with MP4_FILE and TS_FILE inputs.
      * 
      * @param inputSourceType
      *        Certain pull input sources can be dynamic, meaning that they can have their URL's dynamically changes
-     *        during input switch actions. Presently, this functionality only works with MP4_FILE inputs.
+     *        during input switch actions. Presently, this functionality only works with MP4_FILE and TS_FILE inputs.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InputSourceType
      */
@@ -390,11 +520,11 @@ public class DescribeInputResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * Certain pull input sources can be dynamic, meaning that they can have their URL's dynamically changes during
-     * input switch actions. Presently, this functionality only works with MP4_FILE inputs.
+     * input switch actions. Presently, this functionality only works with MP4_FILE and TS_FILE inputs.
      * 
      * @param inputSourceType
      *        Certain pull input sources can be dynamic, meaning that they can have their URL's dynamically changes
-     *        during input switch actions. Presently, this functionality only works with MP4_FILE inputs.
+     *        during input switch actions. Presently, this functionality only works with MP4_FILE and TS_FILE inputs.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InputSourceType
      */
@@ -732,6 +862,13 @@ public class DescribeInputResult extends com.amazonaws.AmazonWebServiceResult<co
         return this;
     }
 
+    /**
+     * Add a single Tags entry
+     *
+     * @see DescribeInputResult#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public DescribeInputResult addTagsEntry(String key, String value) {
         if (null == this.tags) {
             this.tags = new java.util.HashMap<String, String>();
@@ -794,6 +931,40 @@ public class DescribeInputResult extends com.amazonaws.AmazonWebServiceResult<co
     }
 
     /**
+     * The settings associated with an SRT input.
+     * 
+     * @param srtSettings
+     *        The settings associated with an SRT input.
+     */
+
+    public void setSrtSettings(SrtSettings srtSettings) {
+        this.srtSettings = srtSettings;
+    }
+
+    /**
+     * The settings associated with an SRT input.
+     * 
+     * @return The settings associated with an SRT input.
+     */
+
+    public SrtSettings getSrtSettings() {
+        return this.srtSettings;
+    }
+
+    /**
+     * The settings associated with an SRT input.
+     * 
+     * @param srtSettings
+     *        The settings associated with an SRT input.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeInputResult withSrtSettings(SrtSettings srtSettings) {
+        setSrtSettings(srtSettings);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -815,6 +986,10 @@ public class DescribeInputResult extends com.amazonaws.AmazonWebServiceResult<co
             sb.append("Id: ").append(getId()).append(",");
         if (getInputClass() != null)
             sb.append("InputClass: ").append(getInputClass()).append(",");
+        if (getInputDevices() != null)
+            sb.append("InputDevices: ").append(getInputDevices()).append(",");
+        if (getInputPartnerIds() != null)
+            sb.append("InputPartnerIds: ").append(getInputPartnerIds()).append(",");
         if (getInputSourceType() != null)
             sb.append("InputSourceType: ").append(getInputSourceType()).append(",");
         if (getMediaConnectFlows() != null)
@@ -832,7 +1007,9 @@ public class DescribeInputResult extends com.amazonaws.AmazonWebServiceResult<co
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getType() != null)
-            sb.append("Type: ").append(getType());
+            sb.append("Type: ").append(getType()).append(",");
+        if (getSrtSettings() != null)
+            sb.append("SrtSettings: ").append(getSrtSettings());
         sb.append("}");
         return sb.toString();
     }
@@ -866,6 +1043,14 @@ public class DescribeInputResult extends com.amazonaws.AmazonWebServiceResult<co
         if (other.getInputClass() == null ^ this.getInputClass() == null)
             return false;
         if (other.getInputClass() != null && other.getInputClass().equals(this.getInputClass()) == false)
+            return false;
+        if (other.getInputDevices() == null ^ this.getInputDevices() == null)
+            return false;
+        if (other.getInputDevices() != null && other.getInputDevices().equals(this.getInputDevices()) == false)
+            return false;
+        if (other.getInputPartnerIds() == null ^ this.getInputPartnerIds() == null)
+            return false;
+        if (other.getInputPartnerIds() != null && other.getInputPartnerIds().equals(this.getInputPartnerIds()) == false)
             return false;
         if (other.getInputSourceType() == null ^ this.getInputSourceType() == null)
             return false;
@@ -903,6 +1088,10 @@ public class DescribeInputResult extends com.amazonaws.AmazonWebServiceResult<co
             return false;
         if (other.getType() != null && other.getType().equals(this.getType()) == false)
             return false;
+        if (other.getSrtSettings() == null ^ this.getSrtSettings() == null)
+            return false;
+        if (other.getSrtSettings() != null && other.getSrtSettings().equals(this.getSrtSettings()) == false)
+            return false;
         return true;
     }
 
@@ -916,6 +1105,8 @@ public class DescribeInputResult extends com.amazonaws.AmazonWebServiceResult<co
         hashCode = prime * hashCode + ((getDestinations() == null) ? 0 : getDestinations().hashCode());
         hashCode = prime * hashCode + ((getId() == null) ? 0 : getId().hashCode());
         hashCode = prime * hashCode + ((getInputClass() == null) ? 0 : getInputClass().hashCode());
+        hashCode = prime * hashCode + ((getInputDevices() == null) ? 0 : getInputDevices().hashCode());
+        hashCode = prime * hashCode + ((getInputPartnerIds() == null) ? 0 : getInputPartnerIds().hashCode());
         hashCode = prime * hashCode + ((getInputSourceType() == null) ? 0 : getInputSourceType().hashCode());
         hashCode = prime * hashCode + ((getMediaConnectFlows() == null) ? 0 : getMediaConnectFlows().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
@@ -925,6 +1116,7 @@ public class DescribeInputResult extends com.amazonaws.AmazonWebServiceResult<co
         hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getType() == null) ? 0 : getType().hashCode());
+        hashCode = prime * hashCode + ((getSrtSettings() == null) ? 0 : getSrtSettings().hashCode());
         return hashCode;
     }
 

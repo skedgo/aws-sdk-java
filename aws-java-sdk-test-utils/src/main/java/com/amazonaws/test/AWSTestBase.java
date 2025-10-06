@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
  */
 package com.amazonaws.test;
 
+import com.amazonaws.test.retry.RetryRule;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,6 +29,10 @@ import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.test.util.InputStreamUtils;
 import com.amazonaws.test.util.SdkAsserts;
 import com.amazonaws.util.IOUtils;
+import java.util.concurrent.TimeUnit;
+
+import com.amazonaws.util.StringUtils;
+import org.junit.Rule;
 
 public abstract class AWSTestBase {
 
@@ -46,10 +51,18 @@ public abstract class AWSTestBase {
 
     private static final String TEST_CREDENTIALS_PROFILE_NAME = "aws-java-sdk-test";
 
-    private static final AWSCredentialsProviderChain chain = new AWSCredentialsProviderChain(
-            new PropertiesFileCredentialsProvider(propertiesFilePath),
-            new ProfileCredentialsProvider(TEST_CREDENTIALS_PROFILE_NAME), new EnvironmentVariableCredentialsProvider(),
-            new SystemPropertiesCredentialsProvider());
+    /**
+     * ToD test can be configured to use Role ARN and will pull them from STS. These credentials are then available
+     * for use during the test run. The location of the credentials file is passed to the test run in the form of
+     * the environment variable TOD_CUSTOMER_CREDENTIAL_PATH.
+     */
+
+    private static final String TOD_CREDENTIAL_PATH = System.getenv("TOD_CUSTOMER_CREDENTIAL_PATH");
+
+    private static final AWSCredentialsProviderChain chain = createChain();
+
+    @Rule
+    public RetryRule retry = new RetryRule(3, 2, TimeUnit.SECONDS);
 
     /**
      * @deprecated Extend from {@link AWSIntegrationTestBase} to access credentials
@@ -62,6 +75,10 @@ public abstract class AWSTestBase {
             } catch (Exception ignored) {
             }
         }
+    }
+
+    protected void setRetryRule(RetryRule rule) {
+        this.retry = rule;
     }
 
     /**
@@ -170,5 +187,21 @@ public abstract class AWSTestBase {
     @Deprecated
     protected void assertValidException(AmazonServiceException e) {
         SdkAsserts.assertValidException(e);
+    }
+
+    private static AWSCredentialsProviderChain createChain() {
+        if (StringUtils.isNullOrEmpty(TOD_CREDENTIAL_PATH)) {
+            return new AWSCredentialsProviderChain(
+                    new PropertiesFileCredentialsProvider(propertiesFilePath),
+                    new ProfileCredentialsProvider(TEST_CREDENTIALS_PROFILE_NAME),
+                    new EnvironmentVariableCredentialsProvider(),
+                    new SystemPropertiesCredentialsProvider());
+        }
+        return new AWSCredentialsProviderChain(
+                new ProfileCredentialsProvider(TOD_CREDENTIAL_PATH, "default"),
+                new PropertiesFileCredentialsProvider(propertiesFilePath),
+                new ProfileCredentialsProvider(TEST_CREDENTIALS_PROFILE_NAME),
+                new EnvironmentVariableCredentialsProvider(),
+                new SystemPropertiesCredentialsProvider());
     }
 }

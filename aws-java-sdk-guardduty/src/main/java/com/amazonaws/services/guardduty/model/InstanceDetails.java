@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
+ * Contains information about the details of an instance.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/InstanceDetails" target="_top">AWS API
  *      Documentation</a>
@@ -27,7 +30,7 @@ public class InstanceDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The availability zone of the EC2 instance.
+     * The Availability Zone of the EC2 instance.
      * </p>
      */
     private String availabilityZone;
@@ -69,13 +72,20 @@ public class InstanceDetails implements Serializable, Cloneable, StructuredPojo 
     private String instanceType;
     /**
      * <p>
+     * The Amazon Resource Name (ARN) of the Amazon Web Services Outpost. Only applicable to Amazon Web Services
+     * Outposts instances.
+     * </p>
+     */
+    private String outpostArn;
+    /**
+     * <p>
      * The launch time of the EC2 instance.
      * </p>
      */
     private String launchTime;
     /**
      * <p>
-     * The network interface information of the EC2 instance.
+     * The elastic network interface information of the EC2 instance.
      * </p>
      */
     private java.util.List<NetworkInterface> networkInterfaces;
@@ -100,11 +110,11 @@ public class InstanceDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The availability zone of the EC2 instance.
+     * The Availability Zone of the EC2 instance.
      * </p>
      * 
      * @param availabilityZone
-     *        The availability zone of the EC2 instance.
+     *        The Availability Zone of the EC2 instance.
      */
 
     public void setAvailabilityZone(String availabilityZone) {
@@ -113,10 +123,10 @@ public class InstanceDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The availability zone of the EC2 instance.
+     * The Availability Zone of the EC2 instance.
      * </p>
      * 
-     * @return The availability zone of the EC2 instance.
+     * @return The Availability Zone of the EC2 instance.
      */
 
     public String getAvailabilityZone() {
@@ -125,11 +135,11 @@ public class InstanceDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The availability zone of the EC2 instance.
+     * The Availability Zone of the EC2 instance.
      * </p>
      * 
      * @param availabilityZone
-     *        The availability zone of the EC2 instance.
+     *        The Availability Zone of the EC2 instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -380,6 +390,52 @@ public class InstanceDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
+     * The Amazon Resource Name (ARN) of the Amazon Web Services Outpost. Only applicable to Amazon Web Services
+     * Outposts instances.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The Amazon Resource Name (ARN) of the Amazon Web Services Outpost. Only applicable to Amazon Web Services
+     *        Outposts instances.
+     */
+
+    public void setOutpostArn(String outpostArn) {
+        this.outpostArn = outpostArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Amazon Web Services Outpost. Only applicable to Amazon Web Services
+     * Outposts instances.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the Amazon Web Services Outpost. Only applicable to Amazon Web Services
+     *         Outposts instances.
+     */
+
+    public String getOutpostArn() {
+        return this.outpostArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Amazon Web Services Outpost. Only applicable to Amazon Web Services
+     * Outposts instances.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The Amazon Resource Name (ARN) of the Amazon Web Services Outpost. Only applicable to Amazon Web Services
+     *        Outposts instances.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceDetails withOutpostArn(String outpostArn) {
+        setOutpostArn(outpostArn);
+        return this;
+    }
+
+    /**
+     * <p>
      * The launch time of the EC2 instance.
      * </p>
      * 
@@ -420,10 +476,10 @@ public class InstanceDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The network interface information of the EC2 instance.
+     * The elastic network interface information of the EC2 instance.
      * </p>
      * 
-     * @return The network interface information of the EC2 instance.
+     * @return The elastic network interface information of the EC2 instance.
      */
 
     public java.util.List<NetworkInterface> getNetworkInterfaces() {
@@ -432,11 +488,11 @@ public class InstanceDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The network interface information of the EC2 instance.
+     * The elastic network interface information of the EC2 instance.
      * </p>
      * 
      * @param networkInterfaces
-     *        The network interface information of the EC2 instance.
+     *        The elastic network interface information of the EC2 instance.
      */
 
     public void setNetworkInterfaces(java.util.Collection<NetworkInterface> networkInterfaces) {
@@ -450,7 +506,7 @@ public class InstanceDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The network interface information of the EC2 instance.
+     * The elastic network interface information of the EC2 instance.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -459,7 +515,7 @@ public class InstanceDetails implements Serializable, Cloneable, StructuredPojo 
      * </p>
      * 
      * @param networkInterfaces
-     *        The network interface information of the EC2 instance.
+     *        The elastic network interface information of the EC2 instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -475,11 +531,11 @@ public class InstanceDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The network interface information of the EC2 instance.
+     * The elastic network interface information of the EC2 instance.
      * </p>
      * 
      * @param networkInterfaces
-     *        The network interface information of the EC2 instance.
+     *        The elastic network interface information of the EC2 instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -694,6 +750,8 @@ public class InstanceDetails implements Serializable, Cloneable, StructuredPojo 
             sb.append("InstanceState: ").append(getInstanceState()).append(",");
         if (getInstanceType() != null)
             sb.append("InstanceType: ").append(getInstanceType()).append(",");
+        if (getOutpostArn() != null)
+            sb.append("OutpostArn: ").append(getOutpostArn()).append(",");
         if (getLaunchTime() != null)
             sb.append("LaunchTime: ").append(getLaunchTime()).append(",");
         if (getNetworkInterfaces() != null)
@@ -746,6 +804,10 @@ public class InstanceDetails implements Serializable, Cloneable, StructuredPojo 
             return false;
         if (other.getInstanceType() != null && other.getInstanceType().equals(this.getInstanceType()) == false)
             return false;
+        if (other.getOutpostArn() == null ^ this.getOutpostArn() == null)
+            return false;
+        if (other.getOutpostArn() != null && other.getOutpostArn().equals(this.getOutpostArn()) == false)
+            return false;
         if (other.getLaunchTime() == null ^ this.getLaunchTime() == null)
             return false;
         if (other.getLaunchTime() != null && other.getLaunchTime().equals(this.getLaunchTime()) == false)
@@ -781,6 +843,7 @@ public class InstanceDetails implements Serializable, Cloneable, StructuredPojo 
         hashCode = prime * hashCode + ((getInstanceId() == null) ? 0 : getInstanceId().hashCode());
         hashCode = prime * hashCode + ((getInstanceState() == null) ? 0 : getInstanceState().hashCode());
         hashCode = prime * hashCode + ((getInstanceType() == null) ? 0 : getInstanceType().hashCode());
+        hashCode = prime * hashCode + ((getOutpostArn() == null) ? 0 : getOutpostArn().hashCode());
         hashCode = prime * hashCode + ((getLaunchTime() == null) ? 0 : getLaunchTime().hashCode());
         hashCode = prime * hashCode + ((getNetworkInterfaces() == null) ? 0 : getNetworkInterfaces().hashCode());
         hashCode = prime * hashCode + ((getPlatform() == null) ? 0 : getPlatform().hashCode());

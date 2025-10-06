@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Structure for Domain Association, which associates a custom domain with an Amplify App.
+ * Describes the association between a custom domain and an Amplify app.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/DomainAssociation" target="_top">AWS API
@@ -30,54 +30,136 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * ARN for the Domain Association.
+     * The Amazon Resource Name (ARN) for the domain association.
      * </p>
      */
     private String domainAssociationArn;
     /**
      * <p>
-     * Name of the domain.
+     * The name of the domain.
      * </p>
      */
     private String domainName;
     /**
      * <p>
-     * Enables automated creation of Subdomains for branches.
+     * Enables the automated creation of subdomains for branches.
      * </p>
      */
     private Boolean enableAutoSubDomain;
     /**
      * <p>
-     * Status fo the Domain Association.
+     * Sets branch patterns for automatic subdomain creation.
+     * </p>
+     */
+    private java.util.List<String> autoSubDomainCreationPatterns;
+    /**
+     * <p>
+     * The required AWS Identity and Access Management (IAM) service role for the Amazon Resource Name (ARN) for
+     * automatically creating subdomains.
+     * </p>
+     */
+    private String autoSubDomainIAMRole;
+    /**
+     * <p>
+     * The current status of the domain association.
      * </p>
      */
     private String domainStatus;
     /**
      * <p>
-     * Reason for the current status of the Domain Association.
+     * The status of the domain update operation that is currently in progress. The following list describes the valid
+     * update states.
+     * </p>
+     * <dl>
+     * <dt>REQUESTING_CERTIFICATE</dt>
+     * <dd>
+     * <p>
+     * The certificate is in the process of being updated.
+     * </p>
+     * </dd>
+     * <dt>PENDING_VERIFICATION</dt>
+     * <dd>
+     * <p>
+     * Indicates that an Amplify managed certificate is in the process of being verified. This occurs during the
+     * creation of a custom domain or when a custom domain is updated to use a managed certificate.
+     * </p>
+     * </dd>
+     * <dt>IMPORTING_CUSTOM_CERTIFICATE</dt>
+     * <dd>
+     * <p>
+     * Indicates that an Amplify custom certificate is in the process of being imported. This occurs during the creation
+     * of a custom domain or when a custom domain is updated to use a custom certificate.
+     * </p>
+     * </dd>
+     * <dt>PENDING_DEPLOYMENT</dt>
+     * <dd>
+     * <p>
+     * Indicates that the subdomain or certificate changes are being propagated.
+     * </p>
+     * </dd>
+     * <dt>AWAITING_APP_CNAME</dt>
+     * <dd>
+     * <p>
+     * Amplify is waiting for CNAME records corresponding to subdomains to be propagated. If your custom domain is on
+     * Route 53, Amplify handles this for you automatically. For more information about custom domains, see <a
+     * href="https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html">Setting up custom domains</a> in
+     * the <i>Amplify Hosting User Guide</i>.
+     * </p>
+     * </dd>
+     * <dt>UPDATE_COMPLETE</dt>
+     * <dd>
+     * <p>
+     * The certificate has been associated with a domain.
+     * </p>
+     * </dd>
+     * <dt>UPDATE_FAILED</dt>
+     * <dd>
+     * <p>
+     * The certificate has failed to be provisioned or associated, and there is no existing active certificate to roll
+     * back to.
+     * </p>
+     * </dd>
+     * </dl>
+     */
+    private String updateStatus;
+    /**
+     * <p>
+     * Additional information that describes why the domain association is in the current state.
      * </p>
      */
     private String statusReason;
     /**
      * <p>
-     * DNS Record for certificate verification.
+     * The DNS record for certificate verification.
      * </p>
      */
     private String certificateVerificationDNSRecord;
     /**
      * <p>
-     * Subdomains for the Domain Association.
+     * The subdomains for the domain association.
      * </p>
      */
     private java.util.List<SubDomain> subDomains;
+    /**
+     * <p>
+     * Describes the SSL/TLS certificate for the domain association. This can be your own custom certificate or the
+     * default certificate that Amplify provisions for you.
+     * </p>
+     * <p>
+     * If you are updating your domain to use a different certificate, <code>certificate</code> points to the new
+     * certificate that is being created instead of the current active certificate. Otherwise, <code>certificate</code>
+     * points to the current active certificate.
+     * </p>
+     */
+    private Certificate certificate;
 
     /**
      * <p>
-     * ARN for the Domain Association.
+     * The Amazon Resource Name (ARN) for the domain association.
      * </p>
      * 
      * @param domainAssociationArn
-     *        ARN for the Domain Association.
+     *        The Amazon Resource Name (ARN) for the domain association.
      */
 
     public void setDomainAssociationArn(String domainAssociationArn) {
@@ -86,10 +168,10 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * ARN for the Domain Association.
+     * The Amazon Resource Name (ARN) for the domain association.
      * </p>
      * 
-     * @return ARN for the Domain Association.
+     * @return The Amazon Resource Name (ARN) for the domain association.
      */
 
     public String getDomainAssociationArn() {
@@ -98,11 +180,11 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * ARN for the Domain Association.
+     * The Amazon Resource Name (ARN) for the domain association.
      * </p>
      * 
      * @param domainAssociationArn
-     *        ARN for the Domain Association.
+     *        The Amazon Resource Name (ARN) for the domain association.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -113,11 +195,11 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Name of the domain.
+     * The name of the domain.
      * </p>
      * 
      * @param domainName
-     *        Name of the domain.
+     *        The name of the domain.
      */
 
     public void setDomainName(String domainName) {
@@ -126,10 +208,10 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Name of the domain.
+     * The name of the domain.
      * </p>
      * 
-     * @return Name of the domain.
+     * @return The name of the domain.
      */
 
     public String getDomainName() {
@@ -138,11 +220,11 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Name of the domain.
+     * The name of the domain.
      * </p>
      * 
      * @param domainName
-     *        Name of the domain.
+     *        The name of the domain.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -153,11 +235,11 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Enables automated creation of Subdomains for branches.
+     * Enables the automated creation of subdomains for branches.
      * </p>
      * 
      * @param enableAutoSubDomain
-     *        Enables automated creation of Subdomains for branches.
+     *        Enables the automated creation of subdomains for branches.
      */
 
     public void setEnableAutoSubDomain(Boolean enableAutoSubDomain) {
@@ -166,10 +248,10 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Enables automated creation of Subdomains for branches.
+     * Enables the automated creation of subdomains for branches.
      * </p>
      * 
-     * @return Enables automated creation of Subdomains for branches.
+     * @return Enables the automated creation of subdomains for branches.
      */
 
     public Boolean getEnableAutoSubDomain() {
@@ -178,11 +260,11 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Enables automated creation of Subdomains for branches.
+     * Enables the automated creation of subdomains for branches.
      * </p>
      * 
      * @param enableAutoSubDomain
-     *        Enables automated creation of Subdomains for branches.
+     *        Enables the automated creation of subdomains for branches.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -193,10 +275,10 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Enables automated creation of Subdomains for branches.
+     * Enables the automated creation of subdomains for branches.
      * </p>
      * 
-     * @return Enables automated creation of Subdomains for branches.
+     * @return Enables the automated creation of subdomains for branches.
      */
 
     public Boolean isEnableAutoSubDomain() {
@@ -205,11 +287,127 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Status fo the Domain Association.
+     * Sets branch patterns for automatic subdomain creation.
+     * </p>
+     * 
+     * @return Sets branch patterns for automatic subdomain creation.
+     */
+
+    public java.util.List<String> getAutoSubDomainCreationPatterns() {
+        return autoSubDomainCreationPatterns;
+    }
+
+    /**
+     * <p>
+     * Sets branch patterns for automatic subdomain creation.
+     * </p>
+     * 
+     * @param autoSubDomainCreationPatterns
+     *        Sets branch patterns for automatic subdomain creation.
+     */
+
+    public void setAutoSubDomainCreationPatterns(java.util.Collection<String> autoSubDomainCreationPatterns) {
+        if (autoSubDomainCreationPatterns == null) {
+            this.autoSubDomainCreationPatterns = null;
+            return;
+        }
+
+        this.autoSubDomainCreationPatterns = new java.util.ArrayList<String>(autoSubDomainCreationPatterns);
+    }
+
+    /**
+     * <p>
+     * Sets branch patterns for automatic subdomain creation.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAutoSubDomainCreationPatterns(java.util.Collection)} or
+     * {@link #withAutoSubDomainCreationPatterns(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param autoSubDomainCreationPatterns
+     *        Sets branch patterns for automatic subdomain creation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DomainAssociation withAutoSubDomainCreationPatterns(String... autoSubDomainCreationPatterns) {
+        if (this.autoSubDomainCreationPatterns == null) {
+            setAutoSubDomainCreationPatterns(new java.util.ArrayList<String>(autoSubDomainCreationPatterns.length));
+        }
+        for (String ele : autoSubDomainCreationPatterns) {
+            this.autoSubDomainCreationPatterns.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Sets branch patterns for automatic subdomain creation.
+     * </p>
+     * 
+     * @param autoSubDomainCreationPatterns
+     *        Sets branch patterns for automatic subdomain creation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DomainAssociation withAutoSubDomainCreationPatterns(java.util.Collection<String> autoSubDomainCreationPatterns) {
+        setAutoSubDomainCreationPatterns(autoSubDomainCreationPatterns);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The required AWS Identity and Access Management (IAM) service role for the Amazon Resource Name (ARN) for
+     * automatically creating subdomains.
+     * </p>
+     * 
+     * @param autoSubDomainIAMRole
+     *        The required AWS Identity and Access Management (IAM) service role for the Amazon Resource Name (ARN) for
+     *        automatically creating subdomains.
+     */
+
+    public void setAutoSubDomainIAMRole(String autoSubDomainIAMRole) {
+        this.autoSubDomainIAMRole = autoSubDomainIAMRole;
+    }
+
+    /**
+     * <p>
+     * The required AWS Identity and Access Management (IAM) service role for the Amazon Resource Name (ARN) for
+     * automatically creating subdomains.
+     * </p>
+     * 
+     * @return The required AWS Identity and Access Management (IAM) service role for the Amazon Resource Name (ARN) for
+     *         automatically creating subdomains.
+     */
+
+    public String getAutoSubDomainIAMRole() {
+        return this.autoSubDomainIAMRole;
+    }
+
+    /**
+     * <p>
+     * The required AWS Identity and Access Management (IAM) service role for the Amazon Resource Name (ARN) for
+     * automatically creating subdomains.
+     * </p>
+     * 
+     * @param autoSubDomainIAMRole
+     *        The required AWS Identity and Access Management (IAM) service role for the Amazon Resource Name (ARN) for
+     *        automatically creating subdomains.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DomainAssociation withAutoSubDomainIAMRole(String autoSubDomainIAMRole) {
+        setAutoSubDomainIAMRole(autoSubDomainIAMRole);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The current status of the domain association.
      * </p>
      * 
      * @param domainStatus
-     *        Status fo the Domain Association.
+     *        The current status of the domain association.
      * @see DomainStatus
      */
 
@@ -219,10 +417,10 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Status fo the Domain Association.
+     * The current status of the domain association.
      * </p>
      * 
-     * @return Status fo the Domain Association.
+     * @return The current status of the domain association.
      * @see DomainStatus
      */
 
@@ -232,11 +430,11 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Status fo the Domain Association.
+     * The current status of the domain association.
      * </p>
      * 
      * @param domainStatus
-     *        Status fo the Domain Association.
+     *        The current status of the domain association.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DomainStatus
      */
@@ -248,11 +446,11 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Status fo the Domain Association.
+     * The current status of the domain association.
      * </p>
      * 
      * @param domainStatus
-     *        Status fo the Domain Association.
+     *        The current status of the domain association.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DomainStatus
      */
@@ -264,11 +462,474 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Reason for the current status of the Domain Association.
+     * The status of the domain update operation that is currently in progress. The following list describes the valid
+     * update states.
+     * </p>
+     * <dl>
+     * <dt>REQUESTING_CERTIFICATE</dt>
+     * <dd>
+     * <p>
+     * The certificate is in the process of being updated.
+     * </p>
+     * </dd>
+     * <dt>PENDING_VERIFICATION</dt>
+     * <dd>
+     * <p>
+     * Indicates that an Amplify managed certificate is in the process of being verified. This occurs during the
+     * creation of a custom domain or when a custom domain is updated to use a managed certificate.
+     * </p>
+     * </dd>
+     * <dt>IMPORTING_CUSTOM_CERTIFICATE</dt>
+     * <dd>
+     * <p>
+     * Indicates that an Amplify custom certificate is in the process of being imported. This occurs during the creation
+     * of a custom domain or when a custom domain is updated to use a custom certificate.
+     * </p>
+     * </dd>
+     * <dt>PENDING_DEPLOYMENT</dt>
+     * <dd>
+     * <p>
+     * Indicates that the subdomain or certificate changes are being propagated.
+     * </p>
+     * </dd>
+     * <dt>AWAITING_APP_CNAME</dt>
+     * <dd>
+     * <p>
+     * Amplify is waiting for CNAME records corresponding to subdomains to be propagated. If your custom domain is on
+     * Route 53, Amplify handles this for you automatically. For more information about custom domains, see <a
+     * href="https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html">Setting up custom domains</a> in
+     * the <i>Amplify Hosting User Guide</i>.
+     * </p>
+     * </dd>
+     * <dt>UPDATE_COMPLETE</dt>
+     * <dd>
+     * <p>
+     * The certificate has been associated with a domain.
+     * </p>
+     * </dd>
+     * <dt>UPDATE_FAILED</dt>
+     * <dd>
+     * <p>
+     * The certificate has failed to be provisioned or associated, and there is no existing active certificate to roll
+     * back to.
+     * </p>
+     * </dd>
+     * </dl>
+     * 
+     * @param updateStatus
+     *        The status of the domain update operation that is currently in progress. The following list describes the
+     *        valid update states.</p>
+     *        <dl>
+     *        <dt>REQUESTING_CERTIFICATE</dt>
+     *        <dd>
+     *        <p>
+     *        The certificate is in the process of being updated.
+     *        </p>
+     *        </dd>
+     *        <dt>PENDING_VERIFICATION</dt>
+     *        <dd>
+     *        <p>
+     *        Indicates that an Amplify managed certificate is in the process of being verified. This occurs during the
+     *        creation of a custom domain or when a custom domain is updated to use a managed certificate.
+     *        </p>
+     *        </dd>
+     *        <dt>IMPORTING_CUSTOM_CERTIFICATE</dt>
+     *        <dd>
+     *        <p>
+     *        Indicates that an Amplify custom certificate is in the process of being imported. This occurs during the
+     *        creation of a custom domain or when a custom domain is updated to use a custom certificate.
+     *        </p>
+     *        </dd>
+     *        <dt>PENDING_DEPLOYMENT</dt>
+     *        <dd>
+     *        <p>
+     *        Indicates that the subdomain or certificate changes are being propagated.
+     *        </p>
+     *        </dd>
+     *        <dt>AWAITING_APP_CNAME</dt>
+     *        <dd>
+     *        <p>
+     *        Amplify is waiting for CNAME records corresponding to subdomains to be propagated. If your custom domain
+     *        is on Route 53, Amplify handles this for you automatically. For more information about custom domains, see
+     *        <a href="https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html">Setting up custom
+     *        domains</a> in the <i>Amplify Hosting User Guide</i>.
+     *        </p>
+     *        </dd>
+     *        <dt>UPDATE_COMPLETE</dt>
+     *        <dd>
+     *        <p>
+     *        The certificate has been associated with a domain.
+     *        </p>
+     *        </dd>
+     *        <dt>UPDATE_FAILED</dt>
+     *        <dd>
+     *        <p>
+     *        The certificate has failed to be provisioned or associated, and there is no existing active certificate to
+     *        roll back to.
+     *        </p>
+     *        </dd>
+     * @see UpdateStatus
+     */
+
+    public void setUpdateStatus(String updateStatus) {
+        this.updateStatus = updateStatus;
+    }
+
+    /**
+     * <p>
+     * The status of the domain update operation that is currently in progress. The following list describes the valid
+     * update states.
+     * </p>
+     * <dl>
+     * <dt>REQUESTING_CERTIFICATE</dt>
+     * <dd>
+     * <p>
+     * The certificate is in the process of being updated.
+     * </p>
+     * </dd>
+     * <dt>PENDING_VERIFICATION</dt>
+     * <dd>
+     * <p>
+     * Indicates that an Amplify managed certificate is in the process of being verified. This occurs during the
+     * creation of a custom domain or when a custom domain is updated to use a managed certificate.
+     * </p>
+     * </dd>
+     * <dt>IMPORTING_CUSTOM_CERTIFICATE</dt>
+     * <dd>
+     * <p>
+     * Indicates that an Amplify custom certificate is in the process of being imported. This occurs during the creation
+     * of a custom domain or when a custom domain is updated to use a custom certificate.
+     * </p>
+     * </dd>
+     * <dt>PENDING_DEPLOYMENT</dt>
+     * <dd>
+     * <p>
+     * Indicates that the subdomain or certificate changes are being propagated.
+     * </p>
+     * </dd>
+     * <dt>AWAITING_APP_CNAME</dt>
+     * <dd>
+     * <p>
+     * Amplify is waiting for CNAME records corresponding to subdomains to be propagated. If your custom domain is on
+     * Route 53, Amplify handles this for you automatically. For more information about custom domains, see <a
+     * href="https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html">Setting up custom domains</a> in
+     * the <i>Amplify Hosting User Guide</i>.
+     * </p>
+     * </dd>
+     * <dt>UPDATE_COMPLETE</dt>
+     * <dd>
+     * <p>
+     * The certificate has been associated with a domain.
+     * </p>
+     * </dd>
+     * <dt>UPDATE_FAILED</dt>
+     * <dd>
+     * <p>
+     * The certificate has failed to be provisioned or associated, and there is no existing active certificate to roll
+     * back to.
+     * </p>
+     * </dd>
+     * </dl>
+     * 
+     * @return The status of the domain update operation that is currently in progress. The following list describes the
+     *         valid update states.</p>
+     *         <dl>
+     *         <dt>REQUESTING_CERTIFICATE</dt>
+     *         <dd>
+     *         <p>
+     *         The certificate is in the process of being updated.
+     *         </p>
+     *         </dd>
+     *         <dt>PENDING_VERIFICATION</dt>
+     *         <dd>
+     *         <p>
+     *         Indicates that an Amplify managed certificate is in the process of being verified. This occurs during the
+     *         creation of a custom domain or when a custom domain is updated to use a managed certificate.
+     *         </p>
+     *         </dd>
+     *         <dt>IMPORTING_CUSTOM_CERTIFICATE</dt>
+     *         <dd>
+     *         <p>
+     *         Indicates that an Amplify custom certificate is in the process of being imported. This occurs during the
+     *         creation of a custom domain or when a custom domain is updated to use a custom certificate.
+     *         </p>
+     *         </dd>
+     *         <dt>PENDING_DEPLOYMENT</dt>
+     *         <dd>
+     *         <p>
+     *         Indicates that the subdomain or certificate changes are being propagated.
+     *         </p>
+     *         </dd>
+     *         <dt>AWAITING_APP_CNAME</dt>
+     *         <dd>
+     *         <p>
+     *         Amplify is waiting for CNAME records corresponding to subdomains to be propagated. If your custom domain
+     *         is on Route 53, Amplify handles this for you automatically. For more information about custom domains,
+     *         see <a href="https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html">Setting up custom
+     *         domains</a> in the <i>Amplify Hosting User Guide</i>.
+     *         </p>
+     *         </dd>
+     *         <dt>UPDATE_COMPLETE</dt>
+     *         <dd>
+     *         <p>
+     *         The certificate has been associated with a domain.
+     *         </p>
+     *         </dd>
+     *         <dt>UPDATE_FAILED</dt>
+     *         <dd>
+     *         <p>
+     *         The certificate has failed to be provisioned or associated, and there is no existing active certificate
+     *         to roll back to.
+     *         </p>
+     *         </dd>
+     * @see UpdateStatus
+     */
+
+    public String getUpdateStatus() {
+        return this.updateStatus;
+    }
+
+    /**
+     * <p>
+     * The status of the domain update operation that is currently in progress. The following list describes the valid
+     * update states.
+     * </p>
+     * <dl>
+     * <dt>REQUESTING_CERTIFICATE</dt>
+     * <dd>
+     * <p>
+     * The certificate is in the process of being updated.
+     * </p>
+     * </dd>
+     * <dt>PENDING_VERIFICATION</dt>
+     * <dd>
+     * <p>
+     * Indicates that an Amplify managed certificate is in the process of being verified. This occurs during the
+     * creation of a custom domain or when a custom domain is updated to use a managed certificate.
+     * </p>
+     * </dd>
+     * <dt>IMPORTING_CUSTOM_CERTIFICATE</dt>
+     * <dd>
+     * <p>
+     * Indicates that an Amplify custom certificate is in the process of being imported. This occurs during the creation
+     * of a custom domain or when a custom domain is updated to use a custom certificate.
+     * </p>
+     * </dd>
+     * <dt>PENDING_DEPLOYMENT</dt>
+     * <dd>
+     * <p>
+     * Indicates that the subdomain or certificate changes are being propagated.
+     * </p>
+     * </dd>
+     * <dt>AWAITING_APP_CNAME</dt>
+     * <dd>
+     * <p>
+     * Amplify is waiting for CNAME records corresponding to subdomains to be propagated. If your custom domain is on
+     * Route 53, Amplify handles this for you automatically. For more information about custom domains, see <a
+     * href="https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html">Setting up custom domains</a> in
+     * the <i>Amplify Hosting User Guide</i>.
+     * </p>
+     * </dd>
+     * <dt>UPDATE_COMPLETE</dt>
+     * <dd>
+     * <p>
+     * The certificate has been associated with a domain.
+     * </p>
+     * </dd>
+     * <dt>UPDATE_FAILED</dt>
+     * <dd>
+     * <p>
+     * The certificate has failed to be provisioned or associated, and there is no existing active certificate to roll
+     * back to.
+     * </p>
+     * </dd>
+     * </dl>
+     * 
+     * @param updateStatus
+     *        The status of the domain update operation that is currently in progress. The following list describes the
+     *        valid update states.</p>
+     *        <dl>
+     *        <dt>REQUESTING_CERTIFICATE</dt>
+     *        <dd>
+     *        <p>
+     *        The certificate is in the process of being updated.
+     *        </p>
+     *        </dd>
+     *        <dt>PENDING_VERIFICATION</dt>
+     *        <dd>
+     *        <p>
+     *        Indicates that an Amplify managed certificate is in the process of being verified. This occurs during the
+     *        creation of a custom domain or when a custom domain is updated to use a managed certificate.
+     *        </p>
+     *        </dd>
+     *        <dt>IMPORTING_CUSTOM_CERTIFICATE</dt>
+     *        <dd>
+     *        <p>
+     *        Indicates that an Amplify custom certificate is in the process of being imported. This occurs during the
+     *        creation of a custom domain or when a custom domain is updated to use a custom certificate.
+     *        </p>
+     *        </dd>
+     *        <dt>PENDING_DEPLOYMENT</dt>
+     *        <dd>
+     *        <p>
+     *        Indicates that the subdomain or certificate changes are being propagated.
+     *        </p>
+     *        </dd>
+     *        <dt>AWAITING_APP_CNAME</dt>
+     *        <dd>
+     *        <p>
+     *        Amplify is waiting for CNAME records corresponding to subdomains to be propagated. If your custom domain
+     *        is on Route 53, Amplify handles this for you automatically. For more information about custom domains, see
+     *        <a href="https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html">Setting up custom
+     *        domains</a> in the <i>Amplify Hosting User Guide</i>.
+     *        </p>
+     *        </dd>
+     *        <dt>UPDATE_COMPLETE</dt>
+     *        <dd>
+     *        <p>
+     *        The certificate has been associated with a domain.
+     *        </p>
+     *        </dd>
+     *        <dt>UPDATE_FAILED</dt>
+     *        <dd>
+     *        <p>
+     *        The certificate has failed to be provisioned or associated, and there is no existing active certificate to
+     *        roll back to.
+     *        </p>
+     *        </dd>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see UpdateStatus
+     */
+
+    public DomainAssociation withUpdateStatus(String updateStatus) {
+        setUpdateStatus(updateStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The status of the domain update operation that is currently in progress. The following list describes the valid
+     * update states.
+     * </p>
+     * <dl>
+     * <dt>REQUESTING_CERTIFICATE</dt>
+     * <dd>
+     * <p>
+     * The certificate is in the process of being updated.
+     * </p>
+     * </dd>
+     * <dt>PENDING_VERIFICATION</dt>
+     * <dd>
+     * <p>
+     * Indicates that an Amplify managed certificate is in the process of being verified. This occurs during the
+     * creation of a custom domain or when a custom domain is updated to use a managed certificate.
+     * </p>
+     * </dd>
+     * <dt>IMPORTING_CUSTOM_CERTIFICATE</dt>
+     * <dd>
+     * <p>
+     * Indicates that an Amplify custom certificate is in the process of being imported. This occurs during the creation
+     * of a custom domain or when a custom domain is updated to use a custom certificate.
+     * </p>
+     * </dd>
+     * <dt>PENDING_DEPLOYMENT</dt>
+     * <dd>
+     * <p>
+     * Indicates that the subdomain or certificate changes are being propagated.
+     * </p>
+     * </dd>
+     * <dt>AWAITING_APP_CNAME</dt>
+     * <dd>
+     * <p>
+     * Amplify is waiting for CNAME records corresponding to subdomains to be propagated. If your custom domain is on
+     * Route 53, Amplify handles this for you automatically. For more information about custom domains, see <a
+     * href="https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html">Setting up custom domains</a> in
+     * the <i>Amplify Hosting User Guide</i>.
+     * </p>
+     * </dd>
+     * <dt>UPDATE_COMPLETE</dt>
+     * <dd>
+     * <p>
+     * The certificate has been associated with a domain.
+     * </p>
+     * </dd>
+     * <dt>UPDATE_FAILED</dt>
+     * <dd>
+     * <p>
+     * The certificate has failed to be provisioned or associated, and there is no existing active certificate to roll
+     * back to.
+     * </p>
+     * </dd>
+     * </dl>
+     * 
+     * @param updateStatus
+     *        The status of the domain update operation that is currently in progress. The following list describes the
+     *        valid update states.</p>
+     *        <dl>
+     *        <dt>REQUESTING_CERTIFICATE</dt>
+     *        <dd>
+     *        <p>
+     *        The certificate is in the process of being updated.
+     *        </p>
+     *        </dd>
+     *        <dt>PENDING_VERIFICATION</dt>
+     *        <dd>
+     *        <p>
+     *        Indicates that an Amplify managed certificate is in the process of being verified. This occurs during the
+     *        creation of a custom domain or when a custom domain is updated to use a managed certificate.
+     *        </p>
+     *        </dd>
+     *        <dt>IMPORTING_CUSTOM_CERTIFICATE</dt>
+     *        <dd>
+     *        <p>
+     *        Indicates that an Amplify custom certificate is in the process of being imported. This occurs during the
+     *        creation of a custom domain or when a custom domain is updated to use a custom certificate.
+     *        </p>
+     *        </dd>
+     *        <dt>PENDING_DEPLOYMENT</dt>
+     *        <dd>
+     *        <p>
+     *        Indicates that the subdomain or certificate changes are being propagated.
+     *        </p>
+     *        </dd>
+     *        <dt>AWAITING_APP_CNAME</dt>
+     *        <dd>
+     *        <p>
+     *        Amplify is waiting for CNAME records corresponding to subdomains to be propagated. If your custom domain
+     *        is on Route 53, Amplify handles this for you automatically. For more information about custom domains, see
+     *        <a href="https://docs.aws.amazon.com/amplify/latest/userguide/custom-domains.html">Setting up custom
+     *        domains</a> in the <i>Amplify Hosting User Guide</i>.
+     *        </p>
+     *        </dd>
+     *        <dt>UPDATE_COMPLETE</dt>
+     *        <dd>
+     *        <p>
+     *        The certificate has been associated with a domain.
+     *        </p>
+     *        </dd>
+     *        <dt>UPDATE_FAILED</dt>
+     *        <dd>
+     *        <p>
+     *        The certificate has failed to be provisioned or associated, and there is no existing active certificate to
+     *        roll back to.
+     *        </p>
+     *        </dd>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see UpdateStatus
+     */
+
+    public DomainAssociation withUpdateStatus(UpdateStatus updateStatus) {
+        this.updateStatus = updateStatus.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Additional information that describes why the domain association is in the current state.
      * </p>
      * 
      * @param statusReason
-     *        Reason for the current status of the Domain Association.
+     *        Additional information that describes why the domain association is in the current state.
      */
 
     public void setStatusReason(String statusReason) {
@@ -277,10 +938,10 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Reason for the current status of the Domain Association.
+     * Additional information that describes why the domain association is in the current state.
      * </p>
      * 
-     * @return Reason for the current status of the Domain Association.
+     * @return Additional information that describes why the domain association is in the current state.
      */
 
     public String getStatusReason() {
@@ -289,11 +950,11 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Reason for the current status of the Domain Association.
+     * Additional information that describes why the domain association is in the current state.
      * </p>
      * 
      * @param statusReason
-     *        Reason for the current status of the Domain Association.
+     *        Additional information that describes why the domain association is in the current state.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -304,11 +965,11 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * DNS Record for certificate verification.
+     * The DNS record for certificate verification.
      * </p>
      * 
      * @param certificateVerificationDNSRecord
-     *        DNS Record for certificate verification.
+     *        The DNS record for certificate verification.
      */
 
     public void setCertificateVerificationDNSRecord(String certificateVerificationDNSRecord) {
@@ -317,10 +978,10 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * DNS Record for certificate verification.
+     * The DNS record for certificate verification.
      * </p>
      * 
-     * @return DNS Record for certificate verification.
+     * @return The DNS record for certificate verification.
      */
 
     public String getCertificateVerificationDNSRecord() {
@@ -329,11 +990,11 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * DNS Record for certificate verification.
+     * The DNS record for certificate verification.
      * </p>
      * 
      * @param certificateVerificationDNSRecord
-     *        DNS Record for certificate verification.
+     *        The DNS record for certificate verification.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -344,10 +1005,10 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Subdomains for the Domain Association.
+     * The subdomains for the domain association.
      * </p>
      * 
-     * @return Subdomains for the Domain Association.
+     * @return The subdomains for the domain association.
      */
 
     public java.util.List<SubDomain> getSubDomains() {
@@ -356,11 +1017,11 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Subdomains for the Domain Association.
+     * The subdomains for the domain association.
      * </p>
      * 
      * @param subDomains
-     *        Subdomains for the Domain Association.
+     *        The subdomains for the domain association.
      */
 
     public void setSubDomains(java.util.Collection<SubDomain> subDomains) {
@@ -374,7 +1035,7 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Subdomains for the Domain Association.
+     * The subdomains for the domain association.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -383,7 +1044,7 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
      * </p>
      * 
      * @param subDomains
-     *        Subdomains for the Domain Association.
+     *        The subdomains for the domain association.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -399,16 +1060,89 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Subdomains for the Domain Association.
+     * The subdomains for the domain association.
      * </p>
      * 
      * @param subDomains
-     *        Subdomains for the Domain Association.
+     *        The subdomains for the domain association.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DomainAssociation withSubDomains(java.util.Collection<SubDomain> subDomains) {
         setSubDomains(subDomains);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Describes the SSL/TLS certificate for the domain association. This can be your own custom certificate or the
+     * default certificate that Amplify provisions for you.
+     * </p>
+     * <p>
+     * If you are updating your domain to use a different certificate, <code>certificate</code> points to the new
+     * certificate that is being created instead of the current active certificate. Otherwise, <code>certificate</code>
+     * points to the current active certificate.
+     * </p>
+     * 
+     * @param certificate
+     *        Describes the SSL/TLS certificate for the domain association. This can be your own custom certificate or
+     *        the default certificate that Amplify provisions for you.</p>
+     *        <p>
+     *        If you are updating your domain to use a different certificate, <code>certificate</code> points to the new
+     *        certificate that is being created instead of the current active certificate. Otherwise,
+     *        <code>certificate</code> points to the current active certificate.
+     */
+
+    public void setCertificate(Certificate certificate) {
+        this.certificate = certificate;
+    }
+
+    /**
+     * <p>
+     * Describes the SSL/TLS certificate for the domain association. This can be your own custom certificate or the
+     * default certificate that Amplify provisions for you.
+     * </p>
+     * <p>
+     * If you are updating your domain to use a different certificate, <code>certificate</code> points to the new
+     * certificate that is being created instead of the current active certificate. Otherwise, <code>certificate</code>
+     * points to the current active certificate.
+     * </p>
+     * 
+     * @return Describes the SSL/TLS certificate for the domain association. This can be your own custom certificate or
+     *         the default certificate that Amplify provisions for you.</p>
+     *         <p>
+     *         If you are updating your domain to use a different certificate, <code>certificate</code> points to the
+     *         new certificate that is being created instead of the current active certificate. Otherwise,
+     *         <code>certificate</code> points to the current active certificate.
+     */
+
+    public Certificate getCertificate() {
+        return this.certificate;
+    }
+
+    /**
+     * <p>
+     * Describes the SSL/TLS certificate for the domain association. This can be your own custom certificate or the
+     * default certificate that Amplify provisions for you.
+     * </p>
+     * <p>
+     * If you are updating your domain to use a different certificate, <code>certificate</code> points to the new
+     * certificate that is being created instead of the current active certificate. Otherwise, <code>certificate</code>
+     * points to the current active certificate.
+     * </p>
+     * 
+     * @param certificate
+     *        Describes the SSL/TLS certificate for the domain association. This can be your own custom certificate or
+     *        the default certificate that Amplify provisions for you.</p>
+     *        <p>
+     *        If you are updating your domain to use a different certificate, <code>certificate</code> points to the new
+     *        certificate that is being created instead of the current active certificate. Otherwise,
+     *        <code>certificate</code> points to the current active certificate.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DomainAssociation withCertificate(Certificate certificate) {
+        setCertificate(certificate);
         return this;
     }
 
@@ -430,14 +1164,22 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
             sb.append("DomainName: ").append(getDomainName()).append(",");
         if (getEnableAutoSubDomain() != null)
             sb.append("EnableAutoSubDomain: ").append(getEnableAutoSubDomain()).append(",");
+        if (getAutoSubDomainCreationPatterns() != null)
+            sb.append("AutoSubDomainCreationPatterns: ").append(getAutoSubDomainCreationPatterns()).append(",");
+        if (getAutoSubDomainIAMRole() != null)
+            sb.append("AutoSubDomainIAMRole: ").append(getAutoSubDomainIAMRole()).append(",");
         if (getDomainStatus() != null)
             sb.append("DomainStatus: ").append(getDomainStatus()).append(",");
+        if (getUpdateStatus() != null)
+            sb.append("UpdateStatus: ").append(getUpdateStatus()).append(",");
         if (getStatusReason() != null)
             sb.append("StatusReason: ").append(getStatusReason()).append(",");
         if (getCertificateVerificationDNSRecord() != null)
             sb.append("CertificateVerificationDNSRecord: ").append(getCertificateVerificationDNSRecord()).append(",");
         if (getSubDomains() != null)
-            sb.append("SubDomains: ").append(getSubDomains());
+            sb.append("SubDomains: ").append(getSubDomains()).append(",");
+        if (getCertificate() != null)
+            sb.append("Certificate: ").append(getCertificate());
         sb.append("}");
         return sb.toString();
     }
@@ -464,9 +1206,22 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
             return false;
         if (other.getEnableAutoSubDomain() != null && other.getEnableAutoSubDomain().equals(this.getEnableAutoSubDomain()) == false)
             return false;
+        if (other.getAutoSubDomainCreationPatterns() == null ^ this.getAutoSubDomainCreationPatterns() == null)
+            return false;
+        if (other.getAutoSubDomainCreationPatterns() != null
+                && other.getAutoSubDomainCreationPatterns().equals(this.getAutoSubDomainCreationPatterns()) == false)
+            return false;
+        if (other.getAutoSubDomainIAMRole() == null ^ this.getAutoSubDomainIAMRole() == null)
+            return false;
+        if (other.getAutoSubDomainIAMRole() != null && other.getAutoSubDomainIAMRole().equals(this.getAutoSubDomainIAMRole()) == false)
+            return false;
         if (other.getDomainStatus() == null ^ this.getDomainStatus() == null)
             return false;
         if (other.getDomainStatus() != null && other.getDomainStatus().equals(this.getDomainStatus()) == false)
+            return false;
+        if (other.getUpdateStatus() == null ^ this.getUpdateStatus() == null)
+            return false;
+        if (other.getUpdateStatus() != null && other.getUpdateStatus().equals(this.getUpdateStatus()) == false)
             return false;
         if (other.getStatusReason() == null ^ this.getStatusReason() == null)
             return false;
@@ -481,6 +1236,10 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
             return false;
         if (other.getSubDomains() != null && other.getSubDomains().equals(this.getSubDomains()) == false)
             return false;
+        if (other.getCertificate() == null ^ this.getCertificate() == null)
+            return false;
+        if (other.getCertificate() != null && other.getCertificate().equals(this.getCertificate()) == false)
+            return false;
         return true;
     }
 
@@ -492,10 +1251,14 @@ public class DomainAssociation implements Serializable, Cloneable, StructuredPoj
         hashCode = prime * hashCode + ((getDomainAssociationArn() == null) ? 0 : getDomainAssociationArn().hashCode());
         hashCode = prime * hashCode + ((getDomainName() == null) ? 0 : getDomainName().hashCode());
         hashCode = prime * hashCode + ((getEnableAutoSubDomain() == null) ? 0 : getEnableAutoSubDomain().hashCode());
+        hashCode = prime * hashCode + ((getAutoSubDomainCreationPatterns() == null) ? 0 : getAutoSubDomainCreationPatterns().hashCode());
+        hashCode = prime * hashCode + ((getAutoSubDomainIAMRole() == null) ? 0 : getAutoSubDomainIAMRole().hashCode());
         hashCode = prime * hashCode + ((getDomainStatus() == null) ? 0 : getDomainStatus().hashCode());
+        hashCode = prime * hashCode + ((getUpdateStatus() == null) ? 0 : getUpdateStatus().hashCode());
         hashCode = prime * hashCode + ((getStatusReason() == null) ? 0 : getStatusReason().hashCode());
         hashCode = prime * hashCode + ((getCertificateVerificationDNSRecord() == null) ? 0 : getCertificateVerificationDNSRecord().hashCode());
         hashCode = prime * hashCode + ((getSubDomains() == null) ? 0 : getSubDomains().hashCode());
+        hashCode = prime * hashCode + ((getCertificate() == null) ? 0 : getCertificate().hashCode());
         return hashCode;
     }
 

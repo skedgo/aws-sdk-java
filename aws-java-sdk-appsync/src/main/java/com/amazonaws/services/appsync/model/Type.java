@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,7 +41,7 @@ public class Type implements Serializable, Cloneable, StructuredPojo {
     private String description;
     /**
      * <p>
-     * The type ARN.
+     * The type Amazon Resource Name (ARN).
      * </p>
      */
     private String arn;
@@ -140,11 +140,11 @@ public class Type implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type ARN.
+     * The type Amazon Resource Name (ARN).
      * </p>
      * 
      * @param arn
-     *        The type ARN.
+     *        The type Amazon Resource Name (ARN).
      */
 
     public void setArn(String arn) {
@@ -153,10 +153,10 @@ public class Type implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type ARN.
+     * The type Amazon Resource Name (ARN).
      * </p>
      * 
-     * @return The type ARN.
+     * @return The type Amazon Resource Name (ARN).
      */
 
     public String getArn() {
@@ -165,11 +165,11 @@ public class Type implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type ARN.
+     * The type Amazon Resource Name (ARN).
      * </p>
      * 
      * @param arn
-     *        The type ARN.
+     *        The type Amazon Resource Name (ARN).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

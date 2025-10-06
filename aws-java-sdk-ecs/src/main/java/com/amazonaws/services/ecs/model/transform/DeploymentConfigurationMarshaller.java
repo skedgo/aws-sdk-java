@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,10 +27,14 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class DeploymentConfigurationMarshaller {
 
+    private static final MarshallingInfo<StructuredPojo> DEPLOYMENTCIRCUITBREAKER_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("deploymentCircuitBreaker").build();
     private static final MarshallingInfo<Integer> MAXIMUMPERCENT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("maximumPercent").build();
     private static final MarshallingInfo<Integer> MINIMUMHEALTHYPERCENT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("minimumHealthyPercent").build();
+    private static final MarshallingInfo<StructuredPojo> ALARMS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("alarms").build();
 
     private static final DeploymentConfigurationMarshaller instance = new DeploymentConfigurationMarshaller();
 
@@ -48,8 +52,10 @@ public class DeploymentConfigurationMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(deploymentConfiguration.getDeploymentCircuitBreaker(), DEPLOYMENTCIRCUITBREAKER_BINDING);
             protocolMarshaller.marshall(deploymentConfiguration.getMaximumPercent(), MAXIMUMPERCENT_BINDING);
             protocolMarshaller.marshall(deploymentConfiguration.getMinimumHealthyPercent(), MINIMUMHEALTHYPERCENT_BINDING);
+            protocolMarshaller.marshall(deploymentConfiguration.getAlarms(), ALARMS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

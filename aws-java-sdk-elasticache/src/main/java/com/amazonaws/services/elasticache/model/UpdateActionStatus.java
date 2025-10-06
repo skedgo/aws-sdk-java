@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,7 +25,10 @@ public enum UpdateActionStatus {
     InProgress("in-progress"),
     Stopping("stopping"),
     Stopped("stopped"),
-    Complete("complete");
+    Complete("complete"),
+    Scheduling("scheduling"),
+    Scheduled("scheduled"),
+    NotApplicable("not-applicable");
 
     private String value;
 

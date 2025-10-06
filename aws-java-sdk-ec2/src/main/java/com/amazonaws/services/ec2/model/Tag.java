@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,7 +40,7 @@ public class Tag implements Serializable, Cloneable {
      * The value of the tag.
      * </p>
      * <p>
-     * Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters.
+     * Constraints: Tag values are case-sensitive and accept a maximum of 256 Unicode characters.
      * </p>
      */
     private String value;
@@ -79,7 +79,7 @@ public class Tag implements Serializable, Cloneable {
      *        The value of the tag.
      *        </p>
      *        <p>
-     *        Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters.
+     *        Constraints: Tag values are case-sensitive and accept a maximum of 256 Unicode characters.
      */
     public Tag(String key, String value) {
         setKey(key);
@@ -152,13 +152,13 @@ public class Tag implements Serializable, Cloneable {
      * The value of the tag.
      * </p>
      * <p>
-     * Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters.
+     * Constraints: Tag values are case-sensitive and accept a maximum of 256 Unicode characters.
      * </p>
      * 
      * @param value
      *        The value of the tag.</p>
      *        <p>
-     *        Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters.
+     *        Constraints: Tag values are case-sensitive and accept a maximum of 256 Unicode characters.
      */
 
     public void setValue(String value) {
@@ -170,12 +170,12 @@ public class Tag implements Serializable, Cloneable {
      * The value of the tag.
      * </p>
      * <p>
-     * Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters.
+     * Constraints: Tag values are case-sensitive and accept a maximum of 256 Unicode characters.
      * </p>
      * 
      * @return The value of the tag.</p>
      *         <p>
-     *         Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters.
+     *         Constraints: Tag values are case-sensitive and accept a maximum of 256 Unicode characters.
      */
 
     public String getValue() {
@@ -187,13 +187,13 @@ public class Tag implements Serializable, Cloneable {
      * The value of the tag.
      * </p>
      * <p>
-     * Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters.
+     * Constraints: Tag values are case-sensitive and accept a maximum of 256 Unicode characters.
      * </p>
      * 
      * @param value
      *        The value of the tag.</p>
      *        <p>
-     *        Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters.
+     *        Constraints: Tag values are case-sensitive and accept a maximum of 256 Unicode characters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

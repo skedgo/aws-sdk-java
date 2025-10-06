@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,15 +29,16 @@ public class NodeGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The identifier for the node group (shard). A Redis (cluster mode disabled) replication group contains only 1 node
-     * group; therefore, the node group ID is 0001. A Redis (cluster mode enabled) replication group contains 1 to 90
-     * node groups numbered 0001 to 0090. Optionally, the user can provide the id for a node group.
+     * The identifier for the node group (shard). A Redis OSS (cluster mode disabled) replication group contains only 1
+     * node group; therefore, the node group ID is 0001. A Redis OSS (cluster mode enabled) replication group contains 1
+     * to 90 node groups numbered 0001 to 0090. Optionally, the user can provide the id for a node group.
      * </p>
      */
     private String nodeGroupId;
     /**
      * <p>
-     * The current state of this replication group - <code>creating</code>, <code>available</code>, etc.
+     * The current state of this replication group - <code>creating</code>, <code>available</code>,
+     * <code>modifying</code>, <code>deleting</code>.
      * </p>
      */
     private String status;
@@ -49,7 +50,7 @@ public class NodeGroup implements Serializable, Cloneable {
     private Endpoint primaryEndpoint;
     /**
      * <p>
-     * The endpoint of the replica nodes in this node group (shard).
+     * The endpoint of the replica nodes in this node group (shard). This value is read-only.
      * </p>
      */
     private Endpoint readerEndpoint;
@@ -68,16 +69,16 @@ public class NodeGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The identifier for the node group (shard). A Redis (cluster mode disabled) replication group contains only 1 node
-     * group; therefore, the node group ID is 0001. A Redis (cluster mode enabled) replication group contains 1 to 90
-     * node groups numbered 0001 to 0090. Optionally, the user can provide the id for a node group.
+     * The identifier for the node group (shard). A Redis OSS (cluster mode disabled) replication group contains only 1
+     * node group; therefore, the node group ID is 0001. A Redis OSS (cluster mode enabled) replication group contains 1
+     * to 90 node groups numbered 0001 to 0090. Optionally, the user can provide the id for a node group.
      * </p>
      * 
      * @param nodeGroupId
-     *        The identifier for the node group (shard). A Redis (cluster mode disabled) replication group contains only
-     *        1 node group; therefore, the node group ID is 0001. A Redis (cluster mode enabled) replication group
-     *        contains 1 to 90 node groups numbered 0001 to 0090. Optionally, the user can provide the id for a node
-     *        group.
+     *        The identifier for the node group (shard). A Redis OSS (cluster mode disabled) replication group contains
+     *        only 1 node group; therefore, the node group ID is 0001. A Redis OSS (cluster mode enabled) replication
+     *        group contains 1 to 90 node groups numbered 0001 to 0090. Optionally, the user can provide the id for a
+     *        node group.
      */
 
     public void setNodeGroupId(String nodeGroupId) {
@@ -86,15 +87,15 @@ public class NodeGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The identifier for the node group (shard). A Redis (cluster mode disabled) replication group contains only 1 node
-     * group; therefore, the node group ID is 0001. A Redis (cluster mode enabled) replication group contains 1 to 90
-     * node groups numbered 0001 to 0090. Optionally, the user can provide the id for a node group.
+     * The identifier for the node group (shard). A Redis OSS (cluster mode disabled) replication group contains only 1
+     * node group; therefore, the node group ID is 0001. A Redis OSS (cluster mode enabled) replication group contains 1
+     * to 90 node groups numbered 0001 to 0090. Optionally, the user can provide the id for a node group.
      * </p>
      * 
-     * @return The identifier for the node group (shard). A Redis (cluster mode disabled) replication group contains
-     *         only 1 node group; therefore, the node group ID is 0001. A Redis (cluster mode enabled) replication group
-     *         contains 1 to 90 node groups numbered 0001 to 0090. Optionally, the user can provide the id for a node
-     *         group.
+     * @return The identifier for the node group (shard). A Redis OSS (cluster mode disabled) replication group contains
+     *         only 1 node group; therefore, the node group ID is 0001. A Redis OSS (cluster mode enabled) replication
+     *         group contains 1 to 90 node groups numbered 0001 to 0090. Optionally, the user can provide the id for a
+     *         node group.
      */
 
     public String getNodeGroupId() {
@@ -103,16 +104,16 @@ public class NodeGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The identifier for the node group (shard). A Redis (cluster mode disabled) replication group contains only 1 node
-     * group; therefore, the node group ID is 0001. A Redis (cluster mode enabled) replication group contains 1 to 90
-     * node groups numbered 0001 to 0090. Optionally, the user can provide the id for a node group.
+     * The identifier for the node group (shard). A Redis OSS (cluster mode disabled) replication group contains only 1
+     * node group; therefore, the node group ID is 0001. A Redis OSS (cluster mode enabled) replication group contains 1
+     * to 90 node groups numbered 0001 to 0090. Optionally, the user can provide the id for a node group.
      * </p>
      * 
      * @param nodeGroupId
-     *        The identifier for the node group (shard). A Redis (cluster mode disabled) replication group contains only
-     *        1 node group; therefore, the node group ID is 0001. A Redis (cluster mode enabled) replication group
-     *        contains 1 to 90 node groups numbered 0001 to 0090. Optionally, the user can provide the id for a node
-     *        group.
+     *        The identifier for the node group (shard). A Redis OSS (cluster mode disabled) replication group contains
+     *        only 1 node group; therefore, the node group ID is 0001. A Redis OSS (cluster mode enabled) replication
+     *        group contains 1 to 90 node groups numbered 0001 to 0090. Optionally, the user can provide the id for a
+     *        node group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -123,11 +124,13 @@ public class NodeGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The current state of this replication group - <code>creating</code>, <code>available</code>, etc.
+     * The current state of this replication group - <code>creating</code>, <code>available</code>,
+     * <code>modifying</code>, <code>deleting</code>.
      * </p>
      * 
      * @param status
-     *        The current state of this replication group - <code>creating</code>, <code>available</code>, etc.
+     *        The current state of this replication group - <code>creating</code>, <code>available</code>,
+     *        <code>modifying</code>, <code>deleting</code>.
      */
 
     public void setStatus(String status) {
@@ -136,10 +139,12 @@ public class NodeGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The current state of this replication group - <code>creating</code>, <code>available</code>, etc.
+     * The current state of this replication group - <code>creating</code>, <code>available</code>,
+     * <code>modifying</code>, <code>deleting</code>.
      * </p>
      * 
-     * @return The current state of this replication group - <code>creating</code>, <code>available</code>, etc.
+     * @return The current state of this replication group - <code>creating</code>, <code>available</code>,
+     *         <code>modifying</code>, <code>deleting</code>.
      */
 
     public String getStatus() {
@@ -148,11 +153,13 @@ public class NodeGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The current state of this replication group - <code>creating</code>, <code>available</code>, etc.
+     * The current state of this replication group - <code>creating</code>, <code>available</code>,
+     * <code>modifying</code>, <code>deleting</code>.
      * </p>
      * 
      * @param status
-     *        The current state of this replication group - <code>creating</code>, <code>available</code>, etc.
+     *        The current state of this replication group - <code>creating</code>, <code>available</code>,
+     *        <code>modifying</code>, <code>deleting</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -203,11 +210,11 @@ public class NodeGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The endpoint of the replica nodes in this node group (shard).
+     * The endpoint of the replica nodes in this node group (shard). This value is read-only.
      * </p>
      * 
      * @param readerEndpoint
-     *        The endpoint of the replica nodes in this node group (shard).
+     *        The endpoint of the replica nodes in this node group (shard). This value is read-only.
      */
 
     public void setReaderEndpoint(Endpoint readerEndpoint) {
@@ -216,10 +223,10 @@ public class NodeGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The endpoint of the replica nodes in this node group (shard).
+     * The endpoint of the replica nodes in this node group (shard). This value is read-only.
      * </p>
      * 
-     * @return The endpoint of the replica nodes in this node group (shard).
+     * @return The endpoint of the replica nodes in this node group (shard). This value is read-only.
      */
 
     public Endpoint getReaderEndpoint() {
@@ -228,11 +235,11 @@ public class NodeGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The endpoint of the replica nodes in this node group (shard).
+     * The endpoint of the replica nodes in this node group (shard). This value is read-only.
      * </p>
      * 
      * @param readerEndpoint
-     *        The endpoint of the replica nodes in this node group (shard).
+     *        The endpoint of the replica nodes in this node group (shard). This value is read-only.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

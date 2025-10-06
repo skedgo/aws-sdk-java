@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,8 +28,8 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The user-supplied instance identifier. If this parameter is specified, information from only the specific DB
-     * instance is returned. This parameter isn't case-sensitive.
+     * The user-supplied instance identifier or the Amazon Resource Name (ARN) of the DB instance. If this parameter is
+     * specified, information from only the specific DB instance is returned. This parameter isn't case-sensitive.
      * </p>
      * <p>
      * Constraints:
@@ -37,7 +37,7 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * If supplied, must match the identifier of an existing DBInstance.
+     * If supplied, must match the identifier of an existing DB instance.
      * </p>
      * </li>
      * </ul>
@@ -48,20 +48,38 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
      * A filter that specifies one or more DB instances to describe.
      * </p>
      * <p>
-     * Supported filters:
+     * Supported Filters:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs). The
-     * results list will only include information about the DB instances associated with the DB clusters identified by
-     * these ARNs.
+     * results list only includes information about the DB instances associated with the DB clusters identified by these
+     * ARNs.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance Amazon Resource Names (ARNs). The
-     * results list will only include information about the DB instances identified by these ARNs.
+     * results list only includes information about the DB instances identified by these ARNs.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>dbi-resource-id</code> - Accepts DB instance resource identifiers. The results list only includes
+     * information about the DB instances identified by these DB instance resource identifiers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>domain</code> - Accepts Active Directory directory IDs. The results list only includes information about
+     * the DB instances associated with these domains.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine</code> - Accepts engine names. The results list only includes information about the DB instances for
+     * these engines.
      * </p>
      * </li>
      * </ul>
@@ -70,8 +88,8 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you can
+     * retrieve the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -92,8 +110,8 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The user-supplied instance identifier. If this parameter is specified, information from only the specific DB
-     * instance is returned. This parameter isn't case-sensitive.
+     * The user-supplied instance identifier or the Amazon Resource Name (ARN) of the DB instance. If this parameter is
+     * specified, information from only the specific DB instance is returned. This parameter isn't case-sensitive.
      * </p>
      * <p>
      * Constraints:
@@ -101,21 +119,22 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * If supplied, must match the identifier of an existing DBInstance.
+     * If supplied, must match the identifier of an existing DB instance.
      * </p>
      * </li>
      * </ul>
      * 
      * @param dBInstanceIdentifier
-     *        The user-supplied instance identifier. If this parameter is specified, information from only the specific
-     *        DB instance is returned. This parameter isn't case-sensitive.</p>
+     *        The user-supplied instance identifier or the Amazon Resource Name (ARN) of the DB instance. If this
+     *        parameter is specified, information from only the specific DB instance is returned. This parameter isn't
+     *        case-sensitive.</p>
      *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        If supplied, must match the identifier of an existing DBInstance.
+     *        If supplied, must match the identifier of an existing DB instance.
      *        </p>
      *        </li>
      */
@@ -126,8 +145,8 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The user-supplied instance identifier. If this parameter is specified, information from only the specific DB
-     * instance is returned. This parameter isn't case-sensitive.
+     * The user-supplied instance identifier or the Amazon Resource Name (ARN) of the DB instance. If this parameter is
+     * specified, information from only the specific DB instance is returned. This parameter isn't case-sensitive.
      * </p>
      * <p>
      * Constraints:
@@ -135,20 +154,21 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * If supplied, must match the identifier of an existing DBInstance.
+     * If supplied, must match the identifier of an existing DB instance.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return The user-supplied instance identifier. If this parameter is specified, information from only the specific
-     *         DB instance is returned. This parameter isn't case-sensitive.</p>
+     * @return The user-supplied instance identifier or the Amazon Resource Name (ARN) of the DB instance. If this
+     *         parameter is specified, information from only the specific DB instance is returned. This parameter isn't
+     *         case-sensitive.</p>
      *         <p>
      *         Constraints:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         If supplied, must match the identifier of an existing DBInstance.
+     *         If supplied, must match the identifier of an existing DB instance.
      *         </p>
      *         </li>
      */
@@ -159,8 +179,8 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The user-supplied instance identifier. If this parameter is specified, information from only the specific DB
-     * instance is returned. This parameter isn't case-sensitive.
+     * The user-supplied instance identifier or the Amazon Resource Name (ARN) of the DB instance. If this parameter is
+     * specified, information from only the specific DB instance is returned. This parameter isn't case-sensitive.
      * </p>
      * <p>
      * Constraints:
@@ -168,21 +188,22 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * If supplied, must match the identifier of an existing DBInstance.
+     * If supplied, must match the identifier of an existing DB instance.
      * </p>
      * </li>
      * </ul>
      * 
      * @param dBInstanceIdentifier
-     *        The user-supplied instance identifier. If this parameter is specified, information from only the specific
-     *        DB instance is returned. This parameter isn't case-sensitive.</p>
+     *        The user-supplied instance identifier or the Amazon Resource Name (ARN) of the DB instance. If this
+     *        parameter is specified, information from only the specific DB instance is returned. This parameter isn't
+     *        case-sensitive.</p>
      *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        If supplied, must match the identifier of an existing DBInstance.
+     *        If supplied, must match the identifier of an existing DB instance.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -198,40 +219,76 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
      * A filter that specifies one or more DB instances to describe.
      * </p>
      * <p>
-     * Supported filters:
+     * Supported Filters:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs). The
-     * results list will only include information about the DB instances associated with the DB clusters identified by
-     * these ARNs.
+     * results list only includes information about the DB instances associated with the DB clusters identified by these
+     * ARNs.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance Amazon Resource Names (ARNs). The
-     * results list will only include information about the DB instances identified by these ARNs.
+     * results list only includes information about the DB instances identified by these ARNs.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>dbi-resource-id</code> - Accepts DB instance resource identifiers. The results list only includes
+     * information about the DB instances identified by these DB instance resource identifiers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>domain</code> - Accepts Active Directory directory IDs. The results list only includes information about
+     * the DB instances associated with these domains.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine</code> - Accepts engine names. The results list only includes information about the DB instances for
+     * these engines.
      * </p>
      * </li>
      * </ul>
      * 
      * @return A filter that specifies one or more DB instances to describe.</p>
      *         <p>
-     *         Supported filters:
+     *         Supported Filters:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
      *         <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs).
-     *         The results list will only include information about the DB instances associated with the DB clusters
+     *         The results list only includes information about the DB instances associated with the DB clusters
      *         identified by these ARNs.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance Amazon Resource Names
-     *         (ARNs). The results list will only include information about the DB instances identified by these ARNs.
+     *         (ARNs). The results list only includes information about the DB instances identified by these ARNs.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>dbi-resource-id</code> - Accepts DB instance resource identifiers. The results list only includes
+     *         information about the DB instances identified by these DB instance resource identifiers.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>domain</code> - Accepts Active Directory directory IDs. The results list only includes information
+     *         about the DB instances associated with these domains.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>engine</code> - Accepts engine names. The results list only includes information about the DB
+     *         instances for these engines.
      *         </p>
      *         </li>
      */
@@ -248,20 +305,38 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
      * A filter that specifies one or more DB instances to describe.
      * </p>
      * <p>
-     * Supported filters:
+     * Supported Filters:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs). The
-     * results list will only include information about the DB instances associated with the DB clusters identified by
-     * these ARNs.
+     * results list only includes information about the DB instances associated with the DB clusters identified by these
+     * ARNs.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance Amazon Resource Names (ARNs). The
-     * results list will only include information about the DB instances identified by these ARNs.
+     * results list only includes information about the DB instances identified by these ARNs.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>dbi-resource-id</code> - Accepts DB instance resource identifiers. The results list only includes
+     * information about the DB instances identified by these DB instance resource identifiers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>domain</code> - Accepts Active Directory directory IDs. The results list only includes information about
+     * the DB instances associated with these domains.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine</code> - Accepts engine names. The results list only includes information about the DB instances for
+     * these engines.
      * </p>
      * </li>
      * </ul>
@@ -269,20 +344,38 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
      * @param filters
      *        A filter that specifies one or more DB instances to describe.</p>
      *        <p>
-     *        Supported filters:
+     *        Supported Filters:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
      *        <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs).
-     *        The results list will only include information about the DB instances associated with the DB clusters
+     *        The results list only includes information about the DB instances associated with the DB clusters
      *        identified by these ARNs.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance Amazon Resource Names
-     *        (ARNs). The results list will only include information about the DB instances identified by these ARNs.
+     *        (ARNs). The results list only includes information about the DB instances identified by these ARNs.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>dbi-resource-id</code> - Accepts DB instance resource identifiers. The results list only includes
+     *        information about the DB instances identified by these DB instance resource identifiers.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>domain</code> - Accepts Active Directory directory IDs. The results list only includes information
+     *        about the DB instances associated with these domains.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>engine</code> - Accepts engine names. The results list only includes information about the DB
+     *        instances for these engines.
      *        </p>
      *        </li>
      */
@@ -301,20 +394,38 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
      * A filter that specifies one or more DB instances to describe.
      * </p>
      * <p>
-     * Supported filters:
+     * Supported Filters:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs). The
-     * results list will only include information about the DB instances associated with the DB clusters identified by
-     * these ARNs.
+     * results list only includes information about the DB instances associated with the DB clusters identified by these
+     * ARNs.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance Amazon Resource Names (ARNs). The
-     * results list will only include information about the DB instances identified by these ARNs.
+     * results list only includes information about the DB instances identified by these ARNs.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>dbi-resource-id</code> - Accepts DB instance resource identifiers. The results list only includes
+     * information about the DB instances identified by these DB instance resource identifiers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>domain</code> - Accepts Active Directory directory IDs. The results list only includes information about
+     * the DB instances associated with these domains.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine</code> - Accepts engine names. The results list only includes information about the DB instances for
+     * these engines.
      * </p>
      * </li>
      * </ul>
@@ -327,20 +438,38 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
      * @param filters
      *        A filter that specifies one or more DB instances to describe.</p>
      *        <p>
-     *        Supported filters:
+     *        Supported Filters:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
      *        <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs).
-     *        The results list will only include information about the DB instances associated with the DB clusters
+     *        The results list only includes information about the DB instances associated with the DB clusters
      *        identified by these ARNs.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance Amazon Resource Names
-     *        (ARNs). The results list will only include information about the DB instances identified by these ARNs.
+     *        (ARNs). The results list only includes information about the DB instances identified by these ARNs.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>dbi-resource-id</code> - Accepts DB instance resource identifiers. The results list only includes
+     *        information about the DB instances identified by these DB instance resource identifiers.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>domain</code> - Accepts Active Directory directory IDs. The results list only includes information
+     *        about the DB instances associated with these domains.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>engine</code> - Accepts engine names. The results list only includes information about the DB
+     *        instances for these engines.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -361,20 +490,38 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
      * A filter that specifies one or more DB instances to describe.
      * </p>
      * <p>
-     * Supported filters:
+     * Supported Filters:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs). The
-     * results list will only include information about the DB instances associated with the DB clusters identified by
-     * these ARNs.
+     * results list only includes information about the DB instances associated with the DB clusters identified by these
+     * ARNs.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance Amazon Resource Names (ARNs). The
-     * results list will only include information about the DB instances identified by these ARNs.
+     * results list only includes information about the DB instances identified by these ARNs.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>dbi-resource-id</code> - Accepts DB instance resource identifiers. The results list only includes
+     * information about the DB instances identified by these DB instance resource identifiers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>domain</code> - Accepts Active Directory directory IDs. The results list only includes information about
+     * the DB instances associated with these domains.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>engine</code> - Accepts engine names. The results list only includes information about the DB instances for
+     * these engines.
      * </p>
      * </li>
      * </ul>
@@ -382,20 +529,38 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
      * @param filters
      *        A filter that specifies one or more DB instances to describe.</p>
      *        <p>
-     *        Supported filters:
+     *        Supported Filters:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
      *        <code>db-cluster-id</code> - Accepts DB cluster identifiers and DB cluster Amazon Resource Names (ARNs).
-     *        The results list will only include information about the DB instances associated with the DB clusters
+     *        The results list only includes information about the DB instances associated with the DB clusters
      *        identified by these ARNs.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>db-instance-id</code> - Accepts DB instance identifiers and DB instance Amazon Resource Names
-     *        (ARNs). The results list will only include information about the DB instances identified by these ARNs.
+     *        (ARNs). The results list only includes information about the DB instances identified by these ARNs.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>dbi-resource-id</code> - Accepts DB instance resource identifiers. The results list only includes
+     *        information about the DB instances identified by these DB instance resource identifiers.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>domain</code> - Accepts Active Directory directory IDs. The results list only includes information
+     *        about the DB instances associated with these domains.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>engine</code> - Accepts engine names. The results list only includes information about the DB
+     *        instances for these engines.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -409,8 +574,8 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you can
+     * retrieve the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -421,8 +586,8 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
      * 
      * @param maxRecords
      *        The maximum number of records to include in the response. If more records exist than the specified
-     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     *        remaining results can be retrieved. </p>
+     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you
+     *        can retrieve the remaining results.</p>
      *        <p>
      *        Default: 100
      *        </p>
@@ -437,8 +602,8 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you can
+     * retrieve the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -448,8 +613,8 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @return The maximum number of records to include in the response. If more records exist than the specified
-     *         <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     *         remaining results can be retrieved. </p>
+     *         <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you
+     *         can retrieve the remaining results.</p>
      *         <p>
      *         Default: 100
      *         </p>
@@ -464,8 +629,8 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you can
+     * retrieve the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -476,8 +641,8 @@ public class DescribeDBInstancesRequest extends com.amazonaws.AmazonWebServiceRe
      * 
      * @param maxRecords
      *        The maximum number of records to include in the response. If more records exist than the specified
-     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     *        remaining results can be retrieved. </p>
+     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that you
+     *        can retrieve the remaining results.</p>
      *        <p>
      *        Default: 100
      *        </p>

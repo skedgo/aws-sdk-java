@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -96,7 +96,9 @@ public class BranchJsonUnmarshaller implements Unmarshaller<Branch, JsonUnmarsha
                 }
                 if (context.testExpression("customDomains", targetDepth)) {
                     context.nextToken();
-                    branch.setCustomDomains(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    branch.setCustomDomains(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("framework", targetDepth)) {
                     context.nextToken();
@@ -113,6 +115,10 @@ public class BranchJsonUnmarshaller implements Unmarshaller<Branch, JsonUnmarsha
                 if (context.testExpression("enableBasicAuth", targetDepth)) {
                     context.nextToken();
                     branch.setEnableBasicAuth(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("enablePerformanceMode", targetDepth)) {
+                    context.nextToken();
+                    branch.setEnablePerformanceMode(context.getUnmarshaller(Boolean.class).unmarshall(context));
                 }
                 if (context.testExpression("thumbnailUrl", targetDepth)) {
                     context.nextToken();
@@ -132,7 +138,33 @@ public class BranchJsonUnmarshaller implements Unmarshaller<Branch, JsonUnmarsha
                 }
                 if (context.testExpression("associatedResources", targetDepth)) {
                     context.nextToken();
-                    branch.setAssociatedResources(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    branch.setAssociatedResources(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("enablePullRequestPreview", targetDepth)) {
+                    context.nextToken();
+                    branch.setEnablePullRequestPreview(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("pullRequestEnvironmentName", targetDepth)) {
+                    context.nextToken();
+                    branch.setPullRequestEnvironmentName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("destinationBranch", targetDepth)) {
+                    context.nextToken();
+                    branch.setDestinationBranch(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("sourceBranch", targetDepth)) {
+                    context.nextToken();
+                    branch.setSourceBranch(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("backendEnvironmentArn", targetDepth)) {
+                    context.nextToken();
+                    branch.setBackendEnvironmentArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("backend", targetDepth)) {
+                    context.nextToken();
+                    branch.setBackend(BackendJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

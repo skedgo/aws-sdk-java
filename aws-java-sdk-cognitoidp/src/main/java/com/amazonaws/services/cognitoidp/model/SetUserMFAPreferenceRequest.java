@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,13 +33,13 @@ public class SetUserMFAPreferenceRequest extends com.amazonaws.AmazonWebServiceR
     private SMSMfaSettingsType sMSMfaSettings;
     /**
      * <p>
-     * The time-based one-time password software token MFA settings.
+     * The time-based one-time password (TOTP) software token MFA settings.
      * </p>
      */
     private SoftwareTokenMfaSettingsType softwareTokenMfaSettings;
     /**
      * <p>
-     * The access token.
+     * A valid access token that Amazon Cognito issued to the user whose MFA preference you want to set.
      * </p>
      */
     private String accessToken;
@@ -86,11 +86,11 @@ public class SetUserMFAPreferenceRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The time-based one-time password software token MFA settings.
+     * The time-based one-time password (TOTP) software token MFA settings.
      * </p>
      * 
      * @param softwareTokenMfaSettings
-     *        The time-based one-time password software token MFA settings.
+     *        The time-based one-time password (TOTP) software token MFA settings.
      */
 
     public void setSoftwareTokenMfaSettings(SoftwareTokenMfaSettingsType softwareTokenMfaSettings) {
@@ -99,10 +99,10 @@ public class SetUserMFAPreferenceRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The time-based one-time password software token MFA settings.
+     * The time-based one-time password (TOTP) software token MFA settings.
      * </p>
      * 
-     * @return The time-based one-time password software token MFA settings.
+     * @return The time-based one-time password (TOTP) software token MFA settings.
      */
 
     public SoftwareTokenMfaSettingsType getSoftwareTokenMfaSettings() {
@@ -111,11 +111,11 @@ public class SetUserMFAPreferenceRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The time-based one-time password software token MFA settings.
+     * The time-based one-time password (TOTP) software token MFA settings.
      * </p>
      * 
      * @param softwareTokenMfaSettings
-     *        The time-based one-time password software token MFA settings.
+     *        The time-based one-time password (TOTP) software token MFA settings.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -126,11 +126,11 @@ public class SetUserMFAPreferenceRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The access token.
+     * A valid access token that Amazon Cognito issued to the user whose MFA preference you want to set.
      * </p>
      * 
      * @param accessToken
-     *        The access token.
+     *        A valid access token that Amazon Cognito issued to the user whose MFA preference you want to set.
      */
 
     public void setAccessToken(String accessToken) {
@@ -139,10 +139,10 @@ public class SetUserMFAPreferenceRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The access token.
+     * A valid access token that Amazon Cognito issued to the user whose MFA preference you want to set.
      * </p>
      * 
-     * @return The access token.
+     * @return A valid access token that Amazon Cognito issued to the user whose MFA preference you want to set.
      */
 
     public String getAccessToken() {
@@ -151,11 +151,11 @@ public class SetUserMFAPreferenceRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The access token.
+     * A valid access token that Amazon Cognito issued to the user whose MFA preference you want to set.
      * </p>
      * 
      * @param accessToken
-     *        The access token.
+     *        A valid access token that Amazon Cognito issued to the user whose MFA preference you want to set.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

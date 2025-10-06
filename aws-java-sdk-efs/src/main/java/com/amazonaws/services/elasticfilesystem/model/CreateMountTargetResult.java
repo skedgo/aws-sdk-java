@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,7 @@ public class CreateMountTargetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * AWS account ID that owns the resource.
+     * Amazon Web Services account ID that owns the resource.
      * </p>
      */
     private String ownerId;
@@ -68,14 +68,37 @@ public class CreateMountTargetResult extends com.amazonaws.AmazonWebServiceResul
      * </p>
      */
     private String networkInterfaceId;
+    /**
+     * <p>
+     * The unique and consistent identifier of the Availability Zone that the mount target resides in. For example,
+     * <code>use1-az1</code> is an AZ ID for the us-east-1 Region and it has the same location in every Amazon Web
+     * Services account.
+     * </p>
+     */
+    private String availabilityZoneId;
+    /**
+     * <p>
+     * The name of the Availability Zone in which the mount target is located. Availability Zones are independently
+     * mapped to names for each Amazon Web Services account. For example, the Availability Zone <code>us-east-1a</code>
+     * for your Amazon Web Services account might not be the same location as <code>us-east-1a</code> for another Amazon
+     * Web Services account.
+     * </p>
+     */
+    private String availabilityZoneName;
+    /**
+     * <p>
+     * The virtual private cloud (VPC) ID that the mount target is configured in.
+     * </p>
+     */
+    private String vpcId;
 
     /**
      * <p>
-     * AWS account ID that owns the resource.
+     * Amazon Web Services account ID that owns the resource.
      * </p>
      * 
      * @param ownerId
-     *        AWS account ID that owns the resource.
+     *        Amazon Web Services account ID that owns the resource.
      */
 
     public void setOwnerId(String ownerId) {
@@ -84,10 +107,10 @@ public class CreateMountTargetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * AWS account ID that owns the resource.
+     * Amazon Web Services account ID that owns the resource.
      * </p>
      * 
-     * @return AWS account ID that owns the resource.
+     * @return Amazon Web Services account ID that owns the resource.
      */
 
     public String getOwnerId() {
@@ -96,11 +119,11 @@ public class CreateMountTargetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * AWS account ID that owns the resource.
+     * Amazon Web Services account ID that owns the resource.
      * </p>
      * 
      * @param ownerId
-     *        AWS account ID that owns the resource.
+     *        Amazon Web Services account ID that owns the resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -383,6 +406,156 @@ public class CreateMountTargetResult extends com.amazonaws.AmazonWebServiceResul
     }
 
     /**
+     * <p>
+     * The unique and consistent identifier of the Availability Zone that the mount target resides in. For example,
+     * <code>use1-az1</code> is an AZ ID for the us-east-1 Region and it has the same location in every Amazon Web
+     * Services account.
+     * </p>
+     * 
+     * @param availabilityZoneId
+     *        The unique and consistent identifier of the Availability Zone that the mount target resides in. For
+     *        example, <code>use1-az1</code> is an AZ ID for the us-east-1 Region and it has the same location in every
+     *        Amazon Web Services account.
+     */
+
+    public void setAvailabilityZoneId(String availabilityZoneId) {
+        this.availabilityZoneId = availabilityZoneId;
+    }
+
+    /**
+     * <p>
+     * The unique and consistent identifier of the Availability Zone that the mount target resides in. For example,
+     * <code>use1-az1</code> is an AZ ID for the us-east-1 Region and it has the same location in every Amazon Web
+     * Services account.
+     * </p>
+     * 
+     * @return The unique and consistent identifier of the Availability Zone that the mount target resides in. For
+     *         example, <code>use1-az1</code> is an AZ ID for the us-east-1 Region and it has the same location in every
+     *         Amazon Web Services account.
+     */
+
+    public String getAvailabilityZoneId() {
+        return this.availabilityZoneId;
+    }
+
+    /**
+     * <p>
+     * The unique and consistent identifier of the Availability Zone that the mount target resides in. For example,
+     * <code>use1-az1</code> is an AZ ID for the us-east-1 Region and it has the same location in every Amazon Web
+     * Services account.
+     * </p>
+     * 
+     * @param availabilityZoneId
+     *        The unique and consistent identifier of the Availability Zone that the mount target resides in. For
+     *        example, <code>use1-az1</code> is an AZ ID for the us-east-1 Region and it has the same location in every
+     *        Amazon Web Services account.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateMountTargetResult withAvailabilityZoneId(String availabilityZoneId) {
+        setAvailabilityZoneId(availabilityZoneId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the Availability Zone in which the mount target is located. Availability Zones are independently
+     * mapped to names for each Amazon Web Services account. For example, the Availability Zone <code>us-east-1a</code>
+     * for your Amazon Web Services account might not be the same location as <code>us-east-1a</code> for another Amazon
+     * Web Services account.
+     * </p>
+     * 
+     * @param availabilityZoneName
+     *        The name of the Availability Zone in which the mount target is located. Availability Zones are
+     *        independently mapped to names for each Amazon Web Services account. For example, the Availability Zone
+     *        <code>us-east-1a</code> for your Amazon Web Services account might not be the same location as
+     *        <code>us-east-1a</code> for another Amazon Web Services account.
+     */
+
+    public void setAvailabilityZoneName(String availabilityZoneName) {
+        this.availabilityZoneName = availabilityZoneName;
+    }
+
+    /**
+     * <p>
+     * The name of the Availability Zone in which the mount target is located. Availability Zones are independently
+     * mapped to names for each Amazon Web Services account. For example, the Availability Zone <code>us-east-1a</code>
+     * for your Amazon Web Services account might not be the same location as <code>us-east-1a</code> for another Amazon
+     * Web Services account.
+     * </p>
+     * 
+     * @return The name of the Availability Zone in which the mount target is located. Availability Zones are
+     *         independently mapped to names for each Amazon Web Services account. For example, the Availability Zone
+     *         <code>us-east-1a</code> for your Amazon Web Services account might not be the same location as
+     *         <code>us-east-1a</code> for another Amazon Web Services account.
+     */
+
+    public String getAvailabilityZoneName() {
+        return this.availabilityZoneName;
+    }
+
+    /**
+     * <p>
+     * The name of the Availability Zone in which the mount target is located. Availability Zones are independently
+     * mapped to names for each Amazon Web Services account. For example, the Availability Zone <code>us-east-1a</code>
+     * for your Amazon Web Services account might not be the same location as <code>us-east-1a</code> for another Amazon
+     * Web Services account.
+     * </p>
+     * 
+     * @param availabilityZoneName
+     *        The name of the Availability Zone in which the mount target is located. Availability Zones are
+     *        independently mapped to names for each Amazon Web Services account. For example, the Availability Zone
+     *        <code>us-east-1a</code> for your Amazon Web Services account might not be the same location as
+     *        <code>us-east-1a</code> for another Amazon Web Services account.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateMountTargetResult withAvailabilityZoneName(String availabilityZoneName) {
+        setAvailabilityZoneName(availabilityZoneName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The virtual private cloud (VPC) ID that the mount target is configured in.
+     * </p>
+     * 
+     * @param vpcId
+     *        The virtual private cloud (VPC) ID that the mount target is configured in.
+     */
+
+    public void setVpcId(String vpcId) {
+        this.vpcId = vpcId;
+    }
+
+    /**
+     * <p>
+     * The virtual private cloud (VPC) ID that the mount target is configured in.
+     * </p>
+     * 
+     * @return The virtual private cloud (VPC) ID that the mount target is configured in.
+     */
+
+    public String getVpcId() {
+        return this.vpcId;
+    }
+
+    /**
+     * <p>
+     * The virtual private cloud (VPC) ID that the mount target is configured in.
+     * </p>
+     * 
+     * @param vpcId
+     *        The virtual private cloud (VPC) ID that the mount target is configured in.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateMountTargetResult withVpcId(String vpcId) {
+        setVpcId(vpcId);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -407,7 +580,13 @@ public class CreateMountTargetResult extends com.amazonaws.AmazonWebServiceResul
         if (getIpAddress() != null)
             sb.append("IpAddress: ").append(getIpAddress()).append(",");
         if (getNetworkInterfaceId() != null)
-            sb.append("NetworkInterfaceId: ").append(getNetworkInterfaceId());
+            sb.append("NetworkInterfaceId: ").append(getNetworkInterfaceId()).append(",");
+        if (getAvailabilityZoneId() != null)
+            sb.append("AvailabilityZoneId: ").append(getAvailabilityZoneId()).append(",");
+        if (getAvailabilityZoneName() != null)
+            sb.append("AvailabilityZoneName: ").append(getAvailabilityZoneName()).append(",");
+        if (getVpcId() != null)
+            sb.append("VpcId: ").append(getVpcId());
         sb.append("}");
         return sb.toString();
     }
@@ -450,6 +629,18 @@ public class CreateMountTargetResult extends com.amazonaws.AmazonWebServiceResul
             return false;
         if (other.getNetworkInterfaceId() != null && other.getNetworkInterfaceId().equals(this.getNetworkInterfaceId()) == false)
             return false;
+        if (other.getAvailabilityZoneId() == null ^ this.getAvailabilityZoneId() == null)
+            return false;
+        if (other.getAvailabilityZoneId() != null && other.getAvailabilityZoneId().equals(this.getAvailabilityZoneId()) == false)
+            return false;
+        if (other.getAvailabilityZoneName() == null ^ this.getAvailabilityZoneName() == null)
+            return false;
+        if (other.getAvailabilityZoneName() != null && other.getAvailabilityZoneName().equals(this.getAvailabilityZoneName()) == false)
+            return false;
+        if (other.getVpcId() == null ^ this.getVpcId() == null)
+            return false;
+        if (other.getVpcId() != null && other.getVpcId().equals(this.getVpcId()) == false)
+            return false;
         return true;
     }
 
@@ -465,6 +656,9 @@ public class CreateMountTargetResult extends com.amazonaws.AmazonWebServiceResul
         hashCode = prime * hashCode + ((getLifeCycleState() == null) ? 0 : getLifeCycleState().hashCode());
         hashCode = prime * hashCode + ((getIpAddress() == null) ? 0 : getIpAddress().hashCode());
         hashCode = prime * hashCode + ((getNetworkInterfaceId() == null) ? 0 : getNetworkInterfaceId().hashCode());
+        hashCode = prime * hashCode + ((getAvailabilityZoneId() == null) ? 0 : getAvailabilityZoneId().hashCode());
+        hashCode = prime * hashCode + ((getAvailabilityZoneName() == null) ? 0 : getAvailabilityZoneName().hashCode());
+        hashCode = prime * hashCode + ((getVpcId() == null) ? 0 : getVpcId().hashCode());
         return hashCode;
     }
 

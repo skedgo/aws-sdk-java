@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,21 +44,39 @@ import com.amazonaws.services.rdsdata.AWSRDSDataClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.rdsdata.model.*;
+
 import com.amazonaws.services.rdsdata.model.transform.*;
 
 /**
  * Client for accessing AWS RDS DataService. All service calls made using this client are blocking, and will not return
  * until the service call completes.
  * <p>
- * <fullname>Amazon RDS Data Service</fullname>
  * <p>
- * Amazon RDS provides an HTTP endpoint to run SQL statements on an Amazon Aurora Serverless DB cluster. To run these
- * statements, you work with the Data Service API.
+ * <fullname>RDS Data API</fullname>
+ * <p>
+ * Amazon RDS provides an HTTP endpoint to run SQL statements on an Amazon Aurora DB cluster. To run these statements,
+ * you use the RDS Data API (Data API).
  * </p>
  * <p>
- * For more information about the Data Service API, see <a
- * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using the Data API for Aurora
- * Serverless</a> in the <i>Amazon Aurora User Guide</i>.
+ * Data API is available with the following types of Aurora databases:
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * Aurora PostgreSQL - Serverless v2, Serverless v1, and provisioned
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Aurora MySQL - Serverless v1 only
+ * </p>
+ * </li>
+ * </ul>
+ * <p>
+ * For more information about the Data API, see <a
+ * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using RDS Data API</a> in the
+ * <i>Amazon Aurora User Guide</i>.
+ * </p>
  * </p>
  */
 @ThreadSafe
@@ -83,25 +101,52 @@ public class AWSRDSDataClient extends AmazonWebServiceClient implements AWSRDSDa
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withModeledClass(
-                                    com.amazonaws.services.rdsdata.model.NotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("AccessDeniedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.rdsdata.model.transform.AccessDeniedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ForbiddenException").withModeledClass(
-                                    com.amazonaws.services.rdsdata.model.ForbiddenException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.rdsdata.model.transform.NotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableError").withModeledClass(
-                                    com.amazonaws.services.rdsdata.model.ServiceUnavailableErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TransactionNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.rdsdata.model.transform.TransactionNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("StatementTimeoutException").withModeledClass(
-                                    com.amazonaws.services.rdsdata.model.StatementTimeoutException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidSecretException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.rdsdata.model.transform.InvalidSecretExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withModeledClass(
-                                    com.amazonaws.services.rdsdata.model.BadRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DatabaseUnavailableException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.rdsdata.model.transform.DatabaseUnavailableExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServerErrorException").withModeledClass(
-                                    com.amazonaws.services.rdsdata.model.InternalServerErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DatabaseNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.rdsdata.model.transform.DatabaseNotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ForbiddenException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.rdsdata.model.transform.ForbiddenExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("DatabaseErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.rdsdata.model.transform.DatabaseErrorExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableError").withExceptionUnmarshaller(
+                                    com.amazonaws.services.rdsdata.model.transform.ServiceUnavailableErrorExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("StatementTimeoutException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.rdsdata.model.transform.StatementTimeoutExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedResultException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.rdsdata.model.transform.UnsupportedResultExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.rdsdata.model.transform.BadRequestExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServerErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.rdsdata.model.transform.InternalServerErrorExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("HttpEndpointNotEnabledException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.rdsdata.model.transform.HttpEndpointNotEnabledExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("SecretsErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.rdsdata.model.transform.SecretsErrorExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.rdsdata.model.AWSRDSDataException.class));
 
     public static AWSRDSDataClientBuilder builder() {
@@ -159,26 +204,70 @@ public class AWSRDSDataClient extends AmazonWebServiceClient implements AWSRDSDa
      * sets. Bulk operations can provide a significant performance improvement over individual insert and update
      * operations.
      * </p>
-     * <important>
+     * <note>
      * <p>
      * If a call isn't part of a transaction because it doesn't include the <code>transactionID</code> parameter,
      * changes that result from the call are committed automatically.
      * </p>
-     * </important>
+     * <p>
+     * There isn't a fixed upper limit on the number of parameter sets. However, the maximum size of the HTTP request
+     * submitted through the Data API is 4 MiB. If the request exceeds this limit, the Data API returns an error and
+     * doesn't process the request. This 4-MiB limit includes the size of the HTTP headers and the JSON notation in the
+     * request. Thus, the number of parameter sets that you can include depends on a combination of factors, such as the
+     * size of the SQL statement and the size of each parameter set.
+     * </p>
+     * <p>
+     * The response size limit is 1 MiB. If the call returns more than 1 MiB of response data, the call is terminated.
+     * </p>
+     * </note>
      * 
      * @param batchExecuteStatementRequest
      *        The request parameters represent the input of a SQL statement over an array of data.
      * @return Result of the BatchExecuteStatement operation returned by the service.
-     * @throws BadRequestException
-     *         There is an error in the call or in a SQL statement.
+     * @throws SecretsErrorException
+     *         There was a problem with the Secrets Manager secret used with the request, caused by one of the following
+     *         conditions:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         RDS Data API timed out retrieving the secret.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The secret provided wasn't found.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The secret couldn't be decrypted.
+     *         </p>
+     *         </li>
+     * @throws HttpEndpointNotEnabledException
+     *         The HTTP endpoint for using RDS Data API isn't enabled for the DB cluster.
+     * @throws DatabaseErrorException
+     *         There was an error in processing the SQL statement.
+     * @throws DatabaseUnavailableException
+     *         The writer instance in the DB cluster isn't available.
+     * @throws TransactionNotFoundException
+     *         The transaction ID wasn't found.
+     * @throws InvalidSecretException
+     *         The Secrets Manager secret used with the request isn't valid.
+     * @throws ServiceUnavailableErrorException
+     *         The service specified by the <code>resourceArn</code> parameter isn't available.
      * @throws ForbiddenException
      *         There are insufficient privileges to make the call.
-     * @throws InternalServerErrorException
-     *         An internal error occurred.
-     * @throws ServiceUnavailableErrorException
-     *         The service specified by the <code>resourceArn</code> parameter is not available.
+     * @throws DatabaseNotFoundException
+     *         The DB cluster doesn't have a DB instance.
+     * @throws AccessDeniedException
+     *         You don't have sufficient access to perform this action.
+     * @throws BadRequestException
+     *         There is an error in the call or in a SQL statement. (This error only appears in calls from Aurora
+     *         Serverless v1 databases.)
      * @throws StatementTimeoutException
      *         The execution of the SQL statement timed out.
+     * @throws InternalServerErrorException
+     *         An internal error occurred.
      * @sample AWSRDSData.BatchExecuteStatement
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-data-2018-08-01/BatchExecuteStatement" target="_top">AWS
      *      API Documentation</a>
@@ -204,6 +293,8 @@ public class AWSRDSDataClient extends AmazonWebServiceClient implements AWSRDSDa
                 request = new BatchExecuteStatementRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(batchExecuteStatementRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RDS Data");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchExecuteStatement");
@@ -230,8 +321,7 @@ public class AWSRDSDataClient extends AmazonWebServiceClient implements AWSRDSDa
      * <p>
      * Starts a SQL transaction.
      * </p>
-     * 
-     * <important>
+     * <note>
      * <p>
      * A transaction can run for a maximum of 24 hours. A transaction is terminated and rolled back automatically after
      * 24 hours.
@@ -244,21 +334,55 @@ public class AWSRDSDataClient extends AmazonWebServiceClient implements AWSRDSDa
      * DDL statements inside a transaction cause an implicit commit. We recommend that you run each DDL statement in a
      * separate <code>ExecuteStatement</code> call with <code>continueAfterTimeout</code> enabled.
      * </p>
-     * </important>
+     * </note>
      * 
      * @param beginTransactionRequest
      *        The request parameters represent the input of a request to start a SQL transaction.
      * @return Result of the BeginTransaction operation returned by the service.
-     * @throws BadRequestException
-     *         There is an error in the call or in a SQL statement.
+     * @throws SecretsErrorException
+     *         There was a problem with the Secrets Manager secret used with the request, caused by one of the following
+     *         conditions:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         RDS Data API timed out retrieving the secret.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The secret provided wasn't found.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The secret couldn't be decrypted.
+     *         </p>
+     *         </li>
+     * @throws HttpEndpointNotEnabledException
+     *         The HTTP endpoint for using RDS Data API isn't enabled for the DB cluster.
+     * @throws DatabaseErrorException
+     *         There was an error in processing the SQL statement.
+     * @throws DatabaseUnavailableException
+     *         The writer instance in the DB cluster isn't available.
+     * @throws TransactionNotFoundException
+     *         The transaction ID wasn't found.
+     * @throws InvalidSecretException
+     *         The Secrets Manager secret used with the request isn't valid.
+     * @throws ServiceUnavailableErrorException
+     *         The service specified by the <code>resourceArn</code> parameter isn't available.
      * @throws ForbiddenException
      *         There are insufficient privileges to make the call.
-     * @throws InternalServerErrorException
-     *         An internal error occurred.
-     * @throws ServiceUnavailableErrorException
-     *         The service specified by the <code>resourceArn</code> parameter is not available.
+     * @throws DatabaseNotFoundException
+     *         The DB cluster doesn't have a DB instance.
+     * @throws AccessDeniedException
+     *         You don't have sufficient access to perform this action.
+     * @throws BadRequestException
+     *         There is an error in the call or in a SQL statement. (This error only appears in calls from Aurora
+     *         Serverless v1 databases.)
      * @throws StatementTimeoutException
      *         The execution of the SQL statement timed out.
+     * @throws InternalServerErrorException
+     *         An internal error occurred.
      * @sample AWSRDSData.BeginTransaction
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-data-2018-08-01/BeginTransaction" target="_top">AWS API
      *      Documentation</a>
@@ -284,6 +408,8 @@ public class AWSRDSDataClient extends AmazonWebServiceClient implements AWSRDSDa
                 request = new BeginTransactionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(beginTransactionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RDS Data");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BeginTransaction");
@@ -313,16 +439,52 @@ public class AWSRDSDataClient extends AmazonWebServiceClient implements AWSRDSDa
      * @param commitTransactionRequest
      *        The request parameters represent the input of a commit transaction request.
      * @return Result of the CommitTransaction operation returned by the service.
-     * @throws BadRequestException
-     *         There is an error in the call or in a SQL statement.
+     * @throws SecretsErrorException
+     *         There was a problem with the Secrets Manager secret used with the request, caused by one of the following
+     *         conditions:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         RDS Data API timed out retrieving the secret.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The secret provided wasn't found.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The secret couldn't be decrypted.
+     *         </p>
+     *         </li>
+     * @throws HttpEndpointNotEnabledException
+     *         The HTTP endpoint for using RDS Data API isn't enabled for the DB cluster.
+     * @throws DatabaseErrorException
+     *         There was an error in processing the SQL statement.
+     * @throws DatabaseUnavailableException
+     *         The writer instance in the DB cluster isn't available.
+     * @throws TransactionNotFoundException
+     *         The transaction ID wasn't found.
+     * @throws InvalidSecretException
+     *         The Secrets Manager secret used with the request isn't valid.
+     * @throws ServiceUnavailableErrorException
+     *         The service specified by the <code>resourceArn</code> parameter isn't available.
      * @throws ForbiddenException
      *         There are insufficient privileges to make the call.
+     * @throws DatabaseNotFoundException
+     *         The DB cluster doesn't have a DB instance.
+     * @throws AccessDeniedException
+     *         You don't have sufficient access to perform this action.
+     * @throws BadRequestException
+     *         There is an error in the call or in a SQL statement. (This error only appears in calls from Aurora
+     *         Serverless v1 databases.)
+     * @throws StatementTimeoutException
+     *         The execution of the SQL statement timed out.
      * @throws InternalServerErrorException
      *         An internal error occurred.
      * @throws NotFoundException
      *         The <code>resourceArn</code>, <code>secretArn</code>, or <code>transactionId</code> value can't be found.
-     * @throws ServiceUnavailableErrorException
-     *         The service specified by the <code>resourceArn</code> parameter is not available.
      * @sample AWSRDSData.CommitTransaction
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-data-2018-08-01/CommitTransaction" target="_top">AWS API
      *      Documentation</a>
@@ -348,6 +510,8 @@ public class AWSRDSDataClient extends AmazonWebServiceClient implements AWSRDSDa
                 request = new CommitTransactionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(commitTransactionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RDS Data");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CommitTransaction");
@@ -373,24 +537,28 @@ public class AWSRDSDataClient extends AmazonWebServiceClient implements AWSRDSDa
      * <p>
      * Runs one or more SQL statements.
      * </p>
-     * <important>
+     * <note>
      * <p>
-     * This operation is deprecated. Use the <code>BatchExecuteStatement</code> or <code>ExecuteStatement</code>
-     * operation.
+     * This operation isn't supported for Aurora PostgreSQL Serverless v2 and provisioned DB clusters, and for Aurora
+     * Serverless v1 DB clusters, the operation is deprecated. Use the <code>BatchExecuteStatement</code> or
+     * <code>ExecuteStatement</code> operation.
      * </p>
-     * </important>
+     * </note>
      * 
      * @param executeSqlRequest
      *        The request parameters represent the input of a request to run one or more SQL statements.
      * @return Result of the ExecuteSql operation returned by the service.
+     * @throws AccessDeniedException
+     *         You don't have sufficient access to perform this action.
      * @throws BadRequestException
-     *         There is an error in the call or in a SQL statement.
-     * @throws ForbiddenException
-     *         There are insufficient privileges to make the call.
+     *         There is an error in the call or in a SQL statement. (This error only appears in calls from Aurora
+     *         Serverless v1 databases.)
      * @throws InternalServerErrorException
      *         An internal error occurred.
+     * @throws ForbiddenException
+     *         There are insufficient privileges to make the call.
      * @throws ServiceUnavailableErrorException
-     *         The service specified by the <code>resourceArn</code> parameter is not available.
+     *         The service specified by the <code>resourceArn</code> parameter isn't available.
      * @sample AWSRDSData.ExecuteSql
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-data-2018-08-01/ExecuteSql" target="_top">AWS API
      *      Documentation</a>
@@ -417,6 +585,8 @@ public class AWSRDSDataClient extends AmazonWebServiceClient implements AWSRDSDa
                 request = new ExecuteSqlRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(executeSqlRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RDS Data");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ExecuteSql");
@@ -442,30 +612,81 @@ public class AWSRDSDataClient extends AmazonWebServiceClient implements AWSRDSDa
      * <p>
      * Runs a SQL statement against a database.
      * </p>
-     * <important>
+     * <note>
      * <p>
      * If a call isn't part of a transaction because it doesn't include the <code>transactionID</code> parameter,
      * changes that result from the call are committed automatically.
      * </p>
-     * </important>
      * <p>
-     * The response size limit is 1 MB or 1,000 records. If the call returns more than 1 MB of response data or over
-     * 1,000 records, the call is terminated.
+     * If the binary response data from the database is more than 1 MB, the call is terminated.
      * </p>
+     * </note>
      * 
      * @param executeStatementRequest
      *        The request parameters represent the input of a request to run a SQL statement against a database.
      * @return Result of the ExecuteStatement operation returned by the service.
-     * @throws BadRequestException
-     *         There is an error in the call or in a SQL statement.
+     * @throws SecretsErrorException
+     *         There was a problem with the Secrets Manager secret used with the request, caused by one of the following
+     *         conditions:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         RDS Data API timed out retrieving the secret.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The secret provided wasn't found.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The secret couldn't be decrypted.
+     *         </p>
+     *         </li>
+     * @throws HttpEndpointNotEnabledException
+     *         The HTTP endpoint for using RDS Data API isn't enabled for the DB cluster.
+     * @throws DatabaseErrorException
+     *         There was an error in processing the SQL statement.
+     * @throws DatabaseUnavailableException
+     *         The writer instance in the DB cluster isn't available.
+     * @throws TransactionNotFoundException
+     *         The transaction ID wasn't found.
+     * @throws InvalidSecretException
+     *         The Secrets Manager secret used with the request isn't valid.
+     * @throws ServiceUnavailableErrorException
+     *         The service specified by the <code>resourceArn</code> parameter isn't available.
      * @throws ForbiddenException
      *         There are insufficient privileges to make the call.
-     * @throws InternalServerErrorException
-     *         An internal error occurred.
-     * @throws ServiceUnavailableErrorException
-     *         The service specified by the <code>resourceArn</code> parameter is not available.
+     * @throws DatabaseNotFoundException
+     *         The DB cluster doesn't have a DB instance.
+     * @throws AccessDeniedException
+     *         You don't have sufficient access to perform this action.
+     * @throws BadRequestException
+     *         There is an error in the call or in a SQL statement. (This error only appears in calls from Aurora
+     *         Serverless v1 databases.)
      * @throws StatementTimeoutException
      *         The execution of the SQL statement timed out.
+     * @throws InternalServerErrorException
+     *         An internal error occurred.
+     * @throws UnsupportedResultException
+     *         There was a problem with the result because of one of the following conditions:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         It contained an unsupported data type.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         It contained a multidimensional array.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The size was too large.
+     *         </p>
+     *         </li>
      * @sample AWSRDSData.ExecuteStatement
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-data-2018-08-01/ExecuteStatement" target="_top">AWS API
      *      Documentation</a>
@@ -491,6 +712,8 @@ public class AWSRDSDataClient extends AmazonWebServiceClient implements AWSRDSDa
                 request = new ExecuteStatementRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(executeStatementRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RDS Data");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ExecuteStatement");
@@ -520,16 +743,52 @@ public class AWSRDSDataClient extends AmazonWebServiceClient implements AWSRDSDa
      * @param rollbackTransactionRequest
      *        The request parameters represent the input of a request to perform a rollback of a transaction.
      * @return Result of the RollbackTransaction operation returned by the service.
-     * @throws BadRequestException
-     *         There is an error in the call or in a SQL statement.
+     * @throws SecretsErrorException
+     *         There was a problem with the Secrets Manager secret used with the request, caused by one of the following
+     *         conditions:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         RDS Data API timed out retrieving the secret.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The secret provided wasn't found.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The secret couldn't be decrypted.
+     *         </p>
+     *         </li>
+     * @throws HttpEndpointNotEnabledException
+     *         The HTTP endpoint for using RDS Data API isn't enabled for the DB cluster.
+     * @throws DatabaseErrorException
+     *         There was an error in processing the SQL statement.
+     * @throws DatabaseUnavailableException
+     *         The writer instance in the DB cluster isn't available.
+     * @throws TransactionNotFoundException
+     *         The transaction ID wasn't found.
+     * @throws InvalidSecretException
+     *         The Secrets Manager secret used with the request isn't valid.
+     * @throws ServiceUnavailableErrorException
+     *         The service specified by the <code>resourceArn</code> parameter isn't available.
      * @throws ForbiddenException
      *         There are insufficient privileges to make the call.
+     * @throws DatabaseNotFoundException
+     *         The DB cluster doesn't have a DB instance.
+     * @throws AccessDeniedException
+     *         You don't have sufficient access to perform this action.
+     * @throws BadRequestException
+     *         There is an error in the call or in a SQL statement. (This error only appears in calls from Aurora
+     *         Serverless v1 databases.)
+     * @throws StatementTimeoutException
+     *         The execution of the SQL statement timed out.
      * @throws InternalServerErrorException
      *         An internal error occurred.
      * @throws NotFoundException
      *         The <code>resourceArn</code>, <code>secretArn</code>, or <code>transactionId</code> value can't be found.
-     * @throws ServiceUnavailableErrorException
-     *         The service specified by the <code>resourceArn</code> parameter is not available.
      * @sample AWSRDSData.RollbackTransaction
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-data-2018-08-01/RollbackTransaction" target="_top">AWS
      *      API Documentation</a>
@@ -555,6 +814,8 @@ public class AWSRDSDataClient extends AmazonWebServiceClient implements AWSRDSDa
                 request = new RollbackTransactionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(rollbackTransactionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RDS Data");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RollbackTransaction");
@@ -650,6 +911,11 @@ public class AWSRDSDataClient extends AmazonWebServiceClient implements AWSRDSDa
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

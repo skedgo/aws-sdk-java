@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,12 +31,16 @@ public class AudioCodecSettingsMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("aacSettings").build();
     private static final MarshallingInfo<StructuredPojo> AC3SETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ac3Settings").build();
+    private static final MarshallingInfo<StructuredPojo> EAC3ATMOSSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("eac3AtmosSettings").build();
     private static final MarshallingInfo<StructuredPojo> EAC3SETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("eac3Settings").build();
     private static final MarshallingInfo<StructuredPojo> MP2SETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("mp2Settings").build();
     private static final MarshallingInfo<StructuredPojo> PASSTHROUGHSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("passThroughSettings").build();
+    private static final MarshallingInfo<StructuredPojo> WAVSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("wavSettings").build();
 
     private static final AudioCodecSettingsMarshaller instance = new AudioCodecSettingsMarshaller();
 
@@ -56,9 +60,11 @@ public class AudioCodecSettingsMarshaller {
         try {
             protocolMarshaller.marshall(audioCodecSettings.getAacSettings(), AACSETTINGS_BINDING);
             protocolMarshaller.marshall(audioCodecSettings.getAc3Settings(), AC3SETTINGS_BINDING);
+            protocolMarshaller.marshall(audioCodecSettings.getEac3AtmosSettings(), EAC3ATMOSSETTINGS_BINDING);
             protocolMarshaller.marshall(audioCodecSettings.getEac3Settings(), EAC3SETTINGS_BINDING);
             protocolMarshaller.marshall(audioCodecSettings.getMp2Settings(), MP2SETTINGS_BINDING);
             protocolMarshaller.marshall(audioCodecSettings.getPassThroughSettings(), PASSTHROUGHSETTINGS_BINDING);
+            protocolMarshaller.marshall(audioCodecSettings.getWavSettings(), WAVSETTINGS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

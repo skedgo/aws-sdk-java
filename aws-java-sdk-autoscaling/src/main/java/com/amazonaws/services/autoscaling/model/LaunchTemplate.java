@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,11 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Describes a launch template and overrides.
- * </p>
- * <p>
- * The overrides are used to override the instance type specified by the launch template with multiple instance types
- * that can be used to launch On-Demand Instances and Spot Instances.
+ * Use this structure to specify the launch templates and instance types (overrides) for a mixed instances policy.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/LaunchTemplate" target="_top">AWS API
@@ -32,28 +28,24 @@ public class LaunchTemplate implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The launch template to use. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The launch template.
      * </p>
      */
     private LaunchTemplateSpecification launchTemplateSpecification;
     /**
      * <p>
-     * Any parameters that you specify override the same parameters in the launch template. Currently, the only
-     * supported override is instance type. You must specify between 2 and 20 overrides.
+     * Any properties that you specify override the same properties in the launch template.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<LaunchTemplateOverrides> overrides;
 
     /**
      * <p>
-     * The launch template to use. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The launch template.
      * </p>
      * 
      * @param launchTemplateSpecification
-     *        The launch template to use. You must specify either the launch template ID or launch template name in the
-     *        request.
+     *        The launch template.
      */
 
     public void setLaunchTemplateSpecification(LaunchTemplateSpecification launchTemplateSpecification) {
@@ -62,12 +54,10 @@ public class LaunchTemplate implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The launch template to use. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The launch template.
      * </p>
      * 
-     * @return The launch template to use. You must specify either the launch template ID or launch template name in the
-     *         request.
+     * @return The launch template.
      */
 
     public LaunchTemplateSpecification getLaunchTemplateSpecification() {
@@ -76,13 +66,11 @@ public class LaunchTemplate implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The launch template to use. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The launch template.
      * </p>
      * 
      * @param launchTemplateSpecification
-     *        The launch template to use. You must specify either the launch template ID or launch template name in the
-     *        request.
+     *        The launch template.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -93,12 +81,10 @@ public class LaunchTemplate implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Any parameters that you specify override the same parameters in the launch template. Currently, the only
-     * supported override is instance type. You must specify between 2 and 20 overrides.
+     * Any properties that you specify override the same properties in the launch template.
      * </p>
      * 
-     * @return Any parameters that you specify override the same parameters in the launch template. Currently, the only
-     *         supported override is instance type. You must specify between 2 and 20 overrides.
+     * @return Any properties that you specify override the same properties in the launch template.
      */
 
     public java.util.List<LaunchTemplateOverrides> getOverrides() {
@@ -110,13 +96,11 @@ public class LaunchTemplate implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Any parameters that you specify override the same parameters in the launch template. Currently, the only
-     * supported override is instance type. You must specify between 2 and 20 overrides.
+     * Any properties that you specify override the same properties in the launch template.
      * </p>
      * 
      * @param overrides
-     *        Any parameters that you specify override the same parameters in the launch template. Currently, the only
-     *        supported override is instance type. You must specify between 2 and 20 overrides.
+     *        Any properties that you specify override the same properties in the launch template.
      */
 
     public void setOverrides(java.util.Collection<LaunchTemplateOverrides> overrides) {
@@ -130,8 +114,7 @@ public class LaunchTemplate implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Any parameters that you specify override the same parameters in the launch template. Currently, the only
-     * supported override is instance type. You must specify between 2 and 20 overrides.
+     * Any properties that you specify override the same properties in the launch template.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -140,8 +123,7 @@ public class LaunchTemplate implements Serializable, Cloneable {
      * </p>
      * 
      * @param overrides
-     *        Any parameters that you specify override the same parameters in the launch template. Currently, the only
-     *        supported override is instance type. You must specify between 2 and 20 overrides.
+     *        Any properties that you specify override the same properties in the launch template.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -157,13 +139,11 @@ public class LaunchTemplate implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Any parameters that you specify override the same parameters in the launch template. Currently, the only
-     * supported override is instance type. You must specify between 2 and 20 overrides.
+     * Any properties that you specify override the same properties in the launch template.
      * </p>
      * 
      * @param overrides
-     *        Any parameters that you specify override the same parameters in the launch template. Currently, the only
-     *        supported override is instance type. You must specify between 2 and 20 overrides.
+     *        Any properties that you specify override the same properties in the launch template.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

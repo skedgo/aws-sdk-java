@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,15 +50,17 @@ public class BatchDeleteClusterSnapshotsRequestMarshaller implements
             int identifiersListIndex = 1;
 
             for (DeleteClusterSnapshotMessage identifiersListValue : identifiersList) {
+                if (identifiersListValue != null) {
 
-                if (identifiersListValue.getSnapshotIdentifier() != null) {
-                    request.addParameter("Identifiers.DeleteClusterSnapshotMessage." + identifiersListIndex + ".SnapshotIdentifier",
-                            StringUtils.fromString(identifiersListValue.getSnapshotIdentifier()));
-                }
+                    if (identifiersListValue.getSnapshotIdentifier() != null) {
+                        request.addParameter("Identifiers.DeleteClusterSnapshotMessage." + identifiersListIndex + ".SnapshotIdentifier",
+                                StringUtils.fromString(identifiersListValue.getSnapshotIdentifier()));
+                    }
 
-                if (identifiersListValue.getSnapshotClusterIdentifier() != null) {
-                    request.addParameter("Identifiers.DeleteClusterSnapshotMessage." + identifiersListIndex + ".SnapshotClusterIdentifier",
-                            StringUtils.fromString(identifiersListValue.getSnapshotClusterIdentifier()));
+                    if (identifiersListValue.getSnapshotClusterIdentifier() != null) {
+                        request.addParameter("Identifiers.DeleteClusterSnapshotMessage." + identifiersListIndex + ".SnapshotClusterIdentifier",
+                                StringUtils.fromString(identifiersListValue.getSnapshotClusterIdentifier()));
+                    }
                 }
                 identifiersListIndex++;
             }

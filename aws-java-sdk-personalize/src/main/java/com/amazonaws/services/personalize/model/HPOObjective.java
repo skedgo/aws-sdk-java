@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,6 +21,11 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * <p>
  * The metric to optimize during hyperparameter optimization (HPO).
  * </p>
+ * <note>
+ * <p>
+ * Amazon Personalize doesn't support configuring the <code>hpoObjective</code> at this time.
+ * </p>
+ * </note>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/HPOObjective" target="_top">AWS API
  *      Documentation</a>
@@ -30,7 +35,7 @@ public class HPOObjective implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The data type of the metric.
+     * The type of the metric. Valid values are <code>Maximize</code> and <code>Minimize</code>.
      * </p>
      */
     private String type;
@@ -49,11 +54,11 @@ public class HPOObjective implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The data type of the metric.
+     * The type of the metric. Valid values are <code>Maximize</code> and <code>Minimize</code>.
      * </p>
      * 
      * @param type
-     *        The data type of the metric.
+     *        The type of the metric. Valid values are <code>Maximize</code> and <code>Minimize</code>.
      */
 
     public void setType(String type) {
@@ -62,10 +67,10 @@ public class HPOObjective implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The data type of the metric.
+     * The type of the metric. Valid values are <code>Maximize</code> and <code>Minimize</code>.
      * </p>
      * 
-     * @return The data type of the metric.
+     * @return The type of the metric. Valid values are <code>Maximize</code> and <code>Minimize</code>.
      */
 
     public String getType() {
@@ -74,11 +79,11 @@ public class HPOObjective implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The data type of the metric.
+     * The type of the metric. Valid values are <code>Maximize</code> and <code>Minimize</code>.
      * </p>
      * 
      * @param type
-     *        The data type of the metric.
+     *        The type of the metric. Valid values are <code>Maximize</code> and <code>Minimize</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

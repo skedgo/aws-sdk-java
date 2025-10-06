@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,6 +42,8 @@ public class FileSystemMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FailureDetails").build();
     private static final MarshallingInfo<Integer> STORAGECAPACITY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StorageCapacity").build();
+    private static final MarshallingInfo<String> STORAGETYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StorageType").build();
     private static final MarshallingInfo<String> VPCID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("VpcId").build();
     private static final MarshallingInfo<List> SUBNETIDS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
@@ -60,6 +62,14 @@ public class FileSystemMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("WindowsConfiguration").build();
     private static final MarshallingInfo<StructuredPojo> LUSTRECONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LustreConfiguration").build();
+    private static final MarshallingInfo<List> ADMINISTRATIVEACTIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AdministrativeActions").build();
+    private static final MarshallingInfo<StructuredPojo> ONTAPCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OntapConfiguration").build();
+    private static final MarshallingInfo<String> FILESYSTEMTYPEVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FileSystemTypeVersion").build();
+    private static final MarshallingInfo<StructuredPojo> OPENZFSCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OpenZFSConfiguration").build();
 
     private static final FileSystemMarshaller instance = new FileSystemMarshaller();
 
@@ -84,6 +94,7 @@ public class FileSystemMarshaller {
             protocolMarshaller.marshall(fileSystem.getLifecycle(), LIFECYCLE_BINDING);
             protocolMarshaller.marshall(fileSystem.getFailureDetails(), FAILUREDETAILS_BINDING);
             protocolMarshaller.marshall(fileSystem.getStorageCapacity(), STORAGECAPACITY_BINDING);
+            protocolMarshaller.marshall(fileSystem.getStorageType(), STORAGETYPE_BINDING);
             protocolMarshaller.marshall(fileSystem.getVpcId(), VPCID_BINDING);
             protocolMarshaller.marshall(fileSystem.getSubnetIds(), SUBNETIDS_BINDING);
             protocolMarshaller.marshall(fileSystem.getNetworkInterfaceIds(), NETWORKINTERFACEIDS_BINDING);
@@ -93,6 +104,10 @@ public class FileSystemMarshaller {
             protocolMarshaller.marshall(fileSystem.getTags(), TAGS_BINDING);
             protocolMarshaller.marshall(fileSystem.getWindowsConfiguration(), WINDOWSCONFIGURATION_BINDING);
             protocolMarshaller.marshall(fileSystem.getLustreConfiguration(), LUSTRECONFIGURATION_BINDING);
+            protocolMarshaller.marshall(fileSystem.getAdministrativeActions(), ADMINISTRATIVEACTIONS_BINDING);
+            protocolMarshaller.marshall(fileSystem.getOntapConfiguration(), ONTAPCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(fileSystem.getFileSystemTypeVersion(), FILESYSTEMTYPEVERSION_BINDING);
+            protocolMarshaller.marshall(fileSystem.getOpenZFSConfiguration(), OPENZFSCONFIGURATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

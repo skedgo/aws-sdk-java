@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -56,6 +56,10 @@ public class TranscriptionJobSummaryJsonUnmarshaller implements Unmarshaller<Tra
                     context.nextToken();
                     transcriptionJobSummary.setCreationTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
                 }
+                if (context.testExpression("StartTime", targetDepth)) {
+                    context.nextToken();
+                    transcriptionJobSummary.setStartTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
                 if (context.testExpression("CompletionTime", targetDepth)) {
                     context.nextToken();
                     transcriptionJobSummary.setCompletionTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
@@ -75,6 +79,39 @@ public class TranscriptionJobSummaryJsonUnmarshaller implements Unmarshaller<Tra
                 if (context.testExpression("OutputLocationType", targetDepth)) {
                     context.nextToken();
                     transcriptionJobSummary.setOutputLocationType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ContentRedaction", targetDepth)) {
+                    context.nextToken();
+                    transcriptionJobSummary.setContentRedaction(ContentRedactionJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ModelSettings", targetDepth)) {
+                    context.nextToken();
+                    transcriptionJobSummary.setModelSettings(ModelSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("IdentifyLanguage", targetDepth)) {
+                    context.nextToken();
+                    transcriptionJobSummary.setIdentifyLanguage(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("IdentifyMultipleLanguages", targetDepth)) {
+                    context.nextToken();
+                    transcriptionJobSummary.setIdentifyMultipleLanguages(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("IdentifiedLanguageScore", targetDepth)) {
+                    context.nextToken();
+                    transcriptionJobSummary.setIdentifiedLanguageScore(context.getUnmarshaller(Float.class).unmarshall(context));
+                }
+                if (context.testExpression("LanguageCodes", targetDepth)) {
+                    context.nextToken();
+                    transcriptionJobSummary.setLanguageCodes(new ListUnmarshaller<LanguageCodeItem>(LanguageCodeItemJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("ToxicityDetection", targetDepth)) {
+                    context.nextToken();
+                    transcriptionJobSummary.setToxicityDetection(new ListUnmarshaller<ToxicityDetectionSettings>(ToxicityDetectionSettingsJsonUnmarshaller
+                            .getInstance())
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

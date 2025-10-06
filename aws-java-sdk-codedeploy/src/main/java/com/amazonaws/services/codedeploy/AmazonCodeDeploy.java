@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,33 +27,32 @@ import com.amazonaws.services.codedeploy.waiters.AmazonCodeDeployWaiters;
  * {@link com.amazonaws.services.codedeploy.AbstractAmazonCodeDeploy} instead.
  * </p>
  * <p>
- * <fullname>AWS CodeDeploy</fullname>
  * <p>
- * AWS CodeDeploy is a deployment service that automates application deployments to Amazon EC2 instances, on-premises
- * instances running in your own facility, serverless AWS Lambda functions, or applications in an Amazon ECS service.
+ * CodeDeploy is a deployment service that automates application deployments to Amazon EC2 instances, on-premises
+ * instances running in your own facility, serverless Lambda functions, or applications in an Amazon ECS service.
  * </p>
  * <p>
  * You can deploy a nearly unlimited variety of application content, such as an updated Lambda function, updated
  * applications in an Amazon ECS service, code, web and configuration files, executables, packages, scripts, multimedia
- * files, and so on. AWS CodeDeploy can deploy application content stored in Amazon S3 buckets, GitHub repositories, or
- * Bitbucket repositories. You do not need to make changes to your existing code before you can use AWS CodeDeploy.
+ * files, and so on. CodeDeploy can deploy application content stored in Amazon S3 buckets, GitHub repositories, or
+ * Bitbucket repositories. You do not need to make changes to your existing code before you can use CodeDeploy.
  * </p>
  * <p>
- * AWS CodeDeploy makes it easier for you to rapidly release new features, helps you avoid downtime during application
+ * CodeDeploy makes it easier for you to rapidly release new features, helps you avoid downtime during application
  * deployment, and handles the complexity of updating your applications, without many of the risks associated with
  * error-prone manual deployments.
  * </p>
  * <p>
- * <b>AWS CodeDeploy Components</b>
+ * <b>CodeDeploy Components</b>
  * </p>
  * <p>
- * Use the information in this guide to help you work with the following AWS CodeDeploy components:
+ * Use the information in this guide to help you work with the following CodeDeploy components:
  * </p>
  * <ul>
  * <li>
  * <p>
- * <b>Application</b>: A name that uniquely identifies the application you want to deploy. AWS CodeDeploy uses this
- * name, which functions as a container, to ensure the correct combination of revision, deployment configuration, and
+ * <b>Application</b>: A name that uniquely identifies the application you want to deploy. CodeDeploy uses this name,
+ * which functions as a container, to ensure the correct combination of revision, deployment configuration, and
  * deployment group are referenced during a deployment.
  * </p>
  * </li>
@@ -62,14 +61,14 @@ import com.amazonaws.services.codedeploy.waiters.AmazonCodeDeployWaiters;
  * <b>Deployment group</b>: A set of individual instances, CodeDeploy Lambda deployment configuration settings, or an
  * Amazon ECS service and network details. A Lambda deployment group specifies how to route traffic to a new version of
  * a Lambda function. An Amazon ECS deployment group specifies the service created in Amazon ECS to deploy, a load
- * balancer, and a listener to reroute production traffic to an updated containerized application. An EC2/On-premises
- * deployment group contains individually tagged instances, Amazon EC2 instances in Amazon EC2 Auto Scaling groups, or
- * both. All deployment groups can specify optional trigger, alarm, and rollback settings.
+ * balancer, and a listener to reroute production traffic to an updated containerized application. An Amazon
+ * EC2/On-premises deployment group contains individually tagged instances, Amazon EC2 instances in Amazon EC2 Auto
+ * Scaling groups, or both. All deployment groups can specify optional trigger, alarm, and rollback settings.
  * </p>
  * </li>
  * <li>
  * <p>
- * <b>Deployment configuration</b>: A set of deployment rules and deployment success and failure conditions used by AWS
+ * <b>Deployment configuration</b>: A set of deployment rules and deployment success and failure conditions used by
  * CodeDeploy during a deployment.
  * </p>
  * </li>
@@ -81,43 +80,43 @@ import com.amazonaws.services.codedeploy.waiters.AmazonCodeDeployWaiters;
  * </li>
  * <li>
  * <p>
- * <b>Application revisions</b>: For an AWS Lambda deployment, this is an AppSpec file that specifies the Lambda
- * function to be updated and one or more functions to validate deployment lifecycle events. For an Amazon ECS
- * deployment, this is an AppSpec file that specifies the Amazon ECS task definition, container, and port where
- * production traffic is rerouted. For an EC2/On-premises deployment, this is an archive file that contains source
- * content—source code, webpages, executable files, and deployment scripts—along with an AppSpec file. Revisions are
- * stored in Amazon S3 buckets or GitHub repositories. For Amazon S3, a revision is uniquely identified by its Amazon S3
- * object key and its ETag, version, or both. For GitHub, a revision is uniquely identified by its commit ID.
+ * <b>Application revisions</b>: For an Lambda deployment, this is an AppSpec file that specifies the Lambda function to
+ * be updated and one or more functions to validate deployment lifecycle events. For an Amazon ECS deployment, this is
+ * an AppSpec file that specifies the Amazon ECS task definition, container, and port where production traffic is
+ * rerouted. For an EC2/On-premises deployment, this is an archive file that contains source content—source code,
+ * webpages, executable files, and deployment scripts—along with an AppSpec file. Revisions are stored in Amazon S3
+ * buckets or GitHub repositories. For Amazon S3, a revision is uniquely identified by its Amazon S3 object key and its
+ * ETag, version, or both. For GitHub, a revision is uniquely identified by its commit ID.
  * </p>
  * </li>
  * </ul>
  * <p>
  * This guide also contains information to help you get details about the instances in your deployments, to make
- * on-premises instances available for AWS CodeDeploy deployments, to get details about a Lambda function deployment,
- * and to get details about Amazon ECS service deployments.
+ * on-premises instances available for CodeDeploy deployments, to get details about a Lambda function deployment, and to
+ * get details about Amazon ECS service deployments.
  * </p>
  * <p>
- * <b>AWS CodeDeploy Information Resources</b>
+ * <b>CodeDeploy Information Resources</b>
  * </p>
  * <ul>
  * <li>
  * <p>
- * <a href="https://docs.aws.amazon.com/codedeploy/latest/userguide">AWS CodeDeploy User Guide</a>
+ * <a href="https://docs.aws.amazon.com/codedeploy/latest/userguide">CodeDeploy User Guide</a>
  * </p>
  * </li>
  * <li>
  * <p>
- * <a href="https://docs.aws.amazon.com/codedeploy/latest/APIReference/">AWS CodeDeploy API Reference Guide</a>
+ * <a href="https://docs.aws.amazon.com/codedeploy/latest/APIReference/">CodeDeploy API Reference Guide</a>
  * </p>
  * </li>
  * <li>
  * <p>
- * <a href="https://docs.aws.amazon.com/cli/latest/reference/deploy/index.html">AWS CLI Reference for AWS CodeDeploy</a>
+ * <a href="https://docs.aws.amazon.com/cli/latest/reference/deploy/index.html">CLI Reference for CodeDeploy</a>
  * </p>
  * </li>
  * <li>
  * <p>
- * <a href="https://forums.aws.amazon.com/forum.jspa?forumID=179">AWS CodeDeploy Developer Forum</a>
+ * <a href="https://forums.aws.amazon.com/forum.jspa?forumID=179">CodeDeploy Developer Forum</a>
  * </p>
  * </li>
  * </ul>
@@ -220,10 +219,10 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param batchGetApplicationRevisionsRequest
-     *        Represents the input of a BatchGetApplicationRevisions operation.
+     *        Represents the input of a <code>BatchGetApplicationRevisions</code> operation.
      * @return Result of the BatchGetApplicationRevisions operation returned by the service.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
@@ -242,18 +241,18 @@ public interface AmazonCodeDeploy {
 
     /**
      * <p>
-     * Gets information about one or more applications. The maximum number of applications that can be returned is 25.
+     * Gets information about one or more applications. The maximum number of applications that can be returned is 100.
      * </p>
      * 
      * @param batchGetApplicationsRequest
-     *        Represents the input of a BatchGetApplications operation.
+     *        Represents the input of a <code>BatchGetApplications</code> operation.
      * @return Result of the BatchGetApplications operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws BatchLimitExceededException
      *         The maximum number of names or IDs allowed for this request (100) was exceeded.
      * @sample AmazonCodeDeploy.BatchGetApplications
@@ -275,14 +274,14 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param batchGetDeploymentGroupsRequest
-     *        Represents the input of a BatchGetDeploymentGroups operation.
+     *        Represents the input of a <code>BatchGetDeploymentGroups</code> operation.
      * @return Result of the BatchGetDeploymentGroups operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws DeploymentGroupNameRequiredException
      *         The deployment group name was not specified.
      * @throws InvalidDeploymentGroupNameException
@@ -290,7 +289,7 @@ public interface AmazonCodeDeploy {
      * @throws BatchLimitExceededException
      *         The maximum number of names or IDs allowed for this request (100) was exceeded.
      * @throws DeploymentConfigDoesNotExistException
-     *         The deployment configuration does not exist with the IAM user or AWS account.
+     *         The deployment configuration does not exist with the user or Amazon Web Services account.
      * @sample AmazonCodeDeploy.BatchGetDeploymentGroups
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/BatchGetDeploymentGroups"
      *      target="_top">AWS API Documentation</a>
@@ -305,17 +304,17 @@ public interface AmazonCodeDeploy {
      * </note>
      * <p>
      * Returns an array of one or more instances associated with a deployment. This method works with EC2/On-premises
-     * and AWS Lambda compute platforms. The newer <code>BatchGetDeploymentTargets</code> works with all compute
-     * platforms. The maximum number of instances that can be returned is 25.
+     * and Lambda compute platforms. The newer <code>BatchGetDeploymentTargets</code> works with all compute platforms.
+     * The maximum number of instances that can be returned is 25.
      * </p>
      * 
      * @param batchGetDeploymentInstancesRequest
-     *        Represents the input of a BatchGetDeploymentInstances operation.
+     *        Represents the input of a <code>BatchGetDeploymentInstances</code> operation.
      * @return Result of the BatchGetDeploymentInstances operation returned by the service.
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
      * @throws DeploymentDoesNotExistException
-     *         The deployment with the IAM user or AWS account does not exist.
+     *         The deployment with the user or Amazon Web Services account does not exist.
      * @throws InstanceIdRequiredException
      *         The instance ID was not specified.
      * @throws InvalidDeploymentIdException
@@ -325,7 +324,8 @@ public interface AmazonCodeDeploy {
      * @throws BatchLimitExceededException
      *         The maximum number of names or IDs allowed for this request (100) was exceeded.
      * @throws InvalidComputePlatformException
-     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code> or <code>Server</code>.
+     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code>, <code>Server</code>,
+     *         or <code>ECS</code>.
      * @sample AmazonCodeDeploy.BatchGetDeploymentInstances
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/BatchGetDeploymentInstances"
      *      target="_top">AWS API Documentation</a>
@@ -340,22 +340,28 @@ public interface AmazonCodeDeploy {
      * targets that can be returned is 25.
      * </p>
      * <p>
-     * The type of targets returned depends on the deployment's compute platform:
+     * The type of targets returned depends on the deployment's compute platform or deployment method:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>EC2/On-premises</b>: Information about EC2 instance targets.
+     * <b>EC2/On-premises</b>: Information about Amazon EC2 instance targets.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>AWS Lambda</b>: Information about Lambda functions targets.
+     * <b>Lambda</b>: Information about Lambda functions targets.
      * </p>
      * </li>
      * <li>
      * <p>
      * <b>Amazon ECS</b>: Information about Amazon ECS service targets.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>CloudFormation</b>: Information about targets of blue/green deployments initiated by a CloudFormation stack
+     * update.
      * </p>
      * </li>
      * </ul>
@@ -367,7 +373,7 @@ public interface AmazonCodeDeploy {
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
      * @throws DeploymentDoesNotExistException
-     *         The deployment with the IAM user or AWS account does not exist.
+     *         The deployment with the user or Amazon Web Services account does not exist.
      * @throws DeploymentNotStartedException
      *         The specified deployment has not started.
      * @throws DeploymentTargetIdRequiredException
@@ -377,9 +383,11 @@ public interface AmazonCodeDeploy {
      * @throws DeploymentTargetDoesNotExistException
      *         The provided target ID does not belong to the attempted deployment.
      * @throws DeploymentTargetListSizeExceededException
-     *         The maximum number of targets that can be associated with an Amazon ECS or AWS Lambda deployment was
+     *         The maximum number of targets that can be associated with an Amazon ECS or Lambda deployment was
      *         exceeded. The target list of both types of deployments must have exactly one item. This exception does
      *         not apply to EC2/On-premises deployments.
+     * @throws InstanceDoesNotExistException
+     *         The specified instance does not exist in the deployment group.
      * @sample AmazonCodeDeploy.BatchGetDeploymentTargets
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/BatchGetDeploymentTargets"
      *      target="_top">AWS API Documentation</a>
@@ -392,7 +400,7 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param batchGetDeploymentsRequest
-     *        Represents the input of a BatchGetDeployments operation.
+     *        Represents the input of a <code>BatchGetDeployments</code> operation.
      * @return Result of the BatchGetDeployments operation returned by the service.
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
@@ -420,7 +428,7 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param batchGetOnPremisesInstancesRequest
-     *        Represents the input of a BatchGetOnPremisesInstances operation.
+     *        Represents the input of a <code>BatchGetOnPremisesInstances</code> operation.
      * @return Result of the BatchGetOnPremisesInstances operation returned by the service.
      * @throws InstanceNameRequiredException
      *         An on-premises instance name was not specified.
@@ -454,7 +462,7 @@ public interface AmazonCodeDeploy {
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
      * @throws DeploymentDoesNotExistException
-     *         The deployment with the IAM user or AWS account does not exist.
+     *         The deployment with the user or Amazon Web Services account does not exist.
      * @throws DeploymentAlreadyCompletedException
      *         The deployment is already complete.
      * @throws InvalidDeploymentIdException
@@ -479,18 +487,19 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param createApplicationRequest
-     *        Represents the input of a CreateApplication operation.
+     *        Represents the input of a <code>CreateApplication</code> operation.
      * @return Result of the CreateApplication operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws ApplicationAlreadyExistsException
-     *         An application with the specified name with the IAM user or AWS account already exists.
+     *         An application with the specified name with the user or Amazon Web Services account already exists.
      * @throws ApplicationLimitExceededException
      *         More applications were attempted to be created than are allowed.
      * @throws InvalidComputePlatformException
-     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code> or <code>Server</code>.
+     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code>, <code>Server</code>,
+     *         or <code>ECS</code>.
      * @throws InvalidTagsToAddException
      *         The specified tags are not valid.
      * @sample AmazonCodeDeploy.CreateApplication
@@ -505,30 +514,30 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param createDeploymentRequest
-     *        Represents the input of a CreateDeployment operation.
+     *        Represents the input of a <code>CreateDeployment</code> operation.
      * @return Result of the CreateDeployment operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws DeploymentGroupNameRequiredException
      *         The deployment group name was not specified.
      * @throws InvalidDeploymentGroupNameException
      *         The deployment group name was specified in an invalid format.
      * @throws DeploymentGroupDoesNotExistException
-     *         The named deployment group with the IAM user or AWS account does not exist.
+     *         The named deployment group with the user or Amazon Web Services account does not exist.
      * @throws RevisionRequiredException
      *         The revision ID was not specified.
      * @throws RevisionDoesNotExistException
-     *         The named revision does not exist with the IAM user or AWS account.
+     *         The named revision does not exist with the user or Amazon Web Services account.
      * @throws InvalidRevisionException
      *         The revision was specified in an invalid format.
      * @throws InvalidDeploymentConfigNameException
      *         The deployment configuration name was specified in an invalid format.
      * @throws DeploymentConfigDoesNotExistException
-     *         The deployment configuration does not exist with the IAM user or AWS account.
+     *         The deployment configuration does not exist with the user or Amazon Web Services account.
      * @throws DescriptionTooLongException
      *         The description is too long.
      * @throws DeploymentLimitExceededException
@@ -556,13 +565,43 @@ public interface AmazonCodeDeploy {
      *         A specified tag is not currently applied to any instances.
      *         </p>
      *         </li>
+     * @throws InvalidAlarmConfigException
+     *         The format of the alarm configuration is invalid. Possible causes include:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         The alarm list is null.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The alarm object is null.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The alarm name is empty or null or exceeds the limit of 255 characters.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Two alarms with the same name have been specified.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The alarm configuration is enabled, but the alarm list is empty.
+     *         </p>
+     *         </li>
+     * @throws AlarmsLimitExceededException
+     *         The maximum number of alarms for a deployment group (10) was exceeded.
      * @throws InvalidAutoRollbackConfigException
      *         The automatic rollback configuration was specified in an invalid format. For example, automatic rollback
      *         is enabled, but an invalid triggering event type or no event types were listed.
      * @throws InvalidLoadBalancerInfoException
      *         An invalid load balancer name, or no load balancer name, was specified.
      * @throws InvalidFileExistsBehaviorException
-     *         An invalid fileExistsBehavior option was specified to determine how AWS CodeDeploy handles files or
+     *         An invalid fileExistsBehavior option was specified to determine how CodeDeploy handles files or
      *         directories that already exist in a deployment target location, but weren't part of the previous
      *         successful deployment. Valid values include "DISALLOW," "OVERWRITE," and "RETAIN."
      * @throws InvalidRoleException
@@ -573,13 +612,15 @@ public interface AmazonCodeDeploy {
      * @throws ThrottlingException
      *         An API function was called too frequently.
      * @throws InvalidUpdateOutdatedInstancesOnlyValueException
-     *         The UpdateOutdatedInstancesOnly value is invalid. For AWS Lambda deployments, <code>false</code> is
-     *         expected. For EC2/On-premises deployments, <code>true</code> or <code>false</code> is expected.
+     *         The UpdateOutdatedInstancesOnly value is invalid. For Lambda deployments, <code>false</code> is expected.
+     *         For EC2/On-premises deployments, <code>true</code> or <code>false</code> is expected.
      * @throws InvalidIgnoreApplicationStopFailuresValueException
-     *         The IgnoreApplicationStopFailures value is invalid. For AWS Lambda deployments, <code>false</code> is
+     *         The IgnoreApplicationStopFailures value is invalid. For Lambda deployments, <code>false</code> is
      *         expected. For EC2/On-premises deployments, <code>true</code> or <code>false</code> is expected.
      * @throws InvalidGitHubAccountTokenException
      *         The GitHub token is not valid.
+     * @throws InvalidTrafficRoutingConfigurationException
+     *         The configuration that specifies how traffic is routed during a deployment is invalid.
      * @sample AmazonCodeDeploy.CreateDeployment
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/CreateDeployment" target="_top">AWS
      *      API Documentation</a>
@@ -592,22 +633,26 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param createDeploymentConfigRequest
-     *        Represents the input of a CreateDeploymentConfig operation.
+     *        Represents the input of a <code>CreateDeploymentConfig</code> operation.
      * @return Result of the CreateDeploymentConfig operation returned by the service.
      * @throws InvalidDeploymentConfigNameException
      *         The deployment configuration name was specified in an invalid format.
      * @throws DeploymentConfigNameRequiredException
      *         The deployment configuration name was not specified.
      * @throws DeploymentConfigAlreadyExistsException
-     *         A deployment configuration with the specified name with the IAM user or AWS account already exists .
+     *         A deployment configuration with the specified name with the user or Amazon Web Services account already
+     *         exists.
      * @throws InvalidMinimumHealthyHostValueException
      *         The minimum healthy instance value was specified in an invalid format.
      * @throws DeploymentConfigLimitExceededException
      *         The deployment configurations limit was exceeded.
      * @throws InvalidComputePlatformException
-     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code> or <code>Server</code>.
+     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code>, <code>Server</code>,
+     *         or <code>ECS</code>.
      * @throws InvalidTrafficRoutingConfigurationException
      *         The configuration that specifies how traffic is routed during a deployment is invalid.
+     * @throws InvalidZonalDeploymentConfigurationException
+     *         The <code>ZonalConfig</code> object is not valid.
      * @sample AmazonCodeDeploy.CreateDeploymentConfig
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/CreateDeploymentConfig"
      *      target="_top">AWS API Documentation</a>
@@ -620,20 +665,20 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param createDeploymentGroupRequest
-     *        Represents the input of a CreateDeploymentGroup operation.
+     *        Represents the input of a <code>CreateDeploymentGroup</code> operation.
      * @return Result of the CreateDeploymentGroup operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws DeploymentGroupNameRequiredException
      *         The deployment group name was not specified.
      * @throws InvalidDeploymentGroupNameException
      *         The deployment group name was specified in an invalid format.
      * @throws DeploymentGroupAlreadyExistsException
-     *         A deployment group with the specified name with the IAM user or AWS account already exists.
+     *         A deployment group with the specified name with the user or Amazon Web Services account already exists.
      * @throws InvalidEC2TagException
      *         The tag was specified in an invalid format.
      * @throws InvalidTagException
@@ -643,7 +688,7 @@ public interface AmazonCodeDeploy {
      * @throws InvalidDeploymentConfigNameException
      *         The deployment configuration name was specified in an invalid format.
      * @throws DeploymentConfigDoesNotExistException
-     *         The deployment configuration does not exist with the IAM user or AWS account.
+     *         The deployment configuration does not exist with the user or Amazon Web Services account.
      * @throws RoleRequiredException
      *         The role ID was not specified.
      * @throws InvalidRoleException
@@ -719,6 +764,8 @@ public interface AmazonCodeDeploy {
      *         associated with only one deployment group.
      * @throws InvalidTagsToAddException
      *         The specified tags are not valid.
+     * @throws InvalidTrafficRoutingConfigurationException
+     *         The configuration that specifies how traffic is routed during a deployment is invalid.
      * @sample AmazonCodeDeploy.CreateDeploymentGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/CreateDeploymentGroup"
      *      target="_top">AWS API Documentation</a>
@@ -731,7 +778,7 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param deleteApplicationRequest
-     *        Represents the input of a DeleteApplication operation.
+     *        Represents the input of a <code>DeleteApplication</code> operation.
      * @return Result of the DeleteApplication operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
@@ -758,7 +805,7 @@ public interface AmazonCodeDeploy {
      * </note>
      * 
      * @param deleteDeploymentConfigRequest
-     *        Represents the input of a DeleteDeploymentConfig operation.
+     *        Represents the input of a <code>DeleteDeploymentConfig</code> operation.
      * @return Result of the DeleteDeploymentConfig operation returned by the service.
      * @throws InvalidDeploymentConfigNameException
      *         The deployment configuration name was specified in an invalid format.
@@ -780,7 +827,7 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param deleteDeploymentGroupRequest
-     *        Represents the input of a DeleteDeploymentGroup operation.
+     *        Represents the input of a <code>DeleteDeploymentGroup</code> operation.
      * @return Result of the DeleteDeploymentGroup operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
@@ -805,7 +852,7 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param deleteGitHubAccountTokenRequest
-     *        Represents the input of a DeleteGitHubAccount operation.
+     *        Represents the input of a <code>DeleteGitHubAccount</code> operation.
      * @return Result of the DeleteGitHubAccountToken operation returned by the service.
      * @throws GitHubAccountTokenNameRequiredException
      *         The call is missing a required GitHub account connection name.
@@ -825,11 +872,32 @@ public interface AmazonCodeDeploy {
 
     /**
      * <p>
+     * Deletes resources linked to an external ID. This action only applies if you have configured blue/green
+     * deployments through CloudFormation.
+     * </p>
+     * <note>
+     * <p>
+     * It is not necessary to call this action directly. CloudFormation calls it on your behalf when it needs to delete
+     * stack resources. This action is offered publicly in case you need to delete resources to comply with General Data
+     * Protection Regulation (GDPR) requirements.
+     * </p>
+     * </note>
+     * 
+     * @param deleteResourcesByExternalIdRequest
+     * @return Result of the DeleteResourcesByExternalId operation returned by the service.
+     * @sample AmazonCodeDeploy.DeleteResourcesByExternalId
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/DeleteResourcesByExternalId"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteResourcesByExternalIdResult deleteResourcesByExternalId(DeleteResourcesByExternalIdRequest deleteResourcesByExternalIdRequest);
+
+    /**
+     * <p>
      * Deregisters an on-premises instance.
      * </p>
      * 
      * @param deregisterOnPremisesInstanceRequest
-     *        Represents the input of a DeregisterOnPremisesInstance operation.
+     *        Represents the input of a <code>DeregisterOnPremisesInstance</code> operation.
      * @return Result of the DeregisterOnPremisesInstance operation returned by the service.
      * @throws InstanceNameRequiredException
      *         An on-premises instance name was not specified.
@@ -847,14 +915,14 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param getApplicationRequest
-     *        Represents the input of a GetApplication operation.
+     *        Represents the input of a <code>GetApplication</code> operation.
      * @return Result of the GetApplication operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @sample AmazonCodeDeploy.GetApplication
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/GetApplication" target="_top">AWS API
      *      Documentation</a>
@@ -867,16 +935,16 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param getApplicationRevisionRequest
-     *        Represents the input of a GetApplicationRevision operation.
+     *        Represents the input of a <code>GetApplicationRevision</code> operation.
      * @return Result of the GetApplicationRevision operation returned by the service.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws RevisionDoesNotExistException
-     *         The named revision does not exist with the IAM user or AWS account.
+     *         The named revision does not exist with the user or Amazon Web Services account.
      * @throws RevisionRequiredException
      *         The revision ID was not specified.
      * @throws InvalidRevisionException
@@ -900,14 +968,14 @@ public interface AmazonCodeDeploy {
      * </note>
      * 
      * @param getDeploymentRequest
-     *        Represents the input of a GetDeployment operation.
+     *        Represents the input of a <code>GetDeployment</code> operation.
      * @return Result of the GetDeployment operation returned by the service.
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
      * @throws InvalidDeploymentIdException
      *         At least one of the deployment IDs was specified in an invalid format.
      * @throws DeploymentDoesNotExistException
-     *         The deployment with the IAM user or AWS account does not exist.
+     *         The deployment with the user or Amazon Web Services account does not exist.
      * @sample AmazonCodeDeploy.GetDeployment
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/GetDeployment" target="_top">AWS API
      *      Documentation</a>
@@ -920,16 +988,17 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param getDeploymentConfigRequest
-     *        Represents the input of a GetDeploymentConfig operation.
+     *        Represents the input of a <code>GetDeploymentConfig</code> operation.
      * @return Result of the GetDeploymentConfig operation returned by the service.
      * @throws InvalidDeploymentConfigNameException
      *         The deployment configuration name was specified in an invalid format.
      * @throws DeploymentConfigNameRequiredException
      *         The deployment configuration name was not specified.
      * @throws DeploymentConfigDoesNotExistException
-     *         The deployment configuration does not exist with the IAM user or AWS account.
+     *         The deployment configuration does not exist with the user or Amazon Web Services account.
      * @throws InvalidComputePlatformException
-     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code> or <code>Server</code>.
+     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code>, <code>Server</code>,
+     *         or <code>ECS</code>.
      * @sample AmazonCodeDeploy.GetDeploymentConfig
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/GetDeploymentConfig" target="_top">AWS
      *      API Documentation</a>
@@ -942,22 +1011,22 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param getDeploymentGroupRequest
-     *        Represents the input of a GetDeploymentGroup operation.
+     *        Represents the input of a <code>GetDeploymentGroup</code> operation.
      * @return Result of the GetDeploymentGroup operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws DeploymentGroupNameRequiredException
      *         The deployment group name was not specified.
      * @throws InvalidDeploymentGroupNameException
      *         The deployment group name was specified in an invalid format.
      * @throws DeploymentGroupDoesNotExistException
-     *         The named deployment group with the IAM user or AWS account does not exist.
+     *         The named deployment group with the user or Amazon Web Services account does not exist.
      * @throws DeploymentConfigDoesNotExistException
-     *         The deployment configuration does not exist with the IAM user or AWS account.
+     *         The deployment configuration does not exist with the user or Amazon Web Services account.
      * @sample AmazonCodeDeploy.GetDeploymentGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/GetDeploymentGroup" target="_top">AWS
      *      API Documentation</a>
@@ -970,12 +1039,12 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param getDeploymentInstanceRequest
-     *        Represents the input of a GetDeploymentInstance operation.
+     *        Represents the input of a <code>GetDeploymentInstance</code> operation.
      * @return Result of the GetDeploymentInstance operation returned by the service.
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
      * @throws DeploymentDoesNotExistException
-     *         The deployment with the IAM user or AWS account does not exist.
+     *         The deployment with the user or Amazon Web Services account does not exist.
      * @throws InstanceIdRequiredException
      *         The instance ID was not specified.
      * @throws InvalidDeploymentIdException
@@ -985,7 +1054,8 @@ public interface AmazonCodeDeploy {
      * @throws InvalidInstanceNameException
      *         The on-premises instance name was specified in an invalid format.
      * @throws InvalidComputePlatformException
-     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code> or <code>Server</code>.
+     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code>, <code>Server</code>,
+     *         or <code>ECS</code>.
      * @sample AmazonCodeDeploy.GetDeploymentInstance
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/GetDeploymentInstance"
      *      target="_top">AWS API Documentation</a>
@@ -1005,7 +1075,7 @@ public interface AmazonCodeDeploy {
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
      * @throws DeploymentDoesNotExistException
-     *         The deployment with the IAM user or AWS account does not exist.
+     *         The deployment with the user or Amazon Web Services account does not exist.
      * @throws DeploymentNotStartedException
      *         The specified deployment has not started.
      * @throws DeploymentTargetIdRequiredException
@@ -1028,7 +1098,7 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param getOnPremisesInstanceRequest
-     *        Represents the input of a GetOnPremisesInstance operation.
+     *        Represents the input of a <code>GetOnPremisesInstance</code> operation.
      * @return Result of the GetOnPremisesInstance operation returned by the service.
      * @throws InstanceNameRequiredException
      *         An on-premises instance name was not specified.
@@ -1048,10 +1118,10 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param listApplicationRevisionsRequest
-     *        Represents the input of a ListApplicationRevisions operation.
+     *        Represents the input of a <code>ListApplicationRevisions</code> operation.
      * @return Result of the ListApplicationRevisions operation returned by the service.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
@@ -1078,11 +1148,11 @@ public interface AmazonCodeDeploy {
 
     /**
      * <p>
-     * Lists the applications registered with the IAM user or AWS account.
+     * Lists the applications registered with the user or Amazon Web Services account.
      * </p>
      * 
      * @param listApplicationsRequest
-     *        Represents the input of a ListApplications operation.
+     *        Represents the input of a <code>ListApplications</code> operation.
      * @return Result of the ListApplications operation returned by the service.
      * @throws InvalidNextTokenException
      *         The next token was specified in an invalid format.
@@ -1101,11 +1171,11 @@ public interface AmazonCodeDeploy {
 
     /**
      * <p>
-     * Lists the deployment configurations with the IAM user or AWS account.
+     * Lists the deployment configurations with the user or Amazon Web Services account.
      * </p>
      * 
      * @param listDeploymentConfigsRequest
-     *        Represents the input of a ListDeploymentConfigs operation.
+     *        Represents the input of a <code>ListDeploymentConfigs</code> operation.
      * @return Result of the ListDeploymentConfigs operation returned by the service.
      * @throws InvalidNextTokenException
      *         The next token was specified in an invalid format.
@@ -1124,18 +1194,19 @@ public interface AmazonCodeDeploy {
 
     /**
      * <p>
-     * Lists the deployment groups for an application registered with the IAM user or AWS account.
+     * Lists the deployment groups for an application registered with the Amazon Web Services user or Amazon Web
+     * Services account.
      * </p>
      * 
      * @param listDeploymentGroupsRequest
-     *        Represents the input of a ListDeploymentGroups operation.
+     *        Represents the input of a <code>ListDeploymentGroups</code> operation.
      * @return Result of the ListDeploymentGroups operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws InvalidNextTokenException
      *         The next token was specified in an invalid format.
      * @sample AmazonCodeDeploy.ListDeploymentGroups
@@ -1147,22 +1218,22 @@ public interface AmazonCodeDeploy {
     /**
      * <note>
      * <p>
-     * The newer BatchGetDeploymentTargets should be used instead because it works with all compute types.
+     * The newer <code>BatchGetDeploymentTargets</code> should be used instead because it works with all compute types.
      * <code>ListDeploymentInstances</code> throws an exception if it is used with a compute platform other than
-     * EC2/On-premises or AWS Lambda.
+     * EC2/On-premises or Lambda.
      * </p>
      * </note>
      * <p>
-     * Lists the instance for a deployment associated with the IAM user or AWS account.
+     * Lists the instance for a deployment associated with the user or Amazon Web Services account.
      * </p>
      * 
      * @param listDeploymentInstancesRequest
-     *        Represents the input of a ListDeploymentInstances operation.
+     *        Represents the input of a <code>ListDeploymentInstances</code> operation.
      * @return Result of the ListDeploymentInstances operation returned by the service.
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
      * @throws DeploymentDoesNotExistException
-     *         The deployment with the IAM user or AWS account does not exist.
+     *         The deployment with the user or Amazon Web Services account does not exist.
      * @throws DeploymentNotStartedException
      *         The specified deployment has not started.
      * @throws InvalidNextTokenException
@@ -1180,7 +1251,8 @@ public interface AmazonCodeDeploy {
      * @throws InvalidTargetFilterNameException
      *         The target filter name is invalid.
      * @throws InvalidComputePlatformException
-     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code> or <code>Server</code>.
+     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code>, <code>Server</code>,
+     *         or <code>ECS</code>.
      * @sample AmazonCodeDeploy.ListDeploymentInstances
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/ListDeploymentInstances"
      *      target="_top">AWS API Documentation</a>
@@ -1198,7 +1270,7 @@ public interface AmazonCodeDeploy {
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
      * @throws DeploymentDoesNotExistException
-     *         The deployment with the IAM user or AWS account does not exist.
+     *         The deployment with the user or Amazon Web Services account does not exist.
      * @throws DeploymentNotStartedException
      *         The specified deployment has not started.
      * @throws InvalidNextTokenException
@@ -1213,6 +1285,8 @@ public interface AmazonCodeDeploy {
      * @throws InvalidDeploymentInstanceTypeException
      *         An instance type was specified for an in-place deployment. Instance types are supported for blue/green
      *         deployments only.
+     * @throws InvalidTargetFilterNameException
+     *         The target filter name is invalid.
      * @sample AmazonCodeDeploy.ListDeploymentTargets
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/ListDeploymentTargets"
      *      target="_top">AWS API Documentation</a>
@@ -1221,22 +1295,23 @@ public interface AmazonCodeDeploy {
 
     /**
      * <p>
-     * Lists the deployments in a deployment group for an application registered with the IAM user or AWS account.
+     * Lists the deployments in a deployment group for an application registered with the user or Amazon Web Services
+     * account.
      * </p>
      * 
      * @param listDeploymentsRequest
-     *        Represents the input of a ListDeployments operation.
+     *        Represents the input of a <code>ListDeployments</code> operation.
      * @return Result of the ListDeployments operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws InvalidDeploymentGroupNameException
      *         The deployment group name was specified in an invalid format.
      * @throws DeploymentGroupDoesNotExistException
-     *         The named deployment group with the IAM user or AWS account does not exist.
+     *         The named deployment group with the user or Amazon Web Services account does not exist.
      * @throws DeploymentGroupNameRequiredException
      *         The deployment group name was not specified.
      * @throws InvalidTimeRangeException
@@ -1245,6 +1320,10 @@ public interface AmazonCodeDeploy {
      *         The specified deployment status doesn't exist or cannot be determined.
      * @throws InvalidNextTokenException
      *         The next token was specified in an invalid format.
+     * @throws InvalidExternalIdException
+     *         The external ID was specified in an invalid format.
+     * @throws InvalidInputException
+     *         The input was specified in an invalid format.
      * @sample AmazonCodeDeploy.ListDeployments
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/ListDeployments" target="_top">AWS API
      *      Documentation</a>
@@ -1264,7 +1343,7 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param listGitHubAccountTokenNamesRequest
-     *        Represents the input of a ListGitHubAccountTokenNames operation.
+     *        Represents the input of a <code>ListGitHubAccountTokenNames</code> operation.
      * @return Result of the ListGitHubAccountTokenNames operation returned by the service.
      * @throws InvalidNextTokenException
      *         The next token was specified in an invalid format.
@@ -1288,7 +1367,7 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param listOnPremisesInstancesRequest
-     *        Represents the input of a ListOnPremisesInstances operation.
+     *        Represents the input of a <code>ListOnPremisesInstances</code> operation.
      * @return Result of the ListOnPremisesInstances operation returned by the service.
      * @throws InvalidRegistrationStatusException
      *         The registration status was specified in an invalid format.
@@ -1311,8 +1390,8 @@ public interface AmazonCodeDeploy {
 
     /**
      * <p>
-     * Returns a list of tags for the resource identified by a specified ARN. Tags are used to organize and categorize
-     * your CodeDeploy resources.
+     * Returns a list of tags for the resource identified by a specified Amazon Resource Name (ARN). Tags are used to
+     * organize and categorize your CodeDeploy resources.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -1331,9 +1410,16 @@ public interface AmazonCodeDeploy {
 
     /**
      * <p>
-     * Sets the result of a Lambda validation function. The function validates one or both lifecycle events (
-     * <code>BeforeAllowTraffic</code> and <code>AfterAllowTraffic</code>) and returns <code>Succeeded</code> or
-     * <code>Failed</code>.
+     * Sets the result of a Lambda validation function. The function validates lifecycle hooks during a deployment that
+     * uses the Lambda or Amazon ECS compute platform. For Lambda deployments, the available lifecycle hooks are
+     * <code>BeforeAllowTraffic</code> and <code>AfterAllowTraffic</code>. For Amazon ECS deployments, the available
+     * lifecycle hooks are <code>BeforeInstall</code>, <code>AfterInstall</code>, <code>AfterAllowTestTraffic</code>,
+     * <code>BeforeAllowTraffic</code>, and <code>AfterAllowTraffic</code>. Lambda validation functions return
+     * <code>Succeeded</code> or <code>Failed</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html#appspec-hooks-lambda"
+     * >AppSpec 'hooks' Section for an Lambda Deployment </a> and <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html#appspec-hooks-ecs"
+     * >AppSpec 'hooks' Section for an Amazon ECS Deployment</a>.
      * </p>
      * 
      * @param putLifecycleEventHookExecutionStatusRequest
@@ -1349,7 +1435,7 @@ public interface AmazonCodeDeploy {
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
      * @throws DeploymentDoesNotExistException
-     *         The deployment with the IAM user or AWS account does not exist.
+     *         The deployment with the user or Amazon Web Services account does not exist.
      * @throws InvalidDeploymentIdException
      *         At least one of the deployment IDs was specified in an invalid format.
      * @throws UnsupportedActionForDeploymentTypeException
@@ -1363,14 +1449,14 @@ public interface AmazonCodeDeploy {
 
     /**
      * <p>
-     * Registers with AWS CodeDeploy a revision for the specified application.
+     * Registers with CodeDeploy a revision for the specified application.
      * </p>
      * 
      * @param registerApplicationRevisionRequest
      *        Represents the input of a RegisterApplicationRevision operation.
      * @return Result of the RegisterApplicationRevision operation returned by the service.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
@@ -1403,23 +1489,23 @@ public interface AmazonCodeDeploy {
      * @throws InstanceNameAlreadyRegisteredException
      *         The specified on-premises instance name is already registered.
      * @throws IamArnRequiredException
-     *         No IAM ARN was included in the request. You must use an IAM session ARN or IAM user ARN in the request.
+     *         No IAM ARN was included in the request. You must use an IAM session ARN or user ARN in the request.
      * @throws IamSessionArnAlreadyRegisteredException
      *         The request included an IAM session ARN that has already been used to register a different instance.
      * @throws IamUserArnAlreadyRegisteredException
-     *         The specified IAM user ARN is already registered with an on-premises instance.
+     *         The specified user ARN is already registered with an on-premises instance.
      * @throws InstanceNameRequiredException
      *         An on-premises instance name was not specified.
      * @throws IamUserArnRequiredException
-     *         An IAM user ARN was not specified.
+     *         An user ARN was not specified.
      * @throws InvalidInstanceNameException
      *         The on-premises instance name was specified in an invalid format.
      * @throws InvalidIamSessionArnException
      *         The IAM session ARN was specified in an invalid format.
      * @throws InvalidIamUserArnException
-     *         The IAM user ARN was specified in an invalid format.
+     *         The user ARN was specified in an invalid format.
      * @throws MultipleIamArnsProvidedException
-     *         Both an IAM user ARN and an IAM session ARN were included in the request. Use only one ARN type.
+     *         Both an user ARN and an IAM session ARN were included in the request. Use only one ARN type.
      * @sample AmazonCodeDeploy.RegisterOnPremisesInstance
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/RegisterOnPremisesInstance"
      *      target="_top">AWS API Documentation</a>
@@ -1432,7 +1518,7 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param removeTagsFromOnPremisesInstancesRequest
-     *        Represents the input of a RemoveTagsFromOnPremisesInstances operation.
+     *        Represents the input of a <code>RemoveTagsFromOnPremisesInstances</code> operation.
      * @return Result of the RemoveTagsFromOnPremisesInstances operation returned by the service.
      * @throws InstanceNameRequiredException
      *         An on-premises instance name was not specified.
@@ -1465,7 +1551,7 @@ public interface AmazonCodeDeploy {
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
      * @throws DeploymentDoesNotExistException
-     *         The deployment with the IAM user or AWS account does not exist.
+     *         The deployment with the user or Amazon Web Services account does not exist.
      * @throws DeploymentAlreadyCompletedException
      *         The deployment is already complete.
      * @throws InvalidDeploymentIdException
@@ -1488,18 +1574,20 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param stopDeploymentRequest
-     *        Represents the input of a StopDeployment operation.
+     *        Represents the input of a <code>StopDeployment</code> operation.
      * @return Result of the StopDeployment operation returned by the service.
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
      * @throws DeploymentDoesNotExistException
-     *         The deployment with the IAM user or AWS account does not exist.
+     *         The deployment with the user or Amazon Web Services account does not exist.
      * @throws DeploymentGroupDoesNotExistException
-     *         The named deployment group with the IAM user or AWS account does not exist.
+     *         The named deployment group with the user or Amazon Web Services account does not exist.
      * @throws DeploymentAlreadyCompletedException
      *         The deployment is already complete.
      * @throws InvalidDeploymentIdException
      *         At least one of the deployment IDs was specified in an invalid format.
+     * @throws UnsupportedActionForDeploymentTypeException
+     *         A call was submitted that is not supported for the specified deployment type.
      * @sample AmazonCodeDeploy.StopDeployment
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/StopDeployment" target="_top">AWS API
      *      Documentation</a>
@@ -1517,11 +1605,11 @@ public interface AmazonCodeDeploy {
      * @throws ResourceArnRequiredException
      *         The ARN of a resource is required, but was not found.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws DeploymentGroupDoesNotExistException
-     *         The named deployment group with the IAM user or AWS account does not exist.
+     *         The named deployment group with the user or Amazon Web Services account does not exist.
      * @throws DeploymentConfigDoesNotExistException
-     *         The deployment configuration does not exist with the IAM user or AWS account.
+     *         The deployment configuration does not exist with the user or Amazon Web Services account.
      * @throws TagRequiredException
      *         A tag was not specified.
      * @throws InvalidTagsToAddException
@@ -1539,7 +1627,7 @@ public interface AmazonCodeDeploy {
     /**
      * <p>
      * Disassociates a resource from a list of tags. The resource is identified by the <code>ResourceArn</code> input
-     * parameter. The tags are identfied by the list of keys in the <code>TagKeys</code> input parameter.
+     * parameter. The tags are identified by the list of keys in the <code>TagKeys</code> input parameter.
      * </p>
      * 
      * @param untagResourceRequest
@@ -1547,11 +1635,11 @@ public interface AmazonCodeDeploy {
      * @throws ResourceArnRequiredException
      *         The ARN of a resource is required, but was not found.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws DeploymentGroupDoesNotExistException
-     *         The named deployment group with the IAM user or AWS account does not exist.
+     *         The named deployment group with the user or Amazon Web Services account does not exist.
      * @throws DeploymentConfigDoesNotExistException
-     *         The deployment configuration does not exist with the IAM user or AWS account.
+     *         The deployment configuration does not exist with the user or Amazon Web Services account.
      * @throws TagRequiredException
      *         A tag was not specified.
      * @throws InvalidTagsToAddException
@@ -1572,16 +1660,16 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param updateApplicationRequest
-     *        Represents the input of an UpdateApplication operation.
+     *        Represents the input of an <code>UpdateApplication</code> operation.
      * @return Result of the UpdateApplication operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws ApplicationAlreadyExistsException
-     *         An application with the specified name with the IAM user or AWS account already exists.
+     *         An application with the specified name with the user or Amazon Web Services account already exists.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @sample AmazonCodeDeploy.UpdateApplication
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/UpdateApplication" target="_top">AWS
      *      API Documentation</a>
@@ -1601,22 +1689,22 @@ public interface AmazonCodeDeploy {
      * </p>
      * 
      * @param updateDeploymentGroupRequest
-     *        Represents the input of an UpdateDeploymentGroup operation.
+     *        Represents the input of an <code>UpdateDeploymentGroup</code> operation.
      * @return Result of the UpdateDeploymentGroup operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws InvalidDeploymentGroupNameException
      *         The deployment group name was specified in an invalid format.
      * @throws DeploymentGroupAlreadyExistsException
-     *         A deployment group with the specified name with the IAM user or AWS account already exists.
+     *         A deployment group with the specified name with the user or Amazon Web Services account already exists.
      * @throws DeploymentGroupNameRequiredException
      *         The deployment group name was not specified.
      * @throws DeploymentGroupDoesNotExistException
-     *         The named deployment group with the IAM user or AWS account does not exist.
+     *         The named deployment group with the user or Amazon Web Services account does not exist.
      * @throws InvalidEC2TagException
      *         The tag was specified in an invalid format.
      * @throws InvalidTagException
@@ -1626,7 +1714,7 @@ public interface AmazonCodeDeploy {
      * @throws InvalidDeploymentConfigNameException
      *         The deployment configuration name was specified in an invalid format.
      * @throws DeploymentConfigDoesNotExistException
-     *         The deployment configuration does not exist with the IAM user or AWS account.
+     *         The deployment configuration does not exist with the user or Amazon Web Services account.
      * @throws InvalidRoleException
      *         The service role ARN was specified in an invalid format. Or, if an Auto Scaling group was specified, the
      *         specified service role does not grant the appropriate permissions to Amazon EC2 Auto Scaling.
@@ -1696,6 +1784,8 @@ public interface AmazonCodeDeploy {
      * @throws ECSServiceMappingLimitExceededException
      *         The Amazon ECS service is associated with more than one deployment groups. An Amazon ECS service can be
      *         associated with only one deployment group.
+     * @throws InvalidTrafficRoutingConfigurationException
+     *         The configuration that specifies how traffic is routed during a deployment is invalid.
      * @sample AmazonCodeDeploy.UpdateDeploymentGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/UpdateDeploymentGroup"
      *      target="_top">AWS API Documentation</a>

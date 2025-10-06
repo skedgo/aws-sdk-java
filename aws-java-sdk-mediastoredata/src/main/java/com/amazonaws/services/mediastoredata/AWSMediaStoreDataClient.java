@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.mediastoredata.AWSMediaStoreDataClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.mediastoredata.model.*;
+
 import com.amazonaws.services.mediastoredata.model.transform.*;
 
 /**
@@ -77,19 +78,19 @@ public class AWSMediaStoreDataClient extends AmazonWebServiceClient implements A
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RequestedRangeNotSatisfiableException").withModeledClass(
-                                    com.amazonaws.services.mediastoredata.model.RequestedRangeNotSatisfiableException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RequestedRangeNotSatisfiableException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.mediastoredata.model.transform.RequestedRangeNotSatisfiableExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ObjectNotFoundException").withModeledClass(
-                                    com.amazonaws.services.mediastoredata.model.ObjectNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ObjectNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.mediastoredata.model.transform.ObjectNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServerError").withModeledClass(
-                                    com.amazonaws.services.mediastoredata.model.InternalServerErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServerError").withExceptionUnmarshaller(
+                                    com.amazonaws.services.mediastoredata.model.transform.InternalServerErrorExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ContainerNotFoundException").withModeledClass(
-                                    com.amazonaws.services.mediastoredata.model.ContainerNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ContainerNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.mediastoredata.model.transform.ContainerNotFoundExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.mediastoredata.model.AWSMediaStoreDataException.class));
 
     public static AWSMediaStoreDataClientBuilder builder() {
@@ -176,6 +177,8 @@ public class AWSMediaStoreDataClient extends AmazonWebServiceClient implements A
                 request = new DeleteObjectRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteObjectRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaStore Data");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteObject");
@@ -235,6 +238,8 @@ public class AWSMediaStoreDataClient extends AmazonWebServiceClient implements A
                 request = new DescribeObjectRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeObjectRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaStore Data");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeObject");
@@ -297,6 +302,8 @@ public class AWSMediaStoreDataClient extends AmazonWebServiceClient implements A
                 request = new GetObjectRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getObjectRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaStore Data");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetObject");
@@ -309,6 +316,8 @@ public class AWSMediaStoreDataClient extends AmazonWebServiceClient implements A
             HttpResponseHandler<AmazonWebServiceResponse<GetObjectResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
                     .withPayloadJson(false).withHasStreamingSuccessResponse(true), new GetObjectResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
+
+            request.addHandlerContext(HandlerContextKey.HAS_STREAMING_OUTPUT, Boolean.TRUE);
 
             return response.getAwsResponse();
 
@@ -354,6 +363,8 @@ public class AWSMediaStoreDataClient extends AmazonWebServiceClient implements A
                 request = new ListItemsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listItemsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaStore Data");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListItems");
@@ -412,10 +423,13 @@ public class AWSMediaStoreDataClient extends AmazonWebServiceClient implements A
                 request = new PutObjectRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putObjectRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaStore Data");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutObject");
                 request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
                 request.addHandlerContext(HandlerContextKey.HAS_STREAMING_INPUT, Boolean.TRUE);
 
             } finally {
@@ -508,6 +522,11 @@ public class AWSMediaStoreDataClient extends AmazonWebServiceClient implements A
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

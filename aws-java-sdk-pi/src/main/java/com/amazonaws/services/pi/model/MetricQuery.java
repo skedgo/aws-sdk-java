@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,10 +19,12 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A single query to be processed. You must provide the metric to query. If no other parameters are specified,
- * Performance Insights returns all of the data points for that metric. You can optionally request that the data points
- * be aggregated by dimension group ( <code>GroupBy</code>), and return only those data points that match your criteria
- * (<code>Filter</code>).
+ * A single query to be processed. You must provide the metric to query and append an aggregate function to the metric.
+ * For example, to find the average for the metric <code>db.load</code> you must use <code>db.load.avg</code>. Valid
+ * values for aggregate functions include <code>.avg</code>, <code>.min</code>, <code>.max</code>, and <code>.sum</code>
+ * . If no other parameters are specified, Performance Insights returns all data points for the specified metric.
+ * Optionally, you can request that the data points be aggregated by dimension group (<code>GroupBy</code>), and return
+ * only those data points that match your criteria (<code>Filter</code>).
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pi-2018-02-27/MetricQuery" target="_top">AWS API
@@ -41,15 +43,37 @@ public class MetricQuery implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <code>db.load.avg</code> - a scaled representation of the number of active sessions for the database engine.
+     * <code>db.load.avg</code> - A scaled representation of the number of active sessions for the database engine.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>db.sampledload.avg</code> - the raw number of active sessions for the database engine.
+     * <code>db.sampledload.avg</code> - The raw number of active sessions for the database engine.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The counter metrics listed in <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_PerfInsights_Counters.html#USER_PerfInsights_Counters.OS"
+     * >Performance Insights operating system counters</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The counter metrics listed in <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights_Counters.html#USER_PerfInsights_Counters.OS"
+     * >Performance Insights operating system counters</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If the number of active sessions is less than an internal Performance Insights threshold,
+     * <code>db.load.avg</code> and <code>db.sampledload.avg</code> are the same value. If the number of active sessions
+     * is greater than the internal threshold, Performance Insights samples the active sessions, with
+     * <code>db.load.avg</code> showing the scaled values, <code>db.sampledload.avg</code> showing the raw values, and
+     * <code>db.sampledload.avg</code> less than <code>db.load.avg</code>. For most use cases, you can query
+     * <code>db.load.avg</code> only.
+     * </p>
      */
     private String metric;
     /**
@@ -77,6 +101,11 @@ public class MetricQuery implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * </li>
      * </ul>
+     * <note>
+     * <p>
+     * The <code>db.sql.db_id</code> filter isn't available for RDS for SQL Server DB instances.
+     * </p>
+     * </note>
      */
     private java.util.Map<String, String> filter;
 
@@ -90,15 +119,37 @@ public class MetricQuery implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <code>db.load.avg</code> - a scaled representation of the number of active sessions for the database engine.
+     * <code>db.load.avg</code> - A scaled representation of the number of active sessions for the database engine.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>db.sampledload.avg</code> - the raw number of active sessions for the database engine.
+     * <code>db.sampledload.avg</code> - The raw number of active sessions for the database engine.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The counter metrics listed in <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_PerfInsights_Counters.html#USER_PerfInsights_Counters.OS"
+     * >Performance Insights operating system counters</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The counter metrics listed in <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights_Counters.html#USER_PerfInsights_Counters.OS"
+     * >Performance Insights operating system counters</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If the number of active sessions is less than an internal Performance Insights threshold,
+     * <code>db.load.avg</code> and <code>db.sampledload.avg</code> are the same value. If the number of active sessions
+     * is greater than the internal threshold, Performance Insights samples the active sessions, with
+     * <code>db.load.avg</code> showing the scaled values, <code>db.sampledload.avg</code> showing the raw values, and
+     * <code>db.sampledload.avg</code> less than <code>db.load.avg</code>. For most use cases, you can query
+     * <code>db.load.avg</code> only.
+     * </p>
      * 
      * @param metric
      *        The name of a Performance Insights metric to be measured.</p>
@@ -108,15 +159,37 @@ public class MetricQuery implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>db.load.avg</code> - a scaled representation of the number of active sessions for the database
+     *        <code>db.load.avg</code> - A scaled representation of the number of active sessions for the database
      *        engine.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>db.sampledload.avg</code> - the raw number of active sessions for the database engine.
+     *        <code>db.sampledload.avg</code> - The raw number of active sessions for the database engine.
      *        </p>
      *        </li>
+     *        <li>
+     *        <p>
+     *        The counter metrics listed in <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_PerfInsights_Counters.html#USER_PerfInsights_Counters.OS"
+     *        >Performance Insights operating system counters</a> in the <i>Amazon Aurora User Guide</i>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The counter metrics listed in <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights_Counters.html#USER_PerfInsights_Counters.OS"
+     *        >Performance Insights operating system counters</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If the number of active sessions is less than an internal Performance Insights threshold,
+     *        <code>db.load.avg</code> and <code>db.sampledload.avg</code> are the same value. If the number of active
+     *        sessions is greater than the internal threshold, Performance Insights samples the active sessions, with
+     *        <code>db.load.avg</code> showing the scaled values, <code>db.sampledload.avg</code> showing the raw
+     *        values, and <code>db.sampledload.avg</code> less than <code>db.load.avg</code>. For most use cases, you
+     *        can query <code>db.load.avg</code> only.
      */
 
     public void setMetric(String metric) {
@@ -133,15 +206,37 @@ public class MetricQuery implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <code>db.load.avg</code> - a scaled representation of the number of active sessions for the database engine.
+     * <code>db.load.avg</code> - A scaled representation of the number of active sessions for the database engine.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>db.sampledload.avg</code> - the raw number of active sessions for the database engine.
+     * <code>db.sampledload.avg</code> - The raw number of active sessions for the database engine.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The counter metrics listed in <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_PerfInsights_Counters.html#USER_PerfInsights_Counters.OS"
+     * >Performance Insights operating system counters</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The counter metrics listed in <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights_Counters.html#USER_PerfInsights_Counters.OS"
+     * >Performance Insights operating system counters</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If the number of active sessions is less than an internal Performance Insights threshold,
+     * <code>db.load.avg</code> and <code>db.sampledload.avg</code> are the same value. If the number of active sessions
+     * is greater than the internal threshold, Performance Insights samples the active sessions, with
+     * <code>db.load.avg</code> showing the scaled values, <code>db.sampledload.avg</code> showing the raw values, and
+     * <code>db.sampledload.avg</code> less than <code>db.load.avg</code>. For most use cases, you can query
+     * <code>db.load.avg</code> only.
+     * </p>
      * 
      * @return The name of a Performance Insights metric to be measured.</p>
      *         <p>
@@ -150,15 +245,37 @@ public class MetricQuery implements Serializable, Cloneable, StructuredPojo {
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>db.load.avg</code> - a scaled representation of the number of active sessions for the database
+     *         <code>db.load.avg</code> - A scaled representation of the number of active sessions for the database
      *         engine.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>db.sampledload.avg</code> - the raw number of active sessions for the database engine.
+     *         <code>db.sampledload.avg</code> - The raw number of active sessions for the database engine.
      *         </p>
      *         </li>
+     *         <li>
+     *         <p>
+     *         The counter metrics listed in <a href=
+     *         "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_PerfInsights_Counters.html#USER_PerfInsights_Counters.OS"
+     *         >Performance Insights operating system counters</a> in the <i>Amazon Aurora User Guide</i>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The counter metrics listed in <a href=
+     *         "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights_Counters.html#USER_PerfInsights_Counters.OS"
+     *         >Performance Insights operating system counters</a> in the <i>Amazon RDS User Guide</i>.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         If the number of active sessions is less than an internal Performance Insights threshold,
+     *         <code>db.load.avg</code> and <code>db.sampledload.avg</code> are the same value. If the number of active
+     *         sessions is greater than the internal threshold, Performance Insights samples the active sessions, with
+     *         <code>db.load.avg</code> showing the scaled values, <code>db.sampledload.avg</code> showing the raw
+     *         values, and <code>db.sampledload.avg</code> less than <code>db.load.avg</code>. For most use cases, you
+     *         can query <code>db.load.avg</code> only.
      */
 
     public String getMetric() {
@@ -175,15 +292,37 @@ public class MetricQuery implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <code>db.load.avg</code> - a scaled representation of the number of active sessions for the database engine.
+     * <code>db.load.avg</code> - A scaled representation of the number of active sessions for the database engine.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>db.sampledload.avg</code> - the raw number of active sessions for the database engine.
+     * <code>db.sampledload.avg</code> - The raw number of active sessions for the database engine.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The counter metrics listed in <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_PerfInsights_Counters.html#USER_PerfInsights_Counters.OS"
+     * >Performance Insights operating system counters</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The counter metrics listed in <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights_Counters.html#USER_PerfInsights_Counters.OS"
+     * >Performance Insights operating system counters</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If the number of active sessions is less than an internal Performance Insights threshold,
+     * <code>db.load.avg</code> and <code>db.sampledload.avg</code> are the same value. If the number of active sessions
+     * is greater than the internal threshold, Performance Insights samples the active sessions, with
+     * <code>db.load.avg</code> showing the scaled values, <code>db.sampledload.avg</code> showing the raw values, and
+     * <code>db.sampledload.avg</code> less than <code>db.load.avg</code>. For most use cases, you can query
+     * <code>db.load.avg</code> only.
+     * </p>
      * 
      * @param metric
      *        The name of a Performance Insights metric to be measured.</p>
@@ -193,15 +332,37 @@ public class MetricQuery implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>db.load.avg</code> - a scaled representation of the number of active sessions for the database
+     *        <code>db.load.avg</code> - A scaled representation of the number of active sessions for the database
      *        engine.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>db.sampledload.avg</code> - the raw number of active sessions for the database engine.
+     *        <code>db.sampledload.avg</code> - The raw number of active sessions for the database engine.
      *        </p>
      *        </li>
+     *        <li>
+     *        <p>
+     *        The counter metrics listed in <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_PerfInsights_Counters.html#USER_PerfInsights_Counters.OS"
+     *        >Performance Insights operating system counters</a> in the <i>Amazon Aurora User Guide</i>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The counter metrics listed in <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights_Counters.html#USER_PerfInsights_Counters.OS"
+     *        >Performance Insights operating system counters</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If the number of active sessions is less than an internal Performance Insights threshold,
+     *        <code>db.load.avg</code> and <code>db.sampledload.avg</code> are the same value. If the number of active
+     *        sessions is greater than the internal threshold, Performance Insights samples the active sessions, with
+     *        <code>db.load.avg</code> showing the scaled values, <code>db.sampledload.avg</code> showing the raw
+     *        values, and <code>db.sampledload.avg</code> less than <code>db.load.avg</code>. For most use cases, you
+     *        can query <code>db.load.avg</code> only.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -284,6 +445,11 @@ public class MetricQuery implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * </li>
      * </ul>
+     * <note>
+     * <p>
+     * The <code>db.sql.db_id</code> filter isn't available for RDS for SQL Server DB instances.
+     * </p>
+     * </note>
      * 
      * @return One or more filters to apply in the request. Restrictions:</p>
      *         <ul>
@@ -297,6 +463,11 @@ public class MetricQuery implements Serializable, Cloneable, StructuredPojo {
      *         A single filter for any other dimension in this dimension group.
      *         </p>
      *         </li>
+     *         </ul>
+     *         <note>
+     *         <p>
+     *         The <code>db.sql.db_id</code> filter isn't available for RDS for SQL Server DB instances.
+     *         </p>
      */
 
     public java.util.Map<String, String> getFilter() {
@@ -319,6 +490,11 @@ public class MetricQuery implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * </li>
      * </ul>
+     * <note>
+     * <p>
+     * The <code>db.sql.db_id</code> filter isn't available for RDS for SQL Server DB instances.
+     * </p>
+     * </note>
      * 
      * @param filter
      *        One or more filters to apply in the request. Restrictions:</p>
@@ -333,6 +509,11 @@ public class MetricQuery implements Serializable, Cloneable, StructuredPojo {
      *        A single filter for any other dimension in this dimension group.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        The <code>db.sql.db_id</code> filter isn't available for RDS for SQL Server DB instances.
+     *        </p>
      */
 
     public void setFilter(java.util.Map<String, String> filter) {
@@ -355,6 +536,11 @@ public class MetricQuery implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * </li>
      * </ul>
+     * <note>
+     * <p>
+     * The <code>db.sql.db_id</code> filter isn't available for RDS for SQL Server DB instances.
+     * </p>
+     * </note>
      * 
      * @param filter
      *        One or more filters to apply in the request. Restrictions:</p>
@@ -369,6 +555,11 @@ public class MetricQuery implements Serializable, Cloneable, StructuredPojo {
      *        A single filter for any other dimension in this dimension group.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        The <code>db.sql.db_id</code> filter isn't available for RDS for SQL Server DB instances.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -376,6 +567,13 @@ public class MetricQuery implements Serializable, Cloneable, StructuredPojo {
         setFilter(filter);
         return this;
     }
+
+    /**
+     * Add a single Filter entry
+     *
+     * @see MetricQuery#withFilter
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public MetricQuery addFilterEntry(String key, String value) {
         if (null == this.filter) {

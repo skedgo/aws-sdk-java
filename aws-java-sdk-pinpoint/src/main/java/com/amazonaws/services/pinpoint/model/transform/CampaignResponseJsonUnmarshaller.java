@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,7 +51,8 @@ public class CampaignResponseJsonUnmarshaller implements Unmarshaller<CampaignRe
                 if (context.testExpression("AdditionalTreatments", targetDepth)) {
                     context.nextToken();
                     campaignResponse.setAdditionalTreatments(new ListUnmarshaller<TreatmentResource>(TreatmentResourceJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("ApplicationId", targetDepth)) {
                     context.nextToken();
@@ -64,6 +65,10 @@ public class CampaignResponseJsonUnmarshaller implements Unmarshaller<CampaignRe
                 if (context.testExpression("CreationDate", targetDepth)) {
                     context.nextToken();
                     campaignResponse.setCreationDate(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("CustomDeliveryConfiguration", targetDepth)) {
+                    context.nextToken();
+                    campaignResponse.setCustomDeliveryConfiguration(CustomDeliveryConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("DefaultState", targetDepth)) {
                     context.nextToken();
@@ -126,6 +131,10 @@ public class CampaignResponseJsonUnmarshaller implements Unmarshaller<CampaignRe
                     campaignResponse.setTags(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context.getUnmarshaller(String.class))
                             .unmarshall(context));
                 }
+                if (context.testExpression("TemplateConfiguration", targetDepth)) {
+                    context.nextToken();
+                    campaignResponse.setTemplateConfiguration(TemplateConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("TreatmentDescription", targetDepth)) {
                     context.nextToken();
                     campaignResponse.setTreatmentDescription(context.getUnmarshaller(String.class).unmarshall(context));
@@ -137,6 +146,10 @@ public class CampaignResponseJsonUnmarshaller implements Unmarshaller<CampaignRe
                 if (context.testExpression("Version", targetDepth)) {
                     context.nextToken();
                     campaignResponse.setVersion(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("Priority", targetDepth)) {
+                    context.nextToken();
+                    campaignResponse.setPriority(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

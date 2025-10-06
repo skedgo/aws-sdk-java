@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class Member implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS account ID of the member account.
+     * The Amazon Web Services account ID of the member account.
      * </p>
      */
     private String accountId;
@@ -42,14 +42,69 @@ public class Member implements Serializable, Cloneable, StructuredPojo {
     private String email;
     /**
      * <p>
-     * The AWS account ID of the Security Hub master account associated with this member account.
+     * This is replaced by <code>AdministratorID</code>.
+     * </p>
+     * <p>
+     * The Amazon Web Services account ID of the Security Hub administrator account associated with this member account.
      * </p>
      */
+    @Deprecated
     private String masterId;
     /**
      * <p>
-     * The status of the relationship between the member account and its master account.
+     * The Amazon Web Services account ID of the Security Hub administrator account associated with this member account.
      * </p>
+     */
+    private String administratorId;
+    /**
+     * <p>
+     * The status of the relationship between the member account and its administrator account.
+     * </p>
+     * <p>
+     * The status can have one of the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Created</code> - Indicates that the administrator account added the member account, but has not yet invited
+     * the member account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Invited</code> - Indicates that the administrator account invited the member account. The member account
+     * has not yet responded to the invitation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Enabled</code> - Indicates that the member account is currently active. For manually invited member
+     * accounts, indicates that the member account accepted the invitation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Removed</code> - Indicates that the administrator account disassociated the member account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Resigned</code> - Indicates that the member account disassociated themselves from the administrator
+     * account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Deleted</code> - Indicates that the administrator account deleted the member account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AccountSuspended</code> - Indicates that an organization account was suspended from Amazon Web Services at
+     * the same time that the administrator account tried to enable the organization account as a member account.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String memberStatus;
     /**
@@ -67,11 +122,11 @@ public class Member implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS account ID of the member account.
+     * The Amazon Web Services account ID of the member account.
      * </p>
      * 
      * @param accountId
-     *        The AWS account ID of the member account.
+     *        The Amazon Web Services account ID of the member account.
      */
 
     public void setAccountId(String accountId) {
@@ -80,10 +135,10 @@ public class Member implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS account ID of the member account.
+     * The Amazon Web Services account ID of the member account.
      * </p>
      * 
-     * @return The AWS account ID of the member account.
+     * @return The Amazon Web Services account ID of the member account.
      */
 
     public String getAccountId() {
@@ -92,11 +147,11 @@ public class Member implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS account ID of the member account.
+     * The Amazon Web Services account ID of the member account.
      * </p>
      * 
      * @param accountId
-     *        The AWS account ID of the member account.
+     *        The Amazon Web Services account ID of the member account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -147,39 +202,57 @@ public class Member implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS account ID of the Security Hub master account associated with this member account.
+     * This is replaced by <code>AdministratorID</code>.
+     * </p>
+     * <p>
+     * The Amazon Web Services account ID of the Security Hub administrator account associated with this member account.
      * </p>
      * 
      * @param masterId
-     *        The AWS account ID of the Security Hub master account associated with this member account.
+     *        This is replaced by <code>AdministratorID</code>.</p>
+     *        <p>
+     *        The Amazon Web Services account ID of the Security Hub administrator account associated with this member
+     *        account.
      */
-
+    @Deprecated
     public void setMasterId(String masterId) {
         this.masterId = masterId;
     }
 
     /**
      * <p>
-     * The AWS account ID of the Security Hub master account associated with this member account.
+     * This is replaced by <code>AdministratorID</code>.
+     * </p>
+     * <p>
+     * The Amazon Web Services account ID of the Security Hub administrator account associated with this member account.
      * </p>
      * 
-     * @return The AWS account ID of the Security Hub master account associated with this member account.
+     * @return This is replaced by <code>AdministratorID</code>.</p>
+     *         <p>
+     *         The Amazon Web Services account ID of the Security Hub administrator account associated with this member
+     *         account.
      */
-
+    @Deprecated
     public String getMasterId() {
         return this.masterId;
     }
 
     /**
      * <p>
-     * The AWS account ID of the Security Hub master account associated with this member account.
+     * This is replaced by <code>AdministratorID</code>.
+     * </p>
+     * <p>
+     * The Amazon Web Services account ID of the Security Hub administrator account associated with this member account.
      * </p>
      * 
      * @param masterId
-     *        The AWS account ID of the Security Hub master account associated with this member account.
+     *        This is replaced by <code>AdministratorID</code>.</p>
+     *        <p>
+     *        The Amazon Web Services account ID of the Security Hub administrator account associated with this member
+     *        account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
-
+    @Deprecated
     public Member withMasterId(String masterId) {
         setMasterId(masterId);
         return this;
@@ -187,11 +260,144 @@ public class Member implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the relationship between the member account and its master account.
+     * The Amazon Web Services account ID of the Security Hub administrator account associated with this member account.
      * </p>
      * 
+     * @param administratorId
+     *        The Amazon Web Services account ID of the Security Hub administrator account associated with this member
+     *        account.
+     */
+
+    public void setAdministratorId(String administratorId) {
+        this.administratorId = administratorId;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services account ID of the Security Hub administrator account associated with this member account.
+     * </p>
+     * 
+     * @return The Amazon Web Services account ID of the Security Hub administrator account associated with this member
+     *         account.
+     */
+
+    public String getAdministratorId() {
+        return this.administratorId;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services account ID of the Security Hub administrator account associated with this member account.
+     * </p>
+     * 
+     * @param administratorId
+     *        The Amazon Web Services account ID of the Security Hub administrator account associated with this member
+     *        account.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Member withAdministratorId(String administratorId) {
+        setAdministratorId(administratorId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The status of the relationship between the member account and its administrator account.
+     * </p>
+     * <p>
+     * The status can have one of the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Created</code> - Indicates that the administrator account added the member account, but has not yet invited
+     * the member account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Invited</code> - Indicates that the administrator account invited the member account. The member account
+     * has not yet responded to the invitation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Enabled</code> - Indicates that the member account is currently active. For manually invited member
+     * accounts, indicates that the member account accepted the invitation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Removed</code> - Indicates that the administrator account disassociated the member account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Resigned</code> - Indicates that the member account disassociated themselves from the administrator
+     * account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Deleted</code> - Indicates that the administrator account deleted the member account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AccountSuspended</code> - Indicates that an organization account was suspended from Amazon Web Services at
+     * the same time that the administrator account tried to enable the organization account as a member account.
+     * </p>
+     * </li>
+     * </ul>
+     * 
      * @param memberStatus
-     *        The status of the relationship between the member account and its master account.
+     *        The status of the relationship between the member account and its administrator account. </p>
+     *        <p>
+     *        The status can have one of the following values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Created</code> - Indicates that the administrator account added the member account, but has not yet
+     *        invited the member account.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Invited</code> - Indicates that the administrator account invited the member account. The member
+     *        account has not yet responded to the invitation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Enabled</code> - Indicates that the member account is currently active. For manually invited member
+     *        accounts, indicates that the member account accepted the invitation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Removed</code> - Indicates that the administrator account disassociated the member account.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Resigned</code> - Indicates that the member account disassociated themselves from the administrator
+     *        account.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Deleted</code> - Indicates that the administrator account deleted the member account.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AccountSuspended</code> - Indicates that an organization account was suspended from Amazon Web
+     *        Services at the same time that the administrator account tried to enable the organization account as a
+     *        member account.
+     *        </p>
+     *        </li>
      */
 
     public void setMemberStatus(String memberStatus) {
@@ -200,10 +406,100 @@ public class Member implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the relationship between the member account and its master account.
+     * The status of the relationship between the member account and its administrator account.
      * </p>
+     * <p>
+     * The status can have one of the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Created</code> - Indicates that the administrator account added the member account, but has not yet invited
+     * the member account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Invited</code> - Indicates that the administrator account invited the member account. The member account
+     * has not yet responded to the invitation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Enabled</code> - Indicates that the member account is currently active. For manually invited member
+     * accounts, indicates that the member account accepted the invitation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Removed</code> - Indicates that the administrator account disassociated the member account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Resigned</code> - Indicates that the member account disassociated themselves from the administrator
+     * account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Deleted</code> - Indicates that the administrator account deleted the member account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AccountSuspended</code> - Indicates that an organization account was suspended from Amazon Web Services at
+     * the same time that the administrator account tried to enable the organization account as a member account.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The status of the relationship between the member account and its master account.
+     * @return The status of the relationship between the member account and its administrator account. </p>
+     *         <p>
+     *         The status can have one of the following values:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>Created</code> - Indicates that the administrator account added the member account, but has not yet
+     *         invited the member account.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Invited</code> - Indicates that the administrator account invited the member account. The member
+     *         account has not yet responded to the invitation.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Enabled</code> - Indicates that the member account is currently active. For manually invited member
+     *         accounts, indicates that the member account accepted the invitation.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Removed</code> - Indicates that the administrator account disassociated the member account.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Resigned</code> - Indicates that the member account disassociated themselves from the administrator
+     *         account.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Deleted</code> - Indicates that the administrator account deleted the member account.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>AccountSuspended</code> - Indicates that an organization account was suspended from Amazon Web
+     *         Services at the same time that the administrator account tried to enable the organization account as a
+     *         member account.
+     *         </p>
+     *         </li>
      */
 
     public String getMemberStatus() {
@@ -212,11 +508,101 @@ public class Member implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the relationship between the member account and its master account.
+     * The status of the relationship between the member account and its administrator account.
      * </p>
+     * <p>
+     * The status can have one of the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Created</code> - Indicates that the administrator account added the member account, but has not yet invited
+     * the member account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Invited</code> - Indicates that the administrator account invited the member account. The member account
+     * has not yet responded to the invitation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Enabled</code> - Indicates that the member account is currently active. For manually invited member
+     * accounts, indicates that the member account accepted the invitation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Removed</code> - Indicates that the administrator account disassociated the member account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Resigned</code> - Indicates that the member account disassociated themselves from the administrator
+     * account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Deleted</code> - Indicates that the administrator account deleted the member account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AccountSuspended</code> - Indicates that an organization account was suspended from Amazon Web Services at
+     * the same time that the administrator account tried to enable the organization account as a member account.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param memberStatus
-     *        The status of the relationship between the member account and its master account.
+     *        The status of the relationship between the member account and its administrator account. </p>
+     *        <p>
+     *        The status can have one of the following values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Created</code> - Indicates that the administrator account added the member account, but has not yet
+     *        invited the member account.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Invited</code> - Indicates that the administrator account invited the member account. The member
+     *        account has not yet responded to the invitation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Enabled</code> - Indicates that the member account is currently active. For manually invited member
+     *        accounts, indicates that the member account accepted the invitation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Removed</code> - Indicates that the administrator account disassociated the member account.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Resigned</code> - Indicates that the member account disassociated themselves from the administrator
+     *        account.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Deleted</code> - Indicates that the administrator account deleted the member account.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AccountSuspended</code> - Indicates that an organization account was suspended from Amazon Web
+     *        Services at the same time that the administrator account tried to enable the organization account as a
+     *        member account.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -323,6 +709,8 @@ public class Member implements Serializable, Cloneable, StructuredPojo {
             sb.append("Email: ").append(getEmail()).append(",");
         if (getMasterId() != null)
             sb.append("MasterId: ").append(getMasterId()).append(",");
+        if (getAdministratorId() != null)
+            sb.append("AdministratorId: ").append(getAdministratorId()).append(",");
         if (getMemberStatus() != null)
             sb.append("MemberStatus: ").append(getMemberStatus()).append(",");
         if (getInvitedAt() != null)
@@ -355,6 +743,10 @@ public class Member implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getMasterId() != null && other.getMasterId().equals(this.getMasterId()) == false)
             return false;
+        if (other.getAdministratorId() == null ^ this.getAdministratorId() == null)
+            return false;
+        if (other.getAdministratorId() != null && other.getAdministratorId().equals(this.getAdministratorId()) == false)
+            return false;
         if (other.getMemberStatus() == null ^ this.getMemberStatus() == null)
             return false;
         if (other.getMemberStatus() != null && other.getMemberStatus().equals(this.getMemberStatus()) == false)
@@ -378,6 +770,7 @@ public class Member implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getAccountId() == null) ? 0 : getAccountId().hashCode());
         hashCode = prime * hashCode + ((getEmail() == null) ? 0 : getEmail().hashCode());
         hashCode = prime * hashCode + ((getMasterId() == null) ? 0 : getMasterId().hashCode());
+        hashCode = prime * hashCode + ((getAdministratorId() == null) ? 0 : getAdministratorId().hashCode());
         hashCode = prime * hashCode + ((getMemberStatus() == null) ? 0 : getMemberStatus().hashCode());
         hashCode = prime * hashCode + ((getInvitedAt() == null) ? 0 : getInvitedAt().hashCode());
         hashCode = prime * hashCode + ((getUpdatedAt() == null) ? 0 : getUpdatedAt().hashCode());

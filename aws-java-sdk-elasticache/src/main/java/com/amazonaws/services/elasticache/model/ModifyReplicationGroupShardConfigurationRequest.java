@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class ModifyReplicationGroupShardConfigurationRequest extends com.amazona
 
     /**
      * <p>
-     * The name of the Redis (cluster mode enabled) cluster (replication group) on which the shards are to be
+     * The name of the Redis OSS (cluster mode enabled) cluster (replication group) on which the shards are to be
      * configured.
      * </p>
      */
@@ -71,7 +71,7 @@ public class ModifyReplicationGroupShardConfigurationRequest extends com.amazona
      * is a list of <code>NodeGroupId</code>s to remove from the cluster.
      * </p>
      * <p>
-     * ElastiCache for Redis will attempt to remove all node groups listed by <code>NodeGroupsToRemove</code> from the
+     * ElastiCache (Redis OSS) will attempt to remove all node groups listed by <code>NodeGroupsToRemove</code> from the
      * cluster.
      * </p>
      */
@@ -83,7 +83,7 @@ public class ModifyReplicationGroupShardConfigurationRequest extends com.amazona
      * is a list of <code>NodeGroupId</code>s to retain in the cluster.
      * </p>
      * <p>
-     * ElastiCache for Redis will attempt to remove all node groups except those listed by
+     * ElastiCache (Redis OSS) will attempt to remove all node groups except those listed by
      * <code>NodeGroupsToRetain</code> from the cluster.
      * </p>
      */
@@ -91,12 +91,12 @@ public class ModifyReplicationGroupShardConfigurationRequest extends com.amazona
 
     /**
      * <p>
-     * The name of the Redis (cluster mode enabled) cluster (replication group) on which the shards are to be
+     * The name of the Redis OSS (cluster mode enabled) cluster (replication group) on which the shards are to be
      * configured.
      * </p>
      * 
      * @param replicationGroupId
-     *        The name of the Redis (cluster mode enabled) cluster (replication group) on which the shards are to be
+     *        The name of the Redis OSS (cluster mode enabled) cluster (replication group) on which the shards are to be
      *        configured.
      */
 
@@ -106,12 +106,12 @@ public class ModifyReplicationGroupShardConfigurationRequest extends com.amazona
 
     /**
      * <p>
-     * The name of the Redis (cluster mode enabled) cluster (replication group) on which the shards are to be
+     * The name of the Redis OSS (cluster mode enabled) cluster (replication group) on which the shards are to be
      * configured.
      * </p>
      * 
-     * @return The name of the Redis (cluster mode enabled) cluster (replication group) on which the shards are to be
-     *         configured.
+     * @return The name of the Redis OSS (cluster mode enabled) cluster (replication group) on which the shards are to
+     *         be configured.
      */
 
     public String getReplicationGroupId() {
@@ -120,12 +120,12 @@ public class ModifyReplicationGroupShardConfigurationRequest extends com.amazona
 
     /**
      * <p>
-     * The name of the Redis (cluster mode enabled) cluster (replication group) on which the shards are to be
+     * The name of the Redis OSS (cluster mode enabled) cluster (replication group) on which the shards are to be
      * configured.
      * </p>
      * 
      * @param replicationGroupId
-     *        The name of the Redis (cluster mode enabled) cluster (replication group) on which the shards are to be
+     *        The name of the Redis OSS (cluster mode enabled) cluster (replication group) on which the shards are to be
      *        configured.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -387,7 +387,7 @@ public class ModifyReplicationGroupShardConfigurationRequest extends com.amazona
      * is a list of <code>NodeGroupId</code>s to remove from the cluster.
      * </p>
      * <p>
-     * ElastiCache for Redis will attempt to remove all node groups listed by <code>NodeGroupsToRemove</code> from the
+     * ElastiCache (Redis OSS) will attempt to remove all node groups listed by <code>NodeGroupsToRemove</code> from the
      * cluster.
      * </p>
      * 
@@ -395,7 +395,7 @@ public class ModifyReplicationGroupShardConfigurationRequest extends com.amazona
      *         either <code>NodeGroupsToRemove</code> or <code>NodeGroupsToRetain</code> is required.
      *         <code>NodeGroupsToRemove</code> is a list of <code>NodeGroupId</code>s to remove from the cluster.</p>
      *         <p>
-     *         ElastiCache for Redis will attempt to remove all node groups listed by <code>NodeGroupsToRemove</code>
+     *         ElastiCache (Redis OSS) will attempt to remove all node groups listed by <code>NodeGroupsToRemove</code>
      *         from the cluster.
      */
 
@@ -413,7 +413,7 @@ public class ModifyReplicationGroupShardConfigurationRequest extends com.amazona
      * is a list of <code>NodeGroupId</code>s to remove from the cluster.
      * </p>
      * <p>
-     * ElastiCache for Redis will attempt to remove all node groups listed by <code>NodeGroupsToRemove</code> from the
+     * ElastiCache (Redis OSS) will attempt to remove all node groups listed by <code>NodeGroupsToRemove</code> from the
      * cluster.
      * </p>
      * 
@@ -422,7 +422,7 @@ public class ModifyReplicationGroupShardConfigurationRequest extends com.amazona
      *        either <code>NodeGroupsToRemove</code> or <code>NodeGroupsToRetain</code> is required.
      *        <code>NodeGroupsToRemove</code> is a list of <code>NodeGroupId</code>s to remove from the cluster.</p>
      *        <p>
-     *        ElastiCache for Redis will attempt to remove all node groups listed by <code>NodeGroupsToRemove</code>
+     *        ElastiCache (Redis OSS) will attempt to remove all node groups listed by <code>NodeGroupsToRemove</code>
      *        from the cluster.
      */
 
@@ -442,7 +442,7 @@ public class ModifyReplicationGroupShardConfigurationRequest extends com.amazona
      * is a list of <code>NodeGroupId</code>s to remove from the cluster.
      * </p>
      * <p>
-     * ElastiCache for Redis will attempt to remove all node groups listed by <code>NodeGroupsToRemove</code> from the
+     * ElastiCache (Redis OSS) will attempt to remove all node groups listed by <code>NodeGroupsToRemove</code> from the
      * cluster.
      * </p>
      * <p>
@@ -456,7 +456,7 @@ public class ModifyReplicationGroupShardConfigurationRequest extends com.amazona
      *        either <code>NodeGroupsToRemove</code> or <code>NodeGroupsToRetain</code> is required.
      *        <code>NodeGroupsToRemove</code> is a list of <code>NodeGroupId</code>s to remove from the cluster.</p>
      *        <p>
-     *        ElastiCache for Redis will attempt to remove all node groups listed by <code>NodeGroupsToRemove</code>
+     *        ElastiCache (Redis OSS) will attempt to remove all node groups listed by <code>NodeGroupsToRemove</code>
      *        from the cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -478,7 +478,7 @@ public class ModifyReplicationGroupShardConfigurationRequest extends com.amazona
      * is a list of <code>NodeGroupId</code>s to remove from the cluster.
      * </p>
      * <p>
-     * ElastiCache for Redis will attempt to remove all node groups listed by <code>NodeGroupsToRemove</code> from the
+     * ElastiCache (Redis OSS) will attempt to remove all node groups listed by <code>NodeGroupsToRemove</code> from the
      * cluster.
      * </p>
      * 
@@ -487,7 +487,7 @@ public class ModifyReplicationGroupShardConfigurationRequest extends com.amazona
      *        either <code>NodeGroupsToRemove</code> or <code>NodeGroupsToRetain</code> is required.
      *        <code>NodeGroupsToRemove</code> is a list of <code>NodeGroupId</code>s to remove from the cluster.</p>
      *        <p>
-     *        ElastiCache for Redis will attempt to remove all node groups listed by <code>NodeGroupsToRemove</code>
+     *        ElastiCache (Redis OSS) will attempt to remove all node groups listed by <code>NodeGroupsToRemove</code>
      *        from the cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -504,7 +504,7 @@ public class ModifyReplicationGroupShardConfigurationRequest extends com.amazona
      * is a list of <code>NodeGroupId</code>s to retain in the cluster.
      * </p>
      * <p>
-     * ElastiCache for Redis will attempt to remove all node groups except those listed by
+     * ElastiCache (Redis OSS) will attempt to remove all node groups except those listed by
      * <code>NodeGroupsToRetain</code> from the cluster.
      * </p>
      * 
@@ -512,7 +512,7 @@ public class ModifyReplicationGroupShardConfigurationRequest extends com.amazona
      *         either <code>NodeGroupsToRemove</code> or <code>NodeGroupsToRetain</code> is required.
      *         <code>NodeGroupsToRetain</code> is a list of <code>NodeGroupId</code>s to retain in the cluster.</p>
      *         <p>
-     *         ElastiCache for Redis will attempt to remove all node groups except those listed by
+     *         ElastiCache (Redis OSS) will attempt to remove all node groups except those listed by
      *         <code>NodeGroupsToRetain</code> from the cluster.
      */
 
@@ -530,7 +530,7 @@ public class ModifyReplicationGroupShardConfigurationRequest extends com.amazona
      * is a list of <code>NodeGroupId</code>s to retain in the cluster.
      * </p>
      * <p>
-     * ElastiCache for Redis will attempt to remove all node groups except those listed by
+     * ElastiCache (Redis OSS) will attempt to remove all node groups except those listed by
      * <code>NodeGroupsToRetain</code> from the cluster.
      * </p>
      * 
@@ -539,7 +539,7 @@ public class ModifyReplicationGroupShardConfigurationRequest extends com.amazona
      *        either <code>NodeGroupsToRemove</code> or <code>NodeGroupsToRetain</code> is required.
      *        <code>NodeGroupsToRetain</code> is a list of <code>NodeGroupId</code>s to retain in the cluster.</p>
      *        <p>
-     *        ElastiCache for Redis will attempt to remove all node groups except those listed by
+     *        ElastiCache (Redis OSS) will attempt to remove all node groups except those listed by
      *        <code>NodeGroupsToRetain</code> from the cluster.
      */
 
@@ -559,7 +559,7 @@ public class ModifyReplicationGroupShardConfigurationRequest extends com.amazona
      * is a list of <code>NodeGroupId</code>s to retain in the cluster.
      * </p>
      * <p>
-     * ElastiCache for Redis will attempt to remove all node groups except those listed by
+     * ElastiCache (Redis OSS) will attempt to remove all node groups except those listed by
      * <code>NodeGroupsToRetain</code> from the cluster.
      * </p>
      * <p>
@@ -573,7 +573,7 @@ public class ModifyReplicationGroupShardConfigurationRequest extends com.amazona
      *        either <code>NodeGroupsToRemove</code> or <code>NodeGroupsToRetain</code> is required.
      *        <code>NodeGroupsToRetain</code> is a list of <code>NodeGroupId</code>s to retain in the cluster.</p>
      *        <p>
-     *        ElastiCache for Redis will attempt to remove all node groups except those listed by
+     *        ElastiCache (Redis OSS) will attempt to remove all node groups except those listed by
      *        <code>NodeGroupsToRetain</code> from the cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -595,7 +595,7 @@ public class ModifyReplicationGroupShardConfigurationRequest extends com.amazona
      * is a list of <code>NodeGroupId</code>s to retain in the cluster.
      * </p>
      * <p>
-     * ElastiCache for Redis will attempt to remove all node groups except those listed by
+     * ElastiCache (Redis OSS) will attempt to remove all node groups except those listed by
      * <code>NodeGroupsToRetain</code> from the cluster.
      * </p>
      * 
@@ -604,7 +604,7 @@ public class ModifyReplicationGroupShardConfigurationRequest extends com.amazona
      *        either <code>NodeGroupsToRemove</code> or <code>NodeGroupsToRetain</code> is required.
      *        <code>NodeGroupsToRetain</code> is a list of <code>NodeGroupId</code>s to retain in the cluster.</p>
      *        <p>
-     *        ElastiCache for Redis will attempt to remove all node groups except those listed by
+     *        ElastiCache (Redis OSS) will attempt to remove all node groups except those listed by
      *        <code>NodeGroupsToRetain</code> from the cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

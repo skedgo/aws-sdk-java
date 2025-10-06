@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -94,8 +94,21 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
     private CloudwatchAlarmAction cloudwatchAlarm;
     /**
      * <p>
-     * Write data to an Amazon Elasticsearch Service domain.
+     * Send data to CloudWatch Logs.
      * </p>
+     */
+    private CloudwatchLogsAction cloudwatchLogs;
+    /**
+     * <p>
+     * Write data to an Amazon OpenSearch Service domain.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>Elasticsearch</code> action can only be used by existing rule actions. To create a new rule action or
+     * to update an existing rule action, use the <code>OpenSearch</code> rule action instead. For more information, see
+     * <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_OpenSearchAction.html">OpenSearchAction</a>.
+     * </p>
+     * </note>
      */
     private ElasticsearchAction elasticsearch;
     /**
@@ -106,22 +119,62 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
     private SalesforceAction salesforce;
     /**
      * <p>
-     * Sends message data to an AWS IoT Analytics channel.
+     * Sends message data to an IoT Analytics channel.
      * </p>
      */
     private IotAnalyticsAction iotAnalytics;
     /**
      * <p>
-     * Sends an input to an AWS IoT Events detector.
+     * Sends an input to an IoT Events detector.
      * </p>
      */
     private IotEventsAction iotEvents;
+    /**
+     * <p>
+     * Sends data from the MQTT message that triggered the rule to IoT SiteWise asset properties.
+     * </p>
+     */
+    private IotSiteWiseAction iotSiteWise;
     /**
      * <p>
      * Starts execution of a Step Functions state machine.
      * </p>
      */
     private StepFunctionsAction stepFunctions;
+    /**
+     * <p>
+     * The Timestream rule action writes attributes (measures) from an MQTT message into an Amazon Timestream table. For
+     * more information, see the <a
+     * href="https://docs.aws.amazon.com/iot/latest/developerguide/timestream-rule-action.html">Timestream</a> topic
+     * rule action documentation.
+     * </p>
+     */
+    private TimestreamAction timestream;
+    /**
+     * <p>
+     * Send data to an HTTPS endpoint.
+     * </p>
+     */
+    private HttpAction http;
+    /**
+     * <p>
+     * Send messages to an Amazon Managed Streaming for Apache Kafka (Amazon MSK) or self-managed Apache Kafka cluster.
+     * </p>
+     */
+    private KafkaAction kafka;
+    /**
+     * <p>
+     * Write data to an Amazon OpenSearch Service domain.
+     * </p>
+     */
+    private OpenSearchAction openSearch;
+    /**
+     * <p>
+     * The Amazon Location Service rule action sends device location updates from an MQTT message to an Amazon Location
+     * tracker resource.
+     * </p>
+     */
+    private LocationAction location;
 
     /**
      * <p>
@@ -571,11 +624,64 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Write data to an Amazon Elasticsearch Service domain.
+     * Send data to CloudWatch Logs.
      * </p>
      * 
+     * @param cloudwatchLogs
+     *        Send data to CloudWatch Logs.
+     */
+
+    public void setCloudwatchLogs(CloudwatchLogsAction cloudwatchLogs) {
+        this.cloudwatchLogs = cloudwatchLogs;
+    }
+
+    /**
+     * <p>
+     * Send data to CloudWatch Logs.
+     * </p>
+     * 
+     * @return Send data to CloudWatch Logs.
+     */
+
+    public CloudwatchLogsAction getCloudwatchLogs() {
+        return this.cloudwatchLogs;
+    }
+
+    /**
+     * <p>
+     * Send data to CloudWatch Logs.
+     * </p>
+     * 
+     * @param cloudwatchLogs
+     *        Send data to CloudWatch Logs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Action withCloudwatchLogs(CloudwatchLogsAction cloudwatchLogs) {
+        setCloudwatchLogs(cloudwatchLogs);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Write data to an Amazon OpenSearch Service domain.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>Elasticsearch</code> action can only be used by existing rule actions. To create a new rule action or
+     * to update an existing rule action, use the <code>OpenSearch</code> rule action instead. For more information, see
+     * <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_OpenSearchAction.html">OpenSearchAction</a>.
+     * </p>
+     * </note>
+     * 
      * @param elasticsearch
-     *        Write data to an Amazon Elasticsearch Service domain.
+     *        Write data to an Amazon OpenSearch Service domain.</p> <note>
+     *        <p>
+     *        The <code>Elasticsearch</code> action can only be used by existing rule actions. To create a new rule
+     *        action or to update an existing rule action, use the <code>OpenSearch</code> rule action instead. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/iot/latest/apireference/API_OpenSearchAction.html">OpenSearchAction</a>.
+     *        </p>
      */
 
     public void setElasticsearch(ElasticsearchAction elasticsearch) {
@@ -584,10 +690,24 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Write data to an Amazon Elasticsearch Service domain.
+     * Write data to an Amazon OpenSearch Service domain.
      * </p>
+     * <note>
+     * <p>
+     * The <code>Elasticsearch</code> action can only be used by existing rule actions. To create a new rule action or
+     * to update an existing rule action, use the <code>OpenSearch</code> rule action instead. For more information, see
+     * <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_OpenSearchAction.html">OpenSearchAction</a>.
+     * </p>
+     * </note>
      * 
-     * @return Write data to an Amazon Elasticsearch Service domain.
+     * @return Write data to an Amazon OpenSearch Service domain.</p> <note>
+     *         <p>
+     *         The <code>Elasticsearch</code> action can only be used by existing rule actions. To create a new rule
+     *         action or to update an existing rule action, use the <code>OpenSearch</code> rule action instead. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/iot/latest/apireference/API_OpenSearchAction.html"
+     *         >OpenSearchAction</a>.
+     *         </p>
      */
 
     public ElasticsearchAction getElasticsearch() {
@@ -596,11 +716,24 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Write data to an Amazon Elasticsearch Service domain.
+     * Write data to an Amazon OpenSearch Service domain.
      * </p>
+     * <note>
+     * <p>
+     * The <code>Elasticsearch</code> action can only be used by existing rule actions. To create a new rule action or
+     * to update an existing rule action, use the <code>OpenSearch</code> rule action instead. For more information, see
+     * <a href="https://docs.aws.amazon.com/iot/latest/apireference/API_OpenSearchAction.html">OpenSearchAction</a>.
+     * </p>
+     * </note>
      * 
      * @param elasticsearch
-     *        Write data to an Amazon Elasticsearch Service domain.
+     *        Write data to an Amazon OpenSearch Service domain.</p> <note>
+     *        <p>
+     *        The <code>Elasticsearch</code> action can only be used by existing rule actions. To create a new rule
+     *        action or to update an existing rule action, use the <code>OpenSearch</code> rule action instead. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/iot/latest/apireference/API_OpenSearchAction.html">OpenSearchAction</a>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -651,11 +784,11 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Sends message data to an AWS IoT Analytics channel.
+     * Sends message data to an IoT Analytics channel.
      * </p>
      * 
      * @param iotAnalytics
-     *        Sends message data to an AWS IoT Analytics channel.
+     *        Sends message data to an IoT Analytics channel.
      */
 
     public void setIotAnalytics(IotAnalyticsAction iotAnalytics) {
@@ -664,10 +797,10 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Sends message data to an AWS IoT Analytics channel.
+     * Sends message data to an IoT Analytics channel.
      * </p>
      * 
-     * @return Sends message data to an AWS IoT Analytics channel.
+     * @return Sends message data to an IoT Analytics channel.
      */
 
     public IotAnalyticsAction getIotAnalytics() {
@@ -676,11 +809,11 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Sends message data to an AWS IoT Analytics channel.
+     * Sends message data to an IoT Analytics channel.
      * </p>
      * 
      * @param iotAnalytics
-     *        Sends message data to an AWS IoT Analytics channel.
+     *        Sends message data to an IoT Analytics channel.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -691,11 +824,11 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Sends an input to an AWS IoT Events detector.
+     * Sends an input to an IoT Events detector.
      * </p>
      * 
      * @param iotEvents
-     *        Sends an input to an AWS IoT Events detector.
+     *        Sends an input to an IoT Events detector.
      */
 
     public void setIotEvents(IotEventsAction iotEvents) {
@@ -704,10 +837,10 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Sends an input to an AWS IoT Events detector.
+     * Sends an input to an IoT Events detector.
      * </p>
      * 
-     * @return Sends an input to an AWS IoT Events detector.
+     * @return Sends an input to an IoT Events detector.
      */
 
     public IotEventsAction getIotEvents() {
@@ -716,16 +849,56 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Sends an input to an AWS IoT Events detector.
+     * Sends an input to an IoT Events detector.
      * </p>
      * 
      * @param iotEvents
-     *        Sends an input to an AWS IoT Events detector.
+     *        Sends an input to an IoT Events detector.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Action withIotEvents(IotEventsAction iotEvents) {
         setIotEvents(iotEvents);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Sends data from the MQTT message that triggered the rule to IoT SiteWise asset properties.
+     * </p>
+     * 
+     * @param iotSiteWise
+     *        Sends data from the MQTT message that triggered the rule to IoT SiteWise asset properties.
+     */
+
+    public void setIotSiteWise(IotSiteWiseAction iotSiteWise) {
+        this.iotSiteWise = iotSiteWise;
+    }
+
+    /**
+     * <p>
+     * Sends data from the MQTT message that triggered the rule to IoT SiteWise asset properties.
+     * </p>
+     * 
+     * @return Sends data from the MQTT message that triggered the rule to IoT SiteWise asset properties.
+     */
+
+    public IotSiteWiseAction getIotSiteWise() {
+        return this.iotSiteWise;
+    }
+
+    /**
+     * <p>
+     * Sends data from the MQTT message that triggered the rule to IoT SiteWise asset properties.
+     * </p>
+     * 
+     * @param iotSiteWise
+     *        Sends data from the MQTT message that triggered the rule to IoT SiteWise asset properties.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Action withIotSiteWise(IotSiteWiseAction iotSiteWise) {
+        setIotSiteWise(iotSiteWise);
         return this;
     }
 
@@ -770,6 +943,233 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The Timestream rule action writes attributes (measures) from an MQTT message into an Amazon Timestream table. For
+     * more information, see the <a
+     * href="https://docs.aws.amazon.com/iot/latest/developerguide/timestream-rule-action.html">Timestream</a> topic
+     * rule action documentation.
+     * </p>
+     * 
+     * @param timestream
+     *        The Timestream rule action writes attributes (measures) from an MQTT message into an Amazon Timestream
+     *        table. For more information, see the <a
+     *        href="https://docs.aws.amazon.com/iot/latest/developerguide/timestream-rule-action.html">Timestream</a>
+     *        topic rule action documentation.
+     */
+
+    public void setTimestream(TimestreamAction timestream) {
+        this.timestream = timestream;
+    }
+
+    /**
+     * <p>
+     * The Timestream rule action writes attributes (measures) from an MQTT message into an Amazon Timestream table. For
+     * more information, see the <a
+     * href="https://docs.aws.amazon.com/iot/latest/developerguide/timestream-rule-action.html">Timestream</a> topic
+     * rule action documentation.
+     * </p>
+     * 
+     * @return The Timestream rule action writes attributes (measures) from an MQTT message into an Amazon Timestream
+     *         table. For more information, see the <a
+     *         href="https://docs.aws.amazon.com/iot/latest/developerguide/timestream-rule-action.html">Timestream</a>
+     *         topic rule action documentation.
+     */
+
+    public TimestreamAction getTimestream() {
+        return this.timestream;
+    }
+
+    /**
+     * <p>
+     * The Timestream rule action writes attributes (measures) from an MQTT message into an Amazon Timestream table. For
+     * more information, see the <a
+     * href="https://docs.aws.amazon.com/iot/latest/developerguide/timestream-rule-action.html">Timestream</a> topic
+     * rule action documentation.
+     * </p>
+     * 
+     * @param timestream
+     *        The Timestream rule action writes attributes (measures) from an MQTT message into an Amazon Timestream
+     *        table. For more information, see the <a
+     *        href="https://docs.aws.amazon.com/iot/latest/developerguide/timestream-rule-action.html">Timestream</a>
+     *        topic rule action documentation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Action withTimestream(TimestreamAction timestream) {
+        setTimestream(timestream);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Send data to an HTTPS endpoint.
+     * </p>
+     * 
+     * @param http
+     *        Send data to an HTTPS endpoint.
+     */
+
+    public void setHttp(HttpAction http) {
+        this.http = http;
+    }
+
+    /**
+     * <p>
+     * Send data to an HTTPS endpoint.
+     * </p>
+     * 
+     * @return Send data to an HTTPS endpoint.
+     */
+
+    public HttpAction getHttp() {
+        return this.http;
+    }
+
+    /**
+     * <p>
+     * Send data to an HTTPS endpoint.
+     * </p>
+     * 
+     * @param http
+     *        Send data to an HTTPS endpoint.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Action withHttp(HttpAction http) {
+        setHttp(http);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Send messages to an Amazon Managed Streaming for Apache Kafka (Amazon MSK) or self-managed Apache Kafka cluster.
+     * </p>
+     * 
+     * @param kafka
+     *        Send messages to an Amazon Managed Streaming for Apache Kafka (Amazon MSK) or self-managed Apache Kafka
+     *        cluster.
+     */
+
+    public void setKafka(KafkaAction kafka) {
+        this.kafka = kafka;
+    }
+
+    /**
+     * <p>
+     * Send messages to an Amazon Managed Streaming for Apache Kafka (Amazon MSK) or self-managed Apache Kafka cluster.
+     * </p>
+     * 
+     * @return Send messages to an Amazon Managed Streaming for Apache Kafka (Amazon MSK) or self-managed Apache Kafka
+     *         cluster.
+     */
+
+    public KafkaAction getKafka() {
+        return this.kafka;
+    }
+
+    /**
+     * <p>
+     * Send messages to an Amazon Managed Streaming for Apache Kafka (Amazon MSK) or self-managed Apache Kafka cluster.
+     * </p>
+     * 
+     * @param kafka
+     *        Send messages to an Amazon Managed Streaming for Apache Kafka (Amazon MSK) or self-managed Apache Kafka
+     *        cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Action withKafka(KafkaAction kafka) {
+        setKafka(kafka);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Write data to an Amazon OpenSearch Service domain.
+     * </p>
+     * 
+     * @param openSearch
+     *        Write data to an Amazon OpenSearch Service domain.
+     */
+
+    public void setOpenSearch(OpenSearchAction openSearch) {
+        this.openSearch = openSearch;
+    }
+
+    /**
+     * <p>
+     * Write data to an Amazon OpenSearch Service domain.
+     * </p>
+     * 
+     * @return Write data to an Amazon OpenSearch Service domain.
+     */
+
+    public OpenSearchAction getOpenSearch() {
+        return this.openSearch;
+    }
+
+    /**
+     * <p>
+     * Write data to an Amazon OpenSearch Service domain.
+     * </p>
+     * 
+     * @param openSearch
+     *        Write data to an Amazon OpenSearch Service domain.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Action withOpenSearch(OpenSearchAction openSearch) {
+        setOpenSearch(openSearch);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Location Service rule action sends device location updates from an MQTT message to an Amazon Location
+     * tracker resource.
+     * </p>
+     * 
+     * @param location
+     *        The Amazon Location Service rule action sends device location updates from an MQTT message to an Amazon
+     *        Location tracker resource.
+     */
+
+    public void setLocation(LocationAction location) {
+        this.location = location;
+    }
+
+    /**
+     * <p>
+     * The Amazon Location Service rule action sends device location updates from an MQTT message to an Amazon Location
+     * tracker resource.
+     * </p>
+     * 
+     * @return The Amazon Location Service rule action sends device location updates from an MQTT message to an Amazon
+     *         Location tracker resource.
+     */
+
+    public LocationAction getLocation() {
+        return this.location;
+    }
+
+    /**
+     * <p>
+     * The Amazon Location Service rule action sends device location updates from an MQTT message to an Amazon Location
+     * tracker resource.
+     * </p>
+     * 
+     * @param location
+     *        The Amazon Location Service rule action sends device location updates from an MQTT message to an Amazon
+     *        Location tracker resource.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Action withLocation(LocationAction location) {
+        setLocation(location);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -803,6 +1203,8 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
             sb.append("CloudwatchMetric: ").append(getCloudwatchMetric()).append(",");
         if (getCloudwatchAlarm() != null)
             sb.append("CloudwatchAlarm: ").append(getCloudwatchAlarm()).append(",");
+        if (getCloudwatchLogs() != null)
+            sb.append("CloudwatchLogs: ").append(getCloudwatchLogs()).append(",");
         if (getElasticsearch() != null)
             sb.append("Elasticsearch: ").append(getElasticsearch()).append(",");
         if (getSalesforce() != null)
@@ -811,8 +1213,20 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
             sb.append("IotAnalytics: ").append(getIotAnalytics()).append(",");
         if (getIotEvents() != null)
             sb.append("IotEvents: ").append(getIotEvents()).append(",");
+        if (getIotSiteWise() != null)
+            sb.append("IotSiteWise: ").append(getIotSiteWise()).append(",");
         if (getStepFunctions() != null)
-            sb.append("StepFunctions: ").append(getStepFunctions());
+            sb.append("StepFunctions: ").append(getStepFunctions()).append(",");
+        if (getTimestream() != null)
+            sb.append("Timestream: ").append(getTimestream()).append(",");
+        if (getHttp() != null)
+            sb.append("Http: ").append(getHttp()).append(",");
+        if (getKafka() != null)
+            sb.append("Kafka: ").append(getKafka()).append(",");
+        if (getOpenSearch() != null)
+            sb.append("OpenSearch: ").append(getOpenSearch()).append(",");
+        if (getLocation() != null)
+            sb.append("Location: ").append(getLocation());
         sb.append("}");
         return sb.toString();
     }
@@ -871,6 +1285,10 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getCloudwatchAlarm() != null && other.getCloudwatchAlarm().equals(this.getCloudwatchAlarm()) == false)
             return false;
+        if (other.getCloudwatchLogs() == null ^ this.getCloudwatchLogs() == null)
+            return false;
+        if (other.getCloudwatchLogs() != null && other.getCloudwatchLogs().equals(this.getCloudwatchLogs()) == false)
+            return false;
         if (other.getElasticsearch() == null ^ this.getElasticsearch() == null)
             return false;
         if (other.getElasticsearch() != null && other.getElasticsearch().equals(this.getElasticsearch()) == false)
@@ -887,9 +1305,33 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getIotEvents() != null && other.getIotEvents().equals(this.getIotEvents()) == false)
             return false;
+        if (other.getIotSiteWise() == null ^ this.getIotSiteWise() == null)
+            return false;
+        if (other.getIotSiteWise() != null && other.getIotSiteWise().equals(this.getIotSiteWise()) == false)
+            return false;
         if (other.getStepFunctions() == null ^ this.getStepFunctions() == null)
             return false;
         if (other.getStepFunctions() != null && other.getStepFunctions().equals(this.getStepFunctions()) == false)
+            return false;
+        if (other.getTimestream() == null ^ this.getTimestream() == null)
+            return false;
+        if (other.getTimestream() != null && other.getTimestream().equals(this.getTimestream()) == false)
+            return false;
+        if (other.getHttp() == null ^ this.getHttp() == null)
+            return false;
+        if (other.getHttp() != null && other.getHttp().equals(this.getHttp()) == false)
+            return false;
+        if (other.getKafka() == null ^ this.getKafka() == null)
+            return false;
+        if (other.getKafka() != null && other.getKafka().equals(this.getKafka()) == false)
+            return false;
+        if (other.getOpenSearch() == null ^ this.getOpenSearch() == null)
+            return false;
+        if (other.getOpenSearch() != null && other.getOpenSearch().equals(this.getOpenSearch()) == false)
+            return false;
+        if (other.getLocation() == null ^ this.getLocation() == null)
+            return false;
+        if (other.getLocation() != null && other.getLocation().equals(this.getLocation()) == false)
             return false;
         return true;
     }
@@ -910,11 +1352,18 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getFirehose() == null) ? 0 : getFirehose().hashCode());
         hashCode = prime * hashCode + ((getCloudwatchMetric() == null) ? 0 : getCloudwatchMetric().hashCode());
         hashCode = prime * hashCode + ((getCloudwatchAlarm() == null) ? 0 : getCloudwatchAlarm().hashCode());
+        hashCode = prime * hashCode + ((getCloudwatchLogs() == null) ? 0 : getCloudwatchLogs().hashCode());
         hashCode = prime * hashCode + ((getElasticsearch() == null) ? 0 : getElasticsearch().hashCode());
         hashCode = prime * hashCode + ((getSalesforce() == null) ? 0 : getSalesforce().hashCode());
         hashCode = prime * hashCode + ((getIotAnalytics() == null) ? 0 : getIotAnalytics().hashCode());
         hashCode = prime * hashCode + ((getIotEvents() == null) ? 0 : getIotEvents().hashCode());
+        hashCode = prime * hashCode + ((getIotSiteWise() == null) ? 0 : getIotSiteWise().hashCode());
         hashCode = prime * hashCode + ((getStepFunctions() == null) ? 0 : getStepFunctions().hashCode());
+        hashCode = prime * hashCode + ((getTimestream() == null) ? 0 : getTimestream().hashCode());
+        hashCode = prime * hashCode + ((getHttp() == null) ? 0 : getHttp().hashCode());
+        hashCode = prime * hashCode + ((getKafka() == null) ? 0 : getKafka().hashCode());
+        hashCode = prime * hashCode + ((getOpenSearch() == null) ? 0 : getOpenSearch().hashCode());
+        hashCode = prime * hashCode + ((getLocation() == null) ? 0 : getLocation().hashCode());
         return hashCode;
     }
 

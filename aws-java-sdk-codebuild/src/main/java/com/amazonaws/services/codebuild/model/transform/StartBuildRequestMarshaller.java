@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -58,6 +58,8 @@ public class StartBuildRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("insecureSslOverride").build();
     private static final MarshallingInfo<Boolean> REPORTBUILDSTATUSOVERRIDE_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("reportBuildStatusOverride").build();
+    private static final MarshallingInfo<StructuredPojo> BUILDSTATUSCONFIGOVERRIDE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("buildStatusConfigOverride").build();
     private static final MarshallingInfo<String> ENVIRONMENTTYPEOVERRIDE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("environmentTypeOverride").build();
     private static final MarshallingInfo<String> IMAGEOVERRIDE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -76,6 +78,8 @@ public class StartBuildRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("timeoutInMinutesOverride").build();
     private static final MarshallingInfo<Integer> QUEUEDTIMEOUTINMINUTESOVERRIDE_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("queuedTimeoutInMinutesOverride").build();
+    private static final MarshallingInfo<String> ENCRYPTIONKEYOVERRIDE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("encryptionKeyOverride").build();
     private static final MarshallingInfo<String> IDEMPOTENCYTOKEN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("idempotencyToken").build();
     private static final MarshallingInfo<StructuredPojo> LOGSCONFIGOVERRIDE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
@@ -84,6 +88,10 @@ public class StartBuildRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("registryCredentialOverride").build();
     private static final MarshallingInfo<String> IMAGEPULLCREDENTIALSTYPEOVERRIDE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("imagePullCredentialsTypeOverride").build();
+    private static final MarshallingInfo<Boolean> DEBUGSESSIONENABLED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("debugSessionEnabled").build();
+    private static final MarshallingInfo<StructuredPojo> FLEETOVERRIDE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("fleetOverride").build();
 
     private static final StartBuildRequestMarshaller instance = new StartBuildRequestMarshaller();
 
@@ -116,6 +124,7 @@ public class StartBuildRequestMarshaller {
             protocolMarshaller.marshall(startBuildRequest.getBuildspecOverride(), BUILDSPECOVERRIDE_BINDING);
             protocolMarshaller.marshall(startBuildRequest.getInsecureSslOverride(), INSECURESSLOVERRIDE_BINDING);
             protocolMarshaller.marshall(startBuildRequest.getReportBuildStatusOverride(), REPORTBUILDSTATUSOVERRIDE_BINDING);
+            protocolMarshaller.marshall(startBuildRequest.getBuildStatusConfigOverride(), BUILDSTATUSCONFIGOVERRIDE_BINDING);
             protocolMarshaller.marshall(startBuildRequest.getEnvironmentTypeOverride(), ENVIRONMENTTYPEOVERRIDE_BINDING);
             protocolMarshaller.marshall(startBuildRequest.getImageOverride(), IMAGEOVERRIDE_BINDING);
             protocolMarshaller.marshall(startBuildRequest.getComputeTypeOverride(), COMPUTETYPEOVERRIDE_BINDING);
@@ -125,10 +134,13 @@ public class StartBuildRequestMarshaller {
             protocolMarshaller.marshall(startBuildRequest.getPrivilegedModeOverride(), PRIVILEGEDMODEOVERRIDE_BINDING);
             protocolMarshaller.marshall(startBuildRequest.getTimeoutInMinutesOverride(), TIMEOUTINMINUTESOVERRIDE_BINDING);
             protocolMarshaller.marshall(startBuildRequest.getQueuedTimeoutInMinutesOverride(), QUEUEDTIMEOUTINMINUTESOVERRIDE_BINDING);
+            protocolMarshaller.marshall(startBuildRequest.getEncryptionKeyOverride(), ENCRYPTIONKEYOVERRIDE_BINDING);
             protocolMarshaller.marshall(startBuildRequest.getIdempotencyToken(), IDEMPOTENCYTOKEN_BINDING);
             protocolMarshaller.marshall(startBuildRequest.getLogsConfigOverride(), LOGSCONFIGOVERRIDE_BINDING);
             protocolMarshaller.marshall(startBuildRequest.getRegistryCredentialOverride(), REGISTRYCREDENTIALOVERRIDE_BINDING);
             protocolMarshaller.marshall(startBuildRequest.getImagePullCredentialsTypeOverride(), IMAGEPULLCREDENTIALSTYPEOVERRIDE_BINDING);
+            protocolMarshaller.marshall(startBuildRequest.getDebugSessionEnabled(), DEBUGSESSIONENABLED_BINDING);
+            protocolMarshaller.marshall(startBuildRequest.getFleetOverride(), FLEETOVERRIDE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

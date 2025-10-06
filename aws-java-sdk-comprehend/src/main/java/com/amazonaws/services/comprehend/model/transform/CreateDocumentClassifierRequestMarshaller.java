@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,6 +32,8 @@ public class CreateDocumentClassifierRequestMarshaller {
 
     private static final MarshallingInfo<String> DOCUMENTCLASSIFIERNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DocumentClassifierName").build();
+    private static final MarshallingInfo<String> VERSIONNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VersionName").build();
     private static final MarshallingInfo<String> DATAACCESSROLEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DataAccessRoleArn").build();
     private static final MarshallingInfo<List> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
@@ -49,6 +51,12 @@ public class CreateDocumentClassifierRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VolumeKmsKeyId").build();
     private static final MarshallingInfo<StructuredPojo> VPCCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VpcConfig").build();
+    private static final MarshallingInfo<String> MODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Mode").build();
+    private static final MarshallingInfo<String> MODELKMSKEYID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ModelKmsKeyId").build();
+    private static final MarshallingInfo<String> MODELPOLICY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ModelPolicy").build();
 
     private static final CreateDocumentClassifierRequestMarshaller instance = new CreateDocumentClassifierRequestMarshaller();
 
@@ -67,6 +75,7 @@ public class CreateDocumentClassifierRequestMarshaller {
 
         try {
             protocolMarshaller.marshall(createDocumentClassifierRequest.getDocumentClassifierName(), DOCUMENTCLASSIFIERNAME_BINDING);
+            protocolMarshaller.marshall(createDocumentClassifierRequest.getVersionName(), VERSIONNAME_BINDING);
             protocolMarshaller.marshall(createDocumentClassifierRequest.getDataAccessRoleArn(), DATAACCESSROLEARN_BINDING);
             protocolMarshaller.marshall(createDocumentClassifierRequest.getTags(), TAGS_BINDING);
             protocolMarshaller.marshall(createDocumentClassifierRequest.getInputDataConfig(), INPUTDATACONFIG_BINDING);
@@ -75,6 +84,9 @@ public class CreateDocumentClassifierRequestMarshaller {
             protocolMarshaller.marshall(createDocumentClassifierRequest.getLanguageCode(), LANGUAGECODE_BINDING);
             protocolMarshaller.marshall(createDocumentClassifierRequest.getVolumeKmsKeyId(), VOLUMEKMSKEYID_BINDING);
             protocolMarshaller.marshall(createDocumentClassifierRequest.getVpcConfig(), VPCCONFIG_BINDING);
+            protocolMarshaller.marshall(createDocumentClassifierRequest.getMode(), MODE_BINDING);
+            protocolMarshaller.marshall(createDocumentClassifierRequest.getModelKmsKeyId(), MODELKMSKEYID_BINDING);
+            protocolMarshaller.marshall(createDocumentClassifierRequest.getModelPolicy(), MODELPOLICY_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

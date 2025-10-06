@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -245,6 +245,8 @@ public class CopyCallable implements Callable<CopyResult> {
            .withObjectLockLegalHoldStatus(origReq.getObjectLockLegalHoldStatus())
            .withObjectLockRetainUntilDate(origReq.getObjectLockRetainUntilDate());
 
+        req.withRequestCredentialsProvider(origReq.getRequestCredentialsProvider());
+
         String uploadId = s3.initiateMultipartUpload(req).getUploadId();
         log.debug("Initiated new multipart upload: " + uploadId);
 
@@ -283,7 +285,8 @@ public class CopyCallable implements Callable<CopyResult> {
             AbortMultipartUploadRequest abortRequest = new AbortMultipartUploadRequest(
                     copyObjectRequest.getDestinationBucketName(),
                     copyObjectRequest.getDestinationKey(), multipartUploadId)
-                    .withRequesterPays(copyObjectRequest.isRequesterPays());
+                    .withRequesterPays(copyObjectRequest.isRequesterPays())
+                    .withRequestCredentialsProvider(copyObjectRequest.getRequestCredentialsProvider());
             s3.abortMultipartUpload(abortRequest);
         } catch (Exception e) {
             log.info(

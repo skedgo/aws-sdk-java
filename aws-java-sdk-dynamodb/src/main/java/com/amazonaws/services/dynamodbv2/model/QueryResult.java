@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,7 +52,7 @@ public class QueryResult extends com.amazonaws.AmazonWebServiceResult<com.amazon
      * The number of items evaluated, before any <code>QueryFilter</code> is applied. A high <code>ScannedCount</code>
      * value with few, or no, <code>Count</code> results indicates an inefficient <code>Query</code> operation. For more
      * information, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Count">Count and
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.Count">Count and
      * ScannedCount</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      * <p>
@@ -81,9 +81,9 @@ public class QueryResult extends com.amazonaws.AmazonWebServiceResult<com.amazon
      * The capacity units consumed by the <code>Query</code> operation. The data returned includes the total provisioned
      * throughput consumed, along with statistics for the table and any indexes involved in the operation.
      * <code>ConsumedCapacity</code> is only returned if the <code>ReturnConsumedCapacity</code> parameter was
-     * specified. For more information, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html"
-     * >Provisioned Throughput</a> in the <i>Amazon DynamoDB Developer Guide</i>.
+     * specified. For more information, see <a href=
+     * "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/read-write-operations.html#read-operation-consumption"
+     * >Capacity unit consumption for read operations</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      */
     private ConsumedCapacity consumedCapacity;
@@ -259,7 +259,7 @@ public class QueryResult extends com.amazonaws.AmazonWebServiceResult<com.amazon
      * The number of items evaluated, before any <code>QueryFilter</code> is applied. A high <code>ScannedCount</code>
      * value with few, or no, <code>Count</code> results indicates an inefficient <code>Query</code> operation. For more
      * information, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Count">Count and
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.Count">Count and
      * ScannedCount</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      * <p>
@@ -270,7 +270,7 @@ public class QueryResult extends com.amazonaws.AmazonWebServiceResult<com.amazon
      *        The number of items evaluated, before any <code>QueryFilter</code> is applied. A high
      *        <code>ScannedCount</code> value with few, or no, <code>Count</code> results indicates an inefficient
      *        <code>Query</code> operation. For more information, see <a
-     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Count">Count and
+     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.Count">Count and
      *        ScannedCount</a> in the <i>Amazon DynamoDB Developer Guide</i>.</p>
      *        <p>
      *        If you did not use a filter in the request, then <code>ScannedCount</code> is the same as
@@ -286,7 +286,7 @@ public class QueryResult extends com.amazonaws.AmazonWebServiceResult<com.amazon
      * The number of items evaluated, before any <code>QueryFilter</code> is applied. A high <code>ScannedCount</code>
      * value with few, or no, <code>Count</code> results indicates an inefficient <code>Query</code> operation. For more
      * information, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Count">Count and
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.Count">Count and
      * ScannedCount</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      * <p>
@@ -296,7 +296,7 @@ public class QueryResult extends com.amazonaws.AmazonWebServiceResult<com.amazon
      * @return The number of items evaluated, before any <code>QueryFilter</code> is applied. A high
      *         <code>ScannedCount</code> value with few, or no, <code>Count</code> results indicates an inefficient
      *         <code>Query</code> operation. For more information, see <a
-     *         href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Count">Count and
+     *         href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.Count">Count and
      *         ScannedCount</a> in the <i>Amazon DynamoDB Developer Guide</i>.</p>
      *         <p>
      *         If you did not use a filter in the request, then <code>ScannedCount</code> is the same as
@@ -312,7 +312,7 @@ public class QueryResult extends com.amazonaws.AmazonWebServiceResult<com.amazon
      * The number of items evaluated, before any <code>QueryFilter</code> is applied. A high <code>ScannedCount</code>
      * value with few, or no, <code>Count</code> results indicates an inefficient <code>Query</code> operation. For more
      * information, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Count">Count and
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.Count">Count and
      * ScannedCount</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      * <p>
@@ -323,7 +323,7 @@ public class QueryResult extends com.amazonaws.AmazonWebServiceResult<com.amazon
      *        The number of items evaluated, before any <code>QueryFilter</code> is applied. A high
      *        <code>ScannedCount</code> value with few, or no, <code>Count</code> results indicates an inefficient
      *        <code>Query</code> operation. For more information, see <a
-     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Count">Count and
+     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.Count">Count and
      *        ScannedCount</a> in the <i>Amazon DynamoDB Developer Guide</i>.</p>
      *        <p>
      *        If you did not use a filter in the request, then <code>ScannedCount</code> is the same as
@@ -433,6 +433,13 @@ public class QueryResult extends com.amazonaws.AmazonWebServiceResult<com.amazon
         return this;
     }
 
+    /**
+     * Add a single LastEvaluatedKey entry
+     *
+     * @see QueryResult#withLastEvaluatedKey
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public QueryResult addLastEvaluatedKeyEntry(String key, AttributeValue value) {
         if (null == this.lastEvaluatedKey) {
             this.lastEvaluatedKey = new java.util.HashMap<String, AttributeValue>();
@@ -459,18 +466,18 @@ public class QueryResult extends com.amazonaws.AmazonWebServiceResult<com.amazon
      * The capacity units consumed by the <code>Query</code> operation. The data returned includes the total provisioned
      * throughput consumed, along with statistics for the table and any indexes involved in the operation.
      * <code>ConsumedCapacity</code> is only returned if the <code>ReturnConsumedCapacity</code> parameter was
-     * specified. For more information, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html"
-     * >Provisioned Throughput</a> in the <i>Amazon DynamoDB Developer Guide</i>.
+     * specified. For more information, see <a href=
+     * "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/read-write-operations.html#read-operation-consumption"
+     * >Capacity unit consumption for read operations</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      * 
      * @param consumedCapacity
      *        The capacity units consumed by the <code>Query</code> operation. The data returned includes the total
      *        provisioned throughput consumed, along with statistics for the table and any indexes involved in the
      *        operation. <code>ConsumedCapacity</code> is only returned if the <code>ReturnConsumedCapacity</code>
-     *        parameter was specified. For more information, see <a
-     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html"
-     *        >Provisioned Throughput</a> in the <i>Amazon DynamoDB Developer Guide</i>.
+     *        parameter was specified. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/read-write-operations.html#read-operation-consumption"
+     *        >Capacity unit consumption for read operations</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      */
 
     public void setConsumedCapacity(ConsumedCapacity consumedCapacity) {
@@ -482,17 +489,17 @@ public class QueryResult extends com.amazonaws.AmazonWebServiceResult<com.amazon
      * The capacity units consumed by the <code>Query</code> operation. The data returned includes the total provisioned
      * throughput consumed, along with statistics for the table and any indexes involved in the operation.
      * <code>ConsumedCapacity</code> is only returned if the <code>ReturnConsumedCapacity</code> parameter was
-     * specified. For more information, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html"
-     * >Provisioned Throughput</a> in the <i>Amazon DynamoDB Developer Guide</i>.
+     * specified. For more information, see <a href=
+     * "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/read-write-operations.html#read-operation-consumption"
+     * >Capacity unit consumption for read operations</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      * 
      * @return The capacity units consumed by the <code>Query</code> operation. The data returned includes the total
      *         provisioned throughput consumed, along with statistics for the table and any indexes involved in the
      *         operation. <code>ConsumedCapacity</code> is only returned if the <code>ReturnConsumedCapacity</code>
-     *         parameter was specified. For more information, see <a
-     *         href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html"
-     *         >Provisioned Throughput</a> in the <i>Amazon DynamoDB Developer Guide</i>.
+     *         parameter was specified. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/read-write-operations.html#read-operation-consumption"
+     *         >Capacity unit consumption for read operations</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      */
 
     public ConsumedCapacity getConsumedCapacity() {
@@ -504,18 +511,18 @@ public class QueryResult extends com.amazonaws.AmazonWebServiceResult<com.amazon
      * The capacity units consumed by the <code>Query</code> operation. The data returned includes the total provisioned
      * throughput consumed, along with statistics for the table and any indexes involved in the operation.
      * <code>ConsumedCapacity</code> is only returned if the <code>ReturnConsumedCapacity</code> parameter was
-     * specified. For more information, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html"
-     * >Provisioned Throughput</a> in the <i>Amazon DynamoDB Developer Guide</i>.
+     * specified. For more information, see <a href=
+     * "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/read-write-operations.html#read-operation-consumption"
+     * >Capacity unit consumption for read operations</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      * 
      * @param consumedCapacity
      *        The capacity units consumed by the <code>Query</code> operation. The data returned includes the total
      *        provisioned throughput consumed, along with statistics for the table and any indexes involved in the
      *        operation. <code>ConsumedCapacity</code> is only returned if the <code>ReturnConsumedCapacity</code>
-     *        parameter was specified. For more information, see <a
-     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html"
-     *        >Provisioned Throughput</a> in the <i>Amazon DynamoDB Developer Guide</i>.
+     *        parameter was specified. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/read-write-operations.html#read-operation-consumption"
+     *        >Capacity unit consumption for read operations</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,9 +19,6 @@ import javax.annotation.Generated;
  * <p>
  * Represents the response of the test invoke request in the HTTP method.
  * </p>
- * <div class="seeAlso"> <a href=
- * "https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-test-method.html#how-to-test-method-console"
- * >Test API using the API Gateway console</a> </div>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class TestInvokeMethodResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {
@@ -58,7 +55,7 @@ public class TestInvokeMethodResult extends com.amazonaws.AmazonWebServiceResult
     private String log;
     /**
      * <p>
-     * The execution latency of the test invoke request.
+     * The execution latency, in ms, of the test invoke request.
      * </p>
      */
     private Long latency;
@@ -183,6 +180,13 @@ public class TestInvokeMethodResult extends com.amazonaws.AmazonWebServiceResult
         return this;
     }
 
+    /**
+     * Add a single Headers entry
+     *
+     * @see TestInvokeMethodResult#withHeaders
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public TestInvokeMethodResult addHeadersEntry(String key, String value) {
         if (null == this.headers) {
             this.headers = new java.util.HashMap<String, String>();
@@ -243,6 +247,13 @@ public class TestInvokeMethodResult extends com.amazonaws.AmazonWebServiceResult
         setMultiValueHeaders(multiValueHeaders);
         return this;
     }
+
+    /**
+     * Add a single MultiValueHeaders entry
+     *
+     * @see TestInvokeMethodResult#withMultiValueHeaders
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public TestInvokeMethodResult addMultiValueHeadersEntry(String key, java.util.List<String> value) {
         if (null == this.multiValueHeaders) {
@@ -307,11 +318,11 @@ public class TestInvokeMethodResult extends com.amazonaws.AmazonWebServiceResult
 
     /**
      * <p>
-     * The execution latency of the test invoke request.
+     * The execution latency, in ms, of the test invoke request.
      * </p>
      * 
      * @param latency
-     *        The execution latency of the test invoke request.
+     *        The execution latency, in ms, of the test invoke request.
      */
 
     public void setLatency(Long latency) {
@@ -320,10 +331,10 @@ public class TestInvokeMethodResult extends com.amazonaws.AmazonWebServiceResult
 
     /**
      * <p>
-     * The execution latency of the test invoke request.
+     * The execution latency, in ms, of the test invoke request.
      * </p>
      * 
-     * @return The execution latency of the test invoke request.
+     * @return The execution latency, in ms, of the test invoke request.
      */
 
     public Long getLatency() {
@@ -332,11 +343,11 @@ public class TestInvokeMethodResult extends com.amazonaws.AmazonWebServiceResult
 
     /**
      * <p>
-     * The execution latency of the test invoke request.
+     * The execution latency, in ms, of the test invoke request.
      * </p>
      * 
      * @param latency
-     *        The execution latency of the test invoke request.
+     *        The execution latency, in ms, of the test invoke request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

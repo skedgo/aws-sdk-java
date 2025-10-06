@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -140,6 +140,21 @@ public class DBClusterStaxUnmarshaller implements Unmarshaller<DBCluster, StaxUn
                     continue;
                 }
 
+                if (context.testExpression("ReplicationSourceIdentifier", targetDepth)) {
+                    dBCluster.setReplicationSourceIdentifier(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ReadReplicaIdentifiers", targetDepth)) {
+                    dBCluster.withReadReplicaIdentifiers(new ArrayList<String>());
+                    continue;
+                }
+
+                if (context.testExpression("ReadReplicaIdentifiers/ReadReplicaIdentifier", targetDepth)) {
+                    dBCluster.withReadReplicaIdentifiers(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("DBClusterMembers", targetDepth)) {
                     dBCluster.withDBClusterMembers(new ArrayList<DBClusterMember>());
                     continue;
@@ -195,6 +210,11 @@ public class DBClusterStaxUnmarshaller implements Unmarshaller<DBCluster, StaxUn
                     continue;
                 }
 
+                if (context.testExpression("CloneGroupId", targetDepth)) {
+                    dBCluster.setCloneGroupId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("ClusterCreateTime", targetDepth)) {
                     dBCluster.setClusterCreateTime(DateStaxUnmarshallerFactory.getInstance("iso8601").unmarshall(context));
                     continue;
@@ -212,6 +232,11 @@ public class DBClusterStaxUnmarshaller implements Unmarshaller<DBCluster, StaxUn
 
                 if (context.testExpression("DeletionProtection", targetDepth)) {
                     dBCluster.setDeletionProtection(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("StorageType", targetDepth)) {
+                    dBCluster.setStorageType(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

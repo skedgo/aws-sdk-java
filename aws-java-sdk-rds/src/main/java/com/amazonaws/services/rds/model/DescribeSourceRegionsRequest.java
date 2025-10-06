@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,7 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The source AWS Region name. For example, <code>us-east-1</code>.
+     * The source Amazon Web Services Region name. For example, <code>us-east-1</code>.
      * </p>
      * <p>
      * Constraints:
@@ -36,7 +36,7 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
      * <ul>
      * <li>
      * <p>
-     * Must specify a valid AWS Region name.
+     * Must specify a valid Amazon Web Services Region name.
      * </p>
      * </li>
      * </ul>
@@ -45,8 +45,8 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so you can retrieve
+     * the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -66,14 +66,14 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
     private String marker;
     /**
      * <p>
-     * This parameter is not currently supported.
+     * This parameter isn't currently supported.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Filter> filters;
 
     /**
      * <p>
-     * The source AWS Region name. For example, <code>us-east-1</code>.
+     * The source Amazon Web Services Region name. For example, <code>us-east-1</code>.
      * </p>
      * <p>
      * Constraints:
@@ -81,20 +81,20 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
      * <ul>
      * <li>
      * <p>
-     * Must specify a valid AWS Region name.
+     * Must specify a valid Amazon Web Services Region name.
      * </p>
      * </li>
      * </ul>
      * 
      * @param regionName
-     *        The source AWS Region name. For example, <code>us-east-1</code>.</p>
+     *        The source Amazon Web Services Region name. For example, <code>us-east-1</code>.</p>
      *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Must specify a valid AWS Region name.
+     *        Must specify a valid Amazon Web Services Region name.
      *        </p>
      *        </li>
      */
@@ -105,7 +105,7 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The source AWS Region name. For example, <code>us-east-1</code>.
+     * The source Amazon Web Services Region name. For example, <code>us-east-1</code>.
      * </p>
      * <p>
      * Constraints:
@@ -113,19 +113,19 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
      * <ul>
      * <li>
      * <p>
-     * Must specify a valid AWS Region name.
+     * Must specify a valid Amazon Web Services Region name.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return The source AWS Region name. For example, <code>us-east-1</code>.</p>
+     * @return The source Amazon Web Services Region name. For example, <code>us-east-1</code>.</p>
      *         <p>
      *         Constraints:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         Must specify a valid AWS Region name.
+     *         Must specify a valid Amazon Web Services Region name.
      *         </p>
      *         </li>
      */
@@ -136,7 +136,7 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The source AWS Region name. For example, <code>us-east-1</code>.
+     * The source Amazon Web Services Region name. For example, <code>us-east-1</code>.
      * </p>
      * <p>
      * Constraints:
@@ -144,20 +144,20 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
      * <ul>
      * <li>
      * <p>
-     * Must specify a valid AWS Region name.
+     * Must specify a valid Amazon Web Services Region name.
      * </p>
      * </li>
      * </ul>
      * 
      * @param regionName
-     *        The source AWS Region name. For example, <code>us-east-1</code>.</p>
+     *        The source Amazon Web Services Region name. For example, <code>us-east-1</code>.</p>
      *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Must specify a valid AWS Region name.
+     *        Must specify a valid Amazon Web Services Region name.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -171,8 +171,8 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so you can retrieve
+     * the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -183,8 +183,8 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
      * 
      * @param maxRecords
      *        The maximum number of records to include in the response. If more records exist than the specified
-     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     *        remaining results can be retrieved. </p>
+     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so you can
+     *        retrieve the remaining results.</p>
      *        <p>
      *        Default: 100
      *        </p>
@@ -199,8 +199,8 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so you can retrieve
+     * the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -210,8 +210,8 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
      * </p>
      * 
      * @return The maximum number of records to include in the response. If more records exist than the specified
-     *         <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     *         remaining results can be retrieved. </p>
+     *         <code>MaxRecords</code> value, a pagination token called a marker is included in the response so you can
+     *         retrieve the remaining results.</p>
      *         <p>
      *         Default: 100
      *         </p>
@@ -226,8 +226,8 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so you can retrieve
+     * the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -238,8 +238,8 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
      * 
      * @param maxRecords
      *        The maximum number of records to include in the response. If more records exist than the specified
-     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     *        remaining results can be retrieved. </p>
+     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so you can
+     *        retrieve the remaining results.</p>
      *        <p>
      *        Default: 100
      *        </p>
@@ -307,10 +307,10 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * This parameter is not currently supported.
+     * This parameter isn't currently supported.
      * </p>
      * 
-     * @return This parameter is not currently supported.
+     * @return This parameter isn't currently supported.
      */
 
     public java.util.List<Filter> getFilters() {
@@ -322,11 +322,11 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * This parameter is not currently supported.
+     * This parameter isn't currently supported.
      * </p>
      * 
      * @param filters
-     *        This parameter is not currently supported.
+     *        This parameter isn't currently supported.
      */
 
     public void setFilters(java.util.Collection<Filter> filters) {
@@ -340,7 +340,7 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * This parameter is not currently supported.
+     * This parameter isn't currently supported.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -349,7 +349,7 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
      * </p>
      * 
      * @param filters
-     *        This parameter is not currently supported.
+     *        This parameter isn't currently supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -365,11 +365,11 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * This parameter is not currently supported.
+     * This parameter isn't currently supported.
      * </p>
      * 
      * @param filters
-     *        This parameter is not currently supported.
+     *        This parameter isn't currently supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

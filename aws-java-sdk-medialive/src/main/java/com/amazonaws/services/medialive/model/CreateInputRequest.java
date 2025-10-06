@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,6 +28,8 @@ public class CreateInputRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /** Destination settings for PUSH type inputs. */
     private java.util.List<InputDestinationRequest> destinations;
+    /** Settings for the devices. */
+    private java.util.List<InputDeviceSettings> inputDevices;
     /** A list of security groups referenced by IDs to attach to the input. */
     private java.util.List<String> inputSecurityGroups;
     /**
@@ -55,6 +57,8 @@ public class CreateInputRequest extends com.amazonaws.AmazonWebServiceRequest im
     private String type;
 
     private InputVpcRequest vpc;
+    /** The settings associated with an SRT input. */
+    private SrtSettingsRequest srtSettings;
 
     /**
      * Destination settings for PUSH type inputs.
@@ -115,6 +119,68 @@ public class CreateInputRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     public CreateInputRequest withDestinations(java.util.Collection<InputDestinationRequest> destinations) {
         setDestinations(destinations);
+        return this;
+    }
+
+    /**
+     * Settings for the devices.
+     * 
+     * @return Settings for the devices.
+     */
+
+    public java.util.List<InputDeviceSettings> getInputDevices() {
+        return inputDevices;
+    }
+
+    /**
+     * Settings for the devices.
+     * 
+     * @param inputDevices
+     *        Settings for the devices.
+     */
+
+    public void setInputDevices(java.util.Collection<InputDeviceSettings> inputDevices) {
+        if (inputDevices == null) {
+            this.inputDevices = null;
+            return;
+        }
+
+        this.inputDevices = new java.util.ArrayList<InputDeviceSettings>(inputDevices);
+    }
+
+    /**
+     * Settings for the devices.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setInputDevices(java.util.Collection)} or {@link #withInputDevices(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param inputDevices
+     *        Settings for the devices.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateInputRequest withInputDevices(InputDeviceSettings... inputDevices) {
+        if (this.inputDevices == null) {
+            setInputDevices(new java.util.ArrayList<InputDeviceSettings>(inputDevices.length));
+        }
+        for (InputDeviceSettings ele : inputDevices) {
+            this.inputDevices.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * Settings for the devices.
+     * 
+     * @param inputDevices
+     *        Settings for the devices.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateInputRequest withInputDevices(java.util.Collection<InputDeviceSettings> inputDevices) {
+        setInputDevices(inputDevices);
         return this;
     }
 
@@ -218,7 +284,6 @@ public class CreateInputRequest extends com.amazonaws.AmazonWebServiceRequest im
      * A list of the MediaConnect Flows that you want to use in this input. You can specify as few as one Flow and
      * presently, as many as two. The only requirement is when you have more than one is that each Flow is in a separate
      * Availability Zone as this ensures your EML input is redundant to AZ issues.
-     * 
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setMediaConnectFlows(java.util.Collection)} or {@link #withMediaConnectFlows(java.util.Collection)} if
@@ -394,7 +459,6 @@ public class CreateInputRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * The source URLs for a PULL-type input. Every PULL type input needs exactly two source URLs for redundancy. Only
      * specify sources for PULL type Inputs. Leave Destinations empty.
-     * 
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setSources(java.util.Collection)} or {@link #withSources(java.util.Collection)} if you want to override
@@ -465,6 +529,13 @@ public class CreateInputRequest extends com.amazonaws.AmazonWebServiceRequest im
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateInputRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public CreateInputRequest addTagsEntry(String key, String value) {
         if (null == this.tags) {
@@ -554,6 +625,40 @@ public class CreateInputRequest extends com.amazonaws.AmazonWebServiceRequest im
     }
 
     /**
+     * The settings associated with an SRT input.
+     * 
+     * @param srtSettings
+     *        The settings associated with an SRT input.
+     */
+
+    public void setSrtSettings(SrtSettingsRequest srtSettings) {
+        this.srtSettings = srtSettings;
+    }
+
+    /**
+     * The settings associated with an SRT input.
+     * 
+     * @return The settings associated with an SRT input.
+     */
+
+    public SrtSettingsRequest getSrtSettings() {
+        return this.srtSettings;
+    }
+
+    /**
+     * The settings associated with an SRT input.
+     * 
+     * @param srtSettings
+     *        The settings associated with an SRT input.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateInputRequest withSrtSettings(SrtSettingsRequest srtSettings) {
+        setSrtSettings(srtSettings);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -567,6 +672,8 @@ public class CreateInputRequest extends com.amazonaws.AmazonWebServiceRequest im
         sb.append("{");
         if (getDestinations() != null)
             sb.append("Destinations: ").append(getDestinations()).append(",");
+        if (getInputDevices() != null)
+            sb.append("InputDevices: ").append(getInputDevices()).append(",");
         if (getInputSecurityGroups() != null)
             sb.append("InputSecurityGroups: ").append(getInputSecurityGroups()).append(",");
         if (getMediaConnectFlows() != null)
@@ -584,7 +691,9 @@ public class CreateInputRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (getType() != null)
             sb.append("Type: ").append(getType()).append(",");
         if (getVpc() != null)
-            sb.append("Vpc: ").append(getVpc());
+            sb.append("Vpc: ").append(getVpc()).append(",");
+        if (getSrtSettings() != null)
+            sb.append("SrtSettings: ").append(getSrtSettings());
         sb.append("}");
         return sb.toString();
     }
@@ -602,6 +711,10 @@ public class CreateInputRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (other.getDestinations() == null ^ this.getDestinations() == null)
             return false;
         if (other.getDestinations() != null && other.getDestinations().equals(this.getDestinations()) == false)
+            return false;
+        if (other.getInputDevices() == null ^ this.getInputDevices() == null)
+            return false;
+        if (other.getInputDevices() != null && other.getInputDevices().equals(this.getInputDevices()) == false)
             return false;
         if (other.getInputSecurityGroups() == null ^ this.getInputSecurityGroups() == null)
             return false;
@@ -639,6 +752,10 @@ public class CreateInputRequest extends com.amazonaws.AmazonWebServiceRequest im
             return false;
         if (other.getVpc() != null && other.getVpc().equals(this.getVpc()) == false)
             return false;
+        if (other.getSrtSettings() == null ^ this.getSrtSettings() == null)
+            return false;
+        if (other.getSrtSettings() != null && other.getSrtSettings().equals(this.getSrtSettings()) == false)
+            return false;
         return true;
     }
 
@@ -648,6 +765,7 @@ public class CreateInputRequest extends com.amazonaws.AmazonWebServiceRequest im
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getDestinations() == null) ? 0 : getDestinations().hashCode());
+        hashCode = prime * hashCode + ((getInputDevices() == null) ? 0 : getInputDevices().hashCode());
         hashCode = prime * hashCode + ((getInputSecurityGroups() == null) ? 0 : getInputSecurityGroups().hashCode());
         hashCode = prime * hashCode + ((getMediaConnectFlows() == null) ? 0 : getMediaConnectFlows().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
@@ -657,6 +775,7 @@ public class CreateInputRequest extends com.amazonaws.AmazonWebServiceRequest im
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getType() == null) ? 0 : getType().hashCode());
         hashCode = prime * hashCode + ((getVpc() == null) ? 0 : getVpc().hashCode());
+        hashCode = prime * hashCode + ((getSrtSettings() == null) ? 0 : getSrtSettings().hashCode());
         return hashCode;
     }
 

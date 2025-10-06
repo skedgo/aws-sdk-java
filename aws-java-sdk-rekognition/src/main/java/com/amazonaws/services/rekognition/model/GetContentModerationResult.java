@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,7 @@ public class GetContentModerationResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The current status of the content moderation job.
+     * The current status of the content moderation analysis job.
      * </p>
      */
     private String jobStatus;
@@ -39,31 +39,55 @@ public class GetContentModerationResult extends com.amazonaws.AmazonWebServiceRe
     private VideoMetadata videoMetadata;
     /**
      * <p>
-     * The detected moderation labels and the time(s) they were detected.
+     * The detected inappropriate, unwanted, or offensive content moderation labels and the time(s) they were detected.
      * </p>
      */
     private java.util.List<ContentModerationDetection> moderationLabels;
     /**
      * <p>
      * If the response is truncated, Amazon Rekognition Video returns this token that you can use in the subsequent
-     * request to retrieve the next set of moderation labels.
+     * request to retrieve the next set of content moderation labels.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * Version number of the moderation detection model that was used to detect unsafe content.
+     * Version number of the moderation detection model that was used to detect inappropriate, unwanted, or offensive
+     * content.
      * </p>
      */
     private String moderationModelVersion;
+    /**
+     * <p>
+     * Job identifier for the content moderation operation for which you want to obtain results. The job identifer is
+     * returned by an initial call to StartContentModeration.
+     * </p>
+     */
+    private String jobId;
+
+    private Video video;
+    /**
+     * <p>
+     * A job identifier specified in the call to StartContentModeration and returned in the job completion notification
+     * sent to your Amazon Simple Notification Service topic.
+     * </p>
+     */
+    private String jobTag;
+    /**
+     * <p>
+     * Information about the paramters used when getting a response. Includes information on aggregation and sorting
+     * methods.
+     * </p>
+     */
+    private GetContentModerationRequestMetadata getRequestMetadata;
 
     /**
      * <p>
-     * The current status of the content moderation job.
+     * The current status of the content moderation analysis job.
      * </p>
      * 
      * @param jobStatus
-     *        The current status of the content moderation job.
+     *        The current status of the content moderation analysis job.
      * @see VideoJobStatus
      */
 
@@ -73,10 +97,10 @@ public class GetContentModerationResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The current status of the content moderation job.
+     * The current status of the content moderation analysis job.
      * </p>
      * 
-     * @return The current status of the content moderation job.
+     * @return The current status of the content moderation analysis job.
      * @see VideoJobStatus
      */
 
@@ -86,11 +110,11 @@ public class GetContentModerationResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The current status of the content moderation job.
+     * The current status of the content moderation analysis job.
      * </p>
      * 
      * @param jobStatus
-     *        The current status of the content moderation job.
+     *        The current status of the content moderation analysis job.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see VideoJobStatus
      */
@@ -102,11 +126,11 @@ public class GetContentModerationResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The current status of the content moderation job.
+     * The current status of the content moderation analysis job.
      * </p>
      * 
      * @param jobStatus
-     *        The current status of the content moderation job.
+     *        The current status of the content moderation analysis job.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see VideoJobStatus
      */
@@ -204,10 +228,11 @@ public class GetContentModerationResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The detected moderation labels and the time(s) they were detected.
+     * The detected inappropriate, unwanted, or offensive content moderation labels and the time(s) they were detected.
      * </p>
      * 
-     * @return The detected moderation labels and the time(s) they were detected.
+     * @return The detected inappropriate, unwanted, or offensive content moderation labels and the time(s) they were
+     *         detected.
      */
 
     public java.util.List<ContentModerationDetection> getModerationLabels() {
@@ -216,11 +241,12 @@ public class GetContentModerationResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The detected moderation labels and the time(s) they were detected.
+     * The detected inappropriate, unwanted, or offensive content moderation labels and the time(s) they were detected.
      * </p>
      * 
      * @param moderationLabels
-     *        The detected moderation labels and the time(s) they were detected.
+     *        The detected inappropriate, unwanted, or offensive content moderation labels and the time(s) they were
+     *        detected.
      */
 
     public void setModerationLabels(java.util.Collection<ContentModerationDetection> moderationLabels) {
@@ -234,7 +260,7 @@ public class GetContentModerationResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The detected moderation labels and the time(s) they were detected.
+     * The detected inappropriate, unwanted, or offensive content moderation labels and the time(s) they were detected.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -243,7 +269,8 @@ public class GetContentModerationResult extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @param moderationLabels
-     *        The detected moderation labels and the time(s) they were detected.
+     *        The detected inappropriate, unwanted, or offensive content moderation labels and the time(s) they were
+     *        detected.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -259,11 +286,12 @@ public class GetContentModerationResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The detected moderation labels and the time(s) they were detected.
+     * The detected inappropriate, unwanted, or offensive content moderation labels and the time(s) they were detected.
      * </p>
      * 
      * @param moderationLabels
-     *        The detected moderation labels and the time(s) they were detected.
+     *        The detected inappropriate, unwanted, or offensive content moderation labels and the time(s) they were
+     *        detected.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -275,12 +303,12 @@ public class GetContentModerationResult extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * If the response is truncated, Amazon Rekognition Video returns this token that you can use in the subsequent
-     * request to retrieve the next set of moderation labels.
+     * request to retrieve the next set of content moderation labels.
      * </p>
      * 
      * @param nextToken
      *        If the response is truncated, Amazon Rekognition Video returns this token that you can use in the
-     *        subsequent request to retrieve the next set of moderation labels.
+     *        subsequent request to retrieve the next set of content moderation labels.
      */
 
     public void setNextToken(String nextToken) {
@@ -290,11 +318,11 @@ public class GetContentModerationResult extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * If the response is truncated, Amazon Rekognition Video returns this token that you can use in the subsequent
-     * request to retrieve the next set of moderation labels.
+     * request to retrieve the next set of content moderation labels.
      * </p>
      * 
      * @return If the response is truncated, Amazon Rekognition Video returns this token that you can use in the
-     *         subsequent request to retrieve the next set of moderation labels.
+     *         subsequent request to retrieve the next set of content moderation labels.
      */
 
     public String getNextToken() {
@@ -304,12 +332,12 @@ public class GetContentModerationResult extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * If the response is truncated, Amazon Rekognition Video returns this token that you can use in the subsequent
-     * request to retrieve the next set of moderation labels.
+     * request to retrieve the next set of content moderation labels.
      * </p>
      * 
      * @param nextToken
      *        If the response is truncated, Amazon Rekognition Video returns this token that you can use in the
-     *        subsequent request to retrieve the next set of moderation labels.
+     *        subsequent request to retrieve the next set of content moderation labels.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -320,11 +348,13 @@ public class GetContentModerationResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Version number of the moderation detection model that was used to detect unsafe content.
+     * Version number of the moderation detection model that was used to detect inappropriate, unwanted, or offensive
+     * content.
      * </p>
      * 
      * @param moderationModelVersion
-     *        Version number of the moderation detection model that was used to detect unsafe content.
+     *        Version number of the moderation detection model that was used to detect inappropriate, unwanted, or
+     *        offensive content.
      */
 
     public void setModerationModelVersion(String moderationModelVersion) {
@@ -333,10 +363,12 @@ public class GetContentModerationResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Version number of the moderation detection model that was used to detect unsafe content.
+     * Version number of the moderation detection model that was used to detect inappropriate, unwanted, or offensive
+     * content.
      * </p>
      * 
-     * @return Version number of the moderation detection model that was used to detect unsafe content.
+     * @return Version number of the moderation detection model that was used to detect inappropriate, unwanted, or
+     *         offensive content.
      */
 
     public String getModerationModelVersion() {
@@ -345,16 +377,182 @@ public class GetContentModerationResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Version number of the moderation detection model that was used to detect unsafe content.
+     * Version number of the moderation detection model that was used to detect inappropriate, unwanted, or offensive
+     * content.
      * </p>
      * 
      * @param moderationModelVersion
-     *        Version number of the moderation detection model that was used to detect unsafe content.
+     *        Version number of the moderation detection model that was used to detect inappropriate, unwanted, or
+     *        offensive content.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public GetContentModerationResult withModerationModelVersion(String moderationModelVersion) {
         setModerationModelVersion(moderationModelVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Job identifier for the content moderation operation for which you want to obtain results. The job identifer is
+     * returned by an initial call to StartContentModeration.
+     * </p>
+     * 
+     * @param jobId
+     *        Job identifier for the content moderation operation for which you want to obtain results. The job
+     *        identifer is returned by an initial call to StartContentModeration.
+     */
+
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
+    }
+
+    /**
+     * <p>
+     * Job identifier for the content moderation operation for which you want to obtain results. The job identifer is
+     * returned by an initial call to StartContentModeration.
+     * </p>
+     * 
+     * @return Job identifier for the content moderation operation for which you want to obtain results. The job
+     *         identifer is returned by an initial call to StartContentModeration.
+     */
+
+    public String getJobId() {
+        return this.jobId;
+    }
+
+    /**
+     * <p>
+     * Job identifier for the content moderation operation for which you want to obtain results. The job identifer is
+     * returned by an initial call to StartContentModeration.
+     * </p>
+     * 
+     * @param jobId
+     *        Job identifier for the content moderation operation for which you want to obtain results. The job
+     *        identifer is returned by an initial call to StartContentModeration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetContentModerationResult withJobId(String jobId) {
+        setJobId(jobId);
+        return this;
+    }
+
+    /**
+     * @param video
+     */
+
+    public void setVideo(Video video) {
+        this.video = video;
+    }
+
+    /**
+     * @return
+     */
+
+    public Video getVideo() {
+        return this.video;
+    }
+
+    /**
+     * @param video
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetContentModerationResult withVideo(Video video) {
+        setVideo(video);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A job identifier specified in the call to StartContentModeration and returned in the job completion notification
+     * sent to your Amazon Simple Notification Service topic.
+     * </p>
+     * 
+     * @param jobTag
+     *        A job identifier specified in the call to StartContentModeration and returned in the job completion
+     *        notification sent to your Amazon Simple Notification Service topic.
+     */
+
+    public void setJobTag(String jobTag) {
+        this.jobTag = jobTag;
+    }
+
+    /**
+     * <p>
+     * A job identifier specified in the call to StartContentModeration and returned in the job completion notification
+     * sent to your Amazon Simple Notification Service topic.
+     * </p>
+     * 
+     * @return A job identifier specified in the call to StartContentModeration and returned in the job completion
+     *         notification sent to your Amazon Simple Notification Service topic.
+     */
+
+    public String getJobTag() {
+        return this.jobTag;
+    }
+
+    /**
+     * <p>
+     * A job identifier specified in the call to StartContentModeration and returned in the job completion notification
+     * sent to your Amazon Simple Notification Service topic.
+     * </p>
+     * 
+     * @param jobTag
+     *        A job identifier specified in the call to StartContentModeration and returned in the job completion
+     *        notification sent to your Amazon Simple Notification Service topic.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetContentModerationResult withJobTag(String jobTag) {
+        setJobTag(jobTag);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information about the paramters used when getting a response. Includes information on aggregation and sorting
+     * methods.
+     * </p>
+     * 
+     * @param getRequestMetadata
+     *        Information about the paramters used when getting a response. Includes information on aggregation and
+     *        sorting methods.
+     */
+
+    public void setGetRequestMetadata(GetContentModerationRequestMetadata getRequestMetadata) {
+        this.getRequestMetadata = getRequestMetadata;
+    }
+
+    /**
+     * <p>
+     * Information about the paramters used when getting a response. Includes information on aggregation and sorting
+     * methods.
+     * </p>
+     * 
+     * @return Information about the paramters used when getting a response. Includes information on aggregation and
+     *         sorting methods.
+     */
+
+    public GetContentModerationRequestMetadata getGetRequestMetadata() {
+        return this.getRequestMetadata;
+    }
+
+    /**
+     * <p>
+     * Information about the paramters used when getting a response. Includes information on aggregation and sorting
+     * methods.
+     * </p>
+     * 
+     * @param getRequestMetadata
+     *        Information about the paramters used when getting a response. Includes information on aggregation and
+     *        sorting methods.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetContentModerationResult withGetRequestMetadata(GetContentModerationRequestMetadata getRequestMetadata) {
+        setGetRequestMetadata(getRequestMetadata);
         return this;
     }
 
@@ -381,7 +579,15 @@ public class GetContentModerationResult extends com.amazonaws.AmazonWebServiceRe
         if (getNextToken() != null)
             sb.append("NextToken: ").append(getNextToken()).append(",");
         if (getModerationModelVersion() != null)
-            sb.append("ModerationModelVersion: ").append(getModerationModelVersion());
+            sb.append("ModerationModelVersion: ").append(getModerationModelVersion()).append(",");
+        if (getJobId() != null)
+            sb.append("JobId: ").append(getJobId()).append(",");
+        if (getVideo() != null)
+            sb.append("Video: ").append(getVideo()).append(",");
+        if (getJobTag() != null)
+            sb.append("JobTag: ").append(getJobTag()).append(",");
+        if (getGetRequestMetadata() != null)
+            sb.append("GetRequestMetadata: ").append(getGetRequestMetadata());
         sb.append("}");
         return sb.toString();
     }
@@ -420,6 +626,22 @@ public class GetContentModerationResult extends com.amazonaws.AmazonWebServiceRe
             return false;
         if (other.getModerationModelVersion() != null && other.getModerationModelVersion().equals(this.getModerationModelVersion()) == false)
             return false;
+        if (other.getJobId() == null ^ this.getJobId() == null)
+            return false;
+        if (other.getJobId() != null && other.getJobId().equals(this.getJobId()) == false)
+            return false;
+        if (other.getVideo() == null ^ this.getVideo() == null)
+            return false;
+        if (other.getVideo() != null && other.getVideo().equals(this.getVideo()) == false)
+            return false;
+        if (other.getJobTag() == null ^ this.getJobTag() == null)
+            return false;
+        if (other.getJobTag() != null && other.getJobTag().equals(this.getJobTag()) == false)
+            return false;
+        if (other.getGetRequestMetadata() == null ^ this.getGetRequestMetadata() == null)
+            return false;
+        if (other.getGetRequestMetadata() != null && other.getGetRequestMetadata().equals(this.getGetRequestMetadata()) == false)
+            return false;
         return true;
     }
 
@@ -434,6 +656,10 @@ public class GetContentModerationResult extends com.amazonaws.AmazonWebServiceRe
         hashCode = prime * hashCode + ((getModerationLabels() == null) ? 0 : getModerationLabels().hashCode());
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
         hashCode = prime * hashCode + ((getModerationModelVersion() == null) ? 0 : getModerationModelVersion().hashCode());
+        hashCode = prime * hashCode + ((getJobId() == null) ? 0 : getJobId().hashCode());
+        hashCode = prime * hashCode + ((getVideo() == null) ? 0 : getVideo().hashCode());
+        hashCode = prime * hashCode + ((getJobTag() == null) ? 0 : getJobTag().hashCode());
+        hashCode = prime * hashCode + ((getGetRequestMetadata() == null) ? 0 : getGetRequestMetadata().hashCode());
         return hashCode;
     }
 

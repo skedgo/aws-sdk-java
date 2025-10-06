@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,7 +39,27 @@ public class AbstractAmazonCloudFront implements AmazonCloudFront {
     }
 
     @Override
+    public AssociateAliasResult associateAlias(AssociateAliasRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CopyDistributionResult copyDistribution(CopyDistributionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateCachePolicyResult createCachePolicy(CreateCachePolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateCloudFrontOriginAccessIdentityResult createCloudFrontOriginAccessIdentity(CreateCloudFrontOriginAccessIdentityRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateContinuousDeploymentPolicyResult createContinuousDeploymentPolicy(CreateContinuousDeploymentPolicyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -64,12 +84,52 @@ public class AbstractAmazonCloudFront implements AmazonCloudFront {
     }
 
     @Override
+    public CreateFunctionResult createFunction(CreateFunctionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateInvalidationResult createInvalidation(CreateInvalidationRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public CreateKeyGroupResult createKeyGroup(CreateKeyGroupRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateKeyValueStoreResult createKeyValueStore(CreateKeyValueStoreRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateMonitoringSubscriptionResult createMonitoringSubscription(CreateMonitoringSubscriptionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateOriginAccessControlResult createOriginAccessControl(CreateOriginAccessControlRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateOriginRequestPolicyResult createOriginRequestPolicy(CreateOriginRequestPolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreatePublicKeyResult createPublicKey(CreatePublicKeyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateRealtimeLogConfigResult createRealtimeLogConfig(CreateRealtimeLogConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateResponseHeadersPolicyResult createResponseHeadersPolicy(CreateResponseHeadersPolicyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -84,7 +144,17 @@ public class AbstractAmazonCloudFront implements AmazonCloudFront {
     }
 
     @Override
+    public DeleteCachePolicyResult deleteCachePolicy(DeleteCachePolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteCloudFrontOriginAccessIdentityResult deleteCloudFrontOriginAccessIdentity(DeleteCloudFrontOriginAccessIdentityRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteContinuousDeploymentPolicyResult deleteContinuousDeploymentPolicy(DeleteContinuousDeploymentPolicyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -104,12 +174,72 @@ public class AbstractAmazonCloudFront implements AmazonCloudFront {
     }
 
     @Override
+    public DeleteFunctionResult deleteFunction(DeleteFunctionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteKeyGroupResult deleteKeyGroup(DeleteKeyGroupRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteKeyValueStoreResult deleteKeyValueStore(DeleteKeyValueStoreRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteMonitoringSubscriptionResult deleteMonitoringSubscription(DeleteMonitoringSubscriptionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteOriginAccessControlResult deleteOriginAccessControl(DeleteOriginAccessControlRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteOriginRequestPolicyResult deleteOriginRequestPolicy(DeleteOriginRequestPolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeletePublicKeyResult deletePublicKey(DeletePublicKeyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public DeleteRealtimeLogConfigResult deleteRealtimeLogConfig(DeleteRealtimeLogConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteResponseHeadersPolicyResult deleteResponseHeadersPolicy(DeleteResponseHeadersPolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteStreamingDistributionResult deleteStreamingDistribution(DeleteStreamingDistributionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeFunctionResult describeFunction(DescribeFunctionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeKeyValueStoreResult describeKeyValueStore(DescribeKeyValueStoreRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetCachePolicyResult getCachePolicy(GetCachePolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetCachePolicyConfigResult getCachePolicyConfig(GetCachePolicyConfigRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -120,6 +250,16 @@ public class AbstractAmazonCloudFront implements AmazonCloudFront {
 
     @Override
     public GetCloudFrontOriginAccessIdentityConfigResult getCloudFrontOriginAccessIdentityConfig(GetCloudFrontOriginAccessIdentityConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetContinuousDeploymentPolicyResult getContinuousDeploymentPolicy(GetContinuousDeploymentPolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetContinuousDeploymentPolicyConfigResult getContinuousDeploymentPolicyConfig(GetContinuousDeploymentPolicyConfigRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -154,7 +294,47 @@ public class AbstractAmazonCloudFront implements AmazonCloudFront {
     }
 
     @Override
+    public GetFunctionResult getFunction(GetFunctionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetInvalidationResult getInvalidation(GetInvalidationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetKeyGroupResult getKeyGroup(GetKeyGroupRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetKeyGroupConfigResult getKeyGroupConfig(GetKeyGroupConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetMonitoringSubscriptionResult getMonitoringSubscription(GetMonitoringSubscriptionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetOriginAccessControlResult getOriginAccessControl(GetOriginAccessControlRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetOriginAccessControlConfigResult getOriginAccessControlConfig(GetOriginAccessControlConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetOriginRequestPolicyResult getOriginRequestPolicy(GetOriginRequestPolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetOriginRequestPolicyConfigResult getOriginRequestPolicyConfig(GetOriginRequestPolicyConfigRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -169,6 +349,21 @@ public class AbstractAmazonCloudFront implements AmazonCloudFront {
     }
 
     @Override
+    public GetRealtimeLogConfigResult getRealtimeLogConfig(GetRealtimeLogConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetResponseHeadersPolicyResult getResponseHeadersPolicy(GetResponseHeadersPolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetResponseHeadersPolicyConfigResult getResponseHeadersPolicyConfig(GetResponseHeadersPolicyConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetStreamingDistributionResult getStreamingDistribution(GetStreamingDistributionRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -179,12 +374,52 @@ public class AbstractAmazonCloudFront implements AmazonCloudFront {
     }
 
     @Override
+    public ListCachePoliciesResult listCachePolicies(ListCachePoliciesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListCloudFrontOriginAccessIdentitiesResult listCloudFrontOriginAccessIdentities(ListCloudFrontOriginAccessIdentitiesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public ListConflictingAliasesResult listConflictingAliases(ListConflictingAliasesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListContinuousDeploymentPoliciesResult listContinuousDeploymentPolicies(ListContinuousDeploymentPoliciesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListDistributionsResult listDistributions(ListDistributionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListDistributionsByCachePolicyIdResult listDistributionsByCachePolicyId(ListDistributionsByCachePolicyIdRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListDistributionsByKeyGroupResult listDistributionsByKeyGroup(ListDistributionsByKeyGroupRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListDistributionsByOriginRequestPolicyIdResult listDistributionsByOriginRequestPolicyId(ListDistributionsByOriginRequestPolicyIdRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListDistributionsByRealtimeLogConfigResult listDistributionsByRealtimeLogConfig(ListDistributionsByRealtimeLogConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListDistributionsByResponseHeadersPolicyIdResult listDistributionsByResponseHeadersPolicyId(ListDistributionsByResponseHeadersPolicyIdRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -204,12 +439,47 @@ public class AbstractAmazonCloudFront implements AmazonCloudFront {
     }
 
     @Override
+    public ListFunctionsResult listFunctions(ListFunctionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListInvalidationsResult listInvalidations(ListInvalidationsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public ListKeyGroupsResult listKeyGroups(ListKeyGroupsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListKeyValueStoresResult listKeyValueStores(ListKeyValueStoresRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListOriginAccessControlsResult listOriginAccessControls(ListOriginAccessControlsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListOriginRequestPoliciesResult listOriginRequestPolicies(ListOriginRequestPoliciesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListPublicKeysResult listPublicKeys(ListPublicKeysRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListRealtimeLogConfigsResult listRealtimeLogConfigs(ListRealtimeLogConfigsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListResponseHeadersPoliciesResult listResponseHeadersPolicies(ListResponseHeadersPoliciesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -224,7 +494,17 @@ public class AbstractAmazonCloudFront implements AmazonCloudFront {
     }
 
     @Override
+    public PublishFunctionResult publishFunction(PublishFunctionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public TagResourceResult tagResource(TagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TestFunctionResult testFunction(TestFunctionRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -234,12 +514,27 @@ public class AbstractAmazonCloudFront implements AmazonCloudFront {
     }
 
     @Override
+    public UpdateCachePolicyResult updateCachePolicy(UpdateCachePolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateCloudFrontOriginAccessIdentityResult updateCloudFrontOriginAccessIdentity(UpdateCloudFrontOriginAccessIdentityRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public UpdateContinuousDeploymentPolicyResult updateContinuousDeploymentPolicy(UpdateContinuousDeploymentPolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateDistributionResult updateDistribution(UpdateDistributionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateDistributionWithStagingConfigResult updateDistributionWithStagingConfig(UpdateDistributionWithStagingConfigRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -254,7 +549,42 @@ public class AbstractAmazonCloudFront implements AmazonCloudFront {
     }
 
     @Override
+    public UpdateFunctionResult updateFunction(UpdateFunctionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateKeyGroupResult updateKeyGroup(UpdateKeyGroupRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateKeyValueStoreResult updateKeyValueStore(UpdateKeyValueStoreRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateOriginAccessControlResult updateOriginAccessControl(UpdateOriginAccessControlRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateOriginRequestPolicyResult updateOriginRequestPolicy(UpdateOriginRequestPolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdatePublicKeyResult updatePublicKey(UpdatePublicKeyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateRealtimeLogConfigResult updateRealtimeLogConfig(UpdateRealtimeLogConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateResponseHeadersPolicyResult updateResponseHeadersPolicy(UpdateResponseHeadersPolicyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

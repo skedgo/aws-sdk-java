@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,8 @@ public class DatastoreStorageMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("serviceManagedS3").build();
     private static final MarshallingInfo<StructuredPojo> CUSTOMERMANAGEDS3_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("customerManagedS3").build();
+    private static final MarshallingInfo<StructuredPojo> IOTSITEWISEMULTILAYERSTORAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("iotSiteWiseMultiLayerStorage").build();
 
     private static final DatastoreStorageMarshaller instance = new DatastoreStorageMarshaller();
 
@@ -50,6 +52,7 @@ public class DatastoreStorageMarshaller {
         try {
             protocolMarshaller.marshall(datastoreStorage.getServiceManagedS3(), SERVICEMANAGEDS3_BINDING);
             protocolMarshaller.marshall(datastoreStorage.getCustomerManagedS3(), CUSTOMERMANAGEDS3_BINDING);
+            protocolMarshaller.marshall(datastoreStorage.getIotSiteWiseMultiLayerStorage(), IOTSITEWISEMULTILAYERSTORAGE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

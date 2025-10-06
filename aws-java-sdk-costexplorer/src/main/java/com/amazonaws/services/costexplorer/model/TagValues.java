@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,6 +21,15 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * <p>
  * The values that are available for a tag.
  * </p>
+ * <p>
+ * If <code>Values</code> and <code>Key</code> aren't specified, the <code>ABSENT</code> <code>MatchOption</code> is
+ * applied to all tags. That is, it's filtered on resources with no tags.
+ * </p>
+ * <p>
+ * If <code>Key</code> is provided and <code>Values</code> isn't specified, the <code>ABSENT</code>
+ * <code>MatchOption</code> is applied to the tag <code>Key</code> only. That is, it's filtered on resources without the
+ * given tag key.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/TagValues" target="_top">AWS API Documentation</a>
  */
@@ -39,6 +48,14 @@ public class TagValues implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private java.util.List<String> values;
+    /**
+     * <p>
+     * The match options that you can use to filter your results. <code>MatchOptions</code> is only applicable for
+     * actions related to Cost Category. The default values for <code>MatchOptions</code> are <code>EQUALS</code> and
+     * <code>CASE_SENSITIVE</code>.
+     * </p>
+     */
+    private java.util.List<String> matchOptions;
 
     /**
      * <p>
@@ -151,6 +168,124 @@ public class TagValues implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The match options that you can use to filter your results. <code>MatchOptions</code> is only applicable for
+     * actions related to Cost Category. The default values for <code>MatchOptions</code> are <code>EQUALS</code> and
+     * <code>CASE_SENSITIVE</code>.
+     * </p>
+     * 
+     * @return The match options that you can use to filter your results. <code>MatchOptions</code> is only applicable
+     *         for actions related to Cost Category. The default values for <code>MatchOptions</code> are
+     *         <code>EQUALS</code> and <code>CASE_SENSITIVE</code>.
+     * @see MatchOption
+     */
+
+    public java.util.List<String> getMatchOptions() {
+        return matchOptions;
+    }
+
+    /**
+     * <p>
+     * The match options that you can use to filter your results. <code>MatchOptions</code> is only applicable for
+     * actions related to Cost Category. The default values for <code>MatchOptions</code> are <code>EQUALS</code> and
+     * <code>CASE_SENSITIVE</code>.
+     * </p>
+     * 
+     * @param matchOptions
+     *        The match options that you can use to filter your results. <code>MatchOptions</code> is only applicable
+     *        for actions related to Cost Category. The default values for <code>MatchOptions</code> are
+     *        <code>EQUALS</code> and <code>CASE_SENSITIVE</code>.
+     * @see MatchOption
+     */
+
+    public void setMatchOptions(java.util.Collection<String> matchOptions) {
+        if (matchOptions == null) {
+            this.matchOptions = null;
+            return;
+        }
+
+        this.matchOptions = new java.util.ArrayList<String>(matchOptions);
+    }
+
+    /**
+     * <p>
+     * The match options that you can use to filter your results. <code>MatchOptions</code> is only applicable for
+     * actions related to Cost Category. The default values for <code>MatchOptions</code> are <code>EQUALS</code> and
+     * <code>CASE_SENSITIVE</code>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setMatchOptions(java.util.Collection)} or {@link #withMatchOptions(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param matchOptions
+     *        The match options that you can use to filter your results. <code>MatchOptions</code> is only applicable
+     *        for actions related to Cost Category. The default values for <code>MatchOptions</code> are
+     *        <code>EQUALS</code> and <code>CASE_SENSITIVE</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see MatchOption
+     */
+
+    public TagValues withMatchOptions(String... matchOptions) {
+        if (this.matchOptions == null) {
+            setMatchOptions(new java.util.ArrayList<String>(matchOptions.length));
+        }
+        for (String ele : matchOptions) {
+            this.matchOptions.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The match options that you can use to filter your results. <code>MatchOptions</code> is only applicable for
+     * actions related to Cost Category. The default values for <code>MatchOptions</code> are <code>EQUALS</code> and
+     * <code>CASE_SENSITIVE</code>.
+     * </p>
+     * 
+     * @param matchOptions
+     *        The match options that you can use to filter your results. <code>MatchOptions</code> is only applicable
+     *        for actions related to Cost Category. The default values for <code>MatchOptions</code> are
+     *        <code>EQUALS</code> and <code>CASE_SENSITIVE</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see MatchOption
+     */
+
+    public TagValues withMatchOptions(java.util.Collection<String> matchOptions) {
+        setMatchOptions(matchOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The match options that you can use to filter your results. <code>MatchOptions</code> is only applicable for
+     * actions related to Cost Category. The default values for <code>MatchOptions</code> are <code>EQUALS</code> and
+     * <code>CASE_SENSITIVE</code>.
+     * </p>
+     * 
+     * @param matchOptions
+     *        The match options that you can use to filter your results. <code>MatchOptions</code> is only applicable
+     *        for actions related to Cost Category. The default values for <code>MatchOptions</code> are
+     *        <code>EQUALS</code> and <code>CASE_SENSITIVE</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see MatchOption
+     */
+
+    public TagValues withMatchOptions(MatchOption... matchOptions) {
+        java.util.ArrayList<String> matchOptionsCopy = new java.util.ArrayList<String>(matchOptions.length);
+        for (MatchOption value : matchOptions) {
+            matchOptionsCopy.add(value.toString());
+        }
+        if (getMatchOptions() == null) {
+            setMatchOptions(matchOptionsCopy);
+        } else {
+            getMatchOptions().addAll(matchOptionsCopy);
+        }
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -165,7 +300,9 @@ public class TagValues implements Serializable, Cloneable, StructuredPojo {
         if (getKey() != null)
             sb.append("Key: ").append(getKey()).append(",");
         if (getValues() != null)
-            sb.append("Values: ").append(getValues());
+            sb.append("Values: ").append(getValues()).append(",");
+        if (getMatchOptions() != null)
+            sb.append("MatchOptions: ").append(getMatchOptions());
         sb.append("}");
         return sb.toString();
     }
@@ -188,6 +325,10 @@ public class TagValues implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getValues() != null && other.getValues().equals(this.getValues()) == false)
             return false;
+        if (other.getMatchOptions() == null ^ this.getMatchOptions() == null)
+            return false;
+        if (other.getMatchOptions() != null && other.getMatchOptions().equals(this.getMatchOptions()) == false)
+            return false;
         return true;
     }
 
@@ -198,6 +339,7 @@ public class TagValues implements Serializable, Cloneable, StructuredPojo {
 
         hashCode = prime * hashCode + ((getKey() == null) ? 0 : getKey().hashCode());
         hashCode = prime * hashCode + ((getValues() == null) ? 0 : getValues().hashCode());
+        hashCode = prime * hashCode + ((getMatchOptions() == null) ? 0 : getMatchOptions().hashCode());
         return hashCode;
     }
 

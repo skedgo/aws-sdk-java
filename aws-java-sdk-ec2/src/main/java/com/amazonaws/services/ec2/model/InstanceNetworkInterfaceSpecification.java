@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,6 +32,11 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
      * only be assigned to a network interface for eth0, and can only be assigned to a new network interface, not an
      * existing one. You cannot specify more than one network interface in the request. If launching into a default
      * subnet, the default value is <code>true</code>.
+     * </p>
+     * <p>
+     * Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with
+     * running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the
+     * <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
      * </p>
      */
     private Boolean associatePublicIpAddress;
@@ -76,15 +81,19 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
     private Integer ipv6AddressCount;
     /**
      * <p>
-     * One or more IPv6 addresses to assign to the network interface. You cannot specify this option and the option to
-     * assign a number of IPv6 addresses in the same request. You cannot specify this option if you've specified a
-     * minimum number of instances to launch.
+     * The IPv6 addresses to assign to the network interface. You cannot specify this option and the option to assign a
+     * number of IPv6 addresses in the same request. You cannot specify this option if you've specified a minimum number
+     * of instances to launch.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<InstanceIpv6Address> ipv6Addresses;
     /**
      * <p>
      * The ID of the network interface.
+     * </p>
+     * <p>
+     * If you are creating a Spot Fleet, omit this parameter because you can’t specify a network interface ID in a
+     * launch specification.
      * </p>
      */
     private String networkInterfaceId;
@@ -98,8 +107,8 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
     private String privateIpAddress;
     /**
      * <p>
-     * One or more private IPv4 addresses to assign to the network interface. Only one private IPv4 address can be
-     * designated as primary. You cannot specify this option if you're launching more than one instance in a <a
+     * The private IPv4 addresses to assign to the network interface. Only one private IPv4 address can be designated as
+     * primary. You cannot specify this option if you're launching more than one instance in a <a
      * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a> request.
      * </p>
      */
@@ -115,25 +124,97 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
     private Integer secondaryPrivateIpAddressCount;
     /**
      * <p>
-     * The ID of the subnet associated with the network string. Applies only if creating a network interface when
+     * The ID of the subnet associated with the network interface. Applies only if creating a network interface when
      * launching an instance.
      * </p>
      */
     private String subnetId;
     /**
      * <p>
-     * The type of network interface. To create an Elastic Fabric Adapter (EFA), specify <code>efa</code>. For more
-     * information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html">Elastic Fabric
-     * Adapter</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * Indicates whether to assign a carrier IP address to the network interface.
      * </p>
      * <p>
-     * If you are not creating an EFA, specify <code>interface</code> or omit this parameter.
+     * You can only assign a carrier IP address to a network interface that is in a subnet in a Wavelength Zone. For
+     * more information about carrier IP addresses, see <a
+     * href="https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip"
+     * >Carrier IP address</a> in the <i>Amazon Web Services Wavelength Developer Guide</i>.
+     * </p>
+     */
+    private Boolean associateCarrierIpAddress;
+    /**
+     * <p>
+     * The type of network interface.
      * </p>
      * <p>
      * Valid values: <code>interface</code> | <code>efa</code>
      * </p>
      */
     private String interfaceType;
+    /**
+     * <p>
+     * The index of the network card. Some instance types support multiple network cards. The primary network interface
+     * must be assigned to network card index 0. The default is network card index 0.
+     * </p>
+     * <p>
+     * If you are using <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestSpotInstances.html">
+     * RequestSpotInstances</a> to create Spot Instances, omit this parameter because you can’t specify the network card
+     * index when using this API. To specify the network card index, use <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     * </p>
+     */
+    private Integer networkCardIndex;
+    /**
+     * <p>
+     * The IPv4 delegated prefixes to be assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv4PrefixCount</code> option.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecificationRequest> ipv4Prefixes;
+    /**
+     * <p>
+     * The number of IPv4 delegated prefixes to be automatically assigned to the network interface. You cannot use this
+     * option if you use the <code>Ipv4Prefix</code> option.
+     * </p>
+     */
+    private Integer ipv4PrefixCount;
+    /**
+     * <p>
+     * The IPv6 delegated prefixes to be assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv6PrefixCount</code> option.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<Ipv6PrefixSpecificationRequest> ipv6Prefixes;
+    /**
+     * <p>
+     * The number of IPv6 delegated prefixes to be automatically assigned to the network interface. You cannot use this
+     * option if you use the <code>Ipv6Prefix</code> option.
+     * </p>
+     */
+    private Integer ipv6PrefixCount;
+    /**
+     * <p>
+     * The primary IPv6 address of the network interface. When you enable an IPv6 GUA address to be a primary IPv6, the
+     * first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the network interface is
+     * detached. For more information about primary IPv6 addresses, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     * </p>
+     */
+    private Boolean primaryIpv6;
+    /**
+     * <p>
+     * Specifies the ENA Express settings for the network interface that's attached to the instance.
+     * </p>
+     */
+    private EnaSrdSpecificationRequest enaSrdSpecification;
+    /**
+     * <p>
+     * A security group connection tracking specification that enables you to set the timeout for connection tracking on
+     * an Elastic network interface. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     * >Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     */
+    private ConnectionTrackingSpecificationRequest connectionTrackingSpecification;
 
     /**
      * <p>
@@ -142,12 +223,21 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
      * existing one. You cannot specify more than one network interface in the request. If launching into a default
      * subnet, the default value is <code>true</code>.
      * </p>
+     * <p>
+     * Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with
+     * running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the
+     * <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
+     * </p>
      * 
      * @param associatePublicIpAddress
      *        Indicates whether to assign a public IPv4 address to an instance you launch in a VPC. The public IP
      *        address can only be assigned to a network interface for eth0, and can only be assigned to a new network
      *        interface, not an existing one. You cannot specify more than one network interface in the request. If
-     *        launching into a default subnet, the default value is <code>true</code>.
+     *        launching into a default subnet, the default value is <code>true</code>.</p>
+     *        <p>
+     *        Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with
+     *        running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab
+     *        on the <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
      */
 
     public void setAssociatePublicIpAddress(Boolean associatePublicIpAddress) {
@@ -161,11 +251,20 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
      * existing one. You cannot specify more than one network interface in the request. If launching into a default
      * subnet, the default value is <code>true</code>.
      * </p>
+     * <p>
+     * Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with
+     * running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the
+     * <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
+     * </p>
      * 
      * @return Indicates whether to assign a public IPv4 address to an instance you launch in a VPC. The public IP
      *         address can only be assigned to a network interface for eth0, and can only be assigned to a new network
      *         interface, not an existing one. You cannot specify more than one network interface in the request. If
-     *         launching into a default subnet, the default value is <code>true</code>.
+     *         launching into a default subnet, the default value is <code>true</code>.</p>
+     *         <p>
+     *         Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated
+     *         with running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i>
+     *         tab on the <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
      */
 
     public Boolean getAssociatePublicIpAddress() {
@@ -179,12 +278,21 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
      * existing one. You cannot specify more than one network interface in the request. If launching into a default
      * subnet, the default value is <code>true</code>.
      * </p>
+     * <p>
+     * Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with
+     * running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the
+     * <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
+     * </p>
      * 
      * @param associatePublicIpAddress
      *        Indicates whether to assign a public IPv4 address to an instance you launch in a VPC. The public IP
      *        address can only be assigned to a network interface for eth0, and can only be assigned to a new network
      *        interface, not an existing one. You cannot specify more than one network interface in the request. If
-     *        launching into a default subnet, the default value is <code>true</code>.
+     *        launching into a default subnet, the default value is <code>true</code>.</p>
+     *        <p>
+     *        Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with
+     *        running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab
+     *        on the <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -200,11 +308,20 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
      * existing one. You cannot specify more than one network interface in the request. If launching into a default
      * subnet, the default value is <code>true</code>.
      * </p>
+     * <p>
+     * Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with
+     * running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the
+     * <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
+     * </p>
      * 
      * @return Indicates whether to assign a public IPv4 address to an instance you launch in a VPC. The public IP
      *         address can only be assigned to a network interface for eth0, and can only be assigned to a new network
      *         interface, not an existing one. You cannot specify more than one network interface in the request. If
-     *         launching into a default subnet, the default value is <code>true</code>.
+     *         launching into a default subnet, the default value is <code>true</code>.</p>
+     *         <p>
+     *         Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated
+     *         with running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i>
+     *         tab on the <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
      */
 
     public Boolean isAssociatePublicIpAddress() {
@@ -516,14 +633,14 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
 
     /**
      * <p>
-     * One or more IPv6 addresses to assign to the network interface. You cannot specify this option and the option to
-     * assign a number of IPv6 addresses in the same request. You cannot specify this option if you've specified a
-     * minimum number of instances to launch.
+     * The IPv6 addresses to assign to the network interface. You cannot specify this option and the option to assign a
+     * number of IPv6 addresses in the same request. You cannot specify this option if you've specified a minimum number
+     * of instances to launch.
      * </p>
      * 
-     * @return One or more IPv6 addresses to assign to the network interface. You cannot specify this option and the
-     *         option to assign a number of IPv6 addresses in the same request. You cannot specify this option if you've
-     *         specified a minimum number of instances to launch.
+     * @return The IPv6 addresses to assign to the network interface. You cannot specify this option and the option to
+     *         assign a number of IPv6 addresses in the same request. You cannot specify this option if you've specified
+     *         a minimum number of instances to launch.
      */
 
     public java.util.List<InstanceIpv6Address> getIpv6Addresses() {
@@ -535,15 +652,15 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
 
     /**
      * <p>
-     * One or more IPv6 addresses to assign to the network interface. You cannot specify this option and the option to
-     * assign a number of IPv6 addresses in the same request. You cannot specify this option if you've specified a
-     * minimum number of instances to launch.
+     * The IPv6 addresses to assign to the network interface. You cannot specify this option and the option to assign a
+     * number of IPv6 addresses in the same request. You cannot specify this option if you've specified a minimum number
+     * of instances to launch.
      * </p>
      * 
      * @param ipv6Addresses
-     *        One or more IPv6 addresses to assign to the network interface. You cannot specify this option and the
-     *        option to assign a number of IPv6 addresses in the same request. You cannot specify this option if you've
-     *        specified a minimum number of instances to launch.
+     *        The IPv6 addresses to assign to the network interface. You cannot specify this option and the option to
+     *        assign a number of IPv6 addresses in the same request. You cannot specify this option if you've specified
+     *        a minimum number of instances to launch.
      */
 
     public void setIpv6Addresses(java.util.Collection<InstanceIpv6Address> ipv6Addresses) {
@@ -557,9 +674,9 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
 
     /**
      * <p>
-     * One or more IPv6 addresses to assign to the network interface. You cannot specify this option and the option to
-     * assign a number of IPv6 addresses in the same request. You cannot specify this option if you've specified a
-     * minimum number of instances to launch.
+     * The IPv6 addresses to assign to the network interface. You cannot specify this option and the option to assign a
+     * number of IPv6 addresses in the same request. You cannot specify this option if you've specified a minimum number
+     * of instances to launch.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -568,9 +685,9 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
      * </p>
      * 
      * @param ipv6Addresses
-     *        One or more IPv6 addresses to assign to the network interface. You cannot specify this option and the
-     *        option to assign a number of IPv6 addresses in the same request. You cannot specify this option if you've
-     *        specified a minimum number of instances to launch.
+     *        The IPv6 addresses to assign to the network interface. You cannot specify this option and the option to
+     *        assign a number of IPv6 addresses in the same request. You cannot specify this option if you've specified
+     *        a minimum number of instances to launch.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -586,15 +703,15 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
 
     /**
      * <p>
-     * One or more IPv6 addresses to assign to the network interface. You cannot specify this option and the option to
-     * assign a number of IPv6 addresses in the same request. You cannot specify this option if you've specified a
-     * minimum number of instances to launch.
+     * The IPv6 addresses to assign to the network interface. You cannot specify this option and the option to assign a
+     * number of IPv6 addresses in the same request. You cannot specify this option if you've specified a minimum number
+     * of instances to launch.
      * </p>
      * 
      * @param ipv6Addresses
-     *        One or more IPv6 addresses to assign to the network interface. You cannot specify this option and the
-     *        option to assign a number of IPv6 addresses in the same request. You cannot specify this option if you've
-     *        specified a minimum number of instances to launch.
+     *        The IPv6 addresses to assign to the network interface. You cannot specify this option and the option to
+     *        assign a number of IPv6 addresses in the same request. You cannot specify this option if you've specified
+     *        a minimum number of instances to launch.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -607,9 +724,16 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
      * <p>
      * The ID of the network interface.
      * </p>
+     * <p>
+     * If you are creating a Spot Fleet, omit this parameter because you can’t specify a network interface ID in a
+     * launch specification.
+     * </p>
      * 
      * @param networkInterfaceId
-     *        The ID of the network interface.
+     *        The ID of the network interface.</p>
+     *        <p>
+     *        If you are creating a Spot Fleet, omit this parameter because you can’t specify a network interface ID in
+     *        a launch specification.
      */
 
     public void setNetworkInterfaceId(String networkInterfaceId) {
@@ -620,8 +744,15 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
      * <p>
      * The ID of the network interface.
      * </p>
+     * <p>
+     * If you are creating a Spot Fleet, omit this parameter because you can’t specify a network interface ID in a
+     * launch specification.
+     * </p>
      * 
-     * @return The ID of the network interface.
+     * @return The ID of the network interface.</p>
+     *         <p>
+     *         If you are creating a Spot Fleet, omit this parameter because you can’t specify a network interface ID in
+     *         a launch specification.
      */
 
     public String getNetworkInterfaceId() {
@@ -632,9 +763,16 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
      * <p>
      * The ID of the network interface.
      * </p>
+     * <p>
+     * If you are creating a Spot Fleet, omit this parameter because you can’t specify a network interface ID in a
+     * launch specification.
+     * </p>
      * 
      * @param networkInterfaceId
-     *        The ID of the network interface.
+     *        The ID of the network interface.</p>
+     *        <p>
+     *        If you are creating a Spot Fleet, omit this parameter because you can’t specify a network interface ID in
+     *        a launch specification.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -700,14 +838,14 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
 
     /**
      * <p>
-     * One or more private IPv4 addresses to assign to the network interface. Only one private IPv4 address can be
-     * designated as primary. You cannot specify this option if you're launching more than one instance in a <a
+     * The private IPv4 addresses to assign to the network interface. Only one private IPv4 address can be designated as
+     * primary. You cannot specify this option if you're launching more than one instance in a <a
      * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a> request.
      * </p>
      * 
-     * @return One or more private IPv4 addresses to assign to the network interface. Only one private IPv4 address can
-     *         be designated as primary. You cannot specify this option if you're launching more than one instance in a
-     *         <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>
+     * @return The private IPv4 addresses to assign to the network interface. Only one private IPv4 address can be
+     *         designated as primary. You cannot specify this option if you're launching more than one instance in a <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>
      *         request.
      */
 
@@ -720,15 +858,15 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
 
     /**
      * <p>
-     * One or more private IPv4 addresses to assign to the network interface. Only one private IPv4 address can be
-     * designated as primary. You cannot specify this option if you're launching more than one instance in a <a
+     * The private IPv4 addresses to assign to the network interface. Only one private IPv4 address can be designated as
+     * primary. You cannot specify this option if you're launching more than one instance in a <a
      * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a> request.
      * </p>
      * 
      * @param privateIpAddresses
-     *        One or more private IPv4 addresses to assign to the network interface. Only one private IPv4 address can
-     *        be designated as primary. You cannot specify this option if you're launching more than one instance in a
-     *        <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>
+     *        The private IPv4 addresses to assign to the network interface. Only one private IPv4 address can be
+     *        designated as primary. You cannot specify this option if you're launching more than one instance in a <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>
      *        request.
      */
 
@@ -743,8 +881,8 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
 
     /**
      * <p>
-     * One or more private IPv4 addresses to assign to the network interface. Only one private IPv4 address can be
-     * designated as primary. You cannot specify this option if you're launching more than one instance in a <a
+     * The private IPv4 addresses to assign to the network interface. Only one private IPv4 address can be designated as
+     * primary. You cannot specify this option if you're launching more than one instance in a <a
      * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a> request.
      * </p>
      * <p>
@@ -754,9 +892,9 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
      * </p>
      * 
      * @param privateIpAddresses
-     *        One or more private IPv4 addresses to assign to the network interface. Only one private IPv4 address can
-     *        be designated as primary. You cannot specify this option if you're launching more than one instance in a
-     *        <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>
+     *        The private IPv4 addresses to assign to the network interface. Only one private IPv4 address can be
+     *        designated as primary. You cannot specify this option if you're launching more than one instance in a <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>
      *        request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -773,15 +911,15 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
 
     /**
      * <p>
-     * One or more private IPv4 addresses to assign to the network interface. Only one private IPv4 address can be
-     * designated as primary. You cannot specify this option if you're launching more than one instance in a <a
+     * The private IPv4 addresses to assign to the network interface. Only one private IPv4 address can be designated as
+     * primary. You cannot specify this option if you're launching more than one instance in a <a
      * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a> request.
      * </p>
      * 
      * @param privateIpAddresses
-     *        One or more private IPv4 addresses to assign to the network interface. Only one private IPv4 address can
-     *        be designated as primary. You cannot specify this option if you're launching more than one instance in a
-     *        <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>
+     *        The private IPv4 addresses to assign to the network interface. Only one private IPv4 address can be
+     *        designated as primary. You cannot specify this option if you're launching more than one instance in a <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>
      *        request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -854,13 +992,13 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
 
     /**
      * <p>
-     * The ID of the subnet associated with the network string. Applies only if creating a network interface when
+     * The ID of the subnet associated with the network interface. Applies only if creating a network interface when
      * launching an instance.
      * </p>
      * 
      * @param subnetId
-     *        The ID of the subnet associated with the network string. Applies only if creating a network interface when
-     *        launching an instance.
+     *        The ID of the subnet associated with the network interface. Applies only if creating a network interface
+     *        when launching an instance.
      */
 
     public void setSubnetId(String subnetId) {
@@ -869,11 +1007,11 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
 
     /**
      * <p>
-     * The ID of the subnet associated with the network string. Applies only if creating a network interface when
+     * The ID of the subnet associated with the network interface. Applies only if creating a network interface when
      * launching an instance.
      * </p>
      * 
-     * @return The ID of the subnet associated with the network string. Applies only if creating a network interface
+     * @return The ID of the subnet associated with the network interface. Applies only if creating a network interface
      *         when launching an instance.
      */
 
@@ -883,13 +1021,13 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
 
     /**
      * <p>
-     * The ID of the subnet associated with the network string. Applies only if creating a network interface when
+     * The ID of the subnet associated with the network interface. Applies only if creating a network interface when
      * launching an instance.
      * </p>
      * 
      * @param subnetId
-     *        The ID of the subnet associated with the network string. Applies only if creating a network interface when
-     *        launching an instance.
+     *        The ID of the subnet associated with the network interface. Applies only if creating a network interface
+     *        when launching an instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -900,24 +1038,110 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
 
     /**
      * <p>
-     * The type of network interface. To create an Elastic Fabric Adapter (EFA), specify <code>efa</code>. For more
-     * information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html">Elastic Fabric
-     * Adapter</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * Indicates whether to assign a carrier IP address to the network interface.
      * </p>
      * <p>
-     * If you are not creating an EFA, specify <code>interface</code> or omit this parameter.
+     * You can only assign a carrier IP address to a network interface that is in a subnet in a Wavelength Zone. For
+     * more information about carrier IP addresses, see <a
+     * href="https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip"
+     * >Carrier IP address</a> in the <i>Amazon Web Services Wavelength Developer Guide</i>.
+     * </p>
+     * 
+     * @param associateCarrierIpAddress
+     *        Indicates whether to assign a carrier IP address to the network interface.</p>
+     *        <p>
+     *        You can only assign a carrier IP address to a network interface that is in a subnet in a Wavelength Zone.
+     *        For more information about carrier IP addresses, see <a href=
+     *        "https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip"
+     *        >Carrier IP address</a> in the <i>Amazon Web Services Wavelength Developer Guide</i>.
+     */
+
+    public void setAssociateCarrierIpAddress(Boolean associateCarrierIpAddress) {
+        this.associateCarrierIpAddress = associateCarrierIpAddress;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to assign a carrier IP address to the network interface.
+     * </p>
+     * <p>
+     * You can only assign a carrier IP address to a network interface that is in a subnet in a Wavelength Zone. For
+     * more information about carrier IP addresses, see <a
+     * href="https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip"
+     * >Carrier IP address</a> in the <i>Amazon Web Services Wavelength Developer Guide</i>.
+     * </p>
+     * 
+     * @return Indicates whether to assign a carrier IP address to the network interface.</p>
+     *         <p>
+     *         You can only assign a carrier IP address to a network interface that is in a subnet in a Wavelength Zone.
+     *         For more information about carrier IP addresses, see <a href=
+     *         "https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip"
+     *         >Carrier IP address</a> in the <i>Amazon Web Services Wavelength Developer Guide</i>.
+     */
+
+    public Boolean getAssociateCarrierIpAddress() {
+        return this.associateCarrierIpAddress;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to assign a carrier IP address to the network interface.
+     * </p>
+     * <p>
+     * You can only assign a carrier IP address to a network interface that is in a subnet in a Wavelength Zone. For
+     * more information about carrier IP addresses, see <a
+     * href="https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip"
+     * >Carrier IP address</a> in the <i>Amazon Web Services Wavelength Developer Guide</i>.
+     * </p>
+     * 
+     * @param associateCarrierIpAddress
+     *        Indicates whether to assign a carrier IP address to the network interface.</p>
+     *        <p>
+     *        You can only assign a carrier IP address to a network interface that is in a subnet in a Wavelength Zone.
+     *        For more information about carrier IP addresses, see <a href=
+     *        "https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip"
+     *        >Carrier IP address</a> in the <i>Amazon Web Services Wavelength Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceNetworkInterfaceSpecification withAssociateCarrierIpAddress(Boolean associateCarrierIpAddress) {
+        setAssociateCarrierIpAddress(associateCarrierIpAddress);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to assign a carrier IP address to the network interface.
+     * </p>
+     * <p>
+     * You can only assign a carrier IP address to a network interface that is in a subnet in a Wavelength Zone. For
+     * more information about carrier IP addresses, see <a
+     * href="https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip"
+     * >Carrier IP address</a> in the <i>Amazon Web Services Wavelength Developer Guide</i>.
+     * </p>
+     * 
+     * @return Indicates whether to assign a carrier IP address to the network interface.</p>
+     *         <p>
+     *         You can only assign a carrier IP address to a network interface that is in a subnet in a Wavelength Zone.
+     *         For more information about carrier IP addresses, see <a href=
+     *         "https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip"
+     *         >Carrier IP address</a> in the <i>Amazon Web Services Wavelength Developer Guide</i>.
+     */
+
+    public Boolean isAssociateCarrierIpAddress() {
+        return this.associateCarrierIpAddress;
+    }
+
+    /**
+     * <p>
+     * The type of network interface.
      * </p>
      * <p>
      * Valid values: <code>interface</code> | <code>efa</code>
      * </p>
      * 
      * @param interfaceType
-     *        The type of network interface. To create an Elastic Fabric Adapter (EFA), specify <code>efa</code>. For
-     *        more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html">Elastic
-     *        Fabric Adapter</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
-     *        <p>
-     *        If you are not creating an EFA, specify <code>interface</code> or omit this parameter.
-     *        </p>
+     *        The type of network interface.</p>
      *        <p>
      *        Valid values: <code>interface</code> | <code>efa</code>
      */
@@ -928,23 +1152,13 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
 
     /**
      * <p>
-     * The type of network interface. To create an Elastic Fabric Adapter (EFA), specify <code>efa</code>. For more
-     * information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html">Elastic Fabric
-     * Adapter</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
-     * </p>
-     * <p>
-     * If you are not creating an EFA, specify <code>interface</code> or omit this parameter.
+     * The type of network interface.
      * </p>
      * <p>
      * Valid values: <code>interface</code> | <code>efa</code>
      * </p>
      * 
-     * @return The type of network interface. To create an Elastic Fabric Adapter (EFA), specify <code>efa</code>. For
-     *         more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html">Elastic
-     *         Fabric Adapter</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
-     *         <p>
-     *         If you are not creating an EFA, specify <code>interface</code> or omit this parameter.
-     *         </p>
+     * @return The type of network interface.</p>
      *         <p>
      *         Valid values: <code>interface</code> | <code>efa</code>
      */
@@ -955,24 +1169,14 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
 
     /**
      * <p>
-     * The type of network interface. To create an Elastic Fabric Adapter (EFA), specify <code>efa</code>. For more
-     * information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html">Elastic Fabric
-     * Adapter</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
-     * </p>
-     * <p>
-     * If you are not creating an EFA, specify <code>interface</code> or omit this parameter.
+     * The type of network interface.
      * </p>
      * <p>
      * Valid values: <code>interface</code> | <code>efa</code>
      * </p>
      * 
      * @param interfaceType
-     *        The type of network interface. To create an Elastic Fabric Adapter (EFA), specify <code>efa</code>. For
-     *        more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html">Elastic
-     *        Fabric Adapter</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
-     *        <p>
-     *        If you are not creating an EFA, specify <code>interface</code> or omit this parameter.
-     *        </p>
+     *        The type of network interface.</p>
      *        <p>
      *        Valid values: <code>interface</code> | <code>efa</code>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -980,6 +1184,516 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
 
     public InstanceNetworkInterfaceSpecification withInterfaceType(String interfaceType) {
         setInterfaceType(interfaceType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The index of the network card. Some instance types support multiple network cards. The primary network interface
+     * must be assigned to network card index 0. The default is network card index 0.
+     * </p>
+     * <p>
+     * If you are using <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestSpotInstances.html">
+     * RequestSpotInstances</a> to create Spot Instances, omit this parameter because you can’t specify the network card
+     * index when using this API. To specify the network card index, use <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     * </p>
+     * 
+     * @param networkCardIndex
+     *        The index of the network card. Some instance types support multiple network cards. The primary network
+     *        interface must be assigned to network card index 0. The default is network card index 0.</p>
+     *        <p>
+     *        If you are using <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestSpotInstances.html"
+     *        >RequestSpotInstances</a> to create Spot Instances, omit this parameter because you can’t specify the
+     *        network card index when using this API. To specify the network card index, use <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     */
+
+    public void setNetworkCardIndex(Integer networkCardIndex) {
+        this.networkCardIndex = networkCardIndex;
+    }
+
+    /**
+     * <p>
+     * The index of the network card. Some instance types support multiple network cards. The primary network interface
+     * must be assigned to network card index 0. The default is network card index 0.
+     * </p>
+     * <p>
+     * If you are using <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestSpotInstances.html">
+     * RequestSpotInstances</a> to create Spot Instances, omit this parameter because you can’t specify the network card
+     * index when using this API. To specify the network card index, use <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     * </p>
+     * 
+     * @return The index of the network card. Some instance types support multiple network cards. The primary network
+     *         interface must be assigned to network card index 0. The default is network card index 0.</p>
+     *         <p>
+     *         If you are using <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestSpotInstances.html"
+     *         >RequestSpotInstances</a> to create Spot Instances, omit this parameter because you can’t specify the
+     *         network card index when using this API. To specify the network card index, use <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     */
+
+    public Integer getNetworkCardIndex() {
+        return this.networkCardIndex;
+    }
+
+    /**
+     * <p>
+     * The index of the network card. Some instance types support multiple network cards. The primary network interface
+     * must be assigned to network card index 0. The default is network card index 0.
+     * </p>
+     * <p>
+     * If you are using <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestSpotInstances.html">
+     * RequestSpotInstances</a> to create Spot Instances, omit this parameter because you can’t specify the network card
+     * index when using this API. To specify the network card index, use <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     * </p>
+     * 
+     * @param networkCardIndex
+     *        The index of the network card. Some instance types support multiple network cards. The primary network
+     *        interface must be assigned to network card index 0. The default is network card index 0.</p>
+     *        <p>
+     *        If you are using <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestSpotInstances.html"
+     *        >RequestSpotInstances</a> to create Spot Instances, omit this parameter because you can’t specify the
+     *        network card index when using this API. To specify the network card index, use <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceNetworkInterfaceSpecification withNetworkCardIndex(Integer networkCardIndex) {
+        setNetworkCardIndex(networkCardIndex);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv4 delegated prefixes to be assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv4PrefixCount</code> option.
+     * </p>
+     * 
+     * @return The IPv4 delegated prefixes to be assigned to the network interface. You cannot use this option if you
+     *         use the <code>Ipv4PrefixCount</code> option.
+     */
+
+    public java.util.List<Ipv4PrefixSpecificationRequest> getIpv4Prefixes() {
+        if (ipv4Prefixes == null) {
+            ipv4Prefixes = new com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecificationRequest>();
+        }
+        return ipv4Prefixes;
+    }
+
+    /**
+     * <p>
+     * The IPv4 delegated prefixes to be assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv4PrefixCount</code> option.
+     * </p>
+     * 
+     * @param ipv4Prefixes
+     *        The IPv4 delegated prefixes to be assigned to the network interface. You cannot use this option if you use
+     *        the <code>Ipv4PrefixCount</code> option.
+     */
+
+    public void setIpv4Prefixes(java.util.Collection<Ipv4PrefixSpecificationRequest> ipv4Prefixes) {
+        if (ipv4Prefixes == null) {
+            this.ipv4Prefixes = null;
+            return;
+        }
+
+        this.ipv4Prefixes = new com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecificationRequest>(ipv4Prefixes);
+    }
+
+    /**
+     * <p>
+     * The IPv4 delegated prefixes to be assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv4PrefixCount</code> option.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setIpv4Prefixes(java.util.Collection)} or {@link #withIpv4Prefixes(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param ipv4Prefixes
+     *        The IPv4 delegated prefixes to be assigned to the network interface. You cannot use this option if you use
+     *        the <code>Ipv4PrefixCount</code> option.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceNetworkInterfaceSpecification withIpv4Prefixes(Ipv4PrefixSpecificationRequest... ipv4Prefixes) {
+        if (this.ipv4Prefixes == null) {
+            setIpv4Prefixes(new com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecificationRequest>(ipv4Prefixes.length));
+        }
+        for (Ipv4PrefixSpecificationRequest ele : ipv4Prefixes) {
+            this.ipv4Prefixes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv4 delegated prefixes to be assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv4PrefixCount</code> option.
+     * </p>
+     * 
+     * @param ipv4Prefixes
+     *        The IPv4 delegated prefixes to be assigned to the network interface. You cannot use this option if you use
+     *        the <code>Ipv4PrefixCount</code> option.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceNetworkInterfaceSpecification withIpv4Prefixes(java.util.Collection<Ipv4PrefixSpecificationRequest> ipv4Prefixes) {
+        setIpv4Prefixes(ipv4Prefixes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of IPv4 delegated prefixes to be automatically assigned to the network interface. You cannot use this
+     * option if you use the <code>Ipv4Prefix</code> option.
+     * </p>
+     * 
+     * @param ipv4PrefixCount
+     *        The number of IPv4 delegated prefixes to be automatically assigned to the network interface. You cannot
+     *        use this option if you use the <code>Ipv4Prefix</code> option.
+     */
+
+    public void setIpv4PrefixCount(Integer ipv4PrefixCount) {
+        this.ipv4PrefixCount = ipv4PrefixCount;
+    }
+
+    /**
+     * <p>
+     * The number of IPv4 delegated prefixes to be automatically assigned to the network interface. You cannot use this
+     * option if you use the <code>Ipv4Prefix</code> option.
+     * </p>
+     * 
+     * @return The number of IPv4 delegated prefixes to be automatically assigned to the network interface. You cannot
+     *         use this option if you use the <code>Ipv4Prefix</code> option.
+     */
+
+    public Integer getIpv4PrefixCount() {
+        return this.ipv4PrefixCount;
+    }
+
+    /**
+     * <p>
+     * The number of IPv4 delegated prefixes to be automatically assigned to the network interface. You cannot use this
+     * option if you use the <code>Ipv4Prefix</code> option.
+     * </p>
+     * 
+     * @param ipv4PrefixCount
+     *        The number of IPv4 delegated prefixes to be automatically assigned to the network interface. You cannot
+     *        use this option if you use the <code>Ipv4Prefix</code> option.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceNetworkInterfaceSpecification withIpv4PrefixCount(Integer ipv4PrefixCount) {
+        setIpv4PrefixCount(ipv4PrefixCount);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv6 delegated prefixes to be assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv6PrefixCount</code> option.
+     * </p>
+     * 
+     * @return The IPv6 delegated prefixes to be assigned to the network interface. You cannot use this option if you
+     *         use the <code>Ipv6PrefixCount</code> option.
+     */
+
+    public java.util.List<Ipv6PrefixSpecificationRequest> getIpv6Prefixes() {
+        if (ipv6Prefixes == null) {
+            ipv6Prefixes = new com.amazonaws.internal.SdkInternalList<Ipv6PrefixSpecificationRequest>();
+        }
+        return ipv6Prefixes;
+    }
+
+    /**
+     * <p>
+     * The IPv6 delegated prefixes to be assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv6PrefixCount</code> option.
+     * </p>
+     * 
+     * @param ipv6Prefixes
+     *        The IPv6 delegated prefixes to be assigned to the network interface. You cannot use this option if you use
+     *        the <code>Ipv6PrefixCount</code> option.
+     */
+
+    public void setIpv6Prefixes(java.util.Collection<Ipv6PrefixSpecificationRequest> ipv6Prefixes) {
+        if (ipv6Prefixes == null) {
+            this.ipv6Prefixes = null;
+            return;
+        }
+
+        this.ipv6Prefixes = new com.amazonaws.internal.SdkInternalList<Ipv6PrefixSpecificationRequest>(ipv6Prefixes);
+    }
+
+    /**
+     * <p>
+     * The IPv6 delegated prefixes to be assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv6PrefixCount</code> option.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setIpv6Prefixes(java.util.Collection)} or {@link #withIpv6Prefixes(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param ipv6Prefixes
+     *        The IPv6 delegated prefixes to be assigned to the network interface. You cannot use this option if you use
+     *        the <code>Ipv6PrefixCount</code> option.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceNetworkInterfaceSpecification withIpv6Prefixes(Ipv6PrefixSpecificationRequest... ipv6Prefixes) {
+        if (this.ipv6Prefixes == null) {
+            setIpv6Prefixes(new com.amazonaws.internal.SdkInternalList<Ipv6PrefixSpecificationRequest>(ipv6Prefixes.length));
+        }
+        for (Ipv6PrefixSpecificationRequest ele : ipv6Prefixes) {
+            this.ipv6Prefixes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv6 delegated prefixes to be assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv6PrefixCount</code> option.
+     * </p>
+     * 
+     * @param ipv6Prefixes
+     *        The IPv6 delegated prefixes to be assigned to the network interface. You cannot use this option if you use
+     *        the <code>Ipv6PrefixCount</code> option.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceNetworkInterfaceSpecification withIpv6Prefixes(java.util.Collection<Ipv6PrefixSpecificationRequest> ipv6Prefixes) {
+        setIpv6Prefixes(ipv6Prefixes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of IPv6 delegated prefixes to be automatically assigned to the network interface. You cannot use this
+     * option if you use the <code>Ipv6Prefix</code> option.
+     * </p>
+     * 
+     * @param ipv6PrefixCount
+     *        The number of IPv6 delegated prefixes to be automatically assigned to the network interface. You cannot
+     *        use this option if you use the <code>Ipv6Prefix</code> option.
+     */
+
+    public void setIpv6PrefixCount(Integer ipv6PrefixCount) {
+        this.ipv6PrefixCount = ipv6PrefixCount;
+    }
+
+    /**
+     * <p>
+     * The number of IPv6 delegated prefixes to be automatically assigned to the network interface. You cannot use this
+     * option if you use the <code>Ipv6Prefix</code> option.
+     * </p>
+     * 
+     * @return The number of IPv6 delegated prefixes to be automatically assigned to the network interface. You cannot
+     *         use this option if you use the <code>Ipv6Prefix</code> option.
+     */
+
+    public Integer getIpv6PrefixCount() {
+        return this.ipv6PrefixCount;
+    }
+
+    /**
+     * <p>
+     * The number of IPv6 delegated prefixes to be automatically assigned to the network interface. You cannot use this
+     * option if you use the <code>Ipv6Prefix</code> option.
+     * </p>
+     * 
+     * @param ipv6PrefixCount
+     *        The number of IPv6 delegated prefixes to be automatically assigned to the network interface. You cannot
+     *        use this option if you use the <code>Ipv6Prefix</code> option.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceNetworkInterfaceSpecification withIpv6PrefixCount(Integer ipv6PrefixCount) {
+        setIpv6PrefixCount(ipv6PrefixCount);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The primary IPv6 address of the network interface. When you enable an IPv6 GUA address to be a primary IPv6, the
+     * first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the network interface is
+     * detached. For more information about primary IPv6 addresses, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     * </p>
+     * 
+     * @param primaryIpv6
+     *        The primary IPv6 address of the network interface. When you enable an IPv6 GUA address to be a primary
+     *        IPv6, the first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the
+     *        network interface is detached. For more information about primary IPv6 addresses, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     */
+
+    public void setPrimaryIpv6(Boolean primaryIpv6) {
+        this.primaryIpv6 = primaryIpv6;
+    }
+
+    /**
+     * <p>
+     * The primary IPv6 address of the network interface. When you enable an IPv6 GUA address to be a primary IPv6, the
+     * first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the network interface is
+     * detached. For more information about primary IPv6 addresses, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     * </p>
+     * 
+     * @return The primary IPv6 address of the network interface. When you enable an IPv6 GUA address to be a primary
+     *         IPv6, the first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the
+     *         network interface is detached. For more information about primary IPv6 addresses, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     */
+
+    public Boolean getPrimaryIpv6() {
+        return this.primaryIpv6;
+    }
+
+    /**
+     * <p>
+     * The primary IPv6 address of the network interface. When you enable an IPv6 GUA address to be a primary IPv6, the
+     * first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the network interface is
+     * detached. For more information about primary IPv6 addresses, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     * </p>
+     * 
+     * @param primaryIpv6
+     *        The primary IPv6 address of the network interface. When you enable an IPv6 GUA address to be a primary
+     *        IPv6, the first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the
+     *        network interface is detached. For more information about primary IPv6 addresses, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceNetworkInterfaceSpecification withPrimaryIpv6(Boolean primaryIpv6) {
+        setPrimaryIpv6(primaryIpv6);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The primary IPv6 address of the network interface. When you enable an IPv6 GUA address to be a primary IPv6, the
+     * first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the network interface is
+     * detached. For more information about primary IPv6 addresses, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     * </p>
+     * 
+     * @return The primary IPv6 address of the network interface. When you enable an IPv6 GUA address to be a primary
+     *         IPv6, the first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the
+     *         network interface is detached. For more information about primary IPv6 addresses, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a>.
+     */
+
+    public Boolean isPrimaryIpv6() {
+        return this.primaryIpv6;
+    }
+
+    /**
+     * <p>
+     * Specifies the ENA Express settings for the network interface that's attached to the instance.
+     * </p>
+     * 
+     * @param enaSrdSpecification
+     *        Specifies the ENA Express settings for the network interface that's attached to the instance.
+     */
+
+    public void setEnaSrdSpecification(EnaSrdSpecificationRequest enaSrdSpecification) {
+        this.enaSrdSpecification = enaSrdSpecification;
+    }
+
+    /**
+     * <p>
+     * Specifies the ENA Express settings for the network interface that's attached to the instance.
+     * </p>
+     * 
+     * @return Specifies the ENA Express settings for the network interface that's attached to the instance.
+     */
+
+    public EnaSrdSpecificationRequest getEnaSrdSpecification() {
+        return this.enaSrdSpecification;
+    }
+
+    /**
+     * <p>
+     * Specifies the ENA Express settings for the network interface that's attached to the instance.
+     * </p>
+     * 
+     * @param enaSrdSpecification
+     *        Specifies the ENA Express settings for the network interface that's attached to the instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceNetworkInterfaceSpecification withEnaSrdSpecification(EnaSrdSpecificationRequest enaSrdSpecification) {
+        setEnaSrdSpecification(enaSrdSpecification);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A security group connection tracking specification that enables you to set the timeout for connection tracking on
+     * an Elastic network interface. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     * >Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param connectionTrackingSpecification
+     *        A security group connection tracking specification that enables you to set the timeout for connection
+     *        tracking on an Elastic network interface. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     *        >Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public void setConnectionTrackingSpecification(ConnectionTrackingSpecificationRequest connectionTrackingSpecification) {
+        this.connectionTrackingSpecification = connectionTrackingSpecification;
+    }
+
+    /**
+     * <p>
+     * A security group connection tracking specification that enables you to set the timeout for connection tracking on
+     * an Elastic network interface. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     * >Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return A security group connection tracking specification that enables you to set the timeout for connection
+     *         tracking on an Elastic network interface. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     *         >Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public ConnectionTrackingSpecificationRequest getConnectionTrackingSpecification() {
+        return this.connectionTrackingSpecification;
+    }
+
+    /**
+     * <p>
+     * A security group connection tracking specification that enables you to set the timeout for connection tracking on
+     * an Elastic network interface. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     * >Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param connectionTrackingSpecification
+     *        A security group connection tracking specification that enables you to set the timeout for connection
+     *        tracking on an Elastic network interface. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     *        >Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceNetworkInterfaceSpecification withConnectionTrackingSpecification(ConnectionTrackingSpecificationRequest connectionTrackingSpecification) {
+        setConnectionTrackingSpecification(connectionTrackingSpecification);
         return this;
     }
 
@@ -1019,8 +1733,26 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
             sb.append("SecondaryPrivateIpAddressCount: ").append(getSecondaryPrivateIpAddressCount()).append(",");
         if (getSubnetId() != null)
             sb.append("SubnetId: ").append(getSubnetId()).append(",");
+        if (getAssociateCarrierIpAddress() != null)
+            sb.append("AssociateCarrierIpAddress: ").append(getAssociateCarrierIpAddress()).append(",");
         if (getInterfaceType() != null)
-            sb.append("InterfaceType: ").append(getInterfaceType());
+            sb.append("InterfaceType: ").append(getInterfaceType()).append(",");
+        if (getNetworkCardIndex() != null)
+            sb.append("NetworkCardIndex: ").append(getNetworkCardIndex()).append(",");
+        if (getIpv4Prefixes() != null)
+            sb.append("Ipv4Prefixes: ").append(getIpv4Prefixes()).append(",");
+        if (getIpv4PrefixCount() != null)
+            sb.append("Ipv4PrefixCount: ").append(getIpv4PrefixCount()).append(",");
+        if (getIpv6Prefixes() != null)
+            sb.append("Ipv6Prefixes: ").append(getIpv6Prefixes()).append(",");
+        if (getIpv6PrefixCount() != null)
+            sb.append("Ipv6PrefixCount: ").append(getIpv6PrefixCount()).append(",");
+        if (getPrimaryIpv6() != null)
+            sb.append("PrimaryIpv6: ").append(getPrimaryIpv6()).append(",");
+        if (getEnaSrdSpecification() != null)
+            sb.append("EnaSrdSpecification: ").append(getEnaSrdSpecification()).append(",");
+        if (getConnectionTrackingSpecification() != null)
+            sb.append("ConnectionTrackingSpecification: ").append(getConnectionTrackingSpecification());
         sb.append("}");
         return sb.toString();
     }
@@ -1084,9 +1816,46 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
             return false;
         if (other.getSubnetId() != null && other.getSubnetId().equals(this.getSubnetId()) == false)
             return false;
+        if (other.getAssociateCarrierIpAddress() == null ^ this.getAssociateCarrierIpAddress() == null)
+            return false;
+        if (other.getAssociateCarrierIpAddress() != null && other.getAssociateCarrierIpAddress().equals(this.getAssociateCarrierIpAddress()) == false)
+            return false;
         if (other.getInterfaceType() == null ^ this.getInterfaceType() == null)
             return false;
         if (other.getInterfaceType() != null && other.getInterfaceType().equals(this.getInterfaceType()) == false)
+            return false;
+        if (other.getNetworkCardIndex() == null ^ this.getNetworkCardIndex() == null)
+            return false;
+        if (other.getNetworkCardIndex() != null && other.getNetworkCardIndex().equals(this.getNetworkCardIndex()) == false)
+            return false;
+        if (other.getIpv4Prefixes() == null ^ this.getIpv4Prefixes() == null)
+            return false;
+        if (other.getIpv4Prefixes() != null && other.getIpv4Prefixes().equals(this.getIpv4Prefixes()) == false)
+            return false;
+        if (other.getIpv4PrefixCount() == null ^ this.getIpv4PrefixCount() == null)
+            return false;
+        if (other.getIpv4PrefixCount() != null && other.getIpv4PrefixCount().equals(this.getIpv4PrefixCount()) == false)
+            return false;
+        if (other.getIpv6Prefixes() == null ^ this.getIpv6Prefixes() == null)
+            return false;
+        if (other.getIpv6Prefixes() != null && other.getIpv6Prefixes().equals(this.getIpv6Prefixes()) == false)
+            return false;
+        if (other.getIpv6PrefixCount() == null ^ this.getIpv6PrefixCount() == null)
+            return false;
+        if (other.getIpv6PrefixCount() != null && other.getIpv6PrefixCount().equals(this.getIpv6PrefixCount()) == false)
+            return false;
+        if (other.getPrimaryIpv6() == null ^ this.getPrimaryIpv6() == null)
+            return false;
+        if (other.getPrimaryIpv6() != null && other.getPrimaryIpv6().equals(this.getPrimaryIpv6()) == false)
+            return false;
+        if (other.getEnaSrdSpecification() == null ^ this.getEnaSrdSpecification() == null)
+            return false;
+        if (other.getEnaSrdSpecification() != null && other.getEnaSrdSpecification().equals(this.getEnaSrdSpecification()) == false)
+            return false;
+        if (other.getConnectionTrackingSpecification() == null ^ this.getConnectionTrackingSpecification() == null)
+            return false;
+        if (other.getConnectionTrackingSpecification() != null
+                && other.getConnectionTrackingSpecification().equals(this.getConnectionTrackingSpecification()) == false)
             return false;
         return true;
     }
@@ -1108,7 +1877,16 @@ public class InstanceNetworkInterfaceSpecification implements Serializable, Clon
         hashCode = prime * hashCode + ((getPrivateIpAddresses() == null) ? 0 : getPrivateIpAddresses().hashCode());
         hashCode = prime * hashCode + ((getSecondaryPrivateIpAddressCount() == null) ? 0 : getSecondaryPrivateIpAddressCount().hashCode());
         hashCode = prime * hashCode + ((getSubnetId() == null) ? 0 : getSubnetId().hashCode());
+        hashCode = prime * hashCode + ((getAssociateCarrierIpAddress() == null) ? 0 : getAssociateCarrierIpAddress().hashCode());
         hashCode = prime * hashCode + ((getInterfaceType() == null) ? 0 : getInterfaceType().hashCode());
+        hashCode = prime * hashCode + ((getNetworkCardIndex() == null) ? 0 : getNetworkCardIndex().hashCode());
+        hashCode = prime * hashCode + ((getIpv4Prefixes() == null) ? 0 : getIpv4Prefixes().hashCode());
+        hashCode = prime * hashCode + ((getIpv4PrefixCount() == null) ? 0 : getIpv4PrefixCount().hashCode());
+        hashCode = prime * hashCode + ((getIpv6Prefixes() == null) ? 0 : getIpv6Prefixes().hashCode());
+        hashCode = prime * hashCode + ((getIpv6PrefixCount() == null) ? 0 : getIpv6PrefixCount().hashCode());
+        hashCode = prime * hashCode + ((getPrimaryIpv6() == null) ? 0 : getPrimaryIpv6().hashCode());
+        hashCode = prime * hashCode + ((getEnaSrdSpecification() == null) ? 0 : getEnaSrdSpecification().hashCode());
+        hashCode = prime * hashCode + ((getConnectionTrackingSpecification() == null) ? 0 : getConnectionTrackingSpecification().hashCode());
         return hashCode;
     }
 

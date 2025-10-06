@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,10 +37,18 @@ public class ResourceMarshaller {
             .marshallLocationName("Partition").build();
     private static final MarshallingInfo<String> REGION_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Region").build();
+    private static final MarshallingInfo<String> RESOURCEROLE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceRole").build();
     private static final MarshallingInfo<Map> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Tags").build();
+    private static final MarshallingInfo<StructuredPojo> DATACLASSIFICATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DataClassification").build();
     private static final MarshallingInfo<StructuredPojo> DETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Details").build();
+    private static final MarshallingInfo<String> APPLICATIONNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ApplicationName").build();
+    private static final MarshallingInfo<String> APPLICATIONARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ApplicationArn").build();
 
     private static final ResourceMarshaller instance = new ResourceMarshaller();
 
@@ -62,8 +70,12 @@ public class ResourceMarshaller {
             protocolMarshaller.marshall(resource.getId(), ID_BINDING);
             protocolMarshaller.marshall(resource.getPartition(), PARTITION_BINDING);
             protocolMarshaller.marshall(resource.getRegion(), REGION_BINDING);
+            protocolMarshaller.marshall(resource.getResourceRole(), RESOURCEROLE_BINDING);
             protocolMarshaller.marshall(resource.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(resource.getDataClassification(), DATACLASSIFICATION_BINDING);
             protocolMarshaller.marshall(resource.getDetails(), DETAILS_BINDING);
+            protocolMarshaller.marshall(resource.getApplicationName(), APPLICATIONNAME_BINDING);
+            protocolMarshaller.marshall(resource.getApplicationArn(), APPLICATIONARN_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

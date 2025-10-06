@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,7 +36,7 @@ public class UserPoolConfig implements Serializable, Cloneable, StructuredPojo {
     private String userPoolId;
     /**
      * <p>
-     * The AWS Region in which the user pool was created.
+     * The Amazon Web Services Region in which the user pool was created.
      * </p>
      */
     private String awsRegion;
@@ -49,7 +49,8 @@ public class UserPoolConfig implements Serializable, Cloneable, StructuredPojo {
     private String defaultAction;
     /**
      * <p>
-     * A regular expression for validating the incoming Amazon Cognito user pool app client ID.
+     * A regular expression for validating the incoming Amazon Cognito user pool app client ID. If this value isn't set,
+     * no filtering is applied.
      * </p>
      */
     private String appIdClientRegex;
@@ -96,11 +97,11 @@ public class UserPoolConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Region in which the user pool was created.
+     * The Amazon Web Services Region in which the user pool was created.
      * </p>
      * 
      * @param awsRegion
-     *        The AWS Region in which the user pool was created.
+     *        The Amazon Web Services Region in which the user pool was created.
      */
 
     public void setAwsRegion(String awsRegion) {
@@ -109,10 +110,10 @@ public class UserPoolConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Region in which the user pool was created.
+     * The Amazon Web Services Region in which the user pool was created.
      * </p>
      * 
-     * @return The AWS Region in which the user pool was created.
+     * @return The Amazon Web Services Region in which the user pool was created.
      */
 
     public String getAwsRegion() {
@@ -121,11 +122,11 @@ public class UserPoolConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Region in which the user pool was created.
+     * The Amazon Web Services Region in which the user pool was created.
      * </p>
      * 
      * @param awsRegion
-     *        The AWS Region in which the user pool was created.
+     *        The Amazon Web Services Region in which the user pool was created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -203,11 +204,13 @@ public class UserPoolConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A regular expression for validating the incoming Amazon Cognito user pool app client ID.
+     * A regular expression for validating the incoming Amazon Cognito user pool app client ID. If this value isn't set,
+     * no filtering is applied.
      * </p>
      * 
      * @param appIdClientRegex
-     *        A regular expression for validating the incoming Amazon Cognito user pool app client ID.
+     *        A regular expression for validating the incoming Amazon Cognito user pool app client ID. If this value
+     *        isn't set, no filtering is applied.
      */
 
     public void setAppIdClientRegex(String appIdClientRegex) {
@@ -216,10 +219,12 @@ public class UserPoolConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A regular expression for validating the incoming Amazon Cognito user pool app client ID.
+     * A regular expression for validating the incoming Amazon Cognito user pool app client ID. If this value isn't set,
+     * no filtering is applied.
      * </p>
      * 
-     * @return A regular expression for validating the incoming Amazon Cognito user pool app client ID.
+     * @return A regular expression for validating the incoming Amazon Cognito user pool app client ID. If this value
+     *         isn't set, no filtering is applied.
      */
 
     public String getAppIdClientRegex() {
@@ -228,11 +233,13 @@ public class UserPoolConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A regular expression for validating the incoming Amazon Cognito user pool app client ID.
+     * A regular expression for validating the incoming Amazon Cognito user pool app client ID. If this value isn't set,
+     * no filtering is applied.
      * </p>
      * 
      * @param appIdClientRegex
-     *        A regular expression for validating the incoming Amazon Cognito user pool app client ID.
+     *        A regular expression for validating the incoming Amazon Cognito user pool app client ID. If this value
+     *        isn't set, no filtering is applied.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

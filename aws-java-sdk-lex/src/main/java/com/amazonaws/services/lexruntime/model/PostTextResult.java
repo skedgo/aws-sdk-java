@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,27 @@ public class PostTextResult extends com.amazonaws.AmazonWebServiceResult<com.ama
      * </p>
      */
     private String intentName;
+    /**
+     * <p>
+     * Provides a score that indicates how confident Amazon Lex is that the returned intent is the one that matches the
+     * user's intent. The score is between 0.0 and 1.0. For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/confidence-scores.html">Confidence Scores</a>.
+     * </p>
+     * <p>
+     * The score is a relative score, not an absolute score. The score may change based on improvements to Amazon Lex.
+     * </p>
+     */
+    private IntentConfidence nluIntentConfidence;
+    /**
+     * <p>
+     * One to four alternative intents that may be applicable to the user's intent.
+     * </p>
+     * <p>
+     * Each alternative includes a score that indicates how confident Amazon Lex is that the intent matches the user's
+     * intent. The intents are sorted by the confidence score.
+     * </p>
+     */
+    private java.util.List<PredictedIntent> alternativeIntents;
     /**
      * <p>
      * The intent slots that Amazon Lex detected from the user input in the conversation.
@@ -70,6 +91,16 @@ public class PostTextResult extends com.amazonaws.AmazonWebServiceResult<com.ama
      * </p>
      */
     private String message;
+    /**
+     * <p>
+     * The sentiment expressed in and utterance.
+     * </p>
+     * <p>
+     * When the bot is configured to send utterances to Amazon Comprehend for sentiment analysis, this field contains
+     * the result of the analysis.
+     * </p>
+     */
+    private SentimentResponse sentimentResponse;
     /**
      * <p>
      * The format of the response message. One of the following values:
@@ -177,6 +208,30 @@ public class PostTextResult extends com.amazonaws.AmazonWebServiceResult<com.ama
      * </p>
      */
     private ResponseCard responseCard;
+    /**
+     * <p>
+     * A unique identifier for the session.
+     * </p>
+     */
+    private String sessionId;
+    /**
+     * <p>
+     * The version of the bot that responded to the conversation. You can use this information to help determine if one
+     * version of a bot is performing better than another version.
+     * </p>
+     */
+    private String botVersion;
+    /**
+     * <p>
+     * A list of active contexts for the session. A context can be set when an intent is fulfilled or by calling the
+     * <code>PostContent</code>, <code>PostText</code>, or <code>PutSession</code> operation.
+     * </p>
+     * <p>
+     * You can use a context to control the intents that can follow up an intent, or to modify the operation of your
+     * application.
+     * </p>
+     */
+    private java.util.List<ActiveContext> activeContexts;
 
     /**
      * <p>
@@ -215,6 +270,174 @@ public class PostTextResult extends com.amazonaws.AmazonWebServiceResult<com.ama
 
     public PostTextResult withIntentName(String intentName) {
         setIntentName(intentName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Provides a score that indicates how confident Amazon Lex is that the returned intent is the one that matches the
+     * user's intent. The score is between 0.0 and 1.0. For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/confidence-scores.html">Confidence Scores</a>.
+     * </p>
+     * <p>
+     * The score is a relative score, not an absolute score. The score may change based on improvements to Amazon Lex.
+     * </p>
+     * 
+     * @param nluIntentConfidence
+     *        Provides a score that indicates how confident Amazon Lex is that the returned intent is the one that
+     *        matches the user's intent. The score is between 0.0 and 1.0. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lex/latest/dg/confidence-scores.html">Confidence Scores</a>.</p>
+     *        <p>
+     *        The score is a relative score, not an absolute score. The score may change based on improvements to Amazon
+     *        Lex.
+     */
+
+    public void setNluIntentConfidence(IntentConfidence nluIntentConfidence) {
+        this.nluIntentConfidence = nluIntentConfidence;
+    }
+
+    /**
+     * <p>
+     * Provides a score that indicates how confident Amazon Lex is that the returned intent is the one that matches the
+     * user's intent. The score is between 0.0 and 1.0. For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/confidence-scores.html">Confidence Scores</a>.
+     * </p>
+     * <p>
+     * The score is a relative score, not an absolute score. The score may change based on improvements to Amazon Lex.
+     * </p>
+     * 
+     * @return Provides a score that indicates how confident Amazon Lex is that the returned intent is the one that
+     *         matches the user's intent. The score is between 0.0 and 1.0. For more information, see <a
+     *         href="https://docs.aws.amazon.com/lex/latest/dg/confidence-scores.html">Confidence Scores</a>.</p>
+     *         <p>
+     *         The score is a relative score, not an absolute score. The score may change based on improvements to
+     *         Amazon Lex.
+     */
+
+    public IntentConfidence getNluIntentConfidence() {
+        return this.nluIntentConfidence;
+    }
+
+    /**
+     * <p>
+     * Provides a score that indicates how confident Amazon Lex is that the returned intent is the one that matches the
+     * user's intent. The score is between 0.0 and 1.0. For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/confidence-scores.html">Confidence Scores</a>.
+     * </p>
+     * <p>
+     * The score is a relative score, not an absolute score. The score may change based on improvements to Amazon Lex.
+     * </p>
+     * 
+     * @param nluIntentConfidence
+     *        Provides a score that indicates how confident Amazon Lex is that the returned intent is the one that
+     *        matches the user's intent. The score is between 0.0 and 1.0. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lex/latest/dg/confidence-scores.html">Confidence Scores</a>.</p>
+     *        <p>
+     *        The score is a relative score, not an absolute score. The score may change based on improvements to Amazon
+     *        Lex.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PostTextResult withNluIntentConfidence(IntentConfidence nluIntentConfidence) {
+        setNluIntentConfidence(nluIntentConfidence);
+        return this;
+    }
+
+    /**
+     * <p>
+     * One to four alternative intents that may be applicable to the user's intent.
+     * </p>
+     * <p>
+     * Each alternative includes a score that indicates how confident Amazon Lex is that the intent matches the user's
+     * intent. The intents are sorted by the confidence score.
+     * </p>
+     * 
+     * @return One to four alternative intents that may be applicable to the user's intent.</p>
+     *         <p>
+     *         Each alternative includes a score that indicates how confident Amazon Lex is that the intent matches the
+     *         user's intent. The intents are sorted by the confidence score.
+     */
+
+    public java.util.List<PredictedIntent> getAlternativeIntents() {
+        return alternativeIntents;
+    }
+
+    /**
+     * <p>
+     * One to four alternative intents that may be applicable to the user's intent.
+     * </p>
+     * <p>
+     * Each alternative includes a score that indicates how confident Amazon Lex is that the intent matches the user's
+     * intent. The intents are sorted by the confidence score.
+     * </p>
+     * 
+     * @param alternativeIntents
+     *        One to four alternative intents that may be applicable to the user's intent.</p>
+     *        <p>
+     *        Each alternative includes a score that indicates how confident Amazon Lex is that the intent matches the
+     *        user's intent. The intents are sorted by the confidence score.
+     */
+
+    public void setAlternativeIntents(java.util.Collection<PredictedIntent> alternativeIntents) {
+        if (alternativeIntents == null) {
+            this.alternativeIntents = null;
+            return;
+        }
+
+        this.alternativeIntents = new java.util.ArrayList<PredictedIntent>(alternativeIntents);
+    }
+
+    /**
+     * <p>
+     * One to four alternative intents that may be applicable to the user's intent.
+     * </p>
+     * <p>
+     * Each alternative includes a score that indicates how confident Amazon Lex is that the intent matches the user's
+     * intent. The intents are sorted by the confidence score.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAlternativeIntents(java.util.Collection)} or {@link #withAlternativeIntents(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param alternativeIntents
+     *        One to four alternative intents that may be applicable to the user's intent.</p>
+     *        <p>
+     *        Each alternative includes a score that indicates how confident Amazon Lex is that the intent matches the
+     *        user's intent. The intents are sorted by the confidence score.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PostTextResult withAlternativeIntents(PredictedIntent... alternativeIntents) {
+        if (this.alternativeIntents == null) {
+            setAlternativeIntents(new java.util.ArrayList<PredictedIntent>(alternativeIntents.length));
+        }
+        for (PredictedIntent ele : alternativeIntents) {
+            this.alternativeIntents.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * One to four alternative intents that may be applicable to the user's intent.
+     * </p>
+     * <p>
+     * Each alternative includes a score that indicates how confident Amazon Lex is that the intent matches the user's
+     * intent. The intents are sorted by the confidence score.
+     * </p>
+     * 
+     * @param alternativeIntents
+     *        One to four alternative intents that may be applicable to the user's intent.</p>
+     *        <p>
+     *        Each alternative includes a score that indicates how confident Amazon Lex is that the intent matches the
+     *        user's intent. The intents are sorted by the confidence score.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PostTextResult withAlternativeIntents(java.util.Collection<PredictedIntent> alternativeIntents) {
+        setAlternativeIntents(alternativeIntents);
         return this;
     }
 
@@ -309,6 +532,13 @@ public class PostTextResult extends com.amazonaws.AmazonWebServiceResult<com.ama
         return this;
     }
 
+    /**
+     * Add a single Slots entry
+     *
+     * @see PostTextResult#withSlots
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public PostTextResult addSlotsEntry(String key, String value) {
         if (null == this.slots) {
             this.slots = new java.util.HashMap<String, String>();
@@ -369,6 +599,13 @@ public class PostTextResult extends com.amazonaws.AmazonWebServiceResult<com.ama
         setSessionAttributes(sessionAttributes);
         return this;
     }
+
+    /**
+     * Add a single SessionAttributes entry
+     *
+     * @see PostTextResult#withSessionAttributes
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public PostTextResult addSessionAttributesEntry(String key, String value) {
         if (null == this.sessionAttributes) {
@@ -518,6 +755,67 @@ public class PostTextResult extends com.amazonaws.AmazonWebServiceResult<com.ama
 
     public PostTextResult withMessage(String message) {
         setMessage(message);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The sentiment expressed in and utterance.
+     * </p>
+     * <p>
+     * When the bot is configured to send utterances to Amazon Comprehend for sentiment analysis, this field contains
+     * the result of the analysis.
+     * </p>
+     * 
+     * @param sentimentResponse
+     *        The sentiment expressed in and utterance.</p>
+     *        <p>
+     *        When the bot is configured to send utterances to Amazon Comprehend for sentiment analysis, this field
+     *        contains the result of the analysis.
+     */
+
+    public void setSentimentResponse(SentimentResponse sentimentResponse) {
+        this.sentimentResponse = sentimentResponse;
+    }
+
+    /**
+     * <p>
+     * The sentiment expressed in and utterance.
+     * </p>
+     * <p>
+     * When the bot is configured to send utterances to Amazon Comprehend for sentiment analysis, this field contains
+     * the result of the analysis.
+     * </p>
+     * 
+     * @return The sentiment expressed in and utterance.</p>
+     *         <p>
+     *         When the bot is configured to send utterances to Amazon Comprehend for sentiment analysis, this field
+     *         contains the result of the analysis.
+     */
+
+    public SentimentResponse getSentimentResponse() {
+        return this.sentimentResponse;
+    }
+
+    /**
+     * <p>
+     * The sentiment expressed in and utterance.
+     * </p>
+     * <p>
+     * When the bot is configured to send utterances to Amazon Comprehend for sentiment analysis, this field contains
+     * the result of the analysis.
+     * </p>
+     * 
+     * @param sentimentResponse
+     *        The sentiment expressed in and utterance.</p>
+     *        <p>
+     *        When the bot is configured to send utterances to Amazon Comprehend for sentiment analysis, this field
+     *        contains the result of the analysis.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PostTextResult withSentimentResponse(SentimentResponse sentimentResponse) {
+        setSentimentResponse(sentimentResponse);
         return this;
     }
 
@@ -1566,6 +1864,198 @@ public class PostTextResult extends com.amazonaws.AmazonWebServiceResult<com.ama
     }
 
     /**
+     * <p>
+     * A unique identifier for the session.
+     * </p>
+     * 
+     * @param sessionId
+     *        A unique identifier for the session.
+     */
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    /**
+     * <p>
+     * A unique identifier for the session.
+     * </p>
+     * 
+     * @return A unique identifier for the session.
+     */
+
+    public String getSessionId() {
+        return this.sessionId;
+    }
+
+    /**
+     * <p>
+     * A unique identifier for the session.
+     * </p>
+     * 
+     * @param sessionId
+     *        A unique identifier for the session.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PostTextResult withSessionId(String sessionId) {
+        setSessionId(sessionId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The version of the bot that responded to the conversation. You can use this information to help determine if one
+     * version of a bot is performing better than another version.
+     * </p>
+     * 
+     * @param botVersion
+     *        The version of the bot that responded to the conversation. You can use this information to help determine
+     *        if one version of a bot is performing better than another version.
+     */
+
+    public void setBotVersion(String botVersion) {
+        this.botVersion = botVersion;
+    }
+
+    /**
+     * <p>
+     * The version of the bot that responded to the conversation. You can use this information to help determine if one
+     * version of a bot is performing better than another version.
+     * </p>
+     * 
+     * @return The version of the bot that responded to the conversation. You can use this information to help determine
+     *         if one version of a bot is performing better than another version.
+     */
+
+    public String getBotVersion() {
+        return this.botVersion;
+    }
+
+    /**
+     * <p>
+     * The version of the bot that responded to the conversation. You can use this information to help determine if one
+     * version of a bot is performing better than another version.
+     * </p>
+     * 
+     * @param botVersion
+     *        The version of the bot that responded to the conversation. You can use this information to help determine
+     *        if one version of a bot is performing better than another version.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PostTextResult withBotVersion(String botVersion) {
+        setBotVersion(botVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of active contexts for the session. A context can be set when an intent is fulfilled or by calling the
+     * <code>PostContent</code>, <code>PostText</code>, or <code>PutSession</code> operation.
+     * </p>
+     * <p>
+     * You can use a context to control the intents that can follow up an intent, or to modify the operation of your
+     * application.
+     * </p>
+     * 
+     * @return A list of active contexts for the session. A context can be set when an intent is fulfilled or by calling
+     *         the <code>PostContent</code>, <code>PostText</code>, or <code>PutSession</code> operation.</p>
+     *         <p>
+     *         You can use a context to control the intents that can follow up an intent, or to modify the operation of
+     *         your application.
+     */
+
+    public java.util.List<ActiveContext> getActiveContexts() {
+        return activeContexts;
+    }
+
+    /**
+     * <p>
+     * A list of active contexts for the session. A context can be set when an intent is fulfilled or by calling the
+     * <code>PostContent</code>, <code>PostText</code>, or <code>PutSession</code> operation.
+     * </p>
+     * <p>
+     * You can use a context to control the intents that can follow up an intent, or to modify the operation of your
+     * application.
+     * </p>
+     * 
+     * @param activeContexts
+     *        A list of active contexts for the session. A context can be set when an intent is fulfilled or by calling
+     *        the <code>PostContent</code>, <code>PostText</code>, or <code>PutSession</code> operation.</p>
+     *        <p>
+     *        You can use a context to control the intents that can follow up an intent, or to modify the operation of
+     *        your application.
+     */
+
+    public void setActiveContexts(java.util.Collection<ActiveContext> activeContexts) {
+        if (activeContexts == null) {
+            this.activeContexts = null;
+            return;
+        }
+
+        this.activeContexts = new java.util.ArrayList<ActiveContext>(activeContexts);
+    }
+
+    /**
+     * <p>
+     * A list of active contexts for the session. A context can be set when an intent is fulfilled or by calling the
+     * <code>PostContent</code>, <code>PostText</code>, or <code>PutSession</code> operation.
+     * </p>
+     * <p>
+     * You can use a context to control the intents that can follow up an intent, or to modify the operation of your
+     * application.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setActiveContexts(java.util.Collection)} or {@link #withActiveContexts(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param activeContexts
+     *        A list of active contexts for the session. A context can be set when an intent is fulfilled or by calling
+     *        the <code>PostContent</code>, <code>PostText</code>, or <code>PutSession</code> operation.</p>
+     *        <p>
+     *        You can use a context to control the intents that can follow up an intent, or to modify the operation of
+     *        your application.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PostTextResult withActiveContexts(ActiveContext... activeContexts) {
+        if (this.activeContexts == null) {
+            setActiveContexts(new java.util.ArrayList<ActiveContext>(activeContexts.length));
+        }
+        for (ActiveContext ele : activeContexts) {
+            this.activeContexts.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of active contexts for the session. A context can be set when an intent is fulfilled or by calling the
+     * <code>PostContent</code>, <code>PostText</code>, or <code>PutSession</code> operation.
+     * </p>
+     * <p>
+     * You can use a context to control the intents that can follow up an intent, or to modify the operation of your
+     * application.
+     * </p>
+     * 
+     * @param activeContexts
+     *        A list of active contexts for the session. A context can be set when an intent is fulfilled or by calling
+     *        the <code>PostContent</code>, <code>PostText</code>, or <code>PutSession</code> operation.</p>
+     *        <p>
+     *        You can use a context to control the intents that can follow up an intent, or to modify the operation of
+     *        your application.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PostTextResult withActiveContexts(java.util.Collection<ActiveContext> activeContexts) {
+        setActiveContexts(activeContexts);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1579,12 +2069,18 @@ public class PostTextResult extends com.amazonaws.AmazonWebServiceResult<com.ama
         sb.append("{");
         if (getIntentName() != null)
             sb.append("IntentName: ").append(getIntentName()).append(",");
+        if (getNluIntentConfidence() != null)
+            sb.append("NluIntentConfidence: ").append(getNluIntentConfidence()).append(",");
+        if (getAlternativeIntents() != null)
+            sb.append("AlternativeIntents: ").append(getAlternativeIntents()).append(",");
         if (getSlots() != null)
             sb.append("Slots: ").append("***Sensitive Data Redacted***").append(",");
         if (getSessionAttributes() != null)
             sb.append("SessionAttributes: ").append("***Sensitive Data Redacted***").append(",");
         if (getMessage() != null)
             sb.append("Message: ").append("***Sensitive Data Redacted***").append(",");
+        if (getSentimentResponse() != null)
+            sb.append("SentimentResponse: ").append(getSentimentResponse()).append(",");
         if (getMessageFormat() != null)
             sb.append("MessageFormat: ").append(getMessageFormat()).append(",");
         if (getDialogState() != null)
@@ -1592,7 +2088,13 @@ public class PostTextResult extends com.amazonaws.AmazonWebServiceResult<com.ama
         if (getSlotToElicit() != null)
             sb.append("SlotToElicit: ").append(getSlotToElicit()).append(",");
         if (getResponseCard() != null)
-            sb.append("ResponseCard: ").append(getResponseCard());
+            sb.append("ResponseCard: ").append(getResponseCard()).append(",");
+        if (getSessionId() != null)
+            sb.append("SessionId: ").append(getSessionId()).append(",");
+        if (getBotVersion() != null)
+            sb.append("BotVersion: ").append(getBotVersion()).append(",");
+        if (getActiveContexts() != null)
+            sb.append("ActiveContexts: ").append("***Sensitive Data Redacted***");
         sb.append("}");
         return sb.toString();
     }
@@ -1611,6 +2113,14 @@ public class PostTextResult extends com.amazonaws.AmazonWebServiceResult<com.ama
             return false;
         if (other.getIntentName() != null && other.getIntentName().equals(this.getIntentName()) == false)
             return false;
+        if (other.getNluIntentConfidence() == null ^ this.getNluIntentConfidence() == null)
+            return false;
+        if (other.getNluIntentConfidence() != null && other.getNluIntentConfidence().equals(this.getNluIntentConfidence()) == false)
+            return false;
+        if (other.getAlternativeIntents() == null ^ this.getAlternativeIntents() == null)
+            return false;
+        if (other.getAlternativeIntents() != null && other.getAlternativeIntents().equals(this.getAlternativeIntents()) == false)
+            return false;
         if (other.getSlots() == null ^ this.getSlots() == null)
             return false;
         if (other.getSlots() != null && other.getSlots().equals(this.getSlots()) == false)
@@ -1622,6 +2132,10 @@ public class PostTextResult extends com.amazonaws.AmazonWebServiceResult<com.ama
         if (other.getMessage() == null ^ this.getMessage() == null)
             return false;
         if (other.getMessage() != null && other.getMessage().equals(this.getMessage()) == false)
+            return false;
+        if (other.getSentimentResponse() == null ^ this.getSentimentResponse() == null)
+            return false;
+        if (other.getSentimentResponse() != null && other.getSentimentResponse().equals(this.getSentimentResponse()) == false)
             return false;
         if (other.getMessageFormat() == null ^ this.getMessageFormat() == null)
             return false;
@@ -1639,6 +2153,18 @@ public class PostTextResult extends com.amazonaws.AmazonWebServiceResult<com.ama
             return false;
         if (other.getResponseCard() != null && other.getResponseCard().equals(this.getResponseCard()) == false)
             return false;
+        if (other.getSessionId() == null ^ this.getSessionId() == null)
+            return false;
+        if (other.getSessionId() != null && other.getSessionId().equals(this.getSessionId()) == false)
+            return false;
+        if (other.getBotVersion() == null ^ this.getBotVersion() == null)
+            return false;
+        if (other.getBotVersion() != null && other.getBotVersion().equals(this.getBotVersion()) == false)
+            return false;
+        if (other.getActiveContexts() == null ^ this.getActiveContexts() == null)
+            return false;
+        if (other.getActiveContexts() != null && other.getActiveContexts().equals(this.getActiveContexts()) == false)
+            return false;
         return true;
     }
 
@@ -1648,13 +2174,19 @@ public class PostTextResult extends com.amazonaws.AmazonWebServiceResult<com.ama
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getIntentName() == null) ? 0 : getIntentName().hashCode());
+        hashCode = prime * hashCode + ((getNluIntentConfidence() == null) ? 0 : getNluIntentConfidence().hashCode());
+        hashCode = prime * hashCode + ((getAlternativeIntents() == null) ? 0 : getAlternativeIntents().hashCode());
         hashCode = prime * hashCode + ((getSlots() == null) ? 0 : getSlots().hashCode());
         hashCode = prime * hashCode + ((getSessionAttributes() == null) ? 0 : getSessionAttributes().hashCode());
         hashCode = prime * hashCode + ((getMessage() == null) ? 0 : getMessage().hashCode());
+        hashCode = prime * hashCode + ((getSentimentResponse() == null) ? 0 : getSentimentResponse().hashCode());
         hashCode = prime * hashCode + ((getMessageFormat() == null) ? 0 : getMessageFormat().hashCode());
         hashCode = prime * hashCode + ((getDialogState() == null) ? 0 : getDialogState().hashCode());
         hashCode = prime * hashCode + ((getSlotToElicit() == null) ? 0 : getSlotToElicit().hashCode());
         hashCode = prime * hashCode + ((getResponseCard() == null) ? 0 : getResponseCard().hashCode());
+        hashCode = prime * hashCode + ((getSessionId() == null) ? 0 : getSessionId().hashCode());
+        hashCode = prime * hashCode + ((getBotVersion() == null) ? 0 : getBotVersion().hashCode());
+        hashCode = prime * hashCode + ((getActiveContexts() == null) ? 0 : getActiveContexts().hashCode());
         return hashCode;
     }
 

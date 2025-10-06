@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
+ * Contains information about the security groups associated with the EC2 instance.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/SecurityGroup" target="_top">AWS API
  *      Documentation</a>
@@ -27,24 +30,24 @@ public class SecurityGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * EC2 instance's security group ID.
+     * The security group ID of the EC2 instance.
      * </p>
      */
     private String groupId;
     /**
      * <p>
-     * EC2 instance's security group name.
+     * The security group name of the EC2 instance.
      * </p>
      */
     private String groupName;
 
     /**
      * <p>
-     * EC2 instance's security group ID.
+     * The security group ID of the EC2 instance.
      * </p>
      * 
      * @param groupId
-     *        EC2 instance's security group ID.
+     *        The security group ID of the EC2 instance.
      */
 
     public void setGroupId(String groupId) {
@@ -53,10 +56,10 @@ public class SecurityGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * EC2 instance's security group ID.
+     * The security group ID of the EC2 instance.
      * </p>
      * 
-     * @return EC2 instance's security group ID.
+     * @return The security group ID of the EC2 instance.
      */
 
     public String getGroupId() {
@@ -65,11 +68,11 @@ public class SecurityGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * EC2 instance's security group ID.
+     * The security group ID of the EC2 instance.
      * </p>
      * 
      * @param groupId
-     *        EC2 instance's security group ID.
+     *        The security group ID of the EC2 instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -80,11 +83,11 @@ public class SecurityGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * EC2 instance's security group name.
+     * The security group name of the EC2 instance.
      * </p>
      * 
      * @param groupName
-     *        EC2 instance's security group name.
+     *        The security group name of the EC2 instance.
      */
 
     public void setGroupName(String groupName) {
@@ -93,10 +96,10 @@ public class SecurityGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * EC2 instance's security group name.
+     * The security group name of the EC2 instance.
      * </p>
      * 
-     * @return EC2 instance's security group name.
+     * @return The security group name of the EC2 instance.
      */
 
     public String getGroupName() {
@@ -105,11 +108,11 @@ public class SecurityGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * EC2 instance's security group name.
+     * The security group name of the EC2 instance.
      * </p>
      * 
      * @param groupName
-     *        EC2 instance's security group name.
+     *        The security group name of the EC2 instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

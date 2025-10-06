@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,7 +42,8 @@ public class BackupDetails implements Serializable, Cloneable, StructuredPojo {
     private String backupName;
     /**
      * <p>
-     * Size of the backup in bytes.
+     * Size of the backup in bytes. DynamoDB updates this value approximately every six hours. Recent changes might not
+     * be reflected in this value.
      * </p>
      */
     private Long backupSizeBytes;
@@ -71,7 +72,7 @@ public class BackupDetails implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>AWS_BACKUP</code> - On-demand backup created by you from AWS Backup service.
+     * <code>AWS_BACKUP</code> - On-demand backup created by you from Backup service.
      * </p>
      * </li>
      * </ul>
@@ -173,11 +174,13 @@ public class BackupDetails implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Size of the backup in bytes.
+     * Size of the backup in bytes. DynamoDB updates this value approximately every six hours. Recent changes might not
+     * be reflected in this value.
      * </p>
      * 
      * @param backupSizeBytes
-     *        Size of the backup in bytes.
+     *        Size of the backup in bytes. DynamoDB updates this value approximately every six hours. Recent changes
+     *        might not be reflected in this value.
      */
 
     public void setBackupSizeBytes(Long backupSizeBytes) {
@@ -186,10 +189,12 @@ public class BackupDetails implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Size of the backup in bytes.
+     * Size of the backup in bytes. DynamoDB updates this value approximately every six hours. Recent changes might not
+     * be reflected in this value.
      * </p>
      * 
-     * @return Size of the backup in bytes.
+     * @return Size of the backup in bytes. DynamoDB updates this value approximately every six hours. Recent changes
+     *         might not be reflected in this value.
      */
 
     public Long getBackupSizeBytes() {
@@ -198,11 +203,13 @@ public class BackupDetails implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Size of the backup in bytes.
+     * Size of the backup in bytes. DynamoDB updates this value approximately every six hours. Recent changes might not
+     * be reflected in this value.
      * </p>
      * 
      * @param backupSizeBytes
-     *        Size of the backup in bytes.
+     *        Size of the backup in bytes. DynamoDB updates this value approximately every six hours. Recent changes
+     *        might not be reflected in this value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -289,7 +296,7 @@ public class BackupDetails implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>AWS_BACKUP</code> - On-demand backup created by you from AWS Backup service.
+     * <code>AWS_BACKUP</code> - On-demand backup created by you from Backup service.
      * </p>
      * </li>
      * </ul>
@@ -311,7 +318,7 @@ public class BackupDetails implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>AWS_BACKUP</code> - On-demand backup created by you from AWS Backup service.
+     *        <code>AWS_BACKUP</code> - On-demand backup created by you from Backup service.
      *        </p>
      *        </li>
      * @see BackupType
@@ -340,7 +347,7 @@ public class BackupDetails implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>AWS_BACKUP</code> - On-demand backup created by you from AWS Backup service.
+     * <code>AWS_BACKUP</code> - On-demand backup created by you from Backup service.
      * </p>
      * </li>
      * </ul>
@@ -361,7 +368,7 @@ public class BackupDetails implements Serializable, Cloneable, StructuredPojo {
      *         </li>
      *         <li>
      *         <p>
-     *         <code>AWS_BACKUP</code> - On-demand backup created by you from AWS Backup service.
+     *         <code>AWS_BACKUP</code> - On-demand backup created by you from Backup service.
      *         </p>
      *         </li>
      * @see BackupType
@@ -390,7 +397,7 @@ public class BackupDetails implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>AWS_BACKUP</code> - On-demand backup created by you from AWS Backup service.
+     * <code>AWS_BACKUP</code> - On-demand backup created by you from Backup service.
      * </p>
      * </li>
      * </ul>
@@ -412,7 +419,7 @@ public class BackupDetails implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>AWS_BACKUP</code> - On-demand backup created by you from AWS Backup service.
+     *        <code>AWS_BACKUP</code> - On-demand backup created by you from Backup service.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -443,7 +450,7 @@ public class BackupDetails implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>AWS_BACKUP</code> - On-demand backup created by you from AWS Backup service.
+     * <code>AWS_BACKUP</code> - On-demand backup created by you from Backup service.
      * </p>
      * </li>
      * </ul>
@@ -465,7 +472,7 @@ public class BackupDetails implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>AWS_BACKUP</code> - On-demand backup created by you from AWS Backup service.
+     *        <code>AWS_BACKUP</code> - On-demand backup created by you from Backup service.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.

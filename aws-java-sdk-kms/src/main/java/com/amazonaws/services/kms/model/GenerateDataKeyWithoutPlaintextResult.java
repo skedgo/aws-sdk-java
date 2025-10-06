@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,22 +26,24 @@ public class GenerateDataKeyWithoutPlaintextResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The encrypted data key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded. Otherwise, it is
-     * not encoded.
+     * The encrypted data key. When you use the HTTP API or the Amazon Web Services CLI, the value is Base64-encoded.
+     * Otherwise, it is not Base64-encoded.
      * </p>
      */
     private java.nio.ByteBuffer ciphertextBlob;
     /**
      * <p>
-     * The identifier of the CMK that encrypted the data key.
+     * The Amazon Resource Name (<a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">key ARN</a>) of the KMS
+     * key that encrypted the data key.
      * </p>
      */
     private String keyId;
 
     /**
      * <p>
-     * The encrypted data key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded. Otherwise, it is
-     * not encoded.
+     * The encrypted data key. When you use the HTTP API or the Amazon Web Services CLI, the value is Base64-encoded.
+     * Otherwise, it is not Base64-encoded.
      * </p>
      * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
@@ -55,8 +57,8 @@ public class GenerateDataKeyWithoutPlaintextResult extends com.amazonaws.AmazonW
      * </p>
      * 
      * @param ciphertextBlob
-     *        The encrypted data key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded. Otherwise,
-     *        it is not encoded.
+     *        The encrypted data key. When you use the HTTP API or the Amazon Web Services CLI, the value is
+     *        Base64-encoded. Otherwise, it is not Base64-encoded.
      */
 
     public void setCiphertextBlob(java.nio.ByteBuffer ciphertextBlob) {
@@ -65,8 +67,8 @@ public class GenerateDataKeyWithoutPlaintextResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The encrypted data key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded. Otherwise, it is
-     * not encoded.
+     * The encrypted data key. When you use the HTTP API or the Amazon Web Services CLI, the value is Base64-encoded.
+     * Otherwise, it is not Base64-encoded.
      * </p>
      * <p>
      * {@code ByteBuffer}s are stateful. Calling their {@code get} methods changes their {@code position}. We recommend
@@ -76,8 +78,8 @@ public class GenerateDataKeyWithoutPlaintextResult extends com.amazonaws.AmazonW
      * {@code position}.
      * </p>
      * 
-     * @return The encrypted data key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded. Otherwise,
-     *         it is not encoded.
+     * @return The encrypted data key. When you use the HTTP API or the Amazon Web Services CLI, the value is
+     *         Base64-encoded. Otherwise, it is not Base64-encoded.
      */
 
     public java.nio.ByteBuffer getCiphertextBlob() {
@@ -86,8 +88,8 @@ public class GenerateDataKeyWithoutPlaintextResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The encrypted data key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded. Otherwise, it is
-     * not encoded.
+     * The encrypted data key. When you use the HTTP API or the Amazon Web Services CLI, the value is Base64-encoded.
+     * Otherwise, it is not Base64-encoded.
      * </p>
      * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
@@ -101,8 +103,8 @@ public class GenerateDataKeyWithoutPlaintextResult extends com.amazonaws.AmazonW
      * </p>
      * 
      * @param ciphertextBlob
-     *        The encrypted data key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded. Otherwise,
-     *        it is not encoded.
+     *        The encrypted data key. When you use the HTTP API or the Amazon Web Services CLI, the value is
+     *        Base64-encoded. Otherwise, it is not Base64-encoded.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -113,11 +115,15 @@ public class GenerateDataKeyWithoutPlaintextResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The identifier of the CMK that encrypted the data key.
+     * The Amazon Resource Name (<a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">key ARN</a>) of the KMS
+     * key that encrypted the data key.
      * </p>
      * 
      * @param keyId
-     *        The identifier of the CMK that encrypted the data key.
+     *        The Amazon Resource Name (<a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">key ARN</a>) of
+     *        the KMS key that encrypted the data key.
      */
 
     public void setKeyId(String keyId) {
@@ -126,10 +132,14 @@ public class GenerateDataKeyWithoutPlaintextResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The identifier of the CMK that encrypted the data key.
+     * The Amazon Resource Name (<a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">key ARN</a>) of the KMS
+     * key that encrypted the data key.
      * </p>
      * 
-     * @return The identifier of the CMK that encrypted the data key.
+     * @return The Amazon Resource Name (<a
+     *         href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">key ARN</a>) of
+     *         the KMS key that encrypted the data key.
      */
 
     public String getKeyId() {
@@ -138,11 +148,15 @@ public class GenerateDataKeyWithoutPlaintextResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The identifier of the CMK that encrypted the data key.
+     * The Amazon Resource Name (<a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">key ARN</a>) of the KMS
+     * key that encrypted the data key.
      * </p>
      * 
      * @param keyId
-     *        The identifier of the CMK that encrypted the data key.
+     *        The Amazon Resource Name (<a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">key ARN</a>) of
+     *        the KMS key that encrypted the data key.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

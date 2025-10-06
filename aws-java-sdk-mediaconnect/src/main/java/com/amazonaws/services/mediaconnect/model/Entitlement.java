@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,12 +26,16 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class Entitlement implements Serializable, Cloneable, StructuredPojo {
 
+    /** Percentage from 0-100 of the data transfer cost to be billed to the subscriber. */
+    private Integer dataTransferSubscriberFeePercent;
     /** A description of the entitlement. */
     private String description;
     /** The type of encryption that will be used on the output that is associated with this entitlement. */
     private Encryption encryption;
     /** The ARN of the entitlement. */
     private String entitlementArn;
+    /** An indication of whether the entitlement is enabled. */
+    private String entitlementStatus;
     /** The name of the entitlement. */
     private String name;
     /**
@@ -39,6 +43,40 @@ public class Entitlement implements Serializable, Cloneable, StructuredPojo {
      * allowed to create their own flow using your content as the source.
      */
     private java.util.List<String> subscribers;
+
+    /**
+     * Percentage from 0-100 of the data transfer cost to be billed to the subscriber.
+     * 
+     * @param dataTransferSubscriberFeePercent
+     *        Percentage from 0-100 of the data transfer cost to be billed to the subscriber.
+     */
+
+    public void setDataTransferSubscriberFeePercent(Integer dataTransferSubscriberFeePercent) {
+        this.dataTransferSubscriberFeePercent = dataTransferSubscriberFeePercent;
+    }
+
+    /**
+     * Percentage from 0-100 of the data transfer cost to be billed to the subscriber.
+     * 
+     * @return Percentage from 0-100 of the data transfer cost to be billed to the subscriber.
+     */
+
+    public Integer getDataTransferSubscriberFeePercent() {
+        return this.dataTransferSubscriberFeePercent;
+    }
+
+    /**
+     * Percentage from 0-100 of the data transfer cost to be billed to the subscriber.
+     * 
+     * @param dataTransferSubscriberFeePercent
+     *        Percentage from 0-100 of the data transfer cost to be billed to the subscriber.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Entitlement withDataTransferSubscriberFeePercent(Integer dataTransferSubscriberFeePercent) {
+        setDataTransferSubscriberFeePercent(dataTransferSubscriberFeePercent);
+        return this;
+    }
 
     /**
      * A description of the entitlement.
@@ -139,6 +177,57 @@ public class Entitlement implements Serializable, Cloneable, StructuredPojo {
 
     public Entitlement withEntitlementArn(String entitlementArn) {
         setEntitlementArn(entitlementArn);
+        return this;
+    }
+
+    /**
+     * An indication of whether the entitlement is enabled.
+     * 
+     * @param entitlementStatus
+     *        An indication of whether the entitlement is enabled.
+     * @see EntitlementStatus
+     */
+
+    public void setEntitlementStatus(String entitlementStatus) {
+        this.entitlementStatus = entitlementStatus;
+    }
+
+    /**
+     * An indication of whether the entitlement is enabled.
+     * 
+     * @return An indication of whether the entitlement is enabled.
+     * @see EntitlementStatus
+     */
+
+    public String getEntitlementStatus() {
+        return this.entitlementStatus;
+    }
+
+    /**
+     * An indication of whether the entitlement is enabled.
+     * 
+     * @param entitlementStatus
+     *        An indication of whether the entitlement is enabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see EntitlementStatus
+     */
+
+    public Entitlement withEntitlementStatus(String entitlementStatus) {
+        setEntitlementStatus(entitlementStatus);
+        return this;
+    }
+
+    /**
+     * An indication of whether the entitlement is enabled.
+     * 
+     * @param entitlementStatus
+     *        An indication of whether the entitlement is enabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see EntitlementStatus
+     */
+
+    public Entitlement withEntitlementStatus(EntitlementStatus entitlementStatus) {
+        this.entitlementStatus = entitlementStatus.toString();
         return this;
     }
 
@@ -258,12 +347,16 @@ public class Entitlement implements Serializable, Cloneable, StructuredPojo {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getDataTransferSubscriberFeePercent() != null)
+            sb.append("DataTransferSubscriberFeePercent: ").append(getDataTransferSubscriberFeePercent()).append(",");
         if (getDescription() != null)
             sb.append("Description: ").append(getDescription()).append(",");
         if (getEncryption() != null)
             sb.append("Encryption: ").append(getEncryption()).append(",");
         if (getEntitlementArn() != null)
             sb.append("EntitlementArn: ").append(getEntitlementArn()).append(",");
+        if (getEntitlementStatus() != null)
+            sb.append("EntitlementStatus: ").append(getEntitlementStatus()).append(",");
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getSubscribers() != null)
@@ -282,6 +375,11 @@ public class Entitlement implements Serializable, Cloneable, StructuredPojo {
         if (obj instanceof Entitlement == false)
             return false;
         Entitlement other = (Entitlement) obj;
+        if (other.getDataTransferSubscriberFeePercent() == null ^ this.getDataTransferSubscriberFeePercent() == null)
+            return false;
+        if (other.getDataTransferSubscriberFeePercent() != null
+                && other.getDataTransferSubscriberFeePercent().equals(this.getDataTransferSubscriberFeePercent()) == false)
+            return false;
         if (other.getDescription() == null ^ this.getDescription() == null)
             return false;
         if (other.getDescription() != null && other.getDescription().equals(this.getDescription()) == false)
@@ -293,6 +391,10 @@ public class Entitlement implements Serializable, Cloneable, StructuredPojo {
         if (other.getEntitlementArn() == null ^ this.getEntitlementArn() == null)
             return false;
         if (other.getEntitlementArn() != null && other.getEntitlementArn().equals(this.getEntitlementArn()) == false)
+            return false;
+        if (other.getEntitlementStatus() == null ^ this.getEntitlementStatus() == null)
+            return false;
+        if (other.getEntitlementStatus() != null && other.getEntitlementStatus().equals(this.getEntitlementStatus()) == false)
             return false;
         if (other.getName() == null ^ this.getName() == null)
             return false;
@@ -310,9 +412,11 @@ public class Entitlement implements Serializable, Cloneable, StructuredPojo {
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getDataTransferSubscriberFeePercent() == null) ? 0 : getDataTransferSubscriberFeePercent().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getEncryption() == null) ? 0 : getEncryption().hashCode());
         hashCode = prime * hashCode + ((getEntitlementArn() == null) ? 0 : getEntitlementArn().hashCode());
+        hashCode = prime * hashCode + ((getEntitlementStatus() == null) ? 0 : getEntitlementStatus().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getSubscribers() == null) ? 0 : getSubscribers().hashCode());
         return hashCode;

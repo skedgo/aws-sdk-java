@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,8 +16,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * This exception is thrown when the software token TOTP multi-factor authentication (MFA) is not enabled for the user
- * pool.
+ * This exception is thrown when the software token time-based one-time password (TOTP) multi-factor authentication
+ * (MFA) isn't activated for the user pool.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

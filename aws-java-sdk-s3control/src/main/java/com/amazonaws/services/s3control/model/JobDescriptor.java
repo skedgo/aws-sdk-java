@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -65,7 +65,7 @@ public class JobDescriptor implements Serializable, Cloneable {
     private JobManifest manifest;
     /**
      * <p>
-     * The operation that the specified job is configured to execute on the objects listed in the manifest.
+     * The operation that the specified job is configured to run on the objects listed in the manifest.
      * </p>
      */
     private JobOperation operation;
@@ -77,12 +77,16 @@ public class JobDescriptor implements Serializable, Cloneable {
     private Integer priority;
     /**
      * <p>
-     * Describes the total number of tasks that the specified job has executed, the number of tasks that succeeded, and
-     * the number of tasks that failed.
+     * Describes the total number of tasks that the specified job has run, the number of tasks that succeeded, and the
+     * number of tasks that failed.
      * </p>
      */
     private JobProgressSummary progressSummary;
-    /** <p/> */
+    /**
+     * <p>
+     * The reason for updating the job.
+     * </p>
+     */
     private String statusUpdateReason;
     /**
      * <p>
@@ -112,8 +116,8 @@ public class JobDescriptor implements Serializable, Cloneable {
     private java.util.Date terminationDate;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) Role assigned to execute the tasks
-     * for this job.
+     * The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) role assigned to run the tasks for
+     * this job.
      * </p>
      */
     private String roleArn;
@@ -131,6 +135,18 @@ public class JobDescriptor implements Serializable, Cloneable {
      * </p>
      */
     private String suspendedCause;
+    /**
+     * <p>
+     * The manifest generator that was used to generate a job manifest for this job.
+     * </p>
+     */
+    private JobManifestGenerator manifestGenerator;
+    /**
+     * <p>
+     * The attribute of the JobDescriptor containing details about the job's generated manifest.
+     * </p>
+     */
+    private S3GeneratedManifestDescriptor generatedManifestDescriptor;
 
     /**
      * <p>
@@ -413,11 +429,11 @@ public class JobDescriptor implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The operation that the specified job is configured to execute on the objects listed in the manifest.
+     * The operation that the specified job is configured to run on the objects listed in the manifest.
      * </p>
      * 
      * @param operation
-     *        The operation that the specified job is configured to execute on the objects listed in the manifest.
+     *        The operation that the specified job is configured to run on the objects listed in the manifest.
      */
 
     public void setOperation(JobOperation operation) {
@@ -426,10 +442,10 @@ public class JobDescriptor implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The operation that the specified job is configured to execute on the objects listed in the manifest.
+     * The operation that the specified job is configured to run on the objects listed in the manifest.
      * </p>
      * 
-     * @return The operation that the specified job is configured to execute on the objects listed in the manifest.
+     * @return The operation that the specified job is configured to run on the objects listed in the manifest.
      */
 
     public JobOperation getOperation() {
@@ -438,11 +454,11 @@ public class JobDescriptor implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The operation that the specified job is configured to execute on the objects listed in the manifest.
+     * The operation that the specified job is configured to run on the objects listed in the manifest.
      * </p>
      * 
      * @param operation
-     *        The operation that the specified job is configured to execute on the objects listed in the manifest.
+     *        The operation that the specified job is configured to run on the objects listed in the manifest.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -493,13 +509,13 @@ public class JobDescriptor implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Describes the total number of tasks that the specified job has executed, the number of tasks that succeeded, and
-     * the number of tasks that failed.
+     * Describes the total number of tasks that the specified job has run, the number of tasks that succeeded, and the
+     * number of tasks that failed.
      * </p>
      * 
      * @param progressSummary
-     *        Describes the total number of tasks that the specified job has executed, the number of tasks that
-     *        succeeded, and the number of tasks that failed.
+     *        Describes the total number of tasks that the specified job has run, the number of tasks that succeeded,
+     *        and the number of tasks that failed.
      */
 
     public void setProgressSummary(JobProgressSummary progressSummary) {
@@ -508,12 +524,12 @@ public class JobDescriptor implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Describes the total number of tasks that the specified job has executed, the number of tasks that succeeded, and
-     * the number of tasks that failed.
+     * Describes the total number of tasks that the specified job has run, the number of tasks that succeeded, and the
+     * number of tasks that failed.
      * </p>
      * 
-     * @return Describes the total number of tasks that the specified job has executed, the number of tasks that
-     *         succeeded, and the number of tasks that failed.
+     * @return Describes the total number of tasks that the specified job has run, the number of tasks that succeeded,
+     *         and the number of tasks that failed.
      */
 
     public JobProgressSummary getProgressSummary() {
@@ -522,13 +538,13 @@ public class JobDescriptor implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Describes the total number of tasks that the specified job has executed, the number of tasks that succeeded, and
-     * the number of tasks that failed.
+     * Describes the total number of tasks that the specified job has run, the number of tasks that succeeded, and the
+     * number of tasks that failed.
      * </p>
      * 
      * @param progressSummary
-     *        Describes the total number of tasks that the specified job has executed, the number of tasks that
-     *        succeeded, and the number of tasks that failed.
+     *        Describes the total number of tasks that the specified job has run, the number of tasks that succeeded,
+     *        and the number of tasks that failed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -538,9 +554,12 @@ public class JobDescriptor implements Serializable, Cloneable {
     }
 
     /**
-     * <p/>
+     * <p>
+     * The reason for updating the job.
+     * </p>
      * 
      * @param statusUpdateReason
+     *        The reason for updating the job.
      */
 
     public void setStatusUpdateReason(String statusUpdateReason) {
@@ -548,9 +567,11 @@ public class JobDescriptor implements Serializable, Cloneable {
     }
 
     /**
-     * <p/>
+     * <p>
+     * The reason for updating the job.
+     * </p>
      * 
-     * @return
+     * @return The reason for updating the job.
      */
 
     public String getStatusUpdateReason() {
@@ -558,9 +579,12 @@ public class JobDescriptor implements Serializable, Cloneable {
     }
 
     /**
-     * <p/>
+     * <p>
+     * The reason for updating the job.
+     * </p>
      * 
      * @param statusUpdateReason
+     *        The reason for updating the job.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -773,13 +797,13 @@ public class JobDescriptor implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) Role assigned to execute the tasks
-     * for this job.
+     * The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) role assigned to run the tasks for
+     * this job.
      * </p>
      * 
      * @param roleArn
-     *        The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) Role assigned to execute the
-     *        tasks for this job.
+     *        The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) role assigned to run the tasks
+     *        for this job.
      */
 
     public void setRoleArn(String roleArn) {
@@ -788,11 +812,11 @@ public class JobDescriptor implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) Role assigned to execute the tasks
-     * for this job.
+     * The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) role assigned to run the tasks for
+     * this job.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) Role assigned to execute the
+     * @return The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) role assigned to run the
      *         tasks for this job.
      */
 
@@ -802,13 +826,13 @@ public class JobDescriptor implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) Role assigned to execute the tasks
-     * for this job.
+     * The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) role assigned to run the tasks for
+     * this job.
      * </p>
      * 
      * @param roleArn
-     *        The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) Role assigned to execute the
-     *        tasks for this job.
+     *        The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) role assigned to run the tasks
+     *        for this job.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -913,6 +937,86 @@ public class JobDescriptor implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The manifest generator that was used to generate a job manifest for this job.
+     * </p>
+     * 
+     * @param manifestGenerator
+     *        The manifest generator that was used to generate a job manifest for this job.
+     */
+
+    public void setManifestGenerator(JobManifestGenerator manifestGenerator) {
+        this.manifestGenerator = manifestGenerator;
+    }
+
+    /**
+     * <p>
+     * The manifest generator that was used to generate a job manifest for this job.
+     * </p>
+     * 
+     * @return The manifest generator that was used to generate a job manifest for this job.
+     */
+
+    public JobManifestGenerator getManifestGenerator() {
+        return this.manifestGenerator;
+    }
+
+    /**
+     * <p>
+     * The manifest generator that was used to generate a job manifest for this job.
+     * </p>
+     * 
+     * @param manifestGenerator
+     *        The manifest generator that was used to generate a job manifest for this job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobDescriptor withManifestGenerator(JobManifestGenerator manifestGenerator) {
+        setManifestGenerator(manifestGenerator);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The attribute of the JobDescriptor containing details about the job's generated manifest.
+     * </p>
+     * 
+     * @param generatedManifestDescriptor
+     *        The attribute of the JobDescriptor containing details about the job's generated manifest.
+     */
+
+    public void setGeneratedManifestDescriptor(S3GeneratedManifestDescriptor generatedManifestDescriptor) {
+        this.generatedManifestDescriptor = generatedManifestDescriptor;
+    }
+
+    /**
+     * <p>
+     * The attribute of the JobDescriptor containing details about the job's generated manifest.
+     * </p>
+     * 
+     * @return The attribute of the JobDescriptor containing details about the job's generated manifest.
+     */
+
+    public S3GeneratedManifestDescriptor getGeneratedManifestDescriptor() {
+        return this.generatedManifestDescriptor;
+    }
+
+    /**
+     * <p>
+     * The attribute of the JobDescriptor containing details about the job's generated manifest.
+     * </p>
+     * 
+     * @param generatedManifestDescriptor
+     *        The attribute of the JobDescriptor containing details about the job's generated manifest.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobDescriptor withGeneratedManifestDescriptor(S3GeneratedManifestDescriptor generatedManifestDescriptor) {
+        setGeneratedManifestDescriptor(generatedManifestDescriptor);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -957,7 +1061,11 @@ public class JobDescriptor implements Serializable, Cloneable {
         if (getSuspendedDate() != null)
             sb.append("SuspendedDate: ").append(getSuspendedDate()).append(",");
         if (getSuspendedCause() != null)
-            sb.append("SuspendedCause: ").append(getSuspendedCause());
+            sb.append("SuspendedCause: ").append(getSuspendedCause()).append(",");
+        if (getManifestGenerator() != null)
+            sb.append("ManifestGenerator: ").append(getManifestGenerator()).append(",");
+        if (getGeneratedManifestDescriptor() != null)
+            sb.append("GeneratedManifestDescriptor: ").append(getGeneratedManifestDescriptor());
         sb.append("}");
         return sb.toString();
     }
@@ -1040,6 +1148,14 @@ public class JobDescriptor implements Serializable, Cloneable {
             return false;
         if (other.getSuspendedCause() != null && other.getSuspendedCause().equals(this.getSuspendedCause()) == false)
             return false;
+        if (other.getManifestGenerator() == null ^ this.getManifestGenerator() == null)
+            return false;
+        if (other.getManifestGenerator() != null && other.getManifestGenerator().equals(this.getManifestGenerator()) == false)
+            return false;
+        if (other.getGeneratedManifestDescriptor() == null ^ this.getGeneratedManifestDescriptor() == null)
+            return false;
+        if (other.getGeneratedManifestDescriptor() != null && other.getGeneratedManifestDescriptor().equals(this.getGeneratedManifestDescriptor()) == false)
+            return false;
         return true;
     }
 
@@ -1065,6 +1181,8 @@ public class JobDescriptor implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getRoleArn() == null) ? 0 : getRoleArn().hashCode());
         hashCode = prime * hashCode + ((getSuspendedDate() == null) ? 0 : getSuspendedDate().hashCode());
         hashCode = prime * hashCode + ((getSuspendedCause() == null) ? 0 : getSuspendedCause().hashCode());
+        hashCode = prime * hashCode + ((getManifestGenerator() == null) ? 0 : getManifestGenerator().hashCode());
+        hashCode = prime * hashCode + ((getGeneratedManifestDescriptor() == null) ? 0 : getGeneratedManifestDescriptor().hashCode());
         return hashCode;
     }
 

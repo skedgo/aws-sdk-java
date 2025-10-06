@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -23,10 +23,20 @@ import javax.annotation.Generated;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class UpdateServicePrimaryTaskSetResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {
 
+    /**
+     * <p>
+     * The details about the task set.
+     * </p>
+     */
     private TaskSet taskSet;
 
     /**
+     * <p>
+     * The details about the task set.
+     * </p>
+     * 
      * @param taskSet
+     *        The details about the task set.
      */
 
     public void setTaskSet(TaskSet taskSet) {
@@ -34,7 +44,11 @@ public class UpdateServicePrimaryTaskSetResult extends com.amazonaws.AmazonWebSe
     }
 
     /**
-     * @return
+     * <p>
+     * The details about the task set.
+     * </p>
+     * 
+     * @return The details about the task set.
      */
 
     public TaskSet getTaskSet() {
@@ -42,7 +56,12 @@ public class UpdateServicePrimaryTaskSetResult extends com.amazonaws.AmazonWebSe
     }
 
     /**
+     * <p>
+     * The details about the task set.
+     * </p>
+     * 
      * @param taskSet
+     *        The details about the task set.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

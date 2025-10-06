@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -58,8 +58,7 @@ public class Listener implements Serializable, Cloneable {
     private java.util.List<Certificate> certificates;
     /**
      * <p>
-     * [HTTPS or TLS listener] The security policy that defines which ciphers and protocols are supported. The default
-     * is the current predefined security policy.
+     * [HTTPS or TLS listener] The security policy that defines which protocols and ciphers are supported.
      * </p>
      */
     private String sslPolicy;
@@ -69,6 +68,18 @@ public class Listener implements Serializable, Cloneable {
      * </p>
      */
     private java.util.List<Action> defaultActions;
+    /**
+     * <p>
+     * [TLS listener] The name of the Application-Layer Protocol Negotiation (ALPN) policy.
+     * </p>
+     */
+    private java.util.List<String> alpnPolicy;
+    /**
+     * <p>
+     * The mutual authentication configuration information.
+     * </p>
+     */
+    private MutualAuthenticationAttributes mutualAuthentication;
 
     /**
      * <p>
@@ -335,13 +346,11 @@ public class Listener implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [HTTPS or TLS listener] The security policy that defines which ciphers and protocols are supported. The default
-     * is the current predefined security policy.
+     * [HTTPS or TLS listener] The security policy that defines which protocols and ciphers are supported.
      * </p>
      * 
      * @param sslPolicy
-     *        [HTTPS or TLS listener] The security policy that defines which ciphers and protocols are supported. The
-     *        default is the current predefined security policy.
+     *        [HTTPS or TLS listener] The security policy that defines which protocols and ciphers are supported.
      */
 
     public void setSslPolicy(String sslPolicy) {
@@ -350,12 +359,10 @@ public class Listener implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [HTTPS or TLS listener] The security policy that defines which ciphers and protocols are supported. The default
-     * is the current predefined security policy.
+     * [HTTPS or TLS listener] The security policy that defines which protocols and ciphers are supported.
      * </p>
      * 
-     * @return [HTTPS or TLS listener] The security policy that defines which ciphers and protocols are supported. The
-     *         default is the current predefined security policy.
+     * @return [HTTPS or TLS listener] The security policy that defines which protocols and ciphers are supported.
      */
 
     public String getSslPolicy() {
@@ -364,13 +371,11 @@ public class Listener implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [HTTPS or TLS listener] The security policy that defines which ciphers and protocols are supported. The default
-     * is the current predefined security policy.
+     * [HTTPS or TLS listener] The security policy that defines which protocols and ciphers are supported.
      * </p>
      * 
      * @param sslPolicy
-     *        [HTTPS or TLS listener] The security policy that defines which ciphers and protocols are supported. The
-     *        default is the current predefined security policy.
+     *        [HTTPS or TLS listener] The security policy that defines which protocols and ciphers are supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -450,6 +455,116 @@ public class Listener implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * [TLS listener] The name of the Application-Layer Protocol Negotiation (ALPN) policy.
+     * </p>
+     * 
+     * @return [TLS listener] The name of the Application-Layer Protocol Negotiation (ALPN) policy.
+     */
+
+    public java.util.List<String> getAlpnPolicy() {
+        return alpnPolicy;
+    }
+
+    /**
+     * <p>
+     * [TLS listener] The name of the Application-Layer Protocol Negotiation (ALPN) policy.
+     * </p>
+     * 
+     * @param alpnPolicy
+     *        [TLS listener] The name of the Application-Layer Protocol Negotiation (ALPN) policy.
+     */
+
+    public void setAlpnPolicy(java.util.Collection<String> alpnPolicy) {
+        if (alpnPolicy == null) {
+            this.alpnPolicy = null;
+            return;
+        }
+
+        this.alpnPolicy = new java.util.ArrayList<String>(alpnPolicy);
+    }
+
+    /**
+     * <p>
+     * [TLS listener] The name of the Application-Layer Protocol Negotiation (ALPN) policy.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAlpnPolicy(java.util.Collection)} or {@link #withAlpnPolicy(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param alpnPolicy
+     *        [TLS listener] The name of the Application-Layer Protocol Negotiation (ALPN) policy.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Listener withAlpnPolicy(String... alpnPolicy) {
+        if (this.alpnPolicy == null) {
+            setAlpnPolicy(new java.util.ArrayList<String>(alpnPolicy.length));
+        }
+        for (String ele : alpnPolicy) {
+            this.alpnPolicy.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * [TLS listener] The name of the Application-Layer Protocol Negotiation (ALPN) policy.
+     * </p>
+     * 
+     * @param alpnPolicy
+     *        [TLS listener] The name of the Application-Layer Protocol Negotiation (ALPN) policy.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Listener withAlpnPolicy(java.util.Collection<String> alpnPolicy) {
+        setAlpnPolicy(alpnPolicy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The mutual authentication configuration information.
+     * </p>
+     * 
+     * @param mutualAuthentication
+     *        The mutual authentication configuration information.
+     */
+
+    public void setMutualAuthentication(MutualAuthenticationAttributes mutualAuthentication) {
+        this.mutualAuthentication = mutualAuthentication;
+    }
+
+    /**
+     * <p>
+     * The mutual authentication configuration information.
+     * </p>
+     * 
+     * @return The mutual authentication configuration information.
+     */
+
+    public MutualAuthenticationAttributes getMutualAuthentication() {
+        return this.mutualAuthentication;
+    }
+
+    /**
+     * <p>
+     * The mutual authentication configuration information.
+     * </p>
+     * 
+     * @param mutualAuthentication
+     *        The mutual authentication configuration information.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Listener withMutualAuthentication(MutualAuthenticationAttributes mutualAuthentication) {
+        setMutualAuthentication(mutualAuthentication);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -474,7 +589,11 @@ public class Listener implements Serializable, Cloneable {
         if (getSslPolicy() != null)
             sb.append("SslPolicy: ").append(getSslPolicy()).append(",");
         if (getDefaultActions() != null)
-            sb.append("DefaultActions: ").append(getDefaultActions());
+            sb.append("DefaultActions: ").append(getDefaultActions()).append(",");
+        if (getAlpnPolicy() != null)
+            sb.append("AlpnPolicy: ").append(getAlpnPolicy()).append(",");
+        if (getMutualAuthentication() != null)
+            sb.append("MutualAuthentication: ").append(getMutualAuthentication());
         sb.append("}");
         return sb.toString();
     }
@@ -517,6 +636,14 @@ public class Listener implements Serializable, Cloneable {
             return false;
         if (other.getDefaultActions() != null && other.getDefaultActions().equals(this.getDefaultActions()) == false)
             return false;
+        if (other.getAlpnPolicy() == null ^ this.getAlpnPolicy() == null)
+            return false;
+        if (other.getAlpnPolicy() != null && other.getAlpnPolicy().equals(this.getAlpnPolicy()) == false)
+            return false;
+        if (other.getMutualAuthentication() == null ^ this.getMutualAuthentication() == null)
+            return false;
+        if (other.getMutualAuthentication() != null && other.getMutualAuthentication().equals(this.getMutualAuthentication()) == false)
+            return false;
         return true;
     }
 
@@ -532,6 +659,8 @@ public class Listener implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getCertificates() == null) ? 0 : getCertificates().hashCode());
         hashCode = prime * hashCode + ((getSslPolicy() == null) ? 0 : getSslPolicy().hashCode());
         hashCode = prime * hashCode + ((getDefaultActions() == null) ? 0 : getDefaultActions().hashCode());
+        hashCode = prime * hashCode + ((getAlpnPolicy() == null) ? 0 : getAlpnPolicy().hashCode());
+        hashCode = prime * hashCode + ((getMutualAuthentication() == null) ? 0 : getMutualAuthentication().hashCode());
         return hashCode;
     }
 

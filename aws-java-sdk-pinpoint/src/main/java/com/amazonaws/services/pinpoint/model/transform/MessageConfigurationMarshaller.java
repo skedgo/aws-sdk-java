@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,6 +33,8 @@ public class MessageConfigurationMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("APNSMessage").build();
     private static final MarshallingInfo<StructuredPojo> BAIDUMESSAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("BaiduMessage").build();
+    private static final MarshallingInfo<StructuredPojo> CUSTOMMESSAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CustomMessage").build();
     private static final MarshallingInfo<StructuredPojo> DEFAULTMESSAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DefaultMessage").build();
     private static final MarshallingInfo<StructuredPojo> EMAILMESSAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
@@ -41,6 +43,8 @@ public class MessageConfigurationMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("GCMMessage").build();
     private static final MarshallingInfo<StructuredPojo> SMSMESSAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SMSMessage").build();
+    private static final MarshallingInfo<StructuredPojo> INAPPMESSAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("InAppMessage").build();
 
     private static final MessageConfigurationMarshaller instance = new MessageConfigurationMarshaller();
 
@@ -61,10 +65,12 @@ public class MessageConfigurationMarshaller {
             protocolMarshaller.marshall(messageConfiguration.getADMMessage(), ADMMESSAGE_BINDING);
             protocolMarshaller.marshall(messageConfiguration.getAPNSMessage(), APNSMESSAGE_BINDING);
             protocolMarshaller.marshall(messageConfiguration.getBaiduMessage(), BAIDUMESSAGE_BINDING);
+            protocolMarshaller.marshall(messageConfiguration.getCustomMessage(), CUSTOMMESSAGE_BINDING);
             protocolMarshaller.marshall(messageConfiguration.getDefaultMessage(), DEFAULTMESSAGE_BINDING);
             protocolMarshaller.marshall(messageConfiguration.getEmailMessage(), EMAILMESSAGE_BINDING);
             protocolMarshaller.marshall(messageConfiguration.getGCMMessage(), GCMMESSAGE_BINDING);
             protocolMarshaller.marshall(messageConfiguration.getSMSMessage(), SMSMESSAGE_BINDING);
+            protocolMarshaller.marshall(messageConfiguration.getInAppMessage(), INAPPMESSAGE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

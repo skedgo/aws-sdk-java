@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,10 +34,22 @@ public class SubnetMapping implements Serializable, Cloneable {
     private String subnetId;
     /**
      * <p>
-     * [Network Load Balancers] The allocation ID of the Elastic IP address.
+     * [Network Load Balancers] The allocation ID of the Elastic IP address for an internet-facing load balancer.
      * </p>
      */
     private String allocationId;
+    /**
+     * <p>
+     * [Network Load Balancers] The private IPv4 address for an internal load balancer.
+     * </p>
+     */
+    private String privateIPv4Address;
+    /**
+     * <p>
+     * [Network Load Balancers] The IPv6 address.
+     * </p>
+     */
+    private String iPv6Address;
 
     /**
      * <p>
@@ -81,11 +93,11 @@ public class SubnetMapping implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [Network Load Balancers] The allocation ID of the Elastic IP address.
+     * [Network Load Balancers] The allocation ID of the Elastic IP address for an internet-facing load balancer.
      * </p>
      * 
      * @param allocationId
-     *        [Network Load Balancers] The allocation ID of the Elastic IP address.
+     *        [Network Load Balancers] The allocation ID of the Elastic IP address for an internet-facing load balancer.
      */
 
     public void setAllocationId(String allocationId) {
@@ -94,10 +106,11 @@ public class SubnetMapping implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [Network Load Balancers] The allocation ID of the Elastic IP address.
+     * [Network Load Balancers] The allocation ID of the Elastic IP address for an internet-facing load balancer.
      * </p>
      * 
-     * @return [Network Load Balancers] The allocation ID of the Elastic IP address.
+     * @return [Network Load Balancers] The allocation ID of the Elastic IP address for an internet-facing load
+     *         balancer.
      */
 
     public String getAllocationId() {
@@ -106,16 +119,96 @@ public class SubnetMapping implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [Network Load Balancers] The allocation ID of the Elastic IP address.
+     * [Network Load Balancers] The allocation ID of the Elastic IP address for an internet-facing load balancer.
      * </p>
      * 
      * @param allocationId
-     *        [Network Load Balancers] The allocation ID of the Elastic IP address.
+     *        [Network Load Balancers] The allocation ID of the Elastic IP address for an internet-facing load balancer.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public SubnetMapping withAllocationId(String allocationId) {
         setAllocationId(allocationId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * [Network Load Balancers] The private IPv4 address for an internal load balancer.
+     * </p>
+     * 
+     * @param privateIPv4Address
+     *        [Network Load Balancers] The private IPv4 address for an internal load balancer.
+     */
+
+    public void setPrivateIPv4Address(String privateIPv4Address) {
+        this.privateIPv4Address = privateIPv4Address;
+    }
+
+    /**
+     * <p>
+     * [Network Load Balancers] The private IPv4 address for an internal load balancer.
+     * </p>
+     * 
+     * @return [Network Load Balancers] The private IPv4 address for an internal load balancer.
+     */
+
+    public String getPrivateIPv4Address() {
+        return this.privateIPv4Address;
+    }
+
+    /**
+     * <p>
+     * [Network Load Balancers] The private IPv4 address for an internal load balancer.
+     * </p>
+     * 
+     * @param privateIPv4Address
+     *        [Network Load Balancers] The private IPv4 address for an internal load balancer.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SubnetMapping withPrivateIPv4Address(String privateIPv4Address) {
+        setPrivateIPv4Address(privateIPv4Address);
+        return this;
+    }
+
+    /**
+     * <p>
+     * [Network Load Balancers] The IPv6 address.
+     * </p>
+     * 
+     * @param iPv6Address
+     *        [Network Load Balancers] The IPv6 address.
+     */
+
+    public void setIPv6Address(String iPv6Address) {
+        this.iPv6Address = iPv6Address;
+    }
+
+    /**
+     * <p>
+     * [Network Load Balancers] The IPv6 address.
+     * </p>
+     * 
+     * @return [Network Load Balancers] The IPv6 address.
+     */
+
+    public String getIPv6Address() {
+        return this.iPv6Address;
+    }
+
+    /**
+     * <p>
+     * [Network Load Balancers] The IPv6 address.
+     * </p>
+     * 
+     * @param iPv6Address
+     *        [Network Load Balancers] The IPv6 address.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SubnetMapping withIPv6Address(String iPv6Address) {
+        setIPv6Address(iPv6Address);
         return this;
     }
 
@@ -134,7 +227,11 @@ public class SubnetMapping implements Serializable, Cloneable {
         if (getSubnetId() != null)
             sb.append("SubnetId: ").append(getSubnetId()).append(",");
         if (getAllocationId() != null)
-            sb.append("AllocationId: ").append(getAllocationId());
+            sb.append("AllocationId: ").append(getAllocationId()).append(",");
+        if (getPrivateIPv4Address() != null)
+            sb.append("PrivateIPv4Address: ").append(getPrivateIPv4Address()).append(",");
+        if (getIPv6Address() != null)
+            sb.append("IPv6Address: ").append(getIPv6Address());
         sb.append("}");
         return sb.toString();
     }
@@ -157,6 +254,14 @@ public class SubnetMapping implements Serializable, Cloneable {
             return false;
         if (other.getAllocationId() != null && other.getAllocationId().equals(this.getAllocationId()) == false)
             return false;
+        if (other.getPrivateIPv4Address() == null ^ this.getPrivateIPv4Address() == null)
+            return false;
+        if (other.getPrivateIPv4Address() != null && other.getPrivateIPv4Address().equals(this.getPrivateIPv4Address()) == false)
+            return false;
+        if (other.getIPv6Address() == null ^ this.getIPv6Address() == null)
+            return false;
+        if (other.getIPv6Address() != null && other.getIPv6Address().equals(this.getIPv6Address()) == false)
+            return false;
         return true;
     }
 
@@ -167,6 +272,8 @@ public class SubnetMapping implements Serializable, Cloneable {
 
         hashCode = prime * hashCode + ((getSubnetId() == null) ? 0 : getSubnetId().hashCode());
         hashCode = prime * hashCode + ((getAllocationId() == null) ? 0 : getAllocationId().hashCode());
+        hashCode = prime * hashCode + ((getPrivateIPv4Address() == null) ? 0 : getPrivateIPv4Address().hashCode());
+        hashCode = prime * hashCode + ((getIPv6Address() == null) ? 0 : getIPv6Address().hashCode());
         return hashCode;
     }
 

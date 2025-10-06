@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,6 +32,8 @@ public class ContainerInstanceMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("containerInstanceArn").build();
     private static final MarshallingInfo<String> EC2INSTANCEID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ec2InstanceId").build();
+    private static final MarshallingInfo<String> CAPACITYPROVIDERNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("capacityProviderName").build();
     private static final MarshallingInfo<Long> VERSION_BINDING = MarshallingInfo.builder(MarshallingType.LONG).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("version").build();
     private static final MarshallingInfo<StructuredPojo> VERSIONINFO_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
@@ -60,6 +62,8 @@ public class ContainerInstanceMarshaller {
             .marshallLocationName("attachments").build();
     private static final MarshallingInfo<List> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("tags").build();
+    private static final MarshallingInfo<StructuredPojo> HEALTHSTATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("healthStatus").build();
 
     private static final ContainerInstanceMarshaller instance = new ContainerInstanceMarshaller();
 
@@ -79,6 +83,7 @@ public class ContainerInstanceMarshaller {
         try {
             protocolMarshaller.marshall(containerInstance.getContainerInstanceArn(), CONTAINERINSTANCEARN_BINDING);
             protocolMarshaller.marshall(containerInstance.getEc2InstanceId(), EC2INSTANCEID_BINDING);
+            protocolMarshaller.marshall(containerInstance.getCapacityProviderName(), CAPACITYPROVIDERNAME_BINDING);
             protocolMarshaller.marshall(containerInstance.getVersion(), VERSION_BINDING);
             protocolMarshaller.marshall(containerInstance.getVersionInfo(), VERSIONINFO_BINDING);
             protocolMarshaller.marshall(containerInstance.getRemainingResources(), REMAININGRESOURCES_BINDING);
@@ -93,6 +98,7 @@ public class ContainerInstanceMarshaller {
             protocolMarshaller.marshall(containerInstance.getRegisteredAt(), REGISTEREDAT_BINDING);
             protocolMarshaller.marshall(containerInstance.getAttachments(), ATTACHMENTS_BINDING);
             protocolMarshaller.marshall(containerInstance.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(containerInstance.getHealthStatus(), HEALTHSTATUS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

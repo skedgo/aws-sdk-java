@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,66 +45,66 @@ import com.amazonaws.services.opsworks.waiters.AWSOpsWorksWaiters;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.opsworks.model.*;
+
 import com.amazonaws.services.opsworks.model.transform.*;
 
 /**
  * Client for accessing AWS OpsWorks. All service calls made using this client are blocking, and will not return until
  * the service call completes.
  * <p>
- * <fullname>AWS OpsWorks</fullname>
+ * <fullname>OpsWorks</fullname>
  * <p>
- * Welcome to the <i>AWS OpsWorks Stacks API Reference</i>. This guide provides descriptions, syntax, and usage examples
- * for AWS OpsWorks Stacks actions and data types, including common parameters and error codes.
+ * Welcome to the <i>OpsWorks Stacks API Reference</i>. This guide provides descriptions, syntax, and usage examples for
+ * OpsWorks Stacks actions and data types, including common parameters and error codes.
  * </p>
  * <p>
- * AWS OpsWorks Stacks is an application management service that provides an integrated experience for overseeing the
- * complete application lifecycle. For information about this product, go to the <a
- * href="http://aws.amazon.com/opsworks/">AWS OpsWorks</a> details page.
+ * OpsWorks Stacks is an application management service that provides an integrated experience for managing the complete
+ * application lifecycle. For information about OpsWorks, see the <a href="http://aws.amazon.com/opsworks/">OpsWorks</a>
+ * information page.
  * </p>
  * <p>
  * <b>SDKs and CLI</b>
  * </p>
  * <p>
- * The most common way to use the AWS OpsWorks Stacks API is by using the AWS Command Line Interface (CLI) or by using
- * one of the AWS SDKs to implement applications in your preferred language. For more information, see:
+ * Use the OpsWorks Stacks API by using the Command Line Interface (CLI) or by using one of the Amazon Web Services SDKs
+ * to implement applications in your preferred language. For more information, see:
  * </p>
  * <ul>
  * <li>
  * <p>
- * <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html">AWS CLI</a>
+ * <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html">CLI</a>
  * </p>
  * </li>
  * <li>
  * <p>
  * <a
  * href="https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/opsworks/AWSOpsWorksClient.html"
- * >AWS SDK for Java</a>
+ * >SDK for Java</a>
  * </p>
  * </li>
  * <li>
  * <p>
- * <a href="https://docs.aws.amazon.com/sdkfornet/latest/apidocs/html/N_Amazon_OpsWorks.htm">AWS SDK for .NET</a>
+ * <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/OpsWorks/NOpsWorks.html">SDK for .NET</a>
  * </p>
  * </li>
  * <li>
  * <p>
- * <a href="https://docs.aws.amazon.com/aws-sdk-php-2/latest/class-Aws.OpsWorks.OpsWorksClient.html">AWS SDK for PHP
- * 2</a>
+ * <a href="https://docs.aws.amazon.com/aws-sdk-php/v3/api/class-Aws.OpsWorks.OpsWorksClient.html">SDK for PHP</a>
  * </p>
  * </li>
  * <li>
  * <p>
- * <a href="http://docs.aws.amazon.com/sdkforruby/api/">AWS SDK for Ruby</a>
+ * <a href="http://docs.aws.amazon.com/sdkforruby/api/">SDK for Ruby</a>
  * </p>
  * </li>
  * <li>
  * <p>
- * <a href="http://aws.amazon.com/documentation/sdkforjavascript/">AWS SDK for Node.js</a>
+ * <a href="http://aws.amazon.com/documentation/sdkforjavascript/">Amazon Web Services SDK for Node.js</a>
  * </p>
  * </li>
  * <li>
  * <p>
- * <a href="http://docs.pythonboto.org/en/latest/ref/opsworks.html">AWS SDK for Python(Boto)</a>
+ * <a href="http://docs.pythonboto.org/en/latest/ref/opsworks.html">SDK for Python (Boto)</a>
  * </p>
  * </li>
  * </ul>
@@ -112,7 +112,7 @@ import com.amazonaws.services.opsworks.model.transform.*;
  * <b>Endpoints</b>
  * </p>
  * <p>
- * AWS OpsWorks Stacks supports the following endpoints, all HTTPS. You must connect to one of the following endpoints.
+ * OpsWorks Stacks supports the following endpoints, all HTTPS. You must connect to one of the following endpoints.
  * Stacks can only be accessed or managed within the endpoint in which they are created.
  * </p>
  * <ul>
@@ -138,7 +138,7 @@ import com.amazonaws.services.opsworks.model.transform.*;
  * </li>
  * <li>
  * <p>
- * opsworks.ca-central-1.amazonaws.com (API only; not available in the AWS console)
+ * opsworks.ca-central-1.amazonaws.com (API only; not available in the Amazon Web Services Management Console)
  * </p>
  * </li>
  * <li>
@@ -233,11 +233,11 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.opsworks.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.opsworks.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ValidationException").withModeledClass(
-                                    com.amazonaws.services.opsworks.model.ValidationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ValidationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.opsworks.model.transform.ValidationExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.opsworks.model.AWSOpsWorksException.class));
 
     /**
@@ -456,14 +456,14 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
      * </li>
      * <li>
      * <p>
-     * You cannot use this action with instances that were created with AWS OpsWorks Stacks.
+     * You cannot use this action with instances that were created with OpsWorks Stacks.
      * </p>
      * </li>
      * </ul>
      * <p>
-     * <b>Required Permissions</b>: To use this action, an AWS Identity and Access Management (IAM) user must have a
-     * Manage permissions level for the stack or an attached policy that explicitly grants permissions. For more
-     * information on user permissions, see <a
+     * <b>Required Permissions</b>: To use this action, an Identity and Access Management (IAM) user must have a Manage
+     * permissions level for the stack or an attached policy that explicitly grants permissions. For more information on
+     * user permissions, see <a
      * href="https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html">Managing User
      * Permissions</a>.
      * </p>
@@ -499,6 +499,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new AssignInstanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(assignInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssignInstance");
@@ -565,6 +567,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new AssignVolumeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(assignVolumeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssignVolume");
@@ -630,6 +634,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new AssociateElasticIpRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(associateElasticIpRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateElasticIp");
@@ -653,16 +659,16 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
 
     /**
      * <p>
-     * Attaches an Elastic Load Balancing load balancer to a specified layer. AWS OpsWorks Stacks does not support
-     * Application Load Balancer. You can only use Classic Load Balancer with AWS OpsWorks Stacks. For more information,
-     * see <a href="https://docs.aws.amazon.com/opsworks/latest/userguide/layers-elb.html">Elastic Load Balancing</a>.
+     * Attaches an Elastic Load Balancing load balancer to a specified layer. OpsWorks Stacks does not support
+     * Application Load Balancer. You can only use Classic Load Balancer with OpsWorks Stacks. For more information, see
+     * <a href="https://docs.aws.amazon.com/opsworks/latest/userguide/layers-elb.html">Elastic Load Balancing</a>.
      * </p>
      * <note>
      * <p>
      * You must create the Elastic Load Balancing instance separately, by using the Elastic Load Balancing console, API,
-     * or CLI. For more information, see <a
-     * href="https://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/Welcome.html"> Elastic Load
-     * Balancing Developer Guide</a>.
+     * or CLI. For more information, see the <a
+     * href="https://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/Welcome.html">Elastic Load Balancing
+     * Developer Guide</a>.
      * </p>
      * </note>
      * <p>
@@ -704,6 +710,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                         .beforeMarshalling(attachElasticLoadBalancerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AttachElasticLoadBalancer");
@@ -770,6 +778,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new CloneStackRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(cloneStackRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CloneStack");
@@ -834,6 +844,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new CreateAppRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createAppRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateApp");
@@ -899,6 +911,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new CreateDeploymentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDeploymentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDeployment");
@@ -964,6 +978,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new CreateInstanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateInstance");
@@ -1037,6 +1053,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new CreateLayerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createLayerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateLayer");
@@ -1099,6 +1117,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new CreateStackRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createStackRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateStack");
@@ -1160,6 +1180,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new CreateUserProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createUserProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateUserProfile");
@@ -1223,6 +1245,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DeleteAppRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteAppRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteApp");
@@ -1291,6 +1315,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DeleteInstanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteInstance");
@@ -1357,6 +1383,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DeleteLayerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteLayerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteLayer");
@@ -1422,6 +1450,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DeleteStackRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteStackRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteStack");
@@ -1485,6 +1515,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DeleteUserProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteUserProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteUserProfile");
@@ -1550,6 +1582,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DeregisterEcsClusterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deregisterEcsClusterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeregisterEcsCluster");
@@ -1573,9 +1607,9 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
 
     /**
      * <p>
-     * Deregisters a specified Elastic IP address. The address can then be registered by another stack. For more
-     * information, see <a href="https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html">Resource
-     * Management</a>.
+     * Deregisters a specified Elastic IP address. The address can be registered by another stack after it is
+     * deregistered. For more information, see <a
+     * href="https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html">Resource Management</a>.
      * </p>
      * <p>
      * <b>Required Permissions</b>: To use this action, an IAM user must have a Manage permissions level for the stack,
@@ -1615,6 +1649,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DeregisterElasticIpRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deregisterElasticIpRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeregisterElasticIp");
@@ -1638,8 +1674,9 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
 
     /**
      * <p>
-     * Deregister a registered Amazon EC2 or on-premises instance. This action removes the instance from the stack and
-     * returns it to your control. This action cannot be used with instances that were created with AWS OpsWorks Stacks.
+     * Deregister an instance from OpsWorks Stacks. The instance can be a registered instance (Amazon EC2 or
+     * on-premises) or an instance created with OpsWorks. This action removes the instance from the stack and returns it
+     * to your control.
      * </p>
      * <p>
      * <b>Required Permissions</b>: To use this action, an IAM user must have a Manage permissions level for the stack
@@ -1679,6 +1716,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DeregisterInstanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deregisterInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeregisterInstance");
@@ -1743,6 +1782,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                         .beforeMarshalling(deregisterRdsDbInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeregisterRdsDbInstance");
@@ -1808,6 +1849,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DeregisterVolumeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deregisterVolumeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeregisterVolume");
@@ -1831,8 +1874,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
 
     /**
      * <p>
-     * Describes the available AWS OpsWorks Stacks agent versions. You must specify a stack ID or a configuration
-     * manager. <code>DescribeAgentVersions</code> returns a list of available agent versions for the specified stack or
+     * Describes the available OpsWorks Stacks agent versions. You must specify a stack ID or a configuration manager.
+     * <code>DescribeAgentVersions</code> returns a list of available agent versions for the specified stack or
      * configuration manager.
      * </p>
      * 
@@ -1867,6 +1910,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DescribeAgentVersionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeAgentVersionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAgentVersions");
@@ -1937,6 +1982,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DescribeAppsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeAppsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeApps");
@@ -2006,6 +2053,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DescribeCommandsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeCommandsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCommands");
@@ -2075,6 +2124,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DescribeDeploymentsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeDeploymentsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDeployments");
@@ -2099,8 +2150,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
     /**
      * <p>
      * Describes Amazon ECS clusters that are registered with a stack. If you specify only a stack ID, you can use the
-     * <code>MaxResults</code> and <code>NextToken</code> parameters to paginate the response. However, AWS OpsWorks
-     * Stacks currently supports only one cluster per layer, so the result set has a maximum of one element.
+     * <code>MaxResults</code> and <code>NextToken</code> parameters to paginate the response. However, OpsWorks Stacks
+     * currently supports only one cluster per layer, so the result set has a maximum of one element.
      * </p>
      * <p>
      * <b>Required Permissions</b>: To use this action, an IAM user must have a Show, Deploy, or Manage permissions
@@ -2144,6 +2195,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DescribeEcsClustersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeEcsClustersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEcsClusters");
@@ -2214,6 +2267,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DescribeElasticIpsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeElasticIpsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeElasticIps");
@@ -2284,6 +2339,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                         .beforeMarshalling(describeElasticLoadBalancersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeElasticLoadBalancers");
@@ -2354,6 +2411,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DescribeInstancesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeInstancesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeInstances");
@@ -2423,6 +2482,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DescribeLayersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeLayersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeLayers");
@@ -2493,6 +2554,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                         .beforeMarshalling(describeLoadBasedAutoScalingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeLoadBasedAutoScaling");
@@ -2553,6 +2616,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DescribeMyUserProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeMyUserProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeMyUserProfile");
@@ -2577,7 +2642,7 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
 
     /**
      * <p>
-     * Describes the operating systems that are supported by AWS OpsWorks Stacks.
+     * Describes the operating systems that are supported by OpsWorks Stacks.
      * </p>
      * 
      * @param describeOperatingSystemsRequest
@@ -2608,6 +2673,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                         .beforeMarshalling(describeOperatingSystemsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeOperatingSystems");
@@ -2672,6 +2739,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DescribePermissionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describePermissionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribePermissions");
@@ -2741,6 +2810,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DescribeRaidArraysRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeRaidArraysRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeRaidArrays");
@@ -2808,6 +2879,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DescribeRdsDbInstancesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeRdsDbInstancesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeRdsDbInstances");
@@ -2832,7 +2905,7 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
 
     /**
      * <p>
-     * Describes AWS OpsWorks Stacks service errors.
+     * Describes OpsWorks Stacks service errors.
      * </p>
      * <p>
      * <b>Required Permissions</b>: To use this action, an IAM user must have a Show, Deploy, or Manage permissions
@@ -2876,6 +2949,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DescribeServiceErrorsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeServiceErrorsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeServiceErrors");
@@ -2943,6 +3018,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                         .beforeMarshalling(describeStackProvisioningParametersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeStackProvisioningParameters");
@@ -3009,6 +3086,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DescribeStackSummaryRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeStackSummaryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeStackSummary");
@@ -3073,6 +3152,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DescribeStacksRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeStacksRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeStacks");
@@ -3143,6 +3224,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                         .beforeMarshalling(describeTimeBasedAutoScalingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeTimeBasedAutoScaling");
@@ -3207,6 +3290,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DescribeUserProfilesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeUserProfilesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeUserProfiles");
@@ -3276,6 +3361,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DescribeVolumesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeVolumesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeVolumes");
@@ -3338,6 +3425,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                         .beforeMarshalling(detachElasticLoadBalancerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DetachElasticLoadBalancer");
@@ -3404,6 +3493,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new DisassociateElasticIpRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(disassociateElasticIpRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateElasticIp");
@@ -3468,6 +3559,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new GetHostnameSuggestionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getHostnameSuggestionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetHostnameSuggestion");
@@ -3531,6 +3624,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new GrantAccessRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(grantAccessRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GrantAccess");
@@ -3588,6 +3683,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new ListTagsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTags");
@@ -3653,6 +3750,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new RebootInstanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(rebootInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RebootInstance");
@@ -3719,6 +3818,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new RegisterEcsClusterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(registerEcsClusterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterEcsCluster");
@@ -3785,6 +3886,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new RegisterElasticIpRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(registerElasticIpRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterElasticIp");
@@ -3808,16 +3911,16 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
 
     /**
      * <p>
-     * Registers instances that were created outside of AWS OpsWorks Stacks with a specified stack.
+     * Registers instances that were created outside of OpsWorks Stacks with a specified stack.
      * </p>
      * <note>
      * <p>
      * We do not recommend using this action to register instances. The complete registration operation includes two
-     * tasks: installing the AWS OpsWorks Stacks agent on the instance, and registering the instance with the stack.
-     * <code>RegisterInstance</code> handles only the second step. You should instead use the AWS CLI
-     * <code>register</code> command, which performs the entire registration operation. For more information, see <a
+     * tasks: installing the OpsWorks Stacks agent on the instance, and registering the instance with the stack.
+     * <code>RegisterInstance</code> handles only the second step. You should instead use the CLI <code>register</code>
+     * command, which performs the entire registration operation. For more information, see <a
      * href="https://docs.aws.amazon.com/opsworks/latest/userguide/registered-instances-register.html"> Registering an
-     * Instance with an AWS OpsWorks Stacks Stack</a>.
+     * Instance with an OpsWorks Stacks Stack</a>.
      * </p>
      * </note>
      * <p>
@@ -3866,6 +3969,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new RegisterInstanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(registerInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterInstance");
@@ -3929,6 +4034,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new RegisterRdsDbInstanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(registerRdsDbInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterRdsDbInstance");
@@ -3996,6 +4103,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new RegisterVolumeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(registerVolumeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterVolume");
@@ -4069,6 +4178,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                         .beforeMarshalling(setLoadBasedAutoScalingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SetLoadBasedAutoScaling");
@@ -4134,6 +4245,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new SetPermissionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(setPermissionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SetPermission");
@@ -4200,6 +4313,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                         .beforeMarshalling(setTimeBasedAutoScalingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SetTimeBasedAutoScaling");
@@ -4266,6 +4381,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new StartInstanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartInstance");
@@ -4329,6 +4446,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new StartStackRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startStackRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartStack");
@@ -4395,6 +4514,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new StopInstanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(stopInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StopInstance");
@@ -4458,6 +4579,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new StopStackRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(stopStackRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StopStack");
@@ -4481,9 +4604,9 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
 
     /**
      * <p>
-     * Apply cost-allocation tags to a specified stack or layer in AWS OpsWorks Stacks. For more information about how
+     * Apply cost-allocation tags to a specified stack or layer in OpsWorks Stacks. For more information about how
      * tagging works, see <a href="https://docs.aws.amazon.com/opsworks/latest/userguide/tagging.html">Tags</a> in the
-     * AWS OpsWorks User Guide.
+     * OpsWorks User Guide.
      * </p>
      * 
      * @param tagResourceRequest
@@ -4517,6 +4640,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -4542,7 +4667,7 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
      * <p>
      * Unassigns a registered instance from all layers that are using the instance. The instance remains in the stack as
      * an unassigned instance, and can be assigned to another layer as needed. You cannot use this action with instances
-     * that were created with AWS OpsWorks Stacks.
+     * that were created with OpsWorks Stacks.
      * </p>
      * <p>
      * <b>Required Permissions</b>: To use this action, an IAM user must have a Manage permissions level for the stack
@@ -4582,6 +4707,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new UnassignInstanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(unassignInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UnassignInstance");
@@ -4646,6 +4773,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new UnassignVolumeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(unassignVolumeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UnassignVolume");
@@ -4703,6 +4832,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -4766,6 +4897,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new UpdateAppRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateAppRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateApp");
@@ -4830,6 +4963,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new UpdateElasticIpRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateElasticIpRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateElasticIp");
@@ -4893,6 +5028,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new UpdateInstanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateInstance");
@@ -4956,6 +5093,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new UpdateLayerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateLayerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateLayer");
@@ -5017,6 +5156,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new UpdateMyUserProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateMyUserProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateMyUserProfile");
@@ -5080,6 +5221,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new UpdateRdsDbInstanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateRdsDbInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRdsDbInstance");
@@ -5143,6 +5286,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new UpdateStackRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateStackRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateStack");
@@ -5206,6 +5351,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new UpdateUserProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateUserProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateUserProfile");
@@ -5270,6 +5417,8 @@ public class AWSOpsWorksClient extends AmazonWebServiceClient implements AWSOpsW
                 request = new UpdateVolumeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateVolumeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorks");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateVolume");

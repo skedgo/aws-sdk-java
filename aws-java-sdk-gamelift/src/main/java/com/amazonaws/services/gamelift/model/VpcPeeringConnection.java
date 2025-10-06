@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,42 +19,18 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Represents a peering connection between a VPC on one of your AWS accounts and the VPC for your Amazon GameLift
- * fleets. This record may be for an active peering connection or a pending connection that has not yet been
+ * Represents a peering connection between a VPC on one of your Amazon Web Services accounts and the VPC for your Amazon
+ * GameLift fleets. This record may be for an active peering connection or a pending connection that has not yet been
  * established.
  * </p>
- * <ul>
- * <li>
  * <p>
- * <a>CreateVpcPeeringAuthorization</a>
+ * <b>Related actions</b>
  * </p>
- * </li>
- * <li>
  * <p>
- * <a>DescribeVpcPeeringAuthorizations</a>
+ * <a href=
+ * "https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets"
+ * >All APIs by task</a>
  * </p>
- * </li>
- * <li>
- * <p>
- * <a>DeleteVpcPeeringAuthorization</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>CreateVpcPeeringConnection</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DescribeVpcPeeringConnections</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DeleteVpcPeeringConnection</a>
- * </p>
- * </li>
- * </ul>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/VpcPeeringConnection" target="_top">AWS API
  *      Documentation</a>
@@ -64,10 +40,17 @@ public class VpcPeeringConnection implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Unique identifier for a fleet. This ID determines the ID of the Amazon GameLift VPC for your fleet.
+     * A unique identifier for the fleet. This ID determines the ID of the Amazon GameLift VPC for your fleet.
      * </p>
      */
     private String fleetId;
+    /**
+     * <p>
+     * The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>)
+     * associated with the GameLift fleet resource for this connection.
+     * </p>
+     */
+    private String fleetArn;
     /**
      * <p>
      * CIDR block of IPv4 addresses assigned to the VPC peering connection for the GameLift VPC. The peered VPC also has
@@ -77,43 +60,42 @@ public class VpcPeeringConnection implements Serializable, Cloneable, Structured
     private String ipV4CidrBlock;
     /**
      * <p>
-     * Unique identifier that is automatically assigned to the connection record. This ID is referenced in VPC peering
-     * connection events, and is used when deleting a connection with <a>DeleteVpcPeeringConnection</a>.
+     * A unique identifier that is automatically assigned to the connection record. This ID is referenced in VPC peering
+     * connection events, and is used when deleting a connection.
      * </p>
      */
     private String vpcPeeringConnectionId;
     /**
      * <p>
-     * Object that contains status information about the connection. Status indicates if a connection is pending,
-     * successful, or failed.
+     * The status information about the connection. Status indicates if a connection is pending, successful, or failed.
      * </p>
      */
     private VpcPeeringConnectionStatus status;
     /**
      * <p>
-     * Unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be in the
-     * same region where your fleet is deployed. Look up a VPC ID using the <a
-     * href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the AWS Management Console. Learn more about VPC
-     * peering in <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with
-     * Amazon GameLift Fleets</a>.
+     * A unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be in the
+     * same Region as your fleet. To look up a VPC ID, use the <a href="https://console.aws.amazon.com/vpc/">VPC
+     * Dashboard</a> in the Amazon Web Services Management Console. Learn more about VPC peering in <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with Amazon
+     * GameLift Fleets</a>.
      * </p>
      */
     private String peerVpcId;
     /**
      * <p>
-     * Unique identifier for the VPC that contains the Amazon GameLift fleet for this connection. This VPC is managed by
-     * Amazon GameLift and does not appear in your AWS account.
+     * A unique identifier for the VPC that contains the Amazon GameLift fleet for this connection. This VPC is managed
+     * by Amazon GameLift and does not appear in your Amazon Web Services account.
      * </p>
      */
     private String gameLiftVpcId;
 
     /**
      * <p>
-     * Unique identifier for a fleet. This ID determines the ID of the Amazon GameLift VPC for your fleet.
+     * A unique identifier for the fleet. This ID determines the ID of the Amazon GameLift VPC for your fleet.
      * </p>
      * 
      * @param fleetId
-     *        Unique identifier for a fleet. This ID determines the ID of the Amazon GameLift VPC for your fleet.
+     *        A unique identifier for the fleet. This ID determines the ID of the Amazon GameLift VPC for your fleet.
      */
 
     public void setFleetId(String fleetId) {
@@ -122,10 +104,10 @@ public class VpcPeeringConnection implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Unique identifier for a fleet. This ID determines the ID of the Amazon GameLift VPC for your fleet.
+     * A unique identifier for the fleet. This ID determines the ID of the Amazon GameLift VPC for your fleet.
      * </p>
      * 
-     * @return Unique identifier for a fleet. This ID determines the ID of the Amazon GameLift VPC for your fleet.
+     * @return A unique identifier for the fleet. This ID determines the ID of the Amazon GameLift VPC for your fleet.
      */
 
     public String getFleetId() {
@@ -134,16 +116,65 @@ public class VpcPeeringConnection implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Unique identifier for a fleet. This ID determines the ID of the Amazon GameLift VPC for your fleet.
+     * A unique identifier for the fleet. This ID determines the ID of the Amazon GameLift VPC for your fleet.
      * </p>
      * 
      * @param fleetId
-     *        Unique identifier for a fleet. This ID determines the ID of the Amazon GameLift VPC for your fleet.
+     *        A unique identifier for the fleet. This ID determines the ID of the Amazon GameLift VPC for your fleet.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public VpcPeeringConnection withFleetId(String fleetId) {
         setFleetId(fleetId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>)
+     * associated with the GameLift fleet resource for this connection.
+     * </p>
+     * 
+     * @param fleetArn
+     *        The Amazon Resource Name (<a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) associated with the
+     *        GameLift fleet resource for this connection.
+     */
+
+    public void setFleetArn(String fleetArn) {
+        this.fleetArn = fleetArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>)
+     * associated with the GameLift fleet resource for this connection.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (<a
+     *         href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) associated with the
+     *         GameLift fleet resource for this connection.
+     */
+
+    public String getFleetArn() {
+        return this.fleetArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>)
+     * associated with the GameLift fleet resource for this connection.
+     * </p>
+     * 
+     * @param fleetArn
+     *        The Amazon Resource Name (<a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) associated with the
+     *        GameLift fleet resource for this connection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VpcPeeringConnection withFleetArn(String fleetArn) {
+        setFleetArn(fleetArn);
         return this;
     }
 
@@ -198,13 +229,13 @@ public class VpcPeeringConnection implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Unique identifier that is automatically assigned to the connection record. This ID is referenced in VPC peering
-     * connection events, and is used when deleting a connection with <a>DeleteVpcPeeringConnection</a>.
+     * A unique identifier that is automatically assigned to the connection record. This ID is referenced in VPC peering
+     * connection events, and is used when deleting a connection.
      * </p>
      * 
      * @param vpcPeeringConnectionId
-     *        Unique identifier that is automatically assigned to the connection record. This ID is referenced in VPC
-     *        peering connection events, and is used when deleting a connection with <a>DeleteVpcPeeringConnection</a>.
+     *        A unique identifier that is automatically assigned to the connection record. This ID is referenced in VPC
+     *        peering connection events, and is used when deleting a connection.
      */
 
     public void setVpcPeeringConnectionId(String vpcPeeringConnectionId) {
@@ -213,12 +244,12 @@ public class VpcPeeringConnection implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Unique identifier that is automatically assigned to the connection record. This ID is referenced in VPC peering
-     * connection events, and is used when deleting a connection with <a>DeleteVpcPeeringConnection</a>.
+     * A unique identifier that is automatically assigned to the connection record. This ID is referenced in VPC peering
+     * connection events, and is used when deleting a connection.
      * </p>
      * 
-     * @return Unique identifier that is automatically assigned to the connection record. This ID is referenced in VPC
-     *         peering connection events, and is used when deleting a connection with <a>DeleteVpcPeeringConnection</a>.
+     * @return A unique identifier that is automatically assigned to the connection record. This ID is referenced in VPC
+     *         peering connection events, and is used when deleting a connection.
      */
 
     public String getVpcPeeringConnectionId() {
@@ -227,13 +258,13 @@ public class VpcPeeringConnection implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Unique identifier that is automatically assigned to the connection record. This ID is referenced in VPC peering
-     * connection events, and is used when deleting a connection with <a>DeleteVpcPeeringConnection</a>.
+     * A unique identifier that is automatically assigned to the connection record. This ID is referenced in VPC peering
+     * connection events, and is used when deleting a connection.
      * </p>
      * 
      * @param vpcPeeringConnectionId
-     *        Unique identifier that is automatically assigned to the connection record. This ID is referenced in VPC
-     *        peering connection events, and is used when deleting a connection with <a>DeleteVpcPeeringConnection</a>.
+     *        A unique identifier that is automatically assigned to the connection record. This ID is referenced in VPC
+     *        peering connection events, and is used when deleting a connection.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -244,13 +275,12 @@ public class VpcPeeringConnection implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Object that contains status information about the connection. Status indicates if a connection is pending,
-     * successful, or failed.
+     * The status information about the connection. Status indicates if a connection is pending, successful, or failed.
      * </p>
      * 
      * @param status
-     *        Object that contains status information about the connection. Status indicates if a connection is pending,
-     *        successful, or failed.
+     *        The status information about the connection. Status indicates if a connection is pending, successful, or
+     *        failed.
      */
 
     public void setStatus(VpcPeeringConnectionStatus status) {
@@ -259,12 +289,11 @@ public class VpcPeeringConnection implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Object that contains status information about the connection. Status indicates if a connection is pending,
-     * successful, or failed.
+     * The status information about the connection. Status indicates if a connection is pending, successful, or failed.
      * </p>
      * 
-     * @return Object that contains status information about the connection. Status indicates if a connection is
-     *         pending, successful, or failed.
+     * @return The status information about the connection. Status indicates if a connection is pending, successful, or
+     *         failed.
      */
 
     public VpcPeeringConnectionStatus getStatus() {
@@ -273,13 +302,12 @@ public class VpcPeeringConnection implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Object that contains status information about the connection. Status indicates if a connection is pending,
-     * successful, or failed.
+     * The status information about the connection. Status indicates if a connection is pending, successful, or failed.
      * </p>
      * 
      * @param status
-     *        Object that contains status information about the connection. Status indicates if a connection is pending,
-     *        successful, or failed.
+     *        The status information about the connection. Status indicates if a connection is pending, successful, or
+     *        failed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -290,18 +318,18 @@ public class VpcPeeringConnection implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be in the
-     * same region where your fleet is deployed. Look up a VPC ID using the <a
-     * href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the AWS Management Console. Learn more about VPC
-     * peering in <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with
-     * Amazon GameLift Fleets</a>.
+     * A unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be in the
+     * same Region as your fleet. To look up a VPC ID, use the <a href="https://console.aws.amazon.com/vpc/">VPC
+     * Dashboard</a> in the Amazon Web Services Management Console. Learn more about VPC peering in <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with Amazon
+     * GameLift Fleets</a>.
      * </p>
      * 
      * @param peerVpcId
-     *        Unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be
-     *        in the same region where your fleet is deployed. Look up a VPC ID using the <a
-     *        href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the AWS Management Console. Learn more
-     *        about VPC peering in <a
+     *        A unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be
+     *        in the same Region as your fleet. To look up a VPC ID, use the <a
+     *        href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the Amazon Web Services Management
+     *        Console. Learn more about VPC peering in <a
      *        href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with Amazon
      *        GameLift Fleets</a>.
      */
@@ -312,17 +340,17 @@ public class VpcPeeringConnection implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be in the
-     * same region where your fleet is deployed. Look up a VPC ID using the <a
-     * href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the AWS Management Console. Learn more about VPC
-     * peering in <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with
-     * Amazon GameLift Fleets</a>.
+     * A unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be in the
+     * same Region as your fleet. To look up a VPC ID, use the <a href="https://console.aws.amazon.com/vpc/">VPC
+     * Dashboard</a> in the Amazon Web Services Management Console. Learn more about VPC peering in <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with Amazon
+     * GameLift Fleets</a>.
      * </p>
      * 
-     * @return Unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be
-     *         in the same region where your fleet is deployed. Look up a VPC ID using the <a
-     *         href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the AWS Management Console. Learn more
-     *         about VPC peering in <a
+     * @return A unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must
+     *         be in the same Region as your fleet. To look up a VPC ID, use the <a
+     *         href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the Amazon Web Services Management
+     *         Console. Learn more about VPC peering in <a
      *         href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with
      *         Amazon GameLift Fleets</a>.
      */
@@ -333,18 +361,18 @@ public class VpcPeeringConnection implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be in the
-     * same region where your fleet is deployed. Look up a VPC ID using the <a
-     * href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the AWS Management Console. Learn more about VPC
-     * peering in <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with
-     * Amazon GameLift Fleets</a>.
+     * A unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be in the
+     * same Region as your fleet. To look up a VPC ID, use the <a href="https://console.aws.amazon.com/vpc/">VPC
+     * Dashboard</a> in the Amazon Web Services Management Console. Learn more about VPC peering in <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with Amazon
+     * GameLift Fleets</a>.
      * </p>
      * 
      * @param peerVpcId
-     *        Unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be
-     *        in the same region where your fleet is deployed. Look up a VPC ID using the <a
-     *        href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the AWS Management Console. Learn more
-     *        about VPC peering in <a
+     *        A unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be
+     *        in the same Region as your fleet. To look up a VPC ID, use the <a
+     *        href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the Amazon Web Services Management
+     *        Console. Learn more about VPC peering in <a
      *        href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with Amazon
      *        GameLift Fleets</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -357,13 +385,13 @@ public class VpcPeeringConnection implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Unique identifier for the VPC that contains the Amazon GameLift fleet for this connection. This VPC is managed by
-     * Amazon GameLift and does not appear in your AWS account.
+     * A unique identifier for the VPC that contains the Amazon GameLift fleet for this connection. This VPC is managed
+     * by Amazon GameLift and does not appear in your Amazon Web Services account.
      * </p>
      * 
      * @param gameLiftVpcId
-     *        Unique identifier for the VPC that contains the Amazon GameLift fleet for this connection. This VPC is
-     *        managed by Amazon GameLift and does not appear in your AWS account.
+     *        A unique identifier for the VPC that contains the Amazon GameLift fleet for this connection. This VPC is
+     *        managed by Amazon GameLift and does not appear in your Amazon Web Services account.
      */
 
     public void setGameLiftVpcId(String gameLiftVpcId) {
@@ -372,12 +400,12 @@ public class VpcPeeringConnection implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Unique identifier for the VPC that contains the Amazon GameLift fleet for this connection. This VPC is managed by
-     * Amazon GameLift and does not appear in your AWS account.
+     * A unique identifier for the VPC that contains the Amazon GameLift fleet for this connection. This VPC is managed
+     * by Amazon GameLift and does not appear in your Amazon Web Services account.
      * </p>
      * 
-     * @return Unique identifier for the VPC that contains the Amazon GameLift fleet for this connection. This VPC is
-     *         managed by Amazon GameLift and does not appear in your AWS account.
+     * @return A unique identifier for the VPC that contains the Amazon GameLift fleet for this connection. This VPC is
+     *         managed by Amazon GameLift and does not appear in your Amazon Web Services account.
      */
 
     public String getGameLiftVpcId() {
@@ -386,13 +414,13 @@ public class VpcPeeringConnection implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Unique identifier for the VPC that contains the Amazon GameLift fleet for this connection. This VPC is managed by
-     * Amazon GameLift and does not appear in your AWS account.
+     * A unique identifier for the VPC that contains the Amazon GameLift fleet for this connection. This VPC is managed
+     * by Amazon GameLift and does not appear in your Amazon Web Services account.
      * </p>
      * 
      * @param gameLiftVpcId
-     *        Unique identifier for the VPC that contains the Amazon GameLift fleet for this connection. This VPC is
-     *        managed by Amazon GameLift and does not appear in your AWS account.
+     *        A unique identifier for the VPC that contains the Amazon GameLift fleet for this connection. This VPC is
+     *        managed by Amazon GameLift and does not appear in your Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -415,6 +443,8 @@ public class VpcPeeringConnection implements Serializable, Cloneable, Structured
         sb.append("{");
         if (getFleetId() != null)
             sb.append("FleetId: ").append(getFleetId()).append(",");
+        if (getFleetArn() != null)
+            sb.append("FleetArn: ").append(getFleetArn()).append(",");
         if (getIpV4CidrBlock() != null)
             sb.append("IpV4CidrBlock: ").append(getIpV4CidrBlock()).append(",");
         if (getVpcPeeringConnectionId() != null)
@@ -442,6 +472,10 @@ public class VpcPeeringConnection implements Serializable, Cloneable, Structured
         if (other.getFleetId() == null ^ this.getFleetId() == null)
             return false;
         if (other.getFleetId() != null && other.getFleetId().equals(this.getFleetId()) == false)
+            return false;
+        if (other.getFleetArn() == null ^ this.getFleetArn() == null)
+            return false;
+        if (other.getFleetArn() != null && other.getFleetArn().equals(this.getFleetArn()) == false)
             return false;
         if (other.getIpV4CidrBlock() == null ^ this.getIpV4CidrBlock() == null)
             return false;
@@ -472,6 +506,7 @@ public class VpcPeeringConnection implements Serializable, Cloneable, Structured
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getFleetId() == null) ? 0 : getFleetId().hashCode());
+        hashCode = prime * hashCode + ((getFleetArn() == null) ? 0 : getFleetArn().hashCode());
         hashCode = prime * hashCode + ((getIpV4CidrBlock() == null) ? 0 : getIpV4CidrBlock().hashCode());
         hashCode = prime * hashCode + ((getVpcPeeringConnectionId() == null) ? 0 : getVpcPeeringConnectionId().hashCode());
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());

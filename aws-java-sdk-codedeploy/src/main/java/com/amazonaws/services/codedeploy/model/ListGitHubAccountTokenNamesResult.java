@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Represents the output of a ListGitHubAccountTokenNames operation.
+ * Represents the output of a <code>ListGitHubAccountTokenNames</code> operation.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/ListGitHubAccountTokenNames"
@@ -35,7 +35,7 @@ public class ListGitHubAccountTokenNamesResult extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * If a large amount of information is returned, an identifier is also returned. It can be used in a subsequent
-     * ListGitHubAccountTokenNames call to return the next set of names in the list.
+     * <code>ListGitHubAccountTokenNames</code> call to return the next set of names in the list.
      * </p>
      */
     private String nextToken;
@@ -116,12 +116,12 @@ public class ListGitHubAccountTokenNamesResult extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * If a large amount of information is returned, an identifier is also returned. It can be used in a subsequent
-     * ListGitHubAccountTokenNames call to return the next set of names in the list.
+     * <code>ListGitHubAccountTokenNames</code> call to return the next set of names in the list.
      * </p>
      * 
      * @param nextToken
      *        If a large amount of information is returned, an identifier is also returned. It can be used in a
-     *        subsequent ListGitHubAccountTokenNames call to return the next set of names in the list.
+     *        subsequent <code>ListGitHubAccountTokenNames</code> call to return the next set of names in the list.
      */
 
     public void setNextToken(String nextToken) {
@@ -131,11 +131,11 @@ public class ListGitHubAccountTokenNamesResult extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * If a large amount of information is returned, an identifier is also returned. It can be used in a subsequent
-     * ListGitHubAccountTokenNames call to return the next set of names in the list.
+     * <code>ListGitHubAccountTokenNames</code> call to return the next set of names in the list.
      * </p>
      * 
      * @return If a large amount of information is returned, an identifier is also returned. It can be used in a
-     *         subsequent ListGitHubAccountTokenNames call to return the next set of names in the list.
+     *         subsequent <code>ListGitHubAccountTokenNames</code> call to return the next set of names in the list.
      */
 
     public String getNextToken() {
@@ -145,12 +145,12 @@ public class ListGitHubAccountTokenNamesResult extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * If a large amount of information is returned, an identifier is also returned. It can be used in a subsequent
-     * ListGitHubAccountTokenNames call to return the next set of names in the list.
+     * <code>ListGitHubAccountTokenNames</code> call to return the next set of names in the list.
      * </p>
      * 
      * @param nextToken
      *        If a large amount of information is returned, an identifier is also returned. It can be used in a
-     *        subsequent ListGitHubAccountTokenNames call to return the next set of names in the list.
+     *        subsequent <code>ListGitHubAccountTokenNames</code> call to return the next set of names in the list.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,24 +25,24 @@ public class GetNotificationChannelResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The SNS topic that records AWS Firewall Manager activity.
+     * The SNS topic that records Firewall Manager activity.
      * </p>
      */
     private String snsTopicArn;
     /**
      * <p>
-     * The IAM role that is used by AWS Firewall Manager to record activity to SNS.
+     * The IAM role that is used by Firewall Manager to record activity to SNS.
      * </p>
      */
     private String snsRoleName;
 
     /**
      * <p>
-     * The SNS topic that records AWS Firewall Manager activity.
+     * The SNS topic that records Firewall Manager activity.
      * </p>
      * 
      * @param snsTopicArn
-     *        The SNS topic that records AWS Firewall Manager activity.
+     *        The SNS topic that records Firewall Manager activity.
      */
 
     public void setSnsTopicArn(String snsTopicArn) {
@@ -51,10 +51,10 @@ public class GetNotificationChannelResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The SNS topic that records AWS Firewall Manager activity.
+     * The SNS topic that records Firewall Manager activity.
      * </p>
      * 
-     * @return The SNS topic that records AWS Firewall Manager activity.
+     * @return The SNS topic that records Firewall Manager activity.
      */
 
     public String getSnsTopicArn() {
@@ -63,11 +63,11 @@ public class GetNotificationChannelResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The SNS topic that records AWS Firewall Manager activity.
+     * The SNS topic that records Firewall Manager activity.
      * </p>
      * 
      * @param snsTopicArn
-     *        The SNS topic that records AWS Firewall Manager activity.
+     *        The SNS topic that records Firewall Manager activity.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -78,11 +78,11 @@ public class GetNotificationChannelResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The IAM role that is used by AWS Firewall Manager to record activity to SNS.
+     * The IAM role that is used by Firewall Manager to record activity to SNS.
      * </p>
      * 
      * @param snsRoleName
-     *        The IAM role that is used by AWS Firewall Manager to record activity to SNS.
+     *        The IAM role that is used by Firewall Manager to record activity to SNS.
      */
 
     public void setSnsRoleName(String snsRoleName) {
@@ -91,10 +91,10 @@ public class GetNotificationChannelResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The IAM role that is used by AWS Firewall Manager to record activity to SNS.
+     * The IAM role that is used by Firewall Manager to record activity to SNS.
      * </p>
      * 
-     * @return The IAM role that is used by AWS Firewall Manager to record activity to SNS.
+     * @return The IAM role that is used by Firewall Manager to record activity to SNS.
      */
 
     public String getSnsRoleName() {
@@ -103,11 +103,11 @@ public class GetNotificationChannelResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The IAM role that is used by AWS Firewall Manager to record activity to SNS.
+     * The IAM role that is used by Firewall Manager to record activity to SNS.
      * </p>
      * 
      * @param snsRoleName
-     *        The IAM role that is used by AWS Firewall Manager to record activity to SNS.
+     *        The IAM role that is used by Firewall Manager to record activity to SNS.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

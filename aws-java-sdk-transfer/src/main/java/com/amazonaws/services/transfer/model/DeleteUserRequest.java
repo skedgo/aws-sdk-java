@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,24 +27,24 @@ public class DeleteUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A system-assigned unique identifier for an SFTP server instance that has the user assigned to it.
+     * A system-assigned unique identifier for a server instance that has the user assigned to it.
      * </p>
      */
     private String serverId;
     /**
      * <p>
-     * A unique string that identifies a user that is being deleted from the server.
+     * A unique string that identifies a user that is being deleted from a server.
      * </p>
      */
     private String userName;
 
     /**
      * <p>
-     * A system-assigned unique identifier for an SFTP server instance that has the user assigned to it.
+     * A system-assigned unique identifier for a server instance that has the user assigned to it.
      * </p>
      * 
      * @param serverId
-     *        A system-assigned unique identifier for an SFTP server instance that has the user assigned to it.
+     *        A system-assigned unique identifier for a server instance that has the user assigned to it.
      */
 
     public void setServerId(String serverId) {
@@ -53,10 +53,10 @@ public class DeleteUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A system-assigned unique identifier for an SFTP server instance that has the user assigned to it.
+     * A system-assigned unique identifier for a server instance that has the user assigned to it.
      * </p>
      * 
-     * @return A system-assigned unique identifier for an SFTP server instance that has the user assigned to it.
+     * @return A system-assigned unique identifier for a server instance that has the user assigned to it.
      */
 
     public String getServerId() {
@@ -65,11 +65,11 @@ public class DeleteUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A system-assigned unique identifier for an SFTP server instance that has the user assigned to it.
+     * A system-assigned unique identifier for a server instance that has the user assigned to it.
      * </p>
      * 
      * @param serverId
-     *        A system-assigned unique identifier for an SFTP server instance that has the user assigned to it.
+     *        A system-assigned unique identifier for a server instance that has the user assigned to it.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -80,11 +80,11 @@ public class DeleteUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A unique string that identifies a user that is being deleted from the server.
+     * A unique string that identifies a user that is being deleted from a server.
      * </p>
      * 
      * @param userName
-     *        A unique string that identifies a user that is being deleted from the server.
+     *        A unique string that identifies a user that is being deleted from a server.
      */
 
     public void setUserName(String userName) {
@@ -93,10 +93,10 @@ public class DeleteUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A unique string that identifies a user that is being deleted from the server.
+     * A unique string that identifies a user that is being deleted from a server.
      * </p>
      * 
-     * @return A unique string that identifies a user that is being deleted from the server.
+     * @return A unique string that identifies a user that is being deleted from a server.
      */
 
     public String getUserName() {
@@ -105,11 +105,11 @@ public class DeleteUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A unique string that identifies a user that is being deleted from the server.
+     * A unique string that identifies a user that is being deleted from a server.
      * </p>
      * 
      * @param userName
-     *        A unique string that identifies a user that is being deleted from the server.
+     *        A unique string that identifies a user that is being deleted from a server.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

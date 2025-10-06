@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The result that is associated with a time period.
+ * The result that's associated with a time period.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/ResultByTime" target="_top">AWS API
@@ -48,7 +48,7 @@ public class ResultByTime implements Serializable, Cloneable, StructuredPojo {
     private java.util.List<Group> groups;
     /**
      * <p>
-     * Whether the result is estimated.
+     * Determines whether the result is estimated.
      * </p>
      */
     private Boolean estimated;
@@ -132,6 +132,13 @@ public class ResultByTime implements Serializable, Cloneable, StructuredPojo {
         setTotal(total);
         return this;
     }
+
+    /**
+     * Add a single Total entry
+     *
+     * @see ResultByTime#withTotal
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public ResultByTime addTotalEntry(String key, MetricValue value) {
         if (null == this.total) {
@@ -226,11 +233,11 @@ public class ResultByTime implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Whether the result is estimated.
+     * Determines whether the result is estimated.
      * </p>
      * 
      * @param estimated
-     *        Whether the result is estimated.
+     *        Determines whether the result is estimated.
      */
 
     public void setEstimated(Boolean estimated) {
@@ -239,10 +246,10 @@ public class ResultByTime implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Whether the result is estimated.
+     * Determines whether the result is estimated.
      * </p>
      * 
-     * @return Whether the result is estimated.
+     * @return Determines whether the result is estimated.
      */
 
     public Boolean getEstimated() {
@@ -251,11 +258,11 @@ public class ResultByTime implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Whether the result is estimated.
+     * Determines whether the result is estimated.
      * </p>
      * 
      * @param estimated
-     *        Whether the result is estimated.
+     *        Determines whether the result is estimated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -266,10 +273,10 @@ public class ResultByTime implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Whether the result is estimated.
+     * Determines whether the result is estimated.
      * </p>
      * 
-     * @return Whether the result is estimated.
+     * @return Determines whether the result is estimated.
      */
 
     public Boolean isEstimated() {

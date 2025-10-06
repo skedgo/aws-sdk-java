@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,10 +31,14 @@ public class UpdateComputeEnvironmentRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("computeEnvironment").build();
     private static final MarshallingInfo<String> STATE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("state").build();
+    private static final MarshallingInfo<Integer> UNMANAGEDVCPUS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("unmanagedvCpus").build();
     private static final MarshallingInfo<StructuredPojo> COMPUTERESOURCES_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("computeResources").build();
     private static final MarshallingInfo<String> SERVICEROLE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("serviceRole").build();
+    private static final MarshallingInfo<StructuredPojo> UPDATEPOLICY_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("updatePolicy").build();
 
     private static final UpdateComputeEnvironmentRequestMarshaller instance = new UpdateComputeEnvironmentRequestMarshaller();
 
@@ -54,8 +58,10 @@ public class UpdateComputeEnvironmentRequestMarshaller {
         try {
             protocolMarshaller.marshall(updateComputeEnvironmentRequest.getComputeEnvironment(), COMPUTEENVIRONMENT_BINDING);
             protocolMarshaller.marshall(updateComputeEnvironmentRequest.getState(), STATE_BINDING);
+            protocolMarshaller.marshall(updateComputeEnvironmentRequest.getUnmanagedvCpus(), UNMANAGEDVCPUS_BINDING);
             protocolMarshaller.marshall(updateComputeEnvironmentRequest.getComputeResources(), COMPUTERESOURCES_BINDING);
             protocolMarshaller.marshall(updateComputeEnvironmentRequest.getServiceRole(), SERVICEROLE_BINDING);
+            protocolMarshaller.marshall(updateComputeEnvironmentRequest.getUpdatePolicy(), UPDATEPOLICY_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

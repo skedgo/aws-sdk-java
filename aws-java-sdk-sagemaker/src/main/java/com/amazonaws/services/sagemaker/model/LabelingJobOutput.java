@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,8 +36,7 @@ public class LabelingJobOutput implements Serializable, Cloneable, StructuredPoj
     private String outputDatasetS3Uri;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the most recent Amazon SageMaker model trained as part of automated data
-     * labeling.
+     * The Amazon Resource Name (ARN) for the most recent SageMaker model trained as part of automated data labeling.
      * </p>
      */
     private String finalActiveLearningModelArn;
@@ -84,13 +83,12 @@ public class LabelingJobOutput implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the most recent Amazon SageMaker model trained as part of automated data
-     * labeling.
+     * The Amazon Resource Name (ARN) for the most recent SageMaker model trained as part of automated data labeling.
      * </p>
      * 
      * @param finalActiveLearningModelArn
-     *        The Amazon Resource Name (ARN) for the most recent Amazon SageMaker model trained as part of automated
-     *        data labeling.
+     *        The Amazon Resource Name (ARN) for the most recent SageMaker model trained as part of automated data
+     *        labeling.
      */
 
     public void setFinalActiveLearningModelArn(String finalActiveLearningModelArn) {
@@ -99,12 +97,11 @@ public class LabelingJobOutput implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the most recent Amazon SageMaker model trained as part of automated data
-     * labeling.
+     * The Amazon Resource Name (ARN) for the most recent SageMaker model trained as part of automated data labeling.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) for the most recent Amazon SageMaker model trained as part of automated
-     *         data labeling.
+     * @return The Amazon Resource Name (ARN) for the most recent SageMaker model trained as part of automated data
+     *         labeling.
      */
 
     public String getFinalActiveLearningModelArn() {
@@ -113,13 +110,12 @@ public class LabelingJobOutput implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the most recent Amazon SageMaker model trained as part of automated data
-     * labeling.
+     * The Amazon Resource Name (ARN) for the most recent SageMaker model trained as part of automated data labeling.
      * </p>
      * 
      * @param finalActiveLearningModelArn
-     *        The Amazon Resource Name (ARN) for the most recent Amazon SageMaker model trained as part of automated
-     *        data labeling.
+     *        The Amazon Resource Name (ARN) for the most recent SageMaker model trained as part of automated data
+     *        labeling.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

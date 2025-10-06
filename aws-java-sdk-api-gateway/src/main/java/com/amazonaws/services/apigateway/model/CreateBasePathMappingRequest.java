@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * Requests API Gateway to create a new <a>BasePathMapping</a> resource.
+ * Requests API Gateway to create a new BasePathMapping resource.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -27,7 +27,7 @@ public class CreateBasePathMappingRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * [Required] The domain name of the <a>BasePathMapping</a> resource to create.
+     * The domain name of the BasePathMapping resource to create.
      * </p>
      */
     private String domainName;
@@ -41,13 +41,13 @@ public class CreateBasePathMappingRequest extends com.amazonaws.AmazonWebService
     private String basePath;
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      */
     private String restApiId;
     /**
      * <p>
-     * The name of the API's stage that you want to use for this mapping. Specify '(none)' if you do not want callers to
+     * The name of the API's stage that you want to use for this mapping. Specify '(none)' if you want callers to
      * explicitly specify the stage name after any base path name.
      * </p>
      */
@@ -55,11 +55,11 @@ public class CreateBasePathMappingRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * [Required] The domain name of the <a>BasePathMapping</a> resource to create.
+     * The domain name of the BasePathMapping resource to create.
      * </p>
      * 
      * @param domainName
-     *        [Required] The domain name of the <a>BasePathMapping</a> resource to create.
+     *        The domain name of the BasePathMapping resource to create.
      */
 
     public void setDomainName(String domainName) {
@@ -68,10 +68,10 @@ public class CreateBasePathMappingRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * [Required] The domain name of the <a>BasePathMapping</a> resource to create.
+     * The domain name of the BasePathMapping resource to create.
      * </p>
      * 
-     * @return [Required] The domain name of the <a>BasePathMapping</a> resource to create.
+     * @return The domain name of the BasePathMapping resource to create.
      */
 
     public String getDomainName() {
@@ -80,11 +80,11 @@ public class CreateBasePathMappingRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * [Required] The domain name of the <a>BasePathMapping</a> resource to create.
+     * The domain name of the BasePathMapping resource to create.
      * </p>
      * 
      * @param domainName
-     *        [Required] The domain name of the <a>BasePathMapping</a> resource to create.
+     *        The domain name of the BasePathMapping resource to create.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -147,11 +147,11 @@ public class CreateBasePathMappingRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
      * @param restApiId
-     *        [Required] The string identifier of the associated <a>RestApi</a>.
+     *        The string identifier of the associated RestApi.
      */
 
     public void setRestApiId(String restApiId) {
@@ -160,10 +160,10 @@ public class CreateBasePathMappingRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
-     * @return [Required] The string identifier of the associated <a>RestApi</a>.
+     * @return The string identifier of the associated RestApi.
      */
 
     public String getRestApiId() {
@@ -172,11 +172,11 @@ public class CreateBasePathMappingRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
      * @param restApiId
-     *        [Required] The string identifier of the associated <a>RestApi</a>.
+     *        The string identifier of the associated RestApi.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -187,13 +187,13 @@ public class CreateBasePathMappingRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The name of the API's stage that you want to use for this mapping. Specify '(none)' if you do not want callers to
+     * The name of the API's stage that you want to use for this mapping. Specify '(none)' if you want callers to
      * explicitly specify the stage name after any base path name.
      * </p>
      * 
      * @param stage
-     *        The name of the API's stage that you want to use for this mapping. Specify '(none)' if you do not want
-     *        callers to explicitly specify the stage name after any base path name.
+     *        The name of the API's stage that you want to use for this mapping. Specify '(none)' if you want callers to
+     *        explicitly specify the stage name after any base path name.
      */
 
     public void setStage(String stage) {
@@ -202,12 +202,12 @@ public class CreateBasePathMappingRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The name of the API's stage that you want to use for this mapping. Specify '(none)' if you do not want callers to
+     * The name of the API's stage that you want to use for this mapping. Specify '(none)' if you want callers to
      * explicitly specify the stage name after any base path name.
      * </p>
      * 
-     * @return The name of the API's stage that you want to use for this mapping. Specify '(none)' if you do not want
-     *         callers to explicitly specify the stage name after any base path name.
+     * @return The name of the API's stage that you want to use for this mapping. Specify '(none)' if you want callers
+     *         to explicitly specify the stage name after any base path name.
      */
 
     public String getStage() {
@@ -216,13 +216,13 @@ public class CreateBasePathMappingRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The name of the API's stage that you want to use for this mapping. Specify '(none)' if you do not want callers to
+     * The name of the API's stage that you want to use for this mapping. Specify '(none)' if you want callers to
      * explicitly specify the stage name after any base path name.
      * </p>
      * 
      * @param stage
-     *        The name of the API's stage that you want to use for this mapping. Specify '(none)' if you do not want
-     *        callers to explicitly specify the stage name after any base path name.
+     *        The name of the API's stage that you want to use for this mapping. Specify '(none)' if you want callers to
+     *        explicitly specify the stage name after any base path name.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

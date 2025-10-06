@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -17,7 +17,9 @@ package com.amazonaws.codegen.emitters.tasks;
 import com.amazonaws.codegen.emitters.FreemarkerGeneratorTask;
 import com.amazonaws.codegen.emitters.GeneratorTask;
 import com.amazonaws.codegen.emitters.GeneratorTaskParams;
+import com.amazonaws.codegen.internal.TypeUtils;
 import com.amazonaws.codegen.model.intermediate.Metadata;
+import com.amazonaws.codegen.model.intermediate.Protocol;
 import com.amazonaws.codegen.model.intermediate.ShapeModel;
 import com.amazonaws.codegen.model.intermediate.ShapeType;
 import com.amazonaws.util.ImmutableMapParameter;
@@ -53,9 +55,17 @@ public class UnmarshallerGeneratorTasks extends BaseGeneratorTasks {
     private GeneratorTask createTask(String javaShapeName, ShapeModel shapeModel) throws Exception {
         final Template template = freemarker.getModelUnmarshallerTemplate();
         final ShapeType shapeType = shapeModel.getShapeType();
+
+        String shapeFqcn = shapeModel.getShapeName();
+        if (TypeUtils.isReserved(shapeFqcn)) {
+            shapeFqcn = shapeModel.getFullyQualifiedName();
+        }
+
         Map<String, Object> dataModel = ImmutableMapParameter.<String, Object>builder()
                 .put("fileHeader", model.getFileHeader())
                 .put("shape", shapeModel)
+                .put("shapeFqcn", shapeFqcn)
+                .put("packageName", shapeModel.getPackageName())
                 .put("metadata", metadata)
                 .put("transformPackage", model.getTransformPackage())
                 .put("exceptionUnmarshallerImpl", model.getExceptionUnmarshallerImpl())
@@ -64,7 +74,14 @@ public class UnmarshallerGeneratorTasks extends BaseGeneratorTasks {
         switch (shapeType) {
             case Response:
             case Model: {
-                String unmarshallerNameSuffix = metadata.isJsonProtocol() ? "JsonUnmarshaller" : "StaxUnmarshaller";
+                String unmarshallerNameSuffix;
+                if (metadata.isJsonProtocol()) {
+                    unmarshallerNameSuffix = "JsonUnmarshaller";
+                } else if (metadata.isRpcV2CborProtocol()) {
+                    unmarshallerNameSuffix = "RpcV2CborUnmarshaller";
+                } else {
+                    unmarshallerNameSuffix = "StaxUnmarshaller";
+                }
                 return new FreemarkerGeneratorTask(transformClassDir,
                                          javaShapeName + unmarshallerNameSuffix,
                                                    template,
@@ -95,8 +112,10 @@ public class UnmarshallerGeneratorTasks extends BaseGeneratorTasks {
             case Model:
                 return true;
             case Exception:
-                // Generating Exception Unmarshallers is not required for the JSON protocol
-                return !metadata.isJsonProtocol();
+                // APIG simply uses ObjectMapper to unmarshall exceptions
+                if (model.getMetadata().getProtocol() != Protocol.API_GATEWAY) {
+                    return true;
+                }
         }
         return false;
     }

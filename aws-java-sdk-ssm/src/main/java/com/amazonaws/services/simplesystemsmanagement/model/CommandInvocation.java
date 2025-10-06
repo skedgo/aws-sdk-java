@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,10 +19,10 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An invocation is copy of a command sent to a specific instance. A command can apply to one or more instances. A
- * command invocation applies to one instance. For example, if a user runs SendCommand against three instances, then a
- * command invocation is created for each requested instance ID. A command invocation returns status and detail
- * information about a command you ran.
+ * An invocation is a copy of a command sent to a specific managed node. A command can apply to one or more managed
+ * nodes. A command invocation applies to one managed node. For example, if a user runs <code>SendCommand</code> against
+ * three managed nodes, then a command invocation is created for each requested managed node ID. A command invocation
+ * returns status and detail information about a command you ran.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CommandInvocation" target="_top">AWS API
@@ -39,14 +39,13 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
     private String commandId;
     /**
      * <p>
-     * The instance ID in which this invocation was requested.
+     * The managed node ID in which this invocation was requested.
      * </p>
      */
     private String instanceId;
     /**
      * <p>
-     * The name of the invocation target. For Amazon EC2 instances this is the value for the aws:Name tag. For
-     * on-premises instances, this is the name of the instance.
+     * The fully qualified host name of the managed node.
      * </p>
      */
     private String instanceName;
@@ -64,13 +63,13 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
     private String documentName;
     /**
      * <p>
-     * The SSM document version.
+     * The Systems Manager document (SSM document) version.
      * </p>
      */
     private String documentVersion;
     /**
      * <p>
-     * The time and date the request was sent to this instance.
+     * The time and date the request was sent to this managed node.
      * </p>
      */
     private java.util.Date requestedDateTime;
@@ -82,22 +81,23 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
     private String status;
     /**
      * <p>
-     * A detailed status of the command execution for each invocation (each instance targeted by the command).
+     * A detailed status of the command execution for each invocation (each managed node targeted by the command).
      * StatusDetails includes more information than Status because it includes states resulting from error and
      * concurrency control parameters. StatusDetails can show different results than Status. For more information about
      * these statuses, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding Command
-     * Statuses</a> in the <i>AWS Systems Manager User Guide</i>. StatusDetails can be one of the following values:
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding command
+     * statuses</a> in the <i>Amazon Web Services Systems Manager User Guide</i>. StatusDetails can be one of the
+     * following values:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Pending: The command has not been sent to the instance.
+     * Pending: The command hasn't been sent to the managed node.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In Progress: The command has been sent to the instance but has not reached a terminal state.
+     * In Progress: The command has been sent to the managed node but hasn't reached a terminal state.
      * </p>
      * </li>
      * <li>
@@ -107,34 +107,35 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
      * </li>
      * <li>
      * <p>
-     * Delivery Timed Out: The command was not delivered to the instance before the delivery timeout expired. Delivery
-     * timeouts do not count against the parent command's MaxErrors limit, but they do contribute to whether the parent
-     * command status is Success or Incomplete. This is a terminal state.
+     * Delivery Timed Out: The command wasn't delivered to the managed node before the delivery timeout expired.
+     * Delivery timeouts don't count against the parent command's <code>MaxErrors</code> limit, but they do contribute
+     * to whether the parent command status is Success or Incomplete. This is a terminal state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Execution Timed Out: Command execution started on the instance, but the execution was not complete before the
-     * execution timeout expired. Execution timeouts count against the MaxErrors limit of the parent command. This is a
-     * terminal state.
+     * Execution Timed Out: Command execution started on the managed node, but the execution wasn't complete before the
+     * execution timeout expired. Execution timeouts count against the <code>MaxErrors</code> limit of the parent
+     * command. This is a terminal state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Failed: The command was not successful on the instance. For a plugin, this indicates that the result code was not
-     * zero. For a command invocation, this indicates that the result code for one or more plugins was not zero.
-     * Invocation failures count against the MaxErrors limit of the parent command. This is a terminal state.
+     * Failed: The command wasn't successful on the managed node. For a plugin, this indicates that the result code
+     * wasn't zero. For a command invocation, this indicates that the result code for one or more plugins wasn't zero.
+     * Invocation failures count against the <code>MaxErrors</code> limit of the parent command. This is a terminal
+     * state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Canceled: The command was terminated before it was completed. This is a terminal state.
+     * Cancelled: The command was terminated before it was completed. This is a terminal state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Undeliverable: The command can't be delivered to the instance. The instance might not exist or might not be
-     * responding. Undeliverable invocations don't count against the parent command's MaxErrors limit and don't
+     * Undeliverable: The command can't be delivered to the managed node. The managed node might not exist or might not
+     * be responding. Undeliverable invocations don't count against the parent command's MaxErrors limit and don't
      * contribute to whether the parent command status is Success or Incomplete. This is a terminal state.
      * </p>
      * </li>
@@ -142,6 +143,12 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
      * <p>
      * Terminated: The parent command exceeded its MaxErrors limit and subsequent command invocations were canceled by
      * the system. This is a terminal state.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Delayed: The system attempted to send the command to the managed node but wasn't successful. The system retries
+     * again.
      * </p>
      * </li>
      * </ul>
@@ -155,38 +162,43 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
     private String traceOutput;
     /**
      * <p>
-     * The URL to the plugin's StdOut file in Amazon S3, if the Amazon S3 bucket was defined for the parent command. For
-     * an invocation, StandardOutputUrl is populated if there is just one plugin defined for the command, and the Amazon
-     * S3 bucket was defined for the command.
+     * The URL to the plugin's StdOut file in Amazon Simple Storage Service (Amazon S3), if the S3 bucket was defined
+     * for the parent command. For an invocation, <code>StandardOutputUrl</code> is populated if there is just one
+     * plugin defined for the command, and the S3 bucket was defined for the command.
      * </p>
      */
     private String standardOutputUrl;
     /**
      * <p>
-     * The URL to the plugin's StdErr file in Amazon S3, if the Amazon S3 bucket was defined for the parent command. For
-     * an invocation, StandardErrorUrl is populated if there is just one plugin defined for the command, and the Amazon
-     * S3 bucket was defined for the command.
+     * The URL to the plugin's StdErr file in Amazon Simple Storage Service (Amazon S3), if the S3 bucket was defined
+     * for the parent command. For an invocation, <code>StandardErrorUrl</code> is populated if there is just one plugin
+     * defined for the command, and the S3 bucket was defined for the command.
      * </p>
      */
     private String standardErrorUrl;
-
+    /**
+     * <p>
+     * Plugins processed by the command.
+     * </p>
+     */
     private com.amazonaws.internal.SdkInternalList<CommandPlugin> commandPlugins;
     /**
      * <p>
-     * The IAM service role that Run Command uses to act on your behalf when sending notifications about command status
-     * changes on a per instance basis.
+     * The Identity and Access Management (IAM) service role that Run Command, a capability of Amazon Web Services
+     * Systems Manager, uses to act on your behalf when sending notifications about command status changes on a per
+     * managed node basis.
      * </p>
      */
     private String serviceRole;
     /**
      * <p>
-     * Configurations for sending notifications about command status changes on a per instance basis.
+     * Configurations for sending notifications about command status changes on a per managed node basis.
      * </p>
      */
     private NotificationConfig notificationConfig;
     /**
      * <p>
-     * CloudWatch Logs information where you want Systems Manager to send the command output.
+     * Amazon CloudWatch Logs information where you want Amazon Web Services Systems Manager to send the command output.
      * </p>
      */
     private CloudWatchOutputConfig cloudWatchOutputConfig;
@@ -233,11 +245,11 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The instance ID in which this invocation was requested.
+     * The managed node ID in which this invocation was requested.
      * </p>
      * 
      * @param instanceId
-     *        The instance ID in which this invocation was requested.
+     *        The managed node ID in which this invocation was requested.
      */
 
     public void setInstanceId(String instanceId) {
@@ -246,10 +258,10 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The instance ID in which this invocation was requested.
+     * The managed node ID in which this invocation was requested.
      * </p>
      * 
-     * @return The instance ID in which this invocation was requested.
+     * @return The managed node ID in which this invocation was requested.
      */
 
     public String getInstanceId() {
@@ -258,11 +270,11 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The instance ID in which this invocation was requested.
+     * The managed node ID in which this invocation was requested.
      * </p>
      * 
      * @param instanceId
-     *        The instance ID in which this invocation was requested.
+     *        The managed node ID in which this invocation was requested.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -273,13 +285,11 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The name of the invocation target. For Amazon EC2 instances this is the value for the aws:Name tag. For
-     * on-premises instances, this is the name of the instance.
+     * The fully qualified host name of the managed node.
      * </p>
      * 
      * @param instanceName
-     *        The name of the invocation target. For Amazon EC2 instances this is the value for the aws:Name tag. For
-     *        on-premises instances, this is the name of the instance.
+     *        The fully qualified host name of the managed node.
      */
 
     public void setInstanceName(String instanceName) {
@@ -288,12 +298,10 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The name of the invocation target. For Amazon EC2 instances this is the value for the aws:Name tag. For
-     * on-premises instances, this is the name of the instance.
+     * The fully qualified host name of the managed node.
      * </p>
      * 
-     * @return The name of the invocation target. For Amazon EC2 instances this is the value for the aws:Name tag. For
-     *         on-premises instances, this is the name of the instance.
+     * @return The fully qualified host name of the managed node.
      */
 
     public String getInstanceName() {
@@ -302,13 +310,11 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The name of the invocation target. For Amazon EC2 instances this is the value for the aws:Name tag. For
-     * on-premises instances, this is the name of the instance.
+     * The fully qualified host name of the managed node.
      * </p>
      * 
      * @param instanceName
-     *        The name of the invocation target. For Amazon EC2 instances this is the value for the aws:Name tag. For
-     *        on-premises instances, this is the name of the instance.
+     *        The fully qualified host name of the managed node.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -399,11 +405,11 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The SSM document version.
+     * The Systems Manager document (SSM document) version.
      * </p>
      * 
      * @param documentVersion
-     *        The SSM document version.
+     *        The Systems Manager document (SSM document) version.
      */
 
     public void setDocumentVersion(String documentVersion) {
@@ -412,10 +418,10 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The SSM document version.
+     * The Systems Manager document (SSM document) version.
      * </p>
      * 
-     * @return The SSM document version.
+     * @return The Systems Manager document (SSM document) version.
      */
 
     public String getDocumentVersion() {
@@ -424,11 +430,11 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The SSM document version.
+     * The Systems Manager document (SSM document) version.
      * </p>
      * 
      * @param documentVersion
-     *        The SSM document version.
+     *        The Systems Manager document (SSM document) version.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -439,11 +445,11 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The time and date the request was sent to this instance.
+     * The time and date the request was sent to this managed node.
      * </p>
      * 
      * @param requestedDateTime
-     *        The time and date the request was sent to this instance.
+     *        The time and date the request was sent to this managed node.
      */
 
     public void setRequestedDateTime(java.util.Date requestedDateTime) {
@@ -452,10 +458,10 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The time and date the request was sent to this instance.
+     * The time and date the request was sent to this managed node.
      * </p>
      * 
-     * @return The time and date the request was sent to this instance.
+     * @return The time and date the request was sent to this managed node.
      */
 
     public java.util.Date getRequestedDateTime() {
@@ -464,11 +470,11 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The time and date the request was sent to this instance.
+     * The time and date the request was sent to this managed node.
      * </p>
      * 
      * @param requestedDateTime
-     *        The time and date the request was sent to this instance.
+     *        The time and date the request was sent to this managed node.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -552,22 +558,23 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * A detailed status of the command execution for each invocation (each instance targeted by the command).
+     * A detailed status of the command execution for each invocation (each managed node targeted by the command).
      * StatusDetails includes more information than Status because it includes states resulting from error and
      * concurrency control parameters. StatusDetails can show different results than Status. For more information about
      * these statuses, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding Command
-     * Statuses</a> in the <i>AWS Systems Manager User Guide</i>. StatusDetails can be one of the following values:
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding command
+     * statuses</a> in the <i>Amazon Web Services Systems Manager User Guide</i>. StatusDetails can be one of the
+     * following values:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Pending: The command has not been sent to the instance.
+     * Pending: The command hasn't been sent to the managed node.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In Progress: The command has been sent to the instance but has not reached a terminal state.
+     * In Progress: The command has been sent to the managed node but hasn't reached a terminal state.
      * </p>
      * </li>
      * <li>
@@ -577,34 +584,35 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
      * </li>
      * <li>
      * <p>
-     * Delivery Timed Out: The command was not delivered to the instance before the delivery timeout expired. Delivery
-     * timeouts do not count against the parent command's MaxErrors limit, but they do contribute to whether the parent
-     * command status is Success or Incomplete. This is a terminal state.
+     * Delivery Timed Out: The command wasn't delivered to the managed node before the delivery timeout expired.
+     * Delivery timeouts don't count against the parent command's <code>MaxErrors</code> limit, but they do contribute
+     * to whether the parent command status is Success or Incomplete. This is a terminal state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Execution Timed Out: Command execution started on the instance, but the execution was not complete before the
-     * execution timeout expired. Execution timeouts count against the MaxErrors limit of the parent command. This is a
-     * terminal state.
+     * Execution Timed Out: Command execution started on the managed node, but the execution wasn't complete before the
+     * execution timeout expired. Execution timeouts count against the <code>MaxErrors</code> limit of the parent
+     * command. This is a terminal state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Failed: The command was not successful on the instance. For a plugin, this indicates that the result code was not
-     * zero. For a command invocation, this indicates that the result code for one or more plugins was not zero.
-     * Invocation failures count against the MaxErrors limit of the parent command. This is a terminal state.
+     * Failed: The command wasn't successful on the managed node. For a plugin, this indicates that the result code
+     * wasn't zero. For a command invocation, this indicates that the result code for one or more plugins wasn't zero.
+     * Invocation failures count against the <code>MaxErrors</code> limit of the parent command. This is a terminal
+     * state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Canceled: The command was terminated before it was completed. This is a terminal state.
+     * Cancelled: The command was terminated before it was completed. This is a terminal state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Undeliverable: The command can't be delivered to the instance. The instance might not exist or might not be
-     * responding. Undeliverable invocations don't count against the parent command's MaxErrors limit and don't
+     * Undeliverable: The command can't be delivered to the managed node. The managed node might not exist or might not
+     * be responding. Undeliverable invocations don't count against the parent command's MaxErrors limit and don't
      * contribute to whether the parent command status is Success or Incomplete. This is a terminal state.
      * </p>
      * </li>
@@ -614,25 +622,31 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
      * the system. This is a terminal state.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * Delayed: The system attempted to send the command to the managed node but wasn't successful. The system retries
+     * again.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @param statusDetails
-     *        A detailed status of the command execution for each invocation (each instance targeted by the command).
-     *        StatusDetails includes more information than Status because it includes states resulting from error and
-     *        concurrency control parameters. StatusDetails can show different results than Status. For more information
-     *        about these statuses, see <a
-     *        href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding
-     *        Command Statuses</a> in the <i>AWS Systems Manager User Guide</i>. StatusDetails can be one of the
-     *        following values:</p>
+     *        A detailed status of the command execution for each invocation (each managed node targeted by the
+     *        command). StatusDetails includes more information than Status because it includes states resulting from
+     *        error and concurrency control parameters. StatusDetails can show different results than Status. For more
+     *        information about these statuses, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding
+     *        command statuses</a> in the <i>Amazon Web Services Systems Manager User Guide</i>. StatusDetails can be
+     *        one of the following values:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Pending: The command has not been sent to the instance.
+     *        Pending: The command hasn't been sent to the managed node.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        In Progress: The command has been sent to the instance but has not reached a terminal state.
+     *        In Progress: The command has been sent to the managed node but hasn't reached a terminal state.
      *        </p>
      *        </li>
      *        <li>
@@ -642,42 +656,49 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
      *        </li>
      *        <li>
      *        <p>
-     *        Delivery Timed Out: The command was not delivered to the instance before the delivery timeout expired.
-     *        Delivery timeouts do not count against the parent command's MaxErrors limit, but they do contribute to
-     *        whether the parent command status is Success or Incomplete. This is a terminal state.
+     *        Delivery Timed Out: The command wasn't delivered to the managed node before the delivery timeout expired.
+     *        Delivery timeouts don't count against the parent command's <code>MaxErrors</code> limit, but they do
+     *        contribute to whether the parent command status is Success or Incomplete. This is a terminal state.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Execution Timed Out: Command execution started on the instance, but the execution was not complete before
-     *        the execution timeout expired. Execution timeouts count against the MaxErrors limit of the parent command.
+     *        Execution Timed Out: Command execution started on the managed node, but the execution wasn't complete
+     *        before the execution timeout expired. Execution timeouts count against the <code>MaxErrors</code> limit of
+     *        the parent command. This is a terminal state.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Failed: The command wasn't successful on the managed node. For a plugin, this indicates that the result
+     *        code wasn't zero. For a command invocation, this indicates that the result code for one or more plugins
+     *        wasn't zero. Invocation failures count against the <code>MaxErrors</code> limit of the parent command.
      *        This is a terminal state.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Failed: The command was not successful on the instance. For a plugin, this indicates that the result code
-     *        was not zero. For a command invocation, this indicates that the result code for one or more plugins was
-     *        not zero. Invocation failures count against the MaxErrors limit of the parent command. This is a terminal
-     *        state.
+     *        Cancelled: The command was terminated before it was completed. This is a terminal state.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Canceled: The command was terminated before it was completed. This is a terminal state.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Undeliverable: The command can't be delivered to the instance. The instance might not exist or might not
-     *        be responding. Undeliverable invocations don't count against the parent command's MaxErrors limit and
-     *        don't contribute to whether the parent command status is Success or Incomplete. This is a terminal state.
+     *        Undeliverable: The command can't be delivered to the managed node. The managed node might not exist or
+     *        might not be responding. Undeliverable invocations don't count against the parent command's MaxErrors
+     *        limit and don't contribute to whether the parent command status is Success or Incomplete. This is a
+     *        terminal state.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        Terminated: The parent command exceeded its MaxErrors limit and subsequent command invocations were
      *        canceled by the system. This is a terminal state.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Delayed: The system attempted to send the command to the managed node but wasn't successful. The system
+     *        retries again.
      *        </p>
      *        </li>
      */
@@ -688,22 +709,23 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * A detailed status of the command execution for each invocation (each instance targeted by the command).
+     * A detailed status of the command execution for each invocation (each managed node targeted by the command).
      * StatusDetails includes more information than Status because it includes states resulting from error and
      * concurrency control parameters. StatusDetails can show different results than Status. For more information about
      * these statuses, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding Command
-     * Statuses</a> in the <i>AWS Systems Manager User Guide</i>. StatusDetails can be one of the following values:
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding command
+     * statuses</a> in the <i>Amazon Web Services Systems Manager User Guide</i>. StatusDetails can be one of the
+     * following values:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Pending: The command has not been sent to the instance.
+     * Pending: The command hasn't been sent to the managed node.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In Progress: The command has been sent to the instance but has not reached a terminal state.
+     * In Progress: The command has been sent to the managed node but hasn't reached a terminal state.
      * </p>
      * </li>
      * <li>
@@ -713,34 +735,35 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
      * </li>
      * <li>
      * <p>
-     * Delivery Timed Out: The command was not delivered to the instance before the delivery timeout expired. Delivery
-     * timeouts do not count against the parent command's MaxErrors limit, but they do contribute to whether the parent
-     * command status is Success or Incomplete. This is a terminal state.
+     * Delivery Timed Out: The command wasn't delivered to the managed node before the delivery timeout expired.
+     * Delivery timeouts don't count against the parent command's <code>MaxErrors</code> limit, but they do contribute
+     * to whether the parent command status is Success or Incomplete. This is a terminal state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Execution Timed Out: Command execution started on the instance, but the execution was not complete before the
-     * execution timeout expired. Execution timeouts count against the MaxErrors limit of the parent command. This is a
-     * terminal state.
+     * Execution Timed Out: Command execution started on the managed node, but the execution wasn't complete before the
+     * execution timeout expired. Execution timeouts count against the <code>MaxErrors</code> limit of the parent
+     * command. This is a terminal state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Failed: The command was not successful on the instance. For a plugin, this indicates that the result code was not
-     * zero. For a command invocation, this indicates that the result code for one or more plugins was not zero.
-     * Invocation failures count against the MaxErrors limit of the parent command. This is a terminal state.
+     * Failed: The command wasn't successful on the managed node. For a plugin, this indicates that the result code
+     * wasn't zero. For a command invocation, this indicates that the result code for one or more plugins wasn't zero.
+     * Invocation failures count against the <code>MaxErrors</code> limit of the parent command. This is a terminal
+     * state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Canceled: The command was terminated before it was completed. This is a terminal state.
+     * Cancelled: The command was terminated before it was completed. This is a terminal state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Undeliverable: The command can't be delivered to the instance. The instance might not exist or might not be
-     * responding. Undeliverable invocations don't count against the parent command's MaxErrors limit and don't
+     * Undeliverable: The command can't be delivered to the managed node. The managed node might not exist or might not
+     * be responding. Undeliverable invocations don't count against the parent command's MaxErrors limit and don't
      * contribute to whether the parent command status is Success or Incomplete. This is a terminal state.
      * </p>
      * </li>
@@ -750,24 +773,30 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
      * the system. This is a terminal state.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * Delayed: The system attempted to send the command to the managed node but wasn't successful. The system retries
+     * again.
+     * </p>
+     * </li>
      * </ul>
      * 
-     * @return A detailed status of the command execution for each invocation (each instance targeted by the command).
-     *         StatusDetails includes more information than Status because it includes states resulting from error and
-     *         concurrency control parameters. StatusDetails can show different results than Status. For more
+     * @return A detailed status of the command execution for each invocation (each managed node targeted by the
+     *         command). StatusDetails includes more information than Status because it includes states resulting from
+     *         error and concurrency control parameters. StatusDetails can show different results than Status. For more
      *         information about these statuses, see <a
-     *         href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding
-     *         Command Statuses</a> in the <i>AWS Systems Manager User Guide</i>. StatusDetails can be one of the
-     *         following values:</p>
+     *         href="https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding
+     *         command statuses</a> in the <i>Amazon Web Services Systems Manager User Guide</i>. StatusDetails can be
+     *         one of the following values:</p>
      *         <ul>
      *         <li>
      *         <p>
-     *         Pending: The command has not been sent to the instance.
+     *         Pending: The command hasn't been sent to the managed node.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         In Progress: The command has been sent to the instance but has not reached a terminal state.
+     *         In Progress: The command has been sent to the managed node but hasn't reached a terminal state.
      *         </p>
      *         </li>
      *         <li>
@@ -777,42 +806,49 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
      *         </li>
      *         <li>
      *         <p>
-     *         Delivery Timed Out: The command was not delivered to the instance before the delivery timeout expired.
-     *         Delivery timeouts do not count against the parent command's MaxErrors limit, but they do contribute to
-     *         whether the parent command status is Success or Incomplete. This is a terminal state.
+     *         Delivery Timed Out: The command wasn't delivered to the managed node before the delivery timeout expired.
+     *         Delivery timeouts don't count against the parent command's <code>MaxErrors</code> limit, but they do
+     *         contribute to whether the parent command status is Success or Incomplete. This is a terminal state.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Execution Timed Out: Command execution started on the instance, but the execution was not complete before
-     *         the execution timeout expired. Execution timeouts count against the MaxErrors limit of the parent
-     *         command. This is a terminal state.
+     *         Execution Timed Out: Command execution started on the managed node, but the execution wasn't complete
+     *         before the execution timeout expired. Execution timeouts count against the <code>MaxErrors</code> limit
+     *         of the parent command. This is a terminal state.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Failed: The command was not successful on the instance. For a plugin, this indicates that the result code
-     *         was not zero. For a command invocation, this indicates that the result code for one or more plugins was
-     *         not zero. Invocation failures count against the MaxErrors limit of the parent command. This is a terminal
-     *         state.
+     *         Failed: The command wasn't successful on the managed node. For a plugin, this indicates that the result
+     *         code wasn't zero. For a command invocation, this indicates that the result code for one or more plugins
+     *         wasn't zero. Invocation failures count against the <code>MaxErrors</code> limit of the parent command.
+     *         This is a terminal state.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Canceled: The command was terminated before it was completed. This is a terminal state.
+     *         Cancelled: The command was terminated before it was completed. This is a terminal state.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Undeliverable: The command can't be delivered to the instance. The instance might not exist or might not
-     *         be responding. Undeliverable invocations don't count against the parent command's MaxErrors limit and
-     *         don't contribute to whether the parent command status is Success or Incomplete. This is a terminal state.
+     *         Undeliverable: The command can't be delivered to the managed node. The managed node might not exist or
+     *         might not be responding. Undeliverable invocations don't count against the parent command's MaxErrors
+     *         limit and don't contribute to whether the parent command status is Success or Incomplete. This is a
+     *         terminal state.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         Terminated: The parent command exceeded its MaxErrors limit and subsequent command invocations were
      *         canceled by the system. This is a terminal state.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Delayed: The system attempted to send the command to the managed node but wasn't successful. The system
+     *         retries again.
      *         </p>
      *         </li>
      */
@@ -823,22 +859,23 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * A detailed status of the command execution for each invocation (each instance targeted by the command).
+     * A detailed status of the command execution for each invocation (each managed node targeted by the command).
      * StatusDetails includes more information than Status because it includes states resulting from error and
      * concurrency control parameters. StatusDetails can show different results than Status. For more information about
      * these statuses, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding Command
-     * Statuses</a> in the <i>AWS Systems Manager User Guide</i>. StatusDetails can be one of the following values:
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding command
+     * statuses</a> in the <i>Amazon Web Services Systems Manager User Guide</i>. StatusDetails can be one of the
+     * following values:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Pending: The command has not been sent to the instance.
+     * Pending: The command hasn't been sent to the managed node.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In Progress: The command has been sent to the instance but has not reached a terminal state.
+     * In Progress: The command has been sent to the managed node but hasn't reached a terminal state.
      * </p>
      * </li>
      * <li>
@@ -848,34 +885,35 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
      * </li>
      * <li>
      * <p>
-     * Delivery Timed Out: The command was not delivered to the instance before the delivery timeout expired. Delivery
-     * timeouts do not count against the parent command's MaxErrors limit, but they do contribute to whether the parent
-     * command status is Success or Incomplete. This is a terminal state.
+     * Delivery Timed Out: The command wasn't delivered to the managed node before the delivery timeout expired.
+     * Delivery timeouts don't count against the parent command's <code>MaxErrors</code> limit, but they do contribute
+     * to whether the parent command status is Success or Incomplete. This is a terminal state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Execution Timed Out: Command execution started on the instance, but the execution was not complete before the
-     * execution timeout expired. Execution timeouts count against the MaxErrors limit of the parent command. This is a
-     * terminal state.
+     * Execution Timed Out: Command execution started on the managed node, but the execution wasn't complete before the
+     * execution timeout expired. Execution timeouts count against the <code>MaxErrors</code> limit of the parent
+     * command. This is a terminal state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Failed: The command was not successful on the instance. For a plugin, this indicates that the result code was not
-     * zero. For a command invocation, this indicates that the result code for one or more plugins was not zero.
-     * Invocation failures count against the MaxErrors limit of the parent command. This is a terminal state.
+     * Failed: The command wasn't successful on the managed node. For a plugin, this indicates that the result code
+     * wasn't zero. For a command invocation, this indicates that the result code for one or more plugins wasn't zero.
+     * Invocation failures count against the <code>MaxErrors</code> limit of the parent command. This is a terminal
+     * state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Canceled: The command was terminated before it was completed. This is a terminal state.
+     * Cancelled: The command was terminated before it was completed. This is a terminal state.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Undeliverable: The command can't be delivered to the instance. The instance might not exist or might not be
-     * responding. Undeliverable invocations don't count against the parent command's MaxErrors limit and don't
+     * Undeliverable: The command can't be delivered to the managed node. The managed node might not exist or might not
+     * be responding. Undeliverable invocations don't count against the parent command's MaxErrors limit and don't
      * contribute to whether the parent command status is Success or Incomplete. This is a terminal state.
      * </p>
      * </li>
@@ -885,25 +923,31 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
      * the system. This is a terminal state.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * Delayed: The system attempted to send the command to the managed node but wasn't successful. The system retries
+     * again.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @param statusDetails
-     *        A detailed status of the command execution for each invocation (each instance targeted by the command).
-     *        StatusDetails includes more information than Status because it includes states resulting from error and
-     *        concurrency control parameters. StatusDetails can show different results than Status. For more information
-     *        about these statuses, see <a
-     *        href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding
-     *        Command Statuses</a> in the <i>AWS Systems Manager User Guide</i>. StatusDetails can be one of the
-     *        following values:</p>
+     *        A detailed status of the command execution for each invocation (each managed node targeted by the
+     *        command). StatusDetails includes more information than Status because it includes states resulting from
+     *        error and concurrency control parameters. StatusDetails can show different results than Status. For more
+     *        information about these statuses, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding
+     *        command statuses</a> in the <i>Amazon Web Services Systems Manager User Guide</i>. StatusDetails can be
+     *        one of the following values:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Pending: The command has not been sent to the instance.
+     *        Pending: The command hasn't been sent to the managed node.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        In Progress: The command has been sent to the instance but has not reached a terminal state.
+     *        In Progress: The command has been sent to the managed node but hasn't reached a terminal state.
      *        </p>
      *        </li>
      *        <li>
@@ -913,42 +957,49 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
      *        </li>
      *        <li>
      *        <p>
-     *        Delivery Timed Out: The command was not delivered to the instance before the delivery timeout expired.
-     *        Delivery timeouts do not count against the parent command's MaxErrors limit, but they do contribute to
-     *        whether the parent command status is Success or Incomplete. This is a terminal state.
+     *        Delivery Timed Out: The command wasn't delivered to the managed node before the delivery timeout expired.
+     *        Delivery timeouts don't count against the parent command's <code>MaxErrors</code> limit, but they do
+     *        contribute to whether the parent command status is Success or Incomplete. This is a terminal state.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Execution Timed Out: Command execution started on the instance, but the execution was not complete before
-     *        the execution timeout expired. Execution timeouts count against the MaxErrors limit of the parent command.
+     *        Execution Timed Out: Command execution started on the managed node, but the execution wasn't complete
+     *        before the execution timeout expired. Execution timeouts count against the <code>MaxErrors</code> limit of
+     *        the parent command. This is a terminal state.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Failed: The command wasn't successful on the managed node. For a plugin, this indicates that the result
+     *        code wasn't zero. For a command invocation, this indicates that the result code for one or more plugins
+     *        wasn't zero. Invocation failures count against the <code>MaxErrors</code> limit of the parent command.
      *        This is a terminal state.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Failed: The command was not successful on the instance. For a plugin, this indicates that the result code
-     *        was not zero. For a command invocation, this indicates that the result code for one or more plugins was
-     *        not zero. Invocation failures count against the MaxErrors limit of the parent command. This is a terminal
-     *        state.
+     *        Cancelled: The command was terminated before it was completed. This is a terminal state.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Canceled: The command was terminated before it was completed. This is a terminal state.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Undeliverable: The command can't be delivered to the instance. The instance might not exist or might not
-     *        be responding. Undeliverable invocations don't count against the parent command's MaxErrors limit and
-     *        don't contribute to whether the parent command status is Success or Incomplete. This is a terminal state.
+     *        Undeliverable: The command can't be delivered to the managed node. The managed node might not exist or
+     *        might not be responding. Undeliverable invocations don't count against the parent command's MaxErrors
+     *        limit and don't contribute to whether the parent command status is Success or Incomplete. This is a
+     *        terminal state.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        Terminated: The parent command exceeded its MaxErrors limit and subsequent command invocations were
      *        canceled by the system. This is a terminal state.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Delayed: The system attempted to send the command to the managed node but wasn't successful. The system
+     *        retries again.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1001,15 +1052,15 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The URL to the plugin's StdOut file in Amazon S3, if the Amazon S3 bucket was defined for the parent command. For
-     * an invocation, StandardOutputUrl is populated if there is just one plugin defined for the command, and the Amazon
-     * S3 bucket was defined for the command.
+     * The URL to the plugin's StdOut file in Amazon Simple Storage Service (Amazon S3), if the S3 bucket was defined
+     * for the parent command. For an invocation, <code>StandardOutputUrl</code> is populated if there is just one
+     * plugin defined for the command, and the S3 bucket was defined for the command.
      * </p>
      * 
      * @param standardOutputUrl
-     *        The URL to the plugin's StdOut file in Amazon S3, if the Amazon S3 bucket was defined for the parent
-     *        command. For an invocation, StandardOutputUrl is populated if there is just one plugin defined for the
-     *        command, and the Amazon S3 bucket was defined for the command.
+     *        The URL to the plugin's StdOut file in Amazon Simple Storage Service (Amazon S3), if the S3 bucket was
+     *        defined for the parent command. For an invocation, <code>StandardOutputUrl</code> is populated if there is
+     *        just one plugin defined for the command, and the S3 bucket was defined for the command.
      */
 
     public void setStandardOutputUrl(String standardOutputUrl) {
@@ -1018,14 +1069,14 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The URL to the plugin's StdOut file in Amazon S3, if the Amazon S3 bucket was defined for the parent command. For
-     * an invocation, StandardOutputUrl is populated if there is just one plugin defined for the command, and the Amazon
-     * S3 bucket was defined for the command.
+     * The URL to the plugin's StdOut file in Amazon Simple Storage Service (Amazon S3), if the S3 bucket was defined
+     * for the parent command. For an invocation, <code>StandardOutputUrl</code> is populated if there is just one
+     * plugin defined for the command, and the S3 bucket was defined for the command.
      * </p>
      * 
-     * @return The URL to the plugin's StdOut file in Amazon S3, if the Amazon S3 bucket was defined for the parent
-     *         command. For an invocation, StandardOutputUrl is populated if there is just one plugin defined for the
-     *         command, and the Amazon S3 bucket was defined for the command.
+     * @return The URL to the plugin's StdOut file in Amazon Simple Storage Service (Amazon S3), if the S3 bucket was
+     *         defined for the parent command. For an invocation, <code>StandardOutputUrl</code> is populated if there
+     *         is just one plugin defined for the command, and the S3 bucket was defined for the command.
      */
 
     public String getStandardOutputUrl() {
@@ -1034,15 +1085,15 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The URL to the plugin's StdOut file in Amazon S3, if the Amazon S3 bucket was defined for the parent command. For
-     * an invocation, StandardOutputUrl is populated if there is just one plugin defined for the command, and the Amazon
-     * S3 bucket was defined for the command.
+     * The URL to the plugin's StdOut file in Amazon Simple Storage Service (Amazon S3), if the S3 bucket was defined
+     * for the parent command. For an invocation, <code>StandardOutputUrl</code> is populated if there is just one
+     * plugin defined for the command, and the S3 bucket was defined for the command.
      * </p>
      * 
      * @param standardOutputUrl
-     *        The URL to the plugin's StdOut file in Amazon S3, if the Amazon S3 bucket was defined for the parent
-     *        command. For an invocation, StandardOutputUrl is populated if there is just one plugin defined for the
-     *        command, and the Amazon S3 bucket was defined for the command.
+     *        The URL to the plugin's StdOut file in Amazon Simple Storage Service (Amazon S3), if the S3 bucket was
+     *        defined for the parent command. For an invocation, <code>StandardOutputUrl</code> is populated if there is
+     *        just one plugin defined for the command, and the S3 bucket was defined for the command.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1053,15 +1104,15 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The URL to the plugin's StdErr file in Amazon S3, if the Amazon S3 bucket was defined for the parent command. For
-     * an invocation, StandardErrorUrl is populated if there is just one plugin defined for the command, and the Amazon
-     * S3 bucket was defined for the command.
+     * The URL to the plugin's StdErr file in Amazon Simple Storage Service (Amazon S3), if the S3 bucket was defined
+     * for the parent command. For an invocation, <code>StandardErrorUrl</code> is populated if there is just one plugin
+     * defined for the command, and the S3 bucket was defined for the command.
      * </p>
      * 
      * @param standardErrorUrl
-     *        The URL to the plugin's StdErr file in Amazon S3, if the Amazon S3 bucket was defined for the parent
-     *        command. For an invocation, StandardErrorUrl is populated if there is just one plugin defined for the
-     *        command, and the Amazon S3 bucket was defined for the command.
+     *        The URL to the plugin's StdErr file in Amazon Simple Storage Service (Amazon S3), if the S3 bucket was
+     *        defined for the parent command. For an invocation, <code>StandardErrorUrl</code> is populated if there is
+     *        just one plugin defined for the command, and the S3 bucket was defined for the command.
      */
 
     public void setStandardErrorUrl(String standardErrorUrl) {
@@ -1070,14 +1121,14 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The URL to the plugin's StdErr file in Amazon S3, if the Amazon S3 bucket was defined for the parent command. For
-     * an invocation, StandardErrorUrl is populated if there is just one plugin defined for the command, and the Amazon
-     * S3 bucket was defined for the command.
+     * The URL to the plugin's StdErr file in Amazon Simple Storage Service (Amazon S3), if the S3 bucket was defined
+     * for the parent command. For an invocation, <code>StandardErrorUrl</code> is populated if there is just one plugin
+     * defined for the command, and the S3 bucket was defined for the command.
      * </p>
      * 
-     * @return The URL to the plugin's StdErr file in Amazon S3, if the Amazon S3 bucket was defined for the parent
-     *         command. For an invocation, StandardErrorUrl is populated if there is just one plugin defined for the
-     *         command, and the Amazon S3 bucket was defined for the command.
+     * @return The URL to the plugin's StdErr file in Amazon Simple Storage Service (Amazon S3), if the S3 bucket was
+     *         defined for the parent command. For an invocation, <code>StandardErrorUrl</code> is populated if there is
+     *         just one plugin defined for the command, and the S3 bucket was defined for the command.
      */
 
     public String getStandardErrorUrl() {
@@ -1086,15 +1137,15 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The URL to the plugin's StdErr file in Amazon S3, if the Amazon S3 bucket was defined for the parent command. For
-     * an invocation, StandardErrorUrl is populated if there is just one plugin defined for the command, and the Amazon
-     * S3 bucket was defined for the command.
+     * The URL to the plugin's StdErr file in Amazon Simple Storage Service (Amazon S3), if the S3 bucket was defined
+     * for the parent command. For an invocation, <code>StandardErrorUrl</code> is populated if there is just one plugin
+     * defined for the command, and the S3 bucket was defined for the command.
      * </p>
      * 
      * @param standardErrorUrl
-     *        The URL to the plugin's StdErr file in Amazon S3, if the Amazon S3 bucket was defined for the parent
-     *        command. For an invocation, StandardErrorUrl is populated if there is just one plugin defined for the
-     *        command, and the Amazon S3 bucket was defined for the command.
+     *        The URL to the plugin's StdErr file in Amazon Simple Storage Service (Amazon S3), if the S3 bucket was
+     *        defined for the parent command. For an invocation, <code>StandardErrorUrl</code> is populated if there is
+     *        just one plugin defined for the command, and the S3 bucket was defined for the command.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1104,7 +1155,11 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * @return
+     * <p>
+     * Plugins processed by the command.
+     * </p>
+     * 
+     * @return Plugins processed by the command.
      */
 
     public java.util.List<CommandPlugin> getCommandPlugins() {
@@ -1115,7 +1170,12 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
+     * <p>
+     * Plugins processed by the command.
+     * </p>
+     * 
      * @param commandPlugins
+     *        Plugins processed by the command.
      */
 
     public void setCommandPlugins(java.util.Collection<CommandPlugin> commandPlugins) {
@@ -1129,12 +1189,16 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
+     * Plugins processed by the command.
+     * </p>
+     * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setCommandPlugins(java.util.Collection)} or {@link #withCommandPlugins(java.util.Collection)} if you want
      * to override the existing values.
      * </p>
      * 
      * @param commandPlugins
+     *        Plugins processed by the command.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1149,7 +1213,12 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
+     * <p>
+     * Plugins processed by the command.
+     * </p>
+     * 
      * @param commandPlugins
+     *        Plugins processed by the command.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1160,13 +1229,15 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The IAM service role that Run Command uses to act on your behalf when sending notifications about command status
-     * changes on a per instance basis.
+     * The Identity and Access Management (IAM) service role that Run Command, a capability of Amazon Web Services
+     * Systems Manager, uses to act on your behalf when sending notifications about command status changes on a per
+     * managed node basis.
      * </p>
      * 
      * @param serviceRole
-     *        The IAM service role that Run Command uses to act on your behalf when sending notifications about command
-     *        status changes on a per instance basis.
+     *        The Identity and Access Management (IAM) service role that Run Command, a capability of Amazon Web
+     *        Services Systems Manager, uses to act on your behalf when sending notifications about command status
+     *        changes on a per managed node basis.
      */
 
     public void setServiceRole(String serviceRole) {
@@ -1175,12 +1246,14 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The IAM service role that Run Command uses to act on your behalf when sending notifications about command status
-     * changes on a per instance basis.
+     * The Identity and Access Management (IAM) service role that Run Command, a capability of Amazon Web Services
+     * Systems Manager, uses to act on your behalf when sending notifications about command status changes on a per
+     * managed node basis.
      * </p>
      * 
-     * @return The IAM service role that Run Command uses to act on your behalf when sending notifications about command
-     *         status changes on a per instance basis.
+     * @return The Identity and Access Management (IAM) service role that Run Command, a capability of Amazon Web
+     *         Services Systems Manager, uses to act on your behalf when sending notifications about command status
+     *         changes on a per managed node basis.
      */
 
     public String getServiceRole() {
@@ -1189,13 +1262,15 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The IAM service role that Run Command uses to act on your behalf when sending notifications about command status
-     * changes on a per instance basis.
+     * The Identity and Access Management (IAM) service role that Run Command, a capability of Amazon Web Services
+     * Systems Manager, uses to act on your behalf when sending notifications about command status changes on a per
+     * managed node basis.
      * </p>
      * 
      * @param serviceRole
-     *        The IAM service role that Run Command uses to act on your behalf when sending notifications about command
-     *        status changes on a per instance basis.
+     *        The Identity and Access Management (IAM) service role that Run Command, a capability of Amazon Web
+     *        Services Systems Manager, uses to act on your behalf when sending notifications about command status
+     *        changes on a per managed node basis.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1206,11 +1281,11 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Configurations for sending notifications about command status changes on a per instance basis.
+     * Configurations for sending notifications about command status changes on a per managed node basis.
      * </p>
      * 
      * @param notificationConfig
-     *        Configurations for sending notifications about command status changes on a per instance basis.
+     *        Configurations for sending notifications about command status changes on a per managed node basis.
      */
 
     public void setNotificationConfig(NotificationConfig notificationConfig) {
@@ -1219,10 +1294,10 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Configurations for sending notifications about command status changes on a per instance basis.
+     * Configurations for sending notifications about command status changes on a per managed node basis.
      * </p>
      * 
-     * @return Configurations for sending notifications about command status changes on a per instance basis.
+     * @return Configurations for sending notifications about command status changes on a per managed node basis.
      */
 
     public NotificationConfig getNotificationConfig() {
@@ -1231,11 +1306,11 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Configurations for sending notifications about command status changes on a per instance basis.
+     * Configurations for sending notifications about command status changes on a per managed node basis.
      * </p>
      * 
      * @param notificationConfig
-     *        Configurations for sending notifications about command status changes on a per instance basis.
+     *        Configurations for sending notifications about command status changes on a per managed node basis.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1246,11 +1321,12 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * CloudWatch Logs information where you want Systems Manager to send the command output.
+     * Amazon CloudWatch Logs information where you want Amazon Web Services Systems Manager to send the command output.
      * </p>
      * 
      * @param cloudWatchOutputConfig
-     *        CloudWatch Logs information where you want Systems Manager to send the command output.
+     *        Amazon CloudWatch Logs information where you want Amazon Web Services Systems Manager to send the command
+     *        output.
      */
 
     public void setCloudWatchOutputConfig(CloudWatchOutputConfig cloudWatchOutputConfig) {
@@ -1259,10 +1335,11 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * CloudWatch Logs information where you want Systems Manager to send the command output.
+     * Amazon CloudWatch Logs information where you want Amazon Web Services Systems Manager to send the command output.
      * </p>
      * 
-     * @return CloudWatch Logs information where you want Systems Manager to send the command output.
+     * @return Amazon CloudWatch Logs information where you want Amazon Web Services Systems Manager to send the command
+     *         output.
      */
 
     public CloudWatchOutputConfig getCloudWatchOutputConfig() {
@@ -1271,11 +1348,12 @@ public class CommandInvocation implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * CloudWatch Logs information where you want Systems Manager to send the command output.
+     * Amazon CloudWatch Logs information where you want Amazon Web Services Systems Manager to send the command output.
      * </p>
      * 
      * @param cloudWatchOutputConfig
-     *        CloudWatch Logs information where you want Systems Manager to send the command output.
+     *        Amazon CloudWatch Logs information where you want Amazon Web Services Systems Manager to send the command
+     *        output.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

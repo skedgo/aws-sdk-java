@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,8 @@ public class ResourceDataSyncS3DestinationMarshaller {
             .marshallLocationName("Region").build();
     private static final MarshallingInfo<String> AWSKMSKEYARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AWSKMSKeyARN").build();
+    private static final MarshallingInfo<StructuredPojo> DESTINATIONDATASHARING_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DestinationDataSharing").build();
 
     private static final ResourceDataSyncS3DestinationMarshaller instance = new ResourceDataSyncS3DestinationMarshaller();
 
@@ -59,6 +61,7 @@ public class ResourceDataSyncS3DestinationMarshaller {
             protocolMarshaller.marshall(resourceDataSyncS3Destination.getSyncFormat(), SYNCFORMAT_BINDING);
             protocolMarshaller.marshall(resourceDataSyncS3Destination.getRegion(), REGION_BINDING);
             protocolMarshaller.marshall(resourceDataSyncS3Destination.getAWSKMSKeyARN(), AWSKMSKEYARN_BINDING);
+            protocolMarshaller.marshall(resourceDataSyncS3Destination.getDestinationDataSharing(), DESTINATIONDATASHARING_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

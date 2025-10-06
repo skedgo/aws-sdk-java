@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Contains information about an AWS CloudHSM cluster.
+ * Contains information about an CloudHSM cluster.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/Cluster" target="_top">AWS API
@@ -34,6 +34,12 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String backupPolicy;
+    /**
+     * <p>
+     * A policy that defines how the service retains backups.
+     * </p>
+     */
+    private BackupRetentionPolicy backupRetentionPolicy;
     /**
      * <p>
      * The cluster's identifier (ID).
@@ -91,7 +97,7 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
     private String stateMessage;
     /**
      * <p>
-     * A map of the cluster's subnets and their corresponding Availability Zones.
+     * A map from availability zone to the cluster’s subnet in that availability zone.
      * </p>
      */
     private java.util.Map<String, String> subnetMapping;
@@ -107,6 +113,18 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private Certificates certificates;
+    /**
+     * <p>
+     * The list of tags for the cluster.
+     * </p>
+     */
+    private java.util.List<Tag> tagList;
+    /**
+     * <p>
+     * The mode of the cluster.
+     * </p>
+     */
+    private String mode;
 
     /**
      * <p>
@@ -164,6 +182,46 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     public Cluster withBackupPolicy(BackupPolicy backupPolicy) {
         this.backupPolicy = backupPolicy.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * A policy that defines how the service retains backups.
+     * </p>
+     * 
+     * @param backupRetentionPolicy
+     *        A policy that defines how the service retains backups.
+     */
+
+    public void setBackupRetentionPolicy(BackupRetentionPolicy backupRetentionPolicy) {
+        this.backupRetentionPolicy = backupRetentionPolicy;
+    }
+
+    /**
+     * <p>
+     * A policy that defines how the service retains backups.
+     * </p>
+     * 
+     * @return A policy that defines how the service retains backups.
+     */
+
+    public BackupRetentionPolicy getBackupRetentionPolicy() {
+        return this.backupRetentionPolicy;
+    }
+
+    /**
+     * <p>
+     * A policy that defines how the service retains backups.
+     * </p>
+     * 
+     * @param backupRetentionPolicy
+     *        A policy that defines how the service retains backups.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withBackupRetentionPolicy(BackupRetentionPolicy backupRetentionPolicy) {
+        setBackupRetentionPolicy(backupRetentionPolicy);
         return this;
     }
 
@@ -584,10 +642,10 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A map of the cluster's subnets and their corresponding Availability Zones.
+     * A map from availability zone to the cluster’s subnet in that availability zone.
      * </p>
      * 
-     * @return A map of the cluster's subnets and their corresponding Availability Zones.
+     * @return A map from availability zone to the cluster’s subnet in that availability zone.
      */
 
     public java.util.Map<String, String> getSubnetMapping() {
@@ -596,11 +654,11 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A map of the cluster's subnets and their corresponding Availability Zones.
+     * A map from availability zone to the cluster’s subnet in that availability zone.
      * </p>
      * 
      * @param subnetMapping
-     *        A map of the cluster's subnets and their corresponding Availability Zones.
+     *        A map from availability zone to the cluster’s subnet in that availability zone.
      */
 
     public void setSubnetMapping(java.util.Map<String, String> subnetMapping) {
@@ -609,11 +667,11 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A map of the cluster's subnets and their corresponding Availability Zones.
+     * A map from availability zone to the cluster’s subnet in that availability zone.
      * </p>
      * 
      * @param subnetMapping
-     *        A map of the cluster's subnets and their corresponding Availability Zones.
+     *        A map from availability zone to the cluster’s subnet in that availability zone.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -621,6 +679,13 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
         setSubnetMapping(subnetMapping);
         return this;
     }
+
+    /**
+     * Add a single SubnetMapping entry
+     *
+     * @see Cluster#withSubnetMapping
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public Cluster addSubnetMappingEntry(String key, String value) {
         if (null == this.subnetMapping) {
@@ -724,6 +789,135 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The list of tags for the cluster.
+     * </p>
+     * 
+     * @return The list of tags for the cluster.
+     */
+
+    public java.util.List<Tag> getTagList() {
+        return tagList;
+    }
+
+    /**
+     * <p>
+     * The list of tags for the cluster.
+     * </p>
+     * 
+     * @param tagList
+     *        The list of tags for the cluster.
+     */
+
+    public void setTagList(java.util.Collection<Tag> tagList) {
+        if (tagList == null) {
+            this.tagList = null;
+            return;
+        }
+
+        this.tagList = new java.util.ArrayList<Tag>(tagList);
+    }
+
+    /**
+     * <p>
+     * The list of tags for the cluster.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTagList(java.util.Collection)} or {@link #withTagList(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param tagList
+     *        The list of tags for the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withTagList(Tag... tagList) {
+        if (this.tagList == null) {
+            setTagList(new java.util.ArrayList<Tag>(tagList.length));
+        }
+        for (Tag ele : tagList) {
+            this.tagList.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of tags for the cluster.
+     * </p>
+     * 
+     * @param tagList
+     *        The list of tags for the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withTagList(java.util.Collection<Tag> tagList) {
+        setTagList(tagList);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The mode of the cluster.
+     * </p>
+     * 
+     * @param mode
+     *        The mode of the cluster.
+     * @see ClusterMode
+     */
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
+    /**
+     * <p>
+     * The mode of the cluster.
+     * </p>
+     * 
+     * @return The mode of the cluster.
+     * @see ClusterMode
+     */
+
+    public String getMode() {
+        return this.mode;
+    }
+
+    /**
+     * <p>
+     * The mode of the cluster.
+     * </p>
+     * 
+     * @param mode
+     *        The mode of the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ClusterMode
+     */
+
+    public Cluster withMode(String mode) {
+        setMode(mode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The mode of the cluster.
+     * </p>
+     * 
+     * @param mode
+     *        The mode of the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ClusterMode
+     */
+
+    public Cluster withMode(ClusterMode mode) {
+        this.mode = mode.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -737,6 +931,8 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
         sb.append("{");
         if (getBackupPolicy() != null)
             sb.append("BackupPolicy: ").append(getBackupPolicy()).append(",");
+        if (getBackupRetentionPolicy() != null)
+            sb.append("BackupRetentionPolicy: ").append(getBackupRetentionPolicy()).append(",");
         if (getClusterId() != null)
             sb.append("ClusterId: ").append(getClusterId()).append(",");
         if (getCreateTimestamp() != null)
@@ -760,7 +956,11 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
         if (getVpcId() != null)
             sb.append("VpcId: ").append(getVpcId()).append(",");
         if (getCertificates() != null)
-            sb.append("Certificates: ").append(getCertificates());
+            sb.append("Certificates: ").append(getCertificates()).append(",");
+        if (getTagList() != null)
+            sb.append("TagList: ").append(getTagList()).append(",");
+        if (getMode() != null)
+            sb.append("Mode: ").append(getMode());
         sb.append("}");
         return sb.toString();
     }
@@ -778,6 +978,10 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
         if (other.getBackupPolicy() == null ^ this.getBackupPolicy() == null)
             return false;
         if (other.getBackupPolicy() != null && other.getBackupPolicy().equals(this.getBackupPolicy()) == false)
+            return false;
+        if (other.getBackupRetentionPolicy() == null ^ this.getBackupRetentionPolicy() == null)
+            return false;
+        if (other.getBackupRetentionPolicy() != null && other.getBackupRetentionPolicy().equals(this.getBackupRetentionPolicy()) == false)
             return false;
         if (other.getClusterId() == null ^ this.getClusterId() == null)
             return false;
@@ -827,6 +1031,14 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getCertificates() != null && other.getCertificates().equals(this.getCertificates()) == false)
             return false;
+        if (other.getTagList() == null ^ this.getTagList() == null)
+            return false;
+        if (other.getTagList() != null && other.getTagList().equals(this.getTagList()) == false)
+            return false;
+        if (other.getMode() == null ^ this.getMode() == null)
+            return false;
+        if (other.getMode() != null && other.getMode().equals(this.getMode()) == false)
+            return false;
         return true;
     }
 
@@ -836,6 +1048,7 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getBackupPolicy() == null) ? 0 : getBackupPolicy().hashCode());
+        hashCode = prime * hashCode + ((getBackupRetentionPolicy() == null) ? 0 : getBackupRetentionPolicy().hashCode());
         hashCode = prime * hashCode + ((getClusterId() == null) ? 0 : getClusterId().hashCode());
         hashCode = prime * hashCode + ((getCreateTimestamp() == null) ? 0 : getCreateTimestamp().hashCode());
         hashCode = prime * hashCode + ((getHsms() == null) ? 0 : getHsms().hashCode());
@@ -848,6 +1061,8 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getSubnetMapping() == null) ? 0 : getSubnetMapping().hashCode());
         hashCode = prime * hashCode + ((getVpcId() == null) ? 0 : getVpcId().hashCode());
         hashCode = prime * hashCode + ((getCertificates() == null) ? 0 : getCertificates().hashCode());
+        hashCode = prime * hashCode + ((getTagList() == null) ? 0 : getTagList().hashCode());
+        hashCode = prime * hashCode + ((getMode() == null) ? 0 : getMode().hashCode());
         return hashCode;
     }
 

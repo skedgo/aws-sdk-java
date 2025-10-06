@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.robomaker.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -31,6 +32,10 @@ public class CreateRobotApplicationVersionRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("application").build();
     private static final MarshallingInfo<String> CURRENTREVISIONID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("currentRevisionId").build();
+    private static final MarshallingInfo<List> S3ETAGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("s3Etags").build();
+    private static final MarshallingInfo<String> IMAGEDIGEST_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("imageDigest").build();
 
     private static final CreateRobotApplicationVersionRequestMarshaller instance = new CreateRobotApplicationVersionRequestMarshaller();
 
@@ -50,6 +55,8 @@ public class CreateRobotApplicationVersionRequestMarshaller {
         try {
             protocolMarshaller.marshall(createRobotApplicationVersionRequest.getApplication(), APPLICATION_BINDING);
             protocolMarshaller.marshall(createRobotApplicationVersionRequest.getCurrentRevisionId(), CURRENTREVISIONID_BINDING);
+            protocolMarshaller.marshall(createRobotApplicationVersionRequest.getS3Etags(), S3ETAGS_BINDING);
+            protocolMarshaller.marshall(createRobotApplicationVersionRequest.getImageDigest(), IMAGEDIGEST_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

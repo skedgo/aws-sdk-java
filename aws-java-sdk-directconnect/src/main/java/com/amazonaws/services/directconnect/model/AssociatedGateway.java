@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,7 +42,7 @@ public class AssociatedGateway implements Serializable, Cloneable, StructuredPoj
     private String type;
     /**
      * <p>
-     * The ID of the AWS account that owns the associated virtual private gateway or transit gateway.
+     * The ID of the Amazon Web Services account that owns the associated virtual private gateway or transit gateway.
      * </p>
      */
     private String ownerAccount;
@@ -154,11 +154,12 @@ public class AssociatedGateway implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The ID of the AWS account that owns the associated virtual private gateway or transit gateway.
+     * The ID of the Amazon Web Services account that owns the associated virtual private gateway or transit gateway.
      * </p>
      * 
      * @param ownerAccount
-     *        The ID of the AWS account that owns the associated virtual private gateway or transit gateway.
+     *        The ID of the Amazon Web Services account that owns the associated virtual private gateway or transit
+     *        gateway.
      */
 
     public void setOwnerAccount(String ownerAccount) {
@@ -167,10 +168,11 @@ public class AssociatedGateway implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The ID of the AWS account that owns the associated virtual private gateway or transit gateway.
+     * The ID of the Amazon Web Services account that owns the associated virtual private gateway or transit gateway.
      * </p>
      * 
-     * @return The ID of the AWS account that owns the associated virtual private gateway or transit gateway.
+     * @return The ID of the Amazon Web Services account that owns the associated virtual private gateway or transit
+     *         gateway.
      */
 
     public String getOwnerAccount() {
@@ -179,11 +181,12 @@ public class AssociatedGateway implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The ID of the AWS account that owns the associated virtual private gateway or transit gateway.
+     * The ID of the Amazon Web Services account that owns the associated virtual private gateway or transit gateway.
      * </p>
      * 
      * @param ownerAccount
-     *        The ID of the AWS account that owns the associated virtual private gateway or transit gateway.
+     *        The ID of the Amazon Web Services account that owns the associated virtual private gateway or transit
+     *        gateway.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

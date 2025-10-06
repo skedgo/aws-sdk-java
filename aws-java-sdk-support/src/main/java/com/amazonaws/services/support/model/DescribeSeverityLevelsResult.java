@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,7 +29,7 @@ public class DescribeSeverityLevelsResult extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The available severity levels for the support case. Available severity levels are defined by your service level
-     * agreement with AWS.
+     * agreement with Amazon Web Services.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<SeverityLevel> severityLevels;
@@ -37,11 +37,11 @@ public class DescribeSeverityLevelsResult extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The available severity levels for the support case. Available severity levels are defined by your service level
-     * agreement with AWS.
+     * agreement with Amazon Web Services.
      * </p>
      * 
      * @return The available severity levels for the support case. Available severity levels are defined by your service
-     *         level agreement with AWS.
+     *         level agreement with Amazon Web Services.
      */
 
     public java.util.List<SeverityLevel> getSeverityLevels() {
@@ -54,12 +54,12 @@ public class DescribeSeverityLevelsResult extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The available severity levels for the support case. Available severity levels are defined by your service level
-     * agreement with AWS.
+     * agreement with Amazon Web Services.
      * </p>
      * 
      * @param severityLevels
      *        The available severity levels for the support case. Available severity levels are defined by your service
-     *        level agreement with AWS.
+     *        level agreement with Amazon Web Services.
      */
 
     public void setSeverityLevels(java.util.Collection<SeverityLevel> severityLevels) {
@@ -74,7 +74,7 @@ public class DescribeSeverityLevelsResult extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The available severity levels for the support case. Available severity levels are defined by your service level
-     * agreement with AWS.
+     * agreement with Amazon Web Services.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -84,7 +84,7 @@ public class DescribeSeverityLevelsResult extends com.amazonaws.AmazonWebService
      * 
      * @param severityLevels
      *        The available severity levels for the support case. Available severity levels are defined by your service
-     *        level agreement with AWS.
+     *        level agreement with Amazon Web Services.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -101,12 +101,12 @@ public class DescribeSeverityLevelsResult extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The available severity levels for the support case. Available severity levels are defined by your service level
-     * agreement with AWS.
+     * agreement with Amazon Web Services.
      * </p>
      * 
      * @param severityLevels
      *        The available severity levels for the support case. Available severity levels are defined by your service
-     *        level agreement with AWS.
+     *        level agreement with Amazon Web Services.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,24 +27,62 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A valid JSON or YAML string.
+     * The content for the new SSM document in JSON or YAML format. The content of the document must not exceed 64KB.
+     * This quota also includes the content specified for input parameters at runtime. We recommend storing the contents
+     * for your new document in an external JSON or YAML file and referencing the file in a command.
      * </p>
+     * <p>
+     * For examples, see the following topics in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-using.html#create-ssm-console">
+     * Create an SSM document (console)</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-using.html#create-ssm-document-cli"
+     * >Create an SSM document (command line)</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-using.html#create-ssm-document-api"
+     * >Create an SSM document (API)</a>
+     * </p>
+     * </li>
+     * </ul>
      */
     private String content;
     /**
      * <p>
-     * A list of key and value pairs that describe attachments to a version of a document.
+     * A list of SSM documents required by a document. This parameter is used exclusively by AppConfig. When a user
+     * creates an AppConfig configuration in an SSM document, the user must also specify a required document for
+     * validation purposes. In this case, an <code>ApplicationConfiguration</code> document requires an
+     * <code>ApplicationConfigurationSchema</code> document for validation purposes. For more information, see <a
+     * href="https://docs.aws.amazon.com/appconfig/latest/userguide/what-is-appconfig.html">What is AppConfig?</a> in
+     * the <i>AppConfig User Guide</i>.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<DocumentRequires> requires;
+    /**
+     * <p>
+     * A list of key-value pairs that describe attachments to a version of a document.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<AttachmentsSource> attachments;
     /**
      * <p>
-     * A name for the Systems Manager document.
+     * A name for the SSM document.
      * </p>
      * <important>
      * <p>
-     * Do not use the following to begin the names of documents you create. They are reserved by AWS for use as document
-     * prefixes:
+     * You can't use the following strings as document name prefixes. These are reserved by Amazon Web Services for use
+     * as document name prefixes:
      * </p>
      * <ul>
      * <li>
@@ -62,27 +100,53 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      * <code>amzn</code>
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>AWSEC2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AWSConfigRemediation</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AWSSupport</code>
+     * </p>
+     * </li>
      * </ul>
      * </important>
      */
     private String name;
     /**
      * <p>
+     * An optional field where you can specify a friendly name for the SSM document. This value can differ for each
+     * version of the document. You can update this value at a later time using the <a>UpdateDocument</a> operation.
+     * </p>
+     */
+    private String displayName;
+    /**
+     * <p>
      * An optional field specifying the version of the artifact you are creating with the document. For example,
-     * "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     * <code>Release12.1</code>. This value is unique across all versions of a document, and can't be changed.
      * </p>
      */
     private String versionName;
     /**
      * <p>
-     * The type of document to create. Valid document types include: <code>Command</code>, <code>Policy</code>,
-     * <code>Automation</code>, <code>Session</code>, and <code>Package</code>.
+     * The type of document to create.
      * </p>
+     * <note>
+     * <p>
+     * The <code>DeploymentStrategy</code> document type is an internal-use-only document type reserved for AppConfig.
+     * </p>
+     * </note>
      */
     private String documentType;
     /**
      * <p>
-     * Specify the document format for the request. The document format can be either JSON or YAML. JSON is the default
+     * Specify the document format for the request. The document format can be JSON, YAML, or TEXT. JSON is the default
      * format.
      * </p>
      */
@@ -90,11 +154,11 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Specify a target type to define the kinds of resources the document can run on. For example, to run a document on
-     * EC2 instances, specify the following value: /AWS::EC2::Instance. If you specify a value of '/' the document can
-     * run on all types of resources. If you don't specify a value, the document can't run on any resources. For a list
-     * of valid resource types, see <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>.
+     * EC2 instances, specify the following value: <code>/AWS::EC2::Instance</code>. If you specify a value of '/' the
+     * document can run on all types of resources. If you don't specify a value, the document can't run on any
+     * resources. For a list of valid resource types, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.
      * </p>
      */
     private String targetType;
@@ -102,7 +166,7 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such
      * as by purpose, owner, or environment. For example, you might want to tag an SSM document to identify the types of
-     * targets or the environment where it will run. In this case, you could specify the following key name/value pairs:
+     * targets or the environment where it will run. In this case, you could specify the following key-value pairs:
      * </p>
      * <ul>
      * <li>
@@ -118,7 +182,7 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      * </ul>
      * <note>
      * <p>
-     * To add tags to an existing SSM document, use the <a>AddTagsToResource</a> action.
+     * To add tags to an existing SSM document, use the <a>AddTagsToResource</a> operation.
      * </p>
      * </note>
      */
@@ -126,11 +190,66 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A valid JSON or YAML string.
+     * The content for the new SSM document in JSON or YAML format. The content of the document must not exceed 64KB.
+     * This quota also includes the content specified for input parameters at runtime. We recommend storing the contents
+     * for your new document in an external JSON or YAML file and referencing the file in a command.
      * </p>
+     * <p>
+     * For examples, see the following topics in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-using.html#create-ssm-console">
+     * Create an SSM document (console)</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-using.html#create-ssm-document-cli"
+     * >Create an SSM document (command line)</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-using.html#create-ssm-document-api"
+     * >Create an SSM document (API)</a>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param content
-     *        A valid JSON or YAML string.
+     *        The content for the new SSM document in JSON or YAML format. The content of the document must not exceed
+     *        64KB. This quota also includes the content specified for input parameters at runtime. We recommend storing
+     *        the contents for your new document in an external JSON or YAML file and referencing the file in a
+     *        command.</p>
+     *        <p>
+     *        For examples, see the following topics in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-using.html#create-ssm-console"
+     *        >Create an SSM document (console)</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-using.html#create-ssm-document-cli"
+     *        >Create an SSM document (command line)</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-using.html#create-ssm-document-api"
+     *        >Create an SSM document (API)</a>
+     *        </p>
+     *        </li>
      */
 
     public void setContent(String content) {
@@ -139,10 +258,65 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A valid JSON or YAML string.
+     * The content for the new SSM document in JSON or YAML format. The content of the document must not exceed 64KB.
+     * This quota also includes the content specified for input parameters at runtime. We recommend storing the contents
+     * for your new document in an external JSON or YAML file and referencing the file in a command.
      * </p>
+     * <p>
+     * For examples, see the following topics in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-using.html#create-ssm-console">
+     * Create an SSM document (console)</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-using.html#create-ssm-document-cli"
+     * >Create an SSM document (command line)</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-using.html#create-ssm-document-api"
+     * >Create an SSM document (API)</a>
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return A valid JSON or YAML string.
+     * @return The content for the new SSM document in JSON or YAML format. The content of the document must not exceed
+     *         64KB. This quota also includes the content specified for input parameters at runtime. We recommend
+     *         storing the contents for your new document in an external JSON or YAML file and referencing the file in a
+     *         command.</p>
+     *         <p>
+     *         For examples, see the following topics in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <a href=
+     *         "https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-using.html#create-ssm-console"
+     *         >Create an SSM document (console)</a>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <a href=
+     *         "https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-using.html#create-ssm-document-cli"
+     *         >Create an SSM document (command line)</a>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <a href=
+     *         "https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-using.html#create-ssm-document-api"
+     *         >Create an SSM document (API)</a>
+     *         </p>
+     *         </li>
      */
 
     public String getContent() {
@@ -151,11 +325,66 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A valid JSON or YAML string.
+     * The content for the new SSM document in JSON or YAML format. The content of the document must not exceed 64KB.
+     * This quota also includes the content specified for input parameters at runtime. We recommend storing the contents
+     * for your new document in an external JSON or YAML file and referencing the file in a command.
      * </p>
+     * <p>
+     * For examples, see the following topics in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-using.html#create-ssm-console">
+     * Create an SSM document (console)</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-using.html#create-ssm-document-cli"
+     * >Create an SSM document (command line)</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-using.html#create-ssm-document-api"
+     * >Create an SSM document (API)</a>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param content
-     *        A valid JSON or YAML string.
+     *        The content for the new SSM document in JSON or YAML format. The content of the document must not exceed
+     *        64KB. This quota also includes the content specified for input parameters at runtime. We recommend storing
+     *        the contents for your new document in an external JSON or YAML file and referencing the file in a
+     *        command.</p>
+     *        <p>
+     *        For examples, see the following topics in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-using.html#create-ssm-console"
+     *        >Create an SSM document (console)</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-using.html#create-ssm-document-cli"
+     *        >Create an SSM document (command line)</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-using.html#create-ssm-document-api"
+     *        >Create an SSM document (API)</a>
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -166,10 +395,124 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A list of key and value pairs that describe attachments to a version of a document.
+     * A list of SSM documents required by a document. This parameter is used exclusively by AppConfig. When a user
+     * creates an AppConfig configuration in an SSM document, the user must also specify a required document for
+     * validation purposes. In this case, an <code>ApplicationConfiguration</code> document requires an
+     * <code>ApplicationConfigurationSchema</code> document for validation purposes. For more information, see <a
+     * href="https://docs.aws.amazon.com/appconfig/latest/userguide/what-is-appconfig.html">What is AppConfig?</a> in
+     * the <i>AppConfig User Guide</i>.
      * </p>
      * 
-     * @return A list of key and value pairs that describe attachments to a version of a document.
+     * @return A list of SSM documents required by a document. This parameter is used exclusively by AppConfig. When a
+     *         user creates an AppConfig configuration in an SSM document, the user must also specify a required
+     *         document for validation purposes. In this case, an <code>ApplicationConfiguration</code> document
+     *         requires an <code>ApplicationConfigurationSchema</code> document for validation purposes. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/appconfig/latest/userguide/what-is-appconfig.html">What is
+     *         AppConfig?</a> in the <i>AppConfig User Guide</i>.
+     */
+
+    public java.util.List<DocumentRequires> getRequires() {
+        if (requires == null) {
+            requires = new com.amazonaws.internal.SdkInternalList<DocumentRequires>();
+        }
+        return requires;
+    }
+
+    /**
+     * <p>
+     * A list of SSM documents required by a document. This parameter is used exclusively by AppConfig. When a user
+     * creates an AppConfig configuration in an SSM document, the user must also specify a required document for
+     * validation purposes. In this case, an <code>ApplicationConfiguration</code> document requires an
+     * <code>ApplicationConfigurationSchema</code> document for validation purposes. For more information, see <a
+     * href="https://docs.aws.amazon.com/appconfig/latest/userguide/what-is-appconfig.html">What is AppConfig?</a> in
+     * the <i>AppConfig User Guide</i>.
+     * </p>
+     * 
+     * @param requires
+     *        A list of SSM documents required by a document. This parameter is used exclusively by AppConfig. When a
+     *        user creates an AppConfig configuration in an SSM document, the user must also specify a required document
+     *        for validation purposes. In this case, an <code>ApplicationConfiguration</code> document requires an
+     *        <code>ApplicationConfigurationSchema</code> document for validation purposes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/appconfig/latest/userguide/what-is-appconfig.html">What is
+     *        AppConfig?</a> in the <i>AppConfig User Guide</i>.
+     */
+
+    public void setRequires(java.util.Collection<DocumentRequires> requires) {
+        if (requires == null) {
+            this.requires = null;
+            return;
+        }
+
+        this.requires = new com.amazonaws.internal.SdkInternalList<DocumentRequires>(requires);
+    }
+
+    /**
+     * <p>
+     * A list of SSM documents required by a document. This parameter is used exclusively by AppConfig. When a user
+     * creates an AppConfig configuration in an SSM document, the user must also specify a required document for
+     * validation purposes. In this case, an <code>ApplicationConfiguration</code> document requires an
+     * <code>ApplicationConfigurationSchema</code> document for validation purposes. For more information, see <a
+     * href="https://docs.aws.amazon.com/appconfig/latest/userguide/what-is-appconfig.html">What is AppConfig?</a> in
+     * the <i>AppConfig User Guide</i>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setRequires(java.util.Collection)} or {@link #withRequires(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param requires
+     *        A list of SSM documents required by a document. This parameter is used exclusively by AppConfig. When a
+     *        user creates an AppConfig configuration in an SSM document, the user must also specify a required document
+     *        for validation purposes. In this case, an <code>ApplicationConfiguration</code> document requires an
+     *        <code>ApplicationConfigurationSchema</code> document for validation purposes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/appconfig/latest/userguide/what-is-appconfig.html">What is
+     *        AppConfig?</a> in the <i>AppConfig User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDocumentRequest withRequires(DocumentRequires... requires) {
+        if (this.requires == null) {
+            setRequires(new com.amazonaws.internal.SdkInternalList<DocumentRequires>(requires.length));
+        }
+        for (DocumentRequires ele : requires) {
+            this.requires.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of SSM documents required by a document. This parameter is used exclusively by AppConfig. When a user
+     * creates an AppConfig configuration in an SSM document, the user must also specify a required document for
+     * validation purposes. In this case, an <code>ApplicationConfiguration</code> document requires an
+     * <code>ApplicationConfigurationSchema</code> document for validation purposes. For more information, see <a
+     * href="https://docs.aws.amazon.com/appconfig/latest/userguide/what-is-appconfig.html">What is AppConfig?</a> in
+     * the <i>AppConfig User Guide</i>.
+     * </p>
+     * 
+     * @param requires
+     *        A list of SSM documents required by a document. This parameter is used exclusively by AppConfig. When a
+     *        user creates an AppConfig configuration in an SSM document, the user must also specify a required document
+     *        for validation purposes. In this case, an <code>ApplicationConfiguration</code> document requires an
+     *        <code>ApplicationConfigurationSchema</code> document for validation purposes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/appconfig/latest/userguide/what-is-appconfig.html">What is
+     *        AppConfig?</a> in the <i>AppConfig User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDocumentRequest withRequires(java.util.Collection<DocumentRequires> requires) {
+        setRequires(requires);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of key-value pairs that describe attachments to a version of a document.
+     * </p>
+     * 
+     * @return A list of key-value pairs that describe attachments to a version of a document.
      */
 
     public java.util.List<AttachmentsSource> getAttachments() {
@@ -181,11 +524,11 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A list of key and value pairs that describe attachments to a version of a document.
+     * A list of key-value pairs that describe attachments to a version of a document.
      * </p>
      * 
      * @param attachments
-     *        A list of key and value pairs that describe attachments to a version of a document.
+     *        A list of key-value pairs that describe attachments to a version of a document.
      */
 
     public void setAttachments(java.util.Collection<AttachmentsSource> attachments) {
@@ -199,7 +542,7 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A list of key and value pairs that describe attachments to a version of a document.
+     * A list of key-value pairs that describe attachments to a version of a document.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -208,7 +551,7 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      * </p>
      * 
      * @param attachments
-     *        A list of key and value pairs that describe attachments to a version of a document.
+     *        A list of key-value pairs that describe attachments to a version of a document.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -224,11 +567,11 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A list of key and value pairs that describe attachments to a version of a document.
+     * A list of key-value pairs that describe attachments to a version of a document.
      * </p>
      * 
      * @param attachments
-     *        A list of key and value pairs that describe attachments to a version of a document.
+     *        A list of key-value pairs that describe attachments to a version of a document.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -239,12 +582,12 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A name for the Systems Manager document.
+     * A name for the SSM document.
      * </p>
      * <important>
      * <p>
-     * Do not use the following to begin the names of documents you create. They are reserved by AWS for use as document
-     * prefixes:
+     * You can't use the following strings as document name prefixes. These are reserved by Amazon Web Services for use
+     * as document name prefixes:
      * </p>
      * <ul>
      * <li>
@@ -262,14 +605,29 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      * <code>amzn</code>
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>AWSEC2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AWSConfigRemediation</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AWSSupport</code>
+     * </p>
+     * </li>
      * </ul>
      * </important>
      * 
      * @param name
-     *        A name for the Systems Manager document.</p> <important>
+     *        A name for the SSM document.</p> <important>
      *        <p>
-     *        Do not use the following to begin the names of documents you create. They are reserved by AWS for use as
-     *        document prefixes:
+     *        You can't use the following strings as document name prefixes. These are reserved by Amazon Web Services
+     *        for use as document name prefixes:
      *        </p>
      *        <ul>
      *        <li>
@@ -287,6 +645,21 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      *        <code>amzn</code>
      *        </p>
      *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AWSEC2</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AWSConfigRemediation</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AWSSupport</code>
+     *        </p>
+     *        </li>
      *        </ul>
      */
 
@@ -296,12 +669,12 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A name for the Systems Manager document.
+     * A name for the SSM document.
      * </p>
      * <important>
      * <p>
-     * Do not use the following to begin the names of documents you create. They are reserved by AWS for use as document
-     * prefixes:
+     * You can't use the following strings as document name prefixes. These are reserved by Amazon Web Services for use
+     * as document name prefixes:
      * </p>
      * <ul>
      * <li>
@@ -319,13 +692,28 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      * <code>amzn</code>
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>AWSEC2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AWSConfigRemediation</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AWSSupport</code>
+     * </p>
+     * </li>
      * </ul>
      * </important>
      * 
-     * @return A name for the Systems Manager document.</p> <important>
+     * @return A name for the SSM document.</p> <important>
      *         <p>
-     *         Do not use the following to begin the names of documents you create. They are reserved by AWS for use as
-     *         document prefixes:
+     *         You can't use the following strings as document name prefixes. These are reserved by Amazon Web Services
+     *         for use as document name prefixes:
      *         </p>
      *         <ul>
      *         <li>
@@ -343,6 +731,21 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      *         <code>amzn</code>
      *         </p>
      *         </li>
+     *         <li>
+     *         <p>
+     *         <code>AWSEC2</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>AWSConfigRemediation</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>AWSSupport</code>
+     *         </p>
+     *         </li>
      *         </ul>
      */
 
@@ -352,12 +755,12 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A name for the Systems Manager document.
+     * A name for the SSM document.
      * </p>
      * <important>
      * <p>
-     * Do not use the following to begin the names of documents you create. They are reserved by AWS for use as document
-     * prefixes:
+     * You can't use the following strings as document name prefixes. These are reserved by Amazon Web Services for use
+     * as document name prefixes:
      * </p>
      * <ul>
      * <li>
@@ -375,14 +778,29 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      * <code>amzn</code>
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>AWSEC2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AWSConfigRemediation</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AWSSupport</code>
+     * </p>
+     * </li>
      * </ul>
      * </important>
      * 
      * @param name
-     *        A name for the Systems Manager document.</p> <important>
+     *        A name for the SSM document.</p> <important>
      *        <p>
-     *        Do not use the following to begin the names of documents you create. They are reserved by AWS for use as
-     *        document prefixes:
+     *        You can't use the following strings as document name prefixes. These are reserved by Amazon Web Services
+     *        for use as document name prefixes:
      *        </p>
      *        <ul>
      *        <li>
@@ -400,6 +818,21 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      *        <code>amzn</code>
      *        </p>
      *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AWSEC2</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AWSConfigRemediation</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AWSSupport</code>
+     *        </p>
+     *        </li>
      *        </ul>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -411,13 +844,62 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
+     * An optional field where you can specify a friendly name for the SSM document. This value can differ for each
+     * version of the document. You can update this value at a later time using the <a>UpdateDocument</a> operation.
+     * </p>
+     * 
+     * @param displayName
+     *        An optional field where you can specify a friendly name for the SSM document. This value can differ for
+     *        each version of the document. You can update this value at a later time using the <a>UpdateDocument</a>
+     *        operation.
+     */
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    /**
+     * <p>
+     * An optional field where you can specify a friendly name for the SSM document. This value can differ for each
+     * version of the document. You can update this value at a later time using the <a>UpdateDocument</a> operation.
+     * </p>
+     * 
+     * @return An optional field where you can specify a friendly name for the SSM document. This value can differ for
+     *         each version of the document. You can update this value at a later time using the <a>UpdateDocument</a>
+     *         operation.
+     */
+
+    public String getDisplayName() {
+        return this.displayName;
+    }
+
+    /**
+     * <p>
+     * An optional field where you can specify a friendly name for the SSM document. This value can differ for each
+     * version of the document. You can update this value at a later time using the <a>UpdateDocument</a> operation.
+     * </p>
+     * 
+     * @param displayName
+     *        An optional field where you can specify a friendly name for the SSM document. This value can differ for
+     *        each version of the document. You can update this value at a later time using the <a>UpdateDocument</a>
+     *        operation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDocumentRequest withDisplayName(String displayName) {
+        setDisplayName(displayName);
+        return this;
+    }
+
+    /**
+     * <p>
      * An optional field specifying the version of the artifact you are creating with the document. For example,
-     * "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     * <code>Release12.1</code>. This value is unique across all versions of a document, and can't be changed.
      * </p>
      * 
      * @param versionName
      *        An optional field specifying the version of the artifact you are creating with the document. For example,
-     *        "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     *        <code>Release12.1</code>. This value is unique across all versions of a document, and can't be changed.
      */
 
     public void setVersionName(String versionName) {
@@ -427,11 +909,11 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * An optional field specifying the version of the artifact you are creating with the document. For example,
-     * "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     * <code>Release12.1</code>. This value is unique across all versions of a document, and can't be changed.
      * </p>
      * 
      * @return An optional field specifying the version of the artifact you are creating with the document. For example,
-     *         "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     *         <code>Release12.1</code>. This value is unique across all versions of a document, and can't be changed.
      */
 
     public String getVersionName() {
@@ -441,12 +923,12 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * An optional field specifying the version of the artifact you are creating with the document. For example,
-     * "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     * <code>Release12.1</code>. This value is unique across all versions of a document, and can't be changed.
      * </p>
      * 
      * @param versionName
      *        An optional field specifying the version of the artifact you are creating with the document. For example,
-     *        "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     *        <code>Release12.1</code>. This value is unique across all versions of a document, and can't be changed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -457,13 +939,20 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The type of document to create. Valid document types include: <code>Command</code>, <code>Policy</code>,
-     * <code>Automation</code>, <code>Session</code>, and <code>Package</code>.
+     * The type of document to create.
      * </p>
+     * <note>
+     * <p>
+     * The <code>DeploymentStrategy</code> document type is an internal-use-only document type reserved for AppConfig.
+     * </p>
+     * </note>
      * 
      * @param documentType
-     *        The type of document to create. Valid document types include: <code>Command</code>, <code>Policy</code>,
-     *        <code>Automation</code>, <code>Session</code>, and <code>Package</code>.
+     *        The type of document to create.</p> <note>
+     *        <p>
+     *        The <code>DeploymentStrategy</code> document type is an internal-use-only document type reserved for
+     *        AppConfig.
+     *        </p>
      * @see DocumentType
      */
 
@@ -473,12 +962,19 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The type of document to create. Valid document types include: <code>Command</code>, <code>Policy</code>,
-     * <code>Automation</code>, <code>Session</code>, and <code>Package</code>.
+     * The type of document to create.
      * </p>
+     * <note>
+     * <p>
+     * The <code>DeploymentStrategy</code> document type is an internal-use-only document type reserved for AppConfig.
+     * </p>
+     * </note>
      * 
-     * @return The type of document to create. Valid document types include: <code>Command</code>, <code>Policy</code>,
-     *         <code>Automation</code>, <code>Session</code>, and <code>Package</code>.
+     * @return The type of document to create.</p> <note>
+     *         <p>
+     *         The <code>DeploymentStrategy</code> document type is an internal-use-only document type reserved for
+     *         AppConfig.
+     *         </p>
      * @see DocumentType
      */
 
@@ -488,13 +984,20 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The type of document to create. Valid document types include: <code>Command</code>, <code>Policy</code>,
-     * <code>Automation</code>, <code>Session</code>, and <code>Package</code>.
+     * The type of document to create.
      * </p>
+     * <note>
+     * <p>
+     * The <code>DeploymentStrategy</code> document type is an internal-use-only document type reserved for AppConfig.
+     * </p>
+     * </note>
      * 
      * @param documentType
-     *        The type of document to create. Valid document types include: <code>Command</code>, <code>Policy</code>,
-     *        <code>Automation</code>, <code>Session</code>, and <code>Package</code>.
+     *        The type of document to create.</p> <note>
+     *        <p>
+     *        The <code>DeploymentStrategy</code> document type is an internal-use-only document type reserved for
+     *        AppConfig.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DocumentType
      */
@@ -506,13 +1009,20 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The type of document to create. Valid document types include: <code>Command</code>, <code>Policy</code>,
-     * <code>Automation</code>, <code>Session</code>, and <code>Package</code>.
+     * The type of document to create.
      * </p>
+     * <note>
+     * <p>
+     * The <code>DeploymentStrategy</code> document type is an internal-use-only document type reserved for AppConfig.
+     * </p>
+     * </note>
      * 
      * @param documentType
-     *        The type of document to create. Valid document types include: <code>Command</code>, <code>Policy</code>,
-     *        <code>Automation</code>, <code>Session</code>, and <code>Package</code>.
+     *        The type of document to create.</p> <note>
+     *        <p>
+     *        The <code>DeploymentStrategy</code> document type is an internal-use-only document type reserved for
+     *        AppConfig.
+     *        </p>
      * @see DocumentType
      */
 
@@ -522,13 +1032,20 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The type of document to create. Valid document types include: <code>Command</code>, <code>Policy</code>,
-     * <code>Automation</code>, <code>Session</code>, and <code>Package</code>.
+     * The type of document to create.
      * </p>
+     * <note>
+     * <p>
+     * The <code>DeploymentStrategy</code> document type is an internal-use-only document type reserved for AppConfig.
+     * </p>
+     * </note>
      * 
      * @param documentType
-     *        The type of document to create. Valid document types include: <code>Command</code>, <code>Policy</code>,
-     *        <code>Automation</code>, <code>Session</code>, and <code>Package</code>.
+     *        The type of document to create.</p> <note>
+     *        <p>
+     *        The <code>DeploymentStrategy</code> document type is an internal-use-only document type reserved for
+     *        AppConfig.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DocumentType
      */
@@ -540,12 +1057,12 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Specify the document format for the request. The document format can be either JSON or YAML. JSON is the default
+     * Specify the document format for the request. The document format can be JSON, YAML, or TEXT. JSON is the default
      * format.
      * </p>
      * 
      * @param documentFormat
-     *        Specify the document format for the request. The document format can be either JSON or YAML. JSON is the
+     *        Specify the document format for the request. The document format can be JSON, YAML, or TEXT. JSON is the
      *        default format.
      * @see DocumentFormat
      */
@@ -556,11 +1073,11 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Specify the document format for the request. The document format can be either JSON or YAML. JSON is the default
+     * Specify the document format for the request. The document format can be JSON, YAML, or TEXT. JSON is the default
      * format.
      * </p>
      * 
-     * @return Specify the document format for the request. The document format can be either JSON or YAML. JSON is the
+     * @return Specify the document format for the request. The document format can be JSON, YAML, or TEXT. JSON is the
      *         default format.
      * @see DocumentFormat
      */
@@ -571,12 +1088,12 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Specify the document format for the request. The document format can be either JSON or YAML. JSON is the default
+     * Specify the document format for the request. The document format can be JSON, YAML, or TEXT. JSON is the default
      * format.
      * </p>
      * 
      * @param documentFormat
-     *        Specify the document format for the request. The document format can be either JSON or YAML. JSON is the
+     *        Specify the document format for the request. The document format can be JSON, YAML, or TEXT. JSON is the
      *        default format.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DocumentFormat
@@ -589,12 +1106,12 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Specify the document format for the request. The document format can be either JSON or YAML. JSON is the default
+     * Specify the document format for the request. The document format can be JSON, YAML, or TEXT. JSON is the default
      * format.
      * </p>
      * 
      * @param documentFormat
-     *        Specify the document format for the request. The document format can be either JSON or YAML. JSON is the
+     *        Specify the document format for the request. The document format can be JSON, YAML, or TEXT. JSON is the
      *        default format.
      * @see DocumentFormat
      */
@@ -605,12 +1122,12 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Specify the document format for the request. The document format can be either JSON or YAML. JSON is the default
+     * Specify the document format for the request. The document format can be JSON, YAML, or TEXT. JSON is the default
      * format.
      * </p>
      * 
      * @param documentFormat
-     *        Specify the document format for the request. The document format can be either JSON or YAML. JSON is the
+     *        Specify the document format for the request. The document format can be JSON, YAML, or TEXT. JSON is the
      *        default format.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DocumentFormat
@@ -624,20 +1141,20 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Specify a target type to define the kinds of resources the document can run on. For example, to run a document on
-     * EC2 instances, specify the following value: /AWS::EC2::Instance. If you specify a value of '/' the document can
-     * run on all types of resources. If you don't specify a value, the document can't run on any resources. For a list
-     * of valid resource types, see <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>.
+     * EC2 instances, specify the following value: <code>/AWS::EC2::Instance</code>. If you specify a value of '/' the
+     * document can run on all types of resources. If you don't specify a value, the document can't run on any
+     * resources. For a list of valid resource types, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.
      * </p>
      * 
      * @param targetType
      *        Specify a target type to define the kinds of resources the document can run on. For example, to run a
-     *        document on EC2 instances, specify the following value: /AWS::EC2::Instance. If you specify a value of '/'
-     *        the document can run on all types of resources. If you don't specify a value, the document can't run on
-     *        any resources. For a list of valid resource types, see <a
-     *        href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
-     *        >AWS Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>.
+     *        document on EC2 instances, specify the following value: <code>/AWS::EC2::Instance</code>. If you specify a
+     *        value of '/' the document can run on all types of resources. If you don't specify a value, the document
+     *        can't run on any resources. For a list of valid resource types, see <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
+     *        >Amazon Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.
      */
 
     public void setTargetType(String targetType) {
@@ -647,19 +1164,19 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Specify a target type to define the kinds of resources the document can run on. For example, to run a document on
-     * EC2 instances, specify the following value: /AWS::EC2::Instance. If you specify a value of '/' the document can
-     * run on all types of resources. If you don't specify a value, the document can't run on any resources. For a list
-     * of valid resource types, see <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>.
+     * EC2 instances, specify the following value: <code>/AWS::EC2::Instance</code>. If you specify a value of '/' the
+     * document can run on all types of resources. If you don't specify a value, the document can't run on any
+     * resources. For a list of valid resource types, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.
      * </p>
      * 
      * @return Specify a target type to define the kinds of resources the document can run on. For example, to run a
-     *         document on EC2 instances, specify the following value: /AWS::EC2::Instance. If you specify a value of
-     *         '/' the document can run on all types of resources. If you don't specify a value, the document can't run
-     *         on any resources. For a list of valid resource types, see <a href=
-     *         "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     *         Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>.
+     *         document on EC2 instances, specify the following value: <code>/AWS::EC2::Instance</code>. If you specify
+     *         a value of '/' the document can run on all types of resources. If you don't specify a value, the document
+     *         can't run on any resources. For a list of valid resource types, see <a href=
+     *         "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
+     *         >Amazon Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.
      */
 
     public String getTargetType() {
@@ -669,20 +1186,20 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Specify a target type to define the kinds of resources the document can run on. For example, to run a document on
-     * EC2 instances, specify the following value: /AWS::EC2::Instance. If you specify a value of '/' the document can
-     * run on all types of resources. If you don't specify a value, the document can't run on any resources. For a list
-     * of valid resource types, see <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>.
+     * EC2 instances, specify the following value: <code>/AWS::EC2::Instance</code>. If you specify a value of '/' the
+     * document can run on all types of resources. If you don't specify a value, the document can't run on any
+     * resources. For a list of valid resource types, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.
      * </p>
      * 
      * @param targetType
      *        Specify a target type to define the kinds of resources the document can run on. For example, to run a
-     *        document on EC2 instances, specify the following value: /AWS::EC2::Instance. If you specify a value of '/'
-     *        the document can run on all types of resources. If you don't specify a value, the document can't run on
-     *        any resources. For a list of valid resource types, see <a
-     *        href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
-     *        >AWS Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>.
+     *        document on EC2 instances, specify the following value: <code>/AWS::EC2::Instance</code>. If you specify a
+     *        value of '/' the document can run on all types of resources. If you don't specify a value, the document
+     *        can't run on any resources. For a list of valid resource types, see <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
+     *        >Amazon Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -695,7 +1212,7 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such
      * as by purpose, owner, or environment. For example, you might want to tag an SSM document to identify the types of
-     * targets or the environment where it will run. In this case, you could specify the following key name/value pairs:
+     * targets or the environment where it will run. In this case, you could specify the following key-value pairs:
      * </p>
      * <ul>
      * <li>
@@ -711,14 +1228,14 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      * </ul>
      * <note>
      * <p>
-     * To add tags to an existing SSM document, use the <a>AddTagsToResource</a> action.
+     * To add tags to an existing SSM document, use the <a>AddTagsToResource</a> operation.
      * </p>
      * </note>
      * 
      * @return Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different
      *         ways, such as by purpose, owner, or environment. For example, you might want to tag an SSM document to
      *         identify the types of targets or the environment where it will run. In this case, you could specify the
-     *         following key name/value pairs:</p>
+     *         following key-value pairs:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -733,7 +1250,7 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      *         </ul>
      *         <note>
      *         <p>
-     *         To add tags to an existing SSM document, use the <a>AddTagsToResource</a> action.
+     *         To add tags to an existing SSM document, use the <a>AddTagsToResource</a> operation.
      *         </p>
      */
 
@@ -748,7 +1265,7 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such
      * as by purpose, owner, or environment. For example, you might want to tag an SSM document to identify the types of
-     * targets or the environment where it will run. In this case, you could specify the following key name/value pairs:
+     * targets or the environment where it will run. In this case, you could specify the following key-value pairs:
      * </p>
      * <ul>
      * <li>
@@ -764,7 +1281,7 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      * </ul>
      * <note>
      * <p>
-     * To add tags to an existing SSM document, use the <a>AddTagsToResource</a> action.
+     * To add tags to an existing SSM document, use the <a>AddTagsToResource</a> operation.
      * </p>
      * </note>
      * 
@@ -772,7 +1289,7 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      *        Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different
      *        ways, such as by purpose, owner, or environment. For example, you might want to tag an SSM document to
      *        identify the types of targets or the environment where it will run. In this case, you could specify the
-     *        following key name/value pairs:</p>
+     *        following key-value pairs:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -787,7 +1304,7 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      *        </ul>
      *        <note>
      *        <p>
-     *        To add tags to an existing SSM document, use the <a>AddTagsToResource</a> action.
+     *        To add tags to an existing SSM document, use the <a>AddTagsToResource</a> operation.
      *        </p>
      */
 
@@ -804,7 +1321,7 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such
      * as by purpose, owner, or environment. For example, you might want to tag an SSM document to identify the types of
-     * targets or the environment where it will run. In this case, you could specify the following key name/value pairs:
+     * targets or the environment where it will run. In this case, you could specify the following key-value pairs:
      * </p>
      * <ul>
      * <li>
@@ -820,7 +1337,7 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      * </ul>
      * <note>
      * <p>
-     * To add tags to an existing SSM document, use the <a>AddTagsToResource</a> action.
+     * To add tags to an existing SSM document, use the <a>AddTagsToResource</a> operation.
      * </p>
      * </note>
      * <p>
@@ -833,7 +1350,7 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      *        Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different
      *        ways, such as by purpose, owner, or environment. For example, you might want to tag an SSM document to
      *        identify the types of targets or the environment where it will run. In this case, you could specify the
-     *        following key name/value pairs:</p>
+     *        following key-value pairs:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -848,7 +1365,7 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      *        </ul>
      *        <note>
      *        <p>
-     *        To add tags to an existing SSM document, use the <a>AddTagsToResource</a> action.
+     *        To add tags to an existing SSM document, use the <a>AddTagsToResource</a> operation.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -867,7 +1384,7 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such
      * as by purpose, owner, or environment. For example, you might want to tag an SSM document to identify the types of
-     * targets or the environment where it will run. In this case, you could specify the following key name/value pairs:
+     * targets or the environment where it will run. In this case, you could specify the following key-value pairs:
      * </p>
      * <ul>
      * <li>
@@ -883,7 +1400,7 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      * </ul>
      * <note>
      * <p>
-     * To add tags to an existing SSM document, use the <a>AddTagsToResource</a> action.
+     * To add tags to an existing SSM document, use the <a>AddTagsToResource</a> operation.
      * </p>
      * </note>
      * 
@@ -891,7 +1408,7 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      *        Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different
      *        ways, such as by purpose, owner, or environment. For example, you might want to tag an SSM document to
      *        identify the types of targets or the environment where it will run. In this case, you could specify the
-     *        following key name/value pairs:</p>
+     *        following key-value pairs:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -906,7 +1423,7 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
      *        </ul>
      *        <note>
      *        <p>
-     *        To add tags to an existing SSM document, use the <a>AddTagsToResource</a> action.
+     *        To add tags to an existing SSM document, use the <a>AddTagsToResource</a> operation.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -930,10 +1447,14 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
         sb.append("{");
         if (getContent() != null)
             sb.append("Content: ").append(getContent()).append(",");
+        if (getRequires() != null)
+            sb.append("Requires: ").append(getRequires()).append(",");
         if (getAttachments() != null)
             sb.append("Attachments: ").append(getAttachments()).append(",");
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
+        if (getDisplayName() != null)
+            sb.append("DisplayName: ").append(getDisplayName()).append(",");
         if (getVersionName() != null)
             sb.append("VersionName: ").append(getVersionName()).append(",");
         if (getDocumentType() != null)
@@ -962,6 +1483,10 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
             return false;
         if (other.getContent() != null && other.getContent().equals(this.getContent()) == false)
             return false;
+        if (other.getRequires() == null ^ this.getRequires() == null)
+            return false;
+        if (other.getRequires() != null && other.getRequires().equals(this.getRequires()) == false)
+            return false;
         if (other.getAttachments() == null ^ this.getAttachments() == null)
             return false;
         if (other.getAttachments() != null && other.getAttachments().equals(this.getAttachments()) == false)
@@ -969,6 +1494,10 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
         if (other.getName() == null ^ this.getName() == null)
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
+            return false;
+        if (other.getDisplayName() == null ^ this.getDisplayName() == null)
+            return false;
+        if (other.getDisplayName() != null && other.getDisplayName().equals(this.getDisplayName()) == false)
             return false;
         if (other.getVersionName() == null ^ this.getVersionName() == null)
             return false;
@@ -999,8 +1528,10 @@ public class CreateDocumentRequest extends com.amazonaws.AmazonWebServiceRequest
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getContent() == null) ? 0 : getContent().hashCode());
+        hashCode = prime * hashCode + ((getRequires() == null) ? 0 : getRequires().hashCode());
         hashCode = prime * hashCode + ((getAttachments() == null) ? 0 : getAttachments().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
+        hashCode = prime * hashCode + ((getDisplayName() == null) ? 0 : getDisplayName().hashCode());
         hashCode = prime * hashCode + ((getVersionName() == null) ? 0 : getVersionName().hashCode());
         hashCode = prime * hashCode + ((getDocumentType() == null) ? 0 : getDocumentType().hashCode());
         hashCode = prime * hashCode + ((getDocumentFormat() == null) ? 0 : getDocumentFormat().hashCode());

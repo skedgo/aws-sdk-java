@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,9 +16,6 @@ import java.io.Serializable;
 import javax.annotation.Generated;
 
 /**
- * <p>
- * Represents the returned data in response to a request action.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/CreateBuild" target="_top">AWS API
  *      Documentation</a>
@@ -28,7 +25,7 @@ public class CreateBuildResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The newly created build record, including a unique build ID and status.
+     * The newly created build resource, including a unique build IDs and status.
      * </p>
      */
     private Build build;
@@ -36,7 +33,9 @@ public class CreateBuildResult extends com.amazonaws.AmazonWebServiceResult<com.
      * <p>
      * This element is returned only when the operation is called without a storage location. It contains credentials to
      * use when you are uploading a build file to an Amazon S3 bucket that is owned by Amazon GameLift. Credentials have
-     * a limited life span. To refresh these credentials, call <a>RequestUploadCredentials</a>.
+     * a limited life span. To refresh these credentials, call <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_RequestUploadCredentials.html"
+     * >RequestUploadCredentials</a>.
      * </p>
      */
     private Credentials uploadCredentials;
@@ -49,11 +48,11 @@ public class CreateBuildResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The newly created build record, including a unique build ID and status.
+     * The newly created build resource, including a unique build IDs and status.
      * </p>
      * 
      * @param build
-     *        The newly created build record, including a unique build ID and status.
+     *        The newly created build resource, including a unique build IDs and status.
      */
 
     public void setBuild(Build build) {
@@ -62,10 +61,10 @@ public class CreateBuildResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The newly created build record, including a unique build ID and status.
+     * The newly created build resource, including a unique build IDs and status.
      * </p>
      * 
-     * @return The newly created build record, including a unique build ID and status.
+     * @return The newly created build resource, including a unique build IDs and status.
      */
 
     public Build getBuild() {
@@ -74,11 +73,11 @@ public class CreateBuildResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The newly created build record, including a unique build ID and status.
+     * The newly created build resource, including a unique build IDs and status.
      * </p>
      * 
      * @param build
-     *        The newly created build record, including a unique build ID and status.
+     *        The newly created build resource, including a unique build IDs and status.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -91,14 +90,17 @@ public class CreateBuildResult extends com.amazonaws.AmazonWebServiceResult<com.
      * <p>
      * This element is returned only when the operation is called without a storage location. It contains credentials to
      * use when you are uploading a build file to an Amazon S3 bucket that is owned by Amazon GameLift. Credentials have
-     * a limited life span. To refresh these credentials, call <a>RequestUploadCredentials</a>.
+     * a limited life span. To refresh these credentials, call <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_RequestUploadCredentials.html"
+     * >RequestUploadCredentials</a>.
      * </p>
      * 
      * @param uploadCredentials
      *        This element is returned only when the operation is called without a storage location. It contains
      *        credentials to use when you are uploading a build file to an Amazon S3 bucket that is owned by Amazon
-     *        GameLift. Credentials have a limited life span. To refresh these credentials, call
-     *        <a>RequestUploadCredentials</a>.
+     *        GameLift. Credentials have a limited life span. To refresh these credentials, call <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_RequestUploadCredentials.html"
+     *        >RequestUploadCredentials</a>.
      */
 
     public void setUploadCredentials(Credentials uploadCredentials) {
@@ -109,13 +111,16 @@ public class CreateBuildResult extends com.amazonaws.AmazonWebServiceResult<com.
      * <p>
      * This element is returned only when the operation is called without a storage location. It contains credentials to
      * use when you are uploading a build file to an Amazon S3 bucket that is owned by Amazon GameLift. Credentials have
-     * a limited life span. To refresh these credentials, call <a>RequestUploadCredentials</a>.
+     * a limited life span. To refresh these credentials, call <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_RequestUploadCredentials.html"
+     * >RequestUploadCredentials</a>.
      * </p>
      * 
      * @return This element is returned only when the operation is called without a storage location. It contains
      *         credentials to use when you are uploading a build file to an Amazon S3 bucket that is owned by Amazon
-     *         GameLift. Credentials have a limited life span. To refresh these credentials, call
-     *         <a>RequestUploadCredentials</a>.
+     *         GameLift. Credentials have a limited life span. To refresh these credentials, call <a
+     *         href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_RequestUploadCredentials.html"
+     *         >RequestUploadCredentials</a>.
      */
 
     public Credentials getUploadCredentials() {
@@ -126,14 +131,17 @@ public class CreateBuildResult extends com.amazonaws.AmazonWebServiceResult<com.
      * <p>
      * This element is returned only when the operation is called without a storage location. It contains credentials to
      * use when you are uploading a build file to an Amazon S3 bucket that is owned by Amazon GameLift. Credentials have
-     * a limited life span. To refresh these credentials, call <a>RequestUploadCredentials</a>.
+     * a limited life span. To refresh these credentials, call <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_RequestUploadCredentials.html"
+     * >RequestUploadCredentials</a>.
      * </p>
      * 
      * @param uploadCredentials
      *        This element is returned only when the operation is called without a storage location. It contains
      *        credentials to use when you are uploading a build file to an Amazon S3 bucket that is owned by Amazon
-     *        GameLift. Credentials have a limited life span. To refresh these credentials, call
-     *        <a>RequestUploadCredentials</a>.
+     *        GameLift. Credentials have a limited life span. To refresh these credentials, call <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_RequestUploadCredentials.html"
+     *        >RequestUploadCredentials</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

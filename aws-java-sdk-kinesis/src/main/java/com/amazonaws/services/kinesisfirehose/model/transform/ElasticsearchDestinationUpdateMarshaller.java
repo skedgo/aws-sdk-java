@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,8 @@ public class ElasticsearchDestinationUpdateMarshaller {
             .marshallLocationName("RoleARN").build();
     private static final MarshallingInfo<String> DOMAINARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("DomainARN").build();
+    private static final MarshallingInfo<String> CLUSTERENDPOINT_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ClusterEndpoint").build();
     private static final MarshallingInfo<String> INDEXNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("IndexName").build();
     private static final MarshallingInfo<String> TYPENAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -47,6 +49,8 @@ public class ElasticsearchDestinationUpdateMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ProcessingConfiguration").build();
     private static final MarshallingInfo<StructuredPojo> CLOUDWATCHLOGGINGOPTIONS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CloudWatchLoggingOptions").build();
+    private static final MarshallingInfo<StructuredPojo> DOCUMENTIDOPTIONS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DocumentIdOptions").build();
 
     private static final ElasticsearchDestinationUpdateMarshaller instance = new ElasticsearchDestinationUpdateMarshaller();
 
@@ -66,6 +70,7 @@ public class ElasticsearchDestinationUpdateMarshaller {
         try {
             protocolMarshaller.marshall(elasticsearchDestinationUpdate.getRoleARN(), ROLEARN_BINDING);
             protocolMarshaller.marshall(elasticsearchDestinationUpdate.getDomainARN(), DOMAINARN_BINDING);
+            protocolMarshaller.marshall(elasticsearchDestinationUpdate.getClusterEndpoint(), CLUSTERENDPOINT_BINDING);
             protocolMarshaller.marshall(elasticsearchDestinationUpdate.getIndexName(), INDEXNAME_BINDING);
             protocolMarshaller.marshall(elasticsearchDestinationUpdate.getTypeName(), TYPENAME_BINDING);
             protocolMarshaller.marshall(elasticsearchDestinationUpdate.getIndexRotationPeriod(), INDEXROTATIONPERIOD_BINDING);
@@ -74,6 +79,7 @@ public class ElasticsearchDestinationUpdateMarshaller {
             protocolMarshaller.marshall(elasticsearchDestinationUpdate.getS3Update(), S3UPDATE_BINDING);
             protocolMarshaller.marshall(elasticsearchDestinationUpdate.getProcessingConfiguration(), PROCESSINGCONFIGURATION_BINDING);
             protocolMarshaller.marshall(elasticsearchDestinationUpdate.getCloudWatchLoggingOptions(), CLOUDWATCHLOGGINGOPTIONS_BINDING);
+            protocolMarshaller.marshall(elasticsearchDestinationUpdate.getDocumentIdOptions(), DOCUMENTIDOPTIONS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

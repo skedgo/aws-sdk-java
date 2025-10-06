@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,8 +33,8 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
     private String listenerArn;
     /**
      * <p>
-     * The name of the AWS Region where the endpoint group is located. A listener can have only one endpoint group in a
-     * specific Region.
+     * The Amazon Web Services Region where the endpoint group is located. A listener can have only one endpoint group
+     * in a specific Region.
      * </p>
      */
     private String endpointGroupRegion;
@@ -46,8 +46,8 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
     private java.util.List<EndpointConfiguration> endpointConfigurations;
     /**
      * <p>
-     * The percentage of traffic to send to an AWS Region. Additional traffic is distributed to other endpoint groups
-     * for this listener.
+     * The percentage of traffic to send to an Amazon Web Services Region. Additional traffic is distributed to other
+     * endpoint groups for this listener.
      * </p>
      * <p>
      * Use this action to increase (dial up) or decrease (dial down) traffic to a specific Region. The percentage is
@@ -60,16 +60,16 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
     private Float trafficDialPercentage;
     /**
      * <p>
-     * The port that AWS Global Accelerator uses to check the health of endpoints that are part of this endpoint group.
-     * The default port is the listener port that this endpoint group is associated with. If listener port is a list of
+     * The port that Global Accelerator uses to check the health of endpoints that are part of this endpoint group. The
+     * default port is the listener port that this endpoint group is associated with. If listener port is a list of
      * ports, Global Accelerator uses the first port in the list.
      * </p>
      */
     private Integer healthCheckPort;
     /**
      * <p>
-     * The protocol that AWS Global Accelerator uses to check the health of endpoints that are part of this endpoint
-     * group. The default value is TCP.
+     * The protocol that Global Accelerator uses to check the health of endpoints that are part of this endpoint group.
+     * The default value is TCP.
      * </p>
      */
     private String healthCheckProtocol;
@@ -100,6 +100,19 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      */
     private String idempotencyToken;
+    /**
+     * <p>
+     * Override specific listener ports used to route traffic to endpoints that are part of this endpoint group. For
+     * example, you can create a port override in which the listener receives user traffic on ports 80 and 443, but your
+     * accelerator routes that traffic to ports 1080 and 1443, respectively, on the endpoints.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoint-groups-port-override.html">
+     * Overriding listener ports</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     */
+    private java.util.List<PortOverride> portOverrides;
 
     /**
      * <p>
@@ -143,12 +156,12 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name of the AWS Region where the endpoint group is located. A listener can have only one endpoint group in a
-     * specific Region.
+     * The Amazon Web Services Region where the endpoint group is located. A listener can have only one endpoint group
+     * in a specific Region.
      * </p>
      * 
      * @param endpointGroupRegion
-     *        The name of the AWS Region where the endpoint group is located. A listener can have only one endpoint
+     *        The Amazon Web Services Region where the endpoint group is located. A listener can have only one endpoint
      *        group in a specific Region.
      */
 
@@ -158,11 +171,11 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name of the AWS Region where the endpoint group is located. A listener can have only one endpoint group in a
-     * specific Region.
+     * The Amazon Web Services Region where the endpoint group is located. A listener can have only one endpoint group
+     * in a specific Region.
      * </p>
      * 
-     * @return The name of the AWS Region where the endpoint group is located. A listener can have only one endpoint
+     * @return The Amazon Web Services Region where the endpoint group is located. A listener can have only one endpoint
      *         group in a specific Region.
      */
 
@@ -172,12 +185,12 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name of the AWS Region where the endpoint group is located. A listener can have only one endpoint group in a
-     * specific Region.
+     * The Amazon Web Services Region where the endpoint group is located. A listener can have only one endpoint group
+     * in a specific Region.
      * </p>
      * 
      * @param endpointGroupRegion
-     *        The name of the AWS Region where the endpoint group is located. A listener can have only one endpoint
+     *        The Amazon Web Services Region where the endpoint group is located. A listener can have only one endpoint
      *        group in a specific Region.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -259,8 +272,8 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The percentage of traffic to send to an AWS Region. Additional traffic is distributed to other endpoint groups
-     * for this listener.
+     * The percentage of traffic to send to an Amazon Web Services Region. Additional traffic is distributed to other
+     * endpoint groups for this listener.
      * </p>
      * <p>
      * Use this action to increase (dial up) or decrease (dial down) traffic to a specific Region. The percentage is
@@ -271,8 +284,8 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @param trafficDialPercentage
-     *        The percentage of traffic to send to an AWS Region. Additional traffic is distributed to other endpoint
-     *        groups for this listener. </p>
+     *        The percentage of traffic to send to an Amazon Web Services Region. Additional traffic is distributed to
+     *        other endpoint groups for this listener. </p>
      *        <p>
      *        Use this action to increase (dial up) or decrease (dial down) traffic to a specific Region. The percentage
      *        is applied to the traffic that would otherwise have been routed to the Region based on optimal routing.
@@ -287,8 +300,8 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The percentage of traffic to send to an AWS Region. Additional traffic is distributed to other endpoint groups
-     * for this listener.
+     * The percentage of traffic to send to an Amazon Web Services Region. Additional traffic is distributed to other
+     * endpoint groups for this listener.
      * </p>
      * <p>
      * Use this action to increase (dial up) or decrease (dial down) traffic to a specific Region. The percentage is
@@ -298,8 +311,8 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
      * The default value is 100.
      * </p>
      * 
-     * @return The percentage of traffic to send to an AWS Region. Additional traffic is distributed to other endpoint
-     *         groups for this listener. </p>
+     * @return The percentage of traffic to send to an Amazon Web Services Region. Additional traffic is distributed to
+     *         other endpoint groups for this listener. </p>
      *         <p>
      *         Use this action to increase (dial up) or decrease (dial down) traffic to a specific Region. The
      *         percentage is applied to the traffic that would otherwise have been routed to the Region based on optimal
@@ -315,8 +328,8 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The percentage of traffic to send to an AWS Region. Additional traffic is distributed to other endpoint groups
-     * for this listener.
+     * The percentage of traffic to send to an Amazon Web Services Region. Additional traffic is distributed to other
+     * endpoint groups for this listener.
      * </p>
      * <p>
      * Use this action to increase (dial up) or decrease (dial down) traffic to a specific Region. The percentage is
@@ -327,8 +340,8 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @param trafficDialPercentage
-     *        The percentage of traffic to send to an AWS Region. Additional traffic is distributed to other endpoint
-     *        groups for this listener. </p>
+     *        The percentage of traffic to send to an Amazon Web Services Region. Additional traffic is distributed to
+     *        other endpoint groups for this listener. </p>
      *        <p>
      *        Use this action to increase (dial up) or decrease (dial down) traffic to a specific Region. The percentage
      *        is applied to the traffic that would otherwise have been routed to the Region based on optimal routing.
@@ -345,13 +358,13 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The port that AWS Global Accelerator uses to check the health of endpoints that are part of this endpoint group.
-     * The default port is the listener port that this endpoint group is associated with. If listener port is a list of
+     * The port that Global Accelerator uses to check the health of endpoints that are part of this endpoint group. The
+     * default port is the listener port that this endpoint group is associated with. If listener port is a list of
      * ports, Global Accelerator uses the first port in the list.
      * </p>
      * 
      * @param healthCheckPort
-     *        The port that AWS Global Accelerator uses to check the health of endpoints that are part of this endpoint
+     *        The port that Global Accelerator uses to check the health of endpoints that are part of this endpoint
      *        group. The default port is the listener port that this endpoint group is associated with. If listener port
      *        is a list of ports, Global Accelerator uses the first port in the list.
      */
@@ -362,12 +375,12 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The port that AWS Global Accelerator uses to check the health of endpoints that are part of this endpoint group.
-     * The default port is the listener port that this endpoint group is associated with. If listener port is a list of
+     * The port that Global Accelerator uses to check the health of endpoints that are part of this endpoint group. The
+     * default port is the listener port that this endpoint group is associated with. If listener port is a list of
      * ports, Global Accelerator uses the first port in the list.
      * </p>
      * 
-     * @return The port that AWS Global Accelerator uses to check the health of endpoints that are part of this endpoint
+     * @return The port that Global Accelerator uses to check the health of endpoints that are part of this endpoint
      *         group. The default port is the listener port that this endpoint group is associated with. If listener
      *         port is a list of ports, Global Accelerator uses the first port in the list.
      */
@@ -378,13 +391,13 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The port that AWS Global Accelerator uses to check the health of endpoints that are part of this endpoint group.
-     * The default port is the listener port that this endpoint group is associated with. If listener port is a list of
+     * The port that Global Accelerator uses to check the health of endpoints that are part of this endpoint group. The
+     * default port is the listener port that this endpoint group is associated with. If listener port is a list of
      * ports, Global Accelerator uses the first port in the list.
      * </p>
      * 
      * @param healthCheckPort
-     *        The port that AWS Global Accelerator uses to check the health of endpoints that are part of this endpoint
+     *        The port that Global Accelerator uses to check the health of endpoints that are part of this endpoint
      *        group. The default port is the listener port that this endpoint group is associated with. If listener port
      *        is a list of ports, Global Accelerator uses the first port in the list.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -397,13 +410,13 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The protocol that AWS Global Accelerator uses to check the health of endpoints that are part of this endpoint
-     * group. The default value is TCP.
+     * The protocol that Global Accelerator uses to check the health of endpoints that are part of this endpoint group.
+     * The default value is TCP.
      * </p>
      * 
      * @param healthCheckProtocol
-     *        The protocol that AWS Global Accelerator uses to check the health of endpoints that are part of this
-     *        endpoint group. The default value is TCP.
+     *        The protocol that Global Accelerator uses to check the health of endpoints that are part of this endpoint
+     *        group. The default value is TCP.
      * @see HealthCheckProtocol
      */
 
@@ -413,12 +426,12 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The protocol that AWS Global Accelerator uses to check the health of endpoints that are part of this endpoint
-     * group. The default value is TCP.
+     * The protocol that Global Accelerator uses to check the health of endpoints that are part of this endpoint group.
+     * The default value is TCP.
      * </p>
      * 
-     * @return The protocol that AWS Global Accelerator uses to check the health of endpoints that are part of this
-     *         endpoint group. The default value is TCP.
+     * @return The protocol that Global Accelerator uses to check the health of endpoints that are part of this endpoint
+     *         group. The default value is TCP.
      * @see HealthCheckProtocol
      */
 
@@ -428,13 +441,13 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The protocol that AWS Global Accelerator uses to check the health of endpoints that are part of this endpoint
-     * group. The default value is TCP.
+     * The protocol that Global Accelerator uses to check the health of endpoints that are part of this endpoint group.
+     * The default value is TCP.
      * </p>
      * 
      * @param healthCheckProtocol
-     *        The protocol that AWS Global Accelerator uses to check the health of endpoints that are part of this
-     *        endpoint group. The default value is TCP.
+     *        The protocol that Global Accelerator uses to check the health of endpoints that are part of this endpoint
+     *        group. The default value is TCP.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HealthCheckProtocol
      */
@@ -446,13 +459,13 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The protocol that AWS Global Accelerator uses to check the health of endpoints that are part of this endpoint
-     * group. The default value is TCP.
+     * The protocol that Global Accelerator uses to check the health of endpoints that are part of this endpoint group.
+     * The default value is TCP.
      * </p>
      * 
      * @param healthCheckProtocol
-     *        The protocol that AWS Global Accelerator uses to check the health of endpoints that are part of this
-     *        endpoint group. The default value is TCP.
+     *        The protocol that Global Accelerator uses to check the health of endpoints that are part of this endpoint
+     *        group. The default value is TCP.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HealthCheckProtocol
      */
@@ -641,6 +654,128 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
+     * <p>
+     * Override specific listener ports used to route traffic to endpoints that are part of this endpoint group. For
+     * example, you can create a port override in which the listener receives user traffic on ports 80 and 443, but your
+     * accelerator routes that traffic to ports 1080 and 1443, respectively, on the endpoints.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoint-groups-port-override.html">
+     * Overriding listener ports</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * 
+     * @return Override specific listener ports used to route traffic to endpoints that are part of this endpoint group.
+     *         For example, you can create a port override in which the listener receives user traffic on ports 80 and
+     *         443, but your accelerator routes that traffic to ports 1080 and 1443, respectively, on the endpoints.</p>
+     *         <p>
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoint-groups-port-override.html">
+     *         Overriding listener ports</a> in the <i>Global Accelerator Developer Guide</i>.
+     */
+
+    public java.util.List<PortOverride> getPortOverrides() {
+        return portOverrides;
+    }
+
+    /**
+     * <p>
+     * Override specific listener ports used to route traffic to endpoints that are part of this endpoint group. For
+     * example, you can create a port override in which the listener receives user traffic on ports 80 and 443, but your
+     * accelerator routes that traffic to ports 1080 and 1443, respectively, on the endpoints.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoint-groups-port-override.html">
+     * Overriding listener ports</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * 
+     * @param portOverrides
+     *        Override specific listener ports used to route traffic to endpoints that are part of this endpoint group.
+     *        For example, you can create a port override in which the listener receives user traffic on ports 80 and
+     *        443, but your accelerator routes that traffic to ports 1080 and 1443, respectively, on the endpoints.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoint-groups-port-override.html">
+     *        Overriding listener ports</a> in the <i>Global Accelerator Developer Guide</i>.
+     */
+
+    public void setPortOverrides(java.util.Collection<PortOverride> portOverrides) {
+        if (portOverrides == null) {
+            this.portOverrides = null;
+            return;
+        }
+
+        this.portOverrides = new java.util.ArrayList<PortOverride>(portOverrides);
+    }
+
+    /**
+     * <p>
+     * Override specific listener ports used to route traffic to endpoints that are part of this endpoint group. For
+     * example, you can create a port override in which the listener receives user traffic on ports 80 and 443, but your
+     * accelerator routes that traffic to ports 1080 and 1443, respectively, on the endpoints.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoint-groups-port-override.html">
+     * Overriding listener ports</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setPortOverrides(java.util.Collection)} or {@link #withPortOverrides(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param portOverrides
+     *        Override specific listener ports used to route traffic to endpoints that are part of this endpoint group.
+     *        For example, you can create a port override in which the listener receives user traffic on ports 80 and
+     *        443, but your accelerator routes that traffic to ports 1080 and 1443, respectively, on the endpoints.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoint-groups-port-override.html">
+     *        Overriding listener ports</a> in the <i>Global Accelerator Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateEndpointGroupRequest withPortOverrides(PortOverride... portOverrides) {
+        if (this.portOverrides == null) {
+            setPortOverrides(new java.util.ArrayList<PortOverride>(portOverrides.length));
+        }
+        for (PortOverride ele : portOverrides) {
+            this.portOverrides.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Override specific listener ports used to route traffic to endpoints that are part of this endpoint group. For
+     * example, you can create a port override in which the listener receives user traffic on ports 80 and 443, but your
+     * accelerator routes that traffic to ports 1080 and 1443, respectively, on the endpoints.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoint-groups-port-override.html">
+     * Overriding listener ports</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * 
+     * @param portOverrides
+     *        Override specific listener ports used to route traffic to endpoints that are part of this endpoint group.
+     *        For example, you can create a port override in which the listener receives user traffic on ports 80 and
+     *        443, but your accelerator routes that traffic to ports 1080 and 1443, respectively, on the endpoints.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoint-groups-port-override.html">
+     *        Overriding listener ports</a> in the <i>Global Accelerator Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateEndpointGroupRequest withPortOverrides(java.util.Collection<PortOverride> portOverrides) {
+        setPortOverrides(portOverrides);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -671,7 +806,9 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
         if (getThresholdCount() != null)
             sb.append("ThresholdCount: ").append(getThresholdCount()).append(",");
         if (getIdempotencyToken() != null)
-            sb.append("IdempotencyToken: ").append(getIdempotencyToken());
+            sb.append("IdempotencyToken: ").append(getIdempotencyToken()).append(",");
+        if (getPortOverrides() != null)
+            sb.append("PortOverrides: ").append(getPortOverrides());
         sb.append("}");
         return sb.toString();
     }
@@ -726,6 +863,10 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
             return false;
         if (other.getIdempotencyToken() != null && other.getIdempotencyToken().equals(this.getIdempotencyToken()) == false)
             return false;
+        if (other.getPortOverrides() == null ^ this.getPortOverrides() == null)
+            return false;
+        if (other.getPortOverrides() != null && other.getPortOverrides().equals(this.getPortOverrides()) == false)
+            return false;
         return true;
     }
 
@@ -744,6 +885,7 @@ public class CreateEndpointGroupRequest extends com.amazonaws.AmazonWebServiceRe
         hashCode = prime * hashCode + ((getHealthCheckIntervalSeconds() == null) ? 0 : getHealthCheckIntervalSeconds().hashCode());
         hashCode = prime * hashCode + ((getThresholdCount() == null) ? 0 : getThresholdCount().hashCode());
         hashCode = prime * hashCode + ((getIdempotencyToken() == null) ? 0 : getIdempotencyToken().hashCode());
+        hashCode = prime * hashCode + ((getPortOverrides() == null) ? 0 : getPortOverrides().hashCode());
         return hashCode;
     }
 

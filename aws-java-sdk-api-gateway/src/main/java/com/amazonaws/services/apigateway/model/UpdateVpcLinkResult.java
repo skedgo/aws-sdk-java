@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,25 +17,15 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * A API Gateway VPC link for a <a>RestApi</a> to access resources in an Amazon Virtual Private Cloud (VPC).
+ * An API Gateway VPC link for a RestApi to access resources in an Amazon Virtual Private Cloud (VPC).
  * </p>
- * <div class="remarks">
- * <p>
- * <p>
- * To enable access to a resource in an Amazon Virtual Private Cloud through Amazon API Gateway, you, as an API
- * developer, create a <a>VpcLink</a> resource targeted for one or more network load balancers of the VPC and then
- * integrate an API method with a private integration that uses the <a>VpcLink</a>. The private integration has an
- * integration type of <code>HTTP</code> or <code>HTTP_PROXY</code> and has a connection type of <code>VPC_LINK</code>.
- * The integration uses the <code>connectionId</code> property to identify the <a>VpcLink</a> used.
- * </p>
- * </p> </div>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class UpdateVpcLinkResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The identifier of the <a>VpcLink</a>. It is used in an <a>Integration</a> to reference this <a>VpcLink</a>.
+     * The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.
      * </p>
      */
     private String id;
@@ -53,8 +43,8 @@ public class UpdateVpcLinkResult extends com.amazonaws.AmazonWebServiceResult<co
     private String description;
     /**
      * <p>
-     * The ARNs of network load balancers of the VPC targeted by the VPC link. The network load balancers must be owned
-     * by the same AWS account of the API owner.
+     * The ARN of the network load balancer of the VPC targeted by the VPC link. The network load balancer must be owned
+     * by the same Amazon Web Services account of the API owner.
      * </p>
      */
     private java.util.List<String> targetArns;
@@ -81,12 +71,11 @@ public class UpdateVpcLinkResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * The identifier of the <a>VpcLink</a>. It is used in an <a>Integration</a> to reference this <a>VpcLink</a>.
+     * The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.
      * </p>
      * 
      * @param id
-     *        The identifier of the <a>VpcLink</a>. It is used in an <a>Integration</a> to reference this
-     *        <a>VpcLink</a>.
+     *        The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.
      */
 
     public void setId(String id) {
@@ -95,11 +84,10 @@ public class UpdateVpcLinkResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * The identifier of the <a>VpcLink</a>. It is used in an <a>Integration</a> to reference this <a>VpcLink</a>.
+     * The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.
      * </p>
      * 
-     * @return The identifier of the <a>VpcLink</a>. It is used in an <a>Integration</a> to reference this
-     *         <a>VpcLink</a>.
+     * @return The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.
      */
 
     public String getId() {
@@ -108,12 +96,11 @@ public class UpdateVpcLinkResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * The identifier of the <a>VpcLink</a>. It is used in an <a>Integration</a> to reference this <a>VpcLink</a>.
+     * The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.
      * </p>
      * 
      * @param id
-     *        The identifier of the <a>VpcLink</a>. It is used in an <a>Integration</a> to reference this
-     *        <a>VpcLink</a>.
+     *        The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -204,12 +191,12 @@ public class UpdateVpcLinkResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * The ARNs of network load balancers of the VPC targeted by the VPC link. The network load balancers must be owned
-     * by the same AWS account of the API owner.
+     * The ARN of the network load balancer of the VPC targeted by the VPC link. The network load balancer must be owned
+     * by the same Amazon Web Services account of the API owner.
      * </p>
      * 
-     * @return The ARNs of network load balancers of the VPC targeted by the VPC link. The network load balancers must
-     *         be owned by the same AWS account of the API owner.
+     * @return The ARN of the network load balancer of the VPC targeted by the VPC link. The network load balancer must
+     *         be owned by the same Amazon Web Services account of the API owner.
      */
 
     public java.util.List<String> getTargetArns() {
@@ -218,13 +205,13 @@ public class UpdateVpcLinkResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * The ARNs of network load balancers of the VPC targeted by the VPC link. The network load balancers must be owned
-     * by the same AWS account of the API owner.
+     * The ARN of the network load balancer of the VPC targeted by the VPC link. The network load balancer must be owned
+     * by the same Amazon Web Services account of the API owner.
      * </p>
      * 
      * @param targetArns
-     *        The ARNs of network load balancers of the VPC targeted by the VPC link. The network load balancers must be
-     *        owned by the same AWS account of the API owner.
+     *        The ARN of the network load balancer of the VPC targeted by the VPC link. The network load balancer must
+     *        be owned by the same Amazon Web Services account of the API owner.
      */
 
     public void setTargetArns(java.util.Collection<String> targetArns) {
@@ -238,8 +225,8 @@ public class UpdateVpcLinkResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * The ARNs of network load balancers of the VPC targeted by the VPC link. The network load balancers must be owned
-     * by the same AWS account of the API owner.
+     * The ARN of the network load balancer of the VPC targeted by the VPC link. The network load balancer must be owned
+     * by the same Amazon Web Services account of the API owner.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -248,8 +235,8 @@ public class UpdateVpcLinkResult extends com.amazonaws.AmazonWebServiceResult<co
      * </p>
      * 
      * @param targetArns
-     *        The ARNs of network load balancers of the VPC targeted by the VPC link. The network load balancers must be
-     *        owned by the same AWS account of the API owner.
+     *        The ARN of the network load balancer of the VPC targeted by the VPC link. The network load balancer must
+     *        be owned by the same Amazon Web Services account of the API owner.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -265,13 +252,13 @@ public class UpdateVpcLinkResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * The ARNs of network load balancers of the VPC targeted by the VPC link. The network load balancers must be owned
-     * by the same AWS account of the API owner.
+     * The ARN of the network load balancer of the VPC targeted by the VPC link. The network load balancer must be owned
+     * by the same Amazon Web Services account of the API owner.
      * </p>
      * 
      * @param targetArns
-     *        The ARNs of network load balancers of the VPC targeted by the VPC link. The network load balancers must be
-     *        owned by the same AWS account of the API owner.
+     *        The ARN of the network load balancer of the VPC targeted by the VPC link. The network load balancer must
+     *        be owned by the same Amazon Web Services account of the API owner.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -434,6 +421,13 @@ public class UpdateVpcLinkResult extends com.amazonaws.AmazonWebServiceResult<co
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see UpdateVpcLinkResult#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public UpdateVpcLinkResult addTagsEntry(String key, String value) {
         if (null == this.tags) {

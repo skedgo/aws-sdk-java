@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -240,7 +240,20 @@ public class AmazonCloudSearchAsyncClient extends AmazonCloudSearchClient implem
      *        Object providing client parameters.
      */
     AmazonCloudSearchAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Amazon CloudSearch using the specified
+     * parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonCloudSearchAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -683,6 +696,40 @@ public class AmazonCloudSearchAsyncClient extends AmazonCloudSearchClient implem
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeDomainEndpointOptionsResult> describeDomainEndpointOptionsAsync(DescribeDomainEndpointOptionsRequest request) {
+
+        return describeDomainEndpointOptionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDomainEndpointOptionsResult> describeDomainEndpointOptionsAsync(
+            final DescribeDomainEndpointOptionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeDomainEndpointOptionsRequest, DescribeDomainEndpointOptionsResult> asyncHandler) {
+        final DescribeDomainEndpointOptionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeDomainEndpointOptionsResult>() {
+            @Override
+            public DescribeDomainEndpointOptionsResult call() throws Exception {
+                DescribeDomainEndpointOptionsResult result = null;
+
+                try {
+                    result = executeDescribeDomainEndpointOptions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeDomainsResult> describeDomainsAsync(DescribeDomainsRequest request) {
 
         return describeDomainsAsync(request, null);
@@ -1011,6 +1058,39 @@ public class AmazonCloudSearchAsyncClient extends AmazonCloudSearchClient implem
 
                 try {
                     result = executeUpdateAvailabilityOptions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDomainEndpointOptionsResult> updateDomainEndpointOptionsAsync(UpdateDomainEndpointOptionsRequest request) {
+
+        return updateDomainEndpointOptionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDomainEndpointOptionsResult> updateDomainEndpointOptionsAsync(final UpdateDomainEndpointOptionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateDomainEndpointOptionsRequest, UpdateDomainEndpointOptionsResult> asyncHandler) {
+        final UpdateDomainEndpointOptionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateDomainEndpointOptionsResult>() {
+            @Override
+            public UpdateDomainEndpointOptionsResult call() throws Exception {
+                UpdateDomainEndpointOptionsResult result = null;
+
+                try {
+                    result = executeUpdateDomainEndpointOptions(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

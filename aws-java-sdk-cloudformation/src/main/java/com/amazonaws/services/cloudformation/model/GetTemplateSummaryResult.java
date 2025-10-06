@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,20 +34,21 @@ public class GetTemplateSummaryResult extends com.amazonaws.AmazonWebServiceResu
     private com.amazonaws.internal.SdkInternalList<ParameterDeclaration> parameters;
     /**
      * <p>
-     * The value that is defined in the <code>Description</code> property of the template.
+     * The value that's defined in the <code>Description</code> property of the template.
      * </p>
      */
     private String description;
     /**
      * <p>
      * The capabilities found within the template. If your template contains IAM resources, you must specify the
-     * CAPABILITY_IAM or CAPABILITY_NAMED_IAM value for this parameter when you use the <a>CreateStack</a> or
-     * <a>UpdateStack</a> actions with your template; otherwise, those actions return an InsufficientCapabilities error.
+     * <code>CAPABILITY_IAM</code> or <code>CAPABILITY_NAMED_IAM</code> value for this parameter when you use the
+     * <a>CreateStack</a> or <a>UpdateStack</a> actions with your template; otherwise, those actions return an
+     * <code>InsufficientCapabilities</code> error.
      * </p>
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities"
-     * >Acknowledging IAM Resources in AWS CloudFormation Templates</a>.
+     * >Acknowledging IAM Resources in CloudFormation Templates</a>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> capabilities;
@@ -66,13 +67,13 @@ public class GetTemplateSummaryResult extends com.amazonaws.AmazonWebServiceResu
     private com.amazonaws.internal.SdkInternalList<String> resourceTypes;
     /**
      * <p>
-     * The AWS template format version, which identifies the capabilities of the template.
+     * The Amazon Web Services template format version, which identifies the capabilities of the template.
      * </p>
      */
     private String version;
     /**
      * <p>
-     * The value that is defined for the <code>Metadata</code> property of the template.
+     * The value that's defined for the <code>Metadata</code> property of the template.
      * </p>
      */
     private String metadata;
@@ -82,6 +83,20 @@ public class GetTemplateSummaryResult extends com.amazonaws.AmazonWebServiceResu
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> declaredTransforms;
+    /**
+     * <p>
+     * A list of resource identifier summaries that describe the target resources of an import operation and the
+     * properties you can provide during the import to identify the target resources. For example,
+     * <code>BucketName</code> is a possible identifier property for an <code>AWS::S3::Bucket</code> resource.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<ResourceIdentifierSummary> resourceIdentifierSummaries;
+    /**
+     * <p>
+     * An object containing any warnings returned.
+     * </p>
+     */
+    private Warnings warnings;
 
     /**
      * <p>
@@ -158,11 +173,11 @@ public class GetTemplateSummaryResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The value that is defined in the <code>Description</code> property of the template.
+     * The value that's defined in the <code>Description</code> property of the template.
      * </p>
      * 
      * @param description
-     *        The value that is defined in the <code>Description</code> property of the template.
+     *        The value that's defined in the <code>Description</code> property of the template.
      */
 
     public void setDescription(String description) {
@@ -171,10 +186,10 @@ public class GetTemplateSummaryResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The value that is defined in the <code>Description</code> property of the template.
+     * The value that's defined in the <code>Description</code> property of the template.
      * </p>
      * 
-     * @return The value that is defined in the <code>Description</code> property of the template.
+     * @return The value that's defined in the <code>Description</code> property of the template.
      */
 
     public String getDescription() {
@@ -183,11 +198,11 @@ public class GetTemplateSummaryResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The value that is defined in the <code>Description</code> property of the template.
+     * The value that's defined in the <code>Description</code> property of the template.
      * </p>
      * 
      * @param description
-     *        The value that is defined in the <code>Description</code> property of the template.
+     *        The value that's defined in the <code>Description</code> property of the template.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -199,23 +214,24 @@ public class GetTemplateSummaryResult extends com.amazonaws.AmazonWebServiceResu
     /**
      * <p>
      * The capabilities found within the template. If your template contains IAM resources, you must specify the
-     * CAPABILITY_IAM or CAPABILITY_NAMED_IAM value for this parameter when you use the <a>CreateStack</a> or
-     * <a>UpdateStack</a> actions with your template; otherwise, those actions return an InsufficientCapabilities error.
+     * <code>CAPABILITY_IAM</code> or <code>CAPABILITY_NAMED_IAM</code> value for this parameter when you use the
+     * <a>CreateStack</a> or <a>UpdateStack</a> actions with your template; otherwise, those actions return an
+     * <code>InsufficientCapabilities</code> error.
      * </p>
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities"
-     * >Acknowledging IAM Resources in AWS CloudFormation Templates</a>.
+     * >Acknowledging IAM Resources in CloudFormation Templates</a>.
      * </p>
      * 
      * @return The capabilities found within the template. If your template contains IAM resources, you must specify the
-     *         CAPABILITY_IAM or CAPABILITY_NAMED_IAM value for this parameter when you use the <a>CreateStack</a> or
-     *         <a>UpdateStack</a> actions with your template; otherwise, those actions return an
-     *         InsufficientCapabilities error.</p>
+     *         <code>CAPABILITY_IAM</code> or <code>CAPABILITY_NAMED_IAM</code> value for this parameter when you use
+     *         the <a>CreateStack</a> or <a>UpdateStack</a> actions with your template; otherwise, those actions return
+     *         an <code>InsufficientCapabilities</code> error.</p>
      *         <p>
      *         For more information, see <a href=
      *         "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities"
-     *         >Acknowledging IAM Resources in AWS CloudFormation Templates</a>.
+     *         >Acknowledging IAM Resources in CloudFormation Templates</a>.
      * @see Capability
      */
 
@@ -229,24 +245,25 @@ public class GetTemplateSummaryResult extends com.amazonaws.AmazonWebServiceResu
     /**
      * <p>
      * The capabilities found within the template. If your template contains IAM resources, you must specify the
-     * CAPABILITY_IAM or CAPABILITY_NAMED_IAM value for this parameter when you use the <a>CreateStack</a> or
-     * <a>UpdateStack</a> actions with your template; otherwise, those actions return an InsufficientCapabilities error.
+     * <code>CAPABILITY_IAM</code> or <code>CAPABILITY_NAMED_IAM</code> value for this parameter when you use the
+     * <a>CreateStack</a> or <a>UpdateStack</a> actions with your template; otherwise, those actions return an
+     * <code>InsufficientCapabilities</code> error.
      * </p>
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities"
-     * >Acknowledging IAM Resources in AWS CloudFormation Templates</a>.
+     * >Acknowledging IAM Resources in CloudFormation Templates</a>.
      * </p>
      * 
      * @param capabilities
      *        The capabilities found within the template. If your template contains IAM resources, you must specify the
-     *        CAPABILITY_IAM or CAPABILITY_NAMED_IAM value for this parameter when you use the <a>CreateStack</a> or
-     *        <a>UpdateStack</a> actions with your template; otherwise, those actions return an InsufficientCapabilities
-     *        error.</p>
+     *        <code>CAPABILITY_IAM</code> or <code>CAPABILITY_NAMED_IAM</code> value for this parameter when you use the
+     *        <a>CreateStack</a> or <a>UpdateStack</a> actions with your template; otherwise, those actions return an
+     *        <code>InsufficientCapabilities</code> error.</p>
      *        <p>
      *        For more information, see <a href=
      *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities"
-     *        >Acknowledging IAM Resources in AWS CloudFormation Templates</a>.
+     *        >Acknowledging IAM Resources in CloudFormation Templates</a>.
      * @see Capability
      */
 
@@ -262,13 +279,14 @@ public class GetTemplateSummaryResult extends com.amazonaws.AmazonWebServiceResu
     /**
      * <p>
      * The capabilities found within the template. If your template contains IAM resources, you must specify the
-     * CAPABILITY_IAM or CAPABILITY_NAMED_IAM value for this parameter when you use the <a>CreateStack</a> or
-     * <a>UpdateStack</a> actions with your template; otherwise, those actions return an InsufficientCapabilities error.
+     * <code>CAPABILITY_IAM</code> or <code>CAPABILITY_NAMED_IAM</code> value for this parameter when you use the
+     * <a>CreateStack</a> or <a>UpdateStack</a> actions with your template; otherwise, those actions return an
+     * <code>InsufficientCapabilities</code> error.
      * </p>
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities"
-     * >Acknowledging IAM Resources in AWS CloudFormation Templates</a>.
+     * >Acknowledging IAM Resources in CloudFormation Templates</a>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -278,13 +296,13 @@ public class GetTemplateSummaryResult extends com.amazonaws.AmazonWebServiceResu
      * 
      * @param capabilities
      *        The capabilities found within the template. If your template contains IAM resources, you must specify the
-     *        CAPABILITY_IAM or CAPABILITY_NAMED_IAM value for this parameter when you use the <a>CreateStack</a> or
-     *        <a>UpdateStack</a> actions with your template; otherwise, those actions return an InsufficientCapabilities
-     *        error.</p>
+     *        <code>CAPABILITY_IAM</code> or <code>CAPABILITY_NAMED_IAM</code> value for this parameter when you use the
+     *        <a>CreateStack</a> or <a>UpdateStack</a> actions with your template; otherwise, those actions return an
+     *        <code>InsufficientCapabilities</code> error.</p>
      *        <p>
      *        For more information, see <a href=
      *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities"
-     *        >Acknowledging IAM Resources in AWS CloudFormation Templates</a>.
+     *        >Acknowledging IAM Resources in CloudFormation Templates</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Capability
      */
@@ -302,24 +320,25 @@ public class GetTemplateSummaryResult extends com.amazonaws.AmazonWebServiceResu
     /**
      * <p>
      * The capabilities found within the template. If your template contains IAM resources, you must specify the
-     * CAPABILITY_IAM or CAPABILITY_NAMED_IAM value for this parameter when you use the <a>CreateStack</a> or
-     * <a>UpdateStack</a> actions with your template; otherwise, those actions return an InsufficientCapabilities error.
+     * <code>CAPABILITY_IAM</code> or <code>CAPABILITY_NAMED_IAM</code> value for this parameter when you use the
+     * <a>CreateStack</a> or <a>UpdateStack</a> actions with your template; otherwise, those actions return an
+     * <code>InsufficientCapabilities</code> error.
      * </p>
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities"
-     * >Acknowledging IAM Resources in AWS CloudFormation Templates</a>.
+     * >Acknowledging IAM Resources in CloudFormation Templates</a>.
      * </p>
      * 
      * @param capabilities
      *        The capabilities found within the template. If your template contains IAM resources, you must specify the
-     *        CAPABILITY_IAM or CAPABILITY_NAMED_IAM value for this parameter when you use the <a>CreateStack</a> or
-     *        <a>UpdateStack</a> actions with your template; otherwise, those actions return an InsufficientCapabilities
-     *        error.</p>
+     *        <code>CAPABILITY_IAM</code> or <code>CAPABILITY_NAMED_IAM</code> value for this parameter when you use the
+     *        <a>CreateStack</a> or <a>UpdateStack</a> actions with your template; otherwise, those actions return an
+     *        <code>InsufficientCapabilities</code> error.</p>
      *        <p>
      *        For more information, see <a href=
      *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities"
-     *        >Acknowledging IAM Resources in AWS CloudFormation Templates</a>.
+     *        >Acknowledging IAM Resources in CloudFormation Templates</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Capability
      */
@@ -332,24 +351,25 @@ public class GetTemplateSummaryResult extends com.amazonaws.AmazonWebServiceResu
     /**
      * <p>
      * The capabilities found within the template. If your template contains IAM resources, you must specify the
-     * CAPABILITY_IAM or CAPABILITY_NAMED_IAM value for this parameter when you use the <a>CreateStack</a> or
-     * <a>UpdateStack</a> actions with your template; otherwise, those actions return an InsufficientCapabilities error.
+     * <code>CAPABILITY_IAM</code> or <code>CAPABILITY_NAMED_IAM</code> value for this parameter when you use the
+     * <a>CreateStack</a> or <a>UpdateStack</a> actions with your template; otherwise, those actions return an
+     * <code>InsufficientCapabilities</code> error.
      * </p>
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities"
-     * >Acknowledging IAM Resources in AWS CloudFormation Templates</a>.
+     * >Acknowledging IAM Resources in CloudFormation Templates</a>.
      * </p>
      * 
      * @param capabilities
      *        The capabilities found within the template. If your template contains IAM resources, you must specify the
-     *        CAPABILITY_IAM or CAPABILITY_NAMED_IAM value for this parameter when you use the <a>CreateStack</a> or
-     *        <a>UpdateStack</a> actions with your template; otherwise, those actions return an InsufficientCapabilities
-     *        error.</p>
+     *        <code>CAPABILITY_IAM</code> or <code>CAPABILITY_NAMED_IAM</code> value for this parameter when you use the
+     *        <a>CreateStack</a> or <a>UpdateStack</a> actions with your template; otherwise, those actions return an
+     *        <code>InsufficientCapabilities</code> error.</p>
      *        <p>
      *        For more information, see <a href=
      *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities"
-     *        >Acknowledging IAM Resources in AWS CloudFormation Templates</a>.
+     *        >Acknowledging IAM Resources in CloudFormation Templates</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Capability
      */
@@ -494,11 +514,11 @@ public class GetTemplateSummaryResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The AWS template format version, which identifies the capabilities of the template.
+     * The Amazon Web Services template format version, which identifies the capabilities of the template.
      * </p>
      * 
      * @param version
-     *        The AWS template format version, which identifies the capabilities of the template.
+     *        The Amazon Web Services template format version, which identifies the capabilities of the template.
      */
 
     public void setVersion(String version) {
@@ -507,10 +527,10 @@ public class GetTemplateSummaryResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The AWS template format version, which identifies the capabilities of the template.
+     * The Amazon Web Services template format version, which identifies the capabilities of the template.
      * </p>
      * 
-     * @return The AWS template format version, which identifies the capabilities of the template.
+     * @return The Amazon Web Services template format version, which identifies the capabilities of the template.
      */
 
     public String getVersion() {
@@ -519,11 +539,11 @@ public class GetTemplateSummaryResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The AWS template format version, which identifies the capabilities of the template.
+     * The Amazon Web Services template format version, which identifies the capabilities of the template.
      * </p>
      * 
      * @param version
-     *        The AWS template format version, which identifies the capabilities of the template.
+     *        The Amazon Web Services template format version, which identifies the capabilities of the template.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -534,11 +554,11 @@ public class GetTemplateSummaryResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The value that is defined for the <code>Metadata</code> property of the template.
+     * The value that's defined for the <code>Metadata</code> property of the template.
      * </p>
      * 
      * @param metadata
-     *        The value that is defined for the <code>Metadata</code> property of the template.
+     *        The value that's defined for the <code>Metadata</code> property of the template.
      */
 
     public void setMetadata(String metadata) {
@@ -547,10 +567,10 @@ public class GetTemplateSummaryResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The value that is defined for the <code>Metadata</code> property of the template.
+     * The value that's defined for the <code>Metadata</code> property of the template.
      * </p>
      * 
-     * @return The value that is defined for the <code>Metadata</code> property of the template.
+     * @return The value that's defined for the <code>Metadata</code> property of the template.
      */
 
     public String getMetadata() {
@@ -559,11 +579,11 @@ public class GetTemplateSummaryResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The value that is defined for the <code>Metadata</code> property of the template.
+     * The value that's defined for the <code>Metadata</code> property of the template.
      * </p>
      * 
      * @param metadata
-     *        The value that is defined for the <code>Metadata</code> property of the template.
+     *        The value that's defined for the <code>Metadata</code> property of the template.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -646,6 +666,135 @@ public class GetTemplateSummaryResult extends com.amazonaws.AmazonWebServiceResu
     }
 
     /**
+     * <p>
+     * A list of resource identifier summaries that describe the target resources of an import operation and the
+     * properties you can provide during the import to identify the target resources. For example,
+     * <code>BucketName</code> is a possible identifier property for an <code>AWS::S3::Bucket</code> resource.
+     * </p>
+     * 
+     * @return A list of resource identifier summaries that describe the target resources of an import operation and the
+     *         properties you can provide during the import to identify the target resources. For example,
+     *         <code>BucketName</code> is a possible identifier property for an <code>AWS::S3::Bucket</code> resource.
+     */
+
+    public java.util.List<ResourceIdentifierSummary> getResourceIdentifierSummaries() {
+        if (resourceIdentifierSummaries == null) {
+            resourceIdentifierSummaries = new com.amazonaws.internal.SdkInternalList<ResourceIdentifierSummary>();
+        }
+        return resourceIdentifierSummaries;
+    }
+
+    /**
+     * <p>
+     * A list of resource identifier summaries that describe the target resources of an import operation and the
+     * properties you can provide during the import to identify the target resources. For example,
+     * <code>BucketName</code> is a possible identifier property for an <code>AWS::S3::Bucket</code> resource.
+     * </p>
+     * 
+     * @param resourceIdentifierSummaries
+     *        A list of resource identifier summaries that describe the target resources of an import operation and the
+     *        properties you can provide during the import to identify the target resources. For example,
+     *        <code>BucketName</code> is a possible identifier property for an <code>AWS::S3::Bucket</code> resource.
+     */
+
+    public void setResourceIdentifierSummaries(java.util.Collection<ResourceIdentifierSummary> resourceIdentifierSummaries) {
+        if (resourceIdentifierSummaries == null) {
+            this.resourceIdentifierSummaries = null;
+            return;
+        }
+
+        this.resourceIdentifierSummaries = new com.amazonaws.internal.SdkInternalList<ResourceIdentifierSummary>(resourceIdentifierSummaries);
+    }
+
+    /**
+     * <p>
+     * A list of resource identifier summaries that describe the target resources of an import operation and the
+     * properties you can provide during the import to identify the target resources. For example,
+     * <code>BucketName</code> is a possible identifier property for an <code>AWS::S3::Bucket</code> resource.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setResourceIdentifierSummaries(java.util.Collection)} or
+     * {@link #withResourceIdentifierSummaries(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param resourceIdentifierSummaries
+     *        A list of resource identifier summaries that describe the target resources of an import operation and the
+     *        properties you can provide during the import to identify the target resources. For example,
+     *        <code>BucketName</code> is a possible identifier property for an <code>AWS::S3::Bucket</code> resource.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetTemplateSummaryResult withResourceIdentifierSummaries(ResourceIdentifierSummary... resourceIdentifierSummaries) {
+        if (this.resourceIdentifierSummaries == null) {
+            setResourceIdentifierSummaries(new com.amazonaws.internal.SdkInternalList<ResourceIdentifierSummary>(resourceIdentifierSummaries.length));
+        }
+        for (ResourceIdentifierSummary ele : resourceIdentifierSummaries) {
+            this.resourceIdentifierSummaries.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of resource identifier summaries that describe the target resources of an import operation and the
+     * properties you can provide during the import to identify the target resources. For example,
+     * <code>BucketName</code> is a possible identifier property for an <code>AWS::S3::Bucket</code> resource.
+     * </p>
+     * 
+     * @param resourceIdentifierSummaries
+     *        A list of resource identifier summaries that describe the target resources of an import operation and the
+     *        properties you can provide during the import to identify the target resources. For example,
+     *        <code>BucketName</code> is a possible identifier property for an <code>AWS::S3::Bucket</code> resource.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetTemplateSummaryResult withResourceIdentifierSummaries(java.util.Collection<ResourceIdentifierSummary> resourceIdentifierSummaries) {
+        setResourceIdentifierSummaries(resourceIdentifierSummaries);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An object containing any warnings returned.
+     * </p>
+     * 
+     * @param warnings
+     *        An object containing any warnings returned.
+     */
+
+    public void setWarnings(Warnings warnings) {
+        this.warnings = warnings;
+    }
+
+    /**
+     * <p>
+     * An object containing any warnings returned.
+     * </p>
+     * 
+     * @return An object containing any warnings returned.
+     */
+
+    public Warnings getWarnings() {
+        return this.warnings;
+    }
+
+    /**
+     * <p>
+     * An object containing any warnings returned.
+     * </p>
+     * 
+     * @param warnings
+     *        An object containing any warnings returned.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetTemplateSummaryResult withWarnings(Warnings warnings) {
+        setWarnings(warnings);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -672,7 +821,11 @@ public class GetTemplateSummaryResult extends com.amazonaws.AmazonWebServiceResu
         if (getMetadata() != null)
             sb.append("Metadata: ").append(getMetadata()).append(",");
         if (getDeclaredTransforms() != null)
-            sb.append("DeclaredTransforms: ").append(getDeclaredTransforms());
+            sb.append("DeclaredTransforms: ").append(getDeclaredTransforms()).append(",");
+        if (getResourceIdentifierSummaries() != null)
+            sb.append("ResourceIdentifierSummaries: ").append(getResourceIdentifierSummaries()).append(",");
+        if (getWarnings() != null)
+            sb.append("Warnings: ").append(getWarnings());
         sb.append("}");
         return sb.toString();
     }
@@ -719,6 +872,14 @@ public class GetTemplateSummaryResult extends com.amazonaws.AmazonWebServiceResu
             return false;
         if (other.getDeclaredTransforms() != null && other.getDeclaredTransforms().equals(this.getDeclaredTransforms()) == false)
             return false;
+        if (other.getResourceIdentifierSummaries() == null ^ this.getResourceIdentifierSummaries() == null)
+            return false;
+        if (other.getResourceIdentifierSummaries() != null && other.getResourceIdentifierSummaries().equals(this.getResourceIdentifierSummaries()) == false)
+            return false;
+        if (other.getWarnings() == null ^ this.getWarnings() == null)
+            return false;
+        if (other.getWarnings() != null && other.getWarnings().equals(this.getWarnings()) == false)
+            return false;
         return true;
     }
 
@@ -735,6 +896,8 @@ public class GetTemplateSummaryResult extends com.amazonaws.AmazonWebServiceResu
         hashCode = prime * hashCode + ((getVersion() == null) ? 0 : getVersion().hashCode());
         hashCode = prime * hashCode + ((getMetadata() == null) ? 0 : getMetadata().hashCode());
         hashCode = prime * hashCode + ((getDeclaredTransforms() == null) ? 0 : getDeclaredTransforms().hashCode());
+        hashCode = prime * hashCode + ((getResourceIdentifierSummaries() == null) ? 0 : getResourceIdentifierSummaries().hashCode());
+        hashCode = prime * hashCode + ((getWarnings() == null) ? 0 : getWarnings().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,6 +34,8 @@ public class DashPackageMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("adsOnDeliveryRestrictions").build();
     private static final MarshallingInfo<StructuredPojo> ENCRYPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("encryption").build();
+    private static final MarshallingInfo<Boolean> INCLUDEIFRAMEONLYSTREAM_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("includeIframeOnlyStream").build();
     private static final MarshallingInfo<String> MANIFESTLAYOUT_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("manifestLayout").build();
     private static final MarshallingInfo<Integer> MANIFESTWINDOWSECONDS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
@@ -54,6 +56,10 @@ public class DashPackageMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("streamSelection").build();
     private static final MarshallingInfo<Integer> SUGGESTEDPRESENTATIONDELAYSECONDS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("suggestedPresentationDelaySeconds").build();
+    private static final MarshallingInfo<String> UTCTIMING_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("utcTiming").build();
+    private static final MarshallingInfo<String> UTCTIMINGURI_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("utcTimingUri").build();
 
     private static final DashPackageMarshaller instance = new DashPackageMarshaller();
 
@@ -74,6 +80,7 @@ public class DashPackageMarshaller {
             protocolMarshaller.marshall(dashPackage.getAdTriggers(), ADTRIGGERS_BINDING);
             protocolMarshaller.marshall(dashPackage.getAdsOnDeliveryRestrictions(), ADSONDELIVERYRESTRICTIONS_BINDING);
             protocolMarshaller.marshall(dashPackage.getEncryption(), ENCRYPTION_BINDING);
+            protocolMarshaller.marshall(dashPackage.getIncludeIframeOnlyStream(), INCLUDEIFRAMEONLYSTREAM_BINDING);
             protocolMarshaller.marshall(dashPackage.getManifestLayout(), MANIFESTLAYOUT_BINDING);
             protocolMarshaller.marshall(dashPackage.getManifestWindowSeconds(), MANIFESTWINDOWSECONDS_BINDING);
             protocolMarshaller.marshall(dashPackage.getMinBufferTimeSeconds(), MINBUFFERTIMESECONDS_BINDING);
@@ -84,6 +91,8 @@ public class DashPackageMarshaller {
             protocolMarshaller.marshall(dashPackage.getSegmentTemplateFormat(), SEGMENTTEMPLATEFORMAT_BINDING);
             protocolMarshaller.marshall(dashPackage.getStreamSelection(), STREAMSELECTION_BINDING);
             protocolMarshaller.marshall(dashPackage.getSuggestedPresentationDelaySeconds(), SUGGESTEDPRESENTATIONDELAYSECONDS_BINDING);
+            protocolMarshaller.marshall(dashPackage.getUtcTiming(), UTCTIMING_BINDING);
+            protocolMarshaller.marshall(dashPackage.getUtcTimingUri(), UTCTIMINGURI_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

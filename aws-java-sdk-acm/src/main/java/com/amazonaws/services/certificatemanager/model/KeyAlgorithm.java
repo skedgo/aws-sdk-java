@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,8 +20,9 @@ import javax.annotation.Generated;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public enum KeyAlgorithm {
 
-    RSA_2048("RSA_2048"),
     RSA_1024("RSA_1024"),
+    RSA_2048("RSA_2048"),
+    RSA_3072("RSA_3072"),
     RSA_4096("RSA_4096"),
     EC_prime256v1("EC_prime256v1"),
     EC_secp384r1("EC_secp384r1"),

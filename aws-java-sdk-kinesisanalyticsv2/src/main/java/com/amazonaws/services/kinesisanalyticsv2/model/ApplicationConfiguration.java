@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Specifies the creation parameters for an Amazon Kinesis Data Analytics application.
+ * Specifies the creation parameters for a Managed Service for Apache Flink application.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ApplicationConfiguration"
@@ -30,42 +30,56 @@ public class ApplicationConfiguration implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The creation and update parameters for an SQL-based Kinesis Data Analytics application.
+     * The creation and update parameters for a SQL-based Kinesis Data Analytics application.
      * </p>
      */
     private SqlApplicationConfiguration sqlApplicationConfiguration;
     /**
      * <p>
-     * The creation and update parameters for a Java-based Kinesis Data Analytics application.
+     * The creation and update parameters for a Managed Service for Apache Flink application.
      * </p>
      */
     private FlinkApplicationConfiguration flinkApplicationConfiguration;
     /**
      * <p>
-     * Describes execution properties for a Java-based Kinesis Data Analytics application.
+     * Describes execution properties for a Managed Service for Apache Flink application.
      * </p>
      */
     private EnvironmentProperties environmentProperties;
     /**
      * <p>
-     * The code location and type parameters for a Java-based Kinesis Data Analytics application.
+     * The code location and type parameters for a Managed Service for Apache Flink application.
      * </p>
      */
     private ApplicationCodeConfiguration applicationCodeConfiguration;
     /**
      * <p>
-     * Describes whether snapshots are enabled for a Java-based Kinesis Data Analytics application.
+     * Describes whether snapshots are enabled for a Managed Service for Apache Flink application.
      * </p>
      */
     private ApplicationSnapshotConfiguration applicationSnapshotConfiguration;
 
+    private ApplicationSystemRollbackConfiguration applicationSystemRollbackConfiguration;
     /**
      * <p>
-     * The creation and update parameters for an SQL-based Kinesis Data Analytics application.
+     * The array of descriptions of VPC configurations available to the application.
+     * </p>
+     */
+    private java.util.List<VpcConfiguration> vpcConfigurations;
+    /**
+     * <p>
+     * The configuration parameters for a Managed Service for Apache Flink Studio notebook.
+     * </p>
+     */
+    private ZeppelinApplicationConfiguration zeppelinApplicationConfiguration;
+
+    /**
+     * <p>
+     * The creation and update parameters for a SQL-based Kinesis Data Analytics application.
      * </p>
      * 
      * @param sqlApplicationConfiguration
-     *        The creation and update parameters for an SQL-based Kinesis Data Analytics application.
+     *        The creation and update parameters for a SQL-based Kinesis Data Analytics application.
      */
 
     public void setSqlApplicationConfiguration(SqlApplicationConfiguration sqlApplicationConfiguration) {
@@ -74,10 +88,10 @@ public class ApplicationConfiguration implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The creation and update parameters for an SQL-based Kinesis Data Analytics application.
+     * The creation and update parameters for a SQL-based Kinesis Data Analytics application.
      * </p>
      * 
-     * @return The creation and update parameters for an SQL-based Kinesis Data Analytics application.
+     * @return The creation and update parameters for a SQL-based Kinesis Data Analytics application.
      */
 
     public SqlApplicationConfiguration getSqlApplicationConfiguration() {
@@ -86,11 +100,11 @@ public class ApplicationConfiguration implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The creation and update parameters for an SQL-based Kinesis Data Analytics application.
+     * The creation and update parameters for a SQL-based Kinesis Data Analytics application.
      * </p>
      * 
      * @param sqlApplicationConfiguration
-     *        The creation and update parameters for an SQL-based Kinesis Data Analytics application.
+     *        The creation and update parameters for a SQL-based Kinesis Data Analytics application.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -101,11 +115,11 @@ public class ApplicationConfiguration implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The creation and update parameters for a Java-based Kinesis Data Analytics application.
+     * The creation and update parameters for a Managed Service for Apache Flink application.
      * </p>
      * 
      * @param flinkApplicationConfiguration
-     *        The creation and update parameters for a Java-based Kinesis Data Analytics application.
+     *        The creation and update parameters for a Managed Service for Apache Flink application.
      */
 
     public void setFlinkApplicationConfiguration(FlinkApplicationConfiguration flinkApplicationConfiguration) {
@@ -114,10 +128,10 @@ public class ApplicationConfiguration implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The creation and update parameters for a Java-based Kinesis Data Analytics application.
+     * The creation and update parameters for a Managed Service for Apache Flink application.
      * </p>
      * 
-     * @return The creation and update parameters for a Java-based Kinesis Data Analytics application.
+     * @return The creation and update parameters for a Managed Service for Apache Flink application.
      */
 
     public FlinkApplicationConfiguration getFlinkApplicationConfiguration() {
@@ -126,11 +140,11 @@ public class ApplicationConfiguration implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The creation and update parameters for a Java-based Kinesis Data Analytics application.
+     * The creation and update parameters for a Managed Service for Apache Flink application.
      * </p>
      * 
      * @param flinkApplicationConfiguration
-     *        The creation and update parameters for a Java-based Kinesis Data Analytics application.
+     *        The creation and update parameters for a Managed Service for Apache Flink application.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -141,11 +155,11 @@ public class ApplicationConfiguration implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Describes execution properties for a Java-based Kinesis Data Analytics application.
+     * Describes execution properties for a Managed Service for Apache Flink application.
      * </p>
      * 
      * @param environmentProperties
-     *        Describes execution properties for a Java-based Kinesis Data Analytics application.
+     *        Describes execution properties for a Managed Service for Apache Flink application.
      */
 
     public void setEnvironmentProperties(EnvironmentProperties environmentProperties) {
@@ -154,10 +168,10 @@ public class ApplicationConfiguration implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Describes execution properties for a Java-based Kinesis Data Analytics application.
+     * Describes execution properties for a Managed Service for Apache Flink application.
      * </p>
      * 
-     * @return Describes execution properties for a Java-based Kinesis Data Analytics application.
+     * @return Describes execution properties for a Managed Service for Apache Flink application.
      */
 
     public EnvironmentProperties getEnvironmentProperties() {
@@ -166,11 +180,11 @@ public class ApplicationConfiguration implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Describes execution properties for a Java-based Kinesis Data Analytics application.
+     * Describes execution properties for a Managed Service for Apache Flink application.
      * </p>
      * 
      * @param environmentProperties
-     *        Describes execution properties for a Java-based Kinesis Data Analytics application.
+     *        Describes execution properties for a Managed Service for Apache Flink application.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -181,11 +195,11 @@ public class ApplicationConfiguration implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The code location and type parameters for a Java-based Kinesis Data Analytics application.
+     * The code location and type parameters for a Managed Service for Apache Flink application.
      * </p>
      * 
      * @param applicationCodeConfiguration
-     *        The code location and type parameters for a Java-based Kinesis Data Analytics application.
+     *        The code location and type parameters for a Managed Service for Apache Flink application.
      */
 
     public void setApplicationCodeConfiguration(ApplicationCodeConfiguration applicationCodeConfiguration) {
@@ -194,10 +208,10 @@ public class ApplicationConfiguration implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The code location and type parameters for a Java-based Kinesis Data Analytics application.
+     * The code location and type parameters for a Managed Service for Apache Flink application.
      * </p>
      * 
-     * @return The code location and type parameters for a Java-based Kinesis Data Analytics application.
+     * @return The code location and type parameters for a Managed Service for Apache Flink application.
      */
 
     public ApplicationCodeConfiguration getApplicationCodeConfiguration() {
@@ -206,11 +220,11 @@ public class ApplicationConfiguration implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The code location and type parameters for a Java-based Kinesis Data Analytics application.
+     * The code location and type parameters for a Managed Service for Apache Flink application.
      * </p>
      * 
      * @param applicationCodeConfiguration
-     *        The code location and type parameters for a Java-based Kinesis Data Analytics application.
+     *        The code location and type parameters for a Managed Service for Apache Flink application.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -221,11 +235,11 @@ public class ApplicationConfiguration implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Describes whether snapshots are enabled for a Java-based Kinesis Data Analytics application.
+     * Describes whether snapshots are enabled for a Managed Service for Apache Flink application.
      * </p>
      * 
      * @param applicationSnapshotConfiguration
-     *        Describes whether snapshots are enabled for a Java-based Kinesis Data Analytics application.
+     *        Describes whether snapshots are enabled for a Managed Service for Apache Flink application.
      */
 
     public void setApplicationSnapshotConfiguration(ApplicationSnapshotConfiguration applicationSnapshotConfiguration) {
@@ -234,10 +248,10 @@ public class ApplicationConfiguration implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Describes whether snapshots are enabled for a Java-based Kinesis Data Analytics application.
+     * Describes whether snapshots are enabled for a Managed Service for Apache Flink application.
      * </p>
      * 
-     * @return Describes whether snapshots are enabled for a Java-based Kinesis Data Analytics application.
+     * @return Describes whether snapshots are enabled for a Managed Service for Apache Flink application.
      */
 
     public ApplicationSnapshotConfiguration getApplicationSnapshotConfiguration() {
@@ -246,16 +260,152 @@ public class ApplicationConfiguration implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Describes whether snapshots are enabled for a Java-based Kinesis Data Analytics application.
+     * Describes whether snapshots are enabled for a Managed Service for Apache Flink application.
      * </p>
      * 
      * @param applicationSnapshotConfiguration
-     *        Describes whether snapshots are enabled for a Java-based Kinesis Data Analytics application.
+     *        Describes whether snapshots are enabled for a Managed Service for Apache Flink application.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ApplicationConfiguration withApplicationSnapshotConfiguration(ApplicationSnapshotConfiguration applicationSnapshotConfiguration) {
         setApplicationSnapshotConfiguration(applicationSnapshotConfiguration);
+        return this;
+    }
+
+    /**
+     * @param applicationSystemRollbackConfiguration
+     */
+
+    public void setApplicationSystemRollbackConfiguration(ApplicationSystemRollbackConfiguration applicationSystemRollbackConfiguration) {
+        this.applicationSystemRollbackConfiguration = applicationSystemRollbackConfiguration;
+    }
+
+    /**
+     * @return
+     */
+
+    public ApplicationSystemRollbackConfiguration getApplicationSystemRollbackConfiguration() {
+        return this.applicationSystemRollbackConfiguration;
+    }
+
+    /**
+     * @param applicationSystemRollbackConfiguration
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ApplicationConfiguration withApplicationSystemRollbackConfiguration(ApplicationSystemRollbackConfiguration applicationSystemRollbackConfiguration) {
+        setApplicationSystemRollbackConfiguration(applicationSystemRollbackConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The array of descriptions of VPC configurations available to the application.
+     * </p>
+     * 
+     * @return The array of descriptions of VPC configurations available to the application.
+     */
+
+    public java.util.List<VpcConfiguration> getVpcConfigurations() {
+        return vpcConfigurations;
+    }
+
+    /**
+     * <p>
+     * The array of descriptions of VPC configurations available to the application.
+     * </p>
+     * 
+     * @param vpcConfigurations
+     *        The array of descriptions of VPC configurations available to the application.
+     */
+
+    public void setVpcConfigurations(java.util.Collection<VpcConfiguration> vpcConfigurations) {
+        if (vpcConfigurations == null) {
+            this.vpcConfigurations = null;
+            return;
+        }
+
+        this.vpcConfigurations = new java.util.ArrayList<VpcConfiguration>(vpcConfigurations);
+    }
+
+    /**
+     * <p>
+     * The array of descriptions of VPC configurations available to the application.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setVpcConfigurations(java.util.Collection)} or {@link #withVpcConfigurations(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param vpcConfigurations
+     *        The array of descriptions of VPC configurations available to the application.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ApplicationConfiguration withVpcConfigurations(VpcConfiguration... vpcConfigurations) {
+        if (this.vpcConfigurations == null) {
+            setVpcConfigurations(new java.util.ArrayList<VpcConfiguration>(vpcConfigurations.length));
+        }
+        for (VpcConfiguration ele : vpcConfigurations) {
+            this.vpcConfigurations.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The array of descriptions of VPC configurations available to the application.
+     * </p>
+     * 
+     * @param vpcConfigurations
+     *        The array of descriptions of VPC configurations available to the application.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ApplicationConfiguration withVpcConfigurations(java.util.Collection<VpcConfiguration> vpcConfigurations) {
+        setVpcConfigurations(vpcConfigurations);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The configuration parameters for a Managed Service for Apache Flink Studio notebook.
+     * </p>
+     * 
+     * @param zeppelinApplicationConfiguration
+     *        The configuration parameters for a Managed Service for Apache Flink Studio notebook.
+     */
+
+    public void setZeppelinApplicationConfiguration(ZeppelinApplicationConfiguration zeppelinApplicationConfiguration) {
+        this.zeppelinApplicationConfiguration = zeppelinApplicationConfiguration;
+    }
+
+    /**
+     * <p>
+     * The configuration parameters for a Managed Service for Apache Flink Studio notebook.
+     * </p>
+     * 
+     * @return The configuration parameters for a Managed Service for Apache Flink Studio notebook.
+     */
+
+    public ZeppelinApplicationConfiguration getZeppelinApplicationConfiguration() {
+        return this.zeppelinApplicationConfiguration;
+    }
+
+    /**
+     * <p>
+     * The configuration parameters for a Managed Service for Apache Flink Studio notebook.
+     * </p>
+     * 
+     * @param zeppelinApplicationConfiguration
+     *        The configuration parameters for a Managed Service for Apache Flink Studio notebook.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ApplicationConfiguration withZeppelinApplicationConfiguration(ZeppelinApplicationConfiguration zeppelinApplicationConfiguration) {
+        setZeppelinApplicationConfiguration(zeppelinApplicationConfiguration);
         return this;
     }
 
@@ -280,7 +430,13 @@ public class ApplicationConfiguration implements Serializable, Cloneable, Struct
         if (getApplicationCodeConfiguration() != null)
             sb.append("ApplicationCodeConfiguration: ").append(getApplicationCodeConfiguration()).append(",");
         if (getApplicationSnapshotConfiguration() != null)
-            sb.append("ApplicationSnapshotConfiguration: ").append(getApplicationSnapshotConfiguration());
+            sb.append("ApplicationSnapshotConfiguration: ").append(getApplicationSnapshotConfiguration()).append(",");
+        if (getApplicationSystemRollbackConfiguration() != null)
+            sb.append("ApplicationSystemRollbackConfiguration: ").append(getApplicationSystemRollbackConfiguration()).append(",");
+        if (getVpcConfigurations() != null)
+            sb.append("VpcConfigurations: ").append(getVpcConfigurations()).append(",");
+        if (getZeppelinApplicationConfiguration() != null)
+            sb.append("ZeppelinApplicationConfiguration: ").append(getZeppelinApplicationConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -317,6 +473,20 @@ public class ApplicationConfiguration implements Serializable, Cloneable, Struct
         if (other.getApplicationSnapshotConfiguration() != null
                 && other.getApplicationSnapshotConfiguration().equals(this.getApplicationSnapshotConfiguration()) == false)
             return false;
+        if (other.getApplicationSystemRollbackConfiguration() == null ^ this.getApplicationSystemRollbackConfiguration() == null)
+            return false;
+        if (other.getApplicationSystemRollbackConfiguration() != null
+                && other.getApplicationSystemRollbackConfiguration().equals(this.getApplicationSystemRollbackConfiguration()) == false)
+            return false;
+        if (other.getVpcConfigurations() == null ^ this.getVpcConfigurations() == null)
+            return false;
+        if (other.getVpcConfigurations() != null && other.getVpcConfigurations().equals(this.getVpcConfigurations()) == false)
+            return false;
+        if (other.getZeppelinApplicationConfiguration() == null ^ this.getZeppelinApplicationConfiguration() == null)
+            return false;
+        if (other.getZeppelinApplicationConfiguration() != null
+                && other.getZeppelinApplicationConfiguration().equals(this.getZeppelinApplicationConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -330,6 +500,9 @@ public class ApplicationConfiguration implements Serializable, Cloneable, Struct
         hashCode = prime * hashCode + ((getEnvironmentProperties() == null) ? 0 : getEnvironmentProperties().hashCode());
         hashCode = prime * hashCode + ((getApplicationCodeConfiguration() == null) ? 0 : getApplicationCodeConfiguration().hashCode());
         hashCode = prime * hashCode + ((getApplicationSnapshotConfiguration() == null) ? 0 : getApplicationSnapshotConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getApplicationSystemRollbackConfiguration() == null) ? 0 : getApplicationSystemRollbackConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getVpcConfigurations() == null) ? 0 : getVpcConfigurations().hashCode());
+        hashCode = prime * hashCode + ((getZeppelinApplicationConfiguration() == null) ? 0 : getZeppelinApplicationConfiguration().hashCode());
         return hashCode;
     }
 

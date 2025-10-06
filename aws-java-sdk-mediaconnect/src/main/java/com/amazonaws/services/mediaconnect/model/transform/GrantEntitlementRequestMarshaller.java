@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,10 +28,14 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class GrantEntitlementRequestMarshaller {
 
+    private static final MarshallingInfo<Integer> DATATRANSFERSUBSCRIBERFEEPERCENT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("dataTransferSubscriberFeePercent").build();
     private static final MarshallingInfo<String> DESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("description").build();
     private static final MarshallingInfo<StructuredPojo> ENCRYPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("encryption").build();
+    private static final MarshallingInfo<String> ENTITLEMENTSTATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("entitlementStatus").build();
     private static final MarshallingInfo<String> NAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("name").build();
     private static final MarshallingInfo<List> SUBSCRIBERS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
@@ -53,8 +57,10 @@ public class GrantEntitlementRequestMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(grantEntitlementRequest.getDataTransferSubscriberFeePercent(), DATATRANSFERSUBSCRIBERFEEPERCENT_BINDING);
             protocolMarshaller.marshall(grantEntitlementRequest.getDescription(), DESCRIPTION_BINDING);
             protocolMarshaller.marshall(grantEntitlementRequest.getEncryption(), ENCRYPTION_BINDING);
+            protocolMarshaller.marshall(grantEntitlementRequest.getEntitlementStatus(), ENTITLEMENTSTATUS_BINDING);
             protocolMarshaller.marshall(grantEntitlementRequest.getName(), NAME_BINDING);
             protocolMarshaller.marshall(grantEntitlementRequest.getSubscribers(), SUBSCRIBERS_BINDING);
         } catch (Exception e) {

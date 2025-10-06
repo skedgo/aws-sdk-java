@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,20 +31,27 @@ public class EntityRecognizerAnnotations implements Serializable, Cloneable, Str
     /**
      * <p>
      * Specifies the Amazon S3 location where the annotations for an entity recognizer are located. The URI must be in
-     * the same region as the API endpoint that you are calling.
+     * the same Region as the API endpoint that you are calling.
      * </p>
      */
     private String s3Uri;
+    /**
+     * <p>
+     * Specifies the Amazon S3 location where the test annotations for an entity recognizer are located. The URI must be
+     * in the same Region as the API endpoint that you are calling.
+     * </p>
+     */
+    private String testS3Uri;
 
     /**
      * <p>
      * Specifies the Amazon S3 location where the annotations for an entity recognizer are located. The URI must be in
-     * the same region as the API endpoint that you are calling.
+     * the same Region as the API endpoint that you are calling.
      * </p>
      * 
      * @param s3Uri
      *        Specifies the Amazon S3 location where the annotations for an entity recognizer are located. The URI must
-     *        be in the same region as the API endpoint that you are calling.
+     *        be in the same Region as the API endpoint that you are calling.
      */
 
     public void setS3Uri(String s3Uri) {
@@ -54,11 +61,11 @@ public class EntityRecognizerAnnotations implements Serializable, Cloneable, Str
     /**
      * <p>
      * Specifies the Amazon S3 location where the annotations for an entity recognizer are located. The URI must be in
-     * the same region as the API endpoint that you are calling.
+     * the same Region as the API endpoint that you are calling.
      * </p>
      * 
      * @return Specifies the Amazon S3 location where the annotations for an entity recognizer are located. The URI must
-     *         be in the same region as the API endpoint that you are calling.
+     *         be in the same Region as the API endpoint that you are calling.
      */
 
     public String getS3Uri() {
@@ -68,17 +75,63 @@ public class EntityRecognizerAnnotations implements Serializable, Cloneable, Str
     /**
      * <p>
      * Specifies the Amazon S3 location where the annotations for an entity recognizer are located. The URI must be in
-     * the same region as the API endpoint that you are calling.
+     * the same Region as the API endpoint that you are calling.
      * </p>
      * 
      * @param s3Uri
      *        Specifies the Amazon S3 location where the annotations for an entity recognizer are located. The URI must
-     *        be in the same region as the API endpoint that you are calling.
+     *        be in the same Region as the API endpoint that you are calling.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public EntityRecognizerAnnotations withS3Uri(String s3Uri) {
         setS3Uri(s3Uri);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the Amazon S3 location where the test annotations for an entity recognizer are located. The URI must be
+     * in the same Region as the API endpoint that you are calling.
+     * </p>
+     * 
+     * @param testS3Uri
+     *        Specifies the Amazon S3 location where the test annotations for an entity recognizer are located. The URI
+     *        must be in the same Region as the API endpoint that you are calling.
+     */
+
+    public void setTestS3Uri(String testS3Uri) {
+        this.testS3Uri = testS3Uri;
+    }
+
+    /**
+     * <p>
+     * Specifies the Amazon S3 location where the test annotations for an entity recognizer are located. The URI must be
+     * in the same Region as the API endpoint that you are calling.
+     * </p>
+     * 
+     * @return Specifies the Amazon S3 location where the test annotations for an entity recognizer are located. The URI
+     *         must be in the same Region as the API endpoint that you are calling.
+     */
+
+    public String getTestS3Uri() {
+        return this.testS3Uri;
+    }
+
+    /**
+     * <p>
+     * Specifies the Amazon S3 location where the test annotations for an entity recognizer are located. The URI must be
+     * in the same Region as the API endpoint that you are calling.
+     * </p>
+     * 
+     * @param testS3Uri
+     *        Specifies the Amazon S3 location where the test annotations for an entity recognizer are located. The URI
+     *        must be in the same Region as the API endpoint that you are calling.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EntityRecognizerAnnotations withTestS3Uri(String testS3Uri) {
+        setTestS3Uri(testS3Uri);
         return this;
     }
 
@@ -95,7 +148,9 @@ public class EntityRecognizerAnnotations implements Serializable, Cloneable, Str
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getS3Uri() != null)
-            sb.append("S3Uri: ").append(getS3Uri());
+            sb.append("S3Uri: ").append(getS3Uri()).append(",");
+        if (getTestS3Uri() != null)
+            sb.append("TestS3Uri: ").append(getTestS3Uri());
         sb.append("}");
         return sb.toString();
     }
@@ -114,6 +169,10 @@ public class EntityRecognizerAnnotations implements Serializable, Cloneable, Str
             return false;
         if (other.getS3Uri() != null && other.getS3Uri().equals(this.getS3Uri()) == false)
             return false;
+        if (other.getTestS3Uri() == null ^ this.getTestS3Uri() == null)
+            return false;
+        if (other.getTestS3Uri() != null && other.getTestS3Uri().equals(this.getTestS3Uri()) == false)
+            return false;
         return true;
     }
 
@@ -123,6 +182,7 @@ public class EntityRecognizerAnnotations implements Serializable, Cloneable, Str
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getS3Uri() == null) ? 0 : getS3Uri().hashCode());
+        hashCode = prime * hashCode + ((getTestS3Uri() == null) ? 0 : getTestS3Uri().hashCode());
         return hashCode;
     }
 

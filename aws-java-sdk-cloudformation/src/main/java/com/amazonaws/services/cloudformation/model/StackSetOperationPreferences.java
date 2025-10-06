@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,10 +17,10 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * The user-specified preferences for how AWS CloudFormation performs a stack set operation.
+ * The user-specified preferences for how CloudFormation performs a stack set operation.
  * </p>
  * <p>
- * For more information on maximum concurrent accounts and failure tolerance, see <a
+ * For more information about maximum concurrent accounts and failure tolerance, see <a
  * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html#stackset-ops-options"
  * >Stack set operation options</a>.
  * </p>
@@ -33,43 +33,61 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The order of the regions in where you want to perform the stack operation.
+     * The concurrency type of deploying StackSets operations in Regions, could be in parallel or one Region at a time.
      * </p>
+     */
+    private String regionConcurrencyType;
+    /**
+     * <p>
+     * The order of the Regions where you want to perform the stack operation.
+     * </p>
+     * <note>
+     * <p>
+     * <code>RegionOrder</code> isn't followed if <code>AutoDeployment</code> is enabled.
+     * </p>
+     * </note>
      */
     private com.amazonaws.internal.SdkInternalList<String> regionOrder;
     /**
      * <p>
-     * The number of accounts, per region, for which this operation can fail before AWS CloudFormation stops the
-     * operation in that region. If the operation is stopped in a region, AWS CloudFormation doesn't attempt the
-     * operation in any subsequent regions.
+     * The number of accounts, per Region, for which this operation can fail before CloudFormation stops the operation
+     * in that Region. If the operation is stopped in a Region, CloudFormation doesn't attempt the operation in any
+     * subsequent Regions.
      * </p>
      * <p>
      * Conditional: You must specify either <code>FailureToleranceCount</code> or
      * <code>FailureTolerancePercentage</code> (but not both).
      * </p>
+     * <p>
+     * By default, <code>0</code> is specified.
+     * </p>
      */
     private Integer failureToleranceCount;
     /**
      * <p>
-     * The percentage of accounts, per region, for which this stack operation can fail before AWS CloudFormation stops
-     * the operation in that region. If the operation is stopped in a region, AWS CloudFormation doesn't attempt the
-     * operation in any subsequent regions.
+     * The percentage of accounts, per Region, for which this stack operation can fail before CloudFormation stops the
+     * operation in that Region. If the operation is stopped in a Region, CloudFormation doesn't attempt the operation
+     * in any subsequent Regions.
      * </p>
      * <p>
-     * When calculating the number of accounts based on the specified percentage, AWS CloudFormation rounds <i>down</i>
-     * to the next whole number.
+     * When calculating the number of accounts based on the specified percentage, CloudFormation rounds <i>down</i> to
+     * the next whole number.
      * </p>
      * <p>
      * Conditional: You must specify either <code>FailureToleranceCount</code> or
      * <code>FailureTolerancePercentage</code>, but not both.
      * </p>
+     * <p>
+     * By default, <code>0</code> is specified.
+     * </p>
      */
     private Integer failureTolerancePercentage;
     /**
      * <p>
-     * The maximum number of accounts in which to perform this operation at one time. This is dependent on the value of
-     * <code>FailureToleranceCount</code>—<code>MaxConcurrentCount</code> is at most one more than the
-     * <code>FailureToleranceCount</code> .
+     * The maximum number of accounts in which to perform this operation at one time. This can depend on the value of
+     * <code>FailureToleranceCount</code> depending on your <code>ConcurrencyMode</code>.
+     * <code>MaxConcurrentCount</code> is at most one more than the <code>FailureToleranceCount</code> if you're using
+     * <code>STRICT_FAILURE_TOLERANCE</code>.
      * </p>
      * <p>
      * Note that this setting lets you specify the <i>maximum</i> for operations. For large deployments, under certain
@@ -78,6 +96,9 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
      * <p>
      * Conditional: You must specify either <code>MaxConcurrentCount</code> or <code>MaxConcurrentPercentage</code>, but
      * not both.
+     * </p>
+     * <p>
+     * By default, <code>1</code> is specified.
      * </p>
      */
     private Integer maxConcurrentCount;
@@ -86,9 +107,9 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
      * The maximum percentage of accounts in which to perform this operation at one time.
      * </p>
      * <p>
-     * When calculating the number of accounts based on the specified percentage, AWS CloudFormation rounds down to the
-     * next whole number. This is true except in cases where rounding down would result is zero. In this case,
-     * CloudFormation sets the number as one instead.
+     * When calculating the number of accounts based on the specified percentage, CloudFormation rounds down to the next
+     * whole number. This is true except in cases where rounding down would result is zero. In this case, CloudFormation
+     * sets the number as one instead.
      * </p>
      * <p>
      * Note that this setting lets you specify the <i>maximum</i> for operations. For large deployments, under certain
@@ -98,15 +119,117 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
      * Conditional: You must specify either <code>MaxConcurrentCount</code> or <code>MaxConcurrentPercentage</code>, but
      * not both.
      * </p>
+     * <p>
+     * By default, <code>1</code> is specified.
+     * </p>
      */
     private Integer maxConcurrentPercentage;
+    /**
+     * <p>
+     * Specifies how the concurrency level behaves during the operation execution.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>STRICT_FAILURE_TOLERANCE</code>: This option dynamically lowers the concurrency level to ensure the number
+     * of failed accounts never exceeds the value of <code>FailureToleranceCount</code> +1. The initial actual
+     * concurrency is set to the lower of either the value of the <code>MaxConcurrentCount</code>, or the value of
+     * <code>FailureToleranceCount</code> +1. The actual concurrency is then reduced proportionally by the number of
+     * failures. This is the default behavior.
+     * </p>
+     * <p>
+     * If failure tolerance or Maximum concurrent accounts are set to percentages, the behavior is similar.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SOFT_FAILURE_TOLERANCE</code>: This option decouples <code>FailureToleranceCount</code> from the actual
+     * concurrency. This allows stack set operations to run at the concurrency level set by the
+     * <code>MaxConcurrentCount</code> value, or <code>MaxConcurrentPercentage</code>, regardless of the number of
+     * failures.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String concurrencyMode;
 
     /**
      * <p>
-     * The order of the regions in where you want to perform the stack operation.
+     * The concurrency type of deploying StackSets operations in Regions, could be in parallel or one Region at a time.
      * </p>
      * 
-     * @return The order of the regions in where you want to perform the stack operation.
+     * @param regionConcurrencyType
+     *        The concurrency type of deploying StackSets operations in Regions, could be in parallel or one Region at a
+     *        time.
+     * @see RegionConcurrencyType
+     */
+
+    public void setRegionConcurrencyType(String regionConcurrencyType) {
+        this.regionConcurrencyType = regionConcurrencyType;
+    }
+
+    /**
+     * <p>
+     * The concurrency type of deploying StackSets operations in Regions, could be in parallel or one Region at a time.
+     * </p>
+     * 
+     * @return The concurrency type of deploying StackSets operations in Regions, could be in parallel or one Region at
+     *         a time.
+     * @see RegionConcurrencyType
+     */
+
+    public String getRegionConcurrencyType() {
+        return this.regionConcurrencyType;
+    }
+
+    /**
+     * <p>
+     * The concurrency type of deploying StackSets operations in Regions, could be in parallel or one Region at a time.
+     * </p>
+     * 
+     * @param regionConcurrencyType
+     *        The concurrency type of deploying StackSets operations in Regions, could be in parallel or one Region at a
+     *        time.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see RegionConcurrencyType
+     */
+
+    public StackSetOperationPreferences withRegionConcurrencyType(String regionConcurrencyType) {
+        setRegionConcurrencyType(regionConcurrencyType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The concurrency type of deploying StackSets operations in Regions, could be in parallel or one Region at a time.
+     * </p>
+     * 
+     * @param regionConcurrencyType
+     *        The concurrency type of deploying StackSets operations in Regions, could be in parallel or one Region at a
+     *        time.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see RegionConcurrencyType
+     */
+
+    public StackSetOperationPreferences withRegionConcurrencyType(RegionConcurrencyType regionConcurrencyType) {
+        this.regionConcurrencyType = regionConcurrencyType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The order of the Regions where you want to perform the stack operation.
+     * </p>
+     * <note>
+     * <p>
+     * <code>RegionOrder</code> isn't followed if <code>AutoDeployment</code> is enabled.
+     * </p>
+     * </note>
+     * 
+     * @return The order of the Regions where you want to perform the stack operation.</p> <note>
+     *         <p>
+     *         <code>RegionOrder</code> isn't followed if <code>AutoDeployment</code> is enabled.
+     *         </p>
      */
 
     public java.util.List<String> getRegionOrder() {
@@ -118,11 +241,19 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The order of the regions in where you want to perform the stack operation.
+     * The order of the Regions where you want to perform the stack operation.
      * </p>
+     * <note>
+     * <p>
+     * <code>RegionOrder</code> isn't followed if <code>AutoDeployment</code> is enabled.
+     * </p>
+     * </note>
      * 
      * @param regionOrder
-     *        The order of the regions in where you want to perform the stack operation.
+     *        The order of the Regions where you want to perform the stack operation.</p> <note>
+     *        <p>
+     *        <code>RegionOrder</code> isn't followed if <code>AutoDeployment</code> is enabled.
+     *        </p>
      */
 
     public void setRegionOrder(java.util.Collection<String> regionOrder) {
@@ -136,8 +267,13 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The order of the regions in where you want to perform the stack operation.
+     * The order of the Regions where you want to perform the stack operation.
      * </p>
+     * <note>
+     * <p>
+     * <code>RegionOrder</code> isn't followed if <code>AutoDeployment</code> is enabled.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setRegionOrder(java.util.Collection)} or {@link #withRegionOrder(java.util.Collection)} if you want to
@@ -145,7 +281,10 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
      * </p>
      * 
      * @param regionOrder
-     *        The order of the regions in where you want to perform the stack operation.
+     *        The order of the Regions where you want to perform the stack operation.</p> <note>
+     *        <p>
+     *        <code>RegionOrder</code> isn't followed if <code>AutoDeployment</code> is enabled.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -161,11 +300,19 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The order of the regions in where you want to perform the stack operation.
+     * The order of the Regions where you want to perform the stack operation.
      * </p>
+     * <note>
+     * <p>
+     * <code>RegionOrder</code> isn't followed if <code>AutoDeployment</code> is enabled.
+     * </p>
+     * </note>
      * 
      * @param regionOrder
-     *        The order of the regions in where you want to perform the stack operation.
+     *        The order of the Regions where you want to perform the stack operation.</p> <note>
+     *        <p>
+     *        <code>RegionOrder</code> isn't followed if <code>AutoDeployment</code> is enabled.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -176,22 +323,28 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of accounts, per region, for which this operation can fail before AWS CloudFormation stops the
-     * operation in that region. If the operation is stopped in a region, AWS CloudFormation doesn't attempt the
-     * operation in any subsequent regions.
+     * The number of accounts, per Region, for which this operation can fail before CloudFormation stops the operation
+     * in that Region. If the operation is stopped in a Region, CloudFormation doesn't attempt the operation in any
+     * subsequent Regions.
      * </p>
      * <p>
      * Conditional: You must specify either <code>FailureToleranceCount</code> or
      * <code>FailureTolerancePercentage</code> (but not both).
      * </p>
+     * <p>
+     * By default, <code>0</code> is specified.
+     * </p>
      * 
      * @param failureToleranceCount
-     *        The number of accounts, per region, for which this operation can fail before AWS CloudFormation stops the
-     *        operation in that region. If the operation is stopped in a region, AWS CloudFormation doesn't attempt the
-     *        operation in any subsequent regions.</p>
+     *        The number of accounts, per Region, for which this operation can fail before CloudFormation stops the
+     *        operation in that Region. If the operation is stopped in a Region, CloudFormation doesn't attempt the
+     *        operation in any subsequent Regions.</p>
      *        <p>
      *        Conditional: You must specify either <code>FailureToleranceCount</code> or
      *        <code>FailureTolerancePercentage</code> (but not both).
+     *        </p>
+     *        <p>
+     *        By default, <code>0</code> is specified.
      */
 
     public void setFailureToleranceCount(Integer failureToleranceCount) {
@@ -200,21 +353,27 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of accounts, per region, for which this operation can fail before AWS CloudFormation stops the
-     * operation in that region. If the operation is stopped in a region, AWS CloudFormation doesn't attempt the
-     * operation in any subsequent regions.
+     * The number of accounts, per Region, for which this operation can fail before CloudFormation stops the operation
+     * in that Region. If the operation is stopped in a Region, CloudFormation doesn't attempt the operation in any
+     * subsequent Regions.
      * </p>
      * <p>
      * Conditional: You must specify either <code>FailureToleranceCount</code> or
      * <code>FailureTolerancePercentage</code> (but not both).
      * </p>
+     * <p>
+     * By default, <code>0</code> is specified.
+     * </p>
      * 
-     * @return The number of accounts, per region, for which this operation can fail before AWS CloudFormation stops the
-     *         operation in that region. If the operation is stopped in a region, AWS CloudFormation doesn't attempt the
-     *         operation in any subsequent regions.</p>
+     * @return The number of accounts, per Region, for which this operation can fail before CloudFormation stops the
+     *         operation in that Region. If the operation is stopped in a Region, CloudFormation doesn't attempt the
+     *         operation in any subsequent Regions.</p>
      *         <p>
      *         Conditional: You must specify either <code>FailureToleranceCount</code> or
      *         <code>FailureTolerancePercentage</code> (but not both).
+     *         </p>
+     *         <p>
+     *         By default, <code>0</code> is specified.
      */
 
     public Integer getFailureToleranceCount() {
@@ -223,22 +382,28 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of accounts, per region, for which this operation can fail before AWS CloudFormation stops the
-     * operation in that region. If the operation is stopped in a region, AWS CloudFormation doesn't attempt the
-     * operation in any subsequent regions.
+     * The number of accounts, per Region, for which this operation can fail before CloudFormation stops the operation
+     * in that Region. If the operation is stopped in a Region, CloudFormation doesn't attempt the operation in any
+     * subsequent Regions.
      * </p>
      * <p>
      * Conditional: You must specify either <code>FailureToleranceCount</code> or
      * <code>FailureTolerancePercentage</code> (but not both).
      * </p>
+     * <p>
+     * By default, <code>0</code> is specified.
+     * </p>
      * 
      * @param failureToleranceCount
-     *        The number of accounts, per region, for which this operation can fail before AWS CloudFormation stops the
-     *        operation in that region. If the operation is stopped in a region, AWS CloudFormation doesn't attempt the
-     *        operation in any subsequent regions.</p>
+     *        The number of accounts, per Region, for which this operation can fail before CloudFormation stops the
+     *        operation in that Region. If the operation is stopped in a Region, CloudFormation doesn't attempt the
+     *        operation in any subsequent Regions.</p>
      *        <p>
      *        Conditional: You must specify either <code>FailureToleranceCount</code> or
      *        <code>FailureTolerancePercentage</code> (but not both).
+     *        </p>
+     *        <p>
+     *        By default, <code>0</code> is specified.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -249,30 +414,36 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The percentage of accounts, per region, for which this stack operation can fail before AWS CloudFormation stops
-     * the operation in that region. If the operation is stopped in a region, AWS CloudFormation doesn't attempt the
-     * operation in any subsequent regions.
+     * The percentage of accounts, per Region, for which this stack operation can fail before CloudFormation stops the
+     * operation in that Region. If the operation is stopped in a Region, CloudFormation doesn't attempt the operation
+     * in any subsequent Regions.
      * </p>
      * <p>
-     * When calculating the number of accounts based on the specified percentage, AWS CloudFormation rounds <i>down</i>
-     * to the next whole number.
+     * When calculating the number of accounts based on the specified percentage, CloudFormation rounds <i>down</i> to
+     * the next whole number.
      * </p>
      * <p>
      * Conditional: You must specify either <code>FailureToleranceCount</code> or
      * <code>FailureTolerancePercentage</code>, but not both.
      * </p>
+     * <p>
+     * By default, <code>0</code> is specified.
+     * </p>
      * 
      * @param failureTolerancePercentage
-     *        The percentage of accounts, per region, for which this stack operation can fail before AWS CloudFormation
-     *        stops the operation in that region. If the operation is stopped in a region, AWS CloudFormation doesn't
-     *        attempt the operation in any subsequent regions.</p>
+     *        The percentage of accounts, per Region, for which this stack operation can fail before CloudFormation
+     *        stops the operation in that Region. If the operation is stopped in a Region, CloudFormation doesn't
+     *        attempt the operation in any subsequent Regions.</p>
      *        <p>
-     *        When calculating the number of accounts based on the specified percentage, AWS CloudFormation rounds
+     *        When calculating the number of accounts based on the specified percentage, CloudFormation rounds
      *        <i>down</i> to the next whole number.
      *        </p>
      *        <p>
      *        Conditional: You must specify either <code>FailureToleranceCount</code> or
      *        <code>FailureTolerancePercentage</code>, but not both.
+     *        </p>
+     *        <p>
+     *        By default, <code>0</code> is specified.
      */
 
     public void setFailureTolerancePercentage(Integer failureTolerancePercentage) {
@@ -281,29 +452,35 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The percentage of accounts, per region, for which this stack operation can fail before AWS CloudFormation stops
-     * the operation in that region. If the operation is stopped in a region, AWS CloudFormation doesn't attempt the
-     * operation in any subsequent regions.
+     * The percentage of accounts, per Region, for which this stack operation can fail before CloudFormation stops the
+     * operation in that Region. If the operation is stopped in a Region, CloudFormation doesn't attempt the operation
+     * in any subsequent Regions.
      * </p>
      * <p>
-     * When calculating the number of accounts based on the specified percentage, AWS CloudFormation rounds <i>down</i>
-     * to the next whole number.
+     * When calculating the number of accounts based on the specified percentage, CloudFormation rounds <i>down</i> to
+     * the next whole number.
      * </p>
      * <p>
      * Conditional: You must specify either <code>FailureToleranceCount</code> or
      * <code>FailureTolerancePercentage</code>, but not both.
      * </p>
+     * <p>
+     * By default, <code>0</code> is specified.
+     * </p>
      * 
-     * @return The percentage of accounts, per region, for which this stack operation can fail before AWS CloudFormation
-     *         stops the operation in that region. If the operation is stopped in a region, AWS CloudFormation doesn't
-     *         attempt the operation in any subsequent regions.</p>
+     * @return The percentage of accounts, per Region, for which this stack operation can fail before CloudFormation
+     *         stops the operation in that Region. If the operation is stopped in a Region, CloudFormation doesn't
+     *         attempt the operation in any subsequent Regions.</p>
      *         <p>
-     *         When calculating the number of accounts based on the specified percentage, AWS CloudFormation rounds
+     *         When calculating the number of accounts based on the specified percentage, CloudFormation rounds
      *         <i>down</i> to the next whole number.
      *         </p>
      *         <p>
      *         Conditional: You must specify either <code>FailureToleranceCount</code> or
      *         <code>FailureTolerancePercentage</code>, but not both.
+     *         </p>
+     *         <p>
+     *         By default, <code>0</code> is specified.
      */
 
     public Integer getFailureTolerancePercentage() {
@@ -312,30 +489,36 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The percentage of accounts, per region, for which this stack operation can fail before AWS CloudFormation stops
-     * the operation in that region. If the operation is stopped in a region, AWS CloudFormation doesn't attempt the
-     * operation in any subsequent regions.
+     * The percentage of accounts, per Region, for which this stack operation can fail before CloudFormation stops the
+     * operation in that Region. If the operation is stopped in a Region, CloudFormation doesn't attempt the operation
+     * in any subsequent Regions.
      * </p>
      * <p>
-     * When calculating the number of accounts based on the specified percentage, AWS CloudFormation rounds <i>down</i>
-     * to the next whole number.
+     * When calculating the number of accounts based on the specified percentage, CloudFormation rounds <i>down</i> to
+     * the next whole number.
      * </p>
      * <p>
      * Conditional: You must specify either <code>FailureToleranceCount</code> or
      * <code>FailureTolerancePercentage</code>, but not both.
      * </p>
+     * <p>
+     * By default, <code>0</code> is specified.
+     * </p>
      * 
      * @param failureTolerancePercentage
-     *        The percentage of accounts, per region, for which this stack operation can fail before AWS CloudFormation
-     *        stops the operation in that region. If the operation is stopped in a region, AWS CloudFormation doesn't
-     *        attempt the operation in any subsequent regions.</p>
+     *        The percentage of accounts, per Region, for which this stack operation can fail before CloudFormation
+     *        stops the operation in that Region. If the operation is stopped in a Region, CloudFormation doesn't
+     *        attempt the operation in any subsequent Regions.</p>
      *        <p>
-     *        When calculating the number of accounts based on the specified percentage, AWS CloudFormation rounds
+     *        When calculating the number of accounts based on the specified percentage, CloudFormation rounds
      *        <i>down</i> to the next whole number.
      *        </p>
      *        <p>
      *        Conditional: You must specify either <code>FailureToleranceCount</code> or
      *        <code>FailureTolerancePercentage</code>, but not both.
+     *        </p>
+     *        <p>
+     *        By default, <code>0</code> is specified.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -346,9 +529,10 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum number of accounts in which to perform this operation at one time. This is dependent on the value of
-     * <code>FailureToleranceCount</code>—<code>MaxConcurrentCount</code> is at most one more than the
-     * <code>FailureToleranceCount</code> .
+     * The maximum number of accounts in which to perform this operation at one time. This can depend on the value of
+     * <code>FailureToleranceCount</code> depending on your <code>ConcurrencyMode</code>.
+     * <code>MaxConcurrentCount</code> is at most one more than the <code>FailureToleranceCount</code> if you're using
+     * <code>STRICT_FAILURE_TOLERANCE</code>.
      * </p>
      * <p>
      * Note that this setting lets you specify the <i>maximum</i> for operations. For large deployments, under certain
@@ -358,11 +542,15 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
      * Conditional: You must specify either <code>MaxConcurrentCount</code> or <code>MaxConcurrentPercentage</code>, but
      * not both.
      * </p>
+     * <p>
+     * By default, <code>1</code> is specified.
+     * </p>
      * 
      * @param maxConcurrentCount
-     *        The maximum number of accounts in which to perform this operation at one time. This is dependent on the
-     *        value of <code>FailureToleranceCount</code>—<code>MaxConcurrentCount</code> is at most one more than the
-     *        <code>FailureToleranceCount</code> .</p>
+     *        The maximum number of accounts in which to perform this operation at one time. This can depend on the
+     *        value of <code>FailureToleranceCount</code> depending on your <code>ConcurrencyMode</code>.
+     *        <code>MaxConcurrentCount</code> is at most one more than the <code>FailureToleranceCount</code> if you're
+     *        using <code>STRICT_FAILURE_TOLERANCE</code>.</p>
      *        <p>
      *        Note that this setting lets you specify the <i>maximum</i> for operations. For large deployments, under
      *        certain circumstances the actual number of accounts acted upon concurrently may be lower due to service
@@ -371,6 +559,9 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
      *        <p>
      *        Conditional: You must specify either <code>MaxConcurrentCount</code> or
      *        <code>MaxConcurrentPercentage</code>, but not both.
+     *        </p>
+     *        <p>
+     *        By default, <code>1</code> is specified.
      */
 
     public void setMaxConcurrentCount(Integer maxConcurrentCount) {
@@ -379,9 +570,10 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum number of accounts in which to perform this operation at one time. This is dependent on the value of
-     * <code>FailureToleranceCount</code>—<code>MaxConcurrentCount</code> is at most one more than the
-     * <code>FailureToleranceCount</code> .
+     * The maximum number of accounts in which to perform this operation at one time. This can depend on the value of
+     * <code>FailureToleranceCount</code> depending on your <code>ConcurrencyMode</code>.
+     * <code>MaxConcurrentCount</code> is at most one more than the <code>FailureToleranceCount</code> if you're using
+     * <code>STRICT_FAILURE_TOLERANCE</code>.
      * </p>
      * <p>
      * Note that this setting lets you specify the <i>maximum</i> for operations. For large deployments, under certain
@@ -391,10 +583,14 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
      * Conditional: You must specify either <code>MaxConcurrentCount</code> or <code>MaxConcurrentPercentage</code>, but
      * not both.
      * </p>
+     * <p>
+     * By default, <code>1</code> is specified.
+     * </p>
      * 
-     * @return The maximum number of accounts in which to perform this operation at one time. This is dependent on the
-     *         value of <code>FailureToleranceCount</code>—<code>MaxConcurrentCount</code> is at most one more than the
-     *         <code>FailureToleranceCount</code> .</p>
+     * @return The maximum number of accounts in which to perform this operation at one time. This can depend on the
+     *         value of <code>FailureToleranceCount</code> depending on your <code>ConcurrencyMode</code>.
+     *         <code>MaxConcurrentCount</code> is at most one more than the <code>FailureToleranceCount</code> if you're
+     *         using <code>STRICT_FAILURE_TOLERANCE</code>.</p>
      *         <p>
      *         Note that this setting lets you specify the <i>maximum</i> for operations. For large deployments, under
      *         certain circumstances the actual number of accounts acted upon concurrently may be lower due to service
@@ -403,6 +599,9 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
      *         <p>
      *         Conditional: You must specify either <code>MaxConcurrentCount</code> or
      *         <code>MaxConcurrentPercentage</code>, but not both.
+     *         </p>
+     *         <p>
+     *         By default, <code>1</code> is specified.
      */
 
     public Integer getMaxConcurrentCount() {
@@ -411,9 +610,10 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum number of accounts in which to perform this operation at one time. This is dependent on the value of
-     * <code>FailureToleranceCount</code>—<code>MaxConcurrentCount</code> is at most one more than the
-     * <code>FailureToleranceCount</code> .
+     * The maximum number of accounts in which to perform this operation at one time. This can depend on the value of
+     * <code>FailureToleranceCount</code> depending on your <code>ConcurrencyMode</code>.
+     * <code>MaxConcurrentCount</code> is at most one more than the <code>FailureToleranceCount</code> if you're using
+     * <code>STRICT_FAILURE_TOLERANCE</code>.
      * </p>
      * <p>
      * Note that this setting lets you specify the <i>maximum</i> for operations. For large deployments, under certain
@@ -423,11 +623,15 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
      * Conditional: You must specify either <code>MaxConcurrentCount</code> or <code>MaxConcurrentPercentage</code>, but
      * not both.
      * </p>
+     * <p>
+     * By default, <code>1</code> is specified.
+     * </p>
      * 
      * @param maxConcurrentCount
-     *        The maximum number of accounts in which to perform this operation at one time. This is dependent on the
-     *        value of <code>FailureToleranceCount</code>—<code>MaxConcurrentCount</code> is at most one more than the
-     *        <code>FailureToleranceCount</code> .</p>
+     *        The maximum number of accounts in which to perform this operation at one time. This can depend on the
+     *        value of <code>FailureToleranceCount</code> depending on your <code>ConcurrencyMode</code>.
+     *        <code>MaxConcurrentCount</code> is at most one more than the <code>FailureToleranceCount</code> if you're
+     *        using <code>STRICT_FAILURE_TOLERANCE</code>.</p>
      *        <p>
      *        Note that this setting lets you specify the <i>maximum</i> for operations. For large deployments, under
      *        certain circumstances the actual number of accounts acted upon concurrently may be lower due to service
@@ -436,6 +640,9 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
      *        <p>
      *        Conditional: You must specify either <code>MaxConcurrentCount</code> or
      *        <code>MaxConcurrentPercentage</code>, but not both.
+     *        </p>
+     *        <p>
+     *        By default, <code>1</code> is specified.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -449,9 +656,9 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
      * The maximum percentage of accounts in which to perform this operation at one time.
      * </p>
      * <p>
-     * When calculating the number of accounts based on the specified percentage, AWS CloudFormation rounds down to the
-     * next whole number. This is true except in cases where rounding down would result is zero. In this case,
-     * CloudFormation sets the number as one instead.
+     * When calculating the number of accounts based on the specified percentage, CloudFormation rounds down to the next
+     * whole number. This is true except in cases where rounding down would result is zero. In this case, CloudFormation
+     * sets the number as one instead.
      * </p>
      * <p>
      * Note that this setting lets you specify the <i>maximum</i> for operations. For large deployments, under certain
@@ -461,12 +668,15 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
      * Conditional: You must specify either <code>MaxConcurrentCount</code> or <code>MaxConcurrentPercentage</code>, but
      * not both.
      * </p>
+     * <p>
+     * By default, <code>1</code> is specified.
+     * </p>
      * 
      * @param maxConcurrentPercentage
      *        The maximum percentage of accounts in which to perform this operation at one time.</p>
      *        <p>
-     *        When calculating the number of accounts based on the specified percentage, AWS CloudFormation rounds down
-     *        to the next whole number. This is true except in cases where rounding down would result is zero. In this
+     *        When calculating the number of accounts based on the specified percentage, CloudFormation rounds down to
+     *        the next whole number. This is true except in cases where rounding down would result is zero. In this
      *        case, CloudFormation sets the number as one instead.
      *        </p>
      *        <p>
@@ -477,6 +687,9 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
      *        <p>
      *        Conditional: You must specify either <code>MaxConcurrentCount</code> or
      *        <code>MaxConcurrentPercentage</code>, but not both.
+     *        </p>
+     *        <p>
+     *        By default, <code>1</code> is specified.
      */
 
     public void setMaxConcurrentPercentage(Integer maxConcurrentPercentage) {
@@ -488,9 +701,9 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
      * The maximum percentage of accounts in which to perform this operation at one time.
      * </p>
      * <p>
-     * When calculating the number of accounts based on the specified percentage, AWS CloudFormation rounds down to the
-     * next whole number. This is true except in cases where rounding down would result is zero. In this case,
-     * CloudFormation sets the number as one instead.
+     * When calculating the number of accounts based on the specified percentage, CloudFormation rounds down to the next
+     * whole number. This is true except in cases where rounding down would result is zero. In this case, CloudFormation
+     * sets the number as one instead.
      * </p>
      * <p>
      * Note that this setting lets you specify the <i>maximum</i> for operations. For large deployments, under certain
@@ -500,11 +713,14 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
      * Conditional: You must specify either <code>MaxConcurrentCount</code> or <code>MaxConcurrentPercentage</code>, but
      * not both.
      * </p>
+     * <p>
+     * By default, <code>1</code> is specified.
+     * </p>
      * 
      * @return The maximum percentage of accounts in which to perform this operation at one time.</p>
      *         <p>
-     *         When calculating the number of accounts based on the specified percentage, AWS CloudFormation rounds down
-     *         to the next whole number. This is true except in cases where rounding down would result is zero. In this
+     *         When calculating the number of accounts based on the specified percentage, CloudFormation rounds down to
+     *         the next whole number. This is true except in cases where rounding down would result is zero. In this
      *         case, CloudFormation sets the number as one instead.
      *         </p>
      *         <p>
@@ -515,6 +731,9 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
      *         <p>
      *         Conditional: You must specify either <code>MaxConcurrentCount</code> or
      *         <code>MaxConcurrentPercentage</code>, but not both.
+     *         </p>
+     *         <p>
+     *         By default, <code>1</code> is specified.
      */
 
     public Integer getMaxConcurrentPercentage() {
@@ -526,9 +745,9 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
      * The maximum percentage of accounts in which to perform this operation at one time.
      * </p>
      * <p>
-     * When calculating the number of accounts based on the specified percentage, AWS CloudFormation rounds down to the
-     * next whole number. This is true except in cases where rounding down would result is zero. In this case,
-     * CloudFormation sets the number as one instead.
+     * When calculating the number of accounts based on the specified percentage, CloudFormation rounds down to the next
+     * whole number. This is true except in cases where rounding down would result is zero. In this case, CloudFormation
+     * sets the number as one instead.
      * </p>
      * <p>
      * Note that this setting lets you specify the <i>maximum</i> for operations. For large deployments, under certain
@@ -538,12 +757,15 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
      * Conditional: You must specify either <code>MaxConcurrentCount</code> or <code>MaxConcurrentPercentage</code>, but
      * not both.
      * </p>
+     * <p>
+     * By default, <code>1</code> is specified.
+     * </p>
      * 
      * @param maxConcurrentPercentage
      *        The maximum percentage of accounts in which to perform this operation at one time.</p>
      *        <p>
-     *        When calculating the number of accounts based on the specified percentage, AWS CloudFormation rounds down
-     *        to the next whole number. This is true except in cases where rounding down would result is zero. In this
+     *        When calculating the number of accounts based on the specified percentage, CloudFormation rounds down to
+     *        the next whole number. This is true except in cases where rounding down would result is zero. In this
      *        case, CloudFormation sets the number as one instead.
      *        </p>
      *        <p>
@@ -554,11 +776,245 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
      *        <p>
      *        Conditional: You must specify either <code>MaxConcurrentCount</code> or
      *        <code>MaxConcurrentPercentage</code>, but not both.
+     *        </p>
+     *        <p>
+     *        By default, <code>1</code> is specified.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public StackSetOperationPreferences withMaxConcurrentPercentage(Integer maxConcurrentPercentage) {
         setMaxConcurrentPercentage(maxConcurrentPercentage);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies how the concurrency level behaves during the operation execution.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>STRICT_FAILURE_TOLERANCE</code>: This option dynamically lowers the concurrency level to ensure the number
+     * of failed accounts never exceeds the value of <code>FailureToleranceCount</code> +1. The initial actual
+     * concurrency is set to the lower of either the value of the <code>MaxConcurrentCount</code>, or the value of
+     * <code>FailureToleranceCount</code> +1. The actual concurrency is then reduced proportionally by the number of
+     * failures. This is the default behavior.
+     * </p>
+     * <p>
+     * If failure tolerance or Maximum concurrent accounts are set to percentages, the behavior is similar.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SOFT_FAILURE_TOLERANCE</code>: This option decouples <code>FailureToleranceCount</code> from the actual
+     * concurrency. This allows stack set operations to run at the concurrency level set by the
+     * <code>MaxConcurrentCount</code> value, or <code>MaxConcurrentPercentage</code>, regardless of the number of
+     * failures.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param concurrencyMode
+     *        Specifies how the concurrency level behaves during the operation execution.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>STRICT_FAILURE_TOLERANCE</code>: This option dynamically lowers the concurrency level to ensure the
+     *        number of failed accounts never exceeds the value of <code>FailureToleranceCount</code> +1. The initial
+     *        actual concurrency is set to the lower of either the value of the <code>MaxConcurrentCount</code>, or the
+     *        value of <code>FailureToleranceCount</code> +1. The actual concurrency is then reduced proportionally by
+     *        the number of failures. This is the default behavior.
+     *        </p>
+     *        <p>
+     *        If failure tolerance or Maximum concurrent accounts are set to percentages, the behavior is similar.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SOFT_FAILURE_TOLERANCE</code>: This option decouples <code>FailureToleranceCount</code> from the
+     *        actual concurrency. This allows stack set operations to run at the concurrency level set by the
+     *        <code>MaxConcurrentCount</code> value, or <code>MaxConcurrentPercentage</code>, regardless of the number
+     *        of failures.
+     *        </p>
+     *        </li>
+     * @see ConcurrencyMode
+     */
+
+    public void setConcurrencyMode(String concurrencyMode) {
+        this.concurrencyMode = concurrencyMode;
+    }
+
+    /**
+     * <p>
+     * Specifies how the concurrency level behaves during the operation execution.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>STRICT_FAILURE_TOLERANCE</code>: This option dynamically lowers the concurrency level to ensure the number
+     * of failed accounts never exceeds the value of <code>FailureToleranceCount</code> +1. The initial actual
+     * concurrency is set to the lower of either the value of the <code>MaxConcurrentCount</code>, or the value of
+     * <code>FailureToleranceCount</code> +1. The actual concurrency is then reduced proportionally by the number of
+     * failures. This is the default behavior.
+     * </p>
+     * <p>
+     * If failure tolerance or Maximum concurrent accounts are set to percentages, the behavior is similar.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SOFT_FAILURE_TOLERANCE</code>: This option decouples <code>FailureToleranceCount</code> from the actual
+     * concurrency. This allows stack set operations to run at the concurrency level set by the
+     * <code>MaxConcurrentCount</code> value, or <code>MaxConcurrentPercentage</code>, regardless of the number of
+     * failures.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Specifies how the concurrency level behaves during the operation execution.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>STRICT_FAILURE_TOLERANCE</code>: This option dynamically lowers the concurrency level to ensure the
+     *         number of failed accounts never exceeds the value of <code>FailureToleranceCount</code> +1. The initial
+     *         actual concurrency is set to the lower of either the value of the <code>MaxConcurrentCount</code>, or the
+     *         value of <code>FailureToleranceCount</code> +1. The actual concurrency is then reduced proportionally by
+     *         the number of failures. This is the default behavior.
+     *         </p>
+     *         <p>
+     *         If failure tolerance or Maximum concurrent accounts are set to percentages, the behavior is similar.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>SOFT_FAILURE_TOLERANCE</code>: This option decouples <code>FailureToleranceCount</code> from the
+     *         actual concurrency. This allows stack set operations to run at the concurrency level set by the
+     *         <code>MaxConcurrentCount</code> value, or <code>MaxConcurrentPercentage</code>, regardless of the number
+     *         of failures.
+     *         </p>
+     *         </li>
+     * @see ConcurrencyMode
+     */
+
+    public String getConcurrencyMode() {
+        return this.concurrencyMode;
+    }
+
+    /**
+     * <p>
+     * Specifies how the concurrency level behaves during the operation execution.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>STRICT_FAILURE_TOLERANCE</code>: This option dynamically lowers the concurrency level to ensure the number
+     * of failed accounts never exceeds the value of <code>FailureToleranceCount</code> +1. The initial actual
+     * concurrency is set to the lower of either the value of the <code>MaxConcurrentCount</code>, or the value of
+     * <code>FailureToleranceCount</code> +1. The actual concurrency is then reduced proportionally by the number of
+     * failures. This is the default behavior.
+     * </p>
+     * <p>
+     * If failure tolerance or Maximum concurrent accounts are set to percentages, the behavior is similar.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SOFT_FAILURE_TOLERANCE</code>: This option decouples <code>FailureToleranceCount</code> from the actual
+     * concurrency. This allows stack set operations to run at the concurrency level set by the
+     * <code>MaxConcurrentCount</code> value, or <code>MaxConcurrentPercentage</code>, regardless of the number of
+     * failures.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param concurrencyMode
+     *        Specifies how the concurrency level behaves during the operation execution.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>STRICT_FAILURE_TOLERANCE</code>: This option dynamically lowers the concurrency level to ensure the
+     *        number of failed accounts never exceeds the value of <code>FailureToleranceCount</code> +1. The initial
+     *        actual concurrency is set to the lower of either the value of the <code>MaxConcurrentCount</code>, or the
+     *        value of <code>FailureToleranceCount</code> +1. The actual concurrency is then reduced proportionally by
+     *        the number of failures. This is the default behavior.
+     *        </p>
+     *        <p>
+     *        If failure tolerance or Maximum concurrent accounts are set to percentages, the behavior is similar.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SOFT_FAILURE_TOLERANCE</code>: This option decouples <code>FailureToleranceCount</code> from the
+     *        actual concurrency. This allows stack set operations to run at the concurrency level set by the
+     *        <code>MaxConcurrentCount</code> value, or <code>MaxConcurrentPercentage</code>, regardless of the number
+     *        of failures.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ConcurrencyMode
+     */
+
+    public StackSetOperationPreferences withConcurrencyMode(String concurrencyMode) {
+        setConcurrencyMode(concurrencyMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies how the concurrency level behaves during the operation execution.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>STRICT_FAILURE_TOLERANCE</code>: This option dynamically lowers the concurrency level to ensure the number
+     * of failed accounts never exceeds the value of <code>FailureToleranceCount</code> +1. The initial actual
+     * concurrency is set to the lower of either the value of the <code>MaxConcurrentCount</code>, or the value of
+     * <code>FailureToleranceCount</code> +1. The actual concurrency is then reduced proportionally by the number of
+     * failures. This is the default behavior.
+     * </p>
+     * <p>
+     * If failure tolerance or Maximum concurrent accounts are set to percentages, the behavior is similar.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SOFT_FAILURE_TOLERANCE</code>: This option decouples <code>FailureToleranceCount</code> from the actual
+     * concurrency. This allows stack set operations to run at the concurrency level set by the
+     * <code>MaxConcurrentCount</code> value, or <code>MaxConcurrentPercentage</code>, regardless of the number of
+     * failures.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param concurrencyMode
+     *        Specifies how the concurrency level behaves during the operation execution.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>STRICT_FAILURE_TOLERANCE</code>: This option dynamically lowers the concurrency level to ensure the
+     *        number of failed accounts never exceeds the value of <code>FailureToleranceCount</code> +1. The initial
+     *        actual concurrency is set to the lower of either the value of the <code>MaxConcurrentCount</code>, or the
+     *        value of <code>FailureToleranceCount</code> +1. The actual concurrency is then reduced proportionally by
+     *        the number of failures. This is the default behavior.
+     *        </p>
+     *        <p>
+     *        If failure tolerance or Maximum concurrent accounts are set to percentages, the behavior is similar.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SOFT_FAILURE_TOLERANCE</code>: This option decouples <code>FailureToleranceCount</code> from the
+     *        actual concurrency. This allows stack set operations to run at the concurrency level set by the
+     *        <code>MaxConcurrentCount</code> value, or <code>MaxConcurrentPercentage</code>, regardless of the number
+     *        of failures.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ConcurrencyMode
+     */
+
+    public StackSetOperationPreferences withConcurrencyMode(ConcurrencyMode concurrencyMode) {
+        this.concurrencyMode = concurrencyMode.toString();
         return this;
     }
 
@@ -574,6 +1030,8 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getRegionConcurrencyType() != null)
+            sb.append("RegionConcurrencyType: ").append(getRegionConcurrencyType()).append(",");
         if (getRegionOrder() != null)
             sb.append("RegionOrder: ").append(getRegionOrder()).append(",");
         if (getFailureToleranceCount() != null)
@@ -583,7 +1041,9 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
         if (getMaxConcurrentCount() != null)
             sb.append("MaxConcurrentCount: ").append(getMaxConcurrentCount()).append(",");
         if (getMaxConcurrentPercentage() != null)
-            sb.append("MaxConcurrentPercentage: ").append(getMaxConcurrentPercentage());
+            sb.append("MaxConcurrentPercentage: ").append(getMaxConcurrentPercentage()).append(",");
+        if (getConcurrencyMode() != null)
+            sb.append("ConcurrencyMode: ").append(getConcurrencyMode());
         sb.append("}");
         return sb.toString();
     }
@@ -598,6 +1058,10 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
         if (obj instanceof StackSetOperationPreferences == false)
             return false;
         StackSetOperationPreferences other = (StackSetOperationPreferences) obj;
+        if (other.getRegionConcurrencyType() == null ^ this.getRegionConcurrencyType() == null)
+            return false;
+        if (other.getRegionConcurrencyType() != null && other.getRegionConcurrencyType().equals(this.getRegionConcurrencyType()) == false)
+            return false;
         if (other.getRegionOrder() == null ^ this.getRegionOrder() == null)
             return false;
         if (other.getRegionOrder() != null && other.getRegionOrder().equals(this.getRegionOrder()) == false)
@@ -618,6 +1082,10 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
             return false;
         if (other.getMaxConcurrentPercentage() != null && other.getMaxConcurrentPercentage().equals(this.getMaxConcurrentPercentage()) == false)
             return false;
+        if (other.getConcurrencyMode() == null ^ this.getConcurrencyMode() == null)
+            return false;
+        if (other.getConcurrencyMode() != null && other.getConcurrencyMode().equals(this.getConcurrencyMode()) == false)
+            return false;
         return true;
     }
 
@@ -626,11 +1094,13 @@ public class StackSetOperationPreferences implements Serializable, Cloneable {
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getRegionConcurrencyType() == null) ? 0 : getRegionConcurrencyType().hashCode());
         hashCode = prime * hashCode + ((getRegionOrder() == null) ? 0 : getRegionOrder().hashCode());
         hashCode = prime * hashCode + ((getFailureToleranceCount() == null) ? 0 : getFailureToleranceCount().hashCode());
         hashCode = prime * hashCode + ((getFailureTolerancePercentage() == null) ? 0 : getFailureTolerancePercentage().hashCode());
         hashCode = prime * hashCode + ((getMaxConcurrentCount() == null) ? 0 : getMaxConcurrentCount().hashCode());
         hashCode = prime * hashCode + ((getMaxConcurrentPercentage() == null) ? 0 : getMaxConcurrentPercentage().hashCode());
+        hashCode = prime * hashCode + ((getConcurrencyMode() == null) ? 0 : getConcurrencyMode().hashCode());
         return hashCode;
     }
 

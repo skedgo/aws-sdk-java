@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,6 +21,7 @@ import javax.annotation.Generated;
 public enum EntitySubType {
 
     NAME("NAME"),
+    DX_NAME("DX_NAME"),
     DOSAGE("DOSAGE"),
     ROUTE_OR_MODE("ROUTE_OR_MODE"),
     FORM("FORM"),
@@ -34,20 +35,36 @@ public enum EntitySubType {
     TEST_NAME("TEST_NAME"),
     TEST_VALUE("TEST_VALUE"),
     TEST_UNITS("TEST_UNITS"),
+    TEST_UNIT("TEST_UNIT"),
     PROCEDURE_NAME("PROCEDURE_NAME"),
     TREATMENT_NAME("TREATMENT_NAME"),
     DATE("DATE"),
     AGE("AGE"),
     CONTACT_POINT("CONTACT_POINT"),
+    PHONE_OR_FAX("PHONE_OR_FAX"),
     EMAIL("EMAIL"),
     IDENTIFIER("IDENTIFIER"),
+    ID("ID"),
     URL("URL"),
     ADDRESS("ADDRESS"),
     PROFESSION("PROFESSION"),
     SYSTEM_ORGAN_SITE("SYSTEM_ORGAN_SITE"),
     DIRECTION("DIRECTION"),
     QUALITY("QUALITY"),
-    QUANTITY("QUANTITY");
+    QUANTITY("QUANTITY"),
+    TIME_EXPRESSION("TIME_EXPRESSION"),
+    TIME_TO_MEDICATION_NAME("TIME_TO_MEDICATION_NAME"),
+    TIME_TO_DX_NAME("TIME_TO_DX_NAME"),
+    TIME_TO_TEST_NAME("TIME_TO_TEST_NAME"),
+    TIME_TO_PROCEDURE_NAME("TIME_TO_PROCEDURE_NAME"),
+    TIME_TO_TREATMENT_NAME("TIME_TO_TREATMENT_NAME"),
+    AMOUNT("AMOUNT"),
+    GENDER("GENDER"),
+    RACE_ETHNICITY("RACE_ETHNICITY"),
+    ALLERGIES("ALLERGIES"),
+    TOBACCO_USE("TOBACCO_USE"),
+    ALCOHOL_CONSUMPTION("ALCOHOL_CONSUMPTION"),
+    REC_DRUG_USE("REC_DRUG_USE");
 
     private String value;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -64,15 +64,31 @@ public class DescribeAnomalyDetectorsRequestMarshaller implements Marshaller<Req
             int dimensionsListIndex = 1;
 
             for (Dimension dimensionsListValue : dimensionsList) {
+                if (dimensionsListValue != null) {
 
-                if (dimensionsListValue.getName() != null) {
-                    request.addParameter("Dimensions.member." + dimensionsListIndex + ".Name", StringUtils.fromString(dimensionsListValue.getName()));
-                }
+                    if (dimensionsListValue.getName() != null) {
+                        request.addParameter("Dimensions.member." + dimensionsListIndex + ".Name", StringUtils.fromString(dimensionsListValue.getName()));
+                    }
 
-                if (dimensionsListValue.getValue() != null) {
-                    request.addParameter("Dimensions.member." + dimensionsListIndex + ".Value", StringUtils.fromString(dimensionsListValue.getValue()));
+                    if (dimensionsListValue.getValue() != null) {
+                        request.addParameter("Dimensions.member." + dimensionsListIndex + ".Value", StringUtils.fromString(dimensionsListValue.getValue()));
+                    }
                 }
                 dimensionsListIndex++;
+            }
+        }
+
+        if (!describeAnomalyDetectorsRequest.getAnomalyDetectorTypes().isEmpty()
+                || !((com.amazonaws.internal.SdkInternalList<String>) describeAnomalyDetectorsRequest.getAnomalyDetectorTypes()).isAutoConstruct()) {
+            com.amazonaws.internal.SdkInternalList<String> anomalyDetectorTypesList = (com.amazonaws.internal.SdkInternalList<String>) describeAnomalyDetectorsRequest
+                    .getAnomalyDetectorTypes();
+            int anomalyDetectorTypesListIndex = 1;
+
+            for (String anomalyDetectorTypesListValue : anomalyDetectorTypesList) {
+                if (anomalyDetectorTypesListValue != null) {
+                    request.addParameter("AnomalyDetectorTypes.member." + anomalyDetectorTypesListIndex, StringUtils.fromString(anomalyDetectorTypesListValue));
+                }
+                anomalyDetectorTypesListIndex++;
             }
         }
 

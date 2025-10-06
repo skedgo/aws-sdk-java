@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,9 +16,9 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * The request was rejected because the custom key store contains AWS KMS customer master keys (CMKs). After verifying
- * that you do not need to use the CMKs, use the <a>ScheduleKeyDeletion</a> operation to delete the CMKs. After they are
- * deleted, you can delete the custom key store.
+ * The request was rejected because the custom key store contains KMS keys. After verifying that you do not need to use
+ * the KMS keys, use the <a>ScheduleKeyDeletion</a> operation to delete the KMS keys. After they are deleted, you can
+ * delete the custom key store.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

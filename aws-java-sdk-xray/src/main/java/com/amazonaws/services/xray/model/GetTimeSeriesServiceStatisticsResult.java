@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,13 +33,13 @@ public class GetTimeSeriesServiceStatisticsResult extends com.amazonaws.AmazonWe
     /**
      * <p>
      * A flag indicating whether or not a group's filter expression has been consistent, or if a returned aggregation
-     * may show statistics from an older version of the group's filter expression.
+     * might show statistics from an older version of the group's filter expression.
      * </p>
      */
     private Boolean containsOldGroupVersions;
     /**
      * <p>
-     * Pagination token. Not used.
+     * Pagination token.
      * </p>
      */
     private String nextToken;
@@ -117,12 +117,12 @@ public class GetTimeSeriesServiceStatisticsResult extends com.amazonaws.AmazonWe
     /**
      * <p>
      * A flag indicating whether or not a group's filter expression has been consistent, or if a returned aggregation
-     * may show statistics from an older version of the group's filter expression.
+     * might show statistics from an older version of the group's filter expression.
      * </p>
      * 
      * @param containsOldGroupVersions
      *        A flag indicating whether or not a group's filter expression has been consistent, or if a returned
-     *        aggregation may show statistics from an older version of the group's filter expression.
+     *        aggregation might show statistics from an older version of the group's filter expression.
      */
 
     public void setContainsOldGroupVersions(Boolean containsOldGroupVersions) {
@@ -132,11 +132,11 @@ public class GetTimeSeriesServiceStatisticsResult extends com.amazonaws.AmazonWe
     /**
      * <p>
      * A flag indicating whether or not a group's filter expression has been consistent, or if a returned aggregation
-     * may show statistics from an older version of the group's filter expression.
+     * might show statistics from an older version of the group's filter expression.
      * </p>
      * 
      * @return A flag indicating whether or not a group's filter expression has been consistent, or if a returned
-     *         aggregation may show statistics from an older version of the group's filter expression.
+     *         aggregation might show statistics from an older version of the group's filter expression.
      */
 
     public Boolean getContainsOldGroupVersions() {
@@ -146,12 +146,12 @@ public class GetTimeSeriesServiceStatisticsResult extends com.amazonaws.AmazonWe
     /**
      * <p>
      * A flag indicating whether or not a group's filter expression has been consistent, or if a returned aggregation
-     * may show statistics from an older version of the group's filter expression.
+     * might show statistics from an older version of the group's filter expression.
      * </p>
      * 
      * @param containsOldGroupVersions
      *        A flag indicating whether or not a group's filter expression has been consistent, or if a returned
-     *        aggregation may show statistics from an older version of the group's filter expression.
+     *        aggregation might show statistics from an older version of the group's filter expression.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -163,11 +163,11 @@ public class GetTimeSeriesServiceStatisticsResult extends com.amazonaws.AmazonWe
     /**
      * <p>
      * A flag indicating whether or not a group's filter expression has been consistent, or if a returned aggregation
-     * may show statistics from an older version of the group's filter expression.
+     * might show statistics from an older version of the group's filter expression.
      * </p>
      * 
      * @return A flag indicating whether or not a group's filter expression has been consistent, or if a returned
-     *         aggregation may show statistics from an older version of the group's filter expression.
+     *         aggregation might show statistics from an older version of the group's filter expression.
      */
 
     public Boolean isContainsOldGroupVersions() {
@@ -176,11 +176,11 @@ public class GetTimeSeriesServiceStatisticsResult extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * Pagination token. Not used.
+     * Pagination token.
      * </p>
      * 
      * @param nextToken
-     *        Pagination token. Not used.
+     *        Pagination token.
      */
 
     public void setNextToken(String nextToken) {
@@ -189,10 +189,10 @@ public class GetTimeSeriesServiceStatisticsResult extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * Pagination token. Not used.
+     * Pagination token.
      * </p>
      * 
-     * @return Pagination token. Not used.
+     * @return Pagination token.
      */
 
     public String getNextToken() {
@@ -201,11 +201,11 @@ public class GetTimeSeriesServiceStatisticsResult extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * Pagination token. Not used.
+     * Pagination token.
      * </p>
      * 
      * @param nextToken
-     *        Pagination token. Not used.
+     *        Pagination token.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

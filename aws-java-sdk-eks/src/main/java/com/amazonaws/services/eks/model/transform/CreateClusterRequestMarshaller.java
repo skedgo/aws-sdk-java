@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,8 @@
  */
 package com.amazonaws.services.eks.model.transform;
 
+import java.util.Map;
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -37,11 +39,25 @@ public class CreateClusterRequestMarshaller {
             .marshallLocationName("roleArn").build();
     private static final MarshallingInfo<StructuredPojo> RESOURCESVPCCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("resourcesVpcConfig").build();
+    private static final MarshallingInfo<StructuredPojo> KUBERNETESNETWORKCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("kubernetesNetworkConfig").build();
     private static final MarshallingInfo<StructuredPojo> LOGGING_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("logging").build();
     private static final MarshallingInfo<String> CLIENTREQUESTTOKEN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("clientRequestToken")
             .defaultValueSupplier(com.amazonaws.util.IdempotentUtils.getGenerator()).build();
+    private static final MarshallingInfo<Map> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("tags").build();
+    private static final MarshallingInfo<List> ENCRYPTIONCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("encryptionConfig").build();
+    private static final MarshallingInfo<StructuredPojo> OUTPOSTCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("outpostConfig").build();
+    private static final MarshallingInfo<StructuredPojo> ACCESSCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("accessConfig").build();
+    private static final MarshallingInfo<Boolean> BOOTSTRAPSELFMANAGEDADDONS_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("bootstrapSelfManagedAddons").build();
+    private static final MarshallingInfo<StructuredPojo> UPGRADEPOLICY_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("upgradePolicy").build();
 
     private static final CreateClusterRequestMarshaller instance = new CreateClusterRequestMarshaller();
 
@@ -63,8 +79,15 @@ public class CreateClusterRequestMarshaller {
             protocolMarshaller.marshall(createClusterRequest.getVersion(), VERSION_BINDING);
             protocolMarshaller.marshall(createClusterRequest.getRoleArn(), ROLEARN_BINDING);
             protocolMarshaller.marshall(createClusterRequest.getResourcesVpcConfig(), RESOURCESVPCCONFIG_BINDING);
+            protocolMarshaller.marshall(createClusterRequest.getKubernetesNetworkConfig(), KUBERNETESNETWORKCONFIG_BINDING);
             protocolMarshaller.marshall(createClusterRequest.getLogging(), LOGGING_BINDING);
             protocolMarshaller.marshall(createClusterRequest.getClientRequestToken(), CLIENTREQUESTTOKEN_BINDING);
+            protocolMarshaller.marshall(createClusterRequest.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(createClusterRequest.getEncryptionConfig(), ENCRYPTIONCONFIG_BINDING);
+            protocolMarshaller.marshall(createClusterRequest.getOutpostConfig(), OUTPOSTCONFIG_BINDING);
+            protocolMarshaller.marshall(createClusterRequest.getAccessConfig(), ACCESSCONFIG_BINDING);
+            protocolMarshaller.marshall(createClusterRequest.getBootstrapSelfManagedAddons(), BOOTSTRAPSELFMANAGEDADDONS_BINDING);
+            protocolMarshaller.marshall(createClusterRequest.getUpgradePolicy(), UPGRADEPOLICY_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,33 +27,35 @@ public class DescribeCreateAccountStatusRequest extends com.amazonaws.AmazonWebS
 
     /**
      * <p>
-     * Specifies the <code>operationId</code> that uniquely identifies the request. You can get the ID from the response
-     * to an earlier <a>CreateAccount</a> request, or from the <a>ListCreateAccountStatus</a> operation.
+     * Specifies the <code>Id</code> value that uniquely identifies the <code>CreateAccount</code> request. You can get
+     * the value from the <code>CreateAccountStatus.Id</code> response in an earlier <a>CreateAccount</a> request, or
+     * from the <a>ListCreateAccountStatus</a> operation.
      * </p>
      * <p>
-     * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for an create account request ID string requires
-     * "car-" followed by from 8 to 32 lower-case letters or digits.
+     * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a create account request ID string requires
+     * "car-" followed by from 8 to 32 lowercase letters or digits.
      * </p>
      */
     private String createAccountRequestId;
 
     /**
      * <p>
-     * Specifies the <code>operationId</code> that uniquely identifies the request. You can get the ID from the response
-     * to an earlier <a>CreateAccount</a> request, or from the <a>ListCreateAccountStatus</a> operation.
+     * Specifies the <code>Id</code> value that uniquely identifies the <code>CreateAccount</code> request. You can get
+     * the value from the <code>CreateAccountStatus.Id</code> response in an earlier <a>CreateAccount</a> request, or
+     * from the <a>ListCreateAccountStatus</a> operation.
      * </p>
      * <p>
-     * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for an create account request ID string requires
-     * "car-" followed by from 8 to 32 lower-case letters or digits.
+     * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a create account request ID string requires
+     * "car-" followed by from 8 to 32 lowercase letters or digits.
      * </p>
      * 
      * @param createAccountRequestId
-     *        Specifies the <code>operationId</code> that uniquely identifies the request. You can get the ID from the
-     *        response to an earlier <a>CreateAccount</a> request, or from the <a>ListCreateAccountStatus</a>
-     *        operation.</p>
+     *        Specifies the <code>Id</code> value that uniquely identifies the <code>CreateAccount</code> request. You
+     *        can get the value from the <code>CreateAccountStatus.Id</code> response in an earlier <a>CreateAccount</a>
+     *        request, or from the <a>ListCreateAccountStatus</a> operation.</p>
      *        <p>
-     *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for an create account request ID string
-     *        requires "car-" followed by from 8 to 32 lower-case letters or digits.
+     *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a create account request ID string
+     *        requires "car-" followed by from 8 to 32 lowercase letters or digits.
      */
 
     public void setCreateAccountRequestId(String createAccountRequestId) {
@@ -62,20 +64,21 @@ public class DescribeCreateAccountStatusRequest extends com.amazonaws.AmazonWebS
 
     /**
      * <p>
-     * Specifies the <code>operationId</code> that uniquely identifies the request. You can get the ID from the response
-     * to an earlier <a>CreateAccount</a> request, or from the <a>ListCreateAccountStatus</a> operation.
+     * Specifies the <code>Id</code> value that uniquely identifies the <code>CreateAccount</code> request. You can get
+     * the value from the <code>CreateAccountStatus.Id</code> response in an earlier <a>CreateAccount</a> request, or
+     * from the <a>ListCreateAccountStatus</a> operation.
      * </p>
      * <p>
-     * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for an create account request ID string requires
-     * "car-" followed by from 8 to 32 lower-case letters or digits.
+     * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a create account request ID string requires
+     * "car-" followed by from 8 to 32 lowercase letters or digits.
      * </p>
      * 
-     * @return Specifies the <code>operationId</code> that uniquely identifies the request. You can get the ID from the
-     *         response to an earlier <a>CreateAccount</a> request, or from the <a>ListCreateAccountStatus</a>
-     *         operation.</p>
+     * @return Specifies the <code>Id</code> value that uniquely identifies the <code>CreateAccount</code> request. You
+     *         can get the value from the <code>CreateAccountStatus.Id</code> response in an earlier
+     *         <a>CreateAccount</a> request, or from the <a>ListCreateAccountStatus</a> operation.</p>
      *         <p>
-     *         The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for an create account request ID string
-     *         requires "car-" followed by from 8 to 32 lower-case letters or digits.
+     *         The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a create account request ID string
+     *         requires "car-" followed by from 8 to 32 lowercase letters or digits.
      */
 
     public String getCreateAccountRequestId() {
@@ -84,21 +87,22 @@ public class DescribeCreateAccountStatusRequest extends com.amazonaws.AmazonWebS
 
     /**
      * <p>
-     * Specifies the <code>operationId</code> that uniquely identifies the request. You can get the ID from the response
-     * to an earlier <a>CreateAccount</a> request, or from the <a>ListCreateAccountStatus</a> operation.
+     * Specifies the <code>Id</code> value that uniquely identifies the <code>CreateAccount</code> request. You can get
+     * the value from the <code>CreateAccountStatus.Id</code> response in an earlier <a>CreateAccount</a> request, or
+     * from the <a>ListCreateAccountStatus</a> operation.
      * </p>
      * <p>
-     * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for an create account request ID string requires
-     * "car-" followed by from 8 to 32 lower-case letters or digits.
+     * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a create account request ID string requires
+     * "car-" followed by from 8 to 32 lowercase letters or digits.
      * </p>
      * 
      * @param createAccountRequestId
-     *        Specifies the <code>operationId</code> that uniquely identifies the request. You can get the ID from the
-     *        response to an earlier <a>CreateAccount</a> request, or from the <a>ListCreateAccountStatus</a>
-     *        operation.</p>
+     *        Specifies the <code>Id</code> value that uniquely identifies the <code>CreateAccount</code> request. You
+     *        can get the value from the <code>CreateAccountStatus.Id</code> response in an earlier <a>CreateAccount</a>
+     *        request, or from the <a>ListCreateAccountStatus</a> operation.</p>
      *        <p>
-     *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for an create account request ID string
-     *        requires "car-" followed by from 8 to 32 lower-case letters or digits.
+     *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a create account request ID string
+     *        requires "car-" followed by from 8 to 32 lowercase letters or digits.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

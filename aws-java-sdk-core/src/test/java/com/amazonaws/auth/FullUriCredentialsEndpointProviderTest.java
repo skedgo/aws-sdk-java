@@ -53,10 +53,64 @@ public class FullUriCredentialsEndpointProviderTest {
 
         assertThat(sut.getCredentialsEndpoint().toString(), equalTo(fullUri));
     }
+    @Test
+    public void theLoopbackAddressIpv6IsAlsoAcceptable() throws URISyntaxException {
+        String fullUri = "http://[::1]:9851/endpoint";
+        helper.set(ContainerCredentialsProvider.CONTAINER_CREDENTIALS_FULL_URI, fullUri);
+
+        assertThat(sut.getCredentialsEndpoint().toString(), equalTo(fullUri));
+    }
+
+    @Test
+    public void httpsHostAddressesAreValid() throws URISyntaxException {
+        String fullUri = "https://google.com/endpoint";
+        helper.set(ContainerCredentialsProvider.CONTAINER_CREDENTIALS_FULL_URI, "https://google.com/endpoint");
+
+        assertThat(sut.getCredentialsEndpoint().toString(), equalTo(fullUri));
+    }
+
+    @Test
+    public void complexURIAddressesShouldWork() throws URISyntaxException {
+        String fullUri = "http://127.0.0.1:8080/credentials?foo=bar%20baz";
+        helper.set(ContainerCredentialsProvider.CONTAINER_CREDENTIALS_FULL_URI, fullUri);
+
+        assertThat(sut.getCredentialsEndpoint().toString(), equalTo(fullUri));
+    }
+    @Test
+    public void theEcsAddressIsAlsoAcceptable() throws URISyntaxException {
+        String fullUri = "http://169.254.170.2/endpoint";
+        helper.set(ContainerCredentialsProvider.CONTAINER_CREDENTIALS_FULL_URI, fullUri);
+
+        assertThat(sut.getCredentialsEndpoint().toString(), equalTo(fullUri));
+    }
+
+    @Test
+    public void theEksAddressIpv4IsAlsoAcceptable() throws URISyntaxException {
+        String fullUri = "http://169.254.170.23/endpoint";
+        helper.set(ContainerCredentialsProvider.CONTAINER_CREDENTIALS_FULL_URI, fullUri);
+
+        assertThat(sut.getCredentialsEndpoint().toString(), equalTo(fullUri));
+    }
+
+    @Test
+    public void theEksAddressIpv6IsAlsoAcceptable() throws URISyntaxException {
+        String fullUri = "http://[fd00:ec2::23]/endpoint";
+        helper.set(ContainerCredentialsProvider.CONTAINER_CREDENTIALS_FULL_URI, fullUri);
+        helper.set(ContainerCredentialsProvider.AWS_EC2_METADATA_SERVICE_ENDPOINT_MODE, "IPV6");
+
+        assertThat(sut.getCredentialsEndpoint().toString(), equalTo(fullUri));
+    }
 
     @Test(expected = SdkClientException.class)
     public void onlyLocalHostAddressesAreValid() throws URISyntaxException {
-        helper.set(ContainerCredentialsProvider.CONTAINER_CREDENTIALS_FULL_URI, "https://google.com/endpoint");
+        helper.set(ContainerCredentialsProvider.CONTAINER_CREDENTIALS_FULL_URI, "http://google.com/endpoint");
+        sut.getCredentialsEndpoint();
+    }
+
+    @Test(expected = SdkClientException.class)
+    public void otherHostsOnSameNetworkAsValidHostAreNotAllowed() throws URISyntaxException {
+        String fullUri = "http://169.254.170.3/endpoint";
+        helper.set(ContainerCredentialsProvider.CONTAINER_CREDENTIALS_FULL_URI, fullUri);
         sut.getCredentialsEndpoint();
     }
 

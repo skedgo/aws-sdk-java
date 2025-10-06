@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -68,7 +68,8 @@ public class RelationalDatabase implements Serializable, Cloneable, StructuredPo
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      */
     private java.util.List<Tag> tags;
@@ -187,6 +188,12 @@ public class RelationalDatabase implements Serializable, Cloneable, StructuredPo
      * </p>
      */
     private java.util.List<PendingMaintenanceAction> pendingMaintenanceActions;
+    /**
+     * <p>
+     * The certificate associated with the database.
+     * </p>
+     */
+    private String caCertificateIdentifier;
 
     /**
      * <p>
@@ -459,12 +466,13 @@ public class RelationalDatabase implements Serializable, Cloneable, StructuredPo
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      * 
      * @return The tag keys and optional values for the resource. For more information about tags in Lightsail, see the
-     *         <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev
-     *         Guide</a>.
+     *         <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail
+     *         Developer Guide</a>.
      */
 
     public java.util.List<Tag> getTags() {
@@ -474,13 +482,14 @@ public class RelationalDatabase implements Serializable, Cloneable, StructuredPo
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      * 
      * @param tags
      *        The tag keys and optional values for the resource. For more information about tags in Lightsail, see the
-     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev
-     *        Guide</a>.
+     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail
+     *        Developer Guide</a>.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -495,7 +504,8 @@ public class RelationalDatabase implements Serializable, Cloneable, StructuredPo
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -505,8 +515,8 @@ public class RelationalDatabase implements Serializable, Cloneable, StructuredPo
      * 
      * @param tags
      *        The tag keys and optional values for the resource. For more information about tags in Lightsail, see the
-     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev
-     *        Guide</a>.
+     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail
+     *        Developer Guide</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -523,13 +533,14 @@ public class RelationalDatabase implements Serializable, Cloneable, StructuredPo
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      * 
      * @param tags
      *        The tag keys and optional values for the resource. For more information about tags in Lightsail, see the
-     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev
-     *        Guide</a>.
+     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail
+     *        Developer Guide</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1349,6 +1360,46 @@ public class RelationalDatabase implements Serializable, Cloneable, StructuredPo
     }
 
     /**
+     * <p>
+     * The certificate associated with the database.
+     * </p>
+     * 
+     * @param caCertificateIdentifier
+     *        The certificate associated with the database.
+     */
+
+    public void setCaCertificateIdentifier(String caCertificateIdentifier) {
+        this.caCertificateIdentifier = caCertificateIdentifier;
+    }
+
+    /**
+     * <p>
+     * The certificate associated with the database.
+     * </p>
+     * 
+     * @return The certificate associated with the database.
+     */
+
+    public String getCaCertificateIdentifier() {
+        return this.caCertificateIdentifier;
+    }
+
+    /**
+     * <p>
+     * The certificate associated with the database.
+     * </p>
+     * 
+     * @param caCertificateIdentifier
+     *        The certificate associated with the database.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RelationalDatabase withCaCertificateIdentifier(String caCertificateIdentifier) {
+        setCaCertificateIdentifier(caCertificateIdentifier);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1409,7 +1460,9 @@ public class RelationalDatabase implements Serializable, Cloneable, StructuredPo
         if (getMasterEndpoint() != null)
             sb.append("MasterEndpoint: ").append(getMasterEndpoint()).append(",");
         if (getPendingMaintenanceActions() != null)
-            sb.append("PendingMaintenanceActions: ").append(getPendingMaintenanceActions());
+            sb.append("PendingMaintenanceActions: ").append(getPendingMaintenanceActions()).append(",");
+        if (getCaCertificateIdentifier() != null)
+            sb.append("CaCertificateIdentifier: ").append(getCaCertificateIdentifier());
         sb.append("}");
         return sb.toString();
     }
@@ -1525,6 +1578,10 @@ public class RelationalDatabase implements Serializable, Cloneable, StructuredPo
             return false;
         if (other.getPendingMaintenanceActions() != null && other.getPendingMaintenanceActions().equals(this.getPendingMaintenanceActions()) == false)
             return false;
+        if (other.getCaCertificateIdentifier() == null ^ this.getCaCertificateIdentifier() == null)
+            return false;
+        if (other.getCaCertificateIdentifier() != null && other.getCaCertificateIdentifier().equals(this.getCaCertificateIdentifier()) == false)
+            return false;
         return true;
     }
 
@@ -1558,6 +1615,7 @@ public class RelationalDatabase implements Serializable, Cloneable, StructuredPo
         hashCode = prime * hashCode + ((getPubliclyAccessible() == null) ? 0 : getPubliclyAccessible().hashCode());
         hashCode = prime * hashCode + ((getMasterEndpoint() == null) ? 0 : getMasterEndpoint().hashCode());
         hashCode = prime * hashCode + ((getPendingMaintenanceActions() == null) ? 0 : getPendingMaintenanceActions().hashCode());
+        hashCode = prime * hashCode + ((getCaCertificateIdentifier() == null) ? 0 : getCaCertificateIdentifier().hashCode());
         return hashCode;
     }
 

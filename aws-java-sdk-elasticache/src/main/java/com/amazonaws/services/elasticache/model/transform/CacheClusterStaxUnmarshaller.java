@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -90,6 +90,11 @@ public class CacheClusterStaxUnmarshaller implements Unmarshaller<CacheCluster, 
                     continue;
                 }
 
+                if (context.testExpression("PreferredOutpostArn", targetDepth)) {
+                    cacheCluster.setPreferredOutpostArn(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("CacheClusterCreateTime", targetDepth)) {
                     cacheCluster.setCacheClusterCreateTime(DateStaxUnmarshallerFactory.getInstance("iso8601").unmarshall(context));
                     continue;
@@ -175,6 +180,11 @@ public class CacheClusterStaxUnmarshaller implements Unmarshaller<CacheCluster, 
                     continue;
                 }
 
+                if (context.testExpression("AuthTokenLastModifiedDate", targetDepth)) {
+                    cacheCluster.setAuthTokenLastModifiedDate(DateStaxUnmarshallerFactory.getInstance("iso8601").unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("TransitEncryptionEnabled", targetDepth)) {
                     cacheCluster.setTransitEncryptionEnabled(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
@@ -182,6 +192,41 @@ public class CacheClusterStaxUnmarshaller implements Unmarshaller<CacheCluster, 
 
                 if (context.testExpression("AtRestEncryptionEnabled", targetDepth)) {
                     cacheCluster.setAtRestEncryptionEnabled(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ARN", targetDepth)) {
+                    cacheCluster.setARN(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ReplicationGroupLogDeliveryEnabled", targetDepth)) {
+                    cacheCluster.setReplicationGroupLogDeliveryEnabled(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("LogDeliveryConfigurations", targetDepth)) {
+                    cacheCluster.withLogDeliveryConfigurations(new ArrayList<LogDeliveryConfiguration>());
+                    continue;
+                }
+
+                if (context.testExpression("LogDeliveryConfigurations/LogDeliveryConfiguration", targetDepth)) {
+                    cacheCluster.withLogDeliveryConfigurations(LogDeliveryConfigurationStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("NetworkType", targetDepth)) {
+                    cacheCluster.setNetworkType(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("IpDiscovery", targetDepth)) {
+                    cacheCluster.setIpDiscovery(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("TransitEncryptionMode", targetDepth)) {
+                    cacheCluster.setTransitEncryptionMode(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

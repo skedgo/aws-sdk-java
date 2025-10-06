@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,12 +28,37 @@ public class AbstractAWSAppSync implements AWSAppSync {
     }
 
     @Override
+    public AssociateApiResult associateApi(AssociateApiRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociateMergedGraphqlApiResult associateMergedGraphqlApi(AssociateMergedGraphqlApiRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociateSourceGraphqlApiResult associateSourceGraphqlApi(AssociateSourceGraphqlApiRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateApiCacheResult createApiCache(CreateApiCacheRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateApiKeyResult createApiKey(CreateApiKeyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public CreateDataSourceResult createDataSource(CreateDataSourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateDomainNameResult createDomainName(CreateDomainNameRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -58,12 +83,22 @@ public class AbstractAWSAppSync implements AWSAppSync {
     }
 
     @Override
+    public DeleteApiCacheResult deleteApiCache(DeleteApiCacheRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteApiKeyResult deleteApiKey(DeleteApiKeyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public DeleteDataSourceResult deleteDataSource(DeleteDataSourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteDomainNameResult deleteDomainName(DeleteDomainNameRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -88,7 +123,57 @@ public class AbstractAWSAppSync implements AWSAppSync {
     }
 
     @Override
+    public DisassociateApiResult disassociateApi(DisassociateApiRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateMergedGraphqlApiResult disassociateMergedGraphqlApi(DisassociateMergedGraphqlApiRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateSourceGraphqlApiResult disassociateSourceGraphqlApi(DisassociateSourceGraphqlApiRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public EvaluateCodeResult evaluateCode(EvaluateCodeRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public EvaluateMappingTemplateResult evaluateMappingTemplate(EvaluateMappingTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public FlushApiCacheResult flushApiCache(FlushApiCacheRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetApiAssociationResult getApiAssociation(GetApiAssociationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetApiCacheResult getApiCache(GetApiCacheRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetDataSourceResult getDataSource(GetDataSourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetDataSourceIntrospectionResult getDataSourceIntrospection(GetDataSourceIntrospectionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetDomainNameResult getDomainName(GetDomainNameRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -99,6 +184,11 @@ public class AbstractAWSAppSync implements AWSAppSync {
 
     @Override
     public GetGraphqlApiResult getGraphqlApi(GetGraphqlApiRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetGraphqlApiEnvironmentVariablesResult getGraphqlApiEnvironmentVariables(GetGraphqlApiEnvironmentVariablesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -118,6 +208,11 @@ public class AbstractAWSAppSync implements AWSAppSync {
     }
 
     @Override
+    public GetSourceApiAssociationResult getSourceApiAssociation(GetSourceApiAssociationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetTypeResult getType(GetTypeRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -129,6 +224,11 @@ public class AbstractAWSAppSync implements AWSAppSync {
 
     @Override
     public ListDataSourcesResult listDataSources(ListDataSourcesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListDomainNamesResult listDomainNames(ListDomainNamesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -153,6 +253,11 @@ public class AbstractAWSAppSync implements AWSAppSync {
     }
 
     @Override
+    public ListSourceApiAssociationsResult listSourceApiAssociations(ListSourceApiAssociationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -163,7 +268,27 @@ public class AbstractAWSAppSync implements AWSAppSync {
     }
 
     @Override
+    public ListTypesByAssociationResult listTypesByAssociation(ListTypesByAssociationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public PutGraphqlApiEnvironmentVariablesResult putGraphqlApiEnvironmentVariables(PutGraphqlApiEnvironmentVariablesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartDataSourceIntrospectionResult startDataSourceIntrospection(StartDataSourceIntrospectionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public StartSchemaCreationResult startSchemaCreation(StartSchemaCreationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartSchemaMergeResult startSchemaMerge(StartSchemaMergeRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -178,12 +303,22 @@ public class AbstractAWSAppSync implements AWSAppSync {
     }
 
     @Override
+    public UpdateApiCacheResult updateApiCache(UpdateApiCacheRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateApiKeyResult updateApiKey(UpdateApiKeyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public UpdateDataSourceResult updateDataSource(UpdateDataSourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateDomainNameResult updateDomainName(UpdateDomainNameRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -199,6 +334,11 @@ public class AbstractAWSAppSync implements AWSAppSync {
 
     @Override
     public UpdateResolverResult updateResolver(UpdateResolverRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateSourceApiAssociationResult updateSourceApiAssociation(UpdateSourceApiAssociationRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

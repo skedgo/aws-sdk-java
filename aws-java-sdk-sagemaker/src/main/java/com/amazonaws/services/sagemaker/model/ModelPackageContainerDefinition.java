@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,11 +39,11 @@ public class ModelPackageContainerDefinition implements Serializable, Cloneable,
      * The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored.
      * </p>
      * <p>
-     * If you are using your own custom algorithm instead of an algorithm provided by Amazon SageMaker, the inference
-     * code must meet Amazon SageMaker requirements. Amazon SageMaker supports both
-     * <code>registry/repository[:tag]</code> and <code>registry/repository[@digest]</code> image path formats. For more
-     * information, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html">Using Your Own
-     * Algorithms with Amazon SageMaker</a>.
+     * If you are using your own custom algorithm instead of an algorithm provided by SageMaker, the inference code must
+     * meet SageMaker requirements. SageMaker supports both <code>registry/repository[:tag]</code> and
+     * <code>registry/repository[@digest]</code> image path formats. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html">Using Your Own Algorithms with Amazon
+     * SageMaker</a>.
      * </p>
      */
     private String image;
@@ -58,14 +58,63 @@ public class ModelPackageContainerDefinition implements Serializable, Cloneable,
      * The Amazon S3 path where the model artifacts, which result from model training, are stored. This path must point
      * to a single <code>gzip</code> compressed tar archive (<code>.tar.gz</code> suffix).
      * </p>
+     * <note>
+     * <p>
+     * The model artifacts must be in an S3 bucket that is in the same region as the model package.
+     * </p>
+     * </note>
      */
     private String modelDataUrl;
     /**
      * <p>
-     * The AWS Marketplace product ID of the model package.
+     * Specifies the location of ML model data to deploy during endpoint creation.
+     * </p>
+     */
+    private ModelDataSource modelDataSource;
+    /**
+     * <p>
+     * The Amazon Web Services Marketplace product ID of the model package.
      * </p>
      */
     private String productId;
+    /**
+     * <p>
+     * The environment variables to set in the Docker container. Each key and value in the <code>Environment</code>
+     * string to string map can have length of up to 1024. We support up to 16 entries in the map.
+     * </p>
+     */
+    private java.util.Map<String, String> environment;
+    /**
+     * <p>
+     * A structure with Model Input details.
+     * </p>
+     */
+    private ModelInput modelInput;
+    /**
+     * <p>
+     * The machine learning framework of the model package container image.
+     * </p>
+     */
+    private String framework;
+    /**
+     * <p>
+     * The framework version of the Model Package Container Image.
+     * </p>
+     */
+    private String frameworkVersion;
+    /**
+     * <p>
+     * The name of a pre-trained machine learning benchmarked by Amazon SageMaker Inference Recommender model that
+     * matches your model. You can find a list of benchmarked models by calling <code>ListModelMetadata</code>.
+     * </p>
+     */
+    private String nearestModelName;
+    /**
+     * <p>
+     * The additional data source that is used during inference in the Docker container for your model package.
+     * </p>
+     */
+    private AdditionalS3DataSource additionalS3DataSource;
 
     /**
      * <p>
@@ -112,20 +161,19 @@ public class ModelPackageContainerDefinition implements Serializable, Cloneable,
      * The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored.
      * </p>
      * <p>
-     * If you are using your own custom algorithm instead of an algorithm provided by Amazon SageMaker, the inference
-     * code must meet Amazon SageMaker requirements. Amazon SageMaker supports both
-     * <code>registry/repository[:tag]</code> and <code>registry/repository[@digest]</code> image path formats. For more
-     * information, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html">Using Your Own
-     * Algorithms with Amazon SageMaker</a>.
+     * If you are using your own custom algorithm instead of an algorithm provided by SageMaker, the inference code must
+     * meet SageMaker requirements. SageMaker supports both <code>registry/repository[:tag]</code> and
+     * <code>registry/repository[@digest]</code> image path formats. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html">Using Your Own Algorithms with Amazon
+     * SageMaker</a>.
      * </p>
      * 
      * @param image
      *        The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored.</p>
      *        <p>
-     *        If you are using your own custom algorithm instead of an algorithm provided by Amazon SageMaker, the
-     *        inference code must meet Amazon SageMaker requirements. Amazon SageMaker supports both
-     *        <code>registry/repository[:tag]</code> and <code>registry/repository[@digest]</code> image path formats.
-     *        For more information, see <a
+     *        If you are using your own custom algorithm instead of an algorithm provided by SageMaker, the inference
+     *        code must meet SageMaker requirements. SageMaker supports both <code>registry/repository[:tag]</code> and
+     *        <code>registry/repository[@digest]</code> image path formats. For more information, see <a
      *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html">Using Your Own Algorithms with
      *        Amazon SageMaker</a>.
      */
@@ -139,19 +187,18 @@ public class ModelPackageContainerDefinition implements Serializable, Cloneable,
      * The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored.
      * </p>
      * <p>
-     * If you are using your own custom algorithm instead of an algorithm provided by Amazon SageMaker, the inference
-     * code must meet Amazon SageMaker requirements. Amazon SageMaker supports both
-     * <code>registry/repository[:tag]</code> and <code>registry/repository[@digest]</code> image path formats. For more
-     * information, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html">Using Your Own
-     * Algorithms with Amazon SageMaker</a>.
+     * If you are using your own custom algorithm instead of an algorithm provided by SageMaker, the inference code must
+     * meet SageMaker requirements. SageMaker supports both <code>registry/repository[:tag]</code> and
+     * <code>registry/repository[@digest]</code> image path formats. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html">Using Your Own Algorithms with Amazon
+     * SageMaker</a>.
      * </p>
      * 
      * @return The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored.</p>
      *         <p>
-     *         If you are using your own custom algorithm instead of an algorithm provided by Amazon SageMaker, the
-     *         inference code must meet Amazon SageMaker requirements. Amazon SageMaker supports both
-     *         <code>registry/repository[:tag]</code> and <code>registry/repository[@digest]</code> image path formats.
-     *         For more information, see <a
+     *         If you are using your own custom algorithm instead of an algorithm provided by SageMaker, the inference
+     *         code must meet SageMaker requirements. SageMaker supports both <code>registry/repository[:tag]</code> and
+     *         <code>registry/repository[@digest]</code> image path formats. For more information, see <a
      *         href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html">Using Your Own Algorithms
      *         with Amazon SageMaker</a>.
      */
@@ -165,20 +212,19 @@ public class ModelPackageContainerDefinition implements Serializable, Cloneable,
      * The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored.
      * </p>
      * <p>
-     * If you are using your own custom algorithm instead of an algorithm provided by Amazon SageMaker, the inference
-     * code must meet Amazon SageMaker requirements. Amazon SageMaker supports both
-     * <code>registry/repository[:tag]</code> and <code>registry/repository[@digest]</code> image path formats. For more
-     * information, see <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html">Using Your Own
-     * Algorithms with Amazon SageMaker</a>.
+     * If you are using your own custom algorithm instead of an algorithm provided by SageMaker, the inference code must
+     * meet SageMaker requirements. SageMaker supports both <code>registry/repository[:tag]</code> and
+     * <code>registry/repository[@digest]</code> image path formats. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html">Using Your Own Algorithms with Amazon
+     * SageMaker</a>.
      * </p>
      * 
      * @param image
      *        The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored.</p>
      *        <p>
-     *        If you are using your own custom algorithm instead of an algorithm provided by Amazon SageMaker, the
-     *        inference code must meet Amazon SageMaker requirements. Amazon SageMaker supports both
-     *        <code>registry/repository[:tag]</code> and <code>registry/repository[@digest]</code> image path formats.
-     *        For more information, see <a
+     *        If you are using your own custom algorithm instead of an algorithm provided by SageMaker, the inference
+     *        code must meet SageMaker requirements. SageMaker supports both <code>registry/repository[:tag]</code> and
+     *        <code>registry/repository[@digest]</code> image path formats. For more information, see <a
      *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html">Using Your Own Algorithms with
      *        Amazon SageMaker</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -234,10 +280,18 @@ public class ModelPackageContainerDefinition implements Serializable, Cloneable,
      * The Amazon S3 path where the model artifacts, which result from model training, are stored. This path must point
      * to a single <code>gzip</code> compressed tar archive (<code>.tar.gz</code> suffix).
      * </p>
+     * <note>
+     * <p>
+     * The model artifacts must be in an S3 bucket that is in the same region as the model package.
+     * </p>
+     * </note>
      * 
      * @param modelDataUrl
      *        The Amazon S3 path where the model artifacts, which result from model training, are stored. This path must
-     *        point to a single <code>gzip</code> compressed tar archive (<code>.tar.gz</code> suffix).
+     *        point to a single <code>gzip</code> compressed tar archive (<code>.tar.gz</code> suffix).</p> <note>
+     *        <p>
+     *        The model artifacts must be in an S3 bucket that is in the same region as the model package.
+     *        </p>
      */
 
     public void setModelDataUrl(String modelDataUrl) {
@@ -249,9 +303,17 @@ public class ModelPackageContainerDefinition implements Serializable, Cloneable,
      * The Amazon S3 path where the model artifacts, which result from model training, are stored. This path must point
      * to a single <code>gzip</code> compressed tar archive (<code>.tar.gz</code> suffix).
      * </p>
+     * <note>
+     * <p>
+     * The model artifacts must be in an S3 bucket that is in the same region as the model package.
+     * </p>
+     * </note>
      * 
      * @return The Amazon S3 path where the model artifacts, which result from model training, are stored. This path
-     *         must point to a single <code>gzip</code> compressed tar archive (<code>.tar.gz</code> suffix).
+     *         must point to a single <code>gzip</code> compressed tar archive (<code>.tar.gz</code> suffix).</p> <note>
+     *         <p>
+     *         The model artifacts must be in an S3 bucket that is in the same region as the model package.
+     *         </p>
      */
 
     public String getModelDataUrl() {
@@ -263,10 +325,18 @@ public class ModelPackageContainerDefinition implements Serializable, Cloneable,
      * The Amazon S3 path where the model artifacts, which result from model training, are stored. This path must point
      * to a single <code>gzip</code> compressed tar archive (<code>.tar.gz</code> suffix).
      * </p>
+     * <note>
+     * <p>
+     * The model artifacts must be in an S3 bucket that is in the same region as the model package.
+     * </p>
+     * </note>
      * 
      * @param modelDataUrl
      *        The Amazon S3 path where the model artifacts, which result from model training, are stored. This path must
-     *        point to a single <code>gzip</code> compressed tar archive (<code>.tar.gz</code> suffix).
+     *        point to a single <code>gzip</code> compressed tar archive (<code>.tar.gz</code> suffix).</p> <note>
+     *        <p>
+     *        The model artifacts must be in an S3 bucket that is in the same region as the model package.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -277,11 +347,51 @@ public class ModelPackageContainerDefinition implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The AWS Marketplace product ID of the model package.
+     * Specifies the location of ML model data to deploy during endpoint creation.
+     * </p>
+     * 
+     * @param modelDataSource
+     *        Specifies the location of ML model data to deploy during endpoint creation.
+     */
+
+    public void setModelDataSource(ModelDataSource modelDataSource) {
+        this.modelDataSource = modelDataSource;
+    }
+
+    /**
+     * <p>
+     * Specifies the location of ML model data to deploy during endpoint creation.
+     * </p>
+     * 
+     * @return Specifies the location of ML model data to deploy during endpoint creation.
+     */
+
+    public ModelDataSource getModelDataSource() {
+        return this.modelDataSource;
+    }
+
+    /**
+     * <p>
+     * Specifies the location of ML model data to deploy during endpoint creation.
+     * </p>
+     * 
+     * @param modelDataSource
+     *        Specifies the location of ML model data to deploy during endpoint creation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModelPackageContainerDefinition withModelDataSource(ModelDataSource modelDataSource) {
+        setModelDataSource(modelDataSource);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services Marketplace product ID of the model package.
      * </p>
      * 
      * @param productId
-     *        The AWS Marketplace product ID of the model package.
+     *        The Amazon Web Services Marketplace product ID of the model package.
      */
 
     public void setProductId(String productId) {
@@ -290,10 +400,10 @@ public class ModelPackageContainerDefinition implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The AWS Marketplace product ID of the model package.
+     * The Amazon Web Services Marketplace product ID of the model package.
      * </p>
      * 
-     * @return The AWS Marketplace product ID of the model package.
+     * @return The Amazon Web Services Marketplace product ID of the model package.
      */
 
     public String getProductId() {
@@ -302,16 +412,302 @@ public class ModelPackageContainerDefinition implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The AWS Marketplace product ID of the model package.
+     * The Amazon Web Services Marketplace product ID of the model package.
      * </p>
      * 
      * @param productId
-     *        The AWS Marketplace product ID of the model package.
+     *        The Amazon Web Services Marketplace product ID of the model package.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ModelPackageContainerDefinition withProductId(String productId) {
         setProductId(productId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The environment variables to set in the Docker container. Each key and value in the <code>Environment</code>
+     * string to string map can have length of up to 1024. We support up to 16 entries in the map.
+     * </p>
+     * 
+     * @return The environment variables to set in the Docker container. Each key and value in the
+     *         <code>Environment</code> string to string map can have length of up to 1024. We support up to 16 entries
+     *         in the map.
+     */
+
+    public java.util.Map<String, String> getEnvironment() {
+        return environment;
+    }
+
+    /**
+     * <p>
+     * The environment variables to set in the Docker container. Each key and value in the <code>Environment</code>
+     * string to string map can have length of up to 1024. We support up to 16 entries in the map.
+     * </p>
+     * 
+     * @param environment
+     *        The environment variables to set in the Docker container. Each key and value in the
+     *        <code>Environment</code> string to string map can have length of up to 1024. We support up to 16 entries
+     *        in the map.
+     */
+
+    public void setEnvironment(java.util.Map<String, String> environment) {
+        this.environment = environment;
+    }
+
+    /**
+     * <p>
+     * The environment variables to set in the Docker container. Each key and value in the <code>Environment</code>
+     * string to string map can have length of up to 1024. We support up to 16 entries in the map.
+     * </p>
+     * 
+     * @param environment
+     *        The environment variables to set in the Docker container. Each key and value in the
+     *        <code>Environment</code> string to string map can have length of up to 1024. We support up to 16 entries
+     *        in the map.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModelPackageContainerDefinition withEnvironment(java.util.Map<String, String> environment) {
+        setEnvironment(environment);
+        return this;
+    }
+
+    /**
+     * Add a single Environment entry
+     *
+     * @see ModelPackageContainerDefinition#withEnvironment
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModelPackageContainerDefinition addEnvironmentEntry(String key, String value) {
+        if (null == this.environment) {
+            this.environment = new java.util.HashMap<String, String>();
+        }
+        if (this.environment.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.environment.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Environment.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModelPackageContainerDefinition clearEnvironmentEntries() {
+        this.environment = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * A structure with Model Input details.
+     * </p>
+     * 
+     * @param modelInput
+     *        A structure with Model Input details.
+     */
+
+    public void setModelInput(ModelInput modelInput) {
+        this.modelInput = modelInput;
+    }
+
+    /**
+     * <p>
+     * A structure with Model Input details.
+     * </p>
+     * 
+     * @return A structure with Model Input details.
+     */
+
+    public ModelInput getModelInput() {
+        return this.modelInput;
+    }
+
+    /**
+     * <p>
+     * A structure with Model Input details.
+     * </p>
+     * 
+     * @param modelInput
+     *        A structure with Model Input details.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModelPackageContainerDefinition withModelInput(ModelInput modelInput) {
+        setModelInput(modelInput);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The machine learning framework of the model package container image.
+     * </p>
+     * 
+     * @param framework
+     *        The machine learning framework of the model package container image.
+     */
+
+    public void setFramework(String framework) {
+        this.framework = framework;
+    }
+
+    /**
+     * <p>
+     * The machine learning framework of the model package container image.
+     * </p>
+     * 
+     * @return The machine learning framework of the model package container image.
+     */
+
+    public String getFramework() {
+        return this.framework;
+    }
+
+    /**
+     * <p>
+     * The machine learning framework of the model package container image.
+     * </p>
+     * 
+     * @param framework
+     *        The machine learning framework of the model package container image.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModelPackageContainerDefinition withFramework(String framework) {
+        setFramework(framework);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The framework version of the Model Package Container Image.
+     * </p>
+     * 
+     * @param frameworkVersion
+     *        The framework version of the Model Package Container Image.
+     */
+
+    public void setFrameworkVersion(String frameworkVersion) {
+        this.frameworkVersion = frameworkVersion;
+    }
+
+    /**
+     * <p>
+     * The framework version of the Model Package Container Image.
+     * </p>
+     * 
+     * @return The framework version of the Model Package Container Image.
+     */
+
+    public String getFrameworkVersion() {
+        return this.frameworkVersion;
+    }
+
+    /**
+     * <p>
+     * The framework version of the Model Package Container Image.
+     * </p>
+     * 
+     * @param frameworkVersion
+     *        The framework version of the Model Package Container Image.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModelPackageContainerDefinition withFrameworkVersion(String frameworkVersion) {
+        setFrameworkVersion(frameworkVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of a pre-trained machine learning benchmarked by Amazon SageMaker Inference Recommender model that
+     * matches your model. You can find a list of benchmarked models by calling <code>ListModelMetadata</code>.
+     * </p>
+     * 
+     * @param nearestModelName
+     *        The name of a pre-trained machine learning benchmarked by Amazon SageMaker Inference Recommender model
+     *        that matches your model. You can find a list of benchmarked models by calling
+     *        <code>ListModelMetadata</code>.
+     */
+
+    public void setNearestModelName(String nearestModelName) {
+        this.nearestModelName = nearestModelName;
+    }
+
+    /**
+     * <p>
+     * The name of a pre-trained machine learning benchmarked by Amazon SageMaker Inference Recommender model that
+     * matches your model. You can find a list of benchmarked models by calling <code>ListModelMetadata</code>.
+     * </p>
+     * 
+     * @return The name of a pre-trained machine learning benchmarked by Amazon SageMaker Inference Recommender model
+     *         that matches your model. You can find a list of benchmarked models by calling
+     *         <code>ListModelMetadata</code>.
+     */
+
+    public String getNearestModelName() {
+        return this.nearestModelName;
+    }
+
+    /**
+     * <p>
+     * The name of a pre-trained machine learning benchmarked by Amazon SageMaker Inference Recommender model that
+     * matches your model. You can find a list of benchmarked models by calling <code>ListModelMetadata</code>.
+     * </p>
+     * 
+     * @param nearestModelName
+     *        The name of a pre-trained machine learning benchmarked by Amazon SageMaker Inference Recommender model
+     *        that matches your model. You can find a list of benchmarked models by calling
+     *        <code>ListModelMetadata</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModelPackageContainerDefinition withNearestModelName(String nearestModelName) {
+        setNearestModelName(nearestModelName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The additional data source that is used during inference in the Docker container for your model package.
+     * </p>
+     * 
+     * @param additionalS3DataSource
+     *        The additional data source that is used during inference in the Docker container for your model package.
+     */
+
+    public void setAdditionalS3DataSource(AdditionalS3DataSource additionalS3DataSource) {
+        this.additionalS3DataSource = additionalS3DataSource;
+    }
+
+    /**
+     * <p>
+     * The additional data source that is used during inference in the Docker container for your model package.
+     * </p>
+     * 
+     * @return The additional data source that is used during inference in the Docker container for your model package.
+     */
+
+    public AdditionalS3DataSource getAdditionalS3DataSource() {
+        return this.additionalS3DataSource;
+    }
+
+    /**
+     * <p>
+     * The additional data source that is used during inference in the Docker container for your model package.
+     * </p>
+     * 
+     * @param additionalS3DataSource
+     *        The additional data source that is used during inference in the Docker container for your model package.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModelPackageContainerDefinition withAdditionalS3DataSource(AdditionalS3DataSource additionalS3DataSource) {
+        setAdditionalS3DataSource(additionalS3DataSource);
         return this;
     }
 
@@ -335,8 +731,22 @@ public class ModelPackageContainerDefinition implements Serializable, Cloneable,
             sb.append("ImageDigest: ").append(getImageDigest()).append(",");
         if (getModelDataUrl() != null)
             sb.append("ModelDataUrl: ").append(getModelDataUrl()).append(",");
+        if (getModelDataSource() != null)
+            sb.append("ModelDataSource: ").append(getModelDataSource()).append(",");
         if (getProductId() != null)
-            sb.append("ProductId: ").append(getProductId());
+            sb.append("ProductId: ").append(getProductId()).append(",");
+        if (getEnvironment() != null)
+            sb.append("Environment: ").append(getEnvironment()).append(",");
+        if (getModelInput() != null)
+            sb.append("ModelInput: ").append(getModelInput()).append(",");
+        if (getFramework() != null)
+            sb.append("Framework: ").append(getFramework()).append(",");
+        if (getFrameworkVersion() != null)
+            sb.append("FrameworkVersion: ").append(getFrameworkVersion()).append(",");
+        if (getNearestModelName() != null)
+            sb.append("NearestModelName: ").append(getNearestModelName()).append(",");
+        if (getAdditionalS3DataSource() != null)
+            sb.append("AdditionalS3DataSource: ").append(getAdditionalS3DataSource());
         sb.append("}");
         return sb.toString();
     }
@@ -367,9 +777,37 @@ public class ModelPackageContainerDefinition implements Serializable, Cloneable,
             return false;
         if (other.getModelDataUrl() != null && other.getModelDataUrl().equals(this.getModelDataUrl()) == false)
             return false;
+        if (other.getModelDataSource() == null ^ this.getModelDataSource() == null)
+            return false;
+        if (other.getModelDataSource() != null && other.getModelDataSource().equals(this.getModelDataSource()) == false)
+            return false;
         if (other.getProductId() == null ^ this.getProductId() == null)
             return false;
         if (other.getProductId() != null && other.getProductId().equals(this.getProductId()) == false)
+            return false;
+        if (other.getEnvironment() == null ^ this.getEnvironment() == null)
+            return false;
+        if (other.getEnvironment() != null && other.getEnvironment().equals(this.getEnvironment()) == false)
+            return false;
+        if (other.getModelInput() == null ^ this.getModelInput() == null)
+            return false;
+        if (other.getModelInput() != null && other.getModelInput().equals(this.getModelInput()) == false)
+            return false;
+        if (other.getFramework() == null ^ this.getFramework() == null)
+            return false;
+        if (other.getFramework() != null && other.getFramework().equals(this.getFramework()) == false)
+            return false;
+        if (other.getFrameworkVersion() == null ^ this.getFrameworkVersion() == null)
+            return false;
+        if (other.getFrameworkVersion() != null && other.getFrameworkVersion().equals(this.getFrameworkVersion()) == false)
+            return false;
+        if (other.getNearestModelName() == null ^ this.getNearestModelName() == null)
+            return false;
+        if (other.getNearestModelName() != null && other.getNearestModelName().equals(this.getNearestModelName()) == false)
+            return false;
+        if (other.getAdditionalS3DataSource() == null ^ this.getAdditionalS3DataSource() == null)
+            return false;
+        if (other.getAdditionalS3DataSource() != null && other.getAdditionalS3DataSource().equals(this.getAdditionalS3DataSource()) == false)
             return false;
         return true;
     }
@@ -383,7 +821,14 @@ public class ModelPackageContainerDefinition implements Serializable, Cloneable,
         hashCode = prime * hashCode + ((getImage() == null) ? 0 : getImage().hashCode());
         hashCode = prime * hashCode + ((getImageDigest() == null) ? 0 : getImageDigest().hashCode());
         hashCode = prime * hashCode + ((getModelDataUrl() == null) ? 0 : getModelDataUrl().hashCode());
+        hashCode = prime * hashCode + ((getModelDataSource() == null) ? 0 : getModelDataSource().hashCode());
         hashCode = prime * hashCode + ((getProductId() == null) ? 0 : getProductId().hashCode());
+        hashCode = prime * hashCode + ((getEnvironment() == null) ? 0 : getEnvironment().hashCode());
+        hashCode = prime * hashCode + ((getModelInput() == null) ? 0 : getModelInput().hashCode());
+        hashCode = prime * hashCode + ((getFramework() == null) ? 0 : getFramework().hashCode());
+        hashCode = prime * hashCode + ((getFrameworkVersion() == null) ? 0 : getFrameworkVersion().hashCode());
+        hashCode = prime * hashCode + ((getNearestModelName() == null) ? 0 : getNearestModelName().hashCode());
+        hashCode = prime * hashCode + ((getAdditionalS3DataSource() == null) ? 0 : getAdditionalS3DataSource().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * AWS credentials for API authentication.
+ * Amazon Web Services credentials for API authentication.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sts-2011-06-15/Credentials" target="_top">AWS API
@@ -253,7 +253,7 @@ public class Credentials implements Serializable, Cloneable {
         if (getAccessKeyId() != null)
             sb.append("AccessKeyId: ").append(getAccessKeyId()).append(",");
         if (getSecretAccessKey() != null)
-            sb.append("SecretAccessKey: ").append(getSecretAccessKey()).append(",");
+            sb.append("SecretAccessKey: ").append("***Sensitive Data Redacted***").append(",");
         if (getSessionToken() != null)
             sb.append("SessionToken: ").append(getSessionToken()).append(",");
         if (getExpiration() != null)

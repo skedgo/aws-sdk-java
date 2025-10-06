@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,6 +48,10 @@ public class DeploymentConfigurationJsonUnmarshaller implements Unmarshaller<Dep
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("deploymentCircuitBreaker", targetDepth)) {
+                    context.nextToken();
+                    deploymentConfiguration.setDeploymentCircuitBreaker(DeploymentCircuitBreakerJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("maximumPercent", targetDepth)) {
                     context.nextToken();
                     deploymentConfiguration.setMaximumPercent(context.getUnmarshaller(Integer.class).unmarshall(context));
@@ -55,6 +59,10 @@ public class DeploymentConfigurationJsonUnmarshaller implements Unmarshaller<Dep
                 if (context.testExpression("minimumHealthyPercent", targetDepth)) {
                     context.nextToken();
                     deploymentConfiguration.setMinimumHealthyPercent(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("alarms", targetDepth)) {
+                    context.nextToken();
+                    deploymentConfiguration.setAlarms(DeploymentAlarmsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

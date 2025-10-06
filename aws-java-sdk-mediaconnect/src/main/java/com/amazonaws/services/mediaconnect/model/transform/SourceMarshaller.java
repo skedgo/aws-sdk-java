@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.mediaconnect.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -27,6 +28,8 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class SourceMarshaller {
 
+    private static final MarshallingInfo<Integer> DATATRANSFERSUBSCRIBERFEEPERCENT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("dataTransferSubscriberFeePercent").build();
     private static final MarshallingInfo<StructuredPojo> DECRYPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("decryption").build();
     private static final MarshallingInfo<String> DESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -37,14 +40,24 @@ public class SourceMarshaller {
             .marshallLocationName("ingestIp").build();
     private static final MarshallingInfo<Integer> INGESTPORT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ingestPort").build();
+    private static final MarshallingInfo<List> MEDIASTREAMSOURCECONFIGURATIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("mediaStreamSourceConfigurations").build();
     private static final MarshallingInfo<String> NAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("name").build();
+    private static final MarshallingInfo<Integer> SENDERCONTROLPORT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("senderControlPort").build();
+    private static final MarshallingInfo<String> SENDERIPADDRESS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("senderIpAddress").build();
     private static final MarshallingInfo<String> SOURCEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("sourceArn").build();
     private static final MarshallingInfo<StructuredPojo> TRANSPORT_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("transport").build();
+    private static final MarshallingInfo<String> VPCINTERFACENAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("vpcInterfaceName").build();
     private static final MarshallingInfo<String> WHITELISTCIDR_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("whitelistCidr").build();
+    private static final MarshallingInfo<StructuredPojo> GATEWAYBRIDGESOURCE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("gatewayBridgeSource").build();
 
     private static final SourceMarshaller instance = new SourceMarshaller();
 
@@ -62,15 +75,21 @@ public class SourceMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(source.getDataTransferSubscriberFeePercent(), DATATRANSFERSUBSCRIBERFEEPERCENT_BINDING);
             protocolMarshaller.marshall(source.getDecryption(), DECRYPTION_BINDING);
             protocolMarshaller.marshall(source.getDescription(), DESCRIPTION_BINDING);
             protocolMarshaller.marshall(source.getEntitlementArn(), ENTITLEMENTARN_BINDING);
             protocolMarshaller.marshall(source.getIngestIp(), INGESTIP_BINDING);
             protocolMarshaller.marshall(source.getIngestPort(), INGESTPORT_BINDING);
+            protocolMarshaller.marshall(source.getMediaStreamSourceConfigurations(), MEDIASTREAMSOURCECONFIGURATIONS_BINDING);
             protocolMarshaller.marshall(source.getName(), NAME_BINDING);
+            protocolMarshaller.marshall(source.getSenderControlPort(), SENDERCONTROLPORT_BINDING);
+            protocolMarshaller.marshall(source.getSenderIpAddress(), SENDERIPADDRESS_BINDING);
             protocolMarshaller.marshall(source.getSourceArn(), SOURCEARN_BINDING);
             protocolMarshaller.marshall(source.getTransport(), TRANSPORT_BINDING);
+            protocolMarshaller.marshall(source.getVpcInterfaceName(), VPCINTERFACENAME_BINDING);
             protocolMarshaller.marshall(source.getWhitelistCidr(), WHITELISTCIDR_BINDING);
+            protocolMarshaller.marshall(source.getGatewayBridgeSource(), GATEWAYBRIDGESOURCE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

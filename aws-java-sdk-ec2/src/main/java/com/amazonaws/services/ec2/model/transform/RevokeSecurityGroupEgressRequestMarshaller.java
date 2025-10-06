@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -172,6 +172,20 @@ public class RevokeSecurityGroupEgressRequestMarshaller implements Marshaller<Re
                     }
                 }
                 ipPermissionsListIndex++;
+            }
+        }
+
+        com.amazonaws.internal.SdkInternalList<String> revokeSecurityGroupEgressRequestSecurityGroupRuleIdsList = (com.amazonaws.internal.SdkInternalList<String>) revokeSecurityGroupEgressRequest
+                .getSecurityGroupRuleIds();
+        if (!revokeSecurityGroupEgressRequestSecurityGroupRuleIdsList.isEmpty() || !revokeSecurityGroupEgressRequestSecurityGroupRuleIdsList.isAutoConstruct()) {
+            int securityGroupRuleIdsListIndex = 1;
+
+            for (String revokeSecurityGroupEgressRequestSecurityGroupRuleIdsListValue : revokeSecurityGroupEgressRequestSecurityGroupRuleIdsList) {
+                if (revokeSecurityGroupEgressRequestSecurityGroupRuleIdsListValue != null) {
+                    request.addParameter("SecurityGroupRuleId." + securityGroupRuleIdsListIndex,
+                            StringUtils.fromString(revokeSecurityGroupEgressRequestSecurityGroupRuleIdsListValue));
+                }
+                securityGroupRuleIdsListIndex++;
             }
         }
 

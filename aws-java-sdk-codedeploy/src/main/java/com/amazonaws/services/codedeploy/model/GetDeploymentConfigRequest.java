@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * Represents the input of a GetDeploymentConfig operation.
+ * Represents the input of a <code>GetDeploymentConfig</code> operation.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/GetDeploymentConfig" target="_top">AWS API
@@ -30,18 +30,18 @@ public class GetDeploymentConfigRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name of a deployment configuration associated with the IAM user or AWS account.
+     * The name of a deployment configuration associated with the user or Amazon Web Services account.
      * </p>
      */
     private String deploymentConfigName;
 
     /**
      * <p>
-     * The name of a deployment configuration associated with the IAM user or AWS account.
+     * The name of a deployment configuration associated with the user or Amazon Web Services account.
      * </p>
      * 
      * @param deploymentConfigName
-     *        The name of a deployment configuration associated with the IAM user or AWS account.
+     *        The name of a deployment configuration associated with the user or Amazon Web Services account.
      */
 
     public void setDeploymentConfigName(String deploymentConfigName) {
@@ -50,10 +50,10 @@ public class GetDeploymentConfigRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name of a deployment configuration associated with the IAM user or AWS account.
+     * The name of a deployment configuration associated with the user or Amazon Web Services account.
      * </p>
      * 
-     * @return The name of a deployment configuration associated with the IAM user or AWS account.
+     * @return The name of a deployment configuration associated with the user or Amazon Web Services account.
      */
 
     public String getDeploymentConfigName() {
@@ -62,11 +62,11 @@ public class GetDeploymentConfigRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name of a deployment configuration associated with the IAM user or AWS account.
+     * The name of a deployment configuration associated with the user or Amazon Web Services account.
      * </p>
      * 
      * @param deploymentConfigName
-     *        The name of a deployment configuration associated with the IAM user or AWS account.
+     *        The name of a deployment configuration associated with the user or Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

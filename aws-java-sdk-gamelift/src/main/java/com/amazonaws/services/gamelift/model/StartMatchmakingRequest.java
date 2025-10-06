@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,9 +18,6 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * <p>
- * Represents the input for a request action.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/StartMatchmaking" target="_top">AWS API
  *      Documentation</a>
@@ -30,15 +27,15 @@ public class StartMatchmakingRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Unique identifier for a matchmaking ticket. If no ticket ID is specified here, Amazon GameLift will generate one
-     * in the form of a UUID. Use this identifier to track the matchmaking ticket status and retrieve match results.
+     * A unique identifier for a matchmaking ticket. If no ticket ID is specified here, Amazon GameLift will generate
+     * one in the form of a UUID. Use this identifier to track the matchmaking ticket status and retrieve match results.
      * </p>
      */
     private String ticketId;
     /**
      * <p>
      * Name of the matchmaking configuration to use for this request. Matchmaking configurations must exist in the same
-     * region as this request.
+     * Region as this request. You can use either the configuration name or ARN value.
      * </p>
      */
     private String configurationName;
@@ -48,17 +45,20 @@ public class StartMatchmakingRequest extends com.amazonaws.AmazonWebServiceReque
      * attributes and latency data to be used in the matchmaking process. After a successful match, <code>Player</code>
      * objects contain the name of the team the player is assigned to.
      * </p>
+     * <p>
+     * You can include up to 10 <code>Players</code> in a <code>StartMatchmaking</code> request.
+     * </p>
      */
     private java.util.List<Player> players;
 
     /**
      * <p>
-     * Unique identifier for a matchmaking ticket. If no ticket ID is specified here, Amazon GameLift will generate one
-     * in the form of a UUID. Use this identifier to track the matchmaking ticket status and retrieve match results.
+     * A unique identifier for a matchmaking ticket. If no ticket ID is specified here, Amazon GameLift will generate
+     * one in the form of a UUID. Use this identifier to track the matchmaking ticket status and retrieve match results.
      * </p>
      * 
      * @param ticketId
-     *        Unique identifier for a matchmaking ticket. If no ticket ID is specified here, Amazon GameLift will
+     *        A unique identifier for a matchmaking ticket. If no ticket ID is specified here, Amazon GameLift will
      *        generate one in the form of a UUID. Use this identifier to track the matchmaking ticket status and
      *        retrieve match results.
      */
@@ -69,11 +69,11 @@ public class StartMatchmakingRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Unique identifier for a matchmaking ticket. If no ticket ID is specified here, Amazon GameLift will generate one
-     * in the form of a UUID. Use this identifier to track the matchmaking ticket status and retrieve match results.
+     * A unique identifier for a matchmaking ticket. If no ticket ID is specified here, Amazon GameLift will generate
+     * one in the form of a UUID. Use this identifier to track the matchmaking ticket status and retrieve match results.
      * </p>
      * 
-     * @return Unique identifier for a matchmaking ticket. If no ticket ID is specified here, Amazon GameLift will
+     * @return A unique identifier for a matchmaking ticket. If no ticket ID is specified here, Amazon GameLift will
      *         generate one in the form of a UUID. Use this identifier to track the matchmaking ticket status and
      *         retrieve match results.
      */
@@ -84,12 +84,12 @@ public class StartMatchmakingRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Unique identifier for a matchmaking ticket. If no ticket ID is specified here, Amazon GameLift will generate one
-     * in the form of a UUID. Use this identifier to track the matchmaking ticket status and retrieve match results.
+     * A unique identifier for a matchmaking ticket. If no ticket ID is specified here, Amazon GameLift will generate
+     * one in the form of a UUID. Use this identifier to track the matchmaking ticket status and retrieve match results.
      * </p>
      * 
      * @param ticketId
-     *        Unique identifier for a matchmaking ticket. If no ticket ID is specified here, Amazon GameLift will
+     *        A unique identifier for a matchmaking ticket. If no ticket ID is specified here, Amazon GameLift will
      *        generate one in the form of a UUID. Use this identifier to track the matchmaking ticket status and
      *        retrieve match results.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -103,12 +103,12 @@ public class StartMatchmakingRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * Name of the matchmaking configuration to use for this request. Matchmaking configurations must exist in the same
-     * region as this request.
+     * Region as this request. You can use either the configuration name or ARN value.
      * </p>
      * 
      * @param configurationName
      *        Name of the matchmaking configuration to use for this request. Matchmaking configurations must exist in
-     *        the same region as this request.
+     *        the same Region as this request. You can use either the configuration name or ARN value.
      */
 
     public void setConfigurationName(String configurationName) {
@@ -118,11 +118,11 @@ public class StartMatchmakingRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * Name of the matchmaking configuration to use for this request. Matchmaking configurations must exist in the same
-     * region as this request.
+     * Region as this request. You can use either the configuration name or ARN value.
      * </p>
      * 
      * @return Name of the matchmaking configuration to use for this request. Matchmaking configurations must exist in
-     *         the same region as this request.
+     *         the same Region as this request. You can use either the configuration name or ARN value.
      */
 
     public String getConfigurationName() {
@@ -132,12 +132,12 @@ public class StartMatchmakingRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * Name of the matchmaking configuration to use for this request. Matchmaking configurations must exist in the same
-     * region as this request.
+     * Region as this request. You can use either the configuration name or ARN value.
      * </p>
      * 
      * @param configurationName
      *        Name of the matchmaking configuration to use for this request. Matchmaking configurations must exist in
-     *        the same region as this request.
+     *        the same Region as this request. You can use either the configuration name or ARN value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -152,10 +152,15 @@ public class StartMatchmakingRequest extends com.amazonaws.AmazonWebServiceReque
      * attributes and latency data to be used in the matchmaking process. After a successful match, <code>Player</code>
      * objects contain the name of the team the player is assigned to.
      * </p>
+     * <p>
+     * You can include up to 10 <code>Players</code> in a <code>StartMatchmaking</code> request.
+     * </p>
      * 
      * @return Information on each player to be matched. This information must include a player ID, and may contain
      *         player attributes and latency data to be used in the matchmaking process. After a successful match,
-     *         <code>Player</code> objects contain the name of the team the player is assigned to.
+     *         <code>Player</code> objects contain the name of the team the player is assigned to.</p>
+     *         <p>
+     *         You can include up to 10 <code>Players</code> in a <code>StartMatchmaking</code> request.
      */
 
     public java.util.List<Player> getPlayers() {
@@ -168,11 +173,16 @@ public class StartMatchmakingRequest extends com.amazonaws.AmazonWebServiceReque
      * attributes and latency data to be used in the matchmaking process. After a successful match, <code>Player</code>
      * objects contain the name of the team the player is assigned to.
      * </p>
+     * <p>
+     * You can include up to 10 <code>Players</code> in a <code>StartMatchmaking</code> request.
+     * </p>
      * 
      * @param players
      *        Information on each player to be matched. This information must include a player ID, and may contain
      *        player attributes and latency data to be used in the matchmaking process. After a successful match,
-     *        <code>Player</code> objects contain the name of the team the player is assigned to.
+     *        <code>Player</code> objects contain the name of the team the player is assigned to.</p>
+     *        <p>
+     *        You can include up to 10 <code>Players</code> in a <code>StartMatchmaking</code> request.
      */
 
     public void setPlayers(java.util.Collection<Player> players) {
@@ -191,6 +201,9 @@ public class StartMatchmakingRequest extends com.amazonaws.AmazonWebServiceReque
      * objects contain the name of the team the player is assigned to.
      * </p>
      * <p>
+     * You can include up to 10 <code>Players</code> in a <code>StartMatchmaking</code> request.
+     * </p>
+     * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setPlayers(java.util.Collection)} or {@link #withPlayers(java.util.Collection)} if you want to override
      * the existing values.
@@ -199,7 +212,9 @@ public class StartMatchmakingRequest extends com.amazonaws.AmazonWebServiceReque
      * @param players
      *        Information on each player to be matched. This information must include a player ID, and may contain
      *        player attributes and latency data to be used in the matchmaking process. After a successful match,
-     *        <code>Player</code> objects contain the name of the team the player is assigned to.
+     *        <code>Player</code> objects contain the name of the team the player is assigned to.</p>
+     *        <p>
+     *        You can include up to 10 <code>Players</code> in a <code>StartMatchmaking</code> request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -219,11 +234,16 @@ public class StartMatchmakingRequest extends com.amazonaws.AmazonWebServiceReque
      * attributes and latency data to be used in the matchmaking process. After a successful match, <code>Player</code>
      * objects contain the name of the team the player is assigned to.
      * </p>
+     * <p>
+     * You can include up to 10 <code>Players</code> in a <code>StartMatchmaking</code> request.
+     * </p>
      * 
      * @param players
      *        Information on each player to be matched. This information must include a player ID, and may contain
      *        player attributes and latency data to be used in the matchmaking process. After a successful match,
-     *        <code>Player</code> objects contain the name of the team the player is assigned to.
+     *        <code>Player</code> objects contain the name of the team the player is assigned to.</p>
+     *        <p>
+     *        You can include up to 10 <code>Players</code> in a <code>StartMatchmaking</code> request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

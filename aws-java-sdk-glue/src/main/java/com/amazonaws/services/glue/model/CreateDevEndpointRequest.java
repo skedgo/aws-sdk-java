@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -72,7 +72,7 @@ public class CreateDevEndpointRequest extends com.amazonaws.AmazonWebServiceRequ
     private java.util.List<String> publicKeys;
     /**
      * <p>
-     * The number of AWS Glue Data Processing Units (DPUs) to allocate to this <code>DevEndpoint</code>.
+     * The number of Glue Data Processing Units (DPUs) to allocate to this <code>DevEndpoint</code>.
      * </p>
      */
     private Integer numberOfNodes;
@@ -101,8 +101,32 @@ public class CreateDevEndpointRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Known issue: when a development endpoint is created with the <code>G.2X</code> <code>WorkerType</code>
+     * configuration, the Spark drivers for the development endpoint will run on 4 vCPU, 16 GB of memory, and a 64 GB
+     * disk.
+     * </p>
      */
     private String workerType;
+    /**
+     * <p>
+     * Glue version determines the versions of Apache Spark and Python that Glue supports. The Python version indicates
+     * the version supported for running your ETL scripts on development endpoints.
+     * </p>
+     * <p>
+     * For more information about the available Glue versions and corresponding Spark and Python versions, see <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer guide.
+     * </p>
+     * <p>
+     * Development endpoints that are created without specifying a Glue version default to Glue 0.9.
+     * </p>
+     * <p>
+     * You can specify a version of Python support for development endpoints by using the <code>Arguments</code>
+     * parameter in the <code>CreateDevEndpoint</code> or <code>UpdateDevEndpoint</code> APIs. If no arguments are
+     * provided, the version defaults to Python 2.
+     * </p>
+     */
+    private String glueVersion;
     /**
      * <p>
      * The number of workers of a defined <code>workerType</code> that are allocated to the development endpoint.
@@ -141,8 +165,8 @@ public class CreateDevEndpointRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The tags to use with this DevEndpoint. You may use tags to limit access to the DevEndpoint. For more information
-     * about tags in AWS Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">AWS Tags in
-     * AWS Glue</a> in the developer guide.
+     * about tags in Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">Amazon Web
+     * Services Tags in Glue</a> in the developer guide.
      * </p>
      */
     private java.util.Map<String, String> tags;
@@ -525,11 +549,11 @@ public class CreateDevEndpointRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The number of AWS Glue Data Processing Units (DPUs) to allocate to this <code>DevEndpoint</code>.
+     * The number of Glue Data Processing Units (DPUs) to allocate to this <code>DevEndpoint</code>.
      * </p>
      * 
      * @param numberOfNodes
-     *        The number of AWS Glue Data Processing Units (DPUs) to allocate to this <code>DevEndpoint</code>.
+     *        The number of Glue Data Processing Units (DPUs) to allocate to this <code>DevEndpoint</code>.
      */
 
     public void setNumberOfNodes(Integer numberOfNodes) {
@@ -538,10 +562,10 @@ public class CreateDevEndpointRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The number of AWS Glue Data Processing Units (DPUs) to allocate to this <code>DevEndpoint</code>.
+     * The number of Glue Data Processing Units (DPUs) to allocate to this <code>DevEndpoint</code>.
      * </p>
      * 
-     * @return The number of AWS Glue Data Processing Units (DPUs) to allocate to this <code>DevEndpoint</code>.
+     * @return The number of Glue Data Processing Units (DPUs) to allocate to this <code>DevEndpoint</code>.
      */
 
     public Integer getNumberOfNodes() {
@@ -550,11 +574,11 @@ public class CreateDevEndpointRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The number of AWS Glue Data Processing Units (DPUs) to allocate to this <code>DevEndpoint</code>.
+     * The number of Glue Data Processing Units (DPUs) to allocate to this <code>DevEndpoint</code>.
      * </p>
      * 
      * @param numberOfNodes
-     *        The number of AWS Glue Data Processing Units (DPUs) to allocate to this <code>DevEndpoint</code>.
+     *        The number of Glue Data Processing Units (DPUs) to allocate to this <code>DevEndpoint</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -588,6 +612,11 @@ public class CreateDevEndpointRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Known issue: when a development endpoint is created with the <code>G.2X</code> <code>WorkerType</code>
+     * configuration, the Spark drivers for the development endpoint will run on 4 vCPU, 16 GB of memory, and a 64 GB
+     * disk.
+     * </p>
      * 
      * @param workerType
      *        The type of predefined worker that is allocated to the development endpoint. Accepts a value of Standard,
@@ -611,6 +640,11 @@ public class CreateDevEndpointRequest extends com.amazonaws.AmazonWebServiceRequ
      *        and provides 1 executor per worker. We recommend this worker type for memory-intensive jobs.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        Known issue: when a development endpoint is created with the <code>G.2X</code> <code>WorkerType</code>
+     *        configuration, the Spark drivers for the development endpoint will run on 4 vCPU, 16 GB of memory, and a
+     *        64 GB disk.
      * @see WorkerType
      */
 
@@ -643,6 +677,11 @@ public class CreateDevEndpointRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Known issue: when a development endpoint is created with the <code>G.2X</code> <code>WorkerType</code>
+     * configuration, the Spark drivers for the development endpoint will run on 4 vCPU, 16 GB of memory, and a 64 GB
+     * disk.
+     * </p>
      * 
      * @return The type of predefined worker that is allocated to the development endpoint. Accepts a value of Standard,
      *         G.1X, or G.2X.</p>
@@ -665,6 +704,11 @@ public class CreateDevEndpointRequest extends com.amazonaws.AmazonWebServiceRequ
      *         and provides 1 executor per worker. We recommend this worker type for memory-intensive jobs.
      *         </p>
      *         </li>
+     *         </ul>
+     *         <p>
+     *         Known issue: when a development endpoint is created with the <code>G.2X</code> <code>WorkerType</code>
+     *         configuration, the Spark drivers for the development endpoint will run on 4 vCPU, 16 GB of memory, and a
+     *         64 GB disk.
      * @see WorkerType
      */
 
@@ -697,6 +741,11 @@ public class CreateDevEndpointRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Known issue: when a development endpoint is created with the <code>G.2X</code> <code>WorkerType</code>
+     * configuration, the Spark drivers for the development endpoint will run on 4 vCPU, 16 GB of memory, and a 64 GB
+     * disk.
+     * </p>
      * 
      * @param workerType
      *        The type of predefined worker that is allocated to the development endpoint. Accepts a value of Standard,
@@ -720,6 +769,11 @@ public class CreateDevEndpointRequest extends com.amazonaws.AmazonWebServiceRequ
      *        and provides 1 executor per worker. We recommend this worker type for memory-intensive jobs.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        Known issue: when a development endpoint is created with the <code>G.2X</code> <code>WorkerType</code>
+     *        configuration, the Spark drivers for the development endpoint will run on 4 vCPU, 16 GB of memory, and a
+     *        64 GB disk.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see WorkerType
      */
@@ -754,6 +808,11 @@ public class CreateDevEndpointRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Known issue: when a development endpoint is created with the <code>G.2X</code> <code>WorkerType</code>
+     * configuration, the Spark drivers for the development endpoint will run on 4 vCPU, 16 GB of memory, and a 64 GB
+     * disk.
+     * </p>
      * 
      * @param workerType
      *        The type of predefined worker that is allocated to the development endpoint. Accepts a value of Standard,
@@ -777,12 +836,133 @@ public class CreateDevEndpointRequest extends com.amazonaws.AmazonWebServiceRequ
      *        and provides 1 executor per worker. We recommend this worker type for memory-intensive jobs.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        Known issue: when a development endpoint is created with the <code>G.2X</code> <code>WorkerType</code>
+     *        configuration, the Spark drivers for the development endpoint will run on 4 vCPU, 16 GB of memory, and a
+     *        64 GB disk.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see WorkerType
      */
 
     public CreateDevEndpointRequest withWorkerType(WorkerType workerType) {
         this.workerType = workerType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Glue version determines the versions of Apache Spark and Python that Glue supports. The Python version indicates
+     * the version supported for running your ETL scripts on development endpoints.
+     * </p>
+     * <p>
+     * For more information about the available Glue versions and corresponding Spark and Python versions, see <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer guide.
+     * </p>
+     * <p>
+     * Development endpoints that are created without specifying a Glue version default to Glue 0.9.
+     * </p>
+     * <p>
+     * You can specify a version of Python support for development endpoints by using the <code>Arguments</code>
+     * parameter in the <code>CreateDevEndpoint</code> or <code>UpdateDevEndpoint</code> APIs. If no arguments are
+     * provided, the version defaults to Python 2.
+     * </p>
+     * 
+     * @param glueVersion
+     *        Glue version determines the versions of Apache Spark and Python that Glue supports. The Python version
+     *        indicates the version supported for running your ETL scripts on development endpoints. </p>
+     *        <p>
+     *        For more information about the available Glue versions and corresponding Spark and Python versions, see <a
+     *        href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer guide.
+     *        </p>
+     *        <p>
+     *        Development endpoints that are created without specifying a Glue version default to Glue 0.9.
+     *        </p>
+     *        <p>
+     *        You can specify a version of Python support for development endpoints by using the <code>Arguments</code>
+     *        parameter in the <code>CreateDevEndpoint</code> or <code>UpdateDevEndpoint</code> APIs. If no arguments
+     *        are provided, the version defaults to Python 2.
+     */
+
+    public void setGlueVersion(String glueVersion) {
+        this.glueVersion = glueVersion;
+    }
+
+    /**
+     * <p>
+     * Glue version determines the versions of Apache Spark and Python that Glue supports. The Python version indicates
+     * the version supported for running your ETL scripts on development endpoints.
+     * </p>
+     * <p>
+     * For more information about the available Glue versions and corresponding Spark and Python versions, see <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer guide.
+     * </p>
+     * <p>
+     * Development endpoints that are created without specifying a Glue version default to Glue 0.9.
+     * </p>
+     * <p>
+     * You can specify a version of Python support for development endpoints by using the <code>Arguments</code>
+     * parameter in the <code>CreateDevEndpoint</code> or <code>UpdateDevEndpoint</code> APIs. If no arguments are
+     * provided, the version defaults to Python 2.
+     * </p>
+     * 
+     * @return Glue version determines the versions of Apache Spark and Python that Glue supports. The Python version
+     *         indicates the version supported for running your ETL scripts on development endpoints. </p>
+     *         <p>
+     *         For more information about the available Glue versions and corresponding Spark and Python versions, see
+     *         <a href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer
+     *         guide.
+     *         </p>
+     *         <p>
+     *         Development endpoints that are created without specifying a Glue version default to Glue 0.9.
+     *         </p>
+     *         <p>
+     *         You can specify a version of Python support for development endpoints by using the <code>Arguments</code>
+     *         parameter in the <code>CreateDevEndpoint</code> or <code>UpdateDevEndpoint</code> APIs. If no arguments
+     *         are provided, the version defaults to Python 2.
+     */
+
+    public String getGlueVersion() {
+        return this.glueVersion;
+    }
+
+    /**
+     * <p>
+     * Glue version determines the versions of Apache Spark and Python that Glue supports. The Python version indicates
+     * the version supported for running your ETL scripts on development endpoints.
+     * </p>
+     * <p>
+     * For more information about the available Glue versions and corresponding Spark and Python versions, see <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer guide.
+     * </p>
+     * <p>
+     * Development endpoints that are created without specifying a Glue version default to Glue 0.9.
+     * </p>
+     * <p>
+     * You can specify a version of Python support for development endpoints by using the <code>Arguments</code>
+     * parameter in the <code>CreateDevEndpoint</code> or <code>UpdateDevEndpoint</code> APIs. If no arguments are
+     * provided, the version defaults to Python 2.
+     * </p>
+     * 
+     * @param glueVersion
+     *        Glue version determines the versions of Apache Spark and Python that Glue supports. The Python version
+     *        indicates the version supported for running your ETL scripts on development endpoints. </p>
+     *        <p>
+     *        For more information about the available Glue versions and corresponding Spark and Python versions, see <a
+     *        href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer guide.
+     *        </p>
+     *        <p>
+     *        Development endpoints that are created without specifying a Glue version default to Glue 0.9.
+     *        </p>
+     *        <p>
+     *        You can specify a version of Python support for development endpoints by using the <code>Arguments</code>
+     *        parameter in the <code>CreateDevEndpoint</code> or <code>UpdateDevEndpoint</code> APIs. If no arguments
+     *        are provided, the version defaults to Python 2.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDevEndpointRequest withGlueVersion(String glueVersion) {
+        setGlueVersion(glueVersion);
         return this;
     }
 
@@ -1015,14 +1195,14 @@ public class CreateDevEndpointRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The tags to use with this DevEndpoint. You may use tags to limit access to the DevEndpoint. For more information
-     * about tags in AWS Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">AWS Tags in
-     * AWS Glue</a> in the developer guide.
+     * about tags in Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">Amazon Web
+     * Services Tags in Glue</a> in the developer guide.
      * </p>
      * 
      * @return The tags to use with this DevEndpoint. You may use tags to limit access to the DevEndpoint. For more
-     *         information about tags in AWS Glue, see <a
-     *         href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">AWS Tags in AWS Glue</a> in the
-     *         developer guide.
+     *         information about tags in Glue, see <a
+     *         href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">Amazon Web Services Tags in Glue</a>
+     *         in the developer guide.
      */
 
     public java.util.Map<String, String> getTags() {
@@ -1032,15 +1212,15 @@ public class CreateDevEndpointRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The tags to use with this DevEndpoint. You may use tags to limit access to the DevEndpoint. For more information
-     * about tags in AWS Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">AWS Tags in
-     * AWS Glue</a> in the developer guide.
+     * about tags in Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">Amazon Web
+     * Services Tags in Glue</a> in the developer guide.
      * </p>
      * 
      * @param tags
      *        The tags to use with this DevEndpoint. You may use tags to limit access to the DevEndpoint. For more
-     *        information about tags in AWS Glue, see <a
-     *        href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">AWS Tags in AWS Glue</a> in the
-     *        developer guide.
+     *        information about tags in Glue, see <a
+     *        href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">Amazon Web Services Tags in Glue</a>
+     *        in the developer guide.
      */
 
     public void setTags(java.util.Map<String, String> tags) {
@@ -1050,15 +1230,15 @@ public class CreateDevEndpointRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The tags to use with this DevEndpoint. You may use tags to limit access to the DevEndpoint. For more information
-     * about tags in AWS Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">AWS Tags in
-     * AWS Glue</a> in the developer guide.
+     * about tags in Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">Amazon Web
+     * Services Tags in Glue</a> in the developer guide.
      * </p>
      * 
      * @param tags
      *        The tags to use with this DevEndpoint. You may use tags to limit access to the DevEndpoint. For more
-     *        information about tags in AWS Glue, see <a
-     *        href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">AWS Tags in AWS Glue</a> in the
-     *        developer guide.
+     *        information about tags in Glue, see <a
+     *        href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">Amazon Web Services Tags in Glue</a>
+     *        in the developer guide.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1066,6 +1246,13 @@ public class CreateDevEndpointRequest extends com.amazonaws.AmazonWebServiceRequ
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateDevEndpointRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public CreateDevEndpointRequest addTagsEntry(String key, String value) {
         if (null == this.tags) {
@@ -1128,6 +1315,13 @@ public class CreateDevEndpointRequest extends com.amazonaws.AmazonWebServiceRequ
         return this;
     }
 
+    /**
+     * Add a single Arguments entry
+     *
+     * @see CreateDevEndpointRequest#withArguments
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public CreateDevEndpointRequest addArgumentsEntry(String key, String value) {
         if (null == this.arguments) {
             this.arguments = new java.util.HashMap<String, String>();
@@ -1177,6 +1371,8 @@ public class CreateDevEndpointRequest extends com.amazonaws.AmazonWebServiceRequ
             sb.append("NumberOfNodes: ").append(getNumberOfNodes()).append(",");
         if (getWorkerType() != null)
             sb.append("WorkerType: ").append(getWorkerType()).append(",");
+        if (getGlueVersion() != null)
+            sb.append("GlueVersion: ").append(getGlueVersion()).append(",");
         if (getNumberOfWorkers() != null)
             sb.append("NumberOfWorkers: ").append(getNumberOfWorkers()).append(",");
         if (getExtraPythonLibsS3Path() != null)
@@ -1235,6 +1431,10 @@ public class CreateDevEndpointRequest extends com.amazonaws.AmazonWebServiceRequ
             return false;
         if (other.getWorkerType() != null && other.getWorkerType().equals(this.getWorkerType()) == false)
             return false;
+        if (other.getGlueVersion() == null ^ this.getGlueVersion() == null)
+            return false;
+        if (other.getGlueVersion() != null && other.getGlueVersion().equals(this.getGlueVersion()) == false)
+            return false;
         if (other.getNumberOfWorkers() == null ^ this.getNumberOfWorkers() == null)
             return false;
         if (other.getNumberOfWorkers() != null && other.getNumberOfWorkers().equals(this.getNumberOfWorkers()) == false)
@@ -1275,6 +1475,7 @@ public class CreateDevEndpointRequest extends com.amazonaws.AmazonWebServiceRequ
         hashCode = prime * hashCode + ((getPublicKeys() == null) ? 0 : getPublicKeys().hashCode());
         hashCode = prime * hashCode + ((getNumberOfNodes() == null) ? 0 : getNumberOfNodes().hashCode());
         hashCode = prime * hashCode + ((getWorkerType() == null) ? 0 : getWorkerType().hashCode());
+        hashCode = prime * hashCode + ((getGlueVersion() == null) ? 0 : getGlueVersion().hashCode());
         hashCode = prime * hashCode + ((getNumberOfWorkers() == null) ? 0 : getNumberOfWorkers().hashCode());
         hashCode = prime * hashCode + ((getExtraPythonLibsS3Path() == null) ? 0 : getExtraPythonLibsS3Path().hashCode());
         hashCode = prime * hashCode + ((getExtraJarsS3Path() == null) ? 0 : getExtraJarsS3Path().hashCode());

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,6 +28,10 @@ public class UpdateThingRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * The name of the thing to update.
+     * </p>
+     * <p>
+     * You can't change a thing's name. To change a thing's name, you must create a new thing, give it the new name, and
+     * then delete the old thing.
      * </p>
      */
     private String thingName;
@@ -68,9 +72,16 @@ public class UpdateThingRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * The name of the thing to update.
      * </p>
+     * <p>
+     * You can't change a thing's name. To change a thing's name, you must create a new thing, give it the new name, and
+     * then delete the old thing.
+     * </p>
      * 
      * @param thingName
-     *        The name of the thing to update.
+     *        The name of the thing to update.</p>
+     *        <p>
+     *        You can't change a thing's name. To change a thing's name, you must create a new thing, give it the new
+     *        name, and then delete the old thing.
      */
 
     public void setThingName(String thingName) {
@@ -81,8 +92,15 @@ public class UpdateThingRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * The name of the thing to update.
      * </p>
+     * <p>
+     * You can't change a thing's name. To change a thing's name, you must create a new thing, give it the new name, and
+     * then delete the old thing.
+     * </p>
      * 
-     * @return The name of the thing to update.
+     * @return The name of the thing to update.</p>
+     *         <p>
+     *         You can't change a thing's name. To change a thing's name, you must create a new thing, give it the new
+     *         name, and then delete the old thing.
      */
 
     public String getThingName() {
@@ -93,9 +111,16 @@ public class UpdateThingRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * The name of the thing to update.
      * </p>
+     * <p>
+     * You can't change a thing's name. To change a thing's name, you must create a new thing, give it the new name, and
+     * then delete the old thing.
+     * </p>
      * 
      * @param thingName
-     *        The name of the thing to update.
+     *        The name of the thing to update.</p>
+     *        <p>
+     *        You can't change a thing's name. To change a thing's name, you must create a new thing, give it the new
+     *        name, and then delete the old thing.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

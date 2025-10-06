@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,12 +28,27 @@ public class AbstractAmazonGuardDutyAsync extends AbstractAmazonGuardDuty implem
     }
 
     @Override
+    public java.util.concurrent.Future<AcceptAdministratorInvitationResult> acceptAdministratorInvitationAsync(AcceptAdministratorInvitationRequest request) {
+
+        return acceptAdministratorInvitationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AcceptAdministratorInvitationResult> acceptAdministratorInvitationAsync(AcceptAdministratorInvitationRequest request,
+            com.amazonaws.handlers.AsyncHandler<AcceptAdministratorInvitationRequest, AcceptAdministratorInvitationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    @Deprecated
     public java.util.concurrent.Future<AcceptInvitationResult> acceptInvitationAsync(AcceptInvitationRequest request) {
 
         return acceptInvitationAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<AcceptInvitationResult> acceptInvitationAsync(AcceptInvitationRequest request,
             com.amazonaws.handlers.AsyncHandler<AcceptInvitationRequest, AcceptInvitationResult> asyncHandler) {
 
@@ -93,6 +108,19 @@ public class AbstractAmazonGuardDutyAsync extends AbstractAmazonGuardDuty implem
     }
 
     @Override
+    public java.util.concurrent.Future<CreateMalwareProtectionPlanResult> createMalwareProtectionPlanAsync(CreateMalwareProtectionPlanRequest request) {
+
+        return createMalwareProtectionPlanAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateMalwareProtectionPlanResult> createMalwareProtectionPlanAsync(CreateMalwareProtectionPlanRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateMalwareProtectionPlanRequest, CreateMalwareProtectionPlanResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateMembersResult> createMembersAsync(CreateMembersRequest request) {
 
         return createMembersAsync(request, null);
@@ -101,6 +129,19 @@ public class AbstractAmazonGuardDutyAsync extends AbstractAmazonGuardDuty implem
     @Override
     public java.util.concurrent.Future<CreateMembersResult> createMembersAsync(CreateMembersRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateMembersRequest, CreateMembersResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreatePublishingDestinationResult> createPublishingDestinationAsync(CreatePublishingDestinationRequest request) {
+
+        return createPublishingDestinationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreatePublishingDestinationResult> createPublishingDestinationAsync(CreatePublishingDestinationRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreatePublishingDestinationRequest, CreatePublishingDestinationResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -197,6 +238,19 @@ public class AbstractAmazonGuardDutyAsync extends AbstractAmazonGuardDuty implem
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteMalwareProtectionPlanResult> deleteMalwareProtectionPlanAsync(DeleteMalwareProtectionPlanRequest request) {
+
+        return deleteMalwareProtectionPlanAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteMalwareProtectionPlanResult> deleteMalwareProtectionPlanAsync(DeleteMalwareProtectionPlanRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteMalwareProtectionPlanRequest, DeleteMalwareProtectionPlanResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteMembersResult> deleteMembersAsync(DeleteMembersRequest request) {
 
         return deleteMembersAsync(request, null);
@@ -205,6 +259,19 @@ public class AbstractAmazonGuardDutyAsync extends AbstractAmazonGuardDuty implem
     @Override
     public java.util.concurrent.Future<DeleteMembersResult> deleteMembersAsync(DeleteMembersRequest request,
             com.amazonaws.handlers.AsyncHandler<DeleteMembersRequest, DeleteMembersResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeletePublishingDestinationResult> deletePublishingDestinationAsync(DeletePublishingDestinationRequest request) {
+
+        return deletePublishingDestinationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeletePublishingDestinationResult> deletePublishingDestinationAsync(DeletePublishingDestinationRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeletePublishingDestinationRequest, DeletePublishingDestinationResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -223,12 +290,85 @@ public class AbstractAmazonGuardDutyAsync extends AbstractAmazonGuardDuty implem
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeMalwareScansResult> describeMalwareScansAsync(DescribeMalwareScansRequest request) {
+
+        return describeMalwareScansAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeMalwareScansResult> describeMalwareScansAsync(DescribeMalwareScansRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeMalwareScansRequest, DescribeMalwareScansResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeOrganizationConfigurationResult> describeOrganizationConfigurationAsync(
+            DescribeOrganizationConfigurationRequest request) {
+
+        return describeOrganizationConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeOrganizationConfigurationResult> describeOrganizationConfigurationAsync(
+            DescribeOrganizationConfigurationRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeOrganizationConfigurationRequest, DescribeOrganizationConfigurationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribePublishingDestinationResult> describePublishingDestinationAsync(DescribePublishingDestinationRequest request) {
+
+        return describePublishingDestinationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribePublishingDestinationResult> describePublishingDestinationAsync(DescribePublishingDestinationRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribePublishingDestinationRequest, DescribePublishingDestinationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisableOrganizationAdminAccountResult> disableOrganizationAdminAccountAsync(
+            DisableOrganizationAdminAccountRequest request) {
+
+        return disableOrganizationAdminAccountAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisableOrganizationAdminAccountResult> disableOrganizationAdminAccountAsync(
+            DisableOrganizationAdminAccountRequest request,
+            com.amazonaws.handlers.AsyncHandler<DisableOrganizationAdminAccountRequest, DisableOrganizationAdminAccountResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateFromAdministratorAccountResult> disassociateFromAdministratorAccountAsync(
+            DisassociateFromAdministratorAccountRequest request) {
+
+        return disassociateFromAdministratorAccountAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateFromAdministratorAccountResult> disassociateFromAdministratorAccountAsync(
+            DisassociateFromAdministratorAccountRequest request,
+            com.amazonaws.handlers.AsyncHandler<DisassociateFromAdministratorAccountRequest, DisassociateFromAdministratorAccountResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    @Deprecated
     public java.util.concurrent.Future<DisassociateFromMasterAccountResult> disassociateFromMasterAccountAsync(DisassociateFromMasterAccountRequest request) {
 
         return disassociateFromMasterAccountAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DisassociateFromMasterAccountResult> disassociateFromMasterAccountAsync(DisassociateFromMasterAccountRequest request,
             com.amazonaws.handlers.AsyncHandler<DisassociateFromMasterAccountRequest, DisassociateFromMasterAccountResult> asyncHandler) {
 
@@ -244,6 +384,45 @@ public class AbstractAmazonGuardDutyAsync extends AbstractAmazonGuardDuty implem
     @Override
     public java.util.concurrent.Future<DisassociateMembersResult> disassociateMembersAsync(DisassociateMembersRequest request,
             com.amazonaws.handlers.AsyncHandler<DisassociateMembersRequest, DisassociateMembersResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<EnableOrganizationAdminAccountResult> enableOrganizationAdminAccountAsync(EnableOrganizationAdminAccountRequest request) {
+
+        return enableOrganizationAdminAccountAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<EnableOrganizationAdminAccountResult> enableOrganizationAdminAccountAsync(EnableOrganizationAdminAccountRequest request,
+            com.amazonaws.handlers.AsyncHandler<EnableOrganizationAdminAccountRequest, EnableOrganizationAdminAccountResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetAdministratorAccountResult> getAdministratorAccountAsync(GetAdministratorAccountRequest request) {
+
+        return getAdministratorAccountAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetAdministratorAccountResult> getAdministratorAccountAsync(GetAdministratorAccountRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetAdministratorAccountRequest, GetAdministratorAccountResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCoverageStatisticsResult> getCoverageStatisticsAsync(GetCoverageStatisticsRequest request) {
+
+        return getCoverageStatisticsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCoverageStatisticsResult> getCoverageStatisticsAsync(GetCoverageStatisticsRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetCoverageStatisticsRequest, GetCoverageStatisticsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -327,14 +506,55 @@ public class AbstractAmazonGuardDutyAsync extends AbstractAmazonGuardDuty implem
     }
 
     @Override
+    public java.util.concurrent.Future<GetMalwareProtectionPlanResult> getMalwareProtectionPlanAsync(GetMalwareProtectionPlanRequest request) {
+
+        return getMalwareProtectionPlanAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetMalwareProtectionPlanResult> getMalwareProtectionPlanAsync(GetMalwareProtectionPlanRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetMalwareProtectionPlanRequest, GetMalwareProtectionPlanResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetMalwareScanSettingsResult> getMalwareScanSettingsAsync(GetMalwareScanSettingsRequest request) {
+
+        return getMalwareScanSettingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetMalwareScanSettingsResult> getMalwareScanSettingsAsync(GetMalwareScanSettingsRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetMalwareScanSettingsRequest, GetMalwareScanSettingsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    @Deprecated
     public java.util.concurrent.Future<GetMasterAccountResult> getMasterAccountAsync(GetMasterAccountRequest request) {
 
         return getMasterAccountAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<GetMasterAccountResult> getMasterAccountAsync(GetMasterAccountRequest request,
             com.amazonaws.handlers.AsyncHandler<GetMasterAccountRequest, GetMasterAccountResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetMemberDetectorsResult> getMemberDetectorsAsync(GetMemberDetectorsRequest request) {
+
+        return getMemberDetectorsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetMemberDetectorsResult> getMemberDetectorsAsync(GetMemberDetectorsRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetMemberDetectorsRequest, GetMemberDetectorsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -353,6 +573,32 @@ public class AbstractAmazonGuardDutyAsync extends AbstractAmazonGuardDuty implem
     }
 
     @Override
+    public java.util.concurrent.Future<GetOrganizationStatisticsResult> getOrganizationStatisticsAsync(GetOrganizationStatisticsRequest request) {
+
+        return getOrganizationStatisticsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetOrganizationStatisticsResult> getOrganizationStatisticsAsync(GetOrganizationStatisticsRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetOrganizationStatisticsRequest, GetOrganizationStatisticsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRemainingFreeTrialDaysResult> getRemainingFreeTrialDaysAsync(GetRemainingFreeTrialDaysRequest request) {
+
+        return getRemainingFreeTrialDaysAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRemainingFreeTrialDaysResult> getRemainingFreeTrialDaysAsync(GetRemainingFreeTrialDaysRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetRemainingFreeTrialDaysRequest, GetRemainingFreeTrialDaysResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<GetThreatIntelSetResult> getThreatIntelSetAsync(GetThreatIntelSetRequest request) {
 
         return getThreatIntelSetAsync(request, null);
@@ -366,6 +612,19 @@ public class AbstractAmazonGuardDutyAsync extends AbstractAmazonGuardDuty implem
     }
 
     @Override
+    public java.util.concurrent.Future<GetUsageStatisticsResult> getUsageStatisticsAsync(GetUsageStatisticsRequest request) {
+
+        return getUsageStatisticsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetUsageStatisticsResult> getUsageStatisticsAsync(GetUsageStatisticsRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetUsageStatisticsRequest, GetUsageStatisticsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<InviteMembersResult> inviteMembersAsync(InviteMembersRequest request) {
 
         return inviteMembersAsync(request, null);
@@ -374,6 +633,19 @@ public class AbstractAmazonGuardDutyAsync extends AbstractAmazonGuardDuty implem
     @Override
     public java.util.concurrent.Future<InviteMembersResult> inviteMembersAsync(InviteMembersRequest request,
             com.amazonaws.handlers.AsyncHandler<InviteMembersRequest, InviteMembersResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCoverageResult> listCoverageAsync(ListCoverageRequest request) {
+
+        return listCoverageAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCoverageResult> listCoverageAsync(ListCoverageRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListCoverageRequest, ListCoverageResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -444,6 +716,19 @@ public class AbstractAmazonGuardDutyAsync extends AbstractAmazonGuardDuty implem
     }
 
     @Override
+    public java.util.concurrent.Future<ListMalwareProtectionPlansResult> listMalwareProtectionPlansAsync(ListMalwareProtectionPlansRequest request) {
+
+        return listMalwareProtectionPlansAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListMalwareProtectionPlansResult> listMalwareProtectionPlansAsync(ListMalwareProtectionPlansRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListMalwareProtectionPlansRequest, ListMalwareProtectionPlansResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListMembersResult> listMembersAsync(ListMembersRequest request) {
 
         return listMembersAsync(request, null);
@@ -452,6 +737,32 @@ public class AbstractAmazonGuardDutyAsync extends AbstractAmazonGuardDuty implem
     @Override
     public java.util.concurrent.Future<ListMembersResult> listMembersAsync(ListMembersRequest request,
             com.amazonaws.handlers.AsyncHandler<ListMembersRequest, ListMembersResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListOrganizationAdminAccountsResult> listOrganizationAdminAccountsAsync(ListOrganizationAdminAccountsRequest request) {
+
+        return listOrganizationAdminAccountsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListOrganizationAdminAccountsResult> listOrganizationAdminAccountsAsync(ListOrganizationAdminAccountsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListOrganizationAdminAccountsRequest, ListOrganizationAdminAccountsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPublishingDestinationsResult> listPublishingDestinationsAsync(ListPublishingDestinationsRequest request) {
+
+        return listPublishingDestinationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPublishingDestinationsResult> listPublishingDestinationsAsync(ListPublishingDestinationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListPublishingDestinationsRequest, ListPublishingDestinationsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -478,6 +789,19 @@ public class AbstractAmazonGuardDutyAsync extends AbstractAmazonGuardDuty implem
     @Override
     public java.util.concurrent.Future<ListThreatIntelSetsResult> listThreatIntelSetsAsync(ListThreatIntelSetsRequest request,
             com.amazonaws.handlers.AsyncHandler<ListThreatIntelSetsRequest, ListThreatIntelSetsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartMalwareScanResult> startMalwareScanAsync(StartMalwareScanRequest request) {
+
+        return startMalwareScanAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartMalwareScanResult> startMalwareScanAsync(StartMalwareScanRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartMalwareScanRequest, StartMalwareScanResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -595,6 +919,73 @@ public class AbstractAmazonGuardDutyAsync extends AbstractAmazonGuardDuty implem
     @Override
     public java.util.concurrent.Future<UpdateIPSetResult> updateIPSetAsync(UpdateIPSetRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateIPSetRequest, UpdateIPSetResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateMalwareProtectionPlanResult> updateMalwareProtectionPlanAsync(UpdateMalwareProtectionPlanRequest request) {
+
+        return updateMalwareProtectionPlanAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateMalwareProtectionPlanResult> updateMalwareProtectionPlanAsync(UpdateMalwareProtectionPlanRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateMalwareProtectionPlanRequest, UpdateMalwareProtectionPlanResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateMalwareScanSettingsResult> updateMalwareScanSettingsAsync(UpdateMalwareScanSettingsRequest request) {
+
+        return updateMalwareScanSettingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateMalwareScanSettingsResult> updateMalwareScanSettingsAsync(UpdateMalwareScanSettingsRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateMalwareScanSettingsRequest, UpdateMalwareScanSettingsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateMemberDetectorsResult> updateMemberDetectorsAsync(UpdateMemberDetectorsRequest request) {
+
+        return updateMemberDetectorsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateMemberDetectorsResult> updateMemberDetectorsAsync(UpdateMemberDetectorsRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateMemberDetectorsRequest, UpdateMemberDetectorsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateOrganizationConfigurationResult> updateOrganizationConfigurationAsync(
+            UpdateOrganizationConfigurationRequest request) {
+
+        return updateOrganizationConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateOrganizationConfigurationResult> updateOrganizationConfigurationAsync(
+            UpdateOrganizationConfigurationRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateOrganizationConfigurationRequest, UpdateOrganizationConfigurationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePublishingDestinationResult> updatePublishingDestinationAsync(UpdatePublishingDestinationRequest request) {
+
+        return updatePublishingDestinationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePublishingDestinationResult> updatePublishingDestinationAsync(UpdatePublishingDestinationRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdatePublishingDestinationRequest, UpdatePublishingDestinationResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

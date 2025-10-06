@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,7 +31,7 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      * The name of the attribute.
      * </p>
      * <p>
-     * The following attribute is supported by both Application Load Balancers and Network Load Balancers:
+     * The following attributes are supported by all load balancers:
      * </p>
      * <ul>
      * <li>
@@ -42,28 +42,117 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      * not supported.
      * </p>
      * </li>
-     * </ul>
-     * <p>
-     * The following attributes are supported by Application Load Balancers if the target is not a Lambda function:
-     * </p>
-     * <ul>
      * <li>
      * <p>
-     * <code>slow_start.duration_seconds</code> - The time period, in seconds, during which a newly registered target
-     * receives a linearly increasing share of the traffic to the target group. After this time period ends, the target
-     * receives its full share of traffic. The range is 30-900 seconds (15 minutes). Slow start mode is disabled by
-     * default.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>stickiness.enabled</code> - Indicates whether sticky sessions are enabled. The value is <code>true</code>
+     * <code>stickiness.enabled</code> - Indicates whether target stickiness is enabled. The value is <code>true</code>
      * or <code>false</code>. The default is <code>false</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>stickiness.type</code> - The type of sticky sessions. The possible value is <code>lb_cookie</code>.
+     * <code>stickiness.type</code> - Indicates the type of stickiness. The possible values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>lb_cookie</code> and <code>app_cookie</code> for Application Load Balancers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>source_ip</code> for Network Load Balancers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>source_ip_dest_ip</code> and <code>source_ip_dest_ip_proto</code> for Gateway Load Balancers.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes are supported by Application Load Balancers and Network Load Balancers:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>load_balancing.cross_zone.enabled</code> - Indicates whether cross zone load balancing is enabled. The
+     * value is <code>true</code>, <code>false</code> or <code>use_load_balancer_configuration</code>. The default is
+     * <code>use_load_balancer_configuration</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_group_health.dns_failover.minimum_healthy_targets.count</code> - The minimum number of targets that
+     * must be healthy. If the number of healthy targets is below this value, mark the zone as unhealthy in DNS, so that
+     * traffic is routed only to healthy zones. The possible values are <code>off</code> or an integer from 1 to the
+     * maximum number of targets. The default is <code>off</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_group_health.dns_failover.minimum_healthy_targets.percentage</code> - The minimum percentage of
+     * targets that must be healthy. If the percentage of healthy targets is below this value, mark the zone as
+     * unhealthy in DNS, so that traffic is routed only to healthy zones. The possible values are <code>off</code> or an
+     * integer from 1 to 100. The default is <code>off</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_group_health.unhealthy_state_routing.minimum_healthy_targets.count</code> - The minimum number of
+     * targets that must be healthy. If the number of healthy targets is below this value, send traffic to all targets,
+     * including unhealthy targets. The possible values are 1 to the maximum number of targets. The default is 1.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_group_health.unhealthy_state_routing.minimum_healthy_targets.percentage</code> - The minimum
+     * percentage of targets that must be healthy. If the percentage of healthy targets is below this value, send
+     * traffic to all targets, including unhealthy targets. The possible values are <code>off</code> or an integer from
+     * 1 to 100. The default is <code>off</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes are supported only if the load balancer is an Application Load Balancer and the target
+     * is an instance or an IP address:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>load_balancing.algorithm.type</code> - The load balancing algorithm determines how the load balancer
+     * selects targets when routing requests. The value is <code>round_robin</code>,
+     * <code>least_outstanding_requests</code>, or <code>weighted_random</code>. The default is <code>round_robin</code>
+     * .
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>load_balancing.algorithm.anomaly_mitigation</code> - Only available when
+     * <code>load_balancing.algorithm.type</code> is <code>weighted_random</code>. Indicates whether anomaly mitigation
+     * is enabled. The value is <code>on</code> or <code>off</code>. The default is <code>off</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>slow_start.duration_seconds</code> - The time period, in seconds, during which a newly registered target
+     * receives an increasing share of the traffic to the target group. After this time period ends, the target receives
+     * its full share of traffic. The range is 30-900 seconds (15 minutes). The default is 0 seconds (disabled).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>stickiness.app_cookie.cookie_name</code> - Indicates the name of the application-based cookie. Names that
+     * start with the following prefixes are not allowed: <code>AWSALB</code>, <code>AWSALBAPP</code>, and
+     * <code>AWSALBTG</code>; they're reserved for use by the load balancer.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>stickiness.app_cookie.duration_seconds</code> - The time period, in seconds, during which requests from a
+     * client should be routed to the same target. After this time period expires, the application-based cookie is
+     * considered stale. The range is 1 second to 1 week (604800 seconds). The default value is 1 day (86400 seconds).
      * </p>
      * </li>
      * <li>
@@ -75,13 +164,14 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      * </li>
      * </ul>
      * <p>
-     * The following attribute is supported only if the target is a Lambda function.
+     * The following attribute is supported only if the load balancer is an Application Load Balancer and the target is
+     * a Lambda function:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>lambda.multi_value_headers.enabled</code> - Indicates whether the request and response headers exchanged
-     * between the load balancer and the Lambda function include arrays of values or strings. The value is
+     * <code>lambda.multi_value_headers.enabled</code> - Indicates whether the request and response headers that are
+     * exchanged between the load balancer and the Lambda function include arrays of values or strings. The value is
      * <code>true</code> or <code>false</code>. The default is <code>false</code>. If the value is <code>false</code>
      * and the request contains a duplicate header field name or query parameter key, the load balancer uses the last
      * value sent by the client.
@@ -89,13 +179,69 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      * </li>
      * </ul>
      * <p>
-     * The following attribute is supported only by Network Load Balancers:
+     * The following attributes are supported only by Network Load Balancers:
      * </p>
      * <ul>
      * <li>
      * <p>
+     * <code>deregistration_delay.connection_termination.enabled</code> - Indicates whether the load balancer terminates
+     * connections at the end of the deregistration timeout. The value is <code>true</code> or <code>false</code>. For
+     * new UDP/TCP_UDP target groups the default is <code>true</code>. Otherwise, the default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>preserve_client_ip.enabled</code> - Indicates whether client IP preservation is enabled. The value is
+     * <code>true</code> or <code>false</code>. The default is disabled if the target group type is IP address and the
+     * target group protocol is TCP or TLS. Otherwise, the default is enabled. Client IP preservation cannot be disabled
+     * for UDP and TCP_UDP target groups.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>proxy_protocol_v2.enabled</code> - Indicates whether Proxy Protocol version 2 is enabled. The value is
      * <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_health_state.unhealthy.connection_termination.enabled</code> - Indicates whether the load balancer
+     * terminates connections to unhealthy targets. The value is <code>true</code> or <code>false</code>. The default is
+     * <code>true</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_health_state.unhealthy.draining_interval_seconds</code> - The amount of time for Elastic Load
+     * Balancing to wait before changing the state of an unhealthy target from <code>unhealthy.draining</code> to
+     * <code>unhealthy</code>. The range is 0-360000 seconds. The default value is 0 seconds.
+     * </p>
+     * <p>
+     * Note: This attribute can only be configured when
+     * <code>target_health_state.unhealthy.connection_termination.enabled</code> is <code>false</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes are supported only by Gateway Load Balancers:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>target_failover.on_deregistration</code> - Indicates how the Gateway Load Balancer handles existing flows
+     * when a target is deregistered. The possible values are <code>rebalance</code> and <code>no_rebalance</code>. The
+     * default is <code>no_rebalance</code>. The two attributes (<code>target_failover.on_deregistration</code> and
+     * <code>target_failover.on_unhealthy</code>) can't be set independently. The value you set for both attributes must
+     * be the same.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_failover.on_unhealthy</code> - Indicates how the Gateway Load Balancer handles existing flows when a
+     * target is unhealthy. The possible values are <code>rebalance</code> and <code>no_rebalance</code>. The default is
+     * <code>no_rebalance</code>. The two attributes (<code>target_failover.on_deregistration</code> and
+     * <code>target_failover.on_unhealthy</code>) cannot be set independently. The value you set for both attributes
+     * must be the same.
      * </p>
      * </li>
      * </ul>
@@ -113,7 +259,7 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      * The name of the attribute.
      * </p>
      * <p>
-     * The following attribute is supported by both Application Load Balancers and Network Load Balancers:
+     * The following attributes are supported by all load balancers:
      * </p>
      * <ul>
      * <li>
@@ -124,28 +270,117 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      * not supported.
      * </p>
      * </li>
-     * </ul>
-     * <p>
-     * The following attributes are supported by Application Load Balancers if the target is not a Lambda function:
-     * </p>
-     * <ul>
      * <li>
      * <p>
-     * <code>slow_start.duration_seconds</code> - The time period, in seconds, during which a newly registered target
-     * receives a linearly increasing share of the traffic to the target group. After this time period ends, the target
-     * receives its full share of traffic. The range is 30-900 seconds (15 minutes). Slow start mode is disabled by
-     * default.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>stickiness.enabled</code> - Indicates whether sticky sessions are enabled. The value is <code>true</code>
+     * <code>stickiness.enabled</code> - Indicates whether target stickiness is enabled. The value is <code>true</code>
      * or <code>false</code>. The default is <code>false</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>stickiness.type</code> - The type of sticky sessions. The possible value is <code>lb_cookie</code>.
+     * <code>stickiness.type</code> - Indicates the type of stickiness. The possible values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>lb_cookie</code> and <code>app_cookie</code> for Application Load Balancers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>source_ip</code> for Network Load Balancers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>source_ip_dest_ip</code> and <code>source_ip_dest_ip_proto</code> for Gateway Load Balancers.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes are supported by Application Load Balancers and Network Load Balancers:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>load_balancing.cross_zone.enabled</code> - Indicates whether cross zone load balancing is enabled. The
+     * value is <code>true</code>, <code>false</code> or <code>use_load_balancer_configuration</code>. The default is
+     * <code>use_load_balancer_configuration</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_group_health.dns_failover.minimum_healthy_targets.count</code> - The minimum number of targets that
+     * must be healthy. If the number of healthy targets is below this value, mark the zone as unhealthy in DNS, so that
+     * traffic is routed only to healthy zones. The possible values are <code>off</code> or an integer from 1 to the
+     * maximum number of targets. The default is <code>off</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_group_health.dns_failover.minimum_healthy_targets.percentage</code> - The minimum percentage of
+     * targets that must be healthy. If the percentage of healthy targets is below this value, mark the zone as
+     * unhealthy in DNS, so that traffic is routed only to healthy zones. The possible values are <code>off</code> or an
+     * integer from 1 to 100. The default is <code>off</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_group_health.unhealthy_state_routing.minimum_healthy_targets.count</code> - The minimum number of
+     * targets that must be healthy. If the number of healthy targets is below this value, send traffic to all targets,
+     * including unhealthy targets. The possible values are 1 to the maximum number of targets. The default is 1.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_group_health.unhealthy_state_routing.minimum_healthy_targets.percentage</code> - The minimum
+     * percentage of targets that must be healthy. If the percentage of healthy targets is below this value, send
+     * traffic to all targets, including unhealthy targets. The possible values are <code>off</code> or an integer from
+     * 1 to 100. The default is <code>off</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes are supported only if the load balancer is an Application Load Balancer and the target
+     * is an instance or an IP address:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>load_balancing.algorithm.type</code> - The load balancing algorithm determines how the load balancer
+     * selects targets when routing requests. The value is <code>round_robin</code>,
+     * <code>least_outstanding_requests</code>, or <code>weighted_random</code>. The default is <code>round_robin</code>
+     * .
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>load_balancing.algorithm.anomaly_mitigation</code> - Only available when
+     * <code>load_balancing.algorithm.type</code> is <code>weighted_random</code>. Indicates whether anomaly mitigation
+     * is enabled. The value is <code>on</code> or <code>off</code>. The default is <code>off</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>slow_start.duration_seconds</code> - The time period, in seconds, during which a newly registered target
+     * receives an increasing share of the traffic to the target group. After this time period ends, the target receives
+     * its full share of traffic. The range is 30-900 seconds (15 minutes). The default is 0 seconds (disabled).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>stickiness.app_cookie.cookie_name</code> - Indicates the name of the application-based cookie. Names that
+     * start with the following prefixes are not allowed: <code>AWSALB</code>, <code>AWSALBAPP</code>, and
+     * <code>AWSALBTG</code>; they're reserved for use by the load balancer.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>stickiness.app_cookie.duration_seconds</code> - The time period, in seconds, during which requests from a
+     * client should be routed to the same target. After this time period expires, the application-based cookie is
+     * considered stale. The range is 1 second to 1 week (604800 seconds). The default value is 1 day (86400 seconds).
      * </p>
      * </li>
      * <li>
@@ -157,13 +392,14 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      * </li>
      * </ul>
      * <p>
-     * The following attribute is supported only if the target is a Lambda function.
+     * The following attribute is supported only if the load balancer is an Application Load Balancer and the target is
+     * a Lambda function:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>lambda.multi_value_headers.enabled</code> - Indicates whether the request and response headers exchanged
-     * between the load balancer and the Lambda function include arrays of values or strings. The value is
+     * <code>lambda.multi_value_headers.enabled</code> - Indicates whether the request and response headers that are
+     * exchanged between the load balancer and the Lambda function include arrays of values or strings. The value is
      * <code>true</code> or <code>false</code>. The default is <code>false</code>. If the value is <code>false</code>
      * and the request contains a duplicate header field name or query parameter key, the load balancer uses the last
      * value sent by the client.
@@ -171,13 +407,69 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      * </li>
      * </ul>
      * <p>
-     * The following attribute is supported only by Network Load Balancers:
+     * The following attributes are supported only by Network Load Balancers:
      * </p>
      * <ul>
      * <li>
      * <p>
+     * <code>deregistration_delay.connection_termination.enabled</code> - Indicates whether the load balancer terminates
+     * connections at the end of the deregistration timeout. The value is <code>true</code> or <code>false</code>. For
+     * new UDP/TCP_UDP target groups the default is <code>true</code>. Otherwise, the default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>preserve_client_ip.enabled</code> - Indicates whether client IP preservation is enabled. The value is
+     * <code>true</code> or <code>false</code>. The default is disabled if the target group type is IP address and the
+     * target group protocol is TCP or TLS. Otherwise, the default is enabled. Client IP preservation cannot be disabled
+     * for UDP and TCP_UDP target groups.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>proxy_protocol_v2.enabled</code> - Indicates whether Proxy Protocol version 2 is enabled. The value is
      * <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_health_state.unhealthy.connection_termination.enabled</code> - Indicates whether the load balancer
+     * terminates connections to unhealthy targets. The value is <code>true</code> or <code>false</code>. The default is
+     * <code>true</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_health_state.unhealthy.draining_interval_seconds</code> - The amount of time for Elastic Load
+     * Balancing to wait before changing the state of an unhealthy target from <code>unhealthy.draining</code> to
+     * <code>unhealthy</code>. The range is 0-360000 seconds. The default value is 0 seconds.
+     * </p>
+     * <p>
+     * Note: This attribute can only be configured when
+     * <code>target_health_state.unhealthy.connection_termination.enabled</code> is <code>false</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes are supported only by Gateway Load Balancers:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>target_failover.on_deregistration</code> - Indicates how the Gateway Load Balancer handles existing flows
+     * when a target is deregistered. The possible values are <code>rebalance</code> and <code>no_rebalance</code>. The
+     * default is <code>no_rebalance</code>. The two attributes (<code>target_failover.on_deregistration</code> and
+     * <code>target_failover.on_unhealthy</code>) can't be set independently. The value you set for both attributes must
+     * be the same.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_failover.on_unhealthy</code> - Indicates how the Gateway Load Balancer handles existing flows when a
+     * target is unhealthy. The possible values are <code>rebalance</code> and <code>no_rebalance</code>. The default is
+     * <code>no_rebalance</code>. The two attributes (<code>target_failover.on_deregistration</code> and
+     * <code>target_failover.on_unhealthy</code>) cannot be set independently. The value you set for both attributes
+     * must be the same.
      * </p>
      * </li>
      * </ul>
@@ -185,7 +477,7 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      * @param key
      *        The name of the attribute.</p>
      *        <p>
-     *        The following attribute is supported by both Application Load Balancers and Network Load Balancers:
+     *        The following attributes are supported by all load balancers:
      *        </p>
      *        <ul>
      *        <li>
@@ -196,29 +488,120 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      *        Lambda function, this attribute is not supported.
      *        </p>
      *        </li>
-     *        </ul>
-     *        <p>
-     *        The following attributes are supported by Application Load Balancers if the target is not a Lambda
-     *        function:
-     *        </p>
-     *        <ul>
      *        <li>
      *        <p>
-     *        <code>slow_start.duration_seconds</code> - The time period, in seconds, during which a newly registered
-     *        target receives a linearly increasing share of the traffic to the target group. After this time period
-     *        ends, the target receives its full share of traffic. The range is 30-900 seconds (15 minutes). Slow start
-     *        mode is disabled by default.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>stickiness.enabled</code> - Indicates whether sticky sessions are enabled. The value is
+     *        <code>stickiness.enabled</code> - Indicates whether target stickiness is enabled. The value is
      *        <code>true</code> or <code>false</code>. The default is <code>false</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>stickiness.type</code> - The type of sticky sessions. The possible value is <code>lb_cookie</code>.
+     *        <code>stickiness.type</code> - Indicates the type of stickiness. The possible values are:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>lb_cookie</code> and <code>app_cookie</code> for Application Load Balancers.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>source_ip</code> for Network Load Balancers.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>source_ip_dest_ip</code> and <code>source_ip_dest_ip_proto</code> for Gateway Load Balancers.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following attributes are supported by Application Load Balancers and Network Load Balancers:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>load_balancing.cross_zone.enabled</code> - Indicates whether cross zone load balancing is enabled.
+     *        The value is <code>true</code>, <code>false</code> or <code>use_load_balancer_configuration</code>. The
+     *        default is <code>use_load_balancer_configuration</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>target_group_health.dns_failover.minimum_healthy_targets.count</code> - The minimum number of
+     *        targets that must be healthy. If the number of healthy targets is below this value, mark the zone as
+     *        unhealthy in DNS, so that traffic is routed only to healthy zones. The possible values are
+     *        <code>off</code> or an integer from 1 to the maximum number of targets. The default is <code>off</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>target_group_health.dns_failover.minimum_healthy_targets.percentage</code> - The minimum percentage
+     *        of targets that must be healthy. If the percentage of healthy targets is below this value, mark the zone
+     *        as unhealthy in DNS, so that traffic is routed only to healthy zones. The possible values are
+     *        <code>off</code> or an integer from 1 to 100. The default is <code>off</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>target_group_health.unhealthy_state_routing.minimum_healthy_targets.count</code> - The minimum
+     *        number of targets that must be healthy. If the number of healthy targets is below this value, send traffic
+     *        to all targets, including unhealthy targets. The possible values are 1 to the maximum number of targets.
+     *        The default is 1.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>target_group_health.unhealthy_state_routing.minimum_healthy_targets.percentage</code> - The minimum
+     *        percentage of targets that must be healthy. If the percentage of healthy targets is below this value, send
+     *        traffic to all targets, including unhealthy targets. The possible values are <code>off</code> or an
+     *        integer from 1 to 100. The default is <code>off</code>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following attributes are supported only if the load balancer is an Application Load Balancer and the
+     *        target is an instance or an IP address:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>load_balancing.algorithm.type</code> - The load balancing algorithm determines how the load balancer
+     *        selects targets when routing requests. The value is <code>round_robin</code>,
+     *        <code>least_outstanding_requests</code>, or <code>weighted_random</code>. The default is
+     *        <code>round_robin</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>load_balancing.algorithm.anomaly_mitigation</code> - Only available when
+     *        <code>load_balancing.algorithm.type</code> is <code>weighted_random</code>. Indicates whether anomaly
+     *        mitigation is enabled. The value is <code>on</code> or <code>off</code>. The default is <code>off</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>slow_start.duration_seconds</code> - The time period, in seconds, during which a newly registered
+     *        target receives an increasing share of the traffic to the target group. After this time period ends, the
+     *        target receives its full share of traffic. The range is 30-900 seconds (15 minutes). The default is 0
+     *        seconds (disabled).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>stickiness.app_cookie.cookie_name</code> - Indicates the name of the application-based cookie. Names
+     *        that start with the following prefixes are not allowed: <code>AWSALB</code>, <code>AWSALBAPP</code>, and
+     *        <code>AWSALBTG</code>; they're reserved for use by the load balancer.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>stickiness.app_cookie.duration_seconds</code> - The time period, in seconds, during which requests
+     *        from a client should be routed to the same target. After this time period expires, the application-based
+     *        cookie is considered stale. The range is 1 second to 1 week (604800 seconds). The default value is 1 day
+     *        (86400 seconds).
      *        </p>
      *        </li>
      *        <li>
@@ -231,27 +614,85 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      *        </li>
      *        </ul>
      *        <p>
-     *        The following attribute is supported only if the target is a Lambda function.
+     *        The following attribute is supported only if the load balancer is an Application Load Balancer and the
+     *        target is a Lambda function:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>lambda.multi_value_headers.enabled</code> - Indicates whether the request and response headers
-     *        exchanged between the load balancer and the Lambda function include arrays of values or strings. The value
-     *        is <code>true</code> or <code>false</code>. The default is <code>false</code>. If the value is
+     *        <code>lambda.multi_value_headers.enabled</code> - Indicates whether the request and response headers that
+     *        are exchanged between the load balancer and the Lambda function include arrays of values or strings. The
+     *        value is <code>true</code> or <code>false</code>. The default is <code>false</code>. If the value is
      *        <code>false</code> and the request contains a duplicate header field name or query parameter key, the load
      *        balancer uses the last value sent by the client.
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
-     *        The following attribute is supported only by Network Load Balancers:
+     *        The following attributes are supported only by Network Load Balancers:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
+     *        <code>deregistration_delay.connection_termination.enabled</code> - Indicates whether the load balancer
+     *        terminates connections at the end of the deregistration timeout. The value is <code>true</code> or
+     *        <code>false</code>. For new UDP/TCP_UDP target groups the default is <code>true</code>. Otherwise, the
+     *        default is <code>false</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>preserve_client_ip.enabled</code> - Indicates whether client IP preservation is enabled. The value
+     *        is <code>true</code> or <code>false</code>. The default is disabled if the target group type is IP address
+     *        and the target group protocol is TCP or TLS. Otherwise, the default is enabled. Client IP preservation
+     *        cannot be disabled for UDP and TCP_UDP target groups.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>proxy_protocol_v2.enabled</code> - Indicates whether Proxy Protocol version 2 is enabled. The value
      *        is <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>target_health_state.unhealthy.connection_termination.enabled</code> - Indicates whether the load
+     *        balancer terminates connections to unhealthy targets. The value is <code>true</code> or <code>false</code>
+     *        . The default is <code>true</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>target_health_state.unhealthy.draining_interval_seconds</code> - The amount of time for Elastic Load
+     *        Balancing to wait before changing the state of an unhealthy target from <code>unhealthy.draining</code> to
+     *        <code>unhealthy</code>. The range is 0-360000 seconds. The default value is 0 seconds.
+     *        </p>
+     *        <p>
+     *        Note: This attribute can only be configured when
+     *        <code>target_health_state.unhealthy.connection_termination.enabled</code> is <code>false</code>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following attributes are supported only by Gateway Load Balancers:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>target_failover.on_deregistration</code> - Indicates how the Gateway Load Balancer handles existing
+     *        flows when a target is deregistered. The possible values are <code>rebalance</code> and
+     *        <code>no_rebalance</code>. The default is <code>no_rebalance</code>. The two attributes (
+     *        <code>target_failover.on_deregistration</code> and <code>target_failover.on_unhealthy</code>) can't be set
+     *        independently. The value you set for both attributes must be the same.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>target_failover.on_unhealthy</code> - Indicates how the Gateway Load Balancer handles existing flows
+     *        when a target is unhealthy. The possible values are <code>rebalance</code> and <code>no_rebalance</code>.
+     *        The default is <code>no_rebalance</code>. The two attributes (
+     *        <code>target_failover.on_deregistration</code> and <code>target_failover.on_unhealthy</code>) cannot be
+     *        set independently. The value you set for both attributes must be the same.
      *        </p>
      *        </li>
      */
@@ -265,7 +706,7 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      * The name of the attribute.
      * </p>
      * <p>
-     * The following attribute is supported by both Application Load Balancers and Network Load Balancers:
+     * The following attributes are supported by all load balancers:
      * </p>
      * <ul>
      * <li>
@@ -276,28 +717,117 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      * not supported.
      * </p>
      * </li>
-     * </ul>
-     * <p>
-     * The following attributes are supported by Application Load Balancers if the target is not a Lambda function:
-     * </p>
-     * <ul>
      * <li>
      * <p>
-     * <code>slow_start.duration_seconds</code> - The time period, in seconds, during which a newly registered target
-     * receives a linearly increasing share of the traffic to the target group. After this time period ends, the target
-     * receives its full share of traffic. The range is 30-900 seconds (15 minutes). Slow start mode is disabled by
-     * default.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>stickiness.enabled</code> - Indicates whether sticky sessions are enabled. The value is <code>true</code>
+     * <code>stickiness.enabled</code> - Indicates whether target stickiness is enabled. The value is <code>true</code>
      * or <code>false</code>. The default is <code>false</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>stickiness.type</code> - The type of sticky sessions. The possible value is <code>lb_cookie</code>.
+     * <code>stickiness.type</code> - Indicates the type of stickiness. The possible values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>lb_cookie</code> and <code>app_cookie</code> for Application Load Balancers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>source_ip</code> for Network Load Balancers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>source_ip_dest_ip</code> and <code>source_ip_dest_ip_proto</code> for Gateway Load Balancers.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes are supported by Application Load Balancers and Network Load Balancers:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>load_balancing.cross_zone.enabled</code> - Indicates whether cross zone load balancing is enabled. The
+     * value is <code>true</code>, <code>false</code> or <code>use_load_balancer_configuration</code>. The default is
+     * <code>use_load_balancer_configuration</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_group_health.dns_failover.minimum_healthy_targets.count</code> - The minimum number of targets that
+     * must be healthy. If the number of healthy targets is below this value, mark the zone as unhealthy in DNS, so that
+     * traffic is routed only to healthy zones. The possible values are <code>off</code> or an integer from 1 to the
+     * maximum number of targets. The default is <code>off</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_group_health.dns_failover.minimum_healthy_targets.percentage</code> - The minimum percentage of
+     * targets that must be healthy. If the percentage of healthy targets is below this value, mark the zone as
+     * unhealthy in DNS, so that traffic is routed only to healthy zones. The possible values are <code>off</code> or an
+     * integer from 1 to 100. The default is <code>off</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_group_health.unhealthy_state_routing.minimum_healthy_targets.count</code> - The minimum number of
+     * targets that must be healthy. If the number of healthy targets is below this value, send traffic to all targets,
+     * including unhealthy targets. The possible values are 1 to the maximum number of targets. The default is 1.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_group_health.unhealthy_state_routing.minimum_healthy_targets.percentage</code> - The minimum
+     * percentage of targets that must be healthy. If the percentage of healthy targets is below this value, send
+     * traffic to all targets, including unhealthy targets. The possible values are <code>off</code> or an integer from
+     * 1 to 100. The default is <code>off</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes are supported only if the load balancer is an Application Load Balancer and the target
+     * is an instance or an IP address:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>load_balancing.algorithm.type</code> - The load balancing algorithm determines how the load balancer
+     * selects targets when routing requests. The value is <code>round_robin</code>,
+     * <code>least_outstanding_requests</code>, or <code>weighted_random</code>. The default is <code>round_robin</code>
+     * .
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>load_balancing.algorithm.anomaly_mitigation</code> - Only available when
+     * <code>load_balancing.algorithm.type</code> is <code>weighted_random</code>. Indicates whether anomaly mitigation
+     * is enabled. The value is <code>on</code> or <code>off</code>. The default is <code>off</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>slow_start.duration_seconds</code> - The time period, in seconds, during which a newly registered target
+     * receives an increasing share of the traffic to the target group. After this time period ends, the target receives
+     * its full share of traffic. The range is 30-900 seconds (15 minutes). The default is 0 seconds (disabled).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>stickiness.app_cookie.cookie_name</code> - Indicates the name of the application-based cookie. Names that
+     * start with the following prefixes are not allowed: <code>AWSALB</code>, <code>AWSALBAPP</code>, and
+     * <code>AWSALBTG</code>; they're reserved for use by the load balancer.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>stickiness.app_cookie.duration_seconds</code> - The time period, in seconds, during which requests from a
+     * client should be routed to the same target. After this time period expires, the application-based cookie is
+     * considered stale. The range is 1 second to 1 week (604800 seconds). The default value is 1 day (86400 seconds).
      * </p>
      * </li>
      * <li>
@@ -309,13 +839,14 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      * </li>
      * </ul>
      * <p>
-     * The following attribute is supported only if the target is a Lambda function.
+     * The following attribute is supported only if the load balancer is an Application Load Balancer and the target is
+     * a Lambda function:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>lambda.multi_value_headers.enabled</code> - Indicates whether the request and response headers exchanged
-     * between the load balancer and the Lambda function include arrays of values or strings. The value is
+     * <code>lambda.multi_value_headers.enabled</code> - Indicates whether the request and response headers that are
+     * exchanged between the load balancer and the Lambda function include arrays of values or strings. The value is
      * <code>true</code> or <code>false</code>. The default is <code>false</code>. If the value is <code>false</code>
      * and the request contains a duplicate header field name or query parameter key, the load balancer uses the last
      * value sent by the client.
@@ -323,20 +854,76 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      * </li>
      * </ul>
      * <p>
-     * The following attribute is supported only by Network Load Balancers:
+     * The following attributes are supported only by Network Load Balancers:
      * </p>
      * <ul>
+     * <li>
+     * <p>
+     * <code>deregistration_delay.connection_termination.enabled</code> - Indicates whether the load balancer terminates
+     * connections at the end of the deregistration timeout. The value is <code>true</code> or <code>false</code>. For
+     * new UDP/TCP_UDP target groups the default is <code>true</code>. Otherwise, the default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>preserve_client_ip.enabled</code> - Indicates whether client IP preservation is enabled. The value is
+     * <code>true</code> or <code>false</code>. The default is disabled if the target group type is IP address and the
+     * target group protocol is TCP or TLS. Otherwise, the default is enabled. Client IP preservation cannot be disabled
+     * for UDP and TCP_UDP target groups.
+     * </p>
+     * </li>
      * <li>
      * <p>
      * <code>proxy_protocol_v2.enabled</code> - Indicates whether Proxy Protocol version 2 is enabled. The value is
      * <code>true</code> or <code>false</code>. The default is <code>false</code>.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>target_health_state.unhealthy.connection_termination.enabled</code> - Indicates whether the load balancer
+     * terminates connections to unhealthy targets. The value is <code>true</code> or <code>false</code>. The default is
+     * <code>true</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_health_state.unhealthy.draining_interval_seconds</code> - The amount of time for Elastic Load
+     * Balancing to wait before changing the state of an unhealthy target from <code>unhealthy.draining</code> to
+     * <code>unhealthy</code>. The range is 0-360000 seconds. The default value is 0 seconds.
+     * </p>
+     * <p>
+     * Note: This attribute can only be configured when
+     * <code>target_health_state.unhealthy.connection_termination.enabled</code> is <code>false</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes are supported only by Gateway Load Balancers:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>target_failover.on_deregistration</code> - Indicates how the Gateway Load Balancer handles existing flows
+     * when a target is deregistered. The possible values are <code>rebalance</code> and <code>no_rebalance</code>. The
+     * default is <code>no_rebalance</code>. The two attributes (<code>target_failover.on_deregistration</code> and
+     * <code>target_failover.on_unhealthy</code>) can't be set independently. The value you set for both attributes must
+     * be the same.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_failover.on_unhealthy</code> - Indicates how the Gateway Load Balancer handles existing flows when a
+     * target is unhealthy. The possible values are <code>rebalance</code> and <code>no_rebalance</code>. The default is
+     * <code>no_rebalance</code>. The two attributes (<code>target_failover.on_deregistration</code> and
+     * <code>target_failover.on_unhealthy</code>) cannot be set independently. The value you set for both attributes
+     * must be the same.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @return The name of the attribute.</p>
      *         <p>
-     *         The following attribute is supported by both Application Load Balancers and Network Load Balancers:
+     *         The following attributes are supported by all load balancers:
      *         </p>
      *         <ul>
      *         <li>
@@ -347,29 +934,120 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      *         Lambda function, this attribute is not supported.
      *         </p>
      *         </li>
-     *         </ul>
-     *         <p>
-     *         The following attributes are supported by Application Load Balancers if the target is not a Lambda
-     *         function:
-     *         </p>
-     *         <ul>
      *         <li>
      *         <p>
-     *         <code>slow_start.duration_seconds</code> - The time period, in seconds, during which a newly registered
-     *         target receives a linearly increasing share of the traffic to the target group. After this time period
-     *         ends, the target receives its full share of traffic. The range is 30-900 seconds (15 minutes). Slow start
-     *         mode is disabled by default.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         <code>stickiness.enabled</code> - Indicates whether sticky sessions are enabled. The value is
+     *         <code>stickiness.enabled</code> - Indicates whether target stickiness is enabled. The value is
      *         <code>true</code> or <code>false</code>. The default is <code>false</code>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>stickiness.type</code> - The type of sticky sessions. The possible value is <code>lb_cookie</code>.
+     *         <code>stickiness.type</code> - Indicates the type of stickiness. The possible values are:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>lb_cookie</code> and <code>app_cookie</code> for Application Load Balancers.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>source_ip</code> for Network Load Balancers.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>source_ip_dest_ip</code> and <code>source_ip_dest_ip_proto</code> for Gateway Load Balancers.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         The following attributes are supported by Application Load Balancers and Network Load Balancers:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>load_balancing.cross_zone.enabled</code> - Indicates whether cross zone load balancing is enabled.
+     *         The value is <code>true</code>, <code>false</code> or <code>use_load_balancer_configuration</code>. The
+     *         default is <code>use_load_balancer_configuration</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>target_group_health.dns_failover.minimum_healthy_targets.count</code> - The minimum number of
+     *         targets that must be healthy. If the number of healthy targets is below this value, mark the zone as
+     *         unhealthy in DNS, so that traffic is routed only to healthy zones. The possible values are
+     *         <code>off</code> or an integer from 1 to the maximum number of targets. The default is <code>off</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>target_group_health.dns_failover.minimum_healthy_targets.percentage</code> - The minimum percentage
+     *         of targets that must be healthy. If the percentage of healthy targets is below this value, mark the zone
+     *         as unhealthy in DNS, so that traffic is routed only to healthy zones. The possible values are
+     *         <code>off</code> or an integer from 1 to 100. The default is <code>off</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>target_group_health.unhealthy_state_routing.minimum_healthy_targets.count</code> - The minimum
+     *         number of targets that must be healthy. If the number of healthy targets is below this value, send
+     *         traffic to all targets, including unhealthy targets. The possible values are 1 to the maximum number of
+     *         targets. The default is 1.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>target_group_health.unhealthy_state_routing.minimum_healthy_targets.percentage</code> - The minimum
+     *         percentage of targets that must be healthy. If the percentage of healthy targets is below this value,
+     *         send traffic to all targets, including unhealthy targets. The possible values are <code>off</code> or an
+     *         integer from 1 to 100. The default is <code>off</code>.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         The following attributes are supported only if the load balancer is an Application Load Balancer and the
+     *         target is an instance or an IP address:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>load_balancing.algorithm.type</code> - The load balancing algorithm determines how the load
+     *         balancer selects targets when routing requests. The value is <code>round_robin</code>,
+     *         <code>least_outstanding_requests</code>, or <code>weighted_random</code>. The default is
+     *         <code>round_robin</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>load_balancing.algorithm.anomaly_mitigation</code> - Only available when
+     *         <code>load_balancing.algorithm.type</code> is <code>weighted_random</code>. Indicates whether anomaly
+     *         mitigation is enabled. The value is <code>on</code> or <code>off</code>. The default is <code>off</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>slow_start.duration_seconds</code> - The time period, in seconds, during which a newly registered
+     *         target receives an increasing share of the traffic to the target group. After this time period ends, the
+     *         target receives its full share of traffic. The range is 30-900 seconds (15 minutes). The default is 0
+     *         seconds (disabled).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>stickiness.app_cookie.cookie_name</code> - Indicates the name of the application-based cookie.
+     *         Names that start with the following prefixes are not allowed: <code>AWSALB</code>, <code>AWSALBAPP</code>
+     *         , and <code>AWSALBTG</code>; they're reserved for use by the load balancer.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>stickiness.app_cookie.duration_seconds</code> - The time period, in seconds, during which requests
+     *         from a client should be routed to the same target. After this time period expires, the application-based
+     *         cookie is considered stale. The range is 1 second to 1 week (604800 seconds). The default value is 1 day
+     *         (86400 seconds).
      *         </p>
      *         </li>
      *         <li>
@@ -382,13 +1060,14 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      *         </li>
      *         </ul>
      *         <p>
-     *         The following attribute is supported only if the target is a Lambda function.
+     *         The following attribute is supported only if the load balancer is an Application Load Balancer and the
+     *         target is a Lambda function:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>lambda.multi_value_headers.enabled</code> - Indicates whether the request and response headers
-     *         exchanged between the load balancer and the Lambda function include arrays of values or strings. The
+     *         <code>lambda.multi_value_headers.enabled</code> - Indicates whether the request and response headers that
+     *         are exchanged between the load balancer and the Lambda function include arrays of values or strings. The
      *         value is <code>true</code> or <code>false</code>. The default is <code>false</code>. If the value is
      *         <code>false</code> and the request contains a duplicate header field name or query parameter key, the
      *         load balancer uses the last value sent by the client.
@@ -396,13 +1075,71 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      *         </li>
      *         </ul>
      *         <p>
-     *         The following attribute is supported only by Network Load Balancers:
+     *         The following attributes are supported only by Network Load Balancers:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
+     *         <code>deregistration_delay.connection_termination.enabled</code> - Indicates whether the load balancer
+     *         terminates connections at the end of the deregistration timeout. The value is <code>true</code> or
+     *         <code>false</code>. For new UDP/TCP_UDP target groups the default is <code>true</code>. Otherwise, the
+     *         default is <code>false</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>preserve_client_ip.enabled</code> - Indicates whether client IP preservation is enabled. The value
+     *         is <code>true</code> or <code>false</code>. The default is disabled if the target group type is IP
+     *         address and the target group protocol is TCP or TLS. Otherwise, the default is enabled. Client IP
+     *         preservation cannot be disabled for UDP and TCP_UDP target groups.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
      *         <code>proxy_protocol_v2.enabled</code> - Indicates whether Proxy Protocol version 2 is enabled. The value
      *         is <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>target_health_state.unhealthy.connection_termination.enabled</code> - Indicates whether the load
+     *         balancer terminates connections to unhealthy targets. The value is <code>true</code> or
+     *         <code>false</code>. The default is <code>true</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>target_health_state.unhealthy.draining_interval_seconds</code> - The amount of time for Elastic
+     *         Load Balancing to wait before changing the state of an unhealthy target from
+     *         <code>unhealthy.draining</code> to <code>unhealthy</code>. The range is 0-360000 seconds. The default
+     *         value is 0 seconds.
+     *         </p>
+     *         <p>
+     *         Note: This attribute can only be configured when
+     *         <code>target_health_state.unhealthy.connection_termination.enabled</code> is <code>false</code>.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         The following attributes are supported only by Gateway Load Balancers:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>target_failover.on_deregistration</code> - Indicates how the Gateway Load Balancer handles existing
+     *         flows when a target is deregistered. The possible values are <code>rebalance</code> and
+     *         <code>no_rebalance</code>. The default is <code>no_rebalance</code>. The two attributes (
+     *         <code>target_failover.on_deregistration</code> and <code>target_failover.on_unhealthy</code>) can't be
+     *         set independently. The value you set for both attributes must be the same.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>target_failover.on_unhealthy</code> - Indicates how the Gateway Load Balancer handles existing
+     *         flows when a target is unhealthy. The possible values are <code>rebalance</code> and
+     *         <code>no_rebalance</code>. The default is <code>no_rebalance</code>. The two attributes (
+     *         <code>target_failover.on_deregistration</code> and <code>target_failover.on_unhealthy</code>) cannot be
+     *         set independently. The value you set for both attributes must be the same.
      *         </p>
      *         </li>
      */
@@ -416,7 +1153,7 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      * The name of the attribute.
      * </p>
      * <p>
-     * The following attribute is supported by both Application Load Balancers and Network Load Balancers:
+     * The following attributes are supported by all load balancers:
      * </p>
      * <ul>
      * <li>
@@ -427,28 +1164,117 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      * not supported.
      * </p>
      * </li>
-     * </ul>
-     * <p>
-     * The following attributes are supported by Application Load Balancers if the target is not a Lambda function:
-     * </p>
-     * <ul>
      * <li>
      * <p>
-     * <code>slow_start.duration_seconds</code> - The time period, in seconds, during which a newly registered target
-     * receives a linearly increasing share of the traffic to the target group. After this time period ends, the target
-     * receives its full share of traffic. The range is 30-900 seconds (15 minutes). Slow start mode is disabled by
-     * default.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>stickiness.enabled</code> - Indicates whether sticky sessions are enabled. The value is <code>true</code>
+     * <code>stickiness.enabled</code> - Indicates whether target stickiness is enabled. The value is <code>true</code>
      * or <code>false</code>. The default is <code>false</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>stickiness.type</code> - The type of sticky sessions. The possible value is <code>lb_cookie</code>.
+     * <code>stickiness.type</code> - Indicates the type of stickiness. The possible values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>lb_cookie</code> and <code>app_cookie</code> for Application Load Balancers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>source_ip</code> for Network Load Balancers.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>source_ip_dest_ip</code> and <code>source_ip_dest_ip_proto</code> for Gateway Load Balancers.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes are supported by Application Load Balancers and Network Load Balancers:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>load_balancing.cross_zone.enabled</code> - Indicates whether cross zone load balancing is enabled. The
+     * value is <code>true</code>, <code>false</code> or <code>use_load_balancer_configuration</code>. The default is
+     * <code>use_load_balancer_configuration</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_group_health.dns_failover.minimum_healthy_targets.count</code> - The minimum number of targets that
+     * must be healthy. If the number of healthy targets is below this value, mark the zone as unhealthy in DNS, so that
+     * traffic is routed only to healthy zones. The possible values are <code>off</code> or an integer from 1 to the
+     * maximum number of targets. The default is <code>off</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_group_health.dns_failover.minimum_healthy_targets.percentage</code> - The minimum percentage of
+     * targets that must be healthy. If the percentage of healthy targets is below this value, mark the zone as
+     * unhealthy in DNS, so that traffic is routed only to healthy zones. The possible values are <code>off</code> or an
+     * integer from 1 to 100. The default is <code>off</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_group_health.unhealthy_state_routing.minimum_healthy_targets.count</code> - The minimum number of
+     * targets that must be healthy. If the number of healthy targets is below this value, send traffic to all targets,
+     * including unhealthy targets. The possible values are 1 to the maximum number of targets. The default is 1.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_group_health.unhealthy_state_routing.minimum_healthy_targets.percentage</code> - The minimum
+     * percentage of targets that must be healthy. If the percentage of healthy targets is below this value, send
+     * traffic to all targets, including unhealthy targets. The possible values are <code>off</code> or an integer from
+     * 1 to 100. The default is <code>off</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes are supported only if the load balancer is an Application Load Balancer and the target
+     * is an instance or an IP address:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>load_balancing.algorithm.type</code> - The load balancing algorithm determines how the load balancer
+     * selects targets when routing requests. The value is <code>round_robin</code>,
+     * <code>least_outstanding_requests</code>, or <code>weighted_random</code>. The default is <code>round_robin</code>
+     * .
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>load_balancing.algorithm.anomaly_mitigation</code> - Only available when
+     * <code>load_balancing.algorithm.type</code> is <code>weighted_random</code>. Indicates whether anomaly mitigation
+     * is enabled. The value is <code>on</code> or <code>off</code>. The default is <code>off</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>slow_start.duration_seconds</code> - The time period, in seconds, during which a newly registered target
+     * receives an increasing share of the traffic to the target group. After this time period ends, the target receives
+     * its full share of traffic. The range is 30-900 seconds (15 minutes). The default is 0 seconds (disabled).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>stickiness.app_cookie.cookie_name</code> - Indicates the name of the application-based cookie. Names that
+     * start with the following prefixes are not allowed: <code>AWSALB</code>, <code>AWSALBAPP</code>, and
+     * <code>AWSALBTG</code>; they're reserved for use by the load balancer.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>stickiness.app_cookie.duration_seconds</code> - The time period, in seconds, during which requests from a
+     * client should be routed to the same target. After this time period expires, the application-based cookie is
+     * considered stale. The range is 1 second to 1 week (604800 seconds). The default value is 1 day (86400 seconds).
      * </p>
      * </li>
      * <li>
@@ -460,13 +1286,14 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      * </li>
      * </ul>
      * <p>
-     * The following attribute is supported only if the target is a Lambda function.
+     * The following attribute is supported only if the load balancer is an Application Load Balancer and the target is
+     * a Lambda function:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>lambda.multi_value_headers.enabled</code> - Indicates whether the request and response headers exchanged
-     * between the load balancer and the Lambda function include arrays of values or strings. The value is
+     * <code>lambda.multi_value_headers.enabled</code> - Indicates whether the request and response headers that are
+     * exchanged between the load balancer and the Lambda function include arrays of values or strings. The value is
      * <code>true</code> or <code>false</code>. The default is <code>false</code>. If the value is <code>false</code>
      * and the request contains a duplicate header field name or query parameter key, the load balancer uses the last
      * value sent by the client.
@@ -474,13 +1301,69 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      * </li>
      * </ul>
      * <p>
-     * The following attribute is supported only by Network Load Balancers:
+     * The following attributes are supported only by Network Load Balancers:
      * </p>
      * <ul>
      * <li>
      * <p>
+     * <code>deregistration_delay.connection_termination.enabled</code> - Indicates whether the load balancer terminates
+     * connections at the end of the deregistration timeout. The value is <code>true</code> or <code>false</code>. For
+     * new UDP/TCP_UDP target groups the default is <code>true</code>. Otherwise, the default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>preserve_client_ip.enabled</code> - Indicates whether client IP preservation is enabled. The value is
+     * <code>true</code> or <code>false</code>. The default is disabled if the target group type is IP address and the
+     * target group protocol is TCP or TLS. Otherwise, the default is enabled. Client IP preservation cannot be disabled
+     * for UDP and TCP_UDP target groups.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>proxy_protocol_v2.enabled</code> - Indicates whether Proxy Protocol version 2 is enabled. The value is
      * <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_health_state.unhealthy.connection_termination.enabled</code> - Indicates whether the load balancer
+     * terminates connections to unhealthy targets. The value is <code>true</code> or <code>false</code>. The default is
+     * <code>true</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_health_state.unhealthy.draining_interval_seconds</code> - The amount of time for Elastic Load
+     * Balancing to wait before changing the state of an unhealthy target from <code>unhealthy.draining</code> to
+     * <code>unhealthy</code>. The range is 0-360000 seconds. The default value is 0 seconds.
+     * </p>
+     * <p>
+     * Note: This attribute can only be configured when
+     * <code>target_health_state.unhealthy.connection_termination.enabled</code> is <code>false</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes are supported only by Gateway Load Balancers:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>target_failover.on_deregistration</code> - Indicates how the Gateway Load Balancer handles existing flows
+     * when a target is deregistered. The possible values are <code>rebalance</code> and <code>no_rebalance</code>. The
+     * default is <code>no_rebalance</code>. The two attributes (<code>target_failover.on_deregistration</code> and
+     * <code>target_failover.on_unhealthy</code>) can't be set independently. The value you set for both attributes must
+     * be the same.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>target_failover.on_unhealthy</code> - Indicates how the Gateway Load Balancer handles existing flows when a
+     * target is unhealthy. The possible values are <code>rebalance</code> and <code>no_rebalance</code>. The default is
+     * <code>no_rebalance</code>. The two attributes (<code>target_failover.on_deregistration</code> and
+     * <code>target_failover.on_unhealthy</code>) cannot be set independently. The value you set for both attributes
+     * must be the same.
      * </p>
      * </li>
      * </ul>
@@ -488,7 +1371,7 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      * @param key
      *        The name of the attribute.</p>
      *        <p>
-     *        The following attribute is supported by both Application Load Balancers and Network Load Balancers:
+     *        The following attributes are supported by all load balancers:
      *        </p>
      *        <ul>
      *        <li>
@@ -499,29 +1382,120 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      *        Lambda function, this attribute is not supported.
      *        </p>
      *        </li>
-     *        </ul>
-     *        <p>
-     *        The following attributes are supported by Application Load Balancers if the target is not a Lambda
-     *        function:
-     *        </p>
-     *        <ul>
      *        <li>
      *        <p>
-     *        <code>slow_start.duration_seconds</code> - The time period, in seconds, during which a newly registered
-     *        target receives a linearly increasing share of the traffic to the target group. After this time period
-     *        ends, the target receives its full share of traffic. The range is 30-900 seconds (15 minutes). Slow start
-     *        mode is disabled by default.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>stickiness.enabled</code> - Indicates whether sticky sessions are enabled. The value is
+     *        <code>stickiness.enabled</code> - Indicates whether target stickiness is enabled. The value is
      *        <code>true</code> or <code>false</code>. The default is <code>false</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>stickiness.type</code> - The type of sticky sessions. The possible value is <code>lb_cookie</code>.
+     *        <code>stickiness.type</code> - Indicates the type of stickiness. The possible values are:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>lb_cookie</code> and <code>app_cookie</code> for Application Load Balancers.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>source_ip</code> for Network Load Balancers.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>source_ip_dest_ip</code> and <code>source_ip_dest_ip_proto</code> for Gateway Load Balancers.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following attributes are supported by Application Load Balancers and Network Load Balancers:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>load_balancing.cross_zone.enabled</code> - Indicates whether cross zone load balancing is enabled.
+     *        The value is <code>true</code>, <code>false</code> or <code>use_load_balancer_configuration</code>. The
+     *        default is <code>use_load_balancer_configuration</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>target_group_health.dns_failover.minimum_healthy_targets.count</code> - The minimum number of
+     *        targets that must be healthy. If the number of healthy targets is below this value, mark the zone as
+     *        unhealthy in DNS, so that traffic is routed only to healthy zones. The possible values are
+     *        <code>off</code> or an integer from 1 to the maximum number of targets. The default is <code>off</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>target_group_health.dns_failover.minimum_healthy_targets.percentage</code> - The minimum percentage
+     *        of targets that must be healthy. If the percentage of healthy targets is below this value, mark the zone
+     *        as unhealthy in DNS, so that traffic is routed only to healthy zones. The possible values are
+     *        <code>off</code> or an integer from 1 to 100. The default is <code>off</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>target_group_health.unhealthy_state_routing.minimum_healthy_targets.count</code> - The minimum
+     *        number of targets that must be healthy. If the number of healthy targets is below this value, send traffic
+     *        to all targets, including unhealthy targets. The possible values are 1 to the maximum number of targets.
+     *        The default is 1.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>target_group_health.unhealthy_state_routing.minimum_healthy_targets.percentage</code> - The minimum
+     *        percentage of targets that must be healthy. If the percentage of healthy targets is below this value, send
+     *        traffic to all targets, including unhealthy targets. The possible values are <code>off</code> or an
+     *        integer from 1 to 100. The default is <code>off</code>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following attributes are supported only if the load balancer is an Application Load Balancer and the
+     *        target is an instance or an IP address:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>load_balancing.algorithm.type</code> - The load balancing algorithm determines how the load balancer
+     *        selects targets when routing requests. The value is <code>round_robin</code>,
+     *        <code>least_outstanding_requests</code>, or <code>weighted_random</code>. The default is
+     *        <code>round_robin</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>load_balancing.algorithm.anomaly_mitigation</code> - Only available when
+     *        <code>load_balancing.algorithm.type</code> is <code>weighted_random</code>. Indicates whether anomaly
+     *        mitigation is enabled. The value is <code>on</code> or <code>off</code>. The default is <code>off</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>slow_start.duration_seconds</code> - The time period, in seconds, during which a newly registered
+     *        target receives an increasing share of the traffic to the target group. After this time period ends, the
+     *        target receives its full share of traffic. The range is 30-900 seconds (15 minutes). The default is 0
+     *        seconds (disabled).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>stickiness.app_cookie.cookie_name</code> - Indicates the name of the application-based cookie. Names
+     *        that start with the following prefixes are not allowed: <code>AWSALB</code>, <code>AWSALBAPP</code>, and
+     *        <code>AWSALBTG</code>; they're reserved for use by the load balancer.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>stickiness.app_cookie.duration_seconds</code> - The time period, in seconds, during which requests
+     *        from a client should be routed to the same target. After this time period expires, the application-based
+     *        cookie is considered stale. The range is 1 second to 1 week (604800 seconds). The default value is 1 day
+     *        (86400 seconds).
      *        </p>
      *        </li>
      *        <li>
@@ -534,27 +1508,85 @@ public class TargetGroupAttribute implements Serializable, Cloneable {
      *        </li>
      *        </ul>
      *        <p>
-     *        The following attribute is supported only if the target is a Lambda function.
+     *        The following attribute is supported only if the load balancer is an Application Load Balancer and the
+     *        target is a Lambda function:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>lambda.multi_value_headers.enabled</code> - Indicates whether the request and response headers
-     *        exchanged between the load balancer and the Lambda function include arrays of values or strings. The value
-     *        is <code>true</code> or <code>false</code>. The default is <code>false</code>. If the value is
+     *        <code>lambda.multi_value_headers.enabled</code> - Indicates whether the request and response headers that
+     *        are exchanged between the load balancer and the Lambda function include arrays of values or strings. The
+     *        value is <code>true</code> or <code>false</code>. The default is <code>false</code>. If the value is
      *        <code>false</code> and the request contains a duplicate header field name or query parameter key, the load
      *        balancer uses the last value sent by the client.
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
-     *        The following attribute is supported only by Network Load Balancers:
+     *        The following attributes are supported only by Network Load Balancers:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
+     *        <code>deregistration_delay.connection_termination.enabled</code> - Indicates whether the load balancer
+     *        terminates connections at the end of the deregistration timeout. The value is <code>true</code> or
+     *        <code>false</code>. For new UDP/TCP_UDP target groups the default is <code>true</code>. Otherwise, the
+     *        default is <code>false</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>preserve_client_ip.enabled</code> - Indicates whether client IP preservation is enabled. The value
+     *        is <code>true</code> or <code>false</code>. The default is disabled if the target group type is IP address
+     *        and the target group protocol is TCP or TLS. Otherwise, the default is enabled. Client IP preservation
+     *        cannot be disabled for UDP and TCP_UDP target groups.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>proxy_protocol_v2.enabled</code> - Indicates whether Proxy Protocol version 2 is enabled. The value
      *        is <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>target_health_state.unhealthy.connection_termination.enabled</code> - Indicates whether the load
+     *        balancer terminates connections to unhealthy targets. The value is <code>true</code> or <code>false</code>
+     *        . The default is <code>true</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>target_health_state.unhealthy.draining_interval_seconds</code> - The amount of time for Elastic Load
+     *        Balancing to wait before changing the state of an unhealthy target from <code>unhealthy.draining</code> to
+     *        <code>unhealthy</code>. The range is 0-360000 seconds. The default value is 0 seconds.
+     *        </p>
+     *        <p>
+     *        Note: This attribute can only be configured when
+     *        <code>target_health_state.unhealthy.connection_termination.enabled</code> is <code>false</code>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following attributes are supported only by Gateway Load Balancers:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>target_failover.on_deregistration</code> - Indicates how the Gateway Load Balancer handles existing
+     *        flows when a target is deregistered. The possible values are <code>rebalance</code> and
+     *        <code>no_rebalance</code>. The default is <code>no_rebalance</code>. The two attributes (
+     *        <code>target_failover.on_deregistration</code> and <code>target_failover.on_unhealthy</code>) can't be set
+     *        independently. The value you set for both attributes must be the same.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>target_failover.on_unhealthy</code> - Indicates how the Gateway Load Balancer handles existing flows
+     *        when a target is unhealthy. The possible values are <code>rebalance</code> and <code>no_rebalance</code>.
+     *        The default is <code>no_rebalance</code>. The two attributes (
+     *        <code>target_failover.on_deregistration</code> and <code>target_failover.on_unhealthy</code>) cannot be
+     *        set independently. The value you set for both attributes must be the same.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.

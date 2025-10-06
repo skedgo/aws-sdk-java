@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,11 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
- * <p/>
+ * <p>
+ * Provides information about the values of pending modifications to a replication instance. This data type is an object
+ * of the <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_ReplicationInstance.html">
+ * <code>ReplicationInstance</code> </a> user-defined data type.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ReplicationPendingModifiedValues"
  *      target="_top">AWS API Documentation</a>
@@ -28,11 +32,13 @@ public class ReplicationPendingModifiedValues implements Serializable, Cloneable
 
     /**
      * <p>
-     * The compute and memory capacity of the replication instance.
+     * The compute and memory capacity of the replication instance as defined for the specified replication instance
+     * class.
      * </p>
      * <p>
-     * Valid Values:
-     * <code>dms.t2.micro | dms.t2.small | dms.t2.medium | dms.t2.large | dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code>
+     * For more information on the settings and capacities for the available replication instance classes, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.html#CHAP_ReplicationInstance.InDepth"
+     * > Selecting the right DMS replication instance for your migration</a>.
      * </p>
      */
     private String replicationInstanceClass;
@@ -44,7 +50,7 @@ public class ReplicationPendingModifiedValues implements Serializable, Cloneable
     private Integer allocatedStorage;
     /**
      * <p>
-     * Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     * Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      * <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      * </p>
      */
@@ -55,21 +61,33 @@ public class ReplicationPendingModifiedValues implements Serializable, Cloneable
      * </p>
      */
     private String engineVersion;
+    /**
+     * <p>
+     * The type of IP address protocol used by a replication instance, such as IPv4 only or Dual-stack that supports
+     * both IPv4 and IPv6 addressing. IPv6 only is not yet supported.
+     * </p>
+     */
+    private String networkType;
 
     /**
      * <p>
-     * The compute and memory capacity of the replication instance.
+     * The compute and memory capacity of the replication instance as defined for the specified replication instance
+     * class.
      * </p>
      * <p>
-     * Valid Values:
-     * <code>dms.t2.micro | dms.t2.small | dms.t2.medium | dms.t2.large | dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code>
+     * For more information on the settings and capacities for the available replication instance classes, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.html#CHAP_ReplicationInstance.InDepth"
+     * > Selecting the right DMS replication instance for your migration</a>.
      * </p>
      * 
      * @param replicationInstanceClass
-     *        The compute and memory capacity of the replication instance.</p>
+     *        The compute and memory capacity of the replication instance as defined for the specified replication
+     *        instance class.</p>
      *        <p>
-     *        Valid Values:
-     *        <code>dms.t2.micro | dms.t2.small | dms.t2.medium | dms.t2.large | dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code>
+     *        For more information on the settings and capacities for the available replication instance classes, see <a
+     *        href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.html#CHAP_ReplicationInstance.InDepth"
+     *        > Selecting the right DMS replication instance for your migration</a>.
      */
 
     public void setReplicationInstanceClass(String replicationInstanceClass) {
@@ -78,17 +96,22 @@ public class ReplicationPendingModifiedValues implements Serializable, Cloneable
 
     /**
      * <p>
-     * The compute and memory capacity of the replication instance.
+     * The compute and memory capacity of the replication instance as defined for the specified replication instance
+     * class.
      * </p>
      * <p>
-     * Valid Values:
-     * <code>dms.t2.micro | dms.t2.small | dms.t2.medium | dms.t2.large | dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code>
+     * For more information on the settings and capacities for the available replication instance classes, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.html#CHAP_ReplicationInstance.InDepth"
+     * > Selecting the right DMS replication instance for your migration</a>.
      * </p>
      * 
-     * @return The compute and memory capacity of the replication instance.</p>
+     * @return The compute and memory capacity of the replication instance as defined for the specified replication
+     *         instance class.</p>
      *         <p>
-     *         Valid Values:
-     *         <code>dms.t2.micro | dms.t2.small | dms.t2.medium | dms.t2.large | dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code>
+     *         For more information on the settings and capacities for the available replication instance classes, see
+     *         <a href=
+     *         "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.html#CHAP_ReplicationInstance.InDepth"
+     *         > Selecting the right DMS replication instance for your migration</a>.
      */
 
     public String getReplicationInstanceClass() {
@@ -97,18 +120,23 @@ public class ReplicationPendingModifiedValues implements Serializable, Cloneable
 
     /**
      * <p>
-     * The compute and memory capacity of the replication instance.
+     * The compute and memory capacity of the replication instance as defined for the specified replication instance
+     * class.
      * </p>
      * <p>
-     * Valid Values:
-     * <code>dms.t2.micro | dms.t2.small | dms.t2.medium | dms.t2.large | dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code>
+     * For more information on the settings and capacities for the available replication instance classes, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.html#CHAP_ReplicationInstance.InDepth"
+     * > Selecting the right DMS replication instance for your migration</a>.
      * </p>
      * 
      * @param replicationInstanceClass
-     *        The compute and memory capacity of the replication instance.</p>
+     *        The compute and memory capacity of the replication instance as defined for the specified replication
+     *        instance class.</p>
      *        <p>
-     *        Valid Values:
-     *        <code>dms.t2.micro | dms.t2.small | dms.t2.medium | dms.t2.large | dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code>
+     *        For more information on the settings and capacities for the available replication instance classes, see <a
+     *        href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.html#CHAP_ReplicationInstance.InDepth"
+     *        > Selecting the right DMS replication instance for your migration</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -159,12 +187,12 @@ public class ReplicationPendingModifiedValues implements Serializable, Cloneable
 
     /**
      * <p>
-     * Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     * Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      * <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      * </p>
      * 
      * @param multiAZ
-     *        Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     *        Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      *        <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      */
 
@@ -174,11 +202,11 @@ public class ReplicationPendingModifiedValues implements Serializable, Cloneable
 
     /**
      * <p>
-     * Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     * Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      * <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      * </p>
      * 
-     * @return Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     * @return Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      *         <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      */
 
@@ -188,12 +216,12 @@ public class ReplicationPendingModifiedValues implements Serializable, Cloneable
 
     /**
      * <p>
-     * Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     * Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      * <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      * </p>
      * 
      * @param multiAZ
-     *        Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     *        Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      *        <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -205,11 +233,11 @@ public class ReplicationPendingModifiedValues implements Serializable, Cloneable
 
     /**
      * <p>
-     * Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     * Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      * <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      * </p>
      * 
-     * @return Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     * @return Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      *         <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      */
 
@@ -258,6 +286,52 @@ public class ReplicationPendingModifiedValues implements Serializable, Cloneable
     }
 
     /**
+     * <p>
+     * The type of IP address protocol used by a replication instance, such as IPv4 only or Dual-stack that supports
+     * both IPv4 and IPv6 addressing. IPv6 only is not yet supported.
+     * </p>
+     * 
+     * @param networkType
+     *        The type of IP address protocol used by a replication instance, such as IPv4 only or Dual-stack that
+     *        supports both IPv4 and IPv6 addressing. IPv6 only is not yet supported.
+     */
+
+    public void setNetworkType(String networkType) {
+        this.networkType = networkType;
+    }
+
+    /**
+     * <p>
+     * The type of IP address protocol used by a replication instance, such as IPv4 only or Dual-stack that supports
+     * both IPv4 and IPv6 addressing. IPv6 only is not yet supported.
+     * </p>
+     * 
+     * @return The type of IP address protocol used by a replication instance, such as IPv4 only or Dual-stack that
+     *         supports both IPv4 and IPv6 addressing. IPv6 only is not yet supported.
+     */
+
+    public String getNetworkType() {
+        return this.networkType;
+    }
+
+    /**
+     * <p>
+     * The type of IP address protocol used by a replication instance, such as IPv4 only or Dual-stack that supports
+     * both IPv4 and IPv6 addressing. IPv6 only is not yet supported.
+     * </p>
+     * 
+     * @param networkType
+     *        The type of IP address protocol used by a replication instance, such as IPv4 only or Dual-stack that
+     *        supports both IPv4 and IPv6 addressing. IPv6 only is not yet supported.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationPendingModifiedValues withNetworkType(String networkType) {
+        setNetworkType(networkType);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -276,7 +350,9 @@ public class ReplicationPendingModifiedValues implements Serializable, Cloneable
         if (getMultiAZ() != null)
             sb.append("MultiAZ: ").append(getMultiAZ()).append(",");
         if (getEngineVersion() != null)
-            sb.append("EngineVersion: ").append(getEngineVersion());
+            sb.append("EngineVersion: ").append(getEngineVersion()).append(",");
+        if (getNetworkType() != null)
+            sb.append("NetworkType: ").append(getNetworkType());
         sb.append("}");
         return sb.toString();
     }
@@ -307,6 +383,10 @@ public class ReplicationPendingModifiedValues implements Serializable, Cloneable
             return false;
         if (other.getEngineVersion() != null && other.getEngineVersion().equals(this.getEngineVersion()) == false)
             return false;
+        if (other.getNetworkType() == null ^ this.getNetworkType() == null)
+            return false;
+        if (other.getNetworkType() != null && other.getNetworkType().equals(this.getNetworkType()) == false)
+            return false;
         return true;
     }
 
@@ -319,6 +399,7 @@ public class ReplicationPendingModifiedValues implements Serializable, Cloneable
         hashCode = prime * hashCode + ((getAllocatedStorage() == null) ? 0 : getAllocatedStorage().hashCode());
         hashCode = prime * hashCode + ((getMultiAZ() == null) ? 0 : getMultiAZ().hashCode());
         hashCode = prime * hashCode + ((getEngineVersion() == null) ? 0 : getEngineVersion().hashCode());
+        hashCode = prime * hashCode + ((getNetworkType() == null) ? 0 : getNetworkType().hashCode());
         return hashCode;
     }
 

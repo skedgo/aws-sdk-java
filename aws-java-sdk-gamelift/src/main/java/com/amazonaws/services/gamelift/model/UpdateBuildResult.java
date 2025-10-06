@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,9 +16,6 @@ import java.io.Serializable;
 import javax.annotation.Generated;
 
 /**
- * <p>
- * Represents the returned data in response to a request action.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/UpdateBuild" target="_top">AWS API
  *      Documentation</a>
@@ -28,18 +25,18 @@ public class UpdateBuildResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Object that contains the updated build record.
+     * The updated build resource.
      * </p>
      */
     private Build build;
 
     /**
      * <p>
-     * Object that contains the updated build record.
+     * The updated build resource.
      * </p>
      * 
      * @param build
-     *        Object that contains the updated build record.
+     *        The updated build resource.
      */
 
     public void setBuild(Build build) {
@@ -48,10 +45,10 @@ public class UpdateBuildResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Object that contains the updated build record.
+     * The updated build resource.
      * </p>
      * 
-     * @return Object that contains the updated build record.
+     * @return The updated build resource.
      */
 
     public Build getBuild() {
@@ -60,11 +57,11 @@ public class UpdateBuildResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Object that contains the updated build record.
+     * The updated build resource.
      * </p>
      * 
      * @param build
-     *        Object that contains the updated build record.
+     *        The updated build resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

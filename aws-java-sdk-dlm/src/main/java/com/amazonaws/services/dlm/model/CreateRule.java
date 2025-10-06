@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,24 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Specifies when to create snapshots of EBS volumes.
+ * <b>[Custom snapshot and AMI policies only]</b> Specifies when the policy should create snapshots or AMIs.
  * </p>
+ * <note>
+ * <ul>
+ * <li>
+ * <p>
+ * You must specify either <b>CronExpression</b>, or <b>Interval</b>, <b>IntervalUnit</b>, and <b>Times</b>.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * If you need to specify an <a
+ * href="https://docs.aws.amazon.com/dlm/latest/APIReference/API_ArchiveRule.html">ArchiveRule</a> for the schedule,
+ * then you must specify a creation frequency of at least 28 days.
+ * </p>
+ * </li>
+ * </ul>
+ * </note>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dlm-2018-01-12/CreateRule" target="_top">AWS API
  *      Documentation</a>
@@ -30,7 +46,21 @@ public class CreateRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The interval between snapshots. The supported values are 2, 3, 4, 6, 8, 12, and 24.
+     * <b>[Custom snapshot policies only]</b> Specifies the destination for snapshots created by the policy. To create
+     * snapshots in the same Region as the source resource, specify <code>CLOUD</code>. To create snapshots on the same
+     * Outpost as the source resource, specify <code>OUTPOST_LOCAL</code>. If you omit this parameter,
+     * <code>CLOUD</code> is used by default.
+     * </p>
+     * <p>
+     * If the policy targets resources in an Amazon Web Services Region, then you must create snapshots in the same
+     * Region as the source resource. If the policy targets resources on an Outpost, then you can create snapshots on
+     * the same Outpost as the source resource, or in the Region of that Outpost.
+     * </p>
+     */
+    private String location;
+    /**
+     * <p>
+     * The interval between snapshots. The supported values are 1, 2, 3, 4, 6, 8, 12, and 24.
      * </p>
      */
     private Integer interval;
@@ -45,18 +75,161 @@ public class CreateRule implements Serializable, Cloneable, StructuredPojo {
      * The time, in UTC, to start the operation. The supported format is hh:mm.
      * </p>
      * <p>
-     * The operation occurs within a one-hour window following the specified time.
+     * The operation occurs within a one-hour window following the specified time. If you do not specify a time, Amazon
+     * Data Lifecycle Manager selects a time within the next 24 hours.
      * </p>
      */
     private java.util.List<String> times;
+    /**
+     * <p>
+     * The schedule, as a Cron expression. The schedule interval must be between 1 hour and 1 year. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions">Cron
+     * expressions</a> in the <i>Amazon CloudWatch User Guide</i>.
+     * </p>
+     */
+    private String cronExpression;
+    /**
+     * <p>
+     * <b>[Custom snapshot policies that target instances only]</b> Specifies pre and/or post scripts for a snapshot
+     * lifecycle policy that targets instances. This is useful for creating application-consistent snapshots, or for
+     * performing specific administrative tasks before or after Amazon Data Lifecycle Manager initiates snapshot
+     * creation.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/automate-app-consistent-backups.html">Automating
+     * application-consistent snapshots with pre and post scripts</a>.
+     * </p>
+     */
+    private java.util.List<Script> scripts;
 
     /**
      * <p>
-     * The interval between snapshots. The supported values are 2, 3, 4, 6, 8, 12, and 24.
+     * <b>[Custom snapshot policies only]</b> Specifies the destination for snapshots created by the policy. To create
+     * snapshots in the same Region as the source resource, specify <code>CLOUD</code>. To create snapshots on the same
+     * Outpost as the source resource, specify <code>OUTPOST_LOCAL</code>. If you omit this parameter,
+     * <code>CLOUD</code> is used by default.
+     * </p>
+     * <p>
+     * If the policy targets resources in an Amazon Web Services Region, then you must create snapshots in the same
+     * Region as the source resource. If the policy targets resources on an Outpost, then you can create snapshots on
+     * the same Outpost as the source resource, or in the Region of that Outpost.
+     * </p>
+     * 
+     * @param location
+     *        <b>[Custom snapshot policies only]</b> Specifies the destination for snapshots created by the policy. To
+     *        create snapshots in the same Region as the source resource, specify <code>CLOUD</code>. To create
+     *        snapshots on the same Outpost as the source resource, specify <code>OUTPOST_LOCAL</code>. If you omit this
+     *        parameter, <code>CLOUD</code> is used by default.</p>
+     *        <p>
+     *        If the policy targets resources in an Amazon Web Services Region, then you must create snapshots in the
+     *        same Region as the source resource. If the policy targets resources on an Outpost, then you can create
+     *        snapshots on the same Outpost as the source resource, or in the Region of that Outpost.
+     * @see LocationValues
+     */
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    /**
+     * <p>
+     * <b>[Custom snapshot policies only]</b> Specifies the destination for snapshots created by the policy. To create
+     * snapshots in the same Region as the source resource, specify <code>CLOUD</code>. To create snapshots on the same
+     * Outpost as the source resource, specify <code>OUTPOST_LOCAL</code>. If you omit this parameter,
+     * <code>CLOUD</code> is used by default.
+     * </p>
+     * <p>
+     * If the policy targets resources in an Amazon Web Services Region, then you must create snapshots in the same
+     * Region as the source resource. If the policy targets resources on an Outpost, then you can create snapshots on
+     * the same Outpost as the source resource, or in the Region of that Outpost.
+     * </p>
+     * 
+     * @return <b>[Custom snapshot policies only]</b> Specifies the destination for snapshots created by the policy. To
+     *         create snapshots in the same Region as the source resource, specify <code>CLOUD</code>. To create
+     *         snapshots on the same Outpost as the source resource, specify <code>OUTPOST_LOCAL</code>. If you omit
+     *         this parameter, <code>CLOUD</code> is used by default.</p>
+     *         <p>
+     *         If the policy targets resources in an Amazon Web Services Region, then you must create snapshots in the
+     *         same Region as the source resource. If the policy targets resources on an Outpost, then you can create
+     *         snapshots on the same Outpost as the source resource, or in the Region of that Outpost.
+     * @see LocationValues
+     */
+
+    public String getLocation() {
+        return this.location;
+    }
+
+    /**
+     * <p>
+     * <b>[Custom snapshot policies only]</b> Specifies the destination for snapshots created by the policy. To create
+     * snapshots in the same Region as the source resource, specify <code>CLOUD</code>. To create snapshots on the same
+     * Outpost as the source resource, specify <code>OUTPOST_LOCAL</code>. If you omit this parameter,
+     * <code>CLOUD</code> is used by default.
+     * </p>
+     * <p>
+     * If the policy targets resources in an Amazon Web Services Region, then you must create snapshots in the same
+     * Region as the source resource. If the policy targets resources on an Outpost, then you can create snapshots on
+     * the same Outpost as the source resource, or in the Region of that Outpost.
+     * </p>
+     * 
+     * @param location
+     *        <b>[Custom snapshot policies only]</b> Specifies the destination for snapshots created by the policy. To
+     *        create snapshots in the same Region as the source resource, specify <code>CLOUD</code>. To create
+     *        snapshots on the same Outpost as the source resource, specify <code>OUTPOST_LOCAL</code>. If you omit this
+     *        parameter, <code>CLOUD</code> is used by default.</p>
+     *        <p>
+     *        If the policy targets resources in an Amazon Web Services Region, then you must create snapshots in the
+     *        same Region as the source resource. If the policy targets resources on an Outpost, then you can create
+     *        snapshots on the same Outpost as the source resource, or in the Region of that Outpost.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see LocationValues
+     */
+
+    public CreateRule withLocation(String location) {
+        setLocation(location);
+        return this;
+    }
+
+    /**
+     * <p>
+     * <b>[Custom snapshot policies only]</b> Specifies the destination for snapshots created by the policy. To create
+     * snapshots in the same Region as the source resource, specify <code>CLOUD</code>. To create snapshots on the same
+     * Outpost as the source resource, specify <code>OUTPOST_LOCAL</code>. If you omit this parameter,
+     * <code>CLOUD</code> is used by default.
+     * </p>
+     * <p>
+     * If the policy targets resources in an Amazon Web Services Region, then you must create snapshots in the same
+     * Region as the source resource. If the policy targets resources on an Outpost, then you can create snapshots on
+     * the same Outpost as the source resource, or in the Region of that Outpost.
+     * </p>
+     * 
+     * @param location
+     *        <b>[Custom snapshot policies only]</b> Specifies the destination for snapshots created by the policy. To
+     *        create snapshots in the same Region as the source resource, specify <code>CLOUD</code>. To create
+     *        snapshots on the same Outpost as the source resource, specify <code>OUTPOST_LOCAL</code>. If you omit this
+     *        parameter, <code>CLOUD</code> is used by default.</p>
+     *        <p>
+     *        If the policy targets resources in an Amazon Web Services Region, then you must create snapshots in the
+     *        same Region as the source resource. If the policy targets resources on an Outpost, then you can create
+     *        snapshots on the same Outpost as the source resource, or in the Region of that Outpost.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see LocationValues
+     */
+
+    public CreateRule withLocation(LocationValues location) {
+        this.location = location.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The interval between snapshots. The supported values are 1, 2, 3, 4, 6, 8, 12, and 24.
      * </p>
      * 
      * @param interval
-     *        The interval between snapshots. The supported values are 2, 3, 4, 6, 8, 12, and 24.
+     *        The interval between snapshots. The supported values are 1, 2, 3, 4, 6, 8, 12, and 24.
      */
 
     public void setInterval(Integer interval) {
@@ -65,10 +238,10 @@ public class CreateRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The interval between snapshots. The supported values are 2, 3, 4, 6, 8, 12, and 24.
+     * The interval between snapshots. The supported values are 1, 2, 3, 4, 6, 8, 12, and 24.
      * </p>
      * 
-     * @return The interval between snapshots. The supported values are 2, 3, 4, 6, 8, 12, and 24.
+     * @return The interval between snapshots. The supported values are 1, 2, 3, 4, 6, 8, 12, and 24.
      */
 
     public Integer getInterval() {
@@ -77,11 +250,11 @@ public class CreateRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The interval between snapshots. The supported values are 2, 3, 4, 6, 8, 12, and 24.
+     * The interval between snapshots. The supported values are 1, 2, 3, 4, 6, 8, 12, and 24.
      * </p>
      * 
      * @param interval
-     *        The interval between snapshots. The supported values are 2, 3, 4, 6, 8, 12, and 24.
+     *        The interval between snapshots. The supported values are 1, 2, 3, 4, 6, 8, 12, and 24.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -154,12 +327,14 @@ public class CreateRule implements Serializable, Cloneable, StructuredPojo {
      * The time, in UTC, to start the operation. The supported format is hh:mm.
      * </p>
      * <p>
-     * The operation occurs within a one-hour window following the specified time.
+     * The operation occurs within a one-hour window following the specified time. If you do not specify a time, Amazon
+     * Data Lifecycle Manager selects a time within the next 24 hours.
      * </p>
      * 
      * @return The time, in UTC, to start the operation. The supported format is hh:mm.</p>
      *         <p>
-     *         The operation occurs within a one-hour window following the specified time.
+     *         The operation occurs within a one-hour window following the specified time. If you do not specify a time,
+     *         Amazon Data Lifecycle Manager selects a time within the next 24 hours.
      */
 
     public java.util.List<String> getTimes() {
@@ -171,13 +346,15 @@ public class CreateRule implements Serializable, Cloneable, StructuredPojo {
      * The time, in UTC, to start the operation. The supported format is hh:mm.
      * </p>
      * <p>
-     * The operation occurs within a one-hour window following the specified time.
+     * The operation occurs within a one-hour window following the specified time. If you do not specify a time, Amazon
+     * Data Lifecycle Manager selects a time within the next 24 hours.
      * </p>
      * 
      * @param times
      *        The time, in UTC, to start the operation. The supported format is hh:mm.</p>
      *        <p>
-     *        The operation occurs within a one-hour window following the specified time.
+     *        The operation occurs within a one-hour window following the specified time. If you do not specify a time,
+     *        Amazon Data Lifecycle Manager selects a time within the next 24 hours.
      */
 
     public void setTimes(java.util.Collection<String> times) {
@@ -194,7 +371,8 @@ public class CreateRule implements Serializable, Cloneable, StructuredPojo {
      * The time, in UTC, to start the operation. The supported format is hh:mm.
      * </p>
      * <p>
-     * The operation occurs within a one-hour window following the specified time.
+     * The operation occurs within a one-hour window following the specified time. If you do not specify a time, Amazon
+     * Data Lifecycle Manager selects a time within the next 24 hours.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -205,7 +383,8 @@ public class CreateRule implements Serializable, Cloneable, StructuredPojo {
      * @param times
      *        The time, in UTC, to start the operation. The supported format is hh:mm.</p>
      *        <p>
-     *        The operation occurs within a one-hour window following the specified time.
+     *        The operation occurs within a one-hour window following the specified time. If you do not specify a time,
+     *        Amazon Data Lifecycle Manager selects a time within the next 24 hours.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -224,18 +403,208 @@ public class CreateRule implements Serializable, Cloneable, StructuredPojo {
      * The time, in UTC, to start the operation. The supported format is hh:mm.
      * </p>
      * <p>
-     * The operation occurs within a one-hour window following the specified time.
+     * The operation occurs within a one-hour window following the specified time. If you do not specify a time, Amazon
+     * Data Lifecycle Manager selects a time within the next 24 hours.
      * </p>
      * 
      * @param times
      *        The time, in UTC, to start the operation. The supported format is hh:mm.</p>
      *        <p>
-     *        The operation occurs within a one-hour window following the specified time.
+     *        The operation occurs within a one-hour window following the specified time. If you do not specify a time,
+     *        Amazon Data Lifecycle Manager selects a time within the next 24 hours.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateRule withTimes(java.util.Collection<String> times) {
         setTimes(times);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The schedule, as a Cron expression. The schedule interval must be between 1 hour and 1 year. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions">Cron
+     * expressions</a> in the <i>Amazon CloudWatch User Guide</i>.
+     * </p>
+     * 
+     * @param cronExpression
+     *        The schedule, as a Cron expression. The schedule interval must be between 1 hour and 1 year. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions"
+     *        >Cron expressions</a> in the <i>Amazon CloudWatch User Guide</i>.
+     */
+
+    public void setCronExpression(String cronExpression) {
+        this.cronExpression = cronExpression;
+    }
+
+    /**
+     * <p>
+     * The schedule, as a Cron expression. The schedule interval must be between 1 hour and 1 year. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions">Cron
+     * expressions</a> in the <i>Amazon CloudWatch User Guide</i>.
+     * </p>
+     * 
+     * @return The schedule, as a Cron expression. The schedule interval must be between 1 hour and 1 year. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions"
+     *         >Cron expressions</a> in the <i>Amazon CloudWatch User Guide</i>.
+     */
+
+    public String getCronExpression() {
+        return this.cronExpression;
+    }
+
+    /**
+     * <p>
+     * The schedule, as a Cron expression. The schedule interval must be between 1 hour and 1 year. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions">Cron
+     * expressions</a> in the <i>Amazon CloudWatch User Guide</i>.
+     * </p>
+     * 
+     * @param cronExpression
+     *        The schedule, as a Cron expression. The schedule interval must be between 1 hour and 1 year. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions"
+     *        >Cron expressions</a> in the <i>Amazon CloudWatch User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateRule withCronExpression(String cronExpression) {
+        setCronExpression(cronExpression);
+        return this;
+    }
+
+    /**
+     * <p>
+     * <b>[Custom snapshot policies that target instances only]</b> Specifies pre and/or post scripts for a snapshot
+     * lifecycle policy that targets instances. This is useful for creating application-consistent snapshots, or for
+     * performing specific administrative tasks before or after Amazon Data Lifecycle Manager initiates snapshot
+     * creation.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/automate-app-consistent-backups.html">Automating
+     * application-consistent snapshots with pre and post scripts</a>.
+     * </p>
+     * 
+     * @return <b>[Custom snapshot policies that target instances only]</b> Specifies pre and/or post scripts for a
+     *         snapshot lifecycle policy that targets instances. This is useful for creating application-consistent
+     *         snapshots, or for performing specific administrative tasks before or after Amazon Data Lifecycle Manager
+     *         initiates snapshot creation.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/automate-app-consistent-backups.html"
+     *         >Automating application-consistent snapshots with pre and post scripts</a>.
+     */
+
+    public java.util.List<Script> getScripts() {
+        return scripts;
+    }
+
+    /**
+     * <p>
+     * <b>[Custom snapshot policies that target instances only]</b> Specifies pre and/or post scripts for a snapshot
+     * lifecycle policy that targets instances. This is useful for creating application-consistent snapshots, or for
+     * performing specific administrative tasks before or after Amazon Data Lifecycle Manager initiates snapshot
+     * creation.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/automate-app-consistent-backups.html">Automating
+     * application-consistent snapshots with pre and post scripts</a>.
+     * </p>
+     * 
+     * @param scripts
+     *        <b>[Custom snapshot policies that target instances only]</b> Specifies pre and/or post scripts for a
+     *        snapshot lifecycle policy that targets instances. This is useful for creating application-consistent
+     *        snapshots, or for performing specific administrative tasks before or after Amazon Data Lifecycle Manager
+     *        initiates snapshot creation.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/automate-app-consistent-backups.html">Automating
+     *        application-consistent snapshots with pre and post scripts</a>.
+     */
+
+    public void setScripts(java.util.Collection<Script> scripts) {
+        if (scripts == null) {
+            this.scripts = null;
+            return;
+        }
+
+        this.scripts = new java.util.ArrayList<Script>(scripts);
+    }
+
+    /**
+     * <p>
+     * <b>[Custom snapshot policies that target instances only]</b> Specifies pre and/or post scripts for a snapshot
+     * lifecycle policy that targets instances. This is useful for creating application-consistent snapshots, or for
+     * performing specific administrative tasks before or after Amazon Data Lifecycle Manager initiates snapshot
+     * creation.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/automate-app-consistent-backups.html">Automating
+     * application-consistent snapshots with pre and post scripts</a>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setScripts(java.util.Collection)} or {@link #withScripts(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param scripts
+     *        <b>[Custom snapshot policies that target instances only]</b> Specifies pre and/or post scripts for a
+     *        snapshot lifecycle policy that targets instances. This is useful for creating application-consistent
+     *        snapshots, or for performing specific administrative tasks before or after Amazon Data Lifecycle Manager
+     *        initiates snapshot creation.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/automate-app-consistent-backups.html">Automating
+     *        application-consistent snapshots with pre and post scripts</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateRule withScripts(Script... scripts) {
+        if (this.scripts == null) {
+            setScripts(new java.util.ArrayList<Script>(scripts.length));
+        }
+        for (Script ele : scripts) {
+            this.scripts.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * <b>[Custom snapshot policies that target instances only]</b> Specifies pre and/or post scripts for a snapshot
+     * lifecycle policy that targets instances. This is useful for creating application-consistent snapshots, or for
+     * performing specific administrative tasks before or after Amazon Data Lifecycle Manager initiates snapshot
+     * creation.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/automate-app-consistent-backups.html">Automating
+     * application-consistent snapshots with pre and post scripts</a>.
+     * </p>
+     * 
+     * @param scripts
+     *        <b>[Custom snapshot policies that target instances only]</b> Specifies pre and/or post scripts for a
+     *        snapshot lifecycle policy that targets instances. This is useful for creating application-consistent
+     *        snapshots, or for performing specific administrative tasks before or after Amazon Data Lifecycle Manager
+     *        initiates snapshot creation.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/automate-app-consistent-backups.html">Automating
+     *        application-consistent snapshots with pre and post scripts</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateRule withScripts(java.util.Collection<Script> scripts) {
+        setScripts(scripts);
         return this;
     }
 
@@ -251,12 +620,18 @@ public class CreateRule implements Serializable, Cloneable, StructuredPojo {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getLocation() != null)
+            sb.append("Location: ").append(getLocation()).append(",");
         if (getInterval() != null)
             sb.append("Interval: ").append(getInterval()).append(",");
         if (getIntervalUnit() != null)
             sb.append("IntervalUnit: ").append(getIntervalUnit()).append(",");
         if (getTimes() != null)
-            sb.append("Times: ").append(getTimes());
+            sb.append("Times: ").append(getTimes()).append(",");
+        if (getCronExpression() != null)
+            sb.append("CronExpression: ").append(getCronExpression()).append(",");
+        if (getScripts() != null)
+            sb.append("Scripts: ").append(getScripts());
         sb.append("}");
         return sb.toString();
     }
@@ -271,6 +646,10 @@ public class CreateRule implements Serializable, Cloneable, StructuredPojo {
         if (obj instanceof CreateRule == false)
             return false;
         CreateRule other = (CreateRule) obj;
+        if (other.getLocation() == null ^ this.getLocation() == null)
+            return false;
+        if (other.getLocation() != null && other.getLocation().equals(this.getLocation()) == false)
+            return false;
         if (other.getInterval() == null ^ this.getInterval() == null)
             return false;
         if (other.getInterval() != null && other.getInterval().equals(this.getInterval()) == false)
@@ -283,6 +662,14 @@ public class CreateRule implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getTimes() != null && other.getTimes().equals(this.getTimes()) == false)
             return false;
+        if (other.getCronExpression() == null ^ this.getCronExpression() == null)
+            return false;
+        if (other.getCronExpression() != null && other.getCronExpression().equals(this.getCronExpression()) == false)
+            return false;
+        if (other.getScripts() == null ^ this.getScripts() == null)
+            return false;
+        if (other.getScripts() != null && other.getScripts().equals(this.getScripts()) == false)
+            return false;
         return true;
     }
 
@@ -291,9 +678,12 @@ public class CreateRule implements Serializable, Cloneable, StructuredPojo {
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getLocation() == null) ? 0 : getLocation().hashCode());
         hashCode = prime * hashCode + ((getInterval() == null) ? 0 : getInterval().hashCode());
         hashCode = prime * hashCode + ((getIntervalUnit() == null) ? 0 : getIntervalUnit().hashCode());
         hashCode = prime * hashCode + ((getTimes() == null) ? 0 : getTimes().hashCode());
+        hashCode = prime * hashCode + ((getCronExpression() == null) ? 0 : getCronExpression().hashCode());
+        hashCode = prime * hashCode + ((getScripts() == null) ? 0 : getScripts().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.guardduty.AmazonGuardDutyClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.guardduty.model.*;
+
 import com.amazonaws.services.guardduty.model.transform.*;
 
 /**
@@ -51,17 +52,25 @@ import com.amazonaws.services.guardduty.model.transform.*;
  * until the service call completes.
  * <p>
  * <p>
- * Amazon GuardDuty is a continuous security monitoring service that analyzes and processes the following data sources:
- * VPC Flow Logs, AWS CloudTrail event logs, and DNS logs. It uses threat intelligence feeds, such as lists of malicious
- * IPs and domains, and machine learning to identify unexpected and potentially unauthorized and malicious activity
- * within your AWS environment. This can include issues like escalations of privileges, uses of exposed credentials, or
- * communication with malicious IPs, URLs, or domains. For example, GuardDuty can detect compromised EC2 instances
- * serving malware or mining bitcoin. It also monitors AWS account access behavior for signs of compromise, such as
- * unauthorized infrastructure deployments, like instances deployed in a region that has never been used, or unusual API
- * calls, like a password policy change to reduce password strength. GuardDuty informs you of the status of your AWS
- * environment by producing security findings that you can view in the GuardDuty console or through Amazon CloudWatch
- * events. For more information, see <a href="https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html">
- * Amazon GuardDuty User Guide</a>.
+ * Amazon GuardDuty is a continuous security monitoring service that analyzes and processes the following foundational
+ * data sources - VPC flow logs, Amazon Web Services CloudTrail management event logs, CloudTrail S3 data event logs,
+ * EKS audit logs, DNS logs, Amazon EBS volume data, runtime activity belonging to container workloads, such as Amazon
+ * EKS, Amazon ECS (including Amazon Web Services Fargate), and Amazon EC2 instances. It uses threat intelligence feeds,
+ * such as lists of malicious IPs and domains, and machine learning to identify unexpected, potentially unauthorized,
+ * and malicious activity within your Amazon Web Services environment. This can include issues like escalations of
+ * privileges, uses of exposed credentials, or communication with malicious IPs, domains, or presence of malware on your
+ * Amazon EC2 instances and container workloads. For example, GuardDuty can detect compromised EC2 instances and
+ * container workloads serving malware, or mining bitcoin.
+ * </p>
+ * <p>
+ * GuardDuty also monitors Amazon Web Services account access behavior for signs of compromise, such as unauthorized
+ * infrastructure deployments like EC2 instances deployed in a Region that has never been used, or unusual API calls
+ * like a password policy change to reduce password strength.
+ * </p>
+ * <p>
+ * GuardDuty informs you about the status of your Amazon Web Services environment by producing security findings that
+ * you can view in the GuardDuty console or through Amazon EventBridge. For more information, see the <i> <a
+ * href="https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html">Amazon GuardDuty User Guide</a> </i>.
  * </p>
  */
 @ThreadSafe
@@ -86,13 +95,22 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withModeledClass(
-                                    com.amazonaws.services.guardduty.model.BadRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.guardduty.model.transform.ConflictExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServerErrorException").withModeledClass(
-                                    com.amazonaws.services.guardduty.model.InternalServerErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.guardduty.model.transform.BadRequestExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.guardduty.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("AccessDeniedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.guardduty.model.transform.AccessDeniedExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServerErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.guardduty.model.transform.InternalServerErrorExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.guardduty.model.AmazonGuardDutyException.class));
 
     public static AmazonGuardDutyClientBuilder builder() {
@@ -143,20 +161,83 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Accepts the invitation to be monitored by a master GuardDuty account.
+     * Accepts the invitation to be a member account and get monitored by a GuardDuty administrator account that sent
+     * the invitation.
+     * </p>
+     * 
+     * @param acceptAdministratorInvitationRequest
+     * @return Result of the AcceptAdministratorInvitation operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.AcceptAdministratorInvitation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/AcceptAdministratorInvitation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public AcceptAdministratorInvitationResult acceptAdministratorInvitation(AcceptAdministratorInvitationRequest request) {
+        request = beforeClientExecution(request);
+        return executeAcceptAdministratorInvitation(request);
+    }
+
+    @SdkInternalApi
+    final AcceptAdministratorInvitationResult executeAcceptAdministratorInvitation(AcceptAdministratorInvitationRequest acceptAdministratorInvitationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(acceptAdministratorInvitationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<AcceptAdministratorInvitationRequest> request = null;
+        Response<AcceptAdministratorInvitationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new AcceptAdministratorInvitationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(acceptAdministratorInvitationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AcceptAdministratorInvitation");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<AcceptAdministratorInvitationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new AcceptAdministratorInvitationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Accepts the invitation to be monitored by a GuardDuty administrator account.
      * </p>
      * 
      * @param acceptInvitationRequest
      * @return Result of the AcceptInvitation operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.AcceptInvitation
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/AcceptInvitation" target="_top">AWS API
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public AcceptInvitationResult acceptInvitation(AcceptInvitationRequest request) {
         request = beforeClientExecution(request);
         return executeAcceptInvitation(request);
@@ -177,6 +258,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new AcceptInvitationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(acceptInvitationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AcceptInvitation");
@@ -200,15 +283,21 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Archives Amazon GuardDuty findings specified by the list of finding IDs.
+     * Archives GuardDuty findings that are specified by the list of finding IDs.
      * </p>
+     * <note>
+     * <p>
+     * Only the administrator account can archive findings. Member accounts don't have permission to archive findings
+     * from their accounts.
+     * </p>
+     * </note>
      * 
      * @param archiveFindingsRequest
      * @return Result of the ArchiveFindings operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.ArchiveFindings
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/ArchiveFindings" target="_top">AWS API
      *      Documentation</a>
@@ -234,6 +323,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new ArchiveFindingsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(archiveFindingsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ArchiveFindings");
@@ -257,16 +348,42 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Creates a single Amazon GuardDuty detector. A detector is an object that represents the GuardDuty service. A
-     * detector must be created in order for GuardDuty to become operational.
+     * Creates a single GuardDuty detector. A detector is a resource that represents the GuardDuty service. To start
+     * using GuardDuty, you must create a detector in each Region where you enable the service. You can have only one
+     * detector per account per Region. All data sources are enabled in a new detector by default.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * When you don't specify any <code>features</code>, with an exception to <code>RUNTIME_MONITORING</code>, all the
+     * optional features are enabled by default.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * When you specify some of the <code>features</code>, any feature that is not specified in the API call gets
+     * enabled by default, with an exception to <code>RUNTIME_MONITORING</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Specifying both EKS Runtime Monitoring (<code>EKS_RUNTIME_MONITORING</code>) and Runtime Monitoring (
+     * <code>RUNTIME_MONITORING</code>) will cause an error. You can add only one of these two features because Runtime
+     * Monitoring already includes the threat detection for Amazon EKS resources. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/runtime-monitoring.html">Runtime Monitoring</a>.
+     * </p>
+     * <p>
+     * There might be regional differences because some data sources might not be available in all the Amazon Web
+     * Services Regions where GuardDuty is presently supported. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html">Regions and endpoints</a>.
      * </p>
      * 
      * @param createDetectorRequest
      * @return Result of the CreateDetector operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.CreateDetector
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/CreateDetector" target="_top">AWS API
      *      Documentation</a>
@@ -292,6 +409,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new CreateDetectorRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDetectorRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDetector");
@@ -315,15 +434,17 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Creates a filter using the specified finding criteria.
+     * Creates a filter using the specified finding criteria. The maximum number of saved filters per Amazon Web
+     * Services account per Region is 100. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_limits.html">Quotas for GuardDuty</a>.
      * </p>
      * 
      * @param createFilterRequest
      * @return Result of the CreateFilter operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.CreateFilter
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/CreateFilter" target="_top">AWS API
      *      Documentation</a>
@@ -349,6 +470,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new CreateFilterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createFilterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateFilter");
@@ -372,16 +495,18 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Creates a new IPSet - a list of trusted IP addresses that have been whitelisted for secure communication with AWS
-     * infrastructure and applications.
+     * Creates a new IPSet, which is called a trusted IP list in the console user interface. An IPSet is a list of IP
+     * addresses that are trusted for secure communication with Amazon Web Services infrastructure and applications.
+     * GuardDuty doesn't generate findings for IP addresses that are included in IPSets. Only users from the
+     * administrator account can use this operation.
      * </p>
      * 
      * @param createIPSetRequest
      * @return Result of the CreateIPSet operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.CreateIPSet
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/CreateIPSet" target="_top">AWS API
      *      Documentation</a>
@@ -407,6 +532,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new CreateIPSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createIPSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateIPSet");
@@ -430,16 +557,113 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Creates member accounts of the current AWS account by specifying a list of AWS account IDs. The current AWS
-     * account can then invite these members to manage GuardDuty in their accounts.
+     * Creates a new Malware Protection plan for the protected resource.
+     * </p>
+     * <p>
+     * When you create a Malware Protection plan, the Amazon Web Services service terms for GuardDuty Malware Protection
+     * apply. For more information, see <a href="http://aws.amazon.com/service-terms/#87._Amazon_GuardDuty">Amazon Web
+     * Services service terms for GuardDuty Malware Protection</a>.
+     * </p>
+     * 
+     * @param createMalwareProtectionPlanRequest
+     * @return Result of the CreateMalwareProtectionPlan operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws AccessDeniedException
+     *         An access denied exception object.
+     * @throws ConflictException
+     *         A request conflict exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.CreateMalwareProtectionPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/CreateMalwareProtectionPlan"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateMalwareProtectionPlanResult createMalwareProtectionPlan(CreateMalwareProtectionPlanRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateMalwareProtectionPlan(request);
+    }
+
+    @SdkInternalApi
+    final CreateMalwareProtectionPlanResult executeCreateMalwareProtectionPlan(CreateMalwareProtectionPlanRequest createMalwareProtectionPlanRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createMalwareProtectionPlanRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateMalwareProtectionPlanRequest> request = null;
+        Response<CreateMalwareProtectionPlanResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateMalwareProtectionPlanRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createMalwareProtectionPlanRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateMalwareProtectionPlan");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateMalwareProtectionPlanResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateMalwareProtectionPlanResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates member accounts of the current Amazon Web Services account by specifying a list of Amazon Web Services
+     * account IDs. This step is a prerequisite for managing the associated member accounts either by invitation or
+     * through an organization.
+     * </p>
+     * <p>
+     * As a delegated administrator, using <code>CreateMembers</code> will enable GuardDuty in the added member
+     * accounts, with the exception of the organization delegated administrator account. A delegated administrator must
+     * enable GuardDuty prior to being added as a member.
+     * </p>
+     * <p>
+     * When you use CreateMembers as an Organizations delegated administrator, GuardDuty applies your organization's
+     * auto-enable settings to the member accounts in this request, irrespective of the accounts being new or existing
+     * members. For more information about the existing auto-enable settings for your organization, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_DescribeOrganizationConfiguration.html"
+     * >DescribeOrganizationConfiguration</a>.
+     * </p>
+     * <p>
+     * If you disassociate a member account that was added by invitation, the member account details obtained from this
+     * API, including the associated email addresses, will be retained. This is done so that the delegated administrator
+     * can invoke the <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_InviteMembers.html">InviteMembers</a> API
+     * without the need to invoke the CreateMembers API again. To remove the details associated with a member account,
+     * the delegated administrator must invoke the <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_DeleteMembers.html">DeleteMembers</a> API.
+     * </p>
+     * <p>
+     * When the member accounts added through Organizations are later disassociated, you (administrator) can't invite
+     * them by calling the InviteMembers API. You can create an association with these member accounts again only by
+     * calling the CreateMembers API.
      * </p>
      * 
      * @param createMembersRequest
      * @return Result of the CreateMembers operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.CreateMembers
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/CreateMembers" target="_top">AWS API
      *      Documentation</a>
@@ -465,6 +689,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new CreateMembersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createMembersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateMembers");
@@ -488,16 +714,78 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Generates example findings of types specified by the list of finding types. If 'NULL' is specified for
-     * findingTypes, the API generates example findings of all supported finding types.
+     * Creates a publishing destination to export findings to. The resource to export findings to must exist before you
+     * use this operation.
+     * </p>
+     * 
+     * @param createPublishingDestinationRequest
+     * @return Result of the CreatePublishingDestination operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.CreatePublishingDestination
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/CreatePublishingDestination"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreatePublishingDestinationResult createPublishingDestination(CreatePublishingDestinationRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreatePublishingDestination(request);
+    }
+
+    @SdkInternalApi
+    final CreatePublishingDestinationResult executeCreatePublishingDestination(CreatePublishingDestinationRequest createPublishingDestinationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createPublishingDestinationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreatePublishingDestinationRequest> request = null;
+        Response<CreatePublishingDestinationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreatePublishingDestinationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createPublishingDestinationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreatePublishingDestination");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreatePublishingDestinationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreatePublishingDestinationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Generates sample findings of types specified by the list of finding types. If 'NULL' is specified for
+     * <code>findingTypes</code>, the API generates sample findings of all supported finding types.
      * </p>
      * 
      * @param createSampleFindingsRequest
      * @return Result of the CreateSampleFindings operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.CreateSampleFindings
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/CreateSampleFindings" target="_top">AWS
      *      API Documentation</a>
@@ -523,6 +811,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new CreateSampleFindingsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createSampleFindingsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSampleFindings");
@@ -546,16 +836,16 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Create a new ThreatIntelSet. ThreatIntelSets consist of known malicious IP addresses. GuardDuty generates
-     * findings based on ThreatIntelSets.
+     * Creates a new ThreatIntelSet. ThreatIntelSets consist of known malicious IP addresses. GuardDuty generates
+     * findings based on ThreatIntelSets. Only users of the administrator account can use this operation.
      * </p>
      * 
      * @param createThreatIntelSetRequest
      * @return Result of the CreateThreatIntelSet operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.CreateThreatIntelSet
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/CreateThreatIntelSet" target="_top">AWS
      *      API Documentation</a>
@@ -581,6 +871,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new CreateThreatIntelSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createThreatIntelSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateThreatIntelSet");
@@ -604,15 +896,16 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Declines invitations sent to the current member account by AWS account specified by their account IDs.
+     * Declines invitations sent to the current member account by Amazon Web Services accounts specified by their
+     * account IDs.
      * </p>
      * 
      * @param declineInvitationsRequest
      * @return Result of the DeclineInvitations operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.DeclineInvitations
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/DeclineInvitations" target="_top">AWS
      *      API Documentation</a>
@@ -638,6 +931,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new DeclineInvitationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(declineInvitationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeclineInvitations");
@@ -661,15 +956,15 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Deletes a Amazon GuardDuty detector specified by the detector ID.
+     * Deletes an Amazon GuardDuty detector that is specified by the detector ID.
      * </p>
      * 
      * @param deleteDetectorRequest
      * @return Result of the DeleteDetector operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.DeleteDetector
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/DeleteDetector" target="_top">AWS API
      *      Documentation</a>
@@ -695,6 +990,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new DeleteDetectorRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteDetectorRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDetector");
@@ -724,9 +1021,9 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
      * @param deleteFilterRequest
      * @return Result of the DeleteFilter operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.DeleteFilter
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/DeleteFilter" target="_top">AWS API
      *      Documentation</a>
@@ -752,6 +1049,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new DeleteFilterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteFilterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteFilter");
@@ -775,15 +1074,16 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Deletes the IPSet specified by the IPSet ID.
+     * Deletes the IPSet specified by the <code>ipSetId</code>. IPSets are called trusted IP lists in the console user
+     * interface.
      * </p>
      * 
      * @param deleteIPSetRequest
      * @return Result of the DeleteIPSet operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.DeleteIPSet
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/DeleteIPSet" target="_top">AWS API
      *      Documentation</a>
@@ -809,6 +1109,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new DeleteIPSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteIPSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteIPSet");
@@ -832,15 +1134,16 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Deletes invitations sent to the current member account by AWS accounts specified by their account IDs.
+     * Deletes invitations sent to the current member account by Amazon Web Services accounts specified by their account
+     * IDs.
      * </p>
      * 
      * @param deleteInvitationsRequest
      * @return Result of the DeleteInvitations operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.DeleteInvitations
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/DeleteInvitations" target="_top">AWS
      *      API Documentation</a>
@@ -866,6 +1169,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new DeleteInvitationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteInvitationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteInvitations");
@@ -889,15 +1194,85 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Deletes GuardDuty member accounts (to the current GuardDuty master account) specified by the account IDs.
+     * Deletes the Malware Protection plan ID associated with the Malware Protection plan resource. Use this API only
+     * when you no longer want to protect the resource associated with this Malware Protection plan ID.
+     * </p>
+     * 
+     * @param deleteMalwareProtectionPlanRequest
+     * @return Result of the DeleteMalwareProtectionPlan operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws AccessDeniedException
+     *         An access denied exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @throws ResourceNotFoundException
+     *         The requested resource can't be found.
+     * @sample AmazonGuardDuty.DeleteMalwareProtectionPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/DeleteMalwareProtectionPlan"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteMalwareProtectionPlanResult deleteMalwareProtectionPlan(DeleteMalwareProtectionPlanRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteMalwareProtectionPlan(request);
+    }
+
+    @SdkInternalApi
+    final DeleteMalwareProtectionPlanResult executeDeleteMalwareProtectionPlan(DeleteMalwareProtectionPlanRequest deleteMalwareProtectionPlanRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteMalwareProtectionPlanRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteMalwareProtectionPlanRequest> request = null;
+        Response<DeleteMalwareProtectionPlanResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteMalwareProtectionPlanRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteMalwareProtectionPlanRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteMalwareProtectionPlan");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteMalwareProtectionPlanResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteMalwareProtectionPlanResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes GuardDuty member accounts (to the current GuardDuty administrator account) specified by the account IDs.
+     * </p>
+     * <p>
+     * With <code>autoEnableOrganizationMembers</code> configuration for your organization set to <code>ALL</code>,
+     * you'll receive an error if you attempt to disable GuardDuty for a member account in your organization.
      * </p>
      * 
      * @param deleteMembersRequest
      * @return Result of the DeleteMembers operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.DeleteMembers
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/DeleteMembers" target="_top">AWS API
      *      Documentation</a>
@@ -923,6 +1298,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new DeleteMembersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteMembersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteMembers");
@@ -946,15 +1323,76 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Deletes ThreatIntelSet specified by the ThreatIntelSet ID.
+     * Deletes the publishing definition with the specified <code>destinationId</code>.
+     * </p>
+     * 
+     * @param deletePublishingDestinationRequest
+     * @return Result of the DeletePublishingDestination operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.DeletePublishingDestination
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/DeletePublishingDestination"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeletePublishingDestinationResult deletePublishingDestination(DeletePublishingDestinationRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeletePublishingDestination(request);
+    }
+
+    @SdkInternalApi
+    final DeletePublishingDestinationResult executeDeletePublishingDestination(DeletePublishingDestinationRequest deletePublishingDestinationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deletePublishingDestinationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeletePublishingDestinationRequest> request = null;
+        Response<DeletePublishingDestinationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeletePublishingDestinationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deletePublishingDestinationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeletePublishingDestination");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeletePublishingDestinationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeletePublishingDestinationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the ThreatIntelSet specified by the ThreatIntelSet ID.
      * </p>
      * 
      * @param deleteThreatIntelSetRequest
      * @return Result of the DeleteThreatIntelSet operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.DeleteThreatIntelSet
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/DeleteThreatIntelSet" target="_top">AWS
      *      API Documentation</a>
@@ -980,6 +1418,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new DeleteThreatIntelSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteThreatIntelSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteThreatIntelSet");
@@ -1003,20 +1443,365 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Disassociates the current GuardDuty member account from its master account.
+     * Returns a list of malware scans. Each member account can view the malware scans for their own accounts. An
+     * administrator can view the malware scans for all the member accounts.
+     * </p>
+     * <p>
+     * There might be regional differences because some data sources might not be available in all the Amazon Web
+     * Services Regions where GuardDuty is presently supported. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html">Regions and endpoints</a>.
+     * </p>
+     * 
+     * @param describeMalwareScansRequest
+     * @return Result of the DescribeMalwareScans operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.DescribeMalwareScans
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/DescribeMalwareScans" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DescribeMalwareScansResult describeMalwareScans(DescribeMalwareScansRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeMalwareScans(request);
+    }
+
+    @SdkInternalApi
+    final DescribeMalwareScansResult executeDescribeMalwareScans(DescribeMalwareScansRequest describeMalwareScansRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeMalwareScansRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeMalwareScansRequest> request = null;
+        Response<DescribeMalwareScansResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeMalwareScansRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeMalwareScansRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeMalwareScans");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeMalwareScansResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeMalwareScansResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns information about the account selected as the delegated administrator for GuardDuty.
+     * </p>
+     * <p>
+     * There might be regional differences because some data sources might not be available in all the Amazon Web
+     * Services Regions where GuardDuty is presently supported. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html">Regions and endpoints</a>.
+     * </p>
+     * 
+     * @param describeOrganizationConfigurationRequest
+     * @return Result of the DescribeOrganizationConfiguration operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.DescribeOrganizationConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/DescribeOrganizationConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeOrganizationConfigurationResult describeOrganizationConfiguration(DescribeOrganizationConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeOrganizationConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final DescribeOrganizationConfigurationResult executeDescribeOrganizationConfiguration(
+            DescribeOrganizationConfigurationRequest describeOrganizationConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeOrganizationConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeOrganizationConfigurationRequest> request = null;
+        Response<DescribeOrganizationConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeOrganizationConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeOrganizationConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeOrganizationConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeOrganizationConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeOrganizationConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns information about the publishing destination specified by the provided <code>destinationId</code>.
+     * </p>
+     * 
+     * @param describePublishingDestinationRequest
+     * @return Result of the DescribePublishingDestination operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.DescribePublishingDestination
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/DescribePublishingDestination"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribePublishingDestinationResult describePublishingDestination(DescribePublishingDestinationRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribePublishingDestination(request);
+    }
+
+    @SdkInternalApi
+    final DescribePublishingDestinationResult executeDescribePublishingDestination(DescribePublishingDestinationRequest describePublishingDestinationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describePublishingDestinationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribePublishingDestinationRequest> request = null;
+        Response<DescribePublishingDestinationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribePublishingDestinationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describePublishingDestinationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribePublishingDestination");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribePublishingDestinationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribePublishingDestinationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Removes the existing GuardDuty delegated administrator of the organization. Only the organization's management
+     * account can run this API operation.
+     * </p>
+     * 
+     * @param disableOrganizationAdminAccountRequest
+     * @return Result of the DisableOrganizationAdminAccount operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.DisableOrganizationAdminAccount
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/DisableOrganizationAdminAccount"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DisableOrganizationAdminAccountResult disableOrganizationAdminAccount(DisableOrganizationAdminAccountRequest request) {
+        request = beforeClientExecution(request);
+        return executeDisableOrganizationAdminAccount(request);
+    }
+
+    @SdkInternalApi
+    final DisableOrganizationAdminAccountResult executeDisableOrganizationAdminAccount(
+            DisableOrganizationAdminAccountRequest disableOrganizationAdminAccountRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(disableOrganizationAdminAccountRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DisableOrganizationAdminAccountRequest> request = null;
+        Response<DisableOrganizationAdminAccountResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DisableOrganizationAdminAccountRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(disableOrganizationAdminAccountRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisableOrganizationAdminAccount");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DisableOrganizationAdminAccountResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DisableOrganizationAdminAccountResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Disassociates the current GuardDuty member account from its administrator account.
+     * </p>
+     * <p>
+     * When you disassociate an invited member from a GuardDuty delegated administrator, the member account details
+     * obtained from the <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_CreateMembers.html">CreateMembers</a> API,
+     * including the associated email addresses, are retained. This is done so that the delegated administrator can
+     * invoke the <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_InviteMembers.html">InviteMembers</a> API
+     * without the need to invoke the CreateMembers API again. To remove the details associated with a member account,
+     * the delegated administrator must invoke the <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_DeleteMembers.html">DeleteMembers</a> API.
+     * </p>
+     * <p>
+     * With <code>autoEnableOrganizationMembers</code> configuration for your organization set to <code>ALL</code>,
+     * you'll receive an error if you attempt to disable GuardDuty in a member account.
+     * </p>
+     * 
+     * @param disassociateFromAdministratorAccountRequest
+     * @return Result of the DisassociateFromAdministratorAccount operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.DisassociateFromAdministratorAccount
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/DisassociateFromAdministratorAccount"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DisassociateFromAdministratorAccountResult disassociateFromAdministratorAccount(DisassociateFromAdministratorAccountRequest request) {
+        request = beforeClientExecution(request);
+        return executeDisassociateFromAdministratorAccount(request);
+    }
+
+    @SdkInternalApi
+    final DisassociateFromAdministratorAccountResult executeDisassociateFromAdministratorAccount(
+            DisassociateFromAdministratorAccountRequest disassociateFromAdministratorAccountRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(disassociateFromAdministratorAccountRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DisassociateFromAdministratorAccountRequest> request = null;
+        Response<DisassociateFromAdministratorAccountResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DisassociateFromAdministratorAccountRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(disassociateFromAdministratorAccountRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateFromAdministratorAccount");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DisassociateFromAdministratorAccountResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DisassociateFromAdministratorAccountResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Disassociates the current GuardDuty member account from its administrator account.
+     * </p>
+     * <p>
+     * When you disassociate an invited member from a GuardDuty delegated administrator, the member account details
+     * obtained from the <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_CreateMembers.html">CreateMembers</a> API,
+     * including the associated email addresses, are retained. This is done so that the delegated administrator can
+     * invoke the <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_InviteMembers.html">InviteMembers</a> API
+     * without the need to invoke the CreateMembers API again. To remove the details associated with a member account,
+     * the delegated administrator must invoke the <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_DeleteMembers.html">DeleteMembers</a> API.
      * </p>
      * 
      * @param disassociateFromMasterAccountRequest
      * @return Result of the DisassociateFromMasterAccount operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.DisassociateFromMasterAccount
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/DisassociateFromMasterAccount"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public DisassociateFromMasterAccountResult disassociateFromMasterAccount(DisassociateFromMasterAccountRequest request) {
         request = beforeClientExecution(request);
         return executeDisassociateFromMasterAccount(request);
@@ -1038,6 +1823,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                         .beforeMarshalling(disassociateFromMasterAccountRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateFromMasterAccount");
@@ -1062,15 +1849,45 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Disassociates GuardDuty member accounts (to the current GuardDuty master account) specified by the account IDs.
+     * Disassociates GuardDuty member accounts (from the current administrator account) specified by the account IDs.
+     * </p>
+     * <p>
+     * When you disassociate an invited member from a GuardDuty delegated administrator, the member account details
+     * obtained from the <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_CreateMembers.html">CreateMembers</a> API,
+     * including the associated email addresses, are retained. This is done so that the delegated administrator can
+     * invoke the <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_InviteMembers.html">InviteMembers</a> API
+     * without the need to invoke the CreateMembers API again. To remove the details associated with a member account,
+     * the delegated administrator must invoke the <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_DeleteMembers.html">DeleteMembers</a> API.
+     * </p>
+     * <p>
+     * With <code>autoEnableOrganizationMembers</code> configuration for your organization set to <code>ALL</code>,
+     * you'll receive an error if you attempt to disassociate a member account before removing them from your
+     * organization.
+     * </p>
+     * <p>
+     * If you disassociate a member account that was added by invitation, the member account details obtained from this
+     * API, including the associated email addresses, will be retained. This is done so that the delegated administrator
+     * can invoke the <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_InviteMembers.html">InviteMembers</a> API
+     * without the need to invoke the CreateMembers API again. To remove the details associated with a member account,
+     * the delegated administrator must invoke the <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_DeleteMembers.html">DeleteMembers</a> API.
+     * </p>
+     * <p>
+     * When the member accounts added through Organizations are later disassociated, you (administrator) can't invite
+     * them by calling the InviteMembers API. You can create an association with these member accounts again only by
+     * calling the CreateMembers API.
      * </p>
      * 
      * @param disassociateMembersRequest
      * @return Result of the DisassociateMembers operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.DisassociateMembers
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/DisassociateMembers" target="_top">AWS
      *      API Documentation</a>
@@ -1096,6 +1913,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new DisassociateMembersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(disassociateMembersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateMembers");
@@ -1119,15 +1938,211 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
+     * Designates an Amazon Web Services account within the organization as your GuardDuty delegated administrator. Only
+     * the organization's management account can run this API operation.
+     * </p>
+     * 
+     * @param enableOrganizationAdminAccountRequest
+     * @return Result of the EnableOrganizationAdminAccount operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.EnableOrganizationAdminAccount
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/EnableOrganizationAdminAccount"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public EnableOrganizationAdminAccountResult enableOrganizationAdminAccount(EnableOrganizationAdminAccountRequest request) {
+        request = beforeClientExecution(request);
+        return executeEnableOrganizationAdminAccount(request);
+    }
+
+    @SdkInternalApi
+    final EnableOrganizationAdminAccountResult executeEnableOrganizationAdminAccount(EnableOrganizationAdminAccountRequest enableOrganizationAdminAccountRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(enableOrganizationAdminAccountRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<EnableOrganizationAdminAccountRequest> request = null;
+        Response<EnableOrganizationAdminAccountResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new EnableOrganizationAdminAccountRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(enableOrganizationAdminAccountRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "EnableOrganizationAdminAccount");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<EnableOrganizationAdminAccountResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new EnableOrganizationAdminAccountResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Provides the details of the GuardDuty administrator account associated with the current GuardDuty member account.
+     * </p>
+     * <note>
+     * <p>
+     * If the organization's management account or a delegated administrator runs this API, it will return success (
+     * <code>HTTP 200</code>) but no content.
+     * </p>
+     * </note>
+     * 
+     * @param getAdministratorAccountRequest
+     * @return Result of the GetAdministratorAccount operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.GetAdministratorAccount
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/GetAdministratorAccount"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetAdministratorAccountResult getAdministratorAccount(GetAdministratorAccountRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetAdministratorAccount(request);
+    }
+
+    @SdkInternalApi
+    final GetAdministratorAccountResult executeGetAdministratorAccount(GetAdministratorAccountRequest getAdministratorAccountRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getAdministratorAccountRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetAdministratorAccountRequest> request = null;
+        Response<GetAdministratorAccountResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetAdministratorAccountRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getAdministratorAccountRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetAdministratorAccount");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetAdministratorAccountResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetAdministratorAccountResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves aggregated statistics for your account. If you are a GuardDuty administrator, you can retrieve the
+     * statistics for all the resources associated with the active member accounts in your organization who have enabled
+     * Runtime Monitoring and have the GuardDuty security agent running on their resources.
+     * </p>
+     * 
+     * @param getCoverageStatisticsRequest
+     * @return Result of the GetCoverageStatistics operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.GetCoverageStatistics
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/GetCoverageStatistics"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetCoverageStatisticsResult getCoverageStatistics(GetCoverageStatisticsRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetCoverageStatistics(request);
+    }
+
+    @SdkInternalApi
+    final GetCoverageStatisticsResult executeGetCoverageStatistics(GetCoverageStatisticsRequest getCoverageStatisticsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getCoverageStatisticsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetCoverageStatisticsRequest> request = null;
+        Response<GetCoverageStatisticsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetCoverageStatisticsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getCoverageStatisticsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetCoverageStatistics");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetCoverageStatisticsResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new GetCoverageStatisticsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Retrieves an Amazon GuardDuty detector specified by the detectorId.
+     * </p>
+     * <p>
+     * There might be regional differences because some data sources might not be available in all the Amazon Web
+     * Services Regions where GuardDuty is presently supported. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html">Regions and endpoints</a>.
      * </p>
      * 
      * @param getDetectorRequest
      * @return Result of the GetDetector operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.GetDetector
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/GetDetector" target="_top">AWS API
      *      Documentation</a>
@@ -1153,6 +2168,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new GetDetectorRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDetectorRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDetector");
@@ -1182,9 +2199,9 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
      * @param getFilterRequest
      * @return Result of the GetFilter operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.GetFilter
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/GetFilter" target="_top">AWS API
      *      Documentation</a>
@@ -1210,6 +2227,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new GetFilterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getFilterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetFilter");
@@ -1239,9 +2258,9 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
      * @param getFindingsRequest
      * @return Result of the GetFindings operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.GetFindings
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/GetFindings" target="_top">AWS API
      *      Documentation</a>
@@ -1267,6 +2286,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new GetFindingsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getFindingsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetFindings");
@@ -1290,15 +2311,20 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Lists Amazon GuardDuty findings' statistics for the specified detector ID.
+     * Lists Amazon GuardDuty findings statistics for the specified detector ID.
+     * </p>
+     * <p>
+     * There might be regional differences because some flags might not be available in all the Regions where GuardDuty
+     * is currently supported. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html">Regions and endpoints</a>.
      * </p>
      * 
      * @param getFindingsStatisticsRequest
      * @return Result of the GetFindingsStatistics operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.GetFindingsStatistics
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/GetFindingsStatistics"
      *      target="_top">AWS API Documentation</a>
@@ -1324,6 +2350,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new GetFindingsStatisticsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getFindingsStatisticsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetFindingsStatistics");
@@ -1348,15 +2376,15 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Retrieves the IPSet specified by the IPSet ID.
+     * Retrieves the IPSet specified by the <code>ipSetId</code>.
      * </p>
      * 
      * @param getIPSetRequest
      * @return Result of the GetIPSet operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.GetIPSet
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/GetIPSet" target="_top">AWS API
      *      Documentation</a>
@@ -1382,6 +2410,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new GetIPSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getIPSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetIPSet");
@@ -1412,9 +2442,9 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
      * @param getInvitationsCountRequest
      * @return Result of the GetInvitationsCount operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.GetInvitationsCount
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/GetInvitationsCount" target="_top">AWS
      *      API Documentation</a>
@@ -1440,6 +2470,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new GetInvitationsCountRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getInvitationsCountRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetInvitationsCount");
@@ -1463,20 +2495,152 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Provides the details for the GuardDuty master account to the current GuardDuty member account.
+     * Retrieves the Malware Protection plan details associated with a Malware Protection plan ID.
+     * </p>
+     * 
+     * @param getMalwareProtectionPlanRequest
+     * @return Result of the GetMalwareProtectionPlan operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws AccessDeniedException
+     *         An access denied exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @throws ResourceNotFoundException
+     *         The requested resource can't be found.
+     * @sample AmazonGuardDuty.GetMalwareProtectionPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/GetMalwareProtectionPlan"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetMalwareProtectionPlanResult getMalwareProtectionPlan(GetMalwareProtectionPlanRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetMalwareProtectionPlan(request);
+    }
+
+    @SdkInternalApi
+    final GetMalwareProtectionPlanResult executeGetMalwareProtectionPlan(GetMalwareProtectionPlanRequest getMalwareProtectionPlanRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getMalwareProtectionPlanRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetMalwareProtectionPlanRequest> request = null;
+        Response<GetMalwareProtectionPlanResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetMalwareProtectionPlanRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getMalwareProtectionPlanRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMalwareProtectionPlan");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetMalwareProtectionPlanResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetMalwareProtectionPlanResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the details of the malware scan settings.
+     * </p>
+     * <p>
+     * There might be regional differences because some data sources might not be available in all the Amazon Web
+     * Services Regions where GuardDuty is presently supported. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html">Regions and endpoints</a>.
+     * </p>
+     * 
+     * @param getMalwareScanSettingsRequest
+     * @return Result of the GetMalwareScanSettings operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.GetMalwareScanSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/GetMalwareScanSettings"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetMalwareScanSettingsResult getMalwareScanSettings(GetMalwareScanSettingsRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetMalwareScanSettings(request);
+    }
+
+    @SdkInternalApi
+    final GetMalwareScanSettingsResult executeGetMalwareScanSettings(GetMalwareScanSettingsRequest getMalwareScanSettingsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getMalwareScanSettingsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetMalwareScanSettingsRequest> request = null;
+        Response<GetMalwareScanSettingsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetMalwareScanSettingsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getMalwareScanSettingsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMalwareScanSettings");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetMalwareScanSettingsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetMalwareScanSettingsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Provides the details for the GuardDuty administrator account associated with the current GuardDuty member
+     * account.
      * </p>
      * 
      * @param getMasterAccountRequest
      * @return Result of the GetMasterAccount operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.GetMasterAccount
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/GetMasterAccount" target="_top">AWS API
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public GetMasterAccountResult getMasterAccount(GetMasterAccountRequest request) {
         request = beforeClientExecution(request);
         return executeGetMasterAccount(request);
@@ -1497,6 +2661,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new GetMasterAccountRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getMasterAccountRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMasterAccount");
@@ -1520,15 +2686,80 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Retrieves GuardDuty member accounts (to the current GuardDuty master account) specified by the account IDs.
+     * Describes which data sources are enabled for the member account's detector.
+     * </p>
+     * <p>
+     * There might be regional differences because some data sources might not be available in all the Amazon Web
+     * Services Regions where GuardDuty is presently supported. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html">Regions and endpoints</a>.
+     * </p>
+     * 
+     * @param getMemberDetectorsRequest
+     * @return Result of the GetMemberDetectors operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.GetMemberDetectors
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/GetMemberDetectors" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public GetMemberDetectorsResult getMemberDetectors(GetMemberDetectorsRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetMemberDetectors(request);
+    }
+
+    @SdkInternalApi
+    final GetMemberDetectorsResult executeGetMemberDetectors(GetMemberDetectorsRequest getMemberDetectorsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getMemberDetectorsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetMemberDetectorsRequest> request = null;
+        Response<GetMemberDetectorsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetMemberDetectorsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getMemberDetectorsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMemberDetectors");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetMemberDetectorsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetMemberDetectorsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves GuardDuty member accounts (of the current GuardDuty administrator account) specified by the account
+     * IDs.
      * </p>
      * 
      * @param getMembersRequest
      * @return Result of the GetMembers operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.GetMembers
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/GetMembers" target="_top">AWS API
      *      Documentation</a>
@@ -1554,6 +2785,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new GetMembersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getMembersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMembers");
@@ -1577,15 +2810,142 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
+     * Retrieves how many active member accounts have each feature enabled within GuardDuty. Only a delegated GuardDuty
+     * administrator of an organization can run this API.
+     * </p>
+     * <p>
+     * When you create a new organization, it might take up to 24 hours to generate the statistics for the entire
+     * organization.
+     * </p>
+     * 
+     * @param getOrganizationStatisticsRequest
+     * @return Result of the GetOrganizationStatistics operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.GetOrganizationStatistics
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/GetOrganizationStatistics"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetOrganizationStatisticsResult getOrganizationStatistics(GetOrganizationStatisticsRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetOrganizationStatistics(request);
+    }
+
+    @SdkInternalApi
+    final GetOrganizationStatisticsResult executeGetOrganizationStatistics(GetOrganizationStatisticsRequest getOrganizationStatisticsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getOrganizationStatisticsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetOrganizationStatisticsRequest> request = null;
+        Response<GetOrganizationStatisticsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetOrganizationStatisticsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getOrganizationStatisticsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetOrganizationStatistics");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetOrganizationStatisticsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetOrganizationStatisticsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Provides the number of days left for each data source used in the free trial period.
+     * </p>
+     * 
+     * @param getRemainingFreeTrialDaysRequest
+     * @return Result of the GetRemainingFreeTrialDays operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.GetRemainingFreeTrialDays
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/GetRemainingFreeTrialDays"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetRemainingFreeTrialDaysResult getRemainingFreeTrialDays(GetRemainingFreeTrialDaysRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetRemainingFreeTrialDays(request);
+    }
+
+    @SdkInternalApi
+    final GetRemainingFreeTrialDaysResult executeGetRemainingFreeTrialDays(GetRemainingFreeTrialDaysRequest getRemainingFreeTrialDaysRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getRemainingFreeTrialDaysRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetRemainingFreeTrialDaysRequest> request = null;
+        Response<GetRemainingFreeTrialDaysResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetRemainingFreeTrialDaysRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getRemainingFreeTrialDaysRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRemainingFreeTrialDays");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetRemainingFreeTrialDaysResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetRemainingFreeTrialDaysResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Retrieves the ThreatIntelSet that is specified by the ThreatIntelSet ID.
      * </p>
      * 
      * @param getThreatIntelSetRequest
      * @return Result of the GetThreatIntelSet operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.GetThreatIntelSet
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/GetThreatIntelSet" target="_top">AWS
      *      API Documentation</a>
@@ -1611,6 +2971,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new GetThreatIntelSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getThreatIntelSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetThreatIntelSet");
@@ -1634,17 +2996,116 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Invites other AWS accounts (created as members of the current AWS account by CreateMembers) to enable GuardDuty
-     * and allow the current AWS account to view and manage these accounts' GuardDuty findings on their behalf as the
-     * master account.
+     * Lists Amazon GuardDuty usage statistics over the last 30 days for the specified detector ID. For newly enabled
+     * detectors or data sources, the cost returned will include only the usage so far under 30 days. This may differ
+     * from the cost metrics in the console, which project usage over 30 days to provide a monthly cost estimate. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/monitoring_costs.html#usage-calculations">Understanding How
+     * Usage Costs are Calculated</a>.
+     * </p>
+     * 
+     * @param getUsageStatisticsRequest
+     * @return Result of the GetUsageStatistics operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.GetUsageStatistics
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/GetUsageStatistics" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public GetUsageStatisticsResult getUsageStatistics(GetUsageStatisticsRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetUsageStatistics(request);
+    }
+
+    @SdkInternalApi
+    final GetUsageStatisticsResult executeGetUsageStatistics(GetUsageStatisticsRequest getUsageStatisticsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getUsageStatisticsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetUsageStatisticsRequest> request = null;
+        Response<GetUsageStatisticsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetUsageStatisticsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getUsageStatisticsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetUsageStatistics");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetUsageStatisticsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetUsageStatisticsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Invites Amazon Web Services accounts to become members of an organization administered by the Amazon Web Services
+     * account that invokes this API. If you are using Amazon Web Services Organizations to manage your GuardDuty
+     * environment, this step is not needed. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_organizations.html">Managing accounts with
+     * organizations</a>.
+     * </p>
+     * <p>
+     * To invite Amazon Web Services accounts, the first step is to ensure that GuardDuty has been enabled in the
+     * potential member accounts. You can now invoke this API to add accounts by invitation. The invited accounts can
+     * either accept or decline the invitation from their GuardDuty accounts. Each invited Amazon Web Services account
+     * can choose to accept the invitation from only one Amazon Web Services account. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_invitations.html">Managing GuardDuty accounts by
+     * invitation</a>.
+     * </p>
+     * <p>
+     * After the invite has been accepted and you choose to disassociate a member account (by using <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_DisassociateMembers.html"
+     * >DisassociateMembers</a>) from your account, the details of the member account obtained by invoking <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_CreateMembers.html">CreateMembers</a>,
+     * including the associated email addresses, will be retained. This is done so that you can invoke InviteMembers
+     * without the need to invoke <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_CreateMembers.html">CreateMembers</a> again.
+     * To remove the details associated with a member account, you must also invoke <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_DeleteMembers.html">DeleteMembers</a>.
+     * </p>
+     * <p>
+     * If you disassociate a member account that was added by invitation, the member account details obtained from this
+     * API, including the associated email addresses, will be retained. This is done so that the delegated administrator
+     * can invoke the <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_InviteMembers.html">InviteMembers</a> API
+     * without the need to invoke the CreateMembers API again. To remove the details associated with a member account,
+     * the delegated administrator must invoke the <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_DeleteMembers.html">DeleteMembers</a> API.
+     * </p>
+     * <p>
+     * When the member accounts added through Organizations are later disassociated, you (administrator) can't invite
+     * them by calling the InviteMembers API. You can create an association with these member accounts again only by
+     * calling the CreateMembers API.
      * </p>
      * 
      * @param inviteMembersRequest
      * @return Result of the InviteMembers operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.InviteMembers
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/InviteMembers" target="_top">AWS API
      *      Documentation</a>
@@ -1670,6 +3131,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new InviteMembersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(inviteMembersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "InviteMembers");
@@ -1693,15 +3156,78 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
+     * Lists coverage details for your GuardDuty account. If you're a GuardDuty administrator, you can retrieve all
+     * resources associated with the active member accounts in your organization.
+     * </p>
+     * <p>
+     * Make sure the accounts have Runtime Monitoring enabled and GuardDuty agent running on their resources.
+     * </p>
+     * 
+     * @param listCoverageRequest
+     * @return Result of the ListCoverage operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.ListCoverage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/ListCoverage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListCoverageResult listCoverage(ListCoverageRequest request) {
+        request = beforeClientExecution(request);
+        return executeListCoverage(request);
+    }
+
+    @SdkInternalApi
+    final ListCoverageResult executeListCoverage(ListCoverageRequest listCoverageRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listCoverageRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListCoverageRequest> request = null;
+        Response<ListCoverageResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListCoverageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listCoverageRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCoverage");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListCoverageResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListCoverageResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Lists detectorIds of all the existing Amazon GuardDuty detector resources.
      * </p>
      * 
      * @param listDetectorsRequest
      * @return Result of the ListDetectors operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.ListDetectors
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/ListDetectors" target="_top">AWS API
      *      Documentation</a>
@@ -1727,6 +3253,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new ListDetectorsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDetectorsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDetectors");
@@ -1756,9 +3284,9 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
      * @param listFiltersRequest
      * @return Result of the ListFilters operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.ListFilters
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/ListFilters" target="_top">AWS API
      *      Documentation</a>
@@ -1784,6 +3312,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new ListFiltersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listFiltersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListFilters");
@@ -1807,15 +3337,20 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Lists Amazon GuardDuty findings for the specified detector ID.
+     * Lists GuardDuty findings for the specified detector ID.
+     * </p>
+     * <p>
+     * There might be regional differences because some flags might not be available in all the Regions where GuardDuty
+     * is currently supported. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html">Regions and endpoints</a>.
      * </p>
      * 
      * @param listFindingsRequest
      * @return Result of the ListFindings operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.ListFindings
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/ListFindings" target="_top">AWS API
      *      Documentation</a>
@@ -1841,6 +3376,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new ListFindingsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listFindingsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListFindings");
@@ -1864,15 +3401,16 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Lists the IPSets of the GuardDuty service specified by the detector ID.
+     * Lists the IPSets of the GuardDuty service specified by the detector ID. If you use this operation from a member
+     * account, the IPSets returned are the IPSets from the associated administrator account.
      * </p>
      * 
      * @param listIPSetsRequest
      * @return Result of the ListIPSets operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.ListIPSets
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/ListIPSets" target="_top">AWS API
      *      Documentation</a>
@@ -1898,6 +3436,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new ListIPSetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listIPSetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListIPSets");
@@ -1921,15 +3461,15 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Lists all GuardDuty membership invitations that were sent to the current AWS account.
+     * Lists all GuardDuty membership invitations that were sent to the current Amazon Web Services account.
      * </p>
      * 
      * @param listInvitationsRequest
      * @return Result of the ListInvitations operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.ListInvitations
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/ListInvitations" target="_top">AWS API
      *      Documentation</a>
@@ -1955,6 +3495,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new ListInvitationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listInvitationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListInvitations");
@@ -1978,15 +3520,79 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Lists details about all member accounts for the current GuardDuty master account.
+     * Lists the Malware Protection plan IDs associated with the protected resources in your Amazon Web Services
+     * account.
+     * </p>
+     * 
+     * @param listMalwareProtectionPlansRequest
+     * @return Result of the ListMalwareProtectionPlans operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws AccessDeniedException
+     *         An access denied exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.ListMalwareProtectionPlans
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/ListMalwareProtectionPlans"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListMalwareProtectionPlansResult listMalwareProtectionPlans(ListMalwareProtectionPlansRequest request) {
+        request = beforeClientExecution(request);
+        return executeListMalwareProtectionPlans(request);
+    }
+
+    @SdkInternalApi
+    final ListMalwareProtectionPlansResult executeListMalwareProtectionPlans(ListMalwareProtectionPlansRequest listMalwareProtectionPlansRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listMalwareProtectionPlansRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListMalwareProtectionPlansRequest> request = null;
+        Response<ListMalwareProtectionPlansResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListMalwareProtectionPlansRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listMalwareProtectionPlansRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListMalwareProtectionPlans");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListMalwareProtectionPlansResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListMalwareProtectionPlansResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists details about all member accounts for the current GuardDuty administrator account.
      * </p>
      * 
      * @param listMembersRequest
      * @return Result of the ListMembers operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.ListMembers
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/ListMembers" target="_top">AWS API
      *      Documentation</a>
@@ -2012,6 +3618,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new ListMembersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listMembersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListMembers");
@@ -2035,17 +3643,142 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Lists tags for a resource. Tagging is currently supported for detectors, finding filters, IP sets, and Threat
-     * Intel sets, with a limit of 50 tags per resource. When invoked, this operation returns all assigned tags for a
-     * given resource..
+     * Lists the accounts designated as GuardDuty delegated administrators. Only the organization's management account
+     * can run this API operation.
+     * </p>
+     * 
+     * @param listOrganizationAdminAccountsRequest
+     * @return Result of the ListOrganizationAdminAccounts operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.ListOrganizationAdminAccounts
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/ListOrganizationAdminAccounts"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListOrganizationAdminAccountsResult listOrganizationAdminAccounts(ListOrganizationAdminAccountsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListOrganizationAdminAccounts(request);
+    }
+
+    @SdkInternalApi
+    final ListOrganizationAdminAccountsResult executeListOrganizationAdminAccounts(ListOrganizationAdminAccountsRequest listOrganizationAdminAccountsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listOrganizationAdminAccountsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListOrganizationAdminAccountsRequest> request = null;
+        Response<ListOrganizationAdminAccountsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListOrganizationAdminAccountsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listOrganizationAdminAccountsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListOrganizationAdminAccounts");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListOrganizationAdminAccountsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListOrganizationAdminAccountsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of publishing destinations associated with the specified <code>detectorId</code>.
+     * </p>
+     * 
+     * @param listPublishingDestinationsRequest
+     * @return Result of the ListPublishingDestinations operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.ListPublishingDestinations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/ListPublishingDestinations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListPublishingDestinationsResult listPublishingDestinations(ListPublishingDestinationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListPublishingDestinations(request);
+    }
+
+    @SdkInternalApi
+    final ListPublishingDestinationsResult executeListPublishingDestinations(ListPublishingDestinationsRequest listPublishingDestinationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listPublishingDestinationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListPublishingDestinationsRequest> request = null;
+        Response<ListPublishingDestinationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListPublishingDestinationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listPublishingDestinationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPublishingDestinations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListPublishingDestinationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListPublishingDestinationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists tags for a resource. Tagging is currently supported for detectors, finding filters, IP sets, threat intel
+     * sets, and publishing destination, with a limit of 50 tags per resource. When invoked, this operation returns all
+     * assigned tags for a given resource.
      * </p>
      * 
      * @param listTagsForResourceRequest
      * @return Result of the ListTagsForResource operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
+     * @throws AccessDeniedException
+     *         An access denied exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.ListTagsForResource
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/ListTagsForResource" target="_top">AWS
      *      API Documentation</a>
@@ -2071,6 +3804,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -2094,15 +3829,16 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Lists the ThreatIntelSets of the GuardDuty service specified by the detector ID.
+     * Lists the ThreatIntelSets of the GuardDuty service specified by the detector ID. If you use this operation from a
+     * member account, the ThreatIntelSets associated with the administrator account are returned.
      * </p>
      * 
      * @param listThreatIntelSetsRequest
      * @return Result of the ListThreatIntelSets operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.ListThreatIntelSets
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/ListThreatIntelSets" target="_top">AWS
      *      API Documentation</a>
@@ -2128,6 +3864,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new ListThreatIntelSetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listThreatIntelSetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListThreatIntelSets");
@@ -2151,17 +3889,87 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Re-enables GuardDuty to monitor findings of the member accounts specified by the account IDs. A master GuardDuty
-     * account can run this command after disabling GuardDuty from monitoring these members' findings by running
-     * StopMonitoringMembers.
+     * Initiates the malware scan. Invoking this API will automatically create the <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/slr-permissions-malware-protection.html">Service-linked
+     * role</a> in the corresponding account.
+     * </p>
+     * <p>
+     * When the malware scan starts, you can use the associated scan ID to track the status of the scan. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_DescribeMalwareScans.html"
+     * >DescribeMalwareScans</a>.
+     * </p>
+     * 
+     * @param startMalwareScanRequest
+     * @return Result of the StartMalwareScan operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws ConflictException
+     *         A request conflict exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.StartMalwareScan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/StartMalwareScan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public StartMalwareScanResult startMalwareScan(StartMalwareScanRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartMalwareScan(request);
+    }
+
+    @SdkInternalApi
+    final StartMalwareScanResult executeStartMalwareScan(StartMalwareScanRequest startMalwareScanRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startMalwareScanRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartMalwareScanRequest> request = null;
+        Response<StartMalwareScanResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartMalwareScanRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startMalwareScanRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartMalwareScan");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartMalwareScanResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new StartMalwareScanResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Turns on GuardDuty monitoring of the specified member accounts. Use this operation to restart monitoring of
+     * accounts that you stopped monitoring with the <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_StopMonitoringMembers.html"
+     * >StopMonitoringMembers</a> operation.
      * </p>
      * 
      * @param startMonitoringMembersRequest
      * @return Result of the StartMonitoringMembers operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.StartMonitoringMembers
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/StartMonitoringMembers"
      *      target="_top">AWS API Documentation</a>
@@ -2187,6 +3995,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new StartMonitoringMembersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startMonitoringMembersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartMonitoringMembers");
@@ -2211,17 +4021,20 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Disables GuardDuty from monitoring findings of the member accounts specified by the account IDs. After running
-     * this command, a master GuardDuty account can run StartMonitoringMembers to re-enable GuardDuty to monitor these
-     * members’ findings.
+     * Stops GuardDuty monitoring for the specified member accounts. Use the <code>StartMonitoringMembers</code>
+     * operation to restart monitoring for those accounts.
+     * </p>
+     * <p>
+     * With <code>autoEnableOrganizationMembers</code> configuration for your organization set to <code>ALL</code>,
+     * you'll receive an error if you attempt to stop monitoring the member accounts in your organization.
      * </p>
      * 
      * @param stopMonitoringMembersRequest
      * @return Result of the StopMonitoringMembers operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.StopMonitoringMembers
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/StopMonitoringMembers"
      *      target="_top">AWS API Documentation</a>
@@ -2247,6 +4060,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new StopMonitoringMembersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(stopMonitoringMembersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StopMonitoringMembers");
@@ -2277,9 +4092,11 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
      * @param tagResourceRequest
      * @return Result of the TagResource operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
+     * @throws AccessDeniedException
+     *         An access denied exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.TagResource
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/TagResource" target="_top">AWS API
      *      Documentation</a>
@@ -2305,6 +4122,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -2328,15 +4147,15 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Unarchives Amazon GuardDuty findings specified by the list of finding IDs.
+     * Unarchives GuardDuty findings specified by the <code>findingIds</code>.
      * </p>
      * 
      * @param unarchiveFindingsRequest
      * @return Result of the UnarchiveFindings operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.UnarchiveFindings
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/UnarchiveFindings" target="_top">AWS
      *      API Documentation</a>
@@ -2362,6 +4181,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new UnarchiveFindingsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(unarchiveFindingsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UnarchiveFindings");
@@ -2391,9 +4212,11 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
      * @param untagResourceRequest
      * @return Result of the UntagResource operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
+     * @throws AccessDeniedException
+     *         An access denied exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.UntagResource
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/UntagResource" target="_top">AWS API
      *      Documentation</a>
@@ -2419,6 +4242,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -2442,15 +4267,26 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Updates an Amazon GuardDuty detector specified by the detectorId.
+     * Updates the GuardDuty detector specified by the detector ID.
+     * </p>
+     * <p>
+     * Specifying both EKS Runtime Monitoring (<code>EKS_RUNTIME_MONITORING</code>) and Runtime Monitoring (
+     * <code>RUNTIME_MONITORING</code>) will cause an error. You can add only one of these two features because Runtime
+     * Monitoring already includes the threat detection for Amazon EKS resources. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/runtime-monitoring.html">Runtime Monitoring</a>.
+     * </p>
+     * <p>
+     * There might be regional differences because some data sources might not be available in all the Amazon Web
+     * Services Regions where GuardDuty is presently supported. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html">Regions and endpoints</a>.
      * </p>
      * 
      * @param updateDetectorRequest
      * @return Result of the UpdateDetector operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.UpdateDetector
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/UpdateDetector" target="_top">AWS API
      *      Documentation</a>
@@ -2476,6 +4312,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new UpdateDetectorRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateDetectorRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDetector");
@@ -2505,9 +4343,9 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
      * @param updateFilterRequest
      * @return Result of the UpdateFilter operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.UpdateFilter
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/UpdateFilter" target="_top">AWS API
      *      Documentation</a>
@@ -2533,6 +4371,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new UpdateFilterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateFilterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateFilter");
@@ -2556,15 +4396,15 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Marks specified Amazon GuardDuty findings as useful or not useful.
+     * Marks the specified GuardDuty findings as useful or not useful.
      * </p>
      * 
      * @param updateFindingsFeedbackRequest
      * @return Result of the UpdateFindingsFeedback operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.UpdateFindingsFeedback
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/UpdateFindingsFeedback"
      *      target="_top">AWS API Documentation</a>
@@ -2590,6 +4430,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new UpdateFindingsFeedbackRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateFindingsFeedbackRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateFindingsFeedback");
@@ -2620,9 +4462,9 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
      * @param updateIPSetRequest
      * @return Result of the UpdateIPSet operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.UpdateIPSet
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/UpdateIPSet" target="_top">AWS API
      *      Documentation</a>
@@ -2648,6 +4490,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new UpdateIPSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateIPSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateIPSet");
@@ -2671,15 +4515,352 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Updates the ThreatIntelSet specified by ThreatIntelSet ID.
+     * Updates an existing Malware Protection plan resource.
+     * </p>
+     * 
+     * @param updateMalwareProtectionPlanRequest
+     * @return Result of the UpdateMalwareProtectionPlan operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws AccessDeniedException
+     *         An access denied exception object.
+     * @throws ResourceNotFoundException
+     *         The requested resource can't be found.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.UpdateMalwareProtectionPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/UpdateMalwareProtectionPlan"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateMalwareProtectionPlanResult updateMalwareProtectionPlan(UpdateMalwareProtectionPlanRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateMalwareProtectionPlan(request);
+    }
+
+    @SdkInternalApi
+    final UpdateMalwareProtectionPlanResult executeUpdateMalwareProtectionPlan(UpdateMalwareProtectionPlanRequest updateMalwareProtectionPlanRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateMalwareProtectionPlanRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateMalwareProtectionPlanRequest> request = null;
+        Response<UpdateMalwareProtectionPlanResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateMalwareProtectionPlanRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateMalwareProtectionPlanRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateMalwareProtectionPlan");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateMalwareProtectionPlanResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateMalwareProtectionPlanResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the malware scan settings.
+     * </p>
+     * <p>
+     * There might be regional differences because some data sources might not be available in all the Amazon Web
+     * Services Regions where GuardDuty is presently supported. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html">Regions and endpoints</a>.
+     * </p>
+     * 
+     * @param updateMalwareScanSettingsRequest
+     * @return Result of the UpdateMalwareScanSettings operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.UpdateMalwareScanSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/UpdateMalwareScanSettings"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateMalwareScanSettingsResult updateMalwareScanSettings(UpdateMalwareScanSettingsRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateMalwareScanSettings(request);
+    }
+
+    @SdkInternalApi
+    final UpdateMalwareScanSettingsResult executeUpdateMalwareScanSettings(UpdateMalwareScanSettingsRequest updateMalwareScanSettingsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateMalwareScanSettingsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateMalwareScanSettingsRequest> request = null;
+        Response<UpdateMalwareScanSettingsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateMalwareScanSettingsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateMalwareScanSettingsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateMalwareScanSettings");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateMalwareScanSettingsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateMalwareScanSettingsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Contains information on member accounts to be updated.
+     * </p>
+     * <p>
+     * Specifying both EKS Runtime Monitoring (<code>EKS_RUNTIME_MONITORING</code>) and Runtime Monitoring (
+     * <code>RUNTIME_MONITORING</code>) will cause an error. You can add only one of these two features because Runtime
+     * Monitoring already includes the threat detection for Amazon EKS resources. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/runtime-monitoring.html">Runtime Monitoring</a>.
+     * </p>
+     * <p>
+     * There might be regional differences because some data sources might not be available in all the Amazon Web
+     * Services Regions where GuardDuty is presently supported. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html">Regions and endpoints</a>.
+     * </p>
+     * 
+     * @param updateMemberDetectorsRequest
+     * @return Result of the UpdateMemberDetectors operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.UpdateMemberDetectors
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/UpdateMemberDetectors"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateMemberDetectorsResult updateMemberDetectors(UpdateMemberDetectorsRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateMemberDetectors(request);
+    }
+
+    @SdkInternalApi
+    final UpdateMemberDetectorsResult executeUpdateMemberDetectors(UpdateMemberDetectorsRequest updateMemberDetectorsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateMemberDetectorsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateMemberDetectorsRequest> request = null;
+        Response<UpdateMemberDetectorsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateMemberDetectorsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateMemberDetectorsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateMemberDetectors");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateMemberDetectorsResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new UpdateMemberDetectorsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Configures the delegated administrator account with the provided values. You must provide a value for either
+     * <code>autoEnableOrganizationMembers</code> or <code>autoEnable</code>, but not both.
+     * </p>
+     * <p>
+     * Specifying both EKS Runtime Monitoring (<code>EKS_RUNTIME_MONITORING</code>) and Runtime Monitoring (
+     * <code>RUNTIME_MONITORING</code>) will cause an error. You can add only one of these two features because Runtime
+     * Monitoring already includes the threat detection for Amazon EKS resources. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/runtime-monitoring.html">Runtime Monitoring</a>.
+     * </p>
+     * <p>
+     * There might be regional differences because some data sources might not be available in all the Amazon Web
+     * Services Regions where GuardDuty is presently supported. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html">Regions and endpoints</a>.
+     * </p>
+     * 
+     * @param updateOrganizationConfigurationRequest
+     * @return Result of the UpdateOrganizationConfiguration operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.UpdateOrganizationConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/UpdateOrganizationConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateOrganizationConfigurationResult updateOrganizationConfiguration(UpdateOrganizationConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateOrganizationConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final UpdateOrganizationConfigurationResult executeUpdateOrganizationConfiguration(
+            UpdateOrganizationConfigurationRequest updateOrganizationConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateOrganizationConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateOrganizationConfigurationRequest> request = null;
+        Response<UpdateOrganizationConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateOrganizationConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateOrganizationConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateOrganizationConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateOrganizationConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateOrganizationConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates information about the publishing destination specified by the <code>destinationId</code>.
+     * </p>
+     * 
+     * @param updatePublishingDestinationRequest
+     * @return Result of the UpdatePublishingDestination operation returned by the service.
+     * @throws BadRequestException
+     *         A bad request exception object.
+     * @throws InternalServerErrorException
+     *         An internal server error exception object.
+     * @sample AmazonGuardDuty.UpdatePublishingDestination
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/UpdatePublishingDestination"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdatePublishingDestinationResult updatePublishingDestination(UpdatePublishingDestinationRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdatePublishingDestination(request);
+    }
+
+    @SdkInternalApi
+    final UpdatePublishingDestinationResult executeUpdatePublishingDestination(UpdatePublishingDestinationRequest updatePublishingDestinationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updatePublishingDestinationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdatePublishingDestinationRequest> request = null;
+        Response<UpdatePublishingDestinationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdatePublishingDestinationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updatePublishingDestinationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdatePublishingDestination");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdatePublishingDestinationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdatePublishingDestinationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the ThreatIntelSet specified by the ThreatIntelSet ID.
      * </p>
      * 
      * @param updateThreatIntelSetRequest
      * @return Result of the UpdateThreatIntelSet operation returned by the service.
      * @throws BadRequestException
-     *         Bad request exception object.
+     *         A bad request exception object.
      * @throws InternalServerErrorException
-     *         Internal server error exception object.
+     *         An internal server error exception object.
      * @sample AmazonGuardDuty.UpdateThreatIntelSet
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/UpdateThreatIntelSet" target="_top">AWS
      *      API Documentation</a>
@@ -2705,6 +4886,8 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
                 request = new UpdateThreatIntelSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateThreatIntelSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GuardDuty");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateThreatIntelSet");
@@ -2800,6 +4983,11 @@ public class AmazonGuardDutyClient extends AmazonWebServiceClient implements Ama
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,8 @@ public class DmsTransferSettings implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The IAM role that has permission to access the Amazon S3 bucket.
+     * The Amazon Resource Name (ARN) used by the service access IAM role. The role must allow the
+     * <code>iam:PassRole</code> action.
      * </p>
      */
     private String serviceAccessRoleArn;
@@ -43,11 +44,13 @@ public class DmsTransferSettings implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The IAM role that has permission to access the Amazon S3 bucket.
+     * The Amazon Resource Name (ARN) used by the service access IAM role. The role must allow the
+     * <code>iam:PassRole</code> action.
      * </p>
      * 
      * @param serviceAccessRoleArn
-     *        The IAM role that has permission to access the Amazon S3 bucket.
+     *        The Amazon Resource Name (ARN) used by the service access IAM role. The role must allow the
+     *        <code>iam:PassRole</code> action.
      */
 
     public void setServiceAccessRoleArn(String serviceAccessRoleArn) {
@@ -56,10 +59,12 @@ public class DmsTransferSettings implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The IAM role that has permission to access the Amazon S3 bucket.
+     * The Amazon Resource Name (ARN) used by the service access IAM role. The role must allow the
+     * <code>iam:PassRole</code> action.
      * </p>
      * 
-     * @return The IAM role that has permission to access the Amazon S3 bucket.
+     * @return The Amazon Resource Name (ARN) used by the service access IAM role. The role must allow the
+     *         <code>iam:PassRole</code> action.
      */
 
     public String getServiceAccessRoleArn() {
@@ -68,11 +73,13 @@ public class DmsTransferSettings implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The IAM role that has permission to access the Amazon S3 bucket.
+     * The Amazon Resource Name (ARN) used by the service access IAM role. The role must allow the
+     * <code>iam:PassRole</code> action.
      * </p>
      * 
      * @param serviceAccessRoleArn
-     *        The IAM role that has permission to access the Amazon S3 bucket.
+     *        The Amazon Resource Name (ARN) used by the service access IAM role. The role must allow the
+     *        <code>iam:PassRole</code> action.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

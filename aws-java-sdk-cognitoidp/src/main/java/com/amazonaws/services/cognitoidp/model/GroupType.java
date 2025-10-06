@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,23 +48,23 @@ public class GroupType implements Serializable, Cloneable, StructuredPojo {
     private String description;
     /**
      * <p>
-     * The role ARN for the group.
+     * The role Amazon Resource Name (ARN) for the group.
      * </p>
      */
     private String roleArn;
     /**
      * <p>
-     * A nonnegative integer value that specifies the precedence of this group relative to the other groups that a user
-     * can belong to in the user pool. If a user belongs to two or more groups, it is the group with the highest
-     * precedence whose role ARN will be used in the <code>cognito:roles</code> and <code>cognito:preferred_role</code>
-     * claims in the user's tokens. Groups with higher <code>Precedence</code> values take precedence over groups with
-     * lower <code>Precedence</code> values or with null <code>Precedence</code> values.
+     * A non-negative integer value that specifies the precedence of this group relative to the other groups that a user
+     * can belong to in the user pool. Zero is the highest precedence value. Groups with lower <code>Precedence</code>
+     * values take precedence over groups with higher ornull <code>Precedence</code> values. If a user belongs to two or
+     * more groups, it is the group with the lowest precedence value whose role ARN is given in the user's tokens for
+     * the <code>cognito:roles</code> and <code>cognito:preferred_role</code> claims.
      * </p>
      * <p>
      * Two groups can have the same <code>Precedence</code> value. If this happens, neither group takes precedence over
      * the other. If two groups with the same <code>Precedence</code> have the same role ARN, that role is used in the
      * <code>cognito:preferred_role</code> claim in tokens for users in each group. If the two groups have different
-     * role ARNs, the <code>cognito:preferred_role</code> claim is not set in users' tokens.
+     * role ARNs, the <code>cognito:preferred_role</code> claim isn't set in users' tokens.
      * </p>
      * <p>
      * The default <code>Precedence</code> value is null.
@@ -73,13 +73,15 @@ public class GroupType implements Serializable, Cloneable, StructuredPojo {
     private Integer precedence;
     /**
      * <p>
-     * The date the group was last modified.
+     * The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      */
     private java.util.Date lastModifiedDate;
     /**
      * <p>
-     * The date the group was created.
+     * The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      */
     private java.util.Date creationDate;
@@ -206,11 +208,11 @@ public class GroupType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The role ARN for the group.
+     * The role Amazon Resource Name (ARN) for the group.
      * </p>
      * 
      * @param roleArn
-     *        The role ARN for the group.
+     *        The role Amazon Resource Name (ARN) for the group.
      */
 
     public void setRoleArn(String roleArn) {
@@ -219,10 +221,10 @@ public class GroupType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The role ARN for the group.
+     * The role Amazon Resource Name (ARN) for the group.
      * </p>
      * 
-     * @return The role ARN for the group.
+     * @return The role Amazon Resource Name (ARN) for the group.
      */
 
     public String getRoleArn() {
@@ -231,11 +233,11 @@ public class GroupType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The role ARN for the group.
+     * The role Amazon Resource Name (ARN) for the group.
      * </p>
      * 
      * @param roleArn
-     *        The role ARN for the group.
+     *        The role Amazon Resource Name (ARN) for the group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -246,35 +248,35 @@ public class GroupType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A nonnegative integer value that specifies the precedence of this group relative to the other groups that a user
-     * can belong to in the user pool. If a user belongs to two or more groups, it is the group with the highest
-     * precedence whose role ARN will be used in the <code>cognito:roles</code> and <code>cognito:preferred_role</code>
-     * claims in the user's tokens. Groups with higher <code>Precedence</code> values take precedence over groups with
-     * lower <code>Precedence</code> values or with null <code>Precedence</code> values.
+     * A non-negative integer value that specifies the precedence of this group relative to the other groups that a user
+     * can belong to in the user pool. Zero is the highest precedence value. Groups with lower <code>Precedence</code>
+     * values take precedence over groups with higher ornull <code>Precedence</code> values. If a user belongs to two or
+     * more groups, it is the group with the lowest precedence value whose role ARN is given in the user's tokens for
+     * the <code>cognito:roles</code> and <code>cognito:preferred_role</code> claims.
      * </p>
      * <p>
      * Two groups can have the same <code>Precedence</code> value. If this happens, neither group takes precedence over
      * the other. If two groups with the same <code>Precedence</code> have the same role ARN, that role is used in the
      * <code>cognito:preferred_role</code> claim in tokens for users in each group. If the two groups have different
-     * role ARNs, the <code>cognito:preferred_role</code> claim is not set in users' tokens.
+     * role ARNs, the <code>cognito:preferred_role</code> claim isn't set in users' tokens.
      * </p>
      * <p>
      * The default <code>Precedence</code> value is null.
      * </p>
      * 
      * @param precedence
-     *        A nonnegative integer value that specifies the precedence of this group relative to the other groups that
-     *        a user can belong to in the user pool. If a user belongs to two or more groups, it is the group with the
-     *        highest precedence whose role ARN will be used in the <code>cognito:roles</code> and
-     *        <code>cognito:preferred_role</code> claims in the user's tokens. Groups with higher
-     *        <code>Precedence</code> values take precedence over groups with lower <code>Precedence</code> values or
-     *        with null <code>Precedence</code> values.</p>
+     *        A non-negative integer value that specifies the precedence of this group relative to the other groups that
+     *        a user can belong to in the user pool. Zero is the highest precedence value. Groups with lower
+     *        <code>Precedence</code> values take precedence over groups with higher ornull <code>Precedence</code>
+     *        values. If a user belongs to two or more groups, it is the group with the lowest precedence value whose
+     *        role ARN is given in the user's tokens for the <code>cognito:roles</code> and
+     *        <code>cognito:preferred_role</code> claims.</p>
      *        <p>
      *        Two groups can have the same <code>Precedence</code> value. If this happens, neither group takes
      *        precedence over the other. If two groups with the same <code>Precedence</code> have the same role ARN,
      *        that role is used in the <code>cognito:preferred_role</code> claim in tokens for users in each group. If
-     *        the two groups have different role ARNs, the <code>cognito:preferred_role</code> claim is not set in
-     *        users' tokens.
+     *        the two groups have different role ARNs, the <code>cognito:preferred_role</code> claim isn't set in users'
+     *        tokens.
      *        </p>
      *        <p>
      *        The default <code>Precedence</code> value is null.
@@ -286,33 +288,33 @@ public class GroupType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A nonnegative integer value that specifies the precedence of this group relative to the other groups that a user
-     * can belong to in the user pool. If a user belongs to two or more groups, it is the group with the highest
-     * precedence whose role ARN will be used in the <code>cognito:roles</code> and <code>cognito:preferred_role</code>
-     * claims in the user's tokens. Groups with higher <code>Precedence</code> values take precedence over groups with
-     * lower <code>Precedence</code> values or with null <code>Precedence</code> values.
+     * A non-negative integer value that specifies the precedence of this group relative to the other groups that a user
+     * can belong to in the user pool. Zero is the highest precedence value. Groups with lower <code>Precedence</code>
+     * values take precedence over groups with higher ornull <code>Precedence</code> values. If a user belongs to two or
+     * more groups, it is the group with the lowest precedence value whose role ARN is given in the user's tokens for
+     * the <code>cognito:roles</code> and <code>cognito:preferred_role</code> claims.
      * </p>
      * <p>
      * Two groups can have the same <code>Precedence</code> value. If this happens, neither group takes precedence over
      * the other. If two groups with the same <code>Precedence</code> have the same role ARN, that role is used in the
      * <code>cognito:preferred_role</code> claim in tokens for users in each group. If the two groups have different
-     * role ARNs, the <code>cognito:preferred_role</code> claim is not set in users' tokens.
+     * role ARNs, the <code>cognito:preferred_role</code> claim isn't set in users' tokens.
      * </p>
      * <p>
      * The default <code>Precedence</code> value is null.
      * </p>
      * 
-     * @return A nonnegative integer value that specifies the precedence of this group relative to the other groups that
-     *         a user can belong to in the user pool. If a user belongs to two or more groups, it is the group with the
-     *         highest precedence whose role ARN will be used in the <code>cognito:roles</code> and
-     *         <code>cognito:preferred_role</code> claims in the user's tokens. Groups with higher
-     *         <code>Precedence</code> values take precedence over groups with lower <code>Precedence</code> values or
-     *         with null <code>Precedence</code> values.</p>
+     * @return A non-negative integer value that specifies the precedence of this group relative to the other groups
+     *         that a user can belong to in the user pool. Zero is the highest precedence value. Groups with lower
+     *         <code>Precedence</code> values take precedence over groups with higher ornull <code>Precedence</code>
+     *         values. If a user belongs to two or more groups, it is the group with the lowest precedence value whose
+     *         role ARN is given in the user's tokens for the <code>cognito:roles</code> and
+     *         <code>cognito:preferred_role</code> claims.</p>
      *         <p>
      *         Two groups can have the same <code>Precedence</code> value. If this happens, neither group takes
      *         precedence over the other. If two groups with the same <code>Precedence</code> have the same role ARN,
      *         that role is used in the <code>cognito:preferred_role</code> claim in tokens for users in each group. If
-     *         the two groups have different role ARNs, the <code>cognito:preferred_role</code> claim is not set in
+     *         the two groups have different role ARNs, the <code>cognito:preferred_role</code> claim isn't set in
      *         users' tokens.
      *         </p>
      *         <p>
@@ -325,35 +327,35 @@ public class GroupType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A nonnegative integer value that specifies the precedence of this group relative to the other groups that a user
-     * can belong to in the user pool. If a user belongs to two or more groups, it is the group with the highest
-     * precedence whose role ARN will be used in the <code>cognito:roles</code> and <code>cognito:preferred_role</code>
-     * claims in the user's tokens. Groups with higher <code>Precedence</code> values take precedence over groups with
-     * lower <code>Precedence</code> values or with null <code>Precedence</code> values.
+     * A non-negative integer value that specifies the precedence of this group relative to the other groups that a user
+     * can belong to in the user pool. Zero is the highest precedence value. Groups with lower <code>Precedence</code>
+     * values take precedence over groups with higher ornull <code>Precedence</code> values. If a user belongs to two or
+     * more groups, it is the group with the lowest precedence value whose role ARN is given in the user's tokens for
+     * the <code>cognito:roles</code> and <code>cognito:preferred_role</code> claims.
      * </p>
      * <p>
      * Two groups can have the same <code>Precedence</code> value. If this happens, neither group takes precedence over
      * the other. If two groups with the same <code>Precedence</code> have the same role ARN, that role is used in the
      * <code>cognito:preferred_role</code> claim in tokens for users in each group. If the two groups have different
-     * role ARNs, the <code>cognito:preferred_role</code> claim is not set in users' tokens.
+     * role ARNs, the <code>cognito:preferred_role</code> claim isn't set in users' tokens.
      * </p>
      * <p>
      * The default <code>Precedence</code> value is null.
      * </p>
      * 
      * @param precedence
-     *        A nonnegative integer value that specifies the precedence of this group relative to the other groups that
-     *        a user can belong to in the user pool. If a user belongs to two or more groups, it is the group with the
-     *        highest precedence whose role ARN will be used in the <code>cognito:roles</code> and
-     *        <code>cognito:preferred_role</code> claims in the user's tokens. Groups with higher
-     *        <code>Precedence</code> values take precedence over groups with lower <code>Precedence</code> values or
-     *        with null <code>Precedence</code> values.</p>
+     *        A non-negative integer value that specifies the precedence of this group relative to the other groups that
+     *        a user can belong to in the user pool. Zero is the highest precedence value. Groups with lower
+     *        <code>Precedence</code> values take precedence over groups with higher ornull <code>Precedence</code>
+     *        values. If a user belongs to two or more groups, it is the group with the lowest precedence value whose
+     *        role ARN is given in the user's tokens for the <code>cognito:roles</code> and
+     *        <code>cognito:preferred_role</code> claims.</p>
      *        <p>
      *        Two groups can have the same <code>Precedence</code> value. If this happens, neither group takes
      *        precedence over the other. If two groups with the same <code>Precedence</code> have the same role ARN,
      *        that role is used in the <code>cognito:preferred_role</code> claim in tokens for users in each group. If
-     *        the two groups have different role ARNs, the <code>cognito:preferred_role</code> claim is not set in
-     *        users' tokens.
+     *        the two groups have different role ARNs, the <code>cognito:preferred_role</code> claim isn't set in users'
+     *        tokens.
      *        </p>
      *        <p>
      *        The default <code>Precedence</code> value is null.
@@ -367,11 +369,14 @@ public class GroupType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The date the group was last modified.
+     * The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      * 
      * @param lastModifiedDate
-     *        The date the group was last modified.
+     *        The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time
+     *        format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java
+     *        <code>Date</code> object.
      */
 
     public void setLastModifiedDate(java.util.Date lastModifiedDate) {
@@ -380,10 +385,13 @@ public class GroupType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The date the group was last modified.
+     * The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      * 
-     * @return The date the group was last modified.
+     * @return The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time
+     *         format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java
+     *         <code>Date</code> object.
      */
 
     public java.util.Date getLastModifiedDate() {
@@ -392,11 +400,14 @@ public class GroupType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The date the group was last modified.
+     * The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      * 
      * @param lastModifiedDate
-     *        The date the group was last modified.
+     *        The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time
+     *        format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java
+     *        <code>Date</code> object.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -407,11 +418,14 @@ public class GroupType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The date the group was created.
+     * The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      * 
      * @param creationDate
-     *        The date the group was created.
+     *        The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time
+     *        format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java
+     *        <code>Date</code> object.
      */
 
     public void setCreationDate(java.util.Date creationDate) {
@@ -420,10 +434,13 @@ public class GroupType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The date the group was created.
+     * The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      * 
-     * @return The date the group was created.
+     * @return The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time
+     *         format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java
+     *         <code>Date</code> object.
      */
 
     public java.util.Date getCreationDate() {
@@ -432,11 +449,14 @@ public class GroupType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The date the group was created.
+     * The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      * 
      * @param creationDate
-     *        The date the group was created.
+     *        The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time
+     *        format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java
+     *        <code>Date</code> object.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

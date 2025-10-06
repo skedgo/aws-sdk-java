@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,6 +48,11 @@ public class PublishLayerVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html">function
      * runtimes</a>. Used for filtering with <a>ListLayers</a> and <a>ListLayerVersions</a>.
      * </p>
+     * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
+     * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> compatibleRuntimes;
     /**
@@ -73,6 +78,13 @@ public class PublishLayerVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * </ul>
      */
     private String licenseInfo;
+    /**
+     * <p>
+     * A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     * architectures</a>.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> compatibleArchitectures;
 
     /**
      * <p>
@@ -199,9 +211,18 @@ public class PublishLayerVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html">function
      * runtimes</a>. Used for filtering with <a>ListLayers</a> and <a>ListLayerVersions</a>.
      * </p>
+     * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
+     * </p>
      * 
      * @return A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html">function
-     *         runtimes</a>. Used for filtering with <a>ListLayers</a> and <a>ListLayerVersions</a>.
+     *         runtimes</a>. Used for filtering with <a>ListLayers</a> and <a>ListLayerVersions</a>.</p>
+     *         <p>
+     *         The following list includes deprecated runtimes. For more information, see <a
+     *         href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     *         deprecation policy</a>.
      * @see Runtime
      */
 
@@ -217,10 +238,19 @@ public class PublishLayerVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html">function
      * runtimes</a>. Used for filtering with <a>ListLayers</a> and <a>ListLayerVersions</a>.
      * </p>
+     * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
+     * </p>
      * 
      * @param compatibleRuntimes
      *        A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html">function
-     *        runtimes</a>. Used for filtering with <a>ListLayers</a> and <a>ListLayerVersions</a>.
+     *        runtimes</a>. Used for filtering with <a>ListLayers</a> and <a>ListLayerVersions</a>.</p>
+     *        <p>
+     *        The following list includes deprecated runtimes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     *        deprecation policy</a>.
      * @see Runtime
      */
 
@@ -239,6 +269,11 @@ public class PublishLayerVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * runtimes</a>. Used for filtering with <a>ListLayers</a> and <a>ListLayerVersions</a>.
      * </p>
      * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
+     * </p>
+     * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setCompatibleRuntimes(java.util.Collection)} or {@link #withCompatibleRuntimes(java.util.Collection)} if
      * you want to override the existing values.
@@ -246,7 +281,11 @@ public class PublishLayerVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * 
      * @param compatibleRuntimes
      *        A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html">function
-     *        runtimes</a>. Used for filtering with <a>ListLayers</a> and <a>ListLayerVersions</a>.
+     *        runtimes</a>. Used for filtering with <a>ListLayers</a> and <a>ListLayerVersions</a>.</p>
+     *        <p>
+     *        The following list includes deprecated runtimes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     *        deprecation policy</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Runtime
      */
@@ -266,10 +305,19 @@ public class PublishLayerVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html">function
      * runtimes</a>. Used for filtering with <a>ListLayers</a> and <a>ListLayerVersions</a>.
      * </p>
+     * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
+     * </p>
      * 
      * @param compatibleRuntimes
      *        A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html">function
-     *        runtimes</a>. Used for filtering with <a>ListLayers</a> and <a>ListLayerVersions</a>.
+     *        runtimes</a>. Used for filtering with <a>ListLayers</a> and <a>ListLayerVersions</a>.</p>
+     *        <p>
+     *        The following list includes deprecated runtimes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     *        deprecation policy</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Runtime
      */
@@ -284,10 +332,19 @@ public class PublishLayerVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html">function
      * runtimes</a>. Used for filtering with <a>ListLayers</a> and <a>ListLayerVersions</a>.
      * </p>
+     * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
+     * </p>
      * 
      * @param compatibleRuntimes
      *        A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html">function
-     *        runtimes</a>. Used for filtering with <a>ListLayers</a> and <a>ListLayerVersions</a>.
+     *        runtimes</a>. Used for filtering with <a>ListLayers</a> and <a>ListLayerVersions</a>.</p>
+     *        <p>
+     *        The following list includes deprecated runtimes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     *        deprecation policy</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Runtime
      */
@@ -448,6 +505,123 @@ public class PublishLayerVersionRequest extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
+     * <p>
+     * A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     * architectures</a>.
+     * </p>
+     * 
+     * @return A list of compatible <a
+     *         href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     *         architectures</a>.
+     * @see Architecture
+     */
+
+    public java.util.List<String> getCompatibleArchitectures() {
+        if (compatibleArchitectures == null) {
+            compatibleArchitectures = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return compatibleArchitectures;
+    }
+
+    /**
+     * <p>
+     * A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     * architectures</a>.
+     * </p>
+     * 
+     * @param compatibleArchitectures
+     *        A list of compatible <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     *        architectures</a>.
+     * @see Architecture
+     */
+
+    public void setCompatibleArchitectures(java.util.Collection<String> compatibleArchitectures) {
+        if (compatibleArchitectures == null) {
+            this.compatibleArchitectures = null;
+            return;
+        }
+
+        this.compatibleArchitectures = new com.amazonaws.internal.SdkInternalList<String>(compatibleArchitectures);
+    }
+
+    /**
+     * <p>
+     * A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     * architectures</a>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setCompatibleArchitectures(java.util.Collection)} or
+     * {@link #withCompatibleArchitectures(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param compatibleArchitectures
+     *        A list of compatible <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     *        architectures</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Architecture
+     */
+
+    public PublishLayerVersionRequest withCompatibleArchitectures(String... compatibleArchitectures) {
+        if (this.compatibleArchitectures == null) {
+            setCompatibleArchitectures(new com.amazonaws.internal.SdkInternalList<String>(compatibleArchitectures.length));
+        }
+        for (String ele : compatibleArchitectures) {
+            this.compatibleArchitectures.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     * architectures</a>.
+     * </p>
+     * 
+     * @param compatibleArchitectures
+     *        A list of compatible <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     *        architectures</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Architecture
+     */
+
+    public PublishLayerVersionRequest withCompatibleArchitectures(java.util.Collection<String> compatibleArchitectures) {
+        setCompatibleArchitectures(compatibleArchitectures);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     * architectures</a>.
+     * </p>
+     * 
+     * @param compatibleArchitectures
+     *        A list of compatible <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     *        architectures</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Architecture
+     */
+
+    public PublishLayerVersionRequest withCompatibleArchitectures(Architecture... compatibleArchitectures) {
+        com.amazonaws.internal.SdkInternalList<String> compatibleArchitecturesCopy = new com.amazonaws.internal.SdkInternalList<String>(
+                compatibleArchitectures.length);
+        for (Architecture value : compatibleArchitectures) {
+            compatibleArchitecturesCopy.add(value.toString());
+        }
+        if (getCompatibleArchitectures() == null) {
+            setCompatibleArchitectures(compatibleArchitecturesCopy);
+        } else {
+            getCompatibleArchitectures().addAll(compatibleArchitecturesCopy);
+        }
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -468,7 +642,9 @@ public class PublishLayerVersionRequest extends com.amazonaws.AmazonWebServiceRe
         if (getCompatibleRuntimes() != null)
             sb.append("CompatibleRuntimes: ").append(getCompatibleRuntimes()).append(",");
         if (getLicenseInfo() != null)
-            sb.append("LicenseInfo: ").append(getLicenseInfo());
+            sb.append("LicenseInfo: ").append(getLicenseInfo()).append(",");
+        if (getCompatibleArchitectures() != null)
+            sb.append("CompatibleArchitectures: ").append(getCompatibleArchitectures());
         sb.append("}");
         return sb.toString();
     }
@@ -503,6 +679,10 @@ public class PublishLayerVersionRequest extends com.amazonaws.AmazonWebServiceRe
             return false;
         if (other.getLicenseInfo() != null && other.getLicenseInfo().equals(this.getLicenseInfo()) == false)
             return false;
+        if (other.getCompatibleArchitectures() == null ^ this.getCompatibleArchitectures() == null)
+            return false;
+        if (other.getCompatibleArchitectures() != null && other.getCompatibleArchitectures().equals(this.getCompatibleArchitectures()) == false)
+            return false;
         return true;
     }
 
@@ -516,6 +696,7 @@ public class PublishLayerVersionRequest extends com.amazonaws.AmazonWebServiceRe
         hashCode = prime * hashCode + ((getContent() == null) ? 0 : getContent().hashCode());
         hashCode = prime * hashCode + ((getCompatibleRuntimes() == null) ? 0 : getCompatibleRuntimes().hashCode());
         hashCode = prime * hashCode + ((getLicenseInfo() == null) ? 0 : getLicenseInfo().hashCode());
+        hashCode = prime * hashCode + ((getCompatibleArchitectures() == null) ? 0 : getCompatibleArchitectures().hashCode());
         return hashCode;
     }
 

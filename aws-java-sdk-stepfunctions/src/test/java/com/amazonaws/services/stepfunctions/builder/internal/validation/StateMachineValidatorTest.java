@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,6 +14,10 @@
  */
 package com.amazonaws.services.stepfunctions.builder.internal.validation;
 
+import com.amazonaws.services.stepfunctions.builder.ErrorCodes;
+import com.amazonaws.services.stepfunctions.builder.conditions.NotCondition;
+import org.junit.Test;
+
 import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.and;
 import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.branch;
 import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.catcher;
@@ -22,6 +26,8 @@ import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.c
 import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.end;
 import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.eq;
 import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.failState;
+import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.iterator;
+import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.mapState;
 import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.next;
 import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.parallelState;
 import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.passState;
@@ -34,10 +40,6 @@ import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.t
 import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.timestamp;
 import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.timestampPath;
 import static com.amazonaws.services.stepfunctions.builder.StepFunctionBuilder.waitState;
-
-import com.amazonaws.services.stepfunctions.builder.ErrorCodes;
-import com.amazonaws.services.stepfunctions.builder.conditions.NotCondition;
-import org.junit.Test;
 
 public class StateMachineValidatorTest {
 
@@ -150,6 +152,31 @@ public class StateMachineValidatorTest {
                         .resource("arn"))
                 .build();
     }
+
+    @Test(expected = ValidationException.class)
+    public void timeoutSecondsAndTimeoutSecondsPathInTaskState_IsNotValid() {
+        stateMachine()
+                .startAt("Initial")
+                .state("Initial", taskState()
+                        .transition(end())
+                        .timeoutSeconds(30)
+                        .timeoutSecondsPath("$.timeout")
+                        .resource("arn"))
+                .build();
+    }
+
+    @Test(expected = ValidationException.class)
+    public void heartbeatSecondsAndHeartbeatSecondsPathInTaskState_IsNotValid() {
+        stateMachine()
+                .startAt("Initial")
+                .state("Initial", taskState()
+                        .transition(end())
+                        .heartbeatSeconds(30)
+                        .heartbeatSecondsPath("$.heartbeat")
+                        .resource("arn"))
+                .build();
+    }
+
 
     @Test
     public void retrierInTaskState_OnlyErrorEqualsSet_IsValid() {
@@ -460,8 +487,16 @@ public class StateMachineValidatorTest {
                 .build();
     }
 
-    @Test(expected = ValidationException.class)
-    public void missingCauseInFailState_IsNotValid() {
+    @Test
+    public void missingCauseAndErrorInFailState_IsValid() {
+        stateMachine()
+                .startAt("Initial")
+                .state("Initial", failState())
+                .build();
+    }
+
+    @Test
+    public void missingCauseInFailState_IsValid() {
         stateMachine()
                 .startAt("Initial")
                 .state("Initial", failState()
@@ -628,7 +663,7 @@ public class StateMachineValidatorTest {
                 .state("Initial", parallelState()
                         .branch(branch()
                                         .startAt("InitialBranchState")
-                                        .state("InitialBranchState", failState()))
+                                        .state("InitialBranchState", taskState()))
                         .transition(end()))
                 .build();
     }
@@ -658,6 +693,79 @@ public class StateMachineValidatorTest {
                         .transition(end())
                         .catcher(catcher()
                                          .transition(next("NoSuchState"))))
+                .build();
+    }
+
+    @Test(expected = ValidationException.class)
+    public void mapStateWithNoIterator_IsNotValid() {
+        stateMachine()
+                .startAt("Initial")
+                .state("Initial", mapState()
+                        .transition(end()))
+                .build();
+    }
+
+    @Test(expected = ValidationException.class)
+    public void mapStateWithInvalidTransition_IsNotValid() {
+        stateMachine()
+                .startAt("Initial")
+                .state("Initial", mapState()
+                        .iterator(iterator()
+                                .startAt("InitialBranchState")
+                                .state("InitialBranchState", succeedState()))
+                        .transition(next("NoSuchState")))
+                .build();
+    }
+
+    @Test(expected = ValidationException.class)
+    public void mapStateIteratorStartAtStateInvalid_IsNotValid() {
+        stateMachine()
+                .startAt("Initial")
+                .state("Initial", mapState()
+                        .iterator(iterator()
+                                .startAt("NoSuchState")
+                                .state("InitialBranchState", succeedState()))
+                        .transition(end()))
+                .build();
+    }
+
+    @Test(expected = ValidationException.class)
+    public void mapStateInvalidIteratorState_IsNotValid() {
+        stateMachine()
+                .startAt("Initial")
+                .state("Initial", mapState()
+                        .iterator(iterator()
+                                .startAt("InitialBranchState")
+                                .state("InitialBranchState", taskState()))
+                        .transition(end()))
+                .build();
+    }
+
+    @Test(expected = ValidationException.class)
+    public void mapStateInvalidRetrier_IsNotValid() {
+        stateMachine()
+                .startAt("Initial")
+                .state("Initial", mapState()
+                        .iterator(iterator()
+                                .startAt("InitialBranchState")
+                                .state("InitialBranchState", succeedState()))
+                        .transition(end())
+                        .retrier(retrier()
+                                .intervalSeconds(-1)))
+                .build();
+    }
+
+    @Test(expected = ValidationException.class)
+    public void mapStateInvalidCatcher_IsNotValid() {
+        stateMachine()
+                .startAt("Initial")
+                .state("Initial", mapState()
+                        .iterator(iterator()
+                                .startAt("InitialBranchState")
+                                .state("InitialBranchState", succeedState()))
+                        .transition(end())
+                        .catcher(catcher()
+                                .transition(next("NoSuchState"))))
                 .build();
     }
 }

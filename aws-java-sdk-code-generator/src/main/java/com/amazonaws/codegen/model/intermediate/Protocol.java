@@ -19,11 +19,11 @@ import com.amazonaws.codegen.protocol.ApiGatewayProtocolMetadataProvider;
 import com.amazonaws.codegen.protocol.AwsCborProtocolMetadataProvider;
 import com.amazonaws.codegen.protocol.AwsJsonProtocolMetadataProvider;
 import com.amazonaws.codegen.protocol.Ec2ProtocolMetdataProvider;
-import com.amazonaws.codegen.protocol.IonProtocolMetadataProvider;
 import com.amazonaws.codegen.protocol.ProtocolMetadataProvider;
 import com.amazonaws.codegen.protocol.QueryProtocolMetadataProvider;
 import com.amazonaws.codegen.protocol.RestJsonProtocolMetdataProvider;
 import com.amazonaws.codegen.protocol.RestXmlProtocolMetadataProvider;
+import com.amazonaws.codegen.protocol.RpcV2CborProtocolMetadataProvider;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
@@ -35,7 +35,7 @@ public enum Protocol {
     QUERY("query", new QueryProtocolMetadataProvider()),
     REST_XML("rest-xml", new RestXmlProtocolMetadataProvider()),
     API_GATEWAY("api-gateway", new ApiGatewayProtocolMetadataProvider()),
-    ION("ion", new IonProtocolMetadataProvider());
+    RPCV2_CBOR("smithy-rpc-v2-cbor", new RpcV2CborProtocolMetadataProvider());
 
     private String protocol;
     private ProtocolMetadataProvider metadataProvider;

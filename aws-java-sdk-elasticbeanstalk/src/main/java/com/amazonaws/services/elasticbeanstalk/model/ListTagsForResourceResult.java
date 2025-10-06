@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,7 +25,7 @@ public class ListTagsForResourceResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resouce for which a tag list was requested.
+     * The Amazon Resource Name (ARN) of the resource for which a tag list was requested.
      * </p>
      */
     private String resourceArn;
@@ -38,11 +38,11 @@ public class ListTagsForResourceResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resouce for which a tag list was requested.
+     * The Amazon Resource Name (ARN) of the resource for which a tag list was requested.
      * </p>
      * 
      * @param resourceArn
-     *        The Amazon Resource Name (ARN) of the resouce for which a tag list was requested.
+     *        The Amazon Resource Name (ARN) of the resource for which a tag list was requested.
      */
 
     public void setResourceArn(String resourceArn) {
@@ -51,10 +51,10 @@ public class ListTagsForResourceResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resouce for which a tag list was requested.
+     * The Amazon Resource Name (ARN) of the resource for which a tag list was requested.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the resouce for which a tag list was requested.
+     * @return The Amazon Resource Name (ARN) of the resource for which a tag list was requested.
      */
 
     public String getResourceArn() {
@@ -63,11 +63,11 @@ public class ListTagsForResourceResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resouce for which a tag list was requested.
+     * The Amazon Resource Name (ARN) of the resource for which a tag list was requested.
      * </p>
      * 
      * @param resourceArn
-     *        The Amazon Resource Name (ARN) of the resouce for which a tag list was requested.
+     *        The Amazon Resource Name (ARN) of the resource for which a tag list was requested.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

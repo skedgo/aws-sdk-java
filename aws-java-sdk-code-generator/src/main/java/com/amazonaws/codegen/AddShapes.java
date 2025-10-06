@@ -46,6 +46,7 @@ import com.amazonaws.codegen.model.service.Member;
 import com.amazonaws.codegen.model.service.ServiceModel;
 import com.amazonaws.codegen.model.service.Shape;
 import com.amazonaws.codegen.naming.NamingStrategy;
+import com.amazonaws.codegen.utils.ProtocolUtils;
 import com.amazonaws.util.StringUtils;
 import com.amazonaws.util.TimestampFormat;
 import java.util.Date;
@@ -109,6 +110,10 @@ abstract class AddShapes {
                 MemberModel memberModel = generateMemberModel(c2jMemberName, c2jMemberDefinition,
                                                               getProtocol(), parentShape,
                                                               getServiceModel().getShapes());
+
+                if (memberModel.isEndpointDiscoveryId()) {
+                    shapeModel.addEndpointDiscoveryMember(memberModel.getC2jName());
+                }
 
                 if (memberModel.getHttp().getLocation() == Location.HEADER) {
                     hasHeaderMember = true;
@@ -184,6 +189,7 @@ abstract class AddShapes {
 
         memberModel.setDocumentation(c2jMemberDefinition.getDocumentation());
         memberModel.setDeprecated(c2jMemberDefinition.isDeprecated());
+        memberModel.setEndpointDiscoveryId(c2jMemberDefinition.isEndpointDiscoveryId());
         memberModel.setSensitive(isSensitiveShapeOrContainer(c2jMemberDefinition, allC2jShapes));
         memberModel.withGetterMethodName(namingStrategy.getGetterMethodName(c2jMemberName))
                    .withSetterMethodName(namingStrategy.getSetterMethodName(c2jMemberName))
@@ -215,6 +221,8 @@ abstract class AddShapes {
         memberModel.setHttp(httpMapping);
         memberModel.setJsonValue(c2jMemberDefinition.isJsonvalue());
 
+        memberModel.setShouldFullyQualify(TypeUtils.isReserved(c2jShapeName));
+
         return memberModel;
     }
 
@@ -224,7 +232,7 @@ abstract class AddShapes {
         }
 
         return member.isSensitive() ||
-               isSensitiveShapeOrContainer(allC2jShapes.get(member.getShape()), allC2jShapes);
+                isSensitiveShapeOrContainer(allC2jShapes.get(member.getShape()), allC2jShapes);
     }
 
     private boolean isSensitiveShapeOrContainer(Shape c2jShape, Map<String, Shape> allC2jShapes) {
@@ -284,9 +292,9 @@ abstract class AddShapes {
             case EC2:
             case API_GATEWAY:
                 return TimestampFormat.ISO_8601.getFormat();
-            case ION:
             case REST_JSON:
             case AWS_JSON:
+            case RPCV2_CBOR:
                 return TimestampFormat.UNIX_TIMESTAMP.getFormat();
             case CBOR:
                 return TimestampFormat.UNIX_TIMESTAMP_IN_MILLIS.getFormat();
@@ -470,6 +478,6 @@ abstract class AddShapes {
     }
 
     protected String getProtocol() {
-        return getServiceModel().getMetadata().getProtocol();
+        return ProtocolUtils.resolveProtocol(getServiceModel().getMetadata());
     }
 }

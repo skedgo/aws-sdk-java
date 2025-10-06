@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -56,6 +56,10 @@ public class AllocateHostsRequestMarshaller implements Marshaller<Request<Alloca
             request.addParameter("InstanceType", StringUtils.fromString(allocateHostsRequest.getInstanceType()));
         }
 
+        if (allocateHostsRequest.getInstanceFamily() != null) {
+            request.addParameter("InstanceFamily", StringUtils.fromString(allocateHostsRequest.getInstanceFamily()));
+        }
+
         if (allocateHostsRequest.getQuantity() != null) {
             request.addParameter("Quantity", StringUtils.fromInteger(allocateHostsRequest.getQuantity()));
         }
@@ -97,6 +101,27 @@ public class AllocateHostsRequestMarshaller implements Marshaller<Request<Alloca
 
         if (allocateHostsRequest.getHostRecovery() != null) {
             request.addParameter("HostRecovery", StringUtils.fromString(allocateHostsRequest.getHostRecovery()));
+        }
+
+        if (allocateHostsRequest.getOutpostArn() != null) {
+            request.addParameter("OutpostArn", StringUtils.fromString(allocateHostsRequest.getOutpostArn()));
+        }
+
+        if (allocateHostsRequest.getHostMaintenance() != null) {
+            request.addParameter("HostMaintenance", StringUtils.fromString(allocateHostsRequest.getHostMaintenance()));
+        }
+
+        com.amazonaws.internal.SdkInternalList<String> allocateHostsRequestAssetIdsList = (com.amazonaws.internal.SdkInternalList<String>) allocateHostsRequest
+                .getAssetIds();
+        if (!allocateHostsRequestAssetIdsList.isEmpty() || !allocateHostsRequestAssetIdsList.isAutoConstruct()) {
+            int assetIdsListIndex = 1;
+
+            for (String allocateHostsRequestAssetIdsListValue : allocateHostsRequestAssetIdsList) {
+                if (allocateHostsRequestAssetIdsListValue != null) {
+                    request.addParameter("AssetId." + assetIdsListIndex, StringUtils.fromString(allocateHostsRequestAssetIdsListValue));
+                }
+                assetIdsListIndex++;
+            }
         }
 
         return request;

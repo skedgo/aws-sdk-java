@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,7 +31,7 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
     private String licenseConfigurationId;
     /**
      * <p>
-     * ARN of the license configuration requested.
+     * Amazon Resource Name (ARN) of the license configuration.
      * </p>
      */
     private String licenseConfigurationArn;
@@ -49,13 +49,13 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
     private String description;
     /**
      * <p>
-     * Dimension on which the licenses are counted (for example, instances, cores, sockets, or VCPUs).
+     * Dimension for which the licenses are counted.
      * </p>
      */
     private String licenseCountingType;
     /**
      * <p>
-     * List of flexible text strings designating license rules.
+     * License rules.
      * </p>
      */
     private java.util.List<String> licenseRules;
@@ -79,34 +79,52 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
     private Long consumedLicenses;
     /**
      * <p>
-     * License configuration status (active, etc.).
+     * License configuration status.
      * </p>
      */
     private String status;
     /**
      * <p>
-     * Owner account ID for the license configuration.
+     * Account ID of the owner of the license configuration.
      * </p>
      */
     private String ownerAccountId;
     /**
      * <p>
-     * List of summaries for consumed licenses used by various resources.
+     * Summaries of the licenses consumed by resources.
      * </p>
      */
     private java.util.List<ConsumedLicenseSummary> consumedLicenseSummaryList;
     /**
      * <p>
-     * List of summaries of managed resources.
+     * Summaries of the managed resources.
      * </p>
      */
     private java.util.List<ManagedResourceSummary> managedResourceSummaryList;
     /**
      * <p>
-     * List of tags attached to the license configuration.
+     * Tags for the license configuration.
      * </p>
      */
     private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * Product information.
+     * </p>
+     */
+    private java.util.List<ProductInformation> productInformationList;
+    /**
+     * <p>
+     * Automated discovery information.
+     * </p>
+     */
+    private AutomatedDiscoveryInformation automatedDiscoveryInformation;
+    /**
+     * <p>
+     * When true, disassociates a resource when software is uninstalled.
+     * </p>
+     */
+    private Boolean disassociateWhenNotFound;
 
     /**
      * <p>
@@ -150,11 +168,11 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * ARN of the license configuration requested.
+     * Amazon Resource Name (ARN) of the license configuration.
      * </p>
      * 
      * @param licenseConfigurationArn
-     *        ARN of the license configuration requested.
+     *        Amazon Resource Name (ARN) of the license configuration.
      */
 
     public void setLicenseConfigurationArn(String licenseConfigurationArn) {
@@ -163,10 +181,10 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * ARN of the license configuration requested.
+     * Amazon Resource Name (ARN) of the license configuration.
      * </p>
      * 
-     * @return ARN of the license configuration requested.
+     * @return Amazon Resource Name (ARN) of the license configuration.
      */
 
     public String getLicenseConfigurationArn() {
@@ -175,11 +193,11 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * ARN of the license configuration requested.
+     * Amazon Resource Name (ARN) of the license configuration.
      * </p>
      * 
      * @param licenseConfigurationArn
-     *        ARN of the license configuration requested.
+     *        Amazon Resource Name (ARN) of the license configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -270,11 +288,11 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Dimension on which the licenses are counted (for example, instances, cores, sockets, or VCPUs).
+     * Dimension for which the licenses are counted.
      * </p>
      * 
      * @param licenseCountingType
-     *        Dimension on which the licenses are counted (for example, instances, cores, sockets, or VCPUs).
+     *        Dimension for which the licenses are counted.
      * @see LicenseCountingType
      */
 
@@ -284,10 +302,10 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Dimension on which the licenses are counted (for example, instances, cores, sockets, or VCPUs).
+     * Dimension for which the licenses are counted.
      * </p>
      * 
-     * @return Dimension on which the licenses are counted (for example, instances, cores, sockets, or VCPUs).
+     * @return Dimension for which the licenses are counted.
      * @see LicenseCountingType
      */
 
@@ -297,11 +315,11 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Dimension on which the licenses are counted (for example, instances, cores, sockets, or VCPUs).
+     * Dimension for which the licenses are counted.
      * </p>
      * 
      * @param licenseCountingType
-     *        Dimension on which the licenses are counted (for example, instances, cores, sockets, or VCPUs).
+     *        Dimension for which the licenses are counted.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LicenseCountingType
      */
@@ -313,11 +331,11 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Dimension on which the licenses are counted (for example, instances, cores, sockets, or VCPUs).
+     * Dimension for which the licenses are counted.
      * </p>
      * 
      * @param licenseCountingType
-     *        Dimension on which the licenses are counted (for example, instances, cores, sockets, or VCPUs).
+     *        Dimension for which the licenses are counted.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LicenseCountingType
      */
@@ -329,10 +347,10 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * List of flexible text strings designating license rules.
+     * License rules.
      * </p>
      * 
-     * @return List of flexible text strings designating license rules.
+     * @return License rules.
      */
 
     public java.util.List<String> getLicenseRules() {
@@ -341,11 +359,11 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * List of flexible text strings designating license rules.
+     * License rules.
      * </p>
      * 
      * @param licenseRules
-     *        List of flexible text strings designating license rules.
+     *        License rules.
      */
 
     public void setLicenseRules(java.util.Collection<String> licenseRules) {
@@ -359,7 +377,7 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * List of flexible text strings designating license rules.
+     * License rules.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -368,7 +386,7 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
      * </p>
      * 
      * @param licenseRules
-     *        List of flexible text strings designating license rules.
+     *        License rules.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -384,11 +402,11 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * List of flexible text strings designating license rules.
+     * License rules.
      * </p>
      * 
      * @param licenseRules
-     *        List of flexible text strings designating license rules.
+     *        License rules.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -531,11 +549,11 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * License configuration status (active, etc.).
+     * License configuration status.
      * </p>
      * 
      * @param status
-     *        License configuration status (active, etc.).
+     *        License configuration status.
      */
 
     public void setStatus(String status) {
@@ -544,10 +562,10 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * License configuration status (active, etc.).
+     * License configuration status.
      * </p>
      * 
-     * @return License configuration status (active, etc.).
+     * @return License configuration status.
      */
 
     public String getStatus() {
@@ -556,11 +574,11 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * License configuration status (active, etc.).
+     * License configuration status.
      * </p>
      * 
      * @param status
-     *        License configuration status (active, etc.).
+     *        License configuration status.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -571,11 +589,11 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Owner account ID for the license configuration.
+     * Account ID of the owner of the license configuration.
      * </p>
      * 
      * @param ownerAccountId
-     *        Owner account ID for the license configuration.
+     *        Account ID of the owner of the license configuration.
      */
 
     public void setOwnerAccountId(String ownerAccountId) {
@@ -584,10 +602,10 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Owner account ID for the license configuration.
+     * Account ID of the owner of the license configuration.
      * </p>
      * 
-     * @return Owner account ID for the license configuration.
+     * @return Account ID of the owner of the license configuration.
      */
 
     public String getOwnerAccountId() {
@@ -596,11 +614,11 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Owner account ID for the license configuration.
+     * Account ID of the owner of the license configuration.
      * </p>
      * 
      * @param ownerAccountId
-     *        Owner account ID for the license configuration.
+     *        Account ID of the owner of the license configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -611,10 +629,10 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * List of summaries for consumed licenses used by various resources.
+     * Summaries of the licenses consumed by resources.
      * </p>
      * 
-     * @return List of summaries for consumed licenses used by various resources.
+     * @return Summaries of the licenses consumed by resources.
      */
 
     public java.util.List<ConsumedLicenseSummary> getConsumedLicenseSummaryList() {
@@ -623,11 +641,11 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * List of summaries for consumed licenses used by various resources.
+     * Summaries of the licenses consumed by resources.
      * </p>
      * 
      * @param consumedLicenseSummaryList
-     *        List of summaries for consumed licenses used by various resources.
+     *        Summaries of the licenses consumed by resources.
      */
 
     public void setConsumedLicenseSummaryList(java.util.Collection<ConsumedLicenseSummary> consumedLicenseSummaryList) {
@@ -641,7 +659,7 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * List of summaries for consumed licenses used by various resources.
+     * Summaries of the licenses consumed by resources.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -650,7 +668,7 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
      * </p>
      * 
      * @param consumedLicenseSummaryList
-     *        List of summaries for consumed licenses used by various resources.
+     *        Summaries of the licenses consumed by resources.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -666,11 +684,11 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * List of summaries for consumed licenses used by various resources.
+     * Summaries of the licenses consumed by resources.
      * </p>
      * 
      * @param consumedLicenseSummaryList
-     *        List of summaries for consumed licenses used by various resources.
+     *        Summaries of the licenses consumed by resources.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -681,10 +699,10 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * List of summaries of managed resources.
+     * Summaries of the managed resources.
      * </p>
      * 
-     * @return List of summaries of managed resources.
+     * @return Summaries of the managed resources.
      */
 
     public java.util.List<ManagedResourceSummary> getManagedResourceSummaryList() {
@@ -693,11 +711,11 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * List of summaries of managed resources.
+     * Summaries of the managed resources.
      * </p>
      * 
      * @param managedResourceSummaryList
-     *        List of summaries of managed resources.
+     *        Summaries of the managed resources.
      */
 
     public void setManagedResourceSummaryList(java.util.Collection<ManagedResourceSummary> managedResourceSummaryList) {
@@ -711,7 +729,7 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * List of summaries of managed resources.
+     * Summaries of the managed resources.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -720,7 +738,7 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
      * </p>
      * 
      * @param managedResourceSummaryList
-     *        List of summaries of managed resources.
+     *        Summaries of the managed resources.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -736,11 +754,11 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * List of summaries of managed resources.
+     * Summaries of the managed resources.
      * </p>
      * 
      * @param managedResourceSummaryList
-     *        List of summaries of managed resources.
+     *        Summaries of the managed resources.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -751,10 +769,10 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * List of tags attached to the license configuration.
+     * Tags for the license configuration.
      * </p>
      * 
-     * @return List of tags attached to the license configuration.
+     * @return Tags for the license configuration.
      */
 
     public java.util.List<Tag> getTags() {
@@ -763,11 +781,11 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * List of tags attached to the license configuration.
+     * Tags for the license configuration.
      * </p>
      * 
      * @param tags
-     *        List of tags attached to the license configuration.
+     *        Tags for the license configuration.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -781,7 +799,7 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * List of tags attached to the license configuration.
+     * Tags for the license configuration.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -790,7 +808,7 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
      * </p>
      * 
      * @param tags
-     *        List of tags attached to the license configuration.
+     *        Tags for the license configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -806,17 +824,179 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * List of tags attached to the license configuration.
+     * Tags for the license configuration.
      * </p>
      * 
      * @param tags
-     *        List of tags attached to the license configuration.
+     *        Tags for the license configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public GetLicenseConfigurationResult withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
         return this;
+    }
+
+    /**
+     * <p>
+     * Product information.
+     * </p>
+     * 
+     * @return Product information.
+     */
+
+    public java.util.List<ProductInformation> getProductInformationList() {
+        return productInformationList;
+    }
+
+    /**
+     * <p>
+     * Product information.
+     * </p>
+     * 
+     * @param productInformationList
+     *        Product information.
+     */
+
+    public void setProductInformationList(java.util.Collection<ProductInformation> productInformationList) {
+        if (productInformationList == null) {
+            this.productInformationList = null;
+            return;
+        }
+
+        this.productInformationList = new java.util.ArrayList<ProductInformation>(productInformationList);
+    }
+
+    /**
+     * <p>
+     * Product information.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setProductInformationList(java.util.Collection)} or
+     * {@link #withProductInformationList(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param productInformationList
+     *        Product information.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetLicenseConfigurationResult withProductInformationList(ProductInformation... productInformationList) {
+        if (this.productInformationList == null) {
+            setProductInformationList(new java.util.ArrayList<ProductInformation>(productInformationList.length));
+        }
+        for (ProductInformation ele : productInformationList) {
+            this.productInformationList.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Product information.
+     * </p>
+     * 
+     * @param productInformationList
+     *        Product information.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetLicenseConfigurationResult withProductInformationList(java.util.Collection<ProductInformation> productInformationList) {
+        setProductInformationList(productInformationList);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Automated discovery information.
+     * </p>
+     * 
+     * @param automatedDiscoveryInformation
+     *        Automated discovery information.
+     */
+
+    public void setAutomatedDiscoveryInformation(AutomatedDiscoveryInformation automatedDiscoveryInformation) {
+        this.automatedDiscoveryInformation = automatedDiscoveryInformation;
+    }
+
+    /**
+     * <p>
+     * Automated discovery information.
+     * </p>
+     * 
+     * @return Automated discovery information.
+     */
+
+    public AutomatedDiscoveryInformation getAutomatedDiscoveryInformation() {
+        return this.automatedDiscoveryInformation;
+    }
+
+    /**
+     * <p>
+     * Automated discovery information.
+     * </p>
+     * 
+     * @param automatedDiscoveryInformation
+     *        Automated discovery information.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetLicenseConfigurationResult withAutomatedDiscoveryInformation(AutomatedDiscoveryInformation automatedDiscoveryInformation) {
+        setAutomatedDiscoveryInformation(automatedDiscoveryInformation);
+        return this;
+    }
+
+    /**
+     * <p>
+     * When true, disassociates a resource when software is uninstalled.
+     * </p>
+     * 
+     * @param disassociateWhenNotFound
+     *        When true, disassociates a resource when software is uninstalled.
+     */
+
+    public void setDisassociateWhenNotFound(Boolean disassociateWhenNotFound) {
+        this.disassociateWhenNotFound = disassociateWhenNotFound;
+    }
+
+    /**
+     * <p>
+     * When true, disassociates a resource when software is uninstalled.
+     * </p>
+     * 
+     * @return When true, disassociates a resource when software is uninstalled.
+     */
+
+    public Boolean getDisassociateWhenNotFound() {
+        return this.disassociateWhenNotFound;
+    }
+
+    /**
+     * <p>
+     * When true, disassociates a resource when software is uninstalled.
+     * </p>
+     * 
+     * @param disassociateWhenNotFound
+     *        When true, disassociates a resource when software is uninstalled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetLicenseConfigurationResult withDisassociateWhenNotFound(Boolean disassociateWhenNotFound) {
+        setDisassociateWhenNotFound(disassociateWhenNotFound);
+        return this;
+    }
+
+    /**
+     * <p>
+     * When true, disassociates a resource when software is uninstalled.
+     * </p>
+     * 
+     * @return When true, disassociates a resource when software is uninstalled.
+     */
+
+    public Boolean isDisassociateWhenNotFound() {
+        return this.disassociateWhenNotFound;
     }
 
     /**
@@ -858,7 +1038,13 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
         if (getManagedResourceSummaryList() != null)
             sb.append("ManagedResourceSummaryList: ").append(getManagedResourceSummaryList()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getProductInformationList() != null)
+            sb.append("ProductInformationList: ").append(getProductInformationList()).append(",");
+        if (getAutomatedDiscoveryInformation() != null)
+            sb.append("AutomatedDiscoveryInformation: ").append(getAutomatedDiscoveryInformation()).append(",");
+        if (getDisassociateWhenNotFound() != null)
+            sb.append("DisassociateWhenNotFound: ").append(getDisassociateWhenNotFound());
         sb.append("}");
         return sb.toString();
     }
@@ -929,6 +1115,19 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getProductInformationList() == null ^ this.getProductInformationList() == null)
+            return false;
+        if (other.getProductInformationList() != null && other.getProductInformationList().equals(this.getProductInformationList()) == false)
+            return false;
+        if (other.getAutomatedDiscoveryInformation() == null ^ this.getAutomatedDiscoveryInformation() == null)
+            return false;
+        if (other.getAutomatedDiscoveryInformation() != null
+                && other.getAutomatedDiscoveryInformation().equals(this.getAutomatedDiscoveryInformation()) == false)
+            return false;
+        if (other.getDisassociateWhenNotFound() == null ^ this.getDisassociateWhenNotFound() == null)
+            return false;
+        if (other.getDisassociateWhenNotFound() != null && other.getDisassociateWhenNotFound().equals(this.getDisassociateWhenNotFound()) == false)
+            return false;
         return true;
     }
 
@@ -951,6 +1150,9 @@ public class GetLicenseConfigurationResult extends com.amazonaws.AmazonWebServic
         hashCode = prime * hashCode + ((getConsumedLicenseSummaryList() == null) ? 0 : getConsumedLicenseSummaryList().hashCode());
         hashCode = prime * hashCode + ((getManagedResourceSummaryList() == null) ? 0 : getManagedResourceSummaryList().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getProductInformationList() == null) ? 0 : getProductInformationList().hashCode());
+        hashCode = prime * hashCode + ((getAutomatedDiscoveryInformation() == null) ? 0 : getAutomatedDiscoveryInformation().hashCode());
+        hashCode = prime * hashCode + ((getDisassociateWhenNotFound() == null) ? 0 : getDisassociateWhenNotFound().hashCode());
         return hashCode;
     }
 

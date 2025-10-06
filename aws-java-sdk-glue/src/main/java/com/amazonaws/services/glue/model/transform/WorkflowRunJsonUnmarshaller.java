@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -56,6 +56,10 @@ public class WorkflowRunJsonUnmarshaller implements Unmarshaller<WorkflowRun, Js
                     context.nextToken();
                     workflowRun.setWorkflowRunId(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("PreviousRunId", targetDepth)) {
+                    context.nextToken();
+                    workflowRun.setPreviousRunId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("WorkflowRunProperties", targetDepth)) {
                     context.nextToken();
                     workflowRun.setWorkflowRunProperties(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context
@@ -73,6 +77,10 @@ public class WorkflowRunJsonUnmarshaller implements Unmarshaller<WorkflowRun, Js
                     context.nextToken();
                     workflowRun.setStatus(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("ErrorMessage", targetDepth)) {
+                    context.nextToken();
+                    workflowRun.setErrorMessage(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("Statistics", targetDepth)) {
                     context.nextToken();
                     workflowRun.setStatistics(WorkflowRunStatisticsJsonUnmarshaller.getInstance().unmarshall(context));
@@ -80,6 +88,10 @@ public class WorkflowRunJsonUnmarshaller implements Unmarshaller<WorkflowRun, Js
                 if (context.testExpression("Graph", targetDepth)) {
                     context.nextToken();
                     workflowRun.setGraph(WorkflowGraphJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("StartingEventBatchCondition", targetDepth)) {
+                    context.nextToken();
+                    workflowRun.setStartingEventBatchCondition(StartingEventBatchConditionJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

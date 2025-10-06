@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -72,9 +72,17 @@ public class H264SettingsJsonUnmarshaller implements Unmarshaller<H264Settings, 
                     context.nextToken();
                     h264Settings.setColorMetadata(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("colorSpaceSettings", targetDepth)) {
+                    context.nextToken();
+                    h264Settings.setColorSpaceSettings(H264ColorSpaceSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("entropyEncoding", targetDepth)) {
                     context.nextToken();
                     h264Settings.setEntropyEncoding(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("filterSettings", targetDepth)) {
+                    context.nextToken();
+                    h264Settings.setFilterSettings(H264FilterSettingsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("fixedAfd", targetDepth)) {
                     context.nextToken();
@@ -83,6 +91,10 @@ public class H264SettingsJsonUnmarshaller implements Unmarshaller<H264Settings, 
                 if (context.testExpression("flickerAq", targetDepth)) {
                     context.nextToken();
                     h264Settings.setFlickerAq(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("forceFieldPictures", targetDepth)) {
+                    context.nextToken();
+                    h264Settings.setForceFieldPictures(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("framerateControl", targetDepth)) {
                     context.nextToken();
@@ -152,6 +164,10 @@ public class H264SettingsJsonUnmarshaller implements Unmarshaller<H264Settings, 
                     context.nextToken();
                     h264Settings.setProfile(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("qualityLevel", targetDepth)) {
+                    context.nextToken();
+                    h264Settings.setQualityLevel(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("qvbrQualityLevel", targetDepth)) {
                     context.nextToken();
                     h264Settings.setQvbrQualityLevel(context.getUnmarshaller(Integer.class).unmarshall(context));
@@ -195,6 +211,10 @@ public class H264SettingsJsonUnmarshaller implements Unmarshaller<H264Settings, 
                 if (context.testExpression("timecodeInsertion", targetDepth)) {
                     context.nextToken();
                     h264Settings.setTimecodeInsertion(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("timecodeBurninSettings", targetDepth)) {
+                    context.nextToken();
+                    h264Settings.setTimecodeBurninSettings(TimecodeBurninSettingsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,21 +30,22 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * representing the asynchronous operation; overloads which accept an {@code AsyncHandler} can be used to receive
  * notification when an asynchronous operation completes.
  * <p>
- * <fullname>AWS Directory Service</fullname>
+ * <fullname>Directory Service</fullname>
  * <p>
- * AWS Directory Service is a web service that makes it easy for you to setup and run directories in the AWS cloud, or
- * connect your AWS resources with an existing on-premises Microsoft Active Directory. This guide provides detailed
- * information about AWS Directory Service operations, data types, parameters, and errors. For information about AWS
- * Directory Services features, see <a href="https://aws.amazon.com/directoryservice/">AWS Directory Service</a> and the
- * <a href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/what_is.html">AWS Directory Service
- * Administration Guide</a>.
+ * Directory Service is a web service that makes it easy for you to setup and run directories in the Amazon Web Services
+ * cloud, or connect your Amazon Web Services resources with an existing self-managed Microsoft Active Directory. This
+ * guide provides detailed information about Directory Service operations, data types, parameters, and errors. For
+ * information about Directory Services features, see <a href="https://aws.amazon.com/directoryservice/">Directory
+ * Service</a> and the <a href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/what_is.html">Directory
+ * Service Administration Guide</a>.
  * </p>
  * <note>
  * <p>
- * AWS provides SDKs that consist of libraries and sample code for various programming languages and platforms (Java,
- * Ruby, .Net, iOS, Android, etc.). The SDKs provide a convenient way to create programmatic access to AWS Directory
- * Service and other AWS services. For more information about the AWS SDKs, including how to download and install them,
- * see <a href="http://aws.amazon.com/tools/">Tools for Amazon Web Services</a>.
+ * Amazon Web Services provides SDKs that consist of libraries and sample code for various programming languages and
+ * platforms (Java, Ruby, .Net, iOS, Android, etc.). The SDKs provide a convenient way to create programmatic access to
+ * Directory Service and other Amazon Web Services services. For more information about the Amazon Web Services SDKs,
+ * including how to download and install them, see <a href="http://aws.amazon.com/tools/">Tools for Amazon Web
+ * Services</a>.
  * </p>
  * </note>
  */
@@ -246,7 +247,20 @@ public class AWSDirectoryServiceAsyncClient extends AWSDirectoryServiceClient im
      *        Object providing client parameters.
      */
     AWSDirectoryServiceAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Directory Service using the specified
+     * parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSDirectoryServiceAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -310,6 +324,39 @@ public class AWSDirectoryServiceAsyncClient extends AWSDirectoryServiceClient im
 
                 try {
                     result = executeAddIpRoutes(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<AddRegionResult> addRegionAsync(AddRegionRequest request) {
+
+        return addRegionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AddRegionResult> addRegionAsync(final AddRegionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AddRegionRequest, AddRegionResult> asyncHandler) {
+        final AddRegionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AddRegionResult>() {
+            @Override
+            public AddRegionResult call() throws Exception {
+                AddRegionResult result = null;
+
+                try {
+                    result = executeAddRegion(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -854,6 +901,39 @@ public class AWSDirectoryServiceAsyncClient extends AWSDirectoryServiceClient im
     }
 
     @Override
+    public java.util.concurrent.Future<DeregisterCertificateResult> deregisterCertificateAsync(DeregisterCertificateRequest request) {
+
+        return deregisterCertificateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeregisterCertificateResult> deregisterCertificateAsync(final DeregisterCertificateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeregisterCertificateRequest, DeregisterCertificateResult> asyncHandler) {
+        final DeregisterCertificateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeregisterCertificateResult>() {
+            @Override
+            public DeregisterCertificateResult call() throws Exception {
+                DeregisterCertificateResult result = null;
+
+                try {
+                    result = executeDeregisterCertificate(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeregisterEventTopicResult> deregisterEventTopicAsync(DeregisterEventTopicRequest request) {
 
         return deregisterEventTopicAsync(request, null);
@@ -871,6 +951,74 @@ public class AWSDirectoryServiceAsyncClient extends AWSDirectoryServiceClient im
 
                 try {
                     result = executeDeregisterEventTopic(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCertificateResult> describeCertificateAsync(DescribeCertificateRequest request) {
+
+        return describeCertificateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCertificateResult> describeCertificateAsync(final DescribeCertificateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeCertificateRequest, DescribeCertificateResult> asyncHandler) {
+        final DescribeCertificateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeCertificateResult>() {
+            @Override
+            public DescribeCertificateResult call() throws Exception {
+                DescribeCertificateResult result = null;
+
+                try {
+                    result = executeDescribeCertificate(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeClientAuthenticationSettingsResult> describeClientAuthenticationSettingsAsync(
+            DescribeClientAuthenticationSettingsRequest request) {
+
+        return describeClientAuthenticationSettingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeClientAuthenticationSettingsResult> describeClientAuthenticationSettingsAsync(
+            final DescribeClientAuthenticationSettingsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeClientAuthenticationSettingsRequest, DescribeClientAuthenticationSettingsResult> asyncHandler) {
+        final DescribeClientAuthenticationSettingsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeClientAuthenticationSettingsResult>() {
+            @Override
+            public DescribeClientAuthenticationSettingsResult call() throws Exception {
+                DescribeClientAuthenticationSettingsResult result = null;
+
+                try {
+                    result = executeDescribeClientAuthenticationSettings(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1043,6 +1191,105 @@ public class AWSDirectoryServiceAsyncClient extends AWSDirectoryServiceClient im
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeLDAPSSettingsResult> describeLDAPSSettingsAsync(DescribeLDAPSSettingsRequest request) {
+
+        return describeLDAPSSettingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeLDAPSSettingsResult> describeLDAPSSettingsAsync(final DescribeLDAPSSettingsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeLDAPSSettingsRequest, DescribeLDAPSSettingsResult> asyncHandler) {
+        final DescribeLDAPSSettingsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeLDAPSSettingsResult>() {
+            @Override
+            public DescribeLDAPSSettingsResult call() throws Exception {
+                DescribeLDAPSSettingsResult result = null;
+
+                try {
+                    result = executeDescribeLDAPSSettings(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeRegionsResult> describeRegionsAsync(DescribeRegionsRequest request) {
+
+        return describeRegionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeRegionsResult> describeRegionsAsync(final DescribeRegionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeRegionsRequest, DescribeRegionsResult> asyncHandler) {
+        final DescribeRegionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeRegionsResult>() {
+            @Override
+            public DescribeRegionsResult call() throws Exception {
+                DescribeRegionsResult result = null;
+
+                try {
+                    result = executeDescribeRegions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeSettingsResult> describeSettingsAsync(DescribeSettingsRequest request) {
+
+        return describeSettingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeSettingsResult> describeSettingsAsync(final DescribeSettingsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeSettingsRequest, DescribeSettingsResult> asyncHandler) {
+        final DescribeSettingsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeSettingsResult>() {
+            @Override
+            public DescribeSettingsResult call() throws Exception {
+                DescribeSettingsResult result = null;
+
+                try {
+                    result = executeDescribeSettings(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeSharedDirectoriesResult> describeSharedDirectoriesAsync(DescribeSharedDirectoriesRequest request) {
 
         return describeSharedDirectoriesAsync(request, null);
@@ -1165,6 +1412,105 @@ public class AWSDirectoryServiceAsyncClient extends AWSDirectoryServiceClient im
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeUpdateDirectoryResult> describeUpdateDirectoryAsync(DescribeUpdateDirectoryRequest request) {
+
+        return describeUpdateDirectoryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeUpdateDirectoryResult> describeUpdateDirectoryAsync(final DescribeUpdateDirectoryRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeUpdateDirectoryRequest, DescribeUpdateDirectoryResult> asyncHandler) {
+        final DescribeUpdateDirectoryRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeUpdateDirectoryResult>() {
+            @Override
+            public DescribeUpdateDirectoryResult call() throws Exception {
+                DescribeUpdateDirectoryResult result = null;
+
+                try {
+                    result = executeDescribeUpdateDirectory(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisableClientAuthenticationResult> disableClientAuthenticationAsync(DisableClientAuthenticationRequest request) {
+
+        return disableClientAuthenticationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisableClientAuthenticationResult> disableClientAuthenticationAsync(final DisableClientAuthenticationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisableClientAuthenticationRequest, DisableClientAuthenticationResult> asyncHandler) {
+        final DisableClientAuthenticationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisableClientAuthenticationResult>() {
+            @Override
+            public DisableClientAuthenticationResult call() throws Exception {
+                DisableClientAuthenticationResult result = null;
+
+                try {
+                    result = executeDisableClientAuthentication(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisableLDAPSResult> disableLDAPSAsync(DisableLDAPSRequest request) {
+
+        return disableLDAPSAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisableLDAPSResult> disableLDAPSAsync(final DisableLDAPSRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisableLDAPSRequest, DisableLDAPSResult> asyncHandler) {
+        final DisableLDAPSRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisableLDAPSResult>() {
+            @Override
+            public DisableLDAPSResult call() throws Exception {
+                DisableLDAPSResult result = null;
+
+                try {
+                    result = executeDisableLDAPS(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DisableRadiusResult> disableRadiusAsync(DisableRadiusRequest request) {
 
         return disableRadiusAsync(request, null);
@@ -1215,6 +1561,72 @@ public class AWSDirectoryServiceAsyncClient extends AWSDirectoryServiceClient im
 
                 try {
                     result = executeDisableSso(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<EnableClientAuthenticationResult> enableClientAuthenticationAsync(EnableClientAuthenticationRequest request) {
+
+        return enableClientAuthenticationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<EnableClientAuthenticationResult> enableClientAuthenticationAsync(final EnableClientAuthenticationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<EnableClientAuthenticationRequest, EnableClientAuthenticationResult> asyncHandler) {
+        final EnableClientAuthenticationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<EnableClientAuthenticationResult>() {
+            @Override
+            public EnableClientAuthenticationResult call() throws Exception {
+                EnableClientAuthenticationResult result = null;
+
+                try {
+                    result = executeEnableClientAuthentication(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<EnableLDAPSResult> enableLDAPSAsync(EnableLDAPSRequest request) {
+
+        return enableLDAPSAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<EnableLDAPSResult> enableLDAPSAsync(final EnableLDAPSRequest request,
+            final com.amazonaws.handlers.AsyncHandler<EnableLDAPSRequest, EnableLDAPSResult> asyncHandler) {
+        final EnableLDAPSRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<EnableLDAPSResult>() {
+            @Override
+            public EnableLDAPSResult call() throws Exception {
+                EnableLDAPSResult result = null;
+
+                try {
+                    result = executeEnableLDAPS(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1386,6 +1798,39 @@ public class AWSDirectoryServiceAsyncClient extends AWSDirectoryServiceClient im
     }
 
     @Override
+    public java.util.concurrent.Future<ListCertificatesResult> listCertificatesAsync(ListCertificatesRequest request) {
+
+        return listCertificatesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCertificatesResult> listCertificatesAsync(final ListCertificatesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListCertificatesRequest, ListCertificatesResult> asyncHandler) {
+        final ListCertificatesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListCertificatesResult>() {
+            @Override
+            public ListCertificatesResult call() throws Exception {
+                ListCertificatesResult result = null;
+
+                try {
+                    result = executeListCertificates(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListIpRoutesResult> listIpRoutesAsync(ListIpRoutesRequest request) {
 
         return listIpRoutesAsync(request, null);
@@ -1518,6 +1963,39 @@ public class AWSDirectoryServiceAsyncClient extends AWSDirectoryServiceClient im
     }
 
     @Override
+    public java.util.concurrent.Future<RegisterCertificateResult> registerCertificateAsync(RegisterCertificateRequest request) {
+
+        return registerCertificateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RegisterCertificateResult> registerCertificateAsync(final RegisterCertificateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RegisterCertificateRequest, RegisterCertificateResult> asyncHandler) {
+        final RegisterCertificateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RegisterCertificateResult>() {
+            @Override
+            public RegisterCertificateResult call() throws Exception {
+                RegisterCertificateResult result = null;
+
+                try {
+                    result = executeRegisterCertificate(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<RegisterEventTopicResult> registerEventTopicAsync(RegisterEventTopicRequest request) {
 
         return registerEventTopicAsync(request, null);
@@ -1601,6 +2079,39 @@ public class AWSDirectoryServiceAsyncClient extends AWSDirectoryServiceClient im
 
                 try {
                     result = executeRemoveIpRoutes(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RemoveRegionResult> removeRegionAsync(RemoveRegionRequest request) {
+
+        return removeRegionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RemoveRegionResult> removeRegionAsync(final RemoveRegionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RemoveRegionRequest, RemoveRegionResult> asyncHandler) {
+        final RemoveRegionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RemoveRegionResult>() {
+            @Override
+            public RemoveRegionResult call() throws Exception {
+                RemoveRegionResult result = null;
+
+                try {
+                    result = executeRemoveRegion(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1848,6 +2359,39 @@ public class AWSDirectoryServiceAsyncClient extends AWSDirectoryServiceClient im
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateDirectorySetupResult> updateDirectorySetupAsync(UpdateDirectorySetupRequest request) {
+
+        return updateDirectorySetupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDirectorySetupResult> updateDirectorySetupAsync(final UpdateDirectorySetupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateDirectorySetupRequest, UpdateDirectorySetupResult> asyncHandler) {
+        final UpdateDirectorySetupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateDirectorySetupResult>() {
+            @Override
+            public UpdateDirectorySetupResult call() throws Exception {
+                UpdateDirectorySetupResult result = null;
+
+                try {
+                    result = executeUpdateDirectorySetup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateNumberOfDomainControllersResult> updateNumberOfDomainControllersAsync(
             UpdateNumberOfDomainControllersRequest request) {
 
@@ -1900,6 +2444,39 @@ public class AWSDirectoryServiceAsyncClient extends AWSDirectoryServiceClient im
 
                 try {
                     result = executeUpdateRadius(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateSettingsResult> updateSettingsAsync(UpdateSettingsRequest request) {
+
+        return updateSettingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateSettingsResult> updateSettingsAsync(final UpdateSettingsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateSettingsRequest, UpdateSettingsResult> asyncHandler) {
+        final UpdateSettingsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateSettingsResult>() {
+            @Override
+            public UpdateSettingsResult call() throws Exception {
+                UpdateSettingsResult result = null;
+
+                try {
+                    result = executeUpdateSettings(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

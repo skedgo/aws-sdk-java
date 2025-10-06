@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,10 +43,16 @@ public class DataSourceMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("lambdaConfig").build();
     private static final MarshallingInfo<StructuredPojo> ELASTICSEARCHCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("elasticsearchConfig").build();
+    private static final MarshallingInfo<StructuredPojo> OPENSEARCHSERVICECONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("openSearchServiceConfig").build();
     private static final MarshallingInfo<StructuredPojo> HTTPCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("httpConfig").build();
     private static final MarshallingInfo<StructuredPojo> RELATIONALDATABASECONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("relationalDatabaseConfig").build();
+    private static final MarshallingInfo<StructuredPojo> EVENTBRIDGECONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("eventBridgeConfig").build();
+    private static final MarshallingInfo<String> METRICSCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("metricsConfig").build();
 
     private static final DataSourceMarshaller instance = new DataSourceMarshaller();
 
@@ -72,8 +78,11 @@ public class DataSourceMarshaller {
             protocolMarshaller.marshall(dataSource.getDynamodbConfig(), DYNAMODBCONFIG_BINDING);
             protocolMarshaller.marshall(dataSource.getLambdaConfig(), LAMBDACONFIG_BINDING);
             protocolMarshaller.marshall(dataSource.getElasticsearchConfig(), ELASTICSEARCHCONFIG_BINDING);
+            protocolMarshaller.marshall(dataSource.getOpenSearchServiceConfig(), OPENSEARCHSERVICECONFIG_BINDING);
             protocolMarshaller.marshall(dataSource.getHttpConfig(), HTTPCONFIG_BINDING);
             protocolMarshaller.marshall(dataSource.getRelationalDatabaseConfig(), RELATIONALDATABASECONFIG_BINDING);
+            protocolMarshaller.marshall(dataSource.getEventBridgeConfig(), EVENTBRIDGECONFIG_BINDING);
+            protocolMarshaller.marshall(dataSource.getMetricsConfig(), METRICSCONFIG_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

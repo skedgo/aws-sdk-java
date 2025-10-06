@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -165,6 +165,42 @@ public class ElasticsearchDomainStatus implements Serializable, Cloneable, Struc
      * </p>
      */
     private ServiceSoftwareOptions serviceSoftwareOptions;
+    /**
+     * <p>
+     * The current status of the Elasticsearch domain's endpoint options.
+     * </p>
+     */
+    private DomainEndpointOptions domainEndpointOptions;
+    /**
+     * <p>
+     * The current status of the Elasticsearch domain's advanced security options.
+     * </p>
+     */
+    private AdvancedSecurityOptions advancedSecurityOptions;
+    /**
+     * <p>
+     * The current status of the Elasticsearch domain's Auto-Tune options.
+     * </p>
+     */
+    private AutoTuneOptionsOutput autoTuneOptions;
+    /**
+     * <p>
+     * Specifies change details of the domain configuration change.
+     * </p>
+     */
+    private ChangeProgressDetails changeProgressDetails;
+    /**
+     * <p>
+     * The status of any changes that are currently in progress for the domain.
+     * </p>
+     */
+    private String domainProcessingStatus;
+    /**
+     * <p>
+     * Information about the domain properties that are currently being modified.
+     * </p>
+     */
+    private java.util.List<ModifyingProperties> modifyingProperties;
 
     /**
      * <p>
@@ -535,6 +571,13 @@ public class ElasticsearchDomainStatus implements Serializable, Cloneable, Struc
         setEndpoints(endpoints);
         return this;
     }
+
+    /**
+     * Add a single Endpoints entry
+     *
+     * @see ElasticsearchDomainStatus#withEndpoints
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public ElasticsearchDomainStatus addEndpointsEntry(String key, String value) {
         if (null == this.endpoints) {
@@ -1099,6 +1142,13 @@ public class ElasticsearchDomainStatus implements Serializable, Cloneable, Struc
         return this;
     }
 
+    /**
+     * Add a single AdvancedOptions entry
+     *
+     * @see ElasticsearchDomainStatus#withAdvancedOptions
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public ElasticsearchDomainStatus addAdvancedOptionsEntry(String key, String value) {
         if (null == this.advancedOptions) {
             this.advancedOptions = new java.util.HashMap<String, String>();
@@ -1159,6 +1209,13 @@ public class ElasticsearchDomainStatus implements Serializable, Cloneable, Struc
         setLogPublishingOptions(logPublishingOptions);
         return this;
     }
+
+    /**
+     * Add a single LogPublishingOptions entry
+     *
+     * @see ElasticsearchDomainStatus#withLogPublishingOptions
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public ElasticsearchDomainStatus addLogPublishingOptionsEntry(String key, LogPublishingOption value) {
         if (null == this.logPublishingOptions) {
@@ -1222,6 +1279,295 @@ public class ElasticsearchDomainStatus implements Serializable, Cloneable, Struc
     }
 
     /**
+     * <p>
+     * The current status of the Elasticsearch domain's endpoint options.
+     * </p>
+     * 
+     * @param domainEndpointOptions
+     *        The current status of the Elasticsearch domain's endpoint options.
+     */
+
+    public void setDomainEndpointOptions(DomainEndpointOptions domainEndpointOptions) {
+        this.domainEndpointOptions = domainEndpointOptions;
+    }
+
+    /**
+     * <p>
+     * The current status of the Elasticsearch domain's endpoint options.
+     * </p>
+     * 
+     * @return The current status of the Elasticsearch domain's endpoint options.
+     */
+
+    public DomainEndpointOptions getDomainEndpointOptions() {
+        return this.domainEndpointOptions;
+    }
+
+    /**
+     * <p>
+     * The current status of the Elasticsearch domain's endpoint options.
+     * </p>
+     * 
+     * @param domainEndpointOptions
+     *        The current status of the Elasticsearch domain's endpoint options.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ElasticsearchDomainStatus withDomainEndpointOptions(DomainEndpointOptions domainEndpointOptions) {
+        setDomainEndpointOptions(domainEndpointOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The current status of the Elasticsearch domain's advanced security options.
+     * </p>
+     * 
+     * @param advancedSecurityOptions
+     *        The current status of the Elasticsearch domain's advanced security options.
+     */
+
+    public void setAdvancedSecurityOptions(AdvancedSecurityOptions advancedSecurityOptions) {
+        this.advancedSecurityOptions = advancedSecurityOptions;
+    }
+
+    /**
+     * <p>
+     * The current status of the Elasticsearch domain's advanced security options.
+     * </p>
+     * 
+     * @return The current status of the Elasticsearch domain's advanced security options.
+     */
+
+    public AdvancedSecurityOptions getAdvancedSecurityOptions() {
+        return this.advancedSecurityOptions;
+    }
+
+    /**
+     * <p>
+     * The current status of the Elasticsearch domain's advanced security options.
+     * </p>
+     * 
+     * @param advancedSecurityOptions
+     *        The current status of the Elasticsearch domain's advanced security options.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ElasticsearchDomainStatus withAdvancedSecurityOptions(AdvancedSecurityOptions advancedSecurityOptions) {
+        setAdvancedSecurityOptions(advancedSecurityOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The current status of the Elasticsearch domain's Auto-Tune options.
+     * </p>
+     * 
+     * @param autoTuneOptions
+     *        The current status of the Elasticsearch domain's Auto-Tune options.
+     */
+
+    public void setAutoTuneOptions(AutoTuneOptionsOutput autoTuneOptions) {
+        this.autoTuneOptions = autoTuneOptions;
+    }
+
+    /**
+     * <p>
+     * The current status of the Elasticsearch domain's Auto-Tune options.
+     * </p>
+     * 
+     * @return The current status of the Elasticsearch domain's Auto-Tune options.
+     */
+
+    public AutoTuneOptionsOutput getAutoTuneOptions() {
+        return this.autoTuneOptions;
+    }
+
+    /**
+     * <p>
+     * The current status of the Elasticsearch domain's Auto-Tune options.
+     * </p>
+     * 
+     * @param autoTuneOptions
+     *        The current status of the Elasticsearch domain's Auto-Tune options.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ElasticsearchDomainStatus withAutoTuneOptions(AutoTuneOptionsOutput autoTuneOptions) {
+        setAutoTuneOptions(autoTuneOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies change details of the domain configuration change.
+     * </p>
+     * 
+     * @param changeProgressDetails
+     *        Specifies change details of the domain configuration change.
+     */
+
+    public void setChangeProgressDetails(ChangeProgressDetails changeProgressDetails) {
+        this.changeProgressDetails = changeProgressDetails;
+    }
+
+    /**
+     * <p>
+     * Specifies change details of the domain configuration change.
+     * </p>
+     * 
+     * @return Specifies change details of the domain configuration change.
+     */
+
+    public ChangeProgressDetails getChangeProgressDetails() {
+        return this.changeProgressDetails;
+    }
+
+    /**
+     * <p>
+     * Specifies change details of the domain configuration change.
+     * </p>
+     * 
+     * @param changeProgressDetails
+     *        Specifies change details of the domain configuration change.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ElasticsearchDomainStatus withChangeProgressDetails(ChangeProgressDetails changeProgressDetails) {
+        setChangeProgressDetails(changeProgressDetails);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The status of any changes that are currently in progress for the domain.
+     * </p>
+     * 
+     * @param domainProcessingStatus
+     *        The status of any changes that are currently in progress for the domain.
+     * @see DomainProcessingStatusType
+     */
+
+    public void setDomainProcessingStatus(String domainProcessingStatus) {
+        this.domainProcessingStatus = domainProcessingStatus;
+    }
+
+    /**
+     * <p>
+     * The status of any changes that are currently in progress for the domain.
+     * </p>
+     * 
+     * @return The status of any changes that are currently in progress for the domain.
+     * @see DomainProcessingStatusType
+     */
+
+    public String getDomainProcessingStatus() {
+        return this.domainProcessingStatus;
+    }
+
+    /**
+     * <p>
+     * The status of any changes that are currently in progress for the domain.
+     * </p>
+     * 
+     * @param domainProcessingStatus
+     *        The status of any changes that are currently in progress for the domain.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DomainProcessingStatusType
+     */
+
+    public ElasticsearchDomainStatus withDomainProcessingStatus(String domainProcessingStatus) {
+        setDomainProcessingStatus(domainProcessingStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The status of any changes that are currently in progress for the domain.
+     * </p>
+     * 
+     * @param domainProcessingStatus
+     *        The status of any changes that are currently in progress for the domain.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DomainProcessingStatusType
+     */
+
+    public ElasticsearchDomainStatus withDomainProcessingStatus(DomainProcessingStatusType domainProcessingStatus) {
+        this.domainProcessingStatus = domainProcessingStatus.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information about the domain properties that are currently being modified.
+     * </p>
+     * 
+     * @return Information about the domain properties that are currently being modified.
+     */
+
+    public java.util.List<ModifyingProperties> getModifyingProperties() {
+        return modifyingProperties;
+    }
+
+    /**
+     * <p>
+     * Information about the domain properties that are currently being modified.
+     * </p>
+     * 
+     * @param modifyingProperties
+     *        Information about the domain properties that are currently being modified.
+     */
+
+    public void setModifyingProperties(java.util.Collection<ModifyingProperties> modifyingProperties) {
+        if (modifyingProperties == null) {
+            this.modifyingProperties = null;
+            return;
+        }
+
+        this.modifyingProperties = new java.util.ArrayList<ModifyingProperties>(modifyingProperties);
+    }
+
+    /**
+     * <p>
+     * Information about the domain properties that are currently being modified.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setModifyingProperties(java.util.Collection)} or {@link #withModifyingProperties(java.util.Collection)}
+     * if you want to override the existing values.
+     * </p>
+     * 
+     * @param modifyingProperties
+     *        Information about the domain properties that are currently being modified.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ElasticsearchDomainStatus withModifyingProperties(ModifyingProperties... modifyingProperties) {
+        if (this.modifyingProperties == null) {
+            setModifyingProperties(new java.util.ArrayList<ModifyingProperties>(modifyingProperties.length));
+        }
+        for (ModifyingProperties ele : modifyingProperties) {
+            this.modifyingProperties.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information about the domain properties that are currently being modified.
+     * </p>
+     * 
+     * @param modifyingProperties
+     *        Information about the domain properties that are currently being modified.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ElasticsearchDomainStatus withModifyingProperties(java.util.Collection<ModifyingProperties> modifyingProperties) {
+        setModifyingProperties(modifyingProperties);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1274,7 +1620,19 @@ public class ElasticsearchDomainStatus implements Serializable, Cloneable, Struc
         if (getLogPublishingOptions() != null)
             sb.append("LogPublishingOptions: ").append(getLogPublishingOptions()).append(",");
         if (getServiceSoftwareOptions() != null)
-            sb.append("ServiceSoftwareOptions: ").append(getServiceSoftwareOptions());
+            sb.append("ServiceSoftwareOptions: ").append(getServiceSoftwareOptions()).append(",");
+        if (getDomainEndpointOptions() != null)
+            sb.append("DomainEndpointOptions: ").append(getDomainEndpointOptions()).append(",");
+        if (getAdvancedSecurityOptions() != null)
+            sb.append("AdvancedSecurityOptions: ").append(getAdvancedSecurityOptions()).append(",");
+        if (getAutoTuneOptions() != null)
+            sb.append("AutoTuneOptions: ").append(getAutoTuneOptions()).append(",");
+        if (getChangeProgressDetails() != null)
+            sb.append("ChangeProgressDetails: ").append(getChangeProgressDetails()).append(",");
+        if (getDomainProcessingStatus() != null)
+            sb.append("DomainProcessingStatus: ").append(getDomainProcessingStatus()).append(",");
+        if (getModifyingProperties() != null)
+            sb.append("ModifyingProperties: ").append(getModifyingProperties());
         sb.append("}");
         return sb.toString();
     }
@@ -1373,6 +1731,30 @@ public class ElasticsearchDomainStatus implements Serializable, Cloneable, Struc
             return false;
         if (other.getServiceSoftwareOptions() != null && other.getServiceSoftwareOptions().equals(this.getServiceSoftwareOptions()) == false)
             return false;
+        if (other.getDomainEndpointOptions() == null ^ this.getDomainEndpointOptions() == null)
+            return false;
+        if (other.getDomainEndpointOptions() != null && other.getDomainEndpointOptions().equals(this.getDomainEndpointOptions()) == false)
+            return false;
+        if (other.getAdvancedSecurityOptions() == null ^ this.getAdvancedSecurityOptions() == null)
+            return false;
+        if (other.getAdvancedSecurityOptions() != null && other.getAdvancedSecurityOptions().equals(this.getAdvancedSecurityOptions()) == false)
+            return false;
+        if (other.getAutoTuneOptions() == null ^ this.getAutoTuneOptions() == null)
+            return false;
+        if (other.getAutoTuneOptions() != null && other.getAutoTuneOptions().equals(this.getAutoTuneOptions()) == false)
+            return false;
+        if (other.getChangeProgressDetails() == null ^ this.getChangeProgressDetails() == null)
+            return false;
+        if (other.getChangeProgressDetails() != null && other.getChangeProgressDetails().equals(this.getChangeProgressDetails()) == false)
+            return false;
+        if (other.getDomainProcessingStatus() == null ^ this.getDomainProcessingStatus() == null)
+            return false;
+        if (other.getDomainProcessingStatus() != null && other.getDomainProcessingStatus().equals(this.getDomainProcessingStatus()) == false)
+            return false;
+        if (other.getModifyingProperties() == null ^ this.getModifyingProperties() == null)
+            return false;
+        if (other.getModifyingProperties() != null && other.getModifyingProperties().equals(this.getModifyingProperties()) == false)
+            return false;
         return true;
     }
 
@@ -1402,6 +1784,12 @@ public class ElasticsearchDomainStatus implements Serializable, Cloneable, Struc
         hashCode = prime * hashCode + ((getAdvancedOptions() == null) ? 0 : getAdvancedOptions().hashCode());
         hashCode = prime * hashCode + ((getLogPublishingOptions() == null) ? 0 : getLogPublishingOptions().hashCode());
         hashCode = prime * hashCode + ((getServiceSoftwareOptions() == null) ? 0 : getServiceSoftwareOptions().hashCode());
+        hashCode = prime * hashCode + ((getDomainEndpointOptions() == null) ? 0 : getDomainEndpointOptions().hashCode());
+        hashCode = prime * hashCode + ((getAdvancedSecurityOptions() == null) ? 0 : getAdvancedSecurityOptions().hashCode());
+        hashCode = prime * hashCode + ((getAutoTuneOptions() == null) ? 0 : getAutoTuneOptions().hashCode());
+        hashCode = prime * hashCode + ((getChangeProgressDetails() == null) ? 0 : getChangeProgressDetails().hashCode());
+        hashCode = prime * hashCode + ((getDomainProcessingStatus() == null) ? 0 : getDomainProcessingStatus().hashCode());
+        hashCode = prime * hashCode + ((getModifyingProperties() == null) ? 0 : getModifyingProperties().hashCode());
         return hashCode;
     }
 

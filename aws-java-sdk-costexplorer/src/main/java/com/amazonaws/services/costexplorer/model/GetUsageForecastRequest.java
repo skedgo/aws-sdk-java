@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,10 +27,12 @@ public class GetUsageForecastRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The start and end dates of the period that you want to retrieve usage forecast for. The start date is inclusive,
-     * but the end date is exclusive. For example, if <code>start</code> is <code>2017-01-01</code> and <code>end</code>
-     * is <code>2017-05-01</code>, then the cost and usage data is retrieved from <code>2017-01-01</code> up to and
-     * including <code>2017-04-30</code> but not including <code>2017-05-01</code>.
+     * The start and end dates of the period that you want to retrieve usage forecast for. The start date is included in
+     * the period, but the end date isn't included in the period. For example, if <code>start</code> is
+     * <code>2017-01-01</code> and <code>end</code> is <code>2017-05-01</code>, then the cost and usage data is
+     * retrieved from <code>2017-01-01</code> up to and including <code>2017-04-30</code> but not including
+     * <code>2017-05-01</code>. The start date must be equal to or later than the current date to avoid a validation
+     * error.
      * </p>
      */
     private DateInterval timePeriod;
@@ -68,35 +70,155 @@ public class GetUsageForecastRequest extends com.amazonaws.AmazonWebServiceReque
     private String granularity;
     /**
      * <p>
-     * The filters that you want to use to filter your forecast. Cost Explorer API supports all of the Cost Explorer
-     * filters.
+     * The filters that you want to use to filter your forecast. The <code>GetUsageForecast</code> API supports
+     * filtering by the following dimensions:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>AZ</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INSTANCE_TYPE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LINKED_ACCOUNT</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LINKED_ACCOUNT_NAME</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OPERATION</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PURCHASE_TYPE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>REGION</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SERVICE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>USAGE_TYPE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>USAGE_TYPE_GROUP</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RECORD_TYPE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OPERATING_SYSTEM</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TENANCY</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SCOPE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PLATFORM</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SUBSCRIPTION_ID</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LEGAL_ENTITY_NAME</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DEPLOYMENT_OPTION</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DATABASE_ENGINE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INSTANCE_TYPE_FAMILY</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BILLING_ENTITY</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESERVATION_ID</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SAVINGS_PLAN_ARN</code>
+     * </p>
+     * </li>
+     * </ul>
      */
     private Expression filter;
     /**
      * <p>
-     * Cost Explorer always returns the mean forecast as a single point. You can request a prediction interval around
-     * the mean by specifying a confidence level. The higher the confidence level, the more confident Cost Explorer is
-     * about the actual value falling in the prediction interval. Higher confidence levels result in wider prediction
-     * intervals.
+     * Amazon Web Services Cost Explorer always returns the mean forecast as a single point. You can request a
+     * prediction interval around the mean by specifying a confidence level. The higher the confidence level, the more
+     * confident Cost Explorer is about the actual value falling in the prediction interval. Higher confidence levels
+     * result in wider prediction intervals.
      * </p>
      */
     private Integer predictionIntervalLevel;
 
     /**
      * <p>
-     * The start and end dates of the period that you want to retrieve usage forecast for. The start date is inclusive,
-     * but the end date is exclusive. For example, if <code>start</code> is <code>2017-01-01</code> and <code>end</code>
-     * is <code>2017-05-01</code>, then the cost and usage data is retrieved from <code>2017-01-01</code> up to and
-     * including <code>2017-04-30</code> but not including <code>2017-05-01</code>.
+     * The start and end dates of the period that you want to retrieve usage forecast for. The start date is included in
+     * the period, but the end date isn't included in the period. For example, if <code>start</code> is
+     * <code>2017-01-01</code> and <code>end</code> is <code>2017-05-01</code>, then the cost and usage data is
+     * retrieved from <code>2017-01-01</code> up to and including <code>2017-04-30</code> but not including
+     * <code>2017-05-01</code>. The start date must be equal to or later than the current date to avoid a validation
+     * error.
      * </p>
      * 
      * @param timePeriod
      *        The start and end dates of the period that you want to retrieve usage forecast for. The start date is
-     *        inclusive, but the end date is exclusive. For example, if <code>start</code> is <code>2017-01-01</code>
-     *        and <code>end</code> is <code>2017-05-01</code>, then the cost and usage data is retrieved from
-     *        <code>2017-01-01</code> up to and including <code>2017-04-30</code> but not including
-     *        <code>2017-05-01</code>.
+     *        included in the period, but the end date isn't included in the period. For example, if <code>start</code>
+     *        is <code>2017-01-01</code> and <code>end</code> is <code>2017-05-01</code>, then the cost and usage data
+     *        is retrieved from <code>2017-01-01</code> up to and including <code>2017-04-30</code> but not including
+     *        <code>2017-05-01</code>. The start date must be equal to or later than the current date to avoid a
+     *        validation error.
      */
 
     public void setTimePeriod(DateInterval timePeriod) {
@@ -105,17 +227,20 @@ public class GetUsageForecastRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The start and end dates of the period that you want to retrieve usage forecast for. The start date is inclusive,
-     * but the end date is exclusive. For example, if <code>start</code> is <code>2017-01-01</code> and <code>end</code>
-     * is <code>2017-05-01</code>, then the cost and usage data is retrieved from <code>2017-01-01</code> up to and
-     * including <code>2017-04-30</code> but not including <code>2017-05-01</code>.
+     * The start and end dates of the period that you want to retrieve usage forecast for. The start date is included in
+     * the period, but the end date isn't included in the period. For example, if <code>start</code> is
+     * <code>2017-01-01</code> and <code>end</code> is <code>2017-05-01</code>, then the cost and usage data is
+     * retrieved from <code>2017-01-01</code> up to and including <code>2017-04-30</code> but not including
+     * <code>2017-05-01</code>. The start date must be equal to or later than the current date to avoid a validation
+     * error.
      * </p>
      * 
      * @return The start and end dates of the period that you want to retrieve usage forecast for. The start date is
-     *         inclusive, but the end date is exclusive. For example, if <code>start</code> is <code>2017-01-01</code>
-     *         and <code>end</code> is <code>2017-05-01</code>, then the cost and usage data is retrieved from
-     *         <code>2017-01-01</code> up to and including <code>2017-04-30</code> but not including
-     *         <code>2017-05-01</code>.
+     *         included in the period, but the end date isn't included in the period. For example, if <code>start</code>
+     *         is <code>2017-01-01</code> and <code>end</code> is <code>2017-05-01</code>, then the cost and usage data
+     *         is retrieved from <code>2017-01-01</code> up to and including <code>2017-04-30</code> but not including
+     *         <code>2017-05-01</code>. The start date must be equal to or later than the current date to avoid a
+     *         validation error.
      */
 
     public DateInterval getTimePeriod() {
@@ -124,18 +249,21 @@ public class GetUsageForecastRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The start and end dates of the period that you want to retrieve usage forecast for. The start date is inclusive,
-     * but the end date is exclusive. For example, if <code>start</code> is <code>2017-01-01</code> and <code>end</code>
-     * is <code>2017-05-01</code>, then the cost and usage data is retrieved from <code>2017-01-01</code> up to and
-     * including <code>2017-04-30</code> but not including <code>2017-05-01</code>.
+     * The start and end dates of the period that you want to retrieve usage forecast for. The start date is included in
+     * the period, but the end date isn't included in the period. For example, if <code>start</code> is
+     * <code>2017-01-01</code> and <code>end</code> is <code>2017-05-01</code>, then the cost and usage data is
+     * retrieved from <code>2017-01-01</code> up to and including <code>2017-04-30</code> but not including
+     * <code>2017-05-01</code>. The start date must be equal to or later than the current date to avoid a validation
+     * error.
      * </p>
      * 
      * @param timePeriod
      *        The start and end dates of the period that you want to retrieve usage forecast for. The start date is
-     *        inclusive, but the end date is exclusive. For example, if <code>start</code> is <code>2017-01-01</code>
-     *        and <code>end</code> is <code>2017-05-01</code>, then the cost and usage data is retrieved from
-     *        <code>2017-01-01</code> up to and including <code>2017-04-30</code> but not including
-     *        <code>2017-05-01</code>.
+     *        included in the period, but the end date isn't included in the period. For example, if <code>start</code>
+     *        is <code>2017-01-01</code> and <code>end</code> is <code>2017-05-01</code>, then the cost and usage data
+     *        is retrieved from <code>2017-01-01</code> up to and including <code>2017-04-30</code> but not including
+     *        <code>2017-05-01</code>. The start date must be equal to or later than the current date to avoid a
+     *        validation error.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -416,13 +544,246 @@ public class GetUsageForecastRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The filters that you want to use to filter your forecast. Cost Explorer API supports all of the Cost Explorer
-     * filters.
+     * The filters that you want to use to filter your forecast. The <code>GetUsageForecast</code> API supports
+     * filtering by the following dimensions:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>AZ</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INSTANCE_TYPE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LINKED_ACCOUNT</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LINKED_ACCOUNT_NAME</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OPERATION</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PURCHASE_TYPE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>REGION</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SERVICE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>USAGE_TYPE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>USAGE_TYPE_GROUP</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RECORD_TYPE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OPERATING_SYSTEM</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TENANCY</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SCOPE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PLATFORM</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SUBSCRIPTION_ID</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LEGAL_ENTITY_NAME</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DEPLOYMENT_OPTION</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DATABASE_ENGINE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INSTANCE_TYPE_FAMILY</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BILLING_ENTITY</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESERVATION_ID</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SAVINGS_PLAN_ARN</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param filter
-     *        The filters that you want to use to filter your forecast. Cost Explorer API supports all of the Cost
-     *        Explorer filters.
+     *        The filters that you want to use to filter your forecast. The <code>GetUsageForecast</code> API supports
+     *        filtering by the following dimensions:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>AZ</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>INSTANCE_TYPE</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LINKED_ACCOUNT</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LINKED_ACCOUNT_NAME</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>OPERATION</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>PURCHASE_TYPE</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>REGION</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SERVICE</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>USAGE_TYPE</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>USAGE_TYPE_GROUP</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RECORD_TYPE</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>OPERATING_SYSTEM</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TENANCY</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SCOPE</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>PLATFORM</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SUBSCRIPTION_ID</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LEGAL_ENTITY_NAME</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DEPLOYMENT_OPTION</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DATABASE_ENGINE</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>INSTANCE_TYPE_FAMILY</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BILLING_ENTITY</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RESERVATION_ID</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SAVINGS_PLAN_ARN</code>
+     *        </p>
+     *        </li>
      */
 
     public void setFilter(Expression filter) {
@@ -431,12 +792,245 @@ public class GetUsageForecastRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The filters that you want to use to filter your forecast. Cost Explorer API supports all of the Cost Explorer
-     * filters.
+     * The filters that you want to use to filter your forecast. The <code>GetUsageForecast</code> API supports
+     * filtering by the following dimensions:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>AZ</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INSTANCE_TYPE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LINKED_ACCOUNT</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LINKED_ACCOUNT_NAME</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OPERATION</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PURCHASE_TYPE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>REGION</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SERVICE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>USAGE_TYPE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>USAGE_TYPE_GROUP</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RECORD_TYPE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OPERATING_SYSTEM</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TENANCY</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SCOPE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PLATFORM</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SUBSCRIPTION_ID</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LEGAL_ENTITY_NAME</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DEPLOYMENT_OPTION</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DATABASE_ENGINE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INSTANCE_TYPE_FAMILY</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BILLING_ENTITY</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESERVATION_ID</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SAVINGS_PLAN_ARN</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The filters that you want to use to filter your forecast. Cost Explorer API supports all of the Cost
-     *         Explorer filters.
+     * @return The filters that you want to use to filter your forecast. The <code>GetUsageForecast</code> API supports
+     *         filtering by the following dimensions:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>AZ</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>INSTANCE_TYPE</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>LINKED_ACCOUNT</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>LINKED_ACCOUNT_NAME</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>OPERATION</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>PURCHASE_TYPE</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>REGION</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>SERVICE</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>USAGE_TYPE</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>USAGE_TYPE_GROUP</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>RECORD_TYPE</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>OPERATING_SYSTEM</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>TENANCY</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>SCOPE</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>PLATFORM</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>SUBSCRIPTION_ID</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>LEGAL_ENTITY_NAME</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>DEPLOYMENT_OPTION</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>DATABASE_ENGINE</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>INSTANCE_TYPE_FAMILY</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>BILLING_ENTITY</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>RESERVATION_ID</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>SAVINGS_PLAN_ARN</code>
+     *         </p>
+     *         </li>
      */
 
     public Expression getFilter() {
@@ -445,13 +1039,246 @@ public class GetUsageForecastRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The filters that you want to use to filter your forecast. Cost Explorer API supports all of the Cost Explorer
-     * filters.
+     * The filters that you want to use to filter your forecast. The <code>GetUsageForecast</code> API supports
+     * filtering by the following dimensions:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>AZ</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INSTANCE_TYPE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LINKED_ACCOUNT</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LINKED_ACCOUNT_NAME</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OPERATION</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PURCHASE_TYPE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>REGION</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SERVICE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>USAGE_TYPE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>USAGE_TYPE_GROUP</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RECORD_TYPE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OPERATING_SYSTEM</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TENANCY</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SCOPE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PLATFORM</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SUBSCRIPTION_ID</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>LEGAL_ENTITY_NAME</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DEPLOYMENT_OPTION</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DATABASE_ENGINE</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INSTANCE_TYPE_FAMILY</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BILLING_ENTITY</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESERVATION_ID</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SAVINGS_PLAN_ARN</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param filter
-     *        The filters that you want to use to filter your forecast. Cost Explorer API supports all of the Cost
-     *        Explorer filters.
+     *        The filters that you want to use to filter your forecast. The <code>GetUsageForecast</code> API supports
+     *        filtering by the following dimensions:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>AZ</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>INSTANCE_TYPE</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LINKED_ACCOUNT</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LINKED_ACCOUNT_NAME</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>OPERATION</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>PURCHASE_TYPE</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>REGION</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SERVICE</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>USAGE_TYPE</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>USAGE_TYPE_GROUP</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RECORD_TYPE</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>OPERATING_SYSTEM</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TENANCY</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SCOPE</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>PLATFORM</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SUBSCRIPTION_ID</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>LEGAL_ENTITY_NAME</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DEPLOYMENT_OPTION</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DATABASE_ENGINE</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>INSTANCE_TYPE_FAMILY</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BILLING_ENTITY</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RESERVATION_ID</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SAVINGS_PLAN_ARN</code>
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -462,17 +1289,17 @@ public class GetUsageForecastRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Cost Explorer always returns the mean forecast as a single point. You can request a prediction interval around
-     * the mean by specifying a confidence level. The higher the confidence level, the more confident Cost Explorer is
-     * about the actual value falling in the prediction interval. Higher confidence levels result in wider prediction
-     * intervals.
+     * Amazon Web Services Cost Explorer always returns the mean forecast as a single point. You can request a
+     * prediction interval around the mean by specifying a confidence level. The higher the confidence level, the more
+     * confident Cost Explorer is about the actual value falling in the prediction interval. Higher confidence levels
+     * result in wider prediction intervals.
      * </p>
      * 
      * @param predictionIntervalLevel
-     *        Cost Explorer always returns the mean forecast as a single point. You can request a prediction interval
-     *        around the mean by specifying a confidence level. The higher the confidence level, the more confident Cost
-     *        Explorer is about the actual value falling in the prediction interval. Higher confidence levels result in
-     *        wider prediction intervals.
+     *        Amazon Web Services Cost Explorer always returns the mean forecast as a single point. You can request a
+     *        prediction interval around the mean by specifying a confidence level. The higher the confidence level, the
+     *        more confident Cost Explorer is about the actual value falling in the prediction interval. Higher
+     *        confidence levels result in wider prediction intervals.
      */
 
     public void setPredictionIntervalLevel(Integer predictionIntervalLevel) {
@@ -481,16 +1308,16 @@ public class GetUsageForecastRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Cost Explorer always returns the mean forecast as a single point. You can request a prediction interval around
-     * the mean by specifying a confidence level. The higher the confidence level, the more confident Cost Explorer is
-     * about the actual value falling in the prediction interval. Higher confidence levels result in wider prediction
-     * intervals.
+     * Amazon Web Services Cost Explorer always returns the mean forecast as a single point. You can request a
+     * prediction interval around the mean by specifying a confidence level. The higher the confidence level, the more
+     * confident Cost Explorer is about the actual value falling in the prediction interval. Higher confidence levels
+     * result in wider prediction intervals.
      * </p>
      * 
-     * @return Cost Explorer always returns the mean forecast as a single point. You can request a prediction interval
-     *         around the mean by specifying a confidence level. The higher the confidence level, the more confident
-     *         Cost Explorer is about the actual value falling in the prediction interval. Higher confidence levels
-     *         result in wider prediction intervals.
+     * @return Amazon Web Services Cost Explorer always returns the mean forecast as a single point. You can request a
+     *         prediction interval around the mean by specifying a confidence level. The higher the confidence level,
+     *         the more confident Cost Explorer is about the actual value falling in the prediction interval. Higher
+     *         confidence levels result in wider prediction intervals.
      */
 
     public Integer getPredictionIntervalLevel() {
@@ -499,17 +1326,17 @@ public class GetUsageForecastRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Cost Explorer always returns the mean forecast as a single point. You can request a prediction interval around
-     * the mean by specifying a confidence level. The higher the confidence level, the more confident Cost Explorer is
-     * about the actual value falling in the prediction interval. Higher confidence levels result in wider prediction
-     * intervals.
+     * Amazon Web Services Cost Explorer always returns the mean forecast as a single point. You can request a
+     * prediction interval around the mean by specifying a confidence level. The higher the confidence level, the more
+     * confident Cost Explorer is about the actual value falling in the prediction interval. Higher confidence levels
+     * result in wider prediction intervals.
      * </p>
      * 
      * @param predictionIntervalLevel
-     *        Cost Explorer always returns the mean forecast as a single point. You can request a prediction interval
-     *        around the mean by specifying a confidence level. The higher the confidence level, the more confident Cost
-     *        Explorer is about the actual value falling in the prediction interval. Higher confidence levels result in
-     *        wider prediction intervals.
+     *        Amazon Web Services Cost Explorer always returns the mean forecast as a single point. You can request a
+     *        prediction interval around the mean by specifying a confidence level. The higher the confidence level, the
+     *        more confident Cost Explorer is about the actual value falling in the prediction interval. Higher
+     *        confidence levels result in wider prediction intervals.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

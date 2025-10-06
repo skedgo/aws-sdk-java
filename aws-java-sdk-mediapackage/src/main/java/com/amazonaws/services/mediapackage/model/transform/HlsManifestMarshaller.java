@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.mediapackage.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -43,6 +44,10 @@ public class HlsManifestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("programDateTimeIntervalSeconds").build();
     private static final MarshallingInfo<String> URL_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("url").build();
+    private static final MarshallingInfo<List> ADTRIGGERS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("adTriggers").build();
+    private static final MarshallingInfo<String> ADSONDELIVERYRESTRICTIONS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("adsOnDeliveryRestrictions").build();
 
     private static final HlsManifestMarshaller instance = new HlsManifestMarshaller();
 
@@ -68,6 +73,8 @@ public class HlsManifestMarshaller {
             protocolMarshaller.marshall(hlsManifest.getPlaylistWindowSeconds(), PLAYLISTWINDOWSECONDS_BINDING);
             protocolMarshaller.marshall(hlsManifest.getProgramDateTimeIntervalSeconds(), PROGRAMDATETIMEINTERVALSECONDS_BINDING);
             protocolMarshaller.marshall(hlsManifest.getUrl(), URL_BINDING);
+            protocolMarshaller.marshall(hlsManifest.getAdTriggers(), ADTRIGGERS_BINDING);
+            protocolMarshaller.marshall(hlsManifest.getAdsOnDeliveryRestrictions(), ADSONDELIVERYRESTRICTIONS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

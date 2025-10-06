@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,8 @@ public class ComputeResourceMarshaller {
 
     private static final MarshallingInfo<String> TYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("type").build();
+    private static final MarshallingInfo<String> ALLOCATIONSTRATEGY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("allocationStrategy").build();
     private static final MarshallingInfo<Integer> MINVCPUS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("minvCpus").build();
     private static final MarshallingInfo<Integer> MAXVCPUS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
@@ -59,6 +61,8 @@ public class ComputeResourceMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("spotIamFleetRole").build();
     private static final MarshallingInfo<StructuredPojo> LAUNCHTEMPLATE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("launchTemplate").build();
+    private static final MarshallingInfo<List> EC2CONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ec2Configuration").build();
 
     private static final ComputeResourceMarshaller instance = new ComputeResourceMarshaller();
 
@@ -77,6 +81,7 @@ public class ComputeResourceMarshaller {
 
         try {
             protocolMarshaller.marshall(computeResource.getType(), TYPE_BINDING);
+            protocolMarshaller.marshall(computeResource.getAllocationStrategy(), ALLOCATIONSTRATEGY_BINDING);
             protocolMarshaller.marshall(computeResource.getMinvCpus(), MINVCPUS_BINDING);
             protocolMarshaller.marshall(computeResource.getMaxvCpus(), MAXVCPUS_BINDING);
             protocolMarshaller.marshall(computeResource.getDesiredvCpus(), DESIREDVCPUS_BINDING);
@@ -91,6 +96,7 @@ public class ComputeResourceMarshaller {
             protocolMarshaller.marshall(computeResource.getBidPercentage(), BIDPERCENTAGE_BINDING);
             protocolMarshaller.marshall(computeResource.getSpotIamFleetRole(), SPOTIAMFLEETROLE_BINDING);
             protocolMarshaller.marshall(computeResource.getLaunchTemplate(), LAUNCHTEMPLATE_BINDING);
+            protocolMarshaller.marshall(computeResource.getEc2Configuration(), EC2CONFIGURATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

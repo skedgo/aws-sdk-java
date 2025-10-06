@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,8 +31,7 @@ public class AllocateAddressResult extends com.amazonaws.AmazonWebServiceResult<
     private String publicIp;
     /**
      * <p>
-     * [EC2-VPC] The ID that AWS assigns to represent the allocation of the Elastic IP address for use with instances in
-     * a VPC.
+     * The ID that represents the allocation of the Elastic IP address.
      * </p>
      */
     private String allocationId;
@@ -44,11 +43,36 @@ public class AllocateAddressResult extends com.amazonaws.AmazonWebServiceResult<
     private String publicIpv4Pool;
     /**
      * <p>
-     * Indicates whether this Elastic IP address is for use with instances in EC2-Classic (<code>standard</code>) or
-     * instances in a VPC (<code>vpc</code>).
+     * The set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services advertises IP
+     * addresses.
+     * </p>
+     */
+    private String networkBorderGroup;
+    /**
+     * <p>
+     * The network (<code>vpc</code>).
      * </p>
      */
     private String domain;
+    /**
+     * <p>
+     * The customer-owned IP address.
+     * </p>
+     */
+    private String customerOwnedIp;
+    /**
+     * <p>
+     * The ID of the customer-owned address pool.
+     * </p>
+     */
+    private String customerOwnedIpv4Pool;
+    /**
+     * <p>
+     * The carrier IP address. This option is only available for network interfaces that reside in a subnet in a
+     * Wavelength Zone.
+     * </p>
+     */
+    private String carrierIp;
 
     /**
      * <p>
@@ -92,13 +116,11 @@ public class AllocateAddressResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * [EC2-VPC] The ID that AWS assigns to represent the allocation of the Elastic IP address for use with instances in
-     * a VPC.
+     * The ID that represents the allocation of the Elastic IP address.
      * </p>
      * 
      * @param allocationId
-     *        [EC2-VPC] The ID that AWS assigns to represent the allocation of the Elastic IP address for use with
-     *        instances in a VPC.
+     *        The ID that represents the allocation of the Elastic IP address.
      */
 
     public void setAllocationId(String allocationId) {
@@ -107,12 +129,10 @@ public class AllocateAddressResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * [EC2-VPC] The ID that AWS assigns to represent the allocation of the Elastic IP address for use with instances in
-     * a VPC.
+     * The ID that represents the allocation of the Elastic IP address.
      * </p>
      * 
-     * @return [EC2-VPC] The ID that AWS assigns to represent the allocation of the Elastic IP address for use with
-     *         instances in a VPC.
+     * @return The ID that represents the allocation of the Elastic IP address.
      */
 
     public String getAllocationId() {
@@ -121,13 +141,11 @@ public class AllocateAddressResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * [EC2-VPC] The ID that AWS assigns to represent the allocation of the Elastic IP address for use with instances in
-     * a VPC.
+     * The ID that represents the allocation of the Elastic IP address.
      * </p>
      * 
      * @param allocationId
-     *        [EC2-VPC] The ID that AWS assigns to represent the allocation of the Elastic IP address for use with
-     *        instances in a VPC.
+     *        The ID that represents the allocation of the Elastic IP address.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -178,13 +196,57 @@ public class AllocateAddressResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Indicates whether this Elastic IP address is for use with instances in EC2-Classic (<code>standard</code>) or
-     * instances in a VPC (<code>vpc</code>).
+     * The set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services advertises IP
+     * addresses.
+     * </p>
+     * 
+     * @param networkBorderGroup
+     *        The set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services advertises
+     *        IP addresses.
+     */
+
+    public void setNetworkBorderGroup(String networkBorderGroup) {
+        this.networkBorderGroup = networkBorderGroup;
+    }
+
+    /**
+     * <p>
+     * The set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services advertises IP
+     * addresses.
+     * </p>
+     * 
+     * @return The set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services advertises
+     *         IP addresses.
+     */
+
+    public String getNetworkBorderGroup() {
+        return this.networkBorderGroup;
+    }
+
+    /**
+     * <p>
+     * The set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services advertises IP
+     * addresses.
+     * </p>
+     * 
+     * @param networkBorderGroup
+     *        The set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services advertises
+     *        IP addresses.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AllocateAddressResult withNetworkBorderGroup(String networkBorderGroup) {
+        setNetworkBorderGroup(networkBorderGroup);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The network (<code>vpc</code>).
      * </p>
      * 
      * @param domain
-     *        Indicates whether this Elastic IP address is for use with instances in EC2-Classic (<code>standard</code>)
-     *        or instances in a VPC (<code>vpc</code>).
+     *        The network (<code>vpc</code>).
      * @see DomainType
      */
 
@@ -194,12 +256,10 @@ public class AllocateAddressResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Indicates whether this Elastic IP address is for use with instances in EC2-Classic (<code>standard</code>) or
-     * instances in a VPC (<code>vpc</code>).
+     * The network (<code>vpc</code>).
      * </p>
      * 
-     * @return Indicates whether this Elastic IP address is for use with instances in EC2-Classic (<code>standard</code>
-     *         ) or instances in a VPC (<code>vpc</code>).
+     * @return The network (<code>vpc</code>).
      * @see DomainType
      */
 
@@ -209,13 +269,11 @@ public class AllocateAddressResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Indicates whether this Elastic IP address is for use with instances in EC2-Classic (<code>standard</code>) or
-     * instances in a VPC (<code>vpc</code>).
+     * The network (<code>vpc</code>).
      * </p>
      * 
      * @param domain
-     *        Indicates whether this Elastic IP address is for use with instances in EC2-Classic (<code>standard</code>)
-     *        or instances in a VPC (<code>vpc</code>).
+     *        The network (<code>vpc</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DomainType
      */
@@ -227,13 +285,11 @@ public class AllocateAddressResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Indicates whether this Elastic IP address is for use with instances in EC2-Classic (<code>standard</code>) or
-     * instances in a VPC (<code>vpc</code>).
+     * The network (<code>vpc</code>).
      * </p>
      * 
      * @param domain
-     *        Indicates whether this Elastic IP address is for use with instances in EC2-Classic (<code>standard</code>)
-     *        or instances in a VPC (<code>vpc</code>).
+     *        The network (<code>vpc</code>).
      * @see DomainType
      */
 
@@ -243,19 +299,143 @@ public class AllocateAddressResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Indicates whether this Elastic IP address is for use with instances in EC2-Classic (<code>standard</code>) or
-     * instances in a VPC (<code>vpc</code>).
+     * The network (<code>vpc</code>).
      * </p>
      * 
      * @param domain
-     *        Indicates whether this Elastic IP address is for use with instances in EC2-Classic (<code>standard</code>)
-     *        or instances in a VPC (<code>vpc</code>).
+     *        The network (<code>vpc</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DomainType
      */
 
     public AllocateAddressResult withDomain(DomainType domain) {
         this.domain = domain.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The customer-owned IP address.
+     * </p>
+     * 
+     * @param customerOwnedIp
+     *        The customer-owned IP address.
+     */
+
+    public void setCustomerOwnedIp(String customerOwnedIp) {
+        this.customerOwnedIp = customerOwnedIp;
+    }
+
+    /**
+     * <p>
+     * The customer-owned IP address.
+     * </p>
+     * 
+     * @return The customer-owned IP address.
+     */
+
+    public String getCustomerOwnedIp() {
+        return this.customerOwnedIp;
+    }
+
+    /**
+     * <p>
+     * The customer-owned IP address.
+     * </p>
+     * 
+     * @param customerOwnedIp
+     *        The customer-owned IP address.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AllocateAddressResult withCustomerOwnedIp(String customerOwnedIp) {
+        setCustomerOwnedIp(customerOwnedIp);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the customer-owned address pool.
+     * </p>
+     * 
+     * @param customerOwnedIpv4Pool
+     *        The ID of the customer-owned address pool.
+     */
+
+    public void setCustomerOwnedIpv4Pool(String customerOwnedIpv4Pool) {
+        this.customerOwnedIpv4Pool = customerOwnedIpv4Pool;
+    }
+
+    /**
+     * <p>
+     * The ID of the customer-owned address pool.
+     * </p>
+     * 
+     * @return The ID of the customer-owned address pool.
+     */
+
+    public String getCustomerOwnedIpv4Pool() {
+        return this.customerOwnedIpv4Pool;
+    }
+
+    /**
+     * <p>
+     * The ID of the customer-owned address pool.
+     * </p>
+     * 
+     * @param customerOwnedIpv4Pool
+     *        The ID of the customer-owned address pool.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AllocateAddressResult withCustomerOwnedIpv4Pool(String customerOwnedIpv4Pool) {
+        setCustomerOwnedIpv4Pool(customerOwnedIpv4Pool);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The carrier IP address. This option is only available for network interfaces that reside in a subnet in a
+     * Wavelength Zone.
+     * </p>
+     * 
+     * @param carrierIp
+     *        The carrier IP address. This option is only available for network interfaces that reside in a subnet in a
+     *        Wavelength Zone.
+     */
+
+    public void setCarrierIp(String carrierIp) {
+        this.carrierIp = carrierIp;
+    }
+
+    /**
+     * <p>
+     * The carrier IP address. This option is only available for network interfaces that reside in a subnet in a
+     * Wavelength Zone.
+     * </p>
+     * 
+     * @return The carrier IP address. This option is only available for network interfaces that reside in a subnet in a
+     *         Wavelength Zone.
+     */
+
+    public String getCarrierIp() {
+        return this.carrierIp;
+    }
+
+    /**
+     * <p>
+     * The carrier IP address. This option is only available for network interfaces that reside in a subnet in a
+     * Wavelength Zone.
+     * </p>
+     * 
+     * @param carrierIp
+     *        The carrier IP address. This option is only available for network interfaces that reside in a subnet in a
+     *        Wavelength Zone.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AllocateAddressResult withCarrierIp(String carrierIp) {
+        setCarrierIp(carrierIp);
         return this;
     }
 
@@ -277,8 +457,16 @@ public class AllocateAddressResult extends com.amazonaws.AmazonWebServiceResult<
             sb.append("AllocationId: ").append(getAllocationId()).append(",");
         if (getPublicIpv4Pool() != null)
             sb.append("PublicIpv4Pool: ").append(getPublicIpv4Pool()).append(",");
+        if (getNetworkBorderGroup() != null)
+            sb.append("NetworkBorderGroup: ").append(getNetworkBorderGroup()).append(",");
         if (getDomain() != null)
-            sb.append("Domain: ").append(getDomain());
+            sb.append("Domain: ").append(getDomain()).append(",");
+        if (getCustomerOwnedIp() != null)
+            sb.append("CustomerOwnedIp: ").append(getCustomerOwnedIp()).append(",");
+        if (getCustomerOwnedIpv4Pool() != null)
+            sb.append("CustomerOwnedIpv4Pool: ").append(getCustomerOwnedIpv4Pool()).append(",");
+        if (getCarrierIp() != null)
+            sb.append("CarrierIp: ").append(getCarrierIp());
         sb.append("}");
         return sb.toString();
     }
@@ -305,9 +493,25 @@ public class AllocateAddressResult extends com.amazonaws.AmazonWebServiceResult<
             return false;
         if (other.getPublicIpv4Pool() != null && other.getPublicIpv4Pool().equals(this.getPublicIpv4Pool()) == false)
             return false;
+        if (other.getNetworkBorderGroup() == null ^ this.getNetworkBorderGroup() == null)
+            return false;
+        if (other.getNetworkBorderGroup() != null && other.getNetworkBorderGroup().equals(this.getNetworkBorderGroup()) == false)
+            return false;
         if (other.getDomain() == null ^ this.getDomain() == null)
             return false;
         if (other.getDomain() != null && other.getDomain().equals(this.getDomain()) == false)
+            return false;
+        if (other.getCustomerOwnedIp() == null ^ this.getCustomerOwnedIp() == null)
+            return false;
+        if (other.getCustomerOwnedIp() != null && other.getCustomerOwnedIp().equals(this.getCustomerOwnedIp()) == false)
+            return false;
+        if (other.getCustomerOwnedIpv4Pool() == null ^ this.getCustomerOwnedIpv4Pool() == null)
+            return false;
+        if (other.getCustomerOwnedIpv4Pool() != null && other.getCustomerOwnedIpv4Pool().equals(this.getCustomerOwnedIpv4Pool()) == false)
+            return false;
+        if (other.getCarrierIp() == null ^ this.getCarrierIp() == null)
+            return false;
+        if (other.getCarrierIp() != null && other.getCarrierIp().equals(this.getCarrierIp()) == false)
             return false;
         return true;
     }
@@ -320,7 +524,11 @@ public class AllocateAddressResult extends com.amazonaws.AmazonWebServiceResult<
         hashCode = prime * hashCode + ((getPublicIp() == null) ? 0 : getPublicIp().hashCode());
         hashCode = prime * hashCode + ((getAllocationId() == null) ? 0 : getAllocationId().hashCode());
         hashCode = prime * hashCode + ((getPublicIpv4Pool() == null) ? 0 : getPublicIpv4Pool().hashCode());
+        hashCode = prime * hashCode + ((getNetworkBorderGroup() == null) ? 0 : getNetworkBorderGroup().hashCode());
         hashCode = prime * hashCode + ((getDomain() == null) ? 0 : getDomain().hashCode());
+        hashCode = prime * hashCode + ((getCustomerOwnedIp() == null) ? 0 : getCustomerOwnedIp().hashCode());
+        hashCode = prime * hashCode + ((getCustomerOwnedIpv4Pool() == null) ? 0 : getCustomerOwnedIpv4Pool().hashCode());
+        hashCode = prime * hashCode + ((getCarrierIp() == null) ? 0 : getCarrierIp().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,6 +34,12 @@ public class AutoScalingInstanceDetails implements Serializable, Cloneable {
     private String instanceId;
     /**
      * <p>
+     * The instance type of the EC2 instance.
+     * </p>
+     */
+    private String instanceType;
+    /**
+     * <p>
      * The name of the Auto Scaling group for the instance.
      * </p>
      */
@@ -46,15 +52,26 @@ public class AutoScalingInstanceDetails implements Serializable, Cloneable {
     private String availabilityZone;
     /**
      * <p>
-     * The lifecycle state for the instance.
+     * The lifecycle state for the instance. The <code>Quarantined</code> state is not used. For more information, see
+     * <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html">Amazon EC2 Auto
+     * Scaling instance lifecycle</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
+     * <p>
+     * Valid values: <code>Pending</code> | <code>Pending:Wait</code> | <code>Pending:Proceed</code> |
+     * <code>Quarantined</code> | <code>InService</code> | <code>Terminating</code> | <code>Terminating:Wait</code> |
+     * <code>Terminating:Proceed</code> | <code>Terminated</code> | <code>Detaching</code> | <code>Detached</code> |
+     * <code>EnteringStandby</code> | <code>Standby</code> | <code>Warmed:Pending</code> |
+     * <code>Warmed:Pending:Wait</code> | <code>Warmed:Pending:Proceed</code> | <code>Warmed:Terminating</code> |
+     * <code>Warmed:Terminating:Wait</code> | <code>Warmed:Terminating:Proceed</code> | <code>Warmed:Terminated</code> |
+     * <code>Warmed:Stopped</code> | <code>Warmed:Running</code>
      * </p>
      */
     private String lifecycleState;
     /**
      * <p>
-     * The last reported health status of this instance. "Healthy" means that the instance is healthy and should remain
-     * in service. "Unhealthy" means that the instance is unhealthy and Amazon EC2 Auto Scaling should terminate and
-     * replace it.
+     * The last reported health status of this instance. <code>Healthy</code> means that the instance is healthy and
+     * should remain in service. <code>Unhealthy</code> means that the instance is unhealthy and Amazon EC2 Auto Scaling
+     * should terminate and replace it.
      * </p>
      */
     private String healthStatus;
@@ -77,6 +94,15 @@ public class AutoScalingInstanceDetails implements Serializable, Cloneable {
      * </p>
      */
     private Boolean protectedFromScaleIn;
+    /**
+     * <p>
+     * The number of capacity units contributed by the instance based on its instance type.
+     * </p>
+     * <p>
+     * Valid Range: Minimum value of 1. Maximum value of 999.
+     * </p>
+     */
+    private String weightedCapacity;
 
     /**
      * <p>
@@ -115,6 +141,46 @@ public class AutoScalingInstanceDetails implements Serializable, Cloneable {
 
     public AutoScalingInstanceDetails withInstanceId(String instanceId) {
         setInstanceId(instanceId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The instance type of the EC2 instance.
+     * </p>
+     * 
+     * @param instanceType
+     *        The instance type of the EC2 instance.
+     */
+
+    public void setInstanceType(String instanceType) {
+        this.instanceType = instanceType;
+    }
+
+    /**
+     * <p>
+     * The instance type of the EC2 instance.
+     * </p>
+     * 
+     * @return The instance type of the EC2 instance.
+     */
+
+    public String getInstanceType() {
+        return this.instanceType;
+    }
+
+    /**
+     * <p>
+     * The instance type of the EC2 instance.
+     * </p>
+     * 
+     * @param instanceType
+     *        The instance type of the EC2 instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutoScalingInstanceDetails withInstanceType(String instanceType) {
+        setInstanceType(instanceType);
         return this;
     }
 
@@ -200,11 +266,34 @@ public class AutoScalingInstanceDetails implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The lifecycle state for the instance.
+     * The lifecycle state for the instance. The <code>Quarantined</code> state is not used. For more information, see
+     * <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html">Amazon EC2 Auto
+     * Scaling instance lifecycle</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
+     * <p>
+     * Valid values: <code>Pending</code> | <code>Pending:Wait</code> | <code>Pending:Proceed</code> |
+     * <code>Quarantined</code> | <code>InService</code> | <code>Terminating</code> | <code>Terminating:Wait</code> |
+     * <code>Terminating:Proceed</code> | <code>Terminated</code> | <code>Detaching</code> | <code>Detached</code> |
+     * <code>EnteringStandby</code> | <code>Standby</code> | <code>Warmed:Pending</code> |
+     * <code>Warmed:Pending:Wait</code> | <code>Warmed:Pending:Proceed</code> | <code>Warmed:Terminating</code> |
+     * <code>Warmed:Terminating:Wait</code> | <code>Warmed:Terminating:Proceed</code> | <code>Warmed:Terminated</code> |
+     * <code>Warmed:Stopped</code> | <code>Warmed:Running</code>
      * </p>
      * 
      * @param lifecycleState
-     *        The lifecycle state for the instance.
+     *        The lifecycle state for the instance. The <code>Quarantined</code> state is not used. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html">Amazon EC2
+     *        Auto Scaling instance lifecycle</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>. </p>
+     *        <p>
+     *        Valid values: <code>Pending</code> | <code>Pending:Wait</code> | <code>Pending:Proceed</code> |
+     *        <code>Quarantined</code> | <code>InService</code> | <code>Terminating</code> |
+     *        <code>Terminating:Wait</code> | <code>Terminating:Proceed</code> | <code>Terminated</code> |
+     *        <code>Detaching</code> | <code>Detached</code> | <code>EnteringStandby</code> | <code>Standby</code> |
+     *        <code>Warmed:Pending</code> | <code>Warmed:Pending:Wait</code> | <code>Warmed:Pending:Proceed</code> |
+     *        <code>Warmed:Terminating</code> | <code>Warmed:Terminating:Wait</code> |
+     *        <code>Warmed:Terminating:Proceed</code> | <code>Warmed:Terminated</code> | <code>Warmed:Stopped</code> |
+     *        <code>Warmed:Running</code>
      */
 
     public void setLifecycleState(String lifecycleState) {
@@ -213,10 +302,33 @@ public class AutoScalingInstanceDetails implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The lifecycle state for the instance.
+     * The lifecycle state for the instance. The <code>Quarantined</code> state is not used. For more information, see
+     * <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html">Amazon EC2 Auto
+     * Scaling instance lifecycle</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
+     * <p>
+     * Valid values: <code>Pending</code> | <code>Pending:Wait</code> | <code>Pending:Proceed</code> |
+     * <code>Quarantined</code> | <code>InService</code> | <code>Terminating</code> | <code>Terminating:Wait</code> |
+     * <code>Terminating:Proceed</code> | <code>Terminated</code> | <code>Detaching</code> | <code>Detached</code> |
+     * <code>EnteringStandby</code> | <code>Standby</code> | <code>Warmed:Pending</code> |
+     * <code>Warmed:Pending:Wait</code> | <code>Warmed:Pending:Proceed</code> | <code>Warmed:Terminating</code> |
+     * <code>Warmed:Terminating:Wait</code> | <code>Warmed:Terminating:Proceed</code> | <code>Warmed:Terminated</code> |
+     * <code>Warmed:Stopped</code> | <code>Warmed:Running</code>
      * </p>
      * 
-     * @return The lifecycle state for the instance.
+     * @return The lifecycle state for the instance. The <code>Quarantined</code> state is not used. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html">Amazon EC2
+     *         Auto Scaling instance lifecycle</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>. </p>
+     *         <p>
+     *         Valid values: <code>Pending</code> | <code>Pending:Wait</code> | <code>Pending:Proceed</code> |
+     *         <code>Quarantined</code> | <code>InService</code> | <code>Terminating</code> |
+     *         <code>Terminating:Wait</code> | <code>Terminating:Proceed</code> | <code>Terminated</code> |
+     *         <code>Detaching</code> | <code>Detached</code> | <code>EnteringStandby</code> | <code>Standby</code> |
+     *         <code>Warmed:Pending</code> | <code>Warmed:Pending:Wait</code> | <code>Warmed:Pending:Proceed</code> |
+     *         <code>Warmed:Terminating</code> | <code>Warmed:Terminating:Wait</code> |
+     *         <code>Warmed:Terminating:Proceed</code> | <code>Warmed:Terminated</code> | <code>Warmed:Stopped</code> |
+     *         <code>Warmed:Running</code>
      */
 
     public String getLifecycleState() {
@@ -225,11 +337,34 @@ public class AutoScalingInstanceDetails implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The lifecycle state for the instance.
+     * The lifecycle state for the instance. The <code>Quarantined</code> state is not used. For more information, see
+     * <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html">Amazon EC2 Auto
+     * Scaling instance lifecycle</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
+     * <p>
+     * Valid values: <code>Pending</code> | <code>Pending:Wait</code> | <code>Pending:Proceed</code> |
+     * <code>Quarantined</code> | <code>InService</code> | <code>Terminating</code> | <code>Terminating:Wait</code> |
+     * <code>Terminating:Proceed</code> | <code>Terminated</code> | <code>Detaching</code> | <code>Detached</code> |
+     * <code>EnteringStandby</code> | <code>Standby</code> | <code>Warmed:Pending</code> |
+     * <code>Warmed:Pending:Wait</code> | <code>Warmed:Pending:Proceed</code> | <code>Warmed:Terminating</code> |
+     * <code>Warmed:Terminating:Wait</code> | <code>Warmed:Terminating:Proceed</code> | <code>Warmed:Terminated</code> |
+     * <code>Warmed:Stopped</code> | <code>Warmed:Running</code>
      * </p>
      * 
      * @param lifecycleState
-     *        The lifecycle state for the instance.
+     *        The lifecycle state for the instance. The <code>Quarantined</code> state is not used. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html">Amazon EC2
+     *        Auto Scaling instance lifecycle</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>. </p>
+     *        <p>
+     *        Valid values: <code>Pending</code> | <code>Pending:Wait</code> | <code>Pending:Proceed</code> |
+     *        <code>Quarantined</code> | <code>InService</code> | <code>Terminating</code> |
+     *        <code>Terminating:Wait</code> | <code>Terminating:Proceed</code> | <code>Terminated</code> |
+     *        <code>Detaching</code> | <code>Detached</code> | <code>EnteringStandby</code> | <code>Standby</code> |
+     *        <code>Warmed:Pending</code> | <code>Warmed:Pending:Wait</code> | <code>Warmed:Pending:Proceed</code> |
+     *        <code>Warmed:Terminating</code> | <code>Warmed:Terminating:Wait</code> |
+     *        <code>Warmed:Terminating:Proceed</code> | <code>Warmed:Terminated</code> | <code>Warmed:Stopped</code> |
+     *        <code>Warmed:Running</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -240,15 +375,15 @@ public class AutoScalingInstanceDetails implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The last reported health status of this instance. "Healthy" means that the instance is healthy and should remain
-     * in service. "Unhealthy" means that the instance is unhealthy and Amazon EC2 Auto Scaling should terminate and
-     * replace it.
+     * The last reported health status of this instance. <code>Healthy</code> means that the instance is healthy and
+     * should remain in service. <code>Unhealthy</code> means that the instance is unhealthy and Amazon EC2 Auto Scaling
+     * should terminate and replace it.
      * </p>
      * 
      * @param healthStatus
-     *        The last reported health status of this instance. "Healthy" means that the instance is healthy and should
-     *        remain in service. "Unhealthy" means that the instance is unhealthy and Amazon EC2 Auto Scaling should
-     *        terminate and replace it.
+     *        The last reported health status of this instance. <code>Healthy</code> means that the instance is healthy
+     *        and should remain in service. <code>Unhealthy</code> means that the instance is unhealthy and Amazon EC2
+     *        Auto Scaling should terminate and replace it.
      */
 
     public void setHealthStatus(String healthStatus) {
@@ -257,14 +392,14 @@ public class AutoScalingInstanceDetails implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The last reported health status of this instance. "Healthy" means that the instance is healthy and should remain
-     * in service. "Unhealthy" means that the instance is unhealthy and Amazon EC2 Auto Scaling should terminate and
-     * replace it.
+     * The last reported health status of this instance. <code>Healthy</code> means that the instance is healthy and
+     * should remain in service. <code>Unhealthy</code> means that the instance is unhealthy and Amazon EC2 Auto Scaling
+     * should terminate and replace it.
      * </p>
      * 
-     * @return The last reported health status of this instance. "Healthy" means that the instance is healthy and should
-     *         remain in service. "Unhealthy" means that the instance is unhealthy and Amazon EC2 Auto Scaling should
-     *         terminate and replace it.
+     * @return The last reported health status of this instance. <code>Healthy</code> means that the instance is healthy
+     *         and should remain in service. <code>Unhealthy</code> means that the instance is unhealthy and Amazon EC2
+     *         Auto Scaling should terminate and replace it.
      */
 
     public String getHealthStatus() {
@@ -273,15 +408,15 @@ public class AutoScalingInstanceDetails implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The last reported health status of this instance. "Healthy" means that the instance is healthy and should remain
-     * in service. "Unhealthy" means that the instance is unhealthy and Amazon EC2 Auto Scaling should terminate and
-     * replace it.
+     * The last reported health status of this instance. <code>Healthy</code> means that the instance is healthy and
+     * should remain in service. <code>Unhealthy</code> means that the instance is unhealthy and Amazon EC2 Auto Scaling
+     * should terminate and replace it.
      * </p>
      * 
      * @param healthStatus
-     *        The last reported health status of this instance. "Healthy" means that the instance is healthy and should
-     *        remain in service. "Unhealthy" means that the instance is unhealthy and Amazon EC2 Auto Scaling should
-     *        terminate and replace it.
+     *        The last reported health status of this instance. <code>Healthy</code> means that the instance is healthy
+     *        and should remain in service. <code>Unhealthy</code> means that the instance is unhealthy and Amazon EC2
+     *        Auto Scaling should terminate and replace it.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -429,6 +564,61 @@ public class AutoScalingInstanceDetails implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The number of capacity units contributed by the instance based on its instance type.
+     * </p>
+     * <p>
+     * Valid Range: Minimum value of 1. Maximum value of 999.
+     * </p>
+     * 
+     * @param weightedCapacity
+     *        The number of capacity units contributed by the instance based on its instance type.</p>
+     *        <p>
+     *        Valid Range: Minimum value of 1. Maximum value of 999.
+     */
+
+    public void setWeightedCapacity(String weightedCapacity) {
+        this.weightedCapacity = weightedCapacity;
+    }
+
+    /**
+     * <p>
+     * The number of capacity units contributed by the instance based on its instance type.
+     * </p>
+     * <p>
+     * Valid Range: Minimum value of 1. Maximum value of 999.
+     * </p>
+     * 
+     * @return The number of capacity units contributed by the instance based on its instance type.</p>
+     *         <p>
+     *         Valid Range: Minimum value of 1. Maximum value of 999.
+     */
+
+    public String getWeightedCapacity() {
+        return this.weightedCapacity;
+    }
+
+    /**
+     * <p>
+     * The number of capacity units contributed by the instance based on its instance type.
+     * </p>
+     * <p>
+     * Valid Range: Minimum value of 1. Maximum value of 999.
+     * </p>
+     * 
+     * @param weightedCapacity
+     *        The number of capacity units contributed by the instance based on its instance type.</p>
+     *        <p>
+     *        Valid Range: Minimum value of 1. Maximum value of 999.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutoScalingInstanceDetails withWeightedCapacity(String weightedCapacity) {
+        setWeightedCapacity(weightedCapacity);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -442,6 +632,8 @@ public class AutoScalingInstanceDetails implements Serializable, Cloneable {
         sb.append("{");
         if (getInstanceId() != null)
             sb.append("InstanceId: ").append(getInstanceId()).append(",");
+        if (getInstanceType() != null)
+            sb.append("InstanceType: ").append(getInstanceType()).append(",");
         if (getAutoScalingGroupName() != null)
             sb.append("AutoScalingGroupName: ").append(getAutoScalingGroupName()).append(",");
         if (getAvailabilityZone() != null)
@@ -455,7 +647,9 @@ public class AutoScalingInstanceDetails implements Serializable, Cloneable {
         if (getLaunchTemplate() != null)
             sb.append("LaunchTemplate: ").append(getLaunchTemplate()).append(",");
         if (getProtectedFromScaleIn() != null)
-            sb.append("ProtectedFromScaleIn: ").append(getProtectedFromScaleIn());
+            sb.append("ProtectedFromScaleIn: ").append(getProtectedFromScaleIn()).append(",");
+        if (getWeightedCapacity() != null)
+            sb.append("WeightedCapacity: ").append(getWeightedCapacity());
         sb.append("}");
         return sb.toString();
     }
@@ -473,6 +667,10 @@ public class AutoScalingInstanceDetails implements Serializable, Cloneable {
         if (other.getInstanceId() == null ^ this.getInstanceId() == null)
             return false;
         if (other.getInstanceId() != null && other.getInstanceId().equals(this.getInstanceId()) == false)
+            return false;
+        if (other.getInstanceType() == null ^ this.getInstanceType() == null)
+            return false;
+        if (other.getInstanceType() != null && other.getInstanceType().equals(this.getInstanceType()) == false)
             return false;
         if (other.getAutoScalingGroupName() == null ^ this.getAutoScalingGroupName() == null)
             return false;
@@ -502,6 +700,10 @@ public class AutoScalingInstanceDetails implements Serializable, Cloneable {
             return false;
         if (other.getProtectedFromScaleIn() != null && other.getProtectedFromScaleIn().equals(this.getProtectedFromScaleIn()) == false)
             return false;
+        if (other.getWeightedCapacity() == null ^ this.getWeightedCapacity() == null)
+            return false;
+        if (other.getWeightedCapacity() != null && other.getWeightedCapacity().equals(this.getWeightedCapacity()) == false)
+            return false;
         return true;
     }
 
@@ -511,6 +713,7 @@ public class AutoScalingInstanceDetails implements Serializable, Cloneable {
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getInstanceId() == null) ? 0 : getInstanceId().hashCode());
+        hashCode = prime * hashCode + ((getInstanceType() == null) ? 0 : getInstanceType().hashCode());
         hashCode = prime * hashCode + ((getAutoScalingGroupName() == null) ? 0 : getAutoScalingGroupName().hashCode());
         hashCode = prime * hashCode + ((getAvailabilityZone() == null) ? 0 : getAvailabilityZone().hashCode());
         hashCode = prime * hashCode + ((getLifecycleState() == null) ? 0 : getLifecycleState().hashCode());
@@ -518,6 +721,7 @@ public class AutoScalingInstanceDetails implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getLaunchConfigurationName() == null) ? 0 : getLaunchConfigurationName().hashCode());
         hashCode = prime * hashCode + ((getLaunchTemplate() == null) ? 0 : getLaunchTemplate().hashCode());
         hashCode = prime * hashCode + ((getProtectedFromScaleIn() == null) ? 0 : getProtectedFromScaleIn().hashCode());
+        hashCode = prime * hashCode + ((getWeightedCapacity() == null) ? 0 : getWeightedCapacity().hashCode());
         return hashCode;
     }
 

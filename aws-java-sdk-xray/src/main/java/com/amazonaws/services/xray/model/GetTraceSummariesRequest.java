@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,7 +39,8 @@ public class GetTraceSummariesRequest extends com.amazonaws.AmazonWebServiceRequ
     private java.util.Date endTime;
     /**
      * <p>
-     * A parameter to indicate whether to query trace summaries by TraceId or Event time.
+     * A parameter to indicate whether to query trace summaries by TraceId, Event (trace update time), or Service
+     * (segment end time).
      * </p>
      */
     private String timeRangeType;
@@ -51,7 +52,7 @@ public class GetTraceSummariesRequest extends com.amazonaws.AmazonWebServiceRequ
     private Boolean sampling;
     /**
      * <p>
-     * A paramater to indicate whether to enable sampling on trace summaries. Input parameters are Name and Value.
+     * A parameter to indicate whether to enable sampling on trace summaries. Input parameters are Name and Value.
      * </p>
      */
     private SamplingStrategy samplingStrategy;
@@ -150,11 +151,13 @@ public class GetTraceSummariesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A parameter to indicate whether to query trace summaries by TraceId or Event time.
+     * A parameter to indicate whether to query trace summaries by TraceId, Event (trace update time), or Service
+     * (segment end time).
      * </p>
      * 
      * @param timeRangeType
-     *        A parameter to indicate whether to query trace summaries by TraceId or Event time.
+     *        A parameter to indicate whether to query trace summaries by TraceId, Event (trace update time), or Service
+     *        (segment end time).
      * @see TimeRangeType
      */
 
@@ -164,10 +167,12 @@ public class GetTraceSummariesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A parameter to indicate whether to query trace summaries by TraceId or Event time.
+     * A parameter to indicate whether to query trace summaries by TraceId, Event (trace update time), or Service
+     * (segment end time).
      * </p>
      * 
-     * @return A parameter to indicate whether to query trace summaries by TraceId or Event time.
+     * @return A parameter to indicate whether to query trace summaries by TraceId, Event (trace update time), or
+     *         Service (segment end time).
      * @see TimeRangeType
      */
 
@@ -177,11 +182,13 @@ public class GetTraceSummariesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A parameter to indicate whether to query trace summaries by TraceId or Event time.
+     * A parameter to indicate whether to query trace summaries by TraceId, Event (trace update time), or Service
+     * (segment end time).
      * </p>
      * 
      * @param timeRangeType
-     *        A parameter to indicate whether to query trace summaries by TraceId or Event time.
+     *        A parameter to indicate whether to query trace summaries by TraceId, Event (trace update time), or Service
+     *        (segment end time).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TimeRangeType
      */
@@ -193,11 +200,13 @@ public class GetTraceSummariesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A parameter to indicate whether to query trace summaries by TraceId or Event time.
+     * A parameter to indicate whether to query trace summaries by TraceId, Event (trace update time), or Service
+     * (segment end time).
      * </p>
      * 
      * @param timeRangeType
-     *        A parameter to indicate whether to query trace summaries by TraceId or Event time.
+     *        A parameter to indicate whether to query trace summaries by TraceId, Event (trace update time), or Service
+     *        (segment end time).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TimeRangeType
      */
@@ -261,11 +270,11 @@ public class GetTraceSummariesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A paramater to indicate whether to enable sampling on trace summaries. Input parameters are Name and Value.
+     * A parameter to indicate whether to enable sampling on trace summaries. Input parameters are Name and Value.
      * </p>
      * 
      * @param samplingStrategy
-     *        A paramater to indicate whether to enable sampling on trace summaries. Input parameters are Name and
+     *        A parameter to indicate whether to enable sampling on trace summaries. Input parameters are Name and
      *        Value.
      */
 
@@ -275,10 +284,10 @@ public class GetTraceSummariesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A paramater to indicate whether to enable sampling on trace summaries. Input parameters are Name and Value.
+     * A parameter to indicate whether to enable sampling on trace summaries. Input parameters are Name and Value.
      * </p>
      * 
-     * @return A paramater to indicate whether to enable sampling on trace summaries. Input parameters are Name and
+     * @return A parameter to indicate whether to enable sampling on trace summaries. Input parameters are Name and
      *         Value.
      */
 
@@ -288,11 +297,11 @@ public class GetTraceSummariesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A paramater to indicate whether to enable sampling on trace summaries. Input parameters are Name and Value.
+     * A parameter to indicate whether to enable sampling on trace summaries. Input parameters are Name and Value.
      * </p>
      * 
      * @param samplingStrategy
-     *        A paramater to indicate whether to enable sampling on trace summaries. Input parameters are Name and
+     *        A parameter to indicate whether to enable sampling on trace summaries. Input parameters are Name and
      *        Value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

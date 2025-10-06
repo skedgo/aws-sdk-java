@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,16 +40,29 @@ public class Flow implements Serializable, Cloneable, StructuredPojo {
     private String egressIp;
     /** The entitlements in this flow. */
     private java.util.List<Entitlement> entitlements;
-    /** The Amazon Resource Name (ARN), a unique identifier for any AWS resource, of the flow. */
+    /** The Amazon Resource Name (ARN) of the flow. */
     private String flowArn;
+    /**
+     * The media streams that are associated with the flow. After you associate a media stream with a source, you can
+     * also associate it with outputs on the flow.
+     */
+    private java.util.List<MediaStream> mediaStreams;
     /** The name of the flow. */
     private String name;
     /** The outputs in this flow. */
     private java.util.List<Output> outputs;
 
     private Source source;
+
+    private FailoverConfig sourceFailoverConfig;
+
+    private java.util.List<Source> sources;
     /** The current status of the flow. */
     private String status;
+    /** The VPC Interfaces for this flow. */
+    private java.util.List<VpcInterface> vpcInterfaces;
+
+    private Maintenance maintenance;
 
     /**
      * The Availability Zone that you want to create the flow in. These options are limited to the Availability Zones
@@ -228,10 +241,10 @@ public class Flow implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The Amazon Resource Name (ARN), a unique identifier for any AWS resource, of the flow.
+     * The Amazon Resource Name (ARN) of the flow.
      * 
      * @param flowArn
-     *        The Amazon Resource Name (ARN), a unique identifier for any AWS resource, of the flow.
+     *        The Amazon Resource Name (ARN) of the flow.
      */
 
     public void setFlowArn(String flowArn) {
@@ -239,9 +252,9 @@ public class Flow implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The Amazon Resource Name (ARN), a unique identifier for any AWS resource, of the flow.
+     * The Amazon Resource Name (ARN) of the flow.
      * 
-     * @return The Amazon Resource Name (ARN), a unique identifier for any AWS resource, of the flow.
+     * @return The Amazon Resource Name (ARN) of the flow.
      */
 
     public String getFlowArn() {
@@ -249,15 +262,85 @@ public class Flow implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The Amazon Resource Name (ARN), a unique identifier for any AWS resource, of the flow.
+     * The Amazon Resource Name (ARN) of the flow.
      * 
      * @param flowArn
-     *        The Amazon Resource Name (ARN), a unique identifier for any AWS resource, of the flow.
+     *        The Amazon Resource Name (ARN) of the flow.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Flow withFlowArn(String flowArn) {
         setFlowArn(flowArn);
+        return this;
+    }
+
+    /**
+     * The media streams that are associated with the flow. After you associate a media stream with a source, you can
+     * also associate it with outputs on the flow.
+     * 
+     * @return The media streams that are associated with the flow. After you associate a media stream with a source,
+     *         you can also associate it with outputs on the flow.
+     */
+
+    public java.util.List<MediaStream> getMediaStreams() {
+        return mediaStreams;
+    }
+
+    /**
+     * The media streams that are associated with the flow. After you associate a media stream with a source, you can
+     * also associate it with outputs on the flow.
+     * 
+     * @param mediaStreams
+     *        The media streams that are associated with the flow. After you associate a media stream with a source, you
+     *        can also associate it with outputs on the flow.
+     */
+
+    public void setMediaStreams(java.util.Collection<MediaStream> mediaStreams) {
+        if (mediaStreams == null) {
+            this.mediaStreams = null;
+            return;
+        }
+
+        this.mediaStreams = new java.util.ArrayList<MediaStream>(mediaStreams);
+    }
+
+    /**
+     * The media streams that are associated with the flow. After you associate a media stream with a source, you can
+     * also associate it with outputs on the flow.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setMediaStreams(java.util.Collection)} or {@link #withMediaStreams(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param mediaStreams
+     *        The media streams that are associated with the flow. After you associate a media stream with a source, you
+     *        can also associate it with outputs on the flow.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Flow withMediaStreams(MediaStream... mediaStreams) {
+        if (this.mediaStreams == null) {
+            setMediaStreams(new java.util.ArrayList<MediaStream>(mediaStreams.length));
+        }
+        for (MediaStream ele : mediaStreams) {
+            this.mediaStreams.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * The media streams that are associated with the flow. After you associate a media stream with a source, you can
+     * also associate it with outputs on the flow.
+     * 
+     * @param mediaStreams
+     *        The media streams that are associated with the flow. After you associate a media stream with a source, you
+     *        can also associate it with outputs on the flow.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Flow withMediaStreams(java.util.Collection<MediaStream> mediaStreams) {
+        setMediaStreams(mediaStreams);
         return this;
     }
 
@@ -384,6 +467,84 @@ public class Flow implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * @param sourceFailoverConfig
+     */
+
+    public void setSourceFailoverConfig(FailoverConfig sourceFailoverConfig) {
+        this.sourceFailoverConfig = sourceFailoverConfig;
+    }
+
+    /**
+     * @return
+     */
+
+    public FailoverConfig getSourceFailoverConfig() {
+        return this.sourceFailoverConfig;
+    }
+
+    /**
+     * @param sourceFailoverConfig
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Flow withSourceFailoverConfig(FailoverConfig sourceFailoverConfig) {
+        setSourceFailoverConfig(sourceFailoverConfig);
+        return this;
+    }
+
+    /**
+     * @return
+     */
+
+    public java.util.List<Source> getSources() {
+        return sources;
+    }
+
+    /**
+     * @param sources
+     */
+
+    public void setSources(java.util.Collection<Source> sources) {
+        if (sources == null) {
+            this.sources = null;
+            return;
+        }
+
+        this.sources = new java.util.ArrayList<Source>(sources);
+    }
+
+    /**
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSources(java.util.Collection)} or {@link #withSources(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param sources
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Flow withSources(Source... sources) {
+        if (this.sources == null) {
+            setSources(new java.util.ArrayList<Source>(sources.length));
+        }
+        for (Source ele : sources) {
+            this.sources.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * @param sources
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Flow withSources(java.util.Collection<Source> sources) {
+        setSources(sources);
+        return this;
+    }
+
+    /**
      * The current status of the flow.
      * 
      * @param status
@@ -435,6 +596,94 @@ public class Flow implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * The VPC Interfaces for this flow.
+     * 
+     * @return The VPC Interfaces for this flow.
+     */
+
+    public java.util.List<VpcInterface> getVpcInterfaces() {
+        return vpcInterfaces;
+    }
+
+    /**
+     * The VPC Interfaces for this flow.
+     * 
+     * @param vpcInterfaces
+     *        The VPC Interfaces for this flow.
+     */
+
+    public void setVpcInterfaces(java.util.Collection<VpcInterface> vpcInterfaces) {
+        if (vpcInterfaces == null) {
+            this.vpcInterfaces = null;
+            return;
+        }
+
+        this.vpcInterfaces = new java.util.ArrayList<VpcInterface>(vpcInterfaces);
+    }
+
+    /**
+     * The VPC Interfaces for this flow.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setVpcInterfaces(java.util.Collection)} or {@link #withVpcInterfaces(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param vpcInterfaces
+     *        The VPC Interfaces for this flow.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Flow withVpcInterfaces(VpcInterface... vpcInterfaces) {
+        if (this.vpcInterfaces == null) {
+            setVpcInterfaces(new java.util.ArrayList<VpcInterface>(vpcInterfaces.length));
+        }
+        for (VpcInterface ele : vpcInterfaces) {
+            this.vpcInterfaces.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * The VPC Interfaces for this flow.
+     * 
+     * @param vpcInterfaces
+     *        The VPC Interfaces for this flow.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Flow withVpcInterfaces(java.util.Collection<VpcInterface> vpcInterfaces) {
+        setVpcInterfaces(vpcInterfaces);
+        return this;
+    }
+
+    /**
+     * @param maintenance
+     */
+
+    public void setMaintenance(Maintenance maintenance) {
+        this.maintenance = maintenance;
+    }
+
+    /**
+     * @return
+     */
+
+    public Maintenance getMaintenance() {
+        return this.maintenance;
+    }
+
+    /**
+     * @param maintenance
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Flow withMaintenance(Maintenance maintenance) {
+        setMaintenance(maintenance);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -456,14 +705,24 @@ public class Flow implements Serializable, Cloneable, StructuredPojo {
             sb.append("Entitlements: ").append(getEntitlements()).append(",");
         if (getFlowArn() != null)
             sb.append("FlowArn: ").append(getFlowArn()).append(",");
+        if (getMediaStreams() != null)
+            sb.append("MediaStreams: ").append(getMediaStreams()).append(",");
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getOutputs() != null)
             sb.append("Outputs: ").append(getOutputs()).append(",");
         if (getSource() != null)
             sb.append("Source: ").append(getSource()).append(",");
+        if (getSourceFailoverConfig() != null)
+            sb.append("SourceFailoverConfig: ").append(getSourceFailoverConfig()).append(",");
+        if (getSources() != null)
+            sb.append("Sources: ").append(getSources()).append(",");
         if (getStatus() != null)
-            sb.append("Status: ").append(getStatus());
+            sb.append("Status: ").append(getStatus()).append(",");
+        if (getVpcInterfaces() != null)
+            sb.append("VpcInterfaces: ").append(getVpcInterfaces()).append(",");
+        if (getMaintenance() != null)
+            sb.append("Maintenance: ").append(getMaintenance());
         sb.append("}");
         return sb.toString();
     }
@@ -498,6 +757,10 @@ public class Flow implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getFlowArn() != null && other.getFlowArn().equals(this.getFlowArn()) == false)
             return false;
+        if (other.getMediaStreams() == null ^ this.getMediaStreams() == null)
+            return false;
+        if (other.getMediaStreams() != null && other.getMediaStreams().equals(this.getMediaStreams()) == false)
+            return false;
         if (other.getName() == null ^ this.getName() == null)
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
@@ -510,9 +773,25 @@ public class Flow implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getSource() != null && other.getSource().equals(this.getSource()) == false)
             return false;
+        if (other.getSourceFailoverConfig() == null ^ this.getSourceFailoverConfig() == null)
+            return false;
+        if (other.getSourceFailoverConfig() != null && other.getSourceFailoverConfig().equals(this.getSourceFailoverConfig()) == false)
+            return false;
+        if (other.getSources() == null ^ this.getSources() == null)
+            return false;
+        if (other.getSources() != null && other.getSources().equals(this.getSources()) == false)
+            return false;
         if (other.getStatus() == null ^ this.getStatus() == null)
             return false;
         if (other.getStatus() != null && other.getStatus().equals(this.getStatus()) == false)
+            return false;
+        if (other.getVpcInterfaces() == null ^ this.getVpcInterfaces() == null)
+            return false;
+        if (other.getVpcInterfaces() != null && other.getVpcInterfaces().equals(this.getVpcInterfaces()) == false)
+            return false;
+        if (other.getMaintenance() == null ^ this.getMaintenance() == null)
+            return false;
+        if (other.getMaintenance() != null && other.getMaintenance().equals(this.getMaintenance()) == false)
             return false;
         return true;
     }
@@ -527,10 +806,15 @@ public class Flow implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getEgressIp() == null) ? 0 : getEgressIp().hashCode());
         hashCode = prime * hashCode + ((getEntitlements() == null) ? 0 : getEntitlements().hashCode());
         hashCode = prime * hashCode + ((getFlowArn() == null) ? 0 : getFlowArn().hashCode());
+        hashCode = prime * hashCode + ((getMediaStreams() == null) ? 0 : getMediaStreams().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getOutputs() == null) ? 0 : getOutputs().hashCode());
         hashCode = prime * hashCode + ((getSource() == null) ? 0 : getSource().hashCode());
+        hashCode = prime * hashCode + ((getSourceFailoverConfig() == null) ? 0 : getSourceFailoverConfig().hashCode());
+        hashCode = prime * hashCode + ((getSources() == null) ? 0 : getSources().hashCode());
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        hashCode = prime * hashCode + ((getVpcInterfaces() == null) ? 0 : getVpcInterfaces().hashCode());
+        hashCode = prime * hashCode + ((getMaintenance() == null) ? 0 : getMaintenance().hashCode());
         return hashCode;
     }
 

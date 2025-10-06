@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * A BatchMeterUsageRequest contains UsageRecords, which indicate quantities of usage within your application.
+ * A <code>BatchMeterUsageRequest</code> contains <code>UsageRecords</code>, which indicate quantities of usage within
+ * your application.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/meteringmarketplace-2016-01-14/BatchMeterUsage"
@@ -30,7 +31,8 @@ public class BatchMeterUsageRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The set of UsageRecords to submit. BatchMeterUsage accepts up to 25 UsageRecords at a time.
+     * The set of <code>UsageRecords</code> to submit. <code>BatchMeterUsage</code> accepts up to 25
+     * <code>UsageRecords</code> at a time.
      * </p>
      */
     private java.util.List<UsageRecord> usageRecords;
@@ -44,10 +46,12 @@ public class BatchMeterUsageRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The set of UsageRecords to submit. BatchMeterUsage accepts up to 25 UsageRecords at a time.
+     * The set of <code>UsageRecords</code> to submit. <code>BatchMeterUsage</code> accepts up to 25
+     * <code>UsageRecords</code> at a time.
      * </p>
      * 
-     * @return The set of UsageRecords to submit. BatchMeterUsage accepts up to 25 UsageRecords at a time.
+     * @return The set of <code>UsageRecords</code> to submit. <code>BatchMeterUsage</code> accepts up to 25
+     *         <code>UsageRecords</code> at a time.
      */
 
     public java.util.List<UsageRecord> getUsageRecords() {
@@ -56,11 +60,13 @@ public class BatchMeterUsageRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The set of UsageRecords to submit. BatchMeterUsage accepts up to 25 UsageRecords at a time.
+     * The set of <code>UsageRecords</code> to submit. <code>BatchMeterUsage</code> accepts up to 25
+     * <code>UsageRecords</code> at a time.
      * </p>
      * 
      * @param usageRecords
-     *        The set of UsageRecords to submit. BatchMeterUsage accepts up to 25 UsageRecords at a time.
+     *        The set of <code>UsageRecords</code> to submit. <code>BatchMeterUsage</code> accepts up to 25
+     *        <code>UsageRecords</code> at a time.
      */
 
     public void setUsageRecords(java.util.Collection<UsageRecord> usageRecords) {
@@ -74,7 +80,8 @@ public class BatchMeterUsageRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The set of UsageRecords to submit. BatchMeterUsage accepts up to 25 UsageRecords at a time.
+     * The set of <code>UsageRecords</code> to submit. <code>BatchMeterUsage</code> accepts up to 25
+     * <code>UsageRecords</code> at a time.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -83,7 +90,8 @@ public class BatchMeterUsageRequest extends com.amazonaws.AmazonWebServiceReques
      * </p>
      * 
      * @param usageRecords
-     *        The set of UsageRecords to submit. BatchMeterUsage accepts up to 25 UsageRecords at a time.
+     *        The set of <code>UsageRecords</code> to submit. <code>BatchMeterUsage</code> accepts up to 25
+     *        <code>UsageRecords</code> at a time.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -99,11 +107,13 @@ public class BatchMeterUsageRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The set of UsageRecords to submit. BatchMeterUsage accepts up to 25 UsageRecords at a time.
+     * The set of <code>UsageRecords</code> to submit. <code>BatchMeterUsage</code> accepts up to 25
+     * <code>UsageRecords</code> at a time.
      * </p>
      * 
      * @param usageRecords
-     *        The set of UsageRecords to submit. BatchMeterUsage accepts up to 25 UsageRecords at a time.
+     *        The set of <code>UsageRecords</code> to submit. <code>BatchMeterUsage</code> accepts up to 25
+     *        <code>UsageRecords</code> at a time.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

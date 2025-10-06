@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -66,7 +66,7 @@ public class SimulationJob implements Serializable, Cloneable, StructuredPojo {
      * <dt>Continue</dt>
      * <dd>
      * <p>
-     * Restart the simulation job in the same host instance.
+     * Leaves the host running for its maximum timeout duration after a <code>4XX</code> error code.
      * </p>
      * </dd>
      * <dt>Fail</dt>
@@ -104,6 +104,12 @@ public class SimulationJob implements Serializable, Cloneable, StructuredPojo {
     private OutputLocation outputLocation;
     /**
      * <p>
+     * The logging configuration.
+     * </p>
+     */
+    private LoggingConfig loggingConfig;
+    /**
+     * <p>
      * The maximum simulation job duration in seconds. The value must be 8 days (691,200 seconds) or less.
      * </p>
      */
@@ -135,6 +141,12 @@ public class SimulationJob implements Serializable, Cloneable, StructuredPojo {
     private java.util.List<SimulationApplicationConfig> simulationApplications;
     /**
      * <p>
+     * The data sources for the simulation job.
+     * </p>
+     */
+    private java.util.List<DataSource> dataSources;
+    /**
+     * <p>
      * A map that contains tag keys and tag values that are attached to the simulation job.
      * </p>
      */
@@ -145,6 +157,18 @@ public class SimulationJob implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private VPCConfigResponse vpcConfig;
+    /**
+     * <p>
+     * Information about a network interface.
+     * </p>
+     */
+    private NetworkInterface networkInterface;
+    /**
+     * <p>
+     * Compute information for the simulation job
+     * </p>
+     */
+    private ComputeResponse compute;
 
     /**
      * <p>
@@ -373,7 +397,7 @@ public class SimulationJob implements Serializable, Cloneable, StructuredPojo {
      * <dt>Continue</dt>
      * <dd>
      * <p>
-     * Restart the simulation job in the same host instance.
+     * Leaves the host running for its maximum timeout duration after a <code>4XX</code> error code.
      * </p>
      * </dd>
      * <dt>Fail</dt>
@@ -390,7 +414,7 @@ public class SimulationJob implements Serializable, Cloneable, StructuredPojo {
      *        <dt>Continue</dt>
      *        <dd>
      *        <p>
-     *        Restart the simulation job in the same host instance.
+     *        Leaves the host running for its maximum timeout duration after a <code>4XX</code> error code.
      *        </p>
      *        </dd>
      *        <dt>Fail</dt>
@@ -414,7 +438,7 @@ public class SimulationJob implements Serializable, Cloneable, StructuredPojo {
      * <dt>Continue</dt>
      * <dd>
      * <p>
-     * Restart the simulation job in the same host instance.
+     * Leaves the host running for its maximum timeout duration after a <code>4XX</code> error code.
      * </p>
      * </dd>
      * <dt>Fail</dt>
@@ -430,7 +454,7 @@ public class SimulationJob implements Serializable, Cloneable, StructuredPojo {
      *         <dt>Continue</dt>
      *         <dd>
      *         <p>
-     *         Restart the simulation job in the same host instance.
+     *         Leaves the host running for its maximum timeout duration after a <code>4XX</code> error code.
      *         </p>
      *         </dd>
      *         <dt>Fail</dt>
@@ -454,7 +478,7 @@ public class SimulationJob implements Serializable, Cloneable, StructuredPojo {
      * <dt>Continue</dt>
      * <dd>
      * <p>
-     * Restart the simulation job in the same host instance.
+     * Leaves the host running for its maximum timeout duration after a <code>4XX</code> error code.
      * </p>
      * </dd>
      * <dt>Fail</dt>
@@ -471,7 +495,7 @@ public class SimulationJob implements Serializable, Cloneable, StructuredPojo {
      *        <dt>Continue</dt>
      *        <dd>
      *        <p>
-     *        Restart the simulation job in the same host instance.
+     *        Leaves the host running for its maximum timeout duration after a <code>4XX</code> error code.
      *        </p>
      *        </dd>
      *        <dt>Fail</dt>
@@ -497,7 +521,7 @@ public class SimulationJob implements Serializable, Cloneable, StructuredPojo {
      * <dt>Continue</dt>
      * <dd>
      * <p>
-     * Restart the simulation job in the same host instance.
+     * Leaves the host running for its maximum timeout duration after a <code>4XX</code> error code.
      * </p>
      * </dd>
      * <dt>Fail</dt>
@@ -514,7 +538,7 @@ public class SimulationJob implements Serializable, Cloneable, StructuredPojo {
      *        <dt>Continue</dt>
      *        <dd>
      *        <p>
-     *        Restart the simulation job in the same host instance.
+     *        Leaves the host running for its maximum timeout duration after a <code>4XX</code> error code.
      *        </p>
      *        </dd>
      *        <dt>Fail</dt>
@@ -708,6 +732,46 @@ public class SimulationJob implements Serializable, Cloneable, StructuredPojo {
 
     public SimulationJob withOutputLocation(OutputLocation outputLocation) {
         setOutputLocation(outputLocation);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The logging configuration.
+     * </p>
+     * 
+     * @param loggingConfig
+     *        The logging configuration.
+     */
+
+    public void setLoggingConfig(LoggingConfig loggingConfig) {
+        this.loggingConfig = loggingConfig;
+    }
+
+    /**
+     * <p>
+     * The logging configuration.
+     * </p>
+     * 
+     * @return The logging configuration.
+     */
+
+    public LoggingConfig getLoggingConfig() {
+        return this.loggingConfig;
+    }
+
+    /**
+     * <p>
+     * The logging configuration.
+     * </p>
+     * 
+     * @param loggingConfig
+     *        The logging configuration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SimulationJob withLoggingConfig(LoggingConfig loggingConfig) {
+        setLoggingConfig(loggingConfig);
         return this;
     }
 
@@ -979,6 +1043,76 @@ public class SimulationJob implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
+     * The data sources for the simulation job.
+     * </p>
+     * 
+     * @return The data sources for the simulation job.
+     */
+
+    public java.util.List<DataSource> getDataSources() {
+        return dataSources;
+    }
+
+    /**
+     * <p>
+     * The data sources for the simulation job.
+     * </p>
+     * 
+     * @param dataSources
+     *        The data sources for the simulation job.
+     */
+
+    public void setDataSources(java.util.Collection<DataSource> dataSources) {
+        if (dataSources == null) {
+            this.dataSources = null;
+            return;
+        }
+
+        this.dataSources = new java.util.ArrayList<DataSource>(dataSources);
+    }
+
+    /**
+     * <p>
+     * The data sources for the simulation job.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setDataSources(java.util.Collection)} or {@link #withDataSources(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param dataSources
+     *        The data sources for the simulation job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SimulationJob withDataSources(DataSource... dataSources) {
+        if (this.dataSources == null) {
+            setDataSources(new java.util.ArrayList<DataSource>(dataSources.length));
+        }
+        for (DataSource ele : dataSources) {
+            this.dataSources.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The data sources for the simulation job.
+     * </p>
+     * 
+     * @param dataSources
+     *        The data sources for the simulation job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SimulationJob withDataSources(java.util.Collection<DataSource> dataSources) {
+        setDataSources(dataSources);
+        return this;
+    }
+
+    /**
+     * <p>
      * A map that contains tag keys and tag values that are attached to the simulation job.
      * </p>
      * 
@@ -1016,6 +1150,13 @@ public class SimulationJob implements Serializable, Cloneable, StructuredPojo {
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see SimulationJob#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public SimulationJob addTagsEntry(String key, String value) {
         if (null == this.tags) {
@@ -1079,6 +1220,86 @@ public class SimulationJob implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * Information about a network interface.
+     * </p>
+     * 
+     * @param networkInterface
+     *        Information about a network interface.
+     */
+
+    public void setNetworkInterface(NetworkInterface networkInterface) {
+        this.networkInterface = networkInterface;
+    }
+
+    /**
+     * <p>
+     * Information about a network interface.
+     * </p>
+     * 
+     * @return Information about a network interface.
+     */
+
+    public NetworkInterface getNetworkInterface() {
+        return this.networkInterface;
+    }
+
+    /**
+     * <p>
+     * Information about a network interface.
+     * </p>
+     * 
+     * @param networkInterface
+     *        Information about a network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SimulationJob withNetworkInterface(NetworkInterface networkInterface) {
+        setNetworkInterface(networkInterface);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Compute information for the simulation job
+     * </p>
+     * 
+     * @param compute
+     *        Compute information for the simulation job
+     */
+
+    public void setCompute(ComputeResponse compute) {
+        this.compute = compute;
+    }
+
+    /**
+     * <p>
+     * Compute information for the simulation job
+     * </p>
+     * 
+     * @return Compute information for the simulation job
+     */
+
+    public ComputeResponse getCompute() {
+        return this.compute;
+    }
+
+    /**
+     * <p>
+     * Compute information for the simulation job
+     * </p>
+     * 
+     * @param compute
+     *        Compute information for the simulation job
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SimulationJob withCompute(ComputeResponse compute) {
+        setCompute(compute);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1110,6 +1331,8 @@ public class SimulationJob implements Serializable, Cloneable, StructuredPojo {
             sb.append("ClientRequestToken: ").append(getClientRequestToken()).append(",");
         if (getOutputLocation() != null)
             sb.append("OutputLocation: ").append(getOutputLocation()).append(",");
+        if (getLoggingConfig() != null)
+            sb.append("LoggingConfig: ").append(getLoggingConfig()).append(",");
         if (getMaxJobDurationInSeconds() != null)
             sb.append("MaxJobDurationInSeconds: ").append(getMaxJobDurationInSeconds()).append(",");
         if (getSimulationTimeMillis() != null)
@@ -1120,10 +1343,16 @@ public class SimulationJob implements Serializable, Cloneable, StructuredPojo {
             sb.append("RobotApplications: ").append(getRobotApplications()).append(",");
         if (getSimulationApplications() != null)
             sb.append("SimulationApplications: ").append(getSimulationApplications()).append(",");
+        if (getDataSources() != null)
+            sb.append("DataSources: ").append(getDataSources()).append(",");
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getVpcConfig() != null)
-            sb.append("VpcConfig: ").append(getVpcConfig());
+            sb.append("VpcConfig: ").append(getVpcConfig()).append(",");
+        if (getNetworkInterface() != null)
+            sb.append("NetworkInterface: ").append(getNetworkInterface()).append(",");
+        if (getCompute() != null)
+            sb.append("Compute: ").append(getCompute());
         sb.append("}");
         return sb.toString();
     }
@@ -1178,6 +1407,10 @@ public class SimulationJob implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getOutputLocation() != null && other.getOutputLocation().equals(this.getOutputLocation()) == false)
             return false;
+        if (other.getLoggingConfig() == null ^ this.getLoggingConfig() == null)
+            return false;
+        if (other.getLoggingConfig() != null && other.getLoggingConfig().equals(this.getLoggingConfig()) == false)
+            return false;
         if (other.getMaxJobDurationInSeconds() == null ^ this.getMaxJobDurationInSeconds() == null)
             return false;
         if (other.getMaxJobDurationInSeconds() != null && other.getMaxJobDurationInSeconds().equals(this.getMaxJobDurationInSeconds()) == false)
@@ -1198,6 +1431,10 @@ public class SimulationJob implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getSimulationApplications() != null && other.getSimulationApplications().equals(this.getSimulationApplications()) == false)
             return false;
+        if (other.getDataSources() == null ^ this.getDataSources() == null)
+            return false;
+        if (other.getDataSources() != null && other.getDataSources().equals(this.getDataSources()) == false)
+            return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
@@ -1205,6 +1442,14 @@ public class SimulationJob implements Serializable, Cloneable, StructuredPojo {
         if (other.getVpcConfig() == null ^ this.getVpcConfig() == null)
             return false;
         if (other.getVpcConfig() != null && other.getVpcConfig().equals(this.getVpcConfig()) == false)
+            return false;
+        if (other.getNetworkInterface() == null ^ this.getNetworkInterface() == null)
+            return false;
+        if (other.getNetworkInterface() != null && other.getNetworkInterface().equals(this.getNetworkInterface()) == false)
+            return false;
+        if (other.getCompute() == null ^ this.getCompute() == null)
+            return false;
+        if (other.getCompute() != null && other.getCompute().equals(this.getCompute()) == false)
             return false;
         return true;
     }
@@ -1224,13 +1469,17 @@ public class SimulationJob implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getFailureReason() == null) ? 0 : getFailureReason().hashCode());
         hashCode = prime * hashCode + ((getClientRequestToken() == null) ? 0 : getClientRequestToken().hashCode());
         hashCode = prime * hashCode + ((getOutputLocation() == null) ? 0 : getOutputLocation().hashCode());
+        hashCode = prime * hashCode + ((getLoggingConfig() == null) ? 0 : getLoggingConfig().hashCode());
         hashCode = prime * hashCode + ((getMaxJobDurationInSeconds() == null) ? 0 : getMaxJobDurationInSeconds().hashCode());
         hashCode = prime * hashCode + ((getSimulationTimeMillis() == null) ? 0 : getSimulationTimeMillis().hashCode());
         hashCode = prime * hashCode + ((getIamRole() == null) ? 0 : getIamRole().hashCode());
         hashCode = prime * hashCode + ((getRobotApplications() == null) ? 0 : getRobotApplications().hashCode());
         hashCode = prime * hashCode + ((getSimulationApplications() == null) ? 0 : getSimulationApplications().hashCode());
+        hashCode = prime * hashCode + ((getDataSources() == null) ? 0 : getDataSources().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getVpcConfig() == null) ? 0 : getVpcConfig().hashCode());
+        hashCode = prime * hashCode + ((getNetworkInterface() == null) ? 0 : getNetworkInterface().hashCode());
+        hashCode = prime * hashCode + ((getCompute() == null) ? 0 : getCompute().hashCode());
         return hashCode;
     }
 

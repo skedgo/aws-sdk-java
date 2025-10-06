@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -132,6 +132,19 @@ public class AbstractAWSServiceDiscoveryAsync extends AbstractAWSServiceDiscover
     }
 
     @Override
+    public java.util.concurrent.Future<DiscoverInstancesRevisionResult> discoverInstancesRevisionAsync(DiscoverInstancesRevisionRequest request) {
+
+        return discoverInstancesRevisionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DiscoverInstancesRevisionResult> discoverInstancesRevisionAsync(DiscoverInstancesRevisionRequest request,
+            com.amazonaws.handlers.AsyncHandler<DiscoverInstancesRevisionRequest, DiscoverInstancesRevisionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<GetInstanceResult> getInstanceAsync(GetInstanceRequest request) {
 
         return getInstanceAsync(request, null);
@@ -249,6 +262,19 @@ public class AbstractAWSServiceDiscoveryAsync extends AbstractAWSServiceDiscover
     }
 
     @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<RegisterInstanceResult> registerInstanceAsync(RegisterInstanceRequest request) {
 
         return registerInstanceAsync(request, null);
@@ -257,6 +283,45 @@ public class AbstractAWSServiceDiscoveryAsync extends AbstractAWSServiceDiscover
     @Override
     public java.util.concurrent.Future<RegisterInstanceResult> registerInstanceAsync(RegisterInstanceRequest request,
             com.amazonaws.handlers.AsyncHandler<RegisterInstanceRequest, RegisterInstanceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateHttpNamespaceResult> updateHttpNamespaceAsync(UpdateHttpNamespaceRequest request) {
+
+        return updateHttpNamespaceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateHttpNamespaceResult> updateHttpNamespaceAsync(UpdateHttpNamespaceRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateHttpNamespaceRequest, UpdateHttpNamespaceResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -272,6 +337,32 @@ public class AbstractAWSServiceDiscoveryAsync extends AbstractAWSServiceDiscover
     public java.util.concurrent.Future<UpdateInstanceCustomHealthStatusResult> updateInstanceCustomHealthStatusAsync(
             UpdateInstanceCustomHealthStatusRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateInstanceCustomHealthStatusRequest, UpdateInstanceCustomHealthStatusResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePrivateDnsNamespaceResult> updatePrivateDnsNamespaceAsync(UpdatePrivateDnsNamespaceRequest request) {
+
+        return updatePrivateDnsNamespaceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePrivateDnsNamespaceResult> updatePrivateDnsNamespaceAsync(UpdatePrivateDnsNamespaceRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdatePrivateDnsNamespaceRequest, UpdatePrivateDnsNamespaceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePublicDnsNamespaceResult> updatePublicDnsNamespaceAsync(UpdatePublicDnsNamespaceRequest request) {
+
+        return updatePublicDnsNamespaceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePublicDnsNamespaceResult> updatePublicDnsNamespaceAsync(UpdatePublicDnsNamespaceRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdatePublicDnsNamespaceRequest, UpdatePublicDnsNamespaceResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

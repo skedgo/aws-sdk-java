@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,12 @@ public class InputArtifact implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the artifact to be worked on, for example, "My App".
+     * The name of the artifact to be worked on (for example, "My App").
+     * </p>
+     * <p>
+     * Artifacts are the files that are worked on by actions in the pipeline. See the action configuration for each
+     * action for details about artifact parameters. For example, the S3 source action input artifact is a file name (or
+     * file path), and the files are generally provided as a ZIP file. Example artifact name: SampleApp_Windows.zip
      * </p>
      * <p>
      * The input artifact of an action must exactly match the output artifact declared in a preceding action, but the
@@ -43,7 +48,12 @@ public class InputArtifact implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the artifact to be worked on, for example, "My App".
+     * The name of the artifact to be worked on (for example, "My App").
+     * </p>
+     * <p>
+     * Artifacts are the files that are worked on by actions in the pipeline. See the action configuration for each
+     * action for details about artifact parameters. For example, the S3 source action input artifact is a file name (or
+     * file path), and the files are generally provided as a ZIP file. Example artifact name: SampleApp_Windows.zip
      * </p>
      * <p>
      * The input artifact of an action must exactly match the output artifact declared in a preceding action, but the
@@ -53,7 +63,13 @@ public class InputArtifact implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param name
-     *        The name of the artifact to be worked on, for example, "My App".</p>
+     *        The name of the artifact to be worked on (for example, "My App").</p>
+     *        <p>
+     *        Artifacts are the files that are worked on by actions in the pipeline. See the action configuration for
+     *        each action for details about artifact parameters. For example, the S3 source action input artifact is a
+     *        file name (or file path), and the files are generally provided as a ZIP file. Example artifact name:
+     *        SampleApp_Windows.zip
+     *        </p>
      *        <p>
      *        The input artifact of an action must exactly match the output artifact declared in a preceding action, but
      *        the input artifact does not have to be the next action in strict sequence from the action that provided
@@ -67,7 +83,12 @@ public class InputArtifact implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the artifact to be worked on, for example, "My App".
+     * The name of the artifact to be worked on (for example, "My App").
+     * </p>
+     * <p>
+     * Artifacts are the files that are worked on by actions in the pipeline. See the action configuration for each
+     * action for details about artifact parameters. For example, the S3 source action input artifact is a file name (or
+     * file path), and the files are generally provided as a ZIP file. Example artifact name: SampleApp_Windows.zip
      * </p>
      * <p>
      * The input artifact of an action must exactly match the output artifact declared in a preceding action, but the
@@ -76,7 +97,13 @@ public class InputArtifact implements Serializable, Cloneable, StructuredPojo {
      * following actions.
      * </p>
      * 
-     * @return The name of the artifact to be worked on, for example, "My App".</p>
+     * @return The name of the artifact to be worked on (for example, "My App").</p>
+     *         <p>
+     *         Artifacts are the files that are worked on by actions in the pipeline. See the action configuration for
+     *         each action for details about artifact parameters. For example, the S3 source action input artifact is a
+     *         file name (or file path), and the files are generally provided as a ZIP file. Example artifact name:
+     *         SampleApp_Windows.zip
+     *         </p>
      *         <p>
      *         The input artifact of an action must exactly match the output artifact declared in a preceding action,
      *         but the input artifact does not have to be the next action in strict sequence from the action that
@@ -90,7 +117,12 @@ public class InputArtifact implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the artifact to be worked on, for example, "My App".
+     * The name of the artifact to be worked on (for example, "My App").
+     * </p>
+     * <p>
+     * Artifacts are the files that are worked on by actions in the pipeline. See the action configuration for each
+     * action for details about artifact parameters. For example, the S3 source action input artifact is a file name (or
+     * file path), and the files are generally provided as a ZIP file. Example artifact name: SampleApp_Windows.zip
      * </p>
      * <p>
      * The input artifact of an action must exactly match the output artifact declared in a preceding action, but the
@@ -100,7 +132,13 @@ public class InputArtifact implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param name
-     *        The name of the artifact to be worked on, for example, "My App".</p>
+     *        The name of the artifact to be worked on (for example, "My App").</p>
+     *        <p>
+     *        Artifacts are the files that are worked on by actions in the pipeline. See the action configuration for
+     *        each action for details about artifact parameters. For example, the S3 source action input artifact is a
+     *        file name (or file path), and the files are generally provided as a ZIP file. Example artifact name:
+     *        SampleApp_Windows.zip
+     *        </p>
      *        <p>
      *        The input artifact of an action must exactly match the output artifact declared in a preceding action, but
      *        the input artifact does not have to be the next action in strict sequence from the action that provided

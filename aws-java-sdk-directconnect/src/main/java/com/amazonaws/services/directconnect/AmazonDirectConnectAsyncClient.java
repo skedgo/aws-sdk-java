@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,12 +31,12 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * notification when an asynchronous operation completes.
  * <p>
  * <p>
- * AWS Direct Connect links your internal network to an AWS Direct Connect location over a standard Ethernet fiber-optic
- * cable. One end of the cable is connected to your router, the other to an AWS Direct Connect router. With this
- * connection in place, you can create virtual interfaces directly to the AWS cloud (for example, to Amazon EC2 and
+ * Direct Connect links your internal network to an Direct Connect location over a standard Ethernet fiber-optic cable.
+ * One end of the cable is connected to your router, the other to an Direct Connect router. With this connection in
+ * place, you can create virtual interfaces directly to the Amazon Web Services Cloud (for example, to Amazon EC2 and
  * Amazon S3) and to Amazon VPC, bypassing Internet service providers in your network path. A connection provides access
- * to all AWS Regions except the China (Beijing) and (China) Ningxia Regions. AWS resources in the China Regions can
- * only be accessed through locations associated with those Regions.
+ * to all Amazon Web Services Regions except the China (Beijing) and (China) Ningxia Regions. Amazon Web Services
+ * resources in the China Regions can only be accessed through locations associated with those Regions.
  * </p>
  */
 @ThreadSafe
@@ -237,7 +237,20 @@ public class AmazonDirectConnectAsyncClient extends AmazonDirectConnectClient im
      *        Object providing client parameters.
      */
     AmazonDirectConnectAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on AWS Direct Connect using the specified
+     * parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonDirectConnectAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -526,6 +539,39 @@ public class AmazonDirectConnectAsyncClient extends AmazonDirectConnectClient im
     }
 
     @Override
+    public java.util.concurrent.Future<AssociateMacSecKeyResult> associateMacSecKeyAsync(AssociateMacSecKeyRequest request) {
+
+        return associateMacSecKeyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateMacSecKeyResult> associateMacSecKeyAsync(final AssociateMacSecKeyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AssociateMacSecKeyRequest, AssociateMacSecKeyResult> asyncHandler) {
+        final AssociateMacSecKeyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AssociateMacSecKeyResult>() {
+            @Override
+            public AssociateMacSecKeyResult call() throws Exception {
+                AssociateMacSecKeyResult result = null;
+
+                try {
+                    result = executeAssociateMacSecKey(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<AssociateVirtualInterfaceResult> associateVirtualInterfaceAsync(AssociateVirtualInterfaceRequest request) {
 
         return associateVirtualInterfaceAsync(request, null);
@@ -576,6 +622,39 @@ public class AmazonDirectConnectAsyncClient extends AmazonDirectConnectClient im
 
                 try {
                     result = executeConfirmConnection(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ConfirmCustomerAgreementResult> confirmCustomerAgreementAsync(ConfirmCustomerAgreementRequest request) {
+
+        return confirmCustomerAgreementAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ConfirmCustomerAgreementResult> confirmCustomerAgreementAsync(final ConfirmCustomerAgreementRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ConfirmCustomerAgreementRequest, ConfirmCustomerAgreementResult> asyncHandler) {
+        final ConfirmCustomerAgreementRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ConfirmCustomerAgreementResult>() {
+            @Override
+            public ConfirmCustomerAgreementResult call() throws Exception {
+                ConfirmCustomerAgreementResult result = null;
+
+                try {
+                    result = executeConfirmCustomerAgreement(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1426,6 +1505,39 @@ public class AmazonDirectConnectAsyncClient extends AmazonDirectConnectClient im
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeCustomerMetadataResult> describeCustomerMetadataAsync(DescribeCustomerMetadataRequest request) {
+
+        return describeCustomerMetadataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCustomerMetadataResult> describeCustomerMetadataAsync(final DescribeCustomerMetadataRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeCustomerMetadataRequest, DescribeCustomerMetadataResult> asyncHandler) {
+        final DescribeCustomerMetadataRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeCustomerMetadataResult>() {
+            @Override
+            public DescribeCustomerMetadataResult call() throws Exception {
+                DescribeCustomerMetadataResult result = null;
+
+                try {
+                    result = executeDescribeCustomerMetadata(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeDirectConnectGatewayAssociationProposalsResult> describeDirectConnectGatewayAssociationProposalsAsync(
             DescribeDirectConnectGatewayAssociationProposalsRequest request) {
 
@@ -1811,6 +1923,39 @@ public class AmazonDirectConnectAsyncClient extends AmazonDirectConnectClient im
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeRouterConfigurationResult> describeRouterConfigurationAsync(DescribeRouterConfigurationRequest request) {
+
+        return describeRouterConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeRouterConfigurationResult> describeRouterConfigurationAsync(final DescribeRouterConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeRouterConfigurationRequest, DescribeRouterConfigurationResult> asyncHandler) {
+        final DescribeRouterConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeRouterConfigurationResult>() {
+            @Override
+            public DescribeRouterConfigurationResult call() throws Exception {
+                DescribeRouterConfigurationResult result = null;
+
+                try {
+                    result = executeDescribeRouterConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeTagsResult> describeTagsAsync(DescribeTagsRequest request) {
 
         return describeTagsAsync(request, null);
@@ -1990,6 +2135,140 @@ public class AmazonDirectConnectAsyncClient extends AmazonDirectConnectClient im
     }
 
     @Override
+    public java.util.concurrent.Future<DisassociateMacSecKeyResult> disassociateMacSecKeyAsync(DisassociateMacSecKeyRequest request) {
+
+        return disassociateMacSecKeyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateMacSecKeyResult> disassociateMacSecKeyAsync(final DisassociateMacSecKeyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisassociateMacSecKeyRequest, DisassociateMacSecKeyResult> asyncHandler) {
+        final DisassociateMacSecKeyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisassociateMacSecKeyResult>() {
+            @Override
+            public DisassociateMacSecKeyResult call() throws Exception {
+                DisassociateMacSecKeyResult result = null;
+
+                try {
+                    result = executeDisassociateMacSecKey(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListVirtualInterfaceTestHistoryResult> listVirtualInterfaceTestHistoryAsync(
+            ListVirtualInterfaceTestHistoryRequest request) {
+
+        return listVirtualInterfaceTestHistoryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListVirtualInterfaceTestHistoryResult> listVirtualInterfaceTestHistoryAsync(
+            final ListVirtualInterfaceTestHistoryRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListVirtualInterfaceTestHistoryRequest, ListVirtualInterfaceTestHistoryResult> asyncHandler) {
+        final ListVirtualInterfaceTestHistoryRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListVirtualInterfaceTestHistoryResult>() {
+            @Override
+            public ListVirtualInterfaceTestHistoryResult call() throws Exception {
+                ListVirtualInterfaceTestHistoryResult result = null;
+
+                try {
+                    result = executeListVirtualInterfaceTestHistory(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartBgpFailoverTestResult> startBgpFailoverTestAsync(StartBgpFailoverTestRequest request) {
+
+        return startBgpFailoverTestAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartBgpFailoverTestResult> startBgpFailoverTestAsync(final StartBgpFailoverTestRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartBgpFailoverTestRequest, StartBgpFailoverTestResult> asyncHandler) {
+        final StartBgpFailoverTestRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartBgpFailoverTestResult>() {
+            @Override
+            public StartBgpFailoverTestResult call() throws Exception {
+                StartBgpFailoverTestResult result = null;
+
+                try {
+                    result = executeStartBgpFailoverTest(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopBgpFailoverTestResult> stopBgpFailoverTestAsync(StopBgpFailoverTestRequest request) {
+
+        return stopBgpFailoverTestAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopBgpFailoverTestResult> stopBgpFailoverTestAsync(final StopBgpFailoverTestRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StopBgpFailoverTestRequest, StopBgpFailoverTestResult> asyncHandler) {
+        final StopBgpFailoverTestRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StopBgpFailoverTestResult>() {
+            @Override
+            public StopBgpFailoverTestResult call() throws Exception {
+                StopBgpFailoverTestResult result = null;
+
+                try {
+                    result = executeStopBgpFailoverTest(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
 
         return tagResourceAsync(request, null);
@@ -2040,6 +2319,72 @@ public class AmazonDirectConnectAsyncClient extends AmazonDirectConnectClient im
 
                 try {
                     result = executeUntagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateConnectionResult> updateConnectionAsync(UpdateConnectionRequest request) {
+
+        return updateConnectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateConnectionResult> updateConnectionAsync(final UpdateConnectionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateConnectionRequest, UpdateConnectionResult> asyncHandler) {
+        final UpdateConnectionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateConnectionResult>() {
+            @Override
+            public UpdateConnectionResult call() throws Exception {
+                UpdateConnectionResult result = null;
+
+                try {
+                    result = executeUpdateConnection(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDirectConnectGatewayResult> updateDirectConnectGatewayAsync(UpdateDirectConnectGatewayRequest request) {
+
+        return updateDirectConnectGatewayAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDirectConnectGatewayResult> updateDirectConnectGatewayAsync(final UpdateDirectConnectGatewayRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateDirectConnectGatewayRequest, UpdateDirectConnectGatewayResult> asyncHandler) {
+        final UpdateDirectConnectGatewayRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateDirectConnectGatewayResult>() {
+            @Override
+            public UpdateDirectConnectGatewayResult call() throws Exception {
+                UpdateDirectConnectGatewayResult result = null;
+
+                try {
+                    result = executeUpdateDirectConnectGateway(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

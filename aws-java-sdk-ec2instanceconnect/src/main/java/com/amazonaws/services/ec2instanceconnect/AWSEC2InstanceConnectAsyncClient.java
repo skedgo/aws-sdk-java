@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,8 +26,18 @@ import java.util.concurrent.ExecutorService;
  * notification when an asynchronous operation completes.
  * <p>
  * <p>
- * AWS EC2 Connect Service is a service that enables system administrators to publish temporary SSH keys to their EC2
- * instances in order to establish connections to their instances without leaving a permanent authentication option.
+ * This is the <i> Amazon EC2 Instance Connect API Reference</i>. It provides descriptions, syntax, and usage examples
+ * for each of the actions for Amazon EC2 Instance Connect. Amazon EC2 Instance Connect enables system administrators to
+ * publish one-time use SSH public keys to EC2, providing users a simple and secure way to connect to their instances.
+ * </p>
+ * <p>
+ * To view the Amazon EC2 Instance Connect content in the <i> Amazon EC2 User Guide</i>, see <a
+ * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Connect-using-EC2-Instance-Connect.html">Connect to your
+ * Linux instance using EC2 Instance Connect</a>.
+ * </p>
+ * <p>
+ * For Amazon EC2 APIs, see the <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html">Amazon EC2
+ * API Reference</a>.
  * </p>
  */
 @ThreadSafe
@@ -50,7 +60,20 @@ public class AWSEC2InstanceConnectAsyncClient extends AWSEC2InstanceConnectClien
      *        Object providing client parameters.
      */
     AWSEC2InstanceConnectAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on EC2 Instance Connect using the specified
+     * parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSEC2InstanceConnectAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -81,6 +104,40 @@ public class AWSEC2InstanceConnectAsyncClient extends AWSEC2InstanceConnectClien
 
                 try {
                     result = executeSendSSHPublicKey(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<SendSerialConsoleSSHPublicKeyResult> sendSerialConsoleSSHPublicKeyAsync(SendSerialConsoleSSHPublicKeyRequest request) {
+
+        return sendSerialConsoleSSHPublicKeyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SendSerialConsoleSSHPublicKeyResult> sendSerialConsoleSSHPublicKeyAsync(
+            final SendSerialConsoleSSHPublicKeyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<SendSerialConsoleSSHPublicKeyRequest, SendSerialConsoleSSHPublicKeyResult> asyncHandler) {
+        final SendSerialConsoleSSHPublicKeyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<SendSerialConsoleSSHPublicKeyResult>() {
+            @Override
+            public SendSerialConsoleSSHPublicKeyResult call() throws Exception {
+                SendSerialConsoleSSHPublicKeyResult result = null;
+
+                try {
+                    result = executeSendSerialConsoleSSHPublicKey(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

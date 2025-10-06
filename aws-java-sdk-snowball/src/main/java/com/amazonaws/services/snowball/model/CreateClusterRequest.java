@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,15 +29,28 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * The type of job for this cluster. Currently, the only job type supported for clusters is <code>LOCAL_USE</code>.
      * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
+     * </p>
      */
     private String jobType;
     /**
      * <p>
-     * The resources associated with the cluster job. These resources include Amazon S3 buckets and optional AWS Lambda
+     * The resources associated with the cluster job. These resources include Amazon S3 buckets and optional Lambda
      * functions written in the Python language.
      * </p>
      */
     private JobResource resources;
+    /**
+     * <p>
+     * Specifies the service or services on the Snow Family device that your transferred data will be exported from or
+     * imported into. Amazon Web Services Snow Family device clusters support Amazon S3 and NFS (Network File System).
+     * </p>
+     */
+    private OnDeviceServiceConfiguration onDeviceServiceConfiguration;
     /**
      * <p>
      * An optional description of this specific cluster, for example <code>Environmental Data Cluster-01</code>.
@@ -54,23 +67,33 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * The <code>KmsKeyARN</code> value that you want to associate with this cluster. <code>KmsKeyARN</code> values are
      * created by using the <a
-     * href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in AWS Key
-     * Management Service (AWS KMS).
+     * href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in Key
+     * Management Service (KMS).
      * </p>
      */
     private String kmsKeyARN;
     /**
      * <p>
      * The <code>RoleARN</code> that you want to associate with this cluster. <code>RoleArn</code> values are created by
-     * using the <a href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API
-     * action in AWS Identity and Access Management (IAM).
+     * using the <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API
+     * action in Identity and Access Management (IAM).
      * </p>
      */
     private String roleARN;
     /**
      * <p>
-     * The type of AWS Snowball device to use for this cluster. The only supported device types for cluster jobs are
-     * <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     * The type of Snow Family devices to use for this cluster.
+     * </p>
+     * <note>
+     * <p>
+     * For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device type.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
      * </p>
      */
     private String snowballType;
@@ -83,20 +106,45 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <ul>
      * <li>
      * <p>
-     * In Australia, you have access to express shipping. Typically, devices shipped express are delivered in about a
-     * day.
+     * In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered in about
+     * a day.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In the European Union (EU), you have access to express shipping. Typically, Snowball Edges shipped express are
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
      * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
      * takes less than a week, one way.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In India, devices are delivered in one to seven days.
+     * In India, Snow devices are delivered in one to seven days.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In the United States of America (US), you have access to one-day shipping and two-day shipping.
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * In Australia, you have access to express shipping. Typically, devices shipped express are delivered in about a
+     * day.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
+     * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
+     * takes less than a week, one way.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In India, Snow devices are delivered in one to seven days.
      * </p>
      * </li>
      * <li>
@@ -119,15 +167,76 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      */
     private String forwardingAddressId;
+    /**
+     * <p>
+     * The tax documents required in your Amazon Web Services Region.
+     * </p>
+     */
+    private TaxDocuments taxDocuments;
+    /**
+     * <p>
+     * Allows you to securely operate and manage Snow devices in a cluster remotely from outside of your internal
+     * network. When set to <code>INSTALLED_AUTOSTART</code>, remote management will automatically be available when the
+     * device arrives at your location. Otherwise, you need to use the Snowball Client to manage the device.
+     * </p>
+     */
+    private String remoteManagement;
+    /**
+     * <p>
+     * If provided, each job will be automatically created and associated with the new cluster. If not provided, will be
+     * treated as 0.
+     * </p>
+     */
+    private Integer initialClusterSize;
+    /**
+     * <p>
+     * Force to create cluster when user attempts to overprovision or underprovision a cluster. A cluster is
+     * overprovisioned or underprovisioned if the initial size of the cluster is more (overprovisioned) or less
+     * (underprovisioned) than what needed to meet capacity requirement specified with
+     * <code>OnDeviceServiceConfiguration</code>.
+     * </p>
+     */
+    private Boolean forceCreateJobs;
+    /**
+     * <p>
+     * Lists long-term pricing id that will be used to associate with jobs automatically created for the new cluster.
+     * </p>
+     */
+    private java.util.List<String> longTermPricingIds;
+    /**
+     * <p>
+     * If your job is being created in one of the US regions, you have the option of specifying what size Snow device
+     * you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
+     * </p>
+     */
+    private String snowballCapacityPreference;
 
     /**
      * <p>
      * The type of job for this cluster. Currently, the only job type supported for clusters is <code>LOCAL_USE</code>.
      * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
+     * </p>
      * 
      * @param jobType
      *        The type of job for this cluster. Currently, the only job type supported for clusters is
-     *        <code>LOCAL_USE</code>.
+     *        <code>LOCAL_USE</code>.</p>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
      * @see JobType
      */
 
@@ -139,9 +248,21 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * The type of job for this cluster. Currently, the only job type supported for clusters is <code>LOCAL_USE</code>.
      * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
+     * </p>
      * 
      * @return The type of job for this cluster. Currently, the only job type supported for clusters is
-     *         <code>LOCAL_USE</code>.
+     *         <code>LOCAL_USE</code>.</p>
+     *         <p>
+     *         For more information, see
+     *         "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *         and Capacity) in the <i>Snowcone User Guide</i> or
+     *         "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *         and Capacity) in the <i>Snowcone User Guide</i>.
      * @see JobType
      */
 
@@ -153,10 +274,22 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * The type of job for this cluster. Currently, the only job type supported for clusters is <code>LOCAL_USE</code>.
      * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
+     * </p>
      * 
      * @param jobType
      *        The type of job for this cluster. Currently, the only job type supported for clusters is
-     *        <code>LOCAL_USE</code>.
+     *        <code>LOCAL_USE</code>.</p>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see JobType
      */
@@ -170,10 +303,22 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * The type of job for this cluster. Currently, the only job type supported for clusters is <code>LOCAL_USE</code>.
      * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
+     * </p>
      * 
      * @param jobType
      *        The type of job for this cluster. Currently, the only job type supported for clusters is
-     *        <code>LOCAL_USE</code>.
+     *        <code>LOCAL_USE</code>.</p>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
      * @see JobType
      */
 
@@ -185,10 +330,22 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * The type of job for this cluster. Currently, the only job type supported for clusters is <code>LOCAL_USE</code>.
      * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
+     * </p>
      * 
      * @param jobType
      *        The type of job for this cluster. Currently, the only job type supported for clusters is
-     *        <code>LOCAL_USE</code>.
+     *        <code>LOCAL_USE</code>.</p>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see JobType
      */
@@ -200,12 +357,12 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The resources associated with the cluster job. These resources include Amazon S3 buckets and optional AWS Lambda
+     * The resources associated with the cluster job. These resources include Amazon S3 buckets and optional Lambda
      * functions written in the Python language.
      * </p>
      * 
      * @param resources
-     *        The resources associated with the cluster job. These resources include Amazon S3 buckets and optional AWS
+     *        The resources associated with the cluster job. These resources include Amazon S3 buckets and optional
      *        Lambda functions written in the Python language.
      */
 
@@ -215,11 +372,11 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The resources associated with the cluster job. These resources include Amazon S3 buckets and optional AWS Lambda
+     * The resources associated with the cluster job. These resources include Amazon S3 buckets and optional Lambda
      * functions written in the Python language.
      * </p>
      * 
-     * @return The resources associated with the cluster job. These resources include Amazon S3 buckets and optional AWS
+     * @return The resources associated with the cluster job. These resources include Amazon S3 buckets and optional
      *         Lambda functions written in the Python language.
      */
 
@@ -229,18 +386,67 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The resources associated with the cluster job. These resources include Amazon S3 buckets and optional AWS Lambda
+     * The resources associated with the cluster job. These resources include Amazon S3 buckets and optional Lambda
      * functions written in the Python language.
      * </p>
      * 
      * @param resources
-     *        The resources associated with the cluster job. These resources include Amazon S3 buckets and optional AWS
+     *        The resources associated with the cluster job. These resources include Amazon S3 buckets and optional
      *        Lambda functions written in the Python language.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateClusterRequest withResources(JobResource resources) {
         setResources(resources);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the service or services on the Snow Family device that your transferred data will be exported from or
+     * imported into. Amazon Web Services Snow Family device clusters support Amazon S3 and NFS (Network File System).
+     * </p>
+     * 
+     * @param onDeviceServiceConfiguration
+     *        Specifies the service or services on the Snow Family device that your transferred data will be exported
+     *        from or imported into. Amazon Web Services Snow Family device clusters support Amazon S3 and NFS (Network
+     *        File System).
+     */
+
+    public void setOnDeviceServiceConfiguration(OnDeviceServiceConfiguration onDeviceServiceConfiguration) {
+        this.onDeviceServiceConfiguration = onDeviceServiceConfiguration;
+    }
+
+    /**
+     * <p>
+     * Specifies the service or services on the Snow Family device that your transferred data will be exported from or
+     * imported into. Amazon Web Services Snow Family device clusters support Amazon S3 and NFS (Network File System).
+     * </p>
+     * 
+     * @return Specifies the service or services on the Snow Family device that your transferred data will be exported
+     *         from or imported into. Amazon Web Services Snow Family device clusters support Amazon S3 and NFS (Network
+     *         File System).
+     */
+
+    public OnDeviceServiceConfiguration getOnDeviceServiceConfiguration() {
+        return this.onDeviceServiceConfiguration;
+    }
+
+    /**
+     * <p>
+     * Specifies the service or services on the Snow Family device that your transferred data will be exported from or
+     * imported into. Amazon Web Services Snow Family device clusters support Amazon S3 and NFS (Network File System).
+     * </p>
+     * 
+     * @param onDeviceServiceConfiguration
+     *        Specifies the service or services on the Snow Family device that your transferred data will be exported
+     *        from or imported into. Amazon Web Services Snow Family device clusters support Amazon S3 and NFS (Network
+     *        File System).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withOnDeviceServiceConfiguration(OnDeviceServiceConfiguration onDeviceServiceConfiguration) {
+        setOnDeviceServiceConfiguration(onDeviceServiceConfiguration);
         return this;
     }
 
@@ -328,15 +534,15 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * The <code>KmsKeyARN</code> value that you want to associate with this cluster. <code>KmsKeyARN</code> values are
      * created by using the <a
-     * href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in AWS Key
-     * Management Service (AWS KMS).
+     * href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in Key
+     * Management Service (KMS).
      * </p>
      * 
      * @param kmsKeyARN
      *        The <code>KmsKeyARN</code> value that you want to associate with this cluster. <code>KmsKeyARN</code>
      *        values are created by using the <a
-     *        href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in
-     *        AWS Key Management Service (AWS KMS).
+     *        href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in
+     *        Key Management Service (KMS).
      */
 
     public void setKmsKeyARN(String kmsKeyARN) {
@@ -347,14 +553,14 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * The <code>KmsKeyARN</code> value that you want to associate with this cluster. <code>KmsKeyARN</code> values are
      * created by using the <a
-     * href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in AWS Key
-     * Management Service (AWS KMS).
+     * href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in Key
+     * Management Service (KMS).
      * </p>
      * 
      * @return The <code>KmsKeyARN</code> value that you want to associate with this cluster. <code>KmsKeyARN</code>
      *         values are created by using the <a
-     *         href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in
-     *         AWS Key Management Service (AWS KMS).
+     *         href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in
+     *         Key Management Service (KMS).
      */
 
     public String getKmsKeyARN() {
@@ -365,15 +571,15 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * The <code>KmsKeyARN</code> value that you want to associate with this cluster. <code>KmsKeyARN</code> values are
      * created by using the <a
-     * href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in AWS Key
-     * Management Service (AWS KMS).
+     * href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in Key
+     * Management Service (KMS).
      * </p>
      * 
      * @param kmsKeyARN
      *        The <code>KmsKeyARN</code> value that you want to associate with this cluster. <code>KmsKeyARN</code>
      *        values are created by using the <a
-     *        href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in
-     *        AWS Key Management Service (AWS KMS).
+     *        href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in
+     *        Key Management Service (KMS).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -385,15 +591,15 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * The <code>RoleARN</code> that you want to associate with this cluster. <code>RoleArn</code> values are created by
-     * using the <a href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API
-     * action in AWS Identity and Access Management (IAM).
+     * using the <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API
+     * action in Identity and Access Management (IAM).
      * </p>
      * 
      * @param roleARN
      *        The <code>RoleARN</code> that you want to associate with this cluster. <code>RoleArn</code> values are
      *        created by using the <a
-     *        href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API action in
-     *        AWS Identity and Access Management (IAM).
+     *        href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API action
+     *        in Identity and Access Management (IAM).
      */
 
     public void setRoleARN(String roleARN) {
@@ -403,14 +609,14 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * The <code>RoleARN</code> that you want to associate with this cluster. <code>RoleArn</code> values are created by
-     * using the <a href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API
-     * action in AWS Identity and Access Management (IAM).
+     * using the <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API
+     * action in Identity and Access Management (IAM).
      * </p>
      * 
      * @return The <code>RoleARN</code> that you want to associate with this cluster. <code>RoleArn</code> values are
      *         created by using the <a
-     *         href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API action
-     *         in AWS Identity and Access Management (IAM).
+     *         href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API action
+     *         in Identity and Access Management (IAM).
      */
 
     public String getRoleARN() {
@@ -420,15 +626,15 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * The <code>RoleARN</code> that you want to associate with this cluster. <code>RoleArn</code> values are created by
-     * using the <a href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API
-     * action in AWS Identity and Access Management (IAM).
+     * using the <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API
+     * action in Identity and Access Management (IAM).
      * </p>
      * 
      * @param roleARN
      *        The <code>RoleARN</code> that you want to associate with this cluster. <code>RoleArn</code> values are
      *        created by using the <a
-     *        href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API action in
-     *        AWS Identity and Access Management (IAM).
+     *        href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API action
+     *        in Identity and Access Management (IAM).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -439,13 +645,33 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The type of AWS Snowball device to use for this cluster. The only supported device types for cluster jobs are
-     * <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     * The type of Snow Family devices to use for this cluster.
+     * </p>
+     * <note>
+     * <p>
+     * For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device type.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
      * </p>
      * 
      * @param snowballType
-     *        The type of AWS Snowball device to use for this cluster. The only supported device types for cluster jobs
-     *        are <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     *        The type of Snow Family devices to use for this cluster. </p> <note>
+     *        <p>
+     *        For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device
+     *        type.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
      * @see SnowballType
      */
 
@@ -455,12 +681,32 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The type of AWS Snowball device to use for this cluster. The only supported device types for cluster jobs are
-     * <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     * The type of Snow Family devices to use for this cluster.
+     * </p>
+     * <note>
+     * <p>
+     * For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device type.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
      * </p>
      * 
-     * @return The type of AWS Snowball device to use for this cluster. The only supported device types for cluster jobs
-     *         are <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     * @return The type of Snow Family devices to use for this cluster. </p> <note>
+     *         <p>
+     *         For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device
+     *         type.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         For more information, see
+     *         "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *         and Capacity) in the <i>Snowcone User Guide</i> or
+     *         "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *         and Capacity) in the <i>Snowcone User Guide</i>.
      * @see SnowballType
      */
 
@@ -470,13 +716,33 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The type of AWS Snowball device to use for this cluster. The only supported device types for cluster jobs are
-     * <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     * The type of Snow Family devices to use for this cluster.
+     * </p>
+     * <note>
+     * <p>
+     * For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device type.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
      * </p>
      * 
      * @param snowballType
-     *        The type of AWS Snowball device to use for this cluster. The only supported device types for cluster jobs
-     *        are <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     *        The type of Snow Family devices to use for this cluster. </p> <note>
+     *        <p>
+     *        For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device
+     *        type.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SnowballType
      */
@@ -488,13 +754,33 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The type of AWS Snowball device to use for this cluster. The only supported device types for cluster jobs are
-     * <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     * The type of Snow Family devices to use for this cluster.
+     * </p>
+     * <note>
+     * <p>
+     * For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device type.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
      * </p>
      * 
      * @param snowballType
-     *        The type of AWS Snowball device to use for this cluster. The only supported device types for cluster jobs
-     *        are <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     *        The type of Snow Family devices to use for this cluster. </p> <note>
+     *        <p>
+     *        For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device
+     *        type.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
      * @see SnowballType
      */
 
@@ -504,13 +790,33 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The type of AWS Snowball device to use for this cluster. The only supported device types for cluster jobs are
-     * <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     * The type of Snow Family devices to use for this cluster.
+     * </p>
+     * <note>
+     * <p>
+     * For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device type.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
      * </p>
      * 
      * @param snowballType
-     *        The type of AWS Snowball device to use for this cluster. The only supported device types for cluster jobs
-     *        are <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     *        The type of Snow Family devices to use for this cluster. </p> <note>
+     *        <p>
+     *        For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device
+     *        type.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SnowballType
      */
@@ -529,20 +835,45 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <ul>
      * <li>
      * <p>
-     * In Australia, you have access to express shipping. Typically, devices shipped express are delivered in about a
-     * day.
+     * In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered in about
+     * a day.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In the European Union (EU), you have access to express shipping. Typically, Snowball Edges shipped express are
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
      * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
      * takes less than a week, one way.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In India, devices are delivered in one to seven days.
+     * In India, Snow devices are delivered in one to seven days.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In the United States of America (US), you have access to one-day shipping and two-day shipping.
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * In Australia, you have access to express shipping. Typically, devices shipped express are delivered in about a
+     * day.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
+     * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
+     * takes less than a week, one way.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In India, Snow devices are delivered in one to seven days.
      * </p>
      * </li>
      * <li>
@@ -555,7 +886,32 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * @param shippingOption
      *        The shipping speed for each node in this cluster. This speed doesn't dictate how soon you'll get each
      *        Snowball Edge device, rather it represents how quickly each device moves to its destination while in
-     *        transit. Regional shipping speeds are as follows:</p>
+     *        transit. Regional shipping speeds are as follows: </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered
+     *        in about a day.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express
+     *        are delivered in about a day. In addition, most countries in the EU have access to standard shipping,
+     *        which typically takes less than a week, one way.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        In India, Snow devices are delivered in one to seven days.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        In the United States of America (US), you have access to one-day shipping and two-day shipping.
+     *        </p>
+     *        </li>
+     *        </ul>
      *        <ul>
      *        <li>
      *        <p>
@@ -565,14 +921,14 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        </li>
      *        <li>
      *        <p>
-     *        In the European Union (EU), you have access to express shipping. Typically, Snowball Edges shipped express
+     *        In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express
      *        are delivered in about a day. In addition, most countries in the EU have access to standard shipping,
      *        which typically takes less than a week, one way.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        In India, devices are delivered in one to seven days.
+     *        In India, Snow devices are delivered in one to seven days.
      *        </p>
      *        </li>
      *        <li>
@@ -596,20 +952,45 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <ul>
      * <li>
      * <p>
-     * In Australia, you have access to express shipping. Typically, devices shipped express are delivered in about a
-     * day.
+     * In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered in about
+     * a day.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In the European Union (EU), you have access to express shipping. Typically, Snowball Edges shipped express are
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
      * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
      * takes less than a week, one way.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In India, devices are delivered in one to seven days.
+     * In India, Snow devices are delivered in one to seven days.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In the United States of America (US), you have access to one-day shipping and two-day shipping.
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * In Australia, you have access to express shipping. Typically, devices shipped express are delivered in about a
+     * day.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
+     * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
+     * takes less than a week, one way.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In India, Snow devices are delivered in one to seven days.
      * </p>
      * </li>
      * <li>
@@ -621,7 +1002,32 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * 
      * @return The shipping speed for each node in this cluster. This speed doesn't dictate how soon you'll get each
      *         Snowball Edge device, rather it represents how quickly each device moves to its destination while in
-     *         transit. Regional shipping speeds are as follows:</p>
+     *         transit. Regional shipping speeds are as follows: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered
+     *         in about a day.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express
+     *         are delivered in about a day. In addition, most countries in the EU have access to standard shipping,
+     *         which typically takes less than a week, one way.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         In India, Snow devices are delivered in one to seven days.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         In the United States of America (US), you have access to one-day shipping and two-day shipping.
+     *         </p>
+     *         </li>
+     *         </ul>
      *         <ul>
      *         <li>
      *         <p>
@@ -631,14 +1037,14 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      *         </li>
      *         <li>
      *         <p>
-     *         In the European Union (EU), you have access to express shipping. Typically, Snowball Edges shipped
-     *         express are delivered in about a day. In addition, most countries in the EU have access to standard
-     *         shipping, which typically takes less than a week, one way.
+     *         In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express
+     *         are delivered in about a day. In addition, most countries in the EU have access to standard shipping,
+     *         which typically takes less than a week, one way.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         In India, devices are delivered in one to seven days.
+     *         In India, Snow devices are delivered in one to seven days.
      *         </p>
      *         </li>
      *         <li>
@@ -662,20 +1068,45 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <ul>
      * <li>
      * <p>
-     * In Australia, you have access to express shipping. Typically, devices shipped express are delivered in about a
-     * day.
+     * In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered in about
+     * a day.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In the European Union (EU), you have access to express shipping. Typically, Snowball Edges shipped express are
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
      * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
      * takes less than a week, one way.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In India, devices are delivered in one to seven days.
+     * In India, Snow devices are delivered in one to seven days.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In the United States of America (US), you have access to one-day shipping and two-day shipping.
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * In Australia, you have access to express shipping. Typically, devices shipped express are delivered in about a
+     * day.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
+     * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
+     * takes less than a week, one way.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In India, Snow devices are delivered in one to seven days.
      * </p>
      * </li>
      * <li>
@@ -688,7 +1119,32 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * @param shippingOption
      *        The shipping speed for each node in this cluster. This speed doesn't dictate how soon you'll get each
      *        Snowball Edge device, rather it represents how quickly each device moves to its destination while in
-     *        transit. Regional shipping speeds are as follows:</p>
+     *        transit. Regional shipping speeds are as follows: </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered
+     *        in about a day.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express
+     *        are delivered in about a day. In addition, most countries in the EU have access to standard shipping,
+     *        which typically takes less than a week, one way.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        In India, Snow devices are delivered in one to seven days.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        In the United States of America (US), you have access to one-day shipping and two-day shipping.
+     *        </p>
+     *        </li>
+     *        </ul>
      *        <ul>
      *        <li>
      *        <p>
@@ -698,14 +1154,14 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        </li>
      *        <li>
      *        <p>
-     *        In the European Union (EU), you have access to express shipping. Typically, Snowball Edges shipped express
+     *        In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express
      *        are delivered in about a day. In addition, most countries in the EU have access to standard shipping,
      *        which typically takes less than a week, one way.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        In India, devices are delivered in one to seven days.
+     *        In India, Snow devices are delivered in one to seven days.
      *        </p>
      *        </li>
      *        <li>
@@ -731,20 +1187,45 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <ul>
      * <li>
      * <p>
-     * In Australia, you have access to express shipping. Typically, devices shipped express are delivered in about a
-     * day.
+     * In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered in about
+     * a day.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In the European Union (EU), you have access to express shipping. Typically, Snowball Edges shipped express are
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
      * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
      * takes less than a week, one way.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In India, devices are delivered in one to seven days.
+     * In India, Snow devices are delivered in one to seven days.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In the United States of America (US), you have access to one-day shipping and two-day shipping.
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * In Australia, you have access to express shipping. Typically, devices shipped express are delivered in about a
+     * day.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
+     * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
+     * takes less than a week, one way.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In India, Snow devices are delivered in one to seven days.
      * </p>
      * </li>
      * <li>
@@ -757,7 +1238,32 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * @param shippingOption
      *        The shipping speed for each node in this cluster. This speed doesn't dictate how soon you'll get each
      *        Snowball Edge device, rather it represents how quickly each device moves to its destination while in
-     *        transit. Regional shipping speeds are as follows:</p>
+     *        transit. Regional shipping speeds are as follows: </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered
+     *        in about a day.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express
+     *        are delivered in about a day. In addition, most countries in the EU have access to standard shipping,
+     *        which typically takes less than a week, one way.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        In India, Snow devices are delivered in one to seven days.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        In the United States of America (US), you have access to one-day shipping and two-day shipping.
+     *        </p>
+     *        </li>
+     *        </ul>
      *        <ul>
      *        <li>
      *        <p>
@@ -767,14 +1273,14 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        </li>
      *        <li>
      *        <p>
-     *        In the European Union (EU), you have access to express shipping. Typically, Snowball Edges shipped express
+     *        In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express
      *        are delivered in about a day. In addition, most countries in the EU have access to standard shipping,
      *        which typically takes less than a week, one way.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        In India, devices are delivered in one to seven days.
+     *        In India, Snow devices are delivered in one to seven days.
      *        </p>
      *        </li>
      *        <li>
@@ -798,20 +1304,45 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <ul>
      * <li>
      * <p>
-     * In Australia, you have access to express shipping. Typically, devices shipped express are delivered in about a
-     * day.
+     * In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered in about
+     * a day.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In the European Union (EU), you have access to express shipping. Typically, Snowball Edges shipped express are
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
      * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
      * takes less than a week, one way.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In India, devices are delivered in one to seven days.
+     * In India, Snow devices are delivered in one to seven days.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In the United States of America (US), you have access to one-day shipping and two-day shipping.
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * In Australia, you have access to express shipping. Typically, devices shipped express are delivered in about a
+     * day.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
+     * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
+     * takes less than a week, one way.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In India, Snow devices are delivered in one to seven days.
      * </p>
      * </li>
      * <li>
@@ -824,7 +1355,32 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * @param shippingOption
      *        The shipping speed for each node in this cluster. This speed doesn't dictate how soon you'll get each
      *        Snowball Edge device, rather it represents how quickly each device moves to its destination while in
-     *        transit. Regional shipping speeds are as follows:</p>
+     *        transit. Regional shipping speeds are as follows: </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered
+     *        in about a day.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express
+     *        are delivered in about a day. In addition, most countries in the EU have access to standard shipping,
+     *        which typically takes less than a week, one way.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        In India, Snow devices are delivered in one to seven days.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        In the United States of America (US), you have access to one-day shipping and two-day shipping.
+     *        </p>
+     *        </li>
+     *        </ul>
      *        <ul>
      *        <li>
      *        <p>
@@ -834,14 +1390,14 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        </li>
      *        <li>
      *        <p>
-     *        In the European Union (EU), you have access to express shipping. Typically, Snowball Edges shipped express
+     *        In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express
      *        are delivered in about a day. In addition, most countries in the EU have access to standard shipping,
      *        which typically takes less than a week, one way.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        In India, devices are delivered in one to seven days.
+     *        In India, Snow devices are delivered in one to seven days.
      *        </p>
      *        </li>
      *        <li>
@@ -939,6 +1495,483 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
     }
 
     /**
+     * <p>
+     * The tax documents required in your Amazon Web Services Region.
+     * </p>
+     * 
+     * @param taxDocuments
+     *        The tax documents required in your Amazon Web Services Region.
+     */
+
+    public void setTaxDocuments(TaxDocuments taxDocuments) {
+        this.taxDocuments = taxDocuments;
+    }
+
+    /**
+     * <p>
+     * The tax documents required in your Amazon Web Services Region.
+     * </p>
+     * 
+     * @return The tax documents required in your Amazon Web Services Region.
+     */
+
+    public TaxDocuments getTaxDocuments() {
+        return this.taxDocuments;
+    }
+
+    /**
+     * <p>
+     * The tax documents required in your Amazon Web Services Region.
+     * </p>
+     * 
+     * @param taxDocuments
+     *        The tax documents required in your Amazon Web Services Region.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withTaxDocuments(TaxDocuments taxDocuments) {
+        setTaxDocuments(taxDocuments);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Allows you to securely operate and manage Snow devices in a cluster remotely from outside of your internal
+     * network. When set to <code>INSTALLED_AUTOSTART</code>, remote management will automatically be available when the
+     * device arrives at your location. Otherwise, you need to use the Snowball Client to manage the device.
+     * </p>
+     * 
+     * @param remoteManagement
+     *        Allows you to securely operate and manage Snow devices in a cluster remotely from outside of your internal
+     *        network. When set to <code>INSTALLED_AUTOSTART</code>, remote management will automatically be available
+     *        when the device arrives at your location. Otherwise, you need to use the Snowball Client to manage the
+     *        device.
+     * @see RemoteManagement
+     */
+
+    public void setRemoteManagement(String remoteManagement) {
+        this.remoteManagement = remoteManagement;
+    }
+
+    /**
+     * <p>
+     * Allows you to securely operate and manage Snow devices in a cluster remotely from outside of your internal
+     * network. When set to <code>INSTALLED_AUTOSTART</code>, remote management will automatically be available when the
+     * device arrives at your location. Otherwise, you need to use the Snowball Client to manage the device.
+     * </p>
+     * 
+     * @return Allows you to securely operate and manage Snow devices in a cluster remotely from outside of your
+     *         internal network. When set to <code>INSTALLED_AUTOSTART</code>, remote management will automatically be
+     *         available when the device arrives at your location. Otherwise, you need to use the Snowball Client to
+     *         manage the device.
+     * @see RemoteManagement
+     */
+
+    public String getRemoteManagement() {
+        return this.remoteManagement;
+    }
+
+    /**
+     * <p>
+     * Allows you to securely operate and manage Snow devices in a cluster remotely from outside of your internal
+     * network. When set to <code>INSTALLED_AUTOSTART</code>, remote management will automatically be available when the
+     * device arrives at your location. Otherwise, you need to use the Snowball Client to manage the device.
+     * </p>
+     * 
+     * @param remoteManagement
+     *        Allows you to securely operate and manage Snow devices in a cluster remotely from outside of your internal
+     *        network. When set to <code>INSTALLED_AUTOSTART</code>, remote management will automatically be available
+     *        when the device arrives at your location. Otherwise, you need to use the Snowball Client to manage the
+     *        device.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see RemoteManagement
+     */
+
+    public CreateClusterRequest withRemoteManagement(String remoteManagement) {
+        setRemoteManagement(remoteManagement);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Allows you to securely operate and manage Snow devices in a cluster remotely from outside of your internal
+     * network. When set to <code>INSTALLED_AUTOSTART</code>, remote management will automatically be available when the
+     * device arrives at your location. Otherwise, you need to use the Snowball Client to manage the device.
+     * </p>
+     * 
+     * @param remoteManagement
+     *        Allows you to securely operate and manage Snow devices in a cluster remotely from outside of your internal
+     *        network. When set to <code>INSTALLED_AUTOSTART</code>, remote management will automatically be available
+     *        when the device arrives at your location. Otherwise, you need to use the Snowball Client to manage the
+     *        device.
+     * @see RemoteManagement
+     */
+
+    public void setRemoteManagement(RemoteManagement remoteManagement) {
+        withRemoteManagement(remoteManagement);
+    }
+
+    /**
+     * <p>
+     * Allows you to securely operate and manage Snow devices in a cluster remotely from outside of your internal
+     * network. When set to <code>INSTALLED_AUTOSTART</code>, remote management will automatically be available when the
+     * device arrives at your location. Otherwise, you need to use the Snowball Client to manage the device.
+     * </p>
+     * 
+     * @param remoteManagement
+     *        Allows you to securely operate and manage Snow devices in a cluster remotely from outside of your internal
+     *        network. When set to <code>INSTALLED_AUTOSTART</code>, remote management will automatically be available
+     *        when the device arrives at your location. Otherwise, you need to use the Snowball Client to manage the
+     *        device.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see RemoteManagement
+     */
+
+    public CreateClusterRequest withRemoteManagement(RemoteManagement remoteManagement) {
+        this.remoteManagement = remoteManagement.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * If provided, each job will be automatically created and associated with the new cluster. If not provided, will be
+     * treated as 0.
+     * </p>
+     * 
+     * @param initialClusterSize
+     *        If provided, each job will be automatically created and associated with the new cluster. If not provided,
+     *        will be treated as 0.
+     */
+
+    public void setInitialClusterSize(Integer initialClusterSize) {
+        this.initialClusterSize = initialClusterSize;
+    }
+
+    /**
+     * <p>
+     * If provided, each job will be automatically created and associated with the new cluster. If not provided, will be
+     * treated as 0.
+     * </p>
+     * 
+     * @return If provided, each job will be automatically created and associated with the new cluster. If not provided,
+     *         will be treated as 0.
+     */
+
+    public Integer getInitialClusterSize() {
+        return this.initialClusterSize;
+    }
+
+    /**
+     * <p>
+     * If provided, each job will be automatically created and associated with the new cluster. If not provided, will be
+     * treated as 0.
+     * </p>
+     * 
+     * @param initialClusterSize
+     *        If provided, each job will be automatically created and associated with the new cluster. If not provided,
+     *        will be treated as 0.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withInitialClusterSize(Integer initialClusterSize) {
+        setInitialClusterSize(initialClusterSize);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Force to create cluster when user attempts to overprovision or underprovision a cluster. A cluster is
+     * overprovisioned or underprovisioned if the initial size of the cluster is more (overprovisioned) or less
+     * (underprovisioned) than what needed to meet capacity requirement specified with
+     * <code>OnDeviceServiceConfiguration</code>.
+     * </p>
+     * 
+     * @param forceCreateJobs
+     *        Force to create cluster when user attempts to overprovision or underprovision a cluster. A cluster is
+     *        overprovisioned or underprovisioned if the initial size of the cluster is more (overprovisioned) or less
+     *        (underprovisioned) than what needed to meet capacity requirement specified with
+     *        <code>OnDeviceServiceConfiguration</code>.
+     */
+
+    public void setForceCreateJobs(Boolean forceCreateJobs) {
+        this.forceCreateJobs = forceCreateJobs;
+    }
+
+    /**
+     * <p>
+     * Force to create cluster when user attempts to overprovision or underprovision a cluster. A cluster is
+     * overprovisioned or underprovisioned if the initial size of the cluster is more (overprovisioned) or less
+     * (underprovisioned) than what needed to meet capacity requirement specified with
+     * <code>OnDeviceServiceConfiguration</code>.
+     * </p>
+     * 
+     * @return Force to create cluster when user attempts to overprovision or underprovision a cluster. A cluster is
+     *         overprovisioned or underprovisioned if the initial size of the cluster is more (overprovisioned) or less
+     *         (underprovisioned) than what needed to meet capacity requirement specified with
+     *         <code>OnDeviceServiceConfiguration</code>.
+     */
+
+    public Boolean getForceCreateJobs() {
+        return this.forceCreateJobs;
+    }
+
+    /**
+     * <p>
+     * Force to create cluster when user attempts to overprovision or underprovision a cluster. A cluster is
+     * overprovisioned or underprovisioned if the initial size of the cluster is more (overprovisioned) or less
+     * (underprovisioned) than what needed to meet capacity requirement specified with
+     * <code>OnDeviceServiceConfiguration</code>.
+     * </p>
+     * 
+     * @param forceCreateJobs
+     *        Force to create cluster when user attempts to overprovision or underprovision a cluster. A cluster is
+     *        overprovisioned or underprovisioned if the initial size of the cluster is more (overprovisioned) or less
+     *        (underprovisioned) than what needed to meet capacity requirement specified with
+     *        <code>OnDeviceServiceConfiguration</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withForceCreateJobs(Boolean forceCreateJobs) {
+        setForceCreateJobs(forceCreateJobs);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Force to create cluster when user attempts to overprovision or underprovision a cluster. A cluster is
+     * overprovisioned or underprovisioned if the initial size of the cluster is more (overprovisioned) or less
+     * (underprovisioned) than what needed to meet capacity requirement specified with
+     * <code>OnDeviceServiceConfiguration</code>.
+     * </p>
+     * 
+     * @return Force to create cluster when user attempts to overprovision or underprovision a cluster. A cluster is
+     *         overprovisioned or underprovisioned if the initial size of the cluster is more (overprovisioned) or less
+     *         (underprovisioned) than what needed to meet capacity requirement specified with
+     *         <code>OnDeviceServiceConfiguration</code>.
+     */
+
+    public Boolean isForceCreateJobs() {
+        return this.forceCreateJobs;
+    }
+
+    /**
+     * <p>
+     * Lists long-term pricing id that will be used to associate with jobs automatically created for the new cluster.
+     * </p>
+     * 
+     * @return Lists long-term pricing id that will be used to associate with jobs automatically created for the new
+     *         cluster.
+     */
+
+    public java.util.List<String> getLongTermPricingIds() {
+        return longTermPricingIds;
+    }
+
+    /**
+     * <p>
+     * Lists long-term pricing id that will be used to associate with jobs automatically created for the new cluster.
+     * </p>
+     * 
+     * @param longTermPricingIds
+     *        Lists long-term pricing id that will be used to associate with jobs automatically created for the new
+     *        cluster.
+     */
+
+    public void setLongTermPricingIds(java.util.Collection<String> longTermPricingIds) {
+        if (longTermPricingIds == null) {
+            this.longTermPricingIds = null;
+            return;
+        }
+
+        this.longTermPricingIds = new java.util.ArrayList<String>(longTermPricingIds);
+    }
+
+    /**
+     * <p>
+     * Lists long-term pricing id that will be used to associate with jobs automatically created for the new cluster.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setLongTermPricingIds(java.util.Collection)} or {@link #withLongTermPricingIds(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param longTermPricingIds
+     *        Lists long-term pricing id that will be used to associate with jobs automatically created for the new
+     *        cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withLongTermPricingIds(String... longTermPricingIds) {
+        if (this.longTermPricingIds == null) {
+            setLongTermPricingIds(new java.util.ArrayList<String>(longTermPricingIds.length));
+        }
+        for (String ele : longTermPricingIds) {
+            this.longTermPricingIds.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Lists long-term pricing id that will be used to associate with jobs automatically created for the new cluster.
+     * </p>
+     * 
+     * @param longTermPricingIds
+     *        Lists long-term pricing id that will be used to associate with jobs automatically created for the new
+     *        cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withLongTermPricingIds(java.util.Collection<String> longTermPricingIds) {
+        setLongTermPricingIds(longTermPricingIds);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If your job is being created in one of the US regions, you have the option of specifying what size Snow device
+     * you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
+     * </p>
+     * 
+     * @param snowballCapacityPreference
+     *        If your job is being created in one of the US regions, you have the option of specifying what size Snow
+     *        device you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.</p>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
+     * @see SnowballCapacity
+     */
+
+    public void setSnowballCapacityPreference(String snowballCapacityPreference) {
+        this.snowballCapacityPreference = snowballCapacityPreference;
+    }
+
+    /**
+     * <p>
+     * If your job is being created in one of the US regions, you have the option of specifying what size Snow device
+     * you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
+     * </p>
+     * 
+     * @return If your job is being created in one of the US regions, you have the option of specifying what size Snow
+     *         device you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.</p>
+     *         <p>
+     *         For more information, see
+     *         "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *         and Capacity) in the <i>Snowcone User Guide</i> or
+     *         "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *         and Capacity) in the <i>Snowcone User Guide</i>.
+     * @see SnowballCapacity
+     */
+
+    public String getSnowballCapacityPreference() {
+        return this.snowballCapacityPreference;
+    }
+
+    /**
+     * <p>
+     * If your job is being created in one of the US regions, you have the option of specifying what size Snow device
+     * you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
+     * </p>
+     * 
+     * @param snowballCapacityPreference
+     *        If your job is being created in one of the US regions, you have the option of specifying what size Snow
+     *        device you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.</p>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SnowballCapacity
+     */
+
+    public CreateClusterRequest withSnowballCapacityPreference(String snowballCapacityPreference) {
+        setSnowballCapacityPreference(snowballCapacityPreference);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If your job is being created in one of the US regions, you have the option of specifying what size Snow device
+     * you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
+     * </p>
+     * 
+     * @param snowballCapacityPreference
+     *        If your job is being created in one of the US regions, you have the option of specifying what size Snow
+     *        device you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.</p>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
+     * @see SnowballCapacity
+     */
+
+    public void setSnowballCapacityPreference(SnowballCapacity snowballCapacityPreference) {
+        withSnowballCapacityPreference(snowballCapacityPreference);
+    }
+
+    /**
+     * <p>
+     * If your job is being created in one of the US regions, you have the option of specifying what size Snow device
+     * you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
+     * </p>
+     * 
+     * @param snowballCapacityPreference
+     *        If your job is being created in one of the US regions, you have the option of specifying what size Snow
+     *        device you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.</p>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SnowballCapacity
+     */
+
+    public CreateClusterRequest withSnowballCapacityPreference(SnowballCapacity snowballCapacityPreference) {
+        this.snowballCapacityPreference = snowballCapacityPreference.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -954,6 +1987,8 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
             sb.append("JobType: ").append(getJobType()).append(",");
         if (getResources() != null)
             sb.append("Resources: ").append(getResources()).append(",");
+        if (getOnDeviceServiceConfiguration() != null)
+            sb.append("OnDeviceServiceConfiguration: ").append(getOnDeviceServiceConfiguration()).append(",");
         if (getDescription() != null)
             sb.append("Description: ").append(getDescription()).append(",");
         if (getAddressId() != null)
@@ -969,7 +2004,19 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (getNotification() != null)
             sb.append("Notification: ").append(getNotification()).append(",");
         if (getForwardingAddressId() != null)
-            sb.append("ForwardingAddressId: ").append(getForwardingAddressId());
+            sb.append("ForwardingAddressId: ").append(getForwardingAddressId()).append(",");
+        if (getTaxDocuments() != null)
+            sb.append("TaxDocuments: ").append(getTaxDocuments()).append(",");
+        if (getRemoteManagement() != null)
+            sb.append("RemoteManagement: ").append(getRemoteManagement()).append(",");
+        if (getInitialClusterSize() != null)
+            sb.append("InitialClusterSize: ").append(getInitialClusterSize()).append(",");
+        if (getForceCreateJobs() != null)
+            sb.append("ForceCreateJobs: ").append(getForceCreateJobs()).append(",");
+        if (getLongTermPricingIds() != null)
+            sb.append("LongTermPricingIds: ").append(getLongTermPricingIds()).append(",");
+        if (getSnowballCapacityPreference() != null)
+            sb.append("SnowballCapacityPreference: ").append(getSnowballCapacityPreference());
         sb.append("}");
         return sb.toString();
     }
@@ -991,6 +2038,10 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (other.getResources() == null ^ this.getResources() == null)
             return false;
         if (other.getResources() != null && other.getResources().equals(this.getResources()) == false)
+            return false;
+        if (other.getOnDeviceServiceConfiguration() == null ^ this.getOnDeviceServiceConfiguration() == null)
+            return false;
+        if (other.getOnDeviceServiceConfiguration() != null && other.getOnDeviceServiceConfiguration().equals(this.getOnDeviceServiceConfiguration()) == false)
             return false;
         if (other.getDescription() == null ^ this.getDescription() == null)
             return false;
@@ -1024,6 +2075,30 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getForwardingAddressId() != null && other.getForwardingAddressId().equals(this.getForwardingAddressId()) == false)
             return false;
+        if (other.getTaxDocuments() == null ^ this.getTaxDocuments() == null)
+            return false;
+        if (other.getTaxDocuments() != null && other.getTaxDocuments().equals(this.getTaxDocuments()) == false)
+            return false;
+        if (other.getRemoteManagement() == null ^ this.getRemoteManagement() == null)
+            return false;
+        if (other.getRemoteManagement() != null && other.getRemoteManagement().equals(this.getRemoteManagement()) == false)
+            return false;
+        if (other.getInitialClusterSize() == null ^ this.getInitialClusterSize() == null)
+            return false;
+        if (other.getInitialClusterSize() != null && other.getInitialClusterSize().equals(this.getInitialClusterSize()) == false)
+            return false;
+        if (other.getForceCreateJobs() == null ^ this.getForceCreateJobs() == null)
+            return false;
+        if (other.getForceCreateJobs() != null && other.getForceCreateJobs().equals(this.getForceCreateJobs()) == false)
+            return false;
+        if (other.getLongTermPricingIds() == null ^ this.getLongTermPricingIds() == null)
+            return false;
+        if (other.getLongTermPricingIds() != null && other.getLongTermPricingIds().equals(this.getLongTermPricingIds()) == false)
+            return false;
+        if (other.getSnowballCapacityPreference() == null ^ this.getSnowballCapacityPreference() == null)
+            return false;
+        if (other.getSnowballCapacityPreference() != null && other.getSnowballCapacityPreference().equals(this.getSnowballCapacityPreference()) == false)
+            return false;
         return true;
     }
 
@@ -1034,6 +2109,7 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
         hashCode = prime * hashCode + ((getJobType() == null) ? 0 : getJobType().hashCode());
         hashCode = prime * hashCode + ((getResources() == null) ? 0 : getResources().hashCode());
+        hashCode = prime * hashCode + ((getOnDeviceServiceConfiguration() == null) ? 0 : getOnDeviceServiceConfiguration().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getAddressId() == null) ? 0 : getAddressId().hashCode());
         hashCode = prime * hashCode + ((getKmsKeyARN() == null) ? 0 : getKmsKeyARN().hashCode());
@@ -1042,6 +2118,12 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
         hashCode = prime * hashCode + ((getShippingOption() == null) ? 0 : getShippingOption().hashCode());
         hashCode = prime * hashCode + ((getNotification() == null) ? 0 : getNotification().hashCode());
         hashCode = prime * hashCode + ((getForwardingAddressId() == null) ? 0 : getForwardingAddressId().hashCode());
+        hashCode = prime * hashCode + ((getTaxDocuments() == null) ? 0 : getTaxDocuments().hashCode());
+        hashCode = prime * hashCode + ((getRemoteManagement() == null) ? 0 : getRemoteManagement().hashCode());
+        hashCode = prime * hashCode + ((getInitialClusterSize() == null) ? 0 : getInitialClusterSize().hashCode());
+        hashCode = prime * hashCode + ((getForceCreateJobs() == null) ? 0 : getForceCreateJobs().hashCode());
+        hashCode = prime * hashCode + ((getLongTermPricingIds() == null) ? 0 : getLongTermPricingIds().hashCode());
+        hashCode = prime * hashCode + ((getSnowballCapacityPreference() == null) ? 0 : getSnowballCapacityPreference().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -78,10 +78,67 @@ public class AwsEc2InstanceDetails implements Serializable, Cloneable, Structure
     private String subnetId;
     /**
      * <p>
-     * The date/time the instance was launched.
+     * Indicates when the instance was launched.
      * </p>
+     * <p>
+     * This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     * <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a maximum of 9
+     * digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example, <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     * </p>
+     * </li>
+     * </ul>
      */
     private String launchedAt;
+    /**
+     * <p>
+     * The identifiers of the network interfaces for the EC2 instance. The details for each network interface are in a
+     * corresponding <code>AwsEc2NetworkInterfacesDetails</code> object.
+     * </p>
+     */
+    private java.util.List<AwsEc2InstanceNetworkInterfacesDetails> networkInterfaces;
+    /**
+     * <p>
+     * The virtualization type of the Amazon Machine Image (AMI) required to launch the instance.
+     * </p>
+     */
+    private String virtualizationType;
+    /**
+     * <p>
+     * Details about the metadata options for the Amazon EC2 instance.
+     * </p>
+     */
+    private AwsEc2InstanceMetadataOptions metadataOptions;
+    /**
+     * <p>
+     * Describes the type of monitoring that’s turned on for an instance.
+     * </p>
+     */
+    private AwsEc2InstanceMonitoringDetails monitoring;
 
     /**
      * <p>
@@ -465,11 +522,75 @@ public class AwsEc2InstanceDetails implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The date/time the instance was launched.
+     * Indicates when the instance was launched.
      * </p>
+     * <p>
+     * This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     * <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a maximum of 9
+     * digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example, <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param launchedAt
-     *        The date/time the instance was launched.
+     *        Indicates when the instance was launched.</p>
+     *        <p>
+     *        This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     *        <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a
+     *        maximum of 9 digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example,
+     *        <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     *        </p>
+     *        </li>
      */
 
     public void setLaunchedAt(String launchedAt) {
@@ -478,10 +599,74 @@ public class AwsEc2InstanceDetails implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The date/time the instance was launched.
+     * Indicates when the instance was launched.
      * </p>
+     * <p>
+     * This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     * <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a maximum of 9
+     * digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example, <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The date/time the instance was launched.
+     * @return Indicates when the instance was launched.</p>
+     *         <p>
+     *         This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     *         <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a
+     *         maximum of 9 digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example,
+     *         <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     *         </p>
+     *         </li>
      */
 
     public String getLaunchedAt() {
@@ -490,16 +675,278 @@ public class AwsEc2InstanceDetails implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The date/time the instance was launched.
+     * Indicates when the instance was launched.
      * </p>
+     * <p>
+     * This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     * <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a maximum of 9
+     * digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example, <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param launchedAt
-     *        The date/time the instance was launched.
+     *        Indicates when the instance was launched.</p>
+     *        <p>
+     *        This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     *        <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a
+     *        maximum of 9 digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example,
+     *        <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public AwsEc2InstanceDetails withLaunchedAt(String launchedAt) {
         setLaunchedAt(launchedAt);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The identifiers of the network interfaces for the EC2 instance. The details for each network interface are in a
+     * corresponding <code>AwsEc2NetworkInterfacesDetails</code> object.
+     * </p>
+     * 
+     * @return The identifiers of the network interfaces for the EC2 instance. The details for each network interface
+     *         are in a corresponding <code>AwsEc2NetworkInterfacesDetails</code> object.
+     */
+
+    public java.util.List<AwsEc2InstanceNetworkInterfacesDetails> getNetworkInterfaces() {
+        return networkInterfaces;
+    }
+
+    /**
+     * <p>
+     * The identifiers of the network interfaces for the EC2 instance. The details for each network interface are in a
+     * corresponding <code>AwsEc2NetworkInterfacesDetails</code> object.
+     * </p>
+     * 
+     * @param networkInterfaces
+     *        The identifiers of the network interfaces for the EC2 instance. The details for each network interface are
+     *        in a corresponding <code>AwsEc2NetworkInterfacesDetails</code> object.
+     */
+
+    public void setNetworkInterfaces(java.util.Collection<AwsEc2InstanceNetworkInterfacesDetails> networkInterfaces) {
+        if (networkInterfaces == null) {
+            this.networkInterfaces = null;
+            return;
+        }
+
+        this.networkInterfaces = new java.util.ArrayList<AwsEc2InstanceNetworkInterfacesDetails>(networkInterfaces);
+    }
+
+    /**
+     * <p>
+     * The identifiers of the network interfaces for the EC2 instance. The details for each network interface are in a
+     * corresponding <code>AwsEc2NetworkInterfacesDetails</code> object.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setNetworkInterfaces(java.util.Collection)} or {@link #withNetworkInterfaces(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param networkInterfaces
+     *        The identifiers of the network interfaces for the EC2 instance. The details for each network interface are
+     *        in a corresponding <code>AwsEc2NetworkInterfacesDetails</code> object.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsEc2InstanceDetails withNetworkInterfaces(AwsEc2InstanceNetworkInterfacesDetails... networkInterfaces) {
+        if (this.networkInterfaces == null) {
+            setNetworkInterfaces(new java.util.ArrayList<AwsEc2InstanceNetworkInterfacesDetails>(networkInterfaces.length));
+        }
+        for (AwsEc2InstanceNetworkInterfacesDetails ele : networkInterfaces) {
+            this.networkInterfaces.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The identifiers of the network interfaces for the EC2 instance. The details for each network interface are in a
+     * corresponding <code>AwsEc2NetworkInterfacesDetails</code> object.
+     * </p>
+     * 
+     * @param networkInterfaces
+     *        The identifiers of the network interfaces for the EC2 instance. The details for each network interface are
+     *        in a corresponding <code>AwsEc2NetworkInterfacesDetails</code> object.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsEc2InstanceDetails withNetworkInterfaces(java.util.Collection<AwsEc2InstanceNetworkInterfacesDetails> networkInterfaces) {
+        setNetworkInterfaces(networkInterfaces);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The virtualization type of the Amazon Machine Image (AMI) required to launch the instance.
+     * </p>
+     * 
+     * @param virtualizationType
+     *        The virtualization type of the Amazon Machine Image (AMI) required to launch the instance.
+     */
+
+    public void setVirtualizationType(String virtualizationType) {
+        this.virtualizationType = virtualizationType;
+    }
+
+    /**
+     * <p>
+     * The virtualization type of the Amazon Machine Image (AMI) required to launch the instance.
+     * </p>
+     * 
+     * @return The virtualization type of the Amazon Machine Image (AMI) required to launch the instance.
+     */
+
+    public String getVirtualizationType() {
+        return this.virtualizationType;
+    }
+
+    /**
+     * <p>
+     * The virtualization type of the Amazon Machine Image (AMI) required to launch the instance.
+     * </p>
+     * 
+     * @param virtualizationType
+     *        The virtualization type of the Amazon Machine Image (AMI) required to launch the instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsEc2InstanceDetails withVirtualizationType(String virtualizationType) {
+        setVirtualizationType(virtualizationType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Details about the metadata options for the Amazon EC2 instance.
+     * </p>
+     * 
+     * @param metadataOptions
+     *        Details about the metadata options for the Amazon EC2 instance.
+     */
+
+    public void setMetadataOptions(AwsEc2InstanceMetadataOptions metadataOptions) {
+        this.metadataOptions = metadataOptions;
+    }
+
+    /**
+     * <p>
+     * Details about the metadata options for the Amazon EC2 instance.
+     * </p>
+     * 
+     * @return Details about the metadata options for the Amazon EC2 instance.
+     */
+
+    public AwsEc2InstanceMetadataOptions getMetadataOptions() {
+        return this.metadataOptions;
+    }
+
+    /**
+     * <p>
+     * Details about the metadata options for the Amazon EC2 instance.
+     * </p>
+     * 
+     * @param metadataOptions
+     *        Details about the metadata options for the Amazon EC2 instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsEc2InstanceDetails withMetadataOptions(AwsEc2InstanceMetadataOptions metadataOptions) {
+        setMetadataOptions(metadataOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Describes the type of monitoring that’s turned on for an instance.
+     * </p>
+     * 
+     * @param monitoring
+     *        Describes the type of monitoring that’s turned on for an instance.
+     */
+
+    public void setMonitoring(AwsEc2InstanceMonitoringDetails monitoring) {
+        this.monitoring = monitoring;
+    }
+
+    /**
+     * <p>
+     * Describes the type of monitoring that’s turned on for an instance.
+     * </p>
+     * 
+     * @return Describes the type of monitoring that’s turned on for an instance.
+     */
+
+    public AwsEc2InstanceMonitoringDetails getMonitoring() {
+        return this.monitoring;
+    }
+
+    /**
+     * <p>
+     * Describes the type of monitoring that’s turned on for an instance.
+     * </p>
+     * 
+     * @param monitoring
+     *        Describes the type of monitoring that’s turned on for an instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AwsEc2InstanceDetails withMonitoring(AwsEc2InstanceMonitoringDetails monitoring) {
+        setMonitoring(monitoring);
         return this;
     }
 
@@ -532,7 +979,15 @@ public class AwsEc2InstanceDetails implements Serializable, Cloneable, Structure
         if (getSubnetId() != null)
             sb.append("SubnetId: ").append(getSubnetId()).append(",");
         if (getLaunchedAt() != null)
-            sb.append("LaunchedAt: ").append(getLaunchedAt());
+            sb.append("LaunchedAt: ").append(getLaunchedAt()).append(",");
+        if (getNetworkInterfaces() != null)
+            sb.append("NetworkInterfaces: ").append(getNetworkInterfaces()).append(",");
+        if (getVirtualizationType() != null)
+            sb.append("VirtualizationType: ").append(getVirtualizationType()).append(",");
+        if (getMetadataOptions() != null)
+            sb.append("MetadataOptions: ").append(getMetadataOptions()).append(",");
+        if (getMonitoring() != null)
+            sb.append("Monitoring: ").append(getMonitoring());
         sb.append("}");
         return sb.toString();
     }
@@ -583,6 +1038,22 @@ public class AwsEc2InstanceDetails implements Serializable, Cloneable, Structure
             return false;
         if (other.getLaunchedAt() != null && other.getLaunchedAt().equals(this.getLaunchedAt()) == false)
             return false;
+        if (other.getNetworkInterfaces() == null ^ this.getNetworkInterfaces() == null)
+            return false;
+        if (other.getNetworkInterfaces() != null && other.getNetworkInterfaces().equals(this.getNetworkInterfaces()) == false)
+            return false;
+        if (other.getVirtualizationType() == null ^ this.getVirtualizationType() == null)
+            return false;
+        if (other.getVirtualizationType() != null && other.getVirtualizationType().equals(this.getVirtualizationType()) == false)
+            return false;
+        if (other.getMetadataOptions() == null ^ this.getMetadataOptions() == null)
+            return false;
+        if (other.getMetadataOptions() != null && other.getMetadataOptions().equals(this.getMetadataOptions()) == false)
+            return false;
+        if (other.getMonitoring() == null ^ this.getMonitoring() == null)
+            return false;
+        if (other.getMonitoring() != null && other.getMonitoring().equals(this.getMonitoring()) == false)
+            return false;
         return true;
     }
 
@@ -600,6 +1071,10 @@ public class AwsEc2InstanceDetails implements Serializable, Cloneable, Structure
         hashCode = prime * hashCode + ((getVpcId() == null) ? 0 : getVpcId().hashCode());
         hashCode = prime * hashCode + ((getSubnetId() == null) ? 0 : getSubnetId().hashCode());
         hashCode = prime * hashCode + ((getLaunchedAt() == null) ? 0 : getLaunchedAt().hashCode());
+        hashCode = prime * hashCode + ((getNetworkInterfaces() == null) ? 0 : getNetworkInterfaces().hashCode());
+        hashCode = prime * hashCode + ((getVirtualizationType() == null) ? 0 : getVirtualizationType().hashCode());
+        hashCode = prime * hashCode + ((getMetadataOptions() == null) ? 0 : getMetadataOptions().hashCode());
+        hashCode = prime * hashCode + ((getMonitoring() == null) ? 0 : getMonitoring().hashCode());
         return hashCode;
     }
 

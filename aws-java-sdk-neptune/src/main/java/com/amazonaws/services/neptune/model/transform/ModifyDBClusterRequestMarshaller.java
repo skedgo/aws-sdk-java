@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -145,6 +145,42 @@ public class ModifyDBClusterRequestMarshaller implements Marshaller<Request<Modi
 
         if (modifyDBClusterRequest.getEngineVersion() != null) {
             request.addParameter("EngineVersion", StringUtils.fromString(modifyDBClusterRequest.getEngineVersion()));
+        }
+
+        if (modifyDBClusterRequest.getAllowMajorVersionUpgrade() != null) {
+            request.addParameter("AllowMajorVersionUpgrade", StringUtils.fromBoolean(modifyDBClusterRequest.getAllowMajorVersionUpgrade()));
+        }
+
+        if (modifyDBClusterRequest.getDBInstanceParameterGroupName() != null) {
+            request.addParameter("DBInstanceParameterGroupName", StringUtils.fromString(modifyDBClusterRequest.getDBInstanceParameterGroupName()));
+        }
+
+        if (modifyDBClusterRequest.getDeletionProtection() != null) {
+            request.addParameter("DeletionProtection", StringUtils.fromBoolean(modifyDBClusterRequest.getDeletionProtection()));
+        }
+
+        if (modifyDBClusterRequest.getCopyTagsToSnapshot() != null) {
+            request.addParameter("CopyTagsToSnapshot", StringUtils.fromBoolean(modifyDBClusterRequest.getCopyTagsToSnapshot()));
+        }
+
+        {
+            ServerlessV2ScalingConfiguration serverlessV2ScalingConfiguration = modifyDBClusterRequest.getServerlessV2ScalingConfiguration();
+            if (serverlessV2ScalingConfiguration != null) {
+
+                if (serverlessV2ScalingConfiguration.getMinCapacity() != null) {
+                    request.addParameter("ServerlessV2ScalingConfiguration.MinCapacity",
+                            StringUtils.fromDouble(serverlessV2ScalingConfiguration.getMinCapacity()));
+                }
+
+                if (serverlessV2ScalingConfiguration.getMaxCapacity() != null) {
+                    request.addParameter("ServerlessV2ScalingConfiguration.MaxCapacity",
+                            StringUtils.fromDouble(serverlessV2ScalingConfiguration.getMaxCapacity()));
+                }
+            }
+        }
+
+        if (modifyDBClusterRequest.getStorageType() != null) {
+            request.addParameter("StorageType", StringUtils.fromString(modifyDBClusterRequest.getStorageType()));
         }
 
         return request;

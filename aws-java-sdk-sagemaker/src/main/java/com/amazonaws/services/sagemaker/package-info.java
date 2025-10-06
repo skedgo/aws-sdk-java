@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -13,8 +13,24 @@
 
 /**
  * <p>
- * Provides APIs for creating and managing Amazon SageMaker resources.
+ * Provides APIs for creating and managing SageMaker resources.
  * </p>
+ * <p>
+ * Other Resources:
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html#first-time-user">SageMaker Developer Guide</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/augmented-ai/2019-11-07/APIReference/Welcome.html">Amazon Augmented AI Runtime
+ * API Reference</a>
+ * </p>
+ * </li>
+ * </ul>
  */
 package com.amazonaws.services.sagemaker;
 

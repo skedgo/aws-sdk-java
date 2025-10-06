@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,6 +28,19 @@ public class AbstractAmazonKinesisVideoArchivedMediaAsync extends AbstractAmazon
     }
 
     @Override
+    public java.util.concurrent.Future<GetClipResult> getClipAsync(GetClipRequest request) {
+
+        return getClipAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetClipResult> getClipAsync(GetClipRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetClipRequest, GetClipResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<GetDASHStreamingSessionURLResult> getDASHStreamingSessionURLAsync(GetDASHStreamingSessionURLRequest request) {
 
         return getDASHStreamingSessionURLAsync(request, null);
@@ -49,6 +62,19 @@ public class AbstractAmazonKinesisVideoArchivedMediaAsync extends AbstractAmazon
     @Override
     public java.util.concurrent.Future<GetHLSStreamingSessionURLResult> getHLSStreamingSessionURLAsync(GetHLSStreamingSessionURLRequest request,
             com.amazonaws.handlers.AsyncHandler<GetHLSStreamingSessionURLRequest, GetHLSStreamingSessionURLResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetImagesResult> getImagesAsync(GetImagesRequest request) {
+
+        return getImagesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetImagesResult> getImagesAsync(GetImagesRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetImagesRequest, GetImagesResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

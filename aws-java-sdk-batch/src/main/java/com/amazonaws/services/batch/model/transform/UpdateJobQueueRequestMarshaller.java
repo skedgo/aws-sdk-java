@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,10 +32,14 @@ public class UpdateJobQueueRequestMarshaller {
             .marshallLocationName("jobQueue").build();
     private static final MarshallingInfo<String> STATE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("state").build();
+    private static final MarshallingInfo<String> SCHEDULINGPOLICYARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("schedulingPolicyArn").build();
     private static final MarshallingInfo<Integer> PRIORITY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("priority").build();
     private static final MarshallingInfo<List> COMPUTEENVIRONMENTORDER_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("computeEnvironmentOrder").build();
+    private static final MarshallingInfo<List> JOBSTATETIMELIMITACTIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("jobStateTimeLimitActions").build();
 
     private static final UpdateJobQueueRequestMarshaller instance = new UpdateJobQueueRequestMarshaller();
 
@@ -55,8 +59,10 @@ public class UpdateJobQueueRequestMarshaller {
         try {
             protocolMarshaller.marshall(updateJobQueueRequest.getJobQueue(), JOBQUEUE_BINDING);
             protocolMarshaller.marshall(updateJobQueueRequest.getState(), STATE_BINDING);
+            protocolMarshaller.marshall(updateJobQueueRequest.getSchedulingPolicyArn(), SCHEDULINGPOLICYARN_BINDING);
             protocolMarshaller.marshall(updateJobQueueRequest.getPriority(), PRIORITY_BINDING);
             protocolMarshaller.marshall(updateJobQueueRequest.getComputeEnvironmentOrder(), COMPUTEENVIRONMENTORDER_BINDING);
+            protocolMarshaller.marshall(updateJobQueueRequest.getJobStateTimeLimitActions(), JOBSTATETIMELIMITACTIONS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,30 +30,30 @@ public class NotifyEmailType implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The subject.
+     * The email subject.
      * </p>
      */
     private String subject;
     /**
      * <p>
-     * The HTML body.
+     * The email HTML body.
      * </p>
      */
     private String htmlBody;
     /**
      * <p>
-     * The text body.
+     * The email text body.
      * </p>
      */
     private String textBody;
 
     /**
      * <p>
-     * The subject.
+     * The email subject.
      * </p>
      * 
      * @param subject
-     *        The subject.
+     *        The email subject.
      */
 
     public void setSubject(String subject) {
@@ -62,10 +62,10 @@ public class NotifyEmailType implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The subject.
+     * The email subject.
      * </p>
      * 
-     * @return The subject.
+     * @return The email subject.
      */
 
     public String getSubject() {
@@ -74,11 +74,11 @@ public class NotifyEmailType implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The subject.
+     * The email subject.
      * </p>
      * 
      * @param subject
-     *        The subject.
+     *        The email subject.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -89,11 +89,11 @@ public class NotifyEmailType implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The HTML body.
+     * The email HTML body.
      * </p>
      * 
      * @param htmlBody
-     *        The HTML body.
+     *        The email HTML body.
      */
 
     public void setHtmlBody(String htmlBody) {
@@ -102,10 +102,10 @@ public class NotifyEmailType implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The HTML body.
+     * The email HTML body.
      * </p>
      * 
-     * @return The HTML body.
+     * @return The email HTML body.
      */
 
     public String getHtmlBody() {
@@ -114,11 +114,11 @@ public class NotifyEmailType implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The HTML body.
+     * The email HTML body.
      * </p>
      * 
      * @param htmlBody
-     *        The HTML body.
+     *        The email HTML body.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -129,11 +129,11 @@ public class NotifyEmailType implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The text body.
+     * The email text body.
      * </p>
      * 
      * @param textBody
-     *        The text body.
+     *        The email text body.
      */
 
     public void setTextBody(String textBody) {
@@ -142,10 +142,10 @@ public class NotifyEmailType implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The text body.
+     * The email text body.
      * </p>
      * 
-     * @return The text body.
+     * @return The email text body.
      */
 
     public String getTextBody() {
@@ -154,11 +154,11 @@ public class NotifyEmailType implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The text body.
+     * The email text body.
      * </p>
      * 
      * @param textBody
-     *        The text body.
+     *        The email text body.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

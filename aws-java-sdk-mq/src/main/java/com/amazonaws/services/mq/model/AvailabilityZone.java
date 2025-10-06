@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
  * Name of the availability zone.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/AvailabilityZone" target="_top">AWS API
  *      Documentation</a>
@@ -26,11 +28,17 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class AvailabilityZone implements Serializable, Cloneable, StructuredPojo {
 
-    /** Id for the availability zone. */
+    /**
+     * <p>
+     * Id for the availability zone.
+     * </p>
+     */
     private String name;
 
     /**
+     * <p>
      * Id for the availability zone.
+     * </p>
      * 
      * @param name
      *        Id for the availability zone.
@@ -41,7 +49,9 @@ public class AvailabilityZone implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
+     * <p>
      * Id for the availability zone.
+     * </p>
      * 
      * @return Id for the availability zone.
      */
@@ -51,7 +61,9 @@ public class AvailabilityZone implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
+     * <p>
      * Id for the availability zone.
+     * </p>
      * 
      * @param name
      *        Id for the availability zone.

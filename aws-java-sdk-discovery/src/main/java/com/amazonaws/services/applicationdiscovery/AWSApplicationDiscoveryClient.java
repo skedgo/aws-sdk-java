@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,73 +44,146 @@ import com.amazonaws.services.applicationdiscovery.AWSApplicationDiscoveryClient
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.applicationdiscovery.model.*;
+
 import com.amazonaws.services.applicationdiscovery.model.transform.*;
 
 /**
  * Client for accessing AWS Application Discovery Service. All service calls made using this client are blocking, and
  * will not return until the service call completes.
  * <p>
- * <fullname>AWS Application Discovery Service</fullname>
+ * <fullname>Amazon Web Services Application Discovery Service</fullname>
  * <p>
- * AWS Application Discovery Service helps you plan application migration projects by automatically identifying servers,
- * virtual machines (VMs), software, and software dependencies running in your on-premises data centers. Application
- * Discovery Service also collects application performance data, which can help you assess the outcome of your
- * migration. The data collected by Application Discovery Service is securely retained in an AWS-hosted and managed
- * database in the cloud. You can export the data as a CSV or XML file into your preferred visualization tool or
- * cloud-migration solution to plan your migration. For more information, see <a
- * href="http://aws.amazon.com/application-discovery/faqs/">AWS Application Discovery Service FAQ</a>.
+ * Amazon Web Services Application Discovery Service (Application Discovery Service) helps you plan application
+ * migration projects. It automatically identifies servers, virtual machines (VMs), and network dependencies in your
+ * on-premises data centers. For more information, see the <a
+ * href="http://aws.amazon.com/application-discovery/faqs/">Amazon Web Services Application Discovery Service FAQ</a>.
  * </p>
  * <p>
- * Application Discovery Service offers two modes of operation:
+ * Application Discovery Service offers three ways of performing discovery and collecting data about your on-premises
+ * servers:
  * </p>
  * <ul>
  * <li>
  * <p>
- * <b>Agentless discovery</b> mode is recommended for environments that use VMware vCenter Server. This mode doesn't
- * require you to install an agent on each host. Agentless discovery gathers server information regardless of the
- * operating systems, which minimizes the time required for initial on-premises infrastructure assessment. Agentless
- * discovery doesn't collect information about software and software dependencies. It also doesn't work in non-VMware
- * environments.
+ * <b>Agentless discovery</b> using Amazon Web Services Application Discovery Service Agentless Collector (Agentless
+ * Collector), which doesn't require you to install an agent on each host.
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * Agentless Collector gathers server information regardless of the operating systems, which minimizes the time required
+ * for initial on-premises infrastructure assessment.
  * </p>
  * </li>
  * <li>
  * <p>
- * <b>Agent-based discovery</b> mode collects a richer set of data than agentless discovery by using the AWS Application
- * Discovery Agent, which you install on one or more hosts in your data center. The agent captures infrastructure and
- * application information, including an inventory of installed software applications, system and process performance,
- * resource utilization, and network dependencies between workloads. The information collected by agents is secured at
- * rest and in transit to the Application Discovery Service database in the cloud.
+ * Agentless Collector doesn't collect information about network dependencies, only agent-based discovery collects that
+ * information.
  * </p>
  * </li>
  * </ul>
+ * </li>
+ * </ul>
+ * <ul>
+ * <li>
  * <p>
- * We recommend that you use agent-based discovery for non-VMware environments and to collect information about software
- * and software dependencies. You can also run agent-based and agentless discovery simultaneously. Use agentless
- * discovery to quickly complete the initial infrastructure assessment and then install agents on select hosts.
+ * <b>Agent-based discovery</b> using the Amazon Web Services Application Discovery Agent (Application Discovery Agent)
+ * collects a richer set of data than agentless discovery, which you install on one or more hosts in your data center.
  * </p>
+ * <ul>
+ * <li>
  * <p>
- * Application Discovery Service integrates with application discovery solutions from AWS Partner Network (APN)
- * partners. Third-party application discovery tools can query Application Discovery Service and write to the
- * Application Discovery Service database using a public API. You can then import the data into either a visualization
- * tool or cloud-migration solution.
+ * The agent captures infrastructure and application information, including an inventory of running processes, system
+ * performance information, resource utilization, and network dependencies.
  * </p>
- * <important>
+ * </li>
+ * <li>
  * <p>
- * Application Discovery Service doesn't gather sensitive information. All data is handled according to the <a
- * href="http://aws.amazon.com/privacy/">AWS Privacy Policy</a>. You can operate Application Discovery Service offline
- * to inspect collected data before it is shared with the service.
+ * The information collected by agents is secured at rest and in transit to the Application Discovery Service database
+ * in the Amazon Web Services cloud. For more information, see <a
+ * href="https://docs.aws.amazon.com/application-discovery/latest/userguide/discovery-agent.html">Amazon Web Services
+ * Application Discovery Agent</a>.
  * </p>
- * </important>
+ * </li>
+ * </ul>
+ * </li>
+ * </ul>
+ * <ul>
+ * <li>
+ * <p>
+ * <b>Amazon Web Services Partner Network (APN) solutions</b> integrate with Application Discovery Service, enabling you
+ * to import details of your on-premises environment directly into Amazon Web Services Migration Hub (Migration Hub)
+ * without using Agentless Collector or Application Discovery Agent.
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * Third-party application discovery tools can query Amazon Web Services Application Discovery Service, and they can
+ * write to the Application Discovery Service database using the public API.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * In this way, you can import data into Migration Hub and view it, so that you can associate applications with servers
+ * and track migrations.
+ * </p>
+ * </li>
+ * </ul>
+ * </li>
+ * </ul>
+ * <p>
+ * <b>Working With This Guide</b>
+ * </p>
  * <p>
  * This API reference provides descriptions, syntax, and usage examples for each of the actions and data types for
  * Application Discovery Service. The topic for each action shows the API request parameters and the response.
- * Alternatively, you can use one of the AWS SDKs to access an API that is tailored to the programming language or
- * platform that you're using. For more information, see <a href="http://aws.amazon.com/tools/#SDKs">AWS SDKs</a>.
+ * Alternatively, you can use one of the Amazon Web Services SDKs to access an API that is tailored to the programming
+ * language or platform that you're using. For more information, see <a href="http://aws.amazon.com/tools/#SDKs">Amazon
+ * Web Services SDKs</a>.
  * </p>
+ * <note>
+ * <ul>
+ * <li>
  * <p>
- * This guide is intended for use with the <a href="http://docs.aws.amazon.com/application-discovery/latest/userguide/">
- * <i>AWS Application Discovery Service User Guide</i> </a>.
+ * Remember that you must set your Migration Hub home Region before you call any of these APIs.
  * </p>
+ * </li>
+ * <li>
+ * <p>
+ * You must make API calls for write actions (create, notify, associate, disassociate, import, or put) while in your
+ * home Region, or a <code>HomeRegionNotSetException</code> error is returned.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * API calls for read actions (list, describe, stop, and delete) are permitted outside of your home Region.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Although it is unlikely, the Migration Hub home Region could change. If you call APIs outside the home Region, an
+ * <code>InvalidInputException</code> is returned.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * You must call <code>GetHomeRegion</code> to obtain the latest Migration Hub home Region.
+ * </p>
+ * </li>
+ * </ul>
+ * </note>
+ * <p>
+ * This guide is intended for use with the <a
+ * href="https://docs.aws.amazon.com/application-discovery/latest/userguide/">Amazon Web Services Application Discovery
+ * Service User Guide</a>.
+ * </p>
+ * <important>
+ * <p>
+ * All data is handled according to the <a href="https://aws.amazon.com/privacy/">Amazon Web Services Privacy
+ * Policy</a>. You can operate Application Discovery Service offline to inspect collected data before it is shared with
+ * the service.
+ * </p>
+ * </important>
  */
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -135,29 +208,35 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ServerInternalErrorException").withModeledClass(
-                                    com.amazonaws.services.applicationdiscovery.model.ServerInternalErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ServerInternalErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.applicationdiscovery.model.transform.ServerInternalErrorExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterException").withModeledClass(
-                                    com.amazonaws.services.applicationdiscovery.model.InvalidParameterException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.applicationdiscovery.model.transform.InvalidParameterExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterValueException").withModeledClass(
-                                    com.amazonaws.services.applicationdiscovery.model.InvalidParameterValueException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterValueException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.applicationdiscovery.model.transform.InvalidParameterValueExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceInUseException").withModeledClass(
-                                    com.amazonaws.services.applicationdiscovery.model.ResourceInUseException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceInUseException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.applicationdiscovery.model.transform.ResourceInUseExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.applicationdiscovery.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConflictErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.applicationdiscovery.model.transform.ConflictErrorExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ConflictErrorException").withModeledClass(
-                                    com.amazonaws.services.applicationdiscovery.model.ConflictErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("OperationNotPermittedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.applicationdiscovery.model.transform.OperationNotPermittedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("OperationNotPermittedException").withModeledClass(
-                                    com.amazonaws.services.applicationdiscovery.model.OperationNotPermittedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.applicationdiscovery.model.transform.LimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AuthorizationErrorException").withModeledClass(
-                                    com.amazonaws.services.applicationdiscovery.model.AuthorizationErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.applicationdiscovery.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("HomeRegionNotSetException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.applicationdiscovery.model.transform.HomeRegionNotSetExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("AuthorizationErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.applicationdiscovery.model.transform.AuthorizationErrorExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.applicationdiscovery.model.AWSApplicationDiscoveryException.class));
 
     /**
@@ -370,8 +449,7 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      * @param associateConfigurationItemsToApplicationRequest
      * @return Result of the AssociateConfigurationItemsToApplication operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
      * @throws InvalidParameterException
      *         One or more parameters are not valid. Verify the parameters and try again.
      * @throws InvalidParameterValueException
@@ -379,6 +457,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         try again.
      * @throws ServerInternalErrorException
      *         The server experienced an internal error. Try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.AssociateConfigurationItemsToApplication
      */
     @Override
@@ -404,6 +484,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                         .beforeMarshalling(associateConfigurationItemsToApplicationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateConfigurationItemsToApplication");
@@ -428,26 +510,92 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
 
     /**
      * <p>
-     * Deletes one or more import tasks, each identified by their import ID. Each import task has a number of records
-     * that can identify servers or applications.
-     * </p>
-     * <p>
-     * AWS Application Discovery Service has built-in matching logic that will identify when discovered servers match
-     * existing entries that you've previously discovered, the information for the already-existing discovered server is
-     * updated. When you delete an import task that contains records that were used to match, the information in those
-     * matched records that comes from the deleted records will also be deleted.
+     * Deletes one or more agents or collectors as specified by ID. Deleting an agent or collector does not delete the
+     * previously discovered data. To delete the data collected, use <code>StartBatchDeleteConfigurationTask</code>.
      * </p>
      * 
-     * @param batchDeleteImportDataRequest
-     * @return Result of the BatchDeleteImportData operation returned by the service.
+     * @param batchDeleteAgentsRequest
+     * @return Result of the BatchDeleteAgents operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
+     * @throws InvalidParameterException
+     *         One or more parameters are not valid. Verify the parameters and try again.
      * @throws InvalidParameterValueException
      *         The value of one or more parameters are either invalid or out of range. Verify the parameter values and
      *         try again.
      * @throws ServerInternalErrorException
      *         The server experienced an internal error. Try again.
+     * @sample AWSApplicationDiscovery.BatchDeleteAgents
+     */
+    @Override
+    public BatchDeleteAgentsResult batchDeleteAgents(BatchDeleteAgentsRequest request) {
+        request = beforeClientExecution(request);
+        return executeBatchDeleteAgents(request);
+    }
+
+    @SdkInternalApi
+    final BatchDeleteAgentsResult executeBatchDeleteAgents(BatchDeleteAgentsRequest batchDeleteAgentsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(batchDeleteAgentsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<BatchDeleteAgentsRequest> request = null;
+        Response<BatchDeleteAgentsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new BatchDeleteAgentsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(batchDeleteAgentsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchDeleteAgents");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<BatchDeleteAgentsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new BatchDeleteAgentsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes one or more import tasks, each identified by their import ID. Each import task has a number of records
+     * that can identify servers or applications.
+     * </p>
+     * <p>
+     * Amazon Web Services Application Discovery Service has built-in matching logic that will identify when discovered
+     * servers match existing entries that you've previously discovered, the information for the already-existing
+     * discovered server is updated. When you delete an import task that contains records that were used to match, the
+     * information in those matched records that comes from the deleted records will also be deleted.
+     * </p>
+     * 
+     * @param batchDeleteImportDataRequest
+     * @return Result of the BatchDeleteImportData operation returned by the service.
+     * @throws AuthorizationErrorException
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
+     * @throws InvalidParameterException
+     *         One or more parameters are not valid. Verify the parameters and try again.
+     * @throws InvalidParameterValueException
+     *         The value of one or more parameters are either invalid or out of range. Verify the parameter values and
+     *         try again.
+     * @throws ServerInternalErrorException
+     *         The server experienced an internal error. Try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.BatchDeleteImportData
      */
     @Override
@@ -471,6 +619,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                 request = new BatchDeleteImportDataRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(batchDeleteImportDataRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchDeleteImportData");
@@ -501,8 +651,7 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      * @param createApplicationRequest
      * @return Result of the CreateApplication operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
      * @throws InvalidParameterException
      *         One or more parameters are not valid. Verify the parameters and try again.
      * @throws InvalidParameterValueException
@@ -510,6 +659,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         try again.
      * @throws ServerInternalErrorException
      *         The server experienced an internal error. Try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.CreateApplication
      */
     @Override
@@ -533,6 +684,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                 request = new CreateApplicationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createApplicationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateApplication");
@@ -559,12 +712,16 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      * Creates one or more tags for configuration items. Tags are metadata that help you categorize IT assets. This API
      * accepts a list of multiple configuration items.
      * </p>
+     * <important>
+     * <p>
+     * Do not store sensitive information (like personal data) in tags.
+     * </p>
+     * </important>
      * 
      * @param createTagsRequest
      * @return Result of the CreateTags operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
      * @throws ResourceNotFoundException
      *         The specified configuration ID was not located. Verify the configuration ID and try again.
      * @throws InvalidParameterException
@@ -574,6 +731,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         try again.
      * @throws ServerInternalErrorException
      *         The server experienced an internal error. Try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.CreateTags
      */
     @Override
@@ -597,6 +756,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                 request = new CreateTagsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createTagsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateTags");
@@ -626,8 +787,7 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      * @param deleteApplicationsRequest
      * @return Result of the DeleteApplications operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
      * @throws InvalidParameterException
      *         One or more parameters are not valid. Verify the parameters and try again.
      * @throws InvalidParameterValueException
@@ -635,6 +795,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         try again.
      * @throws ServerInternalErrorException
      *         The server experienced an internal error. Try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.DeleteApplications
      */
     @Override
@@ -658,6 +820,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                 request = new DeleteApplicationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteApplicationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteApplications");
@@ -688,8 +852,7 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      * @param deleteTagsRequest
      * @return Result of the DeleteTags operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
      * @throws ResourceNotFoundException
      *         The specified configuration ID was not located. Verify the configuration ID and try again.
      * @throws InvalidParameterException
@@ -699,6 +862,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         try again.
      * @throws ServerInternalErrorException
      *         The server experienced an internal error. Try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.DeleteTags
      */
     @Override
@@ -722,6 +887,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                 request = new DeleteTagsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteTagsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteTags");
@@ -745,15 +912,14 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
 
     /**
      * <p>
-     * Lists agents or connectors as specified by ID or other filters. All agents/connectors associated with your user
-     * account can be listed if you call <code>DescribeAgents</code> as is without passing any parameters.
+     * Lists agents or collectors as specified by ID or other filters. All agents/collectors associated with your user
+     * can be listed if you call <code>DescribeAgents</code> as is without passing any parameters.
      * </p>
      * 
      * @param describeAgentsRequest
      * @return Result of the DescribeAgents operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
      * @throws InvalidParameterException
      *         One or more parameters are not valid. Verify the parameters and try again.
      * @throws InvalidParameterValueException
@@ -761,6 +927,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         try again.
      * @throws ServerInternalErrorException
      *         The server experienced an internal error. Try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.DescribeAgents
      */
     @Override
@@ -784,6 +952,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                 request = new DescribeAgentsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeAgentsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAgents");
@@ -795,6 +965,71 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
 
             HttpResponseHandler<AmazonWebServiceResponse<DescribeAgentsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeAgentsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Takes a unique deletion task identifier as input and returns metadata about a configuration deletion task.
+     * </p>
+     * 
+     * @param describeBatchDeleteConfigurationTaskRequest
+     * @return Result of the DescribeBatchDeleteConfigurationTask operation returned by the service.
+     * @throws AuthorizationErrorException
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
+     * @throws InvalidParameterValueException
+     *         The value of one or more parameters are either invalid or out of range. Verify the parameter values and
+     *         try again.
+     * @throws ServerInternalErrorException
+     *         The server experienced an internal error. Try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
+     * @sample AWSApplicationDiscovery.DescribeBatchDeleteConfigurationTask
+     */
+    @Override
+    public DescribeBatchDeleteConfigurationTaskResult describeBatchDeleteConfigurationTask(DescribeBatchDeleteConfigurationTaskRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeBatchDeleteConfigurationTask(request);
+    }
+
+    @SdkInternalApi
+    final DescribeBatchDeleteConfigurationTaskResult executeDescribeBatchDeleteConfigurationTask(
+            DescribeBatchDeleteConfigurationTaskRequest describeBatchDeleteConfigurationTaskRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeBatchDeleteConfigurationTaskRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeBatchDeleteConfigurationTaskRequest> request = null;
+        Response<DescribeBatchDeleteConfigurationTaskResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeBatchDeleteConfigurationTaskRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeBatchDeleteConfigurationTaskRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBatchDeleteConfigurationTask");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeBatchDeleteConfigurationTaskResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeBatchDeleteConfigurationTaskResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -842,16 +1077,16 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      * </p>
      * <p>
      * For a complete list of outputs for each asset type, see <a href=
-     * "http://docs.aws.amazon.com/application-discovery/latest/APIReference/discovery-api-queries.html#DescribeConfigurations"
-     * >Using the DescribeConfigurations Action</a>.
+     * "https://docs.aws.amazon.com/application-discovery/latest/userguide/discovery-api-queries.html#DescribeConfigurations"
+     * >Using the DescribeConfigurations Action</a> in the <i>Amazon Web Services Application Discovery Service User
+     * Guide</i>.
      * </p>
      * </note>
      * 
      * @param describeConfigurationsRequest
      * @return Result of the DescribeConfigurations operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
      * @throws InvalidParameterException
      *         One or more parameters are not valid. Verify the parameters and try again.
      * @throws InvalidParameterValueException
@@ -859,6 +1094,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         try again.
      * @throws ServerInternalErrorException
      *         The server experienced an internal error. Try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.DescribeConfigurations
      */
     @Override
@@ -882,6 +1119,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                 request = new DescribeConfigurationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeConfigurationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeConfigurations");
@@ -906,15 +1145,14 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
 
     /**
      * <p>
-     * Lists exports as specified by ID. All continuous exports associated with your user account can be listed if you
-     * call <code>DescribeContinuousExports</code> as is without passing any parameters.
+     * Lists exports as specified by ID. All continuous exports associated with your user can be listed if you call
+     * <code>DescribeContinuousExports</code> as is without passing any parameters.
      * </p>
      * 
      * @param describeContinuousExportsRequest
      * @return Result of the DescribeContinuousExports operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
      * @throws InvalidParameterException
      *         One or more parameters are not valid. Verify the parameters and try again.
      * @throws InvalidParameterValueException
@@ -926,6 +1164,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         This operation is not permitted.
      * @throws ResourceNotFoundException
      *         The specified configuration ID was not located. Verify the configuration ID and try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.DescribeContinuousExports
      */
     @Override
@@ -950,6 +1190,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                         .beforeMarshalling(describeContinuousExportsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeContinuousExports");
@@ -976,14 +1218,13 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      * <p>
      * <code>DescribeExportConfigurations</code> is deprecated. Use <a
      * href="https://docs.aws.amazon.com/application-discovery/latest/APIReference/API_DescribeExportTasks.html"
-     * >DescribeImportTasks</a>, instead.
+     * >DescribeExportTasks</a>, instead.
      * </p>
      * 
      * @param describeExportConfigurationsRequest
      * @return Result of the DescribeExportConfigurations operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
      * @throws ResourceNotFoundException
      *         The specified configuration ID was not located. Verify the configuration ID and try again.
      * @throws InvalidParameterException
@@ -993,6 +1234,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         try again.
      * @throws ServerInternalErrorException
      *         The server experienced an internal error. Try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.DescribeExportConfigurations
      */
     @Override
@@ -1018,6 +1261,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                         .beforeMarshalling(describeExportConfigurationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeExportConfigurations");
@@ -1048,8 +1293,7 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      * @param describeExportTasksRequest
      * @return Result of the DescribeExportTasks operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
      * @throws InvalidParameterException
      *         One or more parameters are not valid. Verify the parameters and try again.
      * @throws InvalidParameterValueException
@@ -1057,6 +1301,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         try again.
      * @throws ServerInternalErrorException
      *         The server experienced an internal error. Try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.DescribeExportTasks
      */
     @Override
@@ -1080,6 +1326,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                 request = new DescribeExportTasksRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeExportTasksRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeExportTasks");
@@ -1110,13 +1358,16 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      * @param describeImportTasksRequest
      * @return Result of the DescribeImportTasks operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
+     * @throws InvalidParameterException
+     *         One or more parameters are not valid. Verify the parameters and try again.
      * @throws InvalidParameterValueException
      *         The value of one or more parameters are either invalid or out of range. Verify the parameter values and
      *         try again.
      * @throws ServerInternalErrorException
      *         The server experienced an internal error. Try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.DescribeImportTasks
      */
     @Override
@@ -1140,6 +1391,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                 request = new DescribeImportTasksRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeImportTasksRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeImportTasks");
@@ -1187,15 +1440,14 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      * </li>
      * </ul>
      * <p>
-     * Also, all configuration items associated with your user account that have tags can be listed if you call
+     * Also, all configuration items associated with your user that have tags can be listed if you call
      * <code>DescribeTags</code> as is without passing any parameters.
      * </p>
      * 
      * @param describeTagsRequest
      * @return Result of the DescribeTags operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
      * @throws ResourceNotFoundException
      *         The specified configuration ID was not located. Verify the configuration ID and try again.
      * @throws InvalidParameterException
@@ -1205,6 +1457,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         try again.
      * @throws ServerInternalErrorException
      *         The server experienced an internal error. Try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.DescribeTags
      */
     @Override
@@ -1228,6 +1482,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                 request = new DescribeTagsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeTagsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeTags");
@@ -1257,8 +1513,7 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      * @param disassociateConfigurationItemsFromApplicationRequest
      * @return Result of the DisassociateConfigurationItemsFromApplication operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
      * @throws InvalidParameterException
      *         One or more parameters are not valid. Verify the parameters and try again.
      * @throws InvalidParameterValueException
@@ -1266,6 +1521,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         try again.
      * @throws ServerInternalErrorException
      *         The server experienced an internal error. Try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.DisassociateConfigurationItemsFromApplication
      */
     @Override
@@ -1292,6 +1549,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                         .beforeMarshalling(disassociateConfigurationItemsFromApplicationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateConfigurationItemsFromApplication");
@@ -1328,8 +1587,7 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      * @param exportConfigurationsRequest
      * @return Result of the ExportConfigurations operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
      * @throws InvalidParameterException
      *         One or more parameters are not valid. Verify the parameters and try again.
      * @throws InvalidParameterValueException
@@ -1339,6 +1597,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         The server experienced an internal error. Try again.
      * @throws OperationNotPermittedException
      *         This operation is not permitted.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.ExportConfigurations
      */
     @Override
@@ -1363,6 +1623,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                 request = new ExportConfigurationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(exportConfigurationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ExportConfigurations");
@@ -1395,8 +1657,7 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      * @param getDiscoverySummaryRequest
      * @return Result of the GetDiscoverySummary operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
      * @throws InvalidParameterException
      *         One or more parameters are not valid. Verify the parameters and try again.
      * @throws InvalidParameterValueException
@@ -1404,6 +1665,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         try again.
      * @throws ServerInternalErrorException
      *         The server experienced an internal error. Try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.GetDiscoverySummary
      */
     @Override
@@ -1427,6 +1690,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                 request = new GetDiscoverySummaryRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDiscoverySummaryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDiscoverySummary");
@@ -1450,15 +1715,14 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
 
     /**
      * <p>
-     * Retrieves a list of configuration items as specified by the value passed to the required paramater
+     * Retrieves a list of configuration items as specified by the value passed to the required parameter
      * <code>configurationType</code>. Optional filtering may be applied to refine search results.
      * </p>
      * 
      * @param listConfigurationsRequest
      * @return Result of the ListConfigurations operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
      * @throws ResourceNotFoundException
      *         The specified configuration ID was not located. Verify the configuration ID and try again.
      * @throws InvalidParameterException
@@ -1468,6 +1732,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         try again.
      * @throws ServerInternalErrorException
      *         The server experienced an internal error. Try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.ListConfigurations
      */
     @Override
@@ -1491,6 +1757,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                 request = new ListConfigurationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listConfigurationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListConfigurations");
@@ -1520,8 +1788,7 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      * @param listServerNeighborsRequest
      * @return Result of the ListServerNeighbors operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
      * @throws InvalidParameterException
      *         One or more parameters are not valid. Verify the parameters and try again.
      * @throws InvalidParameterValueException
@@ -1529,6 +1796,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         try again.
      * @throws ServerInternalErrorException
      *         The server experienced an internal error. Try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.ListServerNeighbors
      */
     @Override
@@ -1552,6 +1821,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                 request = new ListServerNeighborsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listServerNeighborsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListServerNeighbors");
@@ -1575,15 +1846,85 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
 
     /**
      * <p>
+     * Takes a list of configurationId as input and starts an asynchronous deletion task to remove the
+     * configurationItems. Returns a unique deletion task identifier.
+     * </p>
+     * 
+     * @param startBatchDeleteConfigurationTaskRequest
+     * @return Result of the StartBatchDeleteConfigurationTask operation returned by the service.
+     * @throws LimitExceededException
+     *         The limit of 200 configuration IDs per request has been exceeded.
+     * @throws AuthorizationErrorException
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
+     * @throws ServerInternalErrorException
+     *         The server experienced an internal error. Try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
+     * @throws OperationNotPermittedException
+     *         This operation is not permitted.
+     * @throws InvalidParameterValueException
+     *         The value of one or more parameters are either invalid or out of range. Verify the parameter values and
+     *         try again.
+     * @sample AWSApplicationDiscovery.StartBatchDeleteConfigurationTask
+     */
+    @Override
+    public StartBatchDeleteConfigurationTaskResult startBatchDeleteConfigurationTask(StartBatchDeleteConfigurationTaskRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartBatchDeleteConfigurationTask(request);
+    }
+
+    @SdkInternalApi
+    final StartBatchDeleteConfigurationTaskResult executeStartBatchDeleteConfigurationTask(
+            StartBatchDeleteConfigurationTaskRequest startBatchDeleteConfigurationTaskRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startBatchDeleteConfigurationTaskRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartBatchDeleteConfigurationTaskRequest> request = null;
+        Response<StartBatchDeleteConfigurationTaskResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartBatchDeleteConfigurationTaskRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(startBatchDeleteConfigurationTaskRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartBatchDeleteConfigurationTask");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartBatchDeleteConfigurationTaskResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new StartBatchDeleteConfigurationTaskResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Start the continuous flow of agent's discovered data into Amazon Athena.
      * </p>
      * 
      * @param startContinuousExportRequest
      * @return Result of the StartContinuousExport operation returned by the service.
      * @throws ConflictErrorException
+     *         Conflict error.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
      * @throws InvalidParameterException
      *         One or more parameters are not valid. Verify the parameters and try again.
      * @throws InvalidParameterValueException
@@ -1598,6 +1939,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         <code>StartImportTask</code> action, but with different parameters. For example, you use the same request
      *         token but have two different import URLs, you can encounter this issue. If the import tasks are meant to
      *         be different, use a different <code>clientRequestToken</code>, and try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.StartContinuousExport
      */
     @Override
@@ -1621,6 +1964,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                 request = new StartContinuousExportRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startContinuousExportRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartContinuousExport");
@@ -1645,14 +1990,13 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
 
     /**
      * <p>
-     * Instructs the specified agents or connectors to start collecting data.
+     * Instructs the specified agents to start collecting data.
      * </p>
      * 
      * @param startDataCollectionByAgentIdsRequest
      * @return Result of the StartDataCollectionByAgentIds operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
      * @throws InvalidParameterException
      *         One or more parameters are not valid. Verify the parameters and try again.
      * @throws InvalidParameterValueException
@@ -1660,6 +2004,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         try again.
      * @throws ServerInternalErrorException
      *         The server experienced an internal error. Try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.StartDataCollectionByAgentIds
      */
     @Override
@@ -1684,6 +2030,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                         .beforeMarshalling(startDataCollectionByAgentIdsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartDataCollectionByAgentIds");
@@ -1708,25 +2056,38 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
 
     /**
      * <p>
-     * Begins the export of discovered data to an S3 bucket.
+     * Begins the export of a discovered data report to an Amazon S3 bucket managed by Amazon Web Services.
+     * </p>
+     * <note>
+     * <p>
+     * Exports might provide an estimate of fees and savings based on certain information that you provide. Fee
+     * estimates do not include any taxes that might apply. Your actual fees and savings depend on a variety of factors,
+     * including your actual usage of Amazon Web Services services, which might vary from the estimates provided in this
+     * report.
+     * </p>
+     * </note>
+     * <p>
+     * If you do not specify <code>preferences</code> or <code>agentIds</code> in the filter, a summary of all servers,
+     * applications, tags, and performance is generated. This data is an aggregation of all server data collected
+     * through on-premises tooling, file import, application grouping and applying tags.
      * </p>
      * <p>
      * If you specify <code>agentIds</code> in a filter, the task exports up to 72 hours of detailed data collected by
      * the identified Application Discovery Agent, including network, process, and performance details. A time range for
      * exported agent data may be set by using <code>startTime</code> and <code>endTime</code>. Export of detailed agent
-     * data is limited to five concurrently running exports.
+     * data is limited to five concurrently running exports. Export of detailed agent data is limited to two exports per
+     * day.
      * </p>
      * <p>
-     * If you do not include an <code>agentIds</code> filter, summary data is exported that includes both AWS Agentless
-     * Discovery Connector data and summary data from AWS Discovery Agents. Export of summary data is limited to two
-     * exports per day.
+     * If you enable <code>ec2RecommendationsPreferences</code> in <code>preferences</code> , an Amazon EC2 instance
+     * matching the characteristics of each server in Application Discovery Service is generated. Changing the
+     * attributes of the <code>ec2RecommendationsPreferences</code> changes the criteria of the recommendation.
      * </p>
      * 
      * @param startExportTaskRequest
      * @return Result of the StartExportTask operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
      * @throws InvalidParameterException
      *         One or more parameters are not valid. Verify the parameters and try again.
      * @throws InvalidParameterValueException
@@ -1736,6 +2097,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         The server experienced an internal error. Try again.
      * @throws OperationNotPermittedException
      *         This operation is not permitted.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.StartExportTask
      */
     @Override
@@ -1759,6 +2122,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                 request = new StartExportTaskRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startExportTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartExportTask");
@@ -1782,10 +2147,12 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
 
     /**
      * <p>
-     * Starts an import task, which allows you to import details of your on-premises environment directly into AWS
-     * without having to use the Application Discovery Service (ADS) tools such as the Discovery Connector or Discovery
-     * Agent. This gives you the option to perform migration assessment and planning directly from your imported data,
-     * including the ability to group your devices as applications and track their migration status.
+     * Starts an import task, which allows you to import details of your on-premises environment directly into Amazon
+     * Web Services Migration Hub without having to use the Amazon Web Services Application Discovery Service
+     * (Application Discovery Service) tools such as the Amazon Web Services Application Discovery Service Agentless
+     * Collector or Application Discovery Agent. This gives you the option to perform migration assessment and planning
+     * directly from your imported data, including the ability to group your devices as applications and track their
+     * migration status.
      * </p>
      * <p>
      * To start an import request, do this:
@@ -1794,8 +2161,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      * <li>
      * <p>
      * Download the specially formatted comma separated value (CSV) import template, which you can find here: <a
-     * href="https://s3-us-west-2.amazonaws.com/templates-7cffcf56-bd96-4b1c-b45b-a5b42f282e46/import_template.csv"
-     * >https://s3-us-west-2.amazonaws.com/templates-7cffcf56-bd96-4b1c-b45b-a5b42f282e46/import_template.csv</a>.
+     * href="https://s3.us-west-2.amazonaws.com/templates-7cffcf56-bd96-4b1c-b45b-a5b42f282e46/import_template.csv"
+     * >https://s3.us-west-2.amazonaws.com/templates-7cffcf56-bd96-4b1c-b45b-a5b42f282e46/import_template.csv</a>.
      * </p>
      * </li>
      * <li>
@@ -1811,22 +2178,23 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      * </li>
      * <li>
      * <p>
-     * Use the console or the <code>StartImportTask</code> command with the AWS CLI or one of the AWS SDKs to import the
-     * records from your file.
+     * Use the console or the <code>StartImportTask</code> command with the Amazon Web Services CLI or one of the Amazon
+     * Web Services SDKs to import the records from your file.
      * </p>
      * </li>
      * </ol>
      * <p>
      * For more information, including step-by-step procedures, see <a
      * href="https://docs.aws.amazon.com/application-discovery/latest/userguide/discovery-import.html">Migration Hub
-     * Import</a> in the <i>AWS Application Discovery Service User Guide</i>.
+     * Import</a> in the <i>Amazon Web Services Application Discovery Service User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * There are limits to the number of import tasks you can create (and delete) in an AWS account. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/application-discovery/latest/userguide/ads_service_limits.html">AWS Application
-     * Discovery Service Limits</a> in the <i>AWS Application Discovery Service User Guide</i>.
+     * There are limits to the number of import tasks you can create (and delete) in an Amazon Web Services account. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/application-discovery/latest/userguide/ads_service_limits.html">Amazon Web
+     * Services Application Discovery Service Limits</a> in the <i>Amazon Web Services Application Discovery Service
+     * User Guide</i>.
      * </p>
      * </note>
      * 
@@ -1838,13 +2206,16 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         token but have two different import URLs, you can encounter this issue. If the import tasks are meant to
      *         be different, use a different <code>clientRequestToken</code>, and try again.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
+     * @throws InvalidParameterException
+     *         One or more parameters are not valid. Verify the parameters and try again.
      * @throws InvalidParameterValueException
      *         The value of one or more parameters are either invalid or out of range. Verify the parameter values and
      *         try again.
      * @throws ServerInternalErrorException
      *         The server experienced an internal error. Try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.StartImportTask
      */
     @Override
@@ -1868,6 +2239,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                 request = new StartImportTaskRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startImportTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartImportTask");
@@ -1897,8 +2270,7 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      * @param stopContinuousExportRequest
      * @return Result of the StopContinuousExport operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
      * @throws InvalidParameterException
      *         One or more parameters are not valid. Verify the parameters and try again.
      * @throws InvalidParameterValueException
@@ -1915,6 +2287,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         <code>StartImportTask</code> action, but with different parameters. For example, you use the same request
      *         token but have two different import URLs, you can encounter this issue. If the import tasks are meant to
      *         be different, use a different <code>clientRequestToken</code>, and try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.StopContinuousExport
      */
     @Override
@@ -1938,6 +2312,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                 request = new StopContinuousExportRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(stopContinuousExportRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StopContinuousExport");
@@ -1961,14 +2337,13 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
 
     /**
      * <p>
-     * Instructs the specified agents or connectors to stop collecting data.
+     * Instructs the specified agents to stop collecting data.
      * </p>
      * 
      * @param stopDataCollectionByAgentIdsRequest
      * @return Result of the StopDataCollectionByAgentIds operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
      * @throws InvalidParameterException
      *         One or more parameters are not valid. Verify the parameters and try again.
      * @throws InvalidParameterValueException
@@ -1976,6 +2351,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         try again.
      * @throws ServerInternalErrorException
      *         The server experienced an internal error. Try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.StopDataCollectionByAgentIds
      */
     @Override
@@ -2000,6 +2377,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                         .beforeMarshalling(stopDataCollectionByAgentIdsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StopDataCollectionByAgentIds");
@@ -2030,8 +2409,7 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      * @param updateApplicationRequest
      * @return Result of the UpdateApplication operation returned by the service.
      * @throws AuthorizationErrorException
-     *         The AWS user account does not have permission to perform the action. Check the IAM policy associated with
-     *         this account.
+     *         The user does not have permission to perform the action. Check the IAM policy associated with this user.
      * @throws InvalidParameterException
      *         One or more parameters are not valid. Verify the parameters and try again.
      * @throws InvalidParameterValueException
@@ -2039,6 +2417,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
      *         try again.
      * @throws ServerInternalErrorException
      *         The server experienced an internal error. Try again.
+     * @throws HomeRegionNotSetException
+     *         The home Region is not set. Set the home Region to continue.
      * @sample AWSApplicationDiscovery.UpdateApplication
      */
     @Override
@@ -2062,6 +2442,8 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
                 request = new UpdateApplicationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateApplicationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Application Discovery Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateApplication");
@@ -2157,6 +2539,11 @@ public class AWSApplicationDiscoveryClient extends AmazonWebServiceClient implem
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

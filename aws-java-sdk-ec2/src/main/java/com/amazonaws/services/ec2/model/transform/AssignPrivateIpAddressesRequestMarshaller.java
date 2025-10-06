@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -64,6 +64,23 @@ public class AssignPrivateIpAddressesRequestMarshaller implements Marshaller<Req
 
         if (assignPrivateIpAddressesRequest.getSecondaryPrivateIpAddressCount() != null) {
             request.addParameter("SecondaryPrivateIpAddressCount", StringUtils.fromInteger(assignPrivateIpAddressesRequest.getSecondaryPrivateIpAddressCount()));
+        }
+
+        com.amazonaws.internal.SdkInternalList<String> assignPrivateIpAddressesRequestIpv4PrefixesList = (com.amazonaws.internal.SdkInternalList<String>) assignPrivateIpAddressesRequest
+                .getIpv4Prefixes();
+        if (!assignPrivateIpAddressesRequestIpv4PrefixesList.isEmpty() || !assignPrivateIpAddressesRequestIpv4PrefixesList.isAutoConstruct()) {
+            int ipv4PrefixesListIndex = 1;
+
+            for (String assignPrivateIpAddressesRequestIpv4PrefixesListValue : assignPrivateIpAddressesRequestIpv4PrefixesList) {
+                if (assignPrivateIpAddressesRequestIpv4PrefixesListValue != null) {
+                    request.addParameter("Ipv4Prefix." + ipv4PrefixesListIndex, StringUtils.fromString(assignPrivateIpAddressesRequestIpv4PrefixesListValue));
+                }
+                ipv4PrefixesListIndex++;
+            }
+        }
+
+        if (assignPrivateIpAddressesRequest.getIpv4PrefixCount() != null) {
+            request.addParameter("Ipv4PrefixCount", StringUtils.fromInteger(assignPrivateIpAddressesRequest.getIpv4PrefixCount()));
         }
 
         return request;

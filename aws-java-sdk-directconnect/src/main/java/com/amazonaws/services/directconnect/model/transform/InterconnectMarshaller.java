@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,10 +50,14 @@ public class InterconnectMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("jumboFrameCapable").build();
     private static final MarshallingInfo<String> AWSDEVICEV2_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("awsDeviceV2").build();
+    private static final MarshallingInfo<String> AWSLOGICALDEVICEID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("awsLogicalDeviceId").build();
     private static final MarshallingInfo<String> HASLOGICALREDUNDANCY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("hasLogicalRedundancy").build();
     private static final MarshallingInfo<List> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("tags").build();
+    private static final MarshallingInfo<String> PROVIDERNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("providerName").build();
 
     private static final InterconnectMarshaller instance = new InterconnectMarshaller();
 
@@ -82,8 +86,10 @@ public class InterconnectMarshaller {
             protocolMarshaller.marshall(interconnect.getAwsDevice(), AWSDEVICE_BINDING);
             protocolMarshaller.marshall(interconnect.getJumboFrameCapable(), JUMBOFRAMECAPABLE_BINDING);
             protocolMarshaller.marshall(interconnect.getAwsDeviceV2(), AWSDEVICEV2_BINDING);
+            protocolMarshaller.marshall(interconnect.getAwsLogicalDeviceId(), AWSLOGICALDEVICEID_BINDING);
             protocolMarshaller.marshall(interconnect.getHasLogicalRedundancy(), HASLOGICALREDUNDANCY_BINDING);
             protocolMarshaller.marshall(interconnect.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(interconnect.getProviderName(), PROVIDERNAME_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

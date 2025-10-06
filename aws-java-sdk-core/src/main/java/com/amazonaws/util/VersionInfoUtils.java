@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,17 +14,16 @@
  */
 package com.amazonaws.util;
 
-import java.io.InputStream;
-import java.util.Properties;
-import java.util.jar.JarInputStream;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import static com.amazonaws.util.IOUtils.closeQuietly;
 
 import com.amazonaws.annotation.ThreadSafe;
 import com.amazonaws.internal.config.InternalConfig;
-
-import static com.amazonaws.util.IOUtils.closeQuietly;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Properties;
+import java.util.jar.JarInputStream;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Utility class for accessing AWS SDK versioning information.
@@ -33,6 +32,14 @@ import static com.amazonaws.util.IOUtils.closeQuietly;
 public class VersionInfoUtils {
     /** The AWS SDK version info file with SDK versioning info */
     static final String VERSION_INFO_FILE = "/com/amazonaws/sdk/versionInfo.properties";
+
+    private static final String DISABLE_DEPRECATION_ANNOUNCEMENT_ENV_VAR =
+        "AWS_JAVA_V1_DISABLE_DEPRECATION_ANNOUNCEMENT";
+    private static final String DISABLE_DEPRECATION_ANNOUNCEMENT_SYS_PROP =
+        "aws.java.v1.disableDeprecationAnnouncement";
+
+    private static final String PRINT_LOCATION_ENV_VAR = "AWS_JAVA_V1_PRINT_LOCATION";
+    private static final String PRINT_LOCATION_SYS_PROP = "aws.java.v1.printLocation";
 
     /** SDK version info */
     private static volatile String version;
@@ -47,6 +54,59 @@ public class VersionInfoUtils {
     private static final Log log = LogFactory.getLog(VersionInfoUtils.class);
 
     private static final String UNKNOWN = "unknown";
+
+    static {
+        printDeprecationAnnouncement();
+        printSdkLocation();
+    }
+
+    private static void printDeprecationAnnouncement() {
+        String disableAnnouncementEnvVar = System.getenv(DISABLE_DEPRECATION_ANNOUNCEMENT_ENV_VAR);
+        String disableAnnouncementSysProp = System.getProperty(DISABLE_DEPRECATION_ANNOUNCEMENT_SYS_PROP);
+        boolean printDeprecationAnnouncement = !isTrue(disableAnnouncementEnvVar) && !isTrue(disableAnnouncementSysProp);
+
+        if (printDeprecationAnnouncement) {
+            StringBuilder message = new StringBuilder(
+                "The AWS SDK for Java 1.x entered maintenance mode starting July 31, 2024 and will reach end of support "
+                + "on December 31, 2025. For more information, see "
+                + "https://aws.amazon.com/blogs/developer/the-aws-sdk-for-java-1-x-is-in-maintenance-mode-effective-july-31-2024/\n"
+                + "You can print where on the file system the AWS SDK for Java 1.x core runtime is located by setting "
+                + "the " + PRINT_LOCATION_ENV_VAR + " environment variable or " + PRINT_LOCATION_SYS_PROP + " system "
+                + "property to 'true'.\n"
+                + "This message can be disabled by setting the " + DISABLE_DEPRECATION_ANNOUNCEMENT_ENV_VAR
+                + " environment variable or " + DISABLE_DEPRECATION_ANNOUNCEMENT_SYS_PROP + " system property to 'true'."
+                + "\n"
+                + "The AWS SDK for Java 1.x is being used here:");
+
+            for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
+                message.append("\n").append("at ").append(element);
+            }
+
+            log.warn(message);
+        }
+    }
+
+    private static void printSdkLocation() {
+        String printJarEnvVar = System.getenv(PRINT_LOCATION_ENV_VAR);
+        String printJarSysProp = System.getProperty(PRINT_LOCATION_SYS_PROP);
+        boolean printJar = isTrue(printJarEnvVar) || isTrue(printJarSysProp);
+
+        if (printJar) {
+            try {
+                URL jarLocation = VersionInfoUtils.class.getProtectionDomain().getCodeSource().getLocation();
+                String message =
+                    "The AWS SDK for Java 1.x core runtime is located at " + jarLocation + "\n"
+                    + "This message was generated because the " + PRINT_LOCATION_ENV_VAR + " environment variable or "
+                    + PRINT_LOCATION_SYS_PROP + " system property were set to 'true'.";
+                log.info(message);
+            } catch (SecurityException e) {
+                String message =
+                    "The AWS SDK for Java 1.x core runtime location could not be printed, because a "
+                    + "security manager did not allow it.";
+                log.error(message, e);
+            }
+        }
+    }
 
     /**
      * Returns the current version for the AWS SDK in which this class is
@@ -296,5 +356,9 @@ public class VersionInfoUtils {
         if (suffix != null && !suffix.isEmpty()) {
             prefix.append(separator).append(suffix);
         }
+    }
+
+    private static boolean isTrue(String string) {
+        return Boolean.parseBoolean(string);
     }
 }

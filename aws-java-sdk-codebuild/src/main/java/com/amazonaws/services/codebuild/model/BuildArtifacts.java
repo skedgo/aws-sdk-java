@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -64,8 +64,8 @@ public class BuildArtifacts implements Serializable, Cloneable, StructuredPojo {
     private String md5sum;
     /**
      * <p>
-     * If this flag is set, a name specified in the build spec file overrides the artifact name. The name specified in a
-     * build spec file is calculated at build time and uses the Shell Command Language. For example, you can append a
+     * If this flag is set, a name specified in the buildspec file overrides the artifact name. The name specified in a
+     * buildspec file is calculated at build time and uses the Shell Command Language. For example, you can append a
      * date and time to your artifact name so that it is always unique.
      * </p>
      */
@@ -82,6 +82,8 @@ public class BuildArtifacts implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String artifactIdentifier;
+
+    private String bucketOwnerAccess;
 
     /**
      * <p>
@@ -301,14 +303,14 @@ public class BuildArtifacts implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If this flag is set, a name specified in the build spec file overrides the artifact name. The name specified in a
-     * build spec file is calculated at build time and uses the Shell Command Language. For example, you can append a
+     * If this flag is set, a name specified in the buildspec file overrides the artifact name. The name specified in a
+     * buildspec file is calculated at build time and uses the Shell Command Language. For example, you can append a
      * date and time to your artifact name so that it is always unique.
      * </p>
      * 
      * @param overrideArtifactName
-     *        If this flag is set, a name specified in the build spec file overrides the artifact name. The name
-     *        specified in a build spec file is calculated at build time and uses the Shell Command Language. For
+     *        If this flag is set, a name specified in the buildspec file overrides the artifact name. The name
+     *        specified in a buildspec file is calculated at build time and uses the Shell Command Language. For
      *        example, you can append a date and time to your artifact name so that it is always unique.
      */
 
@@ -318,13 +320,13 @@ public class BuildArtifacts implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If this flag is set, a name specified in the build spec file overrides the artifact name. The name specified in a
-     * build spec file is calculated at build time and uses the Shell Command Language. For example, you can append a
+     * If this flag is set, a name specified in the buildspec file overrides the artifact name. The name specified in a
+     * buildspec file is calculated at build time and uses the Shell Command Language. For example, you can append a
      * date and time to your artifact name so that it is always unique.
      * </p>
      * 
-     * @return If this flag is set, a name specified in the build spec file overrides the artifact name. The name
-     *         specified in a build spec file is calculated at build time and uses the Shell Command Language. For
+     * @return If this flag is set, a name specified in the buildspec file overrides the artifact name. The name
+     *         specified in a buildspec file is calculated at build time and uses the Shell Command Language. For
      *         example, you can append a date and time to your artifact name so that it is always unique.
      */
 
@@ -334,14 +336,14 @@ public class BuildArtifacts implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If this flag is set, a name specified in the build spec file overrides the artifact name. The name specified in a
-     * build spec file is calculated at build time and uses the Shell Command Language. For example, you can append a
+     * If this flag is set, a name specified in the buildspec file overrides the artifact name. The name specified in a
+     * buildspec file is calculated at build time and uses the Shell Command Language. For example, you can append a
      * date and time to your artifact name so that it is always unique.
      * </p>
      * 
      * @param overrideArtifactName
-     *        If this flag is set, a name specified in the build spec file overrides the artifact name. The name
-     *        specified in a build spec file is calculated at build time and uses the Shell Command Language. For
+     *        If this flag is set, a name specified in the buildspec file overrides the artifact name. The name
+     *        specified in a buildspec file is calculated at build time and uses the Shell Command Language. For
      *        example, you can append a date and time to your artifact name so that it is always unique.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -353,13 +355,13 @@ public class BuildArtifacts implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If this flag is set, a name specified in the build spec file overrides the artifact name. The name specified in a
-     * build spec file is calculated at build time and uses the Shell Command Language. For example, you can append a
+     * If this flag is set, a name specified in the buildspec file overrides the artifact name. The name specified in a
+     * buildspec file is calculated at build time and uses the Shell Command Language. For example, you can append a
      * date and time to your artifact name so that it is always unique.
      * </p>
      * 
-     * @return If this flag is set, a name specified in the build spec file overrides the artifact name. The name
-     *         specified in a build spec file is calculated at build time and uses the Shell Command Language. For
+     * @return If this flag is set, a name specified in the buildspec file overrides the artifact name. The name
+     *         specified in a buildspec file is calculated at build time and uses the Shell Command Language. For
      *         example, you can append a date and time to your artifact name so that it is always unique.
      */
 
@@ -460,6 +462,46 @@ public class BuildArtifacts implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * @param bucketOwnerAccess
+     * @see BucketOwnerAccess
+     */
+
+    public void setBucketOwnerAccess(String bucketOwnerAccess) {
+        this.bucketOwnerAccess = bucketOwnerAccess;
+    }
+
+    /**
+     * @return
+     * @see BucketOwnerAccess
+     */
+
+    public String getBucketOwnerAccess() {
+        return this.bucketOwnerAccess;
+    }
+
+    /**
+     * @param bucketOwnerAccess
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see BucketOwnerAccess
+     */
+
+    public BuildArtifacts withBucketOwnerAccess(String bucketOwnerAccess) {
+        setBucketOwnerAccess(bucketOwnerAccess);
+        return this;
+    }
+
+    /**
+     * @param bucketOwnerAccess
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see BucketOwnerAccess
+     */
+
+    public BuildArtifacts withBucketOwnerAccess(BucketOwnerAccess bucketOwnerAccess) {
+        this.bucketOwnerAccess = bucketOwnerAccess.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -482,7 +524,9 @@ public class BuildArtifacts implements Serializable, Cloneable, StructuredPojo {
         if (getEncryptionDisabled() != null)
             sb.append("EncryptionDisabled: ").append(getEncryptionDisabled()).append(",");
         if (getArtifactIdentifier() != null)
-            sb.append("ArtifactIdentifier: ").append(getArtifactIdentifier());
+            sb.append("ArtifactIdentifier: ").append(getArtifactIdentifier()).append(",");
+        if (getBucketOwnerAccess() != null)
+            sb.append("BucketOwnerAccess: ").append(getBucketOwnerAccess());
         sb.append("}");
         return sb.toString();
     }
@@ -521,6 +565,10 @@ public class BuildArtifacts implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getArtifactIdentifier() != null && other.getArtifactIdentifier().equals(this.getArtifactIdentifier()) == false)
             return false;
+        if (other.getBucketOwnerAccess() == null ^ this.getBucketOwnerAccess() == null)
+            return false;
+        if (other.getBucketOwnerAccess() != null && other.getBucketOwnerAccess().equals(this.getBucketOwnerAccess()) == false)
+            return false;
         return true;
     }
 
@@ -535,6 +583,7 @@ public class BuildArtifacts implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getOverrideArtifactName() == null) ? 0 : getOverrideArtifactName().hashCode());
         hashCode = prime * hashCode + ((getEncryptionDisabled() == null) ? 0 : getEncryptionDisabled().hashCode());
         hashCode = prime * hashCode + ((getArtifactIdentifier() == null) ? 0 : getArtifactIdentifier().hashCode());
+        hashCode = prime * hashCode + ((getBucketOwnerAccess() == null) ? 0 : getBucketOwnerAccess().hashCode());
         return hashCode;
     }
 

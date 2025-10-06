@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A failed resource.
+ * A failed resource. For a list of common causes, see <a
+ * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/api_failures_messages.html">API failure reasons</a>
+ * in the <i>Amazon Elastic Container Service Developer Guide</i>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/Failure" target="_top">AWS API Documentation</a>
@@ -39,6 +41,12 @@ public class Failure implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String reason;
+    /**
+     * <p>
+     * The details of the failure.
+     * </p>
+     */
+    private String detail;
 
     /**
      * <p>
@@ -121,6 +129,46 @@ public class Failure implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The details of the failure.
+     * </p>
+     * 
+     * @param detail
+     *        The details of the failure.
+     */
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    /**
+     * <p>
+     * The details of the failure.
+     * </p>
+     * 
+     * @return The details of the failure.
+     */
+
+    public String getDetail() {
+        return this.detail;
+    }
+
+    /**
+     * <p>
+     * The details of the failure.
+     * </p>
+     * 
+     * @param detail
+     *        The details of the failure.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Failure withDetail(String detail) {
+        setDetail(detail);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -135,7 +183,9 @@ public class Failure implements Serializable, Cloneable, StructuredPojo {
         if (getArn() != null)
             sb.append("Arn: ").append(getArn()).append(",");
         if (getReason() != null)
-            sb.append("Reason: ").append(getReason());
+            sb.append("Reason: ").append(getReason()).append(",");
+        if (getDetail() != null)
+            sb.append("Detail: ").append(getDetail());
         sb.append("}");
         return sb.toString();
     }
@@ -158,6 +208,10 @@ public class Failure implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getReason() != null && other.getReason().equals(this.getReason()) == false)
             return false;
+        if (other.getDetail() == null ^ this.getDetail() == null)
+            return false;
+        if (other.getDetail() != null && other.getDetail().equals(this.getDetail()) == false)
+            return false;
         return true;
     }
 
@@ -168,6 +222,7 @@ public class Failure implements Serializable, Cloneable, StructuredPojo {
 
         hashCode = prime * hashCode + ((getArn() == null) ? 0 : getArn().hashCode());
         hashCode = prime * hashCode + ((getReason() == null) ? 0 : getReason().hashCode());
+        hashCode = prime * hashCode + ((getDetail() == null) ? 0 : getDetail().hashCode());
         return hashCode;
     }
 

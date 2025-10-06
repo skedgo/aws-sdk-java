@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.mediapackage.AWSMediaPackageClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.mediapackage.model.*;
+
 import com.amazonaws.services.mediapackage.model.transform.*;
 
 /**
@@ -74,25 +75,25 @@ public class AWSMediaPackageClient extends AmazonWebServiceClient implements AWS
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("UnprocessableEntityException").withModeledClass(
-                                    com.amazonaws.services.mediapackage.model.UnprocessableEntityException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("UnprocessableEntityException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.mediapackage.model.transform.UnprocessableEntityExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withModeledClass(
-                                    com.amazonaws.services.mediapackage.model.NotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.mediapackage.model.transform.NotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableException").withModeledClass(
-                                    com.amazonaws.services.mediapackage.model.ServiceUnavailableException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.mediapackage.model.transform.ServiceUnavailableExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ForbiddenException").withModeledClass(
-                                    com.amazonaws.services.mediapackage.model.ForbiddenException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ForbiddenException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.mediapackage.model.transform.ForbiddenExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withModeledClass(
-                                    com.amazonaws.services.mediapackage.model.TooManyRequestsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.mediapackage.model.transform.TooManyRequestsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServerErrorException").withModeledClass(
-                                    com.amazonaws.services.mediapackage.model.InternalServerErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServerErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.mediapackage.model.transform.InternalServerErrorExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.mediapackage.model.AWSMediaPackageException.class));
 
     public static AWSMediaPackageClientBuilder builder() {
@@ -142,6 +143,72 @@ public class AWSMediaPackageClient extends AmazonWebServiceClient implements AWS
     }
 
     /**
+     * Changes the Channel's properities to configure log subscription
+     * 
+     * @param configureLogsRequest
+     *        the option to configure log subscription.
+     * @return Result of the ConfigureLogs operation returned by the service.
+     * @throws UnprocessableEntityException
+     *         The parameters sent in the request are not valid.
+     * @throws InternalServerErrorException
+     *         An unexpected error occurred.
+     * @throws ForbiddenException
+     *         The client is not authorized to access the requested resource.
+     * @throws NotFoundException
+     *         The requested resource does not exist.
+     * @throws ServiceUnavailableException
+     *         An unexpected error occurred.
+     * @throws TooManyRequestsException
+     *         The client has exceeded their resource or throttling limits.
+     * @sample AWSMediaPackage.ConfigureLogs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ConfigureLogs" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ConfigureLogsResult configureLogs(ConfigureLogsRequest request) {
+        request = beforeClientExecution(request);
+        return executeConfigureLogs(request);
+    }
+
+    @SdkInternalApi
+    final ConfigureLogsResult executeConfigureLogs(ConfigureLogsRequest configureLogsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(configureLogsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ConfigureLogsRequest> request = null;
+        Response<ConfigureLogsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ConfigureLogsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(configureLogsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaPackage");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ConfigureLogs");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ConfigureLogsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ConfigureLogsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
      * Creates a new Channel.
      * 
      * @param createChannelRequest
@@ -184,6 +251,8 @@ public class AWSMediaPackageClient extends AmazonWebServiceClient implements AWS
                 request = new CreateChannelRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createChannelRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaPackage");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateChannel");
@@ -195,6 +264,72 @@ public class AWSMediaPackageClient extends AmazonWebServiceClient implements AWS
 
             HttpResponseHandler<AmazonWebServiceResponse<CreateChannelResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateChannelResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Creates a new HarvestJob record.
+     * 
+     * @param createHarvestJobRequest
+     *        Configuration parameters used to create a new HarvestJob.
+     * @return Result of the CreateHarvestJob operation returned by the service.
+     * @throws UnprocessableEntityException
+     *         The parameters sent in the request are not valid.
+     * @throws InternalServerErrorException
+     *         An unexpected error occurred.
+     * @throws ForbiddenException
+     *         The client is not authorized to access the requested resource.
+     * @throws NotFoundException
+     *         The requested resource does not exist.
+     * @throws ServiceUnavailableException
+     *         An unexpected error occurred.
+     * @throws TooManyRequestsException
+     *         The client has exceeded their resource or throttling limits.
+     * @sample AWSMediaPackage.CreateHarvestJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateHarvestJob" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreateHarvestJobResult createHarvestJob(CreateHarvestJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateHarvestJob(request);
+    }
+
+    @SdkInternalApi
+    final CreateHarvestJobResult executeCreateHarvestJob(CreateHarvestJobRequest createHarvestJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createHarvestJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateHarvestJobRequest> request = null;
+        Response<CreateHarvestJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateHarvestJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createHarvestJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaPackage");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateHarvestJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateHarvestJobResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateHarvestJobResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -248,6 +383,8 @@ public class AWSMediaPackageClient extends AmazonWebServiceClient implements AWS
                 request = new CreateOriginEndpointRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createOriginEndpointRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaPackage");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateOriginEndpoint");
@@ -311,6 +448,8 @@ public class AWSMediaPackageClient extends AmazonWebServiceClient implements AWS
                 request = new DeleteChannelRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteChannelRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaPackage");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteChannel");
@@ -374,6 +513,8 @@ public class AWSMediaPackageClient extends AmazonWebServiceClient implements AWS
                 request = new DeleteOriginEndpointRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteOriginEndpointRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaPackage");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteOriginEndpoint");
@@ -437,6 +578,8 @@ public class AWSMediaPackageClient extends AmazonWebServiceClient implements AWS
                 request = new DescribeChannelRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeChannelRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaPackage");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeChannel");
@@ -448,6 +591,71 @@ public class AWSMediaPackageClient extends AmazonWebServiceClient implements AWS
 
             HttpResponseHandler<AmazonWebServiceResponse<DescribeChannelResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeChannelResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Gets details about an existing HarvestJob.
+     * 
+     * @param describeHarvestJobRequest
+     * @return Result of the DescribeHarvestJob operation returned by the service.
+     * @throws UnprocessableEntityException
+     *         The parameters sent in the request are not valid.
+     * @throws InternalServerErrorException
+     *         An unexpected error occurred.
+     * @throws ForbiddenException
+     *         The client is not authorized to access the requested resource.
+     * @throws NotFoundException
+     *         The requested resource does not exist.
+     * @throws ServiceUnavailableException
+     *         An unexpected error occurred.
+     * @throws TooManyRequestsException
+     *         The client has exceeded their resource or throttling limits.
+     * @sample AWSMediaPackage.DescribeHarvestJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeHarvestJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeHarvestJobResult describeHarvestJob(DescribeHarvestJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeHarvestJob(request);
+    }
+
+    @SdkInternalApi
+    final DescribeHarvestJobResult executeDescribeHarvestJob(DescribeHarvestJobRequest describeHarvestJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeHarvestJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeHarvestJobRequest> request = null;
+        Response<DescribeHarvestJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeHarvestJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeHarvestJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaPackage");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeHarvestJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeHarvestJobResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeHarvestJobResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -500,6 +708,8 @@ public class AWSMediaPackageClient extends AmazonWebServiceClient implements AWS
                 request = new DescribeOriginEndpointRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeOriginEndpointRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaPackage");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeOriginEndpoint");
@@ -564,6 +774,8 @@ public class AWSMediaPackageClient extends AmazonWebServiceClient implements AWS
                 request = new ListChannelsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listChannelsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaPackage");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListChannels");
@@ -575,6 +787,71 @@ public class AWSMediaPackageClient extends AmazonWebServiceClient implements AWS
 
             HttpResponseHandler<AmazonWebServiceResponse<ListChannelsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListChannelsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Returns a collection of HarvestJob records.
+     * 
+     * @param listHarvestJobsRequest
+     * @return Result of the ListHarvestJobs operation returned by the service.
+     * @throws UnprocessableEntityException
+     *         The parameters sent in the request are not valid.
+     * @throws InternalServerErrorException
+     *         An unexpected error occurred.
+     * @throws ForbiddenException
+     *         The client is not authorized to access the requested resource.
+     * @throws NotFoundException
+     *         The requested resource does not exist.
+     * @throws ServiceUnavailableException
+     *         An unexpected error occurred.
+     * @throws TooManyRequestsException
+     *         The client has exceeded their resource or throttling limits.
+     * @sample AWSMediaPackage.ListHarvestJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListHarvestJobs" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListHarvestJobsResult listHarvestJobs(ListHarvestJobsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListHarvestJobs(request);
+    }
+
+    @SdkInternalApi
+    final ListHarvestJobsResult executeListHarvestJobs(ListHarvestJobsRequest listHarvestJobsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listHarvestJobsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListHarvestJobsRequest> request = null;
+        Response<ListHarvestJobsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListHarvestJobsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listHarvestJobsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaPackage");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListHarvestJobs");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListHarvestJobsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListHarvestJobsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -627,6 +904,8 @@ public class AWSMediaPackageClient extends AmazonWebServiceClient implements AWS
                 request = new ListOriginEndpointsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listOriginEndpointsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaPackage");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListOriginEndpoints");
@@ -676,6 +955,8 @@ public class AWSMediaPackageClient extends AmazonWebServiceClient implements AWS
                 request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaPackage");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -742,6 +1023,8 @@ public class AWSMediaPackageClient extends AmazonWebServiceClient implements AWS
                         .beforeMarshalling(rotateChannelCredentialsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaPackage");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RotateChannelCredentials");
@@ -808,6 +1091,8 @@ public class AWSMediaPackageClient extends AmazonWebServiceClient implements AWS
                         .beforeMarshalling(rotateIngestEndpointCredentialsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaPackage");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RotateIngestEndpointCredentials");
@@ -858,6 +1143,8 @@ public class AWSMediaPackageClient extends AmazonWebServiceClient implements AWS
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaPackage");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -907,6 +1194,8 @@ public class AWSMediaPackageClient extends AmazonWebServiceClient implements AWS
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaPackage");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -971,6 +1260,8 @@ public class AWSMediaPackageClient extends AmazonWebServiceClient implements AWS
                 request = new UpdateChannelRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateChannelRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaPackage");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateChannel");
@@ -1035,6 +1326,8 @@ public class AWSMediaPackageClient extends AmazonWebServiceClient implements AWS
                 request = new UpdateOriginEndpointRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateOriginEndpointRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "MediaPackage");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateOriginEndpoint");
@@ -1130,6 +1423,11 @@ public class AWSMediaPackageClient extends AmazonWebServiceClient implements AWS
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

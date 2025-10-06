@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,11 +35,6 @@ public class PointInTimeRecoveryDescription implements Serializable, Cloneable, 
      * <ul>
      * <li>
      * <p>
-     * <code>ENABLING</code> - Point in time recovery is being enabled.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>ENABLED</code> - Point in time recovery is enabled.
      * </p>
      * </li>
@@ -53,7 +48,7 @@ public class PointInTimeRecoveryDescription implements Serializable, Cloneable, 
     private String pointInTimeRecoveryStatus;
     /**
      * <p>
-     * Specifies the earliest point in time you can restore your table to. It You can restore your table to any point in
+     * Specifies the earliest point in time you can restore your table to. You can restore your table to any point in
      * time during the last 35 days.
      * </p>
      */
@@ -72,11 +67,6 @@ public class PointInTimeRecoveryDescription implements Serializable, Cloneable, 
      * <ul>
      * <li>
      * <p>
-     * <code>ENABLING</code> - Point in time recovery is being enabled.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>ENABLED</code> - Point in time recovery is enabled.
      * </p>
      * </li>
@@ -90,11 +80,6 @@ public class PointInTimeRecoveryDescription implements Serializable, Cloneable, 
      * @param pointInTimeRecoveryStatus
      *        The current state of point in time recovery:</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>ENABLING</code> - Point in time recovery is being enabled.
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>ENABLED</code> - Point in time recovery is enabled.
@@ -119,11 +104,6 @@ public class PointInTimeRecoveryDescription implements Serializable, Cloneable, 
      * <ul>
      * <li>
      * <p>
-     * <code>ENABLING</code> - Point in time recovery is being enabled.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>ENABLED</code> - Point in time recovery is enabled.
      * </p>
      * </li>
@@ -136,11 +116,6 @@ public class PointInTimeRecoveryDescription implements Serializable, Cloneable, 
      * 
      * @return The current state of point in time recovery:</p>
      *         <ul>
-     *         <li>
-     *         <p>
-     *         <code>ENABLING</code> - Point in time recovery is being enabled.
-     *         </p>
-     *         </li>
      *         <li>
      *         <p>
      *         <code>ENABLED</code> - Point in time recovery is enabled.
@@ -165,11 +140,6 @@ public class PointInTimeRecoveryDescription implements Serializable, Cloneable, 
      * <ul>
      * <li>
      * <p>
-     * <code>ENABLING</code> - Point in time recovery is being enabled.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>ENABLED</code> - Point in time recovery is enabled.
      * </p>
      * </li>
@@ -183,11 +153,6 @@ public class PointInTimeRecoveryDescription implements Serializable, Cloneable, 
      * @param pointInTimeRecoveryStatus
      *        The current state of point in time recovery:</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>ENABLING</code> - Point in time recovery is being enabled.
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>ENABLED</code> - Point in time recovery is enabled.
@@ -214,11 +179,6 @@ public class PointInTimeRecoveryDescription implements Serializable, Cloneable, 
      * <ul>
      * <li>
      * <p>
-     * <code>ENABLING</code> - Point in time recovery is being enabled.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>ENABLED</code> - Point in time recovery is enabled.
      * </p>
      * </li>
@@ -232,11 +192,6 @@ public class PointInTimeRecoveryDescription implements Serializable, Cloneable, 
      * @param pointInTimeRecoveryStatus
      *        The current state of point in time recovery:</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>ENABLING</code> - Point in time recovery is being enabled.
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>ENABLED</code> - Point in time recovery is enabled.
@@ -258,12 +213,12 @@ public class PointInTimeRecoveryDescription implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * Specifies the earliest point in time you can restore your table to. It You can restore your table to any point in
+     * Specifies the earliest point in time you can restore your table to. You can restore your table to any point in
      * time during the last 35 days.
      * </p>
      * 
      * @param earliestRestorableDateTime
-     *        Specifies the earliest point in time you can restore your table to. It You can restore your table to any
+     *        Specifies the earliest point in time you can restore your table to. You can restore your table to any
      *        point in time during the last 35 days.
      */
 
@@ -273,11 +228,11 @@ public class PointInTimeRecoveryDescription implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * Specifies the earliest point in time you can restore your table to. It You can restore your table to any point in
+     * Specifies the earliest point in time you can restore your table to. You can restore your table to any point in
      * time during the last 35 days.
      * </p>
      * 
-     * @return Specifies the earliest point in time you can restore your table to. It You can restore your table to any
+     * @return Specifies the earliest point in time you can restore your table to. You can restore your table to any
      *         point in time during the last 35 days.
      */
 
@@ -287,12 +242,12 @@ public class PointInTimeRecoveryDescription implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * Specifies the earliest point in time you can restore your table to. It You can restore your table to any point in
+     * Specifies the earliest point in time you can restore your table to. You can restore your table to any point in
      * time during the last 35 days.
      * </p>
      * 
      * @param earliestRestorableDateTime
-     *        Specifies the earliest point in time you can restore your table to. It You can restore your table to any
+     *        Specifies the earliest point in time you can restore your table to. You can restore your table to any
      *        point in time during the last 35 days.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

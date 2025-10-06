@@ -1,0 +1,159 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.ivschat.model;
+
+import javax.annotation.Generated;
+
+/**
+ * <p/>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class ThrottlingException extends com.amazonaws.services.ivschat.model.AmazonivschatException {
+    private static final long serialVersionUID = 1L;
+
+    /** <p/> */
+    private String resourceId;
+    /** <p/> */
+    private String resourceType;
+    /** <p/> */
+    private Integer limit;
+
+    /**
+     * Constructs a new ThrottlingException with the specified error message.
+     *
+     * @param message
+     *        Describes the error encountered.
+     */
+    public ThrottlingException(String message) {
+        super(message);
+    }
+
+    /**
+     * <p/>
+     * 
+     * @param resourceId
+     */
+
+    @com.fasterxml.jackson.annotation.JsonProperty("resourceId")
+    public void setResourceId(String resourceId) {
+        this.resourceId = resourceId;
+    }
+
+    /**
+     * <p/>
+     * 
+     * @return
+     */
+
+    @com.fasterxml.jackson.annotation.JsonProperty("resourceId")
+    public String getResourceId() {
+        return this.resourceId;
+    }
+
+    /**
+     * <p/>
+     * 
+     * @param resourceId
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ThrottlingException withResourceId(String resourceId) {
+        setResourceId(resourceId);
+        return this;
+    }
+
+    /**
+     * <p/>
+     * 
+     * @param resourceType
+     * @see ResourceType
+     */
+
+    @com.fasterxml.jackson.annotation.JsonProperty("resourceType")
+    public void setResourceType(String resourceType) {
+        this.resourceType = resourceType;
+    }
+
+    /**
+     * <p/>
+     * 
+     * @return
+     * @see ResourceType
+     */
+
+    @com.fasterxml.jackson.annotation.JsonProperty("resourceType")
+    public String getResourceType() {
+        return this.resourceType;
+    }
+
+    /**
+     * <p/>
+     * 
+     * @param resourceType
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ResourceType
+     */
+
+    public ThrottlingException withResourceType(String resourceType) {
+        setResourceType(resourceType);
+        return this;
+    }
+
+    /**
+     * <p/>
+     * 
+     * @param resourceType
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ResourceType
+     */
+
+    public ThrottlingException withResourceType(ResourceType resourceType) {
+        this.resourceType = resourceType.toString();
+        return this;
+    }
+
+    /**
+     * <p/>
+     * 
+     * @param limit
+     */
+
+    @com.fasterxml.jackson.annotation.JsonProperty("limit")
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
+
+    /**
+     * <p/>
+     * 
+     * @return
+     */
+
+    @com.fasterxml.jackson.annotation.JsonProperty("limit")
+    public Integer getLimit() {
+        return this.limit;
+    }
+
+    /**
+     * <p/>
+     * 
+     * @param limit
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ThrottlingException withLimit(Integer limit) {
+        setLimit(limit);
+        return this;
+    }
+
+}

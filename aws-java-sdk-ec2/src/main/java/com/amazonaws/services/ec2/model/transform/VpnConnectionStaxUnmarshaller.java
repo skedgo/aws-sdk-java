@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -82,6 +82,21 @@ public class VpnConnectionStaxUnmarshaller implements Unmarshaller<VpnConnection
 
                 if (context.testExpression("transitGatewayId", targetDepth)) {
                     vpnConnection.setTransitGatewayId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("coreNetworkArn", targetDepth)) {
+                    vpnConnection.setCoreNetworkArn(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("coreNetworkAttachmentArn", targetDepth)) {
+                    vpnConnection.setCoreNetworkAttachmentArn(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("gatewayAssociationState", targetDepth)) {
+                    vpnConnection.setGatewayAssociationState(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
 

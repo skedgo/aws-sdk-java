@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -74,6 +74,14 @@ public class StreamDescriptionSummary implements Serializable, Cloneable, Struct
     private String streamStatus;
     /**
      * <p>
+     * Specifies the capacity mode to which you want to set your data stream. Currently, in Kinesis Data Streams, you
+     * can choose between an <b>on-demand</b> ycapacity mode and a <b>provisioned</b> capacity mode for your data
+     * streams.
+     * </p>
+     */
+    private StreamModeDetails streamModeDetails;
+    /**
+     * <p>
      * The current retention period, in hours.
      * </p>
      */
@@ -110,9 +118,9 @@ public class StreamDescriptionSummary implements Serializable, Cloneable, Struct
     private String encryptionType;
     /**
      * <p>
-     * The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique
-     * identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You can also
-     * use a master key owned by Kinesis Data Streams by specifying the alias <code>aws/kinesis</code>.
+     * The GUID for the customer-managed Amazon Web Services KMS key to use for encryption. This value can be a globally
+     * unique identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You
+     * can also use a master key owned by Kinesis Data Streams by specifying the alias <code>aws/kinesis</code>.
      * </p>
      * <ul>
      * <li>
@@ -501,6 +509,58 @@ public class StreamDescriptionSummary implements Serializable, Cloneable, Struct
 
     /**
      * <p>
+     * Specifies the capacity mode to which you want to set your data stream. Currently, in Kinesis Data Streams, you
+     * can choose between an <b>on-demand</b> ycapacity mode and a <b>provisioned</b> capacity mode for your data
+     * streams.
+     * </p>
+     * 
+     * @param streamModeDetails
+     *        Specifies the capacity mode to which you want to set your data stream. Currently, in Kinesis Data Streams,
+     *        you can choose between an <b>on-demand</b> ycapacity mode and a <b>provisioned</b> capacity mode for your
+     *        data streams.
+     */
+
+    public void setStreamModeDetails(StreamModeDetails streamModeDetails) {
+        this.streamModeDetails = streamModeDetails;
+    }
+
+    /**
+     * <p>
+     * Specifies the capacity mode to which you want to set your data stream. Currently, in Kinesis Data Streams, you
+     * can choose between an <b>on-demand</b> ycapacity mode and a <b>provisioned</b> capacity mode for your data
+     * streams.
+     * </p>
+     * 
+     * @return Specifies the capacity mode to which you want to set your data stream. Currently, in Kinesis Data
+     *         Streams, you can choose between an <b>on-demand</b> ycapacity mode and a <b>provisioned</b> capacity mode
+     *         for your data streams.
+     */
+
+    public StreamModeDetails getStreamModeDetails() {
+        return this.streamModeDetails;
+    }
+
+    /**
+     * <p>
+     * Specifies the capacity mode to which you want to set your data stream. Currently, in Kinesis Data Streams, you
+     * can choose between an <b>on-demand</b> ycapacity mode and a <b>provisioned</b> capacity mode for your data
+     * streams.
+     * </p>
+     * 
+     * @param streamModeDetails
+     *        Specifies the capacity mode to which you want to set your data stream. Currently, in Kinesis Data Streams,
+     *        you can choose between an <b>on-demand</b> ycapacity mode and a <b>provisioned</b> capacity mode for your
+     *        data streams.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StreamDescriptionSummary withStreamModeDetails(StreamModeDetails streamModeDetails) {
+        setStreamModeDetails(streamModeDetails);
+        return this;
+    }
+
+    /**
+     * <p>
      * The current retention period, in hours.
      * </p>
      * 
@@ -805,9 +865,9 @@ public class StreamDescriptionSummary implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique
-     * identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You can also
-     * use a master key owned by Kinesis Data Streams by specifying the alias <code>aws/kinesis</code>.
+     * The GUID for the customer-managed Amazon Web Services KMS key to use for encryption. This value can be a globally
+     * unique identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You
+     * can also use a master key owned by Kinesis Data Streams by specifying the alias <code>aws/kinesis</code>.
      * </p>
      * <ul>
      * <li>
@@ -838,10 +898,10 @@ public class StreamDescriptionSummary implements Serializable, Cloneable, Struct
      * </ul>
      * 
      * @param keyId
-     *        The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique
-     *        identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You
-     *        can also use a master key owned by Kinesis Data Streams by specifying the alias <code>aws/kinesis</code>
-     *        .</p>
+     *        The GUID for the customer-managed Amazon Web Services KMS key to use for encryption. This value can be a
+     *        globally unique identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed
+     *        by "alias/".You can also use a master key owned by Kinesis Data Streams by specifying the alias
+     *        <code>aws/kinesis</code>.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -876,9 +936,9 @@ public class StreamDescriptionSummary implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique
-     * identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You can also
-     * use a master key owned by Kinesis Data Streams by specifying the alias <code>aws/kinesis</code>.
+     * The GUID for the customer-managed Amazon Web Services KMS key to use for encryption. This value can be a globally
+     * unique identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You
+     * can also use a master key owned by Kinesis Data Streams by specifying the alias <code>aws/kinesis</code>.
      * </p>
      * <ul>
      * <li>
@@ -908,10 +968,10 @@ public class StreamDescriptionSummary implements Serializable, Cloneable, Struct
      * </li>
      * </ul>
      * 
-     * @return The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique
-     *         identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You
-     *         can also use a master key owned by Kinesis Data Streams by specifying the alias <code>aws/kinesis</code>
-     *         .</p>
+     * @return The GUID for the customer-managed Amazon Web Services KMS key to use for encryption. This value can be a
+     *         globally unique identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed
+     *         by "alias/".You can also use a master key owned by Kinesis Data Streams by specifying the alias
+     *         <code>aws/kinesis</code>.</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -946,9 +1006,9 @@ public class StreamDescriptionSummary implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique
-     * identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You can also
-     * use a master key owned by Kinesis Data Streams by specifying the alias <code>aws/kinesis</code>.
+     * The GUID for the customer-managed Amazon Web Services KMS key to use for encryption. This value can be a globally
+     * unique identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You
+     * can also use a master key owned by Kinesis Data Streams by specifying the alias <code>aws/kinesis</code>.
      * </p>
      * <ul>
      * <li>
@@ -979,10 +1039,10 @@ public class StreamDescriptionSummary implements Serializable, Cloneable, Struct
      * </ul>
      * 
      * @param keyId
-     *        The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique
-     *        identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You
-     *        can also use a master key owned by Kinesis Data Streams by specifying the alias <code>aws/kinesis</code>
-     *        .</p>
+     *        The GUID for the customer-managed Amazon Web Services KMS key to use for encryption. This value can be a
+     *        globally unique identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed
+     *        by "alias/".You can also use a master key owned by Kinesis Data Streams by specifying the alias
+     *        <code>aws/kinesis</code>.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1115,6 +1175,8 @@ public class StreamDescriptionSummary implements Serializable, Cloneable, Struct
             sb.append("StreamARN: ").append(getStreamARN()).append(",");
         if (getStreamStatus() != null)
             sb.append("StreamStatus: ").append(getStreamStatus()).append(",");
+        if (getStreamModeDetails() != null)
+            sb.append("StreamModeDetails: ").append(getStreamModeDetails()).append(",");
         if (getRetentionPeriodHours() != null)
             sb.append("RetentionPeriodHours: ").append(getRetentionPeriodHours()).append(",");
         if (getStreamCreationTimestamp() != null)
@@ -1155,6 +1217,10 @@ public class StreamDescriptionSummary implements Serializable, Cloneable, Struct
             return false;
         if (other.getStreamStatus() != null && other.getStreamStatus().equals(this.getStreamStatus()) == false)
             return false;
+        if (other.getStreamModeDetails() == null ^ this.getStreamModeDetails() == null)
+            return false;
+        if (other.getStreamModeDetails() != null && other.getStreamModeDetails().equals(this.getStreamModeDetails()) == false)
+            return false;
         if (other.getRetentionPeriodHours() == null ^ this.getRetentionPeriodHours() == null)
             return false;
         if (other.getRetentionPeriodHours() != null && other.getRetentionPeriodHours().equals(this.getRetentionPeriodHours()) == false)
@@ -1194,6 +1260,7 @@ public class StreamDescriptionSummary implements Serializable, Cloneable, Struct
         hashCode = prime * hashCode + ((getStreamName() == null) ? 0 : getStreamName().hashCode());
         hashCode = prime * hashCode + ((getStreamARN() == null) ? 0 : getStreamARN().hashCode());
         hashCode = prime * hashCode + ((getStreamStatus() == null) ? 0 : getStreamStatus().hashCode());
+        hashCode = prime * hashCode + ((getStreamModeDetails() == null) ? 0 : getStreamModeDetails().hashCode());
         hashCode = prime * hashCode + ((getRetentionPeriodHours() == null) ? 0 : getRetentionPeriodHours().hashCode());
         hashCode = prime * hashCode + ((getStreamCreationTimestamp() == null) ? 0 : getStreamCreationTimestamp().hashCode());
         hashCode = prime * hashCode + ((getEnhancedMonitoring() == null) ? 0 : getEnhancedMonitoring().hashCode());

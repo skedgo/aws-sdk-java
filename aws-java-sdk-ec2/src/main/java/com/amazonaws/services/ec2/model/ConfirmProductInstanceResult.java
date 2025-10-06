@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,7 +25,8 @@ public class ConfirmProductInstanceResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The AWS account ID of the instance owner. This is only present if the product code is attached to the instance.
+     * The Amazon Web Services account ID of the instance owner. This is only present if the product code is attached to
+     * the instance.
      * </p>
      */
     private String ownerId;
@@ -39,12 +40,13 @@ public class ConfirmProductInstanceResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The AWS account ID of the instance owner. This is only present if the product code is attached to the instance.
+     * The Amazon Web Services account ID of the instance owner. This is only present if the product code is attached to
+     * the instance.
      * </p>
      * 
      * @param ownerId
-     *        The AWS account ID of the instance owner. This is only present if the product code is attached to the
-     *        instance.
+     *        The Amazon Web Services account ID of the instance owner. This is only present if the product code is
+     *        attached to the instance.
      */
 
     public void setOwnerId(String ownerId) {
@@ -53,11 +55,12 @@ public class ConfirmProductInstanceResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The AWS account ID of the instance owner. This is only present if the product code is attached to the instance.
+     * The Amazon Web Services account ID of the instance owner. This is only present if the product code is attached to
+     * the instance.
      * </p>
      * 
-     * @return The AWS account ID of the instance owner. This is only present if the product code is attached to the
-     *         instance.
+     * @return The Amazon Web Services account ID of the instance owner. This is only present if the product code is
+     *         attached to the instance.
      */
 
     public String getOwnerId() {
@@ -66,12 +69,13 @@ public class ConfirmProductInstanceResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The AWS account ID of the instance owner. This is only present if the product code is attached to the instance.
+     * The Amazon Web Services account ID of the instance owner. This is only present if the product code is attached to
+     * the instance.
      * </p>
      * 
      * @param ownerId
-     *        The AWS account ID of the instance owner. This is only present if the product code is attached to the
-     *        instance.
+     *        The Amazon Web Services account ID of the instance owner. This is only present if the product code is
+     *        attached to the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

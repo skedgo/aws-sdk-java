@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -55,6 +55,16 @@ public class DocumentClassifierPropertiesMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VolumeKmsKeyId").build();
     private static final MarshallingInfo<StructuredPojo> VPCCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VpcConfig").build();
+    private static final MarshallingInfo<String> MODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Mode").build();
+    private static final MarshallingInfo<String> MODELKMSKEYID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ModelKmsKeyId").build();
+    private static final MarshallingInfo<String> VERSIONNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VersionName").build();
+    private static final MarshallingInfo<String> SOURCEMODELARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SourceModelArn").build();
+    private static final MarshallingInfo<String> FLYWHEELARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FlywheelArn").build();
 
     private static final DocumentClassifierPropertiesMarshaller instance = new DocumentClassifierPropertiesMarshaller();
 
@@ -86,6 +96,11 @@ public class DocumentClassifierPropertiesMarshaller {
             protocolMarshaller.marshall(documentClassifierProperties.getDataAccessRoleArn(), DATAACCESSROLEARN_BINDING);
             protocolMarshaller.marshall(documentClassifierProperties.getVolumeKmsKeyId(), VOLUMEKMSKEYID_BINDING);
             protocolMarshaller.marshall(documentClassifierProperties.getVpcConfig(), VPCCONFIG_BINDING);
+            protocolMarshaller.marshall(documentClassifierProperties.getMode(), MODE_BINDING);
+            protocolMarshaller.marshall(documentClassifierProperties.getModelKmsKeyId(), MODELKMSKEYID_BINDING);
+            protocolMarshaller.marshall(documentClassifierProperties.getVersionName(), VERSIONNAME_BINDING);
+            protocolMarshaller.marshall(documentClassifierProperties.getSourceModelArn(), SOURCEMODELARN_BINDING);
+            protocolMarshaller.marshall(documentClassifierProperties.getFlywheelArn(), FLYWHEELARN_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

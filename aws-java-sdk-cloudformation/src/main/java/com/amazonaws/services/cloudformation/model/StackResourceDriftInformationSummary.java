@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,7 +29,7 @@ public class StackResourceDriftInformationSummary implements Serializable, Clone
 
     /**
      * <p>
-     * Status of the resource's actual configuration compared to its expected configuration
+     * Status of the resource's actual configuration compared to its expected configuration.
      * </p>
      * <ul>
      * <li>
@@ -44,23 +44,22 @@ public class StackResourceDriftInformationSummary implements Serializable, Clone
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the resource differs from its expected
-     * configuration.
+     * <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the resource differs from its expected configuration.
      * </p>
      * <p>
-     * Any resources that do not currently support drift detection have a status of <code>NOT_CHECKED</code>. For more
+     * Any resources that don't currently support drift detection have a status of <code>NOT_CHECKED</code>. For more
      * information, see <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
      * >Resources that Support Drift Detection</a>. If you performed an <a>ContinueUpdateRollback</a> operation on a
      * stack, any resources included in <code>ResourcesToSkip</code> will also have a status of <code>NOT_CHECKED</code>
-     * . For more information on skipping resources during rollback operations, see <a href=
+     * . For more information about skipping resources during rollback operations, see <a href=
      * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-continueupdaterollback.html"
-     * >Continue Rolling Back an Update</a> in the AWS CloudFormation User Guide.
+     * >Continue Rolling Back an Update</a> in the CloudFormation User Guide.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>IN_SYNC</code>: The resources's actual configuration matches its expected configuration.
+     * <code>IN_SYNC</code>: The resource's actual configuration matches its expected configuration.
      * </p>
      * </li>
      * </ul>
@@ -68,14 +67,14 @@ public class StackResourceDriftInformationSummary implements Serializable, Clone
     private String stackResourceDriftStatus;
     /**
      * <p>
-     * When AWS CloudFormation last checked if the resource had drifted from its expected configuration.
+     * When CloudFormation last checked if the resource had drifted from its expected configuration.
      * </p>
      */
     private java.util.Date lastCheckTimestamp;
 
     /**
      * <p>
-     * Status of the resource's actual configuration compared to its expected configuration
+     * Status of the resource's actual configuration compared to its expected configuration.
      * </p>
      * <ul>
      * <li>
@@ -90,29 +89,28 @@ public class StackResourceDriftInformationSummary implements Serializable, Clone
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the resource differs from its expected
-     * configuration.
+     * <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the resource differs from its expected configuration.
      * </p>
      * <p>
-     * Any resources that do not currently support drift detection have a status of <code>NOT_CHECKED</code>. For more
+     * Any resources that don't currently support drift detection have a status of <code>NOT_CHECKED</code>. For more
      * information, see <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
      * >Resources that Support Drift Detection</a>. If you performed an <a>ContinueUpdateRollback</a> operation on a
      * stack, any resources included in <code>ResourcesToSkip</code> will also have a status of <code>NOT_CHECKED</code>
-     * . For more information on skipping resources during rollback operations, see <a href=
+     * . For more information about skipping resources during rollback operations, see <a href=
      * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-continueupdaterollback.html"
-     * >Continue Rolling Back an Update</a> in the AWS CloudFormation User Guide.
+     * >Continue Rolling Back an Update</a> in the CloudFormation User Guide.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>IN_SYNC</code>: The resources's actual configuration matches its expected configuration.
+     * <code>IN_SYNC</code>: The resource's actual configuration matches its expected configuration.
      * </p>
      * </li>
      * </ul>
      * 
      * @param stackResourceDriftStatus
-     *        Status of the resource's actual configuration compared to its expected configuration</p>
+     *        Status of the resource's actual configuration compared to its expected configuration.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -126,24 +124,24 @@ public class StackResourceDriftInformationSummary implements Serializable, Clone
      *        </li>
      *        <li>
      *        <p>
-     *        <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the resource differs from its expected
+     *        <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the resource differs from its expected
      *        configuration.
      *        </p>
      *        <p>
-     *        Any resources that do not currently support drift detection have a status of <code>NOT_CHECKED</code>. For
+     *        Any resources that don't currently support drift detection have a status of <code>NOT_CHECKED</code>. For
      *        more information, see <a href=
      *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
      *        >Resources that Support Drift Detection</a>. If you performed an <a>ContinueUpdateRollback</a> operation
      *        on a stack, any resources included in <code>ResourcesToSkip</code> will also have a status of
-     *        <code>NOT_CHECKED</code>. For more information on skipping resources during rollback operations, see <a
+     *        <code>NOT_CHECKED</code>. For more information about skipping resources during rollback operations, see <a
      *        href=
      *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-continueupdaterollback.html"
-     *        >Continue Rolling Back an Update</a> in the AWS CloudFormation User Guide.
+     *        >Continue Rolling Back an Update</a> in the CloudFormation User Guide.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>IN_SYNC</code>: The resources's actual configuration matches its expected configuration.
+     *        <code>IN_SYNC</code>: The resource's actual configuration matches its expected configuration.
      *        </p>
      *        </li>
      * @see StackResourceDriftStatus
@@ -155,7 +153,7 @@ public class StackResourceDriftInformationSummary implements Serializable, Clone
 
     /**
      * <p>
-     * Status of the resource's actual configuration compared to its expected configuration
+     * Status of the resource's actual configuration compared to its expected configuration.
      * </p>
      * <ul>
      * <li>
@@ -170,28 +168,27 @@ public class StackResourceDriftInformationSummary implements Serializable, Clone
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the resource differs from its expected
-     * configuration.
+     * <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the resource differs from its expected configuration.
      * </p>
      * <p>
-     * Any resources that do not currently support drift detection have a status of <code>NOT_CHECKED</code>. For more
+     * Any resources that don't currently support drift detection have a status of <code>NOT_CHECKED</code>. For more
      * information, see <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
      * >Resources that Support Drift Detection</a>. If you performed an <a>ContinueUpdateRollback</a> operation on a
      * stack, any resources included in <code>ResourcesToSkip</code> will also have a status of <code>NOT_CHECKED</code>
-     * . For more information on skipping resources during rollback operations, see <a href=
+     * . For more information about skipping resources during rollback operations, see <a href=
      * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-continueupdaterollback.html"
-     * >Continue Rolling Back an Update</a> in the AWS CloudFormation User Guide.
+     * >Continue Rolling Back an Update</a> in the CloudFormation User Guide.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>IN_SYNC</code>: The resources's actual configuration matches its expected configuration.
+     * <code>IN_SYNC</code>: The resource's actual configuration matches its expected configuration.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return Status of the resource's actual configuration compared to its expected configuration</p>
+     * @return Status of the resource's actual configuration compared to its expected configuration.</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -205,24 +202,24 @@ public class StackResourceDriftInformationSummary implements Serializable, Clone
      *         </li>
      *         <li>
      *         <p>
-     *         <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the resource differs from its expected
+     *         <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the resource differs from its expected
      *         configuration.
      *         </p>
      *         <p>
-     *         Any resources that do not currently support drift detection have a status of <code>NOT_CHECKED</code>.
-     *         For more information, see <a href=
+     *         Any resources that don't currently support drift detection have a status of <code>NOT_CHECKED</code>. For
+     *         more information, see <a href=
      *         "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
      *         >Resources that Support Drift Detection</a>. If you performed an <a>ContinueUpdateRollback</a> operation
      *         on a stack, any resources included in <code>ResourcesToSkip</code> will also have a status of
-     *         <code>NOT_CHECKED</code>. For more information on skipping resources during rollback operations, see <a
-     *         href=
+     *         <code>NOT_CHECKED</code>. For more information about skipping resources during rollback operations, see
+     *         <a href=
      *         "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-continueupdaterollback.html"
-     *         >Continue Rolling Back an Update</a> in the AWS CloudFormation User Guide.
+     *         >Continue Rolling Back an Update</a> in the CloudFormation User Guide.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>IN_SYNC</code>: The resources's actual configuration matches its expected configuration.
+     *         <code>IN_SYNC</code>: The resource's actual configuration matches its expected configuration.
      *         </p>
      *         </li>
      * @see StackResourceDriftStatus
@@ -234,7 +231,7 @@ public class StackResourceDriftInformationSummary implements Serializable, Clone
 
     /**
      * <p>
-     * Status of the resource's actual configuration compared to its expected configuration
+     * Status of the resource's actual configuration compared to its expected configuration.
      * </p>
      * <ul>
      * <li>
@@ -249,29 +246,28 @@ public class StackResourceDriftInformationSummary implements Serializable, Clone
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the resource differs from its expected
-     * configuration.
+     * <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the resource differs from its expected configuration.
      * </p>
      * <p>
-     * Any resources that do not currently support drift detection have a status of <code>NOT_CHECKED</code>. For more
+     * Any resources that don't currently support drift detection have a status of <code>NOT_CHECKED</code>. For more
      * information, see <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
      * >Resources that Support Drift Detection</a>. If you performed an <a>ContinueUpdateRollback</a> operation on a
      * stack, any resources included in <code>ResourcesToSkip</code> will also have a status of <code>NOT_CHECKED</code>
-     * . For more information on skipping resources during rollback operations, see <a href=
+     * . For more information about skipping resources during rollback operations, see <a href=
      * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-continueupdaterollback.html"
-     * >Continue Rolling Back an Update</a> in the AWS CloudFormation User Guide.
+     * >Continue Rolling Back an Update</a> in the CloudFormation User Guide.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>IN_SYNC</code>: The resources's actual configuration matches its expected configuration.
+     * <code>IN_SYNC</code>: The resource's actual configuration matches its expected configuration.
      * </p>
      * </li>
      * </ul>
      * 
      * @param stackResourceDriftStatus
-     *        Status of the resource's actual configuration compared to its expected configuration</p>
+     *        Status of the resource's actual configuration compared to its expected configuration.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -285,24 +281,24 @@ public class StackResourceDriftInformationSummary implements Serializable, Clone
      *        </li>
      *        <li>
      *        <p>
-     *        <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the resource differs from its expected
+     *        <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the resource differs from its expected
      *        configuration.
      *        </p>
      *        <p>
-     *        Any resources that do not currently support drift detection have a status of <code>NOT_CHECKED</code>. For
+     *        Any resources that don't currently support drift detection have a status of <code>NOT_CHECKED</code>. For
      *        more information, see <a href=
      *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
      *        >Resources that Support Drift Detection</a>. If you performed an <a>ContinueUpdateRollback</a> operation
      *        on a stack, any resources included in <code>ResourcesToSkip</code> will also have a status of
-     *        <code>NOT_CHECKED</code>. For more information on skipping resources during rollback operations, see <a
+     *        <code>NOT_CHECKED</code>. For more information about skipping resources during rollback operations, see <a
      *        href=
      *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-continueupdaterollback.html"
-     *        >Continue Rolling Back an Update</a> in the AWS CloudFormation User Guide.
+     *        >Continue Rolling Back an Update</a> in the CloudFormation User Guide.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>IN_SYNC</code>: The resources's actual configuration matches its expected configuration.
+     *        <code>IN_SYNC</code>: The resource's actual configuration matches its expected configuration.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -316,7 +312,7 @@ public class StackResourceDriftInformationSummary implements Serializable, Clone
 
     /**
      * <p>
-     * Status of the resource's actual configuration compared to its expected configuration
+     * Status of the resource's actual configuration compared to its expected configuration.
      * </p>
      * <ul>
      * <li>
@@ -331,29 +327,28 @@ public class StackResourceDriftInformationSummary implements Serializable, Clone
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the resource differs from its expected
-     * configuration.
+     * <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the resource differs from its expected configuration.
      * </p>
      * <p>
-     * Any resources that do not currently support drift detection have a status of <code>NOT_CHECKED</code>. For more
+     * Any resources that don't currently support drift detection have a status of <code>NOT_CHECKED</code>. For more
      * information, see <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
      * >Resources that Support Drift Detection</a>. If you performed an <a>ContinueUpdateRollback</a> operation on a
      * stack, any resources included in <code>ResourcesToSkip</code> will also have a status of <code>NOT_CHECKED</code>
-     * . For more information on skipping resources during rollback operations, see <a href=
+     * . For more information about skipping resources during rollback operations, see <a href=
      * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-continueupdaterollback.html"
-     * >Continue Rolling Back an Update</a> in the AWS CloudFormation User Guide.
+     * >Continue Rolling Back an Update</a> in the CloudFormation User Guide.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>IN_SYNC</code>: The resources's actual configuration matches its expected configuration.
+     * <code>IN_SYNC</code>: The resource's actual configuration matches its expected configuration.
      * </p>
      * </li>
      * </ul>
      * 
      * @param stackResourceDriftStatus
-     *        Status of the resource's actual configuration compared to its expected configuration</p>
+     *        Status of the resource's actual configuration compared to its expected configuration.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -367,24 +362,24 @@ public class StackResourceDriftInformationSummary implements Serializable, Clone
      *        </li>
      *        <li>
      *        <p>
-     *        <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the resource differs from its expected
+     *        <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the resource differs from its expected
      *        configuration.
      *        </p>
      *        <p>
-     *        Any resources that do not currently support drift detection have a status of <code>NOT_CHECKED</code>. For
+     *        Any resources that don't currently support drift detection have a status of <code>NOT_CHECKED</code>. For
      *        more information, see <a href=
      *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
      *        >Resources that Support Drift Detection</a>. If you performed an <a>ContinueUpdateRollback</a> operation
      *        on a stack, any resources included in <code>ResourcesToSkip</code> will also have a status of
-     *        <code>NOT_CHECKED</code>. For more information on skipping resources during rollback operations, see <a
+     *        <code>NOT_CHECKED</code>. For more information about skipping resources during rollback operations, see <a
      *        href=
      *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-continueupdaterollback.html"
-     *        >Continue Rolling Back an Update</a> in the AWS CloudFormation User Guide.
+     *        >Continue Rolling Back an Update</a> in the CloudFormation User Guide.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>IN_SYNC</code>: The resources's actual configuration matches its expected configuration.
+     *        <code>IN_SYNC</code>: The resource's actual configuration matches its expected configuration.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -398,11 +393,11 @@ public class StackResourceDriftInformationSummary implements Serializable, Clone
 
     /**
      * <p>
-     * When AWS CloudFormation last checked if the resource had drifted from its expected configuration.
+     * When CloudFormation last checked if the resource had drifted from its expected configuration.
      * </p>
      * 
      * @param lastCheckTimestamp
-     *        When AWS CloudFormation last checked if the resource had drifted from its expected configuration.
+     *        When CloudFormation last checked if the resource had drifted from its expected configuration.
      */
 
     public void setLastCheckTimestamp(java.util.Date lastCheckTimestamp) {
@@ -411,10 +406,10 @@ public class StackResourceDriftInformationSummary implements Serializable, Clone
 
     /**
      * <p>
-     * When AWS CloudFormation last checked if the resource had drifted from its expected configuration.
+     * When CloudFormation last checked if the resource had drifted from its expected configuration.
      * </p>
      * 
-     * @return When AWS CloudFormation last checked if the resource had drifted from its expected configuration.
+     * @return When CloudFormation last checked if the resource had drifted from its expected configuration.
      */
 
     public java.util.Date getLastCheckTimestamp() {
@@ -423,11 +418,11 @@ public class StackResourceDriftInformationSummary implements Serializable, Clone
 
     /**
      * <p>
-     * When AWS CloudFormation last checked if the resource had drifted from its expected configuration.
+     * When CloudFormation last checked if the resource had drifted from its expected configuration.
      * </p>
      * 
      * @param lastCheckTimestamp
-     *        When AWS CloudFormation last checked if the resource had drifted from its expected configuration.
+     *        When CloudFormation last checked if the resource had drifted from its expected configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

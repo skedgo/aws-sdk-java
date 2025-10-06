@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,8 +30,10 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The name of the attribute to modify. The valid values are <code>description</code>, <code>launchPermission</code>
-     * , and <code>productCodes</code>.
+     * The name of the attribute to modify.
+     * </p>
+     * <p>
+     * Valid values: <code>description</code> | <code>imdsSupport</code> | <code>launchPermission</code>
      * </p>
      */
     private String attribute;
@@ -62,7 +64,7 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
     private String operationType;
     /**
      * <p>
-     * The DevPay product codes. After you add a product code to an AMI, it can't be removed.
+     * Not supported.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> productCodes;
@@ -75,7 +77,7 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
     private com.amazonaws.internal.SdkInternalList<String> userGroups;
     /**
      * <p>
-     * The AWS account IDs. This parameter can be used only when the <code>Attribute</code> parameter is
+     * The Amazon Web Services account IDs. This parameter can be used only when the <code>Attribute</code> parameter is
      * <code>launchPermission</code>.
      * </p>
      */
@@ -83,10 +85,41 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
     /**
      * <p>
      * The value of the attribute being modified. This parameter can be used only when the <code>Attribute</code>
-     * parameter is <code>description</code> or <code>productCodes</code>.
+     * parameter is <code>description</code> or <code>imdsSupport</code>.
      * </p>
      */
     private String value;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an organization. This parameter can be used only when the
+     * <code>Attribute</code> parameter is <code>launchPermission</code>.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> organizationArns;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an organizational unit (OU). This parameter can be used only when the
+     * <code>Attribute</code> parameter is <code>launchPermission</code>.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> organizationalUnitArns;
+    /**
+     * <p>
+     * Set to <code>v2.0</code> to indicate that IMDSv2 is specified in the AMI. Instances launched from this AMI will
+     * have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the instance
+     * requires that IMDSv2 is used when requesting instance metadata. In addition, <code>HttpPutResponseHopLimit</code>
+     * is set to <code>2</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     * >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * Do not use this parameter unless your AMI software supports IMDSv2. After you set the value to <code>v2.0</code>,
+     * you can't undo it. The only way to “reset” your AMI is to create a new AMI from the underlying snapshot.
+     * </p>
+     * </important>
+     */
+    private String imdsSupport;
 
     /**
      * Default constructor for ModifyImageAttributeRequest object. Callers should use the setter or fluent setter
@@ -102,8 +135,9 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
      * @param imageId
      *        The ID of the AMI.
      * @param attribute
-     *        The name of the attribute to modify. The valid values are <code>description</code>,
-     *        <code>launchPermission</code>, and <code>productCodes</code>.
+     *        The name of the attribute to modify.</p>
+     *        <p>
+     *        Valid values: <code>description</code> | <code>imdsSupport</code> | <code>launchPermission</code>
      */
     public ModifyImageAttributeRequest(String imageId, String attribute) {
         setImageId(imageId);
@@ -112,13 +146,16 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The name of the attribute to modify. The valid values are <code>description</code>, <code>launchPermission</code>
-     * , and <code>productCodes</code>.
+     * The name of the attribute to modify.
+     * </p>
+     * <p>
+     * Valid values: <code>description</code> | <code>imdsSupport</code> | <code>launchPermission</code>
      * </p>
      * 
      * @param attribute
-     *        The name of the attribute to modify. The valid values are <code>description</code>,
-     *        <code>launchPermission</code>, and <code>productCodes</code>.
+     *        The name of the attribute to modify.</p>
+     *        <p>
+     *        Valid values: <code>description</code> | <code>imdsSupport</code> | <code>launchPermission</code>
      */
 
     public void setAttribute(String attribute) {
@@ -127,12 +164,15 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The name of the attribute to modify. The valid values are <code>description</code>, <code>launchPermission</code>
-     * , and <code>productCodes</code>.
+     * The name of the attribute to modify.
+     * </p>
+     * <p>
+     * Valid values: <code>description</code> | <code>imdsSupport</code> | <code>launchPermission</code>
      * </p>
      * 
-     * @return The name of the attribute to modify. The valid values are <code>description</code>,
-     *         <code>launchPermission</code>, and <code>productCodes</code>.
+     * @return The name of the attribute to modify.</p>
+     *         <p>
+     *         Valid values: <code>description</code> | <code>imdsSupport</code> | <code>launchPermission</code>
      */
 
     public String getAttribute() {
@@ -141,13 +181,16 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The name of the attribute to modify. The valid values are <code>description</code>, <code>launchPermission</code>
-     * , and <code>productCodes</code>.
+     * The name of the attribute to modify.
+     * </p>
+     * <p>
+     * Valid values: <code>description</code> | <code>imdsSupport</code> | <code>launchPermission</code>
      * </p>
      * 
      * @param attribute
-     *        The name of the attribute to modify. The valid values are <code>description</code>,
-     *        <code>launchPermission</code>, and <code>productCodes</code>.
+     *        The name of the attribute to modify.</p>
+     *        <p>
+     *        Valid values: <code>description</code> | <code>imdsSupport</code> | <code>launchPermission</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -361,10 +404,10 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The DevPay product codes. After you add a product code to an AMI, it can't be removed.
+     * Not supported.
      * </p>
      * 
-     * @return The DevPay product codes. After you add a product code to an AMI, it can't be removed.
+     * @return Not supported.
      */
 
     public java.util.List<String> getProductCodes() {
@@ -376,11 +419,11 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The DevPay product codes. After you add a product code to an AMI, it can't be removed.
+     * Not supported.
      * </p>
      * 
      * @param productCodes
-     *        The DevPay product codes. After you add a product code to an AMI, it can't be removed.
+     *        Not supported.
      */
 
     public void setProductCodes(java.util.Collection<String> productCodes) {
@@ -394,7 +437,7 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The DevPay product codes. After you add a product code to an AMI, it can't be removed.
+     * Not supported.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -403,7 +446,7 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
      * </p>
      * 
      * @param productCodes
-     *        The DevPay product codes. After you add a product code to an AMI, it can't be removed.
+     *        Not supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -419,11 +462,11 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The DevPay product codes. After you add a product code to an AMI, it can't be removed.
+     * Not supported.
      * </p>
      * 
      * @param productCodes
-     *        The DevPay product codes. After you add a product code to an AMI, it can't be removed.
+     *        Not supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -515,12 +558,12 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The AWS account IDs. This parameter can be used only when the <code>Attribute</code> parameter is
+     * The Amazon Web Services account IDs. This parameter can be used only when the <code>Attribute</code> parameter is
      * <code>launchPermission</code>.
      * </p>
      * 
-     * @return The AWS account IDs. This parameter can be used only when the <code>Attribute</code> parameter is
-     *         <code>launchPermission</code>.
+     * @return The Amazon Web Services account IDs. This parameter can be used only when the <code>Attribute</code>
+     *         parameter is <code>launchPermission</code>.
      */
 
     public java.util.List<String> getUserIds() {
@@ -532,13 +575,13 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The AWS account IDs. This parameter can be used only when the <code>Attribute</code> parameter is
+     * The Amazon Web Services account IDs. This parameter can be used only when the <code>Attribute</code> parameter is
      * <code>launchPermission</code>.
      * </p>
      * 
      * @param userIds
-     *        The AWS account IDs. This parameter can be used only when the <code>Attribute</code> parameter is
-     *        <code>launchPermission</code>.
+     *        The Amazon Web Services account IDs. This parameter can be used only when the <code>Attribute</code>
+     *        parameter is <code>launchPermission</code>.
      */
 
     public void setUserIds(java.util.Collection<String> userIds) {
@@ -552,7 +595,7 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The AWS account IDs. This parameter can be used only when the <code>Attribute</code> parameter is
+     * The Amazon Web Services account IDs. This parameter can be used only when the <code>Attribute</code> parameter is
      * <code>launchPermission</code>.
      * </p>
      * <p>
@@ -562,8 +605,8 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
      * </p>
      * 
      * @param userIds
-     *        The AWS account IDs. This parameter can be used only when the <code>Attribute</code> parameter is
-     *        <code>launchPermission</code>.
+     *        The Amazon Web Services account IDs. This parameter can be used only when the <code>Attribute</code>
+     *        parameter is <code>launchPermission</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -579,13 +622,13 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The AWS account IDs. This parameter can be used only when the <code>Attribute</code> parameter is
+     * The Amazon Web Services account IDs. This parameter can be used only when the <code>Attribute</code> parameter is
      * <code>launchPermission</code>.
      * </p>
      * 
      * @param userIds
-     *        The AWS account IDs. This parameter can be used only when the <code>Attribute</code> parameter is
-     *        <code>launchPermission</code>.
+     *        The Amazon Web Services account IDs. This parameter can be used only when the <code>Attribute</code>
+     *        parameter is <code>launchPermission</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -597,12 +640,12 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
     /**
      * <p>
      * The value of the attribute being modified. This parameter can be used only when the <code>Attribute</code>
-     * parameter is <code>description</code> or <code>productCodes</code>.
+     * parameter is <code>description</code> or <code>imdsSupport</code>.
      * </p>
      * 
      * @param value
      *        The value of the attribute being modified. This parameter can be used only when the <code>Attribute</code>
-     *        parameter is <code>description</code> or <code>productCodes</code>.
+     *        parameter is <code>description</code> or <code>imdsSupport</code>.
      */
 
     public void setValue(String value) {
@@ -612,11 +655,11 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
     /**
      * <p>
      * The value of the attribute being modified. This parameter can be used only when the <code>Attribute</code>
-     * parameter is <code>description</code> or <code>productCodes</code>.
+     * parameter is <code>description</code> or <code>imdsSupport</code>.
      * </p>
      * 
      * @return The value of the attribute being modified. This parameter can be used only when the
-     *         <code>Attribute</code> parameter is <code>description</code> or <code>productCodes</code>.
+     *         <code>Attribute</code> parameter is <code>description</code> or <code>imdsSupport</code>.
      */
 
     public String getValue() {
@@ -626,17 +669,282 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
     /**
      * <p>
      * The value of the attribute being modified. This parameter can be used only when the <code>Attribute</code>
-     * parameter is <code>description</code> or <code>productCodes</code>.
+     * parameter is <code>description</code> or <code>imdsSupport</code>.
      * </p>
      * 
      * @param value
      *        The value of the attribute being modified. This parameter can be used only when the <code>Attribute</code>
-     *        parameter is <code>description</code> or <code>productCodes</code>.
+     *        parameter is <code>description</code> or <code>imdsSupport</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ModifyImageAttributeRequest withValue(String value) {
         setValue(value);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an organization. This parameter can be used only when the
+     * <code>Attribute</code> parameter is <code>launchPermission</code>.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of an organization. This parameter can be used only when the
+     *         <code>Attribute</code> parameter is <code>launchPermission</code>.
+     */
+
+    public java.util.List<String> getOrganizationArns() {
+        if (organizationArns == null) {
+            organizationArns = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return organizationArns;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an organization. This parameter can be used only when the
+     * <code>Attribute</code> parameter is <code>launchPermission</code>.
+     * </p>
+     * 
+     * @param organizationArns
+     *        The Amazon Resource Name (ARN) of an organization. This parameter can be used only when the
+     *        <code>Attribute</code> parameter is <code>launchPermission</code>.
+     */
+
+    public void setOrganizationArns(java.util.Collection<String> organizationArns) {
+        if (organizationArns == null) {
+            this.organizationArns = null;
+            return;
+        }
+
+        this.organizationArns = new com.amazonaws.internal.SdkInternalList<String>(organizationArns);
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an organization. This parameter can be used only when the
+     * <code>Attribute</code> parameter is <code>launchPermission</code>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setOrganizationArns(java.util.Collection)} or {@link #withOrganizationArns(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param organizationArns
+     *        The Amazon Resource Name (ARN) of an organization. This parameter can be used only when the
+     *        <code>Attribute</code> parameter is <code>launchPermission</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyImageAttributeRequest withOrganizationArns(String... organizationArns) {
+        if (this.organizationArns == null) {
+            setOrganizationArns(new com.amazonaws.internal.SdkInternalList<String>(organizationArns.length));
+        }
+        for (String ele : organizationArns) {
+            this.organizationArns.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an organization. This parameter can be used only when the
+     * <code>Attribute</code> parameter is <code>launchPermission</code>.
+     * </p>
+     * 
+     * @param organizationArns
+     *        The Amazon Resource Name (ARN) of an organization. This parameter can be used only when the
+     *        <code>Attribute</code> parameter is <code>launchPermission</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyImageAttributeRequest withOrganizationArns(java.util.Collection<String> organizationArns) {
+        setOrganizationArns(organizationArns);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an organizational unit (OU). This parameter can be used only when the
+     * <code>Attribute</code> parameter is <code>launchPermission</code>.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of an organizational unit (OU). This parameter can be used only when the
+     *         <code>Attribute</code> parameter is <code>launchPermission</code>.
+     */
+
+    public java.util.List<String> getOrganizationalUnitArns() {
+        if (organizationalUnitArns == null) {
+            organizationalUnitArns = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return organizationalUnitArns;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an organizational unit (OU). This parameter can be used only when the
+     * <code>Attribute</code> parameter is <code>launchPermission</code>.
+     * </p>
+     * 
+     * @param organizationalUnitArns
+     *        The Amazon Resource Name (ARN) of an organizational unit (OU). This parameter can be used only when the
+     *        <code>Attribute</code> parameter is <code>launchPermission</code>.
+     */
+
+    public void setOrganizationalUnitArns(java.util.Collection<String> organizationalUnitArns) {
+        if (organizationalUnitArns == null) {
+            this.organizationalUnitArns = null;
+            return;
+        }
+
+        this.organizationalUnitArns = new com.amazonaws.internal.SdkInternalList<String>(organizationalUnitArns);
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an organizational unit (OU). This parameter can be used only when the
+     * <code>Attribute</code> parameter is <code>launchPermission</code>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setOrganizationalUnitArns(java.util.Collection)} or
+     * {@link #withOrganizationalUnitArns(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param organizationalUnitArns
+     *        The Amazon Resource Name (ARN) of an organizational unit (OU). This parameter can be used only when the
+     *        <code>Attribute</code> parameter is <code>launchPermission</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyImageAttributeRequest withOrganizationalUnitArns(String... organizationalUnitArns) {
+        if (this.organizationalUnitArns == null) {
+            setOrganizationalUnitArns(new com.amazonaws.internal.SdkInternalList<String>(organizationalUnitArns.length));
+        }
+        for (String ele : organizationalUnitArns) {
+            this.organizationalUnitArns.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an organizational unit (OU). This parameter can be used only when the
+     * <code>Attribute</code> parameter is <code>launchPermission</code>.
+     * </p>
+     * 
+     * @param organizationalUnitArns
+     *        The Amazon Resource Name (ARN) of an organizational unit (OU). This parameter can be used only when the
+     *        <code>Attribute</code> parameter is <code>launchPermission</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyImageAttributeRequest withOrganizationalUnitArns(java.util.Collection<String> organizationalUnitArns) {
+        setOrganizationalUnitArns(organizationalUnitArns);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Set to <code>v2.0</code> to indicate that IMDSv2 is specified in the AMI. Instances launched from this AMI will
+     * have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the instance
+     * requires that IMDSv2 is used when requesting instance metadata. In addition, <code>HttpPutResponseHopLimit</code>
+     * is set to <code>2</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     * >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * Do not use this parameter unless your AMI software supports IMDSv2. After you set the value to <code>v2.0</code>,
+     * you can't undo it. The only way to “reset” your AMI is to create a new AMI from the underlying snapshot.
+     * </p>
+     * </important>
+     * 
+     * @param imdsSupport
+     *        Set to <code>v2.0</code> to indicate that IMDSv2 is specified in the AMI. Instances launched from this AMI
+     *        will have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the
+     *        instance requires that IMDSv2 is used when requesting instance metadata. In addition,
+     *        <code>HttpPutResponseHopLimit</code> is set to <code>2</code>. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     *        >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.</p> <important>
+     *        <p>
+     *        Do not use this parameter unless your AMI software supports IMDSv2. After you set the value to
+     *        <code>v2.0</code>, you can't undo it. The only way to “reset” your AMI is to create a new AMI from the
+     *        underlying snapshot.
+     *        </p>
+     */
+
+    public void setImdsSupport(String imdsSupport) {
+        this.imdsSupport = imdsSupport;
+    }
+
+    /**
+     * <p>
+     * Set to <code>v2.0</code> to indicate that IMDSv2 is specified in the AMI. Instances launched from this AMI will
+     * have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the instance
+     * requires that IMDSv2 is used when requesting instance metadata. In addition, <code>HttpPutResponseHopLimit</code>
+     * is set to <code>2</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     * >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * Do not use this parameter unless your AMI software supports IMDSv2. After you set the value to <code>v2.0</code>,
+     * you can't undo it. The only way to “reset” your AMI is to create a new AMI from the underlying snapshot.
+     * </p>
+     * </important>
+     * 
+     * @return Set to <code>v2.0</code> to indicate that IMDSv2 is specified in the AMI. Instances launched from this
+     *         AMI will have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the
+     *         instance requires that IMDSv2 is used when requesting instance metadata. In addition,
+     *         <code>HttpPutResponseHopLimit</code> is set to <code>2</code>. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     *         >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.</p> <important>
+     *         <p>
+     *         Do not use this parameter unless your AMI software supports IMDSv2. After you set the value to
+     *         <code>v2.0</code>, you can't undo it. The only way to “reset” your AMI is to create a new AMI from the
+     *         underlying snapshot.
+     *         </p>
+     */
+
+    public String getImdsSupport() {
+        return this.imdsSupport;
+    }
+
+    /**
+     * <p>
+     * Set to <code>v2.0</code> to indicate that IMDSv2 is specified in the AMI. Instances launched from this AMI will
+     * have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the instance
+     * requires that IMDSv2 is used when requesting instance metadata. In addition, <code>HttpPutResponseHopLimit</code>
+     * is set to <code>2</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     * >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * Do not use this parameter unless your AMI software supports IMDSv2. After you set the value to <code>v2.0</code>,
+     * you can't undo it. The only way to “reset” your AMI is to create a new AMI from the underlying snapshot.
+     * </p>
+     * </important>
+     * 
+     * @param imdsSupport
+     *        Set to <code>v2.0</code> to indicate that IMDSv2 is specified in the AMI. Instances launched from this AMI
+     *        will have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the
+     *        instance requires that IMDSv2 is used when requesting instance metadata. In addition,
+     *        <code>HttpPutResponseHopLimit</code> is set to <code>2</code>. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     *        >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.</p> <important>
+     *        <p>
+     *        Do not use this parameter unless your AMI software supports IMDSv2. After you set the value to
+     *        <code>v2.0</code>, you can't undo it. The only way to “reset” your AMI is to create a new AMI from the
+     *        underlying snapshot.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyImageAttributeRequest withImdsSupport(String imdsSupport) {
+        setImdsSupport(imdsSupport);
         return this;
     }
 
@@ -680,7 +988,13 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
         if (getUserIds() != null)
             sb.append("UserIds: ").append(getUserIds()).append(",");
         if (getValue() != null)
-            sb.append("Value: ").append(getValue());
+            sb.append("Value: ").append(getValue()).append(",");
+        if (getOrganizationArns() != null)
+            sb.append("OrganizationArns: ").append(getOrganizationArns()).append(",");
+        if (getOrganizationalUnitArns() != null)
+            sb.append("OrganizationalUnitArns: ").append(getOrganizationalUnitArns()).append(",");
+        if (getImdsSupport() != null)
+            sb.append("ImdsSupport: ").append(getImdsSupport());
         sb.append("}");
         return sb.toString();
     }
@@ -731,6 +1045,18 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
             return false;
         if (other.getValue() != null && other.getValue().equals(this.getValue()) == false)
             return false;
+        if (other.getOrganizationArns() == null ^ this.getOrganizationArns() == null)
+            return false;
+        if (other.getOrganizationArns() != null && other.getOrganizationArns().equals(this.getOrganizationArns()) == false)
+            return false;
+        if (other.getOrganizationalUnitArns() == null ^ this.getOrganizationalUnitArns() == null)
+            return false;
+        if (other.getOrganizationalUnitArns() != null && other.getOrganizationalUnitArns().equals(this.getOrganizationalUnitArns()) == false)
+            return false;
+        if (other.getImdsSupport() == null ^ this.getImdsSupport() == null)
+            return false;
+        if (other.getImdsSupport() != null && other.getImdsSupport().equals(this.getImdsSupport()) == false)
+            return false;
         return true;
     }
 
@@ -748,6 +1074,9 @@ public class ModifyImageAttributeRequest extends AmazonWebServiceRequest impleme
         hashCode = prime * hashCode + ((getUserGroups() == null) ? 0 : getUserGroups().hashCode());
         hashCode = prime * hashCode + ((getUserIds() == null) ? 0 : getUserIds().hashCode());
         hashCode = prime * hashCode + ((getValue() == null) ? 0 : getValue().hashCode());
+        hashCode = prime * hashCode + ((getOrganizationArns() == null) ? 0 : getOrganizationArns().hashCode());
+        hashCode = prime * hashCode + ((getOrganizationalUnitArns() == null) ? 0 : getOrganizationalUnitArns().hashCode());
+        hashCode = prime * hashCode + ((getImdsSupport() == null) ? 0 : getImdsSupport().hashCode());
         return hashCode;
     }
 

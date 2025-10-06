@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,8 +34,8 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
     private String endpointArn;
     /**
      * <p>
-     * The database endpoint identifier. Identifiers must begin with a letter; must contain only ASCII letters, digits,
-     * and hyphens; and must not end with a hyphen or contain two consecutive hyphens.
+     * The database endpoint identifier. Identifiers must begin with a letter and must contain only ASCII letters,
+     * digits, and hyphens. They can't end with a hyphen or contain two consecutive hyphens.
      * </p>
      */
     private String endpointIdentifier;
@@ -47,9 +47,12 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
     private String endpointType;
     /**
      * <p>
-     * The type of engine for the endpoint. Valid values, depending on the EndpointType, include mysql, oracle,
-     * postgres, mariadb, aurora, aurora-postgresql, redshift, s3, db2, azuredb, sybase, dynamodb, mongodb, and
-     * sqlserver.
+     * The database engine name. Valid values, depending on the EndpointType, include <code>"mysql"</code>,
+     * <code>"oracle"</code>, <code>"postgres"</code>, <code>"mariadb"</code>, <code>"aurora"</code>,
+     * <code>"aurora-postgresql"</code>, <code>"redshift"</code>, <code>"s3"</code>, <code>"db2"</code>,
+     * <code>"db2-zos"</code>, <code>"azuredb"</code>, <code>"sybase"</code>, <code>"dynamodb"</code>,
+     * <code>"mongodb"</code>, <code>"kinesis"</code>, <code>"kafka"</code>, <code>"elasticsearch"</code>,
+     * <code>"documentdb"</code>, <code>"sqlserver"</code>, <code>"neptune"</code>, and <code>"babelfish"</code>.
      * </p>
      */
     private String engineName;
@@ -79,7 +82,7 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
     private Integer port;
     /**
      * <p>
-     * The name of the endpoint database.
+     * The name of the endpoint database. For a MySQL source or target endpoint, do not specify DatabaseName.
      * </p>
      */
     private String databaseName;
@@ -104,7 +107,8 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
     private String sslMode;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the service access role you want to use to modify the endpoint.
+     * The Amazon Resource Name (ARN) for the IAM role you want to use to modify the endpoint. The role must allow the
+     * <code>iam:PassRole</code> action.
      * </p>
      */
     private String serviceAccessRoleArn;
@@ -116,9 +120,10 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
     private String externalTableDefinition;
     /**
      * <p>
-     * Settings in JSON format for the target Amazon DynamoDB endpoint. For more information about the available
-     * settings, see <a href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.DynamoDB.html">Using Object
-     * Mapping to Migrate Data to DynamoDB</a> in the <i>AWS Database Migration Service User Guide.</i>
+     * Settings in JSON format for the target Amazon DynamoDB endpoint. For information about other available settings,
+     * see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.DynamoDB.html#CHAP_Target.DynamoDB.ObjectMapping"
+     * >Using Object Mapping to Migrate Data to DynamoDB</a> in the <i>Database Migration Service User Guide.</i>
      * </p>
      */
     private DynamoDbSettings dynamoDbSettings;
@@ -126,8 +131,8 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * Settings in JSON format for the target Amazon S3 endpoint. For more information about the available settings, see
      * <a href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.S3.html#CHAP_Target.S3.Configuring">Extra
-     * Connection Attributes When Using Amazon S3 as a Target for AWS DMS</a> in the <i>AWS Database Migration Service
-     * User Guide.</i>
+     * Connection Attributes When Using Amazon S3 as a Target for DMS</a> in the <i>Database Migration Service User
+     * Guide.</i>
      * </p>
      */
     private S3Settings s3Settings;
@@ -141,7 +146,8 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
      * <ul>
      * <li>
      * <p>
-     * serviceAccessRoleArn - The IAM role that has permission to access the Amazon S3 bucket.
+     * serviceAccessRoleArn - The Amazon Resource Name (ARN) used by the service access IAM role. The role must allow
+     * the <code>iam:PassRole</code> action.
      * </p>
      * </li>
      * <li>
@@ -149,55 +155,195 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
      * BucketName - The name of the S3 bucket to use.
      * </p>
      * </li>
-     * <li>
-     * <p>
-     * compressionType - An optional parameter to use GZIP to compress the target files. Set to NONE (the default) or do
-     * not use to leave the files uncompressed.
-     * </p>
-     * </li>
      * </ul>
      * <p>
-     * Shorthand syntax: ServiceAccessRoleArn=string ,BucketName=string,CompressionType=string
+     * Shorthand syntax for these settings is as follows: <code>ServiceAccessRoleArn=string ,BucketName=string</code>
      * </p>
      * <p>
-     * JSON syntax:
-     * </p>
-     * <p>
-     * { "ServiceAccessRoleArn": "string", "BucketName": "string", "CompressionType": "none"|"gzip" }
+     * JSON syntax for these settings is as follows:
+     * <code>{ "ServiceAccessRoleArn": "string", "BucketName": "string"} </code>
      * </p>
      */
     private DmsTransferSettings dmsTransferSettings;
     /**
      * <p>
      * Settings in JSON format for the source MongoDB endpoint. For more information about the available settings, see
-     * the configuration properties section in <a
-     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MongoDB.html"> Using MongoDB as a Target for
-     * AWS Database Migration Service</a> in the <i>AWS Database Migration Service User Guide.</i>
+     * the configuration properties section in <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MongoDB.html#CHAP_Source.MongoDB.Configuration"
+     * >Endpoint configuration settings when using MongoDB as a source for Database Migration Service</a> in the
+     * <i>Database Migration Service User Guide.</i>
      * </p>
      */
     private MongoDbSettings mongoDbSettings;
     /**
      * <p>
-     * Settings in JSON format for the target Amazon Kinesis Data Streams endpoint. For more information about the
+     * Settings in JSON format for the target endpoint for Amazon Kinesis Data Streams. For more information about the
      * available settings, see <a href=
      * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Kinesis.html#CHAP_Target.Kinesis.ObjectMapping"
-     * >Using Object Mapping to Migrate Data to a Kinesis Data Stream</a> in the <i>AWS Database Migration User
+     * >Using object mapping to migrate data to a Kinesis data stream</a> in the <i>Database Migration Service User
      * Guide.</i>
      * </p>
      */
     private KinesisSettings kinesisSettings;
     /**
      * <p>
-     * Settings in JSON format for the target Elasticsearch endpoint. For more information about the available settings,
+     * Settings in JSON format for the target Apache Kafka endpoint. For more information about the available settings,
+     * see <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Kafka.html#CHAP_Target.Kafka.ObjectMapping"
+     * >Using object mapping to migrate data to a Kafka topic</a> in the <i>Database Migration Service User Guide.</i>
+     * </p>
+     */
+    private KafkaSettings kafkaSettings;
+    /**
+     * <p>
+     * Settings in JSON format for the target OpenSearch endpoint. For more information about the available settings,
      * see <a href=
      * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Elasticsearch.html#CHAP_Target.Elasticsearch.Configuration"
-     * >Extra Connection Attributes When Using Elasticsearch as a Target for AWS DMS</a> in the <i>AWS Database
-     * Migration User Guide.</i>
+     * >Extra Connection Attributes When Using OpenSearch as a Target for DMS</a> in the <i>Database Migration Service
+     * User Guide.</i>
      * </p>
      */
     private ElasticsearchSettings elasticsearchSettings;
+    /**
+     * <p>
+     * Settings in JSON format for the target Amazon Neptune endpoint. For more information about the available
+     * settings, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Neptune.html#CHAP_Target.Neptune.EndpointSettings"
+     * >Specifying graph-mapping rules using Gremlin and R2RML for Amazon Neptune as a target</a> in the <i>Database
+     * Migration Service User Guide.</i>
+     * </p>
+     */
+    private NeptuneSettings neptuneSettings;
 
     private RedshiftSettings redshiftSettings;
+    /**
+     * <p>
+     * Settings in JSON format for the source and target PostgreSQL endpoint. For information about other available
+     * settings, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.PostgreSQL.html#CHAP_Source.PostgreSQL.ConnectionAttrib"
+     * >Extra connection attributes when using PostgreSQL as a source for DMS</a> and <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.PostgreSQL.html#CHAP_Target.PostgreSQL.ConnectionAttrib"
+     * > Extra connection attributes when using PostgreSQL as a target for DMS</a> in the <i>Database Migration Service
+     * User Guide.</i>
+     * </p>
+     */
+    private PostgreSQLSettings postgreSQLSettings;
+    /**
+     * <p>
+     * Settings in JSON format for the source and target MySQL endpoint. For information about other available settings,
+     * see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MySQL.html#CHAP_Source.MySQL.ConnectionAttrib"
+     * >Extra connection attributes when using MySQL as a source for DMS</a> and <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.MySQL.html#CHAP_Target.MySQL.ConnectionAttrib"
+     * >Extra connection attributes when using a MySQL-compatible database as a target for DMS</a> in the <i>Database
+     * Migration Service User Guide.</i>
+     * </p>
+     */
+    private MySQLSettings mySQLSettings;
+    /**
+     * <p>
+     * Settings in JSON format for the source and target Oracle endpoint. For information about other available
+     * settings, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.Oracle.html#CHAP_Source.Oracle.ConnectionAttrib"
+     * >Extra connection attributes when using Oracle as a source for DMS</a> and <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Oracle.html#CHAP_Target.Oracle.ConnectionAttrib">
+     * Extra connection attributes when using Oracle as a target for DMS</a> in the <i>Database Migration Service User
+     * Guide.</i>
+     * </p>
+     */
+    private OracleSettings oracleSettings;
+    /**
+     * <p>
+     * Settings in JSON format for the source and target SAP ASE endpoint. For information about other available
+     * settings, see <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.SAP.html#CHAP_Source.SAP.ConnectionAttrib"
+     * >Extra connection attributes when using SAP ASE as a source for DMS</a> and <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.SAP.html#CHAP_Target.SAP.ConnectionAttrib"
+     * >Extra connection attributes when using SAP ASE as a target for DMS</a> in the <i>Database Migration Service User
+     * Guide.</i>
+     * </p>
+     */
+    private SybaseSettings sybaseSettings;
+    /**
+     * <p>
+     * Settings in JSON format for the source and target Microsoft SQL Server endpoint. For information about other
+     * available settings, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.SQLServer.html#CHAP_Source.SQLServer.ConnectionAttrib"
+     * >Extra connection attributes when using SQL Server as a source for DMS</a> and <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.SQLServer.html#CHAP_Target.SQLServer.ConnectionAttrib"
+     * > Extra connection attributes when using SQL Server as a target for DMS</a> in the <i>Database Migration Service
+     * User Guide.</i>
+     * </p>
+     */
+    private MicrosoftSQLServerSettings microsoftSQLServerSettings;
+    /**
+     * <p>
+     * Settings in JSON format for the source IBM Db2 LUW endpoint. For information about other available settings, see
+     * <a href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.DB2.html#CHAP_Source.DB2.ConnectionAttrib">
+     * Extra connection attributes when using Db2 LUW as a source for DMS</a> in the <i>Database Migration Service User
+     * Guide.</i>
+     * </p>
+     */
+    private IBMDb2Settings iBMDb2Settings;
+    /**
+     * <p>
+     * Settings in JSON format for the source DocumentDB endpoint. For more information about the available settings,
+     * see the configuration properties section in <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.DocumentDB.html"> Using DocumentDB as a Target
+     * for Database Migration Service </a> in the <i>Database Migration Service User Guide.</i>
+     * </p>
+     */
+    private DocDbSettings docDbSettings;
+    /**
+     * <p>
+     * Settings in JSON format for the Redis target endpoint.
+     * </p>
+     */
+    private RedisSettings redisSettings;
+    /**
+     * <p>
+     * If this attribute is Y, the current call to <code>ModifyEndpoint</code> replaces all existing endpoint settings
+     * with the exact settings that you specify in this call. If this attribute is N, the current call to
+     * <code>ModifyEndpoint</code> does two things:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * It replaces any endpoint settings that already exist with new values, for settings with the same names.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * It creates new endpoint settings that you specify in the call, for settings with different names.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For example, if you call <code>create-endpoint ... --endpoint-settings '{"a":1}' ...</code>, the endpoint has the
+     * following endpoint settings: <code>'{"a":1}'</code>. If you then call
+     * <code>modify-endpoint ... --endpoint-settings '{"b":2}' ...</code> for the same endpoint, the endpoint has the
+     * following settings: <code>'{"a":1,"b":2}'</code>.
+     * </p>
+     * <p>
+     * However, suppose that you follow this with a call to
+     * <code>modify-endpoint ... --endpoint-settings '{"b":2}' --exact-settings ...</code> for that same endpoint again.
+     * Then the endpoint has the following settings: <code>'{"b":2}'</code>. All existing settings are replaced with the
+     * exact settings that you specify.
+     * </p>
+     */
+    private Boolean exactSettings;
+    /**
+     * <p>
+     * Settings in JSON format for the source GCP MySQL endpoint.
+     * </p>
+     */
+    private GcpMySQLSettings gcpMySQLSettings;
+    /**
+     * <p>
+     * Settings in JSON format for the target Amazon Timestream endpoint.
+     * </p>
+     */
+    private TimestreamSettings timestreamSettings;
 
     /**
      * <p>
@@ -241,13 +387,13 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The database endpoint identifier. Identifiers must begin with a letter; must contain only ASCII letters, digits,
-     * and hyphens; and must not end with a hyphen or contain two consecutive hyphens.
+     * The database endpoint identifier. Identifiers must begin with a letter and must contain only ASCII letters,
+     * digits, and hyphens. They can't end with a hyphen or contain two consecutive hyphens.
      * </p>
      * 
      * @param endpointIdentifier
-     *        The database endpoint identifier. Identifiers must begin with a letter; must contain only ASCII letters,
-     *        digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.
+     *        The database endpoint identifier. Identifiers must begin with a letter and must contain only ASCII
+     *        letters, digits, and hyphens. They can't end with a hyphen or contain two consecutive hyphens.
      */
 
     public void setEndpointIdentifier(String endpointIdentifier) {
@@ -256,12 +402,12 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The database endpoint identifier. Identifiers must begin with a letter; must contain only ASCII letters, digits,
-     * and hyphens; and must not end with a hyphen or contain two consecutive hyphens.
+     * The database endpoint identifier. Identifiers must begin with a letter and must contain only ASCII letters,
+     * digits, and hyphens. They can't end with a hyphen or contain two consecutive hyphens.
      * </p>
      * 
-     * @return The database endpoint identifier. Identifiers must begin with a letter; must contain only ASCII letters,
-     *         digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.
+     * @return The database endpoint identifier. Identifiers must begin with a letter and must contain only ASCII
+     *         letters, digits, and hyphens. They can't end with a hyphen or contain two consecutive hyphens.
      */
 
     public String getEndpointIdentifier() {
@@ -270,13 +416,13 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The database endpoint identifier. Identifiers must begin with a letter; must contain only ASCII letters, digits,
-     * and hyphens; and must not end with a hyphen or contain two consecutive hyphens.
+     * The database endpoint identifier. Identifiers must begin with a letter and must contain only ASCII letters,
+     * digits, and hyphens. They can't end with a hyphen or contain two consecutive hyphens.
      * </p>
      * 
      * @param endpointIdentifier
-     *        The database endpoint identifier. Identifiers must begin with a letter; must contain only ASCII letters,
-     *        digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.
+     *        The database endpoint identifier. Identifiers must begin with a letter and must contain only ASCII
+     *        letters, digits, and hyphens. They can't end with a hyphen or contain two consecutive hyphens.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -360,15 +506,21 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The type of engine for the endpoint. Valid values, depending on the EndpointType, include mysql, oracle,
-     * postgres, mariadb, aurora, aurora-postgresql, redshift, s3, db2, azuredb, sybase, dynamodb, mongodb, and
-     * sqlserver.
+     * The database engine name. Valid values, depending on the EndpointType, include <code>"mysql"</code>,
+     * <code>"oracle"</code>, <code>"postgres"</code>, <code>"mariadb"</code>, <code>"aurora"</code>,
+     * <code>"aurora-postgresql"</code>, <code>"redshift"</code>, <code>"s3"</code>, <code>"db2"</code>,
+     * <code>"db2-zos"</code>, <code>"azuredb"</code>, <code>"sybase"</code>, <code>"dynamodb"</code>,
+     * <code>"mongodb"</code>, <code>"kinesis"</code>, <code>"kafka"</code>, <code>"elasticsearch"</code>,
+     * <code>"documentdb"</code>, <code>"sqlserver"</code>, <code>"neptune"</code>, and <code>"babelfish"</code>.
      * </p>
      * 
      * @param engineName
-     *        The type of engine for the endpoint. Valid values, depending on the EndpointType, include mysql, oracle,
-     *        postgres, mariadb, aurora, aurora-postgresql, redshift, s3, db2, azuredb, sybase, dynamodb, mongodb, and
-     *        sqlserver.
+     *        The database engine name. Valid values, depending on the EndpointType, include <code>"mysql"</code>,
+     *        <code>"oracle"</code>, <code>"postgres"</code>, <code>"mariadb"</code>, <code>"aurora"</code>,
+     *        <code>"aurora-postgresql"</code>, <code>"redshift"</code>, <code>"s3"</code>, <code>"db2"</code>,
+     *        <code>"db2-zos"</code>, <code>"azuredb"</code>, <code>"sybase"</code>, <code>"dynamodb"</code>,
+     *        <code>"mongodb"</code>, <code>"kinesis"</code>, <code>"kafka"</code>, <code>"elasticsearch"</code>,
+     *        <code>"documentdb"</code>, <code>"sqlserver"</code>, <code>"neptune"</code>, and <code>"babelfish"</code>.
      */
 
     public void setEngineName(String engineName) {
@@ -377,14 +529,21 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The type of engine for the endpoint. Valid values, depending on the EndpointType, include mysql, oracle,
-     * postgres, mariadb, aurora, aurora-postgresql, redshift, s3, db2, azuredb, sybase, dynamodb, mongodb, and
-     * sqlserver.
+     * The database engine name. Valid values, depending on the EndpointType, include <code>"mysql"</code>,
+     * <code>"oracle"</code>, <code>"postgres"</code>, <code>"mariadb"</code>, <code>"aurora"</code>,
+     * <code>"aurora-postgresql"</code>, <code>"redshift"</code>, <code>"s3"</code>, <code>"db2"</code>,
+     * <code>"db2-zos"</code>, <code>"azuredb"</code>, <code>"sybase"</code>, <code>"dynamodb"</code>,
+     * <code>"mongodb"</code>, <code>"kinesis"</code>, <code>"kafka"</code>, <code>"elasticsearch"</code>,
+     * <code>"documentdb"</code>, <code>"sqlserver"</code>, <code>"neptune"</code>, and <code>"babelfish"</code>.
      * </p>
      * 
-     * @return The type of engine for the endpoint. Valid values, depending on the EndpointType, include mysql, oracle,
-     *         postgres, mariadb, aurora, aurora-postgresql, redshift, s3, db2, azuredb, sybase, dynamodb, mongodb, and
-     *         sqlserver.
+     * @return The database engine name. Valid values, depending on the EndpointType, include <code>"mysql"</code>,
+     *         <code>"oracle"</code>, <code>"postgres"</code>, <code>"mariadb"</code>, <code>"aurora"</code>,
+     *         <code>"aurora-postgresql"</code>, <code>"redshift"</code>, <code>"s3"</code>, <code>"db2"</code>,
+     *         <code>"db2-zos"</code>, <code>"azuredb"</code>, <code>"sybase"</code>, <code>"dynamodb"</code>,
+     *         <code>"mongodb"</code>, <code>"kinesis"</code>, <code>"kafka"</code>, <code>"elasticsearch"</code>,
+     *         <code>"documentdb"</code>, <code>"sqlserver"</code>, <code>"neptune"</code>, and <code>"babelfish"</code>
+     *         .
      */
 
     public String getEngineName() {
@@ -393,15 +552,21 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The type of engine for the endpoint. Valid values, depending on the EndpointType, include mysql, oracle,
-     * postgres, mariadb, aurora, aurora-postgresql, redshift, s3, db2, azuredb, sybase, dynamodb, mongodb, and
-     * sqlserver.
+     * The database engine name. Valid values, depending on the EndpointType, include <code>"mysql"</code>,
+     * <code>"oracle"</code>, <code>"postgres"</code>, <code>"mariadb"</code>, <code>"aurora"</code>,
+     * <code>"aurora-postgresql"</code>, <code>"redshift"</code>, <code>"s3"</code>, <code>"db2"</code>,
+     * <code>"db2-zos"</code>, <code>"azuredb"</code>, <code>"sybase"</code>, <code>"dynamodb"</code>,
+     * <code>"mongodb"</code>, <code>"kinesis"</code>, <code>"kafka"</code>, <code>"elasticsearch"</code>,
+     * <code>"documentdb"</code>, <code>"sqlserver"</code>, <code>"neptune"</code>, and <code>"babelfish"</code>.
      * </p>
      * 
      * @param engineName
-     *        The type of engine for the endpoint. Valid values, depending on the EndpointType, include mysql, oracle,
-     *        postgres, mariadb, aurora, aurora-postgresql, redshift, s3, db2, azuredb, sybase, dynamodb, mongodb, and
-     *        sqlserver.
+     *        The database engine name. Valid values, depending on the EndpointType, include <code>"mysql"</code>,
+     *        <code>"oracle"</code>, <code>"postgres"</code>, <code>"mariadb"</code>, <code>"aurora"</code>,
+     *        <code>"aurora-postgresql"</code>, <code>"redshift"</code>, <code>"s3"</code>, <code>"db2"</code>,
+     *        <code>"db2-zos"</code>, <code>"azuredb"</code>, <code>"sybase"</code>, <code>"dynamodb"</code>,
+     *        <code>"mongodb"</code>, <code>"kinesis"</code>, <code>"kafka"</code>, <code>"elasticsearch"</code>,
+     *        <code>"documentdb"</code>, <code>"sqlserver"</code>, <code>"neptune"</code>, and <code>"babelfish"</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -572,11 +737,11 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the endpoint database.
+     * The name of the endpoint database. For a MySQL source or target endpoint, do not specify DatabaseName.
      * </p>
      * 
      * @param databaseName
-     *        The name of the endpoint database.
+     *        The name of the endpoint database. For a MySQL source or target endpoint, do not specify DatabaseName.
      */
 
     public void setDatabaseName(String databaseName) {
@@ -585,10 +750,10 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the endpoint database.
+     * The name of the endpoint database. For a MySQL source or target endpoint, do not specify DatabaseName.
      * </p>
      * 
-     * @return The name of the endpoint database.
+     * @return The name of the endpoint database. For a MySQL source or target endpoint, do not specify DatabaseName.
      */
 
     public String getDatabaseName() {
@@ -597,11 +762,11 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the endpoint database.
+     * The name of the endpoint database. For a MySQL source or target endpoint, do not specify DatabaseName.
      * </p>
      * 
      * @param databaseName
-     *        The name of the endpoint database.
+     *        The name of the endpoint database. For a MySQL source or target endpoint, do not specify DatabaseName.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -771,11 +936,13 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the service access role you want to use to modify the endpoint.
+     * The Amazon Resource Name (ARN) for the IAM role you want to use to modify the endpoint. The role must allow the
+     * <code>iam:PassRole</code> action.
      * </p>
      * 
      * @param serviceAccessRoleArn
-     *        The Amazon Resource Name (ARN) for the service access role you want to use to modify the endpoint.
+     *        The Amazon Resource Name (ARN) for the IAM role you want to use to modify the endpoint. The role must
+     *        allow the <code>iam:PassRole</code> action.
      */
 
     public void setServiceAccessRoleArn(String serviceAccessRoleArn) {
@@ -784,10 +951,12 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the service access role you want to use to modify the endpoint.
+     * The Amazon Resource Name (ARN) for the IAM role you want to use to modify the endpoint. The role must allow the
+     * <code>iam:PassRole</code> action.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) for the service access role you want to use to modify the endpoint.
+     * @return The Amazon Resource Name (ARN) for the IAM role you want to use to modify the endpoint. The role must
+     *         allow the <code>iam:PassRole</code> action.
      */
 
     public String getServiceAccessRoleArn() {
@@ -796,11 +965,13 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the service access role you want to use to modify the endpoint.
+     * The Amazon Resource Name (ARN) for the IAM role you want to use to modify the endpoint. The role must allow the
+     * <code>iam:PassRole</code> action.
      * </p>
      * 
      * @param serviceAccessRoleArn
-     *        The Amazon Resource Name (ARN) for the service access role you want to use to modify the endpoint.
+     *        The Amazon Resource Name (ARN) for the IAM role you want to use to modify the endpoint. The role must
+     *        allow the <code>iam:PassRole</code> action.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -851,15 +1022,17 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Settings in JSON format for the target Amazon DynamoDB endpoint. For more information about the available
-     * settings, see <a href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.DynamoDB.html">Using Object
-     * Mapping to Migrate Data to DynamoDB</a> in the <i>AWS Database Migration Service User Guide.</i>
+     * Settings in JSON format for the target Amazon DynamoDB endpoint. For information about other available settings,
+     * see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.DynamoDB.html#CHAP_Target.DynamoDB.ObjectMapping"
+     * >Using Object Mapping to Migrate Data to DynamoDB</a> in the <i>Database Migration Service User Guide.</i>
      * </p>
      * 
      * @param dynamoDbSettings
-     *        Settings in JSON format for the target Amazon DynamoDB endpoint. For more information about the available
-     *        settings, see <a href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.DynamoDB.html">Using
-     *        Object Mapping to Migrate Data to DynamoDB</a> in the <i>AWS Database Migration Service User Guide.</i>
+     *        Settings in JSON format for the target Amazon DynamoDB endpoint. For information about other available
+     *        settings, see <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.DynamoDB.html#CHAP_Target.DynamoDB.ObjectMapping"
+     *        >Using Object Mapping to Migrate Data to DynamoDB</a> in the <i>Database Migration Service User Guide.</i>
      */
 
     public void setDynamoDbSettings(DynamoDbSettings dynamoDbSettings) {
@@ -868,14 +1041,17 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Settings in JSON format for the target Amazon DynamoDB endpoint. For more information about the available
-     * settings, see <a href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.DynamoDB.html">Using Object
-     * Mapping to Migrate Data to DynamoDB</a> in the <i>AWS Database Migration Service User Guide.</i>
+     * Settings in JSON format for the target Amazon DynamoDB endpoint. For information about other available settings,
+     * see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.DynamoDB.html#CHAP_Target.DynamoDB.ObjectMapping"
+     * >Using Object Mapping to Migrate Data to DynamoDB</a> in the <i>Database Migration Service User Guide.</i>
      * </p>
      * 
-     * @return Settings in JSON format for the target Amazon DynamoDB endpoint. For more information about the available
-     *         settings, see <a href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.DynamoDB.html">Using
-     *         Object Mapping to Migrate Data to DynamoDB</a> in the <i>AWS Database Migration Service User Guide.</i>
+     * @return Settings in JSON format for the target Amazon DynamoDB endpoint. For information about other available
+     *         settings, see <a href=
+     *         "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.DynamoDB.html#CHAP_Target.DynamoDB.ObjectMapping"
+     *         >Using Object Mapping to Migrate Data to DynamoDB</a> in the <i>Database Migration Service User
+     *         Guide.</i>
      */
 
     public DynamoDbSettings getDynamoDbSettings() {
@@ -884,15 +1060,17 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Settings in JSON format for the target Amazon DynamoDB endpoint. For more information about the available
-     * settings, see <a href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.DynamoDB.html">Using Object
-     * Mapping to Migrate Data to DynamoDB</a> in the <i>AWS Database Migration Service User Guide.</i>
+     * Settings in JSON format for the target Amazon DynamoDB endpoint. For information about other available settings,
+     * see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.DynamoDB.html#CHAP_Target.DynamoDB.ObjectMapping"
+     * >Using Object Mapping to Migrate Data to DynamoDB</a> in the <i>Database Migration Service User Guide.</i>
      * </p>
      * 
      * @param dynamoDbSettings
-     *        Settings in JSON format for the target Amazon DynamoDB endpoint. For more information about the available
-     *        settings, see <a href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.DynamoDB.html">Using
-     *        Object Mapping to Migrate Data to DynamoDB</a> in the <i>AWS Database Migration Service User Guide.</i>
+     *        Settings in JSON format for the target Amazon DynamoDB endpoint. For information about other available
+     *        settings, see <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.DynamoDB.html#CHAP_Target.DynamoDB.ObjectMapping"
+     *        >Using Object Mapping to Migrate Data to DynamoDB</a> in the <i>Database Migration Service User Guide.</i>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -905,16 +1083,16 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * Settings in JSON format for the target Amazon S3 endpoint. For more information about the available settings, see
      * <a href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.S3.html#CHAP_Target.S3.Configuring">Extra
-     * Connection Attributes When Using Amazon S3 as a Target for AWS DMS</a> in the <i>AWS Database Migration Service
-     * User Guide.</i>
+     * Connection Attributes When Using Amazon S3 as a Target for DMS</a> in the <i>Database Migration Service User
+     * Guide.</i>
      * </p>
      * 
      * @param s3Settings
      *        Settings in JSON format for the target Amazon S3 endpoint. For more information about the available
      *        settings, see <a
      *        href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.S3.html#CHAP_Target.S3.Configuring"
-     *        >Extra Connection Attributes When Using Amazon S3 as a Target for AWS DMS</a> in the <i>AWS Database
-     *        Migration Service User Guide.</i>
+     *        >Extra Connection Attributes When Using Amazon S3 as a Target for DMS</a> in the <i>Database Migration
+     *        Service User Guide.</i>
      */
 
     public void setS3Settings(S3Settings s3Settings) {
@@ -925,15 +1103,15 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * Settings in JSON format for the target Amazon S3 endpoint. For more information about the available settings, see
      * <a href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.S3.html#CHAP_Target.S3.Configuring">Extra
-     * Connection Attributes When Using Amazon S3 as a Target for AWS DMS</a> in the <i>AWS Database Migration Service
-     * User Guide.</i>
+     * Connection Attributes When Using Amazon S3 as a Target for DMS</a> in the <i>Database Migration Service User
+     * Guide.</i>
      * </p>
      * 
      * @return Settings in JSON format for the target Amazon S3 endpoint. For more information about the available
      *         settings, see <a
      *         href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.S3.html#CHAP_Target.S3.Configuring"
-     *         >Extra Connection Attributes When Using Amazon S3 as a Target for AWS DMS</a> in the <i>AWS Database
-     *         Migration Service User Guide.</i>
+     *         >Extra Connection Attributes When Using Amazon S3 as a Target for DMS</a> in the <i>Database Migration
+     *         Service User Guide.</i>
      */
 
     public S3Settings getS3Settings() {
@@ -944,16 +1122,16 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * Settings in JSON format for the target Amazon S3 endpoint. For more information about the available settings, see
      * <a href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.S3.html#CHAP_Target.S3.Configuring">Extra
-     * Connection Attributes When Using Amazon S3 as a Target for AWS DMS</a> in the <i>AWS Database Migration Service
-     * User Guide.</i>
+     * Connection Attributes When Using Amazon S3 as a Target for DMS</a> in the <i>Database Migration Service User
+     * Guide.</i>
      * </p>
      * 
      * @param s3Settings
      *        Settings in JSON format for the target Amazon S3 endpoint. For more information about the available
      *        settings, see <a
      *        href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.S3.html#CHAP_Target.S3.Configuring"
-     *        >Extra Connection Attributes When Using Amazon S3 as a Target for AWS DMS</a> in the <i>AWS Database
-     *        Migration Service User Guide.</i>
+     *        >Extra Connection Attributes When Using Amazon S3 as a Target for DMS</a> in the <i>Database Migration
+     *        Service User Guide.</i>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -972,7 +1150,8 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
      * <ul>
      * <li>
      * <p>
-     * serviceAccessRoleArn - The IAM role that has permission to access the Amazon S3 bucket.
+     * serviceAccessRoleArn - The Amazon Resource Name (ARN) used by the service access IAM role. The role must allow
+     * the <code>iam:PassRole</code> action.
      * </p>
      * </li>
      * <li>
@@ -980,21 +1159,13 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
      * BucketName - The name of the S3 bucket to use.
      * </p>
      * </li>
-     * <li>
-     * <p>
-     * compressionType - An optional parameter to use GZIP to compress the target files. Set to NONE (the default) or do
-     * not use to leave the files uncompressed.
-     * </p>
-     * </li>
      * </ul>
      * <p>
-     * Shorthand syntax: ServiceAccessRoleArn=string ,BucketName=string,CompressionType=string
+     * Shorthand syntax for these settings is as follows: <code>ServiceAccessRoleArn=string ,BucketName=string</code>
      * </p>
      * <p>
-     * JSON syntax:
-     * </p>
-     * <p>
-     * { "ServiceAccessRoleArn": "string", "BucketName": "string", "CompressionType": "none"|"gzip" }
+     * JSON syntax for these settings is as follows:
+     * <code>{ "ServiceAccessRoleArn": "string", "BucketName": "string"} </code>
      * </p>
      * 
      * @param dmsTransferSettings
@@ -1005,7 +1176,8 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
      *        <ul>
      *        <li>
      *        <p>
-     *        serviceAccessRoleArn - The IAM role that has permission to access the Amazon S3 bucket.
+     *        serviceAccessRoleArn - The Amazon Resource Name (ARN) used by the service access IAM role. The role must
+     *        allow the <code>iam:PassRole</code> action.
      *        </p>
      *        </li>
      *        <li>
@@ -1013,21 +1185,14 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
      *        BucketName - The name of the S3 bucket to use.
      *        </p>
      *        </li>
-     *        <li>
-     *        <p>
-     *        compressionType - An optional parameter to use GZIP to compress the target files. Set to NONE (the
-     *        default) or do not use to leave the files uncompressed.
-     *        </p>
-     *        </li>
      *        </ul>
      *        <p>
-     *        Shorthand syntax: ServiceAccessRoleArn=string ,BucketName=string,CompressionType=string
+     *        Shorthand syntax for these settings is as follows:
+     *        <code>ServiceAccessRoleArn=string ,BucketName=string</code>
      *        </p>
      *        <p>
-     *        JSON syntax:
-     *        </p>
-     *        <p>
-     *        { "ServiceAccessRoleArn": "string", "BucketName": "string", "CompressionType": "none"|"gzip" }
+     *        JSON syntax for these settings is as follows:
+     *        <code>{ "ServiceAccessRoleArn": "string", "BucketName": "string"} </code>
      */
 
     public void setDmsTransferSettings(DmsTransferSettings dmsTransferSettings) {
@@ -1044,7 +1209,8 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
      * <ul>
      * <li>
      * <p>
-     * serviceAccessRoleArn - The IAM role that has permission to access the Amazon S3 bucket.
+     * serviceAccessRoleArn - The Amazon Resource Name (ARN) used by the service access IAM role. The role must allow
+     * the <code>iam:PassRole</code> action.
      * </p>
      * </li>
      * <li>
@@ -1052,21 +1218,13 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
      * BucketName - The name of the S3 bucket to use.
      * </p>
      * </li>
-     * <li>
-     * <p>
-     * compressionType - An optional parameter to use GZIP to compress the target files. Set to NONE (the default) or do
-     * not use to leave the files uncompressed.
-     * </p>
-     * </li>
      * </ul>
      * <p>
-     * Shorthand syntax: ServiceAccessRoleArn=string ,BucketName=string,CompressionType=string
+     * Shorthand syntax for these settings is as follows: <code>ServiceAccessRoleArn=string ,BucketName=string</code>
      * </p>
      * <p>
-     * JSON syntax:
-     * </p>
-     * <p>
-     * { "ServiceAccessRoleArn": "string", "BucketName": "string", "CompressionType": "none"|"gzip" }
+     * JSON syntax for these settings is as follows:
+     * <code>{ "ServiceAccessRoleArn": "string", "BucketName": "string"} </code>
      * </p>
      * 
      * @return The settings in JSON format for the DMS transfer type of source endpoint. </p>
@@ -1076,7 +1234,8 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
      *         <ul>
      *         <li>
      *         <p>
-     *         serviceAccessRoleArn - The IAM role that has permission to access the Amazon S3 bucket.
+     *         serviceAccessRoleArn - The Amazon Resource Name (ARN) used by the service access IAM role. The role must
+     *         allow the <code>iam:PassRole</code> action.
      *         </p>
      *         </li>
      *         <li>
@@ -1084,21 +1243,14 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
      *         BucketName - The name of the S3 bucket to use.
      *         </p>
      *         </li>
-     *         <li>
-     *         <p>
-     *         compressionType - An optional parameter to use GZIP to compress the target files. Set to NONE (the
-     *         default) or do not use to leave the files uncompressed.
-     *         </p>
-     *         </li>
      *         </ul>
      *         <p>
-     *         Shorthand syntax: ServiceAccessRoleArn=string ,BucketName=string,CompressionType=string
+     *         Shorthand syntax for these settings is as follows:
+     *         <code>ServiceAccessRoleArn=string ,BucketName=string</code>
      *         </p>
      *         <p>
-     *         JSON syntax:
-     *         </p>
-     *         <p>
-     *         { "ServiceAccessRoleArn": "string", "BucketName": "string", "CompressionType": "none"|"gzip" }
+     *         JSON syntax for these settings is as follows:
+     *         <code>{ "ServiceAccessRoleArn": "string", "BucketName": "string"} </code>
      */
 
     public DmsTransferSettings getDmsTransferSettings() {
@@ -1115,7 +1267,8 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
      * <ul>
      * <li>
      * <p>
-     * serviceAccessRoleArn - The IAM role that has permission to access the Amazon S3 bucket.
+     * serviceAccessRoleArn - The Amazon Resource Name (ARN) used by the service access IAM role. The role must allow
+     * the <code>iam:PassRole</code> action.
      * </p>
      * </li>
      * <li>
@@ -1123,21 +1276,13 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
      * BucketName - The name of the S3 bucket to use.
      * </p>
      * </li>
-     * <li>
-     * <p>
-     * compressionType - An optional parameter to use GZIP to compress the target files. Set to NONE (the default) or do
-     * not use to leave the files uncompressed.
-     * </p>
-     * </li>
      * </ul>
      * <p>
-     * Shorthand syntax: ServiceAccessRoleArn=string ,BucketName=string,CompressionType=string
+     * Shorthand syntax for these settings is as follows: <code>ServiceAccessRoleArn=string ,BucketName=string</code>
      * </p>
      * <p>
-     * JSON syntax:
-     * </p>
-     * <p>
-     * { "ServiceAccessRoleArn": "string", "BucketName": "string", "CompressionType": "none"|"gzip" }
+     * JSON syntax for these settings is as follows:
+     * <code>{ "ServiceAccessRoleArn": "string", "BucketName": "string"} </code>
      * </p>
      * 
      * @param dmsTransferSettings
@@ -1148,7 +1293,8 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
      *        <ul>
      *        <li>
      *        <p>
-     *        serviceAccessRoleArn - The IAM role that has permission to access the Amazon S3 bucket.
+     *        serviceAccessRoleArn - The Amazon Resource Name (ARN) used by the service access IAM role. The role must
+     *        allow the <code>iam:PassRole</code> action.
      *        </p>
      *        </li>
      *        <li>
@@ -1156,21 +1302,14 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
      *        BucketName - The name of the S3 bucket to use.
      *        </p>
      *        </li>
-     *        <li>
-     *        <p>
-     *        compressionType - An optional parameter to use GZIP to compress the target files. Set to NONE (the
-     *        default) or do not use to leave the files uncompressed.
-     *        </p>
-     *        </li>
      *        </ul>
      *        <p>
-     *        Shorthand syntax: ServiceAccessRoleArn=string ,BucketName=string,CompressionType=string
+     *        Shorthand syntax for these settings is as follows:
+     *        <code>ServiceAccessRoleArn=string ,BucketName=string</code>
      *        </p>
      *        <p>
-     *        JSON syntax:
-     *        </p>
-     *        <p>
-     *        { "ServiceAccessRoleArn": "string", "BucketName": "string", "CompressionType": "none"|"gzip" }
+     *        JSON syntax for these settings is as follows:
+     *        <code>{ "ServiceAccessRoleArn": "string", "BucketName": "string"} </code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1182,16 +1321,18 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Settings in JSON format for the source MongoDB endpoint. For more information about the available settings, see
-     * the configuration properties section in <a
-     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MongoDB.html"> Using MongoDB as a Target for
-     * AWS Database Migration Service</a> in the <i>AWS Database Migration Service User Guide.</i>
+     * the configuration properties section in <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MongoDB.html#CHAP_Source.MongoDB.Configuration"
+     * >Endpoint configuration settings when using MongoDB as a source for Database Migration Service</a> in the
+     * <i>Database Migration Service User Guide.</i>
      * </p>
      * 
      * @param mongoDbSettings
      *        Settings in JSON format for the source MongoDB endpoint. For more information about the available
-     *        settings, see the configuration properties section in <a
-     *        href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MongoDB.html"> Using MongoDB as a
-     *        Target for AWS Database Migration Service</a> in the <i>AWS Database Migration Service User Guide.</i>
+     *        settings, see the configuration properties section in <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MongoDB.html#CHAP_Source.MongoDB.Configuration"
+     *        >Endpoint configuration settings when using MongoDB as a source for Database Migration Service</a> in the
+     *        <i>Database Migration Service User Guide.</i>
      */
 
     public void setMongoDbSettings(MongoDbSettings mongoDbSettings) {
@@ -1201,15 +1342,17 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Settings in JSON format for the source MongoDB endpoint. For more information about the available settings, see
-     * the configuration properties section in <a
-     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MongoDB.html"> Using MongoDB as a Target for
-     * AWS Database Migration Service</a> in the <i>AWS Database Migration Service User Guide.</i>
+     * the configuration properties section in <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MongoDB.html#CHAP_Source.MongoDB.Configuration"
+     * >Endpoint configuration settings when using MongoDB as a source for Database Migration Service</a> in the
+     * <i>Database Migration Service User Guide.</i>
      * </p>
      * 
      * @return Settings in JSON format for the source MongoDB endpoint. For more information about the available
-     *         settings, see the configuration properties section in <a
-     *         href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MongoDB.html"> Using MongoDB as a
-     *         Target for AWS Database Migration Service</a> in the <i>AWS Database Migration Service User Guide.</i>
+     *         settings, see the configuration properties section in <a href=
+     *         "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MongoDB.html#CHAP_Source.MongoDB.Configuration"
+     *         >Endpoint configuration settings when using MongoDB as a source for Database Migration Service</a> in the
+     *         <i>Database Migration Service User Guide.</i>
      */
 
     public MongoDbSettings getMongoDbSettings() {
@@ -1219,16 +1362,18 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Settings in JSON format for the source MongoDB endpoint. For more information about the available settings, see
-     * the configuration properties section in <a
-     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MongoDB.html"> Using MongoDB as a Target for
-     * AWS Database Migration Service</a> in the <i>AWS Database Migration Service User Guide.</i>
+     * the configuration properties section in <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MongoDB.html#CHAP_Source.MongoDB.Configuration"
+     * >Endpoint configuration settings when using MongoDB as a source for Database Migration Service</a> in the
+     * <i>Database Migration Service User Guide.</i>
      * </p>
      * 
      * @param mongoDbSettings
      *        Settings in JSON format for the source MongoDB endpoint. For more information about the available
-     *        settings, see the configuration properties section in <a
-     *        href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MongoDB.html"> Using MongoDB as a
-     *        Target for AWS Database Migration Service</a> in the <i>AWS Database Migration Service User Guide.</i>
+     *        settings, see the configuration properties section in <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MongoDB.html#CHAP_Source.MongoDB.Configuration"
+     *        >Endpoint configuration settings when using MongoDB as a source for Database Migration Service</a> in the
+     *        <i>Database Migration Service User Guide.</i>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1239,19 +1384,19 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Settings in JSON format for the target Amazon Kinesis Data Streams endpoint. For more information about the
+     * Settings in JSON format for the target endpoint for Amazon Kinesis Data Streams. For more information about the
      * available settings, see <a href=
      * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Kinesis.html#CHAP_Target.Kinesis.ObjectMapping"
-     * >Using Object Mapping to Migrate Data to a Kinesis Data Stream</a> in the <i>AWS Database Migration User
+     * >Using object mapping to migrate data to a Kinesis data stream</a> in the <i>Database Migration Service User
      * Guide.</i>
      * </p>
      * 
      * @param kinesisSettings
-     *        Settings in JSON format for the target Amazon Kinesis Data Streams endpoint. For more information about
-     *        the available settings, see <a href=
+     *        Settings in JSON format for the target endpoint for Amazon Kinesis Data Streams. For more information
+     *        about the available settings, see <a href=
      *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Kinesis.html#CHAP_Target.Kinesis.ObjectMapping"
-     *        >Using Object Mapping to Migrate Data to a Kinesis Data Stream</a> in the <i>AWS Database Migration User
-     *        Guide.</i>
+     *        >Using object mapping to migrate data to a Kinesis data stream</a> in the <i>Database Migration Service
+     *        User Guide.</i>
      */
 
     public void setKinesisSettings(KinesisSettings kinesisSettings) {
@@ -1260,18 +1405,18 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Settings in JSON format for the target Amazon Kinesis Data Streams endpoint. For more information about the
+     * Settings in JSON format for the target endpoint for Amazon Kinesis Data Streams. For more information about the
      * available settings, see <a href=
      * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Kinesis.html#CHAP_Target.Kinesis.ObjectMapping"
-     * >Using Object Mapping to Migrate Data to a Kinesis Data Stream</a> in the <i>AWS Database Migration User
+     * >Using object mapping to migrate data to a Kinesis data stream</a> in the <i>Database Migration Service User
      * Guide.</i>
      * </p>
      * 
-     * @return Settings in JSON format for the target Amazon Kinesis Data Streams endpoint. For more information about
-     *         the available settings, see <a href=
+     * @return Settings in JSON format for the target endpoint for Amazon Kinesis Data Streams. For more information
+     *         about the available settings, see <a href=
      *         "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Kinesis.html#CHAP_Target.Kinesis.ObjectMapping"
-     *         >Using Object Mapping to Migrate Data to a Kinesis Data Stream</a> in the <i>AWS Database Migration User
-     *         Guide.</i>
+     *         >Using object mapping to migrate data to a Kinesis data stream</a> in the <i>Database Migration Service
+     *         User Guide.</i>
      */
 
     public KinesisSettings getKinesisSettings() {
@@ -1280,19 +1425,19 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Settings in JSON format for the target Amazon Kinesis Data Streams endpoint. For more information about the
+     * Settings in JSON format for the target endpoint for Amazon Kinesis Data Streams. For more information about the
      * available settings, see <a href=
      * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Kinesis.html#CHAP_Target.Kinesis.ObjectMapping"
-     * >Using Object Mapping to Migrate Data to a Kinesis Data Stream</a> in the <i>AWS Database Migration User
+     * >Using object mapping to migrate data to a Kinesis data stream</a> in the <i>Database Migration Service User
      * Guide.</i>
      * </p>
      * 
      * @param kinesisSettings
-     *        Settings in JSON format for the target Amazon Kinesis Data Streams endpoint. For more information about
-     *        the available settings, see <a href=
+     *        Settings in JSON format for the target endpoint for Amazon Kinesis Data Streams. For more information
+     *        about the available settings, see <a href=
      *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Kinesis.html#CHAP_Target.Kinesis.ObjectMapping"
-     *        >Using Object Mapping to Migrate Data to a Kinesis Data Stream</a> in the <i>AWS Database Migration User
-     *        Guide.</i>
+     *        >Using object mapping to migrate data to a Kinesis data stream</a> in the <i>Database Migration Service
+     *        User Guide.</i>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1303,19 +1448,80 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Settings in JSON format for the target Elasticsearch endpoint. For more information about the available settings,
+     * Settings in JSON format for the target Apache Kafka endpoint. For more information about the available settings,
+     * see <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Kafka.html#CHAP_Target.Kafka.ObjectMapping"
+     * >Using object mapping to migrate data to a Kafka topic</a> in the <i>Database Migration Service User Guide.</i>
+     * </p>
+     * 
+     * @param kafkaSettings
+     *        Settings in JSON format for the target Apache Kafka endpoint. For more information about the available
+     *        settings, see <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Kafka.html#CHAP_Target.Kafka.ObjectMapping"
+     *        >Using object mapping to migrate data to a Kafka topic</a> in the <i>Database Migration Service User
+     *        Guide.</i>
+     */
+
+    public void setKafkaSettings(KafkaSettings kafkaSettings) {
+        this.kafkaSettings = kafkaSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the target Apache Kafka endpoint. For more information about the available settings,
+     * see <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Kafka.html#CHAP_Target.Kafka.ObjectMapping"
+     * >Using object mapping to migrate data to a Kafka topic</a> in the <i>Database Migration Service User Guide.</i>
+     * </p>
+     * 
+     * @return Settings in JSON format for the target Apache Kafka endpoint. For more information about the available
+     *         settings, see <a href=
+     *         "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Kafka.html#CHAP_Target.Kafka.ObjectMapping"
+     *         >Using object mapping to migrate data to a Kafka topic</a> in the <i>Database Migration Service User
+     *         Guide.</i>
+     */
+
+    public KafkaSettings getKafkaSettings() {
+        return this.kafkaSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the target Apache Kafka endpoint. For more information about the available settings,
+     * see <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Kafka.html#CHAP_Target.Kafka.ObjectMapping"
+     * >Using object mapping to migrate data to a Kafka topic</a> in the <i>Database Migration Service User Guide.</i>
+     * </p>
+     * 
+     * @param kafkaSettings
+     *        Settings in JSON format for the target Apache Kafka endpoint. For more information about the available
+     *        settings, see <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Kafka.html#CHAP_Target.Kafka.ObjectMapping"
+     *        >Using object mapping to migrate data to a Kafka topic</a> in the <i>Database Migration Service User
+     *        Guide.</i>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyEndpointRequest withKafkaSettings(KafkaSettings kafkaSettings) {
+        setKafkaSettings(kafkaSettings);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the target OpenSearch endpoint. For more information about the available settings,
      * see <a href=
      * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Elasticsearch.html#CHAP_Target.Elasticsearch.Configuration"
-     * >Extra Connection Attributes When Using Elasticsearch as a Target for AWS DMS</a> in the <i>AWS Database
-     * Migration User Guide.</i>
+     * >Extra Connection Attributes When Using OpenSearch as a Target for DMS</a> in the <i>Database Migration Service
+     * User Guide.</i>
      * </p>
      * 
      * @param elasticsearchSettings
-     *        Settings in JSON format for the target Elasticsearch endpoint. For more information about the available
+     *        Settings in JSON format for the target OpenSearch endpoint. For more information about the available
      *        settings, see <a href=
      *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Elasticsearch.html#CHAP_Target.Elasticsearch.Configuration"
-     *        >Extra Connection Attributes When Using Elasticsearch as a Target for AWS DMS</a> in the <i>AWS Database
-     *        Migration User Guide.</i>
+     *        >Extra Connection Attributes When Using OpenSearch as a Target for DMS</a> in the <i>Database Migration
+     *        Service User Guide.</i>
      */
 
     public void setElasticsearchSettings(ElasticsearchSettings elasticsearchSettings) {
@@ -1324,18 +1530,18 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Settings in JSON format for the target Elasticsearch endpoint. For more information about the available settings,
+     * Settings in JSON format for the target OpenSearch endpoint. For more information about the available settings,
      * see <a href=
      * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Elasticsearch.html#CHAP_Target.Elasticsearch.Configuration"
-     * >Extra Connection Attributes When Using Elasticsearch as a Target for AWS DMS</a> in the <i>AWS Database
-     * Migration User Guide.</i>
+     * >Extra Connection Attributes When Using OpenSearch as a Target for DMS</a> in the <i>Database Migration Service
+     * User Guide.</i>
      * </p>
      * 
-     * @return Settings in JSON format for the target Elasticsearch endpoint. For more information about the available
+     * @return Settings in JSON format for the target OpenSearch endpoint. For more information about the available
      *         settings, see <a href=
      *         "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Elasticsearch.html#CHAP_Target.Elasticsearch.Configuration"
-     *         >Extra Connection Attributes When Using Elasticsearch as a Target for AWS DMS</a> in the <i>AWS Database
-     *         Migration User Guide.</i>
+     *         >Extra Connection Attributes When Using OpenSearch as a Target for DMS</a> in the <i>Database Migration
+     *         Service User Guide.</i>
      */
 
     public ElasticsearchSettings getElasticsearchSettings() {
@@ -1344,24 +1550,88 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Settings in JSON format for the target Elasticsearch endpoint. For more information about the available settings,
+     * Settings in JSON format for the target OpenSearch endpoint. For more information about the available settings,
      * see <a href=
      * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Elasticsearch.html#CHAP_Target.Elasticsearch.Configuration"
-     * >Extra Connection Attributes When Using Elasticsearch as a Target for AWS DMS</a> in the <i>AWS Database
-     * Migration User Guide.</i>
+     * >Extra Connection Attributes When Using OpenSearch as a Target for DMS</a> in the <i>Database Migration Service
+     * User Guide.</i>
      * </p>
      * 
      * @param elasticsearchSettings
-     *        Settings in JSON format for the target Elasticsearch endpoint. For more information about the available
+     *        Settings in JSON format for the target OpenSearch endpoint. For more information about the available
      *        settings, see <a href=
      *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Elasticsearch.html#CHAP_Target.Elasticsearch.Configuration"
-     *        >Extra Connection Attributes When Using Elasticsearch as a Target for AWS DMS</a> in the <i>AWS Database
-     *        Migration User Guide.</i>
+     *        >Extra Connection Attributes When Using OpenSearch as a Target for DMS</a> in the <i>Database Migration
+     *        Service User Guide.</i>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ModifyEndpointRequest withElasticsearchSettings(ElasticsearchSettings elasticsearchSettings) {
         setElasticsearchSettings(elasticsearchSettings);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the target Amazon Neptune endpoint. For more information about the available
+     * settings, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Neptune.html#CHAP_Target.Neptune.EndpointSettings"
+     * >Specifying graph-mapping rules using Gremlin and R2RML for Amazon Neptune as a target</a> in the <i>Database
+     * Migration Service User Guide.</i>
+     * </p>
+     * 
+     * @param neptuneSettings
+     *        Settings in JSON format for the target Amazon Neptune endpoint. For more information about the available
+     *        settings, see <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Neptune.html#CHAP_Target.Neptune.EndpointSettings"
+     *        >Specifying graph-mapping rules using Gremlin and R2RML for Amazon Neptune as a target</a> in the
+     *        <i>Database Migration Service User Guide.</i>
+     */
+
+    public void setNeptuneSettings(NeptuneSettings neptuneSettings) {
+        this.neptuneSettings = neptuneSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the target Amazon Neptune endpoint. For more information about the available
+     * settings, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Neptune.html#CHAP_Target.Neptune.EndpointSettings"
+     * >Specifying graph-mapping rules using Gremlin and R2RML for Amazon Neptune as a target</a> in the <i>Database
+     * Migration Service User Guide.</i>
+     * </p>
+     * 
+     * @return Settings in JSON format for the target Amazon Neptune endpoint. For more information about the available
+     *         settings, see <a href=
+     *         "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Neptune.html#CHAP_Target.Neptune.EndpointSettings"
+     *         >Specifying graph-mapping rules using Gremlin and R2RML for Amazon Neptune as a target</a> in the
+     *         <i>Database Migration Service User Guide.</i>
+     */
+
+    public NeptuneSettings getNeptuneSettings() {
+        return this.neptuneSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the target Amazon Neptune endpoint. For more information about the available
+     * settings, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Neptune.html#CHAP_Target.Neptune.EndpointSettings"
+     * >Specifying graph-mapping rules using Gremlin and R2RML for Amazon Neptune as a target</a> in the <i>Database
+     * Migration Service User Guide.</i>
+     * </p>
+     * 
+     * @param neptuneSettings
+     *        Settings in JSON format for the target Amazon Neptune endpoint. For more information about the available
+     *        settings, see <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Neptune.html#CHAP_Target.Neptune.EndpointSettings"
+     *        >Specifying graph-mapping rules using Gremlin and R2RML for Amazon Neptune as a target</a> in the
+     *        <i>Database Migration Service User Guide.</i>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyEndpointRequest withNeptuneSettings(NeptuneSettings neptuneSettings) {
+        setNeptuneSettings(neptuneSettings);
         return this;
     }
 
@@ -1388,6 +1658,881 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     public ModifyEndpointRequest withRedshiftSettings(RedshiftSettings redshiftSettings) {
         setRedshiftSettings(redshiftSettings);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source and target PostgreSQL endpoint. For information about other available
+     * settings, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.PostgreSQL.html#CHAP_Source.PostgreSQL.ConnectionAttrib"
+     * >Extra connection attributes when using PostgreSQL as a source for DMS</a> and <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.PostgreSQL.html#CHAP_Target.PostgreSQL.ConnectionAttrib"
+     * > Extra connection attributes when using PostgreSQL as a target for DMS</a> in the <i>Database Migration Service
+     * User Guide.</i>
+     * </p>
+     * 
+     * @param postgreSQLSettings
+     *        Settings in JSON format for the source and target PostgreSQL endpoint. For information about other
+     *        available settings, see <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.PostgreSQL.html#CHAP_Source.PostgreSQL.ConnectionAttrib"
+     *        >Extra connection attributes when using PostgreSQL as a source for DMS</a> and <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.PostgreSQL.html#CHAP_Target.PostgreSQL.ConnectionAttrib"
+     *        > Extra connection attributes when using PostgreSQL as a target for DMS</a> in the <i>Database Migration
+     *        Service User Guide.</i>
+     */
+
+    public void setPostgreSQLSettings(PostgreSQLSettings postgreSQLSettings) {
+        this.postgreSQLSettings = postgreSQLSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source and target PostgreSQL endpoint. For information about other available
+     * settings, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.PostgreSQL.html#CHAP_Source.PostgreSQL.ConnectionAttrib"
+     * >Extra connection attributes when using PostgreSQL as a source for DMS</a> and <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.PostgreSQL.html#CHAP_Target.PostgreSQL.ConnectionAttrib"
+     * > Extra connection attributes when using PostgreSQL as a target for DMS</a> in the <i>Database Migration Service
+     * User Guide.</i>
+     * </p>
+     * 
+     * @return Settings in JSON format for the source and target PostgreSQL endpoint. For information about other
+     *         available settings, see <a href=
+     *         "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.PostgreSQL.html#CHAP_Source.PostgreSQL.ConnectionAttrib"
+     *         >Extra connection attributes when using PostgreSQL as a source for DMS</a> and <a href=
+     *         "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.PostgreSQL.html#CHAP_Target.PostgreSQL.ConnectionAttrib"
+     *         > Extra connection attributes when using PostgreSQL as a target for DMS</a> in the <i>Database Migration
+     *         Service User Guide.</i>
+     */
+
+    public PostgreSQLSettings getPostgreSQLSettings() {
+        return this.postgreSQLSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source and target PostgreSQL endpoint. For information about other available
+     * settings, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.PostgreSQL.html#CHAP_Source.PostgreSQL.ConnectionAttrib"
+     * >Extra connection attributes when using PostgreSQL as a source for DMS</a> and <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.PostgreSQL.html#CHAP_Target.PostgreSQL.ConnectionAttrib"
+     * > Extra connection attributes when using PostgreSQL as a target for DMS</a> in the <i>Database Migration Service
+     * User Guide.</i>
+     * </p>
+     * 
+     * @param postgreSQLSettings
+     *        Settings in JSON format for the source and target PostgreSQL endpoint. For information about other
+     *        available settings, see <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.PostgreSQL.html#CHAP_Source.PostgreSQL.ConnectionAttrib"
+     *        >Extra connection attributes when using PostgreSQL as a source for DMS</a> and <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.PostgreSQL.html#CHAP_Target.PostgreSQL.ConnectionAttrib"
+     *        > Extra connection attributes when using PostgreSQL as a target for DMS</a> in the <i>Database Migration
+     *        Service User Guide.</i>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyEndpointRequest withPostgreSQLSettings(PostgreSQLSettings postgreSQLSettings) {
+        setPostgreSQLSettings(postgreSQLSettings);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source and target MySQL endpoint. For information about other available settings,
+     * see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MySQL.html#CHAP_Source.MySQL.ConnectionAttrib"
+     * >Extra connection attributes when using MySQL as a source for DMS</a> and <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.MySQL.html#CHAP_Target.MySQL.ConnectionAttrib"
+     * >Extra connection attributes when using a MySQL-compatible database as a target for DMS</a> in the <i>Database
+     * Migration Service User Guide.</i>
+     * </p>
+     * 
+     * @param mySQLSettings
+     *        Settings in JSON format for the source and target MySQL endpoint. For information about other available
+     *        settings, see <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MySQL.html#CHAP_Source.MySQL.ConnectionAttrib"
+     *        >Extra connection attributes when using MySQL as a source for DMS</a> and <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.MySQL.html#CHAP_Target.MySQL.ConnectionAttrib"
+     *        >Extra connection attributes when using a MySQL-compatible database as a target for DMS</a> in the
+     *        <i>Database Migration Service User Guide.</i>
+     */
+
+    public void setMySQLSettings(MySQLSettings mySQLSettings) {
+        this.mySQLSettings = mySQLSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source and target MySQL endpoint. For information about other available settings,
+     * see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MySQL.html#CHAP_Source.MySQL.ConnectionAttrib"
+     * >Extra connection attributes when using MySQL as a source for DMS</a> and <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.MySQL.html#CHAP_Target.MySQL.ConnectionAttrib"
+     * >Extra connection attributes when using a MySQL-compatible database as a target for DMS</a> in the <i>Database
+     * Migration Service User Guide.</i>
+     * </p>
+     * 
+     * @return Settings in JSON format for the source and target MySQL endpoint. For information about other available
+     *         settings, see <a href=
+     *         "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MySQL.html#CHAP_Source.MySQL.ConnectionAttrib"
+     *         >Extra connection attributes when using MySQL as a source for DMS</a> and <a href=
+     *         "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.MySQL.html#CHAP_Target.MySQL.ConnectionAttrib"
+     *         >Extra connection attributes when using a MySQL-compatible database as a target for DMS</a> in the
+     *         <i>Database Migration Service User Guide.</i>
+     */
+
+    public MySQLSettings getMySQLSettings() {
+        return this.mySQLSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source and target MySQL endpoint. For information about other available settings,
+     * see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MySQL.html#CHAP_Source.MySQL.ConnectionAttrib"
+     * >Extra connection attributes when using MySQL as a source for DMS</a> and <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.MySQL.html#CHAP_Target.MySQL.ConnectionAttrib"
+     * >Extra connection attributes when using a MySQL-compatible database as a target for DMS</a> in the <i>Database
+     * Migration Service User Guide.</i>
+     * </p>
+     * 
+     * @param mySQLSettings
+     *        Settings in JSON format for the source and target MySQL endpoint. For information about other available
+     *        settings, see <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MySQL.html#CHAP_Source.MySQL.ConnectionAttrib"
+     *        >Extra connection attributes when using MySQL as a source for DMS</a> and <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.MySQL.html#CHAP_Target.MySQL.ConnectionAttrib"
+     *        >Extra connection attributes when using a MySQL-compatible database as a target for DMS</a> in the
+     *        <i>Database Migration Service User Guide.</i>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyEndpointRequest withMySQLSettings(MySQLSettings mySQLSettings) {
+        setMySQLSettings(mySQLSettings);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source and target Oracle endpoint. For information about other available
+     * settings, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.Oracle.html#CHAP_Source.Oracle.ConnectionAttrib"
+     * >Extra connection attributes when using Oracle as a source for DMS</a> and <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Oracle.html#CHAP_Target.Oracle.ConnectionAttrib">
+     * Extra connection attributes when using Oracle as a target for DMS</a> in the <i>Database Migration Service User
+     * Guide.</i>
+     * </p>
+     * 
+     * @param oracleSettings
+     *        Settings in JSON format for the source and target Oracle endpoint. For information about other available
+     *        settings, see <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.Oracle.html#CHAP_Source.Oracle.ConnectionAttrib"
+     *        >Extra connection attributes when using Oracle as a source for DMS</a> and <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Oracle.html#CHAP_Target.Oracle.ConnectionAttrib"
+     *        > Extra connection attributes when using Oracle as a target for DMS</a> in the <i>Database Migration
+     *        Service User Guide.</i>
+     */
+
+    public void setOracleSettings(OracleSettings oracleSettings) {
+        this.oracleSettings = oracleSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source and target Oracle endpoint. For information about other available
+     * settings, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.Oracle.html#CHAP_Source.Oracle.ConnectionAttrib"
+     * >Extra connection attributes when using Oracle as a source for DMS</a> and <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Oracle.html#CHAP_Target.Oracle.ConnectionAttrib">
+     * Extra connection attributes when using Oracle as a target for DMS</a> in the <i>Database Migration Service User
+     * Guide.</i>
+     * </p>
+     * 
+     * @return Settings in JSON format for the source and target Oracle endpoint. For information about other available
+     *         settings, see <a href=
+     *         "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.Oracle.html#CHAP_Source.Oracle.ConnectionAttrib"
+     *         >Extra connection attributes when using Oracle as a source for DMS</a> and <a href=
+     *         "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Oracle.html#CHAP_Target.Oracle.ConnectionAttrib"
+     *         > Extra connection attributes when using Oracle as a target for DMS</a> in the <i>Database Migration
+     *         Service User Guide.</i>
+     */
+
+    public OracleSettings getOracleSettings() {
+        return this.oracleSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source and target Oracle endpoint. For information about other available
+     * settings, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.Oracle.html#CHAP_Source.Oracle.ConnectionAttrib"
+     * >Extra connection attributes when using Oracle as a source for DMS</a> and <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Oracle.html#CHAP_Target.Oracle.ConnectionAttrib">
+     * Extra connection attributes when using Oracle as a target for DMS</a> in the <i>Database Migration Service User
+     * Guide.</i>
+     * </p>
+     * 
+     * @param oracleSettings
+     *        Settings in JSON format for the source and target Oracle endpoint. For information about other available
+     *        settings, see <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.Oracle.html#CHAP_Source.Oracle.ConnectionAttrib"
+     *        >Extra connection attributes when using Oracle as a source for DMS</a> and <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Oracle.html#CHAP_Target.Oracle.ConnectionAttrib"
+     *        > Extra connection attributes when using Oracle as a target for DMS</a> in the <i>Database Migration
+     *        Service User Guide.</i>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyEndpointRequest withOracleSettings(OracleSettings oracleSettings) {
+        setOracleSettings(oracleSettings);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source and target SAP ASE endpoint. For information about other available
+     * settings, see <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.SAP.html#CHAP_Source.SAP.ConnectionAttrib"
+     * >Extra connection attributes when using SAP ASE as a source for DMS</a> and <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.SAP.html#CHAP_Target.SAP.ConnectionAttrib"
+     * >Extra connection attributes when using SAP ASE as a target for DMS</a> in the <i>Database Migration Service User
+     * Guide.</i>
+     * </p>
+     * 
+     * @param sybaseSettings
+     *        Settings in JSON format for the source and target SAP ASE endpoint. For information about other available
+     *        settings, see <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.SAP.html#CHAP_Source.SAP.ConnectionAttrib"
+     *        >Extra connection attributes when using SAP ASE as a source for DMS</a> and <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.SAP.html#CHAP_Target.SAP.ConnectionAttrib"
+     *        >Extra connection attributes when using SAP ASE as a target for DMS</a> in the <i>Database Migration
+     *        Service User Guide.</i>
+     */
+
+    public void setSybaseSettings(SybaseSettings sybaseSettings) {
+        this.sybaseSettings = sybaseSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source and target SAP ASE endpoint. For information about other available
+     * settings, see <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.SAP.html#CHAP_Source.SAP.ConnectionAttrib"
+     * >Extra connection attributes when using SAP ASE as a source for DMS</a> and <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.SAP.html#CHAP_Target.SAP.ConnectionAttrib"
+     * >Extra connection attributes when using SAP ASE as a target for DMS</a> in the <i>Database Migration Service User
+     * Guide.</i>
+     * </p>
+     * 
+     * @return Settings in JSON format for the source and target SAP ASE endpoint. For information about other available
+     *         settings, see <a href=
+     *         "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.SAP.html#CHAP_Source.SAP.ConnectionAttrib"
+     *         >Extra connection attributes when using SAP ASE as a source for DMS</a> and <a href=
+     *         "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.SAP.html#CHAP_Target.SAP.ConnectionAttrib"
+     *         >Extra connection attributes when using SAP ASE as a target for DMS</a> in the <i>Database Migration
+     *         Service User Guide.</i>
+     */
+
+    public SybaseSettings getSybaseSettings() {
+        return this.sybaseSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source and target SAP ASE endpoint. For information about other available
+     * settings, see <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.SAP.html#CHAP_Source.SAP.ConnectionAttrib"
+     * >Extra connection attributes when using SAP ASE as a source for DMS</a> and <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.SAP.html#CHAP_Target.SAP.ConnectionAttrib"
+     * >Extra connection attributes when using SAP ASE as a target for DMS</a> in the <i>Database Migration Service User
+     * Guide.</i>
+     * </p>
+     * 
+     * @param sybaseSettings
+     *        Settings in JSON format for the source and target SAP ASE endpoint. For information about other available
+     *        settings, see <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.SAP.html#CHAP_Source.SAP.ConnectionAttrib"
+     *        >Extra connection attributes when using SAP ASE as a source for DMS</a> and <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.SAP.html#CHAP_Target.SAP.ConnectionAttrib"
+     *        >Extra connection attributes when using SAP ASE as a target for DMS</a> in the <i>Database Migration
+     *        Service User Guide.</i>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyEndpointRequest withSybaseSettings(SybaseSettings sybaseSettings) {
+        setSybaseSettings(sybaseSettings);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source and target Microsoft SQL Server endpoint. For information about other
+     * available settings, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.SQLServer.html#CHAP_Source.SQLServer.ConnectionAttrib"
+     * >Extra connection attributes when using SQL Server as a source for DMS</a> and <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.SQLServer.html#CHAP_Target.SQLServer.ConnectionAttrib"
+     * > Extra connection attributes when using SQL Server as a target for DMS</a> in the <i>Database Migration Service
+     * User Guide.</i>
+     * </p>
+     * 
+     * @param microsoftSQLServerSettings
+     *        Settings in JSON format for the source and target Microsoft SQL Server endpoint. For information about
+     *        other available settings, see <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.SQLServer.html#CHAP_Source.SQLServer.ConnectionAttrib"
+     *        >Extra connection attributes when using SQL Server as a source for DMS</a> and <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.SQLServer.html#CHAP_Target.SQLServer.ConnectionAttrib"
+     *        > Extra connection attributes when using SQL Server as a target for DMS</a> in the <i>Database Migration
+     *        Service User Guide.</i>
+     */
+
+    public void setMicrosoftSQLServerSettings(MicrosoftSQLServerSettings microsoftSQLServerSettings) {
+        this.microsoftSQLServerSettings = microsoftSQLServerSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source and target Microsoft SQL Server endpoint. For information about other
+     * available settings, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.SQLServer.html#CHAP_Source.SQLServer.ConnectionAttrib"
+     * >Extra connection attributes when using SQL Server as a source for DMS</a> and <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.SQLServer.html#CHAP_Target.SQLServer.ConnectionAttrib"
+     * > Extra connection attributes when using SQL Server as a target for DMS</a> in the <i>Database Migration Service
+     * User Guide.</i>
+     * </p>
+     * 
+     * @return Settings in JSON format for the source and target Microsoft SQL Server endpoint. For information about
+     *         other available settings, see <a href=
+     *         "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.SQLServer.html#CHAP_Source.SQLServer.ConnectionAttrib"
+     *         >Extra connection attributes when using SQL Server as a source for DMS</a> and <a href=
+     *         "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.SQLServer.html#CHAP_Target.SQLServer.ConnectionAttrib"
+     *         > Extra connection attributes when using SQL Server as a target for DMS</a> in the <i>Database Migration
+     *         Service User Guide.</i>
+     */
+
+    public MicrosoftSQLServerSettings getMicrosoftSQLServerSettings() {
+        return this.microsoftSQLServerSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source and target Microsoft SQL Server endpoint. For information about other
+     * available settings, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.SQLServer.html#CHAP_Source.SQLServer.ConnectionAttrib"
+     * >Extra connection attributes when using SQL Server as a source for DMS</a> and <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.SQLServer.html#CHAP_Target.SQLServer.ConnectionAttrib"
+     * > Extra connection attributes when using SQL Server as a target for DMS</a> in the <i>Database Migration Service
+     * User Guide.</i>
+     * </p>
+     * 
+     * @param microsoftSQLServerSettings
+     *        Settings in JSON format for the source and target Microsoft SQL Server endpoint. For information about
+     *        other available settings, see <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.SQLServer.html#CHAP_Source.SQLServer.ConnectionAttrib"
+     *        >Extra connection attributes when using SQL Server as a source for DMS</a> and <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.SQLServer.html#CHAP_Target.SQLServer.ConnectionAttrib"
+     *        > Extra connection attributes when using SQL Server as a target for DMS</a> in the <i>Database Migration
+     *        Service User Guide.</i>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyEndpointRequest withMicrosoftSQLServerSettings(MicrosoftSQLServerSettings microsoftSQLServerSettings) {
+        setMicrosoftSQLServerSettings(microsoftSQLServerSettings);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source IBM Db2 LUW endpoint. For information about other available settings, see
+     * <a href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.DB2.html#CHAP_Source.DB2.ConnectionAttrib">
+     * Extra connection attributes when using Db2 LUW as a source for DMS</a> in the <i>Database Migration Service User
+     * Guide.</i>
+     * </p>
+     * 
+     * @param iBMDb2Settings
+     *        Settings in JSON format for the source IBM Db2 LUW endpoint. For information about other available
+     *        settings, see <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.DB2.html#CHAP_Source.DB2.ConnectionAttrib"
+     *        >Extra connection attributes when using Db2 LUW as a source for DMS</a> in the <i>Database Migration
+     *        Service User Guide.</i>
+     */
+
+    public void setIBMDb2Settings(IBMDb2Settings iBMDb2Settings) {
+        this.iBMDb2Settings = iBMDb2Settings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source IBM Db2 LUW endpoint. For information about other available settings, see
+     * <a href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.DB2.html#CHAP_Source.DB2.ConnectionAttrib">
+     * Extra connection attributes when using Db2 LUW as a source for DMS</a> in the <i>Database Migration Service User
+     * Guide.</i>
+     * </p>
+     * 
+     * @return Settings in JSON format for the source IBM Db2 LUW endpoint. For information about other available
+     *         settings, see <a href=
+     *         "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.DB2.html#CHAP_Source.DB2.ConnectionAttrib"
+     *         >Extra connection attributes when using Db2 LUW as a source for DMS</a> in the <i>Database Migration
+     *         Service User Guide.</i>
+     */
+
+    public IBMDb2Settings getIBMDb2Settings() {
+        return this.iBMDb2Settings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source IBM Db2 LUW endpoint. For information about other available settings, see
+     * <a href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.DB2.html#CHAP_Source.DB2.ConnectionAttrib">
+     * Extra connection attributes when using Db2 LUW as a source for DMS</a> in the <i>Database Migration Service User
+     * Guide.</i>
+     * </p>
+     * 
+     * @param iBMDb2Settings
+     *        Settings in JSON format for the source IBM Db2 LUW endpoint. For information about other available
+     *        settings, see <a href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.DB2.html#CHAP_Source.DB2.ConnectionAttrib"
+     *        >Extra connection attributes when using Db2 LUW as a source for DMS</a> in the <i>Database Migration
+     *        Service User Guide.</i>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyEndpointRequest withIBMDb2Settings(IBMDb2Settings iBMDb2Settings) {
+        setIBMDb2Settings(iBMDb2Settings);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source DocumentDB endpoint. For more information about the available settings,
+     * see the configuration properties section in <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.DocumentDB.html"> Using DocumentDB as a Target
+     * for Database Migration Service </a> in the <i>Database Migration Service User Guide.</i>
+     * </p>
+     * 
+     * @param docDbSettings
+     *        Settings in JSON format for the source DocumentDB endpoint. For more information about the available
+     *        settings, see the configuration properties section in <a
+     *        href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.DocumentDB.html"> Using DocumentDB as a
+     *        Target for Database Migration Service </a> in the <i>Database Migration Service User Guide.</i>
+     */
+
+    public void setDocDbSettings(DocDbSettings docDbSettings) {
+        this.docDbSettings = docDbSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source DocumentDB endpoint. For more information about the available settings,
+     * see the configuration properties section in <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.DocumentDB.html"> Using DocumentDB as a Target
+     * for Database Migration Service </a> in the <i>Database Migration Service User Guide.</i>
+     * </p>
+     * 
+     * @return Settings in JSON format for the source DocumentDB endpoint. For more information about the available
+     *         settings, see the configuration properties section in <a
+     *         href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.DocumentDB.html"> Using DocumentDB as
+     *         a Target for Database Migration Service </a> in the <i>Database Migration Service User Guide.</i>
+     */
+
+    public DocDbSettings getDocDbSettings() {
+        return this.docDbSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source DocumentDB endpoint. For more information about the available settings,
+     * see the configuration properties section in <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.DocumentDB.html"> Using DocumentDB as a Target
+     * for Database Migration Service </a> in the <i>Database Migration Service User Guide.</i>
+     * </p>
+     * 
+     * @param docDbSettings
+     *        Settings in JSON format for the source DocumentDB endpoint. For more information about the available
+     *        settings, see the configuration properties section in <a
+     *        href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.DocumentDB.html"> Using DocumentDB as a
+     *        Target for Database Migration Service </a> in the <i>Database Migration Service User Guide.</i>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyEndpointRequest withDocDbSettings(DocDbSettings docDbSettings) {
+        setDocDbSettings(docDbSettings);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the Redis target endpoint.
+     * </p>
+     * 
+     * @param redisSettings
+     *        Settings in JSON format for the Redis target endpoint.
+     */
+
+    public void setRedisSettings(RedisSettings redisSettings) {
+        this.redisSettings = redisSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the Redis target endpoint.
+     * </p>
+     * 
+     * @return Settings in JSON format for the Redis target endpoint.
+     */
+
+    public RedisSettings getRedisSettings() {
+        return this.redisSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the Redis target endpoint.
+     * </p>
+     * 
+     * @param redisSettings
+     *        Settings in JSON format for the Redis target endpoint.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyEndpointRequest withRedisSettings(RedisSettings redisSettings) {
+        setRedisSettings(redisSettings);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If this attribute is Y, the current call to <code>ModifyEndpoint</code> replaces all existing endpoint settings
+     * with the exact settings that you specify in this call. If this attribute is N, the current call to
+     * <code>ModifyEndpoint</code> does two things:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * It replaces any endpoint settings that already exist with new values, for settings with the same names.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * It creates new endpoint settings that you specify in the call, for settings with different names.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For example, if you call <code>create-endpoint ... --endpoint-settings '{"a":1}' ...</code>, the endpoint has the
+     * following endpoint settings: <code>'{"a":1}'</code>. If you then call
+     * <code>modify-endpoint ... --endpoint-settings '{"b":2}' ...</code> for the same endpoint, the endpoint has the
+     * following settings: <code>'{"a":1,"b":2}'</code>.
+     * </p>
+     * <p>
+     * However, suppose that you follow this with a call to
+     * <code>modify-endpoint ... --endpoint-settings '{"b":2}' --exact-settings ...</code> for that same endpoint again.
+     * Then the endpoint has the following settings: <code>'{"b":2}'</code>. All existing settings are replaced with the
+     * exact settings that you specify.
+     * </p>
+     * 
+     * @param exactSettings
+     *        If this attribute is Y, the current call to <code>ModifyEndpoint</code> replaces all existing endpoint
+     *        settings with the exact settings that you specify in this call. If this attribute is N, the current call
+     *        to <code>ModifyEndpoint</code> does two things: </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        It replaces any endpoint settings that already exist with new values, for settings with the same names.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        It creates new endpoint settings that you specify in the call, for settings with different names.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For example, if you call <code>create-endpoint ... --endpoint-settings '{"a":1}' ...</code>, the endpoint
+     *        has the following endpoint settings: <code>'{"a":1}'</code>. If you then call
+     *        <code>modify-endpoint ... --endpoint-settings '{"b":2}' ...</code> for the same endpoint, the endpoint has
+     *        the following settings: <code>'{"a":1,"b":2}'</code>.
+     *        </p>
+     *        <p>
+     *        However, suppose that you follow this with a call to
+     *        <code>modify-endpoint ... --endpoint-settings '{"b":2}' --exact-settings ...</code> for that same endpoint
+     *        again. Then the endpoint has the following settings: <code>'{"b":2}'</code>. All existing settings are
+     *        replaced with the exact settings that you specify.
+     */
+
+    public void setExactSettings(Boolean exactSettings) {
+        this.exactSettings = exactSettings;
+    }
+
+    /**
+     * <p>
+     * If this attribute is Y, the current call to <code>ModifyEndpoint</code> replaces all existing endpoint settings
+     * with the exact settings that you specify in this call. If this attribute is N, the current call to
+     * <code>ModifyEndpoint</code> does two things:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * It replaces any endpoint settings that already exist with new values, for settings with the same names.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * It creates new endpoint settings that you specify in the call, for settings with different names.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For example, if you call <code>create-endpoint ... --endpoint-settings '{"a":1}' ...</code>, the endpoint has the
+     * following endpoint settings: <code>'{"a":1}'</code>. If you then call
+     * <code>modify-endpoint ... --endpoint-settings '{"b":2}' ...</code> for the same endpoint, the endpoint has the
+     * following settings: <code>'{"a":1,"b":2}'</code>.
+     * </p>
+     * <p>
+     * However, suppose that you follow this with a call to
+     * <code>modify-endpoint ... --endpoint-settings '{"b":2}' --exact-settings ...</code> for that same endpoint again.
+     * Then the endpoint has the following settings: <code>'{"b":2}'</code>. All existing settings are replaced with the
+     * exact settings that you specify.
+     * </p>
+     * 
+     * @return If this attribute is Y, the current call to <code>ModifyEndpoint</code> replaces all existing endpoint
+     *         settings with the exact settings that you specify in this call. If this attribute is N, the current call
+     *         to <code>ModifyEndpoint</code> does two things: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         It replaces any endpoint settings that already exist with new values, for settings with the same names.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         It creates new endpoint settings that you specify in the call, for settings with different names.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For example, if you call <code>create-endpoint ... --endpoint-settings '{"a":1}' ...</code>, the endpoint
+     *         has the following endpoint settings: <code>'{"a":1}'</code>. If you then call
+     *         <code>modify-endpoint ... --endpoint-settings '{"b":2}' ...</code> for the same endpoint, the endpoint
+     *         has the following settings: <code>'{"a":1,"b":2}'</code>.
+     *         </p>
+     *         <p>
+     *         However, suppose that you follow this with a call to
+     *         <code>modify-endpoint ... --endpoint-settings '{"b":2}' --exact-settings ...</code> for that same
+     *         endpoint again. Then the endpoint has the following settings: <code>'{"b":2}'</code>. All existing
+     *         settings are replaced with the exact settings that you specify.
+     */
+
+    public Boolean getExactSettings() {
+        return this.exactSettings;
+    }
+
+    /**
+     * <p>
+     * If this attribute is Y, the current call to <code>ModifyEndpoint</code> replaces all existing endpoint settings
+     * with the exact settings that you specify in this call. If this attribute is N, the current call to
+     * <code>ModifyEndpoint</code> does two things:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * It replaces any endpoint settings that already exist with new values, for settings with the same names.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * It creates new endpoint settings that you specify in the call, for settings with different names.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For example, if you call <code>create-endpoint ... --endpoint-settings '{"a":1}' ...</code>, the endpoint has the
+     * following endpoint settings: <code>'{"a":1}'</code>. If you then call
+     * <code>modify-endpoint ... --endpoint-settings '{"b":2}' ...</code> for the same endpoint, the endpoint has the
+     * following settings: <code>'{"a":1,"b":2}'</code>.
+     * </p>
+     * <p>
+     * However, suppose that you follow this with a call to
+     * <code>modify-endpoint ... --endpoint-settings '{"b":2}' --exact-settings ...</code> for that same endpoint again.
+     * Then the endpoint has the following settings: <code>'{"b":2}'</code>. All existing settings are replaced with the
+     * exact settings that you specify.
+     * </p>
+     * 
+     * @param exactSettings
+     *        If this attribute is Y, the current call to <code>ModifyEndpoint</code> replaces all existing endpoint
+     *        settings with the exact settings that you specify in this call. If this attribute is N, the current call
+     *        to <code>ModifyEndpoint</code> does two things: </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        It replaces any endpoint settings that already exist with new values, for settings with the same names.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        It creates new endpoint settings that you specify in the call, for settings with different names.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For example, if you call <code>create-endpoint ... --endpoint-settings '{"a":1}' ...</code>, the endpoint
+     *        has the following endpoint settings: <code>'{"a":1}'</code>. If you then call
+     *        <code>modify-endpoint ... --endpoint-settings '{"b":2}' ...</code> for the same endpoint, the endpoint has
+     *        the following settings: <code>'{"a":1,"b":2}'</code>.
+     *        </p>
+     *        <p>
+     *        However, suppose that you follow this with a call to
+     *        <code>modify-endpoint ... --endpoint-settings '{"b":2}' --exact-settings ...</code> for that same endpoint
+     *        again. Then the endpoint has the following settings: <code>'{"b":2}'</code>. All existing settings are
+     *        replaced with the exact settings that you specify.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyEndpointRequest withExactSettings(Boolean exactSettings) {
+        setExactSettings(exactSettings);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If this attribute is Y, the current call to <code>ModifyEndpoint</code> replaces all existing endpoint settings
+     * with the exact settings that you specify in this call. If this attribute is N, the current call to
+     * <code>ModifyEndpoint</code> does two things:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * It replaces any endpoint settings that already exist with new values, for settings with the same names.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * It creates new endpoint settings that you specify in the call, for settings with different names.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For example, if you call <code>create-endpoint ... --endpoint-settings '{"a":1}' ...</code>, the endpoint has the
+     * following endpoint settings: <code>'{"a":1}'</code>. If you then call
+     * <code>modify-endpoint ... --endpoint-settings '{"b":2}' ...</code> for the same endpoint, the endpoint has the
+     * following settings: <code>'{"a":1,"b":2}'</code>.
+     * </p>
+     * <p>
+     * However, suppose that you follow this with a call to
+     * <code>modify-endpoint ... --endpoint-settings '{"b":2}' --exact-settings ...</code> for that same endpoint again.
+     * Then the endpoint has the following settings: <code>'{"b":2}'</code>. All existing settings are replaced with the
+     * exact settings that you specify.
+     * </p>
+     * 
+     * @return If this attribute is Y, the current call to <code>ModifyEndpoint</code> replaces all existing endpoint
+     *         settings with the exact settings that you specify in this call. If this attribute is N, the current call
+     *         to <code>ModifyEndpoint</code> does two things: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         It replaces any endpoint settings that already exist with new values, for settings with the same names.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         It creates new endpoint settings that you specify in the call, for settings with different names.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For example, if you call <code>create-endpoint ... --endpoint-settings '{"a":1}' ...</code>, the endpoint
+     *         has the following endpoint settings: <code>'{"a":1}'</code>. If you then call
+     *         <code>modify-endpoint ... --endpoint-settings '{"b":2}' ...</code> for the same endpoint, the endpoint
+     *         has the following settings: <code>'{"a":1,"b":2}'</code>.
+     *         </p>
+     *         <p>
+     *         However, suppose that you follow this with a call to
+     *         <code>modify-endpoint ... --endpoint-settings '{"b":2}' --exact-settings ...</code> for that same
+     *         endpoint again. Then the endpoint has the following settings: <code>'{"b":2}'</code>. All existing
+     *         settings are replaced with the exact settings that you specify.
+     */
+
+    public Boolean isExactSettings() {
+        return this.exactSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source GCP MySQL endpoint.
+     * </p>
+     * 
+     * @param gcpMySQLSettings
+     *        Settings in JSON format for the source GCP MySQL endpoint.
+     */
+
+    public void setGcpMySQLSettings(GcpMySQLSettings gcpMySQLSettings) {
+        this.gcpMySQLSettings = gcpMySQLSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source GCP MySQL endpoint.
+     * </p>
+     * 
+     * @return Settings in JSON format for the source GCP MySQL endpoint.
+     */
+
+    public GcpMySQLSettings getGcpMySQLSettings() {
+        return this.gcpMySQLSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the source GCP MySQL endpoint.
+     * </p>
+     * 
+     * @param gcpMySQLSettings
+     *        Settings in JSON format for the source GCP MySQL endpoint.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyEndpointRequest withGcpMySQLSettings(GcpMySQLSettings gcpMySQLSettings) {
+        setGcpMySQLSettings(gcpMySQLSettings);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the target Amazon Timestream endpoint.
+     * </p>
+     * 
+     * @param timestreamSettings
+     *        Settings in JSON format for the target Amazon Timestream endpoint.
+     */
+
+    public void setTimestreamSettings(TimestreamSettings timestreamSettings) {
+        this.timestreamSettings = timestreamSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the target Amazon Timestream endpoint.
+     * </p>
+     * 
+     * @return Settings in JSON format for the target Amazon Timestream endpoint.
+     */
+
+    public TimestreamSettings getTimestreamSettings() {
+        return this.timestreamSettings;
+    }
+
+    /**
+     * <p>
+     * Settings in JSON format for the target Amazon Timestream endpoint.
+     * </p>
+     * 
+     * @param timestreamSettings
+     *        Settings in JSON format for the target Amazon Timestream endpoint.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyEndpointRequest withTimestreamSettings(TimestreamSettings timestreamSettings) {
+        setTimestreamSettings(timestreamSettings);
         return this;
     }
 
@@ -1441,10 +2586,36 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
             sb.append("MongoDbSettings: ").append(getMongoDbSettings()).append(",");
         if (getKinesisSettings() != null)
             sb.append("KinesisSettings: ").append(getKinesisSettings()).append(",");
+        if (getKafkaSettings() != null)
+            sb.append("KafkaSettings: ").append(getKafkaSettings()).append(",");
         if (getElasticsearchSettings() != null)
             sb.append("ElasticsearchSettings: ").append(getElasticsearchSettings()).append(",");
+        if (getNeptuneSettings() != null)
+            sb.append("NeptuneSettings: ").append(getNeptuneSettings()).append(",");
         if (getRedshiftSettings() != null)
-            sb.append("RedshiftSettings: ").append(getRedshiftSettings());
+            sb.append("RedshiftSettings: ").append(getRedshiftSettings()).append(",");
+        if (getPostgreSQLSettings() != null)
+            sb.append("PostgreSQLSettings: ").append(getPostgreSQLSettings()).append(",");
+        if (getMySQLSettings() != null)
+            sb.append("MySQLSettings: ").append(getMySQLSettings()).append(",");
+        if (getOracleSettings() != null)
+            sb.append("OracleSettings: ").append(getOracleSettings()).append(",");
+        if (getSybaseSettings() != null)
+            sb.append("SybaseSettings: ").append(getSybaseSettings()).append(",");
+        if (getMicrosoftSQLServerSettings() != null)
+            sb.append("MicrosoftSQLServerSettings: ").append(getMicrosoftSQLServerSettings()).append(",");
+        if (getIBMDb2Settings() != null)
+            sb.append("IBMDb2Settings: ").append(getIBMDb2Settings()).append(",");
+        if (getDocDbSettings() != null)
+            sb.append("DocDbSettings: ").append(getDocDbSettings()).append(",");
+        if (getRedisSettings() != null)
+            sb.append("RedisSettings: ").append(getRedisSettings()).append(",");
+        if (getExactSettings() != null)
+            sb.append("ExactSettings: ").append(getExactSettings()).append(",");
+        if (getGcpMySQLSettings() != null)
+            sb.append("GcpMySQLSettings: ").append(getGcpMySQLSettings()).append(",");
+        if (getTimestreamSettings() != null)
+            sb.append("TimestreamSettings: ").append(getTimestreamSettings());
         sb.append("}");
         return sb.toString();
     }
@@ -1535,13 +2706,65 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
             return false;
         if (other.getKinesisSettings() != null && other.getKinesisSettings().equals(this.getKinesisSettings()) == false)
             return false;
+        if (other.getKafkaSettings() == null ^ this.getKafkaSettings() == null)
+            return false;
+        if (other.getKafkaSettings() != null && other.getKafkaSettings().equals(this.getKafkaSettings()) == false)
+            return false;
         if (other.getElasticsearchSettings() == null ^ this.getElasticsearchSettings() == null)
             return false;
         if (other.getElasticsearchSettings() != null && other.getElasticsearchSettings().equals(this.getElasticsearchSettings()) == false)
             return false;
+        if (other.getNeptuneSettings() == null ^ this.getNeptuneSettings() == null)
+            return false;
+        if (other.getNeptuneSettings() != null && other.getNeptuneSettings().equals(this.getNeptuneSettings()) == false)
+            return false;
         if (other.getRedshiftSettings() == null ^ this.getRedshiftSettings() == null)
             return false;
         if (other.getRedshiftSettings() != null && other.getRedshiftSettings().equals(this.getRedshiftSettings()) == false)
+            return false;
+        if (other.getPostgreSQLSettings() == null ^ this.getPostgreSQLSettings() == null)
+            return false;
+        if (other.getPostgreSQLSettings() != null && other.getPostgreSQLSettings().equals(this.getPostgreSQLSettings()) == false)
+            return false;
+        if (other.getMySQLSettings() == null ^ this.getMySQLSettings() == null)
+            return false;
+        if (other.getMySQLSettings() != null && other.getMySQLSettings().equals(this.getMySQLSettings()) == false)
+            return false;
+        if (other.getOracleSettings() == null ^ this.getOracleSettings() == null)
+            return false;
+        if (other.getOracleSettings() != null && other.getOracleSettings().equals(this.getOracleSettings()) == false)
+            return false;
+        if (other.getSybaseSettings() == null ^ this.getSybaseSettings() == null)
+            return false;
+        if (other.getSybaseSettings() != null && other.getSybaseSettings().equals(this.getSybaseSettings()) == false)
+            return false;
+        if (other.getMicrosoftSQLServerSettings() == null ^ this.getMicrosoftSQLServerSettings() == null)
+            return false;
+        if (other.getMicrosoftSQLServerSettings() != null && other.getMicrosoftSQLServerSettings().equals(this.getMicrosoftSQLServerSettings()) == false)
+            return false;
+        if (other.getIBMDb2Settings() == null ^ this.getIBMDb2Settings() == null)
+            return false;
+        if (other.getIBMDb2Settings() != null && other.getIBMDb2Settings().equals(this.getIBMDb2Settings()) == false)
+            return false;
+        if (other.getDocDbSettings() == null ^ this.getDocDbSettings() == null)
+            return false;
+        if (other.getDocDbSettings() != null && other.getDocDbSettings().equals(this.getDocDbSettings()) == false)
+            return false;
+        if (other.getRedisSettings() == null ^ this.getRedisSettings() == null)
+            return false;
+        if (other.getRedisSettings() != null && other.getRedisSettings().equals(this.getRedisSettings()) == false)
+            return false;
+        if (other.getExactSettings() == null ^ this.getExactSettings() == null)
+            return false;
+        if (other.getExactSettings() != null && other.getExactSettings().equals(this.getExactSettings()) == false)
+            return false;
+        if (other.getGcpMySQLSettings() == null ^ this.getGcpMySQLSettings() == null)
+            return false;
+        if (other.getGcpMySQLSettings() != null && other.getGcpMySQLSettings().equals(this.getGcpMySQLSettings()) == false)
+            return false;
+        if (other.getTimestreamSettings() == null ^ this.getTimestreamSettings() == null)
+            return false;
+        if (other.getTimestreamSettings() != null && other.getTimestreamSettings().equals(this.getTimestreamSettings()) == false)
             return false;
         return true;
     }
@@ -1570,8 +2793,21 @@ public class ModifyEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
         hashCode = prime * hashCode + ((getDmsTransferSettings() == null) ? 0 : getDmsTransferSettings().hashCode());
         hashCode = prime * hashCode + ((getMongoDbSettings() == null) ? 0 : getMongoDbSettings().hashCode());
         hashCode = prime * hashCode + ((getKinesisSettings() == null) ? 0 : getKinesisSettings().hashCode());
+        hashCode = prime * hashCode + ((getKafkaSettings() == null) ? 0 : getKafkaSettings().hashCode());
         hashCode = prime * hashCode + ((getElasticsearchSettings() == null) ? 0 : getElasticsearchSettings().hashCode());
+        hashCode = prime * hashCode + ((getNeptuneSettings() == null) ? 0 : getNeptuneSettings().hashCode());
         hashCode = prime * hashCode + ((getRedshiftSettings() == null) ? 0 : getRedshiftSettings().hashCode());
+        hashCode = prime * hashCode + ((getPostgreSQLSettings() == null) ? 0 : getPostgreSQLSettings().hashCode());
+        hashCode = prime * hashCode + ((getMySQLSettings() == null) ? 0 : getMySQLSettings().hashCode());
+        hashCode = prime * hashCode + ((getOracleSettings() == null) ? 0 : getOracleSettings().hashCode());
+        hashCode = prime * hashCode + ((getSybaseSettings() == null) ? 0 : getSybaseSettings().hashCode());
+        hashCode = prime * hashCode + ((getMicrosoftSQLServerSettings() == null) ? 0 : getMicrosoftSQLServerSettings().hashCode());
+        hashCode = prime * hashCode + ((getIBMDb2Settings() == null) ? 0 : getIBMDb2Settings().hashCode());
+        hashCode = prime * hashCode + ((getDocDbSettings() == null) ? 0 : getDocDbSettings().hashCode());
+        hashCode = prime * hashCode + ((getRedisSettings() == null) ? 0 : getRedisSettings().hashCode());
+        hashCode = prime * hashCode + ((getExactSettings() == null) ? 0 : getExactSettings().hashCode());
+        hashCode = prime * hashCode + ((getGcpMySQLSettings() == null) ? 0 : getGcpMySQLSettings().hashCode());
+        hashCode = prime * hashCode + ((getTimestreamSettings() == null) ? 0 : getTimestreamSettings().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -70,7 +70,9 @@ public class StackJsonUnmarshaller implements Unmarshaller<Stack, JsonUnmarshall
                 }
                 if (context.testExpression("StorageConnectors", targetDepth)) {
                     context.nextToken();
-                    stack.setStorageConnectors(new ListUnmarshaller<StorageConnector>(StorageConnectorJsonUnmarshaller.getInstance()).unmarshall(context));
+                    stack.setStorageConnectors(new ListUnmarshaller<StorageConnector>(StorageConnectorJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("RedirectURL", targetDepth)) {
                     context.nextToken();
@@ -82,15 +84,35 @@ public class StackJsonUnmarshaller implements Unmarshaller<Stack, JsonUnmarshall
                 }
                 if (context.testExpression("StackErrors", targetDepth)) {
                     context.nextToken();
-                    stack.setStackErrors(new ListUnmarshaller<StackError>(StackErrorJsonUnmarshaller.getInstance()).unmarshall(context));
+                    stack.setStackErrors(new ListUnmarshaller<StackError>(StackErrorJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("UserSettings", targetDepth)) {
                     context.nextToken();
-                    stack.setUserSettings(new ListUnmarshaller<UserSetting>(UserSettingJsonUnmarshaller.getInstance()).unmarshall(context));
+                    stack.setUserSettings(new ListUnmarshaller<UserSetting>(UserSettingJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("ApplicationSettings", targetDepth)) {
                     context.nextToken();
                     stack.setApplicationSettings(ApplicationSettingsResponseJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("AccessEndpoints", targetDepth)) {
+                    context.nextToken();
+                    stack.setAccessEndpoints(new ListUnmarshaller<AccessEndpoint>(AccessEndpointJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("EmbedHostDomains", targetDepth)) {
+                    context.nextToken();
+                    stack.setEmbedHostDomains(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("StreamingExperienceSettings", targetDepth)) {
+                    context.nextToken();
+                    stack.setStreamingExperienceSettings(StreamingExperienceSettingsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

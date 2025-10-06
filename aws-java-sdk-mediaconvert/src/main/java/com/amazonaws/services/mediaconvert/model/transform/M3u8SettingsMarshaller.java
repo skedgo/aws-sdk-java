@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,10 +28,16 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class M3u8SettingsMarshaller {
 
+    private static final MarshallingInfo<String> AUDIODURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("audioDuration").build();
     private static final MarshallingInfo<Integer> AUDIOFRAMESPERPES_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("audioFramesPerPes").build();
     private static final MarshallingInfo<List> AUDIOPIDS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("audioPids").build();
+    private static final MarshallingInfo<String> DATAPTSCONTROL_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("dataPTSControl").build();
+    private static final MarshallingInfo<Integer> MAXPCRINTERVAL_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("maxPcrInterval").build();
     private static final MarshallingInfo<String> NIELSENID3_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("nielsenId3").build();
     private static final MarshallingInfo<Integer> PATINTERVAL_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
@@ -48,6 +54,10 @@ public class M3u8SettingsMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("privateMetadataPid").build();
     private static final MarshallingInfo<Integer> PROGRAMNUMBER_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("programNumber").build();
+    private static final MarshallingInfo<Integer> PTSOFFSET_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ptsOffset").build();
+    private static final MarshallingInfo<String> PTSOFFSETMODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ptsOffsetMode").build();
     private static final MarshallingInfo<Integer> SCTE35PID_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("scte35Pid").build();
     private static final MarshallingInfo<String> SCTE35SOURCE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -77,8 +87,11 @@ public class M3u8SettingsMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(m3u8Settings.getAudioDuration(), AUDIODURATION_BINDING);
             protocolMarshaller.marshall(m3u8Settings.getAudioFramesPerPes(), AUDIOFRAMESPERPES_BINDING);
             protocolMarshaller.marshall(m3u8Settings.getAudioPids(), AUDIOPIDS_BINDING);
+            protocolMarshaller.marshall(m3u8Settings.getDataPTSControl(), DATAPTSCONTROL_BINDING);
+            protocolMarshaller.marshall(m3u8Settings.getMaxPcrInterval(), MAXPCRINTERVAL_BINDING);
             protocolMarshaller.marshall(m3u8Settings.getNielsenId3(), NIELSENID3_BINDING);
             protocolMarshaller.marshall(m3u8Settings.getPatInterval(), PATINTERVAL_BINDING);
             protocolMarshaller.marshall(m3u8Settings.getPcrControl(), PCRCONTROL_BINDING);
@@ -87,6 +100,8 @@ public class M3u8SettingsMarshaller {
             protocolMarshaller.marshall(m3u8Settings.getPmtPid(), PMTPID_BINDING);
             protocolMarshaller.marshall(m3u8Settings.getPrivateMetadataPid(), PRIVATEMETADATAPID_BINDING);
             protocolMarshaller.marshall(m3u8Settings.getProgramNumber(), PROGRAMNUMBER_BINDING);
+            protocolMarshaller.marshall(m3u8Settings.getPtsOffset(), PTSOFFSET_BINDING);
+            protocolMarshaller.marshall(m3u8Settings.getPtsOffsetMode(), PTSOFFSETMODE_BINDING);
             protocolMarshaller.marshall(m3u8Settings.getScte35Pid(), SCTE35PID_BINDING);
             protocolMarshaller.marshall(m3u8Settings.getScte35Source(), SCTE35SOURCE_BINDING);
             protocolMarshaller.marshall(m3u8Settings.getTimedMetadata(), TIMEDMETADATA_BINDING);

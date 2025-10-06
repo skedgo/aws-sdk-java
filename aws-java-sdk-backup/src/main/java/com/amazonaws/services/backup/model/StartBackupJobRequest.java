@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,8 +28,8 @@ public class StartBackupJobRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      */
     private String backupVaultName;
@@ -49,35 +49,59 @@ public class StartBackupJobRequest extends com.amazonaws.AmazonWebServiceRequest
     private String iamRoleArn;
     /**
      * <p>
-     * A customer chosen string that can be used to distinguish between calls to <code>StartBackupJob</code>.
-     * Idempotency tokens time out after one hour. Therefore, if you call <code>StartBackupJob</code> multiple times
-     * with the same idempotency token within one hour, AWS Backup recognizes that you are requesting only one backup
-     * job and initiates only one. If you change the idempotency token for each call, AWS Backup recognizes that you are
-     * requesting to start multiple backups.
+     * A customer-chosen string that you can use to distinguish between otherwise identical calls to
+     * <code>StartBackupJob</code>. Retrying a successful request with the same idempotency token results in a success
+     * message with no action taken.
      * </p>
      */
     private String idempotencyToken;
     /**
      * <p>
-     * The amount of time in minutes before beginning a backup.
+     * A value in minutes after a backup is scheduled before a job will be canceled if it doesn't start successfully.
+     * This value is optional, and the default is 8 hours. If this value is included, it must be at least 60 minutes to
+     * avoid errors.
+     * </p>
+     * <p>
+     * This parameter has a maximum value of 100 years (52,560,000 minutes).
+     * </p>
+     * <p>
+     * During the start window, the backup job status remains in <code>CREATED</code> status until it has successfully
+     * begun or until the start window time has run out. If within the start window time Backup receives an error that
+     * allows the job to be retried, Backup will automatically retry to begin the job at least every 10 minutes until
+     * the backup successfully begins (the job status changes to <code>RUNNING</code>) or until the job status changes
+     * to <code>EXPIRED</code> (which is expected to occur when the start window time is over).
      * </p>
      */
     private Long startWindowMinutes;
     /**
      * <p>
-     * The amount of time AWS Backup attempts a backup before canceling the job and returning an error.
+     * A value in minutes during which a successfully started backup must complete, or else Backup will cancel the job.
+     * This value is optional. This value begins counting down from when the backup was scheduled. It does not add
+     * additional time for <code>StartWindowMinutes</code>, or if the backup started later than scheduled.
+     * </p>
+     * <p>
+     * Like <code>StartWindowMinutes</code>, this parameter has a maximum value of 100 years (52,560,000 minutes).
      * </p>
      */
     private Long completeWindowMinutes;
     /**
      * <p>
-     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS Backup
-     * will transition and expire backups automatically according to the lifecycle that you define.
+     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. Backup will
+     * transition and expire backups automatically according to the lifecycle that you define.
      * </p>
      * <p>
      * Backups transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore, the
-     * “expire after days” setting must be 90 days greater than the “transition to cold after days” setting. The
-     * “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * “retention” setting must be 90 days greater than the “transition to cold after days” setting. The “transition to
+     * cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * </p>
+     * <p>
+     * Resource types that are able to be transitioned to cold storage are listed in the "Lifecycle to cold storage"
+     * section of the <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource"> Feature
+     * availability by resource</a> table. Backup ignores this expression for other resource types.
+     * </p>
+     * <p>
+     * This parameter has a maximum value of 100 years (36,500 days).
      * </p>
      */
     private Lifecycle lifecycle;
@@ -88,18 +112,30 @@ public class StartBackupJobRequest extends com.amazonaws.AmazonWebServiceRequest
      * </p>
      */
     private java.util.Map<String, String> recoveryPointTags;
+    /**
+     * <p>
+     * Specifies the backup option for a selected resource. This option is only available for Windows Volume Shadow Copy
+     * Service (VSS) backup jobs.
+     * </p>
+     * <p>
+     * Valid values: Set to <code>"WindowsVSS":"enabled"</code> to enable the <code>WindowsVSS</code> backup option and
+     * create a Windows VSS backup. Set to <code>"WindowsVSS""disabled"</code> to create a regular backup. The
+     * <code>WindowsVSS</code> option is not enabled by default.
+     * </p>
+     */
+    private java.util.Map<String, String> backupOptions;
 
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      * 
      * @param backupVaultName
      *        The name of a logical container where backups are stored. Backup vaults are identified by names that are
-     *        unique to the account used to create them and the AWS Region where they are created. They consist of
-     *        lowercase letters, numbers, and hyphens.
+     *        unique to the account used to create them and the Amazon Web Services Region where they are created. They
+     *        consist of lowercase letters, numbers, and hyphens.
      */
 
     public void setBackupVaultName(String backupVaultName) {
@@ -109,13 +145,13 @@ public class StartBackupJobRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      * 
      * @return The name of a logical container where backups are stored. Backup vaults are identified by names that are
-     *         unique to the account used to create them and the AWS Region where they are created. They consist of
-     *         lowercase letters, numbers, and hyphens.
+     *         unique to the account used to create them and the Amazon Web Services Region where they are created. They
+     *         consist of lowercase letters, numbers, and hyphens.
      */
 
     public String getBackupVaultName() {
@@ -125,14 +161,14 @@ public class StartBackupJobRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      * 
      * @param backupVaultName
      *        The name of a logical container where backups are stored. Backup vaults are identified by names that are
-     *        unique to the account used to create them and the AWS Region where they are created. They consist of
-     *        lowercase letters, numbers, and hyphens.
+     *        unique to the account used to create them and the Amazon Web Services Region where they are created. They
+     *        consist of lowercase letters, numbers, and hyphens.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -235,19 +271,15 @@ public class StartBackupJobRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A customer chosen string that can be used to distinguish between calls to <code>StartBackupJob</code>.
-     * Idempotency tokens time out after one hour. Therefore, if you call <code>StartBackupJob</code> multiple times
-     * with the same idempotency token within one hour, AWS Backup recognizes that you are requesting only one backup
-     * job and initiates only one. If you change the idempotency token for each call, AWS Backup recognizes that you are
-     * requesting to start multiple backups.
+     * A customer-chosen string that you can use to distinguish between otherwise identical calls to
+     * <code>StartBackupJob</code>. Retrying a successful request with the same idempotency token results in a success
+     * message with no action taken.
      * </p>
      * 
      * @param idempotencyToken
-     *        A customer chosen string that can be used to distinguish between calls to <code>StartBackupJob</code>.
-     *        Idempotency tokens time out after one hour. Therefore, if you call <code>StartBackupJob</code> multiple
-     *        times with the same idempotency token within one hour, AWS Backup recognizes that you are requesting only
-     *        one backup job and initiates only one. If you change the idempotency token for each call, AWS Backup
-     *        recognizes that you are requesting to start multiple backups.
+     *        A customer-chosen string that you can use to distinguish between otherwise identical calls to
+     *        <code>StartBackupJob</code>. Retrying a successful request with the same idempotency token results in a
+     *        success message with no action taken.
      */
 
     public void setIdempotencyToken(String idempotencyToken) {
@@ -256,18 +288,14 @@ public class StartBackupJobRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A customer chosen string that can be used to distinguish between calls to <code>StartBackupJob</code>.
-     * Idempotency tokens time out after one hour. Therefore, if you call <code>StartBackupJob</code> multiple times
-     * with the same idempotency token within one hour, AWS Backup recognizes that you are requesting only one backup
-     * job and initiates only one. If you change the idempotency token for each call, AWS Backup recognizes that you are
-     * requesting to start multiple backups.
+     * A customer-chosen string that you can use to distinguish between otherwise identical calls to
+     * <code>StartBackupJob</code>. Retrying a successful request with the same idempotency token results in a success
+     * message with no action taken.
      * </p>
      * 
-     * @return A customer chosen string that can be used to distinguish between calls to <code>StartBackupJob</code>.
-     *         Idempotency tokens time out after one hour. Therefore, if you call <code>StartBackupJob</code> multiple
-     *         times with the same idempotency token within one hour, AWS Backup recognizes that you are requesting only
-     *         one backup job and initiates only one. If you change the idempotency token for each call, AWS Backup
-     *         recognizes that you are requesting to start multiple backups.
+     * @return A customer-chosen string that you can use to distinguish between otherwise identical calls to
+     *         <code>StartBackupJob</code>. Retrying a successful request with the same idempotency token results in a
+     *         success message with no action taken.
      */
 
     public String getIdempotencyToken() {
@@ -276,19 +304,15 @@ public class StartBackupJobRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A customer chosen string that can be used to distinguish between calls to <code>StartBackupJob</code>.
-     * Idempotency tokens time out after one hour. Therefore, if you call <code>StartBackupJob</code> multiple times
-     * with the same idempotency token within one hour, AWS Backup recognizes that you are requesting only one backup
-     * job and initiates only one. If you change the idempotency token for each call, AWS Backup recognizes that you are
-     * requesting to start multiple backups.
+     * A customer-chosen string that you can use to distinguish between otherwise identical calls to
+     * <code>StartBackupJob</code>. Retrying a successful request with the same idempotency token results in a success
+     * message with no action taken.
      * </p>
      * 
      * @param idempotencyToken
-     *        A customer chosen string that can be used to distinguish between calls to <code>StartBackupJob</code>.
-     *        Idempotency tokens time out after one hour. Therefore, if you call <code>StartBackupJob</code> multiple
-     *        times with the same idempotency token within one hour, AWS Backup recognizes that you are requesting only
-     *        one backup job and initiates only one. If you change the idempotency token for each call, AWS Backup
-     *        recognizes that you are requesting to start multiple backups.
+     *        A customer-chosen string that you can use to distinguish between otherwise identical calls to
+     *        <code>StartBackupJob</code>. Retrying a successful request with the same idempotency token results in a
+     *        success message with no action taken.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -299,11 +323,35 @@ public class StartBackupJobRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The amount of time in minutes before beginning a backup.
+     * A value in minutes after a backup is scheduled before a job will be canceled if it doesn't start successfully.
+     * This value is optional, and the default is 8 hours. If this value is included, it must be at least 60 minutes to
+     * avoid errors.
+     * </p>
+     * <p>
+     * This parameter has a maximum value of 100 years (52,560,000 minutes).
+     * </p>
+     * <p>
+     * During the start window, the backup job status remains in <code>CREATED</code> status until it has successfully
+     * begun or until the start window time has run out. If within the start window time Backup receives an error that
+     * allows the job to be retried, Backup will automatically retry to begin the job at least every 10 minutes until
+     * the backup successfully begins (the job status changes to <code>RUNNING</code>) or until the job status changes
+     * to <code>EXPIRED</code> (which is expected to occur when the start window time is over).
      * </p>
      * 
      * @param startWindowMinutes
-     *        The amount of time in minutes before beginning a backup.
+     *        A value in minutes after a backup is scheduled before a job will be canceled if it doesn't start
+     *        successfully. This value is optional, and the default is 8 hours. If this value is included, it must be at
+     *        least 60 minutes to avoid errors.</p>
+     *        <p>
+     *        This parameter has a maximum value of 100 years (52,560,000 minutes).
+     *        </p>
+     *        <p>
+     *        During the start window, the backup job status remains in <code>CREATED</code> status until it has
+     *        successfully begun or until the start window time has run out. If within the start window time Backup
+     *        receives an error that allows the job to be retried, Backup will automatically retry to begin the job at
+     *        least every 10 minutes until the backup successfully begins (the job status changes to
+     *        <code>RUNNING</code>) or until the job status changes to <code>EXPIRED</code> (which is expected to occur
+     *        when the start window time is over).
      */
 
     public void setStartWindowMinutes(Long startWindowMinutes) {
@@ -312,10 +360,34 @@ public class StartBackupJobRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The amount of time in minutes before beginning a backup.
+     * A value in minutes after a backup is scheduled before a job will be canceled if it doesn't start successfully.
+     * This value is optional, and the default is 8 hours. If this value is included, it must be at least 60 minutes to
+     * avoid errors.
+     * </p>
+     * <p>
+     * This parameter has a maximum value of 100 years (52,560,000 minutes).
+     * </p>
+     * <p>
+     * During the start window, the backup job status remains in <code>CREATED</code> status until it has successfully
+     * begun or until the start window time has run out. If within the start window time Backup receives an error that
+     * allows the job to be retried, Backup will automatically retry to begin the job at least every 10 minutes until
+     * the backup successfully begins (the job status changes to <code>RUNNING</code>) or until the job status changes
+     * to <code>EXPIRED</code> (which is expected to occur when the start window time is over).
      * </p>
      * 
-     * @return The amount of time in minutes before beginning a backup.
+     * @return A value in minutes after a backup is scheduled before a job will be canceled if it doesn't start
+     *         successfully. This value is optional, and the default is 8 hours. If this value is included, it must be
+     *         at least 60 minutes to avoid errors.</p>
+     *         <p>
+     *         This parameter has a maximum value of 100 years (52,560,000 minutes).
+     *         </p>
+     *         <p>
+     *         During the start window, the backup job status remains in <code>CREATED</code> status until it has
+     *         successfully begun or until the start window time has run out. If within the start window time Backup
+     *         receives an error that allows the job to be retried, Backup will automatically retry to begin the job at
+     *         least every 10 minutes until the backup successfully begins (the job status changes to
+     *         <code>RUNNING</code>) or until the job status changes to <code>EXPIRED</code> (which is expected to occur
+     *         when the start window time is over).
      */
 
     public Long getStartWindowMinutes() {
@@ -324,11 +396,35 @@ public class StartBackupJobRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The amount of time in minutes before beginning a backup.
+     * A value in minutes after a backup is scheduled before a job will be canceled if it doesn't start successfully.
+     * This value is optional, and the default is 8 hours. If this value is included, it must be at least 60 minutes to
+     * avoid errors.
+     * </p>
+     * <p>
+     * This parameter has a maximum value of 100 years (52,560,000 minutes).
+     * </p>
+     * <p>
+     * During the start window, the backup job status remains in <code>CREATED</code> status until it has successfully
+     * begun or until the start window time has run out. If within the start window time Backup receives an error that
+     * allows the job to be retried, Backup will automatically retry to begin the job at least every 10 minutes until
+     * the backup successfully begins (the job status changes to <code>RUNNING</code>) or until the job status changes
+     * to <code>EXPIRED</code> (which is expected to occur when the start window time is over).
      * </p>
      * 
      * @param startWindowMinutes
-     *        The amount of time in minutes before beginning a backup.
+     *        A value in minutes after a backup is scheduled before a job will be canceled if it doesn't start
+     *        successfully. This value is optional, and the default is 8 hours. If this value is included, it must be at
+     *        least 60 minutes to avoid errors.</p>
+     *        <p>
+     *        This parameter has a maximum value of 100 years (52,560,000 minutes).
+     *        </p>
+     *        <p>
+     *        During the start window, the backup job status remains in <code>CREATED</code> status until it has
+     *        successfully begun or until the start window time has run out. If within the start window time Backup
+     *        receives an error that allows the job to be retried, Backup will automatically retry to begin the job at
+     *        least every 10 minutes until the backup successfully begins (the job status changes to
+     *        <code>RUNNING</code>) or until the job status changes to <code>EXPIRED</code> (which is expected to occur
+     *        when the start window time is over).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -339,11 +435,22 @@ public class StartBackupJobRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The amount of time AWS Backup attempts a backup before canceling the job and returning an error.
+     * A value in minutes during which a successfully started backup must complete, or else Backup will cancel the job.
+     * This value is optional. This value begins counting down from when the backup was scheduled. It does not add
+     * additional time for <code>StartWindowMinutes</code>, or if the backup started later than scheduled.
+     * </p>
+     * <p>
+     * Like <code>StartWindowMinutes</code>, this parameter has a maximum value of 100 years (52,560,000 minutes).
      * </p>
      * 
      * @param completeWindowMinutes
-     *        The amount of time AWS Backup attempts a backup before canceling the job and returning an error.
+     *        A value in minutes during which a successfully started backup must complete, or else Backup will cancel
+     *        the job. This value is optional. This value begins counting down from when the backup was scheduled. It
+     *        does not add additional time for <code>StartWindowMinutes</code>, or if the backup started later than
+     *        scheduled.</p>
+     *        <p>
+     *        Like <code>StartWindowMinutes</code>, this parameter has a maximum value of 100 years (52,560,000
+     *        minutes).
      */
 
     public void setCompleteWindowMinutes(Long completeWindowMinutes) {
@@ -352,10 +459,21 @@ public class StartBackupJobRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The amount of time AWS Backup attempts a backup before canceling the job and returning an error.
+     * A value in minutes during which a successfully started backup must complete, or else Backup will cancel the job.
+     * This value is optional. This value begins counting down from when the backup was scheduled. It does not add
+     * additional time for <code>StartWindowMinutes</code>, or if the backup started later than scheduled.
+     * </p>
+     * <p>
+     * Like <code>StartWindowMinutes</code>, this parameter has a maximum value of 100 years (52,560,000 minutes).
      * </p>
      * 
-     * @return The amount of time AWS Backup attempts a backup before canceling the job and returning an error.
+     * @return A value in minutes during which a successfully started backup must complete, or else Backup will cancel
+     *         the job. This value is optional. This value begins counting down from when the backup was scheduled. It
+     *         does not add additional time for <code>StartWindowMinutes</code>, or if the backup started later than
+     *         scheduled.</p>
+     *         <p>
+     *         Like <code>StartWindowMinutes</code>, this parameter has a maximum value of 100 years (52,560,000
+     *         minutes).
      */
 
     public Long getCompleteWindowMinutes() {
@@ -364,11 +482,22 @@ public class StartBackupJobRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The amount of time AWS Backup attempts a backup before canceling the job and returning an error.
+     * A value in minutes during which a successfully started backup must complete, or else Backup will cancel the job.
+     * This value is optional. This value begins counting down from when the backup was scheduled. It does not add
+     * additional time for <code>StartWindowMinutes</code>, or if the backup started later than scheduled.
+     * </p>
+     * <p>
+     * Like <code>StartWindowMinutes</code>, this parameter has a maximum value of 100 years (52,560,000 minutes).
      * </p>
      * 
      * @param completeWindowMinutes
-     *        The amount of time AWS Backup attempts a backup before canceling the job and returning an error.
+     *        A value in minutes during which a successfully started backup must complete, or else Backup will cancel
+     *        the job. This value is optional. This value begins counting down from when the backup was scheduled. It
+     *        does not add additional time for <code>StartWindowMinutes</code>, or if the backup started later than
+     *        scheduled.</p>
+     *        <p>
+     *        Like <code>StartWindowMinutes</code>, this parameter has a maximum value of 100 years (52,560,000
+     *        minutes).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -379,23 +508,40 @@ public class StartBackupJobRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS Backup
-     * will transition and expire backups automatically according to the lifecycle that you define.
+     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. Backup will
+     * transition and expire backups automatically according to the lifecycle that you define.
      * </p>
      * <p>
      * Backups transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore, the
-     * “expire after days” setting must be 90 days greater than the “transition to cold after days” setting. The
-     * “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * “retention” setting must be 90 days greater than the “transition to cold after days” setting. The “transition to
+     * cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * </p>
+     * <p>
+     * Resource types that are able to be transitioned to cold storage are listed in the "Lifecycle to cold storage"
+     * section of the <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource"> Feature
+     * availability by resource</a> table. Backup ignores this expression for other resource types.
+     * </p>
+     * <p>
+     * This parameter has a maximum value of 100 years (36,500 days).
      * </p>
      * 
      * @param lifecycle
-     *        The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS
+     *        The lifecycle defines when a protected resource is transitioned to cold storage and when it expires.
      *        Backup will transition and expire backups automatically according to the lifecycle that you define. </p>
      *        <p>
      *        Backups transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore,
-     *        the “expire after days” setting must be 90 days greater than the “transition to cold after days” setting.
-     *        The “transition to cold after days” setting cannot be changed after a backup has been transitioned to
-     *        cold.
+     *        the “retention” setting must be 90 days greater than the “transition to cold after days” setting. The
+     *        “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     *        </p>
+     *        <p>
+     *        Resource types that are able to be transitioned to cold storage are listed in the
+     *        "Lifecycle to cold storage" section of the <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource">
+     *        Feature availability by resource</a> table. Backup ignores this expression for other resource types.
+     *        </p>
+     *        <p>
+     *        This parameter has a maximum value of 100 years (36,500 days).
      */
 
     public void setLifecycle(Lifecycle lifecycle) {
@@ -404,22 +550,39 @@ public class StartBackupJobRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS Backup
-     * will transition and expire backups automatically according to the lifecycle that you define.
+     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. Backup will
+     * transition and expire backups automatically according to the lifecycle that you define.
      * </p>
      * <p>
      * Backups transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore, the
-     * “expire after days” setting must be 90 days greater than the “transition to cold after days” setting. The
-     * “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * “retention” setting must be 90 days greater than the “transition to cold after days” setting. The “transition to
+     * cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * </p>
+     * <p>
+     * Resource types that are able to be transitioned to cold storage are listed in the "Lifecycle to cold storage"
+     * section of the <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource"> Feature
+     * availability by resource</a> table. Backup ignores this expression for other resource types.
+     * </p>
+     * <p>
+     * This parameter has a maximum value of 100 years (36,500 days).
      * </p>
      * 
-     * @return The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS
+     * @return The lifecycle defines when a protected resource is transitioned to cold storage and when it expires.
      *         Backup will transition and expire backups automatically according to the lifecycle that you define. </p>
      *         <p>
      *         Backups transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore,
-     *         the “expire after days” setting must be 90 days greater than the “transition to cold after days” setting.
-     *         The “transition to cold after days” setting cannot be changed after a backup has been transitioned to
-     *         cold.
+     *         the “retention” setting must be 90 days greater than the “transition to cold after days” setting. The
+     *         “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     *         </p>
+     *         <p>
+     *         Resource types that are able to be transitioned to cold storage are listed in the
+     *         "Lifecycle to cold storage" section of the <a
+     *         href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource">
+     *         Feature availability by resource</a> table. Backup ignores this expression for other resource types.
+     *         </p>
+     *         <p>
+     *         This parameter has a maximum value of 100 years (36,500 days).
      */
 
     public Lifecycle getLifecycle() {
@@ -428,23 +591,40 @@ public class StartBackupJobRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS Backup
-     * will transition and expire backups automatically according to the lifecycle that you define.
+     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. Backup will
+     * transition and expire backups automatically according to the lifecycle that you define.
      * </p>
      * <p>
      * Backups transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore, the
-     * “expire after days” setting must be 90 days greater than the “transition to cold after days” setting. The
-     * “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * “retention” setting must be 90 days greater than the “transition to cold after days” setting. The “transition to
+     * cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * </p>
+     * <p>
+     * Resource types that are able to be transitioned to cold storage are listed in the "Lifecycle to cold storage"
+     * section of the <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource"> Feature
+     * availability by resource</a> table. Backup ignores this expression for other resource types.
+     * </p>
+     * <p>
+     * This parameter has a maximum value of 100 years (36,500 days).
      * </p>
      * 
      * @param lifecycle
-     *        The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS
+     *        The lifecycle defines when a protected resource is transitioned to cold storage and when it expires.
      *        Backup will transition and expire backups automatically according to the lifecycle that you define. </p>
      *        <p>
      *        Backups transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore,
-     *        the “expire after days” setting must be 90 days greater than the “transition to cold after days” setting.
-     *        The “transition to cold after days” setting cannot be changed after a backup has been transitioned to
-     *        cold.
+     *        the “retention” setting must be 90 days greater than the “transition to cold after days” setting. The
+     *        “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     *        </p>
+     *        <p>
+     *        Resource types that are able to be transitioned to cold storage are listed in the
+     *        "Lifecycle to cold storage" section of the <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource">
+     *        Feature availability by resource</a> table. Backup ignores this expression for other resource types.
+     *        </p>
+     *        <p>
+     *        This parameter has a maximum value of 100 years (36,500 days).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -499,6 +679,13 @@ public class StartBackupJobRequest extends com.amazonaws.AmazonWebServiceRequest
         return this;
     }
 
+    /**
+     * Add a single RecoveryPointTags entry
+     *
+     * @see StartBackupJobRequest#withRecoveryPointTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public StartBackupJobRequest addRecoveryPointTagsEntry(String key, String value) {
         if (null == this.recoveryPointTags) {
             this.recoveryPointTags = new java.util.HashMap<String, String>();
@@ -517,6 +704,107 @@ public class StartBackupJobRequest extends com.amazonaws.AmazonWebServiceRequest
 
     public StartBackupJobRequest clearRecoveryPointTagsEntries() {
         this.recoveryPointTags = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the backup option for a selected resource. This option is only available for Windows Volume Shadow Copy
+     * Service (VSS) backup jobs.
+     * </p>
+     * <p>
+     * Valid values: Set to <code>"WindowsVSS":"enabled"</code> to enable the <code>WindowsVSS</code> backup option and
+     * create a Windows VSS backup. Set to <code>"WindowsVSS""disabled"</code> to create a regular backup. The
+     * <code>WindowsVSS</code> option is not enabled by default.
+     * </p>
+     * 
+     * @return Specifies the backup option for a selected resource. This option is only available for Windows Volume
+     *         Shadow Copy Service (VSS) backup jobs.</p>
+     *         <p>
+     *         Valid values: Set to <code>"WindowsVSS":"enabled"</code> to enable the <code>WindowsVSS</code> backup
+     *         option and create a Windows VSS backup. Set to <code>"WindowsVSS""disabled"</code> to create a regular
+     *         backup. The <code>WindowsVSS</code> option is not enabled by default.
+     */
+
+    public java.util.Map<String, String> getBackupOptions() {
+        return backupOptions;
+    }
+
+    /**
+     * <p>
+     * Specifies the backup option for a selected resource. This option is only available for Windows Volume Shadow Copy
+     * Service (VSS) backup jobs.
+     * </p>
+     * <p>
+     * Valid values: Set to <code>"WindowsVSS":"enabled"</code> to enable the <code>WindowsVSS</code> backup option and
+     * create a Windows VSS backup. Set to <code>"WindowsVSS""disabled"</code> to create a regular backup. The
+     * <code>WindowsVSS</code> option is not enabled by default.
+     * </p>
+     * 
+     * @param backupOptions
+     *        Specifies the backup option for a selected resource. This option is only available for Windows Volume
+     *        Shadow Copy Service (VSS) backup jobs.</p>
+     *        <p>
+     *        Valid values: Set to <code>"WindowsVSS":"enabled"</code> to enable the <code>WindowsVSS</code> backup
+     *        option and create a Windows VSS backup. Set to <code>"WindowsVSS""disabled"</code> to create a regular
+     *        backup. The <code>WindowsVSS</code> option is not enabled by default.
+     */
+
+    public void setBackupOptions(java.util.Map<String, String> backupOptions) {
+        this.backupOptions = backupOptions;
+    }
+
+    /**
+     * <p>
+     * Specifies the backup option for a selected resource. This option is only available for Windows Volume Shadow Copy
+     * Service (VSS) backup jobs.
+     * </p>
+     * <p>
+     * Valid values: Set to <code>"WindowsVSS":"enabled"</code> to enable the <code>WindowsVSS</code> backup option and
+     * create a Windows VSS backup. Set to <code>"WindowsVSS""disabled"</code> to create a regular backup. The
+     * <code>WindowsVSS</code> option is not enabled by default.
+     * </p>
+     * 
+     * @param backupOptions
+     *        Specifies the backup option for a selected resource. This option is only available for Windows Volume
+     *        Shadow Copy Service (VSS) backup jobs.</p>
+     *        <p>
+     *        Valid values: Set to <code>"WindowsVSS":"enabled"</code> to enable the <code>WindowsVSS</code> backup
+     *        option and create a Windows VSS backup. Set to <code>"WindowsVSS""disabled"</code> to create a regular
+     *        backup. The <code>WindowsVSS</code> option is not enabled by default.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartBackupJobRequest withBackupOptions(java.util.Map<String, String> backupOptions) {
+        setBackupOptions(backupOptions);
+        return this;
+    }
+
+    /**
+     * Add a single BackupOptions entry
+     *
+     * @see StartBackupJobRequest#withBackupOptions
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartBackupJobRequest addBackupOptionsEntry(String key, String value) {
+        if (null == this.backupOptions) {
+            this.backupOptions = new java.util.HashMap<String, String>();
+        }
+        if (this.backupOptions.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.backupOptions.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into BackupOptions.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartBackupJobRequest clearBackupOptionsEntries() {
+        this.backupOptions = null;
         return this;
     }
 
@@ -547,7 +835,9 @@ public class StartBackupJobRequest extends com.amazonaws.AmazonWebServiceRequest
         if (getLifecycle() != null)
             sb.append("Lifecycle: ").append(getLifecycle()).append(",");
         if (getRecoveryPointTags() != null)
-            sb.append("RecoveryPointTags: ").append("***Sensitive Data Redacted***");
+            sb.append("RecoveryPointTags: ").append("***Sensitive Data Redacted***").append(",");
+        if (getBackupOptions() != null)
+            sb.append("BackupOptions: ").append(getBackupOptions());
         sb.append("}");
         return sb.toString();
     }
@@ -594,6 +884,10 @@ public class StartBackupJobRequest extends com.amazonaws.AmazonWebServiceRequest
             return false;
         if (other.getRecoveryPointTags() != null && other.getRecoveryPointTags().equals(this.getRecoveryPointTags()) == false)
             return false;
+        if (other.getBackupOptions() == null ^ this.getBackupOptions() == null)
+            return false;
+        if (other.getBackupOptions() != null && other.getBackupOptions().equals(this.getBackupOptions()) == false)
+            return false;
         return true;
     }
 
@@ -610,6 +904,7 @@ public class StartBackupJobRequest extends com.amazonaws.AmazonWebServiceRequest
         hashCode = prime * hashCode + ((getCompleteWindowMinutes() == null) ? 0 : getCompleteWindowMinutes().hashCode());
         hashCode = prime * hashCode + ((getLifecycle() == null) ? 0 : getLifecycle().hashCode());
         hashCode = prime * hashCode + ((getRecoveryPointTags() == null) ? 0 : getRecoveryPointTags().hashCode());
+        hashCode = prime * hashCode + ((getBackupOptions() == null) ? 0 : getBackupOptions().hashCode());
         return hashCode;
     }
 

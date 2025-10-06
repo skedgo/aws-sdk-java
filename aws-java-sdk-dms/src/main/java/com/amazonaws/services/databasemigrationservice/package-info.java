@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,17 +12,16 @@
  */
 
 /**
- * <fullname>AWS Database Migration Service</fullname>
+ * <fullname>Database Migration Service</fullname>
  * <p>
- * AWS Database Migration Service (AWS DMS) can migrate your data to and from the most widely used commercial and
- * open-source databases such as Oracle, PostgreSQL, Microsoft SQL Server, Amazon Redshift, MariaDB, Amazon Aurora,
- * MySQL, and SAP Adaptive Server Enterprise (ASE). The service supports homogeneous migrations such as Oracle to
- * Oracle, as well as heterogeneous migrations between different database platforms, such as Oracle to MySQL or SQL
- * Server to PostgreSQL.
+ * Database Migration Service (DMS) can migrate your data to and from the most widely used commercial and open-source
+ * databases such as Oracle, PostgreSQL, Microsoft SQL Server, Amazon Redshift, MariaDB, Amazon Aurora, MySQL, and SAP
+ * Adaptive Server Enterprise (ASE). The service supports homogeneous migrations such as Oracle to Oracle, as well as
+ * heterogeneous migrations between different database platforms, such as Oracle to MySQL or SQL Server to PostgreSQL.
  * </p>
  * <p>
- * For more information about AWS DMS, see <a href="https://docs.aws.amazon.com/dms/latest/userguide/Welcome.html">What
- * Is AWS Database Migration Service?</a> in the <i>AWS Database Migration User Guide.</i>
+ * For more information about DMS, see <a href="https://docs.aws.amazon.com/dms/latest/userguide/Welcome.html">What Is
+ * Database Migration Service?</a> in the <i>Database Migration Service User Guide.</i>
  * </p>
  */
 package com.amazonaws.services.databasemigrationservice;

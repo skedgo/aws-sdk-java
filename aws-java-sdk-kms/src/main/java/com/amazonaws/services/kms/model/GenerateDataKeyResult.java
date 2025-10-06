@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,30 +25,50 @@ public class GenerateDataKeyResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * The encrypted copy of the data key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded.
-     * Otherwise, it is not encoded.
+     * The encrypted copy of the data key. When you use the HTTP API or the Amazon Web Services CLI, the value is
+     * Base64-encoded. Otherwise, it is not Base64-encoded.
      * </p>
      */
     private java.nio.ByteBuffer ciphertextBlob;
     /**
      * <p>
-     * The plaintext data key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded. Otherwise, it is
-     * not encoded. Use this data key to encrypt your data outside of KMS. Then, remove it from memory as soon as
-     * possible.
+     * The plaintext data key. When you use the HTTP API or the Amazon Web Services CLI, the value is Base64-encoded.
+     * Otherwise, it is not Base64-encoded. Use this data key to encrypt your data outside of KMS. Then, remove it from
+     * memory as soon as possible.
+     * </p>
+     * <p>
+     * If the response includes the <code>CiphertextForRecipient</code> field, the <code>Plaintext</code> field is null
+     * or empty.
      * </p>
      */
     private java.nio.ByteBuffer plaintext;
     /**
      * <p>
-     * The identifier of the CMK that encrypted the data key.
+     * The Amazon Resource Name (<a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">key ARN</a>) of the KMS
+     * key that encrypted the data key.
      * </p>
      */
     private String keyId;
+    /**
+     * <p>
+     * The plaintext data key encrypted with the public key from the Nitro enclave. This ciphertext can be decrypted
+     * only by using a private key in the Nitro enclave.
+     * </p>
+     * <p>
+     * This field is included in the response only when the <code>Recipient</code> parameter in the request includes a
+     * valid attestation document from an Amazon Web Services Nitro enclave. For information about the interaction
+     * between KMS and Amazon Web Services Nitro Enclaves, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html">How Amazon Web Services
+     * Nitro Enclaves uses KMS</a> in the <i>Key Management Service Developer Guide</i>.
+     * </p>
+     */
+    private java.nio.ByteBuffer ciphertextForRecipient;
 
     /**
      * <p>
-     * The encrypted copy of the data key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded.
-     * Otherwise, it is not encoded.
+     * The encrypted copy of the data key. When you use the HTTP API or the Amazon Web Services CLI, the value is
+     * Base64-encoded. Otherwise, it is not Base64-encoded.
      * </p>
      * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
@@ -62,8 +82,8 @@ public class GenerateDataKeyResult extends com.amazonaws.AmazonWebServiceResult<
      * </p>
      * 
      * @param ciphertextBlob
-     *        The encrypted copy of the data key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded.
-     *        Otherwise, it is not encoded.
+     *        The encrypted copy of the data key. When you use the HTTP API or the Amazon Web Services CLI, the value is
+     *        Base64-encoded. Otherwise, it is not Base64-encoded.
      */
 
     public void setCiphertextBlob(java.nio.ByteBuffer ciphertextBlob) {
@@ -72,8 +92,8 @@ public class GenerateDataKeyResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * The encrypted copy of the data key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded.
-     * Otherwise, it is not encoded.
+     * The encrypted copy of the data key. When you use the HTTP API or the Amazon Web Services CLI, the value is
+     * Base64-encoded. Otherwise, it is not Base64-encoded.
      * </p>
      * <p>
      * {@code ByteBuffer}s are stateful. Calling their {@code get} methods changes their {@code position}. We recommend
@@ -83,8 +103,8 @@ public class GenerateDataKeyResult extends com.amazonaws.AmazonWebServiceResult<
      * {@code position}.
      * </p>
      * 
-     * @return The encrypted copy of the data key. When you use the HTTP API or the AWS CLI, the value is
-     *         Base64-encoded. Otherwise, it is not encoded.
+     * @return The encrypted copy of the data key. When you use the HTTP API or the Amazon Web Services CLI, the value
+     *         is Base64-encoded. Otherwise, it is not Base64-encoded.
      */
 
     public java.nio.ByteBuffer getCiphertextBlob() {
@@ -93,8 +113,8 @@ public class GenerateDataKeyResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * The encrypted copy of the data key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded.
-     * Otherwise, it is not encoded.
+     * The encrypted copy of the data key. When you use the HTTP API or the Amazon Web Services CLI, the value is
+     * Base64-encoded. Otherwise, it is not Base64-encoded.
      * </p>
      * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
@@ -108,8 +128,8 @@ public class GenerateDataKeyResult extends com.amazonaws.AmazonWebServiceResult<
      * </p>
      * 
      * @param ciphertextBlob
-     *        The encrypted copy of the data key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded.
-     *        Otherwise, it is not encoded.
+     *        The encrypted copy of the data key. When you use the HTTP API or the Amazon Web Services CLI, the value is
+     *        Base64-encoded. Otherwise, it is not Base64-encoded.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -120,9 +140,13 @@ public class GenerateDataKeyResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * The plaintext data key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded. Otherwise, it is
-     * not encoded. Use this data key to encrypt your data outside of KMS. Then, remove it from memory as soon as
-     * possible.
+     * The plaintext data key. When you use the HTTP API or the Amazon Web Services CLI, the value is Base64-encoded.
+     * Otherwise, it is not Base64-encoded. Use this data key to encrypt your data outside of KMS. Then, remove it from
+     * memory as soon as possible.
+     * </p>
+     * <p>
+     * If the response includes the <code>CiphertextForRecipient</code> field, the <code>Plaintext</code> field is null
+     * or empty.
      * </p>
      * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
@@ -136,9 +160,12 @@ public class GenerateDataKeyResult extends com.amazonaws.AmazonWebServiceResult<
      * </p>
      * 
      * @param plaintext
-     *        The plaintext data key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded. Otherwise,
-     *        it is not encoded. Use this data key to encrypt your data outside of KMS. Then, remove it from memory as
-     *        soon as possible.
+     *        The plaintext data key. When you use the HTTP API or the Amazon Web Services CLI, the value is
+     *        Base64-encoded. Otherwise, it is not Base64-encoded. Use this data key to encrypt your data outside of
+     *        KMS. Then, remove it from memory as soon as possible.</p>
+     *        <p>
+     *        If the response includes the <code>CiphertextForRecipient</code> field, the <code>Plaintext</code> field
+     *        is null or empty.
      */
 
     public void setPlaintext(java.nio.ByteBuffer plaintext) {
@@ -147,9 +174,13 @@ public class GenerateDataKeyResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * The plaintext data key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded. Otherwise, it is
-     * not encoded. Use this data key to encrypt your data outside of KMS. Then, remove it from memory as soon as
-     * possible.
+     * The plaintext data key. When you use the HTTP API or the Amazon Web Services CLI, the value is Base64-encoded.
+     * Otherwise, it is not Base64-encoded. Use this data key to encrypt your data outside of KMS. Then, remove it from
+     * memory as soon as possible.
+     * </p>
+     * <p>
+     * If the response includes the <code>CiphertextForRecipient</code> field, the <code>Plaintext</code> field is null
+     * or empty.
      * </p>
      * <p>
      * {@code ByteBuffer}s are stateful. Calling their {@code get} methods changes their {@code position}. We recommend
@@ -159,9 +190,12 @@ public class GenerateDataKeyResult extends com.amazonaws.AmazonWebServiceResult<
      * {@code position}.
      * </p>
      * 
-     * @return The plaintext data key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded. Otherwise,
-     *         it is not encoded. Use this data key to encrypt your data outside of KMS. Then, remove it from memory as
-     *         soon as possible.
+     * @return The plaintext data key. When you use the HTTP API or the Amazon Web Services CLI, the value is
+     *         Base64-encoded. Otherwise, it is not Base64-encoded. Use this data key to encrypt your data outside of
+     *         KMS. Then, remove it from memory as soon as possible.</p>
+     *         <p>
+     *         If the response includes the <code>CiphertextForRecipient</code> field, the <code>Plaintext</code> field
+     *         is null or empty.
      */
 
     public java.nio.ByteBuffer getPlaintext() {
@@ -170,9 +204,13 @@ public class GenerateDataKeyResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * The plaintext data key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded. Otherwise, it is
-     * not encoded. Use this data key to encrypt your data outside of KMS. Then, remove it from memory as soon as
-     * possible.
+     * The plaintext data key. When you use the HTTP API or the Amazon Web Services CLI, the value is Base64-encoded.
+     * Otherwise, it is not Base64-encoded. Use this data key to encrypt your data outside of KMS. Then, remove it from
+     * memory as soon as possible.
+     * </p>
+     * <p>
+     * If the response includes the <code>CiphertextForRecipient</code> field, the <code>Plaintext</code> field is null
+     * or empty.
      * </p>
      * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
@@ -186,9 +224,12 @@ public class GenerateDataKeyResult extends com.amazonaws.AmazonWebServiceResult<
      * </p>
      * 
      * @param plaintext
-     *        The plaintext data key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded. Otherwise,
-     *        it is not encoded. Use this data key to encrypt your data outside of KMS. Then, remove it from memory as
-     *        soon as possible.
+     *        The plaintext data key. When you use the HTTP API or the Amazon Web Services CLI, the value is
+     *        Base64-encoded. Otherwise, it is not Base64-encoded. Use this data key to encrypt your data outside of
+     *        KMS. Then, remove it from memory as soon as possible.</p>
+     *        <p>
+     *        If the response includes the <code>CiphertextForRecipient</code> field, the <code>Plaintext</code> field
+     *        is null or empty.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -199,11 +240,15 @@ public class GenerateDataKeyResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * The identifier of the CMK that encrypted the data key.
+     * The Amazon Resource Name (<a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">key ARN</a>) of the KMS
+     * key that encrypted the data key.
      * </p>
      * 
      * @param keyId
-     *        The identifier of the CMK that encrypted the data key.
+     *        The Amazon Resource Name (<a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">key ARN</a>) of
+     *        the KMS key that encrypted the data key.
      */
 
     public void setKeyId(String keyId) {
@@ -212,10 +257,14 @@ public class GenerateDataKeyResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * The identifier of the CMK that encrypted the data key.
+     * The Amazon Resource Name (<a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">key ARN</a>) of the KMS
+     * key that encrypted the data key.
      * </p>
      * 
-     * @return The identifier of the CMK that encrypted the data key.
+     * @return The Amazon Resource Name (<a
+     *         href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">key ARN</a>) of
+     *         the KMS key that encrypted the data key.
      */
 
     public String getKeyId() {
@@ -224,16 +273,132 @@ public class GenerateDataKeyResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * The identifier of the CMK that encrypted the data key.
+     * The Amazon Resource Name (<a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">key ARN</a>) of the KMS
+     * key that encrypted the data key.
      * </p>
      * 
      * @param keyId
-     *        The identifier of the CMK that encrypted the data key.
+     *        The Amazon Resource Name (<a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN">key ARN</a>) of
+     *        the KMS key that encrypted the data key.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public GenerateDataKeyResult withKeyId(String keyId) {
         setKeyId(keyId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The plaintext data key encrypted with the public key from the Nitro enclave. This ciphertext can be decrypted
+     * only by using a private key in the Nitro enclave.
+     * </p>
+     * <p>
+     * This field is included in the response only when the <code>Recipient</code> parameter in the request includes a
+     * valid attestation document from an Amazon Web Services Nitro enclave. For information about the interaction
+     * between KMS and Amazon Web Services Nitro Enclaves, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html">How Amazon Web Services
+     * Nitro Enclaves uses KMS</a> in the <i>Key Management Service Developer Guide</i>.
+     * </p>
+     * <p>
+     * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
+     * Users of the SDK should not perform Base64 encoding on this field.
+     * </p>
+     * <p>
+     * Warning: ByteBuffers returned by the SDK are mutable. Changes to the content or position of the byte buffer will
+     * be seen by all objects that have a reference to this object. It is recommended to call ByteBuffer.duplicate() or
+     * ByteBuffer.asReadOnlyBuffer() before using or reading from the buffer. This behavior will be changed in a future
+     * major version of the SDK.
+     * </p>
+     * 
+     * @param ciphertextForRecipient
+     *        The plaintext data key encrypted with the public key from the Nitro enclave. This ciphertext can be
+     *        decrypted only by using a private key in the Nitro enclave. </p>
+     *        <p>
+     *        This field is included in the response only when the <code>Recipient</code> parameter in the request
+     *        includes a valid attestation document from an Amazon Web Services Nitro enclave. For information about the
+     *        interaction between KMS and Amazon Web Services Nitro Enclaves, see <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html">How Amazon Web
+     *        Services Nitro Enclaves uses KMS</a> in the <i>Key Management Service Developer Guide</i>.
+     */
+
+    public void setCiphertextForRecipient(java.nio.ByteBuffer ciphertextForRecipient) {
+        this.ciphertextForRecipient = ciphertextForRecipient;
+    }
+
+    /**
+     * <p>
+     * The plaintext data key encrypted with the public key from the Nitro enclave. This ciphertext can be decrypted
+     * only by using a private key in the Nitro enclave.
+     * </p>
+     * <p>
+     * This field is included in the response only when the <code>Recipient</code> parameter in the request includes a
+     * valid attestation document from an Amazon Web Services Nitro enclave. For information about the interaction
+     * between KMS and Amazon Web Services Nitro Enclaves, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html">How Amazon Web Services
+     * Nitro Enclaves uses KMS</a> in the <i>Key Management Service Developer Guide</i>.
+     * </p>
+     * <p>
+     * {@code ByteBuffer}s are stateful. Calling their {@code get} methods changes their {@code position}. We recommend
+     * using {@link java.nio.ByteBuffer#asReadOnlyBuffer()} to create a read-only view of the buffer with an independent
+     * {@code position}, and calling {@code get} methods on this rather than directly on the returned {@code ByteBuffer}.
+     * Doing so will ensure that anyone else using the {@code ByteBuffer} will not be affected by changes to the
+     * {@code position}.
+     * </p>
+     * 
+     * @return The plaintext data key encrypted with the public key from the Nitro enclave. This ciphertext can be
+     *         decrypted only by using a private key in the Nitro enclave. </p>
+     *         <p>
+     *         This field is included in the response only when the <code>Recipient</code> parameter in the request
+     *         includes a valid attestation document from an Amazon Web Services Nitro enclave. For information about
+     *         the interaction between KMS and Amazon Web Services Nitro Enclaves, see <a
+     *         href="https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html">How Amazon Web
+     *         Services Nitro Enclaves uses KMS</a> in the <i>Key Management Service Developer Guide</i>.
+     */
+
+    public java.nio.ByteBuffer getCiphertextForRecipient() {
+        return this.ciphertextForRecipient;
+    }
+
+    /**
+     * <p>
+     * The plaintext data key encrypted with the public key from the Nitro enclave. This ciphertext can be decrypted
+     * only by using a private key in the Nitro enclave.
+     * </p>
+     * <p>
+     * This field is included in the response only when the <code>Recipient</code> parameter in the request includes a
+     * valid attestation document from an Amazon Web Services Nitro enclave. For information about the interaction
+     * between KMS and Amazon Web Services Nitro Enclaves, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html">How Amazon Web Services
+     * Nitro Enclaves uses KMS</a> in the <i>Key Management Service Developer Guide</i>.
+     * </p>
+     * <p>
+     * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
+     * Users of the SDK should not perform Base64 encoding on this field.
+     * </p>
+     * <p>
+     * Warning: ByteBuffers returned by the SDK are mutable. Changes to the content or position of the byte buffer will
+     * be seen by all objects that have a reference to this object. It is recommended to call ByteBuffer.duplicate() or
+     * ByteBuffer.asReadOnlyBuffer() before using or reading from the buffer. This behavior will be changed in a future
+     * major version of the SDK.
+     * </p>
+     * 
+     * @param ciphertextForRecipient
+     *        The plaintext data key encrypted with the public key from the Nitro enclave. This ciphertext can be
+     *        decrypted only by using a private key in the Nitro enclave. </p>
+     *        <p>
+     *        This field is included in the response only when the <code>Recipient</code> parameter in the request
+     *        includes a valid attestation document from an Amazon Web Services Nitro enclave. For information about the
+     *        interaction between KMS and Amazon Web Services Nitro Enclaves, see <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/services-nitro-enclaves.html">How Amazon Web
+     *        Services Nitro Enclaves uses KMS</a> in the <i>Key Management Service Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GenerateDataKeyResult withCiphertextForRecipient(java.nio.ByteBuffer ciphertextForRecipient) {
+        setCiphertextForRecipient(ciphertextForRecipient);
         return this;
     }
 
@@ -254,7 +419,9 @@ public class GenerateDataKeyResult extends com.amazonaws.AmazonWebServiceResult<
         if (getPlaintext() != null)
             sb.append("Plaintext: ").append("***Sensitive Data Redacted***").append(",");
         if (getKeyId() != null)
-            sb.append("KeyId: ").append(getKeyId());
+            sb.append("KeyId: ").append(getKeyId()).append(",");
+        if (getCiphertextForRecipient() != null)
+            sb.append("CiphertextForRecipient: ").append(getCiphertextForRecipient());
         sb.append("}");
         return sb.toString();
     }
@@ -281,6 +448,10 @@ public class GenerateDataKeyResult extends com.amazonaws.AmazonWebServiceResult<
             return false;
         if (other.getKeyId() != null && other.getKeyId().equals(this.getKeyId()) == false)
             return false;
+        if (other.getCiphertextForRecipient() == null ^ this.getCiphertextForRecipient() == null)
+            return false;
+        if (other.getCiphertextForRecipient() != null && other.getCiphertextForRecipient().equals(this.getCiphertextForRecipient()) == false)
+            return false;
         return true;
     }
 
@@ -292,6 +463,7 @@ public class GenerateDataKeyResult extends com.amazonaws.AmazonWebServiceResult<
         hashCode = prime * hashCode + ((getCiphertextBlob() == null) ? 0 : getCiphertextBlob().hashCode());
         hashCode = prime * hashCode + ((getPlaintext() == null) ? 0 : getPlaintext().hashCode());
         hashCode = prime * hashCode + ((getKeyId() == null) ? 0 : getKeyId().hashCode());
+        hashCode = prime * hashCode + ((getCiphertextForRecipient() == null) ? 0 : getCiphertextForRecipient().hashCode());
         return hashCode;
     }
 

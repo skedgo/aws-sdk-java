@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class InventoryDeletionSummary implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The total number of items to delete. This count does not change during the delete operation.
+     * The total number of items to delete. This count doesn't change during the delete operation.
      * </p>
      */
     private Integer totalCount;
@@ -49,11 +49,11 @@ public class InventoryDeletionSummary implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The total number of items to delete. This count does not change during the delete operation.
+     * The total number of items to delete. This count doesn't change during the delete operation.
      * </p>
      * 
      * @param totalCount
-     *        The total number of items to delete. This count does not change during the delete operation.
+     *        The total number of items to delete. This count doesn't change during the delete operation.
      */
 
     public void setTotalCount(Integer totalCount) {
@@ -62,10 +62,10 @@ public class InventoryDeletionSummary implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The total number of items to delete. This count does not change during the delete operation.
+     * The total number of items to delete. This count doesn't change during the delete operation.
      * </p>
      * 
-     * @return The total number of items to delete. This count does not change during the delete operation.
+     * @return The total number of items to delete. This count doesn't change during the delete operation.
      */
 
     public Integer getTotalCount() {
@@ -74,11 +74,11 @@ public class InventoryDeletionSummary implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The total number of items to delete. This count does not change during the delete operation.
+     * The total number of items to delete. This count doesn't change during the delete operation.
      * </p>
      * 
      * @param totalCount
-     *        The total number of items to delete. This count does not change during the delete operation.
+     *        The total number of items to delete. This count doesn't change during the delete operation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

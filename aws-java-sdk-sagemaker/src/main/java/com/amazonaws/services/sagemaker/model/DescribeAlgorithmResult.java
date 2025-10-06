@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -61,7 +61,7 @@ public class DescribeAlgorithmResult extends com.amazonaws.AmazonWebServiceResul
     private InferenceSpecification inferenceSpecification;
     /**
      * <p>
-     * Details about configurations for one or more training jobs that Amazon SageMaker runs to test the algorithm.
+     * Details about configurations for one or more training jobs that SageMaker runs to test the algorithm.
      * </p>
      */
     private AlgorithmValidationSpecification validationSpecification;
@@ -85,7 +85,7 @@ public class DescribeAlgorithmResult extends com.amazonaws.AmazonWebServiceResul
     private String productId;
     /**
      * <p>
-     * Whether the algorithm is certified to be listed in AWS Marketplace.
+     * Whether the algorithm is certified to be listed in Amazon Web Services Marketplace.
      * </p>
      */
     private Boolean certifyForMarketplace;
@@ -332,12 +332,11 @@ public class DescribeAlgorithmResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * Details about configurations for one or more training jobs that Amazon SageMaker runs to test the algorithm.
+     * Details about configurations for one or more training jobs that SageMaker runs to test the algorithm.
      * </p>
      * 
      * @param validationSpecification
-     *        Details about configurations for one or more training jobs that Amazon SageMaker runs to test the
-     *        algorithm.
+     *        Details about configurations for one or more training jobs that SageMaker runs to test the algorithm.
      */
 
     public void setValidationSpecification(AlgorithmValidationSpecification validationSpecification) {
@@ -346,11 +345,10 @@ public class DescribeAlgorithmResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * Details about configurations for one or more training jobs that Amazon SageMaker runs to test the algorithm.
+     * Details about configurations for one or more training jobs that SageMaker runs to test the algorithm.
      * </p>
      * 
-     * @return Details about configurations for one or more training jobs that Amazon SageMaker runs to test the
-     *         algorithm.
+     * @return Details about configurations for one or more training jobs that SageMaker runs to test the algorithm.
      */
 
     public AlgorithmValidationSpecification getValidationSpecification() {
@@ -359,12 +357,11 @@ public class DescribeAlgorithmResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * Details about configurations for one or more training jobs that Amazon SageMaker runs to test the algorithm.
+     * Details about configurations for one or more training jobs that SageMaker runs to test the algorithm.
      * </p>
      * 
      * @param validationSpecification
-     *        Details about configurations for one or more training jobs that Amazon SageMaker runs to test the
-     *        algorithm.
+     *        Details about configurations for one or more training jobs that SageMaker runs to test the algorithm.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -514,11 +511,11 @@ public class DescribeAlgorithmResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * Whether the algorithm is certified to be listed in AWS Marketplace.
+     * Whether the algorithm is certified to be listed in Amazon Web Services Marketplace.
      * </p>
      * 
      * @param certifyForMarketplace
-     *        Whether the algorithm is certified to be listed in AWS Marketplace.
+     *        Whether the algorithm is certified to be listed in Amazon Web Services Marketplace.
      */
 
     public void setCertifyForMarketplace(Boolean certifyForMarketplace) {
@@ -527,10 +524,10 @@ public class DescribeAlgorithmResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * Whether the algorithm is certified to be listed in AWS Marketplace.
+     * Whether the algorithm is certified to be listed in Amazon Web Services Marketplace.
      * </p>
      * 
-     * @return Whether the algorithm is certified to be listed in AWS Marketplace.
+     * @return Whether the algorithm is certified to be listed in Amazon Web Services Marketplace.
      */
 
     public Boolean getCertifyForMarketplace() {
@@ -539,11 +536,11 @@ public class DescribeAlgorithmResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * Whether the algorithm is certified to be listed in AWS Marketplace.
+     * Whether the algorithm is certified to be listed in Amazon Web Services Marketplace.
      * </p>
      * 
      * @param certifyForMarketplace
-     *        Whether the algorithm is certified to be listed in AWS Marketplace.
+     *        Whether the algorithm is certified to be listed in Amazon Web Services Marketplace.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -554,10 +551,10 @@ public class DescribeAlgorithmResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * Whether the algorithm is certified to be listed in AWS Marketplace.
+     * Whether the algorithm is certified to be listed in Amazon Web Services Marketplace.
      * </p>
      * 
-     * @return Whether the algorithm is certified to be listed in AWS Marketplace.
+     * @return Whether the algorithm is certified to be listed in Amazon Web Services Marketplace.
      */
 
     public Boolean isCertifyForMarketplace() {

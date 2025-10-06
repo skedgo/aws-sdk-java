@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Portions copyright 2006-2009 James Murty. Please see LICENSE.txt
  * for applicable license terms and NOTICE.txt for applicable notices.
@@ -59,7 +59,7 @@ import static com.amazonaws.util.IOUtils.closeQuietly;
 import static com.amazonaws.util.StringUtils.UTF8;
 
 /**
- * General utility methods used throughout the AWS S3 Java client.
+ * General utility methods used throughout the Amazon Web Services S3 Java client.
  */
 public class ServiceUtils {
     private static final Log LOG = LogFactory.getLog(ServiceUtils.class);
@@ -334,7 +334,9 @@ public class ServiceUtils {
             if (clientSideHash != null && serverSideHash != null && !Arrays.equals(clientSideHash, serverSideHash)) {
                 throw new SdkClientException("Unable to verify integrity of data download.  " +
                         "Client calculated content hash didn't match hash calculated by Amazon S3.  " +
-                        "The data stored in '" + dstfile.getAbsolutePath() + "' may be corrupt.");
+                        "The data stored in '" + dstfile.getAbsolutePath() + "' may be corrupt." +
+                        "\nClient-side hash: " + Arrays.toString(clientSideHash) +
+                        "\nServer-side hash: " + Arrays.toString(serverSideHash));
             }
         }
     }

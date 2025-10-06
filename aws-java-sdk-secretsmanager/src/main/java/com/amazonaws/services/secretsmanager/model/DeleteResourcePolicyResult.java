@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,7 +31,7 @@ public class DeleteResourcePolicyResult extends com.amazonaws.AmazonWebServiceRe
     private String aRN;
     /**
      * <p>
-     * The friendly name of the secret that the resource-based policy was deleted for.
+     * The name of the secret that the resource-based policy was deleted for.
      * </p>
      */
     private String name;
@@ -78,11 +78,11 @@ public class DeleteResourcePolicyResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The friendly name of the secret that the resource-based policy was deleted for.
+     * The name of the secret that the resource-based policy was deleted for.
      * </p>
      * 
      * @param name
-     *        The friendly name of the secret that the resource-based policy was deleted for.
+     *        The name of the secret that the resource-based policy was deleted for.
      */
 
     public void setName(String name) {
@@ -91,10 +91,10 @@ public class DeleteResourcePolicyResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The friendly name of the secret that the resource-based policy was deleted for.
+     * The name of the secret that the resource-based policy was deleted for.
      * </p>
      * 
-     * @return The friendly name of the secret that the resource-based policy was deleted for.
+     * @return The name of the secret that the resource-based policy was deleted for.
      */
 
     public String getName() {
@@ -103,11 +103,11 @@ public class DeleteResourcePolicyResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The friendly name of the secret that the resource-based policy was deleted for.
+     * The name of the secret that the resource-based policy was deleted for.
      * </p>
      * 
      * @param name
-     *        The friendly name of the secret that the resource-based policy was deleted for.
+     *        The name of the secret that the resource-based policy was deleted for.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

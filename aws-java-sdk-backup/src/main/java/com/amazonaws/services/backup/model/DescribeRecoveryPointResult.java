@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -47,14 +47,22 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
     private String backupVaultArn;
     /**
      * <p>
+     * An Amazon Resource Name (ARN) that uniquely identifies the source vault where the resource was originally backed
+     * up in; for example, <code>arn:aws:backup:us-east-1:123456789012:vault:BackupVault</code>. If the recovery is
+     * restored to the same Amazon Web Services account or Region, this value will be <code>null</code>.
+     * </p>
+     */
+    private String sourceBackupVaultArn;
+    /**
+     * <p>
      * An ARN that uniquely identifies a saved resource. The format of the ARN depends on the resource type.
      * </p>
      */
     private String resourceArn;
     /**
      * <p>
-     * The type of AWS resource to save as a recovery point; for example, an Amazon Elastic Block Store (Amazon EBS)
-     * volume or an Amazon Relational Database Service (Amazon RDS) database.
+     * The type of Amazon Web Services resource to save as a recovery point; for example, an Amazon Elastic Block Store
+     * (Amazon EBS) volume or an Amazon Relational Database Service (Amazon RDS) database.
      * </p>
      */
     private String resourceType;
@@ -76,13 +84,42 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
      * <p>
      * A status code specifying the state of the recovery point.
      * </p>
-     * <note>
      * <p>
-     * A partial status indicates that the recovery point was not successfully re-created and must be retried.
+     * <code>PARTIAL</code> status indicates Backup could not create the recovery point before the backup window closed.
+     * To increase your backup plan window using the API, see <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_UpdateBackupPlan.html">UpdateBackupPlan</a>. You
+     * can also increase your backup plan window using the Console by choosing and editing your backup plan.
      * </p>
-     * </note>
+     * <p>
+     * <code>EXPIRED</code> status indicates that the recovery point has exceeded its retention period, but Backup lacks
+     * permission or is otherwise unable to delete it. To manually delete these recovery points, see <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/gs-cleanup-resources.html#cleanup-backups"> Step 3:
+     * Delete the recovery points</a> in the <i>Clean up resources</i> section of <i>Getting started</i>.
+     * </p>
+     * <p>
+     * <code>STOPPED</code> status occurs on a continuous backup where a user has taken some action that causes the
+     * continuous backup to be disabled. This can be caused by the removal of permissions, turning off versioning,
+     * turning off events being sent to EventBridge, or disabling the EventBridge rules that are put in place by Backup.
+     * </p>
+     * <p>
+     * To resolve <code>STOPPED</code> status, ensure that all requested permissions are in place and that versioning is
+     * enabled on the S3 bucket. Once these conditions are met, the next instance of a backup rule running will result
+     * in a new continuous recovery point being created. The recovery points with STOPPED status do not need to be
+     * deleted.
+     * </p>
+     * <p>
+     * For SAP HANA on Amazon EC2 <code>STOPPED</code> status occurs due to user action, application misconfiguration,
+     * or backup failure. To ensure that future continuous backups succeed, refer to the recovery point status and check
+     * SAP HANA for details.
+     * </p>
      */
     private String status;
+    /**
+     * <p>
+     * A status message explaining the status of the recovery point.
+     * </p>
+     */
+    private String statusMessage;
     /**
      * <p>
      * The date and time that a recovery point is created, in Unix format and Coordinated Universal Time (UTC). The
@@ -114,13 +151,19 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
     private CalculatedLifecycle calculatedLifecycle;
     /**
      * <p>
-     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS Backup
+     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. Backup
      * transitions and expires backups automatically according to the lifecycle that you define.
      * </p>
      * <p>
      * Backups that are transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore,
-     * the “expire after days” setting must be 90 days greater than the “transition to cold after days” setting. The
-     * “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * the “retention” setting must be 90 days greater than the “transition to cold after days” setting. The “transition
+     * to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * </p>
+     * <p>
+     * Resource types that are able to be transitioned to cold storage are listed in the "Lifecycle to cold storage"
+     * section of the <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource"> Feature
+     * availability by resource</a> table. Backup ignores this expression for other resource types.
      * </p>
      */
     private Lifecycle lifecycle;
@@ -152,6 +195,40 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
      * </p>
      */
     private java.util.Date lastRestoreTime;
+    /**
+     * <p>
+     * This is an ARN that uniquely identifies a parent (composite) recovery point; for example,
+     * <code>arn:aws:backup:us-east-1:123456789012:recovery-point:1EB3B5E7-9EB0-435A-A80B-108B488B0D45</code>.
+     * </p>
+     */
+    private String parentRecoveryPointArn;
+    /**
+     * <p>
+     * This is the identifier of a resource within a composite group, such as nested (child) recovery point belonging to
+     * a composite (parent) stack. The ID is transferred from the <a href=
+     * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html#resources-section-structure-syntax"
+     * > logical ID</a> within a stack.
+     * </p>
+     */
+    private String compositeMemberIdentifier;
+    /**
+     * <p>
+     * This returns the boolean value that a recovery point is a parent (composite) job.
+     * </p>
+     */
+    private Boolean isParent;
+    /**
+     * <p>
+     * This is the non-unique name of the resource that belongs to the specified backup.
+     * </p>
+     */
+    private String resourceName;
+    /**
+     * <p>
+     * This is the type of vault in which the described recovery point is stored.
+     * </p>
+     */
+    private String vaultType;
 
     /**
      * <p>
@@ -299,6 +376,61 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
+     * An Amazon Resource Name (ARN) that uniquely identifies the source vault where the resource was originally backed
+     * up in; for example, <code>arn:aws:backup:us-east-1:123456789012:vault:BackupVault</code>. If the recovery is
+     * restored to the same Amazon Web Services account or Region, this value will be <code>null</code>.
+     * </p>
+     * 
+     * @param sourceBackupVaultArn
+     *        An Amazon Resource Name (ARN) that uniquely identifies the source vault where the resource was originally
+     *        backed up in; for example, <code>arn:aws:backup:us-east-1:123456789012:vault:BackupVault</code>. If the
+     *        recovery is restored to the same Amazon Web Services account or Region, this value will be
+     *        <code>null</code>.
+     */
+
+    public void setSourceBackupVaultArn(String sourceBackupVaultArn) {
+        this.sourceBackupVaultArn = sourceBackupVaultArn;
+    }
+
+    /**
+     * <p>
+     * An Amazon Resource Name (ARN) that uniquely identifies the source vault where the resource was originally backed
+     * up in; for example, <code>arn:aws:backup:us-east-1:123456789012:vault:BackupVault</code>. If the recovery is
+     * restored to the same Amazon Web Services account or Region, this value will be <code>null</code>.
+     * </p>
+     * 
+     * @return An Amazon Resource Name (ARN) that uniquely identifies the source vault where the resource was originally
+     *         backed up in; for example, <code>arn:aws:backup:us-east-1:123456789012:vault:BackupVault</code>. If the
+     *         recovery is restored to the same Amazon Web Services account or Region, this value will be
+     *         <code>null</code>.
+     */
+
+    public String getSourceBackupVaultArn() {
+        return this.sourceBackupVaultArn;
+    }
+
+    /**
+     * <p>
+     * An Amazon Resource Name (ARN) that uniquely identifies the source vault where the resource was originally backed
+     * up in; for example, <code>arn:aws:backup:us-east-1:123456789012:vault:BackupVault</code>. If the recovery is
+     * restored to the same Amazon Web Services account or Region, this value will be <code>null</code>.
+     * </p>
+     * 
+     * @param sourceBackupVaultArn
+     *        An Amazon Resource Name (ARN) that uniquely identifies the source vault where the resource was originally
+     *        backed up in; for example, <code>arn:aws:backup:us-east-1:123456789012:vault:BackupVault</code>. If the
+     *        recovery is restored to the same Amazon Web Services account or Region, this value will be
+     *        <code>null</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeRecoveryPointResult withSourceBackupVaultArn(String sourceBackupVaultArn) {
+        setSourceBackupVaultArn(sourceBackupVaultArn);
+        return this;
+    }
+
+    /**
+     * <p>
      * An ARN that uniquely identifies a saved resource. The format of the ARN depends on the resource type.
      * </p>
      * 
@@ -339,13 +471,13 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The type of AWS resource to save as a recovery point; for example, an Amazon Elastic Block Store (Amazon EBS)
-     * volume or an Amazon Relational Database Service (Amazon RDS) database.
+     * The type of Amazon Web Services resource to save as a recovery point; for example, an Amazon Elastic Block Store
+     * (Amazon EBS) volume or an Amazon Relational Database Service (Amazon RDS) database.
      * </p>
      * 
      * @param resourceType
-     *        The type of AWS resource to save as a recovery point; for example, an Amazon Elastic Block Store (Amazon
-     *        EBS) volume or an Amazon Relational Database Service (Amazon RDS) database.
+     *        The type of Amazon Web Services resource to save as a recovery point; for example, an Amazon Elastic Block
+     *        Store (Amazon EBS) volume or an Amazon Relational Database Service (Amazon RDS) database.
      */
 
     public void setResourceType(String resourceType) {
@@ -354,12 +486,12 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The type of AWS resource to save as a recovery point; for example, an Amazon Elastic Block Store (Amazon EBS)
-     * volume or an Amazon Relational Database Service (Amazon RDS) database.
+     * The type of Amazon Web Services resource to save as a recovery point; for example, an Amazon Elastic Block Store
+     * (Amazon EBS) volume or an Amazon Relational Database Service (Amazon RDS) database.
      * </p>
      * 
-     * @return The type of AWS resource to save as a recovery point; for example, an Amazon Elastic Block Store (Amazon
-     *         EBS) volume or an Amazon Relational Database Service (Amazon RDS) database.
+     * @return The type of Amazon Web Services resource to save as a recovery point; for example, an Amazon Elastic
+     *         Block Store (Amazon EBS) volume or an Amazon Relational Database Service (Amazon RDS) database.
      */
 
     public String getResourceType() {
@@ -368,13 +500,13 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The type of AWS resource to save as a recovery point; for example, an Amazon Elastic Block Store (Amazon EBS)
-     * volume or an Amazon Relational Database Service (Amazon RDS) database.
+     * The type of Amazon Web Services resource to save as a recovery point; for example, an Amazon Elastic Block Store
+     * (Amazon EBS) volume or an Amazon Relational Database Service (Amazon RDS) database.
      * </p>
      * 
      * @param resourceType
-     *        The type of AWS resource to save as a recovery point; for example, an Amazon Elastic Block Store (Amazon
-     *        EBS) volume or an Amazon Relational Database Service (Amazon RDS) database.
+     *        The type of Amazon Web Services resource to save as a recovery point; for example, an Amazon Elastic Block
+     *        Store (Amazon EBS) volume or an Amazon Relational Database Service (Amazon RDS) database.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -482,17 +614,67 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
      * <p>
      * A status code specifying the state of the recovery point.
      * </p>
-     * <note>
      * <p>
-     * A partial status indicates that the recovery point was not successfully re-created and must be retried.
+     * <code>PARTIAL</code> status indicates Backup could not create the recovery point before the backup window closed.
+     * To increase your backup plan window using the API, see <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_UpdateBackupPlan.html">UpdateBackupPlan</a>. You
+     * can also increase your backup plan window using the Console by choosing and editing your backup plan.
      * </p>
-     * </note>
+     * <p>
+     * <code>EXPIRED</code> status indicates that the recovery point has exceeded its retention period, but Backup lacks
+     * permission or is otherwise unable to delete it. To manually delete these recovery points, see <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/gs-cleanup-resources.html#cleanup-backups"> Step 3:
+     * Delete the recovery points</a> in the <i>Clean up resources</i> section of <i>Getting started</i>.
+     * </p>
+     * <p>
+     * <code>STOPPED</code> status occurs on a continuous backup where a user has taken some action that causes the
+     * continuous backup to be disabled. This can be caused by the removal of permissions, turning off versioning,
+     * turning off events being sent to EventBridge, or disabling the EventBridge rules that are put in place by Backup.
+     * </p>
+     * <p>
+     * To resolve <code>STOPPED</code> status, ensure that all requested permissions are in place and that versioning is
+     * enabled on the S3 bucket. Once these conditions are met, the next instance of a backup rule running will result
+     * in a new continuous recovery point being created. The recovery points with STOPPED status do not need to be
+     * deleted.
+     * </p>
+     * <p>
+     * For SAP HANA on Amazon EC2 <code>STOPPED</code> status occurs due to user action, application misconfiguration,
+     * or backup failure. To ensure that future continuous backups succeed, refer to the recovery point status and check
+     * SAP HANA for details.
+     * </p>
      * 
      * @param status
-     *        A status code specifying the state of the recovery point.</p> <note>
+     *        A status code specifying the state of the recovery point.</p>
      *        <p>
-     *        A partial status indicates that the recovery point was not successfully re-created and must be retried.
+     *        <code>PARTIAL</code> status indicates Backup could not create the recovery point before the backup window
+     *        closed. To increase your backup plan window using the API, see <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_UpdateBackupPlan.html"
+     *        >UpdateBackupPlan</a>. You can also increase your backup plan window using the Console by choosing and
+     *        editing your backup plan.
      *        </p>
+     *        <p>
+     *        <code>EXPIRED</code> status indicates that the recovery point has exceeded its retention period, but
+     *        Backup lacks permission or is otherwise unable to delete it. To manually delete these recovery points, see
+     *        <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/gs-cleanup-resources.html#cleanup-backups">
+     *        Step 3: Delete the recovery points</a> in the <i>Clean up resources</i> section of <i>Getting started</i>.
+     *        </p>
+     *        <p>
+     *        <code>STOPPED</code> status occurs on a continuous backup where a user has taken some action that causes
+     *        the continuous backup to be disabled. This can be caused by the removal of permissions, turning off
+     *        versioning, turning off events being sent to EventBridge, or disabling the EventBridge rules that are put
+     *        in place by Backup.
+     *        </p>
+     *        <p>
+     *        To resolve <code>STOPPED</code> status, ensure that all requested permissions are in place and that
+     *        versioning is enabled on the S3 bucket. Once these conditions are met, the next instance of a backup rule
+     *        running will result in a new continuous recovery point being created. The recovery points with STOPPED
+     *        status do not need to be deleted.
+     *        </p>
+     *        <p>
+     *        For SAP HANA on Amazon EC2 <code>STOPPED</code> status occurs due to user action, application
+     *        misconfiguration, or backup failure. To ensure that future continuous backups succeed, refer to the
+     *        recovery point status and check SAP HANA for details.
      * @see RecoveryPointStatus
      */
 
@@ -504,16 +686,67 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
      * <p>
      * A status code specifying the state of the recovery point.
      * </p>
-     * <note>
      * <p>
-     * A partial status indicates that the recovery point was not successfully re-created and must be retried.
+     * <code>PARTIAL</code> status indicates Backup could not create the recovery point before the backup window closed.
+     * To increase your backup plan window using the API, see <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_UpdateBackupPlan.html">UpdateBackupPlan</a>. You
+     * can also increase your backup plan window using the Console by choosing and editing your backup plan.
      * </p>
-     * </note>
+     * <p>
+     * <code>EXPIRED</code> status indicates that the recovery point has exceeded its retention period, but Backup lacks
+     * permission or is otherwise unable to delete it. To manually delete these recovery points, see <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/gs-cleanup-resources.html#cleanup-backups"> Step 3:
+     * Delete the recovery points</a> in the <i>Clean up resources</i> section of <i>Getting started</i>.
+     * </p>
+     * <p>
+     * <code>STOPPED</code> status occurs on a continuous backup where a user has taken some action that causes the
+     * continuous backup to be disabled. This can be caused by the removal of permissions, turning off versioning,
+     * turning off events being sent to EventBridge, or disabling the EventBridge rules that are put in place by Backup.
+     * </p>
+     * <p>
+     * To resolve <code>STOPPED</code> status, ensure that all requested permissions are in place and that versioning is
+     * enabled on the S3 bucket. Once these conditions are met, the next instance of a backup rule running will result
+     * in a new continuous recovery point being created. The recovery points with STOPPED status do not need to be
+     * deleted.
+     * </p>
+     * <p>
+     * For SAP HANA on Amazon EC2 <code>STOPPED</code> status occurs due to user action, application misconfiguration,
+     * or backup failure. To ensure that future continuous backups succeed, refer to the recovery point status and check
+     * SAP HANA for details.
+     * </p>
      * 
-     * @return A status code specifying the state of the recovery point.</p> <note>
+     * @return A status code specifying the state of the recovery point.</p>
      *         <p>
-     *         A partial status indicates that the recovery point was not successfully re-created and must be retried.
+     *         <code>PARTIAL</code> status indicates Backup could not create the recovery point before the backup window
+     *         closed. To increase your backup plan window using the API, see <a
+     *         href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_UpdateBackupPlan.html"
+     *         >UpdateBackupPlan</a>. You can also increase your backup plan window using the Console by choosing and
+     *         editing your backup plan.
      *         </p>
+     *         <p>
+     *         <code>EXPIRED</code> status indicates that the recovery point has exceeded its retention period, but
+     *         Backup lacks permission or is otherwise unable to delete it. To manually delete these recovery points,
+     *         see <a
+     *         href="https://docs.aws.amazon.com/aws-backup/latest/devguide/gs-cleanup-resources.html#cleanup-backups">
+     *         Step 3: Delete the recovery points</a> in the <i>Clean up resources</i> section of <i>Getting
+     *         started</i>.
+     *         </p>
+     *         <p>
+     *         <code>STOPPED</code> status occurs on a continuous backup where a user has taken some action that causes
+     *         the continuous backup to be disabled. This can be caused by the removal of permissions, turning off
+     *         versioning, turning off events being sent to EventBridge, or disabling the EventBridge rules that are put
+     *         in place by Backup.
+     *         </p>
+     *         <p>
+     *         To resolve <code>STOPPED</code> status, ensure that all requested permissions are in place and that
+     *         versioning is enabled on the S3 bucket. Once these conditions are met, the next instance of a backup rule
+     *         running will result in a new continuous recovery point being created. The recovery points with STOPPED
+     *         status do not need to be deleted.
+     *         </p>
+     *         <p>
+     *         For SAP HANA on Amazon EC2 <code>STOPPED</code> status occurs due to user action, application
+     *         misconfiguration, or backup failure. To ensure that future continuous backups succeed, refer to the
+     *         recovery point status and check SAP HANA for details.
      * @see RecoveryPointStatus
      */
 
@@ -525,17 +758,67 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
      * <p>
      * A status code specifying the state of the recovery point.
      * </p>
-     * <note>
      * <p>
-     * A partial status indicates that the recovery point was not successfully re-created and must be retried.
+     * <code>PARTIAL</code> status indicates Backup could not create the recovery point before the backup window closed.
+     * To increase your backup plan window using the API, see <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_UpdateBackupPlan.html">UpdateBackupPlan</a>. You
+     * can also increase your backup plan window using the Console by choosing and editing your backup plan.
      * </p>
-     * </note>
+     * <p>
+     * <code>EXPIRED</code> status indicates that the recovery point has exceeded its retention period, but Backup lacks
+     * permission or is otherwise unable to delete it. To manually delete these recovery points, see <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/gs-cleanup-resources.html#cleanup-backups"> Step 3:
+     * Delete the recovery points</a> in the <i>Clean up resources</i> section of <i>Getting started</i>.
+     * </p>
+     * <p>
+     * <code>STOPPED</code> status occurs on a continuous backup where a user has taken some action that causes the
+     * continuous backup to be disabled. This can be caused by the removal of permissions, turning off versioning,
+     * turning off events being sent to EventBridge, or disabling the EventBridge rules that are put in place by Backup.
+     * </p>
+     * <p>
+     * To resolve <code>STOPPED</code> status, ensure that all requested permissions are in place and that versioning is
+     * enabled on the S3 bucket. Once these conditions are met, the next instance of a backup rule running will result
+     * in a new continuous recovery point being created. The recovery points with STOPPED status do not need to be
+     * deleted.
+     * </p>
+     * <p>
+     * For SAP HANA on Amazon EC2 <code>STOPPED</code> status occurs due to user action, application misconfiguration,
+     * or backup failure. To ensure that future continuous backups succeed, refer to the recovery point status and check
+     * SAP HANA for details.
+     * </p>
      * 
      * @param status
-     *        A status code specifying the state of the recovery point.</p> <note>
+     *        A status code specifying the state of the recovery point.</p>
      *        <p>
-     *        A partial status indicates that the recovery point was not successfully re-created and must be retried.
+     *        <code>PARTIAL</code> status indicates Backup could not create the recovery point before the backup window
+     *        closed. To increase your backup plan window using the API, see <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_UpdateBackupPlan.html"
+     *        >UpdateBackupPlan</a>. You can also increase your backup plan window using the Console by choosing and
+     *        editing your backup plan.
      *        </p>
+     *        <p>
+     *        <code>EXPIRED</code> status indicates that the recovery point has exceeded its retention period, but
+     *        Backup lacks permission or is otherwise unable to delete it. To manually delete these recovery points, see
+     *        <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/gs-cleanup-resources.html#cleanup-backups">
+     *        Step 3: Delete the recovery points</a> in the <i>Clean up resources</i> section of <i>Getting started</i>.
+     *        </p>
+     *        <p>
+     *        <code>STOPPED</code> status occurs on a continuous backup where a user has taken some action that causes
+     *        the continuous backup to be disabled. This can be caused by the removal of permissions, turning off
+     *        versioning, turning off events being sent to EventBridge, or disabling the EventBridge rules that are put
+     *        in place by Backup.
+     *        </p>
+     *        <p>
+     *        To resolve <code>STOPPED</code> status, ensure that all requested permissions are in place and that
+     *        versioning is enabled on the S3 bucket. Once these conditions are met, the next instance of a backup rule
+     *        running will result in a new continuous recovery point being created. The recovery points with STOPPED
+     *        status do not need to be deleted.
+     *        </p>
+     *        <p>
+     *        For SAP HANA on Amazon EC2 <code>STOPPED</code> status occurs due to user action, application
+     *        misconfiguration, or backup failure. To ensure that future continuous backups succeed, refer to the
+     *        recovery point status and check SAP HANA for details.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see RecoveryPointStatus
      */
@@ -549,23 +832,113 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
      * <p>
      * A status code specifying the state of the recovery point.
      * </p>
-     * <note>
      * <p>
-     * A partial status indicates that the recovery point was not successfully re-created and must be retried.
+     * <code>PARTIAL</code> status indicates Backup could not create the recovery point before the backup window closed.
+     * To increase your backup plan window using the API, see <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_UpdateBackupPlan.html">UpdateBackupPlan</a>. You
+     * can also increase your backup plan window using the Console by choosing and editing your backup plan.
      * </p>
-     * </note>
+     * <p>
+     * <code>EXPIRED</code> status indicates that the recovery point has exceeded its retention period, but Backup lacks
+     * permission or is otherwise unable to delete it. To manually delete these recovery points, see <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/gs-cleanup-resources.html#cleanup-backups"> Step 3:
+     * Delete the recovery points</a> in the <i>Clean up resources</i> section of <i>Getting started</i>.
+     * </p>
+     * <p>
+     * <code>STOPPED</code> status occurs on a continuous backup where a user has taken some action that causes the
+     * continuous backup to be disabled. This can be caused by the removal of permissions, turning off versioning,
+     * turning off events being sent to EventBridge, or disabling the EventBridge rules that are put in place by Backup.
+     * </p>
+     * <p>
+     * To resolve <code>STOPPED</code> status, ensure that all requested permissions are in place and that versioning is
+     * enabled on the S3 bucket. Once these conditions are met, the next instance of a backup rule running will result
+     * in a new continuous recovery point being created. The recovery points with STOPPED status do not need to be
+     * deleted.
+     * </p>
+     * <p>
+     * For SAP HANA on Amazon EC2 <code>STOPPED</code> status occurs due to user action, application misconfiguration,
+     * or backup failure. To ensure that future continuous backups succeed, refer to the recovery point status and check
+     * SAP HANA for details.
+     * </p>
      * 
      * @param status
-     *        A status code specifying the state of the recovery point.</p> <note>
+     *        A status code specifying the state of the recovery point.</p>
      *        <p>
-     *        A partial status indicates that the recovery point was not successfully re-created and must be retried.
+     *        <code>PARTIAL</code> status indicates Backup could not create the recovery point before the backup window
+     *        closed. To increase your backup plan window using the API, see <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_UpdateBackupPlan.html"
+     *        >UpdateBackupPlan</a>. You can also increase your backup plan window using the Console by choosing and
+     *        editing your backup plan.
      *        </p>
+     *        <p>
+     *        <code>EXPIRED</code> status indicates that the recovery point has exceeded its retention period, but
+     *        Backup lacks permission or is otherwise unable to delete it. To manually delete these recovery points, see
+     *        <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/gs-cleanup-resources.html#cleanup-backups">
+     *        Step 3: Delete the recovery points</a> in the <i>Clean up resources</i> section of <i>Getting started</i>.
+     *        </p>
+     *        <p>
+     *        <code>STOPPED</code> status occurs on a continuous backup where a user has taken some action that causes
+     *        the continuous backup to be disabled. This can be caused by the removal of permissions, turning off
+     *        versioning, turning off events being sent to EventBridge, or disabling the EventBridge rules that are put
+     *        in place by Backup.
+     *        </p>
+     *        <p>
+     *        To resolve <code>STOPPED</code> status, ensure that all requested permissions are in place and that
+     *        versioning is enabled on the S3 bucket. Once these conditions are met, the next instance of a backup rule
+     *        running will result in a new continuous recovery point being created. The recovery points with STOPPED
+     *        status do not need to be deleted.
+     *        </p>
+     *        <p>
+     *        For SAP HANA on Amazon EC2 <code>STOPPED</code> status occurs due to user action, application
+     *        misconfiguration, or backup failure. To ensure that future continuous backups succeed, refer to the
+     *        recovery point status and check SAP HANA for details.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see RecoveryPointStatus
      */
 
     public DescribeRecoveryPointResult withStatus(RecoveryPointStatus status) {
         this.status = status.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * A status message explaining the status of the recovery point.
+     * </p>
+     * 
+     * @param statusMessage
+     *        A status message explaining the status of the recovery point.
+     */
+
+    public void setStatusMessage(String statusMessage) {
+        this.statusMessage = statusMessage;
+    }
+
+    /**
+     * <p>
+     * A status message explaining the status of the recovery point.
+     * </p>
+     * 
+     * @return A status message explaining the status of the recovery point.
+     */
+
+    public String getStatusMessage() {
+        return this.statusMessage;
+    }
+
+    /**
+     * <p>
+     * A status message explaining the status of the recovery point.
+     * </p>
+     * 
+     * @param statusMessage
+     *        A status message explaining the status of the recovery point.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeRecoveryPointResult withStatusMessage(String statusMessage) {
+        setStatusMessage(statusMessage);
         return this;
     }
 
@@ -761,23 +1134,35 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS Backup
+     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. Backup
      * transitions and expires backups automatically according to the lifecycle that you define.
      * </p>
      * <p>
      * Backups that are transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore,
-     * the “expire after days” setting must be 90 days greater than the “transition to cold after days” setting. The
-     * “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * the “retention” setting must be 90 days greater than the “transition to cold after days” setting. The “transition
+     * to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * </p>
+     * <p>
+     * Resource types that are able to be transitioned to cold storage are listed in the "Lifecycle to cold storage"
+     * section of the <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource"> Feature
+     * availability by resource</a> table. Backup ignores this expression for other resource types.
      * </p>
      * 
      * @param lifecycle
-     *        The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS
-     *        Backup transitions and expires backups automatically according to the lifecycle that you define. </p>
+     *        The lifecycle defines when a protected resource is transitioned to cold storage and when it expires.
+     *        Backup transitions and expires backups automatically according to the lifecycle that you define.</p>
      *        <p>
      *        Backups that are transitioned to cold storage must be stored in cold storage for a minimum of 90 days.
-     *        Therefore, the “expire after days” setting must be 90 days greater than the “transition to cold after
-     *        days” setting. The “transition to cold after days” setting cannot be changed after a backup has been
+     *        Therefore, the “retention” setting must be 90 days greater than the “transition to cold after days”
+     *        setting. The “transition to cold after days” setting cannot be changed after a backup has been
      *        transitioned to cold.
+     *        </p>
+     *        <p>
+     *        Resource types that are able to be transitioned to cold storage are listed in the
+     *        "Lifecycle to cold storage" section of the <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource">
+     *        Feature availability by resource</a> table. Backup ignores this expression for other resource types.
      */
 
     public void setLifecycle(Lifecycle lifecycle) {
@@ -786,22 +1171,34 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS Backup
+     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. Backup
      * transitions and expires backups automatically according to the lifecycle that you define.
      * </p>
      * <p>
      * Backups that are transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore,
-     * the “expire after days” setting must be 90 days greater than the “transition to cold after days” setting. The
-     * “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * the “retention” setting must be 90 days greater than the “transition to cold after days” setting. The “transition
+     * to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * </p>
+     * <p>
+     * Resource types that are able to be transitioned to cold storage are listed in the "Lifecycle to cold storage"
+     * section of the <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource"> Feature
+     * availability by resource</a> table. Backup ignores this expression for other resource types.
      * </p>
      * 
-     * @return The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS
-     *         Backup transitions and expires backups automatically according to the lifecycle that you define. </p>
+     * @return The lifecycle defines when a protected resource is transitioned to cold storage and when it expires.
+     *         Backup transitions and expires backups automatically according to the lifecycle that you define.</p>
      *         <p>
      *         Backups that are transitioned to cold storage must be stored in cold storage for a minimum of 90 days.
-     *         Therefore, the “expire after days” setting must be 90 days greater than the “transition to cold after
-     *         days” setting. The “transition to cold after days” setting cannot be changed after a backup has been
+     *         Therefore, the “retention” setting must be 90 days greater than the “transition to cold after days”
+     *         setting. The “transition to cold after days” setting cannot be changed after a backup has been
      *         transitioned to cold.
+     *         </p>
+     *         <p>
+     *         Resource types that are able to be transitioned to cold storage are listed in the
+     *         "Lifecycle to cold storage" section of the <a
+     *         href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource">
+     *         Feature availability by resource</a> table. Backup ignores this expression for other resource types.
      */
 
     public Lifecycle getLifecycle() {
@@ -810,23 +1207,35 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS Backup
+     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. Backup
      * transitions and expires backups automatically according to the lifecycle that you define.
      * </p>
      * <p>
      * Backups that are transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore,
-     * the “expire after days” setting must be 90 days greater than the “transition to cold after days” setting. The
-     * “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * the “retention” setting must be 90 days greater than the “transition to cold after days” setting. The “transition
+     * to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * </p>
+     * <p>
+     * Resource types that are able to be transitioned to cold storage are listed in the "Lifecycle to cold storage"
+     * section of the <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource"> Feature
+     * availability by resource</a> table. Backup ignores this expression for other resource types.
      * </p>
      * 
      * @param lifecycle
-     *        The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS
-     *        Backup transitions and expires backups automatically according to the lifecycle that you define. </p>
+     *        The lifecycle defines when a protected resource is transitioned to cold storage and when it expires.
+     *        Backup transitions and expires backups automatically according to the lifecycle that you define.</p>
      *        <p>
      *        Backups that are transitioned to cold storage must be stored in cold storage for a minimum of 90 days.
-     *        Therefore, the “expire after days” setting must be 90 days greater than the “transition to cold after
-     *        days” setting. The “transition to cold after days” setting cannot be changed after a backup has been
+     *        Therefore, the “retention” setting must be 90 days greater than the “transition to cold after days”
+     *        setting. The “transition to cold after days” setting cannot be changed after a backup has been
      *        transitioned to cold.
+     *        </p>
+     *        <p>
+     *        Resource types that are able to be transitioned to cold storage are listed in the
+     *        "Lifecycle to cold storage" section of the <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource">
+     *        Feature availability by resource</a> table. Backup ignores this expression for other resource types.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1057,6 +1466,261 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
     }
 
     /**
+     * <p>
+     * This is an ARN that uniquely identifies a parent (composite) recovery point; for example,
+     * <code>arn:aws:backup:us-east-1:123456789012:recovery-point:1EB3B5E7-9EB0-435A-A80B-108B488B0D45</code>.
+     * </p>
+     * 
+     * @param parentRecoveryPointArn
+     *        This is an ARN that uniquely identifies a parent (composite) recovery point; for example,
+     *        <code>arn:aws:backup:us-east-1:123456789012:recovery-point:1EB3B5E7-9EB0-435A-A80B-108B488B0D45</code>.
+     */
+
+    public void setParentRecoveryPointArn(String parentRecoveryPointArn) {
+        this.parentRecoveryPointArn = parentRecoveryPointArn;
+    }
+
+    /**
+     * <p>
+     * This is an ARN that uniquely identifies a parent (composite) recovery point; for example,
+     * <code>arn:aws:backup:us-east-1:123456789012:recovery-point:1EB3B5E7-9EB0-435A-A80B-108B488B0D45</code>.
+     * </p>
+     * 
+     * @return This is an ARN that uniquely identifies a parent (composite) recovery point; for example,
+     *         <code>arn:aws:backup:us-east-1:123456789012:recovery-point:1EB3B5E7-9EB0-435A-A80B-108B488B0D45</code>.
+     */
+
+    public String getParentRecoveryPointArn() {
+        return this.parentRecoveryPointArn;
+    }
+
+    /**
+     * <p>
+     * This is an ARN that uniquely identifies a parent (composite) recovery point; for example,
+     * <code>arn:aws:backup:us-east-1:123456789012:recovery-point:1EB3B5E7-9EB0-435A-A80B-108B488B0D45</code>.
+     * </p>
+     * 
+     * @param parentRecoveryPointArn
+     *        This is an ARN that uniquely identifies a parent (composite) recovery point; for example,
+     *        <code>arn:aws:backup:us-east-1:123456789012:recovery-point:1EB3B5E7-9EB0-435A-A80B-108B488B0D45</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeRecoveryPointResult withParentRecoveryPointArn(String parentRecoveryPointArn) {
+        setParentRecoveryPointArn(parentRecoveryPointArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This is the identifier of a resource within a composite group, such as nested (child) recovery point belonging to
+     * a composite (parent) stack. The ID is transferred from the <a href=
+     * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html#resources-section-structure-syntax"
+     * > logical ID</a> within a stack.
+     * </p>
+     * 
+     * @param compositeMemberIdentifier
+     *        This is the identifier of a resource within a composite group, such as nested (child) recovery point
+     *        belonging to a composite (parent) stack. The ID is transferred from the <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html#resources-section-structure-syntax"
+     *        > logical ID</a> within a stack.
+     */
+
+    public void setCompositeMemberIdentifier(String compositeMemberIdentifier) {
+        this.compositeMemberIdentifier = compositeMemberIdentifier;
+    }
+
+    /**
+     * <p>
+     * This is the identifier of a resource within a composite group, such as nested (child) recovery point belonging to
+     * a composite (parent) stack. The ID is transferred from the <a href=
+     * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html#resources-section-structure-syntax"
+     * > logical ID</a> within a stack.
+     * </p>
+     * 
+     * @return This is the identifier of a resource within a composite group, such as nested (child) recovery point
+     *         belonging to a composite (parent) stack. The ID is transferred from the <a href=
+     *         "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html#resources-section-structure-syntax"
+     *         > logical ID</a> within a stack.
+     */
+
+    public String getCompositeMemberIdentifier() {
+        return this.compositeMemberIdentifier;
+    }
+
+    /**
+     * <p>
+     * This is the identifier of a resource within a composite group, such as nested (child) recovery point belonging to
+     * a composite (parent) stack. The ID is transferred from the <a href=
+     * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html#resources-section-structure-syntax"
+     * > logical ID</a> within a stack.
+     * </p>
+     * 
+     * @param compositeMemberIdentifier
+     *        This is the identifier of a resource within a composite group, such as nested (child) recovery point
+     *        belonging to a composite (parent) stack. The ID is transferred from the <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html#resources-section-structure-syntax"
+     *        > logical ID</a> within a stack.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeRecoveryPointResult withCompositeMemberIdentifier(String compositeMemberIdentifier) {
+        setCompositeMemberIdentifier(compositeMemberIdentifier);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This returns the boolean value that a recovery point is a parent (composite) job.
+     * </p>
+     * 
+     * @param isParent
+     *        This returns the boolean value that a recovery point is a parent (composite) job.
+     */
+
+    public void setIsParent(Boolean isParent) {
+        this.isParent = isParent;
+    }
+
+    /**
+     * <p>
+     * This returns the boolean value that a recovery point is a parent (composite) job.
+     * </p>
+     * 
+     * @return This returns the boolean value that a recovery point is a parent (composite) job.
+     */
+
+    public Boolean getIsParent() {
+        return this.isParent;
+    }
+
+    /**
+     * <p>
+     * This returns the boolean value that a recovery point is a parent (composite) job.
+     * </p>
+     * 
+     * @param isParent
+     *        This returns the boolean value that a recovery point is a parent (composite) job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeRecoveryPointResult withIsParent(Boolean isParent) {
+        setIsParent(isParent);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This returns the boolean value that a recovery point is a parent (composite) job.
+     * </p>
+     * 
+     * @return This returns the boolean value that a recovery point is a parent (composite) job.
+     */
+
+    public Boolean isParent() {
+        return this.isParent;
+    }
+
+    /**
+     * <p>
+     * This is the non-unique name of the resource that belongs to the specified backup.
+     * </p>
+     * 
+     * @param resourceName
+     *        This is the non-unique name of the resource that belongs to the specified backup.
+     */
+
+    public void setResourceName(String resourceName) {
+        this.resourceName = resourceName;
+    }
+
+    /**
+     * <p>
+     * This is the non-unique name of the resource that belongs to the specified backup.
+     * </p>
+     * 
+     * @return This is the non-unique name of the resource that belongs to the specified backup.
+     */
+
+    public String getResourceName() {
+        return this.resourceName;
+    }
+
+    /**
+     * <p>
+     * This is the non-unique name of the resource that belongs to the specified backup.
+     * </p>
+     * 
+     * @param resourceName
+     *        This is the non-unique name of the resource that belongs to the specified backup.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeRecoveryPointResult withResourceName(String resourceName) {
+        setResourceName(resourceName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This is the type of vault in which the described recovery point is stored.
+     * </p>
+     * 
+     * @param vaultType
+     *        This is the type of vault in which the described recovery point is stored.
+     * @see VaultType
+     */
+
+    public void setVaultType(String vaultType) {
+        this.vaultType = vaultType;
+    }
+
+    /**
+     * <p>
+     * This is the type of vault in which the described recovery point is stored.
+     * </p>
+     * 
+     * @return This is the type of vault in which the described recovery point is stored.
+     * @see VaultType
+     */
+
+    public String getVaultType() {
+        return this.vaultType;
+    }
+
+    /**
+     * <p>
+     * This is the type of vault in which the described recovery point is stored.
+     * </p>
+     * 
+     * @param vaultType
+     *        This is the type of vault in which the described recovery point is stored.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see VaultType
+     */
+
+    public DescribeRecoveryPointResult withVaultType(String vaultType) {
+        setVaultType(vaultType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This is the type of vault in which the described recovery point is stored.
+     * </p>
+     * 
+     * @param vaultType
+     *        This is the type of vault in which the described recovery point is stored.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see VaultType
+     */
+
+    public DescribeRecoveryPointResult withVaultType(VaultType vaultType) {
+        this.vaultType = vaultType.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1074,6 +1738,8 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
             sb.append("BackupVaultName: ").append(getBackupVaultName()).append(",");
         if (getBackupVaultArn() != null)
             sb.append("BackupVaultArn: ").append(getBackupVaultArn()).append(",");
+        if (getSourceBackupVaultArn() != null)
+            sb.append("SourceBackupVaultArn: ").append(getSourceBackupVaultArn()).append(",");
         if (getResourceArn() != null)
             sb.append("ResourceArn: ").append(getResourceArn()).append(",");
         if (getResourceType() != null)
@@ -1084,6 +1750,8 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
             sb.append("IamRoleArn: ").append(getIamRoleArn()).append(",");
         if (getStatus() != null)
             sb.append("Status: ").append(getStatus()).append(",");
+        if (getStatusMessage() != null)
+            sb.append("StatusMessage: ").append(getStatusMessage()).append(",");
         if (getCreationDate() != null)
             sb.append("CreationDate: ").append(getCreationDate()).append(",");
         if (getCompletionDate() != null)
@@ -1101,7 +1769,17 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
         if (getStorageClass() != null)
             sb.append("StorageClass: ").append(getStorageClass()).append(",");
         if (getLastRestoreTime() != null)
-            sb.append("LastRestoreTime: ").append(getLastRestoreTime());
+            sb.append("LastRestoreTime: ").append(getLastRestoreTime()).append(",");
+        if (getParentRecoveryPointArn() != null)
+            sb.append("ParentRecoveryPointArn: ").append(getParentRecoveryPointArn()).append(",");
+        if (getCompositeMemberIdentifier() != null)
+            sb.append("CompositeMemberIdentifier: ").append(getCompositeMemberIdentifier()).append(",");
+        if (getIsParent() != null)
+            sb.append("IsParent: ").append(getIsParent()).append(",");
+        if (getResourceName() != null)
+            sb.append("ResourceName: ").append(getResourceName()).append(",");
+        if (getVaultType() != null)
+            sb.append("VaultType: ").append(getVaultType());
         sb.append("}");
         return sb.toString();
     }
@@ -1128,6 +1806,10 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
             return false;
         if (other.getBackupVaultArn() != null && other.getBackupVaultArn().equals(this.getBackupVaultArn()) == false)
             return false;
+        if (other.getSourceBackupVaultArn() == null ^ this.getSourceBackupVaultArn() == null)
+            return false;
+        if (other.getSourceBackupVaultArn() != null && other.getSourceBackupVaultArn().equals(this.getSourceBackupVaultArn()) == false)
+            return false;
         if (other.getResourceArn() == null ^ this.getResourceArn() == null)
             return false;
         if (other.getResourceArn() != null && other.getResourceArn().equals(this.getResourceArn()) == false)
@@ -1147,6 +1829,10 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
         if (other.getStatus() == null ^ this.getStatus() == null)
             return false;
         if (other.getStatus() != null && other.getStatus().equals(this.getStatus()) == false)
+            return false;
+        if (other.getStatusMessage() == null ^ this.getStatusMessage() == null)
+            return false;
+        if (other.getStatusMessage() != null && other.getStatusMessage().equals(this.getStatusMessage()) == false)
             return false;
         if (other.getCreationDate() == null ^ this.getCreationDate() == null)
             return false;
@@ -1184,6 +1870,26 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
             return false;
         if (other.getLastRestoreTime() != null && other.getLastRestoreTime().equals(this.getLastRestoreTime()) == false)
             return false;
+        if (other.getParentRecoveryPointArn() == null ^ this.getParentRecoveryPointArn() == null)
+            return false;
+        if (other.getParentRecoveryPointArn() != null && other.getParentRecoveryPointArn().equals(this.getParentRecoveryPointArn()) == false)
+            return false;
+        if (other.getCompositeMemberIdentifier() == null ^ this.getCompositeMemberIdentifier() == null)
+            return false;
+        if (other.getCompositeMemberIdentifier() != null && other.getCompositeMemberIdentifier().equals(this.getCompositeMemberIdentifier()) == false)
+            return false;
+        if (other.getIsParent() == null ^ this.getIsParent() == null)
+            return false;
+        if (other.getIsParent() != null && other.getIsParent().equals(this.getIsParent()) == false)
+            return false;
+        if (other.getResourceName() == null ^ this.getResourceName() == null)
+            return false;
+        if (other.getResourceName() != null && other.getResourceName().equals(this.getResourceName()) == false)
+            return false;
+        if (other.getVaultType() == null ^ this.getVaultType() == null)
+            return false;
+        if (other.getVaultType() != null && other.getVaultType().equals(this.getVaultType()) == false)
+            return false;
         return true;
     }
 
@@ -1195,11 +1901,13 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
         hashCode = prime * hashCode + ((getRecoveryPointArn() == null) ? 0 : getRecoveryPointArn().hashCode());
         hashCode = prime * hashCode + ((getBackupVaultName() == null) ? 0 : getBackupVaultName().hashCode());
         hashCode = prime * hashCode + ((getBackupVaultArn() == null) ? 0 : getBackupVaultArn().hashCode());
+        hashCode = prime * hashCode + ((getSourceBackupVaultArn() == null) ? 0 : getSourceBackupVaultArn().hashCode());
         hashCode = prime * hashCode + ((getResourceArn() == null) ? 0 : getResourceArn().hashCode());
         hashCode = prime * hashCode + ((getResourceType() == null) ? 0 : getResourceType().hashCode());
         hashCode = prime * hashCode + ((getCreatedBy() == null) ? 0 : getCreatedBy().hashCode());
         hashCode = prime * hashCode + ((getIamRoleArn() == null) ? 0 : getIamRoleArn().hashCode());
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        hashCode = prime * hashCode + ((getStatusMessage() == null) ? 0 : getStatusMessage().hashCode());
         hashCode = prime * hashCode + ((getCreationDate() == null) ? 0 : getCreationDate().hashCode());
         hashCode = prime * hashCode + ((getCompletionDate() == null) ? 0 : getCompletionDate().hashCode());
         hashCode = prime * hashCode + ((getBackupSizeInBytes() == null) ? 0 : getBackupSizeInBytes().hashCode());
@@ -1209,6 +1917,11 @@ public class DescribeRecoveryPointResult extends com.amazonaws.AmazonWebServiceR
         hashCode = prime * hashCode + ((getIsEncrypted() == null) ? 0 : getIsEncrypted().hashCode());
         hashCode = prime * hashCode + ((getStorageClass() == null) ? 0 : getStorageClass().hashCode());
         hashCode = prime * hashCode + ((getLastRestoreTime() == null) ? 0 : getLastRestoreTime().hashCode());
+        hashCode = prime * hashCode + ((getParentRecoveryPointArn() == null) ? 0 : getParentRecoveryPointArn().hashCode());
+        hashCode = prime * hashCode + ((getCompositeMemberIdentifier() == null) ? 0 : getCompositeMemberIdentifier().hashCode());
+        hashCode = prime * hashCode + ((getIsParent() == null) ? 0 : getIsParent().hashCode());
+        hashCode = prime * hashCode + ((getResourceName() == null) ? 0 : getResourceName().hashCode());
+        hashCode = prime * hashCode + ((getVaultType() == null) ? 0 : getVaultType().hashCode());
         return hashCode;
     }
 

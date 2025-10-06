@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,44 +19,18 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Use this structure to allow cryptographic operations in the grant only when the operation request includes the
- * specified <a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context">encryption
- * context</a>.
+ * Use this structure to allow <a
+ * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations">cryptographic
+ * operations</a> in the grant only when the operation request includes the specified <a
+ * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context">encryption context</a>.
  * </p>
  * <p>
- * AWS KMS applies the grant constraints only when the grant allows a cryptographic operation that accepts an encryption
- * context as input, such as the following.
- * </p>
- * <ul>
- * <li>
- * <p>
- * <a>Encrypt</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>Decrypt</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>GenerateDataKey</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>GenerateDataKeyWithoutPlaintext</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>ReEncrypt</a>
- * </p>
- * </li>
- * </ul>
- * <p>
- * AWS KMS does not apply the grant constraints to other operations, such as <a>DescribeKey</a> or
- * <a>ScheduleKeyDeletion</a>.
+ * KMS applies the grant constraints only to cryptographic operations that support an encryption context, that is, all
+ * cryptographic operations with a <a
+ * href="https://docs.aws.amazon.com/kms/latest/developerguide/symm-asymm-concepts.html#symmetric-cmks">symmetric KMS
+ * key</a>. Grant constraints are not applied to operations that do not support an encryption context, such as
+ * cryptographic operations with asymmetric KMS keys and management operations, such as <a>DescribeKey</a> or
+ * <a>RetireGrant</a>.
  * </p>
  * <important>
  * <p>
@@ -73,7 +47,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * case-sensitive encryption context, use the <code>kms:EncryptionContext:</code> and
  * <code>kms:EncryptionContextKeys</code> conditions in an IAM or key policy. For details, see <a href=
  * "https://docs.aws.amazon.com/kms/latest/developerguide/policy-conditions.html#conditions-kms-encryption-context"
- * >kms:EncryptionContext:</a> in the <i> <i>AWS Key Management Service Developer Guide</i> </i>.
+ * >kms:EncryptionContext:</a> in the <i> <i>Key Management Service Developer Guide</i> </i>.
  * </p>
  * </important>
  * 
@@ -85,32 +59,38 @@ public class GrantConstraints implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A list of key-value pairs that must be included in the encryption context of the cryptographic operation request.
-     * The grant allows the cryptographic operation only when the encryption context in the request includes the
-     * key-value pairs specified in this constraint, although it can include additional key-value pairs.
+     * A list of key-value pairs that must be included in the encryption context of the <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations">cryptographic
+     * operation</a> request. The grant allows the cryptographic operation only when the encryption context in the
+     * request includes the key-value pairs specified in this constraint, although it can include additional key-value
+     * pairs.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalMap<String, String> encryptionContextSubset;
     /**
      * <p>
-     * A list of key-value pairs that must match the encryption context in the cryptographic operation request. The
-     * grant allows the operation only when the encryption context in the request is the same as the encryption context
-     * specified in this constraint.
+     * A list of key-value pairs that must match the encryption context in the <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations">cryptographic
+     * operation</a> request. The grant allows the operation only when the encryption context in the request is the same
+     * as the encryption context specified in this constraint.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalMap<String, String> encryptionContextEquals;
 
     /**
      * <p>
-     * A list of key-value pairs that must be included in the encryption context of the cryptographic operation request.
-     * The grant allows the cryptographic operation only when the encryption context in the request includes the
-     * key-value pairs specified in this constraint, although it can include additional key-value pairs.
+     * A list of key-value pairs that must be included in the encryption context of the <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations">cryptographic
+     * operation</a> request. The grant allows the cryptographic operation only when the encryption context in the
+     * request includes the key-value pairs specified in this constraint, although it can include additional key-value
+     * pairs.
      * </p>
      * 
-     * @return A list of key-value pairs that must be included in the encryption context of the cryptographic operation
-     *         request. The grant allows the cryptographic operation only when the encryption context in the request
-     *         includes the key-value pairs specified in this constraint, although it can include additional key-value
-     *         pairs.
+     * @return A list of key-value pairs that must be included in the encryption context of the <a
+     *         href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations"
+     *         >cryptographic operation</a> request. The grant allows the cryptographic operation only when the
+     *         encryption context in the request includes the key-value pairs specified in this constraint, although it
+     *         can include additional key-value pairs.
      */
 
     public java.util.Map<String, String> getEncryptionContextSubset() {
@@ -122,16 +102,19 @@ public class GrantConstraints implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A list of key-value pairs that must be included in the encryption context of the cryptographic operation request.
-     * The grant allows the cryptographic operation only when the encryption context in the request includes the
-     * key-value pairs specified in this constraint, although it can include additional key-value pairs.
+     * A list of key-value pairs that must be included in the encryption context of the <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations">cryptographic
+     * operation</a> request. The grant allows the cryptographic operation only when the encryption context in the
+     * request includes the key-value pairs specified in this constraint, although it can include additional key-value
+     * pairs.
      * </p>
      * 
      * @param encryptionContextSubset
-     *        A list of key-value pairs that must be included in the encryption context of the cryptographic operation
-     *        request. The grant allows the cryptographic operation only when the encryption context in the request
-     *        includes the key-value pairs specified in this constraint, although it can include additional key-value
-     *        pairs.
+     *        A list of key-value pairs that must be included in the encryption context of the <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations"
+     *        >cryptographic operation</a> request. The grant allows the cryptographic operation only when the
+     *        encryption context in the request includes the key-value pairs specified in this constraint, although it
+     *        can include additional key-value pairs.
      */
 
     public void setEncryptionContextSubset(java.util.Map<String, String> encryptionContextSubset) {
@@ -141,16 +124,19 @@ public class GrantConstraints implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A list of key-value pairs that must be included in the encryption context of the cryptographic operation request.
-     * The grant allows the cryptographic operation only when the encryption context in the request includes the
-     * key-value pairs specified in this constraint, although it can include additional key-value pairs.
+     * A list of key-value pairs that must be included in the encryption context of the <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations">cryptographic
+     * operation</a> request. The grant allows the cryptographic operation only when the encryption context in the
+     * request includes the key-value pairs specified in this constraint, although it can include additional key-value
+     * pairs.
      * </p>
      * 
      * @param encryptionContextSubset
-     *        A list of key-value pairs that must be included in the encryption context of the cryptographic operation
-     *        request. The grant allows the cryptographic operation only when the encryption context in the request
-     *        includes the key-value pairs specified in this constraint, although it can include additional key-value
-     *        pairs.
+     *        A list of key-value pairs that must be included in the encryption context of the <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations"
+     *        >cryptographic operation</a> request. The grant allows the cryptographic operation only when the
+     *        encryption context in the request includes the key-value pairs specified in this constraint, although it
+     *        can include additional key-value pairs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -158,6 +144,13 @@ public class GrantConstraints implements Serializable, Cloneable, StructuredPojo
         setEncryptionContextSubset(encryptionContextSubset);
         return this;
     }
+
+    /**
+     * Add a single EncryptionContextSubset entry
+     *
+     * @see GrantConstraints#withEncryptionContextSubset
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public GrantConstraints addEncryptionContextSubsetEntry(String key, String value) {
         if (null == this.encryptionContextSubset) {
@@ -182,14 +175,16 @@ public class GrantConstraints implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A list of key-value pairs that must match the encryption context in the cryptographic operation request. The
-     * grant allows the operation only when the encryption context in the request is the same as the encryption context
-     * specified in this constraint.
+     * A list of key-value pairs that must match the encryption context in the <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations">cryptographic
+     * operation</a> request. The grant allows the operation only when the encryption context in the request is the same
+     * as the encryption context specified in this constraint.
      * </p>
      * 
-     * @return A list of key-value pairs that must match the encryption context in the cryptographic operation request.
-     *         The grant allows the operation only when the encryption context in the request is the same as the
-     *         encryption context specified in this constraint.
+     * @return A list of key-value pairs that must match the encryption context in the <a
+     *         href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations"
+     *         >cryptographic operation</a> request. The grant allows the operation only when the encryption context in
+     *         the request is the same as the encryption context specified in this constraint.
      */
 
     public java.util.Map<String, String> getEncryptionContextEquals() {
@@ -201,15 +196,17 @@ public class GrantConstraints implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A list of key-value pairs that must match the encryption context in the cryptographic operation request. The
-     * grant allows the operation only when the encryption context in the request is the same as the encryption context
-     * specified in this constraint.
+     * A list of key-value pairs that must match the encryption context in the <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations">cryptographic
+     * operation</a> request. The grant allows the operation only when the encryption context in the request is the same
+     * as the encryption context specified in this constraint.
      * </p>
      * 
      * @param encryptionContextEquals
-     *        A list of key-value pairs that must match the encryption context in the cryptographic operation request.
-     *        The grant allows the operation only when the encryption context in the request is the same as the
-     *        encryption context specified in this constraint.
+     *        A list of key-value pairs that must match the encryption context in the <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations"
+     *        >cryptographic operation</a> request. The grant allows the operation only when the encryption context in
+     *        the request is the same as the encryption context specified in this constraint.
      */
 
     public void setEncryptionContextEquals(java.util.Map<String, String> encryptionContextEquals) {
@@ -219,15 +216,17 @@ public class GrantConstraints implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A list of key-value pairs that must match the encryption context in the cryptographic operation request. The
-     * grant allows the operation only when the encryption context in the request is the same as the encryption context
-     * specified in this constraint.
+     * A list of key-value pairs that must match the encryption context in the <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations">cryptographic
+     * operation</a> request. The grant allows the operation only when the encryption context in the request is the same
+     * as the encryption context specified in this constraint.
      * </p>
      * 
      * @param encryptionContextEquals
-     *        A list of key-value pairs that must match the encryption context in the cryptographic operation request.
-     *        The grant allows the operation only when the encryption context in the request is the same as the
-     *        encryption context specified in this constraint.
+     *        A list of key-value pairs that must match the encryption context in the <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations"
+     *        >cryptographic operation</a> request. The grant allows the operation only when the encryption context in
+     *        the request is the same as the encryption context specified in this constraint.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -235,6 +234,13 @@ public class GrantConstraints implements Serializable, Cloneable, StructuredPojo
         setEncryptionContextEquals(encryptionContextEquals);
         return this;
     }
+
+    /**
+     * Add a single EncryptionContextEquals entry
+     *
+     * @see GrantConstraints#withEncryptionContextEquals
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public GrantConstraints addEncryptionContextEqualsEntry(String key, String value) {
         if (null == this.encryptionContextEquals) {

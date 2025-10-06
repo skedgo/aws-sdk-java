@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,6 +20,12 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 /**
  * <p>
  * Provides information about the location that is configured for storing model artifacts.
+ * </p>
+ * <p>
+ * Model artifacts are outputs that result from training a model. They typically consist of trained parameters, a model
+ * definition that describes how to compute inferences, and other metadata. A SageMaker container stores your trained
+ * model artifacts in the <code>/opt/ml/model</code> directory. After training has completed, by default, these
+ * artifacts are uploaded to your Amazon S3 bucket as compressed files.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ModelArtifacts" target="_top">AWS API

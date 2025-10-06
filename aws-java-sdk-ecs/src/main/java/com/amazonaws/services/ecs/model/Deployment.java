@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,7 +37,7 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
     private String id;
     /**
      * <p>
-     * The status of the deployment. The following describes each state:
+     * The status of the deployment. The following describes each state.
      * </p>
      * <dl>
      * <dt>PRIMARY</dt>
@@ -88,16 +88,36 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
     private Integer runningCount;
     /**
      * <p>
-     * The Unix timestamp for when the service deployment was created.
+     * The number of consecutively failed tasks in the deployment. A task is considered a failure if the service
+     * scheduler can't launch the task, the task doesn't transition to a <code>RUNNING</code> state, or if it fails any
+     * of its defined health checks and is stopped.
+     * </p>
+     * <note>
+     * <p>
+     * Once a service deployment has one or more successfully running tasks, the failed task count resets to zero and
+     * stops being evaluated.
+     * </p>
+     * </note>
+     */
+    private Integer failedTasks;
+    /**
+     * <p>
+     * The Unix timestamp for the time when the service deployment was created.
      * </p>
      */
     private java.util.Date createdAt;
     /**
      * <p>
-     * The Unix timestamp for when the service deployment was last updated.
+     * The Unix timestamp for the time when the service deployment was last updated.
      * </p>
      */
     private java.util.Date updatedAt;
+    /**
+     * <p>
+     * The capacity provider strategy that the deployment is using.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<CapacityProviderStrategyItem> capacityProviderStrategy;
     /**
      * <p>
      * The launch type the tasks in the service are using. For more information, see <a
@@ -108,14 +128,25 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
     private String launchType;
     /**
      * <p>
-     * The platform version on which your tasks in the service are running. A platform version is only specified for
-     * tasks using the Fargate launch type. If one is not specified, the <code>LATEST</code> platform version is used by
-     * default. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">AWS Fargate Platform
+     * The platform version that your tasks in the service run on. A platform version is only specified for tasks using
+     * the Fargate launch type. If one isn't specified, the <code>LATEST</code> platform version is used. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">Fargate Platform
      * Versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      */
     private String platformVersion;
+    /**
+     * <p>
+     * The operating system that your tasks in the service, or tasks are running on. A platform family is specified only
+     * for tasks using the Fargate launch type.
+     * </p>
+     * <p>
+     * All tasks that run as part of this service must use the same <code>platformFamily</code> value as the service,
+     * for example, <code> LINUX.</code>.
+     * </p>
+     */
+    private String platformFamily;
     /**
      * <p>
      * The VPC subnet and security group configuration for tasks that receive their own elastic network interface by
@@ -123,6 +154,70 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private NetworkConfiguration networkConfiguration;
+    /**
+     * <note>
+     * <p>
+     * The <code>rolloutState</code> of a service is only returned for services that use the rolling update (
+     * <code>ECS</code>) deployment type that aren't behind a Classic Load Balancer.
+     * </p>
+     * </note>
+     * <p>
+     * The rollout state of the deployment. When a service deployment is started, it begins in an
+     * <code>IN_PROGRESS</code> state. When the service reaches a steady state, the deployment transitions to a
+     * <code>COMPLETED</code> state. If the service fails to reach a steady state and circuit breaker is turned on, the
+     * deployment transitions to a <code>FAILED</code> state. A deployment in <code>FAILED</code> state doesn't launch
+     * any new tasks. For more information, see <a>DeploymentCircuitBreaker</a>.
+     * </p>
+     */
+    private String rolloutState;
+    /**
+     * <p>
+     * A description of the rollout state of a deployment.
+     * </p>
+     */
+    private String rolloutStateReason;
+    /**
+     * <p>
+     * The details of the Service Connect configuration that's used by this deployment. Compare the configuration
+     * between multiple deployments when troubleshooting issues with new deployments.
+     * </p>
+     * <p>
+     * The configuration for this service to discover and connect to services, and be discovered by, and connected from,
+     * other services within a namespace.
+     * </p>
+     * <p>
+     * Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to
+     * services across all of the clusters in the namespace. Tasks connect through a managed proxy container that
+     * collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported
+     * with Service Connect. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service Connect</a> in
+     * the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * </p>
+     */
+    private ServiceConnectConfiguration serviceConnectConfiguration;
+    /**
+     * <p>
+     * The list of Service Connect resources that are associated with this deployment. Each list entry maps a discovery
+     * name to a Cloud Map service name.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<ServiceConnectServiceResource> serviceConnectResources;
+    /**
+     * <p>
+     * The details of the volume that was <code>configuredAtLaunch</code>. You can configure different settings like the
+     * size, throughput, volumeType, and ecryption in <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ServiceManagedEBSVolumeConfiguration.html"
+     * >ServiceManagedEBSVolumeConfiguration</a>. The <code>name</code> of the volume must match the <code>name</code>
+     * from the task definition.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<ServiceVolumeConfiguration> volumeConfigurations;
+    /**
+     * <p>
+     * The Fargate ephemeral storage settings for the deployment.
+     * </p>
+     */
+    private DeploymentEphemeralStorage fargateEphemeralStorage;
 
     /**
      * <p>
@@ -166,7 +261,7 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the deployment. The following describes each state:
+     * The status of the deployment. The following describes each state.
      * </p>
      * <dl>
      * <dt>PRIMARY</dt>
@@ -191,7 +286,7 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
      * </dl>
      * 
      * @param status
-     *        The status of the deployment. The following describes each state:</p>
+     *        The status of the deployment. The following describes each state.</p>
      *        <dl>
      *        <dt>PRIMARY</dt>
      *        <dd>
@@ -220,7 +315,7 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the deployment. The following describes each state:
+     * The status of the deployment. The following describes each state.
      * </p>
      * <dl>
      * <dt>PRIMARY</dt>
@@ -244,7 +339,7 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
      * </dd>
      * </dl>
      * 
-     * @return The status of the deployment. The following describes each state:</p>
+     * @return The status of the deployment. The following describes each state.</p>
      *         <dl>
      *         <dt>PRIMARY</dt>
      *         <dd>
@@ -273,7 +368,7 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the deployment. The following describes each state:
+     * The status of the deployment. The following describes each state.
      * </p>
      * <dl>
      * <dt>PRIMARY</dt>
@@ -298,7 +393,7 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
      * </dl>
      * 
      * @param status
-     *        The status of the deployment. The following describes each state:</p>
+     *        The status of the deployment. The following describes each state.</p>
      *        <dl>
      *        <dt>PRIMARY</dt>
      *        <dd>
@@ -489,11 +584,93 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the service deployment was created.
+     * The number of consecutively failed tasks in the deployment. A task is considered a failure if the service
+     * scheduler can't launch the task, the task doesn't transition to a <code>RUNNING</code> state, or if it fails any
+     * of its defined health checks and is stopped.
+     * </p>
+     * <note>
+     * <p>
+     * Once a service deployment has one or more successfully running tasks, the failed task count resets to zero and
+     * stops being evaluated.
+     * </p>
+     * </note>
+     * 
+     * @param failedTasks
+     *        The number of consecutively failed tasks in the deployment. A task is considered a failure if the service
+     *        scheduler can't launch the task, the task doesn't transition to a <code>RUNNING</code> state, or if it
+     *        fails any of its defined health checks and is stopped.</p> <note>
+     *        <p>
+     *        Once a service deployment has one or more successfully running tasks, the failed task count resets to zero
+     *        and stops being evaluated.
+     *        </p>
+     */
+
+    public void setFailedTasks(Integer failedTasks) {
+        this.failedTasks = failedTasks;
+    }
+
+    /**
+     * <p>
+     * The number of consecutively failed tasks in the deployment. A task is considered a failure if the service
+     * scheduler can't launch the task, the task doesn't transition to a <code>RUNNING</code> state, or if it fails any
+     * of its defined health checks and is stopped.
+     * </p>
+     * <note>
+     * <p>
+     * Once a service deployment has one or more successfully running tasks, the failed task count resets to zero and
+     * stops being evaluated.
+     * </p>
+     * </note>
+     * 
+     * @return The number of consecutively failed tasks in the deployment. A task is considered a failure if the service
+     *         scheduler can't launch the task, the task doesn't transition to a <code>RUNNING</code> state, or if it
+     *         fails any of its defined health checks and is stopped.</p> <note>
+     *         <p>
+     *         Once a service deployment has one or more successfully running tasks, the failed task count resets to
+     *         zero and stops being evaluated.
+     *         </p>
+     */
+
+    public Integer getFailedTasks() {
+        return this.failedTasks;
+    }
+
+    /**
+     * <p>
+     * The number of consecutively failed tasks in the deployment. A task is considered a failure if the service
+     * scheduler can't launch the task, the task doesn't transition to a <code>RUNNING</code> state, or if it fails any
+     * of its defined health checks and is stopped.
+     * </p>
+     * <note>
+     * <p>
+     * Once a service deployment has one or more successfully running tasks, the failed task count resets to zero and
+     * stops being evaluated.
+     * </p>
+     * </note>
+     * 
+     * @param failedTasks
+     *        The number of consecutively failed tasks in the deployment. A task is considered a failure if the service
+     *        scheduler can't launch the task, the task doesn't transition to a <code>RUNNING</code> state, or if it
+     *        fails any of its defined health checks and is stopped.</p> <note>
+     *        <p>
+     *        Once a service deployment has one or more successfully running tasks, the failed task count resets to zero
+     *        and stops being evaluated.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Deployment withFailedTasks(Integer failedTasks) {
+        setFailedTasks(failedTasks);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Unix timestamp for the time when the service deployment was created.
      * </p>
      * 
      * @param createdAt
-     *        The Unix timestamp for when the service deployment was created.
+     *        The Unix timestamp for the time when the service deployment was created.
      */
 
     public void setCreatedAt(java.util.Date createdAt) {
@@ -502,10 +679,10 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the service deployment was created.
+     * The Unix timestamp for the time when the service deployment was created.
      * </p>
      * 
-     * @return The Unix timestamp for when the service deployment was created.
+     * @return The Unix timestamp for the time when the service deployment was created.
      */
 
     public java.util.Date getCreatedAt() {
@@ -514,11 +691,11 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the service deployment was created.
+     * The Unix timestamp for the time when the service deployment was created.
      * </p>
      * 
      * @param createdAt
-     *        The Unix timestamp for when the service deployment was created.
+     *        The Unix timestamp for the time when the service deployment was created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -529,11 +706,11 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the service deployment was last updated.
+     * The Unix timestamp for the time when the service deployment was last updated.
      * </p>
      * 
      * @param updatedAt
-     *        The Unix timestamp for when the service deployment was last updated.
+     *        The Unix timestamp for the time when the service deployment was last updated.
      */
 
     public void setUpdatedAt(java.util.Date updatedAt) {
@@ -542,10 +719,10 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the service deployment was last updated.
+     * The Unix timestamp for the time when the service deployment was last updated.
      * </p>
      * 
-     * @return The Unix timestamp for when the service deployment was last updated.
+     * @return The Unix timestamp for the time when the service deployment was last updated.
      */
 
     public java.util.Date getUpdatedAt() {
@@ -554,16 +731,89 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the service deployment was last updated.
+     * The Unix timestamp for the time when the service deployment was last updated.
      * </p>
      * 
      * @param updatedAt
-     *        The Unix timestamp for when the service deployment was last updated.
+     *        The Unix timestamp for the time when the service deployment was last updated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Deployment withUpdatedAt(java.util.Date updatedAt) {
         setUpdatedAt(updatedAt);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The capacity provider strategy that the deployment is using.
+     * </p>
+     * 
+     * @return The capacity provider strategy that the deployment is using.
+     */
+
+    public java.util.List<CapacityProviderStrategyItem> getCapacityProviderStrategy() {
+        if (capacityProviderStrategy == null) {
+            capacityProviderStrategy = new com.amazonaws.internal.SdkInternalList<CapacityProviderStrategyItem>();
+        }
+        return capacityProviderStrategy;
+    }
+
+    /**
+     * <p>
+     * The capacity provider strategy that the deployment is using.
+     * </p>
+     * 
+     * @param capacityProviderStrategy
+     *        The capacity provider strategy that the deployment is using.
+     */
+
+    public void setCapacityProviderStrategy(java.util.Collection<CapacityProviderStrategyItem> capacityProviderStrategy) {
+        if (capacityProviderStrategy == null) {
+            this.capacityProviderStrategy = null;
+            return;
+        }
+
+        this.capacityProviderStrategy = new com.amazonaws.internal.SdkInternalList<CapacityProviderStrategyItem>(capacityProviderStrategy);
+    }
+
+    /**
+     * <p>
+     * The capacity provider strategy that the deployment is using.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setCapacityProviderStrategy(java.util.Collection)} or
+     * {@link #withCapacityProviderStrategy(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param capacityProviderStrategy
+     *        The capacity provider strategy that the deployment is using.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Deployment withCapacityProviderStrategy(CapacityProviderStrategyItem... capacityProviderStrategy) {
+        if (this.capacityProviderStrategy == null) {
+            setCapacityProviderStrategy(new com.amazonaws.internal.SdkInternalList<CapacityProviderStrategyItem>(capacityProviderStrategy.length));
+        }
+        for (CapacityProviderStrategyItem ele : capacityProviderStrategy) {
+            this.capacityProviderStrategy.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The capacity provider strategy that the deployment is using.
+     * </p>
+     * 
+     * @param capacityProviderStrategy
+     *        The capacity provider strategy that the deployment is using.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Deployment withCapacityProviderStrategy(java.util.Collection<CapacityProviderStrategyItem> capacityProviderStrategy) {
+        setCapacityProviderStrategy(capacityProviderStrategy);
         return this;
     }
 
@@ -644,19 +894,19 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The platform version on which your tasks in the service are running. A platform version is only specified for
-     * tasks using the Fargate launch type. If one is not specified, the <code>LATEST</code> platform version is used by
-     * default. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">AWS Fargate Platform
+     * The platform version that your tasks in the service run on. A platform version is only specified for tasks using
+     * the Fargate launch type. If one isn't specified, the <code>LATEST</code> platform version is used. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">Fargate Platform
      * Versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      * 
      * @param platformVersion
-     *        The platform version on which your tasks in the service are running. A platform version is only specified
-     *        for tasks using the Fargate launch type. If one is not specified, the <code>LATEST</code> platform version
-     *        is used by default. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">AWS Fargate
-     *        Platform Versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     *        The platform version that your tasks in the service run on. A platform version is only specified for tasks
+     *        using the Fargate launch type. If one isn't specified, the <code>LATEST</code> platform version is used.
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">Fargate Platform
+     *        Versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      */
 
     public void setPlatformVersion(String platformVersion) {
@@ -665,17 +915,17 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The platform version on which your tasks in the service are running. A platform version is only specified for
-     * tasks using the Fargate launch type. If one is not specified, the <code>LATEST</code> platform version is used by
-     * default. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">AWS Fargate Platform
+     * The platform version that your tasks in the service run on. A platform version is only specified for tasks using
+     * the Fargate launch type. If one isn't specified, the <code>LATEST</code> platform version is used. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">Fargate Platform
      * Versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      * 
-     * @return The platform version on which your tasks in the service are running. A platform version is only specified
-     *         for tasks using the Fargate launch type. If one is not specified, the <code>LATEST</code> platform
-     *         version is used by default. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">AWS Fargate
+     * @return The platform version that your tasks in the service run on. A platform version is only specified for
+     *         tasks using the Fargate launch type. If one isn't specified, the <code>LATEST</code> platform version is
+     *         used. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">Fargate
      *         Platform Versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      */
 
@@ -685,24 +935,91 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The platform version on which your tasks in the service are running. A platform version is only specified for
-     * tasks using the Fargate launch type. If one is not specified, the <code>LATEST</code> platform version is used by
-     * default. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">AWS Fargate Platform
+     * The platform version that your tasks in the service run on. A platform version is only specified for tasks using
+     * the Fargate launch type. If one isn't specified, the <code>LATEST</code> platform version is used. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">Fargate Platform
      * Versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      * 
      * @param platformVersion
-     *        The platform version on which your tasks in the service are running. A platform version is only specified
-     *        for tasks using the Fargate launch type. If one is not specified, the <code>LATEST</code> platform version
-     *        is used by default. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">AWS Fargate
-     *        Platform Versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     *        The platform version that your tasks in the service run on. A platform version is only specified for tasks
+     *        using the Fargate launch type. If one isn't specified, the <code>LATEST</code> platform version is used.
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">Fargate Platform
+     *        Versions</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Deployment withPlatformVersion(String platformVersion) {
         setPlatformVersion(platformVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The operating system that your tasks in the service, or tasks are running on. A platform family is specified only
+     * for tasks using the Fargate launch type.
+     * </p>
+     * <p>
+     * All tasks that run as part of this service must use the same <code>platformFamily</code> value as the service,
+     * for example, <code> LINUX.</code>.
+     * </p>
+     * 
+     * @param platformFamily
+     *        The operating system that your tasks in the service, or tasks are running on. A platform family is
+     *        specified only for tasks using the Fargate launch type. </p>
+     *        <p>
+     *        All tasks that run as part of this service must use the same <code>platformFamily</code> value as the
+     *        service, for example, <code> LINUX.</code>.
+     */
+
+    public void setPlatformFamily(String platformFamily) {
+        this.platformFamily = platformFamily;
+    }
+
+    /**
+     * <p>
+     * The operating system that your tasks in the service, or tasks are running on. A platform family is specified only
+     * for tasks using the Fargate launch type.
+     * </p>
+     * <p>
+     * All tasks that run as part of this service must use the same <code>platformFamily</code> value as the service,
+     * for example, <code> LINUX.</code>.
+     * </p>
+     * 
+     * @return The operating system that your tasks in the service, or tasks are running on. A platform family is
+     *         specified only for tasks using the Fargate launch type. </p>
+     *         <p>
+     *         All tasks that run as part of this service must use the same <code>platformFamily</code> value as the
+     *         service, for example, <code> LINUX.</code>.
+     */
+
+    public String getPlatformFamily() {
+        return this.platformFamily;
+    }
+
+    /**
+     * <p>
+     * The operating system that your tasks in the service, or tasks are running on. A platform family is specified only
+     * for tasks using the Fargate launch type.
+     * </p>
+     * <p>
+     * All tasks that run as part of this service must use the same <code>platformFamily</code> value as the service,
+     * for example, <code> LINUX.</code>.
+     * </p>
+     * 
+     * @param platformFamily
+     *        The operating system that your tasks in the service, or tasks are running on. A platform family is
+     *        specified only for tasks using the Fargate launch type. </p>
+     *        <p>
+     *        All tasks that run as part of this service must use the same <code>platformFamily</code> value as the
+     *        service, for example, <code> LINUX.</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Deployment withPlatformFamily(String platformFamily) {
+        setPlatformFamily(platformFamily);
         return this;
     }
 
@@ -753,6 +1070,526 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <note>
+     * <p>
+     * The <code>rolloutState</code> of a service is only returned for services that use the rolling update (
+     * <code>ECS</code>) deployment type that aren't behind a Classic Load Balancer.
+     * </p>
+     * </note>
+     * <p>
+     * The rollout state of the deployment. When a service deployment is started, it begins in an
+     * <code>IN_PROGRESS</code> state. When the service reaches a steady state, the deployment transitions to a
+     * <code>COMPLETED</code> state. If the service fails to reach a steady state and circuit breaker is turned on, the
+     * deployment transitions to a <code>FAILED</code> state. A deployment in <code>FAILED</code> state doesn't launch
+     * any new tasks. For more information, see <a>DeploymentCircuitBreaker</a>.
+     * </p>
+     * 
+     * @param rolloutState
+     *        <p>
+     *        The <code>rolloutState</code> of a service is only returned for services that use the rolling update (
+     *        <code>ECS</code>) deployment type that aren't behind a Classic Load Balancer.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        The rollout state of the deployment. When a service deployment is started, it begins in an
+     *        <code>IN_PROGRESS</code> state. When the service reaches a steady state, the deployment transitions to a
+     *        <code>COMPLETED</code> state. If the service fails to reach a steady state and circuit breaker is turned
+     *        on, the deployment transitions to a <code>FAILED</code> state. A deployment in <code>FAILED</code> state
+     *        doesn't launch any new tasks. For more information, see <a>DeploymentCircuitBreaker</a>.
+     * @see DeploymentRolloutState
+     */
+
+    public void setRolloutState(String rolloutState) {
+        this.rolloutState = rolloutState;
+    }
+
+    /**
+     * <note>
+     * <p>
+     * The <code>rolloutState</code> of a service is only returned for services that use the rolling update (
+     * <code>ECS</code>) deployment type that aren't behind a Classic Load Balancer.
+     * </p>
+     * </note>
+     * <p>
+     * The rollout state of the deployment. When a service deployment is started, it begins in an
+     * <code>IN_PROGRESS</code> state. When the service reaches a steady state, the deployment transitions to a
+     * <code>COMPLETED</code> state. If the service fails to reach a steady state and circuit breaker is turned on, the
+     * deployment transitions to a <code>FAILED</code> state. A deployment in <code>FAILED</code> state doesn't launch
+     * any new tasks. For more information, see <a>DeploymentCircuitBreaker</a>.
+     * </p>
+     * 
+     * @return <p>
+     *         The <code>rolloutState</code> of a service is only returned for services that use the rolling update (
+     *         <code>ECS</code>) deployment type that aren't behind a Classic Load Balancer.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         The rollout state of the deployment. When a service deployment is started, it begins in an
+     *         <code>IN_PROGRESS</code> state. When the service reaches a steady state, the deployment transitions to a
+     *         <code>COMPLETED</code> state. If the service fails to reach a steady state and circuit breaker is turned
+     *         on, the deployment transitions to a <code>FAILED</code> state. A deployment in <code>FAILED</code> state
+     *         doesn't launch any new tasks. For more information, see <a>DeploymentCircuitBreaker</a>.
+     * @see DeploymentRolloutState
+     */
+
+    public String getRolloutState() {
+        return this.rolloutState;
+    }
+
+    /**
+     * <note>
+     * <p>
+     * The <code>rolloutState</code> of a service is only returned for services that use the rolling update (
+     * <code>ECS</code>) deployment type that aren't behind a Classic Load Balancer.
+     * </p>
+     * </note>
+     * <p>
+     * The rollout state of the deployment. When a service deployment is started, it begins in an
+     * <code>IN_PROGRESS</code> state. When the service reaches a steady state, the deployment transitions to a
+     * <code>COMPLETED</code> state. If the service fails to reach a steady state and circuit breaker is turned on, the
+     * deployment transitions to a <code>FAILED</code> state. A deployment in <code>FAILED</code> state doesn't launch
+     * any new tasks. For more information, see <a>DeploymentCircuitBreaker</a>.
+     * </p>
+     * 
+     * @param rolloutState
+     *        <p>
+     *        The <code>rolloutState</code> of a service is only returned for services that use the rolling update (
+     *        <code>ECS</code>) deployment type that aren't behind a Classic Load Balancer.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        The rollout state of the deployment. When a service deployment is started, it begins in an
+     *        <code>IN_PROGRESS</code> state. When the service reaches a steady state, the deployment transitions to a
+     *        <code>COMPLETED</code> state. If the service fails to reach a steady state and circuit breaker is turned
+     *        on, the deployment transitions to a <code>FAILED</code> state. A deployment in <code>FAILED</code> state
+     *        doesn't launch any new tasks. For more information, see <a>DeploymentCircuitBreaker</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DeploymentRolloutState
+     */
+
+    public Deployment withRolloutState(String rolloutState) {
+        setRolloutState(rolloutState);
+        return this;
+    }
+
+    /**
+     * <note>
+     * <p>
+     * The <code>rolloutState</code> of a service is only returned for services that use the rolling update (
+     * <code>ECS</code>) deployment type that aren't behind a Classic Load Balancer.
+     * </p>
+     * </note>
+     * <p>
+     * The rollout state of the deployment. When a service deployment is started, it begins in an
+     * <code>IN_PROGRESS</code> state. When the service reaches a steady state, the deployment transitions to a
+     * <code>COMPLETED</code> state. If the service fails to reach a steady state and circuit breaker is turned on, the
+     * deployment transitions to a <code>FAILED</code> state. A deployment in <code>FAILED</code> state doesn't launch
+     * any new tasks. For more information, see <a>DeploymentCircuitBreaker</a>.
+     * </p>
+     * 
+     * @param rolloutState
+     *        <p>
+     *        The <code>rolloutState</code> of a service is only returned for services that use the rolling update (
+     *        <code>ECS</code>) deployment type that aren't behind a Classic Load Balancer.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        The rollout state of the deployment. When a service deployment is started, it begins in an
+     *        <code>IN_PROGRESS</code> state. When the service reaches a steady state, the deployment transitions to a
+     *        <code>COMPLETED</code> state. If the service fails to reach a steady state and circuit breaker is turned
+     *        on, the deployment transitions to a <code>FAILED</code> state. A deployment in <code>FAILED</code> state
+     *        doesn't launch any new tasks. For more information, see <a>DeploymentCircuitBreaker</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DeploymentRolloutState
+     */
+
+    public Deployment withRolloutState(DeploymentRolloutState rolloutState) {
+        this.rolloutState = rolloutState.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * A description of the rollout state of a deployment.
+     * </p>
+     * 
+     * @param rolloutStateReason
+     *        A description of the rollout state of a deployment.
+     */
+
+    public void setRolloutStateReason(String rolloutStateReason) {
+        this.rolloutStateReason = rolloutStateReason;
+    }
+
+    /**
+     * <p>
+     * A description of the rollout state of a deployment.
+     * </p>
+     * 
+     * @return A description of the rollout state of a deployment.
+     */
+
+    public String getRolloutStateReason() {
+        return this.rolloutStateReason;
+    }
+
+    /**
+     * <p>
+     * A description of the rollout state of a deployment.
+     * </p>
+     * 
+     * @param rolloutStateReason
+     *        A description of the rollout state of a deployment.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Deployment withRolloutStateReason(String rolloutStateReason) {
+        setRolloutStateReason(rolloutStateReason);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The details of the Service Connect configuration that's used by this deployment. Compare the configuration
+     * between multiple deployments when troubleshooting issues with new deployments.
+     * </p>
+     * <p>
+     * The configuration for this service to discover and connect to services, and be discovered by, and connected from,
+     * other services within a namespace.
+     * </p>
+     * <p>
+     * Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to
+     * services across all of the clusters in the namespace. Tasks connect through a managed proxy container that
+     * collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported
+     * with Service Connect. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service Connect</a> in
+     * the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * </p>
+     * 
+     * @param serviceConnectConfiguration
+     *        The details of the Service Connect configuration that's used by this deployment. Compare the configuration
+     *        between multiple deployments when troubleshooting issues with new deployments.</p>
+     *        <p>
+     *        The configuration for this service to discover and connect to services, and be discovered by, and
+     *        connected from, other services within a namespace.
+     *        </p>
+     *        <p>
+     *        Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can
+     *        connect to services across all of the clusters in the namespace. Tasks connect through a managed proxy
+     *        container that collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services
+     *        create are supported with Service Connect. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service
+     *        Connect</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     */
+
+    public void setServiceConnectConfiguration(ServiceConnectConfiguration serviceConnectConfiguration) {
+        this.serviceConnectConfiguration = serviceConnectConfiguration;
+    }
+
+    /**
+     * <p>
+     * The details of the Service Connect configuration that's used by this deployment. Compare the configuration
+     * between multiple deployments when troubleshooting issues with new deployments.
+     * </p>
+     * <p>
+     * The configuration for this service to discover and connect to services, and be discovered by, and connected from,
+     * other services within a namespace.
+     * </p>
+     * <p>
+     * Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to
+     * services across all of the clusters in the namespace. Tasks connect through a managed proxy container that
+     * collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported
+     * with Service Connect. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service Connect</a> in
+     * the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * </p>
+     * 
+     * @return The details of the Service Connect configuration that's used by this deployment. Compare the
+     *         configuration between multiple deployments when troubleshooting issues with new deployments.</p>
+     *         <p>
+     *         The configuration for this service to discover and connect to services, and be discovered by, and
+     *         connected from, other services within a namespace.
+     *         </p>
+     *         <p>
+     *         Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can
+     *         connect to services across all of the clusters in the namespace. Tasks connect through a managed proxy
+     *         container that collects logs and metrics for increased visibility. Only the tasks that Amazon ECS
+     *         services create are supported with Service Connect. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service
+     *         Connect</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     */
+
+    public ServiceConnectConfiguration getServiceConnectConfiguration() {
+        return this.serviceConnectConfiguration;
+    }
+
+    /**
+     * <p>
+     * The details of the Service Connect configuration that's used by this deployment. Compare the configuration
+     * between multiple deployments when troubleshooting issues with new deployments.
+     * </p>
+     * <p>
+     * The configuration for this service to discover and connect to services, and be discovered by, and connected from,
+     * other services within a namespace.
+     * </p>
+     * <p>
+     * Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to
+     * services across all of the clusters in the namespace. Tasks connect through a managed proxy container that
+     * collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported
+     * with Service Connect. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service Connect</a> in
+     * the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * </p>
+     * 
+     * @param serviceConnectConfiguration
+     *        The details of the Service Connect configuration that's used by this deployment. Compare the configuration
+     *        between multiple deployments when troubleshooting issues with new deployments.</p>
+     *        <p>
+     *        The configuration for this service to discover and connect to services, and be discovered by, and
+     *        connected from, other services within a namespace.
+     *        </p>
+     *        <p>
+     *        Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can
+     *        connect to services across all of the clusters in the namespace. Tasks connect through a managed proxy
+     *        container that collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services
+     *        create are supported with Service Connect. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service
+     *        Connect</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Deployment withServiceConnectConfiguration(ServiceConnectConfiguration serviceConnectConfiguration) {
+        setServiceConnectConfiguration(serviceConnectConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of Service Connect resources that are associated with this deployment. Each list entry maps a discovery
+     * name to a Cloud Map service name.
+     * </p>
+     * 
+     * @return The list of Service Connect resources that are associated with this deployment. Each list entry maps a
+     *         discovery name to a Cloud Map service name.
+     */
+
+    public java.util.List<ServiceConnectServiceResource> getServiceConnectResources() {
+        if (serviceConnectResources == null) {
+            serviceConnectResources = new com.amazonaws.internal.SdkInternalList<ServiceConnectServiceResource>();
+        }
+        return serviceConnectResources;
+    }
+
+    /**
+     * <p>
+     * The list of Service Connect resources that are associated with this deployment. Each list entry maps a discovery
+     * name to a Cloud Map service name.
+     * </p>
+     * 
+     * @param serviceConnectResources
+     *        The list of Service Connect resources that are associated with this deployment. Each list entry maps a
+     *        discovery name to a Cloud Map service name.
+     */
+
+    public void setServiceConnectResources(java.util.Collection<ServiceConnectServiceResource> serviceConnectResources) {
+        if (serviceConnectResources == null) {
+            this.serviceConnectResources = null;
+            return;
+        }
+
+        this.serviceConnectResources = new com.amazonaws.internal.SdkInternalList<ServiceConnectServiceResource>(serviceConnectResources);
+    }
+
+    /**
+     * <p>
+     * The list of Service Connect resources that are associated with this deployment. Each list entry maps a discovery
+     * name to a Cloud Map service name.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setServiceConnectResources(java.util.Collection)} or
+     * {@link #withServiceConnectResources(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param serviceConnectResources
+     *        The list of Service Connect resources that are associated with this deployment. Each list entry maps a
+     *        discovery name to a Cloud Map service name.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Deployment withServiceConnectResources(ServiceConnectServiceResource... serviceConnectResources) {
+        if (this.serviceConnectResources == null) {
+            setServiceConnectResources(new com.amazonaws.internal.SdkInternalList<ServiceConnectServiceResource>(serviceConnectResources.length));
+        }
+        for (ServiceConnectServiceResource ele : serviceConnectResources) {
+            this.serviceConnectResources.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of Service Connect resources that are associated with this deployment. Each list entry maps a discovery
+     * name to a Cloud Map service name.
+     * </p>
+     * 
+     * @param serviceConnectResources
+     *        The list of Service Connect resources that are associated with this deployment. Each list entry maps a
+     *        discovery name to a Cloud Map service name.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Deployment withServiceConnectResources(java.util.Collection<ServiceConnectServiceResource> serviceConnectResources) {
+        setServiceConnectResources(serviceConnectResources);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The details of the volume that was <code>configuredAtLaunch</code>. You can configure different settings like the
+     * size, throughput, volumeType, and ecryption in <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ServiceManagedEBSVolumeConfiguration.html"
+     * >ServiceManagedEBSVolumeConfiguration</a>. The <code>name</code> of the volume must match the <code>name</code>
+     * from the task definition.
+     * </p>
+     * 
+     * @return The details of the volume that was <code>configuredAtLaunch</code>. You can configure different settings
+     *         like the size, throughput, volumeType, and ecryption in <a href=
+     *         "https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ServiceManagedEBSVolumeConfiguration.html"
+     *         >ServiceManagedEBSVolumeConfiguration</a>. The <code>name</code> of the volume must match the
+     *         <code>name</code> from the task definition.
+     */
+
+    public java.util.List<ServiceVolumeConfiguration> getVolumeConfigurations() {
+        if (volumeConfigurations == null) {
+            volumeConfigurations = new com.amazonaws.internal.SdkInternalList<ServiceVolumeConfiguration>();
+        }
+        return volumeConfigurations;
+    }
+
+    /**
+     * <p>
+     * The details of the volume that was <code>configuredAtLaunch</code>. You can configure different settings like the
+     * size, throughput, volumeType, and ecryption in <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ServiceManagedEBSVolumeConfiguration.html"
+     * >ServiceManagedEBSVolumeConfiguration</a>. The <code>name</code> of the volume must match the <code>name</code>
+     * from the task definition.
+     * </p>
+     * 
+     * @param volumeConfigurations
+     *        The details of the volume that was <code>configuredAtLaunch</code>. You can configure different settings
+     *        like the size, throughput, volumeType, and ecryption in <a href=
+     *        "https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ServiceManagedEBSVolumeConfiguration.html"
+     *        >ServiceManagedEBSVolumeConfiguration</a>. The <code>name</code> of the volume must match the
+     *        <code>name</code> from the task definition.
+     */
+
+    public void setVolumeConfigurations(java.util.Collection<ServiceVolumeConfiguration> volumeConfigurations) {
+        if (volumeConfigurations == null) {
+            this.volumeConfigurations = null;
+            return;
+        }
+
+        this.volumeConfigurations = new com.amazonaws.internal.SdkInternalList<ServiceVolumeConfiguration>(volumeConfigurations);
+    }
+
+    /**
+     * <p>
+     * The details of the volume that was <code>configuredAtLaunch</code>. You can configure different settings like the
+     * size, throughput, volumeType, and ecryption in <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ServiceManagedEBSVolumeConfiguration.html"
+     * >ServiceManagedEBSVolumeConfiguration</a>. The <code>name</code> of the volume must match the <code>name</code>
+     * from the task definition.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setVolumeConfigurations(java.util.Collection)} or {@link #withVolumeConfigurations(java.util.Collection)}
+     * if you want to override the existing values.
+     * </p>
+     * 
+     * @param volumeConfigurations
+     *        The details of the volume that was <code>configuredAtLaunch</code>. You can configure different settings
+     *        like the size, throughput, volumeType, and ecryption in <a href=
+     *        "https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ServiceManagedEBSVolumeConfiguration.html"
+     *        >ServiceManagedEBSVolumeConfiguration</a>. The <code>name</code> of the volume must match the
+     *        <code>name</code> from the task definition.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Deployment withVolumeConfigurations(ServiceVolumeConfiguration... volumeConfigurations) {
+        if (this.volumeConfigurations == null) {
+            setVolumeConfigurations(new com.amazonaws.internal.SdkInternalList<ServiceVolumeConfiguration>(volumeConfigurations.length));
+        }
+        for (ServiceVolumeConfiguration ele : volumeConfigurations) {
+            this.volumeConfigurations.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The details of the volume that was <code>configuredAtLaunch</code>. You can configure different settings like the
+     * size, throughput, volumeType, and ecryption in <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ServiceManagedEBSVolumeConfiguration.html"
+     * >ServiceManagedEBSVolumeConfiguration</a>. The <code>name</code> of the volume must match the <code>name</code>
+     * from the task definition.
+     * </p>
+     * 
+     * @param volumeConfigurations
+     *        The details of the volume that was <code>configuredAtLaunch</code>. You can configure different settings
+     *        like the size, throughput, volumeType, and ecryption in <a href=
+     *        "https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ServiceManagedEBSVolumeConfiguration.html"
+     *        >ServiceManagedEBSVolumeConfiguration</a>. The <code>name</code> of the volume must match the
+     *        <code>name</code> from the task definition.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Deployment withVolumeConfigurations(java.util.Collection<ServiceVolumeConfiguration> volumeConfigurations) {
+        setVolumeConfigurations(volumeConfigurations);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Fargate ephemeral storage settings for the deployment.
+     * </p>
+     * 
+     * @param fargateEphemeralStorage
+     *        The Fargate ephemeral storage settings for the deployment.
+     */
+
+    public void setFargateEphemeralStorage(DeploymentEphemeralStorage fargateEphemeralStorage) {
+        this.fargateEphemeralStorage = fargateEphemeralStorage;
+    }
+
+    /**
+     * <p>
+     * The Fargate ephemeral storage settings for the deployment.
+     * </p>
+     * 
+     * @return The Fargate ephemeral storage settings for the deployment.
+     */
+
+    public DeploymentEphemeralStorage getFargateEphemeralStorage() {
+        return this.fargateEphemeralStorage;
+    }
+
+    /**
+     * <p>
+     * The Fargate ephemeral storage settings for the deployment.
+     * </p>
+     * 
+     * @param fargateEphemeralStorage
+     *        The Fargate ephemeral storage settings for the deployment.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Deployment withFargateEphemeralStorage(DeploymentEphemeralStorage fargateEphemeralStorage) {
+        setFargateEphemeralStorage(fargateEphemeralStorage);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -776,16 +1613,34 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
             sb.append("PendingCount: ").append(getPendingCount()).append(",");
         if (getRunningCount() != null)
             sb.append("RunningCount: ").append(getRunningCount()).append(",");
+        if (getFailedTasks() != null)
+            sb.append("FailedTasks: ").append(getFailedTasks()).append(",");
         if (getCreatedAt() != null)
             sb.append("CreatedAt: ").append(getCreatedAt()).append(",");
         if (getUpdatedAt() != null)
             sb.append("UpdatedAt: ").append(getUpdatedAt()).append(",");
+        if (getCapacityProviderStrategy() != null)
+            sb.append("CapacityProviderStrategy: ").append(getCapacityProviderStrategy()).append(",");
         if (getLaunchType() != null)
             sb.append("LaunchType: ").append(getLaunchType()).append(",");
         if (getPlatformVersion() != null)
             sb.append("PlatformVersion: ").append(getPlatformVersion()).append(",");
+        if (getPlatformFamily() != null)
+            sb.append("PlatformFamily: ").append(getPlatformFamily()).append(",");
         if (getNetworkConfiguration() != null)
-            sb.append("NetworkConfiguration: ").append(getNetworkConfiguration());
+            sb.append("NetworkConfiguration: ").append(getNetworkConfiguration()).append(",");
+        if (getRolloutState() != null)
+            sb.append("RolloutState: ").append(getRolloutState()).append(",");
+        if (getRolloutStateReason() != null)
+            sb.append("RolloutStateReason: ").append(getRolloutStateReason()).append(",");
+        if (getServiceConnectConfiguration() != null)
+            sb.append("ServiceConnectConfiguration: ").append(getServiceConnectConfiguration()).append(",");
+        if (getServiceConnectResources() != null)
+            sb.append("ServiceConnectResources: ").append(getServiceConnectResources()).append(",");
+        if (getVolumeConfigurations() != null)
+            sb.append("VolumeConfigurations: ").append(getVolumeConfigurations()).append(",");
+        if (getFargateEphemeralStorage() != null)
+            sb.append("FargateEphemeralStorage: ").append(getFargateEphemeralStorage());
         sb.append("}");
         return sb.toString();
     }
@@ -824,6 +1679,10 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getRunningCount() != null && other.getRunningCount().equals(this.getRunningCount()) == false)
             return false;
+        if (other.getFailedTasks() == null ^ this.getFailedTasks() == null)
+            return false;
+        if (other.getFailedTasks() != null && other.getFailedTasks().equals(this.getFailedTasks()) == false)
+            return false;
         if (other.getCreatedAt() == null ^ this.getCreatedAt() == null)
             return false;
         if (other.getCreatedAt() != null && other.getCreatedAt().equals(this.getCreatedAt()) == false)
@@ -831,6 +1690,10 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
         if (other.getUpdatedAt() == null ^ this.getUpdatedAt() == null)
             return false;
         if (other.getUpdatedAt() != null && other.getUpdatedAt().equals(this.getUpdatedAt()) == false)
+            return false;
+        if (other.getCapacityProviderStrategy() == null ^ this.getCapacityProviderStrategy() == null)
+            return false;
+        if (other.getCapacityProviderStrategy() != null && other.getCapacityProviderStrategy().equals(this.getCapacityProviderStrategy()) == false)
             return false;
         if (other.getLaunchType() == null ^ this.getLaunchType() == null)
             return false;
@@ -840,9 +1703,37 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getPlatformVersion() != null && other.getPlatformVersion().equals(this.getPlatformVersion()) == false)
             return false;
+        if (other.getPlatformFamily() == null ^ this.getPlatformFamily() == null)
+            return false;
+        if (other.getPlatformFamily() != null && other.getPlatformFamily().equals(this.getPlatformFamily()) == false)
+            return false;
         if (other.getNetworkConfiguration() == null ^ this.getNetworkConfiguration() == null)
             return false;
         if (other.getNetworkConfiguration() != null && other.getNetworkConfiguration().equals(this.getNetworkConfiguration()) == false)
+            return false;
+        if (other.getRolloutState() == null ^ this.getRolloutState() == null)
+            return false;
+        if (other.getRolloutState() != null && other.getRolloutState().equals(this.getRolloutState()) == false)
+            return false;
+        if (other.getRolloutStateReason() == null ^ this.getRolloutStateReason() == null)
+            return false;
+        if (other.getRolloutStateReason() != null && other.getRolloutStateReason().equals(this.getRolloutStateReason()) == false)
+            return false;
+        if (other.getServiceConnectConfiguration() == null ^ this.getServiceConnectConfiguration() == null)
+            return false;
+        if (other.getServiceConnectConfiguration() != null && other.getServiceConnectConfiguration().equals(this.getServiceConnectConfiguration()) == false)
+            return false;
+        if (other.getServiceConnectResources() == null ^ this.getServiceConnectResources() == null)
+            return false;
+        if (other.getServiceConnectResources() != null && other.getServiceConnectResources().equals(this.getServiceConnectResources()) == false)
+            return false;
+        if (other.getVolumeConfigurations() == null ^ this.getVolumeConfigurations() == null)
+            return false;
+        if (other.getVolumeConfigurations() != null && other.getVolumeConfigurations().equals(this.getVolumeConfigurations()) == false)
+            return false;
+        if (other.getFargateEphemeralStorage() == null ^ this.getFargateEphemeralStorage() == null)
+            return false;
+        if (other.getFargateEphemeralStorage() != null && other.getFargateEphemeralStorage().equals(this.getFargateEphemeralStorage()) == false)
             return false;
         return true;
     }
@@ -858,11 +1749,20 @@ public class Deployment implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getDesiredCount() == null) ? 0 : getDesiredCount().hashCode());
         hashCode = prime * hashCode + ((getPendingCount() == null) ? 0 : getPendingCount().hashCode());
         hashCode = prime * hashCode + ((getRunningCount() == null) ? 0 : getRunningCount().hashCode());
+        hashCode = prime * hashCode + ((getFailedTasks() == null) ? 0 : getFailedTasks().hashCode());
         hashCode = prime * hashCode + ((getCreatedAt() == null) ? 0 : getCreatedAt().hashCode());
         hashCode = prime * hashCode + ((getUpdatedAt() == null) ? 0 : getUpdatedAt().hashCode());
+        hashCode = prime * hashCode + ((getCapacityProviderStrategy() == null) ? 0 : getCapacityProviderStrategy().hashCode());
         hashCode = prime * hashCode + ((getLaunchType() == null) ? 0 : getLaunchType().hashCode());
         hashCode = prime * hashCode + ((getPlatformVersion() == null) ? 0 : getPlatformVersion().hashCode());
+        hashCode = prime * hashCode + ((getPlatformFamily() == null) ? 0 : getPlatformFamily().hashCode());
         hashCode = prime * hashCode + ((getNetworkConfiguration() == null) ? 0 : getNetworkConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getRolloutState() == null) ? 0 : getRolloutState().hashCode());
+        hashCode = prime * hashCode + ((getRolloutStateReason() == null) ? 0 : getRolloutStateReason().hashCode());
+        hashCode = prime * hashCode + ((getServiceConnectConfiguration() == null) ? 0 : getServiceConnectConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getServiceConnectResources() == null) ? 0 : getServiceConnectResources().hashCode());
+        hashCode = prime * hashCode + ((getVolumeConfigurations() == null) ? 0 : getVolumeConfigurations().hashCode());
+        hashCode = prime * hashCode + ((getFargateEphemeralStorage() == null) ? 0 : getFargateEphemeralStorage().hashCode());
         return hashCode;
     }
 

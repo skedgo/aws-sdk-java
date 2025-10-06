@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An object representing a service mesh returned by a list operation.
+ * An object that represents a service mesh returned by a list operation.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/MeshRef" target="_top">AWS API
@@ -36,10 +36,45 @@ public class MeshRef implements Serializable, Cloneable, StructuredPojo {
     private String arn;
     /**
      * <p>
+     * The Unix epoch timestamp in seconds for when the resource was created.
+     * </p>
+     */
+    private java.util.Date createdAt;
+    /**
+     * <p>
+     * The Unix epoch timestamp in seconds for when the resource was last updated.
+     * </p>
+     */
+    private java.util.Date lastUpdatedAt;
+    /**
+     * <p>
      * The name of the service mesh.
      * </p>
      */
     private String meshName;
+    /**
+     * <p>
+     * The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then it's
+     * the ID of the account that shared the mesh with your account. For more information about mesh sharing, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with shared meshes</a>.
+     * </p>
+     */
+    private String meshOwner;
+    /**
+     * <p>
+     * The Amazon Web Services IAM account ID of the resource owner. If the account ID is not your own, then it's the ID
+     * of the mesh owner or of another account that the mesh is shared with. For more information about mesh sharing,
+     * see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with shared meshes</a>.
+     * </p>
+     */
+    private String resourceOwner;
+    /**
+     * <p>
+     * The version of the resource. Resources are created at version 1, and this version is incremented each time that
+     * they're updated.
+     * </p>
+     */
+    private Long version;
 
     /**
      * <p>
@@ -78,6 +113,86 @@ public class MeshRef implements Serializable, Cloneable, StructuredPojo {
 
     public MeshRef withArn(String arn) {
         setArn(arn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Unix epoch timestamp in seconds for when the resource was created.
+     * </p>
+     * 
+     * @param createdAt
+     *        The Unix epoch timestamp in seconds for when the resource was created.
+     */
+
+    public void setCreatedAt(java.util.Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * <p>
+     * The Unix epoch timestamp in seconds for when the resource was created.
+     * </p>
+     * 
+     * @return The Unix epoch timestamp in seconds for when the resource was created.
+     */
+
+    public java.util.Date getCreatedAt() {
+        return this.createdAt;
+    }
+
+    /**
+     * <p>
+     * The Unix epoch timestamp in seconds for when the resource was created.
+     * </p>
+     * 
+     * @param createdAt
+     *        The Unix epoch timestamp in seconds for when the resource was created.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MeshRef withCreatedAt(java.util.Date createdAt) {
+        setCreatedAt(createdAt);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Unix epoch timestamp in seconds for when the resource was last updated.
+     * </p>
+     * 
+     * @param lastUpdatedAt
+     *        The Unix epoch timestamp in seconds for when the resource was last updated.
+     */
+
+    public void setLastUpdatedAt(java.util.Date lastUpdatedAt) {
+        this.lastUpdatedAt = lastUpdatedAt;
+    }
+
+    /**
+     * <p>
+     * The Unix epoch timestamp in seconds for when the resource was last updated.
+     * </p>
+     * 
+     * @return The Unix epoch timestamp in seconds for when the resource was last updated.
+     */
+
+    public java.util.Date getLastUpdatedAt() {
+        return this.lastUpdatedAt;
+    }
+
+    /**
+     * <p>
+     * The Unix epoch timestamp in seconds for when the resource was last updated.
+     * </p>
+     * 
+     * @param lastUpdatedAt
+     *        The Unix epoch timestamp in seconds for when the resource was last updated.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MeshRef withLastUpdatedAt(java.util.Date lastUpdatedAt) {
+        setLastUpdatedAt(lastUpdatedAt);
         return this;
     }
 
@@ -122,6 +237,162 @@ public class MeshRef implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then it's
+     * the ID of the account that shared the mesh with your account. For more information about mesh sharing, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with shared meshes</a>.
+     * </p>
+     * 
+     * @param meshOwner
+     *        The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then
+     *        it's the ID of the account that shared the mesh with your account. For more information about mesh
+     *        sharing, see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with
+     *        shared meshes</a>.
+     */
+
+    public void setMeshOwner(String meshOwner) {
+        this.meshOwner = meshOwner;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then it's
+     * the ID of the account that shared the mesh with your account. For more information about mesh sharing, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with shared meshes</a>.
+     * </p>
+     * 
+     * @return The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then
+     *         it's the ID of the account that shared the mesh with your account. For more information about mesh
+     *         sharing, see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with
+     *         shared meshes</a>.
+     */
+
+    public String getMeshOwner() {
+        return this.meshOwner;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then it's
+     * the ID of the account that shared the mesh with your account. For more information about mesh sharing, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with shared meshes</a>.
+     * </p>
+     * 
+     * @param meshOwner
+     *        The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then
+     *        it's the ID of the account that shared the mesh with your account. For more information about mesh
+     *        sharing, see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with
+     *        shared meshes</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MeshRef withMeshOwner(String meshOwner) {
+        setMeshOwner(meshOwner);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services IAM account ID of the resource owner. If the account ID is not your own, then it's the ID
+     * of the mesh owner or of another account that the mesh is shared with. For more information about mesh sharing,
+     * see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with shared meshes</a>.
+     * </p>
+     * 
+     * @param resourceOwner
+     *        The Amazon Web Services IAM account ID of the resource owner. If the account ID is not your own, then it's
+     *        the ID of the mesh owner or of another account that the mesh is shared with. For more information about
+     *        mesh sharing, see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working
+     *        with shared meshes</a>.
+     */
+
+    public void setResourceOwner(String resourceOwner) {
+        this.resourceOwner = resourceOwner;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services IAM account ID of the resource owner. If the account ID is not your own, then it's the ID
+     * of the mesh owner or of another account that the mesh is shared with. For more information about mesh sharing,
+     * see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with shared meshes</a>.
+     * </p>
+     * 
+     * @return The Amazon Web Services IAM account ID of the resource owner. If the account ID is not your own, then
+     *         it's the ID of the mesh owner or of another account that the mesh is shared with. For more information
+     *         about mesh sharing, see <a
+     *         href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with shared meshes</a>.
+     */
+
+    public String getResourceOwner() {
+        return this.resourceOwner;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services IAM account ID of the resource owner. If the account ID is not your own, then it's the ID
+     * of the mesh owner or of another account that the mesh is shared with. For more information about mesh sharing,
+     * see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with shared meshes</a>.
+     * </p>
+     * 
+     * @param resourceOwner
+     *        The Amazon Web Services IAM account ID of the resource owner. If the account ID is not your own, then it's
+     *        the ID of the mesh owner or of another account that the mesh is shared with. For more information about
+     *        mesh sharing, see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working
+     *        with shared meshes</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MeshRef withResourceOwner(String resourceOwner) {
+        setResourceOwner(resourceOwner);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The version of the resource. Resources are created at version 1, and this version is incremented each time that
+     * they're updated.
+     * </p>
+     * 
+     * @param version
+     *        The version of the resource. Resources are created at version 1, and this version is incremented each time
+     *        that they're updated.
+     */
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    /**
+     * <p>
+     * The version of the resource. Resources are created at version 1, and this version is incremented each time that
+     * they're updated.
+     * </p>
+     * 
+     * @return The version of the resource. Resources are created at version 1, and this version is incremented each
+     *         time that they're updated.
+     */
+
+    public Long getVersion() {
+        return this.version;
+    }
+
+    /**
+     * <p>
+     * The version of the resource. Resources are created at version 1, and this version is incremented each time that
+     * they're updated.
+     * </p>
+     * 
+     * @param version
+     *        The version of the resource. Resources are created at version 1, and this version is incremented each time
+     *        that they're updated.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MeshRef withVersion(Long version) {
+        setVersion(version);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -135,8 +406,18 @@ public class MeshRef implements Serializable, Cloneable, StructuredPojo {
         sb.append("{");
         if (getArn() != null)
             sb.append("Arn: ").append(getArn()).append(",");
+        if (getCreatedAt() != null)
+            sb.append("CreatedAt: ").append(getCreatedAt()).append(",");
+        if (getLastUpdatedAt() != null)
+            sb.append("LastUpdatedAt: ").append(getLastUpdatedAt()).append(",");
         if (getMeshName() != null)
-            sb.append("MeshName: ").append(getMeshName());
+            sb.append("MeshName: ").append(getMeshName()).append(",");
+        if (getMeshOwner() != null)
+            sb.append("MeshOwner: ").append(getMeshOwner()).append(",");
+        if (getResourceOwner() != null)
+            sb.append("ResourceOwner: ").append(getResourceOwner()).append(",");
+        if (getVersion() != null)
+            sb.append("Version: ").append(getVersion());
         sb.append("}");
         return sb.toString();
     }
@@ -155,9 +436,29 @@ public class MeshRef implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getArn() != null && other.getArn().equals(this.getArn()) == false)
             return false;
+        if (other.getCreatedAt() == null ^ this.getCreatedAt() == null)
+            return false;
+        if (other.getCreatedAt() != null && other.getCreatedAt().equals(this.getCreatedAt()) == false)
+            return false;
+        if (other.getLastUpdatedAt() == null ^ this.getLastUpdatedAt() == null)
+            return false;
+        if (other.getLastUpdatedAt() != null && other.getLastUpdatedAt().equals(this.getLastUpdatedAt()) == false)
+            return false;
         if (other.getMeshName() == null ^ this.getMeshName() == null)
             return false;
         if (other.getMeshName() != null && other.getMeshName().equals(this.getMeshName()) == false)
+            return false;
+        if (other.getMeshOwner() == null ^ this.getMeshOwner() == null)
+            return false;
+        if (other.getMeshOwner() != null && other.getMeshOwner().equals(this.getMeshOwner()) == false)
+            return false;
+        if (other.getResourceOwner() == null ^ this.getResourceOwner() == null)
+            return false;
+        if (other.getResourceOwner() != null && other.getResourceOwner().equals(this.getResourceOwner()) == false)
+            return false;
+        if (other.getVersion() == null ^ this.getVersion() == null)
+            return false;
+        if (other.getVersion() != null && other.getVersion().equals(this.getVersion()) == false)
             return false;
         return true;
     }
@@ -168,7 +469,12 @@ public class MeshRef implements Serializable, Cloneable, StructuredPojo {
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getArn() == null) ? 0 : getArn().hashCode());
+        hashCode = prime * hashCode + ((getCreatedAt() == null) ? 0 : getCreatedAt().hashCode());
+        hashCode = prime * hashCode + ((getLastUpdatedAt() == null) ? 0 : getLastUpdatedAt().hashCode());
         hashCode = prime * hashCode + ((getMeshName() == null) ? 0 : getMeshName().hashCode());
+        hashCode = prime * hashCode + ((getMeshOwner() == null) ? 0 : getMeshOwner().hashCode());
+        hashCode = prime * hashCode + ((getResourceOwner() == null) ? 0 : getResourceOwner().hashCode());
+        hashCode = prime * hashCode + ((getVersion() == null) ? 0 : getVersion().hashCode());
         return hashCode;
     }
 

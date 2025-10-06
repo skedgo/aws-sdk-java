@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,8 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
- * DVB-Sub Destination Settings
+ * Settings related to DVB-Sub captions. Set up DVB-Sub captions in the same output as your video. For more information,
+ * see https://docs.aws.amazon.com/mediaconvert/latest/ug/dvb-sub-output-captions.html.
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DvbSubDestinationSettings"
  *      target="_top">AWS API Documentation</a>
@@ -27,119 +28,225 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 public class DvbSubDestinationSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
-     * If no explicit x_position or y_position is provided, setting alignment to centered will place the captions at the
-     * bottom center of the output. Similarly, setting a left alignment will align captions to the bottom left of the
-     * output. If x and y positions are given in conjunction with the alignment parameter, the font will be justified
-     * (either left or centered) relative to those coordinates. This option is not valid for source captions that are
-     * STL, 608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in
-     * and DVB-Sub font settings must match.
+     * Specify the alignment of your captions. If no explicit x_position is provided, setting alignment to centered will
+     * placethe captions at the bottom center of the output. Similarly, setting a left alignment willalign captions to
+     * the bottom left of the output. If x and y positions are given in conjunction with the alignment parameter, the
+     * font will be justified (either left or centered) relative to those coordinates. Within your job settings, all of
+     * your DVB-Sub settings must be identical.
      */
     private String alignment;
     /**
-     * Specifies the color of the rectangle behind the captions. All burn-in and DVB-Sub font settings must match.
+     * Ignore this setting unless Style Passthrough is set to Enabled and Font color set to Black, Yellow, Red, Green,
+     * Blue, or Hex. Use Apply font color for additional font color controls. When you choose White text only, or leave
+     * blank, your font color setting only applies to white text in your input captions. For example, if your font color
+     * setting is Yellow, and your input captions have red and white text, your output captions will have red and yellow
+     * text. When you choose ALL_TEXT, your font color setting applies to all of your output captions text.
+     */
+    private String applyFontColor;
+    /**
+     * Specify the color of the rectangle behind the captions. Leave background color blank and set Style passthrough to
+     * enabled to use the background color data from your input captions, if present.
      */
     private String backgroundColor;
     /**
-     * Specifies the opacity of the background rectangle. 255 is opaque; 0 is transparent. Leaving this parameter blank
-     * is equivalent to setting it to 0 (transparent). All burn-in and DVB-Sub font settings must match.
+     * Specify the opacity of the background rectangle. Enter a value from 0 to 255, where 0 is transparent and 255 is
+     * opaque. If Style passthrough is set to enabled, leave blank to pass through the background style information in
+     * your input captions to your output captions. If Style passthrough is set to disabled, leave blank to use a value
+     * of 0 and remove all backgrounds from your output captions. Within your job settings, all of your DVB-Sub settings
+     * must be identical.
      */
     private Integer backgroundOpacity;
     /**
-     * Specifies the color of the burned-in captions. This option is not valid for source captions that are STL,
-     * 608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in and
-     * DVB-Sub font settings must match.
+     * Specify how MediaConvert handles the display definition segment (DDS). To exclude the DDS from this set of
+     * captions: Keep the default, None. To include the DDS: Choose Specified. When you do, also specify the offset
+     * coordinates of the display window with DDS x-coordinate and DDS y-coordinate. To include the DDS, but not include
+     * display window data: Choose No display window. When you do, you can write position metadata to the page
+     * composition segment (PCS) with DDS x-coordinate and DDS y-coordinate. For video resolutions with a height of 576
+     * pixels or less, MediaConvert doesn't include the DDS, regardless of the value you choose for DDS handling. All
+     * burn-in and DVB-Sub font settings must match.
+     */
+    private String ddsHandling;
+    /**
+     * Use this setting, along with DDS y-coordinate, to specify the upper left corner of the display definition segment
+     * (DDS) display window. With this setting, specify the distance, in pixels, between the left side of the frame and
+     * the left side of the DDS display window. Keep the default value, 0, to have MediaConvert automatically choose this
+     * offset. Related setting: When you use this setting, you must set DDS handling to a value other than None.
+     * MediaConvert uses these values to determine whether to write page position data to the DDS or to the page
+     * composition segment. All burn-in and DVB-Sub font settings must match.
+     */
+    private Integer ddsXCoordinate;
+    /**
+     * Use this setting, along with DDS x-coordinate, to specify the upper left corner of the display definition segment
+     * (DDS) display window. With this setting, specify the distance, in pixels, between the top of the frame and the
+     * top of the DDS display window. Keep the default value, 0, to have MediaConvert automatically choose this offset.
+     * Related setting: When you use this setting, you must set DDS handling to a value other than None. MediaConvert
+     * uses these values to determine whether to write page position data to the DDS or to the page composition segment
+     * (PCS). All burn-in and DVB-Sub font settings must match.
+     */
+    private Integer ddsYCoordinate;
+    /**
+     * Specify the font that you want the service to use for your burn in captions when your input captions specify a
+     * font that MediaConvert doesn't support. When you set Fallback font to best match, or leave blank, MediaConvert
+     * uses a supported font that most closely matches the font that your input captions specify. When there are multiple
+     * unsupported fonts in your input captions, MediaConvert matches each font with the supported font that matches
+     * best. When you explicitly choose a replacement font, MediaConvert uses that font to replace all unsupported fonts
+     * from your input.
+     */
+    private String fallbackFont;
+    /**
+     * Specify the color of the captions text. Leave Font color blank and set Style passthrough to enabled to use the
+     * font color data from your input captions, if present. Within your job settings, all of your DVB-Sub settings must
+     * be identical.
      */
     private String fontColor;
     /**
-     * Specifies the opacity of the burned-in captions. 255 is opaque; 0 is transparent. All burn-in and DVB-Sub font
-     * settings must match.
+     * Specify a bold TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or HTTPS URL.
+     * When you do, you must also separately specify a regular, an italic, and a bold italic font file.
+     */
+    private String fontFileBold;
+    /**
+     * Specify a bold italic TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or HTTPS
+     * URL. When you do, you must also separately specify a regular, a bold, and an italic font file.
+     */
+    private String fontFileBoldItalic;
+    /**
+     * Specify an italic TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or HTTPS URL.
+     * When you do, you must also separately specify a regular, a bold, and a bold italic font file.
+     */
+    private String fontFileItalic;
+    /**
+     * Specify a regular TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or HTTPS URL.
+     * When you do, you must also separately specify a bold, an italic, and a bold italic font file.
+     */
+    private String fontFileRegular;
+    /**
+     * Specify the opacity of the burned-in captions. 255 is opaque; 0 is transparent. Within your job settings, all of
+     * your DVB-Sub settings must be identical.
      */
     private Integer fontOpacity;
     /**
-     * Font resolution in DPI (dots per inch); default is 96 dpi. All burn-in and DVB-Sub font settings must match.
+     * Specify the Font resolution in DPI (dots per inch). Within your job settings, all of your DVB-Sub settings must
+     * be identical.
      */
     private Integer fontResolution;
     /**
-     * Provide the font script, using an ISO 15924 script code, if the LanguageCode is not sufficient for determining
-     * the script type. Where LanguageCode or CustomLanguageCode is sufficient, use "AUTOMATIC" or leave unset. This is
-     * used to help determine the appropriate font for rendering DVB-Sub captions.
+     * Set Font script to Automatically determined, or leave blank, to automatically determine the font script in your
+     * input captions. Otherwise, set to Simplified Chinese (HANS) or Traditional Chinese (HANT) if your input font
+     * script uses Simplified or Traditional Chinese. Within your job settings, all of your DVB-Sub settings must be
+     * identical.
      */
     private String fontScript;
     /**
-     * A positive integer indicates the exact font size in points. Set to 0 for automatic font size selection. All
-     * burn-in and DVB-Sub font settings must match.
+     * Specify the Font size in pixels. Must be a positive integer. Set to 0, or leave blank, for automatic font size.
+     * Within your job settings, all of your DVB-Sub settings must be identical.
      */
     private Integer fontSize;
     /**
-     * Specifies font outline color. This option is not valid for source captions that are either 608/embedded or
-     * teletext. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub font
+     * Specify the height, in pixels, of this set of DVB-Sub captions. The default value is 576 pixels. Related setting:
+     * When you use this setting, you must set DDS handling to a value other than None. All burn-in and DVB-Sub font
      * settings must match.
+     */
+    private Integer height;
+    /**
+     * Ignore this setting unless your Font color is set to Hex. Enter either six or eight hexidecimal digits,
+     * representing red, green, and blue, with two optional extra digits for alpha. For example a value of 1122AABB is a
+     * red value of 0x11, a green value of 0x22, a blue value of 0xAA, and an alpha value of 0xBB.
+     */
+    private String hexFontColor;
+    /**
+     * Specify font outline color. Leave Outline color blank and set Style passthrough to enabled to use the font
+     * outline color data from your input captions, if present. Within your job settings, all of your DVB-Sub settings
+     * must be identical.
      */
     private String outlineColor;
     /**
-     * Specifies font outline size in pixels. This option is not valid for source captions that are either 608/embedded
-     * or teletext. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub font
-     * settings must match.
+     * Specify the Outline size of the caption text, in pixels. Leave Outline size blank and set Style passthrough to
+     * enabled to use the outline size data from your input captions, if present. Within your job settings, all of your
+     * DVB-Sub settings must be identical.
      */
     private Integer outlineSize;
     /**
-     * Specifies the color of the shadow cast by the captions. All burn-in and DVB-Sub font settings must match.
+     * Specify the color of the shadow cast by the captions. Leave Shadow color blank and set Style passthrough to
+     * enabled to use the shadow color data from your input captions, if present. Within your job settings, all of your
+     * DVB-Sub settings must be identical.
      */
     private String shadowColor;
     /**
-     * Specifies the opacity of the shadow. 255 is opaque; 0 is transparent. Leaving this parameter blank is equivalent
-     * to setting it to 0 (transparent). All burn-in and DVB-Sub font settings must match.
+     * Specify the opacity of the shadow. Enter a value from 0 to 255, where 0 is transparent and 255 is opaque. If
+     * Style passthrough is set to Enabled, leave Shadow opacity blank to pass through the shadow style information in
+     * your input captions to your output captions. If Style passthrough is set to disabled, leave blank to use a value
+     * of 0 and remove all shadows from your output captions. Within your job settings, all of your DVB-Sub settings must
+     * be identical.
      */
     private Integer shadowOpacity;
     /**
-     * Specifies the horizontal offset of the shadow relative to the captions in pixels. A value of -2 would result in a
-     * shadow offset 2 pixels to the left. All burn-in and DVB-Sub font settings must match.
+     * Specify the horizontal offset of the shadow, relative to the captions in pixels. A value of -2 would result in a
+     * shadow offset 2 pixels to the left. Within your job settings, all of your DVB-Sub settings must be identical.
      */
     private Integer shadowXOffset;
     /**
-     * Specifies the vertical offset of the shadow relative to the captions in pixels. A value of -2 would result in a
-     * shadow offset 2 pixels above the text. All burn-in and DVB-Sub font settings must match.
+     * Specify the vertical offset of the shadow relative to the captions in pixels. A value of -2 would result in a
+     * shadow offset 2 pixels above the text. Leave Shadow y-offset blank and set Style passthrough to enabled to use
+     * the shadow y-offset data from your input captions, if present. Within your job settings, all of your DVB-Sub
+     * settings must be identical.
      */
     private Integer shadowYOffset;
     /**
-     * Only applies to jobs with input captions in Teletext or STL formats. Specify whether the spacing between letters
-     * in your captions is set by the captions grid or varies depending on letter width. Choose fixed grid to conform to
-     * the spacing specified in the captions file more accurately. Choose proportional to make the text easier to read if
-     * the captions are closed caption.
+     * To use the available style, color, and position information from your input captions: Set Style passthrough to
+     * Enabled. Note that MediaConvert uses default settings for any missing style or position information in your input
+     * captions To ignore the style and position information from your input captions and use default settings: Leave
+     * blank or keep the default value, Disabled. Default settings include white text with black outlining, bottom-center
+     * positioning, and automatic sizing. Whether you set Style passthrough to enabled or not, you can also choose to
+     * manually override any of the individual style and position settings. You can also override any fonts by manually
+     * specifying custom font files.
+     */
+    private String stylePassthrough;
+    /**
+     * Specify whether your DVB subtitles are standard or for hearing impaired. Choose hearing impaired if your
+     * subtitles include audio descriptions and dialogue. Choose standard if your subtitles include only dialogue.
+     */
+    private String subtitlingType;
+    /**
+     * Specify whether the Text spacing in your captions is set by the captions grid, or varies depending on letter
+     * width. Choose fixed grid to conform to the spacing specified in the captions file more accurately. Choose
+     * proportional to make the text easier to read for closed captions. Within your job settings, all of your DVB-Sub
+     * settings must be identical.
      */
     private String teletextSpacing;
     /**
-     * Specifies the horizontal position of the caption relative to the left side of the output in pixels. A value of 10
+     * Specify the width, in pixels, of this set of DVB-Sub captions. The default value is 720 pixels. Related setting:
+     * When you use this setting, you must set DDS handling to a value other than None. All burn-in and DVB-Sub font
+     * settings must match.
+     */
+    private Integer width;
+    /**
+     * Specify the horizontal position of the captions, relative to the left side of the output in pixels. A value of 10
      * would result in the captions starting 10 pixels from the left of the output. If no explicit x_position is
-     * provided, the horizontal caption position will be determined by the alignment parameter. This option is not valid
-     * for source captions that are STL, 608/embedded or teletext. These source settings are already pre-defined by the
-     * caption stream. All burn-in and DVB-Sub font settings must match.
+     * provided, the horizontal caption position will be determined by the alignment parameter. Within your job settings,
+     * all of your DVB-Sub settings must be identical.
      */
     private Integer xPosition;
     /**
-     * Specifies the vertical position of the caption relative to the top of the output in pixels. A value of 10 would
+     * Specify the vertical position of the captions, relative to the top of the output in pixels. A value of 10 would
      * result in the captions starting 10 pixels from the top of the output. If no explicit y_position is provided, the
-     * caption will be positioned towards the bottom of the output. This option is not valid for source captions that are
-     * STL, 608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in
-     * and DVB-Sub font settings must match.
+     * caption will be positioned towards the bottom of the output. Within your job settings, all of your DVB-Sub
+     * settings must be identical.
      */
     private Integer yPosition;
 
     /**
-     * If no explicit x_position or y_position is provided, setting alignment to centered will place the captions at the
-     * bottom center of the output. Similarly, setting a left alignment will align captions to the bottom left of the
-     * output. If x and y positions are given in conjunction with the alignment parameter, the font will be justified
-     * (either left or centered) relative to those coordinates. This option is not valid for source captions that are
-     * STL, 608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in
-     * and DVB-Sub font settings must match.
+     * Specify the alignment of your captions. If no explicit x_position is provided, setting alignment to centered will
+     * placethe captions at the bottom center of the output. Similarly, setting a left alignment willalign captions to
+     * the bottom left of the output. If x and y positions are given in conjunction with the alignment parameter, the
+     * font will be justified (either left or centered) relative to those coordinates. Within your job settings, all of
+     * your DVB-Sub settings must be identical.
      * 
      * @param alignment
-     *        If no explicit x_position or y_position is provided, setting alignment to centered will place the captions
-     *        at the bottom center of the output. Similarly, setting a left alignment will align captions to the bottom
-     *        left of the output. If x and y positions are given in conjunction with the alignment parameter, the font
-     *        will be justified (either left or centered) relative to those coordinates. This option is not valid for
-     *        source captions that are STL, 608/embedded or teletext. These source settings are already pre-defined by
-     *        the caption stream. All burn-in and DVB-Sub font settings must match.
+     *        Specify the alignment of your captions. If no explicit x_position is provided, setting alignment to
+     *        centered will placethe captions at the bottom center of the output. Similarly, setting a left alignment
+     *        willalign captions to the bottom left of the output. If x and y positions are given in conjunction with
+     *        the alignment parameter, the font will be justified (either left or centered) relative to those
+     *        coordinates. Within your job settings, all of your DVB-Sub settings must be identical.
      * @see DvbSubtitleAlignment
      */
 
@@ -148,19 +255,17 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * If no explicit x_position or y_position is provided, setting alignment to centered will place the captions at the
-     * bottom center of the output. Similarly, setting a left alignment will align captions to the bottom left of the
-     * output. If x and y positions are given in conjunction with the alignment parameter, the font will be justified
-     * (either left or centered) relative to those coordinates. This option is not valid for source captions that are
-     * STL, 608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in
-     * and DVB-Sub font settings must match.
+     * Specify the alignment of your captions. If no explicit x_position is provided, setting alignment to centered will
+     * placethe captions at the bottom center of the output. Similarly, setting a left alignment willalign captions to
+     * the bottom left of the output. If x and y positions are given in conjunction with the alignment parameter, the
+     * font will be justified (either left or centered) relative to those coordinates. Within your job settings, all of
+     * your DVB-Sub settings must be identical.
      * 
-     * @return If no explicit x_position or y_position is provided, setting alignment to centered will place the
-     *         captions at the bottom center of the output. Similarly, setting a left alignment will align captions to
-     *         the bottom left of the output. If x and y positions are given in conjunction with the alignment
-     *         parameter, the font will be justified (either left or centered) relative to those coordinates. This
-     *         option is not valid for source captions that are STL, 608/embedded or teletext. These source settings are
-     *         already pre-defined by the caption stream. All burn-in and DVB-Sub font settings must match.
+     * @return Specify the alignment of your captions. If no explicit x_position is provided, setting alignment to
+     *         centered will placethe captions at the bottom center of the output. Similarly, setting a left alignment
+     *         willalign captions to the bottom left of the output. If x and y positions are given in conjunction with
+     *         the alignment parameter, the font will be justified (either left or centered) relative to those
+     *         coordinates. Within your job settings, all of your DVB-Sub settings must be identical.
      * @see DvbSubtitleAlignment
      */
 
@@ -169,20 +274,18 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * If no explicit x_position or y_position is provided, setting alignment to centered will place the captions at the
-     * bottom center of the output. Similarly, setting a left alignment will align captions to the bottom left of the
-     * output. If x and y positions are given in conjunction with the alignment parameter, the font will be justified
-     * (either left or centered) relative to those coordinates. This option is not valid for source captions that are
-     * STL, 608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in
-     * and DVB-Sub font settings must match.
+     * Specify the alignment of your captions. If no explicit x_position is provided, setting alignment to centered will
+     * placethe captions at the bottom center of the output. Similarly, setting a left alignment willalign captions to
+     * the bottom left of the output. If x and y positions are given in conjunction with the alignment parameter, the
+     * font will be justified (either left or centered) relative to those coordinates. Within your job settings, all of
+     * your DVB-Sub settings must be identical.
      * 
      * @param alignment
-     *        If no explicit x_position or y_position is provided, setting alignment to centered will place the captions
-     *        at the bottom center of the output. Similarly, setting a left alignment will align captions to the bottom
-     *        left of the output. If x and y positions are given in conjunction with the alignment parameter, the font
-     *        will be justified (either left or centered) relative to those coordinates. This option is not valid for
-     *        source captions that are STL, 608/embedded or teletext. These source settings are already pre-defined by
-     *        the caption stream. All burn-in and DVB-Sub font settings must match.
+     *        Specify the alignment of your captions. If no explicit x_position is provided, setting alignment to
+     *        centered will placethe captions at the bottom center of the output. Similarly, setting a left alignment
+     *        willalign captions to the bottom left of the output. If x and y positions are given in conjunction with
+     *        the alignment parameter, the font will be justified (either left or centered) relative to those
+     *        coordinates. Within your job settings, all of your DVB-Sub settings must be identical.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DvbSubtitleAlignment
      */
@@ -193,20 +296,18 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * If no explicit x_position or y_position is provided, setting alignment to centered will place the captions at the
-     * bottom center of the output. Similarly, setting a left alignment will align captions to the bottom left of the
-     * output. If x and y positions are given in conjunction with the alignment parameter, the font will be justified
-     * (either left or centered) relative to those coordinates. This option is not valid for source captions that are
-     * STL, 608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in
-     * and DVB-Sub font settings must match.
+     * Specify the alignment of your captions. If no explicit x_position is provided, setting alignment to centered will
+     * placethe captions at the bottom center of the output. Similarly, setting a left alignment willalign captions to
+     * the bottom left of the output. If x and y positions are given in conjunction with the alignment parameter, the
+     * font will be justified (either left or centered) relative to those coordinates. Within your job settings, all of
+     * your DVB-Sub settings must be identical.
      * 
      * @param alignment
-     *        If no explicit x_position or y_position is provided, setting alignment to centered will place the captions
-     *        at the bottom center of the output. Similarly, setting a left alignment will align captions to the bottom
-     *        left of the output. If x and y positions are given in conjunction with the alignment parameter, the font
-     *        will be justified (either left or centered) relative to those coordinates. This option is not valid for
-     *        source captions that are STL, 608/embedded or teletext. These source settings are already pre-defined by
-     *        the caption stream. All burn-in and DVB-Sub font settings must match.
+     *        Specify the alignment of your captions. If no explicit x_position is provided, setting alignment to
+     *        centered will placethe captions at the bottom center of the output. Similarly, setting a left alignment
+     *        willalign captions to the bottom left of the output. If x and y positions are given in conjunction with
+     *        the alignment parameter, the font will be justified (either left or centered) relative to those
+     *        coordinates. Within your job settings, all of your DVB-Sub settings must be identical.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DvbSubtitleAlignment
      */
@@ -217,11 +318,99 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the color of the rectangle behind the captions. All burn-in and DVB-Sub font settings must match.
+     * Ignore this setting unless Style Passthrough is set to Enabled and Font color set to Black, Yellow, Red, Green,
+     * Blue, or Hex. Use Apply font color for additional font color controls. When you choose White text only, or leave
+     * blank, your font color setting only applies to white text in your input captions. For example, if your font color
+     * setting is Yellow, and your input captions have red and white text, your output captions will have red and yellow
+     * text. When you choose ALL_TEXT, your font color setting applies to all of your output captions text.
+     * 
+     * @param applyFontColor
+     *        Ignore this setting unless Style Passthrough is set to Enabled and Font color set to Black, Yellow, Red,
+     *        Green, Blue, or Hex. Use Apply font color for additional font color controls. When you choose White text
+     *        only, or leave blank, your font color setting only applies to white text in your input captions. For
+     *        example, if your font color setting is Yellow, and your input captions have red and white text, your
+     *        output captions will have red and yellow text. When you choose ALL_TEXT, your font color setting applies
+     *        to all of your output captions text.
+     * @see DvbSubtitleApplyFontColor
+     */
+
+    public void setApplyFontColor(String applyFontColor) {
+        this.applyFontColor = applyFontColor;
+    }
+
+    /**
+     * Ignore this setting unless Style Passthrough is set to Enabled and Font color set to Black, Yellow, Red, Green,
+     * Blue, or Hex. Use Apply font color for additional font color controls. When you choose White text only, or leave
+     * blank, your font color setting only applies to white text in your input captions. For example, if your font color
+     * setting is Yellow, and your input captions have red and white text, your output captions will have red and yellow
+     * text. When you choose ALL_TEXT, your font color setting applies to all of your output captions text.
+     * 
+     * @return Ignore this setting unless Style Passthrough is set to Enabled and Font color set to Black, Yellow, Red,
+     *         Green, Blue, or Hex. Use Apply font color for additional font color controls. When you choose White text
+     *         only, or leave blank, your font color setting only applies to white text in your input captions. For
+     *         example, if your font color setting is Yellow, and your input captions have red and white text, your
+     *         output captions will have red and yellow text. When you choose ALL_TEXT, your font color setting applies
+     *         to all of your output captions text.
+     * @see DvbSubtitleApplyFontColor
+     */
+
+    public String getApplyFontColor() {
+        return this.applyFontColor;
+    }
+
+    /**
+     * Ignore this setting unless Style Passthrough is set to Enabled and Font color set to Black, Yellow, Red, Green,
+     * Blue, or Hex. Use Apply font color for additional font color controls. When you choose White text only, or leave
+     * blank, your font color setting only applies to white text in your input captions. For example, if your font color
+     * setting is Yellow, and your input captions have red and white text, your output captions will have red and yellow
+     * text. When you choose ALL_TEXT, your font color setting applies to all of your output captions text.
+     * 
+     * @param applyFontColor
+     *        Ignore this setting unless Style Passthrough is set to Enabled and Font color set to Black, Yellow, Red,
+     *        Green, Blue, or Hex. Use Apply font color for additional font color controls. When you choose White text
+     *        only, or leave blank, your font color setting only applies to white text in your input captions. For
+     *        example, if your font color setting is Yellow, and your input captions have red and white text, your
+     *        output captions will have red and yellow text. When you choose ALL_TEXT, your font color setting applies
+     *        to all of your output captions text.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DvbSubtitleApplyFontColor
+     */
+
+    public DvbSubDestinationSettings withApplyFontColor(String applyFontColor) {
+        setApplyFontColor(applyFontColor);
+        return this;
+    }
+
+    /**
+     * Ignore this setting unless Style Passthrough is set to Enabled and Font color set to Black, Yellow, Red, Green,
+     * Blue, or Hex. Use Apply font color for additional font color controls. When you choose White text only, or leave
+     * blank, your font color setting only applies to white text in your input captions. For example, if your font color
+     * setting is Yellow, and your input captions have red and white text, your output captions will have red and yellow
+     * text. When you choose ALL_TEXT, your font color setting applies to all of your output captions text.
+     * 
+     * @param applyFontColor
+     *        Ignore this setting unless Style Passthrough is set to Enabled and Font color set to Black, Yellow, Red,
+     *        Green, Blue, or Hex. Use Apply font color for additional font color controls. When you choose White text
+     *        only, or leave blank, your font color setting only applies to white text in your input captions. For
+     *        example, if your font color setting is Yellow, and your input captions have red and white text, your
+     *        output captions will have red and yellow text. When you choose ALL_TEXT, your font color setting applies
+     *        to all of your output captions text.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DvbSubtitleApplyFontColor
+     */
+
+    public DvbSubDestinationSettings withApplyFontColor(DvbSubtitleApplyFontColor applyFontColor) {
+        this.applyFontColor = applyFontColor.toString();
+        return this;
+    }
+
+    /**
+     * Specify the color of the rectangle behind the captions. Leave background color blank and set Style passthrough to
+     * enabled to use the background color data from your input captions, if present.
      * 
      * @param backgroundColor
-     *        Specifies the color of the rectangle behind the captions. All burn-in and DVB-Sub font settings must
-     *        match.
+     *        Specify the color of the rectangle behind the captions. Leave background color blank and set Style
+     *        passthrough to enabled to use the background color data from your input captions, if present.
      * @see DvbSubtitleBackgroundColor
      */
 
@@ -230,10 +419,11 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the color of the rectangle behind the captions. All burn-in and DVB-Sub font settings must match.
+     * Specify the color of the rectangle behind the captions. Leave background color blank and set Style passthrough to
+     * enabled to use the background color data from your input captions, if present.
      * 
-     * @return Specifies the color of the rectangle behind the captions. All burn-in and DVB-Sub font settings must
-     *         match.
+     * @return Specify the color of the rectangle behind the captions. Leave background color blank and set Style
+     *         passthrough to enabled to use the background color data from your input captions, if present.
      * @see DvbSubtitleBackgroundColor
      */
 
@@ -242,11 +432,12 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the color of the rectangle behind the captions. All burn-in and DVB-Sub font settings must match.
+     * Specify the color of the rectangle behind the captions. Leave background color blank and set Style passthrough to
+     * enabled to use the background color data from your input captions, if present.
      * 
      * @param backgroundColor
-     *        Specifies the color of the rectangle behind the captions. All burn-in and DVB-Sub font settings must
-     *        match.
+     *        Specify the color of the rectangle behind the captions. Leave background color blank and set Style
+     *        passthrough to enabled to use the background color data from your input captions, if present.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DvbSubtitleBackgroundColor
      */
@@ -257,11 +448,12 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the color of the rectangle behind the captions. All burn-in and DVB-Sub font settings must match.
+     * Specify the color of the rectangle behind the captions. Leave background color blank and set Style passthrough to
+     * enabled to use the background color data from your input captions, if present.
      * 
      * @param backgroundColor
-     *        Specifies the color of the rectangle behind the captions. All burn-in and DVB-Sub font settings must
-     *        match.
+     *        Specify the color of the rectangle behind the captions. Leave background color blank and set Style
+     *        passthrough to enabled to use the background color data from your input captions, if present.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DvbSubtitleBackgroundColor
      */
@@ -272,12 +464,18 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the opacity of the background rectangle. 255 is opaque; 0 is transparent. Leaving this parameter blank
-     * is equivalent to setting it to 0 (transparent). All burn-in and DVB-Sub font settings must match.
+     * Specify the opacity of the background rectangle. Enter a value from 0 to 255, where 0 is transparent and 255 is
+     * opaque. If Style passthrough is set to enabled, leave blank to pass through the background style information in
+     * your input captions to your output captions. If Style passthrough is set to disabled, leave blank to use a value
+     * of 0 and remove all backgrounds from your output captions. Within your job settings, all of your DVB-Sub settings
+     * must be identical.
      * 
      * @param backgroundOpacity
-     *        Specifies the opacity of the background rectangle. 255 is opaque; 0 is transparent. Leaving this parameter
-     *        blank is equivalent to setting it to 0 (transparent). All burn-in and DVB-Sub font settings must match.
+     *        Specify the opacity of the background rectangle. Enter a value from 0 to 255, where 0 is transparent and
+     *        255 is opaque. If Style passthrough is set to enabled, leave blank to pass through the background style
+     *        information in your input captions to your output captions. If Style passthrough is set to disabled, leave
+     *        blank to use a value of 0 and remove all backgrounds from your output captions. Within your job settings,
+     *        all of your DVB-Sub settings must be identical.
      */
 
     public void setBackgroundOpacity(Integer backgroundOpacity) {
@@ -285,12 +483,17 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the opacity of the background rectangle. 255 is opaque; 0 is transparent. Leaving this parameter blank
-     * is equivalent to setting it to 0 (transparent). All burn-in and DVB-Sub font settings must match.
+     * Specify the opacity of the background rectangle. Enter a value from 0 to 255, where 0 is transparent and 255 is
+     * opaque. If Style passthrough is set to enabled, leave blank to pass through the background style information in
+     * your input captions to your output captions. If Style passthrough is set to disabled, leave blank to use a value
+     * of 0 and remove all backgrounds from your output captions. Within your job settings, all of your DVB-Sub settings
+     * must be identical.
      * 
-     * @return Specifies the opacity of the background rectangle. 255 is opaque; 0 is transparent. Leaving this
-     *         parameter blank is equivalent to setting it to 0 (transparent). All burn-in and DVB-Sub font settings
-     *         must match.
+     * @return Specify the opacity of the background rectangle. Enter a value from 0 to 255, where 0 is transparent and
+     *         255 is opaque. If Style passthrough is set to enabled, leave blank to pass through the background style
+     *         information in your input captions to your output captions. If Style passthrough is set to disabled,
+     *         leave blank to use a value of 0 and remove all backgrounds from your output captions. Within your job
+     *         settings, all of your DVB-Sub settings must be identical.
      */
 
     public Integer getBackgroundOpacity() {
@@ -298,12 +501,18 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the opacity of the background rectangle. 255 is opaque; 0 is transparent. Leaving this parameter blank
-     * is equivalent to setting it to 0 (transparent). All burn-in and DVB-Sub font settings must match.
+     * Specify the opacity of the background rectangle. Enter a value from 0 to 255, where 0 is transparent and 255 is
+     * opaque. If Style passthrough is set to enabled, leave blank to pass through the background style information in
+     * your input captions to your output captions. If Style passthrough is set to disabled, leave blank to use a value
+     * of 0 and remove all backgrounds from your output captions. Within your job settings, all of your DVB-Sub settings
+     * must be identical.
      * 
      * @param backgroundOpacity
-     *        Specifies the opacity of the background rectangle. 255 is opaque; 0 is transparent. Leaving this parameter
-     *        blank is equivalent to setting it to 0 (transparent). All burn-in and DVB-Sub font settings must match.
+     *        Specify the opacity of the background rectangle. Enter a value from 0 to 255, where 0 is transparent and
+     *        255 is opaque. If Style passthrough is set to enabled, leave blank to pass through the background style
+     *        information in your input captions to your output captions. If Style passthrough is set to disabled, leave
+     *        blank to use a value of 0 and remove all backgrounds from your output captions. Within your job settings,
+     *        all of your DVB-Sub settings must be identical.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -313,14 +522,333 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the color of the burned-in captions. This option is not valid for source captions that are STL,
-     * 608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in and
-     * DVB-Sub font settings must match.
+     * Specify how MediaConvert handles the display definition segment (DDS). To exclude the DDS from this set of
+     * captions: Keep the default, None. To include the DDS: Choose Specified. When you do, also specify the offset
+     * coordinates of the display window with DDS x-coordinate and DDS y-coordinate. To include the DDS, but not include
+     * display window data: Choose No display window. When you do, you can write position metadata to the page
+     * composition segment (PCS) with DDS x-coordinate and DDS y-coordinate. For video resolutions with a height of 576
+     * pixels or less, MediaConvert doesn't include the DDS, regardless of the value you choose for DDS handling. All
+     * burn-in and DVB-Sub font settings must match.
+     * 
+     * @param ddsHandling
+     *        Specify how MediaConvert handles the display definition segment (DDS). To exclude the DDS from this set of
+     *        captions: Keep the default, None. To include the DDS: Choose Specified. When you do, also specify the
+     *        offset coordinates of the display window with DDS x-coordinate and DDS y-coordinate. To include the DDS,
+     *        but not include display window data: Choose No display window. When you do, you can write position
+     *        metadata to the page composition segment (PCS) with DDS x-coordinate and DDS y-coordinate. For video
+     *        resolutions with a height of 576 pixels or less, MediaConvert doesn't include the DDS, regardless of the
+     *        value you choose for DDS handling. All burn-in and DVB-Sub font settings must match.
+     * @see DvbddsHandling
+     */
+
+    public void setDdsHandling(String ddsHandling) {
+        this.ddsHandling = ddsHandling;
+    }
+
+    /**
+     * Specify how MediaConvert handles the display definition segment (DDS). To exclude the DDS from this set of
+     * captions: Keep the default, None. To include the DDS: Choose Specified. When you do, also specify the offset
+     * coordinates of the display window with DDS x-coordinate and DDS y-coordinate. To include the DDS, but not include
+     * display window data: Choose No display window. When you do, you can write position metadata to the page
+     * composition segment (PCS) with DDS x-coordinate and DDS y-coordinate. For video resolutions with a height of 576
+     * pixels or less, MediaConvert doesn't include the DDS, regardless of the value you choose for DDS handling. All
+     * burn-in and DVB-Sub font settings must match.
+     * 
+     * @return Specify how MediaConvert handles the display definition segment (DDS). To exclude the DDS from this set
+     *         of captions: Keep the default, None. To include the DDS: Choose Specified. When you do, also specify the
+     *         offset coordinates of the display window with DDS x-coordinate and DDS y-coordinate. To include the DDS,
+     *         but not include display window data: Choose No display window. When you do, you can write position
+     *         metadata to the page composition segment (PCS) with DDS x-coordinate and DDS y-coordinate. For video
+     *         resolutions with a height of 576 pixels or less, MediaConvert doesn't include the DDS, regardless of the
+     *         value you choose for DDS handling. All burn-in and DVB-Sub font settings must match.
+     * @see DvbddsHandling
+     */
+
+    public String getDdsHandling() {
+        return this.ddsHandling;
+    }
+
+    /**
+     * Specify how MediaConvert handles the display definition segment (DDS). To exclude the DDS from this set of
+     * captions: Keep the default, None. To include the DDS: Choose Specified. When you do, also specify the offset
+     * coordinates of the display window with DDS x-coordinate and DDS y-coordinate. To include the DDS, but not include
+     * display window data: Choose No display window. When you do, you can write position metadata to the page
+     * composition segment (PCS) with DDS x-coordinate and DDS y-coordinate. For video resolutions with a height of 576
+     * pixels or less, MediaConvert doesn't include the DDS, regardless of the value you choose for DDS handling. All
+     * burn-in and DVB-Sub font settings must match.
+     * 
+     * @param ddsHandling
+     *        Specify how MediaConvert handles the display definition segment (DDS). To exclude the DDS from this set of
+     *        captions: Keep the default, None. To include the DDS: Choose Specified. When you do, also specify the
+     *        offset coordinates of the display window with DDS x-coordinate and DDS y-coordinate. To include the DDS,
+     *        but not include display window data: Choose No display window. When you do, you can write position
+     *        metadata to the page composition segment (PCS) with DDS x-coordinate and DDS y-coordinate. For video
+     *        resolutions with a height of 576 pixels or less, MediaConvert doesn't include the DDS, regardless of the
+     *        value you choose for DDS handling. All burn-in and DVB-Sub font settings must match.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DvbddsHandling
+     */
+
+    public DvbSubDestinationSettings withDdsHandling(String ddsHandling) {
+        setDdsHandling(ddsHandling);
+        return this;
+    }
+
+    /**
+     * Specify how MediaConvert handles the display definition segment (DDS). To exclude the DDS from this set of
+     * captions: Keep the default, None. To include the DDS: Choose Specified. When you do, also specify the offset
+     * coordinates of the display window with DDS x-coordinate and DDS y-coordinate. To include the DDS, but not include
+     * display window data: Choose No display window. When you do, you can write position metadata to the page
+     * composition segment (PCS) with DDS x-coordinate and DDS y-coordinate. For video resolutions with a height of 576
+     * pixels or less, MediaConvert doesn't include the DDS, regardless of the value you choose for DDS handling. All
+     * burn-in and DVB-Sub font settings must match.
+     * 
+     * @param ddsHandling
+     *        Specify how MediaConvert handles the display definition segment (DDS). To exclude the DDS from this set of
+     *        captions: Keep the default, None. To include the DDS: Choose Specified. When you do, also specify the
+     *        offset coordinates of the display window with DDS x-coordinate and DDS y-coordinate. To include the DDS,
+     *        but not include display window data: Choose No display window. When you do, you can write position
+     *        metadata to the page composition segment (PCS) with DDS x-coordinate and DDS y-coordinate. For video
+     *        resolutions with a height of 576 pixels or less, MediaConvert doesn't include the DDS, regardless of the
+     *        value you choose for DDS handling. All burn-in and DVB-Sub font settings must match.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DvbddsHandling
+     */
+
+    public DvbSubDestinationSettings withDdsHandling(DvbddsHandling ddsHandling) {
+        this.ddsHandling = ddsHandling.toString();
+        return this;
+    }
+
+    /**
+     * Use this setting, along with DDS y-coordinate, to specify the upper left corner of the display definition segment
+     * (DDS) display window. With this setting, specify the distance, in pixels, between the left side of the frame and
+     * the left side of the DDS display window. Keep the default value, 0, to have MediaConvert automatically choose this
+     * offset. Related setting: When you use this setting, you must set DDS handling to a value other than None.
+     * MediaConvert uses these values to determine whether to write page position data to the DDS or to the page
+     * composition segment. All burn-in and DVB-Sub font settings must match.
+     * 
+     * @param ddsXCoordinate
+     *        Use this setting, along with DDS y-coordinate, to specify the upper left corner of the display definition
+     *        segment (DDS) display window. With this setting, specify the distance, in pixels, between the left side of
+     *        the frame and the left side of the DDS display window. Keep the default value, 0, to have MediaConvert
+     *        automatically choose this offset. Related setting: When you use this setting, you must set DDS handling to
+     *        a value other than None. MediaConvert uses these values to determine whether to write page position data
+     *        to the DDS or to the page composition segment. All burn-in and DVB-Sub font settings must match.
+     */
+
+    public void setDdsXCoordinate(Integer ddsXCoordinate) {
+        this.ddsXCoordinate = ddsXCoordinate;
+    }
+
+    /**
+     * Use this setting, along with DDS y-coordinate, to specify the upper left corner of the display definition segment
+     * (DDS) display window. With this setting, specify the distance, in pixels, between the left side of the frame and
+     * the left side of the DDS display window. Keep the default value, 0, to have MediaConvert automatically choose this
+     * offset. Related setting: When you use this setting, you must set DDS handling to a value other than None.
+     * MediaConvert uses these values to determine whether to write page position data to the DDS or to the page
+     * composition segment. All burn-in and DVB-Sub font settings must match.
+     * 
+     * @return Use this setting, along with DDS y-coordinate, to specify the upper left corner of the display definition
+     *         segment (DDS) display window. With this setting, specify the distance, in pixels, between the left side
+     *         of the frame and the left side of the DDS display window. Keep the default value, 0, to have MediaConvert
+     *         automatically choose this offset. Related setting: When you use this setting, you must set DDS handling
+     *         to a value other than None. MediaConvert uses these values to determine whether to write page position
+     *         data to the DDS or to the page composition segment. All burn-in and DVB-Sub font settings must match.
+     */
+
+    public Integer getDdsXCoordinate() {
+        return this.ddsXCoordinate;
+    }
+
+    /**
+     * Use this setting, along with DDS y-coordinate, to specify the upper left corner of the display definition segment
+     * (DDS) display window. With this setting, specify the distance, in pixels, between the left side of the frame and
+     * the left side of the DDS display window. Keep the default value, 0, to have MediaConvert automatically choose this
+     * offset. Related setting: When you use this setting, you must set DDS handling to a value other than None.
+     * MediaConvert uses these values to determine whether to write page position data to the DDS or to the page
+     * composition segment. All burn-in and DVB-Sub font settings must match.
+     * 
+     * @param ddsXCoordinate
+     *        Use this setting, along with DDS y-coordinate, to specify the upper left corner of the display definition
+     *        segment (DDS) display window. With this setting, specify the distance, in pixels, between the left side of
+     *        the frame and the left side of the DDS display window. Keep the default value, 0, to have MediaConvert
+     *        automatically choose this offset. Related setting: When you use this setting, you must set DDS handling to
+     *        a value other than None. MediaConvert uses these values to determine whether to write page position data
+     *        to the DDS or to the page composition segment. All burn-in and DVB-Sub font settings must match.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DvbSubDestinationSettings withDdsXCoordinate(Integer ddsXCoordinate) {
+        setDdsXCoordinate(ddsXCoordinate);
+        return this;
+    }
+
+    /**
+     * Use this setting, along with DDS x-coordinate, to specify the upper left corner of the display definition segment
+     * (DDS) display window. With this setting, specify the distance, in pixels, between the top of the frame and the
+     * top of the DDS display window. Keep the default value, 0, to have MediaConvert automatically choose this offset.
+     * Related setting: When you use this setting, you must set DDS handling to a value other than None. MediaConvert
+     * uses these values to determine whether to write page position data to the DDS or to the page composition segment
+     * (PCS). All burn-in and DVB-Sub font settings must match.
+     * 
+     * @param ddsYCoordinate
+     *        Use this setting, along with DDS x-coordinate, to specify the upper left corner of the display definition
+     *        segment (DDS) display window. With this setting, specify the distance, in pixels, between the top of the
+     *        frame and the top of the DDS display window. Keep the default value, 0, to have MediaConvert automatically
+     *        choose this offset. Related setting: When you use this setting, you must set DDS handling to a value other
+     *        than None. MediaConvert uses these values to determine whether to write page position data to the DDS or
+     *        to the page composition segment (PCS). All burn-in and DVB-Sub font settings must match.
+     */
+
+    public void setDdsYCoordinate(Integer ddsYCoordinate) {
+        this.ddsYCoordinate = ddsYCoordinate;
+    }
+
+    /**
+     * Use this setting, along with DDS x-coordinate, to specify the upper left corner of the display definition segment
+     * (DDS) display window. With this setting, specify the distance, in pixels, between the top of the frame and the
+     * top of the DDS display window. Keep the default value, 0, to have MediaConvert automatically choose this offset.
+     * Related setting: When you use this setting, you must set DDS handling to a value other than None. MediaConvert
+     * uses these values to determine whether to write page position data to the DDS or to the page composition segment
+     * (PCS). All burn-in and DVB-Sub font settings must match.
+     * 
+     * @return Use this setting, along with DDS x-coordinate, to specify the upper left corner of the display definition
+     *         segment (DDS) display window. With this setting, specify the distance, in pixels, between the top of the
+     *         frame and the top of the DDS display window. Keep the default value, 0, to have MediaConvert
+     *         automatically choose this offset. Related setting: When you use this setting, you must set DDS handling
+     *         to a value other than None. MediaConvert uses these values to determine whether to write page position
+     *         data to the DDS or to the page composition segment (PCS). All burn-in and DVB-Sub font settings must
+     *         match.
+     */
+
+    public Integer getDdsYCoordinate() {
+        return this.ddsYCoordinate;
+    }
+
+    /**
+     * Use this setting, along with DDS x-coordinate, to specify the upper left corner of the display definition segment
+     * (DDS) display window. With this setting, specify the distance, in pixels, between the top of the frame and the
+     * top of the DDS display window. Keep the default value, 0, to have MediaConvert automatically choose this offset.
+     * Related setting: When you use this setting, you must set DDS handling to a value other than None. MediaConvert
+     * uses these values to determine whether to write page position data to the DDS or to the page composition segment
+     * (PCS). All burn-in and DVB-Sub font settings must match.
+     * 
+     * @param ddsYCoordinate
+     *        Use this setting, along with DDS x-coordinate, to specify the upper left corner of the display definition
+     *        segment (DDS) display window. With this setting, specify the distance, in pixels, between the top of the
+     *        frame and the top of the DDS display window. Keep the default value, 0, to have MediaConvert automatically
+     *        choose this offset. Related setting: When you use this setting, you must set DDS handling to a value other
+     *        than None. MediaConvert uses these values to determine whether to write page position data to the DDS or
+     *        to the page composition segment (PCS). All burn-in and DVB-Sub font settings must match.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DvbSubDestinationSettings withDdsYCoordinate(Integer ddsYCoordinate) {
+        setDdsYCoordinate(ddsYCoordinate);
+        return this;
+    }
+
+    /**
+     * Specify the font that you want the service to use for your burn in captions when your input captions specify a
+     * font that MediaConvert doesn't support. When you set Fallback font to best match, or leave blank, MediaConvert
+     * uses a supported font that most closely matches the font that your input captions specify. When there are multiple
+     * unsupported fonts in your input captions, MediaConvert matches each font with the supported font that matches
+     * best. When you explicitly choose a replacement font, MediaConvert uses that font to replace all unsupported fonts
+     * from your input.
+     * 
+     * @param fallbackFont
+     *        Specify the font that you want the service to use for your burn in captions when your input captions
+     *        specify a font that MediaConvert doesn't support. When you set Fallback font to best match, or leave
+     *        blank, MediaConvert uses a supported font that most closely matches the font that your input captions
+     *        specify. When there are multiple unsupported fonts in your input captions, MediaConvert matches each font
+     *        with the supported font that matches best. When you explicitly choose a replacement font, MediaConvert
+     *        uses that font to replace all unsupported fonts from your input.
+     * @see DvbSubSubtitleFallbackFont
+     */
+
+    public void setFallbackFont(String fallbackFont) {
+        this.fallbackFont = fallbackFont;
+    }
+
+    /**
+     * Specify the font that you want the service to use for your burn in captions when your input captions specify a
+     * font that MediaConvert doesn't support. When you set Fallback font to best match, or leave blank, MediaConvert
+     * uses a supported font that most closely matches the font that your input captions specify. When there are multiple
+     * unsupported fonts in your input captions, MediaConvert matches each font with the supported font that matches
+     * best. When you explicitly choose a replacement font, MediaConvert uses that font to replace all unsupported fonts
+     * from your input.
+     * 
+     * @return Specify the font that you want the service to use for your burn in captions when your input captions
+     *         specify a font that MediaConvert doesn't support. When you set Fallback font to best match, or leave
+     *         blank, MediaConvert uses a supported font that most closely matches the font that your input captions
+     *         specify. When there are multiple unsupported fonts in your input captions, MediaConvert matches each font
+     *         with the supported font that matches best. When you explicitly choose a replacement font, MediaConvert
+     *         uses that font to replace all unsupported fonts from your input.
+     * @see DvbSubSubtitleFallbackFont
+     */
+
+    public String getFallbackFont() {
+        return this.fallbackFont;
+    }
+
+    /**
+     * Specify the font that you want the service to use for your burn in captions when your input captions specify a
+     * font that MediaConvert doesn't support. When you set Fallback font to best match, or leave blank, MediaConvert
+     * uses a supported font that most closely matches the font that your input captions specify. When there are multiple
+     * unsupported fonts in your input captions, MediaConvert matches each font with the supported font that matches
+     * best. When you explicitly choose a replacement font, MediaConvert uses that font to replace all unsupported fonts
+     * from your input.
+     * 
+     * @param fallbackFont
+     *        Specify the font that you want the service to use for your burn in captions when your input captions
+     *        specify a font that MediaConvert doesn't support. When you set Fallback font to best match, or leave
+     *        blank, MediaConvert uses a supported font that most closely matches the font that your input captions
+     *        specify. When there are multiple unsupported fonts in your input captions, MediaConvert matches each font
+     *        with the supported font that matches best. When you explicitly choose a replacement font, MediaConvert
+     *        uses that font to replace all unsupported fonts from your input.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DvbSubSubtitleFallbackFont
+     */
+
+    public DvbSubDestinationSettings withFallbackFont(String fallbackFont) {
+        setFallbackFont(fallbackFont);
+        return this;
+    }
+
+    /**
+     * Specify the font that you want the service to use for your burn in captions when your input captions specify a
+     * font that MediaConvert doesn't support. When you set Fallback font to best match, or leave blank, MediaConvert
+     * uses a supported font that most closely matches the font that your input captions specify. When there are multiple
+     * unsupported fonts in your input captions, MediaConvert matches each font with the supported font that matches
+     * best. When you explicitly choose a replacement font, MediaConvert uses that font to replace all unsupported fonts
+     * from your input.
+     * 
+     * @param fallbackFont
+     *        Specify the font that you want the service to use for your burn in captions when your input captions
+     *        specify a font that MediaConvert doesn't support. When you set Fallback font to best match, or leave
+     *        blank, MediaConvert uses a supported font that most closely matches the font that your input captions
+     *        specify. When there are multiple unsupported fonts in your input captions, MediaConvert matches each font
+     *        with the supported font that matches best. When you explicitly choose a replacement font, MediaConvert
+     *        uses that font to replace all unsupported fonts from your input.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DvbSubSubtitleFallbackFont
+     */
+
+    public DvbSubDestinationSettings withFallbackFont(DvbSubSubtitleFallbackFont fallbackFont) {
+        this.fallbackFont = fallbackFont.toString();
+        return this;
+    }
+
+    /**
+     * Specify the color of the captions text. Leave Font color blank and set Style passthrough to enabled to use the
+     * font color data from your input captions, if present. Within your job settings, all of your DVB-Sub settings must
+     * be identical.
      * 
      * @param fontColor
-     *        Specifies the color of the burned-in captions. This option is not valid for source captions that are STL,
-     *        608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in
-     *        and DVB-Sub font settings must match.
+     *        Specify the color of the captions text. Leave Font color blank and set Style passthrough to enabled to use
+     *        the font color data from your input captions, if present. Within your job settings, all of your DVB-Sub
+     *        settings must be identical.
      * @see DvbSubtitleFontColor
      */
 
@@ -329,13 +857,13 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the color of the burned-in captions. This option is not valid for source captions that are STL,
-     * 608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in and
-     * DVB-Sub font settings must match.
+     * Specify the color of the captions text. Leave Font color blank and set Style passthrough to enabled to use the
+     * font color data from your input captions, if present. Within your job settings, all of your DVB-Sub settings must
+     * be identical.
      * 
-     * @return Specifies the color of the burned-in captions. This option is not valid for source captions that are STL,
-     *         608/embedded or teletext. These source settings are already pre-defined by the caption stream. All
-     *         burn-in and DVB-Sub font settings must match.
+     * @return Specify the color of the captions text. Leave Font color blank and set Style passthrough to enabled to
+     *         use the font color data from your input captions, if present. Within your job settings, all of your
+     *         DVB-Sub settings must be identical.
      * @see DvbSubtitleFontColor
      */
 
@@ -344,14 +872,14 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the color of the burned-in captions. This option is not valid for source captions that are STL,
-     * 608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in and
-     * DVB-Sub font settings must match.
+     * Specify the color of the captions text. Leave Font color blank and set Style passthrough to enabled to use the
+     * font color data from your input captions, if present. Within your job settings, all of your DVB-Sub settings must
+     * be identical.
      * 
      * @param fontColor
-     *        Specifies the color of the burned-in captions. This option is not valid for source captions that are STL,
-     *        608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in
-     *        and DVB-Sub font settings must match.
+     *        Specify the color of the captions text. Leave Font color blank and set Style passthrough to enabled to use
+     *        the font color data from your input captions, if present. Within your job settings, all of your DVB-Sub
+     *        settings must be identical.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DvbSubtitleFontColor
      */
@@ -362,14 +890,14 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the color of the burned-in captions. This option is not valid for source captions that are STL,
-     * 608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in and
-     * DVB-Sub font settings must match.
+     * Specify the color of the captions text. Leave Font color blank and set Style passthrough to enabled to use the
+     * font color data from your input captions, if present. Within your job settings, all of your DVB-Sub settings must
+     * be identical.
      * 
      * @param fontColor
-     *        Specifies the color of the burned-in captions. This option is not valid for source captions that are STL,
-     *        608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in
-     *        and DVB-Sub font settings must match.
+     *        Specify the color of the captions text. Leave Font color blank and set Style passthrough to enabled to use
+     *        the font color data from your input captions, if present. Within your job settings, all of your DVB-Sub
+     *        settings must be identical.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DvbSubtitleFontColor
      */
@@ -380,12 +908,172 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the opacity of the burned-in captions. 255 is opaque; 0 is transparent. All burn-in and DVB-Sub font
-     * settings must match.
+     * Specify a bold TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or HTTPS URL.
+     * When you do, you must also separately specify a regular, an italic, and a bold italic font file.
+     * 
+     * @param fontFileBold
+     *        Specify a bold TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or HTTPS
+     *        URL. When you do, you must also separately specify a regular, an italic, and a bold italic font file.
+     */
+
+    public void setFontFileBold(String fontFileBold) {
+        this.fontFileBold = fontFileBold;
+    }
+
+    /**
+     * Specify a bold TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or HTTPS URL.
+     * When you do, you must also separately specify a regular, an italic, and a bold italic font file.
+     * 
+     * @return Specify a bold TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or HTTPS
+     *         URL. When you do, you must also separately specify a regular, an italic, and a bold italic font file.
+     */
+
+    public String getFontFileBold() {
+        return this.fontFileBold;
+    }
+
+    /**
+     * Specify a bold TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or HTTPS URL.
+     * When you do, you must also separately specify a regular, an italic, and a bold italic font file.
+     * 
+     * @param fontFileBold
+     *        Specify a bold TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or HTTPS
+     *        URL. When you do, you must also separately specify a regular, an italic, and a bold italic font file.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DvbSubDestinationSettings withFontFileBold(String fontFileBold) {
+        setFontFileBold(fontFileBold);
+        return this;
+    }
+
+    /**
+     * Specify a bold italic TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or HTTPS
+     * URL. When you do, you must also separately specify a regular, a bold, and an italic font file.
+     * 
+     * @param fontFileBoldItalic
+     *        Specify a bold italic TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or
+     *        HTTPS URL. When you do, you must also separately specify a regular, a bold, and an italic font file.
+     */
+
+    public void setFontFileBoldItalic(String fontFileBoldItalic) {
+        this.fontFileBoldItalic = fontFileBoldItalic;
+    }
+
+    /**
+     * Specify a bold italic TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or HTTPS
+     * URL. When you do, you must also separately specify a regular, a bold, and an italic font file.
+     * 
+     * @return Specify a bold italic TrueType font file to use when rendering your output captions. Enter an S3, HTTP,
+     *         or HTTPS URL. When you do, you must also separately specify a regular, a bold, and an italic font file.
+     */
+
+    public String getFontFileBoldItalic() {
+        return this.fontFileBoldItalic;
+    }
+
+    /**
+     * Specify a bold italic TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or HTTPS
+     * URL. When you do, you must also separately specify a regular, a bold, and an italic font file.
+     * 
+     * @param fontFileBoldItalic
+     *        Specify a bold italic TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or
+     *        HTTPS URL. When you do, you must also separately specify a regular, a bold, and an italic font file.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DvbSubDestinationSettings withFontFileBoldItalic(String fontFileBoldItalic) {
+        setFontFileBoldItalic(fontFileBoldItalic);
+        return this;
+    }
+
+    /**
+     * Specify an italic TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or HTTPS URL.
+     * When you do, you must also separately specify a regular, a bold, and a bold italic font file.
+     * 
+     * @param fontFileItalic
+     *        Specify an italic TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or
+     *        HTTPS URL. When you do, you must also separately specify a regular, a bold, and a bold italic font file.
+     */
+
+    public void setFontFileItalic(String fontFileItalic) {
+        this.fontFileItalic = fontFileItalic;
+    }
+
+    /**
+     * Specify an italic TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or HTTPS URL.
+     * When you do, you must also separately specify a regular, a bold, and a bold italic font file.
+     * 
+     * @return Specify an italic TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or
+     *         HTTPS URL. When you do, you must also separately specify a regular, a bold, and a bold italic font file.
+     */
+
+    public String getFontFileItalic() {
+        return this.fontFileItalic;
+    }
+
+    /**
+     * Specify an italic TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or HTTPS URL.
+     * When you do, you must also separately specify a regular, a bold, and a bold italic font file.
+     * 
+     * @param fontFileItalic
+     *        Specify an italic TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or
+     *        HTTPS URL. When you do, you must also separately specify a regular, a bold, and a bold italic font file.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DvbSubDestinationSettings withFontFileItalic(String fontFileItalic) {
+        setFontFileItalic(fontFileItalic);
+        return this;
+    }
+
+    /**
+     * Specify a regular TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or HTTPS URL.
+     * When you do, you must also separately specify a bold, an italic, and a bold italic font file.
+     * 
+     * @param fontFileRegular
+     *        Specify a regular TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or
+     *        HTTPS URL. When you do, you must also separately specify a bold, an italic, and a bold italic font file.
+     */
+
+    public void setFontFileRegular(String fontFileRegular) {
+        this.fontFileRegular = fontFileRegular;
+    }
+
+    /**
+     * Specify a regular TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or HTTPS URL.
+     * When you do, you must also separately specify a bold, an italic, and a bold italic font file.
+     * 
+     * @return Specify a regular TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or
+     *         HTTPS URL. When you do, you must also separately specify a bold, an italic, and a bold italic font file.
+     */
+
+    public String getFontFileRegular() {
+        return this.fontFileRegular;
+    }
+
+    /**
+     * Specify a regular TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or HTTPS URL.
+     * When you do, you must also separately specify a bold, an italic, and a bold italic font file.
+     * 
+     * @param fontFileRegular
+     *        Specify a regular TrueType font file to use when rendering your output captions. Enter an S3, HTTP, or
+     *        HTTPS URL. When you do, you must also separately specify a bold, an italic, and a bold italic font file.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DvbSubDestinationSettings withFontFileRegular(String fontFileRegular) {
+        setFontFileRegular(fontFileRegular);
+        return this;
+    }
+
+    /**
+     * Specify the opacity of the burned-in captions. 255 is opaque; 0 is transparent. Within your job settings, all of
+     * your DVB-Sub settings must be identical.
      * 
      * @param fontOpacity
-     *        Specifies the opacity of the burned-in captions. 255 is opaque; 0 is transparent. All burn-in and DVB-Sub
-     *        font settings must match.
+     *        Specify the opacity of the burned-in captions. 255 is opaque; 0 is transparent. Within your job settings,
+     *        all of your DVB-Sub settings must be identical.
      */
 
     public void setFontOpacity(Integer fontOpacity) {
@@ -393,11 +1081,11 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the opacity of the burned-in captions. 255 is opaque; 0 is transparent. All burn-in and DVB-Sub font
-     * settings must match.
+     * Specify the opacity of the burned-in captions. 255 is opaque; 0 is transparent. Within your job settings, all of
+     * your DVB-Sub settings must be identical.
      * 
-     * @return Specifies the opacity of the burned-in captions. 255 is opaque; 0 is transparent. All burn-in and DVB-Sub
-     *         font settings must match.
+     * @return Specify the opacity of the burned-in captions. 255 is opaque; 0 is transparent. Within your job settings,
+     *         all of your DVB-Sub settings must be identical.
      */
 
     public Integer getFontOpacity() {
@@ -405,12 +1093,12 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the opacity of the burned-in captions. 255 is opaque; 0 is transparent. All burn-in and DVB-Sub font
-     * settings must match.
+     * Specify the opacity of the burned-in captions. 255 is opaque; 0 is transparent. Within your job settings, all of
+     * your DVB-Sub settings must be identical.
      * 
      * @param fontOpacity
-     *        Specifies the opacity of the burned-in captions. 255 is opaque; 0 is transparent. All burn-in and DVB-Sub
-     *        font settings must match.
+     *        Specify the opacity of the burned-in captions. 255 is opaque; 0 is transparent. Within your job settings,
+     *        all of your DVB-Sub settings must be identical.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -420,11 +1108,12 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Font resolution in DPI (dots per inch); default is 96 dpi. All burn-in and DVB-Sub font settings must match.
+     * Specify the Font resolution in DPI (dots per inch). Within your job settings, all of your DVB-Sub settings must
+     * be identical.
      * 
      * @param fontResolution
-     *        Font resolution in DPI (dots per inch); default is 96 dpi. All burn-in and DVB-Sub font settings must
-     *        match.
+     *        Specify the Font resolution in DPI (dots per inch). Within your job settings, all of your DVB-Sub settings
+     *        must be identical.
      */
 
     public void setFontResolution(Integer fontResolution) {
@@ -432,10 +1121,11 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Font resolution in DPI (dots per inch); default is 96 dpi. All burn-in and DVB-Sub font settings must match.
+     * Specify the Font resolution in DPI (dots per inch). Within your job settings, all of your DVB-Sub settings must
+     * be identical.
      * 
-     * @return Font resolution in DPI (dots per inch); default is 96 dpi. All burn-in and DVB-Sub font settings must
-     *         match.
+     * @return Specify the Font resolution in DPI (dots per inch). Within your job settings, all of your DVB-Sub
+     *         settings must be identical.
      */
 
     public Integer getFontResolution() {
@@ -443,11 +1133,12 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Font resolution in DPI (dots per inch); default is 96 dpi. All burn-in and DVB-Sub font settings must match.
+     * Specify the Font resolution in DPI (dots per inch). Within your job settings, all of your DVB-Sub settings must
+     * be identical.
      * 
      * @param fontResolution
-     *        Font resolution in DPI (dots per inch); default is 96 dpi. All burn-in and DVB-Sub font settings must
-     *        match.
+     *        Specify the Font resolution in DPI (dots per inch). Within your job settings, all of your DVB-Sub settings
+     *        must be identical.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -457,14 +1148,16 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Provide the font script, using an ISO 15924 script code, if the LanguageCode is not sufficient for determining
-     * the script type. Where LanguageCode or CustomLanguageCode is sufficient, use "AUTOMATIC" or leave unset. This is
-     * used to help determine the appropriate font for rendering DVB-Sub captions.
+     * Set Font script to Automatically determined, or leave blank, to automatically determine the font script in your
+     * input captions. Otherwise, set to Simplified Chinese (HANS) or Traditional Chinese (HANT) if your input font
+     * script uses Simplified or Traditional Chinese. Within your job settings, all of your DVB-Sub settings must be
+     * identical.
      * 
      * @param fontScript
-     *        Provide the font script, using an ISO 15924 script code, if the LanguageCode is not sufficient for
-     *        determining the script type. Where LanguageCode or CustomLanguageCode is sufficient, use "AUTOMATIC" or
-     *        leave unset. This is used to help determine the appropriate font for rendering DVB-Sub captions.
+     *        Set Font script to Automatically determined, or leave blank, to automatically determine the font script in
+     *        your input captions. Otherwise, set to Simplified Chinese (HANS) or Traditional Chinese (HANT) if your
+     *        input font script uses Simplified or Traditional Chinese. Within your job settings, all of your DVB-Sub
+     *        settings must be identical.
      * @see FontScript
      */
 
@@ -473,13 +1166,15 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Provide the font script, using an ISO 15924 script code, if the LanguageCode is not sufficient for determining
-     * the script type. Where LanguageCode or CustomLanguageCode is sufficient, use "AUTOMATIC" or leave unset. This is
-     * used to help determine the appropriate font for rendering DVB-Sub captions.
+     * Set Font script to Automatically determined, or leave blank, to automatically determine the font script in your
+     * input captions. Otherwise, set to Simplified Chinese (HANS) or Traditional Chinese (HANT) if your input font
+     * script uses Simplified or Traditional Chinese. Within your job settings, all of your DVB-Sub settings must be
+     * identical.
      * 
-     * @return Provide the font script, using an ISO 15924 script code, if the LanguageCode is not sufficient for
-     *         determining the script type. Where LanguageCode or CustomLanguageCode is sufficient, use "AUTOMATIC" or
-     *         leave unset. This is used to help determine the appropriate font for rendering DVB-Sub captions.
+     * @return Set Font script to Automatically determined, or leave blank, to automatically determine the font script
+     *         in your input captions. Otherwise, set to Simplified Chinese (HANS) or Traditional Chinese (HANT) if your
+     *         input font script uses Simplified or Traditional Chinese. Within your job settings, all of your DVB-Sub
+     *         settings must be identical.
      * @see FontScript
      */
 
@@ -488,14 +1183,16 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Provide the font script, using an ISO 15924 script code, if the LanguageCode is not sufficient for determining
-     * the script type. Where LanguageCode or CustomLanguageCode is sufficient, use "AUTOMATIC" or leave unset. This is
-     * used to help determine the appropriate font for rendering DVB-Sub captions.
+     * Set Font script to Automatically determined, or leave blank, to automatically determine the font script in your
+     * input captions. Otherwise, set to Simplified Chinese (HANS) or Traditional Chinese (HANT) if your input font
+     * script uses Simplified or Traditional Chinese. Within your job settings, all of your DVB-Sub settings must be
+     * identical.
      * 
      * @param fontScript
-     *        Provide the font script, using an ISO 15924 script code, if the LanguageCode is not sufficient for
-     *        determining the script type. Where LanguageCode or CustomLanguageCode is sufficient, use "AUTOMATIC" or
-     *        leave unset. This is used to help determine the appropriate font for rendering DVB-Sub captions.
+     *        Set Font script to Automatically determined, or leave blank, to automatically determine the font script in
+     *        your input captions. Otherwise, set to Simplified Chinese (HANS) or Traditional Chinese (HANT) if your
+     *        input font script uses Simplified or Traditional Chinese. Within your job settings, all of your DVB-Sub
+     *        settings must be identical.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see FontScript
      */
@@ -506,14 +1203,16 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Provide the font script, using an ISO 15924 script code, if the LanguageCode is not sufficient for determining
-     * the script type. Where LanguageCode or CustomLanguageCode is sufficient, use "AUTOMATIC" or leave unset. This is
-     * used to help determine the appropriate font for rendering DVB-Sub captions.
+     * Set Font script to Automatically determined, or leave blank, to automatically determine the font script in your
+     * input captions. Otherwise, set to Simplified Chinese (HANS) or Traditional Chinese (HANT) if your input font
+     * script uses Simplified or Traditional Chinese. Within your job settings, all of your DVB-Sub settings must be
+     * identical.
      * 
      * @param fontScript
-     *        Provide the font script, using an ISO 15924 script code, if the LanguageCode is not sufficient for
-     *        determining the script type. Where LanguageCode or CustomLanguageCode is sufficient, use "AUTOMATIC" or
-     *        leave unset. This is used to help determine the appropriate font for rendering DVB-Sub captions.
+     *        Set Font script to Automatically determined, or leave blank, to automatically determine the font script in
+     *        your input captions. Otherwise, set to Simplified Chinese (HANS) or Traditional Chinese (HANT) if your
+     *        input font script uses Simplified or Traditional Chinese. Within your job settings, all of your DVB-Sub
+     *        settings must be identical.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see FontScript
      */
@@ -524,12 +1223,12 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * A positive integer indicates the exact font size in points. Set to 0 for automatic font size selection. All
-     * burn-in and DVB-Sub font settings must match.
+     * Specify the Font size in pixels. Must be a positive integer. Set to 0, or leave blank, for automatic font size.
+     * Within your job settings, all of your DVB-Sub settings must be identical.
      * 
      * @param fontSize
-     *        A positive integer indicates the exact font size in points. Set to 0 for automatic font size selection.
-     *        All burn-in and DVB-Sub font settings must match.
+     *        Specify the Font size in pixels. Must be a positive integer. Set to 0, or leave blank, for automatic font
+     *        size. Within your job settings, all of your DVB-Sub settings must be identical.
      */
 
     public void setFontSize(Integer fontSize) {
@@ -537,11 +1236,11 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * A positive integer indicates the exact font size in points. Set to 0 for automatic font size selection. All
-     * burn-in and DVB-Sub font settings must match.
+     * Specify the Font size in pixels. Must be a positive integer. Set to 0, or leave blank, for automatic font size.
+     * Within your job settings, all of your DVB-Sub settings must be identical.
      * 
-     * @return A positive integer indicates the exact font size in points. Set to 0 for automatic font size selection.
-     *         All burn-in and DVB-Sub font settings must match.
+     * @return Specify the Font size in pixels. Must be a positive integer. Set to 0, or leave blank, for automatic font
+     *         size. Within your job settings, all of your DVB-Sub settings must be identical.
      */
 
     public Integer getFontSize() {
@@ -549,12 +1248,12 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * A positive integer indicates the exact font size in points. Set to 0 for automatic font size selection. All
-     * burn-in and DVB-Sub font settings must match.
+     * Specify the Font size in pixels. Must be a positive integer. Set to 0, or leave blank, for automatic font size.
+     * Within your job settings, all of your DVB-Sub settings must be identical.
      * 
      * @param fontSize
-     *        A positive integer indicates the exact font size in points. Set to 0 for automatic font size selection.
-     *        All burn-in and DVB-Sub font settings must match.
+     *        Specify the Font size in pixels. Must be a positive integer. Set to 0, or leave blank, for automatic font
+     *        size. Within your job settings, all of your DVB-Sub settings must be identical.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -564,14 +1263,106 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies font outline color. This option is not valid for source captions that are either 608/embedded or
-     * teletext. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub font
+     * Specify the height, in pixels, of this set of DVB-Sub captions. The default value is 576 pixels. Related setting:
+     * When you use this setting, you must set DDS handling to a value other than None. All burn-in and DVB-Sub font
      * settings must match.
      * 
+     * @param height
+     *        Specify the height, in pixels, of this set of DVB-Sub captions. The default value is 576 pixels. Related
+     *        setting: When you use this setting, you must set DDS handling to a value other than None. All burn-in and
+     *        DVB-Sub font settings must match.
+     */
+
+    public void setHeight(Integer height) {
+        this.height = height;
+    }
+
+    /**
+     * Specify the height, in pixels, of this set of DVB-Sub captions. The default value is 576 pixels. Related setting:
+     * When you use this setting, you must set DDS handling to a value other than None. All burn-in and DVB-Sub font
+     * settings must match.
+     * 
+     * @return Specify the height, in pixels, of this set of DVB-Sub captions. The default value is 576 pixels. Related
+     *         setting: When you use this setting, you must set DDS handling to a value other than None. All burn-in and
+     *         DVB-Sub font settings must match.
+     */
+
+    public Integer getHeight() {
+        return this.height;
+    }
+
+    /**
+     * Specify the height, in pixels, of this set of DVB-Sub captions. The default value is 576 pixels. Related setting:
+     * When you use this setting, you must set DDS handling to a value other than None. All burn-in and DVB-Sub font
+     * settings must match.
+     * 
+     * @param height
+     *        Specify the height, in pixels, of this set of DVB-Sub captions. The default value is 576 pixels. Related
+     *        setting: When you use this setting, you must set DDS handling to a value other than None. All burn-in and
+     *        DVB-Sub font settings must match.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DvbSubDestinationSettings withHeight(Integer height) {
+        setHeight(height);
+        return this;
+    }
+
+    /**
+     * Ignore this setting unless your Font color is set to Hex. Enter either six or eight hexidecimal digits,
+     * representing red, green, and blue, with two optional extra digits for alpha. For example a value of 1122AABB is a
+     * red value of 0x11, a green value of 0x22, a blue value of 0xAA, and an alpha value of 0xBB.
+     * 
+     * @param hexFontColor
+     *        Ignore this setting unless your Font color is set to Hex. Enter either six or eight hexidecimal digits,
+     *        representing red, green, and blue, with two optional extra digits for alpha. For example a value of
+     *        1122AABB is a red value of 0x11, a green value of 0x22, a blue value of 0xAA, and an alpha value of 0xBB.
+     */
+
+    public void setHexFontColor(String hexFontColor) {
+        this.hexFontColor = hexFontColor;
+    }
+
+    /**
+     * Ignore this setting unless your Font color is set to Hex. Enter either six or eight hexidecimal digits,
+     * representing red, green, and blue, with two optional extra digits for alpha. For example a value of 1122AABB is a
+     * red value of 0x11, a green value of 0x22, a blue value of 0xAA, and an alpha value of 0xBB.
+     * 
+     * @return Ignore this setting unless your Font color is set to Hex. Enter either six or eight hexidecimal digits,
+     *         representing red, green, and blue, with two optional extra digits for alpha. For example a value of
+     *         1122AABB is a red value of 0x11, a green value of 0x22, a blue value of 0xAA, and an alpha value of 0xBB.
+     */
+
+    public String getHexFontColor() {
+        return this.hexFontColor;
+    }
+
+    /**
+     * Ignore this setting unless your Font color is set to Hex. Enter either six or eight hexidecimal digits,
+     * representing red, green, and blue, with two optional extra digits for alpha. For example a value of 1122AABB is a
+     * red value of 0x11, a green value of 0x22, a blue value of 0xAA, and an alpha value of 0xBB.
+     * 
+     * @param hexFontColor
+     *        Ignore this setting unless your Font color is set to Hex. Enter either six or eight hexidecimal digits,
+     *        representing red, green, and blue, with two optional extra digits for alpha. For example a value of
+     *        1122AABB is a red value of 0x11, a green value of 0x22, a blue value of 0xAA, and an alpha value of 0xBB.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DvbSubDestinationSettings withHexFontColor(String hexFontColor) {
+        setHexFontColor(hexFontColor);
+        return this;
+    }
+
+    /**
+     * Specify font outline color. Leave Outline color blank and set Style passthrough to enabled to use the font
+     * outline color data from your input captions, if present. Within your job settings, all of your DVB-Sub settings
+     * must be identical.
+     * 
      * @param outlineColor
-     *        Specifies font outline color. This option is not valid for source captions that are either 608/embedded or
-     *        teletext. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub
-     *        font settings must match.
+     *        Specify font outline color. Leave Outline color blank and set Style passthrough to enabled to use the font
+     *        outline color data from your input captions, if present. Within your job settings, all of your DVB-Sub
+     *        settings must be identical.
      * @see DvbSubtitleOutlineColor
      */
 
@@ -580,13 +1371,13 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies font outline color. This option is not valid for source captions that are either 608/embedded or
-     * teletext. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub font
-     * settings must match.
+     * Specify font outline color. Leave Outline color blank and set Style passthrough to enabled to use the font
+     * outline color data from your input captions, if present. Within your job settings, all of your DVB-Sub settings
+     * must be identical.
      * 
-     * @return Specifies font outline color. This option is not valid for source captions that are either 608/embedded
-     *         or teletext. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub
-     *         font settings must match.
+     * @return Specify font outline color. Leave Outline color blank and set Style passthrough to enabled to use the
+     *         font outline color data from your input captions, if present. Within your job settings, all of your
+     *         DVB-Sub settings must be identical.
      * @see DvbSubtitleOutlineColor
      */
 
@@ -595,14 +1386,14 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies font outline color. This option is not valid for source captions that are either 608/embedded or
-     * teletext. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub font
-     * settings must match.
+     * Specify font outline color. Leave Outline color blank and set Style passthrough to enabled to use the font
+     * outline color data from your input captions, if present. Within your job settings, all of your DVB-Sub settings
+     * must be identical.
      * 
      * @param outlineColor
-     *        Specifies font outline color. This option is not valid for source captions that are either 608/embedded or
-     *        teletext. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub
-     *        font settings must match.
+     *        Specify font outline color. Leave Outline color blank and set Style passthrough to enabled to use the font
+     *        outline color data from your input captions, if present. Within your job settings, all of your DVB-Sub
+     *        settings must be identical.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DvbSubtitleOutlineColor
      */
@@ -613,14 +1404,14 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies font outline color. This option is not valid for source captions that are either 608/embedded or
-     * teletext. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub font
-     * settings must match.
+     * Specify font outline color. Leave Outline color blank and set Style passthrough to enabled to use the font
+     * outline color data from your input captions, if present. Within your job settings, all of your DVB-Sub settings
+     * must be identical.
      * 
      * @param outlineColor
-     *        Specifies font outline color. This option is not valid for source captions that are either 608/embedded or
-     *        teletext. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub
-     *        font settings must match.
+     *        Specify font outline color. Leave Outline color blank and set Style passthrough to enabled to use the font
+     *        outline color data from your input captions, if present. Within your job settings, all of your DVB-Sub
+     *        settings must be identical.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DvbSubtitleOutlineColor
      */
@@ -631,14 +1422,14 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies font outline size in pixels. This option is not valid for source captions that are either 608/embedded
-     * or teletext. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub font
-     * settings must match.
+     * Specify the Outline size of the caption text, in pixels. Leave Outline size blank and set Style passthrough to
+     * enabled to use the outline size data from your input captions, if present. Within your job settings, all of your
+     * DVB-Sub settings must be identical.
      * 
      * @param outlineSize
-     *        Specifies font outline size in pixels. This option is not valid for source captions that are either
-     *        608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in
-     *        and DVB-Sub font settings must match.
+     *        Specify the Outline size of the caption text, in pixels. Leave Outline size blank and set Style
+     *        passthrough to enabled to use the outline size data from your input captions, if present. Within your job
+     *        settings, all of your DVB-Sub settings must be identical.
      */
 
     public void setOutlineSize(Integer outlineSize) {
@@ -646,13 +1437,13 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies font outline size in pixels. This option is not valid for source captions that are either 608/embedded
-     * or teletext. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub font
-     * settings must match.
+     * Specify the Outline size of the caption text, in pixels. Leave Outline size blank and set Style passthrough to
+     * enabled to use the outline size data from your input captions, if present. Within your job settings, all of your
+     * DVB-Sub settings must be identical.
      * 
-     * @return Specifies font outline size in pixels. This option is not valid for source captions that are either
-     *         608/embedded or teletext. These source settings are already pre-defined by the caption stream. All
-     *         burn-in and DVB-Sub font settings must match.
+     * @return Specify the Outline size of the caption text, in pixels. Leave Outline size blank and set Style
+     *         passthrough to enabled to use the outline size data from your input captions, if present. Within your job
+     *         settings, all of your DVB-Sub settings must be identical.
      */
 
     public Integer getOutlineSize() {
@@ -660,14 +1451,14 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies font outline size in pixels. This option is not valid for source captions that are either 608/embedded
-     * or teletext. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub font
-     * settings must match.
+     * Specify the Outline size of the caption text, in pixels. Leave Outline size blank and set Style passthrough to
+     * enabled to use the outline size data from your input captions, if present. Within your job settings, all of your
+     * DVB-Sub settings must be identical.
      * 
      * @param outlineSize
-     *        Specifies font outline size in pixels. This option is not valid for source captions that are either
-     *        608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in
-     *        and DVB-Sub font settings must match.
+     *        Specify the Outline size of the caption text, in pixels. Leave Outline size blank and set Style
+     *        passthrough to enabled to use the outline size data from your input captions, if present. Within your job
+     *        settings, all of your DVB-Sub settings must be identical.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -677,10 +1468,14 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the color of the shadow cast by the captions. All burn-in and DVB-Sub font settings must match.
+     * Specify the color of the shadow cast by the captions. Leave Shadow color blank and set Style passthrough to
+     * enabled to use the shadow color data from your input captions, if present. Within your job settings, all of your
+     * DVB-Sub settings must be identical.
      * 
      * @param shadowColor
-     *        Specifies the color of the shadow cast by the captions. All burn-in and DVB-Sub font settings must match.
+     *        Specify the color of the shadow cast by the captions. Leave Shadow color blank and set Style passthrough
+     *        to enabled to use the shadow color data from your input captions, if present. Within your job settings,
+     *        all of your DVB-Sub settings must be identical.
      * @see DvbSubtitleShadowColor
      */
 
@@ -689,9 +1484,13 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the color of the shadow cast by the captions. All burn-in and DVB-Sub font settings must match.
+     * Specify the color of the shadow cast by the captions. Leave Shadow color blank and set Style passthrough to
+     * enabled to use the shadow color data from your input captions, if present. Within your job settings, all of your
+     * DVB-Sub settings must be identical.
      * 
-     * @return Specifies the color of the shadow cast by the captions. All burn-in and DVB-Sub font settings must match.
+     * @return Specify the color of the shadow cast by the captions. Leave Shadow color blank and set Style passthrough
+     *         to enabled to use the shadow color data from your input captions, if present. Within your job settings,
+     *         all of your DVB-Sub settings must be identical.
      * @see DvbSubtitleShadowColor
      */
 
@@ -700,10 +1499,14 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the color of the shadow cast by the captions. All burn-in and DVB-Sub font settings must match.
+     * Specify the color of the shadow cast by the captions. Leave Shadow color blank and set Style passthrough to
+     * enabled to use the shadow color data from your input captions, if present. Within your job settings, all of your
+     * DVB-Sub settings must be identical.
      * 
      * @param shadowColor
-     *        Specifies the color of the shadow cast by the captions. All burn-in and DVB-Sub font settings must match.
+     *        Specify the color of the shadow cast by the captions. Leave Shadow color blank and set Style passthrough
+     *        to enabled to use the shadow color data from your input captions, if present. Within your job settings,
+     *        all of your DVB-Sub settings must be identical.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DvbSubtitleShadowColor
      */
@@ -714,10 +1517,14 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the color of the shadow cast by the captions. All burn-in and DVB-Sub font settings must match.
+     * Specify the color of the shadow cast by the captions. Leave Shadow color blank and set Style passthrough to
+     * enabled to use the shadow color data from your input captions, if present. Within your job settings, all of your
+     * DVB-Sub settings must be identical.
      * 
      * @param shadowColor
-     *        Specifies the color of the shadow cast by the captions. All burn-in and DVB-Sub font settings must match.
+     *        Specify the color of the shadow cast by the captions. Leave Shadow color blank and set Style passthrough
+     *        to enabled to use the shadow color data from your input captions, if present. Within your job settings,
+     *        all of your DVB-Sub settings must be identical.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DvbSubtitleShadowColor
      */
@@ -728,12 +1535,18 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the opacity of the shadow. 255 is opaque; 0 is transparent. Leaving this parameter blank is equivalent
-     * to setting it to 0 (transparent). All burn-in and DVB-Sub font settings must match.
+     * Specify the opacity of the shadow. Enter a value from 0 to 255, where 0 is transparent and 255 is opaque. If
+     * Style passthrough is set to Enabled, leave Shadow opacity blank to pass through the shadow style information in
+     * your input captions to your output captions. If Style passthrough is set to disabled, leave blank to use a value
+     * of 0 and remove all shadows from your output captions. Within your job settings, all of your DVB-Sub settings must
+     * be identical.
      * 
      * @param shadowOpacity
-     *        Specifies the opacity of the shadow. 255 is opaque; 0 is transparent. Leaving this parameter blank is
-     *        equivalent to setting it to 0 (transparent). All burn-in and DVB-Sub font settings must match.
+     *        Specify the opacity of the shadow. Enter a value from 0 to 255, where 0 is transparent and 255 is opaque.
+     *        If Style passthrough is set to Enabled, leave Shadow opacity blank to pass through the shadow style
+     *        information in your input captions to your output captions. If Style passthrough is set to disabled, leave
+     *        blank to use a value of 0 and remove all shadows from your output captions. Within your job settings, all
+     *        of your DVB-Sub settings must be identical.
      */
 
     public void setShadowOpacity(Integer shadowOpacity) {
@@ -741,11 +1554,17 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the opacity of the shadow. 255 is opaque; 0 is transparent. Leaving this parameter blank is equivalent
-     * to setting it to 0 (transparent). All burn-in and DVB-Sub font settings must match.
+     * Specify the opacity of the shadow. Enter a value from 0 to 255, where 0 is transparent and 255 is opaque. If
+     * Style passthrough is set to Enabled, leave Shadow opacity blank to pass through the shadow style information in
+     * your input captions to your output captions. If Style passthrough is set to disabled, leave blank to use a value
+     * of 0 and remove all shadows from your output captions. Within your job settings, all of your DVB-Sub settings must
+     * be identical.
      * 
-     * @return Specifies the opacity of the shadow. 255 is opaque; 0 is transparent. Leaving this parameter blank is
-     *         equivalent to setting it to 0 (transparent). All burn-in and DVB-Sub font settings must match.
+     * @return Specify the opacity of the shadow. Enter a value from 0 to 255, where 0 is transparent and 255 is opaque.
+     *         If Style passthrough is set to Enabled, leave Shadow opacity blank to pass through the shadow style
+     *         information in your input captions to your output captions. If Style passthrough is set to disabled,
+     *         leave blank to use a value of 0 and remove all shadows from your output captions. Within your job
+     *         settings, all of your DVB-Sub settings must be identical.
      */
 
     public Integer getShadowOpacity() {
@@ -753,12 +1572,18 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the opacity of the shadow. 255 is opaque; 0 is transparent. Leaving this parameter blank is equivalent
-     * to setting it to 0 (transparent). All burn-in and DVB-Sub font settings must match.
+     * Specify the opacity of the shadow. Enter a value from 0 to 255, where 0 is transparent and 255 is opaque. If
+     * Style passthrough is set to Enabled, leave Shadow opacity blank to pass through the shadow style information in
+     * your input captions to your output captions. If Style passthrough is set to disabled, leave blank to use a value
+     * of 0 and remove all shadows from your output captions. Within your job settings, all of your DVB-Sub settings must
+     * be identical.
      * 
      * @param shadowOpacity
-     *        Specifies the opacity of the shadow. 255 is opaque; 0 is transparent. Leaving this parameter blank is
-     *        equivalent to setting it to 0 (transparent). All burn-in and DVB-Sub font settings must match.
+     *        Specify the opacity of the shadow. Enter a value from 0 to 255, where 0 is transparent and 255 is opaque.
+     *        If Style passthrough is set to Enabled, leave Shadow opacity blank to pass through the shadow style
+     *        information in your input captions to your output captions. If Style passthrough is set to disabled, leave
+     *        blank to use a value of 0 and remove all shadows from your output captions. Within your job settings, all
+     *        of your DVB-Sub settings must be identical.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -768,12 +1593,13 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the horizontal offset of the shadow relative to the captions in pixels. A value of -2 would result in a
-     * shadow offset 2 pixels to the left. All burn-in and DVB-Sub font settings must match.
+     * Specify the horizontal offset of the shadow, relative to the captions in pixels. A value of -2 would result in a
+     * shadow offset 2 pixels to the left. Within your job settings, all of your DVB-Sub settings must be identical.
      * 
      * @param shadowXOffset
-     *        Specifies the horizontal offset of the shadow relative to the captions in pixels. A value of -2 would
-     *        result in a shadow offset 2 pixels to the left. All burn-in and DVB-Sub font settings must match.
+     *        Specify the horizontal offset of the shadow, relative to the captions in pixels. A value of -2 would
+     *        result in a shadow offset 2 pixels to the left. Within your job settings, all of your DVB-Sub settings
+     *        must be identical.
      */
 
     public void setShadowXOffset(Integer shadowXOffset) {
@@ -781,11 +1607,12 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the horizontal offset of the shadow relative to the captions in pixels. A value of -2 would result in a
-     * shadow offset 2 pixels to the left. All burn-in and DVB-Sub font settings must match.
+     * Specify the horizontal offset of the shadow, relative to the captions in pixels. A value of -2 would result in a
+     * shadow offset 2 pixels to the left. Within your job settings, all of your DVB-Sub settings must be identical.
      * 
-     * @return Specifies the horizontal offset of the shadow relative to the captions in pixels. A value of -2 would
-     *         result in a shadow offset 2 pixels to the left. All burn-in and DVB-Sub font settings must match.
+     * @return Specify the horizontal offset of the shadow, relative to the captions in pixels. A value of -2 would
+     *         result in a shadow offset 2 pixels to the left. Within your job settings, all of your DVB-Sub settings
+     *         must be identical.
      */
 
     public Integer getShadowXOffset() {
@@ -793,12 +1620,13 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the horizontal offset of the shadow relative to the captions in pixels. A value of -2 would result in a
-     * shadow offset 2 pixels to the left. All burn-in and DVB-Sub font settings must match.
+     * Specify the horizontal offset of the shadow, relative to the captions in pixels. A value of -2 would result in a
+     * shadow offset 2 pixels to the left. Within your job settings, all of your DVB-Sub settings must be identical.
      * 
      * @param shadowXOffset
-     *        Specifies the horizontal offset of the shadow relative to the captions in pixels. A value of -2 would
-     *        result in a shadow offset 2 pixels to the left. All burn-in and DVB-Sub font settings must match.
+     *        Specify the horizontal offset of the shadow, relative to the captions in pixels. A value of -2 would
+     *        result in a shadow offset 2 pixels to the left. Within your job settings, all of your DVB-Sub settings
+     *        must be identical.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -808,12 +1636,16 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the vertical offset of the shadow relative to the captions in pixels. A value of -2 would result in a
-     * shadow offset 2 pixels above the text. All burn-in and DVB-Sub font settings must match.
+     * Specify the vertical offset of the shadow relative to the captions in pixels. A value of -2 would result in a
+     * shadow offset 2 pixels above the text. Leave Shadow y-offset blank and set Style passthrough to enabled to use
+     * the shadow y-offset data from your input captions, if present. Within your job settings, all of your DVB-Sub
+     * settings must be identical.
      * 
      * @param shadowYOffset
-     *        Specifies the vertical offset of the shadow relative to the captions in pixels. A value of -2 would result
-     *        in a shadow offset 2 pixels above the text. All burn-in and DVB-Sub font settings must match.
+     *        Specify the vertical offset of the shadow relative to the captions in pixels. A value of -2 would result
+     *        in a shadow offset 2 pixels above the text. Leave Shadow y-offset blank and set Style passthrough to
+     *        enabled to use the shadow y-offset data from your input captions, if present. Within your job settings,
+     *        all of your DVB-Sub settings must be identical.
      */
 
     public void setShadowYOffset(Integer shadowYOffset) {
@@ -821,11 +1653,15 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the vertical offset of the shadow relative to the captions in pixels. A value of -2 would result in a
-     * shadow offset 2 pixels above the text. All burn-in and DVB-Sub font settings must match.
+     * Specify the vertical offset of the shadow relative to the captions in pixels. A value of -2 would result in a
+     * shadow offset 2 pixels above the text. Leave Shadow y-offset blank and set Style passthrough to enabled to use
+     * the shadow y-offset data from your input captions, if present. Within your job settings, all of your DVB-Sub
+     * settings must be identical.
      * 
-     * @return Specifies the vertical offset of the shadow relative to the captions in pixels. A value of -2 would
-     *         result in a shadow offset 2 pixels above the text. All burn-in and DVB-Sub font settings must match.
+     * @return Specify the vertical offset of the shadow relative to the captions in pixels. A value of -2 would result
+     *         in a shadow offset 2 pixels above the text. Leave Shadow y-offset blank and set Style passthrough to
+     *         enabled to use the shadow y-offset data from your input captions, if present. Within your job settings,
+     *         all of your DVB-Sub settings must be identical.
      */
 
     public Integer getShadowYOffset() {
@@ -833,12 +1669,16 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the vertical offset of the shadow relative to the captions in pixels. A value of -2 would result in a
-     * shadow offset 2 pixels above the text. All burn-in and DVB-Sub font settings must match.
+     * Specify the vertical offset of the shadow relative to the captions in pixels. A value of -2 would result in a
+     * shadow offset 2 pixels above the text. Leave Shadow y-offset blank and set Style passthrough to enabled to use
+     * the shadow y-offset data from your input captions, if present. Within your job settings, all of your DVB-Sub
+     * settings must be identical.
      * 
      * @param shadowYOffset
-     *        Specifies the vertical offset of the shadow relative to the captions in pixels. A value of -2 would result
-     *        in a shadow offset 2 pixels above the text. All burn-in and DVB-Sub font settings must match.
+     *        Specify the vertical offset of the shadow relative to the captions in pixels. A value of -2 would result
+     *        in a shadow offset 2 pixels above the text. Leave Shadow y-offset blank and set Style passthrough to
+     *        enabled to use the shadow y-offset data from your input captions, if present. Within your job settings,
+     *        all of your DVB-Sub settings must be identical.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -848,16 +1688,178 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Only applies to jobs with input captions in Teletext or STL formats. Specify whether the spacing between letters
-     * in your captions is set by the captions grid or varies depending on letter width. Choose fixed grid to conform to
-     * the spacing specified in the captions file more accurately. Choose proportional to make the text easier to read if
-     * the captions are closed caption.
+     * To use the available style, color, and position information from your input captions: Set Style passthrough to
+     * Enabled. Note that MediaConvert uses default settings for any missing style or position information in your input
+     * captions To ignore the style and position information from your input captions and use default settings: Leave
+     * blank or keep the default value, Disabled. Default settings include white text with black outlining, bottom-center
+     * positioning, and automatic sizing. Whether you set Style passthrough to enabled or not, you can also choose to
+     * manually override any of the individual style and position settings. You can also override any fonts by manually
+     * specifying custom font files.
+     * 
+     * @param stylePassthrough
+     *        To use the available style, color, and position information from your input captions: Set Style
+     *        passthrough to Enabled. Note that MediaConvert uses default settings for any missing style or position
+     *        information in your input captions To ignore the style and position information from your input captions
+     *        and use default settings: Leave blank or keep the default value, Disabled. Default settings include white
+     *        text with black outlining, bottom-center positioning, and automatic sizing. Whether you set Style
+     *        passthrough to enabled or not, you can also choose to manually override any of the individual style and
+     *        position settings. You can also override any fonts by manually specifying custom font files.
+     * @see DvbSubtitleStylePassthrough
+     */
+
+    public void setStylePassthrough(String stylePassthrough) {
+        this.stylePassthrough = stylePassthrough;
+    }
+
+    /**
+     * To use the available style, color, and position information from your input captions: Set Style passthrough to
+     * Enabled. Note that MediaConvert uses default settings for any missing style or position information in your input
+     * captions To ignore the style and position information from your input captions and use default settings: Leave
+     * blank or keep the default value, Disabled. Default settings include white text with black outlining, bottom-center
+     * positioning, and automatic sizing. Whether you set Style passthrough to enabled or not, you can also choose to
+     * manually override any of the individual style and position settings. You can also override any fonts by manually
+     * specifying custom font files.
+     * 
+     * @return To use the available style, color, and position information from your input captions: Set Style
+     *         passthrough to Enabled. Note that MediaConvert uses default settings for any missing style or position
+     *         information in your input captions To ignore the style and position information from your input captions
+     *         and use default settings: Leave blank or keep the default value, Disabled. Default settings include white
+     *         text with black outlining, bottom-center positioning, and automatic sizing. Whether you set Style
+     *         passthrough to enabled or not, you can also choose to manually override any of the individual style and
+     *         position settings. You can also override any fonts by manually specifying custom font files.
+     * @see DvbSubtitleStylePassthrough
+     */
+
+    public String getStylePassthrough() {
+        return this.stylePassthrough;
+    }
+
+    /**
+     * To use the available style, color, and position information from your input captions: Set Style passthrough to
+     * Enabled. Note that MediaConvert uses default settings for any missing style or position information in your input
+     * captions To ignore the style and position information from your input captions and use default settings: Leave
+     * blank or keep the default value, Disabled. Default settings include white text with black outlining, bottom-center
+     * positioning, and automatic sizing. Whether you set Style passthrough to enabled or not, you can also choose to
+     * manually override any of the individual style and position settings. You can also override any fonts by manually
+     * specifying custom font files.
+     * 
+     * @param stylePassthrough
+     *        To use the available style, color, and position information from your input captions: Set Style
+     *        passthrough to Enabled. Note that MediaConvert uses default settings for any missing style or position
+     *        information in your input captions To ignore the style and position information from your input captions
+     *        and use default settings: Leave blank or keep the default value, Disabled. Default settings include white
+     *        text with black outlining, bottom-center positioning, and automatic sizing. Whether you set Style
+     *        passthrough to enabled or not, you can also choose to manually override any of the individual style and
+     *        position settings. You can also override any fonts by manually specifying custom font files.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DvbSubtitleStylePassthrough
+     */
+
+    public DvbSubDestinationSettings withStylePassthrough(String stylePassthrough) {
+        setStylePassthrough(stylePassthrough);
+        return this;
+    }
+
+    /**
+     * To use the available style, color, and position information from your input captions: Set Style passthrough to
+     * Enabled. Note that MediaConvert uses default settings for any missing style or position information in your input
+     * captions To ignore the style and position information from your input captions and use default settings: Leave
+     * blank or keep the default value, Disabled. Default settings include white text with black outlining, bottom-center
+     * positioning, and automatic sizing. Whether you set Style passthrough to enabled or not, you can also choose to
+     * manually override any of the individual style and position settings. You can also override any fonts by manually
+     * specifying custom font files.
+     * 
+     * @param stylePassthrough
+     *        To use the available style, color, and position information from your input captions: Set Style
+     *        passthrough to Enabled. Note that MediaConvert uses default settings for any missing style or position
+     *        information in your input captions To ignore the style and position information from your input captions
+     *        and use default settings: Leave blank or keep the default value, Disabled. Default settings include white
+     *        text with black outlining, bottom-center positioning, and automatic sizing. Whether you set Style
+     *        passthrough to enabled or not, you can also choose to manually override any of the individual style and
+     *        position settings. You can also override any fonts by manually specifying custom font files.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DvbSubtitleStylePassthrough
+     */
+
+    public DvbSubDestinationSettings withStylePassthrough(DvbSubtitleStylePassthrough stylePassthrough) {
+        this.stylePassthrough = stylePassthrough.toString();
+        return this;
+    }
+
+    /**
+     * Specify whether your DVB subtitles are standard or for hearing impaired. Choose hearing impaired if your
+     * subtitles include audio descriptions and dialogue. Choose standard if your subtitles include only dialogue.
+     * 
+     * @param subtitlingType
+     *        Specify whether your DVB subtitles are standard or for hearing impaired. Choose hearing impaired if your
+     *        subtitles include audio descriptions and dialogue. Choose standard if your subtitles include only
+     *        dialogue.
+     * @see DvbSubtitlingType
+     */
+
+    public void setSubtitlingType(String subtitlingType) {
+        this.subtitlingType = subtitlingType;
+    }
+
+    /**
+     * Specify whether your DVB subtitles are standard or for hearing impaired. Choose hearing impaired if your
+     * subtitles include audio descriptions and dialogue. Choose standard if your subtitles include only dialogue.
+     * 
+     * @return Specify whether your DVB subtitles are standard or for hearing impaired. Choose hearing impaired if your
+     *         subtitles include audio descriptions and dialogue. Choose standard if your subtitles include only
+     *         dialogue.
+     * @see DvbSubtitlingType
+     */
+
+    public String getSubtitlingType() {
+        return this.subtitlingType;
+    }
+
+    /**
+     * Specify whether your DVB subtitles are standard or for hearing impaired. Choose hearing impaired if your
+     * subtitles include audio descriptions and dialogue. Choose standard if your subtitles include only dialogue.
+     * 
+     * @param subtitlingType
+     *        Specify whether your DVB subtitles are standard or for hearing impaired. Choose hearing impaired if your
+     *        subtitles include audio descriptions and dialogue. Choose standard if your subtitles include only
+     *        dialogue.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DvbSubtitlingType
+     */
+
+    public DvbSubDestinationSettings withSubtitlingType(String subtitlingType) {
+        setSubtitlingType(subtitlingType);
+        return this;
+    }
+
+    /**
+     * Specify whether your DVB subtitles are standard or for hearing impaired. Choose hearing impaired if your
+     * subtitles include audio descriptions and dialogue. Choose standard if your subtitles include only dialogue.
+     * 
+     * @param subtitlingType
+     *        Specify whether your DVB subtitles are standard or for hearing impaired. Choose hearing impaired if your
+     *        subtitles include audio descriptions and dialogue. Choose standard if your subtitles include only
+     *        dialogue.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DvbSubtitlingType
+     */
+
+    public DvbSubDestinationSettings withSubtitlingType(DvbSubtitlingType subtitlingType) {
+        this.subtitlingType = subtitlingType.toString();
+        return this;
+    }
+
+    /**
+     * Specify whether the Text spacing in your captions is set by the captions grid, or varies depending on letter
+     * width. Choose fixed grid to conform to the spacing specified in the captions file more accurately. Choose
+     * proportional to make the text easier to read for closed captions. Within your job settings, all of your DVB-Sub
+     * settings must be identical.
      * 
      * @param teletextSpacing
-     *        Only applies to jobs with input captions in Teletext or STL formats. Specify whether the spacing between
-     *        letters in your captions is set by the captions grid or varies depending on letter width. Choose fixed
-     *        grid to conform to the spacing specified in the captions file more accurately. Choose proportional to make
-     *        the text easier to read if the captions are closed caption.
+     *        Specify whether the Text spacing in your captions is set by the captions grid, or varies depending on
+     *        letter width. Choose fixed grid to conform to the spacing specified in the captions file more accurately.
+     *        Choose proportional to make the text easier to read for closed captions. Within your job settings, all of
+     *        your DVB-Sub settings must be identical.
      * @see DvbSubtitleTeletextSpacing
      */
 
@@ -866,15 +1868,15 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Only applies to jobs with input captions in Teletext or STL formats. Specify whether the spacing between letters
-     * in your captions is set by the captions grid or varies depending on letter width. Choose fixed grid to conform to
-     * the spacing specified in the captions file more accurately. Choose proportional to make the text easier to read if
-     * the captions are closed caption.
+     * Specify whether the Text spacing in your captions is set by the captions grid, or varies depending on letter
+     * width. Choose fixed grid to conform to the spacing specified in the captions file more accurately. Choose
+     * proportional to make the text easier to read for closed captions. Within your job settings, all of your DVB-Sub
+     * settings must be identical.
      * 
-     * @return Only applies to jobs with input captions in Teletext or STL formats. Specify whether the spacing between
-     *         letters in your captions is set by the captions grid or varies depending on letter width. Choose fixed
-     *         grid to conform to the spacing specified in the captions file more accurately. Choose proportional to
-     *         make the text easier to read if the captions are closed caption.
+     * @return Specify whether the Text spacing in your captions is set by the captions grid, or varies depending on
+     *         letter width. Choose fixed grid to conform to the spacing specified in the captions file more accurately.
+     *         Choose proportional to make the text easier to read for closed captions. Within your job settings, all of
+     *         your DVB-Sub settings must be identical.
      * @see DvbSubtitleTeletextSpacing
      */
 
@@ -883,16 +1885,16 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Only applies to jobs with input captions in Teletext or STL formats. Specify whether the spacing between letters
-     * in your captions is set by the captions grid or varies depending on letter width. Choose fixed grid to conform to
-     * the spacing specified in the captions file more accurately. Choose proportional to make the text easier to read if
-     * the captions are closed caption.
+     * Specify whether the Text spacing in your captions is set by the captions grid, or varies depending on letter
+     * width. Choose fixed grid to conform to the spacing specified in the captions file more accurately. Choose
+     * proportional to make the text easier to read for closed captions. Within your job settings, all of your DVB-Sub
+     * settings must be identical.
      * 
      * @param teletextSpacing
-     *        Only applies to jobs with input captions in Teletext or STL formats. Specify whether the spacing between
-     *        letters in your captions is set by the captions grid or varies depending on letter width. Choose fixed
-     *        grid to conform to the spacing specified in the captions file more accurately. Choose proportional to make
-     *        the text easier to read if the captions are closed caption.
+     *        Specify whether the Text spacing in your captions is set by the captions grid, or varies depending on
+     *        letter width. Choose fixed grid to conform to the spacing specified in the captions file more accurately.
+     *        Choose proportional to make the text easier to read for closed captions. Within your job settings, all of
+     *        your DVB-Sub settings must be identical.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DvbSubtitleTeletextSpacing
      */
@@ -903,16 +1905,16 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Only applies to jobs with input captions in Teletext or STL formats. Specify whether the spacing between letters
-     * in your captions is set by the captions grid or varies depending on letter width. Choose fixed grid to conform to
-     * the spacing specified in the captions file more accurately. Choose proportional to make the text easier to read if
-     * the captions are closed caption.
+     * Specify whether the Text spacing in your captions is set by the captions grid, or varies depending on letter
+     * width. Choose fixed grid to conform to the spacing specified in the captions file more accurately. Choose
+     * proportional to make the text easier to read for closed captions. Within your job settings, all of your DVB-Sub
+     * settings must be identical.
      * 
      * @param teletextSpacing
-     *        Only applies to jobs with input captions in Teletext or STL formats. Specify whether the spacing between
-     *        letters in your captions is set by the captions grid or varies depending on letter width. Choose fixed
-     *        grid to conform to the spacing specified in the captions file more accurately. Choose proportional to make
-     *        the text easier to read if the captions are closed caption.
+     *        Specify whether the Text spacing in your captions is set by the captions grid, or varies depending on
+     *        letter width. Choose fixed grid to conform to the spacing specified in the captions file more accurately.
+     *        Choose proportional to make the text easier to read for closed captions. Within your job settings, all of
+     *        your DVB-Sub settings must be identical.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DvbSubtitleTeletextSpacing
      */
@@ -923,18 +1925,62 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the horizontal position of the caption relative to the left side of the output in pixels. A value of 10
+     * Specify the width, in pixels, of this set of DVB-Sub captions. The default value is 720 pixels. Related setting:
+     * When you use this setting, you must set DDS handling to a value other than None. All burn-in and DVB-Sub font
+     * settings must match.
+     * 
+     * @param width
+     *        Specify the width, in pixels, of this set of DVB-Sub captions. The default value is 720 pixels. Related
+     *        setting: When you use this setting, you must set DDS handling to a value other than None. All burn-in and
+     *        DVB-Sub font settings must match.
+     */
+
+    public void setWidth(Integer width) {
+        this.width = width;
+    }
+
+    /**
+     * Specify the width, in pixels, of this set of DVB-Sub captions. The default value is 720 pixels. Related setting:
+     * When you use this setting, you must set DDS handling to a value other than None. All burn-in and DVB-Sub font
+     * settings must match.
+     * 
+     * @return Specify the width, in pixels, of this set of DVB-Sub captions. The default value is 720 pixels. Related
+     *         setting: When you use this setting, you must set DDS handling to a value other than None. All burn-in and
+     *         DVB-Sub font settings must match.
+     */
+
+    public Integer getWidth() {
+        return this.width;
+    }
+
+    /**
+     * Specify the width, in pixels, of this set of DVB-Sub captions. The default value is 720 pixels. Related setting:
+     * When you use this setting, you must set DDS handling to a value other than None. All burn-in and DVB-Sub font
+     * settings must match.
+     * 
+     * @param width
+     *        Specify the width, in pixels, of this set of DVB-Sub captions. The default value is 720 pixels. Related
+     *        setting: When you use this setting, you must set DDS handling to a value other than None. All burn-in and
+     *        DVB-Sub font settings must match.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DvbSubDestinationSettings withWidth(Integer width) {
+        setWidth(width);
+        return this;
+    }
+
+    /**
+     * Specify the horizontal position of the captions, relative to the left side of the output in pixels. A value of 10
      * would result in the captions starting 10 pixels from the left of the output. If no explicit x_position is
-     * provided, the horizontal caption position will be determined by the alignment parameter. This option is not valid
-     * for source captions that are STL, 608/embedded or teletext. These source settings are already pre-defined by the
-     * caption stream. All burn-in and DVB-Sub font settings must match.
+     * provided, the horizontal caption position will be determined by the alignment parameter. Within your job settings,
+     * all of your DVB-Sub settings must be identical.
      * 
      * @param xPosition
-     *        Specifies the horizontal position of the caption relative to the left side of the output in pixels. A
+     *        Specify the horizontal position of the captions, relative to the left side of the output in pixels. A
      *        value of 10 would result in the captions starting 10 pixels from the left of the output. If no explicit
      *        x_position is provided, the horizontal caption position will be determined by the alignment parameter.
-     *        This option is not valid for source captions that are STL, 608/embedded or teletext. These source settings
-     *        are already pre-defined by the caption stream. All burn-in and DVB-Sub font settings must match.
+     *        Within your job settings, all of your DVB-Sub settings must be identical.
      */
 
     public void setXPosition(Integer xPosition) {
@@ -942,17 +1988,15 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the horizontal position of the caption relative to the left side of the output in pixels. A value of 10
+     * Specify the horizontal position of the captions, relative to the left side of the output in pixels. A value of 10
      * would result in the captions starting 10 pixels from the left of the output. If no explicit x_position is
-     * provided, the horizontal caption position will be determined by the alignment parameter. This option is not valid
-     * for source captions that are STL, 608/embedded or teletext. These source settings are already pre-defined by the
-     * caption stream. All burn-in and DVB-Sub font settings must match.
+     * provided, the horizontal caption position will be determined by the alignment parameter. Within your job settings,
+     * all of your DVB-Sub settings must be identical.
      * 
-     * @return Specifies the horizontal position of the caption relative to the left side of the output in pixels. A
+     * @return Specify the horizontal position of the captions, relative to the left side of the output in pixels. A
      *         value of 10 would result in the captions starting 10 pixels from the left of the output. If no explicit
      *         x_position is provided, the horizontal caption position will be determined by the alignment parameter.
-     *         This option is not valid for source captions that are STL, 608/embedded or teletext. These source
-     *         settings are already pre-defined by the caption stream. All burn-in and DVB-Sub font settings must match.
+     *         Within your job settings, all of your DVB-Sub settings must be identical.
      */
 
     public Integer getXPosition() {
@@ -960,18 +2004,16 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the horizontal position of the caption relative to the left side of the output in pixels. A value of 10
+     * Specify the horizontal position of the captions, relative to the left side of the output in pixels. A value of 10
      * would result in the captions starting 10 pixels from the left of the output. If no explicit x_position is
-     * provided, the horizontal caption position will be determined by the alignment parameter. This option is not valid
-     * for source captions that are STL, 608/embedded or teletext. These source settings are already pre-defined by the
-     * caption stream. All burn-in and DVB-Sub font settings must match.
+     * provided, the horizontal caption position will be determined by the alignment parameter. Within your job settings,
+     * all of your DVB-Sub settings must be identical.
      * 
      * @param xPosition
-     *        Specifies the horizontal position of the caption relative to the left side of the output in pixels. A
+     *        Specify the horizontal position of the captions, relative to the left side of the output in pixels. A
      *        value of 10 would result in the captions starting 10 pixels from the left of the output. If no explicit
      *        x_position is provided, the horizontal caption position will be determined by the alignment parameter.
-     *        This option is not valid for source captions that are STL, 608/embedded or teletext. These source settings
-     *        are already pre-defined by the caption stream. All burn-in and DVB-Sub font settings must match.
+     *        Within your job settings, all of your DVB-Sub settings must be identical.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -981,18 +2023,16 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the vertical position of the caption relative to the top of the output in pixels. A value of 10 would
+     * Specify the vertical position of the captions, relative to the top of the output in pixels. A value of 10 would
      * result in the captions starting 10 pixels from the top of the output. If no explicit y_position is provided, the
-     * caption will be positioned towards the bottom of the output. This option is not valid for source captions that are
-     * STL, 608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in
-     * and DVB-Sub font settings must match.
+     * caption will be positioned towards the bottom of the output. Within your job settings, all of your DVB-Sub
+     * settings must be identical.
      * 
      * @param yPosition
-     *        Specifies the vertical position of the caption relative to the top of the output in pixels. A value of 10
+     *        Specify the vertical position of the captions, relative to the top of the output in pixels. A value of 10
      *        would result in the captions starting 10 pixels from the top of the output. If no explicit y_position is
-     *        provided, the caption will be positioned towards the bottom of the output. This option is not valid for
-     *        source captions that are STL, 608/embedded or teletext. These source settings are already pre-defined by
-     *        the caption stream. All burn-in and DVB-Sub font settings must match.
+     *        provided, the caption will be positioned towards the bottom of the output. Within your job settings, all
+     *        of your DVB-Sub settings must be identical.
      */
 
     public void setYPosition(Integer yPosition) {
@@ -1000,17 +2040,15 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the vertical position of the caption relative to the top of the output in pixels. A value of 10 would
+     * Specify the vertical position of the captions, relative to the top of the output in pixels. A value of 10 would
      * result in the captions starting 10 pixels from the top of the output. If no explicit y_position is provided, the
-     * caption will be positioned towards the bottom of the output. This option is not valid for source captions that are
-     * STL, 608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in
-     * and DVB-Sub font settings must match.
+     * caption will be positioned towards the bottom of the output. Within your job settings, all of your DVB-Sub
+     * settings must be identical.
      * 
-     * @return Specifies the vertical position of the caption relative to the top of the output in pixels. A value of 10
+     * @return Specify the vertical position of the captions, relative to the top of the output in pixels. A value of 10
      *         would result in the captions starting 10 pixels from the top of the output. If no explicit y_position is
-     *         provided, the caption will be positioned towards the bottom of the output. This option is not valid for
-     *         source captions that are STL, 608/embedded or teletext. These source settings are already pre-defined by
-     *         the caption stream. All burn-in and DVB-Sub font settings must match.
+     *         provided, the caption will be positioned towards the bottom of the output. Within your job settings, all
+     *         of your DVB-Sub settings must be identical.
      */
 
     public Integer getYPosition() {
@@ -1018,18 +2056,16 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
     }
 
     /**
-     * Specifies the vertical position of the caption relative to the top of the output in pixels. A value of 10 would
+     * Specify the vertical position of the captions, relative to the top of the output in pixels. A value of 10 would
      * result in the captions starting 10 pixels from the top of the output. If no explicit y_position is provided, the
-     * caption will be positioned towards the bottom of the output. This option is not valid for source captions that are
-     * STL, 608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in
-     * and DVB-Sub font settings must match.
+     * caption will be positioned towards the bottom of the output. Within your job settings, all of your DVB-Sub
+     * settings must be identical.
      * 
      * @param yPosition
-     *        Specifies the vertical position of the caption relative to the top of the output in pixels. A value of 10
+     *        Specify the vertical position of the captions, relative to the top of the output in pixels. A value of 10
      *        would result in the captions starting 10 pixels from the top of the output. If no explicit y_position is
-     *        provided, the caption will be positioned towards the bottom of the output. This option is not valid for
-     *        source captions that are STL, 608/embedded or teletext. These source settings are already pre-defined by
-     *        the caption stream. All burn-in and DVB-Sub font settings must match.
+     *        provided, the caption will be positioned towards the bottom of the output. Within your job settings, all
+     *        of your DVB-Sub settings must be identical.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1052,12 +2088,30 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
         sb.append("{");
         if (getAlignment() != null)
             sb.append("Alignment: ").append(getAlignment()).append(",");
+        if (getApplyFontColor() != null)
+            sb.append("ApplyFontColor: ").append(getApplyFontColor()).append(",");
         if (getBackgroundColor() != null)
             sb.append("BackgroundColor: ").append(getBackgroundColor()).append(",");
         if (getBackgroundOpacity() != null)
             sb.append("BackgroundOpacity: ").append(getBackgroundOpacity()).append(",");
+        if (getDdsHandling() != null)
+            sb.append("DdsHandling: ").append(getDdsHandling()).append(",");
+        if (getDdsXCoordinate() != null)
+            sb.append("DdsXCoordinate: ").append(getDdsXCoordinate()).append(",");
+        if (getDdsYCoordinate() != null)
+            sb.append("DdsYCoordinate: ").append(getDdsYCoordinate()).append(",");
+        if (getFallbackFont() != null)
+            sb.append("FallbackFont: ").append(getFallbackFont()).append(",");
         if (getFontColor() != null)
             sb.append("FontColor: ").append(getFontColor()).append(",");
+        if (getFontFileBold() != null)
+            sb.append("FontFileBold: ").append(getFontFileBold()).append(",");
+        if (getFontFileBoldItalic() != null)
+            sb.append("FontFileBoldItalic: ").append(getFontFileBoldItalic()).append(",");
+        if (getFontFileItalic() != null)
+            sb.append("FontFileItalic: ").append(getFontFileItalic()).append(",");
+        if (getFontFileRegular() != null)
+            sb.append("FontFileRegular: ").append(getFontFileRegular()).append(",");
         if (getFontOpacity() != null)
             sb.append("FontOpacity: ").append(getFontOpacity()).append(",");
         if (getFontResolution() != null)
@@ -1066,6 +2120,10 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
             sb.append("FontScript: ").append(getFontScript()).append(",");
         if (getFontSize() != null)
             sb.append("FontSize: ").append(getFontSize()).append(",");
+        if (getHeight() != null)
+            sb.append("Height: ").append(getHeight()).append(",");
+        if (getHexFontColor() != null)
+            sb.append("HexFontColor: ").append(getHexFontColor()).append(",");
         if (getOutlineColor() != null)
             sb.append("OutlineColor: ").append(getOutlineColor()).append(",");
         if (getOutlineSize() != null)
@@ -1078,8 +2136,14 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
             sb.append("ShadowXOffset: ").append(getShadowXOffset()).append(",");
         if (getShadowYOffset() != null)
             sb.append("ShadowYOffset: ").append(getShadowYOffset()).append(",");
+        if (getStylePassthrough() != null)
+            sb.append("StylePassthrough: ").append(getStylePassthrough()).append(",");
+        if (getSubtitlingType() != null)
+            sb.append("SubtitlingType: ").append(getSubtitlingType()).append(",");
         if (getTeletextSpacing() != null)
             sb.append("TeletextSpacing: ").append(getTeletextSpacing()).append(",");
+        if (getWidth() != null)
+            sb.append("Width: ").append(getWidth()).append(",");
         if (getXPosition() != null)
             sb.append("XPosition: ").append(getXPosition()).append(",");
         if (getYPosition() != null)
@@ -1102,6 +2166,10 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
             return false;
         if (other.getAlignment() != null && other.getAlignment().equals(this.getAlignment()) == false)
             return false;
+        if (other.getApplyFontColor() == null ^ this.getApplyFontColor() == null)
+            return false;
+        if (other.getApplyFontColor() != null && other.getApplyFontColor().equals(this.getApplyFontColor()) == false)
+            return false;
         if (other.getBackgroundColor() == null ^ this.getBackgroundColor() == null)
             return false;
         if (other.getBackgroundColor() != null && other.getBackgroundColor().equals(this.getBackgroundColor()) == false)
@@ -1110,9 +2178,41 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
             return false;
         if (other.getBackgroundOpacity() != null && other.getBackgroundOpacity().equals(this.getBackgroundOpacity()) == false)
             return false;
+        if (other.getDdsHandling() == null ^ this.getDdsHandling() == null)
+            return false;
+        if (other.getDdsHandling() != null && other.getDdsHandling().equals(this.getDdsHandling()) == false)
+            return false;
+        if (other.getDdsXCoordinate() == null ^ this.getDdsXCoordinate() == null)
+            return false;
+        if (other.getDdsXCoordinate() != null && other.getDdsXCoordinate().equals(this.getDdsXCoordinate()) == false)
+            return false;
+        if (other.getDdsYCoordinate() == null ^ this.getDdsYCoordinate() == null)
+            return false;
+        if (other.getDdsYCoordinate() != null && other.getDdsYCoordinate().equals(this.getDdsYCoordinate()) == false)
+            return false;
+        if (other.getFallbackFont() == null ^ this.getFallbackFont() == null)
+            return false;
+        if (other.getFallbackFont() != null && other.getFallbackFont().equals(this.getFallbackFont()) == false)
+            return false;
         if (other.getFontColor() == null ^ this.getFontColor() == null)
             return false;
         if (other.getFontColor() != null && other.getFontColor().equals(this.getFontColor()) == false)
+            return false;
+        if (other.getFontFileBold() == null ^ this.getFontFileBold() == null)
+            return false;
+        if (other.getFontFileBold() != null && other.getFontFileBold().equals(this.getFontFileBold()) == false)
+            return false;
+        if (other.getFontFileBoldItalic() == null ^ this.getFontFileBoldItalic() == null)
+            return false;
+        if (other.getFontFileBoldItalic() != null && other.getFontFileBoldItalic().equals(this.getFontFileBoldItalic()) == false)
+            return false;
+        if (other.getFontFileItalic() == null ^ this.getFontFileItalic() == null)
+            return false;
+        if (other.getFontFileItalic() != null && other.getFontFileItalic().equals(this.getFontFileItalic()) == false)
+            return false;
+        if (other.getFontFileRegular() == null ^ this.getFontFileRegular() == null)
+            return false;
+        if (other.getFontFileRegular() != null && other.getFontFileRegular().equals(this.getFontFileRegular()) == false)
             return false;
         if (other.getFontOpacity() == null ^ this.getFontOpacity() == null)
             return false;
@@ -1129,6 +2229,14 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
         if (other.getFontSize() == null ^ this.getFontSize() == null)
             return false;
         if (other.getFontSize() != null && other.getFontSize().equals(this.getFontSize()) == false)
+            return false;
+        if (other.getHeight() == null ^ this.getHeight() == null)
+            return false;
+        if (other.getHeight() != null && other.getHeight().equals(this.getHeight()) == false)
+            return false;
+        if (other.getHexFontColor() == null ^ this.getHexFontColor() == null)
+            return false;
+        if (other.getHexFontColor() != null && other.getHexFontColor().equals(this.getHexFontColor()) == false)
             return false;
         if (other.getOutlineColor() == null ^ this.getOutlineColor() == null)
             return false;
@@ -1154,9 +2262,21 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
             return false;
         if (other.getShadowYOffset() != null && other.getShadowYOffset().equals(this.getShadowYOffset()) == false)
             return false;
+        if (other.getStylePassthrough() == null ^ this.getStylePassthrough() == null)
+            return false;
+        if (other.getStylePassthrough() != null && other.getStylePassthrough().equals(this.getStylePassthrough()) == false)
+            return false;
+        if (other.getSubtitlingType() == null ^ this.getSubtitlingType() == null)
+            return false;
+        if (other.getSubtitlingType() != null && other.getSubtitlingType().equals(this.getSubtitlingType()) == false)
+            return false;
         if (other.getTeletextSpacing() == null ^ this.getTeletextSpacing() == null)
             return false;
         if (other.getTeletextSpacing() != null && other.getTeletextSpacing().equals(this.getTeletextSpacing()) == false)
+            return false;
+        if (other.getWidth() == null ^ this.getWidth() == null)
+            return false;
+        if (other.getWidth() != null && other.getWidth().equals(this.getWidth()) == false)
             return false;
         if (other.getXPosition() == null ^ this.getXPosition() == null)
             return false;
@@ -1175,20 +2295,34 @@ public class DvbSubDestinationSettings implements Serializable, Cloneable, Struc
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getAlignment() == null) ? 0 : getAlignment().hashCode());
+        hashCode = prime * hashCode + ((getApplyFontColor() == null) ? 0 : getApplyFontColor().hashCode());
         hashCode = prime * hashCode + ((getBackgroundColor() == null) ? 0 : getBackgroundColor().hashCode());
         hashCode = prime * hashCode + ((getBackgroundOpacity() == null) ? 0 : getBackgroundOpacity().hashCode());
+        hashCode = prime * hashCode + ((getDdsHandling() == null) ? 0 : getDdsHandling().hashCode());
+        hashCode = prime * hashCode + ((getDdsXCoordinate() == null) ? 0 : getDdsXCoordinate().hashCode());
+        hashCode = prime * hashCode + ((getDdsYCoordinate() == null) ? 0 : getDdsYCoordinate().hashCode());
+        hashCode = prime * hashCode + ((getFallbackFont() == null) ? 0 : getFallbackFont().hashCode());
         hashCode = prime * hashCode + ((getFontColor() == null) ? 0 : getFontColor().hashCode());
+        hashCode = prime * hashCode + ((getFontFileBold() == null) ? 0 : getFontFileBold().hashCode());
+        hashCode = prime * hashCode + ((getFontFileBoldItalic() == null) ? 0 : getFontFileBoldItalic().hashCode());
+        hashCode = prime * hashCode + ((getFontFileItalic() == null) ? 0 : getFontFileItalic().hashCode());
+        hashCode = prime * hashCode + ((getFontFileRegular() == null) ? 0 : getFontFileRegular().hashCode());
         hashCode = prime * hashCode + ((getFontOpacity() == null) ? 0 : getFontOpacity().hashCode());
         hashCode = prime * hashCode + ((getFontResolution() == null) ? 0 : getFontResolution().hashCode());
         hashCode = prime * hashCode + ((getFontScript() == null) ? 0 : getFontScript().hashCode());
         hashCode = prime * hashCode + ((getFontSize() == null) ? 0 : getFontSize().hashCode());
+        hashCode = prime * hashCode + ((getHeight() == null) ? 0 : getHeight().hashCode());
+        hashCode = prime * hashCode + ((getHexFontColor() == null) ? 0 : getHexFontColor().hashCode());
         hashCode = prime * hashCode + ((getOutlineColor() == null) ? 0 : getOutlineColor().hashCode());
         hashCode = prime * hashCode + ((getOutlineSize() == null) ? 0 : getOutlineSize().hashCode());
         hashCode = prime * hashCode + ((getShadowColor() == null) ? 0 : getShadowColor().hashCode());
         hashCode = prime * hashCode + ((getShadowOpacity() == null) ? 0 : getShadowOpacity().hashCode());
         hashCode = prime * hashCode + ((getShadowXOffset() == null) ? 0 : getShadowXOffset().hashCode());
         hashCode = prime * hashCode + ((getShadowYOffset() == null) ? 0 : getShadowYOffset().hashCode());
+        hashCode = prime * hashCode + ((getStylePassthrough() == null) ? 0 : getStylePassthrough().hashCode());
+        hashCode = prime * hashCode + ((getSubtitlingType() == null) ? 0 : getSubtitlingType().hashCode());
         hashCode = prime * hashCode + ((getTeletextSpacing() == null) ? 0 : getTeletextSpacing().hashCode());
+        hashCode = prime * hashCode + ((getWidth() == null) ? 0 : getWidth().hashCode());
         hashCode = prime * hashCode + ((getXPosition() == null) ? 0 : getXPosition().hashCode());
         hashCode = prime * hashCode + ((getYPosition() == null) ? 0 : getYPosition().hashCode());
         return hashCode;

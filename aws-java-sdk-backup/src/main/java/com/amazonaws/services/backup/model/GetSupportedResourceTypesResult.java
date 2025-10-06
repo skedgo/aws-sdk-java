@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,9 +25,19 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * Contains a string with the supported AWS resource types:
+     * Contains a string with the supported Amazon Web Services resource types:
      * </p>
      * <ul>
+     * <li>
+     * <p>
+     * <code>Aurora</code> for Amazon Aurora
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DynamoDB</code> for Amazon DynamoDB
+     * </p>
+     * </li>
      * <li>
      * <p>
      * <code>EBS</code> for Amazon Elastic Block Store
@@ -35,7 +45,17 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * <code>SGW</code> for AWS Storage Gateway
+     * <code>EC2</code> for Amazon Elastic Compute Cloud
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EFS</code> for Amazon Elastic File System
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>FSX</code> for Amazon FSx
      * </p>
      * </li>
      * <li>
@@ -45,12 +65,17 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * <code>DDB</code> for Amazon DynamoDB
+     * <code>Storage Gateway</code> for Storage Gateway
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EFS</code> for Amazon Elastic File System
+     * <code>DocDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Neptune</code> for Amazon Neptune
      * </p>
      * </li>
      * </ul>
@@ -59,9 +84,19 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * Contains a string with the supported AWS resource types:
+     * Contains a string with the supported Amazon Web Services resource types:
      * </p>
      * <ul>
+     * <li>
+     * <p>
+     * <code>Aurora</code> for Amazon Aurora
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DynamoDB</code> for Amazon DynamoDB
+     * </p>
+     * </li>
      * <li>
      * <p>
      * <code>EBS</code> for Amazon Elastic Block Store
@@ -69,7 +104,17 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * <code>SGW</code> for AWS Storage Gateway
+     * <code>EC2</code> for Amazon Elastic Compute Cloud
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EFS</code> for Amazon Elastic File System
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>FSX</code> for Amazon FSx
      * </p>
      * </li>
      * <li>
@@ -79,18 +124,33 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * <code>DDB</code> for Amazon DynamoDB
+     * <code>Storage Gateway</code> for Storage Gateway
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EFS</code> for Amazon Elastic File System
+     * <code>DocDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Neptune</code> for Amazon Neptune
      * </p>
      * </li>
      * </ul>
      * 
-     * @return Contains a string with the supported AWS resource types:</p>
+     * @return Contains a string with the supported Amazon Web Services resource types:</p>
      *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>Aurora</code> for Amazon Aurora
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>DynamoDB</code> for Amazon DynamoDB
+     *         </p>
+     *         </li>
      *         <li>
      *         <p>
      *         <code>EBS</code> for Amazon Elastic Block Store
@@ -98,7 +158,17 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
      *         </li>
      *         <li>
      *         <p>
-     *         <code>SGW</code> for AWS Storage Gateway
+     *         <code>EC2</code> for Amazon Elastic Compute Cloud
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>EFS</code> for Amazon Elastic File System
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>FSX</code> for Amazon FSx
      *         </p>
      *         </li>
      *         <li>
@@ -108,12 +178,17 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
      *         </li>
      *         <li>
      *         <p>
-     *         <code>DDB</code> for Amazon DynamoDB
+     *         <code>Storage Gateway</code> for Storage Gateway
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>EFS</code> for Amazon Elastic File System
+     *         <code>DocDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Neptune</code> for Amazon Neptune
      *         </p>
      *         </li>
      */
@@ -124,9 +199,19 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * Contains a string with the supported AWS resource types:
+     * Contains a string with the supported Amazon Web Services resource types:
      * </p>
      * <ul>
+     * <li>
+     * <p>
+     * <code>Aurora</code> for Amazon Aurora
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DynamoDB</code> for Amazon DynamoDB
+     * </p>
+     * </li>
      * <li>
      * <p>
      * <code>EBS</code> for Amazon Elastic Block Store
@@ -134,7 +219,17 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * <code>SGW</code> for AWS Storage Gateway
+     * <code>EC2</code> for Amazon Elastic Compute Cloud
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EFS</code> for Amazon Elastic File System
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>FSX</code> for Amazon FSx
      * </p>
      * </li>
      * <li>
@@ -144,19 +239,34 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * <code>DDB</code> for Amazon DynamoDB
+     * <code>Storage Gateway</code> for Storage Gateway
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EFS</code> for Amazon Elastic File System
+     * <code>DocDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Neptune</code> for Amazon Neptune
      * </p>
      * </li>
      * </ul>
      * 
      * @param resourceTypes
-     *        Contains a string with the supported AWS resource types:</p>
+     *        Contains a string with the supported Amazon Web Services resource types:</p>
      *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Aurora</code> for Amazon Aurora
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DynamoDB</code> for Amazon DynamoDB
+     *        </p>
+     *        </li>
      *        <li>
      *        <p>
      *        <code>EBS</code> for Amazon Elastic Block Store
@@ -164,7 +274,17 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        <code>SGW</code> for AWS Storage Gateway
+     *        <code>EC2</code> for Amazon Elastic Compute Cloud
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EFS</code> for Amazon Elastic File System
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>FSX</code> for Amazon FSx
      *        </p>
      *        </li>
      *        <li>
@@ -174,12 +294,17 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        <code>DDB</code> for Amazon DynamoDB
+     *        <code>Storage Gateway</code> for Storage Gateway
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>EFS</code> for Amazon Elastic File System
+     *        <code>DocDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Neptune</code> for Amazon Neptune
      *        </p>
      *        </li>
      */
@@ -195,9 +320,19 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * Contains a string with the supported AWS resource types:
+     * Contains a string with the supported Amazon Web Services resource types:
      * </p>
      * <ul>
+     * <li>
+     * <p>
+     * <code>Aurora</code> for Amazon Aurora
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DynamoDB</code> for Amazon DynamoDB
+     * </p>
+     * </li>
      * <li>
      * <p>
      * <code>EBS</code> for Amazon Elastic Block Store
@@ -205,7 +340,17 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * <code>SGW</code> for AWS Storage Gateway
+     * <code>EC2</code> for Amazon Elastic Compute Cloud
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EFS</code> for Amazon Elastic File System
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>FSX</code> for Amazon FSx
      * </p>
      * </li>
      * <li>
@@ -215,12 +360,17 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * <code>DDB</code> for Amazon DynamoDB
+     * <code>Storage Gateway</code> for Storage Gateway
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EFS</code> for Amazon Elastic File System
+     * <code>DocDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Neptune</code> for Amazon Neptune
      * </p>
      * </li>
      * </ul>
@@ -231,8 +381,18 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
      * </p>
      * 
      * @param resourceTypes
-     *        Contains a string with the supported AWS resource types:</p>
+     *        Contains a string with the supported Amazon Web Services resource types:</p>
      *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Aurora</code> for Amazon Aurora
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DynamoDB</code> for Amazon DynamoDB
+     *        </p>
+     *        </li>
      *        <li>
      *        <p>
      *        <code>EBS</code> for Amazon Elastic Block Store
@@ -240,7 +400,17 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        <code>SGW</code> for AWS Storage Gateway
+     *        <code>EC2</code> for Amazon Elastic Compute Cloud
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EFS</code> for Amazon Elastic File System
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>FSX</code> for Amazon FSx
      *        </p>
      *        </li>
      *        <li>
@@ -250,12 +420,17 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        <code>DDB</code> for Amazon DynamoDB
+     *        <code>Storage Gateway</code> for Storage Gateway
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>EFS</code> for Amazon Elastic File System
+     *        <code>DocDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Neptune</code> for Amazon Neptune
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -273,9 +448,19 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * Contains a string with the supported AWS resource types:
+     * Contains a string with the supported Amazon Web Services resource types:
      * </p>
      * <ul>
+     * <li>
+     * <p>
+     * <code>Aurora</code> for Amazon Aurora
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DynamoDB</code> for Amazon DynamoDB
+     * </p>
+     * </li>
      * <li>
      * <p>
      * <code>EBS</code> for Amazon Elastic Block Store
@@ -283,7 +468,17 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * <code>SGW</code> for AWS Storage Gateway
+     * <code>EC2</code> for Amazon Elastic Compute Cloud
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EFS</code> for Amazon Elastic File System
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>FSX</code> for Amazon FSx
      * </p>
      * </li>
      * <li>
@@ -293,19 +488,34 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * <code>DDB</code> for Amazon DynamoDB
+     * <code>Storage Gateway</code> for Storage Gateway
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EFS</code> for Amazon Elastic File System
+     * <code>DocDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Neptune</code> for Amazon Neptune
      * </p>
      * </li>
      * </ul>
      * 
      * @param resourceTypes
-     *        Contains a string with the supported AWS resource types:</p>
+     *        Contains a string with the supported Amazon Web Services resource types:</p>
      *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Aurora</code> for Amazon Aurora
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DynamoDB</code> for Amazon DynamoDB
+     *        </p>
+     *        </li>
      *        <li>
      *        <p>
      *        <code>EBS</code> for Amazon Elastic Block Store
@@ -313,7 +523,17 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        <code>SGW</code> for AWS Storage Gateway
+     *        <code>EC2</code> for Amazon Elastic Compute Cloud
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EFS</code> for Amazon Elastic File System
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>FSX</code> for Amazon FSx
      *        </p>
      *        </li>
      *        <li>
@@ -323,12 +543,17 @@ public class GetSupportedResourceTypesResult extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        <code>DDB</code> for Amazon DynamoDB
+     *        <code>Storage Gateway</code> for Storage Gateway
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>EFS</code> for Amazon Elastic File System
+     *        <code>DocDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Neptune</code> for Amazon Neptune
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.

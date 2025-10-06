@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,9 +27,14 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 public class OutputGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
-     * Use Custom Group Name (CustomName) to specify a name for the output group. This value is displayed on the console
-     * and can make your job settings JSON more human-readable. It does not affect your outputs. Use up to twelve
-     * characters that are either letters, numbers, spaces, or underscores.
+     * Use automated encoding to have MediaConvert choose your encoding settings for you, based on characteristics of
+     * your input video.
+     */
+    private AutomatedEncodingSettings automatedEncodingSettings;
+    /**
+     * Use Custom Group Name to specify a name for the output group. This value is displayed on the console and can make
+     * your job settings JSON more human-readable. It does not affect your outputs. Use up to twelve characters that are
+     * either letters, numbers, spaces, or underscores.
      */
     private String customName;
     /** Name of the output group */
@@ -40,14 +45,54 @@ public class OutputGroup implements Serializable, Cloneable, StructuredPojo {
     private java.util.List<Output> outputs;
 
     /**
-     * Use Custom Group Name (CustomName) to specify a name for the output group. This value is displayed on the console
-     * and can make your job settings JSON more human-readable. It does not affect your outputs. Use up to twelve
-     * characters that are either letters, numbers, spaces, or underscores.
+     * Use automated encoding to have MediaConvert choose your encoding settings for you, based on characteristics of
+     * your input video.
+     * 
+     * @param automatedEncodingSettings
+     *        Use automated encoding to have MediaConvert choose your encoding settings for you, based on
+     *        characteristics of your input video.
+     */
+
+    public void setAutomatedEncodingSettings(AutomatedEncodingSettings automatedEncodingSettings) {
+        this.automatedEncodingSettings = automatedEncodingSettings;
+    }
+
+    /**
+     * Use automated encoding to have MediaConvert choose your encoding settings for you, based on characteristics of
+     * your input video.
+     * 
+     * @return Use automated encoding to have MediaConvert choose your encoding settings for you, based on
+     *         characteristics of your input video.
+     */
+
+    public AutomatedEncodingSettings getAutomatedEncodingSettings() {
+        return this.automatedEncodingSettings;
+    }
+
+    /**
+     * Use automated encoding to have MediaConvert choose your encoding settings for you, based on characteristics of
+     * your input video.
+     * 
+     * @param automatedEncodingSettings
+     *        Use automated encoding to have MediaConvert choose your encoding settings for you, based on
+     *        characteristics of your input video.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OutputGroup withAutomatedEncodingSettings(AutomatedEncodingSettings automatedEncodingSettings) {
+        setAutomatedEncodingSettings(automatedEncodingSettings);
+        return this;
+    }
+
+    /**
+     * Use Custom Group Name to specify a name for the output group. This value is displayed on the console and can make
+     * your job settings JSON more human-readable. It does not affect your outputs. Use up to twelve characters that are
+     * either letters, numbers, spaces, or underscores.
      * 
      * @param customName
-     *        Use Custom Group Name (CustomName) to specify a name for the output group. This value is displayed on the
-     *        console and can make your job settings JSON more human-readable. It does not affect your outputs. Use up
-     *        to twelve characters that are either letters, numbers, spaces, or underscores.
+     *        Use Custom Group Name to specify a name for the output group. This value is displayed on the console and
+     *        can make your job settings JSON more human-readable. It does not affect your outputs. Use up to twelve
+     *        characters that are either letters, numbers, spaces, or underscores.
      */
 
     public void setCustomName(String customName) {
@@ -55,13 +100,13 @@ public class OutputGroup implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Use Custom Group Name (CustomName) to specify a name for the output group. This value is displayed on the console
-     * and can make your job settings JSON more human-readable. It does not affect your outputs. Use up to twelve
-     * characters that are either letters, numbers, spaces, or underscores.
+     * Use Custom Group Name to specify a name for the output group. This value is displayed on the console and can make
+     * your job settings JSON more human-readable. It does not affect your outputs. Use up to twelve characters that are
+     * either letters, numbers, spaces, or underscores.
      * 
-     * @return Use Custom Group Name (CustomName) to specify a name for the output group. This value is displayed on the
-     *         console and can make your job settings JSON more human-readable. It does not affect your outputs. Use up
-     *         to twelve characters that are either letters, numbers, spaces, or underscores.
+     * @return Use Custom Group Name to specify a name for the output group. This value is displayed on the console and
+     *         can make your job settings JSON more human-readable. It does not affect your outputs. Use up to twelve
+     *         characters that are either letters, numbers, spaces, or underscores.
      */
 
     public String getCustomName() {
@@ -69,14 +114,14 @@ public class OutputGroup implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Use Custom Group Name (CustomName) to specify a name for the output group. This value is displayed on the console
-     * and can make your job settings JSON more human-readable. It does not affect your outputs. Use up to twelve
-     * characters that are either letters, numbers, spaces, or underscores.
+     * Use Custom Group Name to specify a name for the output group. This value is displayed on the console and can make
+     * your job settings JSON more human-readable. It does not affect your outputs. Use up to twelve characters that are
+     * either letters, numbers, spaces, or underscores.
      * 
      * @param customName
-     *        Use Custom Group Name (CustomName) to specify a name for the output group. This value is displayed on the
-     *        console and can make your job settings JSON more human-readable. It does not affect your outputs. Use up
-     *        to twelve characters that are either letters, numbers, spaces, or underscores.
+     *        Use Custom Group Name to specify a name for the output group. This value is displayed on the console and
+     *        can make your job settings JSON more human-readable. It does not affect your outputs. Use up to twelve
+     *        characters that are either letters, numbers, spaces, or underscores.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -227,6 +272,8 @@ public class OutputGroup implements Serializable, Cloneable, StructuredPojo {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getAutomatedEncodingSettings() != null)
+            sb.append("AutomatedEncodingSettings: ").append(getAutomatedEncodingSettings()).append(",");
         if (getCustomName() != null)
             sb.append("CustomName: ").append(getCustomName()).append(",");
         if (getName() != null)
@@ -249,6 +296,10 @@ public class OutputGroup implements Serializable, Cloneable, StructuredPojo {
         if (obj instanceof OutputGroup == false)
             return false;
         OutputGroup other = (OutputGroup) obj;
+        if (other.getAutomatedEncodingSettings() == null ^ this.getAutomatedEncodingSettings() == null)
+            return false;
+        if (other.getAutomatedEncodingSettings() != null && other.getAutomatedEncodingSettings().equals(this.getAutomatedEncodingSettings()) == false)
+            return false;
         if (other.getCustomName() == null ^ this.getCustomName() == null)
             return false;
         if (other.getCustomName() != null && other.getCustomName().equals(this.getCustomName()) == false)
@@ -273,6 +324,7 @@ public class OutputGroup implements Serializable, Cloneable, StructuredPojo {
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getAutomatedEncodingSettings() == null) ? 0 : getAutomatedEncodingSettings().hashCode());
         hashCode = prime * hashCode + ((getCustomName() == null) ? 0 : getCustomName().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getOutputGroupSettings() == null) ? 0 : getOutputGroupSettings().hashCode());

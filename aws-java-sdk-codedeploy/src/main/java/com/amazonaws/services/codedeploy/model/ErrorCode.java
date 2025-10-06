@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,7 +52,8 @@ public enum ErrorCode {
     RESOURCE_LIMIT_EXCEEDED("RESOURCE_LIMIT_EXCEEDED"),
     REVISION_MISSING("REVISION_MISSING"),
     THROTTLED("THROTTLED"),
-    TIMEOUT("TIMEOUT");
+    TIMEOUT("TIMEOUT"),
+    CLOUDFORMATION_STACK_FAILURE("CLOUDFORMATION_STACK_FAILURE");
 
     private String value;
 

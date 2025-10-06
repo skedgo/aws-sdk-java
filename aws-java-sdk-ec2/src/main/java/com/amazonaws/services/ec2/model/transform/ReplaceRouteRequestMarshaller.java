@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,6 +48,14 @@ public class ReplaceRouteRequestMarshaller implements Marshaller<Request<Replace
             request.addParameter("DestinationIpv6CidrBlock", StringUtils.fromString(replaceRouteRequest.getDestinationIpv6CidrBlock()));
         }
 
+        if (replaceRouteRequest.getDestinationPrefixListId() != null) {
+            request.addParameter("DestinationPrefixListId", StringUtils.fromString(replaceRouteRequest.getDestinationPrefixListId()));
+        }
+
+        if (replaceRouteRequest.getVpcEndpointId() != null) {
+            request.addParameter("VpcEndpointId", StringUtils.fromString(replaceRouteRequest.getVpcEndpointId()));
+        }
+
         if (replaceRouteRequest.getEgressOnlyInternetGatewayId() != null) {
             request.addParameter("EgressOnlyInternetGatewayId", StringUtils.fromString(replaceRouteRequest.getEgressOnlyInternetGatewayId()));
         }
@@ -60,12 +68,24 @@ public class ReplaceRouteRequestMarshaller implements Marshaller<Request<Replace
             request.addParameter("InstanceId", StringUtils.fromString(replaceRouteRequest.getInstanceId()));
         }
 
+        if (replaceRouteRequest.getLocalTarget() != null) {
+            request.addParameter("LocalTarget", StringUtils.fromBoolean(replaceRouteRequest.getLocalTarget()));
+        }
+
         if (replaceRouteRequest.getNatGatewayId() != null) {
             request.addParameter("NatGatewayId", StringUtils.fromString(replaceRouteRequest.getNatGatewayId()));
         }
 
         if (replaceRouteRequest.getTransitGatewayId() != null) {
             request.addParameter("TransitGatewayId", StringUtils.fromString(replaceRouteRequest.getTransitGatewayId()));
+        }
+
+        if (replaceRouteRequest.getLocalGatewayId() != null) {
+            request.addParameter("LocalGatewayId", StringUtils.fromString(replaceRouteRequest.getLocalGatewayId()));
+        }
+
+        if (replaceRouteRequest.getCarrierGatewayId() != null) {
+            request.addParameter("CarrierGatewayId", StringUtils.fromString(replaceRouteRequest.getCarrierGatewayId()));
         }
 
         if (replaceRouteRequest.getNetworkInterfaceId() != null) {
@@ -78,6 +98,10 @@ public class ReplaceRouteRequestMarshaller implements Marshaller<Request<Replace
 
         if (replaceRouteRequest.getVpcPeeringConnectionId() != null) {
             request.addParameter("VpcPeeringConnectionId", StringUtils.fromString(replaceRouteRequest.getVpcPeeringConnectionId()));
+        }
+
+        if (replaceRouteRequest.getCoreNetworkArn() != null) {
+            request.addParameter("CoreNetworkArn", StringUtils.fromString(replaceRouteRequest.getCoreNetworkArn()));
         }
 
         return request;

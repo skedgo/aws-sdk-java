@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,10 +40,12 @@ import com.amazonaws.client.AwsSyncClientParams;
 import com.amazonaws.client.builder.AdvancedConfig;
 
 import com.amazonaws.services.groundstation.AWSGroundStationClientBuilder;
+import com.amazonaws.services.groundstation.waiters.AWSGroundStationWaiters;
 
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.groundstation.model.*;
+
 import com.amazonaws.services.groundstation.model.transform.*;
 
 /**
@@ -68,6 +70,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
     /** Default signing name for the service. */
     private static final String DEFAULT_SIGNING_NAME = "groundstation";
 
+    private volatile AWSGroundStationWaiters waiters;
+
     /** Client configuration factory providing ClientConfigurations tailored to this client */
     protected static final ClientConfigurationFactory configFactory = new ClientConfigurationFactory();
 
@@ -78,16 +82,19 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterException").withModeledClass(
-                                    com.amazonaws.services.groundstation.model.InvalidParameterException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.groundstation.model.transform.InvalidParameterExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.groundstation.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.groundstation.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DependencyException").withModeledClass(
-                                    com.amazonaws.services.groundstation.model.DependencyException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DependencyException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.groundstation.model.transform.DependencyExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.groundstation.model.transform.ResourceLimitExceededExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.groundstation.model.AWSGroundStationException.class));
 
     public static AWSGroundStationClientBuilder builder() {
@@ -143,10 +150,10 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
      * 
      * @param cancelContactRequest
      * @return Result of the CancelContact operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.CancelContact
@@ -174,6 +181,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                 request = new CancelContactRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(cancelContactRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelContact");
@@ -205,10 +214,12 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
      * 
      * @param createConfigRequest
      * @return Result of the CreateConfig operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
+     * @throws ResourceLimitExceededException
+     *         Account limits for this resource have been exceeded.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.CreateConfig
@@ -236,6 +247,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                 request = new CreateConfigRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateConfig");
@@ -273,10 +286,10 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
      * 
      * @param createDataflowEndpointGroupRequest
      * @return Result of the CreateDataflowEndpointGroup operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.CreateDataflowEndpointGroup
@@ -305,6 +318,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                         .beforeMarshalling(createDataflowEndpointGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDataflowEndpointGroup");
@@ -329,19 +344,80 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
 
     /**
      * <p>
+     * Creates an Ephemeris with the specified <code>EphemerisData</code>.
+     * </p>
+     * 
+     * @param createEphemerisRequest
+     * @return Result of the CreateEphemeris operation returned by the service.
+     * @throws InvalidParameterException
+     *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
+     * @throws ResourceNotFoundException
+     *         Resource was not found.
+     * @sample AWSGroundStation.CreateEphemeris
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/CreateEphemeris" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreateEphemerisResult createEphemeris(CreateEphemerisRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateEphemeris(request);
+    }
+
+    @SdkInternalApi
+    final CreateEphemerisResult executeCreateEphemeris(CreateEphemerisRequest createEphemerisRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createEphemerisRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateEphemerisRequest> request = null;
+        Response<CreateEphemerisResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateEphemerisRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createEphemerisRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateEphemeris");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateEphemerisResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateEphemerisResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Creates a mission profile.
      * </p>
      * <p>
      * <code>dataflowEdges</code> is a list of lists of strings. Each lower level list of strings has two elements: a
-     * <i>from ARN</i> and a <i>to ARN</i>.
+     * <i>from</i> ARN and a <i>to</i> ARN.
      * </p>
      * 
      * @param createMissionProfileRequest
      * @return Result of the CreateMissionProfile operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.CreateMissionProfile
@@ -369,6 +445,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                 request = new CreateMissionProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createMissionProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateMissionProfile");
@@ -397,10 +475,10 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
      * 
      * @param deleteConfigRequest
      * @return Result of the DeleteConfig operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.DeleteConfig
@@ -428,6 +506,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                 request = new DeleteConfigRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteConfig");
@@ -456,10 +536,10 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
      * 
      * @param deleteDataflowEndpointGroupRequest
      * @return Result of the DeleteDataflowEndpointGroup operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.DeleteDataflowEndpointGroup
@@ -488,6 +568,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                         .beforeMarshalling(deleteDataflowEndpointGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDataflowEndpointGroup");
@@ -512,15 +594,76 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
 
     /**
      * <p>
+     * Deletes an ephemeris
+     * </p>
+     * 
+     * @param deleteEphemerisRequest
+     * @return Result of the DeleteEphemeris operation returned by the service.
+     * @throws InvalidParameterException
+     *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
+     * @throws ResourceNotFoundException
+     *         Resource was not found.
+     * @sample AWSGroundStation.DeleteEphemeris
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/DeleteEphemeris" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DeleteEphemerisResult deleteEphemeris(DeleteEphemerisRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteEphemeris(request);
+    }
+
+    @SdkInternalApi
+    final DeleteEphemerisResult executeDeleteEphemeris(DeleteEphemerisRequest deleteEphemerisRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteEphemerisRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteEphemerisRequest> request = null;
+        Response<DeleteEphemerisResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteEphemerisRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteEphemerisRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteEphemeris");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteEphemerisResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteEphemerisResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Deletes a mission profile.
      * </p>
      * 
      * @param deleteMissionProfileRequest
      * @return Result of the DeleteMissionProfile operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.DeleteMissionProfile
@@ -548,6 +691,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                 request = new DeleteMissionProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteMissionProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteMissionProfile");
@@ -576,10 +721,10 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
      * 
      * @param describeContactRequest
      * @return Result of the DescribeContact operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.DescribeContact
@@ -607,6 +752,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                 request = new DescribeContactRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeContactRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeContact");
@@ -630,6 +777,134 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
 
     /**
      * <p>
+     * Describes an existing ephemeris.
+     * </p>
+     * 
+     * @param describeEphemerisRequest
+     * @return Result of the DescribeEphemeris operation returned by the service.
+     * @throws InvalidParameterException
+     *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
+     * @throws ResourceNotFoundException
+     *         Resource was not found.
+     * @sample AWSGroundStation.DescribeEphemeris
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/DescribeEphemeris"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeEphemerisResult describeEphemeris(DescribeEphemerisRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeEphemeris(request);
+    }
+
+    @SdkInternalApi
+    final DescribeEphemerisResult executeDescribeEphemeris(DescribeEphemerisRequest describeEphemerisRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeEphemerisRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeEphemerisRequest> request = null;
+        Response<DescribeEphemerisResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeEphemerisRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeEphemerisRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEphemeris");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeEphemerisResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeEphemerisResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <note>
+     * <p>
+     * For use by AWS Ground Station Agent and shouldn't be called directly.
+     * </p>
+     * </note>
+     * <p>
+     * Gets the latest configuration information for a registered agent.
+     * </p>
+     * 
+     * @param getAgentConfigurationRequest
+     * @return Result of the GetAgentConfiguration operation returned by the service.
+     * @throws InvalidParameterException
+     *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
+     * @throws ResourceNotFoundException
+     *         Resource was not found.
+     * @sample AWSGroundStation.GetAgentConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/GetAgentConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetAgentConfigurationResult getAgentConfiguration(GetAgentConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetAgentConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final GetAgentConfigurationResult executeGetAgentConfiguration(GetAgentConfigurationRequest getAgentConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getAgentConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetAgentConfigurationRequest> request = null;
+        Response<GetAgentConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetAgentConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getAgentConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetAgentConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetAgentConfigurationResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new GetAgentConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Returns <code>Config</code> information.
      * </p>
      * <p>
@@ -638,10 +913,10 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
      * 
      * @param getConfigRequest
      * @return Result of the GetConfig operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.GetConfig
@@ -669,6 +944,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                 request = new GetConfigRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetConfig");
@@ -697,10 +974,10 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
      * 
      * @param getDataflowEndpointGroupRequest
      * @return Result of the GetDataflowEndpointGroup operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.GetDataflowEndpointGroup
@@ -729,6 +1006,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                         .beforeMarshalling(getDataflowEndpointGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDataflowEndpointGroup");
@@ -753,15 +1032,15 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
 
     /**
      * <p>
-     * Returns the number of minutes used by account.
+     * Returns the number of reserved minutes used by account.
      * </p>
      * 
      * @param getMinuteUsageRequest
      * @return Result of the GetMinuteUsage operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.GetMinuteUsage
@@ -789,6 +1068,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                 request = new GetMinuteUsageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getMinuteUsageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMinuteUsage");
@@ -817,10 +1098,10 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
      * 
      * @param getMissionProfileRequest
      * @return Result of the GetMissionProfile operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.GetMissionProfile
@@ -848,6 +1129,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                 request = new GetMissionProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getMissionProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMissionProfile");
@@ -876,10 +1159,10 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
      * 
      * @param getSatelliteRequest
      * @return Result of the GetSatellite operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.GetSatellite
@@ -907,6 +1190,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                 request = new GetSatelliteRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getSatelliteRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSatellite");
@@ -935,10 +1220,10 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
      * 
      * @param listConfigsRequest
      * @return Result of the ListConfigs operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.ListConfigs
@@ -966,6 +1251,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                 request = new ListConfigsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listConfigsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListConfigs");
@@ -992,16 +1279,16 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
      * Returns a list of contacts.
      * </p>
      * <p>
-     * If <code>statusList</code> contains AVAILABLE, the request must include <code>groundstation</code>,
+     * If <code>statusList</code> contains AVAILABLE, the request must include <code>groundStation</code>,
      * <code>missionprofileArn</code>, and <code>satelliteArn</code>.
      * </p>
      * 
      * @param listContactsRequest
      * @return Result of the ListContacts operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.ListContacts
@@ -1029,6 +1316,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                 request = new ListContactsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listContactsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListContacts");
@@ -1057,10 +1346,10 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
      * 
      * @param listDataflowEndpointGroupsRequest
      * @return Result of the ListDataflowEndpointGroups operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.ListDataflowEndpointGroups
@@ -1089,6 +1378,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                         .beforeMarshalling(listDataflowEndpointGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDataflowEndpointGroups");
@@ -1113,15 +1404,76 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
 
     /**
      * <p>
+     * List existing ephemerides.
+     * </p>
+     * 
+     * @param listEphemeridesRequest
+     * @return Result of the ListEphemerides operation returned by the service.
+     * @throws InvalidParameterException
+     *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
+     * @throws ResourceNotFoundException
+     *         Resource was not found.
+     * @sample AWSGroundStation.ListEphemerides
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/ListEphemerides" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListEphemeridesResult listEphemerides(ListEphemeridesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListEphemerides(request);
+    }
+
+    @SdkInternalApi
+    final ListEphemeridesResult executeListEphemerides(ListEphemeridesRequest listEphemeridesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listEphemeridesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListEphemeridesRequest> request = null;
+        Response<ListEphemeridesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListEphemeridesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listEphemeridesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListEphemerides");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListEphemeridesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListEphemeridesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Returns a list of ground stations.
      * </p>
      * 
      * @param listGroundStationsRequest
      * @return Result of the ListGroundStations operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.ListGroundStations
@@ -1149,6 +1501,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                 request = new ListGroundStationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listGroundStationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListGroundStations");
@@ -1177,10 +1531,10 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
      * 
      * @param listMissionProfilesRequest
      * @return Result of the ListMissionProfiles operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.ListMissionProfiles
@@ -1208,6 +1562,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                 request = new ListMissionProfilesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listMissionProfilesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListMissionProfiles");
@@ -1236,10 +1592,10 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
      * 
      * @param listSatellitesRequest
      * @return Result of the ListSatellites operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.ListSatellites
@@ -1267,6 +1623,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                 request = new ListSatellitesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listSatellitesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListSatellites");
@@ -1290,15 +1648,15 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
 
     /**
      * <p>
-     * Returns a list of tags or a specified resource.
+     * Returns a list of tags for a specified resource.
      * </p>
      * 
      * @param listTagsForResourceRequest
      * @return Result of the ListTagsForResource operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.ListTagsForResource
@@ -1326,6 +1684,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                 request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -1348,16 +1708,82 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
     }
 
     /**
+     * <note>
+     * <p>
+     * For use by AWS Ground Station Agent and shouldn't be called directly.
+     * </p>
+     * </note>
+     * <p>
+     * Registers a new agent with AWS Ground Station.
+     * </p>
+     * 
+     * @param registerAgentRequest
+     * @return Result of the RegisterAgent operation returned by the service.
+     * @throws InvalidParameterException
+     *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
+     * @throws ResourceNotFoundException
+     *         Resource was not found.
+     * @sample AWSGroundStation.RegisterAgent
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/RegisterAgent" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public RegisterAgentResult registerAgent(RegisterAgentRequest request) {
+        request = beforeClientExecution(request);
+        return executeRegisterAgent(request);
+    }
+
+    @SdkInternalApi
+    final RegisterAgentResult executeRegisterAgent(RegisterAgentRequest registerAgentRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(registerAgentRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<RegisterAgentRequest> request = null;
+        Response<RegisterAgentResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RegisterAgentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(registerAgentRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterAgent");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<RegisterAgentResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new RegisterAgentResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
      * <p>
      * Reserves a contact using specified parameters.
      * </p>
      * 
      * @param reserveContactRequest
      * @return Result of the ReserveContact operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.ReserveContact
@@ -1385,6 +1811,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                 request = new ReserveContactRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(reserveContactRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ReserveContact");
@@ -1413,10 +1841,10 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
      * 
      * @param tagResourceRequest
      * @return Result of the TagResource operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.TagResource
@@ -1444,6 +1872,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -1472,10 +1902,10 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
      * 
      * @param untagResourceRequest
      * @return Result of the UntagResource operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.UntagResource
@@ -1503,6 +1933,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -1525,6 +1957,72 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
     }
 
     /**
+     * <note>
+     * <p>
+     * For use by AWS Ground Station Agent and shouldn't be called directly.
+     * </p>
+     * </note>
+     * <p>
+     * Update the status of the agent.
+     * </p>
+     * 
+     * @param updateAgentStatusRequest
+     * @return Result of the UpdateAgentStatus operation returned by the service.
+     * @throws InvalidParameterException
+     *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
+     * @throws ResourceNotFoundException
+     *         Resource was not found.
+     * @sample AWSGroundStation.UpdateAgentStatus
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/UpdateAgentStatus"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateAgentStatusResult updateAgentStatus(UpdateAgentStatusRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateAgentStatus(request);
+    }
+
+    @SdkInternalApi
+    final UpdateAgentStatusResult executeUpdateAgentStatus(UpdateAgentStatusRequest updateAgentStatusRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateAgentStatusRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateAgentStatusRequest> request = null;
+        Response<UpdateAgentStatusResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateAgentStatusRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateAgentStatusRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateAgentStatus");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateAgentStatusResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateAgentStatusResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
      * <p>
      * Updates the <code>Config</code> used when scheduling contacts.
      * </p>
@@ -1535,10 +2033,10 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
      * 
      * @param updateConfigRequest
      * @return Result of the UpdateConfig operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.UpdateConfig
@@ -1566,6 +2064,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                 request = new UpdateConfigRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateConfig");
@@ -1589,6 +2089,67 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
 
     /**
      * <p>
+     * Updates an existing ephemeris
+     * </p>
+     * 
+     * @param updateEphemerisRequest
+     * @return Result of the UpdateEphemeris operation returned by the service.
+     * @throws InvalidParameterException
+     *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
+     * @throws ResourceNotFoundException
+     *         Resource was not found.
+     * @sample AWSGroundStation.UpdateEphemeris
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/UpdateEphemeris" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public UpdateEphemerisResult updateEphemeris(UpdateEphemerisRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateEphemeris(request);
+    }
+
+    @SdkInternalApi
+    final UpdateEphemerisResult executeUpdateEphemeris(UpdateEphemerisRequest updateEphemerisRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateEphemerisRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateEphemerisRequest> request = null;
+        Response<UpdateEphemerisResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateEphemerisRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateEphemerisRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateEphemeris");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateEphemerisResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateEphemerisResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Updates a mission profile.
      * </p>
      * <p>
@@ -1597,10 +2158,10 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
      * 
      * @param updateMissionProfileRequest
      * @return Result of the UpdateMissionProfile operation returned by the service.
-     * @throws DependencyException
-     *         Dependency encountered an error.
      * @throws InvalidParameterException
      *         One or more parameters are not valid.
+     * @throws DependencyException
+     *         Dependency encountered an error.
      * @throws ResourceNotFoundException
      *         Resource was not found.
      * @sample AWSGroundStation.UpdateMissionProfile
@@ -1628,6 +2189,8 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
                 request = new UpdateMissionProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateMissionProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "GroundStation");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateMissionProfile");
@@ -1723,6 +2286,26 @@ public class AWSGroundStationClient extends AmazonWebServiceClient implements AW
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public AWSGroundStationWaiters waiters() {
+        if (waiters == null) {
+            synchronized (this) {
+                if (waiters == null) {
+                    waiters = new AWSGroundStationWaiters(this);
+                }
+            }
+        }
+        return waiters;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
+        if (waiters != null) {
+            waiters.shutdown();
+        }
     }
 
 }

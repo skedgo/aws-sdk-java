@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,10 +18,10 @@ import javax.annotation.Generated;
 /**
  * <p>
  * Indicates whether your instance is configured for hibernation. This parameter is valid only if the instance meets the
- * <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites">hibernation
- * prerequisites</a>. Hibernation is currently supported only for Amazon Linux. For more information, see <a
- * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate Your Instance</a> in the
- * <i>Amazon Elastic Compute Cloud User Guide</i>.
+ * <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/hibernating-prerequisites.html">hibernation
+ * prerequisites</a>. For more information, see <a
+ * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate your Amazon EC2 instance</a> in
+ * the <i>Amazon EC2 User Guide</i>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/HibernationOptionsRequest" target="_top">AWS API
@@ -32,8 +32,27 @@ public class HibernationOptionsRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If you set this parameter to <code>true</code>, your instance is enabled for hibernation.
+     * Set to <code>true</code> to enable your instance for hibernation.
      * </p>
+     * <p>
+     * For Spot Instances, if you set <code>Configured</code> to <code>true</code>, either omit the
+     * <code>InstanceInterruptionBehavior</code> parameter (for <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotMarketOptions.html">
+     * <code>SpotMarketOptions</code> </a>), or set it to <code>hibernate</code>. When <code>Configured</code> is true:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you omit <code>InstanceInterruptionBehavior</code>, it defaults to <code>hibernate</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you set <code>InstanceInterruptionBehavior</code> to a value other than <code>hibernate</code>, you'll get an
+     * error.
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * Default: <code>false</code>
      * </p>
@@ -42,14 +61,53 @@ public class HibernationOptionsRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If you set this parameter to <code>true</code>, your instance is enabled for hibernation.
+     * Set to <code>true</code> to enable your instance for hibernation.
      * </p>
+     * <p>
+     * For Spot Instances, if you set <code>Configured</code> to <code>true</code>, either omit the
+     * <code>InstanceInterruptionBehavior</code> parameter (for <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotMarketOptions.html">
+     * <code>SpotMarketOptions</code> </a>), or set it to <code>hibernate</code>. When <code>Configured</code> is true:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you omit <code>InstanceInterruptionBehavior</code>, it defaults to <code>hibernate</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you set <code>InstanceInterruptionBehavior</code> to a value other than <code>hibernate</code>, you'll get an
+     * error.
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
      * @param configured
-     *        If you set this parameter to <code>true</code>, your instance is enabled for hibernation.</p>
+     *        Set to <code>true</code> to enable your instance for hibernation.</p>
+     *        <p>
+     *        For Spot Instances, if you set <code>Configured</code> to <code>true</code>, either omit the
+     *        <code>InstanceInterruptionBehavior</code> parameter (for <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotMarketOptions.html">
+     *        <code>SpotMarketOptions</code> </a>), or set it to <code>hibernate</code>. When <code>Configured</code> is
+     *        true:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If you omit <code>InstanceInterruptionBehavior</code>, it defaults to <code>hibernate</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you set <code>InstanceInterruptionBehavior</code> to a value other than <code>hibernate</code>, you'll
+     *        get an error.
+     *        </p>
+     *        </li>
+     *        </ul>
      *        <p>
      *        Default: <code>false</code>
      */
@@ -60,13 +118,52 @@ public class HibernationOptionsRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If you set this parameter to <code>true</code>, your instance is enabled for hibernation.
+     * Set to <code>true</code> to enable your instance for hibernation.
      * </p>
+     * <p>
+     * For Spot Instances, if you set <code>Configured</code> to <code>true</code>, either omit the
+     * <code>InstanceInterruptionBehavior</code> parameter (for <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotMarketOptions.html">
+     * <code>SpotMarketOptions</code> </a>), or set it to <code>hibernate</code>. When <code>Configured</code> is true:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you omit <code>InstanceInterruptionBehavior</code>, it defaults to <code>hibernate</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you set <code>InstanceInterruptionBehavior</code> to a value other than <code>hibernate</code>, you'll get an
+     * error.
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
-     * @return If you set this parameter to <code>true</code>, your instance is enabled for hibernation.</p>
+     * @return Set to <code>true</code> to enable your instance for hibernation.</p>
+     *         <p>
+     *         For Spot Instances, if you set <code>Configured</code> to <code>true</code>, either omit the
+     *         <code>InstanceInterruptionBehavior</code> parameter (for <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotMarketOptions.html">
+     *         <code>SpotMarketOptions</code> </a>), or set it to <code>hibernate</code>. When <code>Configured</code>
+     *         is true:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If you omit <code>InstanceInterruptionBehavior</code>, it defaults to <code>hibernate</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If you set <code>InstanceInterruptionBehavior</code> to a value other than <code>hibernate</code>, you'll
+     *         get an error.
+     *         </p>
+     *         </li>
+     *         </ul>
      *         <p>
      *         Default: <code>false</code>
      */
@@ -77,14 +174,53 @@ public class HibernationOptionsRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If you set this parameter to <code>true</code>, your instance is enabled for hibernation.
+     * Set to <code>true</code> to enable your instance for hibernation.
      * </p>
+     * <p>
+     * For Spot Instances, if you set <code>Configured</code> to <code>true</code>, either omit the
+     * <code>InstanceInterruptionBehavior</code> parameter (for <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotMarketOptions.html">
+     * <code>SpotMarketOptions</code> </a>), or set it to <code>hibernate</code>. When <code>Configured</code> is true:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you omit <code>InstanceInterruptionBehavior</code>, it defaults to <code>hibernate</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you set <code>InstanceInterruptionBehavior</code> to a value other than <code>hibernate</code>, you'll get an
+     * error.
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
      * @param configured
-     *        If you set this parameter to <code>true</code>, your instance is enabled for hibernation.</p>
+     *        Set to <code>true</code> to enable your instance for hibernation.</p>
+     *        <p>
+     *        For Spot Instances, if you set <code>Configured</code> to <code>true</code>, either omit the
+     *        <code>InstanceInterruptionBehavior</code> parameter (for <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotMarketOptions.html">
+     *        <code>SpotMarketOptions</code> </a>), or set it to <code>hibernate</code>. When <code>Configured</code> is
+     *        true:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If you omit <code>InstanceInterruptionBehavior</code>, it defaults to <code>hibernate</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you set <code>InstanceInterruptionBehavior</code> to a value other than <code>hibernate</code>, you'll
+     *        get an error.
+     *        </p>
+     *        </li>
+     *        </ul>
      *        <p>
      *        Default: <code>false</code>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -97,13 +233,52 @@ public class HibernationOptionsRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If you set this parameter to <code>true</code>, your instance is enabled for hibernation.
+     * Set to <code>true</code> to enable your instance for hibernation.
      * </p>
+     * <p>
+     * For Spot Instances, if you set <code>Configured</code> to <code>true</code>, either omit the
+     * <code>InstanceInterruptionBehavior</code> parameter (for <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotMarketOptions.html">
+     * <code>SpotMarketOptions</code> </a>), or set it to <code>hibernate</code>. When <code>Configured</code> is true:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you omit <code>InstanceInterruptionBehavior</code>, it defaults to <code>hibernate</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you set <code>InstanceInterruptionBehavior</code> to a value other than <code>hibernate</code>, you'll get an
+     * error.
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
-     * @return If you set this parameter to <code>true</code>, your instance is enabled for hibernation.</p>
+     * @return Set to <code>true</code> to enable your instance for hibernation.</p>
+     *         <p>
+     *         For Spot Instances, if you set <code>Configured</code> to <code>true</code>, either omit the
+     *         <code>InstanceInterruptionBehavior</code> parameter (for <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotMarketOptions.html">
+     *         <code>SpotMarketOptions</code> </a>), or set it to <code>hibernate</code>. When <code>Configured</code>
+     *         is true:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If you omit <code>InstanceInterruptionBehavior</code>, it defaults to <code>hibernate</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If you set <code>InstanceInterruptionBehavior</code> to a value other than <code>hibernate</code>, you'll
+     *         get an error.
+     *         </p>
+     *         </li>
+     *         </ul>
      *         <p>
      *         Default: <code>false</code>
      */

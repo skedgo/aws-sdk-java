@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,8 +27,8 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The ID of the Data Catalog in which to create the <code>Table</code>. If none is supplied, the AWS account ID is
-     * used by default.
+     * The ID of the Data Catalog in which to create the <code>Table</code>. If none is supplied, the Amazon Web
+     * Services account ID is used by default.
      * </p>
      */
     private String catalogId;
@@ -44,16 +44,34 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      */
     private TableInput tableInput;
+    /**
+     * <p>
+     * A list of partition indexes, <code>PartitionIndex</code> structures, to create in the table.
+     * </p>
+     */
+    private java.util.List<PartitionIndex> partitionIndexes;
+    /**
+     * <p>
+     * The ID of the transaction.
+     * </p>
+     */
+    private String transactionId;
+    /**
+     * <p>
+     * Specifies an <code>OpenTableFormatInput</code> structure when creating an open format table.
+     * </p>
+     */
+    private OpenTableFormatInput openTableFormatInput;
 
     /**
      * <p>
-     * The ID of the Data Catalog in which to create the <code>Table</code>. If none is supplied, the AWS account ID is
-     * used by default.
+     * The ID of the Data Catalog in which to create the <code>Table</code>. If none is supplied, the Amazon Web
+     * Services account ID is used by default.
      * </p>
      * 
      * @param catalogId
-     *        The ID of the Data Catalog in which to create the <code>Table</code>. If none is supplied, the AWS account
-     *        ID is used by default.
+     *        The ID of the Data Catalog in which to create the <code>Table</code>. If none is supplied, the Amazon Web
+     *        Services account ID is used by default.
      */
 
     public void setCatalogId(String catalogId) {
@@ -62,12 +80,12 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The ID of the Data Catalog in which to create the <code>Table</code>. If none is supplied, the AWS account ID is
-     * used by default.
+     * The ID of the Data Catalog in which to create the <code>Table</code>. If none is supplied, the Amazon Web
+     * Services account ID is used by default.
      * </p>
      * 
-     * @return The ID of the Data Catalog in which to create the <code>Table</code>. If none is supplied, the AWS
-     *         account ID is used by default.
+     * @return The ID of the Data Catalog in which to create the <code>Table</code>. If none is supplied, the Amazon Web
+     *         Services account ID is used by default.
      */
 
     public String getCatalogId() {
@@ -76,13 +94,13 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The ID of the Data Catalog in which to create the <code>Table</code>. If none is supplied, the AWS account ID is
-     * used by default.
+     * The ID of the Data Catalog in which to create the <code>Table</code>. If none is supplied, the Amazon Web
+     * Services account ID is used by default.
      * </p>
      * 
      * @param catalogId
-     *        The ID of the Data Catalog in which to create the <code>Table</code>. If none is supplied, the AWS account
-     *        ID is used by default.
+     *        The ID of the Data Catalog in which to create the <code>Table</code>. If none is supplied, the Amazon Web
+     *        Services account ID is used by default.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -175,6 +193,156 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
     }
 
     /**
+     * <p>
+     * A list of partition indexes, <code>PartitionIndex</code> structures, to create in the table.
+     * </p>
+     * 
+     * @return A list of partition indexes, <code>PartitionIndex</code> structures, to create in the table.
+     */
+
+    public java.util.List<PartitionIndex> getPartitionIndexes() {
+        return partitionIndexes;
+    }
+
+    /**
+     * <p>
+     * A list of partition indexes, <code>PartitionIndex</code> structures, to create in the table.
+     * </p>
+     * 
+     * @param partitionIndexes
+     *        A list of partition indexes, <code>PartitionIndex</code> structures, to create in the table.
+     */
+
+    public void setPartitionIndexes(java.util.Collection<PartitionIndex> partitionIndexes) {
+        if (partitionIndexes == null) {
+            this.partitionIndexes = null;
+            return;
+        }
+
+        this.partitionIndexes = new java.util.ArrayList<PartitionIndex>(partitionIndexes);
+    }
+
+    /**
+     * <p>
+     * A list of partition indexes, <code>PartitionIndex</code> structures, to create in the table.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setPartitionIndexes(java.util.Collection)} or {@link #withPartitionIndexes(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param partitionIndexes
+     *        A list of partition indexes, <code>PartitionIndex</code> structures, to create in the table.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTableRequest withPartitionIndexes(PartitionIndex... partitionIndexes) {
+        if (this.partitionIndexes == null) {
+            setPartitionIndexes(new java.util.ArrayList<PartitionIndex>(partitionIndexes.length));
+        }
+        for (PartitionIndex ele : partitionIndexes) {
+            this.partitionIndexes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of partition indexes, <code>PartitionIndex</code> structures, to create in the table.
+     * </p>
+     * 
+     * @param partitionIndexes
+     *        A list of partition indexes, <code>PartitionIndex</code> structures, to create in the table.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTableRequest withPartitionIndexes(java.util.Collection<PartitionIndex> partitionIndexes) {
+        setPartitionIndexes(partitionIndexes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the transaction.
+     * </p>
+     * 
+     * @param transactionId
+     *        The ID of the transaction.
+     */
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    /**
+     * <p>
+     * The ID of the transaction.
+     * </p>
+     * 
+     * @return The ID of the transaction.
+     */
+
+    public String getTransactionId() {
+        return this.transactionId;
+    }
+
+    /**
+     * <p>
+     * The ID of the transaction.
+     * </p>
+     * 
+     * @param transactionId
+     *        The ID of the transaction.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTableRequest withTransactionId(String transactionId) {
+        setTransactionId(transactionId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies an <code>OpenTableFormatInput</code> structure when creating an open format table.
+     * </p>
+     * 
+     * @param openTableFormatInput
+     *        Specifies an <code>OpenTableFormatInput</code> structure when creating an open format table.
+     */
+
+    public void setOpenTableFormatInput(OpenTableFormatInput openTableFormatInput) {
+        this.openTableFormatInput = openTableFormatInput;
+    }
+
+    /**
+     * <p>
+     * Specifies an <code>OpenTableFormatInput</code> structure when creating an open format table.
+     * </p>
+     * 
+     * @return Specifies an <code>OpenTableFormatInput</code> structure when creating an open format table.
+     */
+
+    public OpenTableFormatInput getOpenTableFormatInput() {
+        return this.openTableFormatInput;
+    }
+
+    /**
+     * <p>
+     * Specifies an <code>OpenTableFormatInput</code> structure when creating an open format table.
+     * </p>
+     * 
+     * @param openTableFormatInput
+     *        Specifies an <code>OpenTableFormatInput</code> structure when creating an open format table.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTableRequest withOpenTableFormatInput(OpenTableFormatInput openTableFormatInput) {
+        setOpenTableFormatInput(openTableFormatInput);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -191,7 +359,13 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (getDatabaseName() != null)
             sb.append("DatabaseName: ").append(getDatabaseName()).append(",");
         if (getTableInput() != null)
-            sb.append("TableInput: ").append(getTableInput());
+            sb.append("TableInput: ").append(getTableInput()).append(",");
+        if (getPartitionIndexes() != null)
+            sb.append("PartitionIndexes: ").append(getPartitionIndexes()).append(",");
+        if (getTransactionId() != null)
+            sb.append("TransactionId: ").append(getTransactionId()).append(",");
+        if (getOpenTableFormatInput() != null)
+            sb.append("OpenTableFormatInput: ").append(getOpenTableFormatInput());
         sb.append("}");
         return sb.toString();
     }
@@ -218,6 +392,18 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
             return false;
         if (other.getTableInput() != null && other.getTableInput().equals(this.getTableInput()) == false)
             return false;
+        if (other.getPartitionIndexes() == null ^ this.getPartitionIndexes() == null)
+            return false;
+        if (other.getPartitionIndexes() != null && other.getPartitionIndexes().equals(this.getPartitionIndexes()) == false)
+            return false;
+        if (other.getTransactionId() == null ^ this.getTransactionId() == null)
+            return false;
+        if (other.getTransactionId() != null && other.getTransactionId().equals(this.getTransactionId()) == false)
+            return false;
+        if (other.getOpenTableFormatInput() == null ^ this.getOpenTableFormatInput() == null)
+            return false;
+        if (other.getOpenTableFormatInput() != null && other.getOpenTableFormatInput().equals(this.getOpenTableFormatInput()) == false)
+            return false;
         return true;
     }
 
@@ -229,6 +415,9 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
         hashCode = prime * hashCode + ((getCatalogId() == null) ? 0 : getCatalogId().hashCode());
         hashCode = prime * hashCode + ((getDatabaseName() == null) ? 0 : getDatabaseName().hashCode());
         hashCode = prime * hashCode + ((getTableInput() == null) ? 0 : getTableInput().hashCode());
+        hashCode = prime * hashCode + ((getPartitionIndexes() == null) ? 0 : getPartitionIndexes().hashCode());
+        hashCode = prime * hashCode + ((getTransactionId() == null) ? 0 : getTransactionId().hashCode());
+        hashCode = prime * hashCode + ((getOpenTableFormatInput() == null) ? 0 : getOpenTableFormatInput().hashCode());
         return hashCode;
     }
 

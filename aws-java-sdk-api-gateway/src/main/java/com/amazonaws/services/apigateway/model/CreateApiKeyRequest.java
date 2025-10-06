@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * Request to create an <a>ApiKey</a> resource.
+ * Request to create an ApiKey resource.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -27,26 +27,26 @@ public class CreateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The name of the <a>ApiKey</a>.
+     * The name of the ApiKey.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The description of the <a>ApiKey</a>.
+     * The description of the ApiKey.
      * </p>
      */
     private String description;
     /**
      * <p>
-     * Specifies whether the <a>ApiKey</a> can be used by callers.
+     * Specifies whether the ApiKey can be used by callers.
      * </p>
      */
     private Boolean enabled;
     /**
      * <p>
      * Specifies whether (<code>true</code>) or not (<code>false</code>) the key identifier is distinct from the created
-     * API key value.
+     * API key value. This parameter is deprecated and should not be used.
      * </p>
      */
     private Boolean generateDistinctId;
@@ -64,7 +64,8 @@ public class CreateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
     private java.util.List<StageKey> stageKeys;
     /**
      * <p>
-     * An AWS Marketplace customer identifier , when integrating with the AWS SaaS Marketplace.
+     * An Amazon Web Services Marketplace customer identifier, when integrating with the Amazon Web Services SaaS
+     * Marketplace.
      * </p>
      */
     private String customerId;
@@ -78,11 +79,11 @@ public class CreateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The name of the <a>ApiKey</a>.
+     * The name of the ApiKey.
      * </p>
      * 
      * @param name
-     *        The name of the <a>ApiKey</a>.
+     *        The name of the ApiKey.
      */
 
     public void setName(String name) {
@@ -91,10 +92,10 @@ public class CreateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The name of the <a>ApiKey</a>.
+     * The name of the ApiKey.
      * </p>
      * 
-     * @return The name of the <a>ApiKey</a>.
+     * @return The name of the ApiKey.
      */
 
     public String getName() {
@@ -103,11 +104,11 @@ public class CreateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The name of the <a>ApiKey</a>.
+     * The name of the ApiKey.
      * </p>
      * 
      * @param name
-     *        The name of the <a>ApiKey</a>.
+     *        The name of the ApiKey.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -118,11 +119,11 @@ public class CreateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The description of the <a>ApiKey</a>.
+     * The description of the ApiKey.
      * </p>
      * 
      * @param description
-     *        The description of the <a>ApiKey</a>.
+     *        The description of the ApiKey.
      */
 
     public void setDescription(String description) {
@@ -131,10 +132,10 @@ public class CreateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The description of the <a>ApiKey</a>.
+     * The description of the ApiKey.
      * </p>
      * 
-     * @return The description of the <a>ApiKey</a>.
+     * @return The description of the ApiKey.
      */
 
     public String getDescription() {
@@ -143,11 +144,11 @@ public class CreateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The description of the <a>ApiKey</a>.
+     * The description of the ApiKey.
      * </p>
      * 
      * @param description
-     *        The description of the <a>ApiKey</a>.
+     *        The description of the ApiKey.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -158,11 +159,11 @@ public class CreateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Specifies whether the <a>ApiKey</a> can be used by callers.
+     * Specifies whether the ApiKey can be used by callers.
      * </p>
      * 
      * @param enabled
-     *        Specifies whether the <a>ApiKey</a> can be used by callers.
+     *        Specifies whether the ApiKey can be used by callers.
      */
 
     public void setEnabled(Boolean enabled) {
@@ -171,10 +172,10 @@ public class CreateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Specifies whether the <a>ApiKey</a> can be used by callers.
+     * Specifies whether the ApiKey can be used by callers.
      * </p>
      * 
-     * @return Specifies whether the <a>ApiKey</a> can be used by callers.
+     * @return Specifies whether the ApiKey can be used by callers.
      */
 
     public Boolean getEnabled() {
@@ -183,11 +184,11 @@ public class CreateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Specifies whether the <a>ApiKey</a> can be used by callers.
+     * Specifies whether the ApiKey can be used by callers.
      * </p>
      * 
      * @param enabled
-     *        Specifies whether the <a>ApiKey</a> can be used by callers.
+     *        Specifies whether the ApiKey can be used by callers.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -198,10 +199,10 @@ public class CreateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Specifies whether the <a>ApiKey</a> can be used by callers.
+     * Specifies whether the ApiKey can be used by callers.
      * </p>
      * 
-     * @return Specifies whether the <a>ApiKey</a> can be used by callers.
+     * @return Specifies whether the ApiKey can be used by callers.
      */
 
     public Boolean isEnabled() {
@@ -211,12 +212,12 @@ public class CreateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
     /**
      * <p>
      * Specifies whether (<code>true</code>) or not (<code>false</code>) the key identifier is distinct from the created
-     * API key value.
+     * API key value. This parameter is deprecated and should not be used.
      * </p>
      * 
      * @param generateDistinctId
      *        Specifies whether (<code>true</code>) or not (<code>false</code>) the key identifier is distinct from the
-     *        created API key value.
+     *        created API key value. This parameter is deprecated and should not be used.
      */
 
     public void setGenerateDistinctId(Boolean generateDistinctId) {
@@ -226,11 +227,11 @@ public class CreateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
     /**
      * <p>
      * Specifies whether (<code>true</code>) or not (<code>false</code>) the key identifier is distinct from the created
-     * API key value.
+     * API key value. This parameter is deprecated and should not be used.
      * </p>
      * 
      * @return Specifies whether (<code>true</code>) or not (<code>false</code>) the key identifier is distinct from the
-     *         created API key value.
+     *         created API key value. This parameter is deprecated and should not be used.
      */
 
     public Boolean getGenerateDistinctId() {
@@ -240,12 +241,12 @@ public class CreateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
     /**
      * <p>
      * Specifies whether (<code>true</code>) or not (<code>false</code>) the key identifier is distinct from the created
-     * API key value.
+     * API key value. This parameter is deprecated and should not be used.
      * </p>
      * 
      * @param generateDistinctId
      *        Specifies whether (<code>true</code>) or not (<code>false</code>) the key identifier is distinct from the
-     *        created API key value.
+     *        created API key value. This parameter is deprecated and should not be used.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -257,11 +258,11 @@ public class CreateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
     /**
      * <p>
      * Specifies whether (<code>true</code>) or not (<code>false</code>) the key identifier is distinct from the created
-     * API key value.
+     * API key value. This parameter is deprecated and should not be used.
      * </p>
      * 
      * @return Specifies whether (<code>true</code>) or not (<code>false</code>) the key identifier is distinct from the
-     *         created API key value.
+     *         created API key value. This parameter is deprecated and should not be used.
      */
 
     public Boolean isGenerateDistinctId() {
@@ -380,11 +381,13 @@ public class CreateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * An AWS Marketplace customer identifier , when integrating with the AWS SaaS Marketplace.
+     * An Amazon Web Services Marketplace customer identifier, when integrating with the Amazon Web Services SaaS
+     * Marketplace.
      * </p>
      * 
      * @param customerId
-     *        An AWS Marketplace customer identifier , when integrating with the AWS SaaS Marketplace.
+     *        An Amazon Web Services Marketplace customer identifier, when integrating with the Amazon Web Services SaaS
+     *        Marketplace.
      */
 
     public void setCustomerId(String customerId) {
@@ -393,10 +396,12 @@ public class CreateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * An AWS Marketplace customer identifier , when integrating with the AWS SaaS Marketplace.
+     * An Amazon Web Services Marketplace customer identifier, when integrating with the Amazon Web Services SaaS
+     * Marketplace.
      * </p>
      * 
-     * @return An AWS Marketplace customer identifier , when integrating with the AWS SaaS Marketplace.
+     * @return An Amazon Web Services Marketplace customer identifier, when integrating with the Amazon Web Services
+     *         SaaS Marketplace.
      */
 
     public String getCustomerId() {
@@ -405,11 +410,13 @@ public class CreateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * An AWS Marketplace customer identifier , when integrating with the AWS SaaS Marketplace.
+     * An Amazon Web Services Marketplace customer identifier, when integrating with the Amazon Web Services SaaS
+     * Marketplace.
      * </p>
      * 
      * @param customerId
-     *        An AWS Marketplace customer identifier , when integrating with the AWS SaaS Marketplace.
+     *        An Amazon Web Services Marketplace customer identifier, when integrating with the Amazon Web Services SaaS
+     *        Marketplace.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -463,6 +470,13 @@ public class CreateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateApiKeyRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public CreateApiKeyRequest addTagsEntry(String key, String value) {
         if (null == this.tags) {

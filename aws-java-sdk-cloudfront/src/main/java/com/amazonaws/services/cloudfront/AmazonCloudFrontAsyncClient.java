@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,8 +33,9 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * <fullname>Amazon CloudFront</fullname>
  * <p>
  * This is the <i>Amazon CloudFront API Reference</i>. This guide is for developers who need detailed information about
- * CloudFront API actions, data types, and errors. For detailed information about CloudFront features, see the <i>Amazon
- * CloudFront Developer Guide</i>.
+ * CloudFront API actions, data types, and errors. For detailed information about CloudFront features, see the <a
+ * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html">Amazon CloudFront
+ * Developer Guide</a>.
  * </p>
  */
 @ThreadSafe
@@ -233,7 +234,19 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
      *        Object providing client parameters.
      */
     AmazonCloudFrontAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on CloudFront using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonCloudFrontAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -244,6 +257,105 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
      */
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateAliasResult> associateAliasAsync(AssociateAliasRequest request) {
+
+        return associateAliasAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateAliasResult> associateAliasAsync(final AssociateAliasRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AssociateAliasRequest, AssociateAliasResult> asyncHandler) {
+        final AssociateAliasRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AssociateAliasResult>() {
+            @Override
+            public AssociateAliasResult call() throws Exception {
+                AssociateAliasResult result = null;
+
+                try {
+                    result = executeAssociateAlias(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CopyDistributionResult> copyDistributionAsync(CopyDistributionRequest request) {
+
+        return copyDistributionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CopyDistributionResult> copyDistributionAsync(final CopyDistributionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CopyDistributionRequest, CopyDistributionResult> asyncHandler) {
+        final CopyDistributionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CopyDistributionResult>() {
+            @Override
+            public CopyDistributionResult call() throws Exception {
+                CopyDistributionResult result = null;
+
+                try {
+                    result = executeCopyDistribution(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCachePolicyResult> createCachePolicyAsync(CreateCachePolicyRequest request) {
+
+        return createCachePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCachePolicyResult> createCachePolicyAsync(final CreateCachePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateCachePolicyRequest, CreateCachePolicyResult> asyncHandler) {
+        final CreateCachePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateCachePolicyResult>() {
+            @Override
+            public CreateCachePolicyResult call() throws Exception {
+                CreateCachePolicyResult result = null;
+
+                try {
+                    result = executeCreateCachePolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -266,6 +378,41 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
 
                 try {
                     result = executeCreateCloudFrontOriginAccessIdentity(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateContinuousDeploymentPolicyResult> createContinuousDeploymentPolicyAsync(
+            CreateContinuousDeploymentPolicyRequest request) {
+
+        return createContinuousDeploymentPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateContinuousDeploymentPolicyResult> createContinuousDeploymentPolicyAsync(
+            final CreateContinuousDeploymentPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateContinuousDeploymentPolicyRequest, CreateContinuousDeploymentPolicyResult> asyncHandler) {
+        final CreateContinuousDeploymentPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateContinuousDeploymentPolicyResult>() {
+            @Override
+            public CreateContinuousDeploymentPolicyResult call() throws Exception {
+                CreateContinuousDeploymentPolicyResult result = null;
+
+                try {
+                    result = executeCreateContinuousDeploymentPolicy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -418,6 +565,39 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<CreateFunctionResult> createFunctionAsync(CreateFunctionRequest request) {
+
+        return createFunctionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFunctionResult> createFunctionAsync(final CreateFunctionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateFunctionRequest, CreateFunctionResult> asyncHandler) {
+        final CreateFunctionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateFunctionResult>() {
+            @Override
+            public CreateFunctionResult call() throws Exception {
+                CreateFunctionResult result = null;
+
+                try {
+                    result = executeCreateFunction(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateInvalidationResult> createInvalidationAsync(CreateInvalidationRequest request) {
 
         return createInvalidationAsync(request, null);
@@ -451,6 +631,171 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<CreateKeyGroupResult> createKeyGroupAsync(CreateKeyGroupRequest request) {
+
+        return createKeyGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateKeyGroupResult> createKeyGroupAsync(final CreateKeyGroupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateKeyGroupRequest, CreateKeyGroupResult> asyncHandler) {
+        final CreateKeyGroupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateKeyGroupResult>() {
+            @Override
+            public CreateKeyGroupResult call() throws Exception {
+                CreateKeyGroupResult result = null;
+
+                try {
+                    result = executeCreateKeyGroup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateKeyValueStoreResult> createKeyValueStoreAsync(CreateKeyValueStoreRequest request) {
+
+        return createKeyValueStoreAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateKeyValueStoreResult> createKeyValueStoreAsync(final CreateKeyValueStoreRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateKeyValueStoreRequest, CreateKeyValueStoreResult> asyncHandler) {
+        final CreateKeyValueStoreRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateKeyValueStoreResult>() {
+            @Override
+            public CreateKeyValueStoreResult call() throws Exception {
+                CreateKeyValueStoreResult result = null;
+
+                try {
+                    result = executeCreateKeyValueStore(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateMonitoringSubscriptionResult> createMonitoringSubscriptionAsync(CreateMonitoringSubscriptionRequest request) {
+
+        return createMonitoringSubscriptionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateMonitoringSubscriptionResult> createMonitoringSubscriptionAsync(final CreateMonitoringSubscriptionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateMonitoringSubscriptionRequest, CreateMonitoringSubscriptionResult> asyncHandler) {
+        final CreateMonitoringSubscriptionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateMonitoringSubscriptionResult>() {
+            @Override
+            public CreateMonitoringSubscriptionResult call() throws Exception {
+                CreateMonitoringSubscriptionResult result = null;
+
+                try {
+                    result = executeCreateMonitoringSubscription(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateOriginAccessControlResult> createOriginAccessControlAsync(CreateOriginAccessControlRequest request) {
+
+        return createOriginAccessControlAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateOriginAccessControlResult> createOriginAccessControlAsync(final CreateOriginAccessControlRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateOriginAccessControlRequest, CreateOriginAccessControlResult> asyncHandler) {
+        final CreateOriginAccessControlRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateOriginAccessControlResult>() {
+            @Override
+            public CreateOriginAccessControlResult call() throws Exception {
+                CreateOriginAccessControlResult result = null;
+
+                try {
+                    result = executeCreateOriginAccessControl(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateOriginRequestPolicyResult> createOriginRequestPolicyAsync(CreateOriginRequestPolicyRequest request) {
+
+        return createOriginRequestPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateOriginRequestPolicyResult> createOriginRequestPolicyAsync(final CreateOriginRequestPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateOriginRequestPolicyRequest, CreateOriginRequestPolicyResult> asyncHandler) {
+        final CreateOriginRequestPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateOriginRequestPolicyResult>() {
+            @Override
+            public CreateOriginRequestPolicyResult call() throws Exception {
+                CreateOriginRequestPolicyResult result = null;
+
+                try {
+                    result = executeCreateOriginRequestPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<CreatePublicKeyResult> createPublicKeyAsync(CreatePublicKeyRequest request) {
 
         return createPublicKeyAsync(request, null);
@@ -468,6 +813,72 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
 
                 try {
                     result = executeCreatePublicKey(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRealtimeLogConfigResult> createRealtimeLogConfigAsync(CreateRealtimeLogConfigRequest request) {
+
+        return createRealtimeLogConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRealtimeLogConfigResult> createRealtimeLogConfigAsync(final CreateRealtimeLogConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateRealtimeLogConfigRequest, CreateRealtimeLogConfigResult> asyncHandler) {
+        final CreateRealtimeLogConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateRealtimeLogConfigResult>() {
+            @Override
+            public CreateRealtimeLogConfigResult call() throws Exception {
+                CreateRealtimeLogConfigResult result = null;
+
+                try {
+                    result = executeCreateRealtimeLogConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateResponseHeadersPolicyResult> createResponseHeadersPolicyAsync(CreateResponseHeadersPolicyRequest request) {
+
+        return createResponseHeadersPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateResponseHeadersPolicyResult> createResponseHeadersPolicyAsync(final CreateResponseHeadersPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateResponseHeadersPolicyRequest, CreateResponseHeadersPolicyResult> asyncHandler) {
+        final CreateResponseHeadersPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateResponseHeadersPolicyResult>() {
+            @Override
+            public CreateResponseHeadersPolicyResult call() throws Exception {
+                CreateResponseHeadersPolicyResult result = null;
+
+                try {
+                    result = executeCreateResponseHeadersPolicy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -552,6 +963,39 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteCachePolicyResult> deleteCachePolicyAsync(DeleteCachePolicyRequest request) {
+
+        return deleteCachePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCachePolicyResult> deleteCachePolicyAsync(final DeleteCachePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteCachePolicyRequest, DeleteCachePolicyResult> asyncHandler) {
+        final DeleteCachePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteCachePolicyResult>() {
+            @Override
+            public DeleteCachePolicyResult call() throws Exception {
+                DeleteCachePolicyResult result = null;
+
+                try {
+                    result = executeDeleteCachePolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteCloudFrontOriginAccessIdentityResult> deleteCloudFrontOriginAccessIdentityAsync(
             DeleteCloudFrontOriginAccessIdentityRequest request) {
 
@@ -571,6 +1015,41 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
 
                 try {
                     result = executeDeleteCloudFrontOriginAccessIdentity(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteContinuousDeploymentPolicyResult> deleteContinuousDeploymentPolicyAsync(
+            DeleteContinuousDeploymentPolicyRequest request) {
+
+        return deleteContinuousDeploymentPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteContinuousDeploymentPolicyResult> deleteContinuousDeploymentPolicyAsync(
+            final DeleteContinuousDeploymentPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteContinuousDeploymentPolicyRequest, DeleteContinuousDeploymentPolicyResult> asyncHandler) {
+        final DeleteContinuousDeploymentPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteContinuousDeploymentPolicyResult>() {
+            @Override
+            public DeleteContinuousDeploymentPolicyResult call() throws Exception {
+                DeleteContinuousDeploymentPolicyResult result = null;
+
+                try {
+                    result = executeDeleteContinuousDeploymentPolicy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -690,6 +1169,204 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteFunctionResult> deleteFunctionAsync(DeleteFunctionRequest request) {
+
+        return deleteFunctionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteFunctionResult> deleteFunctionAsync(final DeleteFunctionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteFunctionRequest, DeleteFunctionResult> asyncHandler) {
+        final DeleteFunctionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteFunctionResult>() {
+            @Override
+            public DeleteFunctionResult call() throws Exception {
+                DeleteFunctionResult result = null;
+
+                try {
+                    result = executeDeleteFunction(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteKeyGroupResult> deleteKeyGroupAsync(DeleteKeyGroupRequest request) {
+
+        return deleteKeyGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteKeyGroupResult> deleteKeyGroupAsync(final DeleteKeyGroupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteKeyGroupRequest, DeleteKeyGroupResult> asyncHandler) {
+        final DeleteKeyGroupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteKeyGroupResult>() {
+            @Override
+            public DeleteKeyGroupResult call() throws Exception {
+                DeleteKeyGroupResult result = null;
+
+                try {
+                    result = executeDeleteKeyGroup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteKeyValueStoreResult> deleteKeyValueStoreAsync(DeleteKeyValueStoreRequest request) {
+
+        return deleteKeyValueStoreAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteKeyValueStoreResult> deleteKeyValueStoreAsync(final DeleteKeyValueStoreRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteKeyValueStoreRequest, DeleteKeyValueStoreResult> asyncHandler) {
+        final DeleteKeyValueStoreRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteKeyValueStoreResult>() {
+            @Override
+            public DeleteKeyValueStoreResult call() throws Exception {
+                DeleteKeyValueStoreResult result = null;
+
+                try {
+                    result = executeDeleteKeyValueStore(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteMonitoringSubscriptionResult> deleteMonitoringSubscriptionAsync(DeleteMonitoringSubscriptionRequest request) {
+
+        return deleteMonitoringSubscriptionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteMonitoringSubscriptionResult> deleteMonitoringSubscriptionAsync(final DeleteMonitoringSubscriptionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteMonitoringSubscriptionRequest, DeleteMonitoringSubscriptionResult> asyncHandler) {
+        final DeleteMonitoringSubscriptionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteMonitoringSubscriptionResult>() {
+            @Override
+            public DeleteMonitoringSubscriptionResult call() throws Exception {
+                DeleteMonitoringSubscriptionResult result = null;
+
+                try {
+                    result = executeDeleteMonitoringSubscription(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteOriginAccessControlResult> deleteOriginAccessControlAsync(DeleteOriginAccessControlRequest request) {
+
+        return deleteOriginAccessControlAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteOriginAccessControlResult> deleteOriginAccessControlAsync(final DeleteOriginAccessControlRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteOriginAccessControlRequest, DeleteOriginAccessControlResult> asyncHandler) {
+        final DeleteOriginAccessControlRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteOriginAccessControlResult>() {
+            @Override
+            public DeleteOriginAccessControlResult call() throws Exception {
+                DeleteOriginAccessControlResult result = null;
+
+                try {
+                    result = executeDeleteOriginAccessControl(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteOriginRequestPolicyResult> deleteOriginRequestPolicyAsync(DeleteOriginRequestPolicyRequest request) {
+
+        return deleteOriginRequestPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteOriginRequestPolicyResult> deleteOriginRequestPolicyAsync(final DeleteOriginRequestPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteOriginRequestPolicyRequest, DeleteOriginRequestPolicyResult> asyncHandler) {
+        final DeleteOriginRequestPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteOriginRequestPolicyResult>() {
+            @Override
+            public DeleteOriginRequestPolicyResult call() throws Exception {
+                DeleteOriginRequestPolicyResult result = null;
+
+                try {
+                    result = executeDeleteOriginRequestPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeletePublicKeyResult> deletePublicKeyAsync(DeletePublicKeyRequest request) {
 
         return deletePublicKeyAsync(request, null);
@@ -723,6 +1400,72 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteRealtimeLogConfigResult> deleteRealtimeLogConfigAsync(DeleteRealtimeLogConfigRequest request) {
+
+        return deleteRealtimeLogConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRealtimeLogConfigResult> deleteRealtimeLogConfigAsync(final DeleteRealtimeLogConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteRealtimeLogConfigRequest, DeleteRealtimeLogConfigResult> asyncHandler) {
+        final DeleteRealtimeLogConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteRealtimeLogConfigResult>() {
+            @Override
+            public DeleteRealtimeLogConfigResult call() throws Exception {
+                DeleteRealtimeLogConfigResult result = null;
+
+                try {
+                    result = executeDeleteRealtimeLogConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteResponseHeadersPolicyResult> deleteResponseHeadersPolicyAsync(DeleteResponseHeadersPolicyRequest request) {
+
+        return deleteResponseHeadersPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteResponseHeadersPolicyResult> deleteResponseHeadersPolicyAsync(final DeleteResponseHeadersPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteResponseHeadersPolicyRequest, DeleteResponseHeadersPolicyResult> asyncHandler) {
+        final DeleteResponseHeadersPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteResponseHeadersPolicyResult>() {
+            @Override
+            public DeleteResponseHeadersPolicyResult call() throws Exception {
+                DeleteResponseHeadersPolicyResult result = null;
+
+                try {
+                    result = executeDeleteResponseHeadersPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteStreamingDistributionResult> deleteStreamingDistributionAsync(DeleteStreamingDistributionRequest request) {
 
         return deleteStreamingDistributionAsync(request, null);
@@ -740,6 +1483,138 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
 
                 try {
                     result = executeDeleteStreamingDistribution(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFunctionResult> describeFunctionAsync(DescribeFunctionRequest request) {
+
+        return describeFunctionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFunctionResult> describeFunctionAsync(final DescribeFunctionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeFunctionRequest, DescribeFunctionResult> asyncHandler) {
+        final DescribeFunctionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeFunctionResult>() {
+            @Override
+            public DescribeFunctionResult call() throws Exception {
+                DescribeFunctionResult result = null;
+
+                try {
+                    result = executeDescribeFunction(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeKeyValueStoreResult> describeKeyValueStoreAsync(DescribeKeyValueStoreRequest request) {
+
+        return describeKeyValueStoreAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeKeyValueStoreResult> describeKeyValueStoreAsync(final DescribeKeyValueStoreRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeKeyValueStoreRequest, DescribeKeyValueStoreResult> asyncHandler) {
+        final DescribeKeyValueStoreRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeKeyValueStoreResult>() {
+            @Override
+            public DescribeKeyValueStoreResult call() throws Exception {
+                DescribeKeyValueStoreResult result = null;
+
+                try {
+                    result = executeDescribeKeyValueStore(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCachePolicyResult> getCachePolicyAsync(GetCachePolicyRequest request) {
+
+        return getCachePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCachePolicyResult> getCachePolicyAsync(final GetCachePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetCachePolicyRequest, GetCachePolicyResult> asyncHandler) {
+        final GetCachePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetCachePolicyResult>() {
+            @Override
+            public GetCachePolicyResult call() throws Exception {
+                GetCachePolicyResult result = null;
+
+                try {
+                    result = executeGetCachePolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCachePolicyConfigResult> getCachePolicyConfigAsync(GetCachePolicyConfigRequest request) {
+
+        return getCachePolicyConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCachePolicyConfigResult> getCachePolicyConfigAsync(final GetCachePolicyConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetCachePolicyConfigRequest, GetCachePolicyConfigResult> asyncHandler) {
+        final GetCachePolicyConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetCachePolicyConfigResult>() {
+            @Override
+            public GetCachePolicyConfigResult call() throws Exception {
+                GetCachePolicyConfigResult result = null;
+
+                try {
+                    result = executeGetCachePolicyConfig(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -810,6 +1685,75 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
 
                 try {
                     result = executeGetCloudFrontOriginAccessIdentityConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetContinuousDeploymentPolicyResult> getContinuousDeploymentPolicyAsync(GetContinuousDeploymentPolicyRequest request) {
+
+        return getContinuousDeploymentPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetContinuousDeploymentPolicyResult> getContinuousDeploymentPolicyAsync(
+            final GetContinuousDeploymentPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetContinuousDeploymentPolicyRequest, GetContinuousDeploymentPolicyResult> asyncHandler) {
+        final GetContinuousDeploymentPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetContinuousDeploymentPolicyResult>() {
+            @Override
+            public GetContinuousDeploymentPolicyResult call() throws Exception {
+                GetContinuousDeploymentPolicyResult result = null;
+
+                try {
+                    result = executeGetContinuousDeploymentPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetContinuousDeploymentPolicyConfigResult> getContinuousDeploymentPolicyConfigAsync(
+            GetContinuousDeploymentPolicyConfigRequest request) {
+
+        return getContinuousDeploymentPolicyConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetContinuousDeploymentPolicyConfigResult> getContinuousDeploymentPolicyConfigAsync(
+            final GetContinuousDeploymentPolicyConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetContinuousDeploymentPolicyConfigRequest, GetContinuousDeploymentPolicyConfigResult> asyncHandler) {
+        final GetContinuousDeploymentPolicyConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetContinuousDeploymentPolicyConfigResult>() {
+            @Override
+            public GetContinuousDeploymentPolicyConfigResult call() throws Exception {
+                GetContinuousDeploymentPolicyConfigResult result = null;
+
+                try {
+                    result = executeGetContinuousDeploymentPolicyConfig(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1028,6 +1972,39 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<GetFunctionResult> getFunctionAsync(GetFunctionRequest request) {
+
+        return getFunctionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetFunctionResult> getFunctionAsync(final GetFunctionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetFunctionRequest, GetFunctionResult> asyncHandler) {
+        final GetFunctionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetFunctionResult>() {
+            @Override
+            public GetFunctionResult call() throws Exception {
+                GetFunctionResult result = null;
+
+                try {
+                    result = executeGetFunction(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetInvalidationResult> getInvalidationAsync(GetInvalidationRequest request) {
 
         return getInvalidationAsync(request, null);
@@ -1045,6 +2022,237 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
 
                 try {
                     result = executeGetInvalidation(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetKeyGroupResult> getKeyGroupAsync(GetKeyGroupRequest request) {
+
+        return getKeyGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetKeyGroupResult> getKeyGroupAsync(final GetKeyGroupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetKeyGroupRequest, GetKeyGroupResult> asyncHandler) {
+        final GetKeyGroupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetKeyGroupResult>() {
+            @Override
+            public GetKeyGroupResult call() throws Exception {
+                GetKeyGroupResult result = null;
+
+                try {
+                    result = executeGetKeyGroup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetKeyGroupConfigResult> getKeyGroupConfigAsync(GetKeyGroupConfigRequest request) {
+
+        return getKeyGroupConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetKeyGroupConfigResult> getKeyGroupConfigAsync(final GetKeyGroupConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetKeyGroupConfigRequest, GetKeyGroupConfigResult> asyncHandler) {
+        final GetKeyGroupConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetKeyGroupConfigResult>() {
+            @Override
+            public GetKeyGroupConfigResult call() throws Exception {
+                GetKeyGroupConfigResult result = null;
+
+                try {
+                    result = executeGetKeyGroupConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetMonitoringSubscriptionResult> getMonitoringSubscriptionAsync(GetMonitoringSubscriptionRequest request) {
+
+        return getMonitoringSubscriptionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetMonitoringSubscriptionResult> getMonitoringSubscriptionAsync(final GetMonitoringSubscriptionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetMonitoringSubscriptionRequest, GetMonitoringSubscriptionResult> asyncHandler) {
+        final GetMonitoringSubscriptionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetMonitoringSubscriptionResult>() {
+            @Override
+            public GetMonitoringSubscriptionResult call() throws Exception {
+                GetMonitoringSubscriptionResult result = null;
+
+                try {
+                    result = executeGetMonitoringSubscription(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetOriginAccessControlResult> getOriginAccessControlAsync(GetOriginAccessControlRequest request) {
+
+        return getOriginAccessControlAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetOriginAccessControlResult> getOriginAccessControlAsync(final GetOriginAccessControlRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetOriginAccessControlRequest, GetOriginAccessControlResult> asyncHandler) {
+        final GetOriginAccessControlRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetOriginAccessControlResult>() {
+            @Override
+            public GetOriginAccessControlResult call() throws Exception {
+                GetOriginAccessControlResult result = null;
+
+                try {
+                    result = executeGetOriginAccessControl(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetOriginAccessControlConfigResult> getOriginAccessControlConfigAsync(GetOriginAccessControlConfigRequest request) {
+
+        return getOriginAccessControlConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetOriginAccessControlConfigResult> getOriginAccessControlConfigAsync(final GetOriginAccessControlConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetOriginAccessControlConfigRequest, GetOriginAccessControlConfigResult> asyncHandler) {
+        final GetOriginAccessControlConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetOriginAccessControlConfigResult>() {
+            @Override
+            public GetOriginAccessControlConfigResult call() throws Exception {
+                GetOriginAccessControlConfigResult result = null;
+
+                try {
+                    result = executeGetOriginAccessControlConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetOriginRequestPolicyResult> getOriginRequestPolicyAsync(GetOriginRequestPolicyRequest request) {
+
+        return getOriginRequestPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetOriginRequestPolicyResult> getOriginRequestPolicyAsync(final GetOriginRequestPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetOriginRequestPolicyRequest, GetOriginRequestPolicyResult> asyncHandler) {
+        final GetOriginRequestPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetOriginRequestPolicyResult>() {
+            @Override
+            public GetOriginRequestPolicyResult call() throws Exception {
+                GetOriginRequestPolicyResult result = null;
+
+                try {
+                    result = executeGetOriginRequestPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetOriginRequestPolicyConfigResult> getOriginRequestPolicyConfigAsync(GetOriginRequestPolicyConfigRequest request) {
+
+        return getOriginRequestPolicyConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetOriginRequestPolicyConfigResult> getOriginRequestPolicyConfigAsync(final GetOriginRequestPolicyConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetOriginRequestPolicyConfigRequest, GetOriginRequestPolicyConfigResult> asyncHandler) {
+        final GetOriginRequestPolicyConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetOriginRequestPolicyConfigResult>() {
+            @Override
+            public GetOriginRequestPolicyConfigResult call() throws Exception {
+                GetOriginRequestPolicyConfigResult result = null;
+
+                try {
+                    result = executeGetOriginRequestPolicyConfig(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1111,6 +2319,106 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
 
                 try {
                     result = executeGetPublicKeyConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRealtimeLogConfigResult> getRealtimeLogConfigAsync(GetRealtimeLogConfigRequest request) {
+
+        return getRealtimeLogConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRealtimeLogConfigResult> getRealtimeLogConfigAsync(final GetRealtimeLogConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetRealtimeLogConfigRequest, GetRealtimeLogConfigResult> asyncHandler) {
+        final GetRealtimeLogConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetRealtimeLogConfigResult>() {
+            @Override
+            public GetRealtimeLogConfigResult call() throws Exception {
+                GetRealtimeLogConfigResult result = null;
+
+                try {
+                    result = executeGetRealtimeLogConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetResponseHeadersPolicyResult> getResponseHeadersPolicyAsync(GetResponseHeadersPolicyRequest request) {
+
+        return getResponseHeadersPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetResponseHeadersPolicyResult> getResponseHeadersPolicyAsync(final GetResponseHeadersPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetResponseHeadersPolicyRequest, GetResponseHeadersPolicyResult> asyncHandler) {
+        final GetResponseHeadersPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetResponseHeadersPolicyResult>() {
+            @Override
+            public GetResponseHeadersPolicyResult call() throws Exception {
+                GetResponseHeadersPolicyResult result = null;
+
+                try {
+                    result = executeGetResponseHeadersPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetResponseHeadersPolicyConfigResult> getResponseHeadersPolicyConfigAsync(GetResponseHeadersPolicyConfigRequest request) {
+
+        return getResponseHeadersPolicyConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetResponseHeadersPolicyConfigResult> getResponseHeadersPolicyConfigAsync(
+            final GetResponseHeadersPolicyConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetResponseHeadersPolicyConfigRequest, GetResponseHeadersPolicyConfigResult> asyncHandler) {
+        final GetResponseHeadersPolicyConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetResponseHeadersPolicyConfigResult>() {
+            @Override
+            public GetResponseHeadersPolicyConfigResult call() throws Exception {
+                GetResponseHeadersPolicyConfigResult result = null;
+
+                try {
+                    result = executeGetResponseHeadersPolicyConfig(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1194,6 +2502,39 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<ListCachePoliciesResult> listCachePoliciesAsync(ListCachePoliciesRequest request) {
+
+        return listCachePoliciesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCachePoliciesResult> listCachePoliciesAsync(final ListCachePoliciesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListCachePoliciesRequest, ListCachePoliciesResult> asyncHandler) {
+        final ListCachePoliciesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListCachePoliciesResult>() {
+            @Override
+            public ListCachePoliciesResult call() throws Exception {
+                ListCachePoliciesResult result = null;
+
+                try {
+                    result = executeListCachePolicies(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListCloudFrontOriginAccessIdentitiesResult> listCloudFrontOriginAccessIdentitiesAsync(
             ListCloudFrontOriginAccessIdentitiesRequest request) {
 
@@ -1229,6 +2570,74 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<ListConflictingAliasesResult> listConflictingAliasesAsync(ListConflictingAliasesRequest request) {
+
+        return listConflictingAliasesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListConflictingAliasesResult> listConflictingAliasesAsync(final ListConflictingAliasesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListConflictingAliasesRequest, ListConflictingAliasesResult> asyncHandler) {
+        final ListConflictingAliasesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListConflictingAliasesResult>() {
+            @Override
+            public ListConflictingAliasesResult call() throws Exception {
+                ListConflictingAliasesResult result = null;
+
+                try {
+                    result = executeListConflictingAliases(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListContinuousDeploymentPoliciesResult> listContinuousDeploymentPoliciesAsync(
+            ListContinuousDeploymentPoliciesRequest request) {
+
+        return listContinuousDeploymentPoliciesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListContinuousDeploymentPoliciesResult> listContinuousDeploymentPoliciesAsync(
+            final ListContinuousDeploymentPoliciesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListContinuousDeploymentPoliciesRequest, ListContinuousDeploymentPoliciesResult> asyncHandler) {
+        final ListContinuousDeploymentPoliciesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListContinuousDeploymentPoliciesResult>() {
+            @Override
+            public ListContinuousDeploymentPoliciesResult call() throws Exception {
+                ListContinuousDeploymentPoliciesResult result = null;
+
+                try {
+                    result = executeListContinuousDeploymentPolicies(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListDistributionsResult> listDistributionsAsync(ListDistributionsRequest request) {
 
         return listDistributionsAsync(request, null);
@@ -1246,6 +2655,179 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
 
                 try {
                     result = executeListDistributions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDistributionsByCachePolicyIdResult> listDistributionsByCachePolicyIdAsync(
+            ListDistributionsByCachePolicyIdRequest request) {
+
+        return listDistributionsByCachePolicyIdAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDistributionsByCachePolicyIdResult> listDistributionsByCachePolicyIdAsync(
+            final ListDistributionsByCachePolicyIdRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListDistributionsByCachePolicyIdRequest, ListDistributionsByCachePolicyIdResult> asyncHandler) {
+        final ListDistributionsByCachePolicyIdRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListDistributionsByCachePolicyIdResult>() {
+            @Override
+            public ListDistributionsByCachePolicyIdResult call() throws Exception {
+                ListDistributionsByCachePolicyIdResult result = null;
+
+                try {
+                    result = executeListDistributionsByCachePolicyId(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDistributionsByKeyGroupResult> listDistributionsByKeyGroupAsync(ListDistributionsByKeyGroupRequest request) {
+
+        return listDistributionsByKeyGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDistributionsByKeyGroupResult> listDistributionsByKeyGroupAsync(final ListDistributionsByKeyGroupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListDistributionsByKeyGroupRequest, ListDistributionsByKeyGroupResult> asyncHandler) {
+        final ListDistributionsByKeyGroupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListDistributionsByKeyGroupResult>() {
+            @Override
+            public ListDistributionsByKeyGroupResult call() throws Exception {
+                ListDistributionsByKeyGroupResult result = null;
+
+                try {
+                    result = executeListDistributionsByKeyGroup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDistributionsByOriginRequestPolicyIdResult> listDistributionsByOriginRequestPolicyIdAsync(
+            ListDistributionsByOriginRequestPolicyIdRequest request) {
+
+        return listDistributionsByOriginRequestPolicyIdAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDistributionsByOriginRequestPolicyIdResult> listDistributionsByOriginRequestPolicyIdAsync(
+            final ListDistributionsByOriginRequestPolicyIdRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListDistributionsByOriginRequestPolicyIdRequest, ListDistributionsByOriginRequestPolicyIdResult> asyncHandler) {
+        final ListDistributionsByOriginRequestPolicyIdRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListDistributionsByOriginRequestPolicyIdResult>() {
+            @Override
+            public ListDistributionsByOriginRequestPolicyIdResult call() throws Exception {
+                ListDistributionsByOriginRequestPolicyIdResult result = null;
+
+                try {
+                    result = executeListDistributionsByOriginRequestPolicyId(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDistributionsByRealtimeLogConfigResult> listDistributionsByRealtimeLogConfigAsync(
+            ListDistributionsByRealtimeLogConfigRequest request) {
+
+        return listDistributionsByRealtimeLogConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDistributionsByRealtimeLogConfigResult> listDistributionsByRealtimeLogConfigAsync(
+            final ListDistributionsByRealtimeLogConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListDistributionsByRealtimeLogConfigRequest, ListDistributionsByRealtimeLogConfigResult> asyncHandler) {
+        final ListDistributionsByRealtimeLogConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListDistributionsByRealtimeLogConfigResult>() {
+            @Override
+            public ListDistributionsByRealtimeLogConfigResult call() throws Exception {
+                ListDistributionsByRealtimeLogConfigResult result = null;
+
+                try {
+                    result = executeListDistributionsByRealtimeLogConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDistributionsByResponseHeadersPolicyIdResult> listDistributionsByResponseHeadersPolicyIdAsync(
+            ListDistributionsByResponseHeadersPolicyIdRequest request) {
+
+        return listDistributionsByResponseHeadersPolicyIdAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDistributionsByResponseHeadersPolicyIdResult> listDistributionsByResponseHeadersPolicyIdAsync(
+            final ListDistributionsByResponseHeadersPolicyIdRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListDistributionsByResponseHeadersPolicyIdRequest, ListDistributionsByResponseHeadersPolicyIdResult> asyncHandler) {
+        final ListDistributionsByResponseHeadersPolicyIdRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListDistributionsByResponseHeadersPolicyIdResult>() {
+            @Override
+            public ListDistributionsByResponseHeadersPolicyIdResult call() throws Exception {
+                ListDistributionsByResponseHeadersPolicyIdResult result = null;
+
+                try {
+                    result = executeListDistributionsByResponseHeadersPolicyId(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1365,6 +2947,39 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<ListFunctionsResult> listFunctionsAsync(ListFunctionsRequest request) {
+
+        return listFunctionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFunctionsResult> listFunctionsAsync(final ListFunctionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListFunctionsRequest, ListFunctionsResult> asyncHandler) {
+        final ListFunctionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListFunctionsResult>() {
+            @Override
+            public ListFunctionsResult call() throws Exception {
+                ListFunctionsResult result = null;
+
+                try {
+                    result = executeListFunctions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListInvalidationsResult> listInvalidationsAsync(ListInvalidationsRequest request) {
 
         return listInvalidationsAsync(request, null);
@@ -1398,6 +3013,138 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<ListKeyGroupsResult> listKeyGroupsAsync(ListKeyGroupsRequest request) {
+
+        return listKeyGroupsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListKeyGroupsResult> listKeyGroupsAsync(final ListKeyGroupsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListKeyGroupsRequest, ListKeyGroupsResult> asyncHandler) {
+        final ListKeyGroupsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListKeyGroupsResult>() {
+            @Override
+            public ListKeyGroupsResult call() throws Exception {
+                ListKeyGroupsResult result = null;
+
+                try {
+                    result = executeListKeyGroups(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListKeyValueStoresResult> listKeyValueStoresAsync(ListKeyValueStoresRequest request) {
+
+        return listKeyValueStoresAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListKeyValueStoresResult> listKeyValueStoresAsync(final ListKeyValueStoresRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListKeyValueStoresRequest, ListKeyValueStoresResult> asyncHandler) {
+        final ListKeyValueStoresRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListKeyValueStoresResult>() {
+            @Override
+            public ListKeyValueStoresResult call() throws Exception {
+                ListKeyValueStoresResult result = null;
+
+                try {
+                    result = executeListKeyValueStores(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListOriginAccessControlsResult> listOriginAccessControlsAsync(ListOriginAccessControlsRequest request) {
+
+        return listOriginAccessControlsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListOriginAccessControlsResult> listOriginAccessControlsAsync(final ListOriginAccessControlsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListOriginAccessControlsRequest, ListOriginAccessControlsResult> asyncHandler) {
+        final ListOriginAccessControlsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListOriginAccessControlsResult>() {
+            @Override
+            public ListOriginAccessControlsResult call() throws Exception {
+                ListOriginAccessControlsResult result = null;
+
+                try {
+                    result = executeListOriginAccessControls(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListOriginRequestPoliciesResult> listOriginRequestPoliciesAsync(ListOriginRequestPoliciesRequest request) {
+
+        return listOriginRequestPoliciesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListOriginRequestPoliciesResult> listOriginRequestPoliciesAsync(final ListOriginRequestPoliciesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListOriginRequestPoliciesRequest, ListOriginRequestPoliciesResult> asyncHandler) {
+        final ListOriginRequestPoliciesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListOriginRequestPoliciesResult>() {
+            @Override
+            public ListOriginRequestPoliciesResult call() throws Exception {
+                ListOriginRequestPoliciesResult result = null;
+
+                try {
+                    result = executeListOriginRequestPolicies(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListPublicKeysResult> listPublicKeysAsync(ListPublicKeysRequest request) {
 
         return listPublicKeysAsync(request, null);
@@ -1415,6 +3162,72 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
 
                 try {
                     result = executeListPublicKeys(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRealtimeLogConfigsResult> listRealtimeLogConfigsAsync(ListRealtimeLogConfigsRequest request) {
+
+        return listRealtimeLogConfigsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRealtimeLogConfigsResult> listRealtimeLogConfigsAsync(final ListRealtimeLogConfigsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListRealtimeLogConfigsRequest, ListRealtimeLogConfigsResult> asyncHandler) {
+        final ListRealtimeLogConfigsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListRealtimeLogConfigsResult>() {
+            @Override
+            public ListRealtimeLogConfigsResult call() throws Exception {
+                ListRealtimeLogConfigsResult result = null;
+
+                try {
+                    result = executeListRealtimeLogConfigs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListResponseHeadersPoliciesResult> listResponseHeadersPoliciesAsync(ListResponseHeadersPoliciesRequest request) {
+
+        return listResponseHeadersPoliciesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListResponseHeadersPoliciesResult> listResponseHeadersPoliciesAsync(final ListResponseHeadersPoliciesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListResponseHeadersPoliciesRequest, ListResponseHeadersPoliciesResult> asyncHandler) {
+        final ListResponseHeadersPoliciesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListResponseHeadersPoliciesResult>() {
+            @Override
+            public ListResponseHeadersPoliciesResult call() throws Exception {
+                ListResponseHeadersPoliciesResult result = null;
+
+                try {
+                    result = executeListResponseHeadersPolicies(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1497,6 +3310,39 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<PublishFunctionResult> publishFunctionAsync(PublishFunctionRequest request) {
+
+        return publishFunctionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PublishFunctionResult> publishFunctionAsync(final PublishFunctionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PublishFunctionRequest, PublishFunctionResult> asyncHandler) {
+        final PublishFunctionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PublishFunctionResult>() {
+            @Override
+            public PublishFunctionResult call() throws Exception {
+                PublishFunctionResult result = null;
+
+                try {
+                    result = executePublishFunction(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
 
         return tagResourceAsync(request, null);
@@ -1530,6 +3376,39 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<TestFunctionResult> testFunctionAsync(TestFunctionRequest request) {
+
+        return testFunctionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TestFunctionResult> testFunctionAsync(final TestFunctionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TestFunctionRequest, TestFunctionResult> asyncHandler) {
+        final TestFunctionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TestFunctionResult>() {
+            @Override
+            public TestFunctionResult call() throws Exception {
+                TestFunctionResult result = null;
+
+                try {
+                    result = executeTestFunction(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
 
         return untagResourceAsync(request, null);
@@ -1547,6 +3426,39 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
 
                 try {
                     result = executeUntagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCachePolicyResult> updateCachePolicyAsync(UpdateCachePolicyRequest request) {
+
+        return updateCachePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCachePolicyResult> updateCachePolicyAsync(final UpdateCachePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateCachePolicyRequest, UpdateCachePolicyResult> asyncHandler) {
+        final UpdateCachePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateCachePolicyResult>() {
+            @Override
+            public UpdateCachePolicyResult call() throws Exception {
+                UpdateCachePolicyResult result = null;
+
+                try {
+                    result = executeUpdateCachePolicy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1598,6 +3510,41 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateContinuousDeploymentPolicyResult> updateContinuousDeploymentPolicyAsync(
+            UpdateContinuousDeploymentPolicyRequest request) {
+
+        return updateContinuousDeploymentPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateContinuousDeploymentPolicyResult> updateContinuousDeploymentPolicyAsync(
+            final UpdateContinuousDeploymentPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateContinuousDeploymentPolicyRequest, UpdateContinuousDeploymentPolicyResult> asyncHandler) {
+        final UpdateContinuousDeploymentPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateContinuousDeploymentPolicyResult>() {
+            @Override
+            public UpdateContinuousDeploymentPolicyResult call() throws Exception {
+                UpdateContinuousDeploymentPolicyResult result = null;
+
+                try {
+                    result = executeUpdateContinuousDeploymentPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateDistributionResult> updateDistributionAsync(UpdateDistributionRequest request) {
 
         return updateDistributionAsync(request, null);
@@ -1615,6 +3562,41 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
 
                 try {
                     result = executeUpdateDistribution(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDistributionWithStagingConfigResult> updateDistributionWithStagingConfigAsync(
+            UpdateDistributionWithStagingConfigRequest request) {
+
+        return updateDistributionWithStagingConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDistributionWithStagingConfigResult> updateDistributionWithStagingConfigAsync(
+            final UpdateDistributionWithStagingConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateDistributionWithStagingConfigRequest, UpdateDistributionWithStagingConfigResult> asyncHandler) {
+        final UpdateDistributionWithStagingConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateDistributionWithStagingConfigResult>() {
+            @Override
+            public UpdateDistributionWithStagingConfigResult call() throws Exception {
+                UpdateDistributionWithStagingConfigResult result = null;
+
+                try {
+                    result = executeUpdateDistributionWithStagingConfig(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1701,6 +3683,171 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateFunctionResult> updateFunctionAsync(UpdateFunctionRequest request) {
+
+        return updateFunctionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateFunctionResult> updateFunctionAsync(final UpdateFunctionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateFunctionRequest, UpdateFunctionResult> asyncHandler) {
+        final UpdateFunctionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateFunctionResult>() {
+            @Override
+            public UpdateFunctionResult call() throws Exception {
+                UpdateFunctionResult result = null;
+
+                try {
+                    result = executeUpdateFunction(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateKeyGroupResult> updateKeyGroupAsync(UpdateKeyGroupRequest request) {
+
+        return updateKeyGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateKeyGroupResult> updateKeyGroupAsync(final UpdateKeyGroupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateKeyGroupRequest, UpdateKeyGroupResult> asyncHandler) {
+        final UpdateKeyGroupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateKeyGroupResult>() {
+            @Override
+            public UpdateKeyGroupResult call() throws Exception {
+                UpdateKeyGroupResult result = null;
+
+                try {
+                    result = executeUpdateKeyGroup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateKeyValueStoreResult> updateKeyValueStoreAsync(UpdateKeyValueStoreRequest request) {
+
+        return updateKeyValueStoreAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateKeyValueStoreResult> updateKeyValueStoreAsync(final UpdateKeyValueStoreRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateKeyValueStoreRequest, UpdateKeyValueStoreResult> asyncHandler) {
+        final UpdateKeyValueStoreRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateKeyValueStoreResult>() {
+            @Override
+            public UpdateKeyValueStoreResult call() throws Exception {
+                UpdateKeyValueStoreResult result = null;
+
+                try {
+                    result = executeUpdateKeyValueStore(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateOriginAccessControlResult> updateOriginAccessControlAsync(UpdateOriginAccessControlRequest request) {
+
+        return updateOriginAccessControlAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateOriginAccessControlResult> updateOriginAccessControlAsync(final UpdateOriginAccessControlRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateOriginAccessControlRequest, UpdateOriginAccessControlResult> asyncHandler) {
+        final UpdateOriginAccessControlRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateOriginAccessControlResult>() {
+            @Override
+            public UpdateOriginAccessControlResult call() throws Exception {
+                UpdateOriginAccessControlResult result = null;
+
+                try {
+                    result = executeUpdateOriginAccessControl(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateOriginRequestPolicyResult> updateOriginRequestPolicyAsync(UpdateOriginRequestPolicyRequest request) {
+
+        return updateOriginRequestPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateOriginRequestPolicyResult> updateOriginRequestPolicyAsync(final UpdateOriginRequestPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateOriginRequestPolicyRequest, UpdateOriginRequestPolicyResult> asyncHandler) {
+        final UpdateOriginRequestPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateOriginRequestPolicyResult>() {
+            @Override
+            public UpdateOriginRequestPolicyResult call() throws Exception {
+                UpdateOriginRequestPolicyResult result = null;
+
+                try {
+                    result = executeUpdateOriginRequestPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdatePublicKeyResult> updatePublicKeyAsync(UpdatePublicKeyRequest request) {
 
         return updatePublicKeyAsync(request, null);
@@ -1718,6 +3865,72 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient implemen
 
                 try {
                     result = executeUpdatePublicKey(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRealtimeLogConfigResult> updateRealtimeLogConfigAsync(UpdateRealtimeLogConfigRequest request) {
+
+        return updateRealtimeLogConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRealtimeLogConfigResult> updateRealtimeLogConfigAsync(final UpdateRealtimeLogConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateRealtimeLogConfigRequest, UpdateRealtimeLogConfigResult> asyncHandler) {
+        final UpdateRealtimeLogConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateRealtimeLogConfigResult>() {
+            @Override
+            public UpdateRealtimeLogConfigResult call() throws Exception {
+                UpdateRealtimeLogConfigResult result = null;
+
+                try {
+                    result = executeUpdateRealtimeLogConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateResponseHeadersPolicyResult> updateResponseHeadersPolicyAsync(UpdateResponseHeadersPolicyRequest request) {
+
+        return updateResponseHeadersPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateResponseHeadersPolicyResult> updateResponseHeadersPolicyAsync(final UpdateResponseHeadersPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateResponseHeadersPolicyRequest, UpdateResponseHeadersPolicyResult> asyncHandler) {
+        final UpdateResponseHeadersPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateResponseHeadersPolicyResult>() {
+            @Override
+            public UpdateResponseHeadersPolicyResult call() throws Exception {
+                UpdateResponseHeadersPolicyResult result = null;
+
+                try {
+                    result = executeUpdateResponseHeadersPolicy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

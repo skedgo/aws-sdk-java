@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,6 +35,10 @@ public class CreatePortfolioShareRequestMarshaller {
             .marshallLocationName("AccountId").build();
     private static final MarshallingInfo<StructuredPojo> ORGANIZATIONNODE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OrganizationNode").build();
+    private static final MarshallingInfo<Boolean> SHARETAGOPTIONS_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ShareTagOptions").build();
+    private static final MarshallingInfo<Boolean> SHAREPRINCIPALS_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SharePrincipals").build();
 
     private static final CreatePortfolioShareRequestMarshaller instance = new CreatePortfolioShareRequestMarshaller();
 
@@ -56,6 +60,8 @@ public class CreatePortfolioShareRequestMarshaller {
             protocolMarshaller.marshall(createPortfolioShareRequest.getPortfolioId(), PORTFOLIOID_BINDING);
             protocolMarshaller.marshall(createPortfolioShareRequest.getAccountId(), ACCOUNTID_BINDING);
             protocolMarshaller.marshall(createPortfolioShareRequest.getOrganizationNode(), ORGANIZATIONNODE_BINDING);
+            protocolMarshaller.marshall(createPortfolioShareRequest.getShareTagOptions(), SHARETAGOPTIONS_BINDING);
+            protocolMarshaller.marshall(createPortfolioShareRequest.getSharePrincipals(), SHAREPRINCIPALS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

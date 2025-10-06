@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,6 +38,10 @@ public class ComparedFaceMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Pose").build();
     private static final MarshallingInfo<StructuredPojo> QUALITY_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Quality").build();
+    private static final MarshallingInfo<List> EMOTIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Emotions").build();
+    private static final MarshallingInfo<StructuredPojo> SMILE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Smile").build();
 
     private static final ComparedFaceMarshaller instance = new ComparedFaceMarshaller();
 
@@ -60,6 +64,8 @@ public class ComparedFaceMarshaller {
             protocolMarshaller.marshall(comparedFace.getLandmarks(), LANDMARKS_BINDING);
             protocolMarshaller.marshall(comparedFace.getPose(), POSE_BINDING);
             protocolMarshaller.marshall(comparedFace.getQuality(), QUALITY_BINDING);
+            protocolMarshaller.marshall(comparedFace.getEmotions(), EMOTIONS_BINDING);
+            protocolMarshaller.marshall(comparedFace.getSmile(), SMILE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

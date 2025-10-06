@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,13 +36,13 @@ public class BlueInstanceTerminationOption implements Serializable, Cloneable, S
      * <ul>
      * <li>
      * <p>
-     * TERMINATE: Instances are terminated after a specified wait time.
+     * <code>TERMINATE</code>: Instances are terminated after a specified wait time.
      * </p>
      * </li>
      * <li>
      * <p>
-     * KEEP_ALIVE: Instances are left running after they are deregistered from the load balancer and removed from the
-     * deployment group.
+     * <code>KEEP_ALIVE</code>: Instances are left running after they are deregistered from the load balancer and
+     * removed from the deployment group.
      * </p>
      * </li>
      * </ul>
@@ -71,13 +71,13 @@ public class BlueInstanceTerminationOption implements Serializable, Cloneable, S
      * <ul>
      * <li>
      * <p>
-     * TERMINATE: Instances are terminated after a specified wait time.
+     * <code>TERMINATE</code>: Instances are terminated after a specified wait time.
      * </p>
      * </li>
      * <li>
      * <p>
-     * KEEP_ALIVE: Instances are left running after they are deregistered from the load balancer and removed from the
-     * deployment group.
+     * <code>KEEP_ALIVE</code>: Instances are left running after they are deregistered from the load balancer and
+     * removed from the deployment group.
      * </p>
      * </li>
      * </ul>
@@ -87,13 +87,13 @@ public class BlueInstanceTerminationOption implements Serializable, Cloneable, S
      *        <ul>
      *        <li>
      *        <p>
-     *        TERMINATE: Instances are terminated after a specified wait time.
+     *        <code>TERMINATE</code>: Instances are terminated after a specified wait time.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        KEEP_ALIVE: Instances are left running after they are deregistered from the load balancer and removed from
-     *        the deployment group.
+     *        <code>KEEP_ALIVE</code>: Instances are left running after they are deregistered from the load balancer and
+     *        removed from the deployment group.
      *        </p>
      *        </li>
      * @see InstanceAction
@@ -110,13 +110,13 @@ public class BlueInstanceTerminationOption implements Serializable, Cloneable, S
      * <ul>
      * <li>
      * <p>
-     * TERMINATE: Instances are terminated after a specified wait time.
+     * <code>TERMINATE</code>: Instances are terminated after a specified wait time.
      * </p>
      * </li>
      * <li>
      * <p>
-     * KEEP_ALIVE: Instances are left running after they are deregistered from the load balancer and removed from the
-     * deployment group.
+     * <code>KEEP_ALIVE</code>: Instances are left running after they are deregistered from the load balancer and
+     * removed from the deployment group.
      * </p>
      * </li>
      * </ul>
@@ -125,13 +125,13 @@ public class BlueInstanceTerminationOption implements Serializable, Cloneable, S
      *         <ul>
      *         <li>
      *         <p>
-     *         TERMINATE: Instances are terminated after a specified wait time.
+     *         <code>TERMINATE</code>: Instances are terminated after a specified wait time.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         KEEP_ALIVE: Instances are left running after they are deregistered from the load balancer and removed
-     *         from the deployment group.
+     *         <code>KEEP_ALIVE</code>: Instances are left running after they are deregistered from the load balancer
+     *         and removed from the deployment group.
      *         </p>
      *         </li>
      * @see InstanceAction
@@ -148,13 +148,13 @@ public class BlueInstanceTerminationOption implements Serializable, Cloneable, S
      * <ul>
      * <li>
      * <p>
-     * TERMINATE: Instances are terminated after a specified wait time.
+     * <code>TERMINATE</code>: Instances are terminated after a specified wait time.
      * </p>
      * </li>
      * <li>
      * <p>
-     * KEEP_ALIVE: Instances are left running after they are deregistered from the load balancer and removed from the
-     * deployment group.
+     * <code>KEEP_ALIVE</code>: Instances are left running after they are deregistered from the load balancer and
+     * removed from the deployment group.
      * </p>
      * </li>
      * </ul>
@@ -164,13 +164,13 @@ public class BlueInstanceTerminationOption implements Serializable, Cloneable, S
      *        <ul>
      *        <li>
      *        <p>
-     *        TERMINATE: Instances are terminated after a specified wait time.
+     *        <code>TERMINATE</code>: Instances are terminated after a specified wait time.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        KEEP_ALIVE: Instances are left running after they are deregistered from the load balancer and removed from
-     *        the deployment group.
+     *        <code>KEEP_ALIVE</code>: Instances are left running after they are deregistered from the load balancer and
+     *        removed from the deployment group.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -189,13 +189,13 @@ public class BlueInstanceTerminationOption implements Serializable, Cloneable, S
      * <ul>
      * <li>
      * <p>
-     * TERMINATE: Instances are terminated after a specified wait time.
+     * <code>TERMINATE</code>: Instances are terminated after a specified wait time.
      * </p>
      * </li>
      * <li>
      * <p>
-     * KEEP_ALIVE: Instances are left running after they are deregistered from the load balancer and removed from the
-     * deployment group.
+     * <code>KEEP_ALIVE</code>: Instances are left running after they are deregistered from the load balancer and
+     * removed from the deployment group.
      * </p>
      * </li>
      * </ul>
@@ -205,13 +205,13 @@ public class BlueInstanceTerminationOption implements Serializable, Cloneable, S
      *        <ul>
      *        <li>
      *        <p>
-     *        TERMINATE: Instances are terminated after a specified wait time.
+     *        <code>TERMINATE</code>: Instances are terminated after a specified wait time.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        KEEP_ALIVE: Instances are left running after they are deregistered from the load balancer and removed from
-     *        the deployment group.
+     *        <code>KEEP_ALIVE</code>: Instances are left running after they are deregistered from the load balancer and
+     *        removed from the deployment group.
      *        </p>
      *        </li>
      * @see InstanceAction
@@ -228,13 +228,13 @@ public class BlueInstanceTerminationOption implements Serializable, Cloneable, S
      * <ul>
      * <li>
      * <p>
-     * TERMINATE: Instances are terminated after a specified wait time.
+     * <code>TERMINATE</code>: Instances are terminated after a specified wait time.
      * </p>
      * </li>
      * <li>
      * <p>
-     * KEEP_ALIVE: Instances are left running after they are deregistered from the load balancer and removed from the
-     * deployment group.
+     * <code>KEEP_ALIVE</code>: Instances are left running after they are deregistered from the load balancer and
+     * removed from the deployment group.
      * </p>
      * </li>
      * </ul>
@@ -244,13 +244,13 @@ public class BlueInstanceTerminationOption implements Serializable, Cloneable, S
      *        <ul>
      *        <li>
      *        <p>
-     *        TERMINATE: Instances are terminated after a specified wait time.
+     *        <code>TERMINATE</code>: Instances are terminated after a specified wait time.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        KEEP_ALIVE: Instances are left running after they are deregistered from the load balancer and removed from
-     *        the deployment group.
+     *        <code>KEEP_ALIVE</code>: Instances are left running after they are deregistered from the load balancer and
+     *        removed from the deployment group.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Map;
 
@@ -164,6 +165,16 @@ public class ProfileCredentialsProviderTest {
         }
     }
 
+    @Test
+    public void testProfilesWithAccountId() throws Exception {
+        File profile = ProfileResourceLoader.profilesWithAccountId().asFile();
+
+        ProfileCredentialsProvider provider = new ProfileCredentialsProvider(profile.getPath(), "default");
+        BasicAWSCredentials cred = (BasicAWSCredentials) provider.getCredentials();
+        Assert.assertEquals("defaultAccessKey", cred.getAWSAccessKeyId());
+        Assert.assertEquals("defaultSecretAccessKey", cred.getAWSSecretKey());
+        Assert.assertEquals("defaultAccountId", cred.getAccountId());
+    }
 
     @Test
     public void testUpdate() throws Exception {
@@ -195,33 +206,41 @@ public class ProfileCredentialsProviderTest {
     }
 
     @Test
-    public void testForcedRefresh() throws Exception {
-        ProfilesConfigFile profilesConfigFileBeforeRefresh = new ProfilesConfigFile(
+    public void testUpdateAccountId() throws Exception {
+        ProfilesConfigFile fixture = new ProfilesConfigFile(
                 ProfileResourceLoader.basicProfile().asFile());
-        File profilesFile = File.createTempFile("UpdatableProfile", ".tst");
-        ProfilesConfigFileWriter.dumpToFile(profilesFile, true,
-                                            profilesConfigFileBeforeRefresh.getAllProfiles()
-                                                    .values().toArray(new Profile[1]));
+        File modifiable = File.createTempFile("UpdatableProfile", ".tst");
+        ProfilesConfigFileWriter.dumpToFile(modifiable, true, fixture.getAllProfiles().values()
+                .toArray(new Profile[1]));
 
-        ProfileCredentialsProvider profileCredentialsProvider = new ProfileCredentialsProvider(
-                profilesFile.getPath(), null);
+        ProfileCredentialsProvider test = new ProfileCredentialsProvider(modifiable.getPath(),
+                null);
+        AWSCredentials orig = test.getCredentials();
 
-            /*
-             * Sleep for 1 second so that the profiles file last modified time has a chance to update.
-             * If this wait is not here, com.amazonaws.auth.profile.ProfilesConfigFile.refresh() profileFile.lastModified() will not be updated, therefore the
-             * credentials will not refresh.
-             *
-             * This is also in testRefresh()
-             */
-        Thread.sleep(1000);
-        ProfilesConfigFile profilesConfigFileAfterRefresh = new ProfilesConfigFile(
+        Assert.assertEquals("defaultAccessKey", orig.getAWSAccessKeyId());
+        Assert.assertEquals("defaultSecretAccessKey", orig.getAWSSecretKey());
+        //Sleep to ensure that the timestamp on the file (when we modify it) is
+        //distinguishably later from the original write.
+        try {
+            Thread.sleep(2000);
+        } catch (Exception e) {
+        }
+
+        Profile newProfile = new Profile(DEFAULT_PROFILE_NAME,
+                new BasicAWSCredentials("newAccessKey", "newSecretKey", "newAccountId"));
+        ProfilesConfigFileWriter.modifyOneProfile(modifiable, DEFAULT_PROFILE_NAME, newProfile);
+        test.refresh();
+        BasicAWSCredentials updated = (BasicAWSCredentials) test.getCredentials();
+        Assert.assertEquals("newAccessKey", updated.getAWSAccessKeyId());
+        Assert.assertEquals("newSecretKey", updated.getAWSSecretKey());
+        Assert.assertEquals("newAccountId", updated.getAccountId());
+    }
+
+    @Test
+    public void testForcedRefresh() throws Exception {
+        ProfileCredentialsProvider profileCredentialsProvider = setupProviderForRefreshTest(
                 ProfileResourceLoader.basicProfile2().asFile());
-        ProfilesConfigFileWriter.dumpToFile(profilesFile, true,
-                                            profilesConfigFileAfterRefresh.getAllProfiles().values()
-                                                    .toArray(new Profile[1]));
-
         profileCredentialsProvider.setRefreshForceIntervalNanos(1l);
-
         AWSCredentials credentialsAfterRefresh = profileCredentialsProvider.getCredentials();
 
         Assert.assertEquals("credentialsAfterRefresh AWSAccessKeyId", "accessKey2",
@@ -231,32 +250,38 @@ public class ProfileCredentialsProviderTest {
     }
 
     @Test
+    public void testForcedRefreshWithAccountId() throws Exception {
+        ProfileCredentialsProvider profileCredentialsProvider = setupProviderForRefreshTest(
+                ProfileResourceLoader.profilesWithAccountId().asFile());
+        profileCredentialsProvider.setRefreshForceIntervalNanos(1l);
+        BasicAWSCredentials credentialsAfterRefresh = (BasicAWSCredentials) profileCredentialsProvider.getCredentials();
+
+        Assert.assertEquals("credentialsAfterRefresh AWSAccountId", "defaultAccountId",
+                credentialsAfterRefresh.getAccountId());
+    }
+
+    @Test
     public void testRefresh() throws Exception {
-        ProfilesConfigFile profilesConfigFileBeforeRefresh = new ProfilesConfigFile(
-                ProfileResourceLoader.basicProfile().asFile());
-        File profilesFile = File.createTempFile("UpdatableProfile", ".tst");
-        ProfilesConfigFileWriter.dumpToFile(profilesFile, true,
-                                            profilesConfigFileBeforeRefresh.getAllProfiles()
-                                                    .values().toArray(new Profile[1]));
-
-        ProfileCredentialsProvider profileCredentialsProvider = new ProfileCredentialsProvider(
-                profilesFile.getPath(), null);
-
-        Thread.sleep(1000); // see testForcedRefresh()
-        ProfilesConfigFile profilesConfigFileAfterRefresh = new ProfilesConfigFile(
+        ProfileCredentialsProvider profileCredentialsProvider = setupProviderForRefreshTest(
                 ProfileResourceLoader.basicProfile2().asFile());
-        ProfilesConfigFileWriter.dumpToFile(profilesFile, true,
-                                            profilesConfigFileAfterRefresh.getAllProfiles().values()
-                                                    .toArray(new Profile[1]));
-
         profileCredentialsProvider.setRefreshIntervalNanos(1l);
-
         AWSCredentials credentialsAfterRefresh = profileCredentialsProvider.getCredentials();
 
         Assert.assertEquals("credentialsAfterRefresh AWSAccessKeyId", "accessKey2",
                             credentialsAfterRefresh.getAWSAccessKeyId());
         Assert.assertEquals("credentialsAfterRefresh AWSSecretKey", "secretAccessKey2",
                             credentialsAfterRefresh.getAWSSecretKey());
+    }
+
+    @Test
+    public void testRefreshWithAccountId() throws Exception {
+        ProfileCredentialsProvider profileCredentialsProvider = setupProviderForRefreshTest(
+                ProfileResourceLoader.profilesWithAccountId().asFile());
+        profileCredentialsProvider.setRefreshIntervalNanos(1l);
+        BasicAWSCredentials credentialsAfterRefresh = (BasicAWSCredentials) profileCredentialsProvider.getCredentials();
+
+        Assert.assertEquals("credentialsAfterRefresh AWSAccountId", "defaultAccountId",
+                credentialsAfterRefresh.getAccountId());
     }
 
     @Test
@@ -352,5 +377,27 @@ public class ProfileCredentialsProviderTest {
 
         Assert.assertEquals("sessionAccessKey", credentials.getAWSAccessKeyId());
         Assert.assertEquals("sessionSecretKey", credentials.getAWSSecretKey());
+    }
+
+    private ProfileCredentialsProvider setupProviderForRefreshTest(File newProfileConfig) throws Exception {
+        ProfilesConfigFile profilesConfigFileBeforeRefresh = new ProfilesConfigFile(
+                ProfileResourceLoader.basicProfile().asFile());
+        File profilesFile = File.createTempFile("UpdatableProfile", ".tst");
+        ProfilesConfigFileWriter.dumpToFile(profilesFile, true,
+                profilesConfigFileBeforeRefresh.getAllProfiles()
+                        .values().toArray(new Profile[1]));
+
+        ProfileCredentialsProvider profileCredentialsProvider = new ProfileCredentialsProvider(
+                profilesFile.getPath(), null);
+
+        ProfilesConfigFile profilesConfigFileAfterRefresh = new ProfilesConfigFile(newProfileConfig);
+        ProfilesConfigFileWriter.dumpToFile(profilesFile, true,
+                profilesConfigFileAfterRefresh.getAllProfiles().values()
+                        .toArray(new Profile[1]));
+
+        // Update last modified time so that credentials will refresh
+        profilesFile.setLastModified(System.currentTimeMillis() + 1000);
+
+        return profileCredentialsProvider;
     }
 }

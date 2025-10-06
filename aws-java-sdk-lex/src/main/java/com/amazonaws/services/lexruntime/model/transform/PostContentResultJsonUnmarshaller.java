@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,6 +40,16 @@ public class PostContentResultJsonUnmarshaller implements Unmarshaller<PostConte
                 context.setCurrentHeader("x-amz-lex-intent-name");
                 postContentResult.setIntentName(context.getUnmarshaller(String.class).unmarshall(context));
             }
+            if (context.getHeader("x-amz-lex-nlu-intent-confidence") != null) {
+                context.setCurrentHeader("x-amz-lex-nlu-intent-confidence");
+                postContentResult.setNluIntentConfidence(context.getUnmarshaller(String.class, JsonUnmarshallerContext.UnmarshallerType.JSON_VALUE).unmarshall(
+                        context));
+            }
+            if (context.getHeader("x-amz-lex-alternative-intents") != null) {
+                context.setCurrentHeader("x-amz-lex-alternative-intents");
+                postContentResult.setAlternativeIntents(context.getUnmarshaller(String.class, JsonUnmarshallerContext.UnmarshallerType.JSON_VALUE).unmarshall(
+                        context));
+            }
             if (context.getHeader("x-amz-lex-slots") != null) {
                 context.setCurrentHeader("x-amz-lex-slots");
                 postContentResult.setSlots(context.getUnmarshaller(String.class, JsonUnmarshallerContext.UnmarshallerType.JSON_VALUE).unmarshall(context));
@@ -49,9 +59,17 @@ public class PostContentResultJsonUnmarshaller implements Unmarshaller<PostConte
                 postContentResult.setSessionAttributes(context.getUnmarshaller(String.class, JsonUnmarshallerContext.UnmarshallerType.JSON_VALUE).unmarshall(
                         context));
             }
+            if (context.getHeader("x-amz-lex-sentiment") != null) {
+                context.setCurrentHeader("x-amz-lex-sentiment");
+                postContentResult.setSentimentResponse(context.getUnmarshaller(String.class).unmarshall(context));
+            }
             if (context.getHeader("x-amz-lex-message") != null) {
                 context.setCurrentHeader("x-amz-lex-message");
                 postContentResult.setMessage(context.getUnmarshaller(String.class).unmarshall(context));
+            }
+            if (context.getHeader("x-amz-lex-encoded-message") != null) {
+                context.setCurrentHeader("x-amz-lex-encoded-message");
+                postContentResult.setEncodedMessage(context.getUnmarshaller(String.class).unmarshall(context));
             }
             if (context.getHeader("x-amz-lex-message-format") != null) {
                 context.setCurrentHeader("x-amz-lex-message-format");
@@ -68,6 +86,23 @@ public class PostContentResultJsonUnmarshaller implements Unmarshaller<PostConte
             if (context.getHeader("x-amz-lex-input-transcript") != null) {
                 context.setCurrentHeader("x-amz-lex-input-transcript");
                 postContentResult.setInputTranscript(context.getUnmarshaller(String.class).unmarshall(context));
+            }
+            if (context.getHeader("x-amz-lex-encoded-input-transcript") != null) {
+                context.setCurrentHeader("x-amz-lex-encoded-input-transcript");
+                postContentResult.setEncodedInputTranscript(context.getUnmarshaller(String.class).unmarshall(context));
+            }
+            if (context.getHeader("x-amz-lex-bot-version") != null) {
+                context.setCurrentHeader("x-amz-lex-bot-version");
+                postContentResult.setBotVersion(context.getUnmarshaller(String.class).unmarshall(context));
+            }
+            if (context.getHeader("x-amz-lex-session-id") != null) {
+                context.setCurrentHeader("x-amz-lex-session-id");
+                postContentResult.setSessionId(context.getUnmarshaller(String.class).unmarshall(context));
+            }
+            if (context.getHeader("x-amz-lex-active-contexts") != null) {
+                context.setCurrentHeader("x-amz-lex-active-contexts");
+                postContentResult.setActiveContexts(context.getUnmarshaller(String.class, JsonUnmarshallerContext.UnmarshallerType.JSON_VALUE).unmarshall(
+                        context));
             }
         }
 

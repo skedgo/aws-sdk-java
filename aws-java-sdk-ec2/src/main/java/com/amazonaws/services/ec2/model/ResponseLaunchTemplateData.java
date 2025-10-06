@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -58,7 +58,35 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
     private com.amazonaws.internal.SdkInternalList<LaunchTemplateInstanceNetworkInterfaceSpecification> networkInterfaces;
     /**
      * <p>
-     * The ID of the AMI that was used to launch the instance.
+     * The ID of the AMI or a Systems Manager parameter. The Systems Manager parameter will resolve to the ID of the AMI
+     * at instance launch.
+     * </p>
+     * <p>
+     * The value depends on what you specified in the request. The possible values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If an AMI ID was specified in the request, then this is the AMI ID.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If a Systems Manager parameter was specified in the request, and <code>ResolveAlias</code> was configured as
+     * <code>true</code>, then this is the AMI ID that the parameter is mapped to in the Parameter Store.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If a Systems Manager parameter was specified in the request, and <code>ResolveAlias</code> was configured as
+     * <code>false</code>, then this is the parameter value.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     * >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      */
     private String imageId;
@@ -114,20 +142,39 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
     private String userData;
     /**
      * <p>
-     * The tags.
+     * The tags that are applied to the resources that are created during instance launch.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<LaunchTemplateTagSpecification> tagSpecifications;
     /**
      * <p>
-     * The elastic GPU specification.
+     * Deprecated.
      * </p>
+     * <note>
+     * <p>
+     * Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics acceleration,
+     * we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     * </p>
+     * </note>
      */
     private com.amazonaws.internal.SdkInternalList<ElasticGpuSpecificationResponse> elasticGpuSpecifications;
     /**
      * <p>
-     * The elastic inference accelerator for the instance.
+     * An elastic inference accelerator to associate with the instance. Elastic inference accelerators are a resource
+     * you can attach to your Amazon EC2 instances to accelerate your Deep Learning (DL) inference workloads.
      * </p>
+     * <p>
+     * You cannot specify accelerators from different generations in the same request.
+     * </p>
+     * <note>
+     * <p>
+     * Starting April 15, 2023, Amazon Web Services will not onboard new customers to Amazon Elastic Inference (EI), and
+     * will help current customers migrate their workloads to options that offer better price and performance. After
+     * April 15, 2023, new customers will not be able to launch instances with Amazon EI accelerators in Amazon
+     * SageMaker, Amazon ECS, or Amazon EC2. However, customers who have used Amazon EI at least once during the past
+     * 30-day period are considered current customers and will be able to continue using the service.
+     * </p>
+     * </note>
      */
     private com.amazonaws.internal.SdkInternalList<LaunchTemplateElasticInferenceAcceleratorResponse> elasticInferenceAccelerators;
     /**
@@ -157,8 +204,8 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
     /**
      * <p>
      * The CPU options for the instance. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing CPU Options</a>
-     * in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimize CPU options</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      */
     private LaunchTemplateCpuOptions cpuOptions;
@@ -177,11 +224,55 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
     /**
      * <p>
      * Indicates whether an instance is configured for hibernation. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate Your Instance</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate your Amazon EC2 instance</a>
+     * in the <i>Amazon EC2 User Guide</i>.
      * </p>
      */
     private LaunchTemplateHibernationOptions hibernationOptions;
+    /**
+     * <p>
+     * The metadata options for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance metadata and user
+     * data</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     */
+    private LaunchTemplateInstanceMetadataOptions metadataOptions;
+    /**
+     * <p>
+     * Indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves.
+     * </p>
+     */
+    private LaunchTemplateEnclaveOptions enclaveOptions;
+    /**
+     * <p>
+     * The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify instance
+     * types with these attributes.
+     * </p>
+     * <p>
+     * If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceTypes</code>.
+     * </p>
+     */
+    private InstanceRequirements instanceRequirements;
+    /**
+     * <p>
+     * The options for the instance hostname.
+     * </p>
+     */
+    private LaunchTemplatePrivateDnsNameOptions privateDnsNameOptions;
+    /**
+     * <p>
+     * The maintenance options for your instance.
+     * </p>
+     */
+    private LaunchTemplateInstanceMaintenanceOptions maintenanceOptions;
+    /**
+     * <p>
+     * Indicates whether the instance is enabled for stop protection. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection for
+     * your instance</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     */
+    private Boolean disableApiStop;
 
     /**
      * <p>
@@ -463,11 +554,66 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AMI that was used to launch the instance.
+     * The ID of the AMI or a Systems Manager parameter. The Systems Manager parameter will resolve to the ID of the AMI
+     * at instance launch.
+     * </p>
+     * <p>
+     * The value depends on what you specified in the request. The possible values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If an AMI ID was specified in the request, then this is the AMI ID.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If a Systems Manager parameter was specified in the request, and <code>ResolveAlias</code> was configured as
+     * <code>true</code>, then this is the AMI ID that the parameter is mapped to in the Parameter Store.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If a Systems Manager parameter was specified in the request, and <code>ResolveAlias</code> was configured as
+     * <code>false</code>, then this is the parameter value.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     * >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param imageId
-     *        The ID of the AMI that was used to launch the instance.
+     *        The ID of the AMI or a Systems Manager parameter. The Systems Manager parameter will resolve to the ID of
+     *        the AMI at instance launch.</p>
+     *        <p>
+     *        The value depends on what you specified in the request. The possible values are:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If an AMI ID was specified in the request, then this is the AMI ID.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If a Systems Manager parameter was specified in the request, and <code>ResolveAlias</code> was configured
+     *        as <code>true</code>, then this is the AMI ID that the parameter is mapped to in the Parameter Store.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If a Systems Manager parameter was specified in the request, and <code>ResolveAlias</code> was configured
+     *        as <code>false</code>, then this is the parameter value.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     *        >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
      */
 
     public void setImageId(String imageId) {
@@ -476,10 +622,65 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AMI that was used to launch the instance.
+     * The ID of the AMI or a Systems Manager parameter. The Systems Manager parameter will resolve to the ID of the AMI
+     * at instance launch.
+     * </p>
+     * <p>
+     * The value depends on what you specified in the request. The possible values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If an AMI ID was specified in the request, then this is the AMI ID.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If a Systems Manager parameter was specified in the request, and <code>ResolveAlias</code> was configured as
+     * <code>true</code>, then this is the AMI ID that the parameter is mapped to in the Parameter Store.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If a Systems Manager parameter was specified in the request, and <code>ResolveAlias</code> was configured as
+     * <code>false</code>, then this is the parameter value.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     * >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
-     * @return The ID of the AMI that was used to launch the instance.
+     * @return The ID of the AMI or a Systems Manager parameter. The Systems Manager parameter will resolve to the ID of
+     *         the AMI at instance launch.</p>
+     *         <p>
+     *         The value depends on what you specified in the request. The possible values are:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If an AMI ID was specified in the request, then this is the AMI ID.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If a Systems Manager parameter was specified in the request, and <code>ResolveAlias</code> was configured
+     *         as <code>true</code>, then this is the AMI ID that the parameter is mapped to in the Parameter Store.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If a Systems Manager parameter was specified in the request, and <code>ResolveAlias</code> was configured
+     *         as <code>false</code>, then this is the parameter value.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     *         >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
      */
 
     public String getImageId() {
@@ -488,11 +689,66 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AMI that was used to launch the instance.
+     * The ID of the AMI or a Systems Manager parameter. The Systems Manager parameter will resolve to the ID of the AMI
+     * at instance launch.
+     * </p>
+     * <p>
+     * The value depends on what you specified in the request. The possible values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If an AMI ID was specified in the request, then this is the AMI ID.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If a Systems Manager parameter was specified in the request, and <code>ResolveAlias</code> was configured as
+     * <code>true</code>, then this is the AMI ID that the parameter is mapped to in the Parameter Store.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If a Systems Manager parameter was specified in the request, and <code>ResolveAlias</code> was configured as
+     * <code>false</code>, then this is the parameter value.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     * >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param imageId
-     *        The ID of the AMI that was used to launch the instance.
+     *        The ID of the AMI or a Systems Manager parameter. The Systems Manager parameter will resolve to the ID of
+     *        the AMI at instance launch.</p>
+     *        <p>
+     *        The value depends on what you specified in the request. The possible values are:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If an AMI ID was specified in the request, then this is the AMI ID.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If a Systems Manager parameter was specified in the request, and <code>ResolveAlias</code> was configured
+     *        as <code>true</code>, then this is the AMI ID that the parameter is mapped to in the Parameter Store.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If a Systems Manager parameter was specified in the request, and <code>ResolveAlias</code> was configured
+     *        as <code>false</code>, then this is the parameter value.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     *        >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -889,10 +1145,10 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The tags.
+     * The tags that are applied to the resources that are created during instance launch.
      * </p>
      * 
-     * @return The tags.
+     * @return The tags that are applied to the resources that are created during instance launch.
      */
 
     public java.util.List<LaunchTemplateTagSpecification> getTagSpecifications() {
@@ -904,11 +1160,11 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The tags.
+     * The tags that are applied to the resources that are created during instance launch.
      * </p>
      * 
      * @param tagSpecifications
-     *        The tags.
+     *        The tags that are applied to the resources that are created during instance launch.
      */
 
     public void setTagSpecifications(java.util.Collection<LaunchTemplateTagSpecification> tagSpecifications) {
@@ -922,7 +1178,7 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The tags.
+     * The tags that are applied to the resources that are created during instance launch.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -931,7 +1187,7 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
      * </p>
      * 
      * @param tagSpecifications
-     *        The tags.
+     *        The tags that are applied to the resources that are created during instance launch.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -947,11 +1203,11 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The tags.
+     * The tags that are applied to the resources that are created during instance launch.
      * </p>
      * 
      * @param tagSpecifications
-     *        The tags.
+     *        The tags that are applied to the resources that are created during instance launch.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -962,10 +1218,20 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The elastic GPU specification.
+     * Deprecated.
      * </p>
+     * <note>
+     * <p>
+     * Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics acceleration,
+     * we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     * </p>
+     * </note>
      * 
-     * @return The elastic GPU specification.
+     * @return Deprecated.</p> <note>
+     *         <p>
+     *         Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics
+     *         acceleration, we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     *         </p>
      */
 
     public java.util.List<ElasticGpuSpecificationResponse> getElasticGpuSpecifications() {
@@ -977,11 +1243,21 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The elastic GPU specification.
+     * Deprecated.
      * </p>
+     * <note>
+     * <p>
+     * Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics acceleration,
+     * we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     * </p>
+     * </note>
      * 
      * @param elasticGpuSpecifications
-     *        The elastic GPU specification.
+     *        Deprecated.</p> <note>
+     *        <p>
+     *        Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics
+     *        acceleration, we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     *        </p>
      */
 
     public void setElasticGpuSpecifications(java.util.Collection<ElasticGpuSpecificationResponse> elasticGpuSpecifications) {
@@ -995,8 +1271,14 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The elastic GPU specification.
+     * Deprecated.
      * </p>
+     * <note>
+     * <p>
+     * Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics acceleration,
+     * we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setElasticGpuSpecifications(java.util.Collection)} or
@@ -1004,7 +1286,11 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
      * </p>
      * 
      * @param elasticGpuSpecifications
-     *        The elastic GPU specification.
+     *        Deprecated.</p> <note>
+     *        <p>
+     *        Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics
+     *        acceleration, we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1020,11 +1306,21 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The elastic GPU specification.
+     * Deprecated.
      * </p>
+     * <note>
+     * <p>
+     * Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics acceleration,
+     * we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     * </p>
+     * </note>
      * 
      * @param elasticGpuSpecifications
-     *        The elastic GPU specification.
+     *        Deprecated.</p> <note>
+     *        <p>
+     *        Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics
+     *        acceleration, we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1035,10 +1331,37 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The elastic inference accelerator for the instance.
+     * An elastic inference accelerator to associate with the instance. Elastic inference accelerators are a resource
+     * you can attach to your Amazon EC2 instances to accelerate your Deep Learning (DL) inference workloads.
      * </p>
+     * <p>
+     * You cannot specify accelerators from different generations in the same request.
+     * </p>
+     * <note>
+     * <p>
+     * Starting April 15, 2023, Amazon Web Services will not onboard new customers to Amazon Elastic Inference (EI), and
+     * will help current customers migrate their workloads to options that offer better price and performance. After
+     * April 15, 2023, new customers will not be able to launch instances with Amazon EI accelerators in Amazon
+     * SageMaker, Amazon ECS, or Amazon EC2. However, customers who have used Amazon EI at least once during the past
+     * 30-day period are considered current customers and will be able to continue using the service.
+     * </p>
+     * </note>
      * 
-     * @return The elastic inference accelerator for the instance.
+     * @return An elastic inference accelerator to associate with the instance. Elastic inference accelerators are a
+     *         resource you can attach to your Amazon EC2 instances to accelerate your Deep Learning (DL) inference
+     *         workloads.</p>
+     *         <p>
+     *         You cannot specify accelerators from different generations in the same request.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         Starting April 15, 2023, Amazon Web Services will not onboard new customers to Amazon Elastic Inference
+     *         (EI), and will help current customers migrate their workloads to options that offer better price and
+     *         performance. After April 15, 2023, new customers will not be able to launch instances with Amazon EI
+     *         accelerators in Amazon SageMaker, Amazon ECS, or Amazon EC2. However, customers who have used Amazon EI
+     *         at least once during the past 30-day period are considered current customers and will be able to continue
+     *         using the service.
+     *         </p>
      */
 
     public java.util.List<LaunchTemplateElasticInferenceAcceleratorResponse> getElasticInferenceAccelerators() {
@@ -1050,11 +1373,38 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The elastic inference accelerator for the instance.
+     * An elastic inference accelerator to associate with the instance. Elastic inference accelerators are a resource
+     * you can attach to your Amazon EC2 instances to accelerate your Deep Learning (DL) inference workloads.
      * </p>
+     * <p>
+     * You cannot specify accelerators from different generations in the same request.
+     * </p>
+     * <note>
+     * <p>
+     * Starting April 15, 2023, Amazon Web Services will not onboard new customers to Amazon Elastic Inference (EI), and
+     * will help current customers migrate their workloads to options that offer better price and performance. After
+     * April 15, 2023, new customers will not be able to launch instances with Amazon EI accelerators in Amazon
+     * SageMaker, Amazon ECS, or Amazon EC2. However, customers who have used Amazon EI at least once during the past
+     * 30-day period are considered current customers and will be able to continue using the service.
+     * </p>
+     * </note>
      * 
      * @param elasticInferenceAccelerators
-     *        The elastic inference accelerator for the instance.
+     *        An elastic inference accelerator to associate with the instance. Elastic inference accelerators are a
+     *        resource you can attach to your Amazon EC2 instances to accelerate your Deep Learning (DL) inference
+     *        workloads.</p>
+     *        <p>
+     *        You cannot specify accelerators from different generations in the same request.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Starting April 15, 2023, Amazon Web Services will not onboard new customers to Amazon Elastic Inference
+     *        (EI), and will help current customers migrate their workloads to options that offer better price and
+     *        performance. After April 15, 2023, new customers will not be able to launch instances with Amazon EI
+     *        accelerators in Amazon SageMaker, Amazon ECS, or Amazon EC2. However, customers who have used Amazon EI at
+     *        least once during the past 30-day period are considered current customers and will be able to continue
+     *        using the service.
+     *        </p>
      */
 
     public void setElasticInferenceAccelerators(java.util.Collection<LaunchTemplateElasticInferenceAcceleratorResponse> elasticInferenceAccelerators) {
@@ -1069,8 +1419,21 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The elastic inference accelerator for the instance.
+     * An elastic inference accelerator to associate with the instance. Elastic inference accelerators are a resource
+     * you can attach to your Amazon EC2 instances to accelerate your Deep Learning (DL) inference workloads.
      * </p>
+     * <p>
+     * You cannot specify accelerators from different generations in the same request.
+     * </p>
+     * <note>
+     * <p>
+     * Starting April 15, 2023, Amazon Web Services will not onboard new customers to Amazon Elastic Inference (EI), and
+     * will help current customers migrate their workloads to options that offer better price and performance. After
+     * April 15, 2023, new customers will not be able to launch instances with Amazon EI accelerators in Amazon
+     * SageMaker, Amazon ECS, or Amazon EC2. However, customers who have used Amazon EI at least once during the past
+     * 30-day period are considered current customers and will be able to continue using the service.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setElasticInferenceAccelerators(java.util.Collection)} or
@@ -1078,7 +1441,21 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
      * </p>
      * 
      * @param elasticInferenceAccelerators
-     *        The elastic inference accelerator for the instance.
+     *        An elastic inference accelerator to associate with the instance. Elastic inference accelerators are a
+     *        resource you can attach to your Amazon EC2 instances to accelerate your Deep Learning (DL) inference
+     *        workloads.</p>
+     *        <p>
+     *        You cannot specify accelerators from different generations in the same request.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Starting April 15, 2023, Amazon Web Services will not onboard new customers to Amazon Elastic Inference
+     *        (EI), and will help current customers migrate their workloads to options that offer better price and
+     *        performance. After April 15, 2023, new customers will not be able to launch instances with Amazon EI
+     *        accelerators in Amazon SageMaker, Amazon ECS, or Amazon EC2. However, customers who have used Amazon EI at
+     *        least once during the past 30-day period are considered current customers and will be able to continue
+     *        using the service.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1095,11 +1472,38 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The elastic inference accelerator for the instance.
+     * An elastic inference accelerator to associate with the instance. Elastic inference accelerators are a resource
+     * you can attach to your Amazon EC2 instances to accelerate your Deep Learning (DL) inference workloads.
      * </p>
+     * <p>
+     * You cannot specify accelerators from different generations in the same request.
+     * </p>
+     * <note>
+     * <p>
+     * Starting April 15, 2023, Amazon Web Services will not onboard new customers to Amazon Elastic Inference (EI), and
+     * will help current customers migrate their workloads to options that offer better price and performance. After
+     * April 15, 2023, new customers will not be able to launch instances with Amazon EI accelerators in Amazon
+     * SageMaker, Amazon ECS, or Amazon EC2. However, customers who have used Amazon EI at least once during the past
+     * 30-day period are considered current customers and will be able to continue using the service.
+     * </p>
+     * </note>
      * 
      * @param elasticInferenceAccelerators
-     *        The elastic inference accelerator for the instance.
+     *        An elastic inference accelerator to associate with the instance. Elastic inference accelerators are a
+     *        resource you can attach to your Amazon EC2 instances to accelerate your Deep Learning (DL) inference
+     *        workloads.</p>
+     *        <p>
+     *        You cannot specify accelerators from different generations in the same request.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Starting April 15, 2023, Amazon Web Services will not onboard new customers to Amazon Elastic Inference
+     *        (EI), and will help current customers migrate their workloads to options that offer better price and
+     *        performance. After April 15, 2023, new customers will not be able to launch instances with Amazon EI
+     *        accelerators in Amazon SageMaker, Amazon ECS, or Amazon EC2. However, customers who have used Amazon EI at
+     *        least once during the past 30-day period are considered current customers and will be able to continue
+     *        using the service.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1338,14 +1742,14 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
     /**
      * <p>
      * The CPU options for the instance. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing CPU Options</a>
-     * in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimize CPU options</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param cpuOptions
      *        The CPU options for the instance. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing CPU
-     *        Options</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimize CPU
+     *        options</a> in the <i>Amazon EC2 User Guide</i>.
      */
 
     public void setCpuOptions(LaunchTemplateCpuOptions cpuOptions) {
@@ -1355,13 +1759,13 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
     /**
      * <p>
      * The CPU options for the instance. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing CPU Options</a>
-     * in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimize CPU options</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @return The CPU options for the instance. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing CPU
-     *         Options</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimize CPU
+     *         options</a> in the <i>Amazon EC2 User Guide</i>.
      */
 
     public LaunchTemplateCpuOptions getCpuOptions() {
@@ -1371,14 +1775,14 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
     /**
      * <p>
      * The CPU options for the instance. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing CPU Options</a>
-     * in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimize CPU options</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param cpuOptions
      *        The CPU options for the instance. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing CPU
-     *        Options</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimize CPU
+     *        options</a> in the <i>Amazon EC2 User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1504,14 +1908,14 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
     /**
      * <p>
      * Indicates whether an instance is configured for hibernation. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate Your Instance</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate your Amazon EC2 instance</a>
+     * in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param hibernationOptions
      *        Indicates whether an instance is configured for hibernation. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate Your Instance</a> in
-     *        the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate your Amazon EC2
+     *        instance</a> in the <i>Amazon EC2 User Guide</i>.
      */
 
     public void setHibernationOptions(LaunchTemplateHibernationOptions hibernationOptions) {
@@ -1521,13 +1925,13 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
     /**
      * <p>
      * Indicates whether an instance is configured for hibernation. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate Your Instance</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate your Amazon EC2 instance</a>
+     * in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @return Indicates whether an instance is configured for hibernation. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate Your Instance</a> in
-     *         the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate your Amazon EC2
+     *         instance</a> in the <i>Amazon EC2 User Guide</i>.
      */
 
     public LaunchTemplateHibernationOptions getHibernationOptions() {
@@ -1537,20 +1941,321 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
     /**
      * <p>
      * Indicates whether an instance is configured for hibernation. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate Your Instance</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate your Amazon EC2 instance</a>
+     * in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param hibernationOptions
      *        Indicates whether an instance is configured for hibernation. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate Your Instance</a> in
-     *        the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate your Amazon EC2
+     *        instance</a> in the <i>Amazon EC2 User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ResponseLaunchTemplateData withHibernationOptions(LaunchTemplateHibernationOptions hibernationOptions) {
         setHibernationOptions(hibernationOptions);
         return this;
+    }
+
+    /**
+     * <p>
+     * The metadata options for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance metadata and user
+     * data</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param metadataOptions
+     *        The metadata options for the instance. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance metadata
+     *        and user data</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public void setMetadataOptions(LaunchTemplateInstanceMetadataOptions metadataOptions) {
+        this.metadataOptions = metadataOptions;
+    }
+
+    /**
+     * <p>
+     * The metadata options for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance metadata and user
+     * data</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return The metadata options for the instance. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance metadata
+     *         and user data</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public LaunchTemplateInstanceMetadataOptions getMetadataOptions() {
+        return this.metadataOptions;
+    }
+
+    /**
+     * <p>
+     * The metadata options for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance metadata and user
+     * data</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param metadataOptions
+     *        The metadata options for the instance. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance metadata
+     *        and user data</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResponseLaunchTemplateData withMetadataOptions(LaunchTemplateInstanceMetadataOptions metadataOptions) {
+        setMetadataOptions(metadataOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves.
+     * </p>
+     * 
+     * @param enclaveOptions
+     *        Indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves.
+     */
+
+    public void setEnclaveOptions(LaunchTemplateEnclaveOptions enclaveOptions) {
+        this.enclaveOptions = enclaveOptions;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves.
+     * </p>
+     * 
+     * @return Indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves.
+     */
+
+    public LaunchTemplateEnclaveOptions getEnclaveOptions() {
+        return this.enclaveOptions;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves.
+     * </p>
+     * 
+     * @param enclaveOptions
+     *        Indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResponseLaunchTemplateData withEnclaveOptions(LaunchTemplateEnclaveOptions enclaveOptions) {
+        setEnclaveOptions(enclaveOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify instance
+     * types with these attributes.
+     * </p>
+     * <p>
+     * If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceTypes</code>.
+     * </p>
+     * 
+     * @param instanceRequirements
+     *        The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify
+     *        instance types with these attributes.</p>
+     *        <p>
+     *        If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceTypes</code>.
+     */
+
+    public void setInstanceRequirements(InstanceRequirements instanceRequirements) {
+        this.instanceRequirements = instanceRequirements;
+    }
+
+    /**
+     * <p>
+     * The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify instance
+     * types with these attributes.
+     * </p>
+     * <p>
+     * If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceTypes</code>.
+     * </p>
+     * 
+     * @return The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify
+     *         instance types with these attributes.</p>
+     *         <p>
+     *         If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceTypes</code>.
+     */
+
+    public InstanceRequirements getInstanceRequirements() {
+        return this.instanceRequirements;
+    }
+
+    /**
+     * <p>
+     * The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify instance
+     * types with these attributes.
+     * </p>
+     * <p>
+     * If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceTypes</code>.
+     * </p>
+     * 
+     * @param instanceRequirements
+     *        The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify
+     *        instance types with these attributes.</p>
+     *        <p>
+     *        If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceTypes</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResponseLaunchTemplateData withInstanceRequirements(InstanceRequirements instanceRequirements) {
+        setInstanceRequirements(instanceRequirements);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The options for the instance hostname.
+     * </p>
+     * 
+     * @param privateDnsNameOptions
+     *        The options for the instance hostname.
+     */
+
+    public void setPrivateDnsNameOptions(LaunchTemplatePrivateDnsNameOptions privateDnsNameOptions) {
+        this.privateDnsNameOptions = privateDnsNameOptions;
+    }
+
+    /**
+     * <p>
+     * The options for the instance hostname.
+     * </p>
+     * 
+     * @return The options for the instance hostname.
+     */
+
+    public LaunchTemplatePrivateDnsNameOptions getPrivateDnsNameOptions() {
+        return this.privateDnsNameOptions;
+    }
+
+    /**
+     * <p>
+     * The options for the instance hostname.
+     * </p>
+     * 
+     * @param privateDnsNameOptions
+     *        The options for the instance hostname.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResponseLaunchTemplateData withPrivateDnsNameOptions(LaunchTemplatePrivateDnsNameOptions privateDnsNameOptions) {
+        setPrivateDnsNameOptions(privateDnsNameOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The maintenance options for your instance.
+     * </p>
+     * 
+     * @param maintenanceOptions
+     *        The maintenance options for your instance.
+     */
+
+    public void setMaintenanceOptions(LaunchTemplateInstanceMaintenanceOptions maintenanceOptions) {
+        this.maintenanceOptions = maintenanceOptions;
+    }
+
+    /**
+     * <p>
+     * The maintenance options for your instance.
+     * </p>
+     * 
+     * @return The maintenance options for your instance.
+     */
+
+    public LaunchTemplateInstanceMaintenanceOptions getMaintenanceOptions() {
+        return this.maintenanceOptions;
+    }
+
+    /**
+     * <p>
+     * The maintenance options for your instance.
+     * </p>
+     * 
+     * @param maintenanceOptions
+     *        The maintenance options for your instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResponseLaunchTemplateData withMaintenanceOptions(LaunchTemplateInstanceMaintenanceOptions maintenanceOptions) {
+        setMaintenanceOptions(maintenanceOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the instance is enabled for stop protection. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection for
+     * your instance</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param disableApiStop
+     *        Indicates whether the instance is enabled for stop protection. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection
+     *        for your instance</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public void setDisableApiStop(Boolean disableApiStop) {
+        this.disableApiStop = disableApiStop;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the instance is enabled for stop protection. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection for
+     * your instance</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return Indicates whether the instance is enabled for stop protection. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop
+     *         protection for your instance</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public Boolean getDisableApiStop() {
+        return this.disableApiStop;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the instance is enabled for stop protection. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection for
+     * your instance</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param disableApiStop
+     *        Indicates whether the instance is enabled for stop protection. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection
+     *        for your instance</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResponseLaunchTemplateData withDisableApiStop(Boolean disableApiStop) {
+        setDisableApiStop(disableApiStop);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the instance is enabled for stop protection. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection for
+     * your instance</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return Indicates whether the instance is enabled for stop protection. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop
+     *         protection for your instance</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public Boolean isDisableApiStop() {
+        return this.disableApiStop;
     }
 
     /**
@@ -1592,7 +2297,7 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
         if (getInstanceInitiatedShutdownBehavior() != null)
             sb.append("InstanceInitiatedShutdownBehavior: ").append(getInstanceInitiatedShutdownBehavior()).append(",");
         if (getUserData() != null)
-            sb.append("UserData: ").append(getUserData()).append(",");
+            sb.append("UserData: ").append("***Sensitive Data Redacted***").append(",");
         if (getTagSpecifications() != null)
             sb.append("TagSpecifications: ").append(getTagSpecifications()).append(",");
         if (getElasticGpuSpecifications() != null)
@@ -1614,7 +2319,19 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
         if (getLicenseSpecifications() != null)
             sb.append("LicenseSpecifications: ").append(getLicenseSpecifications()).append(",");
         if (getHibernationOptions() != null)
-            sb.append("HibernationOptions: ").append(getHibernationOptions());
+            sb.append("HibernationOptions: ").append(getHibernationOptions()).append(",");
+        if (getMetadataOptions() != null)
+            sb.append("MetadataOptions: ").append(getMetadataOptions()).append(",");
+        if (getEnclaveOptions() != null)
+            sb.append("EnclaveOptions: ").append(getEnclaveOptions()).append(",");
+        if (getInstanceRequirements() != null)
+            sb.append("InstanceRequirements: ").append(getInstanceRequirements()).append(",");
+        if (getPrivateDnsNameOptions() != null)
+            sb.append("PrivateDnsNameOptions: ").append(getPrivateDnsNameOptions()).append(",");
+        if (getMaintenanceOptions() != null)
+            sb.append("MaintenanceOptions: ").append(getMaintenanceOptions()).append(",");
+        if (getDisableApiStop() != null)
+            sb.append("DisableApiStop: ").append(getDisableApiStop());
         sb.append("}");
         return sb.toString();
     }
@@ -1731,6 +2448,30 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
             return false;
         if (other.getHibernationOptions() != null && other.getHibernationOptions().equals(this.getHibernationOptions()) == false)
             return false;
+        if (other.getMetadataOptions() == null ^ this.getMetadataOptions() == null)
+            return false;
+        if (other.getMetadataOptions() != null && other.getMetadataOptions().equals(this.getMetadataOptions()) == false)
+            return false;
+        if (other.getEnclaveOptions() == null ^ this.getEnclaveOptions() == null)
+            return false;
+        if (other.getEnclaveOptions() != null && other.getEnclaveOptions().equals(this.getEnclaveOptions()) == false)
+            return false;
+        if (other.getInstanceRequirements() == null ^ this.getInstanceRequirements() == null)
+            return false;
+        if (other.getInstanceRequirements() != null && other.getInstanceRequirements().equals(this.getInstanceRequirements()) == false)
+            return false;
+        if (other.getPrivateDnsNameOptions() == null ^ this.getPrivateDnsNameOptions() == null)
+            return false;
+        if (other.getPrivateDnsNameOptions() != null && other.getPrivateDnsNameOptions().equals(this.getPrivateDnsNameOptions()) == false)
+            return false;
+        if (other.getMaintenanceOptions() == null ^ this.getMaintenanceOptions() == null)
+            return false;
+        if (other.getMaintenanceOptions() != null && other.getMaintenanceOptions().equals(this.getMaintenanceOptions()) == false)
+            return false;
+        if (other.getDisableApiStop() == null ^ this.getDisableApiStop() == null)
+            return false;
+        if (other.getDisableApiStop() != null && other.getDisableApiStop().equals(this.getDisableApiStop()) == false)
+            return false;
         return true;
     }
 
@@ -1764,6 +2505,12 @@ public class ResponseLaunchTemplateData implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getCapacityReservationSpecification() == null) ? 0 : getCapacityReservationSpecification().hashCode());
         hashCode = prime * hashCode + ((getLicenseSpecifications() == null) ? 0 : getLicenseSpecifications().hashCode());
         hashCode = prime * hashCode + ((getHibernationOptions() == null) ? 0 : getHibernationOptions().hashCode());
+        hashCode = prime * hashCode + ((getMetadataOptions() == null) ? 0 : getMetadataOptions().hashCode());
+        hashCode = prime * hashCode + ((getEnclaveOptions() == null) ? 0 : getEnclaveOptions().hashCode());
+        hashCode = prime * hashCode + ((getInstanceRequirements() == null) ? 0 : getInstanceRequirements().hashCode());
+        hashCode = prime * hashCode + ((getPrivateDnsNameOptions() == null) ? 0 : getPrivateDnsNameOptions().hashCode());
+        hashCode = prime * hashCode + ((getMaintenanceOptions() == null) ? 0 : getMaintenanceOptions().hashCode());
+        hashCode = prime * hashCode + ((getDisableApiStop() == null) ? 0 : getDisableApiStop().hashCode());
         return hashCode;
     }
 

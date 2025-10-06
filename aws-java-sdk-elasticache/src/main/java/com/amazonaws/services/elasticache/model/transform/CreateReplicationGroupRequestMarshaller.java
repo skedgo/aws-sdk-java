@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,12 +48,20 @@ public class CreateReplicationGroupRequestMarshaller implements Marshaller<Reque
             request.addParameter("ReplicationGroupDescription", StringUtils.fromString(createReplicationGroupRequest.getReplicationGroupDescription()));
         }
 
+        if (createReplicationGroupRequest.getGlobalReplicationGroupId() != null) {
+            request.addParameter("GlobalReplicationGroupId", StringUtils.fromString(createReplicationGroupRequest.getGlobalReplicationGroupId()));
+        }
+
         if (createReplicationGroupRequest.getPrimaryClusterId() != null) {
             request.addParameter("PrimaryClusterId", StringUtils.fromString(createReplicationGroupRequest.getPrimaryClusterId()));
         }
 
         if (createReplicationGroupRequest.getAutomaticFailoverEnabled() != null) {
             request.addParameter("AutomaticFailoverEnabled", StringUtils.fromBoolean(createReplicationGroupRequest.getAutomaticFailoverEnabled()));
+        }
+
+        if (createReplicationGroupRequest.getMultiAZEnabled() != null) {
+            request.addParameter("MultiAZEnabled", StringUtils.fromBoolean(createReplicationGroupRequest.getMultiAZEnabled()));
         }
 
         if (createReplicationGroupRequest.getNumCacheClusters() != null) {
@@ -91,40 +99,63 @@ public class CreateReplicationGroupRequestMarshaller implements Marshaller<Reque
             int nodeGroupConfigurationListIndex = 1;
 
             for (NodeGroupConfiguration nodeGroupConfigurationListValue : nodeGroupConfigurationList) {
+                if (nodeGroupConfigurationListValue != null) {
 
-                if (nodeGroupConfigurationListValue.getNodeGroupId() != null) {
-                    request.addParameter("NodeGroupConfiguration.NodeGroupConfiguration." + nodeGroupConfigurationListIndex + ".NodeGroupId",
-                            StringUtils.fromString(nodeGroupConfigurationListValue.getNodeGroupId()));
-                }
+                    if (nodeGroupConfigurationListValue.getNodeGroupId() != null) {
+                        request.addParameter("NodeGroupConfiguration.NodeGroupConfiguration." + nodeGroupConfigurationListIndex + ".NodeGroupId",
+                                StringUtils.fromString(nodeGroupConfigurationListValue.getNodeGroupId()));
+                    }
 
-                if (nodeGroupConfigurationListValue.getSlots() != null) {
-                    request.addParameter("NodeGroupConfiguration.NodeGroupConfiguration." + nodeGroupConfigurationListIndex + ".Slots",
-                            StringUtils.fromString(nodeGroupConfigurationListValue.getSlots()));
-                }
+                    if (nodeGroupConfigurationListValue.getSlots() != null) {
+                        request.addParameter("NodeGroupConfiguration.NodeGroupConfiguration." + nodeGroupConfigurationListIndex + ".Slots",
+                                StringUtils.fromString(nodeGroupConfigurationListValue.getSlots()));
+                    }
 
-                if (nodeGroupConfigurationListValue.getReplicaCount() != null) {
-                    request.addParameter("NodeGroupConfiguration.NodeGroupConfiguration." + nodeGroupConfigurationListIndex + ".ReplicaCount",
-                            StringUtils.fromInteger(nodeGroupConfigurationListValue.getReplicaCount()));
-                }
+                    if (nodeGroupConfigurationListValue.getReplicaCount() != null) {
+                        request.addParameter("NodeGroupConfiguration.NodeGroupConfiguration." + nodeGroupConfigurationListIndex + ".ReplicaCount",
+                                StringUtils.fromInteger(nodeGroupConfigurationListValue.getReplicaCount()));
+                    }
 
-                if (nodeGroupConfigurationListValue.getPrimaryAvailabilityZone() != null) {
-                    request.addParameter("NodeGroupConfiguration.NodeGroupConfiguration." + nodeGroupConfigurationListIndex + ".PrimaryAvailabilityZone",
-                            StringUtils.fromString(nodeGroupConfigurationListValue.getPrimaryAvailabilityZone()));
-                }
+                    if (nodeGroupConfigurationListValue.getPrimaryAvailabilityZone() != null) {
+                        request.addParameter("NodeGroupConfiguration.NodeGroupConfiguration." + nodeGroupConfigurationListIndex + ".PrimaryAvailabilityZone",
+                                StringUtils.fromString(nodeGroupConfigurationListValue.getPrimaryAvailabilityZone()));
+                    }
 
-                if (!nodeGroupConfigurationListValue.getReplicaAvailabilityZones().isEmpty()
-                        || !((com.amazonaws.internal.SdkInternalList<String>) nodeGroupConfigurationListValue.getReplicaAvailabilityZones()).isAutoConstruct()) {
-                    com.amazonaws.internal.SdkInternalList<String> replicaAvailabilityZonesList = (com.amazonaws.internal.SdkInternalList<String>) nodeGroupConfigurationListValue
-                            .getReplicaAvailabilityZones();
-                    int replicaAvailabilityZonesListIndex = 1;
+                    if (!nodeGroupConfigurationListValue.getReplicaAvailabilityZones().isEmpty()
+                            || !((com.amazonaws.internal.SdkInternalList<String>) nodeGroupConfigurationListValue.getReplicaAvailabilityZones())
+                                    .isAutoConstruct()) {
+                        com.amazonaws.internal.SdkInternalList<String> replicaAvailabilityZonesList = (com.amazonaws.internal.SdkInternalList<String>) nodeGroupConfigurationListValue
+                                .getReplicaAvailabilityZones();
+                        int replicaAvailabilityZonesListIndex = 1;
 
-                    for (String replicaAvailabilityZonesListValue : replicaAvailabilityZonesList) {
-                        if (replicaAvailabilityZonesListValue != null) {
-                            request.addParameter("NodeGroupConfiguration.NodeGroupConfiguration." + nodeGroupConfigurationListIndex
-                                    + ".ReplicaAvailabilityZones.AvailabilityZone." + replicaAvailabilityZonesListIndex,
-                                    StringUtils.fromString(replicaAvailabilityZonesListValue));
+                        for (String replicaAvailabilityZonesListValue : replicaAvailabilityZonesList) {
+                            if (replicaAvailabilityZonesListValue != null) {
+                                request.addParameter("NodeGroupConfiguration.NodeGroupConfiguration." + nodeGroupConfigurationListIndex
+                                        + ".ReplicaAvailabilityZones.AvailabilityZone." + replicaAvailabilityZonesListIndex,
+                                        StringUtils.fromString(replicaAvailabilityZonesListValue));
+                            }
+                            replicaAvailabilityZonesListIndex++;
                         }
-                        replicaAvailabilityZonesListIndex++;
+                    }
+
+                    if (nodeGroupConfigurationListValue.getPrimaryOutpostArn() != null) {
+                        request.addParameter("NodeGroupConfiguration.NodeGroupConfiguration." + nodeGroupConfigurationListIndex + ".PrimaryOutpostArn",
+                                StringUtils.fromString(nodeGroupConfigurationListValue.getPrimaryOutpostArn()));
+                    }
+
+                    if (!nodeGroupConfigurationListValue.getReplicaOutpostArns().isEmpty()
+                            || !((com.amazonaws.internal.SdkInternalList<String>) nodeGroupConfigurationListValue.getReplicaOutpostArns()).isAutoConstruct()) {
+                        com.amazonaws.internal.SdkInternalList<String> replicaOutpostArnsList = (com.amazonaws.internal.SdkInternalList<String>) nodeGroupConfigurationListValue
+                                .getReplicaOutpostArns();
+                        int replicaOutpostArnsListIndex = 1;
+
+                        for (String replicaOutpostArnsListValue : replicaOutpostArnsList) {
+                            if (replicaOutpostArnsListValue != null) {
+                                request.addParameter("NodeGroupConfiguration.NodeGroupConfiguration." + nodeGroupConfigurationListIndex
+                                        + ".ReplicaOutpostArns.OutpostArn." + replicaOutpostArnsListIndex, StringUtils.fromString(replicaOutpostArnsListValue));
+                            }
+                            replicaOutpostArnsListIndex++;
+                        }
                     }
                 }
                 nodeGroupConfigurationListIndex++;
@@ -186,13 +217,15 @@ public class CreateReplicationGroupRequestMarshaller implements Marshaller<Reque
             int tagsListIndex = 1;
 
             for (Tag tagsListValue : tagsList) {
+                if (tagsListValue != null) {
 
-                if (tagsListValue.getKey() != null) {
-                    request.addParameter("Tags.Tag." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
-                }
+                    if (tagsListValue.getKey() != null) {
+                        request.addParameter("Tags.Tag." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
+                    }
 
-                if (tagsListValue.getValue() != null) {
-                    request.addParameter("Tags.Tag." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                    if (tagsListValue.getValue() != null) {
+                        request.addParameter("Tags.Tag." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                    }
                 }
                 tagsListIndex++;
             }
@@ -250,6 +283,112 @@ public class CreateReplicationGroupRequestMarshaller implements Marshaller<Reque
 
         if (createReplicationGroupRequest.getAtRestEncryptionEnabled() != null) {
             request.addParameter("AtRestEncryptionEnabled", StringUtils.fromBoolean(createReplicationGroupRequest.getAtRestEncryptionEnabled()));
+        }
+
+        if (createReplicationGroupRequest.getKmsKeyId() != null) {
+            request.addParameter("KmsKeyId", StringUtils.fromString(createReplicationGroupRequest.getKmsKeyId()));
+        }
+
+        if (!createReplicationGroupRequest.getUserGroupIds().isEmpty()
+                || !((com.amazonaws.internal.SdkInternalList<String>) createReplicationGroupRequest.getUserGroupIds()).isAutoConstruct()) {
+            com.amazonaws.internal.SdkInternalList<String> userGroupIdsList = (com.amazonaws.internal.SdkInternalList<String>) createReplicationGroupRequest
+                    .getUserGroupIds();
+            int userGroupIdsListIndex = 1;
+
+            for (String userGroupIdsListValue : userGroupIdsList) {
+                if (userGroupIdsListValue != null) {
+                    request.addParameter("UserGroupIds.member." + userGroupIdsListIndex, StringUtils.fromString(userGroupIdsListValue));
+                }
+                userGroupIdsListIndex++;
+            }
+        }
+
+        if (!createReplicationGroupRequest.getLogDeliveryConfigurations().isEmpty()
+                || !((com.amazonaws.internal.SdkInternalList<LogDeliveryConfigurationRequest>) createReplicationGroupRequest.getLogDeliveryConfigurations())
+                        .isAutoConstruct()) {
+            com.amazonaws.internal.SdkInternalList<LogDeliveryConfigurationRequest> logDeliveryConfigurationsList = (com.amazonaws.internal.SdkInternalList<LogDeliveryConfigurationRequest>) createReplicationGroupRequest
+                    .getLogDeliveryConfigurations();
+            int logDeliveryConfigurationsListIndex = 1;
+
+            for (LogDeliveryConfigurationRequest logDeliveryConfigurationsListValue : logDeliveryConfigurationsList) {
+                if (logDeliveryConfigurationsListValue != null) {
+
+                    if (logDeliveryConfigurationsListValue.getLogType() != null) {
+                        request.addParameter("LogDeliveryConfigurations.LogDeliveryConfigurationRequest." + logDeliveryConfigurationsListIndex + ".LogType",
+                                StringUtils.fromString(logDeliveryConfigurationsListValue.getLogType()));
+                    }
+
+                    if (logDeliveryConfigurationsListValue.getDestinationType() != null) {
+                        request.addParameter("LogDeliveryConfigurations.LogDeliveryConfigurationRequest." + logDeliveryConfigurationsListIndex
+                                + ".DestinationType", StringUtils.fromString(logDeliveryConfigurationsListValue.getDestinationType()));
+                    }
+
+                    {
+                        DestinationDetails destinationDetails = logDeliveryConfigurationsListValue.getDestinationDetails();
+                        if (destinationDetails != null) {
+
+                            {
+                                CloudWatchLogsDestinationDetails cloudWatchLogsDetails = destinationDetails.getCloudWatchLogsDetails();
+                                if (cloudWatchLogsDetails != null) {
+
+                                    if (cloudWatchLogsDetails.getLogGroup() != null) {
+                                        request.addParameter("LogDeliveryConfigurations.LogDeliveryConfigurationRequest." + logDeliveryConfigurationsListIndex
+                                                + ".DestinationDetails.CloudWatchLogsDetails.LogGroup",
+                                                StringUtils.fromString(cloudWatchLogsDetails.getLogGroup()));
+                                    }
+                                }
+                            }
+
+                            {
+                                KinesisFirehoseDestinationDetails kinesisFirehoseDetails = destinationDetails.getKinesisFirehoseDetails();
+                                if (kinesisFirehoseDetails != null) {
+
+                                    if (kinesisFirehoseDetails.getDeliveryStream() != null) {
+                                        request.addParameter("LogDeliveryConfigurations.LogDeliveryConfigurationRequest." + logDeliveryConfigurationsListIndex
+                                                + ".DestinationDetails.KinesisFirehoseDetails.DeliveryStream",
+                                                StringUtils.fromString(kinesisFirehoseDetails.getDeliveryStream()));
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if (logDeliveryConfigurationsListValue.getLogFormat() != null) {
+                        request.addParameter("LogDeliveryConfigurations.LogDeliveryConfigurationRequest." + logDeliveryConfigurationsListIndex + ".LogFormat",
+                                StringUtils.fromString(logDeliveryConfigurationsListValue.getLogFormat()));
+                    }
+
+                    if (logDeliveryConfigurationsListValue.getEnabled() != null) {
+                        request.addParameter("LogDeliveryConfigurations.LogDeliveryConfigurationRequest." + logDeliveryConfigurationsListIndex + ".Enabled",
+                                StringUtils.fromBoolean(logDeliveryConfigurationsListValue.getEnabled()));
+                    }
+                }
+                logDeliveryConfigurationsListIndex++;
+            }
+        }
+
+        if (createReplicationGroupRequest.getDataTieringEnabled() != null) {
+            request.addParameter("DataTieringEnabled", StringUtils.fromBoolean(createReplicationGroupRequest.getDataTieringEnabled()));
+        }
+
+        if (createReplicationGroupRequest.getNetworkType() != null) {
+            request.addParameter("NetworkType", StringUtils.fromString(createReplicationGroupRequest.getNetworkType()));
+        }
+
+        if (createReplicationGroupRequest.getIpDiscovery() != null) {
+            request.addParameter("IpDiscovery", StringUtils.fromString(createReplicationGroupRequest.getIpDiscovery()));
+        }
+
+        if (createReplicationGroupRequest.getTransitEncryptionMode() != null) {
+            request.addParameter("TransitEncryptionMode", StringUtils.fromString(createReplicationGroupRequest.getTransitEncryptionMode()));
+        }
+
+        if (createReplicationGroupRequest.getClusterMode() != null) {
+            request.addParameter("ClusterMode", StringUtils.fromString(createReplicationGroupRequest.getClusterMode()));
+        }
+
+        if (createReplicationGroupRequest.getServerlessCacheSnapshotName() != null) {
+            request.addParameter("ServerlessCacheSnapshotName", StringUtils.fromString(createReplicationGroupRequest.getServerlessCacheSnapshotName()));
         }
 
         return request;

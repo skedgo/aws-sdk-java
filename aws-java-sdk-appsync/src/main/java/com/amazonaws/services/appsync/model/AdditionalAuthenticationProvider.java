@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,13 +30,14 @@ public class AdditionalAuthenticationProvider implements Serializable, Cloneable
 
     /**
      * <p>
-     * The authentication type: API key, AWS IAM, OIDC, or Amazon Cognito user pools.
+     * The authentication type: API key, Identity and Access Management (IAM), OpenID Connect (OIDC), Amazon Cognito
+     * user pools, or Lambda.
      * </p>
      */
     private String authenticationType;
     /**
      * <p>
-     * The OpenID Connect configuration.
+     * The OIDC configuration.
      * </p>
      */
     private OpenIDConnectConfig openIDConnectConfig;
@@ -46,14 +47,22 @@ public class AdditionalAuthenticationProvider implements Serializable, Cloneable
      * </p>
      */
     private CognitoUserPoolConfig userPoolConfig;
+    /**
+     * <p>
+     * Configuration for Lambda function authorization.
+     * </p>
+     */
+    private LambdaAuthorizerConfig lambdaAuthorizerConfig;
 
     /**
      * <p>
-     * The authentication type: API key, AWS IAM, OIDC, or Amazon Cognito user pools.
+     * The authentication type: API key, Identity and Access Management (IAM), OpenID Connect (OIDC), Amazon Cognito
+     * user pools, or Lambda.
      * </p>
      * 
      * @param authenticationType
-     *        The authentication type: API key, AWS IAM, OIDC, or Amazon Cognito user pools.
+     *        The authentication type: API key, Identity and Access Management (IAM), OpenID Connect (OIDC), Amazon
+     *        Cognito user pools, or Lambda.
      * @see AuthenticationType
      */
 
@@ -63,10 +72,12 @@ public class AdditionalAuthenticationProvider implements Serializable, Cloneable
 
     /**
      * <p>
-     * The authentication type: API key, AWS IAM, OIDC, or Amazon Cognito user pools.
+     * The authentication type: API key, Identity and Access Management (IAM), OpenID Connect (OIDC), Amazon Cognito
+     * user pools, or Lambda.
      * </p>
      * 
-     * @return The authentication type: API key, AWS IAM, OIDC, or Amazon Cognito user pools.
+     * @return The authentication type: API key, Identity and Access Management (IAM), OpenID Connect (OIDC), Amazon
+     *         Cognito user pools, or Lambda.
      * @see AuthenticationType
      */
 
@@ -76,11 +87,13 @@ public class AdditionalAuthenticationProvider implements Serializable, Cloneable
 
     /**
      * <p>
-     * The authentication type: API key, AWS IAM, OIDC, or Amazon Cognito user pools.
+     * The authentication type: API key, Identity and Access Management (IAM), OpenID Connect (OIDC), Amazon Cognito
+     * user pools, or Lambda.
      * </p>
      * 
      * @param authenticationType
-     *        The authentication type: API key, AWS IAM, OIDC, or Amazon Cognito user pools.
+     *        The authentication type: API key, Identity and Access Management (IAM), OpenID Connect (OIDC), Amazon
+     *        Cognito user pools, or Lambda.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AuthenticationType
      */
@@ -92,11 +105,13 @@ public class AdditionalAuthenticationProvider implements Serializable, Cloneable
 
     /**
      * <p>
-     * The authentication type: API key, AWS IAM, OIDC, or Amazon Cognito user pools.
+     * The authentication type: API key, Identity and Access Management (IAM), OpenID Connect (OIDC), Amazon Cognito
+     * user pools, or Lambda.
      * </p>
      * 
      * @param authenticationType
-     *        The authentication type: API key, AWS IAM, OIDC, or Amazon Cognito user pools.
+     *        The authentication type: API key, Identity and Access Management (IAM), OpenID Connect (OIDC), Amazon
+     *        Cognito user pools, or Lambda.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AuthenticationType
      */
@@ -108,11 +123,11 @@ public class AdditionalAuthenticationProvider implements Serializable, Cloneable
 
     /**
      * <p>
-     * The OpenID Connect configuration.
+     * The OIDC configuration.
      * </p>
      * 
      * @param openIDConnectConfig
-     *        The OpenID Connect configuration.
+     *        The OIDC configuration.
      */
 
     public void setOpenIDConnectConfig(OpenIDConnectConfig openIDConnectConfig) {
@@ -121,10 +136,10 @@ public class AdditionalAuthenticationProvider implements Serializable, Cloneable
 
     /**
      * <p>
-     * The OpenID Connect configuration.
+     * The OIDC configuration.
      * </p>
      * 
-     * @return The OpenID Connect configuration.
+     * @return The OIDC configuration.
      */
 
     public OpenIDConnectConfig getOpenIDConnectConfig() {
@@ -133,11 +148,11 @@ public class AdditionalAuthenticationProvider implements Serializable, Cloneable
 
     /**
      * <p>
-     * The OpenID Connect configuration.
+     * The OIDC configuration.
      * </p>
      * 
      * @param openIDConnectConfig
-     *        The OpenID Connect configuration.
+     *        The OIDC configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -187,6 +202,46 @@ public class AdditionalAuthenticationProvider implements Serializable, Cloneable
     }
 
     /**
+     * <p>
+     * Configuration for Lambda function authorization.
+     * </p>
+     * 
+     * @param lambdaAuthorizerConfig
+     *        Configuration for Lambda function authorization.
+     */
+
+    public void setLambdaAuthorizerConfig(LambdaAuthorizerConfig lambdaAuthorizerConfig) {
+        this.lambdaAuthorizerConfig = lambdaAuthorizerConfig;
+    }
+
+    /**
+     * <p>
+     * Configuration for Lambda function authorization.
+     * </p>
+     * 
+     * @return Configuration for Lambda function authorization.
+     */
+
+    public LambdaAuthorizerConfig getLambdaAuthorizerConfig() {
+        return this.lambdaAuthorizerConfig;
+    }
+
+    /**
+     * <p>
+     * Configuration for Lambda function authorization.
+     * </p>
+     * 
+     * @param lambdaAuthorizerConfig
+     *        Configuration for Lambda function authorization.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AdditionalAuthenticationProvider withLambdaAuthorizerConfig(LambdaAuthorizerConfig lambdaAuthorizerConfig) {
+        setLambdaAuthorizerConfig(lambdaAuthorizerConfig);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -203,7 +258,9 @@ public class AdditionalAuthenticationProvider implements Serializable, Cloneable
         if (getOpenIDConnectConfig() != null)
             sb.append("OpenIDConnectConfig: ").append(getOpenIDConnectConfig()).append(",");
         if (getUserPoolConfig() != null)
-            sb.append("UserPoolConfig: ").append(getUserPoolConfig());
+            sb.append("UserPoolConfig: ").append(getUserPoolConfig()).append(",");
+        if (getLambdaAuthorizerConfig() != null)
+            sb.append("LambdaAuthorizerConfig: ").append(getLambdaAuthorizerConfig());
         sb.append("}");
         return sb.toString();
     }
@@ -230,6 +287,10 @@ public class AdditionalAuthenticationProvider implements Serializable, Cloneable
             return false;
         if (other.getUserPoolConfig() != null && other.getUserPoolConfig().equals(this.getUserPoolConfig()) == false)
             return false;
+        if (other.getLambdaAuthorizerConfig() == null ^ this.getLambdaAuthorizerConfig() == null)
+            return false;
+        if (other.getLambdaAuthorizerConfig() != null && other.getLambdaAuthorizerConfig().equals(this.getLambdaAuthorizerConfig()) == false)
+            return false;
         return true;
     }
 
@@ -241,6 +302,7 @@ public class AdditionalAuthenticationProvider implements Serializable, Cloneable
         hashCode = prime * hashCode + ((getAuthenticationType() == null) ? 0 : getAuthenticationType().hashCode());
         hashCode = prime * hashCode + ((getOpenIDConnectConfig() == null) ? 0 : getOpenIDConnectConfig().hashCode());
         hashCode = prime * hashCode + ((getUserPoolConfig() == null) ? 0 : getUserPoolConfig().hashCode());
+        hashCode = prime * hashCode + ((getLambdaAuthorizerConfig() == null) ? 0 : getLambdaAuthorizerConfig().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,9 @@ public class DeletePermissionRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * The Amazon Resource Number (ARN) of the private CA that issued the permissions. You can find the CA's ARN by
-     * calling the <a>ListCertificateAuthorities</a> action. This must have the following form:
+     * calling the <a
+     * href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_ListCertificateAuthorities.html"
+     * >ListCertificateAuthorities</a> action. This must have the following form:
      * </p>
      * <p>
      * <code>arn:aws:acm-pca:<i>region</i>:<i>account</i>:certificate-authority/<i>12345678-1234-1234-1234-123456789012</i> </code>
@@ -38,14 +40,14 @@ public class DeletePermissionRequest extends com.amazonaws.AmazonWebServiceReque
     private String certificateAuthorityArn;
     /**
      * <p>
-     * The AWS service or identity that will have its CA permissions revoked. At this time, the only valid service
-     * principal is <code>acm.amazonaws.com</code>
+     * The Amazon Web Services service or identity that will have its CA permissions revoked. At this time, the only
+     * valid service principal is <code>acm.amazonaws.com</code>
      * </p>
      */
     private String principal;
     /**
      * <p>
-     * The AWS account that calls this action.
+     * The Amazon Web Services account that calls this action.
      * </p>
      */
     private String sourceAccount;
@@ -53,7 +55,9 @@ public class DeletePermissionRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * The Amazon Resource Number (ARN) of the private CA that issued the permissions. You can find the CA's ARN by
-     * calling the <a>ListCertificateAuthorities</a> action. This must have the following form:
+     * calling the <a
+     * href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_ListCertificateAuthorities.html"
+     * >ListCertificateAuthorities</a> action. This must have the following form:
      * </p>
      * <p>
      * <code>arn:aws:acm-pca:<i>region</i>:<i>account</i>:certificate-authority/<i>12345678-1234-1234-1234-123456789012</i> </code>
@@ -62,7 +66,9 @@ public class DeletePermissionRequest extends com.amazonaws.AmazonWebServiceReque
      * 
      * @param certificateAuthorityArn
      *        The Amazon Resource Number (ARN) of the private CA that issued the permissions. You can find the CA's ARN
-     *        by calling the <a>ListCertificateAuthorities</a> action. This must have the following form: </p>
+     *        by calling the <a
+     *        href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_ListCertificateAuthorities.html"
+     *        >ListCertificateAuthorities</a> action. This must have the following form: </p>
      *        <p>
      *        <code>arn:aws:acm-pca:<i>region</i>:<i>account</i>:certificate-authority/<i>12345678-1234-1234-1234-123456789012</i> </code>.
      */
@@ -74,7 +80,9 @@ public class DeletePermissionRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * The Amazon Resource Number (ARN) of the private CA that issued the permissions. You can find the CA's ARN by
-     * calling the <a>ListCertificateAuthorities</a> action. This must have the following form:
+     * calling the <a
+     * href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_ListCertificateAuthorities.html"
+     * >ListCertificateAuthorities</a> action. This must have the following form:
      * </p>
      * <p>
      * <code>arn:aws:acm-pca:<i>region</i>:<i>account</i>:certificate-authority/<i>12345678-1234-1234-1234-123456789012</i> </code>
@@ -82,7 +90,9 @@ public class DeletePermissionRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * 
      * @return The Amazon Resource Number (ARN) of the private CA that issued the permissions. You can find the CA's ARN
-     *         by calling the <a>ListCertificateAuthorities</a> action. This must have the following form: </p>
+     *         by calling the <a
+     *         href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_ListCertificateAuthorities.html"
+     *         >ListCertificateAuthorities</a> action. This must have the following form: </p>
      *         <p>
      *         <code>arn:aws:acm-pca:<i>region</i>:<i>account</i>:certificate-authority/<i>12345678-1234-1234-1234-123456789012</i> </code>.
      */
@@ -94,7 +104,9 @@ public class DeletePermissionRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * The Amazon Resource Number (ARN) of the private CA that issued the permissions. You can find the CA's ARN by
-     * calling the <a>ListCertificateAuthorities</a> action. This must have the following form:
+     * calling the <a
+     * href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_ListCertificateAuthorities.html"
+     * >ListCertificateAuthorities</a> action. This must have the following form:
      * </p>
      * <p>
      * <code>arn:aws:acm-pca:<i>region</i>:<i>account</i>:certificate-authority/<i>12345678-1234-1234-1234-123456789012</i> </code>
@@ -103,7 +115,9 @@ public class DeletePermissionRequest extends com.amazonaws.AmazonWebServiceReque
      * 
      * @param certificateAuthorityArn
      *        The Amazon Resource Number (ARN) of the private CA that issued the permissions. You can find the CA's ARN
-     *        by calling the <a>ListCertificateAuthorities</a> action. This must have the following form: </p>
+     *        by calling the <a
+     *        href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_ListCertificateAuthorities.html"
+     *        >ListCertificateAuthorities</a> action. This must have the following form: </p>
      *        <p>
      *        <code>arn:aws:acm-pca:<i>region</i>:<i>account</i>:certificate-authority/<i>12345678-1234-1234-1234-123456789012</i> </code>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -116,13 +130,13 @@ public class DeletePermissionRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The AWS service or identity that will have its CA permissions revoked. At this time, the only valid service
-     * principal is <code>acm.amazonaws.com</code>
+     * The Amazon Web Services service or identity that will have its CA permissions revoked. At this time, the only
+     * valid service principal is <code>acm.amazonaws.com</code>
      * </p>
      * 
      * @param principal
-     *        The AWS service or identity that will have its CA permissions revoked. At this time, the only valid
-     *        service principal is <code>acm.amazonaws.com</code>
+     *        The Amazon Web Services service or identity that will have its CA permissions revoked. At this time, the
+     *        only valid service principal is <code>acm.amazonaws.com</code>
      */
 
     public void setPrincipal(String principal) {
@@ -131,12 +145,12 @@ public class DeletePermissionRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The AWS service or identity that will have its CA permissions revoked. At this time, the only valid service
-     * principal is <code>acm.amazonaws.com</code>
+     * The Amazon Web Services service or identity that will have its CA permissions revoked. At this time, the only
+     * valid service principal is <code>acm.amazonaws.com</code>
      * </p>
      * 
-     * @return The AWS service or identity that will have its CA permissions revoked. At this time, the only valid
-     *         service principal is <code>acm.amazonaws.com</code>
+     * @return The Amazon Web Services service or identity that will have its CA permissions revoked. At this time, the
+     *         only valid service principal is <code>acm.amazonaws.com</code>
      */
 
     public String getPrincipal() {
@@ -145,13 +159,13 @@ public class DeletePermissionRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The AWS service or identity that will have its CA permissions revoked. At this time, the only valid service
-     * principal is <code>acm.amazonaws.com</code>
+     * The Amazon Web Services service or identity that will have its CA permissions revoked. At this time, the only
+     * valid service principal is <code>acm.amazonaws.com</code>
      * </p>
      * 
      * @param principal
-     *        The AWS service or identity that will have its CA permissions revoked. At this time, the only valid
-     *        service principal is <code>acm.amazonaws.com</code>
+     *        The Amazon Web Services service or identity that will have its CA permissions revoked. At this time, the
+     *        only valid service principal is <code>acm.amazonaws.com</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -162,11 +176,11 @@ public class DeletePermissionRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The AWS account that calls this action.
+     * The Amazon Web Services account that calls this action.
      * </p>
      * 
      * @param sourceAccount
-     *        The AWS account that calls this action.
+     *        The Amazon Web Services account that calls this action.
      */
 
     public void setSourceAccount(String sourceAccount) {
@@ -175,10 +189,10 @@ public class DeletePermissionRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The AWS account that calls this action.
+     * The Amazon Web Services account that calls this action.
      * </p>
      * 
-     * @return The AWS account that calls this action.
+     * @return The Amazon Web Services account that calls this action.
      */
 
     public String getSourceAccount() {
@@ -187,11 +201,11 @@ public class DeletePermissionRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The AWS account that calls this action.
+     * The Amazon Web Services account that calls this action.
      * </p>
      * 
      * @param sourceAccount
-     *        The AWS account that calls this action.
+     *        The Amazon Web Services account that calls this action.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

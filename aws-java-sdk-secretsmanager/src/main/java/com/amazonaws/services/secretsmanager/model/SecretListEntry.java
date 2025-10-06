@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 /**
  * <p>
  * A structure that contains the details about a secret. It does not include the encrypted <code>SecretString</code> and
- * <code>SecretBinary</code> values. To get those values, use the <a>GetSecretValue</a> operation.
+ * <code>SecretBinary</code> values. To get those values, use <a
+ * href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html">GetSecretValue</a> .
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/secretsmanager-2017-10-17/SecretListEntry" target="_top">AWS API
@@ -33,18 +34,11 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
      * <p>
      * The Amazon Resource Name (ARN) of the secret.
      * </p>
-     * <p>
-     * For more information about ARNs in Secrets Manager, see <a
-     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-resources"
-     * >Policy Resources</a> in the <i>AWS Secrets Manager User Guide</i>.
-     * </p>
      */
     private String aRN;
     /**
      * <p>
-     * The friendly name of the secret. You can use forward slashes in the name to represent a path hierarchy. For
-     * example, <code>/prod/databases/dbserver1</code> could represent the secret for a server named
-     * <code>dbserver1</code> in the folder <code>databases</code> in the folder <code>prod</code>.
+     * The friendly name of the secret.
      * </p>
      */
     private String name;
@@ -56,23 +50,23 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
     private String description;
     /**
      * <p>
-     * The ARN or alias of the AWS KMS customer master key (CMK) that's used to encrypt the <code>SecretString</code>
-     * and <code>SecretBinary</code> fields in each version of the secret. If you don't provide a key, then Secrets
-     * Manager defaults to encrypting the secret fields with the default KMS CMK (the one named
-     * <code>awssecretsmanager</code>) for this account.
+     * The ARN of the KMS key that Secrets Manager uses to encrypt the secret value. If the secret is encrypted with the
+     * Amazon Web Services managed key <code>aws/secretsmanager</code>, this field is omitted.
      * </p>
      */
     private String kmsKeyId;
     /**
      * <p>
-     * Indicated whether automatic, scheduled rotation is enabled for this secret.
+     * Indicates whether automatic, scheduled rotation is enabled for this secret.
      * </p>
      */
     private Boolean rotationEnabled;
     /**
      * <p>
-     * The ARN of an AWS Lambda function that's invoked by Secrets Manager to rotate and expire the secret either
-     * automatically per the schedule or manually by a call to <a>RotateSecret</a>.
+     * The ARN of an Amazon Web Services Lambda function invoked by Secrets Manager to rotate and expire the secret
+     * either automatically per the schedule or manually by a call to <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html">
+     * <code>RotateSecret</code> </a>.
      * </p>
      */
     private String rotationLambdaARN;
@@ -84,7 +78,8 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
     private RotationRulesType rotationRules;
     /**
      * <p>
-     * The last date and time that the rotation process for this secret was invoked.
+     * The most recent date and time that the Secrets Manager rotation process was successfully completed. This value is
+     * null if the secret hasn't ever rotated.
      * </p>
      */
     private java.util.Date lastRotatedDate;
@@ -96,30 +91,41 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
     private java.util.Date lastChangedDate;
     /**
      * <p>
-     * The last date that this secret was accessed. This value is truncated to midnight of the date and therefore shows
-     * only the date, not the time.
+     * The date that the secret was last accessed in the Region. This field is omitted if the secret has never been
+     * retrieved in the Region.
      * </p>
      */
     private java.util.Date lastAccessedDate;
     /**
      * <p>
-     * The date and time on which this secret was deleted. Not present on active secrets. The secret can be recovered
+     * The date and time the deletion of the secret occurred. Not present on active secrets. The secret can be recovered
      * until the number of days in the recovery window has passed, as specified in the <code>RecoveryWindowInDays</code>
-     * parameter of the <a>DeleteSecret</a> operation.
+     * parameter of the <a href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html">
+     * <code>DeleteSecret</code> </a> operation.
      * </p>
      */
     private java.util.Date deletedDate;
     /**
      * <p>
-     * The list of user-defined tags that are associated with the secret. To add tags to a secret, use
-     * <a>TagResource</a>. To remove tags, use <a>UntagResource</a>.
+     * The next rotation is scheduled to occur on or before this date. If the secret isn't configured for rotation or
+     * rotation has been disabled, Secrets Manager returns null.
+     * </p>
+     */
+    private java.util.Date nextRotationDate;
+    /**
+     * <p>
+     * The list of user-defined tags associated with the secret. To add tags to a secret, use <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_TagResource.html">
+     * <code>TagResource</code> </a>. To remove tags, use <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UntagResource.html">
+     * <code>UntagResource</code> </a>.
      * </p>
      */
     private java.util.List<Tag> tags;
     /**
      * <p>
      * A list of all of the currently assigned <code>SecretVersionStage</code> staging labels and the
-     * <code>SecretVersionId</code> that each is attached to. Staging labels are used to keep track of the different
+     * <code>SecretVersionId</code> attached to each one. Staging labels are used to keep track of the different
      * versions during the rotation process.
      * </p>
      * <note>
@@ -130,25 +136,32 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
      * </note>
      */
     private java.util.Map<String, java.util.List<String>> secretVersionsToStages;
-
+    /**
+     * <p>
+     * Returns the name of the service that created the secret.
+     * </p>
+     */
     private String owningService;
+    /**
+     * <p>
+     * The date and time when a secret was created.
+     * </p>
+     */
+    private java.util.Date createdDate;
+    /**
+     * <p>
+     * The Region where Secrets Manager originated the secret.
+     * </p>
+     */
+    private String primaryRegion;
 
     /**
      * <p>
      * The Amazon Resource Name (ARN) of the secret.
      * </p>
-     * <p>
-     * For more information about ARNs in Secrets Manager, see <a
-     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-resources"
-     * >Policy Resources</a> in the <i>AWS Secrets Manager User Guide</i>.
-     * </p>
      * 
      * @param aRN
-     *        The Amazon Resource Name (ARN) of the secret.</p>
-     *        <p>
-     *        For more information about ARNs in Secrets Manager, see <a href=
-     *        "https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-resources"
-     *        >Policy Resources</a> in the <i>AWS Secrets Manager User Guide</i>.
+     *        The Amazon Resource Name (ARN) of the secret.
      */
 
     public void setARN(String aRN) {
@@ -159,17 +172,8 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
      * <p>
      * The Amazon Resource Name (ARN) of the secret.
      * </p>
-     * <p>
-     * For more information about ARNs in Secrets Manager, see <a
-     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-resources"
-     * >Policy Resources</a> in the <i>AWS Secrets Manager User Guide</i>.
-     * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the secret.</p>
-     *         <p>
-     *         For more information about ARNs in Secrets Manager, see <a href=
-     *         "https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-resources"
-     *         >Policy Resources</a> in the <i>AWS Secrets Manager User Guide</i>.
+     * @return The Amazon Resource Name (ARN) of the secret.
      */
 
     public String getARN() {
@@ -180,18 +184,9 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
      * <p>
      * The Amazon Resource Name (ARN) of the secret.
      * </p>
-     * <p>
-     * For more information about ARNs in Secrets Manager, see <a
-     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-resources"
-     * >Policy Resources</a> in the <i>AWS Secrets Manager User Guide</i>.
-     * </p>
      * 
      * @param aRN
-     *        The Amazon Resource Name (ARN) of the secret.</p>
-     *        <p>
-     *        For more information about ARNs in Secrets Manager, see <a href=
-     *        "https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-resources"
-     *        >Policy Resources</a> in the <i>AWS Secrets Manager User Guide</i>.
+     *        The Amazon Resource Name (ARN) of the secret.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -202,15 +197,11 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The friendly name of the secret. You can use forward slashes in the name to represent a path hierarchy. For
-     * example, <code>/prod/databases/dbserver1</code> could represent the secret for a server named
-     * <code>dbserver1</code> in the folder <code>databases</code> in the folder <code>prod</code>.
+     * The friendly name of the secret.
      * </p>
      * 
      * @param name
-     *        The friendly name of the secret. You can use forward slashes in the name to represent a path hierarchy.
-     *        For example, <code>/prod/databases/dbserver1</code> could represent the secret for a server named
-     *        <code>dbserver1</code> in the folder <code>databases</code> in the folder <code>prod</code>.
+     *        The friendly name of the secret.
      */
 
     public void setName(String name) {
@@ -219,14 +210,10 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The friendly name of the secret. You can use forward slashes in the name to represent a path hierarchy. For
-     * example, <code>/prod/databases/dbserver1</code> could represent the secret for a server named
-     * <code>dbserver1</code> in the folder <code>databases</code> in the folder <code>prod</code>.
+     * The friendly name of the secret.
      * </p>
      * 
-     * @return The friendly name of the secret. You can use forward slashes in the name to represent a path hierarchy.
-     *         For example, <code>/prod/databases/dbserver1</code> could represent the secret for a server named
-     *         <code>dbserver1</code> in the folder <code>databases</code> in the folder <code>prod</code>.
+     * @return The friendly name of the secret.
      */
 
     public String getName() {
@@ -235,15 +222,11 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The friendly name of the secret. You can use forward slashes in the name to represent a path hierarchy. For
-     * example, <code>/prod/databases/dbserver1</code> could represent the secret for a server named
-     * <code>dbserver1</code> in the folder <code>databases</code> in the folder <code>prod</code>.
+     * The friendly name of the secret.
      * </p>
      * 
      * @param name
-     *        The friendly name of the secret. You can use forward slashes in the name to represent a path hierarchy.
-     *        For example, <code>/prod/databases/dbserver1</code> could represent the secret for a server named
-     *        <code>dbserver1</code> in the folder <code>databases</code> in the folder <code>prod</code>.
+     *        The friendly name of the secret.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -294,17 +277,13 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The ARN or alias of the AWS KMS customer master key (CMK) that's used to encrypt the <code>SecretString</code>
-     * and <code>SecretBinary</code> fields in each version of the secret. If you don't provide a key, then Secrets
-     * Manager defaults to encrypting the secret fields with the default KMS CMK (the one named
-     * <code>awssecretsmanager</code>) for this account.
+     * The ARN of the KMS key that Secrets Manager uses to encrypt the secret value. If the secret is encrypted with the
+     * Amazon Web Services managed key <code>aws/secretsmanager</code>, this field is omitted.
      * </p>
      * 
      * @param kmsKeyId
-     *        The ARN or alias of the AWS KMS customer master key (CMK) that's used to encrypt the
-     *        <code>SecretString</code> and <code>SecretBinary</code> fields in each version of the secret. If you don't
-     *        provide a key, then Secrets Manager defaults to encrypting the secret fields with the default KMS CMK (the
-     *        one named <code>awssecretsmanager</code>) for this account.
+     *        The ARN of the KMS key that Secrets Manager uses to encrypt the secret value. If the secret is encrypted
+     *        with the Amazon Web Services managed key <code>aws/secretsmanager</code>, this field is omitted.
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -313,16 +292,12 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The ARN or alias of the AWS KMS customer master key (CMK) that's used to encrypt the <code>SecretString</code>
-     * and <code>SecretBinary</code> fields in each version of the secret. If you don't provide a key, then Secrets
-     * Manager defaults to encrypting the secret fields with the default KMS CMK (the one named
-     * <code>awssecretsmanager</code>) for this account.
+     * The ARN of the KMS key that Secrets Manager uses to encrypt the secret value. If the secret is encrypted with the
+     * Amazon Web Services managed key <code>aws/secretsmanager</code>, this field is omitted.
      * </p>
      * 
-     * @return The ARN or alias of the AWS KMS customer master key (CMK) that's used to encrypt the
-     *         <code>SecretString</code> and <code>SecretBinary</code> fields in each version of the secret. If you
-     *         don't provide a key, then Secrets Manager defaults to encrypting the secret fields with the default KMS
-     *         CMK (the one named <code>awssecretsmanager</code>) for this account.
+     * @return The ARN of the KMS key that Secrets Manager uses to encrypt the secret value. If the secret is encrypted
+     *         with the Amazon Web Services managed key <code>aws/secretsmanager</code>, this field is omitted.
      */
 
     public String getKmsKeyId() {
@@ -331,17 +306,13 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The ARN or alias of the AWS KMS customer master key (CMK) that's used to encrypt the <code>SecretString</code>
-     * and <code>SecretBinary</code> fields in each version of the secret. If you don't provide a key, then Secrets
-     * Manager defaults to encrypting the secret fields with the default KMS CMK (the one named
-     * <code>awssecretsmanager</code>) for this account.
+     * The ARN of the KMS key that Secrets Manager uses to encrypt the secret value. If the secret is encrypted with the
+     * Amazon Web Services managed key <code>aws/secretsmanager</code>, this field is omitted.
      * </p>
      * 
      * @param kmsKeyId
-     *        The ARN or alias of the AWS KMS customer master key (CMK) that's used to encrypt the
-     *        <code>SecretString</code> and <code>SecretBinary</code> fields in each version of the secret. If you don't
-     *        provide a key, then Secrets Manager defaults to encrypting the secret fields with the default KMS CMK (the
-     *        one named <code>awssecretsmanager</code>) for this account.
+     *        The ARN of the KMS key that Secrets Manager uses to encrypt the secret value. If the secret is encrypted
+     *        with the Amazon Web Services managed key <code>aws/secretsmanager</code>, this field is omitted.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -352,11 +323,11 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Indicated whether automatic, scheduled rotation is enabled for this secret.
+     * Indicates whether automatic, scheduled rotation is enabled for this secret.
      * </p>
      * 
      * @param rotationEnabled
-     *        Indicated whether automatic, scheduled rotation is enabled for this secret.
+     *        Indicates whether automatic, scheduled rotation is enabled for this secret.
      */
 
     public void setRotationEnabled(Boolean rotationEnabled) {
@@ -365,10 +336,10 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Indicated whether automatic, scheduled rotation is enabled for this secret.
+     * Indicates whether automatic, scheduled rotation is enabled for this secret.
      * </p>
      * 
-     * @return Indicated whether automatic, scheduled rotation is enabled for this secret.
+     * @return Indicates whether automatic, scheduled rotation is enabled for this secret.
      */
 
     public Boolean getRotationEnabled() {
@@ -377,11 +348,11 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Indicated whether automatic, scheduled rotation is enabled for this secret.
+     * Indicates whether automatic, scheduled rotation is enabled for this secret.
      * </p>
      * 
      * @param rotationEnabled
-     *        Indicated whether automatic, scheduled rotation is enabled for this secret.
+     *        Indicates whether automatic, scheduled rotation is enabled for this secret.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -392,10 +363,10 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Indicated whether automatic, scheduled rotation is enabled for this secret.
+     * Indicates whether automatic, scheduled rotation is enabled for this secret.
      * </p>
      * 
-     * @return Indicated whether automatic, scheduled rotation is enabled for this secret.
+     * @return Indicates whether automatic, scheduled rotation is enabled for this secret.
      */
 
     public Boolean isRotationEnabled() {
@@ -404,13 +375,17 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The ARN of an AWS Lambda function that's invoked by Secrets Manager to rotate and expire the secret either
-     * automatically per the schedule or manually by a call to <a>RotateSecret</a>.
+     * The ARN of an Amazon Web Services Lambda function invoked by Secrets Manager to rotate and expire the secret
+     * either automatically per the schedule or manually by a call to <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html">
+     * <code>RotateSecret</code> </a>.
      * </p>
      * 
      * @param rotationLambdaARN
-     *        The ARN of an AWS Lambda function that's invoked by Secrets Manager to rotate and expire the secret either
-     *        automatically per the schedule or manually by a call to <a>RotateSecret</a>.
+     *        The ARN of an Amazon Web Services Lambda function invoked by Secrets Manager to rotate and expire the
+     *        secret either automatically per the schedule or manually by a call to <a
+     *        href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html">
+     *        <code>RotateSecret</code> </a>.
      */
 
     public void setRotationLambdaARN(String rotationLambdaARN) {
@@ -419,12 +394,16 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The ARN of an AWS Lambda function that's invoked by Secrets Manager to rotate and expire the secret either
-     * automatically per the schedule or manually by a call to <a>RotateSecret</a>.
+     * The ARN of an Amazon Web Services Lambda function invoked by Secrets Manager to rotate and expire the secret
+     * either automatically per the schedule or manually by a call to <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html">
+     * <code>RotateSecret</code> </a>.
      * </p>
      * 
-     * @return The ARN of an AWS Lambda function that's invoked by Secrets Manager to rotate and expire the secret
-     *         either automatically per the schedule or manually by a call to <a>RotateSecret</a>.
+     * @return The ARN of an Amazon Web Services Lambda function invoked by Secrets Manager to rotate and expire the
+     *         secret either automatically per the schedule or manually by a call to <a
+     *         href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html">
+     *         <code>RotateSecret</code> </a>.
      */
 
     public String getRotationLambdaARN() {
@@ -433,13 +412,17 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The ARN of an AWS Lambda function that's invoked by Secrets Manager to rotate and expire the secret either
-     * automatically per the schedule or manually by a call to <a>RotateSecret</a>.
+     * The ARN of an Amazon Web Services Lambda function invoked by Secrets Manager to rotate and expire the secret
+     * either automatically per the schedule or manually by a call to <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html">
+     * <code>RotateSecret</code> </a>.
      * </p>
      * 
      * @param rotationLambdaARN
-     *        The ARN of an AWS Lambda function that's invoked by Secrets Manager to rotate and expire the secret either
-     *        automatically per the schedule or manually by a call to <a>RotateSecret</a>.
+     *        The ARN of an Amazon Web Services Lambda function invoked by Secrets Manager to rotate and expire the
+     *        secret either automatically per the schedule or manually by a call to <a
+     *        href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html">
+     *        <code>RotateSecret</code> </a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -490,11 +473,13 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The last date and time that the rotation process for this secret was invoked.
+     * The most recent date and time that the Secrets Manager rotation process was successfully completed. This value is
+     * null if the secret hasn't ever rotated.
      * </p>
      * 
      * @param lastRotatedDate
-     *        The last date and time that the rotation process for this secret was invoked.
+     *        The most recent date and time that the Secrets Manager rotation process was successfully completed. This
+     *        value is null if the secret hasn't ever rotated.
      */
 
     public void setLastRotatedDate(java.util.Date lastRotatedDate) {
@@ -503,10 +488,12 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The last date and time that the rotation process for this secret was invoked.
+     * The most recent date and time that the Secrets Manager rotation process was successfully completed. This value is
+     * null if the secret hasn't ever rotated.
      * </p>
      * 
-     * @return The last date and time that the rotation process for this secret was invoked.
+     * @return The most recent date and time that the Secrets Manager rotation process was successfully completed. This
+     *         value is null if the secret hasn't ever rotated.
      */
 
     public java.util.Date getLastRotatedDate() {
@@ -515,11 +502,13 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The last date and time that the rotation process for this secret was invoked.
+     * The most recent date and time that the Secrets Manager rotation process was successfully completed. This value is
+     * null if the secret hasn't ever rotated.
      * </p>
      * 
      * @param lastRotatedDate
-     *        The last date and time that the rotation process for this secret was invoked.
+     *        The most recent date and time that the Secrets Manager rotation process was successfully completed. This
+     *        value is null if the secret hasn't ever rotated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -570,13 +559,13 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The last date that this secret was accessed. This value is truncated to midnight of the date and therefore shows
-     * only the date, not the time.
+     * The date that the secret was last accessed in the Region. This field is omitted if the secret has never been
+     * retrieved in the Region.
      * </p>
      * 
      * @param lastAccessedDate
-     *        The last date that this secret was accessed. This value is truncated to midnight of the date and therefore
-     *        shows only the date, not the time.
+     *        The date that the secret was last accessed in the Region. This field is omitted if the secret has never
+     *        been retrieved in the Region.
      */
 
     public void setLastAccessedDate(java.util.Date lastAccessedDate) {
@@ -585,12 +574,12 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The last date that this secret was accessed. This value is truncated to midnight of the date and therefore shows
-     * only the date, not the time.
+     * The date that the secret was last accessed in the Region. This field is omitted if the secret has never been
+     * retrieved in the Region.
      * </p>
      * 
-     * @return The last date that this secret was accessed. This value is truncated to midnight of the date and
-     *         therefore shows only the date, not the time.
+     * @return The date that the secret was last accessed in the Region. This field is omitted if the secret has never
+     *         been retrieved in the Region.
      */
 
     public java.util.Date getLastAccessedDate() {
@@ -599,13 +588,13 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The last date that this secret was accessed. This value is truncated to midnight of the date and therefore shows
-     * only the date, not the time.
+     * The date that the secret was last accessed in the Region. This field is omitted if the secret has never been
+     * retrieved in the Region.
      * </p>
      * 
      * @param lastAccessedDate
-     *        The last date that this secret was accessed. This value is truncated to midnight of the date and therefore
-     *        shows only the date, not the time.
+     *        The date that the secret was last accessed in the Region. This field is omitted if the secret has never
+     *        been retrieved in the Region.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -616,15 +605,18 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The date and time on which this secret was deleted. Not present on active secrets. The secret can be recovered
+     * The date and time the deletion of the secret occurred. Not present on active secrets. The secret can be recovered
      * until the number of days in the recovery window has passed, as specified in the <code>RecoveryWindowInDays</code>
-     * parameter of the <a>DeleteSecret</a> operation.
+     * parameter of the <a href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html">
+     * <code>DeleteSecret</code> </a> operation.
      * </p>
      * 
      * @param deletedDate
-     *        The date and time on which this secret was deleted. Not present on active secrets. The secret can be
+     *        The date and time the deletion of the secret occurred. Not present on active secrets. The secret can be
      *        recovered until the number of days in the recovery window has passed, as specified in the
-     *        <code>RecoveryWindowInDays</code> parameter of the <a>DeleteSecret</a> operation.
+     *        <code>RecoveryWindowInDays</code> parameter of the <a
+     *        href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html">
+     *        <code>DeleteSecret</code> </a> operation.
      */
 
     public void setDeletedDate(java.util.Date deletedDate) {
@@ -633,14 +625,17 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The date and time on which this secret was deleted. Not present on active secrets. The secret can be recovered
+     * The date and time the deletion of the secret occurred. Not present on active secrets. The secret can be recovered
      * until the number of days in the recovery window has passed, as specified in the <code>RecoveryWindowInDays</code>
-     * parameter of the <a>DeleteSecret</a> operation.
+     * parameter of the <a href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html">
+     * <code>DeleteSecret</code> </a> operation.
      * </p>
      * 
-     * @return The date and time on which this secret was deleted. Not present on active secrets. The secret can be
+     * @return The date and time the deletion of the secret occurred. Not present on active secrets. The secret can be
      *         recovered until the number of days in the recovery window has passed, as specified in the
-     *         <code>RecoveryWindowInDays</code> parameter of the <a>DeleteSecret</a> operation.
+     *         <code>RecoveryWindowInDays</code> parameter of the <a
+     *         href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html">
+     *         <code>DeleteSecret</code> </a> operation.
      */
 
     public java.util.Date getDeletedDate() {
@@ -649,15 +644,18 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The date and time on which this secret was deleted. Not present on active secrets. The secret can be recovered
+     * The date and time the deletion of the secret occurred. Not present on active secrets. The secret can be recovered
      * until the number of days in the recovery window has passed, as specified in the <code>RecoveryWindowInDays</code>
-     * parameter of the <a>DeleteSecret</a> operation.
+     * parameter of the <a href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html">
+     * <code>DeleteSecret</code> </a> operation.
      * </p>
      * 
      * @param deletedDate
-     *        The date and time on which this secret was deleted. Not present on active secrets. The secret can be
+     *        The date and time the deletion of the secret occurred. Not present on active secrets. The secret can be
      *        recovered until the number of days in the recovery window has passed, as specified in the
-     *        <code>RecoveryWindowInDays</code> parameter of the <a>DeleteSecret</a> operation.
+     *        <code>RecoveryWindowInDays</code> parameter of the <a
+     *        href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html">
+     *        <code>DeleteSecret</code> </a> operation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -668,12 +666,64 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The list of user-defined tags that are associated with the secret. To add tags to a secret, use
-     * <a>TagResource</a>. To remove tags, use <a>UntagResource</a>.
+     * The next rotation is scheduled to occur on or before this date. If the secret isn't configured for rotation or
+     * rotation has been disabled, Secrets Manager returns null.
      * </p>
      * 
-     * @return The list of user-defined tags that are associated with the secret. To add tags to a secret, use
-     *         <a>TagResource</a>. To remove tags, use <a>UntagResource</a>.
+     * @param nextRotationDate
+     *        The next rotation is scheduled to occur on or before this date. If the secret isn't configured for
+     *        rotation or rotation has been disabled, Secrets Manager returns null.
+     */
+
+    public void setNextRotationDate(java.util.Date nextRotationDate) {
+        this.nextRotationDate = nextRotationDate;
+    }
+
+    /**
+     * <p>
+     * The next rotation is scheduled to occur on or before this date. If the secret isn't configured for rotation or
+     * rotation has been disabled, Secrets Manager returns null.
+     * </p>
+     * 
+     * @return The next rotation is scheduled to occur on or before this date. If the secret isn't configured for
+     *         rotation or rotation has been disabled, Secrets Manager returns null.
+     */
+
+    public java.util.Date getNextRotationDate() {
+        return this.nextRotationDate;
+    }
+
+    /**
+     * <p>
+     * The next rotation is scheduled to occur on or before this date. If the secret isn't configured for rotation or
+     * rotation has been disabled, Secrets Manager returns null.
+     * </p>
+     * 
+     * @param nextRotationDate
+     *        The next rotation is scheduled to occur on or before this date. If the secret isn't configured for
+     *        rotation or rotation has been disabled, Secrets Manager returns null.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SecretListEntry withNextRotationDate(java.util.Date nextRotationDate) {
+        setNextRotationDate(nextRotationDate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of user-defined tags associated with the secret. To add tags to a secret, use <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_TagResource.html">
+     * <code>TagResource</code> </a>. To remove tags, use <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UntagResource.html">
+     * <code>UntagResource</code> </a>.
+     * </p>
+     * 
+     * @return The list of user-defined tags associated with the secret. To add tags to a secret, use <a
+     *         href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_TagResource.html">
+     *         <code>TagResource</code> </a>. To remove tags, use <a
+     *         href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UntagResource.html">
+     *         <code>UntagResource</code> </a>.
      */
 
     public java.util.List<Tag> getTags() {
@@ -682,13 +732,19 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The list of user-defined tags that are associated with the secret. To add tags to a secret, use
-     * <a>TagResource</a>. To remove tags, use <a>UntagResource</a>.
+     * The list of user-defined tags associated with the secret. To add tags to a secret, use <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_TagResource.html">
+     * <code>TagResource</code> </a>. To remove tags, use <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UntagResource.html">
+     * <code>UntagResource</code> </a>.
      * </p>
      * 
      * @param tags
-     *        The list of user-defined tags that are associated with the secret. To add tags to a secret, use
-     *        <a>TagResource</a>. To remove tags, use <a>UntagResource</a>.
+     *        The list of user-defined tags associated with the secret. To add tags to a secret, use <a
+     *        href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_TagResource.html">
+     *        <code>TagResource</code> </a>. To remove tags, use <a
+     *        href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UntagResource.html">
+     *        <code>UntagResource</code> </a>.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -702,8 +758,11 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The list of user-defined tags that are associated with the secret. To add tags to a secret, use
-     * <a>TagResource</a>. To remove tags, use <a>UntagResource</a>.
+     * The list of user-defined tags associated with the secret. To add tags to a secret, use <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_TagResource.html">
+     * <code>TagResource</code> </a>. To remove tags, use <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UntagResource.html">
+     * <code>UntagResource</code> </a>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -712,8 +771,11 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
      * </p>
      * 
      * @param tags
-     *        The list of user-defined tags that are associated with the secret. To add tags to a secret, use
-     *        <a>TagResource</a>. To remove tags, use <a>UntagResource</a>.
+     *        The list of user-defined tags associated with the secret. To add tags to a secret, use <a
+     *        href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_TagResource.html">
+     *        <code>TagResource</code> </a>. To remove tags, use <a
+     *        href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UntagResource.html">
+     *        <code>UntagResource</code> </a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -729,13 +791,19 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The list of user-defined tags that are associated with the secret. To add tags to a secret, use
-     * <a>TagResource</a>. To remove tags, use <a>UntagResource</a>.
+     * The list of user-defined tags associated with the secret. To add tags to a secret, use <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_TagResource.html">
+     * <code>TagResource</code> </a>. To remove tags, use <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UntagResource.html">
+     * <code>UntagResource</code> </a>.
      * </p>
      * 
      * @param tags
-     *        The list of user-defined tags that are associated with the secret. To add tags to a secret, use
-     *        <a>TagResource</a>. To remove tags, use <a>UntagResource</a>.
+     *        The list of user-defined tags associated with the secret. To add tags to a secret, use <a
+     *        href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_TagResource.html">
+     *        <code>TagResource</code> </a>. To remove tags, use <a
+     *        href="https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UntagResource.html">
+     *        <code>UntagResource</code> </a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -747,7 +815,7 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
     /**
      * <p>
      * A list of all of the currently assigned <code>SecretVersionStage</code> staging labels and the
-     * <code>SecretVersionId</code> that each is attached to. Staging labels are used to keep track of the different
+     * <code>SecretVersionId</code> attached to each one. Staging labels are used to keep track of the different
      * versions during the rotation process.
      * </p>
      * <note>
@@ -758,8 +826,8 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
      * </note>
      * 
      * @return A list of all of the currently assigned <code>SecretVersionStage</code> staging labels and the
-     *         <code>SecretVersionId</code> that each is attached to. Staging labels are used to keep track of the
-     *         different versions during the rotation process.</p> <note>
+     *         <code>SecretVersionId</code> attached to each one. Staging labels are used to keep track of the different
+     *         versions during the rotation process.</p> <note>
      *         <p>
      *         A version that does not have any <code>SecretVersionStage</code> is considered deprecated and subject to
      *         deletion. Such versions are not included in this list.
@@ -773,7 +841,7 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
     /**
      * <p>
      * A list of all of the currently assigned <code>SecretVersionStage</code> staging labels and the
-     * <code>SecretVersionId</code> that each is attached to. Staging labels are used to keep track of the different
+     * <code>SecretVersionId</code> attached to each one. Staging labels are used to keep track of the different
      * versions during the rotation process.
      * </p>
      * <note>
@@ -785,8 +853,8 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
      * 
      * @param secretVersionsToStages
      *        A list of all of the currently assigned <code>SecretVersionStage</code> staging labels and the
-     *        <code>SecretVersionId</code> that each is attached to. Staging labels are used to keep track of the
-     *        different versions during the rotation process.</p> <note>
+     *        <code>SecretVersionId</code> attached to each one. Staging labels are used to keep track of the different
+     *        versions during the rotation process.</p> <note>
      *        <p>
      *        A version that does not have any <code>SecretVersionStage</code> is considered deprecated and subject to
      *        deletion. Such versions are not included in this list.
@@ -800,7 +868,7 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
     /**
      * <p>
      * A list of all of the currently assigned <code>SecretVersionStage</code> staging labels and the
-     * <code>SecretVersionId</code> that each is attached to. Staging labels are used to keep track of the different
+     * <code>SecretVersionId</code> attached to each one. Staging labels are used to keep track of the different
      * versions during the rotation process.
      * </p>
      * <note>
@@ -812,8 +880,8 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
      * 
      * @param secretVersionsToStages
      *        A list of all of the currently assigned <code>SecretVersionStage</code> staging labels and the
-     *        <code>SecretVersionId</code> that each is attached to. Staging labels are used to keep track of the
-     *        different versions during the rotation process.</p> <note>
+     *        <code>SecretVersionId</code> attached to each one. Staging labels are used to keep track of the different
+     *        versions during the rotation process.</p> <note>
      *        <p>
      *        A version that does not have any <code>SecretVersionStage</code> is considered deprecated and subject to
      *        deletion. Such versions are not included in this list.
@@ -825,6 +893,13 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
         setSecretVersionsToStages(secretVersionsToStages);
         return this;
     }
+
+    /**
+     * Add a single SecretVersionsToStages entry
+     *
+     * @see SecretListEntry#withSecretVersionsToStages
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public SecretListEntry addSecretVersionsToStagesEntry(String key, java.util.List<String> value) {
         if (null == this.secretVersionsToStages) {
@@ -848,7 +923,12 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
     }
 
     /**
+     * <p>
+     * Returns the name of the service that created the secret.
+     * </p>
+     * 
      * @param owningService
+     *        Returns the name of the service that created the secret.
      */
 
     public void setOwningService(String owningService) {
@@ -856,7 +936,11 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
     }
 
     /**
-     * @return
+     * <p>
+     * Returns the name of the service that created the secret.
+     * </p>
+     * 
+     * @return Returns the name of the service that created the secret.
      */
 
     public String getOwningService() {
@@ -864,12 +948,97 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
     }
 
     /**
+     * <p>
+     * Returns the name of the service that created the secret.
+     * </p>
+     * 
      * @param owningService
+     *        Returns the name of the service that created the secret.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public SecretListEntry withOwningService(String owningService) {
         setOwningService(owningService);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The date and time when a secret was created.
+     * </p>
+     * 
+     * @param createdDate
+     *        The date and time when a secret was created.
+     */
+
+    public void setCreatedDate(java.util.Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    /**
+     * <p>
+     * The date and time when a secret was created.
+     * </p>
+     * 
+     * @return The date and time when a secret was created.
+     */
+
+    public java.util.Date getCreatedDate() {
+        return this.createdDate;
+    }
+
+    /**
+     * <p>
+     * The date and time when a secret was created.
+     * </p>
+     * 
+     * @param createdDate
+     *        The date and time when a secret was created.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SecretListEntry withCreatedDate(java.util.Date createdDate) {
+        setCreatedDate(createdDate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Region where Secrets Manager originated the secret.
+     * </p>
+     * 
+     * @param primaryRegion
+     *        The Region where Secrets Manager originated the secret.
+     */
+
+    public void setPrimaryRegion(String primaryRegion) {
+        this.primaryRegion = primaryRegion;
+    }
+
+    /**
+     * <p>
+     * The Region where Secrets Manager originated the secret.
+     * </p>
+     * 
+     * @return The Region where Secrets Manager originated the secret.
+     */
+
+    public String getPrimaryRegion() {
+        return this.primaryRegion;
+    }
+
+    /**
+     * <p>
+     * The Region where Secrets Manager originated the secret.
+     * </p>
+     * 
+     * @param primaryRegion
+     *        The Region where Secrets Manager originated the secret.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SecretListEntry withPrimaryRegion(String primaryRegion) {
+        setPrimaryRegion(primaryRegion);
         return this;
     }
 
@@ -907,12 +1076,18 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
             sb.append("LastAccessedDate: ").append(getLastAccessedDate()).append(",");
         if (getDeletedDate() != null)
             sb.append("DeletedDate: ").append(getDeletedDate()).append(",");
+        if (getNextRotationDate() != null)
+            sb.append("NextRotationDate: ").append(getNextRotationDate()).append(",");
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getSecretVersionsToStages() != null)
             sb.append("SecretVersionsToStages: ").append(getSecretVersionsToStages()).append(",");
         if (getOwningService() != null)
-            sb.append("OwningService: ").append(getOwningService());
+            sb.append("OwningService: ").append(getOwningService()).append(",");
+        if (getCreatedDate() != null)
+            sb.append("CreatedDate: ").append(getCreatedDate()).append(",");
+        if (getPrimaryRegion() != null)
+            sb.append("PrimaryRegion: ").append(getPrimaryRegion());
         sb.append("}");
         return sb.toString();
     }
@@ -971,6 +1146,10 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
             return false;
         if (other.getDeletedDate() != null && other.getDeletedDate().equals(this.getDeletedDate()) == false)
             return false;
+        if (other.getNextRotationDate() == null ^ this.getNextRotationDate() == null)
+            return false;
+        if (other.getNextRotationDate() != null && other.getNextRotationDate().equals(this.getNextRotationDate()) == false)
+            return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
@@ -982,6 +1161,14 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
         if (other.getOwningService() == null ^ this.getOwningService() == null)
             return false;
         if (other.getOwningService() != null && other.getOwningService().equals(this.getOwningService()) == false)
+            return false;
+        if (other.getCreatedDate() == null ^ this.getCreatedDate() == null)
+            return false;
+        if (other.getCreatedDate() != null && other.getCreatedDate().equals(this.getCreatedDate()) == false)
+            return false;
+        if (other.getPrimaryRegion() == null ^ this.getPrimaryRegion() == null)
+            return false;
+        if (other.getPrimaryRegion() != null && other.getPrimaryRegion().equals(this.getPrimaryRegion()) == false)
             return false;
         return true;
     }
@@ -1002,9 +1189,12 @@ public class SecretListEntry implements Serializable, Cloneable, StructuredPojo 
         hashCode = prime * hashCode + ((getLastChangedDate() == null) ? 0 : getLastChangedDate().hashCode());
         hashCode = prime * hashCode + ((getLastAccessedDate() == null) ? 0 : getLastAccessedDate().hashCode());
         hashCode = prime * hashCode + ((getDeletedDate() == null) ? 0 : getDeletedDate().hashCode());
+        hashCode = prime * hashCode + ((getNextRotationDate() == null) ? 0 : getNextRotationDate().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getSecretVersionsToStages() == null) ? 0 : getSecretVersionsToStages().hashCode());
         hashCode = prime * hashCode + ((getOwningService() == null) ? 0 : getOwningService().hashCode());
+        hashCode = prime * hashCode + ((getCreatedDate() == null) ? 0 : getCreatedDate().hashCode());
+        hashCode = prime * hashCode + ((getPrimaryRegion() == null) ? 0 : getPrimaryRegion().hashCode());
         return hashCode;
     }
 

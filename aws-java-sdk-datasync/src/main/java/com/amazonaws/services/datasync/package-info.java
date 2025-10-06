@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,14 +12,15 @@
  */
 
 /**
- * <fullname>AWS DataSync</fullname>
+ * <fullname>DataSync</fullname>
  * <p>
- * AWS DataSync is a managed data transfer service that makes it simpler for you to automate moving data between
- * on-premises storage and Amazon Simple Storage Service (Amazon S3) or Amazon Elastic File System (Amazon EFS).
+ * DataSync is an online data movement and discovery service that simplifies data migration and helps you quickly,
+ * easily, and securely transfer your file or object data to, from, and between Amazon Web Services storage services.
  * </p>
  * <p>
- * This API interface reference for AWS DataSync contains documentation for a programming interface that you can use to
- * manage AWS DataSync.
+ * This API interface reference includes documentation for using DataSync programmatically. For complete information,
+ * see the <i> <a href="https://docs.aws.amazon.com/datasync/latest/userguide/what-is-datasync.html">DataSync User
+ * Guide</a> </i>.
  * </p>
  */
 package com.amazonaws.services.datasync;

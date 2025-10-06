@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,13 +52,33 @@ public class UpdateEventSourceMappingResultJsonUnmarshaller implements Unmarshal
                     context.nextToken();
                     updateEventSourceMappingResult.setUUID(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("StartingPosition", targetDepth)) {
+                    context.nextToken();
+                    updateEventSourceMappingResult.setStartingPosition(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("StartingPositionTimestamp", targetDepth)) {
+                    context.nextToken();
+                    updateEventSourceMappingResult.setStartingPositionTimestamp(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
                 if (context.testExpression("BatchSize", targetDepth)) {
                     context.nextToken();
                     updateEventSourceMappingResult.setBatchSize(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
+                if (context.testExpression("MaximumBatchingWindowInSeconds", targetDepth)) {
+                    context.nextToken();
+                    updateEventSourceMappingResult.setMaximumBatchingWindowInSeconds(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("ParallelizationFactor", targetDepth)) {
+                    context.nextToken();
+                    updateEventSourceMappingResult.setParallelizationFactor(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
                 if (context.testExpression("EventSourceArn", targetDepth)) {
                     context.nextToken();
                     updateEventSourceMappingResult.setEventSourceArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("FilterCriteria", targetDepth)) {
+                    context.nextToken();
+                    updateEventSourceMappingResult.setFilterCriteria(FilterCriteriaJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("FunctionArn", targetDepth)) {
                     context.nextToken();
@@ -79,6 +99,74 @@ public class UpdateEventSourceMappingResultJsonUnmarshaller implements Unmarshal
                 if (context.testExpression("StateTransitionReason", targetDepth)) {
                     context.nextToken();
                     updateEventSourceMappingResult.setStateTransitionReason(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("DestinationConfig", targetDepth)) {
+                    context.nextToken();
+                    updateEventSourceMappingResult.setDestinationConfig(DestinationConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("Topics", targetDepth)) {
+                    context.nextToken();
+                    updateEventSourceMappingResult.setTopics(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("Queues", targetDepth)) {
+                    context.nextToken();
+                    updateEventSourceMappingResult.setQueues(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("SourceAccessConfigurations", targetDepth)) {
+                    context.nextToken();
+                    updateEventSourceMappingResult.setSourceAccessConfigurations(new ListUnmarshaller<SourceAccessConfiguration>(
+                            SourceAccessConfigurationJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("SelfManagedEventSource", targetDepth)) {
+                    context.nextToken();
+                    updateEventSourceMappingResult.setSelfManagedEventSource(SelfManagedEventSourceJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("MaximumRecordAgeInSeconds", targetDepth)) {
+                    context.nextToken();
+                    updateEventSourceMappingResult.setMaximumRecordAgeInSeconds(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("BisectBatchOnFunctionError", targetDepth)) {
+                    context.nextToken();
+                    updateEventSourceMappingResult.setBisectBatchOnFunctionError(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("MaximumRetryAttempts", targetDepth)) {
+                    context.nextToken();
+                    updateEventSourceMappingResult.setMaximumRetryAttempts(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("TumblingWindowInSeconds", targetDepth)) {
+                    context.nextToken();
+                    updateEventSourceMappingResult.setTumblingWindowInSeconds(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("FunctionResponseTypes", targetDepth)) {
+                    context.nextToken();
+                    updateEventSourceMappingResult.setFunctionResponseTypes(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("AmazonManagedKafkaEventSourceConfig", targetDepth)) {
+                    context.nextToken();
+                    updateEventSourceMappingResult.setAmazonManagedKafkaEventSourceConfig(AmazonManagedKafkaEventSourceConfigJsonUnmarshaller.getInstance()
+                            .unmarshall(context));
+                }
+                if (context.testExpression("SelfManagedKafkaEventSourceConfig", targetDepth)) {
+                    context.nextToken();
+                    updateEventSourceMappingResult.setSelfManagedKafkaEventSourceConfig(SelfManagedKafkaEventSourceConfigJsonUnmarshaller.getInstance()
+                            .unmarshall(context));
+                }
+                if (context.testExpression("ScalingConfig", targetDepth)) {
+                    context.nextToken();
+                    updateEventSourceMappingResult.setScalingConfig(ScalingConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("DocumentDBEventSourceConfig", targetDepth)) {
+                    context.nextToken();
+                    updateEventSourceMappingResult
+                            .setDocumentDBEventSourceConfig(DocumentDBEventSourceConfigJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,49 +27,44 @@ public class DeleteSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Specifies the secret that you want to delete. You can specify either the Amazon Resource Name (ARN) or the
-     * friendly name of the secret.
+     * The ARN or name of the secret to delete.
      * </p>
-     * <note>
      * <p>
-     * If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial ARN
-     * too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager adds at the
-     * end of the ARN when you created the secret. A partial ARN match can work as long as it uniquely matches only one
-     * secret. However, if your secret has a name that ends in a hyphen followed by six characters (before Secrets
-     * Manager adds the hyphen and six characters to the ARN) and you try to use that as a partial ARN, then those
-     * characters cause Secrets Manager to assume that you’re specifying a complete ARN. This confusion can cause
-     * unexpected results. To avoid this situation, we recommend that you don’t create secret names that end with a
-     * hyphen followed by six characters.
+     * For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding
+     * a secret from a partial ARN</a>.
      * </p>
-     * </note>
      */
     private String secretId;
     /**
      * <p>
-     * (Optional) Specifies the number of days that Secrets Manager waits before it can delete the secret. You can't use
-     * both this parameter and the <code>ForceDeleteWithoutRecovery</code> parameter in the same API call.
-     * </p>
-     * <p>
-     * This value can range from 7 to 30 days. The default value is 30.
+     * The number of days from 7 to 30 that Secrets Manager waits before permanently deleting the secret. You can't use
+     * both this parameter and <code>ForceDeleteWithoutRecovery</code> in the same call. If you don't use either, then
+     * by default Secrets Manager uses a 30 day recovery window.
      * </p>
      */
     private Long recoveryWindowInDays;
     /**
      * <p>
-     * (Optional) Specifies that the secret is to be deleted without any recovery window. You can't use both this
-     * parameter and the <code>RecoveryWindowInDays</code> parameter in the same API call.
+     * Specifies whether to delete the secret without any recovery window. You can't use both this parameter and
+     * <code>RecoveryWindowInDays</code> in the same call. If you don't use either, then by default Secrets Manager uses
+     * a 30 day recovery window.
      * </p>
      * <p>
-     * An asynchronous background process performs the actual deletion, so there can be a short delay before the
-     * operation completes. If you write code to delete and then immediately recreate a secret with the same name,
-     * ensure that your code includes appropriate back off and retry logic.
+     * Secrets Manager performs the actual deletion with an asynchronous background process, so there might be a short
+     * delay before the secret is permanently deleted. If you delete a secret and then immediately create a secret with
+     * the same name, use appropriate back off and retry logic.
+     * </p>
+     * <p>
+     * If you forcibly delete an already deleted or nonexistent secret, the operation does not return
+     * <code>ResourceNotFoundException</code>.
      * </p>
      * <important>
      * <p>
-     * Use this parameter with caution. This parameter causes the operation to skip the normal waiting period before the
-     * permanent deletion that AWS would normally impose with the <code>RecoveryWindowInDays</code> parameter. If you
-     * delete a secret with the <code>ForceDeleteWithouRecovery</code> parameter, then you have no opportunity to
-     * recover the secret. It is permanently lost.
+     * Use this parameter with caution. This parameter causes the operation to skip the normal recovery window before
+     * the permanent deletion that Secrets Manager would normally impose with the <code>RecoveryWindowInDays</code>
+     * parameter. If you delete a secret with the <code>ForceDeleteWithoutRecovery</code> parameter, then you have no
+     * opportunity to recover the secret. You lose the secret permanently.
      * </p>
      * </important>
      */
@@ -77,35 +72,20 @@ public class DeleteSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Specifies the secret that you want to delete. You can specify either the Amazon Resource Name (ARN) or the
-     * friendly name of the secret.
+     * The ARN or name of the secret to delete.
      * </p>
-     * <note>
      * <p>
-     * If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial ARN
-     * too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager adds at the
-     * end of the ARN when you created the secret. A partial ARN match can work as long as it uniquely matches only one
-     * secret. However, if your secret has a name that ends in a hyphen followed by six characters (before Secrets
-     * Manager adds the hyphen and six characters to the ARN) and you try to use that as a partial ARN, then those
-     * characters cause Secrets Manager to assume that you’re specifying a complete ARN. This confusion can cause
-     * unexpected results. To avoid this situation, we recommend that you don’t create secret names that end with a
-     * hyphen followed by six characters.
+     * For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding
+     * a secret from a partial ARN</a>.
      * </p>
-     * </note>
      * 
      * @param secretId
-     *        Specifies the secret that you want to delete. You can specify either the Amazon Resource Name (ARN) or the
-     *        friendly name of the secret.</p> <note>
+     *        The ARN or name of the secret to delete.</p>
      *        <p>
-     *        If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial
-     *        ARN too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager
-     *        adds at the end of the ARN when you created the secret. A partial ARN match can work as long as it
-     *        uniquely matches only one secret. However, if your secret has a name that ends in a hyphen followed by six
-     *        characters (before Secrets Manager adds the hyphen and six characters to the ARN) and you try to use that
-     *        as a partial ARN, then those characters cause Secrets Manager to assume that you’re specifying a complete
-     *        ARN. This confusion can cause unexpected results. To avoid this situation, we recommend that you don’t
-     *        create secret names that end with a hyphen followed by six characters.
-     *        </p>
+     *        For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href=
+     *        "https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen"
+     *        >Finding a secret from a partial ARN</a>.
      */
 
     public void setSecretId(String secretId) {
@@ -114,34 +94,19 @@ public class DeleteSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Specifies the secret that you want to delete. You can specify either the Amazon Resource Name (ARN) or the
-     * friendly name of the secret.
+     * The ARN or name of the secret to delete.
      * </p>
-     * <note>
      * <p>
-     * If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial ARN
-     * too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager adds at the
-     * end of the ARN when you created the secret. A partial ARN match can work as long as it uniquely matches only one
-     * secret. However, if your secret has a name that ends in a hyphen followed by six characters (before Secrets
-     * Manager adds the hyphen and six characters to the ARN) and you try to use that as a partial ARN, then those
-     * characters cause Secrets Manager to assume that you’re specifying a complete ARN. This confusion can cause
-     * unexpected results. To avoid this situation, we recommend that you don’t create secret names that end with a
-     * hyphen followed by six characters.
+     * For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding
+     * a secret from a partial ARN</a>.
      * </p>
-     * </note>
      * 
-     * @return Specifies the secret that you want to delete. You can specify either the Amazon Resource Name (ARN) or
-     *         the friendly name of the secret.</p> <note>
+     * @return The ARN or name of the secret to delete.</p>
      *         <p>
-     *         If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial
-     *         ARN too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager
-     *         adds at the end of the ARN when you created the secret. A partial ARN match can work as long as it
-     *         uniquely matches only one secret. However, if your secret has a name that ends in a hyphen followed by
-     *         six characters (before Secrets Manager adds the hyphen and six characters to the ARN) and you try to use
-     *         that as a partial ARN, then those characters cause Secrets Manager to assume that you’re specifying a
-     *         complete ARN. This confusion can cause unexpected results. To avoid this situation, we recommend that you
-     *         don’t create secret names that end with a hyphen followed by six characters.
-     *         </p>
+     *         For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href=
+     *         "https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen"
+     *         >Finding a secret from a partial ARN</a>.
      */
 
     public String getSecretId() {
@@ -150,35 +115,20 @@ public class DeleteSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Specifies the secret that you want to delete. You can specify either the Amazon Resource Name (ARN) or the
-     * friendly name of the secret.
+     * The ARN or name of the secret to delete.
      * </p>
-     * <note>
      * <p>
-     * If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial ARN
-     * too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager adds at the
-     * end of the ARN when you created the secret. A partial ARN match can work as long as it uniquely matches only one
-     * secret. However, if your secret has a name that ends in a hyphen followed by six characters (before Secrets
-     * Manager adds the hyphen and six characters to the ARN) and you try to use that as a partial ARN, then those
-     * characters cause Secrets Manager to assume that you’re specifying a complete ARN. This confusion can cause
-     * unexpected results. To avoid this situation, we recommend that you don’t create secret names that end with a
-     * hyphen followed by six characters.
+     * For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding
+     * a secret from a partial ARN</a>.
      * </p>
-     * </note>
      * 
      * @param secretId
-     *        Specifies the secret that you want to delete. You can specify either the Amazon Resource Name (ARN) or the
-     *        friendly name of the secret.</p> <note>
+     *        The ARN or name of the secret to delete.</p>
      *        <p>
-     *        If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial
-     *        ARN too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager
-     *        adds at the end of the ARN when you created the secret. A partial ARN match can work as long as it
-     *        uniquely matches only one secret. However, if your secret has a name that ends in a hyphen followed by six
-     *        characters (before Secrets Manager adds the hyphen and six characters to the ARN) and you try to use that
-     *        as a partial ARN, then those characters cause Secrets Manager to assume that you’re specifying a complete
-     *        ARN. This confusion can cause unexpected results. To avoid this situation, we recommend that you don’t
-     *        create secret names that end with a hyphen followed by six characters.
-     *        </p>
+     *        For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href=
+     *        "https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen"
+     *        >Finding a secret from a partial ARN</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -189,19 +139,15 @@ public class DeleteSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) Specifies the number of days that Secrets Manager waits before it can delete the secret. You can't use
-     * both this parameter and the <code>ForceDeleteWithoutRecovery</code> parameter in the same API call.
-     * </p>
-     * <p>
-     * This value can range from 7 to 30 days. The default value is 30.
+     * The number of days from 7 to 30 that Secrets Manager waits before permanently deleting the secret. You can't use
+     * both this parameter and <code>ForceDeleteWithoutRecovery</code> in the same call. If you don't use either, then
+     * by default Secrets Manager uses a 30 day recovery window.
      * </p>
      * 
      * @param recoveryWindowInDays
-     *        (Optional) Specifies the number of days that Secrets Manager waits before it can delete the secret. You
-     *        can't use both this parameter and the <code>ForceDeleteWithoutRecovery</code> parameter in the same API
-     *        call.</p>
-     *        <p>
-     *        This value can range from 7 to 30 days. The default value is 30.
+     *        The number of days from 7 to 30 that Secrets Manager waits before permanently deleting the secret. You
+     *        can't use both this parameter and <code>ForceDeleteWithoutRecovery</code> in the same call. If you don't
+     *        use either, then by default Secrets Manager uses a 30 day recovery window.
      */
 
     public void setRecoveryWindowInDays(Long recoveryWindowInDays) {
@@ -210,18 +156,14 @@ public class DeleteSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) Specifies the number of days that Secrets Manager waits before it can delete the secret. You can't use
-     * both this parameter and the <code>ForceDeleteWithoutRecovery</code> parameter in the same API call.
-     * </p>
-     * <p>
-     * This value can range from 7 to 30 days. The default value is 30.
+     * The number of days from 7 to 30 that Secrets Manager waits before permanently deleting the secret. You can't use
+     * both this parameter and <code>ForceDeleteWithoutRecovery</code> in the same call. If you don't use either, then
+     * by default Secrets Manager uses a 30 day recovery window.
      * </p>
      * 
-     * @return (Optional) Specifies the number of days that Secrets Manager waits before it can delete the secret. You
-     *         can't use both this parameter and the <code>ForceDeleteWithoutRecovery</code> parameter in the same API
-     *         call.</p>
-     *         <p>
-     *         This value can range from 7 to 30 days. The default value is 30.
+     * @return The number of days from 7 to 30 that Secrets Manager waits before permanently deleting the secret. You
+     *         can't use both this parameter and <code>ForceDeleteWithoutRecovery</code> in the same call. If you don't
+     *         use either, then by default Secrets Manager uses a 30 day recovery window.
      */
 
     public Long getRecoveryWindowInDays() {
@@ -230,19 +172,15 @@ public class DeleteSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) Specifies the number of days that Secrets Manager waits before it can delete the secret. You can't use
-     * both this parameter and the <code>ForceDeleteWithoutRecovery</code> parameter in the same API call.
-     * </p>
-     * <p>
-     * This value can range from 7 to 30 days. The default value is 30.
+     * The number of days from 7 to 30 that Secrets Manager waits before permanently deleting the secret. You can't use
+     * both this parameter and <code>ForceDeleteWithoutRecovery</code> in the same call. If you don't use either, then
+     * by default Secrets Manager uses a 30 day recovery window.
      * </p>
      * 
      * @param recoveryWindowInDays
-     *        (Optional) Specifies the number of days that Secrets Manager waits before it can delete the secret. You
-     *        can't use both this parameter and the <code>ForceDeleteWithoutRecovery</code> parameter in the same API
-     *        call.</p>
-     *        <p>
-     *        This value can range from 7 to 30 days. The default value is 30.
+     *        The number of days from 7 to 30 that Secrets Manager waits before permanently deleting the secret. You
+     *        can't use both this parameter and <code>ForceDeleteWithoutRecovery</code> in the same call. If you don't
+     *        use either, then by default Secrets Manager uses a 30 day recovery window.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -253,37 +191,48 @@ public class DeleteSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) Specifies that the secret is to be deleted without any recovery window. You can't use both this
-     * parameter and the <code>RecoveryWindowInDays</code> parameter in the same API call.
+     * Specifies whether to delete the secret without any recovery window. You can't use both this parameter and
+     * <code>RecoveryWindowInDays</code> in the same call. If you don't use either, then by default Secrets Manager uses
+     * a 30 day recovery window.
      * </p>
      * <p>
-     * An asynchronous background process performs the actual deletion, so there can be a short delay before the
-     * operation completes. If you write code to delete and then immediately recreate a secret with the same name,
-     * ensure that your code includes appropriate back off and retry logic.
+     * Secrets Manager performs the actual deletion with an asynchronous background process, so there might be a short
+     * delay before the secret is permanently deleted. If you delete a secret and then immediately create a secret with
+     * the same name, use appropriate back off and retry logic.
+     * </p>
+     * <p>
+     * If you forcibly delete an already deleted or nonexistent secret, the operation does not return
+     * <code>ResourceNotFoundException</code>.
      * </p>
      * <important>
      * <p>
-     * Use this parameter with caution. This parameter causes the operation to skip the normal waiting period before the
-     * permanent deletion that AWS would normally impose with the <code>RecoveryWindowInDays</code> parameter. If you
-     * delete a secret with the <code>ForceDeleteWithouRecovery</code> parameter, then you have no opportunity to
-     * recover the secret. It is permanently lost.
+     * Use this parameter with caution. This parameter causes the operation to skip the normal recovery window before
+     * the permanent deletion that Secrets Manager would normally impose with the <code>RecoveryWindowInDays</code>
+     * parameter. If you delete a secret with the <code>ForceDeleteWithoutRecovery</code> parameter, then you have no
+     * opportunity to recover the secret. You lose the secret permanently.
      * </p>
      * </important>
      * 
      * @param forceDeleteWithoutRecovery
-     *        (Optional) Specifies that the secret is to be deleted without any recovery window. You can't use both this
-     *        parameter and the <code>RecoveryWindowInDays</code> parameter in the same API call.</p>
+     *        Specifies whether to delete the secret without any recovery window. You can't use both this parameter and
+     *        <code>RecoveryWindowInDays</code> in the same call. If you don't use either, then by default Secrets
+     *        Manager uses a 30 day recovery window.</p>
      *        <p>
-     *        An asynchronous background process performs the actual deletion, so there can be a short delay before the
-     *        operation completes. If you write code to delete and then immediately recreate a secret with the same
-     *        name, ensure that your code includes appropriate back off and retry logic.
+     *        Secrets Manager performs the actual deletion with an asynchronous background process, so there might be a
+     *        short delay before the secret is permanently deleted. If you delete a secret and then immediately create a
+     *        secret with the same name, use appropriate back off and retry logic.
+     *        </p>
+     *        <p>
+     *        If you forcibly delete an already deleted or nonexistent secret, the operation does not return
+     *        <code>ResourceNotFoundException</code>.
      *        </p>
      *        <important>
      *        <p>
-     *        Use this parameter with caution. This parameter causes the operation to skip the normal waiting period
-     *        before the permanent deletion that AWS would normally impose with the <code>RecoveryWindowInDays</code>
-     *        parameter. If you delete a secret with the <code>ForceDeleteWithouRecovery</code> parameter, then you have
-     *        no opportunity to recover the secret. It is permanently lost.
+     *        Use this parameter with caution. This parameter causes the operation to skip the normal recovery window
+     *        before the permanent deletion that Secrets Manager would normally impose with the
+     *        <code>RecoveryWindowInDays</code> parameter. If you delete a secret with the
+     *        <code>ForceDeleteWithoutRecovery</code> parameter, then you have no opportunity to recover the secret. You
+     *        lose the secret permanently.
      *        </p>
      */
 
@@ -293,36 +242,47 @@ public class DeleteSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) Specifies that the secret is to be deleted without any recovery window. You can't use both this
-     * parameter and the <code>RecoveryWindowInDays</code> parameter in the same API call.
+     * Specifies whether to delete the secret without any recovery window. You can't use both this parameter and
+     * <code>RecoveryWindowInDays</code> in the same call. If you don't use either, then by default Secrets Manager uses
+     * a 30 day recovery window.
      * </p>
      * <p>
-     * An asynchronous background process performs the actual deletion, so there can be a short delay before the
-     * operation completes. If you write code to delete and then immediately recreate a secret with the same name,
-     * ensure that your code includes appropriate back off and retry logic.
+     * Secrets Manager performs the actual deletion with an asynchronous background process, so there might be a short
+     * delay before the secret is permanently deleted. If you delete a secret and then immediately create a secret with
+     * the same name, use appropriate back off and retry logic.
+     * </p>
+     * <p>
+     * If you forcibly delete an already deleted or nonexistent secret, the operation does not return
+     * <code>ResourceNotFoundException</code>.
      * </p>
      * <important>
      * <p>
-     * Use this parameter with caution. This parameter causes the operation to skip the normal waiting period before the
-     * permanent deletion that AWS would normally impose with the <code>RecoveryWindowInDays</code> parameter. If you
-     * delete a secret with the <code>ForceDeleteWithouRecovery</code> parameter, then you have no opportunity to
-     * recover the secret. It is permanently lost.
+     * Use this parameter with caution. This parameter causes the operation to skip the normal recovery window before
+     * the permanent deletion that Secrets Manager would normally impose with the <code>RecoveryWindowInDays</code>
+     * parameter. If you delete a secret with the <code>ForceDeleteWithoutRecovery</code> parameter, then you have no
+     * opportunity to recover the secret. You lose the secret permanently.
      * </p>
      * </important>
      * 
-     * @return (Optional) Specifies that the secret is to be deleted without any recovery window. You can't use both
-     *         this parameter and the <code>RecoveryWindowInDays</code> parameter in the same API call.</p>
+     * @return Specifies whether to delete the secret without any recovery window. You can't use both this parameter and
+     *         <code>RecoveryWindowInDays</code> in the same call. If you don't use either, then by default Secrets
+     *         Manager uses a 30 day recovery window.</p>
      *         <p>
-     *         An asynchronous background process performs the actual deletion, so there can be a short delay before the
-     *         operation completes. If you write code to delete and then immediately recreate a secret with the same
-     *         name, ensure that your code includes appropriate back off and retry logic.
+     *         Secrets Manager performs the actual deletion with an asynchronous background process, so there might be a
+     *         short delay before the secret is permanently deleted. If you delete a secret and then immediately create
+     *         a secret with the same name, use appropriate back off and retry logic.
+     *         </p>
+     *         <p>
+     *         If you forcibly delete an already deleted or nonexistent secret, the operation does not return
+     *         <code>ResourceNotFoundException</code>.
      *         </p>
      *         <important>
      *         <p>
-     *         Use this parameter with caution. This parameter causes the operation to skip the normal waiting period
-     *         before the permanent deletion that AWS would normally impose with the <code>RecoveryWindowInDays</code>
-     *         parameter. If you delete a secret with the <code>ForceDeleteWithouRecovery</code> parameter, then you
-     *         have no opportunity to recover the secret. It is permanently lost.
+     *         Use this parameter with caution. This parameter causes the operation to skip the normal recovery window
+     *         before the permanent deletion that Secrets Manager would normally impose with the
+     *         <code>RecoveryWindowInDays</code> parameter. If you delete a secret with the
+     *         <code>ForceDeleteWithoutRecovery</code> parameter, then you have no opportunity to recover the secret.
+     *         You lose the secret permanently.
      *         </p>
      */
 
@@ -332,37 +292,48 @@ public class DeleteSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) Specifies that the secret is to be deleted without any recovery window. You can't use both this
-     * parameter and the <code>RecoveryWindowInDays</code> parameter in the same API call.
+     * Specifies whether to delete the secret without any recovery window. You can't use both this parameter and
+     * <code>RecoveryWindowInDays</code> in the same call. If you don't use either, then by default Secrets Manager uses
+     * a 30 day recovery window.
      * </p>
      * <p>
-     * An asynchronous background process performs the actual deletion, so there can be a short delay before the
-     * operation completes. If you write code to delete and then immediately recreate a secret with the same name,
-     * ensure that your code includes appropriate back off and retry logic.
+     * Secrets Manager performs the actual deletion with an asynchronous background process, so there might be a short
+     * delay before the secret is permanently deleted. If you delete a secret and then immediately create a secret with
+     * the same name, use appropriate back off and retry logic.
+     * </p>
+     * <p>
+     * If you forcibly delete an already deleted or nonexistent secret, the operation does not return
+     * <code>ResourceNotFoundException</code>.
      * </p>
      * <important>
      * <p>
-     * Use this parameter with caution. This parameter causes the operation to skip the normal waiting period before the
-     * permanent deletion that AWS would normally impose with the <code>RecoveryWindowInDays</code> parameter. If you
-     * delete a secret with the <code>ForceDeleteWithouRecovery</code> parameter, then you have no opportunity to
-     * recover the secret. It is permanently lost.
+     * Use this parameter with caution. This parameter causes the operation to skip the normal recovery window before
+     * the permanent deletion that Secrets Manager would normally impose with the <code>RecoveryWindowInDays</code>
+     * parameter. If you delete a secret with the <code>ForceDeleteWithoutRecovery</code> parameter, then you have no
+     * opportunity to recover the secret. You lose the secret permanently.
      * </p>
      * </important>
      * 
      * @param forceDeleteWithoutRecovery
-     *        (Optional) Specifies that the secret is to be deleted without any recovery window. You can't use both this
-     *        parameter and the <code>RecoveryWindowInDays</code> parameter in the same API call.</p>
+     *        Specifies whether to delete the secret without any recovery window. You can't use both this parameter and
+     *        <code>RecoveryWindowInDays</code> in the same call. If you don't use either, then by default Secrets
+     *        Manager uses a 30 day recovery window.</p>
      *        <p>
-     *        An asynchronous background process performs the actual deletion, so there can be a short delay before the
-     *        operation completes. If you write code to delete and then immediately recreate a secret with the same
-     *        name, ensure that your code includes appropriate back off and retry logic.
+     *        Secrets Manager performs the actual deletion with an asynchronous background process, so there might be a
+     *        short delay before the secret is permanently deleted. If you delete a secret and then immediately create a
+     *        secret with the same name, use appropriate back off and retry logic.
+     *        </p>
+     *        <p>
+     *        If you forcibly delete an already deleted or nonexistent secret, the operation does not return
+     *        <code>ResourceNotFoundException</code>.
      *        </p>
      *        <important>
      *        <p>
-     *        Use this parameter with caution. This parameter causes the operation to skip the normal waiting period
-     *        before the permanent deletion that AWS would normally impose with the <code>RecoveryWindowInDays</code>
-     *        parameter. If you delete a secret with the <code>ForceDeleteWithouRecovery</code> parameter, then you have
-     *        no opportunity to recover the secret. It is permanently lost.
+     *        Use this parameter with caution. This parameter causes the operation to skip the normal recovery window
+     *        before the permanent deletion that Secrets Manager would normally impose with the
+     *        <code>RecoveryWindowInDays</code> parameter. If you delete a secret with the
+     *        <code>ForceDeleteWithoutRecovery</code> parameter, then you have no opportunity to recover the secret. You
+     *        lose the secret permanently.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -374,36 +345,47 @@ public class DeleteSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) Specifies that the secret is to be deleted without any recovery window. You can't use both this
-     * parameter and the <code>RecoveryWindowInDays</code> parameter in the same API call.
+     * Specifies whether to delete the secret without any recovery window. You can't use both this parameter and
+     * <code>RecoveryWindowInDays</code> in the same call. If you don't use either, then by default Secrets Manager uses
+     * a 30 day recovery window.
      * </p>
      * <p>
-     * An asynchronous background process performs the actual deletion, so there can be a short delay before the
-     * operation completes. If you write code to delete and then immediately recreate a secret with the same name,
-     * ensure that your code includes appropriate back off and retry logic.
+     * Secrets Manager performs the actual deletion with an asynchronous background process, so there might be a short
+     * delay before the secret is permanently deleted. If you delete a secret and then immediately create a secret with
+     * the same name, use appropriate back off and retry logic.
+     * </p>
+     * <p>
+     * If you forcibly delete an already deleted or nonexistent secret, the operation does not return
+     * <code>ResourceNotFoundException</code>.
      * </p>
      * <important>
      * <p>
-     * Use this parameter with caution. This parameter causes the operation to skip the normal waiting period before the
-     * permanent deletion that AWS would normally impose with the <code>RecoveryWindowInDays</code> parameter. If you
-     * delete a secret with the <code>ForceDeleteWithouRecovery</code> parameter, then you have no opportunity to
-     * recover the secret. It is permanently lost.
+     * Use this parameter with caution. This parameter causes the operation to skip the normal recovery window before
+     * the permanent deletion that Secrets Manager would normally impose with the <code>RecoveryWindowInDays</code>
+     * parameter. If you delete a secret with the <code>ForceDeleteWithoutRecovery</code> parameter, then you have no
+     * opportunity to recover the secret. You lose the secret permanently.
      * </p>
      * </important>
      * 
-     * @return (Optional) Specifies that the secret is to be deleted without any recovery window. You can't use both
-     *         this parameter and the <code>RecoveryWindowInDays</code> parameter in the same API call.</p>
+     * @return Specifies whether to delete the secret without any recovery window. You can't use both this parameter and
+     *         <code>RecoveryWindowInDays</code> in the same call. If you don't use either, then by default Secrets
+     *         Manager uses a 30 day recovery window.</p>
      *         <p>
-     *         An asynchronous background process performs the actual deletion, so there can be a short delay before the
-     *         operation completes. If you write code to delete and then immediately recreate a secret with the same
-     *         name, ensure that your code includes appropriate back off and retry logic.
+     *         Secrets Manager performs the actual deletion with an asynchronous background process, so there might be a
+     *         short delay before the secret is permanently deleted. If you delete a secret and then immediately create
+     *         a secret with the same name, use appropriate back off and retry logic.
+     *         </p>
+     *         <p>
+     *         If you forcibly delete an already deleted or nonexistent secret, the operation does not return
+     *         <code>ResourceNotFoundException</code>.
      *         </p>
      *         <important>
      *         <p>
-     *         Use this parameter with caution. This parameter causes the operation to skip the normal waiting period
-     *         before the permanent deletion that AWS would normally impose with the <code>RecoveryWindowInDays</code>
-     *         parameter. If you delete a secret with the <code>ForceDeleteWithouRecovery</code> parameter, then you
-     *         have no opportunity to recover the secret. It is permanently lost.
+     *         Use this parameter with caution. This parameter causes the operation to skip the normal recovery window
+     *         before the permanent deletion that Secrets Manager would normally impose with the
+     *         <code>RecoveryWindowInDays</code> parameter. If you delete a secret with the
+     *         <code>ForceDeleteWithoutRecovery</code> parameter, then you have no opportunity to recover the secret.
+     *         You lose the secret permanently.
      *         </p>
      */
 

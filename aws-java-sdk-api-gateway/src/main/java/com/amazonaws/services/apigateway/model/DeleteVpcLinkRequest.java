@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * Deletes an existing <a>VpcLink</a> of a specified identifier.
+ * Deletes an existing VpcLink of a specified identifier.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -27,21 +27,18 @@ public class DeleteVpcLinkRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * [Required] The identifier of the <a>VpcLink</a>. It is used in an <a>Integration</a> to reference this
-     * <a>VpcLink</a>.
+     * The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.
      * </p>
      */
     private String vpcLinkId;
 
     /**
      * <p>
-     * [Required] The identifier of the <a>VpcLink</a>. It is used in an <a>Integration</a> to reference this
-     * <a>VpcLink</a>.
+     * The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.
      * </p>
      * 
      * @param vpcLinkId
-     *        [Required] The identifier of the <a>VpcLink</a>. It is used in an <a>Integration</a> to reference this
-     *        <a>VpcLink</a>.
+     *        The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.
      */
 
     public void setVpcLinkId(String vpcLinkId) {
@@ -50,12 +47,10 @@ public class DeleteVpcLinkRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * [Required] The identifier of the <a>VpcLink</a>. It is used in an <a>Integration</a> to reference this
-     * <a>VpcLink</a>.
+     * The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.
      * </p>
      * 
-     * @return [Required] The identifier of the <a>VpcLink</a>. It is used in an <a>Integration</a> to reference this
-     *         <a>VpcLink</a>.
+     * @return The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.
      */
 
     public String getVpcLinkId() {
@@ -64,13 +59,11 @@ public class DeleteVpcLinkRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * [Required] The identifier of the <a>VpcLink</a>. It is used in an <a>Integration</a> to reference this
-     * <a>VpcLink</a>.
+     * The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.
      * </p>
      * 
      * @param vpcLinkId
-     *        [Required] The identifier of the <a>VpcLink</a>. It is used in an <a>Integration</a> to reference this
-     *        <a>VpcLink</a>.
+     *        The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

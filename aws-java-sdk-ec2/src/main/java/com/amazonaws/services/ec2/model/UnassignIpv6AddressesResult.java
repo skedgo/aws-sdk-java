@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,6 +35,12 @@ public class UnassignIpv6AddressesResult extends com.amazonaws.AmazonWebServiceR
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> unassignedIpv6Addresses;
+    /**
+     * <p>
+     * The IPv4 prefixes that have been unassigned from the network interface.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> unassignedIpv6Prefixes;
 
     /**
      * <p>
@@ -150,6 +156,79 @@ public class UnassignIpv6AddressesResult extends com.amazonaws.AmazonWebServiceR
     }
 
     /**
+     * <p>
+     * The IPv4 prefixes that have been unassigned from the network interface.
+     * </p>
+     * 
+     * @return The IPv4 prefixes that have been unassigned from the network interface.
+     */
+
+    public java.util.List<String> getUnassignedIpv6Prefixes() {
+        if (unassignedIpv6Prefixes == null) {
+            unassignedIpv6Prefixes = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return unassignedIpv6Prefixes;
+    }
+
+    /**
+     * <p>
+     * The IPv4 prefixes that have been unassigned from the network interface.
+     * </p>
+     * 
+     * @param unassignedIpv6Prefixes
+     *        The IPv4 prefixes that have been unassigned from the network interface.
+     */
+
+    public void setUnassignedIpv6Prefixes(java.util.Collection<String> unassignedIpv6Prefixes) {
+        if (unassignedIpv6Prefixes == null) {
+            this.unassignedIpv6Prefixes = null;
+            return;
+        }
+
+        this.unassignedIpv6Prefixes = new com.amazonaws.internal.SdkInternalList<String>(unassignedIpv6Prefixes);
+    }
+
+    /**
+     * <p>
+     * The IPv4 prefixes that have been unassigned from the network interface.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setUnassignedIpv6Prefixes(java.util.Collection)} or
+     * {@link #withUnassignedIpv6Prefixes(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param unassignedIpv6Prefixes
+     *        The IPv4 prefixes that have been unassigned from the network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UnassignIpv6AddressesResult withUnassignedIpv6Prefixes(String... unassignedIpv6Prefixes) {
+        if (this.unassignedIpv6Prefixes == null) {
+            setUnassignedIpv6Prefixes(new com.amazonaws.internal.SdkInternalList<String>(unassignedIpv6Prefixes.length));
+        }
+        for (String ele : unassignedIpv6Prefixes) {
+            this.unassignedIpv6Prefixes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv4 prefixes that have been unassigned from the network interface.
+     * </p>
+     * 
+     * @param unassignedIpv6Prefixes
+     *        The IPv4 prefixes that have been unassigned from the network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UnassignIpv6AddressesResult withUnassignedIpv6Prefixes(java.util.Collection<String> unassignedIpv6Prefixes) {
+        setUnassignedIpv6Prefixes(unassignedIpv6Prefixes);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -164,7 +243,9 @@ public class UnassignIpv6AddressesResult extends com.amazonaws.AmazonWebServiceR
         if (getNetworkInterfaceId() != null)
             sb.append("NetworkInterfaceId: ").append(getNetworkInterfaceId()).append(",");
         if (getUnassignedIpv6Addresses() != null)
-            sb.append("UnassignedIpv6Addresses: ").append(getUnassignedIpv6Addresses());
+            sb.append("UnassignedIpv6Addresses: ").append(getUnassignedIpv6Addresses()).append(",");
+        if (getUnassignedIpv6Prefixes() != null)
+            sb.append("UnassignedIpv6Prefixes: ").append(getUnassignedIpv6Prefixes());
         sb.append("}");
         return sb.toString();
     }
@@ -187,6 +268,10 @@ public class UnassignIpv6AddressesResult extends com.amazonaws.AmazonWebServiceR
             return false;
         if (other.getUnassignedIpv6Addresses() != null && other.getUnassignedIpv6Addresses().equals(this.getUnassignedIpv6Addresses()) == false)
             return false;
+        if (other.getUnassignedIpv6Prefixes() == null ^ this.getUnassignedIpv6Prefixes() == null)
+            return false;
+        if (other.getUnassignedIpv6Prefixes() != null && other.getUnassignedIpv6Prefixes().equals(this.getUnassignedIpv6Prefixes()) == false)
+            return false;
         return true;
     }
 
@@ -197,6 +282,7 @@ public class UnassignIpv6AddressesResult extends com.amazonaws.AmazonWebServiceR
 
         hashCode = prime * hashCode + ((getNetworkInterfaceId() == null) ? 0 : getNetworkInterfaceId().hashCode());
         hashCode = prime * hashCode + ((getUnassignedIpv6Addresses() == null) ? 0 : getUnassignedIpv6Addresses().hashCode());
+        hashCode = prime * hashCode + ((getUnassignedIpv6Prefixes() == null) ? 0 : getUnassignedIpv6Prefixes().hashCode());
         return hashCode;
     }
 

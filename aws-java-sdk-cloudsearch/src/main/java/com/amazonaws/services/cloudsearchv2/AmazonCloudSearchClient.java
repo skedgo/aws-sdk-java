@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.cloudsearchv2.AmazonCloudSearchClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.cloudsearchv2.model.*;
+
 import com.amazonaws.services.cloudsearchv2.model.transform.*;
 
 /**
@@ -81,9 +82,18 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
     private final AdvancedConfig advancedConfig;
 
     /**
-     * List of exception unmarshallers for all modeled exceptions
+     * Map of exception unmarshallers for all modeled exceptions
+     */
+    private final Map<String, Unmarshaller<AmazonServiceException, Node>> exceptionUnmarshallersMap = new HashMap<String, Unmarshaller<AmazonServiceException, Node>>();
+
+    /**
+     * List of exception unmarshallers for all modeled exceptions Even though this exceptionUnmarshallers is not used in
+     * Clients, this is not removed since this was directly used by Client extended classes. Using this list can cause
+     * performance impact.
      */
     protected final List<Unmarshaller<AmazonServiceException, Node>> exceptionUnmarshallers = new ArrayList<Unmarshaller<AmazonServiceException, Node>>();
+
+    protected Unmarshaller<AmazonServiceException, Node> defaultUnmarshaller;
 
     /**
      * Constructs a new client to invoke service methods on Amazon CloudSearch. A credentials provider chain will be
@@ -275,12 +285,39 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
     }
 
     private void init() {
+        if (exceptionUnmarshallersMap.get("DisabledAction") == null) {
+            exceptionUnmarshallersMap.put("DisabledAction", new DisabledOperationExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new DisabledOperationExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new ResourceNotFoundExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new BaseExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new InternalExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("LimitExceeded") == null) {
+            exceptionUnmarshallersMap.put("LimitExceeded", new LimitExceededExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new LimitExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidType") == null) {
+            exceptionUnmarshallersMap.put("InvalidType", new InvalidTypeExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidTypeExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ResourceNotFound") == null) {
+            exceptionUnmarshallersMap.put("ResourceNotFound", new ResourceNotFoundExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new ResourceNotFoundExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ValidationException") == null) {
+            exceptionUnmarshallersMap.put("ValidationException", new ValidationExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new ValidationExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("BaseException") == null) {
+            exceptionUnmarshallersMap.put("BaseException", new BaseExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new BaseExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ResourceAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("ResourceAlreadyExists", new ResourceAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new ResourceAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InternalException") == null) {
+            exceptionUnmarshallersMap.put("InternalException", new InternalExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InternalExceptionUnmarshaller());
+        defaultUnmarshaller = new StandardErrorUnmarshaller(com.amazonaws.services.cloudsearchv2.model.AmazonCloudSearchException.class);
         exceptionUnmarshallers.add(new StandardErrorUnmarshaller(com.amazonaws.services.cloudsearchv2.model.AmazonCloudSearchException.class));
 
         setServiceNameIntern(DEFAULT_SIGNING_NAME);
@@ -311,6 +348,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
      *         the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.
      * @throws ResourceNotFoundException
      *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.BuildSuggesters
      */
     @Override
@@ -334,6 +373,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new BuildSuggestersRequestMarshaller().marshall(super.beforeMarshalling(buildSuggestersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BuildSuggesters");
@@ -345,6 +386,7 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<BuildSuggestersResult> responseHandler = new StaxResponseHandler<BuildSuggestersResult>(
                     new BuildSuggestersResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -373,6 +415,10 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
      *         the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.
      * @throws LimitExceededException
      *         The request was rejected because a resource limit has already been met.
+     * @throws ResourceAlreadyExistsException
+     *         The request was rejected because it attempted to create a resource that already exists.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.CreateDomain
      */
     @Override
@@ -396,6 +442,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new CreateDomainRequestMarshaller().marshall(super.beforeMarshalling(createDomainRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDomain");
@@ -406,6 +454,7 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<CreateDomainResult> responseHandler = new StaxResponseHandler<CreateDomainResult>(new CreateDomainResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -439,6 +488,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
      *         The request was rejected because it specified an invalid type definition.
      * @throws ResourceNotFoundException
      *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.DefineAnalysisScheme
      */
     @Override
@@ -462,6 +513,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new DefineAnalysisSchemeRequestMarshaller().marshall(super.beforeMarshalling(defineAnalysisSchemeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DefineAnalysisScheme");
@@ -473,6 +526,7 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DefineAnalysisSchemeResult> responseHandler = new StaxResponseHandler<DefineAnalysisSchemeResult>(
                     new DefineAnalysisSchemeResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -506,6 +560,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
      *         The request was rejected because it specified an invalid type definition.
      * @throws ResourceNotFoundException
      *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.DefineExpression
      */
     @Override
@@ -529,6 +585,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new DefineExpressionRequestMarshaller().marshall(super.beforeMarshalling(defineExpressionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DefineExpression");
@@ -540,6 +598,7 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DefineExpressionResult> responseHandler = new StaxResponseHandler<DefineExpressionResult>(
                     new DefineExpressionResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -576,6 +635,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
      *         The request was rejected because it specified an invalid type definition.
      * @throws ResourceNotFoundException
      *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.DefineIndexField
      */
     @Override
@@ -599,6 +660,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new DefineIndexFieldRequestMarshaller().marshall(super.beforeMarshalling(defineIndexFieldRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DefineIndexField");
@@ -610,6 +673,7 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DefineIndexFieldResult> responseHandler = new StaxResponseHandler<DefineIndexFieldResult>(
                     new DefineIndexFieldResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -644,6 +708,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
      *         The request was rejected because it specified an invalid type definition.
      * @throws ResourceNotFoundException
      *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.DefineSuggester
      */
     @Override
@@ -667,6 +733,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new DefineSuggesterRequestMarshaller().marshall(super.beforeMarshalling(defineSuggesterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DefineSuggester");
@@ -678,6 +746,7 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DefineSuggesterResult> responseHandler = new StaxResponseHandler<DefineSuggesterResult>(
                     new DefineSuggesterResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -708,6 +777,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
      *         The request was rejected because it specified an invalid type definition.
      * @throws ResourceNotFoundException
      *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.DeleteAnalysisScheme
      */
     @Override
@@ -731,6 +802,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new DeleteAnalysisSchemeRequestMarshaller().marshall(super.beforeMarshalling(deleteAnalysisSchemeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteAnalysisScheme");
@@ -742,6 +815,7 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DeleteAnalysisSchemeResult> responseHandler = new StaxResponseHandler<DeleteAnalysisSchemeResult>(
                     new DeleteAnalysisSchemeResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -792,6 +866,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new DeleteDomainRequestMarshaller().marshall(super.beforeMarshalling(deleteDomainRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDomain");
@@ -802,6 +878,7 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<DeleteDomainResult> responseHandler = new StaxResponseHandler<DeleteDomainResult>(new DeleteDomainResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -832,6 +909,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
      *         The request was rejected because it specified an invalid type definition.
      * @throws ResourceNotFoundException
      *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.DeleteExpression
      */
     @Override
@@ -855,6 +934,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new DeleteExpressionRequestMarshaller().marshall(super.beforeMarshalling(deleteExpressionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteExpression");
@@ -866,6 +947,7 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DeleteExpressionResult> responseHandler = new StaxResponseHandler<DeleteExpressionResult>(
                     new DeleteExpressionResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -896,6 +978,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
      *         The request was rejected because it specified an invalid type definition.
      * @throws ResourceNotFoundException
      *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.DeleteIndexField
      */
     @Override
@@ -919,6 +1003,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new DeleteIndexFieldRequestMarshaller().marshall(super.beforeMarshalling(deleteIndexFieldRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteIndexField");
@@ -930,6 +1016,7 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DeleteIndexFieldResult> responseHandler = new StaxResponseHandler<DeleteIndexFieldResult>(
                     new DeleteIndexFieldResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -960,6 +1047,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
      *         The request was rejected because it specified an invalid type definition.
      * @throws ResourceNotFoundException
      *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.DeleteSuggester
      */
     @Override
@@ -983,6 +1072,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new DeleteSuggesterRequestMarshaller().marshall(super.beforeMarshalling(deleteSuggesterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteSuggester");
@@ -994,6 +1085,7 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DeleteSuggesterResult> responseHandler = new StaxResponseHandler<DeleteSuggesterResult>(
                     new DeleteSuggesterResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1050,6 +1142,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new DescribeAnalysisSchemesRequestMarshaller().marshall(super.beforeMarshalling(describeAnalysisSchemesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAnalysisSchemes");
@@ -1061,6 +1155,7 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DescribeAnalysisSchemesResult> responseHandler = new StaxResponseHandler<DescribeAnalysisSchemesResult>(
                     new DescribeAnalysisSchemesResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1121,6 +1216,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new DescribeAvailabilityOptionsRequestMarshaller().marshall(super.beforeMarshalling(describeAvailabilityOptionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAvailabilityOptions");
@@ -1132,6 +1229,78 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DescribeAvailabilityOptionsResult> responseHandler = new StaxResponseHandler<DescribeAvailabilityOptionsResult>(
                     new DescribeAvailabilityOptionsResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the domain's endpoint options, specifically whether all requests to the domain must arrive over HTTPS.
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-domain-endpoint-options.html"
+     * target="_blank">Configuring Domain Endpoint Options</a> in the <i>Amazon CloudSearch Developer Guide</i>.
+     * </p>
+     * 
+     * @param describeDomainEndpointOptionsRequest
+     *        Container for the parameters to the <code><a>DescribeDomainEndpointOptions</a></code> operation. Specify
+     *        the name of the domain you want to describe. To show the active configuration and exclude any pending
+     *        changes, set the Deployed option to <code>true</code>.
+     * @return Result of the DescribeDomainEndpointOptions operation returned by the service.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @throws InternalException
+     *         An internal error occurred while processing the request. If this problem persists, report an issue from
+     *         the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.
+     * @throws LimitExceededException
+     *         The request was rejected because a resource limit has already been met.
+     * @throws ResourceNotFoundException
+     *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws DisabledOperationException
+     *         The request was rejected because it attempted an operation which is not enabled.
+     * @sample AmazonCloudSearch.DescribeDomainEndpointOptions
+     */
+    @Override
+    public DescribeDomainEndpointOptionsResult describeDomainEndpointOptions(DescribeDomainEndpointOptionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeDomainEndpointOptions(request);
+    }
+
+    @SdkInternalApi
+    final DescribeDomainEndpointOptionsResult executeDescribeDomainEndpointOptions(DescribeDomainEndpointOptionsRequest describeDomainEndpointOptionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeDomainEndpointOptionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeDomainEndpointOptionsRequest> request = null;
+        Response<DescribeDomainEndpointOptionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeDomainEndpointOptionsRequestMarshaller().marshall(super.beforeMarshalling(describeDomainEndpointOptionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDomainEndpointOptions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DescribeDomainEndpointOptionsResult> responseHandler = new StaxResponseHandler<DescribeDomainEndpointOptionsResult>(
+                    new DescribeDomainEndpointOptionsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1185,6 +1354,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new DescribeDomainsRequestMarshaller().marshall(super.beforeMarshalling(describeDomainsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDomains");
@@ -1196,6 +1367,7 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DescribeDomainsResult> responseHandler = new StaxResponseHandler<DescribeDomainsResult>(
                     new DescribeDomainsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1257,6 +1429,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new DescribeExpressionsRequestMarshaller().marshall(super.beforeMarshalling(describeExpressionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeExpressions");
@@ -1268,6 +1442,7 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DescribeExpressionsResult> responseHandler = new StaxResponseHandler<DescribeExpressionsResult>(
                     new DescribeExpressionsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1324,6 +1499,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new DescribeIndexFieldsRequestMarshaller().marshall(super.beforeMarshalling(describeIndexFieldsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeIndexFields");
@@ -1335,6 +1512,7 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DescribeIndexFieldsResult> responseHandler = new StaxResponseHandler<DescribeIndexFieldsResult>(
                     new DescribeIndexFieldsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1387,6 +1565,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new DescribeScalingParametersRequestMarshaller().marshall(super.beforeMarshalling(describeScalingParametersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeScalingParameters");
@@ -1398,6 +1578,7 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DescribeScalingParametersResult> responseHandler = new StaxResponseHandler<DescribeScalingParametersResult>(
                     new DescribeScalingParametersResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1452,6 +1633,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new DescribeServiceAccessPoliciesRequestMarshaller().marshall(super.beforeMarshalling(describeServiceAccessPoliciesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeServiceAccessPolicies");
@@ -1463,6 +1646,7 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DescribeServiceAccessPoliciesResult> responseHandler = new StaxResponseHandler<DescribeServiceAccessPoliciesResult>(
                     new DescribeServiceAccessPoliciesResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1519,6 +1703,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new DescribeSuggestersRequestMarshaller().marshall(super.beforeMarshalling(describeSuggestersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeSuggesters");
@@ -1530,6 +1716,7 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DescribeSuggestersResult> responseHandler = new StaxResponseHandler<DescribeSuggestersResult>(
                     new DescribeSuggestersResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1557,6 +1744,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
      *         the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.
      * @throws ResourceNotFoundException
      *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.IndexDocuments
      */
     @Override
@@ -1580,6 +1769,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new IndexDocumentsRequestMarshaller().marshall(super.beforeMarshalling(indexDocumentsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "IndexDocuments");
@@ -1591,6 +1782,7 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<IndexDocumentsResult> responseHandler = new StaxResponseHandler<IndexDocumentsResult>(
                     new IndexDocumentsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1633,6 +1825,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new ListDomainNamesRequestMarshaller().marshall(super.beforeMarshalling(listDomainNamesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDomainNames");
@@ -1644,6 +1838,7 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<ListDomainNamesResult> responseHandler = new StaxResponseHandler<ListDomainNamesResult>(
                     new ListDomainNamesResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1686,6 +1881,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
      *         The request was rejected because it attempted to reference a resource that does not exist.
      * @throws DisabledOperationException
      *         The request was rejected because it attempted an operation which is not enabled.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.UpdateAvailabilityOptions
      */
     @Override
@@ -1709,6 +1906,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new UpdateAvailabilityOptionsRequestMarshaller().marshall(super.beforeMarshalling(updateAvailabilityOptionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateAvailabilityOptions");
@@ -1720,6 +1919,81 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<UpdateAvailabilityOptionsResult> responseHandler = new StaxResponseHandler<UpdateAvailabilityOptionsResult>(
                     new UpdateAvailabilityOptionsResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the domain's endpoint options, specifically whether all requests to the domain must arrive over HTTPS.
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-domain-endpoint-options.html"
+     * target="_blank">Configuring Domain Endpoint Options</a> in the <i>Amazon CloudSearch Developer Guide</i>.
+     * </p>
+     * 
+     * @param updateDomainEndpointOptionsRequest
+     *        Container for the parameters to the <code><a>UpdateDomainEndpointOptions</a></code> operation. Specifies
+     *        the name of the domain you want to update and the domain endpoint options.
+     * @return Result of the UpdateDomainEndpointOptions operation returned by the service.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @throws InternalException
+     *         An internal error occurred while processing the request. If this problem persists, report an issue from
+     *         the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.
+     * @throws InvalidTypeException
+     *         The request was rejected because it specified an invalid type definition.
+     * @throws LimitExceededException
+     *         The request was rejected because a resource limit has already been met.
+     * @throws ResourceNotFoundException
+     *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws DisabledOperationException
+     *         The request was rejected because it attempted an operation which is not enabled.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
+     * @sample AmazonCloudSearch.UpdateDomainEndpointOptions
+     */
+    @Override
+    public UpdateDomainEndpointOptionsResult updateDomainEndpointOptions(UpdateDomainEndpointOptionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateDomainEndpointOptions(request);
+    }
+
+    @SdkInternalApi
+    final UpdateDomainEndpointOptionsResult executeUpdateDomainEndpointOptions(UpdateDomainEndpointOptionsRequest updateDomainEndpointOptionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateDomainEndpointOptionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateDomainEndpointOptionsRequest> request = null;
+        Response<UpdateDomainEndpointOptionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateDomainEndpointOptionsRequestMarshaller().marshall(super.beforeMarshalling(updateDomainEndpointOptionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDomainEndpointOptions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<UpdateDomainEndpointOptionsResult> responseHandler = new StaxResponseHandler<UpdateDomainEndpointOptionsResult>(
+                    new UpdateDomainEndpointOptionsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1755,6 +2029,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
      *         The request was rejected because it attempted to reference a resource that does not exist.
      * @throws InvalidTypeException
      *         The request was rejected because it specified an invalid type definition.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.UpdateScalingParameters
      */
     @Override
@@ -1778,6 +2054,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new UpdateScalingParametersRequestMarshaller().marshall(super.beforeMarshalling(updateScalingParametersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateScalingParameters");
@@ -1789,6 +2067,7 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<UpdateScalingParametersResult> responseHandler = new StaxResponseHandler<UpdateScalingParametersResult>(
                     new UpdateScalingParametersResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1821,6 +2100,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
      *         The request was rejected because it attempted to reference a resource that does not exist.
      * @throws InvalidTypeException
      *         The request was rejected because it specified an invalid type definition.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.UpdateServiceAccessPolicies
      */
     @Override
@@ -1844,6 +2125,8 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
                 request = new UpdateServiceAccessPoliciesRequestMarshaller().marshall(super.beforeMarshalling(updateServiceAccessPoliciesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudSearch");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateServiceAccessPolicies");
@@ -1855,6 +2138,7 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<UpdateServiceAccessPoliciesResult> responseHandler = new StaxResponseHandler<UpdateServiceAccessPoliciesResult>(
                     new UpdateServiceAccessPoliciesResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1931,9 +2215,14 @@ public class AmazonCloudSearchClient extends AmazonWebServiceClient implements A
 
         request.setTimeOffset(timeOffset);
 
-        DefaultErrorResponseHandler errorResponseHandler = new DefaultErrorResponseHandler(exceptionUnmarshallers);
+        DefaultErrorResponseHandler errorResponseHandler = new DefaultErrorResponseHandler(exceptionUnmarshallersMap, defaultUnmarshaller);
 
         return client.execute(request, responseHandler, errorResponseHandler, executionContext);
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

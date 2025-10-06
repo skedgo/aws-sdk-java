@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,14 +27,15 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The name of the transform job. The name must be unique within an AWS Region in an AWS account.
+     * The name of the transform job. The name must be unique within an Amazon Web Services Region in an Amazon Web
+     * Services account.
      * </p>
      */
     private String transformJobName;
     /**
      * <p>
      * The name of the model that you want to use for the transform job. <code>ModelName</code> must be the name of an
-     * existing Amazon SageMaker model within an AWS Region in an AWS account.
+     * existing Amazon SageMaker model within an Amazon Web Services Region in an Amazon Web Services account.
      * </p>
      */
     private String modelName;
@@ -42,10 +43,9 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      * <p>
      * The maximum number of parallel requests that can be sent to each instance in a transform job. If
      * <code>MaxConcurrentTransforms</code> is set to <code>0</code> or left unset, Amazon SageMaker checks the optional
-     * execution-parameters to determine the optimal settings for your chosen algorithm. If the execution-parameters
-     * endpoint is not enabled, the default value is <code>1</code>. For more information on execution-parameters, see
-     * <a href=
-     * "http://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-batch-code.html#your-algorithms-batch-code-how-containe-serves-requests"
+     * execution-parameters to determine the settings for your chosen algorithm. If the execution-parameters endpoint is
+     * not enabled, the default value is <code>1</code>. For more information on execution-parameters, see <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-batch-code.html#your-algorithms-batch-code-how-containe-serves-requests"
      * >How Containers Serve Requests</a>. For built-in algorithms, you don't need to set a value for
      * <code>MaxConcurrentTransforms</code>.
      * </p>
@@ -53,11 +53,22 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
     private Integer maxConcurrentTransforms;
     /**
      * <p>
+     * Configures the timeout and maximum number of retries for processing a transform job invocation.
+     * </p>
+     */
+    private ModelClientConfig modelClientConfig;
+    /**
+     * <p>
      * The maximum allowed size of the payload, in MB. A <i>payload</i> is the data portion of a record (without
      * metadata). The value in <code>MaxPayloadInMB</code> must be greater than, or equal to, the size of a single
      * record. To estimate the size of a record in MB, divide the size of your dataset by the number of records. To
      * ensure that the records fit within the maximum payload size, we recommend using a slightly larger value. The
      * default value is <code>6</code> MB.
+     * </p>
+     * <p>
+     * The value of <code>MaxPayloadInMB</code> cannot be greater than 100 MB. If you specify the
+     * <code>MaxConcurrentTransforms</code> parameter, the value of
+     * <code>(MaxConcurrentTransforms * MaxPayloadInMB)</code> also cannot exceed 100 MB.
      * </p>
      * <p>
      * For cases where the payload might be arbitrarily large and is transmitted using HTTP chunked encoding, set the
@@ -72,8 +83,8 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      * a single unit of input data that inference can be made on. For example, a single line in a CSV file is a record.
      * </p>
      * <p>
-     * To enable the batch strategy, you must set <code>SplitType</code> to <code>Line</code>, <code>RecordIO</code>, or
-     * <code>TFRecord</code>.
+     * To enable the batch strategy, you must set the <code>SplitType</code> property to <code>Line</code>,
+     * <code>RecordIO</code>, or <code>TFRecord</code>.
      * </p>
      * <p>
      * To use only one record when making an HTTP invocation request to a container, set <code>BatchStrategy</code> to
@@ -105,15 +116,25 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
     private TransformOutput transformOutput;
     /**
      * <p>
+     * Configuration to control how SageMaker captures inference data.
+     * </p>
+     */
+    private BatchDataCaptureConfig dataCaptureConfig;
+    /**
+     * <p>
      * Describes the resources, including ML instance types and ML instance count, to use for the transform job.
      * </p>
      */
     private TransformResources transformResources;
     /**
      * <p>
-     * The data structure used for combining the input data and inference in the output file. For more information, see
-     * <a href="http://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-io-join.html">Batch Transform I/O
-     * Join</a>.
+     * The data structure used to specify the data to be used for inference in a batch transform job and to associate
+     * the data that is relevant to the prediction results in the output. The input filter provided allows you to
+     * exclude input data that is not needed for inference in a batch transform job. The output filter provided allows
+     * you to include input data relevant to interpreting the predictions in the output from the job. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html">Associate Prediction
+     * Results with their Corresponding Input Records</a>.
      * </p>
      */
     private DataProcessing dataProcessing;
@@ -121,18 +142,22 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      * <p>
      * (Optional) An array of key-value pairs. For more information, see <a
      * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
-     * Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     * Cost Allocation Tags</a> in the <i>Amazon Web Services Billing and Cost Management User Guide</i>.
      * </p>
      */
     private java.util.List<Tag> tags;
 
+    private ExperimentConfig experimentConfig;
+
     /**
      * <p>
-     * The name of the transform job. The name must be unique within an AWS Region in an AWS account.
+     * The name of the transform job. The name must be unique within an Amazon Web Services Region in an Amazon Web
+     * Services account.
      * </p>
      * 
      * @param transformJobName
-     *        The name of the transform job. The name must be unique within an AWS Region in an AWS account.
+     *        The name of the transform job. The name must be unique within an Amazon Web Services Region in an Amazon
+     *        Web Services account.
      */
 
     public void setTransformJobName(String transformJobName) {
@@ -141,10 +166,12 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The name of the transform job. The name must be unique within an AWS Region in an AWS account.
+     * The name of the transform job. The name must be unique within an Amazon Web Services Region in an Amazon Web
+     * Services account.
      * </p>
      * 
-     * @return The name of the transform job. The name must be unique within an AWS Region in an AWS account.
+     * @return The name of the transform job. The name must be unique within an Amazon Web Services Region in an Amazon
+     *         Web Services account.
      */
 
     public String getTransformJobName() {
@@ -153,11 +180,13 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The name of the transform job. The name must be unique within an AWS Region in an AWS account.
+     * The name of the transform job. The name must be unique within an Amazon Web Services Region in an Amazon Web
+     * Services account.
      * </p>
      * 
      * @param transformJobName
-     *        The name of the transform job. The name must be unique within an AWS Region in an AWS account.
+     *        The name of the transform job. The name must be unique within an Amazon Web Services Region in an Amazon
+     *        Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -169,12 +198,13 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
     /**
      * <p>
      * The name of the model that you want to use for the transform job. <code>ModelName</code> must be the name of an
-     * existing Amazon SageMaker model within an AWS Region in an AWS account.
+     * existing Amazon SageMaker model within an Amazon Web Services Region in an Amazon Web Services account.
      * </p>
      * 
      * @param modelName
      *        The name of the model that you want to use for the transform job. <code>ModelName</code> must be the name
-     *        of an existing Amazon SageMaker model within an AWS Region in an AWS account.
+     *        of an existing Amazon SageMaker model within an Amazon Web Services Region in an Amazon Web Services
+     *        account.
      */
 
     public void setModelName(String modelName) {
@@ -184,11 +214,12 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
     /**
      * <p>
      * The name of the model that you want to use for the transform job. <code>ModelName</code> must be the name of an
-     * existing Amazon SageMaker model within an AWS Region in an AWS account.
+     * existing Amazon SageMaker model within an Amazon Web Services Region in an Amazon Web Services account.
      * </p>
      * 
      * @return The name of the model that you want to use for the transform job. <code>ModelName</code> must be the name
-     *         of an existing Amazon SageMaker model within an AWS Region in an AWS account.
+     *         of an existing Amazon SageMaker model within an Amazon Web Services Region in an Amazon Web Services
+     *         account.
      */
 
     public String getModelName() {
@@ -198,12 +229,13 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
     /**
      * <p>
      * The name of the model that you want to use for the transform job. <code>ModelName</code> must be the name of an
-     * existing Amazon SageMaker model within an AWS Region in an AWS account.
+     * existing Amazon SageMaker model within an Amazon Web Services Region in an Amazon Web Services account.
      * </p>
      * 
      * @param modelName
      *        The name of the model that you want to use for the transform job. <code>ModelName</code> must be the name
-     *        of an existing Amazon SageMaker model within an AWS Region in an AWS account.
+     *        of an existing Amazon SageMaker model within an Amazon Web Services Region in an Amazon Web Services
+     *        account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -216,10 +248,9 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      * <p>
      * The maximum number of parallel requests that can be sent to each instance in a transform job. If
      * <code>MaxConcurrentTransforms</code> is set to <code>0</code> or left unset, Amazon SageMaker checks the optional
-     * execution-parameters to determine the optimal settings for your chosen algorithm. If the execution-parameters
-     * endpoint is not enabled, the default value is <code>1</code>. For more information on execution-parameters, see
-     * <a href=
-     * "http://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-batch-code.html#your-algorithms-batch-code-how-containe-serves-requests"
+     * execution-parameters to determine the settings for your chosen algorithm. If the execution-parameters endpoint is
+     * not enabled, the default value is <code>1</code>. For more information on execution-parameters, see <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-batch-code.html#your-algorithms-batch-code-how-containe-serves-requests"
      * >How Containers Serve Requests</a>. For built-in algorithms, you don't need to set a value for
      * <code>MaxConcurrentTransforms</code>.
      * </p>
@@ -227,10 +258,10 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      * @param maxConcurrentTransforms
      *        The maximum number of parallel requests that can be sent to each instance in a transform job. If
      *        <code>MaxConcurrentTransforms</code> is set to <code>0</code> or left unset, Amazon SageMaker checks the
-     *        optional execution-parameters to determine the optimal settings for your chosen algorithm. If the
+     *        optional execution-parameters to determine the settings for your chosen algorithm. If the
      *        execution-parameters endpoint is not enabled, the default value is <code>1</code>. For more information on
      *        execution-parameters, see <a href=
-     *        "http://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-batch-code.html#your-algorithms-batch-code-how-containe-serves-requests"
+     *        "https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-batch-code.html#your-algorithms-batch-code-how-containe-serves-requests"
      *        >How Containers Serve Requests</a>. For built-in algorithms, you don't need to set a value for
      *        <code>MaxConcurrentTransforms</code>.
      */
@@ -243,20 +274,19 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      * <p>
      * The maximum number of parallel requests that can be sent to each instance in a transform job. If
      * <code>MaxConcurrentTransforms</code> is set to <code>0</code> or left unset, Amazon SageMaker checks the optional
-     * execution-parameters to determine the optimal settings for your chosen algorithm. If the execution-parameters
-     * endpoint is not enabled, the default value is <code>1</code>. For more information on execution-parameters, see
-     * <a href=
-     * "http://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-batch-code.html#your-algorithms-batch-code-how-containe-serves-requests"
+     * execution-parameters to determine the settings for your chosen algorithm. If the execution-parameters endpoint is
+     * not enabled, the default value is <code>1</code>. For more information on execution-parameters, see <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-batch-code.html#your-algorithms-batch-code-how-containe-serves-requests"
      * >How Containers Serve Requests</a>. For built-in algorithms, you don't need to set a value for
      * <code>MaxConcurrentTransforms</code>.
      * </p>
      * 
      * @return The maximum number of parallel requests that can be sent to each instance in a transform job. If
      *         <code>MaxConcurrentTransforms</code> is set to <code>0</code> or left unset, Amazon SageMaker checks the
-     *         optional execution-parameters to determine the optimal settings for your chosen algorithm. If the
+     *         optional execution-parameters to determine the settings for your chosen algorithm. If the
      *         execution-parameters endpoint is not enabled, the default value is <code>1</code>. For more information
      *         on execution-parameters, see <a href=
-     *         "http://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-batch-code.html#your-algorithms-batch-code-how-containe-serves-requests"
+     *         "https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-batch-code.html#your-algorithms-batch-code-how-containe-serves-requests"
      *         >How Containers Serve Requests</a>. For built-in algorithms, you don't need to set a value for
      *         <code>MaxConcurrentTransforms</code>.
      */
@@ -269,10 +299,9 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      * <p>
      * The maximum number of parallel requests that can be sent to each instance in a transform job. If
      * <code>MaxConcurrentTransforms</code> is set to <code>0</code> or left unset, Amazon SageMaker checks the optional
-     * execution-parameters to determine the optimal settings for your chosen algorithm. If the execution-parameters
-     * endpoint is not enabled, the default value is <code>1</code>. For more information on execution-parameters, see
-     * <a href=
-     * "http://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-batch-code.html#your-algorithms-batch-code-how-containe-serves-requests"
+     * execution-parameters to determine the settings for your chosen algorithm. If the execution-parameters endpoint is
+     * not enabled, the default value is <code>1</code>. For more information on execution-parameters, see <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-batch-code.html#your-algorithms-batch-code-how-containe-serves-requests"
      * >How Containers Serve Requests</a>. For built-in algorithms, you don't need to set a value for
      * <code>MaxConcurrentTransforms</code>.
      * </p>
@@ -280,10 +309,10 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      * @param maxConcurrentTransforms
      *        The maximum number of parallel requests that can be sent to each instance in a transform job. If
      *        <code>MaxConcurrentTransforms</code> is set to <code>0</code> or left unset, Amazon SageMaker checks the
-     *        optional execution-parameters to determine the optimal settings for your chosen algorithm. If the
+     *        optional execution-parameters to determine the settings for your chosen algorithm. If the
      *        execution-parameters endpoint is not enabled, the default value is <code>1</code>. For more information on
      *        execution-parameters, see <a href=
-     *        "http://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-batch-code.html#your-algorithms-batch-code-how-containe-serves-requests"
+     *        "https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-batch-code.html#your-algorithms-batch-code-how-containe-serves-requests"
      *        >How Containers Serve Requests</a>. For built-in algorithms, you don't need to set a value for
      *        <code>MaxConcurrentTransforms</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -296,11 +325,56 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
+     * Configures the timeout and maximum number of retries for processing a transform job invocation.
+     * </p>
+     * 
+     * @param modelClientConfig
+     *        Configures the timeout and maximum number of retries for processing a transform job invocation.
+     */
+
+    public void setModelClientConfig(ModelClientConfig modelClientConfig) {
+        this.modelClientConfig = modelClientConfig;
+    }
+
+    /**
+     * <p>
+     * Configures the timeout and maximum number of retries for processing a transform job invocation.
+     * </p>
+     * 
+     * @return Configures the timeout and maximum number of retries for processing a transform job invocation.
+     */
+
+    public ModelClientConfig getModelClientConfig() {
+        return this.modelClientConfig;
+    }
+
+    /**
+     * <p>
+     * Configures the timeout and maximum number of retries for processing a transform job invocation.
+     * </p>
+     * 
+     * @param modelClientConfig
+     *        Configures the timeout and maximum number of retries for processing a transform job invocation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTransformJobRequest withModelClientConfig(ModelClientConfig modelClientConfig) {
+        setModelClientConfig(modelClientConfig);
+        return this;
+    }
+
+    /**
+     * <p>
      * The maximum allowed size of the payload, in MB. A <i>payload</i> is the data portion of a record (without
      * metadata). The value in <code>MaxPayloadInMB</code> must be greater than, or equal to, the size of a single
      * record. To estimate the size of a record in MB, divide the size of your dataset by the number of records. To
      * ensure that the records fit within the maximum payload size, we recommend using a slightly larger value. The
      * default value is <code>6</code> MB.
+     * </p>
+     * <p>
+     * The value of <code>MaxPayloadInMB</code> cannot be greater than 100 MB. If you specify the
+     * <code>MaxConcurrentTransforms</code> parameter, the value of
+     * <code>(MaxConcurrentTransforms * MaxPayloadInMB)</code> also cannot exceed 100 MB.
      * </p>
      * <p>
      * For cases where the payload might be arbitrarily large and is transmitted using HTTP chunked encoding, set the
@@ -314,6 +388,11 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      *        single record. To estimate the size of a record in MB, divide the size of your dataset by the number of
      *        records. To ensure that the records fit within the maximum payload size, we recommend using a slightly
      *        larger value. The default value is <code>6</code> MB. </p>
+     *        <p>
+     *        The value of <code>MaxPayloadInMB</code> cannot be greater than 100 MB. If you specify the
+     *        <code>MaxConcurrentTransforms</code> parameter, the value of
+     *        <code>(MaxConcurrentTransforms * MaxPayloadInMB)</code> also cannot exceed 100 MB.
+     *        </p>
      *        <p>
      *        For cases where the payload might be arbitrarily large and is transmitted using HTTP chunked encoding, set
      *        the value to <code>0</code>. This feature works only in supported algorithms. Currently, Amazon SageMaker
@@ -333,6 +412,11 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      * default value is <code>6</code> MB.
      * </p>
      * <p>
+     * The value of <code>MaxPayloadInMB</code> cannot be greater than 100 MB. If you specify the
+     * <code>MaxConcurrentTransforms</code> parameter, the value of
+     * <code>(MaxConcurrentTransforms * MaxPayloadInMB)</code> also cannot exceed 100 MB.
+     * </p>
+     * <p>
      * For cases where the payload might be arbitrarily large and is transmitted using HTTP chunked encoding, set the
      * value to <code>0</code>. This feature works only in supported algorithms. Currently, Amazon SageMaker built-in
      * algorithms do not support HTTP chunked encoding.
@@ -343,6 +427,11 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      *         single record. To estimate the size of a record in MB, divide the size of your dataset by the number of
      *         records. To ensure that the records fit within the maximum payload size, we recommend using a slightly
      *         larger value. The default value is <code>6</code> MB. </p>
+     *         <p>
+     *         The value of <code>MaxPayloadInMB</code> cannot be greater than 100 MB. If you specify the
+     *         <code>MaxConcurrentTransforms</code> parameter, the value of
+     *         <code>(MaxConcurrentTransforms * MaxPayloadInMB)</code> also cannot exceed 100 MB.
+     *         </p>
      *         <p>
      *         For cases where the payload might be arbitrarily large and is transmitted using HTTP chunked encoding,
      *         set the value to <code>0</code>. This feature works only in supported algorithms. Currently, Amazon
@@ -362,6 +451,11 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      * default value is <code>6</code> MB.
      * </p>
      * <p>
+     * The value of <code>MaxPayloadInMB</code> cannot be greater than 100 MB. If you specify the
+     * <code>MaxConcurrentTransforms</code> parameter, the value of
+     * <code>(MaxConcurrentTransforms * MaxPayloadInMB)</code> also cannot exceed 100 MB.
+     * </p>
+     * <p>
      * For cases where the payload might be arbitrarily large and is transmitted using HTTP chunked encoding, set the
      * value to <code>0</code>. This feature works only in supported algorithms. Currently, Amazon SageMaker built-in
      * algorithms do not support HTTP chunked encoding.
@@ -373,6 +467,11 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      *        single record. To estimate the size of a record in MB, divide the size of your dataset by the number of
      *        records. To ensure that the records fit within the maximum payload size, we recommend using a slightly
      *        larger value. The default value is <code>6</code> MB. </p>
+     *        <p>
+     *        The value of <code>MaxPayloadInMB</code> cannot be greater than 100 MB. If you specify the
+     *        <code>MaxConcurrentTransforms</code> parameter, the value of
+     *        <code>(MaxConcurrentTransforms * MaxPayloadInMB)</code> also cannot exceed 100 MB.
+     *        </p>
      *        <p>
      *        For cases where the payload might be arbitrarily large and is transmitted using HTTP chunked encoding, set
      *        the value to <code>0</code>. This feature works only in supported algorithms. Currently, Amazon SageMaker
@@ -391,8 +490,8 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      * a single unit of input data that inference can be made on. For example, a single line in a CSV file is a record.
      * </p>
      * <p>
-     * To enable the batch strategy, you must set <code>SplitType</code> to <code>Line</code>, <code>RecordIO</code>, or
-     * <code>TFRecord</code>.
+     * To enable the batch strategy, you must set the <code>SplitType</code> property to <code>Line</code>,
+     * <code>RecordIO</code>, or <code>TFRecord</code>.
      * </p>
      * <p>
      * To use only one record when making an HTTP invocation request to a container, set <code>BatchStrategy</code> to
@@ -408,7 +507,7 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      *        <i/> is a single unit of input data that inference can be made on. For example, a single line in a CSV
      *        file is a record. </p>
      *        <p>
-     *        To enable the batch strategy, you must set <code>SplitType</code> to <code>Line</code>,
+     *        To enable the batch strategy, you must set the <code>SplitType</code> property to <code>Line</code>,
      *        <code>RecordIO</code>, or <code>TFRecord</code>.
      *        </p>
      *        <p>
@@ -431,8 +530,8 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      * a single unit of input data that inference can be made on. For example, a single line in a CSV file is a record.
      * </p>
      * <p>
-     * To enable the batch strategy, you must set <code>SplitType</code> to <code>Line</code>, <code>RecordIO</code>, or
-     * <code>TFRecord</code>.
+     * To enable the batch strategy, you must set the <code>SplitType</code> property to <code>Line</code>,
+     * <code>RecordIO</code>, or <code>TFRecord</code>.
      * </p>
      * <p>
      * To use only one record when making an HTTP invocation request to a container, set <code>BatchStrategy</code> to
@@ -447,7 +546,7 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      *         <i/> is a single unit of input data that inference can be made on. For example, a single line in a CSV
      *         file is a record. </p>
      *         <p>
-     *         To enable the batch strategy, you must set <code>SplitType</code> to <code>Line</code>,
+     *         To enable the batch strategy, you must set the <code>SplitType</code> property to <code>Line</code>,
      *         <code>RecordIO</code>, or <code>TFRecord</code>.
      *         </p>
      *         <p>
@@ -470,8 +569,8 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      * a single unit of input data that inference can be made on. For example, a single line in a CSV file is a record.
      * </p>
      * <p>
-     * To enable the batch strategy, you must set <code>SplitType</code> to <code>Line</code>, <code>RecordIO</code>, or
-     * <code>TFRecord</code>.
+     * To enable the batch strategy, you must set the <code>SplitType</code> property to <code>Line</code>,
+     * <code>RecordIO</code>, or <code>TFRecord</code>.
      * </p>
      * <p>
      * To use only one record when making an HTTP invocation request to a container, set <code>BatchStrategy</code> to
@@ -487,7 +586,7 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      *        <i/> is a single unit of input data that inference can be made on. For example, a single line in a CSV
      *        file is a record. </p>
      *        <p>
-     *        To enable the batch strategy, you must set <code>SplitType</code> to <code>Line</code>,
+     *        To enable the batch strategy, you must set the <code>SplitType</code> property to <code>Line</code>,
      *        <code>RecordIO</code>, or <code>TFRecord</code>.
      *        </p>
      *        <p>
@@ -512,8 +611,8 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      * a single unit of input data that inference can be made on. For example, a single line in a CSV file is a record.
      * </p>
      * <p>
-     * To enable the batch strategy, you must set <code>SplitType</code> to <code>Line</code>, <code>RecordIO</code>, or
-     * <code>TFRecord</code>.
+     * To enable the batch strategy, you must set the <code>SplitType</code> property to <code>Line</code>,
+     * <code>RecordIO</code>, or <code>TFRecord</code>.
      * </p>
      * <p>
      * To use only one record when making an HTTP invocation request to a container, set <code>BatchStrategy</code> to
@@ -529,7 +628,7 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      *        <i/> is a single unit of input data that inference can be made on. For example, a single line in a CSV
      *        file is a record. </p>
      *        <p>
-     *        To enable the batch strategy, you must set <code>SplitType</code> to <code>Line</code>,
+     *        To enable the batch strategy, you must set the <code>SplitType</code> property to <code>Line</code>,
      *        <code>RecordIO</code>, or <code>TFRecord</code>.
      *        </p>
      *        <p>
@@ -590,6 +689,13 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
         setEnvironment(environment);
         return this;
     }
+
+    /**
+     * Add a single Environment entry
+     *
+     * @see CreateTransformJobRequest#withEnvironment
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public CreateTransformJobRequest addEnvironmentEntry(String key, String value) {
         if (null == this.environment) {
@@ -694,6 +800,46 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
+     * Configuration to control how SageMaker captures inference data.
+     * </p>
+     * 
+     * @param dataCaptureConfig
+     *        Configuration to control how SageMaker captures inference data.
+     */
+
+    public void setDataCaptureConfig(BatchDataCaptureConfig dataCaptureConfig) {
+        this.dataCaptureConfig = dataCaptureConfig;
+    }
+
+    /**
+     * <p>
+     * Configuration to control how SageMaker captures inference data.
+     * </p>
+     * 
+     * @return Configuration to control how SageMaker captures inference data.
+     */
+
+    public BatchDataCaptureConfig getDataCaptureConfig() {
+        return this.dataCaptureConfig;
+    }
+
+    /**
+     * <p>
+     * Configuration to control how SageMaker captures inference data.
+     * </p>
+     * 
+     * @param dataCaptureConfig
+     *        Configuration to control how SageMaker captures inference data.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTransformJobRequest withDataCaptureConfig(BatchDataCaptureConfig dataCaptureConfig) {
+        setDataCaptureConfig(dataCaptureConfig);
+        return this;
+    }
+
+    /**
+     * <p>
      * Describes the resources, including ML instance types and ML instance count, to use for the transform job.
      * </p>
      * 
@@ -734,16 +880,23 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The data structure used for combining the input data and inference in the output file. For more information, see
-     * <a href="http://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-io-join.html">Batch Transform I/O
-     * Join</a>.
+     * The data structure used to specify the data to be used for inference in a batch transform job and to associate
+     * the data that is relevant to the prediction results in the output. The input filter provided allows you to
+     * exclude input data that is not needed for inference in a batch transform job. The output filter provided allows
+     * you to include input data relevant to interpreting the predictions in the output from the job. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html">Associate Prediction
+     * Results with their Corresponding Input Records</a>.
      * </p>
      * 
      * @param dataProcessing
-     *        The data structure used for combining the input data and inference in the output file. For more
-     *        information, see <a
-     *        href="http://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-io-join.html">Batch Transform I/O
-     *        Join</a>.
+     *        The data structure used to specify the data to be used for inference in a batch transform job and to
+     *        associate the data that is relevant to the prediction results in the output. The input filter provided
+     *        allows you to exclude input data that is not needed for inference in a batch transform job. The output
+     *        filter provided allows you to include input data relevant to interpreting the predictions in the output
+     *        from the job. For more information, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html">Associate
+     *        Prediction Results with their Corresponding Input Records</a>.
      */
 
     public void setDataProcessing(DataProcessing dataProcessing) {
@@ -752,15 +905,22 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The data structure used for combining the input data and inference in the output file. For more information, see
-     * <a href="http://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-io-join.html">Batch Transform I/O
-     * Join</a>.
+     * The data structure used to specify the data to be used for inference in a batch transform job and to associate
+     * the data that is relevant to the prediction results in the output. The input filter provided allows you to
+     * exclude input data that is not needed for inference in a batch transform job. The output filter provided allows
+     * you to include input data relevant to interpreting the predictions in the output from the job. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html">Associate Prediction
+     * Results with their Corresponding Input Records</a>.
      * </p>
      * 
-     * @return The data structure used for combining the input data and inference in the output file. For more
-     *         information, see <a
-     *         href="http://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-io-join.html">Batch Transform I/O
-     *         Join</a>.
+     * @return The data structure used to specify the data to be used for inference in a batch transform job and to
+     *         associate the data that is relevant to the prediction results in the output. The input filter provided
+     *         allows you to exclude input data that is not needed for inference in a batch transform job. The output
+     *         filter provided allows you to include input data relevant to interpreting the predictions in the output
+     *         from the job. For more information, see <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html">Associate
+     *         Prediction Results with their Corresponding Input Records</a>.
      */
 
     public DataProcessing getDataProcessing() {
@@ -769,16 +929,23 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The data structure used for combining the input data and inference in the output file. For more information, see
-     * <a href="http://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-io-join.html">Batch Transform I/O
-     * Join</a>.
+     * The data structure used to specify the data to be used for inference in a batch transform job and to associate
+     * the data that is relevant to the prediction results in the output. The input filter provided allows you to
+     * exclude input data that is not needed for inference in a batch transform job. The output filter provided allows
+     * you to include input data relevant to interpreting the predictions in the output from the job. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html">Associate Prediction
+     * Results with their Corresponding Input Records</a>.
      * </p>
      * 
      * @param dataProcessing
-     *        The data structure used for combining the input data and inference in the output file. For more
-     *        information, see <a
-     *        href="http://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-io-join.html">Batch Transform I/O
-     *        Join</a>.
+     *        The data structure used to specify the data to be used for inference in a batch transform job and to
+     *        associate the data that is relevant to the prediction results in the output. The input filter provided
+     *        allows you to exclude input data that is not needed for inference in a batch transform job. The output
+     *        filter provided allows you to include input data relevant to interpreting the predictions in the output
+     *        from the job. For more information, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html">Associate
+     *        Prediction Results with their Corresponding Input Records</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -791,12 +958,12 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      * <p>
      * (Optional) An array of key-value pairs. For more information, see <a
      * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
-     * Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     * Cost Allocation Tags</a> in the <i>Amazon Web Services Billing and Cost Management User Guide</i>.
      * </p>
      * 
      * @return (Optional) An array of key-value pairs. For more information, see <a
      *         href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what"
-     *         >Using Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     *         >Using Cost Allocation Tags</a> in the <i>Amazon Web Services Billing and Cost Management User Guide</i>.
      */
 
     public java.util.List<Tag> getTags() {
@@ -807,13 +974,13 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      * <p>
      * (Optional) An array of key-value pairs. For more information, see <a
      * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
-     * Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     * Cost Allocation Tags</a> in the <i>Amazon Web Services Billing and Cost Management User Guide</i>.
      * </p>
      * 
      * @param tags
      *        (Optional) An array of key-value pairs. For more information, see <a
      *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what"
-     *        >Using Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     *        >Using Cost Allocation Tags</a> in the <i>Amazon Web Services Billing and Cost Management User Guide</i>.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -829,7 +996,7 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      * <p>
      * (Optional) An array of key-value pairs. For more information, see <a
      * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
-     * Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     * Cost Allocation Tags</a> in the <i>Amazon Web Services Billing and Cost Management User Guide</i>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -840,7 +1007,7 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      * @param tags
      *        (Optional) An array of key-value pairs. For more information, see <a
      *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what"
-     *        >Using Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     *        >Using Cost Allocation Tags</a> in the <i>Amazon Web Services Billing and Cost Management User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -858,18 +1025,44 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
      * <p>
      * (Optional) An array of key-value pairs. For more information, see <a
      * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
-     * Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     * Cost Allocation Tags</a> in the <i>Amazon Web Services Billing and Cost Management User Guide</i>.
      * </p>
      * 
      * @param tags
      *        (Optional) An array of key-value pairs. For more information, see <a
      *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what"
-     *        >Using Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     *        >Using Cost Allocation Tags</a> in the <i>Amazon Web Services Billing and Cost Management User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateTransformJobRequest withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
+        return this;
+    }
+
+    /**
+     * @param experimentConfig
+     */
+
+    public void setExperimentConfig(ExperimentConfig experimentConfig) {
+        this.experimentConfig = experimentConfig;
+    }
+
+    /**
+     * @return
+     */
+
+    public ExperimentConfig getExperimentConfig() {
+        return this.experimentConfig;
+    }
+
+    /**
+     * @param experimentConfig
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTransformJobRequest withExperimentConfig(ExperimentConfig experimentConfig) {
+        setExperimentConfig(experimentConfig);
         return this;
     }
 
@@ -891,6 +1084,8 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
             sb.append("ModelName: ").append(getModelName()).append(",");
         if (getMaxConcurrentTransforms() != null)
             sb.append("MaxConcurrentTransforms: ").append(getMaxConcurrentTransforms()).append(",");
+        if (getModelClientConfig() != null)
+            sb.append("ModelClientConfig: ").append(getModelClientConfig()).append(",");
         if (getMaxPayloadInMB() != null)
             sb.append("MaxPayloadInMB: ").append(getMaxPayloadInMB()).append(",");
         if (getBatchStrategy() != null)
@@ -901,12 +1096,16 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
             sb.append("TransformInput: ").append(getTransformInput()).append(",");
         if (getTransformOutput() != null)
             sb.append("TransformOutput: ").append(getTransformOutput()).append(",");
+        if (getDataCaptureConfig() != null)
+            sb.append("DataCaptureConfig: ").append(getDataCaptureConfig()).append(",");
         if (getTransformResources() != null)
             sb.append("TransformResources: ").append(getTransformResources()).append(",");
         if (getDataProcessing() != null)
             sb.append("DataProcessing: ").append(getDataProcessing()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getExperimentConfig() != null)
+            sb.append("ExperimentConfig: ").append(getExperimentConfig());
         sb.append("}");
         return sb.toString();
     }
@@ -933,6 +1132,10 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
             return false;
         if (other.getMaxConcurrentTransforms() != null && other.getMaxConcurrentTransforms().equals(this.getMaxConcurrentTransforms()) == false)
             return false;
+        if (other.getModelClientConfig() == null ^ this.getModelClientConfig() == null)
+            return false;
+        if (other.getModelClientConfig() != null && other.getModelClientConfig().equals(this.getModelClientConfig()) == false)
+            return false;
         if (other.getMaxPayloadInMB() == null ^ this.getMaxPayloadInMB() == null)
             return false;
         if (other.getMaxPayloadInMB() != null && other.getMaxPayloadInMB().equals(this.getMaxPayloadInMB()) == false)
@@ -953,6 +1156,10 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
             return false;
         if (other.getTransformOutput() != null && other.getTransformOutput().equals(this.getTransformOutput()) == false)
             return false;
+        if (other.getDataCaptureConfig() == null ^ this.getDataCaptureConfig() == null)
+            return false;
+        if (other.getDataCaptureConfig() != null && other.getDataCaptureConfig().equals(this.getDataCaptureConfig()) == false)
+            return false;
         if (other.getTransformResources() == null ^ this.getTransformResources() == null)
             return false;
         if (other.getTransformResources() != null && other.getTransformResources().equals(this.getTransformResources()) == false)
@@ -965,6 +1172,10 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getExperimentConfig() == null ^ this.getExperimentConfig() == null)
+            return false;
+        if (other.getExperimentConfig() != null && other.getExperimentConfig().equals(this.getExperimentConfig()) == false)
+            return false;
         return true;
     }
 
@@ -976,14 +1187,17 @@ public class CreateTransformJobRequest extends com.amazonaws.AmazonWebServiceReq
         hashCode = prime * hashCode + ((getTransformJobName() == null) ? 0 : getTransformJobName().hashCode());
         hashCode = prime * hashCode + ((getModelName() == null) ? 0 : getModelName().hashCode());
         hashCode = prime * hashCode + ((getMaxConcurrentTransforms() == null) ? 0 : getMaxConcurrentTransforms().hashCode());
+        hashCode = prime * hashCode + ((getModelClientConfig() == null) ? 0 : getModelClientConfig().hashCode());
         hashCode = prime * hashCode + ((getMaxPayloadInMB() == null) ? 0 : getMaxPayloadInMB().hashCode());
         hashCode = prime * hashCode + ((getBatchStrategy() == null) ? 0 : getBatchStrategy().hashCode());
         hashCode = prime * hashCode + ((getEnvironment() == null) ? 0 : getEnvironment().hashCode());
         hashCode = prime * hashCode + ((getTransformInput() == null) ? 0 : getTransformInput().hashCode());
         hashCode = prime * hashCode + ((getTransformOutput() == null) ? 0 : getTransformOutput().hashCode());
+        hashCode = prime * hashCode + ((getDataCaptureConfig() == null) ? 0 : getDataCaptureConfig().hashCode());
         hashCode = prime * hashCode + ((getTransformResources() == null) ? 0 : getTransformResources().hashCode());
         hashCode = prime * hashCode + ((getDataProcessing() == null) ? 0 : getDataProcessing().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getExperimentConfig() == null) ? 0 : getExperimentConfig().hashCode());
         return hashCode;
     }
 

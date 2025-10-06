@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,6 +35,11 @@ public class AbstractAmazonDynamoDB implements AmazonDynamoDB {
 
     @Override
     public void setRegion(com.amazonaws.regions.Region region) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public BatchExecuteStatementResult batchExecuteStatement(BatchExecuteStatementRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -106,6 +111,11 @@ public class AbstractAmazonDynamoDB implements AmazonDynamoDB {
     }
 
     @Override
+    public DeleteResourcePolicyResult deleteResourcePolicy(DeleteResourcePolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteTableResult deleteTable(DeleteTableRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -126,7 +136,17 @@ public class AbstractAmazonDynamoDB implements AmazonDynamoDB {
     }
 
     @Override
+    public DescribeContributorInsightsResult describeContributorInsights(DescribeContributorInsightsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeEndpointsResult describeEndpoints(DescribeEndpointsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeExportResult describeExport(DescribeExportRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -137,6 +157,16 @@ public class AbstractAmazonDynamoDB implements AmazonDynamoDB {
 
     @Override
     public DescribeGlobalTableSettingsResult describeGlobalTableSettings(DescribeGlobalTableSettingsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeImportResult describeImport(DescribeImportRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeKinesisStreamingDestinationResult describeKinesisStreamingDestination(DescribeKinesisStreamingDestinationRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -156,7 +186,37 @@ public class AbstractAmazonDynamoDB implements AmazonDynamoDB {
     }
 
     @Override
+    public DescribeTableReplicaAutoScalingResult describeTableReplicaAutoScaling(DescribeTableReplicaAutoScalingRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeTimeToLiveResult describeTimeToLive(DescribeTimeToLiveRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisableKinesisStreamingDestinationResult disableKinesisStreamingDestination(DisableKinesisStreamingDestinationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public EnableKinesisStreamingDestinationResult enableKinesisStreamingDestination(EnableKinesisStreamingDestinationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ExecuteStatementResult executeStatement(ExecuteStatementRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ExecuteTransactionResult executeTransaction(ExecuteTransactionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ExportTableToPointInTimeResult exportTableToPointInTime(ExportTableToPointInTimeRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -176,12 +236,37 @@ public class AbstractAmazonDynamoDB implements AmazonDynamoDB {
     }
 
     @Override
+    public GetResourcePolicyResult getResourcePolicy(GetResourcePolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ImportTableResult importTable(ImportTableRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListBackupsResult listBackups(ListBackupsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public ListContributorInsightsResult listContributorInsights(ListContributorInsightsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListExportsResult listExports(ListExportsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListGlobalTablesResult listGlobalTables(ListGlobalTablesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListImportsResult listImports(ListImportsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -228,6 +313,11 @@ public class AbstractAmazonDynamoDB implements AmazonDynamoDB {
     @Override
     public PutItemResult putItem(String tableName, java.util.Map<String, AttributeValue> item, String returnValues) {
         return putItem(new PutItemRequest().withTableName(tableName).withItem(item).withReturnValues(returnValues));
+    }
+
+    @Override
+    public PutResourcePolicyResult putResourcePolicy(PutResourcePolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
@@ -291,6 +381,11 @@ public class AbstractAmazonDynamoDB implements AmazonDynamoDB {
     }
 
     @Override
+    public UpdateContributorInsightsResult updateContributorInsights(UpdateContributorInsightsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateGlobalTableResult updateGlobalTable(UpdateGlobalTableRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -317,6 +412,11 @@ public class AbstractAmazonDynamoDB implements AmazonDynamoDB {
     }
 
     @Override
+    public UpdateKinesisStreamingDestinationResult updateKinesisStreamingDestination(UpdateKinesisStreamingDestinationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateTableResult updateTable(UpdateTableRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -324,6 +424,11 @@ public class AbstractAmazonDynamoDB implements AmazonDynamoDB {
     @Override
     public UpdateTableResult updateTable(String tableName, ProvisionedThroughput provisionedThroughput) {
         return updateTable(new UpdateTableRequest().withTableName(tableName).withProvisionedThroughput(provisionedThroughput));
+    }
+
+    @Override
+    public UpdateTableReplicaAutoScalingResult updateTableReplicaAutoScaling(UpdateTableReplicaAutoScalingRequest request) {
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override

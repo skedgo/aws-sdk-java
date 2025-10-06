@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The device verifier against which it will be authenticated.
+ * The device verifier against which it is authenticated.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeviceSecretVerifierConfigType"
@@ -36,7 +36,7 @@ public class DeviceSecretVerifierConfigType implements Serializable, Cloneable, 
     private String passwordVerifier;
     /**
      * <p>
-     * The salt.
+     * The <a href="https://en.wikipedia.org/wiki/Salt_(cryptography)">salt</a>
      * </p>
      */
     private String salt;
@@ -83,11 +83,11 @@ public class DeviceSecretVerifierConfigType implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The salt.
+     * The <a href="https://en.wikipedia.org/wiki/Salt_(cryptography)">salt</a>
      * </p>
      * 
      * @param salt
-     *        The salt.
+     *        The <a href="https://en.wikipedia.org/wiki/Salt_(cryptography)">salt</a>
      */
 
     public void setSalt(String salt) {
@@ -96,10 +96,10 @@ public class DeviceSecretVerifierConfigType implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The salt.
+     * The <a href="https://en.wikipedia.org/wiki/Salt_(cryptography)">salt</a>
      * </p>
      * 
-     * @return The salt.
+     * @return The <a href="https://en.wikipedia.org/wiki/Salt_(cryptography)">salt</a>
      */
 
     public String getSalt() {
@@ -108,11 +108,11 @@ public class DeviceSecretVerifierConfigType implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The salt.
+     * The <a href="https://en.wikipedia.org/wiki/Salt_(cryptography)">salt</a>
      * </p>
      * 
      * @param salt
-     *        The salt.
+     *        The <a href="https://en.wikipedia.org/wiki/Salt_(cryptography)">salt</a>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

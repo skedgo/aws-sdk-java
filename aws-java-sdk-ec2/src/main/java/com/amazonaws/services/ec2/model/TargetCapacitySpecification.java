@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -23,10 +23,12 @@ import javax.annotation.Generated;
  * </p>
  * <p>
  * You can use the On-Demand Instance <code>MaxTotalPrice</code> parameter, the Spot Instance <code>MaxTotalPrice</code>
- * , or both to ensure your fleet cost does not exceed your budget. If you set a maximum price per hour for the
+ * , or both to ensure that your fleet cost does not exceed your budget. If you set a maximum price per hour for the
  * On-Demand Instances and Spot Instances in your request, EC2 Fleet will launch instances until it reaches the maximum
- * amount you're willing to pay. When the maximum amount you're willing to pay is reached, the fleet stops launching
- * instances even if it hasn’t met the target capacity. The <code>MaxTotalPrice</code> parameters are located in and
+ * amount that you're willing to pay. When the maximum amount you're willing to pay is reached, the fleet stops
+ * launching instances even if it hasn’t met the target capacity. The <code>MaxTotalPrice</code> parameters are located
+ * in <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_OnDemandOptions.html">OnDemandOptions</a> and
+ * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotOptions">SpotOptions</a>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/TargetCapacitySpecification" target="_top">AWS
@@ -37,7 +39,7 @@ public class TargetCapacitySpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of units to request, filled using <code>DefaultTargetCapacityType</code>.
+     * The number of units to request, filled the default target capacity type.
      * </p>
      */
     private Integer totalTargetCapacity;
@@ -57,18 +59,24 @@ public class TargetCapacitySpecification implements Serializable, Cloneable {
     private Integer spotTargetCapacity;
     /**
      * <p>
-     * The default <code>TotalTargetCapacity</code>, which is either <code>Spot</code> or <code>On-Demand</code>.
+     * The default target capacity type.
      * </p>
      */
     private String defaultTargetCapacityType;
+    /**
+     * <p>
+     * The unit for the target capacity.
+     * </p>
+     */
+    private String targetCapacityUnitType;
 
     /**
      * <p>
-     * The number of units to request, filled using <code>DefaultTargetCapacityType</code>.
+     * The number of units to request, filled the default target capacity type.
      * </p>
      * 
      * @param totalTargetCapacity
-     *        The number of units to request, filled using <code>DefaultTargetCapacityType</code>.
+     *        The number of units to request, filled the default target capacity type.
      */
 
     public void setTotalTargetCapacity(Integer totalTargetCapacity) {
@@ -77,10 +85,10 @@ public class TargetCapacitySpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of units to request, filled using <code>DefaultTargetCapacityType</code>.
+     * The number of units to request, filled the default target capacity type.
      * </p>
      * 
-     * @return The number of units to request, filled using <code>DefaultTargetCapacityType</code>.
+     * @return The number of units to request, filled the default target capacity type.
      */
 
     public Integer getTotalTargetCapacity() {
@@ -89,11 +97,11 @@ public class TargetCapacitySpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of units to request, filled using <code>DefaultTargetCapacityType</code>.
+     * The number of units to request, filled the default target capacity type.
      * </p>
      * 
      * @param totalTargetCapacity
-     *        The number of units to request, filled using <code>DefaultTargetCapacityType</code>.
+     *        The number of units to request, filled the default target capacity type.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -196,11 +204,11 @@ public class TargetCapacitySpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The default <code>TotalTargetCapacity</code>, which is either <code>Spot</code> or <code>On-Demand</code>.
+     * The default target capacity type.
      * </p>
      * 
      * @param defaultTargetCapacityType
-     *        The default <code>TotalTargetCapacity</code>, which is either <code>Spot</code> or <code>On-Demand</code>.
+     *        The default target capacity type.
      * @see DefaultTargetCapacityType
      */
 
@@ -210,11 +218,10 @@ public class TargetCapacitySpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The default <code>TotalTargetCapacity</code>, which is either <code>Spot</code> or <code>On-Demand</code>.
+     * The default target capacity type.
      * </p>
      * 
-     * @return The default <code>TotalTargetCapacity</code>, which is either <code>Spot</code> or <code>On-Demand</code>
-     *         .
+     * @return The default target capacity type.
      * @see DefaultTargetCapacityType
      */
 
@@ -224,11 +231,11 @@ public class TargetCapacitySpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The default <code>TotalTargetCapacity</code>, which is either <code>Spot</code> or <code>On-Demand</code>.
+     * The default target capacity type.
      * </p>
      * 
      * @param defaultTargetCapacityType
-     *        The default <code>TotalTargetCapacity</code>, which is either <code>Spot</code> or <code>On-Demand</code>.
+     *        The default target capacity type.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DefaultTargetCapacityType
      */
@@ -240,17 +247,76 @@ public class TargetCapacitySpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The default <code>TotalTargetCapacity</code>, which is either <code>Spot</code> or <code>On-Demand</code>.
+     * The default target capacity type.
      * </p>
      * 
      * @param defaultTargetCapacityType
-     *        The default <code>TotalTargetCapacity</code>, which is either <code>Spot</code> or <code>On-Demand</code>.
+     *        The default target capacity type.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DefaultTargetCapacityType
      */
 
     public TargetCapacitySpecification withDefaultTargetCapacityType(DefaultTargetCapacityType defaultTargetCapacityType) {
         this.defaultTargetCapacityType = defaultTargetCapacityType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The unit for the target capacity.
+     * </p>
+     * 
+     * @param targetCapacityUnitType
+     *        The unit for the target capacity.
+     * @see TargetCapacityUnitType
+     */
+
+    public void setTargetCapacityUnitType(String targetCapacityUnitType) {
+        this.targetCapacityUnitType = targetCapacityUnitType;
+    }
+
+    /**
+     * <p>
+     * The unit for the target capacity.
+     * </p>
+     * 
+     * @return The unit for the target capacity.
+     * @see TargetCapacityUnitType
+     */
+
+    public String getTargetCapacityUnitType() {
+        return this.targetCapacityUnitType;
+    }
+
+    /**
+     * <p>
+     * The unit for the target capacity.
+     * </p>
+     * 
+     * @param targetCapacityUnitType
+     *        The unit for the target capacity.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TargetCapacityUnitType
+     */
+
+    public TargetCapacitySpecification withTargetCapacityUnitType(String targetCapacityUnitType) {
+        setTargetCapacityUnitType(targetCapacityUnitType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The unit for the target capacity.
+     * </p>
+     * 
+     * @param targetCapacityUnitType
+     *        The unit for the target capacity.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TargetCapacityUnitType
+     */
+
+    public TargetCapacitySpecification withTargetCapacityUnitType(TargetCapacityUnitType targetCapacityUnitType) {
+        this.targetCapacityUnitType = targetCapacityUnitType.toString();
         return this;
     }
 
@@ -273,7 +339,9 @@ public class TargetCapacitySpecification implements Serializable, Cloneable {
         if (getSpotTargetCapacity() != null)
             sb.append("SpotTargetCapacity: ").append(getSpotTargetCapacity()).append(",");
         if (getDefaultTargetCapacityType() != null)
-            sb.append("DefaultTargetCapacityType: ").append(getDefaultTargetCapacityType());
+            sb.append("DefaultTargetCapacityType: ").append(getDefaultTargetCapacityType()).append(",");
+        if (getTargetCapacityUnitType() != null)
+            sb.append("TargetCapacityUnitType: ").append(getTargetCapacityUnitType());
         sb.append("}");
         return sb.toString();
     }
@@ -304,6 +372,10 @@ public class TargetCapacitySpecification implements Serializable, Cloneable {
             return false;
         if (other.getDefaultTargetCapacityType() != null && other.getDefaultTargetCapacityType().equals(this.getDefaultTargetCapacityType()) == false)
             return false;
+        if (other.getTargetCapacityUnitType() == null ^ this.getTargetCapacityUnitType() == null)
+            return false;
+        if (other.getTargetCapacityUnitType() != null && other.getTargetCapacityUnitType().equals(this.getTargetCapacityUnitType()) == false)
+            return false;
         return true;
     }
 
@@ -316,6 +388,7 @@ public class TargetCapacitySpecification implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getOnDemandTargetCapacity() == null) ? 0 : getOnDemandTargetCapacity().hashCode());
         hashCode = prime * hashCode + ((getSpotTargetCapacity() == null) ? 0 : getSpotTargetCapacity().hashCode());
         hashCode = prime * hashCode + ((getDefaultTargetCapacityType() == null) ? 0 : getDefaultTargetCapacityType().hashCode());
+        hashCode = prime * hashCode + ((getTargetCapacityUnitType() == null) ? 0 : getTargetCapacityUnitType().hashCode());
         return hashCode;
     }
 

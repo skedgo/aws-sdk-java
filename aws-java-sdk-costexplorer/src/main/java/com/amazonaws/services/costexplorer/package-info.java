@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -13,9 +13,9 @@
 
 /**
  * <p>
- * The Cost Explorer API enables you to programmatically query your cost and usage data. You can query for aggregated
- * data such as total monthly costs or total daily usage. You can also query for granular data, such as the number of
- * daily write operations for Amazon DynamoDB database tables in your production environment.
+ * You can use the Cost Explorer API to programmatically query your cost and usage data. You can query for aggregated
+ * data such as total monthly costs or total daily usage. You can also query for granular data. This might include the
+ * number of daily write operations for Amazon DynamoDB database tables in your production environment.
  * </p>
  * <p>
  * Service Endpoint
@@ -31,8 +31,8 @@
  * </li>
  * </ul>
  * <p>
- * For information about costs associated with the Cost Explorer API, see <a
- * href="https://aws.amazon.com/aws-cost-management/pricing/">AWS Cost Management Pricing</a>.
+ * For information about the costs that are associated with the Cost Explorer API, see <a
+ * href="http://aws.amazon.com/aws-cost-management/pricing/">Amazon Web Services Cost Management Pricing</a>.
  * </p>
  */
 package com.amazonaws.services.costexplorer;

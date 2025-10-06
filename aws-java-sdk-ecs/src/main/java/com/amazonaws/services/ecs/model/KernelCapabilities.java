@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,11 +19,12 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The Linux capabilities for the container that are added to or dropped from the default configuration provided by
- * Docker. For more information on the default capabilities and the non-default available capabilities, see <a
+ * The Linux capabilities to add or remove from the default Docker configuration for a container defined in the task
+ * definition. For more information about the default capabilities and the non-default available capabilities, see <a
  * href="https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities">Runtime privilege and
- * Linux capabilities</a> in the <i>Docker run reference</i>. For more detailed information on these Linux capabilities,
- * see the <a href="http://man7.org/linux/man-pages/man7/capabilities.7.html">capabilities(7)</a> Linux manual page.
+ * Linux capabilities</a> in the <i>Docker run reference</i>. For more detailed information about these Linux
+ * capabilities, see the <a href="http://man7.org/linux/man-pages/man7/capabilities.7.html">capabilities(7)</a> Linux
+ * manual page.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/KernelCapabilities" target="_top">AWS API
@@ -38,11 +39,11 @@ public class KernelCapabilities implements Serializable, Cloneable, StructuredPo
      * This parameter maps to <code>CapAdd</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the
      * <a href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <code>--cap-add</code> option
-     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * to <a href="https://docs.docker.com/engine/reference/run/#security-configuration">docker run</a>.
      * </p>
      * <note>
      * <p>
-     * If you are using tasks that use the Fargate launch type, the <code>add</code> parameter is not supported.
+     * Tasks launched on Fargate only support adding the <code>SYS_PTRACE</code> kernel capability.
      * </p>
      * </note>
      * <p>
@@ -57,7 +58,7 @@ public class KernelCapabilities implements Serializable, Cloneable, StructuredPo
      * Docker. This parameter maps to <code>CapDrop</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the
      * <a href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <code>--cap-drop</code> option
-     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * to <a href="https://docs.docker.com/engine/reference/run/#security-configuration">docker run</a>.
      * </p>
      * <p>
      * Valid values:
@@ -72,11 +73,11 @@ public class KernelCapabilities implements Serializable, Cloneable, StructuredPo
      * This parameter maps to <code>CapAdd</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the
      * <a href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <code>--cap-add</code> option
-     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * to <a href="https://docs.docker.com/engine/reference/run/#security-configuration">docker run</a>.
      * </p>
      * <note>
      * <p>
-     * If you are using tasks that use the Fargate launch type, the <code>add</code> parameter is not supported.
+     * Tasks launched on Fargate only support adding the <code>SYS_PTRACE</code> kernel capability.
      * </p>
      * </note>
      * <p>
@@ -88,10 +89,10 @@ public class KernelCapabilities implements Serializable, Cloneable, StructuredPo
      *         Docker. This parameter maps to <code>CapAdd</code> in the <a
      *         href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section
      *         of the <a href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the
-     *         <code>--cap-add</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
-     *         run</a>.</p> <note>
+     *         <code>--cap-add</code> option to <a
+     *         href="https://docs.docker.com/engine/reference/run/#security-configuration">docker run</a>.</p> <note>
      *         <p>
-     *         If you are using tasks that use the Fargate launch type, the <code>add</code> parameter is not supported.
+     *         Tasks launched on Fargate only support adding the <code>SYS_PTRACE</code> kernel capability.
      *         </p>
      *         </note>
      *         <p>
@@ -112,11 +113,11 @@ public class KernelCapabilities implements Serializable, Cloneable, StructuredPo
      * This parameter maps to <code>CapAdd</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the
      * <a href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <code>--cap-add</code> option
-     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * to <a href="https://docs.docker.com/engine/reference/run/#security-configuration">docker run</a>.
      * </p>
      * <note>
      * <p>
-     * If you are using tasks that use the Fargate launch type, the <code>add</code> parameter is not supported.
+     * Tasks launched on Fargate only support adding the <code>SYS_PTRACE</code> kernel capability.
      * </p>
      * </note>
      * <p>
@@ -129,10 +130,10 @@ public class KernelCapabilities implements Serializable, Cloneable, StructuredPo
      *        Docker. This parameter maps to <code>CapAdd</code> in the <a
      *        href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section
      *        of the <a href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the
-     *        <code>--cap-add</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
-     *        run</a>.</p> <note>
+     *        <code>--cap-add</code> option to <a
+     *        href="https://docs.docker.com/engine/reference/run/#security-configuration">docker run</a>.</p> <note>
      *        <p>
-     *        If you are using tasks that use the Fargate launch type, the <code>add</code> parameter is not supported.
+     *        Tasks launched on Fargate only support adding the <code>SYS_PTRACE</code> kernel capability.
      *        </p>
      *        </note>
      *        <p>
@@ -155,11 +156,11 @@ public class KernelCapabilities implements Serializable, Cloneable, StructuredPo
      * This parameter maps to <code>CapAdd</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the
      * <a href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <code>--cap-add</code> option
-     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * to <a href="https://docs.docker.com/engine/reference/run/#security-configuration">docker run</a>.
      * </p>
      * <note>
      * <p>
-     * If you are using tasks that use the Fargate launch type, the <code>add</code> parameter is not supported.
+     * Tasks launched on Fargate only support adding the <code>SYS_PTRACE</code> kernel capability.
      * </p>
      * </note>
      * <p>
@@ -177,10 +178,10 @@ public class KernelCapabilities implements Serializable, Cloneable, StructuredPo
      *        Docker. This parameter maps to <code>CapAdd</code> in the <a
      *        href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section
      *        of the <a href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the
-     *        <code>--cap-add</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
-     *        run</a>.</p> <note>
+     *        <code>--cap-add</code> option to <a
+     *        href="https://docs.docker.com/engine/reference/run/#security-configuration">docker run</a>.</p> <note>
      *        <p>
-     *        If you are using tasks that use the Fargate launch type, the <code>add</code> parameter is not supported.
+     *        Tasks launched on Fargate only support adding the <code>SYS_PTRACE</code> kernel capability.
      *        </p>
      *        </note>
      *        <p>
@@ -205,11 +206,11 @@ public class KernelCapabilities implements Serializable, Cloneable, StructuredPo
      * This parameter maps to <code>CapAdd</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the
      * <a href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <code>--cap-add</code> option
-     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * to <a href="https://docs.docker.com/engine/reference/run/#security-configuration">docker run</a>.
      * </p>
      * <note>
      * <p>
-     * If you are using tasks that use the Fargate launch type, the <code>add</code> parameter is not supported.
+     * Tasks launched on Fargate only support adding the <code>SYS_PTRACE</code> kernel capability.
      * </p>
      * </note>
      * <p>
@@ -222,10 +223,10 @@ public class KernelCapabilities implements Serializable, Cloneable, StructuredPo
      *        Docker. This parameter maps to <code>CapAdd</code> in the <a
      *        href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section
      *        of the <a href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the
-     *        <code>--cap-add</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
-     *        run</a>.</p> <note>
+     *        <code>--cap-add</code> option to <a
+     *        href="https://docs.docker.com/engine/reference/run/#security-configuration">docker run</a>.</p> <note>
      *        <p>
-     *        If you are using tasks that use the Fargate launch type, the <code>add</code> parameter is not supported.
+     *        Tasks launched on Fargate only support adding the <code>SYS_PTRACE</code> kernel capability.
      *        </p>
      *        </note>
      *        <p>
@@ -245,7 +246,7 @@ public class KernelCapabilities implements Serializable, Cloneable, StructuredPo
      * Docker. This parameter maps to <code>CapDrop</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the
      * <a href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <code>--cap-drop</code> option
-     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * to <a href="https://docs.docker.com/engine/reference/run/#security-configuration">docker run</a>.
      * </p>
      * <p>
      * Valid values:
@@ -256,8 +257,8 @@ public class KernelCapabilities implements Serializable, Cloneable, StructuredPo
      *         by Docker. This parameter maps to <code>CapDrop</code> in the <a
      *         href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section
      *         of the <a href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the
-     *         <code>--cap-drop</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
-     *         run</a>.</p>
+     *         <code>--cap-drop</code> option to <a
+     *         href="https://docs.docker.com/engine/reference/run/#security-configuration">docker run</a>.</p>
      *         <p>
      *         Valid values:
      *         <code>"ALL" | "AUDIT_CONTROL" | "AUDIT_WRITE" | "BLOCK_SUSPEND" | "CHOWN" | "DAC_OVERRIDE" | "DAC_READ_SEARCH" | "FOWNER" | "FSETID" | "IPC_LOCK" | "IPC_OWNER" | "KILL" | "LEASE" | "LINUX_IMMUTABLE" | "MAC_ADMIN" | "MAC_OVERRIDE" | "MKNOD" | "NET_ADMIN" | "NET_BIND_SERVICE" | "NET_BROADCAST" | "NET_RAW" | "SETFCAP" | "SETGID" | "SETPCAP" | "SETUID" | "SYS_ADMIN" | "SYS_BOOT" | "SYS_CHROOT" | "SYS_MODULE" | "SYS_NICE" | "SYS_PACCT" | "SYS_PTRACE" | "SYS_RAWIO" | "SYS_RESOURCE" | "SYS_TIME" | "SYS_TTY_CONFIG" | "SYSLOG" | "WAKE_ALARM"</code>
@@ -276,7 +277,7 @@ public class KernelCapabilities implements Serializable, Cloneable, StructuredPo
      * Docker. This parameter maps to <code>CapDrop</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the
      * <a href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <code>--cap-drop</code> option
-     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * to <a href="https://docs.docker.com/engine/reference/run/#security-configuration">docker run</a>.
      * </p>
      * <p>
      * Valid values:
@@ -288,8 +289,8 @@ public class KernelCapabilities implements Serializable, Cloneable, StructuredPo
      *        Docker. This parameter maps to <code>CapDrop</code> in the <a
      *        href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section
      *        of the <a href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the
-     *        <code>--cap-drop</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
-     *        run</a>.</p>
+     *        <code>--cap-drop</code> option to <a
+     *        href="https://docs.docker.com/engine/reference/run/#security-configuration">docker run</a>.</p>
      *        <p>
      *        Valid values:
      *        <code>"ALL" | "AUDIT_CONTROL" | "AUDIT_WRITE" | "BLOCK_SUSPEND" | "CHOWN" | "DAC_OVERRIDE" | "DAC_READ_SEARCH" | "FOWNER" | "FSETID" | "IPC_LOCK" | "IPC_OWNER" | "KILL" | "LEASE" | "LINUX_IMMUTABLE" | "MAC_ADMIN" | "MAC_OVERRIDE" | "MKNOD" | "NET_ADMIN" | "NET_BIND_SERVICE" | "NET_BROADCAST" | "NET_RAW" | "SETFCAP" | "SETGID" | "SETPCAP" | "SETUID" | "SYS_ADMIN" | "SYS_BOOT" | "SYS_CHROOT" | "SYS_MODULE" | "SYS_NICE" | "SYS_PACCT" | "SYS_PTRACE" | "SYS_RAWIO" | "SYS_RESOURCE" | "SYS_TIME" | "SYS_TTY_CONFIG" | "SYSLOG" | "WAKE_ALARM"</code>
@@ -310,7 +311,7 @@ public class KernelCapabilities implements Serializable, Cloneable, StructuredPo
      * Docker. This parameter maps to <code>CapDrop</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the
      * <a href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <code>--cap-drop</code> option
-     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * to <a href="https://docs.docker.com/engine/reference/run/#security-configuration">docker run</a>.
      * </p>
      * <p>
      * Valid values:
@@ -327,8 +328,8 @@ public class KernelCapabilities implements Serializable, Cloneable, StructuredPo
      *        Docker. This parameter maps to <code>CapDrop</code> in the <a
      *        href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section
      *        of the <a href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the
-     *        <code>--cap-drop</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
-     *        run</a>.</p>
+     *        <code>--cap-drop</code> option to <a
+     *        href="https://docs.docker.com/engine/reference/run/#security-configuration">docker run</a>.</p>
      *        <p>
      *        Valid values:
      *        <code>"ALL" | "AUDIT_CONTROL" | "AUDIT_WRITE" | "BLOCK_SUSPEND" | "CHOWN" | "DAC_OVERRIDE" | "DAC_READ_SEARCH" | "FOWNER" | "FSETID" | "IPC_LOCK" | "IPC_OWNER" | "KILL" | "LEASE" | "LINUX_IMMUTABLE" | "MAC_ADMIN" | "MAC_OVERRIDE" | "MKNOD" | "NET_ADMIN" | "NET_BIND_SERVICE" | "NET_BROADCAST" | "NET_RAW" | "SETFCAP" | "SETGID" | "SETPCAP" | "SETUID" | "SYS_ADMIN" | "SYS_BOOT" | "SYS_CHROOT" | "SYS_MODULE" | "SYS_NICE" | "SYS_PACCT" | "SYS_PTRACE" | "SYS_RAWIO" | "SYS_RESOURCE" | "SYS_TIME" | "SYS_TTY_CONFIG" | "SYSLOG" | "WAKE_ALARM"</code>
@@ -351,7 +352,7 @@ public class KernelCapabilities implements Serializable, Cloneable, StructuredPo
      * Docker. This parameter maps to <code>CapDrop</code> in the <a
      * href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the
      * <a href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <code>--cap-drop</code> option
-     * to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * to <a href="https://docs.docker.com/engine/reference/run/#security-configuration">docker run</a>.
      * </p>
      * <p>
      * Valid values:
@@ -363,8 +364,8 @@ public class KernelCapabilities implements Serializable, Cloneable, StructuredPo
      *        Docker. This parameter maps to <code>CapDrop</code> in the <a
      *        href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section
      *        of the <a href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the
-     *        <code>--cap-drop</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
-     *        run</a>.</p>
+     *        <code>--cap-drop</code> option to <a
+     *        href="https://docs.docker.com/engine/reference/run/#security-configuration">docker run</a>.</p>
      *        <p>
      *        Valid values:
      *        <code>"ALL" | "AUDIT_CONTROL" | "AUDIT_WRITE" | "BLOCK_SUSPEND" | "CHOWN" | "DAC_OVERRIDE" | "DAC_READ_SEARCH" | "FOWNER" | "FSETID" | "IPC_LOCK" | "IPC_OWNER" | "KILL" | "LEASE" | "LINUX_IMMUTABLE" | "MAC_ADMIN" | "MAC_OVERRIDE" | "MKNOD" | "NET_ADMIN" | "NET_BIND_SERVICE" | "NET_BROADCAST" | "NET_RAW" | "SETFCAP" | "SETGID" | "SETPCAP" | "SETUID" | "SYS_ADMIN" | "SYS_BOOT" | "SYS_CHROOT" | "SYS_MODULE" | "SYS_NICE" | "SYS_PACCT" | "SYS_PTRACE" | "SYS_RAWIO" | "SYS_RESOURCE" | "SYS_TIME" | "SYS_TTY_CONFIG" | "SYSLOG" | "WAKE_ALARM"</code>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,8 @@ public class WriteCampaignRequestMarshaller {
 
     private static final MarshallingInfo<List> ADDITIONALTREATMENTS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AdditionalTreatments").build();
+    private static final MarshallingInfo<StructuredPojo> CUSTOMDELIVERYCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CustomDeliveryConfiguration").build();
     private static final MarshallingInfo<String> DESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Description").build();
     private static final MarshallingInfo<Integer> HOLDOUTPERCENT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
@@ -53,10 +55,14 @@ public class WriteCampaignRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SegmentVersion").build();
     private static final MarshallingInfo<Map> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("tags").build();
+    private static final MarshallingInfo<StructuredPojo> TEMPLATECONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TemplateConfiguration").build();
     private static final MarshallingInfo<String> TREATMENTDESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TreatmentDescription").build();
     private static final MarshallingInfo<String> TREATMENTNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TreatmentName").build();
+    private static final MarshallingInfo<Integer> PRIORITY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Priority").build();
 
     private static final WriteCampaignRequestMarshaller instance = new WriteCampaignRequestMarshaller();
 
@@ -75,6 +81,7 @@ public class WriteCampaignRequestMarshaller {
 
         try {
             protocolMarshaller.marshall(writeCampaignRequest.getAdditionalTreatments(), ADDITIONALTREATMENTS_BINDING);
+            protocolMarshaller.marshall(writeCampaignRequest.getCustomDeliveryConfiguration(), CUSTOMDELIVERYCONFIGURATION_BINDING);
             protocolMarshaller.marshall(writeCampaignRequest.getDescription(), DESCRIPTION_BINDING);
             protocolMarshaller.marshall(writeCampaignRequest.getHoldoutPercent(), HOLDOUTPERCENT_BINDING);
             protocolMarshaller.marshall(writeCampaignRequest.getHook(), HOOK_BINDING);
@@ -86,8 +93,10 @@ public class WriteCampaignRequestMarshaller {
             protocolMarshaller.marshall(writeCampaignRequest.getSegmentId(), SEGMENTID_BINDING);
             protocolMarshaller.marshall(writeCampaignRequest.getSegmentVersion(), SEGMENTVERSION_BINDING);
             protocolMarshaller.marshall(writeCampaignRequest.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(writeCampaignRequest.getTemplateConfiguration(), TEMPLATECONFIGURATION_BINDING);
             protocolMarshaller.marshall(writeCampaignRequest.getTreatmentDescription(), TREATMENTDESCRIPTION_BINDING);
             protocolMarshaller.marshall(writeCampaignRequest.getTreatmentName(), TREATMENTNAME_BINDING);
+            protocolMarshaller.marshall(writeCampaignRequest.getPriority(), PRIORITY_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

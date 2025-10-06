@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -57,7 +57,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <ul>
      * <li>
      * <p>
-     * For AWS CodeCommit: the commit ID to use.
+     * For CodeCommit: the commit ID, branch, or Git tag to use.
      * </p>
      * </li>
      * <li>
@@ -70,6 +70,11 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </li>
      * <li>
      * <p>
+     * For GitLab: the commit ID, branch, or Git tag to use.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you
      * want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
      * branch's HEAD commit ID is used.
@@ -77,8 +82,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </li>
      * <li>
      * <p>
-     * For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build input ZIP
-     * file to use.
+     * For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
      * </p>
      * </li>
      * </ul>
@@ -89,7 +93,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version Sample
-     * with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     * with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      * </p>
      */
     private String sourceVersion;
@@ -127,15 +131,15 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
     private ProjectEnvironment environment;
     /**
      * <p>
-     * The ARN of the AWS Identity and Access Management (IAM) role that enables AWS CodeBuild to interact with
-     * dependent AWS services on behalf of the AWS account.
+     * The ARN of the IAM role that enables CodeBuild to interact with dependent Amazon Web Services services on behalf
+     * of the Amazon Web Services account.
      * </p>
      */
     private String serviceRole;
     /**
      * <p>
-     * How long, in minutes, from 5 to 480 (8 hours), for AWS CodeBuild to wait before it times out any build that has
-     * not been marked as completed. The default is 60 minutes.
+     * How long, in minutes, from 5 to 2160 (36 hours), for CodeBuild to wait before it times out any build that has not
+     * been marked as completed. The default is 60 minutes.
      * </p>
      */
     private Integer timeoutInMinutes;
@@ -147,8 +151,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
     private Integer queuedTimeoutInMinutes;
     /**
      * <p>
-     * The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build output
-     * artifacts.
+     * The Key Management Service customer master key (CMK) to be used for encrypting the build output artifacts.
      * </p>
      * <note>
      * <p>
@@ -158,23 +161,28 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </note>
      * <p>
      * You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using the
-     * format <code>alias/<i>alias-name</i> </code>).
+     * format <code>alias/&lt;alias-name&gt;</code>).
      * </p>
      */
     private String encryptionKey;
     /**
      * <p>
-     * A set of tags for this build project.
+     * A list of tag key and value pairs associated with this build project.
      * </p>
      * <p>
-     * These tags are available for use by AWS services that support AWS CodeBuild build project tags.
+     * These tags are available for use by Amazon Web Services services that support CodeBuild build project tags.
      * </p>
      */
     private java.util.List<Tag> tags;
     /**
      * <p>
-     * VpcConfig enables AWS CodeBuild to access resources in an Amazon VPC.
+     * VpcConfig enables CodeBuild to access resources in an Amazon VPC.
      * </p>
+     * <note>
+     * <p>
+     * If you're using compute fleets during project creation, do not provide vpcConfig.
+     * </p>
+     * </note>
      */
     private VpcConfig vpcConfig;
     /**
@@ -185,11 +193,36 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
     private Boolean badgeEnabled;
     /**
      * <p>
-     * Information about logs for the build project. These can be logs in Amazon CloudWatch Logs, logs uploaded to a
-     * specified S3 bucket, or both.
+     * Information about logs for the build project. These can be logs in CloudWatch Logs, logs uploaded to a specified
+     * S3 bucket, or both.
      * </p>
      */
     private LogsConfig logsConfig;
+    /**
+     * <p>
+     * An array of <code>ProjectFileSystemLocation</code> objects for a CodeBuild build project. A
+     * <code>ProjectFileSystemLocation</code> object specifies the <code>identifier</code>, <code>location</code>,
+     * <code>mountOptions</code>, <code>mountPoint</code>, and <code>type</code> of a file system created using Amazon
+     * Elastic File System.
+     * </p>
+     */
+    private java.util.List<ProjectFileSystemLocation> fileSystemLocations;
+    /**
+     * <p>
+     * A <a>ProjectBuildBatchConfig</a> object that defines the batch build options for the project.
+     * </p>
+     */
+    private ProjectBuildBatchConfig buildBatchConfig;
+    /**
+     * <p>
+     * The maximum number of concurrent builds that are allowed for this project.
+     * </p>
+     * <p>
+     * New builds are only started if the current number of builds is less than or equal to this limit. If the current
+     * build count meets this limit, new builds are throttled and are not run.
+     * </p>
+     */
+    private Integer concurrentBuildLimit;
 
     /**
      * <p>
@@ -389,7 +422,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <ul>
      * <li>
      * <p>
-     * For AWS CodeCommit: the commit ID to use.
+     * For CodeCommit: the commit ID, branch, or Git tag to use.
      * </p>
      * </li>
      * <li>
@@ -402,6 +435,11 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </li>
      * <li>
      * <p>
+     * For GitLab: the commit ID, branch, or Git tag to use.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you
      * want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
      * branch's HEAD commit ID is used.
@@ -409,8 +447,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </li>
      * <li>
      * <p>
-     * For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build input ZIP
-     * file to use.
+     * For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
      * </p>
      * </li>
      * </ul>
@@ -421,7 +458,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version Sample
-     * with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     * with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      * </p>
      * 
      * @param sourceVersion
@@ -430,7 +467,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <ul>
      *        <li>
      *        <p>
-     *        For AWS CodeCommit: the commit ID to use.
+     *        For CodeCommit: the commit ID, branch, or Git tag to use.
      *        </p>
      *        </li>
      *        <li>
@@ -443,6 +480,11 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        </li>
      *        <li>
      *        <p>
+     *        For GitLab: the commit ID, branch, or Git tag to use.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code
      *        you want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified,
      *        the default branch's HEAD commit ID is used.
@@ -450,8 +492,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        </li>
      *        <li>
      *        <p>
-     *        For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build
-     *        input ZIP file to use.
+     *        For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
      *        </p>
      *        </li>
      *        </ul>
@@ -462,7 +503,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <p>
      *        For more information, see <a
      *        href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version
-     *        Sample with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     *        Sample with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      */
 
     public void setSourceVersion(String sourceVersion) {
@@ -477,7 +518,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <ul>
      * <li>
      * <p>
-     * For AWS CodeCommit: the commit ID to use.
+     * For CodeCommit: the commit ID, branch, or Git tag to use.
      * </p>
      * </li>
      * <li>
@@ -490,6 +531,11 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </li>
      * <li>
      * <p>
+     * For GitLab: the commit ID, branch, or Git tag to use.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you
      * want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
      * branch's HEAD commit ID is used.
@@ -497,8 +543,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </li>
      * <li>
      * <p>
-     * For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build input ZIP
-     * file to use.
+     * For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
      * </p>
      * </li>
      * </ul>
@@ -509,7 +554,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version Sample
-     * with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     * with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      * </p>
      * 
      * @return A version of the build input to be built for this project. If not specified, the latest version is used.
@@ -517,7 +562,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      *         <ul>
      *         <li>
      *         <p>
-     *         For AWS CodeCommit: the commit ID to use.
+     *         For CodeCommit: the commit ID, branch, or Git tag to use.
      *         </p>
      *         </li>
      *         <li>
@@ -530,6 +575,11 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      *         </li>
      *         <li>
      *         <p>
+     *         For GitLab: the commit ID, branch, or Git tag to use.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
      *         For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code
      *         you want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified,
      *         the default branch's HEAD commit ID is used.
@@ -537,8 +587,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      *         </li>
      *         <li>
      *         <p>
-     *         For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build
-     *         input ZIP file to use.
+     *         For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
      *         </p>
      *         </li>
      *         </ul>
@@ -549,7 +598,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      *         <p>
      *         For more information, see <a
      *         href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version
-     *         Sample with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     *         Sample with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      */
 
     public String getSourceVersion() {
@@ -564,7 +613,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <ul>
      * <li>
      * <p>
-     * For AWS CodeCommit: the commit ID to use.
+     * For CodeCommit: the commit ID, branch, or Git tag to use.
      * </p>
      * </li>
      * <li>
@@ -577,6 +626,11 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </li>
      * <li>
      * <p>
+     * For GitLab: the commit ID, branch, or Git tag to use.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you
      * want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
      * branch's HEAD commit ID is used.
@@ -584,8 +638,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </li>
      * <li>
      * <p>
-     * For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build input ZIP
-     * file to use.
+     * For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
      * </p>
      * </li>
      * </ul>
@@ -596,7 +649,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version Sample
-     * with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     * with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      * </p>
      * 
      * @param sourceVersion
@@ -605,7 +658,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <ul>
      *        <li>
      *        <p>
-     *        For AWS CodeCommit: the commit ID to use.
+     *        For CodeCommit: the commit ID, branch, or Git tag to use.
      *        </p>
      *        </li>
      *        <li>
@@ -618,6 +671,11 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        </li>
      *        <li>
      *        <p>
+     *        For GitLab: the commit ID, branch, or Git tag to use.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code
      *        you want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified,
      *        the default branch's HEAD commit ID is used.
@@ -625,8 +683,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        </li>
      *        <li>
      *        <p>
-     *        For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build
-     *        input ZIP file to use.
+     *        For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
      *        </p>
      *        </li>
      *        </ul>
@@ -637,7 +694,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <p>
      *        For more information, see <a
      *        href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version
-     *        Sample with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     *        Sample with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -924,13 +981,13 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The ARN of the AWS Identity and Access Management (IAM) role that enables AWS CodeBuild to interact with
-     * dependent AWS services on behalf of the AWS account.
+     * The ARN of the IAM role that enables CodeBuild to interact with dependent Amazon Web Services services on behalf
+     * of the Amazon Web Services account.
      * </p>
      * 
      * @param serviceRole
-     *        The ARN of the AWS Identity and Access Management (IAM) role that enables AWS CodeBuild to interact with
-     *        dependent AWS services on behalf of the AWS account.
+     *        The ARN of the IAM role that enables CodeBuild to interact with dependent Amazon Web Services services on
+     *        behalf of the Amazon Web Services account.
      */
 
     public void setServiceRole(String serviceRole) {
@@ -939,12 +996,12 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The ARN of the AWS Identity and Access Management (IAM) role that enables AWS CodeBuild to interact with
-     * dependent AWS services on behalf of the AWS account.
+     * The ARN of the IAM role that enables CodeBuild to interact with dependent Amazon Web Services services on behalf
+     * of the Amazon Web Services account.
      * </p>
      * 
-     * @return The ARN of the AWS Identity and Access Management (IAM) role that enables AWS CodeBuild to interact with
-     *         dependent AWS services on behalf of the AWS account.
+     * @return The ARN of the IAM role that enables CodeBuild to interact with dependent Amazon Web Services services on
+     *         behalf of the Amazon Web Services account.
      */
 
     public String getServiceRole() {
@@ -953,13 +1010,13 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The ARN of the AWS Identity and Access Management (IAM) role that enables AWS CodeBuild to interact with
-     * dependent AWS services on behalf of the AWS account.
+     * The ARN of the IAM role that enables CodeBuild to interact with dependent Amazon Web Services services on behalf
+     * of the Amazon Web Services account.
      * </p>
      * 
      * @param serviceRole
-     *        The ARN of the AWS Identity and Access Management (IAM) role that enables AWS CodeBuild to interact with
-     *        dependent AWS services on behalf of the AWS account.
+     *        The ARN of the IAM role that enables CodeBuild to interact with dependent Amazon Web Services services on
+     *        behalf of the Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -970,13 +1027,13 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * How long, in minutes, from 5 to 480 (8 hours), for AWS CodeBuild to wait before it times out any build that has
-     * not been marked as completed. The default is 60 minutes.
+     * How long, in minutes, from 5 to 2160 (36 hours), for CodeBuild to wait before it times out any build that has not
+     * been marked as completed. The default is 60 minutes.
      * </p>
      * 
      * @param timeoutInMinutes
-     *        How long, in minutes, from 5 to 480 (8 hours), for AWS CodeBuild to wait before it times out any build
-     *        that has not been marked as completed. The default is 60 minutes.
+     *        How long, in minutes, from 5 to 2160 (36 hours), for CodeBuild to wait before it times out any build that
+     *        has not been marked as completed. The default is 60 minutes.
      */
 
     public void setTimeoutInMinutes(Integer timeoutInMinutes) {
@@ -985,12 +1042,12 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * How long, in minutes, from 5 to 480 (8 hours), for AWS CodeBuild to wait before it times out any build that has
-     * not been marked as completed. The default is 60 minutes.
+     * How long, in minutes, from 5 to 2160 (36 hours), for CodeBuild to wait before it times out any build that has not
+     * been marked as completed. The default is 60 minutes.
      * </p>
      * 
-     * @return How long, in minutes, from 5 to 480 (8 hours), for AWS CodeBuild to wait before it times out any build
-     *         that has not been marked as completed. The default is 60 minutes.
+     * @return How long, in minutes, from 5 to 2160 (36 hours), for CodeBuild to wait before it times out any build that
+     *         has not been marked as completed. The default is 60 minutes.
      */
 
     public Integer getTimeoutInMinutes() {
@@ -999,13 +1056,13 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * How long, in minutes, from 5 to 480 (8 hours), for AWS CodeBuild to wait before it times out any build that has
-     * not been marked as completed. The default is 60 minutes.
+     * How long, in minutes, from 5 to 2160 (36 hours), for CodeBuild to wait before it times out any build that has not
+     * been marked as completed. The default is 60 minutes.
      * </p>
      * 
      * @param timeoutInMinutes
-     *        How long, in minutes, from 5 to 480 (8 hours), for AWS CodeBuild to wait before it times out any build
-     *        that has not been marked as completed. The default is 60 minutes.
+     *        How long, in minutes, from 5 to 2160 (36 hours), for CodeBuild to wait before it times out any build that
+     *        has not been marked as completed. The default is 60 minutes.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1056,8 +1113,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build output
-     * artifacts.
+     * The Key Management Service customer master key (CMK) to be used for encrypting the build output artifacts.
      * </p>
      * <note>
      * <p>
@@ -1067,12 +1123,12 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </note>
      * <p>
      * You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using the
-     * format <code>alias/<i>alias-name</i> </code>).
+     * format <code>alias/&lt;alias-name&gt;</code>).
      * </p>
      * 
      * @param encryptionKey
-     *        The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build
-     *        output artifacts.</p> <note>
+     *        The Key Management Service customer master key (CMK) to be used for encrypting the build output
+     *        artifacts.</p> <note>
      *        <p>
      *        You can use a cross-account KMS key to encrypt the build output artifacts if your service role has
      *        permission to that key.
@@ -1080,7 +1136,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        </note>
      *        <p>
      *        You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using
-     *        the format <code>alias/<i>alias-name</i> </code>).
+     *        the format <code>alias/&lt;alias-name&gt;</code>).
      */
 
     public void setEncryptionKey(String encryptionKey) {
@@ -1089,8 +1145,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build output
-     * artifacts.
+     * The Key Management Service customer master key (CMK) to be used for encrypting the build output artifacts.
      * </p>
      * <note>
      * <p>
@@ -1100,11 +1155,11 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </note>
      * <p>
      * You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using the
-     * format <code>alias/<i>alias-name</i> </code>).
+     * format <code>alias/&lt;alias-name&gt;</code>).
      * </p>
      * 
-     * @return The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build
-     *         output artifacts.</p> <note>
+     * @return The Key Management Service customer master key (CMK) to be used for encrypting the build output
+     *         artifacts.</p> <note>
      *         <p>
      *         You can use a cross-account KMS key to encrypt the build output artifacts if your service role has
      *         permission to that key.
@@ -1112,7 +1167,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      *         </note>
      *         <p>
      *         You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using
-     *         the format <code>alias/<i>alias-name</i> </code>).
+     *         the format <code>alias/&lt;alias-name&gt;</code>).
      */
 
     public String getEncryptionKey() {
@@ -1121,8 +1176,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build output
-     * artifacts.
+     * The Key Management Service customer master key (CMK) to be used for encrypting the build output artifacts.
      * </p>
      * <note>
      * <p>
@@ -1132,12 +1186,12 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </note>
      * <p>
      * You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using the
-     * format <code>alias/<i>alias-name</i> </code>).
+     * format <code>alias/&lt;alias-name&gt;</code>).
      * </p>
      * 
      * @param encryptionKey
-     *        The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build
-     *        output artifacts.</p> <note>
+     *        The Key Management Service customer master key (CMK) to be used for encrypting the build output
+     *        artifacts.</p> <note>
      *        <p>
      *        You can use a cross-account KMS key to encrypt the build output artifacts if your service role has
      *        permission to that key.
@@ -1145,7 +1199,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        </note>
      *        <p>
      *        You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using
-     *        the format <code>alias/<i>alias-name</i> </code>).
+     *        the format <code>alias/&lt;alias-name&gt;</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1156,15 +1210,16 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * A set of tags for this build project.
+     * A list of tag key and value pairs associated with this build project.
      * </p>
      * <p>
-     * These tags are available for use by AWS services that support AWS CodeBuild build project tags.
+     * These tags are available for use by Amazon Web Services services that support CodeBuild build project tags.
      * </p>
      * 
-     * @return A set of tags for this build project.</p>
+     * @return A list of tag key and value pairs associated with this build project.</p>
      *         <p>
-     *         These tags are available for use by AWS services that support AWS CodeBuild build project tags.
+     *         These tags are available for use by Amazon Web Services services that support CodeBuild build project
+     *         tags.
      */
 
     public java.util.List<Tag> getTags() {
@@ -1173,16 +1228,17 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * A set of tags for this build project.
+     * A list of tag key and value pairs associated with this build project.
      * </p>
      * <p>
-     * These tags are available for use by AWS services that support AWS CodeBuild build project tags.
+     * These tags are available for use by Amazon Web Services services that support CodeBuild build project tags.
      * </p>
      * 
      * @param tags
-     *        A set of tags for this build project.</p>
+     *        A list of tag key and value pairs associated with this build project.</p>
      *        <p>
-     *        These tags are available for use by AWS services that support AWS CodeBuild build project tags.
+     *        These tags are available for use by Amazon Web Services services that support CodeBuild build project
+     *        tags.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -1196,10 +1252,10 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * A set of tags for this build project.
+     * A list of tag key and value pairs associated with this build project.
      * </p>
      * <p>
-     * These tags are available for use by AWS services that support AWS CodeBuild build project tags.
+     * These tags are available for use by Amazon Web Services services that support CodeBuild build project tags.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1208,9 +1264,10 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * 
      * @param tags
-     *        A set of tags for this build project.</p>
+     *        A list of tag key and value pairs associated with this build project.</p>
      *        <p>
-     *        These tags are available for use by AWS services that support AWS CodeBuild build project tags.
+     *        These tags are available for use by Amazon Web Services services that support CodeBuild build project
+     *        tags.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1226,16 +1283,17 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * A set of tags for this build project.
+     * A list of tag key and value pairs associated with this build project.
      * </p>
      * <p>
-     * These tags are available for use by AWS services that support AWS CodeBuild build project tags.
+     * These tags are available for use by Amazon Web Services services that support CodeBuild build project tags.
      * </p>
      * 
      * @param tags
-     *        A set of tags for this build project.</p>
+     *        A list of tag key and value pairs associated with this build project.</p>
      *        <p>
-     *        These tags are available for use by AWS services that support AWS CodeBuild build project tags.
+     *        These tags are available for use by Amazon Web Services services that support CodeBuild build project
+     *        tags.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1246,11 +1304,19 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * VpcConfig enables AWS CodeBuild to access resources in an Amazon VPC.
+     * VpcConfig enables CodeBuild to access resources in an Amazon VPC.
      * </p>
+     * <note>
+     * <p>
+     * If you're using compute fleets during project creation, do not provide vpcConfig.
+     * </p>
+     * </note>
      * 
      * @param vpcConfig
-     *        VpcConfig enables AWS CodeBuild to access resources in an Amazon VPC.
+     *        VpcConfig enables CodeBuild to access resources in an Amazon VPC.</p> <note>
+     *        <p>
+     *        If you're using compute fleets during project creation, do not provide vpcConfig.
+     *        </p>
      */
 
     public void setVpcConfig(VpcConfig vpcConfig) {
@@ -1259,10 +1325,18 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * VpcConfig enables AWS CodeBuild to access resources in an Amazon VPC.
+     * VpcConfig enables CodeBuild to access resources in an Amazon VPC.
      * </p>
+     * <note>
+     * <p>
+     * If you're using compute fleets during project creation, do not provide vpcConfig.
+     * </p>
+     * </note>
      * 
-     * @return VpcConfig enables AWS CodeBuild to access resources in an Amazon VPC.
+     * @return VpcConfig enables CodeBuild to access resources in an Amazon VPC.</p> <note>
+     *         <p>
+     *         If you're using compute fleets during project creation, do not provide vpcConfig.
+     *         </p>
      */
 
     public VpcConfig getVpcConfig() {
@@ -1271,11 +1345,19 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * VpcConfig enables AWS CodeBuild to access resources in an Amazon VPC.
+     * VpcConfig enables CodeBuild to access resources in an Amazon VPC.
      * </p>
+     * <note>
+     * <p>
+     * If you're using compute fleets during project creation, do not provide vpcConfig.
+     * </p>
+     * </note>
      * 
      * @param vpcConfig
-     *        VpcConfig enables AWS CodeBuild to access resources in an Amazon VPC.
+     *        VpcConfig enables CodeBuild to access resources in an Amazon VPC.</p> <note>
+     *        <p>
+     *        If you're using compute fleets during project creation, do not provide vpcConfig.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1338,13 +1420,13 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Information about logs for the build project. These can be logs in Amazon CloudWatch Logs, logs uploaded to a
-     * specified S3 bucket, or both.
+     * Information about logs for the build project. These can be logs in CloudWatch Logs, logs uploaded to a specified
+     * S3 bucket, or both.
      * </p>
      * 
      * @param logsConfig
-     *        Information about logs for the build project. These can be logs in Amazon CloudWatch Logs, logs uploaded
-     *        to a specified S3 bucket, or both.
+     *        Information about logs for the build project. These can be logs in CloudWatch Logs, logs uploaded to a
+     *        specified S3 bucket, or both.
      */
 
     public void setLogsConfig(LogsConfig logsConfig) {
@@ -1353,12 +1435,12 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Information about logs for the build project. These can be logs in Amazon CloudWatch Logs, logs uploaded to a
-     * specified S3 bucket, or both.
+     * Information about logs for the build project. These can be logs in CloudWatch Logs, logs uploaded to a specified
+     * S3 bucket, or both.
      * </p>
      * 
-     * @return Information about logs for the build project. These can be logs in Amazon CloudWatch Logs, logs uploaded
-     *         to a specified S3 bucket, or both.
+     * @return Information about logs for the build project. These can be logs in CloudWatch Logs, logs uploaded to a
+     *         specified S3 bucket, or both.
      */
 
     public LogsConfig getLogsConfig() {
@@ -1367,18 +1449,213 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Information about logs for the build project. These can be logs in Amazon CloudWatch Logs, logs uploaded to a
-     * specified S3 bucket, or both.
+     * Information about logs for the build project. These can be logs in CloudWatch Logs, logs uploaded to a specified
+     * S3 bucket, or both.
      * </p>
      * 
      * @param logsConfig
-     *        Information about logs for the build project. These can be logs in Amazon CloudWatch Logs, logs uploaded
-     *        to a specified S3 bucket, or both.
+     *        Information about logs for the build project. These can be logs in CloudWatch Logs, logs uploaded to a
+     *        specified S3 bucket, or both.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateProjectRequest withLogsConfig(LogsConfig logsConfig) {
         setLogsConfig(logsConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of <code>ProjectFileSystemLocation</code> objects for a CodeBuild build project. A
+     * <code>ProjectFileSystemLocation</code> object specifies the <code>identifier</code>, <code>location</code>,
+     * <code>mountOptions</code>, <code>mountPoint</code>, and <code>type</code> of a file system created using Amazon
+     * Elastic File System.
+     * </p>
+     * 
+     * @return An array of <code>ProjectFileSystemLocation</code> objects for a CodeBuild build project. A
+     *         <code>ProjectFileSystemLocation</code> object specifies the <code>identifier</code>,
+     *         <code>location</code>, <code>mountOptions</code>, <code>mountPoint</code>, and <code>type</code> of a
+     *         file system created using Amazon Elastic File System.
+     */
+
+    public java.util.List<ProjectFileSystemLocation> getFileSystemLocations() {
+        return fileSystemLocations;
+    }
+
+    /**
+     * <p>
+     * An array of <code>ProjectFileSystemLocation</code> objects for a CodeBuild build project. A
+     * <code>ProjectFileSystemLocation</code> object specifies the <code>identifier</code>, <code>location</code>,
+     * <code>mountOptions</code>, <code>mountPoint</code>, and <code>type</code> of a file system created using Amazon
+     * Elastic File System.
+     * </p>
+     * 
+     * @param fileSystemLocations
+     *        An array of <code>ProjectFileSystemLocation</code> objects for a CodeBuild build project. A
+     *        <code>ProjectFileSystemLocation</code> object specifies the <code>identifier</code>, <code>location</code>
+     *        , <code>mountOptions</code>, <code>mountPoint</code>, and <code>type</code> of a file system created using
+     *        Amazon Elastic File System.
+     */
+
+    public void setFileSystemLocations(java.util.Collection<ProjectFileSystemLocation> fileSystemLocations) {
+        if (fileSystemLocations == null) {
+            this.fileSystemLocations = null;
+            return;
+        }
+
+        this.fileSystemLocations = new java.util.ArrayList<ProjectFileSystemLocation>(fileSystemLocations);
+    }
+
+    /**
+     * <p>
+     * An array of <code>ProjectFileSystemLocation</code> objects for a CodeBuild build project. A
+     * <code>ProjectFileSystemLocation</code> object specifies the <code>identifier</code>, <code>location</code>,
+     * <code>mountOptions</code>, <code>mountPoint</code>, and <code>type</code> of a file system created using Amazon
+     * Elastic File System.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setFileSystemLocations(java.util.Collection)} or {@link #withFileSystemLocations(java.util.Collection)}
+     * if you want to override the existing values.
+     * </p>
+     * 
+     * @param fileSystemLocations
+     *        An array of <code>ProjectFileSystemLocation</code> objects for a CodeBuild build project. A
+     *        <code>ProjectFileSystemLocation</code> object specifies the <code>identifier</code>, <code>location</code>
+     *        , <code>mountOptions</code>, <code>mountPoint</code>, and <code>type</code> of a file system created using
+     *        Amazon Elastic File System.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateProjectRequest withFileSystemLocations(ProjectFileSystemLocation... fileSystemLocations) {
+        if (this.fileSystemLocations == null) {
+            setFileSystemLocations(new java.util.ArrayList<ProjectFileSystemLocation>(fileSystemLocations.length));
+        }
+        for (ProjectFileSystemLocation ele : fileSystemLocations) {
+            this.fileSystemLocations.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of <code>ProjectFileSystemLocation</code> objects for a CodeBuild build project. A
+     * <code>ProjectFileSystemLocation</code> object specifies the <code>identifier</code>, <code>location</code>,
+     * <code>mountOptions</code>, <code>mountPoint</code>, and <code>type</code> of a file system created using Amazon
+     * Elastic File System.
+     * </p>
+     * 
+     * @param fileSystemLocations
+     *        An array of <code>ProjectFileSystemLocation</code> objects for a CodeBuild build project. A
+     *        <code>ProjectFileSystemLocation</code> object specifies the <code>identifier</code>, <code>location</code>
+     *        , <code>mountOptions</code>, <code>mountPoint</code>, and <code>type</code> of a file system created using
+     *        Amazon Elastic File System.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateProjectRequest withFileSystemLocations(java.util.Collection<ProjectFileSystemLocation> fileSystemLocations) {
+        setFileSystemLocations(fileSystemLocations);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A <a>ProjectBuildBatchConfig</a> object that defines the batch build options for the project.
+     * </p>
+     * 
+     * @param buildBatchConfig
+     *        A <a>ProjectBuildBatchConfig</a> object that defines the batch build options for the project.
+     */
+
+    public void setBuildBatchConfig(ProjectBuildBatchConfig buildBatchConfig) {
+        this.buildBatchConfig = buildBatchConfig;
+    }
+
+    /**
+     * <p>
+     * A <a>ProjectBuildBatchConfig</a> object that defines the batch build options for the project.
+     * </p>
+     * 
+     * @return A <a>ProjectBuildBatchConfig</a> object that defines the batch build options for the project.
+     */
+
+    public ProjectBuildBatchConfig getBuildBatchConfig() {
+        return this.buildBatchConfig;
+    }
+
+    /**
+     * <p>
+     * A <a>ProjectBuildBatchConfig</a> object that defines the batch build options for the project.
+     * </p>
+     * 
+     * @param buildBatchConfig
+     *        A <a>ProjectBuildBatchConfig</a> object that defines the batch build options for the project.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateProjectRequest withBuildBatchConfig(ProjectBuildBatchConfig buildBatchConfig) {
+        setBuildBatchConfig(buildBatchConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The maximum number of concurrent builds that are allowed for this project.
+     * </p>
+     * <p>
+     * New builds are only started if the current number of builds is less than or equal to this limit. If the current
+     * build count meets this limit, new builds are throttled and are not run.
+     * </p>
+     * 
+     * @param concurrentBuildLimit
+     *        The maximum number of concurrent builds that are allowed for this project.</p>
+     *        <p>
+     *        New builds are only started if the current number of builds is less than or equal to this limit. If the
+     *        current build count meets this limit, new builds are throttled and are not run.
+     */
+
+    public void setConcurrentBuildLimit(Integer concurrentBuildLimit) {
+        this.concurrentBuildLimit = concurrentBuildLimit;
+    }
+
+    /**
+     * <p>
+     * The maximum number of concurrent builds that are allowed for this project.
+     * </p>
+     * <p>
+     * New builds are only started if the current number of builds is less than or equal to this limit. If the current
+     * build count meets this limit, new builds are throttled and are not run.
+     * </p>
+     * 
+     * @return The maximum number of concurrent builds that are allowed for this project.</p>
+     *         <p>
+     *         New builds are only started if the current number of builds is less than or equal to this limit. If the
+     *         current build count meets this limit, new builds are throttled and are not run.
+     */
+
+    public Integer getConcurrentBuildLimit() {
+        return this.concurrentBuildLimit;
+    }
+
+    /**
+     * <p>
+     * The maximum number of concurrent builds that are allowed for this project.
+     * </p>
+     * <p>
+     * New builds are only started if the current number of builds is less than or equal to this limit. If the current
+     * build count meets this limit, new builds are throttled and are not run.
+     * </p>
+     * 
+     * @param concurrentBuildLimit
+     *        The maximum number of concurrent builds that are allowed for this project.</p>
+     *        <p>
+     *        New builds are only started if the current number of builds is less than or equal to this limit. If the
+     *        current build count meets this limit, new builds are throttled and are not run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateProjectRequest withConcurrentBuildLimit(Integer concurrentBuildLimit) {
+        setConcurrentBuildLimit(concurrentBuildLimit);
         return this;
     }
 
@@ -1429,7 +1706,13 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (getBadgeEnabled() != null)
             sb.append("BadgeEnabled: ").append(getBadgeEnabled()).append(",");
         if (getLogsConfig() != null)
-            sb.append("LogsConfig: ").append(getLogsConfig());
+            sb.append("LogsConfig: ").append(getLogsConfig()).append(",");
+        if (getFileSystemLocations() != null)
+            sb.append("FileSystemLocations: ").append(getFileSystemLocations()).append(",");
+        if (getBuildBatchConfig() != null)
+            sb.append("BuildBatchConfig: ").append(getBuildBatchConfig()).append(",");
+        if (getConcurrentBuildLimit() != null)
+            sb.append("ConcurrentBuildLimit: ").append(getConcurrentBuildLimit());
         sb.append("}");
         return sb.toString();
     }
@@ -1516,6 +1799,18 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getLogsConfig() != null && other.getLogsConfig().equals(this.getLogsConfig()) == false)
             return false;
+        if (other.getFileSystemLocations() == null ^ this.getFileSystemLocations() == null)
+            return false;
+        if (other.getFileSystemLocations() != null && other.getFileSystemLocations().equals(this.getFileSystemLocations()) == false)
+            return false;
+        if (other.getBuildBatchConfig() == null ^ this.getBuildBatchConfig() == null)
+            return false;
+        if (other.getBuildBatchConfig() != null && other.getBuildBatchConfig().equals(this.getBuildBatchConfig()) == false)
+            return false;
+        if (other.getConcurrentBuildLimit() == null ^ this.getConcurrentBuildLimit() == null)
+            return false;
+        if (other.getConcurrentBuildLimit() != null && other.getConcurrentBuildLimit().equals(this.getConcurrentBuildLimit()) == false)
+            return false;
         return true;
     }
 
@@ -1542,6 +1837,9 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
         hashCode = prime * hashCode + ((getVpcConfig() == null) ? 0 : getVpcConfig().hashCode());
         hashCode = prime * hashCode + ((getBadgeEnabled() == null) ? 0 : getBadgeEnabled().hashCode());
         hashCode = prime * hashCode + ((getLogsConfig() == null) ? 0 : getLogsConfig().hashCode());
+        hashCode = prime * hashCode + ((getFileSystemLocations() == null) ? 0 : getFileSystemLocations().hashCode());
+        hashCode = prime * hashCode + ((getBuildBatchConfig() == null) ? 0 : getBuildBatchConfig().hashCode());
+        hashCode = prime * hashCode + ((getConcurrentBuildLimit() == null) ? 0 : getConcurrentBuildLimit().hashCode());
         return hashCode;
     }
 

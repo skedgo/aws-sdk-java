@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,6 +28,12 @@ public class AbstractAmazonGuardDuty implements AmazonGuardDuty {
     }
 
     @Override
+    public AcceptAdministratorInvitationResult acceptAdministratorInvitation(AcceptAdministratorInvitationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    @Deprecated
     public AcceptInvitationResult acceptInvitation(AcceptInvitationRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -53,7 +59,17 @@ public class AbstractAmazonGuardDuty implements AmazonGuardDuty {
     }
 
     @Override
+    public CreateMalwareProtectionPlanResult createMalwareProtectionPlan(CreateMalwareProtectionPlanRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateMembersResult createMembers(CreateMembersRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreatePublishingDestinationResult createPublishingDestination(CreatePublishingDestinationRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -93,7 +109,17 @@ public class AbstractAmazonGuardDuty implements AmazonGuardDuty {
     }
 
     @Override
+    public DeleteMalwareProtectionPlanResult deleteMalwareProtectionPlan(DeleteMalwareProtectionPlanRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteMembersResult deleteMembers(DeleteMembersRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeletePublishingDestinationResult deletePublishingDestination(DeletePublishingDestinationRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -103,12 +129,53 @@ public class AbstractAmazonGuardDuty implements AmazonGuardDuty {
     }
 
     @Override
+    public DescribeMalwareScansResult describeMalwareScans(DescribeMalwareScansRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeOrganizationConfigurationResult describeOrganizationConfiguration(DescribeOrganizationConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribePublishingDestinationResult describePublishingDestination(DescribePublishingDestinationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisableOrganizationAdminAccountResult disableOrganizationAdminAccount(DisableOrganizationAdminAccountRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateFromAdministratorAccountResult disassociateFromAdministratorAccount(DisassociateFromAdministratorAccountRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    @Deprecated
     public DisassociateFromMasterAccountResult disassociateFromMasterAccount(DisassociateFromMasterAccountRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public DisassociateMembersResult disassociateMembers(DisassociateMembersRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public EnableOrganizationAdminAccountResult enableOrganizationAdminAccount(EnableOrganizationAdminAccountRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetAdministratorAccountResult getAdministratorAccount(GetAdministratorAccountRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetCoverageStatisticsResult getCoverageStatistics(GetCoverageStatisticsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -143,7 +210,23 @@ public class AbstractAmazonGuardDuty implements AmazonGuardDuty {
     }
 
     @Override
+    public GetMalwareProtectionPlanResult getMalwareProtectionPlan(GetMalwareProtectionPlanRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetMalwareScanSettingsResult getMalwareScanSettings(GetMalwareScanSettingsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    @Deprecated
     public GetMasterAccountResult getMasterAccount(GetMasterAccountRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetMemberDetectorsResult getMemberDetectors(GetMemberDetectorsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -153,12 +236,32 @@ public class AbstractAmazonGuardDuty implements AmazonGuardDuty {
     }
 
     @Override
+    public GetOrganizationStatisticsResult getOrganizationStatistics(GetOrganizationStatisticsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetRemainingFreeTrialDaysResult getRemainingFreeTrialDays(GetRemainingFreeTrialDaysRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetThreatIntelSetResult getThreatIntelSet(GetThreatIntelSetRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public GetUsageStatisticsResult getUsageStatistics(GetUsageStatisticsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public InviteMembersResult inviteMembers(InviteMembersRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListCoverageResult listCoverage(ListCoverageRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -188,7 +291,22 @@ public class AbstractAmazonGuardDuty implements AmazonGuardDuty {
     }
 
     @Override
+    public ListMalwareProtectionPlansResult listMalwareProtectionPlans(ListMalwareProtectionPlansRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListMembersResult listMembers(ListMembersRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListOrganizationAdminAccountsResult listOrganizationAdminAccounts(ListOrganizationAdminAccountsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListPublishingDestinationsResult listPublishingDestinations(ListPublishingDestinationsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -199,6 +317,11 @@ public class AbstractAmazonGuardDuty implements AmazonGuardDuty {
 
     @Override
     public ListThreatIntelSetsResult listThreatIntelSets(ListThreatIntelSetsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartMalwareScanResult startMalwareScan(StartMalwareScanRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -244,6 +367,31 @@ public class AbstractAmazonGuardDuty implements AmazonGuardDuty {
 
     @Override
     public UpdateIPSetResult updateIPSet(UpdateIPSetRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateMalwareProtectionPlanResult updateMalwareProtectionPlan(UpdateMalwareProtectionPlanRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateMalwareScanSettingsResult updateMalwareScanSettings(UpdateMalwareScanSettingsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateMemberDetectorsResult updateMemberDetectors(UpdateMemberDetectorsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateOrganizationConfigurationResult updateOrganizationConfiguration(UpdateOrganizationConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdatePublishingDestinationResult updatePublishingDestination(UpdatePublishingDestinationRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

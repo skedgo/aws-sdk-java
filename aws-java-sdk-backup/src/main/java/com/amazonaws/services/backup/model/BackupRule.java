@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,47 +30,66 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An optional display name for a backup rule.
+     * A display name for a backup rule. Must contain 1 to 50 alphanumeric or '-_.' characters.
      * </p>
      */
     private String ruleName;
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      */
     private String targetBackupVaultName;
     /**
      * <p>
-     * A CRON expression specifying when AWS Backup initiates a backup job.
+     * A cron expression in UTC specifying when Backup initiates a backup job. For more information about Amazon Web
+     * Services cron expressions, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html">Schedule Expressions for
+     * Rules</a> in the <i>Amazon CloudWatch Events User Guide.</i>. Two examples of Amazon Web Services cron
+     * expressions are <code> 15 * ? * * *</code> (take a backup every hour at 15 minutes past the hour) and
+     * <code>0 12 * * ? *</code> (take a backup every day at 12 noon UTC). For a table of examples, click the preceding
+     * link and scroll down the page.
      * </p>
      */
     private String scheduleExpression;
     /**
      * <p>
-     * An optional value that specifies a period of time in minutes after a backup is scheduled before a job is canceled
-     * if it doesn't start successfully.
+     * A value in minutes after a backup is scheduled before a job will be canceled if it doesn't start successfully.
+     * This value is optional. If this value is included, it must be at least 60 minutes to avoid errors.
+     * </p>
+     * <p>
+     * During the start window, the backup job status remains in <code>CREATED</code> status until it has successfully
+     * begun or until the start window time has run out. If within the start window time Backup receives an error that
+     * allows the job to be retried, Backup will automatically retry to begin the job at least every 10 minutes until
+     * the backup successfully begins (the job status changes to <code>RUNNING</code>) or until the job status changes
+     * to <code>EXPIRED</code> (which is expected to occur when the start window time is over).
      * </p>
      */
     private Long startWindowMinutes;
     /**
      * <p>
-     * A value in minutes after a backup job is successfully started before it must be completed or it is canceled by
-     * AWS Backup. This value is optional.
+     * A value in minutes after a backup job is successfully started before it must be completed or it will be canceled
+     * by Backup. This value is optional.
      * </p>
      */
     private Long completionWindowMinutes;
     /**
      * <p>
-     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS Backup
+     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. Backup
      * transitions and expires backups automatically according to the lifecycle that you define.
      * </p>
      * <p>
      * Backups transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore, the
-     * “expire after days” setting must be 90 days greater than the “transition to cold after days” setting. The
-     * “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * “retention” setting must be 90 days greater than the “transition to cold after days” setting. The “transition to
+     * cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * </p>
+     * <p>
+     * Resource types that are able to be transitioned to cold storage are listed in the "Lifecycle to cold storage"
+     * section of the <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource"> Feature
+     * availability by resource</a> table. Backup ignores this expression for other resource types.
      * </p>
      */
     private Lifecycle lifecycle;
@@ -87,14 +106,34 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String ruleId;
+    /**
+     * <p>
+     * An array of <code>CopyAction</code> objects, which contains the details of the copy operation.
+     * </p>
+     */
+    private java.util.List<CopyAction> copyActions;
+    /**
+     * <p>
+     * Specifies whether Backup creates continuous backups. True causes Backup to create continuous backups capable of
+     * point-in-time restore (PITR). False (or not specified) causes Backup to create snapshot backups.
+     * </p>
+     */
+    private Boolean enableContinuousBackup;
+    /**
+     * <p>
+     * This is the timezone in which the schedule expression is set. By default, ScheduleExpressions are in UTC. You can
+     * modify this to a specified timezone.
+     * </p>
+     */
+    private String scheduleExpressionTimezone;
 
     /**
      * <p>
-     * An optional display name for a backup rule.
+     * A display name for a backup rule. Must contain 1 to 50 alphanumeric or '-_.' characters.
      * </p>
      * 
      * @param ruleName
-     *        An optional display name for a backup rule.
+     *        A display name for a backup rule. Must contain 1 to 50 alphanumeric or '-_.' characters.
      */
 
     public void setRuleName(String ruleName) {
@@ -103,10 +142,10 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An optional display name for a backup rule.
+     * A display name for a backup rule. Must contain 1 to 50 alphanumeric or '-_.' characters.
      * </p>
      * 
-     * @return An optional display name for a backup rule.
+     * @return A display name for a backup rule. Must contain 1 to 50 alphanumeric or '-_.' characters.
      */
 
     public String getRuleName() {
@@ -115,11 +154,11 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An optional display name for a backup rule.
+     * A display name for a backup rule. Must contain 1 to 50 alphanumeric or '-_.' characters.
      * </p>
      * 
      * @param ruleName
-     *        An optional display name for a backup rule.
+     *        A display name for a backup rule. Must contain 1 to 50 alphanumeric or '-_.' characters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -131,14 +170,14 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      * 
      * @param targetBackupVaultName
      *        The name of a logical container where backups are stored. Backup vaults are identified by names that are
-     *        unique to the account used to create them and the AWS Region where they are created. They consist of
-     *        lowercase letters, numbers, and hyphens.
+     *        unique to the account used to create them and the Amazon Web Services Region where they are created. They
+     *        consist of lowercase letters, numbers, and hyphens.
      */
 
     public void setTargetBackupVaultName(String targetBackupVaultName) {
@@ -148,13 +187,13 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      * 
      * @return The name of a logical container where backups are stored. Backup vaults are identified by names that are
-     *         unique to the account used to create them and the AWS Region where they are created. They consist of
-     *         lowercase letters, numbers, and hyphens.
+     *         unique to the account used to create them and the Amazon Web Services Region where they are created. They
+     *         consist of lowercase letters, numbers, and hyphens.
      */
 
     public String getTargetBackupVaultName() {
@@ -164,14 +203,14 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      * 
      * @param targetBackupVaultName
      *        The name of a logical container where backups are stored. Backup vaults are identified by names that are
-     *        unique to the account used to create them and the AWS Region where they are created. They consist of
-     *        lowercase letters, numbers, and hyphens.
+     *        unique to the account used to create them and the Amazon Web Services Region where they are created. They
+     *        consist of lowercase letters, numbers, and hyphens.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -182,11 +221,23 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A CRON expression specifying when AWS Backup initiates a backup job.
+     * A cron expression in UTC specifying when Backup initiates a backup job. For more information about Amazon Web
+     * Services cron expressions, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html">Schedule Expressions for
+     * Rules</a> in the <i>Amazon CloudWatch Events User Guide.</i>. Two examples of Amazon Web Services cron
+     * expressions are <code> 15 * ? * * *</code> (take a backup every hour at 15 minutes past the hour) and
+     * <code>0 12 * * ? *</code> (take a backup every day at 12 noon UTC). For a table of examples, click the preceding
+     * link and scroll down the page.
      * </p>
      * 
      * @param scheduleExpression
-     *        A CRON expression specifying when AWS Backup initiates a backup job.
+     *        A cron expression in UTC specifying when Backup initiates a backup job. For more information about Amazon
+     *        Web Services cron expressions, see <a
+     *        href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html">Schedule
+     *        Expressions for Rules</a> in the <i>Amazon CloudWatch Events User Guide.</i>. Two examples of Amazon Web
+     *        Services cron expressions are <code> 15 * ? * * *</code> (take a backup every hour at 15 minutes past the
+     *        hour) and <code>0 12 * * ? *</code> (take a backup every day at 12 noon UTC). For a table of examples,
+     *        click the preceding link and scroll down the page.
      */
 
     public void setScheduleExpression(String scheduleExpression) {
@@ -195,10 +246,22 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A CRON expression specifying when AWS Backup initiates a backup job.
+     * A cron expression in UTC specifying when Backup initiates a backup job. For more information about Amazon Web
+     * Services cron expressions, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html">Schedule Expressions for
+     * Rules</a> in the <i>Amazon CloudWatch Events User Guide.</i>. Two examples of Amazon Web Services cron
+     * expressions are <code> 15 * ? * * *</code> (take a backup every hour at 15 minutes past the hour) and
+     * <code>0 12 * * ? *</code> (take a backup every day at 12 noon UTC). For a table of examples, click the preceding
+     * link and scroll down the page.
      * </p>
      * 
-     * @return A CRON expression specifying when AWS Backup initiates a backup job.
+     * @return A cron expression in UTC specifying when Backup initiates a backup job. For more information about Amazon
+     *         Web Services cron expressions, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html">Schedule
+     *         Expressions for Rules</a> in the <i>Amazon CloudWatch Events User Guide.</i>. Two examples of Amazon Web
+     *         Services cron expressions are <code> 15 * ? * * *</code> (take a backup every hour at 15 minutes past the
+     *         hour) and <code>0 12 * * ? *</code> (take a backup every day at 12 noon UTC). For a table of examples,
+     *         click the preceding link and scroll down the page.
      */
 
     public String getScheduleExpression() {
@@ -207,11 +270,23 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A CRON expression specifying when AWS Backup initiates a backup job.
+     * A cron expression in UTC specifying when Backup initiates a backup job. For more information about Amazon Web
+     * Services cron expressions, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html">Schedule Expressions for
+     * Rules</a> in the <i>Amazon CloudWatch Events User Guide.</i>. Two examples of Amazon Web Services cron
+     * expressions are <code> 15 * ? * * *</code> (take a backup every hour at 15 minutes past the hour) and
+     * <code>0 12 * * ? *</code> (take a backup every day at 12 noon UTC). For a table of examples, click the preceding
+     * link and scroll down the page.
      * </p>
      * 
      * @param scheduleExpression
-     *        A CRON expression specifying when AWS Backup initiates a backup job.
+     *        A cron expression in UTC specifying when Backup initiates a backup job. For more information about Amazon
+     *        Web Services cron expressions, see <a
+     *        href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html">Schedule
+     *        Expressions for Rules</a> in the <i>Amazon CloudWatch Events User Guide.</i>. Two examples of Amazon Web
+     *        Services cron expressions are <code> 15 * ? * * *</code> (take a backup every hour at 15 minutes past the
+     *        hour) and <code>0 12 * * ? *</code> (take a backup every day at 12 noon UTC). For a table of examples,
+     *        click the preceding link and scroll down the page.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -222,13 +297,28 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An optional value that specifies a period of time in minutes after a backup is scheduled before a job is canceled
-     * if it doesn't start successfully.
+     * A value in minutes after a backup is scheduled before a job will be canceled if it doesn't start successfully.
+     * This value is optional. If this value is included, it must be at least 60 minutes to avoid errors.
+     * </p>
+     * <p>
+     * During the start window, the backup job status remains in <code>CREATED</code> status until it has successfully
+     * begun or until the start window time has run out. If within the start window time Backup receives an error that
+     * allows the job to be retried, Backup will automatically retry to begin the job at least every 10 minutes until
+     * the backup successfully begins (the job status changes to <code>RUNNING</code>) or until the job status changes
+     * to <code>EXPIRED</code> (which is expected to occur when the start window time is over).
      * </p>
      * 
      * @param startWindowMinutes
-     *        An optional value that specifies a period of time in minutes after a backup is scheduled before a job is
-     *        canceled if it doesn't start successfully.
+     *        A value in minutes after a backup is scheduled before a job will be canceled if it doesn't start
+     *        successfully. This value is optional. If this value is included, it must be at least 60 minutes to avoid
+     *        errors.</p>
+     *        <p>
+     *        During the start window, the backup job status remains in <code>CREATED</code> status until it has
+     *        successfully begun or until the start window time has run out. If within the start window time Backup
+     *        receives an error that allows the job to be retried, Backup will automatically retry to begin the job at
+     *        least every 10 minutes until the backup successfully begins (the job status changes to
+     *        <code>RUNNING</code>) or until the job status changes to <code>EXPIRED</code> (which is expected to occur
+     *        when the start window time is over).
      */
 
     public void setStartWindowMinutes(Long startWindowMinutes) {
@@ -237,12 +327,27 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An optional value that specifies a period of time in minutes after a backup is scheduled before a job is canceled
-     * if it doesn't start successfully.
+     * A value in minutes after a backup is scheduled before a job will be canceled if it doesn't start successfully.
+     * This value is optional. If this value is included, it must be at least 60 minutes to avoid errors.
+     * </p>
+     * <p>
+     * During the start window, the backup job status remains in <code>CREATED</code> status until it has successfully
+     * begun or until the start window time has run out. If within the start window time Backup receives an error that
+     * allows the job to be retried, Backup will automatically retry to begin the job at least every 10 minutes until
+     * the backup successfully begins (the job status changes to <code>RUNNING</code>) or until the job status changes
+     * to <code>EXPIRED</code> (which is expected to occur when the start window time is over).
      * </p>
      * 
-     * @return An optional value that specifies a period of time in minutes after a backup is scheduled before a job is
-     *         canceled if it doesn't start successfully.
+     * @return A value in minutes after a backup is scheduled before a job will be canceled if it doesn't start
+     *         successfully. This value is optional. If this value is included, it must be at least 60 minutes to avoid
+     *         errors.</p>
+     *         <p>
+     *         During the start window, the backup job status remains in <code>CREATED</code> status until it has
+     *         successfully begun or until the start window time has run out. If within the start window time Backup
+     *         receives an error that allows the job to be retried, Backup will automatically retry to begin the job at
+     *         least every 10 minutes until the backup successfully begins (the job status changes to
+     *         <code>RUNNING</code>) or until the job status changes to <code>EXPIRED</code> (which is expected to occur
+     *         when the start window time is over).
      */
 
     public Long getStartWindowMinutes() {
@@ -251,13 +356,28 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An optional value that specifies a period of time in minutes after a backup is scheduled before a job is canceled
-     * if it doesn't start successfully.
+     * A value in minutes after a backup is scheduled before a job will be canceled if it doesn't start successfully.
+     * This value is optional. If this value is included, it must be at least 60 minutes to avoid errors.
+     * </p>
+     * <p>
+     * During the start window, the backup job status remains in <code>CREATED</code> status until it has successfully
+     * begun or until the start window time has run out. If within the start window time Backup receives an error that
+     * allows the job to be retried, Backup will automatically retry to begin the job at least every 10 minutes until
+     * the backup successfully begins (the job status changes to <code>RUNNING</code>) or until the job status changes
+     * to <code>EXPIRED</code> (which is expected to occur when the start window time is over).
      * </p>
      * 
      * @param startWindowMinutes
-     *        An optional value that specifies a period of time in minutes after a backup is scheduled before a job is
-     *        canceled if it doesn't start successfully.
+     *        A value in minutes after a backup is scheduled before a job will be canceled if it doesn't start
+     *        successfully. This value is optional. If this value is included, it must be at least 60 minutes to avoid
+     *        errors.</p>
+     *        <p>
+     *        During the start window, the backup job status remains in <code>CREATED</code> status until it has
+     *        successfully begun or until the start window time has run out. If within the start window time Backup
+     *        receives an error that allows the job to be retried, Backup will automatically retry to begin the job at
+     *        least every 10 minutes until the backup successfully begins (the job status changes to
+     *        <code>RUNNING</code>) or until the job status changes to <code>EXPIRED</code> (which is expected to occur
+     *        when the start window time is over).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -268,13 +388,13 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A value in minutes after a backup job is successfully started before it must be completed or it is canceled by
-     * AWS Backup. This value is optional.
+     * A value in minutes after a backup job is successfully started before it must be completed or it will be canceled
+     * by Backup. This value is optional.
      * </p>
      * 
      * @param completionWindowMinutes
-     *        A value in minutes after a backup job is successfully started before it must be completed or it is
-     *        canceled by AWS Backup. This value is optional.
+     *        A value in minutes after a backup job is successfully started before it must be completed or it will be
+     *        canceled by Backup. This value is optional.
      */
 
     public void setCompletionWindowMinutes(Long completionWindowMinutes) {
@@ -283,12 +403,12 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A value in minutes after a backup job is successfully started before it must be completed or it is canceled by
-     * AWS Backup. This value is optional.
+     * A value in minutes after a backup job is successfully started before it must be completed or it will be canceled
+     * by Backup. This value is optional.
      * </p>
      * 
-     * @return A value in minutes after a backup job is successfully started before it must be completed or it is
-     *         canceled by AWS Backup. This value is optional.
+     * @return A value in minutes after a backup job is successfully started before it must be completed or it will be
+     *         canceled by Backup. This value is optional.
      */
 
     public Long getCompletionWindowMinutes() {
@@ -297,13 +417,13 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A value in minutes after a backup job is successfully started before it must be completed or it is canceled by
-     * AWS Backup. This value is optional.
+     * A value in minutes after a backup job is successfully started before it must be completed or it will be canceled
+     * by Backup. This value is optional.
      * </p>
      * 
      * @param completionWindowMinutes
-     *        A value in minutes after a backup job is successfully started before it must be completed or it is
-     *        canceled by AWS Backup. This value is optional.
+     *        A value in minutes after a backup job is successfully started before it must be completed or it will be
+     *        canceled by Backup. This value is optional.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -314,23 +434,34 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS Backup
+     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. Backup
      * transitions and expires backups automatically according to the lifecycle that you define.
      * </p>
      * <p>
      * Backups transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore, the
-     * “expire after days” setting must be 90 days greater than the “transition to cold after days” setting. The
-     * “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * “retention” setting must be 90 days greater than the “transition to cold after days” setting. The “transition to
+     * cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * </p>
+     * <p>
+     * Resource types that are able to be transitioned to cold storage are listed in the "Lifecycle to cold storage"
+     * section of the <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource"> Feature
+     * availability by resource</a> table. Backup ignores this expression for other resource types.
      * </p>
      * 
      * @param lifecycle
-     *        The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS
+     *        The lifecycle defines when a protected resource is transitioned to cold storage and when it expires.
      *        Backup transitions and expires backups automatically according to the lifecycle that you define. </p>
      *        <p>
      *        Backups transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore,
-     *        the “expire after days” setting must be 90 days greater than the “transition to cold after days” setting.
-     *        The “transition to cold after days” setting cannot be changed after a backup has been transitioned to
-     *        cold.
+     *        the “retention” setting must be 90 days greater than the “transition to cold after days” setting. The
+     *        “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     *        </p>
+     *        <p>
+     *        Resource types that are able to be transitioned to cold storage are listed in the
+     *        "Lifecycle to cold storage" section of the <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource">
+     *        Feature availability by resource</a> table. Backup ignores this expression for other resource types.
      */
 
     public void setLifecycle(Lifecycle lifecycle) {
@@ -339,22 +470,33 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS Backup
+     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. Backup
      * transitions and expires backups automatically according to the lifecycle that you define.
      * </p>
      * <p>
      * Backups transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore, the
-     * “expire after days” setting must be 90 days greater than the “transition to cold after days” setting. The
-     * “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * “retention” setting must be 90 days greater than the “transition to cold after days” setting. The “transition to
+     * cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * </p>
+     * <p>
+     * Resource types that are able to be transitioned to cold storage are listed in the "Lifecycle to cold storage"
+     * section of the <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource"> Feature
+     * availability by resource</a> table. Backup ignores this expression for other resource types.
      * </p>
      * 
-     * @return The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS
+     * @return The lifecycle defines when a protected resource is transitioned to cold storage and when it expires.
      *         Backup transitions and expires backups automatically according to the lifecycle that you define. </p>
      *         <p>
      *         Backups transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore,
-     *         the “expire after days” setting must be 90 days greater than the “transition to cold after days” setting.
-     *         The “transition to cold after days” setting cannot be changed after a backup has been transitioned to
-     *         cold.
+     *         the “retention” setting must be 90 days greater than the “transition to cold after days” setting. The
+     *         “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     *         </p>
+     *         <p>
+     *         Resource types that are able to be transitioned to cold storage are listed in the
+     *         "Lifecycle to cold storage" section of the <a
+     *         href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource">
+     *         Feature availability by resource</a> table. Backup ignores this expression for other resource types.
      */
 
     public Lifecycle getLifecycle() {
@@ -363,23 +505,34 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS Backup
+     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. Backup
      * transitions and expires backups automatically according to the lifecycle that you define.
      * </p>
      * <p>
      * Backups transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore, the
-     * “expire after days” setting must be 90 days greater than the “transition to cold after days” setting. The
-     * “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * “retention” setting must be 90 days greater than the “transition to cold after days” setting. The “transition to
+     * cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * </p>
+     * <p>
+     * Resource types that are able to be transitioned to cold storage are listed in the "Lifecycle to cold storage"
+     * section of the <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource"> Feature
+     * availability by resource</a> table. Backup ignores this expression for other resource types.
      * </p>
      * 
      * @param lifecycle
-     *        The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS
+     *        The lifecycle defines when a protected resource is transitioned to cold storage and when it expires.
      *        Backup transitions and expires backups automatically according to the lifecycle that you define. </p>
      *        <p>
      *        Backups transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore,
-     *        the “expire after days” setting must be 90 days greater than the “transition to cold after days” setting.
-     *        The “transition to cold after days” setting cannot be changed after a backup has been transitioned to
-     *        cold.
+     *        the “retention” setting must be 90 days greater than the “transition to cold after days” setting. The
+     *        “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     *        </p>
+     *        <p>
+     *        Resource types that are able to be transitioned to cold storage are listed in the
+     *        "Lifecycle to cold storage" section of the <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource">
+     *        Feature availability by resource</a> table. Backup ignores this expression for other resource types.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -433,6 +586,13 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
         setRecoveryPointTags(recoveryPointTags);
         return this;
     }
+
+    /**
+     * Add a single RecoveryPointTags entry
+     *
+     * @see BackupRule#withRecoveryPointTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public BackupRule addRecoveryPointTagsEntry(String key, String value) {
         if (null == this.recoveryPointTags) {
@@ -496,6 +656,186 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * An array of <code>CopyAction</code> objects, which contains the details of the copy operation.
+     * </p>
+     * 
+     * @return An array of <code>CopyAction</code> objects, which contains the details of the copy operation.
+     */
+
+    public java.util.List<CopyAction> getCopyActions() {
+        return copyActions;
+    }
+
+    /**
+     * <p>
+     * An array of <code>CopyAction</code> objects, which contains the details of the copy operation.
+     * </p>
+     * 
+     * @param copyActions
+     *        An array of <code>CopyAction</code> objects, which contains the details of the copy operation.
+     */
+
+    public void setCopyActions(java.util.Collection<CopyAction> copyActions) {
+        if (copyActions == null) {
+            this.copyActions = null;
+            return;
+        }
+
+        this.copyActions = new java.util.ArrayList<CopyAction>(copyActions);
+    }
+
+    /**
+     * <p>
+     * An array of <code>CopyAction</code> objects, which contains the details of the copy operation.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setCopyActions(java.util.Collection)} or {@link #withCopyActions(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param copyActions
+     *        An array of <code>CopyAction</code> objects, which contains the details of the copy operation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BackupRule withCopyActions(CopyAction... copyActions) {
+        if (this.copyActions == null) {
+            setCopyActions(new java.util.ArrayList<CopyAction>(copyActions.length));
+        }
+        for (CopyAction ele : copyActions) {
+            this.copyActions.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of <code>CopyAction</code> objects, which contains the details of the copy operation.
+     * </p>
+     * 
+     * @param copyActions
+     *        An array of <code>CopyAction</code> objects, which contains the details of the copy operation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BackupRule withCopyActions(java.util.Collection<CopyAction> copyActions) {
+        setCopyActions(copyActions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether Backup creates continuous backups. True causes Backup to create continuous backups capable of
+     * point-in-time restore (PITR). False (or not specified) causes Backup to create snapshot backups.
+     * </p>
+     * 
+     * @param enableContinuousBackup
+     *        Specifies whether Backup creates continuous backups. True causes Backup to create continuous backups
+     *        capable of point-in-time restore (PITR). False (or not specified) causes Backup to create snapshot
+     *        backups.
+     */
+
+    public void setEnableContinuousBackup(Boolean enableContinuousBackup) {
+        this.enableContinuousBackup = enableContinuousBackup;
+    }
+
+    /**
+     * <p>
+     * Specifies whether Backup creates continuous backups. True causes Backup to create continuous backups capable of
+     * point-in-time restore (PITR). False (or not specified) causes Backup to create snapshot backups.
+     * </p>
+     * 
+     * @return Specifies whether Backup creates continuous backups. True causes Backup to create continuous backups
+     *         capable of point-in-time restore (PITR). False (or not specified) causes Backup to create snapshot
+     *         backups.
+     */
+
+    public Boolean getEnableContinuousBackup() {
+        return this.enableContinuousBackup;
+    }
+
+    /**
+     * <p>
+     * Specifies whether Backup creates continuous backups. True causes Backup to create continuous backups capable of
+     * point-in-time restore (PITR). False (or not specified) causes Backup to create snapshot backups.
+     * </p>
+     * 
+     * @param enableContinuousBackup
+     *        Specifies whether Backup creates continuous backups. True causes Backup to create continuous backups
+     *        capable of point-in-time restore (PITR). False (or not specified) causes Backup to create snapshot
+     *        backups.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BackupRule withEnableContinuousBackup(Boolean enableContinuousBackup) {
+        setEnableContinuousBackup(enableContinuousBackup);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether Backup creates continuous backups. True causes Backup to create continuous backups capable of
+     * point-in-time restore (PITR). False (or not specified) causes Backup to create snapshot backups.
+     * </p>
+     * 
+     * @return Specifies whether Backup creates continuous backups. True causes Backup to create continuous backups
+     *         capable of point-in-time restore (PITR). False (or not specified) causes Backup to create snapshot
+     *         backups.
+     */
+
+    public Boolean isEnableContinuousBackup() {
+        return this.enableContinuousBackup;
+    }
+
+    /**
+     * <p>
+     * This is the timezone in which the schedule expression is set. By default, ScheduleExpressions are in UTC. You can
+     * modify this to a specified timezone.
+     * </p>
+     * 
+     * @param scheduleExpressionTimezone
+     *        This is the timezone in which the schedule expression is set. By default, ScheduleExpressions are in UTC.
+     *        You can modify this to a specified timezone.
+     */
+
+    public void setScheduleExpressionTimezone(String scheduleExpressionTimezone) {
+        this.scheduleExpressionTimezone = scheduleExpressionTimezone;
+    }
+
+    /**
+     * <p>
+     * This is the timezone in which the schedule expression is set. By default, ScheduleExpressions are in UTC. You can
+     * modify this to a specified timezone.
+     * </p>
+     * 
+     * @return This is the timezone in which the schedule expression is set. By default, ScheduleExpressions are in UTC.
+     *         You can modify this to a specified timezone.
+     */
+
+    public String getScheduleExpressionTimezone() {
+        return this.scheduleExpressionTimezone;
+    }
+
+    /**
+     * <p>
+     * This is the timezone in which the schedule expression is set. By default, ScheduleExpressions are in UTC. You can
+     * modify this to a specified timezone.
+     * </p>
+     * 
+     * @param scheduleExpressionTimezone
+     *        This is the timezone in which the schedule expression is set. By default, ScheduleExpressions are in UTC.
+     *        You can modify this to a specified timezone.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BackupRule withScheduleExpressionTimezone(String scheduleExpressionTimezone) {
+        setScheduleExpressionTimezone(scheduleExpressionTimezone);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -522,7 +862,13 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
         if (getRecoveryPointTags() != null)
             sb.append("RecoveryPointTags: ").append("***Sensitive Data Redacted***").append(",");
         if (getRuleId() != null)
-            sb.append("RuleId: ").append(getRuleId());
+            sb.append("RuleId: ").append(getRuleId()).append(",");
+        if (getCopyActions() != null)
+            sb.append("CopyActions: ").append(getCopyActions()).append(",");
+        if (getEnableContinuousBackup() != null)
+            sb.append("EnableContinuousBackup: ").append(getEnableContinuousBackup()).append(",");
+        if (getScheduleExpressionTimezone() != null)
+            sb.append("ScheduleExpressionTimezone: ").append(getScheduleExpressionTimezone());
         sb.append("}");
         return sb.toString();
     }
@@ -569,6 +915,18 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getRuleId() != null && other.getRuleId().equals(this.getRuleId()) == false)
             return false;
+        if (other.getCopyActions() == null ^ this.getCopyActions() == null)
+            return false;
+        if (other.getCopyActions() != null && other.getCopyActions().equals(this.getCopyActions()) == false)
+            return false;
+        if (other.getEnableContinuousBackup() == null ^ this.getEnableContinuousBackup() == null)
+            return false;
+        if (other.getEnableContinuousBackup() != null && other.getEnableContinuousBackup().equals(this.getEnableContinuousBackup()) == false)
+            return false;
+        if (other.getScheduleExpressionTimezone() == null ^ this.getScheduleExpressionTimezone() == null)
+            return false;
+        if (other.getScheduleExpressionTimezone() != null && other.getScheduleExpressionTimezone().equals(this.getScheduleExpressionTimezone()) == false)
+            return false;
         return true;
     }
 
@@ -585,6 +943,9 @@ public class BackupRule implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getLifecycle() == null) ? 0 : getLifecycle().hashCode());
         hashCode = prime * hashCode + ((getRecoveryPointTags() == null) ? 0 : getRecoveryPointTags().hashCode());
         hashCode = prime * hashCode + ((getRuleId() == null) ? 0 : getRuleId().hashCode());
+        hashCode = prime * hashCode + ((getCopyActions() == null) ? 0 : getCopyActions().hashCode());
+        hashCode = prime * hashCode + ((getEnableContinuousBackup() == null) ? 0 : getEnableContinuousBackup().hashCode());
+        hashCode = prime * hashCode + ((getScheduleExpressionTimezone() == null) ? 0 : getScheduleExpressionTimezone().hashCode());
         return hashCode;
     }
 

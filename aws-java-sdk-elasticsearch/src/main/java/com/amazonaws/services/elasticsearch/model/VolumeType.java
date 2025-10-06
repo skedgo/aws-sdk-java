@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,7 +16,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * The type of EBS volume, standard, gp2, or io1. See <a href=
+ * The type of EBS volume, standard, gp2, gp3 or io1. See <a href=
  * "http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-ebs"
  * target="_blank">Configuring EBS-based Storage</a>for more information.
  * </p>
@@ -26,7 +26,8 @@ public enum VolumeType {
 
     Standard("standard"),
     Gp2("gp2"),
-    Io1("io1");
+    Io1("io1"),
+    Gp3("gp3");
 
     private String value;
 

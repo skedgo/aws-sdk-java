@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -71,6 +71,42 @@ public class ProductionVariantJsonUnmarshaller implements Unmarshaller<Productio
                 if (context.testExpression("AcceleratorType", targetDepth)) {
                     context.nextToken();
                     productionVariant.setAcceleratorType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("CoreDumpConfig", targetDepth)) {
+                    context.nextToken();
+                    productionVariant.setCoreDumpConfig(ProductionVariantCoreDumpConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ServerlessConfig", targetDepth)) {
+                    context.nextToken();
+                    productionVariant.setServerlessConfig(ProductionVariantServerlessConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("VolumeSizeInGB", targetDepth)) {
+                    context.nextToken();
+                    productionVariant.setVolumeSizeInGB(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("ModelDataDownloadTimeoutInSeconds", targetDepth)) {
+                    context.nextToken();
+                    productionVariant.setModelDataDownloadTimeoutInSeconds(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("ContainerStartupHealthCheckTimeoutInSeconds", targetDepth)) {
+                    context.nextToken();
+                    productionVariant.setContainerStartupHealthCheckTimeoutInSeconds(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("EnableSSMAccess", targetDepth)) {
+                    context.nextToken();
+                    productionVariant.setEnableSSMAccess(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("ManagedInstanceScaling", targetDepth)) {
+                    context.nextToken();
+                    productionVariant.setManagedInstanceScaling(ProductionVariantManagedInstanceScalingJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("RoutingConfig", targetDepth)) {
+                    context.nextToken();
+                    productionVariant.setRoutingConfig(ProductionVariantRoutingConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("InferenceAmiVersion", targetDepth)) {
+                    context.nextToken();
+                    productionVariant.setInferenceAmiVersion(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

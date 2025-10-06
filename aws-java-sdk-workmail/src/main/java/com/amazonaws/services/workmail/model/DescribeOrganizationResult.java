@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,7 +43,7 @@ public class DescribeOrganizationResult extends com.amazonaws.AmazonWebServiceRe
     private String state;
     /**
      * <p>
-     * The identifier for the directory associated with an Amazon WorkMail organization.
+     * The identifier for the directory associated with an WorkMail organization.
      * </p>
      */
     private String directoryId;
@@ -71,6 +71,24 @@ public class DescribeOrganizationResult extends com.amazonaws.AmazonWebServiceRe
      * </p>
      */
     private String errorMessage;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the organization.
+     * </p>
+     */
+    private String aRN;
+    /**
+     * <p>
+     * The user ID of the migration admin if migration is enabled for the organization.
+     * </p>
+     */
+    private String migrationAdmin;
+    /**
+     * <p>
+     * Indicates if interoperability is enabled for this organization.
+     * </p>
+     */
+    private Boolean interoperabilityEnabled;
 
     /**
      * <p>
@@ -194,11 +212,11 @@ public class DescribeOrganizationResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The identifier for the directory associated with an Amazon WorkMail organization.
+     * The identifier for the directory associated with an WorkMail organization.
      * </p>
      * 
      * @param directoryId
-     *        The identifier for the directory associated with an Amazon WorkMail organization.
+     *        The identifier for the directory associated with an WorkMail organization.
      */
 
     public void setDirectoryId(String directoryId) {
@@ -207,10 +225,10 @@ public class DescribeOrganizationResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The identifier for the directory associated with an Amazon WorkMail organization.
+     * The identifier for the directory associated with an WorkMail organization.
      * </p>
      * 
-     * @return The identifier for the directory associated with an Amazon WorkMail organization.
+     * @return The identifier for the directory associated with an WorkMail organization.
      */
 
     public String getDirectoryId() {
@@ -219,11 +237,11 @@ public class DescribeOrganizationResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The identifier for the directory associated with an Amazon WorkMail organization.
+     * The identifier for the directory associated with an WorkMail organization.
      * </p>
      * 
      * @param directoryId
-     *        The identifier for the directory associated with an Amazon WorkMail organization.
+     *        The identifier for the directory associated with an WorkMail organization.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -396,6 +414,138 @@ public class DescribeOrganizationResult extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the organization.
+     * </p>
+     * 
+     * @param aRN
+     *        The Amazon Resource Name (ARN) of the organization.
+     */
+
+    public void setARN(String aRN) {
+        this.aRN = aRN;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the organization.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the organization.
+     */
+
+    public String getARN() {
+        return this.aRN;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the organization.
+     * </p>
+     * 
+     * @param aRN
+     *        The Amazon Resource Name (ARN) of the organization.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeOrganizationResult withARN(String aRN) {
+        setARN(aRN);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The user ID of the migration admin if migration is enabled for the organization.
+     * </p>
+     * 
+     * @param migrationAdmin
+     *        The user ID of the migration admin if migration is enabled for the organization.
+     */
+
+    public void setMigrationAdmin(String migrationAdmin) {
+        this.migrationAdmin = migrationAdmin;
+    }
+
+    /**
+     * <p>
+     * The user ID of the migration admin if migration is enabled for the organization.
+     * </p>
+     * 
+     * @return The user ID of the migration admin if migration is enabled for the organization.
+     */
+
+    public String getMigrationAdmin() {
+        return this.migrationAdmin;
+    }
+
+    /**
+     * <p>
+     * The user ID of the migration admin if migration is enabled for the organization.
+     * </p>
+     * 
+     * @param migrationAdmin
+     *        The user ID of the migration admin if migration is enabled for the organization.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeOrganizationResult withMigrationAdmin(String migrationAdmin) {
+        setMigrationAdmin(migrationAdmin);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates if interoperability is enabled for this organization.
+     * </p>
+     * 
+     * @param interoperabilityEnabled
+     *        Indicates if interoperability is enabled for this organization.
+     */
+
+    public void setInteroperabilityEnabled(Boolean interoperabilityEnabled) {
+        this.interoperabilityEnabled = interoperabilityEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates if interoperability is enabled for this organization.
+     * </p>
+     * 
+     * @return Indicates if interoperability is enabled for this organization.
+     */
+
+    public Boolean getInteroperabilityEnabled() {
+        return this.interoperabilityEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates if interoperability is enabled for this organization.
+     * </p>
+     * 
+     * @param interoperabilityEnabled
+     *        Indicates if interoperability is enabled for this organization.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeOrganizationResult withInteroperabilityEnabled(Boolean interoperabilityEnabled) {
+        setInteroperabilityEnabled(interoperabilityEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates if interoperability is enabled for this organization.
+     * </p>
+     * 
+     * @return Indicates if interoperability is enabled for this organization.
+     */
+
+    public Boolean isInteroperabilityEnabled() {
+        return this.interoperabilityEnabled;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -422,7 +572,13 @@ public class DescribeOrganizationResult extends com.amazonaws.AmazonWebServiceRe
         if (getCompletedDate() != null)
             sb.append("CompletedDate: ").append(getCompletedDate()).append(",");
         if (getErrorMessage() != null)
-            sb.append("ErrorMessage: ").append(getErrorMessage());
+            sb.append("ErrorMessage: ").append(getErrorMessage()).append(",");
+        if (getARN() != null)
+            sb.append("ARN: ").append(getARN()).append(",");
+        if (getMigrationAdmin() != null)
+            sb.append("MigrationAdmin: ").append(getMigrationAdmin()).append(",");
+        if (getInteroperabilityEnabled() != null)
+            sb.append("InteroperabilityEnabled: ").append(getInteroperabilityEnabled());
         sb.append("}");
         return sb.toString();
     }
@@ -469,6 +625,18 @@ public class DescribeOrganizationResult extends com.amazonaws.AmazonWebServiceRe
             return false;
         if (other.getErrorMessage() != null && other.getErrorMessage().equals(this.getErrorMessage()) == false)
             return false;
+        if (other.getARN() == null ^ this.getARN() == null)
+            return false;
+        if (other.getARN() != null && other.getARN().equals(this.getARN()) == false)
+            return false;
+        if (other.getMigrationAdmin() == null ^ this.getMigrationAdmin() == null)
+            return false;
+        if (other.getMigrationAdmin() != null && other.getMigrationAdmin().equals(this.getMigrationAdmin()) == false)
+            return false;
+        if (other.getInteroperabilityEnabled() == null ^ this.getInteroperabilityEnabled() == null)
+            return false;
+        if (other.getInteroperabilityEnabled() != null && other.getInteroperabilityEnabled().equals(this.getInteroperabilityEnabled()) == false)
+            return false;
         return true;
     }
 
@@ -485,6 +653,9 @@ public class DescribeOrganizationResult extends com.amazonaws.AmazonWebServiceRe
         hashCode = prime * hashCode + ((getDefaultMailDomain() == null) ? 0 : getDefaultMailDomain().hashCode());
         hashCode = prime * hashCode + ((getCompletedDate() == null) ? 0 : getCompletedDate().hashCode());
         hashCode = prime * hashCode + ((getErrorMessage() == null) ? 0 : getErrorMessage().hashCode());
+        hashCode = prime * hashCode + ((getARN() == null) ? 0 : getARN().hashCode());
+        hashCode = prime * hashCode + ((getMigrationAdmin() == null) ? 0 : getMigrationAdmin().hashCode());
+        hashCode = prime * hashCode + ((getInteroperabilityEnabled() == null) ? 0 : getInteroperabilityEnabled().hashCode());
         return hashCode;
     }
 

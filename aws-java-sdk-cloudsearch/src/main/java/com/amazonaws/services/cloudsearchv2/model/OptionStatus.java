@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,11 +46,11 @@ public class OptionStatus implements Serializable, Cloneable {
      * The state of processing a change to an option. Possible values:
      * </p>
      * <ul>
-     * <li> <code>RequiresIndexDocuments</code>: the option's latest value will not be deployed until
+     * <li><code>RequiresIndexDocuments</code>: the option's latest value will not be deployed until
      * <a>IndexDocuments</a> has been called and indexing is complete.</li>
-     * <li> <code>Processing</code>: the option's latest value is in the process of being activated.</li>
-     * <li> <code>Active</code>: the option's latest value is completely deployed.</li>
-     * <li> <code>FailedToValidate</code>: the option value is not compatible with the domain's data and cannot be used
+     * <li><code>Processing</code>: the option's latest value is in the process of being activated.</li>
+     * <li><code>Active</code>: the option's latest value is completely deployed.</li>
+     * <li><code>FailedToValidate</code>: the option value is not compatible with the domain's data and cannot be used
      * to index the data. You must either modify the option value or update or remove the incompatible documents.</li>
      * </ul>
      */
@@ -187,22 +187,22 @@ public class OptionStatus implements Serializable, Cloneable {
      * The state of processing a change to an option. Possible values:
      * </p>
      * <ul>
-     * <li> <code>RequiresIndexDocuments</code>: the option's latest value will not be deployed until
+     * <li><code>RequiresIndexDocuments</code>: the option's latest value will not be deployed until
      * <a>IndexDocuments</a> has been called and indexing is complete.</li>
-     * <li> <code>Processing</code>: the option's latest value is in the process of being activated.</li>
-     * <li> <code>Active</code>: the option's latest value is completely deployed.</li>
-     * <li> <code>FailedToValidate</code>: the option value is not compatible with the domain's data and cannot be used
+     * <li><code>Processing</code>: the option's latest value is in the process of being activated.</li>
+     * <li><code>Active</code>: the option's latest value is completely deployed.</li>
+     * <li><code>FailedToValidate</code>: the option value is not compatible with the domain's data and cannot be used
      * to index the data. You must either modify the option value or update or remove the incompatible documents.</li>
      * </ul>
      * 
      * @param state
      *        The state of processing a change to an option. Possible values:</p>
      *        <ul>
-     *        <li> <code>RequiresIndexDocuments</code>: the option's latest value will not be deployed until
+     *        <li><code>RequiresIndexDocuments</code>: the option's latest value will not be deployed until
      *        <a>IndexDocuments</a> has been called and indexing is complete.</li>
-     *        <li> <code>Processing</code>: the option's latest value is in the process of being activated.</li>
-     *        <li> <code>Active</code>: the option's latest value is completely deployed.</li>
-     *        <li> <code>FailedToValidate</code>: the option value is not compatible with the domain's data and cannot be
+     *        <li><code>Processing</code>: the option's latest value is in the process of being activated.</li>
+     *        <li><code>Active</code>: the option's latest value is completely deployed.</li>
+     *        <li><code>FailedToValidate</code>: the option value is not compatible with the domain's data and cannot be
      *        used to index the data. You must either modify the option value or update or remove the incompatible
      *        documents.</li>
      * @see OptionState
@@ -217,21 +217,21 @@ public class OptionStatus implements Serializable, Cloneable {
      * The state of processing a change to an option. Possible values:
      * </p>
      * <ul>
-     * <li> <code>RequiresIndexDocuments</code>: the option's latest value will not be deployed until
+     * <li><code>RequiresIndexDocuments</code>: the option's latest value will not be deployed until
      * <a>IndexDocuments</a> has been called and indexing is complete.</li>
-     * <li> <code>Processing</code>: the option's latest value is in the process of being activated.</li>
-     * <li> <code>Active</code>: the option's latest value is completely deployed.</li>
-     * <li> <code>FailedToValidate</code>: the option value is not compatible with the domain's data and cannot be used
+     * <li><code>Processing</code>: the option's latest value is in the process of being activated.</li>
+     * <li><code>Active</code>: the option's latest value is completely deployed.</li>
+     * <li><code>FailedToValidate</code>: the option value is not compatible with the domain's data and cannot be used
      * to index the data. You must either modify the option value or update or remove the incompatible documents.</li>
      * </ul>
      * 
      * @return The state of processing a change to an option. Possible values:</p>
      *         <ul>
-     *         <li> <code>RequiresIndexDocuments</code>: the option's latest value will not be deployed until
+     *         <li><code>RequiresIndexDocuments</code>: the option's latest value will not be deployed until
      *         <a>IndexDocuments</a> has been called and indexing is complete.</li>
-     *         <li> <code>Processing</code>: the option's latest value is in the process of being activated.</li>
-     *         <li> <code>Active</code>: the option's latest value is completely deployed.</li>
-     *         <li> <code>FailedToValidate</code>: the option value is not compatible with the domain's data and cannot
+     *         <li><code>Processing</code>: the option's latest value is in the process of being activated.</li>
+     *         <li><code>Active</code>: the option's latest value is completely deployed.</li>
+     *         <li><code>FailedToValidate</code>: the option value is not compatible with the domain's data and cannot
      *         be used to index the data. You must either modify the option value or update or remove the incompatible
      *         documents.</li>
      * @see OptionState
@@ -246,22 +246,22 @@ public class OptionStatus implements Serializable, Cloneable {
      * The state of processing a change to an option. Possible values:
      * </p>
      * <ul>
-     * <li> <code>RequiresIndexDocuments</code>: the option's latest value will not be deployed until
+     * <li><code>RequiresIndexDocuments</code>: the option's latest value will not be deployed until
      * <a>IndexDocuments</a> has been called and indexing is complete.</li>
-     * <li> <code>Processing</code>: the option's latest value is in the process of being activated.</li>
-     * <li> <code>Active</code>: the option's latest value is completely deployed.</li>
-     * <li> <code>FailedToValidate</code>: the option value is not compatible with the domain's data and cannot be used
+     * <li><code>Processing</code>: the option's latest value is in the process of being activated.</li>
+     * <li><code>Active</code>: the option's latest value is completely deployed.</li>
+     * <li><code>FailedToValidate</code>: the option value is not compatible with the domain's data and cannot be used
      * to index the data. You must either modify the option value or update or remove the incompatible documents.</li>
      * </ul>
      * 
      * @param state
      *        The state of processing a change to an option. Possible values:</p>
      *        <ul>
-     *        <li> <code>RequiresIndexDocuments</code>: the option's latest value will not be deployed until
+     *        <li><code>RequiresIndexDocuments</code>: the option's latest value will not be deployed until
      *        <a>IndexDocuments</a> has been called and indexing is complete.</li>
-     *        <li> <code>Processing</code>: the option's latest value is in the process of being activated.</li>
-     *        <li> <code>Active</code>: the option's latest value is completely deployed.</li>
-     *        <li> <code>FailedToValidate</code>: the option value is not compatible with the domain's data and cannot be
+     *        <li><code>Processing</code>: the option's latest value is in the process of being activated.</li>
+     *        <li><code>Active</code>: the option's latest value is completely deployed.</li>
+     *        <li><code>FailedToValidate</code>: the option value is not compatible with the domain's data and cannot be
      *        used to index the data. You must either modify the option value or update or remove the incompatible
      *        documents.</li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -278,22 +278,22 @@ public class OptionStatus implements Serializable, Cloneable {
      * The state of processing a change to an option. Possible values:
      * </p>
      * <ul>
-     * <li> <code>RequiresIndexDocuments</code>: the option's latest value will not be deployed until
+     * <li><code>RequiresIndexDocuments</code>: the option's latest value will not be deployed until
      * <a>IndexDocuments</a> has been called and indexing is complete.</li>
-     * <li> <code>Processing</code>: the option's latest value is in the process of being activated.</li>
-     * <li> <code>Active</code>: the option's latest value is completely deployed.</li>
-     * <li> <code>FailedToValidate</code>: the option value is not compatible with the domain's data and cannot be used
+     * <li><code>Processing</code>: the option's latest value is in the process of being activated.</li>
+     * <li><code>Active</code>: the option's latest value is completely deployed.</li>
+     * <li><code>FailedToValidate</code>: the option value is not compatible with the domain's data and cannot be used
      * to index the data. You must either modify the option value or update or remove the incompatible documents.</li>
      * </ul>
      * 
      * @param state
      *        The state of processing a change to an option. Possible values:</p>
      *        <ul>
-     *        <li> <code>RequiresIndexDocuments</code>: the option's latest value will not be deployed until
+     *        <li><code>RequiresIndexDocuments</code>: the option's latest value will not be deployed until
      *        <a>IndexDocuments</a> has been called and indexing is complete.</li>
-     *        <li> <code>Processing</code>: the option's latest value is in the process of being activated.</li>
-     *        <li> <code>Active</code>: the option's latest value is completely deployed.</li>
-     *        <li> <code>FailedToValidate</code>: the option value is not compatible with the domain's data and cannot be
+     *        <li><code>Processing</code>: the option's latest value is in the process of being activated.</li>
+     *        <li><code>Active</code>: the option's latest value is completely deployed.</li>
+     *        <li><code>FailedToValidate</code>: the option value is not compatible with the domain's data and cannot be
      *        used to index the data. You must either modify the option value or update or remove the incompatible
      *        documents.</li>
      * @see OptionState
@@ -308,22 +308,22 @@ public class OptionStatus implements Serializable, Cloneable {
      * The state of processing a change to an option. Possible values:
      * </p>
      * <ul>
-     * <li> <code>RequiresIndexDocuments</code>: the option's latest value will not be deployed until
+     * <li><code>RequiresIndexDocuments</code>: the option's latest value will not be deployed until
      * <a>IndexDocuments</a> has been called and indexing is complete.</li>
-     * <li> <code>Processing</code>: the option's latest value is in the process of being activated.</li>
-     * <li> <code>Active</code>: the option's latest value is completely deployed.</li>
-     * <li> <code>FailedToValidate</code>: the option value is not compatible with the domain's data and cannot be used
+     * <li><code>Processing</code>: the option's latest value is in the process of being activated.</li>
+     * <li><code>Active</code>: the option's latest value is completely deployed.</li>
+     * <li><code>FailedToValidate</code>: the option value is not compatible with the domain's data and cannot be used
      * to index the data. You must either modify the option value or update or remove the incompatible documents.</li>
      * </ul>
      * 
      * @param state
      *        The state of processing a change to an option. Possible values:</p>
      *        <ul>
-     *        <li> <code>RequiresIndexDocuments</code>: the option's latest value will not be deployed until
+     *        <li><code>RequiresIndexDocuments</code>: the option's latest value will not be deployed until
      *        <a>IndexDocuments</a> has been called and indexing is complete.</li>
-     *        <li> <code>Processing</code>: the option's latest value is in the process of being activated.</li>
-     *        <li> <code>Active</code>: the option's latest value is completely deployed.</li>
-     *        <li> <code>FailedToValidate</code>: the option value is not compatible with the domain's data and cannot be
+     *        <li><code>Processing</code>: the option's latest value is in the process of being activated.</li>
+     *        <li><code>Active</code>: the option's latest value is completely deployed.</li>
+     *        <li><code>FailedToValidate</code>: the option value is not compatible with the domain's data and cannot be
      *        used to index the data. You must either modify the option value or update or remove the incompatible
      *        documents.</li>
      * @return Returns a reference to this object so that method calls can be chained together.

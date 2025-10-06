@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,9 +16,6 @@ import java.io.Serializable;
 import javax.annotation.Generated;
 
 /**
- * <p>
- * Represents the returned data in response to a request action.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DescribeFleetUtilization" target="_top">AWS
  *      API Documentation</a>
@@ -28,24 +25,27 @@ public class DescribeFleetUtilizationResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * Collection of objects containing utilization information for each requested fleet ID.
+     * A collection of objects containing utilization information for each requested fleet ID. Utilization objects are
+     * returned only for fleets that currently exist.
      * </p>
      */
     private java.util.List<FleetUtilization> fleetUtilization;
     /**
      * <p>
-     * Token that indicates where to resume retrieving results on the next call to this action. If no token is returned,
-     * these results represent the end of the list.
+     * A token that indicates where to resume retrieving results on the next call to this operation. If no token is
+     * returned, these results represent the end of the list.
      * </p>
      */
     private String nextToken;
 
     /**
      * <p>
-     * Collection of objects containing utilization information for each requested fleet ID.
+     * A collection of objects containing utilization information for each requested fleet ID. Utilization objects are
+     * returned only for fleets that currently exist.
      * </p>
      * 
-     * @return Collection of objects containing utilization information for each requested fleet ID.
+     * @return A collection of objects containing utilization information for each requested fleet ID. Utilization
+     *         objects are returned only for fleets that currently exist.
      */
 
     public java.util.List<FleetUtilization> getFleetUtilization() {
@@ -54,11 +54,13 @@ public class DescribeFleetUtilizationResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * Collection of objects containing utilization information for each requested fleet ID.
+     * A collection of objects containing utilization information for each requested fleet ID. Utilization objects are
+     * returned only for fleets that currently exist.
      * </p>
      * 
      * @param fleetUtilization
-     *        Collection of objects containing utilization information for each requested fleet ID.
+     *        A collection of objects containing utilization information for each requested fleet ID. Utilization
+     *        objects are returned only for fleets that currently exist.
      */
 
     public void setFleetUtilization(java.util.Collection<FleetUtilization> fleetUtilization) {
@@ -72,7 +74,8 @@ public class DescribeFleetUtilizationResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * Collection of objects containing utilization information for each requested fleet ID.
+     * A collection of objects containing utilization information for each requested fleet ID. Utilization objects are
+     * returned only for fleets that currently exist.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -81,7 +84,8 @@ public class DescribeFleetUtilizationResult extends com.amazonaws.AmazonWebServi
      * </p>
      * 
      * @param fleetUtilization
-     *        Collection of objects containing utilization information for each requested fleet ID.
+     *        A collection of objects containing utilization information for each requested fleet ID. Utilization
+     *        objects are returned only for fleets that currently exist.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -97,11 +101,13 @@ public class DescribeFleetUtilizationResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * Collection of objects containing utilization information for each requested fleet ID.
+     * A collection of objects containing utilization information for each requested fleet ID. Utilization objects are
+     * returned only for fleets that currently exist.
      * </p>
      * 
      * @param fleetUtilization
-     *        Collection of objects containing utilization information for each requested fleet ID.
+     *        A collection of objects containing utilization information for each requested fleet ID. Utilization
+     *        objects are returned only for fleets that currently exist.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -112,13 +118,13 @@ public class DescribeFleetUtilizationResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * Token that indicates where to resume retrieving results on the next call to this action. If no token is returned,
-     * these results represent the end of the list.
+     * A token that indicates where to resume retrieving results on the next call to this operation. If no token is
+     * returned, these results represent the end of the list.
      * </p>
      * 
      * @param nextToken
-     *        Token that indicates where to resume retrieving results on the next call to this action. If no token is
-     *        returned, these results represent the end of the list.
+     *        A token that indicates where to resume retrieving results on the next call to this operation. If no token
+     *        is returned, these results represent the end of the list.
      */
 
     public void setNextToken(String nextToken) {
@@ -127,12 +133,12 @@ public class DescribeFleetUtilizationResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * Token that indicates where to resume retrieving results on the next call to this action. If no token is returned,
-     * these results represent the end of the list.
+     * A token that indicates where to resume retrieving results on the next call to this operation. If no token is
+     * returned, these results represent the end of the list.
      * </p>
      * 
-     * @return Token that indicates where to resume retrieving results on the next call to this action. If no token is
-     *         returned, these results represent the end of the list.
+     * @return A token that indicates where to resume retrieving results on the next call to this operation. If no token
+     *         is returned, these results represent the end of the list.
      */
 
     public String getNextToken() {
@@ -141,13 +147,13 @@ public class DescribeFleetUtilizationResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * Token that indicates where to resume retrieving results on the next call to this action. If no token is returned,
-     * these results represent the end of the list.
+     * A token that indicates where to resume retrieving results on the next call to this operation. If no token is
+     * returned, these results represent the end of the list.
      * </p>
      * 
      * @param nextToken
-     *        Token that indicates where to resume retrieving results on the next call to this action. If no token is
-     *        returned, these results represent the end of the list.
+     *        A token that indicates where to resume retrieving results on the next call to this operation. If no token
+     *        is returned, these results represent the end of the list.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

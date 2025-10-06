@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,17 +25,17 @@ public class ListCuratedEnvironmentImagesResult extends com.amazonaws.AmazonWebS
 
     /**
      * <p>
-     * Information about supported platforms for Docker images that are managed by AWS CodeBuild.
+     * Information about supported platforms for Docker images that are managed by CodeBuild.
      * </p>
      */
     private java.util.List<EnvironmentPlatform> platforms;
 
     /**
      * <p>
-     * Information about supported platforms for Docker images that are managed by AWS CodeBuild.
+     * Information about supported platforms for Docker images that are managed by CodeBuild.
      * </p>
      * 
-     * @return Information about supported platforms for Docker images that are managed by AWS CodeBuild.
+     * @return Information about supported platforms for Docker images that are managed by CodeBuild.
      */
 
     public java.util.List<EnvironmentPlatform> getPlatforms() {
@@ -44,11 +44,11 @@ public class ListCuratedEnvironmentImagesResult extends com.amazonaws.AmazonWebS
 
     /**
      * <p>
-     * Information about supported platforms for Docker images that are managed by AWS CodeBuild.
+     * Information about supported platforms for Docker images that are managed by CodeBuild.
      * </p>
      * 
      * @param platforms
-     *        Information about supported platforms for Docker images that are managed by AWS CodeBuild.
+     *        Information about supported platforms for Docker images that are managed by CodeBuild.
      */
 
     public void setPlatforms(java.util.Collection<EnvironmentPlatform> platforms) {
@@ -62,7 +62,7 @@ public class ListCuratedEnvironmentImagesResult extends com.amazonaws.AmazonWebS
 
     /**
      * <p>
-     * Information about supported platforms for Docker images that are managed by AWS CodeBuild.
+     * Information about supported platforms for Docker images that are managed by CodeBuild.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -71,7 +71,7 @@ public class ListCuratedEnvironmentImagesResult extends com.amazonaws.AmazonWebS
      * </p>
      * 
      * @param platforms
-     *        Information about supported platforms for Docker images that are managed by AWS CodeBuild.
+     *        Information about supported platforms for Docker images that are managed by CodeBuild.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -87,11 +87,11 @@ public class ListCuratedEnvironmentImagesResult extends com.amazonaws.AmazonWebS
 
     /**
      * <p>
-     * Information about supported platforms for Docker images that are managed by AWS CodeBuild.
+     * Information about supported platforms for Docker images that are managed by CodeBuild.
      * </p>
      * 
      * @param platforms
-     *        Information about supported platforms for Docker images that are managed by AWS CodeBuild.
+     *        Information about supported platforms for Docker images that are managed by CodeBuild.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

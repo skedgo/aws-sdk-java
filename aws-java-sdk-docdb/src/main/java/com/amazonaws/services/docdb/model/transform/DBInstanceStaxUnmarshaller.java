@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -165,6 +165,16 @@ public class DBInstanceStaxUnmarshaller implements Unmarshaller<DBInstance, Stax
                     continue;
                 }
 
+                if (context.testExpression("CACertificateIdentifier", targetDepth)) {
+                    dBInstance.setCACertificateIdentifier(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("CopyTagsToSnapshot", targetDepth)) {
+                    dBInstance.setCopyTagsToSnapshot(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("PromotionTier", targetDepth)) {
                     dBInstance.setPromotionTier(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
@@ -185,6 +195,20 @@ public class DBInstanceStaxUnmarshaller implements Unmarshaller<DBInstance, Stax
                     continue;
                 }
 
+                if (context.testExpression("CertificateDetails", targetDepth)) {
+                    dBInstance.setCertificateDetails(CertificateDetailsStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("PerformanceInsightsEnabled", targetDepth)) {
+                    dBInstance.setPerformanceInsightsEnabled(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("PerformanceInsightsKMSKeyId", targetDepth)) {
+                    dBInstance.setPerformanceInsightsKMSKeyId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
             } else if (xmlEvent.isEndElement()) {
                 if (context.getCurrentDepth() < originalDepth) {
                     return dBInstance;

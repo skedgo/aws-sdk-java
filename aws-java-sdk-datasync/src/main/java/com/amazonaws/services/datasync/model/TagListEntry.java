@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Represents a single entry in a list of AWS resource tags. <code>TagListEntry</code> returns an array that contains a
- * list of tasks when the <a>ListTagsForResource</a> operation is called.
+ * A key-value pair representing a single tag that's been applied to an Amazon Web Services resource.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/datasync-2018-11-09/TagListEntry" target="_top">AWS API
@@ -31,24 +30,24 @@ public class TagListEntry implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The key for an AWS resource tag.
+     * The key for an Amazon Web Services resource tag.
      * </p>
      */
     private String key;
     /**
      * <p>
-     * The value for an AWS resource tag.
+     * The value for an Amazon Web Services resource tag.
      * </p>
      */
     private String value;
 
     /**
      * <p>
-     * The key for an AWS resource tag.
+     * The key for an Amazon Web Services resource tag.
      * </p>
      * 
      * @param key
-     *        The key for an AWS resource tag.
+     *        The key for an Amazon Web Services resource tag.
      */
 
     public void setKey(String key) {
@@ -57,10 +56,10 @@ public class TagListEntry implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The key for an AWS resource tag.
+     * The key for an Amazon Web Services resource tag.
      * </p>
      * 
-     * @return The key for an AWS resource tag.
+     * @return The key for an Amazon Web Services resource tag.
      */
 
     public String getKey() {
@@ -69,11 +68,11 @@ public class TagListEntry implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The key for an AWS resource tag.
+     * The key for an Amazon Web Services resource tag.
      * </p>
      * 
      * @param key
-     *        The key for an AWS resource tag.
+     *        The key for an Amazon Web Services resource tag.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -84,11 +83,11 @@ public class TagListEntry implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The value for an AWS resource tag.
+     * The value for an Amazon Web Services resource tag.
      * </p>
      * 
      * @param value
-     *        The value for an AWS resource tag.
+     *        The value for an Amazon Web Services resource tag.
      */
 
     public void setValue(String value) {
@@ -97,10 +96,10 @@ public class TagListEntry implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The value for an AWS resource tag.
+     * The value for an Amazon Web Services resource tag.
      * </p>
      * 
-     * @return The value for an AWS resource tag.
+     * @return The value for an Amazon Web Services resource tag.
      */
 
     public String getValue() {
@@ -109,11 +108,11 @@ public class TagListEntry implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The value for an AWS resource tag.
+     * The value for an Amazon Web Services resource tag.
      * </p>
      * 
      * @param value
-     *        The value for an AWS resource tag.
+     *        The value for an Amazon Web Services resource tag.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

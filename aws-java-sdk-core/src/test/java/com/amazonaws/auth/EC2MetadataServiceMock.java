@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights
  * Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
@@ -20,6 +20,7 @@ package com.amazonaws.auth;
 
 import static com.amazonaws.SDKGlobalConfiguration.EC2_METADATA_SERVICE_OVERRIDE_SYSTEM_PROPERTY;
 
+import com.amazonaws.util.EC2MetadataUtils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,11 +28,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.List;
-
-import org.apache.commons.io.IOUtils;
-
-import com.amazonaws.util.EC2MetadataUtils;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Mock server for imitating the Amazon EC2 Instance Metadata Service. Tests can
@@ -39,26 +36,29 @@ import com.amazonaws.util.EC2MetadataUtils;
  * response the server will send when a connection is made.
  */
 public class EC2MetadataServiceMock {
-
     private EC2MockMetadataServiceListenerThread hosmMockServerThread;
+    private boolean tokenEnabled;
+    private AtomicInteger requestCount = new AtomicInteger(0);
+
+    public EC2MetadataServiceMock(boolean tokenEnabled) {
+        this.tokenEnabled = tokenEnabled;
+    }
 
     private static final String OUTPUT_HEADERS = "HTTP/1.1 200 OK\r\n" +
-            "Content-Type: text/html\r\n" +
-            "Content-Length: ";
+                                                 "Content-Type: text/html\r\n" +
+                                                 "Content-Length: ";
 
     private static final String OUTPUT_END_OF_HEADERS = "\r\n\r\n";
 
+    public int getRequestCount() {
+        return requestCount.get();
+    }
+
     /**
-     * Sets the name of the file that should be sent back as the response from
-     * this mock server. The files are loaded from the com/amazonaws/auth
-     * directory of the tst folder, and no file extension should be specified.
-     *
-     * @param responseFileName
-     *            The name of the file that should be sent back as the response
-     *            from this mock server.
+     * Sets the content that should be sent back as the response from this mock server.
      */
-    public void setResponseFileName(String responseFileName) {
-        hosmMockServerThread.setResponseFileName(responseFileName);
+    public void setResponseContent(String responseContent) {
+        hosmMockServerThread.setResponseContent(responseContent);
     }
 
     /**
@@ -74,7 +74,7 @@ public class EC2MetadataServiceMock {
     }
 
     public void start() throws IOException {
-        hosmMockServerThread = new EC2MockMetadataServiceListenerThread(startServerSocket());
+        hosmMockServerThread = new EC2MockMetadataServiceListenerThread(startServerSocket(), tokenEnabled);
         hosmMockServerThread.start();
     }
 
@@ -99,17 +99,19 @@ public class EC2MetadataServiceMock {
      * Thread subclass that listens for connections on an opened server socket
      * and response with a predefined response file.
      */
-    private static class EC2MockMetadataServiceListenerThread extends Thread {
+    private class EC2MockMetadataServiceListenerThread extends Thread {
         private ServerSocket serverSocket;
-        private String responseFileName;
+        private String responseContent;
         private String securityCredentialNames;
+        private boolean tokenEnabled;
 
-        public EC2MockMetadataServiceListenerThread(ServerSocket serverSocket) {
+        public EC2MockMetadataServiceListenerThread(ServerSocket serverSocket, boolean tokenEnabled) {
             this.serverSocket = serverSocket;
+            this.tokenEnabled = tokenEnabled;
         }
 
-        public void setResponseFileName(String responseFileName) {
-            this.responseFileName = responseFileName;
+        public void setResponseContent(String responseContent) {
+            this.responseContent = responseContent;
         }
 
         public void setAvailableSecurityCredentials(String securityCredentialNames) {
@@ -141,25 +143,20 @@ public class EC2MetadataServiceMock {
 
                     String httpResponse = null;
 
-                    if (resourcePath.equals(EC2MetadataUtils.SECURITY_CREDENTIALS_RESOURCE)) {
+                    if (resourcePath.equals("/latest/api/token")) {
+
+                        httpResponse = formTokenHttpResponse();
+                        outputStream.write(httpResponse.getBytes());
+
+                    } else if (resourcePath.equals(EC2MetadataUtils.SECURITY_CREDENTIALS_RESOURCE)) {
+
                         httpResponse = formHttpResponse(securityCredentialNames);
                         outputStream.write(httpResponse.getBytes());
 
-                    } else if (resourcePath.startsWith(EC2MetadataUtils.SECURITY_CREDENTIALS_RESOURCE)) {
-                        String responseFilePath = "/com/amazonaws/auth/" + responseFileName + ".json";
-                        System.out.println("Serving: " + responseFilePath);
+                    } else if (resourcePath.equals(EC2MetadataUtils.SECURITY_CREDENTIALS_RESOURCE + securityCredentialNames)) {
 
-                        InputStream responseFileInputStream = this.getClass().getResourceAsStream(responseFilePath);
-
-                        List<String> dataFromFile = IOUtils.readLines(responseFileInputStream);
-
-                        StringBuilder credentialsString = new StringBuilder();
-
-                        for(String line : dataFromFile)
-                            credentialsString.append(line);
-
-                        httpResponse = formHttpResponse(credentialsString
-                                .toString());
+                        System.out.println("Serving: " + responseContent);
+                        httpResponse = formHttpResponse(responseContent);
                         outputStream.write(httpResponse.getBytes());
 
                     } else {
@@ -168,6 +165,7 @@ public class EC2MetadataServiceMock {
                 } catch (IOException e) {
                     throw new RuntimeException("Unable to respond to request", e);
                 } finally {
+                    requestCount.incrementAndGet();
                     try {outputStream.close();} catch (Exception e) {}
                 }
             }
@@ -175,12 +173,26 @@ public class EC2MetadataServiceMock {
 
         private String formHttpResponse(String content){
 
-            StringBuilder outputStringToWrite = new StringBuilder(
-                    OUTPUT_HEADERS);
+            StringBuilder outputStringToWrite = new StringBuilder(OUTPUT_HEADERS);
             outputStringToWrite.append(content.length());
             outputStringToWrite.append(OUTPUT_END_OF_HEADERS);
             outputStringToWrite.append(content);
             return outputStringToWrite.toString();
+        }
+
+        private String formTokenHttpResponse() {
+            String token = "123456";
+            StringBuilder sb = new StringBuilder();
+            if (tokenEnabled) {
+                sb.append(OUTPUT_HEADERS);
+                sb.append(token.length());
+                sb.append(OUTPUT_END_OF_HEADERS);
+                sb.append(token);
+            } else {
+                sb.append("HTTP/1.1 404 Not Found\n");
+                sb.append(OUTPUT_END_OF_HEADERS);
+            }
+            return sb.toString();
         }
 
         public void stopServer() {

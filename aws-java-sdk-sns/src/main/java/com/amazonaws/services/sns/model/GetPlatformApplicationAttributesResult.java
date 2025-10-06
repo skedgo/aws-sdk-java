@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Response for GetPlatformApplicationAttributes action.
+ * Response for <code>GetPlatformApplicationAttributes</code> action.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/GetPlatformApplicationAttributes"
@@ -32,6 +32,40 @@ public class GetPlatformApplicationAttributesResult extends com.amazonaws.Amazon
      * Attributes include the following:
      * </p>
      * <ul>
+     * <li>
+     * <p>
+     * <code>AppleCertificateExpiryDate</code> – The expiry date of the SSL certificate used to configure
+     * certificate-based authentication.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ApplePlatformTeamID</code> – The Apple developer account ID used to configure token-based authentication.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ApplePlatformBundleID</code> – The app identifier used to configure token-based authentication.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AuthenticationMethod</code> – Returns the credential type used when sending push notifications from
+     * application to APNS/APNS_Sandbox, or application to GCM.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * APNS – Returns the token or certificate.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * GCM – Returns the token or key.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
      * <li>
      * <p>
      * <code>EventEndpointCreated</code> – Topic ARN to which EndpointCreated event notifications should be sent.
@@ -64,6 +98,40 @@ public class GetPlatformApplicationAttributesResult extends com.amazonaws.Amazon
      * <ul>
      * <li>
      * <p>
+     * <code>AppleCertificateExpiryDate</code> – The expiry date of the SSL certificate used to configure
+     * certificate-based authentication.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ApplePlatformTeamID</code> – The Apple developer account ID used to configure token-based authentication.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ApplePlatformBundleID</code> – The app identifier used to configure token-based authentication.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AuthenticationMethod</code> – Returns the credential type used when sending push notifications from
+     * application to APNS/APNS_Sandbox, or application to GCM.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * APNS – Returns the token or certificate.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * GCM – Returns the token or key.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
      * <code>EventEndpointCreated</code> – Topic ARN to which EndpointCreated event notifications should be sent.
      * </p>
      * </li>
@@ -87,6 +155,41 @@ public class GetPlatformApplicationAttributesResult extends com.amazonaws.Amazon
      * 
      * @return Attributes include the following:</p>
      *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>AppleCertificateExpiryDate</code> – The expiry date of the SSL certificate used to configure
+     *         certificate-based authentication.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ApplePlatformTeamID</code> – The Apple developer account ID used to configure token-based
+     *         authentication.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ApplePlatformBundleID</code> – The app identifier used to configure token-based authentication.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>AuthenticationMethod</code> – Returns the credential type used when sending push notifications from
+     *         application to APNS/APNS_Sandbox, or application to GCM.
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         APNS – Returns the token or certificate.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         GCM – Returns the token or key.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         </li>
      *         <li>
      *         <p>
      *         <code>EventEndpointCreated</code> – Topic ARN to which EndpointCreated event notifications should be
@@ -126,6 +229,40 @@ public class GetPlatformApplicationAttributesResult extends com.amazonaws.Amazon
      * <ul>
      * <li>
      * <p>
+     * <code>AppleCertificateExpiryDate</code> – The expiry date of the SSL certificate used to configure
+     * certificate-based authentication.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ApplePlatformTeamID</code> – The Apple developer account ID used to configure token-based authentication.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ApplePlatformBundleID</code> – The app identifier used to configure token-based authentication.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AuthenticationMethod</code> – Returns the credential type used when sending push notifications from
+     * application to APNS/APNS_Sandbox, or application to GCM.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * APNS – Returns the token or certificate.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * GCM – Returns the token or key.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
      * <code>EventEndpointCreated</code> – Topic ARN to which EndpointCreated event notifications should be sent.
      * </p>
      * </li>
@@ -150,6 +287,41 @@ public class GetPlatformApplicationAttributesResult extends com.amazonaws.Amazon
      * @param attributes
      *        Attributes include the following:</p>
      *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>AppleCertificateExpiryDate</code> – The expiry date of the SSL certificate used to configure
+     *        certificate-based authentication.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ApplePlatformTeamID</code> – The Apple developer account ID used to configure token-based
+     *        authentication.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ApplePlatformBundleID</code> – The app identifier used to configure token-based authentication.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AuthenticationMethod</code> – Returns the credential type used when sending push notifications from
+     *        application to APNS/APNS_Sandbox, or application to GCM.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        APNS – Returns the token or certificate.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        GCM – Returns the token or key.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
      *        <li>
      *        <p>
      *        <code>EventEndpointCreated</code> – Topic ARN to which EndpointCreated event notifications should be sent.
@@ -184,6 +356,40 @@ public class GetPlatformApplicationAttributesResult extends com.amazonaws.Amazon
      * <ul>
      * <li>
      * <p>
+     * <code>AppleCertificateExpiryDate</code> – The expiry date of the SSL certificate used to configure
+     * certificate-based authentication.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ApplePlatformTeamID</code> – The Apple developer account ID used to configure token-based authentication.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ApplePlatformBundleID</code> – The app identifier used to configure token-based authentication.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AuthenticationMethod</code> – Returns the credential type used when sending push notifications from
+     * application to APNS/APNS_Sandbox, or application to GCM.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * APNS – Returns the token or certificate.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * GCM – Returns the token or key.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
      * <code>EventEndpointCreated</code> – Topic ARN to which EndpointCreated event notifications should be sent.
      * </p>
      * </li>
@@ -208,6 +414,41 @@ public class GetPlatformApplicationAttributesResult extends com.amazonaws.Amazon
      * @param attributes
      *        Attributes include the following:</p>
      *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>AppleCertificateExpiryDate</code> – The expiry date of the SSL certificate used to configure
+     *        certificate-based authentication.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ApplePlatformTeamID</code> – The Apple developer account ID used to configure token-based
+     *        authentication.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ApplePlatformBundleID</code> – The app identifier used to configure token-based authentication.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AuthenticationMethod</code> – Returns the credential type used when sending push notifications from
+     *        application to APNS/APNS_Sandbox, or application to GCM.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        APNS – Returns the token or certificate.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        GCM – Returns the token or key.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
      *        <li>
      *        <p>
      *        <code>EventEndpointCreated</code> – Topic ARN to which EndpointCreated event notifications should be sent.
@@ -236,6 +477,13 @@ public class GetPlatformApplicationAttributesResult extends com.amazonaws.Amazon
         setAttributes(attributes);
         return this;
     }
+
+    /**
+     * Add a single Attributes entry
+     *
+     * @see GetPlatformApplicationAttributesResult#withAttributes
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public GetPlatformApplicationAttributesResult addAttributesEntry(String key, String value) {
         if (null == this.attributes) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,13 +29,49 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * The ID of the resource to add a tag to.
      * </p>
+     * <p>
+     * You can specify any of the following taggable resources.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Amazon Web Services account – specify the account ID number.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Organizational unit – specify the OU ID that begins with <code>ou-</code> and looks similar to:
+     * <code>ou-<i>1a2b-34uvwxyz</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Root – specify the root ID that begins with <code>r-</code> and looks similar to: <code>r-<i>1a2b</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Policy – specify the policy ID that begins with <code>p-</code> andlooks similar to:
+     * <code>p-<i>12abcdefg3</i> </code>
+     * </p>
+     * </li>
+     * </ul>
      */
     private String resourceId;
     /**
      * <p>
-     * The tag to add to the specified resource. Specifying the tag key is required. You can set the value of a tag to
-     * an empty string, but you can't set the value of a tag to null.
+     * A list of tags to add to the specified resource.
      * </p>
+     * <p>
+     * For each tag in the list, you must specify both a tag key and a value. The value can be an empty string, but you
+     * can't set it to <code>null</code>.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is not valid or if you exceed the maximum allowed number of tags for a resource, then the
+     * entire request fails.
+     * </p>
+     * </note>
      */
     private java.util.List<Tag> tags;
 
@@ -43,9 +79,63 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * The ID of the resource to add a tag to.
      * </p>
+     * <p>
+     * You can specify any of the following taggable resources.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Amazon Web Services account – specify the account ID number.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Organizational unit – specify the OU ID that begins with <code>ou-</code> and looks similar to:
+     * <code>ou-<i>1a2b-34uvwxyz</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Root – specify the root ID that begins with <code>r-</code> and looks similar to: <code>r-<i>1a2b</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Policy – specify the policy ID that begins with <code>p-</code> andlooks similar to:
+     * <code>p-<i>12abcdefg3</i> </code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param resourceId
-     *        The ID of the resource to add a tag to.
+     *        The ID of the resource to add a tag to.</p>
+     *        <p>
+     *        You can specify any of the following taggable resources.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Amazon Web Services account – specify the account ID number.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Organizational unit – specify the OU ID that begins with <code>ou-</code> and looks similar to:
+     *        <code>ou-<i>1a2b-34uvwxyz</i> </code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Root – specify the root ID that begins with <code>r-</code> and looks similar to:
+     *        <code>r-<i>1a2b</i> </code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Policy – specify the policy ID that begins with <code>p-</code> andlooks similar to:
+     *        <code>p-<i>12abcdefg3</i> </code>
+     *        </p>
+     *        </li>
      */
 
     public void setResourceId(String resourceId) {
@@ -56,8 +146,62 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * The ID of the resource to add a tag to.
      * </p>
+     * <p>
+     * You can specify any of the following taggable resources.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Amazon Web Services account – specify the account ID number.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Organizational unit – specify the OU ID that begins with <code>ou-</code> and looks similar to:
+     * <code>ou-<i>1a2b-34uvwxyz</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Root – specify the root ID that begins with <code>r-</code> and looks similar to: <code>r-<i>1a2b</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Policy – specify the policy ID that begins with <code>p-</code> andlooks similar to:
+     * <code>p-<i>12abcdefg3</i> </code>
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The ID of the resource to add a tag to.
+     * @return The ID of the resource to add a tag to.</p>
+     *         <p>
+     *         You can specify any of the following taggable resources.
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Amazon Web Services account – specify the account ID number.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Organizational unit – specify the OU ID that begins with <code>ou-</code> and looks similar to:
+     *         <code>ou-<i>1a2b-34uvwxyz</i> </code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Root – specify the root ID that begins with <code>r-</code> and looks similar to:
+     *         <code>r-<i>1a2b</i> </code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Policy – specify the policy ID that begins with <code>p-</code> andlooks similar to:
+     *         <code>p-<i>12abcdefg3</i> </code>
+     *         </p>
+     *         </li>
      */
 
     public String getResourceId() {
@@ -68,9 +212,63 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * The ID of the resource to add a tag to.
      * </p>
+     * <p>
+     * You can specify any of the following taggable resources.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Amazon Web Services account – specify the account ID number.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Organizational unit – specify the OU ID that begins with <code>ou-</code> and looks similar to:
+     * <code>ou-<i>1a2b-34uvwxyz</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Root – specify the root ID that begins with <code>r-</code> and looks similar to: <code>r-<i>1a2b</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Policy – specify the policy ID that begins with <code>p-</code> andlooks similar to:
+     * <code>p-<i>12abcdefg3</i> </code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param resourceId
-     *        The ID of the resource to add a tag to.
+     *        The ID of the resource to add a tag to.</p>
+     *        <p>
+     *        You can specify any of the following taggable resources.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Amazon Web Services account – specify the account ID number.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Organizational unit – specify the OU ID that begins with <code>ou-</code> and looks similar to:
+     *        <code>ou-<i>1a2b-34uvwxyz</i> </code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Root – specify the root ID that begins with <code>r-</code> and looks similar to:
+     *        <code>r-<i>1a2b</i> </code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Policy – specify the policy ID that begins with <code>p-</code> andlooks similar to:
+     *        <code>p-<i>12abcdefg3</i> </code>
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -81,12 +279,29 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The tag to add to the specified resource. Specifying the tag key is required. You can set the value of a tag to
-     * an empty string, but you can't set the value of a tag to null.
+     * A list of tags to add to the specified resource.
      * </p>
+     * <p>
+     * For each tag in the list, you must specify both a tag key and a value. The value can be an empty string, but you
+     * can't set it to <code>null</code>.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is not valid or if you exceed the maximum allowed number of tags for a resource, then the
+     * entire request fails.
+     * </p>
+     * </note>
      * 
-     * @return The tag to add to the specified resource. Specifying the tag key is required. You can set the value of a
-     *         tag to an empty string, but you can't set the value of a tag to null.
+     * @return A list of tags to add to the specified resource.</p>
+     *         <p>
+     *         For each tag in the list, you must specify both a tag key and a value. The value can be an empty string,
+     *         but you can't set it to <code>null</code>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         If any one of the tags is not valid or if you exceed the maximum allowed number of tags for a resource,
+     *         then the entire request fails.
+     *         </p>
      */
 
     public java.util.List<Tag> getTags() {
@@ -95,13 +310,30 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The tag to add to the specified resource. Specifying the tag key is required. You can set the value of a tag to
-     * an empty string, but you can't set the value of a tag to null.
+     * A list of tags to add to the specified resource.
      * </p>
+     * <p>
+     * For each tag in the list, you must specify both a tag key and a value. The value can be an empty string, but you
+     * can't set it to <code>null</code>.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is not valid or if you exceed the maximum allowed number of tags for a resource, then the
+     * entire request fails.
+     * </p>
+     * </note>
      * 
      * @param tags
-     *        The tag to add to the specified resource. Specifying the tag key is required. You can set the value of a
-     *        tag to an empty string, but you can't set the value of a tag to null.
+     *        A list of tags to add to the specified resource.</p>
+     *        <p>
+     *        For each tag in the list, you must specify both a tag key and a value. The value can be an empty string,
+     *        but you can't set it to <code>null</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        If any one of the tags is not valid or if you exceed the maximum allowed number of tags for a resource,
+     *        then the entire request fails.
+     *        </p>
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -115,9 +347,18 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The tag to add to the specified resource. Specifying the tag key is required. You can set the value of a tag to
-     * an empty string, but you can't set the value of a tag to null.
+     * A list of tags to add to the specified resource.
      * </p>
+     * <p>
+     * For each tag in the list, you must specify both a tag key and a value. The value can be an empty string, but you
+     * can't set it to <code>null</code>.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is not valid or if you exceed the maximum allowed number of tags for a resource, then the
+     * entire request fails.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
@@ -125,8 +366,16 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * 
      * @param tags
-     *        The tag to add to the specified resource. Specifying the tag key is required. You can set the value of a
-     *        tag to an empty string, but you can't set the value of a tag to null.
+     *        A list of tags to add to the specified resource.</p>
+     *        <p>
+     *        For each tag in the list, you must specify both a tag key and a value. The value can be an empty string,
+     *        but you can't set it to <code>null</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        If any one of the tags is not valid or if you exceed the maximum allowed number of tags for a resource,
+     *        then the entire request fails.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -142,13 +391,30 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The tag to add to the specified resource. Specifying the tag key is required. You can set the value of a tag to
-     * an empty string, but you can't set the value of a tag to null.
+     * A list of tags to add to the specified resource.
      * </p>
+     * <p>
+     * For each tag in the list, you must specify both a tag key and a value. The value can be an empty string, but you
+     * can't set it to <code>null</code>.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is not valid or if you exceed the maximum allowed number of tags for a resource, then the
+     * entire request fails.
+     * </p>
+     * </note>
      * 
      * @param tags
-     *        The tag to add to the specified resource. Specifying the tag key is required. You can set the value of a
-     *        tag to an empty string, but you can't set the value of a tag to null.
+     *        A list of tags to add to the specified resource.</p>
+     *        <p>
+     *        For each tag in the list, you must specify both a tag key and a value. The value can be an empty string,
+     *        but you can't set it to <code>null</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        If any one of the tags is not valid or if you exceed the maximum allowed number of tags for a resource,
+     *        then the entire request fails.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

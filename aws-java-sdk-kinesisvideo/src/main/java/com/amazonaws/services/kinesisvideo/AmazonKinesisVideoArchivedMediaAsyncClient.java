@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -47,7 +47,20 @@ public class AmazonKinesisVideoArchivedMediaAsyncClient extends AmazonKinesisVid
      *        Object providing client parameters.
      */
     AmazonKinesisVideoArchivedMediaAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Kinesis Video Archived Media using the
+     * specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonKinesisVideoArchivedMediaAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -58,6 +71,39 @@ public class AmazonKinesisVideoArchivedMediaAsyncClient extends AmazonKinesisVid
      */
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetClipResult> getClipAsync(GetClipRequest request) {
+
+        return getClipAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetClipResult> getClipAsync(final GetClipRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetClipRequest, GetClipResult> asyncHandler) {
+        final GetClipRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetClipResult>() {
+            @Override
+            public GetClipResult call() throws Exception {
+                GetClipResult result = null;
+
+                try {
+                    result = executeGetClip(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -111,6 +157,39 @@ public class AmazonKinesisVideoArchivedMediaAsyncClient extends AmazonKinesisVid
 
                 try {
                     result = executeGetHLSStreamingSessionURL(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetImagesResult> getImagesAsync(GetImagesRequest request) {
+
+        return getImagesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetImagesResult> getImagesAsync(final GetImagesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetImagesRequest, GetImagesResult> asyncHandler) {
+        final GetImagesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetImagesResult>() {
+            @Override
+            public GetImagesResult call() throws Exception {
+                GetImagesResult result = null;
+
+                try {
+                    result = executeGetImages(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

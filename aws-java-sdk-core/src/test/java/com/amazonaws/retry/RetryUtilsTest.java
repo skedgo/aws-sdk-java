@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -54,4 +54,19 @@ public class RetryUtilsTest {
 
     }
 
+    @Test
+    public void isThrottlingExceptions_True_When_EC2ThrottledException() {
+        AmazonServiceException ase = new AmazonServiceException("msg");
+        ase.setErrorCode("EC2ThrottledException");
+
+        assertTrue(RetryUtils.isThrottlingException(ase));
+    }
+
+    @Test
+    public void isThrottlingException_WhenReasonPhraseIsErrorCode() {
+        AmazonServiceException ase = new AmazonServiceException("msg");
+        ase.setStatusCode(503);
+        ase.setErrorCode("503 Slow Down");
+        assertTrue("503 Slow Down error code should be considered throttling", RetryUtils.isThrottlingException(ase));
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,13 +27,13 @@ public class UpdateLoadBalancerAttributeRequest extends com.amazonaws.AmazonWebS
 
     /**
      * <p>
-     * The name of the load balancer that you want to modify (e.g., <code>my-load-balancer</code>.
+     * The name of the load balancer that you want to modify (<code>my-load-balancer</code>.
      * </p>
      */
     private String loadBalancerName;
     /**
      * <p>
-     * The name of the attribute you want to update. Valid values are below.
+     * The name of the attribute you want to update.
      * </p>
      */
     private String attributeName;
@@ -41,16 +41,61 @@ public class UpdateLoadBalancerAttributeRequest extends com.amazonaws.AmazonWebS
      * <p>
      * The value that you want to specify for the attribute name.
      * </p>
+     * <p>
+     * The following values are supported depending on what you specify for the <code>attributeName</code> request
+     * parameter:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you specify <code>HealthCheckPath</code> for the <code>attributeName</code> request parameter, then the
+     * <code>attributeValue</code> request parameter must be the path to ping on the target (for example,
+     * <code>/weather/us/wa/seattle</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>SessionStickinessEnabled</code> for the <code>attributeName</code> request parameter, then
+     * the <code>attributeValue</code> request parameter must be <code>true</code> to activate session stickiness or
+     * <code>false</code> to deactivate session stickiness.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>SessionStickiness_LB_CookieDurationSeconds</code> for the <code>attributeName</code> request
+     * parameter, then the <code>attributeValue</code> request parameter must be an interger that represents the cookie
+     * duration in seconds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>HttpsRedirectionEnabled</code> for the <code>attributeName</code> request parameter, then
+     * the <code>attributeValue</code> request parameter must be <code>true</code> to activate HTTP to HTTPS redirection
+     * or <code>false</code> to deactivate HTTP to HTTPS redirection.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>TlsPolicyName</code> for the <code>attributeName</code> request parameter, then the
+     * <code>attributeValue</code> request parameter must be the name of the TLS policy.
+     * </p>
+     * <p>
+     * Use the <a
+     * href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetLoadBalancerTlsPolicies.html"
+     * >GetLoadBalancerTlsPolicies</a> action to get a list of TLS policy names that you can specify.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String attributeValue;
 
     /**
      * <p>
-     * The name of the load balancer that you want to modify (e.g., <code>my-load-balancer</code>.
+     * The name of the load balancer that you want to modify (<code>my-load-balancer</code>.
      * </p>
      * 
      * @param loadBalancerName
-     *        The name of the load balancer that you want to modify (e.g., <code>my-load-balancer</code>.
+     *        The name of the load balancer that you want to modify (<code>my-load-balancer</code>.
      */
 
     public void setLoadBalancerName(String loadBalancerName) {
@@ -59,10 +104,10 @@ public class UpdateLoadBalancerAttributeRequest extends com.amazonaws.AmazonWebS
 
     /**
      * <p>
-     * The name of the load balancer that you want to modify (e.g., <code>my-load-balancer</code>.
+     * The name of the load balancer that you want to modify (<code>my-load-balancer</code>.
      * </p>
      * 
-     * @return The name of the load balancer that you want to modify (e.g., <code>my-load-balancer</code>.
+     * @return The name of the load balancer that you want to modify (<code>my-load-balancer</code>.
      */
 
     public String getLoadBalancerName() {
@@ -71,11 +116,11 @@ public class UpdateLoadBalancerAttributeRequest extends com.amazonaws.AmazonWebS
 
     /**
      * <p>
-     * The name of the load balancer that you want to modify (e.g., <code>my-load-balancer</code>.
+     * The name of the load balancer that you want to modify (<code>my-load-balancer</code>.
      * </p>
      * 
      * @param loadBalancerName
-     *        The name of the load balancer that you want to modify (e.g., <code>my-load-balancer</code>.
+     *        The name of the load balancer that you want to modify (<code>my-load-balancer</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -86,11 +131,11 @@ public class UpdateLoadBalancerAttributeRequest extends com.amazonaws.AmazonWebS
 
     /**
      * <p>
-     * The name of the attribute you want to update. Valid values are below.
+     * The name of the attribute you want to update.
      * </p>
      * 
      * @param attributeName
-     *        The name of the attribute you want to update. Valid values are below.
+     *        The name of the attribute you want to update.
      * @see LoadBalancerAttributeName
      */
 
@@ -100,10 +145,10 @@ public class UpdateLoadBalancerAttributeRequest extends com.amazonaws.AmazonWebS
 
     /**
      * <p>
-     * The name of the attribute you want to update. Valid values are below.
+     * The name of the attribute you want to update.
      * </p>
      * 
-     * @return The name of the attribute you want to update. Valid values are below.
+     * @return The name of the attribute you want to update.
      * @see LoadBalancerAttributeName
      */
 
@@ -113,11 +158,11 @@ public class UpdateLoadBalancerAttributeRequest extends com.amazonaws.AmazonWebS
 
     /**
      * <p>
-     * The name of the attribute you want to update. Valid values are below.
+     * The name of the attribute you want to update.
      * </p>
      * 
      * @param attributeName
-     *        The name of the attribute you want to update. Valid values are below.
+     *        The name of the attribute you want to update.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LoadBalancerAttributeName
      */
@@ -129,11 +174,11 @@ public class UpdateLoadBalancerAttributeRequest extends com.amazonaws.AmazonWebS
 
     /**
      * <p>
-     * The name of the attribute you want to update. Valid values are below.
+     * The name of the attribute you want to update.
      * </p>
      * 
      * @param attributeName
-     *        The name of the attribute you want to update. Valid values are below.
+     *        The name of the attribute you want to update.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LoadBalancerAttributeName
      */
@@ -147,9 +192,98 @@ public class UpdateLoadBalancerAttributeRequest extends com.amazonaws.AmazonWebS
      * <p>
      * The value that you want to specify for the attribute name.
      * </p>
+     * <p>
+     * The following values are supported depending on what you specify for the <code>attributeName</code> request
+     * parameter:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you specify <code>HealthCheckPath</code> for the <code>attributeName</code> request parameter, then the
+     * <code>attributeValue</code> request parameter must be the path to ping on the target (for example,
+     * <code>/weather/us/wa/seattle</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>SessionStickinessEnabled</code> for the <code>attributeName</code> request parameter, then
+     * the <code>attributeValue</code> request parameter must be <code>true</code> to activate session stickiness or
+     * <code>false</code> to deactivate session stickiness.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>SessionStickiness_LB_CookieDurationSeconds</code> for the <code>attributeName</code> request
+     * parameter, then the <code>attributeValue</code> request parameter must be an interger that represents the cookie
+     * duration in seconds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>HttpsRedirectionEnabled</code> for the <code>attributeName</code> request parameter, then
+     * the <code>attributeValue</code> request parameter must be <code>true</code> to activate HTTP to HTTPS redirection
+     * or <code>false</code> to deactivate HTTP to HTTPS redirection.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>TlsPolicyName</code> for the <code>attributeName</code> request parameter, then the
+     * <code>attributeValue</code> request parameter must be the name of the TLS policy.
+     * </p>
+     * <p>
+     * Use the <a
+     * href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetLoadBalancerTlsPolicies.html"
+     * >GetLoadBalancerTlsPolicies</a> action to get a list of TLS policy names that you can specify.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param attributeValue
-     *        The value that you want to specify for the attribute name.
+     *        The value that you want to specify for the attribute name.</p>
+     *        <p>
+     *        The following values are supported depending on what you specify for the <code>attributeName</code>
+     *        request parameter:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If you specify <code>HealthCheckPath</code> for the <code>attributeName</code> request parameter, then the
+     *        <code>attributeValue</code> request parameter must be the path to ping on the target (for example,
+     *        <code>/weather/us/wa/seattle</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you specify <code>SessionStickinessEnabled</code> for the <code>attributeName</code> request parameter,
+     *        then the <code>attributeValue</code> request parameter must be <code>true</code> to activate session
+     *        stickiness or <code>false</code> to deactivate session stickiness.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you specify <code>SessionStickiness_LB_CookieDurationSeconds</code> for the <code>attributeName</code>
+     *        request parameter, then the <code>attributeValue</code> request parameter must be an interger that
+     *        represents the cookie duration in seconds.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you specify <code>HttpsRedirectionEnabled</code> for the <code>attributeName</code> request parameter,
+     *        then the <code>attributeValue</code> request parameter must be <code>true</code> to activate HTTP to HTTPS
+     *        redirection or <code>false</code> to deactivate HTTP to HTTPS redirection.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you specify <code>TlsPolicyName</code> for the <code>attributeName</code> request parameter, then the
+     *        <code>attributeValue</code> request parameter must be the name of the TLS policy.
+     *        </p>
+     *        <p>
+     *        Use the <a href=
+     *        "https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetLoadBalancerTlsPolicies.html"
+     *        >GetLoadBalancerTlsPolicies</a> action to get a list of TLS policy names that you can specify.
+     *        </p>
+     *        </li>
      */
 
     public void setAttributeValue(String attributeValue) {
@@ -160,8 +294,97 @@ public class UpdateLoadBalancerAttributeRequest extends com.amazonaws.AmazonWebS
      * <p>
      * The value that you want to specify for the attribute name.
      * </p>
+     * <p>
+     * The following values are supported depending on what you specify for the <code>attributeName</code> request
+     * parameter:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you specify <code>HealthCheckPath</code> for the <code>attributeName</code> request parameter, then the
+     * <code>attributeValue</code> request parameter must be the path to ping on the target (for example,
+     * <code>/weather/us/wa/seattle</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>SessionStickinessEnabled</code> for the <code>attributeName</code> request parameter, then
+     * the <code>attributeValue</code> request parameter must be <code>true</code> to activate session stickiness or
+     * <code>false</code> to deactivate session stickiness.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>SessionStickiness_LB_CookieDurationSeconds</code> for the <code>attributeName</code> request
+     * parameter, then the <code>attributeValue</code> request parameter must be an interger that represents the cookie
+     * duration in seconds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>HttpsRedirectionEnabled</code> for the <code>attributeName</code> request parameter, then
+     * the <code>attributeValue</code> request parameter must be <code>true</code> to activate HTTP to HTTPS redirection
+     * or <code>false</code> to deactivate HTTP to HTTPS redirection.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>TlsPolicyName</code> for the <code>attributeName</code> request parameter, then the
+     * <code>attributeValue</code> request parameter must be the name of the TLS policy.
+     * </p>
+     * <p>
+     * Use the <a
+     * href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetLoadBalancerTlsPolicies.html"
+     * >GetLoadBalancerTlsPolicies</a> action to get a list of TLS policy names that you can specify.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The value that you want to specify for the attribute name.
+     * @return The value that you want to specify for the attribute name.</p>
+     *         <p>
+     *         The following values are supported depending on what you specify for the <code>attributeName</code>
+     *         request parameter:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If you specify <code>HealthCheckPath</code> for the <code>attributeName</code> request parameter, then
+     *         the <code>attributeValue</code> request parameter must be the path to ping on the target (for example,
+     *         <code>/weather/us/wa/seattle</code>).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If you specify <code>SessionStickinessEnabled</code> for the <code>attributeName</code> request
+     *         parameter, then the <code>attributeValue</code> request parameter must be <code>true</code> to activate
+     *         session stickiness or <code>false</code> to deactivate session stickiness.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If you specify <code>SessionStickiness_LB_CookieDurationSeconds</code> for the <code>attributeName</code>
+     *         request parameter, then the <code>attributeValue</code> request parameter must be an interger that
+     *         represents the cookie duration in seconds.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If you specify <code>HttpsRedirectionEnabled</code> for the <code>attributeName</code> request parameter,
+     *         then the <code>attributeValue</code> request parameter must be <code>true</code> to activate HTTP to
+     *         HTTPS redirection or <code>false</code> to deactivate HTTP to HTTPS redirection.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If you specify <code>TlsPolicyName</code> for the <code>attributeName</code> request parameter, then the
+     *         <code>attributeValue</code> request parameter must be the name of the TLS policy.
+     *         </p>
+     *         <p>
+     *         Use the <a href=
+     *         "https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetLoadBalancerTlsPolicies.html"
+     *         >GetLoadBalancerTlsPolicies</a> action to get a list of TLS policy names that you can specify.
+     *         </p>
+     *         </li>
      */
 
     public String getAttributeValue() {
@@ -172,9 +395,98 @@ public class UpdateLoadBalancerAttributeRequest extends com.amazonaws.AmazonWebS
      * <p>
      * The value that you want to specify for the attribute name.
      * </p>
+     * <p>
+     * The following values are supported depending on what you specify for the <code>attributeName</code> request
+     * parameter:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you specify <code>HealthCheckPath</code> for the <code>attributeName</code> request parameter, then the
+     * <code>attributeValue</code> request parameter must be the path to ping on the target (for example,
+     * <code>/weather/us/wa/seattle</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>SessionStickinessEnabled</code> for the <code>attributeName</code> request parameter, then
+     * the <code>attributeValue</code> request parameter must be <code>true</code> to activate session stickiness or
+     * <code>false</code> to deactivate session stickiness.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>SessionStickiness_LB_CookieDurationSeconds</code> for the <code>attributeName</code> request
+     * parameter, then the <code>attributeValue</code> request parameter must be an interger that represents the cookie
+     * duration in seconds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>HttpsRedirectionEnabled</code> for the <code>attributeName</code> request parameter, then
+     * the <code>attributeValue</code> request parameter must be <code>true</code> to activate HTTP to HTTPS redirection
+     * or <code>false</code> to deactivate HTTP to HTTPS redirection.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>TlsPolicyName</code> for the <code>attributeName</code> request parameter, then the
+     * <code>attributeValue</code> request parameter must be the name of the TLS policy.
+     * </p>
+     * <p>
+     * Use the <a
+     * href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetLoadBalancerTlsPolicies.html"
+     * >GetLoadBalancerTlsPolicies</a> action to get a list of TLS policy names that you can specify.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param attributeValue
-     *        The value that you want to specify for the attribute name.
+     *        The value that you want to specify for the attribute name.</p>
+     *        <p>
+     *        The following values are supported depending on what you specify for the <code>attributeName</code>
+     *        request parameter:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If you specify <code>HealthCheckPath</code> for the <code>attributeName</code> request parameter, then the
+     *        <code>attributeValue</code> request parameter must be the path to ping on the target (for example,
+     *        <code>/weather/us/wa/seattle</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you specify <code>SessionStickinessEnabled</code> for the <code>attributeName</code> request parameter,
+     *        then the <code>attributeValue</code> request parameter must be <code>true</code> to activate session
+     *        stickiness or <code>false</code> to deactivate session stickiness.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you specify <code>SessionStickiness_LB_CookieDurationSeconds</code> for the <code>attributeName</code>
+     *        request parameter, then the <code>attributeValue</code> request parameter must be an interger that
+     *        represents the cookie duration in seconds.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you specify <code>HttpsRedirectionEnabled</code> for the <code>attributeName</code> request parameter,
+     *        then the <code>attributeValue</code> request parameter must be <code>true</code> to activate HTTP to HTTPS
+     *        redirection or <code>false</code> to deactivate HTTP to HTTPS redirection.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you specify <code>TlsPolicyName</code> for the <code>attributeName</code> request parameter, then the
+     *        <code>attributeValue</code> request parameter must be the name of the TLS policy.
+     *        </p>
+     *        <p>
+     *        Use the <a href=
+     *        "https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetLoadBalancerTlsPolicies.html"
+     *        >GetLoadBalancerTlsPolicies</a> action to get a list of TLS policy names that you can specify.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,6 +26,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class CreateChannelRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
 
+    /** Specification of CDI inputs for this channel */
+    private CdiInputSpecification cdiInputSpecification;
     /**
      * The class for this channel. STANDARD for a channel with two pipelines or SINGLE_PIPELINE for a channel with one
      * pipeline.
@@ -37,10 +39,12 @@ public class CreateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
     private EncoderSettings encoderSettings;
     /** List of input attachments for channel. */
     private java.util.List<InputAttachment> inputAttachments;
-    /** Specification of input for this channel (max. bitrate, resolution, codec, etc.) */
+    /** Specification of network and file inputs for this channel */
     private InputSpecification inputSpecification;
     /** The log level to write to CloudWatch Logs. */
     private String logLevel;
+    /** Maintenance settings for this channel. */
+    private MaintenanceCreateSettings maintenance;
     /** Name of channel. */
     private String name;
     /**
@@ -54,6 +58,42 @@ public class CreateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String roleArn;
     /** A collection of key-value pairs. */
     private java.util.Map<String, String> tags;
+    /** Settings for the VPC outputs */
+    private VpcOutputSettings vpc;
+
+    /**
+     * Specification of CDI inputs for this channel
+     * 
+     * @param cdiInputSpecification
+     *        Specification of CDI inputs for this channel
+     */
+
+    public void setCdiInputSpecification(CdiInputSpecification cdiInputSpecification) {
+        this.cdiInputSpecification = cdiInputSpecification;
+    }
+
+    /**
+     * Specification of CDI inputs for this channel
+     * 
+     * @return Specification of CDI inputs for this channel
+     */
+
+    public CdiInputSpecification getCdiInputSpecification() {
+        return this.cdiInputSpecification;
+    }
+
+    /**
+     * Specification of CDI inputs for this channel
+     * 
+     * @param cdiInputSpecification
+     *        Specification of CDI inputs for this channel
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateChannelRequest withCdiInputSpecification(CdiInputSpecification cdiInputSpecification) {
+        setCdiInputSpecification(cdiInputSpecification);
+        return this;
+    }
 
     /**
      * The class for this channel. STANDARD for a channel with two pipelines or SINGLE_PIPELINE for a channel with one
@@ -255,10 +295,10 @@ public class CreateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
     }
 
     /**
-     * Specification of input for this channel (max. bitrate, resolution, codec, etc.)
+     * Specification of network and file inputs for this channel
      * 
      * @param inputSpecification
-     *        Specification of input for this channel (max. bitrate, resolution, codec, etc.)
+     *        Specification of network and file inputs for this channel
      */
 
     public void setInputSpecification(InputSpecification inputSpecification) {
@@ -266,9 +306,9 @@ public class CreateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
     }
 
     /**
-     * Specification of input for this channel (max. bitrate, resolution, codec, etc.)
+     * Specification of network and file inputs for this channel
      * 
-     * @return Specification of input for this channel (max. bitrate, resolution, codec, etc.)
+     * @return Specification of network and file inputs for this channel
      */
 
     public InputSpecification getInputSpecification() {
@@ -276,10 +316,10 @@ public class CreateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
     }
 
     /**
-     * Specification of input for this channel (max. bitrate, resolution, codec, etc.)
+     * Specification of network and file inputs for this channel
      * 
      * @param inputSpecification
-     *        Specification of input for this channel (max. bitrate, resolution, codec, etc.)
+     *        Specification of network and file inputs for this channel
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -336,6 +376,40 @@ public class CreateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     public CreateChannelRequest withLogLevel(LogLevel logLevel) {
         this.logLevel = logLevel.toString();
+        return this;
+    }
+
+    /**
+     * Maintenance settings for this channel.
+     * 
+     * @param maintenance
+     *        Maintenance settings for this channel.
+     */
+
+    public void setMaintenance(MaintenanceCreateSettings maintenance) {
+        this.maintenance = maintenance;
+    }
+
+    /**
+     * Maintenance settings for this channel.
+     * 
+     * @return Maintenance settings for this channel.
+     */
+
+    public MaintenanceCreateSettings getMaintenance() {
+        return this.maintenance;
+    }
+
+    /**
+     * Maintenance settings for this channel.
+     * 
+     * @param maintenance
+     *        Maintenance settings for this channel.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateChannelRequest withMaintenance(MaintenanceCreateSettings maintenance) {
+        setMaintenance(maintenance);
         return this;
     }
 
@@ -509,6 +583,13 @@ public class CreateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
         return this;
     }
 
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateChannelRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public CreateChannelRequest addTagsEntry(String key, String value) {
         if (null == this.tags) {
             this.tags = new java.util.HashMap<String, String>();
@@ -531,6 +612,40 @@ public class CreateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
     }
 
     /**
+     * Settings for the VPC outputs
+     * 
+     * @param vpc
+     *        Settings for the VPC outputs
+     */
+
+    public void setVpc(VpcOutputSettings vpc) {
+        this.vpc = vpc;
+    }
+
+    /**
+     * Settings for the VPC outputs
+     * 
+     * @return Settings for the VPC outputs
+     */
+
+    public VpcOutputSettings getVpc() {
+        return this.vpc;
+    }
+
+    /**
+     * Settings for the VPC outputs
+     * 
+     * @param vpc
+     *        Settings for the VPC outputs
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateChannelRequest withVpc(VpcOutputSettings vpc) {
+        setVpc(vpc);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -542,6 +657,8 @@ public class CreateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getCdiInputSpecification() != null)
+            sb.append("CdiInputSpecification: ").append(getCdiInputSpecification()).append(",");
         if (getChannelClass() != null)
             sb.append("ChannelClass: ").append(getChannelClass()).append(",");
         if (getDestinations() != null)
@@ -554,6 +671,8 @@ public class CreateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
             sb.append("InputSpecification: ").append(getInputSpecification()).append(",");
         if (getLogLevel() != null)
             sb.append("LogLevel: ").append(getLogLevel()).append(",");
+        if (getMaintenance() != null)
+            sb.append("Maintenance: ").append(getMaintenance()).append(",");
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getRequestId() != null)
@@ -563,7 +682,9 @@ public class CreateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (getRoleArn() != null)
             sb.append("RoleArn: ").append(getRoleArn()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getVpc() != null)
+            sb.append("Vpc: ").append(getVpc());
         sb.append("}");
         return sb.toString();
     }
@@ -578,6 +699,10 @@ public class CreateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (obj instanceof CreateChannelRequest == false)
             return false;
         CreateChannelRequest other = (CreateChannelRequest) obj;
+        if (other.getCdiInputSpecification() == null ^ this.getCdiInputSpecification() == null)
+            return false;
+        if (other.getCdiInputSpecification() != null && other.getCdiInputSpecification().equals(this.getCdiInputSpecification()) == false)
+            return false;
         if (other.getChannelClass() == null ^ this.getChannelClass() == null)
             return false;
         if (other.getChannelClass() != null && other.getChannelClass().equals(this.getChannelClass()) == false)
@@ -602,6 +727,10 @@ public class CreateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getLogLevel() != null && other.getLogLevel().equals(this.getLogLevel()) == false)
             return false;
+        if (other.getMaintenance() == null ^ this.getMaintenance() == null)
+            return false;
+        if (other.getMaintenance() != null && other.getMaintenance().equals(this.getMaintenance()) == false)
+            return false;
         if (other.getName() == null ^ this.getName() == null)
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
@@ -622,6 +751,10 @@ public class CreateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getVpc() == null ^ this.getVpc() == null)
+            return false;
+        if (other.getVpc() != null && other.getVpc().equals(this.getVpc()) == false)
+            return false;
         return true;
     }
 
@@ -630,17 +763,20 @@ public class CreateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getCdiInputSpecification() == null) ? 0 : getCdiInputSpecification().hashCode());
         hashCode = prime * hashCode + ((getChannelClass() == null) ? 0 : getChannelClass().hashCode());
         hashCode = prime * hashCode + ((getDestinations() == null) ? 0 : getDestinations().hashCode());
         hashCode = prime * hashCode + ((getEncoderSettings() == null) ? 0 : getEncoderSettings().hashCode());
         hashCode = prime * hashCode + ((getInputAttachments() == null) ? 0 : getInputAttachments().hashCode());
         hashCode = prime * hashCode + ((getInputSpecification() == null) ? 0 : getInputSpecification().hashCode());
         hashCode = prime * hashCode + ((getLogLevel() == null) ? 0 : getLogLevel().hashCode());
+        hashCode = prime * hashCode + ((getMaintenance() == null) ? 0 : getMaintenance().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getRequestId() == null) ? 0 : getRequestId().hashCode());
         hashCode = prime * hashCode + ((getReserved() == null) ? 0 : getReserved().hashCode());
         hashCode = prime * hashCode + ((getRoleArn() == null) ? 0 : getRoleArn().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getVpc() == null) ? 0 : getVpc().hashCode());
         return hashCode;
     }
 

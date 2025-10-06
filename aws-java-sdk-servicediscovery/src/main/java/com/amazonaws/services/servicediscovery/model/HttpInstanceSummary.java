@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,10 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * In a response to a <a>DiscoverInstance</a> request, <code>HttpInstanceSummary</code> contains information about one
- * instance that matches the values that you specified in the request.
+ * In a response to a <a
+ * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_DiscoverInstances.html">DiscoverInstances</a> request,
+ * <code>HttpInstanceSummary</code> contains information about one instance that matches the values that you specified
+ * in the request.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/HttpInstanceSummary"
@@ -37,7 +39,11 @@ public class HttpInstanceSummary implements Serializable, Cloneable, StructuredP
     private String instanceId;
     /**
      * <p>
-     * The name of the namespace that you specified when you registered the instance.
+     * <code/> <code/> <code/>
+     * </p>
+     * <p>
+     * The <code>HttpName</code> name of the namespace. It's found in the <code>HttpProperties</code> member of the
+     * <code>Properties</code> member of the namespace.
      * </p>
      */
     private String namespaceName;
@@ -102,11 +108,16 @@ public class HttpInstanceSummary implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The name of the namespace that you specified when you registered the instance.
+     * <code/> <code/> <code/>
+     * </p>
+     * <p>
+     * The <code>HttpName</code> name of the namespace. It's found in the <code>HttpProperties</code> member of the
+     * <code>Properties</code> member of the namespace.
      * </p>
      * 
      * @param namespaceName
-     *        The name of the namespace that you specified when you registered the instance.
+     *        <code/> <code/> <code/> </p> <p>The <code>HttpName</code> name of the namespace. It's found in the
+     *        <code>HttpProperties</code> member of the <code>Properties</code> member of the namespace.
      */
 
     public void setNamespaceName(String namespaceName) {
@@ -115,10 +126,15 @@ public class HttpInstanceSummary implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The name of the namespace that you specified when you registered the instance.
+     * <code/> <code/> <code/>
+     * </p>
+     * <p>
+     * The <code>HttpName</code> name of the namespace. It's found in the <code>HttpProperties</code> member of the
+     * <code>Properties</code> member of the namespace.
      * </p>
      * 
-     * @return The name of the namespace that you specified when you registered the instance.
+     * @return <code/> <code/> <code/> </p> <p>The <code>HttpName</code> name of the namespace. It's found in the
+     *         <code>HttpProperties</code> member of the <code>Properties</code> member of the namespace.
      */
 
     public String getNamespaceName() {
@@ -127,11 +143,16 @@ public class HttpInstanceSummary implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The name of the namespace that you specified when you registered the instance.
+     * <code/> <code/> <code/>
+     * </p>
+     * <p>
+     * The <code>HttpName</code> name of the namespace. It's found in the <code>HttpProperties</code> member of the
+     * <code>Properties</code> member of the namespace.
      * </p>
      * 
      * @param namespaceName
-     *        The name of the namespace that you specified when you registered the instance.
+     *        <code/> <code/> <code/> </p> <p>The <code>HttpName</code> name of the namespace. It's found in the
+     *        <code>HttpProperties</code> member of the <code>Properties</code> member of the namespace.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -278,6 +299,13 @@ public class HttpInstanceSummary implements Serializable, Cloneable, StructuredP
         setAttributes(attributes);
         return this;
     }
+
+    /**
+     * Add a single Attributes entry
+     *
+     * @see HttpInstanceSummary#withAttributes
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public HttpInstanceSummary addAttributesEntry(String key, String value) {
         if (null == this.attributes) {

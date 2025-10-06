@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -49,7 +49,13 @@ public class SearchTransitGatewayRoutesRequest extends AmazonWebServiceRequest i
      * </li>
      * <li>
      * <p>
-     * <code>attachment.resource-type</code> - The attachment resource type (<code>vpc</code> | <code>vpn</code>).
+     * <code>attachment.resource-type</code> - The attachment resource type. Valid values are <code>vpc</code> |
+     * <code>vpn</code> | <code>direct-connect-gateway</code> | <code>peering</code> | <code>connect</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>prefix-list-id</code> - The ID of the prefix list.
      * </p>
      * </li>
      * <li>
@@ -81,7 +87,7 @@ public class SearchTransitGatewayRoutesRequest extends AmazonWebServiceRequest i
      * </li>
      * <li>
      * <p>
-     * <code>type</code> - The type of roue (<code>propagated</code> | <code>static</code>).
+     * <code>type</code> - The type of route (<code>propagated</code> | <code>static</code>).
      * </p>
      * </li>
      * </ul>
@@ -89,7 +95,7 @@ public class SearchTransitGatewayRoutesRequest extends AmazonWebServiceRequest i
     private com.amazonaws.internal.SdkInternalList<Filter> filters;
     /**
      * <p>
-     * The maximum number of routes to return.
+     * The maximum number of routes to return. If a value is not provided, the default is 1000.
      * </p>
      */
     private Integer maxResults;
@@ -151,7 +157,13 @@ public class SearchTransitGatewayRoutesRequest extends AmazonWebServiceRequest i
      * </li>
      * <li>
      * <p>
-     * <code>attachment.resource-type</code> - The attachment resource type (<code>vpc</code> | <code>vpn</code>).
+     * <code>attachment.resource-type</code> - The attachment resource type. Valid values are <code>vpc</code> |
+     * <code>vpn</code> | <code>direct-connect-gateway</code> | <code>peering</code> | <code>connect</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>prefix-list-id</code> - The ID of the prefix list.
      * </p>
      * </li>
      * <li>
@@ -183,7 +195,7 @@ public class SearchTransitGatewayRoutesRequest extends AmazonWebServiceRequest i
      * </li>
      * <li>
      * <p>
-     * <code>type</code> - The type of roue (<code>propagated</code> | <code>static</code>).
+     * <code>type</code> - The type of route (<code>propagated</code> | <code>static</code>).
      * </p>
      * </li>
      * </ul>
@@ -202,8 +214,13 @@ public class SearchTransitGatewayRoutesRequest extends AmazonWebServiceRequest i
      *         </li>
      *         <li>
      *         <p>
-     *         <code>attachment.resource-type</code> - The attachment resource type (<code>vpc</code> | <code>vpn</code>
-     *         ).
+     *         <code>attachment.resource-type</code> - The attachment resource type. Valid values are <code>vpc</code> |
+     *         <code>vpn</code> | <code>direct-connect-gateway</code> | <code>peering</code> | <code>connect</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>prefix-list-id</code> - The ID of the prefix list.
      *         </p>
      *         </li>
      *         <li>
@@ -236,7 +253,7 @@ public class SearchTransitGatewayRoutesRequest extends AmazonWebServiceRequest i
      *         </li>
      *         <li>
      *         <p>
-     *         <code>type</code> - The type of roue (<code>propagated</code> | <code>static</code>).
+     *         <code>type</code> - The type of route (<code>propagated</code> | <code>static</code>).
      *         </p>
      *         </li>
      */
@@ -265,7 +282,13 @@ public class SearchTransitGatewayRoutesRequest extends AmazonWebServiceRequest i
      * </li>
      * <li>
      * <p>
-     * <code>attachment.resource-type</code> - The attachment resource type (<code>vpc</code> | <code>vpn</code>).
+     * <code>attachment.resource-type</code> - The attachment resource type. Valid values are <code>vpc</code> |
+     * <code>vpn</code> | <code>direct-connect-gateway</code> | <code>peering</code> | <code>connect</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>prefix-list-id</code> - The ID of the prefix list.
      * </p>
      * </li>
      * <li>
@@ -297,7 +320,7 @@ public class SearchTransitGatewayRoutesRequest extends AmazonWebServiceRequest i
      * </li>
      * <li>
      * <p>
-     * <code>type</code> - The type of roue (<code>propagated</code> | <code>static</code>).
+     * <code>type</code> - The type of route (<code>propagated</code> | <code>static</code>).
      * </p>
      * </li>
      * </ul>
@@ -317,8 +340,13 @@ public class SearchTransitGatewayRoutesRequest extends AmazonWebServiceRequest i
      *        </li>
      *        <li>
      *        <p>
-     *        <code>attachment.resource-type</code> - The attachment resource type (<code>vpc</code> | <code>vpn</code>
-     *        ).
+     *        <code>attachment.resource-type</code> - The attachment resource type. Valid values are <code>vpc</code> |
+     *        <code>vpn</code> | <code>direct-connect-gateway</code> | <code>peering</code> | <code>connect</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>prefix-list-id</code> - The ID of the prefix list.
      *        </p>
      *        </li>
      *        <li>
@@ -350,7 +378,7 @@ public class SearchTransitGatewayRoutesRequest extends AmazonWebServiceRequest i
      *        </li>
      *        <li>
      *        <p>
-     *        <code>type</code> - The type of roue (<code>propagated</code> | <code>static</code>).
+     *        <code>type</code> - The type of route (<code>propagated</code> | <code>static</code>).
      *        </p>
      *        </li>
      */
@@ -381,7 +409,13 @@ public class SearchTransitGatewayRoutesRequest extends AmazonWebServiceRequest i
      * </li>
      * <li>
      * <p>
-     * <code>attachment.resource-type</code> - The attachment resource type (<code>vpc</code> | <code>vpn</code>).
+     * <code>attachment.resource-type</code> - The attachment resource type. Valid values are <code>vpc</code> |
+     * <code>vpn</code> | <code>direct-connect-gateway</code> | <code>peering</code> | <code>connect</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>prefix-list-id</code> - The ID of the prefix list.
      * </p>
      * </li>
      * <li>
@@ -413,7 +447,7 @@ public class SearchTransitGatewayRoutesRequest extends AmazonWebServiceRequest i
      * </li>
      * <li>
      * <p>
-     * <code>type</code> - The type of roue (<code>propagated</code> | <code>static</code>).
+     * <code>type</code> - The type of route (<code>propagated</code> | <code>static</code>).
      * </p>
      * </li>
      * </ul>
@@ -438,8 +472,13 @@ public class SearchTransitGatewayRoutesRequest extends AmazonWebServiceRequest i
      *        </li>
      *        <li>
      *        <p>
-     *        <code>attachment.resource-type</code> - The attachment resource type (<code>vpc</code> | <code>vpn</code>
-     *        ).
+     *        <code>attachment.resource-type</code> - The attachment resource type. Valid values are <code>vpc</code> |
+     *        <code>vpn</code> | <code>direct-connect-gateway</code> | <code>peering</code> | <code>connect</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>prefix-list-id</code> - The ID of the prefix list.
      *        </p>
      *        </li>
      *        <li>
@@ -471,7 +510,7 @@ public class SearchTransitGatewayRoutesRequest extends AmazonWebServiceRequest i
      *        </li>
      *        <li>
      *        <p>
-     *        <code>type</code> - The type of roue (<code>propagated</code> | <code>static</code>).
+     *        <code>type</code> - The type of route (<code>propagated</code> | <code>static</code>).
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -504,7 +543,13 @@ public class SearchTransitGatewayRoutesRequest extends AmazonWebServiceRequest i
      * </li>
      * <li>
      * <p>
-     * <code>attachment.resource-type</code> - The attachment resource type (<code>vpc</code> | <code>vpn</code>).
+     * <code>attachment.resource-type</code> - The attachment resource type. Valid values are <code>vpc</code> |
+     * <code>vpn</code> | <code>direct-connect-gateway</code> | <code>peering</code> | <code>connect</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>prefix-list-id</code> - The ID of the prefix list.
      * </p>
      * </li>
      * <li>
@@ -536,7 +581,7 @@ public class SearchTransitGatewayRoutesRequest extends AmazonWebServiceRequest i
      * </li>
      * <li>
      * <p>
-     * <code>type</code> - The type of roue (<code>propagated</code> | <code>static</code>).
+     * <code>type</code> - The type of route (<code>propagated</code> | <code>static</code>).
      * </p>
      * </li>
      * </ul>
@@ -556,8 +601,13 @@ public class SearchTransitGatewayRoutesRequest extends AmazonWebServiceRequest i
      *        </li>
      *        <li>
      *        <p>
-     *        <code>attachment.resource-type</code> - The attachment resource type (<code>vpc</code> | <code>vpn</code>
-     *        ).
+     *        <code>attachment.resource-type</code> - The attachment resource type. Valid values are <code>vpc</code> |
+     *        <code>vpn</code> | <code>direct-connect-gateway</code> | <code>peering</code> | <code>connect</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>prefix-list-id</code> - The ID of the prefix list.
      *        </p>
      *        </li>
      *        <li>
@@ -589,7 +639,7 @@ public class SearchTransitGatewayRoutesRequest extends AmazonWebServiceRequest i
      *        </li>
      *        <li>
      *        <p>
-     *        <code>type</code> - The type of roue (<code>propagated</code> | <code>static</code>).
+     *        <code>type</code> - The type of route (<code>propagated</code> | <code>static</code>).
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -602,11 +652,11 @@ public class SearchTransitGatewayRoutesRequest extends AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The maximum number of routes to return.
+     * The maximum number of routes to return. If a value is not provided, the default is 1000.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of routes to return.
+     *        The maximum number of routes to return. If a value is not provided, the default is 1000.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -615,10 +665,10 @@ public class SearchTransitGatewayRoutesRequest extends AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The maximum number of routes to return.
+     * The maximum number of routes to return. If a value is not provided, the default is 1000.
      * </p>
      * 
-     * @return The maximum number of routes to return.
+     * @return The maximum number of routes to return. If a value is not provided, the default is 1000.
      */
 
     public Integer getMaxResults() {
@@ -627,11 +677,11 @@ public class SearchTransitGatewayRoutesRequest extends AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The maximum number of routes to return.
+     * The maximum number of routes to return. If a value is not provided, the default is 1000.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of routes to return.
+     *        The maximum number of routes to return. If a value is not provided, the default is 1000.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

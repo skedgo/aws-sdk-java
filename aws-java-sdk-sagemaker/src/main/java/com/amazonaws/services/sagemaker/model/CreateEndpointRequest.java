@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,33 +27,48 @@ public class CreateEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the endpoint. The name must be unique within an AWS Region in your AWS account.
+     * The name of the endpoint.The name must be unique within an Amazon Web Services Region in your Amazon Web Services
+     * account. The name is case-insensitive in <code>CreateEndpoint</code>, but the case is preserved and must be
+     * matched in <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpoint.html">InvokeEndpoint
+     * </a>.
      * </p>
      */
     private String endpointName;
     /**
      * <p>
      * The name of an endpoint configuration. For more information, see <a
-     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateEndpointConfig.html">CreateEndpointConfig</a>.
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html"
+     * >CreateEndpointConfig</a>.
      * </p>
      */
     private String endpointConfigName;
+
+    private DeploymentConfig deploymentConfig;
     /**
      * <p>
-     * An array of key-value pairs. For more information, see <a
-     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
-     * Cost Allocation Tags</a>in the <i>AWS Billing and Cost Management User Guide</i>.
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
      * </p>
      */
     private java.util.List<Tag> tags;
 
     /**
      * <p>
-     * The name of the endpoint. The name must be unique within an AWS Region in your AWS account.
+     * The name of the endpoint.The name must be unique within an Amazon Web Services Region in your Amazon Web Services
+     * account. The name is case-insensitive in <code>CreateEndpoint</code>, but the case is preserved and must be
+     * matched in <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpoint.html">InvokeEndpoint
+     * </a>.
      * </p>
      * 
      * @param endpointName
-     *        The name of the endpoint. The name must be unique within an AWS Region in your AWS account.
+     *        The name of the endpoint.The name must be unique within an Amazon Web Services Region in your Amazon Web
+     *        Services account. The name is case-insensitive in <code>CreateEndpoint</code>, but the case is preserved
+     *        and must be matched in <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpoint.html"
+     *        >InvokeEndpoint</a>.
      */
 
     public void setEndpointName(String endpointName) {
@@ -62,10 +77,18 @@ public class CreateEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the endpoint. The name must be unique within an AWS Region in your AWS account.
+     * The name of the endpoint.The name must be unique within an Amazon Web Services Region in your Amazon Web Services
+     * account. The name is case-insensitive in <code>CreateEndpoint</code>, but the case is preserved and must be
+     * matched in <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpoint.html">InvokeEndpoint
+     * </a>.
      * </p>
      * 
-     * @return The name of the endpoint. The name must be unique within an AWS Region in your AWS account.
+     * @return The name of the endpoint.The name must be unique within an Amazon Web Services Region in your Amazon Web
+     *         Services account. The name is case-insensitive in <code>CreateEndpoint</code>, but the case is preserved
+     *         and must be matched in <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpoint.html"
+     *         >InvokeEndpoint</a>.
      */
 
     public String getEndpointName() {
@@ -74,11 +97,19 @@ public class CreateEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the endpoint. The name must be unique within an AWS Region in your AWS account.
+     * The name of the endpoint.The name must be unique within an Amazon Web Services Region in your Amazon Web Services
+     * account. The name is case-insensitive in <code>CreateEndpoint</code>, but the case is preserved and must be
+     * matched in <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpoint.html">InvokeEndpoint
+     * </a>.
      * </p>
      * 
      * @param endpointName
-     *        The name of the endpoint. The name must be unique within an AWS Region in your AWS account.
+     *        The name of the endpoint.The name must be unique within an Amazon Web Services Region in your Amazon Web
+     *        Services account. The name is case-insensitive in <code>CreateEndpoint</code>, but the case is preserved
+     *        and must be matched in <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpoint.html"
+     *        >InvokeEndpoint</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -90,12 +121,13 @@ public class CreateEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * The name of an endpoint configuration. For more information, see <a
-     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateEndpointConfig.html">CreateEndpointConfig</a>.
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html"
+     * >CreateEndpointConfig</a>.
      * </p>
      * 
      * @param endpointConfigName
      *        The name of an endpoint configuration. For more information, see <a
-     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateEndpointConfig.html"
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html"
      *        >CreateEndpointConfig</a>.
      */
 
@@ -106,11 +138,12 @@ public class CreateEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * The name of an endpoint configuration. For more information, see <a
-     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateEndpointConfig.html">CreateEndpointConfig</a>.
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html"
+     * >CreateEndpointConfig</a>.
      * </p>
      * 
      * @return The name of an endpoint configuration. For more information, see <a
-     *         href="https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateEndpointConfig.html"
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html"
      *         >CreateEndpointConfig</a>.
      */
 
@@ -121,12 +154,13 @@ public class CreateEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * The name of an endpoint configuration. For more information, see <a
-     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateEndpointConfig.html">CreateEndpointConfig</a>.
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html"
+     * >CreateEndpointConfig</a>.
      * </p>
      * 
      * @param endpointConfigName
      *        The name of an endpoint configuration. For more information, see <a
-     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateEndpointConfig.html"
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html"
      *        >CreateEndpointConfig</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -137,15 +171,42 @@ public class CreateEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
     }
 
     /**
+     * @param deploymentConfig
+     */
+
+    public void setDeploymentConfig(DeploymentConfig deploymentConfig) {
+        this.deploymentConfig = deploymentConfig;
+    }
+
+    /**
+     * @return
+     */
+
+    public DeploymentConfig getDeploymentConfig() {
+        return this.deploymentConfig;
+    }
+
+    /**
+     * @param deploymentConfig
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateEndpointRequest withDeploymentConfig(DeploymentConfig deploymentConfig) {
+        setDeploymentConfig(deploymentConfig);
+        return this;
+    }
+
+    /**
      * <p>
-     * An array of key-value pairs. For more information, see <a
-     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
-     * Cost Allocation Tags</a>in the <i>AWS Billing and Cost Management User Guide</i>.
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
      * </p>
      * 
-     * @return An array of key-value pairs. For more information, see <a
-     *         href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what"
-     *         >Using Cost Allocation Tags</a>in the <i>AWS Billing and Cost Management User Guide</i>.
+     * @return An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *         different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *         Resources</a>.
      */
 
     public java.util.List<Tag> getTags() {
@@ -154,15 +215,16 @@ public class CreateEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * An array of key-value pairs. For more information, see <a
-     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
-     * Cost Allocation Tags</a>in the <i>AWS Billing and Cost Management User Guide</i>.
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
      * </p>
      * 
      * @param tags
-     *        An array of key-value pairs. For more information, see <a
-     *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what"
-     *        >Using Cost Allocation Tags</a>in the <i>AWS Billing and Cost Management User Guide</i>.
+     *        An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *        different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        Resources</a>.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -176,9 +238,9 @@ public class CreateEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * An array of key-value pairs. For more information, see <a
-     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
-     * Cost Allocation Tags</a>in the <i>AWS Billing and Cost Management User Guide</i>.
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -187,9 +249,10 @@ public class CreateEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
      * </p>
      * 
      * @param tags
-     *        An array of key-value pairs. For more information, see <a
-     *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what"
-     *        >Using Cost Allocation Tags</a>in the <i>AWS Billing and Cost Management User Guide</i>.
+     *        An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *        different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        Resources</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -205,15 +268,16 @@ public class CreateEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * An array of key-value pairs. For more information, see <a
-     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
-     * Cost Allocation Tags</a>in the <i>AWS Billing and Cost Management User Guide</i>.
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
      * </p>
      * 
      * @param tags
-     *        An array of key-value pairs. For more information, see <a
-     *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what"
-     *        >Using Cost Allocation Tags</a>in the <i>AWS Billing and Cost Management User Guide</i>.
+     *        An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *        different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        Resources</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -238,6 +302,8 @@ public class CreateEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
             sb.append("EndpointName: ").append(getEndpointName()).append(",");
         if (getEndpointConfigName() != null)
             sb.append("EndpointConfigName: ").append(getEndpointConfigName()).append(",");
+        if (getDeploymentConfig() != null)
+            sb.append("DeploymentConfig: ").append(getDeploymentConfig()).append(",");
         if (getTags() != null)
             sb.append("Tags: ").append(getTags());
         sb.append("}");
@@ -262,6 +328,10 @@ public class CreateEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
             return false;
         if (other.getEndpointConfigName() != null && other.getEndpointConfigName().equals(this.getEndpointConfigName()) == false)
             return false;
+        if (other.getDeploymentConfig() == null ^ this.getDeploymentConfig() == null)
+            return false;
+        if (other.getDeploymentConfig() != null && other.getDeploymentConfig().equals(this.getDeploymentConfig()) == false)
+            return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
@@ -276,6 +346,7 @@ public class CreateEndpointRequest extends com.amazonaws.AmazonWebServiceRequest
 
         hashCode = prime * hashCode + ((getEndpointName() == null) ? 0 : getEndpointName().hashCode());
         hashCode = prime * hashCode + ((getEndpointConfigName() == null) ? 0 : getEndpointConfigName().hashCode());
+        hashCode = prime * hashCode + ((getDeploymentConfig() == null) ? 0 : getDeploymentConfig().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }

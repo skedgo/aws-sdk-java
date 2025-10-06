@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,7 +36,7 @@ public class CreateDBClusterParameterGroupRequest extends com.amazonaws.AmazonWe
      * <ul>
      * <li>
      * <p>
-     * Must match the name of an existing DB cluster parameter group.
+     * Must not match the name of an existing DB cluster parameter group.
      * </p>
      * </li>
      * </ul>
@@ -57,14 +57,69 @@ public class CreateDBClusterParameterGroupRequest extends com.amazonaws.AmazonWe
      * <b>Aurora MySQL</b>
      * </p>
      * <p>
-     * Example: <code>aurora5.6</code>, <code>aurora-mysql5.7</code>
+     * Example: <code>aurora-mysql5.7</code>, <code>aurora-mysql8.0</code>
      * </p>
      * <p>
      * <b>Aurora PostgreSQL</b>
      * </p>
      * <p>
-     * Example: <code>aurora-postgresql9.6</code>
+     * Example: <code>aurora-postgresql14</code>
      * </p>
+     * <p>
+     * <b>RDS for MySQL</b>
+     * </p>
+     * <p>
+     * Example: <code>mysql8.0</code>
+     * </p>
+     * <p>
+     * <b>RDS for PostgreSQL</b>
+     * </p>
+     * <p>
+     * Example: <code>postgres13</code>
+     * </p>
+     * <p>
+     * To list all of the available parameter group families for a DB engine, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --query "DBEngineVersions[].DBParameterGroupFamily" --engine &lt;engine&gt;</code>
+     * </p>
+     * <p>
+     * For example, to list all of the available parameter group families for the Aurora PostgreSQL DB engine, use the
+     * following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --query "DBEngineVersions[].DBParameterGroupFamily" --engine aurora-postgresql</code>
+     * </p>
+     * <note>
+     * <p>
+     * The output contains duplicates.
+     * </p>
+     * </note>
+     * <p>
+     * The following are the valid DB engine values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>aurora-mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aurora-postgresql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>postgres</code>
+     * </p>
+     * </li>
+     * </ul>
      */
     private String dBParameterGroupFamily;
     /**
@@ -90,7 +145,7 @@ public class CreateDBClusterParameterGroupRequest extends com.amazonaws.AmazonWe
      * <ul>
      * <li>
      * <p>
-     * Must match the name of an existing DB cluster parameter group.
+     * Must not match the name of an existing DB cluster parameter group.
      * </p>
      * </li>
      * </ul>
@@ -108,7 +163,7 @@ public class CreateDBClusterParameterGroupRequest extends com.amazonaws.AmazonWe
      *        <ul>
      *        <li>
      *        <p>
-     *        Must match the name of an existing DB cluster parameter group.
+     *        Must not match the name of an existing DB cluster parameter group.
      *        </p>
      *        </li>
      *        </ul>
@@ -132,7 +187,7 @@ public class CreateDBClusterParameterGroupRequest extends com.amazonaws.AmazonWe
      * <ul>
      * <li>
      * <p>
-     * Must match the name of an existing DB cluster parameter group.
+     * Must not match the name of an existing DB cluster parameter group.
      * </p>
      * </li>
      * </ul>
@@ -149,7 +204,7 @@ public class CreateDBClusterParameterGroupRequest extends com.amazonaws.AmazonWe
      *         <ul>
      *         <li>
      *         <p>
-     *         Must match the name of an existing DB cluster parameter group.
+     *         Must not match the name of an existing DB cluster parameter group.
      *         </p>
      *         </li>
      *         </ul>
@@ -173,7 +228,7 @@ public class CreateDBClusterParameterGroupRequest extends com.amazonaws.AmazonWe
      * <ul>
      * <li>
      * <p>
-     * Must match the name of an existing DB cluster parameter group.
+     * Must not match the name of an existing DB cluster parameter group.
      * </p>
      * </li>
      * </ul>
@@ -191,7 +246,7 @@ public class CreateDBClusterParameterGroupRequest extends com.amazonaws.AmazonWe
      *        <ul>
      *        <li>
      *        <p>
-     *        Must match the name of an existing DB cluster parameter group.
+     *        Must not match the name of an existing DB cluster parameter group.
      *        </p>
      *        </li>
      *        </ul>
@@ -217,14 +272,69 @@ public class CreateDBClusterParameterGroupRequest extends com.amazonaws.AmazonWe
      * <b>Aurora MySQL</b>
      * </p>
      * <p>
-     * Example: <code>aurora5.6</code>, <code>aurora-mysql5.7</code>
+     * Example: <code>aurora-mysql5.7</code>, <code>aurora-mysql8.0</code>
      * </p>
      * <p>
      * <b>Aurora PostgreSQL</b>
      * </p>
      * <p>
-     * Example: <code>aurora-postgresql9.6</code>
+     * Example: <code>aurora-postgresql14</code>
      * </p>
+     * <p>
+     * <b>RDS for MySQL</b>
+     * </p>
+     * <p>
+     * Example: <code>mysql8.0</code>
+     * </p>
+     * <p>
+     * <b>RDS for PostgreSQL</b>
+     * </p>
+     * <p>
+     * Example: <code>postgres13</code>
+     * </p>
+     * <p>
+     * To list all of the available parameter group families for a DB engine, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --query "DBEngineVersions[].DBParameterGroupFamily" --engine &lt;engine&gt;</code>
+     * </p>
+     * <p>
+     * For example, to list all of the available parameter group families for the Aurora PostgreSQL DB engine, use the
+     * following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --query "DBEngineVersions[].DBParameterGroupFamily" --engine aurora-postgresql</code>
+     * </p>
+     * <note>
+     * <p>
+     * The output contains duplicates.
+     * </p>
+     * </note>
+     * <p>
+     * The following are the valid DB engine values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>aurora-mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aurora-postgresql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>postgres</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param dBParameterGroupFamily
      *        The DB cluster parameter group family name. A DB cluster parameter group can be associated with one and
@@ -234,13 +344,68 @@ public class CreateDBClusterParameterGroupRequest extends com.amazonaws.AmazonWe
      *        <b>Aurora MySQL</b>
      *        </p>
      *        <p>
-     *        Example: <code>aurora5.6</code>, <code>aurora-mysql5.7</code>
+     *        Example: <code>aurora-mysql5.7</code>, <code>aurora-mysql8.0</code>
      *        </p>
      *        <p>
      *        <b>Aurora PostgreSQL</b>
      *        </p>
      *        <p>
-     *        Example: <code>aurora-postgresql9.6</code>
+     *        Example: <code>aurora-postgresql14</code>
+     *        </p>
+     *        <p>
+     *        <b>RDS for MySQL</b>
+     *        </p>
+     *        <p>
+     *        Example: <code>mysql8.0</code>
+     *        </p>
+     *        <p>
+     *        <b>RDS for PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        Example: <code>postgres13</code>
+     *        </p>
+     *        <p>
+     *        To list all of the available parameter group families for a DB engine, use the following command:
+     *        </p>
+     *        <p>
+     *        <code>aws rds describe-db-engine-versions --query "DBEngineVersions[].DBParameterGroupFamily" --engine &lt;engine&gt;</code>
+     *        </p>
+     *        <p>
+     *        For example, to list all of the available parameter group families for the Aurora PostgreSQL DB engine,
+     *        use the following command:
+     *        </p>
+     *        <p>
+     *        <code>aws rds describe-db-engine-versions --query "DBEngineVersions[].DBParameterGroupFamily" --engine aurora-postgresql</code>
+     *        </p>
+     *        <note>
+     *        <p>
+     *        The output contains duplicates.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        The following are the valid DB engine values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>aurora-mysql</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>aurora-postgresql</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>mysql</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>postgres</code>
+     *        </p>
+     *        </li>
      */
 
     public void setDBParameterGroupFamily(String dBParameterGroupFamily) {
@@ -257,14 +422,69 @@ public class CreateDBClusterParameterGroupRequest extends com.amazonaws.AmazonWe
      * <b>Aurora MySQL</b>
      * </p>
      * <p>
-     * Example: <code>aurora5.6</code>, <code>aurora-mysql5.7</code>
+     * Example: <code>aurora-mysql5.7</code>, <code>aurora-mysql8.0</code>
      * </p>
      * <p>
      * <b>Aurora PostgreSQL</b>
      * </p>
      * <p>
-     * Example: <code>aurora-postgresql9.6</code>
+     * Example: <code>aurora-postgresql14</code>
      * </p>
+     * <p>
+     * <b>RDS for MySQL</b>
+     * </p>
+     * <p>
+     * Example: <code>mysql8.0</code>
+     * </p>
+     * <p>
+     * <b>RDS for PostgreSQL</b>
+     * </p>
+     * <p>
+     * Example: <code>postgres13</code>
+     * </p>
+     * <p>
+     * To list all of the available parameter group families for a DB engine, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --query "DBEngineVersions[].DBParameterGroupFamily" --engine &lt;engine&gt;</code>
+     * </p>
+     * <p>
+     * For example, to list all of the available parameter group families for the Aurora PostgreSQL DB engine, use the
+     * following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --query "DBEngineVersions[].DBParameterGroupFamily" --engine aurora-postgresql</code>
+     * </p>
+     * <note>
+     * <p>
+     * The output contains duplicates.
+     * </p>
+     * </note>
+     * <p>
+     * The following are the valid DB engine values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>aurora-mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aurora-postgresql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>postgres</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @return The DB cluster parameter group family name. A DB cluster parameter group can be associated with one and
      *         only one DB cluster parameter group family, and can be applied only to a DB cluster running a database
@@ -273,13 +493,68 @@ public class CreateDBClusterParameterGroupRequest extends com.amazonaws.AmazonWe
      *         <b>Aurora MySQL</b>
      *         </p>
      *         <p>
-     *         Example: <code>aurora5.6</code>, <code>aurora-mysql5.7</code>
+     *         Example: <code>aurora-mysql5.7</code>, <code>aurora-mysql8.0</code>
      *         </p>
      *         <p>
      *         <b>Aurora PostgreSQL</b>
      *         </p>
      *         <p>
-     *         Example: <code>aurora-postgresql9.6</code>
+     *         Example: <code>aurora-postgresql14</code>
+     *         </p>
+     *         <p>
+     *         <b>RDS for MySQL</b>
+     *         </p>
+     *         <p>
+     *         Example: <code>mysql8.0</code>
+     *         </p>
+     *         <p>
+     *         <b>RDS for PostgreSQL</b>
+     *         </p>
+     *         <p>
+     *         Example: <code>postgres13</code>
+     *         </p>
+     *         <p>
+     *         To list all of the available parameter group families for a DB engine, use the following command:
+     *         </p>
+     *         <p>
+     *         <code>aws rds describe-db-engine-versions --query "DBEngineVersions[].DBParameterGroupFamily" --engine &lt;engine&gt;</code>
+     *         </p>
+     *         <p>
+     *         For example, to list all of the available parameter group families for the Aurora PostgreSQL DB engine,
+     *         use the following command:
+     *         </p>
+     *         <p>
+     *         <code>aws rds describe-db-engine-versions --query "DBEngineVersions[].DBParameterGroupFamily" --engine aurora-postgresql</code>
+     *         </p>
+     *         <note>
+     *         <p>
+     *         The output contains duplicates.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         The following are the valid DB engine values:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>aurora-mysql</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>aurora-postgresql</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>mysql</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>postgres</code>
+     *         </p>
+     *         </li>
      */
 
     public String getDBParameterGroupFamily() {
@@ -296,14 +571,69 @@ public class CreateDBClusterParameterGroupRequest extends com.amazonaws.AmazonWe
      * <b>Aurora MySQL</b>
      * </p>
      * <p>
-     * Example: <code>aurora5.6</code>, <code>aurora-mysql5.7</code>
+     * Example: <code>aurora-mysql5.7</code>, <code>aurora-mysql8.0</code>
      * </p>
      * <p>
      * <b>Aurora PostgreSQL</b>
      * </p>
      * <p>
-     * Example: <code>aurora-postgresql9.6</code>
+     * Example: <code>aurora-postgresql14</code>
      * </p>
+     * <p>
+     * <b>RDS for MySQL</b>
+     * </p>
+     * <p>
+     * Example: <code>mysql8.0</code>
+     * </p>
+     * <p>
+     * <b>RDS for PostgreSQL</b>
+     * </p>
+     * <p>
+     * Example: <code>postgres13</code>
+     * </p>
+     * <p>
+     * To list all of the available parameter group families for a DB engine, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --query "DBEngineVersions[].DBParameterGroupFamily" --engine &lt;engine&gt;</code>
+     * </p>
+     * <p>
+     * For example, to list all of the available parameter group families for the Aurora PostgreSQL DB engine, use the
+     * following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --query "DBEngineVersions[].DBParameterGroupFamily" --engine aurora-postgresql</code>
+     * </p>
+     * <note>
+     * <p>
+     * The output contains duplicates.
+     * </p>
+     * </note>
+     * <p>
+     * The following are the valid DB engine values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>aurora-mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aurora-postgresql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>mysql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>postgres</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param dBParameterGroupFamily
      *        The DB cluster parameter group family name. A DB cluster parameter group can be associated with one and
@@ -313,13 +643,68 @@ public class CreateDBClusterParameterGroupRequest extends com.amazonaws.AmazonWe
      *        <b>Aurora MySQL</b>
      *        </p>
      *        <p>
-     *        Example: <code>aurora5.6</code>, <code>aurora-mysql5.7</code>
+     *        Example: <code>aurora-mysql5.7</code>, <code>aurora-mysql8.0</code>
      *        </p>
      *        <p>
      *        <b>Aurora PostgreSQL</b>
      *        </p>
      *        <p>
-     *        Example: <code>aurora-postgresql9.6</code>
+     *        Example: <code>aurora-postgresql14</code>
+     *        </p>
+     *        <p>
+     *        <b>RDS for MySQL</b>
+     *        </p>
+     *        <p>
+     *        Example: <code>mysql8.0</code>
+     *        </p>
+     *        <p>
+     *        <b>RDS for PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        Example: <code>postgres13</code>
+     *        </p>
+     *        <p>
+     *        To list all of the available parameter group families for a DB engine, use the following command:
+     *        </p>
+     *        <p>
+     *        <code>aws rds describe-db-engine-versions --query "DBEngineVersions[].DBParameterGroupFamily" --engine &lt;engine&gt;</code>
+     *        </p>
+     *        <p>
+     *        For example, to list all of the available parameter group families for the Aurora PostgreSQL DB engine,
+     *        use the following command:
+     *        </p>
+     *        <p>
+     *        <code>aws rds describe-db-engine-versions --query "DBEngineVersions[].DBParameterGroupFamily" --engine aurora-postgresql</code>
+     *        </p>
+     *        <note>
+     *        <p>
+     *        The output contains duplicates.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        The following are the valid DB engine values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>aurora-mysql</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>aurora-postgresql</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>mysql</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>postgres</code>
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

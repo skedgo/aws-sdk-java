@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,8 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * An identifier for a source in the build project.
+     * An identifier for a source in the build project. The identifier can only contain alphanumeric characters and
+     * underscores, and must be less than 128 characters in length.
      * </p>
      */
     private String sourceIdentifier;
@@ -41,7 +42,7 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
      * <ul>
      * <li>
      * <p>
-     * For AWS CodeCommit: the commit ID to use.
+     * For CodeCommit: the commit ID, branch, or Git tag to use.
      * </p>
      * </li>
      * <li>
@@ -54,6 +55,11 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
      * </li>
      * <li>
      * <p>
+     * For GitLab: the commit ID, branch, or Git tag to use.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you
      * want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
      * branch's HEAD commit ID is used.
@@ -61,26 +67,27 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
      * </li>
      * <li>
      * <p>
-     * For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build input ZIP
-     * file to use.
+     * For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
      * </p>
      * </li>
      * </ul>
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version Sample
-     * with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     * with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      * </p>
      */
     private String sourceVersion;
 
     /**
      * <p>
-     * An identifier for a source in the build project.
+     * An identifier for a source in the build project. The identifier can only contain alphanumeric characters and
+     * underscores, and must be less than 128 characters in length.
      * </p>
      * 
      * @param sourceIdentifier
-     *        An identifier for a source in the build project.
+     *        An identifier for a source in the build project. The identifier can only contain alphanumeric characters
+     *        and underscores, and must be less than 128 characters in length.
      */
 
     public void setSourceIdentifier(String sourceIdentifier) {
@@ -89,10 +96,12 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * An identifier for a source in the build project.
+     * An identifier for a source in the build project. The identifier can only contain alphanumeric characters and
+     * underscores, and must be less than 128 characters in length.
      * </p>
      * 
-     * @return An identifier for a source in the build project.
+     * @return An identifier for a source in the build project. The identifier can only contain alphanumeric characters
+     *         and underscores, and must be less than 128 characters in length.
      */
 
     public String getSourceIdentifier() {
@@ -101,11 +110,13 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * An identifier for a source in the build project.
+     * An identifier for a source in the build project. The identifier can only contain alphanumeric characters and
+     * underscores, and must be less than 128 characters in length.
      * </p>
      * 
      * @param sourceIdentifier
-     *        An identifier for a source in the build project.
+     *        An identifier for a source in the build project. The identifier can only contain alphanumeric characters
+     *        and underscores, and must be less than 128 characters in length.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -121,7 +132,7 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
      * <ul>
      * <li>
      * <p>
-     * For AWS CodeCommit: the commit ID to use.
+     * For CodeCommit: the commit ID, branch, or Git tag to use.
      * </p>
      * </li>
      * <li>
@@ -134,6 +145,11 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
      * </li>
      * <li>
      * <p>
+     * For GitLab: the commit ID, branch, or Git tag to use.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you
      * want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
      * branch's HEAD commit ID is used.
@@ -141,15 +157,14 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
      * </li>
      * <li>
      * <p>
-     * For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build input ZIP
-     * file to use.
+     * For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
      * </p>
      * </li>
      * </ul>
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version Sample
-     * with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     * with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      * </p>
      * 
      * @param sourceVersion
@@ -157,7 +172,7 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
      *        <ul>
      *        <li>
      *        <p>
-     *        For AWS CodeCommit: the commit ID to use.
+     *        For CodeCommit: the commit ID, branch, or Git tag to use.
      *        </p>
      *        </li>
      *        <li>
@@ -170,6 +185,11 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
      *        </li>
      *        <li>
      *        <p>
+     *        For GitLab: the commit ID, branch, or Git tag to use.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code
      *        you want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified,
      *        the default branch's HEAD commit ID is used.
@@ -177,15 +197,14 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
      *        </li>
      *        <li>
      *        <p>
-     *        For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build
-     *        input ZIP file to use.
+     *        For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
      *        For more information, see <a
      *        href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version
-     *        Sample with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     *        Sample with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      */
 
     public void setSourceVersion(String sourceVersion) {
@@ -199,7 +218,7 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
      * <ul>
      * <li>
      * <p>
-     * For AWS CodeCommit: the commit ID to use.
+     * For CodeCommit: the commit ID, branch, or Git tag to use.
      * </p>
      * </li>
      * <li>
@@ -212,6 +231,11 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
      * </li>
      * <li>
      * <p>
+     * For GitLab: the commit ID, branch, or Git tag to use.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you
      * want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
      * branch's HEAD commit ID is used.
@@ -219,22 +243,21 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
      * </li>
      * <li>
      * <p>
-     * For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build input ZIP
-     * file to use.
+     * For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
      * </p>
      * </li>
      * </ul>
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version Sample
-     * with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     * with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      * </p>
      * 
      * @return The source version for the corresponding source identifier. If specified, must be one of:</p>
      *         <ul>
      *         <li>
      *         <p>
-     *         For AWS CodeCommit: the commit ID to use.
+     *         For CodeCommit: the commit ID, branch, or Git tag to use.
      *         </p>
      *         </li>
      *         <li>
@@ -247,6 +270,11 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
      *         </li>
      *         <li>
      *         <p>
+     *         For GitLab: the commit ID, branch, or Git tag to use.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
      *         For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code
      *         you want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified,
      *         the default branch's HEAD commit ID is used.
@@ -254,15 +282,14 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
      *         </li>
      *         <li>
      *         <p>
-     *         For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build
-     *         input ZIP file to use.
+     *         For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
      *         </p>
      *         </li>
      *         </ul>
      *         <p>
      *         For more information, see <a
      *         href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version
-     *         Sample with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     *         Sample with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      */
 
     public String getSourceVersion() {
@@ -276,7 +303,7 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
      * <ul>
      * <li>
      * <p>
-     * For AWS CodeCommit: the commit ID to use.
+     * For CodeCommit: the commit ID, branch, or Git tag to use.
      * </p>
      * </li>
      * <li>
@@ -289,6 +316,11 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
      * </li>
      * <li>
      * <p>
+     * For GitLab: the commit ID, branch, or Git tag to use.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you
      * want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
      * branch's HEAD commit ID is used.
@@ -296,15 +328,14 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
      * </li>
      * <li>
      * <p>
-     * For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build input ZIP
-     * file to use.
+     * For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
      * </p>
      * </li>
      * </ul>
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version Sample
-     * with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     * with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      * </p>
      * 
      * @param sourceVersion
@@ -312,7 +343,7 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
      *        <ul>
      *        <li>
      *        <p>
-     *        For AWS CodeCommit: the commit ID to use.
+     *        For CodeCommit: the commit ID, branch, or Git tag to use.
      *        </p>
      *        </li>
      *        <li>
@@ -325,6 +356,11 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
      *        </li>
      *        <li>
      *        <p>
+     *        For GitLab: the commit ID, branch, or Git tag to use.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code
      *        you want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified,
      *        the default branch's HEAD commit ID is used.
@@ -332,15 +368,14 @@ public class ProjectSourceVersion implements Serializable, Cloneable, Structured
      *        </li>
      *        <li>
      *        <p>
-     *        For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build
-     *        input ZIP file to use.
+     *        For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
      *        For more information, see <a
      *        href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version
-     *        Sample with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     *        Sample with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -49,7 +49,19 @@ public class AWSKafkaAsyncClient extends AWSKafkaClient implements AWSKafkaAsync
      *        Object providing client parameters.
      */
     AWSKafkaAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Kafka using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSKafkaAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -60,6 +72,72 @@ public class AWSKafkaAsyncClient extends AWSKafkaClient implements AWSKafkaAsync
      */
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchAssociateScramSecretResult> batchAssociateScramSecretAsync(BatchAssociateScramSecretRequest request) {
+
+        return batchAssociateScramSecretAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchAssociateScramSecretResult> batchAssociateScramSecretAsync(final BatchAssociateScramSecretRequest request,
+            final com.amazonaws.handlers.AsyncHandler<BatchAssociateScramSecretRequest, BatchAssociateScramSecretResult> asyncHandler) {
+        final BatchAssociateScramSecretRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<BatchAssociateScramSecretResult>() {
+            @Override
+            public BatchAssociateScramSecretResult call() throws Exception {
+                BatchAssociateScramSecretResult result = null;
+
+                try {
+                    result = executeBatchAssociateScramSecret(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchDisassociateScramSecretResult> batchDisassociateScramSecretAsync(BatchDisassociateScramSecretRequest request) {
+
+        return batchDisassociateScramSecretAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchDisassociateScramSecretResult> batchDisassociateScramSecretAsync(final BatchDisassociateScramSecretRequest request,
+            final com.amazonaws.handlers.AsyncHandler<BatchDisassociateScramSecretRequest, BatchDisassociateScramSecretResult> asyncHandler) {
+        final BatchDisassociateScramSecretRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<BatchDisassociateScramSecretResult>() {
+            @Override
+            public BatchDisassociateScramSecretResult call() throws Exception {
+                BatchDisassociateScramSecretResult result = null;
+
+                try {
+                    result = executeBatchDisassociateScramSecret(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -80,6 +158,39 @@ public class AWSKafkaAsyncClient extends AWSKafkaClient implements AWSKafkaAsync
 
                 try {
                     result = executeCreateCluster(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateClusterV2Result> createClusterV2Async(CreateClusterV2Request request) {
+
+        return createClusterV2Async(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateClusterV2Result> createClusterV2Async(final CreateClusterV2Request request,
+            final com.amazonaws.handlers.AsyncHandler<CreateClusterV2Request, CreateClusterV2Result> asyncHandler) {
+        final CreateClusterV2Request finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateClusterV2Result>() {
+            @Override
+            public CreateClusterV2Result call() throws Exception {
+                CreateClusterV2Result result = null;
+
+                try {
+                    result = executeCreateClusterV2(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -129,6 +240,72 @@ public class AWSKafkaAsyncClient extends AWSKafkaClient implements AWSKafkaAsync
     }
 
     @Override
+    public java.util.concurrent.Future<CreateReplicatorResult> createReplicatorAsync(CreateReplicatorRequest request) {
+
+        return createReplicatorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateReplicatorResult> createReplicatorAsync(final CreateReplicatorRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateReplicatorRequest, CreateReplicatorResult> asyncHandler) {
+        final CreateReplicatorRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateReplicatorResult>() {
+            @Override
+            public CreateReplicatorResult call() throws Exception {
+                CreateReplicatorResult result = null;
+
+                try {
+                    result = executeCreateReplicator(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateVpcConnectionResult> createVpcConnectionAsync(CreateVpcConnectionRequest request) {
+
+        return createVpcConnectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateVpcConnectionResult> createVpcConnectionAsync(final CreateVpcConnectionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateVpcConnectionRequest, CreateVpcConnectionResult> asyncHandler) {
+        final CreateVpcConnectionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateVpcConnectionResult>() {
+            @Override
+            public CreateVpcConnectionResult call() throws Exception {
+                CreateVpcConnectionResult result = null;
+
+                try {
+                    result = executeCreateVpcConnection(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteClusterResult> deleteClusterAsync(DeleteClusterRequest request) {
 
         return deleteClusterAsync(request, null);
@@ -146,6 +323,138 @@ public class AWSKafkaAsyncClient extends AWSKafkaClient implements AWSKafkaAsync
 
                 try {
                     result = executeDeleteCluster(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteClusterPolicyResult> deleteClusterPolicyAsync(DeleteClusterPolicyRequest request) {
+
+        return deleteClusterPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteClusterPolicyResult> deleteClusterPolicyAsync(final DeleteClusterPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteClusterPolicyRequest, DeleteClusterPolicyResult> asyncHandler) {
+        final DeleteClusterPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteClusterPolicyResult>() {
+            @Override
+            public DeleteClusterPolicyResult call() throws Exception {
+                DeleteClusterPolicyResult result = null;
+
+                try {
+                    result = executeDeleteClusterPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteConfigurationResult> deleteConfigurationAsync(DeleteConfigurationRequest request) {
+
+        return deleteConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteConfigurationResult> deleteConfigurationAsync(final DeleteConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteConfigurationRequest, DeleteConfigurationResult> asyncHandler) {
+        final DeleteConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteConfigurationResult>() {
+            @Override
+            public DeleteConfigurationResult call() throws Exception {
+                DeleteConfigurationResult result = null;
+
+                try {
+                    result = executeDeleteConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteReplicatorResult> deleteReplicatorAsync(DeleteReplicatorRequest request) {
+
+        return deleteReplicatorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteReplicatorResult> deleteReplicatorAsync(final DeleteReplicatorRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteReplicatorRequest, DeleteReplicatorResult> asyncHandler) {
+        final DeleteReplicatorRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteReplicatorResult>() {
+            @Override
+            public DeleteReplicatorResult call() throws Exception {
+                DeleteReplicatorResult result = null;
+
+                try {
+                    result = executeDeleteReplicator(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteVpcConnectionResult> deleteVpcConnectionAsync(DeleteVpcConnectionRequest request) {
+
+        return deleteVpcConnectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteVpcConnectionResult> deleteVpcConnectionAsync(final DeleteVpcConnectionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteVpcConnectionRequest, DeleteVpcConnectionResult> asyncHandler) {
+        final DeleteVpcConnectionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteVpcConnectionResult>() {
+            @Override
+            public DeleteVpcConnectionResult call() throws Exception {
+                DeleteVpcConnectionResult result = null;
+
+                try {
+                    result = executeDeleteVpcConnection(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -212,6 +521,72 @@ public class AWSKafkaAsyncClient extends AWSKafkaClient implements AWSKafkaAsync
 
                 try {
                     result = executeDescribeClusterOperation(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeClusterOperationV2Result> describeClusterOperationV2Async(DescribeClusterOperationV2Request request) {
+
+        return describeClusterOperationV2Async(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeClusterOperationV2Result> describeClusterOperationV2Async(final DescribeClusterOperationV2Request request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeClusterOperationV2Request, DescribeClusterOperationV2Result> asyncHandler) {
+        final DescribeClusterOperationV2Request finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeClusterOperationV2Result>() {
+            @Override
+            public DescribeClusterOperationV2Result call() throws Exception {
+                DescribeClusterOperationV2Result result = null;
+
+                try {
+                    result = executeDescribeClusterOperationV2(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeClusterV2Result> describeClusterV2Async(DescribeClusterV2Request request) {
+
+        return describeClusterV2Async(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeClusterV2Result> describeClusterV2Async(final DescribeClusterV2Request request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeClusterV2Request, DescribeClusterV2Result> asyncHandler) {
+        final DescribeClusterV2Request finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeClusterV2Result>() {
+            @Override
+            public DescribeClusterV2Result call() throws Exception {
+                DescribeClusterV2Result result = null;
+
+                try {
+                    result = executeDescribeClusterV2(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -295,6 +670,72 @@ public class AWSKafkaAsyncClient extends AWSKafkaClient implements AWSKafkaAsync
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeReplicatorResult> describeReplicatorAsync(DescribeReplicatorRequest request) {
+
+        return describeReplicatorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeReplicatorResult> describeReplicatorAsync(final DescribeReplicatorRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeReplicatorRequest, DescribeReplicatorResult> asyncHandler) {
+        final DescribeReplicatorRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeReplicatorResult>() {
+            @Override
+            public DescribeReplicatorResult call() throws Exception {
+                DescribeReplicatorResult result = null;
+
+                try {
+                    result = executeDescribeReplicator(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeVpcConnectionResult> describeVpcConnectionAsync(DescribeVpcConnectionRequest request) {
+
+        return describeVpcConnectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeVpcConnectionResult> describeVpcConnectionAsync(final DescribeVpcConnectionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeVpcConnectionRequest, DescribeVpcConnectionResult> asyncHandler) {
+        final DescribeVpcConnectionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeVpcConnectionResult>() {
+            @Override
+            public DescribeVpcConnectionResult call() throws Exception {
+                DescribeVpcConnectionResult result = null;
+
+                try {
+                    result = executeDescribeVpcConnection(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetBootstrapBrokersResult> getBootstrapBrokersAsync(GetBootstrapBrokersRequest request) {
 
         return getBootstrapBrokersAsync(request, null);
@@ -312,6 +753,105 @@ public class AWSKafkaAsyncClient extends AWSKafkaClient implements AWSKafkaAsync
 
                 try {
                     result = executeGetBootstrapBrokers(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetClusterPolicyResult> getClusterPolicyAsync(GetClusterPolicyRequest request) {
+
+        return getClusterPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetClusterPolicyResult> getClusterPolicyAsync(final GetClusterPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetClusterPolicyRequest, GetClusterPolicyResult> asyncHandler) {
+        final GetClusterPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetClusterPolicyResult>() {
+            @Override
+            public GetClusterPolicyResult call() throws Exception {
+                GetClusterPolicyResult result = null;
+
+                try {
+                    result = executeGetClusterPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCompatibleKafkaVersionsResult> getCompatibleKafkaVersionsAsync(GetCompatibleKafkaVersionsRequest request) {
+
+        return getCompatibleKafkaVersionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCompatibleKafkaVersionsResult> getCompatibleKafkaVersionsAsync(final GetCompatibleKafkaVersionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetCompatibleKafkaVersionsRequest, GetCompatibleKafkaVersionsResult> asyncHandler) {
+        final GetCompatibleKafkaVersionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetCompatibleKafkaVersionsResult>() {
+            @Override
+            public GetCompatibleKafkaVersionsResult call() throws Exception {
+                GetCompatibleKafkaVersionsResult result = null;
+
+                try {
+                    result = executeGetCompatibleKafkaVersions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListClientVpcConnectionsResult> listClientVpcConnectionsAsync(ListClientVpcConnectionsRequest request) {
+
+        return listClientVpcConnectionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListClientVpcConnectionsResult> listClientVpcConnectionsAsync(final ListClientVpcConnectionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListClientVpcConnectionsRequest, ListClientVpcConnectionsResult> asyncHandler) {
+        final ListClientVpcConnectionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListClientVpcConnectionsResult>() {
+            @Override
+            public ListClientVpcConnectionsResult call() throws Exception {
+                ListClientVpcConnectionsResult result = null;
+
+                try {
+                    result = executeListClientVpcConnections(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -361,6 +901,39 @@ public class AWSKafkaAsyncClient extends AWSKafkaClient implements AWSKafkaAsync
     }
 
     @Override
+    public java.util.concurrent.Future<ListClusterOperationsV2Result> listClusterOperationsV2Async(ListClusterOperationsV2Request request) {
+
+        return listClusterOperationsV2Async(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListClusterOperationsV2Result> listClusterOperationsV2Async(final ListClusterOperationsV2Request request,
+            final com.amazonaws.handlers.AsyncHandler<ListClusterOperationsV2Request, ListClusterOperationsV2Result> asyncHandler) {
+        final ListClusterOperationsV2Request finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListClusterOperationsV2Result>() {
+            @Override
+            public ListClusterOperationsV2Result call() throws Exception {
+                ListClusterOperationsV2Result result = null;
+
+                try {
+                    result = executeListClusterOperationsV2(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListClustersResult> listClustersAsync(ListClustersRequest request) {
 
         return listClustersAsync(request, null);
@@ -378,6 +951,39 @@ public class AWSKafkaAsyncClient extends AWSKafkaClient implements AWSKafkaAsync
 
                 try {
                     result = executeListClusters(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListClustersV2Result> listClustersV2Async(ListClustersV2Request request) {
+
+        return listClustersV2Async(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListClustersV2Result> listClustersV2Async(final ListClustersV2Request request,
+            final com.amazonaws.handlers.AsyncHandler<ListClustersV2Request, ListClustersV2Result> asyncHandler) {
+        final ListClustersV2Request finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListClustersV2Result>() {
+            @Override
+            public ListClustersV2Result call() throws Exception {
+                ListClustersV2Result result = null;
+
+                try {
+                    result = executeListClustersV2(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -460,6 +1066,39 @@ public class AWSKafkaAsyncClient extends AWSKafkaClient implements AWSKafkaAsync
     }
 
     @Override
+    public java.util.concurrent.Future<ListKafkaVersionsResult> listKafkaVersionsAsync(ListKafkaVersionsRequest request) {
+
+        return listKafkaVersionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListKafkaVersionsResult> listKafkaVersionsAsync(final ListKafkaVersionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListKafkaVersionsRequest, ListKafkaVersionsResult> asyncHandler) {
+        final ListKafkaVersionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListKafkaVersionsResult>() {
+            @Override
+            public ListKafkaVersionsResult call() throws Exception {
+                ListKafkaVersionsResult result = null;
+
+                try {
+                    result = executeListKafkaVersions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListNodesResult> listNodesAsync(ListNodesRequest request) {
 
         return listNodesAsync(request, null);
@@ -493,6 +1132,72 @@ public class AWSKafkaAsyncClient extends AWSKafkaClient implements AWSKafkaAsync
     }
 
     @Override
+    public java.util.concurrent.Future<ListReplicatorsResult> listReplicatorsAsync(ListReplicatorsRequest request) {
+
+        return listReplicatorsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListReplicatorsResult> listReplicatorsAsync(final ListReplicatorsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListReplicatorsRequest, ListReplicatorsResult> asyncHandler) {
+        final ListReplicatorsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListReplicatorsResult>() {
+            @Override
+            public ListReplicatorsResult call() throws Exception {
+                ListReplicatorsResult result = null;
+
+                try {
+                    result = executeListReplicators(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListScramSecretsResult> listScramSecretsAsync(ListScramSecretsRequest request) {
+
+        return listScramSecretsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListScramSecretsResult> listScramSecretsAsync(final ListScramSecretsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListScramSecretsRequest, ListScramSecretsResult> asyncHandler) {
+        final ListScramSecretsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListScramSecretsResult>() {
+            @Override
+            public ListScramSecretsResult call() throws Exception {
+                ListScramSecretsResult result = null;
+
+                try {
+                    result = executeListScramSecrets(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
 
         return listTagsForResourceAsync(request, null);
@@ -510,6 +1215,138 @@ public class AWSKafkaAsyncClient extends AWSKafkaClient implements AWSKafkaAsync
 
                 try {
                     result = executeListTagsForResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListVpcConnectionsResult> listVpcConnectionsAsync(ListVpcConnectionsRequest request) {
+
+        return listVpcConnectionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListVpcConnectionsResult> listVpcConnectionsAsync(final ListVpcConnectionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListVpcConnectionsRequest, ListVpcConnectionsResult> asyncHandler) {
+        final ListVpcConnectionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListVpcConnectionsResult>() {
+            @Override
+            public ListVpcConnectionsResult call() throws Exception {
+                ListVpcConnectionsResult result = null;
+
+                try {
+                    result = executeListVpcConnections(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutClusterPolicyResult> putClusterPolicyAsync(PutClusterPolicyRequest request) {
+
+        return putClusterPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutClusterPolicyResult> putClusterPolicyAsync(final PutClusterPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutClusterPolicyRequest, PutClusterPolicyResult> asyncHandler) {
+        final PutClusterPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutClusterPolicyResult>() {
+            @Override
+            public PutClusterPolicyResult call() throws Exception {
+                PutClusterPolicyResult result = null;
+
+                try {
+                    result = executePutClusterPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RebootBrokerResult> rebootBrokerAsync(RebootBrokerRequest request) {
+
+        return rebootBrokerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RebootBrokerResult> rebootBrokerAsync(final RebootBrokerRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RebootBrokerRequest, RebootBrokerResult> asyncHandler) {
+        final RebootBrokerRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RebootBrokerResult>() {
+            @Override
+            public RebootBrokerResult call() throws Exception {
+                RebootBrokerResult result = null;
+
+                try {
+                    result = executeRebootBroker(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RejectClientVpcConnectionResult> rejectClientVpcConnectionAsync(RejectClientVpcConnectionRequest request) {
+
+        return rejectClientVpcConnectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RejectClientVpcConnectionResult> rejectClientVpcConnectionAsync(final RejectClientVpcConnectionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RejectClientVpcConnectionRequest, RejectClientVpcConnectionResult> asyncHandler) {
+        final RejectClientVpcConnectionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RejectClientVpcConnectionResult>() {
+            @Override
+            public RejectClientVpcConnectionResult call() throws Exception {
+                RejectClientVpcConnectionResult result = null;
+
+                try {
+                    result = executeRejectClientVpcConnection(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -592,6 +1429,39 @@ public class AWSKafkaAsyncClient extends AWSKafkaClient implements AWSKafkaAsync
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateBrokerCountResult> updateBrokerCountAsync(UpdateBrokerCountRequest request) {
+
+        return updateBrokerCountAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateBrokerCountResult> updateBrokerCountAsync(final UpdateBrokerCountRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateBrokerCountRequest, UpdateBrokerCountResult> asyncHandler) {
+        final UpdateBrokerCountRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateBrokerCountResult>() {
+            @Override
+            public UpdateBrokerCountResult call() throws Exception {
+                UpdateBrokerCountResult result = null;
+
+                try {
+                    result = executeUpdateBrokerCount(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateBrokerStorageResult> updateBrokerStorageAsync(UpdateBrokerStorageRequest request) {
 
         return updateBrokerStorageAsync(request, null);
@@ -625,6 +1495,39 @@ public class AWSKafkaAsyncClient extends AWSKafkaClient implements AWSKafkaAsync
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateBrokerTypeResult> updateBrokerTypeAsync(UpdateBrokerTypeRequest request) {
+
+        return updateBrokerTypeAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateBrokerTypeResult> updateBrokerTypeAsync(final UpdateBrokerTypeRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateBrokerTypeRequest, UpdateBrokerTypeResult> asyncHandler) {
+        final UpdateBrokerTypeRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateBrokerTypeResult>() {
+            @Override
+            public UpdateBrokerTypeResult call() throws Exception {
+                UpdateBrokerTypeResult result = null;
+
+                try {
+                    result = executeUpdateBrokerType(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateClusterConfigurationResult> updateClusterConfigurationAsync(UpdateClusterConfigurationRequest request) {
 
         return updateClusterConfigurationAsync(request, null);
@@ -642,6 +1545,237 @@ public class AWSKafkaAsyncClient extends AWSKafkaClient implements AWSKafkaAsync
 
                 try {
                     result = executeUpdateClusterConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateClusterKafkaVersionResult> updateClusterKafkaVersionAsync(UpdateClusterKafkaVersionRequest request) {
+
+        return updateClusterKafkaVersionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateClusterKafkaVersionResult> updateClusterKafkaVersionAsync(final UpdateClusterKafkaVersionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateClusterKafkaVersionRequest, UpdateClusterKafkaVersionResult> asyncHandler) {
+        final UpdateClusterKafkaVersionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateClusterKafkaVersionResult>() {
+            @Override
+            public UpdateClusterKafkaVersionResult call() throws Exception {
+                UpdateClusterKafkaVersionResult result = null;
+
+                try {
+                    result = executeUpdateClusterKafkaVersion(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateConfigurationResult> updateConfigurationAsync(UpdateConfigurationRequest request) {
+
+        return updateConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateConfigurationResult> updateConfigurationAsync(final UpdateConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateConfigurationRequest, UpdateConfigurationResult> asyncHandler) {
+        final UpdateConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateConfigurationResult>() {
+            @Override
+            public UpdateConfigurationResult call() throws Exception {
+                UpdateConfigurationResult result = null;
+
+                try {
+                    result = executeUpdateConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateConnectivityResult> updateConnectivityAsync(UpdateConnectivityRequest request) {
+
+        return updateConnectivityAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateConnectivityResult> updateConnectivityAsync(final UpdateConnectivityRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateConnectivityRequest, UpdateConnectivityResult> asyncHandler) {
+        final UpdateConnectivityRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateConnectivityResult>() {
+            @Override
+            public UpdateConnectivityResult call() throws Exception {
+                UpdateConnectivityResult result = null;
+
+                try {
+                    result = executeUpdateConnectivity(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateMonitoringResult> updateMonitoringAsync(UpdateMonitoringRequest request) {
+
+        return updateMonitoringAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateMonitoringResult> updateMonitoringAsync(final UpdateMonitoringRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateMonitoringRequest, UpdateMonitoringResult> asyncHandler) {
+        final UpdateMonitoringRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateMonitoringResult>() {
+            @Override
+            public UpdateMonitoringResult call() throws Exception {
+                UpdateMonitoringResult result = null;
+
+                try {
+                    result = executeUpdateMonitoring(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateReplicationInfoResult> updateReplicationInfoAsync(UpdateReplicationInfoRequest request) {
+
+        return updateReplicationInfoAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateReplicationInfoResult> updateReplicationInfoAsync(final UpdateReplicationInfoRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateReplicationInfoRequest, UpdateReplicationInfoResult> asyncHandler) {
+        final UpdateReplicationInfoRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateReplicationInfoResult>() {
+            @Override
+            public UpdateReplicationInfoResult call() throws Exception {
+                UpdateReplicationInfoResult result = null;
+
+                try {
+                    result = executeUpdateReplicationInfo(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateSecurityResult> updateSecurityAsync(UpdateSecurityRequest request) {
+
+        return updateSecurityAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateSecurityResult> updateSecurityAsync(final UpdateSecurityRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateSecurityRequest, UpdateSecurityResult> asyncHandler) {
+        final UpdateSecurityRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateSecurityResult>() {
+            @Override
+            public UpdateSecurityResult call() throws Exception {
+                UpdateSecurityResult result = null;
+
+                try {
+                    result = executeUpdateSecurity(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateStorageResult> updateStorageAsync(UpdateStorageRequest request) {
+
+        return updateStorageAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateStorageResult> updateStorageAsync(final UpdateStorageRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateStorageRequest, UpdateStorageResult> asyncHandler) {
+        final UpdateStorageRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateStorageResult>() {
+            @Override
+            public UpdateStorageResult call() throws Exception {
+                UpdateStorageResult result = null;
+
+                try {
+                    result = executeUpdateStorage(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

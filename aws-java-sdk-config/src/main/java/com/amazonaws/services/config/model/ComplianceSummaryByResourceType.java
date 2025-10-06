@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The number of AWS resources of a specific type that are compliant or noncompliant, up to a maximum of 100 for each.
+ * The number of Amazon Web Services resources of a specific type that are compliant or noncompliant, up to a maximum of
+ * 100 for each.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/ComplianceSummaryByResourceType"
@@ -30,24 +31,24 @@ public class ComplianceSummaryByResourceType implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The type of AWS resource.
+     * The type of Amazon Web Services resource.
      * </p>
      */
     private String resourceType;
     /**
      * <p>
-     * The number of AWS resources that are compliant or noncompliant, up to a maximum of 100 for each.
+     * The number of Amazon Web Services resources that are compliant or noncompliant, up to a maximum of 100 for each.
      * </p>
      */
     private ComplianceSummary complianceSummary;
 
     /**
      * <p>
-     * The type of AWS resource.
+     * The type of Amazon Web Services resource.
      * </p>
      * 
      * @param resourceType
-     *        The type of AWS resource.
+     *        The type of Amazon Web Services resource.
      */
 
     public void setResourceType(String resourceType) {
@@ -56,10 +57,10 @@ public class ComplianceSummaryByResourceType implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The type of AWS resource.
+     * The type of Amazon Web Services resource.
      * </p>
      * 
-     * @return The type of AWS resource.
+     * @return The type of Amazon Web Services resource.
      */
 
     public String getResourceType() {
@@ -68,11 +69,11 @@ public class ComplianceSummaryByResourceType implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The type of AWS resource.
+     * The type of Amazon Web Services resource.
      * </p>
      * 
      * @param resourceType
-     *        The type of AWS resource.
+     *        The type of Amazon Web Services resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -83,11 +84,12 @@ public class ComplianceSummaryByResourceType implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The number of AWS resources that are compliant or noncompliant, up to a maximum of 100 for each.
+     * The number of Amazon Web Services resources that are compliant or noncompliant, up to a maximum of 100 for each.
      * </p>
      * 
      * @param complianceSummary
-     *        The number of AWS resources that are compliant or noncompliant, up to a maximum of 100 for each.
+     *        The number of Amazon Web Services resources that are compliant or noncompliant, up to a maximum of 100 for
+     *        each.
      */
 
     public void setComplianceSummary(ComplianceSummary complianceSummary) {
@@ -96,10 +98,11 @@ public class ComplianceSummaryByResourceType implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The number of AWS resources that are compliant or noncompliant, up to a maximum of 100 for each.
+     * The number of Amazon Web Services resources that are compliant or noncompliant, up to a maximum of 100 for each.
      * </p>
      * 
-     * @return The number of AWS resources that are compliant or noncompliant, up to a maximum of 100 for each.
+     * @return The number of Amazon Web Services resources that are compliant or noncompliant, up to a maximum of 100
+     *         for each.
      */
 
     public ComplianceSummary getComplianceSummary() {
@@ -108,11 +111,12 @@ public class ComplianceSummaryByResourceType implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The number of AWS resources that are compliant or noncompliant, up to a maximum of 100 for each.
+     * The number of Amazon Web Services resources that are compliant or noncompliant, up to a maximum of 100 for each.
      * </p>
      * 
      * @param complianceSummary
-     *        The number of AWS resources that are compliant or noncompliant, up to a maximum of 100 for each.
+     *        The number of Amazon Web Services resources that are compliant or noncompliant, up to a maximum of 100 for
+     *        each.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

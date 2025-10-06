@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,6 +41,12 @@ public class UnassignPrivateIpAddressesRequest extends AmazonWebServiceRequest i
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> privateIpAddresses;
+    /**
+     * <p>
+     * The IPv4 prefixes to unassign from the network interface.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> ipv4Prefixes;
 
     /**
      * <p>
@@ -164,6 +170,79 @@ public class UnassignPrivateIpAddressesRequest extends AmazonWebServiceRequest i
     }
 
     /**
+     * <p>
+     * The IPv4 prefixes to unassign from the network interface.
+     * </p>
+     * 
+     * @return The IPv4 prefixes to unassign from the network interface.
+     */
+
+    public java.util.List<String> getIpv4Prefixes() {
+        if (ipv4Prefixes == null) {
+            ipv4Prefixes = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return ipv4Prefixes;
+    }
+
+    /**
+     * <p>
+     * The IPv4 prefixes to unassign from the network interface.
+     * </p>
+     * 
+     * @param ipv4Prefixes
+     *        The IPv4 prefixes to unassign from the network interface.
+     */
+
+    public void setIpv4Prefixes(java.util.Collection<String> ipv4Prefixes) {
+        if (ipv4Prefixes == null) {
+            this.ipv4Prefixes = null;
+            return;
+        }
+
+        this.ipv4Prefixes = new com.amazonaws.internal.SdkInternalList<String>(ipv4Prefixes);
+    }
+
+    /**
+     * <p>
+     * The IPv4 prefixes to unassign from the network interface.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setIpv4Prefixes(java.util.Collection)} or {@link #withIpv4Prefixes(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param ipv4Prefixes
+     *        The IPv4 prefixes to unassign from the network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UnassignPrivateIpAddressesRequest withIpv4Prefixes(String... ipv4Prefixes) {
+        if (this.ipv4Prefixes == null) {
+            setIpv4Prefixes(new com.amazonaws.internal.SdkInternalList<String>(ipv4Prefixes.length));
+        }
+        for (String ele : ipv4Prefixes) {
+            this.ipv4Prefixes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv4 prefixes to unassign from the network interface.
+     * </p>
+     * 
+     * @param ipv4Prefixes
+     *        The IPv4 prefixes to unassign from the network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UnassignPrivateIpAddressesRequest withIpv4Prefixes(java.util.Collection<String> ipv4Prefixes) {
+        setIpv4Prefixes(ipv4Prefixes);
+        return this;
+    }
+
+    /**
      * This method is intended for internal use only. Returns the marshaled request configured with additional
      * parameters to enable operation dry-run.
      */
@@ -189,7 +268,9 @@ public class UnassignPrivateIpAddressesRequest extends AmazonWebServiceRequest i
         if (getNetworkInterfaceId() != null)
             sb.append("NetworkInterfaceId: ").append(getNetworkInterfaceId()).append(",");
         if (getPrivateIpAddresses() != null)
-            sb.append("PrivateIpAddresses: ").append(getPrivateIpAddresses());
+            sb.append("PrivateIpAddresses: ").append(getPrivateIpAddresses()).append(",");
+        if (getIpv4Prefixes() != null)
+            sb.append("Ipv4Prefixes: ").append(getIpv4Prefixes());
         sb.append("}");
         return sb.toString();
     }
@@ -212,6 +293,10 @@ public class UnassignPrivateIpAddressesRequest extends AmazonWebServiceRequest i
             return false;
         if (other.getPrivateIpAddresses() != null && other.getPrivateIpAddresses().equals(this.getPrivateIpAddresses()) == false)
             return false;
+        if (other.getIpv4Prefixes() == null ^ this.getIpv4Prefixes() == null)
+            return false;
+        if (other.getIpv4Prefixes() != null && other.getIpv4Prefixes().equals(this.getIpv4Prefixes()) == false)
+            return false;
         return true;
     }
 
@@ -222,6 +307,7 @@ public class UnassignPrivateIpAddressesRequest extends AmazonWebServiceRequest i
 
         hashCode = prime * hashCode + ((getNetworkInterfaceId() == null) ? 0 : getNetworkInterfaceId().hashCode());
         hashCode = prime * hashCode + ((getPrivateIpAddresses() == null) ? 0 : getPrivateIpAddresses().hashCode());
+        hashCode = prime * hashCode + ((getIpv4Prefixes() == null) ? 0 : getIpv4Prefixes().hashCode());
         return hashCode;
     }
 

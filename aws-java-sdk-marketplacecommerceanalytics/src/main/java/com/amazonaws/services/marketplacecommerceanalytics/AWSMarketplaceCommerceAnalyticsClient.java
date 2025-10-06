@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.marketplacecommerceanalytics.AWSMarketplaceCommerc
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.marketplacecommerceanalytics.model.*;
+
 import com.amazonaws.services.marketplacecommerceanalytics.model.transform.*;
 
 /**
@@ -75,8 +76,9 @@ public class AWSMarketplaceCommerceAnalyticsClient extends AmazonWebServiceClien
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MarketplaceCommerceAnalyticsException").withModeledClass(
-                                    com.amazonaws.services.marketplacecommerceanalytics.model.MarketplaceCommerceAnalyticsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MarketplaceCommerceAnalyticsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.marketplacecommerceanalytics.model.transform.MarketplaceCommerceAnalyticsExceptionUnmarshaller
+                                            .getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.marketplacecommerceanalytics.model.AWSMarketplaceCommerceAnalyticsException.class));
 
     /**
@@ -321,6 +323,8 @@ public class AWSMarketplaceCommerceAnalyticsClient extends AmazonWebServiceClien
                 request = new GenerateDataSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(generateDataSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Marketplace Commerce Analytics");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GenerateDataSet");
@@ -343,17 +347,17 @@ public class AWSMarketplaceCommerceAnalyticsClient extends AmazonWebServiceClien
     }
 
     /**
-     * Given a data set type and a from date, asynchronously publishes the requested customer support data to the
-     * specified S3 bucket and notifies the specified SNS topic once the data is available. Returns a unique request
-     * identifier that can be used to correlate requests with notifications from the SNS topic. Data sets will be
-     * published in comma-separated values (CSV) format with the file name {data_set_type}_YYYY-MM-DD'T'HH-mm-ss'Z'.csv.
-     * If a file with the same name already exists (e.g. if the same data set is requested twice), the original file will
-     * be overwritten by the new file. Requires a Role with an attached permissions policy providing Allow permissions
-     * for the following actions: s3:PutObject, s3:GetBucketLocation, sns:GetTopicAttributes, sns:Publish,
-     * iam:GetRolePolicy.
+     * <i>This target has been deprecated.</i> Given a data set type and a from date, asynchronously publishes the
+     * requested customer support data to the specified S3 bucket and notifies the specified SNS topic once the data is
+     * available. Returns a unique request identifier that can be used to correlate requests with notifications from the
+     * SNS topic. Data sets will be published in comma-separated values (CSV) format with the file name
+     * {data_set_type}_YYYY-MM-DD'T'HH-mm-ss'Z'.csv. If a file with the same name already exists (e.g. if the same data
+     * set is requested twice), the original file will be overwritten by the new file. Requires a Role with an attached
+     * permissions policy providing Allow permissions for the following actions: s3:PutObject, s3:GetBucketLocation,
+     * sns:GetTopicAttributes, sns:Publish, iam:GetRolePolicy.
      * 
      * @param startSupportDataExportRequest
-     *        Container for the parameters to the StartSupportDataExport operation.
+     *        This target has been deprecated.
      * @return Result of the StartSupportDataExport operation returned by the service.
      * @throws MarketplaceCommerceAnalyticsException
      *         This exception is thrown when an internal service error occurs.
@@ -363,6 +367,7 @@ public class AWSMarketplaceCommerceAnalyticsClient extends AmazonWebServiceClien
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public StartSupportDataExportResult startSupportDataExport(StartSupportDataExportRequest request) {
         request = beforeClientExecution(request);
         return executeStartSupportDataExport(request);
@@ -383,6 +388,8 @@ public class AWSMarketplaceCommerceAnalyticsClient extends AmazonWebServiceClien
                 request = new StartSupportDataExportRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startSupportDataExportRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Marketplace Commerce Analytics");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartSupportDataExport");
@@ -479,6 +486,11 @@ public class AWSMarketplaceCommerceAnalyticsClient extends AmazonWebServiceClien
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

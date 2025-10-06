@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,10 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The values to use to filter results from the <a>DescribeEvents</a> and <a>DescribeEventAggregates</a> operations.
+ * The values to use to filter results from the <a
+ * href="https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeEvents.html">DescribeEvents</a> and <a
+ * href="https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeEventAggregates.html"
+ * >DescribeEventAggregates</a> operations.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/health-2016-08-04/EventFilter" target="_top">AWS API
@@ -38,25 +41,25 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * A list of unique identifiers for event types. For example,
-     * <code>"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED"</code>
+     * <code>"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED".</code>
      * </p>
      */
     private java.util.List<String> eventTypeCodes;
     /**
      * <p>
-     * The AWS services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
+     * The Amazon Web Services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
      * </p>
      */
     private java.util.List<String> services;
     /**
      * <p>
-     * A list of AWS regions.
+     * A list of Amazon Web Services Regions.
      * </p>
      */
     private java.util.List<String> regions;
     /**
      * <p>
-     * A list of AWS availability zones.
+     * A list of Amazon Web Services Availability Zones.
      * </p>
      */
     private java.util.List<String> availabilityZones;
@@ -93,8 +96,8 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
     private java.util.List<String> entityValues;
     /**
      * <p>
-     * A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     * <code>accountNotification</code>).
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      */
     private java.util.List<String> eventTypeCategories;
@@ -102,6 +105,11 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * A map of entity tags attached to the affected entity.
      * </p>
+     * <note>
+     * <p>
+     * Currently, the <code>tags</code> property isn't supported.
+     * </p>
+     * </note>
      */
     private java.util.List<java.util.Map<String, String>> tags;
     /**
@@ -192,11 +200,11 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * A list of unique identifiers for event types. For example,
-     * <code>"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED"</code>
+     * <code>"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED".</code>
      * </p>
      * 
      * @return A list of unique identifiers for event types. For example,
-     *         <code>"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED"</code>
+     *         <code>"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED".</code>
      */
 
     public java.util.List<String> getEventTypeCodes() {
@@ -206,12 +214,12 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * A list of unique identifiers for event types. For example,
-     * <code>"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED"</code>
+     * <code>"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED".</code>
      * </p>
      * 
      * @param eventTypeCodes
      *        A list of unique identifiers for event types. For example,
-     *        <code>"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED"</code>
+     *        <code>"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED".</code>
      */
 
     public void setEventTypeCodes(java.util.Collection<String> eventTypeCodes) {
@@ -226,7 +234,7 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * A list of unique identifiers for event types. For example,
-     * <code>"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED"</code>
+     * <code>"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED".</code>
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -236,7 +244,7 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
      * 
      * @param eventTypeCodes
      *        A list of unique identifiers for event types. For example,
-     *        <code>"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED"</code>
+     *        <code>"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED".</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -253,12 +261,12 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * A list of unique identifiers for event types. For example,
-     * <code>"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED"</code>
+     * <code>"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED".</code>
      * </p>
      * 
      * @param eventTypeCodes
      *        A list of unique identifiers for event types. For example,
-     *        <code>"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED"</code>
+     *        <code>"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED".</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -269,10 +277,10 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
+     * The Amazon Web Services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
      * </p>
      * 
-     * @return The AWS services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
+     * @return The Amazon Web Services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
      */
 
     public java.util.List<String> getServices() {
@@ -281,11 +289,11 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
+     * The Amazon Web Services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
      * </p>
      * 
      * @param services
-     *        The AWS services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
+     *        The Amazon Web Services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
      */
 
     public void setServices(java.util.Collection<String> services) {
@@ -299,7 +307,7 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
+     * The Amazon Web Services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -308,7 +316,7 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param services
-     *        The AWS services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
+     *        The Amazon Web Services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -324,11 +332,11 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
+     * The Amazon Web Services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
      * </p>
      * 
      * @param services
-     *        The AWS services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
+     *        The Amazon Web Services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -339,10 +347,10 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of AWS regions.
+     * A list of Amazon Web Services Regions.
      * </p>
      * 
-     * @return A list of AWS regions.
+     * @return A list of Amazon Web Services Regions.
      */
 
     public java.util.List<String> getRegions() {
@@ -351,11 +359,11 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of AWS regions.
+     * A list of Amazon Web Services Regions.
      * </p>
      * 
      * @param regions
-     *        A list of AWS regions.
+     *        A list of Amazon Web Services Regions.
      */
 
     public void setRegions(java.util.Collection<String> regions) {
@@ -369,7 +377,7 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of AWS regions.
+     * A list of Amazon Web Services Regions.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -378,7 +386,7 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param regions
-     *        A list of AWS regions.
+     *        A list of Amazon Web Services Regions.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -394,11 +402,11 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of AWS regions.
+     * A list of Amazon Web Services Regions.
      * </p>
      * 
      * @param regions
-     *        A list of AWS regions.
+     *        A list of Amazon Web Services Regions.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -409,10 +417,10 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of AWS availability zones.
+     * A list of Amazon Web Services Availability Zones.
      * </p>
      * 
-     * @return A list of AWS availability zones.
+     * @return A list of Amazon Web Services Availability Zones.
      */
 
     public java.util.List<String> getAvailabilityZones() {
@@ -421,11 +429,11 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of AWS availability zones.
+     * A list of Amazon Web Services Availability Zones.
      * </p>
      * 
      * @param availabilityZones
-     *        A list of AWS availability zones.
+     *        A list of Amazon Web Services Availability Zones.
      */
 
     public void setAvailabilityZones(java.util.Collection<String> availabilityZones) {
@@ -439,7 +447,7 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of AWS availability zones.
+     * A list of Amazon Web Services Availability Zones.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -448,7 +456,7 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param availabilityZones
-     *        A list of AWS availability zones.
+     *        A list of Amazon Web Services Availability Zones.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -464,11 +472,11 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of AWS availability zones.
+     * A list of Amazon Web Services Availability Zones.
      * </p>
      * 
      * @param availabilityZones
-     *        A list of AWS availability zones.
+     *        A list of Amazon Web Services Availability Zones.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -837,12 +845,13 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     * <code>accountNotification</code>).
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      * 
-     * @return A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     *         <code>accountNotification</code>).
+     * @return A list of event type category codes. Possible values are <code>issue</code>,
+     *         <code>accountNotification</code>, or <code>scheduledChange</code>. Currently, the
+     *         <code>investigation</code> value isn't supported at this time.
      * @see EventTypeCategory
      */
 
@@ -852,13 +861,14 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     * <code>accountNotification</code>).
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      * 
      * @param eventTypeCategories
-     *        A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     *        <code>accountNotification</code>).
+     *        A list of event type category codes. Possible values are <code>issue</code>,
+     *        <code>accountNotification</code>, or <code>scheduledChange</code>. Currently, the
+     *        <code>investigation</code> value isn't supported at this time.
      * @see EventTypeCategory
      */
 
@@ -873,8 +883,8 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     * <code>accountNotification</code>).
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -883,8 +893,9 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param eventTypeCategories
-     *        A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     *        <code>accountNotification</code>).
+     *        A list of event type category codes. Possible values are <code>issue</code>,
+     *        <code>accountNotification</code>, or <code>scheduledChange</code>. Currently, the
+     *        <code>investigation</code> value isn't supported at this time.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EventTypeCategory
      */
@@ -901,13 +912,14 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     * <code>accountNotification</code>).
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      * 
      * @param eventTypeCategories
-     *        A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     *        <code>accountNotification</code>).
+     *        A list of event type category codes. Possible values are <code>issue</code>,
+     *        <code>accountNotification</code>, or <code>scheduledChange</code>. Currently, the
+     *        <code>investigation</code> value isn't supported at this time.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EventTypeCategory
      */
@@ -919,13 +931,14 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     * <code>accountNotification</code>).
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      * 
      * @param eventTypeCategories
-     *        A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     *        <code>accountNotification</code>).
+     *        A list of event type category codes. Possible values are <code>issue</code>,
+     *        <code>accountNotification</code>, or <code>scheduledChange</code>. Currently, the
+     *        <code>investigation</code> value isn't supported at this time.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EventTypeCategory
      */
@@ -947,8 +960,16 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * A map of entity tags attached to the affected entity.
      * </p>
+     * <note>
+     * <p>
+     * Currently, the <code>tags</code> property isn't supported.
+     * </p>
+     * </note>
      * 
-     * @return A map of entity tags attached to the affected entity.
+     * @return A map of entity tags attached to the affected entity.</p> <note>
+     *         <p>
+     *         Currently, the <code>tags</code> property isn't supported.
+     *         </p>
      */
 
     public java.util.List<java.util.Map<String, String>> getTags() {
@@ -959,9 +980,17 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * A map of entity tags attached to the affected entity.
      * </p>
+     * <note>
+     * <p>
+     * Currently, the <code>tags</code> property isn't supported.
+     * </p>
+     * </note>
      * 
      * @param tags
-     *        A map of entity tags attached to the affected entity.
+     *        A map of entity tags attached to the affected entity.</p> <note>
+     *        <p>
+     *        Currently, the <code>tags</code> property isn't supported.
+     *        </p>
      */
 
     public void setTags(java.util.Collection<java.util.Map<String, String>> tags) {
@@ -977,6 +1006,11 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * A map of entity tags attached to the affected entity.
      * </p>
+     * <note>
+     * <p>
+     * Currently, the <code>tags</code> property isn't supported.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
@@ -984,7 +1018,10 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param tags
-     *        A map of entity tags attached to the affected entity.
+     *        A map of entity tags attached to the affected entity.</p> <note>
+     *        <p>
+     *        Currently, the <code>tags</code> property isn't supported.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1002,9 +1039,17 @@ public class EventFilter implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * A map of entity tags attached to the affected entity.
      * </p>
+     * <note>
+     * <p>
+     * Currently, the <code>tags</code> property isn't supported.
+     * </p>
+     * </note>
      * 
      * @param tags
-     *        A map of entity tags attached to the affected entity.
+     *        A map of entity tags attached to the affected entity.</p> <note>
+     *        <p>
+     *        Currently, the <code>tags</code> property isn't supported.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

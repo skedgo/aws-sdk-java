@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,8 +27,8 @@ public class PutImageTagMutabilityRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The AWS account ID associated with the registry that contains the repository in which to update the image tag
-     * mutability settings. If you do not specify a registry, the default registry is assumed.
+     * The Amazon Web Services account ID associated with the registry that contains the repository in which to update
+     * the image tag mutability settings. If you do not specify a registry, the default registry is assumed.
      * </p>
      */
     private String registryId;
@@ -49,13 +49,14 @@ public class PutImageTagMutabilityRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The AWS account ID associated with the registry that contains the repository in which to update the image tag
-     * mutability settings. If you do not specify a registry, the default registry is assumed.
+     * The Amazon Web Services account ID associated with the registry that contains the repository in which to update
+     * the image tag mutability settings. If you do not specify a registry, the default registry is assumed.
      * </p>
      * 
      * @param registryId
-     *        The AWS account ID associated with the registry that contains the repository in which to update the image
-     *        tag mutability settings. If you do not specify a registry, the default registry is assumed.
+     *        The Amazon Web Services account ID associated with the registry that contains the repository in which to
+     *        update the image tag mutability settings. If you do not specify a registry, the default registry is
+     *        assumed.
      */
 
     public void setRegistryId(String registryId) {
@@ -64,12 +65,13 @@ public class PutImageTagMutabilityRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The AWS account ID associated with the registry that contains the repository in which to update the image tag
-     * mutability settings. If you do not specify a registry, the default registry is assumed.
+     * The Amazon Web Services account ID associated with the registry that contains the repository in which to update
+     * the image tag mutability settings. If you do not specify a registry, the default registry is assumed.
      * </p>
      * 
-     * @return The AWS account ID associated with the registry that contains the repository in which to update the image
-     *         tag mutability settings. If you do not specify a registry, the default registry is assumed.
+     * @return The Amazon Web Services account ID associated with the registry that contains the repository in which to
+     *         update the image tag mutability settings. If you do not specify a registry, the default registry is
+     *         assumed.
      */
 
     public String getRegistryId() {
@@ -78,13 +80,14 @@ public class PutImageTagMutabilityRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The AWS account ID associated with the registry that contains the repository in which to update the image tag
-     * mutability settings. If you do not specify a registry, the default registry is assumed.
+     * The Amazon Web Services account ID associated with the registry that contains the repository in which to update
+     * the image tag mutability settings. If you do not specify a registry, the default registry is assumed.
      * </p>
      * 
      * @param registryId
-     *        The AWS account ID associated with the registry that contains the repository in which to update the image
-     *        tag mutability settings. If you do not specify a registry, the default registry is assumed.
+     *        The Amazon Web Services account ID associated with the registry that contains the repository in which to
+     *        update the image tag mutability settings. If you do not specify a registry, the default registry is
+     *        assumed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

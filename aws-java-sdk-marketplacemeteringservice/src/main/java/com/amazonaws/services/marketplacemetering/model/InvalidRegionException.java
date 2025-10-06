@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,8 +16,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * RegisterUsage must be called in the same AWS Region the ECS task was launched in. This prevents a container from
- * hardcoding a Region (e.g. withRegion(“us-east-1”) when calling RegisterUsage.
+ * <code>RegisterUsage</code> must be called in the same AWS Region the ECS task was launched in. This prevents a
+ * container from hardcoding a Region (e.g. withRegion(“us-east-1”) when calling <code>RegisterUsage</code>.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

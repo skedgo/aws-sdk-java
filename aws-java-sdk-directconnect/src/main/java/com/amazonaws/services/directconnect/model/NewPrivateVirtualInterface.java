@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,8 @@ public class NewPrivateVirtualInterface implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The name of the virtual interface assigned by the customer network.
+     * The name of the virtual interface assigned by the customer network. The name has a maximum of 100 characters. The
+     * following are valid characters: a-z, 0-9 and a hyphen (-).
      * </p>
      */
     private String virtualInterfaceName;
@@ -44,11 +45,14 @@ public class NewPrivateVirtualInterface implements Serializable, Cloneable, Stru
      * <p>
      * The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
      * </p>
+     * <p>
+     * The valid values are 1-2147483647.
+     * </p>
      */
     private Integer asn;
     /**
      * <p>
-     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 9001. The default value is 1500.
+     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value is 1500.
      * </p>
      */
     private Integer mtu;
@@ -91,18 +95,26 @@ public class NewPrivateVirtualInterface implements Serializable, Cloneable, Stru
     private String directConnectGatewayId;
     /**
      * <p>
-     * Any tags assigned to the private virtual interface.
+     * The tags associated with the private virtual interface.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
+    /**
+     * <p>
+     * Indicates whether to enable or disable SiteLink.
+     * </p>
+     */
+    private Boolean enableSiteLink;
 
     /**
      * <p>
-     * The name of the virtual interface assigned by the customer network.
+     * The name of the virtual interface assigned by the customer network. The name has a maximum of 100 characters. The
+     * following are valid characters: a-z, 0-9 and a hyphen (-).
      * </p>
      * 
      * @param virtualInterfaceName
-     *        The name of the virtual interface assigned by the customer network.
+     *        The name of the virtual interface assigned by the customer network. The name has a maximum of 100
+     *        characters. The following are valid characters: a-z, 0-9 and a hyphen (-).
      */
 
     public void setVirtualInterfaceName(String virtualInterfaceName) {
@@ -111,10 +123,12 @@ public class NewPrivateVirtualInterface implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The name of the virtual interface assigned by the customer network.
+     * The name of the virtual interface assigned by the customer network. The name has a maximum of 100 characters. The
+     * following are valid characters: a-z, 0-9 and a hyphen (-).
      * </p>
      * 
-     * @return The name of the virtual interface assigned by the customer network.
+     * @return The name of the virtual interface assigned by the customer network. The name has a maximum of 100
+     *         characters. The following are valid characters: a-z, 0-9 and a hyphen (-).
      */
 
     public String getVirtualInterfaceName() {
@@ -123,11 +137,13 @@ public class NewPrivateVirtualInterface implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The name of the virtual interface assigned by the customer network.
+     * The name of the virtual interface assigned by the customer network. The name has a maximum of 100 characters. The
+     * following are valid characters: a-z, 0-9 and a hyphen (-).
      * </p>
      * 
      * @param virtualInterfaceName
-     *        The name of the virtual interface assigned by the customer network.
+     *        The name of the virtual interface assigned by the customer network. The name has a maximum of 100
+     *        characters. The following are valid characters: a-z, 0-9 and a hyphen (-).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -180,9 +196,14 @@ public class NewPrivateVirtualInterface implements Serializable, Cloneable, Stru
      * <p>
      * The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
      * </p>
+     * <p>
+     * The valid values are 1-2147483647.
+     * </p>
      * 
      * @param asn
-     *        The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
+     *        The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.</p>
+     *        <p>
+     *        The valid values are 1-2147483647.
      */
 
     public void setAsn(Integer asn) {
@@ -193,8 +214,13 @@ public class NewPrivateVirtualInterface implements Serializable, Cloneable, Stru
      * <p>
      * The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
      * </p>
+     * <p>
+     * The valid values are 1-2147483647.
+     * </p>
      * 
-     * @return The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
+     * @return The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.</p>
+     *         <p>
+     *         The valid values are 1-2147483647.
      */
 
     public Integer getAsn() {
@@ -205,9 +231,14 @@ public class NewPrivateVirtualInterface implements Serializable, Cloneable, Stru
      * <p>
      * The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
      * </p>
+     * <p>
+     * The valid values are 1-2147483647.
+     * </p>
      * 
      * @param asn
-     *        The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
+     *        The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.</p>
+     *        <p>
+     *        The valid values are 1-2147483647.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -218,11 +249,11 @@ public class NewPrivateVirtualInterface implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 9001. The default value is 1500.
+     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value is 1500.
      * </p>
      * 
      * @param mtu
-     *        The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 9001. The default value
+     *        The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value
      *        is 1500.
      */
 
@@ -232,10 +263,10 @@ public class NewPrivateVirtualInterface implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 9001. The default value is 1500.
+     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value is 1500.
      * </p>
      * 
-     * @return The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 9001. The default value
+     * @return The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value
      *         is 1500.
      */
 
@@ -245,11 +276,11 @@ public class NewPrivateVirtualInterface implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 9001. The default value is 1500.
+     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value is 1500.
      * </p>
      * 
      * @param mtu
-     *        The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 9001. The default value
+     *        The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value
      *        is 1500.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -540,10 +571,10 @@ public class NewPrivateVirtualInterface implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Any tags assigned to the private virtual interface.
+     * The tags associated with the private virtual interface.
      * </p>
      * 
-     * @return Any tags assigned to the private virtual interface.
+     * @return The tags associated with the private virtual interface.
      */
 
     public java.util.List<Tag> getTags() {
@@ -555,11 +586,11 @@ public class NewPrivateVirtualInterface implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Any tags assigned to the private virtual interface.
+     * The tags associated with the private virtual interface.
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the private virtual interface.
+     *        The tags associated with the private virtual interface.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -573,7 +604,7 @@ public class NewPrivateVirtualInterface implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Any tags assigned to the private virtual interface.
+     * The tags associated with the private virtual interface.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -582,7 +613,7 @@ public class NewPrivateVirtualInterface implements Serializable, Cloneable, Stru
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the private virtual interface.
+     *        The tags associated with the private virtual interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -598,17 +629,69 @@ public class NewPrivateVirtualInterface implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Any tags assigned to the private virtual interface.
+     * The tags associated with the private virtual interface.
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the private virtual interface.
+     *        The tags associated with the private virtual interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public NewPrivateVirtualInterface withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
         return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable or disable SiteLink.
+     * </p>
+     * 
+     * @param enableSiteLink
+     *        Indicates whether to enable or disable SiteLink.
+     */
+
+    public void setEnableSiteLink(Boolean enableSiteLink) {
+        this.enableSiteLink = enableSiteLink;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable or disable SiteLink.
+     * </p>
+     * 
+     * @return Indicates whether to enable or disable SiteLink.
+     */
+
+    public Boolean getEnableSiteLink() {
+        return this.enableSiteLink;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable or disable SiteLink.
+     * </p>
+     * 
+     * @param enableSiteLink
+     *        Indicates whether to enable or disable SiteLink.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NewPrivateVirtualInterface withEnableSiteLink(Boolean enableSiteLink) {
+        setEnableSiteLink(enableSiteLink);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable or disable SiteLink.
+     * </p>
+     * 
+     * @return Indicates whether to enable or disable SiteLink.
+     */
+
+    public Boolean isEnableSiteLink() {
+        return this.enableSiteLink;
     }
 
     /**
@@ -644,7 +727,9 @@ public class NewPrivateVirtualInterface implements Serializable, Cloneable, Stru
         if (getDirectConnectGatewayId() != null)
             sb.append("DirectConnectGatewayId: ").append(getDirectConnectGatewayId()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getEnableSiteLink() != null)
+            sb.append("EnableSiteLink: ").append(getEnableSiteLink());
         sb.append("}");
         return sb.toString();
     }
@@ -703,6 +788,10 @@ public class NewPrivateVirtualInterface implements Serializable, Cloneable, Stru
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getEnableSiteLink() == null ^ this.getEnableSiteLink() == null)
+            return false;
+        if (other.getEnableSiteLink() != null && other.getEnableSiteLink().equals(this.getEnableSiteLink()) == false)
+            return false;
         return true;
     }
 
@@ -722,6 +811,7 @@ public class NewPrivateVirtualInterface implements Serializable, Cloneable, Stru
         hashCode = prime * hashCode + ((getVirtualGatewayId() == null) ? 0 : getVirtualGatewayId().hashCode());
         hashCode = prime * hashCode + ((getDirectConnectGatewayId() == null) ? 0 : getDirectConnectGatewayId().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getEnableSiteLink() == null) ? 0 : getEnableSiteLink().hashCode());
         return hashCode;
     }
 

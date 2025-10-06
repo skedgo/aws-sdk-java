@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,7 +40,7 @@ public class VpcEndpointConnection implements Serializable, Cloneable {
     private String vpcEndpointId;
     /**
      * <p>
-     * The AWS account ID of the owner of the VPC endpoint.
+     * The ID of the Amazon Web Services account that owns the VPC endpoint.
      * </p>
      */
     private String vpcEndpointOwner;
@@ -52,7 +52,7 @@ public class VpcEndpointConnection implements Serializable, Cloneable {
     private String vpcEndpointState;
     /**
      * <p>
-     * The date and time the VPC endpoint was created.
+     * The date and time that the VPC endpoint was created.
      * </p>
      */
     private java.util.Date creationTimestamp;
@@ -68,6 +68,30 @@ public class VpcEndpointConnection implements Serializable, Cloneable {
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> networkLoadBalancerArns;
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) of the Gateway Load Balancers for the service.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> gatewayLoadBalancerArns;
+    /**
+     * <p>
+     * The IP address type for the endpoint.
+     * </p>
+     */
+    private String ipAddressType;
+    /**
+     * <p>
+     * The ID of the VPC endpoint connection.
+     * </p>
+     */
+    private String vpcEndpointConnectionId;
+    /**
+     * <p>
+     * The tags.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<Tag> tags;
 
     /**
      * <p>
@@ -151,11 +175,11 @@ public class VpcEndpointConnection implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the owner of the VPC endpoint.
+     * The ID of the Amazon Web Services account that owns the VPC endpoint.
      * </p>
      * 
      * @param vpcEndpointOwner
-     *        The AWS account ID of the owner of the VPC endpoint.
+     *        The ID of the Amazon Web Services account that owns the VPC endpoint.
      */
 
     public void setVpcEndpointOwner(String vpcEndpointOwner) {
@@ -164,10 +188,10 @@ public class VpcEndpointConnection implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the owner of the VPC endpoint.
+     * The ID of the Amazon Web Services account that owns the VPC endpoint.
      * </p>
      * 
-     * @return The AWS account ID of the owner of the VPC endpoint.
+     * @return The ID of the Amazon Web Services account that owns the VPC endpoint.
      */
 
     public String getVpcEndpointOwner() {
@@ -176,11 +200,11 @@ public class VpcEndpointConnection implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the owner of the VPC endpoint.
+     * The ID of the Amazon Web Services account that owns the VPC endpoint.
      * </p>
      * 
      * @param vpcEndpointOwner
-     *        The AWS account ID of the owner of the VPC endpoint.
+     *        The ID of the Amazon Web Services account that owns the VPC endpoint.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -250,11 +274,11 @@ public class VpcEndpointConnection implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The date and time the VPC endpoint was created.
+     * The date and time that the VPC endpoint was created.
      * </p>
      * 
      * @param creationTimestamp
-     *        The date and time the VPC endpoint was created.
+     *        The date and time that the VPC endpoint was created.
      */
 
     public void setCreationTimestamp(java.util.Date creationTimestamp) {
@@ -263,10 +287,10 @@ public class VpcEndpointConnection implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The date and time the VPC endpoint was created.
+     * The date and time that the VPC endpoint was created.
      * </p>
      * 
-     * @return The date and time the VPC endpoint was created.
+     * @return The date and time that the VPC endpoint was created.
      */
 
     public java.util.Date getCreationTimestamp() {
@@ -275,11 +299,11 @@ public class VpcEndpointConnection implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The date and time the VPC endpoint was created.
+     * The date and time that the VPC endpoint was created.
      * </p>
      * 
      * @param creationTimestamp
-     *        The date and time the VPC endpoint was created.
+     *        The date and time that the VPC endpoint was created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -435,6 +459,251 @@ public class VpcEndpointConnection implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The Amazon Resource Names (ARNs) of the Gateway Load Balancers for the service.
+     * </p>
+     * 
+     * @return The Amazon Resource Names (ARNs) of the Gateway Load Balancers for the service.
+     */
+
+    public java.util.List<String> getGatewayLoadBalancerArns() {
+        if (gatewayLoadBalancerArns == null) {
+            gatewayLoadBalancerArns = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return gatewayLoadBalancerArns;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) of the Gateway Load Balancers for the service.
+     * </p>
+     * 
+     * @param gatewayLoadBalancerArns
+     *        The Amazon Resource Names (ARNs) of the Gateway Load Balancers for the service.
+     */
+
+    public void setGatewayLoadBalancerArns(java.util.Collection<String> gatewayLoadBalancerArns) {
+        if (gatewayLoadBalancerArns == null) {
+            this.gatewayLoadBalancerArns = null;
+            return;
+        }
+
+        this.gatewayLoadBalancerArns = new com.amazonaws.internal.SdkInternalList<String>(gatewayLoadBalancerArns);
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) of the Gateway Load Balancers for the service.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setGatewayLoadBalancerArns(java.util.Collection)} or
+     * {@link #withGatewayLoadBalancerArns(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param gatewayLoadBalancerArns
+     *        The Amazon Resource Names (ARNs) of the Gateway Load Balancers for the service.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VpcEndpointConnection withGatewayLoadBalancerArns(String... gatewayLoadBalancerArns) {
+        if (this.gatewayLoadBalancerArns == null) {
+            setGatewayLoadBalancerArns(new com.amazonaws.internal.SdkInternalList<String>(gatewayLoadBalancerArns.length));
+        }
+        for (String ele : gatewayLoadBalancerArns) {
+            this.gatewayLoadBalancerArns.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) of the Gateway Load Balancers for the service.
+     * </p>
+     * 
+     * @param gatewayLoadBalancerArns
+     *        The Amazon Resource Names (ARNs) of the Gateway Load Balancers for the service.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VpcEndpointConnection withGatewayLoadBalancerArns(java.util.Collection<String> gatewayLoadBalancerArns) {
+        setGatewayLoadBalancerArns(gatewayLoadBalancerArns);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IP address type for the endpoint.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The IP address type for the endpoint.
+     * @see IpAddressType
+     */
+
+    public void setIpAddressType(String ipAddressType) {
+        this.ipAddressType = ipAddressType;
+    }
+
+    /**
+     * <p>
+     * The IP address type for the endpoint.
+     * </p>
+     * 
+     * @return The IP address type for the endpoint.
+     * @see IpAddressType
+     */
+
+    public String getIpAddressType() {
+        return this.ipAddressType;
+    }
+
+    /**
+     * <p>
+     * The IP address type for the endpoint.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The IP address type for the endpoint.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see IpAddressType
+     */
+
+    public VpcEndpointConnection withIpAddressType(String ipAddressType) {
+        setIpAddressType(ipAddressType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IP address type for the endpoint.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The IP address type for the endpoint.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see IpAddressType
+     */
+
+    public VpcEndpointConnection withIpAddressType(IpAddressType ipAddressType) {
+        this.ipAddressType = ipAddressType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the VPC endpoint connection.
+     * </p>
+     * 
+     * @param vpcEndpointConnectionId
+     *        The ID of the VPC endpoint connection.
+     */
+
+    public void setVpcEndpointConnectionId(String vpcEndpointConnectionId) {
+        this.vpcEndpointConnectionId = vpcEndpointConnectionId;
+    }
+
+    /**
+     * <p>
+     * The ID of the VPC endpoint connection.
+     * </p>
+     * 
+     * @return The ID of the VPC endpoint connection.
+     */
+
+    public String getVpcEndpointConnectionId() {
+        return this.vpcEndpointConnectionId;
+    }
+
+    /**
+     * <p>
+     * The ID of the VPC endpoint connection.
+     * </p>
+     * 
+     * @param vpcEndpointConnectionId
+     *        The ID of the VPC endpoint connection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VpcEndpointConnection withVpcEndpointConnectionId(String vpcEndpointConnectionId) {
+        setVpcEndpointConnectionId(vpcEndpointConnectionId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags.
+     * </p>
+     * 
+     * @return The tags.
+     */
+
+    public java.util.List<Tag> getTags() {
+        if (tags == null) {
+            tags = new com.amazonaws.internal.SdkInternalList<Tag>();
+        }
+        return tags;
+    }
+
+    /**
+     * <p>
+     * The tags.
+     * </p>
+     * 
+     * @param tags
+     *        The tags.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new com.amazonaws.internal.SdkInternalList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * The tags.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        The tags.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VpcEndpointConnection withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new com.amazonaws.internal.SdkInternalList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags.
+     * </p>
+     * 
+     * @param tags
+     *        The tags.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VpcEndpointConnection withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -459,7 +728,15 @@ public class VpcEndpointConnection implements Serializable, Cloneable {
         if (getDnsEntries() != null)
             sb.append("DnsEntries: ").append(getDnsEntries()).append(",");
         if (getNetworkLoadBalancerArns() != null)
-            sb.append("NetworkLoadBalancerArns: ").append(getNetworkLoadBalancerArns());
+            sb.append("NetworkLoadBalancerArns: ").append(getNetworkLoadBalancerArns()).append(",");
+        if (getGatewayLoadBalancerArns() != null)
+            sb.append("GatewayLoadBalancerArns: ").append(getGatewayLoadBalancerArns()).append(",");
+        if (getIpAddressType() != null)
+            sb.append("IpAddressType: ").append(getIpAddressType()).append(",");
+        if (getVpcEndpointConnectionId() != null)
+            sb.append("VpcEndpointConnectionId: ").append(getVpcEndpointConnectionId()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -502,6 +779,22 @@ public class VpcEndpointConnection implements Serializable, Cloneable {
             return false;
         if (other.getNetworkLoadBalancerArns() != null && other.getNetworkLoadBalancerArns().equals(this.getNetworkLoadBalancerArns()) == false)
             return false;
+        if (other.getGatewayLoadBalancerArns() == null ^ this.getGatewayLoadBalancerArns() == null)
+            return false;
+        if (other.getGatewayLoadBalancerArns() != null && other.getGatewayLoadBalancerArns().equals(this.getGatewayLoadBalancerArns()) == false)
+            return false;
+        if (other.getIpAddressType() == null ^ this.getIpAddressType() == null)
+            return false;
+        if (other.getIpAddressType() != null && other.getIpAddressType().equals(this.getIpAddressType()) == false)
+            return false;
+        if (other.getVpcEndpointConnectionId() == null ^ this.getVpcEndpointConnectionId() == null)
+            return false;
+        if (other.getVpcEndpointConnectionId() != null && other.getVpcEndpointConnectionId().equals(this.getVpcEndpointConnectionId()) == false)
+            return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
         return true;
     }
 
@@ -517,6 +810,10 @@ public class VpcEndpointConnection implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getCreationTimestamp() == null) ? 0 : getCreationTimestamp().hashCode());
         hashCode = prime * hashCode + ((getDnsEntries() == null) ? 0 : getDnsEntries().hashCode());
         hashCode = prime * hashCode + ((getNetworkLoadBalancerArns() == null) ? 0 : getNetworkLoadBalancerArns().hashCode());
+        hashCode = prime * hashCode + ((getGatewayLoadBalancerArns() == null) ? 0 : getGatewayLoadBalancerArns().hashCode());
+        hashCode = prime * hashCode + ((getIpAddressType() == null) ? 0 : getIpAddressType().hashCode());
+        hashCode = prime * hashCode + ((getVpcEndpointConnectionId() == null) ? 0 : getVpcEndpointConnectionId().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

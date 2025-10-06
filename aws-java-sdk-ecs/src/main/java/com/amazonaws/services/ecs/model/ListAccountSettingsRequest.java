@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,38 +27,44 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The resource name you want to list the account settings for.
+     * The name of the account setting you want to list the settings for.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The value of the account settings with which to filter results. You must also specify an account setting name to
-     * use this parameter.
+     * The value of the account settings to filter results with. You must also specify an account setting name to use
+     * this parameter.
      * </p>
      */
     private String value;
     /**
      * <p>
-     * The ARN of the principal, which can be an IAM user, IAM role, or the root user. If this field is omitted, the
-     * account settings are listed only for the authenticated user.
+     * The ARN of the principal, which can be a user, role, or the root user. If this field is omitted, the account
+     * settings are listed only for the authenticated user.
      * </p>
+     * <note>
+     * <p>
+     * Federated users assume the account setting of the root user and can't have explicit account settings set for
+     * them.
+     * </p>
+     * </note>
      */
     private String principalArn;
     /**
      * <p>
-     * Specifies whether to return the effective settings. If <code>true</code>, the account settings for the root user
+     * Determines whether to return the effective settings. If <code>true</code>, the account settings for the root user
      * or the default setting for the <code>principalArn</code> are returned. If <code>false</code>, the account
-     * settings for the <code>principalArn</code> are returned if they are set. Otherwise, no account settings are
+     * settings for the <code>principalArn</code> are returned if they're set. Otherwise, no account settings are
      * returned.
      * </p>
      */
     private Boolean effectiveSettings;
     /**
      * <p>
-     * The <code>nextToken</code> value returned from a previous paginated <code>ListAccountSettings</code> request
-     * where <code>maxResults</code> was used and the results exceeded the value of that parameter. Pagination continues
-     * from the end of the previous results that returned the <code>nextToken</code> value.
+     * The <code>nextToken</code> value returned from a <code>ListAccountSettings</code> request indicating that more
+     * results are available to fulfill the request and further calls will be needed. If <code>maxResults</code> was
+     * provided, it's possible the number of results to be fewer than <code>maxResults</code>.
      * </p>
      * <note>
      * <p>
@@ -74,7 +80,7 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
      * When this parameter is used, <code>ListAccountSettings</code> only returns <code>maxResults</code> results in a
      * single page along with a <code>nextToken</code> response element. The remaining results of the initial request
      * can be seen by sending another <code>ListAccountSettings</code> request with the returned <code>nextToken</code>
-     * value. This value can be between 1 and 10. If this parameter is not used, then <code>ListAccountSettings</code>
+     * value. This value can be between 1 and 10. If this parameter isn't used, then <code>ListAccountSettings</code>
      * returns up to 10 results and a <code>nextToken</code> value if applicable.
      * </p>
      */
@@ -82,11 +88,11 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The resource name you want to list the account settings for.
+     * The name of the account setting you want to list the settings for.
      * </p>
      * 
      * @param name
-     *        The resource name you want to list the account settings for.
+     *        The name of the account setting you want to list the settings for.
      * @see SettingName
      */
 
@@ -96,10 +102,10 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The resource name you want to list the account settings for.
+     * The name of the account setting you want to list the settings for.
      * </p>
      * 
-     * @return The resource name you want to list the account settings for.
+     * @return The name of the account setting you want to list the settings for.
      * @see SettingName
      */
 
@@ -109,11 +115,11 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The resource name you want to list the account settings for.
+     * The name of the account setting you want to list the settings for.
      * </p>
      * 
      * @param name
-     *        The resource name you want to list the account settings for.
+     *        The name of the account setting you want to list the settings for.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SettingName
      */
@@ -125,11 +131,11 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The resource name you want to list the account settings for.
+     * The name of the account setting you want to list the settings for.
      * </p>
      * 
      * @param name
-     *        The resource name you want to list the account settings for.
+     *        The name of the account setting you want to list the settings for.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SettingName
      */
@@ -141,13 +147,13 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The value of the account settings with which to filter results. You must also specify an account setting name to
-     * use this parameter.
+     * The value of the account settings to filter results with. You must also specify an account setting name to use
+     * this parameter.
      * </p>
      * 
      * @param value
-     *        The value of the account settings with which to filter results. You must also specify an account setting
-     *        name to use this parameter.
+     *        The value of the account settings to filter results with. You must also specify an account setting name to
+     *        use this parameter.
      */
 
     public void setValue(String value) {
@@ -156,12 +162,12 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The value of the account settings with which to filter results. You must also specify an account setting name to
-     * use this parameter.
+     * The value of the account settings to filter results with. You must also specify an account setting name to use
+     * this parameter.
      * </p>
      * 
-     * @return The value of the account settings with which to filter results. You must also specify an account setting
-     *         name to use this parameter.
+     * @return The value of the account settings to filter results with. You must also specify an account setting name
+     *         to use this parameter.
      */
 
     public String getValue() {
@@ -170,13 +176,13 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The value of the account settings with which to filter results. You must also specify an account setting name to
-     * use this parameter.
+     * The value of the account settings to filter results with. You must also specify an account setting name to use
+     * this parameter.
      * </p>
      * 
      * @param value
-     *        The value of the account settings with which to filter results. You must also specify an account setting
-     *        name to use this parameter.
+     *        The value of the account settings to filter results with. You must also specify an account setting name to
+     *        use this parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -187,13 +193,23 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The ARN of the principal, which can be an IAM user, IAM role, or the root user. If this field is omitted, the
-     * account settings are listed only for the authenticated user.
+     * The ARN of the principal, which can be a user, role, or the root user. If this field is omitted, the account
+     * settings are listed only for the authenticated user.
      * </p>
+     * <note>
+     * <p>
+     * Federated users assume the account setting of the root user and can't have explicit account settings set for
+     * them.
+     * </p>
+     * </note>
      * 
      * @param principalArn
-     *        The ARN of the principal, which can be an IAM user, IAM role, or the root user. If this field is omitted,
-     *        the account settings are listed only for the authenticated user.
+     *        The ARN of the principal, which can be a user, role, or the root user. If this field is omitted, the
+     *        account settings are listed only for the authenticated user.</p> <note>
+     *        <p>
+     *        Federated users assume the account setting of the root user and can't have explicit account settings set
+     *        for them.
+     *        </p>
      */
 
     public void setPrincipalArn(String principalArn) {
@@ -202,12 +218,22 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The ARN of the principal, which can be an IAM user, IAM role, or the root user. If this field is omitted, the
-     * account settings are listed only for the authenticated user.
+     * The ARN of the principal, which can be a user, role, or the root user. If this field is omitted, the account
+     * settings are listed only for the authenticated user.
      * </p>
+     * <note>
+     * <p>
+     * Federated users assume the account setting of the root user and can't have explicit account settings set for
+     * them.
+     * </p>
+     * </note>
      * 
-     * @return The ARN of the principal, which can be an IAM user, IAM role, or the root user. If this field is omitted,
-     *         the account settings are listed only for the authenticated user.
+     * @return The ARN of the principal, which can be a user, role, or the root user. If this field is omitted, the
+     *         account settings are listed only for the authenticated user.</p> <note>
+     *         <p>
+     *         Federated users assume the account setting of the root user and can't have explicit account settings set
+     *         for them.
+     *         </p>
      */
 
     public String getPrincipalArn() {
@@ -216,13 +242,23 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The ARN of the principal, which can be an IAM user, IAM role, or the root user. If this field is omitted, the
-     * account settings are listed only for the authenticated user.
+     * The ARN of the principal, which can be a user, role, or the root user. If this field is omitted, the account
+     * settings are listed only for the authenticated user.
      * </p>
+     * <note>
+     * <p>
+     * Federated users assume the account setting of the root user and can't have explicit account settings set for
+     * them.
+     * </p>
+     * </note>
      * 
      * @param principalArn
-     *        The ARN of the principal, which can be an IAM user, IAM role, or the root user. If this field is omitted,
-     *        the account settings are listed only for the authenticated user.
+     *        The ARN of the principal, which can be a user, role, or the root user. If this field is omitted, the
+     *        account settings are listed only for the authenticated user.</p> <note>
+     *        <p>
+     *        Federated users assume the account setting of the root user and can't have explicit account settings set
+     *        for them.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -233,16 +269,16 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Specifies whether to return the effective settings. If <code>true</code>, the account settings for the root user
+     * Determines whether to return the effective settings. If <code>true</code>, the account settings for the root user
      * or the default setting for the <code>principalArn</code> are returned. If <code>false</code>, the account
-     * settings for the <code>principalArn</code> are returned if they are set. Otherwise, no account settings are
+     * settings for the <code>principalArn</code> are returned if they're set. Otherwise, no account settings are
      * returned.
      * </p>
      * 
      * @param effectiveSettings
-     *        Specifies whether to return the effective settings. If <code>true</code>, the account settings for the
+     *        Determines whether to return the effective settings. If <code>true</code>, the account settings for the
      *        root user or the default setting for the <code>principalArn</code> are returned. If <code>false</code>,
-     *        the account settings for the <code>principalArn</code> are returned if they are set. Otherwise, no account
+     *        the account settings for the <code>principalArn</code> are returned if they're set. Otherwise, no account
      *        settings are returned.
      */
 
@@ -252,16 +288,16 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Specifies whether to return the effective settings. If <code>true</code>, the account settings for the root user
+     * Determines whether to return the effective settings. If <code>true</code>, the account settings for the root user
      * or the default setting for the <code>principalArn</code> are returned. If <code>false</code>, the account
-     * settings for the <code>principalArn</code> are returned if they are set. Otherwise, no account settings are
+     * settings for the <code>principalArn</code> are returned if they're set. Otherwise, no account settings are
      * returned.
      * </p>
      * 
-     * @return Specifies whether to return the effective settings. If <code>true</code>, the account settings for the
+     * @return Determines whether to return the effective settings. If <code>true</code>, the account settings for the
      *         root user or the default setting for the <code>principalArn</code> are returned. If <code>false</code>,
-     *         the account settings for the <code>principalArn</code> are returned if they are set. Otherwise, no
-     *         account settings are returned.
+     *         the account settings for the <code>principalArn</code> are returned if they're set. Otherwise, no account
+     *         settings are returned.
      */
 
     public Boolean getEffectiveSettings() {
@@ -270,16 +306,16 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Specifies whether to return the effective settings. If <code>true</code>, the account settings for the root user
+     * Determines whether to return the effective settings. If <code>true</code>, the account settings for the root user
      * or the default setting for the <code>principalArn</code> are returned. If <code>false</code>, the account
-     * settings for the <code>principalArn</code> are returned if they are set. Otherwise, no account settings are
+     * settings for the <code>principalArn</code> are returned if they're set. Otherwise, no account settings are
      * returned.
      * </p>
      * 
      * @param effectiveSettings
-     *        Specifies whether to return the effective settings. If <code>true</code>, the account settings for the
+     *        Determines whether to return the effective settings. If <code>true</code>, the account settings for the
      *        root user or the default setting for the <code>principalArn</code> are returned. If <code>false</code>,
-     *        the account settings for the <code>principalArn</code> are returned if they are set. Otherwise, no account
+     *        the account settings for the <code>principalArn</code> are returned if they're set. Otherwise, no account
      *        settings are returned.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -291,16 +327,16 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Specifies whether to return the effective settings. If <code>true</code>, the account settings for the root user
+     * Determines whether to return the effective settings. If <code>true</code>, the account settings for the root user
      * or the default setting for the <code>principalArn</code> are returned. If <code>false</code>, the account
-     * settings for the <code>principalArn</code> are returned if they are set. Otherwise, no account settings are
+     * settings for the <code>principalArn</code> are returned if they're set. Otherwise, no account settings are
      * returned.
      * </p>
      * 
-     * @return Specifies whether to return the effective settings. If <code>true</code>, the account settings for the
+     * @return Determines whether to return the effective settings. If <code>true</code>, the account settings for the
      *         root user or the default setting for the <code>principalArn</code> are returned. If <code>false</code>,
-     *         the account settings for the <code>principalArn</code> are returned if they are set. Otherwise, no
-     *         account settings are returned.
+     *         the account settings for the <code>principalArn</code> are returned if they're set. Otherwise, no account
+     *         settings are returned.
      */
 
     public Boolean isEffectiveSettings() {
@@ -309,9 +345,9 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The <code>nextToken</code> value returned from a previous paginated <code>ListAccountSettings</code> request
-     * where <code>maxResults</code> was used and the results exceeded the value of that parameter. Pagination continues
-     * from the end of the previous results that returned the <code>nextToken</code> value.
+     * The <code>nextToken</code> value returned from a <code>ListAccountSettings</code> request indicating that more
+     * results are available to fulfill the request and further calls will be needed. If <code>maxResults</code> was
+     * provided, it's possible the number of results to be fewer than <code>maxResults</code>.
      * </p>
      * <note>
      * <p>
@@ -321,10 +357,10 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
      * </note>
      * 
      * @param nextToken
-     *        The <code>nextToken</code> value returned from a previous paginated <code>ListAccountSettings</code>
-     *        request where <code>maxResults</code> was used and the results exceeded the value of that parameter.
-     *        Pagination continues from the end of the previous results that returned the <code>nextToken</code>
-     *        value.</p> <note>
+     *        The <code>nextToken</code> value returned from a <code>ListAccountSettings</code> request indicating that
+     *        more results are available to fulfill the request and further calls will be needed. If
+     *        <code>maxResults</code> was provided, it's possible the number of results to be fewer than
+     *        <code>maxResults</code>.</p> <note>
      *        <p>
      *        This token should be treated as an opaque identifier that is only used to retrieve the next items in a
      *        list and not for other programmatic purposes.
@@ -337,9 +373,9 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The <code>nextToken</code> value returned from a previous paginated <code>ListAccountSettings</code> request
-     * where <code>maxResults</code> was used and the results exceeded the value of that parameter. Pagination continues
-     * from the end of the previous results that returned the <code>nextToken</code> value.
+     * The <code>nextToken</code> value returned from a <code>ListAccountSettings</code> request indicating that more
+     * results are available to fulfill the request and further calls will be needed. If <code>maxResults</code> was
+     * provided, it's possible the number of results to be fewer than <code>maxResults</code>.
      * </p>
      * <note>
      * <p>
@@ -348,10 +384,10 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * </note>
      * 
-     * @return The <code>nextToken</code> value returned from a previous paginated <code>ListAccountSettings</code>
-     *         request where <code>maxResults</code> was used and the results exceeded the value of that parameter.
-     *         Pagination continues from the end of the previous results that returned the <code>nextToken</code>
-     *         value.</p> <note>
+     * @return The <code>nextToken</code> value returned from a <code>ListAccountSettings</code> request indicating that
+     *         more results are available to fulfill the request and further calls will be needed. If
+     *         <code>maxResults</code> was provided, it's possible the number of results to be fewer than
+     *         <code>maxResults</code>.</p> <note>
      *         <p>
      *         This token should be treated as an opaque identifier that is only used to retrieve the next items in a
      *         list and not for other programmatic purposes.
@@ -364,9 +400,9 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The <code>nextToken</code> value returned from a previous paginated <code>ListAccountSettings</code> request
-     * where <code>maxResults</code> was used and the results exceeded the value of that parameter. Pagination continues
-     * from the end of the previous results that returned the <code>nextToken</code> value.
+     * The <code>nextToken</code> value returned from a <code>ListAccountSettings</code> request indicating that more
+     * results are available to fulfill the request and further calls will be needed. If <code>maxResults</code> was
+     * provided, it's possible the number of results to be fewer than <code>maxResults</code>.
      * </p>
      * <note>
      * <p>
@@ -376,10 +412,10 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
      * </note>
      * 
      * @param nextToken
-     *        The <code>nextToken</code> value returned from a previous paginated <code>ListAccountSettings</code>
-     *        request where <code>maxResults</code> was used and the results exceeded the value of that parameter.
-     *        Pagination continues from the end of the previous results that returned the <code>nextToken</code>
-     *        value.</p> <note>
+     *        The <code>nextToken</code> value returned from a <code>ListAccountSettings</code> request indicating that
+     *        more results are available to fulfill the request and further calls will be needed. If
+     *        <code>maxResults</code> was provided, it's possible the number of results to be fewer than
+     *        <code>maxResults</code>.</p> <note>
      *        <p>
      *        This token should be treated as an opaque identifier that is only used to retrieve the next items in a
      *        list and not for other programmatic purposes.
@@ -398,7 +434,7 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
      * When this parameter is used, <code>ListAccountSettings</code> only returns <code>maxResults</code> results in a
      * single page along with a <code>nextToken</code> response element. The remaining results of the initial request
      * can be seen by sending another <code>ListAccountSettings</code> request with the returned <code>nextToken</code>
-     * value. This value can be between 1 and 10. If this parameter is not used, then <code>ListAccountSettings</code>
+     * value. This value can be between 1 and 10. If this parameter isn't used, then <code>ListAccountSettings</code>
      * returns up to 10 results and a <code>nextToken</code> value if applicable.
      * </p>
      * 
@@ -407,7 +443,7 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
      *        output. When this parameter is used, <code>ListAccountSettings</code> only returns <code>maxResults</code>
      *        results in a single page along with a <code>nextToken</code> response element. The remaining results of
      *        the initial request can be seen by sending another <code>ListAccountSettings</code> request with the
-     *        returned <code>nextToken</code> value. This value can be between 1 and 10. If this parameter is not used,
+     *        returned <code>nextToken</code> value. This value can be between 1 and 10. If this parameter isn't used,
      *        then <code>ListAccountSettings</code> returns up to 10 results and a <code>nextToken</code> value if
      *        applicable.
      */
@@ -422,7 +458,7 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
      * When this parameter is used, <code>ListAccountSettings</code> only returns <code>maxResults</code> results in a
      * single page along with a <code>nextToken</code> response element. The remaining results of the initial request
      * can be seen by sending another <code>ListAccountSettings</code> request with the returned <code>nextToken</code>
-     * value. This value can be between 1 and 10. If this parameter is not used, then <code>ListAccountSettings</code>
+     * value. This value can be between 1 and 10. If this parameter isn't used, then <code>ListAccountSettings</code>
      * returns up to 10 results and a <code>nextToken</code> value if applicable.
      * </p>
      * 
@@ -431,8 +467,8 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
      *         <code>maxResults</code> results in a single page along with a <code>nextToken</code> response element.
      *         The remaining results of the initial request can be seen by sending another
      *         <code>ListAccountSettings</code> request with the returned <code>nextToken</code> value. This value can
-     *         be between 1 and 10. If this parameter is not used, then <code>ListAccountSettings</code> returns up to
-     *         10 results and a <code>nextToken</code> value if applicable.
+     *         be between 1 and 10. If this parameter isn't used, then <code>ListAccountSettings</code> returns up to 10
+     *         results and a <code>nextToken</code> value if applicable.
      */
 
     public Integer getMaxResults() {
@@ -445,7 +481,7 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
      * When this parameter is used, <code>ListAccountSettings</code> only returns <code>maxResults</code> results in a
      * single page along with a <code>nextToken</code> response element. The remaining results of the initial request
      * can be seen by sending another <code>ListAccountSettings</code> request with the returned <code>nextToken</code>
-     * value. This value can be between 1 and 10. If this parameter is not used, then <code>ListAccountSettings</code>
+     * value. This value can be between 1 and 10. If this parameter isn't used, then <code>ListAccountSettings</code>
      * returns up to 10 results and a <code>nextToken</code> value if applicable.
      * </p>
      * 
@@ -454,7 +490,7 @@ public class ListAccountSettingsRequest extends com.amazonaws.AmazonWebServiceRe
      *        output. When this parameter is used, <code>ListAccountSettings</code> only returns <code>maxResults</code>
      *        results in a single page along with a <code>nextToken</code> response element. The remaining results of
      *        the initial request can be seen by sending another <code>ListAccountSettings</code> request with the
-     *        returned <code>nextToken</code> value. This value can be between 1 and 10. If this parameter is not used,
+     *        returned <code>nextToken</code> value. This value can be between 1 and 10. If this parameter isn't used,
      *        then <code>ListAccountSettings</code> returns up to 10 results and a <code>nextToken</code> value if
      *        applicable.
      * @return Returns a reference to this object so that method calls can be chained together.

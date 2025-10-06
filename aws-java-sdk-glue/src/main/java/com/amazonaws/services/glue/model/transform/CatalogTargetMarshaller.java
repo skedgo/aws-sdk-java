@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,6 +32,12 @@ public class CatalogTargetMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DatabaseName").build();
     private static final MarshallingInfo<List> TABLES_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Tables").build();
+    private static final MarshallingInfo<String> CONNECTIONNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ConnectionName").build();
+    private static final MarshallingInfo<String> EVENTQUEUEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EventQueueArn").build();
+    private static final MarshallingInfo<String> DLQEVENTQUEUEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DlqEventQueueArn").build();
 
     private static final CatalogTargetMarshaller instance = new CatalogTargetMarshaller();
 
@@ -51,6 +57,9 @@ public class CatalogTargetMarshaller {
         try {
             protocolMarshaller.marshall(catalogTarget.getDatabaseName(), DATABASENAME_BINDING);
             protocolMarshaller.marshall(catalogTarget.getTables(), TABLES_BINDING);
+            protocolMarshaller.marshall(catalogTarget.getConnectionName(), CONNECTIONNAME_BINDING);
+            protocolMarshaller.marshall(catalogTarget.getEventQueueArn(), EVENTQUEUEARN_BINDING);
+            protocolMarshaller.marshall(catalogTarget.getDlqEventQueueArn(), DLQEVENTQUEUEARN_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

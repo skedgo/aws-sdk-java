@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,18 +25,18 @@ public class DescribePlatformVersionResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Detailed information about the version of the platform.
+     * Detailed information about the platform version.
      * </p>
      */
     private PlatformDescription platformDescription;
 
     /**
      * <p>
-     * Detailed information about the version of the platform.
+     * Detailed information about the platform version.
      * </p>
      * 
      * @param platformDescription
-     *        Detailed information about the version of the platform.
+     *        Detailed information about the platform version.
      */
 
     public void setPlatformDescription(PlatformDescription platformDescription) {
@@ -45,10 +45,10 @@ public class DescribePlatformVersionResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Detailed information about the version of the platform.
+     * Detailed information about the platform version.
      * </p>
      * 
-     * @return Detailed information about the version of the platform.
+     * @return Detailed information about the platform version.
      */
 
     public PlatformDescription getPlatformDescription() {
@@ -57,11 +57,11 @@ public class DescribePlatformVersionResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Detailed information about the version of the platform.
+     * Detailed information about the platform version.
      * </p>
      * 
      * @param platformDescription
-     *        Detailed information about the version of the platform.
+     *        Detailed information about the platform version.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

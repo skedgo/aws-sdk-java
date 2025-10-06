@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class CreateDetectorRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A boolean value that specifies whether the detector is to be enabled.
+     * A Boolean value that specifies whether the detector is to be enabled.
      * </p>
      */
     private Boolean enable;
@@ -39,24 +39,42 @@ public class CreateDetectorRequest extends com.amazonaws.AmazonWebServiceRequest
     private String clientToken;
     /**
      * <p>
-     * A enum value that specifies how frequently customer got Finding updates published.
+     * A value that specifies how frequently updated findings are exported.
      * </p>
      */
     private String findingPublishingFrequency;
+    /**
+     * <p>
+     * Describes which data sources will be enabled for the detector.
+     * </p>
+     * <p>
+     * There might be regional differences because some data sources might not be available in all the Amazon Web
+     * Services Regions where GuardDuty is presently supported. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html">Regions and endpoints</a>.
+     * </p>
+     */
+    @Deprecated
+    private DataSourceConfigurations dataSources;
     /**
      * <p>
      * The tags to be added to a new detector resource.
      * </p>
      */
     private java.util.Map<String, String> tags;
+    /**
+     * <p>
+     * A list of features that will be configured for the detector.
+     * </p>
+     */
+    private java.util.List<DetectorFeatureConfiguration> features;
 
     /**
      * <p>
-     * A boolean value that specifies whether the detector is to be enabled.
+     * A Boolean value that specifies whether the detector is to be enabled.
      * </p>
      * 
      * @param enable
-     *        A boolean value that specifies whether the detector is to be enabled.
+     *        A Boolean value that specifies whether the detector is to be enabled.
      */
 
     public void setEnable(Boolean enable) {
@@ -65,10 +83,10 @@ public class CreateDetectorRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A boolean value that specifies whether the detector is to be enabled.
+     * A Boolean value that specifies whether the detector is to be enabled.
      * </p>
      * 
-     * @return A boolean value that specifies whether the detector is to be enabled.
+     * @return A Boolean value that specifies whether the detector is to be enabled.
      */
 
     public Boolean getEnable() {
@@ -77,11 +95,11 @@ public class CreateDetectorRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A boolean value that specifies whether the detector is to be enabled.
+     * A Boolean value that specifies whether the detector is to be enabled.
      * </p>
      * 
      * @param enable
-     *        A boolean value that specifies whether the detector is to be enabled.
+     *        A Boolean value that specifies whether the detector is to be enabled.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -92,10 +110,10 @@ public class CreateDetectorRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A boolean value that specifies whether the detector is to be enabled.
+     * A Boolean value that specifies whether the detector is to be enabled.
      * </p>
      * 
-     * @return A boolean value that specifies whether the detector is to be enabled.
+     * @return A Boolean value that specifies whether the detector is to be enabled.
      */
 
     public Boolean isEnable() {
@@ -144,11 +162,11 @@ public class CreateDetectorRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A enum value that specifies how frequently customer got Finding updates published.
+     * A value that specifies how frequently updated findings are exported.
      * </p>
      * 
      * @param findingPublishingFrequency
-     *        A enum value that specifies how frequently customer got Finding updates published.
+     *        A value that specifies how frequently updated findings are exported.
      * @see FindingPublishingFrequency
      */
 
@@ -158,10 +176,10 @@ public class CreateDetectorRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A enum value that specifies how frequently customer got Finding updates published.
+     * A value that specifies how frequently updated findings are exported.
      * </p>
      * 
-     * @return A enum value that specifies how frequently customer got Finding updates published.
+     * @return A value that specifies how frequently updated findings are exported.
      * @see FindingPublishingFrequency
      */
 
@@ -171,11 +189,11 @@ public class CreateDetectorRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A enum value that specifies how frequently customer got Finding updates published.
+     * A value that specifies how frequently updated findings are exported.
      * </p>
      * 
      * @param findingPublishingFrequency
-     *        A enum value that specifies how frequently customer got Finding updates published.
+     *        A value that specifies how frequently updated findings are exported.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see FindingPublishingFrequency
      */
@@ -187,17 +205,84 @@ public class CreateDetectorRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A enum value that specifies how frequently customer got Finding updates published.
+     * A value that specifies how frequently updated findings are exported.
      * </p>
      * 
      * @param findingPublishingFrequency
-     *        A enum value that specifies how frequently customer got Finding updates published.
+     *        A value that specifies how frequently updated findings are exported.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see FindingPublishingFrequency
      */
 
     public CreateDetectorRequest withFindingPublishingFrequency(FindingPublishingFrequency findingPublishingFrequency) {
         this.findingPublishingFrequency = findingPublishingFrequency.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Describes which data sources will be enabled for the detector.
+     * </p>
+     * <p>
+     * There might be regional differences because some data sources might not be available in all the Amazon Web
+     * Services Regions where GuardDuty is presently supported. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html">Regions and endpoints</a>.
+     * </p>
+     * 
+     * @param dataSources
+     *        Describes which data sources will be enabled for the detector.</p>
+     *        <p>
+     *        There might be regional differences because some data sources might not be available in all the Amazon Web
+     *        Services Regions where GuardDuty is presently supported. For more information, see <a
+     *        href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html">Regions and endpoints</a>.
+     */
+    @Deprecated
+    public void setDataSources(DataSourceConfigurations dataSources) {
+        this.dataSources = dataSources;
+    }
+
+    /**
+     * <p>
+     * Describes which data sources will be enabled for the detector.
+     * </p>
+     * <p>
+     * There might be regional differences because some data sources might not be available in all the Amazon Web
+     * Services Regions where GuardDuty is presently supported. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html">Regions and endpoints</a>.
+     * </p>
+     * 
+     * @return Describes which data sources will be enabled for the detector.</p>
+     *         <p>
+     *         There might be regional differences because some data sources might not be available in all the Amazon
+     *         Web Services Regions where GuardDuty is presently supported. For more information, see <a
+     *         href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html">Regions and endpoints</a>.
+     */
+    @Deprecated
+    public DataSourceConfigurations getDataSources() {
+        return this.dataSources;
+    }
+
+    /**
+     * <p>
+     * Describes which data sources will be enabled for the detector.
+     * </p>
+     * <p>
+     * There might be regional differences because some data sources might not be available in all the Amazon Web
+     * Services Regions where GuardDuty is presently supported. For more information, see <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html">Regions and endpoints</a>.
+     * </p>
+     * 
+     * @param dataSources
+     *        Describes which data sources will be enabled for the detector.</p>
+     *        <p>
+     *        There might be regional differences because some data sources might not be available in all the Amazon Web
+     *        Services Regions where GuardDuty is presently supported. For more information, see <a
+     *        href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_regions.html">Regions and endpoints</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+    @Deprecated
+    public CreateDetectorRequest withDataSources(DataSourceConfigurations dataSources) {
+        setDataSources(dataSources);
         return this;
     }
 
@@ -241,6 +326,13 @@ public class CreateDetectorRequest extends com.amazonaws.AmazonWebServiceRequest
         return this;
     }
 
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateDetectorRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public CreateDetectorRequest addTagsEntry(String key, String value) {
         if (null == this.tags) {
             this.tags = new java.util.HashMap<String, String>();
@@ -263,6 +355,76 @@ public class CreateDetectorRequest extends com.amazonaws.AmazonWebServiceRequest
     }
 
     /**
+     * <p>
+     * A list of features that will be configured for the detector.
+     * </p>
+     * 
+     * @return A list of features that will be configured for the detector.
+     */
+
+    public java.util.List<DetectorFeatureConfiguration> getFeatures() {
+        return features;
+    }
+
+    /**
+     * <p>
+     * A list of features that will be configured for the detector.
+     * </p>
+     * 
+     * @param features
+     *        A list of features that will be configured for the detector.
+     */
+
+    public void setFeatures(java.util.Collection<DetectorFeatureConfiguration> features) {
+        if (features == null) {
+            this.features = null;
+            return;
+        }
+
+        this.features = new java.util.ArrayList<DetectorFeatureConfiguration>(features);
+    }
+
+    /**
+     * <p>
+     * A list of features that will be configured for the detector.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setFeatures(java.util.Collection)} or {@link #withFeatures(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param features
+     *        A list of features that will be configured for the detector.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDetectorRequest withFeatures(DetectorFeatureConfiguration... features) {
+        if (this.features == null) {
+            setFeatures(new java.util.ArrayList<DetectorFeatureConfiguration>(features.length));
+        }
+        for (DetectorFeatureConfiguration ele : features) {
+            this.features.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of features that will be configured for the detector.
+     * </p>
+     * 
+     * @param features
+     *        A list of features that will be configured for the detector.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDetectorRequest withFeatures(java.util.Collection<DetectorFeatureConfiguration> features) {
+        setFeatures(features);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -280,8 +442,12 @@ public class CreateDetectorRequest extends com.amazonaws.AmazonWebServiceRequest
             sb.append("ClientToken: ").append(getClientToken()).append(",");
         if (getFindingPublishingFrequency() != null)
             sb.append("FindingPublishingFrequency: ").append(getFindingPublishingFrequency()).append(",");
+        if (getDataSources() != null)
+            sb.append("DataSources: ").append(getDataSources()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getFeatures() != null)
+            sb.append("Features: ").append(getFeatures());
         sb.append("}");
         return sb.toString();
     }
@@ -308,9 +474,17 @@ public class CreateDetectorRequest extends com.amazonaws.AmazonWebServiceRequest
             return false;
         if (other.getFindingPublishingFrequency() != null && other.getFindingPublishingFrequency().equals(this.getFindingPublishingFrequency()) == false)
             return false;
+        if (other.getDataSources() == null ^ this.getDataSources() == null)
+            return false;
+        if (other.getDataSources() != null && other.getDataSources().equals(this.getDataSources()) == false)
+            return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getFeatures() == null ^ this.getFeatures() == null)
+            return false;
+        if (other.getFeatures() != null && other.getFeatures().equals(this.getFeatures()) == false)
             return false;
         return true;
     }
@@ -323,7 +497,9 @@ public class CreateDetectorRequest extends com.amazonaws.AmazonWebServiceRequest
         hashCode = prime * hashCode + ((getEnable() == null) ? 0 : getEnable().hashCode());
         hashCode = prime * hashCode + ((getClientToken() == null) ? 0 : getClientToken().hashCode());
         hashCode = prime * hashCode + ((getFindingPublishingFrequency() == null) ? 0 : getFindingPublishingFrequency().hashCode());
+        hashCode = prime * hashCode + ((getDataSources() == null) ? 0 : getDataSources().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getFeatures() == null) ? 0 : getFeatures().hashCode());
         return hashCode;
     }
 

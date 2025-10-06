@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,8 +32,8 @@ public class DescribeComputeEnvironmentsResult extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * The <code>nextToken</code> value to include in a future <code>DescribeComputeEnvironments</code> request. When
-     * the results of a <code>DescribeJobDefinitions</code> request exceed <code>maxResults</code>, this value can be
-     * used to retrieve the next page of results. This value is <code>null</code> when there are no more results to
+     * the results of a <code>DescribeComputeEnvironments</code> request exceed <code>maxResults</code>, this value can
+     * be used to retrieve the next page of results. This value is <code>null</code> when there are no more results to
      * return.
      * </p>
      */
@@ -112,16 +112,16 @@ public class DescribeComputeEnvironmentsResult extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * The <code>nextToken</code> value to include in a future <code>DescribeComputeEnvironments</code> request. When
-     * the results of a <code>DescribeJobDefinitions</code> request exceed <code>maxResults</code>, this value can be
-     * used to retrieve the next page of results. This value is <code>null</code> when there are no more results to
+     * the results of a <code>DescribeComputeEnvironments</code> request exceed <code>maxResults</code>, this value can
+     * be used to retrieve the next page of results. This value is <code>null</code> when there are no more results to
      * return.
      * </p>
      * 
      * @param nextToken
      *        The <code>nextToken</code> value to include in a future <code>DescribeComputeEnvironments</code> request.
-     *        When the results of a <code>DescribeJobDefinitions</code> request exceed <code>maxResults</code>, this
-     *        value can be used to retrieve the next page of results. This value is <code>null</code> when there are no
-     *        more results to return.
+     *        When the results of a <code>DescribeComputeEnvironments</code> request exceed <code>maxResults</code>,
+     *        this value can be used to retrieve the next page of results. This value is <code>null</code> when there
+     *        are no more results to return.
      */
 
     public void setNextToken(String nextToken) {
@@ -131,15 +131,15 @@ public class DescribeComputeEnvironmentsResult extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * The <code>nextToken</code> value to include in a future <code>DescribeComputeEnvironments</code> request. When
-     * the results of a <code>DescribeJobDefinitions</code> request exceed <code>maxResults</code>, this value can be
-     * used to retrieve the next page of results. This value is <code>null</code> when there are no more results to
+     * the results of a <code>DescribeComputeEnvironments</code> request exceed <code>maxResults</code>, this value can
+     * be used to retrieve the next page of results. This value is <code>null</code> when there are no more results to
      * return.
      * </p>
      * 
      * @return The <code>nextToken</code> value to include in a future <code>DescribeComputeEnvironments</code> request.
-     *         When the results of a <code>DescribeJobDefinitions</code> request exceed <code>maxResults</code>, this
-     *         value can be used to retrieve the next page of results. This value is <code>null</code> when there are no
-     *         more results to return.
+     *         When the results of a <code>DescribeComputeEnvironments</code> request exceed <code>maxResults</code>,
+     *         this value can be used to retrieve the next page of results. This value is <code>null</code> when there
+     *         are no more results to return.
      */
 
     public String getNextToken() {
@@ -149,16 +149,16 @@ public class DescribeComputeEnvironmentsResult extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * The <code>nextToken</code> value to include in a future <code>DescribeComputeEnvironments</code> request. When
-     * the results of a <code>DescribeJobDefinitions</code> request exceed <code>maxResults</code>, this value can be
-     * used to retrieve the next page of results. This value is <code>null</code> when there are no more results to
+     * the results of a <code>DescribeComputeEnvironments</code> request exceed <code>maxResults</code>, this value can
+     * be used to retrieve the next page of results. This value is <code>null</code> when there are no more results to
      * return.
      * </p>
      * 
      * @param nextToken
      *        The <code>nextToken</code> value to include in a future <code>DescribeComputeEnvironments</code> request.
-     *        When the results of a <code>DescribeJobDefinitions</code> request exceed <code>maxResults</code>, this
-     *        value can be used to retrieve the next page of results. This value is <code>null</code> when there are no
-     *        more results to return.
+     *        When the results of a <code>DescribeComputeEnvironments</code> request exceed <code>maxResults</code>,
+     *        this value can be used to retrieve the next page of results. This value is <code>null</code> when there
+     *        are no more results to return.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

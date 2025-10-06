@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -54,6 +54,23 @@ public class AssignIpv6AddressesRequestMarshaller implements Marshaller<Request<
                     request.addParameter("Ipv6Addresses." + ipv6AddressesListIndex, StringUtils.fromString(assignIpv6AddressesRequestIpv6AddressesListValue));
                 }
                 ipv6AddressesListIndex++;
+            }
+        }
+
+        if (assignIpv6AddressesRequest.getIpv6PrefixCount() != null) {
+            request.addParameter("Ipv6PrefixCount", StringUtils.fromInteger(assignIpv6AddressesRequest.getIpv6PrefixCount()));
+        }
+
+        com.amazonaws.internal.SdkInternalList<String> assignIpv6AddressesRequestIpv6PrefixesList = (com.amazonaws.internal.SdkInternalList<String>) assignIpv6AddressesRequest
+                .getIpv6Prefixes();
+        if (!assignIpv6AddressesRequestIpv6PrefixesList.isEmpty() || !assignIpv6AddressesRequestIpv6PrefixesList.isAutoConstruct()) {
+            int ipv6PrefixesListIndex = 1;
+
+            for (String assignIpv6AddressesRequestIpv6PrefixesListValue : assignIpv6AddressesRequestIpv6PrefixesList) {
+                if (assignIpv6AddressesRequestIpv6PrefixesListValue != null) {
+                    request.addParameter("Ipv6Prefix." + ipv6PrefixesListIndex, StringUtils.fromString(assignIpv6AddressesRequestIpv6PrefixesListValue));
+                }
+                ipv6PrefixesListIndex++;
             }
         }
 

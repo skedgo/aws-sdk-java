@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * A request to generate a <a>ClientCertificate</a> resource.
+ * A request to generate a ClientCertificate resource.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -27,7 +27,7 @@ public class GenerateClientCertificateRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The description of the <a>ClientCertificate</a>.
+     * The description of the ClientCertificate.
      * </p>
      */
     private String description;
@@ -41,11 +41,11 @@ public class GenerateClientCertificateRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The description of the <a>ClientCertificate</a>.
+     * The description of the ClientCertificate.
      * </p>
      * 
      * @param description
-     *        The description of the <a>ClientCertificate</a>.
+     *        The description of the ClientCertificate.
      */
 
     public void setDescription(String description) {
@@ -54,10 +54,10 @@ public class GenerateClientCertificateRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The description of the <a>ClientCertificate</a>.
+     * The description of the ClientCertificate.
      * </p>
      * 
-     * @return The description of the <a>ClientCertificate</a>.
+     * @return The description of the ClientCertificate.
      */
 
     public String getDescription() {
@@ -66,11 +66,11 @@ public class GenerateClientCertificateRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The description of the <a>ClientCertificate</a>.
+     * The description of the ClientCertificate.
      * </p>
      * 
      * @param description
-     *        The description of the <a>ClientCertificate</a>.
+     *        The description of the ClientCertificate.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -124,6 +124,13 @@ public class GenerateClientCertificateRequest extends com.amazonaws.AmazonWebSer
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see GenerateClientCertificateRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public GenerateClientCertificateRequest addTagsEntry(String key, String value) {
         if (null == this.tags) {

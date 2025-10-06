@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,13 +30,13 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * representing the asynchronous operation; overloads which accept an {@code AsyncHandler} can be used to receive
  * notification when an asynchronous operation completes.
  * <p>
- * <fullname>AWS CodeCommit</fullname>
+ * <fullname>CodeCommit</fullname>
  * <p>
- * This is the <i>AWS CodeCommit API Reference</i>. This reference provides descriptions of the operations and data
- * types for AWS CodeCommit API along with usage examples.
+ * This is the <i>CodeCommit API Reference</i>. This reference provides descriptions of the operations and data types
+ * for CodeCommit API along with usage examples.
  * </p>
  * <p>
- * You can use the AWS CodeCommit API to work with the following objects:
+ * You can use the CodeCommit API to work with the following objects:
  * </p>
  * <p>
  * Repositories, by calling the following:
@@ -44,18 +44,18 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * <ul>
  * <li>
  * <p>
- * <a>BatchGetRepositories</a>, which returns information about one or more repositories associated with your AWS
- * account.
+ * <a>BatchGetRepositories</a>, which returns information about one or more repositories associated with your Amazon Web
+ * Services account.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>CreateRepository</a>, which creates an AWS CodeCommit repository.
+ * <a>CreateRepository</a>, which creates an CodeCommit repository.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DeleteRepository</a>, which deletes an AWS CodeCommit repository.
+ * <a>DeleteRepository</a>, which deletes an CodeCommit repository.
  * </p>
  * </li>
  * <li>
@@ -65,7 +65,7 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * </li>
  * <li>
  * <p>
- * <a>ListRepositories</a>, which lists all AWS CodeCommit repositories associated with your AWS account.
+ * <a>ListRepositories</a>, which lists all CodeCommit repositories associated with your Amazon Web Services account.
  * </p>
  * </li>
  * <li>
@@ -75,8 +75,14 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * </li>
  * <li>
  * <p>
+ * <a>UpdateRepositoryEncryptionKey</a>, which updates the Key Management Service encryption key used to encrypt and
+ * decrypt a repository.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
  * <a>UpdateRepositoryName</a>, which changes the name of the repository. If you change the name of a repository, no
- * other users of that repository will be able to access it until you send them the new HTTPS or SSH URL to use.
+ * other users of that repository can access it until you send them the new HTTPS or SSH URL to use.
  * </p>
  * </li>
  * </ul>
@@ -86,7 +92,7 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * <ul>
  * <li>
  * <p>
- * <a>CreateBranch</a>, which creates a new branch in a specified repository.
+ * <a>CreateBranch</a>, which creates a branch in a specified repository.
  * </p>
  * </li>
  * <li>
@@ -121,7 +127,7 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * </li>
  * <li>
  * <p>
- * <a>GetBlob</a>, which returns the base-64 encoded content of an individual Git blob object within a repository.
+ * <a>GetBlob</a>, which returns the base-64 encoded content of an individual Git blob object in a repository.
  * </p>
  * </li>
  * <li>
@@ -136,6 +142,11 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * </li>
  * <li>
  * <p>
+ * <a>ListFileCommitHistory</a>, which retrieves a list of commits and changes to a specified file.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
  * <a>PutFile</a>, which adds or modifies a single file in a specified repository and branch.
  * </p>
  * </li>
@@ -144,6 +155,11 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * Commits, by calling the following:
  * </p>
  * <ul>
+ * <li>
+ * <p>
+ * <a>BatchGetCommits</a>, which returns information about one or more commits in a repository.
+ * </p>
+ * </li>
  * <li>
  * <p>
  * <a>CreateCommit</a>, which creates a commit for changes to a repository.
@@ -158,7 +174,7 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * <li>
  * <p>
  * <a>GetDifferences</a>, which returns information about the differences in a valid commit specifier (such as a branch,
- * tag, HEAD, commit ID or other fully qualified reference).
+ * tag, HEAD, commit ID, or other fully qualified reference).
  * </p>
  * </li>
  * </ul>
@@ -228,7 +244,23 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * </li>
  * <li>
  * <p>
+ * <a>CreatePullRequestApprovalRule</a>, which creates an approval rule for a specified pull request.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>DeletePullRequestApprovalRule</a>, which deletes an approval rule for a specified pull request.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
  * <a>DescribePullRequestEvents</a>, which returns information about one or more pull request events.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>EvaluatePullRequestApprovalRules</a>, which evaluates whether a pull request has met all the conditions specified
+ * in its associated approval rules.
  * </p>
  * </li>
  * <li>
@@ -239,6 +271,19 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * <li>
  * <p>
  * <a>GetPullRequest</a>, which returns information about a specified pull request.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>GetPullRequestApprovalStates</a>, which returns information about the approval states for a specified pull
+ * request.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>GetPullRequestOverrideState</a>, which returns information about whether approval rules have been set aside
+ * (overriden) for a pull request, and if so, the Amazon Resource Name (ARN) of the user or identity that overrode the
+ * rules and their requirements for the pull request.
  * </p>
  * </li>
  * <li>
@@ -260,13 +305,28 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * </li>
  * <li>
  * <p>
- * <a>MergePullRequestByThreeWay</a>. which merges the source destination branch of a pull request into the specified
+ * <a>MergePullRequestByThreeWay</a>, which merges the source destination branch of a pull request into the specified
  * destination branch for that pull request using the three-way merge option.
  * </p>
  * </li>
  * <li>
  * <p>
+ * <a>OverridePullRequestApprovalRules</a>, which sets aside all approval rule requirements for a pull request.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
  * <a>PostCommentForPullRequest</a>, which posts a comment to a pull request at the specified line, file, or request.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>UpdatePullRequestApprovalRuleContent</a>, which updates the structure of an approval rule for a pull request.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>UpdatePullRequestApprovalState</a>, which updates the state of an approval on a pull request.
  * </p>
  * </li>
  * <li>
@@ -286,6 +346,89 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * </li>
  * </ul>
  * <p>
+ * Approval rule templates, by calling the following:
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * <a>AssociateApprovalRuleTemplateWithRepository</a>, which associates a template with a specified repository. After
+ * the template is associated with a repository, CodeCommit creates approval rules that match the template conditions on
+ * every pull request created in the specified repository.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>BatchAssociateApprovalRuleTemplateWithRepositories</a>, which associates a template with one or more specified
+ * repositories. After the template is associated with a repository, CodeCommit creates approval rules that match the
+ * template conditions on every pull request created in the specified repositories.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>BatchDisassociateApprovalRuleTemplateFromRepositories</a>, which removes the association between a template and
+ * specified repositories so that approval rules based on the template are not automatically created when pull requests
+ * are created in those repositories.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>CreateApprovalRuleTemplate</a>, which creates a template for approval rules that can then be associated with one
+ * or more repositories in your Amazon Web Services account.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>DeleteApprovalRuleTemplate</a>, which deletes the specified template. It does not remove approval rules on pull
+ * requests already created with the template.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>DisassociateApprovalRuleTemplateFromRepository</a>, which removes the association between a template and a
+ * repository so that approval rules based on the template are not automatically created when pull requests are created
+ * in the specified repository.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>GetApprovalRuleTemplate</a>, which returns information about an approval rule template.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>ListApprovalRuleTemplates</a>, which lists all approval rule templates in the Amazon Web Services Region in your
+ * Amazon Web Services account.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>ListAssociatedApprovalRuleTemplatesForRepository</a>, which lists all approval rule templates that are associated
+ * with a specified repository.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>ListRepositoriesForApprovalRuleTemplate</a>, which lists all repositories associated with the specified approval
+ * rule template.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>UpdateApprovalRuleTemplateDescription</a>, which updates the description of an approval rule template.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>UpdateApprovalRuleTemplateName</a>, which updates the name of an approval rule template.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>UpdateApprovalRuleTemplateContent</a>, which updates the content of an approval rule template.
+ * </p>
+ * </li>
+ * </ul>
+ * <p>
  * Comments in a repository, by calling the following:
  * </p>
  * <ul>
@@ -297,6 +440,11 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * <li>
  * <p>
  * <a>GetComment</a>, which returns information about a comment on a commit.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>GetCommentReactions</a>, which returns information about emoji reactions to comments.
  * </p>
  * </li>
  * <li>
@@ -318,28 +466,33 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * </li>
  * <li>
  * <p>
+ * <a>PutCommentReaction</a>, which creates or updates an emoji reaction to a comment.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
  * <a>UpdateComment</a>, which updates the content of a comment on a commit in a repository.
  * </p>
  * </li>
  * </ul>
  * <p>
- * Tags used to tag resources in AWS CodeCommit (not Git tags), by calling the following:
+ * Tags used to tag resources in CodeCommit (not Git tags), by calling the following:
  * </p>
  * <ul>
  * <li>
  * <p>
- * <a>ListTagsForResource</a>, which gets information about AWS tags for a specified Amazon Resource Name (ARN) in AWS
- * CodeCommit.
+ * <a>ListTagsForResource</a>, which gets information about Amazon Web Servicestags for a specified Amazon Resource Name
+ * (ARN) in CodeCommit.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>TagResource</a>, which adds or updates tags for a resource in AWS CodeCommit.
+ * <a>TagResource</a>, which adds or updates tags for a resource in CodeCommit.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>UntagResource</a>, which removes tags for a resource in AWS CodeCommit.
+ * <a>UntagResource</a>, which removes tags for a resource in CodeCommit.
  * </p>
  * </li>
  * </ul>
@@ -366,8 +519,8 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * </li>
  * </ul>
  * <p>
- * For information about how to use AWS CodeCommit, see the <a
- * href="https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html">AWS CodeCommit User Guide</a>.
+ * For information about how to use CodeCommit, see the <a
+ * href="https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html">CodeCommit User Guide</a>.
  * </p>
  */
 @ThreadSafe
@@ -566,7 +719,19 @@ public class AWSCodeCommitAsyncClient extends AWSCodeCommitClient implements AWS
      *        Object providing client parameters.
      */
     AWSCodeCommitAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on CodeCommit using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSCodeCommitAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -577,6 +742,76 @@ public class AWSCodeCommitAsyncClient extends AWSCodeCommitClient implements AWS
      */
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateApprovalRuleTemplateWithRepositoryResult> associateApprovalRuleTemplateWithRepositoryAsync(
+            AssociateApprovalRuleTemplateWithRepositoryRequest request) {
+
+        return associateApprovalRuleTemplateWithRepositoryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateApprovalRuleTemplateWithRepositoryResult> associateApprovalRuleTemplateWithRepositoryAsync(
+            final AssociateApprovalRuleTemplateWithRepositoryRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AssociateApprovalRuleTemplateWithRepositoryRequest, AssociateApprovalRuleTemplateWithRepositoryResult> asyncHandler) {
+        final AssociateApprovalRuleTemplateWithRepositoryRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AssociateApprovalRuleTemplateWithRepositoryResult>() {
+            @Override
+            public AssociateApprovalRuleTemplateWithRepositoryResult call() throws Exception {
+                AssociateApprovalRuleTemplateWithRepositoryResult result = null;
+
+                try {
+                    result = executeAssociateApprovalRuleTemplateWithRepository(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchAssociateApprovalRuleTemplateWithRepositoriesResult> batchAssociateApprovalRuleTemplateWithRepositoriesAsync(
+            BatchAssociateApprovalRuleTemplateWithRepositoriesRequest request) {
+
+        return batchAssociateApprovalRuleTemplateWithRepositoriesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchAssociateApprovalRuleTemplateWithRepositoriesResult> batchAssociateApprovalRuleTemplateWithRepositoriesAsync(
+            final BatchAssociateApprovalRuleTemplateWithRepositoriesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<BatchAssociateApprovalRuleTemplateWithRepositoriesRequest, BatchAssociateApprovalRuleTemplateWithRepositoriesResult> asyncHandler) {
+        final BatchAssociateApprovalRuleTemplateWithRepositoriesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<BatchAssociateApprovalRuleTemplateWithRepositoriesResult>() {
+            @Override
+            public BatchAssociateApprovalRuleTemplateWithRepositoriesResult call() throws Exception {
+                BatchAssociateApprovalRuleTemplateWithRepositoriesResult result = null;
+
+                try {
+                    result = executeBatchAssociateApprovalRuleTemplateWithRepositories(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -613,6 +848,74 @@ public class AWSCodeCommitAsyncClient extends AWSCodeCommitClient implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<BatchDisassociateApprovalRuleTemplateFromRepositoriesResult> batchDisassociateApprovalRuleTemplateFromRepositoriesAsync(
+            BatchDisassociateApprovalRuleTemplateFromRepositoriesRequest request) {
+
+        return batchDisassociateApprovalRuleTemplateFromRepositoriesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchDisassociateApprovalRuleTemplateFromRepositoriesResult> batchDisassociateApprovalRuleTemplateFromRepositoriesAsync(
+            final BatchDisassociateApprovalRuleTemplateFromRepositoriesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<BatchDisassociateApprovalRuleTemplateFromRepositoriesRequest, BatchDisassociateApprovalRuleTemplateFromRepositoriesResult> asyncHandler) {
+        final BatchDisassociateApprovalRuleTemplateFromRepositoriesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<BatchDisassociateApprovalRuleTemplateFromRepositoriesResult>() {
+            @Override
+            public BatchDisassociateApprovalRuleTemplateFromRepositoriesResult call() throws Exception {
+                BatchDisassociateApprovalRuleTemplateFromRepositoriesResult result = null;
+
+                try {
+                    result = executeBatchDisassociateApprovalRuleTemplateFromRepositories(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchGetCommitsResult> batchGetCommitsAsync(BatchGetCommitsRequest request) {
+
+        return batchGetCommitsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchGetCommitsResult> batchGetCommitsAsync(final BatchGetCommitsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<BatchGetCommitsRequest, BatchGetCommitsResult> asyncHandler) {
+        final BatchGetCommitsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<BatchGetCommitsResult>() {
+            @Override
+            public BatchGetCommitsResult call() throws Exception {
+                BatchGetCommitsResult result = null;
+
+                try {
+                    result = executeBatchGetCommits(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<BatchGetRepositoriesResult> batchGetRepositoriesAsync(BatchGetRepositoriesRequest request) {
 
         return batchGetRepositoriesAsync(request, null);
@@ -630,6 +933,39 @@ public class AWSCodeCommitAsyncClient extends AWSCodeCommitClient implements AWS
 
                 try {
                     result = executeBatchGetRepositories(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateApprovalRuleTemplateResult> createApprovalRuleTemplateAsync(CreateApprovalRuleTemplateRequest request) {
+
+        return createApprovalRuleTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateApprovalRuleTemplateResult> createApprovalRuleTemplateAsync(final CreateApprovalRuleTemplateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateApprovalRuleTemplateRequest, CreateApprovalRuleTemplateResult> asyncHandler) {
+        final CreateApprovalRuleTemplateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateApprovalRuleTemplateResult>() {
+            @Override
+            public CreateApprovalRuleTemplateResult call() throws Exception {
+                CreateApprovalRuleTemplateResult result = null;
+
+                try {
+                    result = executeCreateApprovalRuleTemplate(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -745,6 +1081,40 @@ public class AWSCodeCommitAsyncClient extends AWSCodeCommitClient implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<CreatePullRequestApprovalRuleResult> createPullRequestApprovalRuleAsync(CreatePullRequestApprovalRuleRequest request) {
+
+        return createPullRequestApprovalRuleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreatePullRequestApprovalRuleResult> createPullRequestApprovalRuleAsync(
+            final CreatePullRequestApprovalRuleRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreatePullRequestApprovalRuleRequest, CreatePullRequestApprovalRuleResult> asyncHandler) {
+        final CreatePullRequestApprovalRuleRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreatePullRequestApprovalRuleResult>() {
+            @Override
+            public CreatePullRequestApprovalRuleResult call() throws Exception {
+                CreatePullRequestApprovalRuleResult result = null;
+
+                try {
+                    result = executeCreatePullRequestApprovalRule(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateRepositoryResult> createRepositoryAsync(CreateRepositoryRequest request) {
 
         return createRepositoryAsync(request, null);
@@ -796,6 +1166,39 @@ public class AWSCodeCommitAsyncClient extends AWSCodeCommitClient implements AWS
 
                 try {
                     result = executeCreateUnreferencedMergeCommit(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteApprovalRuleTemplateResult> deleteApprovalRuleTemplateAsync(DeleteApprovalRuleTemplateRequest request) {
+
+        return deleteApprovalRuleTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteApprovalRuleTemplateResult> deleteApprovalRuleTemplateAsync(final DeleteApprovalRuleTemplateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteApprovalRuleTemplateRequest, DeleteApprovalRuleTemplateResult> asyncHandler) {
+        final DeleteApprovalRuleTemplateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteApprovalRuleTemplateResult>() {
+            @Override
+            public DeleteApprovalRuleTemplateResult call() throws Exception {
+                DeleteApprovalRuleTemplateResult result = null;
+
+                try {
+                    result = executeDeleteApprovalRuleTemplate(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -911,6 +1314,40 @@ public class AWSCodeCommitAsyncClient extends AWSCodeCommitClient implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<DeletePullRequestApprovalRuleResult> deletePullRequestApprovalRuleAsync(DeletePullRequestApprovalRuleRequest request) {
+
+        return deletePullRequestApprovalRuleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeletePullRequestApprovalRuleResult> deletePullRequestApprovalRuleAsync(
+            final DeletePullRequestApprovalRuleRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeletePullRequestApprovalRuleRequest, DeletePullRequestApprovalRuleResult> asyncHandler) {
+        final DeletePullRequestApprovalRuleRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeletePullRequestApprovalRuleResult>() {
+            @Override
+            public DeletePullRequestApprovalRuleResult call() throws Exception {
+                DeletePullRequestApprovalRuleResult result = null;
+
+                try {
+                    result = executeDeletePullRequestApprovalRule(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteRepositoryResult> deleteRepositoryAsync(DeleteRepositoryRequest request) {
 
         return deleteRepositoryAsync(request, null);
@@ -1010,6 +1447,109 @@ public class AWSCodeCommitAsyncClient extends AWSCodeCommitClient implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<DisassociateApprovalRuleTemplateFromRepositoryResult> disassociateApprovalRuleTemplateFromRepositoryAsync(
+            DisassociateApprovalRuleTemplateFromRepositoryRequest request) {
+
+        return disassociateApprovalRuleTemplateFromRepositoryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateApprovalRuleTemplateFromRepositoryResult> disassociateApprovalRuleTemplateFromRepositoryAsync(
+            final DisassociateApprovalRuleTemplateFromRepositoryRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisassociateApprovalRuleTemplateFromRepositoryRequest, DisassociateApprovalRuleTemplateFromRepositoryResult> asyncHandler) {
+        final DisassociateApprovalRuleTemplateFromRepositoryRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisassociateApprovalRuleTemplateFromRepositoryResult>() {
+            @Override
+            public DisassociateApprovalRuleTemplateFromRepositoryResult call() throws Exception {
+                DisassociateApprovalRuleTemplateFromRepositoryResult result = null;
+
+                try {
+                    result = executeDisassociateApprovalRuleTemplateFromRepository(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<EvaluatePullRequestApprovalRulesResult> evaluatePullRequestApprovalRulesAsync(
+            EvaluatePullRequestApprovalRulesRequest request) {
+
+        return evaluatePullRequestApprovalRulesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<EvaluatePullRequestApprovalRulesResult> evaluatePullRequestApprovalRulesAsync(
+            final EvaluatePullRequestApprovalRulesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<EvaluatePullRequestApprovalRulesRequest, EvaluatePullRequestApprovalRulesResult> asyncHandler) {
+        final EvaluatePullRequestApprovalRulesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<EvaluatePullRequestApprovalRulesResult>() {
+            @Override
+            public EvaluatePullRequestApprovalRulesResult call() throws Exception {
+                EvaluatePullRequestApprovalRulesResult result = null;
+
+                try {
+                    result = executeEvaluatePullRequestApprovalRules(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetApprovalRuleTemplateResult> getApprovalRuleTemplateAsync(GetApprovalRuleTemplateRequest request) {
+
+        return getApprovalRuleTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetApprovalRuleTemplateResult> getApprovalRuleTemplateAsync(final GetApprovalRuleTemplateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetApprovalRuleTemplateRequest, GetApprovalRuleTemplateResult> asyncHandler) {
+        final GetApprovalRuleTemplateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetApprovalRuleTemplateResult>() {
+            @Override
+            public GetApprovalRuleTemplateResult call() throws Exception {
+                GetApprovalRuleTemplateResult result = null;
+
+                try {
+                    result = executeGetApprovalRuleTemplate(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetBlobResult> getBlobAsync(GetBlobRequest request) {
 
         return getBlobAsync(request, null);
@@ -1093,6 +1633,39 @@ public class AWSCodeCommitAsyncClient extends AWSCodeCommitClient implements AWS
 
                 try {
                     result = executeGetComment(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCommentReactionsResult> getCommentReactionsAsync(GetCommentReactionsRequest request) {
+
+        return getCommentReactionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCommentReactionsResult> getCommentReactionsAsync(final GetCommentReactionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetCommentReactionsRequest, GetCommentReactionsResult> asyncHandler) {
+        final GetCommentReactionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetCommentReactionsResult>() {
+            @Override
+            public GetCommentReactionsResult call() throws Exception {
+                GetCommentReactionsResult result = null;
+
+                try {
+                    result = executeGetCommentReactions(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1439,6 +2012,72 @@ public class AWSCodeCommitAsyncClient extends AWSCodeCommitClient implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<GetPullRequestApprovalStatesResult> getPullRequestApprovalStatesAsync(GetPullRequestApprovalStatesRequest request) {
+
+        return getPullRequestApprovalStatesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetPullRequestApprovalStatesResult> getPullRequestApprovalStatesAsync(final GetPullRequestApprovalStatesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetPullRequestApprovalStatesRequest, GetPullRequestApprovalStatesResult> asyncHandler) {
+        final GetPullRequestApprovalStatesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetPullRequestApprovalStatesResult>() {
+            @Override
+            public GetPullRequestApprovalStatesResult call() throws Exception {
+                GetPullRequestApprovalStatesResult result = null;
+
+                try {
+                    result = executeGetPullRequestApprovalStates(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetPullRequestOverrideStateResult> getPullRequestOverrideStateAsync(GetPullRequestOverrideStateRequest request) {
+
+        return getPullRequestOverrideStateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetPullRequestOverrideStateResult> getPullRequestOverrideStateAsync(final GetPullRequestOverrideStateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetPullRequestOverrideStateRequest, GetPullRequestOverrideStateResult> asyncHandler) {
+        final GetPullRequestOverrideStateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetPullRequestOverrideStateResult>() {
+            @Override
+            public GetPullRequestOverrideStateResult call() throws Exception {
+                GetPullRequestOverrideStateResult result = null;
+
+                try {
+                    result = executeGetPullRequestOverrideState(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetRepositoryResult> getRepositoryAsync(GetRepositoryRequest request) {
 
         return getRepositoryAsync(request, null);
@@ -1505,6 +2144,74 @@ public class AWSCodeCommitAsyncClient extends AWSCodeCommitClient implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<ListApprovalRuleTemplatesResult> listApprovalRuleTemplatesAsync(ListApprovalRuleTemplatesRequest request) {
+
+        return listApprovalRuleTemplatesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListApprovalRuleTemplatesResult> listApprovalRuleTemplatesAsync(final ListApprovalRuleTemplatesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListApprovalRuleTemplatesRequest, ListApprovalRuleTemplatesResult> asyncHandler) {
+        final ListApprovalRuleTemplatesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListApprovalRuleTemplatesResult>() {
+            @Override
+            public ListApprovalRuleTemplatesResult call() throws Exception {
+                ListApprovalRuleTemplatesResult result = null;
+
+                try {
+                    result = executeListApprovalRuleTemplates(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAssociatedApprovalRuleTemplatesForRepositoryResult> listAssociatedApprovalRuleTemplatesForRepositoryAsync(
+            ListAssociatedApprovalRuleTemplatesForRepositoryRequest request) {
+
+        return listAssociatedApprovalRuleTemplatesForRepositoryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAssociatedApprovalRuleTemplatesForRepositoryResult> listAssociatedApprovalRuleTemplatesForRepositoryAsync(
+            final ListAssociatedApprovalRuleTemplatesForRepositoryRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListAssociatedApprovalRuleTemplatesForRepositoryRequest, ListAssociatedApprovalRuleTemplatesForRepositoryResult> asyncHandler) {
+        final ListAssociatedApprovalRuleTemplatesForRepositoryRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListAssociatedApprovalRuleTemplatesForRepositoryResult>() {
+            @Override
+            public ListAssociatedApprovalRuleTemplatesForRepositoryResult call() throws Exception {
+                ListAssociatedApprovalRuleTemplatesForRepositoryResult result = null;
+
+                try {
+                    result = executeListAssociatedApprovalRuleTemplatesForRepository(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListBranchesResult> listBranchesAsync(ListBranchesRequest request) {
 
         return listBranchesAsync(request, null);
@@ -1522,6 +2229,39 @@ public class AWSCodeCommitAsyncClient extends AWSCodeCommitClient implements AWS
 
                 try {
                     result = executeListBranches(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFileCommitHistoryResult> listFileCommitHistoryAsync(ListFileCommitHistoryRequest request) {
+
+        return listFileCommitHistoryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFileCommitHistoryResult> listFileCommitHistoryAsync(final ListFileCommitHistoryRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListFileCommitHistoryRequest, ListFileCommitHistoryResult> asyncHandler) {
+        final ListFileCommitHistoryRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListFileCommitHistoryResult>() {
+            @Override
+            public ListFileCommitHistoryResult call() throws Exception {
+                ListFileCommitHistoryResult result = null;
+
+                try {
+                    result = executeListFileCommitHistory(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1588,6 +2328,41 @@ public class AWSCodeCommitAsyncClient extends AWSCodeCommitClient implements AWS
 
                 try {
                     result = executeListRepositories(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRepositoriesForApprovalRuleTemplateResult> listRepositoriesForApprovalRuleTemplateAsync(
+            ListRepositoriesForApprovalRuleTemplateRequest request) {
+
+        return listRepositoriesForApprovalRuleTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRepositoriesForApprovalRuleTemplateResult> listRepositoriesForApprovalRuleTemplateAsync(
+            final ListRepositoriesForApprovalRuleTemplateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListRepositoriesForApprovalRuleTemplateRequest, ListRepositoriesForApprovalRuleTemplateResult> asyncHandler) {
+        final ListRepositoriesForApprovalRuleTemplateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListRepositoriesForApprovalRuleTemplateResult>() {
+            @Override
+            public ListRepositoriesForApprovalRuleTemplateResult call() throws Exception {
+                ListRepositoriesForApprovalRuleTemplateResult result = null;
+
+                try {
+                    result = executeListRepositoriesForApprovalRuleTemplate(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1836,6 +2611,41 @@ public class AWSCodeCommitAsyncClient extends AWSCodeCommitClient implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<OverridePullRequestApprovalRulesResult> overridePullRequestApprovalRulesAsync(
+            OverridePullRequestApprovalRulesRequest request) {
+
+        return overridePullRequestApprovalRulesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<OverridePullRequestApprovalRulesResult> overridePullRequestApprovalRulesAsync(
+            final OverridePullRequestApprovalRulesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<OverridePullRequestApprovalRulesRequest, OverridePullRequestApprovalRulesResult> asyncHandler) {
+        final OverridePullRequestApprovalRulesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<OverridePullRequestApprovalRulesResult>() {
+            @Override
+            public OverridePullRequestApprovalRulesResult call() throws Exception {
+                OverridePullRequestApprovalRulesResult result = null;
+
+                try {
+                    result = executeOverridePullRequestApprovalRules(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<PostCommentForComparedCommitResult> postCommentForComparedCommitAsync(PostCommentForComparedCommitRequest request) {
 
         return postCommentForComparedCommitAsync(request, null);
@@ -1919,6 +2729,39 @@ public class AWSCodeCommitAsyncClient extends AWSCodeCommitClient implements AWS
 
                 try {
                     result = executePostCommentReply(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutCommentReactionResult> putCommentReactionAsync(PutCommentReactionRequest request) {
+
+        return putCommentReactionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutCommentReactionResult> putCommentReactionAsync(final PutCommentReactionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutCommentReactionRequest, PutCommentReactionResult> asyncHandler) {
+        final PutCommentReactionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutCommentReactionResult>() {
+            @Override
+            public PutCommentReactionResult call() throws Exception {
+                PutCommentReactionResult result = null;
+
+                try {
+                    result = executePutCommentReaction(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -2100,6 +2943,110 @@ public class AWSCodeCommitAsyncClient extends AWSCodeCommitClient implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateApprovalRuleTemplateContentResult> updateApprovalRuleTemplateContentAsync(
+            UpdateApprovalRuleTemplateContentRequest request) {
+
+        return updateApprovalRuleTemplateContentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateApprovalRuleTemplateContentResult> updateApprovalRuleTemplateContentAsync(
+            final UpdateApprovalRuleTemplateContentRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateApprovalRuleTemplateContentRequest, UpdateApprovalRuleTemplateContentResult> asyncHandler) {
+        final UpdateApprovalRuleTemplateContentRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateApprovalRuleTemplateContentResult>() {
+            @Override
+            public UpdateApprovalRuleTemplateContentResult call() throws Exception {
+                UpdateApprovalRuleTemplateContentResult result = null;
+
+                try {
+                    result = executeUpdateApprovalRuleTemplateContent(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateApprovalRuleTemplateDescriptionResult> updateApprovalRuleTemplateDescriptionAsync(
+            UpdateApprovalRuleTemplateDescriptionRequest request) {
+
+        return updateApprovalRuleTemplateDescriptionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateApprovalRuleTemplateDescriptionResult> updateApprovalRuleTemplateDescriptionAsync(
+            final UpdateApprovalRuleTemplateDescriptionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateApprovalRuleTemplateDescriptionRequest, UpdateApprovalRuleTemplateDescriptionResult> asyncHandler) {
+        final UpdateApprovalRuleTemplateDescriptionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateApprovalRuleTemplateDescriptionResult>() {
+            @Override
+            public UpdateApprovalRuleTemplateDescriptionResult call() throws Exception {
+                UpdateApprovalRuleTemplateDescriptionResult result = null;
+
+                try {
+                    result = executeUpdateApprovalRuleTemplateDescription(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateApprovalRuleTemplateNameResult> updateApprovalRuleTemplateNameAsync(UpdateApprovalRuleTemplateNameRequest request) {
+
+        return updateApprovalRuleTemplateNameAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateApprovalRuleTemplateNameResult> updateApprovalRuleTemplateNameAsync(
+            final UpdateApprovalRuleTemplateNameRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateApprovalRuleTemplateNameRequest, UpdateApprovalRuleTemplateNameResult> asyncHandler) {
+        final UpdateApprovalRuleTemplateNameRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateApprovalRuleTemplateNameResult>() {
+            @Override
+            public UpdateApprovalRuleTemplateNameResult call() throws Exception {
+                UpdateApprovalRuleTemplateNameResult result = null;
+
+                try {
+                    result = executeUpdateApprovalRuleTemplateName(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateCommentResult> updateCommentAsync(UpdateCommentRequest request) {
 
         return updateCommentAsync(request, null);
@@ -2150,6 +3097,75 @@ public class AWSCodeCommitAsyncClient extends AWSCodeCommitClient implements AWS
 
                 try {
                     result = executeUpdateDefaultBranch(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePullRequestApprovalRuleContentResult> updatePullRequestApprovalRuleContentAsync(
+            UpdatePullRequestApprovalRuleContentRequest request) {
+
+        return updatePullRequestApprovalRuleContentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePullRequestApprovalRuleContentResult> updatePullRequestApprovalRuleContentAsync(
+            final UpdatePullRequestApprovalRuleContentRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdatePullRequestApprovalRuleContentRequest, UpdatePullRequestApprovalRuleContentResult> asyncHandler) {
+        final UpdatePullRequestApprovalRuleContentRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdatePullRequestApprovalRuleContentResult>() {
+            @Override
+            public UpdatePullRequestApprovalRuleContentResult call() throws Exception {
+                UpdatePullRequestApprovalRuleContentResult result = null;
+
+                try {
+                    result = executeUpdatePullRequestApprovalRuleContent(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePullRequestApprovalStateResult> updatePullRequestApprovalStateAsync(UpdatePullRequestApprovalStateRequest request) {
+
+        return updatePullRequestApprovalStateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePullRequestApprovalStateResult> updatePullRequestApprovalStateAsync(
+            final UpdatePullRequestApprovalStateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdatePullRequestApprovalStateRequest, UpdatePullRequestApprovalStateResult> asyncHandler) {
+        final UpdatePullRequestApprovalStateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdatePullRequestApprovalStateResult>() {
+            @Override
+            public UpdatePullRequestApprovalStateResult call() throws Exception {
+                UpdatePullRequestApprovalStateResult result = null;
+
+                try {
+                    result = executeUpdatePullRequestApprovalState(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -2282,6 +3298,40 @@ public class AWSCodeCommitAsyncClient extends AWSCodeCommitClient implements AWS
 
                 try {
                     result = executeUpdateRepositoryDescription(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRepositoryEncryptionKeyResult> updateRepositoryEncryptionKeyAsync(UpdateRepositoryEncryptionKeyRequest request) {
+
+        return updateRepositoryEncryptionKeyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRepositoryEncryptionKeyResult> updateRepositoryEncryptionKeyAsync(
+            final UpdateRepositoryEncryptionKeyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateRepositoryEncryptionKeyRequest, UpdateRepositoryEncryptionKeyResult> asyncHandler) {
+        final UpdateRepositoryEncryptionKeyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateRepositoryEncryptionKeyResult>() {
+            @Override
+            public UpdateRepositoryEncryptionKeyResult call() throws Exception {
+                UpdateRepositoryEncryptionKeyResult result = null;
+
+                try {
+                    result = executeUpdateRepositoryEncryptionKey(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

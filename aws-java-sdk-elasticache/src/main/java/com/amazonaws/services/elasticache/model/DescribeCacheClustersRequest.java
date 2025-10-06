@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -68,7 +68,7 @@ public class DescribeCacheClustersRequest extends com.amazonaws.AmazonWebService
      * <p>
      * An optional flag that can be included in the <code>DescribeCacheCluster</code> request to show only nodes
      * (API/CLI: clusters) that are not members of a replication group. In practice, this mean Memcached and single node
-     * Redis clusters.
+     * Redis OSS clusters.
      * </p>
      */
     private Boolean showCacheClustersNotInReplicationGroups;
@@ -320,13 +320,13 @@ public class DescribeCacheClustersRequest extends com.amazonaws.AmazonWebService
      * <p>
      * An optional flag that can be included in the <code>DescribeCacheCluster</code> request to show only nodes
      * (API/CLI: clusters) that are not members of a replication group. In practice, this mean Memcached and single node
-     * Redis clusters.
+     * Redis OSS clusters.
      * </p>
      * 
      * @param showCacheClustersNotInReplicationGroups
      *        An optional flag that can be included in the <code>DescribeCacheCluster</code> request to show only nodes
      *        (API/CLI: clusters) that are not members of a replication group. In practice, this mean Memcached and
-     *        single node Redis clusters.
+     *        single node Redis OSS clusters.
      */
 
     public void setShowCacheClustersNotInReplicationGroups(Boolean showCacheClustersNotInReplicationGroups) {
@@ -337,12 +337,12 @@ public class DescribeCacheClustersRequest extends com.amazonaws.AmazonWebService
      * <p>
      * An optional flag that can be included in the <code>DescribeCacheCluster</code> request to show only nodes
      * (API/CLI: clusters) that are not members of a replication group. In practice, this mean Memcached and single node
-     * Redis clusters.
+     * Redis OSS clusters.
      * </p>
      * 
      * @return An optional flag that can be included in the <code>DescribeCacheCluster</code> request to show only nodes
      *         (API/CLI: clusters) that are not members of a replication group. In practice, this mean Memcached and
-     *         single node Redis clusters.
+     *         single node Redis OSS clusters.
      */
 
     public Boolean getShowCacheClustersNotInReplicationGroups() {
@@ -353,13 +353,13 @@ public class DescribeCacheClustersRequest extends com.amazonaws.AmazonWebService
      * <p>
      * An optional flag that can be included in the <code>DescribeCacheCluster</code> request to show only nodes
      * (API/CLI: clusters) that are not members of a replication group. In practice, this mean Memcached and single node
-     * Redis clusters.
+     * Redis OSS clusters.
      * </p>
      * 
      * @param showCacheClustersNotInReplicationGroups
      *        An optional flag that can be included in the <code>DescribeCacheCluster</code> request to show only nodes
      *        (API/CLI: clusters) that are not members of a replication group. In practice, this mean Memcached and
-     *        single node Redis clusters.
+     *        single node Redis OSS clusters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -372,12 +372,12 @@ public class DescribeCacheClustersRequest extends com.amazonaws.AmazonWebService
      * <p>
      * An optional flag that can be included in the <code>DescribeCacheCluster</code> request to show only nodes
      * (API/CLI: clusters) that are not members of a replication group. In practice, this mean Memcached and single node
-     * Redis clusters.
+     * Redis OSS clusters.
      * </p>
      * 
      * @return An optional flag that can be included in the <code>DescribeCacheCluster</code> request to show only nodes
      *         (API/CLI: clusters) that are not members of a replication group. In practice, this mean Memcached and
-     *         single node Redis clusters.
+     *         single node Redis OSS clusters.
      */
 
     public Boolean isShowCacheClustersNotInReplicationGroups() {

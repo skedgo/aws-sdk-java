@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.pinpointsmsvoice.AmazonPinpointSMSVoiceClientBuild
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.pinpointsmsvoice.model.*;
+
 import com.amazonaws.services.pinpointsmsvoice.model.transform.*;
 
 /**
@@ -74,25 +75,25 @@ public class AmazonPinpointSMSVoiceClient extends AmazonWebServiceClient impleme
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withModeledClass(
-                                    com.amazonaws.services.pinpointsmsvoice.model.NotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.pinpointsmsvoice.model.transform.NotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServiceErrorException").withModeledClass(
-                                    com.amazonaws.services.pinpointsmsvoice.model.InternalServiceErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServiceErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.pinpointsmsvoice.model.transform.InternalServiceErrorExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.pinpointsmsvoice.model.AlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("AlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.pinpointsmsvoice.model.transform.AlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withModeledClass(
-                                    com.amazonaws.services.pinpointsmsvoice.model.TooManyRequestsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.pinpointsmsvoice.model.transform.TooManyRequestsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withModeledClass(
-                                    com.amazonaws.services.pinpointsmsvoice.model.BadRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.pinpointsmsvoice.model.transform.BadRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withModeledClass(
-                                    com.amazonaws.services.pinpointsmsvoice.model.LimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.pinpointsmsvoice.model.transform.LimitExceededExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.pinpointsmsvoice.model.AmazonPinpointSMSVoiceException.class));
 
     public static AmazonPinpointSMSVoiceClientBuilder builder() {
@@ -183,6 +184,8 @@ public class AmazonPinpointSMSVoiceClient extends AmazonWebServiceClient impleme
                 request = new CreateConfigurationSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createConfigurationSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint SMS Voice");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateConfigurationSet");
@@ -251,6 +254,8 @@ public class AmazonPinpointSMSVoiceClient extends AmazonWebServiceClient impleme
                         .beforeMarshalling(createConfigurationSetEventDestinationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint SMS Voice");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateConfigurationSetEventDestination");
@@ -311,6 +316,8 @@ public class AmazonPinpointSMSVoiceClient extends AmazonWebServiceClient impleme
                 request = new DeleteConfigurationSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteConfigurationSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint SMS Voice");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteConfigurationSet");
@@ -374,6 +381,8 @@ public class AmazonPinpointSMSVoiceClient extends AmazonWebServiceClient impleme
                         .beforeMarshalling(deleteConfigurationSetEventDestinationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint SMS Voice");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteConfigurationSetEventDestination");
@@ -438,6 +447,8 @@ public class AmazonPinpointSMSVoiceClient extends AmazonWebServiceClient impleme
                         .beforeMarshalling(getConfigurationSetEventDestinationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint SMS Voice");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetConfigurationSetEventDestinations");
@@ -496,6 +507,8 @@ public class AmazonPinpointSMSVoiceClient extends AmazonWebServiceClient impleme
                 request = new ListConfigurationSetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listConfigurationSetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint SMS Voice");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListConfigurationSets");
@@ -555,6 +568,8 @@ public class AmazonPinpointSMSVoiceClient extends AmazonWebServiceClient impleme
                 request = new SendVoiceMessageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(sendVoiceMessageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint SMS Voice");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SendVoiceMessage");
@@ -620,6 +635,8 @@ public class AmazonPinpointSMSVoiceClient extends AmazonWebServiceClient impleme
                         .beforeMarshalling(updateConfigurationSetEventDestinationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint SMS Voice");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateConfigurationSetEventDestination");
@@ -716,6 +733,11 @@ public class AmazonPinpointSMSVoiceClient extends AmazonWebServiceClient impleme
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

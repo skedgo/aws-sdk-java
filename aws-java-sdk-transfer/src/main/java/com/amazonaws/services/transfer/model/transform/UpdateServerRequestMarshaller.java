@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.transfer.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -27,6 +28,10 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class UpdateServerRequestMarshaller {
 
+    private static final MarshallingInfo<String> CERTIFICATE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Certificate").build();
+    private static final MarshallingInfo<StructuredPojo> PROTOCOLDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ProtocolDetails").build();
     private static final MarshallingInfo<StructuredPojo> ENDPOINTDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EndpointDetails").build();
     private static final MarshallingInfo<String> ENDPOINTTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -37,8 +42,22 @@ public class UpdateServerRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IdentityProviderDetails").build();
     private static final MarshallingInfo<String> LOGGINGROLE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LoggingRole").build();
+    private static final MarshallingInfo<String> POSTAUTHENTICATIONLOGINBANNER_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PostAuthenticationLoginBanner").build();
+    private static final MarshallingInfo<String> PREAUTHENTICATIONLOGINBANNER_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PreAuthenticationLoginBanner").build();
+    private static final MarshallingInfo<List> PROTOCOLS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Protocols").build();
+    private static final MarshallingInfo<String> SECURITYPOLICYNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SecurityPolicyName").build();
     private static final MarshallingInfo<String> SERVERID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("ServerId").build();
+    private static final MarshallingInfo<StructuredPojo> WORKFLOWDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("WorkflowDetails").build();
+    private static final MarshallingInfo<List> STRUCTUREDLOGDESTINATIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StructuredLogDestinations").build();
+    private static final MarshallingInfo<StructuredPojo> S3STORAGEOPTIONS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("S3StorageOptions").build();
 
     private static final UpdateServerRequestMarshaller instance = new UpdateServerRequestMarshaller();
 
@@ -56,12 +75,21 @@ public class UpdateServerRequestMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(updateServerRequest.getCertificate(), CERTIFICATE_BINDING);
+            protocolMarshaller.marshall(updateServerRequest.getProtocolDetails(), PROTOCOLDETAILS_BINDING);
             protocolMarshaller.marshall(updateServerRequest.getEndpointDetails(), ENDPOINTDETAILS_BINDING);
             protocolMarshaller.marshall(updateServerRequest.getEndpointType(), ENDPOINTTYPE_BINDING);
             protocolMarshaller.marshall(updateServerRequest.getHostKey(), HOSTKEY_BINDING);
             protocolMarshaller.marshall(updateServerRequest.getIdentityProviderDetails(), IDENTITYPROVIDERDETAILS_BINDING);
             protocolMarshaller.marshall(updateServerRequest.getLoggingRole(), LOGGINGROLE_BINDING);
+            protocolMarshaller.marshall(updateServerRequest.getPostAuthenticationLoginBanner(), POSTAUTHENTICATIONLOGINBANNER_BINDING);
+            protocolMarshaller.marshall(updateServerRequest.getPreAuthenticationLoginBanner(), PREAUTHENTICATIONLOGINBANNER_BINDING);
+            protocolMarshaller.marshall(updateServerRequest.getProtocols(), PROTOCOLS_BINDING);
+            protocolMarshaller.marshall(updateServerRequest.getSecurityPolicyName(), SECURITYPOLICYNAME_BINDING);
             protocolMarshaller.marshall(updateServerRequest.getServerId(), SERVERID_BINDING);
+            protocolMarshaller.marshall(updateServerRequest.getWorkflowDetails(), WORKFLOWDETAILS_BINDING);
+            protocolMarshaller.marshall(updateServerRequest.getStructuredLogDestinations(), STRUCTUREDLOGDESTINATIONS_BINDING);
+            protocolMarshaller.marshall(updateServerRequest.getS3StorageOptions(), S3STORAGEOPTIONS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

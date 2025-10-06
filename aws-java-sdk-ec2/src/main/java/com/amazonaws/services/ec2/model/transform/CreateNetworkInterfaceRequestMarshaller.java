@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,6 +21,7 @@ import com.amazonaws.http.HttpMethodName;
 import com.amazonaws.services.ec2.model.*;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringUtils;
+import com.amazonaws.util.IdempotentUtils;
 
 /**
  * CreateNetworkInterfaceRequest Marshaller
@@ -72,6 +73,11 @@ public class CreateNetworkInterfaceRequestMarshaller implements Marshaller<Reque
                     request.addParameter("Ipv6Addresses." + ipv6AddressesListIndex + ".Ipv6Address",
                             StringUtils.fromString(createNetworkInterfaceRequestIpv6AddressesListValue.getIpv6Address()));
                 }
+
+                if (createNetworkInterfaceRequestIpv6AddressesListValue.getIsPrimaryIpv6() != null) {
+                    request.addParameter("Ipv6Addresses." + ipv6AddressesListIndex + ".IsPrimaryIpv6",
+                            StringUtils.fromBoolean(createNetworkInterfaceRequestIpv6AddressesListValue.getIsPrimaryIpv6()));
+                }
                 ipv6AddressesListIndex++;
             }
         }
@@ -104,12 +110,109 @@ public class CreateNetworkInterfaceRequestMarshaller implements Marshaller<Reque
             request.addParameter("SecondaryPrivateIpAddressCount", StringUtils.fromInteger(createNetworkInterfaceRequest.getSecondaryPrivateIpAddressCount()));
         }
 
+        com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecificationRequest> createNetworkInterfaceRequestIpv4PrefixesList = (com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecificationRequest>) createNetworkInterfaceRequest
+                .getIpv4Prefixes();
+        if (!createNetworkInterfaceRequestIpv4PrefixesList.isEmpty() || !createNetworkInterfaceRequestIpv4PrefixesList.isAutoConstruct()) {
+            int ipv4PrefixesListIndex = 1;
+
+            for (Ipv4PrefixSpecificationRequest createNetworkInterfaceRequestIpv4PrefixesListValue : createNetworkInterfaceRequestIpv4PrefixesList) {
+
+                if (createNetworkInterfaceRequestIpv4PrefixesListValue.getIpv4Prefix() != null) {
+                    request.addParameter("Ipv4Prefix." + ipv4PrefixesListIndex + ".Ipv4Prefix",
+                            StringUtils.fromString(createNetworkInterfaceRequestIpv4PrefixesListValue.getIpv4Prefix()));
+                }
+                ipv4PrefixesListIndex++;
+            }
+        }
+
+        if (createNetworkInterfaceRequest.getIpv4PrefixCount() != null) {
+            request.addParameter("Ipv4PrefixCount", StringUtils.fromInteger(createNetworkInterfaceRequest.getIpv4PrefixCount()));
+        }
+
+        com.amazonaws.internal.SdkInternalList<Ipv6PrefixSpecificationRequest> createNetworkInterfaceRequestIpv6PrefixesList = (com.amazonaws.internal.SdkInternalList<Ipv6PrefixSpecificationRequest>) createNetworkInterfaceRequest
+                .getIpv6Prefixes();
+        if (!createNetworkInterfaceRequestIpv6PrefixesList.isEmpty() || !createNetworkInterfaceRequestIpv6PrefixesList.isAutoConstruct()) {
+            int ipv6PrefixesListIndex = 1;
+
+            for (Ipv6PrefixSpecificationRequest createNetworkInterfaceRequestIpv6PrefixesListValue : createNetworkInterfaceRequestIpv6PrefixesList) {
+
+                if (createNetworkInterfaceRequestIpv6PrefixesListValue.getIpv6Prefix() != null) {
+                    request.addParameter("Ipv6Prefix." + ipv6PrefixesListIndex + ".Ipv6Prefix",
+                            StringUtils.fromString(createNetworkInterfaceRequestIpv6PrefixesListValue.getIpv6Prefix()));
+                }
+                ipv6PrefixesListIndex++;
+            }
+        }
+
+        if (createNetworkInterfaceRequest.getIpv6PrefixCount() != null) {
+            request.addParameter("Ipv6PrefixCount", StringUtils.fromInteger(createNetworkInterfaceRequest.getIpv6PrefixCount()));
+        }
+
         if (createNetworkInterfaceRequest.getInterfaceType() != null) {
             request.addParameter("InterfaceType", StringUtils.fromString(createNetworkInterfaceRequest.getInterfaceType()));
         }
 
         if (createNetworkInterfaceRequest.getSubnetId() != null) {
             request.addParameter("SubnetId", StringUtils.fromString(createNetworkInterfaceRequest.getSubnetId()));
+        }
+
+        com.amazonaws.internal.SdkInternalList<TagSpecification> createNetworkInterfaceRequestTagSpecificationsList = (com.amazonaws.internal.SdkInternalList<TagSpecification>) createNetworkInterfaceRequest
+                .getTagSpecifications();
+        if (!createNetworkInterfaceRequestTagSpecificationsList.isEmpty() || !createNetworkInterfaceRequestTagSpecificationsList.isAutoConstruct()) {
+            int tagSpecificationsListIndex = 1;
+
+            for (TagSpecification createNetworkInterfaceRequestTagSpecificationsListValue : createNetworkInterfaceRequestTagSpecificationsList) {
+
+                if (createNetworkInterfaceRequestTagSpecificationsListValue.getResourceType() != null) {
+                    request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".ResourceType",
+                            StringUtils.fromString(createNetworkInterfaceRequestTagSpecificationsListValue.getResourceType()));
+                }
+
+                com.amazonaws.internal.SdkInternalList<Tag> tagSpecificationTagsList = (com.amazonaws.internal.SdkInternalList<Tag>) createNetworkInterfaceRequestTagSpecificationsListValue
+                        .getTags();
+                if (!tagSpecificationTagsList.isEmpty() || !tagSpecificationTagsList.isAutoConstruct()) {
+                    int tagsListIndex = 1;
+
+                    for (Tag tagSpecificationTagsListValue : tagSpecificationTagsList) {
+
+                        if (tagSpecificationTagsListValue.getKey() != null) {
+                            request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".Tag." + tagsListIndex + ".Key",
+                                    StringUtils.fromString(tagSpecificationTagsListValue.getKey()));
+                        }
+
+                        if (tagSpecificationTagsListValue.getValue() != null) {
+                            request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".Tag." + tagsListIndex + ".Value",
+                                    StringUtils.fromString(tagSpecificationTagsListValue.getValue()));
+                        }
+                        tagsListIndex++;
+                    }
+                }
+                tagSpecificationsListIndex++;
+            }
+        }
+
+        request.addParameter("ClientToken", IdempotentUtils.resolveString(createNetworkInterfaceRequest.getClientToken()));
+
+        if (createNetworkInterfaceRequest.getEnablePrimaryIpv6() != null) {
+            request.addParameter("EnablePrimaryIpv6", StringUtils.fromBoolean(createNetworkInterfaceRequest.getEnablePrimaryIpv6()));
+        }
+
+        ConnectionTrackingSpecificationRequest connectionTrackingSpecification = createNetworkInterfaceRequest.getConnectionTrackingSpecification();
+        if (connectionTrackingSpecification != null) {
+
+            if (connectionTrackingSpecification.getTcpEstablishedTimeout() != null) {
+                request.addParameter("ConnectionTrackingSpecification.TcpEstablishedTimeout",
+                        StringUtils.fromInteger(connectionTrackingSpecification.getTcpEstablishedTimeout()));
+            }
+
+            if (connectionTrackingSpecification.getUdpStreamTimeout() != null) {
+                request.addParameter("ConnectionTrackingSpecification.UdpStreamTimeout",
+                        StringUtils.fromInteger(connectionTrackingSpecification.getUdpStreamTimeout()));
+            }
+
+            if (connectionTrackingSpecification.getUdpTimeout() != null) {
+                request.addParameter("ConnectionTrackingSpecification.UdpTimeout", StringUtils.fromInteger(connectionTrackingSpecification.getUdpTimeout()));
+            }
         }
 
         return request;

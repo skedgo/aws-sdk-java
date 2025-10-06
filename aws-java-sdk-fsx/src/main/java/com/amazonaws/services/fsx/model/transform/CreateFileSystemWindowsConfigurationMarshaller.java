@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.fsx.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -31,6 +32,10 @@ public class CreateFileSystemWindowsConfigurationMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ActiveDirectoryId").build();
     private static final MarshallingInfo<StructuredPojo> SELFMANAGEDACTIVEDIRECTORYCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SelfManagedActiveDirectoryConfiguration").build();
+    private static final MarshallingInfo<String> DEPLOYMENTTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DeploymentType").build();
+    private static final MarshallingInfo<String> PREFERREDSUBNETID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PreferredSubnetId").build();
     private static final MarshallingInfo<Integer> THROUGHPUTCAPACITY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ThroughputCapacity").build();
     private static final MarshallingInfo<String> WEEKLYMAINTENANCESTARTTIME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -41,6 +46,12 @@ public class CreateFileSystemWindowsConfigurationMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AutomaticBackupRetentionDays").build();
     private static final MarshallingInfo<Boolean> COPYTAGSTOBACKUPS_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CopyTagsToBackups").build();
+    private static final MarshallingInfo<List> ALIASES_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Aliases").build();
+    private static final MarshallingInfo<StructuredPojo> AUDITLOGCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AuditLogConfiguration").build();
+    private static final MarshallingInfo<StructuredPojo> DISKIOPSCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DiskIopsConfiguration").build();
 
     private static final CreateFileSystemWindowsConfigurationMarshaller instance = new CreateFileSystemWindowsConfigurationMarshaller();
 
@@ -61,11 +72,16 @@ public class CreateFileSystemWindowsConfigurationMarshaller {
             protocolMarshaller.marshall(createFileSystemWindowsConfiguration.getActiveDirectoryId(), ACTIVEDIRECTORYID_BINDING);
             protocolMarshaller.marshall(createFileSystemWindowsConfiguration.getSelfManagedActiveDirectoryConfiguration(),
                     SELFMANAGEDACTIVEDIRECTORYCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(createFileSystemWindowsConfiguration.getDeploymentType(), DEPLOYMENTTYPE_BINDING);
+            protocolMarshaller.marshall(createFileSystemWindowsConfiguration.getPreferredSubnetId(), PREFERREDSUBNETID_BINDING);
             protocolMarshaller.marshall(createFileSystemWindowsConfiguration.getThroughputCapacity(), THROUGHPUTCAPACITY_BINDING);
             protocolMarshaller.marshall(createFileSystemWindowsConfiguration.getWeeklyMaintenanceStartTime(), WEEKLYMAINTENANCESTARTTIME_BINDING);
             protocolMarshaller.marshall(createFileSystemWindowsConfiguration.getDailyAutomaticBackupStartTime(), DAILYAUTOMATICBACKUPSTARTTIME_BINDING);
             protocolMarshaller.marshall(createFileSystemWindowsConfiguration.getAutomaticBackupRetentionDays(), AUTOMATICBACKUPRETENTIONDAYS_BINDING);
             protocolMarshaller.marshall(createFileSystemWindowsConfiguration.getCopyTagsToBackups(), COPYTAGSTOBACKUPS_BINDING);
+            protocolMarshaller.marshall(createFileSystemWindowsConfiguration.getAliases(), ALIASES_BINDING);
+            protocolMarshaller.marshall(createFileSystemWindowsConfiguration.getAuditLogConfiguration(), AUDITLOGCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(createFileSystemWindowsConfiguration.getDiskIopsConfiguration(), DISKIOPSCONFIGURATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,10 +29,16 @@ public class FileSourceSettingsMarshaller {
 
     private static final MarshallingInfo<String> CONVERT608TO708_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("convert608To708").build();
+    private static final MarshallingInfo<String> CONVERTPAINTTOPOP_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("convertPaintToPop").build();
+    private static final MarshallingInfo<StructuredPojo> FRAMERATE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("framerate").build();
     private static final MarshallingInfo<String> SOURCEFILE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("sourceFile").build();
     private static final MarshallingInfo<Integer> TIMEDELTA_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("timeDelta").build();
+    private static final MarshallingInfo<String> TIMEDELTAUNITS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("timeDeltaUnits").build();
 
     private static final FileSourceSettingsMarshaller instance = new FileSourceSettingsMarshaller();
 
@@ -51,8 +57,11 @@ public class FileSourceSettingsMarshaller {
 
         try {
             protocolMarshaller.marshall(fileSourceSettings.getConvert608To708(), CONVERT608TO708_BINDING);
+            protocolMarshaller.marshall(fileSourceSettings.getConvertPaintToPop(), CONVERTPAINTTOPOP_BINDING);
+            protocolMarshaller.marshall(fileSourceSettings.getFramerate(), FRAMERATE_BINDING);
             protocolMarshaller.marshall(fileSourceSettings.getSourceFile(), SOURCEFILE_BINDING);
             protocolMarshaller.marshall(fileSourceSettings.getTimeDelta(), TIMEDELTA_BINDING);
+            protocolMarshaller.marshall(fileSourceSettings.getTimeDeltaUnits(), TIMEDELTAUNITS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

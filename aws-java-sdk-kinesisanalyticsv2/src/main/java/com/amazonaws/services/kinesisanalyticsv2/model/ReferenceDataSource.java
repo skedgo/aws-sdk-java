@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,9 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * For an SQL-based Amazon Kinesis Data Analytics application, describes the reference data source by providing the
- * source information (Amazon S3 bucket name and object key name), the resulting in-application table name that is
- * created, and the necessary schema to map the data elements in the Amazon S3 object to the in-application table.
+ * For a SQL-based Kinesis Data Analytics application, describes the reference data source by providing the source
+ * information (Amazon S3 bucket name and object key name), the resulting in-application table name that is created, and
+ * the necessary schema to map the data elements in the Amazon S3 object to the in-application table.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ReferenceDataSource"
@@ -38,9 +38,9 @@ public class ReferenceDataSource implements Serializable, Cloneable, StructuredP
     private String tableName;
     /**
      * <p>
-     * Identifies the S3 bucket and object that contains the reference data. A Kinesis Data Analytics application loads
-     * reference data only once. If the data changes, you call the <a>UpdateApplication</a> operation to trigger
-     * reloading of data into your application.
+     * Identifies the S3 bucket and object that contains the reference data. A SQL-based Kinesis Data Analytics
+     * application loads reference data only once. If the data changes, you call the <a>UpdateApplication</a> operation
+     * to trigger reloading of data into your application.
      * </p>
      */
     private S3ReferenceDataSource s3ReferenceDataSource;
@@ -94,15 +94,15 @@ public class ReferenceDataSource implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Identifies the S3 bucket and object that contains the reference data. A Kinesis Data Analytics application loads
-     * reference data only once. If the data changes, you call the <a>UpdateApplication</a> operation to trigger
-     * reloading of data into your application.
+     * Identifies the S3 bucket and object that contains the reference data. A SQL-based Kinesis Data Analytics
+     * application loads reference data only once. If the data changes, you call the <a>UpdateApplication</a> operation
+     * to trigger reloading of data into your application.
      * </p>
      * 
      * @param s3ReferenceDataSource
-     *        Identifies the S3 bucket and object that contains the reference data. A Kinesis Data Analytics application
-     *        loads reference data only once. If the data changes, you call the <a>UpdateApplication</a> operation to
-     *        trigger reloading of data into your application.
+     *        Identifies the S3 bucket and object that contains the reference data. A SQL-based Kinesis Data Analytics
+     *        application loads reference data only once. If the data changes, you call the <a>UpdateApplication</a>
+     *        operation to trigger reloading of data into your application.
      */
 
     public void setS3ReferenceDataSource(S3ReferenceDataSource s3ReferenceDataSource) {
@@ -111,12 +111,12 @@ public class ReferenceDataSource implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Identifies the S3 bucket and object that contains the reference data. A Kinesis Data Analytics application loads
-     * reference data only once. If the data changes, you call the <a>UpdateApplication</a> operation to trigger
-     * reloading of data into your application.
+     * Identifies the S3 bucket and object that contains the reference data. A SQL-based Kinesis Data Analytics
+     * application loads reference data only once. If the data changes, you call the <a>UpdateApplication</a> operation
+     * to trigger reloading of data into your application.
      * </p>
      * 
-     * @return Identifies the S3 bucket and object that contains the reference data. A Kinesis Data Analytics
+     * @return Identifies the S3 bucket and object that contains the reference data. A SQL-based Kinesis Data Analytics
      *         application loads reference data only once. If the data changes, you call the <a>UpdateApplication</a>
      *         operation to trigger reloading of data into your application.
      */
@@ -127,15 +127,15 @@ public class ReferenceDataSource implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Identifies the S3 bucket and object that contains the reference data. A Kinesis Data Analytics application loads
-     * reference data only once. If the data changes, you call the <a>UpdateApplication</a> operation to trigger
-     * reloading of data into your application.
+     * Identifies the S3 bucket and object that contains the reference data. A SQL-based Kinesis Data Analytics
+     * application loads reference data only once. If the data changes, you call the <a>UpdateApplication</a> operation
+     * to trigger reloading of data into your application.
      * </p>
      * 
      * @param s3ReferenceDataSource
-     *        Identifies the S3 bucket and object that contains the reference data. A Kinesis Data Analytics application
-     *        loads reference data only once. If the data changes, you call the <a>UpdateApplication</a> operation to
-     *        trigger reloading of data into your application.
+     *        Identifies the S3 bucket and object that contains the reference data. A SQL-based Kinesis Data Analytics
+     *        application loads reference data only once. If the data changes, you call the <a>UpdateApplication</a>
+     *        operation to trigger reloading of data into your application.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

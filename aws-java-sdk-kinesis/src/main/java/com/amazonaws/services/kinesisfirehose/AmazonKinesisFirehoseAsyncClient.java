@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,10 +30,15 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * the asynchronous operation; overloads which accept an {@code AsyncHandler} can be used to receive notification when
  * an asynchronous operation completes.
  * <p>
- * <fullname>Amazon Kinesis Data Firehose API Reference</fullname>
+ * <fullname>Amazon Data Firehose</fullname> <note>
  * <p>
- * Amazon Kinesis Data Firehose is a fully managed service that delivers real-time streaming data to destinations such
- * as Amazon Simple Storage Service (Amazon S3), Amazon Elasticsearch Service (Amazon ES), Amazon Redshift, and Splunk.
+ * Amazon Data Firehose was previously known as Amazon Kinesis Data Firehose.
+ * </p>
+ * </note>
+ * <p>
+ * Amazon Data Firehose is a fully managed service that delivers real-time streaming data to destinations such as Amazon
+ * Simple Storage Service (Amazon S3), Amazon OpenSearch Service, Amazon Redshift, Splunk, and various other supported
+ * destinations.
  * </p>
  */
 @ThreadSafe
@@ -233,7 +238,19 @@ public class AmazonKinesisFirehoseAsyncClient extends AmazonKinesisFirehoseClien
      *        Object providing client parameters.
      */
     AmazonKinesisFirehoseAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Firehose using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonKinesisFirehoseAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 

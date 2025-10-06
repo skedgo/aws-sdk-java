@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,19 +18,30 @@ import javax.annotation.Generated;
  * <p>
  * The following problems can cause this exception:
  * </p>
+ * <ul>
+ * <li>
  * <p>
- * You do not have permission to access the instance.
+ * You don't have permission to access the managed node.
  * </p>
+ * </li>
+ * <li>
  * <p>
- * SSM Agent is not running. Verify that SSM Agent is running.
+ * Amazon Web Services Systems Manager Agent (SSM Agent) isn't running. Verify that SSM Agent is running.
  * </p>
+ * </li>
+ * <li>
  * <p>
- * SSM Agent is not registered with the SSM endpoint. Try reinstalling SSM Agent.
+ * SSM Agent isn't registered with the SSM endpoint. Try reinstalling SSM Agent.
  * </p>
+ * </li>
+ * <li>
  * <p>
- * The instance is not in valid state. Valid states are: Running, Pending, Stopped, Stopping. Invalid states are:
- * Shutting-down and Terminated.
+ * The managed node isn't in a valid state. Valid states are: <code>Running</code>, <code>Pending</code>,
+ * <code>Stopped</code>, and <code>Stopping</code>. Invalid states are: <code>Shutting-down</code> and
+ * <code>Terminated</code>.
  * </p>
+ * </li>
+ * </ul>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class InvalidInstanceIdException extends com.amazonaws.services.simplesystemsmanagement.model.AWSSimpleSystemsManagementException {

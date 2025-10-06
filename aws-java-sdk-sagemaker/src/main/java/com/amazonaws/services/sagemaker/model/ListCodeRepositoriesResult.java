@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,8 +50,8 @@ public class ListCodeRepositoriesResult extends com.amazonaws.AmazonWebServiceRe
      * </li>
      * <li>
      * <p>
-     * Configuration information, including the URL location of the repository and the ARN of the AWS Secrets Manager
-     * secret that contains the credentials used to access the repository.
+     * Configuration information, including the URL location of the repository and the ARN of the Amazon Web Services
+     * Secrets Manager secret that contains the credentials used to access the repository.
      * </p>
      * </li>
      * </ul>
@@ -92,8 +92,8 @@ public class ListCodeRepositoriesResult extends com.amazonaws.AmazonWebServiceRe
      * </li>
      * <li>
      * <p>
-     * Configuration information, including the URL location of the repository and the ARN of the AWS Secrets Manager
-     * secret that contains the credentials used to access the repository.
+     * Configuration information, including the URL location of the repository and the ARN of the Amazon Web Services
+     * Secrets Manager secret that contains the credentials used to access the repository.
      * </p>
      * </li>
      * </ul>
@@ -123,8 +123,8 @@ public class ListCodeRepositoriesResult extends com.amazonaws.AmazonWebServiceRe
      *         </li>
      *         <li>
      *         <p>
-     *         Configuration information, including the URL location of the repository and the ARN of the AWS Secrets
-     *         Manager secret that contains the credentials used to access the repository.
+     *         Configuration information, including the URL location of the repository and the ARN of the Amazon Web
+     *         Services Secrets Manager secret that contains the credentials used to access the repository.
      *         </p>
      *         </li>
      */
@@ -160,8 +160,8 @@ public class ListCodeRepositoriesResult extends com.amazonaws.AmazonWebServiceRe
      * </li>
      * <li>
      * <p>
-     * Configuration information, including the URL location of the repository and the ARN of the AWS Secrets Manager
-     * secret that contains the credentials used to access the repository.
+     * Configuration information, including the URL location of the repository and the ARN of the Amazon Web Services
+     * Secrets Manager secret that contains the credentials used to access the repository.
      * </p>
      * </li>
      * </ul>
@@ -192,8 +192,8 @@ public class ListCodeRepositoriesResult extends com.amazonaws.AmazonWebServiceRe
      *        </li>
      *        <li>
      *        <p>
-     *        Configuration information, including the URL location of the repository and the ARN of the AWS Secrets
-     *        Manager secret that contains the credentials used to access the repository.
+     *        Configuration information, including the URL location of the repository and the ARN of the Amazon Web
+     *        Services Secrets Manager secret that contains the credentials used to access the repository.
      *        </p>
      *        </li>
      */
@@ -234,8 +234,8 @@ public class ListCodeRepositoriesResult extends com.amazonaws.AmazonWebServiceRe
      * </li>
      * <li>
      * <p>
-     * Configuration information, including the URL location of the repository and the ARN of the AWS Secrets Manager
-     * secret that contains the credentials used to access the repository.
+     * Configuration information, including the URL location of the repository and the ARN of the Amazon Web Services
+     * Secrets Manager secret that contains the credentials used to access the repository.
      * </p>
      * </li>
      * </ul>
@@ -271,8 +271,8 @@ public class ListCodeRepositoriesResult extends com.amazonaws.AmazonWebServiceRe
      *        </li>
      *        <li>
      *        <p>
-     *        Configuration information, including the URL location of the repository and the ARN of the AWS Secrets
-     *        Manager secret that contains the credentials used to access the repository.
+     *        Configuration information, including the URL location of the repository and the ARN of the Amazon Web
+     *        Services Secrets Manager secret that contains the credentials used to access the repository.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -315,8 +315,8 @@ public class ListCodeRepositoriesResult extends com.amazonaws.AmazonWebServiceRe
      * </li>
      * <li>
      * <p>
-     * Configuration information, including the URL location of the repository and the ARN of the AWS Secrets Manager
-     * secret that contains the credentials used to access the repository.
+     * Configuration information, including the URL location of the repository and the ARN of the Amazon Web Services
+     * Secrets Manager secret that contains the credentials used to access the repository.
      * </p>
      * </li>
      * </ul>
@@ -347,8 +347,8 @@ public class ListCodeRepositoriesResult extends com.amazonaws.AmazonWebServiceRe
      *        </li>
      *        <li>
      *        <p>
-     *        Configuration information, including the URL location of the repository and the ARN of the AWS Secrets
-     *        Manager secret that contains the credentials used to access the repository.
+     *        Configuration information, including the URL location of the repository and the ARN of the Amazon Web
+     *        Services Secrets Manager secret that contains the credentials used to access the repository.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.

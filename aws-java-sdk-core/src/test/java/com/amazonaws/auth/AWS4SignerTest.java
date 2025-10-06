@@ -114,6 +114,26 @@ public class AWS4SignerTest {
     }
 
     @Test
+    public void signingWithSpacesInHeaderValues_trimsHeaderValues() throws Exception {
+        AWSCredentials credentials = new BasicAWSCredentials("access", "secret");
+        SignableRequest<?> request = generateBasicRequest();
+        request.addHeader("x-test-header", " foo  bar ");
+
+        Calendar c = new GregorianCalendar();
+        c.set(1981, 1, 16, 6, 30, 0);
+        c.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+        signer.setOverrideDate(c.getTime());
+        signer.setServiceName("demo");
+
+        signer.sign(request, credentials);
+        assertEquals("AWS4-HMAC-SHA256 Credential=access/19810216/us-east-1/demo/aws4_request, "
+                     + "SignedHeaders=host;x-amz-archive-description;x-amz-date;x-test-header, "
+                     + "Signature=c1669d47bab084ee3314e599592351119af5f1044a53afa2b48da8e7436880fc",
+                     request.getHeaders().get("Authorization"));
+    }
+
+    @Test
     public void testPresigning() throws Exception {
         final String EXPECTED_AMZ_SIGNATURE = "bf7ae1c2f266d347e290a2aee7b126d38b8a695149d003b9fab2ed1eb6d6ebda";
         final String EXPECTED_AMZ_CREDENTIALS = "access/19810216/us-east-1/demo/aws4_request";
@@ -248,6 +268,19 @@ public class AWS4SignerTest {
         assertEquals(
                 "AWS4-HMAC-SHA256 Credential=akid/19810216/us-east-1/demo/aws4_request, SignedHeaders=host;x-amz-archive-description;x-amz-date, Signature=581d0042389009a28d461124138f1fe8eeb8daed87611d2a2b47fd3d68d81d73",
                 request.getHeaders().get("Authorization"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void invalidEndpointResultsInIllegalArgumentException() throws Exception {
+        SignableRequest<?> request =
+            MockRequestBuilder.create()
+                              .withContent(new ByteArrayInputStream("{\"TableName\": \"foo\"}".getBytes()))
+                              .withHeader("Host", "s3.US_WEST_2.amazonaws.com")
+                              .withHeader("x-amz-archive-description", "test  test")
+                              .withPath("/")
+                              .withEndpoint("https://s3.US_WEST_2.amazonaws.com")
+                              .build();
+        signer.sign(request, new BasicAWSCredentials("akid", "skid"));
     }
 
     private SignableRequest<?> generateBasicRequest() {

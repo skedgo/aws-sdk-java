@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights
  * Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
@@ -24,8 +24,8 @@ import static org.junit.Assert.assertNotNull;
 import java.io.File;
 import java.io.FileWriter;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -39,8 +39,8 @@ public class PropertiesFileCredentialsProviderIntegrationTest {
 
     private static File file = null;
 
-    @BeforeClass
-    public static void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         file = File.createTempFile(String.valueOf(System.currentTimeMillis()),
                 fileName);
 
@@ -53,8 +53,8 @@ public class PropertiesFileCredentialsProviderIntegrationTest {
         }
     }
 
-    @AfterClass
-    public static void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         if (file != null) {
             file.delete();
         }
@@ -69,5 +69,21 @@ public class PropertiesFileCredentialsProviderIntegrationTest {
         assertNotNull(provider.getCredentials());
         assertEquals(provider.getCredentials().getAWSAccessKeyId(), "testKey");
         assertEquals(provider.getCredentials().getAWSSecretKey(), "secretKey");
+    }
+
+    @Test
+    public void testPropertiesCredentialsMethodWithAccountId() throws Exception {
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(file, true);
+            fw.write("\naccountId=testId");
+        } finally {
+            fw.close();
+        }
+        PropertiesFileCredentialsProvider provider = new PropertiesFileCredentialsProvider(
+                file.getAbsolutePath());
+        PropertiesCredentials credentials = (PropertiesCredentials) provider.getCredentials();
+
+        assertEquals(credentials.getAccountId(), "testId");
     }
 }

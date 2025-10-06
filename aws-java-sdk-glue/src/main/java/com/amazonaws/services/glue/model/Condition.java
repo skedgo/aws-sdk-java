@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,8 +42,9 @@ public class Condition implements Serializable, Cloneable, StructuredPojo {
     private String jobName;
     /**
      * <p>
-     * The condition state. Currently, the values supported are <code>SUCCEEDED</code>, <code>STOPPED</code>,
-     * <code>TIMEOUT</code>, and <code>FAILED</code>.
+     * The condition state. Currently, the only job states that a trigger can listen for are <code>SUCCEEDED</code>,
+     * <code>STOPPED</code>, <code>FAILED</code>, and <code>TIMEOUT</code>. The only crawler states that a trigger can
+     * listen for are <code>SUCCEEDED</code>, <code>FAILED</code>, and <code>CANCELLED</code>.
      * </p>
      */
     private String state;
@@ -162,13 +163,16 @@ public class Condition implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The condition state. Currently, the values supported are <code>SUCCEEDED</code>, <code>STOPPED</code>,
-     * <code>TIMEOUT</code>, and <code>FAILED</code>.
+     * The condition state. Currently, the only job states that a trigger can listen for are <code>SUCCEEDED</code>,
+     * <code>STOPPED</code>, <code>FAILED</code>, and <code>TIMEOUT</code>. The only crawler states that a trigger can
+     * listen for are <code>SUCCEEDED</code>, <code>FAILED</code>, and <code>CANCELLED</code>.
      * </p>
      * 
      * @param state
-     *        The condition state. Currently, the values supported are <code>SUCCEEDED</code>, <code>STOPPED</code>,
-     *        <code>TIMEOUT</code>, and <code>FAILED</code>.
+     *        The condition state. Currently, the only job states that a trigger can listen for are
+     *        <code>SUCCEEDED</code>, <code>STOPPED</code>, <code>FAILED</code>, and <code>TIMEOUT</code>. The only
+     *        crawler states that a trigger can listen for are <code>SUCCEEDED</code>, <code>FAILED</code>, and
+     *        <code>CANCELLED</code>.
      * @see JobRunState
      */
 
@@ -178,12 +182,15 @@ public class Condition implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The condition state. Currently, the values supported are <code>SUCCEEDED</code>, <code>STOPPED</code>,
-     * <code>TIMEOUT</code>, and <code>FAILED</code>.
+     * The condition state. Currently, the only job states that a trigger can listen for are <code>SUCCEEDED</code>,
+     * <code>STOPPED</code>, <code>FAILED</code>, and <code>TIMEOUT</code>. The only crawler states that a trigger can
+     * listen for are <code>SUCCEEDED</code>, <code>FAILED</code>, and <code>CANCELLED</code>.
      * </p>
      * 
-     * @return The condition state. Currently, the values supported are <code>SUCCEEDED</code>, <code>STOPPED</code>,
-     *         <code>TIMEOUT</code>, and <code>FAILED</code>.
+     * @return The condition state. Currently, the only job states that a trigger can listen for are
+     *         <code>SUCCEEDED</code>, <code>STOPPED</code>, <code>FAILED</code>, and <code>TIMEOUT</code>. The only
+     *         crawler states that a trigger can listen for are <code>SUCCEEDED</code>, <code>FAILED</code>, and
+     *         <code>CANCELLED</code>.
      * @see JobRunState
      */
 
@@ -193,13 +200,16 @@ public class Condition implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The condition state. Currently, the values supported are <code>SUCCEEDED</code>, <code>STOPPED</code>,
-     * <code>TIMEOUT</code>, and <code>FAILED</code>.
+     * The condition state. Currently, the only job states that a trigger can listen for are <code>SUCCEEDED</code>,
+     * <code>STOPPED</code>, <code>FAILED</code>, and <code>TIMEOUT</code>. The only crawler states that a trigger can
+     * listen for are <code>SUCCEEDED</code>, <code>FAILED</code>, and <code>CANCELLED</code>.
      * </p>
      * 
      * @param state
-     *        The condition state. Currently, the values supported are <code>SUCCEEDED</code>, <code>STOPPED</code>,
-     *        <code>TIMEOUT</code>, and <code>FAILED</code>.
+     *        The condition state. Currently, the only job states that a trigger can listen for are
+     *        <code>SUCCEEDED</code>, <code>STOPPED</code>, <code>FAILED</code>, and <code>TIMEOUT</code>. The only
+     *        crawler states that a trigger can listen for are <code>SUCCEEDED</code>, <code>FAILED</code>, and
+     *        <code>CANCELLED</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see JobRunState
      */
@@ -211,13 +221,16 @@ public class Condition implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The condition state. Currently, the values supported are <code>SUCCEEDED</code>, <code>STOPPED</code>,
-     * <code>TIMEOUT</code>, and <code>FAILED</code>.
+     * The condition state. Currently, the only job states that a trigger can listen for are <code>SUCCEEDED</code>,
+     * <code>STOPPED</code>, <code>FAILED</code>, and <code>TIMEOUT</code>. The only crawler states that a trigger can
+     * listen for are <code>SUCCEEDED</code>, <code>FAILED</code>, and <code>CANCELLED</code>.
      * </p>
      * 
      * @param state
-     *        The condition state. Currently, the values supported are <code>SUCCEEDED</code>, <code>STOPPED</code>,
-     *        <code>TIMEOUT</code>, and <code>FAILED</code>.
+     *        The condition state. Currently, the only job states that a trigger can listen for are
+     *        <code>SUCCEEDED</code>, <code>STOPPED</code>, <code>FAILED</code>, and <code>TIMEOUT</code>. The only
+     *        crawler states that a trigger can listen for are <code>SUCCEEDED</code>, <code>FAILED</code>, and
+     *        <code>CANCELLED</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see JobRunState
      */

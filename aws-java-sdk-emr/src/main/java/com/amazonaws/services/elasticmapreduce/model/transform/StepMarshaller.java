@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,8 @@ public class StepMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ActionOnFailure").build();
     private static final MarshallingInfo<StructuredPojo> STATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Status").build();
+    private static final MarshallingInfo<String> EXECUTIONROLEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ExecutionRoleArn").build();
 
     private static final StepMarshaller instance = new StepMarshaller();
 
@@ -59,6 +61,7 @@ public class StepMarshaller {
             protocolMarshaller.marshall(step.getConfig(), CONFIG_BINDING);
             protocolMarshaller.marshall(step.getActionOnFailure(), ACTIONONFAILURE_BINDING);
             protocolMarshaller.marshall(step.getStatus(), STATUS_BINDING);
+            protocolMarshaller.marshall(step.getExecutionRoleArn(), EXECUTIONROLEARN_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

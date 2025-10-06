@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,14 @@ public class GetPatchBaselineRequest extends com.amazonaws.AmazonWebServiceReque
      * <p>
      * The ID of the patch baseline to retrieve.
      * </p>
+     * <note>
+     * <p>
+     * To retrieve information about an Amazon Web Services managed patch baseline, specify the full Amazon Resource
+     * Name (ARN) of the baseline. For example, for the baseline <code>AWS-AmazonLinuxDefaultPatchBaseline</code>,
+     * specify <code>arn:aws:ssm:us-east-2:733109147000:patchbaseline/pb-0e392de35e7c563b7</code> instead of
+     * <code>pb-0e392de35e7c563b7</code>.
+     * </p>
+     * </note>
      */
     private String baselineId;
 
@@ -36,9 +44,24 @@ public class GetPatchBaselineRequest extends com.amazonaws.AmazonWebServiceReque
      * <p>
      * The ID of the patch baseline to retrieve.
      * </p>
+     * <note>
+     * <p>
+     * To retrieve information about an Amazon Web Services managed patch baseline, specify the full Amazon Resource
+     * Name (ARN) of the baseline. For example, for the baseline <code>AWS-AmazonLinuxDefaultPatchBaseline</code>,
+     * specify <code>arn:aws:ssm:us-east-2:733109147000:patchbaseline/pb-0e392de35e7c563b7</code> instead of
+     * <code>pb-0e392de35e7c563b7</code>.
+     * </p>
+     * </note>
      * 
      * @param baselineId
-     *        The ID of the patch baseline to retrieve.
+     *        The ID of the patch baseline to retrieve.</p> <note>
+     *        <p>
+     *        To retrieve information about an Amazon Web Services managed patch baseline, specify the full Amazon
+     *        Resource Name (ARN) of the baseline. For example, for the baseline
+     *        <code>AWS-AmazonLinuxDefaultPatchBaseline</code>, specify
+     *        <code>arn:aws:ssm:us-east-2:733109147000:patchbaseline/pb-0e392de35e7c563b7</code> instead of
+     *        <code>pb-0e392de35e7c563b7</code>.
+     *        </p>
      */
 
     public void setBaselineId(String baselineId) {
@@ -49,8 +72,23 @@ public class GetPatchBaselineRequest extends com.amazonaws.AmazonWebServiceReque
      * <p>
      * The ID of the patch baseline to retrieve.
      * </p>
+     * <note>
+     * <p>
+     * To retrieve information about an Amazon Web Services managed patch baseline, specify the full Amazon Resource
+     * Name (ARN) of the baseline. For example, for the baseline <code>AWS-AmazonLinuxDefaultPatchBaseline</code>,
+     * specify <code>arn:aws:ssm:us-east-2:733109147000:patchbaseline/pb-0e392de35e7c563b7</code> instead of
+     * <code>pb-0e392de35e7c563b7</code>.
+     * </p>
+     * </note>
      * 
-     * @return The ID of the patch baseline to retrieve.
+     * @return The ID of the patch baseline to retrieve.</p> <note>
+     *         <p>
+     *         To retrieve information about an Amazon Web Services managed patch baseline, specify the full Amazon
+     *         Resource Name (ARN) of the baseline. For example, for the baseline
+     *         <code>AWS-AmazonLinuxDefaultPatchBaseline</code>, specify
+     *         <code>arn:aws:ssm:us-east-2:733109147000:patchbaseline/pb-0e392de35e7c563b7</code> instead of
+     *         <code>pb-0e392de35e7c563b7</code>.
+     *         </p>
      */
 
     public String getBaselineId() {
@@ -61,9 +99,24 @@ public class GetPatchBaselineRequest extends com.amazonaws.AmazonWebServiceReque
      * <p>
      * The ID of the patch baseline to retrieve.
      * </p>
+     * <note>
+     * <p>
+     * To retrieve information about an Amazon Web Services managed patch baseline, specify the full Amazon Resource
+     * Name (ARN) of the baseline. For example, for the baseline <code>AWS-AmazonLinuxDefaultPatchBaseline</code>,
+     * specify <code>arn:aws:ssm:us-east-2:733109147000:patchbaseline/pb-0e392de35e7c563b7</code> instead of
+     * <code>pb-0e392de35e7c563b7</code>.
+     * </p>
+     * </note>
      * 
      * @param baselineId
-     *        The ID of the patch baseline to retrieve.
+     *        The ID of the patch baseline to retrieve.</p> <note>
+     *        <p>
+     *        To retrieve information about an Amazon Web Services managed patch baseline, specify the full Amazon
+     *        Resource Name (ARN) of the baseline. For example, for the baseline
+     *        <code>AWS-AmazonLinuxDefaultPatchBaseline</code>, specify
+     *        <code>arn:aws:ssm:us-east-2:733109147000:patchbaseline/pb-0e392de35e7c563b7</code> instead of
+     *        <code>pb-0e392de35e7c563b7</code>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

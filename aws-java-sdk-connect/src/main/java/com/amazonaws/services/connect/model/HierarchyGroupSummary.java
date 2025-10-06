@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A <code>HierarchyGroupSummary</code> object that contains information about the hierarchy group, including ARN, Id,
- * and Name.
+ * Contains summary information about a hierarchy group.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/HierarchyGroupSummary" target="_top">AWS API
@@ -37,7 +36,7 @@ public class HierarchyGroupSummary implements Serializable, Cloneable, Structure
     private String id;
     /**
      * <p>
-     * The ARN for the hierarchy group.
+     * The Amazon Resource Name (ARN) of the hierarchy group.
      * </p>
      */
     private String arn;
@@ -47,6 +46,18 @@ public class HierarchyGroupSummary implements Serializable, Cloneable, Structure
      * </p>
      */
     private String name;
+    /**
+     * <p>
+     * The timestamp when this resource was last modified.
+     * </p>
+     */
+    private java.util.Date lastModifiedTime;
+    /**
+     * <p>
+     * The Amazon Web Services Region where this resource was last modified.
+     * </p>
+     */
+    private String lastModifiedRegion;
 
     /**
      * <p>
@@ -90,11 +101,11 @@ public class HierarchyGroupSummary implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The ARN for the hierarchy group.
+     * The Amazon Resource Name (ARN) of the hierarchy group.
      * </p>
      * 
      * @param arn
-     *        The ARN for the hierarchy group.
+     *        The Amazon Resource Name (ARN) of the hierarchy group.
      */
 
     public void setArn(String arn) {
@@ -103,10 +114,10 @@ public class HierarchyGroupSummary implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The ARN for the hierarchy group.
+     * The Amazon Resource Name (ARN) of the hierarchy group.
      * </p>
      * 
-     * @return The ARN for the hierarchy group.
+     * @return The Amazon Resource Name (ARN) of the hierarchy group.
      */
 
     public String getArn() {
@@ -115,11 +126,11 @@ public class HierarchyGroupSummary implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The ARN for the hierarchy group.
+     * The Amazon Resource Name (ARN) of the hierarchy group.
      * </p>
      * 
      * @param arn
-     *        The ARN for the hierarchy group.
+     *        The Amazon Resource Name (ARN) of the hierarchy group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -169,6 +180,86 @@ public class HierarchyGroupSummary implements Serializable, Cloneable, Structure
     }
 
     /**
+     * <p>
+     * The timestamp when this resource was last modified.
+     * </p>
+     * 
+     * @param lastModifiedTime
+     *        The timestamp when this resource was last modified.
+     */
+
+    public void setLastModifiedTime(java.util.Date lastModifiedTime) {
+        this.lastModifiedTime = lastModifiedTime;
+    }
+
+    /**
+     * <p>
+     * The timestamp when this resource was last modified.
+     * </p>
+     * 
+     * @return The timestamp when this resource was last modified.
+     */
+
+    public java.util.Date getLastModifiedTime() {
+        return this.lastModifiedTime;
+    }
+
+    /**
+     * <p>
+     * The timestamp when this resource was last modified.
+     * </p>
+     * 
+     * @param lastModifiedTime
+     *        The timestamp when this resource was last modified.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HierarchyGroupSummary withLastModifiedTime(java.util.Date lastModifiedTime) {
+        setLastModifiedTime(lastModifiedTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services Region where this resource was last modified.
+     * </p>
+     * 
+     * @param lastModifiedRegion
+     *        The Amazon Web Services Region where this resource was last modified.
+     */
+
+    public void setLastModifiedRegion(String lastModifiedRegion) {
+        this.lastModifiedRegion = lastModifiedRegion;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services Region where this resource was last modified.
+     * </p>
+     * 
+     * @return The Amazon Web Services Region where this resource was last modified.
+     */
+
+    public String getLastModifiedRegion() {
+        return this.lastModifiedRegion;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services Region where this resource was last modified.
+     * </p>
+     * 
+     * @param lastModifiedRegion
+     *        The Amazon Web Services Region where this resource was last modified.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HierarchyGroupSummary withLastModifiedRegion(String lastModifiedRegion) {
+        setLastModifiedRegion(lastModifiedRegion);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -185,7 +276,11 @@ public class HierarchyGroupSummary implements Serializable, Cloneable, Structure
         if (getArn() != null)
             sb.append("Arn: ").append(getArn()).append(",");
         if (getName() != null)
-            sb.append("Name: ").append(getName());
+            sb.append("Name: ").append(getName()).append(",");
+        if (getLastModifiedTime() != null)
+            sb.append("LastModifiedTime: ").append(getLastModifiedTime()).append(",");
+        if (getLastModifiedRegion() != null)
+            sb.append("LastModifiedRegion: ").append(getLastModifiedRegion());
         sb.append("}");
         return sb.toString();
     }
@@ -212,6 +307,14 @@ public class HierarchyGroupSummary implements Serializable, Cloneable, Structure
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
             return false;
+        if (other.getLastModifiedTime() == null ^ this.getLastModifiedTime() == null)
+            return false;
+        if (other.getLastModifiedTime() != null && other.getLastModifiedTime().equals(this.getLastModifiedTime()) == false)
+            return false;
+        if (other.getLastModifiedRegion() == null ^ this.getLastModifiedRegion() == null)
+            return false;
+        if (other.getLastModifiedRegion() != null && other.getLastModifiedRegion().equals(this.getLastModifiedRegion()) == false)
+            return false;
         return true;
     }
 
@@ -223,6 +326,8 @@ public class HierarchyGroupSummary implements Serializable, Cloneable, Structure
         hashCode = prime * hashCode + ((getId() == null) ? 0 : getId().hashCode());
         hashCode = prime * hashCode + ((getArn() == null) ? 0 : getArn().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
+        hashCode = prime * hashCode + ((getLastModifiedTime() == null) ? 0 : getLastModifiedTime().hashCode());
+        hashCode = prime * hashCode + ((getLastModifiedRegion() == null) ? 0 : getLastModifiedRegion().hashCode());
         return hashCode;
     }
 

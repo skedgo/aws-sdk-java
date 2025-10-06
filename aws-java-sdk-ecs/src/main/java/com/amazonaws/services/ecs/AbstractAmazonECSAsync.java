@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -24,6 +24,19 @@ import com.amazonaws.services.ecs.model.*;
 public class AbstractAmazonECSAsync extends AbstractAmazonECS implements AmazonECSAsync {
 
     protected AbstractAmazonECSAsync() {
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCapacityProviderResult> createCapacityProviderAsync(CreateCapacityProviderRequest request) {
+
+        return createCapacityProviderAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCapacityProviderResult> createCapacityProviderAsync(CreateCapacityProviderRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateCapacityProviderRequest, CreateCapacityProviderResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
@@ -115,6 +128,19 @@ public class AbstractAmazonECSAsync extends AbstractAmazonECS implements AmazonE
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteCapacityProviderResult> deleteCapacityProviderAsync(DeleteCapacityProviderRequest request) {
+
+        return deleteCapacityProviderAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCapacityProviderResult> deleteCapacityProviderAsync(DeleteCapacityProviderRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteCapacityProviderRequest, DeleteCapacityProviderResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteClusterResult> deleteClusterAsync(DeleteClusterRequest request) {
 
         return deleteClusterAsync(request, null);
@@ -136,6 +162,19 @@ public class AbstractAmazonECSAsync extends AbstractAmazonECS implements AmazonE
     @Override
     public java.util.concurrent.Future<DeleteServiceResult> deleteServiceAsync(DeleteServiceRequest request,
             com.amazonaws.handlers.AsyncHandler<DeleteServiceRequest, DeleteServiceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteTaskDefinitionsResult> deleteTaskDefinitionsAsync(DeleteTaskDefinitionsRequest request) {
+
+        return deleteTaskDefinitionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteTaskDefinitionsResult> deleteTaskDefinitionsAsync(DeleteTaskDefinitionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteTaskDefinitionsRequest, DeleteTaskDefinitionsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -175,6 +214,19 @@ public class AbstractAmazonECSAsync extends AbstractAmazonECS implements AmazonE
     @Override
     public java.util.concurrent.Future<DeregisterTaskDefinitionResult> deregisterTaskDefinitionAsync(DeregisterTaskDefinitionRequest request,
             com.amazonaws.handlers.AsyncHandler<DeregisterTaskDefinitionRequest, DeregisterTaskDefinitionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCapacityProvidersResult> describeCapacityProvidersAsync(DescribeCapacityProvidersRequest request) {
+
+        return describeCapacityProvidersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCapacityProvidersResult> describeCapacityProvidersAsync(DescribeCapacityProvidersRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeCapacityProvidersRequest, DescribeCapacityProvidersResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -317,6 +369,32 @@ public class AbstractAmazonECSAsync extends AbstractAmazonECS implements AmazonE
     }
 
     @Override
+    public java.util.concurrent.Future<ExecuteCommandResult> executeCommandAsync(ExecuteCommandRequest request) {
+
+        return executeCommandAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ExecuteCommandResult> executeCommandAsync(ExecuteCommandRequest request,
+            com.amazonaws.handlers.AsyncHandler<ExecuteCommandRequest, ExecuteCommandResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetTaskProtectionResult> getTaskProtectionAsync(GetTaskProtectionRequest request) {
+
+        return getTaskProtectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetTaskProtectionResult> getTaskProtectionAsync(GetTaskProtectionRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetTaskProtectionRequest, GetTaskProtectionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListAccountSettingsResult> listAccountSettingsAsync(ListAccountSettingsRequest request) {
 
         return listAccountSettingsAsync(request, null);
@@ -448,6 +526,19 @@ public class AbstractAmazonECSAsync extends AbstractAmazonECS implements AmazonE
             com.amazonaws.handlers.AsyncHandler<ListServicesRequest, ListServicesResult> asyncHandler) {
 
         return listServicesAsync(new ListServicesRequest(), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListServicesByNamespaceResult> listServicesByNamespaceAsync(ListServicesByNamespaceRequest request) {
+
+        return listServicesByNamespaceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListServicesByNamespaceResult> listServicesByNamespaceAsync(ListServicesByNamespaceRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListServicesByNamespaceRequest, ListServicesByNamespaceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
@@ -610,6 +701,19 @@ public class AbstractAmazonECSAsync extends AbstractAmazonECS implements AmazonE
     }
 
     @Override
+    public java.util.concurrent.Future<PutClusterCapacityProvidersResult> putClusterCapacityProvidersAsync(PutClusterCapacityProvidersRequest request) {
+
+        return putClusterCapacityProvidersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutClusterCapacityProvidersResult> putClusterCapacityProvidersAsync(PutClusterCapacityProvidersRequest request,
+            com.amazonaws.handlers.AsyncHandler<PutClusterCapacityProvidersRequest, PutClusterCapacityProvidersResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<RegisterContainerInstanceResult> registerContainerInstanceAsync(RegisterContainerInstanceRequest request) {
 
         return registerContainerInstanceAsync(request, null);
@@ -763,6 +867,45 @@ public class AbstractAmazonECSAsync extends AbstractAmazonECS implements AmazonE
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateCapacityProviderResult> updateCapacityProviderAsync(UpdateCapacityProviderRequest request) {
+
+        return updateCapacityProviderAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCapacityProviderResult> updateCapacityProviderAsync(UpdateCapacityProviderRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateCapacityProviderRequest, UpdateCapacityProviderResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateClusterResult> updateClusterAsync(UpdateClusterRequest request) {
+
+        return updateClusterAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateClusterResult> updateClusterAsync(UpdateClusterRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateClusterRequest, UpdateClusterResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateClusterSettingsResult> updateClusterSettingsAsync(UpdateClusterSettingsRequest request) {
+
+        return updateClusterSettingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateClusterSettingsResult> updateClusterSettingsAsync(UpdateClusterSettingsRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateClusterSettingsRequest, UpdateClusterSettingsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateContainerAgentResult> updateContainerAgentAsync(UpdateContainerAgentRequest request) {
 
         return updateContainerAgentAsync(request, null);
@@ -810,6 +953,19 @@ public class AbstractAmazonECSAsync extends AbstractAmazonECS implements AmazonE
     @Override
     public java.util.concurrent.Future<UpdateServicePrimaryTaskSetResult> updateServicePrimaryTaskSetAsync(UpdateServicePrimaryTaskSetRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateServicePrimaryTaskSetRequest, UpdateServicePrimaryTaskSetResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateTaskProtectionResult> updateTaskProtectionAsync(UpdateTaskProtectionRequest request) {
+
+        return updateTaskProtectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateTaskProtectionResult> updateTaskProtectionAsync(UpdateTaskProtectionRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateTaskProtectionRequest, UpdateTaskProtectionResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,6 +38,8 @@ public class CelebrityMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Face").build();
     private static final MarshallingInfo<Float> MATCHCONFIDENCE_BINDING = MarshallingInfo.builder(MarshallingType.FLOAT)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MatchConfidence").build();
+    private static final MarshallingInfo<StructuredPojo> KNOWNGENDER_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("KnownGender").build();
 
     private static final CelebrityMarshaller instance = new CelebrityMarshaller();
 
@@ -60,6 +62,7 @@ public class CelebrityMarshaller {
             protocolMarshaller.marshall(celebrity.getId(), ID_BINDING);
             protocolMarshaller.marshall(celebrity.getFace(), FACE_BINDING);
             protocolMarshaller.marshall(celebrity.getMatchConfidence(), MATCHCONFIDENCE_BINDING);
+            protocolMarshaller.marshall(celebrity.getKnownGender(), KNOWNGENDER_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

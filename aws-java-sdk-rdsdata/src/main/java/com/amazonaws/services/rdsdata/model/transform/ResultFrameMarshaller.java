@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,10 +28,10 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class ResultFrameMarshaller {
 
-    private static final MarshallingInfo<List> RECORDS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
-            .marshallLocationName("records").build();
     private static final MarshallingInfo<StructuredPojo> RESULTSETMETADATA_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("resultSetMetadata").build();
+    private static final MarshallingInfo<List> RECORDS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("records").build();
 
     private static final ResultFrameMarshaller instance = new ResultFrameMarshaller();
 
@@ -49,8 +49,8 @@ public class ResultFrameMarshaller {
         }
 
         try {
-            protocolMarshaller.marshall(resultFrame.getRecords(), RECORDS_BINDING);
             protocolMarshaller.marshall(resultFrame.getResultSetMetadata(), RESULTSETMETADATA_BINDING);
+            protocolMarshaller.marshall(resultFrame.getRecords(), RECORDS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

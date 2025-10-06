@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -66,7 +66,9 @@ public class ProjectJsonUnmarshaller implements Unmarshaller<Project, JsonUnmars
                 }
                 if (context.testExpression("secondarySources", targetDepth)) {
                     context.nextToken();
-                    project.setSecondarySources(new ListUnmarshaller<ProjectSource>(ProjectSourceJsonUnmarshaller.getInstance()).unmarshall(context));
+                    project.setSecondarySources(new ListUnmarshaller<ProjectSource>(ProjectSourceJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("sourceVersion", targetDepth)) {
                     context.nextToken();
@@ -75,7 +77,8 @@ public class ProjectJsonUnmarshaller implements Unmarshaller<Project, JsonUnmars
                 if (context.testExpression("secondarySourceVersions", targetDepth)) {
                     context.nextToken();
                     project.setSecondarySourceVersions(new ListUnmarshaller<ProjectSourceVersion>(ProjectSourceVersionJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("artifacts", targetDepth)) {
                     context.nextToken();
@@ -83,7 +86,9 @@ public class ProjectJsonUnmarshaller implements Unmarshaller<Project, JsonUnmars
                 }
                 if (context.testExpression("secondaryArtifacts", targetDepth)) {
                     context.nextToken();
-                    project.setSecondaryArtifacts(new ListUnmarshaller<ProjectArtifacts>(ProjectArtifactsJsonUnmarshaller.getInstance()).unmarshall(context));
+                    project.setSecondaryArtifacts(new ListUnmarshaller<ProjectArtifacts>(ProjectArtifactsJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("cache", targetDepth)) {
                     context.nextToken();
@@ -111,7 +116,9 @@ public class ProjectJsonUnmarshaller implements Unmarshaller<Project, JsonUnmars
                 }
                 if (context.testExpression("tags", targetDepth)) {
                     context.nextToken();
-                    project.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance()).unmarshall(context));
+                    project.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("created", targetDepth)) {
                     context.nextToken();
@@ -136,6 +143,32 @@ public class ProjectJsonUnmarshaller implements Unmarshaller<Project, JsonUnmars
                 if (context.testExpression("logsConfig", targetDepth)) {
                     context.nextToken();
                     project.setLogsConfig(LogsConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("fileSystemLocations", targetDepth)) {
+                    context.nextToken();
+                    project.setFileSystemLocations(new ListUnmarshaller<ProjectFileSystemLocation>(ProjectFileSystemLocationJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("buildBatchConfig", targetDepth)) {
+                    context.nextToken();
+                    project.setBuildBatchConfig(ProjectBuildBatchConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("concurrentBuildLimit", targetDepth)) {
+                    context.nextToken();
+                    project.setConcurrentBuildLimit(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("projectVisibility", targetDepth)) {
+                    context.nextToken();
+                    project.setProjectVisibility(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("publicProjectAlias", targetDepth)) {
+                    context.nextToken();
+                    project.setPublicProjectAlias(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("resourceAccessRole", targetDepth)) {
+                    context.nextToken();
+                    project.setResourceAccessRole(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

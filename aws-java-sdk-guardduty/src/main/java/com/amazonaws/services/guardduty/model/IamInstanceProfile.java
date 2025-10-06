@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
+ * Contains information about the EC2 instance profile.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/IamInstanceProfile" target="_top">AWS API
  *      Documentation</a>
@@ -27,24 +30,24 @@ public class IamInstanceProfile implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * AWS EC2 instance profile ARN.
+     * The profile ARN of the EC2 instance.
      * </p>
      */
     private String arn;
     /**
      * <p>
-     * AWS EC2 instance profile ID.
+     * The profile ID of the EC2 instance.
      * </p>
      */
     private String id;
 
     /**
      * <p>
-     * AWS EC2 instance profile ARN.
+     * The profile ARN of the EC2 instance.
      * </p>
      * 
      * @param arn
-     *        AWS EC2 instance profile ARN.
+     *        The profile ARN of the EC2 instance.
      */
 
     public void setArn(String arn) {
@@ -53,10 +56,10 @@ public class IamInstanceProfile implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * AWS EC2 instance profile ARN.
+     * The profile ARN of the EC2 instance.
      * </p>
      * 
-     * @return AWS EC2 instance profile ARN.
+     * @return The profile ARN of the EC2 instance.
      */
 
     public String getArn() {
@@ -65,11 +68,11 @@ public class IamInstanceProfile implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * AWS EC2 instance profile ARN.
+     * The profile ARN of the EC2 instance.
      * </p>
      * 
      * @param arn
-     *        AWS EC2 instance profile ARN.
+     *        The profile ARN of the EC2 instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -80,11 +83,11 @@ public class IamInstanceProfile implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * AWS EC2 instance profile ID.
+     * The profile ID of the EC2 instance.
      * </p>
      * 
      * @param id
-     *        AWS EC2 instance profile ID.
+     *        The profile ID of the EC2 instance.
      */
 
     public void setId(String id) {
@@ -93,10 +96,10 @@ public class IamInstanceProfile implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * AWS EC2 instance profile ID.
+     * The profile ID of the EC2 instance.
      * </p>
      * 
-     * @return AWS EC2 instance profile ID.
+     * @return The profile ID of the EC2 instance.
      */
 
     public String getId() {
@@ -105,11 +108,11 @@ public class IamInstanceProfile implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * AWS EC2 instance profile ID.
+     * The profile ID of the EC2 instance.
      * </p>
      * 
      * @param id
-     *        AWS EC2 instance profile ID.
+     *        The profile ID of the EC2 instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

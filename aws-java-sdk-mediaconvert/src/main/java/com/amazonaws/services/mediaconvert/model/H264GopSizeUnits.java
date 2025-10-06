@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -15,14 +15,19 @@ package com.amazonaws.services.mediaconvert.model;
 import javax.annotation.Generated;
 
 /**
- * Indicates if the GOP Size in H264 is specified in frames or seconds. If seconds the system will convert the GOP Size
- * into a frame count at run time.
+ * Specify how the transcoder determines GOP size for this output. We recommend that you have the transcoder
+ * automatically choose this value for you based on characteristics of your input video. To enable this automatic
+ * behavior, choose Auto and and leave GOP size blank. By default, if you don't specify GOP mode control, MediaConvert
+ * will use automatic behavior. If your output group specifies HLS, DASH, or CMAF, set GOP mode control to Auto and
+ * leave GOP size blank in each output in your output group. To explicitly specify the GOP length, choose Specified,
+ * frames or Specified, seconds and then provide the GOP length in the related setting GOP size.
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public enum H264GopSizeUnits {
 
     FRAMES("FRAMES"),
-    SECONDS("SECONDS");
+    SECONDS("SECONDS"),
+    AUTO("AUTO");
 
     private String value;
 

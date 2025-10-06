@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -60,6 +60,10 @@ public class DescribeRecoveryPointResultJsonUnmarshaller implements Unmarshaller
                     context.nextToken();
                     describeRecoveryPointResult.setBackupVaultArn(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("SourceBackupVaultArn", targetDepth)) {
+                    context.nextToken();
+                    describeRecoveryPointResult.setSourceBackupVaultArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("ResourceArn", targetDepth)) {
                     context.nextToken();
                     describeRecoveryPointResult.setResourceArn(context.getUnmarshaller(String.class).unmarshall(context));
@@ -79,6 +83,10 @@ public class DescribeRecoveryPointResultJsonUnmarshaller implements Unmarshaller
                 if (context.testExpression("Status", targetDepth)) {
                     context.nextToken();
                     describeRecoveryPointResult.setStatus(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("StatusMessage", targetDepth)) {
+                    context.nextToken();
+                    describeRecoveryPointResult.setStatusMessage(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("CreationDate", targetDepth)) {
                     context.nextToken();
@@ -115,6 +123,26 @@ public class DescribeRecoveryPointResultJsonUnmarshaller implements Unmarshaller
                 if (context.testExpression("LastRestoreTime", targetDepth)) {
                     context.nextToken();
                     describeRecoveryPointResult.setLastRestoreTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("ParentRecoveryPointArn", targetDepth)) {
+                    context.nextToken();
+                    describeRecoveryPointResult.setParentRecoveryPointArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("CompositeMemberIdentifier", targetDepth)) {
+                    context.nextToken();
+                    describeRecoveryPointResult.setCompositeMemberIdentifier(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("IsParent", targetDepth)) {
+                    context.nextToken();
+                    describeRecoveryPointResult.setIsParent(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("ResourceName", targetDepth)) {
+                    context.nextToken();
+                    describeRecoveryPointResult.setResourceName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("VaultType", targetDepth)) {
+                    context.nextToken();
+                    describeRecoveryPointResult.setVaultType(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

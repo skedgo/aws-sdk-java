@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.medialive.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -27,6 +28,8 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class CaptionDescriptionMarshaller {
 
+    private static final MarshallingInfo<String> ACCESSIBILITY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("accessibility").build();
     private static final MarshallingInfo<String> CAPTIONSELECTORNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("captionSelectorName").build();
     private static final MarshallingInfo<StructuredPojo> DESTINATIONSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
@@ -37,6 +40,10 @@ public class CaptionDescriptionMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("languageDescription").build();
     private static final MarshallingInfo<String> NAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("name").build();
+    private static final MarshallingInfo<List> CAPTIONDASHROLES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("captionDashRoles").build();
+    private static final MarshallingInfo<String> DVBDASHACCESSIBILITY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("dvbDashAccessibility").build();
 
     private static final CaptionDescriptionMarshaller instance = new CaptionDescriptionMarshaller();
 
@@ -54,11 +61,14 @@ public class CaptionDescriptionMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(captionDescription.getAccessibility(), ACCESSIBILITY_BINDING);
             protocolMarshaller.marshall(captionDescription.getCaptionSelectorName(), CAPTIONSELECTORNAME_BINDING);
             protocolMarshaller.marshall(captionDescription.getDestinationSettings(), DESTINATIONSETTINGS_BINDING);
             protocolMarshaller.marshall(captionDescription.getLanguageCode(), LANGUAGECODE_BINDING);
             protocolMarshaller.marshall(captionDescription.getLanguageDescription(), LANGUAGEDESCRIPTION_BINDING);
             protocolMarshaller.marshall(captionDescription.getName(), NAME_BINDING);
+            protocolMarshaller.marshall(captionDescription.getCaptionDashRoles(), CAPTIONDASHROLES_BINDING);
+            protocolMarshaller.marshall(captionDescription.getDvbDashAccessibility(), DVBDASHACCESSIBILITY_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

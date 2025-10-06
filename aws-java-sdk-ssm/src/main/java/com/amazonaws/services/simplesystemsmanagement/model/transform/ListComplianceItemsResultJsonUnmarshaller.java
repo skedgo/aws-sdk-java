@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,7 +51,8 @@ public class ListComplianceItemsResultJsonUnmarshaller implements Unmarshaller<L
                 if (context.testExpression("ComplianceItems", targetDepth)) {
                     context.nextToken();
                     listComplianceItemsResult.setComplianceItems(new ListUnmarshaller<ComplianceItem>(ComplianceItemJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("NextToken", targetDepth)) {
                     context.nextToken();

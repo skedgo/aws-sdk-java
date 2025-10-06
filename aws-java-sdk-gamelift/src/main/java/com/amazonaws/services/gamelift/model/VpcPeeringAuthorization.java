@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -23,38 +23,14 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * on an account you have access to. This authorization must exist and be valid for the peering connection to be
  * established. Authorizations are valid for 24 hours after they are issued.
  * </p>
- * <ul>
- * <li>
  * <p>
- * <a>CreateVpcPeeringAuthorization</a>
+ * <b>Related actions</b>
  * </p>
- * </li>
- * <li>
  * <p>
- * <a>DescribeVpcPeeringAuthorizations</a>
+ * <a href=
+ * "https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets"
+ * >All APIs by task</a>
  * </p>
- * </li>
- * <li>
- * <p>
- * <a>DeleteVpcPeeringAuthorization</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>CreateVpcPeeringConnection</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DescribeVpcPeeringConnections</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DeleteVpcPeeringConnection</a>
- * </p>
- * </li>
- * </ul>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/VpcPeeringAuthorization" target="_top">AWS
  *      API Documentation</a>
@@ -64,47 +40,51 @@ public class VpcPeeringAuthorization implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Unique identifier for the AWS account that you use to manage your Amazon GameLift fleet. You can find your
-     * Account ID in the AWS Management Console under account settings.
+     * A unique identifier for the Amazon Web Services account that you use to manage your Amazon GameLift fleet. You
+     * can find your Account ID in the Amazon Web Services Management Console under account settings.
      * </p>
      */
     private String gameLiftAwsAccountId;
-    /** <p/> */
+    /**
+     * <p>
+     * The authorization's peer VPC Amazon Web Services account ID.
+     * </p>
+     */
     private String peerVpcAwsAccountId;
     /**
      * <p>
-     * Unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be in the
-     * same region where your fleet is deployed. Look up a VPC ID using the <a
-     * href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the AWS Management Console. Learn more about VPC
-     * peering in <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with
-     * Amazon GameLift Fleets</a>.
+     * A unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be in the
+     * same Region as your fleet. To look up a VPC ID, use the <a href="https://console.aws.amazon.com/vpc/">VPC
+     * Dashboard</a> in the Amazon Web Services Management Console. Learn more about VPC peering in <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with Amazon
+     * GameLift Fleets</a>.
      * </p>
      */
     private String peerVpcId;
     /**
      * <p>
      * Time stamp indicating when this authorization was issued. Format is a number expressed in Unix time as
-     * milliseconds (for example "1469498468.057").
+     * milliseconds (for example <code>"1469498468.057"</code>).
      * </p>
      */
     private java.util.Date creationTime;
     /**
      * <p>
      * Time stamp indicating when this authorization expires (24 hours after issuance). Format is a number expressed in
-     * Unix time as milliseconds (for example "1469498468.057").
+     * Unix time as milliseconds (for example <code>"1469498468.057"</code>).
      * </p>
      */
     private java.util.Date expirationTime;
 
     /**
      * <p>
-     * Unique identifier for the AWS account that you use to manage your Amazon GameLift fleet. You can find your
-     * Account ID in the AWS Management Console under account settings.
+     * A unique identifier for the Amazon Web Services account that you use to manage your Amazon GameLift fleet. You
+     * can find your Account ID in the Amazon Web Services Management Console under account settings.
      * </p>
      * 
      * @param gameLiftAwsAccountId
-     *        Unique identifier for the AWS account that you use to manage your Amazon GameLift fleet. You can find your
-     *        Account ID in the AWS Management Console under account settings.
+     *        A unique identifier for the Amazon Web Services account that you use to manage your Amazon GameLift fleet.
+     *        You can find your Account ID in the Amazon Web Services Management Console under account settings.
      */
 
     public void setGameLiftAwsAccountId(String gameLiftAwsAccountId) {
@@ -113,12 +93,12 @@ public class VpcPeeringAuthorization implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Unique identifier for the AWS account that you use to manage your Amazon GameLift fleet. You can find your
-     * Account ID in the AWS Management Console under account settings.
+     * A unique identifier for the Amazon Web Services account that you use to manage your Amazon GameLift fleet. You
+     * can find your Account ID in the Amazon Web Services Management Console under account settings.
      * </p>
      * 
-     * @return Unique identifier for the AWS account that you use to manage your Amazon GameLift fleet. You can find
-     *         your Account ID in the AWS Management Console under account settings.
+     * @return A unique identifier for the Amazon Web Services account that you use to manage your Amazon GameLift
+     *         fleet. You can find your Account ID in the Amazon Web Services Management Console under account settings.
      */
 
     public String getGameLiftAwsAccountId() {
@@ -127,13 +107,13 @@ public class VpcPeeringAuthorization implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Unique identifier for the AWS account that you use to manage your Amazon GameLift fleet. You can find your
-     * Account ID in the AWS Management Console under account settings.
+     * A unique identifier for the Amazon Web Services account that you use to manage your Amazon GameLift fleet. You
+     * can find your Account ID in the Amazon Web Services Management Console under account settings.
      * </p>
      * 
      * @param gameLiftAwsAccountId
-     *        Unique identifier for the AWS account that you use to manage your Amazon GameLift fleet. You can find your
-     *        Account ID in the AWS Management Console under account settings.
+     *        A unique identifier for the Amazon Web Services account that you use to manage your Amazon GameLift fleet.
+     *        You can find your Account ID in the Amazon Web Services Management Console under account settings.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -143,9 +123,12 @@ public class VpcPeeringAuthorization implements Serializable, Cloneable, Structu
     }
 
     /**
-     * <p/>
+     * <p>
+     * The authorization's peer VPC Amazon Web Services account ID.
+     * </p>
      * 
      * @param peerVpcAwsAccountId
+     *        The authorization's peer VPC Amazon Web Services account ID.
      */
 
     public void setPeerVpcAwsAccountId(String peerVpcAwsAccountId) {
@@ -153,9 +136,11 @@ public class VpcPeeringAuthorization implements Serializable, Cloneable, Structu
     }
 
     /**
-     * <p/>
+     * <p>
+     * The authorization's peer VPC Amazon Web Services account ID.
+     * </p>
      * 
-     * @return
+     * @return The authorization's peer VPC Amazon Web Services account ID.
      */
 
     public String getPeerVpcAwsAccountId() {
@@ -163,9 +148,12 @@ public class VpcPeeringAuthorization implements Serializable, Cloneable, Structu
     }
 
     /**
-     * <p/>
+     * <p>
+     * The authorization's peer VPC Amazon Web Services account ID.
+     * </p>
      * 
      * @param peerVpcAwsAccountId
+     *        The authorization's peer VPC Amazon Web Services account ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -176,18 +164,18 @@ public class VpcPeeringAuthorization implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be in the
-     * same region where your fleet is deployed. Look up a VPC ID using the <a
-     * href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the AWS Management Console. Learn more about VPC
-     * peering in <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with
-     * Amazon GameLift Fleets</a>.
+     * A unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be in the
+     * same Region as your fleet. To look up a VPC ID, use the <a href="https://console.aws.amazon.com/vpc/">VPC
+     * Dashboard</a> in the Amazon Web Services Management Console. Learn more about VPC peering in <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with Amazon
+     * GameLift Fleets</a>.
      * </p>
      * 
      * @param peerVpcId
-     *        Unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be
-     *        in the same region where your fleet is deployed. Look up a VPC ID using the <a
-     *        href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the AWS Management Console. Learn more
-     *        about VPC peering in <a
+     *        A unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be
+     *        in the same Region as your fleet. To look up a VPC ID, use the <a
+     *        href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the Amazon Web Services Management
+     *        Console. Learn more about VPC peering in <a
      *        href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with Amazon
      *        GameLift Fleets</a>.
      */
@@ -198,17 +186,17 @@ public class VpcPeeringAuthorization implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be in the
-     * same region where your fleet is deployed. Look up a VPC ID using the <a
-     * href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the AWS Management Console. Learn more about VPC
-     * peering in <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with
-     * Amazon GameLift Fleets</a>.
+     * A unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be in the
+     * same Region as your fleet. To look up a VPC ID, use the <a href="https://console.aws.amazon.com/vpc/">VPC
+     * Dashboard</a> in the Amazon Web Services Management Console. Learn more about VPC peering in <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with Amazon
+     * GameLift Fleets</a>.
      * </p>
      * 
-     * @return Unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be
-     *         in the same region where your fleet is deployed. Look up a VPC ID using the <a
-     *         href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the AWS Management Console. Learn more
-     *         about VPC peering in <a
+     * @return A unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must
+     *         be in the same Region as your fleet. To look up a VPC ID, use the <a
+     *         href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the Amazon Web Services Management
+     *         Console. Learn more about VPC peering in <a
      *         href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with
      *         Amazon GameLift Fleets</a>.
      */
@@ -219,18 +207,18 @@ public class VpcPeeringAuthorization implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be in the
-     * same region where your fleet is deployed. Look up a VPC ID using the <a
-     * href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the AWS Management Console. Learn more about VPC
-     * peering in <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with
-     * Amazon GameLift Fleets</a>.
+     * A unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be in the
+     * same Region as your fleet. To look up a VPC ID, use the <a href="https://console.aws.amazon.com/vpc/">VPC
+     * Dashboard</a> in the Amazon Web Services Management Console. Learn more about VPC peering in <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with Amazon
+     * GameLift Fleets</a>.
      * </p>
      * 
      * @param peerVpcId
-     *        Unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be
-     *        in the same region where your fleet is deployed. Look up a VPC ID using the <a
-     *        href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the AWS Management Console. Learn more
-     *        about VPC peering in <a
+     *        A unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be
+     *        in the same Region as your fleet. To look up a VPC ID, use the <a
+     *        href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the Amazon Web Services Management
+     *        Console. Learn more about VPC peering in <a
      *        href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with Amazon
      *        GameLift Fleets</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -244,12 +232,12 @@ public class VpcPeeringAuthorization implements Serializable, Cloneable, Structu
     /**
      * <p>
      * Time stamp indicating when this authorization was issued. Format is a number expressed in Unix time as
-     * milliseconds (for example "1469498468.057").
+     * milliseconds (for example <code>"1469498468.057"</code>).
      * </p>
      * 
      * @param creationTime
      *        Time stamp indicating when this authorization was issued. Format is a number expressed in Unix time as
-     *        milliseconds (for example "1469498468.057").
+     *        milliseconds (for example <code>"1469498468.057"</code>).
      */
 
     public void setCreationTime(java.util.Date creationTime) {
@@ -259,11 +247,11 @@ public class VpcPeeringAuthorization implements Serializable, Cloneable, Structu
     /**
      * <p>
      * Time stamp indicating when this authorization was issued. Format is a number expressed in Unix time as
-     * milliseconds (for example "1469498468.057").
+     * milliseconds (for example <code>"1469498468.057"</code>).
      * </p>
      * 
      * @return Time stamp indicating when this authorization was issued. Format is a number expressed in Unix time as
-     *         milliseconds (for example "1469498468.057").
+     *         milliseconds (for example <code>"1469498468.057"</code>).
      */
 
     public java.util.Date getCreationTime() {
@@ -273,12 +261,12 @@ public class VpcPeeringAuthorization implements Serializable, Cloneable, Structu
     /**
      * <p>
      * Time stamp indicating when this authorization was issued. Format is a number expressed in Unix time as
-     * milliseconds (for example "1469498468.057").
+     * milliseconds (for example <code>"1469498468.057"</code>).
      * </p>
      * 
      * @param creationTime
      *        Time stamp indicating when this authorization was issued. Format is a number expressed in Unix time as
-     *        milliseconds (for example "1469498468.057").
+     *        milliseconds (for example <code>"1469498468.057"</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -290,12 +278,12 @@ public class VpcPeeringAuthorization implements Serializable, Cloneable, Structu
     /**
      * <p>
      * Time stamp indicating when this authorization expires (24 hours after issuance). Format is a number expressed in
-     * Unix time as milliseconds (for example "1469498468.057").
+     * Unix time as milliseconds (for example <code>"1469498468.057"</code>).
      * </p>
      * 
      * @param expirationTime
      *        Time stamp indicating when this authorization expires (24 hours after issuance). Format is a number
-     *        expressed in Unix time as milliseconds (for example "1469498468.057").
+     *        expressed in Unix time as milliseconds (for example <code>"1469498468.057"</code>).
      */
 
     public void setExpirationTime(java.util.Date expirationTime) {
@@ -305,11 +293,11 @@ public class VpcPeeringAuthorization implements Serializable, Cloneable, Structu
     /**
      * <p>
      * Time stamp indicating when this authorization expires (24 hours after issuance). Format is a number expressed in
-     * Unix time as milliseconds (for example "1469498468.057").
+     * Unix time as milliseconds (for example <code>"1469498468.057"</code>).
      * </p>
      * 
      * @return Time stamp indicating when this authorization expires (24 hours after issuance). Format is a number
-     *         expressed in Unix time as milliseconds (for example "1469498468.057").
+     *         expressed in Unix time as milliseconds (for example <code>"1469498468.057"</code>).
      */
 
     public java.util.Date getExpirationTime() {
@@ -319,12 +307,12 @@ public class VpcPeeringAuthorization implements Serializable, Cloneable, Structu
     /**
      * <p>
      * Time stamp indicating when this authorization expires (24 hours after issuance). Format is a number expressed in
-     * Unix time as milliseconds (for example "1469498468.057").
+     * Unix time as milliseconds (for example <code>"1469498468.057"</code>).
      * </p>
      * 
      * @param expirationTime
      *        Time stamp indicating when this authorization expires (24 hours after issuance). Format is a number
-     *        expressed in Unix time as milliseconds (for example "1469498468.057").
+     *        expressed in Unix time as milliseconds (for example <code>"1469498468.057"</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

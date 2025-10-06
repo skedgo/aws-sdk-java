@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,18 +27,18 @@ public class DescribeAttackRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The unique identifier (ID) for the attack that to be described.
+     * The unique identifier (ID) for the attack.
      * </p>
      */
     private String attackId;
 
     /**
      * <p>
-     * The unique identifier (ID) for the attack that to be described.
+     * The unique identifier (ID) for the attack.
      * </p>
      * 
      * @param attackId
-     *        The unique identifier (ID) for the attack that to be described.
+     *        The unique identifier (ID) for the attack.
      */
 
     public void setAttackId(String attackId) {
@@ -47,10 +47,10 @@ public class DescribeAttackRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The unique identifier (ID) for the attack that to be described.
+     * The unique identifier (ID) for the attack.
      * </p>
      * 
-     * @return The unique identifier (ID) for the attack that to be described.
+     * @return The unique identifier (ID) for the attack.
      */
 
     public String getAttackId() {
@@ -59,11 +59,11 @@ public class DescribeAttackRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The unique identifier (ID) for the attack that to be described.
+     * The unique identifier (ID) for the attack.
      * </p>
      * 
      * @param attackId
-     *        The unique identifier (ID) for the attack that to be described.
+     *        The unique identifier (ID) for the attack.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

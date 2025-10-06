@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Specifies summary information about a training job.
+ * The container for the summary information about a training job.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/HyperParameterTrainingJobSummary"
@@ -28,6 +28,12 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class HyperParameterTrainingJobSummary implements Serializable, Cloneable, StructuredPojo {
 
+    /**
+     * <p>
+     * The training job definition name.
+     * </p>
+     */
+    private String trainingJobDefinitionName;
     /**
      * <p>
      * The name of the training job.
@@ -62,8 +68,7 @@ public class HyperParameterTrainingJobSummary implements Serializable, Cloneable
      * <p>
      * Specifies the time when the training job ends on training instances. You are billed for the time interval between
      * the value of <code>TrainingStartTime</code> and this time. For successful jobs and stopped jobs, this is the time
-     * after model artifacts are uploaded. For failed jobs, this is the time when Amazon SageMaker detects a job
-     * failure.
+     * after model artifacts are uploaded. For failed jobs, this is the time when SageMaker detects a job failure.
      * </p>
      */
     private java.util.Date trainingEndTime;
@@ -87,8 +92,10 @@ public class HyperParameterTrainingJobSummary implements Serializable, Cloneable
     private String failureReason;
     /**
      * <p>
-     * The <a>FinalHyperParameterTuningJobObjectiveMetric</a> object that specifies the value of the objective metric of
-     * the tuning job that launched this training job.
+     * The <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_FinalHyperParameterTuningJobObjectiveMetric.html"
+     * >FinalHyperParameterTuningJobObjectiveMetric</a> object that specifies the value of the objective metric of the
+     * tuning job that launched this training job.
      * </p>
      */
     private FinalHyperParameterTuningJobObjectiveMetric finalHyperParameterTuningJobObjectiveMetric;
@@ -121,6 +128,46 @@ public class HyperParameterTrainingJobSummary implements Serializable, Cloneable
      * </ul>
      */
     private String objectiveStatus;
+
+    /**
+     * <p>
+     * The training job definition name.
+     * </p>
+     * 
+     * @param trainingJobDefinitionName
+     *        The training job definition name.
+     */
+
+    public void setTrainingJobDefinitionName(String trainingJobDefinitionName) {
+        this.trainingJobDefinitionName = trainingJobDefinitionName;
+    }
+
+    /**
+     * <p>
+     * The training job definition name.
+     * </p>
+     * 
+     * @return The training job definition name.
+     */
+
+    public String getTrainingJobDefinitionName() {
+        return this.trainingJobDefinitionName;
+    }
+
+    /**
+     * <p>
+     * The training job definition name.
+     * </p>
+     * 
+     * @param trainingJobDefinitionName
+     *        The training job definition name.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HyperParameterTrainingJobSummary withTrainingJobDefinitionName(String trainingJobDefinitionName) {
+        setTrainingJobDefinitionName(trainingJobDefinitionName);
+        return this;
+    }
 
     /**
      * <p>
@@ -326,15 +373,14 @@ public class HyperParameterTrainingJobSummary implements Serializable, Cloneable
      * <p>
      * Specifies the time when the training job ends on training instances. You are billed for the time interval between
      * the value of <code>TrainingStartTime</code> and this time. For successful jobs and stopped jobs, this is the time
-     * after model artifacts are uploaded. For failed jobs, this is the time when Amazon SageMaker detects a job
-     * failure.
+     * after model artifacts are uploaded. For failed jobs, this is the time when SageMaker detects a job failure.
      * </p>
      * 
      * @param trainingEndTime
      *        Specifies the time when the training job ends on training instances. You are billed for the time interval
      *        between the value of <code>TrainingStartTime</code> and this time. For successful jobs and stopped jobs,
-     *        this is the time after model artifacts are uploaded. For failed jobs, this is the time when Amazon
-     *        SageMaker detects a job failure.
+     *        this is the time after model artifacts are uploaded. For failed jobs, this is the time when SageMaker
+     *        detects a job failure.
      */
 
     public void setTrainingEndTime(java.util.Date trainingEndTime) {
@@ -345,14 +391,13 @@ public class HyperParameterTrainingJobSummary implements Serializable, Cloneable
      * <p>
      * Specifies the time when the training job ends on training instances. You are billed for the time interval between
      * the value of <code>TrainingStartTime</code> and this time. For successful jobs and stopped jobs, this is the time
-     * after model artifacts are uploaded. For failed jobs, this is the time when Amazon SageMaker detects a job
-     * failure.
+     * after model artifacts are uploaded. For failed jobs, this is the time when SageMaker detects a job failure.
      * </p>
      * 
      * @return Specifies the time when the training job ends on training instances. You are billed for the time interval
      *         between the value of <code>TrainingStartTime</code> and this time. For successful jobs and stopped jobs,
-     *         this is the time after model artifacts are uploaded. For failed jobs, this is the time when Amazon
-     *         SageMaker detects a job failure.
+     *         this is the time after model artifacts are uploaded. For failed jobs, this is the time when SageMaker
+     *         detects a job failure.
      */
 
     public java.util.Date getTrainingEndTime() {
@@ -363,15 +408,14 @@ public class HyperParameterTrainingJobSummary implements Serializable, Cloneable
      * <p>
      * Specifies the time when the training job ends on training instances. You are billed for the time interval between
      * the value of <code>TrainingStartTime</code> and this time. For successful jobs and stopped jobs, this is the time
-     * after model artifacts are uploaded. For failed jobs, this is the time when Amazon SageMaker detects a job
-     * failure.
+     * after model artifacts are uploaded. For failed jobs, this is the time when SageMaker detects a job failure.
      * </p>
      * 
      * @param trainingEndTime
      *        Specifies the time when the training job ends on training instances. You are billed for the time interval
      *        between the value of <code>TrainingStartTime</code> and this time. For successful jobs and stopped jobs,
-     *        this is the time after model artifacts are uploaded. For failed jobs, this is the time when Amazon
-     *        SageMaker detects a job failure.
+     *        this is the time after model artifacts are uploaded. For failed jobs, this is the time when SageMaker
+     *        detects a job failure.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -479,6 +523,13 @@ public class HyperParameterTrainingJobSummary implements Serializable, Cloneable
         return this;
     }
 
+    /**
+     * Add a single TunedHyperParameters entry
+     *
+     * @see HyperParameterTrainingJobSummary#withTunedHyperParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public HyperParameterTrainingJobSummary addTunedHyperParametersEntry(String key, String value) {
         if (null == this.tunedHyperParameters) {
             this.tunedHyperParameters = new java.util.HashMap<String, String>();
@@ -542,13 +593,17 @@ public class HyperParameterTrainingJobSummary implements Serializable, Cloneable
 
     /**
      * <p>
-     * The <a>FinalHyperParameterTuningJobObjectiveMetric</a> object that specifies the value of the objective metric of
-     * the tuning job that launched this training job.
+     * The <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_FinalHyperParameterTuningJobObjectiveMetric.html"
+     * >FinalHyperParameterTuningJobObjectiveMetric</a> object that specifies the value of the objective metric of the
+     * tuning job that launched this training job.
      * </p>
      * 
      * @param finalHyperParameterTuningJobObjectiveMetric
-     *        The <a>FinalHyperParameterTuningJobObjectiveMetric</a> object that specifies the value of the objective
-     *        metric of the tuning job that launched this training job.
+     *        The <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_FinalHyperParameterTuningJobObjectiveMetric.html"
+     *        >FinalHyperParameterTuningJobObjectiveMetric</a> object that specifies the value of the objective metric
+     *        of the tuning job that launched this training job.
      */
 
     public void setFinalHyperParameterTuningJobObjectiveMetric(FinalHyperParameterTuningJobObjectiveMetric finalHyperParameterTuningJobObjectiveMetric) {
@@ -557,12 +612,16 @@ public class HyperParameterTrainingJobSummary implements Serializable, Cloneable
 
     /**
      * <p>
-     * The <a>FinalHyperParameterTuningJobObjectiveMetric</a> object that specifies the value of the objective metric of
-     * the tuning job that launched this training job.
+     * The <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_FinalHyperParameterTuningJobObjectiveMetric.html"
+     * >FinalHyperParameterTuningJobObjectiveMetric</a> object that specifies the value of the objective metric of the
+     * tuning job that launched this training job.
      * </p>
      * 
-     * @return The <a>FinalHyperParameterTuningJobObjectiveMetric</a> object that specifies the value of the objective
-     *         metric of the tuning job that launched this training job.
+     * @return The <a href=
+     *         "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_FinalHyperParameterTuningJobObjectiveMetric.html"
+     *         >FinalHyperParameterTuningJobObjectiveMetric</a> object that specifies the value of the objective metric
+     *         of the tuning job that launched this training job.
      */
 
     public FinalHyperParameterTuningJobObjectiveMetric getFinalHyperParameterTuningJobObjectiveMetric() {
@@ -571,13 +630,17 @@ public class HyperParameterTrainingJobSummary implements Serializable, Cloneable
 
     /**
      * <p>
-     * The <a>FinalHyperParameterTuningJobObjectiveMetric</a> object that specifies the value of the objective metric of
-     * the tuning job that launched this training job.
+     * The <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_FinalHyperParameterTuningJobObjectiveMetric.html"
+     * >FinalHyperParameterTuningJobObjectiveMetric</a> object that specifies the value of the objective metric of the
+     * tuning job that launched this training job.
      * </p>
      * 
      * @param finalHyperParameterTuningJobObjectiveMetric
-     *        The <a>FinalHyperParameterTuningJobObjectiveMetric</a> object that specifies the value of the objective
-     *        metric of the tuning job that launched this training job.
+     *        The <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_FinalHyperParameterTuningJobObjectiveMetric.html"
+     *        >FinalHyperParameterTuningJobObjectiveMetric</a> object that specifies the value of the objective metric
+     *        of the tuning job that launched this training job.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -842,6 +905,8 @@ public class HyperParameterTrainingJobSummary implements Serializable, Cloneable
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getTrainingJobDefinitionName() != null)
+            sb.append("TrainingJobDefinitionName: ").append(getTrainingJobDefinitionName()).append(",");
         if (getTrainingJobName() != null)
             sb.append("TrainingJobName: ").append(getTrainingJobName()).append(",");
         if (getTrainingJobArn() != null)
@@ -878,6 +943,10 @@ public class HyperParameterTrainingJobSummary implements Serializable, Cloneable
         if (obj instanceof HyperParameterTrainingJobSummary == false)
             return false;
         HyperParameterTrainingJobSummary other = (HyperParameterTrainingJobSummary) obj;
+        if (other.getTrainingJobDefinitionName() == null ^ this.getTrainingJobDefinitionName() == null)
+            return false;
+        if (other.getTrainingJobDefinitionName() != null && other.getTrainingJobDefinitionName().equals(this.getTrainingJobDefinitionName()) == false)
+            return false;
         if (other.getTrainingJobName() == null ^ this.getTrainingJobName() == null)
             return false;
         if (other.getTrainingJobName() != null && other.getTrainingJobName().equals(this.getTrainingJobName()) == false)
@@ -931,6 +1000,7 @@ public class HyperParameterTrainingJobSummary implements Serializable, Cloneable
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getTrainingJobDefinitionName() == null) ? 0 : getTrainingJobDefinitionName().hashCode());
         hashCode = prime * hashCode + ((getTrainingJobName() == null) ? 0 : getTrainingJobName().hashCode());
         hashCode = prime * hashCode + ((getTrainingJobArn() == null) ? 0 : getTrainingJobArn().hashCode());
         hashCode = prime * hashCode + ((getTuningJobName() == null) ? 0 : getTuningJobName().hashCode());

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,28 +29,67 @@ import com.amazonaws.AmazonWebServiceRequest;
 public class CancelUpdateStackRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
 
     /**
+     * <note>
      * <p>
-     * The name or the unique stack ID that is associated with the stack.
+     * If you don't pass a parameter to <code>StackName</code>, the API returns a response that describes all resources
+     * in the account.
+     * </p>
+     * <p>
+     * The IAM policy below can be added to IAM policies when you want to limit resource-level permissions and avoid
+     * returning a response when no parameter is sent in the request:
+     * </p>
+     * <p>
+     * <code>{ "Version": "2012-10-17", "Statement": [{ "Effect": "Deny", "Action": "cloudformation:DescribeStacks", "NotResource": "arn:aws:cloudformation:*:*:stack/*&#47;*" }] }</code>
+     * </p>
+     * </note>
+     * <p>
+     * The name or the unique stack ID that's associated with the stack.
      * </p>
      */
     private String stackName;
     /**
      * <p>
      * A unique identifier for this <code>CancelUpdateStack</code> request. Specify this token if you plan to retry
-     * requests so that AWS CloudFormation knows that you're not attempting to cancel an update on a stack with the same
-     * name. You might retry <code>CancelUpdateStack</code> requests to ensure that AWS CloudFormation successfully
-     * received them.
+     * requests so that CloudFormation knows that you're not attempting to cancel an update on a stack with the same
+     * name. You might retry <code>CancelUpdateStack</code> requests to ensure that CloudFormation successfully received
+     * them.
      * </p>
      */
     private String clientRequestToken;
 
     /**
+     * <note>
      * <p>
-     * The name or the unique stack ID that is associated with the stack.
+     * If you don't pass a parameter to <code>StackName</code>, the API returns a response that describes all resources
+     * in the account.
+     * </p>
+     * <p>
+     * The IAM policy below can be added to IAM policies when you want to limit resource-level permissions and avoid
+     * returning a response when no parameter is sent in the request:
+     * </p>
+     * <p>
+     * <code>{ "Version": "2012-10-17", "Statement": [{ "Effect": "Deny", "Action": "cloudformation:DescribeStacks", "NotResource": "arn:aws:cloudformation:*:*:stack/*&#47;*" }] }</code>
+     * </p>
+     * </note>
+     * <p>
+     * The name or the unique stack ID that's associated with the stack.
      * </p>
      * 
      * @param stackName
-     *        The name or the unique stack ID that is associated with the stack.
+     *        <p>
+     *        If you don't pass a parameter to <code>StackName</code>, the API returns a response that describes all
+     *        resources in the account.
+     *        </p>
+     *        <p>
+     *        The IAM policy below can be added to IAM policies when you want to limit resource-level permissions and
+     *        avoid returning a response when no parameter is sent in the request:
+     *        </p>
+     *        <p>
+     *        <code>{ "Version": "2012-10-17", "Statement": [{ "Effect": "Deny", "Action": "cloudformation:DescribeStacks", "NotResource": "arn:aws:cloudformation:*:*:stack/*&#47;*" }] }</code>
+     *        </p>
+     *        </note>
+     *        <p>
+     *        The name or the unique stack ID that's associated with the stack.
      */
 
     public void setStackName(String stackName) {
@@ -58,11 +97,37 @@ public class CancelUpdateStackRequest extends com.amazonaws.AmazonWebServiceRequ
     }
 
     /**
+     * <note>
      * <p>
-     * The name or the unique stack ID that is associated with the stack.
+     * If you don't pass a parameter to <code>StackName</code>, the API returns a response that describes all resources
+     * in the account.
+     * </p>
+     * <p>
+     * The IAM policy below can be added to IAM policies when you want to limit resource-level permissions and avoid
+     * returning a response when no parameter is sent in the request:
+     * </p>
+     * <p>
+     * <code>{ "Version": "2012-10-17", "Statement": [{ "Effect": "Deny", "Action": "cloudformation:DescribeStacks", "NotResource": "arn:aws:cloudformation:*:*:stack/*&#47;*" }] }</code>
+     * </p>
+     * </note>
+     * <p>
+     * The name or the unique stack ID that's associated with the stack.
      * </p>
      * 
-     * @return The name or the unique stack ID that is associated with the stack.
+     * @return <p>
+     *         If you don't pass a parameter to <code>StackName</code>, the API returns a response that describes all
+     *         resources in the account.
+     *         </p>
+     *         <p>
+     *         The IAM policy below can be added to IAM policies when you want to limit resource-level permissions and
+     *         avoid returning a response when no parameter is sent in the request:
+     *         </p>
+     *         <p>
+     *         <code>{ "Version": "2012-10-17", "Statement": [{ "Effect": "Deny", "Action": "cloudformation:DescribeStacks", "NotResource": "arn:aws:cloudformation:*:*:stack/*&#47;*" }] }</code>
+     *         </p>
+     *         </note>
+     *         <p>
+     *         The name or the unique stack ID that's associated with the stack.
      */
 
     public String getStackName() {
@@ -70,12 +135,38 @@ public class CancelUpdateStackRequest extends com.amazonaws.AmazonWebServiceRequ
     }
 
     /**
+     * <note>
      * <p>
-     * The name or the unique stack ID that is associated with the stack.
+     * If you don't pass a parameter to <code>StackName</code>, the API returns a response that describes all resources
+     * in the account.
+     * </p>
+     * <p>
+     * The IAM policy below can be added to IAM policies when you want to limit resource-level permissions and avoid
+     * returning a response when no parameter is sent in the request:
+     * </p>
+     * <p>
+     * <code>{ "Version": "2012-10-17", "Statement": [{ "Effect": "Deny", "Action": "cloudformation:DescribeStacks", "NotResource": "arn:aws:cloudformation:*:*:stack/*&#47;*" }] }</code>
+     * </p>
+     * </note>
+     * <p>
+     * The name or the unique stack ID that's associated with the stack.
      * </p>
      * 
      * @param stackName
-     *        The name or the unique stack ID that is associated with the stack.
+     *        <p>
+     *        If you don't pass a parameter to <code>StackName</code>, the API returns a response that describes all
+     *        resources in the account.
+     *        </p>
+     *        <p>
+     *        The IAM policy below can be added to IAM policies when you want to limit resource-level permissions and
+     *        avoid returning a response when no parameter is sent in the request:
+     *        </p>
+     *        <p>
+     *        <code>{ "Version": "2012-10-17", "Statement": [{ "Effect": "Deny", "Action": "cloudformation:DescribeStacks", "NotResource": "arn:aws:cloudformation:*:*:stack/*&#47;*" }] }</code>
+     *        </p>
+     *        </note>
+     *        <p>
+     *        The name or the unique stack ID that's associated with the stack.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -87,16 +178,16 @@ public class CancelUpdateStackRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * A unique identifier for this <code>CancelUpdateStack</code> request. Specify this token if you plan to retry
-     * requests so that AWS CloudFormation knows that you're not attempting to cancel an update on a stack with the same
-     * name. You might retry <code>CancelUpdateStack</code> requests to ensure that AWS CloudFormation successfully
-     * received them.
+     * requests so that CloudFormation knows that you're not attempting to cancel an update on a stack with the same
+     * name. You might retry <code>CancelUpdateStack</code> requests to ensure that CloudFormation successfully received
+     * them.
      * </p>
      * 
      * @param clientRequestToken
      *        A unique identifier for this <code>CancelUpdateStack</code> request. Specify this token if you plan to
-     *        retry requests so that AWS CloudFormation knows that you're not attempting to cancel an update on a stack
-     *        with the same name. You might retry <code>CancelUpdateStack</code> requests to ensure that AWS
-     *        CloudFormation successfully received them.
+     *        retry requests so that CloudFormation knows that you're not attempting to cancel an update on a stack with
+     *        the same name. You might retry <code>CancelUpdateStack</code> requests to ensure that CloudFormation
+     *        successfully received them.
      */
 
     public void setClientRequestToken(String clientRequestToken) {
@@ -106,15 +197,15 @@ public class CancelUpdateStackRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * A unique identifier for this <code>CancelUpdateStack</code> request. Specify this token if you plan to retry
-     * requests so that AWS CloudFormation knows that you're not attempting to cancel an update on a stack with the same
-     * name. You might retry <code>CancelUpdateStack</code> requests to ensure that AWS CloudFormation successfully
-     * received them.
+     * requests so that CloudFormation knows that you're not attempting to cancel an update on a stack with the same
+     * name. You might retry <code>CancelUpdateStack</code> requests to ensure that CloudFormation successfully received
+     * them.
      * </p>
      * 
      * @return A unique identifier for this <code>CancelUpdateStack</code> request. Specify this token if you plan to
-     *         retry requests so that AWS CloudFormation knows that you're not attempting to cancel an update on a stack
-     *         with the same name. You might retry <code>CancelUpdateStack</code> requests to ensure that AWS
-     *         CloudFormation successfully received them.
+     *         retry requests so that CloudFormation knows that you're not attempting to cancel an update on a stack
+     *         with the same name. You might retry <code>CancelUpdateStack</code> requests to ensure that CloudFormation
+     *         successfully received them.
      */
 
     public String getClientRequestToken() {
@@ -124,16 +215,16 @@ public class CancelUpdateStackRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * A unique identifier for this <code>CancelUpdateStack</code> request. Specify this token if you plan to retry
-     * requests so that AWS CloudFormation knows that you're not attempting to cancel an update on a stack with the same
-     * name. You might retry <code>CancelUpdateStack</code> requests to ensure that AWS CloudFormation successfully
-     * received them.
+     * requests so that CloudFormation knows that you're not attempting to cancel an update on a stack with the same
+     * name. You might retry <code>CancelUpdateStack</code> requests to ensure that CloudFormation successfully received
+     * them.
      * </p>
      * 
      * @param clientRequestToken
      *        A unique identifier for this <code>CancelUpdateStack</code> request. Specify this token if you plan to
-     *        retry requests so that AWS CloudFormation knows that you're not attempting to cancel an update on a stack
-     *        with the same name. You might retry <code>CancelUpdateStack</code> requests to ensure that AWS
-     *        CloudFormation successfully received them.
+     *        retry requests so that CloudFormation knows that you're not attempting to cancel an update on a stack with
+     *        the same name. You might retry <code>CancelUpdateStack</code> requests to ensure that CloudFormation
+     *        successfully received them.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

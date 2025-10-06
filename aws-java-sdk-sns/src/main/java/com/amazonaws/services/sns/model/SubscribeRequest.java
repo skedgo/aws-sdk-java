@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,7 +36,7 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
     private String topicArn;
     /**
      * <p>
-     * The protocol you want to use. Supported protocols include:
+     * The protocol that you want to use. Supported protocols include:
      * </p>
      * <ul>
      * <li>
@@ -71,12 +71,17 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </li>
      * <li>
      * <p>
-     * <code>application</code> – delivery of JSON-encoded message to an EndpointArn for a mobile app and device.
+     * <code>application</code> – delivery of JSON-encoded message to an EndpointArn for a mobile app and device
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>lambda</code> – delivery of JSON-encoded message to an AWS Lambda function.
+     * <code>lambda</code> – delivery of JSON-encoded message to an Lambda function
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>firehose</code> – delivery of JSON-encoded message to an Amazon Kinesis Data Firehose delivery stream.
      * </p>
      * </li>
      * </ul>
@@ -89,32 +94,32 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * <ul>
      * <li>
      * <p>
-     * For the <code>http</code> protocol, the endpoint is an URL beginning with "https://"
+     * For the <code>http</code> protocol, the (public) endpoint is a URL beginning with <code>http://</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>https</code> protocol, the endpoint is a URL beginning with "https://"
+     * For the <code>https</code> protocol, the (public) endpoint is a URL beginning with <code>https://</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>email</code> protocol, the endpoint is an email address
+     * For the <code>email</code> protocol, the endpoint is an email address.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>email-json</code> protocol, the endpoint is an email address
+     * For the <code>email-json</code> protocol, the endpoint is an email address.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>sms</code> protocol, the endpoint is a phone number of an SMS-enabled device
+     * For the <code>sms</code> protocol, the endpoint is a phone number of an SMS-enabled device.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>sqs</code> protocol, the endpoint is the ARN of an Amazon SQS queue
+     * For the <code>sqs</code> protocol, the endpoint is the ARN of an Amazon SQS queue.
      * </p>
      * </li>
      * <li>
@@ -124,7 +129,13 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </li>
      * <li>
      * <p>
-     * For the <code>lambda</code> protocol, the endpoint is the ARN of an AWS Lambda function.
+     * For the <code>lambda</code> protocol, the endpoint is the ARN of an Lambda function.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For the <code>firehose</code> protocol, the endpoint is the ARN of an Amazon Kinesis Data Firehose delivery
+     * stream.
      * </p>
      * </li>
      * </ul>
@@ -136,7 +147,7 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </p>
      * <p>
      * The following lists the names, descriptions, and values of the special request parameters that the
-     * <code>SetTopicAttributes</code> action uses:
+     * <code>Subscribe</code> action uses:
      * </p>
      * <ul>
      * <li>
@@ -153,10 +164,105 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </li>
      * <li>
      * <p>
+     * <code>FilterPolicyScope</code> – This attribute lets you choose the filtering scope by using one of the following
+     * string value types:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>MessageAttributes</code> (default) – The filter is applied on the message attributes.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MessageBody</code> – The filter is applied on the message body.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
      * <code>RawMessageDelivery</code> – When set to <code>true</code>, enables raw message delivery to Amazon SQS or
      * HTTP/S endpoints. This eliminates the need for the endpoints to process JSON formatting, which is otherwise
      * created for Amazon SNS metadata.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RedrivePolicy</code> – When specified, sends undeliverable messages to the specified Amazon SQS dead-letter
+     * queue. Messages that can't be delivered due to client errors (for example, when the subscribed endpoint is
+     * unreachable) or server errors (for example, when the service that powers the subscribed endpoint becomes
+     * unavailable) are held in the dead-letter queue for further analysis or reprocessing.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attribute applies only to Amazon Data Firehose delivery stream subscriptions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>SubscriptionRoleArn</code> – The ARN of the IAM role that has the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Permission to write to the Firehose delivery stream
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon SNS listed as a trusted entity
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Specifying a valid ARN for this attribute is required for Firehose delivery stream subscriptions. For more
+     * information, see <a href="https://docs.aws.amazon.com/sns/latest/dg/sns-firehose-as-subscriber.html">Fanout to
+     * Firehose delivery streams</a> in the <i>Amazon SNS Developer Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes apply only to <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html">FIFO topics</a>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ReplayPolicy</code> – Adds or updates an inline policy document for a subscription to replay messages
+     * stored in the specified Amazon SNS topic.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ReplayStatus</code> – Retrieves the status of the subscription message replay, which can be one of the
+     * following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Completed</code> – The replay has successfully redelivered all messages, and is now delivering newly
+     * published messages. If an ending point was specified in the <code>ReplayPolicy</code> then the subscription will
+     * no longer receive newly published messages.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>In progress</code> – The replay is currently replaying the selected messages.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Failed</code> – The replay was unable to complete.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Pending</code> – The default state while the replay initiates.
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * </ul>
      */
@@ -167,15 +273,13 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * subscription is not yet confirmed.
      * </p>
      * <p>
-     * If you set this parameter to <code>false</code>, the response includes the ARN for confirmed subscriptions, but
-     * it includes an ARN value of "pending subscription" for subscriptions that are not yet confirmed. A subscription
+     * If you set this parameter to <code>true</code>, the response includes the ARN in all cases, even if the
+     * subscription is not yet confirmed. In addition to the ARN for confirmed subscriptions, the response also includes
+     * the <code>pending subscription</code> ARN value for subscriptions that aren't yet confirmed. A subscription
      * becomes confirmed when the subscriber calls the <code>ConfirmSubscription</code> action with a confirmation
      * token.
      * </p>
-     * <p>
-     * If you set this parameter to <code>true</code>, the response includes the ARN in all cases, even if the
-     * subscription is not yet confirmed.
-     * </p>
+     * <p/>
      * <p>
      * The default value is <code>false</code>.
      * </p>
@@ -196,7 +300,7 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * @param topicArn
      *        The ARN of the topic you want to subscribe to.
      * @param protocol
-     *        The protocol you want to use. Supported protocols include:</p>
+     *        The protocol that you want to use. Supported protocols include:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -230,12 +334,18 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *        </li>
      *        <li>
      *        <p>
-     *        <code>application</code> – delivery of JSON-encoded message to an EndpointArn for a mobile app and device.
+     *        <code>application</code> – delivery of JSON-encoded message to an EndpointArn for a mobile app and device
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>lambda</code> – delivery of JSON-encoded message to an AWS Lambda function.
+     *        <code>lambda</code> – delivery of JSON-encoded message to an Lambda function
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>firehose</code> – delivery of JSON-encoded message to an Amazon Kinesis Data Firehose delivery
+     *        stream.
      *        </p>
      *        </li>
      * @param endpoint
@@ -243,32 +353,32 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *        <ul>
      *        <li>
      *        <p>
-     *        For the <code>http</code> protocol, the endpoint is an URL beginning with "https://"
+     *        For the <code>http</code> protocol, the (public) endpoint is a URL beginning with <code>http://</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>https</code> protocol, the endpoint is a URL beginning with "https://"
+     *        For the <code>https</code> protocol, the (public) endpoint is a URL beginning with <code>https://</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>email</code> protocol, the endpoint is an email address
+     *        For the <code>email</code> protocol, the endpoint is an email address.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>email-json</code> protocol, the endpoint is an email address
+     *        For the <code>email-json</code> protocol, the endpoint is an email address.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>sms</code> protocol, the endpoint is a phone number of an SMS-enabled device
+     *        For the <code>sms</code> protocol, the endpoint is a phone number of an SMS-enabled device.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>sqs</code> protocol, the endpoint is the ARN of an Amazon SQS queue
+     *        For the <code>sqs</code> protocol, the endpoint is the ARN of an Amazon SQS queue.
      *        </p>
      *        </li>
      *        <li>
@@ -278,7 +388,13 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>lambda</code> protocol, the endpoint is the ARN of an AWS Lambda function.
+     *        For the <code>lambda</code> protocol, the endpoint is the ARN of an Lambda function.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For the <code>firehose</code> protocol, the endpoint is the ARN of an Amazon Kinesis Data Firehose
+     *        delivery stream.
      *        </p>
      *        </li>
      */
@@ -330,7 +446,7 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The protocol you want to use. Supported protocols include:
+     * The protocol that you want to use. Supported protocols include:
      * </p>
      * <ul>
      * <li>
@@ -365,18 +481,23 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </li>
      * <li>
      * <p>
-     * <code>application</code> – delivery of JSON-encoded message to an EndpointArn for a mobile app and device.
+     * <code>application</code> – delivery of JSON-encoded message to an EndpointArn for a mobile app and device
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>lambda</code> – delivery of JSON-encoded message to an AWS Lambda function.
+     * <code>lambda</code> – delivery of JSON-encoded message to an Lambda function
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>firehose</code> – delivery of JSON-encoded message to an Amazon Kinesis Data Firehose delivery stream.
      * </p>
      * </li>
      * </ul>
      * 
      * @param protocol
-     *        The protocol you want to use. Supported protocols include:</p>
+     *        The protocol that you want to use. Supported protocols include:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -410,12 +531,18 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *        </li>
      *        <li>
      *        <p>
-     *        <code>application</code> – delivery of JSON-encoded message to an EndpointArn for a mobile app and device.
+     *        <code>application</code> – delivery of JSON-encoded message to an EndpointArn for a mobile app and device
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>lambda</code> – delivery of JSON-encoded message to an AWS Lambda function.
+     *        <code>lambda</code> – delivery of JSON-encoded message to an Lambda function
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>firehose</code> – delivery of JSON-encoded message to an Amazon Kinesis Data Firehose delivery
+     *        stream.
      *        </p>
      *        </li>
      */
@@ -426,7 +553,7 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The protocol you want to use. Supported protocols include:
+     * The protocol that you want to use. Supported protocols include:
      * </p>
      * <ul>
      * <li>
@@ -461,17 +588,22 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </li>
      * <li>
      * <p>
-     * <code>application</code> – delivery of JSON-encoded message to an EndpointArn for a mobile app and device.
+     * <code>application</code> – delivery of JSON-encoded message to an EndpointArn for a mobile app and device
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>lambda</code> – delivery of JSON-encoded message to an AWS Lambda function.
+     * <code>lambda</code> – delivery of JSON-encoded message to an Lambda function
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>firehose</code> – delivery of JSON-encoded message to an Amazon Kinesis Data Firehose delivery stream.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return The protocol you want to use. Supported protocols include:</p>
+     * @return The protocol that you want to use. Supported protocols include:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -505,13 +637,18 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *         </li>
      *         <li>
      *         <p>
-     *         <code>application</code> – delivery of JSON-encoded message to an EndpointArn for a mobile app and
-     *         device.
+     *         <code>application</code> – delivery of JSON-encoded message to an EndpointArn for a mobile app and device
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>lambda</code> – delivery of JSON-encoded message to an AWS Lambda function.
+     *         <code>lambda</code> – delivery of JSON-encoded message to an Lambda function
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>firehose</code> – delivery of JSON-encoded message to an Amazon Kinesis Data Firehose delivery
+     *         stream.
      *         </p>
      *         </li>
      */
@@ -522,7 +659,7 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The protocol you want to use. Supported protocols include:
+     * The protocol that you want to use. Supported protocols include:
      * </p>
      * <ul>
      * <li>
@@ -557,18 +694,23 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </li>
      * <li>
      * <p>
-     * <code>application</code> – delivery of JSON-encoded message to an EndpointArn for a mobile app and device.
+     * <code>application</code> – delivery of JSON-encoded message to an EndpointArn for a mobile app and device
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>lambda</code> – delivery of JSON-encoded message to an AWS Lambda function.
+     * <code>lambda</code> – delivery of JSON-encoded message to an Lambda function
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>firehose</code> – delivery of JSON-encoded message to an Amazon Kinesis Data Firehose delivery stream.
      * </p>
      * </li>
      * </ul>
      * 
      * @param protocol
-     *        The protocol you want to use. Supported protocols include:</p>
+     *        The protocol that you want to use. Supported protocols include:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -602,12 +744,18 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *        </li>
      *        <li>
      *        <p>
-     *        <code>application</code> – delivery of JSON-encoded message to an EndpointArn for a mobile app and device.
+     *        <code>application</code> – delivery of JSON-encoded message to an EndpointArn for a mobile app and device
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>lambda</code> – delivery of JSON-encoded message to an AWS Lambda function.
+     *        <code>lambda</code> – delivery of JSON-encoded message to an Lambda function
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>firehose</code> – delivery of JSON-encoded message to an Amazon Kinesis Data Firehose delivery
+     *        stream.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -625,32 +773,32 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * <ul>
      * <li>
      * <p>
-     * For the <code>http</code> protocol, the endpoint is an URL beginning with "https://"
+     * For the <code>http</code> protocol, the (public) endpoint is a URL beginning with <code>http://</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>https</code> protocol, the endpoint is a URL beginning with "https://"
+     * For the <code>https</code> protocol, the (public) endpoint is a URL beginning with <code>https://</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>email</code> protocol, the endpoint is an email address
+     * For the <code>email</code> protocol, the endpoint is an email address.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>email-json</code> protocol, the endpoint is an email address
+     * For the <code>email-json</code> protocol, the endpoint is an email address.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>sms</code> protocol, the endpoint is a phone number of an SMS-enabled device
+     * For the <code>sms</code> protocol, the endpoint is a phone number of an SMS-enabled device.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>sqs</code> protocol, the endpoint is the ARN of an Amazon SQS queue
+     * For the <code>sqs</code> protocol, the endpoint is the ARN of an Amazon SQS queue.
      * </p>
      * </li>
      * <li>
@@ -660,7 +808,13 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </li>
      * <li>
      * <p>
-     * For the <code>lambda</code> protocol, the endpoint is the ARN of an AWS Lambda function.
+     * For the <code>lambda</code> protocol, the endpoint is the ARN of an Lambda function.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For the <code>firehose</code> protocol, the endpoint is the ARN of an Amazon Kinesis Data Firehose delivery
+     * stream.
      * </p>
      * </li>
      * </ul>
@@ -670,32 +824,32 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *        <ul>
      *        <li>
      *        <p>
-     *        For the <code>http</code> protocol, the endpoint is an URL beginning with "https://"
+     *        For the <code>http</code> protocol, the (public) endpoint is a URL beginning with <code>http://</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>https</code> protocol, the endpoint is a URL beginning with "https://"
+     *        For the <code>https</code> protocol, the (public) endpoint is a URL beginning with <code>https://</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>email</code> protocol, the endpoint is an email address
+     *        For the <code>email</code> protocol, the endpoint is an email address.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>email-json</code> protocol, the endpoint is an email address
+     *        For the <code>email-json</code> protocol, the endpoint is an email address.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>sms</code> protocol, the endpoint is a phone number of an SMS-enabled device
+     *        For the <code>sms</code> protocol, the endpoint is a phone number of an SMS-enabled device.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>sqs</code> protocol, the endpoint is the ARN of an Amazon SQS queue
+     *        For the <code>sqs</code> protocol, the endpoint is the ARN of an Amazon SQS queue.
      *        </p>
      *        </li>
      *        <li>
@@ -705,7 +859,13 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>lambda</code> protocol, the endpoint is the ARN of an AWS Lambda function.
+     *        For the <code>lambda</code> protocol, the endpoint is the ARN of an Lambda function.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For the <code>firehose</code> protocol, the endpoint is the ARN of an Amazon Kinesis Data Firehose
+     *        delivery stream.
      *        </p>
      *        </li>
      */
@@ -721,32 +881,32 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * <ul>
      * <li>
      * <p>
-     * For the <code>http</code> protocol, the endpoint is an URL beginning with "https://"
+     * For the <code>http</code> protocol, the (public) endpoint is a URL beginning with <code>http://</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>https</code> protocol, the endpoint is a URL beginning with "https://"
+     * For the <code>https</code> protocol, the (public) endpoint is a URL beginning with <code>https://</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>email</code> protocol, the endpoint is an email address
+     * For the <code>email</code> protocol, the endpoint is an email address.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>email-json</code> protocol, the endpoint is an email address
+     * For the <code>email-json</code> protocol, the endpoint is an email address.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>sms</code> protocol, the endpoint is a phone number of an SMS-enabled device
+     * For the <code>sms</code> protocol, the endpoint is a phone number of an SMS-enabled device.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>sqs</code> protocol, the endpoint is the ARN of an Amazon SQS queue
+     * For the <code>sqs</code> protocol, the endpoint is the ARN of an Amazon SQS queue.
      * </p>
      * </li>
      * <li>
@@ -756,7 +916,13 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </li>
      * <li>
      * <p>
-     * For the <code>lambda</code> protocol, the endpoint is the ARN of an AWS Lambda function.
+     * For the <code>lambda</code> protocol, the endpoint is the ARN of an Lambda function.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For the <code>firehose</code> protocol, the endpoint is the ARN of an Amazon Kinesis Data Firehose delivery
+     * stream.
      * </p>
      * </li>
      * </ul>
@@ -765,32 +931,32 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *         <ul>
      *         <li>
      *         <p>
-     *         For the <code>http</code> protocol, the endpoint is an URL beginning with "https://"
+     *         For the <code>http</code> protocol, the (public) endpoint is a URL beginning with <code>http://</code>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         For the <code>https</code> protocol, the endpoint is a URL beginning with "https://"
+     *         For the <code>https</code> protocol, the (public) endpoint is a URL beginning with <code>https://</code>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         For the <code>email</code> protocol, the endpoint is an email address
+     *         For the <code>email</code> protocol, the endpoint is an email address.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         For the <code>email-json</code> protocol, the endpoint is an email address
+     *         For the <code>email-json</code> protocol, the endpoint is an email address.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         For the <code>sms</code> protocol, the endpoint is a phone number of an SMS-enabled device
+     *         For the <code>sms</code> protocol, the endpoint is a phone number of an SMS-enabled device.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         For the <code>sqs</code> protocol, the endpoint is the ARN of an Amazon SQS queue
+     *         For the <code>sqs</code> protocol, the endpoint is the ARN of an Amazon SQS queue.
      *         </p>
      *         </li>
      *         <li>
@@ -800,7 +966,13 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *         </li>
      *         <li>
      *         <p>
-     *         For the <code>lambda</code> protocol, the endpoint is the ARN of an AWS Lambda function.
+     *         For the <code>lambda</code> protocol, the endpoint is the ARN of an Lambda function.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For the <code>firehose</code> protocol, the endpoint is the ARN of an Amazon Kinesis Data Firehose
+     *         delivery stream.
      *         </p>
      *         </li>
      */
@@ -816,32 +988,32 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * <ul>
      * <li>
      * <p>
-     * For the <code>http</code> protocol, the endpoint is an URL beginning with "https://"
+     * For the <code>http</code> protocol, the (public) endpoint is a URL beginning with <code>http://</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>https</code> protocol, the endpoint is a URL beginning with "https://"
+     * For the <code>https</code> protocol, the (public) endpoint is a URL beginning with <code>https://</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>email</code> protocol, the endpoint is an email address
+     * For the <code>email</code> protocol, the endpoint is an email address.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>email-json</code> protocol, the endpoint is an email address
+     * For the <code>email-json</code> protocol, the endpoint is an email address.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>sms</code> protocol, the endpoint is a phone number of an SMS-enabled device
+     * For the <code>sms</code> protocol, the endpoint is a phone number of an SMS-enabled device.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For the <code>sqs</code> protocol, the endpoint is the ARN of an Amazon SQS queue
+     * For the <code>sqs</code> protocol, the endpoint is the ARN of an Amazon SQS queue.
      * </p>
      * </li>
      * <li>
@@ -851,7 +1023,13 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </li>
      * <li>
      * <p>
-     * For the <code>lambda</code> protocol, the endpoint is the ARN of an AWS Lambda function.
+     * For the <code>lambda</code> protocol, the endpoint is the ARN of an Lambda function.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For the <code>firehose</code> protocol, the endpoint is the ARN of an Amazon Kinesis Data Firehose delivery
+     * stream.
      * </p>
      * </li>
      * </ul>
@@ -861,32 +1039,32 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *        <ul>
      *        <li>
      *        <p>
-     *        For the <code>http</code> protocol, the endpoint is an URL beginning with "https://"
+     *        For the <code>http</code> protocol, the (public) endpoint is a URL beginning with <code>http://</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>https</code> protocol, the endpoint is a URL beginning with "https://"
+     *        For the <code>https</code> protocol, the (public) endpoint is a URL beginning with <code>https://</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>email</code> protocol, the endpoint is an email address
+     *        For the <code>email</code> protocol, the endpoint is an email address.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>email-json</code> protocol, the endpoint is an email address
+     *        For the <code>email-json</code> protocol, the endpoint is an email address.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>sms</code> protocol, the endpoint is a phone number of an SMS-enabled device
+     *        For the <code>sms</code> protocol, the endpoint is a phone number of an SMS-enabled device.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>sqs</code> protocol, the endpoint is the ARN of an Amazon SQS queue
+     *        For the <code>sqs</code> protocol, the endpoint is the ARN of an Amazon SQS queue.
      *        </p>
      *        </li>
      *        <li>
@@ -896,7 +1074,13 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *        </li>
      *        <li>
      *        <p>
-     *        For the <code>lambda</code> protocol, the endpoint is the ARN of an AWS Lambda function.
+     *        For the <code>lambda</code> protocol, the endpoint is the ARN of an Lambda function.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For the <code>firehose</code> protocol, the endpoint is the ARN of an Amazon Kinesis Data Firehose
+     *        delivery stream.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -913,7 +1097,7 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </p>
      * <p>
      * The following lists the names, descriptions, and values of the special request parameters that the
-     * <code>SetTopicAttributes</code> action uses:
+     * <code>Subscribe</code> action uses:
      * </p>
      * <ul>
      * <li>
@@ -930,17 +1114,112 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </li>
      * <li>
      * <p>
+     * <code>FilterPolicyScope</code> – This attribute lets you choose the filtering scope by using one of the following
+     * string value types:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>MessageAttributes</code> (default) – The filter is applied on the message attributes.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MessageBody</code> – The filter is applied on the message body.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
      * <code>RawMessageDelivery</code> – When set to <code>true</code>, enables raw message delivery to Amazon SQS or
      * HTTP/S endpoints. This eliminates the need for the endpoints to process JSON formatting, which is otherwise
      * created for Amazon SNS metadata.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RedrivePolicy</code> – When specified, sends undeliverable messages to the specified Amazon SQS dead-letter
+     * queue. Messages that can't be delivered due to client errors (for example, when the subscribed endpoint is
+     * unreachable) or server errors (for example, when the service that powers the subscribed endpoint becomes
+     * unavailable) are held in the dead-letter queue for further analysis or reprocessing.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attribute applies only to Amazon Data Firehose delivery stream subscriptions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>SubscriptionRoleArn</code> – The ARN of the IAM role that has the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Permission to write to the Firehose delivery stream
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon SNS listed as a trusted entity
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Specifying a valid ARN for this attribute is required for Firehose delivery stream subscriptions. For more
+     * information, see <a href="https://docs.aws.amazon.com/sns/latest/dg/sns-firehose-as-subscriber.html">Fanout to
+     * Firehose delivery streams</a> in the <i>Amazon SNS Developer Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes apply only to <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html">FIFO topics</a>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ReplayPolicy</code> – Adds or updates an inline policy document for a subscription to replay messages
+     * stored in the specified Amazon SNS topic.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ReplayStatus</code> – Retrieves the status of the subscription message replay, which can be one of the
+     * following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Completed</code> – The replay has successfully redelivered all messages, and is now delivering newly
+     * published messages. If an ending point was specified in the <code>ReplayPolicy</code> then the subscription will
+     * no longer receive newly published messages.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>In progress</code> – The replay is currently replaying the selected messages.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Failed</code> – The replay was unable to complete.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Pending</code> – The default state while the replay initiates.
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * </ul>
      * 
      * @return A map of attributes with their corresponding values.</p>
      *         <p>
      *         The following lists the names, descriptions, and values of the special request parameters that the
-     *         <code>SetTopicAttributes</code> action uses:
+     *         <code>Subscribe</code> action uses:
      *         </p>
      *         <ul>
      *         <li>
@@ -957,10 +1236,107 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *         </li>
      *         <li>
      *         <p>
+     *         <code>FilterPolicyScope</code> – This attribute lets you choose the filtering scope by using one of the
+     *         following string value types:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>MessageAttributes</code> (default) – The filter is applied on the message attributes.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>MessageBody</code> – The filter is applied on the message body.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         </li>
+     *         <li>
+     *         <p>
      *         <code>RawMessageDelivery</code> – When set to <code>true</code>, enables raw message delivery to Amazon
      *         SQS or HTTP/S endpoints. This eliminates the need for the endpoints to process JSON formatting, which is
      *         otherwise created for Amazon SNS metadata.
      *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>RedrivePolicy</code> – When specified, sends undeliverable messages to the specified Amazon SQS
+     *         dead-letter queue. Messages that can't be delivered due to client errors (for example, when the
+     *         subscribed endpoint is unreachable) or server errors (for example, when the service that powers the
+     *         subscribed endpoint becomes unavailable) are held in the dead-letter queue for further analysis or
+     *         reprocessing.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         The following attribute applies only to Amazon Data Firehose delivery stream subscriptions:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>SubscriptionRoleArn</code> – The ARN of the IAM role that has the following:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Permission to write to the Firehose delivery stream
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Amazon SNS listed as a trusted entity
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Specifying a valid ARN for this attribute is required for Firehose delivery stream subscriptions. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/sns/latest/dg/sns-firehose-as-subscriber.html">Fanout to Firehose
+     *         delivery streams</a> in the <i>Amazon SNS Developer Guide</i>.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         The following attributes apply only to <a
+     *         href="https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html">FIFO topics</a>:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>ReplayPolicy</code> – Adds or updates an inline policy document for a subscription to replay
+     *         messages stored in the specified Amazon SNS topic.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ReplayStatus</code> – Retrieves the status of the subscription message replay, which can be one of
+     *         the following:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>Completed</code> – The replay has successfully redelivered all messages, and is now delivering
+     *         newly published messages. If an ending point was specified in the <code>ReplayPolicy</code> then the
+     *         subscription will no longer receive newly published messages.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>In progress</code> – The replay is currently replaying the selected messages.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Failed</code> – The replay was unable to complete.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Pending</code> – The default state while the replay initiates.
+     *         </p>
+     *         </li>
+     *         </ul>
      *         </li>
      */
 
@@ -977,7 +1353,7 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </p>
      * <p>
      * The following lists the names, descriptions, and values of the special request parameters that the
-     * <code>SetTopicAttributes</code> action uses:
+     * <code>Subscribe</code> action uses:
      * </p>
      * <ul>
      * <li>
@@ -994,10 +1370,105 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </li>
      * <li>
      * <p>
+     * <code>FilterPolicyScope</code> – This attribute lets you choose the filtering scope by using one of the following
+     * string value types:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>MessageAttributes</code> (default) – The filter is applied on the message attributes.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MessageBody</code> – The filter is applied on the message body.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
      * <code>RawMessageDelivery</code> – When set to <code>true</code>, enables raw message delivery to Amazon SQS or
      * HTTP/S endpoints. This eliminates the need for the endpoints to process JSON formatting, which is otherwise
      * created for Amazon SNS metadata.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RedrivePolicy</code> – When specified, sends undeliverable messages to the specified Amazon SQS dead-letter
+     * queue. Messages that can't be delivered due to client errors (for example, when the subscribed endpoint is
+     * unreachable) or server errors (for example, when the service that powers the subscribed endpoint becomes
+     * unavailable) are held in the dead-letter queue for further analysis or reprocessing.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attribute applies only to Amazon Data Firehose delivery stream subscriptions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>SubscriptionRoleArn</code> – The ARN of the IAM role that has the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Permission to write to the Firehose delivery stream
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon SNS listed as a trusted entity
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Specifying a valid ARN for this attribute is required for Firehose delivery stream subscriptions. For more
+     * information, see <a href="https://docs.aws.amazon.com/sns/latest/dg/sns-firehose-as-subscriber.html">Fanout to
+     * Firehose delivery streams</a> in the <i>Amazon SNS Developer Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes apply only to <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html">FIFO topics</a>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ReplayPolicy</code> – Adds or updates an inline policy document for a subscription to replay messages
+     * stored in the specified Amazon SNS topic.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ReplayStatus</code> – Retrieves the status of the subscription message replay, which can be one of the
+     * following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Completed</code> – The replay has successfully redelivered all messages, and is now delivering newly
+     * published messages. If an ending point was specified in the <code>ReplayPolicy</code> then the subscription will
+     * no longer receive newly published messages.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>In progress</code> – The replay is currently replaying the selected messages.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Failed</code> – The replay was unable to complete.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Pending</code> – The default state while the replay initiates.
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * </ul>
      * 
@@ -1005,7 +1476,7 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *        A map of attributes with their corresponding values.</p>
      *        <p>
      *        The following lists the names, descriptions, and values of the special request parameters that the
-     *        <code>SetTopicAttributes</code> action uses:
+     *        <code>Subscribe</code> action uses:
      *        </p>
      *        <ul>
      *        <li>
@@ -1022,10 +1493,106 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *        </li>
      *        <li>
      *        <p>
+     *        <code>FilterPolicyScope</code> – This attribute lets you choose the filtering scope by using one of the
+     *        following string value types:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>MessageAttributes</code> (default) – The filter is applied on the message attributes.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>MessageBody</code> – The filter is applied on the message body.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>RawMessageDelivery</code> – When set to <code>true</code>, enables raw message delivery to Amazon
      *        SQS or HTTP/S endpoints. This eliminates the need for the endpoints to process JSON formatting, which is
      *        otherwise created for Amazon SNS metadata.
      *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RedrivePolicy</code> – When specified, sends undeliverable messages to the specified Amazon SQS
+     *        dead-letter queue. Messages that can't be delivered due to client errors (for example, when the subscribed
+     *        endpoint is unreachable) or server errors (for example, when the service that powers the subscribed
+     *        endpoint becomes unavailable) are held in the dead-letter queue for further analysis or reprocessing.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following attribute applies only to Amazon Data Firehose delivery stream subscriptions:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>SubscriptionRoleArn</code> – The ARN of the IAM role that has the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Permission to write to the Firehose delivery stream
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon SNS listed as a trusted entity
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Specifying a valid ARN for this attribute is required for Firehose delivery stream subscriptions. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/sns/latest/dg/sns-firehose-as-subscriber.html">Fanout to Firehose
+     *        delivery streams</a> in the <i>Amazon SNS Developer Guide</i>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following attributes apply only to <a
+     *        href="https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html">FIFO topics</a>:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ReplayPolicy</code> – Adds or updates an inline policy document for a subscription to replay
+     *        messages stored in the specified Amazon SNS topic.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ReplayStatus</code> – Retrieves the status of the subscription message replay, which can be one of
+     *        the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Completed</code> – The replay has successfully redelivered all messages, and is now delivering newly
+     *        published messages. If an ending point was specified in the <code>ReplayPolicy</code> then the
+     *        subscription will no longer receive newly published messages.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>In progress</code> – The replay is currently replaying the selected messages.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Failed</code> – The replay was unable to complete.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Pending</code> – The default state while the replay initiates.
+     *        </p>
+     *        </li>
+     *        </ul>
      *        </li>
      */
 
@@ -1039,7 +1606,7 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </p>
      * <p>
      * The following lists the names, descriptions, and values of the special request parameters that the
-     * <code>SetTopicAttributes</code> action uses:
+     * <code>Subscribe</code> action uses:
      * </p>
      * <ul>
      * <li>
@@ -1056,10 +1623,105 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </li>
      * <li>
      * <p>
+     * <code>FilterPolicyScope</code> – This attribute lets you choose the filtering scope by using one of the following
+     * string value types:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>MessageAttributes</code> (default) – The filter is applied on the message attributes.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MessageBody</code> – The filter is applied on the message body.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
      * <code>RawMessageDelivery</code> – When set to <code>true</code>, enables raw message delivery to Amazon SQS or
      * HTTP/S endpoints. This eliminates the need for the endpoints to process JSON formatting, which is otherwise
      * created for Amazon SNS metadata.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RedrivePolicy</code> – When specified, sends undeliverable messages to the specified Amazon SQS dead-letter
+     * queue. Messages that can't be delivered due to client errors (for example, when the subscribed endpoint is
+     * unreachable) or server errors (for example, when the service that powers the subscribed endpoint becomes
+     * unavailable) are held in the dead-letter queue for further analysis or reprocessing.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attribute applies only to Amazon Data Firehose delivery stream subscriptions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>SubscriptionRoleArn</code> – The ARN of the IAM role that has the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Permission to write to the Firehose delivery stream
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon SNS listed as a trusted entity
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Specifying a valid ARN for this attribute is required for Firehose delivery stream subscriptions. For more
+     * information, see <a href="https://docs.aws.amazon.com/sns/latest/dg/sns-firehose-as-subscriber.html">Fanout to
+     * Firehose delivery streams</a> in the <i>Amazon SNS Developer Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes apply only to <a
+     * href="https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html">FIFO topics</a>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ReplayPolicy</code> – Adds or updates an inline policy document for a subscription to replay messages
+     * stored in the specified Amazon SNS topic.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ReplayStatus</code> – Retrieves the status of the subscription message replay, which can be one of the
+     * following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Completed</code> – The replay has successfully redelivered all messages, and is now delivering newly
+     * published messages. If an ending point was specified in the <code>ReplayPolicy</code> then the subscription will
+     * no longer receive newly published messages.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>In progress</code> – The replay is currently replaying the selected messages.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Failed</code> – The replay was unable to complete.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Pending</code> – The default state while the replay initiates.
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * </ul>
      * 
@@ -1067,7 +1729,7 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *        A map of attributes with their corresponding values.</p>
      *        <p>
      *        The following lists the names, descriptions, and values of the special request parameters that the
-     *        <code>SetTopicAttributes</code> action uses:
+     *        <code>Subscribe</code> action uses:
      *        </p>
      *        <ul>
      *        <li>
@@ -1084,10 +1746,106 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *        </li>
      *        <li>
      *        <p>
+     *        <code>FilterPolicyScope</code> – This attribute lets you choose the filtering scope by using one of the
+     *        following string value types:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>MessageAttributes</code> (default) – The filter is applied on the message attributes.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>MessageBody</code> – The filter is applied on the message body.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>RawMessageDelivery</code> – When set to <code>true</code>, enables raw message delivery to Amazon
      *        SQS or HTTP/S endpoints. This eliminates the need for the endpoints to process JSON formatting, which is
      *        otherwise created for Amazon SNS metadata.
      *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RedrivePolicy</code> – When specified, sends undeliverable messages to the specified Amazon SQS
+     *        dead-letter queue. Messages that can't be delivered due to client errors (for example, when the subscribed
+     *        endpoint is unreachable) or server errors (for example, when the service that powers the subscribed
+     *        endpoint becomes unavailable) are held in the dead-letter queue for further analysis or reprocessing.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following attribute applies only to Amazon Data Firehose delivery stream subscriptions:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>SubscriptionRoleArn</code> – The ARN of the IAM role that has the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Permission to write to the Firehose delivery stream
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon SNS listed as a trusted entity
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Specifying a valid ARN for this attribute is required for Firehose delivery stream subscriptions. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/sns/latest/dg/sns-firehose-as-subscriber.html">Fanout to Firehose
+     *        delivery streams</a> in the <i>Amazon SNS Developer Guide</i>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following attributes apply only to <a
+     *        href="https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html">FIFO topics</a>:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ReplayPolicy</code> – Adds or updates an inline policy document for a subscription to replay
+     *        messages stored in the specified Amazon SNS topic.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ReplayStatus</code> – Retrieves the status of the subscription message replay, which can be one of
+     *        the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Completed</code> – The replay has successfully redelivered all messages, and is now delivering newly
+     *        published messages. If an ending point was specified in the <code>ReplayPolicy</code> then the
+     *        subscription will no longer receive newly published messages.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>In progress</code> – The replay is currently replaying the selected messages.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Failed</code> – The replay was unable to complete.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Pending</code> – The default state while the replay initiates.
+     *        </p>
+     *        </li>
+     *        </ul>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -1096,6 +1854,13 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
         setAttributes(attributes);
         return this;
     }
+
+    /**
+     * Add a single Attributes entry
+     *
+     * @see SubscribeRequest#withAttributes
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public SubscribeRequest addAttributesEntry(String key, String value) {
         if (null == this.attributes) {
@@ -1124,15 +1889,13 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * subscription is not yet confirmed.
      * </p>
      * <p>
-     * If you set this parameter to <code>false</code>, the response includes the ARN for confirmed subscriptions, but
-     * it includes an ARN value of "pending subscription" for subscriptions that are not yet confirmed. A subscription
+     * If you set this parameter to <code>true</code>, the response includes the ARN in all cases, even if the
+     * subscription is not yet confirmed. In addition to the ARN for confirmed subscriptions, the response also includes
+     * the <code>pending subscription</code> ARN value for subscriptions that aren't yet confirmed. A subscription
      * becomes confirmed when the subscriber calls the <code>ConfirmSubscription</code> action with a confirmation
      * token.
      * </p>
-     * <p>
-     * If you set this parameter to <code>true</code>, the response includes the ARN in all cases, even if the
-     * subscription is not yet confirmed.
-     * </p>
+     * <p/>
      * <p>
      * The default value is <code>false</code>.
      * </p>
@@ -1141,15 +1904,13 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *        Sets whether the response from the <code>Subscribe</code> request includes the subscription ARN, even if
      *        the subscription is not yet confirmed.</p>
      *        <p>
-     *        If you set this parameter to <code>false</code>, the response includes the ARN for confirmed
-     *        subscriptions, but it includes an ARN value of "pending subscription" for subscriptions that are not yet
-     *        confirmed. A subscription becomes confirmed when the subscriber calls the <code>ConfirmSubscription</code>
-     *        action with a confirmation token.
-     *        </p>
-     *        <p>
      *        If you set this parameter to <code>true</code>, the response includes the ARN in all cases, even if the
-     *        subscription is not yet confirmed.
+     *        subscription is not yet confirmed. In addition to the ARN for confirmed subscriptions, the response also
+     *        includes the <code>pending subscription</code> ARN value for subscriptions that aren't yet confirmed. A
+     *        subscription becomes confirmed when the subscriber calls the <code>ConfirmSubscription</code> action with
+     *        a confirmation token.
      *        </p>
+     *        <p/>
      *        <p>
      *        The default value is <code>false</code>.
      */
@@ -1164,15 +1925,13 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * subscription is not yet confirmed.
      * </p>
      * <p>
-     * If you set this parameter to <code>false</code>, the response includes the ARN for confirmed subscriptions, but
-     * it includes an ARN value of "pending subscription" for subscriptions that are not yet confirmed. A subscription
+     * If you set this parameter to <code>true</code>, the response includes the ARN in all cases, even if the
+     * subscription is not yet confirmed. In addition to the ARN for confirmed subscriptions, the response also includes
+     * the <code>pending subscription</code> ARN value for subscriptions that aren't yet confirmed. A subscription
      * becomes confirmed when the subscriber calls the <code>ConfirmSubscription</code> action with a confirmation
      * token.
      * </p>
-     * <p>
-     * If you set this parameter to <code>true</code>, the response includes the ARN in all cases, even if the
-     * subscription is not yet confirmed.
-     * </p>
+     * <p/>
      * <p>
      * The default value is <code>false</code>.
      * </p>
@@ -1180,15 +1939,13 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * @return Sets whether the response from the <code>Subscribe</code> request includes the subscription ARN, even if
      *         the subscription is not yet confirmed.</p>
      *         <p>
-     *         If you set this parameter to <code>false</code>, the response includes the ARN for confirmed
-     *         subscriptions, but it includes an ARN value of "pending subscription" for subscriptions that are not yet
-     *         confirmed. A subscription becomes confirmed when the subscriber calls the
-     *         <code>ConfirmSubscription</code> action with a confirmation token.
-     *         </p>
-     *         <p>
      *         If you set this parameter to <code>true</code>, the response includes the ARN in all cases, even if the
-     *         subscription is not yet confirmed.
+     *         subscription is not yet confirmed. In addition to the ARN for confirmed subscriptions, the response also
+     *         includes the <code>pending subscription</code> ARN value for subscriptions that aren't yet confirmed. A
+     *         subscription becomes confirmed when the subscriber calls the <code>ConfirmSubscription</code> action with
+     *         a confirmation token.
      *         </p>
+     *         <p/>
      *         <p>
      *         The default value is <code>false</code>.
      */
@@ -1203,15 +1960,13 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * subscription is not yet confirmed.
      * </p>
      * <p>
-     * If you set this parameter to <code>false</code>, the response includes the ARN for confirmed subscriptions, but
-     * it includes an ARN value of "pending subscription" for subscriptions that are not yet confirmed. A subscription
+     * If you set this parameter to <code>true</code>, the response includes the ARN in all cases, even if the
+     * subscription is not yet confirmed. In addition to the ARN for confirmed subscriptions, the response also includes
+     * the <code>pending subscription</code> ARN value for subscriptions that aren't yet confirmed. A subscription
      * becomes confirmed when the subscriber calls the <code>ConfirmSubscription</code> action with a confirmation
      * token.
      * </p>
-     * <p>
-     * If you set this parameter to <code>true</code>, the response includes the ARN in all cases, even if the
-     * subscription is not yet confirmed.
-     * </p>
+     * <p/>
      * <p>
      * The default value is <code>false</code>.
      * </p>
@@ -1220,15 +1975,13 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *        Sets whether the response from the <code>Subscribe</code> request includes the subscription ARN, even if
      *        the subscription is not yet confirmed.</p>
      *        <p>
-     *        If you set this parameter to <code>false</code>, the response includes the ARN for confirmed
-     *        subscriptions, but it includes an ARN value of "pending subscription" for subscriptions that are not yet
-     *        confirmed. A subscription becomes confirmed when the subscriber calls the <code>ConfirmSubscription</code>
-     *        action with a confirmation token.
-     *        </p>
-     *        <p>
      *        If you set this parameter to <code>true</code>, the response includes the ARN in all cases, even if the
-     *        subscription is not yet confirmed.
+     *        subscription is not yet confirmed. In addition to the ARN for confirmed subscriptions, the response also
+     *        includes the <code>pending subscription</code> ARN value for subscriptions that aren't yet confirmed. A
+     *        subscription becomes confirmed when the subscriber calls the <code>ConfirmSubscription</code> action with
+     *        a confirmation token.
      *        </p>
+     *        <p/>
      *        <p>
      *        The default value is <code>false</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1245,15 +1998,13 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * subscription is not yet confirmed.
      * </p>
      * <p>
-     * If you set this parameter to <code>false</code>, the response includes the ARN for confirmed subscriptions, but
-     * it includes an ARN value of "pending subscription" for subscriptions that are not yet confirmed. A subscription
+     * If you set this parameter to <code>true</code>, the response includes the ARN in all cases, even if the
+     * subscription is not yet confirmed. In addition to the ARN for confirmed subscriptions, the response also includes
+     * the <code>pending subscription</code> ARN value for subscriptions that aren't yet confirmed. A subscription
      * becomes confirmed when the subscriber calls the <code>ConfirmSubscription</code> action with a confirmation
      * token.
      * </p>
-     * <p>
-     * If you set this parameter to <code>true</code>, the response includes the ARN in all cases, even if the
-     * subscription is not yet confirmed.
-     * </p>
+     * <p/>
      * <p>
      * The default value is <code>false</code>.
      * </p>
@@ -1261,15 +2012,13 @@ public class SubscribeRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * @return Sets whether the response from the <code>Subscribe</code> request includes the subscription ARN, even if
      *         the subscription is not yet confirmed.</p>
      *         <p>
-     *         If you set this parameter to <code>false</code>, the response includes the ARN for confirmed
-     *         subscriptions, but it includes an ARN value of "pending subscription" for subscriptions that are not yet
-     *         confirmed. A subscription becomes confirmed when the subscriber calls the
-     *         <code>ConfirmSubscription</code> action with a confirmation token.
-     *         </p>
-     *         <p>
      *         If you set this parameter to <code>true</code>, the response includes the ARN in all cases, even if the
-     *         subscription is not yet confirmed.
+     *         subscription is not yet confirmed. In addition to the ARN for confirmed subscriptions, the response also
+     *         includes the <code>pending subscription</code> ARN value for subscriptions that aren't yet confirmed. A
+     *         subscription becomes confirmed when the subscriber calls the <code>ConfirmSubscription</code> action with
+     *         a confirmation token.
      *         </p>
+     *         <p/>
      *         <p>
      *         The default value is <code>false</code>.
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,12 +31,12 @@ public class CreateHostedZoneRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * The name of the domain. Specify a fully qualified domain name, for example, <i>www.example.com</i>. The trailing
-     * dot is optional; Amazon Route 53 assumes that the domain name is fully qualified. This means that Route 53 treats
+     * dot is optional; Amazon Route 53 assumes that the domain name is fully qualified. This means that Route 53 treats
      * <i>www.example.com</i> (without a trailing dot) and <i>www.example.com.</i> (with a trailing dot) as identical.
      * </p>
      * <p>
      * If you're creating a public hosted zone, this is the name you have registered with your DNS registrar. If your
-     * domain name is registered with a registrar other than Route 53, change the name servers for your domain to the
+     * domain name is registered with a registrar other than Route 53, change the name servers for your domain to the
      * set of <code>NameServers</code> that <code>CreateHostedZone</code> returns in <code>DelegationSet</code>.
      * </p>
      */
@@ -47,8 +47,11 @@ public class CreateHostedZoneRequest extends com.amazonaws.AmazonWebServiceReque
      * with this hosted zone.
      * </p>
      * <p>
-     * You can specify only one Amazon VPC when you create a private hosted zone. To associate additional Amazon VPCs
-     * with the hosted zone, use <a
+     * You can specify only one Amazon VPC when you create a private hosted zone. If you are associating a VPC with a
+     * hosted zone with this request, the paramaters <code>VPCId</code> and <code>VPCRegion</code> are also required.
+     * </p>
+     * <p>
+     * To associate additional Amazon VPCs with the hosted zone, use <a
      * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_AssociateVPCWithHostedZone.html"
      * >AssociateVPCWithHostedZone</a> after you create a hosted zone.
      * </p>
@@ -87,10 +90,15 @@ public class CreateHostedZoneRequest extends com.amazonaws.AmazonWebServiceReque
     private HostedZoneConfig hostedZoneConfig;
     /**
      * <p>
-     * If you want to associate a reusable delegation set with this hosted zone, the ID that Amazon Route 53 assigned to
+     * If you want to associate a reusable delegation set with this hosted zone, the ID that Amazon Route 53 assigned to
      * the reusable delegation set when you created it. For more information about reusable delegation sets, see <a
      * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateReusableDelegationSet.html">
      * CreateReusableDelegationSet</a>.
+     * </p>
+     * <p>
+     * If you are using a reusable delegation set to create a public hosted zone for a subdomain, make sure that the
+     * parent hosted zone doesn't use one or more of the same name servers. If you have overlapping nameservers, the
+     * operation will cause a <code>ConflictingDomainsExist</code> error.
      * </p>
      */
     private String delegationSetId;
@@ -108,12 +116,12 @@ public class CreateHostedZoneRequest extends com.amazonaws.AmazonWebServiceReque
      * 
      * @param name
      *        The name of the domain. Specify a fully qualified domain name, for example, <i>www.example.com</i>. The
-     *        trailing dot is optional; Amazon Route 53 assumes that the domain name is fully qualified. This means that
-     *        Route 53 treats <i>www.example.com</i> (without a trailing dot) and <i>www.example.com.</i> (with a
+     *        trailing dot is optional; Amazon Route 53 assumes that the domain name is fully qualified. This means that
+     *        Route 53 treats <i>www.example.com</i> (without a trailing dot) and <i>www.example.com.</i> (with a
      *        trailing dot) as identical.</p>
      *        <p>
      *        If you're creating a public hosted zone, this is the name you have registered with your DNS registrar. If
-     *        your domain name is registered with a registrar other than Route 53, change the name servers for your
+     *        your domain name is registered with a registrar other than Route 53, change the name servers for your
      *        domain to the set of <code>NameServers</code> that <code>CreateHostedZone</code> returns in
      *        <code>DelegationSet</code>.
      * @param callerReference
@@ -130,23 +138,23 @@ public class CreateHostedZoneRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * The name of the domain. Specify a fully qualified domain name, for example, <i>www.example.com</i>. The trailing
-     * dot is optional; Amazon Route 53 assumes that the domain name is fully qualified. This means that Route 53 treats
+     * dot is optional; Amazon Route 53 assumes that the domain name is fully qualified. This means that Route 53 treats
      * <i>www.example.com</i> (without a trailing dot) and <i>www.example.com.</i> (with a trailing dot) as identical.
      * </p>
      * <p>
      * If you're creating a public hosted zone, this is the name you have registered with your DNS registrar. If your
-     * domain name is registered with a registrar other than Route 53, change the name servers for your domain to the
+     * domain name is registered with a registrar other than Route 53, change the name servers for your domain to the
      * set of <code>NameServers</code> that <code>CreateHostedZone</code> returns in <code>DelegationSet</code>.
      * </p>
      * 
      * @param name
      *        The name of the domain. Specify a fully qualified domain name, for example, <i>www.example.com</i>. The
-     *        trailing dot is optional; Amazon Route 53 assumes that the domain name is fully qualified. This means that
-     *        Route 53 treats <i>www.example.com</i> (without a trailing dot) and <i>www.example.com.</i> (with a
+     *        trailing dot is optional; Amazon Route 53 assumes that the domain name is fully qualified. This means that
+     *        Route 53 treats <i>www.example.com</i> (without a trailing dot) and <i>www.example.com.</i> (with a
      *        trailing dot) as identical.</p>
      *        <p>
      *        If you're creating a public hosted zone, this is the name you have registered with your DNS registrar. If
-     *        your domain name is registered with a registrar other than Route 53, change the name servers for your
+     *        your domain name is registered with a registrar other than Route 53, change the name servers for your
      *        domain to the set of <code>NameServers</code> that <code>CreateHostedZone</code> returns in
      *        <code>DelegationSet</code>.
      */
@@ -158,22 +166,22 @@ public class CreateHostedZoneRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * The name of the domain. Specify a fully qualified domain name, for example, <i>www.example.com</i>. The trailing
-     * dot is optional; Amazon Route 53 assumes that the domain name is fully qualified. This means that Route 53 treats
+     * dot is optional; Amazon Route 53 assumes that the domain name is fully qualified. This means that Route 53 treats
      * <i>www.example.com</i> (without a trailing dot) and <i>www.example.com.</i> (with a trailing dot) as identical.
      * </p>
      * <p>
      * If you're creating a public hosted zone, this is the name you have registered with your DNS registrar. If your
-     * domain name is registered with a registrar other than Route 53, change the name servers for your domain to the
+     * domain name is registered with a registrar other than Route 53, change the name servers for your domain to the
      * set of <code>NameServers</code> that <code>CreateHostedZone</code> returns in <code>DelegationSet</code>.
      * </p>
      * 
      * @return The name of the domain. Specify a fully qualified domain name, for example, <i>www.example.com</i>. The
-     *         trailing dot is optional; Amazon Route 53 assumes that the domain name is fully qualified. This means
-     *         that Route 53 treats <i>www.example.com</i> (without a trailing dot) and <i>www.example.com.</i> (with a
+     *         trailing dot is optional; Amazon Route 53 assumes that the domain name is fully qualified. This means
+     *         that Route 53 treats <i>www.example.com</i> (without a trailing dot) and <i>www.example.com.</i> (with a
      *         trailing dot) as identical.</p>
      *         <p>
      *         If you're creating a public hosted zone, this is the name you have registered with your DNS registrar. If
-     *         your domain name is registered with a registrar other than Route 53, change the name servers for your
+     *         your domain name is registered with a registrar other than Route 53, change the name servers for your
      *         domain to the set of <code>NameServers</code> that <code>CreateHostedZone</code> returns in
      *         <code>DelegationSet</code>.
      */
@@ -185,23 +193,23 @@ public class CreateHostedZoneRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * The name of the domain. Specify a fully qualified domain name, for example, <i>www.example.com</i>. The trailing
-     * dot is optional; Amazon Route 53 assumes that the domain name is fully qualified. This means that Route 53 treats
+     * dot is optional; Amazon Route 53 assumes that the domain name is fully qualified. This means that Route 53 treats
      * <i>www.example.com</i> (without a trailing dot) and <i>www.example.com.</i> (with a trailing dot) as identical.
      * </p>
      * <p>
      * If you're creating a public hosted zone, this is the name you have registered with your DNS registrar. If your
-     * domain name is registered with a registrar other than Route 53, change the name servers for your domain to the
+     * domain name is registered with a registrar other than Route 53, change the name servers for your domain to the
      * set of <code>NameServers</code> that <code>CreateHostedZone</code> returns in <code>DelegationSet</code>.
      * </p>
      * 
      * @param name
      *        The name of the domain. Specify a fully qualified domain name, for example, <i>www.example.com</i>. The
-     *        trailing dot is optional; Amazon Route 53 assumes that the domain name is fully qualified. This means that
-     *        Route 53 treats <i>www.example.com</i> (without a trailing dot) and <i>www.example.com.</i> (with a
+     *        trailing dot is optional; Amazon Route 53 assumes that the domain name is fully qualified. This means that
+     *        Route 53 treats <i>www.example.com</i> (without a trailing dot) and <i>www.example.com.</i> (with a
      *        trailing dot) as identical.</p>
      *        <p>
      *        If you're creating a public hosted zone, this is the name you have registered with your DNS registrar. If
-     *        your domain name is registered with a registrar other than Route 53, change the name servers for your
+     *        your domain name is registered with a registrar other than Route 53, change the name servers for your
      *        domain to the set of <code>NameServers</code> that <code>CreateHostedZone</code> returns in
      *        <code>DelegationSet</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -218,8 +226,11 @@ public class CreateHostedZoneRequest extends com.amazonaws.AmazonWebServiceReque
      * with this hosted zone.
      * </p>
      * <p>
-     * You can specify only one Amazon VPC when you create a private hosted zone. To associate additional Amazon VPCs
-     * with the hosted zone, use <a
+     * You can specify only one Amazon VPC when you create a private hosted zone. If you are associating a VPC with a
+     * hosted zone with this request, the paramaters <code>VPCId</code> and <code>VPCRegion</code> are also required.
+     * </p>
+     * <p>
+     * To associate additional Amazon VPCs with the hosted zone, use <a
      * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_AssociateVPCWithHostedZone.html"
      * >AssociateVPCWithHostedZone</a> after you create a hosted zone.
      * </p>
@@ -228,8 +239,12 @@ public class CreateHostedZoneRequest extends com.amazonaws.AmazonWebServiceReque
      *        (Private hosted zones only) A complex type that contains information about the Amazon VPC that you're
      *        associating with this hosted zone.</p>
      *        <p>
-     *        You can specify only one Amazon VPC when you create a private hosted zone. To associate additional Amazon
-     *        VPCs with the hosted zone, use <a
+     *        You can specify only one Amazon VPC when you create a private hosted zone. If you are associating a VPC
+     *        with a hosted zone with this request, the paramaters <code>VPCId</code> and <code>VPCRegion</code> are
+     *        also required.
+     *        </p>
+     *        <p>
+     *        To associate additional Amazon VPCs with the hosted zone, use <a
      *        href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_AssociateVPCWithHostedZone.html"
      *        >AssociateVPCWithHostedZone</a> after you create a hosted zone.
      */
@@ -244,8 +259,11 @@ public class CreateHostedZoneRequest extends com.amazonaws.AmazonWebServiceReque
      * with this hosted zone.
      * </p>
      * <p>
-     * You can specify only one Amazon VPC when you create a private hosted zone. To associate additional Amazon VPCs
-     * with the hosted zone, use <a
+     * You can specify only one Amazon VPC when you create a private hosted zone. If you are associating a VPC with a
+     * hosted zone with this request, the paramaters <code>VPCId</code> and <code>VPCRegion</code> are also required.
+     * </p>
+     * <p>
+     * To associate additional Amazon VPCs with the hosted zone, use <a
      * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_AssociateVPCWithHostedZone.html"
      * >AssociateVPCWithHostedZone</a> after you create a hosted zone.
      * </p>
@@ -253,8 +271,12 @@ public class CreateHostedZoneRequest extends com.amazonaws.AmazonWebServiceReque
      * @return (Private hosted zones only) A complex type that contains information about the Amazon VPC that you're
      *         associating with this hosted zone.</p>
      *         <p>
-     *         You can specify only one Amazon VPC when you create a private hosted zone. To associate additional Amazon
-     *         VPCs with the hosted zone, use <a
+     *         You can specify only one Amazon VPC when you create a private hosted zone. If you are associating a VPC
+     *         with a hosted zone with this request, the paramaters <code>VPCId</code> and <code>VPCRegion</code> are
+     *         also required.
+     *         </p>
+     *         <p>
+     *         To associate additional Amazon VPCs with the hosted zone, use <a
      *         href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_AssociateVPCWithHostedZone.html"
      *         >AssociateVPCWithHostedZone</a> after you create a hosted zone.
      */
@@ -269,8 +291,11 @@ public class CreateHostedZoneRequest extends com.amazonaws.AmazonWebServiceReque
      * with this hosted zone.
      * </p>
      * <p>
-     * You can specify only one Amazon VPC when you create a private hosted zone. To associate additional Amazon VPCs
-     * with the hosted zone, use <a
+     * You can specify only one Amazon VPC when you create a private hosted zone. If you are associating a VPC with a
+     * hosted zone with this request, the paramaters <code>VPCId</code> and <code>VPCRegion</code> are also required.
+     * </p>
+     * <p>
+     * To associate additional Amazon VPCs with the hosted zone, use <a
      * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_AssociateVPCWithHostedZone.html"
      * >AssociateVPCWithHostedZone</a> after you create a hosted zone.
      * </p>
@@ -279,8 +304,12 @@ public class CreateHostedZoneRequest extends com.amazonaws.AmazonWebServiceReque
      *        (Private hosted zones only) A complex type that contains information about the Amazon VPC that you're
      *        associating with this hosted zone.</p>
      *        <p>
-     *        You can specify only one Amazon VPC when you create a private hosted zone. To associate additional Amazon
-     *        VPCs with the hosted zone, use <a
+     *        You can specify only one Amazon VPC when you create a private hosted zone. If you are associating a VPC
+     *        with a hosted zone with this request, the paramaters <code>VPCId</code> and <code>VPCRegion</code> are
+     *        also required.
+     *        </p>
+     *        <p>
+     *        To associate additional Amazon VPCs with the hosted zone, use <a
      *        href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_AssociateVPCWithHostedZone.html"
      *        >AssociateVPCWithHostedZone</a> after you create a hosted zone.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -484,18 +513,27 @@ public class CreateHostedZoneRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * If you want to associate a reusable delegation set with this hosted zone, the ID that Amazon Route 53 assigned to
+     * If you want to associate a reusable delegation set with this hosted zone, the ID that Amazon Route 53 assigned to
      * the reusable delegation set when you created it. For more information about reusable delegation sets, see <a
      * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateReusableDelegationSet.html">
      * CreateReusableDelegationSet</a>.
      * </p>
+     * <p>
+     * If you are using a reusable delegation set to create a public hosted zone for a subdomain, make sure that the
+     * parent hosted zone doesn't use one or more of the same name servers. If you have overlapping nameservers, the
+     * operation will cause a <code>ConflictingDomainsExist</code> error.
+     * </p>
      * 
      * @param delegationSetId
-     *        If you want to associate a reusable delegation set with this hosted zone, the ID that Amazon Route 53
+     *        If you want to associate a reusable delegation set with this hosted zone, the ID that Amazon Route 53
      *        assigned to the reusable delegation set when you created it. For more information about reusable
      *        delegation sets, see <a
      *        href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateReusableDelegationSet.html"
-     *        >CreateReusableDelegationSet</a>.
+     *        >CreateReusableDelegationSet</a>.</p>
+     *        <p>
+     *        If you are using a reusable delegation set to create a public hosted zone for a subdomain, make sure that
+     *        the parent hosted zone doesn't use one or more of the same name servers. If you have overlapping
+     *        nameservers, the operation will cause a <code>ConflictingDomainsExist</code> error.
      */
 
     public void setDelegationSetId(String delegationSetId) {
@@ -504,17 +542,26 @@ public class CreateHostedZoneRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * If you want to associate a reusable delegation set with this hosted zone, the ID that Amazon Route 53 assigned to
+     * If you want to associate a reusable delegation set with this hosted zone, the ID that Amazon Route 53 assigned to
      * the reusable delegation set when you created it. For more information about reusable delegation sets, see <a
      * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateReusableDelegationSet.html">
      * CreateReusableDelegationSet</a>.
      * </p>
+     * <p>
+     * If you are using a reusable delegation set to create a public hosted zone for a subdomain, make sure that the
+     * parent hosted zone doesn't use one or more of the same name servers. If you have overlapping nameservers, the
+     * operation will cause a <code>ConflictingDomainsExist</code> error.
+     * </p>
      * 
-     * @return If you want to associate a reusable delegation set with this hosted zone, the ID that Amazon Route 53
+     * @return If you want to associate a reusable delegation set with this hosted zone, the ID that Amazon Route 53
      *         assigned to the reusable delegation set when you created it. For more information about reusable
      *         delegation sets, see <a
      *         href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateReusableDelegationSet.html"
-     *         >CreateReusableDelegationSet</a>.
+     *         >CreateReusableDelegationSet</a>.</p>
+     *         <p>
+     *         If you are using a reusable delegation set to create a public hosted zone for a subdomain, make sure that
+     *         the parent hosted zone doesn't use one or more of the same name servers. If you have overlapping
+     *         nameservers, the operation will cause a <code>ConflictingDomainsExist</code> error.
      */
 
     public String getDelegationSetId() {
@@ -523,18 +570,27 @@ public class CreateHostedZoneRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * If you want to associate a reusable delegation set with this hosted zone, the ID that Amazon Route 53 assigned to
+     * If you want to associate a reusable delegation set with this hosted zone, the ID that Amazon Route 53 assigned to
      * the reusable delegation set when you created it. For more information about reusable delegation sets, see <a
      * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateReusableDelegationSet.html">
      * CreateReusableDelegationSet</a>.
      * </p>
+     * <p>
+     * If you are using a reusable delegation set to create a public hosted zone for a subdomain, make sure that the
+     * parent hosted zone doesn't use one or more of the same name servers. If you have overlapping nameservers, the
+     * operation will cause a <code>ConflictingDomainsExist</code> error.
+     * </p>
      * 
      * @param delegationSetId
-     *        If you want to associate a reusable delegation set with this hosted zone, the ID that Amazon Route 53
+     *        If you want to associate a reusable delegation set with this hosted zone, the ID that Amazon Route 53
      *        assigned to the reusable delegation set when you created it. For more information about reusable
      *        delegation sets, see <a
      *        href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateReusableDelegationSet.html"
-     *        >CreateReusableDelegationSet</a>.
+     *        >CreateReusableDelegationSet</a>.</p>
+     *        <p>
+     *        If you are using a reusable delegation set to create a public hosted zone for a subdomain, make sure that
+     *        the parent hosted zone doesn't use one or more of the same name servers. If you have overlapping
+     *        nameservers, the operation will cause a <code>ConflictingDomainsExist</code> error.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

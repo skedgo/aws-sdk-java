@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,13 +48,21 @@ public class VirtualNodeSpecJsonUnmarshaller implements Unmarshaller<VirtualNode
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("backendDefaults", targetDepth)) {
+                    context.nextToken();
+                    virtualNodeSpec.setBackendDefaults(BackendDefaultsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("backends", targetDepth)) {
                     context.nextToken();
-                    virtualNodeSpec.setBackends(new ListUnmarshaller<Backend>(BackendJsonUnmarshaller.getInstance()).unmarshall(context));
+                    virtualNodeSpec.setBackends(new ListUnmarshaller<Backend>(BackendJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("listeners", targetDepth)) {
                     context.nextToken();
-                    virtualNodeSpec.setListeners(new ListUnmarshaller<Listener>(ListenerJsonUnmarshaller.getInstance()).unmarshall(context));
+                    virtualNodeSpec.setListeners(new ListUnmarshaller<Listener>(ListenerJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("logging", targetDepth)) {
                     context.nextToken();

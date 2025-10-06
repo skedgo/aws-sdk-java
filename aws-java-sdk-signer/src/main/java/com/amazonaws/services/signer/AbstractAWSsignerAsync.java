@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -24,6 +24,19 @@ import com.amazonaws.services.signer.model.*;
 public class AbstractAWSsignerAsync extends AbstractAWSsigner implements AWSsignerAsync {
 
     protected AbstractAWSsignerAsync() {
+    }
+
+    @Override
+    public java.util.concurrent.Future<AddProfilePermissionResult> addProfilePermissionAsync(AddProfilePermissionRequest request) {
+
+        return addProfilePermissionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AddProfilePermissionResult> addProfilePermissionAsync(AddProfilePermissionRequest request,
+            com.amazonaws.handlers.AsyncHandler<AddProfilePermissionRequest, AddProfilePermissionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
@@ -53,6 +66,19 @@ public class AbstractAWSsignerAsync extends AbstractAWSsigner implements AWSsign
     }
 
     @Override
+    public java.util.concurrent.Future<GetRevocationStatusResult> getRevocationStatusAsync(GetRevocationStatusRequest request) {
+
+        return getRevocationStatusAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRevocationStatusResult> getRevocationStatusAsync(GetRevocationStatusRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetRevocationStatusRequest, GetRevocationStatusResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<GetSigningPlatformResult> getSigningPlatformAsync(GetSigningPlatformRequest request) {
 
         return getSigningPlatformAsync(request, null);
@@ -74,6 +100,19 @@ public class AbstractAWSsignerAsync extends AbstractAWSsigner implements AWSsign
     @Override
     public java.util.concurrent.Future<GetSigningProfileResult> getSigningProfileAsync(GetSigningProfileRequest request,
             com.amazonaws.handlers.AsyncHandler<GetSigningProfileRequest, GetSigningProfileResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListProfilePermissionsResult> listProfilePermissionsAsync(ListProfilePermissionsRequest request) {
+
+        return listProfilePermissionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListProfilePermissionsResult> listProfilePermissionsAsync(ListProfilePermissionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListProfilePermissionsRequest, ListProfilePermissionsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -118,6 +157,19 @@ public class AbstractAWSsignerAsync extends AbstractAWSsigner implements AWSsign
     }
 
     @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<PutSigningProfileResult> putSigningProfileAsync(PutSigningProfileRequest request) {
 
         return putSigningProfileAsync(request, null);
@@ -131,6 +183,58 @@ public class AbstractAWSsignerAsync extends AbstractAWSsigner implements AWSsign
     }
 
     @Override
+    public java.util.concurrent.Future<RemoveProfilePermissionResult> removeProfilePermissionAsync(RemoveProfilePermissionRequest request) {
+
+        return removeProfilePermissionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RemoveProfilePermissionResult> removeProfilePermissionAsync(RemoveProfilePermissionRequest request,
+            com.amazonaws.handlers.AsyncHandler<RemoveProfilePermissionRequest, RemoveProfilePermissionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<RevokeSignatureResult> revokeSignatureAsync(RevokeSignatureRequest request) {
+
+        return revokeSignatureAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RevokeSignatureResult> revokeSignatureAsync(RevokeSignatureRequest request,
+            com.amazonaws.handlers.AsyncHandler<RevokeSignatureRequest, RevokeSignatureResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<RevokeSigningProfileResult> revokeSigningProfileAsync(RevokeSigningProfileRequest request) {
+
+        return revokeSigningProfileAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RevokeSigningProfileResult> revokeSigningProfileAsync(RevokeSigningProfileRequest request,
+            com.amazonaws.handlers.AsyncHandler<RevokeSigningProfileRequest, RevokeSigningProfileResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<SignPayloadResult> signPayloadAsync(SignPayloadRequest request) {
+
+        return signPayloadAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SignPayloadResult> signPayloadAsync(SignPayloadRequest request,
+            com.amazonaws.handlers.AsyncHandler<SignPayloadRequest, SignPayloadResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<StartSigningJobResult> startSigningJobAsync(StartSigningJobRequest request) {
 
         return startSigningJobAsync(request, null);
@@ -139,6 +243,32 @@ public class AbstractAWSsignerAsync extends AbstractAWSsigner implements AWSsign
     @Override
     public java.util.concurrent.Future<StartSigningJobResult> startSigningJobAsync(StartSigningJobRequest request,
             com.amazonaws.handlers.AsyncHandler<StartSigningJobRequest, StartSigningJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,8 +16,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Exception that indicates that the NextToken specified in the request is invalid. Submit the request using the
- * NextToken value that was returned in the response.
+ * Exception that indicates that the <code>NextToken</code> specified in the request is invalid. Submit the request
+ * using the <code>NextToken</code> value that was returned in the prior response.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

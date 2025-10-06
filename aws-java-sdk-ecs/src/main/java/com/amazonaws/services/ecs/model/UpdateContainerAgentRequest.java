@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,7 +34,7 @@ public class UpdateContainerAgentRequest extends com.amazonaws.AmazonWebServiceR
     private String cluster;
     /**
      * <p>
-     * The container instance ID or full ARN entries for the container instance on which you would like to update the
+     * The container instance ID or full ARN entries for the container instance where you would like to update the
      * Amazon ECS container agent.
      * </p>
      */
@@ -88,12 +88,12 @@ public class UpdateContainerAgentRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The container instance ID or full ARN entries for the container instance on which you would like to update the
+     * The container instance ID or full ARN entries for the container instance where you would like to update the
      * Amazon ECS container agent.
      * </p>
      * 
      * @param containerInstance
-     *        The container instance ID or full ARN entries for the container instance on which you would like to update
+     *        The container instance ID or full ARN entries for the container instance where you would like to update
      *        the Amazon ECS container agent.
      */
 
@@ -103,12 +103,12 @@ public class UpdateContainerAgentRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The container instance ID or full ARN entries for the container instance on which you would like to update the
+     * The container instance ID or full ARN entries for the container instance where you would like to update the
      * Amazon ECS container agent.
      * </p>
      * 
-     * @return The container instance ID or full ARN entries for the container instance on which you would like to
-     *         update the Amazon ECS container agent.
+     * @return The container instance ID or full ARN entries for the container instance where you would like to update
+     *         the Amazon ECS container agent.
      */
 
     public String getContainerInstance() {
@@ -117,12 +117,12 @@ public class UpdateContainerAgentRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The container instance ID or full ARN entries for the container instance on which you would like to update the
+     * The container instance ID or full ARN entries for the container instance where you would like to update the
      * Amazon ECS container agent.
      * </p>
      * 
      * @param containerInstance
-     *        The container instance ID or full ARN entries for the container instance on which you would like to update
+     *        The container instance ID or full ARN entries for the container instance where you would like to update
      *        the Amazon ECS container agent.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

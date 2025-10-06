@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,13 +29,19 @@ public class InvokeEndpointResult extends com.amazonaws.AmazonWebServiceResult<c
      * </p>
      * <p>
      * For information about the format of the response body, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html">Common Data Formats—Inference</a>.
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html">Common Data Formats-Inference</a>.
+     * </p>
+     * <p>
+     * If the explainer is activated, the body includes the explanations provided by the model. For more information,
+     * see the <b>Response section</b> under <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-online-explainability-invoke-endpoint.html#clarify-online-explainability-response"
+     * >Invoke the Endpoint</a> in the Developer Guide.
      * </p>
      */
     private java.nio.ByteBuffer body;
     /**
      * <p>
-     * The MIME type of the inference returned in the response body.
+     * The MIME type of the inference returned from the model container.
      * </p>
      */
     private String contentType;
@@ -45,7 +51,26 @@ public class InvokeEndpointResult extends com.amazonaws.AmazonWebServiceResult<c
      * </p>
      */
     private String invokedProductionVariant;
-    /** <p/> */
+    /**
+     * <p>
+     * Provides additional information in the response about the inference returned by a model hosted at an Amazon
+     * SageMaker endpoint. The information is an opaque value that is forwarded verbatim. You could use this value, for
+     * example, to return an ID received in the <code>CustomAttributes</code> header of a request or other metadata that
+     * a service endpoint was programmed to produce. The value must consist of no more than 1024 visible US-ASCII
+     * characters as specified in <a href="https://tools.ietf.org/html/rfc7230#section-3.2.6">Section 3.3.6. Field Value
+     * Components</a> of the Hypertext Transfer Protocol (HTTP/1.1). If the customer wants the custom attribute
+     * returned, the model must set the custom attribute to be included on the way back.
+     * </p>
+     * <p>
+     * The code in your model is responsible for setting or updating any custom attributes in the response. If your code
+     * does not set this value in the response, an empty value is returned. For example, if a custom attribute
+     * represents the trace ID, your model can prepend the custom attribute with <code>Trace ID:</code> in your
+     * post-processing function.
+     * </p>
+     * <p>
+     * This feature is currently supported in the Amazon Web Services SDKs but not in the Amazon SageMaker Python SDK.
+     * </p>
+     */
     private String customAttributes;
 
     /**
@@ -54,7 +79,13 @@ public class InvokeEndpointResult extends com.amazonaws.AmazonWebServiceResult<c
      * </p>
      * <p>
      * For information about the format of the response body, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html">Common Data Formats—Inference</a>.
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html">Common Data Formats-Inference</a>.
+     * </p>
+     * <p>
+     * If the explainer is activated, the body includes the explanations provided by the model. For more information,
+     * see the <b>Response section</b> under <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-online-explainability-invoke-endpoint.html#clarify-online-explainability-response"
+     * >Invoke the Endpoint</a> in the Developer Guide.
      * </p>
      * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
@@ -68,11 +99,17 @@ public class InvokeEndpointResult extends com.amazonaws.AmazonWebServiceResult<c
      * </p>
      * 
      * @param body
-     *        Includes the inference provided by the model.</p>
+     *        Includes the inference provided by the model. </p>
      *        <p>
      *        For information about the format of the response body, see <a
-     *        href="http://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html">Common Data
-     *        Formats—Inference</a>.
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html">Common Data
+     *        Formats-Inference</a>.
+     *        </p>
+     *        <p>
+     *        If the explainer is activated, the body includes the explanations provided by the model. For more
+     *        information, see the <b>Response section</b> under <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-online-explainability-invoke-endpoint.html#clarify-online-explainability-response"
+     *        >Invoke the Endpoint</a> in the Developer Guide.
      */
 
     public void setBody(java.nio.ByteBuffer body) {
@@ -85,7 +122,13 @@ public class InvokeEndpointResult extends com.amazonaws.AmazonWebServiceResult<c
      * </p>
      * <p>
      * For information about the format of the response body, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html">Common Data Formats—Inference</a>.
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html">Common Data Formats-Inference</a>.
+     * </p>
+     * <p>
+     * If the explainer is activated, the body includes the explanations provided by the model. For more information,
+     * see the <b>Response section</b> under <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-online-explainability-invoke-endpoint.html#clarify-online-explainability-response"
+     * >Invoke the Endpoint</a> in the Developer Guide.
      * </p>
      * <p>
      * {@code ByteBuffer}s are stateful. Calling their {@code get} methods changes their {@code position}. We recommend
@@ -95,11 +138,17 @@ public class InvokeEndpointResult extends com.amazonaws.AmazonWebServiceResult<c
      * {@code position}.
      * </p>
      * 
-     * @return Includes the inference provided by the model.</p>
+     * @return Includes the inference provided by the model. </p>
      *         <p>
      *         For information about the format of the response body, see <a
-     *         href="http://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html">Common Data
-     *         Formats—Inference</a>.
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html">Common Data
+     *         Formats-Inference</a>.
+     *         </p>
+     *         <p>
+     *         If the explainer is activated, the body includes the explanations provided by the model. For more
+     *         information, see the <b>Response section</b> under <a href=
+     *         "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-online-explainability-invoke-endpoint.html#clarify-online-explainability-response"
+     *         >Invoke the Endpoint</a> in the Developer Guide.
      */
 
     public java.nio.ByteBuffer getBody() {
@@ -112,7 +161,13 @@ public class InvokeEndpointResult extends com.amazonaws.AmazonWebServiceResult<c
      * </p>
      * <p>
      * For information about the format of the response body, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html">Common Data Formats—Inference</a>.
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html">Common Data Formats-Inference</a>.
+     * </p>
+     * <p>
+     * If the explainer is activated, the body includes the explanations provided by the model. For more information,
+     * see the <b>Response section</b> under <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-online-explainability-invoke-endpoint.html#clarify-online-explainability-response"
+     * >Invoke the Endpoint</a> in the Developer Guide.
      * </p>
      * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
@@ -126,11 +181,17 @@ public class InvokeEndpointResult extends com.amazonaws.AmazonWebServiceResult<c
      * </p>
      * 
      * @param body
-     *        Includes the inference provided by the model.</p>
+     *        Includes the inference provided by the model. </p>
      *        <p>
      *        For information about the format of the response body, see <a
-     *        href="http://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html">Common Data
-     *        Formats—Inference</a>.
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html">Common Data
+     *        Formats-Inference</a>.
+     *        </p>
+     *        <p>
+     *        If the explainer is activated, the body includes the explanations provided by the model. For more
+     *        information, see the <b>Response section</b> under <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-online-explainability-invoke-endpoint.html#clarify-online-explainability-response"
+     *        >Invoke the Endpoint</a> in the Developer Guide.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -141,11 +202,11 @@ public class InvokeEndpointResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The MIME type of the inference returned in the response body.
+     * The MIME type of the inference returned from the model container.
      * </p>
      * 
      * @param contentType
-     *        The MIME type of the inference returned in the response body.
+     *        The MIME type of the inference returned from the model container.
      */
 
     public void setContentType(String contentType) {
@@ -154,10 +215,10 @@ public class InvokeEndpointResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The MIME type of the inference returned in the response body.
+     * The MIME type of the inference returned from the model container.
      * </p>
      * 
-     * @return The MIME type of the inference returned in the response body.
+     * @return The MIME type of the inference returned from the model container.
      */
 
     public String getContentType() {
@@ -166,11 +227,11 @@ public class InvokeEndpointResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The MIME type of the inference returned in the response body.
+     * The MIME type of the inference returned from the model container.
      * </p>
      * 
      * @param contentType
-     *        The MIME type of the inference returned in the response body.
+     *        The MIME type of the inference returned from the model container.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -220,9 +281,43 @@ public class InvokeEndpointResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * <p/>
+     * <p>
+     * Provides additional information in the response about the inference returned by a model hosted at an Amazon
+     * SageMaker endpoint. The information is an opaque value that is forwarded verbatim. You could use this value, for
+     * example, to return an ID received in the <code>CustomAttributes</code> header of a request or other metadata that
+     * a service endpoint was programmed to produce. The value must consist of no more than 1024 visible US-ASCII
+     * characters as specified in <a href="https://tools.ietf.org/html/rfc7230#section-3.2.6">Section 3.3.6. Field Value
+     * Components</a> of the Hypertext Transfer Protocol (HTTP/1.1). If the customer wants the custom attribute
+     * returned, the model must set the custom attribute to be included on the way back.
+     * </p>
+     * <p>
+     * The code in your model is responsible for setting or updating any custom attributes in the response. If your code
+     * does not set this value in the response, an empty value is returned. For example, if a custom attribute
+     * represents the trace ID, your model can prepend the custom attribute with <code>Trace ID:</code> in your
+     * post-processing function.
+     * </p>
+     * <p>
+     * This feature is currently supported in the Amazon Web Services SDKs but not in the Amazon SageMaker Python SDK.
+     * </p>
      * 
      * @param customAttributes
+     *        Provides additional information in the response about the inference returned by a model hosted at an
+     *        Amazon SageMaker endpoint. The information is an opaque value that is forwarded verbatim. You could use
+     *        this value, for example, to return an ID received in the <code>CustomAttributes</code> header of a request
+     *        or other metadata that a service endpoint was programmed to produce. The value must consist of no more
+     *        than 1024 visible US-ASCII characters as specified in <a
+     *        href="https://tools.ietf.org/html/rfc7230#section-3.2.6">Section 3.3.6. Field Value Components</a> of the
+     *        Hypertext Transfer Protocol (HTTP/1.1). If the customer wants the custom attribute returned, the model
+     *        must set the custom attribute to be included on the way back. </p>
+     *        <p>
+     *        The code in your model is responsible for setting or updating any custom attributes in the response. If
+     *        your code does not set this value in the response, an empty value is returned. For example, if a custom
+     *        attribute represents the trace ID, your model can prepend the custom attribute with <code>Trace ID:</code>
+     *        in your post-processing function.
+     *        </p>
+     *        <p>
+     *        This feature is currently supported in the Amazon Web Services SDKs but not in the Amazon SageMaker Python
+     *        SDK.
      */
 
     public void setCustomAttributes(String customAttributes) {
@@ -230,9 +325,42 @@ public class InvokeEndpointResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * <p/>
+     * <p>
+     * Provides additional information in the response about the inference returned by a model hosted at an Amazon
+     * SageMaker endpoint. The information is an opaque value that is forwarded verbatim. You could use this value, for
+     * example, to return an ID received in the <code>CustomAttributes</code> header of a request or other metadata that
+     * a service endpoint was programmed to produce. The value must consist of no more than 1024 visible US-ASCII
+     * characters as specified in <a href="https://tools.ietf.org/html/rfc7230#section-3.2.6">Section 3.3.6. Field Value
+     * Components</a> of the Hypertext Transfer Protocol (HTTP/1.1). If the customer wants the custom attribute
+     * returned, the model must set the custom attribute to be included on the way back.
+     * </p>
+     * <p>
+     * The code in your model is responsible for setting or updating any custom attributes in the response. If your code
+     * does not set this value in the response, an empty value is returned. For example, if a custom attribute
+     * represents the trace ID, your model can prepend the custom attribute with <code>Trace ID:</code> in your
+     * post-processing function.
+     * </p>
+     * <p>
+     * This feature is currently supported in the Amazon Web Services SDKs but not in the Amazon SageMaker Python SDK.
+     * </p>
      * 
-     * @return
+     * @return Provides additional information in the response about the inference returned by a model hosted at an
+     *         Amazon SageMaker endpoint. The information is an opaque value that is forwarded verbatim. You could use
+     *         this value, for example, to return an ID received in the <code>CustomAttributes</code> header of a
+     *         request or other metadata that a service endpoint was programmed to produce. The value must consist of no
+     *         more than 1024 visible US-ASCII characters as specified in <a
+     *         href="https://tools.ietf.org/html/rfc7230#section-3.2.6">Section 3.3.6. Field Value Components</a> of the
+     *         Hypertext Transfer Protocol (HTTP/1.1). If the customer wants the custom attribute returned, the model
+     *         must set the custom attribute to be included on the way back. </p>
+     *         <p>
+     *         The code in your model is responsible for setting or updating any custom attributes in the response. If
+     *         your code does not set this value in the response, an empty value is returned. For example, if a custom
+     *         attribute represents the trace ID, your model can prepend the custom attribute with
+     *         <code>Trace ID:</code> in your post-processing function.
+     *         </p>
+     *         <p>
+     *         This feature is currently supported in the Amazon Web Services SDKs but not in the Amazon SageMaker
+     *         Python SDK.
      */
 
     public String getCustomAttributes() {
@@ -240,9 +368,43 @@ public class InvokeEndpointResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
-     * <p/>
+     * <p>
+     * Provides additional information in the response about the inference returned by a model hosted at an Amazon
+     * SageMaker endpoint. The information is an opaque value that is forwarded verbatim. You could use this value, for
+     * example, to return an ID received in the <code>CustomAttributes</code> header of a request or other metadata that
+     * a service endpoint was programmed to produce. The value must consist of no more than 1024 visible US-ASCII
+     * characters as specified in <a href="https://tools.ietf.org/html/rfc7230#section-3.2.6">Section 3.3.6. Field Value
+     * Components</a> of the Hypertext Transfer Protocol (HTTP/1.1). If the customer wants the custom attribute
+     * returned, the model must set the custom attribute to be included on the way back.
+     * </p>
+     * <p>
+     * The code in your model is responsible for setting or updating any custom attributes in the response. If your code
+     * does not set this value in the response, an empty value is returned. For example, if a custom attribute
+     * represents the trace ID, your model can prepend the custom attribute with <code>Trace ID:</code> in your
+     * post-processing function.
+     * </p>
+     * <p>
+     * This feature is currently supported in the Amazon Web Services SDKs but not in the Amazon SageMaker Python SDK.
+     * </p>
      * 
      * @param customAttributes
+     *        Provides additional information in the response about the inference returned by a model hosted at an
+     *        Amazon SageMaker endpoint. The information is an opaque value that is forwarded verbatim. You could use
+     *        this value, for example, to return an ID received in the <code>CustomAttributes</code> header of a request
+     *        or other metadata that a service endpoint was programmed to produce. The value must consist of no more
+     *        than 1024 visible US-ASCII characters as specified in <a
+     *        href="https://tools.ietf.org/html/rfc7230#section-3.2.6">Section 3.3.6. Field Value Components</a> of the
+     *        Hypertext Transfer Protocol (HTTP/1.1). If the customer wants the custom attribute returned, the model
+     *        must set the custom attribute to be included on the way back. </p>
+     *        <p>
+     *        The code in your model is responsible for setting or updating any custom attributes in the response. If
+     *        your code does not set this value in the response, an empty value is returned. For example, if a custom
+     *        attribute represents the trace ID, your model can prepend the custom attribute with <code>Trace ID:</code>
+     *        in your post-processing function.
+     *        </p>
+     *        <p>
+     *        This feature is currently supported in the Amazon Web Services SDKs but not in the Amazon SageMaker Python
+     *        SDK.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

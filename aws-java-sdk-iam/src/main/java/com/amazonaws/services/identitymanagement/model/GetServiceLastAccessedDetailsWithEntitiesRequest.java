@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,17 +33,17 @@ public class GetServiceLastAccessedDetailsWithEntitiesRequest extends com.amazon
     private String jobId;
     /**
      * <p>
-     * The service namespace for an AWS service. Provide the service namespace to learn when the IAM entity last
-     * attempted to access the specified service.
+     * The service namespace for an Amazon Web Services service. Provide the service namespace to learn when the IAM
+     * entity last attempted to access the specified service.
      * </p>
      * <p>
-     * To learn the service namespace for a service, go to <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html"
-     * >Actions, Resources, and Condition Keys for AWS Services</a> in the <i>IAM User Guide</i>. Choose the name of the
-     * service to view details for that service. In the first paragraph, find the service prefix. For example,
-     * <code>(service prefix: a4b)</code>. For more information about service namespaces, see <a
+     * To learn the service namespace for a service, see <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html"
+     * >Actions, resources, and condition keys for Amazon Web Services services</a> in the <i>IAM User Guide</i>. Choose
+     * the name of the service to view details for that service. In the first paragraph, find the service prefix. For
+     * example, <code>(service prefix: a4b)</code>. For more information about service namespaces, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * >Amazon Web Services service namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      */
     private String serviceNamespace;
@@ -112,30 +112,31 @@ public class GetServiceLastAccessedDetailsWithEntitiesRequest extends com.amazon
 
     /**
      * <p>
-     * The service namespace for an AWS service. Provide the service namespace to learn when the IAM entity last
-     * attempted to access the specified service.
+     * The service namespace for an Amazon Web Services service. Provide the service namespace to learn when the IAM
+     * entity last attempted to access the specified service.
      * </p>
      * <p>
-     * To learn the service namespace for a service, go to <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html"
-     * >Actions, Resources, and Condition Keys for AWS Services</a> in the <i>IAM User Guide</i>. Choose the name of the
-     * service to view details for that service. In the first paragraph, find the service prefix. For example,
-     * <code>(service prefix: a4b)</code>. For more information about service namespaces, see <a
+     * To learn the service namespace for a service, see <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html"
+     * >Actions, resources, and condition keys for Amazon Web Services services</a> in the <i>IAM User Guide</i>. Choose
+     * the name of the service to view details for that service. In the first paragraph, find the service prefix. For
+     * example, <code>(service prefix: a4b)</code>. For more information about service namespaces, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * >Amazon Web Services service namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @param serviceNamespace
-     *        The service namespace for an AWS service. Provide the service namespace to learn when the IAM entity last
-     *        attempted to access the specified service.</p>
+     *        The service namespace for an Amazon Web Services service. Provide the service namespace to learn when the
+     *        IAM entity last attempted to access the specified service.</p>
      *        <p>
-     *        To learn the service namespace for a service, go to <a href=
-     *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html"
-     *        >Actions, Resources, and Condition Keys for AWS Services</a> in the <i>IAM User Guide</i>. Choose the name
-     *        of the service to view details for that service. In the first paragraph, find the service prefix. For
-     *        example, <code>(service prefix: a4b)</code>. For more information about service namespaces, see <a
-     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     *        >AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     *        To learn the service namespace for a service, see <a href=
+     *        "https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html"
+     *        >Actions, resources, and condition keys for Amazon Web Services services</a> in the <i>IAM User Guide</i>.
+     *        Choose the name of the service to view details for that service. In the first paragraph, find the service
+     *        prefix. For example, <code>(service prefix: a4b)</code>. For more information about service namespaces,
+     *        see <a href=
+     *        "https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
+     *        >Amazon Web Services service namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      */
 
     public void setServiceNamespace(String serviceNamespace) {
@@ -144,30 +145,30 @@ public class GetServiceLastAccessedDetailsWithEntitiesRequest extends com.amazon
 
     /**
      * <p>
-     * The service namespace for an AWS service. Provide the service namespace to learn when the IAM entity last
-     * attempted to access the specified service.
+     * The service namespace for an Amazon Web Services service. Provide the service namespace to learn when the IAM
+     * entity last attempted to access the specified service.
      * </p>
      * <p>
-     * To learn the service namespace for a service, go to <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html"
-     * >Actions, Resources, and Condition Keys for AWS Services</a> in the <i>IAM User Guide</i>. Choose the name of the
-     * service to view details for that service. In the first paragraph, find the service prefix. For example,
-     * <code>(service prefix: a4b)</code>. For more information about service namespaces, see <a
+     * To learn the service namespace for a service, see <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html"
+     * >Actions, resources, and condition keys for Amazon Web Services services</a> in the <i>IAM User Guide</i>. Choose
+     * the name of the service to view details for that service. In the first paragraph, find the service prefix. For
+     * example, <code>(service prefix: a4b)</code>. For more information about service namespaces, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * >Amazon Web Services service namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
-     * @return The service namespace for an AWS service. Provide the service namespace to learn when the IAM entity last
-     *         attempted to access the specified service.</p>
+     * @return The service namespace for an Amazon Web Services service. Provide the service namespace to learn when the
+     *         IAM entity last attempted to access the specified service.</p>
      *         <p>
-     *         To learn the service namespace for a service, go to <a href=
-     *         "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html"
-     *         >Actions, Resources, and Condition Keys for AWS Services</a> in the <i>IAM User Guide</i>. Choose the
-     *         name of the service to view details for that service. In the first paragraph, find the service prefix.
-     *         For example, <code>(service prefix: a4b)</code>. For more information about service namespaces, see <a
-     *         href=
+     *         To learn the service namespace for a service, see <a href=
+     *         "https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html"
+     *         >Actions, resources, and condition keys for Amazon Web Services services</a> in the <i>IAM User
+     *         Guide</i>. Choose the name of the service to view details for that service. In the first paragraph, find
+     *         the service prefix. For example, <code>(service prefix: a4b)</code>. For more information about service
+     *         namespaces, see <a href=
      *         "https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     *         >AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     *         >Amazon Web Services service namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      */
 
     public String getServiceNamespace() {
@@ -176,30 +177,31 @@ public class GetServiceLastAccessedDetailsWithEntitiesRequest extends com.amazon
 
     /**
      * <p>
-     * The service namespace for an AWS service. Provide the service namespace to learn when the IAM entity last
-     * attempted to access the specified service.
+     * The service namespace for an Amazon Web Services service. Provide the service namespace to learn when the IAM
+     * entity last attempted to access the specified service.
      * </p>
      * <p>
-     * To learn the service namespace for a service, go to <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html"
-     * >Actions, Resources, and Condition Keys for AWS Services</a> in the <i>IAM User Guide</i>. Choose the name of the
-     * service to view details for that service. In the first paragraph, find the service prefix. For example,
-     * <code>(service prefix: a4b)</code>. For more information about service namespaces, see <a
+     * To learn the service namespace for a service, see <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html"
+     * >Actions, resources, and condition keys for Amazon Web Services services</a> in the <i>IAM User Guide</i>. Choose
+     * the name of the service to view details for that service. In the first paragraph, find the service prefix. For
+     * example, <code>(service prefix: a4b)</code>. For more information about service namespaces, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * >Amazon Web Services service namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @param serviceNamespace
-     *        The service namespace for an AWS service. Provide the service namespace to learn when the IAM entity last
-     *        attempted to access the specified service.</p>
+     *        The service namespace for an Amazon Web Services service. Provide the service namespace to learn when the
+     *        IAM entity last attempted to access the specified service.</p>
      *        <p>
-     *        To learn the service namespace for a service, go to <a href=
-     *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html"
-     *        >Actions, Resources, and Condition Keys for AWS Services</a> in the <i>IAM User Guide</i>. Choose the name
-     *        of the service to view details for that service. In the first paragraph, find the service prefix. For
-     *        example, <code>(service prefix: a4b)</code>. For more information about service namespaces, see <a
-     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     *        >AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     *        To learn the service namespace for a service, see <a href=
+     *        "https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html"
+     *        >Actions, resources, and condition keys for Amazon Web Services services</a> in the <i>IAM User Guide</i>.
+     *        Choose the name of the service to view details for that service. In the first paragraph, find the service
+     *        prefix. For example, <code>(service prefix: a4b)</code>. For more information about service namespaces,
+     *        see <a href=
+     *        "https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
+     *        >Amazon Web Services service namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,6 +21,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * <p>
  * The actions to carry out if a proposal is <code>APPROVED</code>.
  * </p>
+ * <p>
+ * Applies only to Hyperledger Fabric.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/managedblockchain-2018-09-24/ProposalActions" target="_top">AWS
  *      API Documentation</a>
@@ -30,8 +33,8 @@ public class ProposalActions implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The actions to perform for an <code>APPROVED</code> proposal to invite an AWS account to create a member and join
-     * the network.
+     * The actions to perform for an <code>APPROVED</code> proposal to invite an Amazon Web Services account to create a
+     * member and join the network.
      * </p>
      */
     private java.util.List<InviteAction> invitations;
@@ -45,12 +48,12 @@ public class ProposalActions implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The actions to perform for an <code>APPROVED</code> proposal to invite an AWS account to create a member and join
-     * the network.
+     * The actions to perform for an <code>APPROVED</code> proposal to invite an Amazon Web Services account to create a
+     * member and join the network.
      * </p>
      * 
-     * @return The actions to perform for an <code>APPROVED</code> proposal to invite an AWS account to create a member
-     *         and join the network.
+     * @return The actions to perform for an <code>APPROVED</code> proposal to invite an Amazon Web Services account to
+     *         create a member and join the network.
      */
 
     public java.util.List<InviteAction> getInvitations() {
@@ -59,13 +62,13 @@ public class ProposalActions implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The actions to perform for an <code>APPROVED</code> proposal to invite an AWS account to create a member and join
-     * the network.
+     * The actions to perform for an <code>APPROVED</code> proposal to invite an Amazon Web Services account to create a
+     * member and join the network.
      * </p>
      * 
      * @param invitations
-     *        The actions to perform for an <code>APPROVED</code> proposal to invite an AWS account to create a member
-     *        and join the network.
+     *        The actions to perform for an <code>APPROVED</code> proposal to invite an Amazon Web Services account to
+     *        create a member and join the network.
      */
 
     public void setInvitations(java.util.Collection<InviteAction> invitations) {
@@ -79,8 +82,8 @@ public class ProposalActions implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The actions to perform for an <code>APPROVED</code> proposal to invite an AWS account to create a member and join
-     * the network.
+     * The actions to perform for an <code>APPROVED</code> proposal to invite an Amazon Web Services account to create a
+     * member and join the network.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -89,8 +92,8 @@ public class ProposalActions implements Serializable, Cloneable, StructuredPojo 
      * </p>
      * 
      * @param invitations
-     *        The actions to perform for an <code>APPROVED</code> proposal to invite an AWS account to create a member
-     *        and join the network.
+     *        The actions to perform for an <code>APPROVED</code> proposal to invite an Amazon Web Services account to
+     *        create a member and join the network.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -106,13 +109,13 @@ public class ProposalActions implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The actions to perform for an <code>APPROVED</code> proposal to invite an AWS account to create a member and join
-     * the network.
+     * The actions to perform for an <code>APPROVED</code> proposal to invite an Amazon Web Services account to create a
+     * member and join the network.
      * </p>
      * 
      * @param invitations
-     *        The actions to perform for an <code>APPROVED</code> proposal to invite an AWS account to create a member
-     *        and join the network.
+     *        The actions to perform for an <code>APPROVED</code> proposal to invite an Amazon Web Services account to
+     *        create a member and join the network.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

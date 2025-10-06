@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,29 +44,29 @@ import com.amazonaws.services.cloud9.AWSCloud9ClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.cloud9.model.*;
+
 import com.amazonaws.services.cloud9.model.transform.*;
 
 /**
  * Client for accessing AWS Cloud9. All service calls made using this client are blocking, and will not return until the
  * service call completes.
  * <p>
- * <fullname>AWS Cloud9</fullname>
+ * <fullname>Cloud9</fullname>
  * <p>
- * AWS Cloud9 is a collection of tools that you can use to code, build, run, test, debug, and release software in the
- * cloud.
+ * Cloud9 is a collection of tools that you can use to code, build, run, test, debug, and release software in the cloud.
  * </p>
  * <p>
- * For more information about AWS Cloud9, see the <a href="https://docs.aws.amazon.com/cloud9/latest/user-guide">AWS
- * Cloud9 User Guide</a>.
+ * For more information about Cloud9, see the <a href="https://docs.aws.amazon.com/cloud9/latest/user-guide">Cloud9 User
+ * Guide</a>.
  * </p>
  * <p>
- * AWS Cloud9 supports these operations:
+ * Cloud9 supports these operations:
  * </p>
  * <ul>
  * <li>
  * <p>
- * <code>CreateEnvironmentEC2</code>: Creates an AWS Cloud9 development environment, launches an Amazon EC2 instance,
- * and then connects from the instance to the environment.
+ * <code>CreateEnvironmentEC2</code>: Creates an Cloud9 development environment, launches an Amazon EC2 instance, and
+ * then connects from the instance to the environment.
  * </p>
  * </li>
  * <li>
@@ -107,6 +107,21 @@ import com.amazonaws.services.cloud9.model.transform.*;
  * </li>
  * <li>
  * <p>
+ * <code>ListTagsForResource</code>: Gets the tags for an environment.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <code>TagResource</code>: Adds tags to an environment.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <code>UntagResource</code>: Removes tags from an environment.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
  * <code>UpdateEnvironment</code>: Changes the settings of an existing environment.
  * </p>
  * </li>
@@ -140,26 +155,29 @@ public class AWSCloud9Client extends AmazonWebServiceClient implements AWSCloud9
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withModeledClass(
-                                    com.amazonaws.services.cloud9.model.ConflictException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cloud9.model.transform.ConflictExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withModeledClass(
-                                    com.amazonaws.services.cloud9.model.NotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cloud9.model.transform.NotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ForbiddenException").withModeledClass(
-                                    com.amazonaws.services.cloud9.model.ForbiddenException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ForbiddenException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cloud9.model.transform.ForbiddenExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withModeledClass(
-                                    com.amazonaws.services.cloud9.model.TooManyRequestsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cloud9.model.transform.TooManyRequestsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withModeledClass(
-                                    com.amazonaws.services.cloud9.model.BadRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cloud9.model.transform.BadRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServerErrorException").withModeledClass(
-                                    com.amazonaws.services.cloud9.model.InternalServerErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServerErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cloud9.model.transform.InternalServerErrorExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withModeledClass(
-                                    com.amazonaws.services.cloud9.model.LimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cloud9.model.transform.LimitExceededExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ConcurrentAccessException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cloud9.model.transform.ConcurrentAccessExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.cloud9.model.AWSCloud9Exception.class));
 
     public static AWSCloud9ClientBuilder builder() {
@@ -210,8 +228,8 @@ public class AWSCloud9Client extends AmazonWebServiceClient implements AWSCloud9
 
     /**
      * <p>
-     * Creates an AWS Cloud9 development environment, launches an Amazon Elastic Compute Cloud (Amazon EC2) instance,
-     * and then connects from the instance to the environment.
+     * Creates an Cloud9 development environment, launches an Amazon Elastic Compute Cloud (Amazon EC2) instance, and
+     * then connects from the instance to the environment.
      * </p>
      * 
      * @param createEnvironmentEC2Request
@@ -255,6 +273,8 @@ public class AWSCloud9Client extends AmazonWebServiceClient implements AWSCloud9
                 request = new CreateEnvironmentEC2RequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createEnvironmentEC2Request));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cloud9");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateEnvironmentEC2");
@@ -278,7 +298,7 @@ public class AWSCloud9Client extends AmazonWebServiceClient implements AWSCloud9
 
     /**
      * <p>
-     * Adds an environment member to an AWS Cloud9 development environment.
+     * Adds an environment member to an Cloud9 development environment.
      * </p>
      * 
      * @param createEnvironmentMembershipRequest
@@ -323,6 +343,8 @@ public class AWSCloud9Client extends AmazonWebServiceClient implements AWSCloud9
                         .beforeMarshalling(createEnvironmentMembershipRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cloud9");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateEnvironmentMembership");
@@ -347,7 +369,7 @@ public class AWSCloud9Client extends AmazonWebServiceClient implements AWSCloud9
 
     /**
      * <p>
-     * Deletes an AWS Cloud9 development environment. If an Amazon EC2 instance is connected to the environment, also
+     * Deletes an Cloud9 development environment. If an Amazon EC2 instance is connected to the environment, also
      * terminates the instance.
      * </p>
      * 
@@ -392,6 +414,8 @@ public class AWSCloud9Client extends AmazonWebServiceClient implements AWSCloud9
                 request = new DeleteEnvironmentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteEnvironmentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cloud9");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteEnvironment");
@@ -415,7 +439,7 @@ public class AWSCloud9Client extends AmazonWebServiceClient implements AWSCloud9
 
     /**
      * <p>
-     * Deletes an environment member from an AWS Cloud9 development environment.
+     * Deletes an environment member from a development environment.
      * </p>
      * 
      * @param deleteEnvironmentMembershipRequest
@@ -460,6 +484,8 @@ public class AWSCloud9Client extends AmazonWebServiceClient implements AWSCloud9
                         .beforeMarshalling(deleteEnvironmentMembershipRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cloud9");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteEnvironmentMembership");
@@ -484,7 +510,7 @@ public class AWSCloud9Client extends AmazonWebServiceClient implements AWSCloud9
 
     /**
      * <p>
-     * Gets information about environment members for an AWS Cloud9 development environment.
+     * Gets information about environment members for an Cloud9 development environment.
      * </p>
      * 
      * @param describeEnvironmentMembershipsRequest
@@ -529,6 +555,8 @@ public class AWSCloud9Client extends AmazonWebServiceClient implements AWSCloud9
                         .beforeMarshalling(describeEnvironmentMembershipsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cloud9");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEnvironmentMemberships");
@@ -553,7 +581,7 @@ public class AWSCloud9Client extends AmazonWebServiceClient implements AWSCloud9
 
     /**
      * <p>
-     * Gets status information for an AWS Cloud9 development environment.
+     * Gets status information for an Cloud9 development environment.
      * </p>
      * 
      * @param describeEnvironmentStatusRequest
@@ -598,6 +626,8 @@ public class AWSCloud9Client extends AmazonWebServiceClient implements AWSCloud9
                         .beforeMarshalling(describeEnvironmentStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cloud9");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEnvironmentStatus");
@@ -622,7 +652,7 @@ public class AWSCloud9Client extends AmazonWebServiceClient implements AWSCloud9
 
     /**
      * <p>
-     * Gets information about AWS Cloud9 development environments.
+     * Gets information about Cloud9 development environments.
      * </p>
      * 
      * @param describeEnvironmentsRequest
@@ -666,6 +696,8 @@ public class AWSCloud9Client extends AmazonWebServiceClient implements AWSCloud9
                 request = new DescribeEnvironmentsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeEnvironmentsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cloud9");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEnvironments");
@@ -689,7 +721,7 @@ public class AWSCloud9Client extends AmazonWebServiceClient implements AWSCloud9
 
     /**
      * <p>
-     * Gets a list of AWS Cloud9 development environment identifiers.
+     * Gets a list of Cloud9 development environment identifiers.
      * </p>
      * 
      * @param listEnvironmentsRequest
@@ -733,6 +765,8 @@ public class AWSCloud9Client extends AmazonWebServiceClient implements AWSCloud9
                 request = new ListEnvironmentsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listEnvironmentsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cloud9");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListEnvironments");
@@ -756,7 +790,200 @@ public class AWSCloud9Client extends AmazonWebServiceClient implements AWSCloud9
 
     /**
      * <p>
-     * Changes the settings of an existing AWS Cloud9 development environment.
+     * Gets a list of the tags associated with an Cloud9 development environment.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws NotFoundException
+     *         The target resource cannot be found.
+     * @throws InternalServerErrorException
+     *         An internal server error occurred.
+     * @throws BadRequestException
+     *         The target request is invalid.
+     * @sample AWSCloud9.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloud9-2017-09-23/ListTagsForResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeListTagsForResource(request);
+    }
+
+    @SdkInternalApi
+    final ListTagsForResourceResult executeListTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listTagsForResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListTagsForResourceRequest> request = null;
+        Response<ListTagsForResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cloud9");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListTagsForResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListTagsForResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Adds tags to an Cloud9 development environment.
+     * </p>
+     * <important>
+     * <p>
+     * Tags that you add to an Cloud9 environment by using this method will NOT be automatically propagated to
+     * underlying resources.
+     * </p>
+     * </important>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws NotFoundException
+     *         The target resource cannot be found.
+     * @throws InternalServerErrorException
+     *         An internal server error occurred.
+     * @throws BadRequestException
+     *         The target request is invalid.
+     * @throws ConcurrentAccessException
+     *         A concurrent access issue occurred.
+     * @sample AWSCloud9.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloud9-2017-09-23/TagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeTagResource(request);
+    }
+
+    @SdkInternalApi
+    final TagResourceResult executeTagResource(TagResourceRequest tagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(tagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TagResourceRequest> request = null;
+        Response<TagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cloud9");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<TagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new TagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Removes tags from an Cloud9 development environment.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws NotFoundException
+     *         The target resource cannot be found.
+     * @throws InternalServerErrorException
+     *         An internal server error occurred.
+     * @throws BadRequestException
+     *         The target request is invalid.
+     * @throws ConcurrentAccessException
+     *         A concurrent access issue occurred.
+     * @sample AWSCloud9.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloud9-2017-09-23/UntagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeUntagResource(request);
+    }
+
+    @SdkInternalApi
+    final UntagResourceResult executeUntagResource(UntagResourceRequest untagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(untagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UntagResourceRequest> request = null;
+        Response<UntagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cloud9");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UntagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UntagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Changes the settings of an existing Cloud9 development environment.
      * </p>
      * 
      * @param updateEnvironmentRequest
@@ -800,6 +1027,8 @@ public class AWSCloud9Client extends AmazonWebServiceClient implements AWSCloud9
                 request = new UpdateEnvironmentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateEnvironmentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cloud9");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateEnvironment");
@@ -823,7 +1052,7 @@ public class AWSCloud9Client extends AmazonWebServiceClient implements AWSCloud9
 
     /**
      * <p>
-     * Changes the settings of an existing environment member for an AWS Cloud9 development environment.
+     * Changes the settings of an existing environment member for an Cloud9 development environment.
      * </p>
      * 
      * @param updateEnvironmentMembershipRequest
@@ -868,6 +1097,8 @@ public class AWSCloud9Client extends AmazonWebServiceClient implements AWSCloud9
                         .beforeMarshalling(updateEnvironmentMembershipRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cloud9");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateEnvironmentMembership");
@@ -964,6 +1195,11 @@ public class AWSCloud9Client extends AmazonWebServiceClient implements AWSCloud9
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

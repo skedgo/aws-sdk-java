@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -75,6 +75,11 @@ public class DBClusterSnapshotStaxUnmarshaller implements Unmarshaller<DBCluster
                     continue;
                 }
 
+                if (context.testExpression("EngineMode", targetDepth)) {
+                    dBClusterSnapshot.setEngineMode(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("AllocatedStorage", targetDepth)) {
                     dBClusterSnapshot.setAllocatedStorage(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
@@ -147,6 +152,36 @@ public class DBClusterSnapshotStaxUnmarshaller implements Unmarshaller<DBCluster
 
                 if (context.testExpression("IAMDatabaseAuthenticationEnabled", targetDepth)) {
                     dBClusterSnapshot.setIAMDatabaseAuthenticationEnabled(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("TagList", targetDepth)) {
+                    dBClusterSnapshot.withTagList(new ArrayList<Tag>());
+                    continue;
+                }
+
+                if (context.testExpression("TagList/Tag", targetDepth)) {
+                    dBClusterSnapshot.withTagList(TagStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("DBSystemId", targetDepth)) {
+                    dBClusterSnapshot.setDBSystemId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("StorageType", targetDepth)) {
+                    dBClusterSnapshot.setStorageType(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("DbClusterResourceId", targetDepth)) {
+                    dBClusterSnapshot.setDbClusterResourceId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("StorageThroughput", targetDepth)) {
+                    dBClusterSnapshot.setStorageThroughput(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

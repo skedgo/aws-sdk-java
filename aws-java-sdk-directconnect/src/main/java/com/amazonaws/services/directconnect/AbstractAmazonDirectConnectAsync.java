@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -142,6 +142,19 @@ public class AbstractAmazonDirectConnectAsync extends AbstractAmazonDirectConnec
     }
 
     @Override
+    public java.util.concurrent.Future<AssociateMacSecKeyResult> associateMacSecKeyAsync(AssociateMacSecKeyRequest request) {
+
+        return associateMacSecKeyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateMacSecKeyResult> associateMacSecKeyAsync(AssociateMacSecKeyRequest request,
+            com.amazonaws.handlers.AsyncHandler<AssociateMacSecKeyRequest, AssociateMacSecKeyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<AssociateVirtualInterfaceResult> associateVirtualInterfaceAsync(AssociateVirtualInterfaceRequest request) {
 
         return associateVirtualInterfaceAsync(request, null);
@@ -163,6 +176,19 @@ public class AbstractAmazonDirectConnectAsync extends AbstractAmazonDirectConnec
     @Override
     public java.util.concurrent.Future<ConfirmConnectionResult> confirmConnectionAsync(ConfirmConnectionRequest request,
             com.amazonaws.handlers.AsyncHandler<ConfirmConnectionRequest, ConfirmConnectionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ConfirmCustomerAgreementResult> confirmCustomerAgreementAsync(ConfirmCustomerAgreementRequest request) {
+
+        return confirmCustomerAgreementAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ConfirmCustomerAgreementResult> confirmCustomerAgreementAsync(ConfirmCustomerAgreementRequest request,
+            com.amazonaws.handlers.AsyncHandler<ConfirmCustomerAgreementRequest, ConfirmCustomerAgreementResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -517,6 +543,19 @@ public class AbstractAmazonDirectConnectAsync extends AbstractAmazonDirectConnec
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeCustomerMetadataResult> describeCustomerMetadataAsync(DescribeCustomerMetadataRequest request) {
+
+        return describeCustomerMetadataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCustomerMetadataResult> describeCustomerMetadataAsync(DescribeCustomerMetadataRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeCustomerMetadataRequest, DescribeCustomerMetadataResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeDirectConnectGatewayAssociationProposalsResult> describeDirectConnectGatewayAssociationProposalsAsync(
             DescribeDirectConnectGatewayAssociationProposalsRequest request) {
 
@@ -701,6 +740,19 @@ public class AbstractAmazonDirectConnectAsync extends AbstractAmazonDirectConnec
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeRouterConfigurationResult> describeRouterConfigurationAsync(DescribeRouterConfigurationRequest request) {
+
+        return describeRouterConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeRouterConfigurationResult> describeRouterConfigurationAsync(DescribeRouterConfigurationRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeRouterConfigurationRequest, DescribeRouterConfigurationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeTagsResult> describeTagsAsync(DescribeTagsRequest request) {
 
         return describeTagsAsync(request, null);
@@ -799,6 +851,60 @@ public class AbstractAmazonDirectConnectAsync extends AbstractAmazonDirectConnec
     }
 
     @Override
+    public java.util.concurrent.Future<DisassociateMacSecKeyResult> disassociateMacSecKeyAsync(DisassociateMacSecKeyRequest request) {
+
+        return disassociateMacSecKeyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateMacSecKeyResult> disassociateMacSecKeyAsync(DisassociateMacSecKeyRequest request,
+            com.amazonaws.handlers.AsyncHandler<DisassociateMacSecKeyRequest, DisassociateMacSecKeyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListVirtualInterfaceTestHistoryResult> listVirtualInterfaceTestHistoryAsync(
+            ListVirtualInterfaceTestHistoryRequest request) {
+
+        return listVirtualInterfaceTestHistoryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListVirtualInterfaceTestHistoryResult> listVirtualInterfaceTestHistoryAsync(
+            ListVirtualInterfaceTestHistoryRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListVirtualInterfaceTestHistoryRequest, ListVirtualInterfaceTestHistoryResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartBgpFailoverTestResult> startBgpFailoverTestAsync(StartBgpFailoverTestRequest request) {
+
+        return startBgpFailoverTestAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartBgpFailoverTestResult> startBgpFailoverTestAsync(StartBgpFailoverTestRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartBgpFailoverTestRequest, StartBgpFailoverTestResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopBgpFailoverTestResult> stopBgpFailoverTestAsync(StopBgpFailoverTestRequest request) {
+
+        return stopBgpFailoverTestAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopBgpFailoverTestResult> stopBgpFailoverTestAsync(StopBgpFailoverTestRequest request,
+            com.amazonaws.handlers.AsyncHandler<StopBgpFailoverTestRequest, StopBgpFailoverTestResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
 
         return tagResourceAsync(request, null);
@@ -820,6 +926,32 @@ public class AbstractAmazonDirectConnectAsync extends AbstractAmazonDirectConnec
     @Override
     public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request,
             com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateConnectionResult> updateConnectionAsync(UpdateConnectionRequest request) {
+
+        return updateConnectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateConnectionResult> updateConnectionAsync(UpdateConnectionRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateConnectionRequest, UpdateConnectionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDirectConnectGatewayResult> updateDirectConnectGatewayAsync(UpdateDirectConnectGatewayRequest request) {
+
+        return updateDirectConnectGatewayAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDirectConnectGatewayResult> updateDirectConnectGatewayAsync(UpdateDirectConnectGatewayRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateDirectConnectGatewayRequest, UpdateDirectConnectGatewayResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

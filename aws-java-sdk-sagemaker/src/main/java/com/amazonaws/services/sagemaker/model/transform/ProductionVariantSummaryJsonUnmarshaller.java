@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -55,7 +55,8 @@ public class ProductionVariantSummaryJsonUnmarshaller implements Unmarshaller<Pr
                 if (context.testExpression("DeployedImages", targetDepth)) {
                     context.nextToken();
                     productionVariantSummary.setDeployedImages(new ListUnmarshaller<DeployedImage>(DeployedImageJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("CurrentWeight", targetDepth)) {
                     context.nextToken();
@@ -72,6 +73,30 @@ public class ProductionVariantSummaryJsonUnmarshaller implements Unmarshaller<Pr
                 if (context.testExpression("DesiredInstanceCount", targetDepth)) {
                     context.nextToken();
                     productionVariantSummary.setDesiredInstanceCount(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("VariantStatus", targetDepth)) {
+                    context.nextToken();
+                    productionVariantSummary.setVariantStatus(new ListUnmarshaller<ProductionVariantStatus>(ProductionVariantStatusJsonUnmarshaller
+                            .getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("CurrentServerlessConfig", targetDepth)) {
+                    context.nextToken();
+                    productionVariantSummary.setCurrentServerlessConfig(ProductionVariantServerlessConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("DesiredServerlessConfig", targetDepth)) {
+                    context.nextToken();
+                    productionVariantSummary.setDesiredServerlessConfig(ProductionVariantServerlessConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ManagedInstanceScaling", targetDepth)) {
+                    context.nextToken();
+                    productionVariantSummary.setManagedInstanceScaling(ProductionVariantManagedInstanceScalingJsonUnmarshaller.getInstance()
+                            .unmarshall(context));
+                }
+                if (context.testExpression("RoutingConfig", targetDepth)) {
+                    context.nextToken();
+                    productionVariantSummary.setRoutingConfig(ProductionVariantRoutingConfigJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -15,11 +15,11 @@ package com.amazonaws.services.mediaconvert.model;
 import javax.annotation.Generated;
 
 /**
- * Specify the format for this set of captions on this output. The default format is embedded without SCTE-20. Other
- * options are embedded with SCTE-20, burn-in, DVB-sub, SCC, SRT, teletext, TTML, and web-VTT. If you are using SCTE-20,
- * choose SCTE-20 plus embedded (SCTE20_PLUS_EMBEDDED) to create an output that complies with the SCTE-43 spec. To
- * create a non-compliant output where the embedded captions come first, choose Embedded plus SCTE-20
- * (EMBEDDED_PLUS_SCTE20).
+ * Specify the format for this set of captions on this output. The default format is embedded without SCTE-20. Note that
+ * your choice of video output container constrains your choice of output captions format. For more information, see
+ * https://docs.aws.amazon.com/mediaconvert/latest/ug/captions-support-tables.html. If you are using SCTE-20 and you
+ * want to create an output that complies with the SCTE-43 spec, choose SCTE-20 plus embedded. To create a non-compliant
+ * output where the embedded captions come first, choose Embedded plus SCTE-20.
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public enum CaptionDestinationType {
@@ -28,6 +28,7 @@ public enum CaptionDestinationType {
     DVB_SUB("DVB_SUB"),
     EMBEDDED("EMBEDDED"),
     EMBEDDED_PLUS_SCTE20("EMBEDDED_PLUS_SCTE20"),
+    IMSC("IMSC"),
     SCTE20_PLUS_EMBEDDED("SCTE20_PLUS_EMBEDDED"),
     SCC("SCC"),
     SRT("SRT"),

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A <code>UserPhoneConfig</code> object that contains information about the user phone configuration settings.
+ * Contains information about the phone configuration settings for a user.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/UserPhoneConfig" target="_top">AWS API
@@ -30,20 +30,29 @@ public class UserPhoneConfig implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The phone type selected for the user, either Soft phone or Desk phone.
+     * The phone type.
      * </p>
      */
     private String phoneType;
     /**
      * <p>
-     * The Auto accept setting for the user, Yes or No.
+     * The Auto accept setting.
      * </p>
      */
     private Boolean autoAccept;
     /**
      * <p>
-     * The After Call Work (ACW) timeout setting, in seconds, for the user.
+     * The After Call Work (ACW) timeout setting, in seconds. This parameter has a minimum value of 0 and a maximum
+     * value of 2,000,000 seconds (24 days). Enter 0 if you don't want to allocate a specific amount of ACW time. It
+     * essentially means an indefinite amount of time. When the conversation ends, ACW starts; the agent must choose
+     * Close contact to end ACW.
      * </p>
+     * <note>
+     * <p>
+     * When returned by a <code>SearchUsers</code> call, <code>AfterContactWorkTimeLimit</code> is returned in
+     * milliseconds.
+     * </p>
+     * </note>
      */
     private Integer afterContactWorkTimeLimit;
     /**
@@ -55,11 +64,11 @@ public class UserPhoneConfig implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The phone type selected for the user, either Soft phone or Desk phone.
+     * The phone type.
      * </p>
      * 
      * @param phoneType
-     *        The phone type selected for the user, either Soft phone or Desk phone.
+     *        The phone type.
      * @see PhoneType
      */
 
@@ -69,10 +78,10 @@ public class UserPhoneConfig implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The phone type selected for the user, either Soft phone or Desk phone.
+     * The phone type.
      * </p>
      * 
-     * @return The phone type selected for the user, either Soft phone or Desk phone.
+     * @return The phone type.
      * @see PhoneType
      */
 
@@ -82,11 +91,11 @@ public class UserPhoneConfig implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The phone type selected for the user, either Soft phone or Desk phone.
+     * The phone type.
      * </p>
      * 
      * @param phoneType
-     *        The phone type selected for the user, either Soft phone or Desk phone.
+     *        The phone type.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PhoneType
      */
@@ -98,11 +107,11 @@ public class UserPhoneConfig implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The phone type selected for the user, either Soft phone or Desk phone.
+     * The phone type.
      * </p>
      * 
      * @param phoneType
-     *        The phone type selected for the user, either Soft phone or Desk phone.
+     *        The phone type.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PhoneType
      */
@@ -114,11 +123,11 @@ public class UserPhoneConfig implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The Auto accept setting for the user, Yes or No.
+     * The Auto accept setting.
      * </p>
      * 
      * @param autoAccept
-     *        The Auto accept setting for the user, Yes or No.
+     *        The Auto accept setting.
      */
 
     public void setAutoAccept(Boolean autoAccept) {
@@ -127,10 +136,10 @@ public class UserPhoneConfig implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The Auto accept setting for the user, Yes or No.
+     * The Auto accept setting.
      * </p>
      * 
-     * @return The Auto accept setting for the user, Yes or No.
+     * @return The Auto accept setting.
      */
 
     public Boolean getAutoAccept() {
@@ -139,11 +148,11 @@ public class UserPhoneConfig implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The Auto accept setting for the user, Yes or No.
+     * The Auto accept setting.
      * </p>
      * 
      * @param autoAccept
-     *        The Auto accept setting for the user, Yes or No.
+     *        The Auto accept setting.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -154,10 +163,10 @@ public class UserPhoneConfig implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The Auto accept setting for the user, Yes or No.
+     * The Auto accept setting.
      * </p>
      * 
-     * @return The Auto accept setting for the user, Yes or No.
+     * @return The Auto accept setting.
      */
 
     public Boolean isAutoAccept() {
@@ -166,11 +175,27 @@ public class UserPhoneConfig implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The After Call Work (ACW) timeout setting, in seconds, for the user.
+     * The After Call Work (ACW) timeout setting, in seconds. This parameter has a minimum value of 0 and a maximum
+     * value of 2,000,000 seconds (24 days). Enter 0 if you don't want to allocate a specific amount of ACW time. It
+     * essentially means an indefinite amount of time. When the conversation ends, ACW starts; the agent must choose
+     * Close contact to end ACW.
      * </p>
+     * <note>
+     * <p>
+     * When returned by a <code>SearchUsers</code> call, <code>AfterContactWorkTimeLimit</code> is returned in
+     * milliseconds.
+     * </p>
+     * </note>
      * 
      * @param afterContactWorkTimeLimit
-     *        The After Call Work (ACW) timeout setting, in seconds, for the user.
+     *        The After Call Work (ACW) timeout setting, in seconds. This parameter has a minimum value of 0 and a
+     *        maximum value of 2,000,000 seconds (24 days). Enter 0 if you don't want to allocate a specific amount of
+     *        ACW time. It essentially means an indefinite amount of time. When the conversation ends, ACW starts; the
+     *        agent must choose Close contact to end ACW. </p> <note>
+     *        <p>
+     *        When returned by a <code>SearchUsers</code> call, <code>AfterContactWorkTimeLimit</code> is returned in
+     *        milliseconds.
+     *        </p>
      */
 
     public void setAfterContactWorkTimeLimit(Integer afterContactWorkTimeLimit) {
@@ -179,10 +204,26 @@ public class UserPhoneConfig implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The After Call Work (ACW) timeout setting, in seconds, for the user.
+     * The After Call Work (ACW) timeout setting, in seconds. This parameter has a minimum value of 0 and a maximum
+     * value of 2,000,000 seconds (24 days). Enter 0 if you don't want to allocate a specific amount of ACW time. It
+     * essentially means an indefinite amount of time. When the conversation ends, ACW starts; the agent must choose
+     * Close contact to end ACW.
      * </p>
+     * <note>
+     * <p>
+     * When returned by a <code>SearchUsers</code> call, <code>AfterContactWorkTimeLimit</code> is returned in
+     * milliseconds.
+     * </p>
+     * </note>
      * 
-     * @return The After Call Work (ACW) timeout setting, in seconds, for the user.
+     * @return The After Call Work (ACW) timeout setting, in seconds. This parameter has a minimum value of 0 and a
+     *         maximum value of 2,000,000 seconds (24 days). Enter 0 if you don't want to allocate a specific amount of
+     *         ACW time. It essentially means an indefinite amount of time. When the conversation ends, ACW starts; the
+     *         agent must choose Close contact to end ACW. </p> <note>
+     *         <p>
+     *         When returned by a <code>SearchUsers</code> call, <code>AfterContactWorkTimeLimit</code> is returned in
+     *         milliseconds.
+     *         </p>
      */
 
     public Integer getAfterContactWorkTimeLimit() {
@@ -191,11 +232,27 @@ public class UserPhoneConfig implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The After Call Work (ACW) timeout setting, in seconds, for the user.
+     * The After Call Work (ACW) timeout setting, in seconds. This parameter has a minimum value of 0 and a maximum
+     * value of 2,000,000 seconds (24 days). Enter 0 if you don't want to allocate a specific amount of ACW time. It
+     * essentially means an indefinite amount of time. When the conversation ends, ACW starts; the agent must choose
+     * Close contact to end ACW.
      * </p>
+     * <note>
+     * <p>
+     * When returned by a <code>SearchUsers</code> call, <code>AfterContactWorkTimeLimit</code> is returned in
+     * milliseconds.
+     * </p>
+     * </note>
      * 
      * @param afterContactWorkTimeLimit
-     *        The After Call Work (ACW) timeout setting, in seconds, for the user.
+     *        The After Call Work (ACW) timeout setting, in seconds. This parameter has a minimum value of 0 and a
+     *        maximum value of 2,000,000 seconds (24 days). Enter 0 if you don't want to allocate a specific amount of
+     *        ACW time. It essentially means an indefinite amount of time. When the conversation ends, ACW starts; the
+     *        agent must choose Close contact to end ACW. </p> <note>
+     *        <p>
+     *        When returned by a <code>SearchUsers</code> call, <code>AfterContactWorkTimeLimit</code> is returned in
+     *        milliseconds.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

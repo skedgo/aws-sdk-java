@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,11 +17,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Describes one or more scheduled scaling action updates for a specified Auto Scaling group. Used in combination with
- * <a>BatchPutScheduledUpdateGroupAction</a>.
- * </p>
- * <p>
- * When updating a scheduled scaling action, all optional parameters are left unchanged if not specified.
+ * Describes information used for one or more scheduled scaling action updates in a
+ * <a>BatchPutScheduledUpdateGroupAction</a> operation.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/ScheduledUpdateGroupActionRequest"
@@ -52,8 +49,7 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
     private java.util.Date startTime;
     /**
      * <p>
-     * The date and time for the recurring schedule to end. Amazon EC2 Auto Scaling does not perform the action after
-     * this time.
+     * The date and time for the recurring schedule to end, in UTC.
      * </p>
      */
     private java.util.Date endTime;
@@ -68,26 +64,42 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
      * When <code>StartTime</code> and <code>EndTime</code> are specified with <code>Recurrence</code>, they form the
      * boundaries of when the recurring action starts and stops.
      * </p>
+     * <p>
+     * Cron expressions use Universal Coordinated Time (UTC) by default.
+     * </p>
      */
     private String recurrence;
     /**
      * <p>
-     * The minimum number of instances in the Auto Scaling group.
+     * The minimum size of the Auto Scaling group.
      * </p>
      */
     private Integer minSize;
     /**
      * <p>
-     * The maximum number of instances in the Auto Scaling group.
+     * The maximum size of the Auto Scaling group.
      * </p>
      */
     private Integer maxSize;
     /**
      * <p>
-     * The number of EC2 instances that should be running in the group.
+     * The desired capacity is the initial capacity of the Auto Scaling group after the scheduled action runs and the
+     * capacity it attempts to maintain.
      * </p>
      */
     private Integer desiredCapacity;
+    /**
+     * <p>
+     * Specifies the time zone for a cron expression. If a time zone is not provided, UTC is used by default.
+     * </p>
+     * <p>
+     * Valid values are the canonical names of the IANA time zones, derived from the IANA Time Zone Database (such as
+     * <code>Etc/GMT+9</code> or <code>Pacific/Tahiti</code>). For more information, see <a
+     * href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
+     * >https://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a>.
+     * </p>
+     */
+    private String timeZone;
 
     /**
      * <p>
@@ -216,13 +228,11 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
 
     /**
      * <p>
-     * The date and time for the recurring schedule to end. Amazon EC2 Auto Scaling does not perform the action after
-     * this time.
+     * The date and time for the recurring schedule to end, in UTC.
      * </p>
      * 
      * @param endTime
-     *        The date and time for the recurring schedule to end. Amazon EC2 Auto Scaling does not perform the action
-     *        after this time.
+     *        The date and time for the recurring schedule to end, in UTC.
      */
 
     public void setEndTime(java.util.Date endTime) {
@@ -231,12 +241,10 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
 
     /**
      * <p>
-     * The date and time for the recurring schedule to end. Amazon EC2 Auto Scaling does not perform the action after
-     * this time.
+     * The date and time for the recurring schedule to end, in UTC.
      * </p>
      * 
-     * @return The date and time for the recurring schedule to end. Amazon EC2 Auto Scaling does not perform the action
-     *         after this time.
+     * @return The date and time for the recurring schedule to end, in UTC.
      */
 
     public java.util.Date getEndTime() {
@@ -245,13 +253,11 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
 
     /**
      * <p>
-     * The date and time for the recurring schedule to end. Amazon EC2 Auto Scaling does not perform the action after
-     * this time.
+     * The date and time for the recurring schedule to end, in UTC.
      * </p>
      * 
      * @param endTime
-     *        The date and time for the recurring schedule to end. Amazon EC2 Auto Scaling does not perform the action
-     *        after this time.
+     *        The date and time for the recurring schedule to end, in UTC.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -271,6 +277,9 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
      * When <code>StartTime</code> and <code>EndTime</code> are specified with <code>Recurrence</code>, they form the
      * boundaries of when the recurring action starts and stops.
      * </p>
+     * <p>
+     * Cron expressions use Universal Coordinated Time (UTC) by default.
+     * </p>
      * 
      * @param recurrence
      *        The recurring schedule for the action, in Unix cron syntax format. This format consists of five fields
@@ -280,6 +289,9 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
      *        <p>
      *        When <code>StartTime</code> and <code>EndTime</code> are specified with <code>Recurrence</code>, they form
      *        the boundaries of when the recurring action starts and stops.
+     *        </p>
+     *        <p>
+     *        Cron expressions use Universal Coordinated Time (UTC) by default.
      */
 
     public void setRecurrence(String recurrence) {
@@ -297,6 +309,9 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
      * When <code>StartTime</code> and <code>EndTime</code> are specified with <code>Recurrence</code>, they form the
      * boundaries of when the recurring action starts and stops.
      * </p>
+     * <p>
+     * Cron expressions use Universal Coordinated Time (UTC) by default.
+     * </p>
      * 
      * @return The recurring schedule for the action, in Unix cron syntax format. This format consists of five fields
      *         separated by white spaces: [Minute] [Hour] [Day_of_Month] [Month_of_Year] [Day_of_Week]. The value must
@@ -305,6 +320,9 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
      *         <p>
      *         When <code>StartTime</code> and <code>EndTime</code> are specified with <code>Recurrence</code>, they
      *         form the boundaries of when the recurring action starts and stops.
+     *         </p>
+     *         <p>
+     *         Cron expressions use Universal Coordinated Time (UTC) by default.
      */
 
     public String getRecurrence() {
@@ -322,6 +340,9 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
      * When <code>StartTime</code> and <code>EndTime</code> are specified with <code>Recurrence</code>, they form the
      * boundaries of when the recurring action starts and stops.
      * </p>
+     * <p>
+     * Cron expressions use Universal Coordinated Time (UTC) by default.
+     * </p>
      * 
      * @param recurrence
      *        The recurring schedule for the action, in Unix cron syntax format. This format consists of five fields
@@ -331,6 +352,9 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
      *        <p>
      *        When <code>StartTime</code> and <code>EndTime</code> are specified with <code>Recurrence</code>, they form
      *        the boundaries of when the recurring action starts and stops.
+     *        </p>
+     *        <p>
+     *        Cron expressions use Universal Coordinated Time (UTC) by default.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -341,11 +365,11 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
 
     /**
      * <p>
-     * The minimum number of instances in the Auto Scaling group.
+     * The minimum size of the Auto Scaling group.
      * </p>
      * 
      * @param minSize
-     *        The minimum number of instances in the Auto Scaling group.
+     *        The minimum size of the Auto Scaling group.
      */
 
     public void setMinSize(Integer minSize) {
@@ -354,10 +378,10 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
 
     /**
      * <p>
-     * The minimum number of instances in the Auto Scaling group.
+     * The minimum size of the Auto Scaling group.
      * </p>
      * 
-     * @return The minimum number of instances in the Auto Scaling group.
+     * @return The minimum size of the Auto Scaling group.
      */
 
     public Integer getMinSize() {
@@ -366,11 +390,11 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
 
     /**
      * <p>
-     * The minimum number of instances in the Auto Scaling group.
+     * The minimum size of the Auto Scaling group.
      * </p>
      * 
      * @param minSize
-     *        The minimum number of instances in the Auto Scaling group.
+     *        The minimum size of the Auto Scaling group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -381,11 +405,11 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
 
     /**
      * <p>
-     * The maximum number of instances in the Auto Scaling group.
+     * The maximum size of the Auto Scaling group.
      * </p>
      * 
      * @param maxSize
-     *        The maximum number of instances in the Auto Scaling group.
+     *        The maximum size of the Auto Scaling group.
      */
 
     public void setMaxSize(Integer maxSize) {
@@ -394,10 +418,10 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
 
     /**
      * <p>
-     * The maximum number of instances in the Auto Scaling group.
+     * The maximum size of the Auto Scaling group.
      * </p>
      * 
-     * @return The maximum number of instances in the Auto Scaling group.
+     * @return The maximum size of the Auto Scaling group.
      */
 
     public Integer getMaxSize() {
@@ -406,11 +430,11 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
 
     /**
      * <p>
-     * The maximum number of instances in the Auto Scaling group.
+     * The maximum size of the Auto Scaling group.
      * </p>
      * 
      * @param maxSize
-     *        The maximum number of instances in the Auto Scaling group.
+     *        The maximum size of the Auto Scaling group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -421,11 +445,13 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
 
     /**
      * <p>
-     * The number of EC2 instances that should be running in the group.
+     * The desired capacity is the initial capacity of the Auto Scaling group after the scheduled action runs and the
+     * capacity it attempts to maintain.
      * </p>
      * 
      * @param desiredCapacity
-     *        The number of EC2 instances that should be running in the group.
+     *        The desired capacity is the initial capacity of the Auto Scaling group after the scheduled action runs and
+     *        the capacity it attempts to maintain.
      */
 
     public void setDesiredCapacity(Integer desiredCapacity) {
@@ -434,10 +460,12 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
 
     /**
      * <p>
-     * The number of EC2 instances that should be running in the group.
+     * The desired capacity is the initial capacity of the Auto Scaling group after the scheduled action runs and the
+     * capacity it attempts to maintain.
      * </p>
      * 
-     * @return The number of EC2 instances that should be running in the group.
+     * @return The desired capacity is the initial capacity of the Auto Scaling group after the scheduled action runs
+     *         and the capacity it attempts to maintain.
      */
 
     public Integer getDesiredCapacity() {
@@ -446,16 +474,94 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
 
     /**
      * <p>
-     * The number of EC2 instances that should be running in the group.
+     * The desired capacity is the initial capacity of the Auto Scaling group after the scheduled action runs and the
+     * capacity it attempts to maintain.
      * </p>
      * 
      * @param desiredCapacity
-     *        The number of EC2 instances that should be running in the group.
+     *        The desired capacity is the initial capacity of the Auto Scaling group after the scheduled action runs and
+     *        the capacity it attempts to maintain.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ScheduledUpdateGroupActionRequest withDesiredCapacity(Integer desiredCapacity) {
         setDesiredCapacity(desiredCapacity);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the time zone for a cron expression. If a time zone is not provided, UTC is used by default.
+     * </p>
+     * <p>
+     * Valid values are the canonical names of the IANA time zones, derived from the IANA Time Zone Database (such as
+     * <code>Etc/GMT+9</code> or <code>Pacific/Tahiti</code>). For more information, see <a
+     * href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
+     * >https://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a>.
+     * </p>
+     * 
+     * @param timeZone
+     *        Specifies the time zone for a cron expression. If a time zone is not provided, UTC is used by default.
+     *        </p>
+     *        <p>
+     *        Valid values are the canonical names of the IANA time zones, derived from the IANA Time Zone Database
+     *        (such as <code>Etc/GMT+9</code> or <code>Pacific/Tahiti</code>). For more information, see <a
+     *        href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
+     *        >https://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a>.
+     */
+
+    public void setTimeZone(String timeZone) {
+        this.timeZone = timeZone;
+    }
+
+    /**
+     * <p>
+     * Specifies the time zone for a cron expression. If a time zone is not provided, UTC is used by default.
+     * </p>
+     * <p>
+     * Valid values are the canonical names of the IANA time zones, derived from the IANA Time Zone Database (such as
+     * <code>Etc/GMT+9</code> or <code>Pacific/Tahiti</code>). For more information, see <a
+     * href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
+     * >https://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a>.
+     * </p>
+     * 
+     * @return Specifies the time zone for a cron expression. If a time zone is not provided, UTC is used by default.
+     *         </p>
+     *         <p>
+     *         Valid values are the canonical names of the IANA time zones, derived from the IANA Time Zone Database
+     *         (such as <code>Etc/GMT+9</code> or <code>Pacific/Tahiti</code>). For more information, see <a
+     *         href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
+     *         >https://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a>.
+     */
+
+    public String getTimeZone() {
+        return this.timeZone;
+    }
+
+    /**
+     * <p>
+     * Specifies the time zone for a cron expression. If a time zone is not provided, UTC is used by default.
+     * </p>
+     * <p>
+     * Valid values are the canonical names of the IANA time zones, derived from the IANA Time Zone Database (such as
+     * <code>Etc/GMT+9</code> or <code>Pacific/Tahiti</code>). For more information, see <a
+     * href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
+     * >https://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a>.
+     * </p>
+     * 
+     * @param timeZone
+     *        Specifies the time zone for a cron expression. If a time zone is not provided, UTC is used by default.
+     *        </p>
+     *        <p>
+     *        Valid values are the canonical names of the IANA time zones, derived from the IANA Time Zone Database
+     *        (such as <code>Etc/GMT+9</code> or <code>Pacific/Tahiti</code>). For more information, see <a
+     *        href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
+     *        >https://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ScheduledUpdateGroupActionRequest withTimeZone(String timeZone) {
+        setTimeZone(timeZone);
         return this;
     }
 
@@ -484,7 +590,9 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
         if (getMaxSize() != null)
             sb.append("MaxSize: ").append(getMaxSize()).append(",");
         if (getDesiredCapacity() != null)
-            sb.append("DesiredCapacity: ").append(getDesiredCapacity());
+            sb.append("DesiredCapacity: ").append(getDesiredCapacity()).append(",");
+        if (getTimeZone() != null)
+            sb.append("TimeZone: ").append(getTimeZone());
         sb.append("}");
         return sb.toString();
     }
@@ -527,6 +635,10 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
             return false;
         if (other.getDesiredCapacity() != null && other.getDesiredCapacity().equals(this.getDesiredCapacity()) == false)
             return false;
+        if (other.getTimeZone() == null ^ this.getTimeZone() == null)
+            return false;
+        if (other.getTimeZone() != null && other.getTimeZone().equals(this.getTimeZone()) == false)
+            return false;
         return true;
     }
 
@@ -542,6 +654,7 @@ public class ScheduledUpdateGroupActionRequest implements Serializable, Cloneabl
         hashCode = prime * hashCode + ((getMinSize() == null) ? 0 : getMinSize().hashCode());
         hashCode = prime * hashCode + ((getMaxSize() == null) ? 0 : getMaxSize().hashCode());
         hashCode = prime * hashCode + ((getDesiredCapacity() == null) ? 0 : getDesiredCapacity().hashCode());
+        hashCode = prime * hashCode + ((getTimeZone() == null) ? 0 : getTimeZone().hashCode());
         return hashCode;
     }
 

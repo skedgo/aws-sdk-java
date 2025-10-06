@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,8 +17,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * The result of a <code>ListDomainNames</code> operation. Contains the names of all Elasticsearch domains owned by this
- * account.
+ * The result of a <code>ListDomainNames</code> operation. Contains the names of all domains owned by this account and
+ * their respective engine types.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -26,17 +26,17 @@ public class ListDomainNamesResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * List of Elasticsearch domain names.
+     * List of domain names and respective engine types.
      * </p>
      */
     private java.util.List<DomainInfo> domainNames;
 
     /**
      * <p>
-     * List of Elasticsearch domain names.
+     * List of domain names and respective engine types.
      * </p>
      * 
-     * @return List of Elasticsearch domain names.
+     * @return List of domain names and respective engine types.
      */
 
     public java.util.List<DomainInfo> getDomainNames() {
@@ -45,11 +45,11 @@ public class ListDomainNamesResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * List of Elasticsearch domain names.
+     * List of domain names and respective engine types.
      * </p>
      * 
      * @param domainNames
-     *        List of Elasticsearch domain names.
+     *        List of domain names and respective engine types.
      */
 
     public void setDomainNames(java.util.Collection<DomainInfo> domainNames) {
@@ -63,7 +63,7 @@ public class ListDomainNamesResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * List of Elasticsearch domain names.
+     * List of domain names and respective engine types.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -72,7 +72,7 @@ public class ListDomainNamesResult extends com.amazonaws.AmazonWebServiceResult<
      * </p>
      * 
      * @param domainNames
-     *        List of Elasticsearch domain names.
+     *        List of domain names and respective engine types.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -88,11 +88,11 @@ public class ListDomainNamesResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * List of Elasticsearch domain names.
+     * List of domain names and respective engine types.
      * </p>
      * 
      * @param domainNames
-     *        List of Elasticsearch domain names.
+     *        List of domain names and respective engine types.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

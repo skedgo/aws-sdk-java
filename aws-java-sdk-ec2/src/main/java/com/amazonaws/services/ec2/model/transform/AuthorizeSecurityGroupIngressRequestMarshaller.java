@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -203,6 +203,42 @@ public class AuthorizeSecurityGroupIngressRequestMarshaller implements
 
         if (authorizeSecurityGroupIngressRequest.getToPort() != null) {
             request.addParameter("ToPort", StringUtils.fromInteger(authorizeSecurityGroupIngressRequest.getToPort()));
+        }
+
+        com.amazonaws.internal.SdkInternalList<TagSpecification> authorizeSecurityGroupIngressRequestTagSpecificationsList = (com.amazonaws.internal.SdkInternalList<TagSpecification>) authorizeSecurityGroupIngressRequest
+                .getTagSpecifications();
+        if (!authorizeSecurityGroupIngressRequestTagSpecificationsList.isEmpty()
+                || !authorizeSecurityGroupIngressRequestTagSpecificationsList.isAutoConstruct()) {
+            int tagSpecificationsListIndex = 1;
+
+            for (TagSpecification authorizeSecurityGroupIngressRequestTagSpecificationsListValue : authorizeSecurityGroupIngressRequestTagSpecificationsList) {
+
+                if (authorizeSecurityGroupIngressRequestTagSpecificationsListValue.getResourceType() != null) {
+                    request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".ResourceType",
+                            StringUtils.fromString(authorizeSecurityGroupIngressRequestTagSpecificationsListValue.getResourceType()));
+                }
+
+                com.amazonaws.internal.SdkInternalList<Tag> tagSpecificationTagsList = (com.amazonaws.internal.SdkInternalList<Tag>) authorizeSecurityGroupIngressRequestTagSpecificationsListValue
+                        .getTags();
+                if (!tagSpecificationTagsList.isEmpty() || !tagSpecificationTagsList.isAutoConstruct()) {
+                    int tagsListIndex = 1;
+
+                    for (Tag tagSpecificationTagsListValue : tagSpecificationTagsList) {
+
+                        if (tagSpecificationTagsListValue.getKey() != null) {
+                            request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".Tag." + tagsListIndex + ".Key",
+                                    StringUtils.fromString(tagSpecificationTagsListValue.getKey()));
+                        }
+
+                        if (tagSpecificationTagsListValue.getValue() != null) {
+                            request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".Tag." + tagsListIndex + ".Value",
+                                    StringUtils.fromString(tagSpecificationTagsListValue.getValue()));
+                        }
+                        tagsListIndex++;
+                    }
+                }
+                tagSpecificationsListIndex++;
+            }
         }
 
         return request;

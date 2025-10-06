@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -80,7 +80,9 @@ public class DBClusterEndpoint implements Serializable, Cloneable {
     /**
      * <p>
      * The current status of the endpoint. One of: <code>creating</code>, <code>available</code>, <code>deleting</code>,
-     * <code>modifying</code>.
+     * <code>inactive</code>, <code>modifying</code>. The <code>inactive</code> state applies to an endpoint that can't
+     * be used for a certain kind of cluster, such as a <code>writer</code> endpoint for a read-only secondary cluster
+     * in a global database.
      * </p>
      */
     private String status;
@@ -92,7 +94,7 @@ public class DBClusterEndpoint implements Serializable, Cloneable {
     private String endpointType;
     /**
      * <p>
-     * The type associated with a custom endpoint. One of: <code>READER</code>, <code>ANY</code>.
+     * The type associated with a custom endpoint. One of: <code>READER</code>, <code>WRITER</code>, <code>ANY</code>.
      * </p>
      */
     private String customEndpointType;
@@ -288,12 +290,16 @@ public class DBClusterEndpoint implements Serializable, Cloneable {
     /**
      * <p>
      * The current status of the endpoint. One of: <code>creating</code>, <code>available</code>, <code>deleting</code>,
-     * <code>modifying</code>.
+     * <code>inactive</code>, <code>modifying</code>. The <code>inactive</code> state applies to an endpoint that can't
+     * be used for a certain kind of cluster, such as a <code>writer</code> endpoint for a read-only secondary cluster
+     * in a global database.
      * </p>
      * 
      * @param status
      *        The current status of the endpoint. One of: <code>creating</code>, <code>available</code>,
-     *        <code>deleting</code>, <code>modifying</code>.
+     *        <code>deleting</code>, <code>inactive</code>, <code>modifying</code>. The <code>inactive</code> state
+     *        applies to an endpoint that can't be used for a certain kind of cluster, such as a <code>writer</code>
+     *        endpoint for a read-only secondary cluster in a global database.
      */
 
     public void setStatus(String status) {
@@ -303,11 +309,15 @@ public class DBClusterEndpoint implements Serializable, Cloneable {
     /**
      * <p>
      * The current status of the endpoint. One of: <code>creating</code>, <code>available</code>, <code>deleting</code>,
-     * <code>modifying</code>.
+     * <code>inactive</code>, <code>modifying</code>. The <code>inactive</code> state applies to an endpoint that can't
+     * be used for a certain kind of cluster, such as a <code>writer</code> endpoint for a read-only secondary cluster
+     * in a global database.
      * </p>
      * 
      * @return The current status of the endpoint. One of: <code>creating</code>, <code>available</code>,
-     *         <code>deleting</code>, <code>modifying</code>.
+     *         <code>deleting</code>, <code>inactive</code>, <code>modifying</code>. The <code>inactive</code> state
+     *         applies to an endpoint that can't be used for a certain kind of cluster, such as a <code>writer</code>
+     *         endpoint for a read-only secondary cluster in a global database.
      */
 
     public String getStatus() {
@@ -317,12 +327,16 @@ public class DBClusterEndpoint implements Serializable, Cloneable {
     /**
      * <p>
      * The current status of the endpoint. One of: <code>creating</code>, <code>available</code>, <code>deleting</code>,
-     * <code>modifying</code>.
+     * <code>inactive</code>, <code>modifying</code>. The <code>inactive</code> state applies to an endpoint that can't
+     * be used for a certain kind of cluster, such as a <code>writer</code> endpoint for a read-only secondary cluster
+     * in a global database.
      * </p>
      * 
      * @param status
      *        The current status of the endpoint. One of: <code>creating</code>, <code>available</code>,
-     *        <code>deleting</code>, <code>modifying</code>.
+     *        <code>deleting</code>, <code>inactive</code>, <code>modifying</code>. The <code>inactive</code> state
+     *        applies to an endpoint that can't be used for a certain kind of cluster, such as a <code>writer</code>
+     *        endpoint for a read-only secondary cluster in a global database.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -373,11 +387,12 @@ public class DBClusterEndpoint implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type associated with a custom endpoint. One of: <code>READER</code>, <code>ANY</code>.
+     * The type associated with a custom endpoint. One of: <code>READER</code>, <code>WRITER</code>, <code>ANY</code>.
      * </p>
      * 
      * @param customEndpointType
-     *        The type associated with a custom endpoint. One of: <code>READER</code>, <code>ANY</code>.
+     *        The type associated with a custom endpoint. One of: <code>READER</code>, <code>WRITER</code>,
+     *        <code>ANY</code>.
      */
 
     public void setCustomEndpointType(String customEndpointType) {
@@ -386,10 +401,11 @@ public class DBClusterEndpoint implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type associated with a custom endpoint. One of: <code>READER</code>, <code>ANY</code>.
+     * The type associated with a custom endpoint. One of: <code>READER</code>, <code>WRITER</code>, <code>ANY</code>.
      * </p>
      * 
-     * @return The type associated with a custom endpoint. One of: <code>READER</code>, <code>ANY</code>.
+     * @return The type associated with a custom endpoint. One of: <code>READER</code>, <code>WRITER</code>,
+     *         <code>ANY</code>.
      */
 
     public String getCustomEndpointType() {
@@ -398,11 +414,12 @@ public class DBClusterEndpoint implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type associated with a custom endpoint. One of: <code>READER</code>, <code>ANY</code>.
+     * The type associated with a custom endpoint. One of: <code>READER</code>, <code>WRITER</code>, <code>ANY</code>.
      * </p>
      * 
      * @param customEndpointType
-     *        The type associated with a custom endpoint. One of: <code>READER</code>, <code>ANY</code>.
+     *        The type associated with a custom endpoint. One of: <code>READER</code>, <code>WRITER</code>,
+     *        <code>ANY</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

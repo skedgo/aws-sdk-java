@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -60,6 +60,10 @@ public class RecoveryPointByResourceJsonUnmarshaller implements Unmarshaller<Rec
                     context.nextToken();
                     recoveryPointByResource.setStatus(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("StatusMessage", targetDepth)) {
+                    context.nextToken();
+                    recoveryPointByResource.setStatusMessage(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("EncryptionKeyArn", targetDepth)) {
                     context.nextToken();
                     recoveryPointByResource.setEncryptionKeyArn(context.getUnmarshaller(String.class).unmarshall(context));
@@ -71,6 +75,22 @@ public class RecoveryPointByResourceJsonUnmarshaller implements Unmarshaller<Rec
                 if (context.testExpression("BackupVaultName", targetDepth)) {
                     context.nextToken();
                     recoveryPointByResource.setBackupVaultName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("IsParent", targetDepth)) {
+                    context.nextToken();
+                    recoveryPointByResource.setIsParent(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("ParentRecoveryPointArn", targetDepth)) {
+                    context.nextToken();
+                    recoveryPointByResource.setParentRecoveryPointArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ResourceName", targetDepth)) {
+                    context.nextToken();
+                    recoveryPointByResource.setResourceName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("VaultType", targetDepth)) {
+                    context.nextToken();
+                    recoveryPointByResource.setVaultType(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

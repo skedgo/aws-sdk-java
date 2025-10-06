@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -11,6 +11,8 @@
  * and limitations under the License.
  */
 package com.amazonaws.services.elasticache.model.transform;
+
+import java.util.ArrayList;
 
 import javax.xml.stream.events.XMLEvent;
 import javax.annotation.Generated;
@@ -55,6 +57,42 @@ public class ReplicationGroupPendingModifiedValuesStaxUnmarshaller implements Un
 
                 if (context.testExpression("Resharding", targetDepth)) {
                     replicationGroupPendingModifiedValues.setResharding(ReshardingStatusStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("AuthTokenStatus", targetDepth)) {
+                    replicationGroupPendingModifiedValues.setAuthTokenStatus(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("UserGroups", targetDepth)) {
+                    replicationGroupPendingModifiedValues.setUserGroups(UserGroupsUpdateStatusStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("LogDeliveryConfigurations", targetDepth)) {
+                    replicationGroupPendingModifiedValues.withLogDeliveryConfigurations(new ArrayList<PendingLogDeliveryConfiguration>());
+                    continue;
+                }
+
+                if (context.testExpression("LogDeliveryConfigurations/member", targetDepth)) {
+                    replicationGroupPendingModifiedValues.withLogDeliveryConfigurations(PendingLogDeliveryConfigurationStaxUnmarshaller.getInstance()
+                            .unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("TransitEncryptionEnabled", targetDepth)) {
+                    replicationGroupPendingModifiedValues.setTransitEncryptionEnabled(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("TransitEncryptionMode", targetDepth)) {
+                    replicationGroupPendingModifiedValues.setTransitEncryptionMode(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ClusterMode", targetDepth)) {
+                    replicationGroupPendingModifiedValues.setClusterMode(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

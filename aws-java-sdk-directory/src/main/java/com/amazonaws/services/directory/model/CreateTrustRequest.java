@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,14 +19,14 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * AWS Directory Service for Microsoft Active Directory allows you to configure trust relationships. For example, you
- * can establish a trust between your AWS Managed Microsoft AD directory, and your existing on-premises Microsoft Active
+ * Directory Service for Microsoft Active Directory allows you to configure trust relationships. For example, you can
+ * establish a trust between your Managed Microsoft AD directory, and your existing self-managed Microsoft Active
  * Directory. This would allow you to provide users and groups access to resources in either domain, with a single set
  * of credentials.
  * </p>
  * <p>
- * This action initiates the creation of the AWS side of a trust relationship between an AWS Managed Microsoft AD
- * directory and an external domain.
+ * This action initiates the creation of the Amazon Web Services side of a trust relationship between an Managed
+ * Microsoft AD directory and an external domain.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/CreateTrust" target="_top">AWS API
@@ -37,7 +37,7 @@ public class CreateTrustRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The Directory ID of the AWS Managed Microsoft AD directory for which to establish the trust relationship.
+     * The Directory ID of the Managed Microsoft AD directory for which to establish the trust relationship.
      * </p>
      */
     private String directoryId;
@@ -81,11 +81,11 @@ public class CreateTrustRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The Directory ID of the AWS Managed Microsoft AD directory for which to establish the trust relationship.
+     * The Directory ID of the Managed Microsoft AD directory for which to establish the trust relationship.
      * </p>
      * 
      * @param directoryId
-     *        The Directory ID of the AWS Managed Microsoft AD directory for which to establish the trust relationship.
+     *        The Directory ID of the Managed Microsoft AD directory for which to establish the trust relationship.
      */
 
     public void setDirectoryId(String directoryId) {
@@ -94,10 +94,10 @@ public class CreateTrustRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The Directory ID of the AWS Managed Microsoft AD directory for which to establish the trust relationship.
+     * The Directory ID of the Managed Microsoft AD directory for which to establish the trust relationship.
      * </p>
      * 
-     * @return The Directory ID of the AWS Managed Microsoft AD directory for which to establish the trust relationship.
+     * @return The Directory ID of the Managed Microsoft AD directory for which to establish the trust relationship.
      */
 
     public String getDirectoryId() {
@@ -106,11 +106,11 @@ public class CreateTrustRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The Directory ID of the AWS Managed Microsoft AD directory for which to establish the trust relationship.
+     * The Directory ID of the Managed Microsoft AD directory for which to establish the trust relationship.
      * </p>
      * 
      * @param directoryId
-     *        The Directory ID of the AWS Managed Microsoft AD directory for which to establish the trust relationship.
+     *        The Directory ID of the Managed Microsoft AD directory for which to establish the trust relationship.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

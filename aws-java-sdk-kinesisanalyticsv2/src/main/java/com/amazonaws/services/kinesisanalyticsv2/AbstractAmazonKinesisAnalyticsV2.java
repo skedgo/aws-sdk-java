@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -53,7 +53,17 @@ public class AbstractAmazonKinesisAnalyticsV2 implements AmazonKinesisAnalyticsV
     }
 
     @Override
+    public AddApplicationVpcConfigurationResult addApplicationVpcConfiguration(AddApplicationVpcConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateApplicationResult createApplication(CreateApplicationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateApplicationPresignedUrlResult createApplicationPresignedUrl(CreateApplicationPresignedUrlRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -94,7 +104,17 @@ public class AbstractAmazonKinesisAnalyticsV2 implements AmazonKinesisAnalyticsV
     }
 
     @Override
+    public DeleteApplicationVpcConfigurationResult deleteApplicationVpcConfiguration(DeleteApplicationVpcConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeApplicationResult describeApplication(DescribeApplicationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeApplicationOperationResult describeApplicationOperation(DescribeApplicationOperationRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -104,12 +124,27 @@ public class AbstractAmazonKinesisAnalyticsV2 implements AmazonKinesisAnalyticsV
     }
 
     @Override
+    public DescribeApplicationVersionResult describeApplicationVersion(DescribeApplicationVersionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DiscoverInputSchemaResult discoverInputSchema(DiscoverInputSchemaRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public ListApplicationOperationsResult listApplicationOperations(ListApplicationOperationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListApplicationSnapshotsResult listApplicationSnapshots(ListApplicationSnapshotsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListApplicationVersionsResult listApplicationVersions(ListApplicationVersionsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -120,6 +155,11 @@ public class AbstractAmazonKinesisAnalyticsV2 implements AmazonKinesisAnalyticsV
 
     @Override
     public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public RollbackApplicationResult rollbackApplication(RollbackApplicationRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -145,6 +185,11 @@ public class AbstractAmazonKinesisAnalyticsV2 implements AmazonKinesisAnalyticsV
 
     @Override
     public UpdateApplicationResult updateApplication(UpdateApplicationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateApplicationMaintenanceConfigurationResult updateApplicationMaintenanceConfiguration(UpdateApplicationMaintenanceConfigurationRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,7 +31,9 @@ public class GetSolutionMetricsResult extends com.amazonaws.AmazonWebServiceResu
     private String solutionVersionArn;
     /**
      * <p>
-     * The metrics for the solution version.
+     * The metrics for the solution version. For more information, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/working-with-training-metrics.html"> Evaluating a
+     * solution version with metrics </a>.
      * </p>
      */
     private java.util.Map<String, Double> metrics;
@@ -78,10 +80,14 @@ public class GetSolutionMetricsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The metrics for the solution version.
+     * The metrics for the solution version. For more information, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/working-with-training-metrics.html"> Evaluating a
+     * solution version with metrics </a>.
      * </p>
      * 
-     * @return The metrics for the solution version.
+     * @return The metrics for the solution version. For more information, see <a
+     *         href="https://docs.aws.amazon.com/personalize/latest/dg/working-with-training-metrics.html"> Evaluating a
+     *         solution version with metrics </a>.
      */
 
     public java.util.Map<String, Double> getMetrics() {
@@ -90,11 +96,15 @@ public class GetSolutionMetricsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The metrics for the solution version.
+     * The metrics for the solution version. For more information, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/working-with-training-metrics.html"> Evaluating a
+     * solution version with metrics </a>.
      * </p>
      * 
      * @param metrics
-     *        The metrics for the solution version.
+     *        The metrics for the solution version. For more information, see <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/working-with-training-metrics.html"> Evaluating a
+     *        solution version with metrics </a>.
      */
 
     public void setMetrics(java.util.Map<String, Double> metrics) {
@@ -103,11 +113,15 @@ public class GetSolutionMetricsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The metrics for the solution version.
+     * The metrics for the solution version. For more information, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/working-with-training-metrics.html"> Evaluating a
+     * solution version with metrics </a>.
      * </p>
      * 
      * @param metrics
-     *        The metrics for the solution version.
+     *        The metrics for the solution version. For more information, see <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/working-with-training-metrics.html"> Evaluating a
+     *        solution version with metrics </a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -115,6 +129,13 @@ public class GetSolutionMetricsResult extends com.amazonaws.AmazonWebServiceResu
         setMetrics(metrics);
         return this;
     }
+
+    /**
+     * Add a single Metrics entry
+     *
+     * @see GetSolutionMetricsResult#withMetrics
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public GetSolutionMetricsResult addMetricsEntry(String key, Double value) {
         if (null == this.metrics) {

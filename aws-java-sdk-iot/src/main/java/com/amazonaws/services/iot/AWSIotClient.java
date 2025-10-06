@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,28 +44,38 @@ import com.amazonaws.services.iot.AWSIotClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.iot.model.*;
+
 import com.amazonaws.services.iot.model.transform.*;
 
 /**
  * Client for accessing AWS IoT. All service calls made using this client are blocking, and will not return until the
  * service call completes.
  * <p>
- * <fullname>AWS IoT</fullname>
+ * <fullname>IoT</fullname>
  * <p>
- * AWS IoT provides secure, bi-directional communication between Internet-connected devices (such as sensors, actuators,
- * embedded devices, or smart appliances) and the AWS cloud. You can discover your custom IoT-Data endpoint to
- * communicate with, configure rules for data processing and integration with other services, organize resources
- * associated with each device (Registry), configure logging, and create and manage policies and credentials to
- * authenticate devices.
+ * IoT provides secure, bi-directional communication between Internet-connected devices (such as sensors, actuators,
+ * embedded devices, or smart appliances) and the Amazon Web Services cloud. You can discover your custom IoT-Data
+ * endpoint to communicate with, configure rules for data processing and integration with other services, organize
+ * resources associated with each device (Registry), configure logging, and create and manage policies and credentials
+ * to authenticate devices.
  * </p>
  * <p>
- * For more information about how AWS IoT works, see the <a
+ * The service endpoints that expose this API are listed in <a
+ * href="https://docs.aws.amazon.com/general/latest/gr/iot-core.html">Amazon Web Services IoT Core Endpoints and
+ * Quotas</a>. You must use the endpoint for the region that has the resources you want to access.
+ * </p>
+ * <p>
+ * The service name used by <a href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">Amazon Web
+ * Services Signature Version 4</a> to sign the request is: <i>execute-api</i>.
+ * </p>
+ * <p>
+ * For more information about how IoT works, see the <a
  * href="https://docs.aws.amazon.com/iot/latest/developerguide/aws-iot-how-it-works.html">Developer Guide</a>.
  * </p>
  * <p>
- * For information about how to use the credentials provider for AWS IoT, see <a
+ * For information about how to use the credentials provider for IoT, see <a
  * href="https://docs.aws.amazon.com/iot/latest/developerguide/authorizing-direct-aws.html">Authorizing Direct Calls to
- * AWS Services</a>.
+ * Amazon Web Services Services</a>.
  * </p>
  */
 @ThreadSafe
@@ -78,7 +88,7 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     private static final Log log = LogFactory.getLog(AWSIot.class);
 
     /** Default signing name for the service. */
-    private static final String DEFAULT_SIGNING_NAME = "execute-api";
+    private static final String DEFAULT_SIGNING_NAME = "iot";
 
     /** Client configuration factory providing ClientConfigurations tailored to this client */
     protected static final ClientConfigurationFactory configFactory = new ClientConfigurationFactory();
@@ -90,94 +100,106 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalFailureException").withModeledClass(
-                                    com.amazonaws.services.iot.model.InternalFailureException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServerException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.InternalServerExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withModeledClass(
-                                    com.amazonaws.services.iot.model.LimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("NotConfiguredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.NotConfiguredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TransferAlreadyCompletedException").withModeledClass(
-                                    com.amazonaws.services.iot.model.TransferAlreadyCompletedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ValidationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.ValidationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("NotConfiguredException").withModeledClass(
-                                    com.amazonaws.services.iot.model.NotConfiguredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.ConflictExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ThrottlingException").withModeledClass(
-                                    com.amazonaws.services.iot.model.ThrottlingException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidQueryException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.InvalidQueryExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MalformedPolicyException").withModeledClass(
-                                    com.amazonaws.services.iot.model.MalformedPolicyException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DeleteConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.DeleteConflictExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidQueryException").withModeledClass(
-                                    com.amazonaws.services.iot.model.InvalidQueryException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.InvalidRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidStateTransitionException").withModeledClass(
-                                    com.amazonaws.services.iot.model.InvalidStateTransitionException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("CertificateConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.CertificateConflictExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceRegistrationFailureException").withModeledClass(
-                                    com.amazonaws.services.iot.model.ResourceRegistrationFailureException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RegistrationCodeValidationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.RegistrationCodeValidationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DeleteConflictException").withModeledClass(
-                                    com.amazonaws.services.iot.model.DeleteConflictException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidResponseException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.InvalidResponseExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withModeledClass(
-                                    com.amazonaws.services.iot.model.InvalidRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CertificateConflictException").withModeledClass(
-                                    com.amazonaws.services.iot.model.CertificateConflictException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConflictingResourceUpdateException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.ConflictingResourceUpdateExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RegistrationCodeValidationException").withModeledClass(
-                                    com.amazonaws.services.iot.model.RegistrationCodeValidationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.ResourceAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidResponseException").withModeledClass(
-                                    com.amazonaws.services.iot.model.InvalidResponseException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.InternalExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidAggregationException").withModeledClass(
-                                    com.amazonaws.services.iot.model.InvalidAggregationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("VersionsLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.VersionsLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.iot.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("CertificateStateException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.CertificateStateExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("SqlParseException").withModeledClass(
-                                    com.amazonaws.services.iot.model.SqlParseException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.ServiceUnavailableExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ConflictingResourceUpdateException").withModeledClass(
-                                    com.amazonaws.services.iot.model.ConflictingResourceUpdateException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalFailureException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.InternalFailureExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceAlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.iot.model.ResourceAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ServiceQuotaExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.ServiceQuotaExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalException").withModeledClass(
-                                    com.amazonaws.services.iot.model.InternalException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.LimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("VersionsLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.iot.model.VersionsLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TransferAlreadyCompletedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.TransferAlreadyCompletedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TransferConflictException").withModeledClass(
-                                    com.amazonaws.services.iot.model.TransferConflictException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ThrottlingException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.ThrottlingExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("IndexNotReadyException").withModeledClass(
-                                    com.amazonaws.services.iot.model.IndexNotReadyException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MalformedPolicyException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.MalformedPolicyExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("UnauthorizedException").withModeledClass(
-                                    com.amazonaws.services.iot.model.UnauthorizedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidStateTransitionException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.InvalidStateTransitionExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CertificateStateException").withModeledClass(
-                                    com.amazonaws.services.iot.model.CertificateStateException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceRegistrationFailureException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.ResourceRegistrationFailureExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("VersionConflictException").withModeledClass(
-                                    com.amazonaws.services.iot.model.VersionConflictException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidAggregationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.InvalidAggregationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TaskAlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.iot.model.TaskAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("SqlParseException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.SqlParseExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableException").withModeledClass(
-                                    com.amazonaws.services.iot.model.ServiceUnavailableException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TransferConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.TransferConflictExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CertificateValidationException").withModeledClass(
-                                    com.amazonaws.services.iot.model.CertificateValidationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("IndexNotReadyException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.IndexNotReadyExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("UnauthorizedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.UnauthorizedExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("VersionConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.VersionConflictExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("TaskAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.TaskAlreadyExistsExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("CertificateValidationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot.model.transform.CertificateValidationExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.iot.model.AWSIotException.class));
 
     /**
@@ -385,6 +407,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * <p>
      * To check for pending certificate transfers, call <a>ListCertificates</a> to enumerate your certificates.
      * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >AcceptCertificateTransfer</a> action.
+     * </p>
      * 
      * @param acceptCertificateTransferRequest
      *        The input for the AcceptCertificateTransfer operation.
@@ -427,6 +454,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(acceptCertificateTransferRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AcceptCertificateTransfer");
@@ -452,6 +481,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Adds a thing to a billing group.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >AddThingToBillingGroup</a> action.
      * </p>
      * 
      * @param addThingToBillingGroupRequest
@@ -487,6 +521,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new AddThingToBillingGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(addThingToBillingGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddThingToBillingGroup");
@@ -512,6 +548,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Adds a thing to a thing group.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >AddThingToThingGroup</a> action.
      * </p>
      * 
      * @param addThingToThingGroupRequest
@@ -547,6 +588,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new AddThingToThingGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(addThingToThingGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddThingToThingGroup");
@@ -589,6 +632,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >AssociateTargetsWithJob</a> action.
+     * </p>
      * 
      * @param associateTargetsWithJobRequest
      * @return Result of the AssociateTargetsWithJob operation returned by the service.
@@ -626,6 +674,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(associateTargetsWithJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateTargetsWithJob");
@@ -650,7 +700,12 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Attaches a policy to the specified target.
+     * Attaches the specified policy to the specified principal (certificate or other credential).
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >AttachPolicy</a> action.
      * </p>
      * 
      * @param attachPolicyRequest
@@ -692,6 +747,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new AttachPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(attachPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AttachPolicy");
@@ -718,7 +775,13 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * Attaches the specified policy to the specified principal (certificate or other credential).
      * </p>
      * <p>
-     * <b>Note:</b> This API is deprecated. Please use <a>AttachPolicy</a> instead.
+     * <b>Note:</b> This action is deprecated and works as expected for backward compatibility, but we won't add
+     * enhancements. Use <a>AttachPolicy</a> instead.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >AttachPrincipalPolicy</a> action.
      * </p>
      * 
      * @param attachPrincipalPolicyRequest
@@ -762,6 +825,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new AttachPrincipalPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(attachPrincipalPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AttachPrincipalPolicy");
@@ -788,6 +853,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * <p>
      * Associates a Device Defender security profile with a thing group or this account. Each thing group or account can
      * have up to five security profiles associated with it.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >AttachSecurityProfile</a> action.
      * </p>
      * 
      * @param attachSecurityProfileRequest
@@ -828,6 +898,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new AttachSecurityProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(attachSecurityProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AttachSecurityProfile");
@@ -852,8 +924,13 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Attaches the specified principal to the specified thing. A principal can be X.509 certificates, IAM users,
-     * groups, and roles, Amazon Cognito identities or federated identities.
+     * Attaches the specified principal to the specified thing. A principal can be X.509 certificates, Amazon Cognito
+     * identities or federated identities.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >AttachThingPrincipal</a> action.
      * </p>
      * 
      * @param attachThingPrincipalRequest
@@ -894,6 +971,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new AttachThingPrincipalRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(attachThingPrincipalRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AttachThingPrincipal");
@@ -919,6 +998,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * <p>
      * Cancels a mitigation action task that is in progress. If the task is not in progress, an InvalidRequestException
      * occurs.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CancelAuditMitigationActionsTask</a> action.
      * </p>
      * 
      * @param cancelAuditMitigationActionsTaskRequest
@@ -956,6 +1040,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(cancelAuditMitigationActionsTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelAuditMitigationActionsTask");
@@ -980,8 +1066,13 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Cancels an audit that is in progress. The audit can be either scheduled or on-demand. If the audit is not in
+     * Cancels an audit that is in progress. The audit can be either scheduled or on demand. If the audit isn't in
      * progress, an "InvalidRequestException" occurs.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CancelAuditTask</a> action.
      * </p>
      * 
      * @param cancelAuditTaskRequest
@@ -1017,6 +1108,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new CancelAuditTaskRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(cancelAuditTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelAuditTask");
@@ -1044,13 +1137,18 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * </p>
      * <p>
      * <b>Note</b> Only the transfer source account can use this operation to cancel a transfer. (Transfer destinations
-     * can use <a>RejectCertificateTransfer</a> instead.) After transfer, AWS IoT returns the certificate to the source
+     * can use <a>RejectCertificateTransfer</a> instead.) After transfer, IoT returns the certificate to the source
      * account in the INACTIVE state. After the destination account has accepted the transfer, the transfer cannot be
      * cancelled.
      * </p>
      * <p>
      * After a certificate transfer is cancelled, the status of the certificate changes from PENDING_TRANSFER to
      * INACTIVE.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CancelCertificateTransfer</a> action.
      * </p>
      * 
      * @param cancelCertificateTransferRequest
@@ -1094,6 +1192,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(cancelCertificateTransferRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelCertificateTransfer");
@@ -1118,7 +1218,81 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Cancels a Device Defender ML Detect mitigation action.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CancelDetectMitigationActionsTask</a> action.
+     * </p>
+     * 
+     * @param cancelDetectMitigationActionsTaskRequest
+     * @return Result of the CancelDetectMitigationActionsTask operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.CancelDetectMitigationActionsTask
+     */
+    @Override
+    public CancelDetectMitigationActionsTaskResult cancelDetectMitigationActionsTask(CancelDetectMitigationActionsTaskRequest request) {
+        request = beforeClientExecution(request);
+        return executeCancelDetectMitigationActionsTask(request);
+    }
+
+    @SdkInternalApi
+    final CancelDetectMitigationActionsTaskResult executeCancelDetectMitigationActionsTask(
+            CancelDetectMitigationActionsTaskRequest cancelDetectMitigationActionsTaskRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(cancelDetectMitigationActionsTaskRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CancelDetectMitigationActionsTaskRequest> request = null;
+        Response<CancelDetectMitigationActionsTaskResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CancelDetectMitigationActionsTaskRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(cancelDetectMitigationActionsTaskRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelDetectMitigationActionsTask");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CancelDetectMitigationActionsTaskResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CancelDetectMitigationActionsTaskResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Cancels a job.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CancelJob</a> action.
      * </p>
      * 
      * @param cancelJobRequest
@@ -1131,6 +1305,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      *         The rate exceeds the limit.
      * @throws ServiceUnavailableException
      *         The service is temporarily unavailable.
+     * @throws LimitExceededException
+     *         A limit has been exceeded.
      * @sample AWSIot.CancelJob
      */
     @Override
@@ -1154,6 +1330,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new CancelJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(cancelJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelJob");
@@ -1178,6 +1356,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Cancels the execution of a job for a given thing.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CancelJobExecution</a> action.
      * </p>
      * 
      * @param cancelJobExecutionRequest
@@ -1219,6 +1402,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new CancelJobExecutionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(cancelJobExecutionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelJobExecution");
@@ -1243,6 +1428,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Clears the default authorizer.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ClearDefaultAuthorizer</a> action.
      * </p>
      * 
      * @param clearDefaultAuthorizerRequest
@@ -1282,6 +1472,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ClearDefaultAuthorizerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(clearDefaultAuthorizerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ClearDefaultAuthorizer");
@@ -1306,7 +1498,154 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Confirms a topic rule destination. When you create a rule requiring a destination, IoT sends a confirmation
+     * message to the endpoint or base address you specify. The message includes a token which you pass back when
+     * calling <code>ConfirmTopicRuleDestination</code> to confirm that you own or have access to the endpoint.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ConfirmTopicRuleDestination</a> action.
+     * </p>
+     * 
+     * @param confirmTopicRuleDestinationRequest
+     * @return Result of the ConfirmTopicRuleDestination operation returned by the service.
+     * @throws InternalException
+     *         An unexpected error has occurred.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ConflictingResourceUpdateException
+     *         A conflicting resource update exception. This exception is thrown when two pending updates cause a
+     *         conflict.
+     * @sample AWSIot.ConfirmTopicRuleDestination
+     */
+    @Override
+    public ConfirmTopicRuleDestinationResult confirmTopicRuleDestination(ConfirmTopicRuleDestinationRequest request) {
+        request = beforeClientExecution(request);
+        return executeConfirmTopicRuleDestination(request);
+    }
+
+    @SdkInternalApi
+    final ConfirmTopicRuleDestinationResult executeConfirmTopicRuleDestination(ConfirmTopicRuleDestinationRequest confirmTopicRuleDestinationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(confirmTopicRuleDestinationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ConfirmTopicRuleDestinationRequest> request = null;
+        Response<ConfirmTopicRuleDestinationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ConfirmTopicRuleDestinationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(confirmTopicRuleDestinationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ConfirmTopicRuleDestination");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ConfirmTopicRuleDestinationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ConfirmTopicRuleDestinationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a Device Defender audit suppression.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateAuditSuppression</a> action.
+     * </p>
+     * 
+     * @param createAuditSuppressionRequest
+     * @return Result of the CreateAuditSuppression operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ResourceAlreadyExistsException
+     *         The resource already exists.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws LimitExceededException
+     *         A limit has been exceeded.
+     * @sample AWSIot.CreateAuditSuppression
+     */
+    @Override
+    public CreateAuditSuppressionResult createAuditSuppression(CreateAuditSuppressionRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateAuditSuppression(request);
+    }
+
+    @SdkInternalApi
+    final CreateAuditSuppressionResult executeCreateAuditSuppression(CreateAuditSuppressionRequest createAuditSuppressionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createAuditSuppressionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateAuditSuppressionRequest> request = null;
+        Response<CreateAuditSuppressionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateAuditSuppressionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createAuditSuppressionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateAuditSuppression");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateAuditSuppressionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateAuditSuppressionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Creates an authorizer.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateAuthorizer</a> action.
      * </p>
      * 
      * @param createAuthorizerRequest
@@ -1348,6 +1687,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new CreateAuthorizerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createAuthorizerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateAuthorizer");
@@ -1372,6 +1713,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Creates a billing group.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateBillingGroup</a> action.
      * </p>
      * 
      * @param createBillingGroupRequest
@@ -1407,6 +1753,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new CreateBillingGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createBillingGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateBillingGroup");
@@ -1433,52 +1781,57 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * Creates an X.509 certificate using the specified certificate signing request.
      * </p>
      * <p>
-     * <b>Note:</b> The CSR must include a public key that is either an RSA key with a length of at least 2048 bits or
-     * an ECC key from NIST P-256 or NIST P-384 curves.
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateCertificateFromCsr</a> action.
      * </p>
+     * <note>
      * <p>
-     * <b>Note:</b> Reusing the same certificate signing request (CSR) results in a distinct certificate.
+     * The CSR must include a public key that is either an RSA key with a length of at least 2048 bits or an ECC key
+     * from NIST P-256, NIST P-384, or NIST P-521 curves. For supported certificates, consult <a
+     * href="https://docs.aws.amazon.com/iot/latest/developerguide/x509-client-certs.html#x509-cert-algorithms">
+     * Certificate signing algorithms supported by IoT</a>.
      * </p>
+     * </note> <note>
      * <p>
-     * You can create multiple certificates in a batch by creating a directory, copying multiple .csr files into that
-     * directory, and then specifying that directory on the command line. The following commands show how to create a
-     * batch of certificates given a batch of CSRs.
+     * Reusing the same certificate signing request (CSR) results in a distinct certificate.
      * </p>
+     * </note>
      * <p>
-     * Assuming a set of CSRs are located inside of the directory my-csr-directory:
+     * You can create multiple certificates in a batch by creating a directory, copying multiple <code>.csr</code> files
+     * into that directory, and then specifying that directory on the command line. The following commands show how to
+     * create a batch of certificates given a batch of CSRs. In the following commands, we assume that a set of CSRs are
+     * located inside of the directory my-csr-directory:
      * </p>
      * <p>
      * On Linux and OS X, the command is:
      * </p>
      * <p>
-     * $ ls my-csr-directory/ | xargs -I {} aws iot create-certificate-from-csr --certificate-signing-request
-     * file://my-csr-directory/{}
+     * <code>$ ls my-csr-directory/ | xargs -I {} aws iot create-certificate-from-csr --certificate-signing-request file://my-csr-directory/{}</code>
      * </p>
      * <p>
-     * This command lists all of the CSRs in my-csr-directory and pipes each CSR file name to the aws iot
-     * create-certificate-from-csr AWS CLI command to create a certificate for the corresponding CSR.
+     * This command lists all of the CSRs in my-csr-directory and pipes each CSR file name to the
+     * <code>aws iot create-certificate-from-csr</code> Amazon Web Services CLI command to create a certificate for the
+     * corresponding CSR.
      * </p>
      * <p>
-     * The aws iot create-certificate-from-csr part of the command can also be run in parallel to speed up the
-     * certificate creation process:
+     * You can also run the <code>aws iot create-certificate-from-csr</code> part of the command in parallel to speed up
+     * the certificate creation process:
      * </p>
      * <p>
-     * $ ls my-csr-directory/ | xargs -P 10 -I {} aws iot create-certificate-from-csr --certificate-signing-request
-     * file://my-csr-directory/{}
+     * <code>$ ls my-csr-directory/ | xargs -P 10 -I {} aws iot create-certificate-from-csr --certificate-signing-request file://my-csr-directory/{} </code>
      * </p>
      * <p>
      * On Windows PowerShell, the command to create certificates for all CSRs in my-csr-directory is:
      * </p>
      * <p>
-     * &gt; ls -Name my-csr-directory | %{aws iot create-certificate-from-csr --certificate-signing-request
-     * file://my-csr-directory/$_}
+     * <code>&gt; ls -Name my-csr-directory | %{aws iot create-certificate-from-csr --certificate-signing-request file://my-csr-directory/$_} </code>
      * </p>
      * <p>
      * On a Windows command prompt, the command to create certificates for all CSRs in my-csr-directory is:
      * </p>
      * <p>
-     * &gt; forfiles /p my-csr-directory /c
-     * "cmd /c aws iot create-certificate-from-csr --certificate-signing-request file://@path"
+     * <code>&gt; forfiles /p my-csr-directory /c "cmd /c aws iot create-certificate-from-csr --certificate-signing-request file://@path" </code>
      * </p>
      * 
      * @param createCertificateFromCsrRequest
@@ -1518,6 +1871,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(createCertificateFromCsrRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCertificateFromCsr");
@@ -1542,7 +1897,314 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Creates an Amazon Web Services IoT Core certificate provider. You can use Amazon Web Services IoT Core
+     * certificate provider to customize how to sign a certificate signing request (CSR) in IoT fleet provisioning. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/iot/latest/developerguide/provisioning-cert-provider.html">Customizing
+     * certificate signing using Amazon Web Services IoT Core certificate provider</a> from <i>Amazon Web Services IoT
+     * Core Developer Guide</i>.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateCertificateProvider</a> action.
+     * </p>
+     * <important>
+     * <p>
+     * After you create a certificate provider, the behavior of <a
+     * href="https://docs.aws.amazon.com/iot/latest/developerguide/fleet-provision-api.html#create-cert-csr">
+     * <code>CreateCertificateFromCsr</code> API for fleet provisioning</a> will change and all API calls to
+     * <code>CreateCertificateFromCsr</code> will invoke the certificate provider to create the certificates. It can
+     * take up to a few minutes for this behavior to change after a certificate provider is created.
+     * </p>
+     * </important>
+     * 
+     * @param createCertificateProviderRequest
+     * @return Result of the CreateCertificateProvider operation returned by the service.
+     * @throws LimitExceededException
+     *         A limit has been exceeded.
+     * @throws ResourceAlreadyExistsException
+     *         The resource already exists.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.CreateCertificateProvider
+     */
+    @Override
+    public CreateCertificateProviderResult createCertificateProvider(CreateCertificateProviderRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateCertificateProvider(request);
+    }
+
+    @SdkInternalApi
+    final CreateCertificateProviderResult executeCreateCertificateProvider(CreateCertificateProviderRequest createCertificateProviderRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createCertificateProviderRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateCertificateProviderRequest> request = null;
+        Response<CreateCertificateProviderResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateCertificateProviderRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createCertificateProviderRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCertificateProvider");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateCertificateProviderResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateCertificateProviderResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Use this API to define a Custom Metric published by your devices to Device Defender.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateCustomMetric</a> action.
+     * </p>
+     * 
+     * @param createCustomMetricRequest
+     * @return Result of the CreateCustomMetric operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws LimitExceededException
+     *         A limit has been exceeded.
+     * @throws ResourceAlreadyExistsException
+     *         The resource already exists.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.CreateCustomMetric
+     */
+    @Override
+    public CreateCustomMetricResult createCustomMetric(CreateCustomMetricRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateCustomMetric(request);
+    }
+
+    @SdkInternalApi
+    final CreateCustomMetricResult executeCreateCustomMetric(CreateCustomMetricRequest createCustomMetricRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createCustomMetricRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateCustomMetricRequest> request = null;
+        Response<CreateCustomMetricResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateCustomMetricRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createCustomMetricRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCustomMetric");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateCustomMetricResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateCustomMetricResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Create a dimension that you can use to limit the scope of a metric used in a security profile for IoT Device
+     * Defender. For example, using a <code>TOPIC_FILTER</code> dimension, you can narrow down the scope of the metric
+     * only to MQTT topics whose name match the pattern specified in the dimension.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateDimension</a> action.
+     * </p>
+     * 
+     * @param createDimensionRequest
+     * @return Result of the CreateDimension operation returned by the service.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws LimitExceededException
+     *         A limit has been exceeded.
+     * @throws ResourceAlreadyExistsException
+     *         The resource already exists.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @sample AWSIot.CreateDimension
+     */
+    @Override
+    public CreateDimensionResult createDimension(CreateDimensionRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateDimension(request);
+    }
+
+    @SdkInternalApi
+    final CreateDimensionResult executeCreateDimension(CreateDimensionRequest createDimensionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createDimensionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateDimensionRequest> request = null;
+        Response<CreateDimensionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateDimensionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDimensionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDimension");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateDimensionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateDimensionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a domain configuration.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateDomainConfiguration</a> action.
+     * </p>
+     * 
+     * @param createDomainConfigurationRequest
+     * @return Result of the CreateDomainConfiguration operation returned by the service.
+     * @throws LimitExceededException
+     *         A limit has been exceeded.
+     * @throws CertificateValidationException
+     *         The certificate is invalid.
+     * @throws ResourceAlreadyExistsException
+     *         The resource already exists.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @sample AWSIot.CreateDomainConfiguration
+     */
+    @Override
+    public CreateDomainConfigurationResult createDomainConfiguration(CreateDomainConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateDomainConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final CreateDomainConfigurationResult executeCreateDomainConfiguration(CreateDomainConfigurationRequest createDomainConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createDomainConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateDomainConfigurationRequest> request = null;
+        Response<CreateDomainConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateDomainConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createDomainConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDomainConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateDomainConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateDomainConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Creates a dynamic thing group.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateDynamicThingGroup</a> action.
      * </p>
      * 
      * @param createDynamicThingGroupRequest
@@ -1585,6 +2247,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(createDynamicThingGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDynamicThingGroup");
@@ -1609,7 +2273,92 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Creates a fleet metric.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateFleetMetric</a> action.
+     * </p>
+     * 
+     * @param createFleetMetricRequest
+     * @return Result of the CreateFleetMetric operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws LimitExceededException
+     *         A limit has been exceeded.
+     * @throws ResourceAlreadyExistsException
+     *         The resource already exists.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidQueryException
+     *         The query is invalid.
+     * @throws InvalidAggregationException
+     *         The aggregation is invalid.
+     * @throws IndexNotReadyException
+     *         The index is not ready.
+     * @sample AWSIot.CreateFleetMetric
+     */
+    @Override
+    public CreateFleetMetricResult createFleetMetric(CreateFleetMetricRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateFleetMetric(request);
+    }
+
+    @SdkInternalApi
+    final CreateFleetMetricResult executeCreateFleetMetric(CreateFleetMetricRequest createFleetMetricRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createFleetMetricRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateFleetMetricRequest> request = null;
+        Response<CreateFleetMetricResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateFleetMetricRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createFleetMetricRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateFleetMetric");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateFleetMetricResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateFleetMetricResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Creates a job.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateJob</a> action.
      * </p>
      * 
      * @param createJobRequest
@@ -1649,6 +2398,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new CreateJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateJob");
@@ -1672,15 +2423,97 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Creates a 2048-bit RSA key pair and issues an X.509 certificate using the issued public key.
+     * Creates a job template.
      * </p>
      * <p>
-     * <b>Note</b> This is the only time AWS IoT issues the private key for this certificate, so it is important to keep
-     * it in a secure location.
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateJobTemplate</a> action.
+     * </p>
+     * 
+     * @param createJobTemplateRequest
+     * @return Result of the CreateJobTemplate operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ConflictException
+     *         A resource with the same name already exists.
+     * @throws LimitExceededException
+     *         A limit has been exceeded.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.CreateJobTemplate
+     */
+    @Override
+    public CreateJobTemplateResult createJobTemplate(CreateJobTemplateRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateJobTemplate(request);
+    }
+
+    @SdkInternalApi
+    final CreateJobTemplateResult executeCreateJobTemplate(CreateJobTemplateRequest createJobTemplateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createJobTemplateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateJobTemplateRequest> request = null;
+        Response<CreateJobTemplateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateJobTemplateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createJobTemplateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateJobTemplate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateJobTemplateResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateJobTemplateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a 2048-bit RSA key pair and issues an X.509 certificate using the issued public key. You can also call
+     * <code>CreateKeysAndCertificate</code> over MQTT from a device, for more information, see <a
+     * href="https://docs.aws.amazon.com/iot/latest/developerguide/provision-wo-cert.html#provision-mqtt-api"
+     * >Provisioning MQTT API</a>.
+     * </p>
+     * <p>
+     * <b>Note</b> This is the only time IoT issues the private key for this certificate, so it is important to keep it
+     * in a secure location.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateKeysAndCertificate</a> action.
      * </p>
      * 
      * @param createKeysAndCertificateRequest
-     *        The input for the CreateKeysAndCertificate operation.
+     *        The input for the CreateKeysAndCertificate operation.</p>
+     *        <p>
+     *        Requires permission to access the <a href=
+     *        "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     *        >CreateKeysAndCertificateRequest</a> action.
      * @return Result of the CreateKeysAndCertificate operation returned by the service.
      * @throws InvalidRequestException
      *         The request is not valid.
@@ -1716,6 +2549,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(createKeysAndCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateKeysAndCertificate");
@@ -1740,8 +2575,15 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Defines an action that can be applied to audit findings by using StartAuditMitigationActionsTask. Each mitigation
-     * action can apply only one type of change.
+     * Defines an action that can be applied to audit findings by using StartAuditMitigationActionsTask. Only certain
+     * types of mitigation actions can be applied to specific check names. For more information, see <a
+     * href="https://docs.aws.amazon.com/iot/latest/developerguide/device-defender-mitigation-actions.html">Mitigation
+     * actions</a>. Each mitigation action can apply only one type of change.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateMitigationAction</a> action.
      * </p>
      * 
      * @param createMitigationActionRequest
@@ -1779,6 +2621,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new CreateMitigationActionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createMitigationActionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateMitigationAction");
@@ -1803,7 +2647,12 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Creates an AWS IoT OTAUpdate on a target group of things or groups.
+     * Creates an IoT OTA update on a target group of things or groups.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateOTAUpdate</a> action.
      * </p>
      * 
      * @param createOTAUpdateRequest
@@ -1847,6 +2696,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new CreateOTAUpdateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createOTAUpdateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateOTAUpdate");
@@ -1870,11 +2721,156 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Creates an AWS IoT policy.
+     * Creates an IoT software package that can be deployed to your fleet.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreatePackage</a> and <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetIndexingConfiguration</a> actions.
+     * </p>
+     * 
+     * @param createPackageRequest
+     * @return Result of the CreatePackage operation returned by the service.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws ConflictException
+     *         A resource with the same name already exists.
+     * @throws InternalServerException
+     *         Internal error from the service that indicates an unexpected error or that the service is unavailable.
+     * @throws ValidationException
+     *         The request is not valid.
+     * @throws ServiceQuotaExceededException
+     *         A limit has been exceeded.
+     * @sample AWSIot.CreatePackage
+     */
+    @Override
+    public CreatePackageResult createPackage(CreatePackageRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreatePackage(request);
+    }
+
+    @SdkInternalApi
+    final CreatePackageResult executeCreatePackage(CreatePackageRequest createPackageRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createPackageRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreatePackageRequest> request = null;
+        Response<CreatePackageResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreatePackageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createPackageRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreatePackage");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreatePackageResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreatePackageResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a new version for an existing IoT software package.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreatePackageVersion</a> and <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetIndexingConfiguration</a> actions.
+     * </p>
+     * 
+     * @param createPackageVersionRequest
+     * @return Result of the CreatePackageVersion operation returned by the service.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws ConflictException
+     *         A resource with the same name already exists.
+     * @throws InternalServerException
+     *         Internal error from the service that indicates an unexpected error or that the service is unavailable.
+     * @throws ValidationException
+     *         The request is not valid.
+     * @throws ServiceQuotaExceededException
+     *         A limit has been exceeded.
+     * @sample AWSIot.CreatePackageVersion
+     */
+    @Override
+    public CreatePackageVersionResult createPackageVersion(CreatePackageVersionRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreatePackageVersion(request);
+    }
+
+    @SdkInternalApi
+    final CreatePackageVersionResult executeCreatePackageVersion(CreatePackageVersionRequest createPackageVersionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createPackageVersionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreatePackageVersionRequest> request = null;
+        Response<CreatePackageVersionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreatePackageVersionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createPackageVersionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreatePackageVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreatePackageVersionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreatePackageVersionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates an IoT policy.
      * </p>
      * <p>
      * The created policy is the default version for the policy. This operation creates a policy version with a version
      * identifier of <b>1</b> and sets <b>1</b> as the policy's default version.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreatePolicy</a> action.
      * </p>
      * 
      * @param createPolicyRequest
@@ -1917,6 +2913,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new CreatePolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreatePolicy");
@@ -1940,13 +2938,18 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Creates a new version of the specified AWS IoT policy. To update a policy, create a new policy version. A managed
+     * Creates a new version of the specified IoT policy. To update a policy, create a new policy version. A managed
      * policy can have up to five versions. If the policy has five versions, you must use <a>DeletePolicyVersion</a> to
      * delete an existing version before you create a new one.
      * </p>
      * <p>
      * Optionally, you can set the new version as the policy's default version. The default version is the operative
      * version (that is, the version that is in effect for the certificates to which the policy is attached).
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreatePolicyVersion</a> action.
      * </p>
      * 
      * @param createPolicyVersionRequest
@@ -1991,6 +2994,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new CreatePolicyVersionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createPolicyVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreatePolicyVersion");
@@ -2014,7 +3019,232 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Creates a provisioning claim.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateProvisioningClaim</a> action.
+     * </p>
+     * 
+     * @param createProvisioningClaimRequest
+     * @return Result of the CreateProvisioningClaim operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.CreateProvisioningClaim
+     */
+    @Override
+    public CreateProvisioningClaimResult createProvisioningClaim(CreateProvisioningClaimRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateProvisioningClaim(request);
+    }
+
+    @SdkInternalApi
+    final CreateProvisioningClaimResult executeCreateProvisioningClaim(CreateProvisioningClaimRequest createProvisioningClaimRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createProvisioningClaimRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateProvisioningClaimRequest> request = null;
+        Response<CreateProvisioningClaimResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateProvisioningClaimRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createProvisioningClaimRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateProvisioningClaim");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateProvisioningClaimResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateProvisioningClaimResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a provisioning template.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateProvisioningTemplate</a> action.
+     * </p>
+     * 
+     * @param createProvisioningTemplateRequest
+     * @return Result of the CreateProvisioningTemplate operation returned by the service.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws LimitExceededException
+     *         A limit has been exceeded.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ResourceAlreadyExistsException
+     *         The resource already exists.
+     * @sample AWSIot.CreateProvisioningTemplate
+     */
+    @Override
+    public CreateProvisioningTemplateResult createProvisioningTemplate(CreateProvisioningTemplateRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateProvisioningTemplate(request);
+    }
+
+    @SdkInternalApi
+    final CreateProvisioningTemplateResult executeCreateProvisioningTemplate(CreateProvisioningTemplateRequest createProvisioningTemplateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createProvisioningTemplateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateProvisioningTemplateRequest> request = null;
+        Response<CreateProvisioningTemplateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateProvisioningTemplateRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createProvisioningTemplateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateProvisioningTemplate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateProvisioningTemplateResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateProvisioningTemplateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a new version of a provisioning template.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateProvisioningTemplateVersion</a> action.
+     * </p>
+     * 
+     * @param createProvisioningTemplateVersionRequest
+     * @return Result of the CreateProvisioningTemplateVersion operation returned by the service.
+     * @throws VersionsLimitExceededException
+     *         The number of policy versions exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ConflictingResourceUpdateException
+     *         A conflicting resource update exception. This exception is thrown when two pending updates cause a
+     *         conflict.
+     * @sample AWSIot.CreateProvisioningTemplateVersion
+     */
+    @Override
+    public CreateProvisioningTemplateVersionResult createProvisioningTemplateVersion(CreateProvisioningTemplateVersionRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateProvisioningTemplateVersion(request);
+    }
+
+    @SdkInternalApi
+    final CreateProvisioningTemplateVersionResult executeCreateProvisioningTemplateVersion(
+            CreateProvisioningTemplateVersionRequest createProvisioningTemplateVersionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createProvisioningTemplateVersionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateProvisioningTemplateVersionRequest> request = null;
+        Response<CreateProvisioningTemplateVersionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateProvisioningTemplateVersionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createProvisioningTemplateVersionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateProvisioningTemplateVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateProvisioningTemplateVersionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateProvisioningTemplateVersionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Creates a role alias.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateRoleAlias</a> action.
      * </p>
      * 
      * @param createRoleAliasRequest
@@ -2056,6 +3286,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new CreateRoleAliasRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createRoleAliasRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateRoleAlias");
@@ -2080,6 +3312,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Creates a scheduled audit that is run at a specified time interval.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateScheduledAudit</a> action.
      * </p>
      * 
      * @param createScheduledAuditRequest
@@ -2117,6 +3354,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new CreateScheduledAuditRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createScheduledAuditRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateScheduledAudit");
@@ -2141,6 +3380,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Creates a Device Defender security profile.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateSecurityProfile</a> action.
      * </p>
      * 
      * @param createSecurityProfileRequest
@@ -2176,6 +3420,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new CreateSecurityProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createSecurityProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSecurityProfile");
@@ -2202,9 +3448,12 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * <p>
      * Creates a stream for delivering one or more large files in chunks over MQTT. A stream transports data bytes in
      * chunks or blocks packaged as MQTT messages from a source like S3. You can have one or more files associated with
-     * a stream. The total size of a file associated with the stream cannot exceed more than 2 MB. The stream will be
-     * created with version 0. If a stream is created with the same streamID as a stream that existed and was deleted
-     * within last 90 days, we will resurrect that old stream by incrementing the version by 1.
+     * a stream.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateStream</a> action.
      * </p>
      * 
      * @param createStreamRequest
@@ -2248,6 +3497,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new CreateStreamRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createStreamRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateStream");
@@ -2278,10 +3529,15 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * <note>
      * <p>
      * This is a control plane operation. See <a
-     * href="https://docs.aws.amazon.com/iot/latest/developerguide/authorization.html">Authorization</a> for information
-     * about authorizing control plane actions.
+     * href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-authorization.html">Authorization</a> for
+     * information about authorizing control plane actions.
      * </p>
      * </note>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateThing</a> action.
+     * </p>
      * 
      * @param createThingRequest
      *        The input for the CreateThing operation.
@@ -2323,6 +3579,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new CreateThingRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createThingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateThing");
@@ -2351,10 +3609,19 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * <note>
      * <p>
      * This is a control plane operation. See <a
-     * href="https://docs.aws.amazon.com/iot/latest/developerguide/authorization.html">Authorization</a> for information
-     * about authorizing control plane actions.
+     * href="https://docs.aws.amazon.com/iot/latest/developerguide/iot-authorization.html">Authorization</a> for
+     * information about authorizing control plane actions.
+     * </p>
+     * <p>
+     * If the <code>ThingGroup</code> that you create has the exact same attributes as an existing
+     * <code>ThingGroup</code>, you will get a 200 success response.
      * </p>
      * </note>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateThingGroup</a> action.
+     * </p>
      * 
      * @param createThingGroupRequest
      * @return Result of the CreateThingGroup operation returned by the service.
@@ -2389,6 +3656,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new CreateThingGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createThingGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateThingGroup");
@@ -2413,6 +3682,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Creates a new thing type.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateThingType</a> action.
      * </p>
      * 
      * @param createThingTypeRequest
@@ -2453,6 +3727,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new CreateThingTypeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createThingTypeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateThingType");
@@ -2478,6 +3754,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * <p>
      * Creates a rule. Creating rules is an administrator-level action. Any user who has permission to create rules will
      * be able to access data processed by the rule.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateTopicRule</a> action.
      * </p>
      * 
      * @param createTopicRuleRequest
@@ -2519,6 +3800,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new CreateTopicRuleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createTopicRuleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateTopicRule");
@@ -2542,8 +3825,84 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Creates a topic rule destination. The destination must be confirmed prior to use.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >CreateTopicRuleDestination</a> action.
+     * </p>
+     * 
+     * @param createTopicRuleDestinationRequest
+     * @return Result of the CreateTopicRuleDestination operation returned by the service.
+     * @throws InternalException
+     *         An unexpected error has occurred.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ResourceAlreadyExistsException
+     *         The resource already exists.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws ConflictingResourceUpdateException
+     *         A conflicting resource update exception. This exception is thrown when two pending updates cause a
+     *         conflict.
+     * @sample AWSIot.CreateTopicRuleDestination
+     */
+    @Override
+    public CreateTopicRuleDestinationResult createTopicRuleDestination(CreateTopicRuleDestinationRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateTopicRuleDestination(request);
+    }
+
+    @SdkInternalApi
+    final CreateTopicRuleDestinationResult executeCreateTopicRuleDestination(CreateTopicRuleDestinationRequest createTopicRuleDestinationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createTopicRuleDestinationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateTopicRuleDestinationRequest> request = null;
+        Response<CreateTopicRuleDestinationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateTopicRuleDestinationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createTopicRuleDestinationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateTopicRuleDestination");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateTopicRuleDestinationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateTopicRuleDestinationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Restores the default settings for Device Defender audits for this account. Any configuration data you entered is
      * deleted and all audit checks are reset to disabled.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteAccountAuditConfiguration</a> action.
      * </p>
      * 
      * @param deleteAccountAuditConfigurationRequest
@@ -2581,6 +3940,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(deleteAccountAuditConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteAccountAuditConfiguration");
@@ -2605,7 +3966,77 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Deletes a Device Defender audit suppression.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteAuditSuppression</a> action.
+     * </p>
+     * 
+     * @param deleteAuditSuppressionRequest
+     * @return Result of the DeleteAuditSuppression operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.DeleteAuditSuppression
+     */
+    @Override
+    public DeleteAuditSuppressionResult deleteAuditSuppression(DeleteAuditSuppressionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteAuditSuppression(request);
+    }
+
+    @SdkInternalApi
+    final DeleteAuditSuppressionResult executeDeleteAuditSuppression(DeleteAuditSuppressionRequest deleteAuditSuppressionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteAuditSuppressionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteAuditSuppressionRequest> request = null;
+        Response<DeleteAuditSuppressionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteAuditSuppressionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteAuditSuppressionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteAuditSuppression");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteAuditSuppressionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteAuditSuppressionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Deletes an authorizer.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteAuthorizer</a> action.
      * </p>
      * 
      * @param deleteAuthorizerRequest
@@ -2647,6 +4078,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DeleteAuthorizerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteAuthorizerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteAuthorizer");
@@ -2671,6 +4104,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Deletes the billing group.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteBillingGroup</a> action.
      * </p>
      * 
      * @param deleteBillingGroupRequest
@@ -2707,6 +4145,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DeleteBillingGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteBillingGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteBillingGroup");
@@ -2731,6 +4171,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Deletes a registered CA certificate.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteCACertificate</a> action.
      * </p>
      * 
      * @param deleteCACertificateRequest
@@ -2773,6 +4218,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DeleteCACertificateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteCACertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCACertificate");
@@ -2800,8 +4247,13 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * </p>
      * <p>
      * A certificate cannot be deleted if it has a policy or IoT thing attached to it or if its status is set to ACTIVE.
-     * To delete a certificate, first use the <a>DetachPrincipalPolicy</a> API to detach all policies. Next, use the
-     * <a>UpdateCertificate</a> API to set the certificate to the INACTIVE status.
+     * To delete a certificate, first use the <a>DetachPolicy</a> action to detach all policies. Next, use the
+     * <a>UpdateCertificate</a> action to set the certificate to the INACTIVE status.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteCertificate</a> action.
      * </p>
      * 
      * @param deleteCertificateRequest
@@ -2846,6 +4298,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DeleteCertificateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCertificate");
@@ -2869,7 +4323,298 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Deletes a certificate provider.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteCertificateProvider</a> action.
+     * </p>
+     * <p>
+     * If you delete the certificate provider resource, the behavior of <code>CreateCertificateFromCsr</code> will
+     * resume, and IoT will create certificates signed by IoT from a certificate signing request (CSR).
+     * </p>
+     * 
+     * @param deleteCertificateProviderRequest
+     * @return Result of the DeleteCertificateProvider operation returned by the service.
+     * @throws DeleteConflictException
+     *         You can't delete the resource because it is attached to one or more resources.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.DeleteCertificateProvider
+     */
+    @Override
+    public DeleteCertificateProviderResult deleteCertificateProvider(DeleteCertificateProviderRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteCertificateProvider(request);
+    }
+
+    @SdkInternalApi
+    final DeleteCertificateProviderResult executeDeleteCertificateProvider(DeleteCertificateProviderRequest deleteCertificateProviderRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteCertificateProviderRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteCertificateProviderRequest> request = null;
+        Response<DeleteCertificateProviderResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteCertificateProviderRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteCertificateProviderRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCertificateProvider");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteCertificateProviderResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteCertificateProviderResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a Device Defender detect custom metric.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteCustomMetric</a> action.
+     * </p>
+     * <note>
+     * <p>
+     * Before you can delete a custom metric, you must first remove the custom metric from all security profiles it's a
+     * part of. The security profile associated with the custom metric can be found using the <a
+     * href="https://docs.aws.amazon.com/iot/latest/apireference/API_ListSecurityProfiles.html">ListSecurityProfiles</a>
+     * API with <code>metricName</code> set to your custom metric name.
+     * </p>
+     * </note>
+     * 
+     * @param deleteCustomMetricRequest
+     * @return Result of the DeleteCustomMetric operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.DeleteCustomMetric
+     */
+    @Override
+    public DeleteCustomMetricResult deleteCustomMetric(DeleteCustomMetricRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteCustomMetric(request);
+    }
+
+    @SdkInternalApi
+    final DeleteCustomMetricResult executeDeleteCustomMetric(DeleteCustomMetricRequest deleteCustomMetricRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteCustomMetricRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteCustomMetricRequest> request = null;
+        Response<DeleteCustomMetricResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteCustomMetricRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteCustomMetricRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCustomMetric");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteCustomMetricResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteCustomMetricResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Removes the specified dimension from your Amazon Web Services accounts.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteDimension</a> action.
+     * </p>
+     * 
+     * @param deleteDimensionRequest
+     * @return Result of the DeleteDimension operation returned by the service.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @sample AWSIot.DeleteDimension
+     */
+    @Override
+    public DeleteDimensionResult deleteDimension(DeleteDimensionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteDimension(request);
+    }
+
+    @SdkInternalApi
+    final DeleteDimensionResult executeDeleteDimension(DeleteDimensionRequest deleteDimensionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteDimensionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteDimensionRequest> request = null;
+        Response<DeleteDimensionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteDimensionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteDimensionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDimension");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteDimensionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteDimensionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the specified domain configuration.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteDomainConfiguration</a> action.
+     * </p>
+     * 
+     * @param deleteDomainConfigurationRequest
+     * @return Result of the DeleteDomainConfiguration operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @sample AWSIot.DeleteDomainConfiguration
+     */
+    @Override
+    public DeleteDomainConfigurationResult deleteDomainConfiguration(DeleteDomainConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteDomainConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final DeleteDomainConfigurationResult executeDeleteDomainConfiguration(DeleteDomainConfigurationRequest deleteDomainConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteDomainConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteDomainConfigurationRequest> request = null;
+        Response<DeleteDomainConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteDomainConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteDomainConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDomainConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteDomainConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteDomainConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Deletes a dynamic thing group.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteDynamicThingGroup</a> action.
      * </p>
      * 
      * @param deleteDynamicThingGroupRequest
@@ -2907,6 +4652,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(deleteDynamicThingGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDynamicThingGroup");
@@ -2931,6 +4678,78 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Deletes the specified fleet metric. Returns successfully with no error if the deletion is successful or you
+     * specify a fleet metric that doesn't exist.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteFleetMetric</a> action.
+     * </p>
+     * 
+     * @param deleteFleetMetricRequest
+     * @return Result of the DeleteFleetMetric operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws VersionConflictException
+     *         An exception thrown when the version of an entity specified with the <code>expectedVersion</code>
+     *         parameter does not match the latest version in the system.
+     * @sample AWSIot.DeleteFleetMetric
+     */
+    @Override
+    public DeleteFleetMetricResult deleteFleetMetric(DeleteFleetMetricRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteFleetMetric(request);
+    }
+
+    @SdkInternalApi
+    final DeleteFleetMetricResult executeDeleteFleetMetric(DeleteFleetMetricRequest deleteFleetMetricRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteFleetMetricRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteFleetMetricRequest> request = null;
+        Response<DeleteFleetMetricResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteFleetMetricRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteFleetMetricRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteFleetMetric");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteFleetMetricResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteFleetMetricResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Deletes a job and its related job executions.
      * </p>
      * <p>
@@ -2940,6 +4759,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * </p>
      * <p>
      * Only 10 jobs may have status "DELETION_IN_PROGRESS" at the same time, or a LimitExceededException will occur.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteJob</a> action.
      * </p>
      * 
      * @param deleteJobRequest
@@ -2980,6 +4804,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DeleteJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteJob");
@@ -3004,6 +4830,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Deletes a job execution.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteJobExecution</a> action.
      * </p>
      * 
      * @param deleteJobExecutionRequest
@@ -3042,6 +4873,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DeleteJobExecutionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteJobExecutionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteJobExecution");
@@ -3065,7 +4898,73 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Deletes a defined mitigation action from your AWS account.
+     * Deletes the specified job template.
+     * </p>
+     * 
+     * @param deleteJobTemplateRequest
+     * @return Result of the DeleteJobTemplate operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.DeleteJobTemplate
+     */
+    @Override
+    public DeleteJobTemplateResult deleteJobTemplate(DeleteJobTemplateRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteJobTemplate(request);
+    }
+
+    @SdkInternalApi
+    final DeleteJobTemplateResult executeDeleteJobTemplate(DeleteJobTemplateRequest deleteJobTemplateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteJobTemplateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteJobTemplateRequest> request = null;
+        Response<DeleteJobTemplateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteJobTemplateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteJobTemplateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteJobTemplate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteJobTemplateResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteJobTemplateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a defined mitigation action from your Amazon Web Services accounts.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteMitigationAction</a> action.
      * </p>
      * 
      * @param deleteMitigationActionRequest
@@ -3099,6 +4998,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DeleteMitigationActionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteMitigationActionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteMitigationAction");
@@ -3124,6 +5025,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Delete an OTA update.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteOTAUpdate</a> action.
      * </p>
      * 
      * @param deleteOTAUpdateRequest
@@ -3166,6 +5072,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DeleteOTAUpdateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteOTAUpdateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteOTAUpdate");
@@ -3189,18 +5097,159 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Deletes a specific version from a software package.
+     * </p>
+     * <p>
+     * <b>Note:</b> All package versions must be deleted before deleting the software package.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeletePackageVersion</a> action.
+     * </p>
+     * 
+     * @param deletePackageRequest
+     * @return Result of the DeletePackage operation returned by the service.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalServerException
+     *         Internal error from the service that indicates an unexpected error or that the service is unavailable.
+     * @throws ValidationException
+     *         The request is not valid.
+     * @sample AWSIot.DeletePackage
+     */
+    @Override
+    public DeletePackageResult deletePackage(DeletePackageRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeletePackage(request);
+    }
+
+    @SdkInternalApi
+    final DeletePackageResult executeDeletePackage(DeletePackageRequest deletePackageRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deletePackageRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeletePackageRequest> request = null;
+        Response<DeletePackageResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeletePackageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deletePackageRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeletePackage");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeletePackageResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeletePackageResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a specific version from a software package.
+     * </p>
+     * <p>
+     * <b>Note:</b> If a package version is designated as default, you must remove the designation from the software
+     * package using the <a>UpdatePackage</a> action.
+     * </p>
+     * 
+     * @param deletePackageVersionRequest
+     * @return Result of the DeletePackageVersion operation returned by the service.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalServerException
+     *         Internal error from the service that indicates an unexpected error or that the service is unavailable.
+     * @throws ValidationException
+     *         The request is not valid.
+     * @sample AWSIot.DeletePackageVersion
+     */
+    @Override
+    public DeletePackageVersionResult deletePackageVersion(DeletePackageVersionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeletePackageVersion(request);
+    }
+
+    @SdkInternalApi
+    final DeletePackageVersionResult executeDeletePackageVersion(DeletePackageVersionRequest deletePackageVersionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deletePackageVersionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeletePackageVersionRequest> request = null;
+        Response<DeletePackageVersionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeletePackageVersionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deletePackageVersionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeletePackageVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeletePackageVersionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeletePackageVersionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Deletes the specified policy.
      * </p>
      * <p>
      * A policy cannot be deleted if it has non-default versions or it is attached to any certificate.
      * </p>
      * <p>
-     * To delete a policy, use the DeletePolicyVersion API to delete all non-default versions of the policy; use the
-     * DetachPrincipalPolicy API to detach the policy from any certificate; and then use the DeletePolicy API to delete
-     * the policy.
+     * To delete a policy, use the <a>DeletePolicyVersion</a> action to delete all non-default versions of the policy;
+     * use the <a>DetachPolicy</a> action to detach the policy from any certificate; and then use the DeletePolicy
+     * action to delete the policy.
      * </p>
      * <p>
      * When a policy is deleted using DeletePolicy, its default version is deleted with it.
+     * </p>
+     * <note>
+     * <p>
+     * Because of the distributed nature of Amazon Web Services, it can take up to five minutes after a policy is
+     * detached before it's ready to be deleted.
+     * </p>
+     * </note>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeletePolicy</a> action.
      * </p>
      * 
      * @param deletePolicyRequest
@@ -3243,6 +5292,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DeletePolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deletePolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeletePolicy");
@@ -3267,8 +5318,13 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Deletes the specified version of the specified policy. You cannot delete the default version of a policy using
-     * this API. To delete the default version of a policy, use <a>DeletePolicy</a>. To find out which version of a
+     * this action. To delete the default version of a policy, use <a>DeletePolicy</a>. To find out which version of a
      * policy is marked as the default version, use ListPolicyVersions.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeletePolicyVersion</a> action.
      * </p>
      * 
      * @param deletePolicyVersionRequest
@@ -3311,6 +5367,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DeletePolicyVersionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deletePolicyVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeletePolicyVersion");
@@ -3334,7 +5392,163 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Deletes a provisioning template.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteProvisioningTemplate</a> action.
+     * </p>
+     * 
+     * @param deleteProvisioningTemplateRequest
+     * @return Result of the DeleteProvisioningTemplate operation returned by the service.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws DeleteConflictException
+     *         You can't delete the resource because it is attached to one or more resources.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws ConflictingResourceUpdateException
+     *         A conflicting resource update exception. This exception is thrown when two pending updates cause a
+     *         conflict.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @sample AWSIot.DeleteProvisioningTemplate
+     */
+    @Override
+    public DeleteProvisioningTemplateResult deleteProvisioningTemplate(DeleteProvisioningTemplateRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteProvisioningTemplate(request);
+    }
+
+    @SdkInternalApi
+    final DeleteProvisioningTemplateResult executeDeleteProvisioningTemplate(DeleteProvisioningTemplateRequest deleteProvisioningTemplateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteProvisioningTemplateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteProvisioningTemplateRequest> request = null;
+        Response<DeleteProvisioningTemplateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteProvisioningTemplateRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteProvisioningTemplateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteProvisioningTemplate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteProvisioningTemplateResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteProvisioningTemplateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a provisioning template version.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteProvisioningTemplateVersion</a> action.
+     * </p>
+     * 
+     * @param deleteProvisioningTemplateVersionRequest
+     * @return Result of the DeleteProvisioningTemplateVersion operation returned by the service.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ConflictingResourceUpdateException
+     *         A conflicting resource update exception. This exception is thrown when two pending updates cause a
+     *         conflict.
+     * @throws DeleteConflictException
+     *         You can't delete the resource because it is attached to one or more resources.
+     * @sample AWSIot.DeleteProvisioningTemplateVersion
+     */
+    @Override
+    public DeleteProvisioningTemplateVersionResult deleteProvisioningTemplateVersion(DeleteProvisioningTemplateVersionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteProvisioningTemplateVersion(request);
+    }
+
+    @SdkInternalApi
+    final DeleteProvisioningTemplateVersionResult executeDeleteProvisioningTemplateVersion(
+            DeleteProvisioningTemplateVersionRequest deleteProvisioningTemplateVersionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteProvisioningTemplateVersionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteProvisioningTemplateVersionRequest> request = null;
+        Response<DeleteProvisioningTemplateVersionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteProvisioningTemplateVersionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteProvisioningTemplateVersionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteProvisioningTemplateVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteProvisioningTemplateVersionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteProvisioningTemplateVersionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Deletes a CA certificate registration code.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteRegistrationCode</a> action.
      * </p>
      * 
      * @param deleteRegistrationCodeRequest
@@ -3373,6 +5587,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DeleteRegistrationCodeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteRegistrationCodeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRegistrationCode");
@@ -3398,6 +5614,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Deletes a role alias
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteRoleAlias</a> action.
      * </p>
      * 
      * @param deleteRoleAliasRequest
@@ -3439,6 +5660,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DeleteRoleAliasRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteRoleAliasRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRoleAlias");
@@ -3463,6 +5686,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Deletes a scheduled audit.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteScheduledAudit</a> action.
      * </p>
      * 
      * @param deleteScheduledAuditRequest
@@ -3498,6 +5726,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DeleteScheduledAuditRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteScheduledAuditRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteScheduledAudit");
@@ -3522,6 +5752,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Deletes a Device Defender security profile.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteSecurityProfile</a> action.
      * </p>
      * 
      * @param deleteSecurityProfileRequest
@@ -3558,6 +5793,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DeleteSecurityProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteSecurityProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteSecurityProfile");
@@ -3583,6 +5820,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Deletes a stream.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteStream</a> action.
      * </p>
      * 
      * @param deleteStreamRequest
@@ -3624,6 +5866,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DeleteStreamRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteStreamRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteStream");
@@ -3649,6 +5893,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * <p>
      * Deletes the specified thing. Returns successfully with no error if the deletion is successful or you specify a
      * thing that doesn't exist.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteThing</a> action.
      * </p>
      * 
      * @param deleteThingRequest
@@ -3692,6 +5941,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DeleteThingRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteThingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteThing");
@@ -3716,6 +5967,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Deletes a thing group.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteThingGroup</a> action.
      * </p>
      * 
      * @param deleteThingGroupRequest
@@ -3752,6 +6008,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DeleteThingGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteThingGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteThingGroup");
@@ -3779,6 +6037,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * thing type, first mark it as deprecated by calling <a>DeprecateThingType</a>, then remove any associated things
      * by calling <a>UpdateThing</a> to change the thing type on any associated thing, and finally use
      * <a>DeleteThingType</a> to delete the thing type.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteThingType</a> action.
      * </p>
      * 
      * @param deleteThingTypeRequest
@@ -3819,6 +6082,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DeleteThingTypeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteThingTypeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteThingType");
@@ -3843,6 +6108,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Deletes the rule.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteTopicRule</a> action.
      * </p>
      * 
      * @param deleteTopicRuleRequest
@@ -3882,6 +6152,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DeleteTopicRuleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteTopicRuleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteTopicRule");
@@ -3905,7 +6177,83 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Deletes a topic rule destination.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteTopicRuleDestination</a> action.
+     * </p>
+     * 
+     * @param deleteTopicRuleDestinationRequest
+     * @return Result of the DeleteTopicRuleDestination operation returned by the service.
+     * @throws InternalException
+     *         An unexpected error has occurred.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ConflictingResourceUpdateException
+     *         A conflicting resource update exception. This exception is thrown when two pending updates cause a
+     *         conflict.
+     * @sample AWSIot.DeleteTopicRuleDestination
+     */
+    @Override
+    public DeleteTopicRuleDestinationResult deleteTopicRuleDestination(DeleteTopicRuleDestinationRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteTopicRuleDestination(request);
+    }
+
+    @SdkInternalApi
+    final DeleteTopicRuleDestinationResult executeDeleteTopicRuleDestination(DeleteTopicRuleDestinationRequest deleteTopicRuleDestinationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteTopicRuleDestinationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteTopicRuleDestinationRequest> request = null;
+        Response<DeleteTopicRuleDestinationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteTopicRuleDestinationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteTopicRuleDestinationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteTopicRuleDestination");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteTopicRuleDestinationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteTopicRuleDestinationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Deletes a logging level.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteV2LoggingLevel</a> action.
      * </p>
      * 
      * @param deleteV2LoggingLevelRequest
@@ -3939,6 +6287,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DeleteV2LoggingLevelRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteV2LoggingLevelRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteV2LoggingLevel");
@@ -3963,6 +6313,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Deprecates a thing type. You can not associate new things with deprecated thing type.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeprecateThingType</a> action.
      * </p>
      * 
      * @param deprecateThingTypeRequest
@@ -4003,6 +6358,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DeprecateThingTypeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deprecateThingTypeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeprecateThingType");
@@ -4028,6 +6385,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * <p>
      * Gets information about the Device Defender audit settings for this account. Settings include how audit
      * notifications are sent and which audit checks are enabled or disabled.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeAccountAuditConfiguration</a> action.
      * </p>
      * 
      * @param describeAccountAuditConfigurationRequest
@@ -4061,6 +6423,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(describeAccountAuditConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAccountAuditConfiguration");
@@ -4086,7 +6450,12 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Gets information about a single audit finding. Properties include the reason for noncompliance, the severity of
-     * the issue, and when the audit that returned the finding was started.
+     * the issue, and the start time when the audit that returned the finding.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeAuditFinding</a> action.
      * </p>
      * 
      * @param describeAuditFindingRequest
@@ -4122,6 +6491,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DescribeAuditFindingRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeAuditFindingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAuditFinding");
@@ -4185,6 +6556,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(describeAuditMitigationActionsTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAuditMitigationActionsTask");
@@ -4209,7 +6582,75 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Gets information about a Device Defender audit suppression.
+     * </p>
+     * 
+     * @param describeAuditSuppressionRequest
+     * @return Result of the DescribeAuditSuppression operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.DescribeAuditSuppression
+     */
+    @Override
+    public DescribeAuditSuppressionResult describeAuditSuppression(DescribeAuditSuppressionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeAuditSuppression(request);
+    }
+
+    @SdkInternalApi
+    final DescribeAuditSuppressionResult executeDescribeAuditSuppression(DescribeAuditSuppressionRequest describeAuditSuppressionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeAuditSuppressionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeAuditSuppressionRequest> request = null;
+        Response<DescribeAuditSuppressionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeAuditSuppressionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeAuditSuppressionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAuditSuppression");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeAuditSuppressionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeAuditSuppressionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Gets information about a Device Defender audit.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeAuditTask</a> action.
      * </p>
      * 
      * @param describeAuditTaskRequest
@@ -4245,6 +6686,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DescribeAuditTaskRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeAuditTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAuditTask");
@@ -4269,6 +6712,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Describes an authorizer.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeAuthorizer</a> action.
      * </p>
      * 
      * @param describeAuthorizerRequest
@@ -4308,6 +6756,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DescribeAuthorizerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeAuthorizerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAuthorizer");
@@ -4332,6 +6782,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Returns information about a billing group.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeBillingGroup</a> action.
      * </p>
      * 
      * @param describeBillingGroupRequest
@@ -4367,6 +6822,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DescribeBillingGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeBillingGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBillingGroup");
@@ -4391,6 +6848,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Describes a registered CA certificate.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeCACertificate</a> action.
      * </p>
      * 
      * @param describeCACertificateRequest
@@ -4431,6 +6893,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DescribeCACertificateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeCACertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCACertificate");
@@ -4456,6 +6920,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Gets information about the specified certificate.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeCertificate</a> action.
      * </p>
      * 
      * @param describeCertificateRequest
@@ -4496,6 +6965,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DescribeCertificateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCertificate");
@@ -4519,7 +6990,150 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Describes a certificate provider.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeCertificateProvider</a> action.
+     * </p>
+     * 
+     * @param describeCertificateProviderRequest
+     * @return Result of the DescribeCertificateProvider operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.DescribeCertificateProvider
+     */
+    @Override
+    public DescribeCertificateProviderResult describeCertificateProvider(DescribeCertificateProviderRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeCertificateProvider(request);
+    }
+
+    @SdkInternalApi
+    final DescribeCertificateProviderResult executeDescribeCertificateProvider(DescribeCertificateProviderRequest describeCertificateProviderRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeCertificateProviderRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeCertificateProviderRequest> request = null;
+        Response<DescribeCertificateProviderResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeCertificateProviderRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeCertificateProviderRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCertificateProvider");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeCertificateProviderResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeCertificateProviderResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets information about a Device Defender detect custom metric.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeCustomMetric</a> action.
+     * </p>
+     * 
+     * @param describeCustomMetricRequest
+     * @return Result of the DescribeCustomMetric operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.DescribeCustomMetric
+     */
+    @Override
+    public DescribeCustomMetricResult describeCustomMetric(DescribeCustomMetricRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeCustomMetric(request);
+    }
+
+    @SdkInternalApi
+    final DescribeCustomMetricResult executeDescribeCustomMetric(DescribeCustomMetricRequest describeCustomMetricRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeCustomMetricRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeCustomMetricRequest> request = null;
+        Response<DescribeCustomMetricResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeCustomMetricRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeCustomMetricRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCustomMetric");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeCustomMetricResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeCustomMetricResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Describes the default authorizer.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeDefaultAuthorizer</a> action.
      * </p>
      * 
      * @param describeDefaultAuthorizerRequest
@@ -4560,6 +7174,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(describeDefaultAuthorizerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDefaultAuthorizer");
@@ -4584,7 +7200,225 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Returns a unique endpoint specific to the AWS account making the call.
+     * Gets information about a Device Defender ML Detect mitigation action.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeDetectMitigationActionsTask</a> action.
+     * </p>
+     * 
+     * @param describeDetectMitigationActionsTaskRequest
+     * @return Result of the DescribeDetectMitigationActionsTask operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.DescribeDetectMitigationActionsTask
+     */
+    @Override
+    public DescribeDetectMitigationActionsTaskResult describeDetectMitigationActionsTask(DescribeDetectMitigationActionsTaskRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeDetectMitigationActionsTask(request);
+    }
+
+    @SdkInternalApi
+    final DescribeDetectMitigationActionsTaskResult executeDescribeDetectMitigationActionsTask(
+            DescribeDetectMitigationActionsTaskRequest describeDetectMitigationActionsTaskRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeDetectMitigationActionsTaskRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeDetectMitigationActionsTaskRequest> request = null;
+        Response<DescribeDetectMitigationActionsTaskResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeDetectMitigationActionsTaskRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeDetectMitigationActionsTaskRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDetectMitigationActionsTask");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeDetectMitigationActionsTaskResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeDetectMitigationActionsTaskResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Provides details about a dimension that is defined in your Amazon Web Services accounts.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeDimension</a> action.
+     * </p>
+     * 
+     * @param describeDimensionRequest
+     * @return Result of the DescribeDimension operation returned by the service.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @sample AWSIot.DescribeDimension
+     */
+    @Override
+    public DescribeDimensionResult describeDimension(DescribeDimensionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeDimension(request);
+    }
+
+    @SdkInternalApi
+    final DescribeDimensionResult executeDescribeDimension(DescribeDimensionRequest describeDimensionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeDimensionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeDimensionRequest> request = null;
+        Response<DescribeDimensionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeDimensionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeDimensionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDimension");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeDimensionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeDimensionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets summary information about a domain configuration.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeDomainConfiguration</a> action.
+     * </p>
+     * 
+     * @param describeDomainConfigurationRequest
+     * @return Result of the DescribeDomainConfiguration operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.DescribeDomainConfiguration
+     */
+    @Override
+    public DescribeDomainConfigurationResult describeDomainConfiguration(DescribeDomainConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeDomainConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final DescribeDomainConfigurationResult executeDescribeDomainConfiguration(DescribeDomainConfigurationRequest describeDomainConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeDomainConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeDomainConfigurationRequest> request = null;
+        Response<DescribeDomainConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeDomainConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeDomainConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDomainConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeDomainConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeDomainConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns or creates a unique endpoint specific to the Amazon Web Services account making the call.
+     * </p>
+     * <note>
+     * <p>
+     * The first time <code>DescribeEndpoint</code> is called, an endpoint is created. All subsequent calls to
+     * <code>DescribeEndpoint</code> return the same endpoint.
+     * </p>
+     * </note>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeEndpoint</a> action.
      * </p>
      * 
      * @param describeEndpointRequest
@@ -4621,6 +7455,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DescribeEndpointRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeEndpointRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEndpoint");
@@ -4645,6 +7481,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Describes event configurations.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeEventConfigurations</a> action.
      * </p>
      * 
      * @param describeEventConfigurationsRequest
@@ -4677,6 +7518,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(describeEventConfigurationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEventConfigurations");
@@ -4701,7 +7544,82 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Gets information about the specified fleet metric.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeFleetMetric</a> action.
+     * </p>
+     * 
+     * @param describeFleetMetricRequest
+     * @return Result of the DescribeFleetMetric operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @sample AWSIot.DescribeFleetMetric
+     */
+    @Override
+    public DescribeFleetMetricResult describeFleetMetric(DescribeFleetMetricRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeFleetMetric(request);
+    }
+
+    @SdkInternalApi
+    final DescribeFleetMetricResult executeDescribeFleetMetric(DescribeFleetMetricRequest describeFleetMetricRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeFleetMetricRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeFleetMetricRequest> request = null;
+        Response<DescribeFleetMetricResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeFleetMetricRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeFleetMetricRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeFleetMetric");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeFleetMetricResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeFleetMetricResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Describes a search index.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeIndex</a> action.
      * </p>
      * 
      * @param describeIndexRequest
@@ -4741,6 +7659,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DescribeIndexRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeIndexRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeIndex");
@@ -4765,6 +7685,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Describes a job.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeJob</a> action.
      * </p>
      * 
      * @param describeJobRequest
@@ -4800,6 +7725,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DescribeJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeJob");
@@ -4824,6 +7751,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Describes a job execution.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeJobExecution</a> action.
      * </p>
      * 
      * @param describeJobExecutionRequest
@@ -4859,6 +7791,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DescribeJobExecutionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeJobExecutionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeJobExecution");
@@ -4882,7 +7816,136 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Returns information about a job template.
+     * </p>
+     * 
+     * @param describeJobTemplateRequest
+     * @return Result of the DescribeJobTemplate operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.DescribeJobTemplate
+     */
+    @Override
+    public DescribeJobTemplateResult describeJobTemplate(DescribeJobTemplateRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeJobTemplate(request);
+    }
+
+    @SdkInternalApi
+    final DescribeJobTemplateResult executeDescribeJobTemplate(DescribeJobTemplateRequest describeJobTemplateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeJobTemplateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeJobTemplateRequest> request = null;
+        Response<DescribeJobTemplateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeJobTemplateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeJobTemplateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeJobTemplate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeJobTemplateResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeJobTemplateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * View details of a managed job template.
+     * </p>
+     * 
+     * @param describeManagedJobTemplateRequest
+     * @return Result of the DescribeManagedJobTemplate operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalServerException
+     *         Internal error from the service that indicates an unexpected error or that the service is unavailable.
+     * @sample AWSIot.DescribeManagedJobTemplate
+     */
+    @Override
+    public DescribeManagedJobTemplateResult describeManagedJobTemplate(DescribeManagedJobTemplateRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeManagedJobTemplate(request);
+    }
+
+    @SdkInternalApi
+    final DescribeManagedJobTemplateResult executeDescribeManagedJobTemplate(DescribeManagedJobTemplateRequest describeManagedJobTemplateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeManagedJobTemplateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeManagedJobTemplateRequest> request = null;
+        Response<DescribeManagedJobTemplateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeManagedJobTemplateRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeManagedJobTemplateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeManagedJobTemplate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeManagedJobTemplateResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeManagedJobTemplateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Gets information about a mitigation action.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeMitigationAction</a> action.
      * </p>
      * 
      * @param describeMitigationActionRequest
@@ -4919,6 +7982,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(describeMitigationActionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeMitigationAction");
@@ -4943,7 +8008,153 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Returns information about a provisioning template.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeProvisioningTemplate</a> action.
+     * </p>
+     * 
+     * @param describeProvisioningTemplateRequest
+     * @return Result of the DescribeProvisioningTemplate operation returned by the service.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @sample AWSIot.DescribeProvisioningTemplate
+     */
+    @Override
+    public DescribeProvisioningTemplateResult describeProvisioningTemplate(DescribeProvisioningTemplateRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeProvisioningTemplate(request);
+    }
+
+    @SdkInternalApi
+    final DescribeProvisioningTemplateResult executeDescribeProvisioningTemplate(DescribeProvisioningTemplateRequest describeProvisioningTemplateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeProvisioningTemplateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeProvisioningTemplateRequest> request = null;
+        Response<DescribeProvisioningTemplateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeProvisioningTemplateRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeProvisioningTemplateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeProvisioningTemplate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeProvisioningTemplateResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeProvisioningTemplateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns information about a provisioning template version.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeProvisioningTemplateVersion</a> action.
+     * </p>
+     * 
+     * @param describeProvisioningTemplateVersionRequest
+     * @return Result of the DescribeProvisioningTemplateVersion operation returned by the service.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @sample AWSIot.DescribeProvisioningTemplateVersion
+     */
+    @Override
+    public DescribeProvisioningTemplateVersionResult describeProvisioningTemplateVersion(DescribeProvisioningTemplateVersionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeProvisioningTemplateVersion(request);
+    }
+
+    @SdkInternalApi
+    final DescribeProvisioningTemplateVersionResult executeDescribeProvisioningTemplateVersion(
+            DescribeProvisioningTemplateVersionRequest describeProvisioningTemplateVersionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeProvisioningTemplateVersionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeProvisioningTemplateVersionRequest> request = null;
+        Response<DescribeProvisioningTemplateVersionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeProvisioningTemplateVersionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeProvisioningTemplateVersionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeProvisioningTemplateVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeProvisioningTemplateVersionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeProvisioningTemplateVersionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Describes a role alias.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeRoleAlias</a> action.
      * </p>
      * 
      * @param describeRoleAliasRequest
@@ -4983,6 +8194,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DescribeRoleAliasRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeRoleAliasRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeRoleAlias");
@@ -5007,6 +8220,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Gets information about a scheduled audit.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeScheduledAudit</a> action.
      * </p>
      * 
      * @param describeScheduledAuditRequest
@@ -5042,6 +8260,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DescribeScheduledAuditRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeScheduledAuditRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeScheduledAudit");
@@ -5067,6 +8287,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Gets information about a Device Defender security profile.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeSecurityProfile</a> action.
      * </p>
      * 
      * @param describeSecurityProfileRequest
@@ -5103,6 +8328,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(describeSecurityProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeSecurityProfile");
@@ -5128,6 +8355,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Gets information about a stream.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeStream</a> action.
      * </p>
      * 
      * @param describeStreamRequest
@@ -5167,6 +8399,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DescribeStreamRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeStreamRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeStream");
@@ -5191,6 +8425,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Gets information about the specified thing.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeThing</a> action.
      * </p>
      * 
      * @param describeThingRequest
@@ -5231,6 +8470,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DescribeThingRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeThingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeThing");
@@ -5255,6 +8496,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Describe a thing group.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeThingGroup</a> action.
      * </p>
      * 
      * @param describeThingGroupRequest
@@ -5290,6 +8536,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DescribeThingGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeThingGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeThingGroup");
@@ -5314,6 +8562,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Describes a bulk thing provisioning task.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeThingRegistrationTask</a> action.
      * </p>
      * 
      * @param describeThingRegistrationTaskRequest
@@ -5352,6 +8605,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(describeThingRegistrationTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeThingRegistrationTask");
@@ -5377,6 +8632,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Gets information about the specified thing type.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DescribeThingType</a> action.
      * </p>
      * 
      * @param describeThingTypeRequest
@@ -5417,6 +8677,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DescribeThingTypeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeThingTypeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeThingType");
@@ -5441,6 +8703,17 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Detaches a policy from the specified target.
+     * </p>
+     * <note>
+     * <p>
+     * Because of the distributed nature of Amazon Web Services, it can take up to five minutes after a policy is
+     * detached before it's ready to be deleted.
+     * </p>
+     * </note>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DetachPolicy</a> action.
      * </p>
      * 
      * @param detachPolicyRequest
@@ -5480,6 +8753,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DetachPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(detachPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DetachPolicy");
@@ -5506,7 +8781,13 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * Removes the specified policy from the specified certificate.
      * </p>
      * <p>
-     * <b>Note:</b> This API is deprecated. Please use <a>DetachPolicy</a> instead.
+     * <b>Note:</b> This action is deprecated and works as expected for backward compatibility, but we won't add
+     * enhancements. Use <a>DetachPolicy</a> instead.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DetachPrincipalPolicy</a> action.
      * </p>
      * 
      * @param detachPrincipalPolicyRequest
@@ -5548,6 +8829,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DetachPrincipalPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(detachPrincipalPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DetachPrincipalPolicy");
@@ -5573,6 +8856,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Disassociates a Device Defender security profile from a thing group or from this account.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DetachSecurityProfile</a> action.
      * </p>
      * 
      * @param detachSecurityProfileRequest
@@ -5608,6 +8896,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DetachSecurityProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(detachSecurityProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DetachSecurityProfile");
@@ -5640,6 +8930,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * This call is asynchronous. It might take several seconds for the detachment to propagate.
      * </p>
      * </note>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DetachThingPrincipal</a> action.
+     * </p>
      * 
      * @param detachThingPrincipalRequest
      *        The input for the DetachThingPrincipal operation.
@@ -5679,6 +8974,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DetachThingPrincipalRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(detachThingPrincipalRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DetachThingPrincipal");
@@ -5703,6 +9000,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Disables the rule.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DisableTopicRule</a> action.
      * </p>
      * 
      * @param disableTopicRuleRequest
@@ -5742,6 +9044,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new DisableTopicRuleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(disableTopicRuleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisableTopicRule");
@@ -5766,6 +9070,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Enables the rule.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >EnableTopicRule</a> action.
      * </p>
      * 
      * @param enableTopicRuleRequest
@@ -5805,6 +9114,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new EnableTopicRuleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(enableTopicRuleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "EnableTopicRule");
@@ -5828,8 +9139,235 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Returns a Device Defender's ML Detect Security Profile training model's status.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetBehaviorModelTrainingSummaries</a> action.
+     * </p>
+     * 
+     * @param getBehaviorModelTrainingSummariesRequest
+     * @return Result of the GetBehaviorModelTrainingSummaries operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @sample AWSIot.GetBehaviorModelTrainingSummaries
+     */
+    @Override
+    public GetBehaviorModelTrainingSummariesResult getBehaviorModelTrainingSummaries(GetBehaviorModelTrainingSummariesRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetBehaviorModelTrainingSummaries(request);
+    }
+
+    @SdkInternalApi
+    final GetBehaviorModelTrainingSummariesResult executeGetBehaviorModelTrainingSummaries(
+            GetBehaviorModelTrainingSummariesRequest getBehaviorModelTrainingSummariesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getBehaviorModelTrainingSummariesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetBehaviorModelTrainingSummariesRequest> request = null;
+        Response<GetBehaviorModelTrainingSummariesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetBehaviorModelTrainingSummariesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getBehaviorModelTrainingSummariesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetBehaviorModelTrainingSummaries");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetBehaviorModelTrainingSummariesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetBehaviorModelTrainingSummariesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Aggregates on indexed data with search queries pertaining to particular fields.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetBucketsAggregation</a> action.
+     * </p>
+     * 
+     * @param getBucketsAggregationRequest
+     * @return Result of the GetBucketsAggregation operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidQueryException
+     *         The query is invalid.
+     * @throws InvalidAggregationException
+     *         The aggregation is invalid.
+     * @throws IndexNotReadyException
+     *         The index is not ready.
+     * @sample AWSIot.GetBucketsAggregation
+     */
+    @Override
+    public GetBucketsAggregationResult getBucketsAggregation(GetBucketsAggregationRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetBucketsAggregation(request);
+    }
+
+    @SdkInternalApi
+    final GetBucketsAggregationResult executeGetBucketsAggregation(GetBucketsAggregationRequest getBucketsAggregationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getBucketsAggregationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetBucketsAggregationRequest> request = null;
+        Response<GetBucketsAggregationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetBucketsAggregationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getBucketsAggregationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetBucketsAggregation");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetBucketsAggregationResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new GetBucketsAggregationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the approximate count of unique values that match the query.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetCardinality</a> action.
+     * </p>
+     * 
+     * @param getCardinalityRequest
+     * @return Result of the GetCardinality operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidQueryException
+     *         The query is invalid.
+     * @throws InvalidAggregationException
+     *         The aggregation is invalid.
+     * @throws IndexNotReadyException
+     *         The index is not ready.
+     * @sample AWSIot.GetCardinality
+     */
+    @Override
+    public GetCardinalityResult getCardinality(GetCardinalityRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetCardinality(request);
+    }
+
+    @SdkInternalApi
+    final GetCardinalityResult executeGetCardinality(GetCardinalityRequest getCardinalityRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getCardinalityRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetCardinalityRequest> request = null;
+        Response<GetCardinalityResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetCardinalityRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getCardinalityRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetCardinality");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetCardinalityResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetCardinalityResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Gets a list of the policies that have an effect on the authorization behavior of the specified device when it
-     * connects to the AWS IoT device gateway.
+     * connects to the IoT device gateway.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetEffectivePolicies</a> action.
      * </p>
      * 
      * @param getEffectivePoliciesRequest
@@ -5871,6 +9409,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new GetEffectivePoliciesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getEffectivePoliciesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetEffectivePolicies");
@@ -5894,7 +9434,12 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Gets the search configuration.
+     * Gets the indexing configuration.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetIndexingConfiguration</a> action.
      * </p>
      * 
      * @param getIndexingConfigurationRequest
@@ -5933,6 +9478,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(getIndexingConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetIndexingConfiguration");
@@ -5958,6 +9505,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Gets a job document.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetJobDocument</a> action.
      * </p>
      * 
      * @param getJobDocumentRequest
@@ -5993,6 +9545,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new GetJobDocumentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getJobDocumentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetJobDocument");
@@ -6020,6 +9574,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * </p>
      * <p>
      * NOTE: use of this command is not recommended. Use <code>GetV2LoggingOptions</code> instead.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetLoggingOptions</a> action.
      * </p>
      * 
      * @param getLoggingOptionsRequest
@@ -6054,6 +9613,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new GetLoggingOptionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getLoggingOptionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetLoggingOptions");
@@ -6078,6 +9639,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Gets an OTA update.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetOTAUpdate</a> action.
      * </p>
      * 
      * @param getOTAUpdateRequest
@@ -6117,6 +9683,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new GetOTAUpdateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getOTAUpdateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetOTAUpdate");
@@ -6140,7 +9708,290 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Gets information about the specified software package.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetPackage</a> action.
+     * </p>
+     * 
+     * @param getPackageRequest
+     * @return Result of the GetPackage operation returned by the service.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalServerException
+     *         Internal error from the service that indicates an unexpected error or that the service is unavailable.
+     * @throws ValidationException
+     *         The request is not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @sample AWSIot.GetPackage
+     */
+    @Override
+    public GetPackageResult getPackage(GetPackageRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetPackage(request);
+    }
+
+    @SdkInternalApi
+    final GetPackageResult executeGetPackage(GetPackageRequest getPackageRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getPackageRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetPackageRequest> request = null;
+        Response<GetPackageResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetPackageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getPackageRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPackage");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetPackageResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetPackageResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets information about the specified software package's configuration.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetPackageConfiguration</a> action.
+     * </p>
+     * 
+     * @param getPackageConfigurationRequest
+     * @return Result of the GetPackageConfiguration operation returned by the service.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalServerException
+     *         Internal error from the service that indicates an unexpected error or that the service is unavailable.
+     * @sample AWSIot.GetPackageConfiguration
+     */
+    @Override
+    public GetPackageConfigurationResult getPackageConfiguration(GetPackageConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetPackageConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final GetPackageConfigurationResult executeGetPackageConfiguration(GetPackageConfigurationRequest getPackageConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getPackageConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetPackageConfigurationRequest> request = null;
+        Response<GetPackageConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetPackageConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getPackageConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPackageConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetPackageConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetPackageConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets information about the specified package version.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetPackageVersion</a> action.
+     * </p>
+     * 
+     * @param getPackageVersionRequest
+     * @return Result of the GetPackageVersion operation returned by the service.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalServerException
+     *         Internal error from the service that indicates an unexpected error or that the service is unavailable.
+     * @throws ValidationException
+     *         The request is not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @sample AWSIot.GetPackageVersion
+     */
+    @Override
+    public GetPackageVersionResult getPackageVersion(GetPackageVersionRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetPackageVersion(request);
+    }
+
+    @SdkInternalApi
+    final GetPackageVersionResult executeGetPackageVersion(GetPackageVersionRequest getPackageVersionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getPackageVersionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetPackageVersionRequest> request = null;
+        Response<GetPackageVersionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetPackageVersionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getPackageVersionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPackageVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetPackageVersionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetPackageVersionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Groups the aggregated values that match the query into percentile groupings. The default percentile groupings
+     * are: 1,5,25,50,75,95,99, although you can specify your own when you call <code>GetPercentiles</code>. This
+     * function returns a value for each percentile group specified (or the default percentile groupings). The
+     * percentile group "1" contains the aggregated field value that occurs in approximately one percent of the values
+     * that match the query. The percentile group "5" contains the aggregated field value that occurs in approximately
+     * five percent of the values that match the query, and so on. The result is an approximation, the more values that
+     * match the query, the more accurate the percentile values.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetPercentiles</a> action.
+     * </p>
+     * 
+     * @param getPercentilesRequest
+     * @return Result of the GetPercentiles operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidQueryException
+     *         The query is invalid.
+     * @throws InvalidAggregationException
+     *         The aggregation is invalid.
+     * @throws IndexNotReadyException
+     *         The index is not ready.
+     * @sample AWSIot.GetPercentiles
+     */
+    @Override
+    public GetPercentilesResult getPercentiles(GetPercentilesRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetPercentiles(request);
+    }
+
+    @SdkInternalApi
+    final GetPercentilesResult executeGetPercentiles(GetPercentilesRequest getPercentilesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getPercentilesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetPercentilesRequest> request = null;
+        Response<GetPercentilesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetPercentilesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getPercentilesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPercentiles");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetPercentilesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetPercentilesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Gets information about the specified policy with the policy document of the default version.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetPolicy</a> action.
      * </p>
      * 
      * @param getPolicyRequest
@@ -6181,6 +10032,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new GetPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPolicy");
@@ -6205,6 +10058,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Gets information about the specified policy version.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetPolicyVersion</a> action.
      * </p>
      * 
      * @param getPolicyVersionRequest
@@ -6245,6 +10103,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new GetPolicyVersionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getPolicyVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPolicyVersion");
@@ -6268,7 +10128,16 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Gets a registration code used to register a CA certificate with AWS IoT.
+     * Gets a registration code used to register a CA certificate with IoT.
+     * </p>
+     * <p>
+     * IoT will create a registration code as part of this API call if the registration code doesn't exist or has been
+     * deleted. If you already have a registration code, this API call will return the same registration code.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetRegistrationCode</a> action.
      * </p>
      * 
      * @param getRegistrationCodeRequest
@@ -6307,6 +10176,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new GetRegistrationCodeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRegistrationCodeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRegistrationCode");
@@ -6330,7 +10201,14 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Gets statistics about things that match the specified query.
+     * Returns the count, average, sum, minimum, maximum, sum of squares, variance, and standard deviation for the
+     * specified aggregated field. If the aggregation field is of type <code>String</code>, only the count statistic is
+     * returned.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetStatistics</a> action.
      * </p>
      * 
      * @param getStatisticsRequest
@@ -6376,6 +10254,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new GetStatisticsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getStatisticsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetStatistics");
@@ -6400,6 +10280,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Gets information about the rule.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetTopicRule</a> action.
      * </p>
      * 
      * @param getTopicRuleRequest
@@ -6436,6 +10321,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new GetTopicRuleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getTopicRuleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetTopicRule");
@@ -6459,7 +10346,80 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Gets information about a topic rule destination.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetTopicRuleDestination</a> action.
+     * </p>
+     * 
+     * @param getTopicRuleDestinationRequest
+     * @return Result of the GetTopicRuleDestination operation returned by the service.
+     * @throws InternalException
+     *         An unexpected error has occurred.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @sample AWSIot.GetTopicRuleDestination
+     */
+    @Override
+    public GetTopicRuleDestinationResult getTopicRuleDestination(GetTopicRuleDestinationRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetTopicRuleDestination(request);
+    }
+
+    @SdkInternalApi
+    final GetTopicRuleDestinationResult executeGetTopicRuleDestination(GetTopicRuleDestinationRequest getTopicRuleDestinationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getTopicRuleDestinationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetTopicRuleDestinationRequest> request = null;
+        Response<GetTopicRuleDestinationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetTopicRuleDestinationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getTopicRuleDestinationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetTopicRuleDestination");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetTopicRuleDestinationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetTopicRuleDestinationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Gets the fine grained logging options.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetV2LoggingOptions</a> action.
      * </p>
      * 
      * @param getV2LoggingOptionsRequest
@@ -6493,6 +10453,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new GetV2LoggingOptionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getV2LoggingOptionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetV2LoggingOptions");
@@ -6517,6 +10479,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Lists the active violations for a given Device Defender security profile.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListActiveViolations</a> action.
      * </p>
      * 
      * @param listActiveViolationsRequest
@@ -6552,6 +10519,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListActiveViolationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listActiveViolationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListActiveViolations");
@@ -6576,6 +10545,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Lists the policies attached to the specified thing group.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListAttachedPolicies</a> action.
      * </p>
      * 
      * @param listAttachedPoliciesRequest
@@ -6617,6 +10591,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListAttachedPoliciesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listAttachedPoliciesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAttachedPolicies");
@@ -6641,7 +10617,12 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Lists the findings (results) of a Device Defender audit or of the audits performed during a specified time
-     * period. (Findings are retained for 180 days.)
+     * period. (Findings are retained for 90 days.)
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListAuditFindings</a> action.
      * </p>
      * 
      * @param listAuditFindingsRequest
@@ -6675,6 +10656,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListAuditFindingsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listAuditFindingsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAuditFindings");
@@ -6699,6 +10682,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Gets the status of audit mitigation action tasks that were executed.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListAuditMitigationActionsExecutions</a> action.
      * </p>
      * 
      * @param listAuditMitigationActionsExecutionsRequest
@@ -6734,6 +10722,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(listAuditMitigationActionsExecutionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAuditMitigationActionsExecutions");
@@ -6759,6 +10749,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Gets a list of audit mitigation action tasks that match the specified filters.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListAuditMitigationActionsTasks</a> action.
      * </p>
      * 
      * @param listAuditMitigationActionsTasksRequest
@@ -6794,6 +10789,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(listAuditMitigationActionsTasksRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAuditMitigationActionsTasks");
@@ -6818,7 +10815,77 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Lists your Device Defender audit listings.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListAuditSuppressions</a> action.
+     * </p>
+     * 
+     * @param listAuditSuppressionsRequest
+     * @return Result of the ListAuditSuppressions operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.ListAuditSuppressions
+     */
+    @Override
+    public ListAuditSuppressionsResult listAuditSuppressions(ListAuditSuppressionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListAuditSuppressions(request);
+    }
+
+    @SdkInternalApi
+    final ListAuditSuppressionsResult executeListAuditSuppressions(ListAuditSuppressionsRequest listAuditSuppressionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listAuditSuppressionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListAuditSuppressionsRequest> request = null;
+        Response<ListAuditSuppressionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListAuditSuppressionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listAuditSuppressionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAuditSuppressions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListAuditSuppressionsResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new ListAuditSuppressionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Lists the Device Defender audits that have been performed during a given time period.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListAuditTasks</a> action.
      * </p>
      * 
      * @param listAuditTasksRequest
@@ -6852,6 +10919,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListAuditTasksRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listAuditTasksRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAuditTasks");
@@ -6876,6 +10945,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Lists the authorizers registered in your account.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListAuthorizers</a> action.
      * </p>
      * 
      * @param listAuthorizersRequest
@@ -6913,6 +10987,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListAuthorizersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listAuthorizersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAuthorizers");
@@ -6937,6 +11013,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Lists the billing groups you have created.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListBillingGroups</a> action.
      * </p>
      * 
      * @param listBillingGroupsRequest
@@ -6972,6 +11053,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListBillingGroupsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listBillingGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListBillingGroups");
@@ -6995,11 +11078,16 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Lists the CA certificates registered for your AWS account.
+     * Lists the CA certificates registered for your Amazon Web Services account.
      * </p>
      * <p>
      * The results are paginated with a default page size of 25. You can use the returned marker to retrieve additional
      * results.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListCACertificates</a> action.
      * </p>
      * 
      * @param listCACertificatesRequest
@@ -7038,6 +11126,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListCACertificatesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listCACertificatesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCACertificates");
@@ -7061,11 +11151,86 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Lists the certificates registered in your AWS account.
+     * Lists all your certificate providers in your Amazon Web Services account.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListCertificateProviders</a> action.
+     * </p>
+     * 
+     * @param listCertificateProvidersRequest
+     * @return Result of the ListCertificateProviders operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.ListCertificateProviders
+     */
+    @Override
+    public ListCertificateProvidersResult listCertificateProviders(ListCertificateProvidersRequest request) {
+        request = beforeClientExecution(request);
+        return executeListCertificateProviders(request);
+    }
+
+    @SdkInternalApi
+    final ListCertificateProvidersResult executeListCertificateProviders(ListCertificateProvidersRequest listCertificateProvidersRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listCertificateProvidersRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListCertificateProvidersRequest> request = null;
+        Response<ListCertificateProvidersResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListCertificateProvidersRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listCertificateProvidersRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCertificateProviders");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListCertificateProvidersResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListCertificateProvidersResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists the certificates registered in your Amazon Web Services account.
      * </p>
      * <p>
      * The results are paginated with a default page size of 25. You can use the returned marker to retrieve additional
      * results.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListCertificates</a> action.
      * </p>
      * 
      * @param listCertificatesRequest
@@ -7104,6 +11269,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListCertificatesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listCertificatesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCertificates");
@@ -7128,6 +11295,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * List the device certificates signed by the specified CA certificate.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListCertificatesByCA</a> action.
      * </p>
      * 
      * @param listCertificatesByCARequest
@@ -7166,6 +11338,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListCertificatesByCARequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listCertificatesByCARequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCertificatesByCA");
@@ -7189,7 +11363,413 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Lists your Device Defender detect custom metrics.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListCustomMetrics</a> action.
+     * </p>
+     * 
+     * @param listCustomMetricsRequest
+     * @return Result of the ListCustomMetrics operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.ListCustomMetrics
+     */
+    @Override
+    public ListCustomMetricsResult listCustomMetrics(ListCustomMetricsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListCustomMetrics(request);
+    }
+
+    @SdkInternalApi
+    final ListCustomMetricsResult executeListCustomMetrics(ListCustomMetricsRequest listCustomMetricsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listCustomMetricsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListCustomMetricsRequest> request = null;
+        Response<ListCustomMetricsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListCustomMetricsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listCustomMetricsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCustomMetrics");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListCustomMetricsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListCustomMetricsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists mitigation actions executions for a Device Defender ML Detect Security Profile.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListDetectMitigationActionsExecutions</a> action.
+     * </p>
+     * 
+     * @param listDetectMitigationActionsExecutionsRequest
+     * @return Result of the ListDetectMitigationActionsExecutions operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.ListDetectMitigationActionsExecutions
+     */
+    @Override
+    public ListDetectMitigationActionsExecutionsResult listDetectMitigationActionsExecutions(ListDetectMitigationActionsExecutionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListDetectMitigationActionsExecutions(request);
+    }
+
+    @SdkInternalApi
+    final ListDetectMitigationActionsExecutionsResult executeListDetectMitigationActionsExecutions(
+            ListDetectMitigationActionsExecutionsRequest listDetectMitigationActionsExecutionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listDetectMitigationActionsExecutionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListDetectMitigationActionsExecutionsRequest> request = null;
+        Response<ListDetectMitigationActionsExecutionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListDetectMitigationActionsExecutionsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listDetectMitigationActionsExecutionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDetectMitigationActionsExecutions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListDetectMitigationActionsExecutionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListDetectMitigationActionsExecutionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * List of Device Defender ML Detect mitigation actions tasks.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListDetectMitigationActionsTasks</a> action.
+     * </p>
+     * 
+     * @param listDetectMitigationActionsTasksRequest
+     * @return Result of the ListDetectMitigationActionsTasks operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.ListDetectMitigationActionsTasks
+     */
+    @Override
+    public ListDetectMitigationActionsTasksResult listDetectMitigationActionsTasks(ListDetectMitigationActionsTasksRequest request) {
+        request = beforeClientExecution(request);
+        return executeListDetectMitigationActionsTasks(request);
+    }
+
+    @SdkInternalApi
+    final ListDetectMitigationActionsTasksResult executeListDetectMitigationActionsTasks(
+            ListDetectMitigationActionsTasksRequest listDetectMitigationActionsTasksRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listDetectMitigationActionsTasksRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListDetectMitigationActionsTasksRequest> request = null;
+        Response<ListDetectMitigationActionsTasksResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListDetectMitigationActionsTasksRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listDetectMitigationActionsTasksRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDetectMitigationActionsTasks");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListDetectMitigationActionsTasksResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListDetectMitigationActionsTasksResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * List the set of dimensions that are defined for your Amazon Web Services accounts.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListDimensions</a> action.
+     * </p>
+     * 
+     * @param listDimensionsRequest
+     * @return Result of the ListDimensions operation returned by the service.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @sample AWSIot.ListDimensions
+     */
+    @Override
+    public ListDimensionsResult listDimensions(ListDimensionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListDimensions(request);
+    }
+
+    @SdkInternalApi
+    final ListDimensionsResult executeListDimensions(ListDimensionsRequest listDimensionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listDimensionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListDimensionsRequest> request = null;
+        Response<ListDimensionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListDimensionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDimensionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDimensions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListDimensionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListDimensionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a list of domain configurations for the user. This list is sorted alphabetically by domain configuration
+     * name.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListDomainConfigurations</a> action.
+     * </p>
+     * 
+     * @param listDomainConfigurationsRequest
+     * @return Result of the ListDomainConfigurations operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.ListDomainConfigurations
+     */
+    @Override
+    public ListDomainConfigurationsResult listDomainConfigurations(ListDomainConfigurationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListDomainConfigurations(request);
+    }
+
+    @SdkInternalApi
+    final ListDomainConfigurationsResult executeListDomainConfigurations(ListDomainConfigurationsRequest listDomainConfigurationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listDomainConfigurationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListDomainConfigurationsRequest> request = null;
+        Response<ListDomainConfigurationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListDomainConfigurationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listDomainConfigurationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDomainConfigurations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListDomainConfigurationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListDomainConfigurationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists all your fleet metrics.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListFleetMetrics</a> action.
+     * </p>
+     * 
+     * @param listFleetMetricsRequest
+     * @return Result of the ListFleetMetrics operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.ListFleetMetrics
+     */
+    @Override
+    public ListFleetMetricsResult listFleetMetrics(ListFleetMetricsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListFleetMetrics(request);
+    }
+
+    @SdkInternalApi
+    final ListFleetMetricsResult executeListFleetMetrics(ListFleetMetricsRequest listFleetMetricsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listFleetMetricsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListFleetMetricsRequest> request = null;
+        Response<ListFleetMetricsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListFleetMetricsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listFleetMetricsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListFleetMetrics");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListFleetMetricsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListFleetMetricsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Lists the search indices.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListIndices</a> action.
      * </p>
      * 
      * @param listIndicesRequest
@@ -7227,6 +11807,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListIndicesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listIndicesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListIndices");
@@ -7251,6 +11833,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Lists the job executions for a job.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListJobExecutionsForJob</a> action.
      * </p>
      * 
      * @param listJobExecutionsForJobRequest
@@ -7287,6 +11874,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(listJobExecutionsForJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListJobExecutionsForJob");
@@ -7312,6 +11901,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Lists the job executions for the specified thing.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListJobExecutionsForThing</a> action.
      * </p>
      * 
      * @param listJobExecutionsForThingRequest
@@ -7348,6 +11942,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(listJobExecutionsForThingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListJobExecutionsForThing");
@@ -7372,7 +11968,76 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Returns a list of job templates.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListJobTemplates</a> action.
+     * </p>
+     * 
+     * @param listJobTemplatesRequest
+     * @return Result of the ListJobTemplates operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.ListJobTemplates
+     */
+    @Override
+    public ListJobTemplatesResult listJobTemplates(ListJobTemplatesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListJobTemplates(request);
+    }
+
+    @SdkInternalApi
+    final ListJobTemplatesResult executeListJobTemplates(ListJobTemplatesRequest listJobTemplatesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listJobTemplatesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListJobTemplatesRequest> request = null;
+        Response<ListJobTemplatesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListJobTemplatesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listJobTemplatesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListJobTemplates");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListJobTemplatesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListJobTemplatesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Lists jobs.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListJobs</a> action.
      * </p>
      * 
      * @param listJobsRequest
@@ -7408,6 +12073,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListJobsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listJobsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListJobs");
@@ -7431,7 +12098,137 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Returns a list of managed job templates.
+     * </p>
+     * 
+     * @param listManagedJobTemplatesRequest
+     * @return Result of the ListManagedJobTemplates operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalServerException
+     *         Internal error from the service that indicates an unexpected error or that the service is unavailable.
+     * @sample AWSIot.ListManagedJobTemplates
+     */
+    @Override
+    public ListManagedJobTemplatesResult listManagedJobTemplates(ListManagedJobTemplatesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListManagedJobTemplates(request);
+    }
+
+    @SdkInternalApi
+    final ListManagedJobTemplatesResult executeListManagedJobTemplates(ListManagedJobTemplatesRequest listManagedJobTemplatesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listManagedJobTemplatesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListManagedJobTemplatesRequest> request = null;
+        Response<ListManagedJobTemplatesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListManagedJobTemplatesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listManagedJobTemplatesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListManagedJobTemplates");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListManagedJobTemplatesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListManagedJobTemplatesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists the values reported for an IoT Device Defender metric (device-side metric, cloud-side metric, or custom
+     * metric) by the given thing during the specified time period.
+     * </p>
+     * 
+     * @param listMetricValuesRequest
+     * @return Result of the ListMetricValues operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @sample AWSIot.ListMetricValues
+     */
+    @Override
+    public ListMetricValuesResult listMetricValues(ListMetricValuesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListMetricValues(request);
+    }
+
+    @SdkInternalApi
+    final ListMetricValuesResult executeListMetricValues(ListMetricValuesRequest listMetricValuesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listMetricValuesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListMetricValuesRequest> request = null;
+        Response<ListMetricValuesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListMetricValuesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listMetricValuesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListMetricValues");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListMetricValuesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListMetricValuesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Gets a list of all mitigation actions that match the specified filter criteria.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListMitigationActions</a> action.
      * </p>
      * 
      * @param listMitigationActionsRequest
@@ -7465,6 +12262,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListMitigationActionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listMitigationActionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListMitigationActions");
@@ -7490,6 +12289,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Lists OTA updates.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListOTAUpdates</a> action.
      * </p>
      * 
      * @param listOTAUpdatesRequest
@@ -7527,6 +12331,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListOTAUpdatesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listOTAUpdatesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListOTAUpdates");
@@ -7551,6 +12357,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Lists certificates that are being transferred but not yet accepted.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListOutgoingCertificates</a> action.
      * </p>
      * 
      * @param listOutgoingCertificatesRequest
@@ -7590,6 +12401,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(listOutgoingCertificatesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListOutgoingCertificates");
@@ -7614,7 +12427,140 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Lists the software package versions associated to the account.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListPackageVersions</a> action.
+     * </p>
+     * 
+     * @param listPackageVersionsRequest
+     * @return Result of the ListPackageVersions operation returned by the service.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalServerException
+     *         Internal error from the service that indicates an unexpected error or that the service is unavailable.
+     * @throws ValidationException
+     *         The request is not valid.
+     * @sample AWSIot.ListPackageVersions
+     */
+    @Override
+    public ListPackageVersionsResult listPackageVersions(ListPackageVersionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListPackageVersions(request);
+    }
+
+    @SdkInternalApi
+    final ListPackageVersionsResult executeListPackageVersions(ListPackageVersionsRequest listPackageVersionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listPackageVersionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListPackageVersionsRequest> request = null;
+        Response<ListPackageVersionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListPackageVersionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listPackageVersionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPackageVersions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListPackageVersionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListPackageVersionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists the software packages associated to the account.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListPackages</a> action.
+     * </p>
+     * 
+     * @param listPackagesRequest
+     * @return Result of the ListPackages operation returned by the service.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalServerException
+     *         Internal error from the service that indicates an unexpected error or that the service is unavailable.
+     * @throws ValidationException
+     *         The request is not valid.
+     * @sample AWSIot.ListPackages
+     */
+    @Override
+    public ListPackagesResult listPackages(ListPackagesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListPackages(request);
+    }
+
+    @SdkInternalApi
+    final ListPackagesResult executeListPackages(ListPackagesRequest listPackagesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listPackagesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListPackagesRequest> request = null;
+        Response<ListPackagesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListPackagesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listPackagesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPackages");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListPackagesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListPackagesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Lists your policies.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListPolicies</a> action.
      * </p>
      * 
      * @param listPoliciesRequest
@@ -7653,6 +12599,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListPoliciesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listPoliciesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPolicies");
@@ -7679,7 +12627,13 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * Lists the principals associated with the specified policy.
      * </p>
      * <p>
-     * <b>Note:</b> This API is deprecated. Please use <a>ListTargetsForPolicy</a> instead.
+     * <b>Note:</b> This action is deprecated and works as expected for backward compatibility, but we won't add
+     * enhancements. Use <a>ListTargetsForPolicy</a> instead.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListPolicyPrincipals</a> action.
      * </p>
      * 
      * @param listPolicyPrincipalsRequest
@@ -7721,6 +12675,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListPolicyPrincipalsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listPolicyPrincipalsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPolicyPrincipals");
@@ -7745,6 +12701,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Lists the versions of the specified policy and identifies the default version.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListPolicyVersions</a> action.
      * </p>
      * 
      * @param listPolicyVersionsRequest
@@ -7785,6 +12746,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListPolicyVersionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listPolicyVersionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPolicyVersions");
@@ -7814,7 +12777,13 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * >AmazonCognito Identity format</a>.
      * </p>
      * <p>
-     * <b>Note:</b> This API is deprecated. Please use <a>ListAttachedPolicies</a> instead.
+     * <b>Note:</b> This action is deprecated and works as expected for backward compatibility, but we won't add
+     * enhancements. Use <a>ListAttachedPolicies</a> instead.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListPrincipalPolicies</a> action.
      * </p>
      * 
      * @param listPrincipalPoliciesRequest
@@ -7856,6 +12825,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListPrincipalPoliciesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listPrincipalPoliciesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPrincipalPolicies");
@@ -7882,6 +12853,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * <p>
      * Lists the things associated with the specified principal. A principal can be X.509 certificates, IAM users,
      * groups, and roles, Amazon Cognito identities or federated identities.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListPrincipalThings</a> action.
      * </p>
      * 
      * @param listPrincipalThingsRequest
@@ -7922,6 +12898,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListPrincipalThingsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listPrincipalThingsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPrincipalThings");
@@ -7945,7 +12923,272 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * A list of provisioning template versions.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListProvisioningTemplateVersions</a> action.
+     * </p>
+     * 
+     * @param listProvisioningTemplateVersionsRequest
+     * @return Result of the ListProvisioningTemplateVersions operation returned by the service.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @sample AWSIot.ListProvisioningTemplateVersions
+     */
+    @Override
+    public ListProvisioningTemplateVersionsResult listProvisioningTemplateVersions(ListProvisioningTemplateVersionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListProvisioningTemplateVersions(request);
+    }
+
+    @SdkInternalApi
+    final ListProvisioningTemplateVersionsResult executeListProvisioningTemplateVersions(
+            ListProvisioningTemplateVersionsRequest listProvisioningTemplateVersionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listProvisioningTemplateVersionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListProvisioningTemplateVersionsRequest> request = null;
+        Response<ListProvisioningTemplateVersionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListProvisioningTemplateVersionsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listProvisioningTemplateVersionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListProvisioningTemplateVersions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListProvisioningTemplateVersionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListProvisioningTemplateVersionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists the provisioning templates in your Amazon Web Services account.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListProvisioningTemplates</a> action.
+     * </p>
+     * 
+     * @param listProvisioningTemplatesRequest
+     * @return Result of the ListProvisioningTemplates operation returned by the service.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @sample AWSIot.ListProvisioningTemplates
+     */
+    @Override
+    public ListProvisioningTemplatesResult listProvisioningTemplates(ListProvisioningTemplatesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListProvisioningTemplates(request);
+    }
+
+    @SdkInternalApi
+    final ListProvisioningTemplatesResult executeListProvisioningTemplates(ListProvisioningTemplatesRequest listProvisioningTemplatesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listProvisioningTemplatesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListProvisioningTemplatesRequest> request = null;
+        Response<ListProvisioningTemplatesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListProvisioningTemplatesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listProvisioningTemplatesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListProvisioningTemplates");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListProvisioningTemplatesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListProvisioningTemplatesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * The related resources of an Audit finding. The following resources can be returned from calling this API:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * DEVICE_CERTIFICATE
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CA_CERTIFICATE
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * IOT_POLICY
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * COGNITO_IDENTITY_POOL
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CLIENT_ID
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ACCOUNT_SETTINGS
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ROLE_ALIAS
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * IAM_ROLE
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ISSUER_CERTIFICATE
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * This API is similar to DescribeAuditFinding's <a
+     * href="https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeAuditFinding.html">RelatedResources</a> but
+     * provides pagination and is not limited to 10 resources. When calling <a
+     * href="https://docs.aws.amazon.com/iot/latest/apireference/API_DescribeAuditFinding.html">DescribeAuditFinding</a>
+     * for the intermediate CA revoked for active device certificates check, RelatedResources will not be populated. You
+     * must use this API, ListRelatedResourcesForAuditFinding, to list the certificates.
+     * </p>
+     * </note>
+     * 
+     * @param listRelatedResourcesForAuditFindingRequest
+     * @return Result of the ListRelatedResourcesForAuditFinding operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.ListRelatedResourcesForAuditFinding
+     */
+    @Override
+    public ListRelatedResourcesForAuditFindingResult listRelatedResourcesForAuditFinding(ListRelatedResourcesForAuditFindingRequest request) {
+        request = beforeClientExecution(request);
+        return executeListRelatedResourcesForAuditFinding(request);
+    }
+
+    @SdkInternalApi
+    final ListRelatedResourcesForAuditFindingResult executeListRelatedResourcesForAuditFinding(
+            ListRelatedResourcesForAuditFindingRequest listRelatedResourcesForAuditFindingRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listRelatedResourcesForAuditFindingRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListRelatedResourcesForAuditFindingRequest> request = null;
+        Response<ListRelatedResourcesForAuditFindingResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListRelatedResourcesForAuditFindingRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listRelatedResourcesForAuditFindingRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRelatedResourcesForAuditFinding");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListRelatedResourcesForAuditFindingResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListRelatedResourcesForAuditFindingResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Lists the role aliases registered in your account.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListRoleAliases</a> action.
      * </p>
      * 
      * @param listRoleAliasesRequest
@@ -7983,6 +13226,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListRoleAliasesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listRoleAliasesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRoleAliases");
@@ -8007,6 +13252,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Lists all of your scheduled audits.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListScheduledAudits</a> action.
      * </p>
      * 
      * @param listScheduledAuditsRequest
@@ -8040,6 +13290,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListScheduledAuditsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listScheduledAuditsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListScheduledAudits");
@@ -8063,9 +13315,19 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Lists the Device Defender security profiles you have created. You can use filters to list only those security
-     * profiles associated with a thing group or only those associated with your account.
+     * Lists the Device Defender security profiles you've created. You can filter security profiles by dimension or
+     * custom metric.
      * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListSecurityProfiles</a> action.
+     * </p>
+     * <note>
+     * <p>
+     * <code>dimensionName</code> and <code>metricName</code> cannot be used in the same request.
+     * </p>
+     * </note>
      * 
      * @param listSecurityProfilesRequest
      * @return Result of the ListSecurityProfiles operation returned by the service.
@@ -8075,6 +13337,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      *         The rate exceeds the limit.
      * @throws InternalFailureException
      *         An unexpected error has occurred.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
      * @sample AWSIot.ListSecurityProfiles
      */
     @Override
@@ -8098,6 +13362,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListSecurityProfilesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listSecurityProfilesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListSecurityProfiles");
@@ -8122,6 +13388,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Lists the Device Defender security profiles attached to a target (thing group).
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListSecurityProfilesForTarget</a> action.
      * </p>
      * 
      * @param listSecurityProfilesForTargetRequest
@@ -8158,6 +13429,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(listSecurityProfilesForTargetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListSecurityProfilesForTarget");
@@ -8182,7 +13455,12 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Lists all of the streams in your AWS account.
+     * Lists all of the streams in your Amazon Web Services account.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListStreams</a> action.
      * </p>
      * 
      * @param listStreamsRequest
@@ -8220,6 +13498,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListStreamsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listStreamsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListStreams");
@@ -8244,6 +13524,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Lists the tags (metadata) you have assigned to the resource.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListTagsForResource</a> action.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -8279,6 +13564,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -8303,6 +13590,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * List targets for the specified policy.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListTargetsForPolicy</a> action.
      * </p>
      * 
      * @param listTargetsForPolicyRequest
@@ -8344,6 +13636,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListTargetsForPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTargetsForPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTargetsForPolicy");
@@ -8368,6 +13662,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Lists the targets (thing groups) associated with a given Device Defender security profile.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListTargetsForSecurityProfile</a> action.
      * </p>
      * 
      * @param listTargetsForSecurityProfileRequest
@@ -8404,6 +13703,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(listTargetsForSecurityProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTargetsForSecurityProfile");
@@ -8430,6 +13731,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * <p>
      * List the thing groups in your account.
      * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListThingGroups</a> action.
+     * </p>
      * 
      * @param listThingGroupsRequest
      * @return Result of the ListThingGroups operation returned by the service.
@@ -8439,6 +13745,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      *         An unexpected error has occurred.
      * @throws ResourceNotFoundException
      *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
      * @sample AWSIot.ListThingGroups
      */
     @Override
@@ -8462,6 +13770,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListThingGroupsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listThingGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListThingGroups");
@@ -8487,6 +13797,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * <p>
      * List the thing groups to which the specified thing belongs.
      * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListThingGroupsForThing</a> action.
+     * </p>
      * 
      * @param listThingGroupsForThingRequest
      * @return Result of the ListThingGroupsForThing operation returned by the service.
@@ -8496,6 +13811,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      *         An unexpected error has occurred.
      * @throws ResourceNotFoundException
      *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
      * @sample AWSIot.ListThingGroupsForThing
      */
     @Override
@@ -8520,6 +13837,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(listThingGroupsForThingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListThingGroupsForThing");
@@ -8546,6 +13865,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * <p>
      * Lists the principals associated with the specified thing. A principal can be X.509 certificates, IAM users,
      * groups, and roles, Amazon Cognito identities or federated identities.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListThingPrincipals</a> action.
      * </p>
      * 
      * @param listThingPrincipalsRequest
@@ -8586,6 +13910,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListThingPrincipalsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listThingPrincipalsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListThingPrincipals");
@@ -8647,6 +13973,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(listThingRegistrationTaskReportsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListThingRegistrationTaskReports");
@@ -8672,6 +14000,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * List bulk thing provisioning tasks.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListThingRegistrationTasks</a> action.
      * </p>
      * 
      * @param listThingRegistrationTasksRequest
@@ -8708,6 +14041,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(listThingRegistrationTasksRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListThingRegistrationTasks");
@@ -8733,6 +14068,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Lists the existing thing types.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListThingTypes</a> action.
      * </p>
      * 
      * @param listThingTypesRequest
@@ -8771,6 +14111,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListThingTypesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listThingTypesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListThingTypes");
@@ -8796,8 +14138,22 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * <p>
      * Lists your things. Use the <b>attributeName</b> and <b>attributeValue</b> parameters to filter your things. For
      * example, calling <code>ListThings</code> with attributeName=Color and attributeValue=Red retrieves all things in
-     * the registry that contain an attribute <b>Color</b> with the value <b>Red</b>.
+     * the registry that contain an attribute <b>Color</b> with the value <b>Red</b>. For more information, see <a
+     * href="https://docs.aws.amazon.com/iot/latest/developerguide/thing-registry.html#list-things">List Things</a> from
+     * the <i>Amazon Web Services IoT Core Developer Guide</i>.
      * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListThings</a> action.
+     * </p>
+     * <note>
+     * <p>
+     * You will not be charged for calling this API if an <code>Access denied</code> error is returned. You will also
+     * not be charged if no attributes or pagination token was provided in request and no pagination token and no
+     * results were returned.
+     * </p>
+     * </note>
      * 
      * @param listThingsRequest
      *        The input for the ListThings operation.
@@ -8835,6 +14191,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListThingsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listThingsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListThings");
@@ -8859,6 +14217,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Lists the things you have added to the given billing group.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListThingsInBillingGroup</a> action.
      * </p>
      * 
      * @param listThingsInBillingGroupRequest
@@ -8895,6 +14258,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(listThingsInBillingGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListThingsInBillingGroup");
@@ -8921,6 +14286,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * <p>
      * Lists the things in the specified group.
      * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListThingsInThingGroup</a> action.
+     * </p>
      * 
      * @param listThingsInThingGroupRequest
      * @return Result of the ListThingsInThingGroup operation returned by the service.
@@ -8930,6 +14300,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      *         An unexpected error has occurred.
      * @throws ResourceNotFoundException
      *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
      * @sample AWSIot.ListThingsInThingGroup
      */
     @Override
@@ -8953,6 +14325,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListThingsInThingGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listThingsInThingGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListThingsInThingGroup");
@@ -8977,7 +14351,80 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Lists all the topic rule destinations in your Amazon Web Services account.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListTopicRuleDestinations</a> action.
+     * </p>
+     * 
+     * @param listTopicRuleDestinationsRequest
+     * @return Result of the ListTopicRuleDestinations operation returned by the service.
+     * @throws InternalException
+     *         An unexpected error has occurred.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @sample AWSIot.ListTopicRuleDestinations
+     */
+    @Override
+    public ListTopicRuleDestinationsResult listTopicRuleDestinations(ListTopicRuleDestinationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListTopicRuleDestinations(request);
+    }
+
+    @SdkInternalApi
+    final ListTopicRuleDestinationsResult executeListTopicRuleDestinations(ListTopicRuleDestinationsRequest listTopicRuleDestinationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listTopicRuleDestinationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListTopicRuleDestinationsRequest> request = null;
+        Response<ListTopicRuleDestinationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTopicRuleDestinationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listTopicRuleDestinationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTopicRuleDestinations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListTopicRuleDestinationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListTopicRuleDestinationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Lists the rules for the specific topic.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListTopicRules</a> action.
      * </p>
      * 
      * @param listTopicRulesRequest
@@ -9012,6 +14459,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListTopicRulesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTopicRulesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTopicRules");
@@ -9036,6 +14485,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Lists logging levels.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListV2LoggingLevels</a> action.
      * </p>
      * 
      * @param listV2LoggingLevelsRequest
@@ -9071,6 +14525,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListV2LoggingLevelsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listV2LoggingLevelsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListV2LoggingLevels");
@@ -9097,6 +14553,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * Lists the Device Defender security profile violations discovered during the given time period. You can use
      * filters to limit the results to those alerts issued for a particular security profile, behavior, or thing
      * (device).
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListViolationEvents</a> action.
      * </p>
      * 
      * @param listViolationEventsRequest
@@ -9130,6 +14591,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ListViolationEventsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listViolationEventsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListViolationEvents");
@@ -9153,16 +14616,83 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Registers a CA certificate with AWS IoT. This CA certificate can then be used to sign device certificates, which
-     * can be then registered with AWS IoT. You can register up to 10 CA certificates per AWS account that have the same
-     * subject field. This enables you to have up to 10 certificate authorities sign your device certificates. If you
-     * have more than one CA certificate registered, make sure you pass the CA certificate when you register your device
-     * certificates with the RegisterCertificate API.
+     * Set a verification state and provide a description of that verification state on a violation (detect alarm).
+     * </p>
+     * 
+     * @param putVerificationStateOnViolationRequest
+     * @return Result of the PutVerificationStateOnViolation operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.PutVerificationStateOnViolation
+     */
+    @Override
+    public PutVerificationStateOnViolationResult putVerificationStateOnViolation(PutVerificationStateOnViolationRequest request) {
+        request = beforeClientExecution(request);
+        return executePutVerificationStateOnViolation(request);
+    }
+
+    @SdkInternalApi
+    final PutVerificationStateOnViolationResult executePutVerificationStateOnViolation(
+            PutVerificationStateOnViolationRequest putVerificationStateOnViolationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putVerificationStateOnViolationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutVerificationStateOnViolationRequest> request = null;
+        Response<PutVerificationStateOnViolationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutVerificationStateOnViolationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(putVerificationStateOnViolationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutVerificationStateOnViolation");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutVerificationStateOnViolationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new PutVerificationStateOnViolationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Registers a CA certificate with Amazon Web Services IoT Core. There is no limit to the number of CA certificates
+     * you can register in your Amazon Web Services account. You can register up to 10 CA certificates with the same
+     * <code>CA subject field</code> per Amazon Web Services account.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >RegisterCACertificate</a> action.
      * </p>
      * 
      * @param registerCACertificateRequest
      *        The input to the RegisterCACertificate operation.
      * @return Result of the RegisterCACertificate operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
      * @throws ResourceAlreadyExistsException
      *         The resource already exists.
      * @throws RegistrationCodeValidationException
@@ -9204,6 +14734,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new RegisterCACertificateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(registerCACertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterCACertificate");
@@ -9228,8 +14760,15 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Registers a device certificate with AWS IoT. If you have more than one CA certificate that has the same subject
+     * Registers a device certificate with IoT in the same <a href=
+     * "https://docs.aws.amazon.com/iot/latest/apireference/API_CertificateDescription.html#iot-Type-CertificateDescription-certificateMode"
+     * >certificate mode</a> as the signing CA. If you have more than one CA certificate that has the same subject
      * field, you must specify the CA certificate that was used to sign the device certificate being registered.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >RegisterCertificate</a> action.
      * </p>
      * 
      * @param registerCertificateRequest
@@ -9278,6 +14817,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new RegisterCertificateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(registerCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterCertificate");
@@ -9301,7 +14842,89 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Provisions a thing.
+     * Register a certificate that does not have a certificate authority (CA). For supported certificates, consult <a
+     * href="https://docs.aws.amazon.com/iot/latest/developerguide/x509-client-certs.html#x509-cert-algorithms">
+     * Certificate signing algorithms supported by IoT</a>.
+     * </p>
+     * 
+     * @param registerCertificateWithoutCARequest
+     * @return Result of the RegisterCertificateWithoutCA operation returned by the service.
+     * @throws ResourceAlreadyExistsException
+     *         The resource already exists.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws CertificateStateException
+     *         The certificate operation is not allowed.
+     * @throws CertificateValidationException
+     *         The certificate is invalid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.RegisterCertificateWithoutCA
+     */
+    @Override
+    public RegisterCertificateWithoutCAResult registerCertificateWithoutCA(RegisterCertificateWithoutCARequest request) {
+        request = beforeClientExecution(request);
+        return executeRegisterCertificateWithoutCA(request);
+    }
+
+    @SdkInternalApi
+    final RegisterCertificateWithoutCAResult executeRegisterCertificateWithoutCA(RegisterCertificateWithoutCARequest registerCertificateWithoutCARequest) {
+
+        ExecutionContext executionContext = createExecutionContext(registerCertificateWithoutCARequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<RegisterCertificateWithoutCARequest> request = null;
+        Response<RegisterCertificateWithoutCAResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RegisterCertificateWithoutCARequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(registerCertificateWithoutCARequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterCertificateWithoutCA");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<RegisterCertificateWithoutCAResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new RegisterCertificateWithoutCAResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Provisions a thing in the device registry. RegisterThing calls other IoT control plane APIs. These calls might
+     * exceed your account level <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_iot"> IoT Throttling
+     * Limits</a> and cause throttle errors. Please contact <a href="https://console.aws.amazon.com/support/home">Amazon
+     * Web Services Customer Support</a> to raise your throttling limits if necessary.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >RegisterThing</a> action.
      * </p>
      * 
      * @param registerThingRequest
@@ -9344,6 +14967,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new RegisterThingRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(registerThingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterThing");
@@ -9367,8 +14992,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Rejects a pending certificate transfer. After AWS IoT rejects a certificate transfer, the certificate status
-     * changes from <b>PENDING_TRANSFER</b> to <b>INACTIVE</b>.
+     * Rejects a pending certificate transfer. After IoT rejects a certificate transfer, the certificate status changes
+     * from <b>PENDING_TRANSFER</b> to <b>INACTIVE</b>.
      * </p>
      * <p>
      * To check for pending certificate transfers, call <a>ListCertificates</a> to enumerate your certificates.
@@ -9376,6 +15001,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * <p>
      * This operation can only be called by the transfer destination. After it is called, the certificate will be
      * returned to the source's account in the INACTIVE state.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >RejectCertificateTransfer</a> action.
      * </p>
      * 
      * @param rejectCertificateTransferRequest
@@ -9419,6 +15049,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(rejectCertificateTransferRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RejectCertificateTransfer");
@@ -9445,6 +15077,16 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * <p>
      * Removes the given thing from the billing group.
      * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >RemoveThingFromBillingGroup</a> action.
+     * </p>
+     * <note>
+     * <p>
+     * This call is asynchronous. It might take several seconds for the detachment to propagate.
+     * </p>
+     * </note>
      * 
      * @param removeThingFromBillingGroupRequest
      * @return Result of the RemoveThingFromBillingGroup operation returned by the service.
@@ -9480,6 +15122,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(removeThingFromBillingGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RemoveThingFromBillingGroup");
@@ -9505,6 +15149,16 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Remove the specified thing from the specified group.
+     * </p>
+     * <p>
+     * You must specify either a <code>thingGroupArn</code> or a <code>thingGroupName</code> to identify the thing group
+     * and either a <code>thingArn</code> or a <code>thingName</code> to identify the thing to remove from the thing
+     * group.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >RemoveThingFromThingGroup</a> action.
      * </p>
      * 
      * @param removeThingFromThingGroupRequest
@@ -9541,6 +15195,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(removeThingFromThingGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RemoveThingFromThingGroup");
@@ -9567,6 +15223,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * <p>
      * Replaces the rule. You must specify all parameters for the new rule. Creating rules is an administrator-level
      * action. Any user who has permission to create rules will be able to access data processed by the rule.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ReplaceTopicRule</a> action.
      * </p>
      * 
      * @param replaceTopicRuleRequest
@@ -9608,6 +15269,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new ReplaceTopicRuleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(replaceTopicRuleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ReplaceTopicRule");
@@ -9632,6 +15295,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * The query search index.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >SearchIndex</a> action.
      * </p>
      * 
      * @param searchIndexRequest
@@ -9675,6 +15343,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new SearchIndexRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(searchIndexRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SearchIndex");
@@ -9700,6 +15370,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * <p>
      * Sets the default authorizer. This will be used if a websocket connection is made without specifying an
      * authorizer.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >SetDefaultAuthorizer</a> action.
      * </p>
      * 
      * @param setDefaultAuthorizerRequest
@@ -9741,6 +15416,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new SetDefaultAuthorizerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(setDefaultAuthorizerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SetDefaultAuthorizer");
@@ -9766,7 +15443,12 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * <p>
      * Sets the specified version of the specified policy as the policy's default (operative) version. This action
      * affects all certificates to which the policy is attached. To list the principals the policy is attached to, use
-     * the ListPrincipalPolicy API.
+     * the <a>ListPrincipalPolicies</a> action.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >SetDefaultPolicyVersion</a> action.
      * </p>
      * 
      * @param setDefaultPolicyVersionRequest
@@ -9808,6 +15490,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(setDefaultPolicyVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SetDefaultPolicyVersion");
@@ -9836,6 +15520,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * </p>
      * <p>
      * NOTE: use of this command is not recommended. Use <code>SetV2LoggingOptions</code> instead.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >SetLoggingOptions</a> action.
      * </p>
      * 
      * @param setLoggingOptionsRequest
@@ -9870,6 +15559,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new SetLoggingOptionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(setLoggingOptionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SetLoggingOptions");
@@ -9895,6 +15586,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * <p>
      * Sets the logging level.
      * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >SetV2LoggingLevel</a> action.
+     * </p>
      * 
      * @param setV2LoggingLevelRequest
      * @return Result of the SetV2LoggingLevel operation returned by the service.
@@ -9906,6 +15602,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      *         The request is not valid.
      * @throws ServiceUnavailableException
      *         The service is temporarily unavailable.
+     * @throws LimitExceededException
+     *         A limit has been exceeded.
      * @sample AWSIot.SetV2LoggingLevel
      */
     @Override
@@ -9929,6 +15627,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new SetV2LoggingLevelRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(setV2LoggingLevelRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SetV2LoggingLevel");
@@ -9953,6 +15653,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Sets the logging options for the V2 logging service.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >SetV2LoggingOptions</a> action.
      * </p>
      * 
      * @param setV2LoggingOptionsRequest
@@ -9986,6 +15691,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new SetV2LoggingOptionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(setV2LoggingOptionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SetV2LoggingOptions");
@@ -10010,6 +15717,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Starts a task that applies a set of mitigation actions to the specified target.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >StartAuditMitigationActionsTask</a> action.
      * </p>
      * 
      * @param startAuditMitigationActionsTaskRequest
@@ -10050,6 +15762,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(startAuditMitigationActionsTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartAuditMitigationActionsTask");
@@ -10074,7 +15788,84 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Starts a Device Defender ML Detect mitigation actions task.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >StartDetectMitigationActionsTask</a> action.
+     * </p>
+     * 
+     * @param startDetectMitigationActionsTaskRequest
+     * @return Result of the StartDetectMitigationActionsTask operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws TaskAlreadyExistsException
+     *         This exception occurs if you attempt to start a task with the same task-id as an existing task but with a
+     *         different clientRequestToken.
+     * @throws LimitExceededException
+     *         A limit has been exceeded.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.StartDetectMitigationActionsTask
+     */
+    @Override
+    public StartDetectMitigationActionsTaskResult startDetectMitigationActionsTask(StartDetectMitigationActionsTaskRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartDetectMitigationActionsTask(request);
+    }
+
+    @SdkInternalApi
+    final StartDetectMitigationActionsTaskResult executeStartDetectMitigationActionsTask(
+            StartDetectMitigationActionsTaskRequest startDetectMitigationActionsTaskRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startDetectMitigationActionsTaskRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartDetectMitigationActionsTaskRequest> request = null;
+        Response<StartDetectMitigationActionsTaskResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartDetectMitigationActionsTaskRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(startDetectMitigationActionsTaskRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartDetectMitigationActionsTask");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartDetectMitigationActionsTaskResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new StartDetectMitigationActionsTaskResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Starts an on-demand Device Defender audit.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >StartOnDemandAuditTask</a> action.
      * </p>
      * 
      * @param startOnDemandAuditTaskRequest
@@ -10110,6 +15901,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new StartOnDemandAuditTaskRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startOnDemandAuditTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartOnDemandAuditTask");
@@ -10135,6 +15928,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Creates a bulk thing provisioning task.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >StartThingRegistrationTask</a> action.
      * </p>
      * 
      * @param startThingRegistrationTaskRequest
@@ -10171,6 +15969,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(startThingRegistrationTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartThingRegistrationTask");
@@ -10196,6 +15996,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Cancels a bulk thing provisioning task.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >StopThingRegistrationTask</a> action.
      * </p>
      * 
      * @param stopThingRegistrationTaskRequest
@@ -10234,6 +16039,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(stopThingRegistrationTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StopThingRegistrationTask");
@@ -10259,6 +16066,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Adds to or modifies the tags of the given resource. Tags are metadata which can be used to manage a resource.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >TagResource</a> action.
      * </p>
      * 
      * @param tagResourceRequest
@@ -10296,6 +16108,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -10319,8 +16133,13 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Tests if a specified principal is authorized to perform an AWS IoT action on a specified resource. Use this to
-     * test and debug the authorization behavior of devices that connect to the AWS IoT device gateway.
+     * Tests if a specified principal is authorized to perform an IoT action on a specified resource. Use this to test
+     * and debug the authorization behavior of devices that connect to the IoT device gateway.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >TestAuthorization</a> action.
      * </p>
      * 
      * @param testAuthorizationRequest
@@ -10362,6 +16181,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new TestAuthorizationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(testAuthorizationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TestAuthorization");
@@ -10386,7 +16207,12 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Tests a custom authorization behavior by invoking a specified custom authorizer. Use this to test and debug the
-     * custom authorization behavior of devices that connect to the AWS IoT device gateway.
+     * custom authorization behavior of devices that connect to the IoT device gateway.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >TestInvokeAuthorizer</a> action.
      * </p>
      * 
      * @param testInvokeAuthorizerRequest
@@ -10428,6 +16254,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new TestInvokeAuthorizerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(testInvokeAuthorizerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TestInvokeAuthorizer");
@@ -10451,7 +16279,12 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
-     * Transfers the specified certificate to the specified AWS account.
+     * Transfers the specified certificate to the specified Amazon Web Services account.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >TransferCertificate</a> action.
      * </p>
      * <p>
      * You can cancel the transfer until it is acknowledged by the recipient.
@@ -10461,11 +16294,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * target.
      * </p>
      * <p>
-     * The certificate being transferred must not be in the ACTIVE state. You can use the UpdateCertificate API to
-     * deactivate it.
+     * The certificate being transferred must not be in the ACTIVE state. You can use the <a>UpdateCertificate</a>
+     * action to deactivate it.
      * </p>
      * <p>
-     * The certificate must not have any policies attached to it. You can use the DetachPrincipalPolicy API to detach
+     * The certificate must not have any policies attached to it. You can use the <a>DetachPolicy</a> action to detach
      * them.
      * </p>
      * 
@@ -10511,6 +16344,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new TransferCertificateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(transferCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TransferCertificate");
@@ -10535,6 +16370,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Removes the given tags (metadata) from the resource.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UntagResource</a> action.
      * </p>
      * 
      * @param untagResourceRequest
@@ -10570,6 +16410,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -10595,6 +16437,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * <p>
      * Configures or reconfigures the Device Defender audit settings for this account. Settings include how audit
      * notifications are sent and which audit checks are enabled or disabled.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateAccountAuditConfiguration</a> action.
      * </p>
      * 
      * @param updateAccountAuditConfigurationRequest
@@ -10630,6 +16477,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(updateAccountAuditConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateAccountAuditConfiguration");
@@ -10654,7 +16503,74 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Updates a Device Defender audit suppression.
+     * </p>
+     * 
+     * @param updateAuditSuppressionRequest
+     * @return Result of the UpdateAuditSuppression operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.UpdateAuditSuppression
+     */
+    @Override
+    public UpdateAuditSuppressionResult updateAuditSuppression(UpdateAuditSuppressionRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateAuditSuppression(request);
+    }
+
+    @SdkInternalApi
+    final UpdateAuditSuppressionResult executeUpdateAuditSuppression(UpdateAuditSuppressionRequest updateAuditSuppressionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateAuditSuppressionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateAuditSuppressionRequest> request = null;
+        Response<UpdateAuditSuppressionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateAuditSuppressionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateAuditSuppressionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateAuditSuppression");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateAuditSuppressionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateAuditSuppressionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Updates an authorizer.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateAuthorizer</a> action.
      * </p>
      * 
      * @param updateAuthorizerRequest
@@ -10696,6 +16612,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new UpdateAuthorizerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateAuthorizerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateAuthorizer");
@@ -10720,6 +16638,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Updates information about the billing group.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateBillingGroup</a> action.
      * </p>
      * 
      * @param updateBillingGroupRequest
@@ -10758,6 +16681,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new UpdateBillingGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateBillingGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateBillingGroup");
@@ -10782,6 +16707,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Updates a registered CA certificate.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateCACertificate</a> action.
      * </p>
      * 
      * @param updateCACertificateRequest
@@ -10822,6 +16752,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new UpdateCACertificateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateCACertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateCACertificate");
@@ -10848,11 +16780,17 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
      * Updates the status of the specified certificate. This operation is idempotent.
      * </p>
      * <p>
-     * Moving a certificate from the ACTIVE state (including REVOKED) will not disconnect currently connected devices,
-     * but these devices will be unable to reconnect.
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateCertificate</a> action.
      * </p>
      * <p>
-     * The ACTIVE state is required to authenticate devices connecting to AWS IoT using a certificate.
+     * Certificates must be in the ACTIVE state to authenticate devices that use a certificate to connect to IoT.
+     * </p>
+     * <p>
+     * Within a few minutes of updating a certificate from the ACTIVE state to any other state, IoT disconnects all
+     * devices that used that certificate to connect. Devices cannot use a certificate that is not in the ACTIVE state
+     * to reconnect.
      * </p>
      * 
      * @param updateCertificateRequest
@@ -10895,6 +16833,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new UpdateCertificateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateCertificate");
@@ -10918,7 +16858,291 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Updates a certificate provider.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateCertificateProvider</a> action.
+     * </p>
+     * 
+     * @param updateCertificateProviderRequest
+     * @return Result of the UpdateCertificateProvider operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.UpdateCertificateProvider
+     */
+    @Override
+    public UpdateCertificateProviderResult updateCertificateProvider(UpdateCertificateProviderRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateCertificateProvider(request);
+    }
+
+    @SdkInternalApi
+    final UpdateCertificateProviderResult executeUpdateCertificateProvider(UpdateCertificateProviderRequest updateCertificateProviderRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateCertificateProviderRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateCertificateProviderRequest> request = null;
+        Response<UpdateCertificateProviderResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateCertificateProviderRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateCertificateProviderRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateCertificateProvider");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateCertificateProviderResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateCertificateProviderResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates a Device Defender detect custom metric.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateCustomMetric</a> action.
+     * </p>
+     * 
+     * @param updateCustomMetricRequest
+     * @return Result of the UpdateCustomMetric operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.UpdateCustomMetric
+     */
+    @Override
+    public UpdateCustomMetricResult updateCustomMetric(UpdateCustomMetricRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateCustomMetric(request);
+    }
+
+    @SdkInternalApi
+    final UpdateCustomMetricResult executeUpdateCustomMetric(UpdateCustomMetricRequest updateCustomMetricRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateCustomMetricRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateCustomMetricRequest> request = null;
+        Response<UpdateCustomMetricResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateCustomMetricRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateCustomMetricRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateCustomMetric");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateCustomMetricResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateCustomMetricResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the definition for a dimension. You cannot change the type of a dimension after it is created (you can
+     * delete it and recreate it).
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateDimension</a> action.
+     * </p>
+     * 
+     * @param updateDimensionRequest
+     * @return Result of the UpdateDimension operation returned by the service.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @sample AWSIot.UpdateDimension
+     */
+    @Override
+    public UpdateDimensionResult updateDimension(UpdateDimensionRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateDimension(request);
+    }
+
+    @SdkInternalApi
+    final UpdateDimensionResult executeUpdateDimension(UpdateDimensionRequest updateDimensionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateDimensionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateDimensionRequest> request = null;
+        Response<UpdateDimensionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateDimensionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateDimensionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDimension");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateDimensionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateDimensionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates values stored in the domain configuration. Domain configurations for default endpoints can't be updated.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateDomainConfiguration</a> action.
+     * </p>
+     * 
+     * @param updateDomainConfigurationRequest
+     * @return Result of the UpdateDomainConfiguration operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws CertificateValidationException
+     *         The certificate is invalid.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @sample AWSIot.UpdateDomainConfiguration
+     */
+    @Override
+    public UpdateDomainConfigurationResult updateDomainConfiguration(UpdateDomainConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateDomainConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final UpdateDomainConfigurationResult executeUpdateDomainConfiguration(UpdateDomainConfigurationRequest updateDomainConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateDomainConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateDomainConfigurationRequest> request = null;
+        Response<UpdateDomainConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateDomainConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateDomainConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDomainConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateDomainConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateDomainConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Updates a dynamic thing group.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateDynamicThingGroup</a> action.
      * </p>
      * 
      * @param updateDynamicThingGroupRequest
@@ -10960,6 +17184,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(updateDynamicThingGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDynamicThingGroup");
@@ -10985,6 +17211,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Updates the event configurations.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateEventConfigurations</a> action.
      * </p>
      * 
      * @param updateEventConfigurationsRequest
@@ -11019,6 +17250,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(updateEventConfigurationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateEventConfigurations");
@@ -11043,7 +17276,91 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Updates the data for a fleet metric.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateFleetMetric</a> action.
+     * </p>
+     * 
+     * @param updateFleetMetricRequest
+     * @return Result of the UpdateFleetMetric operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidQueryException
+     *         The query is invalid.
+     * @throws InvalidAggregationException
+     *         The aggregation is invalid.
+     * @throws VersionConflictException
+     *         An exception thrown when the version of an entity specified with the <code>expectedVersion</code>
+     *         parameter does not match the latest version in the system.
+     * @throws IndexNotReadyException
+     *         The index is not ready.
+     * @sample AWSIot.UpdateFleetMetric
+     */
+    @Override
+    public UpdateFleetMetricResult updateFleetMetric(UpdateFleetMetricRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateFleetMetric(request);
+    }
+
+    @SdkInternalApi
+    final UpdateFleetMetricResult executeUpdateFleetMetric(UpdateFleetMetricRequest updateFleetMetricRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateFleetMetricRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateFleetMetricRequest> request = null;
+        Response<UpdateFleetMetricResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateFleetMetricRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateFleetMetricRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateFleetMetric");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateFleetMetricResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateFleetMetricResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Updates the search configuration.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateIndexingConfiguration</a> action.
      * </p>
      * 
      * @param updateIndexingConfigurationRequest
@@ -11082,6 +17399,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(updateIndexingConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateIndexingConfiguration");
@@ -11107,6 +17426,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Updates supported fields of the specified job.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateJob</a> action.
      * </p>
      * 
      * @param updateJobRequest
@@ -11142,6 +17466,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new UpdateJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateJob");
@@ -11166,6 +17492,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Updates the definition for the specified mitigation action.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateMitigationAction</a> action.
      * </p>
      * 
      * @param updateMitigationActionRequest
@@ -11201,6 +17532,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new UpdateMitigationActionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateMitigationActionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateMitigationAction");
@@ -11225,7 +17558,292 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Updates the supported fields for a specific software package.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdatePackage</a> and <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetIndexingConfiguration</a> actions.
+     * </p>
+     * 
+     * @param updatePackageRequest
+     * @return Result of the UpdatePackage operation returned by the service.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws ConflictException
+     *         A resource with the same name already exists.
+     * @throws InternalServerException
+     *         Internal error from the service that indicates an unexpected error or that the service is unavailable.
+     * @throws ValidationException
+     *         The request is not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @sample AWSIot.UpdatePackage
+     */
+    @Override
+    public UpdatePackageResult updatePackage(UpdatePackageRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdatePackage(request);
+    }
+
+    @SdkInternalApi
+    final UpdatePackageResult executeUpdatePackage(UpdatePackageRequest updatePackageRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updatePackageRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdatePackageRequest> request = null;
+        Response<UpdatePackageResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdatePackageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updatePackageRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdatePackage");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdatePackageResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdatePackageResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the software package configuration.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdatePackageConfiguration</a> and <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_passrole.html">iam:PassRole</a> actions.
+     * </p>
+     * 
+     * @param updatePackageConfigurationRequest
+     * @return Result of the UpdatePackageConfiguration operation returned by the service.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws ConflictException
+     *         A resource with the same name already exists.
+     * @throws InternalServerException
+     *         Internal error from the service that indicates an unexpected error or that the service is unavailable.
+     * @throws ValidationException
+     *         The request is not valid.
+     * @sample AWSIot.UpdatePackageConfiguration
+     */
+    @Override
+    public UpdatePackageConfigurationResult updatePackageConfiguration(UpdatePackageConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdatePackageConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final UpdatePackageConfigurationResult executeUpdatePackageConfiguration(UpdatePackageConfigurationRequest updatePackageConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updatePackageConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdatePackageConfigurationRequest> request = null;
+        Response<UpdatePackageConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdatePackageConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updatePackageConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdatePackageConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdatePackageConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdatePackageConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the supported fields for a specific package version.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdatePackageVersion</a> and <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetIndexingConfiguration</a> actions.
+     * </p>
+     * 
+     * @param updatePackageVersionRequest
+     * @return Result of the UpdatePackageVersion operation returned by the service.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws ConflictException
+     *         A resource with the same name already exists.
+     * @throws InternalServerException
+     *         Internal error from the service that indicates an unexpected error or that the service is unavailable.
+     * @throws ValidationException
+     *         The request is not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @sample AWSIot.UpdatePackageVersion
+     */
+    @Override
+    public UpdatePackageVersionResult updatePackageVersion(UpdatePackageVersionRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdatePackageVersion(request);
+    }
+
+    @SdkInternalApi
+    final UpdatePackageVersionResult executeUpdatePackageVersion(UpdatePackageVersionRequest updatePackageVersionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updatePackageVersionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdatePackageVersionRequest> request = null;
+        Response<UpdatePackageVersionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdatePackageVersionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updatePackageVersionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdatePackageVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdatePackageVersionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdatePackageVersionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates a provisioning template.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateProvisioningTemplate</a> action.
+     * </p>
+     * 
+     * @param updateProvisioningTemplateRequest
+     * @return Result of the UpdateProvisioningTemplate operation returned by the service.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ConflictingResourceUpdateException
+     *         A conflicting resource update exception. This exception is thrown when two pending updates cause a
+     *         conflict.
+     * @sample AWSIot.UpdateProvisioningTemplate
+     */
+    @Override
+    public UpdateProvisioningTemplateResult updateProvisioningTemplate(UpdateProvisioningTemplateRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateProvisioningTemplate(request);
+    }
+
+    @SdkInternalApi
+    final UpdateProvisioningTemplateResult executeUpdateProvisioningTemplate(UpdateProvisioningTemplateRequest updateProvisioningTemplateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateProvisioningTemplateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateProvisioningTemplateRequest> request = null;
+        Response<UpdateProvisioningTemplateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateProvisioningTemplateRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateProvisioningTemplateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateProvisioningTemplate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateProvisioningTemplateResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateProvisioningTemplateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Updates a role alias.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateRoleAlias</a> action.
      * </p>
      * 
      * @param updateRoleAliasRequest
@@ -11265,6 +17883,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new UpdateRoleAliasRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateRoleAliasRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRoleAlias");
@@ -11289,6 +17909,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Updates a scheduled audit, including which checks are performed and how often the audit takes place.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateScheduledAudit</a> action.
      * </p>
      * 
      * @param updateScheduledAuditRequest
@@ -11324,6 +17949,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new UpdateScheduledAuditRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateScheduledAuditRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateScheduledAudit");
@@ -11348,6 +17975,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Updates a Device Defender security profile.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateSecurityProfile</a> action.
      * </p>
      * 
      * @param updateSecurityProfileRequest
@@ -11386,6 +18018,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new UpdateSecurityProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateSecurityProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateSecurityProfile");
@@ -11411,6 +18045,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Updates an existing stream. The stream version will be incremented by one.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateStream</a> action.
      * </p>
      * 
      * @param updateStreamRequest
@@ -11450,6 +18089,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new UpdateStreamRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateStreamRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateStream");
@@ -11474,6 +18115,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Updates the data for a thing.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateThing</a> action.
      * </p>
      * 
      * @param updateThingRequest
@@ -11517,6 +18163,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new UpdateThingRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateThingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateThing");
@@ -11541,6 +18189,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Update a thing group.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateThingGroup</a> action.
      * </p>
      * 
      * @param updateThingGroupRequest
@@ -11579,6 +18232,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                 request = new UpdateThingGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateThingGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateThingGroup");
@@ -11603,6 +18258,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     /**
      * <p>
      * Updates the groups to which the thing belongs.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateThingGroupsForThing</a> action.
      * </p>
      * 
      * @param updateThingGroupsForThingRequest
@@ -11639,6 +18299,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(updateThingGroupsForThingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateThingGroupsForThing");
@@ -11663,7 +18325,84 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
 
     /**
      * <p>
+     * Updates a topic rule destination. You use this to change the status, endpoint URL, or confirmation URL of the
+     * destination.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateTopicRuleDestination</a> action.
+     * </p>
+     * 
+     * @param updateTopicRuleDestinationRequest
+     * @return Result of the UpdateTopicRuleDestination operation returned by the service.
+     * @throws InternalException
+     *         An unexpected error has occurred.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ConflictingResourceUpdateException
+     *         A conflicting resource update exception. This exception is thrown when two pending updates cause a
+     *         conflict.
+     * @sample AWSIot.UpdateTopicRuleDestination
+     */
+    @Override
+    public UpdateTopicRuleDestinationResult updateTopicRuleDestination(UpdateTopicRuleDestinationRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateTopicRuleDestination(request);
+    }
+
+    @SdkInternalApi
+    final UpdateTopicRuleDestinationResult executeUpdateTopicRuleDestination(UpdateTopicRuleDestinationRequest updateTopicRuleDestinationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateTopicRuleDestinationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateTopicRuleDestinationRequest> request = null;
+        Response<UpdateTopicRuleDestinationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateTopicRuleDestinationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateTopicRuleDestinationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateTopicRuleDestination");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateTopicRuleDestinationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateTopicRuleDestinationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Validates a Device Defender security profile behaviors specification.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ValidateSecurityProfileBehaviors</a> action.
      * </p>
      * 
      * @param validateSecurityProfileBehaviorsRequest
@@ -11699,6 +18438,8 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
                         .beforeMarshalling(validateSecurityProfileBehaviorsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ValidateSecurityProfileBehaviors");
@@ -11795,6 +18536,11 @@ public class AWSIotClient extends AmazonWebServiceClient implements AWSIot {
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

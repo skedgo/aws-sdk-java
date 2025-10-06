@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -43,6 +43,14 @@ public abstract class BaseProtocolMetadataProvider implements ProtocolMetadataPr
      */
     @Override
     public boolean isCborProtocol() {
+        return false;
+    }
+
+    /**
+     * Default is false, subclasses can override to indicate they are Smithy RPC v2 CBOR protocols.
+     */
+    @Override
+    public boolean isRpcV2CborProtocol() {
         return false;
     }
 

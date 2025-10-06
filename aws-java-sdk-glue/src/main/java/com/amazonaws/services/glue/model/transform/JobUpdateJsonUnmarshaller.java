@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,6 +48,10 @@ public class JobUpdateJsonUnmarshaller implements Unmarshaller<JobUpdate, JsonUn
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("JobMode", targetDepth)) {
+                    context.nextToken();
+                    jobUpdate.setJobMode(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("Description", targetDepth)) {
                     context.nextToken();
                     jobUpdate.setDescription(context.getUnmarshaller(String.class).unmarshall(context));
@@ -71,6 +75,11 @@ public class JobUpdateJsonUnmarshaller implements Unmarshaller<JobUpdate, JsonUn
                 if (context.testExpression("DefaultArguments", targetDepth)) {
                     context.nextToken();
                     jobUpdate.setDefaultArguments(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context
+                            .getUnmarshaller(String.class)).unmarshall(context));
+                }
+                if (context.testExpression("NonOverridableArguments", targetDepth)) {
+                    context.nextToken();
+                    jobUpdate.setNonOverridableArguments(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context
                             .getUnmarshaller(String.class)).unmarshall(context));
                 }
                 if (context.testExpression("Connections", targetDepth)) {
@@ -112,6 +121,23 @@ public class JobUpdateJsonUnmarshaller implements Unmarshaller<JobUpdate, JsonUn
                 if (context.testExpression("GlueVersion", targetDepth)) {
                     context.nextToken();
                     jobUpdate.setGlueVersion(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("CodeGenConfigurationNodes", targetDepth)) {
+                    context.nextToken();
+                    jobUpdate.setCodeGenConfigurationNodes(new MapUnmarshaller<String, CodeGenConfigurationNode>(context.getUnmarshaller(String.class),
+                            CodeGenConfigurationNodeJsonUnmarshaller.getInstance()).unmarshall(context));
+                }
+                if (context.testExpression("ExecutionClass", targetDepth)) {
+                    context.nextToken();
+                    jobUpdate.setExecutionClass(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("SourceControlDetails", targetDepth)) {
+                    context.nextToken();
+                    jobUpdate.setSourceControlDetails(SourceControlDetailsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("MaintenanceWindow", targetDepth)) {
+                    context.nextToken();
+                    jobUpdate.setMaintenanceWindow(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

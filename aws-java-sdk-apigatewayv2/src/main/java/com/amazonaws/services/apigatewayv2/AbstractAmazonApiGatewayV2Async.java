@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -171,6 +171,32 @@ public class AbstractAmazonApiGatewayV2Async extends AbstractAmazonApiGatewayV2 
     }
 
     @Override
+    public java.util.concurrent.Future<CreateVpcLinkResult> createVpcLinkAsync(CreateVpcLinkRequest request) {
+
+        return createVpcLinkAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateVpcLinkResult> createVpcLinkAsync(CreateVpcLinkRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateVpcLinkRequest, CreateVpcLinkResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAccessLogSettingsResult> deleteAccessLogSettingsAsync(DeleteAccessLogSettingsRequest request) {
+
+        return deleteAccessLogSettingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAccessLogSettingsResult> deleteAccessLogSettingsAsync(DeleteAccessLogSettingsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteAccessLogSettingsRequest, DeleteAccessLogSettingsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteApiResult> deleteApiAsync(DeleteApiRequest request) {
 
         return deleteApiAsync(request, null);
@@ -205,6 +231,19 @@ public class AbstractAmazonApiGatewayV2Async extends AbstractAmazonApiGatewayV2 
     @Override
     public java.util.concurrent.Future<DeleteAuthorizerResult> deleteAuthorizerAsync(DeleteAuthorizerRequest request,
             com.amazonaws.handlers.AsyncHandler<DeleteAuthorizerRequest, DeleteAuthorizerResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCorsConfigurationResult> deleteCorsConfigurationAsync(DeleteCorsConfigurationRequest request) {
+
+        return deleteCorsConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCorsConfigurationResult> deleteCorsConfigurationAsync(DeleteCorsConfigurationRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteCorsConfigurationRequest, DeleteCorsConfigurationResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -288,6 +327,19 @@ public class AbstractAmazonApiGatewayV2Async extends AbstractAmazonApiGatewayV2 
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteRouteRequestParameterResult> deleteRouteRequestParameterAsync(DeleteRouteRequestParameterRequest request) {
+
+        return deleteRouteRequestParameterAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRouteRequestParameterResult> deleteRouteRequestParameterAsync(DeleteRouteRequestParameterRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteRouteRequestParameterRequest, DeleteRouteRequestParameterResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteRouteResponseResult> deleteRouteResponseAsync(DeleteRouteResponseRequest request) {
 
         return deleteRouteResponseAsync(request, null);
@@ -301,6 +353,19 @@ public class AbstractAmazonApiGatewayV2Async extends AbstractAmazonApiGatewayV2 
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteRouteSettingsResult> deleteRouteSettingsAsync(DeleteRouteSettingsRequest request) {
+
+        return deleteRouteSettingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRouteSettingsResult> deleteRouteSettingsAsync(DeleteRouteSettingsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteRouteSettingsRequest, DeleteRouteSettingsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteStageResult> deleteStageAsync(DeleteStageRequest request) {
 
         return deleteStageAsync(request, null);
@@ -309,6 +374,32 @@ public class AbstractAmazonApiGatewayV2Async extends AbstractAmazonApiGatewayV2 
     @Override
     public java.util.concurrent.Future<DeleteStageResult> deleteStageAsync(DeleteStageRequest request,
             com.amazonaws.handlers.AsyncHandler<DeleteStageRequest, DeleteStageResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteVpcLinkResult> deleteVpcLinkAsync(DeleteVpcLinkRequest request) {
+
+        return deleteVpcLinkAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteVpcLinkResult> deleteVpcLinkAsync(DeleteVpcLinkRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteVpcLinkRequest, DeleteVpcLinkResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ExportApiResult> exportApiAsync(ExportApiRequest request) {
+
+        return exportApiAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ExportApiResult> exportApiAsync(ExportApiRequest request,
+            com.amazonaws.handlers.AsyncHandler<ExportApiRequest, ExportApiResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -626,6 +717,71 @@ public class AbstractAmazonApiGatewayV2Async extends AbstractAmazonApiGatewayV2 
     }
 
     @Override
+    public java.util.concurrent.Future<GetVpcLinkResult> getVpcLinkAsync(GetVpcLinkRequest request) {
+
+        return getVpcLinkAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetVpcLinkResult> getVpcLinkAsync(GetVpcLinkRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetVpcLinkRequest, GetVpcLinkResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetVpcLinksResult> getVpcLinksAsync(GetVpcLinksRequest request) {
+
+        return getVpcLinksAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetVpcLinksResult> getVpcLinksAsync(GetVpcLinksRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetVpcLinksRequest, GetVpcLinksResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ImportApiResult> importApiAsync(ImportApiRequest request) {
+
+        return importApiAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ImportApiResult> importApiAsync(ImportApiRequest request,
+            com.amazonaws.handlers.AsyncHandler<ImportApiRequest, ImportApiResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ReimportApiResult> reimportApiAsync(ReimportApiRequest request) {
+
+        return reimportApiAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ReimportApiResult> reimportApiAsync(ReimportApiRequest request,
+            com.amazonaws.handlers.AsyncHandler<ReimportApiRequest, ReimportApiResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ResetAuthorizersCacheResult> resetAuthorizersCacheAsync(ResetAuthorizersCacheRequest request) {
+
+        return resetAuthorizersCacheAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ResetAuthorizersCacheResult> resetAuthorizersCacheAsync(ResetAuthorizersCacheRequest request,
+            com.amazonaws.handlers.AsyncHandler<ResetAuthorizersCacheRequest, ResetAuthorizersCacheResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
 
         return tagResourceAsync(request, null);
@@ -790,6 +946,19 @@ public class AbstractAmazonApiGatewayV2Async extends AbstractAmazonApiGatewayV2 
     @Override
     public java.util.concurrent.Future<UpdateStageResult> updateStageAsync(UpdateStageRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateStageRequest, UpdateStageResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateVpcLinkResult> updateVpcLinkAsync(UpdateVpcLinkRequest request) {
+
+        return updateVpcLinkAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateVpcLinkResult> updateVpcLinkAsync(UpdateVpcLinkRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateVpcLinkRequest, UpdateVpcLinkResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

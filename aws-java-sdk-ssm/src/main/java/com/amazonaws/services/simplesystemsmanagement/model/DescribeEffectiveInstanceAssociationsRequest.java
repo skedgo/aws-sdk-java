@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class DescribeEffectiveInstanceAssociationsRequest extends com.amazonaws.
 
     /**
      * <p>
-     * The instance ID for which you want to view all associations.
+     * The managed node ID for which you want to view all associations.
      * </p>
      */
     private String instanceId;
@@ -47,11 +47,11 @@ public class DescribeEffectiveInstanceAssociationsRequest extends com.amazonaws.
 
     /**
      * <p>
-     * The instance ID for which you want to view all associations.
+     * The managed node ID for which you want to view all associations.
      * </p>
      * 
      * @param instanceId
-     *        The instance ID for which you want to view all associations.
+     *        The managed node ID for which you want to view all associations.
      */
 
     public void setInstanceId(String instanceId) {
@@ -60,10 +60,10 @@ public class DescribeEffectiveInstanceAssociationsRequest extends com.amazonaws.
 
     /**
      * <p>
-     * The instance ID for which you want to view all associations.
+     * The managed node ID for which you want to view all associations.
      * </p>
      * 
-     * @return The instance ID for which you want to view all associations.
+     * @return The managed node ID for which you want to view all associations.
      */
 
     public String getInstanceId() {
@@ -72,11 +72,11 @@ public class DescribeEffectiveInstanceAssociationsRequest extends com.amazonaws.
 
     /**
      * <p>
-     * The instance ID for which you want to view all associations.
+     * The managed node ID for which you want to view all associations.
      * </p>
      * 
      * @param instanceId
-     *        The instance ID for which you want to view all associations.
+     *        The managed node ID for which you want to view all associations.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

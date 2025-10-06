@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,10 +30,10 @@ public class Field implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A value of BLOB data type.
+     * A NULL value.
      * </p>
      */
-    private java.nio.ByteBuffer blobValue;
+    private Boolean isNull;
     /**
      * <p>
      * A value of Boolean data type.
@@ -42,28 +42,258 @@ public class Field implements Serializable, Cloneable, StructuredPojo {
     private Boolean booleanValue;
     /**
      * <p>
-     * A value of double data type.
-     * </p>
-     */
-    private Double doubleValue;
-    /**
-     * <p>
-     * A NULL value.
-     * </p>
-     */
-    private Boolean isNull;
-    /**
-     * <p>
      * A value of long data type.
      * </p>
      */
     private Long longValue;
     /**
      * <p>
+     * A value of double data type.
+     * </p>
+     */
+    private Double doubleValue;
+    /**
+     * <p>
      * A value of string data type.
      * </p>
      */
     private String stringValue;
+    /**
+     * <p>
+     * A value of BLOB data type.
+     * </p>
+     */
+    private java.nio.ByteBuffer blobValue;
+    /**
+     * <p>
+     * An array of values.
+     * </p>
+     */
+    private ArrayValue arrayValue;
+
+    /**
+     * <p>
+     * A NULL value.
+     * </p>
+     * 
+     * @param isNull
+     *        A NULL value.
+     */
+
+    public void setIsNull(Boolean isNull) {
+        this.isNull = isNull;
+    }
+
+    /**
+     * <p>
+     * A NULL value.
+     * </p>
+     * 
+     * @return A NULL value.
+     */
+
+    public Boolean getIsNull() {
+        return this.isNull;
+    }
+
+    /**
+     * <p>
+     * A NULL value.
+     * </p>
+     * 
+     * @param isNull
+     *        A NULL value.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Field withIsNull(Boolean isNull) {
+        setIsNull(isNull);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A NULL value.
+     * </p>
+     * 
+     * @return A NULL value.
+     */
+
+    public Boolean isNull() {
+        return this.isNull;
+    }
+
+    /**
+     * <p>
+     * A value of Boolean data type.
+     * </p>
+     * 
+     * @param booleanValue
+     *        A value of Boolean data type.
+     */
+
+    public void setBooleanValue(Boolean booleanValue) {
+        this.booleanValue = booleanValue;
+    }
+
+    /**
+     * <p>
+     * A value of Boolean data type.
+     * </p>
+     * 
+     * @return A value of Boolean data type.
+     */
+
+    public Boolean getBooleanValue() {
+        return this.booleanValue;
+    }
+
+    /**
+     * <p>
+     * A value of Boolean data type.
+     * </p>
+     * 
+     * @param booleanValue
+     *        A value of Boolean data type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Field withBooleanValue(Boolean booleanValue) {
+        setBooleanValue(booleanValue);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A value of Boolean data type.
+     * </p>
+     * 
+     * @return A value of Boolean data type.
+     */
+
+    public Boolean isBooleanValue() {
+        return this.booleanValue;
+    }
+
+    /**
+     * <p>
+     * A value of long data type.
+     * </p>
+     * 
+     * @param longValue
+     *        A value of long data type.
+     */
+
+    public void setLongValue(Long longValue) {
+        this.longValue = longValue;
+    }
+
+    /**
+     * <p>
+     * A value of long data type.
+     * </p>
+     * 
+     * @return A value of long data type.
+     */
+
+    public Long getLongValue() {
+        return this.longValue;
+    }
+
+    /**
+     * <p>
+     * A value of long data type.
+     * </p>
+     * 
+     * @param longValue
+     *        A value of long data type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Field withLongValue(Long longValue) {
+        setLongValue(longValue);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A value of double data type.
+     * </p>
+     * 
+     * @param doubleValue
+     *        A value of double data type.
+     */
+
+    public void setDoubleValue(Double doubleValue) {
+        this.doubleValue = doubleValue;
+    }
+
+    /**
+     * <p>
+     * A value of double data type.
+     * </p>
+     * 
+     * @return A value of double data type.
+     */
+
+    public Double getDoubleValue() {
+        return this.doubleValue;
+    }
+
+    /**
+     * <p>
+     * A value of double data type.
+     * </p>
+     * 
+     * @param doubleValue
+     *        A value of double data type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Field withDoubleValue(Double doubleValue) {
+        setDoubleValue(doubleValue);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A value of string data type.
+     * </p>
+     * 
+     * @param stringValue
+     *        A value of string data type.
+     */
+
+    public void setStringValue(String stringValue) {
+        this.stringValue = stringValue;
+    }
+
+    /**
+     * <p>
+     * A value of string data type.
+     * </p>
+     * 
+     * @return A value of string data type.
+     */
+
+    public String getStringValue() {
+        return this.stringValue;
+    }
+
+    /**
+     * <p>
+     * A value of string data type.
+     * </p>
+     * 
+     * @param stringValue
+     *        A value of string data type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Field withStringValue(String stringValue) {
+        setStringValue(stringValue);
+        return this;
+    }
 
     /**
      * <p>
@@ -134,225 +364,41 @@ public class Field implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A value of Boolean data type.
+     * An array of values.
      * </p>
      * 
-     * @param booleanValue
-     *        A value of Boolean data type.
+     * @param arrayValue
+     *        An array of values.
      */
 
-    public void setBooleanValue(Boolean booleanValue) {
-        this.booleanValue = booleanValue;
+    public void setArrayValue(ArrayValue arrayValue) {
+        this.arrayValue = arrayValue;
     }
 
     /**
      * <p>
-     * A value of Boolean data type.
+     * An array of values.
      * </p>
      * 
-     * @return A value of Boolean data type.
+     * @return An array of values.
      */
 
-    public Boolean getBooleanValue() {
-        return this.booleanValue;
+    public ArrayValue getArrayValue() {
+        return this.arrayValue;
     }
 
     /**
      * <p>
-     * A value of Boolean data type.
+     * An array of values.
      * </p>
      * 
-     * @param booleanValue
-     *        A value of Boolean data type.
+     * @param arrayValue
+     *        An array of values.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
-    public Field withBooleanValue(Boolean booleanValue) {
-        setBooleanValue(booleanValue);
-        return this;
-    }
-
-    /**
-     * <p>
-     * A value of Boolean data type.
-     * </p>
-     * 
-     * @return A value of Boolean data type.
-     */
-
-    public Boolean isBooleanValue() {
-        return this.booleanValue;
-    }
-
-    /**
-     * <p>
-     * A value of double data type.
-     * </p>
-     * 
-     * @param doubleValue
-     *        A value of double data type.
-     */
-
-    public void setDoubleValue(Double doubleValue) {
-        this.doubleValue = doubleValue;
-    }
-
-    /**
-     * <p>
-     * A value of double data type.
-     * </p>
-     * 
-     * @return A value of double data type.
-     */
-
-    public Double getDoubleValue() {
-        return this.doubleValue;
-    }
-
-    /**
-     * <p>
-     * A value of double data type.
-     * </p>
-     * 
-     * @param doubleValue
-     *        A value of double data type.
-     * @return Returns a reference to this object so that method calls can be chained together.
-     */
-
-    public Field withDoubleValue(Double doubleValue) {
-        setDoubleValue(doubleValue);
-        return this;
-    }
-
-    /**
-     * <p>
-     * A NULL value.
-     * </p>
-     * 
-     * @param isNull
-     *        A NULL value.
-     */
-
-    public void setIsNull(Boolean isNull) {
-        this.isNull = isNull;
-    }
-
-    /**
-     * <p>
-     * A NULL value.
-     * </p>
-     * 
-     * @return A NULL value.
-     */
-
-    public Boolean getIsNull() {
-        return this.isNull;
-    }
-
-    /**
-     * <p>
-     * A NULL value.
-     * </p>
-     * 
-     * @param isNull
-     *        A NULL value.
-     * @return Returns a reference to this object so that method calls can be chained together.
-     */
-
-    public Field withIsNull(Boolean isNull) {
-        setIsNull(isNull);
-        return this;
-    }
-
-    /**
-     * <p>
-     * A NULL value.
-     * </p>
-     * 
-     * @return A NULL value.
-     */
-
-    public Boolean isNull() {
-        return this.isNull;
-    }
-
-    /**
-     * <p>
-     * A value of long data type.
-     * </p>
-     * 
-     * @param longValue
-     *        A value of long data type.
-     */
-
-    public void setLongValue(Long longValue) {
-        this.longValue = longValue;
-    }
-
-    /**
-     * <p>
-     * A value of long data type.
-     * </p>
-     * 
-     * @return A value of long data type.
-     */
-
-    public Long getLongValue() {
-        return this.longValue;
-    }
-
-    /**
-     * <p>
-     * A value of long data type.
-     * </p>
-     * 
-     * @param longValue
-     *        A value of long data type.
-     * @return Returns a reference to this object so that method calls can be chained together.
-     */
-
-    public Field withLongValue(Long longValue) {
-        setLongValue(longValue);
-        return this;
-    }
-
-    /**
-     * <p>
-     * A value of string data type.
-     * </p>
-     * 
-     * @param stringValue
-     *        A value of string data type.
-     */
-
-    public void setStringValue(String stringValue) {
-        this.stringValue = stringValue;
-    }
-
-    /**
-     * <p>
-     * A value of string data type.
-     * </p>
-     * 
-     * @return A value of string data type.
-     */
-
-    public String getStringValue() {
-        return this.stringValue;
-    }
-
-    /**
-     * <p>
-     * A value of string data type.
-     * </p>
-     * 
-     * @param stringValue
-     *        A value of string data type.
-     * @return Returns a reference to this object so that method calls can be chained together.
-     */
-
-    public Field withStringValue(String stringValue) {
-        setStringValue(stringValue);
+    public Field withArrayValue(ArrayValue arrayValue) {
+        setArrayValue(arrayValue);
         return this;
     }
 
@@ -368,18 +414,20 @@ public class Field implements Serializable, Cloneable, StructuredPojo {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        if (getBlobValue() != null)
-            sb.append("BlobValue: ").append(getBlobValue()).append(",");
-        if (getBooleanValue() != null)
-            sb.append("BooleanValue: ").append(getBooleanValue()).append(",");
-        if (getDoubleValue() != null)
-            sb.append("DoubleValue: ").append(getDoubleValue()).append(",");
         if (getIsNull() != null)
             sb.append("IsNull: ").append(getIsNull()).append(",");
+        if (getBooleanValue() != null)
+            sb.append("BooleanValue: ").append(getBooleanValue()).append(",");
         if (getLongValue() != null)
             sb.append("LongValue: ").append(getLongValue()).append(",");
+        if (getDoubleValue() != null)
+            sb.append("DoubleValue: ").append(getDoubleValue()).append(",");
         if (getStringValue() != null)
-            sb.append("StringValue: ").append(getStringValue());
+            sb.append("StringValue: ").append(getStringValue()).append(",");
+        if (getBlobValue() != null)
+            sb.append("BlobValue: ").append(getBlobValue()).append(",");
+        if (getArrayValue() != null)
+            sb.append("ArrayValue: ").append(getArrayValue());
         sb.append("}");
         return sb.toString();
     }
@@ -394,29 +442,33 @@ public class Field implements Serializable, Cloneable, StructuredPojo {
         if (obj instanceof Field == false)
             return false;
         Field other = (Field) obj;
-        if (other.getBlobValue() == null ^ this.getBlobValue() == null)
+        if (other.getIsNull() == null ^ this.getIsNull() == null)
             return false;
-        if (other.getBlobValue() != null && other.getBlobValue().equals(this.getBlobValue()) == false)
+        if (other.getIsNull() != null && other.getIsNull().equals(this.getIsNull()) == false)
             return false;
         if (other.getBooleanValue() == null ^ this.getBooleanValue() == null)
             return false;
         if (other.getBooleanValue() != null && other.getBooleanValue().equals(this.getBooleanValue()) == false)
             return false;
-        if (other.getDoubleValue() == null ^ this.getDoubleValue() == null)
-            return false;
-        if (other.getDoubleValue() != null && other.getDoubleValue().equals(this.getDoubleValue()) == false)
-            return false;
-        if (other.getIsNull() == null ^ this.getIsNull() == null)
-            return false;
-        if (other.getIsNull() != null && other.getIsNull().equals(this.getIsNull()) == false)
-            return false;
         if (other.getLongValue() == null ^ this.getLongValue() == null)
             return false;
         if (other.getLongValue() != null && other.getLongValue().equals(this.getLongValue()) == false)
             return false;
+        if (other.getDoubleValue() == null ^ this.getDoubleValue() == null)
+            return false;
+        if (other.getDoubleValue() != null && other.getDoubleValue().equals(this.getDoubleValue()) == false)
+            return false;
         if (other.getStringValue() == null ^ this.getStringValue() == null)
             return false;
         if (other.getStringValue() != null && other.getStringValue().equals(this.getStringValue()) == false)
+            return false;
+        if (other.getBlobValue() == null ^ this.getBlobValue() == null)
+            return false;
+        if (other.getBlobValue() != null && other.getBlobValue().equals(this.getBlobValue()) == false)
+            return false;
+        if (other.getArrayValue() == null ^ this.getArrayValue() == null)
+            return false;
+        if (other.getArrayValue() != null && other.getArrayValue().equals(this.getArrayValue()) == false)
             return false;
         return true;
     }
@@ -426,12 +478,13 @@ public class Field implements Serializable, Cloneable, StructuredPojo {
         final int prime = 31;
         int hashCode = 1;
 
-        hashCode = prime * hashCode + ((getBlobValue() == null) ? 0 : getBlobValue().hashCode());
-        hashCode = prime * hashCode + ((getBooleanValue() == null) ? 0 : getBooleanValue().hashCode());
-        hashCode = prime * hashCode + ((getDoubleValue() == null) ? 0 : getDoubleValue().hashCode());
         hashCode = prime * hashCode + ((getIsNull() == null) ? 0 : getIsNull().hashCode());
+        hashCode = prime * hashCode + ((getBooleanValue() == null) ? 0 : getBooleanValue().hashCode());
         hashCode = prime * hashCode + ((getLongValue() == null) ? 0 : getLongValue().hashCode());
+        hashCode = prime * hashCode + ((getDoubleValue() == null) ? 0 : getDoubleValue().hashCode());
         hashCode = prime * hashCode + ((getStringValue() == null) ? 0 : getStringValue().hashCode());
+        hashCode = prime * hashCode + ((getBlobValue() == null) ? 0 : getBlobValue().hashCode());
+        hashCode = prime * hashCode + ((getArrayValue() == null) ? 0 : getArrayValue().hashCode());
         return hashCode;
     }
 

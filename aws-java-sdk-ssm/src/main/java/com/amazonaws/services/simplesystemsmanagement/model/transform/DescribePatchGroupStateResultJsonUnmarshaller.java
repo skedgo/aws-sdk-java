@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -60,6 +60,10 @@ public class DescribePatchGroupStateResultJsonUnmarshaller implements Unmarshall
                     context.nextToken();
                     describePatchGroupStateResult.setInstancesWithInstalledOtherPatches(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
+                if (context.testExpression("InstancesWithInstalledPendingRebootPatches", targetDepth)) {
+                    context.nextToken();
+                    describePatchGroupStateResult.setInstancesWithInstalledPendingRebootPatches(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
                 if (context.testExpression("InstancesWithInstalledRejectedPatches", targetDepth)) {
                     context.nextToken();
                     describePatchGroupStateResult.setInstancesWithInstalledRejectedPatches(context.getUnmarshaller(Integer.class).unmarshall(context));
@@ -79,6 +83,18 @@ public class DescribePatchGroupStateResultJsonUnmarshaller implements Unmarshall
                 if (context.testExpression("InstancesWithUnreportedNotApplicablePatches", targetDepth)) {
                     context.nextToken();
                     describePatchGroupStateResult.setInstancesWithUnreportedNotApplicablePatches(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("InstancesWithCriticalNonCompliantPatches", targetDepth)) {
+                    context.nextToken();
+                    describePatchGroupStateResult.setInstancesWithCriticalNonCompliantPatches(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("InstancesWithSecurityNonCompliantPatches", targetDepth)) {
+                    context.nextToken();
+                    describePatchGroupStateResult.setInstancesWithSecurityNonCompliantPatches(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("InstancesWithOtherNonCompliantPatches", targetDepth)) {
+                    context.nextToken();
+                    describePatchGroupStateResult.setInstancesWithOtherNonCompliantPatches(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

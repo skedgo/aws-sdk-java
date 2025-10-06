@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,8 @@ public class ChannelSummaryMarshaller {
 
     private static final MarshallingInfo<String> ARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("arn").build();
+    private static final MarshallingInfo<StructuredPojo> CDIINPUTSPECIFICATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("cdiInputSpecification").build();
     private static final MarshallingInfo<String> CHANNELCLASS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("channelClass").build();
     private static final MarshallingInfo<List> DESTINATIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
@@ -45,6 +47,8 @@ public class ChannelSummaryMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("inputSpecification").build();
     private static final MarshallingInfo<String> LOGLEVEL_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("logLevel").build();
+    private static final MarshallingInfo<StructuredPojo> MAINTENANCE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("maintenance").build();
     private static final MarshallingInfo<String> NAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("name").build();
     private static final MarshallingInfo<Integer> PIPELINESRUNNINGCOUNT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
@@ -55,6 +59,8 @@ public class ChannelSummaryMarshaller {
             .marshallLocationName("state").build();
     private static final MarshallingInfo<Map> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("tags").build();
+    private static final MarshallingInfo<StructuredPojo> VPC_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("vpc").build();
 
     private static final ChannelSummaryMarshaller instance = new ChannelSummaryMarshaller();
 
@@ -73,6 +79,7 @@ public class ChannelSummaryMarshaller {
 
         try {
             protocolMarshaller.marshall(channelSummary.getArn(), ARN_BINDING);
+            protocolMarshaller.marshall(channelSummary.getCdiInputSpecification(), CDIINPUTSPECIFICATION_BINDING);
             protocolMarshaller.marshall(channelSummary.getChannelClass(), CHANNELCLASS_BINDING);
             protocolMarshaller.marshall(channelSummary.getDestinations(), DESTINATIONS_BINDING);
             protocolMarshaller.marshall(channelSummary.getEgressEndpoints(), EGRESSENDPOINTS_BINDING);
@@ -80,11 +87,13 @@ public class ChannelSummaryMarshaller {
             protocolMarshaller.marshall(channelSummary.getInputAttachments(), INPUTATTACHMENTS_BINDING);
             protocolMarshaller.marshall(channelSummary.getInputSpecification(), INPUTSPECIFICATION_BINDING);
             protocolMarshaller.marshall(channelSummary.getLogLevel(), LOGLEVEL_BINDING);
+            protocolMarshaller.marshall(channelSummary.getMaintenance(), MAINTENANCE_BINDING);
             protocolMarshaller.marshall(channelSummary.getName(), NAME_BINDING);
             protocolMarshaller.marshall(channelSummary.getPipelinesRunningCount(), PIPELINESRUNNINGCOUNT_BINDING);
             protocolMarshaller.marshall(channelSummary.getRoleArn(), ROLEARN_BINDING);
             protocolMarshaller.marshall(channelSummary.getState(), STATE_BINDING);
             protocolMarshaller.marshall(channelSummary.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(channelSummary.getVpc(), VPC_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

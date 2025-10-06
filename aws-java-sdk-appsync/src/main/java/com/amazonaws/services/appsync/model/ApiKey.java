@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -22,13 +22,12 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * Describes an API key.
  * </p>
  * <p>
- * Customers invoke AWS AppSync GraphQL API operations with API keys as an identity mechanism. There are two key
- * versions:
+ * Customers invoke AppSync GraphQL API operations with API keys as an identity mechanism. There are two key versions:
  * </p>
  * <p>
- * <b>da1</b>: This version was introduced at launch in November 2017. These keys always expire after 7 days. Key
- * expiration is managed by Amazon DynamoDB TTL. The keys ceased to be valid after February 21, 2018 and should not be
- * used after that date.
+ * <b>da1</b>: We introduced this version at launch in November 2017. These keys always expire after 7 days. Amazon
+ * DynamoDB TTL manages key expiration. These keys ceased to be valid after February 21, 2018, and they should no longer
+ * be used.
  * </p>
  * <ul>
  * <li>
@@ -53,31 +52,32 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * </li>
  * <li>
  * <p>
- * Expiration is stored in Amazon DynamoDB as milliseconds. This results in a bug where keys are not automatically
- * deleted because DynamoDB expects the TTL to be stored in seconds. As a one-time action, we will delete these keys
- * from the table after February 21, 2018.
+ * Expiration is stored in DynamoDB as milliseconds. This results in a bug where keys are not automatically deleted
+ * because DynamoDB expects the TTL to be stored in seconds. As a one-time action, we deleted these keys from the table
+ * on February 21, 2018.
  * </p>
  * </li>
  * </ul>
  * <p>
- * <b>da2</b>: This version was introduced in February 2018 when AppSync added support to extend key expiration.
+ * <b>da2</b>: We introduced this version in February 2018 when AppSync added support to extend key expiration.
  * </p>
  * <ul>
  * <li>
  * <p>
- * <code>ListApiKeys</code> returns the expiration time in seconds.
+ * <code>ListApiKeys</code> returns the expiration time and deletion time in seconds.
  * </p>
  * </li>
  * <li>
  * <p>
- * <code>CreateApiKey</code> returns the expiration time in seconds and accepts a user-provided expiration time in
- * seconds.
+ * <code>CreateApiKey</code> returns the expiration time and deletion time in seconds and accepts a user-provided
+ * expiration time in seconds.
  * </p>
  * </li>
  * <li>
  * <p>
- * <code>UpdateApiKey</code> returns the expiration time in seconds and accepts a user-provided expiration time in
- * seconds. Key expiration can only be updated while the key has not expired.
+ * <code>UpdateApiKey</code> returns the expiration time and and deletion time in seconds and accepts a user-provided
+ * expiration time in seconds. Expired API keys are kept for 60 days after the expiration time. You can update the key
+ * expiration time as long as the key isn't deleted.
  * </p>
  * </li>
  * <li>
@@ -87,7 +87,13 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * </li>
  * <li>
  * <p>
- * Expiration is stored in Amazon DynamoDB as seconds.
+ * Expiration is stored in DynamoDB as seconds. After the expiration time, using the key to authenticate will fail.
+ * However, you can reinstate the key before deletion.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Deletion is stored in DynamoDB as seconds. The key is deleted after deletion time.
  * </p>
  * </li>
  * </ul>
@@ -117,6 +123,13 @@ public class ApiKey implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private Long expires;
+    /**
+     * <p>
+     * The time after which the API key is deleted. The date is represented as seconds since the epoch, rounded down to
+     * the nearest hour.
+     * </p>
+     */
+    private Long deletes;
 
     /**
      * <p>
@@ -245,6 +258,52 @@ public class ApiKey implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The time after which the API key is deleted. The date is represented as seconds since the epoch, rounded down to
+     * the nearest hour.
+     * </p>
+     * 
+     * @param deletes
+     *        The time after which the API key is deleted. The date is represented as seconds since the epoch, rounded
+     *        down to the nearest hour.
+     */
+
+    public void setDeletes(Long deletes) {
+        this.deletes = deletes;
+    }
+
+    /**
+     * <p>
+     * The time after which the API key is deleted. The date is represented as seconds since the epoch, rounded down to
+     * the nearest hour.
+     * </p>
+     * 
+     * @return The time after which the API key is deleted. The date is represented as seconds since the epoch, rounded
+     *         down to the nearest hour.
+     */
+
+    public Long getDeletes() {
+        return this.deletes;
+    }
+
+    /**
+     * <p>
+     * The time after which the API key is deleted. The date is represented as seconds since the epoch, rounded down to
+     * the nearest hour.
+     * </p>
+     * 
+     * @param deletes
+     *        The time after which the API key is deleted. The date is represented as seconds since the epoch, rounded
+     *        down to the nearest hour.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ApiKey withDeletes(Long deletes) {
+        setDeletes(deletes);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -261,7 +320,9 @@ public class ApiKey implements Serializable, Cloneable, StructuredPojo {
         if (getDescription() != null)
             sb.append("Description: ").append(getDescription()).append(",");
         if (getExpires() != null)
-            sb.append("Expires: ").append(getExpires());
+            sb.append("Expires: ").append(getExpires()).append(",");
+        if (getDeletes() != null)
+            sb.append("Deletes: ").append(getDeletes());
         sb.append("}");
         return sb.toString();
     }
@@ -288,6 +349,10 @@ public class ApiKey implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getExpires() != null && other.getExpires().equals(this.getExpires()) == false)
             return false;
+        if (other.getDeletes() == null ^ this.getDeletes() == null)
+            return false;
+        if (other.getDeletes() != null && other.getDeletes().equals(this.getDeletes()) == false)
+            return false;
         return true;
     }
 
@@ -299,6 +364,7 @@ public class ApiKey implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getId() == null) ? 0 : getId().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getExpires() == null) ? 0 : getExpires().hashCode());
+        hashCode = prime * hashCode + ((getDeletes() == null) ? 0 : getDeletes().hashCode());
         return hashCode;
     }
 

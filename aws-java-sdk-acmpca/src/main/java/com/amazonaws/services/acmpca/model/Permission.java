@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,11 +19,15 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Permissions designate which private CA actions can be performed by an AWS service or entity. In order for ACM to
- * automatically renew private certificates, you must give the ACM service principal all available permissions (
- * <code>IssueCertificate</code>, <code>GetCertificate</code>, and <code>ListPermissions</code>). Permissions can be
- * assigned with the <a>CreatePermission</a> action, removed with the <a>DeletePermission</a> action, and listed with
- * the <a>ListPermissions</a> action.
+ * Permissions designate which private CA actions can be performed by an Amazon Web Services service or entity. In order
+ * for ACM to automatically renew private certificates, you must give the ACM service principal all available
+ * permissions (<code>IssueCertificate</code>, <code>GetCertificate</code>, and <code>ListPermissions</code>).
+ * Permissions can be assigned with the <a
+ * href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_CreatePermission.html">CreatePermission</a>
+ * action, removed with the <a
+ * href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_DeletePermission.html">DeletePermission</a>
+ * action, and listed with the <a
+ * href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_ListPermissions.html">ListPermissions</a> action.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/acm-pca-2017-08-22/Permission" target="_top">AWS API
@@ -46,7 +50,7 @@ public class Permission implements Serializable, Cloneable, StructuredPojo {
     private java.util.Date createdAt;
     /**
      * <p>
-     * The AWS service or entity that holds the permission. At this time, the only valid principal is
+     * The Amazon Web Services service or entity that holds the permission. At this time, the only valid principal is
      * <code>acm.amazonaws.com</code>.
      * </p>
      */
@@ -59,7 +63,7 @@ public class Permission implements Serializable, Cloneable, StructuredPojo {
     private String sourceAccount;
     /**
      * <p>
-     * The private CA actions that can be performed by the designated AWS service.
+     * The private CA actions that can be performed by the designated Amazon Web Services service.
      * </p>
      */
     private java.util.List<String> actions;
@@ -152,13 +156,13 @@ public class Permission implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS service or entity that holds the permission. At this time, the only valid principal is
+     * The Amazon Web Services service or entity that holds the permission. At this time, the only valid principal is
      * <code>acm.amazonaws.com</code>.
      * </p>
      * 
      * @param principal
-     *        The AWS service or entity that holds the permission. At this time, the only valid principal is
-     *        <code>acm.amazonaws.com</code>.
+     *        The Amazon Web Services service or entity that holds the permission. At this time, the only valid
+     *        principal is <code>acm.amazonaws.com</code>.
      */
 
     public void setPrincipal(String principal) {
@@ -167,12 +171,12 @@ public class Permission implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS service or entity that holds the permission. At this time, the only valid principal is
+     * The Amazon Web Services service or entity that holds the permission. At this time, the only valid principal is
      * <code>acm.amazonaws.com</code>.
      * </p>
      * 
-     * @return The AWS service or entity that holds the permission. At this time, the only valid principal is
-     *         <code>acm.amazonaws.com</code>.
+     * @return The Amazon Web Services service or entity that holds the permission. At this time, the only valid
+     *         principal is <code>acm.amazonaws.com</code>.
      */
 
     public String getPrincipal() {
@@ -181,13 +185,13 @@ public class Permission implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS service or entity that holds the permission. At this time, the only valid principal is
+     * The Amazon Web Services service or entity that holds the permission. At this time, the only valid principal is
      * <code>acm.amazonaws.com</code>.
      * </p>
      * 
      * @param principal
-     *        The AWS service or entity that holds the permission. At this time, the only valid principal is
-     *        <code>acm.amazonaws.com</code>.
+     *        The Amazon Web Services service or entity that holds the permission. At this time, the only valid
+     *        principal is <code>acm.amazonaws.com</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -238,10 +242,10 @@ public class Permission implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The private CA actions that can be performed by the designated AWS service.
+     * The private CA actions that can be performed by the designated Amazon Web Services service.
      * </p>
      * 
-     * @return The private CA actions that can be performed by the designated AWS service.
+     * @return The private CA actions that can be performed by the designated Amazon Web Services service.
      * @see ActionType
      */
 
@@ -251,11 +255,11 @@ public class Permission implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The private CA actions that can be performed by the designated AWS service.
+     * The private CA actions that can be performed by the designated Amazon Web Services service.
      * </p>
      * 
      * @param actions
-     *        The private CA actions that can be performed by the designated AWS service.
+     *        The private CA actions that can be performed by the designated Amazon Web Services service.
      * @see ActionType
      */
 
@@ -270,7 +274,7 @@ public class Permission implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The private CA actions that can be performed by the designated AWS service.
+     * The private CA actions that can be performed by the designated Amazon Web Services service.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -279,7 +283,7 @@ public class Permission implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param actions
-     *        The private CA actions that can be performed by the designated AWS service.
+     *        The private CA actions that can be performed by the designated Amazon Web Services service.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ActionType
      */
@@ -296,11 +300,11 @@ public class Permission implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The private CA actions that can be performed by the designated AWS service.
+     * The private CA actions that can be performed by the designated Amazon Web Services service.
      * </p>
      * 
      * @param actions
-     *        The private CA actions that can be performed by the designated AWS service.
+     *        The private CA actions that can be performed by the designated Amazon Web Services service.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ActionType
      */
@@ -312,11 +316,11 @@ public class Permission implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The private CA actions that can be performed by the designated AWS service.
+     * The private CA actions that can be performed by the designated Amazon Web Services service.
      * </p>
      * 
      * @param actions
-     *        The private CA actions that can be performed by the designated AWS service.
+     *        The private CA actions that can be performed by the designated Amazon Web Services service.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ActionType
      */

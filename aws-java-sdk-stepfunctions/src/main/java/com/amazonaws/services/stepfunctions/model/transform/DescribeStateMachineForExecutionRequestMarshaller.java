@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,8 @@ public class DescribeStateMachineForExecutionRequestMarshaller {
 
     private static final MarshallingInfo<String> EXECUTIONARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("executionArn").build();
+    private static final MarshallingInfo<String> INCLUDEDDATA_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("includedData").build();
 
     private static final DescribeStateMachineForExecutionRequestMarshaller instance = new DescribeStateMachineForExecutionRequestMarshaller();
 
@@ -47,6 +49,7 @@ public class DescribeStateMachineForExecutionRequestMarshaller {
 
         try {
             protocolMarshaller.marshall(describeStateMachineForExecutionRequest.getExecutionArn(), EXECUTIONARN_BINDING);
+            protocolMarshaller.marshall(describeStateMachineForExecutionRequest.getIncludedData(), INCLUDEDDATA_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -78,6 +78,10 @@ public class CreateDBInstanceReadReplicaRequestMarshaller implements
             request.addParameter("OptionGroupName", StringUtils.fromString(createDBInstanceReadReplicaRequest.getOptionGroupName()));
         }
 
+        if (createDBInstanceReadReplicaRequest.getDBParameterGroupName() != null) {
+            request.addParameter("DBParameterGroupName", StringUtils.fromString(createDBInstanceReadReplicaRequest.getDBParameterGroupName()));
+        }
+
         if (createDBInstanceReadReplicaRequest.getPubliclyAccessible() != null) {
             request.addParameter("PubliclyAccessible", StringUtils.fromBoolean(createDBInstanceReadReplicaRequest.getPubliclyAccessible()));
         }
@@ -88,13 +92,15 @@ public class CreateDBInstanceReadReplicaRequestMarshaller implements
             int tagsListIndex = 1;
 
             for (Tag tagsListValue : tagsList) {
+                if (tagsListValue != null) {
 
-                if (tagsListValue.getKey() != null) {
-                    request.addParameter("Tags.Tag." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
-                }
+                    if (tagsListValue.getKey() != null) {
+                        request.addParameter("Tags.Tag." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
+                    }
 
-                if (tagsListValue.getValue() != null) {
-                    request.addParameter("Tags.Tag." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                    if (tagsListValue.getValue() != null) {
+                        request.addParameter("Tags.Tag." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                    }
                 }
                 tagsListIndex++;
             }
@@ -183,15 +189,17 @@ public class CreateDBInstanceReadReplicaRequestMarshaller implements
             int processorFeaturesListIndex = 1;
 
             for (ProcessorFeature processorFeaturesListValue : processorFeaturesList) {
+                if (processorFeaturesListValue != null) {
 
-                if (processorFeaturesListValue.getName() != null) {
-                    request.addParameter("ProcessorFeatures.ProcessorFeature." + processorFeaturesListIndex + ".Name",
-                            StringUtils.fromString(processorFeaturesListValue.getName()));
-                }
+                    if (processorFeaturesListValue.getName() != null) {
+                        request.addParameter("ProcessorFeatures.ProcessorFeature." + processorFeaturesListIndex + ".Name",
+                                StringUtils.fromString(processorFeaturesListValue.getName()));
+                    }
 
-                if (processorFeaturesListValue.getValue() != null) {
-                    request.addParameter("ProcessorFeatures.ProcessorFeature." + processorFeaturesListIndex + ".Value",
-                            StringUtils.fromString(processorFeaturesListValue.getValue()));
+                    if (processorFeaturesListValue.getValue() != null) {
+                        request.addParameter("ProcessorFeatures.ProcessorFeature." + processorFeaturesListIndex + ".Value",
+                                StringUtils.fromString(processorFeaturesListValue.getValue()));
+                    }
                 }
                 processorFeaturesListIndex++;
             }
@@ -203,6 +211,84 @@ public class CreateDBInstanceReadReplicaRequestMarshaller implements
 
         if (createDBInstanceReadReplicaRequest.getDeletionProtection() != null) {
             request.addParameter("DeletionProtection", StringUtils.fromBoolean(createDBInstanceReadReplicaRequest.getDeletionProtection()));
+        }
+
+        if (createDBInstanceReadReplicaRequest.getDomain() != null) {
+            request.addParameter("Domain", StringUtils.fromString(createDBInstanceReadReplicaRequest.getDomain()));
+        }
+
+        if (createDBInstanceReadReplicaRequest.getDomainIAMRoleName() != null) {
+            request.addParameter("DomainIAMRoleName", StringUtils.fromString(createDBInstanceReadReplicaRequest.getDomainIAMRoleName()));
+        }
+
+        if (createDBInstanceReadReplicaRequest.getDomainFqdn() != null) {
+            request.addParameter("DomainFqdn", StringUtils.fromString(createDBInstanceReadReplicaRequest.getDomainFqdn()));
+        }
+
+        if (createDBInstanceReadReplicaRequest.getDomainOu() != null) {
+            request.addParameter("DomainOu", StringUtils.fromString(createDBInstanceReadReplicaRequest.getDomainOu()));
+        }
+
+        if (createDBInstanceReadReplicaRequest.getDomainAuthSecretArn() != null) {
+            request.addParameter("DomainAuthSecretArn", StringUtils.fromString(createDBInstanceReadReplicaRequest.getDomainAuthSecretArn()));
+        }
+
+        if (!createDBInstanceReadReplicaRequest.getDomainDnsIps().isEmpty()
+                || !((com.amazonaws.internal.SdkInternalList<String>) createDBInstanceReadReplicaRequest.getDomainDnsIps()).isAutoConstruct()) {
+            com.amazonaws.internal.SdkInternalList<String> domainDnsIpsList = (com.amazonaws.internal.SdkInternalList<String>) createDBInstanceReadReplicaRequest
+                    .getDomainDnsIps();
+            int domainDnsIpsListIndex = 1;
+
+            for (String domainDnsIpsListValue : domainDnsIpsList) {
+                if (domainDnsIpsListValue != null) {
+                    request.addParameter("DomainDnsIps.member." + domainDnsIpsListIndex, StringUtils.fromString(domainDnsIpsListValue));
+                }
+                domainDnsIpsListIndex++;
+            }
+        }
+
+        if (createDBInstanceReadReplicaRequest.getReplicaMode() != null) {
+            request.addParameter("ReplicaMode", StringUtils.fromString(createDBInstanceReadReplicaRequest.getReplicaMode()));
+        }
+
+        if (createDBInstanceReadReplicaRequest.getMaxAllocatedStorage() != null) {
+            request.addParameter("MaxAllocatedStorage", StringUtils.fromInteger(createDBInstanceReadReplicaRequest.getMaxAllocatedStorage()));
+        }
+
+        if (createDBInstanceReadReplicaRequest.getCustomIamInstanceProfile() != null) {
+            request.addParameter("CustomIamInstanceProfile", StringUtils.fromString(createDBInstanceReadReplicaRequest.getCustomIamInstanceProfile()));
+        }
+
+        if (createDBInstanceReadReplicaRequest.getNetworkType() != null) {
+            request.addParameter("NetworkType", StringUtils.fromString(createDBInstanceReadReplicaRequest.getNetworkType()));
+        }
+
+        if (createDBInstanceReadReplicaRequest.getStorageThroughput() != null) {
+            request.addParameter("StorageThroughput", StringUtils.fromInteger(createDBInstanceReadReplicaRequest.getStorageThroughput()));
+        }
+
+        if (createDBInstanceReadReplicaRequest.getEnableCustomerOwnedIp() != null) {
+            request.addParameter("EnableCustomerOwnedIp", StringUtils.fromBoolean(createDBInstanceReadReplicaRequest.getEnableCustomerOwnedIp()));
+        }
+
+        if (createDBInstanceReadReplicaRequest.getAllocatedStorage() != null) {
+            request.addParameter("AllocatedStorage", StringUtils.fromInteger(createDBInstanceReadReplicaRequest.getAllocatedStorage()));
+        }
+
+        if (createDBInstanceReadReplicaRequest.getSourceDBClusterIdentifier() != null) {
+            request.addParameter("SourceDBClusterIdentifier", StringUtils.fromString(createDBInstanceReadReplicaRequest.getSourceDBClusterIdentifier()));
+        }
+
+        if (createDBInstanceReadReplicaRequest.getDedicatedLogVolume() != null) {
+            request.addParameter("DedicatedLogVolume", StringUtils.fromBoolean(createDBInstanceReadReplicaRequest.getDedicatedLogVolume()));
+        }
+
+        if (createDBInstanceReadReplicaRequest.getUpgradeStorageConfig() != null) {
+            request.addParameter("UpgradeStorageConfig", StringUtils.fromBoolean(createDBInstanceReadReplicaRequest.getUpgradeStorageConfig()));
+        }
+
+        if (createDBInstanceReadReplicaRequest.getCACertificateIdentifier() != null) {
+            request.addParameter("CACertificateIdentifier", StringUtils.fromString(createDBInstanceReadReplicaRequest.getCACertificateIdentifier()));
         }
 
         if (createDBInstanceReadReplicaRequest.getSourceRegion() != null) {

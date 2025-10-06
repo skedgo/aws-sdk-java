@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.simpledb.AmazonSimpleDBClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.simpledb.model.*;
+
 import com.amazonaws.services.simpledb.model.transform.*;
 
 /**
@@ -83,9 +84,18 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
     private final AdvancedConfig advancedConfig;
 
     /**
-     * List of exception unmarshallers for all modeled exceptions
+     * Map of exception unmarshallers for all modeled exceptions
+     */
+    private final Map<String, Unmarshaller<AmazonServiceException, Node>> exceptionUnmarshallersMap = new HashMap<String, Unmarshaller<AmazonServiceException, Node>>();
+
+    /**
+     * List of exception unmarshallers for all modeled exceptions Even though this exceptionUnmarshallers is not used in
+     * Clients, this is not removed since this was directly used by Client extended classes. Using this list can cause
+     * performance impact.
      */
     protected final List<Unmarshaller<AmazonServiceException, Node>> exceptionUnmarshallers = new ArrayList<Unmarshaller<AmazonServiceException, Node>>();
+
+    protected Unmarshaller<AmazonServiceException, Node> defaultUnmarshaller;
 
     /**
      * Constructs a new client to invoke service methods on Amazon SimpleDB. A credentials provider chain will be used
@@ -276,23 +286,75 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
     }
 
     private void init() {
+        if (exceptionUnmarshallersMap.get("NumberItemAttributesExceeded") == null) {
+            exceptionUnmarshallersMap.put("NumberItemAttributesExceeded", new NumberItemAttributesExceededExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NumberItemAttributesExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NumberSubmittedItemsExceeded") == null) {
+            exceptionUnmarshallersMap.put("NumberSubmittedItemsExceeded", new NumberSubmittedItemsExceededExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NumberSubmittedItemsExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidNumberPredicates") == null) {
+            exceptionUnmarshallersMap.put("InvalidNumberPredicates", new InvalidNumberPredicatesExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidNumberPredicatesExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NumberDomainBytesExceeded") == null) {
+            exceptionUnmarshallersMap.put("NumberDomainBytesExceeded", new NumberDomainBytesExceededExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NumberDomainBytesExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("AttributeDoesNotExist") == null) {
+            exceptionUnmarshallersMap.put("AttributeDoesNotExist", new AttributeDoesNotExistExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new AttributeDoesNotExistExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NumberDomainsExceeded") == null) {
+            exceptionUnmarshallersMap.put("NumberDomainsExceeded", new NumberDomainsExceededExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NumberDomainsExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchDomain") == null) {
+            exceptionUnmarshallersMap.put("NoSuchDomain", new NoSuchDomainExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NoSuchDomainExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("RequestTimeout") == null) {
+            exceptionUnmarshallersMap.put("RequestTimeout", new RequestTimeoutExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new RequestTimeoutExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidParameterValue") == null) {
+            exceptionUnmarshallersMap.put("InvalidParameterValue", new InvalidParameterValueExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidParameterValueExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("DuplicateItemName") == null) {
+            exceptionUnmarshallersMap.put("DuplicateItemName", new DuplicateItemNameExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new DuplicateItemNameExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyRequestedAttributes") == null) {
+            exceptionUnmarshallersMap.put("TooManyRequestedAttributes", new TooManyRequestedAttributesExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TooManyRequestedAttributesExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NumberSubmittedAttributesExceeded") == null) {
+            exceptionUnmarshallersMap.put("NumberSubmittedAttributesExceeded", new NumberSubmittedAttributesExceededExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NumberSubmittedAttributesExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidQueryExpression") == null) {
+            exceptionUnmarshallersMap.put("InvalidQueryExpression", new InvalidQueryExpressionExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidQueryExpressionExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NumberDomainAttributesExceeded") == null) {
+            exceptionUnmarshallersMap.put("NumberDomainAttributesExceeded", new NumberDomainAttributesExceededExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NumberDomainAttributesExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidNumberValueTests") == null) {
+            exceptionUnmarshallersMap.put("InvalidNumberValueTests", new InvalidNumberValueTestsExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidNumberValueTestsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidNextToken") == null) {
+            exceptionUnmarshallersMap.put("InvalidNextToken", new InvalidNextTokenExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidNextTokenExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("MissingParameter") == null) {
+            exceptionUnmarshallersMap.put("MissingParameter", new MissingParameterExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new MissingParameterExceptionUnmarshaller());
+        defaultUnmarshaller = new LegacyErrorUnmarshaller(com.amazonaws.services.simpledb.model.AmazonSimpleDBException.class);
         exceptionUnmarshallers.add(new LegacyErrorUnmarshaller(com.amazonaws.services.simpledb.model.AmazonSimpleDBException.class));
 
         setServiceNameIntern(DEFAULT_SIGNING_NAME);
@@ -343,6 +405,8 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
                 request = new BatchDeleteAttributesRequestMarshaller().marshall(super.beforeMarshalling(batchDeleteAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SimpleDB");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchDeleteAttributes");
@@ -354,6 +418,7 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
 
             StaxResponseHandler<BatchDeleteAttributesResult> responseHandler = new com.amazonaws.services.simpledb.internal.SimpleDBStaxResponseHandler<BatchDeleteAttributesResult>(
                     new BatchDeleteAttributesResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -455,6 +520,8 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
                 request = new BatchPutAttributesRequestMarshaller().marshall(super.beforeMarshalling(batchPutAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SimpleDB");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchPutAttributes");
@@ -466,6 +533,7 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
 
             StaxResponseHandler<BatchPutAttributesResult> responseHandler = new com.amazonaws.services.simpledb.internal.SimpleDBStaxResponseHandler<BatchPutAttributesResult>(
                     new BatchPutAttributesResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -522,6 +590,8 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
                 request = new CreateDomainRequestMarshaller().marshall(super.beforeMarshalling(createDomainRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SimpleDB");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDomain");
@@ -533,6 +603,7 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
 
             StaxResponseHandler<CreateDomainResult> responseHandler = new com.amazonaws.services.simpledb.internal.SimpleDBStaxResponseHandler<CreateDomainResult>(
                     new CreateDomainResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -591,6 +662,8 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
                 request = new DeleteAttributesRequestMarshaller().marshall(super.beforeMarshalling(deleteAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SimpleDB");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteAttributes");
@@ -602,6 +675,7 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
 
             StaxResponseHandler<DeleteAttributesResult> responseHandler = new com.amazonaws.services.simpledb.internal.SimpleDBStaxResponseHandler<DeleteAttributesResult>(
                     new DeleteAttributesResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -645,6 +719,8 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
                 request = new DeleteDomainRequestMarshaller().marshall(super.beforeMarshalling(deleteDomainRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SimpleDB");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDomain");
@@ -656,6 +732,7 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
 
             StaxResponseHandler<DeleteDomainResult> responseHandler = new com.amazonaws.services.simpledb.internal.SimpleDBStaxResponseHandler<DeleteDomainResult>(
                     new DeleteDomainResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -701,6 +778,8 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
                 request = new DomainMetadataRequestMarshaller().marshall(super.beforeMarshalling(domainMetadataRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SimpleDB");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DomainMetadata");
@@ -712,6 +791,7 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
 
             StaxResponseHandler<DomainMetadataResult> responseHandler = new com.amazonaws.services.simpledb.internal.SimpleDBStaxResponseHandler<DomainMetadataResult>(
                     new DomainMetadataResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -763,6 +843,8 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
                 request = new GetAttributesRequestMarshaller().marshall(super.beforeMarshalling(getAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SimpleDB");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetAttributes");
@@ -774,6 +856,7 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
 
             StaxResponseHandler<GetAttributesResult> responseHandler = new com.amazonaws.services.simpledb.internal.SimpleDBStaxResponseHandler<GetAttributesResult>(
                     new GetAttributesResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -822,6 +905,8 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
                 request = new ListDomainsRequestMarshaller().marshall(super.beforeMarshalling(listDomainsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SimpleDB");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDomains");
@@ -833,6 +918,7 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
 
             StaxResponseHandler<ListDomainsResult> responseHandler = new com.amazonaws.services.simpledb.internal.SimpleDBStaxResponseHandler<ListDomainsResult>(
                     new ListDomainsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -927,6 +1013,8 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
                 request = new PutAttributesRequestMarshaller().marshall(super.beforeMarshalling(putAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SimpleDB");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutAttributes");
@@ -938,6 +1026,7 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
 
             StaxResponseHandler<PutAttributesResult> responseHandler = new com.amazonaws.services.simpledb.internal.SimpleDBStaxResponseHandler<PutAttributesResult>(
                     new PutAttributesResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1007,6 +1096,8 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
                 request = new SelectRequestMarshaller().marshall(super.beforeMarshalling(selectRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SimpleDB");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "Select");
@@ -1018,6 +1109,7 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
 
             StaxResponseHandler<SelectResult> responseHandler = new com.amazonaws.services.simpledb.internal.SimpleDBStaxResponseHandler<SelectResult>(
                     new SelectResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1098,9 +1190,14 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
 
         request.setTimeOffset(timeOffset);
 
-        DefaultErrorResponseHandler errorResponseHandler = new DefaultErrorResponseHandler(exceptionUnmarshallers);
+        DefaultErrorResponseHandler errorResponseHandler = new DefaultErrorResponseHandler(exceptionUnmarshallersMap, defaultUnmarshaller);
 
         return client.execute(request, responseHandler, errorResponseHandler, executionContext);
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

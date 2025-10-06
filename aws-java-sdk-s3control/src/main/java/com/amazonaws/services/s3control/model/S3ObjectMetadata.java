@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,17 +34,40 @@ public class S3ObjectMetadata implements Serializable, Cloneable {
     private String contentLanguage;
     /** <p/> */
     private java.util.Map<String, String> userMetadata;
-    /** <p/> */
+    /**
+     * <p>
+     * <i>This member has been deprecated.</i>
+     * </p>
+     * <p/>
+     */
     private Long contentLength;
-    /** <p/> */
+    /**
+     * <p>
+     * <i>This member has been deprecated.</i>
+     * </p>
+     * <p/>
+     */
     private String contentMD5;
     /** <p/> */
     private String contentType;
     /** <p/> */
     private java.util.Date httpExpiresDate;
-    /** <p/> */
+    /**
+     * <p>
+     * <i>This member has been deprecated.</i>
+     * </p>
+     * <p/>
+     */
     private Boolean requesterCharged;
-    /** <p/> */
+    /**
+     * <p/>
+     * <note>
+     * <p>
+     * For directory buckets, only the server-side encryption with Amazon S3 managed keys (SSE-S3) (<code>AES256</code>)
+     * is supported.
+     * </p>
+     * </note>
+     */
     private String sSEAlgorithm;
 
     /**
@@ -207,6 +230,13 @@ public class S3ObjectMetadata implements Serializable, Cloneable {
         return this;
     }
 
+    /**
+     * Add a single UserMetadata entry
+     *
+     * @see S3ObjectMetadata#withUserMetadata
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public S3ObjectMetadata addUserMetadataEntry(String key, String value) {
         if (null == this.userMetadata) {
             this.userMetadata = new java.util.HashMap<String, String>();
@@ -229,9 +259,14 @@ public class S3ObjectMetadata implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * <i>This member has been deprecated.</i>
+     * </p>
      * <p/>
      * 
      * @param contentLength
+     *        <i>This member has been deprecated.</i>
+     *        </p>
      */
 
     public void setContentLength(Long contentLength) {
@@ -239,9 +274,13 @@ public class S3ObjectMetadata implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * <i>This member has been deprecated.</i>
+     * </p>
      * <p/>
      * 
-     * @return
+     * @return <i>This member has been deprecated.</i>
+     *         </p>
      */
 
     public Long getContentLength() {
@@ -249,9 +288,14 @@ public class S3ObjectMetadata implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * <i>This member has been deprecated.</i>
+     * </p>
      * <p/>
      * 
      * @param contentLength
+     *        <i>This member has been deprecated.</i>
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -261,9 +305,14 @@ public class S3ObjectMetadata implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * <i>This member has been deprecated.</i>
+     * </p>
      * <p/>
      * 
      * @param contentMD5
+     *        <i>This member has been deprecated.</i>
+     *        </p>
      */
 
     public void setContentMD5(String contentMD5) {
@@ -271,9 +320,13 @@ public class S3ObjectMetadata implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * <i>This member has been deprecated.</i>
+     * </p>
      * <p/>
      * 
-     * @return
+     * @return <i>This member has been deprecated.</i>
+     *         </p>
      */
 
     public String getContentMD5() {
@@ -281,9 +334,14 @@ public class S3ObjectMetadata implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * <i>This member has been deprecated.</i>
+     * </p>
      * <p/>
      * 
      * @param contentMD5
+     *        <i>This member has been deprecated.</i>
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -357,9 +415,14 @@ public class S3ObjectMetadata implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * <i>This member has been deprecated.</i>
+     * </p>
      * <p/>
      * 
      * @param requesterCharged
+     *        <i>This member has been deprecated.</i>
+     *        </p>
      */
 
     public void setRequesterCharged(Boolean requesterCharged) {
@@ -367,9 +430,13 @@ public class S3ObjectMetadata implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * <i>This member has been deprecated.</i>
+     * </p>
      * <p/>
      * 
-     * @return
+     * @return <i>This member has been deprecated.</i>
+     *         </p>
      */
 
     public Boolean getRequesterCharged() {
@@ -377,9 +444,14 @@ public class S3ObjectMetadata implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * <i>This member has been deprecated.</i>
+     * </p>
      * <p/>
      * 
      * @param requesterCharged
+     *        <i>This member has been deprecated.</i>
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -389,9 +461,13 @@ public class S3ObjectMetadata implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * <i>This member has been deprecated.</i>
+     * </p>
      * <p/>
      * 
-     * @return
+     * @return <i>This member has been deprecated.</i>
+     *         </p>
      */
 
     public Boolean isRequesterCharged() {
@@ -400,8 +476,19 @@ public class S3ObjectMetadata implements Serializable, Cloneable {
 
     /**
      * <p/>
+     * <note>
+     * <p>
+     * For directory buckets, only the server-side encryption with Amazon S3 managed keys (SSE-S3) (<code>AES256</code>)
+     * is supported.
+     * </p>
+     * </note>
      * 
      * @param sSEAlgorithm
+     *        <note>
+     *        <p>
+     *        For directory buckets, only the server-side encryption with Amazon S3 managed keys (SSE-S3) (
+     *        <code>AES256</code>) is supported.
+     *        </p>
      * @see S3SSEAlgorithm
      */
 
@@ -411,8 +498,18 @@ public class S3ObjectMetadata implements Serializable, Cloneable {
 
     /**
      * <p/>
+     * <note>
+     * <p>
+     * For directory buckets, only the server-side encryption with Amazon S3 managed keys (SSE-S3) (<code>AES256</code>)
+     * is supported.
+     * </p>
+     * </note>
      * 
-     * @return
+     * @return <note>
+     *         <p>
+     *         For directory buckets, only the server-side encryption with Amazon S3 managed keys (SSE-S3) (
+     *         <code>AES256</code>) is supported.
+     *         </p>
      * @see S3SSEAlgorithm
      */
 
@@ -422,8 +519,19 @@ public class S3ObjectMetadata implements Serializable, Cloneable {
 
     /**
      * <p/>
+     * <note>
+     * <p>
+     * For directory buckets, only the server-side encryption with Amazon S3 managed keys (SSE-S3) (<code>AES256</code>)
+     * is supported.
+     * </p>
+     * </note>
      * 
      * @param sSEAlgorithm
+     *        <note>
+     *        <p>
+     *        For directory buckets, only the server-side encryption with Amazon S3 managed keys (SSE-S3) (
+     *        <code>AES256</code>) is supported.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see S3SSEAlgorithm
      */
@@ -435,8 +543,19 @@ public class S3ObjectMetadata implements Serializable, Cloneable {
 
     /**
      * <p/>
+     * <note>
+     * <p>
+     * For directory buckets, only the server-side encryption with Amazon S3 managed keys (SSE-S3) (<code>AES256</code>)
+     * is supported.
+     * </p>
+     * </note>
      * 
      * @param sSEAlgorithm
+     *        <note>
+     *        <p>
+     *        For directory buckets, only the server-side encryption with Amazon S3 managed keys (SSE-S3) (
+     *        <code>AES256</code>) is supported.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see S3SSEAlgorithm
      */

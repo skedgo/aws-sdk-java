@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,23 +37,36 @@ public class UpdateClusterConfigRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * Enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs. By default,
      * cluster control plane logs aren't exported to CloudWatch Logs. For more information, see <a
-     * href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS Cluster Control Plane
-     * Logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS cluster control plane
+     * logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      * </p>
      * <note>
      * <p>
      * CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs. For
-     * more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">Amazon CloudWatch Pricing</a>.
+     * more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">CloudWatch Pricing</a>.
      * </p>
      * </note>
      */
     private Logging logging;
     /**
      * <p>
-     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
      * </p>
      */
     private String clientRequestToken;
+    /**
+     * <p>
+     * The access configuration for the cluster.
+     * </p>
+     */
+    private UpdateAccessConfigRequest accessConfig;
+    /**
+     * <p>
+     * You can enable or disable extended support for clusters currently on standard support. You cannot disable
+     * extended support once it starts. You must enable extended support before your cluster exits standard support.
+     * </p>
+     */
+    private UpgradePolicyRequest upgradePolicy;
 
     /**
      * <p>
@@ -125,25 +138,24 @@ public class UpdateClusterConfigRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * Enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs. By default,
      * cluster control plane logs aren't exported to CloudWatch Logs. For more information, see <a
-     * href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS Cluster Control Plane
-     * Logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS cluster control plane
+     * logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      * </p>
      * <note>
      * <p>
      * CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs. For
-     * more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">Amazon CloudWatch Pricing</a>.
+     * more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">CloudWatch Pricing</a>.
      * </p>
      * </note>
      * 
      * @param logging
      *        Enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs. By
      *        default, cluster control plane logs aren't exported to CloudWatch Logs. For more information, see <a
-     *        href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS Cluster Control
-     *        Plane Logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.</p> <note>
+     *        href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS cluster control
+     *        plane logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.</p> <note>
      *        <p>
      *        CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs.
-     *        For more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">Amazon CloudWatch
-     *        Pricing</a>.
+     *        For more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">CloudWatch Pricing</a>.
      *        </p>
      */
 
@@ -155,24 +167,23 @@ public class UpdateClusterConfigRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * Enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs. By default,
      * cluster control plane logs aren't exported to CloudWatch Logs. For more information, see <a
-     * href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS Cluster Control Plane
-     * Logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS cluster control plane
+     * logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      * </p>
      * <note>
      * <p>
      * CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs. For
-     * more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">Amazon CloudWatch Pricing</a>.
+     * more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">CloudWatch Pricing</a>.
      * </p>
      * </note>
      * 
      * @return Enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs. By
      *         default, cluster control plane logs aren't exported to CloudWatch Logs. For more information, see <a
-     *         href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS Cluster
-     *         Control Plane Logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.</p> <note>
+     *         href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS cluster
+     *         control plane logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.</p> <note>
      *         <p>
      *         CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs.
-     *         For more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">Amazon CloudWatch
-     *         Pricing</a>.
+     *         For more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">CloudWatch Pricing</a>.
      *         </p>
      */
 
@@ -184,25 +195,24 @@ public class UpdateClusterConfigRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * Enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs. By default,
      * cluster control plane logs aren't exported to CloudWatch Logs. For more information, see <a
-     * href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS Cluster Control Plane
-     * Logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS cluster control plane
+     * logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      * </p>
      * <note>
      * <p>
      * CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs. For
-     * more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">Amazon CloudWatch Pricing</a>.
+     * more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">CloudWatch Pricing</a>.
      * </p>
      * </note>
      * 
      * @param logging
      *        Enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs. By
      *        default, cluster control plane logs aren't exported to CloudWatch Logs. For more information, see <a
-     *        href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS Cluster Control
-     *        Plane Logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.</p> <note>
+     *        href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS cluster control
+     *        plane logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.</p> <note>
      *        <p>
      *        CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs.
-     *        For more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">Amazon CloudWatch
-     *        Pricing</a>.
+     *        For more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">CloudWatch Pricing</a>.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -214,11 +224,11 @@ public class UpdateClusterConfigRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
      * </p>
      * 
      * @param clientRequestToken
-     *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     *        A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
      */
 
     public void setClientRequestToken(String clientRequestToken) {
@@ -227,10 +237,10 @@ public class UpdateClusterConfigRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
      * </p>
      * 
-     * @return Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * @return A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
      */
 
     public String getClientRequestToken() {
@@ -239,16 +249,105 @@ public class UpdateClusterConfigRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
      * </p>
      * 
      * @param clientRequestToken
-     *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     *        A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public UpdateClusterConfigRequest withClientRequestToken(String clientRequestToken) {
         setClientRequestToken(clientRequestToken);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The access configuration for the cluster.
+     * </p>
+     * 
+     * @param accessConfig
+     *        The access configuration for the cluster.
+     */
+
+    public void setAccessConfig(UpdateAccessConfigRequest accessConfig) {
+        this.accessConfig = accessConfig;
+    }
+
+    /**
+     * <p>
+     * The access configuration for the cluster.
+     * </p>
+     * 
+     * @return The access configuration for the cluster.
+     */
+
+    public UpdateAccessConfigRequest getAccessConfig() {
+        return this.accessConfig;
+    }
+
+    /**
+     * <p>
+     * The access configuration for the cluster.
+     * </p>
+     * 
+     * @param accessConfig
+     *        The access configuration for the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateClusterConfigRequest withAccessConfig(UpdateAccessConfigRequest accessConfig) {
+        setAccessConfig(accessConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * You can enable or disable extended support for clusters currently on standard support. You cannot disable
+     * extended support once it starts. You must enable extended support before your cluster exits standard support.
+     * </p>
+     * 
+     * @param upgradePolicy
+     *        You can enable or disable extended support for clusters currently on standard support. You cannot disable
+     *        extended support once it starts. You must enable extended support before your cluster exits standard
+     *        support.
+     */
+
+    public void setUpgradePolicy(UpgradePolicyRequest upgradePolicy) {
+        this.upgradePolicy = upgradePolicy;
+    }
+
+    /**
+     * <p>
+     * You can enable or disable extended support for clusters currently on standard support. You cannot disable
+     * extended support once it starts. You must enable extended support before your cluster exits standard support.
+     * </p>
+     * 
+     * @return You can enable or disable extended support for clusters currently on standard support. You cannot disable
+     *         extended support once it starts. You must enable extended support before your cluster exits standard
+     *         support.
+     */
+
+    public UpgradePolicyRequest getUpgradePolicy() {
+        return this.upgradePolicy;
+    }
+
+    /**
+     * <p>
+     * You can enable or disable extended support for clusters currently on standard support. You cannot disable
+     * extended support once it starts. You must enable extended support before your cluster exits standard support.
+     * </p>
+     * 
+     * @param upgradePolicy
+     *        You can enable or disable extended support for clusters currently on standard support. You cannot disable
+     *        extended support once it starts. You must enable extended support before your cluster exits standard
+     *        support.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateClusterConfigRequest withUpgradePolicy(UpgradePolicyRequest upgradePolicy) {
+        setUpgradePolicy(upgradePolicy);
         return this;
     }
 
@@ -271,7 +370,11 @@ public class UpdateClusterConfigRequest extends com.amazonaws.AmazonWebServiceRe
         if (getLogging() != null)
             sb.append("Logging: ").append(getLogging()).append(",");
         if (getClientRequestToken() != null)
-            sb.append("ClientRequestToken: ").append(getClientRequestToken());
+            sb.append("ClientRequestToken: ").append(getClientRequestToken()).append(",");
+        if (getAccessConfig() != null)
+            sb.append("AccessConfig: ").append(getAccessConfig()).append(",");
+        if (getUpgradePolicy() != null)
+            sb.append("UpgradePolicy: ").append(getUpgradePolicy());
         sb.append("}");
         return sb.toString();
     }
@@ -302,6 +405,14 @@ public class UpdateClusterConfigRequest extends com.amazonaws.AmazonWebServiceRe
             return false;
         if (other.getClientRequestToken() != null && other.getClientRequestToken().equals(this.getClientRequestToken()) == false)
             return false;
+        if (other.getAccessConfig() == null ^ this.getAccessConfig() == null)
+            return false;
+        if (other.getAccessConfig() != null && other.getAccessConfig().equals(this.getAccessConfig()) == false)
+            return false;
+        if (other.getUpgradePolicy() == null ^ this.getUpgradePolicy() == null)
+            return false;
+        if (other.getUpgradePolicy() != null && other.getUpgradePolicy().equals(this.getUpgradePolicy()) == false)
+            return false;
         return true;
     }
 
@@ -314,6 +425,8 @@ public class UpdateClusterConfigRequest extends com.amazonaws.AmazonWebServiceRe
         hashCode = prime * hashCode + ((getResourcesVpcConfig() == null) ? 0 : getResourcesVpcConfig().hashCode());
         hashCode = prime * hashCode + ((getLogging() == null) ? 0 : getLogging().hashCode());
         hashCode = prime * hashCode + ((getClientRequestToken() == null) ? 0 : getClientRequestToken().hashCode());
+        hashCode = prime * hashCode + ((getAccessConfig() == null) ? 0 : getAccessConfig().hashCode());
+        hashCode = prime * hashCode + ((getUpgradePolicy() == null) ? 0 : getUpgradePolicy().hashCode());
         return hashCode;
     }
 

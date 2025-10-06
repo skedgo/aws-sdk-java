@@ -1,12 +1,26 @@
 @ECHO OFF
 SET input=%1
+
+IF "%1"=="--account-id" (
+    SET accountId="%2"
+    SHIFT
+    SHIFT
+)
+
 ECHO {
 ECHO "Version": 1,
-ECHO "AccessKeyId": "accessKeyId",
-ECHO "SecretAccessKey": "secretAccessKey"
-IF "%input%"=="SESSION_CREDENTIALS" (
+ECHO "AccessKeyId": "%1",
+ECHO "SecretAccessKey": "%2"
+IF DEFINED accountId (
     ECHO ,
-    ECHO "SessionToken": "sessionToken",
-    ECHO "Expiration": "2018-12-11T17:46:28Z"
+    ECHO "AccountId": %accountId%
+)
+IF NOT "%3"=="" (
+    ECHO ,
+    ECHO "SessionToken": "%3"
+)
+IF NOT "%4"=="" (
+    ECHO ,
+    ECHO "Expiration": "%4"
 )
 echo }

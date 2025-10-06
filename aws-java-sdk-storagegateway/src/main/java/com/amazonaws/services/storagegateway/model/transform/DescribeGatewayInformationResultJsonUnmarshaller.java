@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -71,7 +71,9 @@ public class DescribeGatewayInformationResultJsonUnmarshaller implements Unmarsh
                 if (context.testExpression("GatewayNetworkInterfaces", targetDepth)) {
                     context.nextToken();
                     describeGatewayInformationResult.setGatewayNetworkInterfaces(new ListUnmarshaller<NetworkInterface>(NetworkInterfaceJsonUnmarshaller
-                            .getInstance()).unmarshall(context));
+                            .getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("GatewayType", targetDepth)) {
                     context.nextToken();
@@ -95,11 +97,51 @@ public class DescribeGatewayInformationResultJsonUnmarshaller implements Unmarsh
                 }
                 if (context.testExpression("Tags", targetDepth)) {
                     context.nextToken();
-                    describeGatewayInformationResult.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance()).unmarshall(context));
+                    describeGatewayInformationResult.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("VPCEndpoint", targetDepth)) {
                     context.nextToken();
                     describeGatewayInformationResult.setVPCEndpoint(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("CloudWatchLogGroupARN", targetDepth)) {
+                    context.nextToken();
+                    describeGatewayInformationResult.setCloudWatchLogGroupARN(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("HostEnvironment", targetDepth)) {
+                    context.nextToken();
+                    describeGatewayInformationResult.setHostEnvironment(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("EndpointType", targetDepth)) {
+                    context.nextToken();
+                    describeGatewayInformationResult.setEndpointType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("SoftwareUpdatesEndDate", targetDepth)) {
+                    context.nextToken();
+                    describeGatewayInformationResult.setSoftwareUpdatesEndDate(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("DeprecationDate", targetDepth)) {
+                    context.nextToken();
+                    describeGatewayInformationResult.setDeprecationDate(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("GatewayCapacity", targetDepth)) {
+                    context.nextToken();
+                    describeGatewayInformationResult.setGatewayCapacity(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("SupportedGatewayCapacities", targetDepth)) {
+                    context.nextToken();
+                    describeGatewayInformationResult.setSupportedGatewayCapacities(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("HostEnvironmentId", targetDepth)) {
+                    context.nextToken();
+                    describeGatewayInformationResult.setHostEnvironmentId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("SoftwareVersion", targetDepth)) {
+                    context.nextToken();
+                    describeGatewayInformationResult.setSoftwareVersion(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

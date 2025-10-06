@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -15,7 +15,9 @@ package com.amazonaws.services.mq.model;
 import javax.annotation.Generated;
 
 /**
- * The status of the broker.
+ * <p>
+ * The broker's status.
+ * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public enum BrokerState {
@@ -24,7 +26,9 @@ public enum BrokerState {
     CREATION_FAILED("CREATION_FAILED"),
     DELETION_IN_PROGRESS("DELETION_IN_PROGRESS"),
     RUNNING("RUNNING"),
-    REBOOT_IN_PROGRESS("REBOOT_IN_PROGRESS");
+    REBOOT_IN_PROGRESS("REBOOT_IN_PROGRESS"),
+    CRITICAL_ACTION_REQUIRED("CRITICAL_ACTION_REQUIRED"),
+    REPLICA("REPLICA");
 
     private String value;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -125,10 +125,17 @@ public class BGPPeer implements Serializable, Cloneable, StructuredPojo {
     private String bgpStatus;
     /**
      * <p>
-     * The Direct Connect endpoint on which the BGP peer terminates.
+     * The Direct Connect endpoint that terminates the BGP peer.
      * </p>
      */
     private String awsDeviceV2;
+    /**
+     * <p>
+     * The Direct Connect endpoint that terminates the logical connection. This device might be different than the
+     * device that terminates the physical connection.
+     * </p>
+     */
+    private String awsLogicalDeviceId;
 
     /**
      * <p>
@@ -1012,11 +1019,11 @@ public class BGPPeer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Direct Connect endpoint on which the BGP peer terminates.
+     * The Direct Connect endpoint that terminates the BGP peer.
      * </p>
      * 
      * @param awsDeviceV2
-     *        The Direct Connect endpoint on which the BGP peer terminates.
+     *        The Direct Connect endpoint that terminates the BGP peer.
      */
 
     public void setAwsDeviceV2(String awsDeviceV2) {
@@ -1025,10 +1032,10 @@ public class BGPPeer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Direct Connect endpoint on which the BGP peer terminates.
+     * The Direct Connect endpoint that terminates the BGP peer.
      * </p>
      * 
-     * @return The Direct Connect endpoint on which the BGP peer terminates.
+     * @return The Direct Connect endpoint that terminates the BGP peer.
      */
 
     public String getAwsDeviceV2() {
@@ -1037,16 +1044,62 @@ public class BGPPeer implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Direct Connect endpoint on which the BGP peer terminates.
+     * The Direct Connect endpoint that terminates the BGP peer.
      * </p>
      * 
      * @param awsDeviceV2
-     *        The Direct Connect endpoint on which the BGP peer terminates.
+     *        The Direct Connect endpoint that terminates the BGP peer.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public BGPPeer withAwsDeviceV2(String awsDeviceV2) {
         setAwsDeviceV2(awsDeviceV2);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Direct Connect endpoint that terminates the logical connection. This device might be different than the
+     * device that terminates the physical connection.
+     * </p>
+     * 
+     * @param awsLogicalDeviceId
+     *        The Direct Connect endpoint that terminates the logical connection. This device might be different than
+     *        the device that terminates the physical connection.
+     */
+
+    public void setAwsLogicalDeviceId(String awsLogicalDeviceId) {
+        this.awsLogicalDeviceId = awsLogicalDeviceId;
+    }
+
+    /**
+     * <p>
+     * The Direct Connect endpoint that terminates the logical connection. This device might be different than the
+     * device that terminates the physical connection.
+     * </p>
+     * 
+     * @return The Direct Connect endpoint that terminates the logical connection. This device might be different than
+     *         the device that terminates the physical connection.
+     */
+
+    public String getAwsLogicalDeviceId() {
+        return this.awsLogicalDeviceId;
+    }
+
+    /**
+     * <p>
+     * The Direct Connect endpoint that terminates the logical connection. This device might be different than the
+     * device that terminates the physical connection.
+     * </p>
+     * 
+     * @param awsLogicalDeviceId
+     *        The Direct Connect endpoint that terminates the logical connection. This device might be different than
+     *        the device that terminates the physical connection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BGPPeer withAwsLogicalDeviceId(String awsLogicalDeviceId) {
+        setAwsLogicalDeviceId(awsLogicalDeviceId);
         return this;
     }
 
@@ -1079,7 +1132,9 @@ public class BGPPeer implements Serializable, Cloneable, StructuredPojo {
         if (getBgpStatus() != null)
             sb.append("BgpStatus: ").append(getBgpStatus()).append(",");
         if (getAwsDeviceV2() != null)
-            sb.append("AwsDeviceV2: ").append(getAwsDeviceV2());
+            sb.append("AwsDeviceV2: ").append(getAwsDeviceV2()).append(",");
+        if (getAwsLogicalDeviceId() != null)
+            sb.append("AwsLogicalDeviceId: ").append(getAwsLogicalDeviceId());
         sb.append("}");
         return sb.toString();
     }
@@ -1130,6 +1185,10 @@ public class BGPPeer implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getAwsDeviceV2() != null && other.getAwsDeviceV2().equals(this.getAwsDeviceV2()) == false)
             return false;
+        if (other.getAwsLogicalDeviceId() == null ^ this.getAwsLogicalDeviceId() == null)
+            return false;
+        if (other.getAwsLogicalDeviceId() != null && other.getAwsLogicalDeviceId().equals(this.getAwsLogicalDeviceId()) == false)
+            return false;
         return true;
     }
 
@@ -1147,6 +1206,7 @@ public class BGPPeer implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getBgpPeerState() == null) ? 0 : getBgpPeerState().hashCode());
         hashCode = prime * hashCode + ((getBgpStatus() == null) ? 0 : getBgpStatus().hashCode());
         hashCode = prime * hashCode + ((getAwsDeviceV2() == null) ? 0 : getAwsDeviceV2().hashCode());
+        hashCode = prime * hashCode + ((getAwsLogicalDeviceId() == null) ? 0 : getAwsLogicalDeviceId().hashCode());
         return hashCode;
     }
 

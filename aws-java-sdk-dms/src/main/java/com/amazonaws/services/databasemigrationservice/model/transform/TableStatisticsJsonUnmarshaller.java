@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -72,6 +72,22 @@ public class TableStatisticsJsonUnmarshaller implements Unmarshaller<TableStatis
                     context.nextToken();
                     tableStatistics.setDdls(context.getUnmarshaller(Long.class).unmarshall(context));
                 }
+                if (context.testExpression("AppliedInserts", targetDepth)) {
+                    context.nextToken();
+                    tableStatistics.setAppliedInserts(context.getUnmarshaller(Long.class).unmarshall(context));
+                }
+                if (context.testExpression("AppliedDeletes", targetDepth)) {
+                    context.nextToken();
+                    tableStatistics.setAppliedDeletes(context.getUnmarshaller(Long.class).unmarshall(context));
+                }
+                if (context.testExpression("AppliedUpdates", targetDepth)) {
+                    context.nextToken();
+                    tableStatistics.setAppliedUpdates(context.getUnmarshaller(Long.class).unmarshall(context));
+                }
+                if (context.testExpression("AppliedDdls", targetDepth)) {
+                    context.nextToken();
+                    tableStatistics.setAppliedDdls(context.getUnmarshaller(Long.class).unmarshall(context));
+                }
                 if (context.testExpression("FullLoadRows", targetDepth)) {
                     context.nextToken();
                     tableStatistics.setFullLoadRows(context.getUnmarshaller(Long.class).unmarshall(context));
@@ -83,6 +99,18 @@ public class TableStatisticsJsonUnmarshaller implements Unmarshaller<TableStatis
                 if (context.testExpression("FullLoadErrorRows", targetDepth)) {
                     context.nextToken();
                     tableStatistics.setFullLoadErrorRows(context.getUnmarshaller(Long.class).unmarshall(context));
+                }
+                if (context.testExpression("FullLoadStartTime", targetDepth)) {
+                    context.nextToken();
+                    tableStatistics.setFullLoadStartTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("FullLoadEndTime", targetDepth)) {
+                    context.nextToken();
+                    tableStatistics.setFullLoadEndTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("FullLoadReloaded", targetDepth)) {
+                    context.nextToken();
+                    tableStatistics.setFullLoadReloaded(context.getUnmarshaller(Boolean.class).unmarshall(context));
                 }
                 if (context.testExpression("LastUpdateTime", targetDepth)) {
                     context.nextToken();

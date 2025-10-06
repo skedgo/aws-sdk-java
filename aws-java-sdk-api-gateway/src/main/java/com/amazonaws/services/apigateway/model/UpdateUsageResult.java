@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,11 +19,6 @@ import javax.annotation.Generated;
  * <p>
  * Represents the usage data of a usage plan.
  * </p>
- * <div class="remarks"/> <div class="seeAlso"> <a
- * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-usage-plans.html">Create and Use
- * Usage Plans</a>, <a href=
- * "https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-create-usage-plans-with-console.html#api-gateway-usage-plan-manage-usage"
- * >Manage Usage in a Usage Plan</a> </div>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class UpdateUsageResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {
@@ -264,6 +259,13 @@ public class UpdateUsageResult extends com.amazonaws.AmazonWebServiceResult<com.
         setItems(items);
         return this;
     }
+
+    /**
+     * Add a single Items entry
+     *
+     * @see UpdateUsageResult#withItems
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public UpdateUsageResult addItemsEntry(String key, java.util.List<java.util.List<Long>> value) {
         if (null == this.items) {

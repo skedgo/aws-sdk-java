@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Portions copyright 2006-2009 James Murty. Please see LICENSE.txt
  * for applicable license terms and NOTICE.txt for applicable notices.
@@ -67,6 +67,9 @@ public class Bucket implements Serializable {
     /** The date this bucket was created */
     private Date creationDate = null;
 
+    /** The region where the bucket is located */
+    private String region = null;
+
     /**
      * Constructs a bucket without any name specified.
      * 
@@ -94,7 +97,8 @@ public class Bucket implements Serializable {
     public String toString() {
         return "S3Bucket [name=" + getName()
                 + ", creationDate=" + getCreationDate()
-                + ", owner=" + getOwner() + "]";
+                + ", owner=" + getOwner()
+                + ", region=" + getRegion() + "]";
     }
 
     /**
@@ -113,7 +117,7 @@ public class Bucket implements Serializable {
     /**
      * For internal use only.
      * Sets the bucket's owner in Amazon S3. This should only be used internally by
-     * the AWS Java client methods that retrieve information directly from Amazon S3.
+     * the Amazon Web Services Java client methods that retrieve information directly from Amazon S3.
      *
      * @param owner
      *          The bucket's owner.
@@ -138,7 +142,7 @@ public class Bucket implements Serializable {
     /**
      * For internal use only.
      * Sets the bucket's creation date in S3. This should only be used
-     * internally by AWS Java client methods that retrieve information directly
+     * internally by Amazon Web Services Java client methods that retrieve information directly
      * from Amazon S3.
      *
      * @param creationDate
@@ -169,6 +173,27 @@ public class Bucket implements Serializable {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * Gets the region where the bucket is located.
+     * It will return <code>null</code> for bucket instances created by the
+     * {@link com.amazonaws.services.s3.AmazonS3#createBucket(CreateBucketRequest)} or
+     * {@link com.amazonaws.services.s3.AmazonS3#createBucket(String)} API.
+     *
+     * @return The region of this bucket.
+     */
+    public String getRegion() {
+        return region;
+    }
+
+    /**
+     * Sets the region where the bucket is located.
+     *
+     * @param region The region for the bucket.
+     */
+    public void setRegion(String region) {
+        this.region = region;
     }
 
 }

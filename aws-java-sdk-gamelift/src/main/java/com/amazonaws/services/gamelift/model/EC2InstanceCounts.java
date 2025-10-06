@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,113 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Current status of fleet capacity. The number of active instances should match or be in the process of matching the
- * number of desired instances. Pending and terminating counts are non-zero only if fleet capacity is adjusting to an
- * <a>UpdateFleetCapacity</a> request, or if access to resources is temporarily affected.
+ * Resource capacity settings. Fleet capacity is measured in Amazon EC2 instances. Pending and terminating counts are
+ * non-zero when the fleet capacity is adjusting to a scaling event or if access to resources is temporarily affected.
  * </p>
- * <ul>
- * <li>
- * <p>
- * <a>CreateFleet</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>ListFleets</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DeleteFleet</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * Describe fleets:
- * </p>
- * <ul>
- * <li>
- * <p>
- * <a>DescribeFleetAttributes</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DescribeFleetCapacity</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DescribeFleetPortSettings</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DescribeFleetUtilization</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DescribeRuntimeConfiguration</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DescribeEC2InstanceLimits</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DescribeFleetEvents</a>
- * </p>
- * </li>
- * </ul>
- * </li>
- * <li>
- * <p>
- * Update fleets:
- * </p>
- * <ul>
- * <li>
- * <p>
- * <a>UpdateFleetAttributes</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>UpdateFleetCapacity</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>UpdateFleetPortSettings</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>UpdateRuntimeConfiguration</a>
- * </p>
- * </li>
- * </ul>
- * </li>
- * <li>
- * <p>
- * Manage fleet actions:
- * </p>
- * <ul>
- * <li>
- * <p>
- * <a>StartFleetActions</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>StopFleetActions</a>
- * </p>
- * </li>
- * </ul>
- * </li>
- * </ul>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/EC2InstanceCounts" target="_top">AWS API
  *      Documentation</a>
@@ -135,54 +31,60 @@ public class EC2InstanceCounts implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Ideal number of active instances in the fleet.
+     * Requested number of active instances. Amazon GameLift takes action as needed to maintain the desired number of
+     * instances. Capacity is scaled up or down by changing the desired instances. A change in the desired instances
+     * value can take up to 1 minute to be reflected when viewing a fleet's capacity settings.
      * </p>
      */
     private Integer dESIRED;
     /**
      * <p>
-     * Minimum value allowed for the fleet's instance count.
+     * The minimum instance count value allowed.
      * </p>
      */
     private Integer mINIMUM;
     /**
      * <p>
-     * Maximum value allowed for the fleet's instance count.
+     * The maximum instance count value allowed.
      * </p>
      */
     private Integer mAXIMUM;
     /**
      * <p>
-     * Number of instances in the fleet that are starting but not yet active.
+     * Number of instances that are starting but not yet active.
      * </p>
      */
     private Integer pENDING;
     /**
      * <p>
-     * Actual number of active instances in the fleet.
+     * Actual number of instances that are ready to host game sessions.
      * </p>
      */
     private Integer aCTIVE;
     /**
      * <p>
-     * Number of active instances in the fleet that are not currently hosting a game session.
+     * Number of active instances that are not currently hosting a game session.
      * </p>
      */
     private Integer iDLE;
     /**
      * <p>
-     * Number of instances in the fleet that are no longer active but haven't yet been terminated.
+     * Number of instances that are no longer active but haven't yet been terminated.
      * </p>
      */
     private Integer tERMINATING;
 
     /**
      * <p>
-     * Ideal number of active instances in the fleet.
+     * Requested number of active instances. Amazon GameLift takes action as needed to maintain the desired number of
+     * instances. Capacity is scaled up or down by changing the desired instances. A change in the desired instances
+     * value can take up to 1 minute to be reflected when viewing a fleet's capacity settings.
      * </p>
      * 
      * @param dESIRED
-     *        Ideal number of active instances in the fleet.
+     *        Requested number of active instances. Amazon GameLift takes action as needed to maintain the desired
+     *        number of instances. Capacity is scaled up or down by changing the desired instances. A change in the
+     *        desired instances value can take up to 1 minute to be reflected when viewing a fleet's capacity settings.
      */
 
     public void setDESIRED(Integer dESIRED) {
@@ -191,10 +93,14 @@ public class EC2InstanceCounts implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Ideal number of active instances in the fleet.
+     * Requested number of active instances. Amazon GameLift takes action as needed to maintain the desired number of
+     * instances. Capacity is scaled up or down by changing the desired instances. A change in the desired instances
+     * value can take up to 1 minute to be reflected when viewing a fleet's capacity settings.
      * </p>
      * 
-     * @return Ideal number of active instances in the fleet.
+     * @return Requested number of active instances. Amazon GameLift takes action as needed to maintain the desired
+     *         number of instances. Capacity is scaled up or down by changing the desired instances. A change in the
+     *         desired instances value can take up to 1 minute to be reflected when viewing a fleet's capacity settings.
      */
 
     public Integer getDESIRED() {
@@ -203,11 +109,15 @@ public class EC2InstanceCounts implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Ideal number of active instances in the fleet.
+     * Requested number of active instances. Amazon GameLift takes action as needed to maintain the desired number of
+     * instances. Capacity is scaled up or down by changing the desired instances. A change in the desired instances
+     * value can take up to 1 minute to be reflected when viewing a fleet's capacity settings.
      * </p>
      * 
      * @param dESIRED
-     *        Ideal number of active instances in the fleet.
+     *        Requested number of active instances. Amazon GameLift takes action as needed to maintain the desired
+     *        number of instances. Capacity is scaled up or down by changing the desired instances. A change in the
+     *        desired instances value can take up to 1 minute to be reflected when viewing a fleet's capacity settings.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -218,11 +128,11 @@ public class EC2InstanceCounts implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Minimum value allowed for the fleet's instance count.
+     * The minimum instance count value allowed.
      * </p>
      * 
      * @param mINIMUM
-     *        Minimum value allowed for the fleet's instance count.
+     *        The minimum instance count value allowed.
      */
 
     public void setMINIMUM(Integer mINIMUM) {
@@ -231,10 +141,10 @@ public class EC2InstanceCounts implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Minimum value allowed for the fleet's instance count.
+     * The minimum instance count value allowed.
      * </p>
      * 
-     * @return Minimum value allowed for the fleet's instance count.
+     * @return The minimum instance count value allowed.
      */
 
     public Integer getMINIMUM() {
@@ -243,11 +153,11 @@ public class EC2InstanceCounts implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Minimum value allowed for the fleet's instance count.
+     * The minimum instance count value allowed.
      * </p>
      * 
      * @param mINIMUM
-     *        Minimum value allowed for the fleet's instance count.
+     *        The minimum instance count value allowed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -258,11 +168,11 @@ public class EC2InstanceCounts implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Maximum value allowed for the fleet's instance count.
+     * The maximum instance count value allowed.
      * </p>
      * 
      * @param mAXIMUM
-     *        Maximum value allowed for the fleet's instance count.
+     *        The maximum instance count value allowed.
      */
 
     public void setMAXIMUM(Integer mAXIMUM) {
@@ -271,10 +181,10 @@ public class EC2InstanceCounts implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Maximum value allowed for the fleet's instance count.
+     * The maximum instance count value allowed.
      * </p>
      * 
-     * @return Maximum value allowed for the fleet's instance count.
+     * @return The maximum instance count value allowed.
      */
 
     public Integer getMAXIMUM() {
@@ -283,11 +193,11 @@ public class EC2InstanceCounts implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Maximum value allowed for the fleet's instance count.
+     * The maximum instance count value allowed.
      * </p>
      * 
      * @param mAXIMUM
-     *        Maximum value allowed for the fleet's instance count.
+     *        The maximum instance count value allowed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -298,11 +208,11 @@ public class EC2InstanceCounts implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Number of instances in the fleet that are starting but not yet active.
+     * Number of instances that are starting but not yet active.
      * </p>
      * 
      * @param pENDING
-     *        Number of instances in the fleet that are starting but not yet active.
+     *        Number of instances that are starting but not yet active.
      */
 
     public void setPENDING(Integer pENDING) {
@@ -311,10 +221,10 @@ public class EC2InstanceCounts implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Number of instances in the fleet that are starting but not yet active.
+     * Number of instances that are starting but not yet active.
      * </p>
      * 
-     * @return Number of instances in the fleet that are starting but not yet active.
+     * @return Number of instances that are starting but not yet active.
      */
 
     public Integer getPENDING() {
@@ -323,11 +233,11 @@ public class EC2InstanceCounts implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Number of instances in the fleet that are starting but not yet active.
+     * Number of instances that are starting but not yet active.
      * </p>
      * 
      * @param pENDING
-     *        Number of instances in the fleet that are starting but not yet active.
+     *        Number of instances that are starting but not yet active.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -338,11 +248,11 @@ public class EC2InstanceCounts implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Actual number of active instances in the fleet.
+     * Actual number of instances that are ready to host game sessions.
      * </p>
      * 
      * @param aCTIVE
-     *        Actual number of active instances in the fleet.
+     *        Actual number of instances that are ready to host game sessions.
      */
 
     public void setACTIVE(Integer aCTIVE) {
@@ -351,10 +261,10 @@ public class EC2InstanceCounts implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Actual number of active instances in the fleet.
+     * Actual number of instances that are ready to host game sessions.
      * </p>
      * 
-     * @return Actual number of active instances in the fleet.
+     * @return Actual number of instances that are ready to host game sessions.
      */
 
     public Integer getACTIVE() {
@@ -363,11 +273,11 @@ public class EC2InstanceCounts implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Actual number of active instances in the fleet.
+     * Actual number of instances that are ready to host game sessions.
      * </p>
      * 
      * @param aCTIVE
-     *        Actual number of active instances in the fleet.
+     *        Actual number of instances that are ready to host game sessions.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -378,11 +288,11 @@ public class EC2InstanceCounts implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Number of active instances in the fleet that are not currently hosting a game session.
+     * Number of active instances that are not currently hosting a game session.
      * </p>
      * 
      * @param iDLE
-     *        Number of active instances in the fleet that are not currently hosting a game session.
+     *        Number of active instances that are not currently hosting a game session.
      */
 
     public void setIDLE(Integer iDLE) {
@@ -391,10 +301,10 @@ public class EC2InstanceCounts implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Number of active instances in the fleet that are not currently hosting a game session.
+     * Number of active instances that are not currently hosting a game session.
      * </p>
      * 
-     * @return Number of active instances in the fleet that are not currently hosting a game session.
+     * @return Number of active instances that are not currently hosting a game session.
      */
 
     public Integer getIDLE() {
@@ -403,11 +313,11 @@ public class EC2InstanceCounts implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Number of active instances in the fleet that are not currently hosting a game session.
+     * Number of active instances that are not currently hosting a game session.
      * </p>
      * 
      * @param iDLE
-     *        Number of active instances in the fleet that are not currently hosting a game session.
+     *        Number of active instances that are not currently hosting a game session.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -418,11 +328,11 @@ public class EC2InstanceCounts implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Number of instances in the fleet that are no longer active but haven't yet been terminated.
+     * Number of instances that are no longer active but haven't yet been terminated.
      * </p>
      * 
      * @param tERMINATING
-     *        Number of instances in the fleet that are no longer active but haven't yet been terminated.
+     *        Number of instances that are no longer active but haven't yet been terminated.
      */
 
     public void setTERMINATING(Integer tERMINATING) {
@@ -431,10 +341,10 @@ public class EC2InstanceCounts implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Number of instances in the fleet that are no longer active but haven't yet been terminated.
+     * Number of instances that are no longer active but haven't yet been terminated.
      * </p>
      * 
-     * @return Number of instances in the fleet that are no longer active but haven't yet been terminated.
+     * @return Number of instances that are no longer active but haven't yet been terminated.
      */
 
     public Integer getTERMINATING() {
@@ -443,11 +353,11 @@ public class EC2InstanceCounts implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Number of instances in the fleet that are no longer active but haven't yet been terminated.
+     * Number of instances that are no longer active but haven't yet been terminated.
      * </p>
      * 
      * @param tERMINATING
-     *        Number of instances in the fleet that are no longer active but haven't yet been terminated.
+     *        Number of instances that are no longer active but haven't yet been terminated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,15 +40,17 @@ public class VideoDescription implements Serializable, Cloneable, StructuredPojo
      */
     private String name;
     /**
-     * Indicates how to respond to the AFD values in the input stream. RESPOND causes input video to be clipped,
-     * depending on the AFD value, input display aspect ratio, and output display aspect ratio, and (except for
-     * FRAMECAPTURE codec) includes the values in the output. PASSTHROUGH (does not apply to FRAMECAPTURE codec) ignores
-     * the AFD values and includes the values in the output, so input video is not clipped. NONE ignores the AFD values
-     * and does not include the values through to the output, so input video is not clipped.
+     * Indicates how MediaLive will respond to the AFD values that might be in the input video. If you do not know what
+     * AFD signaling is, or if your downstream system has not given you guidance, choose PASSTHROUGH. RESPOND: MediaLive
+     * clips the input video using a formula that uses the AFD values (configured in afdSignaling ), the input display
+     * aspect ratio, and the output display aspect ratio. MediaLive also includes the AFD values in the output, unless
+     * the codec for this encode is FRAME_CAPTURE. PASSTHROUGH: MediaLive ignores the AFD values and does not clip the
+     * video. But MediaLive does include the values in the output. NONE: MediaLive does not clip the input video and
+     * does not include the AFD values in the output
      */
     private String respondToAfd;
     /**
-     * STRETCHTOOUTPUT configures the output position to stretch the video to the specified output resolution (height
+     * STRETCH_TO_OUTPUT configures the output position to stretch the video to the specified output resolution (height
      * and width). This option will override any position value. DEFAULT may insert black boxes (pillar boxes or letter
      * boxes) around the video to provide the specified output resolution.
      */
@@ -186,18 +188,22 @@ public class VideoDescription implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Indicates how to respond to the AFD values in the input stream. RESPOND causes input video to be clipped,
-     * depending on the AFD value, input display aspect ratio, and output display aspect ratio, and (except for
-     * FRAMECAPTURE codec) includes the values in the output. PASSTHROUGH (does not apply to FRAMECAPTURE codec) ignores
-     * the AFD values and includes the values in the output, so input video is not clipped. NONE ignores the AFD values
-     * and does not include the values through to the output, so input video is not clipped.
+     * Indicates how MediaLive will respond to the AFD values that might be in the input video. If you do not know what
+     * AFD signaling is, or if your downstream system has not given you guidance, choose PASSTHROUGH. RESPOND: MediaLive
+     * clips the input video using a formula that uses the AFD values (configured in afdSignaling ), the input display
+     * aspect ratio, and the output display aspect ratio. MediaLive also includes the AFD values in the output, unless
+     * the codec for this encode is FRAME_CAPTURE. PASSTHROUGH: MediaLive ignores the AFD values and does not clip the
+     * video. But MediaLive does include the values in the output. NONE: MediaLive does not clip the input video and
+     * does not include the AFD values in the output
      * 
      * @param respondToAfd
-     *        Indicates how to respond to the AFD values in the input stream. RESPOND causes input video to be clipped,
-     *        depending on the AFD value, input display aspect ratio, and output display aspect ratio, and (except for
-     *        FRAMECAPTURE codec) includes the values in the output. PASSTHROUGH (does not apply to FRAMECAPTURE codec)
-     *        ignores the AFD values and includes the values in the output, so input video is not clipped. NONE ignores
-     *        the AFD values and does not include the values through to the output, so input video is not clipped.
+     *        Indicates how MediaLive will respond to the AFD values that might be in the input video. If you do not
+     *        know what AFD signaling is, or if your downstream system has not given you guidance, choose PASSTHROUGH.
+     *        RESPOND: MediaLive clips the input video using a formula that uses the AFD values (configured in
+     *        afdSignaling ), the input display aspect ratio, and the output display aspect ratio. MediaLive also
+     *        includes the AFD values in the output, unless the codec for this encode is FRAME_CAPTURE. PASSTHROUGH:
+     *        MediaLive ignores the AFD values and does not clip the video. But MediaLive does include the values in the
+     *        output. NONE: MediaLive does not clip the input video and does not include the AFD values in the output
      * @see VideoDescriptionRespondToAfd
      */
 
@@ -206,17 +212,22 @@ public class VideoDescription implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Indicates how to respond to the AFD values in the input stream. RESPOND causes input video to be clipped,
-     * depending on the AFD value, input display aspect ratio, and output display aspect ratio, and (except for
-     * FRAMECAPTURE codec) includes the values in the output. PASSTHROUGH (does not apply to FRAMECAPTURE codec) ignores
-     * the AFD values and includes the values in the output, so input video is not clipped. NONE ignores the AFD values
-     * and does not include the values through to the output, so input video is not clipped.
+     * Indicates how MediaLive will respond to the AFD values that might be in the input video. If you do not know what
+     * AFD signaling is, or if your downstream system has not given you guidance, choose PASSTHROUGH. RESPOND: MediaLive
+     * clips the input video using a formula that uses the AFD values (configured in afdSignaling ), the input display
+     * aspect ratio, and the output display aspect ratio. MediaLive also includes the AFD values in the output, unless
+     * the codec for this encode is FRAME_CAPTURE. PASSTHROUGH: MediaLive ignores the AFD values and does not clip the
+     * video. But MediaLive does include the values in the output. NONE: MediaLive does not clip the input video and
+     * does not include the AFD values in the output
      * 
-     * @return Indicates how to respond to the AFD values in the input stream. RESPOND causes input video to be clipped,
-     *         depending on the AFD value, input display aspect ratio, and output display aspect ratio, and (except for
-     *         FRAMECAPTURE codec) includes the values in the output. PASSTHROUGH (does not apply to FRAMECAPTURE codec)
-     *         ignores the AFD values and includes the values in the output, so input video is not clipped. NONE ignores
-     *         the AFD values and does not include the values through to the output, so input video is not clipped.
+     * @return Indicates how MediaLive will respond to the AFD values that might be in the input video. If you do not
+     *         know what AFD signaling is, or if your downstream system has not given you guidance, choose PASSTHROUGH.
+     *         RESPOND: MediaLive clips the input video using a formula that uses the AFD values (configured in
+     *         afdSignaling ), the input display aspect ratio, and the output display aspect ratio. MediaLive also
+     *         includes the AFD values in the output, unless the codec for this encode is FRAME_CAPTURE. PASSTHROUGH:
+     *         MediaLive ignores the AFD values and does not clip the video. But MediaLive does include the values in
+     *         the output. NONE: MediaLive does not clip the input video and does not include the AFD values in the
+     *         output
      * @see VideoDescriptionRespondToAfd
      */
 
@@ -225,18 +236,22 @@ public class VideoDescription implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Indicates how to respond to the AFD values in the input stream. RESPOND causes input video to be clipped,
-     * depending on the AFD value, input display aspect ratio, and output display aspect ratio, and (except for
-     * FRAMECAPTURE codec) includes the values in the output. PASSTHROUGH (does not apply to FRAMECAPTURE codec) ignores
-     * the AFD values and includes the values in the output, so input video is not clipped. NONE ignores the AFD values
-     * and does not include the values through to the output, so input video is not clipped.
+     * Indicates how MediaLive will respond to the AFD values that might be in the input video. If you do not know what
+     * AFD signaling is, or if your downstream system has not given you guidance, choose PASSTHROUGH. RESPOND: MediaLive
+     * clips the input video using a formula that uses the AFD values (configured in afdSignaling ), the input display
+     * aspect ratio, and the output display aspect ratio. MediaLive also includes the AFD values in the output, unless
+     * the codec for this encode is FRAME_CAPTURE. PASSTHROUGH: MediaLive ignores the AFD values and does not clip the
+     * video. But MediaLive does include the values in the output. NONE: MediaLive does not clip the input video and
+     * does not include the AFD values in the output
      * 
      * @param respondToAfd
-     *        Indicates how to respond to the AFD values in the input stream. RESPOND causes input video to be clipped,
-     *        depending on the AFD value, input display aspect ratio, and output display aspect ratio, and (except for
-     *        FRAMECAPTURE codec) includes the values in the output. PASSTHROUGH (does not apply to FRAMECAPTURE codec)
-     *        ignores the AFD values and includes the values in the output, so input video is not clipped. NONE ignores
-     *        the AFD values and does not include the values through to the output, so input video is not clipped.
+     *        Indicates how MediaLive will respond to the AFD values that might be in the input video. If you do not
+     *        know what AFD signaling is, or if your downstream system has not given you guidance, choose PASSTHROUGH.
+     *        RESPOND: MediaLive clips the input video using a formula that uses the AFD values (configured in
+     *        afdSignaling ), the input display aspect ratio, and the output display aspect ratio. MediaLive also
+     *        includes the AFD values in the output, unless the codec for this encode is FRAME_CAPTURE. PASSTHROUGH:
+     *        MediaLive ignores the AFD values and does not clip the video. But MediaLive does include the values in the
+     *        output. NONE: MediaLive does not clip the input video and does not include the AFD values in the output
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see VideoDescriptionRespondToAfd
      */
@@ -247,18 +262,22 @@ public class VideoDescription implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Indicates how to respond to the AFD values in the input stream. RESPOND causes input video to be clipped,
-     * depending on the AFD value, input display aspect ratio, and output display aspect ratio, and (except for
-     * FRAMECAPTURE codec) includes the values in the output. PASSTHROUGH (does not apply to FRAMECAPTURE codec) ignores
-     * the AFD values and includes the values in the output, so input video is not clipped. NONE ignores the AFD values
-     * and does not include the values through to the output, so input video is not clipped.
+     * Indicates how MediaLive will respond to the AFD values that might be in the input video. If you do not know what
+     * AFD signaling is, or if your downstream system has not given you guidance, choose PASSTHROUGH. RESPOND: MediaLive
+     * clips the input video using a formula that uses the AFD values (configured in afdSignaling ), the input display
+     * aspect ratio, and the output display aspect ratio. MediaLive also includes the AFD values in the output, unless
+     * the codec for this encode is FRAME_CAPTURE. PASSTHROUGH: MediaLive ignores the AFD values and does not clip the
+     * video. But MediaLive does include the values in the output. NONE: MediaLive does not clip the input video and
+     * does not include the AFD values in the output
      * 
      * @param respondToAfd
-     *        Indicates how to respond to the AFD values in the input stream. RESPOND causes input video to be clipped,
-     *        depending on the AFD value, input display aspect ratio, and output display aspect ratio, and (except for
-     *        FRAMECAPTURE codec) includes the values in the output. PASSTHROUGH (does not apply to FRAMECAPTURE codec)
-     *        ignores the AFD values and includes the values in the output, so input video is not clipped. NONE ignores
-     *        the AFD values and does not include the values through to the output, so input video is not clipped.
+     *        Indicates how MediaLive will respond to the AFD values that might be in the input video. If you do not
+     *        know what AFD signaling is, or if your downstream system has not given you guidance, choose PASSTHROUGH.
+     *        RESPOND: MediaLive clips the input video using a formula that uses the AFD values (configured in
+     *        afdSignaling ), the input display aspect ratio, and the output display aspect ratio. MediaLive also
+     *        includes the AFD values in the output, unless the codec for this encode is FRAME_CAPTURE. PASSTHROUGH:
+     *        MediaLive ignores the AFD values and does not clip the video. But MediaLive does include the values in the
+     *        output. NONE: MediaLive does not clip the input video and does not include the AFD values in the output
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see VideoDescriptionRespondToAfd
      */
@@ -269,12 +288,12 @@ public class VideoDescription implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * STRETCHTOOUTPUT configures the output position to stretch the video to the specified output resolution (height
+     * STRETCH_TO_OUTPUT configures the output position to stretch the video to the specified output resolution (height
      * and width). This option will override any position value. DEFAULT may insert black boxes (pillar boxes or letter
      * boxes) around the video to provide the specified output resolution.
      * 
      * @param scalingBehavior
-     *        STRETCHTOOUTPUT configures the output position to stretch the video to the specified output resolution
+     *        STRETCH_TO_OUTPUT configures the output position to stretch the video to the specified output resolution
      *        (height and width). This option will override any position value. DEFAULT may insert black boxes (pillar
      *        boxes or letter boxes) around the video to provide the specified output resolution.
      * @see VideoDescriptionScalingBehavior
@@ -285,11 +304,11 @@ public class VideoDescription implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * STRETCHTOOUTPUT configures the output position to stretch the video to the specified output resolution (height
+     * STRETCH_TO_OUTPUT configures the output position to stretch the video to the specified output resolution (height
      * and width). This option will override any position value. DEFAULT may insert black boxes (pillar boxes or letter
      * boxes) around the video to provide the specified output resolution.
      * 
-     * @return STRETCHTOOUTPUT configures the output position to stretch the video to the specified output resolution
+     * @return STRETCH_TO_OUTPUT configures the output position to stretch the video to the specified output resolution
      *         (height and width). This option will override any position value. DEFAULT may insert black boxes (pillar
      *         boxes or letter boxes) around the video to provide the specified output resolution.
      * @see VideoDescriptionScalingBehavior
@@ -300,12 +319,12 @@ public class VideoDescription implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * STRETCHTOOUTPUT configures the output position to stretch the video to the specified output resolution (height
+     * STRETCH_TO_OUTPUT configures the output position to stretch the video to the specified output resolution (height
      * and width). This option will override any position value. DEFAULT may insert black boxes (pillar boxes or letter
      * boxes) around the video to provide the specified output resolution.
      * 
      * @param scalingBehavior
-     *        STRETCHTOOUTPUT configures the output position to stretch the video to the specified output resolution
+     *        STRETCH_TO_OUTPUT configures the output position to stretch the video to the specified output resolution
      *        (height and width). This option will override any position value. DEFAULT may insert black boxes (pillar
      *        boxes or letter boxes) around the video to provide the specified output resolution.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -318,12 +337,12 @@ public class VideoDescription implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * STRETCHTOOUTPUT configures the output position to stretch the video to the specified output resolution (height
+     * STRETCH_TO_OUTPUT configures the output position to stretch the video to the specified output resolution (height
      * and width). This option will override any position value. DEFAULT may insert black boxes (pillar boxes or letter
      * boxes) around the video to provide the specified output resolution.
      * 
      * @param scalingBehavior
-     *        STRETCHTOOUTPUT configures the output position to stretch the video to the specified output resolution
+     *        STRETCH_TO_OUTPUT configures the output position to stretch the video to the specified output resolution
      *        (height and width). This option will override any position value. DEFAULT may insert black boxes (pillar
      *        boxes or letter boxes) around the video to provide the specified output resolution.
      * @return Returns a reference to this object so that method calls can be chained together.

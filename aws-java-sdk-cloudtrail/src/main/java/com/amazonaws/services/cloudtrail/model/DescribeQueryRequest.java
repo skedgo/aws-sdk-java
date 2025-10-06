@@ -1,0 +1,231 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.cloudtrail.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+
+import com.amazonaws.AmazonWebServiceRequest;
+
+/**
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudtrail-2013-11-01/DescribeQuery" target="_top">AWS API
+ *      Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class DescribeQueryRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
+
+    /**
+     * <p>
+     * The ARN (or the ID suffix of the ARN) of an event data store on which the specified query was run.
+     * </p>
+     */
+    @Deprecated
+    private String eventDataStore;
+    /**
+     * <p>
+     * The query ID.
+     * </p>
+     */
+    private String queryId;
+    /**
+     * <p>
+     * The alias that identifies a query template.
+     * </p>
+     */
+    private String queryAlias;
+
+    /**
+     * <p>
+     * The ARN (or the ID suffix of the ARN) of an event data store on which the specified query was run.
+     * </p>
+     * 
+     * @param eventDataStore
+     *        The ARN (or the ID suffix of the ARN) of an event data store on which the specified query was run.
+     */
+    @Deprecated
+    public void setEventDataStore(String eventDataStore) {
+        this.eventDataStore = eventDataStore;
+    }
+
+    /**
+     * <p>
+     * The ARN (or the ID suffix of the ARN) of an event data store on which the specified query was run.
+     * </p>
+     * 
+     * @return The ARN (or the ID suffix of the ARN) of an event data store on which the specified query was run.
+     */
+    @Deprecated
+    public String getEventDataStore() {
+        return this.eventDataStore;
+    }
+
+    /**
+     * <p>
+     * The ARN (or the ID suffix of the ARN) of an event data store on which the specified query was run.
+     * </p>
+     * 
+     * @param eventDataStore
+     *        The ARN (or the ID suffix of the ARN) of an event data store on which the specified query was run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+    @Deprecated
+    public DescribeQueryRequest withEventDataStore(String eventDataStore) {
+        setEventDataStore(eventDataStore);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The query ID.
+     * </p>
+     * 
+     * @param queryId
+     *        The query ID.
+     */
+
+    public void setQueryId(String queryId) {
+        this.queryId = queryId;
+    }
+
+    /**
+     * <p>
+     * The query ID.
+     * </p>
+     * 
+     * @return The query ID.
+     */
+
+    public String getQueryId() {
+        return this.queryId;
+    }
+
+    /**
+     * <p>
+     * The query ID.
+     * </p>
+     * 
+     * @param queryId
+     *        The query ID.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeQueryRequest withQueryId(String queryId) {
+        setQueryId(queryId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The alias that identifies a query template.
+     * </p>
+     * 
+     * @param queryAlias
+     *        The alias that identifies a query template.
+     */
+
+    public void setQueryAlias(String queryAlias) {
+        this.queryAlias = queryAlias;
+    }
+
+    /**
+     * <p>
+     * The alias that identifies a query template.
+     * </p>
+     * 
+     * @return The alias that identifies a query template.
+     */
+
+    public String getQueryAlias() {
+        return this.queryAlias;
+    }
+
+    /**
+     * <p>
+     * The alias that identifies a query template.
+     * </p>
+     * 
+     * @param queryAlias
+     *        The alias that identifies a query template.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeQueryRequest withQueryAlias(String queryAlias) {
+        setQueryAlias(queryAlias);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getEventDataStore() != null)
+            sb.append("EventDataStore: ").append(getEventDataStore()).append(",");
+        if (getQueryId() != null)
+            sb.append("QueryId: ").append(getQueryId()).append(",");
+        if (getQueryAlias() != null)
+            sb.append("QueryAlias: ").append(getQueryAlias());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof DescribeQueryRequest == false)
+            return false;
+        DescribeQueryRequest other = (DescribeQueryRequest) obj;
+        if (other.getEventDataStore() == null ^ this.getEventDataStore() == null)
+            return false;
+        if (other.getEventDataStore() != null && other.getEventDataStore().equals(this.getEventDataStore()) == false)
+            return false;
+        if (other.getQueryId() == null ^ this.getQueryId() == null)
+            return false;
+        if (other.getQueryId() != null && other.getQueryId().equals(this.getQueryId()) == false)
+            return false;
+        if (other.getQueryAlias() == null ^ this.getQueryAlias() == null)
+            return false;
+        if (other.getQueryAlias() != null && other.getQueryAlias().equals(this.getQueryAlias()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getEventDataStore() == null) ? 0 : getEventDataStore().hashCode());
+        hashCode = prime * hashCode + ((getQueryId() == null) ? 0 : getQueryId().hashCode());
+        hashCode = prime * hashCode + ((getQueryAlias() == null) ? 0 : getQueryAlias().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public DescribeQueryRequest clone() {
+        return (DescribeQueryRequest) super.clone();
+    }
+
+}

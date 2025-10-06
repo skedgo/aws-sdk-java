@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -119,6 +119,19 @@ public class AbstractAWSMediaConvertAsync extends AbstractAWSMediaConvert implem
     }
 
     @Override
+    public java.util.concurrent.Future<DeletePolicyResult> deletePolicyAsync(DeletePolicyRequest request) {
+
+        return deletePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeletePolicyResult> deletePolicyAsync(DeletePolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeletePolicyRequest, DeletePolicyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeletePresetResult> deletePresetAsync(DeletePresetRequest request) {
 
         return deletePresetAsync(request, null);
@@ -145,12 +158,14 @@ public class AbstractAWSMediaConvertAsync extends AbstractAWSMediaConvert implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeEndpointsResult> describeEndpointsAsync(DescribeEndpointsRequest request) {
 
         return describeEndpointsAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeEndpointsResult> describeEndpointsAsync(DescribeEndpointsRequest request,
             com.amazonaws.handlers.AsyncHandler<DescribeEndpointsRequest, DescribeEndpointsResult> asyncHandler) {
 
@@ -192,6 +207,19 @@ public class AbstractAWSMediaConvertAsync extends AbstractAWSMediaConvert implem
     @Override
     public java.util.concurrent.Future<GetJobTemplateResult> getJobTemplateAsync(GetJobTemplateRequest request,
             com.amazonaws.handlers.AsyncHandler<GetJobTemplateRequest, GetJobTemplateResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetPolicyResult> getPolicyAsync(GetPolicyRequest request) {
+
+        return getPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetPolicyResult> getPolicyAsync(GetPolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetPolicyRequest, GetPolicyResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -283,6 +311,32 @@ public class AbstractAWSMediaConvertAsync extends AbstractAWSMediaConvert implem
     @Override
     public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request,
             com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutPolicyResult> putPolicyAsync(PutPolicyRequest request) {
+
+        return putPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutPolicyResult> putPolicyAsync(PutPolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<PutPolicyRequest, PutPolicyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<SearchJobsResult> searchJobsAsync(SearchJobsRequest request) {
+
+        return searchJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SearchJobsResult> searchJobsAsync(SearchJobsRequest request,
+            com.amazonaws.handlers.AsyncHandler<SearchJobsRequest, SearchJobsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

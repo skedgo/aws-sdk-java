@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -58,12 +58,6 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * <p>
      * The message you want to send.
      * </p>
-     * <important>
-     * <p>
-     * The <code>Message</code> parameter is always a string. If you set <code>MessageStructure</code> to
-     * <code>json</code>, you must string-encode the <code>Message</code> parameter.
-     * </p>
-     * </important>
      * <p>
      * If you are publishing to a topic and you want to send the same message to all transport protocols, include the
      * text of the message as a String value. If you want to send different messages for each transport protocol, set
@@ -155,8 +149,8 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * will also be included, if present, in the standard JSON messages delivered to other endpoints.
      * </p>
      * <p>
-     * Constraints: Subjects must be ASCII text that begins with a letter, number, or punctuation mark; must not include
-     * line breaks or control characters; and must be less than 100 characters long.
+     * Constraints: Subjects must be UTF-8 text with no line breaks or control characters, and less than 100 characters
+     * long.
      * </p>
      */
     private String subject;
@@ -184,11 +178,6 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * (e.g., "http").
      * </p>
      * <p>
-     * For information about sending different messages for each protocol using the AWS Management Console, go to <a
-     * href="https://docs.aws.amazon.com/sns/latest/gsg/Publish.html#sns-message-formatting-by-protocol">Create
-     * Different Messages for Each Protocol</a> in the <i>Amazon Simple Notification Service Getting Started Guide</i>.
-     * </p>
-     * <p>
      * Valid value: <code>json</code>
      * </p>
      */
@@ -199,6 +188,38 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * </p>
      */
     private com.amazonaws.internal.SdkInternalMap<String, MessageAttributeValue> messageAttributes;
+    /**
+     * <p>
+     * This parameter applies only to FIFO (first-in-first-out) topics. The <code>MessageDeduplicationId</code> can
+     * contain up to 128 alphanumeric characters <code>(a-z, A-Z, 0-9)</code> and punctuation
+     * <code>(!"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~)</code>.
+     * </p>
+     * <p>
+     * Every message must have a unique <code>MessageDeduplicationId</code>, which is a token used for deduplication of
+     * sent messages. If a message with a particular <code>MessageDeduplicationId</code> is sent successfully, any
+     * message sent with the same <code>MessageDeduplicationId</code> during the 5-minute deduplication interval is
+     * treated as a duplicate.
+     * </p>
+     * <p>
+     * If the topic has <code>ContentBasedDeduplication</code> set, the system generates a
+     * <code>MessageDeduplicationId</code> based on the contents of the message. Your
+     * <code>MessageDeduplicationId</code> overrides the generated one.
+     * </p>
+     */
+    private String messageDeduplicationId;
+    /**
+     * <p>
+     * This parameter applies only to FIFO (first-in-first-out) topics. The <code>MessageGroupId</code> can contain up
+     * to 128 alphanumeric characters <code>(a-z, A-Z, 0-9)</code> and punctuation
+     * <code>(!"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~)</code>.
+     * </p>
+     * <p>
+     * The <code>MessageGroupId</code> is a tag that specifies that a message belongs to a specific message group.
+     * Messages that belong to the same message group are processed in a FIFO manner (however, messages in different
+     * message groups might be processed out of order). Every message must include a <code>MessageGroupId</code>.
+     * </p>
+     */
+    private String messageGroupId;
 
     /**
      * Default constructor for PublishRequest object. Callers should use the setter or fluent setter (with...) methods
@@ -219,12 +240,6 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * @param message
      *        The message you want to send.
      *        </p>
-     *        <important>
-     *        <p>
-     *        The <code>Message</code> parameter is always a string. If you set <code>MessageStructure</code> to
-     *        <code>json</code>, you must string-encode the <code>Message</code> parameter.
-     *        </p>
-     *        </important>
      *        <p>
      *        If you are publishing to a topic and you want to send the same message to all transport protocols, include
      *        the text of the message as a String value. If you want to send different messages for each transport
@@ -328,12 +343,6 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * @param message
      *        The message you want to send.
      *        </p>
-     *        <important>
-     *        <p>
-     *        The <code>Message</code> parameter is always a string. If you set <code>MessageStructure</code> to
-     *        <code>json</code>, you must string-encode the <code>Message</code> parameter.
-     *        </p>
-     *        </important>
      *        <p>
      *        If you are publishing to a topic and you want to send the same message to all transport protocols, include
      *        the text of the message as a String value. If you want to send different messages for each transport
@@ -423,8 +432,8 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
      *        Optional parameter to be used as the "Subject" line when the message is delivered to email endpoints. This
      *        field will also be included, if present, in the standard JSON messages delivered to other endpoints.</p>
      *        <p>
-     *        Constraints: Subjects must be ASCII text that begins with a letter, number, or punctuation mark; must not
-     *        include line breaks or control characters; and must be less than 100 characters long.
+     *        Constraints: Subjects must be UTF-8 text with no line breaks or control characters, and less than 100
+     *        characters long.
      */
     public PublishRequest(String topicArn, String message, String subject) {
         setTopicArn(topicArn);
@@ -604,12 +613,6 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * <p>
      * The message you want to send.
      * </p>
-     * <important>
-     * <p>
-     * The <code>Message</code> parameter is always a string. If you set <code>MessageStructure</code> to
-     * <code>json</code>, you must string-encode the <code>Message</code> parameter.
-     * </p>
-     * </important>
      * <p>
      * If you are publishing to a topic and you want to send the same message to all transport protocols, include the
      * text of the message as a String value. If you want to send different messages for each transport protocol, set
@@ -695,12 +698,7 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * </ul>
      * 
      * @param message
-     *        The message you want to send.</p> <important>
-     *        <p>
-     *        The <code>Message</code> parameter is always a string. If you set <code>MessageStructure</code> to
-     *        <code>json</code>, you must string-encode the <code>Message</code> parameter.
-     *        </p>
-     *        </important>
+     *        The message you want to send.</p>
      *        <p>
      *        If you are publishing to a topic and you want to send the same message to all transport protocols, include
      *        the text of the message as a String value. If you want to send different messages for each transport
@@ -796,12 +794,6 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * <p>
      * The message you want to send.
      * </p>
-     * <important>
-     * <p>
-     * The <code>Message</code> parameter is always a string. If you set <code>MessageStructure</code> to
-     * <code>json</code>, you must string-encode the <code>Message</code> parameter.
-     * </p>
-     * </important>
      * <p>
      * If you are publishing to a topic and you want to send the same message to all transport protocols, include the
      * text of the message as a String value. If you want to send different messages for each transport protocol, set
@@ -886,12 +878,7 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * </li>
      * </ul>
      * 
-     * @return The message you want to send.</p> <important>
-     *         <p>
-     *         The <code>Message</code> parameter is always a string. If you set <code>MessageStructure</code> to
-     *         <code>json</code>, you must string-encode the <code>Message</code> parameter.
-     *         </p>
-     *         </important>
+     * @return The message you want to send.</p>
      *         <p>
      *         If you are publishing to a topic and you want to send the same message to all transport protocols,
      *         include the text of the message as a String value. If you want to send different messages for each
@@ -987,12 +974,6 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * <p>
      * The message you want to send.
      * </p>
-     * <important>
-     * <p>
-     * The <code>Message</code> parameter is always a string. If you set <code>MessageStructure</code> to
-     * <code>json</code>, you must string-encode the <code>Message</code> parameter.
-     * </p>
-     * </important>
      * <p>
      * If you are publishing to a topic and you want to send the same message to all transport protocols, include the
      * text of the message as a String value. If you want to send different messages for each transport protocol, set
@@ -1078,12 +1059,7 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * </ul>
      * 
      * @param message
-     *        The message you want to send.</p> <important>
-     *        <p>
-     *        The <code>Message</code> parameter is always a string. If you set <code>MessageStructure</code> to
-     *        <code>json</code>, you must string-encode the <code>Message</code> parameter.
-     *        </p>
-     *        </important>
+     *        The message you want to send.</p>
      *        <p>
      *        If you are publishing to a topic and you want to send the same message to all transport protocols, include
      *        the text of the message as a String value. If you want to send different messages for each transport
@@ -1183,16 +1159,16 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * will also be included, if present, in the standard JSON messages delivered to other endpoints.
      * </p>
      * <p>
-     * Constraints: Subjects must be ASCII text that begins with a letter, number, or punctuation mark; must not include
-     * line breaks or control characters; and must be less than 100 characters long.
+     * Constraints: Subjects must be UTF-8 text with no line breaks or control characters, and less than 100 characters
+     * long.
      * </p>
      * 
      * @param subject
      *        Optional parameter to be used as the "Subject" line when the message is delivered to email endpoints. This
      *        field will also be included, if present, in the standard JSON messages delivered to other endpoints.</p>
      *        <p>
-     *        Constraints: Subjects must be ASCII text that begins with a letter, number, or punctuation mark; must not
-     *        include line breaks or control characters; and must be less than 100 characters long.
+     *        Constraints: Subjects must be UTF-8 text with no line breaks or control characters, and less than 100
+     *        characters long.
      */
 
     public void setSubject(String subject) {
@@ -1205,16 +1181,16 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * will also be included, if present, in the standard JSON messages delivered to other endpoints.
      * </p>
      * <p>
-     * Constraints: Subjects must be ASCII text that begins with a letter, number, or punctuation mark; must not include
-     * line breaks or control characters; and must be less than 100 characters long.
+     * Constraints: Subjects must be UTF-8 text with no line breaks or control characters, and less than 100 characters
+     * long.
      * </p>
      * 
      * @return Optional parameter to be used as the "Subject" line when the message is delivered to email endpoints.
      *         This field will also be included, if present, in the standard JSON messages delivered to other
      *         endpoints.</p>
      *         <p>
-     *         Constraints: Subjects must be ASCII text that begins with a letter, number, or punctuation mark; must not
-     *         include line breaks or control characters; and must be less than 100 characters long.
+     *         Constraints: Subjects must be UTF-8 text with no line breaks or control characters, and less than 100
+     *         characters long.
      */
 
     public String getSubject() {
@@ -1227,16 +1203,16 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * will also be included, if present, in the standard JSON messages delivered to other endpoints.
      * </p>
      * <p>
-     * Constraints: Subjects must be ASCII text that begins with a letter, number, or punctuation mark; must not include
-     * line breaks or control characters; and must be less than 100 characters long.
+     * Constraints: Subjects must be UTF-8 text with no line breaks or control characters, and less than 100 characters
+     * long.
      * </p>
      * 
      * @param subject
      *        Optional parameter to be used as the "Subject" line when the message is delivered to email endpoints. This
      *        field will also be included, if present, in the standard JSON messages delivered to other endpoints.</p>
      *        <p>
-     *        Constraints: Subjects must be ASCII text that begins with a letter, number, or punctuation mark; must not
-     *        include line breaks or control characters; and must be less than 100 characters long.
+     *        Constraints: Subjects must be UTF-8 text with no line breaks or control characters, and less than 100
+     *        characters long.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1269,11 +1245,6 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * (e.g., "http").
      * </p>
      * <p>
-     * For information about sending different messages for each protocol using the AWS Management Console, go to <a
-     * href="https://docs.aws.amazon.com/sns/latest/gsg/Publish.html#sns-message-formatting-by-protocol">Create
-     * Different Messages for Each Protocol</a> in the <i>Amazon Simple Notification Service Getting Started Guide</i>.
-     * </p>
-     * <p>
      * Valid value: <code>json</code>
      * </p>
      * 
@@ -1297,13 +1268,6 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
      *        <p>
      *        You can define other top-level keys that define the message you want to send to a specific transport
      *        protocol (e.g., "http").
-     *        </p>
-     *        <p>
-     *        For information about sending different messages for each protocol using the AWS Management Console, go to
-     *        <a
-     *        href="https://docs.aws.amazon.com/sns/latest/gsg/Publish.html#sns-message-formatting-by-protocol">Create
-     *        Different Messages for Each Protocol</a> in the <i>Amazon Simple Notification Service Getting Started
-     *        Guide</i>.
      *        </p>
      *        <p>
      *        Valid value: <code>json</code>
@@ -1337,11 +1301,6 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * (e.g., "http").
      * </p>
      * <p>
-     * For information about sending different messages for each protocol using the AWS Management Console, go to <a
-     * href="https://docs.aws.amazon.com/sns/latest/gsg/Publish.html#sns-message-formatting-by-protocol">Create
-     * Different Messages for Each Protocol</a> in the <i>Amazon Simple Notification Service Getting Started Guide</i>.
-     * </p>
-     * <p>
      * Valid value: <code>json</code>
      * </p>
      * 
@@ -1364,12 +1323,6 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
      *         <p>
      *         You can define other top-level keys that define the message you want to send to a specific transport
      *         protocol (e.g., "http").
-     *         </p>
-     *         <p>
-     *         For information about sending different messages for each protocol using the AWS Management Console, go
-     *         to <a href="https://docs.aws.amazon.com/sns/latest/gsg/Publish.html#sns-message-formatting-by-protocol">
-     *         Create Different Messages for Each Protocol</a> in the <i>Amazon Simple Notification Service Getting
-     *         Started Guide</i>.
      *         </p>
      *         <p>
      *         Valid value: <code>json</code>
@@ -1403,11 +1356,6 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * (e.g., "http").
      * </p>
      * <p>
-     * For information about sending different messages for each protocol using the AWS Management Console, go to <a
-     * href="https://docs.aws.amazon.com/sns/latest/gsg/Publish.html#sns-message-formatting-by-protocol">Create
-     * Different Messages for Each Protocol</a> in the <i>Amazon Simple Notification Service Getting Started Guide</i>.
-     * </p>
-     * <p>
      * Valid value: <code>json</code>
      * </p>
      * 
@@ -1431,13 +1379,6 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
      *        <p>
      *        You can define other top-level keys that define the message you want to send to a specific transport
      *        protocol (e.g., "http").
-     *        </p>
-     *        <p>
-     *        For information about sending different messages for each protocol using the AWS Management Console, go to
-     *        <a
-     *        href="https://docs.aws.amazon.com/sns/latest/gsg/Publish.html#sns-message-formatting-by-protocol">Create
-     *        Different Messages for Each Protocol</a> in the <i>Amazon Simple Notification Service Getting Started
-     *        Guide</i>.
      *        </p>
      *        <p>
      *        Valid value: <code>json</code>
@@ -1492,6 +1433,13 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
         return this;
     }
 
+    /**
+     * Add a single MessageAttributes entry
+     *
+     * @see PublishRequest#withMessageAttributes
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public PublishRequest addMessageAttributesEntry(String key, MessageAttributeValue value) {
         if (null == this.messageAttributes) {
             this.messageAttributes = new com.amazonaws.internal.SdkInternalMap<String, MessageAttributeValue>();
@@ -1514,6 +1462,203 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
     }
 
     /**
+     * <p>
+     * This parameter applies only to FIFO (first-in-first-out) topics. The <code>MessageDeduplicationId</code> can
+     * contain up to 128 alphanumeric characters <code>(a-z, A-Z, 0-9)</code> and punctuation
+     * <code>(!"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~)</code>.
+     * </p>
+     * <p>
+     * Every message must have a unique <code>MessageDeduplicationId</code>, which is a token used for deduplication of
+     * sent messages. If a message with a particular <code>MessageDeduplicationId</code> is sent successfully, any
+     * message sent with the same <code>MessageDeduplicationId</code> during the 5-minute deduplication interval is
+     * treated as a duplicate.
+     * </p>
+     * <p>
+     * If the topic has <code>ContentBasedDeduplication</code> set, the system generates a
+     * <code>MessageDeduplicationId</code> based on the contents of the message. Your
+     * <code>MessageDeduplicationId</code> overrides the generated one.
+     * </p>
+     * 
+     * @param messageDeduplicationId
+     *        This parameter applies only to FIFO (first-in-first-out) topics. The <code>MessageDeduplicationId</code>
+     *        can contain up to 128 alphanumeric characters <code>(a-z, A-Z, 0-9)</code> and punctuation
+     *        <code>(!"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~)</code>.</p>
+     *        <p>
+     *        Every message must have a unique <code>MessageDeduplicationId</code>, which is a token used for
+     *        deduplication of sent messages. If a message with a particular <code>MessageDeduplicationId</code> is sent
+     *        successfully, any message sent with the same <code>MessageDeduplicationId</code> during the 5-minute
+     *        deduplication interval is treated as a duplicate.
+     *        </p>
+     *        <p>
+     *        If the topic has <code>ContentBasedDeduplication</code> set, the system generates a
+     *        <code>MessageDeduplicationId</code> based on the contents of the message. Your
+     *        <code>MessageDeduplicationId</code> overrides the generated one.
+     */
+
+    public void setMessageDeduplicationId(String messageDeduplicationId) {
+        this.messageDeduplicationId = messageDeduplicationId;
+    }
+
+    /**
+     * <p>
+     * This parameter applies only to FIFO (first-in-first-out) topics. The <code>MessageDeduplicationId</code> can
+     * contain up to 128 alphanumeric characters <code>(a-z, A-Z, 0-9)</code> and punctuation
+     * <code>(!"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~)</code>.
+     * </p>
+     * <p>
+     * Every message must have a unique <code>MessageDeduplicationId</code>, which is a token used for deduplication of
+     * sent messages. If a message with a particular <code>MessageDeduplicationId</code> is sent successfully, any
+     * message sent with the same <code>MessageDeduplicationId</code> during the 5-minute deduplication interval is
+     * treated as a duplicate.
+     * </p>
+     * <p>
+     * If the topic has <code>ContentBasedDeduplication</code> set, the system generates a
+     * <code>MessageDeduplicationId</code> based on the contents of the message. Your
+     * <code>MessageDeduplicationId</code> overrides the generated one.
+     * </p>
+     * 
+     * @return This parameter applies only to FIFO (first-in-first-out) topics. The <code>MessageDeduplicationId</code>
+     *         can contain up to 128 alphanumeric characters <code>(a-z, A-Z, 0-9)</code> and punctuation
+     *         <code>(!"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~)</code>.</p>
+     *         <p>
+     *         Every message must have a unique <code>MessageDeduplicationId</code>, which is a token used for
+     *         deduplication of sent messages. If a message with a particular <code>MessageDeduplicationId</code> is
+     *         sent successfully, any message sent with the same <code>MessageDeduplicationId</code> during the 5-minute
+     *         deduplication interval is treated as a duplicate.
+     *         </p>
+     *         <p>
+     *         If the topic has <code>ContentBasedDeduplication</code> set, the system generates a
+     *         <code>MessageDeduplicationId</code> based on the contents of the message. Your
+     *         <code>MessageDeduplicationId</code> overrides the generated one.
+     */
+
+    public String getMessageDeduplicationId() {
+        return this.messageDeduplicationId;
+    }
+
+    /**
+     * <p>
+     * This parameter applies only to FIFO (first-in-first-out) topics. The <code>MessageDeduplicationId</code> can
+     * contain up to 128 alphanumeric characters <code>(a-z, A-Z, 0-9)</code> and punctuation
+     * <code>(!"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~)</code>.
+     * </p>
+     * <p>
+     * Every message must have a unique <code>MessageDeduplicationId</code>, which is a token used for deduplication of
+     * sent messages. If a message with a particular <code>MessageDeduplicationId</code> is sent successfully, any
+     * message sent with the same <code>MessageDeduplicationId</code> during the 5-minute deduplication interval is
+     * treated as a duplicate.
+     * </p>
+     * <p>
+     * If the topic has <code>ContentBasedDeduplication</code> set, the system generates a
+     * <code>MessageDeduplicationId</code> based on the contents of the message. Your
+     * <code>MessageDeduplicationId</code> overrides the generated one.
+     * </p>
+     * 
+     * @param messageDeduplicationId
+     *        This parameter applies only to FIFO (first-in-first-out) topics. The <code>MessageDeduplicationId</code>
+     *        can contain up to 128 alphanumeric characters <code>(a-z, A-Z, 0-9)</code> and punctuation
+     *        <code>(!"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~)</code>.</p>
+     *        <p>
+     *        Every message must have a unique <code>MessageDeduplicationId</code>, which is a token used for
+     *        deduplication of sent messages. If a message with a particular <code>MessageDeduplicationId</code> is sent
+     *        successfully, any message sent with the same <code>MessageDeduplicationId</code> during the 5-minute
+     *        deduplication interval is treated as a duplicate.
+     *        </p>
+     *        <p>
+     *        If the topic has <code>ContentBasedDeduplication</code> set, the system generates a
+     *        <code>MessageDeduplicationId</code> based on the contents of the message. Your
+     *        <code>MessageDeduplicationId</code> overrides the generated one.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PublishRequest withMessageDeduplicationId(String messageDeduplicationId) {
+        setMessageDeduplicationId(messageDeduplicationId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This parameter applies only to FIFO (first-in-first-out) topics. The <code>MessageGroupId</code> can contain up
+     * to 128 alphanumeric characters <code>(a-z, A-Z, 0-9)</code> and punctuation
+     * <code>(!"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~)</code>.
+     * </p>
+     * <p>
+     * The <code>MessageGroupId</code> is a tag that specifies that a message belongs to a specific message group.
+     * Messages that belong to the same message group are processed in a FIFO manner (however, messages in different
+     * message groups might be processed out of order). Every message must include a <code>MessageGroupId</code>.
+     * </p>
+     * 
+     * @param messageGroupId
+     *        This parameter applies only to FIFO (first-in-first-out) topics. The <code>MessageGroupId</code> can
+     *        contain up to 128 alphanumeric characters <code>(a-z, A-Z, 0-9)</code> and punctuation
+     *        <code>(!"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~)</code>.</p>
+     *        <p>
+     *        The <code>MessageGroupId</code> is a tag that specifies that a message belongs to a specific message
+     *        group. Messages that belong to the same message group are processed in a FIFO manner (however, messages in
+     *        different message groups might be processed out of order). Every message must include a
+     *        <code>MessageGroupId</code>.
+     */
+
+    public void setMessageGroupId(String messageGroupId) {
+        this.messageGroupId = messageGroupId;
+    }
+
+    /**
+     * <p>
+     * This parameter applies only to FIFO (first-in-first-out) topics. The <code>MessageGroupId</code> can contain up
+     * to 128 alphanumeric characters <code>(a-z, A-Z, 0-9)</code> and punctuation
+     * <code>(!"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~)</code>.
+     * </p>
+     * <p>
+     * The <code>MessageGroupId</code> is a tag that specifies that a message belongs to a specific message group.
+     * Messages that belong to the same message group are processed in a FIFO manner (however, messages in different
+     * message groups might be processed out of order). Every message must include a <code>MessageGroupId</code>.
+     * </p>
+     * 
+     * @return This parameter applies only to FIFO (first-in-first-out) topics. The <code>MessageGroupId</code> can
+     *         contain up to 128 alphanumeric characters <code>(a-z, A-Z, 0-9)</code> and punctuation
+     *         <code>(!"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~)</code>.</p>
+     *         <p>
+     *         The <code>MessageGroupId</code> is a tag that specifies that a message belongs to a specific message
+     *         group. Messages that belong to the same message group are processed in a FIFO manner (however, messages
+     *         in different message groups might be processed out of order). Every message must include a
+     *         <code>MessageGroupId</code>.
+     */
+
+    public String getMessageGroupId() {
+        return this.messageGroupId;
+    }
+
+    /**
+     * <p>
+     * This parameter applies only to FIFO (first-in-first-out) topics. The <code>MessageGroupId</code> can contain up
+     * to 128 alphanumeric characters <code>(a-z, A-Z, 0-9)</code> and punctuation
+     * <code>(!"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~)</code>.
+     * </p>
+     * <p>
+     * The <code>MessageGroupId</code> is a tag that specifies that a message belongs to a specific message group.
+     * Messages that belong to the same message group are processed in a FIFO manner (however, messages in different
+     * message groups might be processed out of order). Every message must include a <code>MessageGroupId</code>.
+     * </p>
+     * 
+     * @param messageGroupId
+     *        This parameter applies only to FIFO (first-in-first-out) topics. The <code>MessageGroupId</code> can
+     *        contain up to 128 alphanumeric characters <code>(a-z, A-Z, 0-9)</code> and punctuation
+     *        <code>(!"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~)</code>.</p>
+     *        <p>
+     *        The <code>MessageGroupId</code> is a tag that specifies that a message belongs to a specific message
+     *        group. Messages that belong to the same message group are processed in a FIFO manner (however, messages in
+     *        different message groups might be processed out of order). Every message must include a
+     *        <code>MessageGroupId</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PublishRequest withMessageGroupId(String messageGroupId) {
+        setMessageGroupId(messageGroupId);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1530,7 +1675,7 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
         if (getTargetArn() != null)
             sb.append("TargetArn: ").append(getTargetArn()).append(",");
         if (getPhoneNumber() != null)
-            sb.append("PhoneNumber: ").append(getPhoneNumber()).append(",");
+            sb.append("PhoneNumber: ").append("***Sensitive Data Redacted***").append(",");
         if (getMessage() != null)
             sb.append("Message: ").append(getMessage()).append(",");
         if (getSubject() != null)
@@ -1538,7 +1683,11 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
         if (getMessageStructure() != null)
             sb.append("MessageStructure: ").append(getMessageStructure()).append(",");
         if (getMessageAttributes() != null)
-            sb.append("MessageAttributes: ").append(getMessageAttributes());
+            sb.append("MessageAttributes: ").append(getMessageAttributes()).append(",");
+        if (getMessageDeduplicationId() != null)
+            sb.append("MessageDeduplicationId: ").append(getMessageDeduplicationId()).append(",");
+        if (getMessageGroupId() != null)
+            sb.append("MessageGroupId: ").append(getMessageGroupId());
         sb.append("}");
         return sb.toString();
     }
@@ -1581,6 +1730,14 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
             return false;
         if (other.getMessageAttributes() != null && other.getMessageAttributes().equals(this.getMessageAttributes()) == false)
             return false;
+        if (other.getMessageDeduplicationId() == null ^ this.getMessageDeduplicationId() == null)
+            return false;
+        if (other.getMessageDeduplicationId() != null && other.getMessageDeduplicationId().equals(this.getMessageDeduplicationId()) == false)
+            return false;
+        if (other.getMessageGroupId() == null ^ this.getMessageGroupId() == null)
+            return false;
+        if (other.getMessageGroupId() != null && other.getMessageGroupId().equals(this.getMessageGroupId()) == false)
+            return false;
         return true;
     }
 
@@ -1596,6 +1753,8 @@ public class PublishRequest extends com.amazonaws.AmazonWebServiceRequest implem
         hashCode = prime * hashCode + ((getSubject() == null) ? 0 : getSubject().hashCode());
         hashCode = prime * hashCode + ((getMessageStructure() == null) ? 0 : getMessageStructure().hashCode());
         hashCode = prime * hashCode + ((getMessageAttributes() == null) ? 0 : getMessageAttributes().hashCode());
+        hashCode = prime * hashCode + ((getMessageDeduplicationId() == null) ? 0 : getMessageDeduplicationId().hashCode());
+        hashCode = prime * hashCode + ((getMessageGroupId() == null) ? 0 : getMessageGroupId().hashCode());
         return hashCode;
     }
 

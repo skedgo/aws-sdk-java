@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,14 +42,14 @@ public class CreateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
     private String description;
     /**
      * <p>
-     * The ID for the AWS account that the group is in. Currently, you use the ID for the AWS account that contains your
-     * Amazon QuickSight account.
+     * The ID for the Amazon Web Services account that the group is in. Currently, you use the ID for the Amazon Web
+     * Services account that contains your Amazon QuickSight account.
      * </p>
      */
     private String awsAccountId;
     /**
      * <p>
-     * The namespace. Currently, you should set this to <code>default</code>.
+     * The namespace that you want the group to be a part of.
      * </p>
      */
     private String namespace;
@@ -136,13 +136,13 @@ public class CreateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The ID for the AWS account that the group is in. Currently, you use the ID for the AWS account that contains your
-     * Amazon QuickSight account.
+     * The ID for the Amazon Web Services account that the group is in. Currently, you use the ID for the Amazon Web
+     * Services account that contains your Amazon QuickSight account.
      * </p>
      * 
      * @param awsAccountId
-     *        The ID for the AWS account that the group is in. Currently, you use the ID for the AWS account that
-     *        contains your Amazon QuickSight account.
+     *        The ID for the Amazon Web Services account that the group is in. Currently, you use the ID for the Amazon
+     *        Web Services account that contains your Amazon QuickSight account.
      */
 
     public void setAwsAccountId(String awsAccountId) {
@@ -151,12 +151,12 @@ public class CreateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The ID for the AWS account that the group is in. Currently, you use the ID for the AWS account that contains your
-     * Amazon QuickSight account.
+     * The ID for the Amazon Web Services account that the group is in. Currently, you use the ID for the Amazon Web
+     * Services account that contains your Amazon QuickSight account.
      * </p>
      * 
-     * @return The ID for the AWS account that the group is in. Currently, you use the ID for the AWS account that
-     *         contains your Amazon QuickSight account.
+     * @return The ID for the Amazon Web Services account that the group is in. Currently, you use the ID for the Amazon
+     *         Web Services account that contains your Amazon QuickSight account.
      */
 
     public String getAwsAccountId() {
@@ -165,13 +165,13 @@ public class CreateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The ID for the AWS account that the group is in. Currently, you use the ID for the AWS account that contains your
-     * Amazon QuickSight account.
+     * The ID for the Amazon Web Services account that the group is in. Currently, you use the ID for the Amazon Web
+     * Services account that contains your Amazon QuickSight account.
      * </p>
      * 
      * @param awsAccountId
-     *        The ID for the AWS account that the group is in. Currently, you use the ID for the AWS account that
-     *        contains your Amazon QuickSight account.
+     *        The ID for the Amazon Web Services account that the group is in. Currently, you use the ID for the Amazon
+     *        Web Services account that contains your Amazon QuickSight account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -182,11 +182,11 @@ public class CreateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The namespace. Currently, you should set this to <code>default</code>.
+     * The namespace that you want the group to be a part of.
      * </p>
      * 
      * @param namespace
-     *        The namespace. Currently, you should set this to <code>default</code>.
+     *        The namespace that you want the group to be a part of.
      */
 
     public void setNamespace(String namespace) {
@@ -195,10 +195,10 @@ public class CreateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The namespace. Currently, you should set this to <code>default</code>.
+     * The namespace that you want the group to be a part of.
      * </p>
      * 
-     * @return The namespace. Currently, you should set this to <code>default</code>.
+     * @return The namespace that you want the group to be a part of.
      */
 
     public String getNamespace() {
@@ -207,11 +207,11 @@ public class CreateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The namespace. Currently, you should set this to <code>default</code>.
+     * The namespace that you want the group to be a part of.
      * </p>
      * 
      * @param namespace
-     *        The namespace. Currently, you should set this to <code>default</code>.
+     *        The namespace that you want the group to be a part of.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

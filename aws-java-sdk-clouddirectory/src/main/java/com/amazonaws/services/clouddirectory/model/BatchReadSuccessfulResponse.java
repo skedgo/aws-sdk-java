@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -121,7 +121,11 @@ public class BatchReadSuccessfulResponse implements Serializable, Cloneable, Str
      * </p>
      */
     private BatchGetLinkAttributesResponse getLinkAttributes;
-
+    /**
+     * <p>
+     * The list of parent objects to retrieve.
+     * </p>
+     */
     private BatchListObjectParentsResponse listObjectParents;
 
     /**
@@ -735,7 +739,12 @@ public class BatchReadSuccessfulResponse implements Serializable, Cloneable, Str
     }
 
     /**
+     * <p>
+     * The list of parent objects to retrieve.
+     * </p>
+     * 
      * @param listObjectParents
+     *        The list of parent objects to retrieve.
      */
 
     public void setListObjectParents(BatchListObjectParentsResponse listObjectParents) {
@@ -743,7 +752,11 @@ public class BatchReadSuccessfulResponse implements Serializable, Cloneable, Str
     }
 
     /**
-     * @return
+     * <p>
+     * The list of parent objects to retrieve.
+     * </p>
+     * 
+     * @return The list of parent objects to retrieve.
      */
 
     public BatchListObjectParentsResponse getListObjectParents() {
@@ -751,7 +764,12 @@ public class BatchReadSuccessfulResponse implements Serializable, Cloneable, Str
     }
 
     /**
+     * <p>
+     * The list of parent objects to retrieve.
+     * </p>
+     * 
      * @param listObjectParents
+     *        The list of parent objects to retrieve.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

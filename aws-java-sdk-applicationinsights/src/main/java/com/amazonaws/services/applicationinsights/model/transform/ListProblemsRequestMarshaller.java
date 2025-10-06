@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,6 +27,8 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class ListProblemsRequestMarshaller {
 
+    private static final MarshallingInfo<String> ACCOUNTID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("AccountId").build();
     private static final MarshallingInfo<String> RESOURCEGROUPNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceGroupName").build();
     private static final MarshallingInfo<java.util.Date> STARTTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
@@ -37,6 +39,10 @@ public class ListProblemsRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MaxResults").build();
     private static final MarshallingInfo<String> NEXTTOKEN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("NextToken").build();
+    private static final MarshallingInfo<String> COMPONENTNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ComponentName").build();
+    private static final MarshallingInfo<String> VISIBILITY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Visibility").build();
 
     private static final ListProblemsRequestMarshaller instance = new ListProblemsRequestMarshaller();
 
@@ -54,11 +60,14 @@ public class ListProblemsRequestMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(listProblemsRequest.getAccountId(), ACCOUNTID_BINDING);
             protocolMarshaller.marshall(listProblemsRequest.getResourceGroupName(), RESOURCEGROUPNAME_BINDING);
             protocolMarshaller.marshall(listProblemsRequest.getStartTime(), STARTTIME_BINDING);
             protocolMarshaller.marshall(listProblemsRequest.getEndTime(), ENDTIME_BINDING);
             protocolMarshaller.marshall(listProblemsRequest.getMaxResults(), MAXRESULTS_BINDING);
             protocolMarshaller.marshall(listProblemsRequest.getNextToken(), NEXTTOKEN_BINDING);
+            protocolMarshaller.marshall(listProblemsRequest.getComponentName(), COMPONENTNAME_BINDING);
+            protocolMarshaller.marshall(listProblemsRequest.getVisibility(), VISIBILITY_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,18 +25,18 @@ public class UpdateWebhookResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * Information about a repository's webhook that is associated with a project in AWS CodeBuild.
+     * Information about a repository's webhook that is associated with a project in CodeBuild.
      * </p>
      */
     private Webhook webhook;
 
     /**
      * <p>
-     * Information about a repository's webhook that is associated with a project in AWS CodeBuild.
+     * Information about a repository's webhook that is associated with a project in CodeBuild.
      * </p>
      * 
      * @param webhook
-     *        Information about a repository's webhook that is associated with a project in AWS CodeBuild.
+     *        Information about a repository's webhook that is associated with a project in CodeBuild.
      */
 
     public void setWebhook(Webhook webhook) {
@@ -45,10 +45,10 @@ public class UpdateWebhookResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * Information about a repository's webhook that is associated with a project in AWS CodeBuild.
+     * Information about a repository's webhook that is associated with a project in CodeBuild.
      * </p>
      * 
-     * @return Information about a repository's webhook that is associated with a project in AWS CodeBuild.
+     * @return Information about a repository's webhook that is associated with a project in CodeBuild.
      */
 
     public Webhook getWebhook() {
@@ -57,11 +57,11 @@ public class UpdateWebhookResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * Information about a repository's webhook that is associated with a project in AWS CodeBuild.
+     * Information about a repository's webhook that is associated with a project in CodeBuild.
      * </p>
      * 
      * @param webhook
-     *        Information about a repository's webhook that is associated with a project in AWS CodeBuild.
+     *        Information about a repository's webhook that is associated with a project in CodeBuild.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

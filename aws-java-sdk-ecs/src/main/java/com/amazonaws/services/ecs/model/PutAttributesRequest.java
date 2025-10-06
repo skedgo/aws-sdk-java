@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,7 +34,7 @@ public class PutAttributesRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String cluster;
     /**
      * <p>
-     * The attributes to apply to your resource. You can specify up to 10 custom attributes per resource. You can
+     * The attributes to apply to your resource. You can specify up to 10 custom attributes for each resource. You can
      * specify up to 10 attributes in a single call.
      * </p>
      */
@@ -88,12 +88,12 @@ public class PutAttributesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The attributes to apply to your resource. You can specify up to 10 custom attributes per resource. You can
+     * The attributes to apply to your resource. You can specify up to 10 custom attributes for each resource. You can
      * specify up to 10 attributes in a single call.
      * </p>
      * 
-     * @return The attributes to apply to your resource. You can specify up to 10 custom attributes per resource. You
-     *         can specify up to 10 attributes in a single call.
+     * @return The attributes to apply to your resource. You can specify up to 10 custom attributes for each resource.
+     *         You can specify up to 10 attributes in a single call.
      */
 
     public java.util.List<Attribute> getAttributes() {
@@ -105,13 +105,13 @@ public class PutAttributesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The attributes to apply to your resource. You can specify up to 10 custom attributes per resource. You can
+     * The attributes to apply to your resource. You can specify up to 10 custom attributes for each resource. You can
      * specify up to 10 attributes in a single call.
      * </p>
      * 
      * @param attributes
-     *        The attributes to apply to your resource. You can specify up to 10 custom attributes per resource. You can
-     *        specify up to 10 attributes in a single call.
+     *        The attributes to apply to your resource. You can specify up to 10 custom attributes for each resource.
+     *        You can specify up to 10 attributes in a single call.
      */
 
     public void setAttributes(java.util.Collection<Attribute> attributes) {
@@ -125,7 +125,7 @@ public class PutAttributesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The attributes to apply to your resource. You can specify up to 10 custom attributes per resource. You can
+     * The attributes to apply to your resource. You can specify up to 10 custom attributes for each resource. You can
      * specify up to 10 attributes in a single call.
      * </p>
      * <p>
@@ -135,8 +135,8 @@ public class PutAttributesRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * 
      * @param attributes
-     *        The attributes to apply to your resource. You can specify up to 10 custom attributes per resource. You can
-     *        specify up to 10 attributes in a single call.
+     *        The attributes to apply to your resource. You can specify up to 10 custom attributes for each resource.
+     *        You can specify up to 10 attributes in a single call.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -152,13 +152,13 @@ public class PutAttributesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The attributes to apply to your resource. You can specify up to 10 custom attributes per resource. You can
+     * The attributes to apply to your resource. You can specify up to 10 custom attributes for each resource. You can
      * specify up to 10 attributes in a single call.
      * </p>
      * 
      * @param attributes
-     *        The attributes to apply to your resource. You can specify up to 10 custom attributes per resource. You can
-     *        specify up to 10 attributes in a single call.
+     *        The attributes to apply to your resource. You can specify up to 10 custom attributes for each resource.
+     *        You can specify up to 10 attributes in a single call.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Defines the operating system the patch baseline applies to. The Default value is WINDOWS.
+     * Defines the operating system the patch baseline applies to. The default value is <code>WINDOWS</code>.
      * </p>
      */
     private String operatingSystem;
@@ -56,21 +56,22 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * For information about accepted formats for lists of approved patches and rejected patches, see <a href=
      * "https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html"
-     * >Package Name Formats for Approved and Rejected Patch Lists</a> in the <i>AWS Systems Manager User Guide</i>.
+     * >About package name formats for approved and rejected patch lists</a> in the <i>Amazon Web Services Systems
+     * Manager User Guide</i>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> approvedPatches;
     /**
      * <p>
-     * Defines the compliance level for approved patches. This means that if an approved patch is reported as missing,
-     * this is the severity of the compliance violation. The default value is UNSPECIFIED.
+     * Defines the compliance level for approved patches. When an approved patch is reported as missing, this value
+     * describes the severity of the compliance violation. The default value is <code>UNSPECIFIED</code>.
      * </p>
      */
     private String approvedPatchesComplianceLevel;
     /**
      * <p>
      * Indicates whether the list of approved patches includes non-security updates that should be applied to the
-     * instances. The default value is 'false'. Applies to Linux instances only.
+     * managed nodes. The default value is <code>false</code>. Applies to Linux managed nodes only.
      * </p>
      */
     private Boolean approvedPatchesEnableNonSecurity;
@@ -81,27 +82,29 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * For information about accepted formats for lists of approved patches and rejected patches, see <a href=
      * "https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html"
-     * >Package Name Formats for Approved and Rejected Patch Lists</a> in the <i>AWS Systems Manager User Guide</i>.
+     * >About package name formats for approved and rejected patch lists</a> in the <i>Amazon Web Services Systems
+     * Manager User Guide</i>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> rejectedPatches;
     /**
      * <p>
-     * The action for Patch Manager to take on patches included in the RejectedPackages list.
+     * The action for Patch Manager to take on patches included in the <code>RejectedPackages</code> list.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>ALLOW_AS_DEPENDENCY</b>: A package in the Rejected patches list is installed only if it is a dependency of
-     * another package. It is considered compliant with the patch baseline, and its status is reported as
-     * <i>InstalledOther</i>. This is the default action if no option is specified.
+     * <b> <code>ALLOW_AS_DEPENDENCY</code> </b>: A package in the <code>Rejected</code> patches list is installed only
+     * if it is a dependency of another package. It is considered compliant with the patch baseline, and its status is
+     * reported as <code>InstalledOther</code>. This is the default action if no option is specified.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>BLOCK</b>: Packages in the RejectedPatches list, and packages that include them as dependencies, are not
-     * installed under any circumstances. If a package was installed before it was added to the Rejected patches list,
-     * it is considered non-compliant with the patch baseline, and its status is reported as <i>InstalledRejected</i>.
+     * <b>BLOCK</b>: Packages in the <b>Rejected patches</b> list, and packages that include them as dependencies,
+     * aren't installed by Patch Manager under any circumstances. If a package was installed before it was added to the
+     * <b>Rejected patches</b> list, or is installed outside of Patch Manager afterward, it's considered noncompliant
+     * with the patch baseline and its status is reported as <i>InstalledRejected</i>.
      * </p>
      * </li>
      * </ul>
@@ -115,8 +118,8 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
     private String description;
     /**
      * <p>
-     * Information about the patches to use to update the instances, including target operating systems and source
-     * repositories. Applies to Linux instances only.
+     * Information about the patches to use to update the managed nodes, including target operating systems and source
+     * repositories. Applies to Linux managed nodes only.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<PatchSource> sources;
@@ -131,7 +134,7 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      * Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such
      * as by purpose, owner, or environment. For example, you might want to tag a patch baseline to identify the
      * severity level of patches it specifies and the operating system family it applies to. In this case, you could
-     * specify the following key name/value pairs:
+     * specify the following key-value pairs:
      * </p>
      * <ul>
      * <li>
@@ -147,7 +150,7 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      * </ul>
      * <note>
      * <p>
-     * To add tags to an existing patch baseline, use the <a>AddTagsToResource</a> action.
+     * To add tags to an existing patch baseline, use the <a>AddTagsToResource</a> operation.
      * </p>
      * </note>
      */
@@ -155,11 +158,11 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Defines the operating system the patch baseline applies to. The Default value is WINDOWS.
+     * Defines the operating system the patch baseline applies to. The default value is <code>WINDOWS</code>.
      * </p>
      * 
      * @param operatingSystem
-     *        Defines the operating system the patch baseline applies to. The Default value is WINDOWS.
+     *        Defines the operating system the patch baseline applies to. The default value is <code>WINDOWS</code>.
      * @see OperatingSystem
      */
 
@@ -169,10 +172,10 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Defines the operating system the patch baseline applies to. The Default value is WINDOWS.
+     * Defines the operating system the patch baseline applies to. The default value is <code>WINDOWS</code>.
      * </p>
      * 
-     * @return Defines the operating system the patch baseline applies to. The Default value is WINDOWS.
+     * @return Defines the operating system the patch baseline applies to. The default value is <code>WINDOWS</code>.
      * @see OperatingSystem
      */
 
@@ -182,11 +185,11 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Defines the operating system the patch baseline applies to. The Default value is WINDOWS.
+     * Defines the operating system the patch baseline applies to. The default value is <code>WINDOWS</code>.
      * </p>
      * 
      * @param operatingSystem
-     *        Defines the operating system the patch baseline applies to. The Default value is WINDOWS.
+     *        Defines the operating system the patch baseline applies to. The default value is <code>WINDOWS</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see OperatingSystem
      */
@@ -198,11 +201,11 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Defines the operating system the patch baseline applies to. The Default value is WINDOWS.
+     * Defines the operating system the patch baseline applies to. The default value is <code>WINDOWS</code>.
      * </p>
      * 
      * @param operatingSystem
-     *        Defines the operating system the patch baseline applies to. The Default value is WINDOWS.
+     *        Defines the operating system the patch baseline applies to. The default value is <code>WINDOWS</code>.
      * @see OperatingSystem
      */
 
@@ -212,11 +215,11 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Defines the operating system the patch baseline applies to. The Default value is WINDOWS.
+     * Defines the operating system the patch baseline applies to. The default value is <code>WINDOWS</code>.
      * </p>
      * 
      * @param operatingSystem
-     *        Defines the operating system the patch baseline applies to. The Default value is WINDOWS.
+     *        Defines the operating system the patch baseline applies to. The default value is <code>WINDOWS</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see OperatingSystem
      */
@@ -353,15 +356,16 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * For information about accepted formats for lists of approved patches and rejected patches, see <a href=
      * "https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html"
-     * >Package Name Formats for Approved and Rejected Patch Lists</a> in the <i>AWS Systems Manager User Guide</i>.
+     * >About package name formats for approved and rejected patch lists</a> in the <i>Amazon Web Services Systems
+     * Manager User Guide</i>.
      * </p>
      * 
      * @return A list of explicitly approved patches for the baseline.</p>
      *         <p>
      *         For information about accepted formats for lists of approved patches and rejected patches, see <a href=
      *         "https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html"
-     *         >Package Name Formats for Approved and Rejected Patch Lists</a> in the <i>AWS Systems Manager User
-     *         Guide</i>.
+     *         >About package name formats for approved and rejected patch lists</a> in the <i>Amazon Web Services
+     *         Systems Manager User Guide</i>.
      */
 
     public java.util.List<String> getApprovedPatches() {
@@ -378,7 +382,8 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * For information about accepted formats for lists of approved patches and rejected patches, see <a href=
      * "https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html"
-     * >Package Name Formats for Approved and Rejected Patch Lists</a> in the <i>AWS Systems Manager User Guide</i>.
+     * >About package name formats for approved and rejected patch lists</a> in the <i>Amazon Web Services Systems
+     * Manager User Guide</i>.
      * </p>
      * 
      * @param approvedPatches
@@ -386,8 +391,8 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      *        <p>
      *        For information about accepted formats for lists of approved patches and rejected patches, see <a href=
      *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html"
-     *        >Package Name Formats for Approved and Rejected Patch Lists</a> in the <i>AWS Systems Manager User
-     *        Guide</i>.
+     *        >About package name formats for approved and rejected patch lists</a> in the <i>Amazon Web Services
+     *        Systems Manager User Guide</i>.
      */
 
     public void setApprovedPatches(java.util.Collection<String> approvedPatches) {
@@ -406,7 +411,8 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * For information about accepted formats for lists of approved patches and rejected patches, see <a href=
      * "https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html"
-     * >Package Name Formats for Approved and Rejected Patch Lists</a> in the <i>AWS Systems Manager User Guide</i>.
+     * >About package name formats for approved and rejected patch lists</a> in the <i>Amazon Web Services Systems
+     * Manager User Guide</i>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -419,8 +425,8 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      *        <p>
      *        For information about accepted formats for lists of approved patches and rejected patches, see <a href=
      *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html"
-     *        >Package Name Formats for Approved and Rejected Patch Lists</a> in the <i>AWS Systems Manager User
-     *        Guide</i>.
+     *        >About package name formats for approved and rejected patch lists</a> in the <i>Amazon Web Services
+     *        Systems Manager User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -441,7 +447,8 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * For information about accepted formats for lists of approved patches and rejected patches, see <a href=
      * "https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html"
-     * >Package Name Formats for Approved and Rejected Patch Lists</a> in the <i>AWS Systems Manager User Guide</i>.
+     * >About package name formats for approved and rejected patch lists</a> in the <i>Amazon Web Services Systems
+     * Manager User Guide</i>.
      * </p>
      * 
      * @param approvedPatches
@@ -449,8 +456,8 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      *        <p>
      *        For information about accepted formats for lists of approved patches and rejected patches, see <a href=
      *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html"
-     *        >Package Name Formats for Approved and Rejected Patch Lists</a> in the <i>AWS Systems Manager User
-     *        Guide</i>.
+     *        >About package name formats for approved and rejected patch lists</a> in the <i>Amazon Web Services
+     *        Systems Manager User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -461,13 +468,13 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Defines the compliance level for approved patches. This means that if an approved patch is reported as missing,
-     * this is the severity of the compliance violation. The default value is UNSPECIFIED.
+     * Defines the compliance level for approved patches. When an approved patch is reported as missing, this value
+     * describes the severity of the compliance violation. The default value is <code>UNSPECIFIED</code>.
      * </p>
      * 
      * @param approvedPatchesComplianceLevel
-     *        Defines the compliance level for approved patches. This means that if an approved patch is reported as
-     *        missing, this is the severity of the compliance violation. The default value is UNSPECIFIED.
+     *        Defines the compliance level for approved patches. When an approved patch is reported as missing, this
+     *        value describes the severity of the compliance violation. The default value is <code>UNSPECIFIED</code>.
      * @see PatchComplianceLevel
      */
 
@@ -477,12 +484,12 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Defines the compliance level for approved patches. This means that if an approved patch is reported as missing,
-     * this is the severity of the compliance violation. The default value is UNSPECIFIED.
+     * Defines the compliance level for approved patches. When an approved patch is reported as missing, this value
+     * describes the severity of the compliance violation. The default value is <code>UNSPECIFIED</code>.
      * </p>
      * 
-     * @return Defines the compliance level for approved patches. This means that if an approved patch is reported as
-     *         missing, this is the severity of the compliance violation. The default value is UNSPECIFIED.
+     * @return Defines the compliance level for approved patches. When an approved patch is reported as missing, this
+     *         value describes the severity of the compliance violation. The default value is <code>UNSPECIFIED</code>.
      * @see PatchComplianceLevel
      */
 
@@ -492,13 +499,13 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Defines the compliance level for approved patches. This means that if an approved patch is reported as missing,
-     * this is the severity of the compliance violation. The default value is UNSPECIFIED.
+     * Defines the compliance level for approved patches. When an approved patch is reported as missing, this value
+     * describes the severity of the compliance violation. The default value is <code>UNSPECIFIED</code>.
      * </p>
      * 
      * @param approvedPatchesComplianceLevel
-     *        Defines the compliance level for approved patches. This means that if an approved patch is reported as
-     *        missing, this is the severity of the compliance violation. The default value is UNSPECIFIED.
+     *        Defines the compliance level for approved patches. When an approved patch is reported as missing, this
+     *        value describes the severity of the compliance violation. The default value is <code>UNSPECIFIED</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PatchComplianceLevel
      */
@@ -510,13 +517,13 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Defines the compliance level for approved patches. This means that if an approved patch is reported as missing,
-     * this is the severity of the compliance violation. The default value is UNSPECIFIED.
+     * Defines the compliance level for approved patches. When an approved patch is reported as missing, this value
+     * describes the severity of the compliance violation. The default value is <code>UNSPECIFIED</code>.
      * </p>
      * 
      * @param approvedPatchesComplianceLevel
-     *        Defines the compliance level for approved patches. This means that if an approved patch is reported as
-     *        missing, this is the severity of the compliance violation. The default value is UNSPECIFIED.
+     *        Defines the compliance level for approved patches. When an approved patch is reported as missing, this
+     *        value describes the severity of the compliance violation. The default value is <code>UNSPECIFIED</code>.
      * @see PatchComplianceLevel
      */
 
@@ -526,13 +533,13 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Defines the compliance level for approved patches. This means that if an approved patch is reported as missing,
-     * this is the severity of the compliance violation. The default value is UNSPECIFIED.
+     * Defines the compliance level for approved patches. When an approved patch is reported as missing, this value
+     * describes the severity of the compliance violation. The default value is <code>UNSPECIFIED</code>.
      * </p>
      * 
      * @param approvedPatchesComplianceLevel
-     *        Defines the compliance level for approved patches. This means that if an approved patch is reported as
-     *        missing, this is the severity of the compliance violation. The default value is UNSPECIFIED.
+     *        Defines the compliance level for approved patches. When an approved patch is reported as missing, this
+     *        value describes the severity of the compliance violation. The default value is <code>UNSPECIFIED</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PatchComplianceLevel
      */
@@ -545,12 +552,12 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * Indicates whether the list of approved patches includes non-security updates that should be applied to the
-     * instances. The default value is 'false'. Applies to Linux instances only.
+     * managed nodes. The default value is <code>false</code>. Applies to Linux managed nodes only.
      * </p>
      * 
      * @param approvedPatchesEnableNonSecurity
      *        Indicates whether the list of approved patches includes non-security updates that should be applied to the
-     *        instances. The default value is 'false'. Applies to Linux instances only.
+     *        managed nodes. The default value is <code>false</code>. Applies to Linux managed nodes only.
      */
 
     public void setApprovedPatchesEnableNonSecurity(Boolean approvedPatchesEnableNonSecurity) {
@@ -560,11 +567,11 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * Indicates whether the list of approved patches includes non-security updates that should be applied to the
-     * instances. The default value is 'false'. Applies to Linux instances only.
+     * managed nodes. The default value is <code>false</code>. Applies to Linux managed nodes only.
      * </p>
      * 
      * @return Indicates whether the list of approved patches includes non-security updates that should be applied to
-     *         the instances. The default value is 'false'. Applies to Linux instances only.
+     *         the managed nodes. The default value is <code>false</code>. Applies to Linux managed nodes only.
      */
 
     public Boolean getApprovedPatchesEnableNonSecurity() {
@@ -574,12 +581,12 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * Indicates whether the list of approved patches includes non-security updates that should be applied to the
-     * instances. The default value is 'false'. Applies to Linux instances only.
+     * managed nodes. The default value is <code>false</code>. Applies to Linux managed nodes only.
      * </p>
      * 
      * @param approvedPatchesEnableNonSecurity
      *        Indicates whether the list of approved patches includes non-security updates that should be applied to the
-     *        instances. The default value is 'false'. Applies to Linux instances only.
+     *        managed nodes. The default value is <code>false</code>. Applies to Linux managed nodes only.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -591,11 +598,11 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * Indicates whether the list of approved patches includes non-security updates that should be applied to the
-     * instances. The default value is 'false'. Applies to Linux instances only.
+     * managed nodes. The default value is <code>false</code>. Applies to Linux managed nodes only.
      * </p>
      * 
      * @return Indicates whether the list of approved patches includes non-security updates that should be applied to
-     *         the instances. The default value is 'false'. Applies to Linux instances only.
+     *         the managed nodes. The default value is <code>false</code>. Applies to Linux managed nodes only.
      */
 
     public Boolean isApprovedPatchesEnableNonSecurity() {
@@ -609,15 +616,16 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * For information about accepted formats for lists of approved patches and rejected patches, see <a href=
      * "https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html"
-     * >Package Name Formats for Approved and Rejected Patch Lists</a> in the <i>AWS Systems Manager User Guide</i>.
+     * >About package name formats for approved and rejected patch lists</a> in the <i>Amazon Web Services Systems
+     * Manager User Guide</i>.
      * </p>
      * 
      * @return A list of explicitly rejected patches for the baseline.</p>
      *         <p>
      *         For information about accepted formats for lists of approved patches and rejected patches, see <a href=
      *         "https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html"
-     *         >Package Name Formats for Approved and Rejected Patch Lists</a> in the <i>AWS Systems Manager User
-     *         Guide</i>.
+     *         >About package name formats for approved and rejected patch lists</a> in the <i>Amazon Web Services
+     *         Systems Manager User Guide</i>.
      */
 
     public java.util.List<String> getRejectedPatches() {
@@ -634,7 +642,8 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * For information about accepted formats for lists of approved patches and rejected patches, see <a href=
      * "https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html"
-     * >Package Name Formats for Approved and Rejected Patch Lists</a> in the <i>AWS Systems Manager User Guide</i>.
+     * >About package name formats for approved and rejected patch lists</a> in the <i>Amazon Web Services Systems
+     * Manager User Guide</i>.
      * </p>
      * 
      * @param rejectedPatches
@@ -642,8 +651,8 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      *        <p>
      *        For information about accepted formats for lists of approved patches and rejected patches, see <a href=
      *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html"
-     *        >Package Name Formats for Approved and Rejected Patch Lists</a> in the <i>AWS Systems Manager User
-     *        Guide</i>.
+     *        >About package name formats for approved and rejected patch lists</a> in the <i>Amazon Web Services
+     *        Systems Manager User Guide</i>.
      */
 
     public void setRejectedPatches(java.util.Collection<String> rejectedPatches) {
@@ -662,7 +671,8 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * For information about accepted formats for lists of approved patches and rejected patches, see <a href=
      * "https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html"
-     * >Package Name Formats for Approved and Rejected Patch Lists</a> in the <i>AWS Systems Manager User Guide</i>.
+     * >About package name formats for approved and rejected patch lists</a> in the <i>Amazon Web Services Systems
+     * Manager User Guide</i>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -675,8 +685,8 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      *        <p>
      *        For information about accepted formats for lists of approved patches and rejected patches, see <a href=
      *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html"
-     *        >Package Name Formats for Approved and Rejected Patch Lists</a> in the <i>AWS Systems Manager User
-     *        Guide</i>.
+     *        >About package name formats for approved and rejected patch lists</a> in the <i>Amazon Web Services
+     *        Systems Manager User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -697,7 +707,8 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * For information about accepted formats for lists of approved patches and rejected patches, see <a href=
      * "https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html"
-     * >Package Name Formats for Approved and Rejected Patch Lists</a> in the <i>AWS Systems Manager User Guide</i>.
+     * >About package name formats for approved and rejected patch lists</a> in the <i>Amazon Web Services Systems
+     * Manager User Guide</i>.
      * </p>
      * 
      * @param rejectedPatches
@@ -705,8 +716,8 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      *        <p>
      *        For information about accepted formats for lists of approved patches and rejected patches, see <a href=
      *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html"
-     *        >Package Name Formats for Approved and Rejected Patch Lists</a> in the <i>AWS Systems Manager User
-     *        Guide</i>.
+     *        >About package name formats for approved and rejected patch lists</a> in the <i>Amazon Web Services
+     *        Systems Manager User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -717,41 +728,43 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The action for Patch Manager to take on patches included in the RejectedPackages list.
+     * The action for Patch Manager to take on patches included in the <code>RejectedPackages</code> list.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>ALLOW_AS_DEPENDENCY</b>: A package in the Rejected patches list is installed only if it is a dependency of
-     * another package. It is considered compliant with the patch baseline, and its status is reported as
-     * <i>InstalledOther</i>. This is the default action if no option is specified.
+     * <b> <code>ALLOW_AS_DEPENDENCY</code> </b>: A package in the <code>Rejected</code> patches list is installed only
+     * if it is a dependency of another package. It is considered compliant with the patch baseline, and its status is
+     * reported as <code>InstalledOther</code>. This is the default action if no option is specified.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>BLOCK</b>: Packages in the RejectedPatches list, and packages that include them as dependencies, are not
-     * installed under any circumstances. If a package was installed before it was added to the Rejected patches list,
-     * it is considered non-compliant with the patch baseline, and its status is reported as <i>InstalledRejected</i>.
+     * <b>BLOCK</b>: Packages in the <b>Rejected patches</b> list, and packages that include them as dependencies,
+     * aren't installed by Patch Manager under any circumstances. If a package was installed before it was added to the
+     * <b>Rejected patches</b> list, or is installed outside of Patch Manager afterward, it's considered noncompliant
+     * with the patch baseline and its status is reported as <i>InstalledRejected</i>.
      * </p>
      * </li>
      * </ul>
      * 
      * @param rejectedPatchesAction
-     *        The action for Patch Manager to take on patches included in the RejectedPackages list.</p>
+     *        The action for Patch Manager to take on patches included in the <code>RejectedPackages</code> list.</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>ALLOW_AS_DEPENDENCY</b>: A package in the Rejected patches list is installed only if it is a dependency
-     *        of another package. It is considered compliant with the patch baseline, and its status is reported as
-     *        <i>InstalledOther</i>. This is the default action if no option is specified.
+     *        <b> <code>ALLOW_AS_DEPENDENCY</code> </b>: A package in the <code>Rejected</code> patches list is
+     *        installed only if it is a dependency of another package. It is considered compliant with the patch
+     *        baseline, and its status is reported as <code>InstalledOther</code>. This is the default action if no
+     *        option is specified.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>BLOCK</b>: Packages in the RejectedPatches list, and packages that include them as dependencies, are
-     *        not installed under any circumstances. If a package was installed before it was added to the Rejected
-     *        patches list, it is considered non-compliant with the patch baseline, and its status is reported as
-     *        <i>InstalledRejected</i>.
+     *        <b>BLOCK</b>: Packages in the <b>Rejected patches</b> list, and packages that include them as
+     *        dependencies, aren't installed by Patch Manager under any circumstances. If a package was installed before
+     *        it was added to the <b>Rejected patches</b> list, or is installed outside of Patch Manager afterward, it's
+     *        considered noncompliant with the patch baseline and its status is reported as <i>InstalledRejected</i>.
      *        </p>
      *        </li>
      * @see PatchAction
@@ -763,39 +776,42 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The action for Patch Manager to take on patches included in the RejectedPackages list.
+     * The action for Patch Manager to take on patches included in the <code>RejectedPackages</code> list.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>ALLOW_AS_DEPENDENCY</b>: A package in the Rejected patches list is installed only if it is a dependency of
-     * another package. It is considered compliant with the patch baseline, and its status is reported as
-     * <i>InstalledOther</i>. This is the default action if no option is specified.
+     * <b> <code>ALLOW_AS_DEPENDENCY</code> </b>: A package in the <code>Rejected</code> patches list is installed only
+     * if it is a dependency of another package. It is considered compliant with the patch baseline, and its status is
+     * reported as <code>InstalledOther</code>. This is the default action if no option is specified.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>BLOCK</b>: Packages in the RejectedPatches list, and packages that include them as dependencies, are not
-     * installed under any circumstances. If a package was installed before it was added to the Rejected patches list,
-     * it is considered non-compliant with the patch baseline, and its status is reported as <i>InstalledRejected</i>.
+     * <b>BLOCK</b>: Packages in the <b>Rejected patches</b> list, and packages that include them as dependencies,
+     * aren't installed by Patch Manager under any circumstances. If a package was installed before it was added to the
+     * <b>Rejected patches</b> list, or is installed outside of Patch Manager afterward, it's considered noncompliant
+     * with the patch baseline and its status is reported as <i>InstalledRejected</i>.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return The action for Patch Manager to take on patches included in the RejectedPackages list.</p>
+     * @return The action for Patch Manager to take on patches included in the <code>RejectedPackages</code> list.</p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <b>ALLOW_AS_DEPENDENCY</b>: A package in the Rejected patches list is installed only if it is a
-     *         dependency of another package. It is considered compliant with the patch baseline, and its status is
-     *         reported as <i>InstalledOther</i>. This is the default action if no option is specified.
+     *         <b> <code>ALLOW_AS_DEPENDENCY</code> </b>: A package in the <code>Rejected</code> patches list is
+     *         installed only if it is a dependency of another package. It is considered compliant with the patch
+     *         baseline, and its status is reported as <code>InstalledOther</code>. This is the default action if no
+     *         option is specified.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <b>BLOCK</b>: Packages in the RejectedPatches list, and packages that include them as dependencies, are
-     *         not installed under any circumstances. If a package was installed before it was added to the Rejected
-     *         patches list, it is considered non-compliant with the patch baseline, and its status is reported as
+     *         <b>BLOCK</b>: Packages in the <b>Rejected patches</b> list, and packages that include them as
+     *         dependencies, aren't installed by Patch Manager under any circumstances. If a package was installed
+     *         before it was added to the <b>Rejected patches</b> list, or is installed outside of Patch Manager
+     *         afterward, it's considered noncompliant with the patch baseline and its status is reported as
      *         <i>InstalledRejected</i>.
      *         </p>
      *         </li>
@@ -808,41 +824,43 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The action for Patch Manager to take on patches included in the RejectedPackages list.
+     * The action for Patch Manager to take on patches included in the <code>RejectedPackages</code> list.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>ALLOW_AS_DEPENDENCY</b>: A package in the Rejected patches list is installed only if it is a dependency of
-     * another package. It is considered compliant with the patch baseline, and its status is reported as
-     * <i>InstalledOther</i>. This is the default action if no option is specified.
+     * <b> <code>ALLOW_AS_DEPENDENCY</code> </b>: A package in the <code>Rejected</code> patches list is installed only
+     * if it is a dependency of another package. It is considered compliant with the patch baseline, and its status is
+     * reported as <code>InstalledOther</code>. This is the default action if no option is specified.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>BLOCK</b>: Packages in the RejectedPatches list, and packages that include them as dependencies, are not
-     * installed under any circumstances. If a package was installed before it was added to the Rejected patches list,
-     * it is considered non-compliant with the patch baseline, and its status is reported as <i>InstalledRejected</i>.
+     * <b>BLOCK</b>: Packages in the <b>Rejected patches</b> list, and packages that include them as dependencies,
+     * aren't installed by Patch Manager under any circumstances. If a package was installed before it was added to the
+     * <b>Rejected patches</b> list, or is installed outside of Patch Manager afterward, it's considered noncompliant
+     * with the patch baseline and its status is reported as <i>InstalledRejected</i>.
      * </p>
      * </li>
      * </ul>
      * 
      * @param rejectedPatchesAction
-     *        The action for Patch Manager to take on patches included in the RejectedPackages list.</p>
+     *        The action for Patch Manager to take on patches included in the <code>RejectedPackages</code> list.</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>ALLOW_AS_DEPENDENCY</b>: A package in the Rejected patches list is installed only if it is a dependency
-     *        of another package. It is considered compliant with the patch baseline, and its status is reported as
-     *        <i>InstalledOther</i>. This is the default action if no option is specified.
+     *        <b> <code>ALLOW_AS_DEPENDENCY</code> </b>: A package in the <code>Rejected</code> patches list is
+     *        installed only if it is a dependency of another package. It is considered compliant with the patch
+     *        baseline, and its status is reported as <code>InstalledOther</code>. This is the default action if no
+     *        option is specified.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>BLOCK</b>: Packages in the RejectedPatches list, and packages that include them as dependencies, are
-     *        not installed under any circumstances. If a package was installed before it was added to the Rejected
-     *        patches list, it is considered non-compliant with the patch baseline, and its status is reported as
-     *        <i>InstalledRejected</i>.
+     *        <b>BLOCK</b>: Packages in the <b>Rejected patches</b> list, and packages that include them as
+     *        dependencies, aren't installed by Patch Manager under any circumstances. If a package was installed before
+     *        it was added to the <b>Rejected patches</b> list, or is installed outside of Patch Manager afterward, it's
+     *        considered noncompliant with the patch baseline and its status is reported as <i>InstalledRejected</i>.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -856,41 +874,43 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The action for Patch Manager to take on patches included in the RejectedPackages list.
+     * The action for Patch Manager to take on patches included in the <code>RejectedPackages</code> list.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>ALLOW_AS_DEPENDENCY</b>: A package in the Rejected patches list is installed only if it is a dependency of
-     * another package. It is considered compliant with the patch baseline, and its status is reported as
-     * <i>InstalledOther</i>. This is the default action if no option is specified.
+     * <b> <code>ALLOW_AS_DEPENDENCY</code> </b>: A package in the <code>Rejected</code> patches list is installed only
+     * if it is a dependency of another package. It is considered compliant with the patch baseline, and its status is
+     * reported as <code>InstalledOther</code>. This is the default action if no option is specified.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>BLOCK</b>: Packages in the RejectedPatches list, and packages that include them as dependencies, are not
-     * installed under any circumstances. If a package was installed before it was added to the Rejected patches list,
-     * it is considered non-compliant with the patch baseline, and its status is reported as <i>InstalledRejected</i>.
+     * <b>BLOCK</b>: Packages in the <b>Rejected patches</b> list, and packages that include them as dependencies,
+     * aren't installed by Patch Manager under any circumstances. If a package was installed before it was added to the
+     * <b>Rejected patches</b> list, or is installed outside of Patch Manager afterward, it's considered noncompliant
+     * with the patch baseline and its status is reported as <i>InstalledRejected</i>.
      * </p>
      * </li>
      * </ul>
      * 
      * @param rejectedPatchesAction
-     *        The action for Patch Manager to take on patches included in the RejectedPackages list.</p>
+     *        The action for Patch Manager to take on patches included in the <code>RejectedPackages</code> list.</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>ALLOW_AS_DEPENDENCY</b>: A package in the Rejected patches list is installed only if it is a dependency
-     *        of another package. It is considered compliant with the patch baseline, and its status is reported as
-     *        <i>InstalledOther</i>. This is the default action if no option is specified.
+     *        <b> <code>ALLOW_AS_DEPENDENCY</code> </b>: A package in the <code>Rejected</code> patches list is
+     *        installed only if it is a dependency of another package. It is considered compliant with the patch
+     *        baseline, and its status is reported as <code>InstalledOther</code>. This is the default action if no
+     *        option is specified.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>BLOCK</b>: Packages in the RejectedPatches list, and packages that include them as dependencies, are
-     *        not installed under any circumstances. If a package was installed before it was added to the Rejected
-     *        patches list, it is considered non-compliant with the patch baseline, and its status is reported as
-     *        <i>InstalledRejected</i>.
+     *        <b>BLOCK</b>: Packages in the <b>Rejected patches</b> list, and packages that include them as
+     *        dependencies, aren't installed by Patch Manager under any circumstances. If a package was installed before
+     *        it was added to the <b>Rejected patches</b> list, or is installed outside of Patch Manager afterward, it's
+     *        considered noncompliant with the patch baseline and its status is reported as <i>InstalledRejected</i>.
      *        </p>
      *        </li>
      * @see PatchAction
@@ -902,41 +922,43 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The action for Patch Manager to take on patches included in the RejectedPackages list.
+     * The action for Patch Manager to take on patches included in the <code>RejectedPackages</code> list.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>ALLOW_AS_DEPENDENCY</b>: A package in the Rejected patches list is installed only if it is a dependency of
-     * another package. It is considered compliant with the patch baseline, and its status is reported as
-     * <i>InstalledOther</i>. This is the default action if no option is specified.
+     * <b> <code>ALLOW_AS_DEPENDENCY</code> </b>: A package in the <code>Rejected</code> patches list is installed only
+     * if it is a dependency of another package. It is considered compliant with the patch baseline, and its status is
+     * reported as <code>InstalledOther</code>. This is the default action if no option is specified.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>BLOCK</b>: Packages in the RejectedPatches list, and packages that include them as dependencies, are not
-     * installed under any circumstances. If a package was installed before it was added to the Rejected patches list,
-     * it is considered non-compliant with the patch baseline, and its status is reported as <i>InstalledRejected</i>.
+     * <b>BLOCK</b>: Packages in the <b>Rejected patches</b> list, and packages that include them as dependencies,
+     * aren't installed by Patch Manager under any circumstances. If a package was installed before it was added to the
+     * <b>Rejected patches</b> list, or is installed outside of Patch Manager afterward, it's considered noncompliant
+     * with the patch baseline and its status is reported as <i>InstalledRejected</i>.
      * </p>
      * </li>
      * </ul>
      * 
      * @param rejectedPatchesAction
-     *        The action for Patch Manager to take on patches included in the RejectedPackages list.</p>
+     *        The action for Patch Manager to take on patches included in the <code>RejectedPackages</code> list.</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>ALLOW_AS_DEPENDENCY</b>: A package in the Rejected patches list is installed only if it is a dependency
-     *        of another package. It is considered compliant with the patch baseline, and its status is reported as
-     *        <i>InstalledOther</i>. This is the default action if no option is specified.
+     *        <b> <code>ALLOW_AS_DEPENDENCY</code> </b>: A package in the <code>Rejected</code> patches list is
+     *        installed only if it is a dependency of another package. It is considered compliant with the patch
+     *        baseline, and its status is reported as <code>InstalledOther</code>. This is the default action if no
+     *        option is specified.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>BLOCK</b>: Packages in the RejectedPatches list, and packages that include them as dependencies, are
-     *        not installed under any circumstances. If a package was installed before it was added to the Rejected
-     *        patches list, it is considered non-compliant with the patch baseline, and its status is reported as
-     *        <i>InstalledRejected</i>.
+     *        <b>BLOCK</b>: Packages in the <b>Rejected patches</b> list, and packages that include them as
+     *        dependencies, aren't installed by Patch Manager under any circumstances. If a package was installed before
+     *        it was added to the <b>Rejected patches</b> list, or is installed outside of Patch Manager afterward, it's
+     *        considered noncompliant with the patch baseline and its status is reported as <i>InstalledRejected</i>.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -990,12 +1012,12 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Information about the patches to use to update the instances, including target operating systems and source
-     * repositories. Applies to Linux instances only.
+     * Information about the patches to use to update the managed nodes, including target operating systems and source
+     * repositories. Applies to Linux managed nodes only.
      * </p>
      * 
-     * @return Information about the patches to use to update the instances, including target operating systems and
-     *         source repositories. Applies to Linux instances only.
+     * @return Information about the patches to use to update the managed nodes, including target operating systems and
+     *         source repositories. Applies to Linux managed nodes only.
      */
 
     public java.util.List<PatchSource> getSources() {
@@ -1007,13 +1029,13 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Information about the patches to use to update the instances, including target operating systems and source
-     * repositories. Applies to Linux instances only.
+     * Information about the patches to use to update the managed nodes, including target operating systems and source
+     * repositories. Applies to Linux managed nodes only.
      * </p>
      * 
      * @param sources
-     *        Information about the patches to use to update the instances, including target operating systems and
-     *        source repositories. Applies to Linux instances only.
+     *        Information about the patches to use to update the managed nodes, including target operating systems and
+     *        source repositories. Applies to Linux managed nodes only.
      */
 
     public void setSources(java.util.Collection<PatchSource> sources) {
@@ -1027,8 +1049,8 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Information about the patches to use to update the instances, including target operating systems and source
-     * repositories. Applies to Linux instances only.
+     * Information about the patches to use to update the managed nodes, including target operating systems and source
+     * repositories. Applies to Linux managed nodes only.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1037,8 +1059,8 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @param sources
-     *        Information about the patches to use to update the instances, including target operating systems and
-     *        source repositories. Applies to Linux instances only.
+     *        Information about the patches to use to update the managed nodes, including target operating systems and
+     *        source repositories. Applies to Linux managed nodes only.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1054,13 +1076,13 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Information about the patches to use to update the instances, including target operating systems and source
-     * repositories. Applies to Linux instances only.
+     * Information about the patches to use to update the managed nodes, including target operating systems and source
+     * repositories. Applies to Linux managed nodes only.
      * </p>
      * 
      * @param sources
-     *        Information about the patches to use to update the instances, including target operating systems and
-     *        source repositories. Applies to Linux instances only.
+     *        Information about the patches to use to update the managed nodes, including target operating systems and
+     *        source repositories. Applies to Linux managed nodes only.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1114,7 +1136,7 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      * Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such
      * as by purpose, owner, or environment. For example, you might want to tag a patch baseline to identify the
      * severity level of patches it specifies and the operating system family it applies to. In this case, you could
-     * specify the following key name/value pairs:
+     * specify the following key-value pairs:
      * </p>
      * <ul>
      * <li>
@@ -1130,14 +1152,14 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      * </ul>
      * <note>
      * <p>
-     * To add tags to an existing patch baseline, use the <a>AddTagsToResource</a> action.
+     * To add tags to an existing patch baseline, use the <a>AddTagsToResource</a> operation.
      * </p>
      * </note>
      * 
      * @return Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different
      *         ways, such as by purpose, owner, or environment. For example, you might want to tag a patch baseline to
      *         identify the severity level of patches it specifies and the operating system family it applies to. In
-     *         this case, you could specify the following key name/value pairs:</p>
+     *         this case, you could specify the following key-value pairs:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -1152,7 +1174,7 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      *         </ul>
      *         <note>
      *         <p>
-     *         To add tags to an existing patch baseline, use the <a>AddTagsToResource</a> action.
+     *         To add tags to an existing patch baseline, use the <a>AddTagsToResource</a> operation.
      *         </p>
      */
 
@@ -1168,7 +1190,7 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      * Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such
      * as by purpose, owner, or environment. For example, you might want to tag a patch baseline to identify the
      * severity level of patches it specifies and the operating system family it applies to. In this case, you could
-     * specify the following key name/value pairs:
+     * specify the following key-value pairs:
      * </p>
      * <ul>
      * <li>
@@ -1184,7 +1206,7 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      * </ul>
      * <note>
      * <p>
-     * To add tags to an existing patch baseline, use the <a>AddTagsToResource</a> action.
+     * To add tags to an existing patch baseline, use the <a>AddTagsToResource</a> operation.
      * </p>
      * </note>
      * 
@@ -1192,7 +1214,7 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      *        Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different
      *        ways, such as by purpose, owner, or environment. For example, you might want to tag a patch baseline to
      *        identify the severity level of patches it specifies and the operating system family it applies to. In this
-     *        case, you could specify the following key name/value pairs:</p>
+     *        case, you could specify the following key-value pairs:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1207,7 +1229,7 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      *        </ul>
      *        <note>
      *        <p>
-     *        To add tags to an existing patch baseline, use the <a>AddTagsToResource</a> action.
+     *        To add tags to an existing patch baseline, use the <a>AddTagsToResource</a> operation.
      *        </p>
      */
 
@@ -1225,7 +1247,7 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      * Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such
      * as by purpose, owner, or environment. For example, you might want to tag a patch baseline to identify the
      * severity level of patches it specifies and the operating system family it applies to. In this case, you could
-     * specify the following key name/value pairs:
+     * specify the following key-value pairs:
      * </p>
      * <ul>
      * <li>
@@ -1241,7 +1263,7 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      * </ul>
      * <note>
      * <p>
-     * To add tags to an existing patch baseline, use the <a>AddTagsToResource</a> action.
+     * To add tags to an existing patch baseline, use the <a>AddTagsToResource</a> operation.
      * </p>
      * </note>
      * <p>
@@ -1254,7 +1276,7 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      *        Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different
      *        ways, such as by purpose, owner, or environment. For example, you might want to tag a patch baseline to
      *        identify the severity level of patches it specifies and the operating system family it applies to. In this
-     *        case, you could specify the following key name/value pairs:</p>
+     *        case, you could specify the following key-value pairs:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1269,7 +1291,7 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      *        </ul>
      *        <note>
      *        <p>
-     *        To add tags to an existing patch baseline, use the <a>AddTagsToResource</a> action.
+     *        To add tags to an existing patch baseline, use the <a>AddTagsToResource</a> operation.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -1289,7 +1311,7 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      * Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such
      * as by purpose, owner, or environment. For example, you might want to tag a patch baseline to identify the
      * severity level of patches it specifies and the operating system family it applies to. In this case, you could
-     * specify the following key name/value pairs:
+     * specify the following key-value pairs:
      * </p>
      * <ul>
      * <li>
@@ -1305,7 +1327,7 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      * </ul>
      * <note>
      * <p>
-     * To add tags to an existing patch baseline, use the <a>AddTagsToResource</a> action.
+     * To add tags to an existing patch baseline, use the <a>AddTagsToResource</a> operation.
      * </p>
      * </note>
      * 
@@ -1313,7 +1335,7 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      *        Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different
      *        ways, such as by purpose, owner, or environment. For example, you might want to tag a patch baseline to
      *        identify the severity level of patches it specifies and the operating system family it applies to. In this
-     *        case, you could specify the following key name/value pairs:</p>
+     *        case, you could specify the following key-value pairs:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1328,7 +1350,7 @@ public class CreatePatchBaselineRequest extends com.amazonaws.AmazonWebServiceRe
      *        </ul>
      *        <note>
      *        <p>
-     *        To add tags to an existing patch baseline, use the <a>AddTagsToResource</a> action.
+     *        To add tags to an existing patch baseline, use the <a>AddTagsToResource</a> operation.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */

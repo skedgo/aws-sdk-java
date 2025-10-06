@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -74,7 +74,9 @@ public class GetMaintenanceWindowExecutionTaskResultJsonUnmarshaller implements 
                     getMaintenanceWindowExecutionTaskResult
                             .setTaskParameters(new ListUnmarshaller<java.util.Map<String, MaintenanceWindowTaskParameterValueExpression>>(
                                     new MapUnmarshaller<String, MaintenanceWindowTaskParameterValueExpression>(context.getUnmarshaller(String.class),
-                                            MaintenanceWindowTaskParameterValueExpressionJsonUnmarshaller.getInstance())).unmarshall(context));
+                                            MaintenanceWindowTaskParameterValueExpressionJsonUnmarshaller.getInstance()))
+
+                            .unmarshall(context));
                 }
                 if (context.testExpression("Priority", targetDepth)) {
                     context.nextToken();
@@ -103,6 +105,17 @@ public class GetMaintenanceWindowExecutionTaskResultJsonUnmarshaller implements 
                 if (context.testExpression("EndTime", targetDepth)) {
                     context.nextToken();
                     getMaintenanceWindowExecutionTaskResult.setEndTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("AlarmConfiguration", targetDepth)) {
+                    context.nextToken();
+                    getMaintenanceWindowExecutionTaskResult.setAlarmConfiguration(AlarmConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("TriggeredAlarms", targetDepth)) {
+                    context.nextToken();
+                    getMaintenanceWindowExecutionTaskResult.setTriggeredAlarms(new ListUnmarshaller<AlarmStateInformation>(
+                            AlarmStateInformationJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,7 +51,7 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
     /**
      * <p>
      * The cluster ID that is used as the daily snapshot source for the replication group. This parameter cannot be set
-     * for Redis (cluster mode enabled) replication groups.
+     * for Redis OSS (cluster mode enabled) replication groups.
      * </p>
      */
     private String snapshottingClusterId;
@@ -63,28 +63,21 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * Valid values: <code>true</code> | <code>false</code>
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      */
     private Boolean automaticFailoverEnabled;
+    /**
+     * <p>
+     * A flag to indicate MultiAZ is enabled.
+     * </p>
+     */
+    private Boolean multiAZEnabled;
+    /**
+     * <p>
+     * Deprecated. This parameter is not used.
+     * </p>
+     */
+    @Deprecated
+    private String nodeGroupId;
     /**
      * <p>
      * A list of cache security group names to authorize for the clusters in this replication group. This change is
@@ -221,7 +214,8 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
     private String engineVersion;
     /**
      * <p>
-     * This parameter is currently disabled.
+     *  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in to the
+     * next auto minor version upgrade campaign. This parameter is disabled for previous versions. 
      * </p>
      */
     private Boolean autoMinorVersionUpgrade;
@@ -257,11 +251,126 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
     private String cacheNodeType;
     /**
      * <p>
-     * Deprecated. This parameter is not used.
+     * Reserved parameter. The password used to access a password protected server. This parameter must be specified
+     * with the <code>auth-token-update-strategy </code> parameter. Password constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must be only printable ASCII characters
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be at least 16 characters and no more than 128 characters in length
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Cannot contain any of the following characters: '/', '"', or '@', '%'
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see AUTH password at <a href="http://redis.io/commands/AUTH">AUTH</a>.
      * </p>
      */
-    @Deprecated
-    private String nodeGroupId;
+    private String authToken;
+    /**
+     * <p>
+     * Specifies the strategy to use to update the AUTH token. This parameter must be specified with the
+     * <code>auth-token</code> parameter. Possible values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ROTATE - default, if no update strategy is provided
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SET - allowed only after ROTATE
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DELETE - allowed only when transitioning to RBAC
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/auth.html">Authenticating Users with Redis OSS
+     * AUTH</a>
+     * </p>
+     */
+    private String authTokenUpdateStrategy;
+    /**
+     * <p>
+     * The ID of the user group you are associating with the replication group.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> userGroupIdsToAdd;
+    /**
+     * <p>
+     * The ID of the user group to disassociate from the replication group, meaning the users in the group no longer can
+     * access the replication group.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> userGroupIdsToRemove;
+    /**
+     * <p>
+     * Removes the user group associated with this replication group.
+     * </p>
+     */
+    private Boolean removeUserGroups;
+    /**
+     * <p>
+     * Specifies the destination, format and type of the logs.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<LogDeliveryConfigurationRequest> logDeliveryConfigurations;
+    /**
+     * <p>
+     * The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6 is
+     * supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all
+     * instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     */
+    private String ipDiscovery;
+    /**
+     * <p>
+     * A flag that enables in-transit encryption when set to true. If you are enabling in-transit encryption for an
+     * existing cluster, you must also set <code>TransitEncryptionMode</code> to <code>preferred</code>.
+     * </p>
+     */
+    private Boolean transitEncryptionEnabled;
+    /**
+     * <p>
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * </p>
+     * <p>
+     * You must set <code>TransitEncryptionEnabled</code> to <code>true</code>, for your existing cluster, and set
+     * <code>TransitEncryptionMode</code> to <code>preferred</code> in the same request to allow both encrypted and
+     * unencrypted connections at the same time. Once you migrate all your Redis OSS clients to use encrypted
+     * connections you can set the value to <code>required</code> to allow encrypted connections only.
+     * </p>
+     * <p>
+     * Setting <code>TransitEncryptionMode</code> to <code>required</code> is a two-step process that requires you to
+     * first set the <code>TransitEncryptionMode</code> to <code>preferred</code>, after that you can set
+     * <code>TransitEncryptionMode</code> to <code>required</code>.
+     * </p>
+     */
+    private String transitEncryptionMode;
+    /**
+     * <p>
+     * Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode to
+     * Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled and cluster
+     * mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can then complete cluster
+     * mode configuration and set the cluster mode to Enabled.
+     * </p>
+     */
+    private String clusterMode;
 
     /**
      * <p>
@@ -398,12 +507,12 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
     /**
      * <p>
      * The cluster ID that is used as the daily snapshot source for the replication group. This parameter cannot be set
-     * for Redis (cluster mode enabled) replication groups.
+     * for Redis OSS (cluster mode enabled) replication groups.
      * </p>
      * 
      * @param snapshottingClusterId
      *        The cluster ID that is used as the daily snapshot source for the replication group. This parameter cannot
-     *        be set for Redis (cluster mode enabled) replication groups.
+     *        be set for Redis OSS (cluster mode enabled) replication groups.
      */
 
     public void setSnapshottingClusterId(String snapshottingClusterId) {
@@ -413,11 +522,11 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
     /**
      * <p>
      * The cluster ID that is used as the daily snapshot source for the replication group. This parameter cannot be set
-     * for Redis (cluster mode enabled) replication groups.
+     * for Redis OSS (cluster mode enabled) replication groups.
      * </p>
      * 
      * @return The cluster ID that is used as the daily snapshot source for the replication group. This parameter cannot
-     *         be set for Redis (cluster mode enabled) replication groups.
+     *         be set for Redis OSS (cluster mode enabled) replication groups.
      */
 
     public String getSnapshottingClusterId() {
@@ -427,12 +536,12 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
     /**
      * <p>
      * The cluster ID that is used as the daily snapshot source for the replication group. This parameter cannot be set
-     * for Redis (cluster mode enabled) replication groups.
+     * for Redis OSS (cluster mode enabled) replication groups.
      * </p>
      * 
      * @param snapshottingClusterId
      *        The cluster ID that is used as the daily snapshot source for the replication group. This parameter cannot
-     *        be set for Redis (cluster mode enabled) replication groups.
+     *        be set for Redis OSS (cluster mode enabled) replication groups.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -449,52 +558,12 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * Valid values: <code>true</code> | <code>false</code>
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @param automaticFailoverEnabled
      *        Determines whether a read replica is automatically promoted to read/write primary if the existing primary
      *        encounters a failure.</p>
      *        <p>
      *        Valid values: <code>true</code> | <code>false</code>
-     *        </p>
-     *        <p>
-     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     *        </p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        Redis versions earlier than 2.8.6.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode disabled): T1 node types.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode enabled): T1 node types.
-     *        </p>
-     *        </li>
      */
 
     public void setAutomaticFailoverEnabled(Boolean automaticFailoverEnabled) {
@@ -509,51 +578,11 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * Valid values: <code>true</code> | <code>false</code>
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @return Determines whether a read replica is automatically promoted to read/write primary if the existing primary
      *         encounters a failure.</p>
      *         <p>
      *         Valid values: <code>true</code> | <code>false</code>
-     *         </p>
-     *         <p>
-     *         Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     *         </p>
-     *         <ul>
-     *         <li>
-     *         <p>
-     *         Redis versions earlier than 2.8.6.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         Redis (cluster mode disabled): T1 node types.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         Redis (cluster mode enabled): T1 node types.
-     *         </p>
-     *         </li>
      */
 
     public Boolean getAutomaticFailoverEnabled() {
@@ -568,52 +597,12 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * Valid values: <code>true</code> | <code>false</code>
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @param automaticFailoverEnabled
      *        Determines whether a read replica is automatically promoted to read/write primary if the existing primary
      *        encounters a failure.</p>
      *        <p>
      *        Valid values: <code>true</code> | <code>false</code>
-     *        </p>
-     *        <p>
-     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     *        </p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        Redis versions earlier than 2.8.6.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode disabled): T1 node types.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode enabled): T1 node types.
-     *        </p>
-     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -630,55 +619,107 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * Valid values: <code>true</code> | <code>false</code>
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @return Determines whether a read replica is automatically promoted to read/write primary if the existing primary
      *         encounters a failure.</p>
      *         <p>
      *         Valid values: <code>true</code> | <code>false</code>
-     *         </p>
-     *         <p>
-     *         Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     *         </p>
-     *         <ul>
-     *         <li>
-     *         <p>
-     *         Redis versions earlier than 2.8.6.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         Redis (cluster mode disabled): T1 node types.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         Redis (cluster mode enabled): T1 node types.
-     *         </p>
-     *         </li>
      */
 
     public Boolean isAutomaticFailoverEnabled() {
         return this.automaticFailoverEnabled;
+    }
+
+    /**
+     * <p>
+     * A flag to indicate MultiAZ is enabled.
+     * </p>
+     * 
+     * @param multiAZEnabled
+     *        A flag to indicate MultiAZ is enabled.
+     */
+
+    public void setMultiAZEnabled(Boolean multiAZEnabled) {
+        this.multiAZEnabled = multiAZEnabled;
+    }
+
+    /**
+     * <p>
+     * A flag to indicate MultiAZ is enabled.
+     * </p>
+     * 
+     * @return A flag to indicate MultiAZ is enabled.
+     */
+
+    public Boolean getMultiAZEnabled() {
+        return this.multiAZEnabled;
+    }
+
+    /**
+     * <p>
+     * A flag to indicate MultiAZ is enabled.
+     * </p>
+     * 
+     * @param multiAZEnabled
+     *        A flag to indicate MultiAZ is enabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyReplicationGroupRequest withMultiAZEnabled(Boolean multiAZEnabled) {
+        setMultiAZEnabled(multiAZEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A flag to indicate MultiAZ is enabled.
+     * </p>
+     * 
+     * @return A flag to indicate MultiAZ is enabled.
+     */
+
+    public Boolean isMultiAZEnabled() {
+        return this.multiAZEnabled;
+    }
+
+    /**
+     * <p>
+     * Deprecated. This parameter is not used.
+     * </p>
+     * 
+     * @param nodeGroupId
+     *        Deprecated. This parameter is not used.
+     */
+    @Deprecated
+    public void setNodeGroupId(String nodeGroupId) {
+        this.nodeGroupId = nodeGroupId;
+    }
+
+    /**
+     * <p>
+     * Deprecated. This parameter is not used.
+     * </p>
+     * 
+     * @return Deprecated. This parameter is not used.
+     */
+    @Deprecated
+    public String getNodeGroupId() {
+        return this.nodeGroupId;
+    }
+
+    /**
+     * <p>
+     * Deprecated. This parameter is not used.
+     * </p>
+     * 
+     * @param nodeGroupId
+     *        Deprecated. This parameter is not used.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+    @Deprecated
+    public ModifyReplicationGroupRequest withNodeGroupId(String nodeGroupId) {
+        setNodeGroupId(nodeGroupId);
+        return this;
     }
 
     /**
@@ -1621,11 +1662,13 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * This parameter is currently disabled.
+     *  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in to the
+     * next auto minor version upgrade campaign. This parameter is disabled for previous versions. 
      * </p>
      * 
      * @param autoMinorVersionUpgrade
-     *        This parameter is currently disabled.
+     *         If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in
+     *        to the next auto minor version upgrade campaign. This parameter is disabled for previous versions. 
      */
 
     public void setAutoMinorVersionUpgrade(Boolean autoMinorVersionUpgrade) {
@@ -1634,10 +1677,13 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * This parameter is currently disabled.
+     *  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in to the
+     * next auto minor version upgrade campaign. This parameter is disabled for previous versions. 
      * </p>
      * 
-     * @return This parameter is currently disabled.
+     * @return  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to
+     *         opt-in to the next auto minor version upgrade campaign. This parameter is disabled for previous
+     *         versions. 
      */
 
     public Boolean getAutoMinorVersionUpgrade() {
@@ -1646,11 +1692,13 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * This parameter is currently disabled.
+     *  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in to the
+     * next auto minor version upgrade campaign. This parameter is disabled for previous versions. 
      * </p>
      * 
      * @param autoMinorVersionUpgrade
-     *        This parameter is currently disabled.
+     *         If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in
+     *        to the next auto minor version upgrade campaign. This parameter is disabled for previous versions. 
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1661,10 +1709,13 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * This parameter is currently disabled.
+     *  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in to the
+     * next auto minor version upgrade campaign. This parameter is disabled for previous versions. 
      * </p>
      * 
-     * @return This parameter is currently disabled.
+     * @return  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to
+     *         opt-in to the next auto minor version upgrade campaign. This parameter is disabled for previous
+     *         versions. 
      */
 
     public Boolean isAutoMinorVersionUpgrade() {
@@ -1859,41 +1910,1044 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Deprecated. This parameter is not used.
+     * Reserved parameter. The password used to access a password protected server. This parameter must be specified
+     * with the <code>auth-token-update-strategy </code> parameter. Password constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must be only printable ASCII characters
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be at least 16 characters and no more than 128 characters in length
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Cannot contain any of the following characters: '/', '"', or '@', '%'
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see AUTH password at <a href="http://redis.io/commands/AUTH">AUTH</a>.
      * </p>
      * 
-     * @param nodeGroupId
-     *        Deprecated. This parameter is not used.
+     * @param authToken
+     *        Reserved parameter. The password used to access a password protected server. This parameter must be
+     *        specified with the <code>auth-token-update-strategy </code> parameter. Password constraints:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Must be only printable ASCII characters
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Must be at least 16 characters and no more than 128 characters in length
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Cannot contain any of the following characters: '/', '"', or '@', '%'
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see AUTH password at <a href="http://redis.io/commands/AUTH">AUTH</a>.
      */
-    @Deprecated
-    public void setNodeGroupId(String nodeGroupId) {
-        this.nodeGroupId = nodeGroupId;
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
     }
 
     /**
      * <p>
-     * Deprecated. This parameter is not used.
+     * Reserved parameter. The password used to access a password protected server. This parameter must be specified
+     * with the <code>auth-token-update-strategy </code> parameter. Password constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must be only printable ASCII characters
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be at least 16 characters and no more than 128 characters in length
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Cannot contain any of the following characters: '/', '"', or '@', '%'
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see AUTH password at <a href="http://redis.io/commands/AUTH">AUTH</a>.
      * </p>
      * 
-     * @return Deprecated. This parameter is not used.
+     * @return Reserved parameter. The password used to access a password protected server. This parameter must be
+     *         specified with the <code>auth-token-update-strategy </code> parameter. Password constraints:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Must be only printable ASCII characters
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Must be at least 16 characters and no more than 128 characters in length
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Cannot contain any of the following characters: '/', '"', or '@', '%'
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For more information, see AUTH password at <a href="http://redis.io/commands/AUTH">AUTH</a>.
      */
-    @Deprecated
-    public String getNodeGroupId() {
-        return this.nodeGroupId;
+
+    public String getAuthToken() {
+        return this.authToken;
     }
 
     /**
      * <p>
-     * Deprecated. This parameter is not used.
+     * Reserved parameter. The password used to access a password protected server. This parameter must be specified
+     * with the <code>auth-token-update-strategy </code> parameter. Password constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must be only printable ASCII characters
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be at least 16 characters and no more than 128 characters in length
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Cannot contain any of the following characters: '/', '"', or '@', '%'
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see AUTH password at <a href="http://redis.io/commands/AUTH">AUTH</a>.
      * </p>
      * 
-     * @param nodeGroupId
-     *        Deprecated. This parameter is not used.
+     * @param authToken
+     *        Reserved parameter. The password used to access a password protected server. This parameter must be
+     *        specified with the <code>auth-token-update-strategy </code> parameter. Password constraints:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Must be only printable ASCII characters
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Must be at least 16 characters and no more than 128 characters in length
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Cannot contain any of the following characters: '/', '"', or '@', '%'
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see AUTH password at <a href="http://redis.io/commands/AUTH">AUTH</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
-    @Deprecated
-    public ModifyReplicationGroupRequest withNodeGroupId(String nodeGroupId) {
-        setNodeGroupId(nodeGroupId);
+
+    public ModifyReplicationGroupRequest withAuthToken(String authToken) {
+        setAuthToken(authToken);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the strategy to use to update the AUTH token. This parameter must be specified with the
+     * <code>auth-token</code> parameter. Possible values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ROTATE - default, if no update strategy is provided
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SET - allowed only after ROTATE
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DELETE - allowed only when transitioning to RBAC
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/auth.html">Authenticating Users with Redis OSS
+     * AUTH</a>
+     * </p>
+     * 
+     * @param authTokenUpdateStrategy
+     *        Specifies the strategy to use to update the AUTH token. This parameter must be specified with the
+     *        <code>auth-token</code> parameter. Possible values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        ROTATE - default, if no update strategy is provided
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SET - allowed only after ROTATE
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DELETE - allowed only when transitioning to RBAC
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a
+     *        href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/auth.html">Authenticating Users with
+     *        Redis OSS AUTH</a>
+     * @see AuthTokenUpdateStrategyType
+     */
+
+    public void setAuthTokenUpdateStrategy(String authTokenUpdateStrategy) {
+        this.authTokenUpdateStrategy = authTokenUpdateStrategy;
+    }
+
+    /**
+     * <p>
+     * Specifies the strategy to use to update the AUTH token. This parameter must be specified with the
+     * <code>auth-token</code> parameter. Possible values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ROTATE - default, if no update strategy is provided
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SET - allowed only after ROTATE
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DELETE - allowed only when transitioning to RBAC
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/auth.html">Authenticating Users with Redis OSS
+     * AUTH</a>
+     * </p>
+     * 
+     * @return Specifies the strategy to use to update the AUTH token. This parameter must be specified with the
+     *         <code>auth-token</code> parameter. Possible values:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         ROTATE - default, if no update strategy is provided
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         SET - allowed only after ROTATE
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         DELETE - allowed only when transitioning to RBAC
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For more information, see <a
+     *         href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/auth.html">Authenticating Users with
+     *         Redis OSS AUTH</a>
+     * @see AuthTokenUpdateStrategyType
+     */
+
+    public String getAuthTokenUpdateStrategy() {
+        return this.authTokenUpdateStrategy;
+    }
+
+    /**
+     * <p>
+     * Specifies the strategy to use to update the AUTH token. This parameter must be specified with the
+     * <code>auth-token</code> parameter. Possible values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ROTATE - default, if no update strategy is provided
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SET - allowed only after ROTATE
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DELETE - allowed only when transitioning to RBAC
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/auth.html">Authenticating Users with Redis OSS
+     * AUTH</a>
+     * </p>
+     * 
+     * @param authTokenUpdateStrategy
+     *        Specifies the strategy to use to update the AUTH token. This parameter must be specified with the
+     *        <code>auth-token</code> parameter. Possible values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        ROTATE - default, if no update strategy is provided
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SET - allowed only after ROTATE
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DELETE - allowed only when transitioning to RBAC
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a
+     *        href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/auth.html">Authenticating Users with
+     *        Redis OSS AUTH</a>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AuthTokenUpdateStrategyType
+     */
+
+    public ModifyReplicationGroupRequest withAuthTokenUpdateStrategy(String authTokenUpdateStrategy) {
+        setAuthTokenUpdateStrategy(authTokenUpdateStrategy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the strategy to use to update the AUTH token. This parameter must be specified with the
+     * <code>auth-token</code> parameter. Possible values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ROTATE - default, if no update strategy is provided
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SET - allowed only after ROTATE
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DELETE - allowed only when transitioning to RBAC
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/auth.html">Authenticating Users with Redis OSS
+     * AUTH</a>
+     * </p>
+     * 
+     * @param authTokenUpdateStrategy
+     *        Specifies the strategy to use to update the AUTH token. This parameter must be specified with the
+     *        <code>auth-token</code> parameter. Possible values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        ROTATE - default, if no update strategy is provided
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SET - allowed only after ROTATE
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DELETE - allowed only when transitioning to RBAC
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a
+     *        href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/auth.html">Authenticating Users with
+     *        Redis OSS AUTH</a>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AuthTokenUpdateStrategyType
+     */
+
+    public ModifyReplicationGroupRequest withAuthTokenUpdateStrategy(AuthTokenUpdateStrategyType authTokenUpdateStrategy) {
+        this.authTokenUpdateStrategy = authTokenUpdateStrategy.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the user group you are associating with the replication group.
+     * </p>
+     * 
+     * @return The ID of the user group you are associating with the replication group.
+     */
+
+    public java.util.List<String> getUserGroupIdsToAdd() {
+        if (userGroupIdsToAdd == null) {
+            userGroupIdsToAdd = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return userGroupIdsToAdd;
+    }
+
+    /**
+     * <p>
+     * The ID of the user group you are associating with the replication group.
+     * </p>
+     * 
+     * @param userGroupIdsToAdd
+     *        The ID of the user group you are associating with the replication group.
+     */
+
+    public void setUserGroupIdsToAdd(java.util.Collection<String> userGroupIdsToAdd) {
+        if (userGroupIdsToAdd == null) {
+            this.userGroupIdsToAdd = null;
+            return;
+        }
+
+        this.userGroupIdsToAdd = new com.amazonaws.internal.SdkInternalList<String>(userGroupIdsToAdd);
+    }
+
+    /**
+     * <p>
+     * The ID of the user group you are associating with the replication group.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setUserGroupIdsToAdd(java.util.Collection)} or {@link #withUserGroupIdsToAdd(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param userGroupIdsToAdd
+     *        The ID of the user group you are associating with the replication group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyReplicationGroupRequest withUserGroupIdsToAdd(String... userGroupIdsToAdd) {
+        if (this.userGroupIdsToAdd == null) {
+            setUserGroupIdsToAdd(new com.amazonaws.internal.SdkInternalList<String>(userGroupIdsToAdd.length));
+        }
+        for (String ele : userGroupIdsToAdd) {
+            this.userGroupIdsToAdd.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the user group you are associating with the replication group.
+     * </p>
+     * 
+     * @param userGroupIdsToAdd
+     *        The ID of the user group you are associating with the replication group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyReplicationGroupRequest withUserGroupIdsToAdd(java.util.Collection<String> userGroupIdsToAdd) {
+        setUserGroupIdsToAdd(userGroupIdsToAdd);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the user group to disassociate from the replication group, meaning the users in the group no longer can
+     * access the replication group.
+     * </p>
+     * 
+     * @return The ID of the user group to disassociate from the replication group, meaning the users in the group no
+     *         longer can access the replication group.
+     */
+
+    public java.util.List<String> getUserGroupIdsToRemove() {
+        if (userGroupIdsToRemove == null) {
+            userGroupIdsToRemove = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return userGroupIdsToRemove;
+    }
+
+    /**
+     * <p>
+     * The ID of the user group to disassociate from the replication group, meaning the users in the group no longer can
+     * access the replication group.
+     * </p>
+     * 
+     * @param userGroupIdsToRemove
+     *        The ID of the user group to disassociate from the replication group, meaning the users in the group no
+     *        longer can access the replication group.
+     */
+
+    public void setUserGroupIdsToRemove(java.util.Collection<String> userGroupIdsToRemove) {
+        if (userGroupIdsToRemove == null) {
+            this.userGroupIdsToRemove = null;
+            return;
+        }
+
+        this.userGroupIdsToRemove = new com.amazonaws.internal.SdkInternalList<String>(userGroupIdsToRemove);
+    }
+
+    /**
+     * <p>
+     * The ID of the user group to disassociate from the replication group, meaning the users in the group no longer can
+     * access the replication group.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setUserGroupIdsToRemove(java.util.Collection)} or {@link #withUserGroupIdsToRemove(java.util.Collection)}
+     * if you want to override the existing values.
+     * </p>
+     * 
+     * @param userGroupIdsToRemove
+     *        The ID of the user group to disassociate from the replication group, meaning the users in the group no
+     *        longer can access the replication group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyReplicationGroupRequest withUserGroupIdsToRemove(String... userGroupIdsToRemove) {
+        if (this.userGroupIdsToRemove == null) {
+            setUserGroupIdsToRemove(new com.amazonaws.internal.SdkInternalList<String>(userGroupIdsToRemove.length));
+        }
+        for (String ele : userGroupIdsToRemove) {
+            this.userGroupIdsToRemove.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the user group to disassociate from the replication group, meaning the users in the group no longer can
+     * access the replication group.
+     * </p>
+     * 
+     * @param userGroupIdsToRemove
+     *        The ID of the user group to disassociate from the replication group, meaning the users in the group no
+     *        longer can access the replication group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyReplicationGroupRequest withUserGroupIdsToRemove(java.util.Collection<String> userGroupIdsToRemove) {
+        setUserGroupIdsToRemove(userGroupIdsToRemove);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Removes the user group associated with this replication group.
+     * </p>
+     * 
+     * @param removeUserGroups
+     *        Removes the user group associated with this replication group.
+     */
+
+    public void setRemoveUserGroups(Boolean removeUserGroups) {
+        this.removeUserGroups = removeUserGroups;
+    }
+
+    /**
+     * <p>
+     * Removes the user group associated with this replication group.
+     * </p>
+     * 
+     * @return Removes the user group associated with this replication group.
+     */
+
+    public Boolean getRemoveUserGroups() {
+        return this.removeUserGroups;
+    }
+
+    /**
+     * <p>
+     * Removes the user group associated with this replication group.
+     * </p>
+     * 
+     * @param removeUserGroups
+     *        Removes the user group associated with this replication group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyReplicationGroupRequest withRemoveUserGroups(Boolean removeUserGroups) {
+        setRemoveUserGroups(removeUserGroups);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Removes the user group associated with this replication group.
+     * </p>
+     * 
+     * @return Removes the user group associated with this replication group.
+     */
+
+    public Boolean isRemoveUserGroups() {
+        return this.removeUserGroups;
+    }
+
+    /**
+     * <p>
+     * Specifies the destination, format and type of the logs.
+     * </p>
+     * 
+     * @return Specifies the destination, format and type of the logs.
+     */
+
+    public java.util.List<LogDeliveryConfigurationRequest> getLogDeliveryConfigurations() {
+        if (logDeliveryConfigurations == null) {
+            logDeliveryConfigurations = new com.amazonaws.internal.SdkInternalList<LogDeliveryConfigurationRequest>();
+        }
+        return logDeliveryConfigurations;
+    }
+
+    /**
+     * <p>
+     * Specifies the destination, format and type of the logs.
+     * </p>
+     * 
+     * @param logDeliveryConfigurations
+     *        Specifies the destination, format and type of the logs.
+     */
+
+    public void setLogDeliveryConfigurations(java.util.Collection<LogDeliveryConfigurationRequest> logDeliveryConfigurations) {
+        if (logDeliveryConfigurations == null) {
+            this.logDeliveryConfigurations = null;
+            return;
+        }
+
+        this.logDeliveryConfigurations = new com.amazonaws.internal.SdkInternalList<LogDeliveryConfigurationRequest>(logDeliveryConfigurations);
+    }
+
+    /**
+     * <p>
+     * Specifies the destination, format and type of the logs.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setLogDeliveryConfigurations(java.util.Collection)} or
+     * {@link #withLogDeliveryConfigurations(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param logDeliveryConfigurations
+     *        Specifies the destination, format and type of the logs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyReplicationGroupRequest withLogDeliveryConfigurations(LogDeliveryConfigurationRequest... logDeliveryConfigurations) {
+        if (this.logDeliveryConfigurations == null) {
+            setLogDeliveryConfigurations(new com.amazonaws.internal.SdkInternalList<LogDeliveryConfigurationRequest>(logDeliveryConfigurations.length));
+        }
+        for (LogDeliveryConfigurationRequest ele : logDeliveryConfigurations) {
+            this.logDeliveryConfigurations.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the destination, format and type of the logs.
+     * </p>
+     * 
+     * @param logDeliveryConfigurations
+     *        Specifies the destination, format and type of the logs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyReplicationGroupRequest withLogDeliveryConfigurations(java.util.Collection<LogDeliveryConfigurationRequest> logDeliveryConfigurations) {
+        setLogDeliveryConfigurations(logDeliveryConfigurations);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6 is
+     * supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all
+     * instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     * 
+     * @param ipDiscovery
+     *        The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6
+     *        is supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on
+     *        all instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * @see IpDiscovery
+     */
+
+    public void setIpDiscovery(String ipDiscovery) {
+        this.ipDiscovery = ipDiscovery;
+    }
+
+    /**
+     * <p>
+     * The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6 is
+     * supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all
+     * instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     * 
+     * @return The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6
+     *         is supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on
+     *         all instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * @see IpDiscovery
+     */
+
+    public String getIpDiscovery() {
+        return this.ipDiscovery;
+    }
+
+    /**
+     * <p>
+     * The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6 is
+     * supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all
+     * instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     * 
+     * @param ipDiscovery
+     *        The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6
+     *        is supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on
+     *        all instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see IpDiscovery
+     */
+
+    public ModifyReplicationGroupRequest withIpDiscovery(String ipDiscovery) {
+        setIpDiscovery(ipDiscovery);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6 is
+     * supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all
+     * instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     * 
+     * @param ipDiscovery
+     *        The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6
+     *        is supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on
+     *        all instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see IpDiscovery
+     */
+
+    public ModifyReplicationGroupRequest withIpDiscovery(IpDiscovery ipDiscovery) {
+        this.ipDiscovery = ipDiscovery.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * A flag that enables in-transit encryption when set to true. If you are enabling in-transit encryption for an
+     * existing cluster, you must also set <code>TransitEncryptionMode</code> to <code>preferred</code>.
+     * </p>
+     * 
+     * @param transitEncryptionEnabled
+     *        A flag that enables in-transit encryption when set to true. If you are enabling in-transit encryption for
+     *        an existing cluster, you must also set <code>TransitEncryptionMode</code> to <code>preferred</code>.
+     */
+
+    public void setTransitEncryptionEnabled(Boolean transitEncryptionEnabled) {
+        this.transitEncryptionEnabled = transitEncryptionEnabled;
+    }
+
+    /**
+     * <p>
+     * A flag that enables in-transit encryption when set to true. If you are enabling in-transit encryption for an
+     * existing cluster, you must also set <code>TransitEncryptionMode</code> to <code>preferred</code>.
+     * </p>
+     * 
+     * @return A flag that enables in-transit encryption when set to true. If you are enabling in-transit encryption for
+     *         an existing cluster, you must also set <code>TransitEncryptionMode</code> to <code>preferred</code>.
+     */
+
+    public Boolean getTransitEncryptionEnabled() {
+        return this.transitEncryptionEnabled;
+    }
+
+    /**
+     * <p>
+     * A flag that enables in-transit encryption when set to true. If you are enabling in-transit encryption for an
+     * existing cluster, you must also set <code>TransitEncryptionMode</code> to <code>preferred</code>.
+     * </p>
+     * 
+     * @param transitEncryptionEnabled
+     *        A flag that enables in-transit encryption when set to true. If you are enabling in-transit encryption for
+     *        an existing cluster, you must also set <code>TransitEncryptionMode</code> to <code>preferred</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyReplicationGroupRequest withTransitEncryptionEnabled(Boolean transitEncryptionEnabled) {
+        setTransitEncryptionEnabled(transitEncryptionEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A flag that enables in-transit encryption when set to true. If you are enabling in-transit encryption for an
+     * existing cluster, you must also set <code>TransitEncryptionMode</code> to <code>preferred</code>.
+     * </p>
+     * 
+     * @return A flag that enables in-transit encryption when set to true. If you are enabling in-transit encryption for
+     *         an existing cluster, you must also set <code>TransitEncryptionMode</code> to <code>preferred</code>.
+     */
+
+    public Boolean isTransitEncryptionEnabled() {
+        return this.transitEncryptionEnabled;
+    }
+
+    /**
+     * <p>
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * </p>
+     * <p>
+     * You must set <code>TransitEncryptionEnabled</code> to <code>true</code>, for your existing cluster, and set
+     * <code>TransitEncryptionMode</code> to <code>preferred</code> in the same request to allow both encrypted and
+     * unencrypted connections at the same time. Once you migrate all your Redis OSS clients to use encrypted
+     * connections you can set the value to <code>required</code> to allow encrypted connections only.
+     * </p>
+     * <p>
+     * Setting <code>TransitEncryptionMode</code> to <code>required</code> is a two-step process that requires you to
+     * first set the <code>TransitEncryptionMode</code> to <code>preferred</code>, after that you can set
+     * <code>TransitEncryptionMode</code> to <code>required</code>.
+     * </p>
+     * 
+     * @param transitEncryptionMode
+     *        A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.</p>
+     *        <p>
+     *        You must set <code>TransitEncryptionEnabled</code> to <code>true</code>, for your existing cluster, and
+     *        set <code>TransitEncryptionMode</code> to <code>preferred</code> in the same request to allow both
+     *        encrypted and unencrypted connections at the same time. Once you migrate all your Redis OSS clients to use
+     *        encrypted connections you can set the value to <code>required</code> to allow encrypted connections only.
+     *        </p>
+     *        <p>
+     *        Setting <code>TransitEncryptionMode</code> to <code>required</code> is a two-step process that requires
+     *        you to first set the <code>TransitEncryptionMode</code> to <code>preferred</code>, after that you can set
+     *        <code>TransitEncryptionMode</code> to <code>required</code>.
+     * @see TransitEncryptionMode
+     */
+
+    public void setTransitEncryptionMode(String transitEncryptionMode) {
+        this.transitEncryptionMode = transitEncryptionMode;
+    }
+
+    /**
+     * <p>
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * </p>
+     * <p>
+     * You must set <code>TransitEncryptionEnabled</code> to <code>true</code>, for your existing cluster, and set
+     * <code>TransitEncryptionMode</code> to <code>preferred</code> in the same request to allow both encrypted and
+     * unencrypted connections at the same time. Once you migrate all your Redis OSS clients to use encrypted
+     * connections you can set the value to <code>required</code> to allow encrypted connections only.
+     * </p>
+     * <p>
+     * Setting <code>TransitEncryptionMode</code> to <code>required</code> is a two-step process that requires you to
+     * first set the <code>TransitEncryptionMode</code> to <code>preferred</code>, after that you can set
+     * <code>TransitEncryptionMode</code> to <code>required</code>.
+     * </p>
+     * 
+     * @return A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.</p>
+     *         <p>
+     *         You must set <code>TransitEncryptionEnabled</code> to <code>true</code>, for your existing cluster, and
+     *         set <code>TransitEncryptionMode</code> to <code>preferred</code> in the same request to allow both
+     *         encrypted and unencrypted connections at the same time. Once you migrate all your Redis OSS clients to
+     *         use encrypted connections you can set the value to <code>required</code> to allow encrypted connections
+     *         only.
+     *         </p>
+     *         <p>
+     *         Setting <code>TransitEncryptionMode</code> to <code>required</code> is a two-step process that requires
+     *         you to first set the <code>TransitEncryptionMode</code> to <code>preferred</code>, after that you can set
+     *         <code>TransitEncryptionMode</code> to <code>required</code>.
+     * @see TransitEncryptionMode
+     */
+
+    public String getTransitEncryptionMode() {
+        return this.transitEncryptionMode;
+    }
+
+    /**
+     * <p>
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * </p>
+     * <p>
+     * You must set <code>TransitEncryptionEnabled</code> to <code>true</code>, for your existing cluster, and set
+     * <code>TransitEncryptionMode</code> to <code>preferred</code> in the same request to allow both encrypted and
+     * unencrypted connections at the same time. Once you migrate all your Redis OSS clients to use encrypted
+     * connections you can set the value to <code>required</code> to allow encrypted connections only.
+     * </p>
+     * <p>
+     * Setting <code>TransitEncryptionMode</code> to <code>required</code> is a two-step process that requires you to
+     * first set the <code>TransitEncryptionMode</code> to <code>preferred</code>, after that you can set
+     * <code>TransitEncryptionMode</code> to <code>required</code>.
+     * </p>
+     * 
+     * @param transitEncryptionMode
+     *        A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.</p>
+     *        <p>
+     *        You must set <code>TransitEncryptionEnabled</code> to <code>true</code>, for your existing cluster, and
+     *        set <code>TransitEncryptionMode</code> to <code>preferred</code> in the same request to allow both
+     *        encrypted and unencrypted connections at the same time. Once you migrate all your Redis OSS clients to use
+     *        encrypted connections you can set the value to <code>required</code> to allow encrypted connections only.
+     *        </p>
+     *        <p>
+     *        Setting <code>TransitEncryptionMode</code> to <code>required</code> is a two-step process that requires
+     *        you to first set the <code>TransitEncryptionMode</code> to <code>preferred</code>, after that you can set
+     *        <code>TransitEncryptionMode</code> to <code>required</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TransitEncryptionMode
+     */
+
+    public ModifyReplicationGroupRequest withTransitEncryptionMode(String transitEncryptionMode) {
+        setTransitEncryptionMode(transitEncryptionMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * </p>
+     * <p>
+     * You must set <code>TransitEncryptionEnabled</code> to <code>true</code>, for your existing cluster, and set
+     * <code>TransitEncryptionMode</code> to <code>preferred</code> in the same request to allow both encrypted and
+     * unencrypted connections at the same time. Once you migrate all your Redis OSS clients to use encrypted
+     * connections you can set the value to <code>required</code> to allow encrypted connections only.
+     * </p>
+     * <p>
+     * Setting <code>TransitEncryptionMode</code> to <code>required</code> is a two-step process that requires you to
+     * first set the <code>TransitEncryptionMode</code> to <code>preferred</code>, after that you can set
+     * <code>TransitEncryptionMode</code> to <code>required</code>.
+     * </p>
+     * 
+     * @param transitEncryptionMode
+     *        A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.</p>
+     *        <p>
+     *        You must set <code>TransitEncryptionEnabled</code> to <code>true</code>, for your existing cluster, and
+     *        set <code>TransitEncryptionMode</code> to <code>preferred</code> in the same request to allow both
+     *        encrypted and unencrypted connections at the same time. Once you migrate all your Redis OSS clients to use
+     *        encrypted connections you can set the value to <code>required</code> to allow encrypted connections only.
+     *        </p>
+     *        <p>
+     *        Setting <code>TransitEncryptionMode</code> to <code>required</code> is a two-step process that requires
+     *        you to first set the <code>TransitEncryptionMode</code> to <code>preferred</code>, after that you can set
+     *        <code>TransitEncryptionMode</code> to <code>required</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TransitEncryptionMode
+     */
+
+    public ModifyReplicationGroupRequest withTransitEncryptionMode(TransitEncryptionMode transitEncryptionMode) {
+        this.transitEncryptionMode = transitEncryptionMode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode to
+     * Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled and cluster
+     * mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can then complete cluster
+     * mode configuration and set the cluster mode to Enabled.
+     * </p>
+     * 
+     * @param clusterMode
+     *        Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode
+     *        to Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled
+     *        and cluster mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can
+     *        then complete cluster mode configuration and set the cluster mode to Enabled.
+     * @see ClusterMode
+     */
+
+    public void setClusterMode(String clusterMode) {
+        this.clusterMode = clusterMode;
+    }
+
+    /**
+     * <p>
+     * Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode to
+     * Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled and cluster
+     * mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can then complete cluster
+     * mode configuration and set the cluster mode to Enabled.
+     * </p>
+     * 
+     * @return Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode
+     *         to Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled
+     *         and cluster mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can
+     *         then complete cluster mode configuration and set the cluster mode to Enabled.
+     * @see ClusterMode
+     */
+
+    public String getClusterMode() {
+        return this.clusterMode;
+    }
+
+    /**
+     * <p>
+     * Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode to
+     * Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled and cluster
+     * mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can then complete cluster
+     * mode configuration and set the cluster mode to Enabled.
+     * </p>
+     * 
+     * @param clusterMode
+     *        Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode
+     *        to Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled
+     *        and cluster mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can
+     *        then complete cluster mode configuration and set the cluster mode to Enabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ClusterMode
+     */
+
+    public ModifyReplicationGroupRequest withClusterMode(String clusterMode) {
+        setClusterMode(clusterMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode to
+     * Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled and cluster
+     * mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can then complete cluster
+     * mode configuration and set the cluster mode to Enabled.
+     * </p>
+     * 
+     * @param clusterMode
+     *        Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode
+     *        to Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled
+     *        and cluster mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can
+     *        then complete cluster mode configuration and set the cluster mode to Enabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ClusterMode
+     */
+
+    public ModifyReplicationGroupRequest withClusterMode(ClusterMode clusterMode) {
+        this.clusterMode = clusterMode.toString();
         return this;
     }
 
@@ -1919,6 +2973,10 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
             sb.append("SnapshottingClusterId: ").append(getSnapshottingClusterId()).append(",");
         if (getAutomaticFailoverEnabled() != null)
             sb.append("AutomaticFailoverEnabled: ").append(getAutomaticFailoverEnabled()).append(",");
+        if (getMultiAZEnabled() != null)
+            sb.append("MultiAZEnabled: ").append(getMultiAZEnabled()).append(",");
+        if (getNodeGroupId() != null)
+            sb.append("NodeGroupId: ").append(getNodeGroupId()).append(",");
         if (getCacheSecurityGroupNames() != null)
             sb.append("CacheSecurityGroupNames: ").append(getCacheSecurityGroupNames()).append(",");
         if (getSecurityGroupIds() != null)
@@ -1943,8 +3001,26 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
             sb.append("SnapshotWindow: ").append(getSnapshotWindow()).append(",");
         if (getCacheNodeType() != null)
             sb.append("CacheNodeType: ").append(getCacheNodeType()).append(",");
-        if (getNodeGroupId() != null)
-            sb.append("NodeGroupId: ").append(getNodeGroupId());
+        if (getAuthToken() != null)
+            sb.append("AuthToken: ").append(getAuthToken()).append(",");
+        if (getAuthTokenUpdateStrategy() != null)
+            sb.append("AuthTokenUpdateStrategy: ").append(getAuthTokenUpdateStrategy()).append(",");
+        if (getUserGroupIdsToAdd() != null)
+            sb.append("UserGroupIdsToAdd: ").append(getUserGroupIdsToAdd()).append(",");
+        if (getUserGroupIdsToRemove() != null)
+            sb.append("UserGroupIdsToRemove: ").append(getUserGroupIdsToRemove()).append(",");
+        if (getRemoveUserGroups() != null)
+            sb.append("RemoveUserGroups: ").append(getRemoveUserGroups()).append(",");
+        if (getLogDeliveryConfigurations() != null)
+            sb.append("LogDeliveryConfigurations: ").append(getLogDeliveryConfigurations()).append(",");
+        if (getIpDiscovery() != null)
+            sb.append("IpDiscovery: ").append(getIpDiscovery()).append(",");
+        if (getTransitEncryptionEnabled() != null)
+            sb.append("TransitEncryptionEnabled: ").append(getTransitEncryptionEnabled()).append(",");
+        if (getTransitEncryptionMode() != null)
+            sb.append("TransitEncryptionMode: ").append(getTransitEncryptionMode()).append(",");
+        if (getClusterMode() != null)
+            sb.append("ClusterMode: ").append(getClusterMode());
         sb.append("}");
         return sb.toString();
     }
@@ -1978,6 +3054,14 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
         if (other.getAutomaticFailoverEnabled() == null ^ this.getAutomaticFailoverEnabled() == null)
             return false;
         if (other.getAutomaticFailoverEnabled() != null && other.getAutomaticFailoverEnabled().equals(this.getAutomaticFailoverEnabled()) == false)
+            return false;
+        if (other.getMultiAZEnabled() == null ^ this.getMultiAZEnabled() == null)
+            return false;
+        if (other.getMultiAZEnabled() != null && other.getMultiAZEnabled().equals(this.getMultiAZEnabled()) == false)
+            return false;
+        if (other.getNodeGroupId() == null ^ this.getNodeGroupId() == null)
+            return false;
+        if (other.getNodeGroupId() != null && other.getNodeGroupId().equals(this.getNodeGroupId()) == false)
             return false;
         if (other.getCacheSecurityGroupNames() == null ^ this.getCacheSecurityGroupNames() == null)
             return false;
@@ -2027,9 +3111,45 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
             return false;
         if (other.getCacheNodeType() != null && other.getCacheNodeType().equals(this.getCacheNodeType()) == false)
             return false;
-        if (other.getNodeGroupId() == null ^ this.getNodeGroupId() == null)
+        if (other.getAuthToken() == null ^ this.getAuthToken() == null)
             return false;
-        if (other.getNodeGroupId() != null && other.getNodeGroupId().equals(this.getNodeGroupId()) == false)
+        if (other.getAuthToken() != null && other.getAuthToken().equals(this.getAuthToken()) == false)
+            return false;
+        if (other.getAuthTokenUpdateStrategy() == null ^ this.getAuthTokenUpdateStrategy() == null)
+            return false;
+        if (other.getAuthTokenUpdateStrategy() != null && other.getAuthTokenUpdateStrategy().equals(this.getAuthTokenUpdateStrategy()) == false)
+            return false;
+        if (other.getUserGroupIdsToAdd() == null ^ this.getUserGroupIdsToAdd() == null)
+            return false;
+        if (other.getUserGroupIdsToAdd() != null && other.getUserGroupIdsToAdd().equals(this.getUserGroupIdsToAdd()) == false)
+            return false;
+        if (other.getUserGroupIdsToRemove() == null ^ this.getUserGroupIdsToRemove() == null)
+            return false;
+        if (other.getUserGroupIdsToRemove() != null && other.getUserGroupIdsToRemove().equals(this.getUserGroupIdsToRemove()) == false)
+            return false;
+        if (other.getRemoveUserGroups() == null ^ this.getRemoveUserGroups() == null)
+            return false;
+        if (other.getRemoveUserGroups() != null && other.getRemoveUserGroups().equals(this.getRemoveUserGroups()) == false)
+            return false;
+        if (other.getLogDeliveryConfigurations() == null ^ this.getLogDeliveryConfigurations() == null)
+            return false;
+        if (other.getLogDeliveryConfigurations() != null && other.getLogDeliveryConfigurations().equals(this.getLogDeliveryConfigurations()) == false)
+            return false;
+        if (other.getIpDiscovery() == null ^ this.getIpDiscovery() == null)
+            return false;
+        if (other.getIpDiscovery() != null && other.getIpDiscovery().equals(this.getIpDiscovery()) == false)
+            return false;
+        if (other.getTransitEncryptionEnabled() == null ^ this.getTransitEncryptionEnabled() == null)
+            return false;
+        if (other.getTransitEncryptionEnabled() != null && other.getTransitEncryptionEnabled().equals(this.getTransitEncryptionEnabled()) == false)
+            return false;
+        if (other.getTransitEncryptionMode() == null ^ this.getTransitEncryptionMode() == null)
+            return false;
+        if (other.getTransitEncryptionMode() != null && other.getTransitEncryptionMode().equals(this.getTransitEncryptionMode()) == false)
+            return false;
+        if (other.getClusterMode() == null ^ this.getClusterMode() == null)
+            return false;
+        if (other.getClusterMode() != null && other.getClusterMode().equals(this.getClusterMode()) == false)
             return false;
         return true;
     }
@@ -2044,6 +3164,8 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
         hashCode = prime * hashCode + ((getPrimaryClusterId() == null) ? 0 : getPrimaryClusterId().hashCode());
         hashCode = prime * hashCode + ((getSnapshottingClusterId() == null) ? 0 : getSnapshottingClusterId().hashCode());
         hashCode = prime * hashCode + ((getAutomaticFailoverEnabled() == null) ? 0 : getAutomaticFailoverEnabled().hashCode());
+        hashCode = prime * hashCode + ((getMultiAZEnabled() == null) ? 0 : getMultiAZEnabled().hashCode());
+        hashCode = prime * hashCode + ((getNodeGroupId() == null) ? 0 : getNodeGroupId().hashCode());
         hashCode = prime * hashCode + ((getCacheSecurityGroupNames() == null) ? 0 : getCacheSecurityGroupNames().hashCode());
         hashCode = prime * hashCode + ((getSecurityGroupIds() == null) ? 0 : getSecurityGroupIds().hashCode());
         hashCode = prime * hashCode + ((getPreferredMaintenanceWindow() == null) ? 0 : getPreferredMaintenanceWindow().hashCode());
@@ -2056,7 +3178,16 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
         hashCode = prime * hashCode + ((getSnapshotRetentionLimit() == null) ? 0 : getSnapshotRetentionLimit().hashCode());
         hashCode = prime * hashCode + ((getSnapshotWindow() == null) ? 0 : getSnapshotWindow().hashCode());
         hashCode = prime * hashCode + ((getCacheNodeType() == null) ? 0 : getCacheNodeType().hashCode());
-        hashCode = prime * hashCode + ((getNodeGroupId() == null) ? 0 : getNodeGroupId().hashCode());
+        hashCode = prime * hashCode + ((getAuthToken() == null) ? 0 : getAuthToken().hashCode());
+        hashCode = prime * hashCode + ((getAuthTokenUpdateStrategy() == null) ? 0 : getAuthTokenUpdateStrategy().hashCode());
+        hashCode = prime * hashCode + ((getUserGroupIdsToAdd() == null) ? 0 : getUserGroupIdsToAdd().hashCode());
+        hashCode = prime * hashCode + ((getUserGroupIdsToRemove() == null) ? 0 : getUserGroupIdsToRemove().hashCode());
+        hashCode = prime * hashCode + ((getRemoveUserGroups() == null) ? 0 : getRemoveUserGroups().hashCode());
+        hashCode = prime * hashCode + ((getLogDeliveryConfigurations() == null) ? 0 : getLogDeliveryConfigurations().hashCode());
+        hashCode = prime * hashCode + ((getIpDiscovery() == null) ? 0 : getIpDiscovery().hashCode());
+        hashCode = prime * hashCode + ((getTransitEncryptionEnabled() == null) ? 0 : getTransitEncryptionEnabled().hashCode());
+        hashCode = prime * hashCode + ((getTransitEncryptionMode() == null) ? 0 : getTransitEncryptionMode().hashCode());
+        hashCode = prime * hashCode + ((getClusterMode() == null) ? 0 : getClusterMode().hashCode());
         return hashCode;
     }
 

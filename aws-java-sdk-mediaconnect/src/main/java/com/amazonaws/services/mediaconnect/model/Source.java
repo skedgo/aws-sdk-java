@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,6 +26,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class Source implements Serializable, Cloneable, StructuredPojo {
 
+    /** Percentage from 0-100 of the data transfer cost to be billed to the subscriber. */
+    private Integer dataTransferSubscriberFeePercent;
     /** The type of encryption that is used on the content ingested from this source. */
     private Encryption decryption;
     /**
@@ -42,17 +44,61 @@ public class Source implements Serializable, Cloneable, StructuredPojo {
     private String ingestIp;
     /** The port that the flow will be listening on for incoming content. */
     private Integer ingestPort;
+    /** The media streams that are associated with the source, and the parameters for those associations. */
+    private java.util.List<MediaStreamSourceConfiguration> mediaStreamSourceConfigurations;
     /** The name of the source. */
     private String name;
+    /** The port that the flow uses to send outbound requests to initiate connection with the sender. */
+    private Integer senderControlPort;
+    /** The IP address that the flow communicates with to initiate connection with the sender. */
+    private String senderIpAddress;
     /** The ARN of the source. */
     private String sourceArn;
     /** Attributes related to the transport stream that are used in the source. */
     private Transport transport;
+    /** The name of the VPC interface that is used for this source. */
+    private String vpcInterfaceName;
     /**
      * The range of IP addresses that should be allowed to contribute content to your source. These IP addresses should
      * be in the form of a Classless Inter-Domain Routing (CIDR) block; for example, 10.0.0.0/16.
      */
     private String whitelistCidr;
+    /** The source configuration for cloud flows receiving a stream from a bridge. */
+    private GatewayBridgeSource gatewayBridgeSource;
+
+    /**
+     * Percentage from 0-100 of the data transfer cost to be billed to the subscriber.
+     * 
+     * @param dataTransferSubscriberFeePercent
+     *        Percentage from 0-100 of the data transfer cost to be billed to the subscriber.
+     */
+
+    public void setDataTransferSubscriberFeePercent(Integer dataTransferSubscriberFeePercent) {
+        this.dataTransferSubscriberFeePercent = dataTransferSubscriberFeePercent;
+    }
+
+    /**
+     * Percentage from 0-100 of the data transfer cost to be billed to the subscriber.
+     * 
+     * @return Percentage from 0-100 of the data transfer cost to be billed to the subscriber.
+     */
+
+    public Integer getDataTransferSubscriberFeePercent() {
+        return this.dataTransferSubscriberFeePercent;
+    }
+
+    /**
+     * Percentage from 0-100 of the data transfer cost to be billed to the subscriber.
+     * 
+     * @param dataTransferSubscriberFeePercent
+     *        Percentage from 0-100 of the data transfer cost to be billed to the subscriber.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Source withDataTransferSubscriberFeePercent(Integer dataTransferSubscriberFeePercent) {
+        setDataTransferSubscriberFeePercent(dataTransferSubscriberFeePercent);
+        return this;
+    }
 
     /**
      * The type of encryption that is used on the content ingested from this source.
@@ -240,6 +286,68 @@ public class Source implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * The media streams that are associated with the source, and the parameters for those associations.
+     * 
+     * @return The media streams that are associated with the source, and the parameters for those associations.
+     */
+
+    public java.util.List<MediaStreamSourceConfiguration> getMediaStreamSourceConfigurations() {
+        return mediaStreamSourceConfigurations;
+    }
+
+    /**
+     * The media streams that are associated with the source, and the parameters for those associations.
+     * 
+     * @param mediaStreamSourceConfigurations
+     *        The media streams that are associated with the source, and the parameters for those associations.
+     */
+
+    public void setMediaStreamSourceConfigurations(java.util.Collection<MediaStreamSourceConfiguration> mediaStreamSourceConfigurations) {
+        if (mediaStreamSourceConfigurations == null) {
+            this.mediaStreamSourceConfigurations = null;
+            return;
+        }
+
+        this.mediaStreamSourceConfigurations = new java.util.ArrayList<MediaStreamSourceConfiguration>(mediaStreamSourceConfigurations);
+    }
+
+    /**
+     * The media streams that are associated with the source, and the parameters for those associations.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setMediaStreamSourceConfigurations(java.util.Collection)} or
+     * {@link #withMediaStreamSourceConfigurations(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param mediaStreamSourceConfigurations
+     *        The media streams that are associated with the source, and the parameters for those associations.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Source withMediaStreamSourceConfigurations(MediaStreamSourceConfiguration... mediaStreamSourceConfigurations) {
+        if (this.mediaStreamSourceConfigurations == null) {
+            setMediaStreamSourceConfigurations(new java.util.ArrayList<MediaStreamSourceConfiguration>(mediaStreamSourceConfigurations.length));
+        }
+        for (MediaStreamSourceConfiguration ele : mediaStreamSourceConfigurations) {
+            this.mediaStreamSourceConfigurations.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * The media streams that are associated with the source, and the parameters for those associations.
+     * 
+     * @param mediaStreamSourceConfigurations
+     *        The media streams that are associated with the source, and the parameters for those associations.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Source withMediaStreamSourceConfigurations(java.util.Collection<MediaStreamSourceConfiguration> mediaStreamSourceConfigurations) {
+        setMediaStreamSourceConfigurations(mediaStreamSourceConfigurations);
+        return this;
+    }
+
+    /**
      * The name of the source.
      * 
      * @param name
@@ -270,6 +378,74 @@ public class Source implements Serializable, Cloneable, StructuredPojo {
 
     public Source withName(String name) {
         setName(name);
+        return this;
+    }
+
+    /**
+     * The port that the flow uses to send outbound requests to initiate connection with the sender.
+     * 
+     * @param senderControlPort
+     *        The port that the flow uses to send outbound requests to initiate connection with the sender.
+     */
+
+    public void setSenderControlPort(Integer senderControlPort) {
+        this.senderControlPort = senderControlPort;
+    }
+
+    /**
+     * The port that the flow uses to send outbound requests to initiate connection with the sender.
+     * 
+     * @return The port that the flow uses to send outbound requests to initiate connection with the sender.
+     */
+
+    public Integer getSenderControlPort() {
+        return this.senderControlPort;
+    }
+
+    /**
+     * The port that the flow uses to send outbound requests to initiate connection with the sender.
+     * 
+     * @param senderControlPort
+     *        The port that the flow uses to send outbound requests to initiate connection with the sender.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Source withSenderControlPort(Integer senderControlPort) {
+        setSenderControlPort(senderControlPort);
+        return this;
+    }
+
+    /**
+     * The IP address that the flow communicates with to initiate connection with the sender.
+     * 
+     * @param senderIpAddress
+     *        The IP address that the flow communicates with to initiate connection with the sender.
+     */
+
+    public void setSenderIpAddress(String senderIpAddress) {
+        this.senderIpAddress = senderIpAddress;
+    }
+
+    /**
+     * The IP address that the flow communicates with to initiate connection with the sender.
+     * 
+     * @return The IP address that the flow communicates with to initiate connection with the sender.
+     */
+
+    public String getSenderIpAddress() {
+        return this.senderIpAddress;
+    }
+
+    /**
+     * The IP address that the flow communicates with to initiate connection with the sender.
+     * 
+     * @param senderIpAddress
+     *        The IP address that the flow communicates with to initiate connection with the sender.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Source withSenderIpAddress(String senderIpAddress) {
+        setSenderIpAddress(senderIpAddress);
         return this;
     }
 
@@ -342,6 +518,40 @@ public class Source implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * The name of the VPC interface that is used for this source.
+     * 
+     * @param vpcInterfaceName
+     *        The name of the VPC interface that is used for this source.
+     */
+
+    public void setVpcInterfaceName(String vpcInterfaceName) {
+        this.vpcInterfaceName = vpcInterfaceName;
+    }
+
+    /**
+     * The name of the VPC interface that is used for this source.
+     * 
+     * @return The name of the VPC interface that is used for this source.
+     */
+
+    public String getVpcInterfaceName() {
+        return this.vpcInterfaceName;
+    }
+
+    /**
+     * The name of the VPC interface that is used for this source.
+     * 
+     * @param vpcInterfaceName
+     *        The name of the VPC interface that is used for this source.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Source withVpcInterfaceName(String vpcInterfaceName) {
+        setVpcInterfaceName(vpcInterfaceName);
+        return this;
+    }
+
+    /**
      * The range of IP addresses that should be allowed to contribute content to your source. These IP addresses should
      * be in the form of a Classless Inter-Domain Routing (CIDR) block; for example, 10.0.0.0/16.
      * 
@@ -382,6 +592,40 @@ public class Source implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * The source configuration for cloud flows receiving a stream from a bridge.
+     * 
+     * @param gatewayBridgeSource
+     *        The source configuration for cloud flows receiving a stream from a bridge.
+     */
+
+    public void setGatewayBridgeSource(GatewayBridgeSource gatewayBridgeSource) {
+        this.gatewayBridgeSource = gatewayBridgeSource;
+    }
+
+    /**
+     * The source configuration for cloud flows receiving a stream from a bridge.
+     * 
+     * @return The source configuration for cloud flows receiving a stream from a bridge.
+     */
+
+    public GatewayBridgeSource getGatewayBridgeSource() {
+        return this.gatewayBridgeSource;
+    }
+
+    /**
+     * The source configuration for cloud flows receiving a stream from a bridge.
+     * 
+     * @param gatewayBridgeSource
+     *        The source configuration for cloud flows receiving a stream from a bridge.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Source withGatewayBridgeSource(GatewayBridgeSource gatewayBridgeSource) {
+        setGatewayBridgeSource(gatewayBridgeSource);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -393,6 +637,8 @@ public class Source implements Serializable, Cloneable, StructuredPojo {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getDataTransferSubscriberFeePercent() != null)
+            sb.append("DataTransferSubscriberFeePercent: ").append(getDataTransferSubscriberFeePercent()).append(",");
         if (getDecryption() != null)
             sb.append("Decryption: ").append(getDecryption()).append(",");
         if (getDescription() != null)
@@ -403,14 +649,24 @@ public class Source implements Serializable, Cloneable, StructuredPojo {
             sb.append("IngestIp: ").append(getIngestIp()).append(",");
         if (getIngestPort() != null)
             sb.append("IngestPort: ").append(getIngestPort()).append(",");
+        if (getMediaStreamSourceConfigurations() != null)
+            sb.append("MediaStreamSourceConfigurations: ").append(getMediaStreamSourceConfigurations()).append(",");
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
+        if (getSenderControlPort() != null)
+            sb.append("SenderControlPort: ").append(getSenderControlPort()).append(",");
+        if (getSenderIpAddress() != null)
+            sb.append("SenderIpAddress: ").append(getSenderIpAddress()).append(",");
         if (getSourceArn() != null)
             sb.append("SourceArn: ").append(getSourceArn()).append(",");
         if (getTransport() != null)
             sb.append("Transport: ").append(getTransport()).append(",");
+        if (getVpcInterfaceName() != null)
+            sb.append("VpcInterfaceName: ").append(getVpcInterfaceName()).append(",");
         if (getWhitelistCidr() != null)
-            sb.append("WhitelistCidr: ").append(getWhitelistCidr());
+            sb.append("WhitelistCidr: ").append(getWhitelistCidr()).append(",");
+        if (getGatewayBridgeSource() != null)
+            sb.append("GatewayBridgeSource: ").append(getGatewayBridgeSource());
         sb.append("}");
         return sb.toString();
     }
@@ -425,6 +681,11 @@ public class Source implements Serializable, Cloneable, StructuredPojo {
         if (obj instanceof Source == false)
             return false;
         Source other = (Source) obj;
+        if (other.getDataTransferSubscriberFeePercent() == null ^ this.getDataTransferSubscriberFeePercent() == null)
+            return false;
+        if (other.getDataTransferSubscriberFeePercent() != null
+                && other.getDataTransferSubscriberFeePercent().equals(this.getDataTransferSubscriberFeePercent()) == false)
+            return false;
         if (other.getDecryption() == null ^ this.getDecryption() == null)
             return false;
         if (other.getDecryption() != null && other.getDecryption().equals(this.getDecryption()) == false)
@@ -445,9 +706,22 @@ public class Source implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getIngestPort() != null && other.getIngestPort().equals(this.getIngestPort()) == false)
             return false;
+        if (other.getMediaStreamSourceConfigurations() == null ^ this.getMediaStreamSourceConfigurations() == null)
+            return false;
+        if (other.getMediaStreamSourceConfigurations() != null
+                && other.getMediaStreamSourceConfigurations().equals(this.getMediaStreamSourceConfigurations()) == false)
+            return false;
         if (other.getName() == null ^ this.getName() == null)
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
+            return false;
+        if (other.getSenderControlPort() == null ^ this.getSenderControlPort() == null)
+            return false;
+        if (other.getSenderControlPort() != null && other.getSenderControlPort().equals(this.getSenderControlPort()) == false)
+            return false;
+        if (other.getSenderIpAddress() == null ^ this.getSenderIpAddress() == null)
+            return false;
+        if (other.getSenderIpAddress() != null && other.getSenderIpAddress().equals(this.getSenderIpAddress()) == false)
             return false;
         if (other.getSourceArn() == null ^ this.getSourceArn() == null)
             return false;
@@ -457,9 +731,17 @@ public class Source implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getTransport() != null && other.getTransport().equals(this.getTransport()) == false)
             return false;
+        if (other.getVpcInterfaceName() == null ^ this.getVpcInterfaceName() == null)
+            return false;
+        if (other.getVpcInterfaceName() != null && other.getVpcInterfaceName().equals(this.getVpcInterfaceName()) == false)
+            return false;
         if (other.getWhitelistCidr() == null ^ this.getWhitelistCidr() == null)
             return false;
         if (other.getWhitelistCidr() != null && other.getWhitelistCidr().equals(this.getWhitelistCidr()) == false)
+            return false;
+        if (other.getGatewayBridgeSource() == null ^ this.getGatewayBridgeSource() == null)
+            return false;
+        if (other.getGatewayBridgeSource() != null && other.getGatewayBridgeSource().equals(this.getGatewayBridgeSource()) == false)
             return false;
         return true;
     }
@@ -469,15 +751,21 @@ public class Source implements Serializable, Cloneable, StructuredPojo {
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getDataTransferSubscriberFeePercent() == null) ? 0 : getDataTransferSubscriberFeePercent().hashCode());
         hashCode = prime * hashCode + ((getDecryption() == null) ? 0 : getDecryption().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getEntitlementArn() == null) ? 0 : getEntitlementArn().hashCode());
         hashCode = prime * hashCode + ((getIngestIp() == null) ? 0 : getIngestIp().hashCode());
         hashCode = prime * hashCode + ((getIngestPort() == null) ? 0 : getIngestPort().hashCode());
+        hashCode = prime * hashCode + ((getMediaStreamSourceConfigurations() == null) ? 0 : getMediaStreamSourceConfigurations().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
+        hashCode = prime * hashCode + ((getSenderControlPort() == null) ? 0 : getSenderControlPort().hashCode());
+        hashCode = prime * hashCode + ((getSenderIpAddress() == null) ? 0 : getSenderIpAddress().hashCode());
         hashCode = prime * hashCode + ((getSourceArn() == null) ? 0 : getSourceArn().hashCode());
         hashCode = prime * hashCode + ((getTransport() == null) ? 0 : getTransport().hashCode());
+        hashCode = prime * hashCode + ((getVpcInterfaceName() == null) ? 0 : getVpcInterfaceName().hashCode());
         hashCode = prime * hashCode + ((getWhitelistCidr() == null) ? 0 : getWhitelistCidr().hashCode());
+        hashCode = prime * hashCode + ((getGatewayBridgeSource() == null) ? 0 : getGatewayBridgeSource().hashCode());
         return hashCode;
     }
 

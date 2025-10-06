@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,8 @@ public class CreateFileSystemRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FileSystemType").build();
     private static final MarshallingInfo<Integer> STORAGECAPACITY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StorageCapacity").build();
+    private static final MarshallingInfo<String> STORAGETYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StorageType").build();
     private static final MarshallingInfo<List> SUBNETIDS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("SubnetIds").build();
     private static final MarshallingInfo<List> SECURITYGROUPIDS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
@@ -49,6 +51,12 @@ public class CreateFileSystemRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("WindowsConfiguration").build();
     private static final MarshallingInfo<StructuredPojo> LUSTRECONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LustreConfiguration").build();
+    private static final MarshallingInfo<StructuredPojo> ONTAPCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OntapConfiguration").build();
+    private static final MarshallingInfo<String> FILESYSTEMTYPEVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FileSystemTypeVersion").build();
+    private static final MarshallingInfo<StructuredPojo> OPENZFSCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OpenZFSConfiguration").build();
 
     private static final CreateFileSystemRequestMarshaller instance = new CreateFileSystemRequestMarshaller();
 
@@ -69,12 +77,16 @@ public class CreateFileSystemRequestMarshaller {
             protocolMarshaller.marshall(createFileSystemRequest.getClientRequestToken(), CLIENTREQUESTTOKEN_BINDING);
             protocolMarshaller.marshall(createFileSystemRequest.getFileSystemType(), FILESYSTEMTYPE_BINDING);
             protocolMarshaller.marshall(createFileSystemRequest.getStorageCapacity(), STORAGECAPACITY_BINDING);
+            protocolMarshaller.marshall(createFileSystemRequest.getStorageType(), STORAGETYPE_BINDING);
             protocolMarshaller.marshall(createFileSystemRequest.getSubnetIds(), SUBNETIDS_BINDING);
             protocolMarshaller.marshall(createFileSystemRequest.getSecurityGroupIds(), SECURITYGROUPIDS_BINDING);
             protocolMarshaller.marshall(createFileSystemRequest.getTags(), TAGS_BINDING);
             protocolMarshaller.marshall(createFileSystemRequest.getKmsKeyId(), KMSKEYID_BINDING);
             protocolMarshaller.marshall(createFileSystemRequest.getWindowsConfiguration(), WINDOWSCONFIGURATION_BINDING);
             protocolMarshaller.marshall(createFileSystemRequest.getLustreConfiguration(), LUSTRECONFIGURATION_BINDING);
+            protocolMarshaller.marshall(createFileSystemRequest.getOntapConfiguration(), ONTAPCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(createFileSystemRequest.getFileSystemTypeVersion(), FILESYSTEMTYPEVERSION_BINDING);
+            protocolMarshaller.marshall(createFileSystemRequest.getOpenZFSConfiguration(), OPENZFSCONFIGURATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,10 +27,10 @@ public class UpdateKeyDescriptionRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A unique identifier for the customer master key (CMK).
+     * Updates the description of the specified KMS key.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     * Specify the key ID or key ARN of the KMS key.
      * </p>
      * <p>
      * For example:
@@ -48,23 +48,29 @@ public class UpdateKeyDescriptionRequest extends com.amazonaws.AmazonWebServiceR
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      */
     private String keyId;
     /**
      * <p>
-     * New description for the CMK.
+     * New description for the KMS key.
      * </p>
+     * <important>
+     * <p>
+     * Do not include confidential or sensitive information in this field. This field may be displayed in plaintext in
+     * CloudTrail logs and other output.
+     * </p>
+     * </important>
      */
     private String description;
 
     /**
      * <p>
-     * A unique identifier for the customer master key (CMK).
+     * Updates the description of the specified KMS key.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     * Specify the key ID or key ARN of the KMS key.
      * </p>
      * <p>
      * For example:
@@ -82,13 +88,13 @@ public class UpdateKeyDescriptionRequest extends com.amazonaws.AmazonWebServiceR
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      * 
      * @param keyId
-     *        A unique identifier for the customer master key (CMK).</p>
+     *        Updates the description of the specified KMS key.</p>
      *        <p>
-     *        Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     *        Specify the key ID or key ARN of the KMS key.
      *        </p>
      *        <p>
      *        For example:
@@ -106,7 +112,7 @@ public class UpdateKeyDescriptionRequest extends com.amazonaws.AmazonWebServiceR
      *        </li>
      *        </ul>
      *        <p>
-     *        To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     *        To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      */
 
     public void setKeyId(String keyId) {
@@ -115,10 +121,10 @@ public class UpdateKeyDescriptionRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A unique identifier for the customer master key (CMK).
+     * Updates the description of the specified KMS key.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     * Specify the key ID or key ARN of the KMS key.
      * </p>
      * <p>
      * For example:
@@ -136,12 +142,12 @@ public class UpdateKeyDescriptionRequest extends com.amazonaws.AmazonWebServiceR
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      * 
-     * @return A unique identifier for the customer master key (CMK).</p>
+     * @return Updates the description of the specified KMS key.</p>
      *         <p>
-     *         Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     *         Specify the key ID or key ARN of the KMS key.
      *         </p>
      *         <p>
      *         For example:
@@ -159,7 +165,7 @@ public class UpdateKeyDescriptionRequest extends com.amazonaws.AmazonWebServiceR
      *         </li>
      *         </ul>
      *         <p>
-     *         To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     *         To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      */
 
     public String getKeyId() {
@@ -168,10 +174,10 @@ public class UpdateKeyDescriptionRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A unique identifier for the customer master key (CMK).
+     * Updates the description of the specified KMS key.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     * Specify the key ID or key ARN of the KMS key.
      * </p>
      * <p>
      * For example:
@@ -189,13 +195,13 @@ public class UpdateKeyDescriptionRequest extends com.amazonaws.AmazonWebServiceR
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      * 
      * @param keyId
-     *        A unique identifier for the customer master key (CMK).</p>
+     *        Updates the description of the specified KMS key.</p>
      *        <p>
-     *        Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     *        Specify the key ID or key ARN of the KMS key.
      *        </p>
      *        <p>
      *        For example:
@@ -213,7 +219,7 @@ public class UpdateKeyDescriptionRequest extends com.amazonaws.AmazonWebServiceR
      *        </li>
      *        </ul>
      *        <p>
-     *        To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     *        To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -224,11 +230,21 @@ public class UpdateKeyDescriptionRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * New description for the CMK.
+     * New description for the KMS key.
      * </p>
+     * <important>
+     * <p>
+     * Do not include confidential or sensitive information in this field. This field may be displayed in plaintext in
+     * CloudTrail logs and other output.
+     * </p>
+     * </important>
      * 
      * @param description
-     *        New description for the CMK.
+     *        New description for the KMS key.</p> <important>
+     *        <p>
+     *        Do not include confidential or sensitive information in this field. This field may be displayed in
+     *        plaintext in CloudTrail logs and other output.
+     *        </p>
      */
 
     public void setDescription(String description) {
@@ -237,10 +253,20 @@ public class UpdateKeyDescriptionRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * New description for the CMK.
+     * New description for the KMS key.
      * </p>
+     * <important>
+     * <p>
+     * Do not include confidential or sensitive information in this field. This field may be displayed in plaintext in
+     * CloudTrail logs and other output.
+     * </p>
+     * </important>
      * 
-     * @return New description for the CMK.
+     * @return New description for the KMS key.</p> <important>
+     *         <p>
+     *         Do not include confidential or sensitive information in this field. This field may be displayed in
+     *         plaintext in CloudTrail logs and other output.
+     *         </p>
      */
 
     public String getDescription() {
@@ -249,11 +275,21 @@ public class UpdateKeyDescriptionRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * New description for the CMK.
+     * New description for the KMS key.
      * </p>
+     * <important>
+     * <p>
+     * Do not include confidential or sensitive information in this field. This field may be displayed in plaintext in
+     * CloudTrail logs and other output.
+     * </p>
+     * </important>
      * 
      * @param description
-     *        New description for the CMK.
+     *        New description for the KMS key.</p> <important>
+     *        <p>
+     *        Do not include confidential or sensitive information in this field. This field may be displayed in
+     *        plaintext in CloudTrail logs and other output.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

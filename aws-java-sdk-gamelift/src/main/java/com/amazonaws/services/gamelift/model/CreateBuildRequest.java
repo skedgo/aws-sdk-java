@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,9 +18,6 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * <p>
- * Represents the input for a request action.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/CreateBuild" target="_top">AWS API
  *      Documentation</a>
@@ -30,15 +27,15 @@ public class CreateBuildRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Descriptive label that is associated with a build. Build names do not need to be unique. You can use
-     * <a>UpdateBuild</a> to change this value later.
+     * A descriptive label associated with a build. Build names don't need to be unique. You can change this value
+     * later.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * Version that is associated with a build or script. Version strings do not need to be unique. You can use
-     * <a>UpdateBuild</a> to change this value later.
+     * Version information associated with a build or script. Version strings don't need to be unique. You can change
+     * this value later.
      * </p>
      */
     private String version;
@@ -46,30 +43,64 @@ public class CreateBuildRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * Information indicating where your game build files are stored. Use this parameter only when creating a build with
      * files stored in an Amazon S3 bucket that you own. The storage location must specify an Amazon S3 bucket name and
-     * key, as well as a the ARN for a role that you set up to allow Amazon GameLift to access your Amazon S3 bucket.
-     * The S3 bucket must be in the same region that you want to create a new build in.
+     * key. The location must also specify a role ARN that you set up to allow Amazon GameLift to access your Amazon S3
+     * bucket. The S3 bucket and your new build must be in the same Region.
+     * </p>
+     * <p>
+     * If a <code>StorageLocation</code> is specified, the size of your file can be found in your Amazon S3 bucket.
+     * Amazon GameLift will report a <code>SizeOnDisk</code> of 0.
      * </p>
      */
     private S3Location storageLocation;
     /**
      * <p>
-     * Operating system that the game server binaries are built to run on. This value determines the type of fleet
-     * resources that you can use for this build. If your game build contains multiple executables, they all must run on
-     * the same operating system. If an operating system is not specified when creating a build, Amazon GameLift uses
-     * the default value (WINDOWS_2012). This value cannot be changed later.
+     * The operating system that your game server binaries run on. This value determines the type of fleet resources
+     * that you use for this build. If your game build contains multiple executables, they all must run on the same
+     * operating system. You must specify a valid operating system in this request. There is no default value. You can't
+     * change a build's operating system later.
      * </p>
+     * <note>
+     * <p>
+     * If you have active fleets using the Windows Server 2012 operating system, you can continue to create new builds
+     * using this OS until October 10, 2023, when Microsoft ends its support. All others must use Windows Server 2016
+     * when creating new Windows-based builds.
+     * </p>
+     * </note>
      */
     private String operatingSystem;
+    /**
+     * <p>
+     * A list of labels to assign to the new build resource. Tags are developer defined key-value pairs. Tagging Amazon
+     * Web Services resources are useful for resource management, access management and cost allocation. For more
+     * information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html"> Tagging Amazon Web
+     * Services Resources</a> in the <i>Amazon Web Services General Reference</i>. Once the resource is created, you can
+     * use <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_TagResource.html">TagResource</a>, <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UntagResource.html">UntagResource</a>, and <a
+     * href
+     * ="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ListTagsForResource.html">ListTagsForResource</a>
+     * to add, remove, and view tags. The maximum tag limit may be lower than stated. See the Amazon Web Services
+     * General Reference for actual tagging limits.
+     * </p>
+     */
+    private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * A server SDK version you used when integrating your game server build with Amazon GameLift. For more information
+     * see <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/integration-custom-intro.html">Integrate
+     * games with custom game servers</a>. By default Amazon GameLift sets this value to <code>4.0.2</code>.
+     * </p>
+     */
+    private String serverSdkVersion;
 
     /**
      * <p>
-     * Descriptive label that is associated with a build. Build names do not need to be unique. You can use
-     * <a>UpdateBuild</a> to change this value later.
+     * A descriptive label associated with a build. Build names don't need to be unique. You can change this value
+     * later.
      * </p>
      * 
      * @param name
-     *        Descriptive label that is associated with a build. Build names do not need to be unique. You can use
-     *        <a>UpdateBuild</a> to change this value later.
+     *        A descriptive label associated with a build. Build names don't need to be unique. You can change this
+     *        value later.
      */
 
     public void setName(String name) {
@@ -78,12 +109,12 @@ public class CreateBuildRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Descriptive label that is associated with a build. Build names do not need to be unique. You can use
-     * <a>UpdateBuild</a> to change this value later.
+     * A descriptive label associated with a build. Build names don't need to be unique. You can change this value
+     * later.
      * </p>
      * 
-     * @return Descriptive label that is associated with a build. Build names do not need to be unique. You can use
-     *         <a>UpdateBuild</a> to change this value later.
+     * @return A descriptive label associated with a build. Build names don't need to be unique. You can change this
+     *         value later.
      */
 
     public String getName() {
@@ -92,13 +123,13 @@ public class CreateBuildRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Descriptive label that is associated with a build. Build names do not need to be unique. You can use
-     * <a>UpdateBuild</a> to change this value later.
+     * A descriptive label associated with a build. Build names don't need to be unique. You can change this value
+     * later.
      * </p>
      * 
      * @param name
-     *        Descriptive label that is associated with a build. Build names do not need to be unique. You can use
-     *        <a>UpdateBuild</a> to change this value later.
+     *        A descriptive label associated with a build. Build names don't need to be unique. You can change this
+     *        value later.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -109,13 +140,13 @@ public class CreateBuildRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Version that is associated with a build or script. Version strings do not need to be unique. You can use
-     * <a>UpdateBuild</a> to change this value later.
+     * Version information associated with a build or script. Version strings don't need to be unique. You can change
+     * this value later.
      * </p>
      * 
      * @param version
-     *        Version that is associated with a build or script. Version strings do not need to be unique. You can use
-     *        <a>UpdateBuild</a> to change this value later.
+     *        Version information associated with a build or script. Version strings don't need to be unique. You can
+     *        change this value later.
      */
 
     public void setVersion(String version) {
@@ -124,12 +155,12 @@ public class CreateBuildRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Version that is associated with a build or script. Version strings do not need to be unique. You can use
-     * <a>UpdateBuild</a> to change this value later.
+     * Version information associated with a build or script. Version strings don't need to be unique. You can change
+     * this value later.
      * </p>
      * 
-     * @return Version that is associated with a build or script. Version strings do not need to be unique. You can use
-     *         <a>UpdateBuild</a> to change this value later.
+     * @return Version information associated with a build or script. Version strings don't need to be unique. You can
+     *         change this value later.
      */
 
     public String getVersion() {
@@ -138,13 +169,13 @@ public class CreateBuildRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Version that is associated with a build or script. Version strings do not need to be unique. You can use
-     * <a>UpdateBuild</a> to change this value later.
+     * Version information associated with a build or script. Version strings don't need to be unique. You can change
+     * this value later.
      * </p>
      * 
      * @param version
-     *        Version that is associated with a build or script. Version strings do not need to be unique. You can use
-     *        <a>UpdateBuild</a> to change this value later.
+     *        Version information associated with a build or script. Version strings don't need to be unique. You can
+     *        change this value later.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -157,15 +188,22 @@ public class CreateBuildRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * Information indicating where your game build files are stored. Use this parameter only when creating a build with
      * files stored in an Amazon S3 bucket that you own. The storage location must specify an Amazon S3 bucket name and
-     * key, as well as a the ARN for a role that you set up to allow Amazon GameLift to access your Amazon S3 bucket.
-     * The S3 bucket must be in the same region that you want to create a new build in.
+     * key. The location must also specify a role ARN that you set up to allow Amazon GameLift to access your Amazon S3
+     * bucket. The S3 bucket and your new build must be in the same Region.
+     * </p>
+     * <p>
+     * If a <code>StorageLocation</code> is specified, the size of your file can be found in your Amazon S3 bucket.
+     * Amazon GameLift will report a <code>SizeOnDisk</code> of 0.
      * </p>
      * 
      * @param storageLocation
      *        Information indicating where your game build files are stored. Use this parameter only when creating a
      *        build with files stored in an Amazon S3 bucket that you own. The storage location must specify an Amazon
-     *        S3 bucket name and key, as well as a the ARN for a role that you set up to allow Amazon GameLift to access
-     *        your Amazon S3 bucket. The S3 bucket must be in the same region that you want to create a new build in.
+     *        S3 bucket name and key. The location must also specify a role ARN that you set up to allow Amazon GameLift
+     *        to access your Amazon S3 bucket. The S3 bucket and your new build must be in the same Region.</p>
+     *        <p>
+     *        If a <code>StorageLocation</code> is specified, the size of your file can be found in your Amazon S3
+     *        bucket. Amazon GameLift will report a <code>SizeOnDisk</code> of 0.
      */
 
     public void setStorageLocation(S3Location storageLocation) {
@@ -176,15 +214,22 @@ public class CreateBuildRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * Information indicating where your game build files are stored. Use this parameter only when creating a build with
      * files stored in an Amazon S3 bucket that you own. The storage location must specify an Amazon S3 bucket name and
-     * key, as well as a the ARN for a role that you set up to allow Amazon GameLift to access your Amazon S3 bucket.
-     * The S3 bucket must be in the same region that you want to create a new build in.
+     * key. The location must also specify a role ARN that you set up to allow Amazon GameLift to access your Amazon S3
+     * bucket. The S3 bucket and your new build must be in the same Region.
+     * </p>
+     * <p>
+     * If a <code>StorageLocation</code> is specified, the size of your file can be found in your Amazon S3 bucket.
+     * Amazon GameLift will report a <code>SizeOnDisk</code> of 0.
      * </p>
      * 
      * @return Information indicating where your game build files are stored. Use this parameter only when creating a
      *         build with files stored in an Amazon S3 bucket that you own. The storage location must specify an Amazon
-     *         S3 bucket name and key, as well as a the ARN for a role that you set up to allow Amazon GameLift to
-     *         access your Amazon S3 bucket. The S3 bucket must be in the same region that you want to create a new
-     *         build in.
+     *         S3 bucket name and key. The location must also specify a role ARN that you set up to allow Amazon
+     *         GameLift to access your Amazon S3 bucket. The S3 bucket and your new build must be in the same
+     *         Region.</p>
+     *         <p>
+     *         If a <code>StorageLocation</code> is specified, the size of your file can be found in your Amazon S3
+     *         bucket. Amazon GameLift will report a <code>SizeOnDisk</code> of 0.
      */
 
     public S3Location getStorageLocation() {
@@ -195,15 +240,22 @@ public class CreateBuildRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * Information indicating where your game build files are stored. Use this parameter only when creating a build with
      * files stored in an Amazon S3 bucket that you own. The storage location must specify an Amazon S3 bucket name and
-     * key, as well as a the ARN for a role that you set up to allow Amazon GameLift to access your Amazon S3 bucket.
-     * The S3 bucket must be in the same region that you want to create a new build in.
+     * key. The location must also specify a role ARN that you set up to allow Amazon GameLift to access your Amazon S3
+     * bucket. The S3 bucket and your new build must be in the same Region.
+     * </p>
+     * <p>
+     * If a <code>StorageLocation</code> is specified, the size of your file can be found in your Amazon S3 bucket.
+     * Amazon GameLift will report a <code>SizeOnDisk</code> of 0.
      * </p>
      * 
      * @param storageLocation
      *        Information indicating where your game build files are stored. Use this parameter only when creating a
      *        build with files stored in an Amazon S3 bucket that you own. The storage location must specify an Amazon
-     *        S3 bucket name and key, as well as a the ARN for a role that you set up to allow Amazon GameLift to access
-     *        your Amazon S3 bucket. The S3 bucket must be in the same region that you want to create a new build in.
+     *        S3 bucket name and key. The location must also specify a role ARN that you set up to allow Amazon GameLift
+     *        to access your Amazon S3 bucket. The S3 bucket and your new build must be in the same Region.</p>
+     *        <p>
+     *        If a <code>StorageLocation</code> is specified, the size of your file can be found in your Amazon S3
+     *        bucket. Amazon GameLift will report a <code>SizeOnDisk</code> of 0.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -214,17 +266,29 @@ public class CreateBuildRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Operating system that the game server binaries are built to run on. This value determines the type of fleet
-     * resources that you can use for this build. If your game build contains multiple executables, they all must run on
-     * the same operating system. If an operating system is not specified when creating a build, Amazon GameLift uses
-     * the default value (WINDOWS_2012). This value cannot be changed later.
+     * The operating system that your game server binaries run on. This value determines the type of fleet resources
+     * that you use for this build. If your game build contains multiple executables, they all must run on the same
+     * operating system. You must specify a valid operating system in this request. There is no default value. You can't
+     * change a build's operating system later.
      * </p>
+     * <note>
+     * <p>
+     * If you have active fleets using the Windows Server 2012 operating system, you can continue to create new builds
+     * using this OS until October 10, 2023, when Microsoft ends its support. All others must use Windows Server 2016
+     * when creating new Windows-based builds.
+     * </p>
+     * </note>
      * 
      * @param operatingSystem
-     *        Operating system that the game server binaries are built to run on. This value determines the type of
-     *        fleet resources that you can use for this build. If your game build contains multiple executables, they
-     *        all must run on the same operating system. If an operating system is not specified when creating a build,
-     *        Amazon GameLift uses the default value (WINDOWS_2012). This value cannot be changed later.
+     *        The operating system that your game server binaries run on. This value determines the type of fleet
+     *        resources that you use for this build. If your game build contains multiple executables, they all must run
+     *        on the same operating system. You must specify a valid operating system in this request. There is no
+     *        default value. You can't change a build's operating system later.</p> <note>
+     *        <p>
+     *        If you have active fleets using the Windows Server 2012 operating system, you can continue to create new
+     *        builds using this OS until October 10, 2023, when Microsoft ends its support. All others must use Windows
+     *        Server 2016 when creating new Windows-based builds.
+     *        </p>
      * @see OperatingSystem
      */
 
@@ -234,16 +298,28 @@ public class CreateBuildRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Operating system that the game server binaries are built to run on. This value determines the type of fleet
-     * resources that you can use for this build. If your game build contains multiple executables, they all must run on
-     * the same operating system. If an operating system is not specified when creating a build, Amazon GameLift uses
-     * the default value (WINDOWS_2012). This value cannot be changed later.
+     * The operating system that your game server binaries run on. This value determines the type of fleet resources
+     * that you use for this build. If your game build contains multiple executables, they all must run on the same
+     * operating system. You must specify a valid operating system in this request. There is no default value. You can't
+     * change a build's operating system later.
      * </p>
+     * <note>
+     * <p>
+     * If you have active fleets using the Windows Server 2012 operating system, you can continue to create new builds
+     * using this OS until October 10, 2023, when Microsoft ends its support. All others must use Windows Server 2016
+     * when creating new Windows-based builds.
+     * </p>
+     * </note>
      * 
-     * @return Operating system that the game server binaries are built to run on. This value determines the type of
-     *         fleet resources that you can use for this build. If your game build contains multiple executables, they
-     *         all must run on the same operating system. If an operating system is not specified when creating a build,
-     *         Amazon GameLift uses the default value (WINDOWS_2012). This value cannot be changed later.
+     * @return The operating system that your game server binaries run on. This value determines the type of fleet
+     *         resources that you use for this build. If your game build contains multiple executables, they all must
+     *         run on the same operating system. You must specify a valid operating system in this request. There is no
+     *         default value. You can't change a build's operating system later.</p> <note>
+     *         <p>
+     *         If you have active fleets using the Windows Server 2012 operating system, you can continue to create new
+     *         builds using this OS until October 10, 2023, when Microsoft ends its support. All others must use Windows
+     *         Server 2016 when creating new Windows-based builds.
+     *         </p>
      * @see OperatingSystem
      */
 
@@ -253,17 +329,29 @@ public class CreateBuildRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Operating system that the game server binaries are built to run on. This value determines the type of fleet
-     * resources that you can use for this build. If your game build contains multiple executables, they all must run on
-     * the same operating system. If an operating system is not specified when creating a build, Amazon GameLift uses
-     * the default value (WINDOWS_2012). This value cannot be changed later.
+     * The operating system that your game server binaries run on. This value determines the type of fleet resources
+     * that you use for this build. If your game build contains multiple executables, they all must run on the same
+     * operating system. You must specify a valid operating system in this request. There is no default value. You can't
+     * change a build's operating system later.
      * </p>
+     * <note>
+     * <p>
+     * If you have active fleets using the Windows Server 2012 operating system, you can continue to create new builds
+     * using this OS until October 10, 2023, when Microsoft ends its support. All others must use Windows Server 2016
+     * when creating new Windows-based builds.
+     * </p>
+     * </note>
      * 
      * @param operatingSystem
-     *        Operating system that the game server binaries are built to run on. This value determines the type of
-     *        fleet resources that you can use for this build. If your game build contains multiple executables, they
-     *        all must run on the same operating system. If an operating system is not specified when creating a build,
-     *        Amazon GameLift uses the default value (WINDOWS_2012). This value cannot be changed later.
+     *        The operating system that your game server binaries run on. This value determines the type of fleet
+     *        resources that you use for this build. If your game build contains multiple executables, they all must run
+     *        on the same operating system. You must specify a valid operating system in this request. There is no
+     *        default value. You can't change a build's operating system later.</p> <note>
+     *        <p>
+     *        If you have active fleets using the Windows Server 2012 operating system, you can continue to create new
+     *        builds using this OS until October 10, 2023, when Microsoft ends its support. All others must use Windows
+     *        Server 2016 when creating new Windows-based builds.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see OperatingSystem
      */
@@ -275,17 +363,29 @@ public class CreateBuildRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Operating system that the game server binaries are built to run on. This value determines the type of fleet
-     * resources that you can use for this build. If your game build contains multiple executables, they all must run on
-     * the same operating system. If an operating system is not specified when creating a build, Amazon GameLift uses
-     * the default value (WINDOWS_2012). This value cannot be changed later.
+     * The operating system that your game server binaries run on. This value determines the type of fleet resources
+     * that you use for this build. If your game build contains multiple executables, they all must run on the same
+     * operating system. You must specify a valid operating system in this request. There is no default value. You can't
+     * change a build's operating system later.
      * </p>
+     * <note>
+     * <p>
+     * If you have active fleets using the Windows Server 2012 operating system, you can continue to create new builds
+     * using this OS until October 10, 2023, when Microsoft ends its support. All others must use Windows Server 2016
+     * when creating new Windows-based builds.
+     * </p>
+     * </note>
      * 
      * @param operatingSystem
-     *        Operating system that the game server binaries are built to run on. This value determines the type of
-     *        fleet resources that you can use for this build. If your game build contains multiple executables, they
-     *        all must run on the same operating system. If an operating system is not specified when creating a build,
-     *        Amazon GameLift uses the default value (WINDOWS_2012). This value cannot be changed later.
+     *        The operating system that your game server binaries run on. This value determines the type of fleet
+     *        resources that you use for this build. If your game build contains multiple executables, they all must run
+     *        on the same operating system. You must specify a valid operating system in this request. There is no
+     *        default value. You can't change a build's operating system later.</p> <note>
+     *        <p>
+     *        If you have active fleets using the Windows Server 2012 operating system, you can continue to create new
+     *        builds using this OS until October 10, 2023, when Microsoft ends its support. All others must use Windows
+     *        Server 2016 when creating new Windows-based builds.
+     *        </p>
      * @see OperatingSystem
      */
 
@@ -295,23 +395,232 @@ public class CreateBuildRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Operating system that the game server binaries are built to run on. This value determines the type of fleet
-     * resources that you can use for this build. If your game build contains multiple executables, they all must run on
-     * the same operating system. If an operating system is not specified when creating a build, Amazon GameLift uses
-     * the default value (WINDOWS_2012). This value cannot be changed later.
+     * The operating system that your game server binaries run on. This value determines the type of fleet resources
+     * that you use for this build. If your game build contains multiple executables, they all must run on the same
+     * operating system. You must specify a valid operating system in this request. There is no default value. You can't
+     * change a build's operating system later.
      * </p>
+     * <note>
+     * <p>
+     * If you have active fleets using the Windows Server 2012 operating system, you can continue to create new builds
+     * using this OS until October 10, 2023, when Microsoft ends its support. All others must use Windows Server 2016
+     * when creating new Windows-based builds.
+     * </p>
+     * </note>
      * 
      * @param operatingSystem
-     *        Operating system that the game server binaries are built to run on. This value determines the type of
-     *        fleet resources that you can use for this build. If your game build contains multiple executables, they
-     *        all must run on the same operating system. If an operating system is not specified when creating a build,
-     *        Amazon GameLift uses the default value (WINDOWS_2012). This value cannot be changed later.
+     *        The operating system that your game server binaries run on. This value determines the type of fleet
+     *        resources that you use for this build. If your game build contains multiple executables, they all must run
+     *        on the same operating system. You must specify a valid operating system in this request. There is no
+     *        default value. You can't change a build's operating system later.</p> <note>
+     *        <p>
+     *        If you have active fleets using the Windows Server 2012 operating system, you can continue to create new
+     *        builds using this OS until October 10, 2023, when Microsoft ends its support. All others must use Windows
+     *        Server 2016 when creating new Windows-based builds.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see OperatingSystem
      */
 
     public CreateBuildRequest withOperatingSystem(OperatingSystem operatingSystem) {
         this.operatingSystem = operatingSystem.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of labels to assign to the new build resource. Tags are developer defined key-value pairs. Tagging Amazon
+     * Web Services resources are useful for resource management, access management and cost allocation. For more
+     * information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html"> Tagging Amazon Web
+     * Services Resources</a> in the <i>Amazon Web Services General Reference</i>. Once the resource is created, you can
+     * use <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_TagResource.html">TagResource</a>, <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UntagResource.html">UntagResource</a>, and <a
+     * href
+     * ="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ListTagsForResource.html">ListTagsForResource</a>
+     * to add, remove, and view tags. The maximum tag limit may be lower than stated. See the Amazon Web Services
+     * General Reference for actual tagging limits.
+     * </p>
+     * 
+     * @return A list of labels to assign to the new build resource. Tags are developer defined key-value pairs. Tagging
+     *         Amazon Web Services resources are useful for resource management, access management and cost allocation.
+     *         For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">
+     *         Tagging Amazon Web Services Resources</a> in the <i>Amazon Web Services General Reference</i>. Once the
+     *         resource is created, you can use <a
+     *         href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_TagResource.html">TagResource</a>, <a
+     *         href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UntagResource.html">UntagResource</a>,
+     *         and <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ListTagsForResource.html">
+     *         ListTagsForResource</a> to add, remove, and view tags. The maximum tag limit may be lower than stated.
+     *         See the Amazon Web Services General Reference for actual tagging limits.
+     */
+
+    public java.util.List<Tag> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * A list of labels to assign to the new build resource. Tags are developer defined key-value pairs. Tagging Amazon
+     * Web Services resources are useful for resource management, access management and cost allocation. For more
+     * information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html"> Tagging Amazon Web
+     * Services Resources</a> in the <i>Amazon Web Services General Reference</i>. Once the resource is created, you can
+     * use <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_TagResource.html">TagResource</a>, <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UntagResource.html">UntagResource</a>, and <a
+     * href
+     * ="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ListTagsForResource.html">ListTagsForResource</a>
+     * to add, remove, and view tags. The maximum tag limit may be lower than stated. See the Amazon Web Services
+     * General Reference for actual tagging limits.
+     * </p>
+     * 
+     * @param tags
+     *        A list of labels to assign to the new build resource. Tags are developer defined key-value pairs. Tagging
+     *        Amazon Web Services resources are useful for resource management, access management and cost allocation.
+     *        For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">
+     *        Tagging Amazon Web Services Resources</a> in the <i>Amazon Web Services General Reference</i>. Once the
+     *        resource is created, you can use <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_TagResource.html">TagResource</a>, <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UntagResource.html">UntagResource</a>,
+     *        and <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ListTagsForResource.html">
+     *        ListTagsForResource</a> to add, remove, and view tags. The maximum tag limit may be lower than stated. See
+     *        the Amazon Web Services General Reference for actual tagging limits.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new java.util.ArrayList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * A list of labels to assign to the new build resource. Tags are developer defined key-value pairs. Tagging Amazon
+     * Web Services resources are useful for resource management, access management and cost allocation. For more
+     * information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html"> Tagging Amazon Web
+     * Services Resources</a> in the <i>Amazon Web Services General Reference</i>. Once the resource is created, you can
+     * use <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_TagResource.html">TagResource</a>, <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UntagResource.html">UntagResource</a>, and <a
+     * href
+     * ="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ListTagsForResource.html">ListTagsForResource</a>
+     * to add, remove, and view tags. The maximum tag limit may be lower than stated. See the Amazon Web Services
+     * General Reference for actual tagging limits.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        A list of labels to assign to the new build resource. Tags are developer defined key-value pairs. Tagging
+     *        Amazon Web Services resources are useful for resource management, access management and cost allocation.
+     *        For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">
+     *        Tagging Amazon Web Services Resources</a> in the <i>Amazon Web Services General Reference</i>. Once the
+     *        resource is created, you can use <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_TagResource.html">TagResource</a>, <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UntagResource.html">UntagResource</a>,
+     *        and <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ListTagsForResource.html">
+     *        ListTagsForResource</a> to add, remove, and view tags. The maximum tag limit may be lower than stated. See
+     *        the Amazon Web Services General Reference for actual tagging limits.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBuildRequest withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new java.util.ArrayList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of labels to assign to the new build resource. Tags are developer defined key-value pairs. Tagging Amazon
+     * Web Services resources are useful for resource management, access management and cost allocation. For more
+     * information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html"> Tagging Amazon Web
+     * Services Resources</a> in the <i>Amazon Web Services General Reference</i>. Once the resource is created, you can
+     * use <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_TagResource.html">TagResource</a>, <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UntagResource.html">UntagResource</a>, and <a
+     * href
+     * ="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ListTagsForResource.html">ListTagsForResource</a>
+     * to add, remove, and view tags. The maximum tag limit may be lower than stated. See the Amazon Web Services
+     * General Reference for actual tagging limits.
+     * </p>
+     * 
+     * @param tags
+     *        A list of labels to assign to the new build resource. Tags are developer defined key-value pairs. Tagging
+     *        Amazon Web Services resources are useful for resource management, access management and cost allocation.
+     *        For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">
+     *        Tagging Amazon Web Services Resources</a> in the <i>Amazon Web Services General Reference</i>. Once the
+     *        resource is created, you can use <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_TagResource.html">TagResource</a>, <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UntagResource.html">UntagResource</a>,
+     *        and <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ListTagsForResource.html">
+     *        ListTagsForResource</a> to add, remove, and view tags. The maximum tag limit may be lower than stated. See
+     *        the Amazon Web Services General Reference for actual tagging limits.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBuildRequest withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A server SDK version you used when integrating your game server build with Amazon GameLift. For more information
+     * see <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/integration-custom-intro.html">Integrate
+     * games with custom game servers</a>. By default Amazon GameLift sets this value to <code>4.0.2</code>.
+     * </p>
+     * 
+     * @param serverSdkVersion
+     *        A server SDK version you used when integrating your game server build with Amazon GameLift. For more
+     *        information see <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/developerguide/integration-custom-intro.html">Integrate
+     *        games with custom game servers</a>. By default Amazon GameLift sets this value to <code>4.0.2</code>.
+     */
+
+    public void setServerSdkVersion(String serverSdkVersion) {
+        this.serverSdkVersion = serverSdkVersion;
+    }
+
+    /**
+     * <p>
+     * A server SDK version you used when integrating your game server build with Amazon GameLift. For more information
+     * see <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/integration-custom-intro.html">Integrate
+     * games with custom game servers</a>. By default Amazon GameLift sets this value to <code>4.0.2</code>.
+     * </p>
+     * 
+     * @return A server SDK version you used when integrating your game server build with Amazon GameLift. For more
+     *         information see <a
+     *         href="https://docs.aws.amazon.com/gamelift/latest/developerguide/integration-custom-intro.html">Integrate
+     *         games with custom game servers</a>. By default Amazon GameLift sets this value to <code>4.0.2</code>.
+     */
+
+    public String getServerSdkVersion() {
+        return this.serverSdkVersion;
+    }
+
+    /**
+     * <p>
+     * A server SDK version you used when integrating your game server build with Amazon GameLift. For more information
+     * see <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/integration-custom-intro.html">Integrate
+     * games with custom game servers</a>. By default Amazon GameLift sets this value to <code>4.0.2</code>.
+     * </p>
+     * 
+     * @param serverSdkVersion
+     *        A server SDK version you used when integrating your game server build with Amazon GameLift. For more
+     *        information see <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/developerguide/integration-custom-intro.html">Integrate
+     *        games with custom game servers</a>. By default Amazon GameLift sets this value to <code>4.0.2</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBuildRequest withServerSdkVersion(String serverSdkVersion) {
+        setServerSdkVersion(serverSdkVersion);
         return this;
     }
 
@@ -334,7 +643,11 @@ public class CreateBuildRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (getStorageLocation() != null)
             sb.append("StorageLocation: ").append(getStorageLocation()).append(",");
         if (getOperatingSystem() != null)
-            sb.append("OperatingSystem: ").append(getOperatingSystem());
+            sb.append("OperatingSystem: ").append(getOperatingSystem()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getServerSdkVersion() != null)
+            sb.append("ServerSdkVersion: ").append(getServerSdkVersion());
         sb.append("}");
         return sb.toString();
     }
@@ -365,6 +678,14 @@ public class CreateBuildRequest extends com.amazonaws.AmazonWebServiceRequest im
             return false;
         if (other.getOperatingSystem() != null && other.getOperatingSystem().equals(this.getOperatingSystem()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getServerSdkVersion() == null ^ this.getServerSdkVersion() == null)
+            return false;
+        if (other.getServerSdkVersion() != null && other.getServerSdkVersion().equals(this.getServerSdkVersion()) == false)
+            return false;
         return true;
     }
 
@@ -377,6 +698,8 @@ public class CreateBuildRequest extends com.amazonaws.AmazonWebServiceRequest im
         hashCode = prime * hashCode + ((getVersion() == null) ? 0 : getVersion().hashCode());
         hashCode = prime * hashCode + ((getStorageLocation() == null) ? 0 : getStorageLocation().hashCode());
         hashCode = prime * hashCode + ((getOperatingSystem() == null) ? 0 : getOperatingSystem().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getServerSdkVersion() == null) ? 0 : getServerSdkVersion().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,21 +20,29 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The connection ID.
+     * Specifies whether an integration is managed by API Gateway. If you created an API using using quick create, the
+     * resulting integration is managed by API Gateway. You can update a managed integration, but you can't delete it.
+     * </p>
+     */
+    private Boolean apiGatewayManaged;
+    /**
+     * <p>
+     * The ID of the VPC link for a private integration. Supported only for HTTP APIs.
      * </p>
      */
     private String connectionId;
     /**
      * <p>
-     * The type of the network connection to the integration endpoint. Currently the only valid value is INTERNET, for
-     * connections through the public routable internet.
+     * The type of the network connection to the integration endpoint. Specify INTERNET for connections through the
+     * public routable internet or VPC_LINK for private connections between API Gateway and resources in a VPC. The
+     * default value is INTERNET.
      * </p>
      */
     private String connectionType;
     /**
      * <p>
-     * Specifies how to handle response payload content type conversions. Supported values are CONVERT_TO_BINARY and
-     * CONVERT_TO_TEXT, with the following behaviors:
+     * Supported only for WebSocket APIs. Specifies how to handle response payload content type conversions. Supported
+     * values are CONVERT_TO_BINARY and CONVERT_TO_TEXT, with the following behaviors:
      * </p>
      * <p>
      * CONVERT_TO_BINARY: Converts a response payload from a Base64-encoded string to the corresponding binary blob.
@@ -77,7 +85,8 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
     private String integrationMethod;
     /**
      * <p>
-     * The integration response selection expression for the integration. See <a href=
+     * The integration response selection expression for the integration. Supported only for WebSocket APIs. See <a
+     * href=
      * "https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-integration-response-selection-expressions"
      * >Integration Response Selection Expressions</a>.
      * </p>
@@ -85,34 +94,55 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
     private String integrationResponseSelectionExpression;
     /**
      * <p>
+     * Supported only for HTTP API AWS_PROXY integrations. Specifies the AWS service action to invoke. To learn more,
+     * see <a href=
+     * "https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-aws-services-reference.html"
+     * >Integration subtype reference</a>.
+     * </p>
+     */
+    private String integrationSubtype;
+    /**
+     * <p>
      * The integration type of an integration. One of the following:
      * </p>
      * <p>
      * AWS: for integrating the route or method request with an AWS service action, including the Lambda
      * function-invoking action. With the Lambda function-invoking action, this is referred to as the Lambda custom
-     * integration. With any other AWS service action, this is known as AWS integration.
+     * integration. With any other AWS service action, this is known as AWS integration. Supported only for WebSocket
+     * APIs.
      * </p>
      * <p>
-     * AWS_PROXY: for integrating the route or method request with the Lambda function-invoking action with the client
-     * request passed through as-is. This integration is also referred to as Lambda proxy integration.
+     * AWS_PROXY: for integrating the route or method request with a Lambda function or other AWS service action. This
+     * integration is also referred to as a Lambda proxy integration.
      * </p>
      * <p>
      * HTTP: for integrating the route or method request with an HTTP endpoint. This integration is also referred to as
-     * the HTTP custom integration.
+     * the HTTP custom integration. Supported only for WebSocket APIs.
      * </p>
      * <p>
-     * HTTP_PROXY: for integrating route or method request with an HTTP endpoint, with the client request passed through
-     * as-is. This is also referred to as HTTP proxy integration.
+     * HTTP_PROXY: for integrating the route or method request with an HTTP endpoint, with the client request passed
+     * through as-is. This is also referred to as HTTP proxy integration.
      * </p>
      * <p>
      * MOCK: for integrating the route or method request with API Gateway as a "loopback" endpoint without invoking any
-     * backend.
+     * backend. Supported only for WebSocket APIs.
      * </p>
      */
     private String integrationType;
     /**
      * <p>
-     * For a Lambda proxy integration, this is the URI of the Lambda function.
+     * For a Lambda integration, specify the URI of a Lambda function.
+     * </p>
+     * <p>
+     * For an HTTP integration, specify a fully-qualified URL.
+     * </p>
+     * <p>
+     * For an HTTP API private integration, specify the ARN of an Application Load Balancer listener, Network Load
+     * Balancer listener, or AWS Cloud Map service. If you specify the ARN of an AWS Cloud Map service, API Gateway uses
+     * DiscoverInstances to identify resources. You can use query parameters to target specific resources. To learn
+     * more, see <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_DiscoverInstances.html">DiscoverInstances</a>. For
+     * private integrations, all resources must be owned by the same AWS account.
      * </p>
      */
     private String integrationUri;
@@ -120,7 +150,7 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      * <p>
      * Specifies the pass-through behavior for incoming requests based on the Content-Type header in the request, and
      * the available mapping templates specified as the requestTemplates property on the Integration resource. There are
-     * three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER.
+     * three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER. Supported only for WebSocket APIs.
      * </p>
      * <p>
      * WHEN_NO_MATCH passes the request body for unmapped content types through to the integration backend without
@@ -138,11 +168,35 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
     private String passthroughBehavior;
     /**
      * <p>
-     * A key-value map specifying request parameters that are passed from the method request to the backend. The key is
-     * an integration request parameter name and the associated value is a method request parameter value or static
-     * value that must be enclosed within single quotes and pre-encoded as required by the backend. The method request
-     * parameter value must match the pattern of method.request.{location}.{name} , where {location} is querystring,
-     * path, or header; and {name} must be a valid and unique method request parameter name.
+     * Specifies the format of the payload sent to an integration. Required for HTTP APIs.
+     * </p>
+     */
+    private String payloadFormatVersion;
+    /**
+     * <p>
+     * For WebSocket APIs, a key-value map specifying request parameters that are passed from the method request to the
+     * backend. The key is an integration request parameter name and the associated value is a method request parameter
+     * value or static value that must be enclosed within single quotes and pre-encoded as required by the backend. The
+     * method request parameter value must match the pattern of
+     * method.request.<replaceable>{location}</replaceable>.<replaceable>{name}</replaceable> , where
+     * <replaceable>{location}</replaceable> is querystring, path, or header; and <replaceable>{name}</replaceable> must
+     * be a valid and unique method request parameter name.
+     * </p>
+     * <p>
+     * For HTTP API integrations with a specified integrationSubtype, request parameters are a key-value map specifying
+     * parameters that are passed to AWS_PROXY integrations. You can provide static values, or map request data, stage
+     * variables, or context variables that are evaluated at runtime. To learn more, see <a href=
+     * "https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-aws-services.html"
+     * >Working with AWS service integrations for HTTP APIs</a>.
+     * </p>
+     * <p>
+     * For HTTP API integrations, without a specified integrationSubtype request parameters are a key-value map
+     * specifying how to transform HTTP requests before sending them to backend integrations. The key should follow the
+     * pattern &lt;action&gt;:&lt;header|querystring|path&gt;.&lt;location&gt;. The action can be append, overwrite or
+     * remove. For values, you can provide static values, or map request data, stage variables, or context variables
+     * that are evaluated at runtime. To learn more, see <a
+     * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-parameter-mapping.html">Transforming
+     * API requests and responses</a>.
      * </p>
      */
     private java.util.Map<String, String> requestParameters;
@@ -150,30 +204,115 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      * <p>
      * Represents a map of Velocity templates that are applied on the request payload based on the value of the
      * Content-Type header sent by the client. The content type value is the key in this map, and the template (as a
-     * String) is the value.
+     * String) is the value. Supported only for WebSocket APIs.
      * </p>
      */
     private java.util.Map<String, String> requestTemplates;
     /**
      * <p>
-     * The template selection expression for the integration.
+     * Supported only for HTTP APIs. You use response parameters to transform the HTTP response from a backend
+     * integration before returning the response to clients. Specify a key-value map from a selection key to response
+     * parameters. The selection key must be a valid HTTP status code within the range of 200-599. Response parameters
+     * are a key-value map. The key must match pattern &lt;action&gt;:&lt;header&gt;.&lt;location&gt; or
+     * overwrite.statuscode. The action can be append, overwrite or remove. The value can be a static value, or map to
+     * response data, stage variables, or context variables that are evaluated at runtime. To learn more, see <a
+     * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-parameter-mapping.html">Transforming
+     * API requests and responses</a>.
+     * </p>
+     */
+    private java.util.Map<String, java.util.Map<String, String>> responseParameters;
+    /**
+     * <p>
+     * The template selection expression for the integration. Supported only for WebSocket APIs.
      * </p>
      */
     private String templateSelectionExpression;
     /**
      * <p>
-     * Custom timeout between 50 and 29,000 milliseconds. The default value is 29,000 milliseconds or 29 seconds.
+     * Custom timeout between 50 and 29,000 milliseconds for WebSocket APIs and between 50 and 30,000 milliseconds for
+     * HTTP APIs. The default timeout is 29 seconds for WebSocket APIs and 30 seconds for HTTP APIs.
      * </p>
      */
     private Integer timeoutInMillis;
+    /**
+     * <p>
+     * The TLS configuration for a private integration. If you specify a TLS configuration, private integration traffic
+     * uses the HTTPS protocol. Supported only for HTTP APIs.
+     * </p>
+     */
+    private TlsConfig tlsConfig;
 
     /**
      * <p>
-     * The connection ID.
+     * Specifies whether an integration is managed by API Gateway. If you created an API using using quick create, the
+     * resulting integration is managed by API Gateway. You can update a managed integration, but you can't delete it.
+     * </p>
+     * 
+     * @param apiGatewayManaged
+     *        Specifies whether an integration is managed by API Gateway. If you created an API using using quick
+     *        create, the resulting integration is managed by API Gateway. You can update a managed integration, but you
+     *        can't delete it.
+     */
+
+    public void setApiGatewayManaged(Boolean apiGatewayManaged) {
+        this.apiGatewayManaged = apiGatewayManaged;
+    }
+
+    /**
+     * <p>
+     * Specifies whether an integration is managed by API Gateway. If you created an API using using quick create, the
+     * resulting integration is managed by API Gateway. You can update a managed integration, but you can't delete it.
+     * </p>
+     * 
+     * @return Specifies whether an integration is managed by API Gateway. If you created an API using using quick
+     *         create, the resulting integration is managed by API Gateway. You can update a managed integration, but
+     *         you can't delete it.
+     */
+
+    public Boolean getApiGatewayManaged() {
+        return this.apiGatewayManaged;
+    }
+
+    /**
+     * <p>
+     * Specifies whether an integration is managed by API Gateway. If you created an API using using quick create, the
+     * resulting integration is managed by API Gateway. You can update a managed integration, but you can't delete it.
+     * </p>
+     * 
+     * @param apiGatewayManaged
+     *        Specifies whether an integration is managed by API Gateway. If you created an API using using quick
+     *        create, the resulting integration is managed by API Gateway. You can update a managed integration, but you
+     *        can't delete it.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateIntegrationResult withApiGatewayManaged(Boolean apiGatewayManaged) {
+        setApiGatewayManaged(apiGatewayManaged);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether an integration is managed by API Gateway. If you created an API using using quick create, the
+     * resulting integration is managed by API Gateway. You can update a managed integration, but you can't delete it.
+     * </p>
+     * 
+     * @return Specifies whether an integration is managed by API Gateway. If you created an API using using quick
+     *         create, the resulting integration is managed by API Gateway. You can update a managed integration, but
+     *         you can't delete it.
+     */
+
+    public Boolean isApiGatewayManaged() {
+        return this.apiGatewayManaged;
+    }
+
+    /**
+     * <p>
+     * The ID of the VPC link for a private integration. Supported only for HTTP APIs.
      * </p>
      * 
      * @param connectionId
-     *        The connection ID.
+     *        The ID of the VPC link for a private integration. Supported only for HTTP APIs.
      */
 
     public void setConnectionId(String connectionId) {
@@ -182,10 +321,10 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The connection ID.
+     * The ID of the VPC link for a private integration. Supported only for HTTP APIs.
      * </p>
      * 
-     * @return The connection ID.
+     * @return The ID of the VPC link for a private integration. Supported only for HTTP APIs.
      */
 
     public String getConnectionId() {
@@ -194,11 +333,11 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The connection ID.
+     * The ID of the VPC link for a private integration. Supported only for HTTP APIs.
      * </p>
      * 
      * @param connectionId
-     *        The connection ID.
+     *        The ID of the VPC link for a private integration. Supported only for HTTP APIs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -209,13 +348,15 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The type of the network connection to the integration endpoint. Currently the only valid value is INTERNET, for
-     * connections through the public routable internet.
+     * The type of the network connection to the integration endpoint. Specify INTERNET for connections through the
+     * public routable internet or VPC_LINK for private connections between API Gateway and resources in a VPC. The
+     * default value is INTERNET.
      * </p>
      * 
      * @param connectionType
-     *        The type of the network connection to the integration endpoint. Currently the only valid value is
-     *        INTERNET, for connections through the public routable internet.
+     *        The type of the network connection to the integration endpoint. Specify INTERNET for connections through
+     *        the public routable internet or VPC_LINK for private connections between API Gateway and resources in a
+     *        VPC. The default value is INTERNET.
      * @see ConnectionType
      */
 
@@ -225,12 +366,14 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The type of the network connection to the integration endpoint. Currently the only valid value is INTERNET, for
-     * connections through the public routable internet.
+     * The type of the network connection to the integration endpoint. Specify INTERNET for connections through the
+     * public routable internet or VPC_LINK for private connections between API Gateway and resources in a VPC. The
+     * default value is INTERNET.
      * </p>
      * 
-     * @return The type of the network connection to the integration endpoint. Currently the only valid value is
-     *         INTERNET, for connections through the public routable internet.
+     * @return The type of the network connection to the integration endpoint. Specify INTERNET for connections through
+     *         the public routable internet or VPC_LINK for private connections between API Gateway and resources in a
+     *         VPC. The default value is INTERNET.
      * @see ConnectionType
      */
 
@@ -240,13 +383,15 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The type of the network connection to the integration endpoint. Currently the only valid value is INTERNET, for
-     * connections through the public routable internet.
+     * The type of the network connection to the integration endpoint. Specify INTERNET for connections through the
+     * public routable internet or VPC_LINK for private connections between API Gateway and resources in a VPC. The
+     * default value is INTERNET.
      * </p>
      * 
      * @param connectionType
-     *        The type of the network connection to the integration endpoint. Currently the only valid value is
-     *        INTERNET, for connections through the public routable internet.
+     *        The type of the network connection to the integration endpoint. Specify INTERNET for connections through
+     *        the public routable internet or VPC_LINK for private connections between API Gateway and resources in a
+     *        VPC. The default value is INTERNET.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ConnectionType
      */
@@ -258,13 +403,15 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The type of the network connection to the integration endpoint. Currently the only valid value is INTERNET, for
-     * connections through the public routable internet.
+     * The type of the network connection to the integration endpoint. Specify INTERNET for connections through the
+     * public routable internet or VPC_LINK for private connections between API Gateway and resources in a VPC. The
+     * default value is INTERNET.
      * </p>
      * 
      * @param connectionType
-     *        The type of the network connection to the integration endpoint. Currently the only valid value is
-     *        INTERNET, for connections through the public routable internet.
+     *        The type of the network connection to the integration endpoint. Specify INTERNET for connections through
+     *        the public routable internet or VPC_LINK for private connections between API Gateway and resources in a
+     *        VPC. The default value is INTERNET.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ConnectionType
      */
@@ -276,8 +423,8 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * Specifies how to handle response payload content type conversions. Supported values are CONVERT_TO_BINARY and
-     * CONVERT_TO_TEXT, with the following behaviors:
+     * Supported only for WebSocket APIs. Specifies how to handle response payload content type conversions. Supported
+     * values are CONVERT_TO_BINARY and CONVERT_TO_TEXT, with the following behaviors:
      * </p>
      * <p>
      * CONVERT_TO_BINARY: Converts a response payload from a Base64-encoded string to the corresponding binary blob.
@@ -291,8 +438,8 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      * </p>
      * 
      * @param contentHandlingStrategy
-     *        Specifies how to handle response payload content type conversions. Supported values are CONVERT_TO_BINARY
-     *        and CONVERT_TO_TEXT, with the following behaviors:</p>
+     *        Supported only for WebSocket APIs. Specifies how to handle response payload content type conversions.
+     *        Supported values are CONVERT_TO_BINARY and CONVERT_TO_TEXT, with the following behaviors:</p>
      *        <p>
      *        CONVERT_TO_BINARY: Converts a response payload from a Base64-encoded string to the corresponding binary
      *        blob.
@@ -312,8 +459,8 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * Specifies how to handle response payload content type conversions. Supported values are CONVERT_TO_BINARY and
-     * CONVERT_TO_TEXT, with the following behaviors:
+     * Supported only for WebSocket APIs. Specifies how to handle response payload content type conversions. Supported
+     * values are CONVERT_TO_BINARY and CONVERT_TO_TEXT, with the following behaviors:
      * </p>
      * <p>
      * CONVERT_TO_BINARY: Converts a response payload from a Base64-encoded string to the corresponding binary blob.
@@ -326,8 +473,8 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      * route response or method response without modification.
      * </p>
      * 
-     * @return Specifies how to handle response payload content type conversions. Supported values are CONVERT_TO_BINARY
-     *         and CONVERT_TO_TEXT, with the following behaviors:</p>
+     * @return Supported only for WebSocket APIs. Specifies how to handle response payload content type conversions.
+     *         Supported values are CONVERT_TO_BINARY and CONVERT_TO_TEXT, with the following behaviors:</p>
      *         <p>
      *         CONVERT_TO_BINARY: Converts a response payload from a Base64-encoded string to the corresponding binary
      *         blob.
@@ -347,8 +494,8 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * Specifies how to handle response payload content type conversions. Supported values are CONVERT_TO_BINARY and
-     * CONVERT_TO_TEXT, with the following behaviors:
+     * Supported only for WebSocket APIs. Specifies how to handle response payload content type conversions. Supported
+     * values are CONVERT_TO_BINARY and CONVERT_TO_TEXT, with the following behaviors:
      * </p>
      * <p>
      * CONVERT_TO_BINARY: Converts a response payload from a Base64-encoded string to the corresponding binary blob.
@@ -362,8 +509,8 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      * </p>
      * 
      * @param contentHandlingStrategy
-     *        Specifies how to handle response payload content type conversions. Supported values are CONVERT_TO_BINARY
-     *        and CONVERT_TO_TEXT, with the following behaviors:</p>
+     *        Supported only for WebSocket APIs. Specifies how to handle response payload content type conversions.
+     *        Supported values are CONVERT_TO_BINARY and CONVERT_TO_TEXT, with the following behaviors:</p>
      *        <p>
      *        CONVERT_TO_BINARY: Converts a response payload from a Base64-encoded string to the corresponding binary
      *        blob.
@@ -385,8 +532,8 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * Specifies how to handle response payload content type conversions. Supported values are CONVERT_TO_BINARY and
-     * CONVERT_TO_TEXT, with the following behaviors:
+     * Supported only for WebSocket APIs. Specifies how to handle response payload content type conversions. Supported
+     * values are CONVERT_TO_BINARY and CONVERT_TO_TEXT, with the following behaviors:
      * </p>
      * <p>
      * CONVERT_TO_BINARY: Converts a response payload from a Base64-encoded string to the corresponding binary blob.
@@ -400,8 +547,8 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      * </p>
      * 
      * @param contentHandlingStrategy
-     *        Specifies how to handle response payload content type conversions. Supported values are CONVERT_TO_BINARY
-     *        and CONVERT_TO_TEXT, with the following behaviors:</p>
+     *        Supported only for WebSocket APIs. Specifies how to handle response payload content type conversions.
+     *        Supported values are CONVERT_TO_BINARY and CONVERT_TO_TEXT, with the following behaviors:</p>
      *        <p>
      *        CONVERT_TO_BINARY: Converts a response payload from a Base64-encoded string to the corresponding binary
      *        blob.
@@ -601,13 +748,15 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The integration response selection expression for the integration. See <a href=
+     * The integration response selection expression for the integration. Supported only for WebSocket APIs. See <a
+     * href=
      * "https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-integration-response-selection-expressions"
      * >Integration Response Selection Expressions</a>.
      * </p>
      * 
      * @param integrationResponseSelectionExpression
-     *        The integration response selection expression for the integration. See <a href=
+     *        The integration response selection expression for the integration. Supported only for WebSocket APIs. See
+     *        <a href=
      *        "https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-integration-response-selection-expressions"
      *        >Integration Response Selection Expressions</a>.
      */
@@ -618,12 +767,14 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The integration response selection expression for the integration. See <a href=
+     * The integration response selection expression for the integration. Supported only for WebSocket APIs. See <a
+     * href=
      * "https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-integration-response-selection-expressions"
      * >Integration Response Selection Expressions</a>.
      * </p>
      * 
-     * @return The integration response selection expression for the integration. See <a href=
+     * @return The integration response selection expression for the integration. Supported only for WebSocket APIs. See
+     *         <a href=
      *         "https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-integration-response-selection-expressions"
      *         >Integration Response Selection Expressions</a>.
      */
@@ -634,13 +785,15 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The integration response selection expression for the integration. See <a href=
+     * The integration response selection expression for the integration. Supported only for WebSocket APIs. See <a
+     * href=
      * "https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-integration-response-selection-expressions"
      * >Integration Response Selection Expressions</a>.
      * </p>
      * 
      * @param integrationResponseSelectionExpression
-     *        The integration response selection expression for the integration. See <a href=
+     *        The integration response selection expression for the integration. Supported only for WebSocket APIs. See
+     *        <a href=
      *        "https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-integration-response-selection-expressions"
      *        >Integration Response Selection Expressions</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -653,28 +806,87 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
+     * Supported only for HTTP API AWS_PROXY integrations. Specifies the AWS service action to invoke. To learn more,
+     * see <a href=
+     * "https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-aws-services-reference.html"
+     * >Integration subtype reference</a>.
+     * </p>
+     * 
+     * @param integrationSubtype
+     *        Supported only for HTTP API AWS_PROXY integrations. Specifies the AWS service action to invoke. To learn
+     *        more, see <a href=
+     *        "https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-aws-services-reference.html"
+     *        >Integration subtype reference</a>.
+     */
+
+    public void setIntegrationSubtype(String integrationSubtype) {
+        this.integrationSubtype = integrationSubtype;
+    }
+
+    /**
+     * <p>
+     * Supported only for HTTP API AWS_PROXY integrations. Specifies the AWS service action to invoke. To learn more,
+     * see <a href=
+     * "https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-aws-services-reference.html"
+     * >Integration subtype reference</a>.
+     * </p>
+     * 
+     * @return Supported only for HTTP API AWS_PROXY integrations. Specifies the AWS service action to invoke. To learn
+     *         more, see <a href=
+     *         "https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-aws-services-reference.html"
+     *         >Integration subtype reference</a>.
+     */
+
+    public String getIntegrationSubtype() {
+        return this.integrationSubtype;
+    }
+
+    /**
+     * <p>
+     * Supported only for HTTP API AWS_PROXY integrations. Specifies the AWS service action to invoke. To learn more,
+     * see <a href=
+     * "https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-aws-services-reference.html"
+     * >Integration subtype reference</a>.
+     * </p>
+     * 
+     * @param integrationSubtype
+     *        Supported only for HTTP API AWS_PROXY integrations. Specifies the AWS service action to invoke. To learn
+     *        more, see <a href=
+     *        "https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-aws-services-reference.html"
+     *        >Integration subtype reference</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateIntegrationResult withIntegrationSubtype(String integrationSubtype) {
+        setIntegrationSubtype(integrationSubtype);
+        return this;
+    }
+
+    /**
+     * <p>
      * The integration type of an integration. One of the following:
      * </p>
      * <p>
      * AWS: for integrating the route or method request with an AWS service action, including the Lambda
      * function-invoking action. With the Lambda function-invoking action, this is referred to as the Lambda custom
-     * integration. With any other AWS service action, this is known as AWS integration.
+     * integration. With any other AWS service action, this is known as AWS integration. Supported only for WebSocket
+     * APIs.
      * </p>
      * <p>
-     * AWS_PROXY: for integrating the route or method request with the Lambda function-invoking action with the client
-     * request passed through as-is. This integration is also referred to as Lambda proxy integration.
+     * AWS_PROXY: for integrating the route or method request with a Lambda function or other AWS service action. This
+     * integration is also referred to as a Lambda proxy integration.
      * </p>
      * <p>
      * HTTP: for integrating the route or method request with an HTTP endpoint. This integration is also referred to as
-     * the HTTP custom integration.
+     * the HTTP custom integration. Supported only for WebSocket APIs.
      * </p>
      * <p>
-     * HTTP_PROXY: for integrating route or method request with an HTTP endpoint, with the client request passed through
-     * as-is. This is also referred to as HTTP proxy integration.
+     * HTTP_PROXY: for integrating the route or method request with an HTTP endpoint, with the client request passed
+     * through as-is. This is also referred to as HTTP proxy integration.
      * </p>
      * <p>
      * MOCK: for integrating the route or method request with API Gateway as a "loopback" endpoint without invoking any
-     * backend.
+     * backend. Supported only for WebSocket APIs.
      * </p>
      * 
      * @param integrationType
@@ -682,23 +894,24 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      *        <p>
      *        AWS: for integrating the route or method request with an AWS service action, including the Lambda
      *        function-invoking action. With the Lambda function-invoking action, this is referred to as the Lambda
-     *        custom integration. With any other AWS service action, this is known as AWS integration.
+     *        custom integration. With any other AWS service action, this is known as AWS integration. Supported only
+     *        for WebSocket APIs.
      *        </p>
      *        <p>
-     *        AWS_PROXY: for integrating the route or method request with the Lambda function-invoking action with the
-     *        client request passed through as-is. This integration is also referred to as Lambda proxy integration.
+     *        AWS_PROXY: for integrating the route or method request with a Lambda function or other AWS service action.
+     *        This integration is also referred to as a Lambda proxy integration.
      *        </p>
      *        <p>
      *        HTTP: for integrating the route or method request with an HTTP endpoint. This integration is also referred
-     *        to as the HTTP custom integration.
+     *        to as the HTTP custom integration. Supported only for WebSocket APIs.
      *        </p>
      *        <p>
-     *        HTTP_PROXY: for integrating route or method request with an HTTP endpoint, with the client request passed
-     *        through as-is. This is also referred to as HTTP proxy integration.
+     *        HTTP_PROXY: for integrating the route or method request with an HTTP endpoint, with the client request
+     *        passed through as-is. This is also referred to as HTTP proxy integration.
      *        </p>
      *        <p>
      *        MOCK: for integrating the route or method request with API Gateway as a "loopback" endpoint without
-     *        invoking any backend.
+     *        invoking any backend. Supported only for WebSocket APIs.
      * @see IntegrationType
      */
 
@@ -713,46 +926,48 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      * <p>
      * AWS: for integrating the route or method request with an AWS service action, including the Lambda
      * function-invoking action. With the Lambda function-invoking action, this is referred to as the Lambda custom
-     * integration. With any other AWS service action, this is known as AWS integration.
+     * integration. With any other AWS service action, this is known as AWS integration. Supported only for WebSocket
+     * APIs.
      * </p>
      * <p>
-     * AWS_PROXY: for integrating the route or method request with the Lambda function-invoking action with the client
-     * request passed through as-is. This integration is also referred to as Lambda proxy integration.
+     * AWS_PROXY: for integrating the route or method request with a Lambda function or other AWS service action. This
+     * integration is also referred to as a Lambda proxy integration.
      * </p>
      * <p>
      * HTTP: for integrating the route or method request with an HTTP endpoint. This integration is also referred to as
-     * the HTTP custom integration.
+     * the HTTP custom integration. Supported only for WebSocket APIs.
      * </p>
      * <p>
-     * HTTP_PROXY: for integrating route or method request with an HTTP endpoint, with the client request passed through
-     * as-is. This is also referred to as HTTP proxy integration.
+     * HTTP_PROXY: for integrating the route or method request with an HTTP endpoint, with the client request passed
+     * through as-is. This is also referred to as HTTP proxy integration.
      * </p>
      * <p>
      * MOCK: for integrating the route or method request with API Gateway as a "loopback" endpoint without invoking any
-     * backend.
+     * backend. Supported only for WebSocket APIs.
      * </p>
      * 
      * @return The integration type of an integration. One of the following:</p>
      *         <p>
      *         AWS: for integrating the route or method request with an AWS service action, including the Lambda
      *         function-invoking action. With the Lambda function-invoking action, this is referred to as the Lambda
-     *         custom integration. With any other AWS service action, this is known as AWS integration.
+     *         custom integration. With any other AWS service action, this is known as AWS integration. Supported only
+     *         for WebSocket APIs.
      *         </p>
      *         <p>
-     *         AWS_PROXY: for integrating the route or method request with the Lambda function-invoking action with the
-     *         client request passed through as-is. This integration is also referred to as Lambda proxy integration.
+     *         AWS_PROXY: for integrating the route or method request with a Lambda function or other AWS service
+     *         action. This integration is also referred to as a Lambda proxy integration.
      *         </p>
      *         <p>
      *         HTTP: for integrating the route or method request with an HTTP endpoint. This integration is also
-     *         referred to as the HTTP custom integration.
+     *         referred to as the HTTP custom integration. Supported only for WebSocket APIs.
      *         </p>
      *         <p>
-     *         HTTP_PROXY: for integrating route or method request with an HTTP endpoint, with the client request passed
-     *         through as-is. This is also referred to as HTTP proxy integration.
+     *         HTTP_PROXY: for integrating the route or method request with an HTTP endpoint, with the client request
+     *         passed through as-is. This is also referred to as HTTP proxy integration.
      *         </p>
      *         <p>
      *         MOCK: for integrating the route or method request with API Gateway as a "loopback" endpoint without
-     *         invoking any backend.
+     *         invoking any backend. Supported only for WebSocket APIs.
      * @see IntegrationType
      */
 
@@ -767,23 +982,24 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      * <p>
      * AWS: for integrating the route or method request with an AWS service action, including the Lambda
      * function-invoking action. With the Lambda function-invoking action, this is referred to as the Lambda custom
-     * integration. With any other AWS service action, this is known as AWS integration.
+     * integration. With any other AWS service action, this is known as AWS integration. Supported only for WebSocket
+     * APIs.
      * </p>
      * <p>
-     * AWS_PROXY: for integrating the route or method request with the Lambda function-invoking action with the client
-     * request passed through as-is. This integration is also referred to as Lambda proxy integration.
+     * AWS_PROXY: for integrating the route or method request with a Lambda function or other AWS service action. This
+     * integration is also referred to as a Lambda proxy integration.
      * </p>
      * <p>
      * HTTP: for integrating the route or method request with an HTTP endpoint. This integration is also referred to as
-     * the HTTP custom integration.
+     * the HTTP custom integration. Supported only for WebSocket APIs.
      * </p>
      * <p>
-     * HTTP_PROXY: for integrating route or method request with an HTTP endpoint, with the client request passed through
-     * as-is. This is also referred to as HTTP proxy integration.
+     * HTTP_PROXY: for integrating the route or method request with an HTTP endpoint, with the client request passed
+     * through as-is. This is also referred to as HTTP proxy integration.
      * </p>
      * <p>
      * MOCK: for integrating the route or method request with API Gateway as a "loopback" endpoint without invoking any
-     * backend.
+     * backend. Supported only for WebSocket APIs.
      * </p>
      * 
      * @param integrationType
@@ -791,23 +1007,24 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      *        <p>
      *        AWS: for integrating the route or method request with an AWS service action, including the Lambda
      *        function-invoking action. With the Lambda function-invoking action, this is referred to as the Lambda
-     *        custom integration. With any other AWS service action, this is known as AWS integration.
+     *        custom integration. With any other AWS service action, this is known as AWS integration. Supported only
+     *        for WebSocket APIs.
      *        </p>
      *        <p>
-     *        AWS_PROXY: for integrating the route or method request with the Lambda function-invoking action with the
-     *        client request passed through as-is. This integration is also referred to as Lambda proxy integration.
+     *        AWS_PROXY: for integrating the route or method request with a Lambda function or other AWS service action.
+     *        This integration is also referred to as a Lambda proxy integration.
      *        </p>
      *        <p>
      *        HTTP: for integrating the route or method request with an HTTP endpoint. This integration is also referred
-     *        to as the HTTP custom integration.
+     *        to as the HTTP custom integration. Supported only for WebSocket APIs.
      *        </p>
      *        <p>
-     *        HTTP_PROXY: for integrating route or method request with an HTTP endpoint, with the client request passed
-     *        through as-is. This is also referred to as HTTP proxy integration.
+     *        HTTP_PROXY: for integrating the route or method request with an HTTP endpoint, with the client request
+     *        passed through as-is. This is also referred to as HTTP proxy integration.
      *        </p>
      *        <p>
      *        MOCK: for integrating the route or method request with API Gateway as a "loopback" endpoint without
-     *        invoking any backend.
+     *        invoking any backend. Supported only for WebSocket APIs.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see IntegrationType
      */
@@ -824,23 +1041,24 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      * <p>
      * AWS: for integrating the route or method request with an AWS service action, including the Lambda
      * function-invoking action. With the Lambda function-invoking action, this is referred to as the Lambda custom
-     * integration. With any other AWS service action, this is known as AWS integration.
+     * integration. With any other AWS service action, this is known as AWS integration. Supported only for WebSocket
+     * APIs.
      * </p>
      * <p>
-     * AWS_PROXY: for integrating the route or method request with the Lambda function-invoking action with the client
-     * request passed through as-is. This integration is also referred to as Lambda proxy integration.
+     * AWS_PROXY: for integrating the route or method request with a Lambda function or other AWS service action. This
+     * integration is also referred to as a Lambda proxy integration.
      * </p>
      * <p>
      * HTTP: for integrating the route or method request with an HTTP endpoint. This integration is also referred to as
-     * the HTTP custom integration.
+     * the HTTP custom integration. Supported only for WebSocket APIs.
      * </p>
      * <p>
-     * HTTP_PROXY: for integrating route or method request with an HTTP endpoint, with the client request passed through
-     * as-is. This is also referred to as HTTP proxy integration.
+     * HTTP_PROXY: for integrating the route or method request with an HTTP endpoint, with the client request passed
+     * through as-is. This is also referred to as HTTP proxy integration.
      * </p>
      * <p>
      * MOCK: for integrating the route or method request with API Gateway as a "loopback" endpoint without invoking any
-     * backend.
+     * backend. Supported only for WebSocket APIs.
      * </p>
      * 
      * @param integrationType
@@ -848,23 +1066,24 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      *        <p>
      *        AWS: for integrating the route or method request with an AWS service action, including the Lambda
      *        function-invoking action. With the Lambda function-invoking action, this is referred to as the Lambda
-     *        custom integration. With any other AWS service action, this is known as AWS integration.
+     *        custom integration. With any other AWS service action, this is known as AWS integration. Supported only
+     *        for WebSocket APIs.
      *        </p>
      *        <p>
-     *        AWS_PROXY: for integrating the route or method request with the Lambda function-invoking action with the
-     *        client request passed through as-is. This integration is also referred to as Lambda proxy integration.
+     *        AWS_PROXY: for integrating the route or method request with a Lambda function or other AWS service action.
+     *        This integration is also referred to as a Lambda proxy integration.
      *        </p>
      *        <p>
      *        HTTP: for integrating the route or method request with an HTTP endpoint. This integration is also referred
-     *        to as the HTTP custom integration.
+     *        to as the HTTP custom integration. Supported only for WebSocket APIs.
      *        </p>
      *        <p>
-     *        HTTP_PROXY: for integrating route or method request with an HTTP endpoint, with the client request passed
-     *        through as-is. This is also referred to as HTTP proxy integration.
+     *        HTTP_PROXY: for integrating the route or method request with an HTTP endpoint, with the client request
+     *        passed through as-is. This is also referred to as HTTP proxy integration.
      *        </p>
      *        <p>
      *        MOCK: for integrating the route or method request with API Gateway as a "loopback" endpoint without
-     *        invoking any backend.
+     *        invoking any backend. Supported only for WebSocket APIs.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see IntegrationType
      */
@@ -876,11 +1095,32 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * For a Lambda proxy integration, this is the URI of the Lambda function.
+     * For a Lambda integration, specify the URI of a Lambda function.
+     * </p>
+     * <p>
+     * For an HTTP integration, specify a fully-qualified URL.
+     * </p>
+     * <p>
+     * For an HTTP API private integration, specify the ARN of an Application Load Balancer listener, Network Load
+     * Balancer listener, or AWS Cloud Map service. If you specify the ARN of an AWS Cloud Map service, API Gateway uses
+     * DiscoverInstances to identify resources. You can use query parameters to target specific resources. To learn
+     * more, see <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_DiscoverInstances.html">DiscoverInstances</a>. For
+     * private integrations, all resources must be owned by the same AWS account.
      * </p>
      * 
      * @param integrationUri
-     *        For a Lambda proxy integration, this is the URI of the Lambda function.
+     *        For a Lambda integration, specify the URI of a Lambda function.</p>
+     *        <p>
+     *        For an HTTP integration, specify a fully-qualified URL.
+     *        </p>
+     *        <p>
+     *        For an HTTP API private integration, specify the ARN of an Application Load Balancer listener, Network
+     *        Load Balancer listener, or AWS Cloud Map service. If you specify the ARN of an AWS Cloud Map service, API
+     *        Gateway uses DiscoverInstances to identify resources. You can use query parameters to target specific
+     *        resources. To learn more, see <a
+     *        href="https://docs.aws.amazon.com/cloud-map/latest/api/API_DiscoverInstances.html">DiscoverInstances</a>.
+     *        For private integrations, all resources must be owned by the same AWS account.
      */
 
     public void setIntegrationUri(String integrationUri) {
@@ -889,10 +1129,31 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * For a Lambda proxy integration, this is the URI of the Lambda function.
+     * For a Lambda integration, specify the URI of a Lambda function.
+     * </p>
+     * <p>
+     * For an HTTP integration, specify a fully-qualified URL.
+     * </p>
+     * <p>
+     * For an HTTP API private integration, specify the ARN of an Application Load Balancer listener, Network Load
+     * Balancer listener, or AWS Cloud Map service. If you specify the ARN of an AWS Cloud Map service, API Gateway uses
+     * DiscoverInstances to identify resources. You can use query parameters to target specific resources. To learn
+     * more, see <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_DiscoverInstances.html">DiscoverInstances</a>. For
+     * private integrations, all resources must be owned by the same AWS account.
      * </p>
      * 
-     * @return For a Lambda proxy integration, this is the URI of the Lambda function.
+     * @return For a Lambda integration, specify the URI of a Lambda function.</p>
+     *         <p>
+     *         For an HTTP integration, specify a fully-qualified URL.
+     *         </p>
+     *         <p>
+     *         For an HTTP API private integration, specify the ARN of an Application Load Balancer listener, Network
+     *         Load Balancer listener, or AWS Cloud Map service. If you specify the ARN of an AWS Cloud Map service, API
+     *         Gateway uses DiscoverInstances to identify resources. You can use query parameters to target specific
+     *         resources. To learn more, see <a
+     *         href="https://docs.aws.amazon.com/cloud-map/latest/api/API_DiscoverInstances.html">DiscoverInstances</a>.
+     *         For private integrations, all resources must be owned by the same AWS account.
      */
 
     public String getIntegrationUri() {
@@ -901,11 +1162,32 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * For a Lambda proxy integration, this is the URI of the Lambda function.
+     * For a Lambda integration, specify the URI of a Lambda function.
+     * </p>
+     * <p>
+     * For an HTTP integration, specify a fully-qualified URL.
+     * </p>
+     * <p>
+     * For an HTTP API private integration, specify the ARN of an Application Load Balancer listener, Network Load
+     * Balancer listener, or AWS Cloud Map service. If you specify the ARN of an AWS Cloud Map service, API Gateway uses
+     * DiscoverInstances to identify resources. You can use query parameters to target specific resources. To learn
+     * more, see <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_DiscoverInstances.html">DiscoverInstances</a>. For
+     * private integrations, all resources must be owned by the same AWS account.
      * </p>
      * 
      * @param integrationUri
-     *        For a Lambda proxy integration, this is the URI of the Lambda function.
+     *        For a Lambda integration, specify the URI of a Lambda function.</p>
+     *        <p>
+     *        For an HTTP integration, specify a fully-qualified URL.
+     *        </p>
+     *        <p>
+     *        For an HTTP API private integration, specify the ARN of an Application Load Balancer listener, Network
+     *        Load Balancer listener, or AWS Cloud Map service. If you specify the ARN of an AWS Cloud Map service, API
+     *        Gateway uses DiscoverInstances to identify resources. You can use query parameters to target specific
+     *        resources. To learn more, see <a
+     *        href="https://docs.aws.amazon.com/cloud-map/latest/api/API_DiscoverInstances.html">DiscoverInstances</a>.
+     *        For private integrations, all resources must be owned by the same AWS account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -918,7 +1200,7 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      * <p>
      * Specifies the pass-through behavior for incoming requests based on the Content-Type header in the request, and
      * the available mapping templates specified as the requestTemplates property on the Integration resource. There are
-     * three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER.
+     * three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER. Supported only for WebSocket APIs.
      * </p>
      * <p>
      * WHEN_NO_MATCH passes the request body for unmapped content types through to the integration backend without
@@ -936,7 +1218,8 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      * @param passthroughBehavior
      *        Specifies the pass-through behavior for incoming requests based on the Content-Type header in the request,
      *        and the available mapping templates specified as the requestTemplates property on the Integration
-     *        resource. There are three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER.</p>
+     *        resource. There are three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER. Supported only for
+     *        WebSocket APIs.</p>
      *        <p>
      *        WHEN_NO_MATCH passes the request body for unmapped content types through to the integration backend
      *        without transformation.
@@ -959,7 +1242,7 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      * <p>
      * Specifies the pass-through behavior for incoming requests based on the Content-Type header in the request, and
      * the available mapping templates specified as the requestTemplates property on the Integration resource. There are
-     * three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER.
+     * three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER. Supported only for WebSocket APIs.
      * </p>
      * <p>
      * WHEN_NO_MATCH passes the request body for unmapped content types through to the integration backend without
@@ -976,7 +1259,8 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      * 
      * @return Specifies the pass-through behavior for incoming requests based on the Content-Type header in the
      *         request, and the available mapping templates specified as the requestTemplates property on the
-     *         Integration resource. There are three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER.</p>
+     *         Integration resource. There are three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER.
+     *         Supported only for WebSocket APIs.</p>
      *         <p>
      *         WHEN_NO_MATCH passes the request body for unmapped content types through to the integration backend
      *         without transformation.
@@ -999,7 +1283,7 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      * <p>
      * Specifies the pass-through behavior for incoming requests based on the Content-Type header in the request, and
      * the available mapping templates specified as the requestTemplates property on the Integration resource. There are
-     * three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER.
+     * three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER. Supported only for WebSocket APIs.
      * </p>
      * <p>
      * WHEN_NO_MATCH passes the request body for unmapped content types through to the integration backend without
@@ -1017,7 +1301,8 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      * @param passthroughBehavior
      *        Specifies the pass-through behavior for incoming requests based on the Content-Type header in the request,
      *        and the available mapping templates specified as the requestTemplates property on the Integration
-     *        resource. There are three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER.</p>
+     *        resource. There are three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER. Supported only for
+     *        WebSocket APIs.</p>
      *        <p>
      *        WHEN_NO_MATCH passes the request body for unmapped content types through to the integration backend
      *        without transformation.
@@ -1042,7 +1327,7 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      * <p>
      * Specifies the pass-through behavior for incoming requests based on the Content-Type header in the request, and
      * the available mapping templates specified as the requestTemplates property on the Integration resource. There are
-     * three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER.
+     * three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER. Supported only for WebSocket APIs.
      * </p>
      * <p>
      * WHEN_NO_MATCH passes the request body for unmapped content types through to the integration backend without
@@ -1060,7 +1345,8 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      * @param passthroughBehavior
      *        Specifies the pass-through behavior for incoming requests based on the Content-Type header in the request,
      *        and the available mapping templates specified as the requestTemplates property on the Integration
-     *        resource. There are three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER.</p>
+     *        resource. There are three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER. Supported only for
+     *        WebSocket APIs.</p>
      *        <p>
      *        WHEN_NO_MATCH passes the request body for unmapped content types through to the integration backend
      *        without transformation.
@@ -1083,19 +1369,94 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * A key-value map specifying request parameters that are passed from the method request to the backend. The key is
-     * an integration request parameter name and the associated value is a method request parameter value or static
-     * value that must be enclosed within single quotes and pre-encoded as required by the backend. The method request
-     * parameter value must match the pattern of method.request.{location}.{name} , where {location} is querystring,
-     * path, or header; and {name} must be a valid and unique method request parameter name.
+     * Specifies the format of the payload sent to an integration. Required for HTTP APIs.
      * </p>
      * 
-     * @return A key-value map specifying request parameters that are passed from the method request to the backend. The
-     *         key is an integration request parameter name and the associated value is a method request parameter value
-     *         or static value that must be enclosed within single quotes and pre-encoded as required by the backend.
-     *         The method request parameter value must match the pattern of method.request.{location}.{name} , where
-     *         {location} is querystring, path, or header; and {name} must be a valid and unique method request
-     *         parameter name.
+     * @param payloadFormatVersion
+     *        Specifies the format of the payload sent to an integration. Required for HTTP APIs.
+     */
+
+    public void setPayloadFormatVersion(String payloadFormatVersion) {
+        this.payloadFormatVersion = payloadFormatVersion;
+    }
+
+    /**
+     * <p>
+     * Specifies the format of the payload sent to an integration. Required for HTTP APIs.
+     * </p>
+     * 
+     * @return Specifies the format of the payload sent to an integration. Required for HTTP APIs.
+     */
+
+    public String getPayloadFormatVersion() {
+        return this.payloadFormatVersion;
+    }
+
+    /**
+     * <p>
+     * Specifies the format of the payload sent to an integration. Required for HTTP APIs.
+     * </p>
+     * 
+     * @param payloadFormatVersion
+     *        Specifies the format of the payload sent to an integration. Required for HTTP APIs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateIntegrationResult withPayloadFormatVersion(String payloadFormatVersion) {
+        setPayloadFormatVersion(payloadFormatVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * For WebSocket APIs, a key-value map specifying request parameters that are passed from the method request to the
+     * backend. The key is an integration request parameter name and the associated value is a method request parameter
+     * value or static value that must be enclosed within single quotes and pre-encoded as required by the backend. The
+     * method request parameter value must match the pattern of
+     * method.request.<replaceable>{location}</replaceable>.<replaceable>{name}</replaceable> , where
+     * <replaceable>{location}</replaceable> is querystring, path, or header; and <replaceable>{name}</replaceable> must
+     * be a valid and unique method request parameter name.
+     * </p>
+     * <p>
+     * For HTTP API integrations with a specified integrationSubtype, request parameters are a key-value map specifying
+     * parameters that are passed to AWS_PROXY integrations. You can provide static values, or map request data, stage
+     * variables, or context variables that are evaluated at runtime. To learn more, see <a href=
+     * "https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-aws-services.html"
+     * >Working with AWS service integrations for HTTP APIs</a>.
+     * </p>
+     * <p>
+     * For HTTP API integrations, without a specified integrationSubtype request parameters are a key-value map
+     * specifying how to transform HTTP requests before sending them to backend integrations. The key should follow the
+     * pattern &lt;action&gt;:&lt;header|querystring|path&gt;.&lt;location&gt;. The action can be append, overwrite or
+     * remove. For values, you can provide static values, or map request data, stage variables, or context variables
+     * that are evaluated at runtime. To learn more, see <a
+     * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-parameter-mapping.html">Transforming
+     * API requests and responses</a>.
+     * </p>
+     * 
+     * @return For WebSocket APIs, a key-value map specifying request parameters that are passed from the method request
+     *         to the backend. The key is an integration request parameter name and the associated value is a method
+     *         request parameter value or static value that must be enclosed within single quotes and pre-encoded as
+     *         required by the backend. The method request parameter value must match the pattern of
+     *         method.request.<replaceable>{location}</replaceable>.<replaceable>{name}</replaceable> , where
+     *         <replaceable>{location}</replaceable> is querystring, path, or header; and
+     *         <replaceable>{name}</replaceable> must be a valid and unique method request parameter name.</p>
+     *         <p>
+     *         For HTTP API integrations with a specified integrationSubtype, request parameters are a key-value map
+     *         specifying parameters that are passed to AWS_PROXY integrations. You can provide static values, or map
+     *         request data, stage variables, or context variables that are evaluated at runtime. To learn more, see <a
+     *         href=
+     *         "https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-aws-services.html"
+     *         >Working with AWS service integrations for HTTP APIs</a>.
+     *         </p>
+     *         <p>
+     *         For HTTP API integrations, without a specified integrationSubtype request parameters are a key-value map
+     *         specifying how to transform HTTP requests before sending them to backend integrations. The key should
+     *         follow the pattern &lt;action&gt;:&lt;header|querystring|path&gt;.&lt;location&gt;. The action can be
+     *         append, overwrite or remove. For values, you can provide static values, or map request data, stage
+     *         variables, or context variables that are evaluated at runtime. To learn more, see <a
+     *         href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-parameter-mapping.html"
+     *         >Transforming API requests and responses</a>.
      */
 
     public java.util.Map<String, String> getRequestParameters() {
@@ -1104,20 +1465,55 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * A key-value map specifying request parameters that are passed from the method request to the backend. The key is
-     * an integration request parameter name and the associated value is a method request parameter value or static
-     * value that must be enclosed within single quotes and pre-encoded as required by the backend. The method request
-     * parameter value must match the pattern of method.request.{location}.{name} , where {location} is querystring,
-     * path, or header; and {name} must be a valid and unique method request parameter name.
+     * For WebSocket APIs, a key-value map specifying request parameters that are passed from the method request to the
+     * backend. The key is an integration request parameter name and the associated value is a method request parameter
+     * value or static value that must be enclosed within single quotes and pre-encoded as required by the backend. The
+     * method request parameter value must match the pattern of
+     * method.request.<replaceable>{location}</replaceable>.<replaceable>{name}</replaceable> , where
+     * <replaceable>{location}</replaceable> is querystring, path, or header; and <replaceable>{name}</replaceable> must
+     * be a valid and unique method request parameter name.
+     * </p>
+     * <p>
+     * For HTTP API integrations with a specified integrationSubtype, request parameters are a key-value map specifying
+     * parameters that are passed to AWS_PROXY integrations. You can provide static values, or map request data, stage
+     * variables, or context variables that are evaluated at runtime. To learn more, see <a href=
+     * "https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-aws-services.html"
+     * >Working with AWS service integrations for HTTP APIs</a>.
+     * </p>
+     * <p>
+     * For HTTP API integrations, without a specified integrationSubtype request parameters are a key-value map
+     * specifying how to transform HTTP requests before sending them to backend integrations. The key should follow the
+     * pattern &lt;action&gt;:&lt;header|querystring|path&gt;.&lt;location&gt;. The action can be append, overwrite or
+     * remove. For values, you can provide static values, or map request data, stage variables, or context variables
+     * that are evaluated at runtime. To learn more, see <a
+     * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-parameter-mapping.html">Transforming
+     * API requests and responses</a>.
      * </p>
      * 
      * @param requestParameters
-     *        A key-value map specifying request parameters that are passed from the method request to the backend. The
-     *        key is an integration request parameter name and the associated value is a method request parameter value
-     *        or static value that must be enclosed within single quotes and pre-encoded as required by the backend. The
-     *        method request parameter value must match the pattern of method.request.{location}.{name} , where
-     *        {location} is querystring, path, or header; and {name} must be a valid and unique method request parameter
-     *        name.
+     *        For WebSocket APIs, a key-value map specifying request parameters that are passed from the method request
+     *        to the backend. The key is an integration request parameter name and the associated value is a method
+     *        request parameter value or static value that must be enclosed within single quotes and pre-encoded as
+     *        required by the backend. The method request parameter value must match the pattern of
+     *        method.request.<replaceable>{location}</replaceable>.<replaceable>{name}</replaceable> , where
+     *        <replaceable>{location}</replaceable> is querystring, path, or header; and
+     *        <replaceable>{name}</replaceable> must be a valid and unique method request parameter name.</p>
+     *        <p>
+     *        For HTTP API integrations with a specified integrationSubtype, request parameters are a key-value map
+     *        specifying parameters that are passed to AWS_PROXY integrations. You can provide static values, or map
+     *        request data, stage variables, or context variables that are evaluated at runtime. To learn more, see <a
+     *        href=
+     *        "https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-aws-services.html"
+     *        >Working with AWS service integrations for HTTP APIs</a>.
+     *        </p>
+     *        <p>
+     *        For HTTP API integrations, without a specified integrationSubtype request parameters are a key-value map
+     *        specifying how to transform HTTP requests before sending them to backend integrations. The key should
+     *        follow the pattern &lt;action&gt;:&lt;header|querystring|path&gt;.&lt;location&gt;. The action can be
+     *        append, overwrite or remove. For values, you can provide static values, or map request data, stage
+     *        variables, or context variables that are evaluated at runtime. To learn more, see <a
+     *        href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-parameter-mapping.html"
+     *        >Transforming API requests and responses</a>.
      */
 
     public void setRequestParameters(java.util.Map<String, String> requestParameters) {
@@ -1126,20 +1522,55 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * A key-value map specifying request parameters that are passed from the method request to the backend. The key is
-     * an integration request parameter name and the associated value is a method request parameter value or static
-     * value that must be enclosed within single quotes and pre-encoded as required by the backend. The method request
-     * parameter value must match the pattern of method.request.{location}.{name} , where {location} is querystring,
-     * path, or header; and {name} must be a valid and unique method request parameter name.
+     * For WebSocket APIs, a key-value map specifying request parameters that are passed from the method request to the
+     * backend. The key is an integration request parameter name and the associated value is a method request parameter
+     * value or static value that must be enclosed within single quotes and pre-encoded as required by the backend. The
+     * method request parameter value must match the pattern of
+     * method.request.<replaceable>{location}</replaceable>.<replaceable>{name}</replaceable> , where
+     * <replaceable>{location}</replaceable> is querystring, path, or header; and <replaceable>{name}</replaceable> must
+     * be a valid and unique method request parameter name.
+     * </p>
+     * <p>
+     * For HTTP API integrations with a specified integrationSubtype, request parameters are a key-value map specifying
+     * parameters that are passed to AWS_PROXY integrations. You can provide static values, or map request data, stage
+     * variables, or context variables that are evaluated at runtime. To learn more, see <a href=
+     * "https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-aws-services.html"
+     * >Working with AWS service integrations for HTTP APIs</a>.
+     * </p>
+     * <p>
+     * For HTTP API integrations, without a specified integrationSubtype request parameters are a key-value map
+     * specifying how to transform HTTP requests before sending them to backend integrations. The key should follow the
+     * pattern &lt;action&gt;:&lt;header|querystring|path&gt;.&lt;location&gt;. The action can be append, overwrite or
+     * remove. For values, you can provide static values, or map request data, stage variables, or context variables
+     * that are evaluated at runtime. To learn more, see <a
+     * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-parameter-mapping.html">Transforming
+     * API requests and responses</a>.
      * </p>
      * 
      * @param requestParameters
-     *        A key-value map specifying request parameters that are passed from the method request to the backend. The
-     *        key is an integration request parameter name and the associated value is a method request parameter value
-     *        or static value that must be enclosed within single quotes and pre-encoded as required by the backend. The
-     *        method request parameter value must match the pattern of method.request.{location}.{name} , where
-     *        {location} is querystring, path, or header; and {name} must be a valid and unique method request parameter
-     *        name.
+     *        For WebSocket APIs, a key-value map specifying request parameters that are passed from the method request
+     *        to the backend. The key is an integration request parameter name and the associated value is a method
+     *        request parameter value or static value that must be enclosed within single quotes and pre-encoded as
+     *        required by the backend. The method request parameter value must match the pattern of
+     *        method.request.<replaceable>{location}</replaceable>.<replaceable>{name}</replaceable> , where
+     *        <replaceable>{location}</replaceable> is querystring, path, or header; and
+     *        <replaceable>{name}</replaceable> must be a valid and unique method request parameter name.</p>
+     *        <p>
+     *        For HTTP API integrations with a specified integrationSubtype, request parameters are a key-value map
+     *        specifying parameters that are passed to AWS_PROXY integrations. You can provide static values, or map
+     *        request data, stage variables, or context variables that are evaluated at runtime. To learn more, see <a
+     *        href=
+     *        "https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-aws-services.html"
+     *        >Working with AWS service integrations for HTTP APIs</a>.
+     *        </p>
+     *        <p>
+     *        For HTTP API integrations, without a specified integrationSubtype request parameters are a key-value map
+     *        specifying how to transform HTTP requests before sending them to backend integrations. The key should
+     *        follow the pattern &lt;action&gt;:&lt;header|querystring|path&gt;.&lt;location&gt;. The action can be
+     *        append, overwrite or remove. For values, you can provide static values, or map request data, stage
+     *        variables, or context variables that are evaluated at runtime. To learn more, see <a
+     *        href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-parameter-mapping.html"
+     *        >Transforming API requests and responses</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1147,6 +1578,13 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
         setRequestParameters(requestParameters);
         return this;
     }
+
+    /**
+     * Add a single RequestParameters entry
+     *
+     * @see CreateIntegrationResult#withRequestParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public CreateIntegrationResult addRequestParametersEntry(String key, String value) {
         if (null == this.requestParameters) {
@@ -1173,12 +1611,12 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      * <p>
      * Represents a map of Velocity templates that are applied on the request payload based on the value of the
      * Content-Type header sent by the client. The content type value is the key in this map, and the template (as a
-     * String) is the value.
+     * String) is the value. Supported only for WebSocket APIs.
      * </p>
      * 
      * @return Represents a map of Velocity templates that are applied on the request payload based on the value of the
      *         Content-Type header sent by the client. The content type value is the key in this map, and the template
-     *         (as a String) is the value.
+     *         (as a String) is the value. Supported only for WebSocket APIs.
      */
 
     public java.util.Map<String, String> getRequestTemplates() {
@@ -1189,13 +1627,13 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      * <p>
      * Represents a map of Velocity templates that are applied on the request payload based on the value of the
      * Content-Type header sent by the client. The content type value is the key in this map, and the template (as a
-     * String) is the value.
+     * String) is the value. Supported only for WebSocket APIs.
      * </p>
      * 
      * @param requestTemplates
      *        Represents a map of Velocity templates that are applied on the request payload based on the value of the
      *        Content-Type header sent by the client. The content type value is the key in this map, and the template
-     *        (as a String) is the value.
+     *        (as a String) is the value. Supported only for WebSocket APIs.
      */
 
     public void setRequestTemplates(java.util.Map<String, String> requestTemplates) {
@@ -1206,13 +1644,13 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
      * <p>
      * Represents a map of Velocity templates that are applied on the request payload based on the value of the
      * Content-Type header sent by the client. The content type value is the key in this map, and the template (as a
-     * String) is the value.
+     * String) is the value. Supported only for WebSocket APIs.
      * </p>
      * 
      * @param requestTemplates
      *        Represents a map of Velocity templates that are applied on the request payload based on the value of the
      *        Content-Type header sent by the client. The content type value is the key in this map, and the template
-     *        (as a String) is the value.
+     *        (as a String) is the value. Supported only for WebSocket APIs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1220,6 +1658,13 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
         setRequestTemplates(requestTemplates);
         return this;
     }
+
+    /**
+     * Add a single RequestTemplates entry
+     *
+     * @see CreateIntegrationResult#withRequestTemplates
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public CreateIntegrationResult addRequestTemplatesEntry(String key, String value) {
         if (null == this.requestTemplates) {
@@ -1244,11 +1689,124 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The template selection expression for the integration.
+     * Supported only for HTTP APIs. You use response parameters to transform the HTTP response from a backend
+     * integration before returning the response to clients. Specify a key-value map from a selection key to response
+     * parameters. The selection key must be a valid HTTP status code within the range of 200-599. Response parameters
+     * are a key-value map. The key must match pattern &lt;action&gt;:&lt;header&gt;.&lt;location&gt; or
+     * overwrite.statuscode. The action can be append, overwrite or remove. The value can be a static value, or map to
+     * response data, stage variables, or context variables that are evaluated at runtime. To learn more, see <a
+     * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-parameter-mapping.html">Transforming
+     * API requests and responses</a>.
+     * </p>
+     * 
+     * @return Supported only for HTTP APIs. You use response parameters to transform the HTTP response from a backend
+     *         integration before returning the response to clients. Specify a key-value map from a selection key to
+     *         response parameters. The selection key must be a valid HTTP status code within the range of 200-599.
+     *         Response parameters are a key-value map. The key must match pattern
+     *         &lt;action&gt;:&lt;header&gt;.&lt;location&gt; or overwrite.statuscode. The action can be append,
+     *         overwrite or remove. The value can be a static value, or map to response data, stage variables, or
+     *         context variables that are evaluated at runtime. To learn more, see <a
+     *         href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-parameter-mapping.html"
+     *         >Transforming API requests and responses</a>.
+     */
+
+    public java.util.Map<String, java.util.Map<String, String>> getResponseParameters() {
+        return responseParameters;
+    }
+
+    /**
+     * <p>
+     * Supported only for HTTP APIs. You use response parameters to transform the HTTP response from a backend
+     * integration before returning the response to clients. Specify a key-value map from a selection key to response
+     * parameters. The selection key must be a valid HTTP status code within the range of 200-599. Response parameters
+     * are a key-value map. The key must match pattern &lt;action&gt;:&lt;header&gt;.&lt;location&gt; or
+     * overwrite.statuscode. The action can be append, overwrite or remove. The value can be a static value, or map to
+     * response data, stage variables, or context variables that are evaluated at runtime. To learn more, see <a
+     * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-parameter-mapping.html">Transforming
+     * API requests and responses</a>.
+     * </p>
+     * 
+     * @param responseParameters
+     *        Supported only for HTTP APIs. You use response parameters to transform the HTTP response from a backend
+     *        integration before returning the response to clients. Specify a key-value map from a selection key to
+     *        response parameters. The selection key must be a valid HTTP status code within the range of 200-599.
+     *        Response parameters are a key-value map. The key must match pattern
+     *        &lt;action&gt;:&lt;header&gt;.&lt;location&gt; or overwrite.statuscode. The action can be append,
+     *        overwrite or remove. The value can be a static value, or map to response data, stage variables, or context
+     *        variables that are evaluated at runtime. To learn more, see <a
+     *        href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-parameter-mapping.html"
+     *        >Transforming API requests and responses</a>.
+     */
+
+    public void setResponseParameters(java.util.Map<String, java.util.Map<String, String>> responseParameters) {
+        this.responseParameters = responseParameters;
+    }
+
+    /**
+     * <p>
+     * Supported only for HTTP APIs. You use response parameters to transform the HTTP response from a backend
+     * integration before returning the response to clients. Specify a key-value map from a selection key to response
+     * parameters. The selection key must be a valid HTTP status code within the range of 200-599. Response parameters
+     * are a key-value map. The key must match pattern &lt;action&gt;:&lt;header&gt;.&lt;location&gt; or
+     * overwrite.statuscode. The action can be append, overwrite or remove. The value can be a static value, or map to
+     * response data, stage variables, or context variables that are evaluated at runtime. To learn more, see <a
+     * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-parameter-mapping.html">Transforming
+     * API requests and responses</a>.
+     * </p>
+     * 
+     * @param responseParameters
+     *        Supported only for HTTP APIs. You use response parameters to transform the HTTP response from a backend
+     *        integration before returning the response to clients. Specify a key-value map from a selection key to
+     *        response parameters. The selection key must be a valid HTTP status code within the range of 200-599.
+     *        Response parameters are a key-value map. The key must match pattern
+     *        &lt;action&gt;:&lt;header&gt;.&lt;location&gt; or overwrite.statuscode. The action can be append,
+     *        overwrite or remove. The value can be a static value, or map to response data, stage variables, or context
+     *        variables that are evaluated at runtime. To learn more, see <a
+     *        href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-parameter-mapping.html"
+     *        >Transforming API requests and responses</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateIntegrationResult withResponseParameters(java.util.Map<String, java.util.Map<String, String>> responseParameters) {
+        setResponseParameters(responseParameters);
+        return this;
+    }
+
+    /**
+     * Add a single ResponseParameters entry
+     *
+     * @see CreateIntegrationResult#withResponseParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateIntegrationResult addResponseParametersEntry(String key, java.util.Map<String, String> value) {
+        if (null == this.responseParameters) {
+            this.responseParameters = new java.util.HashMap<String, java.util.Map<String, String>>();
+        }
+        if (this.responseParameters.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.responseParameters.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into ResponseParameters.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateIntegrationResult clearResponseParametersEntries() {
+        this.responseParameters = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * The template selection expression for the integration. Supported only for WebSocket APIs.
      * </p>
      * 
      * @param templateSelectionExpression
-     *        The template selection expression for the integration.
+     *        The template selection expression for the integration. Supported only for WebSocket APIs.
      */
 
     public void setTemplateSelectionExpression(String templateSelectionExpression) {
@@ -1257,10 +1815,10 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The template selection expression for the integration.
+     * The template selection expression for the integration. Supported only for WebSocket APIs.
      * </p>
      * 
-     * @return The template selection expression for the integration.
+     * @return The template selection expression for the integration. Supported only for WebSocket APIs.
      */
 
     public String getTemplateSelectionExpression() {
@@ -1269,11 +1827,11 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The template selection expression for the integration.
+     * The template selection expression for the integration. Supported only for WebSocket APIs.
      * </p>
      * 
      * @param templateSelectionExpression
-     *        The template selection expression for the integration.
+     *        The template selection expression for the integration. Supported only for WebSocket APIs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1284,11 +1842,14 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * Custom timeout between 50 and 29,000 milliseconds. The default value is 29,000 milliseconds or 29 seconds.
+     * Custom timeout between 50 and 29,000 milliseconds for WebSocket APIs and between 50 and 30,000 milliseconds for
+     * HTTP APIs. The default timeout is 29 seconds for WebSocket APIs and 30 seconds for HTTP APIs.
      * </p>
      * 
      * @param timeoutInMillis
-     *        Custom timeout between 50 and 29,000 milliseconds. The default value is 29,000 milliseconds or 29 seconds.
+     *        Custom timeout between 50 and 29,000 milliseconds for WebSocket APIs and between 50 and 30,000
+     *        milliseconds for HTTP APIs. The default timeout is 29 seconds for WebSocket APIs and 30 seconds for HTTP
+     *        APIs.
      */
 
     public void setTimeoutInMillis(Integer timeoutInMillis) {
@@ -1297,11 +1858,13 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * Custom timeout between 50 and 29,000 milliseconds. The default value is 29,000 milliseconds or 29 seconds.
+     * Custom timeout between 50 and 29,000 milliseconds for WebSocket APIs and between 50 and 30,000 milliseconds for
+     * HTTP APIs. The default timeout is 29 seconds for WebSocket APIs and 30 seconds for HTTP APIs.
      * </p>
      * 
-     * @return Custom timeout between 50 and 29,000 milliseconds. The default value is 29,000 milliseconds or 29
-     *         seconds.
+     * @return Custom timeout between 50 and 29,000 milliseconds for WebSocket APIs and between 50 and 30,000
+     *         milliseconds for HTTP APIs. The default timeout is 29 seconds for WebSocket APIs and 30 seconds for HTTP
+     *         APIs.
      */
 
     public Integer getTimeoutInMillis() {
@@ -1310,16 +1873,65 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * Custom timeout between 50 and 29,000 milliseconds. The default value is 29,000 milliseconds or 29 seconds.
+     * Custom timeout between 50 and 29,000 milliseconds for WebSocket APIs and between 50 and 30,000 milliseconds for
+     * HTTP APIs. The default timeout is 29 seconds for WebSocket APIs and 30 seconds for HTTP APIs.
      * </p>
      * 
      * @param timeoutInMillis
-     *        Custom timeout between 50 and 29,000 milliseconds. The default value is 29,000 milliseconds or 29 seconds.
+     *        Custom timeout between 50 and 29,000 milliseconds for WebSocket APIs and between 50 and 30,000
+     *        milliseconds for HTTP APIs. The default timeout is 29 seconds for WebSocket APIs and 30 seconds for HTTP
+     *        APIs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateIntegrationResult withTimeoutInMillis(Integer timeoutInMillis) {
         setTimeoutInMillis(timeoutInMillis);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The TLS configuration for a private integration. If you specify a TLS configuration, private integration traffic
+     * uses the HTTPS protocol. Supported only for HTTP APIs.
+     * </p>
+     * 
+     * @param tlsConfig
+     *        The TLS configuration for a private integration. If you specify a TLS configuration, private integration
+     *        traffic uses the HTTPS protocol. Supported only for HTTP APIs.
+     */
+
+    public void setTlsConfig(TlsConfig tlsConfig) {
+        this.tlsConfig = tlsConfig;
+    }
+
+    /**
+     * <p>
+     * The TLS configuration for a private integration. If you specify a TLS configuration, private integration traffic
+     * uses the HTTPS protocol. Supported only for HTTP APIs.
+     * </p>
+     * 
+     * @return The TLS configuration for a private integration. If you specify a TLS configuration, private integration
+     *         traffic uses the HTTPS protocol. Supported only for HTTP APIs.
+     */
+
+    public TlsConfig getTlsConfig() {
+        return this.tlsConfig;
+    }
+
+    /**
+     * <p>
+     * The TLS configuration for a private integration. If you specify a TLS configuration, private integration traffic
+     * uses the HTTPS protocol. Supported only for HTTP APIs.
+     * </p>
+     * 
+     * @param tlsConfig
+     *        The TLS configuration for a private integration. If you specify a TLS configuration, private integration
+     *        traffic uses the HTTPS protocol. Supported only for HTTP APIs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateIntegrationResult withTlsConfig(TlsConfig tlsConfig) {
+        setTlsConfig(tlsConfig);
         return this;
     }
 
@@ -1335,6 +1947,8 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getApiGatewayManaged() != null)
+            sb.append("ApiGatewayManaged: ").append(getApiGatewayManaged()).append(",");
         if (getConnectionId() != null)
             sb.append("ConnectionId: ").append(getConnectionId()).append(",");
         if (getConnectionType() != null)
@@ -1351,20 +1965,28 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
             sb.append("IntegrationMethod: ").append(getIntegrationMethod()).append(",");
         if (getIntegrationResponseSelectionExpression() != null)
             sb.append("IntegrationResponseSelectionExpression: ").append(getIntegrationResponseSelectionExpression()).append(",");
+        if (getIntegrationSubtype() != null)
+            sb.append("IntegrationSubtype: ").append(getIntegrationSubtype()).append(",");
         if (getIntegrationType() != null)
             sb.append("IntegrationType: ").append(getIntegrationType()).append(",");
         if (getIntegrationUri() != null)
             sb.append("IntegrationUri: ").append(getIntegrationUri()).append(",");
         if (getPassthroughBehavior() != null)
             sb.append("PassthroughBehavior: ").append(getPassthroughBehavior()).append(",");
+        if (getPayloadFormatVersion() != null)
+            sb.append("PayloadFormatVersion: ").append(getPayloadFormatVersion()).append(",");
         if (getRequestParameters() != null)
             sb.append("RequestParameters: ").append(getRequestParameters()).append(",");
         if (getRequestTemplates() != null)
             sb.append("RequestTemplates: ").append(getRequestTemplates()).append(",");
+        if (getResponseParameters() != null)
+            sb.append("ResponseParameters: ").append(getResponseParameters()).append(",");
         if (getTemplateSelectionExpression() != null)
             sb.append("TemplateSelectionExpression: ").append(getTemplateSelectionExpression()).append(",");
         if (getTimeoutInMillis() != null)
-            sb.append("TimeoutInMillis: ").append(getTimeoutInMillis());
+            sb.append("TimeoutInMillis: ").append(getTimeoutInMillis()).append(",");
+        if (getTlsConfig() != null)
+            sb.append("TlsConfig: ").append(getTlsConfig());
         sb.append("}");
         return sb.toString();
     }
@@ -1379,6 +2001,10 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
         if (obj instanceof CreateIntegrationResult == false)
             return false;
         CreateIntegrationResult other = (CreateIntegrationResult) obj;
+        if (other.getApiGatewayManaged() == null ^ this.getApiGatewayManaged() == null)
+            return false;
+        if (other.getApiGatewayManaged() != null && other.getApiGatewayManaged().equals(this.getApiGatewayManaged()) == false)
+            return false;
         if (other.getConnectionId() == null ^ this.getConnectionId() == null)
             return false;
         if (other.getConnectionId() != null && other.getConnectionId().equals(this.getConnectionId()) == false)
@@ -1412,6 +2038,10 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
         if (other.getIntegrationResponseSelectionExpression() != null
                 && other.getIntegrationResponseSelectionExpression().equals(this.getIntegrationResponseSelectionExpression()) == false)
             return false;
+        if (other.getIntegrationSubtype() == null ^ this.getIntegrationSubtype() == null)
+            return false;
+        if (other.getIntegrationSubtype() != null && other.getIntegrationSubtype().equals(this.getIntegrationSubtype()) == false)
+            return false;
         if (other.getIntegrationType() == null ^ this.getIntegrationType() == null)
             return false;
         if (other.getIntegrationType() != null && other.getIntegrationType().equals(this.getIntegrationType()) == false)
@@ -1424,6 +2054,10 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
             return false;
         if (other.getPassthroughBehavior() != null && other.getPassthroughBehavior().equals(this.getPassthroughBehavior()) == false)
             return false;
+        if (other.getPayloadFormatVersion() == null ^ this.getPayloadFormatVersion() == null)
+            return false;
+        if (other.getPayloadFormatVersion() != null && other.getPayloadFormatVersion().equals(this.getPayloadFormatVersion()) == false)
+            return false;
         if (other.getRequestParameters() == null ^ this.getRequestParameters() == null)
             return false;
         if (other.getRequestParameters() != null && other.getRequestParameters().equals(this.getRequestParameters()) == false)
@@ -1431,6 +2065,10 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
         if (other.getRequestTemplates() == null ^ this.getRequestTemplates() == null)
             return false;
         if (other.getRequestTemplates() != null && other.getRequestTemplates().equals(this.getRequestTemplates()) == false)
+            return false;
+        if (other.getResponseParameters() == null ^ this.getResponseParameters() == null)
+            return false;
+        if (other.getResponseParameters() != null && other.getResponseParameters().equals(this.getResponseParameters()) == false)
             return false;
         if (other.getTemplateSelectionExpression() == null ^ this.getTemplateSelectionExpression() == null)
             return false;
@@ -1440,6 +2078,10 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
             return false;
         if (other.getTimeoutInMillis() != null && other.getTimeoutInMillis().equals(this.getTimeoutInMillis()) == false)
             return false;
+        if (other.getTlsConfig() == null ^ this.getTlsConfig() == null)
+            return false;
+        if (other.getTlsConfig() != null && other.getTlsConfig().equals(this.getTlsConfig()) == false)
+            return false;
         return true;
     }
 
@@ -1448,6 +2090,7 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getApiGatewayManaged() == null) ? 0 : getApiGatewayManaged().hashCode());
         hashCode = prime * hashCode + ((getConnectionId() == null) ? 0 : getConnectionId().hashCode());
         hashCode = prime * hashCode + ((getConnectionType() == null) ? 0 : getConnectionType().hashCode());
         hashCode = prime * hashCode + ((getContentHandlingStrategy() == null) ? 0 : getContentHandlingStrategy().hashCode());
@@ -1456,13 +2099,17 @@ public class CreateIntegrationResult extends com.amazonaws.AmazonWebServiceResul
         hashCode = prime * hashCode + ((getIntegrationId() == null) ? 0 : getIntegrationId().hashCode());
         hashCode = prime * hashCode + ((getIntegrationMethod() == null) ? 0 : getIntegrationMethod().hashCode());
         hashCode = prime * hashCode + ((getIntegrationResponseSelectionExpression() == null) ? 0 : getIntegrationResponseSelectionExpression().hashCode());
+        hashCode = prime * hashCode + ((getIntegrationSubtype() == null) ? 0 : getIntegrationSubtype().hashCode());
         hashCode = prime * hashCode + ((getIntegrationType() == null) ? 0 : getIntegrationType().hashCode());
         hashCode = prime * hashCode + ((getIntegrationUri() == null) ? 0 : getIntegrationUri().hashCode());
         hashCode = prime * hashCode + ((getPassthroughBehavior() == null) ? 0 : getPassthroughBehavior().hashCode());
+        hashCode = prime * hashCode + ((getPayloadFormatVersion() == null) ? 0 : getPayloadFormatVersion().hashCode());
         hashCode = prime * hashCode + ((getRequestParameters() == null) ? 0 : getRequestParameters().hashCode());
         hashCode = prime * hashCode + ((getRequestTemplates() == null) ? 0 : getRequestTemplates().hashCode());
+        hashCode = prime * hashCode + ((getResponseParameters() == null) ? 0 : getResponseParameters().hashCode());
         hashCode = prime * hashCode + ((getTemplateSelectionExpression() == null) ? 0 : getTemplateSelectionExpression().hashCode());
         hashCode = prime * hashCode + ((getTimeoutInMillis() == null) ? 0 : getTimeoutInMillis().hashCode());
+        hashCode = prime * hashCode + ((getTlsConfig() == null) ? 0 : getTlsConfig().hashCode());
         return hashCode;
     }
 

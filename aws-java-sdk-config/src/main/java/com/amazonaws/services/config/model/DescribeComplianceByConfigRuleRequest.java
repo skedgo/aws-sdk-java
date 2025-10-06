@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,16 +28,13 @@ public class DescribeComplianceByConfigRuleRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Specify one or more AWS Config rule names to filter the results by rule.
+     * Specify one or more Config rule names to filter the results by rule.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> configRuleNames;
     /**
      * <p>
      * Filters the results by compliance.
-     * </p>
-     * <p>
-     * The allowed values are <code>COMPLIANT</code> and <code>NON_COMPLIANT</code>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> complianceTypes;
@@ -51,10 +48,10 @@ public class DescribeComplianceByConfigRuleRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Specify one or more AWS Config rule names to filter the results by rule.
+     * Specify one or more Config rule names to filter the results by rule.
      * </p>
      * 
-     * @return Specify one or more AWS Config rule names to filter the results by rule.
+     * @return Specify one or more Config rule names to filter the results by rule.
      */
 
     public java.util.List<String> getConfigRuleNames() {
@@ -66,11 +63,11 @@ public class DescribeComplianceByConfigRuleRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Specify one or more AWS Config rule names to filter the results by rule.
+     * Specify one or more Config rule names to filter the results by rule.
      * </p>
      * 
      * @param configRuleNames
-     *        Specify one or more AWS Config rule names to filter the results by rule.
+     *        Specify one or more Config rule names to filter the results by rule.
      */
 
     public void setConfigRuleNames(java.util.Collection<String> configRuleNames) {
@@ -84,7 +81,7 @@ public class DescribeComplianceByConfigRuleRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Specify one or more AWS Config rule names to filter the results by rule.
+     * Specify one or more Config rule names to filter the results by rule.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -93,7 +90,7 @@ public class DescribeComplianceByConfigRuleRequest extends com.amazonaws.AmazonW
      * </p>
      * 
      * @param configRuleNames
-     *        Specify one or more AWS Config rule names to filter the results by rule.
+     *        Specify one or more Config rule names to filter the results by rule.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -109,11 +106,11 @@ public class DescribeComplianceByConfigRuleRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Specify one or more AWS Config rule names to filter the results by rule.
+     * Specify one or more Config rule names to filter the results by rule.
      * </p>
      * 
      * @param configRuleNames
-     *        Specify one or more AWS Config rule names to filter the results by rule.
+     *        Specify one or more Config rule names to filter the results by rule.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -126,13 +123,8 @@ public class DescribeComplianceByConfigRuleRequest extends com.amazonaws.AmazonW
      * <p>
      * Filters the results by compliance.
      * </p>
-     * <p>
-     * The allowed values are <code>COMPLIANT</code> and <code>NON_COMPLIANT</code>.
-     * </p>
      * 
-     * @return Filters the results by compliance.</p>
-     *         <p>
-     *         The allowed values are <code>COMPLIANT</code> and <code>NON_COMPLIANT</code>.
+     * @return Filters the results by compliance.
      * @see ComplianceType
      */
 
@@ -147,14 +139,9 @@ public class DescribeComplianceByConfigRuleRequest extends com.amazonaws.AmazonW
      * <p>
      * Filters the results by compliance.
      * </p>
-     * <p>
-     * The allowed values are <code>COMPLIANT</code> and <code>NON_COMPLIANT</code>.
-     * </p>
      * 
      * @param complianceTypes
-     *        Filters the results by compliance.</p>
-     *        <p>
-     *        The allowed values are <code>COMPLIANT</code> and <code>NON_COMPLIANT</code>.
+     *        Filters the results by compliance.
      * @see ComplianceType
      */
 
@@ -172,18 +159,13 @@ public class DescribeComplianceByConfigRuleRequest extends com.amazonaws.AmazonW
      * Filters the results by compliance.
      * </p>
      * <p>
-     * The allowed values are <code>COMPLIANT</code> and <code>NON_COMPLIANT</code>.
-     * </p>
-     * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setComplianceTypes(java.util.Collection)} or {@link #withComplianceTypes(java.util.Collection)} if you
      * want to override the existing values.
      * </p>
      * 
      * @param complianceTypes
-     *        Filters the results by compliance.</p>
-     *        <p>
-     *        The allowed values are <code>COMPLIANT</code> and <code>NON_COMPLIANT</code>.
+     *        Filters the results by compliance.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ComplianceType
      */
@@ -202,14 +184,9 @@ public class DescribeComplianceByConfigRuleRequest extends com.amazonaws.AmazonW
      * <p>
      * Filters the results by compliance.
      * </p>
-     * <p>
-     * The allowed values are <code>COMPLIANT</code> and <code>NON_COMPLIANT</code>.
-     * </p>
      * 
      * @param complianceTypes
-     *        Filters the results by compliance.</p>
-     *        <p>
-     *        The allowed values are <code>COMPLIANT</code> and <code>NON_COMPLIANT</code>.
+     *        Filters the results by compliance.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ComplianceType
      */
@@ -223,14 +200,9 @@ public class DescribeComplianceByConfigRuleRequest extends com.amazonaws.AmazonW
      * <p>
      * Filters the results by compliance.
      * </p>
-     * <p>
-     * The allowed values are <code>COMPLIANT</code> and <code>NON_COMPLIANT</code>.
-     * </p>
      * 
      * @param complianceTypes
-     *        Filters the results by compliance.</p>
-     *        <p>
-     *        The allowed values are <code>COMPLIANT</code> and <code>NON_COMPLIANT</code>.
+     *        Filters the results by compliance.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ComplianceType
      */

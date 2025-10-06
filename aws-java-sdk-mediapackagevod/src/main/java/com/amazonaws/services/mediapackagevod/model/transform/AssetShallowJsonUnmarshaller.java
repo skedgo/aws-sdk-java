@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,6 +52,10 @@ public class AssetShallowJsonUnmarshaller implements Unmarshaller<AssetShallow, 
                     context.nextToken();
                     assetShallow.setArn(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("createdAt", targetDepth)) {
+                    context.nextToken();
+                    assetShallow.setCreatedAt(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("id", targetDepth)) {
                     context.nextToken();
                     assetShallow.setId(context.getUnmarshaller(String.class).unmarshall(context));
@@ -71,6 +75,11 @@ public class AssetShallowJsonUnmarshaller implements Unmarshaller<AssetShallow, 
                 if (context.testExpression("sourceRoleArn", targetDepth)) {
                     context.nextToken();
                     assetShallow.setSourceRoleArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("tags", targetDepth)) {
+                    context.nextToken();
+                    assetShallow.setTags(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context.getUnmarshaller(String.class))
+                            .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

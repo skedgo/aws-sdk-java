@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,8 +32,8 @@ import javax.annotation.Generated;
  * <important>
  * <p>
  * If you get this exception immediately after creating the organization, wait one hour and try again. If after an hour
- * it continues to fail with this error, contact <a href="https://console.aws.amazon.com/support/home#/">AWS
- * Support</a>.
+ * it continues to fail with this error, contact <a href="https://console.aws.amazon.com/support/home#/">Amazon Web
+ * Services Support</a>.
  * </p>
  * </important></li>
  * <li>
@@ -58,6 +58,12 @@ import javax.annotation.Generated;
  * <p>
  * ORGANIZATION_ALREADY_HAS_ALL_FEATURES: The handshake request is invalid because the organization has already enabled
  * all features.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * ORGANIZATION_IS_ALREADY_PENDING_ALL_FEATURES_MIGRATION: The handshake request is invalid because the organization has
+ * already started the process to enable all features.
  * </p>
  * </li>
  * <li>

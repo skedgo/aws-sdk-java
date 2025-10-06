@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,24 +27,39 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resource share.
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Name (ARN)</a> of the resource share that you want to add tags to. You must specify <i>either</i>
+     * <code>resourceShareArn</code>, or <code>resourceArn</code>, but not both.
      * </p>
      */
     private String resourceShareArn;
     /**
      * <p>
-     * One or more tags.
+     * A list of one or more tag key and value pairs. The tag key must be present and not be an empty string. The tag
+     * value must be present but can be an empty string.
      * </p>
      */
     private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Name (ARN)</a> of the managed permission that you want to add tags to. You must specify <i>either</i>
+     * <code>resourceArn</code>, or <code>resourceShareArn</code>, but not both.
+     * </p>
+     */
+    private String resourceArn;
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resource share.
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Name (ARN)</a> of the resource share that you want to add tags to. You must specify <i>either</i>
+     * <code>resourceShareArn</code>, or <code>resourceArn</code>, but not both.
      * </p>
      * 
      * @param resourceShareArn
-     *        The Amazon Resource Name (ARN) of the resource share.
+     *        Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *        Resource Name (ARN)</a> of the resource share that you want to add tags to. You must specify <i>either</i>
+     *        <code>resourceShareArn</code>, or <code>resourceArn</code>, but not both.
      */
 
     public void setResourceShareArn(String resourceShareArn) {
@@ -53,10 +68,14 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resource share.
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Name (ARN)</a> of the resource share that you want to add tags to. You must specify <i>either</i>
+     * <code>resourceShareArn</code>, or <code>resourceArn</code>, but not both.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the resource share.
+     * @return Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *         Resource Name (ARN)</a> of the resource share that you want to add tags to. You must specify
+     *         <i>either</i> <code>resourceShareArn</code>, or <code>resourceArn</code>, but not both.
      */
 
     public String getResourceShareArn() {
@@ -65,11 +84,15 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resource share.
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Name (ARN)</a> of the resource share that you want to add tags to. You must specify <i>either</i>
+     * <code>resourceShareArn</code>, or <code>resourceArn</code>, but not both.
      * </p>
      * 
      * @param resourceShareArn
-     *        The Amazon Resource Name (ARN) of the resource share.
+     *        Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *        Resource Name (ARN)</a> of the resource share that you want to add tags to. You must specify <i>either</i>
+     *        <code>resourceShareArn</code>, or <code>resourceArn</code>, but not both.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -80,10 +103,12 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * One or more tags.
+     * A list of one or more tag key and value pairs. The tag key must be present and not be an empty string. The tag
+     * value must be present but can be an empty string.
      * </p>
      * 
-     * @return One or more tags.
+     * @return A list of one or more tag key and value pairs. The tag key must be present and not be an empty string.
+     *         The tag value must be present but can be an empty string.
      */
 
     public java.util.List<Tag> getTags() {
@@ -92,11 +117,13 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * One or more tags.
+     * A list of one or more tag key and value pairs. The tag key must be present and not be an empty string. The tag
+     * value must be present but can be an empty string.
      * </p>
      * 
      * @param tags
-     *        One or more tags.
+     *        A list of one or more tag key and value pairs. The tag key must be present and not be an empty string. The
+     *        tag value must be present but can be an empty string.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -110,7 +137,8 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * One or more tags.
+     * A list of one or more tag key and value pairs. The tag key must be present and not be an empty string. The tag
+     * value must be present but can be an empty string.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -119,7 +147,8 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * 
      * @param tags
-     *        One or more tags.
+     *        A list of one or more tag key and value pairs. The tag key must be present and not be an empty string. The
+     *        tag value must be present but can be an empty string.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -135,16 +164,70 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * One or more tags.
+     * A list of one or more tag key and value pairs. The tag key must be present and not be an empty string. The tag
+     * value must be present but can be an empty string.
      * </p>
      * 
      * @param tags
-     *        One or more tags.
+     *        A list of one or more tag key and value pairs. The tag key must be present and not be an empty string. The
+     *        tag value must be present but can be an empty string.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public TagResourceRequest withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Name (ARN)</a> of the managed permission that you want to add tags to. You must specify <i>either</i>
+     * <code>resourceArn</code>, or <code>resourceShareArn</code>, but not both.
+     * </p>
+     * 
+     * @param resourceArn
+     *        Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *        Resource Name (ARN)</a> of the managed permission that you want to add tags to. You must specify
+     *        <i>either</i> <code>resourceArn</code>, or <code>resourceShareArn</code>, but not both.
+     */
+
+    public void setResourceArn(String resourceArn) {
+        this.resourceArn = resourceArn;
+    }
+
+    /**
+     * <p>
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Name (ARN)</a> of the managed permission that you want to add tags to. You must specify <i>either</i>
+     * <code>resourceArn</code>, or <code>resourceShareArn</code>, but not both.
+     * </p>
+     * 
+     * @return Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *         Resource Name (ARN)</a> of the managed permission that you want to add tags to. You must specify
+     *         <i>either</i> <code>resourceArn</code>, or <code>resourceShareArn</code>, but not both.
+     */
+
+    public String getResourceArn() {
+        return this.resourceArn;
+    }
+
+    /**
+     * <p>
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Name (ARN)</a> of the managed permission that you want to add tags to. You must specify <i>either</i>
+     * <code>resourceArn</code>, or <code>resourceShareArn</code>, but not both.
+     * </p>
+     * 
+     * @param resourceArn
+     *        Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *        Resource Name (ARN)</a> of the managed permission that you want to add tags to. You must specify
+     *        <i>either</i> <code>resourceArn</code>, or <code>resourceShareArn</code>, but not both.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TagResourceRequest withResourceArn(String resourceArn) {
+        setResourceArn(resourceArn);
         return this;
     }
 
@@ -163,7 +246,9 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (getResourceShareArn() != null)
             sb.append("ResourceShareArn: ").append(getResourceShareArn()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getResourceArn() != null)
+            sb.append("ResourceArn: ").append(getResourceArn());
         sb.append("}");
         return sb.toString();
     }
@@ -186,6 +271,10 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getResourceArn() == null ^ this.getResourceArn() == null)
+            return false;
+        if (other.getResourceArn() != null && other.getResourceArn().equals(this.getResourceArn()) == false)
+            return false;
         return true;
     }
 
@@ -196,6 +285,7 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
         hashCode = prime * hashCode + ((getResourceShareArn() == null) ? 0 : getResourceShareArn().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getResourceArn() == null) ? 0 : getResourceArn().hashCode());
         return hashCode;
     }
 

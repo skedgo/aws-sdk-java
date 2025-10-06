@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class DomainNameConfiguration implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * A domain name for the WebSocket API.
+     * A domain name for the API.
      * </p>
      */
     private String apiGatewayDomainName;
@@ -52,6 +52,20 @@ public class DomainNameConfiguration implements Serializable, Cloneable, Structu
     private java.util.Date certificateUploadDate;
     /**
      * <p>
+     * The status of the domain name migration. The valid values are AVAILABLE, UPDATING, PENDING_CERTIFICATE_REIMPORT,
+     * and PENDING_OWNERSHIP_VERIFICATION. If the status is UPDATING, the domain cannot be modified further until the
+     * existing operation is complete. If it is AVAILABLE, the domain can be updated.
+     * </p>
+     */
+    private String domainNameStatus;
+    /**
+     * <p>
+     * An optional text message containing detailed information about status of the domain name migration.
+     * </p>
+     */
+    private String domainNameStatusMessage;
+    /**
+     * <p>
      * The endpoint type.
      * </p>
      */
@@ -71,26 +85,19 @@ public class DomainNameConfiguration implements Serializable, Cloneable, Structu
     private String securityPolicy;
     /**
      * <p>
-     * The status of the domain name migration. The valid values are AVAILABLE and UPDATING. If the status is UPDATING,
-     * the domain cannot be modified further until the existing operation is complete. If it is AVAILABLE, the domain
-     * can be updated.
+     * The ARN of the public certificate issued by ACM to validate ownership of your custom domain. Only required when
+     * configuring mutual TLS and using an ACM imported or private CA certificate ARN as the regionalCertificateArn
      * </p>
      */
-    private String domainNameStatus;
-    /**
-     * <p>
-     * An optional text message containing detailed information about status of the domain name migration.
-     * </p>
-     */
-    private String domainNameStatusMessage;
+    private String ownershipVerificationCertificateArn;
 
     /**
      * <p>
-     * A domain name for the WebSocket API.
+     * A domain name for the API.
      * </p>
      * 
      * @param apiGatewayDomainName
-     *        A domain name for the WebSocket API.
+     *        A domain name for the API.
      */
 
     public void setApiGatewayDomainName(String apiGatewayDomainName) {
@@ -99,10 +106,10 @@ public class DomainNameConfiguration implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * A domain name for the WebSocket API.
+     * A domain name for the API.
      * </p>
      * 
-     * @return A domain name for the WebSocket API.
+     * @return A domain name for the API.
      */
 
     public String getApiGatewayDomainName() {
@@ -111,11 +118,11 @@ public class DomainNameConfiguration implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * A domain name for the WebSocket API.
+     * A domain name for the API.
      * </p>
      * 
      * @param apiGatewayDomainName
-     *        A domain name for the WebSocket API.
+     *        A domain name for the API.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -253,6 +260,125 @@ public class DomainNameConfiguration implements Serializable, Cloneable, Structu
 
     public DomainNameConfiguration withCertificateUploadDate(java.util.Date certificateUploadDate) {
         setCertificateUploadDate(certificateUploadDate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The status of the domain name migration. The valid values are AVAILABLE, UPDATING, PENDING_CERTIFICATE_REIMPORT,
+     * and PENDING_OWNERSHIP_VERIFICATION. If the status is UPDATING, the domain cannot be modified further until the
+     * existing operation is complete. If it is AVAILABLE, the domain can be updated.
+     * </p>
+     * 
+     * @param domainNameStatus
+     *        The status of the domain name migration. The valid values are AVAILABLE, UPDATING,
+     *        PENDING_CERTIFICATE_REIMPORT, and PENDING_OWNERSHIP_VERIFICATION. If the status is UPDATING, the domain
+     *        cannot be modified further until the existing operation is complete. If it is AVAILABLE, the domain can be
+     *        updated.
+     * @see DomainNameStatus
+     */
+
+    public void setDomainNameStatus(String domainNameStatus) {
+        this.domainNameStatus = domainNameStatus;
+    }
+
+    /**
+     * <p>
+     * The status of the domain name migration. The valid values are AVAILABLE, UPDATING, PENDING_CERTIFICATE_REIMPORT,
+     * and PENDING_OWNERSHIP_VERIFICATION. If the status is UPDATING, the domain cannot be modified further until the
+     * existing operation is complete. If it is AVAILABLE, the domain can be updated.
+     * </p>
+     * 
+     * @return The status of the domain name migration. The valid values are AVAILABLE, UPDATING,
+     *         PENDING_CERTIFICATE_REIMPORT, and PENDING_OWNERSHIP_VERIFICATION. If the status is UPDATING, the domain
+     *         cannot be modified further until the existing operation is complete. If it is AVAILABLE, the domain can
+     *         be updated.
+     * @see DomainNameStatus
+     */
+
+    public String getDomainNameStatus() {
+        return this.domainNameStatus;
+    }
+
+    /**
+     * <p>
+     * The status of the domain name migration. The valid values are AVAILABLE, UPDATING, PENDING_CERTIFICATE_REIMPORT,
+     * and PENDING_OWNERSHIP_VERIFICATION. If the status is UPDATING, the domain cannot be modified further until the
+     * existing operation is complete. If it is AVAILABLE, the domain can be updated.
+     * </p>
+     * 
+     * @param domainNameStatus
+     *        The status of the domain name migration. The valid values are AVAILABLE, UPDATING,
+     *        PENDING_CERTIFICATE_REIMPORT, and PENDING_OWNERSHIP_VERIFICATION. If the status is UPDATING, the domain
+     *        cannot be modified further until the existing operation is complete. If it is AVAILABLE, the domain can be
+     *        updated.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DomainNameStatus
+     */
+
+    public DomainNameConfiguration withDomainNameStatus(String domainNameStatus) {
+        setDomainNameStatus(domainNameStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The status of the domain name migration. The valid values are AVAILABLE, UPDATING, PENDING_CERTIFICATE_REIMPORT,
+     * and PENDING_OWNERSHIP_VERIFICATION. If the status is UPDATING, the domain cannot be modified further until the
+     * existing operation is complete. If it is AVAILABLE, the domain can be updated.
+     * </p>
+     * 
+     * @param domainNameStatus
+     *        The status of the domain name migration. The valid values are AVAILABLE, UPDATING,
+     *        PENDING_CERTIFICATE_REIMPORT, and PENDING_OWNERSHIP_VERIFICATION. If the status is UPDATING, the domain
+     *        cannot be modified further until the existing operation is complete. If it is AVAILABLE, the domain can be
+     *        updated.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DomainNameStatus
+     */
+
+    public DomainNameConfiguration withDomainNameStatus(DomainNameStatus domainNameStatus) {
+        this.domainNameStatus = domainNameStatus.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * An optional text message containing detailed information about status of the domain name migration.
+     * </p>
+     * 
+     * @param domainNameStatusMessage
+     *        An optional text message containing detailed information about status of the domain name migration.
+     */
+
+    public void setDomainNameStatusMessage(String domainNameStatusMessage) {
+        this.domainNameStatusMessage = domainNameStatusMessage;
+    }
+
+    /**
+     * <p>
+     * An optional text message containing detailed information about status of the domain name migration.
+     * </p>
+     * 
+     * @return An optional text message containing detailed information about status of the domain name migration.
+     */
+
+    public String getDomainNameStatusMessage() {
+        return this.domainNameStatusMessage;
+    }
+
+    /**
+     * <p>
+     * An optional text message containing detailed information about status of the domain name migration.
+     * </p>
+     * 
+     * @param domainNameStatusMessage
+     *        An optional text message containing detailed information about status of the domain name migration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DomainNameConfiguration withDomainNameStatusMessage(String domainNameStatusMessage) {
+        setDomainNameStatusMessage(domainNameStatusMessage);
         return this;
     }
 
@@ -424,116 +550,50 @@ public class DomainNameConfiguration implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * The status of the domain name migration. The valid values are AVAILABLE and UPDATING. If the status is UPDATING,
-     * the domain cannot be modified further until the existing operation is complete. If it is AVAILABLE, the domain
-     * can be updated.
+     * The ARN of the public certificate issued by ACM to validate ownership of your custom domain. Only required when
+     * configuring mutual TLS and using an ACM imported or private CA certificate ARN as the regionalCertificateArn
      * </p>
      * 
-     * @param domainNameStatus
-     *        The status of the domain name migration. The valid values are AVAILABLE and UPDATING. If the status is
-     *        UPDATING, the domain cannot be modified further until the existing operation is complete. If it is
-     *        AVAILABLE, the domain can be updated.
-     * @see DomainNameStatus
+     * @param ownershipVerificationCertificateArn
+     *        The ARN of the public certificate issued by ACM to validate ownership of your custom domain. Only required
+     *        when configuring mutual TLS and using an ACM imported or private CA certificate ARN as the
+     *        regionalCertificateArn
      */
 
-    public void setDomainNameStatus(String domainNameStatus) {
-        this.domainNameStatus = domainNameStatus;
+    public void setOwnershipVerificationCertificateArn(String ownershipVerificationCertificateArn) {
+        this.ownershipVerificationCertificateArn = ownershipVerificationCertificateArn;
     }
 
     /**
      * <p>
-     * The status of the domain name migration. The valid values are AVAILABLE and UPDATING. If the status is UPDATING,
-     * the domain cannot be modified further until the existing operation is complete. If it is AVAILABLE, the domain
-     * can be updated.
+     * The ARN of the public certificate issued by ACM to validate ownership of your custom domain. Only required when
+     * configuring mutual TLS and using an ACM imported or private CA certificate ARN as the regionalCertificateArn
      * </p>
      * 
-     * @return The status of the domain name migration. The valid values are AVAILABLE and UPDATING. If the status is
-     *         UPDATING, the domain cannot be modified further until the existing operation is complete. If it is
-     *         AVAILABLE, the domain can be updated.
-     * @see DomainNameStatus
+     * @return The ARN of the public certificate issued by ACM to validate ownership of your custom domain. Only
+     *         required when configuring mutual TLS and using an ACM imported or private CA certificate ARN as the
+     *         regionalCertificateArn
      */
 
-    public String getDomainNameStatus() {
-        return this.domainNameStatus;
+    public String getOwnershipVerificationCertificateArn() {
+        return this.ownershipVerificationCertificateArn;
     }
 
     /**
      * <p>
-     * The status of the domain name migration. The valid values are AVAILABLE and UPDATING. If the status is UPDATING,
-     * the domain cannot be modified further until the existing operation is complete. If it is AVAILABLE, the domain
-     * can be updated.
+     * The ARN of the public certificate issued by ACM to validate ownership of your custom domain. Only required when
+     * configuring mutual TLS and using an ACM imported or private CA certificate ARN as the regionalCertificateArn
      * </p>
      * 
-     * @param domainNameStatus
-     *        The status of the domain name migration. The valid values are AVAILABLE and UPDATING. If the status is
-     *        UPDATING, the domain cannot be modified further until the existing operation is complete. If it is
-     *        AVAILABLE, the domain can be updated.
-     * @return Returns a reference to this object so that method calls can be chained together.
-     * @see DomainNameStatus
-     */
-
-    public DomainNameConfiguration withDomainNameStatus(String domainNameStatus) {
-        setDomainNameStatus(domainNameStatus);
-        return this;
-    }
-
-    /**
-     * <p>
-     * The status of the domain name migration. The valid values are AVAILABLE and UPDATING. If the status is UPDATING,
-     * the domain cannot be modified further until the existing operation is complete. If it is AVAILABLE, the domain
-     * can be updated.
-     * </p>
-     * 
-     * @param domainNameStatus
-     *        The status of the domain name migration. The valid values are AVAILABLE and UPDATING. If the status is
-     *        UPDATING, the domain cannot be modified further until the existing operation is complete. If it is
-     *        AVAILABLE, the domain can be updated.
-     * @return Returns a reference to this object so that method calls can be chained together.
-     * @see DomainNameStatus
-     */
-
-    public DomainNameConfiguration withDomainNameStatus(DomainNameStatus domainNameStatus) {
-        this.domainNameStatus = domainNameStatus.toString();
-        return this;
-    }
-
-    /**
-     * <p>
-     * An optional text message containing detailed information about status of the domain name migration.
-     * </p>
-     * 
-     * @param domainNameStatusMessage
-     *        An optional text message containing detailed information about status of the domain name migration.
-     */
-
-    public void setDomainNameStatusMessage(String domainNameStatusMessage) {
-        this.domainNameStatusMessage = domainNameStatusMessage;
-    }
-
-    /**
-     * <p>
-     * An optional text message containing detailed information about status of the domain name migration.
-     * </p>
-     * 
-     * @return An optional text message containing detailed information about status of the domain name migration.
-     */
-
-    public String getDomainNameStatusMessage() {
-        return this.domainNameStatusMessage;
-    }
-
-    /**
-     * <p>
-     * An optional text message containing detailed information about status of the domain name migration.
-     * </p>
-     * 
-     * @param domainNameStatusMessage
-     *        An optional text message containing detailed information about status of the domain name migration.
+     * @param ownershipVerificationCertificateArn
+     *        The ARN of the public certificate issued by ACM to validate ownership of your custom domain. Only required
+     *        when configuring mutual TLS and using an ACM imported or private CA certificate ARN as the
+     *        regionalCertificateArn
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
-    public DomainNameConfiguration withDomainNameStatusMessage(String domainNameStatusMessage) {
-        setDomainNameStatusMessage(domainNameStatusMessage);
+    public DomainNameConfiguration withOwnershipVerificationCertificateArn(String ownershipVerificationCertificateArn) {
+        setOwnershipVerificationCertificateArn(ownershipVerificationCertificateArn);
         return this;
     }
 
@@ -557,16 +617,18 @@ public class DomainNameConfiguration implements Serializable, Cloneable, Structu
             sb.append("CertificateName: ").append(getCertificateName()).append(",");
         if (getCertificateUploadDate() != null)
             sb.append("CertificateUploadDate: ").append(getCertificateUploadDate()).append(",");
+        if (getDomainNameStatus() != null)
+            sb.append("DomainNameStatus: ").append(getDomainNameStatus()).append(",");
+        if (getDomainNameStatusMessage() != null)
+            sb.append("DomainNameStatusMessage: ").append(getDomainNameStatusMessage()).append(",");
         if (getEndpointType() != null)
             sb.append("EndpointType: ").append(getEndpointType()).append(",");
         if (getHostedZoneId() != null)
             sb.append("HostedZoneId: ").append(getHostedZoneId()).append(",");
         if (getSecurityPolicy() != null)
             sb.append("SecurityPolicy: ").append(getSecurityPolicy()).append(",");
-        if (getDomainNameStatus() != null)
-            sb.append("DomainNameStatus: ").append(getDomainNameStatus()).append(",");
-        if (getDomainNameStatusMessage() != null)
-            sb.append("DomainNameStatusMessage: ").append(getDomainNameStatusMessage());
+        if (getOwnershipVerificationCertificateArn() != null)
+            sb.append("OwnershipVerificationCertificateArn: ").append(getOwnershipVerificationCertificateArn());
         sb.append("}");
         return sb.toString();
     }
@@ -597,6 +659,14 @@ public class DomainNameConfiguration implements Serializable, Cloneable, Structu
             return false;
         if (other.getCertificateUploadDate() != null && other.getCertificateUploadDate().equals(this.getCertificateUploadDate()) == false)
             return false;
+        if (other.getDomainNameStatus() == null ^ this.getDomainNameStatus() == null)
+            return false;
+        if (other.getDomainNameStatus() != null && other.getDomainNameStatus().equals(this.getDomainNameStatus()) == false)
+            return false;
+        if (other.getDomainNameStatusMessage() == null ^ this.getDomainNameStatusMessage() == null)
+            return false;
+        if (other.getDomainNameStatusMessage() != null && other.getDomainNameStatusMessage().equals(this.getDomainNameStatusMessage()) == false)
+            return false;
         if (other.getEndpointType() == null ^ this.getEndpointType() == null)
             return false;
         if (other.getEndpointType() != null && other.getEndpointType().equals(this.getEndpointType()) == false)
@@ -609,13 +679,10 @@ public class DomainNameConfiguration implements Serializable, Cloneable, Structu
             return false;
         if (other.getSecurityPolicy() != null && other.getSecurityPolicy().equals(this.getSecurityPolicy()) == false)
             return false;
-        if (other.getDomainNameStatus() == null ^ this.getDomainNameStatus() == null)
+        if (other.getOwnershipVerificationCertificateArn() == null ^ this.getOwnershipVerificationCertificateArn() == null)
             return false;
-        if (other.getDomainNameStatus() != null && other.getDomainNameStatus().equals(this.getDomainNameStatus()) == false)
-            return false;
-        if (other.getDomainNameStatusMessage() == null ^ this.getDomainNameStatusMessage() == null)
-            return false;
-        if (other.getDomainNameStatusMessage() != null && other.getDomainNameStatusMessage().equals(this.getDomainNameStatusMessage()) == false)
+        if (other.getOwnershipVerificationCertificateArn() != null
+                && other.getOwnershipVerificationCertificateArn().equals(this.getOwnershipVerificationCertificateArn()) == false)
             return false;
         return true;
     }
@@ -629,11 +696,12 @@ public class DomainNameConfiguration implements Serializable, Cloneable, Structu
         hashCode = prime * hashCode + ((getCertificateArn() == null) ? 0 : getCertificateArn().hashCode());
         hashCode = prime * hashCode + ((getCertificateName() == null) ? 0 : getCertificateName().hashCode());
         hashCode = prime * hashCode + ((getCertificateUploadDate() == null) ? 0 : getCertificateUploadDate().hashCode());
+        hashCode = prime * hashCode + ((getDomainNameStatus() == null) ? 0 : getDomainNameStatus().hashCode());
+        hashCode = prime * hashCode + ((getDomainNameStatusMessage() == null) ? 0 : getDomainNameStatusMessage().hashCode());
         hashCode = prime * hashCode + ((getEndpointType() == null) ? 0 : getEndpointType().hashCode());
         hashCode = prime * hashCode + ((getHostedZoneId() == null) ? 0 : getHostedZoneId().hashCode());
         hashCode = prime * hashCode + ((getSecurityPolicy() == null) ? 0 : getSecurityPolicy().hashCode());
-        hashCode = prime * hashCode + ((getDomainNameStatus() == null) ? 0 : getDomainNameStatus().hashCode());
-        hashCode = prime * hashCode + ((getDomainNameStatusMessage() == null) ? 0 : getDomainNameStatusMessage().hashCode());
+        hashCode = prime * hashCode + ((getOwnershipVerificationCertificateArn() == null) ? 0 : getOwnershipVerificationCertificateArn().hashCode());
         return hashCode;
     }
 

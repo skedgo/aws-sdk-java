@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -131,13 +131,15 @@ public class RestoreDBClusterFromS3RequestMarshaller implements Marshaller<Reque
             int tagsListIndex = 1;
 
             for (Tag tagsListValue : tagsList) {
+                if (tagsListValue != null) {
 
-                if (tagsListValue.getKey() != null) {
-                    request.addParameter("Tags.Tag." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
-                }
+                    if (tagsListValue.getKey() != null) {
+                        request.addParameter("Tags.Tag." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
+                    }
 
-                if (tagsListValue.getValue() != null) {
-                    request.addParameter("Tags.Tag." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                    if (tagsListValue.getValue() != null) {
+                        request.addParameter("Tags.Tag." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                    }
                 }
                 tagsListIndex++;
             }
@@ -200,6 +202,50 @@ public class RestoreDBClusterFromS3RequestMarshaller implements Marshaller<Reque
 
         if (restoreDBClusterFromS3Request.getCopyTagsToSnapshot() != null) {
             request.addParameter("CopyTagsToSnapshot", StringUtils.fromBoolean(restoreDBClusterFromS3Request.getCopyTagsToSnapshot()));
+        }
+
+        if (restoreDBClusterFromS3Request.getDomain() != null) {
+            request.addParameter("Domain", StringUtils.fromString(restoreDBClusterFromS3Request.getDomain()));
+        }
+
+        if (restoreDBClusterFromS3Request.getDomainIAMRoleName() != null) {
+            request.addParameter("DomainIAMRoleName", StringUtils.fromString(restoreDBClusterFromS3Request.getDomainIAMRoleName()));
+        }
+
+        {
+            ServerlessV2ScalingConfiguration serverlessV2ScalingConfiguration = restoreDBClusterFromS3Request.getServerlessV2ScalingConfiguration();
+            if (serverlessV2ScalingConfiguration != null) {
+
+                if (serverlessV2ScalingConfiguration.getMinCapacity() != null) {
+                    request.addParameter("ServerlessV2ScalingConfiguration.MinCapacity",
+                            StringUtils.fromDouble(serverlessV2ScalingConfiguration.getMinCapacity()));
+                }
+
+                if (serverlessV2ScalingConfiguration.getMaxCapacity() != null) {
+                    request.addParameter("ServerlessV2ScalingConfiguration.MaxCapacity",
+                            StringUtils.fromDouble(serverlessV2ScalingConfiguration.getMaxCapacity()));
+                }
+            }
+        }
+
+        if (restoreDBClusterFromS3Request.getNetworkType() != null) {
+            request.addParameter("NetworkType", StringUtils.fromString(restoreDBClusterFromS3Request.getNetworkType()));
+        }
+
+        if (restoreDBClusterFromS3Request.getManageMasterUserPassword() != null) {
+            request.addParameter("ManageMasterUserPassword", StringUtils.fromBoolean(restoreDBClusterFromS3Request.getManageMasterUserPassword()));
+        }
+
+        if (restoreDBClusterFromS3Request.getMasterUserSecretKmsKeyId() != null) {
+            request.addParameter("MasterUserSecretKmsKeyId", StringUtils.fromString(restoreDBClusterFromS3Request.getMasterUserSecretKmsKeyId()));
+        }
+
+        if (restoreDBClusterFromS3Request.getStorageType() != null) {
+            request.addParameter("StorageType", StringUtils.fromString(restoreDBClusterFromS3Request.getStorageType()));
+        }
+
+        if (restoreDBClusterFromS3Request.getEngineLifecycleSupport() != null) {
+            request.addParameter("EngineLifecycleSupport", StringUtils.fromString(restoreDBClusterFromS3Request.getEngineLifecycleSupport()));
         }
 
         return request;

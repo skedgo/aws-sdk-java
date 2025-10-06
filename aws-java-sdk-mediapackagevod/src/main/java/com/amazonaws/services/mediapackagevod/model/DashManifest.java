@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,6 +26,12 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class DashManifest implements Serializable, Cloneable, StructuredPojo {
 
+    /**
+     * Determines the position of some tags in the Media Presentation Description (MPD). When set to FULL, elements like
+     * SegmentTemplate and ContentProtection are included in each Representation. When set to COMPACT, duplicate
+     * elements are combined and presented at the AdaptationSet level.
+     */
+    private String manifestLayout;
     /** An optional string to include in the name of the manifest. */
     private String manifestName;
     /** Minimum duration (in seconds) that a player will buffer media before starting the presentation. */
@@ -35,8 +41,80 @@ public class DashManifest implements Serializable, Cloneable, StructuredPojo {
      * is enabled.
      */
     private String profile;
+    /**
+     * The source of scte markers used. When set to SEGMENTS, the scte markers are sourced from the segments of the
+     * ingested content. When set to MANIFEST, the scte markers are sourced from the manifest of the ingested content.
+     */
+    private String scteMarkersSource;
 
     private StreamSelection streamSelection;
+
+    /**
+     * Determines the position of some tags in the Media Presentation Description (MPD). When set to FULL, elements like
+     * SegmentTemplate and ContentProtection are included in each Representation. When set to COMPACT, duplicate
+     * elements are combined and presented at the AdaptationSet level.
+     * 
+     * @param manifestLayout
+     *        Determines the position of some tags in the Media Presentation Description (MPD). When set to FULL,
+     *        elements like SegmentTemplate and ContentProtection are included in each Representation. When set to
+     *        COMPACT, duplicate elements are combined and presented at the AdaptationSet level.
+     * @see ManifestLayout
+     */
+
+    public void setManifestLayout(String manifestLayout) {
+        this.manifestLayout = manifestLayout;
+    }
+
+    /**
+     * Determines the position of some tags in the Media Presentation Description (MPD). When set to FULL, elements like
+     * SegmentTemplate and ContentProtection are included in each Representation. When set to COMPACT, duplicate
+     * elements are combined and presented at the AdaptationSet level.
+     * 
+     * @return Determines the position of some tags in the Media Presentation Description (MPD). When set to FULL,
+     *         elements like SegmentTemplate and ContentProtection are included in each Representation. When set to
+     *         COMPACT, duplicate elements are combined and presented at the AdaptationSet level.
+     * @see ManifestLayout
+     */
+
+    public String getManifestLayout() {
+        return this.manifestLayout;
+    }
+
+    /**
+     * Determines the position of some tags in the Media Presentation Description (MPD). When set to FULL, elements like
+     * SegmentTemplate and ContentProtection are included in each Representation. When set to COMPACT, duplicate
+     * elements are combined and presented at the AdaptationSet level.
+     * 
+     * @param manifestLayout
+     *        Determines the position of some tags in the Media Presentation Description (MPD). When set to FULL,
+     *        elements like SegmentTemplate and ContentProtection are included in each Representation. When set to
+     *        COMPACT, duplicate elements are combined and presented at the AdaptationSet level.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ManifestLayout
+     */
+
+    public DashManifest withManifestLayout(String manifestLayout) {
+        setManifestLayout(manifestLayout);
+        return this;
+    }
+
+    /**
+     * Determines the position of some tags in the Media Presentation Description (MPD). When set to FULL, elements like
+     * SegmentTemplate and ContentProtection are included in each Representation. When set to COMPACT, duplicate
+     * elements are combined and presented at the AdaptationSet level.
+     * 
+     * @param manifestLayout
+     *        Determines the position of some tags in the Media Presentation Description (MPD). When set to FULL,
+     *        elements like SegmentTemplate and ContentProtection are included in each Representation. When set to
+     *        COMPACT, duplicate elements are combined and presented at the AdaptationSet level.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ManifestLayout
+     */
+
+    public DashManifest withManifestLayout(ManifestLayout manifestLayout) {
+        this.manifestLayout = manifestLayout.toString();
+        return this;
+    }
 
     /**
      * An optional string to include in the name of the manifest.
@@ -166,6 +244,69 @@ public class DashManifest implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * The source of scte markers used. When set to SEGMENTS, the scte markers are sourced from the segments of the
+     * ingested content. When set to MANIFEST, the scte markers are sourced from the manifest of the ingested content.
+     * 
+     * @param scteMarkersSource
+     *        The source of scte markers used. When set to SEGMENTS, the scte markers are sourced from the segments of
+     *        the ingested content. When set to MANIFEST, the scte markers are sourced from the manifest of the ingested
+     *        content.
+     * @see ScteMarkersSource
+     */
+
+    public void setScteMarkersSource(String scteMarkersSource) {
+        this.scteMarkersSource = scteMarkersSource;
+    }
+
+    /**
+     * The source of scte markers used. When set to SEGMENTS, the scte markers are sourced from the segments of the
+     * ingested content. When set to MANIFEST, the scte markers are sourced from the manifest of the ingested content.
+     * 
+     * @return The source of scte markers used. When set to SEGMENTS, the scte markers are sourced from the segments of
+     *         the ingested content. When set to MANIFEST, the scte markers are sourced from the manifest of the
+     *         ingested content.
+     * @see ScteMarkersSource
+     */
+
+    public String getScteMarkersSource() {
+        return this.scteMarkersSource;
+    }
+
+    /**
+     * The source of scte markers used. When set to SEGMENTS, the scte markers are sourced from the segments of the
+     * ingested content. When set to MANIFEST, the scte markers are sourced from the manifest of the ingested content.
+     * 
+     * @param scteMarkersSource
+     *        The source of scte markers used. When set to SEGMENTS, the scte markers are sourced from the segments of
+     *        the ingested content. When set to MANIFEST, the scte markers are sourced from the manifest of the ingested
+     *        content.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ScteMarkersSource
+     */
+
+    public DashManifest withScteMarkersSource(String scteMarkersSource) {
+        setScteMarkersSource(scteMarkersSource);
+        return this;
+    }
+
+    /**
+     * The source of scte markers used. When set to SEGMENTS, the scte markers are sourced from the segments of the
+     * ingested content. When set to MANIFEST, the scte markers are sourced from the manifest of the ingested content.
+     * 
+     * @param scteMarkersSource
+     *        The source of scte markers used. When set to SEGMENTS, the scte markers are sourced from the segments of
+     *        the ingested content. When set to MANIFEST, the scte markers are sourced from the manifest of the ingested
+     *        content.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ScteMarkersSource
+     */
+
+    public DashManifest withScteMarkersSource(ScteMarkersSource scteMarkersSource) {
+        this.scteMarkersSource = scteMarkersSource.toString();
+        return this;
+    }
+
+    /**
      * @param streamSelection
      */
 
@@ -203,12 +344,16 @@ public class DashManifest implements Serializable, Cloneable, StructuredPojo {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getManifestLayout() != null)
+            sb.append("ManifestLayout: ").append(getManifestLayout()).append(",");
         if (getManifestName() != null)
             sb.append("ManifestName: ").append(getManifestName()).append(",");
         if (getMinBufferTimeSeconds() != null)
             sb.append("MinBufferTimeSeconds: ").append(getMinBufferTimeSeconds()).append(",");
         if (getProfile() != null)
             sb.append("Profile: ").append(getProfile()).append(",");
+        if (getScteMarkersSource() != null)
+            sb.append("ScteMarkersSource: ").append(getScteMarkersSource()).append(",");
         if (getStreamSelection() != null)
             sb.append("StreamSelection: ").append(getStreamSelection());
         sb.append("}");
@@ -225,6 +370,10 @@ public class DashManifest implements Serializable, Cloneable, StructuredPojo {
         if (obj instanceof DashManifest == false)
             return false;
         DashManifest other = (DashManifest) obj;
+        if (other.getManifestLayout() == null ^ this.getManifestLayout() == null)
+            return false;
+        if (other.getManifestLayout() != null && other.getManifestLayout().equals(this.getManifestLayout()) == false)
+            return false;
         if (other.getManifestName() == null ^ this.getManifestName() == null)
             return false;
         if (other.getManifestName() != null && other.getManifestName().equals(this.getManifestName()) == false)
@@ -236,6 +385,10 @@ public class DashManifest implements Serializable, Cloneable, StructuredPojo {
         if (other.getProfile() == null ^ this.getProfile() == null)
             return false;
         if (other.getProfile() != null && other.getProfile().equals(this.getProfile()) == false)
+            return false;
+        if (other.getScteMarkersSource() == null ^ this.getScteMarkersSource() == null)
+            return false;
+        if (other.getScteMarkersSource() != null && other.getScteMarkersSource().equals(this.getScteMarkersSource()) == false)
             return false;
         if (other.getStreamSelection() == null ^ this.getStreamSelection() == null)
             return false;
@@ -249,9 +402,11 @@ public class DashManifest implements Serializable, Cloneable, StructuredPojo {
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getManifestLayout() == null) ? 0 : getManifestLayout().hashCode());
         hashCode = prime * hashCode + ((getManifestName() == null) ? 0 : getManifestName().hashCode());
         hashCode = prime * hashCode + ((getMinBufferTimeSeconds() == null) ? 0 : getMinBufferTimeSeconds().hashCode());
         hashCode = prime * hashCode + ((getProfile() == null) ? 0 : getProfile().hashCode());
+        hashCode = prime * hashCode + ((getScteMarkersSource() == null) ? 0 : getScteMarkersSource().hashCode());
         hashCode = prime * hashCode + ((getStreamSelection() == null) ? 0 : getStreamSelection().hashCode());
         return hashCode;
     }

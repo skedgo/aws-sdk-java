@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,26 +27,20 @@ public class ListSimulationJobsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The <code>nextToken</code> value returned from a previous paginated <code>ListSimulationJobs</code> request where
-     * <code>maxResults</code> was used and the results exceeded the value of that parameter. Pagination continues from
-     * the end of the previous results that returned the <code>nextToken</code> value.
+     * If the previous paginated request did not return all of the remaining results, the response object's
+     * <code>nextToken</code> parameter value is set to a token. To retrieve the next set of results, call
+     * <code>ListSimulationJobs</code> again and assign that token to the request object's <code>nextToken</code>
+     * parameter. If there are no remaining results, the previous response object's NextToken parameter is set to null.
      * </p>
-     * <note>
-     * <p>
-     * This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and
-     * not for other programmatic purposes.
-     * </p>
-     * </note>
      */
     private String nextToken;
     /**
      * <p>
-     * The maximum number of deployment job results returned by <code>ListSimulationJobs</code> in paginated output.
      * When this parameter is used, <code>ListSimulationJobs</code> only returns <code>maxResults</code> results in a
      * single page along with a <code>nextToken</code> response element. The remaining results of the initial request
      * can be seen by sending another <code>ListSimulationJobs</code> request with the returned <code>nextToken</code>
-     * value. This value can be between 1 and 100. If this parameter is not used, then <code>ListSimulationJobs</code>
-     * returns up to 100 results and a <code>nextToken</code> value if applicable.
+     * value. This value can be between 1 and 1000. If this parameter is not used, then <code>ListSimulationJobs</code>
+     * returns up to 1000 results and a <code>nextToken</code> value if applicable.
      * </p>
      */
     private Integer maxResults;
@@ -65,26 +59,18 @@ public class ListSimulationJobsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The <code>nextToken</code> value returned from a previous paginated <code>ListSimulationJobs</code> request where
-     * <code>maxResults</code> was used and the results exceeded the value of that parameter. Pagination continues from
-     * the end of the previous results that returned the <code>nextToken</code> value.
+     * If the previous paginated request did not return all of the remaining results, the response object's
+     * <code>nextToken</code> parameter value is set to a token. To retrieve the next set of results, call
+     * <code>ListSimulationJobs</code> again and assign that token to the request object's <code>nextToken</code>
+     * parameter. If there are no remaining results, the previous response object's NextToken parameter is set to null.
      * </p>
-     * <note>
-     * <p>
-     * This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and
-     * not for other programmatic purposes.
-     * </p>
-     * </note>
      * 
      * @param nextToken
-     *        The <code>nextToken</code> value returned from a previous paginated <code>ListSimulationJobs</code>
-     *        request where <code>maxResults</code> was used and the results exceeded the value of that parameter.
-     *        Pagination continues from the end of the previous results that returned the <code>nextToken</code> value.
-     *        </p> <note>
-     *        <p>
-     *        This token should be treated as an opaque identifier that is only used to retrieve the next items in a
-     *        list and not for other programmatic purposes.
-     *        </p>
+     *        If the previous paginated request did not return all of the remaining results, the response object's
+     *        <code>nextToken</code> parameter value is set to a token. To retrieve the next set of results, call
+     *        <code>ListSimulationJobs</code> again and assign that token to the request object's <code>nextToken</code>
+     *        parameter. If there are no remaining results, the previous response object's NextToken parameter is set to
+     *        null.
      */
 
     public void setNextToken(String nextToken) {
@@ -93,25 +79,17 @@ public class ListSimulationJobsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The <code>nextToken</code> value returned from a previous paginated <code>ListSimulationJobs</code> request where
-     * <code>maxResults</code> was used and the results exceeded the value of that parameter. Pagination continues from
-     * the end of the previous results that returned the <code>nextToken</code> value.
+     * If the previous paginated request did not return all of the remaining results, the response object's
+     * <code>nextToken</code> parameter value is set to a token. To retrieve the next set of results, call
+     * <code>ListSimulationJobs</code> again and assign that token to the request object's <code>nextToken</code>
+     * parameter. If there are no remaining results, the previous response object's NextToken parameter is set to null.
      * </p>
-     * <note>
-     * <p>
-     * This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and
-     * not for other programmatic purposes.
-     * </p>
-     * </note>
      * 
-     * @return The <code>nextToken</code> value returned from a previous paginated <code>ListSimulationJobs</code>
-     *         request where <code>maxResults</code> was used and the results exceeded the value of that parameter.
-     *         Pagination continues from the end of the previous results that returned the <code>nextToken</code> value.
-     *         </p> <note>
-     *         <p>
-     *         This token should be treated as an opaque identifier that is only used to retrieve the next items in a
-     *         list and not for other programmatic purposes.
-     *         </p>
+     * @return If the previous paginated request did not return all of the remaining results, the response object's
+     *         <code>nextToken</code> parameter value is set to a token. To retrieve the next set of results, call
+     *         <code>ListSimulationJobs</code> again and assign that token to the request object's
+     *         <code>nextToken</code> parameter. If there are no remaining results, the previous response object's
+     *         NextToken parameter is set to null.
      */
 
     public String getNextToken() {
@@ -120,26 +98,18 @@ public class ListSimulationJobsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The <code>nextToken</code> value returned from a previous paginated <code>ListSimulationJobs</code> request where
-     * <code>maxResults</code> was used and the results exceeded the value of that parameter. Pagination continues from
-     * the end of the previous results that returned the <code>nextToken</code> value.
+     * If the previous paginated request did not return all of the remaining results, the response object's
+     * <code>nextToken</code> parameter value is set to a token. To retrieve the next set of results, call
+     * <code>ListSimulationJobs</code> again and assign that token to the request object's <code>nextToken</code>
+     * parameter. If there are no remaining results, the previous response object's NextToken parameter is set to null.
      * </p>
-     * <note>
-     * <p>
-     * This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and
-     * not for other programmatic purposes.
-     * </p>
-     * </note>
      * 
      * @param nextToken
-     *        The <code>nextToken</code> value returned from a previous paginated <code>ListSimulationJobs</code>
-     *        request where <code>maxResults</code> was used and the results exceeded the value of that parameter.
-     *        Pagination continues from the end of the previous results that returned the <code>nextToken</code> value.
-     *        </p> <note>
-     *        <p>
-     *        This token should be treated as an opaque identifier that is only used to retrieve the next items in a
-     *        list and not for other programmatic purposes.
-     *        </p>
+     *        If the previous paginated request did not return all of the remaining results, the response object's
+     *        <code>nextToken</code> parameter value is set to a token. To retrieve the next set of results, call
+     *        <code>ListSimulationJobs</code> again and assign that token to the request object's <code>nextToken</code>
+     *        parameter. If there are no remaining results, the previous response object's NextToken parameter is set to
+     *        null.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -150,21 +120,19 @@ public class ListSimulationJobsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The maximum number of deployment job results returned by <code>ListSimulationJobs</code> in paginated output.
      * When this parameter is used, <code>ListSimulationJobs</code> only returns <code>maxResults</code> results in a
      * single page along with a <code>nextToken</code> response element. The remaining results of the initial request
      * can be seen by sending another <code>ListSimulationJobs</code> request with the returned <code>nextToken</code>
-     * value. This value can be between 1 and 100. If this parameter is not used, then <code>ListSimulationJobs</code>
-     * returns up to 100 results and a <code>nextToken</code> value if applicable.
+     * value. This value can be between 1 and 1000. If this parameter is not used, then <code>ListSimulationJobs</code>
+     * returns up to 1000 results and a <code>nextToken</code> value if applicable.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of deployment job results returned by <code>ListSimulationJobs</code> in paginated
-     *        output. When this parameter is used, <code>ListSimulationJobs</code> only returns <code>maxResults</code>
-     *        results in a single page along with a <code>nextToken</code> response element. The remaining results of
-     *        the initial request can be seen by sending another <code>ListSimulationJobs</code> request with the
-     *        returned <code>nextToken</code> value. This value can be between 1 and 100. If this parameter is not used,
-     *        then <code>ListSimulationJobs</code> returns up to 100 results and a <code>nextToken</code> value if
+     *        When this parameter is used, <code>ListSimulationJobs</code> only returns <code>maxResults</code> results
+     *        in a single page along with a <code>nextToken</code> response element. The remaining results of the
+     *        initial request can be seen by sending another <code>ListSimulationJobs</code> request with the returned
+     *        <code>nextToken</code> value. This value can be between 1 and 1000. If this parameter is not used, then
+     *        <code>ListSimulationJobs</code> returns up to 1000 results and a <code>nextToken</code> value if
      *        applicable.
      */
 
@@ -174,21 +142,19 @@ public class ListSimulationJobsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The maximum number of deployment job results returned by <code>ListSimulationJobs</code> in paginated output.
      * When this parameter is used, <code>ListSimulationJobs</code> only returns <code>maxResults</code> results in a
      * single page along with a <code>nextToken</code> response element. The remaining results of the initial request
      * can be seen by sending another <code>ListSimulationJobs</code> request with the returned <code>nextToken</code>
-     * value. This value can be between 1 and 100. If this parameter is not used, then <code>ListSimulationJobs</code>
-     * returns up to 100 results and a <code>nextToken</code> value if applicable.
+     * value. This value can be between 1 and 1000. If this parameter is not used, then <code>ListSimulationJobs</code>
+     * returns up to 1000 results and a <code>nextToken</code> value if applicable.
      * </p>
      * 
-     * @return The maximum number of deployment job results returned by <code>ListSimulationJobs</code> in paginated
-     *         output. When this parameter is used, <code>ListSimulationJobs</code> only returns <code>maxResults</code>
-     *         results in a single page along with a <code>nextToken</code> response element. The remaining results of
-     *         the initial request can be seen by sending another <code>ListSimulationJobs</code> request with the
-     *         returned <code>nextToken</code> value. This value can be between 1 and 100. If this parameter is not
-     *         used, then <code>ListSimulationJobs</code> returns up to 100 results and a <code>nextToken</code> value
-     *         if applicable.
+     * @return When this parameter is used, <code>ListSimulationJobs</code> only returns <code>maxResults</code> results
+     *         in a single page along with a <code>nextToken</code> response element. The remaining results of the
+     *         initial request can be seen by sending another <code>ListSimulationJobs</code> request with the returned
+     *         <code>nextToken</code> value. This value can be between 1 and 1000. If this parameter is not used, then
+     *         <code>ListSimulationJobs</code> returns up to 1000 results and a <code>nextToken</code> value if
+     *         applicable.
      */
 
     public Integer getMaxResults() {
@@ -197,21 +163,19 @@ public class ListSimulationJobsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The maximum number of deployment job results returned by <code>ListSimulationJobs</code> in paginated output.
      * When this parameter is used, <code>ListSimulationJobs</code> only returns <code>maxResults</code> results in a
      * single page along with a <code>nextToken</code> response element. The remaining results of the initial request
      * can be seen by sending another <code>ListSimulationJobs</code> request with the returned <code>nextToken</code>
-     * value. This value can be between 1 and 100. If this parameter is not used, then <code>ListSimulationJobs</code>
-     * returns up to 100 results and a <code>nextToken</code> value if applicable.
+     * value. This value can be between 1 and 1000. If this parameter is not used, then <code>ListSimulationJobs</code>
+     * returns up to 1000 results and a <code>nextToken</code> value if applicable.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of deployment job results returned by <code>ListSimulationJobs</code> in paginated
-     *        output. When this parameter is used, <code>ListSimulationJobs</code> only returns <code>maxResults</code>
-     *        results in a single page along with a <code>nextToken</code> response element. The remaining results of
-     *        the initial request can be seen by sending another <code>ListSimulationJobs</code> request with the
-     *        returned <code>nextToken</code> value. This value can be between 1 and 100. If this parameter is not used,
-     *        then <code>ListSimulationJobs</code> returns up to 100 results and a <code>nextToken</code> value if
+     *        When this parameter is used, <code>ListSimulationJobs</code> only returns <code>maxResults</code> results
+     *        in a single page along with a <code>nextToken</code> response element. The remaining results of the
+     *        initial request can be seen by sending another <code>ListSimulationJobs</code> request with the returned
+     *        <code>nextToken</code> value. This value can be between 1 and 1000. If this parameter is not used, then
+     *        <code>ListSimulationJobs</code> returns up to 1000 results and a <code>nextToken</code> value if
      *        applicable.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

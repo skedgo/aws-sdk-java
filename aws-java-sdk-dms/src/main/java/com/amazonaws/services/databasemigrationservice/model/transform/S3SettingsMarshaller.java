@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -65,6 +65,50 @@ public class S3SettingsMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CdcInsertsOnly").build();
     private static final MarshallingInfo<String> TIMESTAMPCOLUMNNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TimestampColumnName").build();
+    private static final MarshallingInfo<Boolean> PARQUETTIMESTAMPINMILLISECOND_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ParquetTimestampInMillisecond").build();
+    private static final MarshallingInfo<Boolean> CDCINSERTSANDUPDATES_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CdcInsertsAndUpdates").build();
+    private static final MarshallingInfo<Boolean> DATEPARTITIONENABLED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DatePartitionEnabled").build();
+    private static final MarshallingInfo<String> DATEPARTITIONSEQUENCE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DatePartitionSequence").build();
+    private static final MarshallingInfo<String> DATEPARTITIONDELIMITER_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DatePartitionDelimiter").build();
+    private static final MarshallingInfo<Boolean> USECSVNOSUPVALUE_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("UseCsvNoSupValue").build();
+    private static final MarshallingInfo<String> CSVNOSUPVALUE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CsvNoSupValue").build();
+    private static final MarshallingInfo<Boolean> PRESERVETRANSACTIONS_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PreserveTransactions").build();
+    private static final MarshallingInfo<String> CDCPATH_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("CdcPath").build();
+    private static final MarshallingInfo<Boolean> USETASKSTARTTIMEFORFULLLOADTIMESTAMP_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("UseTaskStartTimeForFullLoadTimestamp").build();
+    private static final MarshallingInfo<String> CANNEDACLFOROBJECTS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CannedAclForObjects").build();
+    private static final MarshallingInfo<Boolean> ADDCOLUMNNAME_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AddColumnName").build();
+    private static final MarshallingInfo<Integer> CDCMAXBATCHINTERVAL_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CdcMaxBatchInterval").build();
+    private static final MarshallingInfo<Integer> CDCMINFILESIZE_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CdcMinFileSize").build();
+    private static final MarshallingInfo<String> CSVNULLVALUE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CsvNullValue").build();
+    private static final MarshallingInfo<Integer> IGNOREHEADERROWS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IgnoreHeaderRows").build();
+    private static final MarshallingInfo<Integer> MAXFILESIZE_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MaxFileSize").build();
+    private static final MarshallingInfo<Boolean> RFC4180_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Rfc4180").build();
+    private static final MarshallingInfo<String> DATEPARTITIONTIMEZONE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DatePartitionTimezone").build();
+    private static final MarshallingInfo<Boolean> ADDTRAILINGPADDINGCHARACTER_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AddTrailingPaddingCharacter").build();
+    private static final MarshallingInfo<String> EXPECTEDBUCKETOWNER_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ExpectedBucketOwner").build();
+    private static final MarshallingInfo<Boolean> GLUECATALOGGENERATION_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("GlueCatalogGeneration").build();
 
     private static final S3SettingsMarshaller instance = new S3SettingsMarshaller();
 
@@ -101,6 +145,28 @@ public class S3SettingsMarshaller {
             protocolMarshaller.marshall(s3Settings.getIncludeOpForFullLoad(), INCLUDEOPFORFULLLOAD_BINDING);
             protocolMarshaller.marshall(s3Settings.getCdcInsertsOnly(), CDCINSERTSONLY_BINDING);
             protocolMarshaller.marshall(s3Settings.getTimestampColumnName(), TIMESTAMPCOLUMNNAME_BINDING);
+            protocolMarshaller.marshall(s3Settings.getParquetTimestampInMillisecond(), PARQUETTIMESTAMPINMILLISECOND_BINDING);
+            protocolMarshaller.marshall(s3Settings.getCdcInsertsAndUpdates(), CDCINSERTSANDUPDATES_BINDING);
+            protocolMarshaller.marshall(s3Settings.getDatePartitionEnabled(), DATEPARTITIONENABLED_BINDING);
+            protocolMarshaller.marshall(s3Settings.getDatePartitionSequence(), DATEPARTITIONSEQUENCE_BINDING);
+            protocolMarshaller.marshall(s3Settings.getDatePartitionDelimiter(), DATEPARTITIONDELIMITER_BINDING);
+            protocolMarshaller.marshall(s3Settings.getUseCsvNoSupValue(), USECSVNOSUPVALUE_BINDING);
+            protocolMarshaller.marshall(s3Settings.getCsvNoSupValue(), CSVNOSUPVALUE_BINDING);
+            protocolMarshaller.marshall(s3Settings.getPreserveTransactions(), PRESERVETRANSACTIONS_BINDING);
+            protocolMarshaller.marshall(s3Settings.getCdcPath(), CDCPATH_BINDING);
+            protocolMarshaller.marshall(s3Settings.getUseTaskStartTimeForFullLoadTimestamp(), USETASKSTARTTIMEFORFULLLOADTIMESTAMP_BINDING);
+            protocolMarshaller.marshall(s3Settings.getCannedAclForObjects(), CANNEDACLFOROBJECTS_BINDING);
+            protocolMarshaller.marshall(s3Settings.getAddColumnName(), ADDCOLUMNNAME_BINDING);
+            protocolMarshaller.marshall(s3Settings.getCdcMaxBatchInterval(), CDCMAXBATCHINTERVAL_BINDING);
+            protocolMarshaller.marshall(s3Settings.getCdcMinFileSize(), CDCMINFILESIZE_BINDING);
+            protocolMarshaller.marshall(s3Settings.getCsvNullValue(), CSVNULLVALUE_BINDING);
+            protocolMarshaller.marshall(s3Settings.getIgnoreHeaderRows(), IGNOREHEADERROWS_BINDING);
+            protocolMarshaller.marshall(s3Settings.getMaxFileSize(), MAXFILESIZE_BINDING);
+            protocolMarshaller.marshall(s3Settings.getRfc4180(), RFC4180_BINDING);
+            protocolMarshaller.marshall(s3Settings.getDatePartitionTimezone(), DATEPARTITIONTIMEZONE_BINDING);
+            protocolMarshaller.marshall(s3Settings.getAddTrailingPaddingCharacter(), ADDTRAILINGPADDINGCHARACTER_BINDING);
+            protocolMarshaller.marshall(s3Settings.getExpectedBucketOwner(), EXPECTEDBUCKETOWNER_BINDING);
+            protocolMarshaller.marshall(s3Settings.getGlueCatalogGeneration(), GLUECATALOGGENERATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

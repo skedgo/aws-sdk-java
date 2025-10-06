@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,6 +43,16 @@ public class ListBackupJobsRequestMarshaller {
             .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("createdAfter").timestampFormat("iso8601").build();
     private static final MarshallingInfo<String> BYRESOURCETYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("resourceType").build();
+    private static final MarshallingInfo<String> BYACCOUNTID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("accountId").build();
+    private static final MarshallingInfo<java.util.Date> BYCOMPLETEAFTER_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("completeAfter").timestampFormat("iso8601").build();
+    private static final MarshallingInfo<java.util.Date> BYCOMPLETEBEFORE_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("completeBefore").timestampFormat("iso8601").build();
+    private static final MarshallingInfo<String> BYPARENTJOBID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("parentJobId").build();
+    private static final MarshallingInfo<String> BYMESSAGECATEGORY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("messageCategory").build();
 
     private static final ListBackupJobsRequestMarshaller instance = new ListBackupJobsRequestMarshaller();
 
@@ -68,6 +78,11 @@ public class ListBackupJobsRequestMarshaller {
             protocolMarshaller.marshall(listBackupJobsRequest.getByCreatedBefore(), BYCREATEDBEFORE_BINDING);
             protocolMarshaller.marshall(listBackupJobsRequest.getByCreatedAfter(), BYCREATEDAFTER_BINDING);
             protocolMarshaller.marshall(listBackupJobsRequest.getByResourceType(), BYRESOURCETYPE_BINDING);
+            protocolMarshaller.marshall(listBackupJobsRequest.getByAccountId(), BYACCOUNTID_BINDING);
+            protocolMarshaller.marshall(listBackupJobsRequest.getByCompleteAfter(), BYCOMPLETEAFTER_BINDING);
+            protocolMarshaller.marshall(listBackupJobsRequest.getByCompleteBefore(), BYCOMPLETEBEFORE_BINDING);
+            protocolMarshaller.marshall(listBackupJobsRequest.getByParentJobId(), BYPARENTJOBID_BINDING);
+            protocolMarshaller.marshall(listBackupJobsRequest.getByMessageCategory(), BYMESSAGECATEGORY_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

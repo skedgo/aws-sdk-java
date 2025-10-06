@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,7 @@ import javax.annotation.Generated;
  * Contains the details of an Amazon Neptune DB cluster.
  * </p>
  * <p>
- * This data type is used as a response element in the <a>DescribeDBClusters</a> action.
+ * This data type is used as a response element in the <a>DescribeDBClusters</a>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/DBCluster" target="_top">AWS API
@@ -50,7 +50,7 @@ public class DBCluster implements Serializable, Cloneable {
     private Integer backupRetentionPeriod;
     /**
      * <p>
-     * If present, specifies the name of the character set that this cluster is associated with.
+     * Not supported by Neptune.
      * </p>
      */
     private String characterSetName;
@@ -150,13 +150,13 @@ public class DBCluster implements Serializable, Cloneable {
     private Integer port;
     /**
      * <p>
-     * Contains the master username for the DB cluster.
+     * Not supported by Neptune.
      * </p>
      */
     private String masterUsername;
     /**
      * <p>
-     * Provides the list of option group memberships for this DB cluster.
+     * Not supported by Neptune.
      * </p>
      */
     private java.util.List<DBClusterOptionGroupStatus> dBClusterOptionGroupMemberships;
@@ -211,14 +211,14 @@ public class DBCluster implements Serializable, Cloneable {
     private Boolean storageEncrypted;
     /**
      * <p>
-     * If <code>StorageEncrypted</code> is true, the AWS KMS key identifier for the encrypted DB cluster.
+     * If <code>StorageEncrypted</code> is true, the Amazon KMS key identifier for the encrypted DB cluster.
      * </p>
      */
     private String kmsKeyId;
     /**
      * <p>
-     * The AWS Region-unique, immutable identifier for the DB cluster. This identifier is found in AWS CloudTrail log
-     * entries whenever the AWS KMS key for the DB cluster is accessed.
+     * The Amazon Region-unique, immutable identifier for the DB cluster. This identifier is found in Amazon CloudTrail
+     * log entries whenever the Amazon KMS key for the DB cluster is accessed.
      * </p>
      */
     private String dbClusterResourceId;
@@ -230,15 +230,15 @@ public class DBCluster implements Serializable, Cloneable {
     private String dBClusterArn;
     /**
      * <p>
-     * Provides a list of the AWS Identity and Access Management (IAM) roles that are associated with the DB cluster.
-     * IAM roles that are associated with a DB cluster grant permission for the DB cluster to access other AWS services
-     * on your behalf.
+     * Provides a list of the Amazon Identity and Access Management (IAM) roles that are associated with the DB cluster.
+     * IAM roles that are associated with a DB cluster grant permission for the DB cluster to access other Amazon
+     * services on your behalf.
      * </p>
      */
     private java.util.List<DBClusterRole> associatedRoles;
     /**
      * <p>
-     * True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
+     * True if mapping of Amazon Identity and Access Management (IAM) accounts to database accounts is enabled, and
      * otherwise false.
      * </p>
      */
@@ -257,10 +257,75 @@ public class DBCluster implements Serializable, Cloneable {
     private java.util.Date clusterCreateTime;
     /**
      * <p>
-     * A list of log types that this DB cluster is configured to export to CloudWatch Logs.
+     * <i>If set to <code>true</code>, tags are copied to any snapshot of the DB cluster that is created.</i>
+     * </p>
+     */
+    private Boolean copyTagsToSnapshot;
+    /**
+     * <p>
+     * A list of the log types that this DB cluster is configured to export to CloudWatch Logs. Valid log types are:
+     * <code>audit</code> (to publish audit logs to CloudWatch) and slowquery (to publish slow-query logs to
+     * CloudWatch). See <a href="https://docs.aws.amazon.com/neptune/latest/userguide/cloudwatch-logs.html">Publishing
+     * Neptune logs to Amazon CloudWatch logs</a>.
      * </p>
      */
     private java.util.List<String> enabledCloudwatchLogsExports;
+    /**
+     * <p>
+     * This data type is used as a response element in the <code>ModifyDBCluster</code> operation and contains changes
+     * that will be applied during the next maintenance window.
+     * </p>
+     */
+    private ClusterPendingModifiedValues pendingModifiedValues;
+    /**
+     * <p>
+     * Indicates whether or not the DB cluster has deletion protection enabled. The database can't be deleted when
+     * deletion protection is enabled.
+     * </p>
+     */
+    private Boolean deletionProtection;
+    /**
+     * <p>
+     * If set to <code>true</code>, the DB cluster can be cloned across accounts.
+     * </p>
+     */
+    private Boolean crossAccountClone;
+    /**
+     * <p>
+     * Time at which the DB cluster will be automatically restarted.
+     * </p>
+     */
+    private java.util.Date automaticRestartTime;
+    /**
+     * <p>
+     * Shows the scaling configuration for a Neptune Serverless DB cluster.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/neptune/latest/userguide/neptune-serverless-using.html">Using Amazon Neptune
+     * Serverless</a> in the <i>Amazon Neptune User Guide</i>.
+     * </p>
+     */
+    private ServerlessV2ScalingConfigurationInfo serverlessV2ScalingConfiguration;
+    /**
+     * <p>
+     * Contains a user-supplied global database cluster identifier. This identifier is the unique key that identifies a
+     * global database.
+     * </p>
+     */
+    private String globalClusterIdentifier;
+    /**
+     * <p>
+     * The next time you can modify the DB cluster to use the <code>iopt1</code> storage type.
+     * </p>
+     */
+    private java.util.Date iOOptimizedNextAllowedModificationTime;
+    /**
+     * <p>
+     * The storage type associated with the DB cluster.
+     * </p>
+     */
+    private String storageType;
 
     /**
      * <p>
@@ -420,11 +485,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If present, specifies the name of the character set that this cluster is associated with.
+     * Not supported by Neptune.
      * </p>
      * 
      * @param characterSetName
-     *        If present, specifies the name of the character set that this cluster is associated with.
+     *        Not supported by Neptune.
      */
 
     public void setCharacterSetName(String characterSetName) {
@@ -433,10 +498,10 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If present, specifies the name of the character set that this cluster is associated with.
+     * Not supported by Neptune.
      * </p>
      * 
-     * @return If present, specifies the name of the character set that this cluster is associated with.
+     * @return Not supported by Neptune.
      */
 
     public String getCharacterSetName() {
@@ -445,11 +510,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If present, specifies the name of the character set that this cluster is associated with.
+     * Not supported by Neptune.
      * </p>
      * 
      * @param characterSetName
-     *        If present, specifies the name of the character set that this cluster is associated with.
+     *        Not supported by Neptune.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1095,11 +1160,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the master username for the DB cluster.
+     * Not supported by Neptune.
      * </p>
      * 
      * @param masterUsername
-     *        Contains the master username for the DB cluster.
+     *        Not supported by Neptune.
      */
 
     public void setMasterUsername(String masterUsername) {
@@ -1108,10 +1173,10 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the master username for the DB cluster.
+     * Not supported by Neptune.
      * </p>
      * 
-     * @return Contains the master username for the DB cluster.
+     * @return Not supported by Neptune.
      */
 
     public String getMasterUsername() {
@@ -1120,11 +1185,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the master username for the DB cluster.
+     * Not supported by Neptune.
      * </p>
      * 
      * @param masterUsername
-     *        Contains the master username for the DB cluster.
+     *        Not supported by Neptune.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1135,10 +1200,10 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the list of option group memberships for this DB cluster.
+     * Not supported by Neptune.
      * </p>
      * 
-     * @return Provides the list of option group memberships for this DB cluster.
+     * @return Not supported by Neptune.
      */
 
     public java.util.List<DBClusterOptionGroupStatus> getDBClusterOptionGroupMemberships() {
@@ -1147,11 +1212,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the list of option group memberships for this DB cluster.
+     * Not supported by Neptune.
      * </p>
      * 
      * @param dBClusterOptionGroupMemberships
-     *        Provides the list of option group memberships for this DB cluster.
+     *        Not supported by Neptune.
      */
 
     public void setDBClusterOptionGroupMemberships(java.util.Collection<DBClusterOptionGroupStatus> dBClusterOptionGroupMemberships) {
@@ -1165,7 +1230,7 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the list of option group memberships for this DB cluster.
+     * Not supported by Neptune.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1174,7 +1239,7 @@ public class DBCluster implements Serializable, Cloneable {
      * </p>
      * 
      * @param dBClusterOptionGroupMemberships
-     *        Provides the list of option group memberships for this DB cluster.
+     *        Not supported by Neptune.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1190,11 +1255,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the list of option group memberships for this DB cluster.
+     * Not supported by Neptune.
      * </p>
      * 
      * @param dBClusterOptionGroupMemberships
-     *        Provides the list of option group memberships for this DB cluster.
+     *        Not supported by Neptune.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1636,11 +1701,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If <code>StorageEncrypted</code> is true, the AWS KMS key identifier for the encrypted DB cluster.
+     * If <code>StorageEncrypted</code> is true, the Amazon KMS key identifier for the encrypted DB cluster.
      * </p>
      * 
      * @param kmsKeyId
-     *        If <code>StorageEncrypted</code> is true, the AWS KMS key identifier for the encrypted DB cluster.
+     *        If <code>StorageEncrypted</code> is true, the Amazon KMS key identifier for the encrypted DB cluster.
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -1649,10 +1714,10 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If <code>StorageEncrypted</code> is true, the AWS KMS key identifier for the encrypted DB cluster.
+     * If <code>StorageEncrypted</code> is true, the Amazon KMS key identifier for the encrypted DB cluster.
      * </p>
      * 
-     * @return If <code>StorageEncrypted</code> is true, the AWS KMS key identifier for the encrypted DB cluster.
+     * @return If <code>StorageEncrypted</code> is true, the Amazon KMS key identifier for the encrypted DB cluster.
      */
 
     public String getKmsKeyId() {
@@ -1661,11 +1726,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If <code>StorageEncrypted</code> is true, the AWS KMS key identifier for the encrypted DB cluster.
+     * If <code>StorageEncrypted</code> is true, the Amazon KMS key identifier for the encrypted DB cluster.
      * </p>
      * 
      * @param kmsKeyId
-     *        If <code>StorageEncrypted</code> is true, the AWS KMS key identifier for the encrypted DB cluster.
+     *        If <code>StorageEncrypted</code> is true, the Amazon KMS key identifier for the encrypted DB cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1676,13 +1741,13 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Region-unique, immutable identifier for the DB cluster. This identifier is found in AWS CloudTrail log
-     * entries whenever the AWS KMS key for the DB cluster is accessed.
+     * The Amazon Region-unique, immutable identifier for the DB cluster. This identifier is found in Amazon CloudTrail
+     * log entries whenever the Amazon KMS key for the DB cluster is accessed.
      * </p>
      * 
      * @param dbClusterResourceId
-     *        The AWS Region-unique, immutable identifier for the DB cluster. This identifier is found in AWS CloudTrail
-     *        log entries whenever the AWS KMS key for the DB cluster is accessed.
+     *        The Amazon Region-unique, immutable identifier for the DB cluster. This identifier is found in Amazon
+     *        CloudTrail log entries whenever the Amazon KMS key for the DB cluster is accessed.
      */
 
     public void setDbClusterResourceId(String dbClusterResourceId) {
@@ -1691,12 +1756,12 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Region-unique, immutable identifier for the DB cluster. This identifier is found in AWS CloudTrail log
-     * entries whenever the AWS KMS key for the DB cluster is accessed.
+     * The Amazon Region-unique, immutable identifier for the DB cluster. This identifier is found in Amazon CloudTrail
+     * log entries whenever the Amazon KMS key for the DB cluster is accessed.
      * </p>
      * 
-     * @return The AWS Region-unique, immutable identifier for the DB cluster. This identifier is found in AWS
-     *         CloudTrail log entries whenever the AWS KMS key for the DB cluster is accessed.
+     * @return The Amazon Region-unique, immutable identifier for the DB cluster. This identifier is found in Amazon
+     *         CloudTrail log entries whenever the Amazon KMS key for the DB cluster is accessed.
      */
 
     public String getDbClusterResourceId() {
@@ -1705,13 +1770,13 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Region-unique, immutable identifier for the DB cluster. This identifier is found in AWS CloudTrail log
-     * entries whenever the AWS KMS key for the DB cluster is accessed.
+     * The Amazon Region-unique, immutable identifier for the DB cluster. This identifier is found in Amazon CloudTrail
+     * log entries whenever the Amazon KMS key for the DB cluster is accessed.
      * </p>
      * 
      * @param dbClusterResourceId
-     *        The AWS Region-unique, immutable identifier for the DB cluster. This identifier is found in AWS CloudTrail
-     *        log entries whenever the AWS KMS key for the DB cluster is accessed.
+     *        The Amazon Region-unique, immutable identifier for the DB cluster. This identifier is found in Amazon
+     *        CloudTrail log entries whenever the Amazon KMS key for the DB cluster is accessed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1762,14 +1827,14 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides a list of the AWS Identity and Access Management (IAM) roles that are associated with the DB cluster.
-     * IAM roles that are associated with a DB cluster grant permission for the DB cluster to access other AWS services
-     * on your behalf.
+     * Provides a list of the Amazon Identity and Access Management (IAM) roles that are associated with the DB cluster.
+     * IAM roles that are associated with a DB cluster grant permission for the DB cluster to access other Amazon
+     * services on your behalf.
      * </p>
      * 
-     * @return Provides a list of the AWS Identity and Access Management (IAM) roles that are associated with the DB
+     * @return Provides a list of the Amazon Identity and Access Management (IAM) roles that are associated with the DB
      *         cluster. IAM roles that are associated with a DB cluster grant permission for the DB cluster to access
-     *         other AWS services on your behalf.
+     *         other Amazon services on your behalf.
      */
 
     public java.util.List<DBClusterRole> getAssociatedRoles() {
@@ -1778,15 +1843,15 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides a list of the AWS Identity and Access Management (IAM) roles that are associated with the DB cluster.
-     * IAM roles that are associated with a DB cluster grant permission for the DB cluster to access other AWS services
-     * on your behalf.
+     * Provides a list of the Amazon Identity and Access Management (IAM) roles that are associated with the DB cluster.
+     * IAM roles that are associated with a DB cluster grant permission for the DB cluster to access other Amazon
+     * services on your behalf.
      * </p>
      * 
      * @param associatedRoles
-     *        Provides a list of the AWS Identity and Access Management (IAM) roles that are associated with the DB
+     *        Provides a list of the Amazon Identity and Access Management (IAM) roles that are associated with the DB
      *        cluster. IAM roles that are associated with a DB cluster grant permission for the DB cluster to access
-     *        other AWS services on your behalf.
+     *        other Amazon services on your behalf.
      */
 
     public void setAssociatedRoles(java.util.Collection<DBClusterRole> associatedRoles) {
@@ -1800,9 +1865,9 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides a list of the AWS Identity and Access Management (IAM) roles that are associated with the DB cluster.
-     * IAM roles that are associated with a DB cluster grant permission for the DB cluster to access other AWS services
-     * on your behalf.
+     * Provides a list of the Amazon Identity and Access Management (IAM) roles that are associated with the DB cluster.
+     * IAM roles that are associated with a DB cluster grant permission for the DB cluster to access other Amazon
+     * services on your behalf.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1811,9 +1876,9 @@ public class DBCluster implements Serializable, Cloneable {
      * </p>
      * 
      * @param associatedRoles
-     *        Provides a list of the AWS Identity and Access Management (IAM) roles that are associated with the DB
+     *        Provides a list of the Amazon Identity and Access Management (IAM) roles that are associated with the DB
      *        cluster. IAM roles that are associated with a DB cluster grant permission for the DB cluster to access
-     *        other AWS services on your behalf.
+     *        other Amazon services on your behalf.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1829,15 +1894,15 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides a list of the AWS Identity and Access Management (IAM) roles that are associated with the DB cluster.
-     * IAM roles that are associated with a DB cluster grant permission for the DB cluster to access other AWS services
-     * on your behalf.
+     * Provides a list of the Amazon Identity and Access Management (IAM) roles that are associated with the DB cluster.
+     * IAM roles that are associated with a DB cluster grant permission for the DB cluster to access other Amazon
+     * services on your behalf.
      * </p>
      * 
      * @param associatedRoles
-     *        Provides a list of the AWS Identity and Access Management (IAM) roles that are associated with the DB
+     *        Provides a list of the Amazon Identity and Access Management (IAM) roles that are associated with the DB
      *        cluster. IAM roles that are associated with a DB cluster grant permission for the DB cluster to access
-     *        other AWS services on your behalf.
+     *        other Amazon services on your behalf.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1848,13 +1913,13 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
+     * True if mapping of Amazon Identity and Access Management (IAM) accounts to database accounts is enabled, and
      * otherwise false.
      * </p>
      * 
      * @param iAMDatabaseAuthenticationEnabled
-     *        True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
-     *        otherwise false.
+     *        True if mapping of Amazon Identity and Access Management (IAM) accounts to database accounts is enabled,
+     *        and otherwise false.
      */
 
     public void setIAMDatabaseAuthenticationEnabled(Boolean iAMDatabaseAuthenticationEnabled) {
@@ -1863,12 +1928,12 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
+     * True if mapping of Amazon Identity and Access Management (IAM) accounts to database accounts is enabled, and
      * otherwise false.
      * </p>
      * 
-     * @return True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
-     *         otherwise false.
+     * @return True if mapping of Amazon Identity and Access Management (IAM) accounts to database accounts is enabled,
+     *         and otherwise false.
      */
 
     public Boolean getIAMDatabaseAuthenticationEnabled() {
@@ -1877,13 +1942,13 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
+     * True if mapping of Amazon Identity and Access Management (IAM) accounts to database accounts is enabled, and
      * otherwise false.
      * </p>
      * 
      * @param iAMDatabaseAuthenticationEnabled
-     *        True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
-     *        otherwise false.
+     *        True if mapping of Amazon Identity and Access Management (IAM) accounts to database accounts is enabled,
+     *        and otherwise false.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1894,12 +1959,12 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
+     * True if mapping of Amazon Identity and Access Management (IAM) accounts to database accounts is enabled, and
      * otherwise false.
      * </p>
      * 
-     * @return True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
-     *         otherwise false.
+     * @return True if mapping of Amazon Identity and Access Management (IAM) accounts to database accounts is enabled,
+     *         and otherwise false.
      */
 
     public Boolean isIAMDatabaseAuthenticationEnabled() {
@@ -1988,10 +2053,69 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of log types that this DB cluster is configured to export to CloudWatch Logs.
+     * <i>If set to <code>true</code>, tags are copied to any snapshot of the DB cluster that is created.</i>
      * </p>
      * 
-     * @return A list of log types that this DB cluster is configured to export to CloudWatch Logs.
+     * @param copyTagsToSnapshot
+     *        <i>If set to <code>true</code>, tags are copied to any snapshot of the DB cluster that is created.</i>
+     */
+
+    public void setCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
+        this.copyTagsToSnapshot = copyTagsToSnapshot;
+    }
+
+    /**
+     * <p>
+     * <i>If set to <code>true</code>, tags are copied to any snapshot of the DB cluster that is created.</i>
+     * </p>
+     * 
+     * @return <i>If set to <code>true</code>, tags are copied to any snapshot of the DB cluster that is created.</i>
+     */
+
+    public Boolean getCopyTagsToSnapshot() {
+        return this.copyTagsToSnapshot;
+    }
+
+    /**
+     * <p>
+     * <i>If set to <code>true</code>, tags are copied to any snapshot of the DB cluster that is created.</i>
+     * </p>
+     * 
+     * @param copyTagsToSnapshot
+     *        <i>If set to <code>true</code>, tags are copied to any snapshot of the DB cluster that is created.</i>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBCluster withCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
+        setCopyTagsToSnapshot(copyTagsToSnapshot);
+        return this;
+    }
+
+    /**
+     * <p>
+     * <i>If set to <code>true</code>, tags are copied to any snapshot of the DB cluster that is created.</i>
+     * </p>
+     * 
+     * @return <i>If set to <code>true</code>, tags are copied to any snapshot of the DB cluster that is created.</i>
+     */
+
+    public Boolean isCopyTagsToSnapshot() {
+        return this.copyTagsToSnapshot;
+    }
+
+    /**
+     * <p>
+     * A list of the log types that this DB cluster is configured to export to CloudWatch Logs. Valid log types are:
+     * <code>audit</code> (to publish audit logs to CloudWatch) and slowquery (to publish slow-query logs to
+     * CloudWatch). See <a href="https://docs.aws.amazon.com/neptune/latest/userguide/cloudwatch-logs.html">Publishing
+     * Neptune logs to Amazon CloudWatch logs</a>.
+     * </p>
+     * 
+     * @return A list of the log types that this DB cluster is configured to export to CloudWatch Logs. Valid log types
+     *         are: <code>audit</code> (to publish audit logs to CloudWatch) and slowquery (to publish slow-query logs
+     *         to CloudWatch). See <a
+     *         href="https://docs.aws.amazon.com/neptune/latest/userguide/cloudwatch-logs.html">Publishing Neptune logs
+     *         to Amazon CloudWatch logs</a>.
      */
 
     public java.util.List<String> getEnabledCloudwatchLogsExports() {
@@ -2000,11 +2124,18 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of log types that this DB cluster is configured to export to CloudWatch Logs.
+     * A list of the log types that this DB cluster is configured to export to CloudWatch Logs. Valid log types are:
+     * <code>audit</code> (to publish audit logs to CloudWatch) and slowquery (to publish slow-query logs to
+     * CloudWatch). See <a href="https://docs.aws.amazon.com/neptune/latest/userguide/cloudwatch-logs.html">Publishing
+     * Neptune logs to Amazon CloudWatch logs</a>.
      * </p>
      * 
      * @param enabledCloudwatchLogsExports
-     *        A list of log types that this DB cluster is configured to export to CloudWatch Logs.
+     *        A list of the log types that this DB cluster is configured to export to CloudWatch Logs. Valid log types
+     *        are: <code>audit</code> (to publish audit logs to CloudWatch) and slowquery (to publish slow-query logs to
+     *        CloudWatch). See <a
+     *        href="https://docs.aws.amazon.com/neptune/latest/userguide/cloudwatch-logs.html">Publishing Neptune logs
+     *        to Amazon CloudWatch logs</a>.
      */
 
     public void setEnabledCloudwatchLogsExports(java.util.Collection<String> enabledCloudwatchLogsExports) {
@@ -2018,7 +2149,10 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of log types that this DB cluster is configured to export to CloudWatch Logs.
+     * A list of the log types that this DB cluster is configured to export to CloudWatch Logs. Valid log types are:
+     * <code>audit</code> (to publish audit logs to CloudWatch) and slowquery (to publish slow-query logs to
+     * CloudWatch). See <a href="https://docs.aws.amazon.com/neptune/latest/userguide/cloudwatch-logs.html">Publishing
+     * Neptune logs to Amazon CloudWatch logs</a>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -2027,7 +2161,11 @@ public class DBCluster implements Serializable, Cloneable {
      * </p>
      * 
      * @param enabledCloudwatchLogsExports
-     *        A list of log types that this DB cluster is configured to export to CloudWatch Logs.
+     *        A list of the log types that this DB cluster is configured to export to CloudWatch Logs. Valid log types
+     *        are: <code>audit</code> (to publish audit logs to CloudWatch) and slowquery (to publish slow-query logs to
+     *        CloudWatch). See <a
+     *        href="https://docs.aws.amazon.com/neptune/latest/userguide/cloudwatch-logs.html">Publishing Neptune logs
+     *        to Amazon CloudWatch logs</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2043,16 +2181,414 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of log types that this DB cluster is configured to export to CloudWatch Logs.
+     * A list of the log types that this DB cluster is configured to export to CloudWatch Logs. Valid log types are:
+     * <code>audit</code> (to publish audit logs to CloudWatch) and slowquery (to publish slow-query logs to
+     * CloudWatch). See <a href="https://docs.aws.amazon.com/neptune/latest/userguide/cloudwatch-logs.html">Publishing
+     * Neptune logs to Amazon CloudWatch logs</a>.
      * </p>
      * 
      * @param enabledCloudwatchLogsExports
-     *        A list of log types that this DB cluster is configured to export to CloudWatch Logs.
+     *        A list of the log types that this DB cluster is configured to export to CloudWatch Logs. Valid log types
+     *        are: <code>audit</code> (to publish audit logs to CloudWatch) and slowquery (to publish slow-query logs to
+     *        CloudWatch). See <a
+     *        href="https://docs.aws.amazon.com/neptune/latest/userguide/cloudwatch-logs.html">Publishing Neptune logs
+     *        to Amazon CloudWatch logs</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DBCluster withEnabledCloudwatchLogsExports(java.util.Collection<String> enabledCloudwatchLogsExports) {
         setEnabledCloudwatchLogsExports(enabledCloudwatchLogsExports);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This data type is used as a response element in the <code>ModifyDBCluster</code> operation and contains changes
+     * that will be applied during the next maintenance window.
+     * </p>
+     * 
+     * @param pendingModifiedValues
+     *        This data type is used as a response element in the <code>ModifyDBCluster</code> operation and contains
+     *        changes that will be applied during the next maintenance window.
+     */
+
+    public void setPendingModifiedValues(ClusterPendingModifiedValues pendingModifiedValues) {
+        this.pendingModifiedValues = pendingModifiedValues;
+    }
+
+    /**
+     * <p>
+     * This data type is used as a response element in the <code>ModifyDBCluster</code> operation and contains changes
+     * that will be applied during the next maintenance window.
+     * </p>
+     * 
+     * @return This data type is used as a response element in the <code>ModifyDBCluster</code> operation and contains
+     *         changes that will be applied during the next maintenance window.
+     */
+
+    public ClusterPendingModifiedValues getPendingModifiedValues() {
+        return this.pendingModifiedValues;
+    }
+
+    /**
+     * <p>
+     * This data type is used as a response element in the <code>ModifyDBCluster</code> operation and contains changes
+     * that will be applied during the next maintenance window.
+     * </p>
+     * 
+     * @param pendingModifiedValues
+     *        This data type is used as a response element in the <code>ModifyDBCluster</code> operation and contains
+     *        changes that will be applied during the next maintenance window.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBCluster withPendingModifiedValues(ClusterPendingModifiedValues pendingModifiedValues) {
+        setPendingModifiedValues(pendingModifiedValues);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether or not the DB cluster has deletion protection enabled. The database can't be deleted when
+     * deletion protection is enabled.
+     * </p>
+     * 
+     * @param deletionProtection
+     *        Indicates whether or not the DB cluster has deletion protection enabled. The database can't be deleted
+     *        when deletion protection is enabled.
+     */
+
+    public void setDeletionProtection(Boolean deletionProtection) {
+        this.deletionProtection = deletionProtection;
+    }
+
+    /**
+     * <p>
+     * Indicates whether or not the DB cluster has deletion protection enabled. The database can't be deleted when
+     * deletion protection is enabled.
+     * </p>
+     * 
+     * @return Indicates whether or not the DB cluster has deletion protection enabled. The database can't be deleted
+     *         when deletion protection is enabled.
+     */
+
+    public Boolean getDeletionProtection() {
+        return this.deletionProtection;
+    }
+
+    /**
+     * <p>
+     * Indicates whether or not the DB cluster has deletion protection enabled. The database can't be deleted when
+     * deletion protection is enabled.
+     * </p>
+     * 
+     * @param deletionProtection
+     *        Indicates whether or not the DB cluster has deletion protection enabled. The database can't be deleted
+     *        when deletion protection is enabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBCluster withDeletionProtection(Boolean deletionProtection) {
+        setDeletionProtection(deletionProtection);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether or not the DB cluster has deletion protection enabled. The database can't be deleted when
+     * deletion protection is enabled.
+     * </p>
+     * 
+     * @return Indicates whether or not the DB cluster has deletion protection enabled. The database can't be deleted
+     *         when deletion protection is enabled.
+     */
+
+    public Boolean isDeletionProtection() {
+        return this.deletionProtection;
+    }
+
+    /**
+     * <p>
+     * If set to <code>true</code>, the DB cluster can be cloned across accounts.
+     * </p>
+     * 
+     * @param crossAccountClone
+     *        If set to <code>true</code>, the DB cluster can be cloned across accounts.
+     */
+
+    public void setCrossAccountClone(Boolean crossAccountClone) {
+        this.crossAccountClone = crossAccountClone;
+    }
+
+    /**
+     * <p>
+     * If set to <code>true</code>, the DB cluster can be cloned across accounts.
+     * </p>
+     * 
+     * @return If set to <code>true</code>, the DB cluster can be cloned across accounts.
+     */
+
+    public Boolean getCrossAccountClone() {
+        return this.crossAccountClone;
+    }
+
+    /**
+     * <p>
+     * If set to <code>true</code>, the DB cluster can be cloned across accounts.
+     * </p>
+     * 
+     * @param crossAccountClone
+     *        If set to <code>true</code>, the DB cluster can be cloned across accounts.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBCluster withCrossAccountClone(Boolean crossAccountClone) {
+        setCrossAccountClone(crossAccountClone);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If set to <code>true</code>, the DB cluster can be cloned across accounts.
+     * </p>
+     * 
+     * @return If set to <code>true</code>, the DB cluster can be cloned across accounts.
+     */
+
+    public Boolean isCrossAccountClone() {
+        return this.crossAccountClone;
+    }
+
+    /**
+     * <p>
+     * Time at which the DB cluster will be automatically restarted.
+     * </p>
+     * 
+     * @param automaticRestartTime
+     *        Time at which the DB cluster will be automatically restarted.
+     */
+
+    public void setAutomaticRestartTime(java.util.Date automaticRestartTime) {
+        this.automaticRestartTime = automaticRestartTime;
+    }
+
+    /**
+     * <p>
+     * Time at which the DB cluster will be automatically restarted.
+     * </p>
+     * 
+     * @return Time at which the DB cluster will be automatically restarted.
+     */
+
+    public java.util.Date getAutomaticRestartTime() {
+        return this.automaticRestartTime;
+    }
+
+    /**
+     * <p>
+     * Time at which the DB cluster will be automatically restarted.
+     * </p>
+     * 
+     * @param automaticRestartTime
+     *        Time at which the DB cluster will be automatically restarted.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBCluster withAutomaticRestartTime(java.util.Date automaticRestartTime) {
+        setAutomaticRestartTime(automaticRestartTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Shows the scaling configuration for a Neptune Serverless DB cluster.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/neptune/latest/userguide/neptune-serverless-using.html">Using Amazon Neptune
+     * Serverless</a> in the <i>Amazon Neptune User Guide</i>.
+     * </p>
+     * 
+     * @param serverlessV2ScalingConfiguration
+     *        Shows the scaling configuration for a Neptune Serverless DB cluster.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/neptune/latest/userguide/neptune-serverless-using.html">Using Amazon
+     *        Neptune Serverless</a> in the <i>Amazon Neptune User Guide</i>.
+     */
+
+    public void setServerlessV2ScalingConfiguration(ServerlessV2ScalingConfigurationInfo serverlessV2ScalingConfiguration) {
+        this.serverlessV2ScalingConfiguration = serverlessV2ScalingConfiguration;
+    }
+
+    /**
+     * <p>
+     * Shows the scaling configuration for a Neptune Serverless DB cluster.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/neptune/latest/userguide/neptune-serverless-using.html">Using Amazon Neptune
+     * Serverless</a> in the <i>Amazon Neptune User Guide</i>.
+     * </p>
+     * 
+     * @return Shows the scaling configuration for a Neptune Serverless DB cluster.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/neptune/latest/userguide/neptune-serverless-using.html">Using Amazon
+     *         Neptune Serverless</a> in the <i>Amazon Neptune User Guide</i>.
+     */
+
+    public ServerlessV2ScalingConfigurationInfo getServerlessV2ScalingConfiguration() {
+        return this.serverlessV2ScalingConfiguration;
+    }
+
+    /**
+     * <p>
+     * Shows the scaling configuration for a Neptune Serverless DB cluster.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/neptune/latest/userguide/neptune-serverless-using.html">Using Amazon Neptune
+     * Serverless</a> in the <i>Amazon Neptune User Guide</i>.
+     * </p>
+     * 
+     * @param serverlessV2ScalingConfiguration
+     *        Shows the scaling configuration for a Neptune Serverless DB cluster.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/neptune/latest/userguide/neptune-serverless-using.html">Using Amazon
+     *        Neptune Serverless</a> in the <i>Amazon Neptune User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBCluster withServerlessV2ScalingConfiguration(ServerlessV2ScalingConfigurationInfo serverlessV2ScalingConfiguration) {
+        setServerlessV2ScalingConfiguration(serverlessV2ScalingConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Contains a user-supplied global database cluster identifier. This identifier is the unique key that identifies a
+     * global database.
+     * </p>
+     * 
+     * @param globalClusterIdentifier
+     *        Contains a user-supplied global database cluster identifier. This identifier is the unique key that
+     *        identifies a global database.
+     */
+
+    public void setGlobalClusterIdentifier(String globalClusterIdentifier) {
+        this.globalClusterIdentifier = globalClusterIdentifier;
+    }
+
+    /**
+     * <p>
+     * Contains a user-supplied global database cluster identifier. This identifier is the unique key that identifies a
+     * global database.
+     * </p>
+     * 
+     * @return Contains a user-supplied global database cluster identifier. This identifier is the unique key that
+     *         identifies a global database.
+     */
+
+    public String getGlobalClusterIdentifier() {
+        return this.globalClusterIdentifier;
+    }
+
+    /**
+     * <p>
+     * Contains a user-supplied global database cluster identifier. This identifier is the unique key that identifies a
+     * global database.
+     * </p>
+     * 
+     * @param globalClusterIdentifier
+     *        Contains a user-supplied global database cluster identifier. This identifier is the unique key that
+     *        identifies a global database.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBCluster withGlobalClusterIdentifier(String globalClusterIdentifier) {
+        setGlobalClusterIdentifier(globalClusterIdentifier);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The next time you can modify the DB cluster to use the <code>iopt1</code> storage type.
+     * </p>
+     * 
+     * @param iOOptimizedNextAllowedModificationTime
+     *        The next time you can modify the DB cluster to use the <code>iopt1</code> storage type.
+     */
+
+    public void setIOOptimizedNextAllowedModificationTime(java.util.Date iOOptimizedNextAllowedModificationTime) {
+        this.iOOptimizedNextAllowedModificationTime = iOOptimizedNextAllowedModificationTime;
+    }
+
+    /**
+     * <p>
+     * The next time you can modify the DB cluster to use the <code>iopt1</code> storage type.
+     * </p>
+     * 
+     * @return The next time you can modify the DB cluster to use the <code>iopt1</code> storage type.
+     */
+
+    public java.util.Date getIOOptimizedNextAllowedModificationTime() {
+        return this.iOOptimizedNextAllowedModificationTime;
+    }
+
+    /**
+     * <p>
+     * The next time you can modify the DB cluster to use the <code>iopt1</code> storage type.
+     * </p>
+     * 
+     * @param iOOptimizedNextAllowedModificationTime
+     *        The next time you can modify the DB cluster to use the <code>iopt1</code> storage type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBCluster withIOOptimizedNextAllowedModificationTime(java.util.Date iOOptimizedNextAllowedModificationTime) {
+        setIOOptimizedNextAllowedModificationTime(iOOptimizedNextAllowedModificationTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The storage type associated with the DB cluster.
+     * </p>
+     * 
+     * @param storageType
+     *        The storage type associated with the DB cluster.
+     */
+
+    public void setStorageType(String storageType) {
+        this.storageType = storageType;
+    }
+
+    /**
+     * <p>
+     * The storage type associated with the DB cluster.
+     * </p>
+     * 
+     * @return The storage type associated with the DB cluster.
+     */
+
+    public String getStorageType() {
+        return this.storageType;
+    }
+
+    /**
+     * <p>
+     * The storage type associated with the DB cluster.
+     * </p>
+     * 
+     * @param storageType
+     *        The storage type associated with the DB cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBCluster withStorageType(String storageType) {
+        setStorageType(storageType);
         return this;
     }
 
@@ -2138,8 +2674,26 @@ public class DBCluster implements Serializable, Cloneable {
             sb.append("CloneGroupId: ").append(getCloneGroupId()).append(",");
         if (getClusterCreateTime() != null)
             sb.append("ClusterCreateTime: ").append(getClusterCreateTime()).append(",");
+        if (getCopyTagsToSnapshot() != null)
+            sb.append("CopyTagsToSnapshot: ").append(getCopyTagsToSnapshot()).append(",");
         if (getEnabledCloudwatchLogsExports() != null)
-            sb.append("EnabledCloudwatchLogsExports: ").append(getEnabledCloudwatchLogsExports());
+            sb.append("EnabledCloudwatchLogsExports: ").append(getEnabledCloudwatchLogsExports()).append(",");
+        if (getPendingModifiedValues() != null)
+            sb.append("PendingModifiedValues: ").append(getPendingModifiedValues()).append(",");
+        if (getDeletionProtection() != null)
+            sb.append("DeletionProtection: ").append(getDeletionProtection()).append(",");
+        if (getCrossAccountClone() != null)
+            sb.append("CrossAccountClone: ").append(getCrossAccountClone()).append(",");
+        if (getAutomaticRestartTime() != null)
+            sb.append("AutomaticRestartTime: ").append(getAutomaticRestartTime()).append(",");
+        if (getServerlessV2ScalingConfiguration() != null)
+            sb.append("ServerlessV2ScalingConfiguration: ").append(getServerlessV2ScalingConfiguration()).append(",");
+        if (getGlobalClusterIdentifier() != null)
+            sb.append("GlobalClusterIdentifier: ").append(getGlobalClusterIdentifier()).append(",");
+        if (getIOOptimizedNextAllowedModificationTime() != null)
+            sb.append("IOOptimizedNextAllowedModificationTime: ").append(getIOOptimizedNextAllowedModificationTime()).append(",");
+        if (getStorageType() != null)
+            sb.append("StorageType: ").append(getStorageType());
         sb.append("}");
         return sb.toString();
     }
@@ -2296,9 +2850,47 @@ public class DBCluster implements Serializable, Cloneable {
             return false;
         if (other.getClusterCreateTime() != null && other.getClusterCreateTime().equals(this.getClusterCreateTime()) == false)
             return false;
+        if (other.getCopyTagsToSnapshot() == null ^ this.getCopyTagsToSnapshot() == null)
+            return false;
+        if (other.getCopyTagsToSnapshot() != null && other.getCopyTagsToSnapshot().equals(this.getCopyTagsToSnapshot()) == false)
+            return false;
         if (other.getEnabledCloudwatchLogsExports() == null ^ this.getEnabledCloudwatchLogsExports() == null)
             return false;
         if (other.getEnabledCloudwatchLogsExports() != null && other.getEnabledCloudwatchLogsExports().equals(this.getEnabledCloudwatchLogsExports()) == false)
+            return false;
+        if (other.getPendingModifiedValues() == null ^ this.getPendingModifiedValues() == null)
+            return false;
+        if (other.getPendingModifiedValues() != null && other.getPendingModifiedValues().equals(this.getPendingModifiedValues()) == false)
+            return false;
+        if (other.getDeletionProtection() == null ^ this.getDeletionProtection() == null)
+            return false;
+        if (other.getDeletionProtection() != null && other.getDeletionProtection().equals(this.getDeletionProtection()) == false)
+            return false;
+        if (other.getCrossAccountClone() == null ^ this.getCrossAccountClone() == null)
+            return false;
+        if (other.getCrossAccountClone() != null && other.getCrossAccountClone().equals(this.getCrossAccountClone()) == false)
+            return false;
+        if (other.getAutomaticRestartTime() == null ^ this.getAutomaticRestartTime() == null)
+            return false;
+        if (other.getAutomaticRestartTime() != null && other.getAutomaticRestartTime().equals(this.getAutomaticRestartTime()) == false)
+            return false;
+        if (other.getServerlessV2ScalingConfiguration() == null ^ this.getServerlessV2ScalingConfiguration() == null)
+            return false;
+        if (other.getServerlessV2ScalingConfiguration() != null
+                && other.getServerlessV2ScalingConfiguration().equals(this.getServerlessV2ScalingConfiguration()) == false)
+            return false;
+        if (other.getGlobalClusterIdentifier() == null ^ this.getGlobalClusterIdentifier() == null)
+            return false;
+        if (other.getGlobalClusterIdentifier() != null && other.getGlobalClusterIdentifier().equals(this.getGlobalClusterIdentifier()) == false)
+            return false;
+        if (other.getIOOptimizedNextAllowedModificationTime() == null ^ this.getIOOptimizedNextAllowedModificationTime() == null)
+            return false;
+        if (other.getIOOptimizedNextAllowedModificationTime() != null
+                && other.getIOOptimizedNextAllowedModificationTime().equals(this.getIOOptimizedNextAllowedModificationTime()) == false)
+            return false;
+        if (other.getStorageType() == null ^ this.getStorageType() == null)
+            return false;
+        if (other.getStorageType() != null && other.getStorageType().equals(this.getStorageType()) == false)
             return false;
         return true;
     }
@@ -2343,7 +2935,16 @@ public class DBCluster implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getIAMDatabaseAuthenticationEnabled() == null) ? 0 : getIAMDatabaseAuthenticationEnabled().hashCode());
         hashCode = prime * hashCode + ((getCloneGroupId() == null) ? 0 : getCloneGroupId().hashCode());
         hashCode = prime * hashCode + ((getClusterCreateTime() == null) ? 0 : getClusterCreateTime().hashCode());
+        hashCode = prime * hashCode + ((getCopyTagsToSnapshot() == null) ? 0 : getCopyTagsToSnapshot().hashCode());
         hashCode = prime * hashCode + ((getEnabledCloudwatchLogsExports() == null) ? 0 : getEnabledCloudwatchLogsExports().hashCode());
+        hashCode = prime * hashCode + ((getPendingModifiedValues() == null) ? 0 : getPendingModifiedValues().hashCode());
+        hashCode = prime * hashCode + ((getDeletionProtection() == null) ? 0 : getDeletionProtection().hashCode());
+        hashCode = prime * hashCode + ((getCrossAccountClone() == null) ? 0 : getCrossAccountClone().hashCode());
+        hashCode = prime * hashCode + ((getAutomaticRestartTime() == null) ? 0 : getAutomaticRestartTime().hashCode());
+        hashCode = prime * hashCode + ((getServerlessV2ScalingConfiguration() == null) ? 0 : getServerlessV2ScalingConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getGlobalClusterIdentifier() == null) ? 0 : getGlobalClusterIdentifier().hashCode());
+        hashCode = prime * hashCode + ((getIOOptimizedNextAllowedModificationTime() == null) ? 0 : getIOOptimizedNextAllowedModificationTime().hashCode());
+        hashCode = prime * hashCode + ((getStorageType() == null) ? 0 : getStorageType().hashCode());
         return hashCode;
     }
 

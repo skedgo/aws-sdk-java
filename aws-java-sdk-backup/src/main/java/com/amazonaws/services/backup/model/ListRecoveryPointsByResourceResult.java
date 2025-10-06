@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,7 +26,7 @@ public class ListRecoveryPointsByResourceResult extends com.amazonaws.AmazonWebS
     /**
      * <p>
      * The next item following a partial list of returned items. For example, if a request is made to return
-     * <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
+     * <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
      * starting at the location pointed to by the next token.
      * </p>
      */
@@ -35,19 +35,24 @@ public class ListRecoveryPointsByResourceResult extends com.amazonaws.AmazonWebS
      * <p>
      * An array of objects that contain detailed information about recovery points of the specified resource type.
      * </p>
+     * <note>
+     * <p>
+     * Only Amazon EFS and Amazon EC2 recovery points return BackupVaultName.
+     * </p>
+     * </note>
      */
     private java.util.List<RecoveryPointByResource> recoveryPoints;
 
     /**
      * <p>
      * The next item following a partial list of returned items. For example, if a request is made to return
-     * <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
+     * <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
      * starting at the location pointed to by the next token.
      * </p>
      * 
      * @param nextToken
      *        The next item following a partial list of returned items. For example, if a request is made to return
-     *        <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
+     *        <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
      *        list starting at the location pointed to by the next token.
      */
 
@@ -58,12 +63,12 @@ public class ListRecoveryPointsByResourceResult extends com.amazonaws.AmazonWebS
     /**
      * <p>
      * The next item following a partial list of returned items. For example, if a request is made to return
-     * <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
+     * <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
      * starting at the location pointed to by the next token.
      * </p>
      * 
      * @return The next item following a partial list of returned items. For example, if a request is made to return
-     *         <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
+     *         <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
      *         list starting at the location pointed to by the next token.
      */
 
@@ -74,13 +79,13 @@ public class ListRecoveryPointsByResourceResult extends com.amazonaws.AmazonWebS
     /**
      * <p>
      * The next item following a partial list of returned items. For example, if a request is made to return
-     * <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
+     * <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
      * starting at the location pointed to by the next token.
      * </p>
      * 
      * @param nextToken
      *        The next item following a partial list of returned items. For example, if a request is made to return
-     *        <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
+     *        <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
      *        list starting at the location pointed to by the next token.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -94,9 +99,17 @@ public class ListRecoveryPointsByResourceResult extends com.amazonaws.AmazonWebS
      * <p>
      * An array of objects that contain detailed information about recovery points of the specified resource type.
      * </p>
+     * <note>
+     * <p>
+     * Only Amazon EFS and Amazon EC2 recovery points return BackupVaultName.
+     * </p>
+     * </note>
      * 
      * @return An array of objects that contain detailed information about recovery points of the specified resource
-     *         type.
+     *         type.</p> <note>
+     *         <p>
+     *         Only Amazon EFS and Amazon EC2 recovery points return BackupVaultName.
+     *         </p>
      */
 
     public java.util.List<RecoveryPointByResource> getRecoveryPoints() {
@@ -107,10 +120,18 @@ public class ListRecoveryPointsByResourceResult extends com.amazonaws.AmazonWebS
      * <p>
      * An array of objects that contain detailed information about recovery points of the specified resource type.
      * </p>
+     * <note>
+     * <p>
+     * Only Amazon EFS and Amazon EC2 recovery points return BackupVaultName.
+     * </p>
+     * </note>
      * 
      * @param recoveryPoints
      *        An array of objects that contain detailed information about recovery points of the specified resource
-     *        type.
+     *        type.</p> <note>
+     *        <p>
+     *        Only Amazon EFS and Amazon EC2 recovery points return BackupVaultName.
+     *        </p>
      */
 
     public void setRecoveryPoints(java.util.Collection<RecoveryPointByResource> recoveryPoints) {
@@ -126,6 +147,11 @@ public class ListRecoveryPointsByResourceResult extends com.amazonaws.AmazonWebS
      * <p>
      * An array of objects that contain detailed information about recovery points of the specified resource type.
      * </p>
+     * <note>
+     * <p>
+     * Only Amazon EFS and Amazon EC2 recovery points return BackupVaultName.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setRecoveryPoints(java.util.Collection)} or {@link #withRecoveryPoints(java.util.Collection)} if you want
@@ -134,7 +160,10 @@ public class ListRecoveryPointsByResourceResult extends com.amazonaws.AmazonWebS
      * 
      * @param recoveryPoints
      *        An array of objects that contain detailed information about recovery points of the specified resource
-     *        type.
+     *        type.</p> <note>
+     *        <p>
+     *        Only Amazon EFS and Amazon EC2 recovery points return BackupVaultName.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -152,10 +181,18 @@ public class ListRecoveryPointsByResourceResult extends com.amazonaws.AmazonWebS
      * <p>
      * An array of objects that contain detailed information about recovery points of the specified resource type.
      * </p>
+     * <note>
+     * <p>
+     * Only Amazon EFS and Amazon EC2 recovery points return BackupVaultName.
+     * </p>
+     * </note>
      * 
      * @param recoveryPoints
      *        An array of objects that contain detailed information about recovery points of the specified resource
-     *        type.
+     *        type.</p> <note>
+     *        <p>
+     *        Only Amazon EFS and Amazon EC2 recovery points return BackupVaultName.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

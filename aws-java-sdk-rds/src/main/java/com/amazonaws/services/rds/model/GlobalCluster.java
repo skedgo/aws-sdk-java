@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,8 +35,9 @@ public class GlobalCluster implements Serializable, Cloneable {
     private String globalClusterIdentifier;
     /**
      * <p>
-     * The AWS Region-unique, immutable identifier for the global database cluster. This identifier is found in AWS
-     * CloudTrail log entries whenever the AWS KMS key for the DB cluster is accessed.
+     * The Amazon Web Services Region-unique, immutable identifier for the global database cluster. This identifier is
+     * found in Amazon Web Services CloudTrail log entries whenever the Amazon Web Services KMS key for the DB cluster
+     * is accessed.
      * </p>
      */
     private String globalClusterResourceId;
@@ -66,6 +67,15 @@ public class GlobalCluster implements Serializable, Cloneable {
     private String engineVersion;
     /**
      * <p>
+     * The life cycle type for the global cluster.
+     * </p>
+     * <p>
+     * For more information, see CreateGlobalCluster.
+     * </p>
+     */
+    private String engineLifecycleSupport;
+    /**
+     * <p>
      * The default database name within the new global database cluster.
      * </p>
      */
@@ -84,10 +94,19 @@ public class GlobalCluster implements Serializable, Cloneable {
     private Boolean deletionProtection;
     /**
      * <p>
-     * The list of cluster IDs for secondary clusters within the global database cluster. Currently limited to 1 item.
+     * The list of primary and secondary clusters within the global database cluster.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<GlobalClusterMember> globalClusterMembers;
+    /**
+     * <p>
+     * A data object containing all properties for the current state of an in-process or pending switchover or failover
+     * process for this global cluster (Aurora global database). This object is empty unless the
+     * <code>SwitchoverGlobalCluster</code> or <code>FailoverGlobalCluster</code> operation was called on this global
+     * cluster.
+     * </p>
+     */
+    private FailoverState failoverState;
 
     /**
      * <p>
@@ -137,13 +156,15 @@ public class GlobalCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Region-unique, immutable identifier for the global database cluster. This identifier is found in AWS
-     * CloudTrail log entries whenever the AWS KMS key for the DB cluster is accessed.
+     * The Amazon Web Services Region-unique, immutable identifier for the global database cluster. This identifier is
+     * found in Amazon Web Services CloudTrail log entries whenever the Amazon Web Services KMS key for the DB cluster
+     * is accessed.
      * </p>
      * 
      * @param globalClusterResourceId
-     *        The AWS Region-unique, immutable identifier for the global database cluster. This identifier is found in
-     *        AWS CloudTrail log entries whenever the AWS KMS key for the DB cluster is accessed.
+     *        The Amazon Web Services Region-unique, immutable identifier for the global database cluster. This
+     *        identifier is found in Amazon Web Services CloudTrail log entries whenever the Amazon Web Services KMS key
+     *        for the DB cluster is accessed.
      */
 
     public void setGlobalClusterResourceId(String globalClusterResourceId) {
@@ -152,12 +173,14 @@ public class GlobalCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Region-unique, immutable identifier for the global database cluster. This identifier is found in AWS
-     * CloudTrail log entries whenever the AWS KMS key for the DB cluster is accessed.
+     * The Amazon Web Services Region-unique, immutable identifier for the global database cluster. This identifier is
+     * found in Amazon Web Services CloudTrail log entries whenever the Amazon Web Services KMS key for the DB cluster
+     * is accessed.
      * </p>
      * 
-     * @return The AWS Region-unique, immutable identifier for the global database cluster. This identifier is found in
-     *         AWS CloudTrail log entries whenever the AWS KMS key for the DB cluster is accessed.
+     * @return The Amazon Web Services Region-unique, immutable identifier for the global database cluster. This
+     *         identifier is found in Amazon Web Services CloudTrail log entries whenever the Amazon Web Services KMS
+     *         key for the DB cluster is accessed.
      */
 
     public String getGlobalClusterResourceId() {
@@ -166,13 +189,15 @@ public class GlobalCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Region-unique, immutable identifier for the global database cluster. This identifier is found in AWS
-     * CloudTrail log entries whenever the AWS KMS key for the DB cluster is accessed.
+     * The Amazon Web Services Region-unique, immutable identifier for the global database cluster. This identifier is
+     * found in Amazon Web Services CloudTrail log entries whenever the Amazon Web Services KMS key for the DB cluster
+     * is accessed.
      * </p>
      * 
      * @param globalClusterResourceId
-     *        The AWS Region-unique, immutable identifier for the global database cluster. This identifier is found in
-     *        AWS CloudTrail log entries whenever the AWS KMS key for the DB cluster is accessed.
+     *        The Amazon Web Services Region-unique, immutable identifier for the global database cluster. This
+     *        identifier is found in Amazon Web Services CloudTrail log entries whenever the Amazon Web Services KMS key
+     *        for the DB cluster is accessed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -343,6 +368,61 @@ public class GlobalCluster implements Serializable, Cloneable {
 
     /**
      * <p>
+     * The life cycle type for the global cluster.
+     * </p>
+     * <p>
+     * For more information, see CreateGlobalCluster.
+     * </p>
+     * 
+     * @param engineLifecycleSupport
+     *        The life cycle type for the global cluster.</p>
+     *        <p>
+     *        For more information, see CreateGlobalCluster.
+     */
+
+    public void setEngineLifecycleSupport(String engineLifecycleSupport) {
+        this.engineLifecycleSupport = engineLifecycleSupport;
+    }
+
+    /**
+     * <p>
+     * The life cycle type for the global cluster.
+     * </p>
+     * <p>
+     * For more information, see CreateGlobalCluster.
+     * </p>
+     * 
+     * @return The life cycle type for the global cluster.</p>
+     *         <p>
+     *         For more information, see CreateGlobalCluster.
+     */
+
+    public String getEngineLifecycleSupport() {
+        return this.engineLifecycleSupport;
+    }
+
+    /**
+     * <p>
+     * The life cycle type for the global cluster.
+     * </p>
+     * <p>
+     * For more information, see CreateGlobalCluster.
+     * </p>
+     * 
+     * @param engineLifecycleSupport
+     *        The life cycle type for the global cluster.</p>
+     *        <p>
+     *        For more information, see CreateGlobalCluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GlobalCluster withEngineLifecycleSupport(String engineLifecycleSupport) {
+        setEngineLifecycleSupport(engineLifecycleSupport);
+        return this;
+    }
+
+    /**
+     * <p>
      * The default database name within the new global database cluster.
      * </p>
      * 
@@ -487,11 +567,10 @@ public class GlobalCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The list of cluster IDs for secondary clusters within the global database cluster. Currently limited to 1 item.
+     * The list of primary and secondary clusters within the global database cluster.
      * </p>
      * 
-     * @return The list of cluster IDs for secondary clusters within the global database cluster. Currently limited to 1
-     *         item.
+     * @return The list of primary and secondary clusters within the global database cluster.
      */
 
     public java.util.List<GlobalClusterMember> getGlobalClusterMembers() {
@@ -503,12 +582,11 @@ public class GlobalCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The list of cluster IDs for secondary clusters within the global database cluster. Currently limited to 1 item.
+     * The list of primary and secondary clusters within the global database cluster.
      * </p>
      * 
      * @param globalClusterMembers
-     *        The list of cluster IDs for secondary clusters within the global database cluster. Currently limited to 1
-     *        item.
+     *        The list of primary and secondary clusters within the global database cluster.
      */
 
     public void setGlobalClusterMembers(java.util.Collection<GlobalClusterMember> globalClusterMembers) {
@@ -522,7 +600,7 @@ public class GlobalCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The list of cluster IDs for secondary clusters within the global database cluster. Currently limited to 1 item.
+     * The list of primary and secondary clusters within the global database cluster.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -531,8 +609,7 @@ public class GlobalCluster implements Serializable, Cloneable {
      * </p>
      * 
      * @param globalClusterMembers
-     *        The list of cluster IDs for secondary clusters within the global database cluster. Currently limited to 1
-     *        item.
+     *        The list of primary and secondary clusters within the global database cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -548,17 +625,74 @@ public class GlobalCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The list of cluster IDs for secondary clusters within the global database cluster. Currently limited to 1 item.
+     * The list of primary and secondary clusters within the global database cluster.
      * </p>
      * 
      * @param globalClusterMembers
-     *        The list of cluster IDs for secondary clusters within the global database cluster. Currently limited to 1
-     *        item.
+     *        The list of primary and secondary clusters within the global database cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public GlobalCluster withGlobalClusterMembers(java.util.Collection<GlobalClusterMember> globalClusterMembers) {
         setGlobalClusterMembers(globalClusterMembers);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A data object containing all properties for the current state of an in-process or pending switchover or failover
+     * process for this global cluster (Aurora global database). This object is empty unless the
+     * <code>SwitchoverGlobalCluster</code> or <code>FailoverGlobalCluster</code> operation was called on this global
+     * cluster.
+     * </p>
+     * 
+     * @param failoverState
+     *        A data object containing all properties for the current state of an in-process or pending switchover or
+     *        failover process for this global cluster (Aurora global database). This object is empty unless the
+     *        <code>SwitchoverGlobalCluster</code> or <code>FailoverGlobalCluster</code> operation was called on this
+     *        global cluster.
+     */
+
+    public void setFailoverState(FailoverState failoverState) {
+        this.failoverState = failoverState;
+    }
+
+    /**
+     * <p>
+     * A data object containing all properties for the current state of an in-process or pending switchover or failover
+     * process for this global cluster (Aurora global database). This object is empty unless the
+     * <code>SwitchoverGlobalCluster</code> or <code>FailoverGlobalCluster</code> operation was called on this global
+     * cluster.
+     * </p>
+     * 
+     * @return A data object containing all properties for the current state of an in-process or pending switchover or
+     *         failover process for this global cluster (Aurora global database). This object is empty unless the
+     *         <code>SwitchoverGlobalCluster</code> or <code>FailoverGlobalCluster</code> operation was called on this
+     *         global cluster.
+     */
+
+    public FailoverState getFailoverState() {
+        return this.failoverState;
+    }
+
+    /**
+     * <p>
+     * A data object containing all properties for the current state of an in-process or pending switchover or failover
+     * process for this global cluster (Aurora global database). This object is empty unless the
+     * <code>SwitchoverGlobalCluster</code> or <code>FailoverGlobalCluster</code> operation was called on this global
+     * cluster.
+     * </p>
+     * 
+     * @param failoverState
+     *        A data object containing all properties for the current state of an in-process or pending switchover or
+     *        failover process for this global cluster (Aurora global database). This object is empty unless the
+     *        <code>SwitchoverGlobalCluster</code> or <code>FailoverGlobalCluster</code> operation was called on this
+     *        global cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GlobalCluster withFailoverState(FailoverState failoverState) {
+        setFailoverState(failoverState);
         return this;
     }
 
@@ -586,6 +720,8 @@ public class GlobalCluster implements Serializable, Cloneable {
             sb.append("Engine: ").append(getEngine()).append(",");
         if (getEngineVersion() != null)
             sb.append("EngineVersion: ").append(getEngineVersion()).append(",");
+        if (getEngineLifecycleSupport() != null)
+            sb.append("EngineLifecycleSupport: ").append(getEngineLifecycleSupport()).append(",");
         if (getDatabaseName() != null)
             sb.append("DatabaseName: ").append(getDatabaseName()).append(",");
         if (getStorageEncrypted() != null)
@@ -593,7 +729,9 @@ public class GlobalCluster implements Serializable, Cloneable {
         if (getDeletionProtection() != null)
             sb.append("DeletionProtection: ").append(getDeletionProtection()).append(",");
         if (getGlobalClusterMembers() != null)
-            sb.append("GlobalClusterMembers: ").append(getGlobalClusterMembers());
+            sb.append("GlobalClusterMembers: ").append(getGlobalClusterMembers()).append(",");
+        if (getFailoverState() != null)
+            sb.append("FailoverState: ").append(getFailoverState());
         sb.append("}");
         return sb.toString();
     }
@@ -632,6 +770,10 @@ public class GlobalCluster implements Serializable, Cloneable {
             return false;
         if (other.getEngineVersion() != null && other.getEngineVersion().equals(this.getEngineVersion()) == false)
             return false;
+        if (other.getEngineLifecycleSupport() == null ^ this.getEngineLifecycleSupport() == null)
+            return false;
+        if (other.getEngineLifecycleSupport() != null && other.getEngineLifecycleSupport().equals(this.getEngineLifecycleSupport()) == false)
+            return false;
         if (other.getDatabaseName() == null ^ this.getDatabaseName() == null)
             return false;
         if (other.getDatabaseName() != null && other.getDatabaseName().equals(this.getDatabaseName()) == false)
@@ -648,6 +790,10 @@ public class GlobalCluster implements Serializable, Cloneable {
             return false;
         if (other.getGlobalClusterMembers() != null && other.getGlobalClusterMembers().equals(this.getGlobalClusterMembers()) == false)
             return false;
+        if (other.getFailoverState() == null ^ this.getFailoverState() == null)
+            return false;
+        if (other.getFailoverState() != null && other.getFailoverState().equals(this.getFailoverState()) == false)
+            return false;
         return true;
     }
 
@@ -662,10 +808,12 @@ public class GlobalCluster implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
         hashCode = prime * hashCode + ((getEngine() == null) ? 0 : getEngine().hashCode());
         hashCode = prime * hashCode + ((getEngineVersion() == null) ? 0 : getEngineVersion().hashCode());
+        hashCode = prime * hashCode + ((getEngineLifecycleSupport() == null) ? 0 : getEngineLifecycleSupport().hashCode());
         hashCode = prime * hashCode + ((getDatabaseName() == null) ? 0 : getDatabaseName().hashCode());
         hashCode = prime * hashCode + ((getStorageEncrypted() == null) ? 0 : getStorageEncrypted().hashCode());
         hashCode = prime * hashCode + ((getDeletionProtection() == null) ? 0 : getDeletionProtection().hashCode());
         hashCode = prime * hashCode + ((getGlobalClusterMembers() == null) ? 0 : getGlobalClusterMembers().hashCode());
+        hashCode = prime * hashCode + ((getFailoverState() == null) ? 0 : getFailoverState().hashCode());
         return hashCode;
     }
 

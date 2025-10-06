@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -147,6 +147,11 @@ public class OrderableDBInstanceOptionStaxUnmarshaller implements Unmarshaller<O
 
                 if (context.testExpression("MaxIopsPerGib", targetDepth)) {
                     orderableDBInstanceOption.setMaxIopsPerGib(DoubleStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("SupportsGlobalDatabases", targetDepth)) {
+                    orderableDBInstanceOption.setSupportsGlobalDatabases(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

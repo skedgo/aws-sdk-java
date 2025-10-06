@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The <code>Database</code> object represents a logical grouping of tables that may reside in a Hive metastore or an
+ * The <code>Database</code> object represents a logical grouping of tables that might reside in a Hive metastore or an
  * RDBMS.
  * </p>
  * 
@@ -31,13 +31,13 @@ public class Database implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Name of the database. For Hive compatibility, this is folded to lowercase when it is stored.
+     * The name of the database. For Hive compatibility, this is folded to lowercase when it is stored.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * Description of the database.
+     * A description of the database.
      * </p>
      */
     private String description;
@@ -59,14 +59,39 @@ public class Database implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private java.util.Date createTime;
+    /**
+     * <p>
+     * Creates a set of default permissions on the table for principals. Used by Lake Formation. Not used in the normal
+     * course of Glue operations.
+     * </p>
+     */
+    private java.util.List<PrincipalPermissions> createTableDefaultPermissions;
+    /**
+     * <p>
+     * A <code>DatabaseIdentifier</code> structure that describes a target database for resource linking.
+     * </p>
+     */
+    private DatabaseIdentifier targetDatabase;
+    /**
+     * <p>
+     * The ID of the Data Catalog in which the database resides.
+     * </p>
+     */
+    private String catalogId;
+    /**
+     * <p>
+     * A <code>FederatedDatabase</code> structure that references an entity outside the Glue Data Catalog.
+     * </p>
+     */
+    private FederatedDatabase federatedDatabase;
 
     /**
      * <p>
-     * Name of the database. For Hive compatibility, this is folded to lowercase when it is stored.
+     * The name of the database. For Hive compatibility, this is folded to lowercase when it is stored.
      * </p>
      * 
      * @param name
-     *        Name of the database. For Hive compatibility, this is folded to lowercase when it is stored.
+     *        The name of the database. For Hive compatibility, this is folded to lowercase when it is stored.
      */
 
     public void setName(String name) {
@@ -75,10 +100,10 @@ public class Database implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Name of the database. For Hive compatibility, this is folded to lowercase when it is stored.
+     * The name of the database. For Hive compatibility, this is folded to lowercase when it is stored.
      * </p>
      * 
-     * @return Name of the database. For Hive compatibility, this is folded to lowercase when it is stored.
+     * @return The name of the database. For Hive compatibility, this is folded to lowercase when it is stored.
      */
 
     public String getName() {
@@ -87,11 +112,11 @@ public class Database implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Name of the database. For Hive compatibility, this is folded to lowercase when it is stored.
+     * The name of the database. For Hive compatibility, this is folded to lowercase when it is stored.
      * </p>
      * 
      * @param name
-     *        Name of the database. For Hive compatibility, this is folded to lowercase when it is stored.
+     *        The name of the database. For Hive compatibility, this is folded to lowercase when it is stored.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -102,11 +127,11 @@ public class Database implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Description of the database.
+     * A description of the database.
      * </p>
      * 
      * @param description
-     *        Description of the database.
+     *        A description of the database.
      */
 
     public void setDescription(String description) {
@@ -115,10 +140,10 @@ public class Database implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Description of the database.
+     * A description of the database.
      * </p>
      * 
-     * @return Description of the database.
+     * @return A description of the database.
      */
 
     public String getDescription() {
@@ -127,11 +152,11 @@ public class Database implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Description of the database.
+     * A description of the database.
      * </p>
      * 
      * @param description
-     *        Description of the database.
+     *        A description of the database.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -220,6 +245,13 @@ public class Database implements Serializable, Cloneable, StructuredPojo {
         return this;
     }
 
+    /**
+     * Add a single Parameters entry
+     *
+     * @see Database#withParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public Database addParametersEntry(String key, String value) {
         if (null == this.parameters) {
             this.parameters = new java.util.HashMap<String, String>();
@@ -282,6 +314,204 @@ public class Database implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * Creates a set of default permissions on the table for principals. Used by Lake Formation. Not used in the normal
+     * course of Glue operations.
+     * </p>
+     * 
+     * @return Creates a set of default permissions on the table for principals. Used by Lake Formation. Not used in the
+     *         normal course of Glue operations.
+     */
+
+    public java.util.List<PrincipalPermissions> getCreateTableDefaultPermissions() {
+        return createTableDefaultPermissions;
+    }
+
+    /**
+     * <p>
+     * Creates a set of default permissions on the table for principals. Used by Lake Formation. Not used in the normal
+     * course of Glue operations.
+     * </p>
+     * 
+     * @param createTableDefaultPermissions
+     *        Creates a set of default permissions on the table for principals. Used by Lake Formation. Not used in the
+     *        normal course of Glue operations.
+     */
+
+    public void setCreateTableDefaultPermissions(java.util.Collection<PrincipalPermissions> createTableDefaultPermissions) {
+        if (createTableDefaultPermissions == null) {
+            this.createTableDefaultPermissions = null;
+            return;
+        }
+
+        this.createTableDefaultPermissions = new java.util.ArrayList<PrincipalPermissions>(createTableDefaultPermissions);
+    }
+
+    /**
+     * <p>
+     * Creates a set of default permissions on the table for principals. Used by Lake Formation. Not used in the normal
+     * course of Glue operations.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setCreateTableDefaultPermissions(java.util.Collection)} or
+     * {@link #withCreateTableDefaultPermissions(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param createTableDefaultPermissions
+     *        Creates a set of default permissions on the table for principals. Used by Lake Formation. Not used in the
+     *        normal course of Glue operations.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Database withCreateTableDefaultPermissions(PrincipalPermissions... createTableDefaultPermissions) {
+        if (this.createTableDefaultPermissions == null) {
+            setCreateTableDefaultPermissions(new java.util.ArrayList<PrincipalPermissions>(createTableDefaultPermissions.length));
+        }
+        for (PrincipalPermissions ele : createTableDefaultPermissions) {
+            this.createTableDefaultPermissions.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Creates a set of default permissions on the table for principals. Used by Lake Formation. Not used in the normal
+     * course of Glue operations.
+     * </p>
+     * 
+     * @param createTableDefaultPermissions
+     *        Creates a set of default permissions on the table for principals. Used by Lake Formation. Not used in the
+     *        normal course of Glue operations.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Database withCreateTableDefaultPermissions(java.util.Collection<PrincipalPermissions> createTableDefaultPermissions) {
+        setCreateTableDefaultPermissions(createTableDefaultPermissions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A <code>DatabaseIdentifier</code> structure that describes a target database for resource linking.
+     * </p>
+     * 
+     * @param targetDatabase
+     *        A <code>DatabaseIdentifier</code> structure that describes a target database for resource linking.
+     */
+
+    public void setTargetDatabase(DatabaseIdentifier targetDatabase) {
+        this.targetDatabase = targetDatabase;
+    }
+
+    /**
+     * <p>
+     * A <code>DatabaseIdentifier</code> structure that describes a target database for resource linking.
+     * </p>
+     * 
+     * @return A <code>DatabaseIdentifier</code> structure that describes a target database for resource linking.
+     */
+
+    public DatabaseIdentifier getTargetDatabase() {
+        return this.targetDatabase;
+    }
+
+    /**
+     * <p>
+     * A <code>DatabaseIdentifier</code> structure that describes a target database for resource linking.
+     * </p>
+     * 
+     * @param targetDatabase
+     *        A <code>DatabaseIdentifier</code> structure that describes a target database for resource linking.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Database withTargetDatabase(DatabaseIdentifier targetDatabase) {
+        setTargetDatabase(targetDatabase);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the Data Catalog in which the database resides.
+     * </p>
+     * 
+     * @param catalogId
+     *        The ID of the Data Catalog in which the database resides.
+     */
+
+    public void setCatalogId(String catalogId) {
+        this.catalogId = catalogId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Data Catalog in which the database resides.
+     * </p>
+     * 
+     * @return The ID of the Data Catalog in which the database resides.
+     */
+
+    public String getCatalogId() {
+        return this.catalogId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Data Catalog in which the database resides.
+     * </p>
+     * 
+     * @param catalogId
+     *        The ID of the Data Catalog in which the database resides.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Database withCatalogId(String catalogId) {
+        setCatalogId(catalogId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A <code>FederatedDatabase</code> structure that references an entity outside the Glue Data Catalog.
+     * </p>
+     * 
+     * @param federatedDatabase
+     *        A <code>FederatedDatabase</code> structure that references an entity outside the Glue Data Catalog.
+     */
+
+    public void setFederatedDatabase(FederatedDatabase federatedDatabase) {
+        this.federatedDatabase = federatedDatabase;
+    }
+
+    /**
+     * <p>
+     * A <code>FederatedDatabase</code> structure that references an entity outside the Glue Data Catalog.
+     * </p>
+     * 
+     * @return A <code>FederatedDatabase</code> structure that references an entity outside the Glue Data Catalog.
+     */
+
+    public FederatedDatabase getFederatedDatabase() {
+        return this.federatedDatabase;
+    }
+
+    /**
+     * <p>
+     * A <code>FederatedDatabase</code> structure that references an entity outside the Glue Data Catalog.
+     * </p>
+     * 
+     * @param federatedDatabase
+     *        A <code>FederatedDatabase</code> structure that references an entity outside the Glue Data Catalog.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Database withFederatedDatabase(FederatedDatabase federatedDatabase) {
+        setFederatedDatabase(federatedDatabase);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -302,7 +532,15 @@ public class Database implements Serializable, Cloneable, StructuredPojo {
         if (getParameters() != null)
             sb.append("Parameters: ").append(getParameters()).append(",");
         if (getCreateTime() != null)
-            sb.append("CreateTime: ").append(getCreateTime());
+            sb.append("CreateTime: ").append(getCreateTime()).append(",");
+        if (getCreateTableDefaultPermissions() != null)
+            sb.append("CreateTableDefaultPermissions: ").append(getCreateTableDefaultPermissions()).append(",");
+        if (getTargetDatabase() != null)
+            sb.append("TargetDatabase: ").append(getTargetDatabase()).append(",");
+        if (getCatalogId() != null)
+            sb.append("CatalogId: ").append(getCatalogId()).append(",");
+        if (getFederatedDatabase() != null)
+            sb.append("FederatedDatabase: ").append(getFederatedDatabase());
         sb.append("}");
         return sb.toString();
     }
@@ -337,6 +575,23 @@ public class Database implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getCreateTime() != null && other.getCreateTime().equals(this.getCreateTime()) == false)
             return false;
+        if (other.getCreateTableDefaultPermissions() == null ^ this.getCreateTableDefaultPermissions() == null)
+            return false;
+        if (other.getCreateTableDefaultPermissions() != null
+                && other.getCreateTableDefaultPermissions().equals(this.getCreateTableDefaultPermissions()) == false)
+            return false;
+        if (other.getTargetDatabase() == null ^ this.getTargetDatabase() == null)
+            return false;
+        if (other.getTargetDatabase() != null && other.getTargetDatabase().equals(this.getTargetDatabase()) == false)
+            return false;
+        if (other.getCatalogId() == null ^ this.getCatalogId() == null)
+            return false;
+        if (other.getCatalogId() != null && other.getCatalogId().equals(this.getCatalogId()) == false)
+            return false;
+        if (other.getFederatedDatabase() == null ^ this.getFederatedDatabase() == null)
+            return false;
+        if (other.getFederatedDatabase() != null && other.getFederatedDatabase().equals(this.getFederatedDatabase()) == false)
+            return false;
         return true;
     }
 
@@ -350,6 +605,10 @@ public class Database implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getLocationUri() == null) ? 0 : getLocationUri().hashCode());
         hashCode = prime * hashCode + ((getParameters() == null) ? 0 : getParameters().hashCode());
         hashCode = prime * hashCode + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
+        hashCode = prime * hashCode + ((getCreateTableDefaultPermissions() == null) ? 0 : getCreateTableDefaultPermissions().hashCode());
+        hashCode = prime * hashCode + ((getTargetDatabase() == null) ? 0 : getTargetDatabase().hashCode());
+        hashCode = prime * hashCode + ((getCatalogId() == null) ? 0 : getCatalogId().hashCode());
+        hashCode = prime * hashCode + ((getFederatedDatabase() == null) ? 0 : getFederatedDatabase().hashCode());
         return hashCode;
     }
 

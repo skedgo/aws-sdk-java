@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,6 +39,13 @@ public class UpdateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
     private Boolean opsCenterEnabled;
     /**
      * <p>
+     * Indicates whether Application Insights can listen to CloudWatch events for the application resources, such as
+     * <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     * </p>
+     */
+    private Boolean cWEMonitorEnabled;
+    /**
+     * <p>
      * The SNS topic provided to Application Insights that is associated to the created opsItem. Allows you to receive
      * notifications for updates to the opsItem.
      * </p>
@@ -50,6 +57,18 @@ public class UpdateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      */
     private Boolean removeSNSTopic;
+    /**
+     * <p>
+     * Turns auto-configuration on or off.
+     * </p>
+     */
+    private Boolean autoConfigEnabled;
+    /**
+     * <p>
+     * If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are missing.
+     * </p>
+     */
+    private Boolean attachMissingPermission;
 
     /**
      * <p>
@@ -141,6 +160,66 @@ public class UpdateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     public Boolean isOpsCenterEnabled() {
         return this.opsCenterEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Application Insights can listen to CloudWatch events for the application resources, such as
+     * <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     * </p>
+     * 
+     * @param cWEMonitorEnabled
+     *        Indicates whether Application Insights can listen to CloudWatch events for the application resources, such
+     *        as <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     */
+
+    public void setCWEMonitorEnabled(Boolean cWEMonitorEnabled) {
+        this.cWEMonitorEnabled = cWEMonitorEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Application Insights can listen to CloudWatch events for the application resources, such as
+     * <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     * </p>
+     * 
+     * @return Indicates whether Application Insights can listen to CloudWatch events for the application resources,
+     *         such as <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     */
+
+    public Boolean getCWEMonitorEnabled() {
+        return this.cWEMonitorEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Application Insights can listen to CloudWatch events for the application resources, such as
+     * <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     * </p>
+     * 
+     * @param cWEMonitorEnabled
+     *        Indicates whether Application Insights can listen to CloudWatch events for the application resources, such
+     *        as <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateApplicationRequest withCWEMonitorEnabled(Boolean cWEMonitorEnabled) {
+        setCWEMonitorEnabled(cWEMonitorEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Application Insights can listen to CloudWatch events for the application resources, such as
+     * <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     * </p>
+     * 
+     * @return Indicates whether Application Insights can listen to CloudWatch events for the application resources,
+     *         such as <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     */
+
+    public Boolean isCWEMonitorEnabled() {
+        return this.cWEMonitorEnabled;
     }
 
     /**
@@ -242,6 +321,114 @@ public class UpdateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
     }
 
     /**
+     * <p>
+     * Turns auto-configuration on or off.
+     * </p>
+     * 
+     * @param autoConfigEnabled
+     *        Turns auto-configuration on or off.
+     */
+
+    public void setAutoConfigEnabled(Boolean autoConfigEnabled) {
+        this.autoConfigEnabled = autoConfigEnabled;
+    }
+
+    /**
+     * <p>
+     * Turns auto-configuration on or off.
+     * </p>
+     * 
+     * @return Turns auto-configuration on or off.
+     */
+
+    public Boolean getAutoConfigEnabled() {
+        return this.autoConfigEnabled;
+    }
+
+    /**
+     * <p>
+     * Turns auto-configuration on or off.
+     * </p>
+     * 
+     * @param autoConfigEnabled
+     *        Turns auto-configuration on or off.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateApplicationRequest withAutoConfigEnabled(Boolean autoConfigEnabled) {
+        setAutoConfigEnabled(autoConfigEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Turns auto-configuration on or off.
+     * </p>
+     * 
+     * @return Turns auto-configuration on or off.
+     */
+
+    public Boolean isAutoConfigEnabled() {
+        return this.autoConfigEnabled;
+    }
+
+    /**
+     * <p>
+     * If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are missing.
+     * </p>
+     * 
+     * @param attachMissingPermission
+     *        If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are
+     *        missing.
+     */
+
+    public void setAttachMissingPermission(Boolean attachMissingPermission) {
+        this.attachMissingPermission = attachMissingPermission;
+    }
+
+    /**
+     * <p>
+     * If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are missing.
+     * </p>
+     * 
+     * @return If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are
+     *         missing.
+     */
+
+    public Boolean getAttachMissingPermission() {
+        return this.attachMissingPermission;
+    }
+
+    /**
+     * <p>
+     * If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are missing.
+     * </p>
+     * 
+     * @param attachMissingPermission
+     *        If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are
+     *        missing.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateApplicationRequest withAttachMissingPermission(Boolean attachMissingPermission) {
+        setAttachMissingPermission(attachMissingPermission);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are missing.
+     * </p>
+     * 
+     * @return If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are
+     *         missing.
+     */
+
+    public Boolean isAttachMissingPermission() {
+        return this.attachMissingPermission;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -257,10 +444,16 @@ public class UpdateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
             sb.append("ResourceGroupName: ").append(getResourceGroupName()).append(",");
         if (getOpsCenterEnabled() != null)
             sb.append("OpsCenterEnabled: ").append(getOpsCenterEnabled()).append(",");
+        if (getCWEMonitorEnabled() != null)
+            sb.append("CWEMonitorEnabled: ").append(getCWEMonitorEnabled()).append(",");
         if (getOpsItemSNSTopicArn() != null)
             sb.append("OpsItemSNSTopicArn: ").append(getOpsItemSNSTopicArn()).append(",");
         if (getRemoveSNSTopic() != null)
-            sb.append("RemoveSNSTopic: ").append(getRemoveSNSTopic());
+            sb.append("RemoveSNSTopic: ").append(getRemoveSNSTopic()).append(",");
+        if (getAutoConfigEnabled() != null)
+            sb.append("AutoConfigEnabled: ").append(getAutoConfigEnabled()).append(",");
+        if (getAttachMissingPermission() != null)
+            sb.append("AttachMissingPermission: ").append(getAttachMissingPermission());
         sb.append("}");
         return sb.toString();
     }
@@ -283,6 +476,10 @@ public class UpdateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
             return false;
         if (other.getOpsCenterEnabled() != null && other.getOpsCenterEnabled().equals(this.getOpsCenterEnabled()) == false)
             return false;
+        if (other.getCWEMonitorEnabled() == null ^ this.getCWEMonitorEnabled() == null)
+            return false;
+        if (other.getCWEMonitorEnabled() != null && other.getCWEMonitorEnabled().equals(this.getCWEMonitorEnabled()) == false)
+            return false;
         if (other.getOpsItemSNSTopicArn() == null ^ this.getOpsItemSNSTopicArn() == null)
             return false;
         if (other.getOpsItemSNSTopicArn() != null && other.getOpsItemSNSTopicArn().equals(this.getOpsItemSNSTopicArn()) == false)
@@ -290,6 +487,14 @@ public class UpdateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
         if (other.getRemoveSNSTopic() == null ^ this.getRemoveSNSTopic() == null)
             return false;
         if (other.getRemoveSNSTopic() != null && other.getRemoveSNSTopic().equals(this.getRemoveSNSTopic()) == false)
+            return false;
+        if (other.getAutoConfigEnabled() == null ^ this.getAutoConfigEnabled() == null)
+            return false;
+        if (other.getAutoConfigEnabled() != null && other.getAutoConfigEnabled().equals(this.getAutoConfigEnabled()) == false)
+            return false;
+        if (other.getAttachMissingPermission() == null ^ this.getAttachMissingPermission() == null)
+            return false;
+        if (other.getAttachMissingPermission() != null && other.getAttachMissingPermission().equals(this.getAttachMissingPermission()) == false)
             return false;
         return true;
     }
@@ -301,8 +506,11 @@ public class UpdateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
 
         hashCode = prime * hashCode + ((getResourceGroupName() == null) ? 0 : getResourceGroupName().hashCode());
         hashCode = prime * hashCode + ((getOpsCenterEnabled() == null) ? 0 : getOpsCenterEnabled().hashCode());
+        hashCode = prime * hashCode + ((getCWEMonitorEnabled() == null) ? 0 : getCWEMonitorEnabled().hashCode());
         hashCode = prime * hashCode + ((getOpsItemSNSTopicArn() == null) ? 0 : getOpsItemSNSTopicArn().hashCode());
         hashCode = prime * hashCode + ((getRemoveSNSTopic() == null) ? 0 : getRemoveSNSTopic().hashCode());
+        hashCode = prime * hashCode + ((getAutoConfigEnabled() == null) ? 0 : getAutoConfigEnabled().hashCode());
+        hashCode = prime * hashCode + ((getAttachMissingPermission() == null) ? 0 : getAttachMissingPermission().hashCode());
         return hashCode;
     }
 

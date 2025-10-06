@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -75,6 +75,22 @@ public class GatewayInfoJsonUnmarshaller implements Unmarshaller<GatewayInfo, Js
                 if (context.testExpression("Ec2InstanceRegion", targetDepth)) {
                     context.nextToken();
                     gatewayInfo.setEc2InstanceRegion(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("HostEnvironment", targetDepth)) {
+                    context.nextToken();
+                    gatewayInfo.setHostEnvironment(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("HostEnvironmentId", targetDepth)) {
+                    context.nextToken();
+                    gatewayInfo.setHostEnvironmentId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("DeprecationDate", targetDepth)) {
+                    context.nextToken();
+                    gatewayInfo.setDeprecationDate(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("SoftwareVersion", targetDepth)) {
+                    context.nextToken();
+                    gatewayInfo.setSoftwareVersion(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,6 +38,30 @@ public interface AWSMediaPackageVod {
      * @see RegionUtils#getRegionsForService(String)
      */
     String ENDPOINT_PREFIX = "mediapackage-vod";
+
+    /**
+     * Changes the packaging group's properities to configure log subscription
+     * 
+     * @param configureLogsRequest
+     *        The option to configure log subscription.
+     * @return Result of the ConfigureLogs operation returned by the service.
+     * @throws UnprocessableEntityException
+     *         The parameters sent in the request are not valid.
+     * @throws InternalServerErrorException
+     *         An unexpected error occurred.
+     * @throws ForbiddenException
+     *         The client is not authorized to access the requested resource.
+     * @throws NotFoundException
+     *         The requested resource does not exist.
+     * @throws ServiceUnavailableException
+     *         An unexpected error occurred.
+     * @throws TooManyRequestsException
+     *         The client has exceeded their resource or throttling limits.
+     * @sample AWSMediaPackageVod.ConfigureLogs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-vod-2018-11-07/ConfigureLogs" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ConfigureLogsResult configureLogs(ConfigureLogsRequest configureLogsRequest);
 
     /**
      * Creates a new MediaPackage VOD Asset resource.
@@ -317,6 +341,63 @@ public interface AWSMediaPackageVod {
      *      target="_top">AWS API Documentation</a>
      */
     ListPackagingGroupsResult listPackagingGroups(ListPackagingGroupsRequest listPackagingGroupsRequest);
+
+    /**
+     * Returns a list of the tags assigned to the specified resource.
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @sample AWSMediaPackageVod.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-vod-2018-11-07/ListTagsForResource"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest);
+
+    /**
+     * Adds tags to the specified resource. You can specify one or more tags to add.
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @sample AWSMediaPackageVod.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-vod-2018-11-07/TagResource" target="_top">AWS
+     *      API Documentation</a>
+     */
+    TagResourceResult tagResource(TagResourceRequest tagResourceRequest);
+
+    /**
+     * Removes tags from the specified resource. You can specify one or more tags to remove.
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @sample AWSMediaPackageVod.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-vod-2018-11-07/UntagResource" target="_top">AWS
+     *      API Documentation</a>
+     */
+    UntagResourceResult untagResource(UntagResourceRequest untagResourceRequest);
+
+    /**
+     * Updates a specific packaging group. You can't change the id attribute or any other system-generated attributes.
+     * 
+     * @param updatePackagingGroupRequest
+     *        A MediaPackage VOD PackagingGroup resource configuration.
+     * @return Result of the UpdatePackagingGroup operation returned by the service.
+     * @throws UnprocessableEntityException
+     *         The parameters sent in the request are not valid.
+     * @throws InternalServerErrorException
+     *         An unexpected error occurred.
+     * @throws ForbiddenException
+     *         The client is not authorized to access the requested resource.
+     * @throws NotFoundException
+     *         The requested resource does not exist.
+     * @throws ServiceUnavailableException
+     *         An unexpected error occurred.
+     * @throws TooManyRequestsException
+     *         The client has exceeded their resource or throttling limits.
+     * @sample AWSMediaPackageVod.UpdatePackagingGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediapackage-vod-2018-11-07/UpdatePackagingGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdatePackagingGroupResult updatePackagingGroup(UpdatePackagingGroupRequest updatePackagingGroupRequest);
 
     /**
      * Shuts down this client object, releasing any resources that might be held open. This is an optional method, and

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,7 +39,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * <p>
  * For more information, see <a
  * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data.html">Specifying
- * Sensitive Data</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+ * sensitive data</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/Secret" target="_top">AWS API Documentation</a>
@@ -55,14 +55,22 @@ public class Secret implements Serializable, Cloneable, StructuredPojo {
     private String name;
     /**
      * <p>
-     * The secret to expose to the container. The supported values are either the full ARN of the AWS Secrets Manager
-     * secret or the full ARN of the parameter in the AWS Systems Manager Parameter Store.
+     * The secret to expose to the container. The supported values are either the full ARN of the Secrets Manager secret
+     * or the full ARN of the parameter in the SSM Parameter Store.
+     * </p>
+     * <p>
+     * For information about the require Identity and Access Management permissions, see <a href=
+     * "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data-secrets.html#secrets-iam"
+     * >Required IAM permissions for Amazon ECS secrets</a> (for Secrets Manager) or <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data-parameters.html"
+     * >Required IAM permissions for Amazon ECS secrets</a> (for Systems Manager Parameter store) in the <i>Amazon
+     * Elastic Container Service Developer Guide</i>.
      * </p>
      * <note>
      * <p>
-     * If the AWS Systems Manager Parameter Store parameter exists in the same Region as the task you are launching,
-     * then you can use either the full ARN or name of the parameter. If the parameter exists in a different Region,
-     * then the full ARN must be specified.
+     * If the SSM Parameter Store parameter exists in the same Region as the task you're launching, then you can use
+     * either the full ARN or name of the parameter. If the parameter exists in a different Region, then the full ARN
+     * must be specified.
      * </p>
      * </note>
      */
@@ -110,24 +118,41 @@ public class Secret implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The secret to expose to the container. The supported values are either the full ARN of the AWS Secrets Manager
-     * secret or the full ARN of the parameter in the AWS Systems Manager Parameter Store.
+     * The secret to expose to the container. The supported values are either the full ARN of the Secrets Manager secret
+     * or the full ARN of the parameter in the SSM Parameter Store.
+     * </p>
+     * <p>
+     * For information about the require Identity and Access Management permissions, see <a href=
+     * "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data-secrets.html#secrets-iam"
+     * >Required IAM permissions for Amazon ECS secrets</a> (for Secrets Manager) or <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data-parameters.html"
+     * >Required IAM permissions for Amazon ECS secrets</a> (for Systems Manager Parameter store) in the <i>Amazon
+     * Elastic Container Service Developer Guide</i>.
      * </p>
      * <note>
      * <p>
-     * If the AWS Systems Manager Parameter Store parameter exists in the same Region as the task you are launching,
-     * then you can use either the full ARN or name of the parameter. If the parameter exists in a different Region,
-     * then the full ARN must be specified.
+     * If the SSM Parameter Store parameter exists in the same Region as the task you're launching, then you can use
+     * either the full ARN or name of the parameter. If the parameter exists in a different Region, then the full ARN
+     * must be specified.
      * </p>
      * </note>
      * 
      * @param valueFrom
-     *        The secret to expose to the container. The supported values are either the full ARN of the AWS Secrets
-     *        Manager secret or the full ARN of the parameter in the AWS Systems Manager Parameter Store.</p> <note>
+     *        The secret to expose to the container. The supported values are either the full ARN of the Secrets Manager
+     *        secret or the full ARN of the parameter in the SSM Parameter Store.</p>
      *        <p>
-     *        If the AWS Systems Manager Parameter Store parameter exists in the same Region as the task you are
-     *        launching, then you can use either the full ARN or name of the parameter. If the parameter exists in a
-     *        different Region, then the full ARN must be specified.
+     *        For information about the require Identity and Access Management permissions, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data-secrets.html#secrets-iam"
+     *        >Required IAM permissions for Amazon ECS secrets</a> (for Secrets Manager) or <a href=
+     *        "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data-parameters.html"
+     *        >Required IAM permissions for Amazon ECS secrets</a> (for Systems Manager Parameter store) in the
+     *        <i>Amazon Elastic Container Service Developer Guide</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        If the SSM Parameter Store parameter exists in the same Region as the task you're launching, then you can
+     *        use either the full ARN or name of the parameter. If the parameter exists in a different Region, then the
+     *        full ARN must be specified.
      *        </p>
      */
 
@@ -137,23 +162,40 @@ public class Secret implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The secret to expose to the container. The supported values are either the full ARN of the AWS Secrets Manager
-     * secret or the full ARN of the parameter in the AWS Systems Manager Parameter Store.
+     * The secret to expose to the container. The supported values are either the full ARN of the Secrets Manager secret
+     * or the full ARN of the parameter in the SSM Parameter Store.
+     * </p>
+     * <p>
+     * For information about the require Identity and Access Management permissions, see <a href=
+     * "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data-secrets.html#secrets-iam"
+     * >Required IAM permissions for Amazon ECS secrets</a> (for Secrets Manager) or <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data-parameters.html"
+     * >Required IAM permissions for Amazon ECS secrets</a> (for Systems Manager Parameter store) in the <i>Amazon
+     * Elastic Container Service Developer Guide</i>.
      * </p>
      * <note>
      * <p>
-     * If the AWS Systems Manager Parameter Store parameter exists in the same Region as the task you are launching,
-     * then you can use either the full ARN or name of the parameter. If the parameter exists in a different Region,
-     * then the full ARN must be specified.
+     * If the SSM Parameter Store parameter exists in the same Region as the task you're launching, then you can use
+     * either the full ARN or name of the parameter. If the parameter exists in a different Region, then the full ARN
+     * must be specified.
      * </p>
      * </note>
      * 
-     * @return The secret to expose to the container. The supported values are either the full ARN of the AWS Secrets
-     *         Manager secret or the full ARN of the parameter in the AWS Systems Manager Parameter Store.</p> <note>
+     * @return The secret to expose to the container. The supported values are either the full ARN of the Secrets
+     *         Manager secret or the full ARN of the parameter in the SSM Parameter Store.</p>
      *         <p>
-     *         If the AWS Systems Manager Parameter Store parameter exists in the same Region as the task you are
-     *         launching, then you can use either the full ARN or name of the parameter. If the parameter exists in a
-     *         different Region, then the full ARN must be specified.
+     *         For information about the require Identity and Access Management permissions, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data-secrets.html#secrets-iam"
+     *         >Required IAM permissions for Amazon ECS secrets</a> (for Secrets Manager) or <a href=
+     *         "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data-parameters.html"
+     *         >Required IAM permissions for Amazon ECS secrets</a> (for Systems Manager Parameter store) in the
+     *         <i>Amazon Elastic Container Service Developer Guide</i>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         If the SSM Parameter Store parameter exists in the same Region as the task you're launching, then you can
+     *         use either the full ARN or name of the parameter. If the parameter exists in a different Region, then the
+     *         full ARN must be specified.
      *         </p>
      */
 
@@ -163,24 +205,41 @@ public class Secret implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The secret to expose to the container. The supported values are either the full ARN of the AWS Secrets Manager
-     * secret or the full ARN of the parameter in the AWS Systems Manager Parameter Store.
+     * The secret to expose to the container. The supported values are either the full ARN of the Secrets Manager secret
+     * or the full ARN of the parameter in the SSM Parameter Store.
+     * </p>
+     * <p>
+     * For information about the require Identity and Access Management permissions, see <a href=
+     * "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data-secrets.html#secrets-iam"
+     * >Required IAM permissions for Amazon ECS secrets</a> (for Secrets Manager) or <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data-parameters.html"
+     * >Required IAM permissions for Amazon ECS secrets</a> (for Systems Manager Parameter store) in the <i>Amazon
+     * Elastic Container Service Developer Guide</i>.
      * </p>
      * <note>
      * <p>
-     * If the AWS Systems Manager Parameter Store parameter exists in the same Region as the task you are launching,
-     * then you can use either the full ARN or name of the parameter. If the parameter exists in a different Region,
-     * then the full ARN must be specified.
+     * If the SSM Parameter Store parameter exists in the same Region as the task you're launching, then you can use
+     * either the full ARN or name of the parameter. If the parameter exists in a different Region, then the full ARN
+     * must be specified.
      * </p>
      * </note>
      * 
      * @param valueFrom
-     *        The secret to expose to the container. The supported values are either the full ARN of the AWS Secrets
-     *        Manager secret or the full ARN of the parameter in the AWS Systems Manager Parameter Store.</p> <note>
+     *        The secret to expose to the container. The supported values are either the full ARN of the Secrets Manager
+     *        secret or the full ARN of the parameter in the SSM Parameter Store.</p>
      *        <p>
-     *        If the AWS Systems Manager Parameter Store parameter exists in the same Region as the task you are
-     *        launching, then you can use either the full ARN or name of the parameter. If the parameter exists in a
-     *        different Region, then the full ARN must be specified.
+     *        For information about the require Identity and Access Management permissions, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data-secrets.html#secrets-iam"
+     *        >Required IAM permissions for Amazon ECS secrets</a> (for Secrets Manager) or <a href=
+     *        "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data-parameters.html"
+     *        >Required IAM permissions for Amazon ECS secrets</a> (for Systems Manager Parameter store) in the
+     *        <i>Amazon Elastic Container Service Developer Guide</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        If the SSM Parameter Store parameter exists in the same Region as the task you're launching, then you can
+     *        use either the full ARN or name of the parameter. If the parameter exists in a different Region, then the
+     *        full ARN must be specified.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */

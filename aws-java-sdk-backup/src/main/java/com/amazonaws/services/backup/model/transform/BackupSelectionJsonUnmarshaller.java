@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -58,11 +58,25 @@ public class BackupSelectionJsonUnmarshaller implements Unmarshaller<BackupSelec
                 }
                 if (context.testExpression("Resources", targetDepth)) {
                     context.nextToken();
-                    backupSelection.setResources(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    backupSelection.setResources(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("ListOfTags", targetDepth)) {
                     context.nextToken();
-                    backupSelection.setListOfTags(new ListUnmarshaller<Condition>(ConditionJsonUnmarshaller.getInstance()).unmarshall(context));
+                    backupSelection.setListOfTags(new ListUnmarshaller<Condition>(ConditionJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("NotResources", targetDepth)) {
+                    context.nextToken();
+                    backupSelection.setNotResources(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("Conditions", targetDepth)) {
+                    context.nextToken();
+                    backupSelection.setConditions(ConditionsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

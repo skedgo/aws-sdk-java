@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,6 +30,8 @@ public class ParameterMetadataMarshaller {
 
     private static final MarshallingInfo<String> NAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Name").build();
+    private static final MarshallingInfo<String> ARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("ARN").build();
     private static final MarshallingInfo<String> TYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Type").build();
     private static final MarshallingInfo<String> KEYID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -48,6 +50,8 @@ public class ParameterMetadataMarshaller {
             .marshallLocationName("Tier").build();
     private static final MarshallingInfo<List> POLICIES_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Policies").build();
+    private static final MarshallingInfo<String> DATATYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("DataType").build();
 
     private static final ParameterMetadataMarshaller instance = new ParameterMetadataMarshaller();
 
@@ -66,6 +70,7 @@ public class ParameterMetadataMarshaller {
 
         try {
             protocolMarshaller.marshall(parameterMetadata.getName(), NAME_BINDING);
+            protocolMarshaller.marshall(parameterMetadata.getARN(), ARN_BINDING);
             protocolMarshaller.marshall(parameterMetadata.getType(), TYPE_BINDING);
             protocolMarshaller.marshall(parameterMetadata.getKeyId(), KEYID_BINDING);
             protocolMarshaller.marshall(parameterMetadata.getLastModifiedDate(), LASTMODIFIEDDATE_BINDING);
@@ -75,6 +80,7 @@ public class ParameterMetadataMarshaller {
             protocolMarshaller.marshall(parameterMetadata.getVersion(), VERSION_BINDING);
             protocolMarshaller.marshall(parameterMetadata.getTier(), TIER_BINDING);
             protocolMarshaller.marshall(parameterMetadata.getPolicies(), POLICIES_BINDING);
+            protocolMarshaller.marshall(parameterMetadata.getDataType(), DATATYPE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

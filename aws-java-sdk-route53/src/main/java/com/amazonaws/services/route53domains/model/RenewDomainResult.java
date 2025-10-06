@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,21 +25,24 @@ public class RenewDomainResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The identifier for tracking the progress of the request. To use this ID to query the operation status, use
-     * <a>GetOperationDetail</a>.
+     * Identifier for tracking the progress of the request. To query the operation status, use <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html"
+     * >GetOperationDetail</a>.
      * </p>
      */
     private String operationId;
 
     /**
      * <p>
-     * The identifier for tracking the progress of the request. To use this ID to query the operation status, use
-     * <a>GetOperationDetail</a>.
+     * Identifier for tracking the progress of the request. To query the operation status, use <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html"
+     * >GetOperationDetail</a>.
      * </p>
      * 
      * @param operationId
-     *        The identifier for tracking the progress of the request. To use this ID to query the operation status, use
-     *        <a>GetOperationDetail</a>.
+     *        Identifier for tracking the progress of the request. To query the operation status, use <a
+     *        href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html"
+     *        >GetOperationDetail</a>.
      */
 
     public void setOperationId(String operationId) {
@@ -48,12 +51,14 @@ public class RenewDomainResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The identifier for tracking the progress of the request. To use this ID to query the operation status, use
-     * <a>GetOperationDetail</a>.
+     * Identifier for tracking the progress of the request. To query the operation status, use <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html"
+     * >GetOperationDetail</a>.
      * </p>
      * 
-     * @return The identifier for tracking the progress of the request. To use this ID to query the operation status,
-     *         use <a>GetOperationDetail</a>.
+     * @return Identifier for tracking the progress of the request. To query the operation status, use <a
+     *         href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html"
+     *         >GetOperationDetail</a>.
      */
 
     public String getOperationId() {
@@ -62,13 +67,15 @@ public class RenewDomainResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The identifier for tracking the progress of the request. To use this ID to query the operation status, use
-     * <a>GetOperationDetail</a>.
+     * Identifier for tracking the progress of the request. To query the operation status, use <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html"
+     * >GetOperationDetail</a>.
      * </p>
      * 
      * @param operationId
-     *        The identifier for tracking the progress of the request. To use this ID to query the operation status, use
-     *        <a>GetOperationDetail</a>.
+     *        Identifier for tracking the progress of the request. To query the operation status, use <a
+     *        href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html"
+     *        >GetOperationDetail</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

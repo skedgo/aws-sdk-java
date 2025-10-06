@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,7 +34,19 @@ public class ModifyVpcEndpointServiceConfigurationRequest extends AmazonWebServi
     private String serviceId;
     /**
      * <p>
-     * Indicate whether requests to create an endpoint to your service must be accepted.
+     * (Interface endpoint configuration) The private DNS name to assign to the endpoint service.
+     * </p>
+     */
+    private String privateDnsName;
+    /**
+     * <p>
+     * (Interface endpoint configuration) Removes the private DNS name of the endpoint service.
+     * </p>
+     */
+    private Boolean removePrivateDnsName;
+    /**
+     * <p>
+     * Indicates whether requests to create an endpoint to your service must be accepted.
      * </p>
      */
     private Boolean acceptanceRequired;
@@ -50,6 +62,30 @@ public class ModifyVpcEndpointServiceConfigurationRequest extends AmazonWebServi
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> removeNetworkLoadBalancerArns;
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) of Gateway Load Balancers to add to your service configuration.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> addGatewayLoadBalancerArns;
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) of Gateway Load Balancers to remove from your service configuration.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> removeGatewayLoadBalancerArns;
+    /**
+     * <p>
+     * The IP address types to add to your service configuration.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> addSupportedIpAddressTypes;
+    /**
+     * <p>
+     * The IP address types to remove from your service configuration.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> removeSupportedIpAddressTypes;
 
     /**
      * <p>
@@ -93,11 +129,103 @@ public class ModifyVpcEndpointServiceConfigurationRequest extends AmazonWebServi
 
     /**
      * <p>
-     * Indicate whether requests to create an endpoint to your service must be accepted.
+     * (Interface endpoint configuration) The private DNS name to assign to the endpoint service.
+     * </p>
+     * 
+     * @param privateDnsName
+     *        (Interface endpoint configuration) The private DNS name to assign to the endpoint service.
+     */
+
+    public void setPrivateDnsName(String privateDnsName) {
+        this.privateDnsName = privateDnsName;
+    }
+
+    /**
+     * <p>
+     * (Interface endpoint configuration) The private DNS name to assign to the endpoint service.
+     * </p>
+     * 
+     * @return (Interface endpoint configuration) The private DNS name to assign to the endpoint service.
+     */
+
+    public String getPrivateDnsName() {
+        return this.privateDnsName;
+    }
+
+    /**
+     * <p>
+     * (Interface endpoint configuration) The private DNS name to assign to the endpoint service.
+     * </p>
+     * 
+     * @param privateDnsName
+     *        (Interface endpoint configuration) The private DNS name to assign to the endpoint service.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyVpcEndpointServiceConfigurationRequest withPrivateDnsName(String privateDnsName) {
+        setPrivateDnsName(privateDnsName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * (Interface endpoint configuration) Removes the private DNS name of the endpoint service.
+     * </p>
+     * 
+     * @param removePrivateDnsName
+     *        (Interface endpoint configuration) Removes the private DNS name of the endpoint service.
+     */
+
+    public void setRemovePrivateDnsName(Boolean removePrivateDnsName) {
+        this.removePrivateDnsName = removePrivateDnsName;
+    }
+
+    /**
+     * <p>
+     * (Interface endpoint configuration) Removes the private DNS name of the endpoint service.
+     * </p>
+     * 
+     * @return (Interface endpoint configuration) Removes the private DNS name of the endpoint service.
+     */
+
+    public Boolean getRemovePrivateDnsName() {
+        return this.removePrivateDnsName;
+    }
+
+    /**
+     * <p>
+     * (Interface endpoint configuration) Removes the private DNS name of the endpoint service.
+     * </p>
+     * 
+     * @param removePrivateDnsName
+     *        (Interface endpoint configuration) Removes the private DNS name of the endpoint service.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyVpcEndpointServiceConfigurationRequest withRemovePrivateDnsName(Boolean removePrivateDnsName) {
+        setRemovePrivateDnsName(removePrivateDnsName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * (Interface endpoint configuration) Removes the private DNS name of the endpoint service.
+     * </p>
+     * 
+     * @return (Interface endpoint configuration) Removes the private DNS name of the endpoint service.
+     */
+
+    public Boolean isRemovePrivateDnsName() {
+        return this.removePrivateDnsName;
+    }
+
+    /**
+     * <p>
+     * Indicates whether requests to create an endpoint to your service must be accepted.
      * </p>
      * 
      * @param acceptanceRequired
-     *        Indicate whether requests to create an endpoint to your service must be accepted.
+     *        Indicates whether requests to create an endpoint to your service must be accepted.
      */
 
     public void setAcceptanceRequired(Boolean acceptanceRequired) {
@@ -106,10 +234,10 @@ public class ModifyVpcEndpointServiceConfigurationRequest extends AmazonWebServi
 
     /**
      * <p>
-     * Indicate whether requests to create an endpoint to your service must be accepted.
+     * Indicates whether requests to create an endpoint to your service must be accepted.
      * </p>
      * 
-     * @return Indicate whether requests to create an endpoint to your service must be accepted.
+     * @return Indicates whether requests to create an endpoint to your service must be accepted.
      */
 
     public Boolean getAcceptanceRequired() {
@@ -118,11 +246,11 @@ public class ModifyVpcEndpointServiceConfigurationRequest extends AmazonWebServi
 
     /**
      * <p>
-     * Indicate whether requests to create an endpoint to your service must be accepted.
+     * Indicates whether requests to create an endpoint to your service must be accepted.
      * </p>
      * 
      * @param acceptanceRequired
-     *        Indicate whether requests to create an endpoint to your service must be accepted.
+     *        Indicates whether requests to create an endpoint to your service must be accepted.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -133,10 +261,10 @@ public class ModifyVpcEndpointServiceConfigurationRequest extends AmazonWebServi
 
     /**
      * <p>
-     * Indicate whether requests to create an endpoint to your service must be accepted.
+     * Indicates whether requests to create an endpoint to your service must be accepted.
      * </p>
      * 
-     * @return Indicate whether requests to create an endpoint to your service must be accepted.
+     * @return Indicates whether requests to create an endpoint to your service must be accepted.
      */
 
     public Boolean isAcceptanceRequired() {
@@ -290,6 +418,298 @@ public class ModifyVpcEndpointServiceConfigurationRequest extends AmazonWebServi
     }
 
     /**
+     * <p>
+     * The Amazon Resource Names (ARNs) of Gateway Load Balancers to add to your service configuration.
+     * </p>
+     * 
+     * @return The Amazon Resource Names (ARNs) of Gateway Load Balancers to add to your service configuration.
+     */
+
+    public java.util.List<String> getAddGatewayLoadBalancerArns() {
+        if (addGatewayLoadBalancerArns == null) {
+            addGatewayLoadBalancerArns = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return addGatewayLoadBalancerArns;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) of Gateway Load Balancers to add to your service configuration.
+     * </p>
+     * 
+     * @param addGatewayLoadBalancerArns
+     *        The Amazon Resource Names (ARNs) of Gateway Load Balancers to add to your service configuration.
+     */
+
+    public void setAddGatewayLoadBalancerArns(java.util.Collection<String> addGatewayLoadBalancerArns) {
+        if (addGatewayLoadBalancerArns == null) {
+            this.addGatewayLoadBalancerArns = null;
+            return;
+        }
+
+        this.addGatewayLoadBalancerArns = new com.amazonaws.internal.SdkInternalList<String>(addGatewayLoadBalancerArns);
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) of Gateway Load Balancers to add to your service configuration.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAddGatewayLoadBalancerArns(java.util.Collection)} or
+     * {@link #withAddGatewayLoadBalancerArns(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param addGatewayLoadBalancerArns
+     *        The Amazon Resource Names (ARNs) of Gateway Load Balancers to add to your service configuration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyVpcEndpointServiceConfigurationRequest withAddGatewayLoadBalancerArns(String... addGatewayLoadBalancerArns) {
+        if (this.addGatewayLoadBalancerArns == null) {
+            setAddGatewayLoadBalancerArns(new com.amazonaws.internal.SdkInternalList<String>(addGatewayLoadBalancerArns.length));
+        }
+        for (String ele : addGatewayLoadBalancerArns) {
+            this.addGatewayLoadBalancerArns.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) of Gateway Load Balancers to add to your service configuration.
+     * </p>
+     * 
+     * @param addGatewayLoadBalancerArns
+     *        The Amazon Resource Names (ARNs) of Gateway Load Balancers to add to your service configuration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyVpcEndpointServiceConfigurationRequest withAddGatewayLoadBalancerArns(java.util.Collection<String> addGatewayLoadBalancerArns) {
+        setAddGatewayLoadBalancerArns(addGatewayLoadBalancerArns);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) of Gateway Load Balancers to remove from your service configuration.
+     * </p>
+     * 
+     * @return The Amazon Resource Names (ARNs) of Gateway Load Balancers to remove from your service configuration.
+     */
+
+    public java.util.List<String> getRemoveGatewayLoadBalancerArns() {
+        if (removeGatewayLoadBalancerArns == null) {
+            removeGatewayLoadBalancerArns = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return removeGatewayLoadBalancerArns;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) of Gateway Load Balancers to remove from your service configuration.
+     * </p>
+     * 
+     * @param removeGatewayLoadBalancerArns
+     *        The Amazon Resource Names (ARNs) of Gateway Load Balancers to remove from your service configuration.
+     */
+
+    public void setRemoveGatewayLoadBalancerArns(java.util.Collection<String> removeGatewayLoadBalancerArns) {
+        if (removeGatewayLoadBalancerArns == null) {
+            this.removeGatewayLoadBalancerArns = null;
+            return;
+        }
+
+        this.removeGatewayLoadBalancerArns = new com.amazonaws.internal.SdkInternalList<String>(removeGatewayLoadBalancerArns);
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) of Gateway Load Balancers to remove from your service configuration.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setRemoveGatewayLoadBalancerArns(java.util.Collection)} or
+     * {@link #withRemoveGatewayLoadBalancerArns(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param removeGatewayLoadBalancerArns
+     *        The Amazon Resource Names (ARNs) of Gateway Load Balancers to remove from your service configuration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyVpcEndpointServiceConfigurationRequest withRemoveGatewayLoadBalancerArns(String... removeGatewayLoadBalancerArns) {
+        if (this.removeGatewayLoadBalancerArns == null) {
+            setRemoveGatewayLoadBalancerArns(new com.amazonaws.internal.SdkInternalList<String>(removeGatewayLoadBalancerArns.length));
+        }
+        for (String ele : removeGatewayLoadBalancerArns) {
+            this.removeGatewayLoadBalancerArns.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Names (ARNs) of Gateway Load Balancers to remove from your service configuration.
+     * </p>
+     * 
+     * @param removeGatewayLoadBalancerArns
+     *        The Amazon Resource Names (ARNs) of Gateway Load Balancers to remove from your service configuration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyVpcEndpointServiceConfigurationRequest withRemoveGatewayLoadBalancerArns(java.util.Collection<String> removeGatewayLoadBalancerArns) {
+        setRemoveGatewayLoadBalancerArns(removeGatewayLoadBalancerArns);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IP address types to add to your service configuration.
+     * </p>
+     * 
+     * @return The IP address types to add to your service configuration.
+     */
+
+    public java.util.List<String> getAddSupportedIpAddressTypes() {
+        if (addSupportedIpAddressTypes == null) {
+            addSupportedIpAddressTypes = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return addSupportedIpAddressTypes;
+    }
+
+    /**
+     * <p>
+     * The IP address types to add to your service configuration.
+     * </p>
+     * 
+     * @param addSupportedIpAddressTypes
+     *        The IP address types to add to your service configuration.
+     */
+
+    public void setAddSupportedIpAddressTypes(java.util.Collection<String> addSupportedIpAddressTypes) {
+        if (addSupportedIpAddressTypes == null) {
+            this.addSupportedIpAddressTypes = null;
+            return;
+        }
+
+        this.addSupportedIpAddressTypes = new com.amazonaws.internal.SdkInternalList<String>(addSupportedIpAddressTypes);
+    }
+
+    /**
+     * <p>
+     * The IP address types to add to your service configuration.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAddSupportedIpAddressTypes(java.util.Collection)} or
+     * {@link #withAddSupportedIpAddressTypes(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param addSupportedIpAddressTypes
+     *        The IP address types to add to your service configuration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyVpcEndpointServiceConfigurationRequest withAddSupportedIpAddressTypes(String... addSupportedIpAddressTypes) {
+        if (this.addSupportedIpAddressTypes == null) {
+            setAddSupportedIpAddressTypes(new com.amazonaws.internal.SdkInternalList<String>(addSupportedIpAddressTypes.length));
+        }
+        for (String ele : addSupportedIpAddressTypes) {
+            this.addSupportedIpAddressTypes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IP address types to add to your service configuration.
+     * </p>
+     * 
+     * @param addSupportedIpAddressTypes
+     *        The IP address types to add to your service configuration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyVpcEndpointServiceConfigurationRequest withAddSupportedIpAddressTypes(java.util.Collection<String> addSupportedIpAddressTypes) {
+        setAddSupportedIpAddressTypes(addSupportedIpAddressTypes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IP address types to remove from your service configuration.
+     * </p>
+     * 
+     * @return The IP address types to remove from your service configuration.
+     */
+
+    public java.util.List<String> getRemoveSupportedIpAddressTypes() {
+        if (removeSupportedIpAddressTypes == null) {
+            removeSupportedIpAddressTypes = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return removeSupportedIpAddressTypes;
+    }
+
+    /**
+     * <p>
+     * The IP address types to remove from your service configuration.
+     * </p>
+     * 
+     * @param removeSupportedIpAddressTypes
+     *        The IP address types to remove from your service configuration.
+     */
+
+    public void setRemoveSupportedIpAddressTypes(java.util.Collection<String> removeSupportedIpAddressTypes) {
+        if (removeSupportedIpAddressTypes == null) {
+            this.removeSupportedIpAddressTypes = null;
+            return;
+        }
+
+        this.removeSupportedIpAddressTypes = new com.amazonaws.internal.SdkInternalList<String>(removeSupportedIpAddressTypes);
+    }
+
+    /**
+     * <p>
+     * The IP address types to remove from your service configuration.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setRemoveSupportedIpAddressTypes(java.util.Collection)} or
+     * {@link #withRemoveSupportedIpAddressTypes(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param removeSupportedIpAddressTypes
+     *        The IP address types to remove from your service configuration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyVpcEndpointServiceConfigurationRequest withRemoveSupportedIpAddressTypes(String... removeSupportedIpAddressTypes) {
+        if (this.removeSupportedIpAddressTypes == null) {
+            setRemoveSupportedIpAddressTypes(new com.amazonaws.internal.SdkInternalList<String>(removeSupportedIpAddressTypes.length));
+        }
+        for (String ele : removeSupportedIpAddressTypes) {
+            this.removeSupportedIpAddressTypes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IP address types to remove from your service configuration.
+     * </p>
+     * 
+     * @param removeSupportedIpAddressTypes
+     *        The IP address types to remove from your service configuration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyVpcEndpointServiceConfigurationRequest withRemoveSupportedIpAddressTypes(java.util.Collection<String> removeSupportedIpAddressTypes) {
+        setRemoveSupportedIpAddressTypes(removeSupportedIpAddressTypes);
+        return this;
+    }
+
+    /**
      * This method is intended for internal use only. Returns the marshaled request configured with additional
      * parameters to enable operation dry-run.
      */
@@ -314,12 +734,24 @@ public class ModifyVpcEndpointServiceConfigurationRequest extends AmazonWebServi
         sb.append("{");
         if (getServiceId() != null)
             sb.append("ServiceId: ").append(getServiceId()).append(",");
+        if (getPrivateDnsName() != null)
+            sb.append("PrivateDnsName: ").append(getPrivateDnsName()).append(",");
+        if (getRemovePrivateDnsName() != null)
+            sb.append("RemovePrivateDnsName: ").append(getRemovePrivateDnsName()).append(",");
         if (getAcceptanceRequired() != null)
             sb.append("AcceptanceRequired: ").append(getAcceptanceRequired()).append(",");
         if (getAddNetworkLoadBalancerArns() != null)
             sb.append("AddNetworkLoadBalancerArns: ").append(getAddNetworkLoadBalancerArns()).append(",");
         if (getRemoveNetworkLoadBalancerArns() != null)
-            sb.append("RemoveNetworkLoadBalancerArns: ").append(getRemoveNetworkLoadBalancerArns());
+            sb.append("RemoveNetworkLoadBalancerArns: ").append(getRemoveNetworkLoadBalancerArns()).append(",");
+        if (getAddGatewayLoadBalancerArns() != null)
+            sb.append("AddGatewayLoadBalancerArns: ").append(getAddGatewayLoadBalancerArns()).append(",");
+        if (getRemoveGatewayLoadBalancerArns() != null)
+            sb.append("RemoveGatewayLoadBalancerArns: ").append(getRemoveGatewayLoadBalancerArns()).append(",");
+        if (getAddSupportedIpAddressTypes() != null)
+            sb.append("AddSupportedIpAddressTypes: ").append(getAddSupportedIpAddressTypes()).append(",");
+        if (getRemoveSupportedIpAddressTypes() != null)
+            sb.append("RemoveSupportedIpAddressTypes: ").append(getRemoveSupportedIpAddressTypes());
         sb.append("}");
         return sb.toString();
     }
@@ -338,6 +770,14 @@ public class ModifyVpcEndpointServiceConfigurationRequest extends AmazonWebServi
             return false;
         if (other.getServiceId() != null && other.getServiceId().equals(this.getServiceId()) == false)
             return false;
+        if (other.getPrivateDnsName() == null ^ this.getPrivateDnsName() == null)
+            return false;
+        if (other.getPrivateDnsName() != null && other.getPrivateDnsName().equals(this.getPrivateDnsName()) == false)
+            return false;
+        if (other.getRemovePrivateDnsName() == null ^ this.getRemovePrivateDnsName() == null)
+            return false;
+        if (other.getRemovePrivateDnsName() != null && other.getRemovePrivateDnsName().equals(this.getRemovePrivateDnsName()) == false)
+            return false;
         if (other.getAcceptanceRequired() == null ^ this.getAcceptanceRequired() == null)
             return false;
         if (other.getAcceptanceRequired() != null && other.getAcceptanceRequired().equals(this.getAcceptanceRequired()) == false)
@@ -351,6 +791,24 @@ public class ModifyVpcEndpointServiceConfigurationRequest extends AmazonWebServi
         if (other.getRemoveNetworkLoadBalancerArns() != null
                 && other.getRemoveNetworkLoadBalancerArns().equals(this.getRemoveNetworkLoadBalancerArns()) == false)
             return false;
+        if (other.getAddGatewayLoadBalancerArns() == null ^ this.getAddGatewayLoadBalancerArns() == null)
+            return false;
+        if (other.getAddGatewayLoadBalancerArns() != null && other.getAddGatewayLoadBalancerArns().equals(this.getAddGatewayLoadBalancerArns()) == false)
+            return false;
+        if (other.getRemoveGatewayLoadBalancerArns() == null ^ this.getRemoveGatewayLoadBalancerArns() == null)
+            return false;
+        if (other.getRemoveGatewayLoadBalancerArns() != null
+                && other.getRemoveGatewayLoadBalancerArns().equals(this.getRemoveGatewayLoadBalancerArns()) == false)
+            return false;
+        if (other.getAddSupportedIpAddressTypes() == null ^ this.getAddSupportedIpAddressTypes() == null)
+            return false;
+        if (other.getAddSupportedIpAddressTypes() != null && other.getAddSupportedIpAddressTypes().equals(this.getAddSupportedIpAddressTypes()) == false)
+            return false;
+        if (other.getRemoveSupportedIpAddressTypes() == null ^ this.getRemoveSupportedIpAddressTypes() == null)
+            return false;
+        if (other.getRemoveSupportedIpAddressTypes() != null
+                && other.getRemoveSupportedIpAddressTypes().equals(this.getRemoveSupportedIpAddressTypes()) == false)
+            return false;
         return true;
     }
 
@@ -360,9 +818,15 @@ public class ModifyVpcEndpointServiceConfigurationRequest extends AmazonWebServi
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getServiceId() == null) ? 0 : getServiceId().hashCode());
+        hashCode = prime * hashCode + ((getPrivateDnsName() == null) ? 0 : getPrivateDnsName().hashCode());
+        hashCode = prime * hashCode + ((getRemovePrivateDnsName() == null) ? 0 : getRemovePrivateDnsName().hashCode());
         hashCode = prime * hashCode + ((getAcceptanceRequired() == null) ? 0 : getAcceptanceRequired().hashCode());
         hashCode = prime * hashCode + ((getAddNetworkLoadBalancerArns() == null) ? 0 : getAddNetworkLoadBalancerArns().hashCode());
         hashCode = prime * hashCode + ((getRemoveNetworkLoadBalancerArns() == null) ? 0 : getRemoveNetworkLoadBalancerArns().hashCode());
+        hashCode = prime * hashCode + ((getAddGatewayLoadBalancerArns() == null) ? 0 : getAddGatewayLoadBalancerArns().hashCode());
+        hashCode = prime * hashCode + ((getRemoveGatewayLoadBalancerArns() == null) ? 0 : getRemoveGatewayLoadBalancerArns().hashCode());
+        hashCode = prime * hashCode + ((getAddSupportedIpAddressTypes() == null) ? 0 : getAddSupportedIpAddressTypes().hashCode());
+        hashCode = prime * hashCode + ((getRemoveSupportedIpAddressTypes() == null) ? 0 : getRemoveSupportedIpAddressTypes().hashCode());
         return hashCode;
     }
 

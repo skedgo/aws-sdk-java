@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,12 +28,57 @@ public class AbstractAmazonKinesisVideo implements AmazonKinesisVideo {
     }
 
     @Override
+    public CreateSignalingChannelResult createSignalingChannel(CreateSignalingChannelRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateStreamResult createStream(CreateStreamRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public DeleteEdgeConfigurationResult deleteEdgeConfiguration(DeleteEdgeConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteSignalingChannelResult deleteSignalingChannel(DeleteSignalingChannelRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteStreamResult deleteStream(DeleteStreamRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeEdgeConfigurationResult describeEdgeConfiguration(DescribeEdgeConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeImageGenerationConfigurationResult describeImageGenerationConfiguration(DescribeImageGenerationConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeMappedResourceConfigurationResult describeMappedResourceConfiguration(DescribeMappedResourceConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeMediaStorageConfigurationResult describeMediaStorageConfiguration(DescribeMediaStorageConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeNotificationConfigurationResult describeNotificationConfiguration(DescribeNotificationConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeSignalingChannelResult describeSignalingChannel(DescribeSignalingChannelRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -48,7 +93,27 @@ public class AbstractAmazonKinesisVideo implements AmazonKinesisVideo {
     }
 
     @Override
+    public GetSignalingChannelEndpointResult getSignalingChannelEndpoint(GetSignalingChannelEndpointRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListEdgeAgentConfigurationsResult listEdgeAgentConfigurations(ListEdgeAgentConfigurationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListSignalingChannelsResult listSignalingChannels(ListSignalingChannelsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListStreamsResult listStreams(ListStreamsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -58,7 +123,22 @@ public class AbstractAmazonKinesisVideo implements AmazonKinesisVideo {
     }
 
     @Override
+    public StartEdgeConfigurationUpdateResult startEdgeConfigurationUpdate(StartEdgeConfigurationUpdateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public TagStreamResult tagStream(TagStreamRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -69,6 +149,26 @@ public class AbstractAmazonKinesisVideo implements AmazonKinesisVideo {
 
     @Override
     public UpdateDataRetentionResult updateDataRetention(UpdateDataRetentionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateImageGenerationConfigurationResult updateImageGenerationConfiguration(UpdateImageGenerationConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateMediaStorageConfigurationResult updateMediaStorageConfiguration(UpdateMediaStorageConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateNotificationConfigurationResult updateNotificationConfiguration(UpdateNotificationConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateSignalingChannelResult updateSignalingChannel(UpdateSignalingChannelRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

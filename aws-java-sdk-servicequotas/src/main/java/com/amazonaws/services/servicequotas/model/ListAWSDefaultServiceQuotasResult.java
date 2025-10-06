@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,30 +25,31 @@ public class ListAWSDefaultServiceQuotasResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * (Optional) Use this parameter in a request if you receive a <code>NextToken</code> response in a previous request
-     * that indicates that there's more output available. In a subsequent call, set it to the value of the previous
-     * call's <code>NextToken</code> response to indicate where the output should continue from.
+     * If present, indicates that more output is available than is included in the current response. Use this value in
+     * the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part of the
+     * output. You should repeat this until the <code>NextToken</code> response element comes back as <code>null</code>.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * A list of the quotas in the account with the AWS default values.
+     * Information about the quotas.
      * </p>
      */
     private java.util.List<ServiceQuota> quotas;
 
     /**
      * <p>
-     * (Optional) Use this parameter in a request if you receive a <code>NextToken</code> response in a previous request
-     * that indicates that there's more output available. In a subsequent call, set it to the value of the previous
-     * call's <code>NextToken</code> response to indicate where the output should continue from.
+     * If present, indicates that more output is available than is included in the current response. Use this value in
+     * the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part of the
+     * output. You should repeat this until the <code>NextToken</code> response element comes back as <code>null</code>.
      * </p>
      * 
      * @param nextToken
-     *        (Optional) Use this parameter in a request if you receive a <code>NextToken</code> response in a previous
-     *        request that indicates that there's more output available. In a subsequent call, set it to the value of
-     *        the previous call's <code>NextToken</code> response to indicate where the output should continue from.
+     *        If present, indicates that more output is available than is included in the current response. Use this
+     *        value in the <code>NextToken</code> request parameter in a subsequent call to the operation to get the
+     *        next part of the output. You should repeat this until the <code>NextToken</code> response element comes
+     *        back as <code>null</code>.
      */
 
     public void setNextToken(String nextToken) {
@@ -57,14 +58,15 @@ public class ListAWSDefaultServiceQuotasResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * (Optional) Use this parameter in a request if you receive a <code>NextToken</code> response in a previous request
-     * that indicates that there's more output available. In a subsequent call, set it to the value of the previous
-     * call's <code>NextToken</code> response to indicate where the output should continue from.
+     * If present, indicates that more output is available than is included in the current response. Use this value in
+     * the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part of the
+     * output. You should repeat this until the <code>NextToken</code> response element comes back as <code>null</code>.
      * </p>
      * 
-     * @return (Optional) Use this parameter in a request if you receive a <code>NextToken</code> response in a previous
-     *         request that indicates that there's more output available. In a subsequent call, set it to the value of
-     *         the previous call's <code>NextToken</code> response to indicate where the output should continue from.
+     * @return If present, indicates that more output is available than is included in the current response. Use this
+     *         value in the <code>NextToken</code> request parameter in a subsequent call to the operation to get the
+     *         next part of the output. You should repeat this until the <code>NextToken</code> response element comes
+     *         back as <code>null</code>.
      */
 
     public String getNextToken() {
@@ -73,15 +75,16 @@ public class ListAWSDefaultServiceQuotasResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * (Optional) Use this parameter in a request if you receive a <code>NextToken</code> response in a previous request
-     * that indicates that there's more output available. In a subsequent call, set it to the value of the previous
-     * call's <code>NextToken</code> response to indicate where the output should continue from.
+     * If present, indicates that more output is available than is included in the current response. Use this value in
+     * the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part of the
+     * output. You should repeat this until the <code>NextToken</code> response element comes back as <code>null</code>.
      * </p>
      * 
      * @param nextToken
-     *        (Optional) Use this parameter in a request if you receive a <code>NextToken</code> response in a previous
-     *        request that indicates that there's more output available. In a subsequent call, set it to the value of
-     *        the previous call's <code>NextToken</code> response to indicate where the output should continue from.
+     *        If present, indicates that more output is available than is included in the current response. Use this
+     *        value in the <code>NextToken</code> request parameter in a subsequent call to the operation to get the
+     *        next part of the output. You should repeat this until the <code>NextToken</code> response element comes
+     *        back as <code>null</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -92,10 +95,10 @@ public class ListAWSDefaultServiceQuotasResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * A list of the quotas in the account with the AWS default values.
+     * Information about the quotas.
      * </p>
      * 
-     * @return A list of the quotas in the account with the AWS default values.
+     * @return Information about the quotas.
      */
 
     public java.util.List<ServiceQuota> getQuotas() {
@@ -104,11 +107,11 @@ public class ListAWSDefaultServiceQuotasResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * A list of the quotas in the account with the AWS default values.
+     * Information about the quotas.
      * </p>
      * 
      * @param quotas
-     *        A list of the quotas in the account with the AWS default values.
+     *        Information about the quotas.
      */
 
     public void setQuotas(java.util.Collection<ServiceQuota> quotas) {
@@ -122,7 +125,7 @@ public class ListAWSDefaultServiceQuotasResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * A list of the quotas in the account with the AWS default values.
+     * Information about the quotas.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -131,7 +134,7 @@ public class ListAWSDefaultServiceQuotasResult extends com.amazonaws.AmazonWebSe
      * </p>
      * 
      * @param quotas
-     *        A list of the quotas in the account with the AWS default values.
+     *        Information about the quotas.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -147,11 +150,11 @@ public class ListAWSDefaultServiceQuotasResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * A list of the quotas in the account with the AWS default values.
+     * Information about the quotas.
      * </p>
      * 
      * @param quotas
-     *        A list of the quotas in the account with the AWS default values.
+     *        Information about the quotas.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

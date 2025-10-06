@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,6 +51,25 @@ public class PredictedItemJsonUnmarshaller implements Unmarshaller<PredictedItem
                 if (context.testExpression("itemId", targetDepth)) {
                     context.nextToken();
                     predictedItem.setItemId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("score", targetDepth)) {
+                    context.nextToken();
+                    predictedItem.setScore(context.getUnmarshaller(Double.class).unmarshall(context));
+                }
+                if (context.testExpression("promotionName", targetDepth)) {
+                    context.nextToken();
+                    predictedItem.setPromotionName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("metadata", targetDepth)) {
+                    context.nextToken();
+                    predictedItem.setMetadata(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context.getUnmarshaller(String.class))
+                            .unmarshall(context));
+                }
+                if (context.testExpression("reason", targetDepth)) {
+                    context.nextToken();
+                    predictedItem.setReason(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

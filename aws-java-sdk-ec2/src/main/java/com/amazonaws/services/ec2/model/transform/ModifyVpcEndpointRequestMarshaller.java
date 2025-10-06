@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -134,8 +134,50 @@ public class ModifyVpcEndpointRequestMarshaller implements Marshaller<Request<Mo
             }
         }
 
+        if (modifyVpcEndpointRequest.getIpAddressType() != null) {
+            request.addParameter("IpAddressType", StringUtils.fromString(modifyVpcEndpointRequest.getIpAddressType()));
+        }
+
+        DnsOptionsSpecification dnsOptions = modifyVpcEndpointRequest.getDnsOptions();
+        if (dnsOptions != null) {
+
+            if (dnsOptions.getDnsRecordIpType() != null) {
+                request.addParameter("DnsOptions.DnsRecordIpType", StringUtils.fromString(dnsOptions.getDnsRecordIpType()));
+            }
+
+            if (dnsOptions.getPrivateDnsOnlyForInboundResolverEndpoint() != null) {
+                request.addParameter("DnsOptions.PrivateDnsOnlyForInboundResolverEndpoint",
+                        StringUtils.fromBoolean(dnsOptions.getPrivateDnsOnlyForInboundResolverEndpoint()));
+            }
+        }
+
         if (modifyVpcEndpointRequest.getPrivateDnsEnabled() != null) {
             request.addParameter("PrivateDnsEnabled", StringUtils.fromBoolean(modifyVpcEndpointRequest.getPrivateDnsEnabled()));
+        }
+
+        com.amazonaws.internal.SdkInternalList<SubnetConfiguration> modifyVpcEndpointRequestSubnetConfigurationsList = (com.amazonaws.internal.SdkInternalList<SubnetConfiguration>) modifyVpcEndpointRequest
+                .getSubnetConfigurations();
+        if (!modifyVpcEndpointRequestSubnetConfigurationsList.isEmpty() || !modifyVpcEndpointRequestSubnetConfigurationsList.isAutoConstruct()) {
+            int subnetConfigurationsListIndex = 1;
+
+            for (SubnetConfiguration modifyVpcEndpointRequestSubnetConfigurationsListValue : modifyVpcEndpointRequestSubnetConfigurationsList) {
+
+                if (modifyVpcEndpointRequestSubnetConfigurationsListValue.getSubnetId() != null) {
+                    request.addParameter("SubnetConfiguration." + subnetConfigurationsListIndex + ".SubnetId",
+                            StringUtils.fromString(modifyVpcEndpointRequestSubnetConfigurationsListValue.getSubnetId()));
+                }
+
+                if (modifyVpcEndpointRequestSubnetConfigurationsListValue.getIpv4() != null) {
+                    request.addParameter("SubnetConfiguration." + subnetConfigurationsListIndex + ".Ipv4",
+                            StringUtils.fromString(modifyVpcEndpointRequestSubnetConfigurationsListValue.getIpv4()));
+                }
+
+                if (modifyVpcEndpointRequestSubnetConfigurationsListValue.getIpv6() != null) {
+                    request.addParameter("SubnetConfiguration." + subnetConfigurationsListIndex + ".Ipv6",
+                            StringUtils.fromString(modifyVpcEndpointRequestSubnetConfigurationsListValue.getIpv6()));
+                }
+                subnetConfigurationsListIndex++;
+            }
         }
 
         return request;

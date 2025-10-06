@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,14 +32,40 @@ public class DisablePolicyTypeRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a root ID string requires "r-" followed by
-     * from 4 to 32 lower-case letters or digits.
+     * from 4 to 32 lowercase letters or digits.
      * </p>
      */
     private String rootId;
     /**
      * <p>
-     * The policy type that you want to disable in this root.
+     * The policy type that you want to disable in this root. You can specify one of the following values:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html">
+     * AISERVICES_OPT_OUT_POLICY</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_backup.html">
+     * BACKUP_POLICY</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scp.html">
+     * SERVICE_CONTROL_POLICY</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html">
+     * TAG_POLICY</a>
+     * </p>
+     * </li>
+     * </ul>
      */
     private String policyType;
 
@@ -50,7 +76,7 @@ public class DisablePolicyTypeRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a root ID string requires "r-" followed by
-     * from 4 to 32 lower-case letters or digits.
+     * from 4 to 32 lowercase letters or digits.
      * </p>
      * 
      * @param rootId
@@ -58,7 +84,7 @@ public class DisablePolicyTypeRequest extends com.amazonaws.AmazonWebServiceRequ
      *        the <a>ListRoots</a> operation.</p>
      *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a root ID string requires "r-"
-     *        followed by from 4 to 32 lower-case letters or digits.
+     *        followed by from 4 to 32 lowercase letters or digits.
      */
 
     public void setRootId(String rootId) {
@@ -72,14 +98,14 @@ public class DisablePolicyTypeRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a root ID string requires "r-" followed by
-     * from 4 to 32 lower-case letters or digits.
+     * from 4 to 32 lowercase letters or digits.
      * </p>
      * 
      * @return The unique identifier (ID) of the root in which you want to disable a policy type. You can get the ID
      *         from the <a>ListRoots</a> operation.</p>
      *         <p>
      *         The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a root ID string requires "r-"
-     *         followed by from 4 to 32 lower-case letters or digits.
+     *         followed by from 4 to 32 lowercase letters or digits.
      */
 
     public String getRootId() {
@@ -93,7 +119,7 @@ public class DisablePolicyTypeRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a root ID string requires "r-" followed by
-     * from 4 to 32 lower-case letters or digits.
+     * from 4 to 32 lowercase letters or digits.
      * </p>
      * 
      * @param rootId
@@ -101,7 +127,7 @@ public class DisablePolicyTypeRequest extends com.amazonaws.AmazonWebServiceRequ
      *        the <a>ListRoots</a> operation.</p>
      *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a root ID string requires "r-"
-     *        followed by from 4 to 32 lower-case letters or digits.
+     *        followed by from 4 to 32 lowercase letters or digits.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -112,11 +138,63 @@ public class DisablePolicyTypeRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The policy type that you want to disable in this root.
+     * The policy type that you want to disable in this root. You can specify one of the following values:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html">
+     * AISERVICES_OPT_OUT_POLICY</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_backup.html">
+     * BACKUP_POLICY</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scp.html">
+     * SERVICE_CONTROL_POLICY</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html">
+     * TAG_POLICY</a>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param policyType
-     *        The policy type that you want to disable in this root.
+     *        The policy type that you want to disable in this root. You can specify one of the following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html">
+     *        AISERVICES_OPT_OUT_POLICY</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_backup.html">
+     *        BACKUP_POLICY</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scp.html">
+     *        SERVICE_CONTROL_POLICY</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a
+     *        href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html"
+     *        >TAG_POLICY</a>
+     *        </p>
+     *        </li>
      * @see PolicyType
      */
 
@@ -126,10 +204,63 @@ public class DisablePolicyTypeRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The policy type that you want to disable in this root.
+     * The policy type that you want to disable in this root. You can specify one of the following values:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html">
+     * AISERVICES_OPT_OUT_POLICY</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_backup.html">
+     * BACKUP_POLICY</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scp.html">
+     * SERVICE_CONTROL_POLICY</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html">
+     * TAG_POLICY</a>
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The policy type that you want to disable in this root.
+     * @return The policy type that you want to disable in this root. You can specify one of the following values:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <a
+     *         href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html">
+     *         AISERVICES_OPT_OUT_POLICY</a>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_backup.html">
+     *         BACKUP_POLICY</a>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scp.html">
+     *         SERVICE_CONTROL_POLICY</a>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <a href=
+     *         "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html"
+     *         >TAG_POLICY</a>
+     *         </p>
+     *         </li>
      * @see PolicyType
      */
 
@@ -139,11 +270,63 @@ public class DisablePolicyTypeRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The policy type that you want to disable in this root.
+     * The policy type that you want to disable in this root. You can specify one of the following values:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html">
+     * AISERVICES_OPT_OUT_POLICY</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_backup.html">
+     * BACKUP_POLICY</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scp.html">
+     * SERVICE_CONTROL_POLICY</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html">
+     * TAG_POLICY</a>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param policyType
-     *        The policy type that you want to disable in this root.
+     *        The policy type that you want to disable in this root. You can specify one of the following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html">
+     *        AISERVICES_OPT_OUT_POLICY</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_backup.html">
+     *        BACKUP_POLICY</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scp.html">
+     *        SERVICE_CONTROL_POLICY</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a
+     *        href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html"
+     *        >TAG_POLICY</a>
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PolicyType
      */
@@ -155,11 +338,63 @@ public class DisablePolicyTypeRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The policy type that you want to disable in this root.
+     * The policy type that you want to disable in this root. You can specify one of the following values:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html">
+     * AISERVICES_OPT_OUT_POLICY</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_backup.html">
+     * BACKUP_POLICY</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scp.html">
+     * SERVICE_CONTROL_POLICY</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html">
+     * TAG_POLICY</a>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param policyType
-     *        The policy type that you want to disable in this root.
+     *        The policy type that you want to disable in this root. You can specify one of the following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html">
+     *        AISERVICES_OPT_OUT_POLICY</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_backup.html">
+     *        BACKUP_POLICY</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scp.html">
+     *        SERVICE_CONTROL_POLICY</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a
+     *        href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html"
+     *        >TAG_POLICY</a>
+     *        </p>
+     *        </li>
      * @see PolicyType
      */
 
@@ -169,11 +404,63 @@ public class DisablePolicyTypeRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The policy type that you want to disable in this root.
+     * The policy type that you want to disable in this root. You can specify one of the following values:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html">
+     * AISERVICES_OPT_OUT_POLICY</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_backup.html">
+     * BACKUP_POLICY</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scp.html">
+     * SERVICE_CONTROL_POLICY</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html">
+     * TAG_POLICY</a>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param policyType
-     *        The policy type that you want to disable in this root.
+     *        The policy type that you want to disable in this root. You can specify one of the following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html">
+     *        AISERVICES_OPT_OUT_POLICY</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_backup.html">
+     *        BACKUP_POLICY</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scp.html">
+     *        SERVICE_CONTROL_POLICY</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a
+     *        href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html"
+     *        >TAG_POLICY</a>
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PolicyType
      */

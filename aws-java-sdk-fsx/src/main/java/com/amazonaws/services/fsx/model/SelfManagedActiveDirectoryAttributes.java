@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The configuration of the self-managed Microsoft Active Directory (AD) directory to which the Windows File Server
- * instance is joined.
+ * The configuration of the self-managed Microsoft Active Directory (AD) directory to which the Windows File Server or
+ * ONTAP storage virtual machine (SVM) instance is joined.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/fsx-2018-03-01/SelfManagedActiveDirectoryAttributes"
@@ -38,7 +38,7 @@ public class SelfManagedActiveDirectoryAttributes implements Serializable, Clone
     /**
      * <p>
      * The fully qualified distinguished name of the organizational unit within the self-managed AD directory to which
-     * the Windows File Server instance is joined.
+     * the Windows File Server or ONTAP storage virtual machine (SVM) instance is joined.
      * </p>
      */
     private String organizationalUnitDistinguishedName;
@@ -56,7 +56,7 @@ public class SelfManagedActiveDirectoryAttributes implements Serializable, Clone
     private String userName;
     /**
      * <p>
-     * A list of up to two IP addresses of DNS servers or domain controllers in the self-managed AD directory.
+     * A list of up to three IP addresses of DNS servers or domain controllers in the self-managed AD directory.
      * </p>
      */
     private java.util.List<String> dnsIps;
@@ -104,12 +104,12 @@ public class SelfManagedActiveDirectoryAttributes implements Serializable, Clone
     /**
      * <p>
      * The fully qualified distinguished name of the organizational unit within the self-managed AD directory to which
-     * the Windows File Server instance is joined.
+     * the Windows File Server or ONTAP storage virtual machine (SVM) instance is joined.
      * </p>
      * 
      * @param organizationalUnitDistinguishedName
      *        The fully qualified distinguished name of the organizational unit within the self-managed AD directory to
-     *        which the Windows File Server instance is joined.
+     *        which the Windows File Server or ONTAP storage virtual machine (SVM) instance is joined.
      */
 
     public void setOrganizationalUnitDistinguishedName(String organizationalUnitDistinguishedName) {
@@ -119,11 +119,11 @@ public class SelfManagedActiveDirectoryAttributes implements Serializable, Clone
     /**
      * <p>
      * The fully qualified distinguished name of the organizational unit within the self-managed AD directory to which
-     * the Windows File Server instance is joined.
+     * the Windows File Server or ONTAP storage virtual machine (SVM) instance is joined.
      * </p>
      * 
      * @return The fully qualified distinguished name of the organizational unit within the self-managed AD directory to
-     *         which the Windows File Server instance is joined.
+     *         which the Windows File Server or ONTAP storage virtual machine (SVM) instance is joined.
      */
 
     public String getOrganizationalUnitDistinguishedName() {
@@ -133,12 +133,12 @@ public class SelfManagedActiveDirectoryAttributes implements Serializable, Clone
     /**
      * <p>
      * The fully qualified distinguished name of the organizational unit within the self-managed AD directory to which
-     * the Windows File Server instance is joined.
+     * the Windows File Server or ONTAP storage virtual machine (SVM) instance is joined.
      * </p>
      * 
      * @param organizationalUnitDistinguishedName
      *        The fully qualified distinguished name of the organizational unit within the self-managed AD directory to
-     *        which the Windows File Server instance is joined.
+     *        which the Windows File Server or ONTAP storage virtual machine (SVM) instance is joined.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -232,10 +232,10 @@ public class SelfManagedActiveDirectoryAttributes implements Serializable, Clone
 
     /**
      * <p>
-     * A list of up to two IP addresses of DNS servers or domain controllers in the self-managed AD directory.
+     * A list of up to three IP addresses of DNS servers or domain controllers in the self-managed AD directory.
      * </p>
      * 
-     * @return A list of up to two IP addresses of DNS servers or domain controllers in the self-managed AD directory.
+     * @return A list of up to three IP addresses of DNS servers or domain controllers in the self-managed AD directory.
      */
 
     public java.util.List<String> getDnsIps() {
@@ -244,11 +244,11 @@ public class SelfManagedActiveDirectoryAttributes implements Serializable, Clone
 
     /**
      * <p>
-     * A list of up to two IP addresses of DNS servers or domain controllers in the self-managed AD directory.
+     * A list of up to three IP addresses of DNS servers or domain controllers in the self-managed AD directory.
      * </p>
      * 
      * @param dnsIps
-     *        A list of up to two IP addresses of DNS servers or domain controllers in the self-managed AD directory.
+     *        A list of up to three IP addresses of DNS servers or domain controllers in the self-managed AD directory.
      */
 
     public void setDnsIps(java.util.Collection<String> dnsIps) {
@@ -262,7 +262,7 @@ public class SelfManagedActiveDirectoryAttributes implements Serializable, Clone
 
     /**
      * <p>
-     * A list of up to two IP addresses of DNS servers or domain controllers in the self-managed AD directory.
+     * A list of up to three IP addresses of DNS servers or domain controllers in the self-managed AD directory.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -271,7 +271,7 @@ public class SelfManagedActiveDirectoryAttributes implements Serializable, Clone
      * </p>
      * 
      * @param dnsIps
-     *        A list of up to two IP addresses of DNS servers or domain controllers in the self-managed AD directory.
+     *        A list of up to three IP addresses of DNS servers or domain controllers in the self-managed AD directory.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -287,11 +287,11 @@ public class SelfManagedActiveDirectoryAttributes implements Serializable, Clone
 
     /**
      * <p>
-     * A list of up to two IP addresses of DNS servers or domain controllers in the self-managed AD directory.
+     * A list of up to three IP addresses of DNS servers or domain controllers in the self-managed AD directory.
      * </p>
      * 
      * @param dnsIps
-     *        A list of up to two IP addresses of DNS servers or domain controllers in the self-managed AD directory.
+     *        A list of up to three IP addresses of DNS servers or domain controllers in the self-managed AD directory.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

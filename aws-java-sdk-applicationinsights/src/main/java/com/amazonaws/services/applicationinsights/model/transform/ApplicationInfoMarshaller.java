@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,6 +27,8 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class ApplicationInfoMarshaller {
 
+    private static final MarshallingInfo<String> ACCOUNTID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("AccountId").build();
     private static final MarshallingInfo<String> RESOURCEGROUPNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceGroupName").build();
     private static final MarshallingInfo<String> LIFECYCLE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -35,8 +37,16 @@ public class ApplicationInfoMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OpsItemSNSTopicArn").build();
     private static final MarshallingInfo<Boolean> OPSCENTERENABLED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OpsCenterEnabled").build();
+    private static final MarshallingInfo<Boolean> CWEMONITORENABLED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CWEMonitorEnabled").build();
     private static final MarshallingInfo<String> REMARKS_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Remarks").build();
+    private static final MarshallingInfo<Boolean> AUTOCONFIGENABLED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AutoConfigEnabled").build();
+    private static final MarshallingInfo<String> DISCOVERYTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DiscoveryType").build();
+    private static final MarshallingInfo<Boolean> ATTACHMISSINGPERMISSION_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AttachMissingPermission").build();
 
     private static final ApplicationInfoMarshaller instance = new ApplicationInfoMarshaller();
 
@@ -54,11 +64,16 @@ public class ApplicationInfoMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(applicationInfo.getAccountId(), ACCOUNTID_BINDING);
             protocolMarshaller.marshall(applicationInfo.getResourceGroupName(), RESOURCEGROUPNAME_BINDING);
             protocolMarshaller.marshall(applicationInfo.getLifeCycle(), LIFECYCLE_BINDING);
             protocolMarshaller.marshall(applicationInfo.getOpsItemSNSTopicArn(), OPSITEMSNSTOPICARN_BINDING);
             protocolMarshaller.marshall(applicationInfo.getOpsCenterEnabled(), OPSCENTERENABLED_BINDING);
+            protocolMarshaller.marshall(applicationInfo.getCWEMonitorEnabled(), CWEMONITORENABLED_BINDING);
             protocolMarshaller.marshall(applicationInfo.getRemarks(), REMARKS_BINDING);
+            protocolMarshaller.marshall(applicationInfo.getAutoConfigEnabled(), AUTOCONFIGENABLED_BINDING);
+            protocolMarshaller.marshall(applicationInfo.getDiscoveryType(), DISCOVERYTYPE_BINDING);
+            protocolMarshaller.marshall(applicationInfo.getAttachMissingPermission(), ATTACHMISSINGPERMISSION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

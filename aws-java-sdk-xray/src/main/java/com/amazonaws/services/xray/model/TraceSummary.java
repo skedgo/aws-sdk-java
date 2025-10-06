@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,6 +36,12 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
     private String id;
     /**
      * <p>
+     * The start time of a trace, based on the earliest trace segment start time.
+     * </p>
+     */
+    private java.util.Date startTime;
+    /**
+     * <p>
      * The length of time in seconds between the start time of the root segment and the end time of the last segment
      * that completed.
      * </p>
@@ -51,13 +57,13 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
     private Double responseTime;
     /**
      * <p>
-     * One or more of the segment documents has a 500 series error.
+     * The root segment document has a 500 series error.
      * </p>
      */
     private Boolean hasFault;
     /**
      * <p>
-     * One or more of the segment documents has a 400 series error.
+     * The root segment document has a 400 series error.
      * </p>
      */
     private Boolean hasError;
@@ -111,7 +117,7 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
     private java.util.List<InstanceIdDetail> instanceIds;
     /**
      * <p>
-     * A list of availability zones for any zone corresponding to the trace segments.
+     * A list of Availability Zones for any zone corresponding to the trace segments.
      * </p>
      */
     private java.util.List<AvailabilityZoneDetail> availabilityZones;
@@ -123,7 +129,7 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
     private ServiceId entryPoint;
     /**
      * <p>
-     * A collection of FaultRootCause structures corresponding to the the trace segments.
+     * A collection of FaultRootCause structures corresponding to the trace segments.
      * </p>
      */
     private java.util.List<FaultRootCause> faultRootCauses;
@@ -189,6 +195,46 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
 
     public TraceSummary withId(String id) {
         setId(id);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The start time of a trace, based on the earliest trace segment start time.
+     * </p>
+     * 
+     * @param startTime
+     *        The start time of a trace, based on the earliest trace segment start time.
+     */
+
+    public void setStartTime(java.util.Date startTime) {
+        this.startTime = startTime;
+    }
+
+    /**
+     * <p>
+     * The start time of a trace, based on the earliest trace segment start time.
+     * </p>
+     * 
+     * @return The start time of a trace, based on the earliest trace segment start time.
+     */
+
+    public java.util.Date getStartTime() {
+        return this.startTime;
+    }
+
+    /**
+     * <p>
+     * The start time of a trace, based on the earliest trace segment start time.
+     * </p>
+     * 
+     * @param startTime
+     *        The start time of a trace, based on the earliest trace segment start time.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TraceSummary withStartTime(java.util.Date startTime) {
+        setStartTime(startTime);
         return this;
     }
 
@@ -292,11 +338,11 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * One or more of the segment documents has a 500 series error.
+     * The root segment document has a 500 series error.
      * </p>
      * 
      * @param hasFault
-     *        One or more of the segment documents has a 500 series error.
+     *        The root segment document has a 500 series error.
      */
 
     public void setHasFault(Boolean hasFault) {
@@ -305,10 +351,10 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * One or more of the segment documents has a 500 series error.
+     * The root segment document has a 500 series error.
      * </p>
      * 
-     * @return One or more of the segment documents has a 500 series error.
+     * @return The root segment document has a 500 series error.
      */
 
     public Boolean getHasFault() {
@@ -317,11 +363,11 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * One or more of the segment documents has a 500 series error.
+     * The root segment document has a 500 series error.
      * </p>
      * 
      * @param hasFault
-     *        One or more of the segment documents has a 500 series error.
+     *        The root segment document has a 500 series error.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -332,10 +378,10 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * One or more of the segment documents has a 500 series error.
+     * The root segment document has a 500 series error.
      * </p>
      * 
-     * @return One or more of the segment documents has a 500 series error.
+     * @return The root segment document has a 500 series error.
      */
 
     public Boolean isHasFault() {
@@ -344,11 +390,11 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * One or more of the segment documents has a 400 series error.
+     * The root segment document has a 400 series error.
      * </p>
      * 
      * @param hasError
-     *        One or more of the segment documents has a 400 series error.
+     *        The root segment document has a 400 series error.
      */
 
     public void setHasError(Boolean hasError) {
@@ -357,10 +403,10 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * One or more of the segment documents has a 400 series error.
+     * The root segment document has a 400 series error.
      * </p>
      * 
-     * @return One or more of the segment documents has a 400 series error.
+     * @return The root segment document has a 400 series error.
      */
 
     public Boolean getHasError() {
@@ -369,11 +415,11 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * One or more of the segment documents has a 400 series error.
+     * The root segment document has a 400 series error.
      * </p>
      * 
      * @param hasError
-     *        One or more of the segment documents has a 400 series error.
+     *        The root segment document has a 400 series error.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -384,10 +430,10 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * One or more of the segment documents has a 400 series error.
+     * The root segment document has a 400 series error.
      * </p>
      * 
-     * @return One or more of the segment documents has a 400 series error.
+     * @return The root segment document has a 400 series error.
      */
 
     public Boolean isHasError() {
@@ -577,6 +623,13 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
         setAnnotations(annotations);
         return this;
     }
+
+    /**
+     * Add a single Annotations entry
+     *
+     * @see TraceSummary#withAnnotations
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public TraceSummary addAnnotationsEntry(String key, java.util.List<ValueWithServiceIds> value) {
         if (null == this.annotations) {
@@ -881,10 +934,10 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of availability zones for any zone corresponding to the trace segments.
+     * A list of Availability Zones for any zone corresponding to the trace segments.
      * </p>
      * 
-     * @return A list of availability zones for any zone corresponding to the trace segments.
+     * @return A list of Availability Zones for any zone corresponding to the trace segments.
      */
 
     public java.util.List<AvailabilityZoneDetail> getAvailabilityZones() {
@@ -893,11 +946,11 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of availability zones for any zone corresponding to the trace segments.
+     * A list of Availability Zones for any zone corresponding to the trace segments.
      * </p>
      * 
      * @param availabilityZones
-     *        A list of availability zones for any zone corresponding to the trace segments.
+     *        A list of Availability Zones for any zone corresponding to the trace segments.
      */
 
     public void setAvailabilityZones(java.util.Collection<AvailabilityZoneDetail> availabilityZones) {
@@ -911,7 +964,7 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of availability zones for any zone corresponding to the trace segments.
+     * A list of Availability Zones for any zone corresponding to the trace segments.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -920,7 +973,7 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param availabilityZones
-     *        A list of availability zones for any zone corresponding to the trace segments.
+     *        A list of Availability Zones for any zone corresponding to the trace segments.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -936,11 +989,11 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of availability zones for any zone corresponding to the trace segments.
+     * A list of Availability Zones for any zone corresponding to the trace segments.
      * </p>
      * 
      * @param availabilityZones
-     *        A list of availability zones for any zone corresponding to the trace segments.
+     *        A list of Availability Zones for any zone corresponding to the trace segments.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -991,10 +1044,10 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A collection of FaultRootCause structures corresponding to the the trace segments.
+     * A collection of FaultRootCause structures corresponding to the trace segments.
      * </p>
      * 
-     * @return A collection of FaultRootCause structures corresponding to the the trace segments.
+     * @return A collection of FaultRootCause structures corresponding to the trace segments.
      */
 
     public java.util.List<FaultRootCause> getFaultRootCauses() {
@@ -1003,11 +1056,11 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A collection of FaultRootCause structures corresponding to the the trace segments.
+     * A collection of FaultRootCause structures corresponding to the trace segments.
      * </p>
      * 
      * @param faultRootCauses
-     *        A collection of FaultRootCause structures corresponding to the the trace segments.
+     *        A collection of FaultRootCause structures corresponding to the trace segments.
      */
 
     public void setFaultRootCauses(java.util.Collection<FaultRootCause> faultRootCauses) {
@@ -1021,7 +1074,7 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A collection of FaultRootCause structures corresponding to the the trace segments.
+     * A collection of FaultRootCause structures corresponding to the trace segments.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1030,7 +1083,7 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param faultRootCauses
-     *        A collection of FaultRootCause structures corresponding to the the trace segments.
+     *        A collection of FaultRootCause structures corresponding to the trace segments.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1046,11 +1099,11 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A collection of FaultRootCause structures corresponding to the the trace segments.
+     * A collection of FaultRootCause structures corresponding to the trace segments.
      * </p>
      * 
      * @param faultRootCauses
-     *        A collection of FaultRootCause structures corresponding to the the trace segments.
+     *        A collection of FaultRootCause structures corresponding to the trace segments.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1293,6 +1346,8 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
         sb.append("{");
         if (getId() != null)
             sb.append("Id: ").append(getId()).append(",");
+        if (getStartTime() != null)
+            sb.append("StartTime: ").append(getStartTime()).append(",");
         if (getDuration() != null)
             sb.append("Duration: ").append(getDuration()).append(",");
         if (getResponseTime() != null)
@@ -1348,6 +1403,10 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
         if (other.getId() == null ^ this.getId() == null)
             return false;
         if (other.getId() != null && other.getId().equals(this.getId()) == false)
+            return false;
+        if (other.getStartTime() == null ^ this.getStartTime() == null)
+            return false;
+        if (other.getStartTime() != null && other.getStartTime().equals(this.getStartTime()) == false)
             return false;
         if (other.getDuration() == null ^ this.getDuration() == null)
             return false;
@@ -1434,6 +1493,7 @@ public class TraceSummary implements Serializable, Cloneable, StructuredPojo {
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getId() == null) ? 0 : getId().hashCode());
+        hashCode = prime * hashCode + ((getStartTime() == null) ? 0 : getStartTime().hashCode());
         hashCode = prime * hashCode + ((getDuration() == null) ? 0 : getDuration().hashCode());
         hashCode = prime * hashCode + ((getResponseTime() == null) ? 0 : getResponseTime().hashCode());
         hashCode = prime * hashCode + ((getHasFault() == null) ? 0 : getHasFault().hashCode());

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A container for information about an identity provider for a user pool.
+ * A container for information about an IdP for a user pool.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ProviderUserIdentifierType"
@@ -30,30 +30,30 @@ public class ProviderUserIdentifierType implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The name of the provider, for example, Facebook, Google, or Login with Amazon.
+     * The name of the provider, such as Facebook, Google, or Login with Amazon.
      * </p>
      */
     private String providerName;
     /**
      * <p>
-     * The name of the provider attribute to link to, for example, <code>NameID</code>.
+     * The name of the provider attribute to link to, such as <code>NameID</code>.
      * </p>
      */
     private String providerAttributeName;
     /**
      * <p>
-     * The value of the provider attribute to link to, for example, <code>xxxxx_account</code>.
+     * The value of the provider attribute to link to, such as <code>xxxxx_account</code>.
      * </p>
      */
     private String providerAttributeValue;
 
     /**
      * <p>
-     * The name of the provider, for example, Facebook, Google, or Login with Amazon.
+     * The name of the provider, such as Facebook, Google, or Login with Amazon.
      * </p>
      * 
      * @param providerName
-     *        The name of the provider, for example, Facebook, Google, or Login with Amazon.
+     *        The name of the provider, such as Facebook, Google, or Login with Amazon.
      */
 
     public void setProviderName(String providerName) {
@@ -62,10 +62,10 @@ public class ProviderUserIdentifierType implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The name of the provider, for example, Facebook, Google, or Login with Amazon.
+     * The name of the provider, such as Facebook, Google, or Login with Amazon.
      * </p>
      * 
-     * @return The name of the provider, for example, Facebook, Google, or Login with Amazon.
+     * @return The name of the provider, such as Facebook, Google, or Login with Amazon.
      */
 
     public String getProviderName() {
@@ -74,11 +74,11 @@ public class ProviderUserIdentifierType implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The name of the provider, for example, Facebook, Google, or Login with Amazon.
+     * The name of the provider, such as Facebook, Google, or Login with Amazon.
      * </p>
      * 
      * @param providerName
-     *        The name of the provider, for example, Facebook, Google, or Login with Amazon.
+     *        The name of the provider, such as Facebook, Google, or Login with Amazon.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -89,11 +89,11 @@ public class ProviderUserIdentifierType implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The name of the provider attribute to link to, for example, <code>NameID</code>.
+     * The name of the provider attribute to link to, such as <code>NameID</code>.
      * </p>
      * 
      * @param providerAttributeName
-     *        The name of the provider attribute to link to, for example, <code>NameID</code>.
+     *        The name of the provider attribute to link to, such as <code>NameID</code>.
      */
 
     public void setProviderAttributeName(String providerAttributeName) {
@@ -102,10 +102,10 @@ public class ProviderUserIdentifierType implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The name of the provider attribute to link to, for example, <code>NameID</code>.
+     * The name of the provider attribute to link to, such as <code>NameID</code>.
      * </p>
      * 
-     * @return The name of the provider attribute to link to, for example, <code>NameID</code>.
+     * @return The name of the provider attribute to link to, such as <code>NameID</code>.
      */
 
     public String getProviderAttributeName() {
@@ -114,11 +114,11 @@ public class ProviderUserIdentifierType implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The name of the provider attribute to link to, for example, <code>NameID</code>.
+     * The name of the provider attribute to link to, such as <code>NameID</code>.
      * </p>
      * 
      * @param providerAttributeName
-     *        The name of the provider attribute to link to, for example, <code>NameID</code>.
+     *        The name of the provider attribute to link to, such as <code>NameID</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -129,11 +129,11 @@ public class ProviderUserIdentifierType implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The value of the provider attribute to link to, for example, <code>xxxxx_account</code>.
+     * The value of the provider attribute to link to, such as <code>xxxxx_account</code>.
      * </p>
      * 
      * @param providerAttributeValue
-     *        The value of the provider attribute to link to, for example, <code>xxxxx_account</code>.
+     *        The value of the provider attribute to link to, such as <code>xxxxx_account</code>.
      */
 
     public void setProviderAttributeValue(String providerAttributeValue) {
@@ -142,10 +142,10 @@ public class ProviderUserIdentifierType implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The value of the provider attribute to link to, for example, <code>xxxxx_account</code>.
+     * The value of the provider attribute to link to, such as <code>xxxxx_account</code>.
      * </p>
      * 
-     * @return The value of the provider attribute to link to, for example, <code>xxxxx_account</code>.
+     * @return The value of the provider attribute to link to, such as <code>xxxxx_account</code>.
      */
 
     public String getProviderAttributeValue() {
@@ -154,11 +154,11 @@ public class ProviderUserIdentifierType implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The value of the provider attribute to link to, for example, <code>xxxxx_account</code>.
+     * The value of the provider attribute to link to, such as <code>xxxxx_account</code>.
      * </p>
      * 
      * @param providerAttributeValue
-     *        The value of the provider attribute to link to, for example, <code>xxxxx_account</code>.
+     *        The value of the provider attribute to link to, such as <code>xxxxx_account</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

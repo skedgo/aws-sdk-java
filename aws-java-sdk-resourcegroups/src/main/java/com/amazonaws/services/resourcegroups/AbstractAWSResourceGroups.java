@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,7 +38,17 @@ public class AbstractAWSResourceGroups implements AWSResourceGroups {
     }
 
     @Override
+    public GetAccountSettingsResult getAccountSettings(GetAccountSettingsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetGroupResult getGroup(GetGroupRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetGroupConfigurationResult getGroupConfiguration(GetGroupConfigurationRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -53,12 +63,22 @@ public class AbstractAWSResourceGroups implements AWSResourceGroups {
     }
 
     @Override
+    public GroupResourcesResult groupResources(GroupResourcesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListGroupResourcesResult listGroupResources(ListGroupResourcesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public ListGroupsResult listGroups(ListGroupsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public PutGroupConfigurationResult putGroupConfiguration(PutGroupConfigurationRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -73,7 +93,17 @@ public class AbstractAWSResourceGroups implements AWSResourceGroups {
     }
 
     @Override
+    public UngroupResourcesResult ungroupResources(UngroupResourcesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UntagResult untag(UntagRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateAccountSettingsResult updateAccountSettings(UpdateAccountSettingsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

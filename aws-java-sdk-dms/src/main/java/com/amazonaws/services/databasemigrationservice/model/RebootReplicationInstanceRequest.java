@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,11 +33,21 @@ public class RebootReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
     private String replicationInstanceArn;
     /**
      * <p>
-     * If this parameter is <code>true</code>, the reboot is conducted through a Multi-AZ failover. (If the instance
-     * isn't configured for Multi-AZ, then you can't specify <code>true</code>.)
+     * If this parameter is <code>true</code>, the reboot is conducted through a Multi-AZ failover. If the instance
+     * isn't configured for Multi-AZ, then you can't specify <code>true</code>. ( <code>--force-planned-failover</code>
+     * and <code>--force-failover</code> can't both be set to <code>true</code>.)
      * </p>
      */
     private Boolean forceFailover;
+    /**
+     * <p>
+     * If this parameter is <code>true</code>, the reboot is conducted through a planned Multi-AZ failover where
+     * resources are released and cleaned up prior to conducting the failover. If the instance isn''t configured for
+     * Multi-AZ, then you can't specify <code>true</code>. ( <code>--force-planned-failover</code> and
+     * <code>--force-failover</code> can't both be set to <code>true</code>.)
+     * </p>
+     */
+    private Boolean forcePlannedFailover;
 
     /**
      * <p>
@@ -81,13 +91,16 @@ public class RebootReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * If this parameter is <code>true</code>, the reboot is conducted through a Multi-AZ failover. (If the instance
-     * isn't configured for Multi-AZ, then you can't specify <code>true</code>.)
+     * If this parameter is <code>true</code>, the reboot is conducted through a Multi-AZ failover. If the instance
+     * isn't configured for Multi-AZ, then you can't specify <code>true</code>. ( <code>--force-planned-failover</code>
+     * and <code>--force-failover</code> can't both be set to <code>true</code>.)
      * </p>
      * 
      * @param forceFailover
-     *        If this parameter is <code>true</code>, the reboot is conducted through a Multi-AZ failover. (If the
-     *        instance isn't configured for Multi-AZ, then you can't specify <code>true</code>.)
+     *        If this parameter is <code>true</code>, the reboot is conducted through a Multi-AZ failover. If the
+     *        instance isn't configured for Multi-AZ, then you can't specify <code>true</code>. (
+     *        <code>--force-planned-failover</code> and <code>--force-failover</code> can't both be set to
+     *        <code>true</code>.)
      */
 
     public void setForceFailover(Boolean forceFailover) {
@@ -96,12 +109,15 @@ public class RebootReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * If this parameter is <code>true</code>, the reboot is conducted through a Multi-AZ failover. (If the instance
-     * isn't configured for Multi-AZ, then you can't specify <code>true</code>.)
+     * If this parameter is <code>true</code>, the reboot is conducted through a Multi-AZ failover. If the instance
+     * isn't configured for Multi-AZ, then you can't specify <code>true</code>. ( <code>--force-planned-failover</code>
+     * and <code>--force-failover</code> can't both be set to <code>true</code>.)
      * </p>
      * 
-     * @return If this parameter is <code>true</code>, the reboot is conducted through a Multi-AZ failover. (If the
-     *         instance isn't configured for Multi-AZ, then you can't specify <code>true</code>.)
+     * @return If this parameter is <code>true</code>, the reboot is conducted through a Multi-AZ failover. If the
+     *         instance isn't configured for Multi-AZ, then you can't specify <code>true</code>. (
+     *         <code>--force-planned-failover</code> and <code>--force-failover</code> can't both be set to
+     *         <code>true</code>.)
      */
 
     public Boolean getForceFailover() {
@@ -110,13 +126,16 @@ public class RebootReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * If this parameter is <code>true</code>, the reboot is conducted through a Multi-AZ failover. (If the instance
-     * isn't configured for Multi-AZ, then you can't specify <code>true</code>.)
+     * If this parameter is <code>true</code>, the reboot is conducted through a Multi-AZ failover. If the instance
+     * isn't configured for Multi-AZ, then you can't specify <code>true</code>. ( <code>--force-planned-failover</code>
+     * and <code>--force-failover</code> can't both be set to <code>true</code>.)
      * </p>
      * 
      * @param forceFailover
-     *        If this parameter is <code>true</code>, the reboot is conducted through a Multi-AZ failover. (If the
-     *        instance isn't configured for Multi-AZ, then you can't specify <code>true</code>.)
+     *        If this parameter is <code>true</code>, the reboot is conducted through a Multi-AZ failover. If the
+     *        instance isn't configured for Multi-AZ, then you can't specify <code>true</code>. (
+     *        <code>--force-planned-failover</code> and <code>--force-failover</code> can't both be set to
+     *        <code>true</code>.)
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -127,16 +146,95 @@ public class RebootReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * If this parameter is <code>true</code>, the reboot is conducted through a Multi-AZ failover. (If the instance
-     * isn't configured for Multi-AZ, then you can't specify <code>true</code>.)
+     * If this parameter is <code>true</code>, the reboot is conducted through a Multi-AZ failover. If the instance
+     * isn't configured for Multi-AZ, then you can't specify <code>true</code>. ( <code>--force-planned-failover</code>
+     * and <code>--force-failover</code> can't both be set to <code>true</code>.)
      * </p>
      * 
-     * @return If this parameter is <code>true</code>, the reboot is conducted through a Multi-AZ failover. (If the
-     *         instance isn't configured for Multi-AZ, then you can't specify <code>true</code>.)
+     * @return If this parameter is <code>true</code>, the reboot is conducted through a Multi-AZ failover. If the
+     *         instance isn't configured for Multi-AZ, then you can't specify <code>true</code>. (
+     *         <code>--force-planned-failover</code> and <code>--force-failover</code> can't both be set to
+     *         <code>true</code>.)
      */
 
     public Boolean isForceFailover() {
         return this.forceFailover;
+    }
+
+    /**
+     * <p>
+     * If this parameter is <code>true</code>, the reboot is conducted through a planned Multi-AZ failover where
+     * resources are released and cleaned up prior to conducting the failover. If the instance isn''t configured for
+     * Multi-AZ, then you can't specify <code>true</code>. ( <code>--force-planned-failover</code> and
+     * <code>--force-failover</code> can't both be set to <code>true</code>.)
+     * </p>
+     * 
+     * @param forcePlannedFailover
+     *        If this parameter is <code>true</code>, the reboot is conducted through a planned Multi-AZ failover where
+     *        resources are released and cleaned up prior to conducting the failover. If the instance isn''t configured
+     *        for Multi-AZ, then you can't specify <code>true</code>. ( <code>--force-planned-failover</code> and
+     *        <code>--force-failover</code> can't both be set to <code>true</code>.)
+     */
+
+    public void setForcePlannedFailover(Boolean forcePlannedFailover) {
+        this.forcePlannedFailover = forcePlannedFailover;
+    }
+
+    /**
+     * <p>
+     * If this parameter is <code>true</code>, the reboot is conducted through a planned Multi-AZ failover where
+     * resources are released and cleaned up prior to conducting the failover. If the instance isn''t configured for
+     * Multi-AZ, then you can't specify <code>true</code>. ( <code>--force-planned-failover</code> and
+     * <code>--force-failover</code> can't both be set to <code>true</code>.)
+     * </p>
+     * 
+     * @return If this parameter is <code>true</code>, the reboot is conducted through a planned Multi-AZ failover where
+     *         resources are released and cleaned up prior to conducting the failover. If the instance isn''t configured
+     *         for Multi-AZ, then you can't specify <code>true</code>. ( <code>--force-planned-failover</code> and
+     *         <code>--force-failover</code> can't both be set to <code>true</code>.)
+     */
+
+    public Boolean getForcePlannedFailover() {
+        return this.forcePlannedFailover;
+    }
+
+    /**
+     * <p>
+     * If this parameter is <code>true</code>, the reboot is conducted through a planned Multi-AZ failover where
+     * resources are released and cleaned up prior to conducting the failover. If the instance isn''t configured for
+     * Multi-AZ, then you can't specify <code>true</code>. ( <code>--force-planned-failover</code> and
+     * <code>--force-failover</code> can't both be set to <code>true</code>.)
+     * </p>
+     * 
+     * @param forcePlannedFailover
+     *        If this parameter is <code>true</code>, the reboot is conducted through a planned Multi-AZ failover where
+     *        resources are released and cleaned up prior to conducting the failover. If the instance isn''t configured
+     *        for Multi-AZ, then you can't specify <code>true</code>. ( <code>--force-planned-failover</code> and
+     *        <code>--force-failover</code> can't both be set to <code>true</code>.)
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RebootReplicationInstanceRequest withForcePlannedFailover(Boolean forcePlannedFailover) {
+        setForcePlannedFailover(forcePlannedFailover);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If this parameter is <code>true</code>, the reboot is conducted through a planned Multi-AZ failover where
+     * resources are released and cleaned up prior to conducting the failover. If the instance isn''t configured for
+     * Multi-AZ, then you can't specify <code>true</code>. ( <code>--force-planned-failover</code> and
+     * <code>--force-failover</code> can't both be set to <code>true</code>.)
+     * </p>
+     * 
+     * @return If this parameter is <code>true</code>, the reboot is conducted through a planned Multi-AZ failover where
+     *         resources are released and cleaned up prior to conducting the failover. If the instance isn''t configured
+     *         for Multi-AZ, then you can't specify <code>true</code>. ( <code>--force-planned-failover</code> and
+     *         <code>--force-failover</code> can't both be set to <code>true</code>.)
+     */
+
+    public Boolean isForcePlannedFailover() {
+        return this.forcePlannedFailover;
     }
 
     /**
@@ -154,7 +252,9 @@ public class RebootReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
         if (getReplicationInstanceArn() != null)
             sb.append("ReplicationInstanceArn: ").append(getReplicationInstanceArn()).append(",");
         if (getForceFailover() != null)
-            sb.append("ForceFailover: ").append(getForceFailover());
+            sb.append("ForceFailover: ").append(getForceFailover()).append(",");
+        if (getForcePlannedFailover() != null)
+            sb.append("ForcePlannedFailover: ").append(getForcePlannedFailover());
         sb.append("}");
         return sb.toString();
     }
@@ -177,6 +277,10 @@ public class RebootReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
             return false;
         if (other.getForceFailover() != null && other.getForceFailover().equals(this.getForceFailover()) == false)
             return false;
+        if (other.getForcePlannedFailover() == null ^ this.getForcePlannedFailover() == null)
+            return false;
+        if (other.getForcePlannedFailover() != null && other.getForcePlannedFailover().equals(this.getForcePlannedFailover()) == false)
+            return false;
         return true;
     }
 
@@ -187,6 +291,7 @@ public class RebootReplicationInstanceRequest extends com.amazonaws.AmazonWebSer
 
         hashCode = prime * hashCode + ((getReplicationInstanceArn() == null) ? 0 : getReplicationInstanceArn().hashCode());
         hashCode = prime * hashCode + ((getForceFailover() == null) ? 0 : getForceFailover().hashCode());
+        hashCode = prime * hashCode + ((getForcePlannedFailover() == null) ? 0 : getForcePlannedFailover().hashCode());
         return hashCode;
     }
 

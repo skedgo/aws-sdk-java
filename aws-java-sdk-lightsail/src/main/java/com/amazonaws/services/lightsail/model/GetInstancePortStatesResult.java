@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,17 +25,17 @@ public class GetInstancePortStatesResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Information about the port states resulting from your request.
+     * An array of objects that describe the firewall port states for the specified instance.
      * </p>
      */
     private java.util.List<InstancePortState> portStates;
 
     /**
      * <p>
-     * Information about the port states resulting from your request.
+     * An array of objects that describe the firewall port states for the specified instance.
      * </p>
      * 
-     * @return Information about the port states resulting from your request.
+     * @return An array of objects that describe the firewall port states for the specified instance.
      */
 
     public java.util.List<InstancePortState> getPortStates() {
@@ -44,11 +44,11 @@ public class GetInstancePortStatesResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Information about the port states resulting from your request.
+     * An array of objects that describe the firewall port states for the specified instance.
      * </p>
      * 
      * @param portStates
-     *        Information about the port states resulting from your request.
+     *        An array of objects that describe the firewall port states for the specified instance.
      */
 
     public void setPortStates(java.util.Collection<InstancePortState> portStates) {
@@ -62,7 +62,7 @@ public class GetInstancePortStatesResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Information about the port states resulting from your request.
+     * An array of objects that describe the firewall port states for the specified instance.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -71,7 +71,7 @@ public class GetInstancePortStatesResult extends com.amazonaws.AmazonWebServiceR
      * </p>
      * 
      * @param portStates
-     *        Information about the port states resulting from your request.
+     *        An array of objects that describe the firewall port states for the specified instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -87,11 +87,11 @@ public class GetInstancePortStatesResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Information about the port states resulting from your request.
+     * An array of objects that describe the firewall port states for the specified instance.
      * </p>
      * 
      * @param portStates
-     *        Information about the port states resulting from your request.
+     *        An array of objects that describe the firewall port states for the specified instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

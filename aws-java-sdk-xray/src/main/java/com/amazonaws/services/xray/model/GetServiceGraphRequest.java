@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,19 +39,19 @@ public class GetServiceGraphRequest extends com.amazonaws.AmazonWebServiceReques
     private java.util.Date endTime;
     /**
      * <p>
-     * The name of a group to generate a graph based on.
+     * The name of a group based on which you want to generate a graph.
      * </p>
      */
     private String groupName;
     /**
      * <p>
-     * The ARN of a group to generate a graph based on.
+     * The Amazon Resource Name (ARN) of a group based on which you want to generate a graph.
      * </p>
      */
     private String groupARN;
     /**
      * <p>
-     * Pagination token. Not used.
+     * Pagination token.
      * </p>
      */
     private String nextToken;
@@ -138,11 +138,11 @@ public class GetServiceGraphRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The name of a group to generate a graph based on.
+     * The name of a group based on which you want to generate a graph.
      * </p>
      * 
      * @param groupName
-     *        The name of a group to generate a graph based on.
+     *        The name of a group based on which you want to generate a graph.
      */
 
     public void setGroupName(String groupName) {
@@ -151,10 +151,10 @@ public class GetServiceGraphRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The name of a group to generate a graph based on.
+     * The name of a group based on which you want to generate a graph.
      * </p>
      * 
-     * @return The name of a group to generate a graph based on.
+     * @return The name of a group based on which you want to generate a graph.
      */
 
     public String getGroupName() {
@@ -163,11 +163,11 @@ public class GetServiceGraphRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The name of a group to generate a graph based on.
+     * The name of a group based on which you want to generate a graph.
      * </p>
      * 
      * @param groupName
-     *        The name of a group to generate a graph based on.
+     *        The name of a group based on which you want to generate a graph.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -178,11 +178,11 @@ public class GetServiceGraphRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The ARN of a group to generate a graph based on.
+     * The Amazon Resource Name (ARN) of a group based on which you want to generate a graph.
      * </p>
      * 
      * @param groupARN
-     *        The ARN of a group to generate a graph based on.
+     *        The Amazon Resource Name (ARN) of a group based on which you want to generate a graph.
      */
 
     public void setGroupARN(String groupARN) {
@@ -191,10 +191,10 @@ public class GetServiceGraphRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The ARN of a group to generate a graph based on.
+     * The Amazon Resource Name (ARN) of a group based on which you want to generate a graph.
      * </p>
      * 
-     * @return The ARN of a group to generate a graph based on.
+     * @return The Amazon Resource Name (ARN) of a group based on which you want to generate a graph.
      */
 
     public String getGroupARN() {
@@ -203,11 +203,11 @@ public class GetServiceGraphRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The ARN of a group to generate a graph based on.
+     * The Amazon Resource Name (ARN) of a group based on which you want to generate a graph.
      * </p>
      * 
      * @param groupARN
-     *        The ARN of a group to generate a graph based on.
+     *        The Amazon Resource Name (ARN) of a group based on which you want to generate a graph.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -218,11 +218,11 @@ public class GetServiceGraphRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * Pagination token. Not used.
+     * Pagination token.
      * </p>
      * 
      * @param nextToken
-     *        Pagination token. Not used.
+     *        Pagination token.
      */
 
     public void setNextToken(String nextToken) {
@@ -231,10 +231,10 @@ public class GetServiceGraphRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * Pagination token. Not used.
+     * Pagination token.
      * </p>
      * 
-     * @return Pagination token. Not used.
+     * @return Pagination token.
      */
 
     public String getNextToken() {
@@ -243,11 +243,11 @@ public class GetServiceGraphRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * Pagination token. Not used.
+     * Pagination token.
      * </p>
      * 
      * @param nextToken
-     *        Pagination token. Not used.
+     *        Pagination token.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

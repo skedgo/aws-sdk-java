@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,11 +34,19 @@ public class CpuOptionsRequest implements Serializable, Cloneable {
     private Integer coreCount;
     /**
      * <p>
-     * The number of threads per CPU core. To disable Intel Hyper-Threading Technology for the instance, specify a value
-     * of <code>1</code>. Otherwise, specify the default value of <code>2</code>.
+     * The number of threads per CPU core. To disable multithreading for the instance, specify a value of <code>1</code>
+     * . Otherwise, specify the default value of <code>2</code>.
      * </p>
      */
     private Integer threadsPerCore;
+    /**
+     * <p>
+     * Indicates whether to enable the instance for AMD SEV-SNP. AMD SEV-SNP is supported with M6a, R6a, and C6a
+     * instance types only. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html">AMD SEV-SNP</a>.
+     * </p>
+     */
+    private String amdSevSnp;
 
     /**
      * <p>
@@ -82,13 +90,13 @@ public class CpuOptionsRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of threads per CPU core. To disable Intel Hyper-Threading Technology for the instance, specify a value
-     * of <code>1</code>. Otherwise, specify the default value of <code>2</code>.
+     * The number of threads per CPU core. To disable multithreading for the instance, specify a value of <code>1</code>
+     * . Otherwise, specify the default value of <code>2</code>.
      * </p>
      * 
      * @param threadsPerCore
-     *        The number of threads per CPU core. To disable Intel Hyper-Threading Technology for the instance, specify
-     *        a value of <code>1</code>. Otherwise, specify the default value of <code>2</code>.
+     *        The number of threads per CPU core. To disable multithreading for the instance, specify a value of
+     *        <code>1</code>. Otherwise, specify the default value of <code>2</code>.
      */
 
     public void setThreadsPerCore(Integer threadsPerCore) {
@@ -97,12 +105,12 @@ public class CpuOptionsRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of threads per CPU core. To disable Intel Hyper-Threading Technology for the instance, specify a value
-     * of <code>1</code>. Otherwise, specify the default value of <code>2</code>.
+     * The number of threads per CPU core. To disable multithreading for the instance, specify a value of <code>1</code>
+     * . Otherwise, specify the default value of <code>2</code>.
      * </p>
      * 
-     * @return The number of threads per CPU core. To disable Intel Hyper-Threading Technology for the instance, specify
-     *         a value of <code>1</code>. Otherwise, specify the default value of <code>2</code>.
+     * @return The number of threads per CPU core. To disable multithreading for the instance, specify a value of
+     *         <code>1</code>. Otherwise, specify the default value of <code>2</code>.
      */
 
     public Integer getThreadsPerCore() {
@@ -111,18 +119,93 @@ public class CpuOptionsRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of threads per CPU core. To disable Intel Hyper-Threading Technology for the instance, specify a value
-     * of <code>1</code>. Otherwise, specify the default value of <code>2</code>.
+     * The number of threads per CPU core. To disable multithreading for the instance, specify a value of <code>1</code>
+     * . Otherwise, specify the default value of <code>2</code>.
      * </p>
      * 
      * @param threadsPerCore
-     *        The number of threads per CPU core. To disable Intel Hyper-Threading Technology for the instance, specify
-     *        a value of <code>1</code>. Otherwise, specify the default value of <code>2</code>.
+     *        The number of threads per CPU core. To disable multithreading for the instance, specify a value of
+     *        <code>1</code>. Otherwise, specify the default value of <code>2</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CpuOptionsRequest withThreadsPerCore(Integer threadsPerCore) {
         setThreadsPerCore(threadsPerCore);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable the instance for AMD SEV-SNP. AMD SEV-SNP is supported with M6a, R6a, and C6a
+     * instance types only. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html">AMD SEV-SNP</a>.
+     * </p>
+     * 
+     * @param amdSevSnp
+     *        Indicates whether to enable the instance for AMD SEV-SNP. AMD SEV-SNP is supported with M6a, R6a, and C6a
+     *        instance types only. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html">AMD SEV-SNP</a>.
+     * @see AmdSevSnpSpecification
+     */
+
+    public void setAmdSevSnp(String amdSevSnp) {
+        this.amdSevSnp = amdSevSnp;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable the instance for AMD SEV-SNP. AMD SEV-SNP is supported with M6a, R6a, and C6a
+     * instance types only. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html">AMD SEV-SNP</a>.
+     * </p>
+     * 
+     * @return Indicates whether to enable the instance for AMD SEV-SNP. AMD SEV-SNP is supported with M6a, R6a, and C6a
+     *         instance types only. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html">AMD SEV-SNP</a>.
+     * @see AmdSevSnpSpecification
+     */
+
+    public String getAmdSevSnp() {
+        return this.amdSevSnp;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable the instance for AMD SEV-SNP. AMD SEV-SNP is supported with M6a, R6a, and C6a
+     * instance types only. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html">AMD SEV-SNP</a>.
+     * </p>
+     * 
+     * @param amdSevSnp
+     *        Indicates whether to enable the instance for AMD SEV-SNP. AMD SEV-SNP is supported with M6a, R6a, and C6a
+     *        instance types only. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html">AMD SEV-SNP</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AmdSevSnpSpecification
+     */
+
+    public CpuOptionsRequest withAmdSevSnp(String amdSevSnp) {
+        setAmdSevSnp(amdSevSnp);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable the instance for AMD SEV-SNP. AMD SEV-SNP is supported with M6a, R6a, and C6a
+     * instance types only. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html">AMD SEV-SNP</a>.
+     * </p>
+     * 
+     * @param amdSevSnp
+     *        Indicates whether to enable the instance for AMD SEV-SNP. AMD SEV-SNP is supported with M6a, R6a, and C6a
+     *        instance types only. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html">AMD SEV-SNP</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AmdSevSnpSpecification
+     */
+
+    public CpuOptionsRequest withAmdSevSnp(AmdSevSnpSpecification amdSevSnp) {
+        this.amdSevSnp = amdSevSnp.toString();
         return this;
     }
 
@@ -141,7 +224,9 @@ public class CpuOptionsRequest implements Serializable, Cloneable {
         if (getCoreCount() != null)
             sb.append("CoreCount: ").append(getCoreCount()).append(",");
         if (getThreadsPerCore() != null)
-            sb.append("ThreadsPerCore: ").append(getThreadsPerCore());
+            sb.append("ThreadsPerCore: ").append(getThreadsPerCore()).append(",");
+        if (getAmdSevSnp() != null)
+            sb.append("AmdSevSnp: ").append(getAmdSevSnp());
         sb.append("}");
         return sb.toString();
     }
@@ -164,6 +249,10 @@ public class CpuOptionsRequest implements Serializable, Cloneable {
             return false;
         if (other.getThreadsPerCore() != null && other.getThreadsPerCore().equals(this.getThreadsPerCore()) == false)
             return false;
+        if (other.getAmdSevSnp() == null ^ this.getAmdSevSnp() == null)
+            return false;
+        if (other.getAmdSevSnp() != null && other.getAmdSevSnp().equals(this.getAmdSevSnp()) == false)
+            return false;
         return true;
     }
 
@@ -174,6 +263,7 @@ public class CpuOptionsRequest implements Serializable, Cloneable {
 
         hashCode = prime * hashCode + ((getCoreCount() == null) ? 0 : getCoreCount().hashCode());
         hashCode = prime * hashCode + ((getThreadsPerCore() == null) ? 0 : getThreadsPerCore().hashCode());
+        hashCode = prime * hashCode + ((getAmdSevSnp() == null) ? 0 : getAmdSevSnp().hashCode());
         return hashCode;
     }
 

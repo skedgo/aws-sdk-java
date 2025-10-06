@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,13 +48,19 @@ public class UpdateRouteResultJsonUnmarshaller implements Unmarshaller<UpdateRou
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("apiGatewayManaged", targetDepth)) {
+                    context.nextToken();
+                    updateRouteResult.setApiGatewayManaged(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
                 if (context.testExpression("apiKeyRequired", targetDepth)) {
                     context.nextToken();
                     updateRouteResult.setApiKeyRequired(context.getUnmarshaller(Boolean.class).unmarshall(context));
                 }
                 if (context.testExpression("authorizationScopes", targetDepth)) {
                     context.nextToken();
-                    updateRouteResult.setAuthorizationScopes(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    updateRouteResult.setAuthorizationScopes(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("authorizationType", targetDepth)) {
                     context.nextToken();

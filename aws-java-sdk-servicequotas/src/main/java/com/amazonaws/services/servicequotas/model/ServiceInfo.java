@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A structure that contains the <code>ServiceName</code> and <code>ServiceCode</code>. It does not include all details
- * of the service quota. To get those values, use the <a>ListServiceQuotas</a> operation.
+ * Information about an Amazon Web Service.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/service-quotas-2019-06-24/ServiceInfo" target="_top">AWS API
@@ -31,24 +30,27 @@ public class ServiceInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the service that you want to use.
+     * Specifies the service identifier. To find the service code value for an Amazon Web Services service, use the
+     * <a>ListServices</a> operation.
      * </p>
      */
     private String serviceCode;
     /**
      * <p>
-     * The name of the AWS service specified in the increase request.
+     * Specifies the service name.
      * </p>
      */
     private String serviceName;
 
     /**
      * <p>
-     * Specifies the service that you want to use.
+     * Specifies the service identifier. To find the service code value for an Amazon Web Services service, use the
+     * <a>ListServices</a> operation.
      * </p>
      * 
      * @param serviceCode
-     *        Specifies the service that you want to use.
+     *        Specifies the service identifier. To find the service code value for an Amazon Web Services service, use
+     *        the <a>ListServices</a> operation.
      */
 
     public void setServiceCode(String serviceCode) {
@@ -57,10 +59,12 @@ public class ServiceInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the service that you want to use.
+     * Specifies the service identifier. To find the service code value for an Amazon Web Services service, use the
+     * <a>ListServices</a> operation.
      * </p>
      * 
-     * @return Specifies the service that you want to use.
+     * @return Specifies the service identifier. To find the service code value for an Amazon Web Services service, use
+     *         the <a>ListServices</a> operation.
      */
 
     public String getServiceCode() {
@@ -69,11 +73,13 @@ public class ServiceInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the service that you want to use.
+     * Specifies the service identifier. To find the service code value for an Amazon Web Services service, use the
+     * <a>ListServices</a> operation.
      * </p>
      * 
      * @param serviceCode
-     *        Specifies the service that you want to use.
+     *        Specifies the service identifier. To find the service code value for an Amazon Web Services service, use
+     *        the <a>ListServices</a> operation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -84,11 +90,11 @@ public class ServiceInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the AWS service specified in the increase request.
+     * Specifies the service name.
      * </p>
      * 
      * @param serviceName
-     *        The name of the AWS service specified in the increase request.
+     *        Specifies the service name.
      */
 
     public void setServiceName(String serviceName) {
@@ -97,10 +103,10 @@ public class ServiceInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the AWS service specified in the increase request.
+     * Specifies the service name.
      * </p>
      * 
-     * @return The name of the AWS service specified in the increase request.
+     * @return Specifies the service name.
      */
 
     public String getServiceName() {
@@ -109,11 +115,11 @@ public class ServiceInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the AWS service specified in the increase request.
+     * Specifies the service name.
      * </p>
      * 
      * @param serviceName
-     *        The name of the AWS service specified in the increase request.
+     *        Specifies the service name.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

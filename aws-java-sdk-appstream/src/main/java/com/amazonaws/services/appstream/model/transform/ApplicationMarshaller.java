@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -13,7 +13,7 @@
 package com.amazonaws.services.appstream.model.transform;
 
 import java.util.Map;
-
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -43,6 +43,22 @@ public class ApplicationMarshaller {
             .marshallLocationName("Enabled").build();
     private static final MarshallingInfo<Map> METADATA_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Metadata").build();
+    private static final MarshallingInfo<String> WORKINGDIRECTORY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("WorkingDirectory").build();
+    private static final MarshallingInfo<String> DESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Description").build();
+    private static final MarshallingInfo<String> ARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Arn").build();
+    private static final MarshallingInfo<String> APPBLOCKARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AppBlockArn").build();
+    private static final MarshallingInfo<StructuredPojo> ICONS3LOCATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IconS3Location").build();
+    private static final MarshallingInfo<List> PLATFORMS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Platforms").build();
+    private static final MarshallingInfo<List> INSTANCEFAMILIES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("InstanceFamilies").build();
+    private static final MarshallingInfo<java.util.Date> CREATEDTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CreatedTime").timestampFormat("unixTimestamp").build();
 
     private static final ApplicationMarshaller instance = new ApplicationMarshaller();
 
@@ -67,6 +83,14 @@ public class ApplicationMarshaller {
             protocolMarshaller.marshall(application.getLaunchParameters(), LAUNCHPARAMETERS_BINDING);
             protocolMarshaller.marshall(application.getEnabled(), ENABLED_BINDING);
             protocolMarshaller.marshall(application.getMetadata(), METADATA_BINDING);
+            protocolMarshaller.marshall(application.getWorkingDirectory(), WORKINGDIRECTORY_BINDING);
+            protocolMarshaller.marshall(application.getDescription(), DESCRIPTION_BINDING);
+            protocolMarshaller.marshall(application.getArn(), ARN_BINDING);
+            protocolMarshaller.marshall(application.getAppBlockArn(), APPBLOCKARN_BINDING);
+            protocolMarshaller.marshall(application.getIconS3Location(), ICONS3LOCATION_BINDING);
+            protocolMarshaller.marshall(application.getPlatforms(), PLATFORMS_BINDING);
+            protocolMarshaller.marshall(application.getInstanceFamilies(), INSTANCEFAMILIES_BINDING);
+            protocolMarshaller.marshall(application.getCreatedTime(), CREATEDTIME_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

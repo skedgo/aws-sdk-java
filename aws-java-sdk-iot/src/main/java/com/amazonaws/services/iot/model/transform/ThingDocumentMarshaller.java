@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,6 +41,8 @@ public class ThingDocumentMarshaller {
             .marshallLocationName("attributes").build();
     private static final MarshallingInfo<String> SHADOW_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("shadow").build();
+    private static final MarshallingInfo<String> DEVICEDEFENDER_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("deviceDefender").build();
     private static final MarshallingInfo<StructuredPojo> CONNECTIVITY_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("connectivity").build();
 
@@ -66,6 +68,7 @@ public class ThingDocumentMarshaller {
             protocolMarshaller.marshall(thingDocument.getThingGroupNames(), THINGGROUPNAMES_BINDING);
             protocolMarshaller.marshall(thingDocument.getAttributes(), ATTRIBUTES_BINDING);
             protocolMarshaller.marshall(thingDocument.getShadow(), SHADOW_BINDING);
+            protocolMarshaller.marshall(thingDocument.getDeviceDefender(), DEVICEDEFENDER_BINDING);
             protocolMarshaller.marshall(thingDocument.getConnectivity(), CONNECTIVITY_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);

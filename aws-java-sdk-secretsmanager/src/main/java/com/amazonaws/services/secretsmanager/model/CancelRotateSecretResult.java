@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,33 +25,33 @@ public class CancelRotateSecretResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The ARN of the secret for which rotation was canceled.
+     * The ARN of the secret.
      * </p>
      */
     private String aRN;
     /**
      * <p>
-     * The friendly name of the secret for which rotation was canceled.
+     * The name of the secret.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The unique identifier of the version of the secret that was created during the rotation. This version might not
-     * be complete, and should be evaluated for possible deletion. At the very least, you should remove the
-     * <code>VersionStage</code> value <code>AWSPENDING</code> to enable this version to be deleted. Failing to clean up
-     * a cancelled rotation can block you from successfully starting future rotations.
+     * The unique identifier of the version of the secret created during the rotation. This version might not be
+     * complete, and should be evaluated for possible deletion. We recommend that you remove the
+     * <code>VersionStage</code> value <code>AWSPENDING</code> from this version so that Secrets Manager can delete it.
+     * Failing to clean up a cancelled rotation can block you from starting future rotations.
      * </p>
      */
     private String versionId;
 
     /**
      * <p>
-     * The ARN of the secret for which rotation was canceled.
+     * The ARN of the secret.
      * </p>
      * 
      * @param aRN
-     *        The ARN of the secret for which rotation was canceled.
+     *        The ARN of the secret.
      */
 
     public void setARN(String aRN) {
@@ -60,10 +60,10 @@ public class CancelRotateSecretResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The ARN of the secret for which rotation was canceled.
+     * The ARN of the secret.
      * </p>
      * 
-     * @return The ARN of the secret for which rotation was canceled.
+     * @return The ARN of the secret.
      */
 
     public String getARN() {
@@ -72,11 +72,11 @@ public class CancelRotateSecretResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The ARN of the secret for which rotation was canceled.
+     * The ARN of the secret.
      * </p>
      * 
      * @param aRN
-     *        The ARN of the secret for which rotation was canceled.
+     *        The ARN of the secret.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -87,11 +87,11 @@ public class CancelRotateSecretResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The friendly name of the secret for which rotation was canceled.
+     * The name of the secret.
      * </p>
      * 
      * @param name
-     *        The friendly name of the secret for which rotation was canceled.
+     *        The name of the secret.
      */
 
     public void setName(String name) {
@@ -100,10 +100,10 @@ public class CancelRotateSecretResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The friendly name of the secret for which rotation was canceled.
+     * The name of the secret.
      * </p>
      * 
-     * @return The friendly name of the secret for which rotation was canceled.
+     * @return The name of the secret.
      */
 
     public String getName() {
@@ -112,11 +112,11 @@ public class CancelRotateSecretResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The friendly name of the secret for which rotation was canceled.
+     * The name of the secret.
      * </p>
      * 
      * @param name
-     *        The friendly name of the secret for which rotation was canceled.
+     *        The name of the secret.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -127,17 +127,17 @@ public class CancelRotateSecretResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The unique identifier of the version of the secret that was created during the rotation. This version might not
-     * be complete, and should be evaluated for possible deletion. At the very least, you should remove the
-     * <code>VersionStage</code> value <code>AWSPENDING</code> to enable this version to be deleted. Failing to clean up
-     * a cancelled rotation can block you from successfully starting future rotations.
+     * The unique identifier of the version of the secret created during the rotation. This version might not be
+     * complete, and should be evaluated for possible deletion. We recommend that you remove the
+     * <code>VersionStage</code> value <code>AWSPENDING</code> from this version so that Secrets Manager can delete it.
+     * Failing to clean up a cancelled rotation can block you from starting future rotations.
      * </p>
      * 
      * @param versionId
-     *        The unique identifier of the version of the secret that was created during the rotation. This version
-     *        might not be complete, and should be evaluated for possible deletion. At the very least, you should remove
-     *        the <code>VersionStage</code> value <code>AWSPENDING</code> to enable this version to be deleted. Failing
-     *        to clean up a cancelled rotation can block you from successfully starting future rotations.
+     *        The unique identifier of the version of the secret created during the rotation. This version might not be
+     *        complete, and should be evaluated for possible deletion. We recommend that you remove the
+     *        <code>VersionStage</code> value <code>AWSPENDING</code> from this version so that Secrets Manager can
+     *        delete it. Failing to clean up a cancelled rotation can block you from starting future rotations.
      */
 
     public void setVersionId(String versionId) {
@@ -146,16 +146,16 @@ public class CancelRotateSecretResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The unique identifier of the version of the secret that was created during the rotation. This version might not
-     * be complete, and should be evaluated for possible deletion. At the very least, you should remove the
-     * <code>VersionStage</code> value <code>AWSPENDING</code> to enable this version to be deleted. Failing to clean up
-     * a cancelled rotation can block you from successfully starting future rotations.
+     * The unique identifier of the version of the secret created during the rotation. This version might not be
+     * complete, and should be evaluated for possible deletion. We recommend that you remove the
+     * <code>VersionStage</code> value <code>AWSPENDING</code> from this version so that Secrets Manager can delete it.
+     * Failing to clean up a cancelled rotation can block you from starting future rotations.
      * </p>
      * 
-     * @return The unique identifier of the version of the secret that was created during the rotation. This version
-     *         might not be complete, and should be evaluated for possible deletion. At the very least, you should
-     *         remove the <code>VersionStage</code> value <code>AWSPENDING</code> to enable this version to be deleted.
-     *         Failing to clean up a cancelled rotation can block you from successfully starting future rotations.
+     * @return The unique identifier of the version of the secret created during the rotation. This version might not be
+     *         complete, and should be evaluated for possible deletion. We recommend that you remove the
+     *         <code>VersionStage</code> value <code>AWSPENDING</code> from this version so that Secrets Manager can
+     *         delete it. Failing to clean up a cancelled rotation can block you from starting future rotations.
      */
 
     public String getVersionId() {
@@ -164,17 +164,17 @@ public class CancelRotateSecretResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The unique identifier of the version of the secret that was created during the rotation. This version might not
-     * be complete, and should be evaluated for possible deletion. At the very least, you should remove the
-     * <code>VersionStage</code> value <code>AWSPENDING</code> to enable this version to be deleted. Failing to clean up
-     * a cancelled rotation can block you from successfully starting future rotations.
+     * The unique identifier of the version of the secret created during the rotation. This version might not be
+     * complete, and should be evaluated for possible deletion. We recommend that you remove the
+     * <code>VersionStage</code> value <code>AWSPENDING</code> from this version so that Secrets Manager can delete it.
+     * Failing to clean up a cancelled rotation can block you from starting future rotations.
      * </p>
      * 
      * @param versionId
-     *        The unique identifier of the version of the secret that was created during the rotation. This version
-     *        might not be complete, and should be evaluated for possible deletion. At the very least, you should remove
-     *        the <code>VersionStage</code> value <code>AWSPENDING</code> to enable this version to be deleted. Failing
-     *        to clean up a cancelled rotation can block you from successfully starting future rotations.
+     *        The unique identifier of the version of the secret created during the rotation. This version might not be
+     *        complete, and should be evaluated for possible deletion. We recommend that you remove the
+     *        <code>VersionStage</code> value <code>AWSPENDING</code> from this version so that Secrets Manager can
+     *        delete it. Failing to clean up a cancelled rotation can block you from starting future rotations.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

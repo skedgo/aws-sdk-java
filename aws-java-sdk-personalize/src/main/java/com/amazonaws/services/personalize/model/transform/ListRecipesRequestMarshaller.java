@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,6 +33,8 @@ public class ListRecipesRequestMarshaller {
             .marshallLocationName("nextToken").build();
     private static final MarshallingInfo<Integer> MAXRESULTS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("maxResults").build();
+    private static final MarshallingInfo<String> DOMAIN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("domain").build();
 
     private static final ListRecipesRequestMarshaller instance = new ListRecipesRequestMarshaller();
 
@@ -53,6 +55,7 @@ public class ListRecipesRequestMarshaller {
             protocolMarshaller.marshall(listRecipesRequest.getRecipeProvider(), RECIPEPROVIDER_BINDING);
             protocolMarshaller.marshall(listRecipesRequest.getNextToken(), NEXTTOKEN_BINDING);
             protocolMarshaller.marshall(listRecipesRequest.getMaxResults(), MAXRESULTS_BINDING);
+            protocolMarshaller.marshall(listRecipesRequest.getDomain(), DOMAIN_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,8 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
- * To transcode only portions of your input (clips), include one Input clipping (one instance of InputClipping in the
- * JSON job file) for each input clip. All input clips you specify will be included in every output of the job.
+ * To transcode only portions of your input, include one input clip for each part of your input that you want in your
+ * output. All input clips that you specify will be included in every output of the job. For more information, see
+ * https://docs.aws.amazon.com/mediaconvert/latest/ug/assembling-multiple-inputs-and-input-clips.html.
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/InputClipping" target="_top">AWS API
  *      Documentation</a>
@@ -28,40 +29,39 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 public class InputClipping implements Serializable, Cloneable, StructuredPojo {
 
     /**
-     * Set End timecode (EndTimecode) to the end of the portion of the input you are clipping. The frame corresponding
-     * to the End timecode value is included in the clip. Start timecode or End timecode may be left blank, but not
-     * both. Use the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the minute, SS is the second, and FF
-     * is the frame number. When choosing this value, take into account your setting for timecode source under input
-     * settings (InputTimecodeSource). For example, if you have embedded timecodes that start at 01:00:00:00 and you want
-     * your clip to end six minutes into the video, use 01:06:00:00.
+     * Set End timecode to the end of the portion of the input you are clipping. The frame corresponding to the End
+     * timecode value is included in the clip. Start timecode or End timecode may be left blank, but not both. Use the
+     * format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the minute, SS is the second, and FF is the frame
+     * number. When choosing this value, take into account your setting for timecode source under input settings. For
+     * example, if you have embedded timecodes that start at 01:00:00:00 and you want your clip to end six minutes into
+     * the video, use 01:06:00:00.
      */
     private String endTimecode;
     /**
-     * Set Start timecode (StartTimecode) to the beginning of the portion of the input you are clipping. The frame
-     * corresponding to the Start timecode value is included in the clip. Start timecode or End timecode may be left
-     * blank, but not both. Use the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the minute, SS is the
-     * second, and FF is the frame number. When choosing this value, take into account your setting for Input timecode
-     * source. For example, if you have embedded timecodes that start at 01:00:00:00 and you want your clip to begin five
-     * minutes into the video, use 01:05:00:00.
+     * Set Start timecode to the beginning of the portion of the input you are clipping. The frame corresponding to the
+     * Start timecode value is included in the clip. Start timecode or End timecode may be left blank, but not both. Use
+     * the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the minute, SS is the second, and FF is the
+     * frame number. When choosing this value, take into account your setting for Input timecode source. For example, if
+     * you have embedded timecodes that start at 01:00:00:00 and you want your clip to begin five minutes into the video,
+     * use 01:05:00:00.
      */
     private String startTimecode;
 
     /**
-     * Set End timecode (EndTimecode) to the end of the portion of the input you are clipping. The frame corresponding
-     * to the End timecode value is included in the clip. Start timecode or End timecode may be left blank, but not
-     * both. Use the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the minute, SS is the second, and FF
-     * is the frame number. When choosing this value, take into account your setting for timecode source under input
-     * settings (InputTimecodeSource). For example, if you have embedded timecodes that start at 01:00:00:00 and you want
-     * your clip to end six minutes into the video, use 01:06:00:00.
+     * Set End timecode to the end of the portion of the input you are clipping. The frame corresponding to the End
+     * timecode value is included in the clip. Start timecode or End timecode may be left blank, but not both. Use the
+     * format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the minute, SS is the second, and FF is the frame
+     * number. When choosing this value, take into account your setting for timecode source under input settings. For
+     * example, if you have embedded timecodes that start at 01:00:00:00 and you want your clip to end six minutes into
+     * the video, use 01:06:00:00.
      * 
      * @param endTimecode
-     *        Set End timecode (EndTimecode) to the end of the portion of the input you are clipping. The frame
-     *        corresponding to the End timecode value is included in the clip. Start timecode or End timecode may be
-     *        left blank, but not both. Use the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the
-     *        minute, SS is the second, and FF is the frame number. When choosing this value, take into account your
-     *        setting for timecode source under input settings (InputTimecodeSource). For example, if you have embedded
-     *        timecodes that start at 01:00:00:00 and you want your clip to end six minutes into the video, use
-     *        01:06:00:00.
+     *        Set End timecode to the end of the portion of the input you are clipping. The frame corresponding to the
+     *        End timecode value is included in the clip. Start timecode or End timecode may be left blank, but not
+     *        both. Use the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the minute, SS is the second,
+     *        and FF is the frame number. When choosing this value, take into account your setting for timecode source
+     *        under input settings. For example, if you have embedded timecodes that start at 01:00:00:00 and you want
+     *        your clip to end six minutes into the video, use 01:06:00:00.
      */
 
     public void setEndTimecode(String endTimecode) {
@@ -69,20 +69,19 @@ public class InputClipping implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Set End timecode (EndTimecode) to the end of the portion of the input you are clipping. The frame corresponding
-     * to the End timecode value is included in the clip. Start timecode or End timecode may be left blank, but not
-     * both. Use the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the minute, SS is the second, and FF
-     * is the frame number. When choosing this value, take into account your setting for timecode source under input
-     * settings (InputTimecodeSource). For example, if you have embedded timecodes that start at 01:00:00:00 and you want
-     * your clip to end six minutes into the video, use 01:06:00:00.
+     * Set End timecode to the end of the portion of the input you are clipping. The frame corresponding to the End
+     * timecode value is included in the clip. Start timecode or End timecode may be left blank, but not both. Use the
+     * format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the minute, SS is the second, and FF is the frame
+     * number. When choosing this value, take into account your setting for timecode source under input settings. For
+     * example, if you have embedded timecodes that start at 01:00:00:00 and you want your clip to end six minutes into
+     * the video, use 01:06:00:00.
      * 
-     * @return Set End timecode (EndTimecode) to the end of the portion of the input you are clipping. The frame
-     *         corresponding to the End timecode value is included in the clip. Start timecode or End timecode may be
-     *         left blank, but not both. Use the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the
-     *         minute, SS is the second, and FF is the frame number. When choosing this value, take into account your
-     *         setting for timecode source under input settings (InputTimecodeSource). For example, if you have embedded
-     *         timecodes that start at 01:00:00:00 and you want your clip to end six minutes into the video, use
-     *         01:06:00:00.
+     * @return Set End timecode to the end of the portion of the input you are clipping. The frame corresponding to the
+     *         End timecode value is included in the clip. Start timecode or End timecode may be left blank, but not
+     *         both. Use the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the minute, SS is the
+     *         second, and FF is the frame number. When choosing this value, take into account your setting for timecode
+     *         source under input settings. For example, if you have embedded timecodes that start at 01:00:00:00 and
+     *         you want your clip to end six minutes into the video, use 01:06:00:00.
      */
 
     public String getEndTimecode() {
@@ -90,21 +89,20 @@ public class InputClipping implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Set End timecode (EndTimecode) to the end of the portion of the input you are clipping. The frame corresponding
-     * to the End timecode value is included in the clip. Start timecode or End timecode may be left blank, but not
-     * both. Use the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the minute, SS is the second, and FF
-     * is the frame number. When choosing this value, take into account your setting for timecode source under input
-     * settings (InputTimecodeSource). For example, if you have embedded timecodes that start at 01:00:00:00 and you want
-     * your clip to end six minutes into the video, use 01:06:00:00.
+     * Set End timecode to the end of the portion of the input you are clipping. The frame corresponding to the End
+     * timecode value is included in the clip. Start timecode or End timecode may be left blank, but not both. Use the
+     * format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the minute, SS is the second, and FF is the frame
+     * number. When choosing this value, take into account your setting for timecode source under input settings. For
+     * example, if you have embedded timecodes that start at 01:00:00:00 and you want your clip to end six minutes into
+     * the video, use 01:06:00:00.
      * 
      * @param endTimecode
-     *        Set End timecode (EndTimecode) to the end of the portion of the input you are clipping. The frame
-     *        corresponding to the End timecode value is included in the clip. Start timecode or End timecode may be
-     *        left blank, but not both. Use the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the
-     *        minute, SS is the second, and FF is the frame number. When choosing this value, take into account your
-     *        setting for timecode source under input settings (InputTimecodeSource). For example, if you have embedded
-     *        timecodes that start at 01:00:00:00 and you want your clip to end six minutes into the video, use
-     *        01:06:00:00.
+     *        Set End timecode to the end of the portion of the input you are clipping. The frame corresponding to the
+     *        End timecode value is included in the clip. Start timecode or End timecode may be left blank, but not
+     *        both. Use the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the minute, SS is the second,
+     *        and FF is the frame number. When choosing this value, take into account your setting for timecode source
+     *        under input settings. For example, if you have embedded timecodes that start at 01:00:00:00 and you want
+     *        your clip to end six minutes into the video, use 01:06:00:00.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -114,20 +112,20 @@ public class InputClipping implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Set Start timecode (StartTimecode) to the beginning of the portion of the input you are clipping. The frame
-     * corresponding to the Start timecode value is included in the clip. Start timecode or End timecode may be left
-     * blank, but not both. Use the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the minute, SS is the
-     * second, and FF is the frame number. When choosing this value, take into account your setting for Input timecode
-     * source. For example, if you have embedded timecodes that start at 01:00:00:00 and you want your clip to begin five
-     * minutes into the video, use 01:05:00:00.
+     * Set Start timecode to the beginning of the portion of the input you are clipping. The frame corresponding to the
+     * Start timecode value is included in the clip. Start timecode or End timecode may be left blank, but not both. Use
+     * the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the minute, SS is the second, and FF is the
+     * frame number. When choosing this value, take into account your setting for Input timecode source. For example, if
+     * you have embedded timecodes that start at 01:00:00:00 and you want your clip to begin five minutes into the video,
+     * use 01:05:00:00.
      * 
      * @param startTimecode
-     *        Set Start timecode (StartTimecode) to the beginning of the portion of the input you are clipping. The
-     *        frame corresponding to the Start timecode value is included in the clip. Start timecode or End timecode
-     *        may be left blank, but not both. Use the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is
-     *        the minute, SS is the second, and FF is the frame number. When choosing this value, take into account your
-     *        setting for Input timecode source. For example, if you have embedded timecodes that start at 01:00:00:00
-     *        and you want your clip to begin five minutes into the video, use 01:05:00:00.
+     *        Set Start timecode to the beginning of the portion of the input you are clipping. The frame corresponding
+     *        to the Start timecode value is included in the clip. Start timecode or End timecode may be left blank, but
+     *        not both. Use the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the minute, SS is the
+     *        second, and FF is the frame number. When choosing this value, take into account your setting for Input
+     *        timecode source. For example, if you have embedded timecodes that start at 01:00:00:00 and you want your
+     *        clip to begin five minutes into the video, use 01:05:00:00.
      */
 
     public void setStartTimecode(String startTimecode) {
@@ -135,19 +133,19 @@ public class InputClipping implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Set Start timecode (StartTimecode) to the beginning of the portion of the input you are clipping. The frame
-     * corresponding to the Start timecode value is included in the clip. Start timecode or End timecode may be left
-     * blank, but not both. Use the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the minute, SS is the
-     * second, and FF is the frame number. When choosing this value, take into account your setting for Input timecode
-     * source. For example, if you have embedded timecodes that start at 01:00:00:00 and you want your clip to begin five
-     * minutes into the video, use 01:05:00:00.
+     * Set Start timecode to the beginning of the portion of the input you are clipping. The frame corresponding to the
+     * Start timecode value is included in the clip. Start timecode or End timecode may be left blank, but not both. Use
+     * the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the minute, SS is the second, and FF is the
+     * frame number. When choosing this value, take into account your setting for Input timecode source. For example, if
+     * you have embedded timecodes that start at 01:00:00:00 and you want your clip to begin five minutes into the video,
+     * use 01:05:00:00.
      * 
-     * @return Set Start timecode (StartTimecode) to the beginning of the portion of the input you are clipping. The
-     *         frame corresponding to the Start timecode value is included in the clip. Start timecode or End timecode
-     *         may be left blank, but not both. Use the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is
-     *         the minute, SS is the second, and FF is the frame number. When choosing this value, take into account
-     *         your setting for Input timecode source. For example, if you have embedded timecodes that start at
-     *         01:00:00:00 and you want your clip to begin five minutes into the video, use 01:05:00:00.
+     * @return Set Start timecode to the beginning of the portion of the input you are clipping. The frame corresponding
+     *         to the Start timecode value is included in the clip. Start timecode or End timecode may be left blank,
+     *         but not both. Use the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the minute, SS is
+     *         the second, and FF is the frame number. When choosing this value, take into account your setting for
+     *         Input timecode source. For example, if you have embedded timecodes that start at 01:00:00:00 and you want
+     *         your clip to begin five minutes into the video, use 01:05:00:00.
      */
 
     public String getStartTimecode() {
@@ -155,20 +153,20 @@ public class InputClipping implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Set Start timecode (StartTimecode) to the beginning of the portion of the input you are clipping. The frame
-     * corresponding to the Start timecode value is included in the clip. Start timecode or End timecode may be left
-     * blank, but not both. Use the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the minute, SS is the
-     * second, and FF is the frame number. When choosing this value, take into account your setting for Input timecode
-     * source. For example, if you have embedded timecodes that start at 01:00:00:00 and you want your clip to begin five
-     * minutes into the video, use 01:05:00:00.
+     * Set Start timecode to the beginning of the portion of the input you are clipping. The frame corresponding to the
+     * Start timecode value is included in the clip. Start timecode or End timecode may be left blank, but not both. Use
+     * the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the minute, SS is the second, and FF is the
+     * frame number. When choosing this value, take into account your setting for Input timecode source. For example, if
+     * you have embedded timecodes that start at 01:00:00:00 and you want your clip to begin five minutes into the video,
+     * use 01:05:00:00.
      * 
      * @param startTimecode
-     *        Set Start timecode (StartTimecode) to the beginning of the portion of the input you are clipping. The
-     *        frame corresponding to the Start timecode value is included in the clip. Start timecode or End timecode
-     *        may be left blank, but not both. Use the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is
-     *        the minute, SS is the second, and FF is the frame number. When choosing this value, take into account your
-     *        setting for Input timecode source. For example, if you have embedded timecodes that start at 01:00:00:00
-     *        and you want your clip to begin five minutes into the video, use 01:05:00:00.
+     *        Set Start timecode to the beginning of the portion of the input you are clipping. The frame corresponding
+     *        to the Start timecode value is included in the clip. Start timecode or End timecode may be left blank, but
+     *        not both. Use the format HH:MM:SS:FF or HH:MM:SS;FF, where HH is the hour, MM is the minute, SS is the
+     *        second, and FF is the frame number. When choosing this value, take into account your setting for Input
+     *        timecode source. For example, if you have embedded timecodes that start at 01:00:00:00 and you want your
+     *        clip to begin five minutes into the video, use 01:05:00:00.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

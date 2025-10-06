@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,12 +38,32 @@ public class AbstractAmazonRoute53Domains implements AmazonRoute53Domains {
     }
 
     @Override
+    public AcceptDomainTransferFromAnotherAwsAccountResult acceptDomainTransferFromAnotherAwsAccount(AcceptDomainTransferFromAnotherAwsAccountRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociateDelegationSignerToDomainResult associateDelegationSignerToDomain(AssociateDelegationSignerToDomainRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CancelDomainTransferToAnotherAwsAccountResult cancelDomainTransferToAnotherAwsAccount(CancelDomainTransferToAnotherAwsAccountRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CheckDomainAvailabilityResult checkDomainAvailability(CheckDomainAvailabilityRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public CheckDomainTransferabilityResult checkDomainTransferability(CheckDomainTransferabilityRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteDomainResult deleteDomain(DeleteDomainRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -59,6 +79,11 @@ public class AbstractAmazonRoute53Domains implements AmazonRoute53Domains {
 
     @Override
     public DisableDomainTransferLockResult disableDomainTransferLock(DisableDomainTransferLockRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateDelegationSignerFromDomainResult disassociateDelegationSignerFromDomain(DisassociateDelegationSignerFromDomainRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -113,12 +138,27 @@ public class AbstractAmazonRoute53Domains implements AmazonRoute53Domains {
     }
 
     @Override
+    public ListPricesResult listPrices(ListPricesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListTagsForDomainResult listTagsForDomain(ListTagsForDomainRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public PushDomainResult pushDomain(PushDomainRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public RegisterDomainResult registerDomain(RegisterDomainRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public RejectDomainTransferFromAnotherAwsAccountResult rejectDomainTransferFromAnotherAwsAccount(RejectDomainTransferFromAnotherAwsAccountRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -133,12 +173,22 @@ public class AbstractAmazonRoute53Domains implements AmazonRoute53Domains {
     }
 
     @Override
+    public ResendOperationAuthorizationResult resendOperationAuthorization(ResendOperationAuthorizationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public RetrieveDomainAuthCodeResult retrieveDomainAuthCode(RetrieveDomainAuthCodeRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public TransferDomainResult transferDomain(TransferDomainRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TransferDomainToAnotherAwsAccountResult transferDomainToAnotherAwsAccount(TransferDomainToAnotherAwsAccountRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

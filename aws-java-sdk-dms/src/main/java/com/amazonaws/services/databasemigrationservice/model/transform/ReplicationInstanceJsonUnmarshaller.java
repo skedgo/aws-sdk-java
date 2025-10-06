@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -71,7 +71,9 @@ public class ReplicationInstanceJsonUnmarshaller implements Unmarshaller<Replica
                 if (context.testExpression("VpcSecurityGroups", targetDepth)) {
                     context.nextToken();
                     replicationInstance.setVpcSecurityGroups(new ListUnmarshaller<VpcSecurityGroupMembership>(VpcSecurityGroupMembershipJsonUnmarshaller
-                            .getInstance()).unmarshall(context));
+                            .getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("AvailabilityZone", targetDepth)) {
                     context.nextToken();
@@ -120,12 +122,20 @@ public class ReplicationInstanceJsonUnmarshaller implements Unmarshaller<Replica
                 if (context.testExpression("ReplicationInstancePublicIpAddresses", targetDepth)) {
                     context.nextToken();
                     replicationInstance.setReplicationInstancePublicIpAddresses(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("ReplicationInstancePrivateIpAddresses", targetDepth)) {
                     context.nextToken();
                     replicationInstance.setReplicationInstancePrivateIpAddresses(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
-                            .unmarshall(context));
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("ReplicationInstanceIpv6Addresses", targetDepth)) {
+                    context.nextToken();
+                    replicationInstance.setReplicationInstanceIpv6Addresses(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("PubliclyAccessible", targetDepth)) {
                     context.nextToken();
@@ -142,6 +152,10 @@ public class ReplicationInstanceJsonUnmarshaller implements Unmarshaller<Replica
                 if (context.testExpression("DnsNameServers", targetDepth)) {
                     context.nextToken();
                     replicationInstance.setDnsNameServers(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("NetworkType", targetDepth)) {
+                    context.nextToken();
+                    replicationInstance.setNetworkType(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

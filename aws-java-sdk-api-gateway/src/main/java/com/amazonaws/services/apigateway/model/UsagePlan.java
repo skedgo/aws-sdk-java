@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,24 +19,20 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Represents a usage plan than can specify who can assess associated API stages with specified request limits and
- * quotas.
+ * Represents a usage plan used to specify who can assess associated API stages. Optionally, target request rate and
+ * quota limits can be set. In some cases clients can exceed the targets that you set. Don’t rely on usage plans to
+ * control costs. Consider using <a
+ * href="https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html">Amazon Web Services
+ * Budgets</a> to monitor costs and <a
+ * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">WAF</a> to manage API requests.
  * </p>
- * <div class="remarks">
- * <p>
- * In a usage plan, you associate an API by specifying the API's Id and a stage name of the specified API. You add plan
- * customers by adding API keys to the plan.
- * </p>
- * </div> <div class="seeAlso"> <a
- * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-usage-plans.html">Create and Use
- * Usage Plans</a> </div>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class UsagePlan implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier of a <a>UsagePlan</a> resource.
+     * The identifier of a UsagePlan resource.
      * </p>
      */
     private String id;
@@ -60,19 +56,20 @@ public class UsagePlan implements Serializable, Cloneable, StructuredPojo {
     private java.util.List<ApiStage> apiStages;
     /**
      * <p>
-     * The request throttle limits of a usage plan.
+     * A map containing method level throttling information for API stage in a usage plan.
      * </p>
      */
     private ThrottleSettings throttle;
     /**
      * <p>
-     * The maximum number of permitted requests per a given unit time interval.
+     * The target maximum number of permitted requests per a given unit time interval.
      * </p>
      */
     private QuotaSettings quota;
     /**
      * <p>
-     * The AWS Markeplace product identifier to associate with the usage plan as a SaaS product on AWS Marketplace.
+     * The Amazon Web Services Marketplace product identifier to associate with the usage plan as a SaaS product on the
+     * Amazon Web Services Marketplace.
      * </p>
      */
     private String productCode;
@@ -85,11 +82,11 @@ public class UsagePlan implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier of a <a>UsagePlan</a> resource.
+     * The identifier of a UsagePlan resource.
      * </p>
      * 
      * @param id
-     *        The identifier of a <a>UsagePlan</a> resource.
+     *        The identifier of a UsagePlan resource.
      */
 
     public void setId(String id) {
@@ -98,10 +95,10 @@ public class UsagePlan implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier of a <a>UsagePlan</a> resource.
+     * The identifier of a UsagePlan resource.
      * </p>
      * 
-     * @return The identifier of a <a>UsagePlan</a> resource.
+     * @return The identifier of a UsagePlan resource.
      */
 
     public String getId() {
@@ -110,11 +107,11 @@ public class UsagePlan implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier of a <a>UsagePlan</a> resource.
+     * The identifier of a UsagePlan resource.
      * </p>
      * 
      * @param id
-     *        The identifier of a <a>UsagePlan</a> resource.
+     *        The identifier of a UsagePlan resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -275,11 +272,11 @@ public class UsagePlan implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The request throttle limits of a usage plan.
+     * A map containing method level throttling information for API stage in a usage plan.
      * </p>
      * 
      * @param throttle
-     *        The request throttle limits of a usage plan.
+     *        A map containing method level throttling information for API stage in a usage plan.
      */
 
     public void setThrottle(ThrottleSettings throttle) {
@@ -288,10 +285,10 @@ public class UsagePlan implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The request throttle limits of a usage plan.
+     * A map containing method level throttling information for API stage in a usage plan.
      * </p>
      * 
-     * @return The request throttle limits of a usage plan.
+     * @return A map containing method level throttling information for API stage in a usage plan.
      */
 
     public ThrottleSettings getThrottle() {
@@ -300,11 +297,11 @@ public class UsagePlan implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The request throttle limits of a usage plan.
+     * A map containing method level throttling information for API stage in a usage plan.
      * </p>
      * 
      * @param throttle
-     *        The request throttle limits of a usage plan.
+     *        A map containing method level throttling information for API stage in a usage plan.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -315,11 +312,11 @@ public class UsagePlan implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The maximum number of permitted requests per a given unit time interval.
+     * The target maximum number of permitted requests per a given unit time interval.
      * </p>
      * 
      * @param quota
-     *        The maximum number of permitted requests per a given unit time interval.
+     *        The target maximum number of permitted requests per a given unit time interval.
      */
 
     public void setQuota(QuotaSettings quota) {
@@ -328,10 +325,10 @@ public class UsagePlan implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The maximum number of permitted requests per a given unit time interval.
+     * The target maximum number of permitted requests per a given unit time interval.
      * </p>
      * 
-     * @return The maximum number of permitted requests per a given unit time interval.
+     * @return The target maximum number of permitted requests per a given unit time interval.
      */
 
     public QuotaSettings getQuota() {
@@ -340,11 +337,11 @@ public class UsagePlan implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The maximum number of permitted requests per a given unit time interval.
+     * The target maximum number of permitted requests per a given unit time interval.
      * </p>
      * 
      * @param quota
-     *        The maximum number of permitted requests per a given unit time interval.
+     *        The target maximum number of permitted requests per a given unit time interval.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -355,12 +352,13 @@ public class UsagePlan implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Markeplace product identifier to associate with the usage plan as a SaaS product on AWS Marketplace.
+     * The Amazon Web Services Marketplace product identifier to associate with the usage plan as a SaaS product on the
+     * Amazon Web Services Marketplace.
      * </p>
      * 
      * @param productCode
-     *        The AWS Markeplace product identifier to associate with the usage plan as a SaaS product on AWS
-     *        Marketplace.
+     *        The Amazon Web Services Marketplace product identifier to associate with the usage plan as a SaaS product
+     *        on the Amazon Web Services Marketplace.
      */
 
     public void setProductCode(String productCode) {
@@ -369,11 +367,12 @@ public class UsagePlan implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Markeplace product identifier to associate with the usage plan as a SaaS product on AWS Marketplace.
+     * The Amazon Web Services Marketplace product identifier to associate with the usage plan as a SaaS product on the
+     * Amazon Web Services Marketplace.
      * </p>
      * 
-     * @return The AWS Markeplace product identifier to associate with the usage plan as a SaaS product on AWS
-     *         Marketplace.
+     * @return The Amazon Web Services Marketplace product identifier to associate with the usage plan as a SaaS product
+     *         on the Amazon Web Services Marketplace.
      */
 
     public String getProductCode() {
@@ -382,12 +381,13 @@ public class UsagePlan implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Markeplace product identifier to associate with the usage plan as a SaaS product on AWS Marketplace.
+     * The Amazon Web Services Marketplace product identifier to associate with the usage plan as a SaaS product on the
+     * Amazon Web Services Marketplace.
      * </p>
      * 
      * @param productCode
-     *        The AWS Markeplace product identifier to associate with the usage plan as a SaaS product on AWS
-     *        Marketplace.
+     *        The Amazon Web Services Marketplace product identifier to associate with the usage plan as a SaaS product
+     *        on the Amazon Web Services Marketplace.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -435,6 +435,13 @@ public class UsagePlan implements Serializable, Cloneable, StructuredPojo {
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see UsagePlan#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public UsagePlan addTagsEntry(String key, String value) {
         if (null == this.tags) {

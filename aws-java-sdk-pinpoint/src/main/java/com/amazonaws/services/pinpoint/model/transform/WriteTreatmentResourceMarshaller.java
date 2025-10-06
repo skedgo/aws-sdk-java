@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,12 +27,16 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class WriteTreatmentResourceMarshaller {
 
+    private static final MarshallingInfo<StructuredPojo> CUSTOMDELIVERYCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CustomDeliveryConfiguration").build();
     private static final MarshallingInfo<StructuredPojo> MESSAGECONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MessageConfiguration").build();
     private static final MarshallingInfo<StructuredPojo> SCHEDULE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Schedule").build();
     private static final MarshallingInfo<Integer> SIZEPERCENT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SizePercent").build();
+    private static final MarshallingInfo<StructuredPojo> TEMPLATECONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TemplateConfiguration").build();
     private static final MarshallingInfo<String> TREATMENTDESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TreatmentDescription").build();
     private static final MarshallingInfo<String> TREATMENTNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -54,9 +58,11 @@ public class WriteTreatmentResourceMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(writeTreatmentResource.getCustomDeliveryConfiguration(), CUSTOMDELIVERYCONFIGURATION_BINDING);
             protocolMarshaller.marshall(writeTreatmentResource.getMessageConfiguration(), MESSAGECONFIGURATION_BINDING);
             protocolMarshaller.marshall(writeTreatmentResource.getSchedule(), SCHEDULE_BINDING);
             protocolMarshaller.marshall(writeTreatmentResource.getSizePercent(), SIZEPERCENT_BINDING);
+            protocolMarshaller.marshall(writeTreatmentResource.getTemplateConfiguration(), TEMPLATECONFIGURATION_BINDING);
             protocolMarshaller.marshall(writeTreatmentResource.getTreatmentDescription(), TREATMENTDESCRIPTION_BINDING);
             protocolMarshaller.marshall(writeTreatmentResource.getTreatmentName(), TREATMENTNAME_BINDING);
         } catch (Exception e) {

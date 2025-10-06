@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,10 +27,8 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
-     * provided by your own application or service. For more information, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     * The namespace of the Amazon Web Services service that provides the resource. For a resource provided by your own
+     * application or service, use <code>custom-resource</code> instead.
      * </p>
      */
     private String serviceNamespace;
@@ -56,22 +54,44 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * </ul>
      * <p>
-     * At expressions are useful for one-time schedules. Specify the time, in UTC.
+     * At expressions are useful for one-time schedules. Cron expressions are useful for scheduled actions that run
+     * periodically at a specified date and time, and rate expressions are useful for scheduled actions that run at a
+     * regular interval.
+     * </p>
+     * <p>
+     * At and cron expressions use Universal Coordinated Time (UTC) by default.
+     * </p>
+     * <p>
+     * The cron format consists of six fields separated by white spaces: [Minutes] [Hours] [Day_of_Month] [Month]
+     * [Day_of_Week] [Year].
      * </p>
      * <p>
      * For rate expressions, <i>value</i> is a positive integer and <i>unit</i> is <code>minute</code> |
      * <code>minutes</code> | <code>hour</code> | <code>hours</code> | <code>day</code> | <code>days</code>.
      * </p>
      * <p>
-     * For more information about cron expressions, see <a
-     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions">Cron
-     * Expressions</a> in the <i>Amazon CloudWatch Events User Guide</i>.
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/autoscaling/application/userguide/scheduled-scaling-using-cron-expressions.html"
+     * >Schedule recurring scaling actions using cron expressions</a> in the <i>Application Auto Scaling User Guide</i>.
      * </p>
      */
     private String schedule;
     /**
      * <p>
-     * The name of the scheduled action.
+     * Specifies the time zone used when setting a scheduled action by using an at or cron expression. If a time zone is
+     * not provided, UTC is used by default.
+     * </p>
+     * <p>
+     * Valid values are the canonical names of the IANA time zones supported by Joda-Time (such as
+     * <code>Etc/GMT+9</code> or <code>Pacific/Tahiti</code>). For more information, see <a
+     * href="https://www.joda.org/joda-time/timezones.html">https://www.joda.org/joda-time/timezones.html</a>.
+     * </p>
+     */
+    private String timezone;
+    /**
+     * <p>
+     * The name of the scheduled action. This name must be unique among all other scheduled actions on the specified
+     * scalable target.
      * </p>
      */
     private String scheduledActionName;
@@ -84,13 +104,13 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * <li>
      * <p>
      * ECS service - The resource type is <code>service</code> and the unique identifier is the cluster name and service
-     * name. Example: <code>service/default/sample-webapp</code>.
+     * name. Example: <code>service/my-cluster/my-service</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Spot fleet request - The resource type is <code>spot-fleet-request</code> and the unique identifier is the Spot
-     * fleet request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
+     * Spot Fleet - The resource type is <code>spot-fleet-request</code> and the unique identifier is the Spot Fleet
+     * request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
      * </p>
      * </li>
      * <li>
@@ -107,14 +127,14 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * <li>
      * <p>
-     * DynamoDB table - The resource type is <code>table</code> and the unique identifier is the resource ID. Example:
+     * DynamoDB table - The resource type is <code>table</code> and the unique identifier is the table name. Example:
      * <code>table/my-table</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the
-     * resource ID. Example: <code>table/my-table/index/my-table-index</code>.
+     * DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the index
+     * name. Example: <code>table/my-table/index/my-table-index</code>.
      * </p>
      * </li>
      * <li>
@@ -125,8 +145,8 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * <li>
      * <p>
-     * Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier is the
-     * resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     * SageMaker endpoint variant - The resource type is <code>variant</code> and the unique identifier is the resource
+     * ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
      * </p>
      * </li>
      * <li>
@@ -135,6 +155,68 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * from the CloudFormation template stack used to access the resources. The unique identifier is defined by the
      * service provider. More information is available in our <a
      * href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Comprehend document classification endpoint - The resource type and unique identifier are specified using
+     * the endpoint ARN. Example:
+     * <code>arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint/EXAMPLE</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Comprehend entity recognizer endpoint - The resource type and unique identifier are specified using the
+     * endpoint ARN. Example: <code>arn:aws:comprehend:us-west-2:123456789012:entity-recognizer-endpoint/EXAMPLE</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Lambda provisioned concurrency - The resource type is <code>function</code> and the unique identifier is the
+     * function name with a function version or alias name suffix that is not <code>$LATEST</code>. Example:
+     * <code>function:my-function:prod</code> or <code>function:my-function:1</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Keyspaces table - The resource type is <code>table</code> and the unique identifier is the table name.
+     * Example: <code>keyspace/mykeyspace/table/mytable</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon MSK cluster - The resource type and unique identifier are specified using the cluster ARN. Example:
+     * <code>arn:aws:kafka:us-east-1:123456789012:cluster/demo-cluster-1/6357e0b2-0e6a-4b86-a0b4-70df934c2e31-5</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon ElastiCache replication group - The resource type is <code>replication-group</code> and the unique
+     * identifier is the replication group name. Example: <code>replication-group/mycluster</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Neptune cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster name.
+     * Example: <code>cluster:mycluster</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SageMaker serverless endpoint - The resource type is <code>variant</code> and the unique identifier is the
+     * resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SageMaker inference component - The resource type is <code>inference-component</code> and the unique identifier
+     * is the resource ID. Example: <code>inference-component/my-inference-component</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Pool of WorkSpaces - The resource type is <code>workspacespool</code> and the unique identifier is the pool ID.
+     * Example: <code>workspacespool/wspool-123456</code>.
      * </p>
      * </li>
      * </ul>
@@ -147,12 +229,7 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * <ul>
      * <li>
      * <p>
-     * <code>ecs:service:DesiredCount</code> - The desired task count of an ECS service.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot fleet request.
+     * <code>ecs:service:DesiredCount</code> - The task count of an ECS service.
      * </p>
      * </li>
      * <li>
@@ -162,7 +239,12 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * <li>
      * <p>
-     * <code>appstream:fleet:DesiredCapacity</code> - The desired capacity of an AppStream 2.0 fleet.
+     * <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot Fleet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>appstream:fleet:DesiredCapacity</code> - The capacity of an AppStream 2.0 fleet.
      * </p>
      * </li>
      * <li>
@@ -195,8 +277,8 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * <li>
      * <p>
-     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker model
-     * endpoint variant.
+     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for a SageMaker model endpoint
+     * variant.
      * </p>
      * </li>
      * <li>
@@ -205,43 +287,107 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * your own application or service.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>comprehend:document-classifier-endpoint:DesiredInferenceUnits</code> - The number of inference units for an
+     * Amazon Comprehend document classification endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>comprehend:entity-recognizer-endpoint:DesiredInferenceUnits</code> - The number of inference units for an
+     * Amazon Comprehend entity recognizer endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>lambda:function:ProvisionedConcurrency</code> - The provisioned concurrency for a Lambda function.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>cassandra:table:ReadCapacityUnits</code> - The provisioned read capacity for an Amazon Keyspaces table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>cassandra:table:WriteCapacityUnits</code> - The provisioned write capacity for an Amazon Keyspaces table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>kafka:broker-storage:VolumeSize</code> - The provisioned volume size (in GiB) for brokers in an Amazon MSK
+     * cluster.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>elasticache:replication-group:NodeGroups</code> - The number of node groups for an Amazon ElastiCache
+     * replication group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>elasticache:replication-group:Replicas</code> - The number of replicas per node group for an Amazon
+     * ElastiCache replication group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>neptune:cluster:ReadReplicaCount</code> - The count of read replicas in an Amazon Neptune DB cluster.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:variant:DesiredProvisionedConcurrency</code> - The provisioned concurrency for a SageMaker
+     * serverless endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:inference-component:DesiredCopyCount</code> - The number of copies across an endpoint for a
+     * SageMaker inference component.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>workspaces:workspacespool:DesiredUserSessions</code> - The number of user sessions for the WorkSpaces in
+     * the pool.
+     * </p>
+     * </li>
      * </ul>
      */
     private String scalableDimension;
     /**
      * <p>
-     * The date and time for the scheduled action to start.
+     * The date and time for this scheduled action to start, in UTC.
      * </p>
      */
     private java.util.Date startTime;
     /**
      * <p>
-     * The date and time for the scheduled action to end.
+     * The date and time for the recurring schedule to end, in UTC.
      * </p>
      */
     private java.util.Date endTime;
     /**
      * <p>
-     * The new minimum and maximum capacity. You can set both values or just one. During the scheduled time, if the
-     * current capacity is below the minimum capacity, Application Auto Scaling scales out to the minimum capacity. If
-     * the current capacity is above the maximum capacity, Application Auto Scaling scales in to the maximum capacity.
+     * The new minimum and maximum capacity. You can set both values or just one. At the scheduled time, if the current
+     * capacity is below the minimum capacity, Application Auto Scaling scales out to the minimum capacity. If the
+     * current capacity is above the maximum capacity, Application Auto Scaling scales in to the maximum capacity.
      * </p>
      */
     private ScalableTargetAction scalableTargetAction;
 
     /**
      * <p>
-     * The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
-     * provided by your own application or service. For more information, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     * The namespace of the Amazon Web Services service that provides the resource. For a resource provided by your own
+     * application or service, use <code>custom-resource</code> instead.
      * </p>
      * 
      * @param serviceNamespace
-     *        The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
-     *        provided by your own application or service. For more information, see <a href=
-     *        "https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     *        >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     *        The namespace of the Amazon Web Services service that provides the resource. For a resource provided by
+     *        your own application or service, use <code>custom-resource</code> instead.
      * @see ServiceNamespace
      */
 
@@ -251,16 +397,12 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
-     * provided by your own application or service. For more information, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     * The namespace of the Amazon Web Services service that provides the resource. For a resource provided by your own
+     * application or service, use <code>custom-resource</code> instead.
      * </p>
      * 
-     * @return The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a
-     *         resource provided by your own application or service. For more information, see <a href=
-     *         "https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     *         >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     * @return The namespace of the Amazon Web Services service that provides the resource. For a resource provided by
+     *         your own application or service, use <code>custom-resource</code> instead.
      * @see ServiceNamespace
      */
 
@@ -270,17 +412,13 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
-     * provided by your own application or service. For more information, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     * The namespace of the Amazon Web Services service that provides the resource. For a resource provided by your own
+     * application or service, use <code>custom-resource</code> instead.
      * </p>
      * 
      * @param serviceNamespace
-     *        The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
-     *        provided by your own application or service. For more information, see <a href=
-     *        "https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     *        >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     *        The namespace of the Amazon Web Services service that provides the resource. For a resource provided by
+     *        your own application or service, use <code>custom-resource</code> instead.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ServiceNamespace
      */
@@ -292,17 +430,13 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
-     * provided by your own application or service. For more information, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     * The namespace of the Amazon Web Services service that provides the resource. For a resource provided by your own
+     * application or service, use <code>custom-resource</code> instead.
      * </p>
      * 
      * @param serviceNamespace
-     *        The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
-     *        provided by your own application or service. For more information, see <a href=
-     *        "https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     *        >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     *        The namespace of the Amazon Web Services service that provides the resource. For a resource provided by
+     *        your own application or service, use <code>custom-resource</code> instead.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ServiceNamespace
      */
@@ -334,16 +468,25 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * </ul>
      * <p>
-     * At expressions are useful for one-time schedules. Specify the time, in UTC.
+     * At expressions are useful for one-time schedules. Cron expressions are useful for scheduled actions that run
+     * periodically at a specified date and time, and rate expressions are useful for scheduled actions that run at a
+     * regular interval.
+     * </p>
+     * <p>
+     * At and cron expressions use Universal Coordinated Time (UTC) by default.
+     * </p>
+     * <p>
+     * The cron format consists of six fields separated by white spaces: [Minutes] [Hours] [Day_of_Month] [Month]
+     * [Day_of_Week] [Year].
      * </p>
      * <p>
      * For rate expressions, <i>value</i> is a positive integer and <i>unit</i> is <code>minute</code> |
      * <code>minutes</code> | <code>hour</code> | <code>hours</code> | <code>day</code> | <code>days</code>.
      * </p>
      * <p>
-     * For more information about cron expressions, see <a
-     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions">Cron
-     * Expressions</a> in the <i>Amazon CloudWatch Events User Guide</i>.
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/autoscaling/application/userguide/scheduled-scaling-using-cron-expressions.html"
+     * >Schedule recurring scaling actions using cron expressions</a> in the <i>Application Auto Scaling User Guide</i>.
      * </p>
      * 
      * @param schedule
@@ -366,16 +509,26 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *        </li>
      *        </ul>
      *        <p>
-     *        At expressions are useful for one-time schedules. Specify the time, in UTC.
+     *        At expressions are useful for one-time schedules. Cron expressions are useful for scheduled actions that
+     *        run periodically at a specified date and time, and rate expressions are useful for scheduled actions that
+     *        run at a regular interval.
+     *        </p>
+     *        <p>
+     *        At and cron expressions use Universal Coordinated Time (UTC) by default.
+     *        </p>
+     *        <p>
+     *        The cron format consists of six fields separated by white spaces: [Minutes] [Hours] [Day_of_Month] [Month]
+     *        [Day_of_Week] [Year].
      *        </p>
      *        <p>
      *        For rate expressions, <i>value</i> is a positive integer and <i>unit</i> is <code>minute</code> |
      *        <code>minutes</code> | <code>hour</code> | <code>hours</code> | <code>day</code> | <code>days</code>.
      *        </p>
      *        <p>
-     *        For more information about cron expressions, see <a
-     *        href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions"
-     *        >Cron Expressions</a> in the <i>Amazon CloudWatch Events User Guide</i>.
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/autoscaling/application/userguide/scheduled-scaling-using-cron-expressions.html"
+     *        >Schedule recurring scaling actions using cron expressions</a> in the <i>Application Auto Scaling User
+     *        Guide</i>.
      */
 
     public void setSchedule(String schedule) {
@@ -404,16 +557,25 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * </ul>
      * <p>
-     * At expressions are useful for one-time schedules. Specify the time, in UTC.
+     * At expressions are useful for one-time schedules. Cron expressions are useful for scheduled actions that run
+     * periodically at a specified date and time, and rate expressions are useful for scheduled actions that run at a
+     * regular interval.
+     * </p>
+     * <p>
+     * At and cron expressions use Universal Coordinated Time (UTC) by default.
+     * </p>
+     * <p>
+     * The cron format consists of six fields separated by white spaces: [Minutes] [Hours] [Day_of_Month] [Month]
+     * [Day_of_Week] [Year].
      * </p>
      * <p>
      * For rate expressions, <i>value</i> is a positive integer and <i>unit</i> is <code>minute</code> |
      * <code>minutes</code> | <code>hour</code> | <code>hours</code> | <code>day</code> | <code>days</code>.
      * </p>
      * <p>
-     * For more information about cron expressions, see <a
-     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions">Cron
-     * Expressions</a> in the <i>Amazon CloudWatch Events User Guide</i>.
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/autoscaling/application/userguide/scheduled-scaling-using-cron-expressions.html"
+     * >Schedule recurring scaling actions using cron expressions</a> in the <i>Application Auto Scaling User Guide</i>.
      * </p>
      * 
      * @return The schedule for this action. The following formats are supported:</p>
@@ -435,16 +597,26 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *         </li>
      *         </ul>
      *         <p>
-     *         At expressions are useful for one-time schedules. Specify the time, in UTC.
+     *         At expressions are useful for one-time schedules. Cron expressions are useful for scheduled actions that
+     *         run periodically at a specified date and time, and rate expressions are useful for scheduled actions that
+     *         run at a regular interval.
+     *         </p>
+     *         <p>
+     *         At and cron expressions use Universal Coordinated Time (UTC) by default.
+     *         </p>
+     *         <p>
+     *         The cron format consists of six fields separated by white spaces: [Minutes] [Hours] [Day_of_Month]
+     *         [Month] [Day_of_Week] [Year].
      *         </p>
      *         <p>
      *         For rate expressions, <i>value</i> is a positive integer and <i>unit</i> is <code>minute</code> |
      *         <code>minutes</code> | <code>hour</code> | <code>hours</code> | <code>day</code> | <code>days</code>.
      *         </p>
      *         <p>
-     *         For more information about cron expressions, see <a
-     *         href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions"
-     *         >Cron Expressions</a> in the <i>Amazon CloudWatch Events User Guide</i>.
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/autoscaling/application/userguide/scheduled-scaling-using-cron-expressions.html"
+     *         >Schedule recurring scaling actions using cron expressions</a> in the <i>Application Auto Scaling User
+     *         Guide</i>.
      */
 
     public String getSchedule() {
@@ -473,16 +645,25 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * </ul>
      * <p>
-     * At expressions are useful for one-time schedules. Specify the time, in UTC.
+     * At expressions are useful for one-time schedules. Cron expressions are useful for scheduled actions that run
+     * periodically at a specified date and time, and rate expressions are useful for scheduled actions that run at a
+     * regular interval.
+     * </p>
+     * <p>
+     * At and cron expressions use Universal Coordinated Time (UTC) by default.
+     * </p>
+     * <p>
+     * The cron format consists of six fields separated by white spaces: [Minutes] [Hours] [Day_of_Month] [Month]
+     * [Day_of_Week] [Year].
      * </p>
      * <p>
      * For rate expressions, <i>value</i> is a positive integer and <i>unit</i> is <code>minute</code> |
      * <code>minutes</code> | <code>hour</code> | <code>hours</code> | <code>day</code> | <code>days</code>.
      * </p>
      * <p>
-     * For more information about cron expressions, see <a
-     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions">Cron
-     * Expressions</a> in the <i>Amazon CloudWatch Events User Guide</i>.
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/autoscaling/application/userguide/scheduled-scaling-using-cron-expressions.html"
+     * >Schedule recurring scaling actions using cron expressions</a> in the <i>Application Auto Scaling User Guide</i>.
      * </p>
      * 
      * @param schedule
@@ -505,16 +686,26 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *        </li>
      *        </ul>
      *        <p>
-     *        At expressions are useful for one-time schedules. Specify the time, in UTC.
+     *        At expressions are useful for one-time schedules. Cron expressions are useful for scheduled actions that
+     *        run periodically at a specified date and time, and rate expressions are useful for scheduled actions that
+     *        run at a regular interval.
+     *        </p>
+     *        <p>
+     *        At and cron expressions use Universal Coordinated Time (UTC) by default.
+     *        </p>
+     *        <p>
+     *        The cron format consists of six fields separated by white spaces: [Minutes] [Hours] [Day_of_Month] [Month]
+     *        [Day_of_Week] [Year].
      *        </p>
      *        <p>
      *        For rate expressions, <i>value</i> is a positive integer and <i>unit</i> is <code>minute</code> |
      *        <code>minutes</code> | <code>hour</code> | <code>hours</code> | <code>day</code> | <code>days</code>.
      *        </p>
      *        <p>
-     *        For more information about cron expressions, see <a
-     *        href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions"
-     *        >Cron Expressions</a> in the <i>Amazon CloudWatch Events User Guide</i>.
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/autoscaling/application/userguide/scheduled-scaling-using-cron-expressions.html"
+     *        >Schedule recurring scaling actions using cron expressions</a> in the <i>Application Auto Scaling User
+     *        Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -525,11 +716,86 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The name of the scheduled action.
+     * Specifies the time zone used when setting a scheduled action by using an at or cron expression. If a time zone is
+     * not provided, UTC is used by default.
+     * </p>
+     * <p>
+     * Valid values are the canonical names of the IANA time zones supported by Joda-Time (such as
+     * <code>Etc/GMT+9</code> or <code>Pacific/Tahiti</code>). For more information, see <a
+     * href="https://www.joda.org/joda-time/timezones.html">https://www.joda.org/joda-time/timezones.html</a>.
+     * </p>
+     * 
+     * @param timezone
+     *        Specifies the time zone used when setting a scheduled action by using an at or cron expression. If a time
+     *        zone is not provided, UTC is used by default.</p>
+     *        <p>
+     *        Valid values are the canonical names of the IANA time zones supported by Joda-Time (such as
+     *        <code>Etc/GMT+9</code> or <code>Pacific/Tahiti</code>). For more information, see <a
+     *        href="https://www.joda.org/joda-time/timezones.html">https://www.joda.org/joda-time/timezones.html</a>.
+     */
+
+    public void setTimezone(String timezone) {
+        this.timezone = timezone;
+    }
+
+    /**
+     * <p>
+     * Specifies the time zone used when setting a scheduled action by using an at or cron expression. If a time zone is
+     * not provided, UTC is used by default.
+     * </p>
+     * <p>
+     * Valid values are the canonical names of the IANA time zones supported by Joda-Time (such as
+     * <code>Etc/GMT+9</code> or <code>Pacific/Tahiti</code>). For more information, see <a
+     * href="https://www.joda.org/joda-time/timezones.html">https://www.joda.org/joda-time/timezones.html</a>.
+     * </p>
+     * 
+     * @return Specifies the time zone used when setting a scheduled action by using an at or cron expression. If a time
+     *         zone is not provided, UTC is used by default.</p>
+     *         <p>
+     *         Valid values are the canonical names of the IANA time zones supported by Joda-Time (such as
+     *         <code>Etc/GMT+9</code> or <code>Pacific/Tahiti</code>). For more information, see <a
+     *         href="https://www.joda.org/joda-time/timezones.html">https://www.joda.org/joda-time/timezones.html</a>.
+     */
+
+    public String getTimezone() {
+        return this.timezone;
+    }
+
+    /**
+     * <p>
+     * Specifies the time zone used when setting a scheduled action by using an at or cron expression. If a time zone is
+     * not provided, UTC is used by default.
+     * </p>
+     * <p>
+     * Valid values are the canonical names of the IANA time zones supported by Joda-Time (such as
+     * <code>Etc/GMT+9</code> or <code>Pacific/Tahiti</code>). For more information, see <a
+     * href="https://www.joda.org/joda-time/timezones.html">https://www.joda.org/joda-time/timezones.html</a>.
+     * </p>
+     * 
+     * @param timezone
+     *        Specifies the time zone used when setting a scheduled action by using an at or cron expression. If a time
+     *        zone is not provided, UTC is used by default.</p>
+     *        <p>
+     *        Valid values are the canonical names of the IANA time zones supported by Joda-Time (such as
+     *        <code>Etc/GMT+9</code> or <code>Pacific/Tahiti</code>). For more information, see <a
+     *        href="https://www.joda.org/joda-time/timezones.html">https://www.joda.org/joda-time/timezones.html</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutScheduledActionRequest withTimezone(String timezone) {
+        setTimezone(timezone);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the scheduled action. This name must be unique among all other scheduled actions on the specified
+     * scalable target.
      * </p>
      * 
      * @param scheduledActionName
-     *        The name of the scheduled action.
+     *        The name of the scheduled action. This name must be unique among all other scheduled actions on the
+     *        specified scalable target.
      */
 
     public void setScheduledActionName(String scheduledActionName) {
@@ -538,10 +804,12 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The name of the scheduled action.
+     * The name of the scheduled action. This name must be unique among all other scheduled actions on the specified
+     * scalable target.
      * </p>
      * 
-     * @return The name of the scheduled action.
+     * @return The name of the scheduled action. This name must be unique among all other scheduled actions on the
+     *         specified scalable target.
      */
 
     public String getScheduledActionName() {
@@ -550,11 +818,13 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The name of the scheduled action.
+     * The name of the scheduled action. This name must be unique among all other scheduled actions on the specified
+     * scalable target.
      * </p>
      * 
      * @param scheduledActionName
-     *        The name of the scheduled action.
+     *        The name of the scheduled action. This name must be unique among all other scheduled actions on the
+     *        specified scalable target.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -572,13 +842,13 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * <li>
      * <p>
      * ECS service - The resource type is <code>service</code> and the unique identifier is the cluster name and service
-     * name. Example: <code>service/default/sample-webapp</code>.
+     * name. Example: <code>service/my-cluster/my-service</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Spot fleet request - The resource type is <code>spot-fleet-request</code> and the unique identifier is the Spot
-     * fleet request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
+     * Spot Fleet - The resource type is <code>spot-fleet-request</code> and the unique identifier is the Spot Fleet
+     * request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
      * </p>
      * </li>
      * <li>
@@ -595,14 +865,14 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * <li>
      * <p>
-     * DynamoDB table - The resource type is <code>table</code> and the unique identifier is the resource ID. Example:
+     * DynamoDB table - The resource type is <code>table</code> and the unique identifier is the table name. Example:
      * <code>table/my-table</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the
-     * resource ID. Example: <code>table/my-table/index/my-table-index</code>.
+     * DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the index
+     * name. Example: <code>table/my-table/index/my-table-index</code>.
      * </p>
      * </li>
      * <li>
@@ -613,8 +883,8 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * <li>
      * <p>
-     * Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier is the
-     * resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     * SageMaker endpoint variant - The resource type is <code>variant</code> and the unique identifier is the resource
+     * ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
      * </p>
      * </li>
      * <li>
@@ -623,6 +893,68 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * from the CloudFormation template stack used to access the resources. The unique identifier is defined by the
      * service provider. More information is available in our <a
      * href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Comprehend document classification endpoint - The resource type and unique identifier are specified using
+     * the endpoint ARN. Example:
+     * <code>arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint/EXAMPLE</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Comprehend entity recognizer endpoint - The resource type and unique identifier are specified using the
+     * endpoint ARN. Example: <code>arn:aws:comprehend:us-west-2:123456789012:entity-recognizer-endpoint/EXAMPLE</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Lambda provisioned concurrency - The resource type is <code>function</code> and the unique identifier is the
+     * function name with a function version or alias name suffix that is not <code>$LATEST</code>. Example:
+     * <code>function:my-function:prod</code> or <code>function:my-function:1</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Keyspaces table - The resource type is <code>table</code> and the unique identifier is the table name.
+     * Example: <code>keyspace/mykeyspace/table/mytable</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon MSK cluster - The resource type and unique identifier are specified using the cluster ARN. Example:
+     * <code>arn:aws:kafka:us-east-1:123456789012:cluster/demo-cluster-1/6357e0b2-0e6a-4b86-a0b4-70df934c2e31-5</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon ElastiCache replication group - The resource type is <code>replication-group</code> and the unique
+     * identifier is the replication group name. Example: <code>replication-group/mycluster</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Neptune cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster name.
+     * Example: <code>cluster:mycluster</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SageMaker serverless endpoint - The resource type is <code>variant</code> and the unique identifier is the
+     * resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SageMaker inference component - The resource type is <code>inference-component</code> and the unique identifier
+     * is the resource ID. Example: <code>inference-component/my-inference-component</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Pool of WorkSpaces - The resource type is <code>workspacespool</code> and the unique identifier is the pool ID.
+     * Example: <code>workspacespool/wspool-123456</code>.
      * </p>
      * </li>
      * </ul>
@@ -634,13 +966,13 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *        <li>
      *        <p>
      *        ECS service - The resource type is <code>service</code> and the unique identifier is the cluster name and
-     *        service name. Example: <code>service/default/sample-webapp</code>.
+     *        service name. Example: <code>service/my-cluster/my-service</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Spot fleet request - The resource type is <code>spot-fleet-request</code> and the unique identifier is the
-     *        Spot fleet request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
+     *        Spot Fleet - The resource type is <code>spot-fleet-request</code> and the unique identifier is the Spot
+     *        Fleet request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -657,14 +989,14 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *        </li>
      *        <li>
      *        <p>
-     *        DynamoDB table - The resource type is <code>table</code> and the unique identifier is the resource ID.
+     *        DynamoDB table - The resource type is <code>table</code> and the unique identifier is the table name.
      *        Example: <code>table/my-table</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the
-     *        resource ID. Example: <code>table/my-table/index/my-table-index</code>.
+     *        index name. Example: <code>table/my-table/index/my-table-index</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -675,8 +1007,8 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *        </li>
      *        <li>
      *        <p>
-     *        Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier
-     *        is the resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     *        SageMaker endpoint variant - The resource type is <code>variant</code> and the unique identifier is the
+     *        resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -685,6 +1017,70 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *        <code>OutputValue</code> from the CloudFormation template stack used to access the resources. The unique
      *        identifier is defined by the service provider. More information is available in our <a
      *        href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon Comprehend document classification endpoint - The resource type and unique identifier are specified
+     *        using the endpoint ARN. Example:
+     *        <code>arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint/EXAMPLE</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon Comprehend entity recognizer endpoint - The resource type and unique identifier are specified using
+     *        the endpoint ARN. Example:
+     *        <code>arn:aws:comprehend:us-west-2:123456789012:entity-recognizer-endpoint/EXAMPLE</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Lambda provisioned concurrency - The resource type is <code>function</code> and the unique identifier is
+     *        the function name with a function version or alias name suffix that is not <code>$LATEST</code>. Example:
+     *        <code>function:my-function:prod</code> or <code>function:my-function:1</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon Keyspaces table - The resource type is <code>table</code> and the unique identifier is the table
+     *        name. Example: <code>keyspace/mykeyspace/table/mytable</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon MSK cluster - The resource type and unique identifier are specified using the cluster ARN. Example:
+     *        <code>arn:aws:kafka:us-east-1:123456789012:cluster/demo-cluster-1/6357e0b2-0e6a-4b86-a0b4-70df934c2e31-5</code>
+     *        .
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon ElastiCache replication group - The resource type is <code>replication-group</code> and the unique
+     *        identifier is the replication group name. Example: <code>replication-group/mycluster</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Neptune cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster name.
+     *        Example: <code>cluster:mycluster</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SageMaker serverless endpoint - The resource type is <code>variant</code> and the unique identifier is the
+     *        resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SageMaker inference component - The resource type is <code>inference-component</code> and the unique
+     *        identifier is the resource ID. Example: <code>inference-component/my-inference-component</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Pool of WorkSpaces - The resource type is <code>workspacespool</code> and the unique identifier is the
+     *        pool ID. Example: <code>workspacespool/wspool-123456</code>.
      *        </p>
      *        </li>
      */
@@ -702,13 +1098,13 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * <li>
      * <p>
      * ECS service - The resource type is <code>service</code> and the unique identifier is the cluster name and service
-     * name. Example: <code>service/default/sample-webapp</code>.
+     * name. Example: <code>service/my-cluster/my-service</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Spot fleet request - The resource type is <code>spot-fleet-request</code> and the unique identifier is the Spot
-     * fleet request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
+     * Spot Fleet - The resource type is <code>spot-fleet-request</code> and the unique identifier is the Spot Fleet
+     * request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
      * </p>
      * </li>
      * <li>
@@ -725,14 +1121,14 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * <li>
      * <p>
-     * DynamoDB table - The resource type is <code>table</code> and the unique identifier is the resource ID. Example:
+     * DynamoDB table - The resource type is <code>table</code> and the unique identifier is the table name. Example:
      * <code>table/my-table</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the
-     * resource ID. Example: <code>table/my-table/index/my-table-index</code>.
+     * DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the index
+     * name. Example: <code>table/my-table/index/my-table-index</code>.
      * </p>
      * </li>
      * <li>
@@ -743,8 +1139,8 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * <li>
      * <p>
-     * Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier is the
-     * resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     * SageMaker endpoint variant - The resource type is <code>variant</code> and the unique identifier is the resource
+     * ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
      * </p>
      * </li>
      * <li>
@@ -755,6 +1151,68 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * Amazon Comprehend document classification endpoint - The resource type and unique identifier are specified using
+     * the endpoint ARN. Example:
+     * <code>arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint/EXAMPLE</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Comprehend entity recognizer endpoint - The resource type and unique identifier are specified using the
+     * endpoint ARN. Example: <code>arn:aws:comprehend:us-west-2:123456789012:entity-recognizer-endpoint/EXAMPLE</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Lambda provisioned concurrency - The resource type is <code>function</code> and the unique identifier is the
+     * function name with a function version or alias name suffix that is not <code>$LATEST</code>. Example:
+     * <code>function:my-function:prod</code> or <code>function:my-function:1</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Keyspaces table - The resource type is <code>table</code> and the unique identifier is the table name.
+     * Example: <code>keyspace/mykeyspace/table/mytable</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon MSK cluster - The resource type and unique identifier are specified using the cluster ARN. Example:
+     * <code>arn:aws:kafka:us-east-1:123456789012:cluster/demo-cluster-1/6357e0b2-0e6a-4b86-a0b4-70df934c2e31-5</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon ElastiCache replication group - The resource type is <code>replication-group</code> and the unique
+     * identifier is the replication group name. Example: <code>replication-group/mycluster</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Neptune cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster name.
+     * Example: <code>cluster:mycluster</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SageMaker serverless endpoint - The resource type is <code>variant</code> and the unique identifier is the
+     * resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SageMaker inference component - The resource type is <code>inference-component</code> and the unique identifier
+     * is the resource ID. Example: <code>inference-component/my-inference-component</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Pool of WorkSpaces - The resource type is <code>workspacespool</code> and the unique identifier is the pool ID.
+     * Example: <code>workspacespool/wspool-123456</code>.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @return The identifier of the resource associated with the scheduled action. This string consists of the resource
@@ -763,14 +1221,13 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *         <li>
      *         <p>
      *         ECS service - The resource type is <code>service</code> and the unique identifier is the cluster name and
-     *         service name. Example: <code>service/default/sample-webapp</code>.
+     *         service name. Example: <code>service/my-cluster/my-service</code>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Spot fleet request - The resource type is <code>spot-fleet-request</code> and the unique identifier is
-     *         the Spot fleet request ID. Example:
-     *         <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
+     *         Spot Fleet - The resource type is <code>spot-fleet-request</code> and the unique identifier is the Spot
+     *         Fleet request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
      *         </p>
      *         </li>
      *         <li>
@@ -787,14 +1244,14 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *         </li>
      *         <li>
      *         <p>
-     *         DynamoDB table - The resource type is <code>table</code> and the unique identifier is the resource ID.
+     *         DynamoDB table - The resource type is <code>table</code> and the unique identifier is the table name.
      *         Example: <code>table/my-table</code>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is
-     *         the resource ID. Example: <code>table/my-table/index/my-table-index</code>.
+     *         the index name. Example: <code>table/my-table/index/my-table-index</code>.
      *         </p>
      *         </li>
      *         <li>
@@ -805,8 +1262,8 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *         </li>
      *         <li>
      *         <p>
-     *         Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier
-     *         is the resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     *         SageMaker endpoint variant - The resource type is <code>variant</code> and the unique identifier is the
+     *         resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
      *         </p>
      *         </li>
      *         <li>
@@ -815,6 +1272,71 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *         <code>OutputValue</code> from the CloudFormation template stack used to access the resources. The unique
      *         identifier is defined by the service provider. More information is available in our <a
      *         href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Amazon Comprehend document classification endpoint - The resource type and unique identifier are
+     *         specified using the endpoint ARN. Example:
+     *         <code>arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint/EXAMPLE</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Amazon Comprehend entity recognizer endpoint - The resource type and unique identifier are specified
+     *         using the endpoint ARN. Example:
+     *         <code>arn:aws:comprehend:us-west-2:123456789012:entity-recognizer-endpoint/EXAMPLE</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Lambda provisioned concurrency - The resource type is <code>function</code> and the unique identifier is
+     *         the function name with a function version or alias name suffix that is not <code>$LATEST</code>. Example:
+     *         <code>function:my-function:prod</code> or <code>function:my-function:1</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Amazon Keyspaces table - The resource type is <code>table</code> and the unique identifier is the table
+     *         name. Example: <code>keyspace/mykeyspace/table/mytable</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Amazon MSK cluster - The resource type and unique identifier are specified using the cluster ARN.
+     *         Example:
+     *         <code>arn:aws:kafka:us-east-1:123456789012:cluster/demo-cluster-1/6357e0b2-0e6a-4b86-a0b4-70df934c2e31-5</code>
+     *         .
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Amazon ElastiCache replication group - The resource type is <code>replication-group</code> and the unique
+     *         identifier is the replication group name. Example: <code>replication-group/mycluster</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Neptune cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster
+     *         name. Example: <code>cluster:mycluster</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         SageMaker serverless endpoint - The resource type is <code>variant</code> and the unique identifier is
+     *         the resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         SageMaker inference component - The resource type is <code>inference-component</code> and the unique
+     *         identifier is the resource ID. Example: <code>inference-component/my-inference-component</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Pool of WorkSpaces - The resource type is <code>workspacespool</code> and the unique identifier is the
+     *         pool ID. Example: <code>workspacespool/wspool-123456</code>.
      *         </p>
      *         </li>
      */
@@ -832,13 +1354,13 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * <li>
      * <p>
      * ECS service - The resource type is <code>service</code> and the unique identifier is the cluster name and service
-     * name. Example: <code>service/default/sample-webapp</code>.
+     * name. Example: <code>service/my-cluster/my-service</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Spot fleet request - The resource type is <code>spot-fleet-request</code> and the unique identifier is the Spot
-     * fleet request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
+     * Spot Fleet - The resource type is <code>spot-fleet-request</code> and the unique identifier is the Spot Fleet
+     * request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
      * </p>
      * </li>
      * <li>
@@ -855,14 +1377,14 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * <li>
      * <p>
-     * DynamoDB table - The resource type is <code>table</code> and the unique identifier is the resource ID. Example:
+     * DynamoDB table - The resource type is <code>table</code> and the unique identifier is the table name. Example:
      * <code>table/my-table</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the
-     * resource ID. Example: <code>table/my-table/index/my-table-index</code>.
+     * DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the index
+     * name. Example: <code>table/my-table/index/my-table-index</code>.
      * </p>
      * </li>
      * <li>
@@ -873,8 +1395,8 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * <li>
      * <p>
-     * Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier is the
-     * resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     * SageMaker endpoint variant - The resource type is <code>variant</code> and the unique identifier is the resource
+     * ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
      * </p>
      * </li>
      * <li>
@@ -883,6 +1405,68 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * from the CloudFormation template stack used to access the resources. The unique identifier is defined by the
      * service provider. More information is available in our <a
      * href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Comprehend document classification endpoint - The resource type and unique identifier are specified using
+     * the endpoint ARN. Example:
+     * <code>arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint/EXAMPLE</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Comprehend entity recognizer endpoint - The resource type and unique identifier are specified using the
+     * endpoint ARN. Example: <code>arn:aws:comprehend:us-west-2:123456789012:entity-recognizer-endpoint/EXAMPLE</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Lambda provisioned concurrency - The resource type is <code>function</code> and the unique identifier is the
+     * function name with a function version or alias name suffix that is not <code>$LATEST</code>. Example:
+     * <code>function:my-function:prod</code> or <code>function:my-function:1</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Keyspaces table - The resource type is <code>table</code> and the unique identifier is the table name.
+     * Example: <code>keyspace/mykeyspace/table/mytable</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon MSK cluster - The resource type and unique identifier are specified using the cluster ARN. Example:
+     * <code>arn:aws:kafka:us-east-1:123456789012:cluster/demo-cluster-1/6357e0b2-0e6a-4b86-a0b4-70df934c2e31-5</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon ElastiCache replication group - The resource type is <code>replication-group</code> and the unique
+     * identifier is the replication group name. Example: <code>replication-group/mycluster</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Neptune cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster name.
+     * Example: <code>cluster:mycluster</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SageMaker serverless endpoint - The resource type is <code>variant</code> and the unique identifier is the
+     * resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SageMaker inference component - The resource type is <code>inference-component</code> and the unique identifier
+     * is the resource ID. Example: <code>inference-component/my-inference-component</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Pool of WorkSpaces - The resource type is <code>workspacespool</code> and the unique identifier is the pool ID.
+     * Example: <code>workspacespool/wspool-123456</code>.
      * </p>
      * </li>
      * </ul>
@@ -894,13 +1478,13 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *        <li>
      *        <p>
      *        ECS service - The resource type is <code>service</code> and the unique identifier is the cluster name and
-     *        service name. Example: <code>service/default/sample-webapp</code>.
+     *        service name. Example: <code>service/my-cluster/my-service</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Spot fleet request - The resource type is <code>spot-fleet-request</code> and the unique identifier is the
-     *        Spot fleet request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
+     *        Spot Fleet - The resource type is <code>spot-fleet-request</code> and the unique identifier is the Spot
+     *        Fleet request ID. Example: <code>spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -917,14 +1501,14 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *        </li>
      *        <li>
      *        <p>
-     *        DynamoDB table - The resource type is <code>table</code> and the unique identifier is the resource ID.
+     *        DynamoDB table - The resource type is <code>table</code> and the unique identifier is the table name.
      *        Example: <code>table/my-table</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the
-     *        resource ID. Example: <code>table/my-table/index/my-table-index</code>.
+     *        index name. Example: <code>table/my-table/index/my-table-index</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -935,8 +1519,8 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *        </li>
      *        <li>
      *        <p>
-     *        Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier
-     *        is the resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     *        SageMaker endpoint variant - The resource type is <code>variant</code> and the unique identifier is the
+     *        resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -945,6 +1529,70 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *        <code>OutputValue</code> from the CloudFormation template stack used to access the resources. The unique
      *        identifier is defined by the service provider. More information is available in our <a
      *        href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon Comprehend document classification endpoint - The resource type and unique identifier are specified
+     *        using the endpoint ARN. Example:
+     *        <code>arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint/EXAMPLE</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon Comprehend entity recognizer endpoint - The resource type and unique identifier are specified using
+     *        the endpoint ARN. Example:
+     *        <code>arn:aws:comprehend:us-west-2:123456789012:entity-recognizer-endpoint/EXAMPLE</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Lambda provisioned concurrency - The resource type is <code>function</code> and the unique identifier is
+     *        the function name with a function version or alias name suffix that is not <code>$LATEST</code>. Example:
+     *        <code>function:my-function:prod</code> or <code>function:my-function:1</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon Keyspaces table - The resource type is <code>table</code> and the unique identifier is the table
+     *        name. Example: <code>keyspace/mykeyspace/table/mytable</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon MSK cluster - The resource type and unique identifier are specified using the cluster ARN. Example:
+     *        <code>arn:aws:kafka:us-east-1:123456789012:cluster/demo-cluster-1/6357e0b2-0e6a-4b86-a0b4-70df934c2e31-5</code>
+     *        .
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon ElastiCache replication group - The resource type is <code>replication-group</code> and the unique
+     *        identifier is the replication group name. Example: <code>replication-group/mycluster</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Neptune cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster name.
+     *        Example: <code>cluster:mycluster</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SageMaker serverless endpoint - The resource type is <code>variant</code> and the unique identifier is the
+     *        resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SageMaker inference component - The resource type is <code>inference-component</code> and the unique
+     *        identifier is the resource ID. Example: <code>inference-component/my-inference-component</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Pool of WorkSpaces - The resource type is <code>workspacespool</code> and the unique identifier is the
+     *        pool ID. Example: <code>workspacespool/wspool-123456</code>.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -962,12 +1610,7 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * <ul>
      * <li>
      * <p>
-     * <code>ecs:service:DesiredCount</code> - The desired task count of an ECS service.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot fleet request.
+     * <code>ecs:service:DesiredCount</code> - The task count of an ECS service.
      * </p>
      * </li>
      * <li>
@@ -977,7 +1620,12 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * <li>
      * <p>
-     * <code>appstream:fleet:DesiredCapacity</code> - The desired capacity of an AppStream 2.0 fleet.
+     * <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot Fleet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>appstream:fleet:DesiredCapacity</code> - The capacity of an AppStream 2.0 fleet.
      * </p>
      * </li>
      * <li>
@@ -1010,14 +1658,82 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * <li>
      * <p>
-     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker model
-     * endpoint variant.
+     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for a SageMaker model endpoint
+     * variant.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided by
      * your own application or service.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>comprehend:document-classifier-endpoint:DesiredInferenceUnits</code> - The number of inference units for an
+     * Amazon Comprehend document classification endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>comprehend:entity-recognizer-endpoint:DesiredInferenceUnits</code> - The number of inference units for an
+     * Amazon Comprehend entity recognizer endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>lambda:function:ProvisionedConcurrency</code> - The provisioned concurrency for a Lambda function.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>cassandra:table:ReadCapacityUnits</code> - The provisioned read capacity for an Amazon Keyspaces table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>cassandra:table:WriteCapacityUnits</code> - The provisioned write capacity for an Amazon Keyspaces table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>kafka:broker-storage:VolumeSize</code> - The provisioned volume size (in GiB) for brokers in an Amazon MSK
+     * cluster.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>elasticache:replication-group:NodeGroups</code> - The number of node groups for an Amazon ElastiCache
+     * replication group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>elasticache:replication-group:Replicas</code> - The number of replicas per node group for an Amazon
+     * ElastiCache replication group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>neptune:cluster:ReadReplicaCount</code> - The count of read replicas in an Amazon Neptune DB cluster.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:variant:DesiredProvisionedConcurrency</code> - The provisioned concurrency for a SageMaker
+     * serverless endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:inference-component:DesiredCopyCount</code> - The number of copies across an endpoint for a
+     * SageMaker inference component.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>workspaces:workspacespool:DesiredUserSessions</code> - The number of user sessions for the WorkSpaces in
+     * the pool.
      * </p>
      * </li>
      * </ul>
@@ -1028,12 +1744,7 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>ecs:service:DesiredCount</code> - The desired task count of an ECS service.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot fleet request.
+     *        <code>ecs:service:DesiredCount</code> - The task count of an ECS service.
      *        </p>
      *        </li>
      *        <li>
@@ -1043,7 +1754,12 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *        </li>
      *        <li>
      *        <p>
-     *        <code>appstream:fleet:DesiredCapacity</code> - The desired capacity of an AppStream 2.0 fleet.
+     *        <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot Fleet.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>appstream:fleet:DesiredCapacity</code> - The capacity of an AppStream 2.0 fleet.
      *        </p>
      *        </li>
      *        <li>
@@ -1076,14 +1792,85 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *        </li>
      *        <li>
      *        <p>
-     *        <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker
-     *        model endpoint variant.
+     *        <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for a SageMaker model
+     *        endpoint variant.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided
      *        by your own application or service.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>comprehend:document-classifier-endpoint:DesiredInferenceUnits</code> - The number of inference units
+     *        for an Amazon Comprehend document classification endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>comprehend:entity-recognizer-endpoint:DesiredInferenceUnits</code> - The number of inference units
+     *        for an Amazon Comprehend entity recognizer endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>lambda:function:ProvisionedConcurrency</code> - The provisioned concurrency for a Lambda function.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>cassandra:table:ReadCapacityUnits</code> - The provisioned read capacity for an Amazon Keyspaces
+     *        table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>cassandra:table:WriteCapacityUnits</code> - The provisioned write capacity for an Amazon Keyspaces
+     *        table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>kafka:broker-storage:VolumeSize</code> - The provisioned volume size (in GiB) for brokers in an
+     *        Amazon MSK cluster.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>elasticache:replication-group:NodeGroups</code> - The number of node groups for an Amazon
+     *        ElastiCache replication group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>elasticache:replication-group:Replicas</code> - The number of replicas per node group for an Amazon
+     *        ElastiCache replication group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>neptune:cluster:ReadReplicaCount</code> - The count of read replicas in an Amazon Neptune DB
+     *        cluster.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sagemaker:variant:DesiredProvisionedConcurrency</code> - The provisioned concurrency for a SageMaker
+     *        serverless endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sagemaker:inference-component:DesiredCopyCount</code> - The number of copies across an endpoint for
+     *        a SageMaker inference component.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>workspaces:workspacespool:DesiredUserSessions</code> - The number of user sessions for the
+     *        WorkSpaces in the pool.
      *        </p>
      *        </li>
      * @see ScalableDimension
@@ -1100,12 +1887,7 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * <ul>
      * <li>
      * <p>
-     * <code>ecs:service:DesiredCount</code> - The desired task count of an ECS service.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot fleet request.
+     * <code>ecs:service:DesiredCount</code> - The task count of an ECS service.
      * </p>
      * </li>
      * <li>
@@ -1115,7 +1897,12 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * <li>
      * <p>
-     * <code>appstream:fleet:DesiredCapacity</code> - The desired capacity of an AppStream 2.0 fleet.
+     * <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot Fleet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>appstream:fleet:DesiredCapacity</code> - The capacity of an AppStream 2.0 fleet.
      * </p>
      * </li>
      * <li>
@@ -1148,14 +1935,82 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * <li>
      * <p>
-     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker model
-     * endpoint variant.
+     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for a SageMaker model endpoint
+     * variant.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided by
      * your own application or service.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>comprehend:document-classifier-endpoint:DesiredInferenceUnits</code> - The number of inference units for an
+     * Amazon Comprehend document classification endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>comprehend:entity-recognizer-endpoint:DesiredInferenceUnits</code> - The number of inference units for an
+     * Amazon Comprehend entity recognizer endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>lambda:function:ProvisionedConcurrency</code> - The provisioned concurrency for a Lambda function.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>cassandra:table:ReadCapacityUnits</code> - The provisioned read capacity for an Amazon Keyspaces table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>cassandra:table:WriteCapacityUnits</code> - The provisioned write capacity for an Amazon Keyspaces table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>kafka:broker-storage:VolumeSize</code> - The provisioned volume size (in GiB) for brokers in an Amazon MSK
+     * cluster.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>elasticache:replication-group:NodeGroups</code> - The number of node groups for an Amazon ElastiCache
+     * replication group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>elasticache:replication-group:Replicas</code> - The number of replicas per node group for an Amazon
+     * ElastiCache replication group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>neptune:cluster:ReadReplicaCount</code> - The count of read replicas in an Amazon Neptune DB cluster.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:variant:DesiredProvisionedConcurrency</code> - The provisioned concurrency for a SageMaker
+     * serverless endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:inference-component:DesiredCopyCount</code> - The number of copies across an endpoint for a
+     * SageMaker inference component.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>workspaces:workspacespool:DesiredUserSessions</code> - The number of user sessions for the WorkSpaces in
+     * the pool.
      * </p>
      * </li>
      * </ul>
@@ -1165,12 +2020,7 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>ecs:service:DesiredCount</code> - The desired task count of an ECS service.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot fleet request.
+     *         <code>ecs:service:DesiredCount</code> - The task count of an ECS service.
      *         </p>
      *         </li>
      *         <li>
@@ -1180,7 +2030,12 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *         </li>
      *         <li>
      *         <p>
-     *         <code>appstream:fleet:DesiredCapacity</code> - The desired capacity of an AppStream 2.0 fleet.
+     *         <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot Fleet.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>appstream:fleet:DesiredCapacity</code> - The capacity of an AppStream 2.0 fleet.
      *         </p>
      *         </li>
      *         <li>
@@ -1213,14 +2068,85 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *         </li>
      *         <li>
      *         <p>
-     *         <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker
-     *         model endpoint variant.
+     *         <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for a SageMaker model
+     *         endpoint variant.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource
      *         provided by your own application or service.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>comprehend:document-classifier-endpoint:DesiredInferenceUnits</code> - The number of inference
+     *         units for an Amazon Comprehend document classification endpoint.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>comprehend:entity-recognizer-endpoint:DesiredInferenceUnits</code> - The number of inference units
+     *         for an Amazon Comprehend entity recognizer endpoint.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>lambda:function:ProvisionedConcurrency</code> - The provisioned concurrency for a Lambda function.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>cassandra:table:ReadCapacityUnits</code> - The provisioned read capacity for an Amazon Keyspaces
+     *         table.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>cassandra:table:WriteCapacityUnits</code> - The provisioned write capacity for an Amazon Keyspaces
+     *         table.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>kafka:broker-storage:VolumeSize</code> - The provisioned volume size (in GiB) for brokers in an
+     *         Amazon MSK cluster.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>elasticache:replication-group:NodeGroups</code> - The number of node groups for an Amazon
+     *         ElastiCache replication group.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>elasticache:replication-group:Replicas</code> - The number of replicas per node group for an Amazon
+     *         ElastiCache replication group.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>neptune:cluster:ReadReplicaCount</code> - The count of read replicas in an Amazon Neptune DB
+     *         cluster.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>sagemaker:variant:DesiredProvisionedConcurrency</code> - The provisioned concurrency for a
+     *         SageMaker serverless endpoint.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>sagemaker:inference-component:DesiredCopyCount</code> - The number of copies across an endpoint for
+     *         a SageMaker inference component.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>workspaces:workspacespool:DesiredUserSessions</code> - The number of user sessions for the
+     *         WorkSpaces in the pool.
      *         </p>
      *         </li>
      * @see ScalableDimension
@@ -1237,12 +2163,7 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * <ul>
      * <li>
      * <p>
-     * <code>ecs:service:DesiredCount</code> - The desired task count of an ECS service.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot fleet request.
+     * <code>ecs:service:DesiredCount</code> - The task count of an ECS service.
      * </p>
      * </li>
      * <li>
@@ -1252,7 +2173,12 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * <li>
      * <p>
-     * <code>appstream:fleet:DesiredCapacity</code> - The desired capacity of an AppStream 2.0 fleet.
+     * <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot Fleet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>appstream:fleet:DesiredCapacity</code> - The capacity of an AppStream 2.0 fleet.
      * </p>
      * </li>
      * <li>
@@ -1285,14 +2211,82 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * <li>
      * <p>
-     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker model
-     * endpoint variant.
+     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for a SageMaker model endpoint
+     * variant.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided by
      * your own application or service.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>comprehend:document-classifier-endpoint:DesiredInferenceUnits</code> - The number of inference units for an
+     * Amazon Comprehend document classification endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>comprehend:entity-recognizer-endpoint:DesiredInferenceUnits</code> - The number of inference units for an
+     * Amazon Comprehend entity recognizer endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>lambda:function:ProvisionedConcurrency</code> - The provisioned concurrency for a Lambda function.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>cassandra:table:ReadCapacityUnits</code> - The provisioned read capacity for an Amazon Keyspaces table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>cassandra:table:WriteCapacityUnits</code> - The provisioned write capacity for an Amazon Keyspaces table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>kafka:broker-storage:VolumeSize</code> - The provisioned volume size (in GiB) for brokers in an Amazon MSK
+     * cluster.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>elasticache:replication-group:NodeGroups</code> - The number of node groups for an Amazon ElastiCache
+     * replication group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>elasticache:replication-group:Replicas</code> - The number of replicas per node group for an Amazon
+     * ElastiCache replication group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>neptune:cluster:ReadReplicaCount</code> - The count of read replicas in an Amazon Neptune DB cluster.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:variant:DesiredProvisionedConcurrency</code> - The provisioned concurrency for a SageMaker
+     * serverless endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:inference-component:DesiredCopyCount</code> - The number of copies across an endpoint for a
+     * SageMaker inference component.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>workspaces:workspacespool:DesiredUserSessions</code> - The number of user sessions for the WorkSpaces in
+     * the pool.
      * </p>
      * </li>
      * </ul>
@@ -1303,12 +2297,7 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>ecs:service:DesiredCount</code> - The desired task count of an ECS service.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot fleet request.
+     *        <code>ecs:service:DesiredCount</code> - The task count of an ECS service.
      *        </p>
      *        </li>
      *        <li>
@@ -1318,7 +2307,12 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *        </li>
      *        <li>
      *        <p>
-     *        <code>appstream:fleet:DesiredCapacity</code> - The desired capacity of an AppStream 2.0 fleet.
+     *        <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot Fleet.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>appstream:fleet:DesiredCapacity</code> - The capacity of an AppStream 2.0 fleet.
      *        </p>
      *        </li>
      *        <li>
@@ -1351,14 +2345,85 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *        </li>
      *        <li>
      *        <p>
-     *        <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker
-     *        model endpoint variant.
+     *        <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for a SageMaker model
+     *        endpoint variant.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided
      *        by your own application or service.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>comprehend:document-classifier-endpoint:DesiredInferenceUnits</code> - The number of inference units
+     *        for an Amazon Comprehend document classification endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>comprehend:entity-recognizer-endpoint:DesiredInferenceUnits</code> - The number of inference units
+     *        for an Amazon Comprehend entity recognizer endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>lambda:function:ProvisionedConcurrency</code> - The provisioned concurrency for a Lambda function.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>cassandra:table:ReadCapacityUnits</code> - The provisioned read capacity for an Amazon Keyspaces
+     *        table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>cassandra:table:WriteCapacityUnits</code> - The provisioned write capacity for an Amazon Keyspaces
+     *        table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>kafka:broker-storage:VolumeSize</code> - The provisioned volume size (in GiB) for brokers in an
+     *        Amazon MSK cluster.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>elasticache:replication-group:NodeGroups</code> - The number of node groups for an Amazon
+     *        ElastiCache replication group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>elasticache:replication-group:Replicas</code> - The number of replicas per node group for an Amazon
+     *        ElastiCache replication group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>neptune:cluster:ReadReplicaCount</code> - The count of read replicas in an Amazon Neptune DB
+     *        cluster.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sagemaker:variant:DesiredProvisionedConcurrency</code> - The provisioned concurrency for a SageMaker
+     *        serverless endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sagemaker:inference-component:DesiredCopyCount</code> - The number of copies across an endpoint for
+     *        a SageMaker inference component.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>workspaces:workspacespool:DesiredUserSessions</code> - The number of user sessions for the
+     *        WorkSpaces in the pool.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1377,12 +2442,7 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * <ul>
      * <li>
      * <p>
-     * <code>ecs:service:DesiredCount</code> - The desired task count of an ECS service.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot fleet request.
+     * <code>ecs:service:DesiredCount</code> - The task count of an ECS service.
      * </p>
      * </li>
      * <li>
@@ -1392,7 +2452,12 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * <li>
      * <p>
-     * <code>appstream:fleet:DesiredCapacity</code> - The desired capacity of an AppStream 2.0 fleet.
+     * <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot Fleet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>appstream:fleet:DesiredCapacity</code> - The capacity of an AppStream 2.0 fleet.
      * </p>
      * </li>
      * <li>
@@ -1425,14 +2490,82 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * <li>
      * <p>
-     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker model
-     * endpoint variant.
+     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for a SageMaker model endpoint
+     * variant.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided by
      * your own application or service.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>comprehend:document-classifier-endpoint:DesiredInferenceUnits</code> - The number of inference units for an
+     * Amazon Comprehend document classification endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>comprehend:entity-recognizer-endpoint:DesiredInferenceUnits</code> - The number of inference units for an
+     * Amazon Comprehend entity recognizer endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>lambda:function:ProvisionedConcurrency</code> - The provisioned concurrency for a Lambda function.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>cassandra:table:ReadCapacityUnits</code> - The provisioned read capacity for an Amazon Keyspaces table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>cassandra:table:WriteCapacityUnits</code> - The provisioned write capacity for an Amazon Keyspaces table.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>kafka:broker-storage:VolumeSize</code> - The provisioned volume size (in GiB) for brokers in an Amazon MSK
+     * cluster.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>elasticache:replication-group:NodeGroups</code> - The number of node groups for an Amazon ElastiCache
+     * replication group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>elasticache:replication-group:Replicas</code> - The number of replicas per node group for an Amazon
+     * ElastiCache replication group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>neptune:cluster:ReadReplicaCount</code> - The count of read replicas in an Amazon Neptune DB cluster.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:variant:DesiredProvisionedConcurrency</code> - The provisioned concurrency for a SageMaker
+     * serverless endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:inference-component:DesiredCopyCount</code> - The number of copies across an endpoint for a
+     * SageMaker inference component.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>workspaces:workspacespool:DesiredUserSessions</code> - The number of user sessions for the WorkSpaces in
+     * the pool.
      * </p>
      * </li>
      * </ul>
@@ -1443,12 +2576,7 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>ecs:service:DesiredCount</code> - The desired task count of an ECS service.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot fleet request.
+     *        <code>ecs:service:DesiredCount</code> - The task count of an ECS service.
      *        </p>
      *        </li>
      *        <li>
@@ -1458,7 +2586,12 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *        </li>
      *        <li>
      *        <p>
-     *        <code>appstream:fleet:DesiredCapacity</code> - The desired capacity of an AppStream 2.0 fleet.
+     *        <code>ec2:spot-fleet-request:TargetCapacity</code> - The target capacity of a Spot Fleet.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>appstream:fleet:DesiredCapacity</code> - The capacity of an AppStream 2.0 fleet.
      *        </p>
      *        </li>
      *        <li>
@@ -1491,14 +2624,85 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
      *        </li>
      *        <li>
      *        <p>
-     *        <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker
-     *        model endpoint variant.
+     *        <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for a SageMaker model
+     *        endpoint variant.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided
      *        by your own application or service.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>comprehend:document-classifier-endpoint:DesiredInferenceUnits</code> - The number of inference units
+     *        for an Amazon Comprehend document classification endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>comprehend:entity-recognizer-endpoint:DesiredInferenceUnits</code> - The number of inference units
+     *        for an Amazon Comprehend entity recognizer endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>lambda:function:ProvisionedConcurrency</code> - The provisioned concurrency for a Lambda function.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>cassandra:table:ReadCapacityUnits</code> - The provisioned read capacity for an Amazon Keyspaces
+     *        table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>cassandra:table:WriteCapacityUnits</code> - The provisioned write capacity for an Amazon Keyspaces
+     *        table.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>kafka:broker-storage:VolumeSize</code> - The provisioned volume size (in GiB) for brokers in an
+     *        Amazon MSK cluster.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>elasticache:replication-group:NodeGroups</code> - The number of node groups for an Amazon
+     *        ElastiCache replication group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>elasticache:replication-group:Replicas</code> - The number of replicas per node group for an Amazon
+     *        ElastiCache replication group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>neptune:cluster:ReadReplicaCount</code> - The count of read replicas in an Amazon Neptune DB
+     *        cluster.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sagemaker:variant:DesiredProvisionedConcurrency</code> - The provisioned concurrency for a SageMaker
+     *        serverless endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sagemaker:inference-component:DesiredCopyCount</code> - The number of copies across an endpoint for
+     *        a SageMaker inference component.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>workspaces:workspacespool:DesiredUserSessions</code> - The number of user sessions for the
+     *        WorkSpaces in the pool.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1512,11 +2716,11 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The date and time for the scheduled action to start.
+     * The date and time for this scheduled action to start, in UTC.
      * </p>
      * 
      * @param startTime
-     *        The date and time for the scheduled action to start.
+     *        The date and time for this scheduled action to start, in UTC.
      */
 
     public void setStartTime(java.util.Date startTime) {
@@ -1525,10 +2729,10 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The date and time for the scheduled action to start.
+     * The date and time for this scheduled action to start, in UTC.
      * </p>
      * 
-     * @return The date and time for the scheduled action to start.
+     * @return The date and time for this scheduled action to start, in UTC.
      */
 
     public java.util.Date getStartTime() {
@@ -1537,11 +2741,11 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The date and time for the scheduled action to start.
+     * The date and time for this scheduled action to start, in UTC.
      * </p>
      * 
      * @param startTime
-     *        The date and time for the scheduled action to start.
+     *        The date and time for this scheduled action to start, in UTC.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1552,11 +2756,11 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The date and time for the scheduled action to end.
+     * The date and time for the recurring schedule to end, in UTC.
      * </p>
      * 
      * @param endTime
-     *        The date and time for the scheduled action to end.
+     *        The date and time for the recurring schedule to end, in UTC.
      */
 
     public void setEndTime(java.util.Date endTime) {
@@ -1565,10 +2769,10 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The date and time for the scheduled action to end.
+     * The date and time for the recurring schedule to end, in UTC.
      * </p>
      * 
-     * @return The date and time for the scheduled action to end.
+     * @return The date and time for the recurring schedule to end, in UTC.
      */
 
     public java.util.Date getEndTime() {
@@ -1577,11 +2781,11 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The date and time for the scheduled action to end.
+     * The date and time for the recurring schedule to end, in UTC.
      * </p>
      * 
      * @param endTime
-     *        The date and time for the scheduled action to end.
+     *        The date and time for the recurring schedule to end, in UTC.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1592,14 +2796,14 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The new minimum and maximum capacity. You can set both values or just one. During the scheduled time, if the
-     * current capacity is below the minimum capacity, Application Auto Scaling scales out to the minimum capacity. If
-     * the current capacity is above the maximum capacity, Application Auto Scaling scales in to the maximum capacity.
+     * The new minimum and maximum capacity. You can set both values or just one. At the scheduled time, if the current
+     * capacity is below the minimum capacity, Application Auto Scaling scales out to the minimum capacity. If the
+     * current capacity is above the maximum capacity, Application Auto Scaling scales in to the maximum capacity.
      * </p>
      * 
      * @param scalableTargetAction
-     *        The new minimum and maximum capacity. You can set both values or just one. During the scheduled time, if
-     *        the current capacity is below the minimum capacity, Application Auto Scaling scales out to the minimum
+     *        The new minimum and maximum capacity. You can set both values or just one. At the scheduled time, if the
+     *        current capacity is below the minimum capacity, Application Auto Scaling scales out to the minimum
      *        capacity. If the current capacity is above the maximum capacity, Application Auto Scaling scales in to the
      *        maximum capacity.
      */
@@ -1610,13 +2814,13 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The new minimum and maximum capacity. You can set both values or just one. During the scheduled time, if the
-     * current capacity is below the minimum capacity, Application Auto Scaling scales out to the minimum capacity. If
-     * the current capacity is above the maximum capacity, Application Auto Scaling scales in to the maximum capacity.
+     * The new minimum and maximum capacity. You can set both values or just one. At the scheduled time, if the current
+     * capacity is below the minimum capacity, Application Auto Scaling scales out to the minimum capacity. If the
+     * current capacity is above the maximum capacity, Application Auto Scaling scales in to the maximum capacity.
      * </p>
      * 
-     * @return The new minimum and maximum capacity. You can set both values or just one. During the scheduled time, if
-     *         the current capacity is below the minimum capacity, Application Auto Scaling scales out to the minimum
+     * @return The new minimum and maximum capacity. You can set both values or just one. At the scheduled time, if the
+     *         current capacity is below the minimum capacity, Application Auto Scaling scales out to the minimum
      *         capacity. If the current capacity is above the maximum capacity, Application Auto Scaling scales in to
      *         the maximum capacity.
      */
@@ -1627,14 +2831,14 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The new minimum and maximum capacity. You can set both values or just one. During the scheduled time, if the
-     * current capacity is below the minimum capacity, Application Auto Scaling scales out to the minimum capacity. If
-     * the current capacity is above the maximum capacity, Application Auto Scaling scales in to the maximum capacity.
+     * The new minimum and maximum capacity. You can set both values or just one. At the scheduled time, if the current
+     * capacity is below the minimum capacity, Application Auto Scaling scales out to the minimum capacity. If the
+     * current capacity is above the maximum capacity, Application Auto Scaling scales in to the maximum capacity.
      * </p>
      * 
      * @param scalableTargetAction
-     *        The new minimum and maximum capacity. You can set both values or just one. During the scheduled time, if
-     *        the current capacity is below the minimum capacity, Application Auto Scaling scales out to the minimum
+     *        The new minimum and maximum capacity. You can set both values or just one. At the scheduled time, if the
+     *        current capacity is below the minimum capacity, Application Auto Scaling scales out to the minimum
      *        capacity. If the current capacity is above the maximum capacity, Application Auto Scaling scales in to the
      *        maximum capacity.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1661,6 +2865,8 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
             sb.append("ServiceNamespace: ").append(getServiceNamespace()).append(",");
         if (getSchedule() != null)
             sb.append("Schedule: ").append(getSchedule()).append(",");
+        if (getTimezone() != null)
+            sb.append("Timezone: ").append(getTimezone()).append(",");
         if (getScheduledActionName() != null)
             sb.append("ScheduledActionName: ").append(getScheduledActionName()).append(",");
         if (getResourceId() != null)
@@ -1694,6 +2900,10 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
         if (other.getSchedule() == null ^ this.getSchedule() == null)
             return false;
         if (other.getSchedule() != null && other.getSchedule().equals(this.getSchedule()) == false)
+            return false;
+        if (other.getTimezone() == null ^ this.getTimezone() == null)
+            return false;
+        if (other.getTimezone() != null && other.getTimezone().equals(this.getTimezone()) == false)
             return false;
         if (other.getScheduledActionName() == null ^ this.getScheduledActionName() == null)
             return false;
@@ -1729,6 +2939,7 @@ public class PutScheduledActionRequest extends com.amazonaws.AmazonWebServiceReq
 
         hashCode = prime * hashCode + ((getServiceNamespace() == null) ? 0 : getServiceNamespace().hashCode());
         hashCode = prime * hashCode + ((getSchedule() == null) ? 0 : getSchedule().hashCode());
+        hashCode = prime * hashCode + ((getTimezone() == null) ? 0 : getTimezone().hashCode());
         hashCode = prime * hashCode + ((getScheduledActionName() == null) ? 0 : getScheduledActionName().hashCode());
         hashCode = prime * hashCode + ((getResourceId() == null) ? 0 : getResourceId().hashCode());
         hashCode = prime * hashCode + ((getScalableDimension() == null) ? 0 : getScalableDimension().hashCode());

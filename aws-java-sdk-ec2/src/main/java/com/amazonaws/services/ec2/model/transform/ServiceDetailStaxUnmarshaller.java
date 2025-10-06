@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -95,6 +95,16 @@ public class ServiceDetailStaxUnmarshaller implements Unmarshaller<ServiceDetail
                     continue;
                 }
 
+                if (context.testExpression("privateDnsNameSet", targetDepth)) {
+                    serviceDetail.withPrivateDnsNames(new ArrayList<PrivateDnsDetails>());
+                    continue;
+                }
+
+                if (context.testExpression("privateDnsNameSet/item", targetDepth)) {
+                    serviceDetail.withPrivateDnsNames(PrivateDnsDetailsStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("vpcEndpointPolicySupported", targetDepth)) {
                     serviceDetail.setVpcEndpointPolicySupported(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
@@ -110,6 +120,11 @@ public class ServiceDetailStaxUnmarshaller implements Unmarshaller<ServiceDetail
                     continue;
                 }
 
+                if (context.testExpression("payerResponsibility", targetDepth)) {
+                    serviceDetail.setPayerResponsibility(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("tagSet", targetDepth)) {
                     serviceDetail.withTags(new ArrayList<Tag>());
                     continue;
@@ -117,6 +132,21 @@ public class ServiceDetailStaxUnmarshaller implements Unmarshaller<ServiceDetail
 
                 if (context.testExpression("tagSet/item", targetDepth)) {
                     serviceDetail.withTags(TagStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("privateDnsNameVerificationState", targetDepth)) {
+                    serviceDetail.setPrivateDnsNameVerificationState(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("supportedIpAddressTypeSet", targetDepth)) {
+                    serviceDetail.withSupportedIpAddressTypes(new ArrayList<String>());
+                    continue;
+                }
+
+                if (context.testExpression("supportedIpAddressTypeSet/item", targetDepth)) {
+                    serviceDetail.withSupportedIpAddressTypes(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
 

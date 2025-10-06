@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -16,13 +16,14 @@ package com.amazonaws.auth;
 
 
 import static com.amazonaws.SDKGlobalConfiguration.ACCESS_KEY_SYSTEM_PROPERTY;
+import static com.amazonaws.SDKGlobalConfiguration.AWS_ACCOUNT_ID_SYSTEM_PROPERTY;
 import static com.amazonaws.SDKGlobalConfiguration.SECRET_KEY_SYSTEM_PROPERTY;
 import static com.amazonaws.SDKGlobalConfiguration.SESSION_TOKEN_SYSTEM_PROPERTY;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
-
 import com.amazonaws.SdkClientException;
 import org.junit.After;
 import org.junit.Test;
@@ -36,6 +37,7 @@ public class SystemPropertiesCredentialsProviderTest {
         System.clearProperty(ACCESS_KEY_SYSTEM_PROPERTY);
         System.clearProperty(SECRET_KEY_SYSTEM_PROPERTY);
         System.clearProperty(SESSION_TOKEN_SYSTEM_PROPERTY);
+        System.clearProperty(AWS_ACCOUNT_ID_SYSTEM_PROPERTY);
     }
 
     @Test
@@ -43,9 +45,12 @@ public class SystemPropertiesCredentialsProviderTest {
         System.setProperty(ACCESS_KEY_SYSTEM_PROPERTY, "akid-value");
         System.setProperty(SECRET_KEY_SYSTEM_PROPERTY, "skid-value");
         final AWSCredentials credentials = provider.getCredentials();
-        assertThat(credentials, not(instanceOf(AWSSessionCredentials.class)));
+        assertThat(credentials, instanceOf(BasicAWSCredentials.class));
         assertEquals("akid-value", credentials.getAWSAccessKeyId());
         assertEquals("skid-value", credentials.getAWSSecretKey());
+        assertEquals("SystemPropertyCredentialsProvider",
+                ((BasicAWSCredentials) credentials).getProviderName());
+
     }
 
     @Test
@@ -58,6 +63,25 @@ public class SystemPropertiesCredentialsProviderTest {
         assertEquals("akid-value", credentials.getAWSAccessKeyId());
         assertEquals("skid-value", credentials.getAWSSecretKey());
         assertEquals("session-value", ((AWSSessionCredentials) credentials).getSessionToken());
+        assertEquals("SystemPropertyCredentialsProvider",
+                ((BasicSessionCredentials) credentials).getProviderName());
+    }
+
+    @Test
+    public void accountIdSet_ReturnsAccountId() {
+        System.setProperty(ACCESS_KEY_SYSTEM_PROPERTY, "akid-value");
+        System.setProperty(SECRET_KEY_SYSTEM_PROPERTY, "skid-value");
+        System.setProperty(AWS_ACCOUNT_ID_SYSTEM_PROPERTY, "account-id-value");
+        final BasicAWSCredentials credentials = (BasicAWSCredentials) provider.getCredentials();
+        assertEquals("account-id-value", credentials.getAccountId());
+    }
+
+    @Test
+    public void noAccountIdSet_ReturnsNullAccountId() {
+        System.setProperty(ACCESS_KEY_SYSTEM_PROPERTY, "akid-value");
+        System.setProperty(SECRET_KEY_SYSTEM_PROPERTY, "skid-value");
+        final BasicAWSCredentials credentials = (BasicAWSCredentials) provider.getCredentials();
+        assertNull(credentials.getAccountId());
     }
 
     @Test(expected = SdkClientException.class)

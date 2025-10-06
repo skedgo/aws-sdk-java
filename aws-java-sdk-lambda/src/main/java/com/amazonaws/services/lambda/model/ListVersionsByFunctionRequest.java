@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class ListVersionsByFunctionRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The name of the Lambda function.
+     * The name or ARN of the Lambda function.
      * </p>
      * <p class="title">
      * <b>Name formats</b>
@@ -63,14 +63,15 @@ public class ListVersionsByFunctionRequest extends com.amazonaws.AmazonWebServic
     private String marker;
     /**
      * <p>
-     * Limit the number of versions that are returned.
+     * The maximum number of versions to return. Note that <code>ListVersionsByFunction</code> returns a maximum of 50
+     * items in each response, even if you set the number higher.
      * </p>
      */
     private Integer maxItems;
 
     /**
      * <p>
-     * The name of the Lambda function.
+     * The name or ARN of the Lambda function.
      * </p>
      * <p class="title">
      * <b>Name formats</b>
@@ -98,7 +99,7 @@ public class ListVersionsByFunctionRequest extends com.amazonaws.AmazonWebServic
      * </p>
      * 
      * @param functionName
-     *        The name of the Lambda function.</p>
+     *        The name or ARN of the Lambda function.</p>
      *        <p class="title">
      *        <b>Name formats</b>
      *        </p>
@@ -130,7 +131,7 @@ public class ListVersionsByFunctionRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The name of the Lambda function.
+     * The name or ARN of the Lambda function.
      * </p>
      * <p class="title">
      * <b>Name formats</b>
@@ -157,7 +158,7 @@ public class ListVersionsByFunctionRequest extends com.amazonaws.AmazonWebServic
      * characters in length.
      * </p>
      * 
-     * @return The name of the Lambda function.</p>
+     * @return The name or ARN of the Lambda function.</p>
      *         <p class="title">
      *         <b>Name formats</b>
      *         </p>
@@ -189,7 +190,7 @@ public class ListVersionsByFunctionRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The name of the Lambda function.
+     * The name or ARN of the Lambda function.
      * </p>
      * <p class="title">
      * <b>Name formats</b>
@@ -217,7 +218,7 @@ public class ListVersionsByFunctionRequest extends com.amazonaws.AmazonWebServic
      * </p>
      * 
      * @param functionName
-     *        The name of the Lambda function.</p>
+     *        The name or ARN of the Lambda function.</p>
      *        <p class="title">
      *        <b>Name formats</b>
      *        </p>
@@ -291,11 +292,13 @@ public class ListVersionsByFunctionRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Limit the number of versions that are returned.
+     * The maximum number of versions to return. Note that <code>ListVersionsByFunction</code> returns a maximum of 50
+     * items in each response, even if you set the number higher.
      * </p>
      * 
      * @param maxItems
-     *        Limit the number of versions that are returned.
+     *        The maximum number of versions to return. Note that <code>ListVersionsByFunction</code> returns a maximum
+     *        of 50 items in each response, even if you set the number higher.
      */
 
     public void setMaxItems(Integer maxItems) {
@@ -304,10 +307,12 @@ public class ListVersionsByFunctionRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Limit the number of versions that are returned.
+     * The maximum number of versions to return. Note that <code>ListVersionsByFunction</code> returns a maximum of 50
+     * items in each response, even if you set the number higher.
      * </p>
      * 
-     * @return Limit the number of versions that are returned.
+     * @return The maximum number of versions to return. Note that <code>ListVersionsByFunction</code> returns a maximum
+     *         of 50 items in each response, even if you set the number higher.
      */
 
     public Integer getMaxItems() {
@@ -316,11 +321,13 @@ public class ListVersionsByFunctionRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Limit the number of versions that are returned.
+     * The maximum number of versions to return. Note that <code>ListVersionsByFunction</code> returns a maximum of 50
+     * items in each response, even if you set the number higher.
      * </p>
      * 
      * @param maxItems
-     *        Limit the number of versions that are returned.
+     *        The maximum number of versions to return. Note that <code>ListVersionsByFunction</code> returns a maximum
+     *        of 50 items in each response, even if you set the number higher.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

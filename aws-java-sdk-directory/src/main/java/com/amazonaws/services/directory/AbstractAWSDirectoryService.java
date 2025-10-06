@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,11 @@ public class AbstractAWSDirectoryService implements AWSDirectoryService {
 
     @Override
     public AddIpRoutesResult addIpRoutes(AddIpRoutesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AddRegionResult addRegion(AddRegionRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -128,7 +133,22 @@ public class AbstractAWSDirectoryService implements AWSDirectoryService {
     }
 
     @Override
+    public DeregisterCertificateResult deregisterCertificate(DeregisterCertificateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeregisterEventTopicResult deregisterEventTopic(DeregisterEventTopicRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeCertificateResult describeCertificate(DescribeCertificateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeClientAuthenticationSettingsResult describeClientAuthenticationSettings(DescribeClientAuthenticationSettingsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -158,6 +178,21 @@ public class AbstractAWSDirectoryService implements AWSDirectoryService {
     }
 
     @Override
+    public DescribeLDAPSSettingsResult describeLDAPSSettings(DescribeLDAPSSettingsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeRegionsResult describeRegions(DescribeRegionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeSettingsResult describeSettings(DescribeSettingsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeSharedDirectoriesResult describeSharedDirectories(DescribeSharedDirectoriesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -178,12 +213,37 @@ public class AbstractAWSDirectoryService implements AWSDirectoryService {
     }
 
     @Override
+    public DescribeUpdateDirectoryResult describeUpdateDirectory(DescribeUpdateDirectoryRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisableClientAuthenticationResult disableClientAuthentication(DisableClientAuthenticationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisableLDAPSResult disableLDAPS(DisableLDAPSRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DisableRadiusResult disableRadius(DisableRadiusRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public DisableSsoResult disableSso(DisableSsoRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public EnableClientAuthenticationResult enableClientAuthentication(EnableClientAuthenticationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public EnableLDAPSResult enableLDAPS(EnableLDAPSRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -213,6 +273,11 @@ public class AbstractAWSDirectoryService implements AWSDirectoryService {
     }
 
     @Override
+    public ListCertificatesResult listCertificates(ListCertificatesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListIpRoutesResult listIpRoutes(ListIpRoutesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -233,6 +298,11 @@ public class AbstractAWSDirectoryService implements AWSDirectoryService {
     }
 
     @Override
+    public RegisterCertificateResult registerCertificate(RegisterCertificateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public RegisterEventTopicResult registerEventTopic(RegisterEventTopicRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -244,6 +314,11 @@ public class AbstractAWSDirectoryService implements AWSDirectoryService {
 
     @Override
     public RemoveIpRoutesResult removeIpRoutes(RemoveIpRoutesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public RemoveRegionResult removeRegion(RemoveRegionRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -283,12 +358,22 @@ public class AbstractAWSDirectoryService implements AWSDirectoryService {
     }
 
     @Override
+    public UpdateDirectorySetupResult updateDirectorySetup(UpdateDirectorySetupRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateNumberOfDomainControllersResult updateNumberOfDomainControllers(UpdateNumberOfDomainControllersRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public UpdateRadiusResult updateRadius(UpdateRadiusRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateSettingsResult updateSettings(UpdateSettingsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

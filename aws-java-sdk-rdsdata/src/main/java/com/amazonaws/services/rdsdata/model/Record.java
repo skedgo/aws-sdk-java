@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,6 +21,12 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * <p>
  * A record returned by a call.
  * </p>
+ * <note>
+ * <p>
+ * This data structure is only used with the deprecated <code>ExecuteSql</code> operation. Use the
+ * <code>BatchExecuteStatement</code> or <code>ExecuteStatement</code> operation instead.
+ * </p>
+ * </note>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-data-2018-08-01/Record" target="_top">AWS API
  *      Documentation</a>

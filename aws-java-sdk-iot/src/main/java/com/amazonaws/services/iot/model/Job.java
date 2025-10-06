@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,12 @@ public class Job implements Serializable, Cloneable, StructuredPojo {
      * detected in a target. For example, a job will run on a device when the thing representing the device is added to
      * a target group, even after the job was completed by all things originally in the group.
      * </p>
+     * <note>
+     * <p>
+     * We recommend that you use continuous jobs instead of snapshot jobs for dynamic thing group targets. By using
+     * continuous jobs, devices that join the group receive the job execution even after the job has been created.
+     * </p>
+     * </note>
      */
     private String targetSelection;
     /**
@@ -134,6 +140,87 @@ public class Job implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private TimeoutConfig timeoutConfig;
+    /**
+     * <p>
+     * The namespace used to indicate that a job is a customer-managed job.
+     * </p>
+     * <p>
+     * When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics
+     * that contain the value in the following format.
+     * </p>
+     * <p>
+     * <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code>
+     * </p>
+     * <note>
+     * <p>
+     * The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see
+     * <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass core
+     * devices.</a>
+     * </p>
+     * </note>
+     */
+    private String namespaceId;
+    /**
+     * <p>
+     * The ARN of the job template used to create the job.
+     * </p>
+     */
+    private String jobTemplateArn;
+    /**
+     * <p>
+     * The configuration for the criteria to retry the job.
+     * </p>
+     */
+    private JobExecutionsRetryConfig jobExecutionsRetryConfig;
+    /**
+     * <p>
+     * A key-value map that pairs the patterns that need to be replaced in a managed template job document schema. You
+     * can use the description of each key as a guidance to specify the inputs during runtime when creating a job.
+     * </p>
+     * <note>
+     * <p>
+     * <code>documentParameters</code> can only be used when creating jobs from Amazon Web Services managed templates.
+     * This parameter can't be used with custom job templates or to create jobs from them.
+     * </p>
+     * </note>
+     */
+    private java.util.Map<String, String> documentParameters;
+    /**
+     * <p>
+     * Indicates whether a job is concurrent. Will be true when a job is rolling out new job executions or canceling
+     * previously created executions, otherwise false.
+     * </p>
+     */
+    private Boolean isConcurrent;
+    /**
+     * <p>
+     * The configuration that allows you to schedule a job for a future date and time in addition to specifying the end
+     * behavior for each job execution.
+     * </p>
+     */
+    private SchedulingConfig schedulingConfig;
+    /**
+     * <p>
+     * Displays the next seven maintenance window occurrences and their start times.
+     * </p>
+     */
+    private java.util.List<ScheduledJobRollout> scheduledJobRollouts;
+    /**
+     * <p>
+     * The package version Amazon Resource Names (ARNs) that are installed on the device when the job successfully
+     * completes. The package version must be in either the Published or Deprecated state when the job deploys. For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     * >Package version lifecycle</a>.The package version must be in either the Published or Deprecated state when the
+     * job deploys. For more information, see <a href=
+     * "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     * >Package version lifecycle</a>.
+     * </p>
+     * <p>
+     * <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are allowed.
+     * </p>
+     */
+    private java.util.List<String> destinationPackageVersions;
 
     /**
      * <p>
@@ -222,13 +309,24 @@ public class Job implements Serializable, Cloneable, StructuredPojo {
      * detected in a target. For example, a job will run on a device when the thing representing the device is added to
      * a target group, even after the job was completed by all things originally in the group.
      * </p>
+     * <note>
+     * <p>
+     * We recommend that you use continuous jobs instead of snapshot jobs for dynamic thing group targets. By using
+     * continuous jobs, devices that join the group receive the job execution even after the job has been created.
+     * </p>
+     * </note>
      * 
      * @param targetSelection
      *        Specifies whether the job will continue to run (CONTINUOUS), or will be complete after all those things
      *        specified as targets have completed the job (SNAPSHOT). If continuous, the job may also be run on a thing
      *        when a change is detected in a target. For example, a job will run on a device when the thing representing
      *        the device is added to a target group, even after the job was completed by all things originally in the
-     *        group.
+     *        group. </p> <note>
+     *        <p>
+     *        We recommend that you use continuous jobs instead of snapshot jobs for dynamic thing group targets. By
+     *        using continuous jobs, devices that join the group receive the job execution even after the job has been
+     *        created.
+     *        </p>
      * @see TargetSelection
      */
 
@@ -243,12 +341,23 @@ public class Job implements Serializable, Cloneable, StructuredPojo {
      * detected in a target. For example, a job will run on a device when the thing representing the device is added to
      * a target group, even after the job was completed by all things originally in the group.
      * </p>
+     * <note>
+     * <p>
+     * We recommend that you use continuous jobs instead of snapshot jobs for dynamic thing group targets. By using
+     * continuous jobs, devices that join the group receive the job execution even after the job has been created.
+     * </p>
+     * </note>
      * 
      * @return Specifies whether the job will continue to run (CONTINUOUS), or will be complete after all those things
      *         specified as targets have completed the job (SNAPSHOT). If continuous, the job may also be run on a thing
      *         when a change is detected in a target. For example, a job will run on a device when the thing
      *         representing the device is added to a target group, even after the job was completed by all things
-     *         originally in the group.
+     *         originally in the group. </p> <note>
+     *         <p>
+     *         We recommend that you use continuous jobs instead of snapshot jobs for dynamic thing group targets. By
+     *         using continuous jobs, devices that join the group receive the job execution even after the job has been
+     *         created.
+     *         </p>
      * @see TargetSelection
      */
 
@@ -263,13 +372,24 @@ public class Job implements Serializable, Cloneable, StructuredPojo {
      * detected in a target. For example, a job will run on a device when the thing representing the device is added to
      * a target group, even after the job was completed by all things originally in the group.
      * </p>
+     * <note>
+     * <p>
+     * We recommend that you use continuous jobs instead of snapshot jobs for dynamic thing group targets. By using
+     * continuous jobs, devices that join the group receive the job execution even after the job has been created.
+     * </p>
+     * </note>
      * 
      * @param targetSelection
      *        Specifies whether the job will continue to run (CONTINUOUS), or will be complete after all those things
      *        specified as targets have completed the job (SNAPSHOT). If continuous, the job may also be run on a thing
      *        when a change is detected in a target. For example, a job will run on a device when the thing representing
      *        the device is added to a target group, even after the job was completed by all things originally in the
-     *        group.
+     *        group. </p> <note>
+     *        <p>
+     *        We recommend that you use continuous jobs instead of snapshot jobs for dynamic thing group targets. By
+     *        using continuous jobs, devices that join the group receive the job execution even after the job has been
+     *        created.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TargetSelection
      */
@@ -286,13 +406,24 @@ public class Job implements Serializable, Cloneable, StructuredPojo {
      * detected in a target. For example, a job will run on a device when the thing representing the device is added to
      * a target group, even after the job was completed by all things originally in the group.
      * </p>
+     * <note>
+     * <p>
+     * We recommend that you use continuous jobs instead of snapshot jobs for dynamic thing group targets. By using
+     * continuous jobs, devices that join the group receive the job execution even after the job has been created.
+     * </p>
+     * </note>
      * 
      * @param targetSelection
      *        Specifies whether the job will continue to run (CONTINUOUS), or will be complete after all those things
      *        specified as targets have completed the job (SNAPSHOT). If continuous, the job may also be run on a thing
      *        when a change is detected in a target. For example, a job will run on a device when the thing representing
      *        the device is added to a target group, even after the job was completed by all things originally in the
-     *        group.
+     *        group. </p> <note>
+     *        <p>
+     *        We recommend that you use continuous jobs instead of snapshot jobs for dynamic thing group targets. By
+     *        using continuous jobs, devices that join the group receive the job execution even after the job has been
+     *        created.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TargetSelection
      */
@@ -952,6 +1083,643 @@ public class Job implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The namespace used to indicate that a job is a customer-managed job.
+     * </p>
+     * <p>
+     * When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics
+     * that contain the value in the following format.
+     * </p>
+     * <p>
+     * <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code>
+     * </p>
+     * <note>
+     * <p>
+     * The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see
+     * <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass core
+     * devices.</a>
+     * </p>
+     * </note>
+     * 
+     * @param namespaceId
+     *        The namespace used to indicate that a job is a customer-managed job.</p>
+     *        <p>
+     *        When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT
+     *        topics that contain the value in the following format.
+     *        </p>
+     *        <p>
+     *        <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code>
+     *        </p>
+     *        <note>
+     *        <p>
+     *        The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass
+     *        core devices.</a>
+     *        </p>
+     */
+
+    public void setNamespaceId(String namespaceId) {
+        this.namespaceId = namespaceId;
+    }
+
+    /**
+     * <p>
+     * The namespace used to indicate that a job is a customer-managed job.
+     * </p>
+     * <p>
+     * When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics
+     * that contain the value in the following format.
+     * </p>
+     * <p>
+     * <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code>
+     * </p>
+     * <note>
+     * <p>
+     * The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see
+     * <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass core
+     * devices.</a>
+     * </p>
+     * </note>
+     * 
+     * @return The namespace used to indicate that a job is a customer-managed job.</p>
+     *         <p>
+     *         When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to
+     *         MQTT topics that contain the value in the following format.
+     *         </p>
+     *         <p>
+     *         <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code>
+     *         </p>
+     *         <note>
+     *         <p>
+     *         The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass
+     *         core devices.</a>
+     *         </p>
+     */
+
+    public String getNamespaceId() {
+        return this.namespaceId;
+    }
+
+    /**
+     * <p>
+     * The namespace used to indicate that a job is a customer-managed job.
+     * </p>
+     * <p>
+     * When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT topics
+     * that contain the value in the following format.
+     * </p>
+     * <p>
+     * <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code>
+     * </p>
+     * <note>
+     * <p>
+     * The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more information, see
+     * <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass core
+     * devices.</a>
+     * </p>
+     * </note>
+     * 
+     * @param namespaceId
+     *        The namespace used to indicate that a job is a customer-managed job.</p>
+     *        <p>
+     *        When you specify a value for this parameter, Amazon Web Services IoT Core sends jobs notifications to MQTT
+     *        topics that contain the value in the following format.
+     *        </p>
+     *        <p>
+     *        <code>$aws/things/<i>THING_NAME</i>/jobs/<i>JOB_ID</i>/notify-namespace-<i>NAMESPACE_ID</i>/</code>
+     *        </p>
+     *        <note>
+     *        <p>
+     *        The <code>namespaceId</code> feature is only supported by IoT Greengrass at this time. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/greengrass/v2/developerguide/setting-up.html">Setting up IoT Greengrass
+     *        core devices.</a>
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Job withNamespaceId(String namespaceId) {
+        setNamespaceId(namespaceId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN of the job template used to create the job.
+     * </p>
+     * 
+     * @param jobTemplateArn
+     *        The ARN of the job template used to create the job.
+     */
+
+    public void setJobTemplateArn(String jobTemplateArn) {
+        this.jobTemplateArn = jobTemplateArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the job template used to create the job.
+     * </p>
+     * 
+     * @return The ARN of the job template used to create the job.
+     */
+
+    public String getJobTemplateArn() {
+        return this.jobTemplateArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the job template used to create the job.
+     * </p>
+     * 
+     * @param jobTemplateArn
+     *        The ARN of the job template used to create the job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Job withJobTemplateArn(String jobTemplateArn) {
+        setJobTemplateArn(jobTemplateArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The configuration for the criteria to retry the job.
+     * </p>
+     * 
+     * @param jobExecutionsRetryConfig
+     *        The configuration for the criteria to retry the job.
+     */
+
+    public void setJobExecutionsRetryConfig(JobExecutionsRetryConfig jobExecutionsRetryConfig) {
+        this.jobExecutionsRetryConfig = jobExecutionsRetryConfig;
+    }
+
+    /**
+     * <p>
+     * The configuration for the criteria to retry the job.
+     * </p>
+     * 
+     * @return The configuration for the criteria to retry the job.
+     */
+
+    public JobExecutionsRetryConfig getJobExecutionsRetryConfig() {
+        return this.jobExecutionsRetryConfig;
+    }
+
+    /**
+     * <p>
+     * The configuration for the criteria to retry the job.
+     * </p>
+     * 
+     * @param jobExecutionsRetryConfig
+     *        The configuration for the criteria to retry the job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Job withJobExecutionsRetryConfig(JobExecutionsRetryConfig jobExecutionsRetryConfig) {
+        setJobExecutionsRetryConfig(jobExecutionsRetryConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A key-value map that pairs the patterns that need to be replaced in a managed template job document schema. You
+     * can use the description of each key as a guidance to specify the inputs during runtime when creating a job.
+     * </p>
+     * <note>
+     * <p>
+     * <code>documentParameters</code> can only be used when creating jobs from Amazon Web Services managed templates.
+     * This parameter can't be used with custom job templates or to create jobs from them.
+     * </p>
+     * </note>
+     * 
+     * @return A key-value map that pairs the patterns that need to be replaced in a managed template job document
+     *         schema. You can use the description of each key as a guidance to specify the inputs during runtime when
+     *         creating a job.</p> <note>
+     *         <p>
+     *         <code>documentParameters</code> can only be used when creating jobs from Amazon Web Services managed
+     *         templates. This parameter can't be used with custom job templates or to create jobs from them.
+     *         </p>
+     */
+
+    public java.util.Map<String, String> getDocumentParameters() {
+        return documentParameters;
+    }
+
+    /**
+     * <p>
+     * A key-value map that pairs the patterns that need to be replaced in a managed template job document schema. You
+     * can use the description of each key as a guidance to specify the inputs during runtime when creating a job.
+     * </p>
+     * <note>
+     * <p>
+     * <code>documentParameters</code> can only be used when creating jobs from Amazon Web Services managed templates.
+     * This parameter can't be used with custom job templates or to create jobs from them.
+     * </p>
+     * </note>
+     * 
+     * @param documentParameters
+     *        A key-value map that pairs the patterns that need to be replaced in a managed template job document
+     *        schema. You can use the description of each key as a guidance to specify the inputs during runtime when
+     *        creating a job.</p> <note>
+     *        <p>
+     *        <code>documentParameters</code> can only be used when creating jobs from Amazon Web Services managed
+     *        templates. This parameter can't be used with custom job templates or to create jobs from them.
+     *        </p>
+     */
+
+    public void setDocumentParameters(java.util.Map<String, String> documentParameters) {
+        this.documentParameters = documentParameters;
+    }
+
+    /**
+     * <p>
+     * A key-value map that pairs the patterns that need to be replaced in a managed template job document schema. You
+     * can use the description of each key as a guidance to specify the inputs during runtime when creating a job.
+     * </p>
+     * <note>
+     * <p>
+     * <code>documentParameters</code> can only be used when creating jobs from Amazon Web Services managed templates.
+     * This parameter can't be used with custom job templates or to create jobs from them.
+     * </p>
+     * </note>
+     * 
+     * @param documentParameters
+     *        A key-value map that pairs the patterns that need to be replaced in a managed template job document
+     *        schema. You can use the description of each key as a guidance to specify the inputs during runtime when
+     *        creating a job.</p> <note>
+     *        <p>
+     *        <code>documentParameters</code> can only be used when creating jobs from Amazon Web Services managed
+     *        templates. This parameter can't be used with custom job templates or to create jobs from them.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Job withDocumentParameters(java.util.Map<String, String> documentParameters) {
+        setDocumentParameters(documentParameters);
+        return this;
+    }
+
+    /**
+     * Add a single DocumentParameters entry
+     *
+     * @see Job#withDocumentParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Job addDocumentParametersEntry(String key, String value) {
+        if (null == this.documentParameters) {
+            this.documentParameters = new java.util.HashMap<String, String>();
+        }
+        if (this.documentParameters.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.documentParameters.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into DocumentParameters.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Job clearDocumentParametersEntries() {
+        this.documentParameters = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a job is concurrent. Will be true when a job is rolling out new job executions or canceling
+     * previously created executions, otherwise false.
+     * </p>
+     * 
+     * @param isConcurrent
+     *        Indicates whether a job is concurrent. Will be true when a job is rolling out new job executions or
+     *        canceling previously created executions, otherwise false.
+     */
+
+    public void setIsConcurrent(Boolean isConcurrent) {
+        this.isConcurrent = isConcurrent;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a job is concurrent. Will be true when a job is rolling out new job executions or canceling
+     * previously created executions, otherwise false.
+     * </p>
+     * 
+     * @return Indicates whether a job is concurrent. Will be true when a job is rolling out new job executions or
+     *         canceling previously created executions, otherwise false.
+     */
+
+    public Boolean getIsConcurrent() {
+        return this.isConcurrent;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a job is concurrent. Will be true when a job is rolling out new job executions or canceling
+     * previously created executions, otherwise false.
+     * </p>
+     * 
+     * @param isConcurrent
+     *        Indicates whether a job is concurrent. Will be true when a job is rolling out new job executions or
+     *        canceling previously created executions, otherwise false.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Job withIsConcurrent(Boolean isConcurrent) {
+        setIsConcurrent(isConcurrent);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a job is concurrent. Will be true when a job is rolling out new job executions or canceling
+     * previously created executions, otherwise false.
+     * </p>
+     * 
+     * @return Indicates whether a job is concurrent. Will be true when a job is rolling out new job executions or
+     *         canceling previously created executions, otherwise false.
+     */
+
+    public Boolean isConcurrent() {
+        return this.isConcurrent;
+    }
+
+    /**
+     * <p>
+     * The configuration that allows you to schedule a job for a future date and time in addition to specifying the end
+     * behavior for each job execution.
+     * </p>
+     * 
+     * @param schedulingConfig
+     *        The configuration that allows you to schedule a job for a future date and time in addition to specifying
+     *        the end behavior for each job execution.
+     */
+
+    public void setSchedulingConfig(SchedulingConfig schedulingConfig) {
+        this.schedulingConfig = schedulingConfig;
+    }
+
+    /**
+     * <p>
+     * The configuration that allows you to schedule a job for a future date and time in addition to specifying the end
+     * behavior for each job execution.
+     * </p>
+     * 
+     * @return The configuration that allows you to schedule a job for a future date and time in addition to specifying
+     *         the end behavior for each job execution.
+     */
+
+    public SchedulingConfig getSchedulingConfig() {
+        return this.schedulingConfig;
+    }
+
+    /**
+     * <p>
+     * The configuration that allows you to schedule a job for a future date and time in addition to specifying the end
+     * behavior for each job execution.
+     * </p>
+     * 
+     * @param schedulingConfig
+     *        The configuration that allows you to schedule a job for a future date and time in addition to specifying
+     *        the end behavior for each job execution.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Job withSchedulingConfig(SchedulingConfig schedulingConfig) {
+        setSchedulingConfig(schedulingConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Displays the next seven maintenance window occurrences and their start times.
+     * </p>
+     * 
+     * @return Displays the next seven maintenance window occurrences and their start times.
+     */
+
+    public java.util.List<ScheduledJobRollout> getScheduledJobRollouts() {
+        return scheduledJobRollouts;
+    }
+
+    /**
+     * <p>
+     * Displays the next seven maintenance window occurrences and their start times.
+     * </p>
+     * 
+     * @param scheduledJobRollouts
+     *        Displays the next seven maintenance window occurrences and their start times.
+     */
+
+    public void setScheduledJobRollouts(java.util.Collection<ScheduledJobRollout> scheduledJobRollouts) {
+        if (scheduledJobRollouts == null) {
+            this.scheduledJobRollouts = null;
+            return;
+        }
+
+        this.scheduledJobRollouts = new java.util.ArrayList<ScheduledJobRollout>(scheduledJobRollouts);
+    }
+
+    /**
+     * <p>
+     * Displays the next seven maintenance window occurrences and their start times.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setScheduledJobRollouts(java.util.Collection)} or {@link #withScheduledJobRollouts(java.util.Collection)}
+     * if you want to override the existing values.
+     * </p>
+     * 
+     * @param scheduledJobRollouts
+     *        Displays the next seven maintenance window occurrences and their start times.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Job withScheduledJobRollouts(ScheduledJobRollout... scheduledJobRollouts) {
+        if (this.scheduledJobRollouts == null) {
+            setScheduledJobRollouts(new java.util.ArrayList<ScheduledJobRollout>(scheduledJobRollouts.length));
+        }
+        for (ScheduledJobRollout ele : scheduledJobRollouts) {
+            this.scheduledJobRollouts.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Displays the next seven maintenance window occurrences and their start times.
+     * </p>
+     * 
+     * @param scheduledJobRollouts
+     *        Displays the next seven maintenance window occurrences and their start times.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Job withScheduledJobRollouts(java.util.Collection<ScheduledJobRollout> scheduledJobRollouts) {
+        setScheduledJobRollouts(scheduledJobRollouts);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The package version Amazon Resource Names (ARNs) that are installed on the device when the job successfully
+     * completes. The package version must be in either the Published or Deprecated state when the job deploys. For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     * >Package version lifecycle</a>.The package version must be in either the Published or Deprecated state when the
+     * job deploys. For more information, see <a href=
+     * "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     * >Package version lifecycle</a>.
+     * </p>
+     * <p>
+     * <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are allowed.
+     * </p>
+     * 
+     * @return The package version Amazon Resource Names (ARNs) that are installed on the device when the job
+     *         successfully completes. The package version must be in either the Published or Deprecated state when the
+     *         job deploys. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     *         >Package version lifecycle</a>.The package version must be in either the Published or Deprecated state
+     *         when the job deploys. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     *         >Package version lifecycle</a>.</p>
+     *         <p>
+     *         <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are
+     *         allowed.
+     */
+
+    public java.util.List<String> getDestinationPackageVersions() {
+        return destinationPackageVersions;
+    }
+
+    /**
+     * <p>
+     * The package version Amazon Resource Names (ARNs) that are installed on the device when the job successfully
+     * completes. The package version must be in either the Published or Deprecated state when the job deploys. For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     * >Package version lifecycle</a>.The package version must be in either the Published or Deprecated state when the
+     * job deploys. For more information, see <a href=
+     * "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     * >Package version lifecycle</a>.
+     * </p>
+     * <p>
+     * <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are allowed.
+     * </p>
+     * 
+     * @param destinationPackageVersions
+     *        The package version Amazon Resource Names (ARNs) that are installed on the device when the job
+     *        successfully completes. The package version must be in either the Published or Deprecated state when the
+     *        job deploys. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     *        >Package version lifecycle</a>.The package version must be in either the Published or Deprecated state
+     *        when the job deploys. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     *        >Package version lifecycle</a>.</p>
+     *        <p>
+     *        <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are
+     *        allowed.
+     */
+
+    public void setDestinationPackageVersions(java.util.Collection<String> destinationPackageVersions) {
+        if (destinationPackageVersions == null) {
+            this.destinationPackageVersions = null;
+            return;
+        }
+
+        this.destinationPackageVersions = new java.util.ArrayList<String>(destinationPackageVersions);
+    }
+
+    /**
+     * <p>
+     * The package version Amazon Resource Names (ARNs) that are installed on the device when the job successfully
+     * completes. The package version must be in either the Published or Deprecated state when the job deploys. For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     * >Package version lifecycle</a>.The package version must be in either the Published or Deprecated state when the
+     * job deploys. For more information, see <a href=
+     * "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     * >Package version lifecycle</a>.
+     * </p>
+     * <p>
+     * <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are allowed.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setDestinationPackageVersions(java.util.Collection)} or
+     * {@link #withDestinationPackageVersions(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param destinationPackageVersions
+     *        The package version Amazon Resource Names (ARNs) that are installed on the device when the job
+     *        successfully completes. The package version must be in either the Published or Deprecated state when the
+     *        job deploys. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     *        >Package version lifecycle</a>.The package version must be in either the Published or Deprecated state
+     *        when the job deploys. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     *        >Package version lifecycle</a>.</p>
+     *        <p>
+     *        <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are
+     *        allowed.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Job withDestinationPackageVersions(String... destinationPackageVersions) {
+        if (this.destinationPackageVersions == null) {
+            setDestinationPackageVersions(new java.util.ArrayList<String>(destinationPackageVersions.length));
+        }
+        for (String ele : destinationPackageVersions) {
+            this.destinationPackageVersions.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The package version Amazon Resource Names (ARNs) that are installed on the device when the job successfully
+     * completes. The package version must be in either the Published or Deprecated state when the job deploys. For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     * >Package version lifecycle</a>.The package version must be in either the Published or Deprecated state when the
+     * job deploys. For more information, see <a href=
+     * "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     * >Package version lifecycle</a>.
+     * </p>
+     * <p>
+     * <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are allowed.
+     * </p>
+     * 
+     * @param destinationPackageVersions
+     *        The package version Amazon Resource Names (ARNs) that are installed on the device when the job
+     *        successfully completes. The package version must be in either the Published or Deprecated state when the
+     *        job deploys. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     *        >Package version lifecycle</a>.The package version must be in either the Published or Deprecated state
+     *        when the job deploys. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/iot/latest/developerguide/preparing-to-use-software-package-catalog.html#package-version-lifecycle"
+     *        >Package version lifecycle</a>.</p>
+     *        <p>
+     *        <b>Note:</b>The following Length Constraints relates to a single ARN. Up to 25 package version ARNs are
+     *        allowed.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Job withDestinationPackageVersions(java.util.Collection<String> destinationPackageVersions) {
+        setDestinationPackageVersions(destinationPackageVersions);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -996,7 +1764,23 @@ public class Job implements Serializable, Cloneable, StructuredPojo {
         if (getJobProcessDetails() != null)
             sb.append("JobProcessDetails: ").append(getJobProcessDetails()).append(",");
         if (getTimeoutConfig() != null)
-            sb.append("TimeoutConfig: ").append(getTimeoutConfig());
+            sb.append("TimeoutConfig: ").append(getTimeoutConfig()).append(",");
+        if (getNamespaceId() != null)
+            sb.append("NamespaceId: ").append(getNamespaceId()).append(",");
+        if (getJobTemplateArn() != null)
+            sb.append("JobTemplateArn: ").append(getJobTemplateArn()).append(",");
+        if (getJobExecutionsRetryConfig() != null)
+            sb.append("JobExecutionsRetryConfig: ").append(getJobExecutionsRetryConfig()).append(",");
+        if (getDocumentParameters() != null)
+            sb.append("DocumentParameters: ").append(getDocumentParameters()).append(",");
+        if (getIsConcurrent() != null)
+            sb.append("IsConcurrent: ").append(getIsConcurrent()).append(",");
+        if (getSchedulingConfig() != null)
+            sb.append("SchedulingConfig: ").append(getSchedulingConfig()).append(",");
+        if (getScheduledJobRollouts() != null)
+            sb.append("ScheduledJobRollouts: ").append(getScheduledJobRollouts()).append(",");
+        if (getDestinationPackageVersions() != null)
+            sb.append("DestinationPackageVersions: ").append(getDestinationPackageVersions());
         sb.append("}");
         return sb.toString();
     }
@@ -1079,6 +1863,38 @@ public class Job implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getTimeoutConfig() != null && other.getTimeoutConfig().equals(this.getTimeoutConfig()) == false)
             return false;
+        if (other.getNamespaceId() == null ^ this.getNamespaceId() == null)
+            return false;
+        if (other.getNamespaceId() != null && other.getNamespaceId().equals(this.getNamespaceId()) == false)
+            return false;
+        if (other.getJobTemplateArn() == null ^ this.getJobTemplateArn() == null)
+            return false;
+        if (other.getJobTemplateArn() != null && other.getJobTemplateArn().equals(this.getJobTemplateArn()) == false)
+            return false;
+        if (other.getJobExecutionsRetryConfig() == null ^ this.getJobExecutionsRetryConfig() == null)
+            return false;
+        if (other.getJobExecutionsRetryConfig() != null && other.getJobExecutionsRetryConfig().equals(this.getJobExecutionsRetryConfig()) == false)
+            return false;
+        if (other.getDocumentParameters() == null ^ this.getDocumentParameters() == null)
+            return false;
+        if (other.getDocumentParameters() != null && other.getDocumentParameters().equals(this.getDocumentParameters()) == false)
+            return false;
+        if (other.getIsConcurrent() == null ^ this.getIsConcurrent() == null)
+            return false;
+        if (other.getIsConcurrent() != null && other.getIsConcurrent().equals(this.getIsConcurrent()) == false)
+            return false;
+        if (other.getSchedulingConfig() == null ^ this.getSchedulingConfig() == null)
+            return false;
+        if (other.getSchedulingConfig() != null && other.getSchedulingConfig().equals(this.getSchedulingConfig()) == false)
+            return false;
+        if (other.getScheduledJobRollouts() == null ^ this.getScheduledJobRollouts() == null)
+            return false;
+        if (other.getScheduledJobRollouts() != null && other.getScheduledJobRollouts().equals(this.getScheduledJobRollouts()) == false)
+            return false;
+        if (other.getDestinationPackageVersions() == null ^ this.getDestinationPackageVersions() == null)
+            return false;
+        if (other.getDestinationPackageVersions() != null && other.getDestinationPackageVersions().equals(this.getDestinationPackageVersions()) == false)
+            return false;
         return true;
     }
 
@@ -1104,6 +1920,14 @@ public class Job implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getCompletedAt() == null) ? 0 : getCompletedAt().hashCode());
         hashCode = prime * hashCode + ((getJobProcessDetails() == null) ? 0 : getJobProcessDetails().hashCode());
         hashCode = prime * hashCode + ((getTimeoutConfig() == null) ? 0 : getTimeoutConfig().hashCode());
+        hashCode = prime * hashCode + ((getNamespaceId() == null) ? 0 : getNamespaceId().hashCode());
+        hashCode = prime * hashCode + ((getJobTemplateArn() == null) ? 0 : getJobTemplateArn().hashCode());
+        hashCode = prime * hashCode + ((getJobExecutionsRetryConfig() == null) ? 0 : getJobExecutionsRetryConfig().hashCode());
+        hashCode = prime * hashCode + ((getDocumentParameters() == null) ? 0 : getDocumentParameters().hashCode());
+        hashCode = prime * hashCode + ((getIsConcurrent() == null) ? 0 : getIsConcurrent().hashCode());
+        hashCode = prime * hashCode + ((getSchedulingConfig() == null) ? 0 : getSchedulingConfig().hashCode());
+        hashCode = prime * hashCode + ((getScheduledJobRollouts() == null) ? 0 : getScheduledJobRollouts().hashCode());
+        hashCode = prime * hashCode + ((getDestinationPackageVersions() == null) ? 0 : getDestinationPackageVersions().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,17 +31,17 @@ public class ResponsePartitionKey implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * A dimension map that contains the dimension(s) for this partition.
+     * A dimension map that contains the dimensions for this partition.
      * </p>
      */
     private java.util.Map<String, String> dimensions;
 
     /**
      * <p>
-     * A dimension map that contains the dimension(s) for this partition.
+     * A dimension map that contains the dimensions for this partition.
      * </p>
      * 
-     * @return A dimension map that contains the dimension(s) for this partition.
+     * @return A dimension map that contains the dimensions for this partition.
      */
 
     public java.util.Map<String, String> getDimensions() {
@@ -50,11 +50,11 @@ public class ResponsePartitionKey implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * A dimension map that contains the dimension(s) for this partition.
+     * A dimension map that contains the dimensions for this partition.
      * </p>
      * 
      * @param dimensions
-     *        A dimension map that contains the dimension(s) for this partition.
+     *        A dimension map that contains the dimensions for this partition.
      */
 
     public void setDimensions(java.util.Map<String, String> dimensions) {
@@ -63,11 +63,11 @@ public class ResponsePartitionKey implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * A dimension map that contains the dimension(s) for this partition.
+     * A dimension map that contains the dimensions for this partition.
      * </p>
      * 
      * @param dimensions
-     *        A dimension map that contains the dimension(s) for this partition.
+     *        A dimension map that contains the dimensions for this partition.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -75,6 +75,13 @@ public class ResponsePartitionKey implements Serializable, Cloneable, Structured
         setDimensions(dimensions);
         return this;
     }
+
+    /**
+     * Add a single Dimensions entry
+     *
+     * @see ResponsePartitionKey#withDimensions
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public ResponsePartitionKey addDimensionsEntry(String key, String value) {
         if (null == this.dimensions) {

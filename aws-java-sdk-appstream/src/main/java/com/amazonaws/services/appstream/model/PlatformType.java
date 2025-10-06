@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -22,7 +22,10 @@ public enum PlatformType {
 
     WINDOWS("WINDOWS"),
     WINDOWS_SERVER_2016("WINDOWS_SERVER_2016"),
-    WINDOWS_SERVER_2019("WINDOWS_SERVER_2019");
+    WINDOWS_SERVER_2019("WINDOWS_SERVER_2019"),
+    WINDOWS_SERVER_2022("WINDOWS_SERVER_2022"),
+    AMAZON_LINUX2("AMAZON_LINUX2"),
+    RHEL8("RHEL8");
 
     private String value;
 

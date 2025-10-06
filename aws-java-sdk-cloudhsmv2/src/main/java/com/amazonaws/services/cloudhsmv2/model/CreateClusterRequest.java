@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,6 +27,27 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
+     * A policy that defines how the service retains backups.
+     * </p>
+     */
+    private BackupRetentionPolicy backupRetentionPolicy;
+    /**
+     * <p>
+     * The type of HSM to use in the cluster. The allowed values are <code>hsm1.medium</code> and
+     * <code>hsm2m.medium</code>.
+     * </p>
+     */
+    private String hsmType;
+    /**
+     * <p>
+     * The identifier (ID) or the Amazon Resource Name (ARN) of the cluster backup to restore. Use this value to restore
+     * the cluster from a backup instead of creating a new cluster. To find the backup ID or ARN, use
+     * <a>DescribeBackups</a>. <i>If using a backup in another account, the full ARN must be supplied.</i>
+     * </p>
+     */
+    private String sourceBackupId;
+    /**
+     * <p>
      * The identifiers (IDs) of the subnets where you are creating the cluster. You must specify at least one subnet. If
      * you specify multiple subnets, they must meet the following criteria:
      * </p>
@@ -46,17 +67,154 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
     private java.util.List<String> subnetIds;
     /**
      * <p>
-     * The type of HSM to use in the cluster. Currently the only allowed value is <code>hsm1.medium</code>.
+     * Tags to apply to the CloudHSM cluster during creation.
      * </p>
      */
-    private String hsmType;
+    private java.util.List<Tag> tagList;
     /**
      * <p>
-     * The identifier (ID) of the cluster backup to restore. Use this value to restore the cluster from a backup instead
-     * of creating a new cluster. To find the backup ID, use <a>DescribeBackups</a>.
+     * The mode to use in the cluster. The allowed values are <code>FIPS</code> and <code>NON_FIPS</code>.
      * </p>
      */
-    private String sourceBackupId;
+    private String mode;
+
+    /**
+     * <p>
+     * A policy that defines how the service retains backups.
+     * </p>
+     * 
+     * @param backupRetentionPolicy
+     *        A policy that defines how the service retains backups.
+     */
+
+    public void setBackupRetentionPolicy(BackupRetentionPolicy backupRetentionPolicy) {
+        this.backupRetentionPolicy = backupRetentionPolicy;
+    }
+
+    /**
+     * <p>
+     * A policy that defines how the service retains backups.
+     * </p>
+     * 
+     * @return A policy that defines how the service retains backups.
+     */
+
+    public BackupRetentionPolicy getBackupRetentionPolicy() {
+        return this.backupRetentionPolicy;
+    }
+
+    /**
+     * <p>
+     * A policy that defines how the service retains backups.
+     * </p>
+     * 
+     * @param backupRetentionPolicy
+     *        A policy that defines how the service retains backups.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withBackupRetentionPolicy(BackupRetentionPolicy backupRetentionPolicy) {
+        setBackupRetentionPolicy(backupRetentionPolicy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of HSM to use in the cluster. The allowed values are <code>hsm1.medium</code> and
+     * <code>hsm2m.medium</code>.
+     * </p>
+     * 
+     * @param hsmType
+     *        The type of HSM to use in the cluster. The allowed values are <code>hsm1.medium</code> and
+     *        <code>hsm2m.medium</code>.
+     */
+
+    public void setHsmType(String hsmType) {
+        this.hsmType = hsmType;
+    }
+
+    /**
+     * <p>
+     * The type of HSM to use in the cluster. The allowed values are <code>hsm1.medium</code> and
+     * <code>hsm2m.medium</code>.
+     * </p>
+     * 
+     * @return The type of HSM to use in the cluster. The allowed values are <code>hsm1.medium</code> and
+     *         <code>hsm2m.medium</code>.
+     */
+
+    public String getHsmType() {
+        return this.hsmType;
+    }
+
+    /**
+     * <p>
+     * The type of HSM to use in the cluster. The allowed values are <code>hsm1.medium</code> and
+     * <code>hsm2m.medium</code>.
+     * </p>
+     * 
+     * @param hsmType
+     *        The type of HSM to use in the cluster. The allowed values are <code>hsm1.medium</code> and
+     *        <code>hsm2m.medium</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withHsmType(String hsmType) {
+        setHsmType(hsmType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The identifier (ID) or the Amazon Resource Name (ARN) of the cluster backup to restore. Use this value to restore
+     * the cluster from a backup instead of creating a new cluster. To find the backup ID or ARN, use
+     * <a>DescribeBackups</a>. <i>If using a backup in another account, the full ARN must be supplied.</i>
+     * </p>
+     * 
+     * @param sourceBackupId
+     *        The identifier (ID) or the Amazon Resource Name (ARN) of the cluster backup to restore. Use this value to
+     *        restore the cluster from a backup instead of creating a new cluster. To find the backup ID or ARN, use
+     *        <a>DescribeBackups</a>. <i>If using a backup in another account, the full ARN must be supplied.</i>
+     */
+
+    public void setSourceBackupId(String sourceBackupId) {
+        this.sourceBackupId = sourceBackupId;
+    }
+
+    /**
+     * <p>
+     * The identifier (ID) or the Amazon Resource Name (ARN) of the cluster backup to restore. Use this value to restore
+     * the cluster from a backup instead of creating a new cluster. To find the backup ID or ARN, use
+     * <a>DescribeBackups</a>. <i>If using a backup in another account, the full ARN must be supplied.</i>
+     * </p>
+     * 
+     * @return The identifier (ID) or the Amazon Resource Name (ARN) of the cluster backup to restore. Use this value to
+     *         restore the cluster from a backup instead of creating a new cluster. To find the backup ID or ARN, use
+     *         <a>DescribeBackups</a>. <i>If using a backup in another account, the full ARN must be supplied.</i>
+     */
+
+    public String getSourceBackupId() {
+        return this.sourceBackupId;
+    }
+
+    /**
+     * <p>
+     * The identifier (ID) or the Amazon Resource Name (ARN) of the cluster backup to restore. Use this value to restore
+     * the cluster from a backup instead of creating a new cluster. To find the backup ID or ARN, use
+     * <a>DescribeBackups</a>. <i>If using a backup in another account, the full ARN must be supplied.</i>
+     * </p>
+     * 
+     * @param sourceBackupId
+     *        The identifier (ID) or the Amazon Resource Name (ARN) of the cluster backup to restore. Use this value to
+     *        restore the cluster from a backup instead of creating a new cluster. To find the backup ID or ARN, use
+     *        <a>DescribeBackups</a>. <i>If using a backup in another account, the full ARN must be supplied.</i>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withSourceBackupId(String sourceBackupId) {
+        setSourceBackupId(sourceBackupId);
+        return this;
+    }
 
     /**
      * <p>
@@ -230,87 +388,130 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The type of HSM to use in the cluster. Currently the only allowed value is <code>hsm1.medium</code>.
+     * Tags to apply to the CloudHSM cluster during creation.
      * </p>
      * 
-     * @param hsmType
-     *        The type of HSM to use in the cluster. Currently the only allowed value is <code>hsm1.medium</code>.
+     * @return Tags to apply to the CloudHSM cluster during creation.
      */
 
-    public void setHsmType(String hsmType) {
-        this.hsmType = hsmType;
+    public java.util.List<Tag> getTagList() {
+        return tagList;
     }
 
     /**
      * <p>
-     * The type of HSM to use in the cluster. Currently the only allowed value is <code>hsm1.medium</code>.
+     * Tags to apply to the CloudHSM cluster during creation.
      * </p>
      * 
-     * @return The type of HSM to use in the cluster. Currently the only allowed value is <code>hsm1.medium</code>.
+     * @param tagList
+     *        Tags to apply to the CloudHSM cluster during creation.
      */
 
-    public String getHsmType() {
-        return this.hsmType;
+    public void setTagList(java.util.Collection<Tag> tagList) {
+        if (tagList == null) {
+            this.tagList = null;
+            return;
+        }
+
+        this.tagList = new java.util.ArrayList<Tag>(tagList);
     }
 
     /**
      * <p>
-     * The type of HSM to use in the cluster. Currently the only allowed value is <code>hsm1.medium</code>.
+     * Tags to apply to the CloudHSM cluster during creation.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTagList(java.util.Collection)} or {@link #withTagList(java.util.Collection)} if you want to override
+     * the existing values.
      * </p>
      * 
-     * @param hsmType
-     *        The type of HSM to use in the cluster. Currently the only allowed value is <code>hsm1.medium</code>.
+     * @param tagList
+     *        Tags to apply to the CloudHSM cluster during creation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
-    public CreateClusterRequest withHsmType(String hsmType) {
-        setHsmType(hsmType);
+    public CreateClusterRequest withTagList(Tag... tagList) {
+        if (this.tagList == null) {
+            setTagList(new java.util.ArrayList<Tag>(tagList.length));
+        }
+        for (Tag ele : tagList) {
+            this.tagList.add(ele);
+        }
         return this;
     }
 
     /**
      * <p>
-     * The identifier (ID) of the cluster backup to restore. Use this value to restore the cluster from a backup instead
-     * of creating a new cluster. To find the backup ID, use <a>DescribeBackups</a>.
+     * Tags to apply to the CloudHSM cluster during creation.
      * </p>
      * 
-     * @param sourceBackupId
-     *        The identifier (ID) of the cluster backup to restore. Use this value to restore the cluster from a backup
-     *        instead of creating a new cluster. To find the backup ID, use <a>DescribeBackups</a>.
-     */
-
-    public void setSourceBackupId(String sourceBackupId) {
-        this.sourceBackupId = sourceBackupId;
-    }
-
-    /**
-     * <p>
-     * The identifier (ID) of the cluster backup to restore. Use this value to restore the cluster from a backup instead
-     * of creating a new cluster. To find the backup ID, use <a>DescribeBackups</a>.
-     * </p>
-     * 
-     * @return The identifier (ID) of the cluster backup to restore. Use this value to restore the cluster from a backup
-     *         instead of creating a new cluster. To find the backup ID, use <a>DescribeBackups</a>.
-     */
-
-    public String getSourceBackupId() {
-        return this.sourceBackupId;
-    }
-
-    /**
-     * <p>
-     * The identifier (ID) of the cluster backup to restore. Use this value to restore the cluster from a backup instead
-     * of creating a new cluster. To find the backup ID, use <a>DescribeBackups</a>.
-     * </p>
-     * 
-     * @param sourceBackupId
-     *        The identifier (ID) of the cluster backup to restore. Use this value to restore the cluster from a backup
-     *        instead of creating a new cluster. To find the backup ID, use <a>DescribeBackups</a>.
+     * @param tagList
+     *        Tags to apply to the CloudHSM cluster during creation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
-    public CreateClusterRequest withSourceBackupId(String sourceBackupId) {
-        setSourceBackupId(sourceBackupId);
+    public CreateClusterRequest withTagList(java.util.Collection<Tag> tagList) {
+        setTagList(tagList);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The mode to use in the cluster. The allowed values are <code>FIPS</code> and <code>NON_FIPS</code>.
+     * </p>
+     * 
+     * @param mode
+     *        The mode to use in the cluster. The allowed values are <code>FIPS</code> and <code>NON_FIPS</code>.
+     * @see ClusterMode
+     */
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
+    /**
+     * <p>
+     * The mode to use in the cluster. The allowed values are <code>FIPS</code> and <code>NON_FIPS</code>.
+     * </p>
+     * 
+     * @return The mode to use in the cluster. The allowed values are <code>FIPS</code> and <code>NON_FIPS</code>.
+     * @see ClusterMode
+     */
+
+    public String getMode() {
+        return this.mode;
+    }
+
+    /**
+     * <p>
+     * The mode to use in the cluster. The allowed values are <code>FIPS</code> and <code>NON_FIPS</code>.
+     * </p>
+     * 
+     * @param mode
+     *        The mode to use in the cluster. The allowed values are <code>FIPS</code> and <code>NON_FIPS</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ClusterMode
+     */
+
+    public CreateClusterRequest withMode(String mode) {
+        setMode(mode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The mode to use in the cluster. The allowed values are <code>FIPS</code> and <code>NON_FIPS</code>.
+     * </p>
+     * 
+     * @param mode
+     *        The mode to use in the cluster. The allowed values are <code>FIPS</code> and <code>NON_FIPS</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ClusterMode
+     */
+
+    public CreateClusterRequest withMode(ClusterMode mode) {
+        this.mode = mode.toString();
         return this;
     }
 
@@ -326,12 +527,18 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        if (getSubnetIds() != null)
-            sb.append("SubnetIds: ").append(getSubnetIds()).append(",");
+        if (getBackupRetentionPolicy() != null)
+            sb.append("BackupRetentionPolicy: ").append(getBackupRetentionPolicy()).append(",");
         if (getHsmType() != null)
             sb.append("HsmType: ").append(getHsmType()).append(",");
         if (getSourceBackupId() != null)
-            sb.append("SourceBackupId: ").append(getSourceBackupId());
+            sb.append("SourceBackupId: ").append(getSourceBackupId()).append(",");
+        if (getSubnetIds() != null)
+            sb.append("SubnetIds: ").append(getSubnetIds()).append(",");
+        if (getTagList() != null)
+            sb.append("TagList: ").append(getTagList()).append(",");
+        if (getMode() != null)
+            sb.append("Mode: ").append(getMode());
         sb.append("}");
         return sb.toString();
     }
@@ -346,9 +553,9 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (obj instanceof CreateClusterRequest == false)
             return false;
         CreateClusterRequest other = (CreateClusterRequest) obj;
-        if (other.getSubnetIds() == null ^ this.getSubnetIds() == null)
+        if (other.getBackupRetentionPolicy() == null ^ this.getBackupRetentionPolicy() == null)
             return false;
-        if (other.getSubnetIds() != null && other.getSubnetIds().equals(this.getSubnetIds()) == false)
+        if (other.getBackupRetentionPolicy() != null && other.getBackupRetentionPolicy().equals(this.getBackupRetentionPolicy()) == false)
             return false;
         if (other.getHsmType() == null ^ this.getHsmType() == null)
             return false;
@@ -358,6 +565,18 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getSourceBackupId() != null && other.getSourceBackupId().equals(this.getSourceBackupId()) == false)
             return false;
+        if (other.getSubnetIds() == null ^ this.getSubnetIds() == null)
+            return false;
+        if (other.getSubnetIds() != null && other.getSubnetIds().equals(this.getSubnetIds()) == false)
+            return false;
+        if (other.getTagList() == null ^ this.getTagList() == null)
+            return false;
+        if (other.getTagList() != null && other.getTagList().equals(this.getTagList()) == false)
+            return false;
+        if (other.getMode() == null ^ this.getMode() == null)
+            return false;
+        if (other.getMode() != null && other.getMode().equals(this.getMode()) == false)
+            return false;
         return true;
     }
 
@@ -366,9 +585,12 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
         final int prime = 31;
         int hashCode = 1;
 
-        hashCode = prime * hashCode + ((getSubnetIds() == null) ? 0 : getSubnetIds().hashCode());
+        hashCode = prime * hashCode + ((getBackupRetentionPolicy() == null) ? 0 : getBackupRetentionPolicy().hashCode());
         hashCode = prime * hashCode + ((getHsmType() == null) ? 0 : getHsmType().hashCode());
         hashCode = prime * hashCode + ((getSourceBackupId() == null) ? 0 : getSourceBackupId().hashCode());
+        hashCode = prime * hashCode + ((getSubnetIds() == null) ? 0 : getSubnetIds().hashCode());
+        hashCode = prime * hashCode + ((getTagList() == null) ? 0 : getTagList().hashCode());
+        hashCode = prime * hashCode + ((getMode() == null) ? 0 : getMode().hashCode());
         return hashCode;
     }
 

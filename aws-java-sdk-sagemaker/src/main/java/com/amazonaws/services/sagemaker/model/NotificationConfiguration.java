@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Configures SNS notifications of available or expiring work items for work teams.
+ * Configures Amazon SNS notifications of available or expiring work items for work teams.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/NotificationConfiguration"
@@ -30,18 +30,18 @@ public class NotificationConfiguration implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The ARN for the SNS topic to which notifications should be published.
+     * The ARN for the Amazon SNS topic to which notifications should be published.
      * </p>
      */
     private String notificationTopicArn;
 
     /**
      * <p>
-     * The ARN for the SNS topic to which notifications should be published.
+     * The ARN for the Amazon SNS topic to which notifications should be published.
      * </p>
      * 
      * @param notificationTopicArn
-     *        The ARN for the SNS topic to which notifications should be published.
+     *        The ARN for the Amazon SNS topic to which notifications should be published.
      */
 
     public void setNotificationTopicArn(String notificationTopicArn) {
@@ -50,10 +50,10 @@ public class NotificationConfiguration implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The ARN for the SNS topic to which notifications should be published.
+     * The ARN for the Amazon SNS topic to which notifications should be published.
      * </p>
      * 
-     * @return The ARN for the SNS topic to which notifications should be published.
+     * @return The ARN for the Amazon SNS topic to which notifications should be published.
      */
 
     public String getNotificationTopicArn() {
@@ -62,11 +62,11 @@ public class NotificationConfiguration implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The ARN for the SNS topic to which notifications should be published.
+     * The ARN for the Amazon SNS topic to which notifications should be published.
      * </p>
      * 
      * @param notificationTopicArn
-     *        The ARN for the SNS topic to which notifications should be published.
+     *        The ARN for the Amazon SNS topic to which notifications should be published.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

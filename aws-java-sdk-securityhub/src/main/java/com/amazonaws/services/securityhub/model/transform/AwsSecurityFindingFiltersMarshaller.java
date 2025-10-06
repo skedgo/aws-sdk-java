@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,6 +36,8 @@ public class AwsSecurityFindingFiltersMarshaller {
             .marshallLocationName("Id").build();
     private static final MarshallingInfo<List> GENERATORID_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("GeneratorId").build();
+    private static final MarshallingInfo<List> REGION_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Region").build();
     private static final MarshallingInfo<List> TYPE_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Type").build();
     private static final MarshallingInfo<List> FIRSTOBSERVEDAT_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
@@ -160,10 +162,14 @@ public class AwsSecurityFindingFiltersMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceAwsS3BucketOwnerName").build();
     private static final MarshallingInfo<List> RESOURCEAWSIAMACCESSKEYUSERNAME_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceAwsIamAccessKeyUserName").build();
+    private static final MarshallingInfo<List> RESOURCEAWSIAMACCESSKEYPRINCIPALNAME_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceAwsIamAccessKeyPrincipalName").build();
     private static final MarshallingInfo<List> RESOURCEAWSIAMACCESSKEYSTATUS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceAwsIamAccessKeyStatus").build();
     private static final MarshallingInfo<List> RESOURCEAWSIAMACCESSKEYCREATEDAT_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceAwsIamAccessKeyCreatedAt").build();
+    private static final MarshallingInfo<List> RESOURCEAWSIAMUSERUSERNAME_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceAwsIamUserUserName").build();
     private static final MarshallingInfo<List> RESOURCECONTAINERNAME_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceContainerName").build();
     private static final MarshallingInfo<List> RESOURCECONTAINERIMAGEID_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
@@ -180,6 +186,8 @@ public class AwsSecurityFindingFiltersMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VerificationState").build();
     private static final MarshallingInfo<List> WORKFLOWSTATE_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("WorkflowState").build();
+    private static final MarshallingInfo<List> WORKFLOWSTATUS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("WorkflowStatus").build();
     private static final MarshallingInfo<List> RECORDSTATE_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("RecordState").build();
     private static final MarshallingInfo<List> RELATEDFINDINGSPRODUCTARN_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
@@ -194,6 +202,40 @@ public class AwsSecurityFindingFiltersMarshaller {
             .marshallLocationName("NoteUpdatedBy").build();
     private static final MarshallingInfo<List> KEYWORD_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Keyword").build();
+    private static final MarshallingInfo<List> FINDINGPROVIDERFIELDSCONFIDENCE_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FindingProviderFieldsConfidence").build();
+    private static final MarshallingInfo<List> FINDINGPROVIDERFIELDSCRITICALITY_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FindingProviderFieldsCriticality").build();
+    private static final MarshallingInfo<List> FINDINGPROVIDERFIELDSRELATEDFINDINGSID_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FindingProviderFieldsRelatedFindingsId").build();
+    private static final MarshallingInfo<List> FINDINGPROVIDERFIELDSRELATEDFINDINGSPRODUCTARN_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FindingProviderFieldsRelatedFindingsProductArn").build();
+    private static final MarshallingInfo<List> FINDINGPROVIDERFIELDSSEVERITYLABEL_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FindingProviderFieldsSeverityLabel").build();
+    private static final MarshallingInfo<List> FINDINGPROVIDERFIELDSSEVERITYORIGINAL_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FindingProviderFieldsSeverityOriginal").build();
+    private static final MarshallingInfo<List> FINDINGPROVIDERFIELDSTYPES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FindingProviderFieldsTypes").build();
+    private static final MarshallingInfo<List> SAMPLE_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Sample").build();
+    private static final MarshallingInfo<List> COMPLIANCESECURITYCONTROLID_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ComplianceSecurityControlId").build();
+    private static final MarshallingInfo<List> COMPLIANCEASSOCIATEDSTANDARDSID_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ComplianceAssociatedStandardsId").build();
+    private static final MarshallingInfo<List> VULNERABILITIESEXPLOITAVAILABLE_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VulnerabilitiesExploitAvailable").build();
+    private static final MarshallingInfo<List> VULNERABILITIESFIXAVAILABLE_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VulnerabilitiesFixAvailable").build();
+    private static final MarshallingInfo<List> COMPLIANCESECURITYCONTROLPARAMETERSNAME_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ComplianceSecurityControlParametersName").build();
+    private static final MarshallingInfo<List> COMPLIANCESECURITYCONTROLPARAMETERSVALUE_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ComplianceSecurityControlParametersValue").build();
+    private static final MarshallingInfo<List> AWSACCOUNTNAME_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AwsAccountName").build();
+    private static final MarshallingInfo<List> RESOURCEAPPLICATIONNAME_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceApplicationName").build();
+    private static final MarshallingInfo<List> RESOURCEAPPLICATIONARN_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceApplicationArn").build();
 
     private static final AwsSecurityFindingFiltersMarshaller instance = new AwsSecurityFindingFiltersMarshaller();
 
@@ -215,6 +257,7 @@ public class AwsSecurityFindingFiltersMarshaller {
             protocolMarshaller.marshall(awsSecurityFindingFilters.getAwsAccountId(), AWSACCOUNTID_BINDING);
             protocolMarshaller.marshall(awsSecurityFindingFilters.getId(), ID_BINDING);
             protocolMarshaller.marshall(awsSecurityFindingFilters.getGeneratorId(), GENERATORID_BINDING);
+            protocolMarshaller.marshall(awsSecurityFindingFilters.getRegion(), REGION_BINDING);
             protocolMarshaller.marshall(awsSecurityFindingFilters.getType(), TYPE_BINDING);
             protocolMarshaller.marshall(awsSecurityFindingFilters.getFirstObservedAt(), FIRSTOBSERVEDAT_BINDING);
             protocolMarshaller.marshall(awsSecurityFindingFilters.getLastObservedAt(), LASTOBSERVEDAT_BINDING);
@@ -278,8 +321,10 @@ public class AwsSecurityFindingFiltersMarshaller {
             protocolMarshaller.marshall(awsSecurityFindingFilters.getResourceAwsS3BucketOwnerId(), RESOURCEAWSS3BUCKETOWNERID_BINDING);
             protocolMarshaller.marshall(awsSecurityFindingFilters.getResourceAwsS3BucketOwnerName(), RESOURCEAWSS3BUCKETOWNERNAME_BINDING);
             protocolMarshaller.marshall(awsSecurityFindingFilters.getResourceAwsIamAccessKeyUserName(), RESOURCEAWSIAMACCESSKEYUSERNAME_BINDING);
+            protocolMarshaller.marshall(awsSecurityFindingFilters.getResourceAwsIamAccessKeyPrincipalName(), RESOURCEAWSIAMACCESSKEYPRINCIPALNAME_BINDING);
             protocolMarshaller.marshall(awsSecurityFindingFilters.getResourceAwsIamAccessKeyStatus(), RESOURCEAWSIAMACCESSKEYSTATUS_BINDING);
             protocolMarshaller.marshall(awsSecurityFindingFilters.getResourceAwsIamAccessKeyCreatedAt(), RESOURCEAWSIAMACCESSKEYCREATEDAT_BINDING);
+            protocolMarshaller.marshall(awsSecurityFindingFilters.getResourceAwsIamUserUserName(), RESOURCEAWSIAMUSERUSERNAME_BINDING);
             protocolMarshaller.marshall(awsSecurityFindingFilters.getResourceContainerName(), RESOURCECONTAINERNAME_BINDING);
             protocolMarshaller.marshall(awsSecurityFindingFilters.getResourceContainerImageId(), RESOURCECONTAINERIMAGEID_BINDING);
             protocolMarshaller.marshall(awsSecurityFindingFilters.getResourceContainerImageName(), RESOURCECONTAINERIMAGENAME_BINDING);
@@ -288,6 +333,7 @@ public class AwsSecurityFindingFiltersMarshaller {
             protocolMarshaller.marshall(awsSecurityFindingFilters.getComplianceStatus(), COMPLIANCESTATUS_BINDING);
             protocolMarshaller.marshall(awsSecurityFindingFilters.getVerificationState(), VERIFICATIONSTATE_BINDING);
             protocolMarshaller.marshall(awsSecurityFindingFilters.getWorkflowState(), WORKFLOWSTATE_BINDING);
+            protocolMarshaller.marshall(awsSecurityFindingFilters.getWorkflowStatus(), WORKFLOWSTATUS_BINDING);
             protocolMarshaller.marshall(awsSecurityFindingFilters.getRecordState(), RECORDSTATE_BINDING);
             protocolMarshaller.marshall(awsSecurityFindingFilters.getRelatedFindingsProductArn(), RELATEDFINDINGSPRODUCTARN_BINDING);
             protocolMarshaller.marshall(awsSecurityFindingFilters.getRelatedFindingsId(), RELATEDFINDINGSID_BINDING);
@@ -295,6 +341,26 @@ public class AwsSecurityFindingFiltersMarshaller {
             protocolMarshaller.marshall(awsSecurityFindingFilters.getNoteUpdatedAt(), NOTEUPDATEDAT_BINDING);
             protocolMarshaller.marshall(awsSecurityFindingFilters.getNoteUpdatedBy(), NOTEUPDATEDBY_BINDING);
             protocolMarshaller.marshall(awsSecurityFindingFilters.getKeyword(), KEYWORD_BINDING);
+            protocolMarshaller.marshall(awsSecurityFindingFilters.getFindingProviderFieldsConfidence(), FINDINGPROVIDERFIELDSCONFIDENCE_BINDING);
+            protocolMarshaller.marshall(awsSecurityFindingFilters.getFindingProviderFieldsCriticality(), FINDINGPROVIDERFIELDSCRITICALITY_BINDING);
+            protocolMarshaller.marshall(awsSecurityFindingFilters.getFindingProviderFieldsRelatedFindingsId(), FINDINGPROVIDERFIELDSRELATEDFINDINGSID_BINDING);
+            protocolMarshaller.marshall(awsSecurityFindingFilters.getFindingProviderFieldsRelatedFindingsProductArn(),
+                    FINDINGPROVIDERFIELDSRELATEDFINDINGSPRODUCTARN_BINDING);
+            protocolMarshaller.marshall(awsSecurityFindingFilters.getFindingProviderFieldsSeverityLabel(), FINDINGPROVIDERFIELDSSEVERITYLABEL_BINDING);
+            protocolMarshaller.marshall(awsSecurityFindingFilters.getFindingProviderFieldsSeverityOriginal(), FINDINGPROVIDERFIELDSSEVERITYORIGINAL_BINDING);
+            protocolMarshaller.marshall(awsSecurityFindingFilters.getFindingProviderFieldsTypes(), FINDINGPROVIDERFIELDSTYPES_BINDING);
+            protocolMarshaller.marshall(awsSecurityFindingFilters.getSample(), SAMPLE_BINDING);
+            protocolMarshaller.marshall(awsSecurityFindingFilters.getComplianceSecurityControlId(), COMPLIANCESECURITYCONTROLID_BINDING);
+            protocolMarshaller.marshall(awsSecurityFindingFilters.getComplianceAssociatedStandardsId(), COMPLIANCEASSOCIATEDSTANDARDSID_BINDING);
+            protocolMarshaller.marshall(awsSecurityFindingFilters.getVulnerabilitiesExploitAvailable(), VULNERABILITIESEXPLOITAVAILABLE_BINDING);
+            protocolMarshaller.marshall(awsSecurityFindingFilters.getVulnerabilitiesFixAvailable(), VULNERABILITIESFIXAVAILABLE_BINDING);
+            protocolMarshaller
+                    .marshall(awsSecurityFindingFilters.getComplianceSecurityControlParametersName(), COMPLIANCESECURITYCONTROLPARAMETERSNAME_BINDING);
+            protocolMarshaller.marshall(awsSecurityFindingFilters.getComplianceSecurityControlParametersValue(),
+                    COMPLIANCESECURITYCONTROLPARAMETERSVALUE_BINDING);
+            protocolMarshaller.marshall(awsSecurityFindingFilters.getAwsAccountName(), AWSACCOUNTNAME_BINDING);
+            protocolMarshaller.marshall(awsSecurityFindingFilters.getResourceApplicationName(), RESOURCEAPPLICATIONNAME_BINDING);
+            protocolMarshaller.marshall(awsSecurityFindingFilters.getResourceApplicationArn(), RESOURCEAPPLICATIONARN_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

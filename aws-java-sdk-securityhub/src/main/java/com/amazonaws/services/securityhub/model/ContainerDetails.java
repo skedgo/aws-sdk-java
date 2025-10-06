@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,28 +30,119 @@ public class ContainerDetails implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
+     * The runtime of the container.
+     * </p>
+     */
+    private String containerRuntime;
+    /**
+     * <p>
      * The name of the container related to a finding.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The identifier of the image related to a finding.
+     * The identifier of the container image related to a finding.
      * </p>
      */
     private String imageId;
     /**
      * <p>
-     * The name of the image related to a finding.
+     * The name of the container image related to a finding.
      * </p>
      */
     private String imageName;
     /**
      * <p>
-     * The date and time when the container started.
+     * Indicates when the container started.
      * </p>
+     * <p>
+     * This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     * <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a maximum of 9
+     * digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example, <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     * </p>
+     * </li>
+     * </ul>
      */
     private String launchedAt;
+    /**
+     * <p>
+     * Provides information about the mounting of a volume in a container.
+     * </p>
+     */
+    private java.util.List<VolumeMount> volumeMounts;
+    /**
+     * <p>
+     * When this parameter is <code>true</code>, the container is given elevated privileges on the host container
+     * instance (similar to the root user).
+     * </p>
+     */
+    private Boolean privileged;
+
+    /**
+     * <p>
+     * The runtime of the container.
+     * </p>
+     * 
+     * @param containerRuntime
+     *        The runtime of the container.
+     */
+
+    public void setContainerRuntime(String containerRuntime) {
+        this.containerRuntime = containerRuntime;
+    }
+
+    /**
+     * <p>
+     * The runtime of the container.
+     * </p>
+     * 
+     * @return The runtime of the container.
+     */
+
+    public String getContainerRuntime() {
+        return this.containerRuntime;
+    }
+
+    /**
+     * <p>
+     * The runtime of the container.
+     * </p>
+     * 
+     * @param containerRuntime
+     *        The runtime of the container.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerDetails withContainerRuntime(String containerRuntime) {
+        setContainerRuntime(containerRuntime);
+        return this;
+    }
 
     /**
      * <p>
@@ -95,11 +186,11 @@ public class ContainerDetails implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The identifier of the image related to a finding.
+     * The identifier of the container image related to a finding.
      * </p>
      * 
      * @param imageId
-     *        The identifier of the image related to a finding.
+     *        The identifier of the container image related to a finding.
      */
 
     public void setImageId(String imageId) {
@@ -108,10 +199,10 @@ public class ContainerDetails implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The identifier of the image related to a finding.
+     * The identifier of the container image related to a finding.
      * </p>
      * 
-     * @return The identifier of the image related to a finding.
+     * @return The identifier of the container image related to a finding.
      */
 
     public String getImageId() {
@@ -120,11 +211,11 @@ public class ContainerDetails implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The identifier of the image related to a finding.
+     * The identifier of the container image related to a finding.
      * </p>
      * 
      * @param imageId
-     *        The identifier of the image related to a finding.
+     *        The identifier of the container image related to a finding.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -135,11 +226,11 @@ public class ContainerDetails implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The name of the image related to a finding.
+     * The name of the container image related to a finding.
      * </p>
      * 
      * @param imageName
-     *        The name of the image related to a finding.
+     *        The name of the container image related to a finding.
      */
 
     public void setImageName(String imageName) {
@@ -148,10 +239,10 @@ public class ContainerDetails implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The name of the image related to a finding.
+     * The name of the container image related to a finding.
      * </p>
      * 
-     * @return The name of the image related to a finding.
+     * @return The name of the container image related to a finding.
      */
 
     public String getImageName() {
@@ -160,11 +251,11 @@ public class ContainerDetails implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The name of the image related to a finding.
+     * The name of the container image related to a finding.
      * </p>
      * 
      * @param imageName
-     *        The name of the image related to a finding.
+     *        The name of the container image related to a finding.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -175,11 +266,75 @@ public class ContainerDetails implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The date and time when the container started.
+     * Indicates when the container started.
      * </p>
+     * <p>
+     * This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     * <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a maximum of 9
+     * digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example, <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param launchedAt
-     *        The date and time when the container started.
+     *        Indicates when the container started.</p>
+     *        <p>
+     *        This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     *        <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a
+     *        maximum of 9 digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example,
+     *        <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     *        </p>
+     *        </li>
      */
 
     public void setLaunchedAt(String launchedAt) {
@@ -188,10 +343,74 @@ public class ContainerDetails implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The date and time when the container started.
+     * Indicates when the container started.
      * </p>
+     * <p>
+     * This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     * <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a maximum of 9
+     * digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example, <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The date and time when the container started.
+     * @return Indicates when the container started.</p>
+     *         <p>
+     *         This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     *         <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a
+     *         maximum of 9 digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example,
+     *         <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     *         </p>
+     *         </li>
      */
 
     public String getLaunchedAt() {
@@ -200,17 +419,211 @@ public class ContainerDetails implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The date and time when the container started.
+     * Indicates when the container started.
      * </p>
+     * <p>
+     * This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     * <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a maximum of 9
+     * digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example, <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param launchedAt
-     *        The date and time when the container started.
+     *        Indicates when the container started.</p>
+     *        <p>
+     *        This field accepts only the specified formats. Timestamps can end with <code>Z</code> or
+     *        <code>("+" / "-") time-hour [":" time-minute]</code>. The time-secfrac after seconds is limited to a
+     *        maximum of 9 digits. The offset is bounded by +/-18:00. Here are valid timestamp formats with examples:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SSZ</code> (for example, <code>2019-01-31T23:00:00Z</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmmZ</code> (for example, <code>2019-01-31T23:00:00.123456789Z</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS+HH:MM</code> (for example, <code>2024-01-04T15:25:10+17:59</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS-HHMM</code> (for example, <code>2024-01-04T15:25:10-1759</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>YYYY-MM-DDTHH:MM:SS.mmmmmmmmm+HH:MM</code> (for example,
+     *        <code>2024-01-04T15:25:10.123456789+17:59</code>)
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ContainerDetails withLaunchedAt(String launchedAt) {
         setLaunchedAt(launchedAt);
         return this;
+    }
+
+    /**
+     * <p>
+     * Provides information about the mounting of a volume in a container.
+     * </p>
+     * 
+     * @return Provides information about the mounting of a volume in a container.
+     */
+
+    public java.util.List<VolumeMount> getVolumeMounts() {
+        return volumeMounts;
+    }
+
+    /**
+     * <p>
+     * Provides information about the mounting of a volume in a container.
+     * </p>
+     * 
+     * @param volumeMounts
+     *        Provides information about the mounting of a volume in a container.
+     */
+
+    public void setVolumeMounts(java.util.Collection<VolumeMount> volumeMounts) {
+        if (volumeMounts == null) {
+            this.volumeMounts = null;
+            return;
+        }
+
+        this.volumeMounts = new java.util.ArrayList<VolumeMount>(volumeMounts);
+    }
+
+    /**
+     * <p>
+     * Provides information about the mounting of a volume in a container.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setVolumeMounts(java.util.Collection)} or {@link #withVolumeMounts(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param volumeMounts
+     *        Provides information about the mounting of a volume in a container.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerDetails withVolumeMounts(VolumeMount... volumeMounts) {
+        if (this.volumeMounts == null) {
+            setVolumeMounts(new java.util.ArrayList<VolumeMount>(volumeMounts.length));
+        }
+        for (VolumeMount ele : volumeMounts) {
+            this.volumeMounts.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Provides information about the mounting of a volume in a container.
+     * </p>
+     * 
+     * @param volumeMounts
+     *        Provides information about the mounting of a volume in a container.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerDetails withVolumeMounts(java.util.Collection<VolumeMount> volumeMounts) {
+        setVolumeMounts(volumeMounts);
+        return this;
+    }
+
+    /**
+     * <p>
+     * When this parameter is <code>true</code>, the container is given elevated privileges on the host container
+     * instance (similar to the root user).
+     * </p>
+     * 
+     * @param privileged
+     *        When this parameter is <code>true</code>, the container is given elevated privileges on the host container
+     *        instance (similar to the root user).
+     */
+
+    public void setPrivileged(Boolean privileged) {
+        this.privileged = privileged;
+    }
+
+    /**
+     * <p>
+     * When this parameter is <code>true</code>, the container is given elevated privileges on the host container
+     * instance (similar to the root user).
+     * </p>
+     * 
+     * @return When this parameter is <code>true</code>, the container is given elevated privileges on the host
+     *         container instance (similar to the root user).
+     */
+
+    public Boolean getPrivileged() {
+        return this.privileged;
+    }
+
+    /**
+     * <p>
+     * When this parameter is <code>true</code>, the container is given elevated privileges on the host container
+     * instance (similar to the root user).
+     * </p>
+     * 
+     * @param privileged
+     *        When this parameter is <code>true</code>, the container is given elevated privileges on the host container
+     *        instance (similar to the root user).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerDetails withPrivileged(Boolean privileged) {
+        setPrivileged(privileged);
+        return this;
+    }
+
+    /**
+     * <p>
+     * When this parameter is <code>true</code>, the container is given elevated privileges on the host container
+     * instance (similar to the root user).
+     * </p>
+     * 
+     * @return When this parameter is <code>true</code>, the container is given elevated privileges on the host
+     *         container instance (similar to the root user).
+     */
+
+    public Boolean isPrivileged() {
+        return this.privileged;
     }
 
     /**
@@ -225,6 +638,8 @@ public class ContainerDetails implements Serializable, Cloneable, StructuredPojo
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getContainerRuntime() != null)
+            sb.append("ContainerRuntime: ").append(getContainerRuntime()).append(",");
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getImageId() != null)
@@ -232,7 +647,11 @@ public class ContainerDetails implements Serializable, Cloneable, StructuredPojo
         if (getImageName() != null)
             sb.append("ImageName: ").append(getImageName()).append(",");
         if (getLaunchedAt() != null)
-            sb.append("LaunchedAt: ").append(getLaunchedAt());
+            sb.append("LaunchedAt: ").append(getLaunchedAt()).append(",");
+        if (getVolumeMounts() != null)
+            sb.append("VolumeMounts: ").append(getVolumeMounts()).append(",");
+        if (getPrivileged() != null)
+            sb.append("Privileged: ").append(getPrivileged());
         sb.append("}");
         return sb.toString();
     }
@@ -247,6 +666,10 @@ public class ContainerDetails implements Serializable, Cloneable, StructuredPojo
         if (obj instanceof ContainerDetails == false)
             return false;
         ContainerDetails other = (ContainerDetails) obj;
+        if (other.getContainerRuntime() == null ^ this.getContainerRuntime() == null)
+            return false;
+        if (other.getContainerRuntime() != null && other.getContainerRuntime().equals(this.getContainerRuntime()) == false)
+            return false;
         if (other.getName() == null ^ this.getName() == null)
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
@@ -263,6 +686,14 @@ public class ContainerDetails implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getLaunchedAt() != null && other.getLaunchedAt().equals(this.getLaunchedAt()) == false)
             return false;
+        if (other.getVolumeMounts() == null ^ this.getVolumeMounts() == null)
+            return false;
+        if (other.getVolumeMounts() != null && other.getVolumeMounts().equals(this.getVolumeMounts()) == false)
+            return false;
+        if (other.getPrivileged() == null ^ this.getPrivileged() == null)
+            return false;
+        if (other.getPrivileged() != null && other.getPrivileged().equals(this.getPrivileged()) == false)
+            return false;
         return true;
     }
 
@@ -271,10 +702,13 @@ public class ContainerDetails implements Serializable, Cloneable, StructuredPojo
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getContainerRuntime() == null) ? 0 : getContainerRuntime().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getImageId() == null) ? 0 : getImageId().hashCode());
         hashCode = prime * hashCode + ((getImageName() == null) ? 0 : getImageName().hashCode());
         hashCode = prime * hashCode + ((getLaunchedAt() == null) ? 0 : getLaunchedAt().hashCode());
+        hashCode = prime * hashCode + ((getVolumeMounts() == null) ? 0 : getVolumeMounts().hashCode());
+        hashCode = prime * hashCode + ((getPrivileged() == null) ? 0 : getPrivileged().hashCode());
         return hashCode;
     }
 

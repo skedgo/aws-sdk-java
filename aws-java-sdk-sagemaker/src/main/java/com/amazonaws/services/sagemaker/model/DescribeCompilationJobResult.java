@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,7 +31,7 @@ public class DescribeCompilationJobResult extends com.amazonaws.AmazonWebService
     private String compilationJobName;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker assumes to perform the model compilation job.
+     * The Amazon Resource Name (ARN) of the model compilation job.
      * </p>
      */
     private String compilationJobArn;
@@ -46,10 +46,9 @@ public class DescribeCompilationJobResult extends com.amazonaws.AmazonWebService
      * The time when the model compilation job started the <code>CompilationJob</code> instances.
      * </p>
      * <p>
-     * You are billed for the time between this timestamp and the timestamp in the
-     * <a>DescribeCompilationJobResponse$CompilationEndTime</a> field. In Amazon CloudWatch Logs, the start time might
-     * be later than this time. That's because it takes time to download the compilation job, which depends on the size
-     * of the compilation job container.
+     * You are billed for the time between this timestamp and the timestamp in the <code>CompilationEndTime</code>
+     * field. In Amazon CloudWatch Logs, the start time might be later than this time. That's because it takes time to
+     * download the compilation job, which depends on the size of the compilation job container.
      * </p>
      */
     private java.util.Date compilationStartTime;
@@ -68,6 +67,20 @@ public class DescribeCompilationJobResult extends com.amazonaws.AmazonWebService
      * </p>
      */
     private StoppingCondition stoppingCondition;
+    /**
+     * <p>
+     * The inference image to use when compiling a model. Specify an image only if the target device is a cloud
+     * instance.
+     * </p>
+     */
+    private String inferenceImage;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the versioned model package that was provided to SageMaker Neo when you
+     * initiated a compilation job.
+     * </p>
+     */
+    private String modelPackageVersionArn;
     /**
      * <p>
      * The time that the model compilation job was created.
@@ -95,7 +108,13 @@ public class DescribeCompilationJobResult extends com.amazonaws.AmazonWebService
     private ModelArtifacts modelArtifacts;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the model compilation job.
+     * Provides a BLAKE2 hash value that identifies the compiled model artifacts in Amazon S3.
+     * </p>
+     */
+    private ModelDigests modelDigests;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker assumes to perform the model compilation job.
      * </p>
      */
     private String roleArn;
@@ -112,6 +131,22 @@ public class DescribeCompilationJobResult extends com.amazonaws.AmazonWebService
      * </p>
      */
     private OutputConfig outputConfig;
+    /**
+     * <p>
+     * A <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a> object
+     * that specifies the VPC that you want your compilation job to connect to. Control access to your models by
+     * configuring the VPC. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/neo-vpc.html">Protect Compilation Jobs by Using an Amazon
+     * Virtual Private Cloud</a>.
+     * </p>
+     */
+    private NeoVpcConfig vpcConfig;
+    /**
+     * <p>
+     * Information that SageMaker Neo automatically derived about the model.
+     * </p>
+     */
+    private DerivedInformation derivedInformation;
 
     /**
      * <p>
@@ -155,12 +190,11 @@ public class DescribeCompilationJobResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker assumes to perform the model compilation job.
+     * The Amazon Resource Name (ARN) of the model compilation job.
      * </p>
      * 
      * @param compilationJobArn
-     *        The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker assumes to perform the model
-     *        compilation job.
+     *        The Amazon Resource Name (ARN) of the model compilation job.
      */
 
     public void setCompilationJobArn(String compilationJobArn) {
@@ -169,11 +203,10 @@ public class DescribeCompilationJobResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker assumes to perform the model compilation job.
+     * The Amazon Resource Name (ARN) of the model compilation job.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker assumes to perform the model
-     *         compilation job.
+     * @return The Amazon Resource Name (ARN) of the model compilation job.
      */
 
     public String getCompilationJobArn() {
@@ -182,12 +215,11 @@ public class DescribeCompilationJobResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker assumes to perform the model compilation job.
+     * The Amazon Resource Name (ARN) of the model compilation job.
      * </p>
      * 
      * @param compilationJobArn
-     *        The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker assumes to perform the model
-     *        compilation job.
+     *        The Amazon Resource Name (ARN) of the model compilation job.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -260,19 +292,18 @@ public class DescribeCompilationJobResult extends com.amazonaws.AmazonWebService
      * The time when the model compilation job started the <code>CompilationJob</code> instances.
      * </p>
      * <p>
-     * You are billed for the time between this timestamp and the timestamp in the
-     * <a>DescribeCompilationJobResponse$CompilationEndTime</a> field. In Amazon CloudWatch Logs, the start time might
-     * be later than this time. That's because it takes time to download the compilation job, which depends on the size
-     * of the compilation job container.
+     * You are billed for the time between this timestamp and the timestamp in the <code>CompilationEndTime</code>
+     * field. In Amazon CloudWatch Logs, the start time might be later than this time. That's because it takes time to
+     * download the compilation job, which depends on the size of the compilation job container.
      * </p>
      * 
      * @param compilationStartTime
      *        The time when the model compilation job started the <code>CompilationJob</code> instances. </p>
      *        <p>
      *        You are billed for the time between this timestamp and the timestamp in the
-     *        <a>DescribeCompilationJobResponse$CompilationEndTime</a> field. In Amazon CloudWatch Logs, the start time
-     *        might be later than this time. That's because it takes time to download the compilation job, which depends
-     *        on the size of the compilation job container.
+     *        <code>CompilationEndTime</code> field. In Amazon CloudWatch Logs, the start time might be later than this
+     *        time. That's because it takes time to download the compilation job, which depends on the size of the
+     *        compilation job container.
      */
 
     public void setCompilationStartTime(java.util.Date compilationStartTime) {
@@ -284,18 +315,17 @@ public class DescribeCompilationJobResult extends com.amazonaws.AmazonWebService
      * The time when the model compilation job started the <code>CompilationJob</code> instances.
      * </p>
      * <p>
-     * You are billed for the time between this timestamp and the timestamp in the
-     * <a>DescribeCompilationJobResponse$CompilationEndTime</a> field. In Amazon CloudWatch Logs, the start time might
-     * be later than this time. That's because it takes time to download the compilation job, which depends on the size
-     * of the compilation job container.
+     * You are billed for the time between this timestamp and the timestamp in the <code>CompilationEndTime</code>
+     * field. In Amazon CloudWatch Logs, the start time might be later than this time. That's because it takes time to
+     * download the compilation job, which depends on the size of the compilation job container.
      * </p>
      * 
      * @return The time when the model compilation job started the <code>CompilationJob</code> instances. </p>
      *         <p>
      *         You are billed for the time between this timestamp and the timestamp in the
-     *         <a>DescribeCompilationJobResponse$CompilationEndTime</a> field. In Amazon CloudWatch Logs, the start time
-     *         might be later than this time. That's because it takes time to download the compilation job, which
-     *         depends on the size of the compilation job container.
+     *         <code>CompilationEndTime</code> field. In Amazon CloudWatch Logs, the start time might be later than this
+     *         time. That's because it takes time to download the compilation job, which depends on the size of the
+     *         compilation job container.
      */
 
     public java.util.Date getCompilationStartTime() {
@@ -307,19 +337,18 @@ public class DescribeCompilationJobResult extends com.amazonaws.AmazonWebService
      * The time when the model compilation job started the <code>CompilationJob</code> instances.
      * </p>
      * <p>
-     * You are billed for the time between this timestamp and the timestamp in the
-     * <a>DescribeCompilationJobResponse$CompilationEndTime</a> field. In Amazon CloudWatch Logs, the start time might
-     * be later than this time. That's because it takes time to download the compilation job, which depends on the size
-     * of the compilation job container.
+     * You are billed for the time between this timestamp and the timestamp in the <code>CompilationEndTime</code>
+     * field. In Amazon CloudWatch Logs, the start time might be later than this time. That's because it takes time to
+     * download the compilation job, which depends on the size of the compilation job container.
      * </p>
      * 
      * @param compilationStartTime
      *        The time when the model compilation job started the <code>CompilationJob</code> instances. </p>
      *        <p>
      *        You are billed for the time between this timestamp and the timestamp in the
-     *        <a>DescribeCompilationJobResponse$CompilationEndTime</a> field. In Amazon CloudWatch Logs, the start time
-     *        might be later than this time. That's because it takes time to download the compilation job, which depends
-     *        on the size of the compilation job container.
+     *        <code>CompilationEndTime</code> field. In Amazon CloudWatch Logs, the start time might be later than this
+     *        time. That's because it takes time to download the compilation job, which depends on the size of the
+     *        compilation job container.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -423,6 +452,98 @@ public class DescribeCompilationJobResult extends com.amazonaws.AmazonWebService
 
     public DescribeCompilationJobResult withStoppingCondition(StoppingCondition stoppingCondition) {
         setStoppingCondition(stoppingCondition);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The inference image to use when compiling a model. Specify an image only if the target device is a cloud
+     * instance.
+     * </p>
+     * 
+     * @param inferenceImage
+     *        The inference image to use when compiling a model. Specify an image only if the target device is a cloud
+     *        instance.
+     */
+
+    public void setInferenceImage(String inferenceImage) {
+        this.inferenceImage = inferenceImage;
+    }
+
+    /**
+     * <p>
+     * The inference image to use when compiling a model. Specify an image only if the target device is a cloud
+     * instance.
+     * </p>
+     * 
+     * @return The inference image to use when compiling a model. Specify an image only if the target device is a cloud
+     *         instance.
+     */
+
+    public String getInferenceImage() {
+        return this.inferenceImage;
+    }
+
+    /**
+     * <p>
+     * The inference image to use when compiling a model. Specify an image only if the target device is a cloud
+     * instance.
+     * </p>
+     * 
+     * @param inferenceImage
+     *        The inference image to use when compiling a model. Specify an image only if the target device is a cloud
+     *        instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeCompilationJobResult withInferenceImage(String inferenceImage) {
+        setInferenceImage(inferenceImage);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the versioned model package that was provided to SageMaker Neo when you
+     * initiated a compilation job.
+     * </p>
+     * 
+     * @param modelPackageVersionArn
+     *        The Amazon Resource Name (ARN) of the versioned model package that was provided to SageMaker Neo when you
+     *        initiated a compilation job.
+     */
+
+    public void setModelPackageVersionArn(String modelPackageVersionArn) {
+        this.modelPackageVersionArn = modelPackageVersionArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the versioned model package that was provided to SageMaker Neo when you
+     * initiated a compilation job.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the versioned model package that was provided to SageMaker Neo when you
+     *         initiated a compilation job.
+     */
+
+    public String getModelPackageVersionArn() {
+        return this.modelPackageVersionArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the versioned model package that was provided to SageMaker Neo when you
+     * initiated a compilation job.
+     * </p>
+     * 
+     * @param modelPackageVersionArn
+     *        The Amazon Resource Name (ARN) of the versioned model package that was provided to SageMaker Neo when you
+     *        initiated a compilation job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeCompilationJobResult withModelPackageVersionArn(String modelPackageVersionArn) {
+        setModelPackageVersionArn(modelPackageVersionArn);
         return this;
     }
 
@@ -594,11 +715,52 @@ public class DescribeCompilationJobResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the model compilation job.
+     * Provides a BLAKE2 hash value that identifies the compiled model artifacts in Amazon S3.
+     * </p>
+     * 
+     * @param modelDigests
+     *        Provides a BLAKE2 hash value that identifies the compiled model artifacts in Amazon S3.
+     */
+
+    public void setModelDigests(ModelDigests modelDigests) {
+        this.modelDigests = modelDigests;
+    }
+
+    /**
+     * <p>
+     * Provides a BLAKE2 hash value that identifies the compiled model artifacts in Amazon S3.
+     * </p>
+     * 
+     * @return Provides a BLAKE2 hash value that identifies the compiled model artifacts in Amazon S3.
+     */
+
+    public ModelDigests getModelDigests() {
+        return this.modelDigests;
+    }
+
+    /**
+     * <p>
+     * Provides a BLAKE2 hash value that identifies the compiled model artifacts in Amazon S3.
+     * </p>
+     * 
+     * @param modelDigests
+     *        Provides a BLAKE2 hash value that identifies the compiled model artifacts in Amazon S3.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeCompilationJobResult withModelDigests(ModelDigests modelDigests) {
+        setModelDigests(modelDigests);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker assumes to perform the model compilation job.
      * </p>
      * 
      * @param roleArn
-     *        The Amazon Resource Name (ARN) of the model compilation job.
+     *        The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker assumes to perform the model
+     *        compilation job.
      */
 
     public void setRoleArn(String roleArn) {
@@ -607,10 +769,11 @@ public class DescribeCompilationJobResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the model compilation job.
+     * The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker assumes to perform the model compilation job.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the model compilation job.
+     * @return The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker assumes to perform the model
+     *         compilation job.
      */
 
     public String getRoleArn() {
@@ -619,11 +782,12 @@ public class DescribeCompilationJobResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the model compilation job.
+     * The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker assumes to perform the model compilation job.
      * </p>
      * 
      * @param roleArn
-     *        The Amazon Resource Name (ARN) of the model compilation job.
+     *        The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker assumes to perform the model
+     *        compilation job.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -720,6 +884,110 @@ public class DescribeCompilationJobResult extends com.amazonaws.AmazonWebService
     }
 
     /**
+     * <p>
+     * A <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a> object
+     * that specifies the VPC that you want your compilation job to connect to. Control access to your models by
+     * configuring the VPC. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/neo-vpc.html">Protect Compilation Jobs by Using an Amazon
+     * Virtual Private Cloud</a>.
+     * </p>
+     * 
+     * @param vpcConfig
+     *        A <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a>
+     *        object that specifies the VPC that you want your compilation job to connect to. Control access to your
+     *        models by configuring the VPC. For more information, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/neo-vpc.html">Protect Compilation Jobs by Using an
+     *        Amazon Virtual Private Cloud</a>.
+     */
+
+    public void setVpcConfig(NeoVpcConfig vpcConfig) {
+        this.vpcConfig = vpcConfig;
+    }
+
+    /**
+     * <p>
+     * A <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a> object
+     * that specifies the VPC that you want your compilation job to connect to. Control access to your models by
+     * configuring the VPC. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/neo-vpc.html">Protect Compilation Jobs by Using an Amazon
+     * Virtual Private Cloud</a>.
+     * </p>
+     * 
+     * @return A <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a>
+     *         object that specifies the VPC that you want your compilation job to connect to. Control access to your
+     *         models by configuring the VPC. For more information, see <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/dg/neo-vpc.html">Protect Compilation Jobs by Using an
+     *         Amazon Virtual Private Cloud</a>.
+     */
+
+    public NeoVpcConfig getVpcConfig() {
+        return this.vpcConfig;
+    }
+
+    /**
+     * <p>
+     * A <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a> object
+     * that specifies the VPC that you want your compilation job to connect to. Control access to your models by
+     * configuring the VPC. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/neo-vpc.html">Protect Compilation Jobs by Using an Amazon
+     * Virtual Private Cloud</a>.
+     * </p>
+     * 
+     * @param vpcConfig
+     *        A <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a>
+     *        object that specifies the VPC that you want your compilation job to connect to. Control access to your
+     *        models by configuring the VPC. For more information, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/neo-vpc.html">Protect Compilation Jobs by Using an
+     *        Amazon Virtual Private Cloud</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeCompilationJobResult withVpcConfig(NeoVpcConfig vpcConfig) {
+        setVpcConfig(vpcConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information that SageMaker Neo automatically derived about the model.
+     * </p>
+     * 
+     * @param derivedInformation
+     *        Information that SageMaker Neo automatically derived about the model.
+     */
+
+    public void setDerivedInformation(DerivedInformation derivedInformation) {
+        this.derivedInformation = derivedInformation;
+    }
+
+    /**
+     * <p>
+     * Information that SageMaker Neo automatically derived about the model.
+     * </p>
+     * 
+     * @return Information that SageMaker Neo automatically derived about the model.
+     */
+
+    public DerivedInformation getDerivedInformation() {
+        return this.derivedInformation;
+    }
+
+    /**
+     * <p>
+     * Information that SageMaker Neo automatically derived about the model.
+     * </p>
+     * 
+     * @param derivedInformation
+     *        Information that SageMaker Neo automatically derived about the model.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeCompilationJobResult withDerivedInformation(DerivedInformation derivedInformation) {
+        setDerivedInformation(derivedInformation);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -743,6 +1011,10 @@ public class DescribeCompilationJobResult extends com.amazonaws.AmazonWebService
             sb.append("CompilationEndTime: ").append(getCompilationEndTime()).append(",");
         if (getStoppingCondition() != null)
             sb.append("StoppingCondition: ").append(getStoppingCondition()).append(",");
+        if (getInferenceImage() != null)
+            sb.append("InferenceImage: ").append(getInferenceImage()).append(",");
+        if (getModelPackageVersionArn() != null)
+            sb.append("ModelPackageVersionArn: ").append(getModelPackageVersionArn()).append(",");
         if (getCreationTime() != null)
             sb.append("CreationTime: ").append(getCreationTime()).append(",");
         if (getLastModifiedTime() != null)
@@ -751,12 +1023,18 @@ public class DescribeCompilationJobResult extends com.amazonaws.AmazonWebService
             sb.append("FailureReason: ").append(getFailureReason()).append(",");
         if (getModelArtifacts() != null)
             sb.append("ModelArtifacts: ").append(getModelArtifacts()).append(",");
+        if (getModelDigests() != null)
+            sb.append("ModelDigests: ").append(getModelDigests()).append(",");
         if (getRoleArn() != null)
             sb.append("RoleArn: ").append(getRoleArn()).append(",");
         if (getInputConfig() != null)
             sb.append("InputConfig: ").append(getInputConfig()).append(",");
         if (getOutputConfig() != null)
-            sb.append("OutputConfig: ").append(getOutputConfig());
+            sb.append("OutputConfig: ").append(getOutputConfig()).append(",");
+        if (getVpcConfig() != null)
+            sb.append("VpcConfig: ").append(getVpcConfig()).append(",");
+        if (getDerivedInformation() != null)
+            sb.append("DerivedInformation: ").append(getDerivedInformation());
         sb.append("}");
         return sb.toString();
     }
@@ -795,6 +1073,14 @@ public class DescribeCompilationJobResult extends com.amazonaws.AmazonWebService
             return false;
         if (other.getStoppingCondition() != null && other.getStoppingCondition().equals(this.getStoppingCondition()) == false)
             return false;
+        if (other.getInferenceImage() == null ^ this.getInferenceImage() == null)
+            return false;
+        if (other.getInferenceImage() != null && other.getInferenceImage().equals(this.getInferenceImage()) == false)
+            return false;
+        if (other.getModelPackageVersionArn() == null ^ this.getModelPackageVersionArn() == null)
+            return false;
+        if (other.getModelPackageVersionArn() != null && other.getModelPackageVersionArn().equals(this.getModelPackageVersionArn()) == false)
+            return false;
         if (other.getCreationTime() == null ^ this.getCreationTime() == null)
             return false;
         if (other.getCreationTime() != null && other.getCreationTime().equals(this.getCreationTime()) == false)
@@ -811,6 +1097,10 @@ public class DescribeCompilationJobResult extends com.amazonaws.AmazonWebService
             return false;
         if (other.getModelArtifacts() != null && other.getModelArtifacts().equals(this.getModelArtifacts()) == false)
             return false;
+        if (other.getModelDigests() == null ^ this.getModelDigests() == null)
+            return false;
+        if (other.getModelDigests() != null && other.getModelDigests().equals(this.getModelDigests()) == false)
+            return false;
         if (other.getRoleArn() == null ^ this.getRoleArn() == null)
             return false;
         if (other.getRoleArn() != null && other.getRoleArn().equals(this.getRoleArn()) == false)
@@ -822,6 +1112,14 @@ public class DescribeCompilationJobResult extends com.amazonaws.AmazonWebService
         if (other.getOutputConfig() == null ^ this.getOutputConfig() == null)
             return false;
         if (other.getOutputConfig() != null && other.getOutputConfig().equals(this.getOutputConfig()) == false)
+            return false;
+        if (other.getVpcConfig() == null ^ this.getVpcConfig() == null)
+            return false;
+        if (other.getVpcConfig() != null && other.getVpcConfig().equals(this.getVpcConfig()) == false)
+            return false;
+        if (other.getDerivedInformation() == null ^ this.getDerivedInformation() == null)
+            return false;
+        if (other.getDerivedInformation() != null && other.getDerivedInformation().equals(this.getDerivedInformation()) == false)
             return false;
         return true;
     }
@@ -837,13 +1135,18 @@ public class DescribeCompilationJobResult extends com.amazonaws.AmazonWebService
         hashCode = prime * hashCode + ((getCompilationStartTime() == null) ? 0 : getCompilationStartTime().hashCode());
         hashCode = prime * hashCode + ((getCompilationEndTime() == null) ? 0 : getCompilationEndTime().hashCode());
         hashCode = prime * hashCode + ((getStoppingCondition() == null) ? 0 : getStoppingCondition().hashCode());
+        hashCode = prime * hashCode + ((getInferenceImage() == null) ? 0 : getInferenceImage().hashCode());
+        hashCode = prime * hashCode + ((getModelPackageVersionArn() == null) ? 0 : getModelPackageVersionArn().hashCode());
         hashCode = prime * hashCode + ((getCreationTime() == null) ? 0 : getCreationTime().hashCode());
         hashCode = prime * hashCode + ((getLastModifiedTime() == null) ? 0 : getLastModifiedTime().hashCode());
         hashCode = prime * hashCode + ((getFailureReason() == null) ? 0 : getFailureReason().hashCode());
         hashCode = prime * hashCode + ((getModelArtifacts() == null) ? 0 : getModelArtifacts().hashCode());
+        hashCode = prime * hashCode + ((getModelDigests() == null) ? 0 : getModelDigests().hashCode());
         hashCode = prime * hashCode + ((getRoleArn() == null) ? 0 : getRoleArn().hashCode());
         hashCode = prime * hashCode + ((getInputConfig() == null) ? 0 : getInputConfig().hashCode());
         hashCode = prime * hashCode + ((getOutputConfig() == null) ? 0 : getOutputConfig().hashCode());
+        hashCode = prime * hashCode + ((getVpcConfig() == null) ? 0 : getVpcConfig().hashCode());
+        hashCode = prime * hashCode + ((getDerivedInformation() == null) ? 0 : getDerivedInformation().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,6 +45,7 @@ import com.amazonaws.services.opsworkscm.waiters.AWSOpsWorksCMWaiters;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.opsworkscm.model.*;
+
 import com.amazonaws.services.opsworkscm.model.transform.*;
 
 /**
@@ -152,6 +153,10 @@ import com.amazonaws.services.opsworkscm.model.transform.*;
  * </li>
  * </ul>
  * <p>
+ * For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/opsworks-service.html">AWS OpsWorks
+ * endpoints and quotas</a> in the AWS General Reference.
+ * </p>
+ * <p>
  * <b>Throttling limits</b>
  * </p>
  * <p>
@@ -183,23 +188,23 @@ public class AWSOpsWorksCMClient extends AmazonWebServiceClient implements AWSOp
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ValidationException").withModeledClass(
-                                    com.amazonaws.services.opsworkscm.model.ValidationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.opsworkscm.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.opsworkscm.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ValidationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.opsworkscm.model.transform.ValidationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceAlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.opsworkscm.model.ResourceAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.opsworkscm.model.transform.ResourceAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidStateException").withModeledClass(
-                                    com.amazonaws.services.opsworkscm.model.InvalidStateException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidStateException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.opsworkscm.model.transform.InvalidStateExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidNextTokenException").withModeledClass(
-                                    com.amazonaws.services.opsworkscm.model.InvalidNextTokenException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidNextTokenException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.opsworkscm.model.transform.InvalidNextTokenExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withModeledClass(
-                                    com.amazonaws.services.opsworkscm.model.LimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.opsworkscm.model.transform.LimitExceededExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.opsworkscm.model.AWSOpsWorksCMException.class));
 
     /**
@@ -418,7 +423,7 @@ public class AWSOpsWorksCMClient extends AmazonWebServiceClient implements AWSOp
      * Puppet node CSR.
      * </p>
      * <p>
-     * Example (Chef):
+     * Example (Puppet):
      * <code>aws opsworks-cm associate-node --server-name <i>MyServer</i> --node-name <i>MyManagedNode</i> --engine-attributes "Name=<i>PUPPET_NODE_CSR</i>,Value=<i>csr-pem</i>"</code>
      * </p>
      * <p>
@@ -462,6 +467,8 @@ public class AWSOpsWorksCMClient extends AmazonWebServiceClient implements AWSOp
                 request = new AssociateNodeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(associateNodeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorksCM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateNode");
@@ -537,6 +544,8 @@ public class AWSOpsWorksCMClient extends AmazonWebServiceClient implements AWSOp
                 request = new CreateBackupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createBackupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorksCM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateBackup");
@@ -590,6 +599,11 @@ public class AWSOpsWorksCMClient extends AmazonWebServiceClient implements AWSOp
      * to allow access from known IP addresses and address ranges only. To edit security group rules, open Security
      * Groups in the navigation pane of the EC2 management console.
      * </p>
+     * <p>
+     * To specify your own domain for a server, and provide your own self-signed or CA-signed certificate and private
+     * key, specify values for <code>CustomDomain</code>, <code>CustomCertificate</code>, and
+     * <code>CustomPrivateKey</code>.
+     * </p>
      * 
      * @param createServerRequest
      * @return Result of the CreateServer operation returned by the service.
@@ -626,6 +640,8 @@ public class AWSOpsWorksCMClient extends AmazonWebServiceClient implements AWSOp
                 request = new CreateServerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createServerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorksCM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateServer");
@@ -690,6 +706,8 @@ public class AWSOpsWorksCMClient extends AmazonWebServiceClient implements AWSOp
                 request = new DeleteBackupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteBackupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorksCM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteBackup");
@@ -762,6 +780,8 @@ public class AWSOpsWorksCMClient extends AmazonWebServiceClient implements AWSOp
                 request = new DeleteServerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteServerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorksCM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteServer");
@@ -819,6 +839,8 @@ public class AWSOpsWorksCMClient extends AmazonWebServiceClient implements AWSOp
                         .beforeMarshalling(describeAccountAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorksCM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAccountAttributes");
@@ -887,6 +909,8 @@ public class AWSOpsWorksCMClient extends AmazonWebServiceClient implements AWSOp
                 request = new DescribeBackupsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeBackupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorksCM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBackups");
@@ -953,6 +977,8 @@ public class AWSOpsWorksCMClient extends AmazonWebServiceClient implements AWSOp
                 request = new DescribeEventsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeEventsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorksCM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEvents");
@@ -1016,6 +1042,8 @@ public class AWSOpsWorksCMClient extends AmazonWebServiceClient implements AWSOp
                         .beforeMarshalling(describeNodeAssociationStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorksCM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeNodeAssociationStatus");
@@ -1084,6 +1112,8 @@ public class AWSOpsWorksCMClient extends AmazonWebServiceClient implements AWSOp
                 request = new DescribeServersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeServersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorksCM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeServers");
@@ -1150,6 +1180,8 @@ public class AWSOpsWorksCMClient extends AmazonWebServiceClient implements AWSOp
                 request = new DisassociateNodeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(disassociateNodeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorksCM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateNode");
@@ -1220,6 +1252,8 @@ public class AWSOpsWorksCMClient extends AmazonWebServiceClient implements AWSOp
                         .beforeMarshalling(exportServerEngineAttributeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorksCM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ExportServerEngineAttribute");
@@ -1244,10 +1278,76 @@ public class AWSOpsWorksCMClient extends AmazonWebServiceClient implements AWSOp
 
     /**
      * <p>
+     * Returns a list of tags that are applied to the specified AWS OpsWorks for Chef Automate or AWS OpsWorks for
+     * Puppet Enterprise servers or backups.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The requested resource does not exist, or access was denied.
+     * @throws ValidationException
+     *         One or more of the provided request parameters are not valid.
+     * @sample AWSOpsWorksCM.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/opsworkscm-2016-11-01/ListTagsForResource" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeListTagsForResource(request);
+    }
+
+    @SdkInternalApi
+    final ListTagsForResourceResult executeListTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listTagsForResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListTagsForResourceRequest> request = null;
+        Response<ListTagsForResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorksCM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListTagsForResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListTagsForResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Restores a backup to a server that is in a <code>CONNECTION_LOST</code>, <code>HEALTHY</code>,
      * <code>RUNNING</code>, <code>UNHEALTHY</code>, or <code>TERMINATED</code> state. When you run RestoreServer, the
      * server's EC2 instance is deleted, and a new EC2 instance is configured. RestoreServer maintains the existing
      * server endpoint, so configuration management of the server's client devices (nodes) should continue to work.
+     * </p>
+     * <p>
+     * Restoring from a backup is performed by creating a new EC2 instance. If restoration is successful, and the server
+     * is in a <code>HEALTHY</code> state, AWS OpsWorks CM switches traffic over to the new instance. After restoration
+     * is finished, the old EC2 instance is maintained in a <code>Running</code> or <code>Stopped</code> state, but is
+     * eventually terminated.
      * </p>
      * <p>
      * This operation is asynchronous.
@@ -1291,6 +1391,8 @@ public class AWSOpsWorksCMClient extends AmazonWebServiceClient implements AWSOp
                 request = new RestoreServerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(restoreServerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorksCM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RestoreServer");
@@ -1357,6 +1459,8 @@ public class AWSOpsWorksCMClient extends AmazonWebServiceClient implements AWSOp
                 request = new StartMaintenanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startMaintenanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorksCM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartMaintenance");
@@ -1368,6 +1472,129 @@ public class AWSOpsWorksCMClient extends AmazonWebServiceClient implements AWSOp
 
             HttpResponseHandler<AmazonWebServiceResponse<StartMaintenanceResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new StartMaintenanceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Applies tags to an AWS OpsWorks for Chef Automate or AWS OpsWorks for Puppet Enterprise server, or to server
+     * backups.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The requested resource does not exist, or access was denied.
+     * @throws ValidationException
+     *         One or more of the provided request parameters are not valid.
+     * @throws InvalidStateException
+     *         The resource is in a state that does not allow you to perform a specified action.
+     * @sample AWSOpsWorksCM.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/opsworkscm-2016-11-01/TagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeTagResource(request);
+    }
+
+    @SdkInternalApi
+    final TagResourceResult executeTagResource(TagResourceRequest tagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(tagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TagResourceRequest> request = null;
+        Response<TagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorksCM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<TagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new TagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Removes specified tags from an AWS OpsWorks-CM server or backup.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The requested resource does not exist, or access was denied.
+     * @throws ValidationException
+     *         One or more of the provided request parameters are not valid.
+     * @throws InvalidStateException
+     *         The resource is in a state that does not allow you to perform a specified action.
+     * @sample AWSOpsWorksCM.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/opsworkscm-2016-11-01/UntagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeUntagResource(request);
+    }
+
+    @SdkInternalApi
+    final UntagResourceResult executeUntagResource(UntagResourceRequest untagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(untagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UntagResourceRequest> request = null;
+        Response<UntagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorksCM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UntagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UntagResourceResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1419,6 +1646,8 @@ public class AWSOpsWorksCMClient extends AmazonWebServiceClient implements AWSOp
                 request = new UpdateServerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateServerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorksCM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateServer");
@@ -1491,6 +1720,8 @@ public class AWSOpsWorksCMClient extends AmazonWebServiceClient implements AWSOp
                         .beforeMarshalling(updateServerEngineAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "OpsWorksCM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateServerEngineAttributes");

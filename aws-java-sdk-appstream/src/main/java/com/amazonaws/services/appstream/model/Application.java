@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -70,6 +70,54 @@ public class Application implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private java.util.Map<String, String> metadata;
+    /**
+     * <p>
+     * The working directory for the application.
+     * </p>
+     */
+    private String workingDirectory;
+    /**
+     * <p>
+     * The description of the application.
+     * </p>
+     */
+    private String description;
+    /**
+     * <p>
+     * The ARN of the application.
+     * </p>
+     */
+    private String arn;
+    /**
+     * <p>
+     * The app block ARN of the application.
+     * </p>
+     */
+    private String appBlockArn;
+    /**
+     * <p>
+     * The S3 location of the application icon.
+     * </p>
+     */
+    private S3Location iconS3Location;
+    /**
+     * <p>
+     * The platforms on which the application can run.
+     * </p>
+     */
+    private java.util.List<String> platforms;
+    /**
+     * <p>
+     * The instance families for the application.
+     * </p>
+     */
+    private java.util.List<String> instanceFamilies;
+    /**
+     * <p>
+     * The time at which the application was created within the app block.
+     * </p>
+     */
+    private java.util.Date createdTime;
 
     /**
      * <p>
@@ -363,6 +411,13 @@ public class Application implements Serializable, Cloneable, StructuredPojo {
         return this;
     }
 
+    /**
+     * Add a single Metadata entry
+     *
+     * @see Application#withMetadata
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public Application addMetadataEntry(String key, String value) {
         if (null == this.metadata) {
             this.metadata = new java.util.HashMap<String, String>();
@@ -381,6 +436,414 @@ public class Application implements Serializable, Cloneable, StructuredPojo {
 
     public Application clearMetadataEntries() {
         this.metadata = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * The working directory for the application.
+     * </p>
+     * 
+     * @param workingDirectory
+     *        The working directory for the application.
+     */
+
+    public void setWorkingDirectory(String workingDirectory) {
+        this.workingDirectory = workingDirectory;
+    }
+
+    /**
+     * <p>
+     * The working directory for the application.
+     * </p>
+     * 
+     * @return The working directory for the application.
+     */
+
+    public String getWorkingDirectory() {
+        return this.workingDirectory;
+    }
+
+    /**
+     * <p>
+     * The working directory for the application.
+     * </p>
+     * 
+     * @param workingDirectory
+     *        The working directory for the application.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Application withWorkingDirectory(String workingDirectory) {
+        setWorkingDirectory(workingDirectory);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The description of the application.
+     * </p>
+     * 
+     * @param description
+     *        The description of the application.
+     */
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * <p>
+     * The description of the application.
+     * </p>
+     * 
+     * @return The description of the application.
+     */
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * <p>
+     * The description of the application.
+     * </p>
+     * 
+     * @param description
+     *        The description of the application.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Application withDescription(String description) {
+        setDescription(description);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN of the application.
+     * </p>
+     * 
+     * @param arn
+     *        The ARN of the application.
+     */
+
+    public void setArn(String arn) {
+        this.arn = arn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the application.
+     * </p>
+     * 
+     * @return The ARN of the application.
+     */
+
+    public String getArn() {
+        return this.arn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the application.
+     * </p>
+     * 
+     * @param arn
+     *        The ARN of the application.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Application withArn(String arn) {
+        setArn(arn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The app block ARN of the application.
+     * </p>
+     * 
+     * @param appBlockArn
+     *        The app block ARN of the application.
+     */
+
+    public void setAppBlockArn(String appBlockArn) {
+        this.appBlockArn = appBlockArn;
+    }
+
+    /**
+     * <p>
+     * The app block ARN of the application.
+     * </p>
+     * 
+     * @return The app block ARN of the application.
+     */
+
+    public String getAppBlockArn() {
+        return this.appBlockArn;
+    }
+
+    /**
+     * <p>
+     * The app block ARN of the application.
+     * </p>
+     * 
+     * @param appBlockArn
+     *        The app block ARN of the application.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Application withAppBlockArn(String appBlockArn) {
+        setAppBlockArn(appBlockArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The S3 location of the application icon.
+     * </p>
+     * 
+     * @param iconS3Location
+     *        The S3 location of the application icon.
+     */
+
+    public void setIconS3Location(S3Location iconS3Location) {
+        this.iconS3Location = iconS3Location;
+    }
+
+    /**
+     * <p>
+     * The S3 location of the application icon.
+     * </p>
+     * 
+     * @return The S3 location of the application icon.
+     */
+
+    public S3Location getIconS3Location() {
+        return this.iconS3Location;
+    }
+
+    /**
+     * <p>
+     * The S3 location of the application icon.
+     * </p>
+     * 
+     * @param iconS3Location
+     *        The S3 location of the application icon.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Application withIconS3Location(S3Location iconS3Location) {
+        setIconS3Location(iconS3Location);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The platforms on which the application can run.
+     * </p>
+     * 
+     * @return The platforms on which the application can run.
+     * @see PlatformType
+     */
+
+    public java.util.List<String> getPlatforms() {
+        return platforms;
+    }
+
+    /**
+     * <p>
+     * The platforms on which the application can run.
+     * </p>
+     * 
+     * @param platforms
+     *        The platforms on which the application can run.
+     * @see PlatformType
+     */
+
+    public void setPlatforms(java.util.Collection<String> platforms) {
+        if (platforms == null) {
+            this.platforms = null;
+            return;
+        }
+
+        this.platforms = new java.util.ArrayList<String>(platforms);
+    }
+
+    /**
+     * <p>
+     * The platforms on which the application can run.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setPlatforms(java.util.Collection)} or {@link #withPlatforms(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param platforms
+     *        The platforms on which the application can run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PlatformType
+     */
+
+    public Application withPlatforms(String... platforms) {
+        if (this.platforms == null) {
+            setPlatforms(new java.util.ArrayList<String>(platforms.length));
+        }
+        for (String ele : platforms) {
+            this.platforms.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The platforms on which the application can run.
+     * </p>
+     * 
+     * @param platforms
+     *        The platforms on which the application can run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PlatformType
+     */
+
+    public Application withPlatforms(java.util.Collection<String> platforms) {
+        setPlatforms(platforms);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The platforms on which the application can run.
+     * </p>
+     * 
+     * @param platforms
+     *        The platforms on which the application can run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PlatformType
+     */
+
+    public Application withPlatforms(PlatformType... platforms) {
+        java.util.ArrayList<String> platformsCopy = new java.util.ArrayList<String>(platforms.length);
+        for (PlatformType value : platforms) {
+            platformsCopy.add(value.toString());
+        }
+        if (getPlatforms() == null) {
+            setPlatforms(platformsCopy);
+        } else {
+            getPlatforms().addAll(platformsCopy);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The instance families for the application.
+     * </p>
+     * 
+     * @return The instance families for the application.
+     */
+
+    public java.util.List<String> getInstanceFamilies() {
+        return instanceFamilies;
+    }
+
+    /**
+     * <p>
+     * The instance families for the application.
+     * </p>
+     * 
+     * @param instanceFamilies
+     *        The instance families for the application.
+     */
+
+    public void setInstanceFamilies(java.util.Collection<String> instanceFamilies) {
+        if (instanceFamilies == null) {
+            this.instanceFamilies = null;
+            return;
+        }
+
+        this.instanceFamilies = new java.util.ArrayList<String>(instanceFamilies);
+    }
+
+    /**
+     * <p>
+     * The instance families for the application.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setInstanceFamilies(java.util.Collection)} or {@link #withInstanceFamilies(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param instanceFamilies
+     *        The instance families for the application.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Application withInstanceFamilies(String... instanceFamilies) {
+        if (this.instanceFamilies == null) {
+            setInstanceFamilies(new java.util.ArrayList<String>(instanceFamilies.length));
+        }
+        for (String ele : instanceFamilies) {
+            this.instanceFamilies.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The instance families for the application.
+     * </p>
+     * 
+     * @param instanceFamilies
+     *        The instance families for the application.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Application withInstanceFamilies(java.util.Collection<String> instanceFamilies) {
+        setInstanceFamilies(instanceFamilies);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The time at which the application was created within the app block.
+     * </p>
+     * 
+     * @param createdTime
+     *        The time at which the application was created within the app block.
+     */
+
+    public void setCreatedTime(java.util.Date createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    /**
+     * <p>
+     * The time at which the application was created within the app block.
+     * </p>
+     * 
+     * @return The time at which the application was created within the app block.
+     */
+
+    public java.util.Date getCreatedTime() {
+        return this.createdTime;
+    }
+
+    /**
+     * <p>
+     * The time at which the application was created within the app block.
+     * </p>
+     * 
+     * @param createdTime
+     *        The time at which the application was created within the app block.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Application withCreatedTime(java.util.Date createdTime) {
+        setCreatedTime(createdTime);
         return this;
     }
 
@@ -409,7 +872,23 @@ public class Application implements Serializable, Cloneable, StructuredPojo {
         if (getEnabled() != null)
             sb.append("Enabled: ").append(getEnabled()).append(",");
         if (getMetadata() != null)
-            sb.append("Metadata: ").append(getMetadata());
+            sb.append("Metadata: ").append(getMetadata()).append(",");
+        if (getWorkingDirectory() != null)
+            sb.append("WorkingDirectory: ").append(getWorkingDirectory()).append(",");
+        if (getDescription() != null)
+            sb.append("Description: ").append(getDescription()).append(",");
+        if (getArn() != null)
+            sb.append("Arn: ").append(getArn()).append(",");
+        if (getAppBlockArn() != null)
+            sb.append("AppBlockArn: ").append(getAppBlockArn()).append(",");
+        if (getIconS3Location() != null)
+            sb.append("IconS3Location: ").append(getIconS3Location()).append(",");
+        if (getPlatforms() != null)
+            sb.append("Platforms: ").append(getPlatforms()).append(",");
+        if (getInstanceFamilies() != null)
+            sb.append("InstanceFamilies: ").append(getInstanceFamilies()).append(",");
+        if (getCreatedTime() != null)
+            sb.append("CreatedTime: ").append(getCreatedTime());
         sb.append("}");
         return sb.toString();
     }
@@ -452,6 +931,38 @@ public class Application implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getMetadata() != null && other.getMetadata().equals(this.getMetadata()) == false)
             return false;
+        if (other.getWorkingDirectory() == null ^ this.getWorkingDirectory() == null)
+            return false;
+        if (other.getWorkingDirectory() != null && other.getWorkingDirectory().equals(this.getWorkingDirectory()) == false)
+            return false;
+        if (other.getDescription() == null ^ this.getDescription() == null)
+            return false;
+        if (other.getDescription() != null && other.getDescription().equals(this.getDescription()) == false)
+            return false;
+        if (other.getArn() == null ^ this.getArn() == null)
+            return false;
+        if (other.getArn() != null && other.getArn().equals(this.getArn()) == false)
+            return false;
+        if (other.getAppBlockArn() == null ^ this.getAppBlockArn() == null)
+            return false;
+        if (other.getAppBlockArn() != null && other.getAppBlockArn().equals(this.getAppBlockArn()) == false)
+            return false;
+        if (other.getIconS3Location() == null ^ this.getIconS3Location() == null)
+            return false;
+        if (other.getIconS3Location() != null && other.getIconS3Location().equals(this.getIconS3Location()) == false)
+            return false;
+        if (other.getPlatforms() == null ^ this.getPlatforms() == null)
+            return false;
+        if (other.getPlatforms() != null && other.getPlatforms().equals(this.getPlatforms()) == false)
+            return false;
+        if (other.getInstanceFamilies() == null ^ this.getInstanceFamilies() == null)
+            return false;
+        if (other.getInstanceFamilies() != null && other.getInstanceFamilies().equals(this.getInstanceFamilies()) == false)
+            return false;
+        if (other.getCreatedTime() == null ^ this.getCreatedTime() == null)
+            return false;
+        if (other.getCreatedTime() != null && other.getCreatedTime().equals(this.getCreatedTime()) == false)
+            return false;
         return true;
     }
 
@@ -467,6 +978,14 @@ public class Application implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getLaunchParameters() == null) ? 0 : getLaunchParameters().hashCode());
         hashCode = prime * hashCode + ((getEnabled() == null) ? 0 : getEnabled().hashCode());
         hashCode = prime * hashCode + ((getMetadata() == null) ? 0 : getMetadata().hashCode());
+        hashCode = prime * hashCode + ((getWorkingDirectory() == null) ? 0 : getWorkingDirectory().hashCode());
+        hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
+        hashCode = prime * hashCode + ((getArn() == null) ? 0 : getArn().hashCode());
+        hashCode = prime * hashCode + ((getAppBlockArn() == null) ? 0 : getAppBlockArn().hashCode());
+        hashCode = prime * hashCode + ((getIconS3Location() == null) ? 0 : getIconS3Location().hashCode());
+        hashCode = prime * hashCode + ((getPlatforms() == null) ? 0 : getPlatforms().hashCode());
+        hashCode = prime * hashCode + ((getInstanceFamilies() == null) ? 0 : getInstanceFamilies().hashCode());
+        hashCode = prime * hashCode + ((getCreatedTime() == null) ? 0 : getCreatedTime().hashCode());
         return hashCode;
     }
 

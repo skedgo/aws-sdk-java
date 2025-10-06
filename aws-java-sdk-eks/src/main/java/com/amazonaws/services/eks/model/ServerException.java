@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,24 @@ public class ServerException extends com.amazonaws.services.eks.model.AmazonEKSE
      * </p>
      */
     private String clusterName;
+    /**
+     * <p>
+     * The Amazon EKS managed node group associated with the exception.
+     * </p>
+     */
+    private String nodegroupName;
+    /**
+     * <p>
+     * The Amazon EKS add-on name associated with the exception.
+     * </p>
+     */
+    private String addonName;
+    /**
+     * <p>
+     * The Amazon EKS subscription ID with the exception.
+     * </p>
+     */
+    private String subscriptionId;
 
     /**
      * Constructs a new ServerException with the specified error message.
@@ -79,6 +97,132 @@ public class ServerException extends com.amazonaws.services.eks.model.AmazonEKSE
 
     public ServerException withClusterName(String clusterName) {
         setClusterName(clusterName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon EKS managed node group associated with the exception.
+     * </p>
+     * 
+     * @param nodegroupName
+     *        The Amazon EKS managed node group associated with the exception.
+     */
+
+    @com.fasterxml.jackson.annotation.JsonProperty("nodegroupName")
+    public void setNodegroupName(String nodegroupName) {
+        this.nodegroupName = nodegroupName;
+    }
+
+    /**
+     * <p>
+     * The Amazon EKS managed node group associated with the exception.
+     * </p>
+     * 
+     * @return The Amazon EKS managed node group associated with the exception.
+     */
+
+    @com.fasterxml.jackson.annotation.JsonProperty("nodegroupName")
+    public String getNodegroupName() {
+        return this.nodegroupName;
+    }
+
+    /**
+     * <p>
+     * The Amazon EKS managed node group associated with the exception.
+     * </p>
+     * 
+     * @param nodegroupName
+     *        The Amazon EKS managed node group associated with the exception.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ServerException withNodegroupName(String nodegroupName) {
+        setNodegroupName(nodegroupName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon EKS add-on name associated with the exception.
+     * </p>
+     * 
+     * @param addonName
+     *        The Amazon EKS add-on name associated with the exception.
+     */
+
+    @com.fasterxml.jackson.annotation.JsonProperty("addonName")
+    public void setAddonName(String addonName) {
+        this.addonName = addonName;
+    }
+
+    /**
+     * <p>
+     * The Amazon EKS add-on name associated with the exception.
+     * </p>
+     * 
+     * @return The Amazon EKS add-on name associated with the exception.
+     */
+
+    @com.fasterxml.jackson.annotation.JsonProperty("addonName")
+    public String getAddonName() {
+        return this.addonName;
+    }
+
+    /**
+     * <p>
+     * The Amazon EKS add-on name associated with the exception.
+     * </p>
+     * 
+     * @param addonName
+     *        The Amazon EKS add-on name associated with the exception.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ServerException withAddonName(String addonName) {
+        setAddonName(addonName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon EKS subscription ID with the exception.
+     * </p>
+     * 
+     * @param subscriptionId
+     *        The Amazon EKS subscription ID with the exception.
+     */
+
+    @com.fasterxml.jackson.annotation.JsonProperty("subscriptionId")
+    public void setSubscriptionId(String subscriptionId) {
+        this.subscriptionId = subscriptionId;
+    }
+
+    /**
+     * <p>
+     * The Amazon EKS subscription ID with the exception.
+     * </p>
+     * 
+     * @return The Amazon EKS subscription ID with the exception.
+     */
+
+    @com.fasterxml.jackson.annotation.JsonProperty("subscriptionId")
+    public String getSubscriptionId() {
+        return this.subscriptionId;
+    }
+
+    /**
+     * <p>
+     * The Amazon EKS subscription ID with the exception.
+     * </p>
+     * 
+     * @param subscriptionId
+     *        The Amazon EKS subscription ID with the exception.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ServerException withSubscriptionId(String subscriptionId) {
+        setSubscriptionId(subscriptionId);
         return this;
     }
 

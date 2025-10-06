@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,7 +44,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
     private String sourceDBInstanceIdentifier;
     /**
      * <p>
-     * The name of the new DB instance to be created.
+     * The name of the new DB instance to create.
      * </p>
      * <p>
      * Constraints:
@@ -52,17 +52,17 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 letters, numbers, or hyphens
+     * Must contain from 1 to 63 letters, numbers, or hyphens.
      * </p>
      * </li>
      * <li>
      * <p>
-     * First character must be a letter
+     * First character must be a letter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Can't end with a hyphen or contain two consecutive hyphens
+     * Can't end with a hyphen or contain two consecutive hyphens.
      * </p>
      * </li>
      * </ul>
@@ -73,20 +73,22 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * The date and time to restore from.
      * </p>
      * <p>
-     * Valid Values: Value must be a time in Universal Coordinated Time (UTC) format
-     * </p>
-     * <p>
      * Constraints:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Must be before the latest restorable time for the DB instance
+     * Must be a time in Universal Coordinated Time (UTC) format.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Can't be specified if the <code>UseLatestRestorableTime</code> parameter is enabled
+     * Must be before the latest restorable time for the DB instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be specified if the <code>UseLatestRestorableTime</code> parameter is enabled.
      * </p>
      * </li>
      * </ul>
@@ -97,24 +99,31 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
     private java.util.Date restoreTime;
     /**
      * <p>
-     * A value that indicates whether the DB instance is restored from the latest backup time. By default, the DB
-     * instance is not restored from the latest backup time.
+     * Specifies whether the DB instance is restored from the latest backup time. By default, the DB instance isn't
+     * restored from the latest backup time.
      * </p>
      * <p>
-     * Constraints: Can't be specified if the <code>RestoreTime</code> parameter is provided.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Can't be specified if the <code>RestoreTime</code> parameter is provided.
+     * </p>
+     * </li>
+     * </ul>
      */
     private Boolean useLatestRestorableTime;
     /**
      * <p>
-     * The compute and memory capacity of the Amazon RDS DB instance, for example, <code>db.m4.large</code>. Not all DB
-     * instance classes are available in all AWS Regions, or for all database engines. For the full list of DB instance
-     * classes, and availability for your engine, see <a
+     * The compute and memory capacity of the Amazon RDS DB instance, for example db.m4.large. Not all DB instance
+     * classes are available in all Amazon Web Services Regions, or for all database engines. For the full list of DB
+     * instance classes, and availability for your engine, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB Instance Class</a>
-     * in the <i>Amazon RDS User Guide.</i>
+     * in the <i>Amazon RDS User Guide</i>.
      * </p>
      * <p>
-     * Default: The same DBInstanceClass as the original DB instance.
+     * Default: The same DB instance class as the original DB instance.
      * </p>
      */
     private String dBInstanceClass;
@@ -123,11 +132,18 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * The port number on which the database accepts connections.
      * </p>
      * <p>
-     * Constraints: Value must be <code>1150-65535</code>
-     * </p>
-     * <p>
      * Default: The same port as the original DB instance.
      * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The value must be <code>1150-65535</code>.
+     * </p>
+     * </li>
+     * </ul>
      */
     private Integer port;
     /**
@@ -138,9 +154,15 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * Default: A random, system-chosen Availability Zone.
      * </p>
      * <p>
-     * Constraint: You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ
-     * deployment.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ deployment.
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * Example: <code>us-east-1a</code>
      * </p>
@@ -151,49 +173,121 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * The DB subnet group name to use for the new instance.
      * </p>
      * <p>
-     * Constraints: If supplied, must match the name of an existing DBSubnetGroup.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Example: <code>mySubnetgroup</code>
+     * If supplied, must match the name of an existing DB subnet group.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Example: <code>mydbsubnetgroup</code>
      * </p>
      */
     private String dBSubnetGroupName;
     /**
      * <p>
-     * A value that indicates whether the DB instance is a Multi-AZ deployment.
+     * Secifies whether the DB instance is a Multi-AZ deployment.
      * </p>
      * <p>
-     * Constraint: You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ
-     * deployment.
+     * This setting doesn't apply to RDS Custom.
      * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ deployment.
+     * </p>
+     * </li>
+     * </ul>
      */
     private Boolean multiAZ;
     /**
      * <p>
-     * A value that indicates whether the DB instance is publicly accessible. When the DB instance is publicly
-     * accessible, it is an Internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP
-     * address. When the DB instance is not publicly accessible, it is an internal instance with a DNS name that
-     * resolves to a private IP address. For more information, see <a>CreateDBInstance</a>.
+     * Specifies whether the DB instance is publicly accessible.
+     * </p>
+     * <p>
+     * When the DB cluster is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private IP
+     * address from within the DB cluster's virtual private cloud (VPC). It resolves to the public IP address from
+     * outside of the DB cluster's VPC. Access to the DB cluster is ultimately controlled by the security group it uses.
+     * That public access isn't permitted if the security group assigned to the DB cluster doesn't permit it.
+     * </p>
+     * <p>
+     * When the DB instance isn't publicly accessible, it is an internal DB instance with a DNS name that resolves to a
+     * private IP address.
+     * </p>
+     * <p>
+     * For more information, see <a>CreateDBInstance</a>.
      * </p>
      */
     private Boolean publiclyAccessible;
     /**
      * <p>
-     * A value that indicates whether minor version upgrades are applied automatically to the DB instance during the
-     * maintenance window.
+     * Specifies whether minor version upgrades are applied automatically to the DB instance during the maintenance
+     * window.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      */
     private Boolean autoMinorVersionUpgrade;
     /**
      * <p>
-     * License model information for the restored DB instance.
+     * The license model information for the restored DB instance.
+     * </p>
+     * <note>
+     * <p>
+     * License models for RDS for Db2 require additional configuration. The Bring Your Own License (BYOL) model requires
+     * a custom parameter group. The Db2 license through Amazon Web Services Marketplace model requires an Amazon Web
+     * Services Marketplace subscription. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/db2-licensing.html">RDS for Db2 licensing
+     * options</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * </note>
+     * <p>
+     * This setting doesn't apply to Amazon Aurora or RDS Custom DB instances.
      * </p>
      * <p>
-     * Default: Same as source.
+     * Valid Values:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Valid values: <code>license-included</code> | <code>bring-your-own-license</code> |
-     * <code>general-public-license</code>
+     * RDS for Db2 - <code>bring-your-own-license | marketplace-license</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MariaDB - <code>general-public-license</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for Microsoft SQL Server - <code>license-included</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MySQL - <code>general-public-license</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for Oracle - <code>bring-your-own-license | license-included</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for PostgreSQL - <code>postgresql-license</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default: Same as the source.
      * </p>
      */
     private String licenseModel;
@@ -201,11 +295,31 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * <p>
      * The database name for the restored DB instance.
      * </p>
-     * <note>
      * <p>
-     * This parameter is not used for the MySQL or MariaDB engines.
+     * This parameter doesn't apply to the following DB instances:
      * </p>
-     * </note>
+     * <ul>
+     * <li>
+     * <p>
+     * RDS Custom
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for Db2
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MariaDB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MySQL
+     * </p>
+     * </li>
+     * </ul>
      */
     private String dBName;
     /**
@@ -213,15 +327,22 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * The database engine to use for the new instance.
      * </p>
      * <p>
-     * Default: The same as source
-     * </p>
-     * <p>
-     * Constraint: Must be compatible with the engine of the source
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * <p>
      * Valid Values:
      * </p>
      * <ul>
+     * <li>
+     * <p>
+     * <code>db2-ae</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db2-se</code>
+     * </p>
+     * </li>
      * <li>
      * <p>
      * <code>mariadb</code>
@@ -239,17 +360,17 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * </li>
      * <li>
      * <p>
+     * <code>oracle-ee-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>oracle-se2</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>oracle-se1</code>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>oracle-se</code>
+     * <code>oracle-se2-cdb</code>
      * </p>
      * </li>
      * <li>
@@ -278,38 +399,57 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Default: The same as source
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must be compatible with the engine of the source.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String engine;
     /**
      * <p>
-     * The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for the DB
-     * instance.
+     * The amount of Provisioned IOPS (input/output operations per second) to initially allocate for the DB instance.
      * </p>
      * <p>
-     * Constraints: Must be an integer greater than 1000.
+     * This setting doesn't apply to SQL Server.
      * </p>
      * <p>
-     * <b>SQL Server</b>
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Setting the IOPS value for the SQL Server database engine is not supported.
+     * Must be an integer greater than 1000.
      * </p>
+     * </li>
+     * </ul>
      */
     private Integer iops;
     /**
      * <p>
-     * The name of the option group to be used for the restored DB instance.
+     * The name of the option group to use for the restored DB instance.
      * </p>
      * <p>
      * Permanent options, such as the TDE option for Oracle Advanced Security TDE, can't be removed from an option
-     * group, and that option group can't be removed from a DB instance once it is associated with a DB instance
+     * group, and that option group can't be removed from a DB instance after it is associated with a DB instance
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      */
     private String optionGroupName;
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the restored DB instance to snapshots of the DB instance. By
-     * default, tags are not copied.
+     * Specifies whether to copy all tags from the restored DB instance to snapshots of the DB instance. By default,
+     * tags are not copied.
      * </p>
      */
     private Boolean copyTagsToSnapshot;
@@ -317,28 +457,42 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
     /**
      * <p>
-     * Specifies the storage type to be associated with the DB instance.
+     * The storage type to associate with the DB instance.
      * </p>
      * <p>
-     * Valid values: <code>standard | gp2 | io1</code>
+     * Valid Values: <code>gp2 | gp3 | io1 | io2 | standard</code>
      * </p>
      * <p>
-     * If you specify <code>io1</code>, you must also include a value for the <code>Iops</code> parameter.
+     * Default: <code>io1</code>, if the <code>Iops</code> parameter is specified. Otherwise, <code>gp2</code>.
      * </p>
      * <p>
-     * Default: <code>io1</code> if the <code>Iops</code> parameter is specified, otherwise <code>gp2</code>
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you specify <code>io1</code>, <code>io2</code>, or <code>gp3</code>, you must also include a value for the
+     * <code>Iops</code> parameter.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String storageType;
     /**
      * <p>
      * The ARN from the key store with which to associate the instance for TDE encryption.
      * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
      */
     private String tdeCredentialArn;
     /**
      * <p>
      * The password for the given ARN from the key store in order to access the device.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      */
     private String tdeCredentialPassword;
@@ -353,36 +507,124 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
     private com.amazonaws.internal.SdkInternalList<String> vpcSecurityGroupIds;
     /**
      * <p>
-     * Specify the Active Directory Domain to restore the instance in.
+     * The Active Directory directory ID to restore the DB instance in. Create the domain before running this command.
+     * Currently, you can create only the MySQL, Microsoft SQL Server, Oracle, and PostgreSQL DB instances in an Active
+     * Directory Domain.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/kerberos-authentication.html"> Kerberos
+     * Authentication</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      */
     private String domain;
     /**
      * <p>
-     * Specify the name of the IAM role to be used when making API calls to the Directory Service.
+     * The name of the IAM role to use when making API calls to the Directory Service.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom DB instances.
      * </p>
      */
     private String domainIAMRoleName;
     /**
      * <p>
-     * A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts. By default, mapping is disabled.
+     * The fully qualified domain name (FQDN) of an Active Directory domain.
      * </p>
      * <p>
-     * You can enable IAM database authentication for the following database engines
+     * Constraints:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * For MySQL 5.6, minor version 5.6.34 or higher
+     * Can't be longer than 64 characters.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Example: <code>mymanagedADtest.mymanagedAD.mydomain</code>
+     * </p>
+     */
+    private String domainFqdn;
+    /**
+     * <p>
+     * The Active Directory organizational unit for your DB instance to join.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must be in the distinguished name format.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For MySQL 5.7, minor version 5.7.16 or higher
+     * Can't be longer than 64 characters.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Example: <code>OU=mymanagedADtestOU,DC=mymanagedADtest,DC=mymanagedAD,DC=mydomain</code>
+     * </p>
+     */
+    private String domainOu;
+    /**
+     * <p>
+     * The ARN for the Secrets Manager secret with the credentials for the user joining the domain.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Can't be longer than 64 characters.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Example: <code>arn:aws:secretsmanager:region:account-number:secret:myselfmanagedADtestsecret-123456</code>
+     * </p>
+     */
+    private String domainAuthSecretArn;
+    /**
+     * <p>
+     * The IPv4 DNS IP addresses of your primary and secondary Active Directory domain controllers.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Two IP addresses must be provided. If there isn't a secondary domain controller, use the IP address of the
+     * primary domain controller for both entries in the list.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Example: <code>123.124.125.126,234.235.236.237</code>
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> domainDnsIps;
+    /**
+     * <p>
+     * Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     * database accounts. By default, mapping isn't enabled.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     * <p>
+     * For more information about IAM database authentication, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     * Authentication for MySQL and PostgreSQL</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
      */
     private Boolean enableIAMDatabaseAuthentication;
     /**
@@ -392,24 +634,39 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
      * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> enableCloudwatchLogsExports;
     /**
      * <p>
      * The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.
      * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
      */
     private com.amazonaws.internal.SdkInternalList<ProcessorFeature> processorFeatures;
     /**
      * <p>
-     * A value that indicates whether the DB instance class of the DB instance uses its default processor features.
+     * Specifies whether the DB instance class of the DB instance uses its default processor features.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      */
     private Boolean useDefaultProcessorFeatures;
     /**
      * <p>
-     * The name of the DB parameter group to associate with this DB instance. If this argument is omitted, the default
-     * DBParameterGroup for the specified engine is used.
+     * The name of the DB parameter group to associate with this DB instance.
+     * </p>
+     * <p>
+     * If you do not specify a value for <code>DBParameterGroupName</code>, then the default
+     * <code>DBParameterGroup</code> for the specified DB engine is used.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * <p>
      * Constraints:
@@ -417,7 +674,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * <ul>
      * <li>
      * <p>
-     * If supplied, must match the name of an existing DBParameterGroup.
+     * If supplied, must match the name of an existing DB parameter group.
      * </p>
      * </li>
      * <li>
@@ -440,8 +697,8 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
     private String dBParameterGroupName;
     /**
      * <p>
-     * A value that indicates whether the DB instance has deletion protection enabled. The database can't be deleted
-     * when deletion protection is enabled. By default, deletion protection is disabled. For more information, see <a
+     * Specifies whether the DB instance has deletion protection enabled. The database can't be deleted when deletion
+     * protection is enabled. By default, deletion protection isn't enabled. For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
      * Instance</a>.
      * </p>
@@ -453,6 +710,222 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * </p>
      */
     private String sourceDbiResourceId;
+    /**
+     * <p>
+     * The upper limit in gibibytes (GiB) to which Amazon RDS can automatically scale the storage of the DB instance.
+     * </p>
+     * <p>
+     * For more information about this setting, including limitations that apply to it, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html#USER_PIOPS.Autoscaling">
+     * Managing capacity automatically with Amazon RDS storage autoscaling</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     */
+    private Integer maxAllocatedStorage;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the replicated automated backups from which to restore, for example,
+     * <code>arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE</code>.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     */
+    private String sourceDBInstanceAutomatedBackupsArn;
+    /**
+     * <p>
+     * Specifies whether to enable a customer-owned IP address (CoIP) for an RDS on Outposts DB instance.
+     * </p>
+     * <p>
+     * A <i>CoIP</i> provides local or external connectivity to resources in your Outpost subnets through your
+     * on-premises network. For some use cases, a CoIP can provide lower latency for connections to the DB instance from
+     * outside of its virtual private cloud (VPC) on your local network.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     * <p>
+     * For more information about RDS on Outposts, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Working with Amazon RDS on
+     * Amazon Web Services Outposts</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about CoIPs, see <a
+     * href="https://docs.aws.amazon.com/outposts/latest/userguide/routing.html#ip-addressing">Customer-owned IP
+     * addresses</a> in the <i>Amazon Web Services Outposts User Guide</i>.
+     * </p>
+     */
+    private Boolean enableCustomerOwnedIp;
+    /**
+     * <p>
+     * The instance profile associated with the underlying Amazon EC2 instance of an RDS Custom DB instance. The
+     * instance profile must meet the following requirements:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The profile must exist in your account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The profile must have an IAM role that Amazon EC2 has permissions to assume.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The instance profile name and the associated IAM role name must start with the prefix <code>AWSRDSCustom</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For the list of permissions required for the IAM role, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/custom-setup-orcl.html#custom-setup-orcl.iam-vpc">
+     * Configure IAM and your VPC</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * This setting is required for RDS Custom.
+     * </p>
+     */
+    private String customIamInstanceProfile;
+    /**
+     * <p>
+     * The location for storing automated backups and manual snapshots for the restored DB instance.
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>outposts</code> (Amazon Web Services Outposts)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>region</code> (Amazon Web Services Region)
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default: <code>region</code>
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Working with Amazon RDS on
+     * Amazon Web Services Outposts</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     */
+    private String backupTarget;
+    /**
+     * <p>
+     * The network type of the DB instance.
+     * </p>
+     * <p>
+     * The network type is determined by the <code>DBSubnetGroup</code> specified for the DB instance. A
+     * <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     * <code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"> Working
+     * with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>IPV4</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DUAL</code>
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String networkType;
+    /**
+     * <p>
+     * The storage throughput value for the DB instance.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom or Amazon Aurora.
+     * </p>
+     */
+    private Integer storageThroughput;
+    /**
+     * <p>
+     * The amount of storage (in gibibytes) to allocate initially for the DB instance. Follow the allocation rules
+     * specified in <code>CreateDBInstance</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Be sure to allocate enough storage for your new DB instance so that the restore operation can succeed. You can
+     * also allocate additional storage for future growth.
+     * </p>
+     * </note>
+     */
+    private Integer allocatedStorage;
+    /**
+     * <p>
+     * Specifies whether to enable a dedicated log volume (DLV) for the DB instance.
+     * </p>
+     */
+    private Boolean dedicatedLogVolume;
+    /**
+     * <p>
+     * The CA certificate identifier to use for the DB instance's server certificate.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom DB instances.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a
+     * connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS to
+     * encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     */
+    private String cACertificateIdentifier;
+    /**
+     * <p>
+     * The life cycle type for this DB instance.
+     * </p>
+     * <note>
+     * <p>
+     * By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB instance
+     * into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for Extended Support by
+     * setting the value to <code>open-source-rds-extended-support-disabled</code>. In this case, RDS automatically
+     * upgrades your restored DB instance to a higher engine version, if the major engine version is past its end of
+     * standard support date.
+     * </p>
+     * </note>
+     * <p>
+     * You can use this setting to enroll your DB instance into Amazon RDS Extended Support. With RDS Extended Support,
+     * you can run the selected major engine version on your DB instance past the end of standard support for that
+     * engine version. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Using Amazon RDS Extended
+     * Support</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * This setting applies only to RDS for MySQL and RDS for PostgreSQL. For Amazon Aurora DB instances, the life cycle
+     * type is managed by the DB cluster.
+     * </p>
+     * <p>
+     * Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code>
+     * </p>
+     * <p>
+     * Default: <code>open-source-rds-extended-support</code>
+     * </p>
+     */
+    private String engineLifecycleSupport;
 
     /**
      * Default constructor for RestoreDBInstanceToPointInTimeRequest object. Callers should use the setter or fluent
@@ -477,24 +950,24 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      *        </p>
      *        </li>
      * @param targetDBInstanceIdentifier
-     *        The name of the new DB instance to be created.</p>
+     *        The name of the new DB instance to create.</p>
      *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 63 letters, numbers, or hyphens
+     *        Must contain from 1 to 63 letters, numbers, or hyphens.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        First character must be a letter
+     *        First character must be a letter.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Can't end with a hyphen or contain two consecutive hyphens
+     *        Can't end with a hyphen or contain two consecutive hyphens.
      *        </p>
      *        </li>
      */
@@ -602,7 +1075,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The name of the new DB instance to be created.
+     * The name of the new DB instance to create.
      * </p>
      * <p>
      * Constraints:
@@ -610,40 +1083,40 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 letters, numbers, or hyphens
+     * Must contain from 1 to 63 letters, numbers, or hyphens.
      * </p>
      * </li>
      * <li>
      * <p>
-     * First character must be a letter
+     * First character must be a letter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Can't end with a hyphen or contain two consecutive hyphens
+     * Can't end with a hyphen or contain two consecutive hyphens.
      * </p>
      * </li>
      * </ul>
      * 
      * @param targetDBInstanceIdentifier
-     *        The name of the new DB instance to be created.</p>
+     *        The name of the new DB instance to create.</p>
      *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 63 letters, numbers, or hyphens
+     *        Must contain from 1 to 63 letters, numbers, or hyphens.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        First character must be a letter
+     *        First character must be a letter.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Can't end with a hyphen or contain two consecutive hyphens
+     *        Can't end with a hyphen or contain two consecutive hyphens.
      *        </p>
      *        </li>
      */
@@ -654,7 +1127,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The name of the new DB instance to be created.
+     * The name of the new DB instance to create.
      * </p>
      * <p>
      * Constraints:
@@ -662,39 +1135,39 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 letters, numbers, or hyphens
+     * Must contain from 1 to 63 letters, numbers, or hyphens.
      * </p>
      * </li>
      * <li>
      * <p>
-     * First character must be a letter
+     * First character must be a letter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Can't end with a hyphen or contain two consecutive hyphens
+     * Can't end with a hyphen or contain two consecutive hyphens.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return The name of the new DB instance to be created.</p>
+     * @return The name of the new DB instance to create.</p>
      *         <p>
      *         Constraints:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         Must contain from 1 to 63 letters, numbers, or hyphens
+     *         Must contain from 1 to 63 letters, numbers, or hyphens.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         First character must be a letter
+     *         First character must be a letter.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Can't end with a hyphen or contain two consecutive hyphens
+     *         Can't end with a hyphen or contain two consecutive hyphens.
      *         </p>
      *         </li>
      */
@@ -705,7 +1178,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The name of the new DB instance to be created.
+     * The name of the new DB instance to create.
      * </p>
      * <p>
      * Constraints:
@@ -713,40 +1186,40 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 letters, numbers, or hyphens
+     * Must contain from 1 to 63 letters, numbers, or hyphens.
      * </p>
      * </li>
      * <li>
      * <p>
-     * First character must be a letter
+     * First character must be a letter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Can't end with a hyphen or contain two consecutive hyphens
+     * Can't end with a hyphen or contain two consecutive hyphens.
      * </p>
      * </li>
      * </ul>
      * 
      * @param targetDBInstanceIdentifier
-     *        The name of the new DB instance to be created.</p>
+     *        The name of the new DB instance to create.</p>
      *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 63 letters, numbers, or hyphens
+     *        Must contain from 1 to 63 letters, numbers, or hyphens.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        First character must be a letter
+     *        First character must be a letter.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Can't end with a hyphen or contain two consecutive hyphens
+     *        Can't end with a hyphen or contain two consecutive hyphens.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -762,20 +1235,22 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * The date and time to restore from.
      * </p>
      * <p>
-     * Valid Values: Value must be a time in Universal Coordinated Time (UTC) format
-     * </p>
-     * <p>
      * Constraints:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Must be before the latest restorable time for the DB instance
+     * Must be a time in Universal Coordinated Time (UTC) format.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Can't be specified if the <code>UseLatestRestorableTime</code> parameter is enabled
+     * Must be before the latest restorable time for the DB instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be specified if the <code>UseLatestRestorableTime</code> parameter is enabled.
      * </p>
      * </li>
      * </ul>
@@ -786,20 +1261,22 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * @param restoreTime
      *        The date and time to restore from.</p>
      *        <p>
-     *        Valid Values: Value must be a time in Universal Coordinated Time (UTC) format
-     *        </p>
-     *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Must be before the latest restorable time for the DB instance
+     *        Must be a time in Universal Coordinated Time (UTC) format.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Can't be specified if the <code>UseLatestRestorableTime</code> parameter is enabled
+     *        Must be before the latest restorable time for the DB instance.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Can't be specified if the <code>UseLatestRestorableTime</code> parameter is enabled.
      *        </p>
      *        </li>
      *        </ul>
@@ -816,20 +1293,22 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * The date and time to restore from.
      * </p>
      * <p>
-     * Valid Values: Value must be a time in Universal Coordinated Time (UTC) format
-     * </p>
-     * <p>
      * Constraints:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Must be before the latest restorable time for the DB instance
+     * Must be a time in Universal Coordinated Time (UTC) format.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Can't be specified if the <code>UseLatestRestorableTime</code> parameter is enabled
+     * Must be before the latest restorable time for the DB instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be specified if the <code>UseLatestRestorableTime</code> parameter is enabled.
      * </p>
      * </li>
      * </ul>
@@ -839,20 +1318,22 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * 
      * @return The date and time to restore from.</p>
      *         <p>
-     *         Valid Values: Value must be a time in Universal Coordinated Time (UTC) format
-     *         </p>
-     *         <p>
      *         Constraints:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         Must be before the latest restorable time for the DB instance
+     *         Must be a time in Universal Coordinated Time (UTC) format.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Can't be specified if the <code>UseLatestRestorableTime</code> parameter is enabled
+     *         Must be before the latest restorable time for the DB instance.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Can't be specified if the <code>UseLatestRestorableTime</code> parameter is enabled.
      *         </p>
      *         </li>
      *         </ul>
@@ -869,20 +1350,22 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * The date and time to restore from.
      * </p>
      * <p>
-     * Valid Values: Value must be a time in Universal Coordinated Time (UTC) format
-     * </p>
-     * <p>
      * Constraints:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Must be before the latest restorable time for the DB instance
+     * Must be a time in Universal Coordinated Time (UTC) format.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Can't be specified if the <code>UseLatestRestorableTime</code> parameter is enabled
+     * Must be before the latest restorable time for the DB instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be specified if the <code>UseLatestRestorableTime</code> parameter is enabled.
      * </p>
      * </li>
      * </ul>
@@ -893,20 +1376,22 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * @param restoreTime
      *        The date and time to restore from.</p>
      *        <p>
-     *        Valid Values: Value must be a time in Universal Coordinated Time (UTC) format
-     *        </p>
-     *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Must be before the latest restorable time for the DB instance
+     *        Must be a time in Universal Coordinated Time (UTC) format.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Can't be specified if the <code>UseLatestRestorableTime</code> parameter is enabled
+     *        Must be before the latest restorable time for the DB instance.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Can't be specified if the <code>UseLatestRestorableTime</code> parameter is enabled.
      *        </p>
      *        </li>
      *        </ul>
@@ -922,18 +1407,32 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether the DB instance is restored from the latest backup time. By default, the DB
-     * instance is not restored from the latest backup time.
+     * Specifies whether the DB instance is restored from the latest backup time. By default, the DB instance isn't
+     * restored from the latest backup time.
      * </p>
      * <p>
-     * Constraints: Can't be specified if the <code>RestoreTime</code> parameter is provided.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Can't be specified if the <code>RestoreTime</code> parameter is provided.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param useLatestRestorableTime
-     *        A value that indicates whether the DB instance is restored from the latest backup time. By default, the DB
-     *        instance is not restored from the latest backup time. </p>
+     *        Specifies whether the DB instance is restored from the latest backup time. By default, the DB instance
+     *        isn't restored from the latest backup time.</p>
      *        <p>
-     *        Constraints: Can't be specified if the <code>RestoreTime</code> parameter is provided.
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Can't be specified if the <code>RestoreTime</code> parameter is provided.
+     *        </p>
+     *        </li>
      */
 
     public void setUseLatestRestorableTime(Boolean useLatestRestorableTime) {
@@ -942,17 +1441,31 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether the DB instance is restored from the latest backup time. By default, the DB
-     * instance is not restored from the latest backup time.
+     * Specifies whether the DB instance is restored from the latest backup time. By default, the DB instance isn't
+     * restored from the latest backup time.
      * </p>
      * <p>
-     * Constraints: Can't be specified if the <code>RestoreTime</code> parameter is provided.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Can't be specified if the <code>RestoreTime</code> parameter is provided.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return A value that indicates whether the DB instance is restored from the latest backup time. By default, the
-     *         DB instance is not restored from the latest backup time. </p>
+     * @return Specifies whether the DB instance is restored from the latest backup time. By default, the DB instance
+     *         isn't restored from the latest backup time.</p>
      *         <p>
-     *         Constraints: Can't be specified if the <code>RestoreTime</code> parameter is provided.
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Can't be specified if the <code>RestoreTime</code> parameter is provided.
+     *         </p>
+     *         </li>
      */
 
     public Boolean getUseLatestRestorableTime() {
@@ -961,18 +1474,32 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether the DB instance is restored from the latest backup time. By default, the DB
-     * instance is not restored from the latest backup time.
+     * Specifies whether the DB instance is restored from the latest backup time. By default, the DB instance isn't
+     * restored from the latest backup time.
      * </p>
      * <p>
-     * Constraints: Can't be specified if the <code>RestoreTime</code> parameter is provided.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Can't be specified if the <code>RestoreTime</code> parameter is provided.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param useLatestRestorableTime
-     *        A value that indicates whether the DB instance is restored from the latest backup time. By default, the DB
-     *        instance is not restored from the latest backup time. </p>
+     *        Specifies whether the DB instance is restored from the latest backup time. By default, the DB instance
+     *        isn't restored from the latest backup time.</p>
      *        <p>
-     *        Constraints: Can't be specified if the <code>RestoreTime</code> parameter is provided.
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Can't be specified if the <code>RestoreTime</code> parameter is provided.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -983,17 +1510,31 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether the DB instance is restored from the latest backup time. By default, the DB
-     * instance is not restored from the latest backup time.
+     * Specifies whether the DB instance is restored from the latest backup time. By default, the DB instance isn't
+     * restored from the latest backup time.
      * </p>
      * <p>
-     * Constraints: Can't be specified if the <code>RestoreTime</code> parameter is provided.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Can't be specified if the <code>RestoreTime</code> parameter is provided.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return A value that indicates whether the DB instance is restored from the latest backup time. By default, the
-     *         DB instance is not restored from the latest backup time. </p>
+     * @return Specifies whether the DB instance is restored from the latest backup time. By default, the DB instance
+     *         isn't restored from the latest backup time.</p>
      *         <p>
-     *         Constraints: Can't be specified if the <code>RestoreTime</code> parameter is provided.
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Can't be specified if the <code>RestoreTime</code> parameter is provided.
+     *         </p>
+     *         </li>
      */
 
     public Boolean isUseLatestRestorableTime() {
@@ -1002,24 +1543,24 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The compute and memory capacity of the Amazon RDS DB instance, for example, <code>db.m4.large</code>. Not all DB
-     * instance classes are available in all AWS Regions, or for all database engines. For the full list of DB instance
-     * classes, and availability for your engine, see <a
+     * The compute and memory capacity of the Amazon RDS DB instance, for example db.m4.large. Not all DB instance
+     * classes are available in all Amazon Web Services Regions, or for all database engines. For the full list of DB
+     * instance classes, and availability for your engine, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB Instance Class</a>
-     * in the <i>Amazon RDS User Guide.</i>
+     * in the <i>Amazon RDS User Guide</i>.
      * </p>
      * <p>
-     * Default: The same DBInstanceClass as the original DB instance.
+     * Default: The same DB instance class as the original DB instance.
      * </p>
      * 
      * @param dBInstanceClass
-     *        The compute and memory capacity of the Amazon RDS DB instance, for example, <code>db.m4.large</code>. Not
-     *        all DB instance classes are available in all AWS Regions, or for all database engines. For the full list
-     *        of DB instance classes, and availability for your engine, see <a
+     *        The compute and memory capacity of the Amazon RDS DB instance, for example db.m4.large. Not all DB
+     *        instance classes are available in all Amazon Web Services Regions, or for all database engines. For the
+     *        full list of DB instance classes, and availability for your engine, see <a
      *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB Instance
-     *        Class</a> in the <i>Amazon RDS User Guide.</i> </p>
+     *        Class</a> in the <i>Amazon RDS User Guide</i>.</p>
      *        <p>
-     *        Default: The same DBInstanceClass as the original DB instance.
+     *        Default: The same DB instance class as the original DB instance.
      */
 
     public void setDBInstanceClass(String dBInstanceClass) {
@@ -1028,23 +1569,23 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The compute and memory capacity of the Amazon RDS DB instance, for example, <code>db.m4.large</code>. Not all DB
-     * instance classes are available in all AWS Regions, or for all database engines. For the full list of DB instance
-     * classes, and availability for your engine, see <a
+     * The compute and memory capacity of the Amazon RDS DB instance, for example db.m4.large. Not all DB instance
+     * classes are available in all Amazon Web Services Regions, or for all database engines. For the full list of DB
+     * instance classes, and availability for your engine, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB Instance Class</a>
-     * in the <i>Amazon RDS User Guide.</i>
+     * in the <i>Amazon RDS User Guide</i>.
      * </p>
      * <p>
-     * Default: The same DBInstanceClass as the original DB instance.
+     * Default: The same DB instance class as the original DB instance.
      * </p>
      * 
-     * @return The compute and memory capacity of the Amazon RDS DB instance, for example, <code>db.m4.large</code>. Not
-     *         all DB instance classes are available in all AWS Regions, or for all database engines. For the full list
-     *         of DB instance classes, and availability for your engine, see <a
+     * @return The compute and memory capacity of the Amazon RDS DB instance, for example db.m4.large. Not all DB
+     *         instance classes are available in all Amazon Web Services Regions, or for all database engines. For the
+     *         full list of DB instance classes, and availability for your engine, see <a
      *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB Instance
-     *         Class</a> in the <i>Amazon RDS User Guide.</i> </p>
+     *         Class</a> in the <i>Amazon RDS User Guide</i>.</p>
      *         <p>
-     *         Default: The same DBInstanceClass as the original DB instance.
+     *         Default: The same DB instance class as the original DB instance.
      */
 
     public String getDBInstanceClass() {
@@ -1053,24 +1594,24 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The compute and memory capacity of the Amazon RDS DB instance, for example, <code>db.m4.large</code>. Not all DB
-     * instance classes are available in all AWS Regions, or for all database engines. For the full list of DB instance
-     * classes, and availability for your engine, see <a
+     * The compute and memory capacity of the Amazon RDS DB instance, for example db.m4.large. Not all DB instance
+     * classes are available in all Amazon Web Services Regions, or for all database engines. For the full list of DB
+     * instance classes, and availability for your engine, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB Instance Class</a>
-     * in the <i>Amazon RDS User Guide.</i>
+     * in the <i>Amazon RDS User Guide</i>.
      * </p>
      * <p>
-     * Default: The same DBInstanceClass as the original DB instance.
+     * Default: The same DB instance class as the original DB instance.
      * </p>
      * 
      * @param dBInstanceClass
-     *        The compute and memory capacity of the Amazon RDS DB instance, for example, <code>db.m4.large</code>. Not
-     *        all DB instance classes are available in all AWS Regions, or for all database engines. For the full list
-     *        of DB instance classes, and availability for your engine, see <a
+     *        The compute and memory capacity of the Amazon RDS DB instance, for example db.m4.large. Not all DB
+     *        instance classes are available in all Amazon Web Services Regions, or for all database engines. For the
+     *        full list of DB instance classes, and availability for your engine, see <a
      *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB Instance
-     *        Class</a> in the <i>Amazon RDS User Guide.</i> </p>
+     *        Class</a> in the <i>Amazon RDS User Guide</i>.</p>
      *        <p>
-     *        Default: The same DBInstanceClass as the original DB instance.
+     *        Default: The same DB instance class as the original DB instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1084,19 +1625,33 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * The port number on which the database accepts connections.
      * </p>
      * <p>
-     * Constraints: Value must be <code>1150-65535</code>
-     * </p>
-     * <p>
      * Default: The same port as the original DB instance.
      * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The value must be <code>1150-65535</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param port
      *        The port number on which the database accepts connections.</p>
      *        <p>
-     *        Constraints: Value must be <code>1150-65535</code>
+     *        Default: The same port as the original DB instance.
      *        </p>
      *        <p>
-     *        Default: The same port as the original DB instance.
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The value must be <code>1150-65535</code>.
+     *        </p>
+     *        </li>
      */
 
     public void setPort(Integer port) {
@@ -1108,18 +1663,32 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * The port number on which the database accepts connections.
      * </p>
      * <p>
-     * Constraints: Value must be <code>1150-65535</code>
-     * </p>
-     * <p>
      * Default: The same port as the original DB instance.
      * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The value must be <code>1150-65535</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @return The port number on which the database accepts connections.</p>
      *         <p>
-     *         Constraints: Value must be <code>1150-65535</code>
+     *         Default: The same port as the original DB instance.
      *         </p>
      *         <p>
-     *         Default: The same port as the original DB instance.
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         The value must be <code>1150-65535</code>.
+     *         </p>
+     *         </li>
      */
 
     public Integer getPort() {
@@ -1131,19 +1700,33 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * The port number on which the database accepts connections.
      * </p>
      * <p>
-     * Constraints: Value must be <code>1150-65535</code>
-     * </p>
-     * <p>
      * Default: The same port as the original DB instance.
      * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The value must be <code>1150-65535</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param port
      *        The port number on which the database accepts connections.</p>
      *        <p>
-     *        Constraints: Value must be <code>1150-65535</code>
+     *        Default: The same port as the original DB instance.
      *        </p>
      *        <p>
-     *        Default: The same port as the original DB instance.
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The value must be <code>1150-65535</code>.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1160,9 +1743,15 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * Default: A random, system-chosen Availability Zone.
      * </p>
      * <p>
-     * Constraint: You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ
-     * deployment.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ deployment.
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * Example: <code>us-east-1a</code>
      * </p>
@@ -1173,9 +1762,15 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      *        Default: A random, system-chosen Availability Zone.
      *        </p>
      *        <p>
-     *        Constraint: You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ
-     *        deployment.
+     *        Constraints:
      *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ deployment.
+     *        </p>
+     *        </li>
+     *        </ul>
      *        <p>
      *        Example: <code>us-east-1a</code>
      */
@@ -1192,9 +1787,15 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * Default: A random, system-chosen Availability Zone.
      * </p>
      * <p>
-     * Constraint: You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ
-     * deployment.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ deployment.
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * Example: <code>us-east-1a</code>
      * </p>
@@ -1204,9 +1805,16 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      *         Default: A random, system-chosen Availability Zone.
      *         </p>
      *         <p>
-     *         Constraint: You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a
-     *         Multi-AZ deployment.
+     *         Constraints:
      *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ
+     *         deployment.
+     *         </p>
+     *         </li>
+     *         </ul>
      *         <p>
      *         Example: <code>us-east-1a</code>
      */
@@ -1223,9 +1831,15 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * Default: A random, system-chosen Availability Zone.
      * </p>
      * <p>
-     * Constraint: You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ
-     * deployment.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ deployment.
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * Example: <code>us-east-1a</code>
      * </p>
@@ -1236,9 +1850,15 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      *        Default: A random, system-chosen Availability Zone.
      *        </p>
      *        <p>
-     *        Constraint: You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ
-     *        deployment.
+     *        Constraints:
      *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ deployment.
+     *        </p>
+     *        </li>
+     *        </ul>
      *        <p>
      *        Example: <code>us-east-1a</code>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1254,19 +1874,33 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * The DB subnet group name to use for the new instance.
      * </p>
      * <p>
-     * Constraints: If supplied, must match the name of an existing DBSubnetGroup.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Example: <code>mySubnetgroup</code>
+     * If supplied, must match the name of an existing DB subnet group.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Example: <code>mydbsubnetgroup</code>
      * </p>
      * 
      * @param dBSubnetGroupName
      *        The DB subnet group name to use for the new instance.</p>
      *        <p>
-     *        Constraints: If supplied, must match the name of an existing DBSubnetGroup.
+     *        Constraints:
      *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        Example: <code>mySubnetgroup</code>
+     *        If supplied, must match the name of an existing DB subnet group.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Example: <code>mydbsubnetgroup</code>
      */
 
     public void setDBSubnetGroupName(String dBSubnetGroupName) {
@@ -1278,18 +1912,32 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * The DB subnet group name to use for the new instance.
      * </p>
      * <p>
-     * Constraints: If supplied, must match the name of an existing DBSubnetGroup.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Example: <code>mySubnetgroup</code>
+     * If supplied, must match the name of an existing DB subnet group.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Example: <code>mydbsubnetgroup</code>
      * </p>
      * 
      * @return The DB subnet group name to use for the new instance.</p>
      *         <p>
-     *         Constraints: If supplied, must match the name of an existing DBSubnetGroup.
+     *         Constraints:
      *         </p>
+     *         <ul>
+     *         <li>
      *         <p>
-     *         Example: <code>mySubnetgroup</code>
+     *         If supplied, must match the name of an existing DB subnet group.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Example: <code>mydbsubnetgroup</code>
      */
 
     public String getDBSubnetGroupName() {
@@ -1301,19 +1949,33 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * The DB subnet group name to use for the new instance.
      * </p>
      * <p>
-     * Constraints: If supplied, must match the name of an existing DBSubnetGroup.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Example: <code>mySubnetgroup</code>
+     * If supplied, must match the name of an existing DB subnet group.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Example: <code>mydbsubnetgroup</code>
      * </p>
      * 
      * @param dBSubnetGroupName
      *        The DB subnet group name to use for the new instance.</p>
      *        <p>
-     *        Constraints: If supplied, must match the name of an existing DBSubnetGroup.
+     *        Constraints:
      *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        Example: <code>mySubnetgroup</code>
+     *        If supplied, must match the name of an existing DB subnet group.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Example: <code>mydbsubnetgroup</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1324,18 +1986,36 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether the DB instance is a Multi-AZ deployment.
+     * Secifies whether the DB instance is a Multi-AZ deployment.
      * </p>
      * <p>
-     * Constraint: You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ
-     * deployment.
+     * This setting doesn't apply to RDS Custom.
      * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ deployment.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param multiAZ
-     *        A value that indicates whether the DB instance is a Multi-AZ deployment.</p>
+     *        Secifies whether the DB instance is a Multi-AZ deployment.</p>
      *        <p>
-     *        Constraint: You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ
-     *        deployment.
+     *        This setting doesn't apply to RDS Custom.
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ deployment.
+     *        </p>
+     *        </li>
      */
 
     public void setMultiAZ(Boolean multiAZ) {
@@ -1344,17 +2024,36 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether the DB instance is a Multi-AZ deployment.
+     * Secifies whether the DB instance is a Multi-AZ deployment.
      * </p>
      * <p>
-     * Constraint: You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ
-     * deployment.
+     * This setting doesn't apply to RDS Custom.
      * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ deployment.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return A value that indicates whether the DB instance is a Multi-AZ deployment.</p>
+     * @return Secifies whether the DB instance is a Multi-AZ deployment.</p>
      *         <p>
-     *         Constraint: You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a
-     *         Multi-AZ deployment.
+     *         This setting doesn't apply to RDS Custom.
+     *         </p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ
+     *         deployment.
+     *         </p>
+     *         </li>
      */
 
     public Boolean getMultiAZ() {
@@ -1363,18 +2062,36 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether the DB instance is a Multi-AZ deployment.
+     * Secifies whether the DB instance is a Multi-AZ deployment.
      * </p>
      * <p>
-     * Constraint: You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ
-     * deployment.
+     * This setting doesn't apply to RDS Custom.
      * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ deployment.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param multiAZ
-     *        A value that indicates whether the DB instance is a Multi-AZ deployment.</p>
+     *        Secifies whether the DB instance is a Multi-AZ deployment.</p>
      *        <p>
-     *        Constraint: You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ
-     *        deployment.
+     *        This setting doesn't apply to RDS Custom.
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ deployment.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1385,17 +2102,36 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether the DB instance is a Multi-AZ deployment.
+     * Secifies whether the DB instance is a Multi-AZ deployment.
      * </p>
      * <p>
-     * Constraint: You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ
-     * deployment.
+     * This setting doesn't apply to RDS Custom.
      * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ deployment.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return A value that indicates whether the DB instance is a Multi-AZ deployment.</p>
+     * @return Secifies whether the DB instance is a Multi-AZ deployment.</p>
      *         <p>
-     *         Constraint: You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a
-     *         Multi-AZ deployment.
+     *         This setting doesn't apply to RDS Custom.
+     *         </p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You can't specify the <code>AvailabilityZone</code> parameter if the DB instance is a Multi-AZ
+     *         deployment.
+     *         </p>
+     *         </li>
      */
 
     public Boolean isMultiAZ() {
@@ -1404,17 +2140,37 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether the DB instance is publicly accessible. When the DB instance is publicly
-     * accessible, it is an Internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP
-     * address. When the DB instance is not publicly accessible, it is an internal instance with a DNS name that
-     * resolves to a private IP address. For more information, see <a>CreateDBInstance</a>.
+     * Specifies whether the DB instance is publicly accessible.
+     * </p>
+     * <p>
+     * When the DB cluster is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private IP
+     * address from within the DB cluster's virtual private cloud (VPC). It resolves to the public IP address from
+     * outside of the DB cluster's VPC. Access to the DB cluster is ultimately controlled by the security group it uses.
+     * That public access isn't permitted if the security group assigned to the DB cluster doesn't permit it.
+     * </p>
+     * <p>
+     * When the DB instance isn't publicly accessible, it is an internal DB instance with a DNS name that resolves to a
+     * private IP address.
+     * </p>
+     * <p>
+     * For more information, see <a>CreateDBInstance</a>.
      * </p>
      * 
      * @param publiclyAccessible
-     *        A value that indicates whether the DB instance is publicly accessible. When the DB instance is publicly
-     *        accessible, it is an Internet-facing instance with a publicly resolvable DNS name, which resolves to a
-     *        public IP address. When the DB instance is not publicly accessible, it is an internal instance with a DNS
-     *        name that resolves to a private IP address. For more information, see <a>CreateDBInstance</a>.
+     *        Specifies whether the DB instance is publicly accessible.</p>
+     *        <p>
+     *        When the DB cluster is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private
+     *        IP address from within the DB cluster's virtual private cloud (VPC). It resolves to the public IP address
+     *        from outside of the DB cluster's VPC. Access to the DB cluster is ultimately controlled by the security
+     *        group it uses. That public access isn't permitted if the security group assigned to the DB cluster doesn't
+     *        permit it.
+     *        </p>
+     *        <p>
+     *        When the DB instance isn't publicly accessible, it is an internal DB instance with a DNS name that
+     *        resolves to a private IP address.
+     *        </p>
+     *        <p>
+     *        For more information, see <a>CreateDBInstance</a>.
      */
 
     public void setPubliclyAccessible(Boolean publiclyAccessible) {
@@ -1423,16 +2179,36 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether the DB instance is publicly accessible. When the DB instance is publicly
-     * accessible, it is an Internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP
-     * address. When the DB instance is not publicly accessible, it is an internal instance with a DNS name that
-     * resolves to a private IP address. For more information, see <a>CreateDBInstance</a>.
+     * Specifies whether the DB instance is publicly accessible.
+     * </p>
+     * <p>
+     * When the DB cluster is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private IP
+     * address from within the DB cluster's virtual private cloud (VPC). It resolves to the public IP address from
+     * outside of the DB cluster's VPC. Access to the DB cluster is ultimately controlled by the security group it uses.
+     * That public access isn't permitted if the security group assigned to the DB cluster doesn't permit it.
+     * </p>
+     * <p>
+     * When the DB instance isn't publicly accessible, it is an internal DB instance with a DNS name that resolves to a
+     * private IP address.
+     * </p>
+     * <p>
+     * For more information, see <a>CreateDBInstance</a>.
      * </p>
      * 
-     * @return A value that indicates whether the DB instance is publicly accessible. When the DB instance is publicly
-     *         accessible, it is an Internet-facing instance with a publicly resolvable DNS name, which resolves to a
-     *         public IP address. When the DB instance is not publicly accessible, it is an internal instance with a DNS
-     *         name that resolves to a private IP address. For more information, see <a>CreateDBInstance</a>.
+     * @return Specifies whether the DB instance is publicly accessible.</p>
+     *         <p>
+     *         When the DB cluster is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private
+     *         IP address from within the DB cluster's virtual private cloud (VPC). It resolves to the public IP address
+     *         from outside of the DB cluster's VPC. Access to the DB cluster is ultimately controlled by the security
+     *         group it uses. That public access isn't permitted if the security group assigned to the DB cluster
+     *         doesn't permit it.
+     *         </p>
+     *         <p>
+     *         When the DB instance isn't publicly accessible, it is an internal DB instance with a DNS name that
+     *         resolves to a private IP address.
+     *         </p>
+     *         <p>
+     *         For more information, see <a>CreateDBInstance</a>.
      */
 
     public Boolean getPubliclyAccessible() {
@@ -1441,17 +2217,37 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether the DB instance is publicly accessible. When the DB instance is publicly
-     * accessible, it is an Internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP
-     * address. When the DB instance is not publicly accessible, it is an internal instance with a DNS name that
-     * resolves to a private IP address. For more information, see <a>CreateDBInstance</a>.
+     * Specifies whether the DB instance is publicly accessible.
+     * </p>
+     * <p>
+     * When the DB cluster is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private IP
+     * address from within the DB cluster's virtual private cloud (VPC). It resolves to the public IP address from
+     * outside of the DB cluster's VPC. Access to the DB cluster is ultimately controlled by the security group it uses.
+     * That public access isn't permitted if the security group assigned to the DB cluster doesn't permit it.
+     * </p>
+     * <p>
+     * When the DB instance isn't publicly accessible, it is an internal DB instance with a DNS name that resolves to a
+     * private IP address.
+     * </p>
+     * <p>
+     * For more information, see <a>CreateDBInstance</a>.
      * </p>
      * 
      * @param publiclyAccessible
-     *        A value that indicates whether the DB instance is publicly accessible. When the DB instance is publicly
-     *        accessible, it is an Internet-facing instance with a publicly resolvable DNS name, which resolves to a
-     *        public IP address. When the DB instance is not publicly accessible, it is an internal instance with a DNS
-     *        name that resolves to a private IP address. For more information, see <a>CreateDBInstance</a>.
+     *        Specifies whether the DB instance is publicly accessible.</p>
+     *        <p>
+     *        When the DB cluster is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private
+     *        IP address from within the DB cluster's virtual private cloud (VPC). It resolves to the public IP address
+     *        from outside of the DB cluster's VPC. Access to the DB cluster is ultimately controlled by the security
+     *        group it uses. That public access isn't permitted if the security group assigned to the DB cluster doesn't
+     *        permit it.
+     *        </p>
+     *        <p>
+     *        When the DB instance isn't publicly accessible, it is an internal DB instance with a DNS name that
+     *        resolves to a private IP address.
+     *        </p>
+     *        <p>
+     *        For more information, see <a>CreateDBInstance</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1462,16 +2258,36 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether the DB instance is publicly accessible. When the DB instance is publicly
-     * accessible, it is an Internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP
-     * address. When the DB instance is not publicly accessible, it is an internal instance with a DNS name that
-     * resolves to a private IP address. For more information, see <a>CreateDBInstance</a>.
+     * Specifies whether the DB instance is publicly accessible.
+     * </p>
+     * <p>
+     * When the DB cluster is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private IP
+     * address from within the DB cluster's virtual private cloud (VPC). It resolves to the public IP address from
+     * outside of the DB cluster's VPC. Access to the DB cluster is ultimately controlled by the security group it uses.
+     * That public access isn't permitted if the security group assigned to the DB cluster doesn't permit it.
+     * </p>
+     * <p>
+     * When the DB instance isn't publicly accessible, it is an internal DB instance with a DNS name that resolves to a
+     * private IP address.
+     * </p>
+     * <p>
+     * For more information, see <a>CreateDBInstance</a>.
      * </p>
      * 
-     * @return A value that indicates whether the DB instance is publicly accessible. When the DB instance is publicly
-     *         accessible, it is an Internet-facing instance with a publicly resolvable DNS name, which resolves to a
-     *         public IP address. When the DB instance is not publicly accessible, it is an internal instance with a DNS
-     *         name that resolves to a private IP address. For more information, see <a>CreateDBInstance</a>.
+     * @return Specifies whether the DB instance is publicly accessible.</p>
+     *         <p>
+     *         When the DB cluster is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private
+     *         IP address from within the DB cluster's virtual private cloud (VPC). It resolves to the public IP address
+     *         from outside of the DB cluster's VPC. Access to the DB cluster is ultimately controlled by the security
+     *         group it uses. That public access isn't permitted if the security group assigned to the DB cluster
+     *         doesn't permit it.
+     *         </p>
+     *         <p>
+     *         When the DB instance isn't publicly accessible, it is an internal DB instance with a DNS name that
+     *         resolves to a private IP address.
+     *         </p>
+     *         <p>
+     *         For more information, see <a>CreateDBInstance</a>.
      */
 
     public Boolean isPubliclyAccessible() {
@@ -1480,13 +2296,18 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether minor version upgrades are applied automatically to the DB instance during the
-     * maintenance window.
+     * Specifies whether minor version upgrades are applied automatically to the DB instance during the maintenance
+     * window.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * 
      * @param autoMinorVersionUpgrade
-     *        A value that indicates whether minor version upgrades are applied automatically to the DB instance during
-     *        the maintenance window.
+     *        Specifies whether minor version upgrades are applied automatically to the DB instance during the
+     *        maintenance window.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
      */
 
     public void setAutoMinorVersionUpgrade(Boolean autoMinorVersionUpgrade) {
@@ -1495,12 +2316,17 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether minor version upgrades are applied automatically to the DB instance during the
-     * maintenance window.
+     * Specifies whether minor version upgrades are applied automatically to the DB instance during the maintenance
+     * window.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * 
-     * @return A value that indicates whether minor version upgrades are applied automatically to the DB instance during
-     *         the maintenance window.
+     * @return Specifies whether minor version upgrades are applied automatically to the DB instance during the
+     *         maintenance window.</p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom.
      */
 
     public Boolean getAutoMinorVersionUpgrade() {
@@ -1509,13 +2335,18 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether minor version upgrades are applied automatically to the DB instance during the
-     * maintenance window.
+     * Specifies whether minor version upgrades are applied automatically to the DB instance during the maintenance
+     * window.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * 
      * @param autoMinorVersionUpgrade
-     *        A value that indicates whether minor version upgrades are applied automatically to the DB instance during
-     *        the maintenance window.
+     *        Specifies whether minor version upgrades are applied automatically to the DB instance during the
+     *        maintenance window.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1526,12 +2357,17 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether minor version upgrades are applied automatically to the DB instance during the
-     * maintenance window.
+     * Specifies whether minor version upgrades are applied automatically to the DB instance during the maintenance
+     * window.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * 
-     * @return A value that indicates whether minor version upgrades are applied automatically to the DB instance during
-     *         the maintenance window.
+     * @return Specifies whether minor version upgrades are applied automatically to the DB instance during the
+     *         maintenance window.</p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom.
      */
 
     public Boolean isAutoMinorVersionUpgrade() {
@@ -1540,24 +2376,109 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * License model information for the restored DB instance.
+     * The license model information for the restored DB instance.
+     * </p>
+     * <note>
+     * <p>
+     * License models for RDS for Db2 require additional configuration. The Bring Your Own License (BYOL) model requires
+     * a custom parameter group. The Db2 license through Amazon Web Services Marketplace model requires an Amazon Web
+     * Services Marketplace subscription. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/db2-licensing.html">RDS for Db2 licensing
+     * options</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * </note>
+     * <p>
+     * This setting doesn't apply to Amazon Aurora or RDS Custom DB instances.
      * </p>
      * <p>
-     * Default: Same as source.
+     * Valid Values:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Valid values: <code>license-included</code> | <code>bring-your-own-license</code> |
-     * <code>general-public-license</code>
+     * RDS for Db2 - <code>bring-your-own-license | marketplace-license</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MariaDB - <code>general-public-license</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for Microsoft SQL Server - <code>license-included</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MySQL - <code>general-public-license</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for Oracle - <code>bring-your-own-license | license-included</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for PostgreSQL - <code>postgresql-license</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default: Same as the source.
      * </p>
      * 
      * @param licenseModel
-     *        License model information for the restored DB instance.</p>
+     *        The license model information for the restored DB instance.</p> <note>
      *        <p>
-     *        Default: Same as source.
+     *        License models for RDS for Db2 require additional configuration. The Bring Your Own License (BYOL) model
+     *        requires a custom parameter group. The Db2 license through Amazon Web Services Marketplace model requires
+     *        an Amazon Web Services Marketplace subscription. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/db2-licensing.html">RDS for Db2 licensing
+     *        options</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        This setting doesn't apply to Amazon Aurora or RDS Custom DB instances.
      *        </p>
      *        <p>
-     *        Valid values: <code>license-included</code> | <code>bring-your-own-license</code> |
-     *        <code>general-public-license</code>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        RDS for Db2 - <code>bring-your-own-license | marketplace-license</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for MariaDB - <code>general-public-license</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for Microsoft SQL Server - <code>license-included</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for MySQL - <code>general-public-license</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for Oracle - <code>bring-your-own-license | license-included</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for PostgreSQL - <code>postgresql-license</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Default: Same as the source.
      */
 
     public void setLicenseModel(String licenseModel) {
@@ -1566,23 +2487,108 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * License model information for the restored DB instance.
+     * The license model information for the restored DB instance.
+     * </p>
+     * <note>
+     * <p>
+     * License models for RDS for Db2 require additional configuration. The Bring Your Own License (BYOL) model requires
+     * a custom parameter group. The Db2 license through Amazon Web Services Marketplace model requires an Amazon Web
+     * Services Marketplace subscription. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/db2-licensing.html">RDS for Db2 licensing
+     * options</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * </note>
+     * <p>
+     * This setting doesn't apply to Amazon Aurora or RDS Custom DB instances.
      * </p>
      * <p>
-     * Default: Same as source.
+     * Valid Values:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Valid values: <code>license-included</code> | <code>bring-your-own-license</code> |
-     * <code>general-public-license</code>
+     * RDS for Db2 - <code>bring-your-own-license | marketplace-license</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MariaDB - <code>general-public-license</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for Microsoft SQL Server - <code>license-included</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MySQL - <code>general-public-license</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for Oracle - <code>bring-your-own-license | license-included</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for PostgreSQL - <code>postgresql-license</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default: Same as the source.
      * </p>
      * 
-     * @return License model information for the restored DB instance.</p>
+     * @return The license model information for the restored DB instance.</p> <note>
      *         <p>
-     *         Default: Same as source.
+     *         License models for RDS for Db2 require additional configuration. The Bring Your Own License (BYOL) model
+     *         requires a custom parameter group. The Db2 license through Amazon Web Services Marketplace model requires
+     *         an Amazon Web Services Marketplace subscription. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/db2-licensing.html">RDS for Db2 licensing
+     *         options</a> in the <i>Amazon RDS User Guide</i>.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         This setting doesn't apply to Amazon Aurora or RDS Custom DB instances.
      *         </p>
      *         <p>
-     *         Valid values: <code>license-included</code> | <code>bring-your-own-license</code> |
-     *         <code>general-public-license</code>
+     *         Valid Values:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         RDS for Db2 - <code>bring-your-own-license | marketplace-license</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         RDS for MariaDB - <code>general-public-license</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         RDS for Microsoft SQL Server - <code>license-included</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         RDS for MySQL - <code>general-public-license</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         RDS for Oracle - <code>bring-your-own-license | license-included</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         RDS for PostgreSQL - <code>postgresql-license</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Default: Same as the source.
      */
 
     public String getLicenseModel() {
@@ -1591,24 +2597,109 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * License model information for the restored DB instance.
+     * The license model information for the restored DB instance.
+     * </p>
+     * <note>
+     * <p>
+     * License models for RDS for Db2 require additional configuration. The Bring Your Own License (BYOL) model requires
+     * a custom parameter group. The Db2 license through Amazon Web Services Marketplace model requires an Amazon Web
+     * Services Marketplace subscription. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/db2-licensing.html">RDS for Db2 licensing
+     * options</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * </note>
+     * <p>
+     * This setting doesn't apply to Amazon Aurora or RDS Custom DB instances.
      * </p>
      * <p>
-     * Default: Same as source.
+     * Valid Values:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Valid values: <code>license-included</code> | <code>bring-your-own-license</code> |
-     * <code>general-public-license</code>
+     * RDS for Db2 - <code>bring-your-own-license | marketplace-license</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MariaDB - <code>general-public-license</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for Microsoft SQL Server - <code>license-included</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MySQL - <code>general-public-license</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for Oracle - <code>bring-your-own-license | license-included</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for PostgreSQL - <code>postgresql-license</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default: Same as the source.
      * </p>
      * 
      * @param licenseModel
-     *        License model information for the restored DB instance.</p>
+     *        The license model information for the restored DB instance.</p> <note>
      *        <p>
-     *        Default: Same as source.
+     *        License models for RDS for Db2 require additional configuration. The Bring Your Own License (BYOL) model
+     *        requires a custom parameter group. The Db2 license through Amazon Web Services Marketplace model requires
+     *        an Amazon Web Services Marketplace subscription. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/db2-licensing.html">RDS for Db2 licensing
+     *        options</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        This setting doesn't apply to Amazon Aurora or RDS Custom DB instances.
      *        </p>
      *        <p>
-     *        Valid values: <code>license-included</code> | <code>bring-your-own-license</code> |
-     *        <code>general-public-license</code>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        RDS for Db2 - <code>bring-your-own-license | marketplace-license</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for MariaDB - <code>general-public-license</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for Microsoft SQL Server - <code>license-included</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for MySQL - <code>general-public-license</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for Oracle - <code>bring-your-own-license | license-included</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for PostgreSQL - <code>postgresql-license</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Default: Same as the source.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1621,17 +2712,58 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * <p>
      * The database name for the restored DB instance.
      * </p>
-     * <note>
      * <p>
-     * This parameter is not used for the MySQL or MariaDB engines.
+     * This parameter doesn't apply to the following DB instances:
      * </p>
-     * </note>
+     * <ul>
+     * <li>
+     * <p>
+     * RDS Custom
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for Db2
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MariaDB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MySQL
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param dBName
-     *        The database name for the restored DB instance.</p> <note>
+     *        The database name for the restored DB instance.</p>
      *        <p>
-     *        This parameter is not used for the MySQL or MariaDB engines.
+     *        This parameter doesn't apply to the following DB instances:
      *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        RDS Custom
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for Db2
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for MariaDB
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for MySQL
+     *        </p>
+     *        </li>
      */
 
     public void setDBName(String dBName) {
@@ -1642,16 +2774,57 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * <p>
      * The database name for the restored DB instance.
      * </p>
-     * <note>
      * <p>
-     * This parameter is not used for the MySQL or MariaDB engines.
+     * This parameter doesn't apply to the following DB instances:
      * </p>
-     * </note>
+     * <ul>
+     * <li>
+     * <p>
+     * RDS Custom
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for Db2
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MariaDB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MySQL
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The database name for the restored DB instance.</p> <note>
+     * @return The database name for the restored DB instance.</p>
      *         <p>
-     *         This parameter is not used for the MySQL or MariaDB engines.
+     *         This parameter doesn't apply to the following DB instances:
      *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         RDS Custom
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         RDS for Db2
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         RDS for MariaDB
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         RDS for MySQL
+     *         </p>
+     *         </li>
      */
 
     public String getDBName() {
@@ -1662,17 +2835,58 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * <p>
      * The database name for the restored DB instance.
      * </p>
-     * <note>
      * <p>
-     * This parameter is not used for the MySQL or MariaDB engines.
+     * This parameter doesn't apply to the following DB instances:
      * </p>
-     * </note>
+     * <ul>
+     * <li>
+     * <p>
+     * RDS Custom
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for Db2
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MariaDB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MySQL
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param dBName
-     *        The database name for the restored DB instance.</p> <note>
+     *        The database name for the restored DB instance.</p>
      *        <p>
-     *        This parameter is not used for the MySQL or MariaDB engines.
+     *        This parameter doesn't apply to the following DB instances:
      *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        RDS Custom
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for Db2
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for MariaDB
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for MySQL
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1686,15 +2900,22 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * The database engine to use for the new instance.
      * </p>
      * <p>
-     * Default: The same as source
-     * </p>
-     * <p>
-     * Constraint: Must be compatible with the engine of the source
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * <p>
      * Valid Values:
      * </p>
      * <ul>
+     * <li>
+     * <p>
+     * <code>db2-ae</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db2-se</code>
+     * </p>
+     * </li>
      * <li>
      * <p>
      * <code>mariadb</code>
@@ -1712,17 +2933,17 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * </li>
      * <li>
      * <p>
+     * <code>oracle-ee-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>oracle-se2</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>oracle-se1</code>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>oracle-se</code>
+     * <code>oracle-se2-cdb</code>
      * </p>
      * </li>
      * <li>
@@ -1751,19 +2972,39 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Default: The same as source
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must be compatible with the engine of the source.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param engine
      *        The database engine to use for the new instance.</p>
      *        <p>
-     *        Default: The same as source
-     *        </p>
-     *        <p>
-     *        Constraint: Must be compatible with the engine of the source
+     *        This setting doesn't apply to RDS Custom.
      *        </p>
      *        <p>
      *        Valid Values:
      *        </p>
      *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>db2-ae</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>db2-se</code>
+     *        </p>
+     *        </li>
      *        <li>
      *        <p>
      *        <code>mariadb</code>
@@ -1781,17 +3022,17 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      *        </li>
      *        <li>
      *        <p>
+     *        <code>oracle-ee-cdb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>oracle-se2</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>oracle-se1</code>
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>oracle-se</code>
+     *        <code>oracle-se2-cdb</code>
      *        </p>
      *        </li>
      *        <li>
@@ -1819,6 +3060,19 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      *        <code>sqlserver-web</code>
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        Default: The same as source
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Must be compatible with the engine of the source.
+     *        </p>
+     *        </li>
      */
 
     public void setEngine(String engine) {
@@ -1830,15 +3084,22 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * The database engine to use for the new instance.
      * </p>
      * <p>
-     * Default: The same as source
-     * </p>
-     * <p>
-     * Constraint: Must be compatible with the engine of the source
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * <p>
      * Valid Values:
      * </p>
      * <ul>
+     * <li>
+     * <p>
+     * <code>db2-ae</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db2-se</code>
+     * </p>
+     * </li>
      * <li>
      * <p>
      * <code>mariadb</code>
@@ -1856,17 +3117,17 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * </li>
      * <li>
      * <p>
+     * <code>oracle-ee-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>oracle-se2</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>oracle-se1</code>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>oracle-se</code>
+     * <code>oracle-se2-cdb</code>
      * </p>
      * </li>
      * <li>
@@ -1895,18 +3156,38 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Default: The same as source
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must be compatible with the engine of the source.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @return The database engine to use for the new instance.</p>
      *         <p>
-     *         Default: The same as source
-     *         </p>
-     *         <p>
-     *         Constraint: Must be compatible with the engine of the source
+     *         This setting doesn't apply to RDS Custom.
      *         </p>
      *         <p>
      *         Valid Values:
      *         </p>
      *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>db2-ae</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>db2-se</code>
+     *         </p>
+     *         </li>
      *         <li>
      *         <p>
      *         <code>mariadb</code>
@@ -1924,17 +3205,17 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      *         </li>
      *         <li>
      *         <p>
+     *         <code>oracle-ee-cdb</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
      *         <code>oracle-se2</code>
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>oracle-se1</code>
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         <code>oracle-se</code>
+     *         <code>oracle-se2-cdb</code>
      *         </p>
      *         </li>
      *         <li>
@@ -1962,6 +3243,19 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      *         <code>sqlserver-web</code>
      *         </p>
      *         </li>
+     *         </ul>
+     *         <p>
+     *         Default: The same as source
+     *         </p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Must be compatible with the engine of the source.
+     *         </p>
+     *         </li>
      */
 
     public String getEngine() {
@@ -1973,15 +3267,22 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * The database engine to use for the new instance.
      * </p>
      * <p>
-     * Default: The same as source
-     * </p>
-     * <p>
-     * Constraint: Must be compatible with the engine of the source
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * <p>
      * Valid Values:
      * </p>
      * <ul>
+     * <li>
+     * <p>
+     * <code>db2-ae</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>db2-se</code>
+     * </p>
+     * </li>
      * <li>
      * <p>
      * <code>mariadb</code>
@@ -1999,17 +3300,17 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * </li>
      * <li>
      * <p>
+     * <code>oracle-ee-cdb</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>oracle-se2</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>oracle-se1</code>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>oracle-se</code>
+     * <code>oracle-se2-cdb</code>
      * </p>
      * </li>
      * <li>
@@ -2038,19 +3339,39 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Default: The same as source
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must be compatible with the engine of the source.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param engine
      *        The database engine to use for the new instance.</p>
      *        <p>
-     *        Default: The same as source
-     *        </p>
-     *        <p>
-     *        Constraint: Must be compatible with the engine of the source
+     *        This setting doesn't apply to RDS Custom.
      *        </p>
      *        <p>
      *        Valid Values:
      *        </p>
      *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>db2-ae</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>db2-se</code>
+     *        </p>
+     *        </li>
      *        <li>
      *        <p>
      *        <code>mariadb</code>
@@ -2068,17 +3389,17 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      *        </li>
      *        <li>
      *        <p>
+     *        <code>oracle-ee-cdb</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>oracle-se2</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>oracle-se1</code>
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>oracle-se</code>
+     *        <code>oracle-se2-cdb</code>
      *        </p>
      *        </li>
      *        <li>
@@ -2106,6 +3427,19 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      *        <code>sqlserver-web</code>
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        Default: The same as source
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Must be compatible with the engine of the source.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2116,30 +3450,37 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for the DB
-     * instance.
+     * The amount of Provisioned IOPS (input/output operations per second) to initially allocate for the DB instance.
      * </p>
      * <p>
-     * Constraints: Must be an integer greater than 1000.
+     * This setting doesn't apply to SQL Server.
      * </p>
      * <p>
-     * <b>SQL Server</b>
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Setting the IOPS value for the SQL Server database engine is not supported.
+     * Must be an integer greater than 1000.
      * </p>
+     * </li>
+     * </ul>
      * 
      * @param iops
-     *        The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for the DB
+     *        The amount of Provisioned IOPS (input/output operations per second) to initially allocate for the DB
      *        instance.</p>
      *        <p>
-     *        Constraints: Must be an integer greater than 1000.
+     *        This setting doesn't apply to SQL Server.
      *        </p>
      *        <p>
-     *        <b>SQL Server</b>
+     *        Constraints:
      *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        Setting the IOPS value for the SQL Server database engine is not supported.
+     *        Must be an integer greater than 1000.
+     *        </p>
+     *        </li>
      */
 
     public void setIops(Integer iops) {
@@ -2148,29 +3489,36 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for the DB
-     * instance.
+     * The amount of Provisioned IOPS (input/output operations per second) to initially allocate for the DB instance.
      * </p>
      * <p>
-     * Constraints: Must be an integer greater than 1000.
+     * This setting doesn't apply to SQL Server.
      * </p>
      * <p>
-     * <b>SQL Server</b>
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Setting the IOPS value for the SQL Server database engine is not supported.
+     * Must be an integer greater than 1000.
      * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for the DB
+     * @return The amount of Provisioned IOPS (input/output operations per second) to initially allocate for the DB
      *         instance.</p>
      *         <p>
-     *         Constraints: Must be an integer greater than 1000.
+     *         This setting doesn't apply to SQL Server.
      *         </p>
      *         <p>
-     *         <b>SQL Server</b>
+     *         Constraints:
      *         </p>
+     *         <ul>
+     *         <li>
      *         <p>
-     *         Setting the IOPS value for the SQL Server database engine is not supported.
+     *         Must be an integer greater than 1000.
+     *         </p>
+     *         </li>
      */
 
     public Integer getIops() {
@@ -2179,30 +3527,37 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for the DB
-     * instance.
+     * The amount of Provisioned IOPS (input/output operations per second) to initially allocate for the DB instance.
      * </p>
      * <p>
-     * Constraints: Must be an integer greater than 1000.
+     * This setting doesn't apply to SQL Server.
      * </p>
      * <p>
-     * <b>SQL Server</b>
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Setting the IOPS value for the SQL Server database engine is not supported.
+     * Must be an integer greater than 1000.
      * </p>
+     * </li>
+     * </ul>
      * 
      * @param iops
-     *        The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for the DB
+     *        The amount of Provisioned IOPS (input/output operations per second) to initially allocate for the DB
      *        instance.</p>
      *        <p>
-     *        Constraints: Must be an integer greater than 1000.
+     *        This setting doesn't apply to SQL Server.
      *        </p>
      *        <p>
-     *        <b>SQL Server</b>
+     *        Constraints:
      *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        Setting the IOPS value for the SQL Server database engine is not supported.
+     *        Must be an integer greater than 1000.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2213,19 +3568,25 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The name of the option group to be used for the restored DB instance.
+     * The name of the option group to use for the restored DB instance.
      * </p>
      * <p>
      * Permanent options, such as the TDE option for Oracle Advanced Security TDE, can't be removed from an option
-     * group, and that option group can't be removed from a DB instance once it is associated with a DB instance
+     * group, and that option group can't be removed from a DB instance after it is associated with a DB instance
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * 
      * @param optionGroupName
-     *        The name of the option group to be used for the restored DB instance.</p>
+     *        The name of the option group to use for the restored DB instance.</p>
      *        <p>
      *        Permanent options, such as the TDE option for Oracle Advanced Security TDE, can't be removed from an
-     *        option group, and that option group can't be removed from a DB instance once it is associated with a DB
+     *        option group, and that option group can't be removed from a DB instance after it is associated with a DB
      *        instance
+     *        </p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
      */
 
     public void setOptionGroupName(String optionGroupName) {
@@ -2234,18 +3595,24 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The name of the option group to be used for the restored DB instance.
+     * The name of the option group to use for the restored DB instance.
      * </p>
      * <p>
      * Permanent options, such as the TDE option for Oracle Advanced Security TDE, can't be removed from an option
-     * group, and that option group can't be removed from a DB instance once it is associated with a DB instance
+     * group, and that option group can't be removed from a DB instance after it is associated with a DB instance
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * 
-     * @return The name of the option group to be used for the restored DB instance.</p>
+     * @return The name of the option group to use for the restored DB instance.</p>
      *         <p>
      *         Permanent options, such as the TDE option for Oracle Advanced Security TDE, can't be removed from an
-     *         option group, and that option group can't be removed from a DB instance once it is associated with a DB
+     *         option group, and that option group can't be removed from a DB instance after it is associated with a DB
      *         instance
+     *         </p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom.
      */
 
     public String getOptionGroupName() {
@@ -2254,19 +3621,25 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The name of the option group to be used for the restored DB instance.
+     * The name of the option group to use for the restored DB instance.
      * </p>
      * <p>
      * Permanent options, such as the TDE option for Oracle Advanced Security TDE, can't be removed from an option
-     * group, and that option group can't be removed from a DB instance once it is associated with a DB instance
+     * group, and that option group can't be removed from a DB instance after it is associated with a DB instance
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * 
      * @param optionGroupName
-     *        The name of the option group to be used for the restored DB instance.</p>
+     *        The name of the option group to use for the restored DB instance.</p>
      *        <p>
      *        Permanent options, such as the TDE option for Oracle Advanced Security TDE, can't be removed from an
-     *        option group, and that option group can't be removed from a DB instance once it is associated with a DB
+     *        option group, and that option group can't be removed from a DB instance after it is associated with a DB
      *        instance
+     *        </p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2277,13 +3650,13 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the restored DB instance to snapshots of the DB instance. By
-     * default, tags are not copied.
+     * Specifies whether to copy all tags from the restored DB instance to snapshots of the DB instance. By default,
+     * tags are not copied.
      * </p>
      * 
      * @param copyTagsToSnapshot
-     *        A value that indicates whether to copy all tags from the restored DB instance to snapshots of the DB
-     *        instance. By default, tags are not copied.
+     *        Specifies whether to copy all tags from the restored DB instance to snapshots of the DB instance. By
+     *        default, tags are not copied.
      */
 
     public void setCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
@@ -2292,12 +3665,12 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the restored DB instance to snapshots of the DB instance. By
-     * default, tags are not copied.
+     * Specifies whether to copy all tags from the restored DB instance to snapshots of the DB instance. By default,
+     * tags are not copied.
      * </p>
      * 
-     * @return A value that indicates whether to copy all tags from the restored DB instance to snapshots of the DB
-     *         instance. By default, tags are not copied.
+     * @return Specifies whether to copy all tags from the restored DB instance to snapshots of the DB instance. By
+     *         default, tags are not copied.
      */
 
     public Boolean getCopyTagsToSnapshot() {
@@ -2306,13 +3679,13 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the restored DB instance to snapshots of the DB instance. By
-     * default, tags are not copied.
+     * Specifies whether to copy all tags from the restored DB instance to snapshots of the DB instance. By default,
+     * tags are not copied.
      * </p>
      * 
      * @param copyTagsToSnapshot
-     *        A value that indicates whether to copy all tags from the restored DB instance to snapshots of the DB
-     *        instance. By default, tags are not copied.
+     *        Specifies whether to copy all tags from the restored DB instance to snapshots of the DB instance. By
+     *        default, tags are not copied.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2323,12 +3696,12 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the restored DB instance to snapshots of the DB instance. By
-     * default, tags are not copied.
+     * Specifies whether to copy all tags from the restored DB instance to snapshots of the DB instance. By default,
+     * tags are not copied.
      * </p>
      * 
-     * @return A value that indicates whether to copy all tags from the restored DB instance to snapshots of the DB
-     *         instance. By default, tags are not copied.
+     * @return Specifies whether to copy all tags from the restored DB instance to snapshots of the DB instance. By
+     *         default, tags are not copied.
      */
 
     public Boolean isCopyTagsToSnapshot() {
@@ -2392,28 +3765,44 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Specifies the storage type to be associated with the DB instance.
+     * The storage type to associate with the DB instance.
      * </p>
      * <p>
-     * Valid values: <code>standard | gp2 | io1</code>
+     * Valid Values: <code>gp2 | gp3 | io1 | io2 | standard</code>
      * </p>
      * <p>
-     * If you specify <code>io1</code>, you must also include a value for the <code>Iops</code> parameter.
+     * Default: <code>io1</code>, if the <code>Iops</code> parameter is specified. Otherwise, <code>gp2</code>.
      * </p>
      * <p>
-     * Default: <code>io1</code> if the <code>Iops</code> parameter is specified, otherwise <code>gp2</code>
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you specify <code>io1</code>, <code>io2</code>, or <code>gp3</code>, you must also include a value for the
+     * <code>Iops</code> parameter.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param storageType
-     *        Specifies the storage type to be associated with the DB instance.</p>
+     *        The storage type to associate with the DB instance.</p>
      *        <p>
-     *        Valid values: <code>standard | gp2 | io1</code>
+     *        Valid Values: <code>gp2 | gp3 | io1 | io2 | standard</code>
      *        </p>
      *        <p>
-     *        If you specify <code>io1</code>, you must also include a value for the <code>Iops</code> parameter.
+     *        Default: <code>io1</code>, if the <code>Iops</code> parameter is specified. Otherwise, <code>gp2</code>.
      *        </p>
      *        <p>
-     *        Default: <code>io1</code> if the <code>Iops</code> parameter is specified, otherwise <code>gp2</code>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If you specify <code>io1</code>, <code>io2</code>, or <code>gp3</code>, you must also include a value for
+     *        the <code>Iops</code> parameter.
+     *        </p>
+     *        </li>
      */
 
     public void setStorageType(String storageType) {
@@ -2422,27 +3811,43 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Specifies the storage type to be associated with the DB instance.
+     * The storage type to associate with the DB instance.
      * </p>
      * <p>
-     * Valid values: <code>standard | gp2 | io1</code>
+     * Valid Values: <code>gp2 | gp3 | io1 | io2 | standard</code>
      * </p>
      * <p>
-     * If you specify <code>io1</code>, you must also include a value for the <code>Iops</code> parameter.
+     * Default: <code>io1</code>, if the <code>Iops</code> parameter is specified. Otherwise, <code>gp2</code>.
      * </p>
      * <p>
-     * Default: <code>io1</code> if the <code>Iops</code> parameter is specified, otherwise <code>gp2</code>
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you specify <code>io1</code>, <code>io2</code>, or <code>gp3</code>, you must also include a value for the
+     * <code>Iops</code> parameter.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return Specifies the storage type to be associated with the DB instance.</p>
+     * @return The storage type to associate with the DB instance.</p>
      *         <p>
-     *         Valid values: <code>standard | gp2 | io1</code>
+     *         Valid Values: <code>gp2 | gp3 | io1 | io2 | standard</code>
      *         </p>
      *         <p>
-     *         If you specify <code>io1</code>, you must also include a value for the <code>Iops</code> parameter.
+     *         Default: <code>io1</code>, if the <code>Iops</code> parameter is specified. Otherwise, <code>gp2</code>.
      *         </p>
      *         <p>
-     *         Default: <code>io1</code> if the <code>Iops</code> parameter is specified, otherwise <code>gp2</code>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If you specify <code>io1</code>, <code>io2</code>, or <code>gp3</code>, you must also include a value for
+     *         the <code>Iops</code> parameter.
+     *         </p>
+     *         </li>
      */
 
     public String getStorageType() {
@@ -2451,28 +3856,44 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Specifies the storage type to be associated with the DB instance.
+     * The storage type to associate with the DB instance.
      * </p>
      * <p>
-     * Valid values: <code>standard | gp2 | io1</code>
+     * Valid Values: <code>gp2 | gp3 | io1 | io2 | standard</code>
      * </p>
      * <p>
-     * If you specify <code>io1</code>, you must also include a value for the <code>Iops</code> parameter.
+     * Default: <code>io1</code>, if the <code>Iops</code> parameter is specified. Otherwise, <code>gp2</code>.
      * </p>
      * <p>
-     * Default: <code>io1</code> if the <code>Iops</code> parameter is specified, otherwise <code>gp2</code>
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you specify <code>io1</code>, <code>io2</code>, or <code>gp3</code>, you must also include a value for the
+     * <code>Iops</code> parameter.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param storageType
-     *        Specifies the storage type to be associated with the DB instance.</p>
+     *        The storage type to associate with the DB instance.</p>
      *        <p>
-     *        Valid values: <code>standard | gp2 | io1</code>
+     *        Valid Values: <code>gp2 | gp3 | io1 | io2 | standard</code>
      *        </p>
      *        <p>
-     *        If you specify <code>io1</code>, you must also include a value for the <code>Iops</code> parameter.
+     *        Default: <code>io1</code>, if the <code>Iops</code> parameter is specified. Otherwise, <code>gp2</code>.
      *        </p>
      *        <p>
-     *        Default: <code>io1</code> if the <code>Iops</code> parameter is specified, otherwise <code>gp2</code>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If you specify <code>io1</code>, <code>io2</code>, or <code>gp3</code>, you must also include a value for
+     *        the <code>Iops</code> parameter.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2485,9 +3906,14 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * <p>
      * The ARN from the key store with which to associate the instance for TDE encryption.
      * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
      * 
      * @param tdeCredentialArn
-     *        The ARN from the key store with which to associate the instance for TDE encryption.
+     *        The ARN from the key store with which to associate the instance for TDE encryption.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
      */
 
     public void setTdeCredentialArn(String tdeCredentialArn) {
@@ -2498,8 +3924,13 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * <p>
      * The ARN from the key store with which to associate the instance for TDE encryption.
      * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
      * 
-     * @return The ARN from the key store with which to associate the instance for TDE encryption.
+     * @return The ARN from the key store with which to associate the instance for TDE encryption.</p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom.
      */
 
     public String getTdeCredentialArn() {
@@ -2510,9 +3941,14 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * <p>
      * The ARN from the key store with which to associate the instance for TDE encryption.
      * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
      * 
      * @param tdeCredentialArn
-     *        The ARN from the key store with which to associate the instance for TDE encryption.
+     *        The ARN from the key store with which to associate the instance for TDE encryption.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2525,9 +3961,14 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * <p>
      * The password for the given ARN from the key store in order to access the device.
      * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
      * 
      * @param tdeCredentialPassword
-     *        The password for the given ARN from the key store in order to access the device.
+     *        The password for the given ARN from the key store in order to access the device.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
      */
 
     public void setTdeCredentialPassword(String tdeCredentialPassword) {
@@ -2538,8 +3979,13 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * <p>
      * The password for the given ARN from the key store in order to access the device.
      * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
      * 
-     * @return The password for the given ARN from the key store in order to access the device.
+     * @return The password for the given ARN from the key store in order to access the device.</p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom.
      */
 
     public String getTdeCredentialPassword() {
@@ -2550,9 +3996,14 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * <p>
      * The password for the given ARN from the key store in order to access the device.
      * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
      * 
      * @param tdeCredentialPassword
-     *        The password for the given ARN from the key store in order to access the device.
+     *        The password for the given ARN from the key store in order to access the device.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2569,7 +4020,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * Default: The default EC2 VPC security group for the DB subnet group's VPC.
      * </p>
      * 
-     * @return A list of EC2 VPC security groups to associate with this DB instance. </p>
+     * @return A list of EC2 VPC security groups to associate with this DB instance.</p>
      *         <p>
      *         Default: The default EC2 VPC security group for the DB subnet group's VPC.
      */
@@ -2590,7 +4041,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * </p>
      * 
      * @param vpcSecurityGroupIds
-     *        A list of EC2 VPC security groups to associate with this DB instance. </p>
+     *        A list of EC2 VPC security groups to associate with this DB instance.</p>
      *        <p>
      *        Default: The default EC2 VPC security group for the DB subnet group's VPC.
      */
@@ -2618,7 +4069,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * </p>
      * 
      * @param vpcSecurityGroupIds
-     *        A list of EC2 VPC security groups to associate with this DB instance. </p>
+     *        A list of EC2 VPC security groups to associate with this DB instance.</p>
      *        <p>
      *        Default: The default EC2 VPC security group for the DB subnet group's VPC.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -2643,7 +4094,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * </p>
      * 
      * @param vpcSecurityGroupIds
-     *        A list of EC2 VPC security groups to associate with this DB instance. </p>
+     *        A list of EC2 VPC security groups to associate with this DB instance.</p>
      *        <p>
      *        Default: The default EC2 VPC security group for the DB subnet group's VPC.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -2656,11 +4107,30 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Specify the Active Directory Domain to restore the instance in.
+     * The Active Directory directory ID to restore the DB instance in. Create the domain before running this command.
+     * Currently, you can create only the MySQL, Microsoft SQL Server, Oracle, and PostgreSQL DB instances in an Active
+     * Directory Domain.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/kerberos-authentication.html"> Kerberos
+     * Authentication</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * 
      * @param domain
-     *        Specify the Active Directory Domain to restore the instance in.
+     *        The Active Directory directory ID to restore the DB instance in. Create the domain before running this
+     *        command. Currently, you can create only the MySQL, Microsoft SQL Server, Oracle, and PostgreSQL DB
+     *        instances in an Active Directory Domain.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/kerberos-authentication.html"> Kerberos
+     *        Authentication</a> in the <i>Amazon RDS User Guide</i>.
      */
 
     public void setDomain(String domain) {
@@ -2669,10 +4139,29 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Specify the Active Directory Domain to restore the instance in.
+     * The Active Directory directory ID to restore the DB instance in. Create the domain before running this command.
+     * Currently, you can create only the MySQL, Microsoft SQL Server, Oracle, and PostgreSQL DB instances in an Active
+     * Directory Domain.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/kerberos-authentication.html"> Kerberos
+     * Authentication</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * 
-     * @return Specify the Active Directory Domain to restore the instance in.
+     * @return The Active Directory directory ID to restore the DB instance in. Create the domain before running this
+     *         command. Currently, you can create only the MySQL, Microsoft SQL Server, Oracle, and PostgreSQL DB
+     *         instances in an Active Directory Domain.</p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/kerberos-authentication.html"> Kerberos
+     *         Authentication</a> in the <i>Amazon RDS User Guide</i>.
      */
 
     public String getDomain() {
@@ -2681,11 +4170,30 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Specify the Active Directory Domain to restore the instance in.
+     * The Active Directory directory ID to restore the DB instance in. Create the domain before running this command.
+     * Currently, you can create only the MySQL, Microsoft SQL Server, Oracle, and PostgreSQL DB instances in an Active
+     * Directory Domain.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/kerberos-authentication.html"> Kerberos
+     * Authentication</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * 
      * @param domain
-     *        Specify the Active Directory Domain to restore the instance in.
+     *        The Active Directory directory ID to restore the DB instance in. Create the domain before running this
+     *        command. Currently, you can create only the MySQL, Microsoft SQL Server, Oracle, and PostgreSQL DB
+     *        instances in an Active Directory Domain.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/kerberos-authentication.html"> Kerberos
+     *        Authentication</a> in the <i>Amazon RDS User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2696,11 +4204,16 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Specify the name of the IAM role to be used when making API calls to the Directory Service.
+     * The name of the IAM role to use when making API calls to the Directory Service.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom DB instances.
      * </p>
      * 
      * @param domainIAMRoleName
-     *        Specify the name of the IAM role to be used when making API calls to the Directory Service.
+     *        The name of the IAM role to use when making API calls to the Directory Service.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom DB instances.
      */
 
     public void setDomainIAMRoleName(String domainIAMRoleName) {
@@ -2709,10 +4222,15 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Specify the name of the IAM role to be used when making API calls to the Directory Service.
+     * The name of the IAM role to use when making API calls to the Directory Service.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom DB instances.
      * </p>
      * 
-     * @return Specify the name of the IAM role to be used when making API calls to the Directory Service.
+     * @return The name of the IAM role to use when making API calls to the Directory Service.</p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom DB instances.
      */
 
     public String getDomainIAMRoleName() {
@@ -2721,11 +4239,16 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Specify the name of the IAM role to be used when making API calls to the Directory Service.
+     * The name of the IAM role to use when making API calls to the Directory Service.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom DB instances.
      * </p>
      * 
      * @param domainIAMRoleName
-     *        Specify the name of the IAM role to be used when making API calls to the Directory Service.
+     *        The name of the IAM role to use when making API calls to the Directory Service.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom DB instances.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2736,42 +4259,585 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts. By default, mapping is disabled.
+     * The fully qualified domain name (FQDN) of an Active Directory domain.
      * </p>
      * <p>
-     * You can enable IAM database authentication for the following database engines
+     * Constraints:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * For MySQL 5.6, minor version 5.6.34 or higher
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * For MySQL 5.7, minor version 5.7.16 or higher
+     * Can't be longer than 64 characters.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Example: <code>mymanagedADtest.mymanagedAD.mydomain</code>
+     * </p>
      * 
-     * @param enableIAMDatabaseAuthentication
-     *        A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *        database accounts. By default, mapping is disabled.</p>
+     * @param domainFqdn
+     *        The fully qualified domain name (FQDN) of an Active Directory domain.</p>
      *        <p>
-     *        You can enable IAM database authentication for the following database engines
+     *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        For MySQL 5.6, minor version 5.6.34 or higher
+     *        Can't be longer than 64 characters.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Example: <code>mymanagedADtest.mymanagedAD.mydomain</code>
+     */
+
+    public void setDomainFqdn(String domainFqdn) {
+        this.domainFqdn = domainFqdn;
+    }
+
+    /**
+     * <p>
+     * The fully qualified domain name (FQDN) of an Active Directory domain.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Can't be longer than 64 characters.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Example: <code>mymanagedADtest.mymanagedAD.mydomain</code>
+     * </p>
+     * 
+     * @return The fully qualified domain name (FQDN) of an Active Directory domain.</p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Can't be longer than 64 characters.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Example: <code>mymanagedADtest.mymanagedAD.mydomain</code>
+     */
+
+    public String getDomainFqdn() {
+        return this.domainFqdn;
+    }
+
+    /**
+     * <p>
+     * The fully qualified domain name (FQDN) of an Active Directory domain.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Can't be longer than 64 characters.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Example: <code>mymanagedADtest.mymanagedAD.mydomain</code>
+     * </p>
+     * 
+     * @param domainFqdn
+     *        The fully qualified domain name (FQDN) of an Active Directory domain.</p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Can't be longer than 64 characters.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Example: <code>mymanagedADtest.mymanagedAD.mydomain</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceToPointInTimeRequest withDomainFqdn(String domainFqdn) {
+        setDomainFqdn(domainFqdn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Active Directory organizational unit for your DB instance to join.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must be in the distinguished name format.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be longer than 64 characters.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Example: <code>OU=mymanagedADtestOU,DC=mymanagedADtest,DC=mymanagedAD,DC=mydomain</code>
+     * </p>
+     * 
+     * @param domainOu
+     *        The Active Directory organizational unit for your DB instance to join.</p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Must be in the distinguished name format.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For MySQL 5.7, minor version 5.7.16 or higher
+     *        Can't be longer than 64 characters.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        Example: <code>OU=mymanagedADtestOU,DC=mymanagedADtest,DC=mymanagedAD,DC=mydomain</code>
+     */
+
+    public void setDomainOu(String domainOu) {
+        this.domainOu = domainOu;
+    }
+
+    /**
+     * <p>
+     * The Active Directory organizational unit for your DB instance to join.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must be in the distinguished name format.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be longer than 64 characters.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Example: <code>OU=mymanagedADtestOU,DC=mymanagedADtest,DC=mymanagedAD,DC=mydomain</code>
+     * </p>
+     * 
+     * @return The Active Directory organizational unit for your DB instance to join.</p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Must be in the distinguished name format.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Can't be longer than 64 characters.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Example: <code>OU=mymanagedADtestOU,DC=mymanagedADtest,DC=mymanagedAD,DC=mydomain</code>
+     */
+
+    public String getDomainOu() {
+        return this.domainOu;
+    }
+
+    /**
+     * <p>
+     * The Active Directory organizational unit for your DB instance to join.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must be in the distinguished name format.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be longer than 64 characters.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Example: <code>OU=mymanagedADtestOU,DC=mymanagedADtest,DC=mymanagedAD,DC=mydomain</code>
+     * </p>
+     * 
+     * @param domainOu
+     *        The Active Directory organizational unit for your DB instance to join.</p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Must be in the distinguished name format.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Can't be longer than 64 characters.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Example: <code>OU=mymanagedADtestOU,DC=mymanagedADtest,DC=mymanagedAD,DC=mydomain</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceToPointInTimeRequest withDomainOu(String domainOu) {
+        setDomainOu(domainOu);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN for the Secrets Manager secret with the credentials for the user joining the domain.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Can't be longer than 64 characters.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Example: <code>arn:aws:secretsmanager:region:account-number:secret:myselfmanagedADtestsecret-123456</code>
+     * </p>
+     * 
+     * @param domainAuthSecretArn
+     *        The ARN for the Secrets Manager secret with the credentials for the user joining the domain.</p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Can't be longer than 64 characters.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Example: <code>arn:aws:secretsmanager:region:account-number:secret:myselfmanagedADtestsecret-123456</code>
+     */
+
+    public void setDomainAuthSecretArn(String domainAuthSecretArn) {
+        this.domainAuthSecretArn = domainAuthSecretArn;
+    }
+
+    /**
+     * <p>
+     * The ARN for the Secrets Manager secret with the credentials for the user joining the domain.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Can't be longer than 64 characters.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Example: <code>arn:aws:secretsmanager:region:account-number:secret:myselfmanagedADtestsecret-123456</code>
+     * </p>
+     * 
+     * @return The ARN for the Secrets Manager secret with the credentials for the user joining the domain.</p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Can't be longer than 64 characters.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Example:
+     *         <code>arn:aws:secretsmanager:region:account-number:secret:myselfmanagedADtestsecret-123456</code>
+     */
+
+    public String getDomainAuthSecretArn() {
+        return this.domainAuthSecretArn;
+    }
+
+    /**
+     * <p>
+     * The ARN for the Secrets Manager secret with the credentials for the user joining the domain.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Can't be longer than 64 characters.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Example: <code>arn:aws:secretsmanager:region:account-number:secret:myselfmanagedADtestsecret-123456</code>
+     * </p>
+     * 
+     * @param domainAuthSecretArn
+     *        The ARN for the Secrets Manager secret with the credentials for the user joining the domain.</p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Can't be longer than 64 characters.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Example: <code>arn:aws:secretsmanager:region:account-number:secret:myselfmanagedADtestsecret-123456</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceToPointInTimeRequest withDomainAuthSecretArn(String domainAuthSecretArn) {
+        setDomainAuthSecretArn(domainAuthSecretArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv4 DNS IP addresses of your primary and secondary Active Directory domain controllers.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Two IP addresses must be provided. If there isn't a secondary domain controller, use the IP address of the
+     * primary domain controller for both entries in the list.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Example: <code>123.124.125.126,234.235.236.237</code>
+     * </p>
+     * 
+     * @return The IPv4 DNS IP addresses of your primary and secondary Active Directory domain controllers.</p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Two IP addresses must be provided. If there isn't a secondary domain controller, use the IP address of
+     *         the primary domain controller for both entries in the list.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Example: <code>123.124.125.126,234.235.236.237</code>
+     */
+
+    public java.util.List<String> getDomainDnsIps() {
+        if (domainDnsIps == null) {
+            domainDnsIps = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return domainDnsIps;
+    }
+
+    /**
+     * <p>
+     * The IPv4 DNS IP addresses of your primary and secondary Active Directory domain controllers.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Two IP addresses must be provided. If there isn't a secondary domain controller, use the IP address of the
+     * primary domain controller for both entries in the list.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Example: <code>123.124.125.126,234.235.236.237</code>
+     * </p>
+     * 
+     * @param domainDnsIps
+     *        The IPv4 DNS IP addresses of your primary and secondary Active Directory domain controllers.</p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Two IP addresses must be provided. If there isn't a secondary domain controller, use the IP address of the
+     *        primary domain controller for both entries in the list.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Example: <code>123.124.125.126,234.235.236.237</code>
+     */
+
+    public void setDomainDnsIps(java.util.Collection<String> domainDnsIps) {
+        if (domainDnsIps == null) {
+            this.domainDnsIps = null;
+            return;
+        }
+
+        this.domainDnsIps = new com.amazonaws.internal.SdkInternalList<String>(domainDnsIps);
+    }
+
+    /**
+     * <p>
+     * The IPv4 DNS IP addresses of your primary and secondary Active Directory domain controllers.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Two IP addresses must be provided. If there isn't a secondary domain controller, use the IP address of the
+     * primary domain controller for both entries in the list.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Example: <code>123.124.125.126,234.235.236.237</code>
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setDomainDnsIps(java.util.Collection)} or {@link #withDomainDnsIps(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param domainDnsIps
+     *        The IPv4 DNS IP addresses of your primary and secondary Active Directory domain controllers.</p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Two IP addresses must be provided. If there isn't a secondary domain controller, use the IP address of the
+     *        primary domain controller for both entries in the list.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Example: <code>123.124.125.126,234.235.236.237</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceToPointInTimeRequest withDomainDnsIps(String... domainDnsIps) {
+        if (this.domainDnsIps == null) {
+            setDomainDnsIps(new com.amazonaws.internal.SdkInternalList<String>(domainDnsIps.length));
+        }
+        for (String ele : domainDnsIps) {
+            this.domainDnsIps.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv4 DNS IP addresses of your primary and secondary Active Directory domain controllers.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Two IP addresses must be provided. If there isn't a secondary domain controller, use the IP address of the
+     * primary domain controller for both entries in the list.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Example: <code>123.124.125.126,234.235.236.237</code>
+     * </p>
+     * 
+     * @param domainDnsIps
+     *        The IPv4 DNS IP addresses of your primary and secondary Active Directory domain controllers.</p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Two IP addresses must be provided. If there isn't a secondary domain controller, use the IP address of the
+     *        primary domain controller for both entries in the list.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Example: <code>123.124.125.126,234.235.236.237</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceToPointInTimeRequest withDomainDnsIps(java.util.Collection<String> domainDnsIps) {
+        setDomainDnsIps(domainDnsIps);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     * database accounts. By default, mapping isn't enabled.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     * <p>
+     * For more information about IAM database authentication, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     * Authentication for MySQL and PostgreSQL</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @param enableIAMDatabaseAuthentication
+     *        Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts
+     *        to database accounts. By default, mapping isn't enabled.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
+     *        </p>
+     *        <p>
+     *        For more information about IAM database authentication, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     *        Authentication for MySQL and PostgreSQL</a> in the <i>Amazon RDS User Guide.</i>
      */
 
     public void setEnableIAMDatabaseAuthentication(Boolean enableIAMDatabaseAuthentication) {
@@ -2780,41 +4846,27 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts. By default, mapping is disabled.
+     * Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     * database accounts. By default, mapping isn't enabled.
      * </p>
      * <p>
-     * You can enable IAM database authentication for the following database engines
+     * This setting doesn't apply to RDS Custom.
      * </p>
-     * <ul>
-     * <li>
      * <p>
-     * For MySQL 5.6, minor version 5.6.34 or higher
+     * For more information about IAM database authentication, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     * Authentication for MySQL and PostgreSQL</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
-     * </li>
-     * <li>
-     * <p>
-     * For MySQL 5.7, minor version 5.7.16 or higher
-     * </p>
-     * </li>
-     * </ul>
      * 
-     * @return A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *         database accounts. By default, mapping is disabled.</p>
+     * @return Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts
+     *         to database accounts. By default, mapping isn't enabled.</p>
      *         <p>
-     *         You can enable IAM database authentication for the following database engines
+     *         This setting doesn't apply to RDS Custom.
      *         </p>
-     *         <ul>
-     *         <li>
      *         <p>
-     *         For MySQL 5.6, minor version 5.6.34 or higher
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         For MySQL 5.7, minor version 5.7.16 or higher
-     *         </p>
-     *         </li>
+     *         For more information about IAM database authentication, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     *         Authentication for MySQL and PostgreSQL</a> in the <i>Amazon RDS User Guide.</i>
      */
 
     public Boolean getEnableIAMDatabaseAuthentication() {
@@ -2823,42 +4875,28 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts. By default, mapping is disabled.
+     * Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     * database accounts. By default, mapping isn't enabled.
      * </p>
      * <p>
-     * You can enable IAM database authentication for the following database engines
+     * This setting doesn't apply to RDS Custom.
      * </p>
-     * <ul>
-     * <li>
      * <p>
-     * For MySQL 5.6, minor version 5.6.34 or higher
+     * For more information about IAM database authentication, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     * Authentication for MySQL and PostgreSQL</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
-     * </li>
-     * <li>
-     * <p>
-     * For MySQL 5.7, minor version 5.7.16 or higher
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @param enableIAMDatabaseAuthentication
-     *        A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *        database accounts. By default, mapping is disabled.</p>
+     *        Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts
+     *        to database accounts. By default, mapping isn't enabled.</p>
      *        <p>
-     *        You can enable IAM database authentication for the following database engines
+     *        This setting doesn't apply to RDS Custom.
      *        </p>
-     *        <ul>
-     *        <li>
      *        <p>
-     *        For MySQL 5.6, minor version 5.6.34 or higher
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        For MySQL 5.7, minor version 5.7.16 or higher
-     *        </p>
-     *        </li>
+     *        For more information about IAM database authentication, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     *        Authentication for MySQL and PostgreSQL</a> in the <i>Amazon RDS User Guide.</i>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2869,41 +4907,27 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts. By default, mapping is disabled.
+     * Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     * database accounts. By default, mapping isn't enabled.
      * </p>
      * <p>
-     * You can enable IAM database authentication for the following database engines
+     * This setting doesn't apply to RDS Custom.
      * </p>
-     * <ul>
-     * <li>
      * <p>
-     * For MySQL 5.6, minor version 5.6.34 or higher
+     * For more information about IAM database authentication, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     * Authentication for MySQL and PostgreSQL</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
-     * </li>
-     * <li>
-     * <p>
-     * For MySQL 5.7, minor version 5.7.16 or higher
-     * </p>
-     * </li>
-     * </ul>
      * 
-     * @return A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *         database accounts. By default, mapping is disabled.</p>
+     * @return Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts
+     *         to database accounts. By default, mapping isn't enabled.</p>
      *         <p>
-     *         You can enable IAM database authentication for the following database engines
+     *         This setting doesn't apply to RDS Custom.
      *         </p>
-     *         <ul>
-     *         <li>
      *         <p>
-     *         For MySQL 5.6, minor version 5.6.34 or higher
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         For MySQL 5.7, minor version 5.7.16 or higher
-     *         </p>
-     *         </li>
+     *         For more information about IAM database authentication, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     *         Authentication for MySQL and PostgreSQL</a> in the <i>Amazon RDS User Guide.</i>
      */
 
     public Boolean isEnableIAMDatabaseAuthentication() {
@@ -2917,11 +4941,16 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
      * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
      * 
      * @return The list of logs that the restored DB instance is to export to CloudWatch Logs. The values in the list
      *         depend on the DB engine being used. For more information, see <a href=
      *         "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
-     *         >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
+     *         >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.</p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom.
      */
 
     public java.util.List<String> getEnableCloudwatchLogsExports() {
@@ -2938,12 +4967,17 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
      * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
      * 
      * @param enableCloudwatchLogsExports
      *        The list of logs that the restored DB instance is to export to CloudWatch Logs. The values in the list
      *        depend on the DB engine being used. For more information, see <a href=
      *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
-     *        >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
+     *        >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
      */
 
     public void setEnableCloudwatchLogsExports(java.util.Collection<String> enableCloudwatchLogsExports) {
@@ -2963,6 +4997,9 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
      * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setEnableCloudwatchLogsExports(java.util.Collection)} or
      * {@link #withEnableCloudwatchLogsExports(java.util.Collection)} if you want to override the existing values.
@@ -2972,7 +5009,9 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      *        The list of logs that the restored DB instance is to export to CloudWatch Logs. The values in the list
      *        depend on the DB engine being used. For more information, see <a href=
      *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
-     *        >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
+     *        >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2993,12 +5032,17 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
      * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
      * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
      * 
      * @param enableCloudwatchLogsExports
      *        The list of logs that the restored DB instance is to export to CloudWatch Logs. The values in the list
      *        depend on the DB engine being used. For more information, see <a href=
      *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
-     *        >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
+     *        >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -3011,8 +5055,14 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * <p>
      * The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.
      * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
      * 
-     * @return The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.
+     * @return The number of CPU cores and the number of threads per core for the DB instance class of the DB
+     *         instance.</p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom.
      */
 
     public java.util.List<ProcessorFeature> getProcessorFeatures() {
@@ -3026,9 +5076,15 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * <p>
      * The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.
      * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
      * 
      * @param processorFeatures
-     *        The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.
+     *        The number of CPU cores and the number of threads per core for the DB instance class of the DB
+     *        instance.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
      */
 
     public void setProcessorFeatures(java.util.Collection<ProcessorFeature> processorFeatures) {
@@ -3045,13 +5101,19 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.
      * </p>
      * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setProcessorFeatures(java.util.Collection)} or {@link #withProcessorFeatures(java.util.Collection)} if
      * you want to override the existing values.
      * </p>
      * 
      * @param processorFeatures
-     *        The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.
+     *        The number of CPU cores and the number of threads per core for the DB instance class of the DB
+     *        instance.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -3069,9 +5131,15 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * <p>
      * The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.
      * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
      * 
      * @param processorFeatures
-     *        The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.
+     *        The number of CPU cores and the number of threads per core for the DB instance class of the DB
+     *        instance.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -3082,12 +5150,16 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether the DB instance class of the DB instance uses its default processor features.
+     * Specifies whether the DB instance class of the DB instance uses its default processor features.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * 
      * @param useDefaultProcessorFeatures
-     *        A value that indicates whether the DB instance class of the DB instance uses its default processor
-     *        features.
+     *        Specifies whether the DB instance class of the DB instance uses its default processor features.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
      */
 
     public void setUseDefaultProcessorFeatures(Boolean useDefaultProcessorFeatures) {
@@ -3096,11 +5168,15 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether the DB instance class of the DB instance uses its default processor features.
+     * Specifies whether the DB instance class of the DB instance uses its default processor features.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * 
-     * @return A value that indicates whether the DB instance class of the DB instance uses its default processor
-     *         features.
+     * @return Specifies whether the DB instance class of the DB instance uses its default processor features.</p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom.
      */
 
     public Boolean getUseDefaultProcessorFeatures() {
@@ -3109,12 +5185,16 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether the DB instance class of the DB instance uses its default processor features.
+     * Specifies whether the DB instance class of the DB instance uses its default processor features.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * 
      * @param useDefaultProcessorFeatures
-     *        A value that indicates whether the DB instance class of the DB instance uses its default processor
-     *        features.
+     *        Specifies whether the DB instance class of the DB instance uses its default processor features.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -3125,11 +5205,15 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether the DB instance class of the DB instance uses its default processor features.
+     * Specifies whether the DB instance class of the DB instance uses its default processor features.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * 
-     * @return A value that indicates whether the DB instance class of the DB instance uses its default processor
-     *         features.
+     * @return Specifies whether the DB instance class of the DB instance uses its default processor features.</p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom.
      */
 
     public Boolean isUseDefaultProcessorFeatures() {
@@ -3138,8 +5222,14 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The name of the DB parameter group to associate with this DB instance. If this argument is omitted, the default
-     * DBParameterGroup for the specified engine is used.
+     * The name of the DB parameter group to associate with this DB instance.
+     * </p>
+     * <p>
+     * If you do not specify a value for <code>DBParameterGroupName</code>, then the default
+     * <code>DBParameterGroup</code> for the specified DB engine is used.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * <p>
      * Constraints:
@@ -3147,7 +5237,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * <ul>
      * <li>
      * <p>
-     * If supplied, must match the name of an existing DBParameterGroup.
+     * If supplied, must match the name of an existing DB parameter group.
      * </p>
      * </li>
      * <li>
@@ -3168,15 +5258,21 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * </ul>
      * 
      * @param dBParameterGroupName
-     *        The name of the DB parameter group to associate with this DB instance. If this argument is omitted, the
-     *        default DBParameterGroup for the specified engine is used.</p>
+     *        The name of the DB parameter group to associate with this DB instance.</p>
+     *        <p>
+     *        If you do not specify a value for <code>DBParameterGroupName</code>, then the default
+     *        <code>DBParameterGroup</code> for the specified DB engine is used.
+     *        </p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
+     *        </p>
      *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        If supplied, must match the name of an existing DBParameterGroup.
+     *        If supplied, must match the name of an existing DB parameter group.
      *        </p>
      *        </li>
      *        <li>
@@ -3202,8 +5298,14 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The name of the DB parameter group to associate with this DB instance. If this argument is omitted, the default
-     * DBParameterGroup for the specified engine is used.
+     * The name of the DB parameter group to associate with this DB instance.
+     * </p>
+     * <p>
+     * If you do not specify a value for <code>DBParameterGroupName</code>, then the default
+     * <code>DBParameterGroup</code> for the specified DB engine is used.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * <p>
      * Constraints:
@@ -3211,7 +5313,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * <ul>
      * <li>
      * <p>
-     * If supplied, must match the name of an existing DBParameterGroup.
+     * If supplied, must match the name of an existing DB parameter group.
      * </p>
      * </li>
      * <li>
@@ -3231,15 +5333,21 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * </li>
      * </ul>
      * 
-     * @return The name of the DB parameter group to associate with this DB instance. If this argument is omitted, the
-     *         default DBParameterGroup for the specified engine is used.</p>
+     * @return The name of the DB parameter group to associate with this DB instance.</p>
+     *         <p>
+     *         If you do not specify a value for <code>DBParameterGroupName</code>, then the default
+     *         <code>DBParameterGroup</code> for the specified DB engine is used.
+     *         </p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom.
+     *         </p>
      *         <p>
      *         Constraints:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         If supplied, must match the name of an existing DBParameterGroup.
+     *         If supplied, must match the name of an existing DB parameter group.
      *         </p>
      *         </li>
      *         <li>
@@ -3265,8 +5373,14 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The name of the DB parameter group to associate with this DB instance. If this argument is omitted, the default
-     * DBParameterGroup for the specified engine is used.
+     * The name of the DB parameter group to associate with this DB instance.
+     * </p>
+     * <p>
+     * If you do not specify a value for <code>DBParameterGroupName</code>, then the default
+     * <code>DBParameterGroup</code> for the specified DB engine is used.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
      * </p>
      * <p>
      * Constraints:
@@ -3274,7 +5388,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * <ul>
      * <li>
      * <p>
-     * If supplied, must match the name of an existing DBParameterGroup.
+     * If supplied, must match the name of an existing DB parameter group.
      * </p>
      * </li>
      * <li>
@@ -3295,15 +5409,21 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
      * </ul>
      * 
      * @param dBParameterGroupName
-     *        The name of the DB parameter group to associate with this DB instance. If this argument is omitted, the
-     *        default DBParameterGroup for the specified engine is used.</p>
+     *        The name of the DB parameter group to associate with this DB instance.</p>
+     *        <p>
+     *        If you do not specify a value for <code>DBParameterGroupName</code>, then the default
+     *        <code>DBParameterGroup</code> for the specified DB engine is used.
+     *        </p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
+     *        </p>
      *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        If supplied, must match the name of an existing DBParameterGroup.
+     *        If supplied, must match the name of an existing DB parameter group.
      *        </p>
      *        </li>
      *        <li>
@@ -3331,17 +5451,16 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether the DB instance has deletion protection enabled. The database can't be deleted
-     * when deletion protection is enabled. By default, deletion protection is disabled. For more information, see <a
+     * Specifies whether the DB instance has deletion protection enabled. The database can't be deleted when deletion
+     * protection is enabled. By default, deletion protection isn't enabled. For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
      * Instance</a>.
      * </p>
      * 
      * @param deletionProtection
-     *        A value that indicates whether the DB instance has deletion protection enabled. The database can't be
-     *        deleted when deletion protection is enabled. By default, deletion protection is disabled. For more
-     *        information, see <a
-     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
+     *        Specifies whether the DB instance has deletion protection enabled. The database can't be deleted when
+     *        deletion protection is enabled. By default, deletion protection isn't enabled. For more information, see
+     *        <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
      *        Instance</a>.
      */
 
@@ -3351,16 +5470,15 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether the DB instance has deletion protection enabled. The database can't be deleted
-     * when deletion protection is enabled. By default, deletion protection is disabled. For more information, see <a
+     * Specifies whether the DB instance has deletion protection enabled. The database can't be deleted when deletion
+     * protection is enabled. By default, deletion protection isn't enabled. For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
      * Instance</a>.
      * </p>
      * 
-     * @return A value that indicates whether the DB instance has deletion protection enabled. The database can't be
-     *         deleted when deletion protection is enabled. By default, deletion protection is disabled. For more
-     *         information, see <a
-     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
+     * @return Specifies whether the DB instance has deletion protection enabled. The database can't be deleted when
+     *         deletion protection is enabled. By default, deletion protection isn't enabled. For more information, see
+     *         <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
      *         Instance</a>.
      */
 
@@ -3370,17 +5488,16 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether the DB instance has deletion protection enabled. The database can't be deleted
-     * when deletion protection is enabled. By default, deletion protection is disabled. For more information, see <a
+     * Specifies whether the DB instance has deletion protection enabled. The database can't be deleted when deletion
+     * protection is enabled. By default, deletion protection isn't enabled. For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
      * Instance</a>.
      * </p>
      * 
      * @param deletionProtection
-     *        A value that indicates whether the DB instance has deletion protection enabled. The database can't be
-     *        deleted when deletion protection is enabled. By default, deletion protection is disabled. For more
-     *        information, see <a
-     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
+     *        Specifies whether the DB instance has deletion protection enabled. The database can't be deleted when
+     *        deletion protection is enabled. By default, deletion protection isn't enabled. For more information, see
+     *        <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
      *        Instance</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -3392,16 +5509,15 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A value that indicates whether the DB instance has deletion protection enabled. The database can't be deleted
-     * when deletion protection is enabled. By default, deletion protection is disabled. For more information, see <a
+     * Specifies whether the DB instance has deletion protection enabled. The database can't be deleted when deletion
+     * protection is enabled. By default, deletion protection isn't enabled. For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
      * Instance</a>.
      * </p>
      * 
-     * @return A value that indicates whether the DB instance has deletion protection enabled. The database can't be
-     *         deleted when deletion protection is enabled. By default, deletion protection is disabled. For more
-     *         information, see <a
-     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
+     * @return Specifies whether the DB instance has deletion protection enabled. The database can't be deleted when
+     *         deletion protection is enabled. By default, deletion protection isn't enabled. For more information, see
+     *         <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html"> Deleting a DB
      *         Instance</a>.
      */
 
@@ -3446,6 +5562,1378 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
 
     public RestoreDBInstanceToPointInTimeRequest withSourceDbiResourceId(String sourceDbiResourceId) {
         setSourceDbiResourceId(sourceDbiResourceId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The upper limit in gibibytes (GiB) to which Amazon RDS can automatically scale the storage of the DB instance.
+     * </p>
+     * <p>
+     * For more information about this setting, including limitations that apply to it, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html#USER_PIOPS.Autoscaling">
+     * Managing capacity automatically with Amazon RDS storage autoscaling</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     * 
+     * @param maxAllocatedStorage
+     *        The upper limit in gibibytes (GiB) to which Amazon RDS can automatically scale the storage of the DB
+     *        instance.</p>
+     *        <p>
+     *        For more information about this setting, including limitations that apply to it, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html#USER_PIOPS.Autoscaling"
+     *        > Managing capacity automatically with Amazon RDS storage autoscaling</a> in the <i>Amazon RDS User
+     *        Guide</i>.
+     *        </p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
+     */
+
+    public void setMaxAllocatedStorage(Integer maxAllocatedStorage) {
+        this.maxAllocatedStorage = maxAllocatedStorage;
+    }
+
+    /**
+     * <p>
+     * The upper limit in gibibytes (GiB) to which Amazon RDS can automatically scale the storage of the DB instance.
+     * </p>
+     * <p>
+     * For more information about this setting, including limitations that apply to it, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html#USER_PIOPS.Autoscaling">
+     * Managing capacity automatically with Amazon RDS storage autoscaling</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     * 
+     * @return The upper limit in gibibytes (GiB) to which Amazon RDS can automatically scale the storage of the DB
+     *         instance.</p>
+     *         <p>
+     *         For more information about this setting, including limitations that apply to it, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html#USER_PIOPS.Autoscaling"
+     *         > Managing capacity automatically with Amazon RDS storage autoscaling</a> in the <i>Amazon RDS User
+     *         Guide</i>.
+     *         </p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom.
+     */
+
+    public Integer getMaxAllocatedStorage() {
+        return this.maxAllocatedStorage;
+    }
+
+    /**
+     * <p>
+     * The upper limit in gibibytes (GiB) to which Amazon RDS can automatically scale the storage of the DB instance.
+     * </p>
+     * <p>
+     * For more information about this setting, including limitations that apply to it, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html#USER_PIOPS.Autoscaling">
+     * Managing capacity automatically with Amazon RDS storage autoscaling</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     * 
+     * @param maxAllocatedStorage
+     *        The upper limit in gibibytes (GiB) to which Amazon RDS can automatically scale the storage of the DB
+     *        instance.</p>
+     *        <p>
+     *        For more information about this setting, including limitations that apply to it, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html#USER_PIOPS.Autoscaling"
+     *        > Managing capacity automatically with Amazon RDS storage autoscaling</a> in the <i>Amazon RDS User
+     *        Guide</i>.
+     *        </p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceToPointInTimeRequest withMaxAllocatedStorage(Integer maxAllocatedStorage) {
+        setMaxAllocatedStorage(maxAllocatedStorage);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the replicated automated backups from which to restore, for example,
+     * <code>arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE</code>.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     * 
+     * @param sourceDBInstanceAutomatedBackupsArn
+     *        The Amazon Resource Name (ARN) of the replicated automated backups from which to restore, for example,
+     *        <code>arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE</code>.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
+     */
+
+    public void setSourceDBInstanceAutomatedBackupsArn(String sourceDBInstanceAutomatedBackupsArn) {
+        this.sourceDBInstanceAutomatedBackupsArn = sourceDBInstanceAutomatedBackupsArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the replicated automated backups from which to restore, for example,
+     * <code>arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE</code>.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the replicated automated backups from which to restore, for example,
+     *         <code>arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE</code>.</p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom.
+     */
+
+    public String getSourceDBInstanceAutomatedBackupsArn() {
+        return this.sourceDBInstanceAutomatedBackupsArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the replicated automated backups from which to restore, for example,
+     * <code>arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE</code>.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     * 
+     * @param sourceDBInstanceAutomatedBackupsArn
+     *        The Amazon Resource Name (ARN) of the replicated automated backups from which to restore, for example,
+     *        <code>arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE</code>.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceToPointInTimeRequest withSourceDBInstanceAutomatedBackupsArn(String sourceDBInstanceAutomatedBackupsArn) {
+        setSourceDBInstanceAutomatedBackupsArn(sourceDBInstanceAutomatedBackupsArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to enable a customer-owned IP address (CoIP) for an RDS on Outposts DB instance.
+     * </p>
+     * <p>
+     * A <i>CoIP</i> provides local or external connectivity to resources in your Outpost subnets through your
+     * on-premises network. For some use cases, a CoIP can provide lower latency for connections to the DB instance from
+     * outside of its virtual private cloud (VPC) on your local network.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     * <p>
+     * For more information about RDS on Outposts, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Working with Amazon RDS on
+     * Amazon Web Services Outposts</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about CoIPs, see <a
+     * href="https://docs.aws.amazon.com/outposts/latest/userguide/routing.html#ip-addressing">Customer-owned IP
+     * addresses</a> in the <i>Amazon Web Services Outposts User Guide</i>.
+     * </p>
+     * 
+     * @param enableCustomerOwnedIp
+     *        Specifies whether to enable a customer-owned IP address (CoIP) for an RDS on Outposts DB instance.</p>
+     *        <p>
+     *        A <i>CoIP</i> provides local or external connectivity to resources in your Outpost subnets through your
+     *        on-premises network. For some use cases, a CoIP can provide lower latency for connections to the DB
+     *        instance from outside of its virtual private cloud (VPC) on your local network.
+     *        </p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
+     *        </p>
+     *        <p>
+     *        For more information about RDS on Outposts, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Working with Amazon RDS
+     *        on Amazon Web Services Outposts</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        For more information about CoIPs, see <a
+     *        href="https://docs.aws.amazon.com/outposts/latest/userguide/routing.html#ip-addressing">Customer-owned IP
+     *        addresses</a> in the <i>Amazon Web Services Outposts User Guide</i>.
+     */
+
+    public void setEnableCustomerOwnedIp(Boolean enableCustomerOwnedIp) {
+        this.enableCustomerOwnedIp = enableCustomerOwnedIp;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to enable a customer-owned IP address (CoIP) for an RDS on Outposts DB instance.
+     * </p>
+     * <p>
+     * A <i>CoIP</i> provides local or external connectivity to resources in your Outpost subnets through your
+     * on-premises network. For some use cases, a CoIP can provide lower latency for connections to the DB instance from
+     * outside of its virtual private cloud (VPC) on your local network.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     * <p>
+     * For more information about RDS on Outposts, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Working with Amazon RDS on
+     * Amazon Web Services Outposts</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about CoIPs, see <a
+     * href="https://docs.aws.amazon.com/outposts/latest/userguide/routing.html#ip-addressing">Customer-owned IP
+     * addresses</a> in the <i>Amazon Web Services Outposts User Guide</i>.
+     * </p>
+     * 
+     * @return Specifies whether to enable a customer-owned IP address (CoIP) for an RDS on Outposts DB instance.</p>
+     *         <p>
+     *         A <i>CoIP</i> provides local or external connectivity to resources in your Outpost subnets through your
+     *         on-premises network. For some use cases, a CoIP can provide lower latency for connections to the DB
+     *         instance from outside of its virtual private cloud (VPC) on your local network.
+     *         </p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom.
+     *         </p>
+     *         <p>
+     *         For more information about RDS on Outposts, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Working with Amazon
+     *         RDS on Amazon Web Services Outposts</a> in the <i>Amazon RDS User Guide</i>.
+     *         </p>
+     *         <p>
+     *         For more information about CoIPs, see <a
+     *         href="https://docs.aws.amazon.com/outposts/latest/userguide/routing.html#ip-addressing">Customer-owned IP
+     *         addresses</a> in the <i>Amazon Web Services Outposts User Guide</i>.
+     */
+
+    public Boolean getEnableCustomerOwnedIp() {
+        return this.enableCustomerOwnedIp;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to enable a customer-owned IP address (CoIP) for an RDS on Outposts DB instance.
+     * </p>
+     * <p>
+     * A <i>CoIP</i> provides local or external connectivity to resources in your Outpost subnets through your
+     * on-premises network. For some use cases, a CoIP can provide lower latency for connections to the DB instance from
+     * outside of its virtual private cloud (VPC) on your local network.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     * <p>
+     * For more information about RDS on Outposts, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Working with Amazon RDS on
+     * Amazon Web Services Outposts</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about CoIPs, see <a
+     * href="https://docs.aws.amazon.com/outposts/latest/userguide/routing.html#ip-addressing">Customer-owned IP
+     * addresses</a> in the <i>Amazon Web Services Outposts User Guide</i>.
+     * </p>
+     * 
+     * @param enableCustomerOwnedIp
+     *        Specifies whether to enable a customer-owned IP address (CoIP) for an RDS on Outposts DB instance.</p>
+     *        <p>
+     *        A <i>CoIP</i> provides local or external connectivity to resources in your Outpost subnets through your
+     *        on-premises network. For some use cases, a CoIP can provide lower latency for connections to the DB
+     *        instance from outside of its virtual private cloud (VPC) on your local network.
+     *        </p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
+     *        </p>
+     *        <p>
+     *        For more information about RDS on Outposts, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Working with Amazon RDS
+     *        on Amazon Web Services Outposts</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        For more information about CoIPs, see <a
+     *        href="https://docs.aws.amazon.com/outposts/latest/userguide/routing.html#ip-addressing">Customer-owned IP
+     *        addresses</a> in the <i>Amazon Web Services Outposts User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceToPointInTimeRequest withEnableCustomerOwnedIp(Boolean enableCustomerOwnedIp) {
+        setEnableCustomerOwnedIp(enableCustomerOwnedIp);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to enable a customer-owned IP address (CoIP) for an RDS on Outposts DB instance.
+     * </p>
+     * <p>
+     * A <i>CoIP</i> provides local or external connectivity to resources in your Outpost subnets through your
+     * on-premises network. For some use cases, a CoIP can provide lower latency for connections to the DB instance from
+     * outside of its virtual private cloud (VPC) on your local network.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     * <p>
+     * For more information about RDS on Outposts, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Working with Amazon RDS on
+     * Amazon Web Services Outposts</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about CoIPs, see <a
+     * href="https://docs.aws.amazon.com/outposts/latest/userguide/routing.html#ip-addressing">Customer-owned IP
+     * addresses</a> in the <i>Amazon Web Services Outposts User Guide</i>.
+     * </p>
+     * 
+     * @return Specifies whether to enable a customer-owned IP address (CoIP) for an RDS on Outposts DB instance.</p>
+     *         <p>
+     *         A <i>CoIP</i> provides local or external connectivity to resources in your Outpost subnets through your
+     *         on-premises network. For some use cases, a CoIP can provide lower latency for connections to the DB
+     *         instance from outside of its virtual private cloud (VPC) on your local network.
+     *         </p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom.
+     *         </p>
+     *         <p>
+     *         For more information about RDS on Outposts, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Working with Amazon
+     *         RDS on Amazon Web Services Outposts</a> in the <i>Amazon RDS User Guide</i>.
+     *         </p>
+     *         <p>
+     *         For more information about CoIPs, see <a
+     *         href="https://docs.aws.amazon.com/outposts/latest/userguide/routing.html#ip-addressing">Customer-owned IP
+     *         addresses</a> in the <i>Amazon Web Services Outposts User Guide</i>.
+     */
+
+    public Boolean isEnableCustomerOwnedIp() {
+        return this.enableCustomerOwnedIp;
+    }
+
+    /**
+     * <p>
+     * The instance profile associated with the underlying Amazon EC2 instance of an RDS Custom DB instance. The
+     * instance profile must meet the following requirements:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The profile must exist in your account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The profile must have an IAM role that Amazon EC2 has permissions to assume.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The instance profile name and the associated IAM role name must start with the prefix <code>AWSRDSCustom</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For the list of permissions required for the IAM role, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/custom-setup-orcl.html#custom-setup-orcl.iam-vpc">
+     * Configure IAM and your VPC</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * This setting is required for RDS Custom.
+     * </p>
+     * 
+     * @param customIamInstanceProfile
+     *        The instance profile associated with the underlying Amazon EC2 instance of an RDS Custom DB instance. The
+     *        instance profile must meet the following requirements:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The profile must exist in your account.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The profile must have an IAM role that Amazon EC2 has permissions to assume.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The instance profile name and the associated IAM role name must start with the prefix
+     *        <code>AWSRDSCustom</code>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For the list of permissions required for the IAM role, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/custom-setup-orcl.html#custom-setup-orcl.iam-vpc">
+     *        Configure IAM and your VPC</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        This setting is required for RDS Custom.
+     */
+
+    public void setCustomIamInstanceProfile(String customIamInstanceProfile) {
+        this.customIamInstanceProfile = customIamInstanceProfile;
+    }
+
+    /**
+     * <p>
+     * The instance profile associated with the underlying Amazon EC2 instance of an RDS Custom DB instance. The
+     * instance profile must meet the following requirements:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The profile must exist in your account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The profile must have an IAM role that Amazon EC2 has permissions to assume.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The instance profile name and the associated IAM role name must start with the prefix <code>AWSRDSCustom</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For the list of permissions required for the IAM role, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/custom-setup-orcl.html#custom-setup-orcl.iam-vpc">
+     * Configure IAM and your VPC</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * This setting is required for RDS Custom.
+     * </p>
+     * 
+     * @return The instance profile associated with the underlying Amazon EC2 instance of an RDS Custom DB instance. The
+     *         instance profile must meet the following requirements:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         The profile must exist in your account.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The profile must have an IAM role that Amazon EC2 has permissions to assume.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The instance profile name and the associated IAM role name must start with the prefix
+     *         <code>AWSRDSCustom</code>.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For the list of permissions required for the IAM role, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/custom-setup-orcl.html#custom-setup-orcl.iam-vpc"
+     *         > Configure IAM and your VPC</a> in the <i>Amazon RDS User Guide</i>.
+     *         </p>
+     *         <p>
+     *         This setting is required for RDS Custom.
+     */
+
+    public String getCustomIamInstanceProfile() {
+        return this.customIamInstanceProfile;
+    }
+
+    /**
+     * <p>
+     * The instance profile associated with the underlying Amazon EC2 instance of an RDS Custom DB instance. The
+     * instance profile must meet the following requirements:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The profile must exist in your account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The profile must have an IAM role that Amazon EC2 has permissions to assume.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The instance profile name and the associated IAM role name must start with the prefix <code>AWSRDSCustom</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For the list of permissions required for the IAM role, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/custom-setup-orcl.html#custom-setup-orcl.iam-vpc">
+     * Configure IAM and your VPC</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * This setting is required for RDS Custom.
+     * </p>
+     * 
+     * @param customIamInstanceProfile
+     *        The instance profile associated with the underlying Amazon EC2 instance of an RDS Custom DB instance. The
+     *        instance profile must meet the following requirements:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The profile must exist in your account.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The profile must have an IAM role that Amazon EC2 has permissions to assume.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The instance profile name and the associated IAM role name must start with the prefix
+     *        <code>AWSRDSCustom</code>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For the list of permissions required for the IAM role, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/custom-setup-orcl.html#custom-setup-orcl.iam-vpc">
+     *        Configure IAM and your VPC</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        This setting is required for RDS Custom.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceToPointInTimeRequest withCustomIamInstanceProfile(String customIamInstanceProfile) {
+        setCustomIamInstanceProfile(customIamInstanceProfile);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The location for storing automated backups and manual snapshots for the restored DB instance.
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>outposts</code> (Amazon Web Services Outposts)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>region</code> (Amazon Web Services Region)
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default: <code>region</code>
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Working with Amazon RDS on
+     * Amazon Web Services Outposts</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * 
+     * @param backupTarget
+     *        The location for storing automated backups and manual snapshots for the restored DB instance.</p>
+     *        <p>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>outposts</code> (Amazon Web Services Outposts)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>region</code> (Amazon Web Services Region)
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Default: <code>region</code>
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Working with Amazon RDS
+     *        on Amazon Web Services Outposts</a> in the <i>Amazon RDS User Guide</i>.
+     */
+
+    public void setBackupTarget(String backupTarget) {
+        this.backupTarget = backupTarget;
+    }
+
+    /**
+     * <p>
+     * The location for storing automated backups and manual snapshots for the restored DB instance.
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>outposts</code> (Amazon Web Services Outposts)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>region</code> (Amazon Web Services Region)
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default: <code>region</code>
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Working with Amazon RDS on
+     * Amazon Web Services Outposts</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * 
+     * @return The location for storing automated backups and manual snapshots for the restored DB instance.</p>
+     *         <p>
+     *         Valid Values:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>outposts</code> (Amazon Web Services Outposts)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>region</code> (Amazon Web Services Region)
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Default: <code>region</code>
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Working with Amazon
+     *         RDS on Amazon Web Services Outposts</a> in the <i>Amazon RDS User Guide</i>.
+     */
+
+    public String getBackupTarget() {
+        return this.backupTarget;
+    }
+
+    /**
+     * <p>
+     * The location for storing automated backups and manual snapshots for the restored DB instance.
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>outposts</code> (Amazon Web Services Outposts)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>region</code> (Amazon Web Services Region)
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default: <code>region</code>
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Working with Amazon RDS on
+     * Amazon Web Services Outposts</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * 
+     * @param backupTarget
+     *        The location for storing automated backups and manual snapshots for the restored DB instance.</p>
+     *        <p>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>outposts</code> (Amazon Web Services Outposts)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>region</code> (Amazon Web Services Region)
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Default: <code>region</code>
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Working with Amazon RDS
+     *        on Amazon Web Services Outposts</a> in the <i>Amazon RDS User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceToPointInTimeRequest withBackupTarget(String backupTarget) {
+        setBackupTarget(backupTarget);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The network type of the DB instance.
+     * </p>
+     * <p>
+     * The network type is determined by the <code>DBSubnetGroup</code> specified for the DB instance. A
+     * <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     * <code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"> Working
+     * with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>IPV4</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DUAL</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param networkType
+     *        The network type of the DB instance.</p>
+     *        <p>
+     *        The network type is determined by the <code>DBSubnetGroup</code> specified for the DB instance. A
+     *        <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     *        <code>DUAL</code>).
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     *        Working with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     *        </p>
+     *        <p>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>IPV4</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DUAL</code>
+     *        </p>
+     *        </li>
+     */
+
+    public void setNetworkType(String networkType) {
+        this.networkType = networkType;
+    }
+
+    /**
+     * <p>
+     * The network type of the DB instance.
+     * </p>
+     * <p>
+     * The network type is determined by the <code>DBSubnetGroup</code> specified for the DB instance. A
+     * <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     * <code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"> Working
+     * with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>IPV4</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DUAL</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The network type of the DB instance.</p>
+     *         <p>
+     *         The network type is determined by the <code>DBSubnetGroup</code> specified for the DB instance. A
+     *         <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     *         <code>DUAL</code>).
+     *         </p>
+     *         <p>
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     *         Working with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     *         </p>
+     *         <p>
+     *         Valid Values:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>IPV4</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>DUAL</code>
+     *         </p>
+     *         </li>
+     */
+
+    public String getNetworkType() {
+        return this.networkType;
+    }
+
+    /**
+     * <p>
+     * The network type of the DB instance.
+     * </p>
+     * <p>
+     * The network type is determined by the <code>DBSubnetGroup</code> specified for the DB instance. A
+     * <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     * <code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"> Working
+     * with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>IPV4</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DUAL</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param networkType
+     *        The network type of the DB instance.</p>
+     *        <p>
+     *        The network type is determined by the <code>DBSubnetGroup</code> specified for the DB instance. A
+     *        <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     *        <code>DUAL</code>).
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     *        Working with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     *        </p>
+     *        <p>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>IPV4</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DUAL</code>
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceToPointInTimeRequest withNetworkType(String networkType) {
+        setNetworkType(networkType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The storage throughput value for the DB instance.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom or Amazon Aurora.
+     * </p>
+     * 
+     * @param storageThroughput
+     *        The storage throughput value for the DB instance.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom or Amazon Aurora.
+     */
+
+    public void setStorageThroughput(Integer storageThroughput) {
+        this.storageThroughput = storageThroughput;
+    }
+
+    /**
+     * <p>
+     * The storage throughput value for the DB instance.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom or Amazon Aurora.
+     * </p>
+     * 
+     * @return The storage throughput value for the DB instance.</p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom or Amazon Aurora.
+     */
+
+    public Integer getStorageThroughput() {
+        return this.storageThroughput;
+    }
+
+    /**
+     * <p>
+     * The storage throughput value for the DB instance.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom or Amazon Aurora.
+     * </p>
+     * 
+     * @param storageThroughput
+     *        The storage throughput value for the DB instance.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom or Amazon Aurora.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceToPointInTimeRequest withStorageThroughput(Integer storageThroughput) {
+        setStorageThroughput(storageThroughput);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The amount of storage (in gibibytes) to allocate initially for the DB instance. Follow the allocation rules
+     * specified in <code>CreateDBInstance</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Be sure to allocate enough storage for your new DB instance so that the restore operation can succeed. You can
+     * also allocate additional storage for future growth.
+     * </p>
+     * </note>
+     * 
+     * @param allocatedStorage
+     *        The amount of storage (in gibibytes) to allocate initially for the DB instance. Follow the allocation
+     *        rules specified in <code>CreateDBInstance</code>.</p> <note>
+     *        <p>
+     *        Be sure to allocate enough storage for your new DB instance so that the restore operation can succeed. You
+     *        can also allocate additional storage for future growth.
+     *        </p>
+     */
+
+    public void setAllocatedStorage(Integer allocatedStorage) {
+        this.allocatedStorage = allocatedStorage;
+    }
+
+    /**
+     * <p>
+     * The amount of storage (in gibibytes) to allocate initially for the DB instance. Follow the allocation rules
+     * specified in <code>CreateDBInstance</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Be sure to allocate enough storage for your new DB instance so that the restore operation can succeed. You can
+     * also allocate additional storage for future growth.
+     * </p>
+     * </note>
+     * 
+     * @return The amount of storage (in gibibytes) to allocate initially for the DB instance. Follow the allocation
+     *         rules specified in <code>CreateDBInstance</code>.</p> <note>
+     *         <p>
+     *         Be sure to allocate enough storage for your new DB instance so that the restore operation can succeed.
+     *         You can also allocate additional storage for future growth.
+     *         </p>
+     */
+
+    public Integer getAllocatedStorage() {
+        return this.allocatedStorage;
+    }
+
+    /**
+     * <p>
+     * The amount of storage (in gibibytes) to allocate initially for the DB instance. Follow the allocation rules
+     * specified in <code>CreateDBInstance</code>.
+     * </p>
+     * <note>
+     * <p>
+     * Be sure to allocate enough storage for your new DB instance so that the restore operation can succeed. You can
+     * also allocate additional storage for future growth.
+     * </p>
+     * </note>
+     * 
+     * @param allocatedStorage
+     *        The amount of storage (in gibibytes) to allocate initially for the DB instance. Follow the allocation
+     *        rules specified in <code>CreateDBInstance</code>.</p> <note>
+     *        <p>
+     *        Be sure to allocate enough storage for your new DB instance so that the restore operation can succeed. You
+     *        can also allocate additional storage for future growth.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceToPointInTimeRequest withAllocatedStorage(Integer allocatedStorage) {
+        setAllocatedStorage(allocatedStorage);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to enable a dedicated log volume (DLV) for the DB instance.
+     * </p>
+     * 
+     * @param dedicatedLogVolume
+     *        Specifies whether to enable a dedicated log volume (DLV) for the DB instance.
+     */
+
+    public void setDedicatedLogVolume(Boolean dedicatedLogVolume) {
+        this.dedicatedLogVolume = dedicatedLogVolume;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to enable a dedicated log volume (DLV) for the DB instance.
+     * </p>
+     * 
+     * @return Specifies whether to enable a dedicated log volume (DLV) for the DB instance.
+     */
+
+    public Boolean getDedicatedLogVolume() {
+        return this.dedicatedLogVolume;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to enable a dedicated log volume (DLV) for the DB instance.
+     * </p>
+     * 
+     * @param dedicatedLogVolume
+     *        Specifies whether to enable a dedicated log volume (DLV) for the DB instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceToPointInTimeRequest withDedicatedLogVolume(Boolean dedicatedLogVolume) {
+        setDedicatedLogVolume(dedicatedLogVolume);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to enable a dedicated log volume (DLV) for the DB instance.
+     * </p>
+     * 
+     * @return Specifies whether to enable a dedicated log volume (DLV) for the DB instance.
+     */
+
+    public Boolean isDedicatedLogVolume() {
+        return this.dedicatedLogVolume;
+    }
+
+    /**
+     * <p>
+     * The CA certificate identifier to use for the DB instance's server certificate.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom DB instances.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a
+     * connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS to
+     * encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @param cACertificateIdentifier
+     *        The CA certificate identifier to use for the DB instance's server certificate.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom DB instances.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to
+     *        encrypt a connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS
+     *        to encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
+     */
+
+    public void setCACertificateIdentifier(String cACertificateIdentifier) {
+        this.cACertificateIdentifier = cACertificateIdentifier;
+    }
+
+    /**
+     * <p>
+     * The CA certificate identifier to use for the DB instance's server certificate.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom DB instances.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a
+     * connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS to
+     * encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @return The CA certificate identifier to use for the DB instance's server certificate.</p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom DB instances.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to
+     *         encrypt a connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS
+     *         to encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
+     */
+
+    public String getCACertificateIdentifier() {
+        return this.cACertificateIdentifier;
+    }
+
+    /**
+     * <p>
+     * The CA certificate identifier to use for the DB instance's server certificate.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom DB instances.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a
+     * connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS to
+     * encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @param cACertificateIdentifier
+     *        The CA certificate identifier to use for the DB instance's server certificate.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom DB instances.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to
+     *        encrypt a connection to a DB instance</a> in the <i>Amazon RDS User Guide</i> and <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.SSL.html"> Using SSL/TLS
+     *        to encrypt a connection to a DB cluster</a> in the <i>Amazon Aurora User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceToPointInTimeRequest withCACertificateIdentifier(String cACertificateIdentifier) {
+        setCACertificateIdentifier(cACertificateIdentifier);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The life cycle type for this DB instance.
+     * </p>
+     * <note>
+     * <p>
+     * By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB instance
+     * into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for Extended Support by
+     * setting the value to <code>open-source-rds-extended-support-disabled</code>. In this case, RDS automatically
+     * upgrades your restored DB instance to a higher engine version, if the major engine version is past its end of
+     * standard support date.
+     * </p>
+     * </note>
+     * <p>
+     * You can use this setting to enroll your DB instance into Amazon RDS Extended Support. With RDS Extended Support,
+     * you can run the selected major engine version on your DB instance past the end of standard support for that
+     * engine version. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Using Amazon RDS Extended
+     * Support</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * This setting applies only to RDS for MySQL and RDS for PostgreSQL. For Amazon Aurora DB instances, the life cycle
+     * type is managed by the DB cluster.
+     * </p>
+     * <p>
+     * Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code>
+     * </p>
+     * <p>
+     * Default: <code>open-source-rds-extended-support</code>
+     * </p>
+     * 
+     * @param engineLifecycleSupport
+     *        The life cycle type for this DB instance.</p> <note>
+     *        <p>
+     *        By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB
+     *        instance into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for
+     *        Extended Support by setting the value to <code>open-source-rds-extended-support-disabled</code>. In this
+     *        case, RDS automatically upgrades your restored DB instance to a higher engine version, if the major engine
+     *        version is past its end of standard support date.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        You can use this setting to enroll your DB instance into Amazon RDS Extended Support. With RDS Extended
+     *        Support, you can run the selected major engine version on your DB instance past the end of standard
+     *        support for that engine version. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Using Amazon RDS
+     *        Extended Support</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        This setting applies only to RDS for MySQL and RDS for PostgreSQL. For Amazon Aurora DB instances, the
+     *        life cycle type is managed by the DB cluster.
+     *        </p>
+     *        <p>
+     *        Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code>
+     *        </p>
+     *        <p>
+     *        Default: <code>open-source-rds-extended-support</code>
+     */
+
+    public void setEngineLifecycleSupport(String engineLifecycleSupport) {
+        this.engineLifecycleSupport = engineLifecycleSupport;
+    }
+
+    /**
+     * <p>
+     * The life cycle type for this DB instance.
+     * </p>
+     * <note>
+     * <p>
+     * By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB instance
+     * into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for Extended Support by
+     * setting the value to <code>open-source-rds-extended-support-disabled</code>. In this case, RDS automatically
+     * upgrades your restored DB instance to a higher engine version, if the major engine version is past its end of
+     * standard support date.
+     * </p>
+     * </note>
+     * <p>
+     * You can use this setting to enroll your DB instance into Amazon RDS Extended Support. With RDS Extended Support,
+     * you can run the selected major engine version on your DB instance past the end of standard support for that
+     * engine version. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Using Amazon RDS Extended
+     * Support</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * This setting applies only to RDS for MySQL and RDS for PostgreSQL. For Amazon Aurora DB instances, the life cycle
+     * type is managed by the DB cluster.
+     * </p>
+     * <p>
+     * Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code>
+     * </p>
+     * <p>
+     * Default: <code>open-source-rds-extended-support</code>
+     * </p>
+     * 
+     * @return The life cycle type for this DB instance.</p> <note>
+     *         <p>
+     *         By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB
+     *         instance into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for
+     *         Extended Support by setting the value to <code>open-source-rds-extended-support-disabled</code>. In this
+     *         case, RDS automatically upgrades your restored DB instance to a higher engine version, if the major
+     *         engine version is past its end of standard support date.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         You can use this setting to enroll your DB instance into Amazon RDS Extended Support. With RDS Extended
+     *         Support, you can run the selected major engine version on your DB instance past the end of standard
+     *         support for that engine version. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Using Amazon RDS
+     *         Extended Support</a> in the <i>Amazon RDS User Guide</i>.
+     *         </p>
+     *         <p>
+     *         This setting applies only to RDS for MySQL and RDS for PostgreSQL. For Amazon Aurora DB instances, the
+     *         life cycle type is managed by the DB cluster.
+     *         </p>
+     *         <p>
+     *         Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code>
+     *         </p>
+     *         <p>
+     *         Default: <code>open-source-rds-extended-support</code>
+     */
+
+    public String getEngineLifecycleSupport() {
+        return this.engineLifecycleSupport;
+    }
+
+    /**
+     * <p>
+     * The life cycle type for this DB instance.
+     * </p>
+     * <note>
+     * <p>
+     * By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB instance
+     * into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for Extended Support by
+     * setting the value to <code>open-source-rds-extended-support-disabled</code>. In this case, RDS automatically
+     * upgrades your restored DB instance to a higher engine version, if the major engine version is past its end of
+     * standard support date.
+     * </p>
+     * </note>
+     * <p>
+     * You can use this setting to enroll your DB instance into Amazon RDS Extended Support. With RDS Extended Support,
+     * you can run the selected major engine version on your DB instance past the end of standard support for that
+     * engine version. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Using Amazon RDS Extended
+     * Support</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * This setting applies only to RDS for MySQL and RDS for PostgreSQL. For Amazon Aurora DB instances, the life cycle
+     * type is managed by the DB cluster.
+     * </p>
+     * <p>
+     * Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code>
+     * </p>
+     * <p>
+     * Default: <code>open-source-rds-extended-support</code>
+     * </p>
+     * 
+     * @param engineLifecycleSupport
+     *        The life cycle type for this DB instance.</p> <note>
+     *        <p>
+     *        By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB
+     *        instance into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for
+     *        Extended Support by setting the value to <code>open-source-rds-extended-support-disabled</code>. In this
+     *        case, RDS automatically upgrades your restored DB instance to a higher engine version, if the major engine
+     *        version is past its end of standard support date.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        You can use this setting to enroll your DB instance into Amazon RDS Extended Support. With RDS Extended
+     *        Support, you can run the selected major engine version on your DB instance past the end of standard
+     *        support for that engine version. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Using Amazon RDS
+     *        Extended Support</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        This setting applies only to RDS for MySQL and RDS for PostgreSQL. For Amazon Aurora DB instances, the
+     *        life cycle type is managed by the DB cluster.
+     *        </p>
+     *        <p>
+     *        Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code>
+     *        </p>
+     *        <p>
+     *        Default: <code>open-source-rds-extended-support</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBInstanceToPointInTimeRequest withEngineLifecycleSupport(String engineLifecycleSupport) {
+        setEngineLifecycleSupport(engineLifecycleSupport);
         return this;
     }
 
@@ -3509,6 +6997,14 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
             sb.append("Domain: ").append(getDomain()).append(",");
         if (getDomainIAMRoleName() != null)
             sb.append("DomainIAMRoleName: ").append(getDomainIAMRoleName()).append(",");
+        if (getDomainFqdn() != null)
+            sb.append("DomainFqdn: ").append(getDomainFqdn()).append(",");
+        if (getDomainOu() != null)
+            sb.append("DomainOu: ").append(getDomainOu()).append(",");
+        if (getDomainAuthSecretArn() != null)
+            sb.append("DomainAuthSecretArn: ").append(getDomainAuthSecretArn()).append(",");
+        if (getDomainDnsIps() != null)
+            sb.append("DomainDnsIps: ").append(getDomainDnsIps()).append(",");
         if (getEnableIAMDatabaseAuthentication() != null)
             sb.append("EnableIAMDatabaseAuthentication: ").append(getEnableIAMDatabaseAuthentication()).append(",");
         if (getEnableCloudwatchLogsExports() != null)
@@ -3522,7 +7018,29 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
         if (getDeletionProtection() != null)
             sb.append("DeletionProtection: ").append(getDeletionProtection()).append(",");
         if (getSourceDbiResourceId() != null)
-            sb.append("SourceDbiResourceId: ").append(getSourceDbiResourceId());
+            sb.append("SourceDbiResourceId: ").append(getSourceDbiResourceId()).append(",");
+        if (getMaxAllocatedStorage() != null)
+            sb.append("MaxAllocatedStorage: ").append(getMaxAllocatedStorage()).append(",");
+        if (getSourceDBInstanceAutomatedBackupsArn() != null)
+            sb.append("SourceDBInstanceAutomatedBackupsArn: ").append(getSourceDBInstanceAutomatedBackupsArn()).append(",");
+        if (getEnableCustomerOwnedIp() != null)
+            sb.append("EnableCustomerOwnedIp: ").append(getEnableCustomerOwnedIp()).append(",");
+        if (getCustomIamInstanceProfile() != null)
+            sb.append("CustomIamInstanceProfile: ").append(getCustomIamInstanceProfile()).append(",");
+        if (getBackupTarget() != null)
+            sb.append("BackupTarget: ").append(getBackupTarget()).append(",");
+        if (getNetworkType() != null)
+            sb.append("NetworkType: ").append(getNetworkType()).append(",");
+        if (getStorageThroughput() != null)
+            sb.append("StorageThroughput: ").append(getStorageThroughput()).append(",");
+        if (getAllocatedStorage() != null)
+            sb.append("AllocatedStorage: ").append(getAllocatedStorage()).append(",");
+        if (getDedicatedLogVolume() != null)
+            sb.append("DedicatedLogVolume: ").append(getDedicatedLogVolume()).append(",");
+        if (getCACertificateIdentifier() != null)
+            sb.append("CACertificateIdentifier: ").append(getCACertificateIdentifier()).append(",");
+        if (getEngineLifecycleSupport() != null)
+            sb.append("EngineLifecycleSupport: ").append(getEngineLifecycleSupport());
         sb.append("}");
         return sb.toString();
     }
@@ -3633,6 +7151,22 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
             return false;
         if (other.getDomainIAMRoleName() != null && other.getDomainIAMRoleName().equals(this.getDomainIAMRoleName()) == false)
             return false;
+        if (other.getDomainFqdn() == null ^ this.getDomainFqdn() == null)
+            return false;
+        if (other.getDomainFqdn() != null && other.getDomainFqdn().equals(this.getDomainFqdn()) == false)
+            return false;
+        if (other.getDomainOu() == null ^ this.getDomainOu() == null)
+            return false;
+        if (other.getDomainOu() != null && other.getDomainOu().equals(this.getDomainOu()) == false)
+            return false;
+        if (other.getDomainAuthSecretArn() == null ^ this.getDomainAuthSecretArn() == null)
+            return false;
+        if (other.getDomainAuthSecretArn() != null && other.getDomainAuthSecretArn().equals(this.getDomainAuthSecretArn()) == false)
+            return false;
+        if (other.getDomainDnsIps() == null ^ this.getDomainDnsIps() == null)
+            return false;
+        if (other.getDomainDnsIps() != null && other.getDomainDnsIps().equals(this.getDomainDnsIps()) == false)
+            return false;
         if (other.getEnableIAMDatabaseAuthentication() == null ^ this.getEnableIAMDatabaseAuthentication() == null)
             return false;
         if (other.getEnableIAMDatabaseAuthentication() != null
@@ -3661,6 +7195,51 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
         if (other.getSourceDbiResourceId() == null ^ this.getSourceDbiResourceId() == null)
             return false;
         if (other.getSourceDbiResourceId() != null && other.getSourceDbiResourceId().equals(this.getSourceDbiResourceId()) == false)
+            return false;
+        if (other.getMaxAllocatedStorage() == null ^ this.getMaxAllocatedStorage() == null)
+            return false;
+        if (other.getMaxAllocatedStorage() != null && other.getMaxAllocatedStorage().equals(this.getMaxAllocatedStorage()) == false)
+            return false;
+        if (other.getSourceDBInstanceAutomatedBackupsArn() == null ^ this.getSourceDBInstanceAutomatedBackupsArn() == null)
+            return false;
+        if (other.getSourceDBInstanceAutomatedBackupsArn() != null
+                && other.getSourceDBInstanceAutomatedBackupsArn().equals(this.getSourceDBInstanceAutomatedBackupsArn()) == false)
+            return false;
+        if (other.getEnableCustomerOwnedIp() == null ^ this.getEnableCustomerOwnedIp() == null)
+            return false;
+        if (other.getEnableCustomerOwnedIp() != null && other.getEnableCustomerOwnedIp().equals(this.getEnableCustomerOwnedIp()) == false)
+            return false;
+        if (other.getCustomIamInstanceProfile() == null ^ this.getCustomIamInstanceProfile() == null)
+            return false;
+        if (other.getCustomIamInstanceProfile() != null && other.getCustomIamInstanceProfile().equals(this.getCustomIamInstanceProfile()) == false)
+            return false;
+        if (other.getBackupTarget() == null ^ this.getBackupTarget() == null)
+            return false;
+        if (other.getBackupTarget() != null && other.getBackupTarget().equals(this.getBackupTarget()) == false)
+            return false;
+        if (other.getNetworkType() == null ^ this.getNetworkType() == null)
+            return false;
+        if (other.getNetworkType() != null && other.getNetworkType().equals(this.getNetworkType()) == false)
+            return false;
+        if (other.getStorageThroughput() == null ^ this.getStorageThroughput() == null)
+            return false;
+        if (other.getStorageThroughput() != null && other.getStorageThroughput().equals(this.getStorageThroughput()) == false)
+            return false;
+        if (other.getAllocatedStorage() == null ^ this.getAllocatedStorage() == null)
+            return false;
+        if (other.getAllocatedStorage() != null && other.getAllocatedStorage().equals(this.getAllocatedStorage()) == false)
+            return false;
+        if (other.getDedicatedLogVolume() == null ^ this.getDedicatedLogVolume() == null)
+            return false;
+        if (other.getDedicatedLogVolume() != null && other.getDedicatedLogVolume().equals(this.getDedicatedLogVolume()) == false)
+            return false;
+        if (other.getCACertificateIdentifier() == null ^ this.getCACertificateIdentifier() == null)
+            return false;
+        if (other.getCACertificateIdentifier() != null && other.getCACertificateIdentifier().equals(this.getCACertificateIdentifier()) == false)
+            return false;
+        if (other.getEngineLifecycleSupport() == null ^ this.getEngineLifecycleSupport() == null)
+            return false;
+        if (other.getEngineLifecycleSupport() != null && other.getEngineLifecycleSupport().equals(this.getEngineLifecycleSupport()) == false)
             return false;
         return true;
     }
@@ -3694,6 +7273,10 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
         hashCode = prime * hashCode + ((getVpcSecurityGroupIds() == null) ? 0 : getVpcSecurityGroupIds().hashCode());
         hashCode = prime * hashCode + ((getDomain() == null) ? 0 : getDomain().hashCode());
         hashCode = prime * hashCode + ((getDomainIAMRoleName() == null) ? 0 : getDomainIAMRoleName().hashCode());
+        hashCode = prime * hashCode + ((getDomainFqdn() == null) ? 0 : getDomainFqdn().hashCode());
+        hashCode = prime * hashCode + ((getDomainOu() == null) ? 0 : getDomainOu().hashCode());
+        hashCode = prime * hashCode + ((getDomainAuthSecretArn() == null) ? 0 : getDomainAuthSecretArn().hashCode());
+        hashCode = prime * hashCode + ((getDomainDnsIps() == null) ? 0 : getDomainDnsIps().hashCode());
         hashCode = prime * hashCode + ((getEnableIAMDatabaseAuthentication() == null) ? 0 : getEnableIAMDatabaseAuthentication().hashCode());
         hashCode = prime * hashCode + ((getEnableCloudwatchLogsExports() == null) ? 0 : getEnableCloudwatchLogsExports().hashCode());
         hashCode = prime * hashCode + ((getProcessorFeatures() == null) ? 0 : getProcessorFeatures().hashCode());
@@ -3701,6 +7284,17 @@ public class RestoreDBInstanceToPointInTimeRequest extends com.amazonaws.AmazonW
         hashCode = prime * hashCode + ((getDBParameterGroupName() == null) ? 0 : getDBParameterGroupName().hashCode());
         hashCode = prime * hashCode + ((getDeletionProtection() == null) ? 0 : getDeletionProtection().hashCode());
         hashCode = prime * hashCode + ((getSourceDbiResourceId() == null) ? 0 : getSourceDbiResourceId().hashCode());
+        hashCode = prime * hashCode + ((getMaxAllocatedStorage() == null) ? 0 : getMaxAllocatedStorage().hashCode());
+        hashCode = prime * hashCode + ((getSourceDBInstanceAutomatedBackupsArn() == null) ? 0 : getSourceDBInstanceAutomatedBackupsArn().hashCode());
+        hashCode = prime * hashCode + ((getEnableCustomerOwnedIp() == null) ? 0 : getEnableCustomerOwnedIp().hashCode());
+        hashCode = prime * hashCode + ((getCustomIamInstanceProfile() == null) ? 0 : getCustomIamInstanceProfile().hashCode());
+        hashCode = prime * hashCode + ((getBackupTarget() == null) ? 0 : getBackupTarget().hashCode());
+        hashCode = prime * hashCode + ((getNetworkType() == null) ? 0 : getNetworkType().hashCode());
+        hashCode = prime * hashCode + ((getStorageThroughput() == null) ? 0 : getStorageThroughput().hashCode());
+        hashCode = prime * hashCode + ((getAllocatedStorage() == null) ? 0 : getAllocatedStorage().hashCode());
+        hashCode = prime * hashCode + ((getDedicatedLogVolume() == null) ? 0 : getDedicatedLogVolume().hashCode());
+        hashCode = prime * hashCode + ((getCACertificateIdentifier() == null) ? 0 : getCACertificateIdentifier().hashCode());
+        hashCode = prime * hashCode + ((getEngineLifecycleSupport() == null) ? 0 : getEngineLifecycleSupport().hashCode());
         return hashCode;
     }
 

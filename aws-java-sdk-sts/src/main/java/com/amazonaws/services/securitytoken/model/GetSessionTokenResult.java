@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,8 +17,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Contains the response to a successful <a>GetSessionToken</a> request, including temporary AWS credentials that can be
- * used to make AWS requests.
+ * Contains the response to a successful <a>GetSessionToken</a> request, including temporary Amazon Web Services
+ * credentials that can be used to make Amazon Web Services requests.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sts-2011-06-15/GetSessionToken" target="_top">AWS API

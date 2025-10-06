@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,7 +36,13 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
     private String resourceId;
     /**
      * <p>
-     * Cost allocation resource tags applied to the instance.
+     * The name that you given an instance. This field shows as blank if you haven't given the instance a name.
+     * </p>
+     */
+    private String instanceName;
+    /**
+     * <p>
+     * Cost allocation resource tags that are applied to the instance.
      * </p>
      */
     private java.util.List<TagValues> tags;
@@ -54,25 +60,31 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
     private ResourceUtilization resourceUtilization;
     /**
      * <p>
-     * Number of hours during the lookback period covered by reservations.
+     * The number of hours during the lookback period that's covered by reservations.
      * </p>
      */
     private String reservationCoveredHoursInLookbackPeriod;
     /**
      * <p>
-     * Number of hours during the lookback period billed at On Demand rates.
+     * The number of hours during the lookback period that's covered by Savings Plans.
+     * </p>
+     */
+    private String savingsPlansCoveredHoursInLookbackPeriod;
+    /**
+     * <p>
+     * The number of hours during the lookback period that's billed at On-Demand rates.
      * </p>
      */
     private String onDemandHoursInLookbackPeriod;
     /**
      * <p>
-     * The total number of hours the instance ran during the lookback period.
+     * The total number of hours that the instance ran during the lookback period.
      * </p>
      */
     private String totalRunningHoursInLookbackPeriod;
     /**
      * <p>
-     * Current On Demand cost of operating this instance on a monthly basis.
+     * The current On-Demand cost of operating this instance on a monthly basis.
      * </p>
      */
     private String monthlyCost;
@@ -125,10 +137,50 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Cost allocation resource tags applied to the instance.
+     * The name that you given an instance. This field shows as blank if you haven't given the instance a name.
      * </p>
      * 
-     * @return Cost allocation resource tags applied to the instance.
+     * @param instanceName
+     *        The name that you given an instance. This field shows as blank if you haven't given the instance a name.
+     */
+
+    public void setInstanceName(String instanceName) {
+        this.instanceName = instanceName;
+    }
+
+    /**
+     * <p>
+     * The name that you given an instance. This field shows as blank if you haven't given the instance a name.
+     * </p>
+     * 
+     * @return The name that you given an instance. This field shows as blank if you haven't given the instance a name.
+     */
+
+    public String getInstanceName() {
+        return this.instanceName;
+    }
+
+    /**
+     * <p>
+     * The name that you given an instance. This field shows as blank if you haven't given the instance a name.
+     * </p>
+     * 
+     * @param instanceName
+     *        The name that you given an instance. This field shows as blank if you haven't given the instance a name.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CurrentInstance withInstanceName(String instanceName) {
+        setInstanceName(instanceName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Cost allocation resource tags that are applied to the instance.
+     * </p>
+     * 
+     * @return Cost allocation resource tags that are applied to the instance.
      */
 
     public java.util.List<TagValues> getTags() {
@@ -137,11 +189,11 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Cost allocation resource tags applied to the instance.
+     * Cost allocation resource tags that are applied to the instance.
      * </p>
      * 
      * @param tags
-     *        Cost allocation resource tags applied to the instance.
+     *        Cost allocation resource tags that are applied to the instance.
      */
 
     public void setTags(java.util.Collection<TagValues> tags) {
@@ -155,7 +207,7 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Cost allocation resource tags applied to the instance.
+     * Cost allocation resource tags that are applied to the instance.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -164,7 +216,7 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
      * </p>
      * 
      * @param tags
-     *        Cost allocation resource tags applied to the instance.
+     *        Cost allocation resource tags that are applied to the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -180,11 +232,11 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Cost allocation resource tags applied to the instance.
+     * Cost allocation resource tags that are applied to the instance.
      * </p>
      * 
      * @param tags
-     *        Cost allocation resource tags applied to the instance.
+     *        Cost allocation resource tags that are applied to the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -275,11 +327,11 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Number of hours during the lookback period covered by reservations.
+     * The number of hours during the lookback period that's covered by reservations.
      * </p>
      * 
      * @param reservationCoveredHoursInLookbackPeriod
-     *        Number of hours during the lookback period covered by reservations.
+     *        The number of hours during the lookback period that's covered by reservations.
      */
 
     public void setReservationCoveredHoursInLookbackPeriod(String reservationCoveredHoursInLookbackPeriod) {
@@ -288,10 +340,10 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Number of hours during the lookback period covered by reservations.
+     * The number of hours during the lookback period that's covered by reservations.
      * </p>
      * 
-     * @return Number of hours during the lookback period covered by reservations.
+     * @return The number of hours during the lookback period that's covered by reservations.
      */
 
     public String getReservationCoveredHoursInLookbackPeriod() {
@@ -300,11 +352,11 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Number of hours during the lookback period covered by reservations.
+     * The number of hours during the lookback period that's covered by reservations.
      * </p>
      * 
      * @param reservationCoveredHoursInLookbackPeriod
-     *        Number of hours during the lookback period covered by reservations.
+     *        The number of hours during the lookback period that's covered by reservations.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -315,11 +367,51 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Number of hours during the lookback period billed at On Demand rates.
+     * The number of hours during the lookback period that's covered by Savings Plans.
+     * </p>
+     * 
+     * @param savingsPlansCoveredHoursInLookbackPeriod
+     *        The number of hours during the lookback period that's covered by Savings Plans.
+     */
+
+    public void setSavingsPlansCoveredHoursInLookbackPeriod(String savingsPlansCoveredHoursInLookbackPeriod) {
+        this.savingsPlansCoveredHoursInLookbackPeriod = savingsPlansCoveredHoursInLookbackPeriod;
+    }
+
+    /**
+     * <p>
+     * The number of hours during the lookback period that's covered by Savings Plans.
+     * </p>
+     * 
+     * @return The number of hours during the lookback period that's covered by Savings Plans.
+     */
+
+    public String getSavingsPlansCoveredHoursInLookbackPeriod() {
+        return this.savingsPlansCoveredHoursInLookbackPeriod;
+    }
+
+    /**
+     * <p>
+     * The number of hours during the lookback period that's covered by Savings Plans.
+     * </p>
+     * 
+     * @param savingsPlansCoveredHoursInLookbackPeriod
+     *        The number of hours during the lookback period that's covered by Savings Plans.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CurrentInstance withSavingsPlansCoveredHoursInLookbackPeriod(String savingsPlansCoveredHoursInLookbackPeriod) {
+        setSavingsPlansCoveredHoursInLookbackPeriod(savingsPlansCoveredHoursInLookbackPeriod);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of hours during the lookback period that's billed at On-Demand rates.
      * </p>
      * 
      * @param onDemandHoursInLookbackPeriod
-     *        Number of hours during the lookback period billed at On Demand rates.
+     *        The number of hours during the lookback period that's billed at On-Demand rates.
      */
 
     public void setOnDemandHoursInLookbackPeriod(String onDemandHoursInLookbackPeriod) {
@@ -328,10 +420,10 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Number of hours during the lookback period billed at On Demand rates.
+     * The number of hours during the lookback period that's billed at On-Demand rates.
      * </p>
      * 
-     * @return Number of hours during the lookback period billed at On Demand rates.
+     * @return The number of hours during the lookback period that's billed at On-Demand rates.
      */
 
     public String getOnDemandHoursInLookbackPeriod() {
@@ -340,11 +432,11 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Number of hours during the lookback period billed at On Demand rates.
+     * The number of hours during the lookback period that's billed at On-Demand rates.
      * </p>
      * 
      * @param onDemandHoursInLookbackPeriod
-     *        Number of hours during the lookback period billed at On Demand rates.
+     *        The number of hours during the lookback period that's billed at On-Demand rates.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -355,11 +447,11 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The total number of hours the instance ran during the lookback period.
+     * The total number of hours that the instance ran during the lookback period.
      * </p>
      * 
      * @param totalRunningHoursInLookbackPeriod
-     *        The total number of hours the instance ran during the lookback period.
+     *        The total number of hours that the instance ran during the lookback period.
      */
 
     public void setTotalRunningHoursInLookbackPeriod(String totalRunningHoursInLookbackPeriod) {
@@ -368,10 +460,10 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The total number of hours the instance ran during the lookback period.
+     * The total number of hours that the instance ran during the lookback period.
      * </p>
      * 
-     * @return The total number of hours the instance ran during the lookback period.
+     * @return The total number of hours that the instance ran during the lookback period.
      */
 
     public String getTotalRunningHoursInLookbackPeriod() {
@@ -380,11 +472,11 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The total number of hours the instance ran during the lookback period.
+     * The total number of hours that the instance ran during the lookback period.
      * </p>
      * 
      * @param totalRunningHoursInLookbackPeriod
-     *        The total number of hours the instance ran during the lookback period.
+     *        The total number of hours that the instance ran during the lookback period.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -395,11 +487,11 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Current On Demand cost of operating this instance on a monthly basis.
+     * The current On-Demand cost of operating this instance on a monthly basis.
      * </p>
      * 
      * @param monthlyCost
-     *        Current On Demand cost of operating this instance on a monthly basis.
+     *        The current On-Demand cost of operating this instance on a monthly basis.
      */
 
     public void setMonthlyCost(String monthlyCost) {
@@ -408,10 +500,10 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Current On Demand cost of operating this instance on a monthly basis.
+     * The current On-Demand cost of operating this instance on a monthly basis.
      * </p>
      * 
-     * @return Current On Demand cost of operating this instance on a monthly basis.
+     * @return The current On-Demand cost of operating this instance on a monthly basis.
      */
 
     public String getMonthlyCost() {
@@ -420,11 +512,11 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Current On Demand cost of operating this instance on a monthly basis.
+     * The current On-Demand cost of operating this instance on a monthly basis.
      * </p>
      * 
      * @param monthlyCost
-     *        Current On Demand cost of operating this instance on a monthly basis.
+     *        The current On-Demand cost of operating this instance on a monthly basis.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -487,6 +579,8 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
         sb.append("{");
         if (getResourceId() != null)
             sb.append("ResourceId: ").append(getResourceId()).append(",");
+        if (getInstanceName() != null)
+            sb.append("InstanceName: ").append(getInstanceName()).append(",");
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getResourceDetails() != null)
@@ -495,6 +589,8 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
             sb.append("ResourceUtilization: ").append(getResourceUtilization()).append(",");
         if (getReservationCoveredHoursInLookbackPeriod() != null)
             sb.append("ReservationCoveredHoursInLookbackPeriod: ").append(getReservationCoveredHoursInLookbackPeriod()).append(",");
+        if (getSavingsPlansCoveredHoursInLookbackPeriod() != null)
+            sb.append("SavingsPlansCoveredHoursInLookbackPeriod: ").append(getSavingsPlansCoveredHoursInLookbackPeriod()).append(",");
         if (getOnDemandHoursInLookbackPeriod() != null)
             sb.append("OnDemandHoursInLookbackPeriod: ").append(getOnDemandHoursInLookbackPeriod()).append(",");
         if (getTotalRunningHoursInLookbackPeriod() != null)
@@ -521,6 +617,10 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
             return false;
         if (other.getResourceId() != null && other.getResourceId().equals(this.getResourceId()) == false)
             return false;
+        if (other.getInstanceName() == null ^ this.getInstanceName() == null)
+            return false;
+        if (other.getInstanceName() != null && other.getInstanceName().equals(this.getInstanceName()) == false)
+            return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
@@ -537,6 +637,11 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
             return false;
         if (other.getReservationCoveredHoursInLookbackPeriod() != null
                 && other.getReservationCoveredHoursInLookbackPeriod().equals(this.getReservationCoveredHoursInLookbackPeriod()) == false)
+            return false;
+        if (other.getSavingsPlansCoveredHoursInLookbackPeriod() == null ^ this.getSavingsPlansCoveredHoursInLookbackPeriod() == null)
+            return false;
+        if (other.getSavingsPlansCoveredHoursInLookbackPeriod() != null
+                && other.getSavingsPlansCoveredHoursInLookbackPeriod().equals(this.getSavingsPlansCoveredHoursInLookbackPeriod()) == false)
             return false;
         if (other.getOnDemandHoursInLookbackPeriod() == null ^ this.getOnDemandHoursInLookbackPeriod() == null)
             return false;
@@ -565,10 +670,12 @@ public class CurrentInstance implements Serializable, Cloneable, StructuredPojo 
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getResourceId() == null) ? 0 : getResourceId().hashCode());
+        hashCode = prime * hashCode + ((getInstanceName() == null) ? 0 : getInstanceName().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getResourceDetails() == null) ? 0 : getResourceDetails().hashCode());
         hashCode = prime * hashCode + ((getResourceUtilization() == null) ? 0 : getResourceUtilization().hashCode());
         hashCode = prime * hashCode + ((getReservationCoveredHoursInLookbackPeriod() == null) ? 0 : getReservationCoveredHoursInLookbackPeriod().hashCode());
+        hashCode = prime * hashCode + ((getSavingsPlansCoveredHoursInLookbackPeriod() == null) ? 0 : getSavingsPlansCoveredHoursInLookbackPeriod().hashCode());
         hashCode = prime * hashCode + ((getOnDemandHoursInLookbackPeriod() == null) ? 0 : getOnDemandHoursInLookbackPeriod().hashCode());
         hashCode = prime * hashCode + ((getTotalRunningHoursInLookbackPeriod() == null) ? 0 : getTotalRunningHoursInLookbackPeriod().hashCode());
         hashCode = prime * hashCode + ((getMonthlyCost() == null) ? 0 : getMonthlyCost().hashCode());

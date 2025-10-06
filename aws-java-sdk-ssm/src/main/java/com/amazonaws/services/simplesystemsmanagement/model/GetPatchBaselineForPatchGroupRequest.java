@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,7 +33,7 @@ public class GetPatchBaselineForPatchGroupRequest extends com.amazonaws.AmazonWe
     private String patchGroup;
     /**
      * <p>
-     * Returns he operating system rule specified for patch groups using the patch baseline.
+     * Returns the operating system rule specified for patch groups using the patch baseline.
      * </p>
      */
     private String operatingSystem;
@@ -80,11 +80,11 @@ public class GetPatchBaselineForPatchGroupRequest extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * Returns he operating system rule specified for patch groups using the patch baseline.
+     * Returns the operating system rule specified for patch groups using the patch baseline.
      * </p>
      * 
      * @param operatingSystem
-     *        Returns he operating system rule specified for patch groups using the patch baseline.
+     *        Returns the operating system rule specified for patch groups using the patch baseline.
      * @see OperatingSystem
      */
 
@@ -94,10 +94,10 @@ public class GetPatchBaselineForPatchGroupRequest extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * Returns he operating system rule specified for patch groups using the patch baseline.
+     * Returns the operating system rule specified for patch groups using the patch baseline.
      * </p>
      * 
-     * @return Returns he operating system rule specified for patch groups using the patch baseline.
+     * @return Returns the operating system rule specified for patch groups using the patch baseline.
      * @see OperatingSystem
      */
 
@@ -107,11 +107,11 @@ public class GetPatchBaselineForPatchGroupRequest extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * Returns he operating system rule specified for patch groups using the patch baseline.
+     * Returns the operating system rule specified for patch groups using the patch baseline.
      * </p>
      * 
      * @param operatingSystem
-     *        Returns he operating system rule specified for patch groups using the patch baseline.
+     *        Returns the operating system rule specified for patch groups using the patch baseline.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see OperatingSystem
      */
@@ -123,11 +123,11 @@ public class GetPatchBaselineForPatchGroupRequest extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * Returns he operating system rule specified for patch groups using the patch baseline.
+     * Returns the operating system rule specified for patch groups using the patch baseline.
      * </p>
      * 
      * @param operatingSystem
-     *        Returns he operating system rule specified for patch groups using the patch baseline.
+     *        Returns the operating system rule specified for patch groups using the patch baseline.
      * @see OperatingSystem
      */
 
@@ -137,11 +137,11 @@ public class GetPatchBaselineForPatchGroupRequest extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * Returns he operating system rule specified for patch groups using the patch baseline.
+     * Returns the operating system rule specified for patch groups using the patch baseline.
      * </p>
      * 
      * @param operatingSystem
-     *        Returns he operating system rule specified for patch groups using the patch baseline.
+     *        Returns the operating system rule specified for patch groups using the patch baseline.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see OperatingSystem
      */

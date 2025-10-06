@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,34 +27,31 @@ public class DiscoverPollEndpointRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The container instance ID or full ARN of the container instance. The ARN contains the <code>arn:aws:ecs</code>
-     * namespace, followed by the Region of the container instance, the AWS account ID of the container instance owner,
-     * the <code>container-instance</code> namespace, and then the container instance ID. For example,
-     * <code>arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</code>.
+     * The container instance ID or full ARN of the container instance. For more information about the ARN format, see
+     * <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids">
+     * Amazon Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.
      * </p>
      */
     private String containerInstance;
     /**
      * <p>
-     * The short name or full Amazon Resource Name (ARN) of the cluster to which the container instance belongs.
+     * The short name or full Amazon Resource Name (ARN) of the cluster that the container instance belongs to.
      * </p>
      */
     private String cluster;
 
     /**
      * <p>
-     * The container instance ID or full ARN of the container instance. The ARN contains the <code>arn:aws:ecs</code>
-     * namespace, followed by the Region of the container instance, the AWS account ID of the container instance owner,
-     * the <code>container-instance</code> namespace, and then the container instance ID. For example,
-     * <code>arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</code>.
+     * The container instance ID or full ARN of the container instance. For more information about the ARN format, see
+     * <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids">
+     * Amazon Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.
      * </p>
      * 
      * @param containerInstance
-     *        The container instance ID or full ARN of the container instance. The ARN contains the
-     *        <code>arn:aws:ecs</code> namespace, followed by the Region of the container instance, the AWS account ID
-     *        of the container instance owner, the <code>container-instance</code> namespace, and then the container
-     *        instance ID. For example,
-     *        <code>arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</code>.
+     *        The container instance ID or full ARN of the container instance. For more information about the ARN
+     *        format, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids"
+     *        >Amazon Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.
      */
 
     public void setContainerInstance(String containerInstance) {
@@ -63,17 +60,15 @@ public class DiscoverPollEndpointRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The container instance ID or full ARN of the container instance. The ARN contains the <code>arn:aws:ecs</code>
-     * namespace, followed by the Region of the container instance, the AWS account ID of the container instance owner,
-     * the <code>container-instance</code> namespace, and then the container instance ID. For example,
-     * <code>arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</code>.
+     * The container instance ID or full ARN of the container instance. For more information about the ARN format, see
+     * <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids">
+     * Amazon Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.
      * </p>
      * 
-     * @return The container instance ID or full ARN of the container instance. The ARN contains the
-     *         <code>arn:aws:ecs</code> namespace, followed by the Region of the container instance, the AWS account ID
-     *         of the container instance owner, the <code>container-instance</code> namespace, and then the container
-     *         instance ID. For example,
-     *         <code>arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</code>.
+     * @return The container instance ID or full ARN of the container instance. For more information about the ARN
+     *         format, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids"
+     *         >Amazon Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.
      */
 
     public String getContainerInstance() {
@@ -82,18 +77,16 @@ public class DiscoverPollEndpointRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The container instance ID or full ARN of the container instance. The ARN contains the <code>arn:aws:ecs</code>
-     * namespace, followed by the Region of the container instance, the AWS account ID of the container instance owner,
-     * the <code>container-instance</code> namespace, and then the container instance ID. For example,
-     * <code>arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</code>.
+     * The container instance ID or full ARN of the container instance. For more information about the ARN format, see
+     * <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids">
+     * Amazon Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.
      * </p>
      * 
      * @param containerInstance
-     *        The container instance ID or full ARN of the container instance. The ARN contains the
-     *        <code>arn:aws:ecs</code> namespace, followed by the Region of the container instance, the AWS account ID
-     *        of the container instance owner, the <code>container-instance</code> namespace, and then the container
-     *        instance ID. For example,
-     *        <code>arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</code>.
+     *        The container instance ID or full ARN of the container instance. For more information about the ARN
+     *        format, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids"
+     *        >Amazon Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -104,11 +97,11 @@ public class DiscoverPollEndpointRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The short name or full Amazon Resource Name (ARN) of the cluster to which the container instance belongs.
+     * The short name or full Amazon Resource Name (ARN) of the cluster that the container instance belongs to.
      * </p>
      * 
      * @param cluster
-     *        The short name or full Amazon Resource Name (ARN) of the cluster to which the container instance belongs.
+     *        The short name or full Amazon Resource Name (ARN) of the cluster that the container instance belongs to.
      */
 
     public void setCluster(String cluster) {
@@ -117,10 +110,10 @@ public class DiscoverPollEndpointRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The short name or full Amazon Resource Name (ARN) of the cluster to which the container instance belongs.
+     * The short name or full Amazon Resource Name (ARN) of the cluster that the container instance belongs to.
      * </p>
      * 
-     * @return The short name or full Amazon Resource Name (ARN) of the cluster to which the container instance belongs.
+     * @return The short name or full Amazon Resource Name (ARN) of the cluster that the container instance belongs to.
      */
 
     public String getCluster() {
@@ -129,11 +122,11 @@ public class DiscoverPollEndpointRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The short name or full Amazon Resource Name (ARN) of the cluster to which the container instance belongs.
+     * The short name or full Amazon Resource Name (ARN) of the cluster that the container instance belongs to.
      * </p>
      * 
      * @param cluster
-     *        The short name or full Amazon Resource Name (ARN) of the cluster to which the container instance belongs.
+     *        The short name or full Amazon Resource Name (ARN) of the cluster that the container instance belongs to.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -349,6 +349,32 @@ public interface AWSServerlessApplicationRepository {
      *      target="_top">AWS API Documentation</a>
      */
     PutApplicationPolicyResult putApplicationPolicy(PutApplicationPolicyRequest putApplicationPolicyRequest);
+
+    /**
+     * <p>
+     * Unshares an application from an AWS Organization.
+     * </p>
+     * <p>
+     * This operation can be called only from the organization's master account.
+     * </p>
+     * 
+     * @param unshareApplicationRequest
+     * @return Result of the UnshareApplication operation returned by the service.
+     * @throws NotFoundException
+     *         The resource (for example, an access policy statement) specified in the request doesn't exist.
+     * @throws TooManyRequestsException
+     *         The client is sending more than the allowed number of requests per unit of time.
+     * @throws BadRequestException
+     *         One of the parameters in the request is invalid.
+     * @throws InternalServerErrorException
+     *         The AWS Serverless Application Repository service encountered an internal error.
+     * @throws ForbiddenException
+     *         The client is not authenticated.
+     * @sample AWSServerlessApplicationRepository.UnshareApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/UnshareApplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UnshareApplicationResult unshareApplication(UnshareApplicationRequest unshareApplicationRequest);
 
     /**
      * <p>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not
  * use this file except in compliance with the License. A copy of the License is
@@ -14,70 +14,107 @@
  */
 package com.amazonaws.protocol.json;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import org.junit.Assert;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import com.amazonaws.DefaultRequest;
+import com.amazonaws.Request;
+import com.amazonaws.protocol.OperationInfo;
+import com.amazonaws.protocol.Protocol;
+import com.amazonaws.protocol.ProtocolRequestMarshaller;
+import com.amazonaws.transform.JsonErrorUnmarshaller;
+import java.util.Collections;
 import org.junit.Test;
 
 public class SdkJsonProtocolFactoryTest {
-    @Test
-    public void ionBinaryEnabledGeneratorWritesIonBinary() {
-        StructuredJsonGenerator generator = protocolFactory(IonEnabled.YES, IonBinaryEnabled.YES).createGenerator();
-        generator.writeValue(true);
-        byte[] actual = generator.getBytes();
-        byte[] expected = bytes(0xE0, 0x01, 0x00, 0xEA, 0x11);
-        assertArrayEquals(expected, actual);
-    }
 
     @Test
-    public void ionBinaryDisabledGeneratorWritesIonText() throws Exception {
-        StructuredJsonGenerator generator = protocolFactory(IonEnabled.YES, IonBinaryEnabled.NO).createGenerator();
-        generator.writeValue(true);
-        byte[] actual = generator.getBytes();
-        byte[] expected = "true".getBytes("UTF-8");
-        assertArrayEquals(expected, actual);
-    }
+    public void errorShapeMetadata_hasCustomUnmarshaller_doesNotUseExceptionClass() {
+        JsonErrorUnmarshaller customUnmarshaller = mock(JsonErrorUnmarshaller.class);
 
-    @Test
-    public void ionBinaryEnabledUsesIonBinaryContentType() {
-        SdkJsonProtocolFactory protocolFactory = protocolFactory(IonEnabled.YES, IonBinaryEnabled.YES);
-        assertEquals("application/x-amz-ion-1.0", protocolFactory.getContentType());
-    }
+        JsonErrorShapeMetadata mockErrorMetadata = mock(JsonErrorShapeMetadata.class);
+        when(mockErrorMetadata.getErrorCode()).thenReturn("SomeError");
+        when(mockErrorMetadata.getModeledClass()).thenReturn((Class) RuntimeException.class);
+        when(mockErrorMetadata.getExceptionUnmarshaller()).thenReturn(customUnmarshaller);
 
-    @Test
-    public void ionBinaryDisabledUsesIonTextContentType() {
-        SdkJsonProtocolFactory protocolFactory = protocolFactory(IonEnabled.YES, IonBinaryEnabled.NO);
-        assertEquals("text/x-amz-ion-1.0", protocolFactory.getContentType());
-    }
-
-    private SdkJsonProtocolFactory protocolFactory(IonEnabled ionEnabled, final IonBinaryEnabled ionBinaryEnabled) {
         JsonClientMetadata metadata = new JsonClientMetadata()
-                .withSupportsIon(ionEnabled == IonEnabled.YES)
-                .withProtocolVersion("1.0");
-        SdkJsonProtocolFactory protocolFactory = new SdkJsonProtocolFactory(metadata) {
-            @Override
-            boolean isIonBinaryEnabled() {
-                return ionBinaryEnabled == IonBinaryEnabled.YES;
-            }
-        };
-        return protocolFactory;
+                .withSupportsIon(false)
+                .withProtocolVersion("1.0")
+                .addErrorMetadata(mockErrorMetadata);
+
+        new SdkJsonProtocolFactory(metadata).createErrorResponseHandler(new JsonErrorResponseMetadata());
+
+        verify(mockErrorMetadata, atLeastOnce()).getExceptionUnmarshaller();
+        verify(mockErrorMetadata, never()).getErrorCode();
+        verify(mockErrorMetadata, never()).getModeledClass();
     }
 
-    private enum IonEnabled {
-        YES,
-        NO;
+    @Test
+    public void errorShapeMetadata_noCustomUnmarshaller_usesExceptionClass() {
+        JsonErrorShapeMetadata mockErrorMetadata = mock(JsonErrorShapeMetadata.class);
+        when(mockErrorMetadata.getErrorCode()).thenReturn("SomeError");
+        when(mockErrorMetadata.getModeledClass()).thenReturn((Class) RuntimeException.class);
+
+        JsonClientMetadata metadata = new JsonClientMetadata()
+                .withSupportsIon(false)
+                .withProtocolVersion("1.0")
+                .addErrorMetadata(mockErrorMetadata);
+
+        new SdkJsonProtocolFactory(metadata).createErrorResponseHandler(new JsonErrorResponseMetadata());
+
+        verify(mockErrorMetadata).getExceptionUnmarshaller();
+        verify(mockErrorMetadata, atLeastOnce()).getErrorCode();
+        verify(mockErrorMetadata, atLeastOnce()).getModeledClass();
     }
 
-    private enum IonBinaryEnabled {
-        YES,
-        NO;
+    @Test
+    public void errorShapeMetadata_baseExceptionGiven_usesBaseException() {
+        JsonClientMetadata metadata = mock(JsonClientMetadata.class);
+        when(metadata.getBaseServiceExceptionClass()).thenReturn((Class) RuntimeException.class);
+        when(metadata.getErrorShapeMetadata()).thenReturn(Collections.<JsonErrorShapeMetadata>emptyList());
+
+        new SdkJsonProtocolFactory(metadata).createErrorResponseHandler(new JsonErrorResponseMetadata());
+
+        verify(metadata, atLeastOnce()).getBaseServiceExceptionClass();
     }
 
-    private static byte[] bytes(int... ints) {
-        byte[] bytes = new byte[ints.length];
-        for (int i = 0; i < ints.length; i++) {
-            bytes[i] = (byte) (0xFF & ints[i]);
-        }
-        return bytes;
+    @Test
+    public void withAwsQueryCompatible_sendsQueryModeHeader() {
+        JsonClientMetadata metadata = new JsonClientMetadata()
+                .withAwsQueryCompatible(true);
+
+        OperationInfo operationInfo = OperationInfo.builder().protocol(Protocol.AWS_JSON).build();
+        DefaultRequest<Object> request = new DefaultRequest<>("TestService");
+
+        ProtocolRequestMarshaller<DefaultRequest> protocolMarshaller =
+                new SdkJsonProtocolFactory(metadata).createProtocolMarshaller(operationInfo, request);
+
+        protocolMarshaller.startMarshalling();
+        Request<DefaultRequest> marshalledRequest = protocolMarshaller.finishMarshalling();
+
+        String queryModeHeader = marshalledRequest.getHeaders().get("x-amzn-query-mode");
+        Assert.assertNotNull(queryModeHeader);
+        Assert.assertEquals("true", queryModeHeader);
+    }
+
+    @Test
+    public void withoutAwsQueryCompatible_doesNotSendQueryModeHeader() {
+        JsonClientMetadata metadata = new JsonClientMetadata();
+
+        OperationInfo operationInfo = OperationInfo.builder().protocol(Protocol.AWS_JSON).build();
+        DefaultRequest<Object> request = new DefaultRequest<>("TestService");
+
+        ProtocolRequestMarshaller<DefaultRequest> protocolMarshaller =
+                new SdkJsonProtocolFactory(metadata).createProtocolMarshaller(operationInfo, request);
+
+        protocolMarshaller.startMarshalling();
+        Request<DefaultRequest> marshalledRequest = protocolMarshaller.finishMarshalling();
+
+        String queryModeHeader = marshalledRequest.getHeaders().get("x-amzn-query-mode");
+        Assert.assertNull(queryModeHeader);
     }
 }

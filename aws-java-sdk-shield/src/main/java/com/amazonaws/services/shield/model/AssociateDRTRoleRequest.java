@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class AssociateDRTRoleRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the role the DRT will use to access your AWS account.
+     * The Amazon Resource Name (ARN) of the role the SRT will use to access your Amazon Web Services account.
      * </p>
      * <p>
      * Prior to making the <code>AssociateDRTRole</code> request, you must attach the <a href=
@@ -41,7 +41,7 @@ public class AssociateDRTRoleRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the role the DRT will use to access your AWS account.
+     * The Amazon Resource Name (ARN) of the role the SRT will use to access your Amazon Web Services account.
      * </p>
      * <p>
      * Prior to making the <code>AssociateDRTRole</code> request, you must attach the <a href=
@@ -52,7 +52,8 @@ public class AssociateDRTRoleRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * 
      * @param roleArn
-     *        The Amazon Resource Name (ARN) of the role the DRT will use to access your AWS account.</p>
+     *        The Amazon Resource Name (ARN) of the role the SRT will use to access your Amazon Web Services
+     *        account.</p>
      *        <p>
      *        Prior to making the <code>AssociateDRTRole</code> request, you must attach the <a href=
      *        "https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/service-role/AWSShieldDRTAccessPolicy"
@@ -67,7 +68,7 @@ public class AssociateDRTRoleRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the role the DRT will use to access your AWS account.
+     * The Amazon Resource Name (ARN) of the role the SRT will use to access your Amazon Web Services account.
      * </p>
      * <p>
      * Prior to making the <code>AssociateDRTRole</code> request, you must attach the <a href=
@@ -77,7 +78,8 @@ public class AssociateDRTRoleRequest extends com.amazonaws.AmazonWebServiceReque
      * Detaching IAM Policies</a>.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the role the DRT will use to access your AWS account.</p>
+     * @return The Amazon Resource Name (ARN) of the role the SRT will use to access your Amazon Web Services
+     *         account.</p>
      *         <p>
      *         Prior to making the <code>AssociateDRTRole</code> request, you must attach the <a href=
      *         "https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/service-role/AWSShieldDRTAccessPolicy"
@@ -92,7 +94,7 @@ public class AssociateDRTRoleRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the role the DRT will use to access your AWS account.
+     * The Amazon Resource Name (ARN) of the role the SRT will use to access your Amazon Web Services account.
      * </p>
      * <p>
      * Prior to making the <code>AssociateDRTRole</code> request, you must attach the <a href=
@@ -103,7 +105,8 @@ public class AssociateDRTRoleRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * 
      * @param roleArn
-     *        The Amazon Resource Name (ARN) of the role the DRT will use to access your AWS account.</p>
+     *        The Amazon Resource Name (ARN) of the role the SRT will use to access your Amazon Web Services
+     *        account.</p>
      *        <p>
      *        Prior to making the <code>AssociateDRTRole</code> request, you must attach the <a href=
      *        "https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/service-role/AWSShieldDRTAccessPolicy"

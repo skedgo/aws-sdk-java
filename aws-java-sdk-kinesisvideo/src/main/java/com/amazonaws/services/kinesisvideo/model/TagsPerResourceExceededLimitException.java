@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,8 +16,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * You have exceeded the limit of tags that you can associate with the resource. Kinesis video streams support up to 50
- * tags.
+ * You have exceeded the limit of tags that you can associate with the resource. A Kinesis video stream can support up
+ * to 50 tags.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,44 +34,49 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
     private String groupId;
     /**
      * <p>
-     * The sets of IP permissions. You can't specify a destination security group and a CIDR IP address range in the
-     * same set of permissions.
+     * The permissions for the security group rules.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<IpPermission> ipPermissions;
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify the CIDR.
+     * The tags applied to the security group rule.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<TagSpecification> tagSpecifications;
+    /**
+     * <p>
+     * Not supported. Use IP permissions instead.
      * </p>
      */
     private String cidrIp;
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify the port.
+     * Not supported. Use IP permissions instead.
      * </p>
      */
     private Integer fromPort;
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify the protocol name or number.
+     * Not supported. Use IP permissions instead.
      * </p>
      */
     private String ipProtocol;
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify the port.
+     * Not supported. Use IP permissions instead.
      * </p>
      */
     private Integer toPort;
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify a destination security group.
+     * Not supported. Use IP permissions instead.
      * </p>
      */
     private String sourceSecurityGroupName;
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify a destination security group.
+     * Not supported. Use IP permissions instead.
      * </p>
      */
     private String sourceSecurityGroupOwnerId;
@@ -118,12 +123,10 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The sets of IP permissions. You can't specify a destination security group and a CIDR IP address range in the
-     * same set of permissions.
+     * The permissions for the security group rules.
      * </p>
      * 
-     * @return The sets of IP permissions. You can't specify a destination security group and a CIDR IP address range in
-     *         the same set of permissions.
+     * @return The permissions for the security group rules.
      */
 
     public java.util.List<IpPermission> getIpPermissions() {
@@ -135,13 +138,11 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The sets of IP permissions. You can't specify a destination security group and a CIDR IP address range in the
-     * same set of permissions.
+     * The permissions for the security group rules.
      * </p>
      * 
      * @param ipPermissions
-     *        The sets of IP permissions. You can't specify a destination security group and a CIDR IP address range in
-     *        the same set of permissions.
+     *        The permissions for the security group rules.
      */
 
     public void setIpPermissions(java.util.Collection<IpPermission> ipPermissions) {
@@ -155,8 +156,7 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The sets of IP permissions. You can't specify a destination security group and a CIDR IP address range in the
-     * same set of permissions.
+     * The permissions for the security group rules.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -165,8 +165,7 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
      * </p>
      * 
      * @param ipPermissions
-     *        The sets of IP permissions. You can't specify a destination security group and a CIDR IP address range in
-     *        the same set of permissions.
+     *        The permissions for the security group rules.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -182,13 +181,11 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The sets of IP permissions. You can't specify a destination security group and a CIDR IP address range in the
-     * same set of permissions.
+     * The permissions for the security group rules.
      * </p>
      * 
      * @param ipPermissions
-     *        The sets of IP permissions. You can't specify a destination security group and a CIDR IP address range in
-     *        the same set of permissions.
+     *        The permissions for the security group rules.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -199,11 +196,84 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify the CIDR.
+     * The tags applied to the security group rule.
+     * </p>
+     * 
+     * @return The tags applied to the security group rule.
+     */
+
+    public java.util.List<TagSpecification> getTagSpecifications() {
+        if (tagSpecifications == null) {
+            tagSpecifications = new com.amazonaws.internal.SdkInternalList<TagSpecification>();
+        }
+        return tagSpecifications;
+    }
+
+    /**
+     * <p>
+     * The tags applied to the security group rule.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags applied to the security group rule.
+     */
+
+    public void setTagSpecifications(java.util.Collection<TagSpecification> tagSpecifications) {
+        if (tagSpecifications == null) {
+            this.tagSpecifications = null;
+            return;
+        }
+
+        this.tagSpecifications = new com.amazonaws.internal.SdkInternalList<TagSpecification>(tagSpecifications);
+    }
+
+    /**
+     * <p>
+     * The tags applied to the security group rule.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTagSpecifications(java.util.Collection)} or {@link #withTagSpecifications(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags applied to the security group rule.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AuthorizeSecurityGroupEgressRequest withTagSpecifications(TagSpecification... tagSpecifications) {
+        if (this.tagSpecifications == null) {
+            setTagSpecifications(new com.amazonaws.internal.SdkInternalList<TagSpecification>(tagSpecifications.length));
+        }
+        for (TagSpecification ele : tagSpecifications) {
+            this.tagSpecifications.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags applied to the security group rule.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags applied to the security group rule.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AuthorizeSecurityGroupEgressRequest withTagSpecifications(java.util.Collection<TagSpecification> tagSpecifications) {
+        setTagSpecifications(tagSpecifications);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Not supported. Use IP permissions instead.
      * </p>
      * 
      * @param cidrIp
-     *        Not supported. Use a set of IP permissions to specify the CIDR.
+     *        Not supported. Use IP permissions instead.
      */
 
     public void setCidrIp(String cidrIp) {
@@ -212,10 +282,10 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify the CIDR.
+     * Not supported. Use IP permissions instead.
      * </p>
      * 
-     * @return Not supported. Use a set of IP permissions to specify the CIDR.
+     * @return Not supported. Use IP permissions instead.
      */
 
     public String getCidrIp() {
@@ -224,11 +294,11 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify the CIDR.
+     * Not supported. Use IP permissions instead.
      * </p>
      * 
      * @param cidrIp
-     *        Not supported. Use a set of IP permissions to specify the CIDR.
+     *        Not supported. Use IP permissions instead.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -239,11 +309,11 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify the port.
+     * Not supported. Use IP permissions instead.
      * </p>
      * 
      * @param fromPort
-     *        Not supported. Use a set of IP permissions to specify the port.
+     *        Not supported. Use IP permissions instead.
      */
 
     public void setFromPort(Integer fromPort) {
@@ -252,10 +322,10 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify the port.
+     * Not supported. Use IP permissions instead.
      * </p>
      * 
-     * @return Not supported. Use a set of IP permissions to specify the port.
+     * @return Not supported. Use IP permissions instead.
      */
 
     public Integer getFromPort() {
@@ -264,11 +334,11 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify the port.
+     * Not supported. Use IP permissions instead.
      * </p>
      * 
      * @param fromPort
-     *        Not supported. Use a set of IP permissions to specify the port.
+     *        Not supported. Use IP permissions instead.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -279,11 +349,11 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify the protocol name or number.
+     * Not supported. Use IP permissions instead.
      * </p>
      * 
      * @param ipProtocol
-     *        Not supported. Use a set of IP permissions to specify the protocol name or number.
+     *        Not supported. Use IP permissions instead.
      */
 
     public void setIpProtocol(String ipProtocol) {
@@ -292,10 +362,10 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify the protocol name or number.
+     * Not supported. Use IP permissions instead.
      * </p>
      * 
-     * @return Not supported. Use a set of IP permissions to specify the protocol name or number.
+     * @return Not supported. Use IP permissions instead.
      */
 
     public String getIpProtocol() {
@@ -304,11 +374,11 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify the protocol name or number.
+     * Not supported. Use IP permissions instead.
      * </p>
      * 
      * @param ipProtocol
-     *        Not supported. Use a set of IP permissions to specify the protocol name or number.
+     *        Not supported. Use IP permissions instead.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -319,11 +389,11 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify the port.
+     * Not supported. Use IP permissions instead.
      * </p>
      * 
      * @param toPort
-     *        Not supported. Use a set of IP permissions to specify the port.
+     *        Not supported. Use IP permissions instead.
      */
 
     public void setToPort(Integer toPort) {
@@ -332,10 +402,10 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify the port.
+     * Not supported. Use IP permissions instead.
      * </p>
      * 
-     * @return Not supported. Use a set of IP permissions to specify the port.
+     * @return Not supported. Use IP permissions instead.
      */
 
     public Integer getToPort() {
@@ -344,11 +414,11 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify the port.
+     * Not supported. Use IP permissions instead.
      * </p>
      * 
      * @param toPort
-     *        Not supported. Use a set of IP permissions to specify the port.
+     *        Not supported. Use IP permissions instead.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -359,11 +429,11 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify a destination security group.
+     * Not supported. Use IP permissions instead.
      * </p>
      * 
      * @param sourceSecurityGroupName
-     *        Not supported. Use a set of IP permissions to specify a destination security group.
+     *        Not supported. Use IP permissions instead.
      */
 
     public void setSourceSecurityGroupName(String sourceSecurityGroupName) {
@@ -372,10 +442,10 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify a destination security group.
+     * Not supported. Use IP permissions instead.
      * </p>
      * 
-     * @return Not supported. Use a set of IP permissions to specify a destination security group.
+     * @return Not supported. Use IP permissions instead.
      */
 
     public String getSourceSecurityGroupName() {
@@ -384,11 +454,11 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify a destination security group.
+     * Not supported. Use IP permissions instead.
      * </p>
      * 
      * @param sourceSecurityGroupName
-     *        Not supported. Use a set of IP permissions to specify a destination security group.
+     *        Not supported. Use IP permissions instead.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -399,11 +469,11 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify a destination security group.
+     * Not supported. Use IP permissions instead.
      * </p>
      * 
      * @param sourceSecurityGroupOwnerId
-     *        Not supported. Use a set of IP permissions to specify a destination security group.
+     *        Not supported. Use IP permissions instead.
      */
 
     public void setSourceSecurityGroupOwnerId(String sourceSecurityGroupOwnerId) {
@@ -412,10 +482,10 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify a destination security group.
+     * Not supported. Use IP permissions instead.
      * </p>
      * 
-     * @return Not supported. Use a set of IP permissions to specify a destination security group.
+     * @return Not supported. Use IP permissions instead.
      */
 
     public String getSourceSecurityGroupOwnerId() {
@@ -424,11 +494,11 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * Not supported. Use a set of IP permissions to specify a destination security group.
+     * Not supported. Use IP permissions instead.
      * </p>
      * 
      * @param sourceSecurityGroupOwnerId
-     *        Not supported. Use a set of IP permissions to specify a destination security group.
+     *        Not supported. Use IP permissions instead.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -464,6 +534,8 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
             sb.append("GroupId: ").append(getGroupId()).append(",");
         if (getIpPermissions() != null)
             sb.append("IpPermissions: ").append(getIpPermissions()).append(",");
+        if (getTagSpecifications() != null)
+            sb.append("TagSpecifications: ").append(getTagSpecifications()).append(",");
         if (getCidrIp() != null)
             sb.append("CidrIp: ").append(getCidrIp()).append(",");
         if (getFromPort() != null)
@@ -497,6 +569,10 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
         if (other.getIpPermissions() == null ^ this.getIpPermissions() == null)
             return false;
         if (other.getIpPermissions() != null && other.getIpPermissions().equals(this.getIpPermissions()) == false)
+            return false;
+        if (other.getTagSpecifications() == null ^ this.getTagSpecifications() == null)
+            return false;
+        if (other.getTagSpecifications() != null && other.getTagSpecifications().equals(this.getTagSpecifications()) == false)
             return false;
         if (other.getCidrIp() == null ^ this.getCidrIp() == null)
             return false;
@@ -532,6 +608,7 @@ public class AuthorizeSecurityGroupEgressRequest extends AmazonWebServiceRequest
 
         hashCode = prime * hashCode + ((getGroupId() == null) ? 0 : getGroupId().hashCode());
         hashCode = prime * hashCode + ((getIpPermissions() == null) ? 0 : getIpPermissions().hashCode());
+        hashCode = prime * hashCode + ((getTagSpecifications() == null) ? 0 : getTagSpecifications().hashCode());
         hashCode = prime * hashCode + ((getCidrIp() == null) ? 0 : getCidrIp().hashCode());
         hashCode = prime * hashCode + ((getFromPort() == null) ? 0 : getFromPort().hashCode());
         hashCode = prime * hashCode + ((getIpProtocol() == null) ? 0 : getIpProtocol().hashCode());

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,8 +34,9 @@ public class ContinueDeploymentRequest extends com.amazonaws.AmazonWebServiceReq
     private String deploymentId;
     /**
      * <p>
-     * The status of the deployment's waiting period. READY_WAIT indicates the deployment is ready to start shifting
-     * traffic. TERMINATION_WAIT indicates the traffic is shifted, but the original target is not terminated.
+     * The status of the deployment's waiting period. <code>READY_WAIT</code> indicates that the deployment is ready to
+     * start shifting traffic. <code>TERMINATION_WAIT</code> indicates that the traffic is shifted, but the original
+     * target is not terminated.
      * </p>
      */
     private String deploymentWaitType;
@@ -88,14 +89,15 @@ public class ContinueDeploymentRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The status of the deployment's waiting period. READY_WAIT indicates the deployment is ready to start shifting
-     * traffic. TERMINATION_WAIT indicates the traffic is shifted, but the original target is not terminated.
+     * The status of the deployment's waiting period. <code>READY_WAIT</code> indicates that the deployment is ready to
+     * start shifting traffic. <code>TERMINATION_WAIT</code> indicates that the traffic is shifted, but the original
+     * target is not terminated.
      * </p>
      * 
      * @param deploymentWaitType
-     *        The status of the deployment's waiting period. READY_WAIT indicates the deployment is ready to start
-     *        shifting traffic. TERMINATION_WAIT indicates the traffic is shifted, but the original target is not
-     *        terminated.
+     *        The status of the deployment's waiting period. <code>READY_WAIT</code> indicates that the deployment is
+     *        ready to start shifting traffic. <code>TERMINATION_WAIT</code> indicates that the traffic is shifted, but
+     *        the original target is not terminated.
      * @see DeploymentWaitType
      */
 
@@ -105,13 +107,14 @@ public class ContinueDeploymentRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The status of the deployment's waiting period. READY_WAIT indicates the deployment is ready to start shifting
-     * traffic. TERMINATION_WAIT indicates the traffic is shifted, but the original target is not terminated.
+     * The status of the deployment's waiting period. <code>READY_WAIT</code> indicates that the deployment is ready to
+     * start shifting traffic. <code>TERMINATION_WAIT</code> indicates that the traffic is shifted, but the original
+     * target is not terminated.
      * </p>
      * 
-     * @return The status of the deployment's waiting period. READY_WAIT indicates the deployment is ready to start
-     *         shifting traffic. TERMINATION_WAIT indicates the traffic is shifted, but the original target is not
-     *         terminated.
+     * @return The status of the deployment's waiting period. <code>READY_WAIT</code> indicates that the deployment is
+     *         ready to start shifting traffic. <code>TERMINATION_WAIT</code> indicates that the traffic is shifted, but
+     *         the original target is not terminated.
      * @see DeploymentWaitType
      */
 
@@ -121,14 +124,15 @@ public class ContinueDeploymentRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The status of the deployment's waiting period. READY_WAIT indicates the deployment is ready to start shifting
-     * traffic. TERMINATION_WAIT indicates the traffic is shifted, but the original target is not terminated.
+     * The status of the deployment's waiting period. <code>READY_WAIT</code> indicates that the deployment is ready to
+     * start shifting traffic. <code>TERMINATION_WAIT</code> indicates that the traffic is shifted, but the original
+     * target is not terminated.
      * </p>
      * 
      * @param deploymentWaitType
-     *        The status of the deployment's waiting period. READY_WAIT indicates the deployment is ready to start
-     *        shifting traffic. TERMINATION_WAIT indicates the traffic is shifted, but the original target is not
-     *        terminated.
+     *        The status of the deployment's waiting period. <code>READY_WAIT</code> indicates that the deployment is
+     *        ready to start shifting traffic. <code>TERMINATION_WAIT</code> indicates that the traffic is shifted, but
+     *        the original target is not terminated.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DeploymentWaitType
      */
@@ -140,14 +144,15 @@ public class ContinueDeploymentRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The status of the deployment's waiting period. READY_WAIT indicates the deployment is ready to start shifting
-     * traffic. TERMINATION_WAIT indicates the traffic is shifted, but the original target is not terminated.
+     * The status of the deployment's waiting period. <code>READY_WAIT</code> indicates that the deployment is ready to
+     * start shifting traffic. <code>TERMINATION_WAIT</code> indicates that the traffic is shifted, but the original
+     * target is not terminated.
      * </p>
      * 
      * @param deploymentWaitType
-     *        The status of the deployment's waiting period. READY_WAIT indicates the deployment is ready to start
-     *        shifting traffic. TERMINATION_WAIT indicates the traffic is shifted, but the original target is not
-     *        terminated.
+     *        The status of the deployment's waiting period. <code>READY_WAIT</code> indicates that the deployment is
+     *        ready to start shifting traffic. <code>TERMINATION_WAIT</code> indicates that the traffic is shifted, but
+     *        the original target is not terminated.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DeploymentWaitType
      */

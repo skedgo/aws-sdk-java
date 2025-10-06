@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,9 +34,9 @@ public class StartDocumentAnalysisRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * A list of the types of analysis to perform. Add TABLES to the list to return information about the tables that
-     * are detected in the input document. Add FORMS to return detected fields and the associated text. To perform both
-     * types of analysis, add TABLES and FORMS to <code>FeatureTypes</code>. All selectable elements (
-     * <code>SELECTION_ELEMENT</code>) that are detected are returned, whatever the value of <code>FeatureTypes</code>.
+     * are detected in the input document. Add FORMS to return detected form data. To perform both types of analysis,
+     * add TABLES and FORMS to <code>FeatureTypes</code>. All lines and words detected in the document are included in
+     * the response (including text that isn't related to the value of <code>FeatureTypes</code>).
      * </p>
      */
     private java.util.List<String> featureTypes;
@@ -44,15 +44,17 @@ public class StartDocumentAnalysisRequest extends com.amazonaws.AmazonWebService
      * <p>
      * The idempotent token that you use to identify the start request. If you use the same token with multiple
      * <code>StartDocumentAnalysis</code> requests, the same <code>JobId</code> is returned. Use
-     * <code>ClientRequestToken</code> to prevent the same job from being accidentally started more than once.
+     * <code>ClientRequestToken</code> to prevent the same job from being accidentally started more than once. For more
+     * information, see <a href="https://docs.aws.amazon.com/textract/latest/dg/api-async.html">Calling Amazon Textract
+     * Asynchronous Operations</a>.
      * </p>
      */
     private String clientRequestToken;
     /**
      * <p>
-     * An identifier you specify that's included in the completion notification that's published to the Amazon SNS
-     * topic. For example, you can use <code>JobTag</code> to identify the type of document, such as a tax form or a
-     * receipt, that the completion notification corresponds to.
+     * An identifier that you specify that's included in the completion notification published to the Amazon SNS topic.
+     * For example, you can use <code>JobTag</code> to identify the type of document that the completion notification
+     * corresponds to (such as a tax form or a receipt).
      * </p>
      */
     private String jobTag;
@@ -62,6 +64,29 @@ public class StartDocumentAnalysisRequest extends com.amazonaws.AmazonWebService
      * </p>
      */
     private NotificationChannel notificationChannel;
+    /**
+     * <p>
+     * Sets if the output will go to a customer defined bucket. By default, Amazon Textract will save the results
+     * internally to be accessed by the GetDocumentAnalysis operation.
+     * </p>
+     */
+    private OutputConfig outputConfig;
+    /**
+     * <p>
+     * The KMS key used to encrypt the inference results. This can be in either Key ID or Key Alias format. When a KMS
+     * key is provided, the KMS key will be used for server-side encryption of the objects in the customer bucket. When
+     * this parameter is not enabled, the result will be encrypted server side,using SSE-S3.
+     * </p>
+     */
+    private String kMSKeyId;
+
+    private QueriesConfig queriesConfig;
+    /**
+     * <p>
+     * Specifies the adapter to be used when analyzing a document.
+     * </p>
+     */
+    private AdaptersConfig adaptersConfig;
 
     /**
      * <p>
@@ -106,16 +131,16 @@ public class StartDocumentAnalysisRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * A list of the types of analysis to perform. Add TABLES to the list to return information about the tables that
-     * are detected in the input document. Add FORMS to return detected fields and the associated text. To perform both
-     * types of analysis, add TABLES and FORMS to <code>FeatureTypes</code>. All selectable elements (
-     * <code>SELECTION_ELEMENT</code>) that are detected are returned, whatever the value of <code>FeatureTypes</code>.
+     * are detected in the input document. Add FORMS to return detected form data. To perform both types of analysis,
+     * add TABLES and FORMS to <code>FeatureTypes</code>. All lines and words detected in the document are included in
+     * the response (including text that isn't related to the value of <code>FeatureTypes</code>).
      * </p>
      * 
      * @return A list of the types of analysis to perform. Add TABLES to the list to return information about the tables
-     *         that are detected in the input document. Add FORMS to return detected fields and the associated text. To
-     *         perform both types of analysis, add TABLES and FORMS to <code>FeatureTypes</code>. All selectable
-     *         elements (<code>SELECTION_ELEMENT</code>) that are detected are returned, whatever the value of
-     *         <code>FeatureTypes</code>.
+     *         that are detected in the input document. Add FORMS to return detected form data. To perform both types of
+     *         analysis, add TABLES and FORMS to <code>FeatureTypes</code>. All lines and words detected in the document
+     *         are included in the response (including text that isn't related to the value of <code>FeatureTypes</code>
+     *         ).
      * @see FeatureType
      */
 
@@ -126,17 +151,17 @@ public class StartDocumentAnalysisRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * A list of the types of analysis to perform. Add TABLES to the list to return information about the tables that
-     * are detected in the input document. Add FORMS to return detected fields and the associated text. To perform both
-     * types of analysis, add TABLES and FORMS to <code>FeatureTypes</code>. All selectable elements (
-     * <code>SELECTION_ELEMENT</code>) that are detected are returned, whatever the value of <code>FeatureTypes</code>.
+     * are detected in the input document. Add FORMS to return detected form data. To perform both types of analysis,
+     * add TABLES and FORMS to <code>FeatureTypes</code>. All lines and words detected in the document are included in
+     * the response (including text that isn't related to the value of <code>FeatureTypes</code>).
      * </p>
      * 
      * @param featureTypes
      *        A list of the types of analysis to perform. Add TABLES to the list to return information about the tables
-     *        that are detected in the input document. Add FORMS to return detected fields and the associated text. To
-     *        perform both types of analysis, add TABLES and FORMS to <code>FeatureTypes</code>. All selectable elements
-     *        (<code>SELECTION_ELEMENT</code>) that are detected are returned, whatever the value of
-     *        <code>FeatureTypes</code>.
+     *        that are detected in the input document. Add FORMS to return detected form data. To perform both types of
+     *        analysis, add TABLES and FORMS to <code>FeatureTypes</code>. All lines and words detected in the document
+     *        are included in the response (including text that isn't related to the value of <code>FeatureTypes</code>
+     *        ).
      * @see FeatureType
      */
 
@@ -152,9 +177,9 @@ public class StartDocumentAnalysisRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * A list of the types of analysis to perform. Add TABLES to the list to return information about the tables that
-     * are detected in the input document. Add FORMS to return detected fields and the associated text. To perform both
-     * types of analysis, add TABLES and FORMS to <code>FeatureTypes</code>. All selectable elements (
-     * <code>SELECTION_ELEMENT</code>) that are detected are returned, whatever the value of <code>FeatureTypes</code>.
+     * are detected in the input document. Add FORMS to return detected form data. To perform both types of analysis,
+     * add TABLES and FORMS to <code>FeatureTypes</code>. All lines and words detected in the document are included in
+     * the response (including text that isn't related to the value of <code>FeatureTypes</code>).
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -164,10 +189,10 @@ public class StartDocumentAnalysisRequest extends com.amazonaws.AmazonWebService
      * 
      * @param featureTypes
      *        A list of the types of analysis to perform. Add TABLES to the list to return information about the tables
-     *        that are detected in the input document. Add FORMS to return detected fields and the associated text. To
-     *        perform both types of analysis, add TABLES and FORMS to <code>FeatureTypes</code>. All selectable elements
-     *        (<code>SELECTION_ELEMENT</code>) that are detected are returned, whatever the value of
-     *        <code>FeatureTypes</code>.
+     *        that are detected in the input document. Add FORMS to return detected form data. To perform both types of
+     *        analysis, add TABLES and FORMS to <code>FeatureTypes</code>. All lines and words detected in the document
+     *        are included in the response (including text that isn't related to the value of <code>FeatureTypes</code>
+     *        ).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see FeatureType
      */
@@ -185,17 +210,17 @@ public class StartDocumentAnalysisRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * A list of the types of analysis to perform. Add TABLES to the list to return information about the tables that
-     * are detected in the input document. Add FORMS to return detected fields and the associated text. To perform both
-     * types of analysis, add TABLES and FORMS to <code>FeatureTypes</code>. All selectable elements (
-     * <code>SELECTION_ELEMENT</code>) that are detected are returned, whatever the value of <code>FeatureTypes</code>.
+     * are detected in the input document. Add FORMS to return detected form data. To perform both types of analysis,
+     * add TABLES and FORMS to <code>FeatureTypes</code>. All lines and words detected in the document are included in
+     * the response (including text that isn't related to the value of <code>FeatureTypes</code>).
      * </p>
      * 
      * @param featureTypes
      *        A list of the types of analysis to perform. Add TABLES to the list to return information about the tables
-     *        that are detected in the input document. Add FORMS to return detected fields and the associated text. To
-     *        perform both types of analysis, add TABLES and FORMS to <code>FeatureTypes</code>. All selectable elements
-     *        (<code>SELECTION_ELEMENT</code>) that are detected are returned, whatever the value of
-     *        <code>FeatureTypes</code>.
+     *        that are detected in the input document. Add FORMS to return detected form data. To perform both types of
+     *        analysis, add TABLES and FORMS to <code>FeatureTypes</code>. All lines and words detected in the document
+     *        are included in the response (including text that isn't related to the value of <code>FeatureTypes</code>
+     *        ).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see FeatureType
      */
@@ -208,17 +233,17 @@ public class StartDocumentAnalysisRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * A list of the types of analysis to perform. Add TABLES to the list to return information about the tables that
-     * are detected in the input document. Add FORMS to return detected fields and the associated text. To perform both
-     * types of analysis, add TABLES and FORMS to <code>FeatureTypes</code>. All selectable elements (
-     * <code>SELECTION_ELEMENT</code>) that are detected are returned, whatever the value of <code>FeatureTypes</code>.
+     * are detected in the input document. Add FORMS to return detected form data. To perform both types of analysis,
+     * add TABLES and FORMS to <code>FeatureTypes</code>. All lines and words detected in the document are included in
+     * the response (including text that isn't related to the value of <code>FeatureTypes</code>).
      * </p>
      * 
      * @param featureTypes
      *        A list of the types of analysis to perform. Add TABLES to the list to return information about the tables
-     *        that are detected in the input document. Add FORMS to return detected fields and the associated text. To
-     *        perform both types of analysis, add TABLES and FORMS to <code>FeatureTypes</code>. All selectable elements
-     *        (<code>SELECTION_ELEMENT</code>) that are detected are returned, whatever the value of
-     *        <code>FeatureTypes</code>.
+     *        that are detected in the input document. Add FORMS to return detected form data. To perform both types of
+     *        analysis, add TABLES and FORMS to <code>FeatureTypes</code>. All lines and words detected in the document
+     *        are included in the response (including text that isn't related to the value of <code>FeatureTypes</code>
+     *        ).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see FeatureType
      */
@@ -240,13 +265,17 @@ public class StartDocumentAnalysisRequest extends com.amazonaws.AmazonWebService
      * <p>
      * The idempotent token that you use to identify the start request. If you use the same token with multiple
      * <code>StartDocumentAnalysis</code> requests, the same <code>JobId</code> is returned. Use
-     * <code>ClientRequestToken</code> to prevent the same job from being accidentally started more than once.
+     * <code>ClientRequestToken</code> to prevent the same job from being accidentally started more than once. For more
+     * information, see <a href="https://docs.aws.amazon.com/textract/latest/dg/api-async.html">Calling Amazon Textract
+     * Asynchronous Operations</a>.
      * </p>
      * 
      * @param clientRequestToken
      *        The idempotent token that you use to identify the start request. If you use the same token with multiple
      *        <code>StartDocumentAnalysis</code> requests, the same <code>JobId</code> is returned. Use
      *        <code>ClientRequestToken</code> to prevent the same job from being accidentally started more than once.
+     *        For more information, see <a href="https://docs.aws.amazon.com/textract/latest/dg/api-async.html">Calling
+     *        Amazon Textract Asynchronous Operations</a>.
      */
 
     public void setClientRequestToken(String clientRequestToken) {
@@ -257,12 +286,16 @@ public class StartDocumentAnalysisRequest extends com.amazonaws.AmazonWebService
      * <p>
      * The idempotent token that you use to identify the start request. If you use the same token with multiple
      * <code>StartDocumentAnalysis</code> requests, the same <code>JobId</code> is returned. Use
-     * <code>ClientRequestToken</code> to prevent the same job from being accidentally started more than once.
+     * <code>ClientRequestToken</code> to prevent the same job from being accidentally started more than once. For more
+     * information, see <a href="https://docs.aws.amazon.com/textract/latest/dg/api-async.html">Calling Amazon Textract
+     * Asynchronous Operations</a>.
      * </p>
      * 
      * @return The idempotent token that you use to identify the start request. If you use the same token with multiple
      *         <code>StartDocumentAnalysis</code> requests, the same <code>JobId</code> is returned. Use
      *         <code>ClientRequestToken</code> to prevent the same job from being accidentally started more than once.
+     *         For more information, see <a href="https://docs.aws.amazon.com/textract/latest/dg/api-async.html">Calling
+     *         Amazon Textract Asynchronous Operations</a>.
      */
 
     public String getClientRequestToken() {
@@ -273,13 +306,17 @@ public class StartDocumentAnalysisRequest extends com.amazonaws.AmazonWebService
      * <p>
      * The idempotent token that you use to identify the start request. If you use the same token with multiple
      * <code>StartDocumentAnalysis</code> requests, the same <code>JobId</code> is returned. Use
-     * <code>ClientRequestToken</code> to prevent the same job from being accidentally started more than once.
+     * <code>ClientRequestToken</code> to prevent the same job from being accidentally started more than once. For more
+     * information, see <a href="https://docs.aws.amazon.com/textract/latest/dg/api-async.html">Calling Amazon Textract
+     * Asynchronous Operations</a>.
      * </p>
      * 
      * @param clientRequestToken
      *        The idempotent token that you use to identify the start request. If you use the same token with multiple
      *        <code>StartDocumentAnalysis</code> requests, the same <code>JobId</code> is returned. Use
      *        <code>ClientRequestToken</code> to prevent the same job from being accidentally started more than once.
+     *        For more information, see <a href="https://docs.aws.amazon.com/textract/latest/dg/api-async.html">Calling
+     *        Amazon Textract Asynchronous Operations</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -290,15 +327,15 @@ public class StartDocumentAnalysisRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * An identifier you specify that's included in the completion notification that's published to the Amazon SNS
-     * topic. For example, you can use <code>JobTag</code> to identify the type of document, such as a tax form or a
-     * receipt, that the completion notification corresponds to.
+     * An identifier that you specify that's included in the completion notification published to the Amazon SNS topic.
+     * For example, you can use <code>JobTag</code> to identify the type of document that the completion notification
+     * corresponds to (such as a tax form or a receipt).
      * </p>
      * 
      * @param jobTag
-     *        An identifier you specify that's included in the completion notification that's published to the Amazon
-     *        SNS topic. For example, you can use <code>JobTag</code> to identify the type of document, such as a tax
-     *        form or a receipt, that the completion notification corresponds to.
+     *        An identifier that you specify that's included in the completion notification published to the Amazon SNS
+     *        topic. For example, you can use <code>JobTag</code> to identify the type of document that the completion
+     *        notification corresponds to (such as a tax form or a receipt).
      */
 
     public void setJobTag(String jobTag) {
@@ -307,14 +344,14 @@ public class StartDocumentAnalysisRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * An identifier you specify that's included in the completion notification that's published to the Amazon SNS
-     * topic. For example, you can use <code>JobTag</code> to identify the type of document, such as a tax form or a
-     * receipt, that the completion notification corresponds to.
+     * An identifier that you specify that's included in the completion notification published to the Amazon SNS topic.
+     * For example, you can use <code>JobTag</code> to identify the type of document that the completion notification
+     * corresponds to (such as a tax form or a receipt).
      * </p>
      * 
-     * @return An identifier you specify that's included in the completion notification that's published to the Amazon
-     *         SNS topic. For example, you can use <code>JobTag</code> to identify the type of document, such as a tax
-     *         form or a receipt, that the completion notification corresponds to.
+     * @return An identifier that you specify that's included in the completion notification published to the Amazon SNS
+     *         topic. For example, you can use <code>JobTag</code> to identify the type of document that the completion
+     *         notification corresponds to (such as a tax form or a receipt).
      */
 
     public String getJobTag() {
@@ -323,15 +360,15 @@ public class StartDocumentAnalysisRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * An identifier you specify that's included in the completion notification that's published to the Amazon SNS
-     * topic. For example, you can use <code>JobTag</code> to identify the type of document, such as a tax form or a
-     * receipt, that the completion notification corresponds to.
+     * An identifier that you specify that's included in the completion notification published to the Amazon SNS topic.
+     * For example, you can use <code>JobTag</code> to identify the type of document that the completion notification
+     * corresponds to (such as a tax form or a receipt).
      * </p>
      * 
      * @param jobTag
-     *        An identifier you specify that's included in the completion notification that's published to the Amazon
-     *        SNS topic. For example, you can use <code>JobTag</code> to identify the type of document, such as a tax
-     *        form or a receipt, that the completion notification corresponds to.
+     *        An identifier that you specify that's included in the completion notification published to the Amazon SNS
+     *        topic. For example, you can use <code>JobTag</code> to identify the type of document that the completion
+     *        notification corresponds to (such as a tax form or a receipt).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -384,6 +421,170 @@ public class StartDocumentAnalysisRequest extends com.amazonaws.AmazonWebService
     }
 
     /**
+     * <p>
+     * Sets if the output will go to a customer defined bucket. By default, Amazon Textract will save the results
+     * internally to be accessed by the GetDocumentAnalysis operation.
+     * </p>
+     * 
+     * @param outputConfig
+     *        Sets if the output will go to a customer defined bucket. By default, Amazon Textract will save the results
+     *        internally to be accessed by the GetDocumentAnalysis operation.
+     */
+
+    public void setOutputConfig(OutputConfig outputConfig) {
+        this.outputConfig = outputConfig;
+    }
+
+    /**
+     * <p>
+     * Sets if the output will go to a customer defined bucket. By default, Amazon Textract will save the results
+     * internally to be accessed by the GetDocumentAnalysis operation.
+     * </p>
+     * 
+     * @return Sets if the output will go to a customer defined bucket. By default, Amazon Textract will save the
+     *         results internally to be accessed by the GetDocumentAnalysis operation.
+     */
+
+    public OutputConfig getOutputConfig() {
+        return this.outputConfig;
+    }
+
+    /**
+     * <p>
+     * Sets if the output will go to a customer defined bucket. By default, Amazon Textract will save the results
+     * internally to be accessed by the GetDocumentAnalysis operation.
+     * </p>
+     * 
+     * @param outputConfig
+     *        Sets if the output will go to a customer defined bucket. By default, Amazon Textract will save the results
+     *        internally to be accessed by the GetDocumentAnalysis operation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartDocumentAnalysisRequest withOutputConfig(OutputConfig outputConfig) {
+        setOutputConfig(outputConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The KMS key used to encrypt the inference results. This can be in either Key ID or Key Alias format. When a KMS
+     * key is provided, the KMS key will be used for server-side encryption of the objects in the customer bucket. When
+     * this parameter is not enabled, the result will be encrypted server side,using SSE-S3.
+     * </p>
+     * 
+     * @param kMSKeyId
+     *        The KMS key used to encrypt the inference results. This can be in either Key ID or Key Alias format. When
+     *        a KMS key is provided, the KMS key will be used for server-side encryption of the objects in the customer
+     *        bucket. When this parameter is not enabled, the result will be encrypted server side,using SSE-S3.
+     */
+
+    public void setKMSKeyId(String kMSKeyId) {
+        this.kMSKeyId = kMSKeyId;
+    }
+
+    /**
+     * <p>
+     * The KMS key used to encrypt the inference results. This can be in either Key ID or Key Alias format. When a KMS
+     * key is provided, the KMS key will be used for server-side encryption of the objects in the customer bucket. When
+     * this parameter is not enabled, the result will be encrypted server side,using SSE-S3.
+     * </p>
+     * 
+     * @return The KMS key used to encrypt the inference results. This can be in either Key ID or Key Alias format. When
+     *         a KMS key is provided, the KMS key will be used for server-side encryption of the objects in the customer
+     *         bucket. When this parameter is not enabled, the result will be encrypted server side,using SSE-S3.
+     */
+
+    public String getKMSKeyId() {
+        return this.kMSKeyId;
+    }
+
+    /**
+     * <p>
+     * The KMS key used to encrypt the inference results. This can be in either Key ID or Key Alias format. When a KMS
+     * key is provided, the KMS key will be used for server-side encryption of the objects in the customer bucket. When
+     * this parameter is not enabled, the result will be encrypted server side,using SSE-S3.
+     * </p>
+     * 
+     * @param kMSKeyId
+     *        The KMS key used to encrypt the inference results. This can be in either Key ID or Key Alias format. When
+     *        a KMS key is provided, the KMS key will be used for server-side encryption of the objects in the customer
+     *        bucket. When this parameter is not enabled, the result will be encrypted server side,using SSE-S3.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartDocumentAnalysisRequest withKMSKeyId(String kMSKeyId) {
+        setKMSKeyId(kMSKeyId);
+        return this;
+    }
+
+    /**
+     * @param queriesConfig
+     */
+
+    public void setQueriesConfig(QueriesConfig queriesConfig) {
+        this.queriesConfig = queriesConfig;
+    }
+
+    /**
+     * @return
+     */
+
+    public QueriesConfig getQueriesConfig() {
+        return this.queriesConfig;
+    }
+
+    /**
+     * @param queriesConfig
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartDocumentAnalysisRequest withQueriesConfig(QueriesConfig queriesConfig) {
+        setQueriesConfig(queriesConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the adapter to be used when analyzing a document.
+     * </p>
+     * 
+     * @param adaptersConfig
+     *        Specifies the adapter to be used when analyzing a document.
+     */
+
+    public void setAdaptersConfig(AdaptersConfig adaptersConfig) {
+        this.adaptersConfig = adaptersConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies the adapter to be used when analyzing a document.
+     * </p>
+     * 
+     * @return Specifies the adapter to be used when analyzing a document.
+     */
+
+    public AdaptersConfig getAdaptersConfig() {
+        return this.adaptersConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies the adapter to be used when analyzing a document.
+     * </p>
+     * 
+     * @param adaptersConfig
+     *        Specifies the adapter to be used when analyzing a document.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartDocumentAnalysisRequest withAdaptersConfig(AdaptersConfig adaptersConfig) {
+        setAdaptersConfig(adaptersConfig);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -404,7 +605,15 @@ public class StartDocumentAnalysisRequest extends com.amazonaws.AmazonWebService
         if (getJobTag() != null)
             sb.append("JobTag: ").append(getJobTag()).append(",");
         if (getNotificationChannel() != null)
-            sb.append("NotificationChannel: ").append(getNotificationChannel());
+            sb.append("NotificationChannel: ").append(getNotificationChannel()).append(",");
+        if (getOutputConfig() != null)
+            sb.append("OutputConfig: ").append(getOutputConfig()).append(",");
+        if (getKMSKeyId() != null)
+            sb.append("KMSKeyId: ").append(getKMSKeyId()).append(",");
+        if (getQueriesConfig() != null)
+            sb.append("QueriesConfig: ").append(getQueriesConfig()).append(",");
+        if (getAdaptersConfig() != null)
+            sb.append("AdaptersConfig: ").append(getAdaptersConfig());
         sb.append("}");
         return sb.toString();
     }
@@ -439,6 +648,22 @@ public class StartDocumentAnalysisRequest extends com.amazonaws.AmazonWebService
             return false;
         if (other.getNotificationChannel() != null && other.getNotificationChannel().equals(this.getNotificationChannel()) == false)
             return false;
+        if (other.getOutputConfig() == null ^ this.getOutputConfig() == null)
+            return false;
+        if (other.getOutputConfig() != null && other.getOutputConfig().equals(this.getOutputConfig()) == false)
+            return false;
+        if (other.getKMSKeyId() == null ^ this.getKMSKeyId() == null)
+            return false;
+        if (other.getKMSKeyId() != null && other.getKMSKeyId().equals(this.getKMSKeyId()) == false)
+            return false;
+        if (other.getQueriesConfig() == null ^ this.getQueriesConfig() == null)
+            return false;
+        if (other.getQueriesConfig() != null && other.getQueriesConfig().equals(this.getQueriesConfig()) == false)
+            return false;
+        if (other.getAdaptersConfig() == null ^ this.getAdaptersConfig() == null)
+            return false;
+        if (other.getAdaptersConfig() != null && other.getAdaptersConfig().equals(this.getAdaptersConfig()) == false)
+            return false;
         return true;
     }
 
@@ -452,6 +677,10 @@ public class StartDocumentAnalysisRequest extends com.amazonaws.AmazonWebService
         hashCode = prime * hashCode + ((getClientRequestToken() == null) ? 0 : getClientRequestToken().hashCode());
         hashCode = prime * hashCode + ((getJobTag() == null) ? 0 : getJobTag().hashCode());
         hashCode = prime * hashCode + ((getNotificationChannel() == null) ? 0 : getNotificationChannel().hashCode());
+        hashCode = prime * hashCode + ((getOutputConfig() == null) ? 0 : getOutputConfig().hashCode());
+        hashCode = prime * hashCode + ((getKMSKeyId() == null) ? 0 : getKMSKeyId().hashCode());
+        hashCode = prime * hashCode + ((getQueriesConfig() == null) ? 0 : getQueriesConfig().hashCode());
+        hashCode = prime * hashCode + ((getAdaptersConfig() == null) ? 0 : getAdaptersConfig().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,10 +17,10 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Provides authorization for Amazon to bring a specific IP address range to a specific AWS account using bring your own
- * IP addresses (BYOIP). For more information, see <a
- * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html#prepare-for-byoip">Prepare to Bring Your
- * Address Range to Your AWS Account</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+ * Provides authorization for Amazon to bring a specific IP address range to a specific Amazon Web Services account
+ * using bring your own IP addresses (BYOIP). For more information, see <a
+ * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html#prepare-for-byoip">Configuring your BYOIP
+ * address range</a> in the <i>Amazon EC2 User Guide</i>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CidrAuthorizationContext" target="_top">AWS API

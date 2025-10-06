@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,6 +43,8 @@ public class DatasetGroupMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("lastUpdatedDateTime").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<String> FAILUREREASON_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("failureReason").build();
+    private static final MarshallingInfo<String> DOMAIN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("domain").build();
 
     private static final DatasetGroupMarshaller instance = new DatasetGroupMarshaller();
 
@@ -68,6 +70,7 @@ public class DatasetGroupMarshaller {
             protocolMarshaller.marshall(datasetGroup.getCreationDateTime(), CREATIONDATETIME_BINDING);
             protocolMarshaller.marshall(datasetGroup.getLastUpdatedDateTime(), LASTUPDATEDDATETIME_BINDING);
             protocolMarshaller.marshall(datasetGroup.getFailureReason(), FAILUREREASON_BINDING);
+            protocolMarshaller.marshall(datasetGroup.getDomain(), DOMAIN_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

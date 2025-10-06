@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,27 +31,27 @@ public class ListTargetsForPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a policy ID string requires "p-" followed by
-     * from 8 to 128 lower-case letters or digits.
+     * from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
      * </p>
      */
     private String policyId;
     /**
      * <p>
-     * Use this parameter if you receive a <code>NextToken</code> response in a previous request that indicates that
-     * there is more output available. Set it to the value of the previous call's <code>NextToken</code> response to
-     * indicate where the output should continue from.
+     * The parameter for receiving additional results if you receive a <code>NextToken</code> response in a previous
+     * request. A <code>NextToken</code> response indicates that more output is available. Set this parameter to the
+     * value of the previous call's <code>NextToken</code> response to indicate where the output should continue from.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * (Optional) Use this to limit the number of results you want included per page in the response. If you do not
-     * include this parameter, it defaults to a value that is specific to the operation. If additional items exist
-     * beyond the maximum you specify, the <code>NextToken</code> response element is present and has a value (is not
-     * null). Include that value as the <code>NextToken</code> request parameter in the next call to the operation to
-     * get the next part of the results. Note that Organizations might return fewer results than the maximum even when
-     * there are more results available. You should check <code>NextToken</code> after every operation to ensure that
-     * you receive all of the results.
+     * The total number of results that you want included on each page of the response. If you do not include this
+     * parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the maximum
+     * you specify, the <code>NextToken</code> response element is present and has a value (is not null). Include that
+     * value as the <code>NextToken</code> request parameter in the next call to the operation to get the next part of
+     * the results. Note that Organizations might return fewer results than the maximum even when there are more results
+     * available. You should check <code>NextToken</code> after every operation to ensure that you receive all of the
+     * results.
      * </p>
      */
     private Integer maxResults;
@@ -62,14 +62,14 @@ public class ListTargetsForPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a policy ID string requires "p-" followed by
-     * from 8 to 128 lower-case letters or digits.
+     * from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
      * </p>
      * 
      * @param policyId
      *        The unique identifier (ID) of the policy whose attachments you want to know.</p>
      *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a policy ID string requires "p-"
-     *        followed by from 8 to 128 lower-case letters or digits.
+     *        followed by from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
      */
 
     public void setPolicyId(String policyId) {
@@ -82,13 +82,13 @@ public class ListTargetsForPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a policy ID string requires "p-" followed by
-     * from 8 to 128 lower-case letters or digits.
+     * from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
      * </p>
      * 
      * @return The unique identifier (ID) of the policy whose attachments you want to know.</p>
      *         <p>
      *         The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a policy ID string requires "p-"
-     *         followed by from 8 to 128 lower-case letters or digits.
+     *         followed by from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
      */
 
     public String getPolicyId() {
@@ -101,14 +101,14 @@ public class ListTargetsForPolicyRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a policy ID string requires "p-" followed by
-     * from 8 to 128 lower-case letters or digits.
+     * from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
      * </p>
      * 
      * @param policyId
      *        The unique identifier (ID) of the policy whose attachments you want to know.</p>
      *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a policy ID string requires "p-"
-     *        followed by from 8 to 128 lower-case letters or digits.
+     *        followed by from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -119,15 +119,16 @@ public class ListTargetsForPolicyRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Use this parameter if you receive a <code>NextToken</code> response in a previous request that indicates that
-     * there is more output available. Set it to the value of the previous call's <code>NextToken</code> response to
-     * indicate where the output should continue from.
+     * The parameter for receiving additional results if you receive a <code>NextToken</code> response in a previous
+     * request. A <code>NextToken</code> response indicates that more output is available. Set this parameter to the
+     * value of the previous call's <code>NextToken</code> response to indicate where the output should continue from.
      * </p>
      * 
      * @param nextToken
-     *        Use this parameter if you receive a <code>NextToken</code> response in a previous request that indicates
-     *        that there is more output available. Set it to the value of the previous call's <code>NextToken</code>
-     *        response to indicate where the output should continue from.
+     *        The parameter for receiving additional results if you receive a <code>NextToken</code> response in a
+     *        previous request. A <code>NextToken</code> response indicates that more output is available. Set this
+     *        parameter to the value of the previous call's <code>NextToken</code> response to indicate where the output
+     *        should continue from.
      */
 
     public void setNextToken(String nextToken) {
@@ -136,14 +137,15 @@ public class ListTargetsForPolicyRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Use this parameter if you receive a <code>NextToken</code> response in a previous request that indicates that
-     * there is more output available. Set it to the value of the previous call's <code>NextToken</code> response to
-     * indicate where the output should continue from.
+     * The parameter for receiving additional results if you receive a <code>NextToken</code> response in a previous
+     * request. A <code>NextToken</code> response indicates that more output is available. Set this parameter to the
+     * value of the previous call's <code>NextToken</code> response to indicate where the output should continue from.
      * </p>
      * 
-     * @return Use this parameter if you receive a <code>NextToken</code> response in a previous request that indicates
-     *         that there is more output available. Set it to the value of the previous call's <code>NextToken</code>
-     *         response to indicate where the output should continue from.
+     * @return The parameter for receiving additional results if you receive a <code>NextToken</code> response in a
+     *         previous request. A <code>NextToken</code> response indicates that more output is available. Set this
+     *         parameter to the value of the previous call's <code>NextToken</code> response to indicate where the
+     *         output should continue from.
      */
 
     public String getNextToken() {
@@ -152,15 +154,16 @@ public class ListTargetsForPolicyRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Use this parameter if you receive a <code>NextToken</code> response in a previous request that indicates that
-     * there is more output available. Set it to the value of the previous call's <code>NextToken</code> response to
-     * indicate where the output should continue from.
+     * The parameter for receiving additional results if you receive a <code>NextToken</code> response in a previous
+     * request. A <code>NextToken</code> response indicates that more output is available. Set this parameter to the
+     * value of the previous call's <code>NextToken</code> response to indicate where the output should continue from.
      * </p>
      * 
      * @param nextToken
-     *        Use this parameter if you receive a <code>NextToken</code> response in a previous request that indicates
-     *        that there is more output available. Set it to the value of the previous call's <code>NextToken</code>
-     *        response to indicate where the output should continue from.
+     *        The parameter for receiving additional results if you receive a <code>NextToken</code> response in a
+     *        previous request. A <code>NextToken</code> response indicates that more output is available. Set this
+     *        parameter to the value of the previous call's <code>NextToken</code> response to indicate where the output
+     *        should continue from.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -171,23 +174,23 @@ public class ListTargetsForPolicyRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * (Optional) Use this to limit the number of results you want included per page in the response. If you do not
-     * include this parameter, it defaults to a value that is specific to the operation. If additional items exist
-     * beyond the maximum you specify, the <code>NextToken</code> response element is present and has a value (is not
-     * null). Include that value as the <code>NextToken</code> request parameter in the next call to the operation to
-     * get the next part of the results. Note that Organizations might return fewer results than the maximum even when
-     * there are more results available. You should check <code>NextToken</code> after every operation to ensure that
-     * you receive all of the results.
+     * The total number of results that you want included on each page of the response. If you do not include this
+     * parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the maximum
+     * you specify, the <code>NextToken</code> response element is present and has a value (is not null). Include that
+     * value as the <code>NextToken</code> request parameter in the next call to the operation to get the next part of
+     * the results. Note that Organizations might return fewer results than the maximum even when there are more results
+     * available. You should check <code>NextToken</code> after every operation to ensure that you receive all of the
+     * results.
      * </p>
      * 
      * @param maxResults
-     *        (Optional) Use this to limit the number of results you want included per page in the response. If you do
-     *        not include this parameter, it defaults to a value that is specific to the operation. If additional items
-     *        exist beyond the maximum you specify, the <code>NextToken</code> response element is present and has a
-     *        value (is not null). Include that value as the <code>NextToken</code> request parameter in the next call
-     *        to the operation to get the next part of the results. Note that Organizations might return fewer results
-     *        than the maximum even when there are more results available. You should check <code>NextToken</code> after
-     *        every operation to ensure that you receive all of the results.
+     *        The total number of results that you want included on each page of the response. If you do not include
+     *        this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond
+     *        the maximum you specify, the <code>NextToken</code> response element is present and has a value (is not
+     *        null). Include that value as the <code>NextToken</code> request parameter in the next call to the
+     *        operation to get the next part of the results. Note that Organizations might return fewer results than the
+     *        maximum even when there are more results available. You should check <code>NextToken</code> after every
+     *        operation to ensure that you receive all of the results.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -196,22 +199,22 @@ public class ListTargetsForPolicyRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * (Optional) Use this to limit the number of results you want included per page in the response. If you do not
-     * include this parameter, it defaults to a value that is specific to the operation. If additional items exist
-     * beyond the maximum you specify, the <code>NextToken</code> response element is present and has a value (is not
-     * null). Include that value as the <code>NextToken</code> request parameter in the next call to the operation to
-     * get the next part of the results. Note that Organizations might return fewer results than the maximum even when
-     * there are more results available. You should check <code>NextToken</code> after every operation to ensure that
-     * you receive all of the results.
+     * The total number of results that you want included on each page of the response. If you do not include this
+     * parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the maximum
+     * you specify, the <code>NextToken</code> response element is present and has a value (is not null). Include that
+     * value as the <code>NextToken</code> request parameter in the next call to the operation to get the next part of
+     * the results. Note that Organizations might return fewer results than the maximum even when there are more results
+     * available. You should check <code>NextToken</code> after every operation to ensure that you receive all of the
+     * results.
      * </p>
      * 
-     * @return (Optional) Use this to limit the number of results you want included per page in the response. If you do
-     *         not include this parameter, it defaults to a value that is specific to the operation. If additional items
-     *         exist beyond the maximum you specify, the <code>NextToken</code> response element is present and has a
-     *         value (is not null). Include that value as the <code>NextToken</code> request parameter in the next call
-     *         to the operation to get the next part of the results. Note that Organizations might return fewer results
-     *         than the maximum even when there are more results available. You should check <code>NextToken</code>
-     *         after every operation to ensure that you receive all of the results.
+     * @return The total number of results that you want included on each page of the response. If you do not include
+     *         this parameter, it defaults to a value that is specific to the operation. If additional items exist
+     *         beyond the maximum you specify, the <code>NextToken</code> response element is present and has a value
+     *         (is not null). Include that value as the <code>NextToken</code> request parameter in the next call to the
+     *         operation to get the next part of the results. Note that Organizations might return fewer results than
+     *         the maximum even when there are more results available. You should check <code>NextToken</code> after
+     *         every operation to ensure that you receive all of the results.
      */
 
     public Integer getMaxResults() {
@@ -220,23 +223,23 @@ public class ListTargetsForPolicyRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * (Optional) Use this to limit the number of results you want included per page in the response. If you do not
-     * include this parameter, it defaults to a value that is specific to the operation. If additional items exist
-     * beyond the maximum you specify, the <code>NextToken</code> response element is present and has a value (is not
-     * null). Include that value as the <code>NextToken</code> request parameter in the next call to the operation to
-     * get the next part of the results. Note that Organizations might return fewer results than the maximum even when
-     * there are more results available. You should check <code>NextToken</code> after every operation to ensure that
-     * you receive all of the results.
+     * The total number of results that you want included on each page of the response. If you do not include this
+     * parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the maximum
+     * you specify, the <code>NextToken</code> response element is present and has a value (is not null). Include that
+     * value as the <code>NextToken</code> request parameter in the next call to the operation to get the next part of
+     * the results. Note that Organizations might return fewer results than the maximum even when there are more results
+     * available. You should check <code>NextToken</code> after every operation to ensure that you receive all of the
+     * results.
      * </p>
      * 
      * @param maxResults
-     *        (Optional) Use this to limit the number of results you want included per page in the response. If you do
-     *        not include this parameter, it defaults to a value that is specific to the operation. If additional items
-     *        exist beyond the maximum you specify, the <code>NextToken</code> response element is present and has a
-     *        value (is not null). Include that value as the <code>NextToken</code> request parameter in the next call
-     *        to the operation to get the next part of the results. Note that Organizations might return fewer results
-     *        than the maximum even when there are more results available. You should check <code>NextToken</code> after
-     *        every operation to ensure that you receive all of the results.
+     *        The total number of results that you want included on each page of the response. If you do not include
+     *        this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond
+     *        the maximum you specify, the <code>NextToken</code> response element is present and has a value (is not
+     *        null). Include that value as the <code>NextToken</code> request parameter in the next call to the
+     *        operation to get the next part of the results. Note that Organizations might return fewer results than the
+     *        maximum even when there are more results available. You should check <code>NextToken</code> after every
+     *        operation to ensure that you receive all of the results.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

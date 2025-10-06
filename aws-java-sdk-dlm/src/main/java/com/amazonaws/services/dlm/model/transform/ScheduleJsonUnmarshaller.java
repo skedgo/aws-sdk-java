@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -58,11 +58,15 @@ public class ScheduleJsonUnmarshaller implements Unmarshaller<Schedule, JsonUnma
                 }
                 if (context.testExpression("TagsToAdd", targetDepth)) {
                     context.nextToken();
-                    schedule.setTagsToAdd(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance()).unmarshall(context));
+                    schedule.setTagsToAdd(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("VariableTags", targetDepth)) {
                     context.nextToken();
-                    schedule.setVariableTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance()).unmarshall(context));
+                    schedule.setVariableTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("CreateRule", targetDepth)) {
                     context.nextToken();
@@ -71,6 +75,30 @@ public class ScheduleJsonUnmarshaller implements Unmarshaller<Schedule, JsonUnma
                 if (context.testExpression("RetainRule", targetDepth)) {
                     context.nextToken();
                     schedule.setRetainRule(RetainRuleJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("FastRestoreRule", targetDepth)) {
+                    context.nextToken();
+                    schedule.setFastRestoreRule(FastRestoreRuleJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("CrossRegionCopyRules", targetDepth)) {
+                    context.nextToken();
+                    schedule.setCrossRegionCopyRules(new ListUnmarshaller<CrossRegionCopyRule>(CrossRegionCopyRuleJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("ShareRules", targetDepth)) {
+                    context.nextToken();
+                    schedule.setShareRules(new ListUnmarshaller<ShareRule>(ShareRuleJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("DeprecateRule", targetDepth)) {
+                    context.nextToken();
+                    schedule.setDeprecateRule(DeprecateRuleJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ArchiveRule", targetDepth)) {
+                    context.nextToken();
+                    schedule.setArchiveRule(ArchiveRuleJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

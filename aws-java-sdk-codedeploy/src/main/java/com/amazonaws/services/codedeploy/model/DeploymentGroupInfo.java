@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -74,10 +74,10 @@ public class DeploymentGroupInfo implements Serializable, Cloneable, StructuredP
     private com.amazonaws.internal.SdkInternalList<AutoScalingGroup> autoScalingGroups;
     /**
      * <p>
-     * A service role Amazon Resource Name (ARN) that grants CodeDeploy permission to make calls to AWS services on your
-     * behalf. For more information, see <a
+     * A service role Amazon Resource Name (ARN) that grants CodeDeploy permission to make calls to Amazon Web Services
+     * services on your behalf. For more information, see <a
      * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-create-service-role.html">Create a
-     * Service Role for AWS CodeDeploy</a> in the <i>AWS CodeDeploy User Guide</i>.
+     * Service Role for CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
      * </p>
      */
     private String serviceRoleArn;
@@ -114,6 +114,21 @@ public class DeploymentGroupInfo implements Serializable, Cloneable, StructuredP
     private DeploymentStyle deploymentStyle;
     /**
      * <p>
+     * Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the deployed
+     * application revision.
+     * </p>
+     * <p>
+     * If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more 'auto-update
+     * outdated instances' deployments to apply the deployed application revision to the new Amazon EC2 instances.
+     * </p>
+     * <p>
+     * If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new Amazon
+     * EC2 instances. This may result in instances having different revisions.
+     * </p>
+     */
+    private String outdatedInstancesStrategy;
+    /**
+     * <p>
      * Information about blue/green deployment options for a deployment group.
      * </p>
      */
@@ -138,8 +153,8 @@ public class DeploymentGroupInfo implements Serializable, Cloneable, StructuredP
     private LastDeploymentInfo lastAttemptedDeployment;
     /**
      * <p>
-     * Information about groups of tags applied to an EC2 instance. The deployment group includes only EC2 instances
-     * identified by all of the tag groups. Cannot be used in the same call as ec2TagFilters.
+     * Information about groups of tags applied to an Amazon EC2 instance. The deployment group includes only Amazon EC2
+     * instances identified by all of the tag groups. Cannot be used in the same call as ec2TagFilters.
      * </p>
      */
     private EC2TagSet ec2TagSet;
@@ -165,6 +180,18 @@ public class DeploymentGroupInfo implements Serializable, Cloneable, StructuredP
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<ECSService> ecsServices;
+    /**
+     * <p>
+     * Indicates whether the deployment group was configured to have CodeDeploy install a termination hook into an Auto
+     * Scaling group.
+     * </p>
+     * <p>
+     * For more information about the termination hook, see <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors"
+     * >How Amazon EC2 Auto Scaling works with CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     */
+    private Boolean terminationHookEnabled;
 
     /**
      * <p>
@@ -563,17 +590,17 @@ public class DeploymentGroupInfo implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * A service role Amazon Resource Name (ARN) that grants CodeDeploy permission to make calls to AWS services on your
-     * behalf. For more information, see <a
+     * A service role Amazon Resource Name (ARN) that grants CodeDeploy permission to make calls to Amazon Web Services
+     * services on your behalf. For more information, see <a
      * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-create-service-role.html">Create a
-     * Service Role for AWS CodeDeploy</a> in the <i>AWS CodeDeploy User Guide</i>.
+     * Service Role for CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
      * </p>
      * 
      * @param serviceRoleArn
-     *        A service role Amazon Resource Name (ARN) that grants CodeDeploy permission to make calls to AWS services
-     *        on your behalf. For more information, see <a
+     *        A service role Amazon Resource Name (ARN) that grants CodeDeploy permission to make calls to Amazon Web
+     *        Services services on your behalf. For more information, see <a
      *        href="https://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-create-service-role.html"
-     *        >Create a Service Role for AWS CodeDeploy</a> in the <i>AWS CodeDeploy User Guide</i>.
+     *        >Create a Service Role for CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
      */
 
     public void setServiceRoleArn(String serviceRoleArn) {
@@ -582,16 +609,16 @@ public class DeploymentGroupInfo implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * A service role Amazon Resource Name (ARN) that grants CodeDeploy permission to make calls to AWS services on your
-     * behalf. For more information, see <a
+     * A service role Amazon Resource Name (ARN) that grants CodeDeploy permission to make calls to Amazon Web Services
+     * services on your behalf. For more information, see <a
      * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-create-service-role.html">Create a
-     * Service Role for AWS CodeDeploy</a> in the <i>AWS CodeDeploy User Guide</i>.
+     * Service Role for CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
      * </p>
      * 
-     * @return A service role Amazon Resource Name (ARN) that grants CodeDeploy permission to make calls to AWS services
-     *         on your behalf. For more information, see <a
+     * @return A service role Amazon Resource Name (ARN) that grants CodeDeploy permission to make calls to Amazon Web
+     *         Services services on your behalf. For more information, see <a
      *         href="https://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-create-service-role.html"
-     *         >Create a Service Role for AWS CodeDeploy</a> in the <i>AWS CodeDeploy User Guide</i>.
+     *         >Create a Service Role for CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
      */
 
     public String getServiceRoleArn() {
@@ -600,17 +627,17 @@ public class DeploymentGroupInfo implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * A service role Amazon Resource Name (ARN) that grants CodeDeploy permission to make calls to AWS services on your
-     * behalf. For more information, see <a
+     * A service role Amazon Resource Name (ARN) that grants CodeDeploy permission to make calls to Amazon Web Services
+     * services on your behalf. For more information, see <a
      * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-create-service-role.html">Create a
-     * Service Role for AWS CodeDeploy</a> in the <i>AWS CodeDeploy User Guide</i>.
+     * Service Role for CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
      * </p>
      * 
      * @param serviceRoleArn
-     *        A service role Amazon Resource Name (ARN) that grants CodeDeploy permission to make calls to AWS services
-     *        on your behalf. For more information, see <a
+     *        A service role Amazon Resource Name (ARN) that grants CodeDeploy permission to make calls to Amazon Web
+     *        Services services on your behalf. For more information, see <a
      *        href="https://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-create-service-role.html"
-     *        >Create a Service Role for AWS CodeDeploy</a> in the <i>AWS CodeDeploy User Guide</i>.
+     *        >Create a Service Role for CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -860,6 +887,137 @@ public class DeploymentGroupInfo implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
+     * Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the deployed
+     * application revision.
+     * </p>
+     * <p>
+     * If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more 'auto-update
+     * outdated instances' deployments to apply the deployed application revision to the new Amazon EC2 instances.
+     * </p>
+     * <p>
+     * If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new Amazon
+     * EC2 instances. This may result in instances having different revisions.
+     * </p>
+     * 
+     * @param outdatedInstancesStrategy
+     *        Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the
+     *        deployed application revision.</p>
+     *        <p>
+     *        If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more
+     *        'auto-update outdated instances' deployments to apply the deployed application revision to the new Amazon
+     *        EC2 instances.
+     *        </p>
+     *        <p>
+     *        If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new
+     *        Amazon EC2 instances. This may result in instances having different revisions.
+     * @see OutdatedInstancesStrategy
+     */
+
+    public void setOutdatedInstancesStrategy(String outdatedInstancesStrategy) {
+        this.outdatedInstancesStrategy = outdatedInstancesStrategy;
+    }
+
+    /**
+     * <p>
+     * Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the deployed
+     * application revision.
+     * </p>
+     * <p>
+     * If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more 'auto-update
+     * outdated instances' deployments to apply the deployed application revision to the new Amazon EC2 instances.
+     * </p>
+     * <p>
+     * If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new Amazon
+     * EC2 instances. This may result in instances having different revisions.
+     * </p>
+     * 
+     * @return Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the
+     *         deployed application revision.</p>
+     *         <p>
+     *         If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more
+     *         'auto-update outdated instances' deployments to apply the deployed application revision to the new Amazon
+     *         EC2 instances.
+     *         </p>
+     *         <p>
+     *         If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new
+     *         Amazon EC2 instances. This may result in instances having different revisions.
+     * @see OutdatedInstancesStrategy
+     */
+
+    public String getOutdatedInstancesStrategy() {
+        return this.outdatedInstancesStrategy;
+    }
+
+    /**
+     * <p>
+     * Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the deployed
+     * application revision.
+     * </p>
+     * <p>
+     * If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more 'auto-update
+     * outdated instances' deployments to apply the deployed application revision to the new Amazon EC2 instances.
+     * </p>
+     * <p>
+     * If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new Amazon
+     * EC2 instances. This may result in instances having different revisions.
+     * </p>
+     * 
+     * @param outdatedInstancesStrategy
+     *        Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the
+     *        deployed application revision.</p>
+     *        <p>
+     *        If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more
+     *        'auto-update outdated instances' deployments to apply the deployed application revision to the new Amazon
+     *        EC2 instances.
+     *        </p>
+     *        <p>
+     *        If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new
+     *        Amazon EC2 instances. This may result in instances having different revisions.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see OutdatedInstancesStrategy
+     */
+
+    public DeploymentGroupInfo withOutdatedInstancesStrategy(String outdatedInstancesStrategy) {
+        setOutdatedInstancesStrategy(outdatedInstancesStrategy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the deployed
+     * application revision.
+     * </p>
+     * <p>
+     * If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more 'auto-update
+     * outdated instances' deployments to apply the deployed application revision to the new Amazon EC2 instances.
+     * </p>
+     * <p>
+     * If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new Amazon
+     * EC2 instances. This may result in instances having different revisions.
+     * </p>
+     * 
+     * @param outdatedInstancesStrategy
+     *        Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the
+     *        deployed application revision.</p>
+     *        <p>
+     *        If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more
+     *        'auto-update outdated instances' deployments to apply the deployed application revision to the new Amazon
+     *        EC2 instances.
+     *        </p>
+     *        <p>
+     *        If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new
+     *        Amazon EC2 instances. This may result in instances having different revisions.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see OutdatedInstancesStrategy
+     */
+
+    public DeploymentGroupInfo withOutdatedInstancesStrategy(OutdatedInstancesStrategy outdatedInstancesStrategy) {
+        this.outdatedInstancesStrategy = outdatedInstancesStrategy.toString();
+        return this;
+    }
+
+    /**
+     * <p>
      * Information about blue/green deployment options for a deployment group.
      * </p>
      * 
@@ -1020,13 +1178,14 @@ public class DeploymentGroupInfo implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Information about groups of tags applied to an EC2 instance. The deployment group includes only EC2 instances
-     * identified by all of the tag groups. Cannot be used in the same call as ec2TagFilters.
+     * Information about groups of tags applied to an Amazon EC2 instance. The deployment group includes only Amazon EC2
+     * instances identified by all of the tag groups. Cannot be used in the same call as ec2TagFilters.
      * </p>
      * 
      * @param ec2TagSet
-     *        Information about groups of tags applied to an EC2 instance. The deployment group includes only EC2
-     *        instances identified by all of the tag groups. Cannot be used in the same call as ec2TagFilters.
+     *        Information about groups of tags applied to an Amazon EC2 instance. The deployment group includes only
+     *        Amazon EC2 instances identified by all of the tag groups. Cannot be used in the same call as
+     *        ec2TagFilters.
      */
 
     public void setEc2TagSet(EC2TagSet ec2TagSet) {
@@ -1035,12 +1194,13 @@ public class DeploymentGroupInfo implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Information about groups of tags applied to an EC2 instance. The deployment group includes only EC2 instances
-     * identified by all of the tag groups. Cannot be used in the same call as ec2TagFilters.
+     * Information about groups of tags applied to an Amazon EC2 instance. The deployment group includes only Amazon EC2
+     * instances identified by all of the tag groups. Cannot be used in the same call as ec2TagFilters.
      * </p>
      * 
-     * @return Information about groups of tags applied to an EC2 instance. The deployment group includes only EC2
-     *         instances identified by all of the tag groups. Cannot be used in the same call as ec2TagFilters.
+     * @return Information about groups of tags applied to an Amazon EC2 instance. The deployment group includes only
+     *         Amazon EC2 instances identified by all of the tag groups. Cannot be used in the same call as
+     *         ec2TagFilters.
      */
 
     public EC2TagSet getEc2TagSet() {
@@ -1049,13 +1209,14 @@ public class DeploymentGroupInfo implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Information about groups of tags applied to an EC2 instance. The deployment group includes only EC2 instances
-     * identified by all of the tag groups. Cannot be used in the same call as ec2TagFilters.
+     * Information about groups of tags applied to an Amazon EC2 instance. The deployment group includes only Amazon EC2
+     * instances identified by all of the tag groups. Cannot be used in the same call as ec2TagFilters.
      * </p>
      * 
      * @param ec2TagSet
-     *        Information about groups of tags applied to an EC2 instance. The deployment group includes only EC2
-     *        instances identified by all of the tag groups. Cannot be used in the same call as ec2TagFilters.
+     *        Information about groups of tags applied to an Amazon EC2 instance. The deployment group includes only
+     *        Amazon EC2 instances identified by all of the tag groups. Cannot be used in the same call as
+     *        ec2TagFilters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1269,6 +1430,102 @@ public class DeploymentGroupInfo implements Serializable, Cloneable, StructuredP
     }
 
     /**
+     * <p>
+     * Indicates whether the deployment group was configured to have CodeDeploy install a termination hook into an Auto
+     * Scaling group.
+     * </p>
+     * <p>
+     * For more information about the termination hook, see <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors"
+     * >How Amazon EC2 Auto Scaling works with CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * 
+     * @param terminationHookEnabled
+     *        Indicates whether the deployment group was configured to have CodeDeploy install a termination hook into
+     *        an Auto Scaling group.</p>
+     *        <p>
+     *        For more information about the termination hook, see <a href=
+     *        "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors"
+     *        >How Amazon EC2 Auto Scaling works with CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
+     */
+
+    public void setTerminationHookEnabled(Boolean terminationHookEnabled) {
+        this.terminationHookEnabled = terminationHookEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the deployment group was configured to have CodeDeploy install a termination hook into an Auto
+     * Scaling group.
+     * </p>
+     * <p>
+     * For more information about the termination hook, see <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors"
+     * >How Amazon EC2 Auto Scaling works with CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * 
+     * @return Indicates whether the deployment group was configured to have CodeDeploy install a termination hook into
+     *         an Auto Scaling group.</p>
+     *         <p>
+     *         For more information about the termination hook, see <a href=
+     *         "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors"
+     *         >How Amazon EC2 Auto Scaling works with CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
+     */
+
+    public Boolean getTerminationHookEnabled() {
+        return this.terminationHookEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the deployment group was configured to have CodeDeploy install a termination hook into an Auto
+     * Scaling group.
+     * </p>
+     * <p>
+     * For more information about the termination hook, see <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors"
+     * >How Amazon EC2 Auto Scaling works with CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * 
+     * @param terminationHookEnabled
+     *        Indicates whether the deployment group was configured to have CodeDeploy install a termination hook into
+     *        an Auto Scaling group.</p>
+     *        <p>
+     *        For more information about the termination hook, see <a href=
+     *        "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors"
+     *        >How Amazon EC2 Auto Scaling works with CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DeploymentGroupInfo withTerminationHookEnabled(Boolean terminationHookEnabled) {
+        setTerminationHookEnabled(terminationHookEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the deployment group was configured to have CodeDeploy install a termination hook into an Auto
+     * Scaling group.
+     * </p>
+     * <p>
+     * For more information about the termination hook, see <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors"
+     * >How Amazon EC2 Auto Scaling works with CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * 
+     * @return Indicates whether the deployment group was configured to have CodeDeploy install a termination hook into
+     *         an Auto Scaling group.</p>
+     *         <p>
+     *         For more information about the termination hook, see <a href=
+     *         "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors"
+     *         >How Amazon EC2 Auto Scaling works with CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
+     */
+
+    public Boolean isTerminationHookEnabled() {
+        return this.terminationHookEnabled;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1306,6 +1563,8 @@ public class DeploymentGroupInfo implements Serializable, Cloneable, StructuredP
             sb.append("AutoRollbackConfiguration: ").append(getAutoRollbackConfiguration()).append(",");
         if (getDeploymentStyle() != null)
             sb.append("DeploymentStyle: ").append(getDeploymentStyle()).append(",");
+        if (getOutdatedInstancesStrategy() != null)
+            sb.append("OutdatedInstancesStrategy: ").append(getOutdatedInstancesStrategy()).append(",");
         if (getBlueGreenDeploymentConfiguration() != null)
             sb.append("BlueGreenDeploymentConfiguration: ").append(getBlueGreenDeploymentConfiguration()).append(",");
         if (getLoadBalancerInfo() != null)
@@ -1321,7 +1580,9 @@ public class DeploymentGroupInfo implements Serializable, Cloneable, StructuredP
         if (getComputePlatform() != null)
             sb.append("ComputePlatform: ").append(getComputePlatform()).append(",");
         if (getEcsServices() != null)
-            sb.append("EcsServices: ").append(getEcsServices());
+            sb.append("EcsServices: ").append(getEcsServices()).append(",");
+        if (getTerminationHookEnabled() != null)
+            sb.append("TerminationHookEnabled: ").append(getTerminationHookEnabled());
         sb.append("}");
         return sb.toString();
     }
@@ -1388,6 +1649,10 @@ public class DeploymentGroupInfo implements Serializable, Cloneable, StructuredP
             return false;
         if (other.getDeploymentStyle() != null && other.getDeploymentStyle().equals(this.getDeploymentStyle()) == false)
             return false;
+        if (other.getOutdatedInstancesStrategy() == null ^ this.getOutdatedInstancesStrategy() == null)
+            return false;
+        if (other.getOutdatedInstancesStrategy() != null && other.getOutdatedInstancesStrategy().equals(this.getOutdatedInstancesStrategy()) == false)
+            return false;
         if (other.getBlueGreenDeploymentConfiguration() == null ^ this.getBlueGreenDeploymentConfiguration() == null)
             return false;
         if (other.getBlueGreenDeploymentConfiguration() != null
@@ -1421,6 +1686,10 @@ public class DeploymentGroupInfo implements Serializable, Cloneable, StructuredP
             return false;
         if (other.getEcsServices() != null && other.getEcsServices().equals(this.getEcsServices()) == false)
             return false;
+        if (other.getTerminationHookEnabled() == null ^ this.getTerminationHookEnabled() == null)
+            return false;
+        if (other.getTerminationHookEnabled() != null && other.getTerminationHookEnabled().equals(this.getTerminationHookEnabled()) == false)
+            return false;
         return true;
     }
 
@@ -1442,6 +1711,7 @@ public class DeploymentGroupInfo implements Serializable, Cloneable, StructuredP
         hashCode = prime * hashCode + ((getAlarmConfiguration() == null) ? 0 : getAlarmConfiguration().hashCode());
         hashCode = prime * hashCode + ((getAutoRollbackConfiguration() == null) ? 0 : getAutoRollbackConfiguration().hashCode());
         hashCode = prime * hashCode + ((getDeploymentStyle() == null) ? 0 : getDeploymentStyle().hashCode());
+        hashCode = prime * hashCode + ((getOutdatedInstancesStrategy() == null) ? 0 : getOutdatedInstancesStrategy().hashCode());
         hashCode = prime * hashCode + ((getBlueGreenDeploymentConfiguration() == null) ? 0 : getBlueGreenDeploymentConfiguration().hashCode());
         hashCode = prime * hashCode + ((getLoadBalancerInfo() == null) ? 0 : getLoadBalancerInfo().hashCode());
         hashCode = prime * hashCode + ((getLastSuccessfulDeployment() == null) ? 0 : getLastSuccessfulDeployment().hashCode());
@@ -1450,6 +1720,7 @@ public class DeploymentGroupInfo implements Serializable, Cloneable, StructuredP
         hashCode = prime * hashCode + ((getOnPremisesTagSet() == null) ? 0 : getOnPremisesTagSet().hashCode());
         hashCode = prime * hashCode + ((getComputePlatform() == null) ? 0 : getComputePlatform().hashCode());
         hashCode = prime * hashCode + ((getEcsServices() == null) ? 0 : getEcsServices().hashCode());
+        hashCode = prime * hashCode + ((getTerminationHookEnabled() == null) ? 0 : getTerminationHookEnabled().hashCode());
         return hashCode;
     }
 

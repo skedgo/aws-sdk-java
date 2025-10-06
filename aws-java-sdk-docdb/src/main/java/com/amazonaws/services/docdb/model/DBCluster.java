@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Detailed information about a DB cluster.
+ * Detailed information about a cluster.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/DBCluster" target="_top">AWS API
@@ -28,38 +28,38 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the list of Amazon EC2 Availability Zones that instances in the DB cluster can be created in.
+     * Provides the list of Amazon EC2 Availability Zones that instances in the cluster can be created in.
      * </p>
      */
     private java.util.List<String> availabilityZones;
     /**
      * <p>
-     * Specifies the number of days for which automatic DB snapshots are retained.
+     * Specifies the number of days for which automatic snapshots are retained.
      * </p>
      */
     private Integer backupRetentionPeriod;
     /**
      * <p>
-     * Contains a user-supplied DB cluster identifier. This identifier is the unique key that identifies a DB cluster.
+     * Contains a user-supplied cluster identifier. This identifier is the unique key that identifies a cluster.
      * </p>
      */
     private String dBClusterIdentifier;
     /**
      * <p>
-     * Specifies the name of the DB cluster parameter group for the DB cluster.
+     * Specifies the name of the cluster parameter group for the cluster.
      * </p>
      */
     private String dBClusterParameterGroup;
     /**
      * <p>
-     * Specifies information on the subnet group that is associated with the DB cluster, including the name,
-     * description, and subnets in the subnet group.
+     * Specifies information on the subnet group that is associated with the cluster, including the name, description,
+     * and subnets in the subnet group.
      * </p>
      */
     private String dBSubnetGroup;
     /**
      * <p>
-     * Specifies the current state of this DB cluster.
+     * Specifies the current state of this cluster.
      * </p>
      */
     private String status;
@@ -77,17 +77,17 @@ public class DBCluster implements Serializable, Cloneable {
     private java.util.Date earliestRestorableTime;
     /**
      * <p>
-     * Specifies the connection endpoint for the primary instance of the DB cluster.
+     * Specifies the connection endpoint for the primary instance of the cluster.
      * </p>
      */
     private String endpoint;
     /**
      * <p>
-     * The reader endpoint for the DB cluster. The reader endpoint for a DB cluster load balances connections across the
-     * Amazon DocumentDB replicas that are available in a DB cluster. As clients request new connections to the reader
-     * endpoint, Amazon DocumentDB distributes the connection requests among the Amazon DocumentDB replicas in the DB
+     * The reader endpoint for the cluster. The reader endpoint for a cluster load balances connections across the
+     * Amazon DocumentDB replicas that are available in a cluster. As clients request new connections to the reader
+     * endpoint, Amazon DocumentDB distributes the connection requests among the Amazon DocumentDB replicas in the
      * cluster. This functionality can help balance your read workload across multiple Amazon DocumentDB replicas in
-     * your DB cluster.
+     * your cluster.
      * </p>
      * <p>
      * If a failover occurs, and the Amazon DocumentDB replica that you are connected to is promoted to be the primary
@@ -98,13 +98,13 @@ public class DBCluster implements Serializable, Cloneable {
     private String readerEndpoint;
     /**
      * <p>
-     * Specifies whether the DB cluster has instances in multiple Availability Zones.
+     * Specifies whether the cluster has instances in multiple Availability Zones.
      * </p>
      */
     private Boolean multiAZ;
     /**
      * <p>
-     * Provides the name of the database engine to be used for this DB cluster.
+     * Provides the name of the database engine to be used for this cluster.
      * </p>
      */
     private String engine;
@@ -128,7 +128,7 @@ public class DBCluster implements Serializable, Cloneable {
     private Integer port;
     /**
      * <p>
-     * Contains the master user name for the DB cluster.
+     * Contains the master user name for the cluster.
      * </p>
      */
     private String masterUsername;
@@ -147,13 +147,25 @@ public class DBCluster implements Serializable, Cloneable {
     private String preferredMaintenanceWindow;
     /**
      * <p>
-     * Provides the list of instances that make up the DB cluster.
+     * Contains the identifier of the source cluster if this cluster is a secondary cluster.
+     * </p>
+     */
+    private String replicationSourceIdentifier;
+    /**
+     * <p>
+     * Contains one or more identifiers of the secondary clusters that are associated with this cluster.
+     * </p>
+     */
+    private java.util.List<String> readReplicaIdentifiers;
+    /**
+     * <p>
+     * Provides the list of instances that make up the cluster.
      * </p>
      */
     private java.util.List<DBClusterMember> dBClusterMembers;
     /**
      * <p>
-     * Provides a list of virtual private cloud (VPC) security groups that the DB cluster belongs to.
+     * Provides a list of virtual private cloud (VPC) security groups that the cluster belongs to.
      * </p>
      */
     private java.util.List<VpcSecurityGroupMembership> vpcSecurityGroups;
@@ -165,46 +177,52 @@ public class DBCluster implements Serializable, Cloneable {
     private String hostedZoneId;
     /**
      * <p>
-     * Specifies whether the DB cluster is encrypted.
+     * Specifies whether the cluster is encrypted.
      * </p>
      */
     private Boolean storageEncrypted;
     /**
      * <p>
-     * If <code>StorageEncrypted</code> is <code>true</code>, the AWS KMS key identifier for the encrypted DB cluster.
+     * If <code>StorageEncrypted</code> is <code>true</code>, the KMS key identifier for the encrypted cluster.
      * </p>
      */
     private String kmsKeyId;
     /**
      * <p>
-     * The AWS Region-unique, immutable identifier for the DB cluster. This identifier is found in AWS CloudTrail log
-     * entries whenever the AWS KMS key for the DB cluster is accessed.
+     * The Amazon Web Services Region-unique, immutable identifier for the cluster. This identifier is found in
+     * CloudTrail log entries whenever the KMS key for the cluster is accessed.
      * </p>
      */
     private String dbClusterResourceId;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the DB cluster.
+     * The Amazon Resource Name (ARN) for the cluster.
      * </p>
      */
     private String dBClusterArn;
     /**
      * <p>
-     * Provides a list of the AWS Identity and Access Management (IAM) roles that are associated with the DB cluster.
-     * IAM roles that are associated with a DB cluster grant permission for the DB cluster to access other AWS services
-     * on your behalf.
+     * Provides a list of the Identity and Access Management (IAM) roles that are associated with the cluster. (IAM)
+     * roles that are associated with a cluster grant permission for the cluster to access other Amazon Web Services
+     * services on your behalf.
      * </p>
      */
     private java.util.List<DBClusterRole> associatedRoles;
     /**
      * <p>
-     * Specifies the time when the DB cluster was created, in Universal Coordinated Time (UTC).
+     * Identifies the clone group to which the DB cluster is associated.
+     * </p>
+     */
+    private String cloneGroupId;
+    /**
+     * <p>
+     * Specifies the time when the cluster was created, in Universal Coordinated Time (UTC).
      * </p>
      */
     private java.util.Date clusterCreateTime;
     /**
      * <p>
-     * A list of log types that this DB cluster is configured to export to Amazon CloudWatch Logs.
+     * A list of log types that this cluster is configured to export to Amazon CloudWatch Logs.
      * </p>
      */
     private java.util.List<String> enabledCloudwatchLogsExports;
@@ -216,13 +234,32 @@ public class DBCluster implements Serializable, Cloneable {
      * </p>
      */
     private Boolean deletionProtection;
+    /**
+     * <p>
+     * Storage type associated with your cluster
+     * </p>
+     * <p>
+     * Storage type associated with your cluster
+     * </p>
+     * <p>
+     * For information on storage types for Amazon DocumentDB clusters, see Cluster storage configurations in the
+     * <i>Amazon DocumentDB Developer Guide</i>.
+     * </p>
+     * <p>
+     * Valid values for storage type - <code>standard | iopt1</code>
+     * </p>
+     * <p>
+     * Default value is <code>standard </code>
+     * </p>
+     */
+    private String storageType;
 
     /**
      * <p>
-     * Provides the list of Amazon EC2 Availability Zones that instances in the DB cluster can be created in.
+     * Provides the list of Amazon EC2 Availability Zones that instances in the cluster can be created in.
      * </p>
      * 
-     * @return Provides the list of Amazon EC2 Availability Zones that instances in the DB cluster can be created in.
+     * @return Provides the list of Amazon EC2 Availability Zones that instances in the cluster can be created in.
      */
 
     public java.util.List<String> getAvailabilityZones() {
@@ -231,11 +268,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the list of Amazon EC2 Availability Zones that instances in the DB cluster can be created in.
+     * Provides the list of Amazon EC2 Availability Zones that instances in the cluster can be created in.
      * </p>
      * 
      * @param availabilityZones
-     *        Provides the list of Amazon EC2 Availability Zones that instances in the DB cluster can be created in.
+     *        Provides the list of Amazon EC2 Availability Zones that instances in the cluster can be created in.
      */
 
     public void setAvailabilityZones(java.util.Collection<String> availabilityZones) {
@@ -249,7 +286,7 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the list of Amazon EC2 Availability Zones that instances in the DB cluster can be created in.
+     * Provides the list of Amazon EC2 Availability Zones that instances in the cluster can be created in.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -258,7 +295,7 @@ public class DBCluster implements Serializable, Cloneable {
      * </p>
      * 
      * @param availabilityZones
-     *        Provides the list of Amazon EC2 Availability Zones that instances in the DB cluster can be created in.
+     *        Provides the list of Amazon EC2 Availability Zones that instances in the cluster can be created in.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -274,11 +311,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the list of Amazon EC2 Availability Zones that instances in the DB cluster can be created in.
+     * Provides the list of Amazon EC2 Availability Zones that instances in the cluster can be created in.
      * </p>
      * 
      * @param availabilityZones
-     *        Provides the list of Amazon EC2 Availability Zones that instances in the DB cluster can be created in.
+     *        Provides the list of Amazon EC2 Availability Zones that instances in the cluster can be created in.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -289,11 +326,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the number of days for which automatic DB snapshots are retained.
+     * Specifies the number of days for which automatic snapshots are retained.
      * </p>
      * 
      * @param backupRetentionPeriod
-     *        Specifies the number of days for which automatic DB snapshots are retained.
+     *        Specifies the number of days for which automatic snapshots are retained.
      */
 
     public void setBackupRetentionPeriod(Integer backupRetentionPeriod) {
@@ -302,10 +339,10 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the number of days for which automatic DB snapshots are retained.
+     * Specifies the number of days for which automatic snapshots are retained.
      * </p>
      * 
-     * @return Specifies the number of days for which automatic DB snapshots are retained.
+     * @return Specifies the number of days for which automatic snapshots are retained.
      */
 
     public Integer getBackupRetentionPeriod() {
@@ -314,11 +351,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the number of days for which automatic DB snapshots are retained.
+     * Specifies the number of days for which automatic snapshots are retained.
      * </p>
      * 
      * @param backupRetentionPeriod
-     *        Specifies the number of days for which automatic DB snapshots are retained.
+     *        Specifies the number of days for which automatic snapshots are retained.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -329,12 +366,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains a user-supplied DB cluster identifier. This identifier is the unique key that identifies a DB cluster.
+     * Contains a user-supplied cluster identifier. This identifier is the unique key that identifies a cluster.
      * </p>
      * 
      * @param dBClusterIdentifier
-     *        Contains a user-supplied DB cluster identifier. This identifier is the unique key that identifies a DB
-     *        cluster.
+     *        Contains a user-supplied cluster identifier. This identifier is the unique key that identifies a cluster.
      */
 
     public void setDBClusterIdentifier(String dBClusterIdentifier) {
@@ -343,11 +379,10 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains a user-supplied DB cluster identifier. This identifier is the unique key that identifies a DB cluster.
+     * Contains a user-supplied cluster identifier. This identifier is the unique key that identifies a cluster.
      * </p>
      * 
-     * @return Contains a user-supplied DB cluster identifier. This identifier is the unique key that identifies a DB
-     *         cluster.
+     * @return Contains a user-supplied cluster identifier. This identifier is the unique key that identifies a cluster.
      */
 
     public String getDBClusterIdentifier() {
@@ -356,12 +391,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains a user-supplied DB cluster identifier. This identifier is the unique key that identifies a DB cluster.
+     * Contains a user-supplied cluster identifier. This identifier is the unique key that identifies a cluster.
      * </p>
      * 
      * @param dBClusterIdentifier
-     *        Contains a user-supplied DB cluster identifier. This identifier is the unique key that identifies a DB
-     *        cluster.
+     *        Contains a user-supplied cluster identifier. This identifier is the unique key that identifies a cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -372,11 +406,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the name of the DB cluster parameter group for the DB cluster.
+     * Specifies the name of the cluster parameter group for the cluster.
      * </p>
      * 
      * @param dBClusterParameterGroup
-     *        Specifies the name of the DB cluster parameter group for the DB cluster.
+     *        Specifies the name of the cluster parameter group for the cluster.
      */
 
     public void setDBClusterParameterGroup(String dBClusterParameterGroup) {
@@ -385,10 +419,10 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the name of the DB cluster parameter group for the DB cluster.
+     * Specifies the name of the cluster parameter group for the cluster.
      * </p>
      * 
-     * @return Specifies the name of the DB cluster parameter group for the DB cluster.
+     * @return Specifies the name of the cluster parameter group for the cluster.
      */
 
     public String getDBClusterParameterGroup() {
@@ -397,11 +431,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the name of the DB cluster parameter group for the DB cluster.
+     * Specifies the name of the cluster parameter group for the cluster.
      * </p>
      * 
      * @param dBClusterParameterGroup
-     *        Specifies the name of the DB cluster parameter group for the DB cluster.
+     *        Specifies the name of the cluster parameter group for the cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -412,12 +446,12 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies information on the subnet group that is associated with the DB cluster, including the name,
-     * description, and subnets in the subnet group.
+     * Specifies information on the subnet group that is associated with the cluster, including the name, description,
+     * and subnets in the subnet group.
      * </p>
      * 
      * @param dBSubnetGroup
-     *        Specifies information on the subnet group that is associated with the DB cluster, including the name,
+     *        Specifies information on the subnet group that is associated with the cluster, including the name,
      *        description, and subnets in the subnet group.
      */
 
@@ -427,11 +461,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies information on the subnet group that is associated with the DB cluster, including the name,
-     * description, and subnets in the subnet group.
+     * Specifies information on the subnet group that is associated with the cluster, including the name, description,
+     * and subnets in the subnet group.
      * </p>
      * 
-     * @return Specifies information on the subnet group that is associated with the DB cluster, including the name,
+     * @return Specifies information on the subnet group that is associated with the cluster, including the name,
      *         description, and subnets in the subnet group.
      */
 
@@ -441,12 +475,12 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies information on the subnet group that is associated with the DB cluster, including the name,
-     * description, and subnets in the subnet group.
+     * Specifies information on the subnet group that is associated with the cluster, including the name, description,
+     * and subnets in the subnet group.
      * </p>
      * 
      * @param dBSubnetGroup
-     *        Specifies information on the subnet group that is associated with the DB cluster, including the name,
+     *        Specifies information on the subnet group that is associated with the cluster, including the name,
      *        description, and subnets in the subnet group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -458,11 +492,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the current state of this DB cluster.
+     * Specifies the current state of this cluster.
      * </p>
      * 
      * @param status
-     *        Specifies the current state of this DB cluster.
+     *        Specifies the current state of this cluster.
      */
 
     public void setStatus(String status) {
@@ -471,10 +505,10 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the current state of this DB cluster.
+     * Specifies the current state of this cluster.
      * </p>
      * 
-     * @return Specifies the current state of this DB cluster.
+     * @return Specifies the current state of this cluster.
      */
 
     public String getStatus() {
@@ -483,11 +517,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the current state of this DB cluster.
+     * Specifies the current state of this cluster.
      * </p>
      * 
      * @param status
-     *        Specifies the current state of this DB cluster.
+     *        Specifies the current state of this cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -578,11 +612,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the connection endpoint for the primary instance of the DB cluster.
+     * Specifies the connection endpoint for the primary instance of the cluster.
      * </p>
      * 
      * @param endpoint
-     *        Specifies the connection endpoint for the primary instance of the DB cluster.
+     *        Specifies the connection endpoint for the primary instance of the cluster.
      */
 
     public void setEndpoint(String endpoint) {
@@ -591,10 +625,10 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the connection endpoint for the primary instance of the DB cluster.
+     * Specifies the connection endpoint for the primary instance of the cluster.
      * </p>
      * 
-     * @return Specifies the connection endpoint for the primary instance of the DB cluster.
+     * @return Specifies the connection endpoint for the primary instance of the cluster.
      */
 
     public String getEndpoint() {
@@ -603,11 +637,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the connection endpoint for the primary instance of the DB cluster.
+     * Specifies the connection endpoint for the primary instance of the cluster.
      * </p>
      * 
      * @param endpoint
-     *        Specifies the connection endpoint for the primary instance of the DB cluster.
+     *        Specifies the connection endpoint for the primary instance of the cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -618,11 +652,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The reader endpoint for the DB cluster. The reader endpoint for a DB cluster load balances connections across the
-     * Amazon DocumentDB replicas that are available in a DB cluster. As clients request new connections to the reader
-     * endpoint, Amazon DocumentDB distributes the connection requests among the Amazon DocumentDB replicas in the DB
+     * The reader endpoint for the cluster. The reader endpoint for a cluster load balances connections across the
+     * Amazon DocumentDB replicas that are available in a cluster. As clients request new connections to the reader
+     * endpoint, Amazon DocumentDB distributes the connection requests among the Amazon DocumentDB replicas in the
      * cluster. This functionality can help balance your read workload across multiple Amazon DocumentDB replicas in
-     * your DB cluster.
+     * your cluster.
      * </p>
      * <p>
      * If a failover occurs, and the Amazon DocumentDB replica that you are connected to is promoted to be the primary
@@ -631,11 +665,11 @@ public class DBCluster implements Serializable, Cloneable {
      * </p>
      * 
      * @param readerEndpoint
-     *        The reader endpoint for the DB cluster. The reader endpoint for a DB cluster load balances connections
-     *        across the Amazon DocumentDB replicas that are available in a DB cluster. As clients request new
-     *        connections to the reader endpoint, Amazon DocumentDB distributes the connection requests among the Amazon
-     *        DocumentDB replicas in the DB cluster. This functionality can help balance your read workload across
-     *        multiple Amazon DocumentDB replicas in your DB cluster. </p>
+     *        The reader endpoint for the cluster. The reader endpoint for a cluster load balances connections across
+     *        the Amazon DocumentDB replicas that are available in a cluster. As clients request new connections to the
+     *        reader endpoint, Amazon DocumentDB distributes the connection requests among the Amazon DocumentDB
+     *        replicas in the cluster. This functionality can help balance your read workload across multiple Amazon
+     *        DocumentDB replicas in your cluster. </p>
      *        <p>
      *        If a failover occurs, and the Amazon DocumentDB replica that you are connected to is promoted to be the
      *        primary instance, your connection is dropped. To continue sending your read workload to other Amazon
@@ -648,11 +682,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The reader endpoint for the DB cluster. The reader endpoint for a DB cluster load balances connections across the
-     * Amazon DocumentDB replicas that are available in a DB cluster. As clients request new connections to the reader
-     * endpoint, Amazon DocumentDB distributes the connection requests among the Amazon DocumentDB replicas in the DB
+     * The reader endpoint for the cluster. The reader endpoint for a cluster load balances connections across the
+     * Amazon DocumentDB replicas that are available in a cluster. As clients request new connections to the reader
+     * endpoint, Amazon DocumentDB distributes the connection requests among the Amazon DocumentDB replicas in the
      * cluster. This functionality can help balance your read workload across multiple Amazon DocumentDB replicas in
-     * your DB cluster.
+     * your cluster.
      * </p>
      * <p>
      * If a failover occurs, and the Amazon DocumentDB replica that you are connected to is promoted to be the primary
@@ -660,11 +694,11 @@ public class DBCluster implements Serializable, Cloneable {
      * in the cluster, you can then reconnect to the reader endpoint.
      * </p>
      * 
-     * @return The reader endpoint for the DB cluster. The reader endpoint for a DB cluster load balances connections
-     *         across the Amazon DocumentDB replicas that are available in a DB cluster. As clients request new
-     *         connections to the reader endpoint, Amazon DocumentDB distributes the connection requests among the
-     *         Amazon DocumentDB replicas in the DB cluster. This functionality can help balance your read workload
-     *         across multiple Amazon DocumentDB replicas in your DB cluster. </p>
+     * @return The reader endpoint for the cluster. The reader endpoint for a cluster load balances connections across
+     *         the Amazon DocumentDB replicas that are available in a cluster. As clients request new connections to the
+     *         reader endpoint, Amazon DocumentDB distributes the connection requests among the Amazon DocumentDB
+     *         replicas in the cluster. This functionality can help balance your read workload across multiple Amazon
+     *         DocumentDB replicas in your cluster. </p>
      *         <p>
      *         If a failover occurs, and the Amazon DocumentDB replica that you are connected to is promoted to be the
      *         primary instance, your connection is dropped. To continue sending your read workload to other Amazon
@@ -677,11 +711,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The reader endpoint for the DB cluster. The reader endpoint for a DB cluster load balances connections across the
-     * Amazon DocumentDB replicas that are available in a DB cluster. As clients request new connections to the reader
-     * endpoint, Amazon DocumentDB distributes the connection requests among the Amazon DocumentDB replicas in the DB
+     * The reader endpoint for the cluster. The reader endpoint for a cluster load balances connections across the
+     * Amazon DocumentDB replicas that are available in a cluster. As clients request new connections to the reader
+     * endpoint, Amazon DocumentDB distributes the connection requests among the Amazon DocumentDB replicas in the
      * cluster. This functionality can help balance your read workload across multiple Amazon DocumentDB replicas in
-     * your DB cluster.
+     * your cluster.
      * </p>
      * <p>
      * If a failover occurs, and the Amazon DocumentDB replica that you are connected to is promoted to be the primary
@@ -690,11 +724,11 @@ public class DBCluster implements Serializable, Cloneable {
      * </p>
      * 
      * @param readerEndpoint
-     *        The reader endpoint for the DB cluster. The reader endpoint for a DB cluster load balances connections
-     *        across the Amazon DocumentDB replicas that are available in a DB cluster. As clients request new
-     *        connections to the reader endpoint, Amazon DocumentDB distributes the connection requests among the Amazon
-     *        DocumentDB replicas in the DB cluster. This functionality can help balance your read workload across
-     *        multiple Amazon DocumentDB replicas in your DB cluster. </p>
+     *        The reader endpoint for the cluster. The reader endpoint for a cluster load balances connections across
+     *        the Amazon DocumentDB replicas that are available in a cluster. As clients request new connections to the
+     *        reader endpoint, Amazon DocumentDB distributes the connection requests among the Amazon DocumentDB
+     *        replicas in the cluster. This functionality can help balance your read workload across multiple Amazon
+     *        DocumentDB replicas in your cluster. </p>
      *        <p>
      *        If a failover occurs, and the Amazon DocumentDB replica that you are connected to is promoted to be the
      *        primary instance, your connection is dropped. To continue sending your read workload to other Amazon
@@ -709,11 +743,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the DB cluster has instances in multiple Availability Zones.
+     * Specifies whether the cluster has instances in multiple Availability Zones.
      * </p>
      * 
      * @param multiAZ
-     *        Specifies whether the DB cluster has instances in multiple Availability Zones.
+     *        Specifies whether the cluster has instances in multiple Availability Zones.
      */
 
     public void setMultiAZ(Boolean multiAZ) {
@@ -722,10 +756,10 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the DB cluster has instances in multiple Availability Zones.
+     * Specifies whether the cluster has instances in multiple Availability Zones.
      * </p>
      * 
-     * @return Specifies whether the DB cluster has instances in multiple Availability Zones.
+     * @return Specifies whether the cluster has instances in multiple Availability Zones.
      */
 
     public Boolean getMultiAZ() {
@@ -734,11 +768,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the DB cluster has instances in multiple Availability Zones.
+     * Specifies whether the cluster has instances in multiple Availability Zones.
      * </p>
      * 
      * @param multiAZ
-     *        Specifies whether the DB cluster has instances in multiple Availability Zones.
+     *        Specifies whether the cluster has instances in multiple Availability Zones.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -749,10 +783,10 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the DB cluster has instances in multiple Availability Zones.
+     * Specifies whether the cluster has instances in multiple Availability Zones.
      * </p>
      * 
-     * @return Specifies whether the DB cluster has instances in multiple Availability Zones.
+     * @return Specifies whether the cluster has instances in multiple Availability Zones.
      */
 
     public Boolean isMultiAZ() {
@@ -761,11 +795,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the name of the database engine to be used for this DB cluster.
+     * Provides the name of the database engine to be used for this cluster.
      * </p>
      * 
      * @param engine
-     *        Provides the name of the database engine to be used for this DB cluster.
+     *        Provides the name of the database engine to be used for this cluster.
      */
 
     public void setEngine(String engine) {
@@ -774,10 +808,10 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the name of the database engine to be used for this DB cluster.
+     * Provides the name of the database engine to be used for this cluster.
      * </p>
      * 
-     * @return Provides the name of the database engine to be used for this DB cluster.
+     * @return Provides the name of the database engine to be used for this cluster.
      */
 
     public String getEngine() {
@@ -786,11 +820,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the name of the database engine to be used for this DB cluster.
+     * Provides the name of the database engine to be used for this cluster.
      * </p>
      * 
      * @param engine
-     *        Provides the name of the database engine to be used for this DB cluster.
+     *        Provides the name of the database engine to be used for this cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -921,11 +955,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the master user name for the DB cluster.
+     * Contains the master user name for the cluster.
      * </p>
      * 
      * @param masterUsername
-     *        Contains the master user name for the DB cluster.
+     *        Contains the master user name for the cluster.
      */
 
     public void setMasterUsername(String masterUsername) {
@@ -934,10 +968,10 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the master user name for the DB cluster.
+     * Contains the master user name for the cluster.
      * </p>
      * 
-     * @return Contains the master user name for the DB cluster.
+     * @return Contains the master user name for the cluster.
      */
 
     public String getMasterUsername() {
@@ -946,11 +980,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the master user name for the DB cluster.
+     * Contains the master user name for the cluster.
      * </p>
      * 
      * @param masterUsername
-     *        Contains the master user name for the DB cluster.
+     *        Contains the master user name for the cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1050,10 +1084,120 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the list of instances that make up the DB cluster.
+     * Contains the identifier of the source cluster if this cluster is a secondary cluster.
      * </p>
      * 
-     * @return Provides the list of instances that make up the DB cluster.
+     * @param replicationSourceIdentifier
+     *        Contains the identifier of the source cluster if this cluster is a secondary cluster.
+     */
+
+    public void setReplicationSourceIdentifier(String replicationSourceIdentifier) {
+        this.replicationSourceIdentifier = replicationSourceIdentifier;
+    }
+
+    /**
+     * <p>
+     * Contains the identifier of the source cluster if this cluster is a secondary cluster.
+     * </p>
+     * 
+     * @return Contains the identifier of the source cluster if this cluster is a secondary cluster.
+     */
+
+    public String getReplicationSourceIdentifier() {
+        return this.replicationSourceIdentifier;
+    }
+
+    /**
+     * <p>
+     * Contains the identifier of the source cluster if this cluster is a secondary cluster.
+     * </p>
+     * 
+     * @param replicationSourceIdentifier
+     *        Contains the identifier of the source cluster if this cluster is a secondary cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBCluster withReplicationSourceIdentifier(String replicationSourceIdentifier) {
+        setReplicationSourceIdentifier(replicationSourceIdentifier);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Contains one or more identifiers of the secondary clusters that are associated with this cluster.
+     * </p>
+     * 
+     * @return Contains one or more identifiers of the secondary clusters that are associated with this cluster.
+     */
+
+    public java.util.List<String> getReadReplicaIdentifiers() {
+        return readReplicaIdentifiers;
+    }
+
+    /**
+     * <p>
+     * Contains one or more identifiers of the secondary clusters that are associated with this cluster.
+     * </p>
+     * 
+     * @param readReplicaIdentifiers
+     *        Contains one or more identifiers of the secondary clusters that are associated with this cluster.
+     */
+
+    public void setReadReplicaIdentifiers(java.util.Collection<String> readReplicaIdentifiers) {
+        if (readReplicaIdentifiers == null) {
+            this.readReplicaIdentifiers = null;
+            return;
+        }
+
+        this.readReplicaIdentifiers = new java.util.ArrayList<String>(readReplicaIdentifiers);
+    }
+
+    /**
+     * <p>
+     * Contains one or more identifiers of the secondary clusters that are associated with this cluster.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setReadReplicaIdentifiers(java.util.Collection)} or
+     * {@link #withReadReplicaIdentifiers(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param readReplicaIdentifiers
+     *        Contains one or more identifiers of the secondary clusters that are associated with this cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBCluster withReadReplicaIdentifiers(String... readReplicaIdentifiers) {
+        if (this.readReplicaIdentifiers == null) {
+            setReadReplicaIdentifiers(new java.util.ArrayList<String>(readReplicaIdentifiers.length));
+        }
+        for (String ele : readReplicaIdentifiers) {
+            this.readReplicaIdentifiers.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Contains one or more identifiers of the secondary clusters that are associated with this cluster.
+     * </p>
+     * 
+     * @param readReplicaIdentifiers
+     *        Contains one or more identifiers of the secondary clusters that are associated with this cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBCluster withReadReplicaIdentifiers(java.util.Collection<String> readReplicaIdentifiers) {
+        setReadReplicaIdentifiers(readReplicaIdentifiers);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Provides the list of instances that make up the cluster.
+     * </p>
+     * 
+     * @return Provides the list of instances that make up the cluster.
      */
 
     public java.util.List<DBClusterMember> getDBClusterMembers() {
@@ -1062,11 +1206,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the list of instances that make up the DB cluster.
+     * Provides the list of instances that make up the cluster.
      * </p>
      * 
      * @param dBClusterMembers
-     *        Provides the list of instances that make up the DB cluster.
+     *        Provides the list of instances that make up the cluster.
      */
 
     public void setDBClusterMembers(java.util.Collection<DBClusterMember> dBClusterMembers) {
@@ -1080,7 +1224,7 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the list of instances that make up the DB cluster.
+     * Provides the list of instances that make up the cluster.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1089,7 +1233,7 @@ public class DBCluster implements Serializable, Cloneable {
      * </p>
      * 
      * @param dBClusterMembers
-     *        Provides the list of instances that make up the DB cluster.
+     *        Provides the list of instances that make up the cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1105,11 +1249,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the list of instances that make up the DB cluster.
+     * Provides the list of instances that make up the cluster.
      * </p>
      * 
      * @param dBClusterMembers
-     *        Provides the list of instances that make up the DB cluster.
+     *        Provides the list of instances that make up the cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1120,10 +1264,10 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides a list of virtual private cloud (VPC) security groups that the DB cluster belongs to.
+     * Provides a list of virtual private cloud (VPC) security groups that the cluster belongs to.
      * </p>
      * 
-     * @return Provides a list of virtual private cloud (VPC) security groups that the DB cluster belongs to.
+     * @return Provides a list of virtual private cloud (VPC) security groups that the cluster belongs to.
      */
 
     public java.util.List<VpcSecurityGroupMembership> getVpcSecurityGroups() {
@@ -1132,11 +1276,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides a list of virtual private cloud (VPC) security groups that the DB cluster belongs to.
+     * Provides a list of virtual private cloud (VPC) security groups that the cluster belongs to.
      * </p>
      * 
      * @param vpcSecurityGroups
-     *        Provides a list of virtual private cloud (VPC) security groups that the DB cluster belongs to.
+     *        Provides a list of virtual private cloud (VPC) security groups that the cluster belongs to.
      */
 
     public void setVpcSecurityGroups(java.util.Collection<VpcSecurityGroupMembership> vpcSecurityGroups) {
@@ -1150,7 +1294,7 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides a list of virtual private cloud (VPC) security groups that the DB cluster belongs to.
+     * Provides a list of virtual private cloud (VPC) security groups that the cluster belongs to.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1159,7 +1303,7 @@ public class DBCluster implements Serializable, Cloneable {
      * </p>
      * 
      * @param vpcSecurityGroups
-     *        Provides a list of virtual private cloud (VPC) security groups that the DB cluster belongs to.
+     *        Provides a list of virtual private cloud (VPC) security groups that the cluster belongs to.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1175,11 +1319,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides a list of virtual private cloud (VPC) security groups that the DB cluster belongs to.
+     * Provides a list of virtual private cloud (VPC) security groups that the cluster belongs to.
      * </p>
      * 
      * @param vpcSecurityGroups
-     *        Provides a list of virtual private cloud (VPC) security groups that the DB cluster belongs to.
+     *        Provides a list of virtual private cloud (VPC) security groups that the cluster belongs to.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1230,11 +1374,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the DB cluster is encrypted.
+     * Specifies whether the cluster is encrypted.
      * </p>
      * 
      * @param storageEncrypted
-     *        Specifies whether the DB cluster is encrypted.
+     *        Specifies whether the cluster is encrypted.
      */
 
     public void setStorageEncrypted(Boolean storageEncrypted) {
@@ -1243,10 +1387,10 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the DB cluster is encrypted.
+     * Specifies whether the cluster is encrypted.
      * </p>
      * 
-     * @return Specifies whether the DB cluster is encrypted.
+     * @return Specifies whether the cluster is encrypted.
      */
 
     public Boolean getStorageEncrypted() {
@@ -1255,11 +1399,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the DB cluster is encrypted.
+     * Specifies whether the cluster is encrypted.
      * </p>
      * 
      * @param storageEncrypted
-     *        Specifies whether the DB cluster is encrypted.
+     *        Specifies whether the cluster is encrypted.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1270,10 +1414,10 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the DB cluster is encrypted.
+     * Specifies whether the cluster is encrypted.
      * </p>
      * 
-     * @return Specifies whether the DB cluster is encrypted.
+     * @return Specifies whether the cluster is encrypted.
      */
 
     public Boolean isStorageEncrypted() {
@@ -1282,12 +1426,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If <code>StorageEncrypted</code> is <code>true</code>, the AWS KMS key identifier for the encrypted DB cluster.
+     * If <code>StorageEncrypted</code> is <code>true</code>, the KMS key identifier for the encrypted cluster.
      * </p>
      * 
      * @param kmsKeyId
-     *        If <code>StorageEncrypted</code> is <code>true</code>, the AWS KMS key identifier for the encrypted DB
-     *        cluster.
+     *        If <code>StorageEncrypted</code> is <code>true</code>, the KMS key identifier for the encrypted cluster.
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -1296,11 +1439,10 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If <code>StorageEncrypted</code> is <code>true</code>, the AWS KMS key identifier for the encrypted DB cluster.
+     * If <code>StorageEncrypted</code> is <code>true</code>, the KMS key identifier for the encrypted cluster.
      * </p>
      * 
-     * @return If <code>StorageEncrypted</code> is <code>true</code>, the AWS KMS key identifier for the encrypted DB
-     *         cluster.
+     * @return If <code>StorageEncrypted</code> is <code>true</code>, the KMS key identifier for the encrypted cluster.
      */
 
     public String getKmsKeyId() {
@@ -1309,12 +1451,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If <code>StorageEncrypted</code> is <code>true</code>, the AWS KMS key identifier for the encrypted DB cluster.
+     * If <code>StorageEncrypted</code> is <code>true</code>, the KMS key identifier for the encrypted cluster.
      * </p>
      * 
      * @param kmsKeyId
-     *        If <code>StorageEncrypted</code> is <code>true</code>, the AWS KMS key identifier for the encrypted DB
-     *        cluster.
+     *        If <code>StorageEncrypted</code> is <code>true</code>, the KMS key identifier for the encrypted cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1325,13 +1466,13 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Region-unique, immutable identifier for the DB cluster. This identifier is found in AWS CloudTrail log
-     * entries whenever the AWS KMS key for the DB cluster is accessed.
+     * The Amazon Web Services Region-unique, immutable identifier for the cluster. This identifier is found in
+     * CloudTrail log entries whenever the KMS key for the cluster is accessed.
      * </p>
      * 
      * @param dbClusterResourceId
-     *        The AWS Region-unique, immutable identifier for the DB cluster. This identifier is found in AWS CloudTrail
-     *        log entries whenever the AWS KMS key for the DB cluster is accessed.
+     *        The Amazon Web Services Region-unique, immutable identifier for the cluster. This identifier is found in
+     *        CloudTrail log entries whenever the KMS key for the cluster is accessed.
      */
 
     public void setDbClusterResourceId(String dbClusterResourceId) {
@@ -1340,12 +1481,12 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Region-unique, immutable identifier for the DB cluster. This identifier is found in AWS CloudTrail log
-     * entries whenever the AWS KMS key for the DB cluster is accessed.
+     * The Amazon Web Services Region-unique, immutable identifier for the cluster. This identifier is found in
+     * CloudTrail log entries whenever the KMS key for the cluster is accessed.
      * </p>
      * 
-     * @return The AWS Region-unique, immutable identifier for the DB cluster. This identifier is found in AWS
-     *         CloudTrail log entries whenever the AWS KMS key for the DB cluster is accessed.
+     * @return The Amazon Web Services Region-unique, immutable identifier for the cluster. This identifier is found in
+     *         CloudTrail log entries whenever the KMS key for the cluster is accessed.
      */
 
     public String getDbClusterResourceId() {
@@ -1354,13 +1495,13 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Region-unique, immutable identifier for the DB cluster. This identifier is found in AWS CloudTrail log
-     * entries whenever the AWS KMS key for the DB cluster is accessed.
+     * The Amazon Web Services Region-unique, immutable identifier for the cluster. This identifier is found in
+     * CloudTrail log entries whenever the KMS key for the cluster is accessed.
      * </p>
      * 
      * @param dbClusterResourceId
-     *        The AWS Region-unique, immutable identifier for the DB cluster. This identifier is found in AWS CloudTrail
-     *        log entries whenever the AWS KMS key for the DB cluster is accessed.
+     *        The Amazon Web Services Region-unique, immutable identifier for the cluster. This identifier is found in
+     *        CloudTrail log entries whenever the KMS key for the cluster is accessed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1371,11 +1512,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the DB cluster.
+     * The Amazon Resource Name (ARN) for the cluster.
      * </p>
      * 
      * @param dBClusterArn
-     *        The Amazon Resource Name (ARN) for the DB cluster.
+     *        The Amazon Resource Name (ARN) for the cluster.
      */
 
     public void setDBClusterArn(String dBClusterArn) {
@@ -1384,10 +1525,10 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the DB cluster.
+     * The Amazon Resource Name (ARN) for the cluster.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) for the DB cluster.
+     * @return The Amazon Resource Name (ARN) for the cluster.
      */
 
     public String getDBClusterArn() {
@@ -1396,11 +1537,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the DB cluster.
+     * The Amazon Resource Name (ARN) for the cluster.
      * </p>
      * 
      * @param dBClusterArn
-     *        The Amazon Resource Name (ARN) for the DB cluster.
+     *        The Amazon Resource Name (ARN) for the cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1411,14 +1552,14 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides a list of the AWS Identity and Access Management (IAM) roles that are associated with the DB cluster.
-     * IAM roles that are associated with a DB cluster grant permission for the DB cluster to access other AWS services
-     * on your behalf.
+     * Provides a list of the Identity and Access Management (IAM) roles that are associated with the cluster. (IAM)
+     * roles that are associated with a cluster grant permission for the cluster to access other Amazon Web Services
+     * services on your behalf.
      * </p>
      * 
-     * @return Provides a list of the AWS Identity and Access Management (IAM) roles that are associated with the DB
-     *         cluster. IAM roles that are associated with a DB cluster grant permission for the DB cluster to access
-     *         other AWS services on your behalf.
+     * @return Provides a list of the Identity and Access Management (IAM) roles that are associated with the cluster.
+     *         (IAM) roles that are associated with a cluster grant permission for the cluster to access other Amazon
+     *         Web Services services on your behalf.
      */
 
     public java.util.List<DBClusterRole> getAssociatedRoles() {
@@ -1427,15 +1568,15 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides a list of the AWS Identity and Access Management (IAM) roles that are associated with the DB cluster.
-     * IAM roles that are associated with a DB cluster grant permission for the DB cluster to access other AWS services
-     * on your behalf.
+     * Provides a list of the Identity and Access Management (IAM) roles that are associated with the cluster. (IAM)
+     * roles that are associated with a cluster grant permission for the cluster to access other Amazon Web Services
+     * services on your behalf.
      * </p>
      * 
      * @param associatedRoles
-     *        Provides a list of the AWS Identity and Access Management (IAM) roles that are associated with the DB
-     *        cluster. IAM roles that are associated with a DB cluster grant permission for the DB cluster to access
-     *        other AWS services on your behalf.
+     *        Provides a list of the Identity and Access Management (IAM) roles that are associated with the cluster.
+     *        (IAM) roles that are associated with a cluster grant permission for the cluster to access other Amazon Web
+     *        Services services on your behalf.
      */
 
     public void setAssociatedRoles(java.util.Collection<DBClusterRole> associatedRoles) {
@@ -1449,9 +1590,9 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides a list of the AWS Identity and Access Management (IAM) roles that are associated with the DB cluster.
-     * IAM roles that are associated with a DB cluster grant permission for the DB cluster to access other AWS services
-     * on your behalf.
+     * Provides a list of the Identity and Access Management (IAM) roles that are associated with the cluster. (IAM)
+     * roles that are associated with a cluster grant permission for the cluster to access other Amazon Web Services
+     * services on your behalf.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1460,9 +1601,9 @@ public class DBCluster implements Serializable, Cloneable {
      * </p>
      * 
      * @param associatedRoles
-     *        Provides a list of the AWS Identity and Access Management (IAM) roles that are associated with the DB
-     *        cluster. IAM roles that are associated with a DB cluster grant permission for the DB cluster to access
-     *        other AWS services on your behalf.
+     *        Provides a list of the Identity and Access Management (IAM) roles that are associated with the cluster.
+     *        (IAM) roles that are associated with a cluster grant permission for the cluster to access other Amazon Web
+     *        Services services on your behalf.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1478,15 +1619,15 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides a list of the AWS Identity and Access Management (IAM) roles that are associated with the DB cluster.
-     * IAM roles that are associated with a DB cluster grant permission for the DB cluster to access other AWS services
-     * on your behalf.
+     * Provides a list of the Identity and Access Management (IAM) roles that are associated with the cluster. (IAM)
+     * roles that are associated with a cluster grant permission for the cluster to access other Amazon Web Services
+     * services on your behalf.
      * </p>
      * 
      * @param associatedRoles
-     *        Provides a list of the AWS Identity and Access Management (IAM) roles that are associated with the DB
-     *        cluster. IAM roles that are associated with a DB cluster grant permission for the DB cluster to access
-     *        other AWS services on your behalf.
+     *        Provides a list of the Identity and Access Management (IAM) roles that are associated with the cluster.
+     *        (IAM) roles that are associated with a cluster grant permission for the cluster to access other Amazon Web
+     *        Services services on your behalf.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1497,11 +1638,51 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the time when the DB cluster was created, in Universal Coordinated Time (UTC).
+     * Identifies the clone group to which the DB cluster is associated.
+     * </p>
+     * 
+     * @param cloneGroupId
+     *        Identifies the clone group to which the DB cluster is associated.
+     */
+
+    public void setCloneGroupId(String cloneGroupId) {
+        this.cloneGroupId = cloneGroupId;
+    }
+
+    /**
+     * <p>
+     * Identifies the clone group to which the DB cluster is associated.
+     * </p>
+     * 
+     * @return Identifies the clone group to which the DB cluster is associated.
+     */
+
+    public String getCloneGroupId() {
+        return this.cloneGroupId;
+    }
+
+    /**
+     * <p>
+     * Identifies the clone group to which the DB cluster is associated.
+     * </p>
+     * 
+     * @param cloneGroupId
+     *        Identifies the clone group to which the DB cluster is associated.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBCluster withCloneGroupId(String cloneGroupId) {
+        setCloneGroupId(cloneGroupId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the time when the cluster was created, in Universal Coordinated Time (UTC).
      * </p>
      * 
      * @param clusterCreateTime
-     *        Specifies the time when the DB cluster was created, in Universal Coordinated Time (UTC).
+     *        Specifies the time when the cluster was created, in Universal Coordinated Time (UTC).
      */
 
     public void setClusterCreateTime(java.util.Date clusterCreateTime) {
@@ -1510,10 +1691,10 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the time when the DB cluster was created, in Universal Coordinated Time (UTC).
+     * Specifies the time when the cluster was created, in Universal Coordinated Time (UTC).
      * </p>
      * 
-     * @return Specifies the time when the DB cluster was created, in Universal Coordinated Time (UTC).
+     * @return Specifies the time when the cluster was created, in Universal Coordinated Time (UTC).
      */
 
     public java.util.Date getClusterCreateTime() {
@@ -1522,11 +1703,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the time when the DB cluster was created, in Universal Coordinated Time (UTC).
+     * Specifies the time when the cluster was created, in Universal Coordinated Time (UTC).
      * </p>
      * 
      * @param clusterCreateTime
-     *        Specifies the time when the DB cluster was created, in Universal Coordinated Time (UTC).
+     *        Specifies the time when the cluster was created, in Universal Coordinated Time (UTC).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1537,10 +1718,10 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of log types that this DB cluster is configured to export to Amazon CloudWatch Logs.
+     * A list of log types that this cluster is configured to export to Amazon CloudWatch Logs.
      * </p>
      * 
-     * @return A list of log types that this DB cluster is configured to export to Amazon CloudWatch Logs.
+     * @return A list of log types that this cluster is configured to export to Amazon CloudWatch Logs.
      */
 
     public java.util.List<String> getEnabledCloudwatchLogsExports() {
@@ -1549,11 +1730,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of log types that this DB cluster is configured to export to Amazon CloudWatch Logs.
+     * A list of log types that this cluster is configured to export to Amazon CloudWatch Logs.
      * </p>
      * 
      * @param enabledCloudwatchLogsExports
-     *        A list of log types that this DB cluster is configured to export to Amazon CloudWatch Logs.
+     *        A list of log types that this cluster is configured to export to Amazon CloudWatch Logs.
      */
 
     public void setEnabledCloudwatchLogsExports(java.util.Collection<String> enabledCloudwatchLogsExports) {
@@ -1567,7 +1748,7 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of log types that this DB cluster is configured to export to Amazon CloudWatch Logs.
+     * A list of log types that this cluster is configured to export to Amazon CloudWatch Logs.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1576,7 +1757,7 @@ public class DBCluster implements Serializable, Cloneable {
      * </p>
      * 
      * @param enabledCloudwatchLogsExports
-     *        A list of log types that this DB cluster is configured to export to Amazon CloudWatch Logs.
+     *        A list of log types that this cluster is configured to export to Amazon CloudWatch Logs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1592,11 +1773,11 @@ public class DBCluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of log types that this DB cluster is configured to export to Amazon CloudWatch Logs.
+     * A list of log types that this cluster is configured to export to Amazon CloudWatch Logs.
      * </p>
      * 
      * @param enabledCloudwatchLogsExports
-     *        A list of log types that this DB cluster is configured to export to Amazon CloudWatch Logs.
+     *        A list of log types that this cluster is configured to export to Amazon CloudWatch Logs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1674,6 +1855,121 @@ public class DBCluster implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * Storage type associated with your cluster
+     * </p>
+     * <p>
+     * Storage type associated with your cluster
+     * </p>
+     * <p>
+     * For information on storage types for Amazon DocumentDB clusters, see Cluster storage configurations in the
+     * <i>Amazon DocumentDB Developer Guide</i>.
+     * </p>
+     * <p>
+     * Valid values for storage type - <code>standard | iopt1</code>
+     * </p>
+     * <p>
+     * Default value is <code>standard </code>
+     * </p>
+     * 
+     * @param storageType
+     *        Storage type associated with your cluster</p>
+     *        <p>
+     *        Storage type associated with your cluster
+     *        </p>
+     *        <p>
+     *        For information on storage types for Amazon DocumentDB clusters, see Cluster storage configurations in the
+     *        <i>Amazon DocumentDB Developer Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid values for storage type - <code>standard | iopt1</code>
+     *        </p>
+     *        <p>
+     *        Default value is <code>standard </code>
+     */
+
+    public void setStorageType(String storageType) {
+        this.storageType = storageType;
+    }
+
+    /**
+     * <p>
+     * Storage type associated with your cluster
+     * </p>
+     * <p>
+     * Storage type associated with your cluster
+     * </p>
+     * <p>
+     * For information on storage types for Amazon DocumentDB clusters, see Cluster storage configurations in the
+     * <i>Amazon DocumentDB Developer Guide</i>.
+     * </p>
+     * <p>
+     * Valid values for storage type - <code>standard | iopt1</code>
+     * </p>
+     * <p>
+     * Default value is <code>standard </code>
+     * </p>
+     * 
+     * @return Storage type associated with your cluster</p>
+     *         <p>
+     *         Storage type associated with your cluster
+     *         </p>
+     *         <p>
+     *         For information on storage types for Amazon DocumentDB clusters, see Cluster storage configurations in
+     *         the <i>Amazon DocumentDB Developer Guide</i>.
+     *         </p>
+     *         <p>
+     *         Valid values for storage type - <code>standard | iopt1</code>
+     *         </p>
+     *         <p>
+     *         Default value is <code>standard </code>
+     */
+
+    public String getStorageType() {
+        return this.storageType;
+    }
+
+    /**
+     * <p>
+     * Storage type associated with your cluster
+     * </p>
+     * <p>
+     * Storage type associated with your cluster
+     * </p>
+     * <p>
+     * For information on storage types for Amazon DocumentDB clusters, see Cluster storage configurations in the
+     * <i>Amazon DocumentDB Developer Guide</i>.
+     * </p>
+     * <p>
+     * Valid values for storage type - <code>standard | iopt1</code>
+     * </p>
+     * <p>
+     * Default value is <code>standard </code>
+     * </p>
+     * 
+     * @param storageType
+     *        Storage type associated with your cluster</p>
+     *        <p>
+     *        Storage type associated with your cluster
+     *        </p>
+     *        <p>
+     *        For information on storage types for Amazon DocumentDB clusters, see Cluster storage configurations in the
+     *        <i>Amazon DocumentDB Developer Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid values for storage type - <code>standard | iopt1</code>
+     *        </p>
+     *        <p>
+     *        Default value is <code>standard </code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBCluster withStorageType(String storageType) {
+        setStorageType(storageType);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1721,6 +2017,10 @@ public class DBCluster implements Serializable, Cloneable {
             sb.append("PreferredBackupWindow: ").append(getPreferredBackupWindow()).append(",");
         if (getPreferredMaintenanceWindow() != null)
             sb.append("PreferredMaintenanceWindow: ").append(getPreferredMaintenanceWindow()).append(",");
+        if (getReplicationSourceIdentifier() != null)
+            sb.append("ReplicationSourceIdentifier: ").append(getReplicationSourceIdentifier()).append(",");
+        if (getReadReplicaIdentifiers() != null)
+            sb.append("ReadReplicaIdentifiers: ").append(getReadReplicaIdentifiers()).append(",");
         if (getDBClusterMembers() != null)
             sb.append("DBClusterMembers: ").append(getDBClusterMembers()).append(",");
         if (getVpcSecurityGroups() != null)
@@ -1737,12 +2037,16 @@ public class DBCluster implements Serializable, Cloneable {
             sb.append("DBClusterArn: ").append(getDBClusterArn()).append(",");
         if (getAssociatedRoles() != null)
             sb.append("AssociatedRoles: ").append(getAssociatedRoles()).append(",");
+        if (getCloneGroupId() != null)
+            sb.append("CloneGroupId: ").append(getCloneGroupId()).append(",");
         if (getClusterCreateTime() != null)
             sb.append("ClusterCreateTime: ").append(getClusterCreateTime()).append(",");
         if (getEnabledCloudwatchLogsExports() != null)
             sb.append("EnabledCloudwatchLogsExports: ").append(getEnabledCloudwatchLogsExports()).append(",");
         if (getDeletionProtection() != null)
-            sb.append("DeletionProtection: ").append(getDeletionProtection());
+            sb.append("DeletionProtection: ").append(getDeletionProtection()).append(",");
+        if (getStorageType() != null)
+            sb.append("StorageType: ").append(getStorageType());
         sb.append("}");
         return sb.toString();
     }
@@ -1829,6 +2133,14 @@ public class DBCluster implements Serializable, Cloneable {
             return false;
         if (other.getPreferredMaintenanceWindow() != null && other.getPreferredMaintenanceWindow().equals(this.getPreferredMaintenanceWindow()) == false)
             return false;
+        if (other.getReplicationSourceIdentifier() == null ^ this.getReplicationSourceIdentifier() == null)
+            return false;
+        if (other.getReplicationSourceIdentifier() != null && other.getReplicationSourceIdentifier().equals(this.getReplicationSourceIdentifier()) == false)
+            return false;
+        if (other.getReadReplicaIdentifiers() == null ^ this.getReadReplicaIdentifiers() == null)
+            return false;
+        if (other.getReadReplicaIdentifiers() != null && other.getReadReplicaIdentifiers().equals(this.getReadReplicaIdentifiers()) == false)
+            return false;
         if (other.getDBClusterMembers() == null ^ this.getDBClusterMembers() == null)
             return false;
         if (other.getDBClusterMembers() != null && other.getDBClusterMembers().equals(this.getDBClusterMembers()) == false)
@@ -1861,6 +2173,10 @@ public class DBCluster implements Serializable, Cloneable {
             return false;
         if (other.getAssociatedRoles() != null && other.getAssociatedRoles().equals(this.getAssociatedRoles()) == false)
             return false;
+        if (other.getCloneGroupId() == null ^ this.getCloneGroupId() == null)
+            return false;
+        if (other.getCloneGroupId() != null && other.getCloneGroupId().equals(this.getCloneGroupId()) == false)
+            return false;
         if (other.getClusterCreateTime() == null ^ this.getClusterCreateTime() == null)
             return false;
         if (other.getClusterCreateTime() != null && other.getClusterCreateTime().equals(this.getClusterCreateTime()) == false)
@@ -1872,6 +2188,10 @@ public class DBCluster implements Serializable, Cloneable {
         if (other.getDeletionProtection() == null ^ this.getDeletionProtection() == null)
             return false;
         if (other.getDeletionProtection() != null && other.getDeletionProtection().equals(this.getDeletionProtection()) == false)
+            return false;
+        if (other.getStorageType() == null ^ this.getStorageType() == null)
+            return false;
+        if (other.getStorageType() != null && other.getStorageType().equals(this.getStorageType()) == false)
             return false;
         return true;
     }
@@ -1899,6 +2219,8 @@ public class DBCluster implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getMasterUsername() == null) ? 0 : getMasterUsername().hashCode());
         hashCode = prime * hashCode + ((getPreferredBackupWindow() == null) ? 0 : getPreferredBackupWindow().hashCode());
         hashCode = prime * hashCode + ((getPreferredMaintenanceWindow() == null) ? 0 : getPreferredMaintenanceWindow().hashCode());
+        hashCode = prime * hashCode + ((getReplicationSourceIdentifier() == null) ? 0 : getReplicationSourceIdentifier().hashCode());
+        hashCode = prime * hashCode + ((getReadReplicaIdentifiers() == null) ? 0 : getReadReplicaIdentifiers().hashCode());
         hashCode = prime * hashCode + ((getDBClusterMembers() == null) ? 0 : getDBClusterMembers().hashCode());
         hashCode = prime * hashCode + ((getVpcSecurityGroups() == null) ? 0 : getVpcSecurityGroups().hashCode());
         hashCode = prime * hashCode + ((getHostedZoneId() == null) ? 0 : getHostedZoneId().hashCode());
@@ -1907,9 +2229,11 @@ public class DBCluster implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getDbClusterResourceId() == null) ? 0 : getDbClusterResourceId().hashCode());
         hashCode = prime * hashCode + ((getDBClusterArn() == null) ? 0 : getDBClusterArn().hashCode());
         hashCode = prime * hashCode + ((getAssociatedRoles() == null) ? 0 : getAssociatedRoles().hashCode());
+        hashCode = prime * hashCode + ((getCloneGroupId() == null) ? 0 : getCloneGroupId().hashCode());
         hashCode = prime * hashCode + ((getClusterCreateTime() == null) ? 0 : getClusterCreateTime().hashCode());
         hashCode = prime * hashCode + ((getEnabledCloudwatchLogsExports() == null) ? 0 : getEnabledCloudwatchLogsExports().hashCode());
         hashCode = prime * hashCode + ((getDeletionProtection() == null) ? 0 : getDeletionProtection().hashCode());
+        hashCode = prime * hashCode + ((getStorageType() == null) ? 0 : getStorageType().hashCode());
         return hashCode;
     }
 

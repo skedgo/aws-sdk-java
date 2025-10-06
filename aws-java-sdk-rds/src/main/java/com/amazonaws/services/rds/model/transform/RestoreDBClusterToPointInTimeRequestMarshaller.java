@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -95,13 +95,15 @@ public class RestoreDBClusterToPointInTimeRequestMarshaller implements
             int tagsListIndex = 1;
 
             for (Tag tagsListValue : tagsList) {
+                if (tagsListValue != null) {
 
-                if (tagsListValue.getKey() != null) {
-                    request.addParameter("Tags.Tag." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
-                }
+                    if (tagsListValue.getKey() != null) {
+                        request.addParameter("Tags.Tag." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
+                    }
 
-                if (tagsListValue.getValue() != null) {
-                    request.addParameter("Tags.Tag." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                    if (tagsListValue.getValue() != null) {
+                        request.addParameter("Tags.Tag." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                    }
                 }
                 tagsListIndex++;
             }
@@ -145,6 +147,112 @@ public class RestoreDBClusterToPointInTimeRequestMarshaller implements
 
         if (restoreDBClusterToPointInTimeRequest.getCopyTagsToSnapshot() != null) {
             request.addParameter("CopyTagsToSnapshot", StringUtils.fromBoolean(restoreDBClusterToPointInTimeRequest.getCopyTagsToSnapshot()));
+        }
+
+        if (restoreDBClusterToPointInTimeRequest.getDomain() != null) {
+            request.addParameter("Domain", StringUtils.fromString(restoreDBClusterToPointInTimeRequest.getDomain()));
+        }
+
+        if (restoreDBClusterToPointInTimeRequest.getDomainIAMRoleName() != null) {
+            request.addParameter("DomainIAMRoleName", StringUtils.fromString(restoreDBClusterToPointInTimeRequest.getDomainIAMRoleName()));
+        }
+
+        {
+            ScalingConfiguration scalingConfiguration = restoreDBClusterToPointInTimeRequest.getScalingConfiguration();
+            if (scalingConfiguration != null) {
+
+                if (scalingConfiguration.getMinCapacity() != null) {
+                    request.addParameter("ScalingConfiguration.MinCapacity", StringUtils.fromInteger(scalingConfiguration.getMinCapacity()));
+                }
+
+                if (scalingConfiguration.getMaxCapacity() != null) {
+                    request.addParameter("ScalingConfiguration.MaxCapacity", StringUtils.fromInteger(scalingConfiguration.getMaxCapacity()));
+                }
+
+                if (scalingConfiguration.getAutoPause() != null) {
+                    request.addParameter("ScalingConfiguration.AutoPause", StringUtils.fromBoolean(scalingConfiguration.getAutoPause()));
+                }
+
+                if (scalingConfiguration.getSecondsUntilAutoPause() != null) {
+                    request.addParameter("ScalingConfiguration.SecondsUntilAutoPause", StringUtils.fromInteger(scalingConfiguration.getSecondsUntilAutoPause()));
+                }
+
+                if (scalingConfiguration.getTimeoutAction() != null) {
+                    request.addParameter("ScalingConfiguration.TimeoutAction", StringUtils.fromString(scalingConfiguration.getTimeoutAction()));
+                }
+
+                if (scalingConfiguration.getSecondsBeforeTimeout() != null) {
+                    request.addParameter("ScalingConfiguration.SecondsBeforeTimeout", StringUtils.fromInteger(scalingConfiguration.getSecondsBeforeTimeout()));
+                }
+            }
+        }
+
+        if (restoreDBClusterToPointInTimeRequest.getEngineMode() != null) {
+            request.addParameter("EngineMode", StringUtils.fromString(restoreDBClusterToPointInTimeRequest.getEngineMode()));
+        }
+
+        if (restoreDBClusterToPointInTimeRequest.getDBClusterInstanceClass() != null) {
+            request.addParameter("DBClusterInstanceClass", StringUtils.fromString(restoreDBClusterToPointInTimeRequest.getDBClusterInstanceClass()));
+        }
+
+        if (restoreDBClusterToPointInTimeRequest.getStorageType() != null) {
+            request.addParameter("StorageType", StringUtils.fromString(restoreDBClusterToPointInTimeRequest.getStorageType()));
+        }
+
+        if (restoreDBClusterToPointInTimeRequest.getPubliclyAccessible() != null) {
+            request.addParameter("PubliclyAccessible", StringUtils.fromBoolean(restoreDBClusterToPointInTimeRequest.getPubliclyAccessible()));
+        }
+
+        if (restoreDBClusterToPointInTimeRequest.getIops() != null) {
+            request.addParameter("Iops", StringUtils.fromInteger(restoreDBClusterToPointInTimeRequest.getIops()));
+        }
+
+        {
+            ServerlessV2ScalingConfiguration serverlessV2ScalingConfiguration = restoreDBClusterToPointInTimeRequest.getServerlessV2ScalingConfiguration();
+            if (serverlessV2ScalingConfiguration != null) {
+
+                if (serverlessV2ScalingConfiguration.getMinCapacity() != null) {
+                    request.addParameter("ServerlessV2ScalingConfiguration.MinCapacity",
+                            StringUtils.fromDouble(serverlessV2ScalingConfiguration.getMinCapacity()));
+                }
+
+                if (serverlessV2ScalingConfiguration.getMaxCapacity() != null) {
+                    request.addParameter("ServerlessV2ScalingConfiguration.MaxCapacity",
+                            StringUtils.fromDouble(serverlessV2ScalingConfiguration.getMaxCapacity()));
+                }
+            }
+        }
+
+        if (restoreDBClusterToPointInTimeRequest.getNetworkType() != null) {
+            request.addParameter("NetworkType", StringUtils.fromString(restoreDBClusterToPointInTimeRequest.getNetworkType()));
+        }
+
+        if (restoreDBClusterToPointInTimeRequest.getSourceDbClusterResourceId() != null) {
+            request.addParameter("SourceDbClusterResourceId", StringUtils.fromString(restoreDBClusterToPointInTimeRequest.getSourceDbClusterResourceId()));
+        }
+
+        {
+            RdsCustomClusterConfiguration rdsCustomClusterConfiguration = restoreDBClusterToPointInTimeRequest.getRdsCustomClusterConfiguration();
+            if (rdsCustomClusterConfiguration != null) {
+
+                if (rdsCustomClusterConfiguration.getInterconnectSubnetId() != null) {
+                    request.addParameter("RdsCustomClusterConfiguration.InterconnectSubnetId",
+                            StringUtils.fromString(rdsCustomClusterConfiguration.getInterconnectSubnetId()));
+                }
+
+                if (rdsCustomClusterConfiguration.getTransitGatewayMulticastDomainId() != null) {
+                    request.addParameter("RdsCustomClusterConfiguration.TransitGatewayMulticastDomainId",
+                            StringUtils.fromString(rdsCustomClusterConfiguration.getTransitGatewayMulticastDomainId()));
+                }
+
+                if (rdsCustomClusterConfiguration.getReplicaMode() != null) {
+                    request.addParameter("RdsCustomClusterConfiguration.ReplicaMode", StringUtils.fromString(rdsCustomClusterConfiguration.getReplicaMode()));
+                }
+            }
+        }
+
+        if (restoreDBClusterToPointInTimeRequest.getEngineLifecycleSupport() != null) {
+            request.addParameter("EngineLifecycleSupport", StringUtils.fromString(restoreDBClusterToPointInTimeRequest.getEngineLifecycleSupport()));
         }
 
         return request;

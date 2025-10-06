@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.sagemaker.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -31,12 +32,18 @@ public class CreateCompilationJobRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CompilationJobName").build();
     private static final MarshallingInfo<String> ROLEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("RoleArn").build();
+    private static final MarshallingInfo<String> MODELPACKAGEVERSIONARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ModelPackageVersionArn").build();
     private static final MarshallingInfo<StructuredPojo> INPUTCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("InputConfig").build();
     private static final MarshallingInfo<StructuredPojo> OUTPUTCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OutputConfig").build();
+    private static final MarshallingInfo<StructuredPojo> VPCCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VpcConfig").build();
     private static final MarshallingInfo<StructuredPojo> STOPPINGCONDITION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StoppingCondition").build();
+    private static final MarshallingInfo<List> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Tags").build();
 
     private static final CreateCompilationJobRequestMarshaller instance = new CreateCompilationJobRequestMarshaller();
 
@@ -56,9 +63,12 @@ public class CreateCompilationJobRequestMarshaller {
         try {
             protocolMarshaller.marshall(createCompilationJobRequest.getCompilationJobName(), COMPILATIONJOBNAME_BINDING);
             protocolMarshaller.marshall(createCompilationJobRequest.getRoleArn(), ROLEARN_BINDING);
+            protocolMarshaller.marshall(createCompilationJobRequest.getModelPackageVersionArn(), MODELPACKAGEVERSIONARN_BINDING);
             protocolMarshaller.marshall(createCompilationJobRequest.getInputConfig(), INPUTCONFIG_BINDING);
             protocolMarshaller.marshall(createCompilationJobRequest.getOutputConfig(), OUTPUTCONFIG_BINDING);
+            protocolMarshaller.marshall(createCompilationJobRequest.getVpcConfig(), VPCCONFIG_BINDING);
             protocolMarshaller.marshall(createCompilationJobRequest.getStoppingCondition(), STOPPINGCONDITION_BINDING);
+            protocolMarshaller.marshall(createCompilationJobRequest.getTags(), TAGS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,9 +52,29 @@ public class VirtualRouterRefJsonUnmarshaller implements Unmarshaller<VirtualRou
                     context.nextToken();
                     virtualRouterRef.setArn(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("createdAt", targetDepth)) {
+                    context.nextToken();
+                    virtualRouterRef.setCreatedAt(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("lastUpdatedAt", targetDepth)) {
+                    context.nextToken();
+                    virtualRouterRef.setLastUpdatedAt(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
                 if (context.testExpression("meshName", targetDepth)) {
                     context.nextToken();
                     virtualRouterRef.setMeshName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("meshOwner", targetDepth)) {
+                    context.nextToken();
+                    virtualRouterRef.setMeshOwner(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("resourceOwner", targetDepth)) {
+                    context.nextToken();
+                    virtualRouterRef.setResourceOwner(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("version", targetDepth)) {
+                    context.nextToken();
+                    virtualRouterRef.setVersion(context.getUnmarshaller(Long.class).unmarshall(context));
                 }
                 if (context.testExpression("virtualRouterName", targetDepth)) {
                     context.nextToken();

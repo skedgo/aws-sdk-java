@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,7 @@ public class TargetConfigurationRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of instances the Covertible Reserved Instance offering can be applied to. This parameter is reserved
+     * The number of instances the Convertible Reserved Instance offering can be applied to. This parameter is reserved
      * and cannot be specified in a request
      * </p>
      */
@@ -42,12 +42,12 @@ public class TargetConfigurationRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of instances the Covertible Reserved Instance offering can be applied to. This parameter is reserved
+     * The number of instances the Convertible Reserved Instance offering can be applied to. This parameter is reserved
      * and cannot be specified in a request
      * </p>
      * 
      * @param instanceCount
-     *        The number of instances the Covertible Reserved Instance offering can be applied to. This parameter is
+     *        The number of instances the Convertible Reserved Instance offering can be applied to. This parameter is
      *        reserved and cannot be specified in a request
      */
 
@@ -57,11 +57,11 @@ public class TargetConfigurationRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of instances the Covertible Reserved Instance offering can be applied to. This parameter is reserved
+     * The number of instances the Convertible Reserved Instance offering can be applied to. This parameter is reserved
      * and cannot be specified in a request
      * </p>
      * 
-     * @return The number of instances the Covertible Reserved Instance offering can be applied to. This parameter is
+     * @return The number of instances the Convertible Reserved Instance offering can be applied to. This parameter is
      *         reserved and cannot be specified in a request
      */
 
@@ -71,12 +71,12 @@ public class TargetConfigurationRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of instances the Covertible Reserved Instance offering can be applied to. This parameter is reserved
+     * The number of instances the Convertible Reserved Instance offering can be applied to. This parameter is reserved
      * and cannot be specified in a request
      * </p>
      * 
      * @param instanceCount
-     *        The number of instances the Covertible Reserved Instance offering can be applied to. This parameter is
+     *        The number of instances the Convertible Reserved Instance offering can be applied to. This parameter is
      *        reserved and cannot be specified in a request
      * @return Returns a reference to this object so that method calls can be chained together.
      */

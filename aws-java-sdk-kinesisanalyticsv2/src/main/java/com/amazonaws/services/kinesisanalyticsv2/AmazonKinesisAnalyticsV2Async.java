@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,10 +25,15 @@ import com.amazonaws.services.kinesisanalyticsv2.model.*;
  * {@link com.amazonaws.services.kinesisanalyticsv2.AbstractAmazonKinesisAnalyticsV2Async} instead.
  * </p>
  * <p>
+ * <note>
  * <p>
- * Amazon Kinesis Data Analytics is a fully managed service that you can use to process and analyze streaming data using
- * SQL or Java. The service enables you to quickly author and run SQL or Java code against streaming sources to perform
- * time series analytics, feed real-time dashboards, and create real-time metrics.
+ * Amazon Managed Service for Apache Flink was previously known as Amazon Kinesis Data Analytics for Apache Flink.
+ * </p>
+ * </note>
+ * <p>
+ * Amazon Managed Service for Apache Flink is a fully managed service that you can use to process and analyze streaming
+ * data using Java, Python, SQL, or Scala. The service enables you to quickly author and run Java, SQL, or Scala code
+ * against streaming sources to perform time series analytics, feed real-time dashboards, and create real-time metrics.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -73,7 +78,7 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Adds a streaming source to your SQL-based Amazon Kinesis Data Analytics application.
+     * Adds a streaming source to your SQL-based Kinesis Data Analytics application.
      * </p>
      * <p>
      * You can add a streaming source when you create an application, or you can use this operation to add a streaming
@@ -94,7 +99,7 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Adds a streaming source to your SQL-based Amazon Kinesis Data Analytics application.
+     * Adds a streaming source to your SQL-based Kinesis Data Analytics application.
      * </p>
      * <p>
      * You can add a streaming source when you create an application, or you can use this operation to add a streaming
@@ -120,9 +125,9 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Adds an <a>InputProcessingConfiguration</a> to an SQL-based Kinesis Data Analytics application. An input
-     * processor pre-processes records on the input stream before the application's SQL code executes. Currently, the
-     * only input processor available is <a href="https://aws.amazon.com/documentation/lambda/">AWS Lambda</a>.
+     * Adds an <a>InputProcessingConfiguration</a> to a SQL-based Kinesis Data Analytics application. An input processor
+     * pre-processes records on the input stream before the application's SQL code executes. Currently, the only input
+     * processor available is <a href="https://docs.aws.amazon.com/lambda/">Amazon Lambda</a>.
      * </p>
      * 
      * @param addApplicationInputProcessingConfigurationRequest
@@ -138,9 +143,9 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Adds an <a>InputProcessingConfiguration</a> to an SQL-based Kinesis Data Analytics application. An input
-     * processor pre-processes records on the input stream before the application's SQL code executes. Currently, the
-     * only input processor available is <a href="https://aws.amazon.com/documentation/lambda/">AWS Lambda</a>.
+     * Adds an <a>InputProcessingConfiguration</a> to a SQL-based Kinesis Data Analytics application. An input processor
+     * pre-processes records on the input stream before the application's SQL code executes. Currently, the only input
+     * processor available is <a href="https://docs.aws.amazon.com/lambda/">Amazon Lambda</a>.
      * </p>
      * 
      * @param addApplicationInputProcessingConfigurationRequest
@@ -161,13 +166,13 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Adds an external destination to your SQL-based Amazon Kinesis Data Analytics application.
+     * Adds an external destination to your SQL-based Kinesis Data Analytics application.
      * </p>
      * <p>
      * If you want Kinesis Data Analytics to deliver data from an in-application stream within your application to an
-     * external destination (such as an Kinesis data stream, a Kinesis Data Firehose delivery stream, or an AWS Lambda
-     * function), you add the relevant configuration to your application using this operation. You can configure one or
-     * more outputs for your application. Each output configuration maps an in-application stream and an external
+     * external destination (such as an Kinesis data stream, a Kinesis Data Firehose delivery stream, or an Amazon
+     * Lambda function), you add the relevant configuration to your application using this operation. You can configure
+     * one or more outputs for your application. Each output configuration maps an in-application stream and an external
      * destination.
      * </p>
      * <p>
@@ -189,13 +194,13 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Adds an external destination to your SQL-based Amazon Kinesis Data Analytics application.
+     * Adds an external destination to your SQL-based Kinesis Data Analytics application.
      * </p>
      * <p>
      * If you want Kinesis Data Analytics to deliver data from an in-application stream within your application to an
-     * external destination (such as an Kinesis data stream, a Kinesis Data Firehose delivery stream, or an AWS Lambda
-     * function), you add the relevant configuration to your application using this operation. You can configure one or
-     * more outputs for your application. Each output configuration maps an in-application stream and an external
+     * external destination (such as an Kinesis data stream, a Kinesis Data Firehose delivery stream, or an Amazon
+     * Lambda function), you add the relevant configuration to your application using this operation. You can configure
+     * one or more outputs for your application. Each output configuration maps an in-application stream and an external
      * destination.
      * </p>
      * <p>
@@ -222,7 +227,7 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Adds a reference data source to an existing SQL-based Amazon Kinesis Data Analytics application.
+     * Adds a reference data source to an existing SQL-based Kinesis Data Analytics application.
      * </p>
      * <p>
      * Kinesis Data Analytics reads reference data (that is, an Amazon S3 object) and creates an in-application table
@@ -244,7 +249,7 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Adds a reference data source to an existing SQL-based Amazon Kinesis Data Analytics application.
+     * Adds a reference data source to an existing SQL-based Kinesis Data Analytics application.
      * </p>
      * <p>
      * Kinesis Data Analytics reads reference data (that is, an Amazon S3 object) and creates an in-application table
@@ -271,9 +276,80 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Creates an Amazon Kinesis Data Analytics application. For information about creating a Kinesis Data Analytics
-     * application, see <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/getting-started.html">Creating
-     * an Application</a>.
+     * Adds a Virtual Private Cloud (VPC) configuration to the application. Applications can use VPCs to store and
+     * access resources securely.
+     * </p>
+     * <p>
+     * Note the following about VPC configurations for Managed Service for Apache Flink applications:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * VPC configurations are not supported for SQL applications.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * When a VPC is added to a Managed Service for Apache Flink application, the application can no longer be accessed
+     * from the Internet directly. To enable Internet access to the application, add an Internet gateway to your VPC.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param addApplicationVpcConfigurationRequest
+     * @return A Java Future containing the result of the AddApplicationVpcConfiguration operation returned by the
+     *         service.
+     * @sample AmazonKinesisAnalyticsV2Async.AddApplicationVpcConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/AddApplicationVpcConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<AddApplicationVpcConfigurationResult> addApplicationVpcConfigurationAsync(
+            AddApplicationVpcConfigurationRequest addApplicationVpcConfigurationRequest);
+
+    /**
+     * <p>
+     * Adds a Virtual Private Cloud (VPC) configuration to the application. Applications can use VPCs to store and
+     * access resources securely.
+     * </p>
+     * <p>
+     * Note the following about VPC configurations for Managed Service for Apache Flink applications:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * VPC configurations are not supported for SQL applications.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * When a VPC is added to a Managed Service for Apache Flink application, the application can no longer be accessed
+     * from the Internet directly. To enable Internet access to the application, add an Internet gateway to your VPC.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param addApplicationVpcConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the AddApplicationVpcConfiguration operation returned by the
+     *         service.
+     * @sample AmazonKinesisAnalyticsV2AsyncHandler.AddApplicationVpcConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/AddApplicationVpcConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<AddApplicationVpcConfigurationResult> addApplicationVpcConfigurationAsync(
+            AddApplicationVpcConfigurationRequest addApplicationVpcConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<AddApplicationVpcConfigurationRequest, AddApplicationVpcConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a Managed Service for Apache Flink application. For information about creating a Managed Service for
+     * Apache Flink application, see <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/getting-started.html">Creating an Application</a>.
      * </p>
      * 
      * @param createApplicationRequest
@@ -286,9 +362,9 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Creates an Amazon Kinesis Data Analytics application. For information about creating a Kinesis Data Analytics
-     * application, see <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/getting-started.html">Creating
-     * an Application</a>.
+     * Creates a Managed Service for Apache Flink application. For information about creating a Managed Service for
+     * Apache Flink application, see <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/getting-started.html">Creating an Application</a>.
      * </p>
      * 
      * @param createApplicationRequest
@@ -303,6 +379,73 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
      */
     java.util.concurrent.Future<CreateApplicationResult> createApplicationAsync(CreateApplicationRequest createApplicationRequest,
             com.amazonaws.handlers.AsyncHandler<CreateApplicationRequest, CreateApplicationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates and returns a URL that you can use to connect to an application's extension.
+     * </p>
+     * <p>
+     * The IAM role or user used to call this API defines the permissions to access the extension. After the presigned
+     * URL is created, no additional permission is required to access this URL. IAM authorization policies for this API
+     * are also enforced for every HTTP request that attempts to connect to the extension.
+     * </p>
+     * <p>
+     * You control the amount of time that the URL will be valid using the
+     * <code>SessionExpirationDurationInSeconds</code> parameter. If you do not provide this parameter, the returned URL
+     * is valid for twelve hours.
+     * </p>
+     * <note>
+     * <p>
+     * The URL that you get from a call to CreateApplicationPresignedUrl must be used within 3 minutes to be valid. If
+     * you first try to use the URL after the 3-minute limit expires, the service returns an HTTP 403 Forbidden error.
+     * </p>
+     * </note>
+     * 
+     * @param createApplicationPresignedUrlRequest
+     * @return A Java Future containing the result of the CreateApplicationPresignedUrl operation returned by the
+     *         service.
+     * @sample AmazonKinesisAnalyticsV2Async.CreateApplicationPresignedUrl
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/CreateApplicationPresignedUrl"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateApplicationPresignedUrlResult> createApplicationPresignedUrlAsync(
+            CreateApplicationPresignedUrlRequest createApplicationPresignedUrlRequest);
+
+    /**
+     * <p>
+     * Creates and returns a URL that you can use to connect to an application's extension.
+     * </p>
+     * <p>
+     * The IAM role or user used to call this API defines the permissions to access the extension. After the presigned
+     * URL is created, no additional permission is required to access this URL. IAM authorization policies for this API
+     * are also enforced for every HTTP request that attempts to connect to the extension.
+     * </p>
+     * <p>
+     * You control the amount of time that the URL will be valid using the
+     * <code>SessionExpirationDurationInSeconds</code> parameter. If you do not provide this parameter, the returned URL
+     * is valid for twelve hours.
+     * </p>
+     * <note>
+     * <p>
+     * The URL that you get from a call to CreateApplicationPresignedUrl must be used within 3 minutes to be valid. If
+     * you first try to use the URL after the 3-minute limit expires, the service returns an HTTP 403 Forbidden error.
+     * </p>
+     * </note>
+     * 
+     * @param createApplicationPresignedUrlRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateApplicationPresignedUrl operation returned by the
+     *         service.
+     * @sample AmazonKinesisAnalyticsV2AsyncHandler.CreateApplicationPresignedUrl
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/CreateApplicationPresignedUrl"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateApplicationPresignedUrlResult> createApplicationPresignedUrlAsync(
+            CreateApplicationPresignedUrlRequest createApplicationPresignedUrlRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateApplicationPresignedUrlRequest, CreateApplicationPresignedUrlResult> asyncHandler);
 
     /**
      * <p>
@@ -339,7 +482,7 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Deletes the specified application. Kinesis Data Analytics halts application execution and deletes the
+     * Deletes the specified application. Managed Service for Apache Flink halts application execution and deletes the
      * application.
      * </p>
      * 
@@ -353,7 +496,7 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Deletes the specified application. Kinesis Data Analytics halts application execution and deletes the
+     * Deletes the specified application. Managed Service for Apache Flink halts application execution and deletes the
      * application.
      * </p>
      * 
@@ -372,7 +515,7 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Deletes an Amazon CloudWatch log stream from an Amazon Kinesis Data Analytics application.
+     * Deletes an Amazon CloudWatch log stream from an SQL-based Kinesis Data Analytics application.
      * </p>
      * 
      * @param deleteApplicationCloudWatchLoggingOptionRequest
@@ -388,7 +531,7 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Deletes an Amazon CloudWatch log stream from an Amazon Kinesis Data Analytics application.
+     * Deletes an Amazon CloudWatch log stream from an SQL-based Kinesis Data Analytics application.
      * </p>
      * 
      * @param deleteApplicationCloudWatchLoggingOptionRequest
@@ -446,7 +589,7 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Deletes the output destination configuration from your SQL-based Amazon Kinesis Data Analytics application's
+     * Deletes the output destination configuration from your SQL-based Kinesis Data Analytics application's
      * configuration. Kinesis Data Analytics will no longer write data from the corresponding in-application stream to
      * the external output destination.
      * </p>
@@ -461,7 +604,7 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Deletes the output destination configuration from your SQL-based Amazon Kinesis Data Analytics application's
+     * Deletes the output destination configuration from your SQL-based Kinesis Data Analytics application's
      * configuration. Kinesis Data Analytics will no longer write data from the corresponding in-application stream to
      * the external output destination.
      * </p>
@@ -481,8 +624,8 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Deletes a reference data source configuration from the specified SQL-based Amazon Kinesis Data Analytics
-     * application's configuration.
+     * Deletes a reference data source configuration from the specified SQL-based Kinesis Data Analytics application's
+     * configuration.
      * </p>
      * <p>
      * If the application is running, Kinesis Data Analytics immediately removes the in-application table that you
@@ -502,8 +645,8 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Deletes a reference data source configuration from the specified SQL-based Amazon Kinesis Data Analytics
-     * application's configuration.
+     * Deletes a reference data source configuration from the specified SQL-based Kinesis Data Analytics application's
+     * configuration.
      * </p>
      * <p>
      * If the application is running, Kinesis Data Analytics immediately removes the in-application table that you
@@ -561,7 +704,44 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Returns information about a specific Amazon Kinesis Data Analytics application.
+     * Removes a VPC configuration from a Managed Service for Apache Flink application.
+     * </p>
+     * 
+     * @param deleteApplicationVpcConfigurationRequest
+     * @return A Java Future containing the result of the DeleteApplicationVpcConfiguration operation returned by the
+     *         service.
+     * @sample AmazonKinesisAnalyticsV2Async.DeleteApplicationVpcConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/DeleteApplicationVpcConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteApplicationVpcConfigurationResult> deleteApplicationVpcConfigurationAsync(
+            DeleteApplicationVpcConfigurationRequest deleteApplicationVpcConfigurationRequest);
+
+    /**
+     * <p>
+     * Removes a VPC configuration from a Managed Service for Apache Flink application.
+     * </p>
+     * 
+     * @param deleteApplicationVpcConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteApplicationVpcConfiguration operation returned by the
+     *         service.
+     * @sample AmazonKinesisAnalyticsV2AsyncHandler.DeleteApplicationVpcConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/DeleteApplicationVpcConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteApplicationVpcConfigurationResult> deleteApplicationVpcConfigurationAsync(
+            DeleteApplicationVpcConfigurationRequest deleteApplicationVpcConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteApplicationVpcConfigurationRequest, DeleteApplicationVpcConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns information about a specific Managed Service for Apache Flink application.
      * </p>
      * <p>
      * If you want to retrieve a list of all applications in your account, use the <a>ListApplications</a> operation.
@@ -577,7 +757,7 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Returns information about a specific Amazon Kinesis Data Analytics application.
+     * Returns information about a specific Managed Service for Apache Flink application.
      * </p>
      * <p>
      * If you want to retrieve a list of all applications in your account, use the <a>ListApplications</a> operation.
@@ -595,6 +775,41 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
      */
     java.util.concurrent.Future<DescribeApplicationResult> describeApplicationAsync(DescribeApplicationRequest describeApplicationRequest,
             com.amazonaws.handlers.AsyncHandler<DescribeApplicationRequest, DescribeApplicationResult> asyncHandler);
+
+    /**
+     * Returns information about a specific operation performed on a Managed Service for Apache Flink application
+     * 
+     * @param describeApplicationOperationRequest
+     *        Request for information about a specific operation performed on a Managed Service for Apache Flink
+     *        application
+     * @return A Java Future containing the result of the DescribeApplicationOperation operation returned by the
+     *         service.
+     * @sample AmazonKinesisAnalyticsV2Async.DescribeApplicationOperation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/DescribeApplicationOperation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeApplicationOperationResult> describeApplicationOperationAsync(
+            DescribeApplicationOperationRequest describeApplicationOperationRequest);
+
+    /**
+     * Returns information about a specific operation performed on a Managed Service for Apache Flink application
+     * 
+     * @param describeApplicationOperationRequest
+     *        Request for information about a specific operation performed on a Managed Service for Apache Flink
+     *        application
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeApplicationOperation operation returned by the
+     *         service.
+     * @sample AmazonKinesisAnalyticsV2AsyncHandler.DescribeApplicationOperation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/DescribeApplicationOperation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeApplicationOperationResult> describeApplicationOperationAsync(
+            DescribeApplicationOperationRequest describeApplicationOperationRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeApplicationOperationRequest, DescribeApplicationOperationResult> asyncHandler);
 
     /**
      * <p>
@@ -631,10 +846,55 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Infers a schema for an SQL-based Amazon Kinesis Data Analytics application by evaluating sample records on the
-     * specified streaming source (Kinesis data stream or Kinesis Data Firehose delivery stream) or Amazon S3 object. In
-     * the response, the operation returns the inferred schema and also the sample records that the operation used to
-     * infer the schema.
+     * Provides a detailed description of a specified version of the application. To see a list of all the versions of
+     * an application, invoke the <a>ListApplicationVersions</a> operation.
+     * </p>
+     * <note>
+     * <p>
+     * This operation is supported only for Managed Service for Apache Flink.
+     * </p>
+     * </note>
+     * 
+     * @param describeApplicationVersionRequest
+     * @return A Java Future containing the result of the DescribeApplicationVersion operation returned by the service.
+     * @sample AmazonKinesisAnalyticsV2Async.DescribeApplicationVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/DescribeApplicationVersion"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeApplicationVersionResult> describeApplicationVersionAsync(
+            DescribeApplicationVersionRequest describeApplicationVersionRequest);
+
+    /**
+     * <p>
+     * Provides a detailed description of a specified version of the application. To see a list of all the versions of
+     * an application, invoke the <a>ListApplicationVersions</a> operation.
+     * </p>
+     * <note>
+     * <p>
+     * This operation is supported only for Managed Service for Apache Flink.
+     * </p>
+     * </note>
+     * 
+     * @param describeApplicationVersionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeApplicationVersion operation returned by the service.
+     * @sample AmazonKinesisAnalyticsV2AsyncHandler.DescribeApplicationVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/DescribeApplicationVersion"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeApplicationVersionResult> describeApplicationVersionAsync(
+            DescribeApplicationVersionRequest describeApplicationVersionRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeApplicationVersionRequest, DescribeApplicationVersionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Infers a schema for a SQL-based Kinesis Data Analytics application by evaluating sample records on the specified
+     * streaming source (Kinesis data stream or Kinesis Data Firehose delivery stream) or Amazon S3 object. In the
+     * response, the operation returns the inferred schema and also the sample records that the operation used to infer
+     * the schema.
      * </p>
      * <p>
      * You can use the inferred schema when configuring a streaming source for your application. When you create an
@@ -652,10 +912,10 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Infers a schema for an SQL-based Amazon Kinesis Data Analytics application by evaluating sample records on the
-     * specified streaming source (Kinesis data stream or Kinesis Data Firehose delivery stream) or Amazon S3 object. In
-     * the response, the operation returns the inferred schema and also the sample records that the operation used to
-     * infer the schema.
+     * Infers a schema for a SQL-based Kinesis Data Analytics application by evaluating sample records on the specified
+     * streaming source (Kinesis data stream or Kinesis Data Firehose delivery stream) or Amazon S3 object. In the
+     * response, the operation returns the inferred schema and also the sample records that the operation used to infer
+     * the schema.
      * </p>
      * <p>
      * You can use the inferred schema when configuring a streaming source for your application. When you create an
@@ -675,6 +935,37 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
      */
     java.util.concurrent.Future<DiscoverInputSchemaResult> discoverInputSchemaAsync(DiscoverInputSchemaRequest discoverInputSchemaRequest,
             com.amazonaws.handlers.AsyncHandler<DiscoverInputSchemaRequest, DiscoverInputSchemaResult> asyncHandler);
+
+    /**
+     * Lists information about operations performed on a Managed Service for Apache Flink application
+     * 
+     * @param listApplicationOperationsRequest
+     *        Request to list operations performed on an application
+     * @return A Java Future containing the result of the ListApplicationOperations operation returned by the service.
+     * @sample AmazonKinesisAnalyticsV2Async.ListApplicationOperations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ListApplicationOperations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListApplicationOperationsResult> listApplicationOperationsAsync(
+            ListApplicationOperationsRequest listApplicationOperationsRequest);
+
+    /**
+     * Lists information about operations performed on a Managed Service for Apache Flink application
+     * 
+     * @param listApplicationOperationsRequest
+     *        Request to list operations performed on an application
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListApplicationOperations operation returned by the service.
+     * @sample AmazonKinesisAnalyticsV2AsyncHandler.ListApplicationOperations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ListApplicationOperations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListApplicationOperationsResult> listApplicationOperationsAsync(
+            ListApplicationOperationsRequest listApplicationOperationsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListApplicationOperationsRequest, ListApplicationOperationsResult> asyncHandler);
 
     /**
      * <p>
@@ -709,8 +1000,59 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Returns a list of Amazon Kinesis Data Analytics applications in your account. For each application, the response
-     * includes the application name, Amazon Resource Name (ARN), and status.
+     * Lists all the versions for the specified application, including versions that were rolled back. The response also
+     * includes a summary of the configuration associated with each version.
+     * </p>
+     * <p>
+     * To get the complete description of a specific application version, invoke the <a>DescribeApplicationVersion</a>
+     * operation.
+     * </p>
+     * <note>
+     * <p>
+     * This operation is supported only for Managed Service for Apache Flink.
+     * </p>
+     * </note>
+     * 
+     * @param listApplicationVersionsRequest
+     * @return A Java Future containing the result of the ListApplicationVersions operation returned by the service.
+     * @sample AmazonKinesisAnalyticsV2Async.ListApplicationVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ListApplicationVersions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListApplicationVersionsResult> listApplicationVersionsAsync(ListApplicationVersionsRequest listApplicationVersionsRequest);
+
+    /**
+     * <p>
+     * Lists all the versions for the specified application, including versions that were rolled back. The response also
+     * includes a summary of the configuration associated with each version.
+     * </p>
+     * <p>
+     * To get the complete description of a specific application version, invoke the <a>DescribeApplicationVersion</a>
+     * operation.
+     * </p>
+     * <note>
+     * <p>
+     * This operation is supported only for Managed Service for Apache Flink.
+     * </p>
+     * </note>
+     * 
+     * @param listApplicationVersionsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListApplicationVersions operation returned by the service.
+     * @sample AmazonKinesisAnalyticsV2AsyncHandler.ListApplicationVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ListApplicationVersions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListApplicationVersionsResult> listApplicationVersionsAsync(ListApplicationVersionsRequest listApplicationVersionsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListApplicationVersionsRequest, ListApplicationVersionsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of Managed Service for Apache Flink applications in your account. For each application, the
+     * response includes the application name, Amazon Resource Name (ARN), and status.
      * </p>
      * <p>
      * If you want detailed information about a specific application, use <a>DescribeApplication</a>.
@@ -726,8 +1068,8 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Returns a list of Amazon Kinesis Data Analytics applications in your account. For each application, the response
-     * includes the application name, Amazon Resource Name (ARN), and status.
+     * Returns a list of Managed Service for Apache Flink applications in your account. For each application, the
+     * response includes the application name, Amazon Resource Name (ARN), and status.
      * </p>
      * <p>
      * If you want detailed information about a specific application, use <a>DescribeApplication</a>.
@@ -748,7 +1090,8 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Retrieves the list of key-value tags assigned to the application.
+     * Retrieves the list of key-value tags assigned to the application. For more information, see <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-tagging.html">Using Tagging</a>.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -761,7 +1104,8 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Retrieves the list of key-value tags assigned to the application.
+     * Retrieves the list of key-value tags assigned to the application. For more information, see <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-tagging.html">Using Tagging</a>.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -779,7 +1123,56 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Starts the specified Amazon Kinesis Data Analytics application. After creating an application, you must
+     * Reverts the application to the previous running version. You can roll back an application if you suspect it is
+     * stuck in a transient status or in the running status.
+     * </p>
+     * <p>
+     * You can roll back an application only if it is in the <code>UPDATING</code>, <code>AUTOSCALING</code>, or
+     * <code>RUNNING</code> statuses.
+     * </p>
+     * <p>
+     * When you rollback an application, it loads state data from the last successful snapshot. If the application has
+     * no snapshots, Managed Service for Apache Flink rejects the rollback request.
+     * </p>
+     * 
+     * @param rollbackApplicationRequest
+     * @return A Java Future containing the result of the RollbackApplication operation returned by the service.
+     * @sample AmazonKinesisAnalyticsV2Async.RollbackApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/RollbackApplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<RollbackApplicationResult> rollbackApplicationAsync(RollbackApplicationRequest rollbackApplicationRequest);
+
+    /**
+     * <p>
+     * Reverts the application to the previous running version. You can roll back an application if you suspect it is
+     * stuck in a transient status or in the running status.
+     * </p>
+     * <p>
+     * You can roll back an application only if it is in the <code>UPDATING</code>, <code>AUTOSCALING</code>, or
+     * <code>RUNNING</code> statuses.
+     * </p>
+     * <p>
+     * When you rollback an application, it loads state data from the last successful snapshot. If the application has
+     * no snapshots, Managed Service for Apache Flink rejects the rollback request.
+     * </p>
+     * 
+     * @param rollbackApplicationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RollbackApplication operation returned by the service.
+     * @sample AmazonKinesisAnalyticsV2AsyncHandler.RollbackApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/RollbackApplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<RollbackApplicationResult> rollbackApplicationAsync(RollbackApplicationRequest rollbackApplicationRequest,
+            com.amazonaws.handlers.AsyncHandler<RollbackApplicationRequest, RollbackApplicationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Starts the specified Managed Service for Apache Flink application. After creating an application, you must
      * exclusively call this operation to start your application.
      * </p>
      * 
@@ -793,7 +1186,7 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Starts the specified Amazon Kinesis Data Analytics application. After creating an application, you must
+     * Starts the specified Managed Service for Apache Flink application. After creating an application, you must
      * exclusively call this operation to start your application.
      * </p>
      * 
@@ -812,8 +1205,15 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Stops the application from processing data. You can stop an application only if it is in the running state. You
-     * can use the <a>DescribeApplication</a> operation to find the application state.
+     * Stops the application from processing data. You can stop an application only if it is in the running status,
+     * unless you set the <code>Force</code> parameter to <code>true</code>.
+     * </p>
+     * <p>
+     * You can use the <a>DescribeApplication</a> operation to find the application status.
+     * </p>
+     * <p>
+     * Managed Service for Apache Flink takes a snapshot when the application is stopped, unless <code>Force</code> is
+     * set to <code>true</code>.
      * </p>
      * 
      * @param stopApplicationRequest
@@ -826,8 +1226,15 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Stops the application from processing data. You can stop an application only if it is in the running state. You
-     * can use the <a>DescribeApplication</a> operation to find the application state.
+     * Stops the application from processing data. You can stop an application only if it is in the running status,
+     * unless you set the <code>Force</code> parameter to <code>true</code>.
+     * </p>
+     * <p>
+     * You can use the <a>DescribeApplication</a> operation to find the application status.
+     * </p>
+     * <p>
+     * Managed Service for Apache Flink takes a snapshot when the application is stopped, unless <code>Force</code> is
+     * set to <code>true</code>.
      * </p>
      * 
      * @param stopApplicationRequest
@@ -845,8 +1252,10 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Adds one or more key-value tags to a Kinesis Analytics application. Note that the maximum number of application
-     * tags includes system tags. The maximum number of user-defined application tags is 50.
+     * Adds one or more key-value tags to a Managed Service for Apache Flink application. Note that the maximum number
+     * of application tags includes system tags. The maximum number of user-defined application tags is 50. For more
+     * information, see <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-tagging.html">Using
+     * Tagging</a>.
      * </p>
      * 
      * @param tagResourceRequest
@@ -859,8 +1268,10 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Adds one or more key-value tags to a Kinesis Analytics application. Note that the maximum number of application
-     * tags includes system tags. The maximum number of user-defined application tags is 50.
+     * Adds one or more key-value tags to a Managed Service for Apache Flink application. Note that the maximum number
+     * of application tags includes system tags. The maximum number of user-defined application tags is 50. For more
+     * information, see <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-tagging.html">Using
+     * Tagging</a>.
      * </p>
      * 
      * @param tagResourceRequest
@@ -878,7 +1289,8 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Removes one or more tags from a Kinesis Analytics application.
+     * Removes one or more tags from a Managed Service for Apache Flink application. For more information, see <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-tagging.html">Using Tagging</a>.
      * </p>
      * 
      * @param untagResourceRequest
@@ -891,7 +1303,8 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Removes one or more tags from a Kinesis Analytics application.
+     * Removes one or more tags from a Managed Service for Apache Flink application. For more information, see <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-tagging.html">Using Tagging</a>.
      * </p>
      * 
      * @param untagResourceRequest
@@ -909,11 +1322,12 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Updates an existing Amazon Kinesis Data Analytics application. Using this operation, you can update application
-     * code, input configuration, and output configuration.
+     * Updates an existing Managed Service for Apache Flink application. Using this operation, you can update
+     * application code, input configuration, and output configuration.
      * </p>
      * <p>
-     * Kinesis Data Analytics updates the <code>ApplicationVersionId</code> each time you update your application.
+     * Managed Service for Apache Flink updates the <code>ApplicationVersionId</code> each time you update your
+     * application.
      * </p>
      * 
      * @param updateApplicationRequest
@@ -926,11 +1340,12 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
 
     /**
      * <p>
-     * Updates an existing Amazon Kinesis Data Analytics application. Using this operation, you can update application
-     * code, input configuration, and output configuration.
+     * Updates an existing Managed Service for Apache Flink application. Using this operation, you can update
+     * application code, input configuration, and output configuration.
      * </p>
      * <p>
-     * Kinesis Data Analytics updates the <code>ApplicationVersionId</code> each time you update your application.
+     * Managed Service for Apache Flink updates the <code>ApplicationVersionId</code> each time you update your
+     * application.
      * </p>
      * 
      * @param updateApplicationRequest
@@ -945,5 +1360,88 @@ public interface AmazonKinesisAnalyticsV2Async extends AmazonKinesisAnalyticsV2 
      */
     java.util.concurrent.Future<UpdateApplicationResult> updateApplicationAsync(UpdateApplicationRequest updateApplicationRequest,
             com.amazonaws.handlers.AsyncHandler<UpdateApplicationRequest, UpdateApplicationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the maintenance configuration of the Managed Service for Apache Flink application.
+     * </p>
+     * <p>
+     * You can invoke this operation on an application that is in one of the two following states: <code>READY</code> or
+     * <code>RUNNING</code>. If you invoke it when the application is in a state other than these two states, it throws
+     * a <code>ResourceInUseException</code>. The service makes use of the updated configuration the next time it
+     * schedules maintenance for the application. If you invoke this operation after the service schedules maintenance,
+     * the service will apply the configuration update the next time it schedules maintenance for the application. This
+     * means that you might not see the maintenance configuration update applied to the maintenance process that follows
+     * a successful invocation of this operation, but to the following maintenance process instead.
+     * </p>
+     * <p>
+     * To see the current maintenance configuration of your application, invoke the <a>DescribeApplication</a>
+     * operation.
+     * </p>
+     * <p>
+     * For information about application maintenance, see <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/maintenance.html">Managed Service for Apache Flink
+     * for Apache Flink Maintenance</a>.
+     * </p>
+     * <note>
+     * <p>
+     * This operation is supported only for Managed Service for Apache Flink.
+     * </p>
+     * </note>
+     * 
+     * @param updateApplicationMaintenanceConfigurationRequest
+     * @return A Java Future containing the result of the UpdateApplicationMaintenanceConfiguration operation returned
+     *         by the service.
+     * @sample AmazonKinesisAnalyticsV2Async.UpdateApplicationMaintenanceConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/UpdateApplicationMaintenanceConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateApplicationMaintenanceConfigurationResult> updateApplicationMaintenanceConfigurationAsync(
+            UpdateApplicationMaintenanceConfigurationRequest updateApplicationMaintenanceConfigurationRequest);
+
+    /**
+     * <p>
+     * Updates the maintenance configuration of the Managed Service for Apache Flink application.
+     * </p>
+     * <p>
+     * You can invoke this operation on an application that is in one of the two following states: <code>READY</code> or
+     * <code>RUNNING</code>. If you invoke it when the application is in a state other than these two states, it throws
+     * a <code>ResourceInUseException</code>. The service makes use of the updated configuration the next time it
+     * schedules maintenance for the application. If you invoke this operation after the service schedules maintenance,
+     * the service will apply the configuration update the next time it schedules maintenance for the application. This
+     * means that you might not see the maintenance configuration update applied to the maintenance process that follows
+     * a successful invocation of this operation, but to the following maintenance process instead.
+     * </p>
+     * <p>
+     * To see the current maintenance configuration of your application, invoke the <a>DescribeApplication</a>
+     * operation.
+     * </p>
+     * <p>
+     * For information about application maintenance, see <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/maintenance.html">Managed Service for Apache Flink
+     * for Apache Flink Maintenance</a>.
+     * </p>
+     * <note>
+     * <p>
+     * This operation is supported only for Managed Service for Apache Flink.
+     * </p>
+     * </note>
+     * 
+     * @param updateApplicationMaintenanceConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateApplicationMaintenanceConfiguration operation returned
+     *         by the service.
+     * @sample AmazonKinesisAnalyticsV2AsyncHandler.UpdateApplicationMaintenanceConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/UpdateApplicationMaintenanceConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateApplicationMaintenanceConfigurationResult> updateApplicationMaintenanceConfigurationAsync(
+            UpdateApplicationMaintenanceConfigurationRequest updateApplicationMaintenanceConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateApplicationMaintenanceConfigurationRequest, UpdateApplicationMaintenanceConfigurationResult> asyncHandler);
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,7 +34,8 @@ public class ImportSourceCredentialsRequest extends com.amazonaws.AmazonWebServi
     private String username;
     /**
      * <p>
-     * For GitHub or GitHub Enterprise, this is the personal access token. For Bitbucket, this is the app password.
+     * For GitHub or GitHub Enterprise, this is the personal access token. For Bitbucket, this is either the access
+     * token or the app password. For the <code>authType</code> CODECONNECTIONS, this is the <code>connectionArn</code>.
      * </p>
      */
     private String token;
@@ -46,11 +47,19 @@ public class ImportSourceCredentialsRequest extends com.amazonaws.AmazonWebServi
     private String serverType;
     /**
      * <p>
-     * The type of authentication used to connect to a GitHub, GitHub Enterprise, or Bitbucket repository. An OAUTH
-     * connection is not supported by the API and must be created using the AWS CodeBuild console.
+     * The type of authentication used to connect to a GitHub, GitHub Enterprise, GitLab, GitLab Self Managed, or
+     * Bitbucket repository. An OAUTH connection is not supported by the API and must be created using the CodeBuild
+     * console. Note that CODECONNECTIONS is only valid for GitLab and GitLab Self Managed.
      * </p>
      */
     private String authType;
+    /**
+     * <p>
+     * Set to <code>false</code> to prevent overwriting the repository source credentials. Set to <code>true</code> to
+     * overwrite the repository source credentials. The default value is <code>true</code>.
+     * </p>
+     */
+    private Boolean shouldOverwrite;
 
     /**
      * <p>
@@ -100,12 +109,14 @@ public class ImportSourceCredentialsRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * For GitHub or GitHub Enterprise, this is the personal access token. For Bitbucket, this is the app password.
+     * For GitHub or GitHub Enterprise, this is the personal access token. For Bitbucket, this is either the access
+     * token or the app password. For the <code>authType</code> CODECONNECTIONS, this is the <code>connectionArn</code>.
      * </p>
      * 
      * @param token
-     *        For GitHub or GitHub Enterprise, this is the personal access token. For Bitbucket, this is the app
-     *        password.
+     *        For GitHub or GitHub Enterprise, this is the personal access token. For Bitbucket, this is either the
+     *        access token or the app password. For the <code>authType</code> CODECONNECTIONS, this is the
+     *        <code>connectionArn</code>.
      */
 
     public void setToken(String token) {
@@ -114,11 +125,13 @@ public class ImportSourceCredentialsRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * For GitHub or GitHub Enterprise, this is the personal access token. For Bitbucket, this is the app password.
+     * For GitHub or GitHub Enterprise, this is the personal access token. For Bitbucket, this is either the access
+     * token or the app password. For the <code>authType</code> CODECONNECTIONS, this is the <code>connectionArn</code>.
      * </p>
      * 
-     * @return For GitHub or GitHub Enterprise, this is the personal access token. For Bitbucket, this is the app
-     *         password.
+     * @return For GitHub or GitHub Enterprise, this is the personal access token. For Bitbucket, this is either the
+     *         access token or the app password. For the <code>authType</code> CODECONNECTIONS, this is the
+     *         <code>connectionArn</code>.
      */
 
     public String getToken() {
@@ -127,12 +140,14 @@ public class ImportSourceCredentialsRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * For GitHub or GitHub Enterprise, this is the personal access token. For Bitbucket, this is the app password.
+     * For GitHub or GitHub Enterprise, this is the personal access token. For Bitbucket, this is either the access
+     * token or the app password. For the <code>authType</code> CODECONNECTIONS, this is the <code>connectionArn</code>.
      * </p>
      * 
      * @param token
-     *        For GitHub or GitHub Enterprise, this is the personal access token. For Bitbucket, this is the app
-     *        password.
+     *        For GitHub or GitHub Enterprise, this is the personal access token. For Bitbucket, this is either the
+     *        access token or the app password. For the <code>authType</code> CODECONNECTIONS, this is the
+     *        <code>connectionArn</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -202,13 +217,15 @@ public class ImportSourceCredentialsRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The type of authentication used to connect to a GitHub, GitHub Enterprise, or Bitbucket repository. An OAUTH
-     * connection is not supported by the API and must be created using the AWS CodeBuild console.
+     * The type of authentication used to connect to a GitHub, GitHub Enterprise, GitLab, GitLab Self Managed, or
+     * Bitbucket repository. An OAUTH connection is not supported by the API and must be created using the CodeBuild
+     * console. Note that CODECONNECTIONS is only valid for GitLab and GitLab Self Managed.
      * </p>
      * 
      * @param authType
-     *        The type of authentication used to connect to a GitHub, GitHub Enterprise, or Bitbucket repository. An
-     *        OAUTH connection is not supported by the API and must be created using the AWS CodeBuild console.
+     *        The type of authentication used to connect to a GitHub, GitHub Enterprise, GitLab, GitLab Self Managed, or
+     *        Bitbucket repository. An OAUTH connection is not supported by the API and must be created using the
+     *        CodeBuild console. Note that CODECONNECTIONS is only valid for GitLab and GitLab Self Managed.
      * @see AuthType
      */
 
@@ -218,12 +235,14 @@ public class ImportSourceCredentialsRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The type of authentication used to connect to a GitHub, GitHub Enterprise, or Bitbucket repository. An OAUTH
-     * connection is not supported by the API and must be created using the AWS CodeBuild console.
+     * The type of authentication used to connect to a GitHub, GitHub Enterprise, GitLab, GitLab Self Managed, or
+     * Bitbucket repository. An OAUTH connection is not supported by the API and must be created using the CodeBuild
+     * console. Note that CODECONNECTIONS is only valid for GitLab and GitLab Self Managed.
      * </p>
      * 
-     * @return The type of authentication used to connect to a GitHub, GitHub Enterprise, or Bitbucket repository. An
-     *         OAUTH connection is not supported by the API and must be created using the AWS CodeBuild console.
+     * @return The type of authentication used to connect to a GitHub, GitHub Enterprise, GitLab, GitLab Self Managed,
+     *         or Bitbucket repository. An OAUTH connection is not supported by the API and must be created using the
+     *         CodeBuild console. Note that CODECONNECTIONS is only valid for GitLab and GitLab Self Managed.
      * @see AuthType
      */
 
@@ -233,13 +252,15 @@ public class ImportSourceCredentialsRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The type of authentication used to connect to a GitHub, GitHub Enterprise, or Bitbucket repository. An OAUTH
-     * connection is not supported by the API and must be created using the AWS CodeBuild console.
+     * The type of authentication used to connect to a GitHub, GitHub Enterprise, GitLab, GitLab Self Managed, or
+     * Bitbucket repository. An OAUTH connection is not supported by the API and must be created using the CodeBuild
+     * console. Note that CODECONNECTIONS is only valid for GitLab and GitLab Self Managed.
      * </p>
      * 
      * @param authType
-     *        The type of authentication used to connect to a GitHub, GitHub Enterprise, or Bitbucket repository. An
-     *        OAUTH connection is not supported by the API and must be created using the AWS CodeBuild console.
+     *        The type of authentication used to connect to a GitHub, GitHub Enterprise, GitLab, GitLab Self Managed, or
+     *        Bitbucket repository. An OAUTH connection is not supported by the API and must be created using the
+     *        CodeBuild console. Note that CODECONNECTIONS is only valid for GitLab and GitLab Self Managed.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AuthType
      */
@@ -251,13 +272,15 @@ public class ImportSourceCredentialsRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The type of authentication used to connect to a GitHub, GitHub Enterprise, or Bitbucket repository. An OAUTH
-     * connection is not supported by the API and must be created using the AWS CodeBuild console.
+     * The type of authentication used to connect to a GitHub, GitHub Enterprise, GitLab, GitLab Self Managed, or
+     * Bitbucket repository. An OAUTH connection is not supported by the API and must be created using the CodeBuild
+     * console. Note that CODECONNECTIONS is only valid for GitLab and GitLab Self Managed.
      * </p>
      * 
      * @param authType
-     *        The type of authentication used to connect to a GitHub, GitHub Enterprise, or Bitbucket repository. An
-     *        OAUTH connection is not supported by the API and must be created using the AWS CodeBuild console.
+     *        The type of authentication used to connect to a GitHub, GitHub Enterprise, GitLab, GitLab Self Managed, or
+     *        Bitbucket repository. An OAUTH connection is not supported by the API and must be created using the
+     *        CodeBuild console. Note that CODECONNECTIONS is only valid for GitLab and GitLab Self Managed.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AuthType
      */
@@ -265,6 +288,66 @@ public class ImportSourceCredentialsRequest extends com.amazonaws.AmazonWebServi
     public ImportSourceCredentialsRequest withAuthType(AuthType authType) {
         this.authType = authType.toString();
         return this;
+    }
+
+    /**
+     * <p>
+     * Set to <code>false</code> to prevent overwriting the repository source credentials. Set to <code>true</code> to
+     * overwrite the repository source credentials. The default value is <code>true</code>.
+     * </p>
+     * 
+     * @param shouldOverwrite
+     *        Set to <code>false</code> to prevent overwriting the repository source credentials. Set to
+     *        <code>true</code> to overwrite the repository source credentials. The default value is <code>true</code>.
+     */
+
+    public void setShouldOverwrite(Boolean shouldOverwrite) {
+        this.shouldOverwrite = shouldOverwrite;
+    }
+
+    /**
+     * <p>
+     * Set to <code>false</code> to prevent overwriting the repository source credentials. Set to <code>true</code> to
+     * overwrite the repository source credentials. The default value is <code>true</code>.
+     * </p>
+     * 
+     * @return Set to <code>false</code> to prevent overwriting the repository source credentials. Set to
+     *         <code>true</code> to overwrite the repository source credentials. The default value is <code>true</code>.
+     */
+
+    public Boolean getShouldOverwrite() {
+        return this.shouldOverwrite;
+    }
+
+    /**
+     * <p>
+     * Set to <code>false</code> to prevent overwriting the repository source credentials. Set to <code>true</code> to
+     * overwrite the repository source credentials. The default value is <code>true</code>.
+     * </p>
+     * 
+     * @param shouldOverwrite
+     *        Set to <code>false</code> to prevent overwriting the repository source credentials. Set to
+     *        <code>true</code> to overwrite the repository source credentials. The default value is <code>true</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ImportSourceCredentialsRequest withShouldOverwrite(Boolean shouldOverwrite) {
+        setShouldOverwrite(shouldOverwrite);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Set to <code>false</code> to prevent overwriting the repository source credentials. Set to <code>true</code> to
+     * overwrite the repository source credentials. The default value is <code>true</code>.
+     * </p>
+     * 
+     * @return Set to <code>false</code> to prevent overwriting the repository source credentials. Set to
+     *         <code>true</code> to overwrite the repository source credentials. The default value is <code>true</code>.
+     */
+
+    public Boolean isShouldOverwrite() {
+        return this.shouldOverwrite;
     }
 
     /**
@@ -286,7 +369,9 @@ public class ImportSourceCredentialsRequest extends com.amazonaws.AmazonWebServi
         if (getServerType() != null)
             sb.append("ServerType: ").append(getServerType()).append(",");
         if (getAuthType() != null)
-            sb.append("AuthType: ").append(getAuthType());
+            sb.append("AuthType: ").append(getAuthType()).append(",");
+        if (getShouldOverwrite() != null)
+            sb.append("ShouldOverwrite: ").append(getShouldOverwrite());
         sb.append("}");
         return sb.toString();
     }
@@ -317,6 +402,10 @@ public class ImportSourceCredentialsRequest extends com.amazonaws.AmazonWebServi
             return false;
         if (other.getAuthType() != null && other.getAuthType().equals(this.getAuthType()) == false)
             return false;
+        if (other.getShouldOverwrite() == null ^ this.getShouldOverwrite() == null)
+            return false;
+        if (other.getShouldOverwrite() != null && other.getShouldOverwrite().equals(this.getShouldOverwrite()) == false)
+            return false;
         return true;
     }
 
@@ -329,6 +418,7 @@ public class ImportSourceCredentialsRequest extends com.amazonaws.AmazonWebServi
         hashCode = prime * hashCode + ((getToken() == null) ? 0 : getToken().hashCode());
         hashCode = prime * hashCode + ((getServerType() == null) ? 0 : getServerType().hashCode());
         hashCode = prime * hashCode + ((getAuthType() == null) ? 0 : getAuthType().hashCode());
+        hashCode = prime * hashCode + ((getShouldOverwrite() == null) ? 0 : getShouldOverwrite().hashCode());
         return hashCode;
     }
 

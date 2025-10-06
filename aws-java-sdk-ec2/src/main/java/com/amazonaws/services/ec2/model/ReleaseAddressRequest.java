@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,16 +27,26 @@ public class ReleaseAddressRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * [EC2-VPC] The allocation ID. Required for EC2-VPC.
+     * The allocation ID. This parameter is required.
      * </p>
      */
     private String allocationId;
     /**
      * <p>
-     * [EC2-Classic] The Elastic IP address. Required for EC2-Classic.
+     * Deprecated.
      * </p>
      */
     private String publicIp;
+    /**
+     * <p>
+     * The set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services advertises IP
+     * addresses.
+     * </p>
+     * <p>
+     * If you provide an incorrect network border group, you receive an <code>InvalidAddress.NotFound</code> error.
+     * </p>
+     */
+    private String networkBorderGroup;
 
     /**
      * Default constructor for ReleaseAddressRequest object. Callers should use the setter or fluent setter (with...)
@@ -50,7 +60,7 @@ public class ReleaseAddressRequest extends AmazonWebServiceRequest implements Se
      * to initialize any additional object members.
      * 
      * @param publicIp
-     *        [EC2-Classic] The Elastic IP address. Required for EC2-Classic.
+     *        Deprecated.
      */
     public ReleaseAddressRequest(String publicIp) {
         setPublicIp(publicIp);
@@ -58,11 +68,11 @@ public class ReleaseAddressRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * [EC2-VPC] The allocation ID. Required for EC2-VPC.
+     * The allocation ID. This parameter is required.
      * </p>
      * 
      * @param allocationId
-     *        [EC2-VPC] The allocation ID. Required for EC2-VPC.
+     *        The allocation ID. This parameter is required.
      */
 
     public void setAllocationId(String allocationId) {
@@ -71,10 +81,10 @@ public class ReleaseAddressRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * [EC2-VPC] The allocation ID. Required for EC2-VPC.
+     * The allocation ID. This parameter is required.
      * </p>
      * 
-     * @return [EC2-VPC] The allocation ID. Required for EC2-VPC.
+     * @return The allocation ID. This parameter is required.
      */
 
     public String getAllocationId() {
@@ -83,11 +93,11 @@ public class ReleaseAddressRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * [EC2-VPC] The allocation ID. Required for EC2-VPC.
+     * The allocation ID. This parameter is required.
      * </p>
      * 
      * @param allocationId
-     *        [EC2-VPC] The allocation ID. Required for EC2-VPC.
+     *        The allocation ID. This parameter is required.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -98,11 +108,11 @@ public class ReleaseAddressRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * [EC2-Classic] The Elastic IP address. Required for EC2-Classic.
+     * Deprecated.
      * </p>
      * 
      * @param publicIp
-     *        [EC2-Classic] The Elastic IP address. Required for EC2-Classic.
+     *        Deprecated.
      */
 
     public void setPublicIp(String publicIp) {
@@ -111,10 +121,10 @@ public class ReleaseAddressRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * [EC2-Classic] The Elastic IP address. Required for EC2-Classic.
+     * Deprecated.
      * </p>
      * 
-     * @return [EC2-Classic] The Elastic IP address. Required for EC2-Classic.
+     * @return Deprecated.
      */
 
     public String getPublicIp() {
@@ -123,16 +133,80 @@ public class ReleaseAddressRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * [EC2-Classic] The Elastic IP address. Required for EC2-Classic.
+     * Deprecated.
      * </p>
      * 
      * @param publicIp
-     *        [EC2-Classic] The Elastic IP address. Required for EC2-Classic.
+     *        Deprecated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ReleaseAddressRequest withPublicIp(String publicIp) {
         setPublicIp(publicIp);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services advertises IP
+     * addresses.
+     * </p>
+     * <p>
+     * If you provide an incorrect network border group, you receive an <code>InvalidAddress.NotFound</code> error.
+     * </p>
+     * 
+     * @param networkBorderGroup
+     *        The set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services advertises
+     *        IP addresses.</p>
+     *        <p>
+     *        If you provide an incorrect network border group, you receive an <code>InvalidAddress.NotFound</code>
+     *        error.
+     */
+
+    public void setNetworkBorderGroup(String networkBorderGroup) {
+        this.networkBorderGroup = networkBorderGroup;
+    }
+
+    /**
+     * <p>
+     * The set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services advertises IP
+     * addresses.
+     * </p>
+     * <p>
+     * If you provide an incorrect network border group, you receive an <code>InvalidAddress.NotFound</code> error.
+     * </p>
+     * 
+     * @return The set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services advertises
+     *         IP addresses.</p>
+     *         <p>
+     *         If you provide an incorrect network border group, you receive an <code>InvalidAddress.NotFound</code>
+     *         error.
+     */
+
+    public String getNetworkBorderGroup() {
+        return this.networkBorderGroup;
+    }
+
+    /**
+     * <p>
+     * The set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services advertises IP
+     * addresses.
+     * </p>
+     * <p>
+     * If you provide an incorrect network border group, you receive an <code>InvalidAddress.NotFound</code> error.
+     * </p>
+     * 
+     * @param networkBorderGroup
+     *        The set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services advertises
+     *        IP addresses.</p>
+     *        <p>
+     *        If you provide an incorrect network border group, you receive an <code>InvalidAddress.NotFound</code>
+     *        error.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReleaseAddressRequest withNetworkBorderGroup(String networkBorderGroup) {
+        setNetworkBorderGroup(networkBorderGroup);
         return this;
     }
 
@@ -162,7 +236,9 @@ public class ReleaseAddressRequest extends AmazonWebServiceRequest implements Se
         if (getAllocationId() != null)
             sb.append("AllocationId: ").append(getAllocationId()).append(",");
         if (getPublicIp() != null)
-            sb.append("PublicIp: ").append(getPublicIp());
+            sb.append("PublicIp: ").append(getPublicIp()).append(",");
+        if (getNetworkBorderGroup() != null)
+            sb.append("NetworkBorderGroup: ").append(getNetworkBorderGroup());
         sb.append("}");
         return sb.toString();
     }
@@ -185,6 +261,10 @@ public class ReleaseAddressRequest extends AmazonWebServiceRequest implements Se
             return false;
         if (other.getPublicIp() != null && other.getPublicIp().equals(this.getPublicIp()) == false)
             return false;
+        if (other.getNetworkBorderGroup() == null ^ this.getNetworkBorderGroup() == null)
+            return false;
+        if (other.getNetworkBorderGroup() != null && other.getNetworkBorderGroup().equals(this.getNetworkBorderGroup()) == false)
+            return false;
         return true;
     }
 
@@ -195,6 +275,7 @@ public class ReleaseAddressRequest extends AmazonWebServiceRequest implements Se
 
         hashCode = prime * hashCode + ((getAllocationId() == null) ? 0 : getAllocationId().hashCode());
         hashCode = prime * hashCode + ((getPublicIp() == null) ? 0 : getPublicIp().hashCode());
+        hashCode = prime * hashCode + ((getNetworkBorderGroup() == null) ? 0 : getNetworkBorderGroup().hashCode());
         return hashCode;
     }
 

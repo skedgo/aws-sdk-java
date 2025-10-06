@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,9 +31,9 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * notification when an asynchronous operation completes.
  * <p>
  * <p>
- * Amazon EMR is a web service that makes it easy to process large amounts of data efficiently. Amazon EMR uses Hadoop
- * processing combined with several AWS products to do tasks such as web indexing, data mining, log file analysis,
- * machine learning, scientific simulation, and data warehousing.
+ * Amazon EMR is a web service that makes it easier to process large amounts of data efficiently. Amazon EMR uses Hadoop
+ * processing combined with several Amazon Web Services services to do tasks such as web indexing, data mining, log file
+ * analysis, machine learning, scientific simulation, and data warehouse management.
  * </p>
  */
 @ThreadSafe
@@ -233,7 +233,19 @@ public class AmazonElasticMapReduceAsyncClient extends AmazonElasticMapReduceCli
      *        Object providing client parameters.
      */
     AmazonElasticMapReduceAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Amazon EMR using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonElasticMapReduceAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -445,6 +457,72 @@ public class AmazonElasticMapReduceAsyncClient extends AmazonElasticMapReduceCli
     }
 
     @Override
+    public java.util.concurrent.Future<CreateStudioResult> createStudioAsync(CreateStudioRequest request) {
+
+        return createStudioAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateStudioResult> createStudioAsync(final CreateStudioRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateStudioRequest, CreateStudioResult> asyncHandler) {
+        final CreateStudioRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateStudioResult>() {
+            @Override
+            public CreateStudioResult call() throws Exception {
+                CreateStudioResult result = null;
+
+                try {
+                    result = executeCreateStudio(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateStudioSessionMappingResult> createStudioSessionMappingAsync(CreateStudioSessionMappingRequest request) {
+
+        return createStudioSessionMappingAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateStudioSessionMappingResult> createStudioSessionMappingAsync(final CreateStudioSessionMappingRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateStudioSessionMappingRequest, CreateStudioSessionMappingResult> asyncHandler) {
+        final CreateStudioSessionMappingRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateStudioSessionMappingResult>() {
+            @Override
+            public CreateStudioSessionMappingResult call() throws Exception {
+                CreateStudioSessionMappingResult result = null;
+
+                try {
+                    result = executeCreateStudioSessionMapping(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteSecurityConfigurationResult> deleteSecurityConfigurationAsync(DeleteSecurityConfigurationRequest request) {
 
         return deleteSecurityConfigurationAsync(request, null);
@@ -462,6 +540,72 @@ public class AmazonElasticMapReduceAsyncClient extends AmazonElasticMapReduceCli
 
                 try {
                     result = executeDeleteSecurityConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteStudioResult> deleteStudioAsync(DeleteStudioRequest request) {
+
+        return deleteStudioAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteStudioResult> deleteStudioAsync(final DeleteStudioRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteStudioRequest, DeleteStudioResult> asyncHandler) {
+        final DeleteStudioRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteStudioResult>() {
+            @Override
+            public DeleteStudioResult call() throws Exception {
+                DeleteStudioResult result = null;
+
+                try {
+                    result = executeDeleteStudio(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteStudioSessionMappingResult> deleteStudioSessionMappingAsync(DeleteStudioSessionMappingRequest request) {
+
+        return deleteStudioSessionMappingAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteStudioSessionMappingResult> deleteStudioSessionMappingAsync(final DeleteStudioSessionMappingRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteStudioSessionMappingRequest, DeleteStudioSessionMappingResult> asyncHandler) {
+        final DeleteStudioSessionMappingRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteStudioSessionMappingResult>() {
+            @Override
+            public DeleteStudioSessionMappingResult call() throws Exception {
+                DeleteStudioSessionMappingResult result = null;
+
+                try {
+                    result = executeDeleteStudioSessionMapping(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -571,6 +715,72 @@ public class AmazonElasticMapReduceAsyncClient extends AmazonElasticMapReduceCli
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeNotebookExecutionResult> describeNotebookExecutionAsync(DescribeNotebookExecutionRequest request) {
+
+        return describeNotebookExecutionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeNotebookExecutionResult> describeNotebookExecutionAsync(final DescribeNotebookExecutionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeNotebookExecutionRequest, DescribeNotebookExecutionResult> asyncHandler) {
+        final DescribeNotebookExecutionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeNotebookExecutionResult>() {
+            @Override
+            public DescribeNotebookExecutionResult call() throws Exception {
+                DescribeNotebookExecutionResult result = null;
+
+                try {
+                    result = executeDescribeNotebookExecution(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeReleaseLabelResult> describeReleaseLabelAsync(DescribeReleaseLabelRequest request) {
+
+        return describeReleaseLabelAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeReleaseLabelResult> describeReleaseLabelAsync(final DescribeReleaseLabelRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeReleaseLabelRequest, DescribeReleaseLabelResult> asyncHandler) {
+        final DescribeReleaseLabelRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeReleaseLabelResult>() {
+            @Override
+            public DescribeReleaseLabelResult call() throws Exception {
+                DescribeReleaseLabelResult result = null;
+
+                try {
+                    result = executeDescribeReleaseLabel(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeSecurityConfigurationResult> describeSecurityConfigurationAsync(DescribeSecurityConfigurationRequest request) {
 
         return describeSecurityConfigurationAsync(request, null);
@@ -622,6 +832,206 @@ public class AmazonElasticMapReduceAsyncClient extends AmazonElasticMapReduceCli
 
                 try {
                     result = executeDescribeStep(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeStudioResult> describeStudioAsync(DescribeStudioRequest request) {
+
+        return describeStudioAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeStudioResult> describeStudioAsync(final DescribeStudioRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeStudioRequest, DescribeStudioResult> asyncHandler) {
+        final DescribeStudioRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeStudioResult>() {
+            @Override
+            public DescribeStudioResult call() throws Exception {
+                DescribeStudioResult result = null;
+
+                try {
+                    result = executeDescribeStudio(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetAutoTerminationPolicyResult> getAutoTerminationPolicyAsync(GetAutoTerminationPolicyRequest request) {
+
+        return getAutoTerminationPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetAutoTerminationPolicyResult> getAutoTerminationPolicyAsync(final GetAutoTerminationPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetAutoTerminationPolicyRequest, GetAutoTerminationPolicyResult> asyncHandler) {
+        final GetAutoTerminationPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetAutoTerminationPolicyResult>() {
+            @Override
+            public GetAutoTerminationPolicyResult call() throws Exception {
+                GetAutoTerminationPolicyResult result = null;
+
+                try {
+                    result = executeGetAutoTerminationPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetBlockPublicAccessConfigurationResult> getBlockPublicAccessConfigurationAsync(
+            GetBlockPublicAccessConfigurationRequest request) {
+
+        return getBlockPublicAccessConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetBlockPublicAccessConfigurationResult> getBlockPublicAccessConfigurationAsync(
+            final GetBlockPublicAccessConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetBlockPublicAccessConfigurationRequest, GetBlockPublicAccessConfigurationResult> asyncHandler) {
+        final GetBlockPublicAccessConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetBlockPublicAccessConfigurationResult>() {
+            @Override
+            public GetBlockPublicAccessConfigurationResult call() throws Exception {
+                GetBlockPublicAccessConfigurationResult result = null;
+
+                try {
+                    result = executeGetBlockPublicAccessConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetClusterSessionCredentialsResult> getClusterSessionCredentialsAsync(GetClusterSessionCredentialsRequest request) {
+
+        return getClusterSessionCredentialsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetClusterSessionCredentialsResult> getClusterSessionCredentialsAsync(final GetClusterSessionCredentialsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetClusterSessionCredentialsRequest, GetClusterSessionCredentialsResult> asyncHandler) {
+        final GetClusterSessionCredentialsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetClusterSessionCredentialsResult>() {
+            @Override
+            public GetClusterSessionCredentialsResult call() throws Exception {
+                GetClusterSessionCredentialsResult result = null;
+
+                try {
+                    result = executeGetClusterSessionCredentials(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetManagedScalingPolicyResult> getManagedScalingPolicyAsync(GetManagedScalingPolicyRequest request) {
+
+        return getManagedScalingPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetManagedScalingPolicyResult> getManagedScalingPolicyAsync(final GetManagedScalingPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetManagedScalingPolicyRequest, GetManagedScalingPolicyResult> asyncHandler) {
+        final GetManagedScalingPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetManagedScalingPolicyResult>() {
+            @Override
+            public GetManagedScalingPolicyResult call() throws Exception {
+                GetManagedScalingPolicyResult result = null;
+
+                try {
+                    result = executeGetManagedScalingPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetStudioSessionMappingResult> getStudioSessionMappingAsync(GetStudioSessionMappingRequest request) {
+
+        return getStudioSessionMappingAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetStudioSessionMappingResult> getStudioSessionMappingAsync(final GetStudioSessionMappingRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetStudioSessionMappingRequest, GetStudioSessionMappingResult> asyncHandler) {
+        final GetStudioSessionMappingRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetStudioSessionMappingResult>() {
+            @Override
+            public GetStudioSessionMappingResult call() throws Exception {
+                GetStudioSessionMappingResult result = null;
+
+                try {
+                    result = executeGetStudioSessionMapping(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -826,6 +1236,72 @@ public class AmazonElasticMapReduceAsyncClient extends AmazonElasticMapReduceCli
     }
 
     @Override
+    public java.util.concurrent.Future<ListNotebookExecutionsResult> listNotebookExecutionsAsync(ListNotebookExecutionsRequest request) {
+
+        return listNotebookExecutionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListNotebookExecutionsResult> listNotebookExecutionsAsync(final ListNotebookExecutionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListNotebookExecutionsRequest, ListNotebookExecutionsResult> asyncHandler) {
+        final ListNotebookExecutionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListNotebookExecutionsResult>() {
+            @Override
+            public ListNotebookExecutionsResult call() throws Exception {
+                ListNotebookExecutionsResult result = null;
+
+                try {
+                    result = executeListNotebookExecutions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListReleaseLabelsResult> listReleaseLabelsAsync(ListReleaseLabelsRequest request) {
+
+        return listReleaseLabelsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListReleaseLabelsResult> listReleaseLabelsAsync(final ListReleaseLabelsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListReleaseLabelsRequest, ListReleaseLabelsResult> asyncHandler) {
+        final ListReleaseLabelsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListReleaseLabelsResult>() {
+            @Override
+            public ListReleaseLabelsResult call() throws Exception {
+                ListReleaseLabelsResult result = null;
+
+                try {
+                    result = executeListReleaseLabels(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListSecurityConfigurationsResult> listSecurityConfigurationsAsync(ListSecurityConfigurationsRequest request) {
 
         return listSecurityConfigurationsAsync(request, null);
@@ -876,6 +1352,138 @@ public class AmazonElasticMapReduceAsyncClient extends AmazonElasticMapReduceCli
 
                 try {
                     result = executeListSteps(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListStudioSessionMappingsResult> listStudioSessionMappingsAsync(ListStudioSessionMappingsRequest request) {
+
+        return listStudioSessionMappingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListStudioSessionMappingsResult> listStudioSessionMappingsAsync(final ListStudioSessionMappingsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListStudioSessionMappingsRequest, ListStudioSessionMappingsResult> asyncHandler) {
+        final ListStudioSessionMappingsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListStudioSessionMappingsResult>() {
+            @Override
+            public ListStudioSessionMappingsResult call() throws Exception {
+                ListStudioSessionMappingsResult result = null;
+
+                try {
+                    result = executeListStudioSessionMappings(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListStudiosResult> listStudiosAsync(ListStudiosRequest request) {
+
+        return listStudiosAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListStudiosResult> listStudiosAsync(final ListStudiosRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListStudiosRequest, ListStudiosResult> asyncHandler) {
+        final ListStudiosRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListStudiosResult>() {
+            @Override
+            public ListStudiosResult call() throws Exception {
+                ListStudiosResult result = null;
+
+                try {
+                    result = executeListStudios(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSupportedInstanceTypesResult> listSupportedInstanceTypesAsync(ListSupportedInstanceTypesRequest request) {
+
+        return listSupportedInstanceTypesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSupportedInstanceTypesResult> listSupportedInstanceTypesAsync(final ListSupportedInstanceTypesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListSupportedInstanceTypesRequest, ListSupportedInstanceTypesResult> asyncHandler) {
+        final ListSupportedInstanceTypesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListSupportedInstanceTypesResult>() {
+            @Override
+            public ListSupportedInstanceTypesResult call() throws Exception {
+                ListSupportedInstanceTypesResult result = null;
+
+                try {
+                    result = executeListSupportedInstanceTypes(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyClusterResult> modifyClusterAsync(ModifyClusterRequest request) {
+
+        return modifyClusterAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyClusterResult> modifyClusterAsync(final ModifyClusterRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyClusterRequest, ModifyClusterResult> asyncHandler) {
+        final ModifyClusterRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyClusterResult>() {
+            @Override
+            public ModifyClusterResult call() throws Exception {
+                ModifyClusterResult result = null;
+
+                try {
+                    result = executeModifyCluster(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1014,6 +1622,107 @@ public class AmazonElasticMapReduceAsyncClient extends AmazonElasticMapReduceCli
     }
 
     @Override
+    public java.util.concurrent.Future<PutAutoTerminationPolicyResult> putAutoTerminationPolicyAsync(PutAutoTerminationPolicyRequest request) {
+
+        return putAutoTerminationPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutAutoTerminationPolicyResult> putAutoTerminationPolicyAsync(final PutAutoTerminationPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutAutoTerminationPolicyRequest, PutAutoTerminationPolicyResult> asyncHandler) {
+        final PutAutoTerminationPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutAutoTerminationPolicyResult>() {
+            @Override
+            public PutAutoTerminationPolicyResult call() throws Exception {
+                PutAutoTerminationPolicyResult result = null;
+
+                try {
+                    result = executePutAutoTerminationPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutBlockPublicAccessConfigurationResult> putBlockPublicAccessConfigurationAsync(
+            PutBlockPublicAccessConfigurationRequest request) {
+
+        return putBlockPublicAccessConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutBlockPublicAccessConfigurationResult> putBlockPublicAccessConfigurationAsync(
+            final PutBlockPublicAccessConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutBlockPublicAccessConfigurationRequest, PutBlockPublicAccessConfigurationResult> asyncHandler) {
+        final PutBlockPublicAccessConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutBlockPublicAccessConfigurationResult>() {
+            @Override
+            public PutBlockPublicAccessConfigurationResult call() throws Exception {
+                PutBlockPublicAccessConfigurationResult result = null;
+
+                try {
+                    result = executePutBlockPublicAccessConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutManagedScalingPolicyResult> putManagedScalingPolicyAsync(PutManagedScalingPolicyRequest request) {
+
+        return putManagedScalingPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutManagedScalingPolicyResult> putManagedScalingPolicyAsync(final PutManagedScalingPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutManagedScalingPolicyRequest, PutManagedScalingPolicyResult> asyncHandler) {
+        final PutManagedScalingPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutManagedScalingPolicyResult>() {
+            @Override
+            public PutManagedScalingPolicyResult call() throws Exception {
+                PutManagedScalingPolicyResult result = null;
+
+                try {
+                    result = executePutManagedScalingPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<RemoveAutoScalingPolicyResult> removeAutoScalingPolicyAsync(RemoveAutoScalingPolicyRequest request) {
 
         return removeAutoScalingPolicyAsync(request, null);
@@ -1031,6 +1740,72 @@ public class AmazonElasticMapReduceAsyncClient extends AmazonElasticMapReduceCli
 
                 try {
                     result = executeRemoveAutoScalingPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RemoveAutoTerminationPolicyResult> removeAutoTerminationPolicyAsync(RemoveAutoTerminationPolicyRequest request) {
+
+        return removeAutoTerminationPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RemoveAutoTerminationPolicyResult> removeAutoTerminationPolicyAsync(final RemoveAutoTerminationPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RemoveAutoTerminationPolicyRequest, RemoveAutoTerminationPolicyResult> asyncHandler) {
+        final RemoveAutoTerminationPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RemoveAutoTerminationPolicyResult>() {
+            @Override
+            public RemoveAutoTerminationPolicyResult call() throws Exception {
+                RemoveAutoTerminationPolicyResult result = null;
+
+                try {
+                    result = executeRemoveAutoTerminationPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RemoveManagedScalingPolicyResult> removeManagedScalingPolicyAsync(RemoveManagedScalingPolicyRequest request) {
+
+        return removeManagedScalingPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RemoveManagedScalingPolicyResult> removeManagedScalingPolicyAsync(final RemoveManagedScalingPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RemoveManagedScalingPolicyRequest, RemoveManagedScalingPolicyResult> asyncHandler) {
+        final RemoveManagedScalingPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RemoveManagedScalingPolicyResult>() {
+            @Override
+            public RemoveManagedScalingPolicyResult call() throws Exception {
+                RemoveManagedScalingPolicyResult result = null;
+
+                try {
+                    result = executeRemoveManagedScalingPolicy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1113,6 +1888,40 @@ public class AmazonElasticMapReduceAsyncClient extends AmazonElasticMapReduceCli
     }
 
     @Override
+    public java.util.concurrent.Future<SetKeepJobFlowAliveWhenNoStepsResult> setKeepJobFlowAliveWhenNoStepsAsync(SetKeepJobFlowAliveWhenNoStepsRequest request) {
+
+        return setKeepJobFlowAliveWhenNoStepsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SetKeepJobFlowAliveWhenNoStepsResult> setKeepJobFlowAliveWhenNoStepsAsync(
+            final SetKeepJobFlowAliveWhenNoStepsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<SetKeepJobFlowAliveWhenNoStepsRequest, SetKeepJobFlowAliveWhenNoStepsResult> asyncHandler) {
+        final SetKeepJobFlowAliveWhenNoStepsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<SetKeepJobFlowAliveWhenNoStepsResult>() {
+            @Override
+            public SetKeepJobFlowAliveWhenNoStepsResult call() throws Exception {
+                SetKeepJobFlowAliveWhenNoStepsResult result = null;
+
+                try {
+                    result = executeSetKeepJobFlowAliveWhenNoSteps(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<SetTerminationProtectionResult> setTerminationProtectionAsync(SetTerminationProtectionRequest request) {
 
         return setTerminationProtectionAsync(request, null);
@@ -1130,6 +1939,39 @@ public class AmazonElasticMapReduceAsyncClient extends AmazonElasticMapReduceCli
 
                 try {
                     result = executeSetTerminationProtection(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<SetUnhealthyNodeReplacementResult> setUnhealthyNodeReplacementAsync(SetUnhealthyNodeReplacementRequest request) {
+
+        return setUnhealthyNodeReplacementAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SetUnhealthyNodeReplacementResult> setUnhealthyNodeReplacementAsync(final SetUnhealthyNodeReplacementRequest request,
+            final com.amazonaws.handlers.AsyncHandler<SetUnhealthyNodeReplacementRequest, SetUnhealthyNodeReplacementResult> asyncHandler) {
+        final SetUnhealthyNodeReplacementRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<SetUnhealthyNodeReplacementResult>() {
+            @Override
+            public SetUnhealthyNodeReplacementResult call() throws Exception {
+                SetUnhealthyNodeReplacementResult result = null;
+
+                try {
+                    result = executeSetUnhealthyNodeReplacement(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1179,6 +2021,72 @@ public class AmazonElasticMapReduceAsyncClient extends AmazonElasticMapReduceCli
     }
 
     @Override
+    public java.util.concurrent.Future<StartNotebookExecutionResult> startNotebookExecutionAsync(StartNotebookExecutionRequest request) {
+
+        return startNotebookExecutionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartNotebookExecutionResult> startNotebookExecutionAsync(final StartNotebookExecutionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartNotebookExecutionRequest, StartNotebookExecutionResult> asyncHandler) {
+        final StartNotebookExecutionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartNotebookExecutionResult>() {
+            @Override
+            public StartNotebookExecutionResult call() throws Exception {
+                StartNotebookExecutionResult result = null;
+
+                try {
+                    result = executeStartNotebookExecution(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopNotebookExecutionResult> stopNotebookExecutionAsync(StopNotebookExecutionRequest request) {
+
+        return stopNotebookExecutionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopNotebookExecutionResult> stopNotebookExecutionAsync(final StopNotebookExecutionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StopNotebookExecutionRequest, StopNotebookExecutionResult> asyncHandler) {
+        final StopNotebookExecutionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StopNotebookExecutionResult>() {
+            @Override
+            public StopNotebookExecutionResult call() throws Exception {
+                StopNotebookExecutionResult result = null;
+
+                try {
+                    result = executeStopNotebookExecution(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<TerminateJobFlowsResult> terminateJobFlowsAsync(TerminateJobFlowsRequest request) {
 
         return terminateJobFlowsAsync(request, null);
@@ -1196,6 +2104,72 @@ public class AmazonElasticMapReduceAsyncClient extends AmazonElasticMapReduceCli
 
                 try {
                     result = executeTerminateJobFlows(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateStudioResult> updateStudioAsync(UpdateStudioRequest request) {
+
+        return updateStudioAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateStudioResult> updateStudioAsync(final UpdateStudioRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateStudioRequest, UpdateStudioResult> asyncHandler) {
+        final UpdateStudioRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateStudioResult>() {
+            @Override
+            public UpdateStudioResult call() throws Exception {
+                UpdateStudioResult result = null;
+
+                try {
+                    result = executeUpdateStudio(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateStudioSessionMappingResult> updateStudioSessionMappingAsync(UpdateStudioSessionMappingRequest request) {
+
+        return updateStudioSessionMappingAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateStudioSessionMappingResult> updateStudioSessionMappingAsync(final UpdateStudioSessionMappingRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateStudioSessionMappingRequest, UpdateStudioSessionMappingResult> asyncHandler) {
+        final UpdateStudioSessionMappingRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateStudioSessionMappingResult>() {
+            @Override
+            public UpdateStudioSessionMappingResult call() throws Exception {
+                UpdateStudioSessionMappingResult result = null;
+
+                try {
+                    result = executeUpdateStudioSessionMapping(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,9 +17,9 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Contains the configuration parameters for a Set Object ACL operation. Amazon S3 batch operations passes each value
- * through to the underlying PUT Object acl API. For more information about the parameters for this operation, see <a
- * href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPUTacl.html">PUT Object acl</a>.
+ * Contains the configuration parameters for a PUT Object ACL operation. S3 Batch Operations passes every object to the
+ * underlying <code>PutObjectAcl</code> API operation. For more information about the parameters for this operation, see
+ * <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPUTacl.html">PutObjectAcl</a>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/s3control-2018-08-20/S3SetObjectAclOperation" target="_top">AWS

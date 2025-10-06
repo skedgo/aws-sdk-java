@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A time-ordered series of data points, correpsonding to a dimension of a Performance Insights metric.
+ * A time-ordered series of data points, corresponding to a dimension of a Performance Insights metric.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pi-2018-02-27/MetricKeyDataPoints" target="_top">AWS API
@@ -30,7 +30,7 @@ public class MetricKeyDataPoints implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The dimension(s) to which the data points apply.
+     * The dimensions to which the data points apply.
      * </p>
      */
     private ResponseResourceMetricKey key;
@@ -43,11 +43,11 @@ public class MetricKeyDataPoints implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The dimension(s) to which the data points apply.
+     * The dimensions to which the data points apply.
      * </p>
      * 
      * @param key
-     *        The dimension(s) to which the data points apply.
+     *        The dimensions to which the data points apply.
      */
 
     public void setKey(ResponseResourceMetricKey key) {
@@ -56,10 +56,10 @@ public class MetricKeyDataPoints implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The dimension(s) to which the data points apply.
+     * The dimensions to which the data points apply.
      * </p>
      * 
-     * @return The dimension(s) to which the data points apply.
+     * @return The dimensions to which the data points apply.
      */
 
     public ResponseResourceMetricKey getKey() {
@@ -68,11 +68,11 @@ public class MetricKeyDataPoints implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The dimension(s) to which the data points apply.
+     * The dimensions to which the data points apply.
      * </p>
      * 
      * @param key
-     *        The dimension(s) to which the data points apply.
+     *        The dimensions to which the data points apply.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

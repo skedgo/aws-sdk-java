@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -55,6 +55,12 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
     private String licenseModel;
     /**
      * <p>
+     * The Availability Zone group for a DB instance.
+     * </p>
+     */
+    private String availabilityZoneGroup;
+    /**
+     * <p>
      * A list of Availability Zones for a DB instance.
      * </p>
      */
@@ -67,7 +73,7 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
     private Boolean multiAZCapable;
     /**
      * <p>
-     * Indicates whether a DB instance can have a Read Replica.
+     * Indicates whether a DB instance can have a read replica.
      * </p>
      */
     private Boolean readReplicaCapable;
@@ -85,7 +91,7 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
     private Boolean supportsStorageEncryption;
     /**
      * <p>
-     * Indicates the storage type for a DB instance.
+     * The storage type for a DB instance.
      * </p>
      */
     private String storageType;
@@ -109,7 +115,7 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
     private Boolean supportsIAMDatabaseAuthentication;
     /**
      * <p>
-     * True if a DB instance supports Performance Insights, otherwise false.
+     * Indicates whether a DB instance supports Performance Insights.
      * </p>
      */
     private Boolean supportsPerformanceInsights;
@@ -163,10 +169,103 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
     private com.amazonaws.internal.SdkInternalList<String> supportedEngineModes;
     /**
      * <p>
-     * Whether or not Amazon RDS can automatically scale storage for DB instances that use the specified instance class.
+     * Indicates whether Amazon RDS can automatically scale storage for DB instances that use the specified DB instance
+     * class.
      * </p>
      */
     private Boolean supportsStorageAutoscaling;
+    /**
+     * <p>
+     * Indicates whether a DB instance supports Kerberos Authentication.
+     * </p>
+     */
+    private Boolean supportsKerberosAuthentication;
+    /**
+     * <p>
+     * Indicates whether a DB instance supports RDS on Outposts.
+     * </p>
+     * <p>
+     * For more information about RDS on Outposts, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Amazon RDS on Amazon Web
+     * Services Outposts</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     */
+    private Boolean outpostCapable;
+    /**
+     * <p>
+     * The list of supported modes for Database Activity Streams. Aurora PostgreSQL returns the value
+     * <code>[sync, async]</code>. Aurora MySQL and RDS for Oracle return <code>[async]</code> only. If Database
+     * Activity Streams isn't supported, the return value is an empty list.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> supportedActivityStreamModes;
+    /**
+     * <p>
+     * Indicates whether you can use Aurora global databases with a specific combination of other DB engine attributes.
+     * </p>
+     */
+    private Boolean supportsGlobalDatabases;
+    /**
+     * <p>
+     * Indicates whether DB instances can be configured as a Multi-AZ DB cluster.
+     * </p>
+     * <p>
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ
+     * deployments with two readable standby DB instances</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     */
+    private Boolean supportsClusters;
+    /**
+     * <p>
+     * The network types supported by the DB instance (<code>IPV4</code> or <code>DUAL</code>).
+     * </p>
+     * <p>
+     * A DB instance can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (<code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"> Working
+     * with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> supportedNetworkTypes;
+    /**
+     * <p>
+     * Indicates whether a DB instance supports storage throughput.
+     * </p>
+     */
+    private Boolean supportsStorageThroughput;
+    /**
+     * <p>
+     * Minimum storage throughput for a DB instance.
+     * </p>
+     */
+    private Integer minStorageThroughputPerDbInstance;
+    /**
+     * <p>
+     * Maximum storage throughput for a DB instance.
+     * </p>
+     */
+    private Integer maxStorageThroughputPerDbInstance;
+    /**
+     * <p>
+     * Minimum storage throughput to provisioned IOPS ratio for a DB instance.
+     * </p>
+     */
+    private Double minStorageThroughputPerIops;
+    /**
+     * <p>
+     * Maximum storage throughput to provisioned IOPS ratio for a DB instance.
+     * </p>
+     */
+    private Double maxStorageThroughputPerIops;
+    /**
+     * <p>
+     * Indicates whether a DB instance supports using a dedicated log volume (DLV).
+     * </p>
+     */
+    private Boolean supportsDedicatedLogVolume;
 
     /**
      * <p>
@@ -330,6 +429,46 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
+     * The Availability Zone group for a DB instance.
+     * </p>
+     * 
+     * @param availabilityZoneGroup
+     *        The Availability Zone group for a DB instance.
+     */
+
+    public void setAvailabilityZoneGroup(String availabilityZoneGroup) {
+        this.availabilityZoneGroup = availabilityZoneGroup;
+    }
+
+    /**
+     * <p>
+     * The Availability Zone group for a DB instance.
+     * </p>
+     * 
+     * @return The Availability Zone group for a DB instance.
+     */
+
+    public String getAvailabilityZoneGroup() {
+        return this.availabilityZoneGroup;
+    }
+
+    /**
+     * <p>
+     * The Availability Zone group for a DB instance.
+     * </p>
+     * 
+     * @param availabilityZoneGroup
+     *        The Availability Zone group for a DB instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OrderableDBInstanceOption withAvailabilityZoneGroup(String availabilityZoneGroup) {
+        setAvailabilityZoneGroup(availabilityZoneGroup);
+        return this;
+    }
+
+    /**
+     * <p>
      * A list of Availability Zones for a DB instance.
      * </p>
      * 
@@ -455,11 +594,11 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether a DB instance can have a Read Replica.
+     * Indicates whether a DB instance can have a read replica.
      * </p>
      * 
      * @param readReplicaCapable
-     *        Indicates whether a DB instance can have a Read Replica.
+     *        Indicates whether a DB instance can have a read replica.
      */
 
     public void setReadReplicaCapable(Boolean readReplicaCapable) {
@@ -468,10 +607,10 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether a DB instance can have a Read Replica.
+     * Indicates whether a DB instance can have a read replica.
      * </p>
      * 
-     * @return Indicates whether a DB instance can have a Read Replica.
+     * @return Indicates whether a DB instance can have a read replica.
      */
 
     public Boolean getReadReplicaCapable() {
@@ -480,11 +619,11 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether a DB instance can have a Read Replica.
+     * Indicates whether a DB instance can have a read replica.
      * </p>
      * 
      * @param readReplicaCapable
-     *        Indicates whether a DB instance can have a Read Replica.
+     *        Indicates whether a DB instance can have a read replica.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -495,10 +634,10 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether a DB instance can have a Read Replica.
+     * Indicates whether a DB instance can have a read replica.
      * </p>
      * 
-     * @return Indicates whether a DB instance can have a Read Replica.
+     * @return Indicates whether a DB instance can have a read replica.
      */
 
     public Boolean isReadReplicaCapable() {
@@ -611,11 +750,11 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the storage type for a DB instance.
+     * The storage type for a DB instance.
      * </p>
      * 
      * @param storageType
-     *        Indicates the storage type for a DB instance.
+     *        The storage type for a DB instance.
      */
 
     public void setStorageType(String storageType) {
@@ -624,10 +763,10 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the storage type for a DB instance.
+     * The storage type for a DB instance.
      * </p>
      * 
-     * @return Indicates the storage type for a DB instance.
+     * @return The storage type for a DB instance.
      */
 
     public String getStorageType() {
@@ -636,11 +775,11 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the storage type for a DB instance.
+     * The storage type for a DB instance.
      * </p>
      * 
      * @param storageType
-     *        Indicates the storage type for a DB instance.
+     *        The storage type for a DB instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -807,11 +946,11 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * True if a DB instance supports Performance Insights, otherwise false.
+     * Indicates whether a DB instance supports Performance Insights.
      * </p>
      * 
      * @param supportsPerformanceInsights
-     *        True if a DB instance supports Performance Insights, otherwise false.
+     *        Indicates whether a DB instance supports Performance Insights.
      */
 
     public void setSupportsPerformanceInsights(Boolean supportsPerformanceInsights) {
@@ -820,10 +959,10 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * True if a DB instance supports Performance Insights, otherwise false.
+     * Indicates whether a DB instance supports Performance Insights.
      * </p>
      * 
-     * @return True if a DB instance supports Performance Insights, otherwise false.
+     * @return Indicates whether a DB instance supports Performance Insights.
      */
 
     public Boolean getSupportsPerformanceInsights() {
@@ -832,11 +971,11 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * True if a DB instance supports Performance Insights, otherwise false.
+     * Indicates whether a DB instance supports Performance Insights.
      * </p>
      * 
      * @param supportsPerformanceInsights
-     *        True if a DB instance supports Performance Insights, otherwise false.
+     *        Indicates whether a DB instance supports Performance Insights.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -847,10 +986,10 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * True if a DB instance supports Performance Insights, otherwise false.
+     * Indicates whether a DB instance supports Performance Insights.
      * </p>
      * 
-     * @return True if a DB instance supports Performance Insights, otherwise false.
+     * @return Indicates whether a DB instance supports Performance Insights.
      */
 
     public Boolean isSupportsPerformanceInsights() {
@@ -1245,12 +1384,13 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Whether or not Amazon RDS can automatically scale storage for DB instances that use the specified instance class.
+     * Indicates whether Amazon RDS can automatically scale storage for DB instances that use the specified DB instance
+     * class.
      * </p>
      * 
      * @param supportsStorageAutoscaling
-     *        Whether or not Amazon RDS can automatically scale storage for DB instances that use the specified instance
-     *        class.
+     *        Indicates whether Amazon RDS can automatically scale storage for DB instances that use the specified DB
+     *        instance class.
      */
 
     public void setSupportsStorageAutoscaling(Boolean supportsStorageAutoscaling) {
@@ -1259,10 +1399,11 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Whether or not Amazon RDS can automatically scale storage for DB instances that use the specified instance class.
+     * Indicates whether Amazon RDS can automatically scale storage for DB instances that use the specified DB instance
+     * class.
      * </p>
      * 
-     * @return Whether or not Amazon RDS can automatically scale storage for DB instances that use the specified
+     * @return Indicates whether Amazon RDS can automatically scale storage for DB instances that use the specified DB
      *         instance class.
      */
 
@@ -1272,12 +1413,13 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Whether or not Amazon RDS can automatically scale storage for DB instances that use the specified instance class.
+     * Indicates whether Amazon RDS can automatically scale storage for DB instances that use the specified DB instance
+     * class.
      * </p>
      * 
      * @param supportsStorageAutoscaling
-     *        Whether or not Amazon RDS can automatically scale storage for DB instances that use the specified instance
-     *        class.
+     *        Indicates whether Amazon RDS can automatically scale storage for DB instances that use the specified DB
+     *        instance class.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1288,15 +1430,786 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Whether or not Amazon RDS can automatically scale storage for DB instances that use the specified instance class.
+     * Indicates whether Amazon RDS can automatically scale storage for DB instances that use the specified DB instance
+     * class.
      * </p>
      * 
-     * @return Whether or not Amazon RDS can automatically scale storage for DB instances that use the specified
+     * @return Indicates whether Amazon RDS can automatically scale storage for DB instances that use the specified DB
      *         instance class.
      */
 
     public Boolean isSupportsStorageAutoscaling() {
         return this.supportsStorageAutoscaling;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a DB instance supports Kerberos Authentication.
+     * </p>
+     * 
+     * @param supportsKerberosAuthentication
+     *        Indicates whether a DB instance supports Kerberos Authentication.
+     */
+
+    public void setSupportsKerberosAuthentication(Boolean supportsKerberosAuthentication) {
+        this.supportsKerberosAuthentication = supportsKerberosAuthentication;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a DB instance supports Kerberos Authentication.
+     * </p>
+     * 
+     * @return Indicates whether a DB instance supports Kerberos Authentication.
+     */
+
+    public Boolean getSupportsKerberosAuthentication() {
+        return this.supportsKerberosAuthentication;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a DB instance supports Kerberos Authentication.
+     * </p>
+     * 
+     * @param supportsKerberosAuthentication
+     *        Indicates whether a DB instance supports Kerberos Authentication.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OrderableDBInstanceOption withSupportsKerberosAuthentication(Boolean supportsKerberosAuthentication) {
+        setSupportsKerberosAuthentication(supportsKerberosAuthentication);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a DB instance supports Kerberos Authentication.
+     * </p>
+     * 
+     * @return Indicates whether a DB instance supports Kerberos Authentication.
+     */
+
+    public Boolean isSupportsKerberosAuthentication() {
+        return this.supportsKerberosAuthentication;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a DB instance supports RDS on Outposts.
+     * </p>
+     * <p>
+     * For more information about RDS on Outposts, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Amazon RDS on Amazon Web
+     * Services Outposts</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @param outpostCapable
+     *        Indicates whether a DB instance supports RDS on Outposts.</p>
+     *        <p>
+     *        For more information about RDS on Outposts, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Amazon RDS on Amazon
+     *        Web Services Outposts</a> in the <i>Amazon RDS User Guide.</i>
+     */
+
+    public void setOutpostCapable(Boolean outpostCapable) {
+        this.outpostCapable = outpostCapable;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a DB instance supports RDS on Outposts.
+     * </p>
+     * <p>
+     * For more information about RDS on Outposts, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Amazon RDS on Amazon Web
+     * Services Outposts</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @return Indicates whether a DB instance supports RDS on Outposts.</p>
+     *         <p>
+     *         For more information about RDS on Outposts, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Amazon RDS on Amazon
+     *         Web Services Outposts</a> in the <i>Amazon RDS User Guide.</i>
+     */
+
+    public Boolean getOutpostCapable() {
+        return this.outpostCapable;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a DB instance supports RDS on Outposts.
+     * </p>
+     * <p>
+     * For more information about RDS on Outposts, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Amazon RDS on Amazon Web
+     * Services Outposts</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @param outpostCapable
+     *        Indicates whether a DB instance supports RDS on Outposts.</p>
+     *        <p>
+     *        For more information about RDS on Outposts, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Amazon RDS on Amazon
+     *        Web Services Outposts</a> in the <i>Amazon RDS User Guide.</i>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OrderableDBInstanceOption withOutpostCapable(Boolean outpostCapable) {
+        setOutpostCapable(outpostCapable);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a DB instance supports RDS on Outposts.
+     * </p>
+     * <p>
+     * For more information about RDS on Outposts, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Amazon RDS on Amazon Web
+     * Services Outposts</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @return Indicates whether a DB instance supports RDS on Outposts.</p>
+     *         <p>
+     *         For more information about RDS on Outposts, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html">Amazon RDS on Amazon
+     *         Web Services Outposts</a> in the <i>Amazon RDS User Guide.</i>
+     */
+
+    public Boolean isOutpostCapable() {
+        return this.outpostCapable;
+    }
+
+    /**
+     * <p>
+     * The list of supported modes for Database Activity Streams. Aurora PostgreSQL returns the value
+     * <code>[sync, async]</code>. Aurora MySQL and RDS for Oracle return <code>[async]</code> only. If Database
+     * Activity Streams isn't supported, the return value is an empty list.
+     * </p>
+     * 
+     * @return The list of supported modes for Database Activity Streams. Aurora PostgreSQL returns the value
+     *         <code>[sync, async]</code>. Aurora MySQL and RDS for Oracle return <code>[async]</code> only. If Database
+     *         Activity Streams isn't supported, the return value is an empty list.
+     */
+
+    public java.util.List<String> getSupportedActivityStreamModes() {
+        if (supportedActivityStreamModes == null) {
+            supportedActivityStreamModes = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return supportedActivityStreamModes;
+    }
+
+    /**
+     * <p>
+     * The list of supported modes for Database Activity Streams. Aurora PostgreSQL returns the value
+     * <code>[sync, async]</code>. Aurora MySQL and RDS for Oracle return <code>[async]</code> only. If Database
+     * Activity Streams isn't supported, the return value is an empty list.
+     * </p>
+     * 
+     * @param supportedActivityStreamModes
+     *        The list of supported modes for Database Activity Streams. Aurora PostgreSQL returns the value
+     *        <code>[sync, async]</code>. Aurora MySQL and RDS for Oracle return <code>[async]</code> only. If Database
+     *        Activity Streams isn't supported, the return value is an empty list.
+     */
+
+    public void setSupportedActivityStreamModes(java.util.Collection<String> supportedActivityStreamModes) {
+        if (supportedActivityStreamModes == null) {
+            this.supportedActivityStreamModes = null;
+            return;
+        }
+
+        this.supportedActivityStreamModes = new com.amazonaws.internal.SdkInternalList<String>(supportedActivityStreamModes);
+    }
+
+    /**
+     * <p>
+     * The list of supported modes for Database Activity Streams. Aurora PostgreSQL returns the value
+     * <code>[sync, async]</code>. Aurora MySQL and RDS for Oracle return <code>[async]</code> only. If Database
+     * Activity Streams isn't supported, the return value is an empty list.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSupportedActivityStreamModes(java.util.Collection)} or
+     * {@link #withSupportedActivityStreamModes(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param supportedActivityStreamModes
+     *        The list of supported modes for Database Activity Streams. Aurora PostgreSQL returns the value
+     *        <code>[sync, async]</code>. Aurora MySQL and RDS for Oracle return <code>[async]</code> only. If Database
+     *        Activity Streams isn't supported, the return value is an empty list.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OrderableDBInstanceOption withSupportedActivityStreamModes(String... supportedActivityStreamModes) {
+        if (this.supportedActivityStreamModes == null) {
+            setSupportedActivityStreamModes(new com.amazonaws.internal.SdkInternalList<String>(supportedActivityStreamModes.length));
+        }
+        for (String ele : supportedActivityStreamModes) {
+            this.supportedActivityStreamModes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of supported modes for Database Activity Streams. Aurora PostgreSQL returns the value
+     * <code>[sync, async]</code>. Aurora MySQL and RDS for Oracle return <code>[async]</code> only. If Database
+     * Activity Streams isn't supported, the return value is an empty list.
+     * </p>
+     * 
+     * @param supportedActivityStreamModes
+     *        The list of supported modes for Database Activity Streams. Aurora PostgreSQL returns the value
+     *        <code>[sync, async]</code>. Aurora MySQL and RDS for Oracle return <code>[async]</code> only. If Database
+     *        Activity Streams isn't supported, the return value is an empty list.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OrderableDBInstanceOption withSupportedActivityStreamModes(java.util.Collection<String> supportedActivityStreamModes) {
+        setSupportedActivityStreamModes(supportedActivityStreamModes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether you can use Aurora global databases with a specific combination of other DB engine attributes.
+     * </p>
+     * 
+     * @param supportsGlobalDatabases
+     *        Indicates whether you can use Aurora global databases with a specific combination of other DB engine
+     *        attributes.
+     */
+
+    public void setSupportsGlobalDatabases(Boolean supportsGlobalDatabases) {
+        this.supportsGlobalDatabases = supportsGlobalDatabases;
+    }
+
+    /**
+     * <p>
+     * Indicates whether you can use Aurora global databases with a specific combination of other DB engine attributes.
+     * </p>
+     * 
+     * @return Indicates whether you can use Aurora global databases with a specific combination of other DB engine
+     *         attributes.
+     */
+
+    public Boolean getSupportsGlobalDatabases() {
+        return this.supportsGlobalDatabases;
+    }
+
+    /**
+     * <p>
+     * Indicates whether you can use Aurora global databases with a specific combination of other DB engine attributes.
+     * </p>
+     * 
+     * @param supportsGlobalDatabases
+     *        Indicates whether you can use Aurora global databases with a specific combination of other DB engine
+     *        attributes.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OrderableDBInstanceOption withSupportsGlobalDatabases(Boolean supportsGlobalDatabases) {
+        setSupportsGlobalDatabases(supportsGlobalDatabases);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether you can use Aurora global databases with a specific combination of other DB engine attributes.
+     * </p>
+     * 
+     * @return Indicates whether you can use Aurora global databases with a specific combination of other DB engine
+     *         attributes.
+     */
+
+    public Boolean isSupportsGlobalDatabases() {
+        return this.supportsGlobalDatabases;
+    }
+
+    /**
+     * <p>
+     * Indicates whether DB instances can be configured as a Multi-AZ DB cluster.
+     * </p>
+     * <p>
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ
+     * deployments with two readable standby DB instances</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @param supportsClusters
+     *        Indicates whether DB instances can be configured as a Multi-AZ DB cluster.</p>
+     *        <p>
+     *        For more information on Multi-AZ DB clusters, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ
+     *        deployments with two readable standby DB instances</a> in the <i>Amazon RDS User Guide.</i>
+     */
+
+    public void setSupportsClusters(Boolean supportsClusters) {
+        this.supportsClusters = supportsClusters;
+    }
+
+    /**
+     * <p>
+     * Indicates whether DB instances can be configured as a Multi-AZ DB cluster.
+     * </p>
+     * <p>
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ
+     * deployments with two readable standby DB instances</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @return Indicates whether DB instances can be configured as a Multi-AZ DB cluster.</p>
+     *         <p>
+     *         For more information on Multi-AZ DB clusters, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html">
+     *         Multi-AZ deployments with two readable standby DB instances</a> in the <i>Amazon RDS User Guide.</i>
+     */
+
+    public Boolean getSupportsClusters() {
+        return this.supportsClusters;
+    }
+
+    /**
+     * <p>
+     * Indicates whether DB instances can be configured as a Multi-AZ DB cluster.
+     * </p>
+     * <p>
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ
+     * deployments with two readable standby DB instances</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @param supportsClusters
+     *        Indicates whether DB instances can be configured as a Multi-AZ DB cluster.</p>
+     *        <p>
+     *        For more information on Multi-AZ DB clusters, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ
+     *        deployments with two readable standby DB instances</a> in the <i>Amazon RDS User Guide.</i>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OrderableDBInstanceOption withSupportsClusters(Boolean supportsClusters) {
+        setSupportsClusters(supportsClusters);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether DB instances can be configured as a Multi-AZ DB cluster.
+     * </p>
+     * <p>
+     * For more information on Multi-AZ DB clusters, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html"> Multi-AZ
+     * deployments with two readable standby DB instances</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @return Indicates whether DB instances can be configured as a Multi-AZ DB cluster.</p>
+     *         <p>
+     *         For more information on Multi-AZ DB clusters, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html">
+     *         Multi-AZ deployments with two readable standby DB instances</a> in the <i>Amazon RDS User Guide.</i>
+     */
+
+    public Boolean isSupportsClusters() {
+        return this.supportsClusters;
+    }
+
+    /**
+     * <p>
+     * The network types supported by the DB instance (<code>IPV4</code> or <code>DUAL</code>).
+     * </p>
+     * <p>
+     * A DB instance can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (<code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"> Working
+     * with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @return The network types supported by the DB instance (<code>IPV4</code> or <code>DUAL</code>).</p>
+     *         <p>
+     *         A DB instance can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (<code>DUAL</code>).
+     *         </p>
+     *         <p>
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     *         Working with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     */
+
+    public java.util.List<String> getSupportedNetworkTypes() {
+        if (supportedNetworkTypes == null) {
+            supportedNetworkTypes = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return supportedNetworkTypes;
+    }
+
+    /**
+     * <p>
+     * The network types supported by the DB instance (<code>IPV4</code> or <code>DUAL</code>).
+     * </p>
+     * <p>
+     * A DB instance can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (<code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"> Working
+     * with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @param supportedNetworkTypes
+     *        The network types supported by the DB instance (<code>IPV4</code> or <code>DUAL</code>).</p>
+     *        <p>
+     *        A DB instance can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (<code>DUAL</code>).
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     *        Working with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     */
+
+    public void setSupportedNetworkTypes(java.util.Collection<String> supportedNetworkTypes) {
+        if (supportedNetworkTypes == null) {
+            this.supportedNetworkTypes = null;
+            return;
+        }
+
+        this.supportedNetworkTypes = new com.amazonaws.internal.SdkInternalList<String>(supportedNetworkTypes);
+    }
+
+    /**
+     * <p>
+     * The network types supported by the DB instance (<code>IPV4</code> or <code>DUAL</code>).
+     * </p>
+     * <p>
+     * A DB instance can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (<code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"> Working
+     * with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSupportedNetworkTypes(java.util.Collection)} or
+     * {@link #withSupportedNetworkTypes(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param supportedNetworkTypes
+     *        The network types supported by the DB instance (<code>IPV4</code> or <code>DUAL</code>).</p>
+     *        <p>
+     *        A DB instance can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (<code>DUAL</code>).
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     *        Working with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OrderableDBInstanceOption withSupportedNetworkTypes(String... supportedNetworkTypes) {
+        if (this.supportedNetworkTypes == null) {
+            setSupportedNetworkTypes(new com.amazonaws.internal.SdkInternalList<String>(supportedNetworkTypes.length));
+        }
+        for (String ele : supportedNetworkTypes) {
+            this.supportedNetworkTypes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The network types supported by the DB instance (<code>IPV4</code> or <code>DUAL</code>).
+     * </p>
+     * <p>
+     * A DB instance can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (<code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"> Working
+     * with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @param supportedNetworkTypes
+     *        The network types supported by the DB instance (<code>IPV4</code> or <code>DUAL</code>).</p>
+     *        <p>
+     *        A DB instance can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (<code>DUAL</code>).
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     *        Working with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OrderableDBInstanceOption withSupportedNetworkTypes(java.util.Collection<String> supportedNetworkTypes) {
+        setSupportedNetworkTypes(supportedNetworkTypes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a DB instance supports storage throughput.
+     * </p>
+     * 
+     * @param supportsStorageThroughput
+     *        Indicates whether a DB instance supports storage throughput.
+     */
+
+    public void setSupportsStorageThroughput(Boolean supportsStorageThroughput) {
+        this.supportsStorageThroughput = supportsStorageThroughput;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a DB instance supports storage throughput.
+     * </p>
+     * 
+     * @return Indicates whether a DB instance supports storage throughput.
+     */
+
+    public Boolean getSupportsStorageThroughput() {
+        return this.supportsStorageThroughput;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a DB instance supports storage throughput.
+     * </p>
+     * 
+     * @param supportsStorageThroughput
+     *        Indicates whether a DB instance supports storage throughput.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OrderableDBInstanceOption withSupportsStorageThroughput(Boolean supportsStorageThroughput) {
+        setSupportsStorageThroughput(supportsStorageThroughput);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a DB instance supports storage throughput.
+     * </p>
+     * 
+     * @return Indicates whether a DB instance supports storage throughput.
+     */
+
+    public Boolean isSupportsStorageThroughput() {
+        return this.supportsStorageThroughput;
+    }
+
+    /**
+     * <p>
+     * Minimum storage throughput for a DB instance.
+     * </p>
+     * 
+     * @param minStorageThroughputPerDbInstance
+     *        Minimum storage throughput for a DB instance.
+     */
+
+    public void setMinStorageThroughputPerDbInstance(Integer minStorageThroughputPerDbInstance) {
+        this.minStorageThroughputPerDbInstance = minStorageThroughputPerDbInstance;
+    }
+
+    /**
+     * <p>
+     * Minimum storage throughput for a DB instance.
+     * </p>
+     * 
+     * @return Minimum storage throughput for a DB instance.
+     */
+
+    public Integer getMinStorageThroughputPerDbInstance() {
+        return this.minStorageThroughputPerDbInstance;
+    }
+
+    /**
+     * <p>
+     * Minimum storage throughput for a DB instance.
+     * </p>
+     * 
+     * @param minStorageThroughputPerDbInstance
+     *        Minimum storage throughput for a DB instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OrderableDBInstanceOption withMinStorageThroughputPerDbInstance(Integer minStorageThroughputPerDbInstance) {
+        setMinStorageThroughputPerDbInstance(minStorageThroughputPerDbInstance);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Maximum storage throughput for a DB instance.
+     * </p>
+     * 
+     * @param maxStorageThroughputPerDbInstance
+     *        Maximum storage throughput for a DB instance.
+     */
+
+    public void setMaxStorageThroughputPerDbInstance(Integer maxStorageThroughputPerDbInstance) {
+        this.maxStorageThroughputPerDbInstance = maxStorageThroughputPerDbInstance;
+    }
+
+    /**
+     * <p>
+     * Maximum storage throughput for a DB instance.
+     * </p>
+     * 
+     * @return Maximum storage throughput for a DB instance.
+     */
+
+    public Integer getMaxStorageThroughputPerDbInstance() {
+        return this.maxStorageThroughputPerDbInstance;
+    }
+
+    /**
+     * <p>
+     * Maximum storage throughput for a DB instance.
+     * </p>
+     * 
+     * @param maxStorageThroughputPerDbInstance
+     *        Maximum storage throughput for a DB instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OrderableDBInstanceOption withMaxStorageThroughputPerDbInstance(Integer maxStorageThroughputPerDbInstance) {
+        setMaxStorageThroughputPerDbInstance(maxStorageThroughputPerDbInstance);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Minimum storage throughput to provisioned IOPS ratio for a DB instance.
+     * </p>
+     * 
+     * @param minStorageThroughputPerIops
+     *        Minimum storage throughput to provisioned IOPS ratio for a DB instance.
+     */
+
+    public void setMinStorageThroughputPerIops(Double minStorageThroughputPerIops) {
+        this.minStorageThroughputPerIops = minStorageThroughputPerIops;
+    }
+
+    /**
+     * <p>
+     * Minimum storage throughput to provisioned IOPS ratio for a DB instance.
+     * </p>
+     * 
+     * @return Minimum storage throughput to provisioned IOPS ratio for a DB instance.
+     */
+
+    public Double getMinStorageThroughputPerIops() {
+        return this.minStorageThroughputPerIops;
+    }
+
+    /**
+     * <p>
+     * Minimum storage throughput to provisioned IOPS ratio for a DB instance.
+     * </p>
+     * 
+     * @param minStorageThroughputPerIops
+     *        Minimum storage throughput to provisioned IOPS ratio for a DB instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OrderableDBInstanceOption withMinStorageThroughputPerIops(Double minStorageThroughputPerIops) {
+        setMinStorageThroughputPerIops(minStorageThroughputPerIops);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Maximum storage throughput to provisioned IOPS ratio for a DB instance.
+     * </p>
+     * 
+     * @param maxStorageThroughputPerIops
+     *        Maximum storage throughput to provisioned IOPS ratio for a DB instance.
+     */
+
+    public void setMaxStorageThroughputPerIops(Double maxStorageThroughputPerIops) {
+        this.maxStorageThroughputPerIops = maxStorageThroughputPerIops;
+    }
+
+    /**
+     * <p>
+     * Maximum storage throughput to provisioned IOPS ratio for a DB instance.
+     * </p>
+     * 
+     * @return Maximum storage throughput to provisioned IOPS ratio for a DB instance.
+     */
+
+    public Double getMaxStorageThroughputPerIops() {
+        return this.maxStorageThroughputPerIops;
+    }
+
+    /**
+     * <p>
+     * Maximum storage throughput to provisioned IOPS ratio for a DB instance.
+     * </p>
+     * 
+     * @param maxStorageThroughputPerIops
+     *        Maximum storage throughput to provisioned IOPS ratio for a DB instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OrderableDBInstanceOption withMaxStorageThroughputPerIops(Double maxStorageThroughputPerIops) {
+        setMaxStorageThroughputPerIops(maxStorageThroughputPerIops);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a DB instance supports using a dedicated log volume (DLV).
+     * </p>
+     * 
+     * @param supportsDedicatedLogVolume
+     *        Indicates whether a DB instance supports using a dedicated log volume (DLV).
+     */
+
+    public void setSupportsDedicatedLogVolume(Boolean supportsDedicatedLogVolume) {
+        this.supportsDedicatedLogVolume = supportsDedicatedLogVolume;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a DB instance supports using a dedicated log volume (DLV).
+     * </p>
+     * 
+     * @return Indicates whether a DB instance supports using a dedicated log volume (DLV).
+     */
+
+    public Boolean getSupportsDedicatedLogVolume() {
+        return this.supportsDedicatedLogVolume;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a DB instance supports using a dedicated log volume (DLV).
+     * </p>
+     * 
+     * @param supportsDedicatedLogVolume
+     *        Indicates whether a DB instance supports using a dedicated log volume (DLV).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OrderableDBInstanceOption withSupportsDedicatedLogVolume(Boolean supportsDedicatedLogVolume) {
+        setSupportsDedicatedLogVolume(supportsDedicatedLogVolume);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a DB instance supports using a dedicated log volume (DLV).
+     * </p>
+     * 
+     * @return Indicates whether a DB instance supports using a dedicated log volume (DLV).
+     */
+
+    public Boolean isSupportsDedicatedLogVolume() {
+        return this.supportsDedicatedLogVolume;
     }
 
     /**
@@ -1319,6 +2232,8 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
             sb.append("DBInstanceClass: ").append(getDBInstanceClass()).append(",");
         if (getLicenseModel() != null)
             sb.append("LicenseModel: ").append(getLicenseModel()).append(",");
+        if (getAvailabilityZoneGroup() != null)
+            sb.append("AvailabilityZoneGroup: ").append(getAvailabilityZoneGroup()).append(",");
         if (getAvailabilityZones() != null)
             sb.append("AvailabilityZones: ").append(getAvailabilityZones()).append(",");
         if (getMultiAZCapable() != null)
@@ -1356,7 +2271,31 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
         if (getSupportedEngineModes() != null)
             sb.append("SupportedEngineModes: ").append(getSupportedEngineModes()).append(",");
         if (getSupportsStorageAutoscaling() != null)
-            sb.append("SupportsStorageAutoscaling: ").append(getSupportsStorageAutoscaling());
+            sb.append("SupportsStorageAutoscaling: ").append(getSupportsStorageAutoscaling()).append(",");
+        if (getSupportsKerberosAuthentication() != null)
+            sb.append("SupportsKerberosAuthentication: ").append(getSupportsKerberosAuthentication()).append(",");
+        if (getOutpostCapable() != null)
+            sb.append("OutpostCapable: ").append(getOutpostCapable()).append(",");
+        if (getSupportedActivityStreamModes() != null)
+            sb.append("SupportedActivityStreamModes: ").append(getSupportedActivityStreamModes()).append(",");
+        if (getSupportsGlobalDatabases() != null)
+            sb.append("SupportsGlobalDatabases: ").append(getSupportsGlobalDatabases()).append(",");
+        if (getSupportsClusters() != null)
+            sb.append("SupportsClusters: ").append(getSupportsClusters()).append(",");
+        if (getSupportedNetworkTypes() != null)
+            sb.append("SupportedNetworkTypes: ").append(getSupportedNetworkTypes()).append(",");
+        if (getSupportsStorageThroughput() != null)
+            sb.append("SupportsStorageThroughput: ").append(getSupportsStorageThroughput()).append(",");
+        if (getMinStorageThroughputPerDbInstance() != null)
+            sb.append("MinStorageThroughputPerDbInstance: ").append(getMinStorageThroughputPerDbInstance()).append(",");
+        if (getMaxStorageThroughputPerDbInstance() != null)
+            sb.append("MaxStorageThroughputPerDbInstance: ").append(getMaxStorageThroughputPerDbInstance()).append(",");
+        if (getMinStorageThroughputPerIops() != null)
+            sb.append("MinStorageThroughputPerIops: ").append(getMinStorageThroughputPerIops()).append(",");
+        if (getMaxStorageThroughputPerIops() != null)
+            sb.append("MaxStorageThroughputPerIops: ").append(getMaxStorageThroughputPerIops()).append(",");
+        if (getSupportsDedicatedLogVolume() != null)
+            sb.append("SupportsDedicatedLogVolume: ").append(getSupportsDedicatedLogVolume());
         sb.append("}");
         return sb.toString();
     }
@@ -1386,6 +2325,10 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
         if (other.getLicenseModel() == null ^ this.getLicenseModel() == null)
             return false;
         if (other.getLicenseModel() != null && other.getLicenseModel().equals(this.getLicenseModel()) == false)
+            return false;
+        if (other.getAvailabilityZoneGroup() == null ^ this.getAvailabilityZoneGroup() == null)
+            return false;
+        if (other.getAvailabilityZoneGroup() != null && other.getAvailabilityZoneGroup().equals(this.getAvailabilityZoneGroup()) == false)
             return false;
         if (other.getAvailabilityZones() == null ^ this.getAvailabilityZones() == null)
             return false;
@@ -1464,6 +2407,57 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
             return false;
         if (other.getSupportsStorageAutoscaling() != null && other.getSupportsStorageAutoscaling().equals(this.getSupportsStorageAutoscaling()) == false)
             return false;
+        if (other.getSupportsKerberosAuthentication() == null ^ this.getSupportsKerberosAuthentication() == null)
+            return false;
+        if (other.getSupportsKerberosAuthentication() != null
+                && other.getSupportsKerberosAuthentication().equals(this.getSupportsKerberosAuthentication()) == false)
+            return false;
+        if (other.getOutpostCapable() == null ^ this.getOutpostCapable() == null)
+            return false;
+        if (other.getOutpostCapable() != null && other.getOutpostCapable().equals(this.getOutpostCapable()) == false)
+            return false;
+        if (other.getSupportedActivityStreamModes() == null ^ this.getSupportedActivityStreamModes() == null)
+            return false;
+        if (other.getSupportedActivityStreamModes() != null && other.getSupportedActivityStreamModes().equals(this.getSupportedActivityStreamModes()) == false)
+            return false;
+        if (other.getSupportsGlobalDatabases() == null ^ this.getSupportsGlobalDatabases() == null)
+            return false;
+        if (other.getSupportsGlobalDatabases() != null && other.getSupportsGlobalDatabases().equals(this.getSupportsGlobalDatabases()) == false)
+            return false;
+        if (other.getSupportsClusters() == null ^ this.getSupportsClusters() == null)
+            return false;
+        if (other.getSupportsClusters() != null && other.getSupportsClusters().equals(this.getSupportsClusters()) == false)
+            return false;
+        if (other.getSupportedNetworkTypes() == null ^ this.getSupportedNetworkTypes() == null)
+            return false;
+        if (other.getSupportedNetworkTypes() != null && other.getSupportedNetworkTypes().equals(this.getSupportedNetworkTypes()) == false)
+            return false;
+        if (other.getSupportsStorageThroughput() == null ^ this.getSupportsStorageThroughput() == null)
+            return false;
+        if (other.getSupportsStorageThroughput() != null && other.getSupportsStorageThroughput().equals(this.getSupportsStorageThroughput()) == false)
+            return false;
+        if (other.getMinStorageThroughputPerDbInstance() == null ^ this.getMinStorageThroughputPerDbInstance() == null)
+            return false;
+        if (other.getMinStorageThroughputPerDbInstance() != null
+                && other.getMinStorageThroughputPerDbInstance().equals(this.getMinStorageThroughputPerDbInstance()) == false)
+            return false;
+        if (other.getMaxStorageThroughputPerDbInstance() == null ^ this.getMaxStorageThroughputPerDbInstance() == null)
+            return false;
+        if (other.getMaxStorageThroughputPerDbInstance() != null
+                && other.getMaxStorageThroughputPerDbInstance().equals(this.getMaxStorageThroughputPerDbInstance()) == false)
+            return false;
+        if (other.getMinStorageThroughputPerIops() == null ^ this.getMinStorageThroughputPerIops() == null)
+            return false;
+        if (other.getMinStorageThroughputPerIops() != null && other.getMinStorageThroughputPerIops().equals(this.getMinStorageThroughputPerIops()) == false)
+            return false;
+        if (other.getMaxStorageThroughputPerIops() == null ^ this.getMaxStorageThroughputPerIops() == null)
+            return false;
+        if (other.getMaxStorageThroughputPerIops() != null && other.getMaxStorageThroughputPerIops().equals(this.getMaxStorageThroughputPerIops()) == false)
+            return false;
+        if (other.getSupportsDedicatedLogVolume() == null ^ this.getSupportsDedicatedLogVolume() == null)
+            return false;
+        if (other.getSupportsDedicatedLogVolume() != null && other.getSupportsDedicatedLogVolume().equals(this.getSupportsDedicatedLogVolume()) == false)
+            return false;
         return true;
     }
 
@@ -1476,6 +2470,7 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getEngineVersion() == null) ? 0 : getEngineVersion().hashCode());
         hashCode = prime * hashCode + ((getDBInstanceClass() == null) ? 0 : getDBInstanceClass().hashCode());
         hashCode = prime * hashCode + ((getLicenseModel() == null) ? 0 : getLicenseModel().hashCode());
+        hashCode = prime * hashCode + ((getAvailabilityZoneGroup() == null) ? 0 : getAvailabilityZoneGroup().hashCode());
         hashCode = prime * hashCode + ((getAvailabilityZones() == null) ? 0 : getAvailabilityZones().hashCode());
         hashCode = prime * hashCode + ((getMultiAZCapable() == null) ? 0 : getMultiAZCapable().hashCode());
         hashCode = prime * hashCode + ((getReadReplicaCapable() == null) ? 0 : getReadReplicaCapable().hashCode());
@@ -1495,6 +2490,18 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getAvailableProcessorFeatures() == null) ? 0 : getAvailableProcessorFeatures().hashCode());
         hashCode = prime * hashCode + ((getSupportedEngineModes() == null) ? 0 : getSupportedEngineModes().hashCode());
         hashCode = prime * hashCode + ((getSupportsStorageAutoscaling() == null) ? 0 : getSupportsStorageAutoscaling().hashCode());
+        hashCode = prime * hashCode + ((getSupportsKerberosAuthentication() == null) ? 0 : getSupportsKerberosAuthentication().hashCode());
+        hashCode = prime * hashCode + ((getOutpostCapable() == null) ? 0 : getOutpostCapable().hashCode());
+        hashCode = prime * hashCode + ((getSupportedActivityStreamModes() == null) ? 0 : getSupportedActivityStreamModes().hashCode());
+        hashCode = prime * hashCode + ((getSupportsGlobalDatabases() == null) ? 0 : getSupportsGlobalDatabases().hashCode());
+        hashCode = prime * hashCode + ((getSupportsClusters() == null) ? 0 : getSupportsClusters().hashCode());
+        hashCode = prime * hashCode + ((getSupportedNetworkTypes() == null) ? 0 : getSupportedNetworkTypes().hashCode());
+        hashCode = prime * hashCode + ((getSupportsStorageThroughput() == null) ? 0 : getSupportsStorageThroughput().hashCode());
+        hashCode = prime * hashCode + ((getMinStorageThroughputPerDbInstance() == null) ? 0 : getMinStorageThroughputPerDbInstance().hashCode());
+        hashCode = prime * hashCode + ((getMaxStorageThroughputPerDbInstance() == null) ? 0 : getMaxStorageThroughputPerDbInstance().hashCode());
+        hashCode = prime * hashCode + ((getMinStorageThroughputPerIops() == null) ? 0 : getMinStorageThroughputPerIops().hashCode());
+        hashCode = prime * hashCode + ((getMaxStorageThroughputPerIops() == null) ? 0 : getMaxStorageThroughputPerIops().hashCode());
+        hashCode = prime * hashCode + ((getSupportsDedicatedLogVolume() == null) ? 0 : getSupportsDedicatedLogVolume().hashCode());
         return hashCode;
     }
 

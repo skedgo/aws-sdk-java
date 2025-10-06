@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -54,6 +54,8 @@ public class CreateClusterRequestMarshaller {
             .marshallLocationName("Tags").build();
     private static final MarshallingInfo<StructuredPojo> SSESPECIFICATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SSESpecification").build();
+    private static final MarshallingInfo<String> CLUSTERENDPOINTENCRYPTIONTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ClusterEndpointEncryptionType").build();
 
     private static final CreateClusterRequestMarshaller instance = new CreateClusterRequestMarshaller();
 
@@ -84,6 +86,7 @@ public class CreateClusterRequestMarshaller {
             protocolMarshaller.marshall(createClusterRequest.getParameterGroupName(), PARAMETERGROUPNAME_BINDING);
             protocolMarshaller.marshall(createClusterRequest.getTags(), TAGS_BINDING);
             protocolMarshaller.marshall(createClusterRequest.getSSESpecification(), SSESPECIFICATION_BINDING);
+            protocolMarshaller.marshall(createClusterRequest.getClusterEndpointEncryptionType(), CLUSTERENDPOINTENCRYPTIONTYPE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

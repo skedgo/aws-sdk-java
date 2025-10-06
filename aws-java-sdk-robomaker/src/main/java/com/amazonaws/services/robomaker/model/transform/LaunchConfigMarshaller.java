@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -13,7 +13,7 @@
 package com.amazonaws.services.robomaker.model.transform;
 
 import java.util.Map;
-
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -35,6 +35,12 @@ public class LaunchConfigMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("launchFile").build();
     private static final MarshallingInfo<Map> ENVIRONMENTVARIABLES_BINDING = MarshallingInfo.builder(MarshallingType.MAP)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("environmentVariables").build();
+    private static final MarshallingInfo<StructuredPojo> PORTFORWARDINGCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("portForwardingConfig").build();
+    private static final MarshallingInfo<Boolean> STREAMUI_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("streamUI").build();
+    private static final MarshallingInfo<List> COMMAND_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("command").build();
 
     private static final LaunchConfigMarshaller instance = new LaunchConfigMarshaller();
 
@@ -55,6 +61,9 @@ public class LaunchConfigMarshaller {
             protocolMarshaller.marshall(launchConfig.getPackageName(), PACKAGENAME_BINDING);
             protocolMarshaller.marshall(launchConfig.getLaunchFile(), LAUNCHFILE_BINDING);
             protocolMarshaller.marshall(launchConfig.getEnvironmentVariables(), ENVIRONMENTVARIABLES_BINDING);
+            protocolMarshaller.marshall(launchConfig.getPortForwardingConfig(), PORTFORWARDINGCONFIG_BINDING);
+            protocolMarshaller.marshall(launchConfig.getStreamUI(), STREAMUI_BINDING);
+            protocolMarshaller.marshall(launchConfig.getCommand(), COMMAND_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,21 +48,21 @@ public class ExportTask implements Serializable, Cloneable, StructuredPojo {
     private String logGroupName;
     /**
      * <p>
-     * The start time, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. Events with a timestamp
-     * before this time are not exported.
+     * The start time, expressed as the number of milliseconds after <code>Jan 1, 1970 00:00:00 UTC</code>. Events with
+     * a timestamp before this time are not exported.
      * </p>
      */
     private Long from;
     /**
      * <p>
-     * The end time, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. Events with a timestamp
-     * later than this time are not exported.
+     * The end time, expressed as the number of milliseconds after <code>Jan 1, 1970 00:00:00 UTC</code>. Events with a
+     * timestamp later than this time are not exported.
      * </p>
      */
     private Long to;
     /**
      * <p>
-     * The name of Amazon S3 bucket to which the log data was exported.
+     * The name of the S3 bucket to which the log data was exported.
      * </p>
      */
     private String destination;
@@ -80,7 +80,7 @@ public class ExportTask implements Serializable, Cloneable, StructuredPojo {
     private ExportTaskStatus status;
     /**
      * <p>
-     * Execution info about the export task.
+     * Execution information about the export task.
      * </p>
      */
     private ExportTaskExecutionInfo executionInfo;
@@ -207,13 +207,13 @@ public class ExportTask implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The start time, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. Events with a timestamp
-     * before this time are not exported.
+     * The start time, expressed as the number of milliseconds after <code>Jan 1, 1970 00:00:00 UTC</code>. Events with
+     * a timestamp before this time are not exported.
      * </p>
      * 
      * @param from
-     *        The start time, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. Events with a
-     *        timestamp before this time are not exported.
+     *        The start time, expressed as the number of milliseconds after <code>Jan 1, 1970 00:00:00 UTC</code>.
+     *        Events with a timestamp before this time are not exported.
      */
 
     public void setFrom(Long from) {
@@ -222,12 +222,12 @@ public class ExportTask implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The start time, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. Events with a timestamp
-     * before this time are not exported.
+     * The start time, expressed as the number of milliseconds after <code>Jan 1, 1970 00:00:00 UTC</code>. Events with
+     * a timestamp before this time are not exported.
      * </p>
      * 
-     * @return The start time, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. Events with a
-     *         timestamp before this time are not exported.
+     * @return The start time, expressed as the number of milliseconds after <code>Jan 1, 1970 00:00:00 UTC</code>.
+     *         Events with a timestamp before this time are not exported.
      */
 
     public Long getFrom() {
@@ -236,13 +236,13 @@ public class ExportTask implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The start time, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. Events with a timestamp
-     * before this time are not exported.
+     * The start time, expressed as the number of milliseconds after <code>Jan 1, 1970 00:00:00 UTC</code>. Events with
+     * a timestamp before this time are not exported.
      * </p>
      * 
      * @param from
-     *        The start time, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. Events with a
-     *        timestamp before this time are not exported.
+     *        The start time, expressed as the number of milliseconds after <code>Jan 1, 1970 00:00:00 UTC</code>.
+     *        Events with a timestamp before this time are not exported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -253,13 +253,13 @@ public class ExportTask implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The end time, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. Events with a timestamp
-     * later than this time are not exported.
+     * The end time, expressed as the number of milliseconds after <code>Jan 1, 1970 00:00:00 UTC</code>. Events with a
+     * timestamp later than this time are not exported.
      * </p>
      * 
      * @param to
-     *        The end time, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. Events with a
-     *        timestamp later than this time are not exported.
+     *        The end time, expressed as the number of milliseconds after <code>Jan 1, 1970 00:00:00 UTC</code>. Events
+     *        with a timestamp later than this time are not exported.
      */
 
     public void setTo(Long to) {
@@ -268,12 +268,12 @@ public class ExportTask implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The end time, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. Events with a timestamp
-     * later than this time are not exported.
+     * The end time, expressed as the number of milliseconds after <code>Jan 1, 1970 00:00:00 UTC</code>. Events with a
+     * timestamp later than this time are not exported.
      * </p>
      * 
-     * @return The end time, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. Events with a
-     *         timestamp later than this time are not exported.
+     * @return The end time, expressed as the number of milliseconds after <code>Jan 1, 1970 00:00:00 UTC</code>. Events
+     *         with a timestamp later than this time are not exported.
      */
 
     public Long getTo() {
@@ -282,13 +282,13 @@ public class ExportTask implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The end time, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. Events with a timestamp
-     * later than this time are not exported.
+     * The end time, expressed as the number of milliseconds after <code>Jan 1, 1970 00:00:00 UTC</code>. Events with a
+     * timestamp later than this time are not exported.
      * </p>
      * 
      * @param to
-     *        The end time, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. Events with a
-     *        timestamp later than this time are not exported.
+     *        The end time, expressed as the number of milliseconds after <code>Jan 1, 1970 00:00:00 UTC</code>. Events
+     *        with a timestamp later than this time are not exported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -299,11 +299,11 @@ public class ExportTask implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of Amazon S3 bucket to which the log data was exported.
+     * The name of the S3 bucket to which the log data was exported.
      * </p>
      * 
      * @param destination
-     *        The name of Amazon S3 bucket to which the log data was exported.
+     *        The name of the S3 bucket to which the log data was exported.
      */
 
     public void setDestination(String destination) {
@@ -312,10 +312,10 @@ public class ExportTask implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of Amazon S3 bucket to which the log data was exported.
+     * The name of the S3 bucket to which the log data was exported.
      * </p>
      * 
-     * @return The name of Amazon S3 bucket to which the log data was exported.
+     * @return The name of the S3 bucket to which the log data was exported.
      */
 
     public String getDestination() {
@@ -324,11 +324,11 @@ public class ExportTask implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of Amazon S3 bucket to which the log data was exported.
+     * The name of the S3 bucket to which the log data was exported.
      * </p>
      * 
      * @param destination
-     *        The name of Amazon S3 bucket to which the log data was exported.
+     *        The name of the S3 bucket to which the log data was exported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -419,11 +419,11 @@ public class ExportTask implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Execution info about the export task.
+     * Execution information about the export task.
      * </p>
      * 
      * @param executionInfo
-     *        Execution info about the export task.
+     *        Execution information about the export task.
      */
 
     public void setExecutionInfo(ExportTaskExecutionInfo executionInfo) {
@@ -432,10 +432,10 @@ public class ExportTask implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Execution info about the export task.
+     * Execution information about the export task.
      * </p>
      * 
-     * @return Execution info about the export task.
+     * @return Execution information about the export task.
      */
 
     public ExportTaskExecutionInfo getExecutionInfo() {
@@ -444,11 +444,11 @@ public class ExportTask implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Execution info about the export task.
+     * Execution information about the export task.
      * </p>
      * 
      * @param executionInfo
-     *        Execution info about the export task.
+     *        Execution information about the export task.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

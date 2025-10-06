@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,6 +20,15 @@
  * AWS resources that are required to host and run your applications, scales automatically, and provides access to your
  * users on demand.
  * </p>
+ * <note>
+ * <p>
+ * You can call the AppStream 2.0 API operations by using an interface VPC endpoint (interface endpoint). For more
+ * information, see <a href=
+ * "https://docs.aws.amazon.com/appstream2/latest/developerguide/access-api-cli-through-interface-vpc-endpoint.html"
+ * >Access AppStream 2.0 API Operations and CLI Commands Through an Interface VPC Endpoint</a> in the <i>Amazon
+ * AppStream 2.0 Administration Guide</i>.
+ * </p>
+ * </note>
  * <p>
  * To learn more about AppStream 2.0, see the following resources:
  * </p>

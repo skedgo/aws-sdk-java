@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -120,6 +120,8 @@ public interface AmazonCloudSearch {
      *         the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.
      * @throws ResourceNotFoundException
      *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.BuildSuggesters
      */
     BuildSuggestersResult buildSuggesters(BuildSuggestersRequest buildSuggestersRequest);
@@ -142,6 +144,10 @@ public interface AmazonCloudSearch {
      *         the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.
      * @throws LimitExceededException
      *         The request was rejected because a resource limit has already been met.
+     * @throws ResourceAlreadyExistsException
+     *         The request was rejected because it attempted to create a resource that already exists.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.CreateDomain
      */
     CreateDomainResult createDomain(CreateDomainRequest createDomainRequest);
@@ -169,6 +175,8 @@ public interface AmazonCloudSearch {
      *         The request was rejected because it specified an invalid type definition.
      * @throws ResourceNotFoundException
      *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.DefineAnalysisScheme
      */
     DefineAnalysisSchemeResult defineAnalysisScheme(DefineAnalysisSchemeRequest defineAnalysisSchemeRequest);
@@ -196,6 +204,8 @@ public interface AmazonCloudSearch {
      *         The request was rejected because it specified an invalid type definition.
      * @throws ResourceNotFoundException
      *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.DefineExpression
      */
     DefineExpressionResult defineExpression(DefineExpressionRequest defineExpressionRequest);
@@ -226,6 +236,8 @@ public interface AmazonCloudSearch {
      *         The request was rejected because it specified an invalid type definition.
      * @throws ResourceNotFoundException
      *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.DefineIndexField
      */
     DefineIndexFieldResult defineIndexField(DefineIndexFieldRequest defineIndexFieldRequest);
@@ -254,6 +266,8 @@ public interface AmazonCloudSearch {
      *         The request was rejected because it specified an invalid type definition.
      * @throws ResourceNotFoundException
      *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.DefineSuggester
      */
     DefineSuggesterResult defineSuggester(DefineSuggesterRequest defineSuggesterRequest);
@@ -278,6 +292,8 @@ public interface AmazonCloudSearch {
      *         The request was rejected because it specified an invalid type definition.
      * @throws ResourceNotFoundException
      *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.DeleteAnalysisScheme
      */
     DeleteAnalysisSchemeResult deleteAnalysisScheme(DeleteAnalysisSchemeRequest deleteAnalysisSchemeRequest);
@@ -323,6 +339,8 @@ public interface AmazonCloudSearch {
      *         The request was rejected because it specified an invalid type definition.
      * @throws ResourceNotFoundException
      *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.DeleteExpression
      */
     DeleteExpressionResult deleteExpression(DeleteExpressionRequest deleteExpressionRequest);
@@ -347,6 +365,8 @@ public interface AmazonCloudSearch {
      *         The request was rejected because it specified an invalid type definition.
      * @throws ResourceNotFoundException
      *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.DeleteIndexField
      */
     DeleteIndexFieldResult deleteIndexField(DeleteIndexFieldRequest deleteIndexFieldRequest);
@@ -371,6 +391,8 @@ public interface AmazonCloudSearch {
      *         The request was rejected because it specified an invalid type definition.
      * @throws ResourceNotFoundException
      *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.DeleteSuggester
      */
     DeleteSuggesterResult deleteSuggester(DeleteSuggesterRequest deleteSuggesterRequest);
@@ -432,6 +454,34 @@ public interface AmazonCloudSearch {
      * @sample AmazonCloudSearch.DescribeAvailabilityOptions
      */
     DescribeAvailabilityOptionsResult describeAvailabilityOptions(DescribeAvailabilityOptionsRequest describeAvailabilityOptionsRequest);
+
+    /**
+     * <p>
+     * Returns the domain's endpoint options, specifically whether all requests to the domain must arrive over HTTPS.
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-domain-endpoint-options.html"
+     * target="_blank">Configuring Domain Endpoint Options</a> in the <i>Amazon CloudSearch Developer Guide</i>.
+     * </p>
+     * 
+     * @param describeDomainEndpointOptionsRequest
+     *        Container for the parameters to the <code><a>DescribeDomainEndpointOptions</a></code> operation. Specify
+     *        the name of the domain you want to describe. To show the active configuration and exclude any pending
+     *        changes, set the Deployed option to <code>true</code>.
+     * @return Result of the DescribeDomainEndpointOptions operation returned by the service.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @throws InternalException
+     *         An internal error occurred while processing the request. If this problem persists, report an issue from
+     *         the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.
+     * @throws LimitExceededException
+     *         The request was rejected because a resource limit has already been met.
+     * @throws ResourceNotFoundException
+     *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws DisabledOperationException
+     *         The request was rejected because it attempted an operation which is not enabled.
+     * @sample AmazonCloudSearch.DescribeDomainEndpointOptions
+     */
+    DescribeDomainEndpointOptionsResult describeDomainEndpointOptions(DescribeDomainEndpointOptionsRequest describeDomainEndpointOptionsRequest);
 
     /**
      * <p>
@@ -610,6 +660,8 @@ public interface AmazonCloudSearch {
      *         the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.
      * @throws ResourceNotFoundException
      *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.IndexDocuments
      */
     IndexDocumentsResult indexDocuments(IndexDocumentsRequest indexDocumentsRequest);
@@ -661,9 +713,42 @@ public interface AmazonCloudSearch {
      *         The request was rejected because it attempted to reference a resource that does not exist.
      * @throws DisabledOperationException
      *         The request was rejected because it attempted an operation which is not enabled.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.UpdateAvailabilityOptions
      */
     UpdateAvailabilityOptionsResult updateAvailabilityOptions(UpdateAvailabilityOptionsRequest updateAvailabilityOptionsRequest);
+
+    /**
+     * <p>
+     * Updates the domain's endpoint options, specifically whether all requests to the domain must arrive over HTTPS.
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-domain-endpoint-options.html"
+     * target="_blank">Configuring Domain Endpoint Options</a> in the <i>Amazon CloudSearch Developer Guide</i>.
+     * </p>
+     * 
+     * @param updateDomainEndpointOptionsRequest
+     *        Container for the parameters to the <code><a>UpdateDomainEndpointOptions</a></code> operation. Specifies
+     *        the name of the domain you want to update and the domain endpoint options.
+     * @return Result of the UpdateDomainEndpointOptions operation returned by the service.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @throws InternalException
+     *         An internal error occurred while processing the request. If this problem persists, report an issue from
+     *         the <a href="http://status.aws.amazon.com/" target="_blank">Service Health Dashboard</a>.
+     * @throws InvalidTypeException
+     *         The request was rejected because it specified an invalid type definition.
+     * @throws LimitExceededException
+     *         The request was rejected because a resource limit has already been met.
+     * @throws ResourceNotFoundException
+     *         The request was rejected because it attempted to reference a resource that does not exist.
+     * @throws DisabledOperationException
+     *         The request was rejected because it attempted an operation which is not enabled.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
+     * @sample AmazonCloudSearch.UpdateDomainEndpointOptions
+     */
+    UpdateDomainEndpointOptionsResult updateDomainEndpointOptions(UpdateDomainEndpointOptionsRequest updateDomainEndpointOptionsRequest);
 
     /**
      * <p>
@@ -690,6 +775,8 @@ public interface AmazonCloudSearch {
      *         The request was rejected because it attempted to reference a resource that does not exist.
      * @throws InvalidTypeException
      *         The request was rejected because it specified an invalid type definition.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.UpdateScalingParameters
      */
     UpdateScalingParametersResult updateScalingParameters(UpdateScalingParametersRequest updateScalingParametersRequest);
@@ -716,6 +803,8 @@ public interface AmazonCloudSearch {
      *         The request was rejected because it attempted to reference a resource that does not exist.
      * @throws InvalidTypeException
      *         The request was rejected because it specified an invalid type definition.
+     * @throws ValidationException
+     *         The request was rejected because it has invalid parameters.
      * @sample AmazonCloudSearch.UpdateServiceAccessPolicies
      */
     UpdateServiceAccessPoliciesResult updateServiceAccessPolicies(UpdateServiceAccessPoliciesRequest updateServiceAccessPoliciesRequest);

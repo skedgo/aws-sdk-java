@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,75 +30,41 @@ public class TaskSucceededEventDetails implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The action of the resource called by a task state.
+     * The service name of the resource in a task state.
      * </p>
      */
     private String resourceType;
     /**
      * <p>
-     * The service name of the resource in a task state.
+     * The action of the resource called by a task state.
      * </p>
      */
     private String resource;
     /**
      * <p>
      * The full JSON response from a resource when a task has succeeded. This response becomes the output of the related
-     * task.
+     * task. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
      * </p>
      */
     private String output;
-
     /**
      * <p>
-     * The action of the resource called by a task state.
+     * Contains details about the output of an execution history event.
      * </p>
-     * 
-     * @param resourceType
-     *        The action of the resource called by a task state.
      */
-
-    public void setResourceType(String resourceType) {
-        this.resourceType = resourceType;
-    }
-
-    /**
-     * <p>
-     * The action of the resource called by a task state.
-     * </p>
-     * 
-     * @return The action of the resource called by a task state.
-     */
-
-    public String getResourceType() {
-        return this.resourceType;
-    }
-
-    /**
-     * <p>
-     * The action of the resource called by a task state.
-     * </p>
-     * 
-     * @param resourceType
-     *        The action of the resource called by a task state.
-     * @return Returns a reference to this object so that method calls can be chained together.
-     */
-
-    public TaskSucceededEventDetails withResourceType(String resourceType) {
-        setResourceType(resourceType);
-        return this;
-    }
+    private HistoryEventExecutionDataDetails outputDetails;
 
     /**
      * <p>
      * The service name of the resource in a task state.
      * </p>
      * 
-     * @param resource
+     * @param resourceType
      *        The service name of the resource in a task state.
      */
 
-    public void setResource(String resource) {
-        this.resource = resource;
+    public void setResourceType(String resourceType) {
+        this.resourceType = resourceType;
     }
 
     /**
@@ -109,8 +75,8 @@ public class TaskSucceededEventDetails implements Serializable, Cloneable, Struc
      * @return The service name of the resource in a task state.
      */
 
-    public String getResource() {
-        return this.resource;
+    public String getResourceType() {
+        return this.resourceType;
     }
 
     /**
@@ -118,8 +84,48 @@ public class TaskSucceededEventDetails implements Serializable, Cloneable, Struc
      * The service name of the resource in a task state.
      * </p>
      * 
-     * @param resource
+     * @param resourceType
      *        The service name of the resource in a task state.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TaskSucceededEventDetails withResourceType(String resourceType) {
+        setResourceType(resourceType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The action of the resource called by a task state.
+     * </p>
+     * 
+     * @param resource
+     *        The action of the resource called by a task state.
+     */
+
+    public void setResource(String resource) {
+        this.resource = resource;
+    }
+
+    /**
+     * <p>
+     * The action of the resource called by a task state.
+     * </p>
+     * 
+     * @return The action of the resource called by a task state.
+     */
+
+    public String getResource() {
+        return this.resource;
+    }
+
+    /**
+     * <p>
+     * The action of the resource called by a task state.
+     * </p>
+     * 
+     * @param resource
+     *        The action of the resource called by a task state.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -131,12 +137,12 @@ public class TaskSucceededEventDetails implements Serializable, Cloneable, Struc
     /**
      * <p>
      * The full JSON response from a resource when a task has succeeded. This response becomes the output of the related
-     * task.
+     * task. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
      * </p>
      * 
      * @param output
      *        The full JSON response from a resource when a task has succeeded. This response becomes the output of the
-     *        related task.
+     *        related task. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
      */
 
     public void setOutput(String output) {
@@ -146,11 +152,11 @@ public class TaskSucceededEventDetails implements Serializable, Cloneable, Struc
     /**
      * <p>
      * The full JSON response from a resource when a task has succeeded. This response becomes the output of the related
-     * task.
+     * task. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
      * </p>
      * 
      * @return The full JSON response from a resource when a task has succeeded. This response becomes the output of the
-     *         related task.
+     *         related task. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
      */
 
     public String getOutput() {
@@ -160,17 +166,57 @@ public class TaskSucceededEventDetails implements Serializable, Cloneable, Struc
     /**
      * <p>
      * The full JSON response from a resource when a task has succeeded. This response becomes the output of the related
-     * task.
+     * task. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
      * </p>
      * 
      * @param output
      *        The full JSON response from a resource when a task has succeeded. This response becomes the output of the
-     *        related task.
+     *        related task. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public TaskSucceededEventDetails withOutput(String output) {
         setOutput(output);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Contains details about the output of an execution history event.
+     * </p>
+     * 
+     * @param outputDetails
+     *        Contains details about the output of an execution history event.
+     */
+
+    public void setOutputDetails(HistoryEventExecutionDataDetails outputDetails) {
+        this.outputDetails = outputDetails;
+    }
+
+    /**
+     * <p>
+     * Contains details about the output of an execution history event.
+     * </p>
+     * 
+     * @return Contains details about the output of an execution history event.
+     */
+
+    public HistoryEventExecutionDataDetails getOutputDetails() {
+        return this.outputDetails;
+    }
+
+    /**
+     * <p>
+     * Contains details about the output of an execution history event.
+     * </p>
+     * 
+     * @param outputDetails
+     *        Contains details about the output of an execution history event.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TaskSucceededEventDetails withOutputDetails(HistoryEventExecutionDataDetails outputDetails) {
+        setOutputDetails(outputDetails);
         return this;
     }
 
@@ -191,7 +237,9 @@ public class TaskSucceededEventDetails implements Serializable, Cloneable, Struc
         if (getResource() != null)
             sb.append("Resource: ").append(getResource()).append(",");
         if (getOutput() != null)
-            sb.append("Output: ").append("***Sensitive Data Redacted***");
+            sb.append("Output: ").append("***Sensitive Data Redacted***").append(",");
+        if (getOutputDetails() != null)
+            sb.append("OutputDetails: ").append(getOutputDetails());
         sb.append("}");
         return sb.toString();
     }
@@ -218,6 +266,10 @@ public class TaskSucceededEventDetails implements Serializable, Cloneable, Struc
             return false;
         if (other.getOutput() != null && other.getOutput().equals(this.getOutput()) == false)
             return false;
+        if (other.getOutputDetails() == null ^ this.getOutputDetails() == null)
+            return false;
+        if (other.getOutputDetails() != null && other.getOutputDetails().equals(this.getOutputDetails()) == false)
+            return false;
         return true;
     }
 
@@ -229,6 +281,7 @@ public class TaskSucceededEventDetails implements Serializable, Cloneable, Struc
         hashCode = prime * hashCode + ((getResourceType() == null) ? 0 : getResourceType().hashCode());
         hashCode = prime * hashCode + ((getResource() == null) ? 0 : getResource().hashCode());
         hashCode = prime * hashCode + ((getOutput() == null) ? 0 : getOutput().hashCode());
+        hashCode = prime * hashCode + ((getOutputDetails() == null) ? 0 : getOutputDetails().hashCode());
         return hashCode;
     }
 

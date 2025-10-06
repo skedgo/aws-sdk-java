@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,8 +34,9 @@ public class ListCampaignsRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String solutionArn;
     /**
      * <p>
-     * A token returned from the previous call to <code>ListCampaigns</code> for getting the next set of campaigns (if
-     * they exist).
+     * A token returned from the previous call to <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_ListCampaigns.html">ListCampaigns</a> for getting the
+     * next set of campaigns (if they exist).
      * </p>
      */
     private String nextToken;
@@ -94,13 +95,15 @@ public class ListCampaignsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * A token returned from the previous call to <code>ListCampaigns</code> for getting the next set of campaigns (if
-     * they exist).
+     * A token returned from the previous call to <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_ListCampaigns.html">ListCampaigns</a> for getting the
+     * next set of campaigns (if they exist).
      * </p>
      * 
      * @param nextToken
-     *        A token returned from the previous call to <code>ListCampaigns</code> for getting the next set of
-     *        campaigns (if they exist).
+     *        A token returned from the previous call to <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/API_ListCampaigns.html">ListCampaigns</a> for
+     *        getting the next set of campaigns (if they exist).
      */
 
     public void setNextToken(String nextToken) {
@@ -109,12 +112,14 @@ public class ListCampaignsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * A token returned from the previous call to <code>ListCampaigns</code> for getting the next set of campaigns (if
-     * they exist).
+     * A token returned from the previous call to <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_ListCampaigns.html">ListCampaigns</a> for getting the
+     * next set of campaigns (if they exist).
      * </p>
      * 
-     * @return A token returned from the previous call to <code>ListCampaigns</code> for getting the next set of
-     *         campaigns (if they exist).
+     * @return A token returned from the previous call to <a
+     *         href="https://docs.aws.amazon.com/personalize/latest/dg/API_ListCampaigns.html">ListCampaigns</a> for
+     *         getting the next set of campaigns (if they exist).
      */
 
     public String getNextToken() {
@@ -123,13 +128,15 @@ public class ListCampaignsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * A token returned from the previous call to <code>ListCampaigns</code> for getting the next set of campaigns (if
-     * they exist).
+     * A token returned from the previous call to <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_ListCampaigns.html">ListCampaigns</a> for getting the
+     * next set of campaigns (if they exist).
      * </p>
      * 
      * @param nextToken
-     *        A token returned from the previous call to <code>ListCampaigns</code> for getting the next set of
-     *        campaigns (if they exist).
+     *        A token returned from the previous call to <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/API_ListCampaigns.html">ListCampaigns</a> for
+     *        getting the next set of campaigns (if they exist).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

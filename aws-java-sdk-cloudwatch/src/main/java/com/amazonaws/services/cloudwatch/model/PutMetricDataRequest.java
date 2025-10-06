@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,35 +27,38 @@ public class PutMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The namespace for the metric data.
+     * The namespace for the metric data. You can use ASCII characters for the namespace, except for control characters
+     * which are not supported.
      * </p>
      * <p>
-     * You cannot specify a namespace that begins with "AWS/". Namespaces that begin with "AWS/" are reserved for use by
-     * Amazon Web Services products.
+     * To avoid conflicts with Amazon Web Services service namespaces, you should not specify a namespace that begins
+     * with <code>AWS/</code>
      * </p>
      */
     private String namespace;
     /**
      * <p>
-     * The data for the metric. The array can include no more than 20 metrics per call.
+     * The data for the metric. The array can include no more than 1000 metrics per call.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<MetricDatum> metricData;
 
     /**
      * <p>
-     * The namespace for the metric data.
+     * The namespace for the metric data. You can use ASCII characters for the namespace, except for control characters
+     * which are not supported.
      * </p>
      * <p>
-     * You cannot specify a namespace that begins with "AWS/". Namespaces that begin with "AWS/" are reserved for use by
-     * Amazon Web Services products.
+     * To avoid conflicts with Amazon Web Services service namespaces, you should not specify a namespace that begins
+     * with <code>AWS/</code>
      * </p>
      * 
      * @param namespace
-     *        The namespace for the metric data.</p>
+     *        The namespace for the metric data. You can use ASCII characters for the namespace, except for control
+     *        characters which are not supported.</p>
      *        <p>
-     *        You cannot specify a namespace that begins with "AWS/". Namespaces that begin with "AWS/" are reserved for
-     *        use by Amazon Web Services products.
+     *        To avoid conflicts with Amazon Web Services service namespaces, you should not specify a namespace that
+     *        begins with <code>AWS/</code>
      */
 
     public void setNamespace(String namespace) {
@@ -64,17 +67,19 @@ public class PutMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The namespace for the metric data.
+     * The namespace for the metric data. You can use ASCII characters for the namespace, except for control characters
+     * which are not supported.
      * </p>
      * <p>
-     * You cannot specify a namespace that begins with "AWS/". Namespaces that begin with "AWS/" are reserved for use by
-     * Amazon Web Services products.
+     * To avoid conflicts with Amazon Web Services service namespaces, you should not specify a namespace that begins
+     * with <code>AWS/</code>
      * </p>
      * 
-     * @return The namespace for the metric data.</p>
+     * @return The namespace for the metric data. You can use ASCII characters for the namespace, except for control
+     *         characters which are not supported.</p>
      *         <p>
-     *         You cannot specify a namespace that begins with "AWS/". Namespaces that begin with "AWS/" are reserved
-     *         for use by Amazon Web Services products.
+     *         To avoid conflicts with Amazon Web Services service namespaces, you should not specify a namespace that
+     *         begins with <code>AWS/</code>
      */
 
     public String getNamespace() {
@@ -83,18 +88,20 @@ public class PutMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The namespace for the metric data.
+     * The namespace for the metric data. You can use ASCII characters for the namespace, except for control characters
+     * which are not supported.
      * </p>
      * <p>
-     * You cannot specify a namespace that begins with "AWS/". Namespaces that begin with "AWS/" are reserved for use by
-     * Amazon Web Services products.
+     * To avoid conflicts with Amazon Web Services service namespaces, you should not specify a namespace that begins
+     * with <code>AWS/</code>
      * </p>
      * 
      * @param namespace
-     *        The namespace for the metric data.</p>
+     *        The namespace for the metric data. You can use ASCII characters for the namespace, except for control
+     *        characters which are not supported.</p>
      *        <p>
-     *        You cannot specify a namespace that begins with "AWS/". Namespaces that begin with "AWS/" are reserved for
-     *        use by Amazon Web Services products.
+     *        To avoid conflicts with Amazon Web Services service namespaces, you should not specify a namespace that
+     *        begins with <code>AWS/</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -105,10 +112,10 @@ public class PutMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The data for the metric. The array can include no more than 20 metrics per call.
+     * The data for the metric. The array can include no more than 1000 metrics per call.
      * </p>
      * 
-     * @return The data for the metric. The array can include no more than 20 metrics per call.
+     * @return The data for the metric. The array can include no more than 1000 metrics per call.
      */
 
     public java.util.List<MetricDatum> getMetricData() {
@@ -120,11 +127,11 @@ public class PutMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The data for the metric. The array can include no more than 20 metrics per call.
+     * The data for the metric. The array can include no more than 1000 metrics per call.
      * </p>
      * 
      * @param metricData
-     *        The data for the metric. The array can include no more than 20 metrics per call.
+     *        The data for the metric. The array can include no more than 1000 metrics per call.
      */
 
     public void setMetricData(java.util.Collection<MetricDatum> metricData) {
@@ -138,7 +145,7 @@ public class PutMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The data for the metric. The array can include no more than 20 metrics per call.
+     * The data for the metric. The array can include no more than 1000 metrics per call.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -147,7 +154,7 @@ public class PutMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * 
      * @param metricData
-     *        The data for the metric. The array can include no more than 20 metrics per call.
+     *        The data for the metric. The array can include no more than 1000 metrics per call.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -163,11 +170,11 @@ public class PutMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The data for the metric. The array can include no more than 20 metrics per call.
+     * The data for the metric. The array can include no more than 1000 metrics per call.
      * </p>
      * 
      * @param metricData
-     *        The data for the metric. The array can include no more than 20 metrics per call.
+     *        The data for the metric. The array can include no more than 1000 metrics per call.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

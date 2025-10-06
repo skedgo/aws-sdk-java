@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,8 +42,9 @@ public class DescribeContainerInstancesRequest extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * Specifies whether you want to see the resource tags for the container instance. If <code>TAGS</code> is
-     * specified, the tags are included in the response. If this field is omitted, tags are not included in the
-     * response.
+     * specified, the tags are included in the response. If <code>CONTAINER_INSTANCE_HEALTH</code> is specified, the
+     * container instance health is included in the response. If this field is omitted, tags and container instance
+     * health status aren't included in the response.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> include;
@@ -179,13 +180,15 @@ public class DescribeContainerInstancesRequest extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * Specifies whether you want to see the resource tags for the container instance. If <code>TAGS</code> is
-     * specified, the tags are included in the response. If this field is omitted, tags are not included in the
-     * response.
+     * specified, the tags are included in the response. If <code>CONTAINER_INSTANCE_HEALTH</code> is specified, the
+     * container instance health is included in the response. If this field is omitted, tags and container instance
+     * health status aren't included in the response.
      * </p>
      * 
      * @return Specifies whether you want to see the resource tags for the container instance. If <code>TAGS</code> is
-     *         specified, the tags are included in the response. If this field is omitted, tags are not included in the
-     *         response.
+     *         specified, the tags are included in the response. If <code>CONTAINER_INSTANCE_HEALTH</code> is specified,
+     *         the container instance health is included in the response. If this field is omitted, tags and container
+     *         instance health status aren't included in the response.
      * @see ContainerInstanceField
      */
 
@@ -199,14 +202,16 @@ public class DescribeContainerInstancesRequest extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * Specifies whether you want to see the resource tags for the container instance. If <code>TAGS</code> is
-     * specified, the tags are included in the response. If this field is omitted, tags are not included in the
-     * response.
+     * specified, the tags are included in the response. If <code>CONTAINER_INSTANCE_HEALTH</code> is specified, the
+     * container instance health is included in the response. If this field is omitted, tags and container instance
+     * health status aren't included in the response.
      * </p>
      * 
      * @param include
      *        Specifies whether you want to see the resource tags for the container instance. If <code>TAGS</code> is
-     *        specified, the tags are included in the response. If this field is omitted, tags are not included in the
-     *        response.
+     *        specified, the tags are included in the response. If <code>CONTAINER_INSTANCE_HEALTH</code> is specified,
+     *        the container instance health is included in the response. If this field is omitted, tags and container
+     *        instance health status aren't included in the response.
      * @see ContainerInstanceField
      */
 
@@ -222,8 +227,9 @@ public class DescribeContainerInstancesRequest extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * Specifies whether you want to see the resource tags for the container instance. If <code>TAGS</code> is
-     * specified, the tags are included in the response. If this field is omitted, tags are not included in the
-     * response.
+     * specified, the tags are included in the response. If <code>CONTAINER_INSTANCE_HEALTH</code> is specified, the
+     * container instance health is included in the response. If this field is omitted, tags and container instance
+     * health status aren't included in the response.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -233,8 +239,9 @@ public class DescribeContainerInstancesRequest extends com.amazonaws.AmazonWebSe
      * 
      * @param include
      *        Specifies whether you want to see the resource tags for the container instance. If <code>TAGS</code> is
-     *        specified, the tags are included in the response. If this field is omitted, tags are not included in the
-     *        response.
+     *        specified, the tags are included in the response. If <code>CONTAINER_INSTANCE_HEALTH</code> is specified,
+     *        the container instance health is included in the response. If this field is omitted, tags and container
+     *        instance health status aren't included in the response.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ContainerInstanceField
      */
@@ -252,14 +259,16 @@ public class DescribeContainerInstancesRequest extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * Specifies whether you want to see the resource tags for the container instance. If <code>TAGS</code> is
-     * specified, the tags are included in the response. If this field is omitted, tags are not included in the
-     * response.
+     * specified, the tags are included in the response. If <code>CONTAINER_INSTANCE_HEALTH</code> is specified, the
+     * container instance health is included in the response. If this field is omitted, tags and container instance
+     * health status aren't included in the response.
      * </p>
      * 
      * @param include
      *        Specifies whether you want to see the resource tags for the container instance. If <code>TAGS</code> is
-     *        specified, the tags are included in the response. If this field is omitted, tags are not included in the
-     *        response.
+     *        specified, the tags are included in the response. If <code>CONTAINER_INSTANCE_HEALTH</code> is specified,
+     *        the container instance health is included in the response. If this field is omitted, tags and container
+     *        instance health status aren't included in the response.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ContainerInstanceField
      */
@@ -272,14 +281,16 @@ public class DescribeContainerInstancesRequest extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * Specifies whether you want to see the resource tags for the container instance. If <code>TAGS</code> is
-     * specified, the tags are included in the response. If this field is omitted, tags are not included in the
-     * response.
+     * specified, the tags are included in the response. If <code>CONTAINER_INSTANCE_HEALTH</code> is specified, the
+     * container instance health is included in the response. If this field is omitted, tags and container instance
+     * health status aren't included in the response.
      * </p>
      * 
      * @param include
      *        Specifies whether you want to see the resource tags for the container instance. If <code>TAGS</code> is
-     *        specified, the tags are included in the response. If this field is omitted, tags are not included in the
-     *        response.
+     *        specified, the tags are included in the response. If <code>CONTAINER_INSTANCE_HEALTH</code> is specified,
+     *        the container instance health is included in the response. If this field is omitted, tags and container
+     *        instance health status aren't included in the response.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ContainerInstanceField
      */

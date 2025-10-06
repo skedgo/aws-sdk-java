@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
- * <p/>
+ * <p>
+ * Provides information that describes a replication task created by the <code>CreateReplicationTask</code> operation.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ReplicationTask" target="_top">AWS API
  *      Documentation</a>
@@ -36,7 +38,7 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 255 alphanumeric characters or hyphens.
+     * Must contain 1-255 alphanumeric characters or hyphens.
      * </p>
      * </li>
      * <li>
@@ -54,19 +56,19 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
     private String replicationTaskIdentifier;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.
+     * The Amazon Resource Name (ARN) that uniquely identifies the endpoint.
      * </p>
      */
     private String sourceEndpointArn;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.
+     * The ARN that uniquely identifies the endpoint.
      * </p>
      */
     private String targetEndpointArn;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the replication instance.
+     * The ARN of the replication instance.
      * </p>
      */
     private String replicationInstanceArn;
@@ -90,20 +92,195 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
     private String replicationTaskSettings;
     /**
      * <p>
-     * The status of the replication task.
+     * The status of the replication task. This response parameter can return one of the following values:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>"moving"</code> – The task is being moved in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_MoveReplicationTask.html">
+     * <code>MoveReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"creating"</code> – The task is being created in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_CreateReplicationTask.html">
+     * <code>CreateReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"deleting"</code> – The task is being deleted in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_DeleteReplicationTask.html">
+     * <code>DeleteReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"failed"</code> – The task failed to successfully complete the database migration in response to running
+     * the <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     * <code>StartReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"failed-move"</code> – The task failed to move in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_MoveReplicationTask.html">
+     * <code>MoveReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"modifying"</code> – The task definition is being modified in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_ModifyReplicationTask.html">
+     * <code>ModifyReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"ready"</code> – The task is in a <code>ready</code> state where it can respond to other task operations,
+     * such as <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     * <code>StartReplicationTask</code> </a> or <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_DeleteReplicationTask.html">
+     * <code>DeleteReplicationTask</code> </a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"running"</code> – The task is performing a database migration in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     * <code>StartReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"starting"</code> – The task is preparing to perform a database migration in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     * <code>StartReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"stopped"</code> – The task has stopped in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StopReplicationTask.html">
+     * <code>StopReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"stopping"</code> – The task is preparing to stop in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StopReplicationTask.html">
+     * <code>StopReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"testing"</code> – The database migration specified for this task is being tested in response to running
+     * either the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessmentRun.html">
+     * <code>StartReplicationTaskAssessmentRun</code> </a> or the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessment.html">
+     * <code>StartReplicationTaskAssessment</code> </a> operation.
+     * </p>
+     * <note>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessmentRun.html">
+     * <code>StartReplicationTaskAssessmentRun</code> </a> is an improved premigration task assessment operation. The <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessment.html">
+     * <code>StartReplicationTaskAssessment</code> </a> operation assesses data type compatibility only between the
+     * source and target database of a given migration task. In contrast, <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessmentRun.html">
+     * <code>StartReplicationTaskAssessmentRun</code> </a> enables you to specify a variety of premigration task
+     * assessments in addition to data type compatibility. These assessments include ones for the validity of primary
+     * key definitions and likely issues with database migration performance, among others.
+     * </p>
+     * </note></li>
+     * </ul>
      */
     private String status;
     /**
      * <p>
-     * The last error (failure) message generated for the replication instance.
+     * The last error (failure) message generated for the replication task.
      * </p>
      */
     private String lastFailureMessage;
     /**
      * <p>
-     * The reason the replication task was stopped.
+     * The reason the replication task was stopped. This response parameter can return one of the following values:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>"Stop Reason NORMAL"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason RECOVERABLE_ERROR"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason FATAL_ERROR"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason FULL_LOAD_ONLY_FINISHED"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_AFTER_FULL_LOAD"</code> – Full load completed, with cached changes not applied
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_AFTER_CACHED_EVENTS"</code> – Full load completed, with cached changes applied
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason EXPRESS_LICENSE_LIMITS_REACHED"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_AFTER_DDL_APPLY"</code> – User-defined stop task after DDL applied
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_DUE_TO_LOW_MEMORY"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_DUE_TO_LOW_DISK"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_AT_SERVER_TIME"</code> – User-defined server time for stopping task
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_AT_COMMIT_TIME"</code> – User-defined commit time for stopping task
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason RECONFIGURATION_RESTART"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason RECYCLE_TASK"</code>
+     * </p>
+     * </li>
+     * </ul>
      */
     private String stopReason;
     /**
@@ -145,10 +322,10 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
      * commit time.
      * </p>
      * <p>
-     * Server time example: --cdc-stop-position “server_time:3018-02-09T12:12:12”
+     * Server time example: --cdc-stop-position “server_time:2018-02-09T12:12:12”
      * </p>
      * <p>
-     * Commit time example: --cdc-stop-position “commit_time: 3018-02-09T12:12:12 “
+     * Commit time example: --cdc-stop-position “commit_time:2018-02-09T12:12:12“
      * </p>
      */
     private String cdcStopPosition;
@@ -171,6 +348,24 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
      * </p>
      */
     private ReplicationTaskStats replicationTaskStats;
+    /**
+     * <p>
+     * Supplemental information that the task requires to migrate the data for certain source and target endpoints. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.TaskData.html">Specifying Supplemental Data for
+     * Task Settings</a> in the <i>Database Migration Service User Guide.</i>
+     * </p>
+     */
+    private String taskData;
+    /**
+     * <p>
+     * The ARN of the replication instance to which this task is moved in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_MoveReplicationTask.html">
+     * <code>MoveReplicationTask</code> </a> operation. Otherwise, this response parameter isn't a member of the
+     * <code>ReplicationTask</code> object.
+     * </p>
+     */
+    private String targetReplicationInstanceArn;
 
     /**
      * <p>
@@ -182,7 +377,7 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 255 alphanumeric characters or hyphens.
+     * Must contain 1-255 alphanumeric characters or hyphens.
      * </p>
      * </li>
      * <li>
@@ -205,7 +400,7 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
      *        <ul>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 255 alphanumeric characters or hyphens.
+     *        Must contain 1-255 alphanumeric characters or hyphens.
      *        </p>
      *        </li>
      *        <li>
@@ -234,7 +429,7 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 255 alphanumeric characters or hyphens.
+     * Must contain 1-255 alphanumeric characters or hyphens.
      * </p>
      * </li>
      * <li>
@@ -256,7 +451,7 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
      *         <ul>
      *         <li>
      *         <p>
-     *         Must contain from 1 to 255 alphanumeric characters or hyphens.
+     *         Must contain 1-255 alphanumeric characters or hyphens.
      *         </p>
      *         </li>
      *         <li>
@@ -285,7 +480,7 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 255 alphanumeric characters or hyphens.
+     * Must contain 1-255 alphanumeric characters or hyphens.
      * </p>
      * </li>
      * <li>
@@ -308,7 +503,7 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
      *        <ul>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 255 alphanumeric characters or hyphens.
+     *        Must contain 1-255 alphanumeric characters or hyphens.
      *        </p>
      *        </li>
      *        <li>
@@ -331,11 +526,11 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.
+     * The Amazon Resource Name (ARN) that uniquely identifies the endpoint.
      * </p>
      * 
      * @param sourceEndpointArn
-     *        The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.
+     *        The Amazon Resource Name (ARN) that uniquely identifies the endpoint.
      */
 
     public void setSourceEndpointArn(String sourceEndpointArn) {
@@ -344,10 +539,10 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.
+     * The Amazon Resource Name (ARN) that uniquely identifies the endpoint.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.
+     * @return The Amazon Resource Name (ARN) that uniquely identifies the endpoint.
      */
 
     public String getSourceEndpointArn() {
@@ -356,11 +551,11 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.
+     * The Amazon Resource Name (ARN) that uniquely identifies the endpoint.
      * </p>
      * 
      * @param sourceEndpointArn
-     *        The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.
+     *        The Amazon Resource Name (ARN) that uniquely identifies the endpoint.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -371,11 +566,11 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.
+     * The ARN that uniquely identifies the endpoint.
      * </p>
      * 
      * @param targetEndpointArn
-     *        The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.
+     *        The ARN that uniquely identifies the endpoint.
      */
 
     public void setTargetEndpointArn(String targetEndpointArn) {
@@ -384,10 +579,10 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.
+     * The ARN that uniquely identifies the endpoint.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.
+     * @return The ARN that uniquely identifies the endpoint.
      */
 
     public String getTargetEndpointArn() {
@@ -396,11 +591,11 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.
+     * The ARN that uniquely identifies the endpoint.
      * </p>
      * 
      * @param targetEndpointArn
-     *        The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.
+     *        The ARN that uniquely identifies the endpoint.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -411,11 +606,11 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the replication instance.
+     * The ARN of the replication instance.
      * </p>
      * 
      * @param replicationInstanceArn
-     *        The Amazon Resource Name (ARN) of the replication instance.
+     *        The ARN of the replication instance.
      */
 
     public void setReplicationInstanceArn(String replicationInstanceArn) {
@@ -424,10 +619,10 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the replication instance.
+     * The ARN of the replication instance.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the replication instance.
+     * @return The ARN of the replication instance.
      */
 
     public String getReplicationInstanceArn() {
@@ -436,11 +631,11 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the replication instance.
+     * The ARN of the replication instance.
      * </p>
      * 
      * @param replicationInstanceArn
-     *        The Amazon Resource Name (ARN) of the replication instance.
+     *        The ARN of the replication instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -604,11 +799,217 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The status of the replication task.
+     * The status of the replication task. This response parameter can return one of the following values:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>"moving"</code> – The task is being moved in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_MoveReplicationTask.html">
+     * <code>MoveReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"creating"</code> – The task is being created in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_CreateReplicationTask.html">
+     * <code>CreateReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"deleting"</code> – The task is being deleted in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_DeleteReplicationTask.html">
+     * <code>DeleteReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"failed"</code> – The task failed to successfully complete the database migration in response to running
+     * the <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     * <code>StartReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"failed-move"</code> – The task failed to move in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_MoveReplicationTask.html">
+     * <code>MoveReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"modifying"</code> – The task definition is being modified in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_ModifyReplicationTask.html">
+     * <code>ModifyReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"ready"</code> – The task is in a <code>ready</code> state where it can respond to other task operations,
+     * such as <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     * <code>StartReplicationTask</code> </a> or <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_DeleteReplicationTask.html">
+     * <code>DeleteReplicationTask</code> </a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"running"</code> – The task is performing a database migration in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     * <code>StartReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"starting"</code> – The task is preparing to perform a database migration in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     * <code>StartReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"stopped"</code> – The task has stopped in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StopReplicationTask.html">
+     * <code>StopReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"stopping"</code> – The task is preparing to stop in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StopReplicationTask.html">
+     * <code>StopReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"testing"</code> – The database migration specified for this task is being tested in response to running
+     * either the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessmentRun.html">
+     * <code>StartReplicationTaskAssessmentRun</code> </a> or the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessment.html">
+     * <code>StartReplicationTaskAssessment</code> </a> operation.
+     * </p>
+     * <note>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessmentRun.html">
+     * <code>StartReplicationTaskAssessmentRun</code> </a> is an improved premigration task assessment operation. The <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessment.html">
+     * <code>StartReplicationTaskAssessment</code> </a> operation assesses data type compatibility only between the
+     * source and target database of a given migration task. In contrast, <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessmentRun.html">
+     * <code>StartReplicationTaskAssessmentRun</code> </a> enables you to specify a variety of premigration task
+     * assessments in addition to data type compatibility. These assessments include ones for the validity of primary
+     * key definitions and likely issues with database migration performance, among others.
+     * </p>
+     * </note></li>
+     * </ul>
      * 
      * @param status
-     *        The status of the replication task.
+     *        The status of the replication task. This response parameter can return one of the following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>"moving"</code> – The task is being moved in response to running the <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_MoveReplicationTask.html">
+     *        <code>MoveReplicationTask</code> </a> operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"creating"</code> – The task is being created in response to running the <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_CreateReplicationTask.html">
+     *        <code>CreateReplicationTask</code> </a> operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"deleting"</code> – The task is being deleted in response to running the <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_DeleteReplicationTask.html">
+     *        <code>DeleteReplicationTask</code> </a> operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"failed"</code> – The task failed to successfully complete the database migration in response to
+     *        running the <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     *        <code>StartReplicationTask</code> </a> operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"failed-move"</code> – The task failed to move in response to running the <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_MoveReplicationTask.html">
+     *        <code>MoveReplicationTask</code> </a> operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"modifying"</code> – The task definition is being modified in response to running the <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_ModifyReplicationTask.html">
+     *        <code>ModifyReplicationTask</code> </a> operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"ready"</code> – The task is in a <code>ready</code> state where it can respond to other task
+     *        operations, such as <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     *        <code>StartReplicationTask</code> </a> or <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_DeleteReplicationTask.html">
+     *        <code>DeleteReplicationTask</code> </a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"running"</code> – The task is performing a database migration in response to running the <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     *        <code>StartReplicationTask</code> </a> operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"starting"</code> – The task is preparing to perform a database migration in response to running the
+     *        <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     *        <code>StartReplicationTask</code> </a> operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"stopped"</code> – The task has stopped in response to running the <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StopReplicationTask.html">
+     *        <code>StopReplicationTask</code> </a> operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"stopping"</code> – The task is preparing to stop in response to running the <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StopReplicationTask.html">
+     *        <code>StopReplicationTask</code> </a> operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"testing"</code> – The database migration specified for this task is being tested in response to
+     *        running either the <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessmentRun.html">
+     *        <code>StartReplicationTaskAssessmentRun</code> </a> or the <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessment.html">
+     *        <code>StartReplicationTaskAssessment</code> </a> operation.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessmentRun.html">
+     *        <code>StartReplicationTaskAssessmentRun</code> </a> is an improved premigration task assessment operation.
+     *        The <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessment.html">
+     *        <code>StartReplicationTaskAssessment</code> </a> operation assesses data type compatibility only between
+     *        the source and target database of a given migration task. In contrast, <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessmentRun.html">
+     *        <code>StartReplicationTaskAssessmentRun</code> </a> enables you to specify a variety of premigration task
+     *        assessments in addition to data type compatibility. These assessments include ones for the validity of
+     *        primary key definitions and likely issues with database migration performance, among others.
+     *        </p>
+     *        </note></li>
      */
 
     public void setStatus(String status) {
@@ -617,10 +1018,217 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The status of the replication task.
+     * The status of the replication task. This response parameter can return one of the following values:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>"moving"</code> – The task is being moved in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_MoveReplicationTask.html">
+     * <code>MoveReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"creating"</code> – The task is being created in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_CreateReplicationTask.html">
+     * <code>CreateReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"deleting"</code> – The task is being deleted in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_DeleteReplicationTask.html">
+     * <code>DeleteReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"failed"</code> – The task failed to successfully complete the database migration in response to running
+     * the <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     * <code>StartReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"failed-move"</code> – The task failed to move in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_MoveReplicationTask.html">
+     * <code>MoveReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"modifying"</code> – The task definition is being modified in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_ModifyReplicationTask.html">
+     * <code>ModifyReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"ready"</code> – The task is in a <code>ready</code> state where it can respond to other task operations,
+     * such as <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     * <code>StartReplicationTask</code> </a> or <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_DeleteReplicationTask.html">
+     * <code>DeleteReplicationTask</code> </a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"running"</code> – The task is performing a database migration in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     * <code>StartReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"starting"</code> – The task is preparing to perform a database migration in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     * <code>StartReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"stopped"</code> – The task has stopped in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StopReplicationTask.html">
+     * <code>StopReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"stopping"</code> – The task is preparing to stop in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StopReplicationTask.html">
+     * <code>StopReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"testing"</code> – The database migration specified for this task is being tested in response to running
+     * either the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessmentRun.html">
+     * <code>StartReplicationTaskAssessmentRun</code> </a> or the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessment.html">
+     * <code>StartReplicationTaskAssessment</code> </a> operation.
+     * </p>
+     * <note>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessmentRun.html">
+     * <code>StartReplicationTaskAssessmentRun</code> </a> is an improved premigration task assessment operation. The <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessment.html">
+     * <code>StartReplicationTaskAssessment</code> </a> operation assesses data type compatibility only between the
+     * source and target database of a given migration task. In contrast, <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessmentRun.html">
+     * <code>StartReplicationTaskAssessmentRun</code> </a> enables you to specify a variety of premigration task
+     * assessments in addition to data type compatibility. These assessments include ones for the validity of primary
+     * key definitions and likely issues with database migration performance, among others.
+     * </p>
+     * </note></li>
+     * </ul>
      * 
-     * @return The status of the replication task.
+     * @return The status of the replication task. This response parameter can return one of the following values:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>"moving"</code> – The task is being moved in response to running the <a
+     *         href="https://docs.aws.amazon.com/dms/latest/APIReference/API_MoveReplicationTask.html">
+     *         <code>MoveReplicationTask</code> </a> operation.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"creating"</code> – The task is being created in response to running the <a
+     *         href="https://docs.aws.amazon.com/dms/latest/APIReference/API_CreateReplicationTask.html">
+     *         <code>CreateReplicationTask</code> </a> operation.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"deleting"</code> – The task is being deleted in response to running the <a
+     *         href="https://docs.aws.amazon.com/dms/latest/APIReference/API_DeleteReplicationTask.html">
+     *         <code>DeleteReplicationTask</code> </a> operation.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"failed"</code> – The task failed to successfully complete the database migration in response to
+     *         running the <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     *         <code>StartReplicationTask</code> </a> operation.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"failed-move"</code> – The task failed to move in response to running the <a
+     *         href="https://docs.aws.amazon.com/dms/latest/APIReference/API_MoveReplicationTask.html">
+     *         <code>MoveReplicationTask</code> </a> operation.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"modifying"</code> – The task definition is being modified in response to running the <a
+     *         href="https://docs.aws.amazon.com/dms/latest/APIReference/API_ModifyReplicationTask.html">
+     *         <code>ModifyReplicationTask</code> </a> operation.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"ready"</code> – The task is in a <code>ready</code> state where it can respond to other task
+     *         operations, such as <a
+     *         href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     *         <code>StartReplicationTask</code> </a> or <a
+     *         href="https://docs.aws.amazon.com/dms/latest/APIReference/API_DeleteReplicationTask.html">
+     *         <code>DeleteReplicationTask</code> </a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"running"</code> – The task is performing a database migration in response to running the <a
+     *         href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     *         <code>StartReplicationTask</code> </a> operation.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"starting"</code> – The task is preparing to perform a database migration in response to running
+     *         the <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     *         <code>StartReplicationTask</code> </a> operation.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"stopped"</code> – The task has stopped in response to running the <a
+     *         href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StopReplicationTask.html">
+     *         <code>StopReplicationTask</code> </a> operation.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"stopping"</code> – The task is preparing to stop in response to running the <a
+     *         href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StopReplicationTask.html">
+     *         <code>StopReplicationTask</code> </a> operation.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"testing"</code> – The database migration specified for this task is being tested in response to
+     *         running either the <a
+     *         href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessmentRun.html">
+     *         <code>StartReplicationTaskAssessmentRun</code> </a> or the <a
+     *         href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessment.html">
+     *         <code>StartReplicationTaskAssessment</code> </a> operation.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessmentRun.html">
+     *         <code>StartReplicationTaskAssessmentRun</code> </a> is an improved premigration task assessment
+     *         operation. The <a
+     *         href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessment.html">
+     *         <code>StartReplicationTaskAssessment</code> </a> operation assesses data type compatibility only between
+     *         the source and target database of a given migration task. In contrast, <a
+     *         href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessmentRun.html">
+     *         <code>StartReplicationTaskAssessmentRun</code> </a> enables you to specify a variety of premigration task
+     *         assessments in addition to data type compatibility. These assessments include ones for the validity of
+     *         primary key definitions and likely issues with database migration performance, among others.
+     *         </p>
+     *         </note></li>
      */
 
     public String getStatus() {
@@ -629,11 +1237,217 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The status of the replication task.
+     * The status of the replication task. This response parameter can return one of the following values:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>"moving"</code> – The task is being moved in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_MoveReplicationTask.html">
+     * <code>MoveReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"creating"</code> – The task is being created in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_CreateReplicationTask.html">
+     * <code>CreateReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"deleting"</code> – The task is being deleted in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_DeleteReplicationTask.html">
+     * <code>DeleteReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"failed"</code> – The task failed to successfully complete the database migration in response to running
+     * the <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     * <code>StartReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"failed-move"</code> – The task failed to move in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_MoveReplicationTask.html">
+     * <code>MoveReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"modifying"</code> – The task definition is being modified in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_ModifyReplicationTask.html">
+     * <code>ModifyReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"ready"</code> – The task is in a <code>ready</code> state where it can respond to other task operations,
+     * such as <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     * <code>StartReplicationTask</code> </a> or <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_DeleteReplicationTask.html">
+     * <code>DeleteReplicationTask</code> </a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"running"</code> – The task is performing a database migration in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     * <code>StartReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"starting"</code> – The task is preparing to perform a database migration in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     * <code>StartReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"stopped"</code> – The task has stopped in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StopReplicationTask.html">
+     * <code>StopReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"stopping"</code> – The task is preparing to stop in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StopReplicationTask.html">
+     * <code>StopReplicationTask</code> </a> operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"testing"</code> – The database migration specified for this task is being tested in response to running
+     * either the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessmentRun.html">
+     * <code>StartReplicationTaskAssessmentRun</code> </a> or the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessment.html">
+     * <code>StartReplicationTaskAssessment</code> </a> operation.
+     * </p>
+     * <note>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessmentRun.html">
+     * <code>StartReplicationTaskAssessmentRun</code> </a> is an improved premigration task assessment operation. The <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessment.html">
+     * <code>StartReplicationTaskAssessment</code> </a> operation assesses data type compatibility only between the
+     * source and target database of a given migration task. In contrast, <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessmentRun.html">
+     * <code>StartReplicationTaskAssessmentRun</code> </a> enables you to specify a variety of premigration task
+     * assessments in addition to data type compatibility. These assessments include ones for the validity of primary
+     * key definitions and likely issues with database migration performance, among others.
+     * </p>
+     * </note></li>
+     * </ul>
      * 
      * @param status
-     *        The status of the replication task.
+     *        The status of the replication task. This response parameter can return one of the following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>"moving"</code> – The task is being moved in response to running the <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_MoveReplicationTask.html">
+     *        <code>MoveReplicationTask</code> </a> operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"creating"</code> – The task is being created in response to running the <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_CreateReplicationTask.html">
+     *        <code>CreateReplicationTask</code> </a> operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"deleting"</code> – The task is being deleted in response to running the <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_DeleteReplicationTask.html">
+     *        <code>DeleteReplicationTask</code> </a> operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"failed"</code> – The task failed to successfully complete the database migration in response to
+     *        running the <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     *        <code>StartReplicationTask</code> </a> operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"failed-move"</code> – The task failed to move in response to running the <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_MoveReplicationTask.html">
+     *        <code>MoveReplicationTask</code> </a> operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"modifying"</code> – The task definition is being modified in response to running the <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_ModifyReplicationTask.html">
+     *        <code>ModifyReplicationTask</code> </a> operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"ready"</code> – The task is in a <code>ready</code> state where it can respond to other task
+     *        operations, such as <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     *        <code>StartReplicationTask</code> </a> or <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_DeleteReplicationTask.html">
+     *        <code>DeleteReplicationTask</code> </a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"running"</code> – The task is performing a database migration in response to running the <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     *        <code>StartReplicationTask</code> </a> operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"starting"</code> – The task is preparing to perform a database migration in response to running the
+     *        <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTask.html">
+     *        <code>StartReplicationTask</code> </a> operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"stopped"</code> – The task has stopped in response to running the <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StopReplicationTask.html">
+     *        <code>StopReplicationTask</code> </a> operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"stopping"</code> – The task is preparing to stop in response to running the <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StopReplicationTask.html">
+     *        <code>StopReplicationTask</code> </a> operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"testing"</code> – The database migration specified for this task is being tested in response to
+     *        running either the <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessmentRun.html">
+     *        <code>StartReplicationTaskAssessmentRun</code> </a> or the <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessment.html">
+     *        <code>StartReplicationTaskAssessment</code> </a> operation.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessmentRun.html">
+     *        <code>StartReplicationTaskAssessmentRun</code> </a> is an improved premigration task assessment operation.
+     *        The <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessment.html">
+     *        <code>StartReplicationTaskAssessment</code> </a> operation assesses data type compatibility only between
+     *        the source and target database of a given migration task. In contrast, <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartReplicationTaskAssessmentRun.html">
+     *        <code>StartReplicationTaskAssessmentRun</code> </a> enables you to specify a variety of premigration task
+     *        assessments in addition to data type compatibility. These assessments include ones for the validity of
+     *        primary key definitions and likely issues with database migration performance, among others.
+     *        </p>
+     *        </note></li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -644,11 +1458,11 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The last error (failure) message generated for the replication instance.
+     * The last error (failure) message generated for the replication task.
      * </p>
      * 
      * @param lastFailureMessage
-     *        The last error (failure) message generated for the replication instance.
+     *        The last error (failure) message generated for the replication task.
      */
 
     public void setLastFailureMessage(String lastFailureMessage) {
@@ -657,10 +1471,10 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The last error (failure) message generated for the replication instance.
+     * The last error (failure) message generated for the replication task.
      * </p>
      * 
-     * @return The last error (failure) message generated for the replication instance.
+     * @return The last error (failure) message generated for the replication task.
      */
 
     public String getLastFailureMessage() {
@@ -669,11 +1483,11 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The last error (failure) message generated for the replication instance.
+     * The last error (failure) message generated for the replication task.
      * </p>
      * 
      * @param lastFailureMessage
-     *        The last error (failure) message generated for the replication instance.
+     *        The last error (failure) message generated for the replication task.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -684,11 +1498,155 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The reason the replication task was stopped.
+     * The reason the replication task was stopped. This response parameter can return one of the following values:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>"Stop Reason NORMAL"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason RECOVERABLE_ERROR"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason FATAL_ERROR"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason FULL_LOAD_ONLY_FINISHED"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_AFTER_FULL_LOAD"</code> – Full load completed, with cached changes not applied
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_AFTER_CACHED_EVENTS"</code> – Full load completed, with cached changes applied
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason EXPRESS_LICENSE_LIMITS_REACHED"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_AFTER_DDL_APPLY"</code> – User-defined stop task after DDL applied
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_DUE_TO_LOW_MEMORY"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_DUE_TO_LOW_DISK"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_AT_SERVER_TIME"</code> – User-defined server time for stopping task
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_AT_COMMIT_TIME"</code> – User-defined commit time for stopping task
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason RECONFIGURATION_RESTART"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason RECYCLE_TASK"</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param stopReason
-     *        The reason the replication task was stopped.
+     *        The reason the replication task was stopped. This response parameter can return one of the following
+     *        values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason NORMAL"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason RECOVERABLE_ERROR"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason FATAL_ERROR"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason FULL_LOAD_ONLY_FINISHED"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason STOPPED_AFTER_FULL_LOAD"</code> – Full load completed, with cached changes not applied
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason STOPPED_AFTER_CACHED_EVENTS"</code> – Full load completed, with cached changes applied
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason EXPRESS_LICENSE_LIMITS_REACHED"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason STOPPED_AFTER_DDL_APPLY"</code> – User-defined stop task after DDL applied
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason STOPPED_DUE_TO_LOW_MEMORY"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason STOPPED_DUE_TO_LOW_DISK"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason STOPPED_AT_SERVER_TIME"</code> – User-defined server time for stopping task
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason STOPPED_AT_COMMIT_TIME"</code> – User-defined commit time for stopping task
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason RECONFIGURATION_RESTART"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason RECYCLE_TASK"</code>
+     *        </p>
+     *        </li>
      */
 
     public void setStopReason(String stopReason) {
@@ -697,10 +1655,154 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The reason the replication task was stopped.
+     * The reason the replication task was stopped. This response parameter can return one of the following values:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>"Stop Reason NORMAL"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason RECOVERABLE_ERROR"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason FATAL_ERROR"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason FULL_LOAD_ONLY_FINISHED"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_AFTER_FULL_LOAD"</code> – Full load completed, with cached changes not applied
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_AFTER_CACHED_EVENTS"</code> – Full load completed, with cached changes applied
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason EXPRESS_LICENSE_LIMITS_REACHED"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_AFTER_DDL_APPLY"</code> – User-defined stop task after DDL applied
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_DUE_TO_LOW_MEMORY"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_DUE_TO_LOW_DISK"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_AT_SERVER_TIME"</code> – User-defined server time for stopping task
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_AT_COMMIT_TIME"</code> – User-defined commit time for stopping task
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason RECONFIGURATION_RESTART"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason RECYCLE_TASK"</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The reason the replication task was stopped.
+     * @return The reason the replication task was stopped. This response parameter can return one of the following
+     *         values:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>"Stop Reason NORMAL"</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"Stop Reason RECOVERABLE_ERROR"</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"Stop Reason FATAL_ERROR"</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"Stop Reason FULL_LOAD_ONLY_FINISHED"</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"Stop Reason STOPPED_AFTER_FULL_LOAD"</code> – Full load completed, with cached changes not applied
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"Stop Reason STOPPED_AFTER_CACHED_EVENTS"</code> – Full load completed, with cached changes applied
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"Stop Reason EXPRESS_LICENSE_LIMITS_REACHED"</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"Stop Reason STOPPED_AFTER_DDL_APPLY"</code> – User-defined stop task after DDL applied
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"Stop Reason STOPPED_DUE_TO_LOW_MEMORY"</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"Stop Reason STOPPED_DUE_TO_LOW_DISK"</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"Stop Reason STOPPED_AT_SERVER_TIME"</code> – User-defined server time for stopping task
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"Stop Reason STOPPED_AT_COMMIT_TIME"</code> – User-defined commit time for stopping task
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"Stop Reason RECONFIGURATION_RESTART"</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"Stop Reason RECYCLE_TASK"</code>
+     *         </p>
+     *         </li>
      */
 
     public String getStopReason() {
@@ -709,11 +1811,155 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The reason the replication task was stopped.
+     * The reason the replication task was stopped. This response parameter can return one of the following values:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>"Stop Reason NORMAL"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason RECOVERABLE_ERROR"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason FATAL_ERROR"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason FULL_LOAD_ONLY_FINISHED"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_AFTER_FULL_LOAD"</code> – Full load completed, with cached changes not applied
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_AFTER_CACHED_EVENTS"</code> – Full load completed, with cached changes applied
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason EXPRESS_LICENSE_LIMITS_REACHED"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_AFTER_DDL_APPLY"</code> – User-defined stop task after DDL applied
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_DUE_TO_LOW_MEMORY"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_DUE_TO_LOW_DISK"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_AT_SERVER_TIME"</code> – User-defined server time for stopping task
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason STOPPED_AT_COMMIT_TIME"</code> – User-defined commit time for stopping task
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason RECONFIGURATION_RESTART"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"Stop Reason RECYCLE_TASK"</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param stopReason
-     *        The reason the replication task was stopped.
+     *        The reason the replication task was stopped. This response parameter can return one of the following
+     *        values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason NORMAL"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason RECOVERABLE_ERROR"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason FATAL_ERROR"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason FULL_LOAD_ONLY_FINISHED"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason STOPPED_AFTER_FULL_LOAD"</code> – Full load completed, with cached changes not applied
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason STOPPED_AFTER_CACHED_EVENTS"</code> – Full load completed, with cached changes applied
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason EXPRESS_LICENSE_LIMITS_REACHED"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason STOPPED_AFTER_DDL_APPLY"</code> – User-defined stop task after DDL applied
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason STOPPED_DUE_TO_LOW_MEMORY"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason STOPPED_DUE_TO_LOW_DISK"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason STOPPED_AT_SERVER_TIME"</code> – User-defined server time for stopping task
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason STOPPED_AT_COMMIT_TIME"</code> – User-defined commit time for stopping task
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason RECONFIGURATION_RESTART"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"Stop Reason RECYCLE_TASK"</code>
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -935,20 +2181,20 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
      * commit time.
      * </p>
      * <p>
-     * Server time example: --cdc-stop-position “server_time:3018-02-09T12:12:12”
+     * Server time example: --cdc-stop-position “server_time:2018-02-09T12:12:12”
      * </p>
      * <p>
-     * Commit time example: --cdc-stop-position “commit_time: 3018-02-09T12:12:12 “
+     * Commit time example: --cdc-stop-position “commit_time:2018-02-09T12:12:12“
      * </p>
      * 
      * @param cdcStopPosition
      *        Indicates when you want a change data capture (CDC) operation to stop. The value can be either server time
      *        or commit time.</p>
      *        <p>
-     *        Server time example: --cdc-stop-position “server_time:3018-02-09T12:12:12”
+     *        Server time example: --cdc-stop-position “server_time:2018-02-09T12:12:12”
      *        </p>
      *        <p>
-     *        Commit time example: --cdc-stop-position “commit_time: 3018-02-09T12:12:12 “
+     *        Commit time example: --cdc-stop-position “commit_time:2018-02-09T12:12:12“
      */
 
     public void setCdcStopPosition(String cdcStopPosition) {
@@ -961,19 +2207,19 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
      * commit time.
      * </p>
      * <p>
-     * Server time example: --cdc-stop-position “server_time:3018-02-09T12:12:12”
+     * Server time example: --cdc-stop-position “server_time:2018-02-09T12:12:12”
      * </p>
      * <p>
-     * Commit time example: --cdc-stop-position “commit_time: 3018-02-09T12:12:12 “
+     * Commit time example: --cdc-stop-position “commit_time:2018-02-09T12:12:12“
      * </p>
      * 
      * @return Indicates when you want a change data capture (CDC) operation to stop. The value can be either server
      *         time or commit time.</p>
      *         <p>
-     *         Server time example: --cdc-stop-position “server_time:3018-02-09T12:12:12”
+     *         Server time example: --cdc-stop-position “server_time:2018-02-09T12:12:12”
      *         </p>
      *         <p>
-     *         Commit time example: --cdc-stop-position “commit_time: 3018-02-09T12:12:12 “
+     *         Commit time example: --cdc-stop-position “commit_time:2018-02-09T12:12:12“
      */
 
     public String getCdcStopPosition() {
@@ -986,20 +2232,20 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
      * commit time.
      * </p>
      * <p>
-     * Server time example: --cdc-stop-position “server_time:3018-02-09T12:12:12”
+     * Server time example: --cdc-stop-position “server_time:2018-02-09T12:12:12”
      * </p>
      * <p>
-     * Commit time example: --cdc-stop-position “commit_time: 3018-02-09T12:12:12 “
+     * Commit time example: --cdc-stop-position “commit_time:2018-02-09T12:12:12“
      * </p>
      * 
      * @param cdcStopPosition
      *        Indicates when you want a change data capture (CDC) operation to stop. The value can be either server time
      *        or commit time.</p>
      *        <p>
-     *        Server time example: --cdc-stop-position “server_time:3018-02-09T12:12:12”
+     *        Server time example: --cdc-stop-position “server_time:2018-02-09T12:12:12”
      *        </p>
      *        <p>
-     *        Commit time example: --cdc-stop-position “commit_time: 3018-02-09T12:12:12 “
+     *        Commit time example: --cdc-stop-position “commit_time:2018-02-09T12:12:12“
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1138,6 +2384,122 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
     }
 
     /**
+     * <p>
+     * Supplemental information that the task requires to migrate the data for certain source and target endpoints. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.TaskData.html">Specifying Supplemental Data for
+     * Task Settings</a> in the <i>Database Migration Service User Guide.</i>
+     * </p>
+     * 
+     * @param taskData
+     *        Supplemental information that the task requires to migrate the data for certain source and target
+     *        endpoints. For more information, see <a
+     *        href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.TaskData.html">Specifying Supplemental
+     *        Data for Task Settings</a> in the <i>Database Migration Service User Guide.</i>
+     */
+
+    public void setTaskData(String taskData) {
+        this.taskData = taskData;
+    }
+
+    /**
+     * <p>
+     * Supplemental information that the task requires to migrate the data for certain source and target endpoints. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.TaskData.html">Specifying Supplemental Data for
+     * Task Settings</a> in the <i>Database Migration Service User Guide.</i>
+     * </p>
+     * 
+     * @return Supplemental information that the task requires to migrate the data for certain source and target
+     *         endpoints. For more information, see <a
+     *         href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.TaskData.html">Specifying Supplemental
+     *         Data for Task Settings</a> in the <i>Database Migration Service User Guide.</i>
+     */
+
+    public String getTaskData() {
+        return this.taskData;
+    }
+
+    /**
+     * <p>
+     * Supplemental information that the task requires to migrate the data for certain source and target endpoints. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.TaskData.html">Specifying Supplemental Data for
+     * Task Settings</a> in the <i>Database Migration Service User Guide.</i>
+     * </p>
+     * 
+     * @param taskData
+     *        Supplemental information that the task requires to migrate the data for certain source and target
+     *        endpoints. For more information, see <a
+     *        href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.TaskData.html">Specifying Supplemental
+     *        Data for Task Settings</a> in the <i>Database Migration Service User Guide.</i>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationTask withTaskData(String taskData) {
+        setTaskData(taskData);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN of the replication instance to which this task is moved in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_MoveReplicationTask.html">
+     * <code>MoveReplicationTask</code> </a> operation. Otherwise, this response parameter isn't a member of the
+     * <code>ReplicationTask</code> object.
+     * </p>
+     * 
+     * @param targetReplicationInstanceArn
+     *        The ARN of the replication instance to which this task is moved in response to running the <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_MoveReplicationTask.html">
+     *        <code>MoveReplicationTask</code> </a> operation. Otherwise, this response parameter isn't a member of the
+     *        <code>ReplicationTask</code> object.
+     */
+
+    public void setTargetReplicationInstanceArn(String targetReplicationInstanceArn) {
+        this.targetReplicationInstanceArn = targetReplicationInstanceArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the replication instance to which this task is moved in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_MoveReplicationTask.html">
+     * <code>MoveReplicationTask</code> </a> operation. Otherwise, this response parameter isn't a member of the
+     * <code>ReplicationTask</code> object.
+     * </p>
+     * 
+     * @return The ARN of the replication instance to which this task is moved in response to running the <a
+     *         href="https://docs.aws.amazon.com/dms/latest/APIReference/API_MoveReplicationTask.html">
+     *         <code>MoveReplicationTask</code> </a> operation. Otherwise, this response parameter isn't a member of the
+     *         <code>ReplicationTask</code> object.
+     */
+
+    public String getTargetReplicationInstanceArn() {
+        return this.targetReplicationInstanceArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the replication instance to which this task is moved in response to running the <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_MoveReplicationTask.html">
+     * <code>MoveReplicationTask</code> </a> operation. Otherwise, this response parameter isn't a member of the
+     * <code>ReplicationTask</code> object.
+     * </p>
+     * 
+     * @param targetReplicationInstanceArn
+     *        The ARN of the replication instance to which this task is moved in response to running the <a
+     *        href="https://docs.aws.amazon.com/dms/latest/APIReference/API_MoveReplicationTask.html">
+     *        <code>MoveReplicationTask</code> </a> operation. Otherwise, this response parameter isn't a member of the
+     *        <code>ReplicationTask</code> object.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationTask withTargetReplicationInstanceArn(String targetReplicationInstanceArn) {
+        setTargetReplicationInstanceArn(targetReplicationInstanceArn);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1182,7 +2544,11 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
         if (getReplicationTaskArn() != null)
             sb.append("ReplicationTaskArn: ").append(getReplicationTaskArn()).append(",");
         if (getReplicationTaskStats() != null)
-            sb.append("ReplicationTaskStats: ").append(getReplicationTaskStats());
+            sb.append("ReplicationTaskStats: ").append(getReplicationTaskStats()).append(",");
+        if (getTaskData() != null)
+            sb.append("TaskData: ").append(getTaskData()).append(",");
+        if (getTargetReplicationInstanceArn() != null)
+            sb.append("TargetReplicationInstanceArn: ").append(getTargetReplicationInstanceArn());
         sb.append("}");
         return sb.toString();
     }
@@ -1265,6 +2631,14 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
             return false;
         if (other.getReplicationTaskStats() != null && other.getReplicationTaskStats().equals(this.getReplicationTaskStats()) == false)
             return false;
+        if (other.getTaskData() == null ^ this.getTaskData() == null)
+            return false;
+        if (other.getTaskData() != null && other.getTaskData().equals(this.getTaskData()) == false)
+            return false;
+        if (other.getTargetReplicationInstanceArn() == null ^ this.getTargetReplicationInstanceArn() == null)
+            return false;
+        if (other.getTargetReplicationInstanceArn() != null && other.getTargetReplicationInstanceArn().equals(this.getTargetReplicationInstanceArn()) == false)
+            return false;
         return true;
     }
 
@@ -1290,6 +2664,8 @@ public class ReplicationTask implements Serializable, Cloneable, StructuredPojo 
         hashCode = prime * hashCode + ((getRecoveryCheckpoint() == null) ? 0 : getRecoveryCheckpoint().hashCode());
         hashCode = prime * hashCode + ((getReplicationTaskArn() == null) ? 0 : getReplicationTaskArn().hashCode());
         hashCode = prime * hashCode + ((getReplicationTaskStats() == null) ? 0 : getReplicationTaskStats().hashCode());
+        hashCode = prime * hashCode + ((getTaskData() == null) ? 0 : getTaskData().hashCode());
+        hashCode = prime * hashCode + ((getTargetReplicationInstanceArn() == null) ? 0 : getTargetReplicationInstanceArn().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -22,11 +22,17 @@ import javax.annotation.Generated;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class ListTagsResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {
 
-    /** The key-value pair for the resource tag. */
+    /**
+     * <p>
+     * The key-value pair for the resource tag.
+     * </p>
+     */
     private java.util.Map<String, String> tags;
 
     /**
+     * <p>
      * The key-value pair for the resource tag.
+     * </p>
      * 
      * @return The key-value pair for the resource tag.
      */
@@ -36,7 +42,9 @@ public class ListTagsResult extends com.amazonaws.AmazonWebServiceResult<com.ama
     }
 
     /**
+     * <p>
      * The key-value pair for the resource tag.
+     * </p>
      * 
      * @param tags
      *        The key-value pair for the resource tag.
@@ -47,7 +55,9 @@ public class ListTagsResult extends com.amazonaws.AmazonWebServiceResult<com.ama
     }
 
     /**
+     * <p>
      * The key-value pair for the resource tag.
+     * </p>
      * 
      * @param tags
      *        The key-value pair for the resource tag.
@@ -58,6 +68,13 @@ public class ListTagsResult extends com.amazonaws.AmazonWebServiceResult<com.ama
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see ListTagsResult#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public ListTagsResult addTagsEntry(String key, String value) {
         if (null == this.tags) {

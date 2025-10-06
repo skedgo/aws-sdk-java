@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -56,8 +56,26 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
-     * <code>default-for-az</code> - Indicates whether this is the default subnet for the Availability Zone. You can
-     * also use <code>defaultForAz</code> as the filter name.
+     * <code>customer-owned-ipv4-pool</code> - The customer-owned IPv4 address pool associated with the subnet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>default-for-az</code> - Indicates whether this is the default subnet for the Availability Zone (
+     * <code>true</code> | <code>false</code>). You can also use <code>defaultForAz</code> as the filter name.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>enable-dns64</code> - Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet
+     * should return synthetic IPv6 addresses for IPv4-only destinations.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>enable-lni-at-device-index</code> - Indicates the device position for local network interfaces in this
+     * subnet. For example, <code>1</code> indicates local network interfaces in this subnet are the secondary network
+     * interface (eth1).
      * </p>
      * </li>
      * <li>
@@ -78,7 +96,50 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The ID of the AWS account that owns the subnet.
+     * <code>ipv6-native</code> - Indicates whether this is an IPv6 only subnet (<code>true</code> | <code>false</code>
+     * ).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>map-customer-owned-ip-on-launch</code> - Indicates whether a network interface created in this subnet
+     * (including a network interface created by <a>RunInstances</a>) receives a customer-owned IPv4 address.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>map-public-ip-on-launch</code> - Indicates whether instances launched in this subnet receive a public IPv4
+     * address.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>outpost-arn</code> - The Amazon Resource Name (ARN) of the Outpost.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>owner-id</code> - The ID of the Amazon Web Services account that owns the subnet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>private-dns-name-options-on-launch.hostname-type</code> - The type of hostname to assign to instances in
+     * the subnet at launch. For IPv4-only and dual-stack (IPv4 and IPv6) subnets, an instance DNS name can be based on
+     * the instance IPv4 address (ip-name) or the instance ID (resource-name). For IPv6 only subnets, an instance DNS
+     * name must be based on the instance ID (resource-name).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>private-dns-name-options-on-launch.enable-resource-name-dns-a-record</code> - Indicates whether to respond
+     * to DNS queries for instance hostnames with DNS A records.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>private-dns-name-options-on-launch.enable-resource-name-dns-aaaa-record</code> - Indicates whether to
+     * respond to DNS queries for instance hostnames with DNS AAAA records.
      * </p>
      * </li>
      * <li>
@@ -120,7 +181,7 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
     private com.amazonaws.internal.SdkInternalList<Filter> filters;
     /**
      * <p>
-     * One or more subnet IDs.
+     * The IDs of the subnets.
      * </p>
      * <p>
      * Default: Describes all your subnets.
@@ -129,21 +190,23 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
     private com.amazonaws.internal.SdkInternalList<String> subnetIds;
     /**
      * <p>
-     * The token for the next page of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      */
     private Integer maxResults;
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -172,8 +235,26 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
-     * <code>default-for-az</code> - Indicates whether this is the default subnet for the Availability Zone. You can
-     * also use <code>defaultForAz</code> as the filter name.
+     * <code>customer-owned-ipv4-pool</code> - The customer-owned IPv4 address pool associated with the subnet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>default-for-az</code> - Indicates whether this is the default subnet for the Availability Zone (
+     * <code>true</code> | <code>false</code>). You can also use <code>defaultForAz</code> as the filter name.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>enable-dns64</code> - Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet
+     * should return synthetic IPv6 addresses for IPv4-only destinations.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>enable-lni-at-device-index</code> - Indicates the device position for local network interfaces in this
+     * subnet. For example, <code>1</code> indicates local network interfaces in this subnet are the secondary network
+     * interface (eth1).
      * </p>
      * </li>
      * <li>
@@ -194,7 +275,50 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The ID of the AWS account that owns the subnet.
+     * <code>ipv6-native</code> - Indicates whether this is an IPv6 only subnet (<code>true</code> | <code>false</code>
+     * ).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>map-customer-owned-ip-on-launch</code> - Indicates whether a network interface created in this subnet
+     * (including a network interface created by <a>RunInstances</a>) receives a customer-owned IPv4 address.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>map-public-ip-on-launch</code> - Indicates whether instances launched in this subnet receive a public IPv4
+     * address.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>outpost-arn</code> - The Amazon Resource Name (ARN) of the Outpost.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>owner-id</code> - The ID of the Amazon Web Services account that owns the subnet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>private-dns-name-options-on-launch.hostname-type</code> - The type of hostname to assign to instances in
+     * the subnet at launch. For IPv4-only and dual-stack (IPv4 and IPv6) subnets, an instance DNS name can be based on
+     * the instance IPv4 address (ip-name) or the instance ID (resource-name). For IPv6 only subnets, an instance DNS
+     * name must be based on the instance ID (resource-name).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>private-dns-name-options-on-launch.enable-resource-name-dns-a-record</code> - Indicates whether to respond
+     * to DNS queries for instance hostnames with DNS A records.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>private-dns-name-options-on-launch.enable-resource-name-dns-aaaa-record</code> - Indicates whether to
+     * respond to DNS queries for instance hostnames with DNS AAAA records.
      * </p>
      * </li>
      * <li>
@@ -233,7 +357,7 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      * </li>
      * </ul>
      * 
-     * @return One or more filters.</p>
+     * @return The filters.</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -261,8 +385,26 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      *         </li>
      *         <li>
      *         <p>
-     *         <code>default-for-az</code> - Indicates whether this is the default subnet for the Availability Zone. You
-     *         can also use <code>defaultForAz</code> as the filter name.
+     *         <code>customer-owned-ipv4-pool</code> - The customer-owned IPv4 address pool associated with the subnet.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>default-for-az</code> - Indicates whether this is the default subnet for the Availability Zone (
+     *         <code>true</code> | <code>false</code>). You can also use <code>defaultForAz</code> as the filter name.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>enable-dns64</code> - Indicates whether DNS queries made to the Amazon-provided DNS Resolver in
+     *         this subnet should return synthetic IPv6 addresses for IPv4-only destinations.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>enable-lni-at-device-index</code> - Indicates the device position for local network interfaces in
+     *         this subnet. For example, <code>1</code> indicates local network interfaces in this subnet are the
+     *         secondary network interface (eth1).
      *         </p>
      *         </li>
      *         <li>
@@ -284,7 +426,51 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      *         </li>
      *         <li>
      *         <p>
-     *         <code>owner-id</code> - The ID of the AWS account that owns the subnet.
+     *         <code>ipv6-native</code> - Indicates whether this is an IPv6 only subnet (<code>true</code> |
+     *         <code>false</code>).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>map-customer-owned-ip-on-launch</code> - Indicates whether a network interface created in this
+     *         subnet (including a network interface created by <a>RunInstances</a>) receives a customer-owned IPv4
+     *         address.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>map-public-ip-on-launch</code> - Indicates whether instances launched in this subnet receive a
+     *         public IPv4 address.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>outpost-arn</code> - The Amazon Resource Name (ARN) of the Outpost.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>owner-id</code> - The ID of the Amazon Web Services account that owns the subnet.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>private-dns-name-options-on-launch.hostname-type</code> - The type of hostname to assign to
+     *         instances in the subnet at launch. For IPv4-only and dual-stack (IPv4 and IPv6) subnets, an instance DNS
+     *         name can be based on the instance IPv4 address (ip-name) or the instance ID (resource-name). For IPv6
+     *         only subnets, an instance DNS name must be based on the instance ID (resource-name).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>private-dns-name-options-on-launch.enable-resource-name-dns-a-record</code> - Indicates whether to
+     *         respond to DNS queries for instance hostnames with DNS A records.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>private-dns-name-options-on-launch.enable-resource-name-dns-aaaa-record</code> - Indicates whether
+     *         to respond to DNS queries for instance hostnames with DNS AAAA records.
      *         </p>
      *         </li>
      *         <li>
@@ -332,7 +518,7 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -361,8 +547,26 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
-     * <code>default-for-az</code> - Indicates whether this is the default subnet for the Availability Zone. You can
-     * also use <code>defaultForAz</code> as the filter name.
+     * <code>customer-owned-ipv4-pool</code> - The customer-owned IPv4 address pool associated with the subnet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>default-for-az</code> - Indicates whether this is the default subnet for the Availability Zone (
+     * <code>true</code> | <code>false</code>). You can also use <code>defaultForAz</code> as the filter name.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>enable-dns64</code> - Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet
+     * should return synthetic IPv6 addresses for IPv4-only destinations.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>enable-lni-at-device-index</code> - Indicates the device position for local network interfaces in this
+     * subnet. For example, <code>1</code> indicates local network interfaces in this subnet are the secondary network
+     * interface (eth1).
      * </p>
      * </li>
      * <li>
@@ -383,7 +587,50 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The ID of the AWS account that owns the subnet.
+     * <code>ipv6-native</code> - Indicates whether this is an IPv6 only subnet (<code>true</code> | <code>false</code>
+     * ).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>map-customer-owned-ip-on-launch</code> - Indicates whether a network interface created in this subnet
+     * (including a network interface created by <a>RunInstances</a>) receives a customer-owned IPv4 address.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>map-public-ip-on-launch</code> - Indicates whether instances launched in this subnet receive a public IPv4
+     * address.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>outpost-arn</code> - The Amazon Resource Name (ARN) of the Outpost.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>owner-id</code> - The ID of the Amazon Web Services account that owns the subnet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>private-dns-name-options-on-launch.hostname-type</code> - The type of hostname to assign to instances in
+     * the subnet at launch. For IPv4-only and dual-stack (IPv4 and IPv6) subnets, an instance DNS name can be based on
+     * the instance IPv4 address (ip-name) or the instance ID (resource-name). For IPv6 only subnets, an instance DNS
+     * name must be based on the instance ID (resource-name).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>private-dns-name-options-on-launch.enable-resource-name-dns-a-record</code> - Indicates whether to respond
+     * to DNS queries for instance hostnames with DNS A records.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>private-dns-name-options-on-launch.enable-resource-name-dns-aaaa-record</code> - Indicates whether to
+     * respond to DNS queries for instance hostnames with DNS AAAA records.
      * </p>
      * </li>
      * <li>
@@ -423,7 +670,7 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      * </ul>
      * 
      * @param filters
-     *        One or more filters.</p>
+     *        The filters.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -451,8 +698,26 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      *        </li>
      *        <li>
      *        <p>
-     *        <code>default-for-az</code> - Indicates whether this is the default subnet for the Availability Zone. You
-     *        can also use <code>defaultForAz</code> as the filter name.
+     *        <code>customer-owned-ipv4-pool</code> - The customer-owned IPv4 address pool associated with the subnet.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>default-for-az</code> - Indicates whether this is the default subnet for the Availability Zone (
+     *        <code>true</code> | <code>false</code>). You can also use <code>defaultForAz</code> as the filter name.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>enable-dns64</code> - Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this
+     *        subnet should return synthetic IPv6 addresses for IPv4-only destinations.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>enable-lni-at-device-index</code> - Indicates the device position for local network interfaces in
+     *        this subnet. For example, <code>1</code> indicates local network interfaces in this subnet are the
+     *        secondary network interface (eth1).
      *        </p>
      *        </li>
      *        <li>
@@ -474,7 +739,51 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-id</code> - The ID of the AWS account that owns the subnet.
+     *        <code>ipv6-native</code> - Indicates whether this is an IPv6 only subnet (<code>true</code> |
+     *        <code>false</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>map-customer-owned-ip-on-launch</code> - Indicates whether a network interface created in this
+     *        subnet (including a network interface created by <a>RunInstances</a>) receives a customer-owned IPv4
+     *        address.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>map-public-ip-on-launch</code> - Indicates whether instances launched in this subnet receive a
+     *        public IPv4 address.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>outpost-arn</code> - The Amazon Resource Name (ARN) of the Outpost.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>owner-id</code> - The ID of the Amazon Web Services account that owns the subnet.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>private-dns-name-options-on-launch.hostname-type</code> - The type of hostname to assign to
+     *        instances in the subnet at launch. For IPv4-only and dual-stack (IPv4 and IPv6) subnets, an instance DNS
+     *        name can be based on the instance IPv4 address (ip-name) or the instance ID (resource-name). For IPv6 only
+     *        subnets, an instance DNS name must be based on the instance ID (resource-name).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>private-dns-name-options-on-launch.enable-resource-name-dns-a-record</code> - Indicates whether to
+     *        respond to DNS queries for instance hostnames with DNS A records.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>private-dns-name-options-on-launch.enable-resource-name-dns-aaaa-record</code> - Indicates whether
+     *        to respond to DNS queries for instance hostnames with DNS AAAA records.
      *        </p>
      *        </li>
      *        <li>
@@ -524,7 +833,7 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -553,8 +862,26 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
-     * <code>default-for-az</code> - Indicates whether this is the default subnet for the Availability Zone. You can
-     * also use <code>defaultForAz</code> as the filter name.
+     * <code>customer-owned-ipv4-pool</code> - The customer-owned IPv4 address pool associated with the subnet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>default-for-az</code> - Indicates whether this is the default subnet for the Availability Zone (
+     * <code>true</code> | <code>false</code>). You can also use <code>defaultForAz</code> as the filter name.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>enable-dns64</code> - Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet
+     * should return synthetic IPv6 addresses for IPv4-only destinations.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>enable-lni-at-device-index</code> - Indicates the device position for local network interfaces in this
+     * subnet. For example, <code>1</code> indicates local network interfaces in this subnet are the secondary network
+     * interface (eth1).
      * </p>
      * </li>
      * <li>
@@ -575,7 +902,50 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The ID of the AWS account that owns the subnet.
+     * <code>ipv6-native</code> - Indicates whether this is an IPv6 only subnet (<code>true</code> | <code>false</code>
+     * ).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>map-customer-owned-ip-on-launch</code> - Indicates whether a network interface created in this subnet
+     * (including a network interface created by <a>RunInstances</a>) receives a customer-owned IPv4 address.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>map-public-ip-on-launch</code> - Indicates whether instances launched in this subnet receive a public IPv4
+     * address.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>outpost-arn</code> - The Amazon Resource Name (ARN) of the Outpost.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>owner-id</code> - The ID of the Amazon Web Services account that owns the subnet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>private-dns-name-options-on-launch.hostname-type</code> - The type of hostname to assign to instances in
+     * the subnet at launch. For IPv4-only and dual-stack (IPv4 and IPv6) subnets, an instance DNS name can be based on
+     * the instance IPv4 address (ip-name) or the instance ID (resource-name). For IPv6 only subnets, an instance DNS
+     * name must be based on the instance ID (resource-name).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>private-dns-name-options-on-launch.enable-resource-name-dns-a-record</code> - Indicates whether to respond
+     * to DNS queries for instance hostnames with DNS A records.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>private-dns-name-options-on-launch.enable-resource-name-dns-aaaa-record</code> - Indicates whether to
+     * respond to DNS queries for instance hostnames with DNS AAAA records.
      * </p>
      * </li>
      * <li>
@@ -620,7 +990,7 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      * </p>
      * 
      * @param filters
-     *        One or more filters.</p>
+     *        The filters.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -648,8 +1018,26 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      *        </li>
      *        <li>
      *        <p>
-     *        <code>default-for-az</code> - Indicates whether this is the default subnet for the Availability Zone. You
-     *        can also use <code>defaultForAz</code> as the filter name.
+     *        <code>customer-owned-ipv4-pool</code> - The customer-owned IPv4 address pool associated with the subnet.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>default-for-az</code> - Indicates whether this is the default subnet for the Availability Zone (
+     *        <code>true</code> | <code>false</code>). You can also use <code>defaultForAz</code> as the filter name.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>enable-dns64</code> - Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this
+     *        subnet should return synthetic IPv6 addresses for IPv4-only destinations.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>enable-lni-at-device-index</code> - Indicates the device position for local network interfaces in
+     *        this subnet. For example, <code>1</code> indicates local network interfaces in this subnet are the
+     *        secondary network interface (eth1).
      *        </p>
      *        </li>
      *        <li>
@@ -671,7 +1059,51 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-id</code> - The ID of the AWS account that owns the subnet.
+     *        <code>ipv6-native</code> - Indicates whether this is an IPv6 only subnet (<code>true</code> |
+     *        <code>false</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>map-customer-owned-ip-on-launch</code> - Indicates whether a network interface created in this
+     *        subnet (including a network interface created by <a>RunInstances</a>) receives a customer-owned IPv4
+     *        address.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>map-public-ip-on-launch</code> - Indicates whether instances launched in this subnet receive a
+     *        public IPv4 address.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>outpost-arn</code> - The Amazon Resource Name (ARN) of the Outpost.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>owner-id</code> - The ID of the Amazon Web Services account that owns the subnet.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>private-dns-name-options-on-launch.hostname-type</code> - The type of hostname to assign to
+     *        instances in the subnet at launch. For IPv4-only and dual-stack (IPv4 and IPv6) subnets, an instance DNS
+     *        name can be based on the instance IPv4 address (ip-name) or the instance ID (resource-name). For IPv6 only
+     *        subnets, an instance DNS name must be based on the instance ID (resource-name).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>private-dns-name-options-on-launch.enable-resource-name-dns-a-record</code> - Indicates whether to
+     *        respond to DNS queries for instance hostnames with DNS A records.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>private-dns-name-options-on-launch.enable-resource-name-dns-aaaa-record</code> - Indicates whether
+     *        to respond to DNS queries for instance hostnames with DNS AAAA records.
      *        </p>
      *        </li>
      *        <li>
@@ -723,7 +1155,7 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -752,8 +1184,26 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
-     * <code>default-for-az</code> - Indicates whether this is the default subnet for the Availability Zone. You can
-     * also use <code>defaultForAz</code> as the filter name.
+     * <code>customer-owned-ipv4-pool</code> - The customer-owned IPv4 address pool associated with the subnet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>default-for-az</code> - Indicates whether this is the default subnet for the Availability Zone (
+     * <code>true</code> | <code>false</code>). You can also use <code>defaultForAz</code> as the filter name.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>enable-dns64</code> - Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet
+     * should return synthetic IPv6 addresses for IPv4-only destinations.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>enable-lni-at-device-index</code> - Indicates the device position for local network interfaces in this
+     * subnet. For example, <code>1</code> indicates local network interfaces in this subnet are the secondary network
+     * interface (eth1).
      * </p>
      * </li>
      * <li>
@@ -774,7 +1224,50 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The ID of the AWS account that owns the subnet.
+     * <code>ipv6-native</code> - Indicates whether this is an IPv6 only subnet (<code>true</code> | <code>false</code>
+     * ).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>map-customer-owned-ip-on-launch</code> - Indicates whether a network interface created in this subnet
+     * (including a network interface created by <a>RunInstances</a>) receives a customer-owned IPv4 address.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>map-public-ip-on-launch</code> - Indicates whether instances launched in this subnet receive a public IPv4
+     * address.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>outpost-arn</code> - The Amazon Resource Name (ARN) of the Outpost.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>owner-id</code> - The ID of the Amazon Web Services account that owns the subnet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>private-dns-name-options-on-launch.hostname-type</code> - The type of hostname to assign to instances in
+     * the subnet at launch. For IPv4-only and dual-stack (IPv4 and IPv6) subnets, an instance DNS name can be based on
+     * the instance IPv4 address (ip-name) or the instance ID (resource-name). For IPv6 only subnets, an instance DNS
+     * name must be based on the instance ID (resource-name).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>private-dns-name-options-on-launch.enable-resource-name-dns-a-record</code> - Indicates whether to respond
+     * to DNS queries for instance hostnames with DNS A records.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>private-dns-name-options-on-launch.enable-resource-name-dns-aaaa-record</code> - Indicates whether to
+     * respond to DNS queries for instance hostnames with DNS AAAA records.
      * </p>
      * </li>
      * <li>
@@ -814,7 +1307,7 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      * </ul>
      * 
      * @param filters
-     *        One or more filters.</p>
+     *        The filters.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -842,8 +1335,26 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      *        </li>
      *        <li>
      *        <p>
-     *        <code>default-for-az</code> - Indicates whether this is the default subnet for the Availability Zone. You
-     *        can also use <code>defaultForAz</code> as the filter name.
+     *        <code>customer-owned-ipv4-pool</code> - The customer-owned IPv4 address pool associated with the subnet.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>default-for-az</code> - Indicates whether this is the default subnet for the Availability Zone (
+     *        <code>true</code> | <code>false</code>). You can also use <code>defaultForAz</code> as the filter name.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>enable-dns64</code> - Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this
+     *        subnet should return synthetic IPv6 addresses for IPv4-only destinations.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>enable-lni-at-device-index</code> - Indicates the device position for local network interfaces in
+     *        this subnet. For example, <code>1</code> indicates local network interfaces in this subnet are the
+     *        secondary network interface (eth1).
      *        </p>
      *        </li>
      *        <li>
@@ -865,7 +1376,51 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-id</code> - The ID of the AWS account that owns the subnet.
+     *        <code>ipv6-native</code> - Indicates whether this is an IPv6 only subnet (<code>true</code> |
+     *        <code>false</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>map-customer-owned-ip-on-launch</code> - Indicates whether a network interface created in this
+     *        subnet (including a network interface created by <a>RunInstances</a>) receives a customer-owned IPv4
+     *        address.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>map-public-ip-on-launch</code> - Indicates whether instances launched in this subnet receive a
+     *        public IPv4 address.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>outpost-arn</code> - The Amazon Resource Name (ARN) of the Outpost.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>owner-id</code> - The ID of the Amazon Web Services account that owns the subnet.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>private-dns-name-options-on-launch.hostname-type</code> - The type of hostname to assign to
+     *        instances in the subnet at launch. For IPv4-only and dual-stack (IPv4 and IPv6) subnets, an instance DNS
+     *        name can be based on the instance IPv4 address (ip-name) or the instance ID (resource-name). For IPv6 only
+     *        subnets, an instance DNS name must be based on the instance ID (resource-name).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>private-dns-name-options-on-launch.enable-resource-name-dns-a-record</code> - Indicates whether to
+     *        respond to DNS queries for instance hostnames with DNS A records.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>private-dns-name-options-on-launch.enable-resource-name-dns-aaaa-record</code> - Indicates whether
+     *        to respond to DNS queries for instance hostnames with DNS AAAA records.
      *        </p>
      *        </li>
      *        <li>
@@ -912,13 +1467,13 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * One or more subnet IDs.
+     * The IDs of the subnets.
      * </p>
      * <p>
      * Default: Describes all your subnets.
      * </p>
      * 
-     * @return One or more subnet IDs.</p>
+     * @return The IDs of the subnets.</p>
      *         <p>
      *         Default: Describes all your subnets.
      */
@@ -932,14 +1487,14 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * One or more subnet IDs.
+     * The IDs of the subnets.
      * </p>
      * <p>
      * Default: Describes all your subnets.
      * </p>
      * 
      * @param subnetIds
-     *        One or more subnet IDs.</p>
+     *        The IDs of the subnets.</p>
      *        <p>
      *        Default: Describes all your subnets.
      */
@@ -955,7 +1510,7 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * One or more subnet IDs.
+     * The IDs of the subnets.
      * </p>
      * <p>
      * Default: Describes all your subnets.
@@ -967,7 +1522,7 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
      * </p>
      * 
      * @param subnetIds
-     *        One or more subnet IDs.</p>
+     *        The IDs of the subnets.</p>
      *        <p>
      *        Default: Describes all your subnets.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -985,14 +1540,14 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * One or more subnet IDs.
+     * The IDs of the subnets.
      * </p>
      * <p>
      * Default: Describes all your subnets.
      * </p>
      * 
      * @param subnetIds
-     *        One or more subnet IDs.</p>
+     *        The IDs of the subnets.</p>
      *        <p>
      *        Default: Describes all your subnets.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1005,11 +1560,13 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * The token for the next page of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
      * @param nextToken
-     *        The token for the next page of results.
+     *        The token returned from a previous paginated request. Pagination continues from the end of the items
+     *        returned by the previous request.
      */
 
     public void setNextToken(String nextToken) {
@@ -1018,10 +1575,12 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * The token for the next page of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
-     * @return The token for the next page of results.
+     * @return The token returned from a previous paginated request. Pagination continues from the end of the items
+     *         returned by the previous request.
      */
 
     public String getNextToken() {
@@ -1030,11 +1589,13 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * The token for the next page of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
      * @param nextToken
-     *        The token for the next page of results.
+     *        The token returned from a previous paginated request. Pagination continues from the end of the items
+     *        returned by the previous request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1045,13 +1606,16 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return with a single call. To retrieve the remaining results, make
-     *        another call with the returned <code>nextToken</code> value.
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -1060,12 +1624,15 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
-     * @return The maximum number of results to return with a single call. To retrieve the remaining results, make
-     *         another call with the returned <code>nextToken</code> value.
+     * @return The maximum number of items to return for this request. To get the next page of items, make another
+     *         request with the token returned in the output. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *         >Pagination</a>.
      */
 
     public Integer getMaxResults() {
@@ -1074,13 +1641,16 @@ public class DescribeSubnetsRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return with a single call. To retrieve the remaining results, make
-     *        another call with the returned <code>nextToken</code> value.
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

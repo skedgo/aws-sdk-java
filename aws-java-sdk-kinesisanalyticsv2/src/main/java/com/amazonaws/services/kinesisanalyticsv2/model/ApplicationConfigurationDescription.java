@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Describes details about the application code and starting parameters for an Amazon Kinesis Data Analytics
+ * Describes details about the application code and starting parameters for a Managed Service for Apache Flink
  * application.
  * </p>
  * 
@@ -32,50 +32,62 @@ public class ApplicationConfigurationDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * The details about inputs, outputs, and reference data sources for an SQL-based Kinesis Data Analytics
-     * application.
+     * The details about inputs, outputs, and reference data sources for a SQL-based Kinesis Data Analytics application.
      * </p>
      */
     private SqlApplicationConfigurationDescription sqlApplicationConfigurationDescription;
     /**
      * <p>
-     * The details about the application code for a Java-based Kinesis Data Analytics application.
+     * The details about the application code for a Managed Service for Apache Flink application.
      * </p>
      */
     private ApplicationCodeConfigurationDescription applicationCodeConfigurationDescription;
     /**
      * <p>
-     * The details about the starting properties for a Kinesis Data Analytics application.
+     * The details about the starting properties for a Managed Service for Apache Flink application.
      * </p>
      */
     private RunConfigurationDescription runConfigurationDescription;
     /**
      * <p>
-     * The details about a Java-based Kinesis Data Analytics application.
+     * The details about a Managed Service for Apache Flink application.
      * </p>
      */
     private FlinkApplicationConfigurationDescription flinkApplicationConfigurationDescription;
     /**
      * <p>
-     * Describes execution properties for a Java-based Kinesis Data Analytics application.
+     * Describes execution properties for a Managed Service for Apache Flink application.
      * </p>
      */
     private EnvironmentPropertyDescriptions environmentPropertyDescriptions;
     /**
      * <p>
-     * Describes whether snapshots are enabled for a Java-based Kinesis Data Analytics application.
+     * Describes whether snapshots are enabled for a Managed Service for Apache Flink application.
      * </p>
      */
     private ApplicationSnapshotConfigurationDescription applicationSnapshotConfigurationDescription;
 
+    private ApplicationSystemRollbackConfigurationDescription applicationSystemRollbackConfigurationDescription;
     /**
      * <p>
-     * The details about inputs, outputs, and reference data sources for an SQL-based Kinesis Data Analytics
-     * application.
+     * The array of descriptions of VPC configurations available to the application.
+     * </p>
+     */
+    private java.util.List<VpcConfigurationDescription> vpcConfigurationDescriptions;
+    /**
+     * <p>
+     * The configuration parameters for a Managed Service for Apache Flink Studio notebook.
+     * </p>
+     */
+    private ZeppelinApplicationConfigurationDescription zeppelinApplicationConfigurationDescription;
+
+    /**
+     * <p>
+     * The details about inputs, outputs, and reference data sources for a SQL-based Kinesis Data Analytics application.
      * </p>
      * 
      * @param sqlApplicationConfigurationDescription
-     *        The details about inputs, outputs, and reference data sources for an SQL-based Kinesis Data Analytics
+     *        The details about inputs, outputs, and reference data sources for a SQL-based Kinesis Data Analytics
      *        application.
      */
 
@@ -85,11 +97,10 @@ public class ApplicationConfigurationDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * The details about inputs, outputs, and reference data sources for an SQL-based Kinesis Data Analytics
-     * application.
+     * The details about inputs, outputs, and reference data sources for a SQL-based Kinesis Data Analytics application.
      * </p>
      * 
-     * @return The details about inputs, outputs, and reference data sources for an SQL-based Kinesis Data Analytics
+     * @return The details about inputs, outputs, and reference data sources for a SQL-based Kinesis Data Analytics
      *         application.
      */
 
@@ -99,12 +110,11 @@ public class ApplicationConfigurationDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * The details about inputs, outputs, and reference data sources for an SQL-based Kinesis Data Analytics
-     * application.
+     * The details about inputs, outputs, and reference data sources for a SQL-based Kinesis Data Analytics application.
      * </p>
      * 
      * @param sqlApplicationConfigurationDescription
-     *        The details about inputs, outputs, and reference data sources for an SQL-based Kinesis Data Analytics
+     *        The details about inputs, outputs, and reference data sources for a SQL-based Kinesis Data Analytics
      *        application.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -117,11 +127,11 @@ public class ApplicationConfigurationDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * The details about the application code for a Java-based Kinesis Data Analytics application.
+     * The details about the application code for a Managed Service for Apache Flink application.
      * </p>
      * 
      * @param applicationCodeConfigurationDescription
-     *        The details about the application code for a Java-based Kinesis Data Analytics application.
+     *        The details about the application code for a Managed Service for Apache Flink application.
      */
 
     public void setApplicationCodeConfigurationDescription(ApplicationCodeConfigurationDescription applicationCodeConfigurationDescription) {
@@ -130,10 +140,10 @@ public class ApplicationConfigurationDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * The details about the application code for a Java-based Kinesis Data Analytics application.
+     * The details about the application code for a Managed Service for Apache Flink application.
      * </p>
      * 
-     * @return The details about the application code for a Java-based Kinesis Data Analytics application.
+     * @return The details about the application code for a Managed Service for Apache Flink application.
      */
 
     public ApplicationCodeConfigurationDescription getApplicationCodeConfigurationDescription() {
@@ -142,11 +152,11 @@ public class ApplicationConfigurationDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * The details about the application code for a Java-based Kinesis Data Analytics application.
+     * The details about the application code for a Managed Service for Apache Flink application.
      * </p>
      * 
      * @param applicationCodeConfigurationDescription
-     *        The details about the application code for a Java-based Kinesis Data Analytics application.
+     *        The details about the application code for a Managed Service for Apache Flink application.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -158,11 +168,11 @@ public class ApplicationConfigurationDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * The details about the starting properties for a Kinesis Data Analytics application.
+     * The details about the starting properties for a Managed Service for Apache Flink application.
      * </p>
      * 
      * @param runConfigurationDescription
-     *        The details about the starting properties for a Kinesis Data Analytics application.
+     *        The details about the starting properties for a Managed Service for Apache Flink application.
      */
 
     public void setRunConfigurationDescription(RunConfigurationDescription runConfigurationDescription) {
@@ -171,10 +181,10 @@ public class ApplicationConfigurationDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * The details about the starting properties for a Kinesis Data Analytics application.
+     * The details about the starting properties for a Managed Service for Apache Flink application.
      * </p>
      * 
-     * @return The details about the starting properties for a Kinesis Data Analytics application.
+     * @return The details about the starting properties for a Managed Service for Apache Flink application.
      */
 
     public RunConfigurationDescription getRunConfigurationDescription() {
@@ -183,11 +193,11 @@ public class ApplicationConfigurationDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * The details about the starting properties for a Kinesis Data Analytics application.
+     * The details about the starting properties for a Managed Service for Apache Flink application.
      * </p>
      * 
      * @param runConfigurationDescription
-     *        The details about the starting properties for a Kinesis Data Analytics application.
+     *        The details about the starting properties for a Managed Service for Apache Flink application.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -198,11 +208,11 @@ public class ApplicationConfigurationDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * The details about a Java-based Kinesis Data Analytics application.
+     * The details about a Managed Service for Apache Flink application.
      * </p>
      * 
      * @param flinkApplicationConfigurationDescription
-     *        The details about a Java-based Kinesis Data Analytics application.
+     *        The details about a Managed Service for Apache Flink application.
      */
 
     public void setFlinkApplicationConfigurationDescription(FlinkApplicationConfigurationDescription flinkApplicationConfigurationDescription) {
@@ -211,10 +221,10 @@ public class ApplicationConfigurationDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * The details about a Java-based Kinesis Data Analytics application.
+     * The details about a Managed Service for Apache Flink application.
      * </p>
      * 
-     * @return The details about a Java-based Kinesis Data Analytics application.
+     * @return The details about a Managed Service for Apache Flink application.
      */
 
     public FlinkApplicationConfigurationDescription getFlinkApplicationConfigurationDescription() {
@@ -223,11 +233,11 @@ public class ApplicationConfigurationDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * The details about a Java-based Kinesis Data Analytics application.
+     * The details about a Managed Service for Apache Flink application.
      * </p>
      * 
      * @param flinkApplicationConfigurationDescription
-     *        The details about a Java-based Kinesis Data Analytics application.
+     *        The details about a Managed Service for Apache Flink application.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -239,11 +249,11 @@ public class ApplicationConfigurationDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * Describes execution properties for a Java-based Kinesis Data Analytics application.
+     * Describes execution properties for a Managed Service for Apache Flink application.
      * </p>
      * 
      * @param environmentPropertyDescriptions
-     *        Describes execution properties for a Java-based Kinesis Data Analytics application.
+     *        Describes execution properties for a Managed Service for Apache Flink application.
      */
 
     public void setEnvironmentPropertyDescriptions(EnvironmentPropertyDescriptions environmentPropertyDescriptions) {
@@ -252,10 +262,10 @@ public class ApplicationConfigurationDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * Describes execution properties for a Java-based Kinesis Data Analytics application.
+     * Describes execution properties for a Managed Service for Apache Flink application.
      * </p>
      * 
-     * @return Describes execution properties for a Java-based Kinesis Data Analytics application.
+     * @return Describes execution properties for a Managed Service for Apache Flink application.
      */
 
     public EnvironmentPropertyDescriptions getEnvironmentPropertyDescriptions() {
@@ -264,11 +274,11 @@ public class ApplicationConfigurationDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * Describes execution properties for a Java-based Kinesis Data Analytics application.
+     * Describes execution properties for a Managed Service for Apache Flink application.
      * </p>
      * 
      * @param environmentPropertyDescriptions
-     *        Describes execution properties for a Java-based Kinesis Data Analytics application.
+     *        Describes execution properties for a Managed Service for Apache Flink application.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -279,11 +289,11 @@ public class ApplicationConfigurationDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * Describes whether snapshots are enabled for a Java-based Kinesis Data Analytics application.
+     * Describes whether snapshots are enabled for a Managed Service for Apache Flink application.
      * </p>
      * 
      * @param applicationSnapshotConfigurationDescription
-     *        Describes whether snapshots are enabled for a Java-based Kinesis Data Analytics application.
+     *        Describes whether snapshots are enabled for a Managed Service for Apache Flink application.
      */
 
     public void setApplicationSnapshotConfigurationDescription(ApplicationSnapshotConfigurationDescription applicationSnapshotConfigurationDescription) {
@@ -292,10 +302,10 @@ public class ApplicationConfigurationDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * Describes whether snapshots are enabled for a Java-based Kinesis Data Analytics application.
+     * Describes whether snapshots are enabled for a Managed Service for Apache Flink application.
      * </p>
      * 
-     * @return Describes whether snapshots are enabled for a Java-based Kinesis Data Analytics application.
+     * @return Describes whether snapshots are enabled for a Managed Service for Apache Flink application.
      */
 
     public ApplicationSnapshotConfigurationDescription getApplicationSnapshotConfigurationDescription() {
@@ -304,17 +314,156 @@ public class ApplicationConfigurationDescription implements Serializable, Clonea
 
     /**
      * <p>
-     * Describes whether snapshots are enabled for a Java-based Kinesis Data Analytics application.
+     * Describes whether snapshots are enabled for a Managed Service for Apache Flink application.
      * </p>
      * 
      * @param applicationSnapshotConfigurationDescription
-     *        Describes whether snapshots are enabled for a Java-based Kinesis Data Analytics application.
+     *        Describes whether snapshots are enabled for a Managed Service for Apache Flink application.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ApplicationConfigurationDescription withApplicationSnapshotConfigurationDescription(
             ApplicationSnapshotConfigurationDescription applicationSnapshotConfigurationDescription) {
         setApplicationSnapshotConfigurationDescription(applicationSnapshotConfigurationDescription);
+        return this;
+    }
+
+    /**
+     * @param applicationSystemRollbackConfigurationDescription
+     */
+
+    public void setApplicationSystemRollbackConfigurationDescription(
+            ApplicationSystemRollbackConfigurationDescription applicationSystemRollbackConfigurationDescription) {
+        this.applicationSystemRollbackConfigurationDescription = applicationSystemRollbackConfigurationDescription;
+    }
+
+    /**
+     * @return
+     */
+
+    public ApplicationSystemRollbackConfigurationDescription getApplicationSystemRollbackConfigurationDescription() {
+        return this.applicationSystemRollbackConfigurationDescription;
+    }
+
+    /**
+     * @param applicationSystemRollbackConfigurationDescription
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ApplicationConfigurationDescription withApplicationSystemRollbackConfigurationDescription(
+            ApplicationSystemRollbackConfigurationDescription applicationSystemRollbackConfigurationDescription) {
+        setApplicationSystemRollbackConfigurationDescription(applicationSystemRollbackConfigurationDescription);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The array of descriptions of VPC configurations available to the application.
+     * </p>
+     * 
+     * @return The array of descriptions of VPC configurations available to the application.
+     */
+
+    public java.util.List<VpcConfigurationDescription> getVpcConfigurationDescriptions() {
+        return vpcConfigurationDescriptions;
+    }
+
+    /**
+     * <p>
+     * The array of descriptions of VPC configurations available to the application.
+     * </p>
+     * 
+     * @param vpcConfigurationDescriptions
+     *        The array of descriptions of VPC configurations available to the application.
+     */
+
+    public void setVpcConfigurationDescriptions(java.util.Collection<VpcConfigurationDescription> vpcConfigurationDescriptions) {
+        if (vpcConfigurationDescriptions == null) {
+            this.vpcConfigurationDescriptions = null;
+            return;
+        }
+
+        this.vpcConfigurationDescriptions = new java.util.ArrayList<VpcConfigurationDescription>(vpcConfigurationDescriptions);
+    }
+
+    /**
+     * <p>
+     * The array of descriptions of VPC configurations available to the application.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setVpcConfigurationDescriptions(java.util.Collection)} or
+     * {@link #withVpcConfigurationDescriptions(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param vpcConfigurationDescriptions
+     *        The array of descriptions of VPC configurations available to the application.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ApplicationConfigurationDescription withVpcConfigurationDescriptions(VpcConfigurationDescription... vpcConfigurationDescriptions) {
+        if (this.vpcConfigurationDescriptions == null) {
+            setVpcConfigurationDescriptions(new java.util.ArrayList<VpcConfigurationDescription>(vpcConfigurationDescriptions.length));
+        }
+        for (VpcConfigurationDescription ele : vpcConfigurationDescriptions) {
+            this.vpcConfigurationDescriptions.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The array of descriptions of VPC configurations available to the application.
+     * </p>
+     * 
+     * @param vpcConfigurationDescriptions
+     *        The array of descriptions of VPC configurations available to the application.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ApplicationConfigurationDescription withVpcConfigurationDescriptions(java.util.Collection<VpcConfigurationDescription> vpcConfigurationDescriptions) {
+        setVpcConfigurationDescriptions(vpcConfigurationDescriptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The configuration parameters for a Managed Service for Apache Flink Studio notebook.
+     * </p>
+     * 
+     * @param zeppelinApplicationConfigurationDescription
+     *        The configuration parameters for a Managed Service for Apache Flink Studio notebook.
+     */
+
+    public void setZeppelinApplicationConfigurationDescription(ZeppelinApplicationConfigurationDescription zeppelinApplicationConfigurationDescription) {
+        this.zeppelinApplicationConfigurationDescription = zeppelinApplicationConfigurationDescription;
+    }
+
+    /**
+     * <p>
+     * The configuration parameters for a Managed Service for Apache Flink Studio notebook.
+     * </p>
+     * 
+     * @return The configuration parameters for a Managed Service for Apache Flink Studio notebook.
+     */
+
+    public ZeppelinApplicationConfigurationDescription getZeppelinApplicationConfigurationDescription() {
+        return this.zeppelinApplicationConfigurationDescription;
+    }
+
+    /**
+     * <p>
+     * The configuration parameters for a Managed Service for Apache Flink Studio notebook.
+     * </p>
+     * 
+     * @param zeppelinApplicationConfigurationDescription
+     *        The configuration parameters for a Managed Service for Apache Flink Studio notebook.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ApplicationConfigurationDescription withZeppelinApplicationConfigurationDescription(
+            ZeppelinApplicationConfigurationDescription zeppelinApplicationConfigurationDescription) {
+        setZeppelinApplicationConfigurationDescription(zeppelinApplicationConfigurationDescription);
         return this;
     }
 
@@ -341,7 +490,13 @@ public class ApplicationConfigurationDescription implements Serializable, Clonea
         if (getEnvironmentPropertyDescriptions() != null)
             sb.append("EnvironmentPropertyDescriptions: ").append(getEnvironmentPropertyDescriptions()).append(",");
         if (getApplicationSnapshotConfigurationDescription() != null)
-            sb.append("ApplicationSnapshotConfigurationDescription: ").append(getApplicationSnapshotConfigurationDescription());
+            sb.append("ApplicationSnapshotConfigurationDescription: ").append(getApplicationSnapshotConfigurationDescription()).append(",");
+        if (getApplicationSystemRollbackConfigurationDescription() != null)
+            sb.append("ApplicationSystemRollbackConfigurationDescription: ").append(getApplicationSystemRollbackConfigurationDescription()).append(",");
+        if (getVpcConfigurationDescriptions() != null)
+            sb.append("VpcConfigurationDescriptions: ").append(getVpcConfigurationDescriptions()).append(",");
+        if (getZeppelinApplicationConfigurationDescription() != null)
+            sb.append("ZeppelinApplicationConfigurationDescription: ").append(getZeppelinApplicationConfigurationDescription());
         sb.append("}");
         return sb.toString();
     }
@@ -385,6 +540,20 @@ public class ApplicationConfigurationDescription implements Serializable, Clonea
         if (other.getApplicationSnapshotConfigurationDescription() != null
                 && other.getApplicationSnapshotConfigurationDescription().equals(this.getApplicationSnapshotConfigurationDescription()) == false)
             return false;
+        if (other.getApplicationSystemRollbackConfigurationDescription() == null ^ this.getApplicationSystemRollbackConfigurationDescription() == null)
+            return false;
+        if (other.getApplicationSystemRollbackConfigurationDescription() != null
+                && other.getApplicationSystemRollbackConfigurationDescription().equals(this.getApplicationSystemRollbackConfigurationDescription()) == false)
+            return false;
+        if (other.getVpcConfigurationDescriptions() == null ^ this.getVpcConfigurationDescriptions() == null)
+            return false;
+        if (other.getVpcConfigurationDescriptions() != null && other.getVpcConfigurationDescriptions().equals(this.getVpcConfigurationDescriptions()) == false)
+            return false;
+        if (other.getZeppelinApplicationConfigurationDescription() == null ^ this.getZeppelinApplicationConfigurationDescription() == null)
+            return false;
+        if (other.getZeppelinApplicationConfigurationDescription() != null
+                && other.getZeppelinApplicationConfigurationDescription().equals(this.getZeppelinApplicationConfigurationDescription()) == false)
+            return false;
         return true;
     }
 
@@ -400,6 +569,11 @@ public class ApplicationConfigurationDescription implements Serializable, Clonea
         hashCode = prime * hashCode + ((getEnvironmentPropertyDescriptions() == null) ? 0 : getEnvironmentPropertyDescriptions().hashCode());
         hashCode = prime * hashCode
                 + ((getApplicationSnapshotConfigurationDescription() == null) ? 0 : getApplicationSnapshotConfigurationDescription().hashCode());
+        hashCode = prime * hashCode
+                + ((getApplicationSystemRollbackConfigurationDescription() == null) ? 0 : getApplicationSystemRollbackConfigurationDescription().hashCode());
+        hashCode = prime * hashCode + ((getVpcConfigurationDescriptions() == null) ? 0 : getVpcConfigurationDescriptions().hashCode());
+        hashCode = prime * hashCode
+                + ((getZeppelinApplicationConfigurationDescription() == null) ? 0 : getZeppelinApplicationConfigurationDescription().hashCode());
         return hashCode;
     }
 

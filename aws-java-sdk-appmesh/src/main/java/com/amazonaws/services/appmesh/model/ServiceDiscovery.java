@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An object representing the service discovery information for a virtual node.
+ * An object that represents the service discovery information for a virtual node.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/ServiceDiscovery" target="_top">AWS API
@@ -30,7 +30,7 @@ public class ServiceDiscovery implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Specifies any AWS Cloud Map information for the virtual node.
+     * Specifies any Cloud Map information for the virtual node.
      * </p>
      */
     private AwsCloudMapServiceDiscovery awsCloudMap;
@@ -43,11 +43,11 @@ public class ServiceDiscovery implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Specifies any AWS Cloud Map information for the virtual node.
+     * Specifies any Cloud Map information for the virtual node.
      * </p>
      * 
      * @param awsCloudMap
-     *        Specifies any AWS Cloud Map information for the virtual node.
+     *        Specifies any Cloud Map information for the virtual node.
      */
 
     public void setAwsCloudMap(AwsCloudMapServiceDiscovery awsCloudMap) {
@@ -56,10 +56,10 @@ public class ServiceDiscovery implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Specifies any AWS Cloud Map information for the virtual node.
+     * Specifies any Cloud Map information for the virtual node.
      * </p>
      * 
-     * @return Specifies any AWS Cloud Map information for the virtual node.
+     * @return Specifies any Cloud Map information for the virtual node.
      */
 
     public AwsCloudMapServiceDiscovery getAwsCloudMap() {
@@ -68,11 +68,11 @@ public class ServiceDiscovery implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Specifies any AWS Cloud Map information for the virtual node.
+     * Specifies any Cloud Map information for the virtual node.
      * </p>
      * 
      * @param awsCloudMap
-     *        Specifies any AWS Cloud Map information for the virtual node.
+     *        Specifies any Cloud Map information for the virtual node.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

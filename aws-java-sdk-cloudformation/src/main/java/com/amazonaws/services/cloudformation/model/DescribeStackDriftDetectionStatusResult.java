@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,8 +35,8 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      * The ID of the drift detection results of this operation.
      * </p>
      * <p>
-     * AWS CloudFormation generates new results, with a new drift detection ID, each time this operation is run.
-     * However, the number of reports AWS CloudFormation retains for any given stack, and for how long, may vary.
+     * CloudFormation generates new results, with a new drift detection ID, each time this operation is run. However,
+     * the number of reports CloudFormation retains for any given stack, and for how long, may vary.
      * </p>
      */
     private String stackDriftDetectionId;
@@ -53,7 +53,7 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the stack differs from its expected template
+     * <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack differs from its expected template
      * configuration.
      * </p>
      * </li>
@@ -78,19 +78,18 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      * <li>
      * <p>
      * <code>DETECTION_COMPLETE</code>: The stack drift detection operation has successfully completed for all resources
-     * in the stack that support drift detection. (Resources that do not currently support stack detection remain
+     * in the stack that support drift detection. (Resources that don't currently support stack detection remain
      * unchecked.)
      * </p>
      * <p>
-     * If you specified logical resource IDs for AWS CloudFormation to use as a filter for the stack drift detection
+     * If you specified logical resource IDs for CloudFormation to use as a filter for the stack drift detection
      * operation, only the resources with those logical IDs are checked for drift.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>DETECTION_FAILED</code>: The stack drift detection operation has failed for at least one resource in the
-     * stack. Results will be available for resources on which AWS CloudFormation successfully completed drift
-     * detection.
+     * stack. Results will be available for resources on which CloudFormation successfully completed drift detection.
      * </p>
      * </li>
      * <li>
@@ -167,15 +166,15 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      * The ID of the drift detection results of this operation.
      * </p>
      * <p>
-     * AWS CloudFormation generates new results, with a new drift detection ID, each time this operation is run.
-     * However, the number of reports AWS CloudFormation retains for any given stack, and for how long, may vary.
+     * CloudFormation generates new results, with a new drift detection ID, each time this operation is run. However,
+     * the number of reports CloudFormation retains for any given stack, and for how long, may vary.
      * </p>
      * 
      * @param stackDriftDetectionId
-     *        The ID of the drift detection results of this operation. </p>
+     *        The ID of the drift detection results of this operation.</p>
      *        <p>
-     *        AWS CloudFormation generates new results, with a new drift detection ID, each time this operation is run.
-     *        However, the number of reports AWS CloudFormation retains for any given stack, and for how long, may vary.
+     *        CloudFormation generates new results, with a new drift detection ID, each time this operation is run.
+     *        However, the number of reports CloudFormation retains for any given stack, and for how long, may vary.
      */
 
     public void setStackDriftDetectionId(String stackDriftDetectionId) {
@@ -187,15 +186,14 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      * The ID of the drift detection results of this operation.
      * </p>
      * <p>
-     * AWS CloudFormation generates new results, with a new drift detection ID, each time this operation is run.
-     * However, the number of reports AWS CloudFormation retains for any given stack, and for how long, may vary.
+     * CloudFormation generates new results, with a new drift detection ID, each time this operation is run. However,
+     * the number of reports CloudFormation retains for any given stack, and for how long, may vary.
      * </p>
      * 
-     * @return The ID of the drift detection results of this operation. </p>
+     * @return The ID of the drift detection results of this operation.</p>
      *         <p>
-     *         AWS CloudFormation generates new results, with a new drift detection ID, each time this operation is run.
-     *         However, the number of reports AWS CloudFormation retains for any given stack, and for how long, may
-     *         vary.
+     *         CloudFormation generates new results, with a new drift detection ID, each time this operation is run.
+     *         However, the number of reports CloudFormation retains for any given stack, and for how long, may vary.
      */
 
     public String getStackDriftDetectionId() {
@@ -207,15 +205,15 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      * The ID of the drift detection results of this operation.
      * </p>
      * <p>
-     * AWS CloudFormation generates new results, with a new drift detection ID, each time this operation is run.
-     * However, the number of reports AWS CloudFormation retains for any given stack, and for how long, may vary.
+     * CloudFormation generates new results, with a new drift detection ID, each time this operation is run. However,
+     * the number of reports CloudFormation retains for any given stack, and for how long, may vary.
      * </p>
      * 
      * @param stackDriftDetectionId
-     *        The ID of the drift detection results of this operation. </p>
+     *        The ID of the drift detection results of this operation.</p>
      *        <p>
-     *        AWS CloudFormation generates new results, with a new drift detection ID, each time this operation is run.
-     *        However, the number of reports AWS CloudFormation retains for any given stack, and for how long, may vary.
+     *        CloudFormation generates new results, with a new drift detection ID, each time this operation is run.
+     *        However, the number of reports CloudFormation retains for any given stack, and for how long, may vary.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -237,7 +235,7 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the stack differs from its expected template
+     * <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack differs from its expected template
      * configuration.
      * </p>
      * </li>
@@ -254,7 +252,7 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      * </ul>
      * 
      * @param stackDriftStatus
-     *        Status of the stack's actual configuration compared to its expected configuration. </p>
+     *        Status of the stack's actual configuration compared to its expected configuration.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -264,8 +262,8 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      *        </li>
      *        <li>
      *        <p>
-     *        <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the stack differs from its expected
-     *        template configuration.
+     *        <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack differs from its expected template
+     *        configuration.
      *        </p>
      *        </li>
      *        <li>
@@ -298,7 +296,7 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the stack differs from its expected template
+     * <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack differs from its expected template
      * configuration.
      * </p>
      * </li>
@@ -314,7 +312,7 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      * </li>
      * </ul>
      * 
-     * @return Status of the stack's actual configuration compared to its expected configuration. </p>
+     * @return Status of the stack's actual configuration compared to its expected configuration.</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -324,8 +322,8 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      *         </li>
      *         <li>
      *         <p>
-     *         <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the stack differs from its expected
-     *         template configuration.
+     *         <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack differs from its expected template
+     *         configuration.
      *         </p>
      *         </li>
      *         <li>
@@ -358,7 +356,7 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the stack differs from its expected template
+     * <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack differs from its expected template
      * configuration.
      * </p>
      * </li>
@@ -375,7 +373,7 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      * </ul>
      * 
      * @param stackDriftStatus
-     *        Status of the stack's actual configuration compared to its expected configuration. </p>
+     *        Status of the stack's actual configuration compared to its expected configuration.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -385,8 +383,8 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      *        </li>
      *        <li>
      *        <p>
-     *        <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the stack differs from its expected
-     *        template configuration.
+     *        <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack differs from its expected template
+     *        configuration.
      *        </p>
      *        </li>
      *        <li>
@@ -421,7 +419,7 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the stack differs from its expected template
+     * <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack differs from its expected template
      * configuration.
      * </p>
      * </li>
@@ -438,7 +436,7 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      * </ul>
      * 
      * @param stackDriftStatus
-     *        Status of the stack's actual configuration compared to its expected configuration. </p>
+     *        Status of the stack's actual configuration compared to its expected configuration.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -448,8 +446,8 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      *        </li>
      *        <li>
      *        <p>
-     *        <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the stack differs from its expected
-     *        template configuration.
+     *        <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack differs from its expected template
+     *        configuration.
      *        </p>
      *        </li>
      *        <li>
@@ -479,19 +477,18 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      * <li>
      * <p>
      * <code>DETECTION_COMPLETE</code>: The stack drift detection operation has successfully completed for all resources
-     * in the stack that support drift detection. (Resources that do not currently support stack detection remain
+     * in the stack that support drift detection. (Resources that don't currently support stack detection remain
      * unchecked.)
      * </p>
      * <p>
-     * If you specified logical resource IDs for AWS CloudFormation to use as a filter for the stack drift detection
+     * If you specified logical resource IDs for CloudFormation to use as a filter for the stack drift detection
      * operation, only the resources with those logical IDs are checked for drift.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>DETECTION_FAILED</code>: The stack drift detection operation has failed for at least one resource in the
-     * stack. Results will be available for resources on which AWS CloudFormation successfully completed drift
-     * detection.
+     * stack. Results will be available for resources on which CloudFormation successfully completed drift detection.
      * </p>
      * </li>
      * <li>
@@ -507,19 +504,19 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      *        <li>
      *        <p>
      *        <code>DETECTION_COMPLETE</code>: The stack drift detection operation has successfully completed for all
-     *        resources in the stack that support drift detection. (Resources that do not currently support stack
+     *        resources in the stack that support drift detection. (Resources that don't currently support stack
      *        detection remain unchecked.)
      *        </p>
      *        <p>
-     *        If you specified logical resource IDs for AWS CloudFormation to use as a filter for the stack drift
-     *        detection operation, only the resources with those logical IDs are checked for drift.
+     *        If you specified logical resource IDs for CloudFormation to use as a filter for the stack drift detection
+     *        operation, only the resources with those logical IDs are checked for drift.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>DETECTION_FAILED</code>: The stack drift detection operation has failed for at least one resource in
-     *        the stack. Results will be available for resources on which AWS CloudFormation successfully completed
-     *        drift detection.
+     *        the stack. Results will be available for resources on which CloudFormation successfully completed drift
+     *        detection.
      *        </p>
      *        </li>
      *        <li>
@@ -542,19 +539,18 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      * <li>
      * <p>
      * <code>DETECTION_COMPLETE</code>: The stack drift detection operation has successfully completed for all resources
-     * in the stack that support drift detection. (Resources that do not currently support stack detection remain
+     * in the stack that support drift detection. (Resources that don't currently support stack detection remain
      * unchecked.)
      * </p>
      * <p>
-     * If you specified logical resource IDs for AWS CloudFormation to use as a filter for the stack drift detection
+     * If you specified logical resource IDs for CloudFormation to use as a filter for the stack drift detection
      * operation, only the resources with those logical IDs are checked for drift.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>DETECTION_FAILED</code>: The stack drift detection operation has failed for at least one resource in the
-     * stack. Results will be available for resources on which AWS CloudFormation successfully completed drift
-     * detection.
+     * stack. Results will be available for resources on which CloudFormation successfully completed drift detection.
      * </p>
      * </li>
      * <li>
@@ -569,18 +565,18 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      *         <li>
      *         <p>
      *         <code>DETECTION_COMPLETE</code>: The stack drift detection operation has successfully completed for all
-     *         resources in the stack that support drift detection. (Resources that do not currently support stack
+     *         resources in the stack that support drift detection. (Resources that don't currently support stack
      *         detection remain unchecked.)
      *         </p>
      *         <p>
-     *         If you specified logical resource IDs for AWS CloudFormation to use as a filter for the stack drift
-     *         detection operation, only the resources with those logical IDs are checked for drift.
+     *         If you specified logical resource IDs for CloudFormation to use as a filter for the stack drift detection
+     *         operation, only the resources with those logical IDs are checked for drift.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         <code>DETECTION_FAILED</code>: The stack drift detection operation has failed for at least one resource
-     *         in the stack. Results will be available for resources on which AWS CloudFormation successfully completed
+     *         in the stack. Results will be available for resources on which CloudFormation successfully completed
      *         drift detection.
      *         </p>
      *         </li>
@@ -604,19 +600,18 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      * <li>
      * <p>
      * <code>DETECTION_COMPLETE</code>: The stack drift detection operation has successfully completed for all resources
-     * in the stack that support drift detection. (Resources that do not currently support stack detection remain
+     * in the stack that support drift detection. (Resources that don't currently support stack detection remain
      * unchecked.)
      * </p>
      * <p>
-     * If you specified logical resource IDs for AWS CloudFormation to use as a filter for the stack drift detection
+     * If you specified logical resource IDs for CloudFormation to use as a filter for the stack drift detection
      * operation, only the resources with those logical IDs are checked for drift.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>DETECTION_FAILED</code>: The stack drift detection operation has failed for at least one resource in the
-     * stack. Results will be available for resources on which AWS CloudFormation successfully completed drift
-     * detection.
+     * stack. Results will be available for resources on which CloudFormation successfully completed drift detection.
      * </p>
      * </li>
      * <li>
@@ -632,19 +627,19 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      *        <li>
      *        <p>
      *        <code>DETECTION_COMPLETE</code>: The stack drift detection operation has successfully completed for all
-     *        resources in the stack that support drift detection. (Resources that do not currently support stack
+     *        resources in the stack that support drift detection. (Resources that don't currently support stack
      *        detection remain unchecked.)
      *        </p>
      *        <p>
-     *        If you specified logical resource IDs for AWS CloudFormation to use as a filter for the stack drift
-     *        detection operation, only the resources with those logical IDs are checked for drift.
+     *        If you specified logical resource IDs for CloudFormation to use as a filter for the stack drift detection
+     *        operation, only the resources with those logical IDs are checked for drift.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>DETECTION_FAILED</code>: The stack drift detection operation has failed for at least one resource in
-     *        the stack. Results will be available for resources on which AWS CloudFormation successfully completed
-     *        drift detection.
+     *        the stack. Results will be available for resources on which CloudFormation successfully completed drift
+     *        detection.
      *        </p>
      *        </li>
      *        <li>
@@ -669,19 +664,18 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      * <li>
      * <p>
      * <code>DETECTION_COMPLETE</code>: The stack drift detection operation has successfully completed for all resources
-     * in the stack that support drift detection. (Resources that do not currently support stack detection remain
+     * in the stack that support drift detection. (Resources that don't currently support stack detection remain
      * unchecked.)
      * </p>
      * <p>
-     * If you specified logical resource IDs for AWS CloudFormation to use as a filter for the stack drift detection
+     * If you specified logical resource IDs for CloudFormation to use as a filter for the stack drift detection
      * operation, only the resources with those logical IDs are checked for drift.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>DETECTION_FAILED</code>: The stack drift detection operation has failed for at least one resource in the
-     * stack. Results will be available for resources on which AWS CloudFormation successfully completed drift
-     * detection.
+     * stack. Results will be available for resources on which CloudFormation successfully completed drift detection.
      * </p>
      * </li>
      * <li>
@@ -697,19 +691,19 @@ public class DescribeStackDriftDetectionStatusResult extends com.amazonaws.Amazo
      *        <li>
      *        <p>
      *        <code>DETECTION_COMPLETE</code>: The stack drift detection operation has successfully completed for all
-     *        resources in the stack that support drift detection. (Resources that do not currently support stack
+     *        resources in the stack that support drift detection. (Resources that don't currently support stack
      *        detection remain unchecked.)
      *        </p>
      *        <p>
-     *        If you specified logical resource IDs for AWS CloudFormation to use as a filter for the stack drift
-     *        detection operation, only the resources with those logical IDs are checked for drift.
+     *        If you specified logical resource IDs for CloudFormation to use as a filter for the stack drift detection
+     *        operation, only the resources with those logical IDs are checked for drift.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>DETECTION_FAILED</code>: The stack drift detection operation has failed for at least one resource in
-     *        the stack. Results will be available for resources on which AWS CloudFormation successfully completed
-     *        drift detection.
+     *        the stack. Results will be available for resources on which CloudFormation successfully completed drift
+     *        detection.
      *        </p>
      *        </li>
      *        <li>

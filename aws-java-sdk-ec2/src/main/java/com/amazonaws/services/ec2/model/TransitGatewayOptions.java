@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,6 +33,12 @@ public class TransitGatewayOptions implements Serializable, Cloneable {
      * </p>
      */
     private Long amazonSideAsn;
+    /**
+     * <p>
+     * The transit gateway CIDR blocks.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> transitGatewayCidrBlocks;
     /**
      * <p>
      * Indicates whether attachment requests are automatically accepted.
@@ -75,6 +81,27 @@ public class TransitGatewayOptions implements Serializable, Cloneable {
      * </p>
      */
     private String dnsSupport;
+    /**
+     * <note>
+     * <p>
+     * This parameter is in preview and may not be available for your account.
+     * </p>
+     * </note>
+     * <p>
+     * Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to simplify
+     * security group management and control of instance-to-instance traffic across VPCs that are connected by transit
+     * gateway. You can also use this option to migrate from VPC peering (which was the only option that supported
+     * security group referencing) to transit gateways (which now also support security group referencing). This option
+     * is disabled by default and there are no additional costs to use this feature.
+     * </p>
+     */
+    private String securityGroupReferencingSupport;
+    /**
+     * <p>
+     * Indicates whether multicast is enabled on the transit gateway
+     * </p>
+     */
+    private String multicastSupport;
 
     /**
      * <p>
@@ -119,6 +146,79 @@ public class TransitGatewayOptions implements Serializable, Cloneable {
 
     public TransitGatewayOptions withAmazonSideAsn(Long amazonSideAsn) {
         setAmazonSideAsn(amazonSideAsn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The transit gateway CIDR blocks.
+     * </p>
+     * 
+     * @return The transit gateway CIDR blocks.
+     */
+
+    public java.util.List<String> getTransitGatewayCidrBlocks() {
+        if (transitGatewayCidrBlocks == null) {
+            transitGatewayCidrBlocks = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return transitGatewayCidrBlocks;
+    }
+
+    /**
+     * <p>
+     * The transit gateway CIDR blocks.
+     * </p>
+     * 
+     * @param transitGatewayCidrBlocks
+     *        The transit gateway CIDR blocks.
+     */
+
+    public void setTransitGatewayCidrBlocks(java.util.Collection<String> transitGatewayCidrBlocks) {
+        if (transitGatewayCidrBlocks == null) {
+            this.transitGatewayCidrBlocks = null;
+            return;
+        }
+
+        this.transitGatewayCidrBlocks = new com.amazonaws.internal.SdkInternalList<String>(transitGatewayCidrBlocks);
+    }
+
+    /**
+     * <p>
+     * The transit gateway CIDR blocks.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTransitGatewayCidrBlocks(java.util.Collection)} or
+     * {@link #withTransitGatewayCidrBlocks(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param transitGatewayCidrBlocks
+     *        The transit gateway CIDR blocks.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TransitGatewayOptions withTransitGatewayCidrBlocks(String... transitGatewayCidrBlocks) {
+        if (this.transitGatewayCidrBlocks == null) {
+            setTransitGatewayCidrBlocks(new com.amazonaws.internal.SdkInternalList<String>(transitGatewayCidrBlocks.length));
+        }
+        for (String ele : transitGatewayCidrBlocks) {
+            this.transitGatewayCidrBlocks.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The transit gateway CIDR blocks.
+     * </p>
+     * 
+     * @param transitGatewayCidrBlocks
+     *        The transit gateway CIDR blocks.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TransitGatewayOptions withTransitGatewayCidrBlocks(java.util.Collection<String> transitGatewayCidrBlocks) {
+        setTransitGatewayCidrBlocks(transitGatewayCidrBlocks);
         return this;
     }
 
@@ -506,6 +606,200 @@ public class TransitGatewayOptions implements Serializable, Cloneable {
     }
 
     /**
+     * <note>
+     * <p>
+     * This parameter is in preview and may not be available for your account.
+     * </p>
+     * </note>
+     * <p>
+     * Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to simplify
+     * security group management and control of instance-to-instance traffic across VPCs that are connected by transit
+     * gateway. You can also use this option to migrate from VPC peering (which was the only option that supported
+     * security group referencing) to transit gateways (which now also support security group referencing). This option
+     * is disabled by default and there are no additional costs to use this feature.
+     * </p>
+     * 
+     * @param securityGroupReferencingSupport
+     *        <p>
+     *        This parameter is in preview and may not be available for your account.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to
+     *        simplify security group management and control of instance-to-instance traffic across VPCs that are
+     *        connected by transit gateway. You can also use this option to migrate from VPC peering (which was the only
+     *        option that supported security group referencing) to transit gateways (which now also support security
+     *        group referencing). This option is disabled by default and there are no additional costs to use this
+     *        feature.
+     * @see SecurityGroupReferencingSupportValue
+     */
+
+    public void setSecurityGroupReferencingSupport(String securityGroupReferencingSupport) {
+        this.securityGroupReferencingSupport = securityGroupReferencingSupport;
+    }
+
+    /**
+     * <note>
+     * <p>
+     * This parameter is in preview and may not be available for your account.
+     * </p>
+     * </note>
+     * <p>
+     * Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to simplify
+     * security group management and control of instance-to-instance traffic across VPCs that are connected by transit
+     * gateway. You can also use this option to migrate from VPC peering (which was the only option that supported
+     * security group referencing) to transit gateways (which now also support security group referencing). This option
+     * is disabled by default and there are no additional costs to use this feature.
+     * </p>
+     * 
+     * @return <p>
+     *         This parameter is in preview and may not be available for your account.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to
+     *         simplify security group management and control of instance-to-instance traffic across VPCs that are
+     *         connected by transit gateway. You can also use this option to migrate from VPC peering (which was the
+     *         only option that supported security group referencing) to transit gateways (which now also support
+     *         security group referencing). This option is disabled by default and there are no additional costs to use
+     *         this feature.
+     * @see SecurityGroupReferencingSupportValue
+     */
+
+    public String getSecurityGroupReferencingSupport() {
+        return this.securityGroupReferencingSupport;
+    }
+
+    /**
+     * <note>
+     * <p>
+     * This parameter is in preview and may not be available for your account.
+     * </p>
+     * </note>
+     * <p>
+     * Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to simplify
+     * security group management and control of instance-to-instance traffic across VPCs that are connected by transit
+     * gateway. You can also use this option to migrate from VPC peering (which was the only option that supported
+     * security group referencing) to transit gateways (which now also support security group referencing). This option
+     * is disabled by default and there are no additional costs to use this feature.
+     * </p>
+     * 
+     * @param securityGroupReferencingSupport
+     *        <p>
+     *        This parameter is in preview and may not be available for your account.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to
+     *        simplify security group management and control of instance-to-instance traffic across VPCs that are
+     *        connected by transit gateway. You can also use this option to migrate from VPC peering (which was the only
+     *        option that supported security group referencing) to transit gateways (which now also support security
+     *        group referencing). This option is disabled by default and there are no additional costs to use this
+     *        feature.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SecurityGroupReferencingSupportValue
+     */
+
+    public TransitGatewayOptions withSecurityGroupReferencingSupport(String securityGroupReferencingSupport) {
+        setSecurityGroupReferencingSupport(securityGroupReferencingSupport);
+        return this;
+    }
+
+    /**
+     * <note>
+     * <p>
+     * This parameter is in preview and may not be available for your account.
+     * </p>
+     * </note>
+     * <p>
+     * Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to simplify
+     * security group management and control of instance-to-instance traffic across VPCs that are connected by transit
+     * gateway. You can also use this option to migrate from VPC peering (which was the only option that supported
+     * security group referencing) to transit gateways (which now also support security group referencing). This option
+     * is disabled by default and there are no additional costs to use this feature.
+     * </p>
+     * 
+     * @param securityGroupReferencingSupport
+     *        <p>
+     *        This parameter is in preview and may not be available for your account.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to
+     *        simplify security group management and control of instance-to-instance traffic across VPCs that are
+     *        connected by transit gateway. You can also use this option to migrate from VPC peering (which was the only
+     *        option that supported security group referencing) to transit gateways (which now also support security
+     *        group referencing). This option is disabled by default and there are no additional costs to use this
+     *        feature.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SecurityGroupReferencingSupportValue
+     */
+
+    public TransitGatewayOptions withSecurityGroupReferencingSupport(SecurityGroupReferencingSupportValue securityGroupReferencingSupport) {
+        this.securityGroupReferencingSupport = securityGroupReferencingSupport.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether multicast is enabled on the transit gateway
+     * </p>
+     * 
+     * @param multicastSupport
+     *        Indicates whether multicast is enabled on the transit gateway
+     * @see MulticastSupportValue
+     */
+
+    public void setMulticastSupport(String multicastSupport) {
+        this.multicastSupport = multicastSupport;
+    }
+
+    /**
+     * <p>
+     * Indicates whether multicast is enabled on the transit gateway
+     * </p>
+     * 
+     * @return Indicates whether multicast is enabled on the transit gateway
+     * @see MulticastSupportValue
+     */
+
+    public String getMulticastSupport() {
+        return this.multicastSupport;
+    }
+
+    /**
+     * <p>
+     * Indicates whether multicast is enabled on the transit gateway
+     * </p>
+     * 
+     * @param multicastSupport
+     *        Indicates whether multicast is enabled on the transit gateway
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see MulticastSupportValue
+     */
+
+    public TransitGatewayOptions withMulticastSupport(String multicastSupport) {
+        setMulticastSupport(multicastSupport);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether multicast is enabled on the transit gateway
+     * </p>
+     * 
+     * @param multicastSupport
+     *        Indicates whether multicast is enabled on the transit gateway
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see MulticastSupportValue
+     */
+
+    public TransitGatewayOptions withMulticastSupport(MulticastSupportValue multicastSupport) {
+        this.multicastSupport = multicastSupport.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -519,6 +813,8 @@ public class TransitGatewayOptions implements Serializable, Cloneable {
         sb.append("{");
         if (getAmazonSideAsn() != null)
             sb.append("AmazonSideAsn: ").append(getAmazonSideAsn()).append(",");
+        if (getTransitGatewayCidrBlocks() != null)
+            sb.append("TransitGatewayCidrBlocks: ").append(getTransitGatewayCidrBlocks()).append(",");
         if (getAutoAcceptSharedAttachments() != null)
             sb.append("AutoAcceptSharedAttachments: ").append(getAutoAcceptSharedAttachments()).append(",");
         if (getDefaultRouteTableAssociation() != null)
@@ -532,7 +828,11 @@ public class TransitGatewayOptions implements Serializable, Cloneable {
         if (getVpnEcmpSupport() != null)
             sb.append("VpnEcmpSupport: ").append(getVpnEcmpSupport()).append(",");
         if (getDnsSupport() != null)
-            sb.append("DnsSupport: ").append(getDnsSupport());
+            sb.append("DnsSupport: ").append(getDnsSupport()).append(",");
+        if (getSecurityGroupReferencingSupport() != null)
+            sb.append("SecurityGroupReferencingSupport: ").append(getSecurityGroupReferencingSupport()).append(",");
+        if (getMulticastSupport() != null)
+            sb.append("MulticastSupport: ").append(getMulticastSupport());
         sb.append("}");
         return sb.toString();
     }
@@ -550,6 +850,10 @@ public class TransitGatewayOptions implements Serializable, Cloneable {
         if (other.getAmazonSideAsn() == null ^ this.getAmazonSideAsn() == null)
             return false;
         if (other.getAmazonSideAsn() != null && other.getAmazonSideAsn().equals(this.getAmazonSideAsn()) == false)
+            return false;
+        if (other.getTransitGatewayCidrBlocks() == null ^ this.getTransitGatewayCidrBlocks() == null)
+            return false;
+        if (other.getTransitGatewayCidrBlocks() != null && other.getTransitGatewayCidrBlocks().equals(this.getTransitGatewayCidrBlocks()) == false)
             return false;
         if (other.getAutoAcceptSharedAttachments() == null ^ this.getAutoAcceptSharedAttachments() == null)
             return false;
@@ -581,6 +885,15 @@ public class TransitGatewayOptions implements Serializable, Cloneable {
             return false;
         if (other.getDnsSupport() != null && other.getDnsSupport().equals(this.getDnsSupport()) == false)
             return false;
+        if (other.getSecurityGroupReferencingSupport() == null ^ this.getSecurityGroupReferencingSupport() == null)
+            return false;
+        if (other.getSecurityGroupReferencingSupport() != null
+                && other.getSecurityGroupReferencingSupport().equals(this.getSecurityGroupReferencingSupport()) == false)
+            return false;
+        if (other.getMulticastSupport() == null ^ this.getMulticastSupport() == null)
+            return false;
+        if (other.getMulticastSupport() != null && other.getMulticastSupport().equals(this.getMulticastSupport()) == false)
+            return false;
         return true;
     }
 
@@ -590,6 +903,7 @@ public class TransitGatewayOptions implements Serializable, Cloneable {
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getAmazonSideAsn() == null) ? 0 : getAmazonSideAsn().hashCode());
+        hashCode = prime * hashCode + ((getTransitGatewayCidrBlocks() == null) ? 0 : getTransitGatewayCidrBlocks().hashCode());
         hashCode = prime * hashCode + ((getAutoAcceptSharedAttachments() == null) ? 0 : getAutoAcceptSharedAttachments().hashCode());
         hashCode = prime * hashCode + ((getDefaultRouteTableAssociation() == null) ? 0 : getDefaultRouteTableAssociation().hashCode());
         hashCode = prime * hashCode + ((getAssociationDefaultRouteTableId() == null) ? 0 : getAssociationDefaultRouteTableId().hashCode());
@@ -597,6 +911,8 @@ public class TransitGatewayOptions implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getPropagationDefaultRouteTableId() == null) ? 0 : getPropagationDefaultRouteTableId().hashCode());
         hashCode = prime * hashCode + ((getVpnEcmpSupport() == null) ? 0 : getVpnEcmpSupport().hashCode());
         hashCode = prime * hashCode + ((getDnsSupport() == null) ? 0 : getDnsSupport().hashCode());
+        hashCode = prime * hashCode + ((getSecurityGroupReferencingSupport() == null) ? 0 : getSecurityGroupReferencingSupport().hashCode());
+        hashCode = prime * hashCode + ((getMulticastSupport() == null) ? 0 : getMulticastSupport().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,6 +52,14 @@ public class DescribeModelPackageResultJsonUnmarshaller implements Unmarshaller<
                     context.nextToken();
                     describeModelPackageResult.setModelPackageName(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("ModelPackageGroupName", targetDepth)) {
+                    context.nextToken();
+                    describeModelPackageResult.setModelPackageGroupName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ModelPackageVersion", targetDepth)) {
+                    context.nextToken();
+                    describeModelPackageResult.setModelPackageVersion(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
                 if (context.testExpression("ModelPackageArn", targetDepth)) {
                     context.nextToken();
                     describeModelPackageResult.setModelPackageArn(context.getUnmarshaller(String.class).unmarshall(context));
@@ -88,6 +96,78 @@ public class DescribeModelPackageResultJsonUnmarshaller implements Unmarshaller<
                 if (context.testExpression("CertifyForMarketplace", targetDepth)) {
                     context.nextToken();
                     describeModelPackageResult.setCertifyForMarketplace(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("ModelApprovalStatus", targetDepth)) {
+                    context.nextToken();
+                    describeModelPackageResult.setModelApprovalStatus(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("CreatedBy", targetDepth)) {
+                    context.nextToken();
+                    describeModelPackageResult.setCreatedBy(UserContextJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("MetadataProperties", targetDepth)) {
+                    context.nextToken();
+                    describeModelPackageResult.setMetadataProperties(MetadataPropertiesJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ModelMetrics", targetDepth)) {
+                    context.nextToken();
+                    describeModelPackageResult.setModelMetrics(ModelMetricsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("LastModifiedTime", targetDepth)) {
+                    context.nextToken();
+                    describeModelPackageResult.setLastModifiedTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("LastModifiedBy", targetDepth)) {
+                    context.nextToken();
+                    describeModelPackageResult.setLastModifiedBy(UserContextJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ApprovalDescription", targetDepth)) {
+                    context.nextToken();
+                    describeModelPackageResult.setApprovalDescription(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("Domain", targetDepth)) {
+                    context.nextToken();
+                    describeModelPackageResult.setDomain(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("Task", targetDepth)) {
+                    context.nextToken();
+                    describeModelPackageResult.setTask(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("SamplePayloadUrl", targetDepth)) {
+                    context.nextToken();
+                    describeModelPackageResult.setSamplePayloadUrl(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("CustomerMetadataProperties", targetDepth)) {
+                    context.nextToken();
+                    describeModelPackageResult.setCustomerMetadataProperties(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context
+                            .getUnmarshaller(String.class)).unmarshall(context));
+                }
+                if (context.testExpression("DriftCheckBaselines", targetDepth)) {
+                    context.nextToken();
+                    describeModelPackageResult.setDriftCheckBaselines(DriftCheckBaselinesJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("AdditionalInferenceSpecifications", targetDepth)) {
+                    context.nextToken();
+                    describeModelPackageResult.setAdditionalInferenceSpecifications(new ListUnmarshaller<AdditionalInferenceSpecificationDefinition>(
+                            AdditionalInferenceSpecificationDefinitionJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("SkipModelValidation", targetDepth)) {
+                    context.nextToken();
+                    describeModelPackageResult.setSkipModelValidation(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("SourceUri", targetDepth)) {
+                    context.nextToken();
+                    describeModelPackageResult.setSourceUri(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("SecurityConfig", targetDepth)) {
+                    context.nextToken();
+                    describeModelPackageResult.setSecurityConfig(ModelPackageSecurityConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ModelCard", targetDepth)) {
+                    context.nextToken();
+                    describeModelPackageResult.setModelCard(ModelPackageModelCardJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,8 +28,8 @@ public class SendMessageResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * An MD5 digest of the non-URL-encoded message attribute string. You can use this attribute to verify that Amazon
-     * SQS received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest. For
+     * An MD5 digest of the non-URL-encoded message body string. You can use this attribute to verify that Amazon SQS
+     * received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest. For
      * information about MD5, see <a href="https://www.ietf.org/rfc/rfc1321.txt">RFC1321</a>.
      * </p>
      */
@@ -44,10 +44,17 @@ public class SendMessageResult extends com.amazonaws.AmazonWebServiceResult<com.
     private String mD5OfMessageAttributes;
     /**
      * <p>
+     * An MD5 digest of the non-URL-encoded message system attribute string. You can use this attribute to verify that
+     * Amazon SQS received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest.
+     * </p>
+     */
+    private String mD5OfMessageSystemAttributes;
+    /**
+     * <p>
      * An attribute containing the <code>MessageId</code> of the message sent to the queue. For more information, see <a
      * href
      * ="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-message-identifiers.html"
-     * >Queue and Message Identifiers</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     * >Queue and Message Identifiers</a> in the <i>Amazon SQS Developer Guide</i>.
      * </p>
      */
     private String messageId;
@@ -67,15 +74,15 @@ public class SendMessageResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * An MD5 digest of the non-URL-encoded message attribute string. You can use this attribute to verify that Amazon
-     * SQS received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest. For
+     * An MD5 digest of the non-URL-encoded message body string. You can use this attribute to verify that Amazon SQS
+     * received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest. For
      * information about MD5, see <a href="https://www.ietf.org/rfc/rfc1321.txt">RFC1321</a>.
      * </p>
      * 
      * @param mD5OfMessageBody
-     *        An MD5 digest of the non-URL-encoded message attribute string. You can use this attribute to verify that
-     *        Amazon SQS received the message correctly. Amazon SQS URL-decodes the message before creating the MD5
-     *        digest. For information about MD5, see <a href="https://www.ietf.org/rfc/rfc1321.txt">RFC1321</a>.
+     *        An MD5 digest of the non-URL-encoded message body string. You can use this attribute to verify that Amazon
+     *        SQS received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest. For
+     *        information about MD5, see <a href="https://www.ietf.org/rfc/rfc1321.txt">RFC1321</a>.
      */
 
     public void setMD5OfMessageBody(String mD5OfMessageBody) {
@@ -84,12 +91,12 @@ public class SendMessageResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * An MD5 digest of the non-URL-encoded message attribute string. You can use this attribute to verify that Amazon
-     * SQS received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest. For
+     * An MD5 digest of the non-URL-encoded message body string. You can use this attribute to verify that Amazon SQS
+     * received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest. For
      * information about MD5, see <a href="https://www.ietf.org/rfc/rfc1321.txt">RFC1321</a>.
      * </p>
      * 
-     * @return An MD5 digest of the non-URL-encoded message attribute string. You can use this attribute to verify that
+     * @return An MD5 digest of the non-URL-encoded message body string. You can use this attribute to verify that
      *         Amazon SQS received the message correctly. Amazon SQS URL-decodes the message before creating the MD5
      *         digest. For information about MD5, see <a href="https://www.ietf.org/rfc/rfc1321.txt">RFC1321</a>.
      */
@@ -100,15 +107,15 @@ public class SendMessageResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * An MD5 digest of the non-URL-encoded message attribute string. You can use this attribute to verify that Amazon
-     * SQS received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest. For
+     * An MD5 digest of the non-URL-encoded message body string. You can use this attribute to verify that Amazon SQS
+     * received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest. For
      * information about MD5, see <a href="https://www.ietf.org/rfc/rfc1321.txt">RFC1321</a>.
      * </p>
      * 
      * @param mD5OfMessageBody
-     *        An MD5 digest of the non-URL-encoded message attribute string. You can use this attribute to verify that
-     *        Amazon SQS received the message correctly. Amazon SQS URL-decodes the message before creating the MD5
-     *        digest. For information about MD5, see <a href="https://www.ietf.org/rfc/rfc1321.txt">RFC1321</a>.
+     *        An MD5 digest of the non-URL-encoded message body string. You can use this attribute to verify that Amazon
+     *        SQS received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest. For
+     *        information about MD5, see <a href="https://www.ietf.org/rfc/rfc1321.txt">RFC1321</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -171,17 +178,66 @@ public class SendMessageResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
+     * An MD5 digest of the non-URL-encoded message system attribute string. You can use this attribute to verify that
+     * Amazon SQS received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest.
+     * </p>
+     * 
+     * @param mD5OfMessageSystemAttributes
+     *        An MD5 digest of the non-URL-encoded message system attribute string. You can use this attribute to verify
+     *        that Amazon SQS received the message correctly. Amazon SQS URL-decodes the message before creating the MD5
+     *        digest.
+     */
+
+    public void setMD5OfMessageSystemAttributes(String mD5OfMessageSystemAttributes) {
+        this.mD5OfMessageSystemAttributes = mD5OfMessageSystemAttributes;
+    }
+
+    /**
+     * <p>
+     * An MD5 digest of the non-URL-encoded message system attribute string. You can use this attribute to verify that
+     * Amazon SQS received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest.
+     * </p>
+     * 
+     * @return An MD5 digest of the non-URL-encoded message system attribute string. You can use this attribute to
+     *         verify that Amazon SQS received the message correctly. Amazon SQS URL-decodes the message before creating
+     *         the MD5 digest.
+     */
+
+    public String getMD5OfMessageSystemAttributes() {
+        return this.mD5OfMessageSystemAttributes;
+    }
+
+    /**
+     * <p>
+     * An MD5 digest of the non-URL-encoded message system attribute string. You can use this attribute to verify that
+     * Amazon SQS received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest.
+     * </p>
+     * 
+     * @param mD5OfMessageSystemAttributes
+     *        An MD5 digest of the non-URL-encoded message system attribute string. You can use this attribute to verify
+     *        that Amazon SQS received the message correctly. Amazon SQS URL-decodes the message before creating the MD5
+     *        digest.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SendMessageResult withMD5OfMessageSystemAttributes(String mD5OfMessageSystemAttributes) {
+        setMD5OfMessageSystemAttributes(mD5OfMessageSystemAttributes);
+        return this;
+    }
+
+    /**
+     * <p>
      * An attribute containing the <code>MessageId</code> of the message sent to the queue. For more information, see <a
      * href
      * ="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-message-identifiers.html"
-     * >Queue and Message Identifiers</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     * >Queue and Message Identifiers</a> in the <i>Amazon SQS Developer Guide</i>.
      * </p>
      * 
      * @param messageId
      *        An attribute containing the <code>MessageId</code> of the message sent to the queue. For more information,
      *        see <a href=
      *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-message-identifiers.html"
-     *        >Queue and Message Identifiers</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     *        >Queue and Message Identifiers</a> in the <i>Amazon SQS Developer Guide</i>.
      */
 
     public void setMessageId(String messageId) {
@@ -193,13 +249,13 @@ public class SendMessageResult extends com.amazonaws.AmazonWebServiceResult<com.
      * An attribute containing the <code>MessageId</code> of the message sent to the queue. For more information, see <a
      * href
      * ="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-message-identifiers.html"
-     * >Queue and Message Identifiers</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     * >Queue and Message Identifiers</a> in the <i>Amazon SQS Developer Guide</i>.
      * </p>
      * 
      * @return An attribute containing the <code>MessageId</code> of the message sent to the queue. For more
      *         information, see <a href=
      *         "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-message-identifiers.html"
-     *         >Queue and Message Identifiers</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     *         >Queue and Message Identifiers</a> in the <i>Amazon SQS Developer Guide</i>.
      */
 
     public String getMessageId() {
@@ -211,14 +267,14 @@ public class SendMessageResult extends com.amazonaws.AmazonWebServiceResult<com.
      * An attribute containing the <code>MessageId</code> of the message sent to the queue. For more information, see <a
      * href
      * ="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-message-identifiers.html"
-     * >Queue and Message Identifiers</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     * >Queue and Message Identifiers</a> in the <i>Amazon SQS Developer Guide</i>.
      * </p>
      * 
      * @param messageId
      *        An attribute containing the <code>MessageId</code> of the message sent to the queue. For more information,
      *        see <a href=
      *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-message-identifiers.html"
-     *        >Queue and Message Identifiers</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     *        >Queue and Message Identifiers</a> in the <i>Amazon SQS Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -322,6 +378,8 @@ public class SendMessageResult extends com.amazonaws.AmazonWebServiceResult<com.
             sb.append("MD5OfMessageBody: ").append(getMD5OfMessageBody()).append(",");
         if (getMD5OfMessageAttributes() != null)
             sb.append("MD5OfMessageAttributes: ").append(getMD5OfMessageAttributes()).append(",");
+        if (getMD5OfMessageSystemAttributes() != null)
+            sb.append("MD5OfMessageSystemAttributes: ").append(getMD5OfMessageSystemAttributes()).append(",");
         if (getMessageId() != null)
             sb.append("MessageId: ").append(getMessageId()).append(",");
         if (getSequenceNumber() != null)
@@ -348,6 +406,10 @@ public class SendMessageResult extends com.amazonaws.AmazonWebServiceResult<com.
             return false;
         if (other.getMD5OfMessageAttributes() != null && other.getMD5OfMessageAttributes().equals(this.getMD5OfMessageAttributes()) == false)
             return false;
+        if (other.getMD5OfMessageSystemAttributes() == null ^ this.getMD5OfMessageSystemAttributes() == null)
+            return false;
+        if (other.getMD5OfMessageSystemAttributes() != null && other.getMD5OfMessageSystemAttributes().equals(this.getMD5OfMessageSystemAttributes()) == false)
+            return false;
         if (other.getMessageId() == null ^ this.getMessageId() == null)
             return false;
         if (other.getMessageId() != null && other.getMessageId().equals(this.getMessageId()) == false)
@@ -366,6 +428,7 @@ public class SendMessageResult extends com.amazonaws.AmazonWebServiceResult<com.
 
         hashCode = prime * hashCode + ((getMD5OfMessageBody() == null) ? 0 : getMD5OfMessageBody().hashCode());
         hashCode = prime * hashCode + ((getMD5OfMessageAttributes() == null) ? 0 : getMD5OfMessageAttributes().hashCode());
+        hashCode = prime * hashCode + ((getMD5OfMessageSystemAttributes() == null) ? 0 : getMD5OfMessageSystemAttributes().hashCode());
         hashCode = prime * hashCode + ((getMessageId() == null) ? 0 : getMessageId().hashCode());
         hashCode = prime * hashCode + ((getSequenceNumber() == null) ? 0 : getSequenceNumber().hashCode());
         return hashCode;

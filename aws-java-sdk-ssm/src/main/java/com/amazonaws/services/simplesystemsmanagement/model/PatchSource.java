@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Information about the patches to use to update the instances, including target operating systems and source
- * repository. Applies to Linux instances only.
+ * Information about the patches to use to update the managed nodes, including target operating systems and source
+ * repository. Applies to Linux managed nodes only.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/PatchSource" target="_top">AWS API
@@ -51,14 +51,20 @@ public class PatchSource implements Serializable, Cloneable, StructuredPojo {
      * <code>[main]</code>
      * </p>
      * <p>
-     * <code>cachedir=/var/cache/yum/$basesearch$releasever</code>
+     * <code>name=MyCustomRepository</code>
      * </p>
      * <p>
-     * <code>keepcache=0</code>
+     * <code>baseurl=https://my-custom-repository</code>
      * </p>
      * <p>
-     * <code>debuglevel=2</code>
+     * <code>enabled=1</code>
      * </p>
+     * <note>
+     * <p>
+     * For information about other options available for your yum repository configuration, see <a
+     * href="https://man7.org/linux/man-pages/man5/dnf.conf.5.html">dnf.conf(5)</a>.
+     * </p>
+     * </note>
      */
     private String configuration;
 
@@ -199,14 +205,20 @@ public class PatchSource implements Serializable, Cloneable, StructuredPojo {
      * <code>[main]</code>
      * </p>
      * <p>
-     * <code>cachedir=/var/cache/yum/$basesearch$releasever</code>
+     * <code>name=MyCustomRepository</code>
      * </p>
      * <p>
-     * <code>keepcache=0</code>
+     * <code>baseurl=https://my-custom-repository</code>
      * </p>
      * <p>
-     * <code>debuglevel=2</code>
+     * <code>enabled=1</code>
      * </p>
+     * <note>
+     * <p>
+     * For information about other options available for your yum repository configuration, see <a
+     * href="https://man7.org/linux/man-pages/man5/dnf.conf.5.html">dnf.conf(5)</a>.
+     * </p>
+     * </note>
      * 
      * @param configuration
      *        The value of the yum repo configuration. For example:</p>
@@ -214,13 +226,19 @@ public class PatchSource implements Serializable, Cloneable, StructuredPojo {
      *        <code>[main]</code>
      *        </p>
      *        <p>
-     *        <code>cachedir=/var/cache/yum/$basesearch$releasever</code>
+     *        <code>name=MyCustomRepository</code>
      *        </p>
      *        <p>
-     *        <code>keepcache=0</code>
+     *        <code>baseurl=https://my-custom-repository</code>
      *        </p>
      *        <p>
-     *        <code>debuglevel=2</code>
+     *        <code>enabled=1</code>
+     *        </p>
+     *        <note>
+     *        <p>
+     *        For information about other options available for your yum repository configuration, see <a
+     *        href="https://man7.org/linux/man-pages/man5/dnf.conf.5.html">dnf.conf(5)</a>.
+     *        </p>
      */
 
     public void setConfiguration(String configuration) {
@@ -235,27 +253,39 @@ public class PatchSource implements Serializable, Cloneable, StructuredPojo {
      * <code>[main]</code>
      * </p>
      * <p>
-     * <code>cachedir=/var/cache/yum/$basesearch$releasever</code>
+     * <code>name=MyCustomRepository</code>
      * </p>
      * <p>
-     * <code>keepcache=0</code>
+     * <code>baseurl=https://my-custom-repository</code>
      * </p>
      * <p>
-     * <code>debuglevel=2</code>
+     * <code>enabled=1</code>
      * </p>
+     * <note>
+     * <p>
+     * For information about other options available for your yum repository configuration, see <a
+     * href="https://man7.org/linux/man-pages/man5/dnf.conf.5.html">dnf.conf(5)</a>.
+     * </p>
+     * </note>
      * 
      * @return The value of the yum repo configuration. For example:</p>
      *         <p>
      *         <code>[main]</code>
      *         </p>
      *         <p>
-     *         <code>cachedir=/var/cache/yum/$basesearch$releasever</code>
+     *         <code>name=MyCustomRepository</code>
      *         </p>
      *         <p>
-     *         <code>keepcache=0</code>
+     *         <code>baseurl=https://my-custom-repository</code>
      *         </p>
      *         <p>
-     *         <code>debuglevel=2</code>
+     *         <code>enabled=1</code>
+     *         </p>
+     *         <note>
+     *         <p>
+     *         For information about other options available for your yum repository configuration, see <a
+     *         href="https://man7.org/linux/man-pages/man5/dnf.conf.5.html">dnf.conf(5)</a>.
+     *         </p>
      */
 
     public String getConfiguration() {
@@ -270,14 +300,20 @@ public class PatchSource implements Serializable, Cloneable, StructuredPojo {
      * <code>[main]</code>
      * </p>
      * <p>
-     * <code>cachedir=/var/cache/yum/$basesearch$releasever</code>
+     * <code>name=MyCustomRepository</code>
      * </p>
      * <p>
-     * <code>keepcache=0</code>
+     * <code>baseurl=https://my-custom-repository</code>
      * </p>
      * <p>
-     * <code>debuglevel=2</code>
+     * <code>enabled=1</code>
      * </p>
+     * <note>
+     * <p>
+     * For information about other options available for your yum repository configuration, see <a
+     * href="https://man7.org/linux/man-pages/man5/dnf.conf.5.html">dnf.conf(5)</a>.
+     * </p>
+     * </note>
      * 
      * @param configuration
      *        The value of the yum repo configuration. For example:</p>
@@ -285,13 +321,19 @@ public class PatchSource implements Serializable, Cloneable, StructuredPojo {
      *        <code>[main]</code>
      *        </p>
      *        <p>
-     *        <code>cachedir=/var/cache/yum/$basesearch$releasever</code>
+     *        <code>name=MyCustomRepository</code>
      *        </p>
      *        <p>
-     *        <code>keepcache=0</code>
+     *        <code>baseurl=https://my-custom-repository</code>
      *        </p>
      *        <p>
-     *        <code>debuglevel=2</code>
+     *        <code>enabled=1</code>
+     *        </p>
+     *        <note>
+     *        <p>
+     *        For information about other options available for your yum repository configuration, see <a
+     *        href="https://man7.org/linux/man-pages/man5/dnf.conf.5.html">dnf.conf(5)</a>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -80,6 +80,10 @@ public class ConfigRuleEvaluationStatusJsonUnmarshaller implements Unmarshaller<
                     context.nextToken();
                     configRuleEvaluationStatus.setFirstActivatedTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
                 }
+                if (context.testExpression("LastDeactivatedTime", targetDepth)) {
+                    context.nextToken();
+                    configRuleEvaluationStatus.setLastDeactivatedTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
                 if (context.testExpression("LastErrorCode", targetDepth)) {
                     context.nextToken();
                     configRuleEvaluationStatus.setLastErrorCode(context.getUnmarshaller(String.class).unmarshall(context));
@@ -91,6 +95,18 @@ public class ConfigRuleEvaluationStatusJsonUnmarshaller implements Unmarshaller<
                 if (context.testExpression("FirstEvaluationStarted", targetDepth)) {
                     context.nextToken();
                     configRuleEvaluationStatus.setFirstEvaluationStarted(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("LastDebugLogDeliveryStatus", targetDepth)) {
+                    context.nextToken();
+                    configRuleEvaluationStatus.setLastDebugLogDeliveryStatus(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("LastDebugLogDeliveryStatusReason", targetDepth)) {
+                    context.nextToken();
+                    configRuleEvaluationStatus.setLastDebugLogDeliveryStatusReason(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("LastDebugLogDeliveryTime", targetDepth)) {
+                    context.nextToken();
+                    configRuleEvaluationStatus.setLastDebugLogDeliveryTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

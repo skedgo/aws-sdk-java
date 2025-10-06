@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
- * The Amazon Resource Name (ARN) of the broker.
+ * <p>
+ * Returns information about all brokers.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/BrokerSummary" target="_top">AWS API
  *      Documentation</a>
@@ -26,30 +28,64 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
 
-    /** The Amazon Resource Name (ARN) of the broker. */
+    /**
+     * <p>
+     * The broker's Amazon Resource Name (ARN).
+     * </p>
+     */
     private String brokerArn;
-    /** The unique ID that Amazon MQ generates for the broker. */
+    /**
+     * <p>
+     * The unique ID that Amazon MQ generates for the broker.
+     * </p>
+     */
     private String brokerId;
     /**
-     * The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain only
-     * letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard characters, or
-     * special characters.
+     * <p>
+     * The broker's name. This value is unique in your Amazon Web Services account, 1-50 characters long, and containing
+     * only letters, numbers, dashes, and underscores, and must not contain white spaces, brackets, wildcard characters,
+     * or special characters.
+     * </p>
      */
     private String brokerName;
-    /** The status of the broker. */
+    /**
+     * <p>
+     * The broker's status.
+     * </p>
+     */
     private String brokerState;
-    /** The time when the broker was created. */
+    /**
+     * <p>
+     * The time when the broker was created.
+     * </p>
+     */
     private java.util.Date created;
-    /** Required. The deployment mode of the broker. */
+    /**
+     * <p>
+     * The broker's deployment mode.
+     * </p>
+     */
     private String deploymentMode;
-    /** The broker's instance type. */
+    /**
+     * <p>
+     * The type of broker engine.
+     * </p>
+     */
+    private String engineType;
+    /**
+     * <p>
+     * The broker's instance type.
+     * </p>
+     */
     private String hostInstanceType;
 
     /**
-     * The Amazon Resource Name (ARN) of the broker.
+     * <p>
+     * The broker's Amazon Resource Name (ARN).
+     * </p>
      * 
      * @param brokerArn
-     *        The Amazon Resource Name (ARN) of the broker.
+     *        The broker's Amazon Resource Name (ARN).
      */
 
     public void setBrokerArn(String brokerArn) {
@@ -57,9 +93,11 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The Amazon Resource Name (ARN) of the broker.
+     * <p>
+     * The broker's Amazon Resource Name (ARN).
+     * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the broker.
+     * @return The broker's Amazon Resource Name (ARN).
      */
 
     public String getBrokerArn() {
@@ -67,10 +105,12 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The Amazon Resource Name (ARN) of the broker.
+     * <p>
+     * The broker's Amazon Resource Name (ARN).
+     * </p>
      * 
      * @param brokerArn
-     *        The Amazon Resource Name (ARN) of the broker.
+     *        The broker's Amazon Resource Name (ARN).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -80,7 +120,9 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
      * The unique ID that Amazon MQ generates for the broker.
+     * </p>
      * 
      * @param brokerId
      *        The unique ID that Amazon MQ generates for the broker.
@@ -91,7 +133,9 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
      * The unique ID that Amazon MQ generates for the broker.
+     * </p>
      * 
      * @return The unique ID that Amazon MQ generates for the broker.
      */
@@ -101,7 +145,9 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
      * The unique ID that Amazon MQ generates for the broker.
+     * </p>
      * 
      * @param brokerId
      *        The unique ID that Amazon MQ generates for the broker.
@@ -114,14 +160,16 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain only
-     * letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard characters, or
-     * special characters.
+     * <p>
+     * The broker's name. This value is unique in your Amazon Web Services account, 1-50 characters long, and containing
+     * only letters, numbers, dashes, and underscores, and must not contain white spaces, brackets, wildcard characters,
+     * or special characters.
+     * </p>
      * 
      * @param brokerName
-     *        The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain
-     *        only letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard
-     *        characters, or special characters.
+     *        The broker's name. This value is unique in your Amazon Web Services account, 1-50 characters long, and
+     *        containing only letters, numbers, dashes, and underscores, and must not contain white spaces, brackets,
+     *        wildcard characters, or special characters.
      */
 
     public void setBrokerName(String brokerName) {
@@ -129,13 +177,15 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain only
-     * letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard characters, or
-     * special characters.
+     * <p>
+     * The broker's name. This value is unique in your Amazon Web Services account, 1-50 characters long, and containing
+     * only letters, numbers, dashes, and underscores, and must not contain white spaces, brackets, wildcard characters,
+     * or special characters.
+     * </p>
      * 
-     * @return The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain
-     *         only letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard
-     *         characters, or special characters.
+     * @return The broker's name. This value is unique in your Amazon Web Services account, 1-50 characters long, and
+     *         containing only letters, numbers, dashes, and underscores, and must not contain white spaces, brackets,
+     *         wildcard characters, or special characters.
      */
 
     public String getBrokerName() {
@@ -143,14 +193,16 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain only
-     * letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard characters, or
-     * special characters.
+     * <p>
+     * The broker's name. This value is unique in your Amazon Web Services account, 1-50 characters long, and containing
+     * only letters, numbers, dashes, and underscores, and must not contain white spaces, brackets, wildcard characters,
+     * or special characters.
+     * </p>
      * 
      * @param brokerName
-     *        The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain
-     *        only letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard
-     *        characters, or special characters.
+     *        The broker's name. This value is unique in your Amazon Web Services account, 1-50 characters long, and
+     *        containing only letters, numbers, dashes, and underscores, and must not contain white spaces, brackets,
+     *        wildcard characters, or special characters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -160,10 +212,12 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The status of the broker.
+     * <p>
+     * The broker's status.
+     * </p>
      * 
      * @param brokerState
-     *        The status of the broker.
+     *        The broker's status.
      * @see BrokerState
      */
 
@@ -172,9 +226,11 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The status of the broker.
+     * <p>
+     * The broker's status.
+     * </p>
      * 
-     * @return The status of the broker.
+     * @return The broker's status.
      * @see BrokerState
      */
 
@@ -183,10 +239,12 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The status of the broker.
+     * <p>
+     * The broker's status.
+     * </p>
      * 
      * @param brokerState
-     *        The status of the broker.
+     *        The broker's status.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see BrokerState
      */
@@ -197,10 +255,12 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The status of the broker.
+     * <p>
+     * The broker's status.
+     * </p>
      * 
      * @param brokerState
-     *        The status of the broker.
+     *        The broker's status.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see BrokerState
      */
@@ -211,7 +271,9 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
      * The time when the broker was created.
+     * </p>
      * 
      * @param created
      *        The time when the broker was created.
@@ -222,7 +284,9 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
      * The time when the broker was created.
+     * </p>
      * 
      * @return The time when the broker was created.
      */
@@ -232,7 +296,9 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
      * The time when the broker was created.
+     * </p>
      * 
      * @param created
      *        The time when the broker was created.
@@ -245,10 +311,12 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Required. The deployment mode of the broker.
+     * <p>
+     * The broker's deployment mode.
+     * </p>
      * 
      * @param deploymentMode
-     *        Required. The deployment mode of the broker.
+     *        The broker's deployment mode.
      * @see DeploymentMode
      */
 
@@ -257,9 +325,11 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Required. The deployment mode of the broker.
+     * <p>
+     * The broker's deployment mode.
+     * </p>
      * 
-     * @return Required. The deployment mode of the broker.
+     * @return The broker's deployment mode.
      * @see DeploymentMode
      */
 
@@ -268,10 +338,12 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Required. The deployment mode of the broker.
+     * <p>
+     * The broker's deployment mode.
+     * </p>
      * 
      * @param deploymentMode
-     *        Required. The deployment mode of the broker.
+     *        The broker's deployment mode.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DeploymentMode
      */
@@ -282,10 +354,12 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Required. The deployment mode of the broker.
+     * <p>
+     * The broker's deployment mode.
+     * </p>
      * 
      * @param deploymentMode
-     *        Required. The deployment mode of the broker.
+     *        The broker's deployment mode.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DeploymentMode
      */
@@ -296,7 +370,68 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The type of broker engine.
+     * </p>
+     * 
+     * @param engineType
+     *        The type of broker engine.
+     * @see EngineType
+     */
+
+    public void setEngineType(String engineType) {
+        this.engineType = engineType;
+    }
+
+    /**
+     * <p>
+     * The type of broker engine.
+     * </p>
+     * 
+     * @return The type of broker engine.
+     * @see EngineType
+     */
+
+    public String getEngineType() {
+        return this.engineType;
+    }
+
+    /**
+     * <p>
+     * The type of broker engine.
+     * </p>
+     * 
+     * @param engineType
+     *        The type of broker engine.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see EngineType
+     */
+
+    public BrokerSummary withEngineType(String engineType) {
+        setEngineType(engineType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of broker engine.
+     * </p>
+     * 
+     * @param engineType
+     *        The type of broker engine.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see EngineType
+     */
+
+    public BrokerSummary withEngineType(EngineType engineType) {
+        this.engineType = engineType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
      * The broker's instance type.
+     * </p>
      * 
      * @param hostInstanceType
      *        The broker's instance type.
@@ -307,7 +442,9 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
      * The broker's instance type.
+     * </p>
      * 
      * @return The broker's instance type.
      */
@@ -317,7 +454,9 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
      * The broker's instance type.
+     * </p>
      * 
      * @param hostInstanceType
      *        The broker's instance type.
@@ -353,6 +492,8 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
             sb.append("Created: ").append(getCreated()).append(",");
         if (getDeploymentMode() != null)
             sb.append("DeploymentMode: ").append(getDeploymentMode()).append(",");
+        if (getEngineType() != null)
+            sb.append("EngineType: ").append(getEngineType()).append(",");
         if (getHostInstanceType() != null)
             sb.append("HostInstanceType: ").append(getHostInstanceType());
         sb.append("}");
@@ -393,6 +534,10 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getDeploymentMode() != null && other.getDeploymentMode().equals(this.getDeploymentMode()) == false)
             return false;
+        if (other.getEngineType() == null ^ this.getEngineType() == null)
+            return false;
+        if (other.getEngineType() != null && other.getEngineType().equals(this.getEngineType()) == false)
+            return false;
         if (other.getHostInstanceType() == null ^ this.getHostInstanceType() == null)
             return false;
         if (other.getHostInstanceType() != null && other.getHostInstanceType().equals(this.getHostInstanceType()) == false)
@@ -411,6 +556,7 @@ public class BrokerSummary implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getBrokerState() == null) ? 0 : getBrokerState().hashCode());
         hashCode = prime * hashCode + ((getCreated() == null) ? 0 : getCreated().hashCode());
         hashCode = prime * hashCode + ((getDeploymentMode() == null) ? 0 : getDeploymentMode().hashCode());
+        hashCode = prime * hashCode + ((getEngineType() == null) ? 0 : getEngineType().hashCode());
         hashCode = prime * hashCode + ((getHostInstanceType() == null) ? 0 : getHostInstanceType().hashCode());
         return hashCode;
     }

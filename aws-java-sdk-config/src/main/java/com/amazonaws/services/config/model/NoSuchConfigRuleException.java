@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,7 +16,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * One or more AWS Config rules in the request are invalid. Verify that the rule names are correct and try again.
+ * The Config rule in the request is not valid. Verify that the rule is an Config Process Check rule, that the rule name
+ * is correct, and that valid Amazon Resouce Names (ARNs) are used before trying again.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

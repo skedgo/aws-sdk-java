@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2018-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,6 +18,8 @@ package com.amazonaws.services.s3.model;
 import com.amazonaws.AmazonWebServiceRequest;
 import java.io.Serializable;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Request class to download objects using presigned urls. The class has options to set the presigned url to
@@ -31,6 +33,13 @@ public class PresignedUrlDownloadRequest extends AmazonWebServiceRequest impleme
 
     /** Required member indicating the endpoint to send the request **/
     private URL presignedUrl;
+
+    /**
+     * Optional list of ETag values that constrain this request to only be
+     * executed if the object's ETag matches one of the specified ETag values.
+     */
+    private List<String> matchingETagConstraints = new ArrayList<>();
+
 
     /** Optional member indicating the byte range of data to retrieve */
     private long[] range;
@@ -145,6 +154,67 @@ public class PresignedUrlDownloadRequest extends AmazonWebServiceRequest impleme
     }
 
     /**
+     * Gets the optional list of ETag constraints that, when present, <b>must</b>
+     * include a match for the object's current ETag in order for this
+     * request to be executed. Only one ETag in the list needs to match for this
+     * request to be executed by Amazon S3.
+     *
+     * @return The optional list of ETag constraints that when present <b>must</b>
+     *         include a match for the object's current ETag in order for this
+     *         request to be executed.
+     *
+     * @see PresignedUrlDownloadRequest#setMatchingETagConstraints(List)
+     * @see PresignedUrlDownloadRequest#withMatchingETagConstraint(String)
+     */
+    public List<String> getMatchingETagConstraints() {
+        return matchingETagConstraints;
+    }
+
+    /**
+     * Sets the optional list of ETag constraints for this request.
+     * If the ETag of the object stored in Amazon S3 matches any of the specified
+     * ETags, the request will be executed normally. Otherwise, the request will
+     * fail with a precondition failed exception.
+     *
+     * @param etagList
+     *            The list of ETags to constrain this request.
+     *
+     * @see PresignedUrlDownloadRequest#getMatchingETagConstraints()
+     * @see PresignedUrlDownloadRequest#withMatchingETagConstraint(String)
+     */
+    public void setMatchingETagConstraints(List<String> etagList) {
+        this.matchingETagConstraints = etagList;
+    }
+
+    /**
+     * Sets a single ETag constraint to this request.
+     * Returns this {@link PresignedUrlDownloadRequest}, enabling additional method
+     * calls to be chained together.
+     * <p>
+     * Multiple ETag constraints can be added to a request, but one must match the object's
+     * current ETag in order for this request to be executed. If none of the
+     * ETag constraints added to this request match the object's current ETag,
+     * this request will not be executed by Amazon S3.
+     * </p>
+     *
+     * @param etag
+     *            The matching ETag constraint to add to this request.
+     *
+     * @return This {@link PresignedUrlDownloadRequest}, enabling additional method
+     *         calls to be chained together.
+     *
+     * @see PresignedUrlDownloadRequest#getMatchingETagConstraints()
+     * @see PresignedUrlDownloadRequest#setMatchingETagConstraints(List)
+     */
+    public PresignedUrlDownloadRequest withMatchingETagConstraint(String etag) {
+        if(this.matchingETagConstraints == null){
+            this.matchingETagConstraints = new ArrayList<>();
+        }
+        this.matchingETagConstraints.add(etag);
+        return this;
+    }
+
+    /**
      * Creates and returns a new copy of the request.
      * This method also copies the internal state of the base {@link AmazonWebServiceRequest} class.
      */
@@ -154,6 +224,11 @@ public class PresignedUrlDownloadRequest extends AmazonWebServiceRequest impleme
 
         if (getRange() != null) {
             target.setRange(getRange()[0], getRange()[1]);
+        }
+        if (getMatchingETagConstraints() != null) {
+            target.setMatchingETagConstraints(new ArrayList<String>(getMatchingETagConstraints()));
+        } else {
+            target.setMatchingETagConstraints(null);
         }
 
         return target;

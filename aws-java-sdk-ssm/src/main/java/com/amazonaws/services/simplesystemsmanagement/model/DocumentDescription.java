@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Describes a Systems Manager document.
+ * Describes an Amazon Web Services Systems Manager document (SSM document).
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DocumentDescription" target="_top">AWS API
@@ -58,10 +58,17 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
     private String hashType;
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      */
     private String name;
+    /**
+     * <p>
+     * The friendly name of the SSM document. This value can differ for each version of the document. If you want to
+     * update this value, see <a>UpdateDocument</a>.
+     * </p>
+     */
+    private String displayName;
     /**
      * <p>
      * The version of the artifact associated with the document.
@@ -70,7 +77,7 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
     private String versionName;
     /**
      * <p>
-     * The AWS user account that created the document.
+     * The Amazon Web Services user that created the document.
      * </p>
      */
     private String owner;
@@ -82,15 +89,15 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
     private java.util.Date createdDate;
     /**
      * <p>
-     * The status of the Systems Manager document.
+     * The status of the SSM document.
      * </p>
      */
     private String status;
     /**
      * <p>
-     * A message returned by AWS Systems Manager that explains the <code>Status</code> value. For example, a
-     * <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
-     * "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+     * A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value. For
+     * example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
+     * "The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct."
      * </p>
      */
     private String statusInformation;
@@ -114,7 +121,7 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
     private com.amazonaws.internal.SdkInternalList<DocumentParameter> parameters;
     /**
      * <p>
-     * The list of OS platforms compatible with this Systems Manager document.
+     * The list of operating system (OS) platforms compatible with this SSM document.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> platformTypes;
@@ -150,10 +157,10 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
     private String documentFormat;
     /**
      * <p>
-     * The target type which defines the kinds of resources the document can run on. For example, /AWS::EC2::Instance.
-     * For a list of valid resource types, see <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>.
+     * The target type which defines the kinds of resources the document can run on. For example,
+     * <code>/AWS::EC2::Instance</code>. For a list of valid resource types, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.
      * </p>
      */
     private String targetType;
@@ -165,10 +172,59 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
     /**
      * <p>
-     * Details about the document attachments, including names, locations, sizes, etc.
+     * Details about the document attachments, including names, locations, sizes, and so on.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<AttachmentInformation> attachmentsInformation;
+    /**
+     * <p>
+     * A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code> document
+     * requires an <code>ApplicationConfigurationSchema</code> document.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<DocumentRequires> requires;
+    /**
+     * <p>
+     * The user in your organization who created the document.
+     * </p>
+     */
+    private String author;
+    /**
+     * <p>
+     * Details about the review of a document.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<ReviewInformation> reviewInformation;
+    /**
+     * <p>
+     * The version of the document currently approved for use in the organization.
+     * </p>
+     */
+    private String approvedVersion;
+    /**
+     * <p>
+     * The version of the document that is currently under review.
+     * </p>
+     */
+    private String pendingReviewVersion;
+    /**
+     * <p>
+     * The current status of the review.
+     * </p>
+     */
+    private String reviewStatus;
+    /**
+     * <p>
+     * The classification of a document to help you identify and categorize its use.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> category;
+    /**
+     * <p>
+     * The value that identifies a document's category.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> categoryEnum;
 
     /**
      * <p>
@@ -389,11 +445,11 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
      * @param name
-     *        The name of the Systems Manager document.
+     *        The name of the SSM document.
      */
 
     public void setName(String name) {
@@ -402,10 +458,10 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
-     * @return The name of the Systems Manager document.
+     * @return The name of the SSM document.
      */
 
     public String getName() {
@@ -414,16 +470,62 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
      * @param name
-     *        The name of the Systems Manager document.
+     *        The name of the SSM document.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DocumentDescription withName(String name) {
         setName(name);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The friendly name of the SSM document. This value can differ for each version of the document. If you want to
+     * update this value, see <a>UpdateDocument</a>.
+     * </p>
+     * 
+     * @param displayName
+     *        The friendly name of the SSM document. This value can differ for each version of the document. If you want
+     *        to update this value, see <a>UpdateDocument</a>.
+     */
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    /**
+     * <p>
+     * The friendly name of the SSM document. This value can differ for each version of the document. If you want to
+     * update this value, see <a>UpdateDocument</a>.
+     * </p>
+     * 
+     * @return The friendly name of the SSM document. This value can differ for each version of the document. If you
+     *         want to update this value, see <a>UpdateDocument</a>.
+     */
+
+    public String getDisplayName() {
+        return this.displayName;
+    }
+
+    /**
+     * <p>
+     * The friendly name of the SSM document. This value can differ for each version of the document. If you want to
+     * update this value, see <a>UpdateDocument</a>.
+     * </p>
+     * 
+     * @param displayName
+     *        The friendly name of the SSM document. This value can differ for each version of the document. If you want
+     *        to update this value, see <a>UpdateDocument</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DocumentDescription withDisplayName(String displayName) {
+        setDisplayName(displayName);
         return this;
     }
 
@@ -469,11 +571,11 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The AWS user account that created the document.
+     * The Amazon Web Services user that created the document.
      * </p>
      * 
      * @param owner
-     *        The AWS user account that created the document.
+     *        The Amazon Web Services user that created the document.
      */
 
     public void setOwner(String owner) {
@@ -482,10 +584,10 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The AWS user account that created the document.
+     * The Amazon Web Services user that created the document.
      * </p>
      * 
-     * @return The AWS user account that created the document.
+     * @return The Amazon Web Services user that created the document.
      */
 
     public String getOwner() {
@@ -494,11 +596,11 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The AWS user account that created the document.
+     * The Amazon Web Services user that created the document.
      * </p>
      * 
      * @param owner
-     *        The AWS user account that created the document.
+     *        The Amazon Web Services user that created the document.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -549,11 +651,11 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The status of the Systems Manager document.
+     * The status of the SSM document.
      * </p>
      * 
      * @param status
-     *        The status of the Systems Manager document.
+     *        The status of the SSM document.
      * @see DocumentStatus
      */
 
@@ -563,10 +665,10 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The status of the Systems Manager document.
+     * The status of the SSM document.
      * </p>
      * 
-     * @return The status of the Systems Manager document.
+     * @return The status of the SSM document.
      * @see DocumentStatus
      */
 
@@ -576,11 +678,11 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The status of the Systems Manager document.
+     * The status of the SSM document.
      * </p>
      * 
      * @param status
-     *        The status of the Systems Manager document.
+     *        The status of the SSM document.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DocumentStatus
      */
@@ -592,11 +694,11 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The status of the Systems Manager document.
+     * The status of the SSM document.
      * </p>
      * 
      * @param status
-     *        The status of the Systems Manager document.
+     *        The status of the SSM document.
      * @see DocumentStatus
      */
 
@@ -606,11 +708,11 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The status of the Systems Manager document.
+     * The status of the SSM document.
      * </p>
      * 
      * @param status
-     *        The status of the Systems Manager document.
+     *        The status of the SSM document.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DocumentStatus
      */
@@ -622,15 +724,15 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * A message returned by AWS Systems Manager that explains the <code>Status</code> value. For example, a
-     * <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
-     * "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+     * A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value. For
+     * example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
+     * "The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct."
      * </p>
      * 
      * @param statusInformation
-     *        A message returned by AWS Systems Manager that explains the <code>Status</code> value. For example, a
-     *        <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
-     *        "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+     *        A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value. For
+     *        example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
+     *        "The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct."
      */
 
     public void setStatusInformation(String statusInformation) {
@@ -639,14 +741,14 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * A message returned by AWS Systems Manager that explains the <code>Status</code> value. For example, a
-     * <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
-     * "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+     * A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value. For
+     * example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
+     * "The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct."
      * </p>
      * 
-     * @return A message returned by AWS Systems Manager that explains the <code>Status</code> value. For example, a
-     *         <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
-     *         "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+     * @return A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value.
+     *         For example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code>
+     *         message, "The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct."
      */
 
     public String getStatusInformation() {
@@ -655,15 +757,15 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * A message returned by AWS Systems Manager that explains the <code>Status</code> value. For example, a
-     * <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
-     * "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+     * A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value. For
+     * example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
+     * "The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct."
      * </p>
      * 
      * @param statusInformation
-     *        A message returned by AWS Systems Manager that explains the <code>Status</code> value. For example, a
-     *        <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
-     *        "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+     *        A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value. For
+     *        example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
+     *        "The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct."
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -827,10 +929,10 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The list of OS platforms compatible with this Systems Manager document.
+     * The list of operating system (OS) platforms compatible with this SSM document.
      * </p>
      * 
-     * @return The list of OS platforms compatible with this Systems Manager document.
+     * @return The list of operating system (OS) platforms compatible with this SSM document.
      * @see PlatformType
      */
 
@@ -843,11 +945,11 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The list of OS platforms compatible with this Systems Manager document.
+     * The list of operating system (OS) platforms compatible with this SSM document.
      * </p>
      * 
      * @param platformTypes
-     *        The list of OS platforms compatible with this Systems Manager document.
+     *        The list of operating system (OS) platforms compatible with this SSM document.
      * @see PlatformType
      */
 
@@ -862,7 +964,7 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The list of OS platforms compatible with this Systems Manager document.
+     * The list of operating system (OS) platforms compatible with this SSM document.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -871,7 +973,7 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
      * </p>
      * 
      * @param platformTypes
-     *        The list of OS platforms compatible with this Systems Manager document.
+     *        The list of operating system (OS) platforms compatible with this SSM document.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PlatformType
      */
@@ -888,11 +990,11 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The list of OS platforms compatible with this Systems Manager document.
+     * The list of operating system (OS) platforms compatible with this SSM document.
      * </p>
      * 
      * @param platformTypes
-     *        The list of OS platforms compatible with this Systems Manager document.
+     *        The list of operating system (OS) platforms compatible with this SSM document.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PlatformType
      */
@@ -904,11 +1006,11 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The list of OS platforms compatible with this Systems Manager document.
+     * The list of operating system (OS) platforms compatible with this SSM document.
      * </p>
      * 
      * @param platformTypes
-     *        The list of OS platforms compatible with this Systems Manager document.
+     *        The list of operating system (OS) platforms compatible with this SSM document.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PlatformType
      */
@@ -1194,17 +1296,17 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The target type which defines the kinds of resources the document can run on. For example, /AWS::EC2::Instance.
-     * For a list of valid resource types, see <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>.
+     * The target type which defines the kinds of resources the document can run on. For example,
+     * <code>/AWS::EC2::Instance</code>. For a list of valid resource types, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.
      * </p>
      * 
      * @param targetType
      *        The target type which defines the kinds of resources the document can run on. For example,
-     *        /AWS::EC2::Instance. For a list of valid resource types, see <a
-     *        href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
-     *        >AWS Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>.
+     *        <code>/AWS::EC2::Instance</code>. For a list of valid resource types, see <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
+     *        >Amazon Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.
      */
 
     public void setTargetType(String targetType) {
@@ -1213,16 +1315,16 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The target type which defines the kinds of resources the document can run on. For example, /AWS::EC2::Instance.
-     * For a list of valid resource types, see <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>.
+     * The target type which defines the kinds of resources the document can run on. For example,
+     * <code>/AWS::EC2::Instance</code>. For a list of valid resource types, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.
      * </p>
      * 
      * @return The target type which defines the kinds of resources the document can run on. For example,
-     *         /AWS::EC2::Instance. For a list of valid resource types, see <a href=
-     *         "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     *         Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>.
+     *         <code>/AWS::EC2::Instance</code>. For a list of valid resource types, see <a
+     *         href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
+     *         >Amazon Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.
      */
 
     public String getTargetType() {
@@ -1231,17 +1333,17 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The target type which defines the kinds of resources the document can run on. For example, /AWS::EC2::Instance.
-     * For a list of valid resource types, see <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>.
+     * The target type which defines the kinds of resources the document can run on. For example,
+     * <code>/AWS::EC2::Instance</code>. For a list of valid resource types, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.
      * </p>
      * 
      * @param targetType
      *        The target type which defines the kinds of resources the document can run on. For example,
-     *        /AWS::EC2::Instance. For a list of valid resource types, see <a
-     *        href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
-     *        >AWS Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>.
+     *        <code>/AWS::EC2::Instance</code>. For a list of valid resource types, see <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
+     *        >Amazon Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1325,10 +1427,10 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Details about the document attachments, including names, locations, sizes, etc.
+     * Details about the document attachments, including names, locations, sizes, and so on.
      * </p>
      * 
-     * @return Details about the document attachments, including names, locations, sizes, etc.
+     * @return Details about the document attachments, including names, locations, sizes, and so on.
      */
 
     public java.util.List<AttachmentInformation> getAttachmentsInformation() {
@@ -1340,11 +1442,11 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Details about the document attachments, including names, locations, sizes, etc.
+     * Details about the document attachments, including names, locations, sizes, and so on.
      * </p>
      * 
      * @param attachmentsInformation
-     *        Details about the document attachments, including names, locations, sizes, etc.
+     *        Details about the document attachments, including names, locations, sizes, and so on.
      */
 
     public void setAttachmentsInformation(java.util.Collection<AttachmentInformation> attachmentsInformation) {
@@ -1358,7 +1460,7 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Details about the document attachments, including names, locations, sizes, etc.
+     * Details about the document attachments, including names, locations, sizes, and so on.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1367,7 +1469,7 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
      * </p>
      * 
      * @param attachmentsInformation
-     *        Details about the document attachments, including names, locations, sizes, etc.
+     *        Details about the document attachments, including names, locations, sizes, and so on.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1383,16 +1485,509 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Details about the document attachments, including names, locations, sizes, etc.
+     * Details about the document attachments, including names, locations, sizes, and so on.
      * </p>
      * 
      * @param attachmentsInformation
-     *        Details about the document attachments, including names, locations, sizes, etc.
+     *        Details about the document attachments, including names, locations, sizes, and so on.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DocumentDescription withAttachmentsInformation(java.util.Collection<AttachmentInformation> attachmentsInformation) {
         setAttachmentsInformation(attachmentsInformation);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code> document
+     * requires an <code>ApplicationConfigurationSchema</code> document.
+     * </p>
+     * 
+     * @return A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code>
+     *         document requires an <code>ApplicationConfigurationSchema</code> document.
+     */
+
+    public java.util.List<DocumentRequires> getRequires() {
+        if (requires == null) {
+            requires = new com.amazonaws.internal.SdkInternalList<DocumentRequires>();
+        }
+        return requires;
+    }
+
+    /**
+     * <p>
+     * A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code> document
+     * requires an <code>ApplicationConfigurationSchema</code> document.
+     * </p>
+     * 
+     * @param requires
+     *        A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code>
+     *        document requires an <code>ApplicationConfigurationSchema</code> document.
+     */
+
+    public void setRequires(java.util.Collection<DocumentRequires> requires) {
+        if (requires == null) {
+            this.requires = null;
+            return;
+        }
+
+        this.requires = new com.amazonaws.internal.SdkInternalList<DocumentRequires>(requires);
+    }
+
+    /**
+     * <p>
+     * A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code> document
+     * requires an <code>ApplicationConfigurationSchema</code> document.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setRequires(java.util.Collection)} or {@link #withRequires(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param requires
+     *        A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code>
+     *        document requires an <code>ApplicationConfigurationSchema</code> document.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DocumentDescription withRequires(DocumentRequires... requires) {
+        if (this.requires == null) {
+            setRequires(new com.amazonaws.internal.SdkInternalList<DocumentRequires>(requires.length));
+        }
+        for (DocumentRequires ele : requires) {
+            this.requires.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code> document
+     * requires an <code>ApplicationConfigurationSchema</code> document.
+     * </p>
+     * 
+     * @param requires
+     *        A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code>
+     *        document requires an <code>ApplicationConfigurationSchema</code> document.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DocumentDescription withRequires(java.util.Collection<DocumentRequires> requires) {
+        setRequires(requires);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The user in your organization who created the document.
+     * </p>
+     * 
+     * @param author
+     *        The user in your organization who created the document.
+     */
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    /**
+     * <p>
+     * The user in your organization who created the document.
+     * </p>
+     * 
+     * @return The user in your organization who created the document.
+     */
+
+    public String getAuthor() {
+        return this.author;
+    }
+
+    /**
+     * <p>
+     * The user in your organization who created the document.
+     * </p>
+     * 
+     * @param author
+     *        The user in your organization who created the document.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DocumentDescription withAuthor(String author) {
+        setAuthor(author);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Details about the review of a document.
+     * </p>
+     * 
+     * @return Details about the review of a document.
+     */
+
+    public java.util.List<ReviewInformation> getReviewInformation() {
+        if (reviewInformation == null) {
+            reviewInformation = new com.amazonaws.internal.SdkInternalList<ReviewInformation>();
+        }
+        return reviewInformation;
+    }
+
+    /**
+     * <p>
+     * Details about the review of a document.
+     * </p>
+     * 
+     * @param reviewInformation
+     *        Details about the review of a document.
+     */
+
+    public void setReviewInformation(java.util.Collection<ReviewInformation> reviewInformation) {
+        if (reviewInformation == null) {
+            this.reviewInformation = null;
+            return;
+        }
+
+        this.reviewInformation = new com.amazonaws.internal.SdkInternalList<ReviewInformation>(reviewInformation);
+    }
+
+    /**
+     * <p>
+     * Details about the review of a document.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setReviewInformation(java.util.Collection)} or {@link #withReviewInformation(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param reviewInformation
+     *        Details about the review of a document.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DocumentDescription withReviewInformation(ReviewInformation... reviewInformation) {
+        if (this.reviewInformation == null) {
+            setReviewInformation(new com.amazonaws.internal.SdkInternalList<ReviewInformation>(reviewInformation.length));
+        }
+        for (ReviewInformation ele : reviewInformation) {
+            this.reviewInformation.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Details about the review of a document.
+     * </p>
+     * 
+     * @param reviewInformation
+     *        Details about the review of a document.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DocumentDescription withReviewInformation(java.util.Collection<ReviewInformation> reviewInformation) {
+        setReviewInformation(reviewInformation);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The version of the document currently approved for use in the organization.
+     * </p>
+     * 
+     * @param approvedVersion
+     *        The version of the document currently approved for use in the organization.
+     */
+
+    public void setApprovedVersion(String approvedVersion) {
+        this.approvedVersion = approvedVersion;
+    }
+
+    /**
+     * <p>
+     * The version of the document currently approved for use in the organization.
+     * </p>
+     * 
+     * @return The version of the document currently approved for use in the organization.
+     */
+
+    public String getApprovedVersion() {
+        return this.approvedVersion;
+    }
+
+    /**
+     * <p>
+     * The version of the document currently approved for use in the organization.
+     * </p>
+     * 
+     * @param approvedVersion
+     *        The version of the document currently approved for use in the organization.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DocumentDescription withApprovedVersion(String approvedVersion) {
+        setApprovedVersion(approvedVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The version of the document that is currently under review.
+     * </p>
+     * 
+     * @param pendingReviewVersion
+     *        The version of the document that is currently under review.
+     */
+
+    public void setPendingReviewVersion(String pendingReviewVersion) {
+        this.pendingReviewVersion = pendingReviewVersion;
+    }
+
+    /**
+     * <p>
+     * The version of the document that is currently under review.
+     * </p>
+     * 
+     * @return The version of the document that is currently under review.
+     */
+
+    public String getPendingReviewVersion() {
+        return this.pendingReviewVersion;
+    }
+
+    /**
+     * <p>
+     * The version of the document that is currently under review.
+     * </p>
+     * 
+     * @param pendingReviewVersion
+     *        The version of the document that is currently under review.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DocumentDescription withPendingReviewVersion(String pendingReviewVersion) {
+        setPendingReviewVersion(pendingReviewVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The current status of the review.
+     * </p>
+     * 
+     * @param reviewStatus
+     *        The current status of the review.
+     * @see ReviewStatus
+     */
+
+    public void setReviewStatus(String reviewStatus) {
+        this.reviewStatus = reviewStatus;
+    }
+
+    /**
+     * <p>
+     * The current status of the review.
+     * </p>
+     * 
+     * @return The current status of the review.
+     * @see ReviewStatus
+     */
+
+    public String getReviewStatus() {
+        return this.reviewStatus;
+    }
+
+    /**
+     * <p>
+     * The current status of the review.
+     * </p>
+     * 
+     * @param reviewStatus
+     *        The current status of the review.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ReviewStatus
+     */
+
+    public DocumentDescription withReviewStatus(String reviewStatus) {
+        setReviewStatus(reviewStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The current status of the review.
+     * </p>
+     * 
+     * @param reviewStatus
+     *        The current status of the review.
+     * @see ReviewStatus
+     */
+
+    public void setReviewStatus(ReviewStatus reviewStatus) {
+        withReviewStatus(reviewStatus);
+    }
+
+    /**
+     * <p>
+     * The current status of the review.
+     * </p>
+     * 
+     * @param reviewStatus
+     *        The current status of the review.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ReviewStatus
+     */
+
+    public DocumentDescription withReviewStatus(ReviewStatus reviewStatus) {
+        this.reviewStatus = reviewStatus.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The classification of a document to help you identify and categorize its use.
+     * </p>
+     * 
+     * @return The classification of a document to help you identify and categorize its use.
+     */
+
+    public java.util.List<String> getCategory() {
+        if (category == null) {
+            category = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return category;
+    }
+
+    /**
+     * <p>
+     * The classification of a document to help you identify and categorize its use.
+     * </p>
+     * 
+     * @param category
+     *        The classification of a document to help you identify and categorize its use.
+     */
+
+    public void setCategory(java.util.Collection<String> category) {
+        if (category == null) {
+            this.category = null;
+            return;
+        }
+
+        this.category = new com.amazonaws.internal.SdkInternalList<String>(category);
+    }
+
+    /**
+     * <p>
+     * The classification of a document to help you identify and categorize its use.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setCategory(java.util.Collection)} or {@link #withCategory(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param category
+     *        The classification of a document to help you identify and categorize its use.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DocumentDescription withCategory(String... category) {
+        if (this.category == null) {
+            setCategory(new com.amazonaws.internal.SdkInternalList<String>(category.length));
+        }
+        for (String ele : category) {
+            this.category.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The classification of a document to help you identify and categorize its use.
+     * </p>
+     * 
+     * @param category
+     *        The classification of a document to help you identify and categorize its use.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DocumentDescription withCategory(java.util.Collection<String> category) {
+        setCategory(category);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The value that identifies a document's category.
+     * </p>
+     * 
+     * @return The value that identifies a document's category.
+     */
+
+    public java.util.List<String> getCategoryEnum() {
+        if (categoryEnum == null) {
+            categoryEnum = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return categoryEnum;
+    }
+
+    /**
+     * <p>
+     * The value that identifies a document's category.
+     * </p>
+     * 
+     * @param categoryEnum
+     *        The value that identifies a document's category.
+     */
+
+    public void setCategoryEnum(java.util.Collection<String> categoryEnum) {
+        if (categoryEnum == null) {
+            this.categoryEnum = null;
+            return;
+        }
+
+        this.categoryEnum = new com.amazonaws.internal.SdkInternalList<String>(categoryEnum);
+    }
+
+    /**
+     * <p>
+     * The value that identifies a document's category.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setCategoryEnum(java.util.Collection)} or {@link #withCategoryEnum(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param categoryEnum
+     *        The value that identifies a document's category.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DocumentDescription withCategoryEnum(String... categoryEnum) {
+        if (this.categoryEnum == null) {
+            setCategoryEnum(new com.amazonaws.internal.SdkInternalList<String>(categoryEnum.length));
+        }
+        for (String ele : categoryEnum) {
+            this.categoryEnum.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The value that identifies a document's category.
+     * </p>
+     * 
+     * @param categoryEnum
+     *        The value that identifies a document's category.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DocumentDescription withCategoryEnum(java.util.Collection<String> categoryEnum) {
+        setCategoryEnum(categoryEnum);
         return this;
     }
 
@@ -1416,6 +2011,8 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
             sb.append("HashType: ").append(getHashType()).append(",");
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
+        if (getDisplayName() != null)
+            sb.append("DisplayName: ").append(getDisplayName()).append(",");
         if (getVersionName() != null)
             sb.append("VersionName: ").append(getVersionName()).append(",");
         if (getOwner() != null)
@@ -1449,7 +2046,23 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getAttachmentsInformation() != null)
-            sb.append("AttachmentsInformation: ").append(getAttachmentsInformation());
+            sb.append("AttachmentsInformation: ").append(getAttachmentsInformation()).append(",");
+        if (getRequires() != null)
+            sb.append("Requires: ").append(getRequires()).append(",");
+        if (getAuthor() != null)
+            sb.append("Author: ").append(getAuthor()).append(",");
+        if (getReviewInformation() != null)
+            sb.append("ReviewInformation: ").append(getReviewInformation()).append(",");
+        if (getApprovedVersion() != null)
+            sb.append("ApprovedVersion: ").append(getApprovedVersion()).append(",");
+        if (getPendingReviewVersion() != null)
+            sb.append("PendingReviewVersion: ").append(getPendingReviewVersion()).append(",");
+        if (getReviewStatus() != null)
+            sb.append("ReviewStatus: ").append(getReviewStatus()).append(",");
+        if (getCategory() != null)
+            sb.append("Category: ").append(getCategory()).append(",");
+        if (getCategoryEnum() != null)
+            sb.append("CategoryEnum: ").append(getCategoryEnum());
         sb.append("}");
         return sb.toString();
     }
@@ -1479,6 +2092,10 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
         if (other.getName() == null ^ this.getName() == null)
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
+            return false;
+        if (other.getDisplayName() == null ^ this.getDisplayName() == null)
+            return false;
+        if (other.getDisplayName() != null && other.getDisplayName().equals(this.getDisplayName()) == false)
             return false;
         if (other.getVersionName() == null ^ this.getVersionName() == null)
             return false;
@@ -1548,6 +2165,38 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
             return false;
         if (other.getAttachmentsInformation() != null && other.getAttachmentsInformation().equals(this.getAttachmentsInformation()) == false)
             return false;
+        if (other.getRequires() == null ^ this.getRequires() == null)
+            return false;
+        if (other.getRequires() != null && other.getRequires().equals(this.getRequires()) == false)
+            return false;
+        if (other.getAuthor() == null ^ this.getAuthor() == null)
+            return false;
+        if (other.getAuthor() != null && other.getAuthor().equals(this.getAuthor()) == false)
+            return false;
+        if (other.getReviewInformation() == null ^ this.getReviewInformation() == null)
+            return false;
+        if (other.getReviewInformation() != null && other.getReviewInformation().equals(this.getReviewInformation()) == false)
+            return false;
+        if (other.getApprovedVersion() == null ^ this.getApprovedVersion() == null)
+            return false;
+        if (other.getApprovedVersion() != null && other.getApprovedVersion().equals(this.getApprovedVersion()) == false)
+            return false;
+        if (other.getPendingReviewVersion() == null ^ this.getPendingReviewVersion() == null)
+            return false;
+        if (other.getPendingReviewVersion() != null && other.getPendingReviewVersion().equals(this.getPendingReviewVersion()) == false)
+            return false;
+        if (other.getReviewStatus() == null ^ this.getReviewStatus() == null)
+            return false;
+        if (other.getReviewStatus() != null && other.getReviewStatus().equals(this.getReviewStatus()) == false)
+            return false;
+        if (other.getCategory() == null ^ this.getCategory() == null)
+            return false;
+        if (other.getCategory() != null && other.getCategory().equals(this.getCategory()) == false)
+            return false;
+        if (other.getCategoryEnum() == null ^ this.getCategoryEnum() == null)
+            return false;
+        if (other.getCategoryEnum() != null && other.getCategoryEnum().equals(this.getCategoryEnum()) == false)
+            return false;
         return true;
     }
 
@@ -1560,6 +2209,7 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
         hashCode = prime * hashCode + ((getHash() == null) ? 0 : getHash().hashCode());
         hashCode = prime * hashCode + ((getHashType() == null) ? 0 : getHashType().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
+        hashCode = prime * hashCode + ((getDisplayName() == null) ? 0 : getDisplayName().hashCode());
         hashCode = prime * hashCode + ((getVersionName() == null) ? 0 : getVersionName().hashCode());
         hashCode = prime * hashCode + ((getOwner() == null) ? 0 : getOwner().hashCode());
         hashCode = prime * hashCode + ((getCreatedDate() == null) ? 0 : getCreatedDate().hashCode());
@@ -1577,6 +2227,14 @@ public class DocumentDescription implements Serializable, Cloneable, StructuredP
         hashCode = prime * hashCode + ((getTargetType() == null) ? 0 : getTargetType().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getAttachmentsInformation() == null) ? 0 : getAttachmentsInformation().hashCode());
+        hashCode = prime * hashCode + ((getRequires() == null) ? 0 : getRequires().hashCode());
+        hashCode = prime * hashCode + ((getAuthor() == null) ? 0 : getAuthor().hashCode());
+        hashCode = prime * hashCode + ((getReviewInformation() == null) ? 0 : getReviewInformation().hashCode());
+        hashCode = prime * hashCode + ((getApprovedVersion() == null) ? 0 : getApprovedVersion().hashCode());
+        hashCode = prime * hashCode + ((getPendingReviewVersion() == null) ? 0 : getPendingReviewVersion().hashCode());
+        hashCode = prime * hashCode + ((getReviewStatus() == null) ? 0 : getReviewStatus().hashCode());
+        hashCode = prime * hashCode + ((getCategory() == null) ? 0 : getCategory().hashCode());
+        hashCode = prime * hashCode + ((getCategoryEnum() == null) ? 0 : getCategoryEnum().hashCode());
         return hashCode;
     }
 

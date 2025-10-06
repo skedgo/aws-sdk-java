@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,32 +30,40 @@ public class PipelineDeclaration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The name of the action to be performed.
+     * The name of the pipeline.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for AWS CodePipeline to use to either perform actions with no
+     * The Amazon Resource Name (ARN) for CodePipeline to use to either perform actions with no
      * <code>actionRoleArn</code>, or to use to assume roles for actions with an <code>actionRoleArn</code>.
      * </p>
      */
     private String roleArn;
     /**
      * <p>
-     * Represents information about the Amazon S3 bucket where artifacts are stored for the pipeline.
+     * Represents information about the S3 bucket where artifacts are stored for the pipeline.
      * </p>
+     * <note>
+     * <p>
+     * You must include either <code>artifactStore</code> or <code>artifactStores</code> in your pipeline, but you
+     * cannot use both. If you create a cross-region action in your pipeline, you must use <code>artifactStores</code>.
+     * </p>
+     * </note>
      */
     private ArtifactStore artifactStore;
     /**
      * <p>
-     * A mapping of <code>artifactStore</code> objects and their corresponding regions. There must be an artifact store
-     * for the pipeline region and for each cross-region action within the pipeline. You can only use either
-     * <code>artifactStore</code> or <code>artifactStores</code>, not both.
+     * A mapping of <code>artifactStore</code> objects and their corresponding Amazon Web Services Regions. There must
+     * be an artifact store for the pipeline Region and for each cross-region action in the pipeline.
      * </p>
+     * <note>
      * <p>
-     * If you create a cross-region action in your pipeline, you must use <code>artifactStores</code>.
+     * You must include either <code>artifactStore</code> or <code>artifactStores</code> in your pipeline, but you
+     * cannot use both. If you create a cross-region action in your pipeline, you must use <code>artifactStores</code>.
      * </p>
+     * </note>
      */
     private java.util.Map<String, ArtifactStore> artifactStores;
     /**
@@ -66,19 +74,79 @@ public class PipelineDeclaration implements Serializable, Cloneable, StructuredP
     private java.util.List<StageDeclaration> stages;
     /**
      * <p>
-     * The version number of the pipeline. A new pipeline always has a version number of 1. This number is automatically
-     * incremented when a pipeline is updated.
+     * The version number of the pipeline. A new pipeline always has a version number of 1. This number is incremented
+     * when a pipeline is updated.
      * </p>
      */
     private Integer version;
+    /**
+     * <p>
+     * The method that the pipeline will use to handle multiple executions. The default mode is SUPERSEDED.
+     * </p>
+     */
+    private String executionMode;
+    /**
+     * <p>
+     * CodePipeline provides the following pipeline types, which differ in characteristics and price, so that you can
+     * tailor your pipeline features and cost to the needs of your applications.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * V1 type pipelines have a JSON structure that contains standard pipeline, stage, and action-level parameters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * V2 type pipelines have the same structure as a V1 type, along with additional parameters for release safety and
+     * trigger configuration.
+     * </p>
+     * </li>
+     * </ul>
+     * <important>
+     * <p>
+     * Including V2 parameters, such as triggers on Git tags, in the pipeline JSON when creating or updating a pipeline
+     * will result in the pipeline having the V2 type of pipeline and the associated costs.
+     * </p>
+     * </important>
+     * <p>
+     * For information about pricing for CodePipeline, see <a
+     * href="http://aws.amazon.com/codepipeline/pricing/">Pricing</a>.
+     * </p>
+     * <p>
+     * For information about which type of pipeline to choose, see <a
+     * href="https://docs.aws.amazon.com/codepipeline/latest/userguide/pipeline-types-planning.html">What type of
+     * pipeline is right for me?</a>.
+     * </p>
+     */
+    private String pipelineType;
+    /**
+     * <p>
+     * A list that defines the pipeline variables for a pipeline resource. Variable names can have alphanumeric and
+     * underscore characters, and the values must match <code>[A-Za-z0-9@\-_]+</code>.
+     * </p>
+     */
+    private java.util.List<PipelineVariableDeclaration> variables;
+    /**
+     * <p>
+     * The trigger configuration specifying a type of event, such as Git tags, that starts the pipeline.
+     * </p>
+     * <note>
+     * <p>
+     * When a trigger configuration is specified, default change detection for repository and branch commits is
+     * disabled.
+     * </p>
+     * </note>
+     */
+    private java.util.List<PipelineTriggerDeclaration> triggers;
 
     /**
      * <p>
-     * The name of the action to be performed.
+     * The name of the pipeline.
      * </p>
      * 
      * @param name
-     *        The name of the action to be performed.
+     *        The name of the pipeline.
      */
 
     public void setName(String name) {
@@ -87,10 +155,10 @@ public class PipelineDeclaration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The name of the action to be performed.
+     * The name of the pipeline.
      * </p>
      * 
-     * @return The name of the action to be performed.
+     * @return The name of the pipeline.
      */
 
     public String getName() {
@@ -99,11 +167,11 @@ public class PipelineDeclaration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The name of the action to be performed.
+     * The name of the pipeline.
      * </p>
      * 
      * @param name
-     *        The name of the action to be performed.
+     *        The name of the pipeline.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -114,12 +182,12 @@ public class PipelineDeclaration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for AWS CodePipeline to use to either perform actions with no
+     * The Amazon Resource Name (ARN) for CodePipeline to use to either perform actions with no
      * <code>actionRoleArn</code>, or to use to assume roles for actions with an <code>actionRoleArn</code>.
      * </p>
      * 
      * @param roleArn
-     *        The Amazon Resource Name (ARN) for AWS CodePipeline to use to either perform actions with no
+     *        The Amazon Resource Name (ARN) for CodePipeline to use to either perform actions with no
      *        <code>actionRoleArn</code>, or to use to assume roles for actions with an <code>actionRoleArn</code>.
      */
 
@@ -129,11 +197,11 @@ public class PipelineDeclaration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for AWS CodePipeline to use to either perform actions with no
+     * The Amazon Resource Name (ARN) for CodePipeline to use to either perform actions with no
      * <code>actionRoleArn</code>, or to use to assume roles for actions with an <code>actionRoleArn</code>.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) for AWS CodePipeline to use to either perform actions with no
+     * @return The Amazon Resource Name (ARN) for CodePipeline to use to either perform actions with no
      *         <code>actionRoleArn</code>, or to use to assume roles for actions with an <code>actionRoleArn</code>.
      */
 
@@ -143,12 +211,12 @@ public class PipelineDeclaration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for AWS CodePipeline to use to either perform actions with no
+     * The Amazon Resource Name (ARN) for CodePipeline to use to either perform actions with no
      * <code>actionRoleArn</code>, or to use to assume roles for actions with an <code>actionRoleArn</code>.
      * </p>
      * 
      * @param roleArn
-     *        The Amazon Resource Name (ARN) for AWS CodePipeline to use to either perform actions with no
+     *        The Amazon Resource Name (ARN) for CodePipeline to use to either perform actions with no
      *        <code>actionRoleArn</code>, or to use to assume roles for actions with an <code>actionRoleArn</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -160,11 +228,22 @@ public class PipelineDeclaration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Represents information about the Amazon S3 bucket where artifacts are stored for the pipeline.
+     * Represents information about the S3 bucket where artifacts are stored for the pipeline.
      * </p>
+     * <note>
+     * <p>
+     * You must include either <code>artifactStore</code> or <code>artifactStores</code> in your pipeline, but you
+     * cannot use both. If you create a cross-region action in your pipeline, you must use <code>artifactStores</code>.
+     * </p>
+     * </note>
      * 
      * @param artifactStore
-     *        Represents information about the Amazon S3 bucket where artifacts are stored for the pipeline.
+     *        Represents information about the S3 bucket where artifacts are stored for the pipeline.</p> <note>
+     *        <p>
+     *        You must include either <code>artifactStore</code> or <code>artifactStores</code> in your pipeline, but
+     *        you cannot use both. If you create a cross-region action in your pipeline, you must use
+     *        <code>artifactStores</code>.
+     *        </p>
      */
 
     public void setArtifactStore(ArtifactStore artifactStore) {
@@ -173,10 +252,21 @@ public class PipelineDeclaration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Represents information about the Amazon S3 bucket where artifacts are stored for the pipeline.
+     * Represents information about the S3 bucket where artifacts are stored for the pipeline.
      * </p>
+     * <note>
+     * <p>
+     * You must include either <code>artifactStore</code> or <code>artifactStores</code> in your pipeline, but you
+     * cannot use both. If you create a cross-region action in your pipeline, you must use <code>artifactStores</code>.
+     * </p>
+     * </note>
      * 
-     * @return Represents information about the Amazon S3 bucket where artifacts are stored for the pipeline.
+     * @return Represents information about the S3 bucket where artifacts are stored for the pipeline.</p> <note>
+     *         <p>
+     *         You must include either <code>artifactStore</code> or <code>artifactStores</code> in your pipeline, but
+     *         you cannot use both. If you create a cross-region action in your pipeline, you must use
+     *         <code>artifactStores</code>.
+     *         </p>
      */
 
     public ArtifactStore getArtifactStore() {
@@ -185,11 +275,22 @@ public class PipelineDeclaration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Represents information about the Amazon S3 bucket where artifacts are stored for the pipeline.
+     * Represents information about the S3 bucket where artifacts are stored for the pipeline.
      * </p>
+     * <note>
+     * <p>
+     * You must include either <code>artifactStore</code> or <code>artifactStores</code> in your pipeline, but you
+     * cannot use both. If you create a cross-region action in your pipeline, you must use <code>artifactStores</code>.
+     * </p>
+     * </note>
      * 
      * @param artifactStore
-     *        Represents information about the Amazon S3 bucket where artifacts are stored for the pipeline.
+     *        Represents information about the S3 bucket where artifacts are stored for the pipeline.</p> <note>
+     *        <p>
+     *        You must include either <code>artifactStore</code> or <code>artifactStores</code> in your pipeline, but
+     *        you cannot use both. If you create a cross-region action in your pipeline, you must use
+     *        <code>artifactStores</code>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -200,19 +301,24 @@ public class PipelineDeclaration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * A mapping of <code>artifactStore</code> objects and their corresponding regions. There must be an artifact store
-     * for the pipeline region and for each cross-region action within the pipeline. You can only use either
-     * <code>artifactStore</code> or <code>artifactStores</code>, not both.
+     * A mapping of <code>artifactStore</code> objects and their corresponding Amazon Web Services Regions. There must
+     * be an artifact store for the pipeline Region and for each cross-region action in the pipeline.
      * </p>
+     * <note>
      * <p>
-     * If you create a cross-region action in your pipeline, you must use <code>artifactStores</code>.
+     * You must include either <code>artifactStore</code> or <code>artifactStores</code> in your pipeline, but you
+     * cannot use both. If you create a cross-region action in your pipeline, you must use <code>artifactStores</code>.
      * </p>
+     * </note>
      * 
-     * @return A mapping of <code>artifactStore</code> objects and their corresponding regions. There must be an
-     *         artifact store for the pipeline region and for each cross-region action within the pipeline. You can only
-     *         use either <code>artifactStore</code> or <code>artifactStores</code>, not both.</p>
+     * @return A mapping of <code>artifactStore</code> objects and their corresponding Amazon Web Services Regions.
+     *         There must be an artifact store for the pipeline Region and for each cross-region action in the
+     *         pipeline.</p> <note>
      *         <p>
-     *         If you create a cross-region action in your pipeline, you must use <code>artifactStores</code>.
+     *         You must include either <code>artifactStore</code> or <code>artifactStores</code> in your pipeline, but
+     *         you cannot use both. If you create a cross-region action in your pipeline, you must use
+     *         <code>artifactStores</code>.
+     *         </p>
      */
 
     public java.util.Map<String, ArtifactStore> getArtifactStores() {
@@ -221,20 +327,25 @@ public class PipelineDeclaration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * A mapping of <code>artifactStore</code> objects and their corresponding regions. There must be an artifact store
-     * for the pipeline region and for each cross-region action within the pipeline. You can only use either
-     * <code>artifactStore</code> or <code>artifactStores</code>, not both.
+     * A mapping of <code>artifactStore</code> objects and their corresponding Amazon Web Services Regions. There must
+     * be an artifact store for the pipeline Region and for each cross-region action in the pipeline.
      * </p>
+     * <note>
      * <p>
-     * If you create a cross-region action in your pipeline, you must use <code>artifactStores</code>.
+     * You must include either <code>artifactStore</code> or <code>artifactStores</code> in your pipeline, but you
+     * cannot use both. If you create a cross-region action in your pipeline, you must use <code>artifactStores</code>.
      * </p>
+     * </note>
      * 
      * @param artifactStores
-     *        A mapping of <code>artifactStore</code> objects and their corresponding regions. There must be an artifact
-     *        store for the pipeline region and for each cross-region action within the pipeline. You can only use
-     *        either <code>artifactStore</code> or <code>artifactStores</code>, not both.</p>
+     *        A mapping of <code>artifactStore</code> objects and their corresponding Amazon Web Services Regions. There
+     *        must be an artifact store for the pipeline Region and for each cross-region action in the pipeline.</p>
+     *        <note>
      *        <p>
-     *        If you create a cross-region action in your pipeline, you must use <code>artifactStores</code>.
+     *        You must include either <code>artifactStore</code> or <code>artifactStores</code> in your pipeline, but
+     *        you cannot use both. If you create a cross-region action in your pipeline, you must use
+     *        <code>artifactStores</code>.
+     *        </p>
      */
 
     public void setArtifactStores(java.util.Map<String, ArtifactStore> artifactStores) {
@@ -243,20 +354,25 @@ public class PipelineDeclaration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * A mapping of <code>artifactStore</code> objects and their corresponding regions. There must be an artifact store
-     * for the pipeline region and for each cross-region action within the pipeline. You can only use either
-     * <code>artifactStore</code> or <code>artifactStores</code>, not both.
+     * A mapping of <code>artifactStore</code> objects and their corresponding Amazon Web Services Regions. There must
+     * be an artifact store for the pipeline Region and for each cross-region action in the pipeline.
      * </p>
+     * <note>
      * <p>
-     * If you create a cross-region action in your pipeline, you must use <code>artifactStores</code>.
+     * You must include either <code>artifactStore</code> or <code>artifactStores</code> in your pipeline, but you
+     * cannot use both. If you create a cross-region action in your pipeline, you must use <code>artifactStores</code>.
      * </p>
+     * </note>
      * 
      * @param artifactStores
-     *        A mapping of <code>artifactStore</code> objects and their corresponding regions. There must be an artifact
-     *        store for the pipeline region and for each cross-region action within the pipeline. You can only use
-     *        either <code>artifactStore</code> or <code>artifactStores</code>, not both.</p>
+     *        A mapping of <code>artifactStore</code> objects and their corresponding Amazon Web Services Regions. There
+     *        must be an artifact store for the pipeline Region and for each cross-region action in the pipeline.</p>
+     *        <note>
      *        <p>
-     *        If you create a cross-region action in your pipeline, you must use <code>artifactStores</code>.
+     *        You must include either <code>artifactStore</code> or <code>artifactStores</code> in your pipeline, but
+     *        you cannot use both. If you create a cross-region action in your pipeline, you must use
+     *        <code>artifactStores</code>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -264,6 +380,13 @@ public class PipelineDeclaration implements Serializable, Cloneable, StructuredP
         setArtifactStores(artifactStores);
         return this;
     }
+
+    /**
+     * Add a single ArtifactStores entry
+     *
+     * @see PipelineDeclaration#withArtifactStores
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public PipelineDeclaration addArtifactStoresEntry(String key, ArtifactStore value) {
         if (null == this.artifactStores) {
@@ -358,13 +481,13 @@ public class PipelineDeclaration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The version number of the pipeline. A new pipeline always has a version number of 1. This number is automatically
-     * incremented when a pipeline is updated.
+     * The version number of the pipeline. A new pipeline always has a version number of 1. This number is incremented
+     * when a pipeline is updated.
      * </p>
      * 
      * @param version
      *        The version number of the pipeline. A new pipeline always has a version number of 1. This number is
-     *        automatically incremented when a pipeline is updated.
+     *        incremented when a pipeline is updated.
      */
 
     public void setVersion(Integer version) {
@@ -373,12 +496,12 @@ public class PipelineDeclaration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The version number of the pipeline. A new pipeline always has a version number of 1. This number is automatically
-     * incremented when a pipeline is updated.
+     * The version number of the pipeline. A new pipeline always has a version number of 1. This number is incremented
+     * when a pipeline is updated.
      * </p>
      * 
      * @return The version number of the pipeline. A new pipeline always has a version number of 1. This number is
-     *         automatically incremented when a pipeline is updated.
+     *         incremented when a pipeline is updated.
      */
 
     public Integer getVersion() {
@@ -387,18 +510,560 @@ public class PipelineDeclaration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The version number of the pipeline. A new pipeline always has a version number of 1. This number is automatically
-     * incremented when a pipeline is updated.
+     * The version number of the pipeline. A new pipeline always has a version number of 1. This number is incremented
+     * when a pipeline is updated.
      * </p>
      * 
      * @param version
      *        The version number of the pipeline. A new pipeline always has a version number of 1. This number is
-     *        automatically incremented when a pipeline is updated.
+     *        incremented when a pipeline is updated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public PipelineDeclaration withVersion(Integer version) {
         setVersion(version);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The method that the pipeline will use to handle multiple executions. The default mode is SUPERSEDED.
+     * </p>
+     * 
+     * @param executionMode
+     *        The method that the pipeline will use to handle multiple executions. The default mode is SUPERSEDED.
+     * @see ExecutionMode
+     */
+
+    public void setExecutionMode(String executionMode) {
+        this.executionMode = executionMode;
+    }
+
+    /**
+     * <p>
+     * The method that the pipeline will use to handle multiple executions. The default mode is SUPERSEDED.
+     * </p>
+     * 
+     * @return The method that the pipeline will use to handle multiple executions. The default mode is SUPERSEDED.
+     * @see ExecutionMode
+     */
+
+    public String getExecutionMode() {
+        return this.executionMode;
+    }
+
+    /**
+     * <p>
+     * The method that the pipeline will use to handle multiple executions. The default mode is SUPERSEDED.
+     * </p>
+     * 
+     * @param executionMode
+     *        The method that the pipeline will use to handle multiple executions. The default mode is SUPERSEDED.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ExecutionMode
+     */
+
+    public PipelineDeclaration withExecutionMode(String executionMode) {
+        setExecutionMode(executionMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The method that the pipeline will use to handle multiple executions. The default mode is SUPERSEDED.
+     * </p>
+     * 
+     * @param executionMode
+     *        The method that the pipeline will use to handle multiple executions. The default mode is SUPERSEDED.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ExecutionMode
+     */
+
+    public PipelineDeclaration withExecutionMode(ExecutionMode executionMode) {
+        this.executionMode = executionMode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * CodePipeline provides the following pipeline types, which differ in characteristics and price, so that you can
+     * tailor your pipeline features and cost to the needs of your applications.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * V1 type pipelines have a JSON structure that contains standard pipeline, stage, and action-level parameters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * V2 type pipelines have the same structure as a V1 type, along with additional parameters for release safety and
+     * trigger configuration.
+     * </p>
+     * </li>
+     * </ul>
+     * <important>
+     * <p>
+     * Including V2 parameters, such as triggers on Git tags, in the pipeline JSON when creating or updating a pipeline
+     * will result in the pipeline having the V2 type of pipeline and the associated costs.
+     * </p>
+     * </important>
+     * <p>
+     * For information about pricing for CodePipeline, see <a
+     * href="http://aws.amazon.com/codepipeline/pricing/">Pricing</a>.
+     * </p>
+     * <p>
+     * For information about which type of pipeline to choose, see <a
+     * href="https://docs.aws.amazon.com/codepipeline/latest/userguide/pipeline-types-planning.html">What type of
+     * pipeline is right for me?</a>.
+     * </p>
+     * 
+     * @param pipelineType
+     *        CodePipeline provides the following pipeline types, which differ in characteristics and price, so that you
+     *        can tailor your pipeline features and cost to the needs of your applications.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        V1 type pipelines have a JSON structure that contains standard pipeline, stage, and action-level
+     *        parameters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        V2 type pipelines have the same structure as a V1 type, along with additional parameters for release
+     *        safety and trigger configuration.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <important>
+     *        <p>
+     *        Including V2 parameters, such as triggers on Git tags, in the pipeline JSON when creating or updating a
+     *        pipeline will result in the pipeline having the V2 type of pipeline and the associated costs.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        For information about pricing for CodePipeline, see <a
+     *        href="http://aws.amazon.com/codepipeline/pricing/">Pricing</a>.
+     *        </p>
+     *        <p>
+     *        For information about which type of pipeline to choose, see <a
+     *        href="https://docs.aws.amazon.com/codepipeline/latest/userguide/pipeline-types-planning.html">What type of
+     *        pipeline is right for me?</a>.
+     * @see PipelineType
+     */
+
+    public void setPipelineType(String pipelineType) {
+        this.pipelineType = pipelineType;
+    }
+
+    /**
+     * <p>
+     * CodePipeline provides the following pipeline types, which differ in characteristics and price, so that you can
+     * tailor your pipeline features and cost to the needs of your applications.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * V1 type pipelines have a JSON structure that contains standard pipeline, stage, and action-level parameters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * V2 type pipelines have the same structure as a V1 type, along with additional parameters for release safety and
+     * trigger configuration.
+     * </p>
+     * </li>
+     * </ul>
+     * <important>
+     * <p>
+     * Including V2 parameters, such as triggers on Git tags, in the pipeline JSON when creating or updating a pipeline
+     * will result in the pipeline having the V2 type of pipeline and the associated costs.
+     * </p>
+     * </important>
+     * <p>
+     * For information about pricing for CodePipeline, see <a
+     * href="http://aws.amazon.com/codepipeline/pricing/">Pricing</a>.
+     * </p>
+     * <p>
+     * For information about which type of pipeline to choose, see <a
+     * href="https://docs.aws.amazon.com/codepipeline/latest/userguide/pipeline-types-planning.html">What type of
+     * pipeline is right for me?</a>.
+     * </p>
+     * 
+     * @return CodePipeline provides the following pipeline types, which differ in characteristics and price, so that
+     *         you can tailor your pipeline features and cost to the needs of your applications.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         V1 type pipelines have a JSON structure that contains standard pipeline, stage, and action-level
+     *         parameters.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         V2 type pipelines have the same structure as a V1 type, along with additional parameters for release
+     *         safety and trigger configuration.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <important>
+     *         <p>
+     *         Including V2 parameters, such as triggers on Git tags, in the pipeline JSON when creating or updating a
+     *         pipeline will result in the pipeline having the V2 type of pipeline and the associated costs.
+     *         </p>
+     *         </important>
+     *         <p>
+     *         For information about pricing for CodePipeline, see <a
+     *         href="http://aws.amazon.com/codepipeline/pricing/">Pricing</a>.
+     *         </p>
+     *         <p>
+     *         For information about which type of pipeline to choose, see <a
+     *         href="https://docs.aws.amazon.com/codepipeline/latest/userguide/pipeline-types-planning.html">What type
+     *         of pipeline is right for me?</a>.
+     * @see PipelineType
+     */
+
+    public String getPipelineType() {
+        return this.pipelineType;
+    }
+
+    /**
+     * <p>
+     * CodePipeline provides the following pipeline types, which differ in characteristics and price, so that you can
+     * tailor your pipeline features and cost to the needs of your applications.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * V1 type pipelines have a JSON structure that contains standard pipeline, stage, and action-level parameters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * V2 type pipelines have the same structure as a V1 type, along with additional parameters for release safety and
+     * trigger configuration.
+     * </p>
+     * </li>
+     * </ul>
+     * <important>
+     * <p>
+     * Including V2 parameters, such as triggers on Git tags, in the pipeline JSON when creating or updating a pipeline
+     * will result in the pipeline having the V2 type of pipeline and the associated costs.
+     * </p>
+     * </important>
+     * <p>
+     * For information about pricing for CodePipeline, see <a
+     * href="http://aws.amazon.com/codepipeline/pricing/">Pricing</a>.
+     * </p>
+     * <p>
+     * For information about which type of pipeline to choose, see <a
+     * href="https://docs.aws.amazon.com/codepipeline/latest/userguide/pipeline-types-planning.html">What type of
+     * pipeline is right for me?</a>.
+     * </p>
+     * 
+     * @param pipelineType
+     *        CodePipeline provides the following pipeline types, which differ in characteristics and price, so that you
+     *        can tailor your pipeline features and cost to the needs of your applications.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        V1 type pipelines have a JSON structure that contains standard pipeline, stage, and action-level
+     *        parameters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        V2 type pipelines have the same structure as a V1 type, along with additional parameters for release
+     *        safety and trigger configuration.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <important>
+     *        <p>
+     *        Including V2 parameters, such as triggers on Git tags, in the pipeline JSON when creating or updating a
+     *        pipeline will result in the pipeline having the V2 type of pipeline and the associated costs.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        For information about pricing for CodePipeline, see <a
+     *        href="http://aws.amazon.com/codepipeline/pricing/">Pricing</a>.
+     *        </p>
+     *        <p>
+     *        For information about which type of pipeline to choose, see <a
+     *        href="https://docs.aws.amazon.com/codepipeline/latest/userguide/pipeline-types-planning.html">What type of
+     *        pipeline is right for me?</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PipelineType
+     */
+
+    public PipelineDeclaration withPipelineType(String pipelineType) {
+        setPipelineType(pipelineType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * CodePipeline provides the following pipeline types, which differ in characteristics and price, so that you can
+     * tailor your pipeline features and cost to the needs of your applications.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * V1 type pipelines have a JSON structure that contains standard pipeline, stage, and action-level parameters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * V2 type pipelines have the same structure as a V1 type, along with additional parameters for release safety and
+     * trigger configuration.
+     * </p>
+     * </li>
+     * </ul>
+     * <important>
+     * <p>
+     * Including V2 parameters, such as triggers on Git tags, in the pipeline JSON when creating or updating a pipeline
+     * will result in the pipeline having the V2 type of pipeline and the associated costs.
+     * </p>
+     * </important>
+     * <p>
+     * For information about pricing for CodePipeline, see <a
+     * href="http://aws.amazon.com/codepipeline/pricing/">Pricing</a>.
+     * </p>
+     * <p>
+     * For information about which type of pipeline to choose, see <a
+     * href="https://docs.aws.amazon.com/codepipeline/latest/userguide/pipeline-types-planning.html">What type of
+     * pipeline is right for me?</a>.
+     * </p>
+     * 
+     * @param pipelineType
+     *        CodePipeline provides the following pipeline types, which differ in characteristics and price, so that you
+     *        can tailor your pipeline features and cost to the needs of your applications.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        V1 type pipelines have a JSON structure that contains standard pipeline, stage, and action-level
+     *        parameters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        V2 type pipelines have the same structure as a V1 type, along with additional parameters for release
+     *        safety and trigger configuration.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <important>
+     *        <p>
+     *        Including V2 parameters, such as triggers on Git tags, in the pipeline JSON when creating or updating a
+     *        pipeline will result in the pipeline having the V2 type of pipeline and the associated costs.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        For information about pricing for CodePipeline, see <a
+     *        href="http://aws.amazon.com/codepipeline/pricing/">Pricing</a>.
+     *        </p>
+     *        <p>
+     *        For information about which type of pipeline to choose, see <a
+     *        href="https://docs.aws.amazon.com/codepipeline/latest/userguide/pipeline-types-planning.html">What type of
+     *        pipeline is right for me?</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PipelineType
+     */
+
+    public PipelineDeclaration withPipelineType(PipelineType pipelineType) {
+        this.pipelineType = pipelineType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list that defines the pipeline variables for a pipeline resource. Variable names can have alphanumeric and
+     * underscore characters, and the values must match <code>[A-Za-z0-9@\-_]+</code>.
+     * </p>
+     * 
+     * @return A list that defines the pipeline variables for a pipeline resource. Variable names can have alphanumeric
+     *         and underscore characters, and the values must match <code>[A-Za-z0-9@\-_]+</code>.
+     */
+
+    public java.util.List<PipelineVariableDeclaration> getVariables() {
+        return variables;
+    }
+
+    /**
+     * <p>
+     * A list that defines the pipeline variables for a pipeline resource. Variable names can have alphanumeric and
+     * underscore characters, and the values must match <code>[A-Za-z0-9@\-_]+</code>.
+     * </p>
+     * 
+     * @param variables
+     *        A list that defines the pipeline variables for a pipeline resource. Variable names can have alphanumeric
+     *        and underscore characters, and the values must match <code>[A-Za-z0-9@\-_]+</code>.
+     */
+
+    public void setVariables(java.util.Collection<PipelineVariableDeclaration> variables) {
+        if (variables == null) {
+            this.variables = null;
+            return;
+        }
+
+        this.variables = new java.util.ArrayList<PipelineVariableDeclaration>(variables);
+    }
+
+    /**
+     * <p>
+     * A list that defines the pipeline variables for a pipeline resource. Variable names can have alphanumeric and
+     * underscore characters, and the values must match <code>[A-Za-z0-9@\-_]+</code>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setVariables(java.util.Collection)} or {@link #withVariables(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param variables
+     *        A list that defines the pipeline variables for a pipeline resource. Variable names can have alphanumeric
+     *        and underscore characters, and the values must match <code>[A-Za-z0-9@\-_]+</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PipelineDeclaration withVariables(PipelineVariableDeclaration... variables) {
+        if (this.variables == null) {
+            setVariables(new java.util.ArrayList<PipelineVariableDeclaration>(variables.length));
+        }
+        for (PipelineVariableDeclaration ele : variables) {
+            this.variables.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list that defines the pipeline variables for a pipeline resource. Variable names can have alphanumeric and
+     * underscore characters, and the values must match <code>[A-Za-z0-9@\-_]+</code>.
+     * </p>
+     * 
+     * @param variables
+     *        A list that defines the pipeline variables for a pipeline resource. Variable names can have alphanumeric
+     *        and underscore characters, and the values must match <code>[A-Za-z0-9@\-_]+</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PipelineDeclaration withVariables(java.util.Collection<PipelineVariableDeclaration> variables) {
+        setVariables(variables);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The trigger configuration specifying a type of event, such as Git tags, that starts the pipeline.
+     * </p>
+     * <note>
+     * <p>
+     * When a trigger configuration is specified, default change detection for repository and branch commits is
+     * disabled.
+     * </p>
+     * </note>
+     * 
+     * @return The trigger configuration specifying a type of event, such as Git tags, that starts the pipeline.</p>
+     *         <note>
+     *         <p>
+     *         When a trigger configuration is specified, default change detection for repository and branch commits is
+     *         disabled.
+     *         </p>
+     */
+
+    public java.util.List<PipelineTriggerDeclaration> getTriggers() {
+        return triggers;
+    }
+
+    /**
+     * <p>
+     * The trigger configuration specifying a type of event, such as Git tags, that starts the pipeline.
+     * </p>
+     * <note>
+     * <p>
+     * When a trigger configuration is specified, default change detection for repository and branch commits is
+     * disabled.
+     * </p>
+     * </note>
+     * 
+     * @param triggers
+     *        The trigger configuration specifying a type of event, such as Git tags, that starts the pipeline.</p>
+     *        <note>
+     *        <p>
+     *        When a trigger configuration is specified, default change detection for repository and branch commits is
+     *        disabled.
+     *        </p>
+     */
+
+    public void setTriggers(java.util.Collection<PipelineTriggerDeclaration> triggers) {
+        if (triggers == null) {
+            this.triggers = null;
+            return;
+        }
+
+        this.triggers = new java.util.ArrayList<PipelineTriggerDeclaration>(triggers);
+    }
+
+    /**
+     * <p>
+     * The trigger configuration specifying a type of event, such as Git tags, that starts the pipeline.
+     * </p>
+     * <note>
+     * <p>
+     * When a trigger configuration is specified, default change detection for repository and branch commits is
+     * disabled.
+     * </p>
+     * </note>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTriggers(java.util.Collection)} or {@link #withTriggers(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param triggers
+     *        The trigger configuration specifying a type of event, such as Git tags, that starts the pipeline.</p>
+     *        <note>
+     *        <p>
+     *        When a trigger configuration is specified, default change detection for repository and branch commits is
+     *        disabled.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PipelineDeclaration withTriggers(PipelineTriggerDeclaration... triggers) {
+        if (this.triggers == null) {
+            setTriggers(new java.util.ArrayList<PipelineTriggerDeclaration>(triggers.length));
+        }
+        for (PipelineTriggerDeclaration ele : triggers) {
+            this.triggers.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The trigger configuration specifying a type of event, such as Git tags, that starts the pipeline.
+     * </p>
+     * <note>
+     * <p>
+     * When a trigger configuration is specified, default change detection for repository and branch commits is
+     * disabled.
+     * </p>
+     * </note>
+     * 
+     * @param triggers
+     *        The trigger configuration specifying a type of event, such as Git tags, that starts the pipeline.</p>
+     *        <note>
+     *        <p>
+     *        When a trigger configuration is specified, default change detection for repository and branch commits is
+     *        disabled.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PipelineDeclaration withTriggers(java.util.Collection<PipelineTriggerDeclaration> triggers) {
+        setTriggers(triggers);
         return this;
     }
 
@@ -425,7 +1090,15 @@ public class PipelineDeclaration implements Serializable, Cloneable, StructuredP
         if (getStages() != null)
             sb.append("Stages: ").append(getStages()).append(",");
         if (getVersion() != null)
-            sb.append("Version: ").append(getVersion());
+            sb.append("Version: ").append(getVersion()).append(",");
+        if (getExecutionMode() != null)
+            sb.append("ExecutionMode: ").append(getExecutionMode()).append(",");
+        if (getPipelineType() != null)
+            sb.append("PipelineType: ").append(getPipelineType()).append(",");
+        if (getVariables() != null)
+            sb.append("Variables: ").append(getVariables()).append(",");
+        if (getTriggers() != null)
+            sb.append("Triggers: ").append(getTriggers());
         sb.append("}");
         return sb.toString();
     }
@@ -464,6 +1137,22 @@ public class PipelineDeclaration implements Serializable, Cloneable, StructuredP
             return false;
         if (other.getVersion() != null && other.getVersion().equals(this.getVersion()) == false)
             return false;
+        if (other.getExecutionMode() == null ^ this.getExecutionMode() == null)
+            return false;
+        if (other.getExecutionMode() != null && other.getExecutionMode().equals(this.getExecutionMode()) == false)
+            return false;
+        if (other.getPipelineType() == null ^ this.getPipelineType() == null)
+            return false;
+        if (other.getPipelineType() != null && other.getPipelineType().equals(this.getPipelineType()) == false)
+            return false;
+        if (other.getVariables() == null ^ this.getVariables() == null)
+            return false;
+        if (other.getVariables() != null && other.getVariables().equals(this.getVariables()) == false)
+            return false;
+        if (other.getTriggers() == null ^ this.getTriggers() == null)
+            return false;
+        if (other.getTriggers() != null && other.getTriggers().equals(this.getTriggers()) == false)
+            return false;
         return true;
     }
 
@@ -478,6 +1167,10 @@ public class PipelineDeclaration implements Serializable, Cloneable, StructuredP
         hashCode = prime * hashCode + ((getArtifactStores() == null) ? 0 : getArtifactStores().hashCode());
         hashCode = prime * hashCode + ((getStages() == null) ? 0 : getStages().hashCode());
         hashCode = prime * hashCode + ((getVersion() == null) ? 0 : getVersion().hashCode());
+        hashCode = prime * hashCode + ((getExecutionMode() == null) ? 0 : getExecutionMode().hashCode());
+        hashCode = prime * hashCode + ((getPipelineType() == null) ? 0 : getPipelineType().hashCode());
+        hashCode = prime * hashCode + ((getVariables() == null) ? 0 : getVariables().hashCode());
+        hashCode = prime * hashCode + ((getTriggers() == null) ? 0 : getTriggers().hashCode());
         return hashCode;
     }
 

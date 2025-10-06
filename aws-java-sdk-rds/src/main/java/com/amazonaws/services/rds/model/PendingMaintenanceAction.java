@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,24 +28,33 @@ public class PendingMaintenanceAction implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of pending maintenance action that is available for the resource. Valid actions are
-     * <code>system-update</code>, <code>db-upgrade</code>, and <code>hardware-maintenance</code>.
+     * The type of pending maintenance action that is available for the resource.
+     * </p>
+     * <p>
+     * For more information about maintenance actions, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html">Maintaining
+     * a DB instance</a>.
+     * </p>
+     * <p>
+     * Valid Values:<code> system-update | db-upgrade | hardware-maintenance | ca-certificate-rotation</code>
      * </p>
      */
     private String action;
     /**
      * <p>
      * The date of the maintenance window when the action is applied. The maintenance action is applied to the resource
-     * during its first maintenance window after this date. If this date is specified, any <code>next-maintenance</code>
-     * opt-in requests are ignored.
+     * during its first maintenance window after this date.
      * </p>
      */
     private java.util.Date autoAppliedAfterDate;
     /**
      * <p>
-     * The date when the maintenance action is automatically applied. The maintenance action is applied to the resource
-     * on this date regardless of the maintenance window for the resource. If this date is specified, any
-     * <code>immediate</code> opt-in requests are ignored.
+     * The date when the maintenance action is automatically applied.
+     * </p>
+     * <p>
+     * On this date, the maintenance action is applied to the resource as soon as possible, regardless of the
+     * maintenance window for the resource. There might be a delay of one or more days from this date before the
+     * maintenance action is applied.
      * </p>
      */
     private java.util.Date forcedApplyDate;
@@ -74,13 +83,26 @@ public class PendingMaintenanceAction implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of pending maintenance action that is available for the resource. Valid actions are
-     * <code>system-update</code>, <code>db-upgrade</code>, and <code>hardware-maintenance</code>.
+     * The type of pending maintenance action that is available for the resource.
+     * </p>
+     * <p>
+     * For more information about maintenance actions, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html">Maintaining
+     * a DB instance</a>.
+     * </p>
+     * <p>
+     * Valid Values:<code> system-update | db-upgrade | hardware-maintenance | ca-certificate-rotation</code>
      * </p>
      * 
      * @param action
-     *        The type of pending maintenance action that is available for the resource. Valid actions are
-     *        <code>system-update</code>, <code>db-upgrade</code>, and <code>hardware-maintenance</code>.
+     *        The type of pending maintenance action that is available for the resource. </p>
+     *        <p>
+     *        For more information about maintenance actions, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html"
+     *        >Maintaining a DB instance</a>.
+     *        </p>
+     *        <p>
+     *        Valid Values:<code> system-update | db-upgrade | hardware-maintenance | ca-certificate-rotation</code>
      */
 
     public void setAction(String action) {
@@ -89,12 +111,25 @@ public class PendingMaintenanceAction implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of pending maintenance action that is available for the resource. Valid actions are
-     * <code>system-update</code>, <code>db-upgrade</code>, and <code>hardware-maintenance</code>.
+     * The type of pending maintenance action that is available for the resource.
+     * </p>
+     * <p>
+     * For more information about maintenance actions, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html">Maintaining
+     * a DB instance</a>.
+     * </p>
+     * <p>
+     * Valid Values:<code> system-update | db-upgrade | hardware-maintenance | ca-certificate-rotation</code>
      * </p>
      * 
-     * @return The type of pending maintenance action that is available for the resource. Valid actions are
-     *         <code>system-update</code>, <code>db-upgrade</code>, and <code>hardware-maintenance</code>.
+     * @return The type of pending maintenance action that is available for the resource. </p>
+     *         <p>
+     *         For more information about maintenance actions, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html"
+     *         >Maintaining a DB instance</a>.
+     *         </p>
+     *         <p>
+     *         Valid Values:<code> system-update | db-upgrade | hardware-maintenance | ca-certificate-rotation</code>
      */
 
     public String getAction() {
@@ -103,13 +138,26 @@ public class PendingMaintenanceAction implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of pending maintenance action that is available for the resource. Valid actions are
-     * <code>system-update</code>, <code>db-upgrade</code>, and <code>hardware-maintenance</code>.
+     * The type of pending maintenance action that is available for the resource.
+     * </p>
+     * <p>
+     * For more information about maintenance actions, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html">Maintaining
+     * a DB instance</a>.
+     * </p>
+     * <p>
+     * Valid Values:<code> system-update | db-upgrade | hardware-maintenance | ca-certificate-rotation</code>
      * </p>
      * 
      * @param action
-     *        The type of pending maintenance action that is available for the resource. Valid actions are
-     *        <code>system-update</code>, <code>db-upgrade</code>, and <code>hardware-maintenance</code>.
+     *        The type of pending maintenance action that is available for the resource. </p>
+     *        <p>
+     *        For more information about maintenance actions, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html"
+     *        >Maintaining a DB instance</a>.
+     *        </p>
+     *        <p>
+     *        Valid Values:<code> system-update | db-upgrade | hardware-maintenance | ca-certificate-rotation</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -121,14 +169,12 @@ public class PendingMaintenanceAction implements Serializable, Cloneable {
     /**
      * <p>
      * The date of the maintenance window when the action is applied. The maintenance action is applied to the resource
-     * during its first maintenance window after this date. If this date is specified, any <code>next-maintenance</code>
-     * opt-in requests are ignored.
+     * during its first maintenance window after this date.
      * </p>
      * 
      * @param autoAppliedAfterDate
      *        The date of the maintenance window when the action is applied. The maintenance action is applied to the
-     *        resource during its first maintenance window after this date. If this date is specified, any
-     *        <code>next-maintenance</code> opt-in requests are ignored.
+     *        resource during its first maintenance window after this date.
      */
 
     public void setAutoAppliedAfterDate(java.util.Date autoAppliedAfterDate) {
@@ -138,13 +184,11 @@ public class PendingMaintenanceAction implements Serializable, Cloneable {
     /**
      * <p>
      * The date of the maintenance window when the action is applied. The maintenance action is applied to the resource
-     * during its first maintenance window after this date. If this date is specified, any <code>next-maintenance</code>
-     * opt-in requests are ignored.
+     * during its first maintenance window after this date.
      * </p>
      * 
      * @return The date of the maintenance window when the action is applied. The maintenance action is applied to the
-     *         resource during its first maintenance window after this date. If this date is specified, any
-     *         <code>next-maintenance</code> opt-in requests are ignored.
+     *         resource during its first maintenance window after this date.
      */
 
     public java.util.Date getAutoAppliedAfterDate() {
@@ -154,14 +198,12 @@ public class PendingMaintenanceAction implements Serializable, Cloneable {
     /**
      * <p>
      * The date of the maintenance window when the action is applied. The maintenance action is applied to the resource
-     * during its first maintenance window after this date. If this date is specified, any <code>next-maintenance</code>
-     * opt-in requests are ignored.
+     * during its first maintenance window after this date.
      * </p>
      * 
      * @param autoAppliedAfterDate
      *        The date of the maintenance window when the action is applied. The maintenance action is applied to the
-     *        resource during its first maintenance window after this date. If this date is specified, any
-     *        <code>next-maintenance</code> opt-in requests are ignored.
+     *        resource during its first maintenance window after this date.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -172,15 +214,20 @@ public class PendingMaintenanceAction implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The date when the maintenance action is automatically applied. The maintenance action is applied to the resource
-     * on this date regardless of the maintenance window for the resource. If this date is specified, any
-     * <code>immediate</code> opt-in requests are ignored.
+     * The date when the maintenance action is automatically applied.
+     * </p>
+     * <p>
+     * On this date, the maintenance action is applied to the resource as soon as possible, regardless of the
+     * maintenance window for the resource. There might be a delay of one or more days from this date before the
+     * maintenance action is applied.
      * </p>
      * 
      * @param forcedApplyDate
-     *        The date when the maintenance action is automatically applied. The maintenance action is applied to the
-     *        resource on this date regardless of the maintenance window for the resource. If this date is specified,
-     *        any <code>immediate</code> opt-in requests are ignored.
+     *        The date when the maintenance action is automatically applied.</p>
+     *        <p>
+     *        On this date, the maintenance action is applied to the resource as soon as possible, regardless of the
+     *        maintenance window for the resource. There might be a delay of one or more days from this date before the
+     *        maintenance action is applied.
      */
 
     public void setForcedApplyDate(java.util.Date forcedApplyDate) {
@@ -189,14 +236,19 @@ public class PendingMaintenanceAction implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The date when the maintenance action is automatically applied. The maintenance action is applied to the resource
-     * on this date regardless of the maintenance window for the resource. If this date is specified, any
-     * <code>immediate</code> opt-in requests are ignored.
+     * The date when the maintenance action is automatically applied.
+     * </p>
+     * <p>
+     * On this date, the maintenance action is applied to the resource as soon as possible, regardless of the
+     * maintenance window for the resource. There might be a delay of one or more days from this date before the
+     * maintenance action is applied.
      * </p>
      * 
-     * @return The date when the maintenance action is automatically applied. The maintenance action is applied to the
-     *         resource on this date regardless of the maintenance window for the resource. If this date is specified,
-     *         any <code>immediate</code> opt-in requests are ignored.
+     * @return The date when the maintenance action is automatically applied.</p>
+     *         <p>
+     *         On this date, the maintenance action is applied to the resource as soon as possible, regardless of the
+     *         maintenance window for the resource. There might be a delay of one or more days from this date before the
+     *         maintenance action is applied.
      */
 
     public java.util.Date getForcedApplyDate() {
@@ -205,15 +257,20 @@ public class PendingMaintenanceAction implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The date when the maintenance action is automatically applied. The maintenance action is applied to the resource
-     * on this date regardless of the maintenance window for the resource. If this date is specified, any
-     * <code>immediate</code> opt-in requests are ignored.
+     * The date when the maintenance action is automatically applied.
+     * </p>
+     * <p>
+     * On this date, the maintenance action is applied to the resource as soon as possible, regardless of the
+     * maintenance window for the resource. There might be a delay of one or more days from this date before the
+     * maintenance action is applied.
      * </p>
      * 
      * @param forcedApplyDate
-     *        The date when the maintenance action is automatically applied. The maintenance action is applied to the
-     *        resource on this date regardless of the maintenance window for the resource. If this date is specified,
-     *        any <code>immediate</code> opt-in requests are ignored.
+     *        The date when the maintenance action is automatically applied.</p>
+     *        <p>
+     *        On this date, the maintenance action is applied to the resource as soon as possible, regardless of the
+     *        maintenance window for the resource. There might be a delay of one or more days from this date before the
+     *        maintenance action is applied.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

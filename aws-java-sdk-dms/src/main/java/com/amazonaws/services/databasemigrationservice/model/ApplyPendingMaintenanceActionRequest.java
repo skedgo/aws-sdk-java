@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,13 +28,16 @@ public class ApplyPendingMaintenanceActionRequest extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS DMS resource that the pending maintenance action applies to.
+     * The Amazon Resource Name (ARN) of the DMS resource that the pending maintenance action applies to.
      * </p>
      */
     private String replicationInstanceArn;
     /**
      * <p>
      * The pending maintenance action to apply to this resource.
+     * </p>
+     * <p>
+     * Valid values: <code>os-upgrade</code>, <code>system-update</code>, <code>db-upgrade</code>
      * </p>
      */
     private String applyAction;
@@ -68,11 +71,11 @@ public class ApplyPendingMaintenanceActionRequest extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS DMS resource that the pending maintenance action applies to.
+     * The Amazon Resource Name (ARN) of the DMS resource that the pending maintenance action applies to.
      * </p>
      * 
      * @param replicationInstanceArn
-     *        The Amazon Resource Name (ARN) of the AWS DMS resource that the pending maintenance action applies to.
+     *        The Amazon Resource Name (ARN) of the DMS resource that the pending maintenance action applies to.
      */
 
     public void setReplicationInstanceArn(String replicationInstanceArn) {
@@ -81,10 +84,10 @@ public class ApplyPendingMaintenanceActionRequest extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS DMS resource that the pending maintenance action applies to.
+     * The Amazon Resource Name (ARN) of the DMS resource that the pending maintenance action applies to.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the AWS DMS resource that the pending maintenance action applies to.
+     * @return The Amazon Resource Name (ARN) of the DMS resource that the pending maintenance action applies to.
      */
 
     public String getReplicationInstanceArn() {
@@ -93,11 +96,11 @@ public class ApplyPendingMaintenanceActionRequest extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS DMS resource that the pending maintenance action applies to.
+     * The Amazon Resource Name (ARN) of the DMS resource that the pending maintenance action applies to.
      * </p>
      * 
      * @param replicationInstanceArn
-     *        The Amazon Resource Name (ARN) of the AWS DMS resource that the pending maintenance action applies to.
+     *        The Amazon Resource Name (ARN) of the DMS resource that the pending maintenance action applies to.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -110,9 +113,14 @@ public class ApplyPendingMaintenanceActionRequest extends com.amazonaws.AmazonWe
      * <p>
      * The pending maintenance action to apply to this resource.
      * </p>
+     * <p>
+     * Valid values: <code>os-upgrade</code>, <code>system-update</code>, <code>db-upgrade</code>
+     * </p>
      * 
      * @param applyAction
-     *        The pending maintenance action to apply to this resource.
+     *        The pending maintenance action to apply to this resource.</p>
+     *        <p>
+     *        Valid values: <code>os-upgrade</code>, <code>system-update</code>, <code>db-upgrade</code>
      */
 
     public void setApplyAction(String applyAction) {
@@ -123,8 +131,13 @@ public class ApplyPendingMaintenanceActionRequest extends com.amazonaws.AmazonWe
      * <p>
      * The pending maintenance action to apply to this resource.
      * </p>
+     * <p>
+     * Valid values: <code>os-upgrade</code>, <code>system-update</code>, <code>db-upgrade</code>
+     * </p>
      * 
-     * @return The pending maintenance action to apply to this resource.
+     * @return The pending maintenance action to apply to this resource.</p>
+     *         <p>
+     *         Valid values: <code>os-upgrade</code>, <code>system-update</code>, <code>db-upgrade</code>
      */
 
     public String getApplyAction() {
@@ -135,9 +148,14 @@ public class ApplyPendingMaintenanceActionRequest extends com.amazonaws.AmazonWe
      * <p>
      * The pending maintenance action to apply to this resource.
      * </p>
+     * <p>
+     * Valid values: <code>os-upgrade</code>, <code>system-update</code>, <code>db-upgrade</code>
+     * </p>
      * 
      * @param applyAction
-     *        The pending maintenance action to apply to this resource.
+     *        The pending maintenance action to apply to this resource.</p>
+     *        <p>
+     *        Valid values: <code>os-upgrade</code>, <code>system-update</code>, <code>db-upgrade</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

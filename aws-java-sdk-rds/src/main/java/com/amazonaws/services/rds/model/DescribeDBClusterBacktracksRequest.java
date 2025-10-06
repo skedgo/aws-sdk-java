@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -66,7 +66,7 @@ public class DescribeDBClusterBacktracksRequest extends com.amazonaws.AmazonWebS
      * <li>
      * <p>
      * Must contain a valid universally unique identifier (UUID). For more information about UUIDs, see <a
-     * href="http://www.ietf.org/rfc/rfc4122.txt">A Universally Unique Identifier (UUID) URN Namespace</a>.
+     * href="https://en.wikipedia.org/wiki/Universally_unique_identifier">Universally unique identifier</a>.
      * </p>
      * </li>
      * </ul>
@@ -122,8 +122,8 @@ public class DescribeDBClusterBacktracksRequest extends com.amazonaws.AmazonWebS
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so you can retrieve
+     * the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -331,7 +331,7 @@ public class DescribeDBClusterBacktracksRequest extends com.amazonaws.AmazonWebS
      * <li>
      * <p>
      * Must contain a valid universally unique identifier (UUID). For more information about UUIDs, see <a
-     * href="http://www.ietf.org/rfc/rfc4122.txt">A Universally Unique Identifier (UUID) URN Namespace</a>.
+     * href="https://en.wikipedia.org/wiki/Universally_unique_identifier">Universally unique identifier</a>.
      * </p>
      * </li>
      * </ul>
@@ -348,7 +348,7 @@ public class DescribeDBClusterBacktracksRequest extends com.amazonaws.AmazonWebS
      *        <li>
      *        <p>
      *        Must contain a valid universally unique identifier (UUID). For more information about UUIDs, see <a
-     *        href="http://www.ietf.org/rfc/rfc4122.txt">A Universally Unique Identifier (UUID) URN Namespace</a>.
+     *        href="https://en.wikipedia.org/wiki/Universally_unique_identifier">Universally unique identifier</a>.
      *        </p>
      *        </li>
      *        </ul>
@@ -371,7 +371,7 @@ public class DescribeDBClusterBacktracksRequest extends com.amazonaws.AmazonWebS
      * <li>
      * <p>
      * Must contain a valid universally unique identifier (UUID). For more information about UUIDs, see <a
-     * href="http://www.ietf.org/rfc/rfc4122.txt">A Universally Unique Identifier (UUID) URN Namespace</a>.
+     * href="https://en.wikipedia.org/wiki/Universally_unique_identifier">Universally unique identifier</a>.
      * </p>
      * </li>
      * </ul>
@@ -387,7 +387,7 @@ public class DescribeDBClusterBacktracksRequest extends com.amazonaws.AmazonWebS
      *         <li>
      *         <p>
      *         Must contain a valid universally unique identifier (UUID). For more information about UUIDs, see <a
-     *         href="http://www.ietf.org/rfc/rfc4122.txt">A Universally Unique Identifier (UUID) URN Namespace</a>.
+     *         href="https://en.wikipedia.org/wiki/Universally_unique_identifier">Universally unique identifier</a>.
      *         </p>
      *         </li>
      *         </ul>
@@ -410,7 +410,7 @@ public class DescribeDBClusterBacktracksRequest extends com.amazonaws.AmazonWebS
      * <li>
      * <p>
      * Must contain a valid universally unique identifier (UUID). For more information about UUIDs, see <a
-     * href="http://www.ietf.org/rfc/rfc4122.txt">A Universally Unique Identifier (UUID) URN Namespace</a>.
+     * href="https://en.wikipedia.org/wiki/Universally_unique_identifier">Universally unique identifier</a>.
      * </p>
      * </li>
      * </ul>
@@ -427,7 +427,7 @@ public class DescribeDBClusterBacktracksRequest extends com.amazonaws.AmazonWebS
      *        <li>
      *        <p>
      *        Must contain a valid universally unique identifier (UUID). For more information about UUIDs, see <a
-     *        href="http://www.ietf.org/rfc/rfc4122.txt">A Universally Unique Identifier (UUID) URN Namespace</a>.
+     *        href="https://en.wikipedia.org/wiki/Universally_unique_identifier">Universally unique identifier</a>.
      *        </p>
      *        </li>
      *        </ul>
@@ -817,8 +817,8 @@ public class DescribeDBClusterBacktracksRequest extends com.amazonaws.AmazonWebS
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so you can retrieve
+     * the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -829,8 +829,8 @@ public class DescribeDBClusterBacktracksRequest extends com.amazonaws.AmazonWebS
      * 
      * @param maxRecords
      *        The maximum number of records to include in the response. If more records exist than the specified
-     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     *        remaining results can be retrieved. </p>
+     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so you can
+     *        retrieve the remaining results.</p>
      *        <p>
      *        Default: 100
      *        </p>
@@ -845,8 +845,8 @@ public class DescribeDBClusterBacktracksRequest extends com.amazonaws.AmazonWebS
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so you can retrieve
+     * the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -856,8 +856,8 @@ public class DescribeDBClusterBacktracksRequest extends com.amazonaws.AmazonWebS
      * </p>
      * 
      * @return The maximum number of records to include in the response. If more records exist than the specified
-     *         <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     *         remaining results can be retrieved. </p>
+     *         <code>MaxRecords</code> value, a pagination token called a marker is included in the response so you can
+     *         retrieve the remaining results.</p>
      *         <p>
      *         Default: 100
      *         </p>
@@ -872,8 +872,8 @@ public class DescribeDBClusterBacktracksRequest extends com.amazonaws.AmazonWebS
     /**
      * <p>
      * The maximum number of records to include in the response. If more records exist than the specified
-     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     * remaining results can be retrieved.
+     * <code>MaxRecords</code> value, a pagination token called a marker is included in the response so you can retrieve
+     * the remaining results.
      * </p>
      * <p>
      * Default: 100
@@ -884,8 +884,8 @@ public class DescribeDBClusterBacktracksRequest extends com.amazonaws.AmazonWebS
      * 
      * @param maxRecords
      *        The maximum number of records to include in the response. If more records exist than the specified
-     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so that the
-     *        remaining results can be retrieved. </p>
+     *        <code>MaxRecords</code> value, a pagination token called a marker is included in the response so you can
+     *        retrieve the remaining results.</p>
      *        <p>
      *        Default: 100
      *        </p>

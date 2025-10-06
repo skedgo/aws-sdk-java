@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,7 @@ import com.amazonaws.*;
 import com.amazonaws.regions.*;
 
 import com.amazonaws.services.rekognition.model.*;
+import com.amazonaws.services.rekognition.waiters.AmazonRekognitionWaiters;
 
 /**
  * Interface for accessing Amazon Rekognition.
@@ -27,8 +28,433 @@ import com.amazonaws.services.rekognition.model.*;
  * </p>
  * <p>
  * <p>
- * This is the Amazon Rekognition API reference.
+ * This is the API Reference for <a href="https://docs.aws.amazon.com/rekognition/latest/dg/images.html">Amazon
+ * Rekognition Image</a>, <a href="https://docs.aws.amazon.com/rekognition/latest/customlabels-dg/what-is.html">Amazon
+ * Rekognition Custom Labels</a>, <a href="https://docs.aws.amazon.com/rekognition/latest/dg/video.html">Amazon
+ * Rekognition Stored Video</a>, <a href="https://docs.aws.amazon.com/rekognition/latest/dg/streaming-video.html">Amazon
+ * Rekognition Streaming Video</a>. It provides descriptions of actions, data types, common parameters, and common
+ * errors.
  * </p>
+ * <p>
+ * <b>Amazon Rekognition Image</b>
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_AssociateFaces.html">AssociateFaces</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_CompareFaces.html">CompareFaces</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_CreateCollection.html">CreateCollection</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_CreateUser.html">CreateUser</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DeleteCollection.html">DeleteCollection</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DeleteFaces.html">DeleteFaces</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DeleteUser.html">DeleteUser</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DescribeCollection.html">DescribeCollection</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DetectFaces.html">DetectFaces</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DetectLabels.html">DetectLabels</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DetectModerationLabels.html">
+ * DetectModerationLabels</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DetectProtectiveEquipment.html">
+ * DetectProtectiveEquipment</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DetectText.html">DetectText</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DisassociateFaces.html">DisassociateFaces</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_GetCelebrityInfo.html">GetCelebrityInfo</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_GetMediaAnalysisJob.html">GetMediaAnalysisJob
+ * </a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_IndexFaces.html">IndexFaces</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_ListCollections.html">ListCollections</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_ListMediaAnalysisJob.html">
+ * ListMediaAnalysisJob</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_ListFaces.html">ListFaces</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_ListFaces.html">ListUsers</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_RecognizeCelebrities.html">
+ * RecognizeCelebrities</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_SearchFaces.html">SearchFaces</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_SearchFacesByImage.html">SearchFacesByImage</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_SearchUsers.html">SearchUsers</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_SearchUsersByImage.html">SearchUsersByImage</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StartMediaAnalysisJob.html">
+ * StartMediaAnalysisJob</a>
+ * </p>
+ * </li>
+ * </ul>
+ * <p>
+ * <b>Amazon Rekognition Custom Labels</b>
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_CopyProjectVersion.html">CopyProjectVersion</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_CreateDataset.html">CreateDataset</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_CreateProject.html">CreateProject</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_CreateProjectVersion.html">
+ * CreateProjectVersion</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DeleteDataset.html">DeleteDataset</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DeleteProject.html">DeleteProject</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DeleteProjectPolicy.html">DeleteProjectPolicy
+ * </a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DeleteProjectVersion.html">
+ * DeleteProjectVersion</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DescribeDataset.html">DescribeDataset</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DescribeProjects.html">DescribeProjects</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DescribeProjectVersions.html">
+ * DescribeProjectVersions</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DetectCustomLabels.html">DetectCustomLabels</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DistributeDatasetEntries.html">
+ * DistributeDatasetEntries</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_ListDatasetEntries.html">ListDatasetEntries</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_ListDatasetLabels.html">ListDatasetLabels</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_ListProjectPolicies.html">ListProjectPolicies
+ * </a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_PutProjectPolicy.html">PutProjectPolicy</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StartProjectVersion.html">StartProjectVersion
+ * </a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StopProjectVersion.html">StopProjectVersion</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_UpdateDatasetEntries.html">
+ * UpdateDatasetEntries</a>
+ * </p>
+ * </li>
+ * </ul>
+ * <p>
+ * <b>Amazon Rekognition Video Stored Video</b>
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_GetCelebrityRecognition.html">
+ * GetCelebrityRecognition</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_GetContentModeration.html">
+ * GetContentModeration</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_GetFaceDetection.html">GetFaceDetection</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_GetFaceSearch.html">GetFaceSearch</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_GetLabelDetection.html">GetLabelDetection</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_GetPersonTracking.html">GetPersonTracking</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_GetSegmentDetection.html">GetSegmentDetection
+ * </a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_GetTextDetection.html">GetTextDetection</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StartCelebrityRecognition.html">
+ * StartCelebrityRecognition</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StartContentModeration.html">
+ * StartContentModeration</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StartFaceDetection.html">StartFaceDetection</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StartFaceSearch.html">StartFaceSearch</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StartLabelDetection.html">StartLabelDetection
+ * </a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StartPersonTracking.html">StartPersonTracking
+ * </a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StartSegmentDetection.html">
+ * StartSegmentDetection</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StartTextDetection.html">StartTextDetection</a>
+ * </p>
+ * </li>
+ * </ul>
+ * <p>
+ * <b>Amazon Rekognition Video Streaming Video</b>
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_CreateStreamProcessor.html">
+ * CreateStreamProcessor</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DeleteStreamProcessor.html">
+ * DeleteStreamProcessor</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DescribeStreamProcessor.html">
+ * DescribeStreamProcessor</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_ListStreamProcessors.html">
+ * ListStreamProcessors</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StartStreamProcessor.html">
+ * StartStreamProcessor</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_StopStreamProcessor.html">StopStreamProcessor
+ * </a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/rekognition/latest/APIReference/API_UpdateStreamProcessor.html">
+ * UpdateStreamProcessor</a>
+ * </p>
+ * </li>
+ * </ul>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public interface AmazonRekognition {
@@ -95,13 +521,93 @@ public interface AmazonRekognition {
 
     /**
      * <p>
+     * Associates one or more faces with an existing UserID. Takes an array of <code>FaceIds</code>. Each
+     * <code>FaceId</code> that are present in the <code>FaceIds</code> list is associated with the provided UserID. The
+     * maximum number of total <code>FaceIds</code> per UserID is 100.
+     * </p>
+     * <p>
+     * The <code>UserMatchThreshold</code> parameter specifies the minimum user match confidence required for the face
+     * to be associated with a UserID that has at least one <code>FaceID</code> already associated. This ensures that
+     * the <code>FaceIds</code> are associated with the right UserID. The value ranges from 0-100 and default value is
+     * 75.
+     * </p>
+     * <p>
+     * If successful, an array of <code>AssociatedFace</code> objects containing the associated <code>FaceIds</code> is
+     * returned. If a given face is already associated with the given <code>UserID</code>, it will be ignored and will
+     * not be returned in the response. If a given face is already associated to a different <code>UserID</code>, isn't
+     * found in the collection, doesn’t meet the <code>UserMatchThreshold</code>, or there are already 100 faces
+     * associated with the <code>UserID</code>, it will be returned as part of an array of
+     * <code>UnsuccessfulFaceAssociations.</code>
+     * </p>
+     * <p>
+     * The <code>UserStatus</code> reflects the status of an operation which updates a UserID representation with a list
+     * of given faces. The <code>UserStatus</code> can be:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ACTIVE - All associations or disassociations of FaceID(s) for a UserID are complete.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CREATED - A UserID has been created, but has no FaceID(s) associated with it.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * UPDATING - A UserID is being updated and there are current associations or disassociations of FaceID(s) taking
+     * place.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param associateFacesRequest
+     * @return Result of the AssociateFaces operation returned by the service.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws IdempotentParameterMismatchException
+     *         A <code>ClientRequestToken</code> input parameter was reused with an operation, but at least one of the
+     *         other input parameters is different from the previous call to the operation.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws ConflictException
+     *         A User with the same Id already exists within the collection, or the update or deletion of the User
+     *         caused an inconsistent state. **
+     * @throws ServiceQuotaExceededException
+     *         <p>
+     *         The size of the collection exceeds the allowed limit. For more information, see Guidelines and quotas in
+     *         Amazon Rekognition in the Amazon Rekognition Developer Guide.
+     * @sample AmazonRekognition.AssociateFaces
+     */
+    AssociateFacesResult associateFaces(AssociateFacesRequest associateFacesRequest);
+
+    /**
+     * <p>
      * Compares a face in the <i>source</i> input image with each of the 100 largest faces detected in the <i>target</i>
      * input image.
      * </p>
-     * <note>
      * <p>
      * If the source image contains multiple faces, the service detects the largest face and compares it with each face
      * detected in the target image.
+     * </p>
+     * <note>
+     * <p>
+     * CompareFaces uses machine learning algorithms, which are probabilistic. A false negative is an incorrect
+     * prediction that a face in the target image has a low similarity confidence score when compared to the face in the
+     * source image. To reduce the probability of false negatives, we recommend that you compare the target image
+     * against multiple source images. If you plan to use <code>CompareFaces</code> to make a decision that impacts an
+     * individual's rights, privacy, or access to services, we recommend that you pass the result to a human for review
+     * and further validation before taking action.
      * </p>
      * </note>
      * <p>
@@ -111,7 +617,7 @@ public interface AmazonRekognition {
      * </p>
      * <p>
      * In response, the operation returns an array of face matches ordered by similarity score in descending order. For
-     * each face match, the response provides a bounding box of the face, facial landmarks, pose details (pitch, role,
+     * each face match, the response provides a bounding box of the face, facial landmarks, pose details (pitch, roll,
      * and yaw), quality (brightness and sharpness), and confidence value (indicating the level of confidence that the
      * bounding box contains a face). The response also provides a similarity score, which indicates how closely the
      * faces match.
@@ -126,6 +632,12 @@ public interface AmazonRekognition {
      * <code>CompareFaces</code> also returns an array of faces that don't match the source image. For each face, it
      * returns a bounding box, confidence value, landmarks, pose details, and quality. The response also returns
      * information about the face in the source image, including the bounding box of the face and confidence value.
+     * </p>
+     * <p>
+     * The <code>QualityFilter</code> input parameter allows you to filter out detected faces that don’t meet a required
+     * quality bar. The quality bar is based on a variety of common use cases. Use <code>QualityFilter</code> to set the
+     * quality bar by specifying <code>LOW</code>, <code>MEDIUM</code>, or <code>HIGH</code>. If you do not want to
+     * filter detected faces, specify <code>NONE</code>. The default value is <code>NONE</code>.
      * </p>
      * <p>
      * If the image doesn't contain Exif metadata, <code>CompareFaces</code> returns orientation information for the
@@ -154,8 +666,9 @@ public interface AmazonRekognition {
      * @throws InvalidS3ObjectException
      *         Amazon Rekognition is unable to access the S3 object specified in the request.
      * @throws ImageTooLargeException
-     *         The input image size exceeds the allowed limit. For more information, see Limits in Amazon Rekognition in
-     *         the Amazon Rekognition Developer Guide.
+     *         The input image size exceeds the allowed limit. If you are calling DetectProtectiveEquipment, the image
+     *         size or resolution exceeds the allowed limit. For more information, see Guidelines and quotas in Amazon
+     *         Rekognition in the Amazon Rekognition Developer Guide.
      * @throws AccessDeniedException
      *         You are not authorized to perform the action.
      * @throws InternalServerErrorException
@@ -170,6 +683,77 @@ public interface AmazonRekognition {
      * @sample AmazonRekognition.CompareFaces
      */
     CompareFacesResult compareFaces(CompareFacesRequest compareFacesRequest);
+
+    /**
+     * <note>
+     * <p>
+     * This operation applies only to Amazon Rekognition Custom Labels.
+     * </p>
+     * </note>
+     * <p>
+     * Copies a version of an Amazon Rekognition Custom Labels model from a source project to a destination project. The
+     * source and destination projects can be in different AWS accounts but must be in the same AWS Region. You can't
+     * copy a model to another AWS service.
+     * </p>
+     * <p>
+     * To copy a model version to a different AWS account, you need to create a resource-based policy known as a
+     * <i>project policy</i>. You attach the project policy to the source project by calling <a>PutProjectPolicy</a>.
+     * The project policy gives permission to copy the model version from a trusting AWS account to a trusted account.
+     * </p>
+     * <p>
+     * For more information creating and attaching a project policy, see Attaching a project policy (SDK) in the
+     * <i>Amazon Rekognition Custom Labels Developer Guide</i>.
+     * </p>
+     * <p>
+     * If you are copying a model version to a project in the same AWS account, you don't need to create a project
+     * policy.
+     * </p>
+     * <note>
+     * <p>
+     * Copying project versions is supported only for Custom Labels models.
+     * </p>
+     * <p>
+     * To copy a model, the destination project, source project, and source model version must already exist.
+     * </p>
+     * </note>
+     * <p>
+     * Copying a model version takes a while to complete. To get the current status, call <a>DescribeProjectVersions</a>
+     * and check the value of <code>Status</code> in the <a>ProjectVersionDescription</a> object. The copy operation has
+     * finished when the value of <code>Status</code> is <code>COPYING_COMPLETED</code>.
+     * </p>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:CopyProjectVersion</code> action.
+     * </p>
+     * 
+     * @param copyProjectVersionRequest
+     * @return Result of the CopyProjectVersion operation returned by the service.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws LimitExceededException
+     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many jobs concurrently,
+     *         subsequent calls to start operations (ex: <code>StartLabelDetection</code>) will raise a
+     *         <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of concurrently
+     *         running jobs is below the Amazon Rekognition service limit.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ServiceQuotaExceededException
+     *         <p>
+     *         The size of the collection exceeds the allowed limit. For more information, see Guidelines and quotas in
+     *         Amazon Rekognition in the Amazon Rekognition Developer Guide.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws ResourceInUseException
+     *         The specified resource is already being used.
+     * @sample AmazonRekognition.CopyProjectVersion
+     */
+    CopyProjectVersionResult copyProjectVersion(CopyProjectVersionRequest copyProjectVersionRequest);
 
     /**
      * <p>
@@ -189,7 +773,9 @@ public interface AmazonRekognition {
      * </p>
      * </note>
      * <p>
-     * This operation requires permissions to perform the <code>rekognition:CreateCollection</code> action.
+     * This operation requires permissions to perform the <code>rekognition:CreateCollection</code> action. If you want
+     * to tag your collection, you also require permission to perform the <code>rekognition:TagResource</code>
+     * operation.
      * </p>
      * 
      * @param createCollectionRequest
@@ -206,30 +792,252 @@ public interface AmazonRekognition {
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @throws ResourceAlreadyExistsException
-     *         A collection with the specified ID already exists.
+     *         A resource with the specified ID already exists.
+     * @throws ServiceQuotaExceededException
+     *         <p>
+     *         The size of the collection exceeds the allowed limit. For more information, see Guidelines and quotas in
+     *         Amazon Rekognition in the Amazon Rekognition Developer Guide.
      * @sample AmazonRekognition.CreateCollection
      */
     CreateCollectionResult createCollection(CreateCollectionRequest createCollectionRequest);
 
     /**
+     * <note>
      * <p>
-     * Creates an Amazon Rekognition stream processor that you can use to detect and recognize faces in a streaming
-     * video.
+     * This operation applies only to Amazon Rekognition Custom Labels.
+     * </p>
+     * </note>
+     * <p>
+     * Creates a new Amazon Rekognition Custom Labels dataset. You can create a dataset by using an Amazon Sagemaker
+     * format manifest file or by copying an existing Amazon Rekognition Custom Labels dataset.
      * </p>
      * <p>
-     * Amazon Rekognition Video is a consumer of live video from Amazon Kinesis Video Streams. Amazon Rekognition Video
-     * sends analysis results to Amazon Kinesis Data Streams.
+     * To create a training dataset for a project, specify <code>TRAIN</code> for the value of <code>DatasetType</code>.
+     * To create the test dataset for a project, specify <code>TEST</code> for the value of <code>DatasetType</code>.
      * </p>
      * <p>
-     * You provide as input a Kinesis video stream (<code>Input</code>) and a Kinesis data stream (<code>Output</code>)
-     * stream. You also specify the face recognition criteria in <code>Settings</code>. For example, the collection
-     * containing faces that you want to recognize. Use <code>Name</code> to assign an identifier for the stream
-     * processor. You use <code>Name</code> to manage the stream processor. For example, you can start processing the
-     * source video by calling <a>StartStreamProcessor</a> with the <code>Name</code> field.
+     * The response from <code>CreateDataset</code> is the Amazon Resource Name (ARN) for the dataset. Creating a
+     * dataset takes a while to complete. Use <a>DescribeDataset</a> to check the current status. The dataset created
+     * successfully if the value of <code>Status</code> is <code>CREATE_COMPLETE</code>.
      * </p>
      * <p>
-     * After you have finished analyzing a streaming video, use <a>StopStreamProcessor</a> to stop processing. You can
-     * delete the stream processor by calling <a>DeleteStreamProcessor</a>.
+     * To check if any non-terminal errors occurred, call <a>ListDatasetEntries</a> and check for the presence of
+     * <code>errors</code> lists in the JSON Lines.
+     * </p>
+     * <p>
+     * Dataset creation fails if a terminal error occurs (<code>Status</code> = <code>CREATE_FAILED</code>). Currently,
+     * you can't access the terminal error information.
+     * </p>
+     * <p>
+     * For more information, see Creating dataset in the <i>Amazon Rekognition Custom Labels Developer Guide</i>.
+     * </p>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:CreateDataset</code> action. If you want to
+     * copy an existing dataset, you also require permission to perform the <code>rekognition:ListDatasetEntries</code>
+     * action.
+     * </p>
+     * 
+     * @param createDatasetRequest
+     * @return Result of the CreateDataset operation returned by the service.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws LimitExceededException
+     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many jobs concurrently,
+     *         subsequent calls to start operations (ex: <code>StartLabelDetection</code>) will raise a
+     *         <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of concurrently
+     *         running jobs is below the Amazon Rekognition service limit.
+     * @throws InvalidS3ObjectException
+     *         Amazon Rekognition is unable to access the S3 object specified in the request.
+     * @throws ResourceAlreadyExistsException
+     *         A resource with the specified ID already exists.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @sample AmazonRekognition.CreateDataset
+     */
+    CreateDatasetResult createDataset(CreateDatasetRequest createDatasetRequest);
+
+    /**
+     * <p>
+     * This API operation initiates a Face Liveness session. It returns a <code>SessionId</code>, which you can use to
+     * start streaming Face Liveness video and get the results for a Face Liveness session.
+     * </p>
+     * <p>
+     * You can use the <code>OutputConfig</code> option in the Settings parameter to provide an Amazon S3 bucket
+     * location. The Amazon S3 bucket stores reference images and audit images. If no Amazon S3 bucket is defined, raw
+     * bytes are sent instead.
+     * </p>
+     * <p>
+     * You can use <code>AuditImagesLimit</code> to limit the number of audit images returned when
+     * <code>GetFaceLivenessSessionResults</code> is called. This number is between 0 and 4. By default, it is set to 0.
+     * The limit is best effort and based on the duration of the selfie-video.
+     * </p>
+     * 
+     * @param createFaceLivenessSessionRequest
+     * @return Result of the CreateFaceLivenessSession operation returned by the service.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @sample AmazonRekognition.CreateFaceLivenessSession
+     */
+    CreateFaceLivenessSessionResult createFaceLivenessSession(CreateFaceLivenessSessionRequest createFaceLivenessSessionRequest);
+
+    /**
+     * <p>
+     * Creates a new Amazon Rekognition project. A project is a group of resources (datasets, model versions) that you
+     * use to create and manage a Amazon Rekognition Custom Labels Model or custom adapter. You can specify a feature to
+     * create the project with, if no feature is specified then Custom Labels is used by default. For adapters, you can
+     * also choose whether or not to have the project auto update by using the AutoUpdate argument. This operation
+     * requires permissions to perform the <code>rekognition:CreateProject</code> action.
+     * </p>
+     * 
+     * @param createProjectRequest
+     * @return Result of the CreateProject operation returned by the service.
+     * @throws ResourceInUseException
+     *         The specified resource is already being used.
+     * @throws LimitExceededException
+     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many jobs concurrently,
+     *         subsequent calls to start operations (ex: <code>StartLabelDetection</code>) will raise a
+     *         <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of concurrently
+     *         running jobs is below the Amazon Rekognition service limit.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @sample AmazonRekognition.CreateProject
+     */
+    CreateProjectResult createProject(CreateProjectRequest createProjectRequest);
+
+    /**
+     * <p>
+     * Creates a new version of Amazon Rekognition project (like a Custom Labels model or a custom adapter) and begins
+     * training. Models and adapters are managed as part of a Rekognition project. The response from
+     * <code>CreateProjectVersion</code> is an Amazon Resource Name (ARN) for the project version.
+     * </p>
+     * <p>
+     * The FeatureConfig operation argument allows you to configure specific model or adapter settings. You can provide
+     * a description to the project version by using the VersionDescription argment. Training can take a while to
+     * complete. You can get the current status by calling <a>DescribeProjectVersions</a>. Training completed
+     * successfully if the value of the <code>Status</code> field is <code>TRAINING_COMPLETED</code>. Once training has
+     * successfully completed, call <a>DescribeProjectVersions</a> to get the training results and evaluate the model.
+     * </p>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:CreateProjectVersion</code> action.
+     * </p>
+     * <note>
+     * <p>
+     * <i>The following applies only to projects with Amazon Rekognition Custom Labels as the chosen feature:</i>
+     * </p>
+     * <p>
+     * You can train a model in a project that doesn't have associated datasets by specifying manifest files in the
+     * <code>TrainingData</code> and <code>TestingData</code> fields.
+     * </p>
+     * <p>
+     * If you open the console after training a model with manifest files, Amazon Rekognition Custom Labels creates the
+     * datasets for you using the most recent manifest files. You can no longer train a model version for the project by
+     * specifying manifest files.
+     * </p>
+     * <p>
+     * Instead of training with a project without associated datasets, we recommend that you use the manifest files to
+     * create training and test datasets for the project.
+     * </p>
+     * </note>
+     * <p/>
+     * 
+     * @param createProjectVersionRequest
+     * @return Result of the CreateProjectVersion operation returned by the service.
+     * @throws ResourceInUseException
+     *         The specified resource is already being used.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws LimitExceededException
+     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many jobs concurrently,
+     *         subsequent calls to start operations (ex: <code>StartLabelDetection</code>) will raise a
+     *         <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of concurrently
+     *         running jobs is below the Amazon Rekognition service limit.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws ServiceQuotaExceededException
+     *         <p>
+     *         The size of the collection exceeds the allowed limit. For more information, see Guidelines and quotas in
+     *         Amazon Rekognition in the Amazon Rekognition Developer Guide.
+     * @sample AmazonRekognition.CreateProjectVersion
+     */
+    CreateProjectVersionResult createProjectVersion(CreateProjectVersionRequest createProjectVersionRequest);
+
+    /**
+     * <p>
+     * Creates an Amazon Rekognition stream processor that you can use to detect and recognize faces or to detect labels
+     * in a streaming video.
+     * </p>
+     * <p>
+     * Amazon Rekognition Video is a consumer of live video from Amazon Kinesis Video Streams. There are two different
+     * settings for stream processors in Amazon Rekognition: detecting faces and detecting labels.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you are creating a stream processor for detecting faces, you provide as input a Kinesis video stream (
+     * <code>Input</code>) and a Kinesis data stream (<code>Output</code>) stream for receiving the output. You must use
+     * the <code>FaceSearch</code> option in <code>Settings</code>, specifying the collection that contains the faces
+     * you want to recognize. After you have finished analyzing a streaming video, use <a>StopStreamProcessor</a> to
+     * stop processing.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you are creating a stream processor to detect labels, you provide as input a Kinesis video stream (
+     * <code>Input</code>), Amazon S3 bucket information (<code>Output</code>), and an Amazon SNS topic ARN (
+     * <code>NotificationChannel</code>). You can also provide a KMS key ID to encrypt the data sent to your Amazon S3
+     * bucket. You specify what you want to detect by using the <code>ConnectedHome</code> option in settings, and
+     * selecting one of the following: <code>PERSON</code>, <code>PET</code>, <code>PACKAGE</code>, <code>ALL</code> You
+     * can also specify where in the frame you want Amazon Rekognition to monitor with <code>RegionsOfInterest</code>.
+     * When you run the <a>StartStreamProcessor</a> operation on a label detection stream processor, you input start and
+     * stop information to determine the length of the processing time.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Use <code>Name</code> to assign an identifier for the stream processor. You use <code>Name</code> to manage the
+     * stream processor. For example, you can start processing the source video by calling <a>StartStreamProcessor</a>
+     * with the <code>Name</code> field.
+     * </p>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:CreateStreamProcessor</code> action. If you
+     * want to tag your stream processor, you also require permission to perform the
+     * <code>rekognition:TagResource</code> operation.
      * </p>
      * 
      * @param createStreamProcessorRequest
@@ -243,22 +1051,69 @@ public interface AmazonRekognition {
      * @throws InvalidParameterException
      *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
      * @throws LimitExceededException
-     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many Amazon Rekognition
-     *         Video jobs concurrently, calls to start operations (<code>StartLabelDetection</code>, for example) will
-     *         raise a <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of
-     *         concurrently running jobs is below the Amazon Rekognition service limit.
+     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many jobs concurrently,
+     *         subsequent calls to start operations (ex: <code>StartLabelDetection</code>) will raise a
+     *         <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of concurrently
+     *         running jobs is below the Amazon Rekognition service limit.
      * @throws ResourceInUseException
+     *         The specified resource is already being used.
      * @throws ProvisionedThroughputExceededException
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
+     * @throws ServiceQuotaExceededException
+     *         <p>
+     *         The size of the collection exceeds the allowed limit. For more information, see Guidelines and quotas in
+     *         Amazon Rekognition in the Amazon Rekognition Developer Guide.
      * @sample AmazonRekognition.CreateStreamProcessor
      */
     CreateStreamProcessorResult createStreamProcessor(CreateStreamProcessorRequest createStreamProcessorRequest);
 
     /**
      * <p>
+     * Creates a new User within a collection specified by <code>CollectionId</code>. Takes <code>UserId</code> as a
+     * parameter, which is a user provided ID which should be unique within the collection. The provided
+     * <code>UserId</code> will alias the system generated UUID to make the <code>UserId</code> more user friendly.
+     * </p>
+     * <p>
+     * Uses a <code>ClientToken</code>, an idempotency token that ensures a call to <code>CreateUser</code> completes
+     * only once. If the value is not supplied, the AWS SDK generates an idempotency token for the requests. This
+     * prevents retries after a network error results from making multiple <code>CreateUser</code> calls.
+     * </p>
+     * 
+     * @param createUserRequest
+     * @return Result of the CreateUser operation returned by the service.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws ConflictException
+     *         A User with the same Id already exists within the collection, or the update or deletion of the User
+     *         caused an inconsistent state. **
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws ServiceQuotaExceededException
+     *         <p>
+     *         The size of the collection exceeds the allowed limit. For more information, see Guidelines and quotas in
+     *         Amazon Rekognition in the Amazon Rekognition Developer Guide.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws IdempotentParameterMismatchException
+     *         A <code>ClientRequestToken</code> input parameter was reused with an operation, but at least one of the
+     *         other input parameters is different from the previous call to the operation.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @sample AmazonRekognition.CreateUser
+     */
+    CreateUserResult createUser(CreateUserRequest createUserRequest);
+
+    /**
+     * <p>
      * Deletes the specified collection. Note that this operation removes all faces in the collection. For an example,
-     * see <a>delete-collection-procedure</a>.
+     * see <a href="https://docs.aws.amazon.com/rekognition/latest/dg/delete-collection-procedure.html">Deleting a
+     * collection</a>.
      * </p>
      * <p>
      * This operation requires permissions to perform the <code>rekognition:DeleteCollection</code> action.
@@ -278,10 +1133,56 @@ public interface AmazonRekognition {
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @throws ResourceNotFoundException
-     *         The collection specified in the request cannot be found.
+     *         The resource specified in the request cannot be found.
      * @sample AmazonRekognition.DeleteCollection
      */
     DeleteCollectionResult deleteCollection(DeleteCollectionRequest deleteCollectionRequest);
+
+    /**
+     * <note>
+     * <p>
+     * This operation applies only to Amazon Rekognition Custom Labels.
+     * </p>
+     * </note>
+     * <p>
+     * Deletes an existing Amazon Rekognition Custom Labels dataset. Deleting a dataset might take while. Use
+     * <a>DescribeDataset</a> to check the current status. The dataset is still deleting if the value of
+     * <code>Status</code> is <code>DELETE_IN_PROGRESS</code>. If you try to access the dataset after it is deleted, you
+     * get a <code>ResourceNotFoundException</code> exception.
+     * </p>
+     * <p>
+     * You can't delete a dataset while it is creating (<code>Status</code> = <code>CREATE_IN_PROGRESS</code>) or if the
+     * dataset is updating (<code>Status</code> = <code>UPDATE_IN_PROGRESS</code>).
+     * </p>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:DeleteDataset</code> action.
+     * </p>
+     * 
+     * @param deleteDatasetRequest
+     * @return Result of the DeleteDataset operation returned by the service.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws LimitExceededException
+     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many jobs concurrently,
+     *         subsequent calls to start operations (ex: <code>StartLabelDetection</code>) will raise a
+     *         <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of concurrently
+     *         running jobs is below the Amazon Rekognition service limit.
+     * @throws ResourceInUseException
+     *         The specified resource is already being used.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @sample AmazonRekognition.DeleteDataset
+     */
+    DeleteDatasetResult deleteDataset(DeleteDatasetRequest deleteDatasetRequest);
 
     /**
      * <p>
@@ -306,10 +1207,118 @@ public interface AmazonRekognition {
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @throws ResourceNotFoundException
-     *         The collection specified in the request cannot be found.
+     *         The resource specified in the request cannot be found.
      * @sample AmazonRekognition.DeleteFaces
      */
     DeleteFacesResult deleteFaces(DeleteFacesRequest deleteFacesRequest);
+
+    /**
+     * <p>
+     * Deletes a Amazon Rekognition project. To delete a project you must first delete all models or adapters associated
+     * with the project. To delete a model or adapter, see <a>DeleteProjectVersion</a>.
+     * </p>
+     * <p>
+     * <code>DeleteProject</code> is an asynchronous operation. To check if the project is deleted, call
+     * <a>DescribeProjects</a>. The project is deleted when the project no longer appears in the response. Be aware that
+     * deleting a given project will also delete any <code>ProjectPolicies</code> associated with that project.
+     * </p>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:DeleteProject</code> action.
+     * </p>
+     * 
+     * @param deleteProjectRequest
+     * @return Result of the DeleteProject operation returned by the service.
+     * @throws ResourceInUseException
+     *         The specified resource is already being used.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @sample AmazonRekognition.DeleteProject
+     */
+    DeleteProjectResult deleteProject(DeleteProjectRequest deleteProjectRequest);
+
+    /**
+     * <note>
+     * <p>
+     * This operation applies only to Amazon Rekognition Custom Labels.
+     * </p>
+     * </note>
+     * <p>
+     * Deletes an existing project policy.
+     * </p>
+     * <p>
+     * To get a list of project policies attached to a project, call <a>ListProjectPolicies</a>. To attach a project
+     * policy to a project, call <a>PutProjectPolicy</a>.
+     * </p>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:DeleteProjectPolicy</code> action.
+     * </p>
+     * 
+     * @param deleteProjectPolicyRequest
+     * @return Result of the DeleteProjectPolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws InvalidPolicyRevisionIdException
+     *         The supplied revision id for the project policy is invalid.
+     * @sample AmazonRekognition.DeleteProjectPolicy
+     */
+    DeleteProjectPolicyResult deleteProjectPolicy(DeleteProjectPolicyRequest deleteProjectPolicyRequest);
+
+    /**
+     * <p>
+     * Deletes a Rekognition project model or project version, like a Amazon Rekognition Custom Labels model or a custom
+     * adapter.
+     * </p>
+     * <p>
+     * You can't delete a project version if it is running or if it is training. To check the status of a project
+     * version, use the Status field returned from <a>DescribeProjectVersions</a>. To stop a project version call
+     * <a>StopProjectVersion</a>. If the project version is training, wait until it finishes.
+     * </p>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:DeleteProjectVersion</code> action.
+     * </p>
+     * 
+     * @param deleteProjectVersionRequest
+     * @return Result of the DeleteProjectVersion operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws ResourceInUseException
+     *         The specified resource is already being used.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @sample AmazonRekognition.DeleteProjectVersion
+     */
+    DeleteProjectVersionResult deleteProjectVersion(DeleteProjectVersionRequest deleteProjectVersionRequest);
 
     /**
      * <p>
@@ -329,14 +1338,48 @@ public interface AmazonRekognition {
      * @throws InvalidParameterException
      *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
      * @throws ResourceNotFoundException
-     *         The collection specified in the request cannot be found.
+     *         The resource specified in the request cannot be found.
      * @throws ResourceInUseException
+     *         The specified resource is already being used.
      * @throws ProvisionedThroughputExceededException
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @sample AmazonRekognition.DeleteStreamProcessor
      */
     DeleteStreamProcessorResult deleteStreamProcessor(DeleteStreamProcessorRequest deleteStreamProcessorRequest);
+
+    /**
+     * <p>
+     * Deletes the specified UserID within the collection. Faces that are associated with the UserID are disassociated
+     * from the UserID before deleting the specified UserID. If the specified <code>Collection</code> or
+     * <code>UserID</code> is already deleted or not found, a <code>ResourceNotFoundException</code> will be thrown. If
+     * the action is successful with a 200 response, an empty HTTP body is returned.
+     * </p>
+     * 
+     * @param deleteUserRequest
+     * @return Result of the DeleteUser operation returned by the service.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws ConflictException
+     *         A User with the same Id already exists within the collection, or the update or deletion of the User
+     *         caused an inconsistent state. **
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws IdempotentParameterMismatchException
+     *         A <code>ClientRequestToken</code> input parameter was reused with an operation, but at least one of the
+     *         other input parameters is different from the previous call to the operation.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @sample AmazonRekognition.DeleteUser
+     */
+    DeleteUserResult deleteUser(DeleteUserRequest deleteUserRequest);
 
     /**
      * <p>
@@ -361,10 +1404,101 @@ public interface AmazonRekognition {
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @throws ResourceNotFoundException
-     *         The collection specified in the request cannot be found.
+     *         The resource specified in the request cannot be found.
      * @sample AmazonRekognition.DescribeCollection
      */
     DescribeCollectionResult describeCollection(DescribeCollectionRequest describeCollectionRequest);
+
+    /**
+     * <note>
+     * <p>
+     * This operation applies only to Amazon Rekognition Custom Labels.
+     * </p>
+     * </note>
+     * <p>
+     * Describes an Amazon Rekognition Custom Labels dataset. You can get information such as the current status of a
+     * dataset and statistics about the images and labels in a dataset.
+     * </p>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:DescribeDataset</code> action.
+     * </p>
+     * 
+     * @param describeDatasetRequest
+     * @return Result of the DescribeDataset operation returned by the service.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @sample AmazonRekognition.DescribeDataset
+     */
+    DescribeDatasetResult describeDataset(DescribeDatasetRequest describeDatasetRequest);
+
+    /**
+     * <p>
+     * Lists and describes the versions of an Amazon Rekognition project. You can specify up to 10 model or adapter
+     * versions in <code>ProjectVersionArns</code>. If you don't specify a value, descriptions for all model/adapter
+     * versions in the project are returned.
+     * </p>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:DescribeProjectVersions</code> action.
+     * </p>
+     * 
+     * @param describeProjectVersionsRequest
+     * @return Result of the DescribeProjectVersions operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws InvalidPaginationTokenException
+     *         Pagination token in the request is not valid.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @sample AmazonRekognition.DescribeProjectVersions
+     */
+    DescribeProjectVersionsResult describeProjectVersions(DescribeProjectVersionsRequest describeProjectVersionsRequest);
+
+    /**
+     * <p>
+     * Gets information about your Rekognition projects.
+     * </p>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:DescribeProjects</code> action.
+     * </p>
+     * 
+     * @param describeProjectsRequest
+     * @return Result of the DescribeProjects operation returned by the service.
+     * @throws InvalidPaginationTokenException
+     *         Pagination token in the request is not valid.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @sample AmazonRekognition.DescribeProjects
+     */
+    DescribeProjectsResult describeProjects(DescribeProjectsRequest describeProjectsRequest);
 
     /**
      * <p>
@@ -384,13 +1518,98 @@ public interface AmazonRekognition {
      * @throws InvalidParameterException
      *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
      * @throws ResourceNotFoundException
-     *         The collection specified in the request cannot be found.
+     *         The resource specified in the request cannot be found.
      * @throws ProvisionedThroughputExceededException
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @sample AmazonRekognition.DescribeStreamProcessor
      */
     DescribeStreamProcessorResult describeStreamProcessor(DescribeStreamProcessorRequest describeStreamProcessorRequest);
+
+    /**
+     * <note>
+     * <p>
+     * This operation applies only to Amazon Rekognition Custom Labels.
+     * </p>
+     * </note>
+     * <p>
+     * Detects custom labels in a supplied image by using an Amazon Rekognition Custom Labels model.
+     * </p>
+     * <p>
+     * You specify which version of a model version to use by using the <code>ProjectVersionArn</code> input parameter.
+     * </p>
+     * <p>
+     * You pass the input image as base64-encoded image bytes or as a reference to an image in an Amazon S3 bucket. If
+     * you use the AWS CLI to call Amazon Rekognition operations, passing image bytes is not supported. The image must
+     * be either a PNG or JPEG formatted file.
+     * </p>
+     * <p>
+     * For each object that the model version detects on an image, the API returns a (<code>CustomLabel</code>) object
+     * in an array (<code>CustomLabels</code>). Each <code>CustomLabel</code> object provides the label name (
+     * <code>Name</code>), the level of confidence that the image contains the object (<code>Confidence</code>), and
+     * object location information, if it exists, for the label on the image (<code>Geometry</code>). Note that for the
+     * <code>DetectCustomLabelsLabels</code> operation, <code>Polygons</code> are not returned in the
+     * <code>Geometry</code> section of the response.
+     * </p>
+     * <p>
+     * To filter labels that are returned, specify a value for <code>MinConfidence</code>.
+     * <code>DetectCustomLabelsLabels</code> only returns labels with a confidence that's higher than the specified
+     * value. The value of <code>MinConfidence</code> maps to the assumed threshold values created during training. For
+     * more information, see <i>Assumed threshold</i> in the Amazon Rekognition Custom Labels Developer Guide. Amazon
+     * Rekognition Custom Labels metrics expresses an assumed threshold as a floating point value between 0-1. The range
+     * of <code>MinConfidence</code> normalizes the threshold value to a percentage value (0-100). Confidence responses
+     * from <code>DetectCustomLabels</code> are also returned as a percentage. You can use <code>MinConfidence</code> to
+     * change the precision and recall or your model. For more information, see <i>Analyzing an image</i> in the Amazon
+     * Rekognition Custom Labels Developer Guide.
+     * </p>
+     * <p>
+     * If you don't specify a value for <code>MinConfidence</code>, <code>DetectCustomLabels</code> returns labels based
+     * on the assumed threshold of each label.
+     * </p>
+     * <p>
+     * This is a stateless API operation. That is, the operation does not persist any data.
+     * </p>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:DetectCustomLabels</code> action.
+     * </p>
+     * <p>
+     * For more information, see <i>Analyzing an image</i> in the Amazon Rekognition Custom Labels Developer Guide.
+     * </p>
+     * 
+     * @param detectCustomLabelsRequest
+     * @return Result of the DetectCustomLabels operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws ResourceNotReadyException
+     *         The requested resource isn't ready. For example, this exception occurs when you call
+     *         <code>DetectCustomLabels</code> with a model version that isn't deployed.
+     * @throws InvalidS3ObjectException
+     *         Amazon Rekognition is unable to access the S3 object specified in the request.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws ImageTooLargeException
+     *         The input image size exceeds the allowed limit. If you are calling DetectProtectiveEquipment, the image
+     *         size or resolution exceeds the allowed limit. For more information, see Guidelines and quotas in Amazon
+     *         Rekognition in the Amazon Rekognition Developer Guide.
+     * @throws LimitExceededException
+     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many jobs concurrently,
+     *         subsequent calls to start operations (ex: <code>StartLabelDetection</code>) will raise a
+     *         <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of concurrently
+     *         running jobs is below the Amazon Rekognition service limit.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws InvalidImageFormatException
+     *         The provided image format is not supported.
+     * @sample AmazonRekognition.DetectCustomLabels
+     */
+    DetectCustomLabelsResult detectCustomLabels(DetectCustomLabelsRequest detectCustomLabelsRequest);
 
     /**
      * <p>
@@ -400,7 +1619,7 @@ public interface AmazonRekognition {
      * <code>DetectFaces</code> detects the 100 largest faces in the image. For each face detected, the operation
      * returns face details. These details include a bounding box of the face, a confidence value (that the bounding box
      * contains a face), and a fixed set of attributes such as facial landmarks (for example, coordinates of eye and
-     * mouth), gender, presence of beard, sunglasses, and so on.
+     * mouth), pose, presence of facial occlusion, and so on.
      * </p>
      * <p>
      * The face-detection algorithm is most effective on frontal faces. For non-frontal or obscured faces, the algorithm
@@ -408,8 +1627,8 @@ public interface AmazonRekognition {
      * </p>
      * <p>
      * You pass the input image either as base64-encoded image bytes or as a reference to an image in an Amazon S3
-     * bucket. If you use the to call Amazon Rekognition operations, passing image bytes is not supported. The image
-     * must be either a PNG or JPEG formatted file.
+     * bucket. If you use the AWS CLI to call Amazon Rekognition operations, passing image bytes is not supported. The
+     * image must be either a PNG or JPEG formatted file.
      * </p>
      * <note>
      * <p>
@@ -427,8 +1646,9 @@ public interface AmazonRekognition {
      * @throws InvalidParameterException
      *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
      * @throws ImageTooLargeException
-     *         The input image size exceeds the allowed limit. For more information, see Limits in Amazon Rekognition in
-     *         the Amazon Rekognition Developer Guide.
+     *         The input image size exceeds the allowed limit. If you are calling DetectProtectiveEquipment, the image
+     *         size or resolution exceeds the allowed limit. For more information, see Guidelines and quotas in Amazon
+     *         Rekognition in the Amazon Rekognition Developer Guide.
      * @throws AccessDeniedException
      *         You are not authorized to perform the action.
      * @throws InternalServerErrorException
@@ -451,24 +1671,111 @@ public interface AmazonRekognition {
      * evening, and nature.
      * </p>
      * <p>
-     * For an example, see Analyzing Images Stored in an Amazon S3 Bucket in the Amazon Rekognition Developer Guide.
+     * For an example, see Analyzing images stored in an Amazon S3 bucket in the Amazon Rekognition Developer Guide.
      * </p>
-     * <note>
-     * <p>
-     * <code>DetectLabels</code> does not support the detection of activities. However, activity detection is supported
-     * for label detection in videos. For more information, see StartLabelDetection in the Amazon Rekognition Developer
-     * Guide.
-     * </p>
-     * </note>
      * <p>
      * You pass the input image as base64-encoded image bytes or as a reference to an image in an Amazon S3 bucket. If
      * you use the AWS CLI to call Amazon Rekognition operations, passing image bytes is not supported. The image must
      * be either a PNG or JPEG formatted file.
      * </p>
      * <p>
-     * For each object, scene, and concept the API returns one or more labels. Each label provides the object name, and
-     * the level of confidence that the image contains the object. For example, suppose the input image has a
-     * lighthouse, the sea, and a rock. The response includes all three labels, one for each object.
+     * <b>Optional Parameters</b>
+     * </p>
+     * <p>
+     * You can specify one or both of the <code>GENERAL_LABELS</code> and <code>IMAGE_PROPERTIES</code> feature types
+     * when calling the DetectLabels API. Including <code>GENERAL_LABELS</code> will ensure the response includes the
+     * labels detected in the input image, while including <code>IMAGE_PROPERTIES </code>will ensure the response
+     * includes information about the image quality and color.
+     * </p>
+     * <p>
+     * When using <code>GENERAL_LABELS</code> and/or <code>IMAGE_PROPERTIES</code> you can provide filtering criteria to
+     * the Settings parameter. You can filter with sets of individual labels or with label categories. You can specify
+     * inclusive filters, exclusive filters, or a combination of inclusive and exclusive filters. For more information
+     * on filtering see <a
+     * href="https://docs.aws.amazon.com/rekognition/latest/dg/labels-detect-labels-image.html">Detecting Labels in an
+     * Image</a>.
+     * </p>
+     * <p>
+     * When getting labels, you can specify <code>MinConfidence</code> to control the confidence threshold for the
+     * labels returned. The default is 55%. You can also add the <code>MaxLabels</code> parameter to limit the number of
+     * labels returned. The default and upper limit is 1000 labels. These arguments are only valid when supplying
+     * GENERAL_LABELS as a feature type.
+     * </p>
+     * <p>
+     * <b>Response Elements</b>
+     * </p>
+     * <p>
+     * For each object, scene, and concept the API returns one or more labels. The API returns the following types of
+     * information about labels:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Name - The name of the detected label.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Confidence - The level of confidence in the label assigned to a detected object.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Parents - The ancestor labels for a detected label. DetectLabels returns a hierarchical taxonomy of detected
+     * labels. For example, a detected car might be assigned the label car. The label car has two parent labels: Vehicle
+     * (its parent) and Transportation (its grandparent). The response includes the all ancestors for a label, where
+     * every ancestor is a unique label. In the previous example, Car, Vehicle, and Transportation are returned as
+     * unique labels in the response.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Aliases - Possible Aliases for the label.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Categories - The label categories that the detected label belongs to.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * BoundingBox — Bounding boxes are described for all instances of detected common object labels, returned in an
+     * array of Instance objects. An Instance object contains a BoundingBox object, describing the location of the label
+     * on the input image. It also includes the confidence for the accuracy of the detected bounding box.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The API returns the following information regarding the image, as part of the ImageProperties structure:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Quality - Information about the Sharpness, Brightness, and Contrast of the input image, scored between 0 to 100.
+     * Image quality is returned for the entire image, as well as the background and the foreground.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Dominant Color - An array of the dominant colors in the image.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Foreground - Information about the sharpness, brightness, and dominant colors of the input image’s foreground.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Background - Information about the sharpness, brightness, and dominant colors of the input image’s background.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The list of returned labels will include at least one label for every detected object, along with information
+     * about that label. In the following example, suppose the input image has a lighthouse, the sea, and a rock. The
+     * response includes all three labels, one for each object, as well as the confidence in the label:
      * </p>
      * <p>
      * <code>{Name: lighthouse, Confidence: 98.4629}</code>
@@ -480,9 +1787,8 @@ public interface AmazonRekognition {
      * <code> {Name: sea,Confidence: 75.061}</code>
      * </p>
      * <p>
-     * In the preceding example, the operation returns one label for each of the three objects. The operation can also
-     * return multiple labels for the same object in the image. For example, if the input image shows a flower (for
-     * example, a tulip), the operation might return the following three labels.
+     * The list of labels can include multiple labels for the same object. For example, if the input image shows a
+     * flower (for example, a tulip), the operation might return the following three labels.
      * </p>
      * <p>
      * <code>{Name: flower,Confidence: 99.0562}</code>
@@ -496,12 +1802,6 @@ public interface AmazonRekognition {
      * <p>
      * In this example, the detection algorithm more precisely identifies the flower as a tulip.
      * </p>
-     * <p>
-     * In response, the API returns an array of labels. In addition, the response also includes the orientation
-     * correction. Optionally, you can specify <code>MinConfidence</code> to control the confidence threshold for the
-     * labels returned. The default is 55%. You can also add the <code>MaxLabels</code> parameter to limit the number of
-     * labels returned.
-     * </p>
      * <note>
      * <p>
      * If the object detected is a person, the operation doesn't provide the same facial details that the
@@ -509,19 +1809,7 @@ public interface AmazonRekognition {
      * </p>
      * </note>
      * <p>
-     * <code>DetectLabels</code> returns bounding boxes for instances of common object labels in an array of
-     * <a>Instance</a> objects. An <code>Instance</code> object contains a <a>BoundingBox</a> object, for the location
-     * of the label on the image. It also includes the confidence by which the bounding box was detected.
-     * </p>
-     * <p>
-     * <code>DetectLabels</code> also returns a hierarchical taxonomy of detected labels. For example, a detected car
-     * might be assigned the label <i>car</i>. The label <i>car</i> has two parent labels: <i>Vehicle</i> (its parent)
-     * and <i>Transportation</i> (its grandparent). The response returns the entire list of ancestors for a label. Each
-     * ancestor is a unique label in the response. In the previous example, <i>Car</i>, <i>Vehicle</i>, and
-     * <i>Transportation</i> are returned as unique labels in the response.
-     * </p>
-     * <p>
-     * This is a stateless API operation. That is, the operation does not persist any data.
+     * This is a stateless API operation that doesn't return any data.
      * </p>
      * <p>
      * This operation requires permissions to perform the <code>rekognition:DetectLabels</code> action.
@@ -534,8 +1822,9 @@ public interface AmazonRekognition {
      * @throws InvalidParameterException
      *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
      * @throws ImageTooLargeException
-     *         The input image size exceeds the allowed limit. For more information, see Limits in Amazon Rekognition in
-     *         the Amazon Rekognition Developer Guide.
+     *         The input image size exceeds the allowed limit. If you are calling DetectProtectiveEquipment, the image
+     *         size or resolution exceeds the allowed limit. For more information, see Guidelines and quotas in Amazon
+     *         Rekognition in the Amazon Rekognition Developer Guide.
      * @throws AccessDeniedException
      *         You are not authorized to perform the action.
      * @throws InternalServerErrorException
@@ -553,9 +1842,9 @@ public interface AmazonRekognition {
 
     /**
      * <p>
-     * Detects explicit or suggestive adult content in a specified JPEG or PNG format image. Use
-     * <code>DetectModerationLabels</code> to moderate images depending on your requirements. For example, you might
-     * want to filter images that contain nudity, but not images containing suggestive content.
+     * Detects unsafe content in a specified JPEG or PNG format image. Use <code>DetectModerationLabels</code> to
+     * moderate images depending on your requirements. For example, you might want to filter images that contain nudity,
+     * but not images containing suggestive content.
      * </p>
      * <p>
      * To filter images, use the labels returned by <code>DetectModerationLabels</code> to determine which types of
@@ -569,6 +1858,10 @@ public interface AmazonRekognition {
      * bucket. If you use the AWS CLI to call Amazon Rekognition operations, passing image bytes is not supported. The
      * image must be either a PNG or JPEG formatted file.
      * </p>
+     * <p>
+     * You can specify an adapter to use when retrieving label predictions by providing a <code>ProjectVersionArn</code>
+     * to the <code>ProjectVersion</code> argument.
+     * </p>
      * 
      * @param detectModerationLabelsRequest
      * @return Result of the DetectModerationLabels operation returned by the service.
@@ -577,8 +1870,9 @@ public interface AmazonRekognition {
      * @throws InvalidParameterException
      *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
      * @throws ImageTooLargeException
-     *         The input image size exceeds the allowed limit. For more information, see Limits in Amazon Rekognition in
-     *         the Amazon Rekognition Developer Guide.
+     *         The input image size exceeds the allowed limit. If you are calling DetectProtectiveEquipment, the image
+     *         size or resolution exceeds the allowed limit. For more information, see Guidelines and quotas in Amazon
+     *         Rekognition in the Amazon Rekognition Developer Guide.
      * @throws AccessDeniedException
      *         You are not authorized to perform the action.
      * @throws InternalServerErrorException
@@ -590,9 +1884,105 @@ public interface AmazonRekognition {
      *         Rekognition.
      * @throws InvalidImageFormatException
      *         The provided image format is not supported.
+     * @throws HumanLoopQuotaExceededException
+     *         The number of in-progress human reviews you have has exceeded the number allowed.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws ResourceNotReadyException
+     *         The requested resource isn't ready. For example, this exception occurs when you call
+     *         <code>DetectCustomLabels</code> with a model version that isn't deployed.
      * @sample AmazonRekognition.DetectModerationLabels
      */
     DetectModerationLabelsResult detectModerationLabels(DetectModerationLabelsRequest detectModerationLabelsRequest);
+
+    /**
+     * <p>
+     * Detects Personal Protective Equipment (PPE) worn by people detected in an image. Amazon Rekognition can detect
+     * the following types of PPE.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Face cover
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Hand cover
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Head cover
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * You pass the input image as base64-encoded image bytes or as a reference to an image in an Amazon S3 bucket. The
+     * image must be either a PNG or JPG formatted file.
+     * </p>
+     * <p>
+     * <code>DetectProtectiveEquipment</code> detects PPE worn by up to 15 persons detected in an image.
+     * </p>
+     * <p>
+     * For each person detected in the image the API returns an array of body parts (face, head, left-hand, right-hand).
+     * For each body part, an array of detected items of PPE is returned, including an indicator of whether or not the
+     * PPE covers the body part. The API returns the confidence it has in each detection (person, PPE, body part and
+     * body part coverage). It also returns a bounding box (<a>BoundingBox</a>) for each detected person and each
+     * detected item of PPE.
+     * </p>
+     * <p>
+     * You can optionally request a summary of detected PPE items with the <code>SummarizationAttributes</code> input
+     * parameter. The summary provides the following information.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The persons detected as wearing all of the types of PPE that you specify.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The persons detected as not wearing all of the types PPE that you specify.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The persons detected where PPE adornment could not be determined.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * This is a stateless API operation. That is, the operation does not persist any data.
+     * </p>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:DetectProtectiveEquipment</code> action.
+     * </p>
+     * 
+     * @param detectProtectiveEquipmentRequest
+     * @return Result of the DetectProtectiveEquipment operation returned by the service.
+     * @throws InvalidS3ObjectException
+     *         Amazon Rekognition is unable to access the S3 object specified in the request.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws ImageTooLargeException
+     *         The input image size exceeds the allowed limit. If you are calling DetectProtectiveEquipment, the image
+     *         size or resolution exceeds the allowed limit. For more information, see Guidelines and quotas in Amazon
+     *         Rekognition in the Amazon Rekognition Developer Guide.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws InvalidImageFormatException
+     *         The provided image format is not supported.
+     * @sample AmazonRekognition.DetectProtectiveEquipment
+     */
+    DetectProtectiveEquipmentResult detectProtectiveEquipment(DetectProtectiveEquipmentRequest detectProtectiveEquipmentRequest);
 
     /**
      * <p>
@@ -610,8 +2000,8 @@ public interface AmazonRekognition {
      * line of text that was detected in the image.
      * </p>
      * <p>
-     * A word is one or more ISO basic latin script characters that are not separated by spaces. <code>DetectText</code>
-     * can detect up to 50 words in an image.
+     * A word is one or more script characters that are not separated by spaces. <code>DetectText</code> can detect up
+     * to 100 words in an image.
      * </p>
      * <p>
      * A line is a string of equally spaced words. A line isn't necessarily a complete sentence. For example, a driver's
@@ -629,7 +2019,7 @@ public interface AmazonRekognition {
      * To be detected, text must be within +/- 90 degrees orientation of the horizontal axis.
      * </p>
      * <p>
-     * For more information, see DetectText in the Amazon Rekognition Developer Guide.
+     * For more information, see Detecting text in the Amazon Rekognition Developer Guide.
      * </p>
      * 
      * @param detectTextRequest
@@ -639,8 +2029,9 @@ public interface AmazonRekognition {
      * @throws InvalidParameterException
      *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
      * @throws ImageTooLargeException
-     *         The input image size exceeds the allowed limit. For more information, see Limits in Amazon Rekognition in
-     *         the Amazon Rekognition Developer Guide.
+     *         The input image size exceeds the allowed limit. If you are calling DetectProtectiveEquipment, the image
+     *         size or resolution exceeds the allowed limit. For more information, see Guidelines and quotas in Amazon
+     *         Rekognition in the Amazon Rekognition Developer Guide.
      * @throws AccessDeniedException
      *         You are not authorized to perform the action.
      * @throws InternalServerErrorException
@@ -658,12 +2049,95 @@ public interface AmazonRekognition {
 
     /**
      * <p>
-     * Gets the name and additional information about a celebrity based on his or her Amazon Rekognition ID. The
-     * additional information is returned as an array of URLs. If there is no additional information about the
-     * celebrity, this list is empty.
+     * Removes the association between a <code>Face</code> supplied in an array of <code>FaceIds</code> and the User. If
+     * the User is not present already, then a <code>ResourceNotFound</code> exception is thrown. If successful, an
+     * array of faces that are disassociated from the User is returned. If a given face is already disassociated from
+     * the given UserID, it will be ignored and not be returned in the response. If a given face is already associated
+     * with a different User or not found in the collection it will be returned as part of
+     * <code>UnsuccessfulDisassociations</code>. You can remove 1 - 100 face IDs from a user at one time.
+     * </p>
+     * 
+     * @param disassociateFacesRequest
+     * @return Result of the DisassociateFaces operation returned by the service.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws IdempotentParameterMismatchException
+     *         A <code>ClientRequestToken</code> input parameter was reused with an operation, but at least one of the
+     *         other input parameters is different from the previous call to the operation.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws ConflictException
+     *         A User with the same Id already exists within the collection, or the update or deletion of the User
+     *         caused an inconsistent state. **
+     * @sample AmazonRekognition.DisassociateFaces
+     */
+    DisassociateFacesResult disassociateFaces(DisassociateFacesRequest disassociateFacesRequest);
+
+    /**
+     * <note>
+     * <p>
+     * This operation applies only to Amazon Rekognition Custom Labels.
+     * </p>
+     * </note>
+     * <p>
+     * Distributes the entries (images) in a training dataset across the training dataset and the test dataset for a
+     * project. <code>DistributeDatasetEntries</code> moves 20% of the training dataset images to the test dataset. An
+     * entry is a JSON Line that describes an image.
      * </p>
      * <p>
-     * For more information, see Recognizing Celebrities in an Image in the Amazon Rekognition Developer Guide.
+     * You supply the Amazon Resource Names (ARN) of a project's training dataset and test dataset. The training dataset
+     * must contain the images that you want to split. The test dataset must be empty. The datasets must belong to the
+     * same project. To create training and test datasets for a project, call <a>CreateDataset</a>.
+     * </p>
+     * <p>
+     * Distributing a dataset takes a while to complete. To check the status call <code>DescribeDataset</code>. The
+     * operation is complete when the <code>Status</code> field for the training dataset and the test dataset is
+     * <code>UPDATE_COMPLETE</code>. If the dataset split fails, the value of <code>Status</code> is
+     * <code>UPDATE_FAILED</code>.
+     * </p>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:DistributeDatasetEntries</code> action.
+     * </p>
+     * 
+     * @param distributeDatasetEntriesRequest
+     * @return Result of the DistributeDatasetEntries operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws ResourceNotReadyException
+     *         The requested resource isn't ready. For example, this exception occurs when you call
+     *         <code>DetectCustomLabels</code> with a model version that isn't deployed.
+     * @sample AmazonRekognition.DistributeDatasetEntries
+     */
+    DistributeDatasetEntriesResult distributeDatasetEntries(DistributeDatasetEntriesRequest distributeDatasetEntriesRequest);
+
+    /**
+     * <p>
+     * Gets the name and additional information about a celebrity based on their Amazon Rekognition ID. The additional
+     * information is returned as an array of URLs. If there is no additional information about the celebrity, this list
+     * is empty.
+     * </p>
+     * <p>
+     * For more information, see Getting information about a celebrity in the Amazon Rekognition Developer Guide.
      * </p>
      * <p>
      * This operation requires permissions to perform the <code>rekognition:GetCelebrityInfo</code> action.
@@ -683,7 +2157,7 @@ public interface AmazonRekognition {
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @throws ResourceNotFoundException
-     *         The collection specified in the request cannot be found.
+     *         The resource specified in the request cannot be found.
      * @sample AmazonRekognition.GetCelebrityInfo
      */
     GetCelebrityInfoResult getCelebrityInfo(GetCelebrityInfoRequest getCelebrityInfoRequest);
@@ -695,12 +2169,14 @@ public interface AmazonRekognition {
      * </p>
      * <p>
      * Celebrity recognition in a video is an asynchronous operation. Analysis is started by a call to
-     * <a>StartCelebrityRecognition</a> which returns a job identifier (<code>JobId</code>). When the celebrity
-     * recognition operation finishes, Amazon Rekognition Video publishes a completion status to the Amazon Simple
-     * Notification Service topic registered in the initial call to <code>StartCelebrityRecognition</code>. To get the
-     * results of the celebrity recognition analysis, first check that the status value published to the Amazon SNS
-     * topic is <code>SUCCEEDED</code>. If so, call <code>GetCelebrityDetection</code> and pass the job identifier (
-     * <code>JobId</code>) from the initial call to <code>StartCelebrityDetection</code>.
+     * <a>StartCelebrityRecognition</a> which returns a job identifier (<code>JobId</code>).
+     * </p>
+     * <p>
+     * When the celebrity recognition operation finishes, Amazon Rekognition Video publishes a completion status to the
+     * Amazon Simple Notification Service topic registered in the initial call to <code>StartCelebrityRecognition</code>
+     * . To get the results of the celebrity recognition analysis, first check that the status value published to the
+     * Amazon SNS topic is <code>SUCCEEDED</code>. If so, call <code>GetCelebrityDetection</code> and pass the job
+     * identifier (<code>JobId</code>) from the initial call to <code>StartCelebrityDetection</code>.
      * </p>
      * <p>
      * For more information, see Working With Stored Videos in the Amazon Rekognition Developer Guide.
@@ -709,14 +2185,16 @@ public interface AmazonRekognition {
      * <code>GetCelebrityRecognition</code> returns detected celebrities and the time(s) they are detected in an array (
      * <code>Celebrities</code>) of <a>CelebrityRecognition</a> objects. Each <code>CelebrityRecognition</code> contains
      * information about the celebrity in a <a>CelebrityDetail</a> object and the time, <code>Timestamp</code>, the
-     * celebrity was detected.
+     * celebrity was detected. This <a>CelebrityDetail</a> object stores information about the detected celebrity's face
+     * attributes, a face bounding box, known gender, the celebrity's name, and a confidence estimate.
      * </p>
      * <note>
      * <p>
      * <code>GetCelebrityRecognition</code> only returns the default facial attributes (<code>BoundingBox</code>,
-     * <code>Confidence</code>, <code>Landmarks</code>, <code>Pose</code>, and <code>Quality</code>). The other facial
-     * attributes listed in the <code>Face</code> object of the following response syntax are not returned. For more
-     * information, see FaceDetail in the Amazon Rekognition Developer Guide.
+     * <code>Confidence</code>, <code>Landmarks</code>, <code>Pose</code>, and <code>Quality</code>). The
+     * <code>BoundingBox</code> field only applies to the detected face instance. The other facial attributes listed in
+     * the <code>Face</code> object of the following response syntax are not returned. For more information, see
+     * FaceDetail in the Amazon Rekognition Developer Guide.
      * </p>
      * </note>
      * <p>
@@ -754,7 +2232,7 @@ public interface AmazonRekognition {
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @throws ResourceNotFoundException
-     *         The collection specified in the request cannot be found.
+     *         The resource specified in the request cannot be found.
      * @throws ThrottlingException
      *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
      * @sample AmazonRekognition.GetCelebrityRecognition
@@ -763,24 +2241,27 @@ public interface AmazonRekognition {
 
     /**
      * <p>
-     * Gets the content moderation analysis results for a Amazon Rekognition Video analysis started by
-     * <a>StartContentModeration</a>.
+     * Gets the inappropriate, unwanted, or offensive content analysis results for a Amazon Rekognition Video analysis
+     * started by <a>StartContentModeration</a>. For a list of moderation labels in Amazon Rekognition, see <a
+     * href="https://docs.aws.amazon.com/rekognition/latest/dg/moderation.html#moderation-api">Using the image and video
+     * moderation APIs</a>.
      * </p>
      * <p>
-     * Content moderation analysis of a video is an asynchronous operation. You start analysis by calling
-     * <a>StartContentModeration</a> which returns a job identifier (<code>JobId</code>). When analysis finishes, Amazon
-     * Rekognition Video publishes a completion status to the Amazon Simple Notification Service topic registered in the
-     * initial call to <code>StartContentModeration</code>. To get the results of the content moderation analysis, first
-     * check that the status value published to the Amazon SNS topic is <code>SUCCEEDED</code>. If so, call
-     * <code>GetContentModeration</code> and pass the job identifier (<code>JobId</code>) from the initial call to
-     * <code>StartContentModeration</code>.
+     * Amazon Rekognition Video inappropriate or offensive content detection in a stored video is an asynchronous
+     * operation. You start analysis by calling <a>StartContentModeration</a> which returns a job identifier (
+     * <code>JobId</code>). When analysis finishes, Amazon Rekognition Video publishes a completion status to the Amazon
+     * Simple Notification Service topic registered in the initial call to <code>StartContentModeration</code>. To get
+     * the results of the content analysis, first check that the status value published to the Amazon SNS topic is
+     * <code>SUCCEEDED</code>. If so, call <code>GetContentModeration</code> and pass the job identifier (
+     * <code>JobId</code>) from the initial call to <code>StartContentModeration</code>.
      * </p>
      * <p>
      * For more information, see Working with Stored Videos in the Amazon Rekognition Devlopers Guide.
      * </p>
      * <p>
-     * <code>GetContentModeration</code> returns detected content moderation labels, and the time they are detected, in
-     * an array, <code>ModerationLabels</code>, of <a>ContentModerationDetection</a> objects.
+     * <code>GetContentModeration</code> returns detected inappropriate, unwanted, or offensive content moderation
+     * labels, and the time they are detected, in an array, <code>ModerationLabels</code>, of
+     * <a>ContentModerationDetection</a> objects.
      * </p>
      * <p>
      * By default, the moderated labels are returned sorted by time, in milliseconds from the start of the video. You
@@ -796,7 +2277,7 @@ public interface AmazonRekognition {
      * <code>NextToken</code> returned from the previous call to <code>GetContentModeration</code>.
      * </p>
      * <p>
-     * For more information, see Detecting Unsafe Content in the Amazon Rekognition Developer Guide.
+     * For more information, see moderating content in the Amazon Rekognition Developer Guide.
      * </p>
      * 
      * @param getContentModerationRequest
@@ -813,7 +2294,7 @@ public interface AmazonRekognition {
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @throws ResourceNotFoundException
-     *         The collection specified in the request cannot be found.
+     *         The resource specified in the request cannot be found.
      * @throws ThrottlingException
      *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
      * @sample AmazonRekognition.GetContentModeration
@@ -844,6 +2325,10 @@ public interface AmazonRekognition {
      * and populate the <code>NextToken</code> request parameter with the token value returned from the previous call to
      * <code>GetFaceDetection</code>.
      * </p>
+     * <p>
+     * Note that for the <code>GetFaceDetection</code> operation, the returned values for <code>FaceOccluded</code> and
+     * <code>EyeDirection</code> will always be "null".
+     * </p>
      * 
      * @param getFaceDetectionRequest
      * @return Result of the GetFaceDetection operation returned by the service.
@@ -859,12 +2344,44 @@ public interface AmazonRekognition {
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @throws ResourceNotFoundException
-     *         The collection specified in the request cannot be found.
+     *         The resource specified in the request cannot be found.
      * @throws ThrottlingException
      *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
      * @sample AmazonRekognition.GetFaceDetection
      */
     GetFaceDetectionResult getFaceDetection(GetFaceDetectionRequest getFaceDetectionRequest);
+
+    /**
+     * <p>
+     * Retrieves the results of a specific Face Liveness session. It requires the <code>sessionId</code> as input, which
+     * was created using <code>CreateFaceLivenessSession</code>. Returns the corresponding Face Liveness confidence
+     * score, a reference image that includes a face bounding box, and audit images that also contain face bounding
+     * boxes. The Face Liveness confidence score ranges from 0 to 100.
+     * </p>
+     * <p>
+     * The number of audit images returned by <code>GetFaceLivenessSessionResults</code> is defined by the
+     * <code>AuditImagesLimit</code> paramater when calling <code>CreateFaceLivenessSession</code>. Reference images are
+     * always returned when possible.
+     * </p>
+     * 
+     * @param getFaceLivenessSessionResultsRequest
+     * @return Result of the GetFaceLivenessSessionResults operation returned by the service.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws SessionNotFoundException
+     *         Occurs when a given sessionId is not found.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @sample AmazonRekognition.GetFaceLivenessSessionResults
+     */
+    GetFaceLivenessSessionResultsResult getFaceLivenessSessionResults(GetFaceLivenessSessionResultsRequest getFaceLivenessSessionResultsRequest);
 
     /**
      * <p>
@@ -917,7 +2434,7 @@ public interface AmazonRekognition {
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @throws ResourceNotFoundException
-     *         The collection specified in the request cannot be found.
+     *         The resource specified in the request cannot be found.
      * @throws ThrottlingException
      *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
      * @sample AmazonRekognition.GetFaceSearch
@@ -932,29 +2449,95 @@ public interface AmazonRekognition {
      * The label detection operation is started by a call to <a>StartLabelDetection</a> which returns a job identifier (
      * <code>JobId</code>). When the label detection operation finishes, Amazon Rekognition publishes a completion
      * status to the Amazon Simple Notification Service topic registered in the initial call to
-     * <code>StartlabelDetection</code>. To get the results of the label detection operation, first check that the
-     * status value published to the Amazon SNS topic is <code>SUCCEEDED</code>. If so, call <a>GetLabelDetection</a>
-     * and pass the job identifier (<code>JobId</code>) from the initial call to <code>StartLabelDetection</code>.
+     * <code>StartlabelDetection</code>.
+     * </p>
+     * <p>
+     * To get the results of the label detection operation, first check that the status value published to the Amazon
+     * SNS topic is <code>SUCCEEDED</code>. If so, call <a>GetLabelDetection</a> and pass the job identifier (
+     * <code>JobId</code>) from the initial call to <code>StartLabelDetection</code>.
      * </p>
      * <p>
      * <code>GetLabelDetection</code> returns an array of detected labels (<code>Labels</code>) sorted by the time the
      * labels were detected. You can also sort by the label name by specifying <code>NAME</code> for the
-     * <code>SortBy</code> input parameter.
+     * <code>SortBy</code> input parameter. If there is no <code>NAME</code> specified, the default sort is by
+     * timestamp.
      * </p>
      * <p>
-     * The labels returned include the label name, the percentage confidence in the accuracy of the detected label, and
-     * the time the label was detected in the video.
+     * You can select how results are aggregated by using the <code>AggregateBy</code> input parameter. The default
+     * aggregation method is <code>TIMESTAMPS</code>. You can also aggregate by <code>SEGMENTS</code>, which aggregates
+     * all instances of labels detected in a given segment.
      * </p>
      * <p>
-     * The returned labels also include bounding box information for common objects, a hierarchical taxonomy of detected
-     * labels, and the version of the label model used for detection.
+     * The returned Labels array may include the following attributes:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Name - The name of the detected label.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Confidence - The level of confidence in the label assigned to a detected object.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Parents - The ancestor labels for a detected label. GetLabelDetection returns a hierarchical taxonomy of detected
+     * labels. For example, a detected car might be assigned the label car. The label car has two parent labels: Vehicle
+     * (its parent) and Transportation (its grandparent). The response includes the all ancestors for a label, where
+     * every ancestor is a unique label. In the previous example, Car, Vehicle, and Transportation are returned as
+     * unique labels in the response.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Aliases - Possible Aliases for the label.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Categories - The label categories that the detected label belongs to.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * BoundingBox — Bounding boxes are described for all instances of detected common object labels, returned in an
+     * array of Instance objects. An Instance object contains a BoundingBox object, describing the location of the label
+     * on the input image. It also includes the confidence for the accuracy of the detected bounding box.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Timestamp - Time, in milliseconds from the start of the video, that the label was detected. For aggregation by
+     * <code>SEGMENTS</code>, the <code>StartTimestampMillis</code>, <code>EndTimestampMillis</code>, and
+     * <code>DurationMillis</code> structures are what define a segment. Although the “Timestamp” structure is still
+     * returned with each label, its value is set to be the same as <code>StartTimestampMillis</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Timestamp and Bounding box information are returned for detected Instances, only if aggregation is done by
+     * <code>TIMESTAMPS</code>. If aggregating by <code>SEGMENTS</code>, information about detected instances isn’t
+     * returned.
      * </p>
      * <p>
-     * Use MaxResults parameter to limit the number of labels returned. If there are more results than specified in
-     * <code>MaxResults</code>, the value of <code>NextToken</code> in the operation response contains a pagination
-     * token for getting the next set of results. To get the next page of results, call <code>GetlabelDetection</code>
-     * and populate the <code>NextToken</code> request parameter with the token value returned from the previous call to
-     * <code>GetLabelDetection</code>.
+     * The version of the label model used for the detection is also returned.
+     * </p>
+     * <p>
+     * <b>Note <code>DominantColors</code> isn't returned for <code>Instances</code>, although it is shown as part of
+     * the response in the sample seen below.</b>
+     * </p>
+     * <p>
+     * Use <code>MaxResults</code> parameter to limit the number of labels returned. If there are more results than
+     * specified in <code>MaxResults</code>, the value of <code>NextToken</code> in the operation response contains a
+     * pagination token for getting the next set of results. To get the next page of results, call
+     * <code>GetlabelDetection</code> and populate the <code>NextToken</code> request parameter with the token value
+     * returned from the previous call to <code>GetLabelDetection</code>.
+     * </p>
+     * <p>
+     * If you are retrieving results while using the Amazon Simple Notification Service, note that you will receive an
+     * "ERROR" notification if the job encounters an issue.
      * </p>
      * 
      * @param getLabelDetectionRequest
@@ -971,12 +2554,37 @@ public interface AmazonRekognition {
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @throws ResourceNotFoundException
-     *         The collection specified in the request cannot be found.
+     *         The resource specified in the request cannot be found.
      * @throws ThrottlingException
      *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
      * @sample AmazonRekognition.GetLabelDetection
      */
     GetLabelDetectionResult getLabelDetection(GetLabelDetectionRequest getLabelDetectionRequest);
+
+    /**
+     * <p>
+     * Retrieves the results for a given media analysis job. Takes a <code>JobId</code> returned by
+     * StartMediaAnalysisJob.
+     * </p>
+     * 
+     * @param getMediaAnalysisJobRequest
+     * @return Result of the GetMediaAnalysisJob operation returned by the service.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @sample AmazonRekognition.GetMediaAnalysisJob
+     */
+    GetMediaAnalysisJobResult getMediaAnalysisJob(GetMediaAnalysisJobRequest getMediaAnalysisJobRequest);
 
     /**
      * <p>
@@ -1033,12 +2641,120 @@ public interface AmazonRekognition {
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @throws ResourceNotFoundException
-     *         The collection specified in the request cannot be found.
+     *         The resource specified in the request cannot be found.
      * @throws ThrottlingException
      *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
      * @sample AmazonRekognition.GetPersonTracking
      */
     GetPersonTrackingResult getPersonTracking(GetPersonTrackingRequest getPersonTrackingRequest);
+
+    /**
+     * <p>
+     * Gets the segment detection results of a Amazon Rekognition Video analysis started by
+     * <a>StartSegmentDetection</a>.
+     * </p>
+     * <p>
+     * Segment detection with Amazon Rekognition Video is an asynchronous operation. You start segment detection by
+     * calling <a>StartSegmentDetection</a> which returns a job identifier (<code>JobId</code>). When the segment
+     * detection operation finishes, Amazon Rekognition publishes a completion status to the Amazon Simple Notification
+     * Service topic registered in the initial call to <code>StartSegmentDetection</code>. To get the results of the
+     * segment detection operation, first check that the status value published to the Amazon SNS topic is
+     * <code>SUCCEEDED</code>. if so, call <code>GetSegmentDetection</code> and pass the job identifier (
+     * <code>JobId</code>) from the initial call of <code>StartSegmentDetection</code>.
+     * </p>
+     * <p>
+     * <code>GetSegmentDetection</code> returns detected segments in an array (<code>Segments</code>) of
+     * <a>SegmentDetection</a> objects. <code>Segments</code> is sorted by the segment types specified in the
+     * <code>SegmentTypes</code> input parameter of <code>StartSegmentDetection</code>. Each element of the array
+     * includes the detected segment, the precentage confidence in the acuracy of the detected segment, the type of the
+     * segment, and the frame in which the segment was detected.
+     * </p>
+     * <p>
+     * Use <code>SelectedSegmentTypes</code> to find out the type of segment detection requested in the call to
+     * <code>StartSegmentDetection</code>.
+     * </p>
+     * <p>
+     * Use the <code>MaxResults</code> parameter to limit the number of segment detections returned. If there are more
+     * results than specified in <code>MaxResults</code>, the value of <code>NextToken</code> in the operation response
+     * contains a pagination token for getting the next set of results. To get the next page of results, call
+     * <code>GetSegmentDetection</code> and populate the <code>NextToken</code> request parameter with the token value
+     * returned from the previous call to <code>GetSegmentDetection</code>.
+     * </p>
+     * <p>
+     * For more information, see Detecting video segments in stored video in the Amazon Rekognition Developer Guide.
+     * </p>
+     * 
+     * @param getSegmentDetectionRequest
+     * @return Result of the GetSegmentDetection operation returned by the service.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws InvalidPaginationTokenException
+     *         Pagination token in the request is not valid.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @sample AmazonRekognition.GetSegmentDetection
+     */
+    GetSegmentDetectionResult getSegmentDetection(GetSegmentDetectionRequest getSegmentDetectionRequest);
+
+    /**
+     * <p>
+     * Gets the text detection results of a Amazon Rekognition Video analysis started by <a>StartTextDetection</a>.
+     * </p>
+     * <p>
+     * Text detection with Amazon Rekognition Video is an asynchronous operation. You start text detection by calling
+     * <a>StartTextDetection</a> which returns a job identifier (<code>JobId</code>) When the text detection operation
+     * finishes, Amazon Rekognition publishes a completion status to the Amazon Simple Notification Service topic
+     * registered in the initial call to <code>StartTextDetection</code>. To get the results of the text detection
+     * operation, first check that the status value published to the Amazon SNS topic is <code>SUCCEEDED</code>. if so,
+     * call <code>GetTextDetection</code> and pass the job identifier (<code>JobId</code>) from the initial call of
+     * <code>StartLabelDetection</code>.
+     * </p>
+     * <p>
+     * <code>GetTextDetection</code> returns an array of detected text (<code>TextDetections</code>) sorted by the time
+     * the text was detected, up to 100 words per frame of video.
+     * </p>
+     * <p>
+     * Each element of the array includes the detected text, the precentage confidence in the acuracy of the detected
+     * text, the time the text was detected, bounding box information for where the text was located, and unique
+     * identifiers for words and their lines.
+     * </p>
+     * <p>
+     * Use MaxResults parameter to limit the number of text detections returned. If there are more results than
+     * specified in <code>MaxResults</code>, the value of <code>NextToken</code> in the operation response contains a
+     * pagination token for getting the next set of results. To get the next page of results, call
+     * <code>GetTextDetection</code> and populate the <code>NextToken</code> request parameter with the token value
+     * returned from the previous call to <code>GetTextDetection</code>.
+     * </p>
+     * 
+     * @param getTextDetectionRequest
+     * @return Result of the GetTextDetection operation returned by the service.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws InvalidPaginationTokenException
+     *         Pagination token in the request is not valid.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @sample AmazonRekognition.GetTextDetection
+     */
+    GetTextDetectionResult getTextDetection(GetTextDetectionRequest getTextDetectionRequest);
 
     /**
      * <p>
@@ -1051,7 +2767,7 @@ public interface AmazonRekognition {
      * match and search operations using the <a>SearchFaces</a> and <a>SearchFacesByImage</a> operations.
      * </p>
      * <p>
-     * For more information, see Adding Faces to a Collection in the Amazon Rekognition Developer Guide.
+     * For more information, see Adding faces to a collection in the Amazon Rekognition Developer Guide.
      * </p>
      * <p>
      * To get the number of faces in a collection, call <a>DescribeCollection</a>.
@@ -1073,7 +2789,7 @@ public interface AmazonRekognition {
      * For more information, see Model Versioning in the Amazon Rekognition Developer Guide.
      * </p>
      * <p>
-     * If you provide the optional <code>ExternalImageID</code> for the input image you provided, Amazon Rekognition
+     * If you provide the optional <code>ExternalImageId</code> for the input image you provided, Amazon Rekognition
      * associates this ID with all faces that it detects. When you call the <a>ListFaces</a> operation, the response
      * returns the external ID. You can use this external image ID to create a client-side index to associate the faces
      * with each image. You can then use the index to find all faces in an image.
@@ -1084,16 +2800,16 @@ public interface AmazonRekognition {
      * belonging to people standing in the background.
      * </p>
      * <p>
-     * The <code>QualityFilter</code> input parameter allows you to filter out detected faces that don’t meet the
-     * required quality bar chosen by Amazon Rekognition. The quality bar is based on a variety of common use cases. By
-     * default, <code>IndexFaces</code> filters detected faces. You can also explicitly filter detected faces by
-     * specifying <code>AUTO</code> for the value of <code>QualityFilter</code>. If you do not want to filter detected
-     * faces, specify <code>NONE</code>.
+     * The <code>QualityFilter</code> input parameter allows you to filter out detected faces that don’t meet a required
+     * quality bar. The quality bar is based on a variety of common use cases. By default, <code>IndexFaces</code>
+     * chooses the quality bar that's used to filter faces. You can also explicitly choose the quality bar. Use
+     * <code>QualityFilter</code>, to set the quality bar by specifying <code>LOW</code>, <code>MEDIUM</code>, or
+     * <code>HIGH</code>. If you do not want to filter detected faces, specify <code>NONE</code>.
      * </p>
      * <note>
      * <p>
-     * To use quality filtering, you need a collection associated with version 3 of the face model. To get the version
-     * of the face model associated with a collection, call <a>DescribeCollection</a>.
+     * To use quality filtering, you need a collection associated with version 3 of the face model or higher. To get the
+     * version of the face model associated with a collection, call <a>DescribeCollection</a>.
      * </p>
      * </note>
      * <p>
@@ -1126,6 +2842,11 @@ public interface AmazonRekognition {
      * The face has an extreme pose.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * The face doesn’t have enough detail to be suitable for face search.
+     * </p>
+     * </li>
      * </ul>
      * <p>
      * In response, the <code>IndexFaces</code> operation returns an array of metadata for all detected faces,
@@ -1155,11 +2876,13 @@ public interface AmazonRekognition {
      * </li>
      * </ul>
      * <p>
-     * If you request all facial attributes (by using the <code>detectionAttributes</code> parameter), Amazon
-     * Rekognition returns detailed facial attributes, such as facial landmarks (for example, location of eye and mouth)
-     * and other facial attributes like gender. If you provide the same image, specify the same collection, and use the
-     * same external ID in the <code>IndexFaces</code> operation, Amazon Rekognition doesn't save duplicate face
-     * metadata.
+     * If you request <code>ALL</code> or specific facial attributes (e.g., <code>FACE_OCCLUDED</code>) by using the
+     * detectionAttributes parameter, Amazon Rekognition returns detailed facial attributes, such as facial landmarks
+     * (for example, location of eye and mouth), facial occlusion, and other facial attributes.
+     * </p>
+     * <p>
+     * If you provide the same image, specify the same collection, and use the same external ID in the
+     * <code>IndexFaces</code> operation, Amazon Rekognition doesn't save duplicate face metadata.
      * </p>
      * <p/>
      * <p>
@@ -1178,8 +2901,9 @@ public interface AmazonRekognition {
      * @throws InvalidParameterException
      *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
      * @throws ImageTooLargeException
-     *         The input image size exceeds the allowed limit. For more information, see Limits in Amazon Rekognition in
-     *         the Amazon Rekognition Developer Guide.
+     *         The input image size exceeds the allowed limit. If you are calling DetectProtectiveEquipment, the image
+     *         size or resolution exceeds the allowed limit. For more information, see Guidelines and quotas in Amazon
+     *         Rekognition in the Amazon Rekognition Developer Guide.
      * @throws AccessDeniedException
      *         You are not authorized to perform the action.
      * @throws InternalServerErrorException
@@ -1190,9 +2914,13 @@ public interface AmazonRekognition {
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @throws ResourceNotFoundException
-     *         The collection specified in the request cannot be found.
+     *         The resource specified in the request cannot be found.
      * @throws InvalidImageFormatException
      *         The provided image format is not supported.
+     * @throws ServiceQuotaExceededException
+     *         <p>
+     *         The size of the collection exceeds the allowed limit. For more information, see Guidelines and quotas in
+     *         Amazon Rekognition in the Amazon Rekognition Developer Guide.
      * @sample AmazonRekognition.IndexFaces
      */
     IndexFacesResult indexFaces(IndexFacesRequest indexFacesRequest);
@@ -1203,7 +2931,7 @@ public interface AmazonRekognition {
      * <code>NextToken</code> that you can use in the subsequent request to fetch the next set of collection IDs.
      * </p>
      * <p>
-     * For an example, see Listing Collections in the Amazon Rekognition Developer Guide.
+     * For an example, see Listing collections in the Amazon Rekognition Developer Guide.
      * </p>
      * <p>
      * This operation requires permissions to perform the <code>rekognition:ListCollections</code> action.
@@ -1225,10 +2953,105 @@ public interface AmazonRekognition {
      * @throws InvalidPaginationTokenException
      *         Pagination token in the request is not valid.
      * @throws ResourceNotFoundException
-     *         The collection specified in the request cannot be found.
+     *         The resource specified in the request cannot be found.
      * @sample AmazonRekognition.ListCollections
      */
     ListCollectionsResult listCollections(ListCollectionsRequest listCollectionsRequest);
+
+    /**
+     * <note>
+     * <p>
+     * This operation applies only to Amazon Rekognition Custom Labels.
+     * </p>
+     * </note>
+     * <p>
+     * Lists the entries (images) within a dataset. An entry is a JSON Line that contains the information for a single
+     * image, including the image location, assigned labels, and object location bounding boxes. For more information,
+     * see <a href="https://docs.aws.amazon.com/rekognition/latest/customlabels-dg/md-manifest-files.html">Creating a
+     * manifest file</a>.
+     * </p>
+     * <p>
+     * JSON Lines in the response include information about non-terminal errors found in the dataset. Non terminal
+     * errors are reported in <code>errors</code> lists within each JSON Line. The same information is reported in the
+     * training and testing validation result manifests that Amazon Rekognition Custom Labels creates during model
+     * training.
+     * </p>
+     * <p>
+     * You can filter the response in variety of ways, such as choosing which labels to return and returning JSON Lines
+     * created after a specific date.
+     * </p>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:ListDatasetEntries</code> action.
+     * </p>
+     * 
+     * @param listDatasetEntriesRequest
+     * @return Result of the ListDatasetEntries operation returned by the service.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws ResourceInUseException
+     *         The specified resource is already being used.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws InvalidPaginationTokenException
+     *         Pagination token in the request is not valid.
+     * @throws ResourceNotReadyException
+     *         The requested resource isn't ready. For example, this exception occurs when you call
+     *         <code>DetectCustomLabels</code> with a model version that isn't deployed.
+     * @sample AmazonRekognition.ListDatasetEntries
+     */
+    ListDatasetEntriesResult listDatasetEntries(ListDatasetEntriesRequest listDatasetEntriesRequest);
+
+    /**
+     * <note>
+     * <p>
+     * This operation applies only to Amazon Rekognition Custom Labels.
+     * </p>
+     * </note>
+     * <p>
+     * Lists the labels in a dataset. Amazon Rekognition Custom Labels uses labels to describe images. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/rekognition/latest/customlabels-dg/md-labeling-images.html">Labeling
+     * images</a>.
+     * </p>
+     * <p>
+     * Lists the labels in a dataset. Amazon Rekognition Custom Labels uses labels to describe images. For more
+     * information, see Labeling images in the <i>Amazon Rekognition Custom Labels Developer Guide</i>.
+     * </p>
+     * 
+     * @param listDatasetLabelsRequest
+     * @return Result of the ListDatasetLabels operation returned by the service.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws ResourceInUseException
+     *         The specified resource is already being used.
+     * @throws InvalidPaginationTokenException
+     *         Pagination token in the request is not valid.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws ResourceNotReadyException
+     *         The requested resource isn't ready. For example, this exception occurs when you call
+     *         <code>DetectCustomLabels</code> with a model version that isn't deployed.
+     * @sample AmazonRekognition.ListDatasetLabels
+     */
+    ListDatasetLabelsResult listDatasetLabels(ListDatasetLabelsRequest listDatasetLabelsRequest);
 
     /**
      * <p>
@@ -1256,10 +3079,72 @@ public interface AmazonRekognition {
      * @throws InvalidPaginationTokenException
      *         Pagination token in the request is not valid.
      * @throws ResourceNotFoundException
-     *         The collection specified in the request cannot be found.
+     *         The resource specified in the request cannot be found.
      * @sample AmazonRekognition.ListFaces
      */
     ListFacesResult listFaces(ListFacesRequest listFacesRequest);
+
+    /**
+     * <p>
+     * Returns a list of media analysis jobs. Results are sorted by <code>CreationTimestamp</code> in descending order.
+     * </p>
+     * 
+     * @param listMediaAnalysisJobsRequest
+     * @return Result of the ListMediaAnalysisJobs operation returned by the service.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws InvalidPaginationTokenException
+     *         Pagination token in the request is not valid.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @sample AmazonRekognition.ListMediaAnalysisJobs
+     */
+    ListMediaAnalysisJobsResult listMediaAnalysisJobs(ListMediaAnalysisJobsRequest listMediaAnalysisJobsRequest);
+
+    /**
+     * <note>
+     * <p>
+     * This operation applies only to Amazon Rekognition Custom Labels.
+     * </p>
+     * </note>
+     * <p>
+     * Gets a list of the project policies attached to a project.
+     * </p>
+     * <p>
+     * To attach a project policy to a project, call <a>PutProjectPolicy</a>. To remove a project policy from a project,
+     * call <a>DeleteProjectPolicy</a>.
+     * </p>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:ListProjectPolicies</code> action.
+     * </p>
+     * 
+     * @param listProjectPoliciesRequest
+     * @return Result of the ListProjectPolicies operation returned by the service.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws InvalidPaginationTokenException
+     *         Pagination token in the request is not valid.
+     * @sample AmazonRekognition.ListProjectPolicies
+     */
+    ListProjectPoliciesResult listProjectPolicies(ListProjectPoliciesRequest listProjectPoliciesRequest);
 
     /**
      * <p>
@@ -1287,14 +3172,137 @@ public interface AmazonRekognition {
 
     /**
      * <p>
-     * Returns an array of celebrities recognized in the input image. For more information, see Recognizing Celebrities
+     * Returns a list of tags in an Amazon Rekognition collection, stream processor, or Custom Labels model.
+     * </p>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:ListTagsForResource</code> action.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @sample AmazonRekognition.ListTagsForResource
+     */
+    ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest);
+
+    /**
+     * <p>
+     * Returns metadata of the User such as <code>UserID</code> in the specified collection. Anonymous User (to reserve
+     * faces without any identity) is not returned as part of this request. The results are sorted by system generated
+     * primary key ID. If the response is truncated, <code>NextToken</code> is returned in the response that can be used
+     * in the subsequent request to retrieve the next set of identities.
+     * </p>
+     * 
+     * @param listUsersRequest
+     * @return Result of the ListUsers operation returned by the service.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws InvalidPaginationTokenException
+     *         Pagination token in the request is not valid.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @sample AmazonRekognition.ListUsers
+     */
+    ListUsersResult listUsers(ListUsersRequest listUsersRequest);
+
+    /**
+     * <note>
+     * <p>
+     * This operation applies only to Amazon Rekognition Custom Labels.
+     * </p>
+     * </note>
+     * <p>
+     * Attaches a project policy to a Amazon Rekognition Custom Labels project in a trusting AWS account. A project
+     * policy specifies that a trusted AWS account can copy a model version from a trusting AWS account to a project in
+     * the trusted AWS account. To copy a model version you use the <a>CopyProjectVersion</a> operation. Only applies to
+     * Custom Labels projects.
+     * </p>
+     * <p>
+     * For more information about the format of a project policy document, see Attaching a project policy (SDK) in the
+     * <i>Amazon Rekognition Custom Labels Developer Guide</i>.
+     * </p>
+     * <p>
+     * The response from <code>PutProjectPolicy</code> is a revision ID for the project policy. You can attach multiple
+     * project policies to a project. You can also update an existing project policy by specifying the policy revision
+     * ID of the existing policy.
+     * </p>
+     * <p>
+     * To remove a project policy from a project, call <a>DeleteProjectPolicy</a>. To get a list of project policies
+     * attached to a project, call <a>ListProjectPolicies</a>.
+     * </p>
+     * <p>
+     * You copy a model version by calling <a>CopyProjectVersion</a>.
+     * </p>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:PutProjectPolicy</code> action.
+     * </p>
+     * 
+     * @param putProjectPolicyRequest
+     * @return Result of the PutProjectPolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws InvalidPolicyRevisionIdException
+     *         The supplied revision id for the project policy is invalid.
+     * @throws MalformedPolicyDocumentException
+     *         The format of the project policy document that you supplied to <code>PutProjectPolicy</code> is
+     *         incorrect.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws ResourceAlreadyExistsException
+     *         A resource with the specified ID already exists.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ServiceQuotaExceededException
+     *         <p>
+     *         The size of the collection exceeds the allowed limit. For more information, see Guidelines and quotas in
+     *         Amazon Rekognition in the Amazon Rekognition Developer Guide.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws LimitExceededException
+     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many jobs concurrently,
+     *         subsequent calls to start operations (ex: <code>StartLabelDetection</code>) will raise a
+     *         <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of concurrently
+     *         running jobs is below the Amazon Rekognition service limit.
+     * @sample AmazonRekognition.PutProjectPolicy
+     */
+    PutProjectPolicyResult putProjectPolicy(PutProjectPolicyRequest putProjectPolicyRequest);
+
+    /**
+     * <p>
+     * Returns an array of celebrities recognized in the input image. For more information, see Recognizing celebrities
      * in the Amazon Rekognition Developer Guide.
      * </p>
      * <p>
-     * <code>RecognizeCelebrities</code> returns the 100 largest faces in the image. It lists recognized celebrities in
-     * the <code>CelebrityFaces</code> array and unrecognized faces in the <code>UnrecognizedFaces</code> array.
-     * <code>RecognizeCelebrities</code> doesn't return celebrities whose faces aren't among the largest 100 faces in
-     * the image.
+     * <code>RecognizeCelebrities</code> returns the 64 largest faces in the image. It lists the recognized celebrities
+     * in the <code>CelebrityFaces</code> array and any unrecognized faces in the <code>UnrecognizedFaces</code> array.
+     * <code>RecognizeCelebrities</code> doesn't return celebrities whose faces aren't among the largest 64 faces in the
+     * image.
      * </p>
      * <p>
      * For each celebrity recognized, <code>RecognizeCelebrities</code> returns a <code>Celebrity</code> object. The
@@ -1314,7 +3322,7 @@ public interface AmazonRekognition {
      * image must be either a PNG or JPEG formatted file.
      * </p>
      * <p>
-     * For an example, see Recognizing Celebrities in an Image in the Amazon Rekognition Developer Guide.
+     * For an example, see Recognizing celebrities in an image in the Amazon Rekognition Developer Guide.
      * </p>
      * <p>
      * This operation requires permissions to perform the <code>rekognition:RecognizeCelebrities</code> operation.
@@ -1329,8 +3337,9 @@ public interface AmazonRekognition {
      * @throws InvalidImageFormatException
      *         The provided image format is not supported.
      * @throws ImageTooLargeException
-     *         The input image size exceeds the allowed limit. For more information, see Limits in Amazon Rekognition in
-     *         the Amazon Rekognition Developer Guide.
+     *         The input image size exceeds the allowed limit. If you are calling DetectProtectiveEquipment, the image
+     *         size or resolution exceeds the allowed limit. For more information, see Guidelines and quotas in Amazon
+     *         Rekognition in the Amazon Rekognition Developer Guide.
      * @throws AccessDeniedException
      *         You are not authorized to perform the action.
      * @throws InternalServerErrorException
@@ -1364,7 +3373,7 @@ public interface AmazonRekognition {
      * confidence that the specific face matches the input face.
      * </p>
      * <p>
-     * For an example, see Searching for a Face Using Its Face ID in the Amazon Rekognition Developer Guide.
+     * For an example, see Searching for a face using its face ID in the Amazon Rekognition Developer Guide.
      * </p>
      * <p>
      * This operation requires permissions to perform the <code>rekognition:SearchFaces</code> action.
@@ -1384,7 +3393,7 @@ public interface AmazonRekognition {
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @throws ResourceNotFoundException
-     *         The collection specified in the request cannot be found.
+     *         The resource specified in the request cannot be found.
      * @sample AmazonRekognition.SearchFaces
      */
     SearchFacesResult searchFaces(SearchFacesRequest searchFacesRequest);
@@ -1417,8 +3426,24 @@ public interface AmazonRekognition {
      * face that Amazon Rekognition used for the input image.
      * </p>
      * <p>
+     * If no faces are detected in the input image, <code>SearchFacesByImage</code> returns an
+     * <code>InvalidParameterException</code> error.
+     * </p>
+     * <p>
      * For an example, Searching for a Face Using an Image in the Amazon Rekognition Developer Guide.
      * </p>
+     * <p>
+     * The <code>QualityFilter</code> input parameter allows you to filter out detected faces that don’t meet a required
+     * quality bar. The quality bar is based on a variety of common use cases. Use <code>QualityFilter</code> to set the
+     * quality bar for filtering by specifying <code>LOW</code>, <code>MEDIUM</code>, or <code>HIGH</code>. If you do
+     * not want to filter detected faces, specify <code>NONE</code>. The default value is <code>NONE</code>.
+     * </p>
+     * <note>
+     * <p>
+     * To use quality filtering, you need a collection associated with version 3 of the face model or higher. To get the
+     * version of the face model associated with a collection, call <a>DescribeCollection</a>.
+     * </p>
+     * </note>
      * <p>
      * This operation requires permissions to perform the <code>rekognition:SearchFacesByImage</code> action.
      * </p>
@@ -1430,8 +3455,9 @@ public interface AmazonRekognition {
      * @throws InvalidParameterException
      *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
      * @throws ImageTooLargeException
-     *         The input image size exceeds the allowed limit. For more information, see Limits in Amazon Rekognition in
-     *         the Amazon Rekognition Developer Guide.
+     *         The input image size exceeds the allowed limit. If you are calling DetectProtectiveEquipment, the image
+     *         size or resolution exceeds the allowed limit. For more information, see Guidelines and quotas in Amazon
+     *         Rekognition in the Amazon Rekognition Developer Guide.
      * @throws AccessDeniedException
      *         You are not authorized to perform the action.
      * @throws InternalServerErrorException
@@ -1442,12 +3468,81 @@ public interface AmazonRekognition {
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @throws ResourceNotFoundException
-     *         The collection specified in the request cannot be found.
+     *         The resource specified in the request cannot be found.
      * @throws InvalidImageFormatException
      *         The provided image format is not supported.
      * @sample AmazonRekognition.SearchFacesByImage
      */
     SearchFacesByImageResult searchFacesByImage(SearchFacesByImageRequest searchFacesByImageRequest);
+
+    /**
+     * <p>
+     * Searches for UserIDs within a collection based on a <code>FaceId</code> or <code>UserId</code>. This API can be
+     * used to find the closest UserID (with a highest similarity) to associate a face. The request must be provided
+     * with either <code>FaceId</code> or <code>UserId</code>. The operation returns an array of UserID that match the
+     * <code>FaceId</code> or <code>UserId</code>, ordered by similarity score with the highest similarity first.
+     * </p>
+     * 
+     * @param searchUsersRequest
+     * @return Result of the SearchUsers operation returned by the service.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @sample AmazonRekognition.SearchUsers
+     */
+    SearchUsersResult searchUsers(SearchUsersRequest searchUsersRequest);
+
+    /**
+     * <p>
+     * Searches for UserIDs using a supplied image. It first detects the largest face in the image, and then searches a
+     * specified collection for matching UserIDs.
+     * </p>
+     * <p>
+     * The operation returns an array of UserIDs that match the face in the supplied image, ordered by similarity score
+     * with the highest similarity first. It also returns a bounding box for the face found in the input image.
+     * </p>
+     * <p>
+     * Information about faces detected in the supplied image, but not used for the search, is returned in an array of
+     * <code>UnsearchedFace</code> objects. If no valid face is detected in the image, the response will contain an
+     * empty <code>UserMatches</code> list and no <code>SearchedFace</code> object.
+     * </p>
+     * 
+     * @param searchUsersByImageRequest
+     * @return Result of the SearchUsersByImage operation returned by the service.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws InvalidImageFormatException
+     *         The provided image format is not supported.
+     * @throws InvalidS3ObjectException
+     *         Amazon Rekognition is unable to access the S3 object specified in the request.
+     * @throws ImageTooLargeException
+     *         The input image size exceeds the allowed limit. If you are calling DetectProtectiveEquipment, the image
+     *         size or resolution exceeds the allowed limit. For more information, see Guidelines and quotas in Amazon
+     *         Rekognition in the Amazon Rekognition Developer Guide.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @sample AmazonRekognition.SearchUsersByImage
+     */
+    SearchUsersByImageResult searchUsersByImage(SearchUsersByImageRequest searchUsersByImageRequest);
 
     /**
      * <p>
@@ -1464,7 +3559,7 @@ public interface AmazonRekognition {
      * <code>JobId</code>) from the initial call to <code>StartCelebrityRecognition</code>.
      * </p>
      * <p>
-     * For more information, see Recognizing Celebrities in the Amazon Rekognition Developer Guide.
+     * For more information, see Recognizing celebrities in the Amazon Rekognition Developer Guide.
      * </p>
      * 
      * @param startCelebrityRecognitionRequest
@@ -1481,16 +3576,16 @@ public interface AmazonRekognition {
      * @throws InternalServerErrorException
      *         Amazon Rekognition experienced a service issue. Try your call again.
      * @throws VideoTooLargeException
-     *         The file size or duration of the supplied media is too large. The maximum file size is 8GB. The maximum
-     *         duration is 2 hours.
+     *         The file size or duration of the supplied media is too large. The maximum file size is 10GB. The maximum
+     *         duration is 6 hours.
      * @throws ProvisionedThroughputExceededException
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @throws LimitExceededException
-     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many Amazon Rekognition
-     *         Video jobs concurrently, calls to start operations (<code>StartLabelDetection</code>, for example) will
-     *         raise a <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of
-     *         concurrently running jobs is below the Amazon Rekognition service limit.
+     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many jobs concurrently,
+     *         subsequent calls to start operations (ex: <code>StartLabelDetection</code>) will raise a
+     *         <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of concurrently
+     *         running jobs is below the Amazon Rekognition service limit.
      * @throws ThrottlingException
      *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
      * @sample AmazonRekognition.StartCelebrityRecognition
@@ -1499,22 +3594,25 @@ public interface AmazonRekognition {
 
     /**
      * <p>
-     * Starts asynchronous detection of explicit or suggestive adult content in a stored video.
+     * Starts asynchronous detection of inappropriate, unwanted, or offensive content in a stored video. For a list of
+     * moderation labels in Amazon Rekognition, see <a
+     * href="https://docs.aws.amazon.com/rekognition/latest/dg/moderation.html#moderation-api">Using the image and video
+     * moderation APIs</a>.
      * </p>
      * <p>
      * Amazon Rekognition Video can moderate content in a video stored in an Amazon S3 bucket. Use <a>Video</a> to
      * specify the bucket name and the filename of the video. <code>StartContentModeration</code> returns a job
-     * identifier (<code>JobId</code>) which you use to get the results of the analysis. When content moderation
-     * analysis is finished, Amazon Rekognition Video publishes a completion status to the Amazon Simple Notification
-     * Service topic that you specify in <code>NotificationChannel</code>.
+     * identifier (<code>JobId</code>) which you use to get the results of the analysis. When content analysis is
+     * finished, Amazon Rekognition Video publishes a completion status to the Amazon Simple Notification Service topic
+     * that you specify in <code>NotificationChannel</code>.
      * </p>
      * <p>
-     * To get the results of the content moderation analysis, first check that the status value published to the Amazon
-     * SNS topic is <code>SUCCEEDED</code>. If so, call <a>GetContentModeration</a> and pass the job identifier (
+     * To get the results of the content analysis, first check that the status value published to the Amazon SNS topic
+     * is <code>SUCCEEDED</code>. If so, call <a>GetContentModeration</a> and pass the job identifier (
      * <code>JobId</code>) from the initial call to <code>StartContentModeration</code>.
      * </p>
      * <p>
-     * For more information, see Detecting Unsafe Content in the Amazon Rekognition Developer Guide.
+     * For more information, see Moderating content in the Amazon Rekognition Developer Guide.
      * </p>
      * 
      * @param startContentModerationRequest
@@ -1531,16 +3629,16 @@ public interface AmazonRekognition {
      * @throws InternalServerErrorException
      *         Amazon Rekognition experienced a service issue. Try your call again.
      * @throws VideoTooLargeException
-     *         The file size or duration of the supplied media is too large. The maximum file size is 8GB. The maximum
-     *         duration is 2 hours.
+     *         The file size or duration of the supplied media is too large. The maximum file size is 10GB. The maximum
+     *         duration is 6 hours.
      * @throws ProvisionedThroughputExceededException
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @throws LimitExceededException
-     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many Amazon Rekognition
-     *         Video jobs concurrently, calls to start operations (<code>StartLabelDetection</code>, for example) will
-     *         raise a <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of
-     *         concurrently running jobs is below the Amazon Rekognition service limit.
+     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many jobs concurrently,
+     *         subsequent calls to start operations (ex: <code>StartLabelDetection</code>) will raise a
+     *         <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of concurrently
+     *         running jobs is below the Amazon Rekognition service limit.
      * @throws ThrottlingException
      *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
      * @sample AmazonRekognition.StartContentModeration
@@ -1561,7 +3659,7 @@ public interface AmazonRekognition {
      * pass the job identifier (<code>JobId</code>) from the initial call to <code>StartFaceDetection</code>.
      * </p>
      * <p>
-     * For more information, see Detecting Faces in a Stored Video in the Amazon Rekognition Developer Guide.
+     * For more information, see Detecting faces in a stored video in the Amazon Rekognition Developer Guide.
      * </p>
      * 
      * @param startFaceDetectionRequest
@@ -1578,16 +3676,16 @@ public interface AmazonRekognition {
      * @throws InternalServerErrorException
      *         Amazon Rekognition experienced a service issue. Try your call again.
      * @throws VideoTooLargeException
-     *         The file size or duration of the supplied media is too large. The maximum file size is 8GB. The maximum
-     *         duration is 2 hours.
+     *         The file size or duration of the supplied media is too large. The maximum file size is 10GB. The maximum
+     *         duration is 6 hours.
      * @throws ProvisionedThroughputExceededException
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @throws LimitExceededException
-     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many Amazon Rekognition
-     *         Video jobs concurrently, calls to start operations (<code>StartLabelDetection</code>, for example) will
-     *         raise a <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of
-     *         concurrently running jobs is below the Amazon Rekognition service limit.
+     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many jobs concurrently,
+     *         subsequent calls to start operations (ex: <code>StartLabelDetection</code>) will raise a
+     *         <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of concurrently
+     *         running jobs is below the Amazon Rekognition service limit.
      * @throws ThrottlingException
      *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
      * @sample AmazonRekognition.StartFaceDetection
@@ -1606,8 +3704,9 @@ public interface AmazonRekognition {
      * completion status to the Amazon Simple Notification Service topic that you specify in
      * <code>NotificationChannel</code>. To get the search results, first check that the status value published to the
      * Amazon SNS topic is <code>SUCCEEDED</code>. If so, call <a>GetFaceSearch</a> and pass the job identifier (
-     * <code>JobId</code>) from the initial call to <code>StartFaceSearch</code>. For more information, see
-     * <a>procedure-person-search-videos</a>.
+     * <code>JobId</code>) from the initial call to <code>StartFaceSearch</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/rekognition/latest/dg/procedure-person-search-videos.html">Searching stored
+     * videos for faces</a>.
      * </p>
      * 
      * @param startFaceSearchRequest
@@ -1624,18 +3723,18 @@ public interface AmazonRekognition {
      * @throws InternalServerErrorException
      *         Amazon Rekognition experienced a service issue. Try your call again.
      * @throws VideoTooLargeException
-     *         The file size or duration of the supplied media is too large. The maximum file size is 8GB. The maximum
-     *         duration is 2 hours.
+     *         The file size or duration of the supplied media is too large. The maximum file size is 10GB. The maximum
+     *         duration is 6 hours.
      * @throws ProvisionedThroughputExceededException
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @throws LimitExceededException
-     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many Amazon Rekognition
-     *         Video jobs concurrently, calls to start operations (<code>StartLabelDetection</code>, for example) will
-     *         raise a <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of
-     *         concurrently running jobs is below the Amazon Rekognition service limit.
+     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many jobs concurrently,
+     *         subsequent calls to start operations (ex: <code>StartLabelDetection</code>) will raise a
+     *         <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of concurrently
+     *         running jobs is below the Amazon Rekognition service limit.
      * @throws ResourceNotFoundException
-     *         The collection specified in the request cannot be found.
+     *         The resource specified in the request cannot be found.
      * @throws ThrottlingException
      *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
      * @sample AmazonRekognition.StartFaceSearch
@@ -1662,7 +3761,21 @@ public interface AmazonRekognition {
      * SNS topic is <code>SUCCEEDED</code>. If so, call <a>GetLabelDetection</a> and pass the job identifier (
      * <code>JobId</code>) from the initial call to <code>StartLabelDetection</code>.
      * </p>
-     * <p/>
+     * <p>
+     * <i>Optional Parameters</i>
+     * </p>
+     * <p>
+     * <code>StartLabelDetection</code> has the <code>GENERAL_LABELS</code> Feature applied by default. This feature
+     * allows you to provide filtering criteria to the <code>Settings</code> parameter. You can filter with sets of
+     * individual labels or with label categories. You can specify inclusive filters, exclusive filters, or a
+     * combination of inclusive and exclusive filters. For more information on filtering, see <a
+     * href="https://docs.aws.amazon.com/rekognition/latest/dg/labels-detecting-labels-video.html">Detecting labels in a
+     * video</a>.
+     * </p>
+     * <p>
+     * You can specify <code>MinConfidence</code> to control the confidence threshold for the labels returned. The
+     * default is 50.
+     * </p>
      * 
      * @param startLabelDetectionRequest
      * @return Result of the StartLabelDetection operation returned by the service.
@@ -1678,21 +3791,61 @@ public interface AmazonRekognition {
      * @throws InternalServerErrorException
      *         Amazon Rekognition experienced a service issue. Try your call again.
      * @throws VideoTooLargeException
-     *         The file size or duration of the supplied media is too large. The maximum file size is 8GB. The maximum
-     *         duration is 2 hours.
+     *         The file size or duration of the supplied media is too large. The maximum file size is 10GB. The maximum
+     *         duration is 6 hours.
      * @throws ProvisionedThroughputExceededException
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @throws LimitExceededException
-     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many Amazon Rekognition
-     *         Video jobs concurrently, calls to start operations (<code>StartLabelDetection</code>, for example) will
-     *         raise a <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of
-     *         concurrently running jobs is below the Amazon Rekognition service limit.
+     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many jobs concurrently,
+     *         subsequent calls to start operations (ex: <code>StartLabelDetection</code>) will raise a
+     *         <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of concurrently
+     *         running jobs is below the Amazon Rekognition service limit.
      * @throws ThrottlingException
      *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
      * @sample AmazonRekognition.StartLabelDetection
      */
     StartLabelDetectionResult startLabelDetection(StartLabelDetectionRequest startLabelDetectionRequest);
+
+    /**
+     * <p>
+     * Initiates a new media analysis job. Accepts a manifest file in an Amazon S3 bucket. The output is a manifest file
+     * and a summary of the manifest stored in the Amazon S3 bucket.
+     * </p>
+     * 
+     * @param startMediaAnalysisJobRequest
+     * @return Result of the StartMediaAnalysisJob operation returned by the service.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws InvalidManifestException
+     *         Indicates that a provided manifest file is empty or larger than the allowed limit.
+     * @throws InvalidS3ObjectException
+     *         Amazon Rekognition is unable to access the S3 object specified in the request.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws ResourceNotReadyException
+     *         The requested resource isn't ready. For example, this exception occurs when you call
+     *         <code>DetectCustomLabels</code> with a model version that isn't deployed.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws LimitExceededException
+     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many jobs concurrently,
+     *         subsequent calls to start operations (ex: <code>StartLabelDetection</code>) will raise a
+     *         <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of concurrently
+     *         running jobs is below the Amazon Rekognition service limit.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws IdempotentParameterMismatchException
+     *         A <code>ClientRequestToken</code> input parameter was reused with an operation, but at least one of the
+     *         other input parameters is different from the previous call to the operation.
+     * @sample AmazonRekognition.StartMediaAnalysisJob
+     */
+    StartMediaAnalysisJobResult startMediaAnalysisJob(StartMediaAnalysisJobRequest startMediaAnalysisJobRequest);
 
     /**
      * <p>
@@ -1725,16 +3878,16 @@ public interface AmazonRekognition {
      * @throws InternalServerErrorException
      *         Amazon Rekognition experienced a service issue. Try your call again.
      * @throws VideoTooLargeException
-     *         The file size or duration of the supplied media is too large. The maximum file size is 8GB. The maximum
-     *         duration is 2 hours.
+     *         The file size or duration of the supplied media is too large. The maximum file size is 10GB. The maximum
+     *         duration is 6 hours.
      * @throws ProvisionedThroughputExceededException
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @throws LimitExceededException
-     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many Amazon Rekognition
-     *         Video jobs concurrently, calls to start operations (<code>StartLabelDetection</code>, for example) will
-     *         raise a <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of
-     *         concurrently running jobs is below the Amazon Rekognition service limit.
+     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many jobs concurrently,
+     *         subsequent calls to start operations (ex: <code>StartLabelDetection</code>) will raise a
+     *         <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of concurrently
+     *         running jobs is below the Amazon Rekognition service limit.
      * @throws ThrottlingException
      *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
      * @sample AmazonRekognition.StartPersonTracking
@@ -1742,10 +3895,120 @@ public interface AmazonRekognition {
     StartPersonTrackingResult startPersonTracking(StartPersonTrackingRequest startPersonTrackingRequest);
 
     /**
+     * <note>
+     * <p>
+     * This operation applies only to Amazon Rekognition Custom Labels.
+     * </p>
+     * </note>
+     * <p>
+     * Starts the running of the version of a model. Starting a model takes a while to complete. To check the current
+     * state of the model, use <a>DescribeProjectVersions</a>.
+     * </p>
+     * <p>
+     * Once the model is running, you can detect custom labels in new images by calling <a>DetectCustomLabels</a>.
+     * </p>
+     * <note>
+     * <p>
+     * You are charged for the amount of time that the model is running. To stop a running model, call
+     * <a>StopProjectVersion</a>.
+     * </p>
+     * </note>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:StartProjectVersion</code> action.
+     * </p>
+     * 
+     * @param startProjectVersionRequest
+     * @return Result of the StartProjectVersion operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws ResourceInUseException
+     *         The specified resource is already being used.
+     * @throws LimitExceededException
+     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many jobs concurrently,
+     *         subsequent calls to start operations (ex: <code>StartLabelDetection</code>) will raise a
+     *         <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of concurrently
+     *         running jobs is below the Amazon Rekognition service limit.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @sample AmazonRekognition.StartProjectVersion
+     */
+    StartProjectVersionResult startProjectVersion(StartProjectVersionRequest startProjectVersionRequest);
+
+    /**
+     * <p>
+     * Starts asynchronous detection of segment detection in a stored video.
+     * </p>
+     * <p>
+     * Amazon Rekognition Video can detect segments in a video stored in an Amazon S3 bucket. Use <a>Video</a> to
+     * specify the bucket name and the filename of the video. <code>StartSegmentDetection</code> returns a job
+     * identifier (<code>JobId</code>) which you use to get the results of the operation. When segment detection is
+     * finished, Amazon Rekognition Video publishes a completion status to the Amazon Simple Notification Service topic
+     * that you specify in <code>NotificationChannel</code>.
+     * </p>
+     * <p>
+     * You can use the <code>Filters</code> (<a>StartSegmentDetectionFilters</a>) input parameter to specify the minimum
+     * detection confidence returned in the response. Within <code>Filters</code>, use <code>ShotFilter</code>
+     * (<a>StartShotDetectionFilter</a>) to filter detected shots. Use <code>TechnicalCueFilter</code>
+     * (<a>StartTechnicalCueDetectionFilter</a>) to filter technical cues.
+     * </p>
+     * <p>
+     * To get the results of the segment detection operation, first check that the status value published to the Amazon
+     * SNS topic is <code>SUCCEEDED</code>. if so, call <a>GetSegmentDetection</a> and pass the job identifier (
+     * <code>JobId</code>) from the initial call to <code>StartSegmentDetection</code>.
+     * </p>
+     * <p>
+     * For more information, see Detecting video segments in stored video in the Amazon Rekognition Developer Guide.
+     * </p>
+     * 
+     * @param startSegmentDetectionRequest
+     * @return Result of the StartSegmentDetection operation returned by the service.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws IdempotentParameterMismatchException
+     *         A <code>ClientRequestToken</code> input parameter was reused with an operation, but at least one of the
+     *         other input parameters is different from the previous call to the operation.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws InvalidS3ObjectException
+     *         Amazon Rekognition is unable to access the S3 object specified in the request.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws VideoTooLargeException
+     *         The file size or duration of the supplied media is too large. The maximum file size is 10GB. The maximum
+     *         duration is 6 hours.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws LimitExceededException
+     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many jobs concurrently,
+     *         subsequent calls to start operations (ex: <code>StartLabelDetection</code>) will raise a
+     *         <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of concurrently
+     *         running jobs is below the Amazon Rekognition service limit.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @sample AmazonRekognition.StartSegmentDetection
+     */
+    StartSegmentDetectionResult startSegmentDetection(StartSegmentDetectionRequest startSegmentDetectionRequest);
+
+    /**
      * <p>
      * Starts processing a stream processor. You create a stream processor by calling <a>CreateStreamProcessor</a>. To
      * tell <code>StartStreamProcessor</code> which stream processor to start, use the value of the <code>Name</code>
      * field specified in the call to <code>CreateStreamProcessor</code>.
+     * </p>
+     * <p>
+     * If you are using a label detection stream processor to detect labels, you need to provide a
+     * <code>Start selector</code> and a <code>Stop selector</code> to determine the length of the stream processing
+     * time.
      * </p>
      * 
      * @param startStreamProcessorRequest
@@ -1759,14 +4022,97 @@ public interface AmazonRekognition {
      * @throws InvalidParameterException
      *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
      * @throws ResourceNotFoundException
-     *         The collection specified in the request cannot be found.
+     *         The resource specified in the request cannot be found.
      * @throws ResourceInUseException
+     *         The specified resource is already being used.
      * @throws ProvisionedThroughputExceededException
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @sample AmazonRekognition.StartStreamProcessor
      */
     StartStreamProcessorResult startStreamProcessor(StartStreamProcessorRequest startStreamProcessorRequest);
+
+    /**
+     * <p>
+     * Starts asynchronous detection of text in a stored video.
+     * </p>
+     * <p>
+     * Amazon Rekognition Video can detect text in a video stored in an Amazon S3 bucket. Use <a>Video</a> to specify
+     * the bucket name and the filename of the video. <code>StartTextDetection</code> returns a job identifier (
+     * <code>JobId</code>) which you use to get the results of the operation. When text detection is finished, Amazon
+     * Rekognition Video publishes a completion status to the Amazon Simple Notification Service topic that you specify
+     * in <code>NotificationChannel</code>.
+     * </p>
+     * <p>
+     * To get the results of the text detection operation, first check that the status value published to the Amazon SNS
+     * topic is <code>SUCCEEDED</code>. if so, call <a>GetTextDetection</a> and pass the job identifier (
+     * <code>JobId</code>) from the initial call to <code>StartTextDetection</code>.
+     * </p>
+     * 
+     * @param startTextDetectionRequest
+     * @return Result of the StartTextDetection operation returned by the service.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws IdempotentParameterMismatchException
+     *         A <code>ClientRequestToken</code> input parameter was reused with an operation, but at least one of the
+     *         other input parameters is different from the previous call to the operation.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws InvalidS3ObjectException
+     *         Amazon Rekognition is unable to access the S3 object specified in the request.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws VideoTooLargeException
+     *         The file size or duration of the supplied media is too large. The maximum file size is 10GB. The maximum
+     *         duration is 6 hours.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws LimitExceededException
+     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many jobs concurrently,
+     *         subsequent calls to start operations (ex: <code>StartLabelDetection</code>) will raise a
+     *         <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of concurrently
+     *         running jobs is below the Amazon Rekognition service limit.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @sample AmazonRekognition.StartTextDetection
+     */
+    StartTextDetectionResult startTextDetection(StartTextDetectionRequest startTextDetectionRequest);
+
+    /**
+     * <note>
+     * <p>
+     * This operation applies only to Amazon Rekognition Custom Labels.
+     * </p>
+     * </note>
+     * <p>
+     * Stops a running model. The operation might take a while to complete. To check the current status, call
+     * <a>DescribeProjectVersions</a>. Only applies to Custom Labels projects.
+     * </p>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:StopProjectVersion</code> action.
+     * </p>
+     * 
+     * @param stopProjectVersionRequest
+     * @return Result of the StopProjectVersion operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws ResourceInUseException
+     *         The specified resource is already being used.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @sample AmazonRekognition.StopProjectVersion
+     */
+    StopProjectVersionResult stopProjectVersion(StopProjectVersionRequest stopProjectVersionRequest);
 
     /**
      * <p>
@@ -1784,14 +4130,166 @@ public interface AmazonRekognition {
      * @throws InvalidParameterException
      *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
      * @throws ResourceNotFoundException
-     *         The collection specified in the request cannot be found.
+     *         The resource specified in the request cannot be found.
      * @throws ResourceInUseException
+     *         The specified resource is already being used.
      * @throws ProvisionedThroughputExceededException
      *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
      *         Rekognition.
      * @sample AmazonRekognition.StopStreamProcessor
      */
     StopStreamProcessorResult stopStreamProcessor(StopStreamProcessorRequest stopStreamProcessorRequest);
+
+    /**
+     * <p>
+     * Adds one or more key-value tags to an Amazon Rekognition collection, stream processor, or Custom Labels model.
+     * For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging AWS
+     * Resources</a>.
+     * </p>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:TagResource</code> action.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws ServiceQuotaExceededException
+     *         <p>
+     *         The size of the collection exceeds the allowed limit. For more information, see Guidelines and quotas in
+     *         Amazon Rekognition in the Amazon Rekognition Developer Guide.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @sample AmazonRekognition.TagResource
+     */
+    TagResourceResult tagResource(TagResourceRequest tagResourceRequest);
+
+    /**
+     * <p>
+     * Removes one or more tags from an Amazon Rekognition collection, stream processor, or Custom Labels model.
+     * </p>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:UntagResource</code> action.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @sample AmazonRekognition.UntagResource
+     */
+    UntagResourceResult untagResource(UntagResourceRequest untagResourceRequest);
+
+    /**
+     * <note>
+     * <p>
+     * This operation applies only to Amazon Rekognition Custom Labels.
+     * </p>
+     * </note>
+     * <p>
+     * Adds or updates one or more entries (images) in a dataset. An entry is a JSON Line which contains the information
+     * for a single image, including the image location, assigned labels, and object location bounding boxes. For more
+     * information, see Image-Level labels in manifest files and Object localization in manifest files in the <i>Amazon
+     * Rekognition Custom Labels Developer Guide</i>.
+     * </p>
+     * <p>
+     * If the <code>source-ref</code> field in the JSON line references an existing image, the existing image in the
+     * dataset is updated. If <code>source-ref</code> field doesn't reference an existing image, the image is added as a
+     * new image to the dataset.
+     * </p>
+     * <p>
+     * You specify the changes that you want to make in the <code>Changes</code> input parameter. There isn't a limit to
+     * the number JSON Lines that you can change, but the size of <code>Changes</code> must be less than 5MB.
+     * </p>
+     * <p>
+     * <code>UpdateDatasetEntries</code> returns immediatly, but the dataset update might take a while to complete. Use
+     * <a>DescribeDataset</a> to check the current status. The dataset updated successfully if the value of
+     * <code>Status</code> is <code>UPDATE_COMPLETE</code>.
+     * </p>
+     * <p>
+     * To check if any non-terminal errors occured, call <a>ListDatasetEntries</a> and check for the presence of
+     * <code>errors</code> lists in the JSON Lines.
+     * </p>
+     * <p>
+     * Dataset update fails if a terminal error occurs (<code>Status</code> = <code>UPDATE_FAILED</code>). Currently,
+     * you can't access the terminal error information from the Amazon Rekognition Custom Labels SDK.
+     * </p>
+     * <p>
+     * This operation requires permissions to perform the <code>rekognition:UpdateDatasetEntries</code> action.
+     * </p>
+     * 
+     * @param updateDatasetEntriesRequest
+     * @return Result of the UpdateDatasetEntries operation returned by the service.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws LimitExceededException
+     *         An Amazon Rekognition service limit was exceeded. For example, if you start too many jobs concurrently,
+     *         subsequent calls to start operations (ex: <code>StartLabelDetection</code>) will raise a
+     *         <code>LimitExceededException</code> exception (HTTP status code: 400) until the number of concurrently
+     *         running jobs is below the Amazon Rekognition service limit.
+     * @throws ResourceInUseException
+     *         The specified resource is already being used.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @sample AmazonRekognition.UpdateDatasetEntries
+     */
+    UpdateDatasetEntriesResult updateDatasetEntries(UpdateDatasetEntriesRequest updateDatasetEntriesRequest);
+
+    /**
+     * <p>
+     * Allows you to update a stream processor. You can change some settings and regions of interest and delete certain
+     * parameters.
+     * </p>
+     * 
+     * @param updateStreamProcessorRequest
+     * @return Result of the UpdateStreamProcessor operation returned by the service.
+     * @throws AccessDeniedException
+     *         You are not authorized to perform the action.
+     * @throws InternalServerErrorException
+     *         Amazon Rekognition experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         Amazon Rekognition is temporarily unable to process the request. Try your call again.
+     * @throws InvalidParameterException
+     *         Input parameter violated a constraint. Validate your parameter before calling the API operation again.
+     * @throws ResourceNotFoundException
+     *         The resource specified in the request cannot be found.
+     * @throws ProvisionedThroughputExceededException
+     *         The number of requests exceeded your throughput limit. If you want to increase this limit, contact Amazon
+     *         Rekognition.
+     * @throws ResourceInUseException
+     *         The specified resource is already being used.
+     * @sample AmazonRekognition.UpdateStreamProcessor
+     */
+    UpdateStreamProcessorResult updateStreamProcessor(UpdateStreamProcessorRequest updateStreamProcessorRequest);
 
     /**
      * Shuts down this client object, releasing any resources that might be held open. This is an optional method, and
@@ -1815,5 +4313,7 @@ public interface AmazonRekognition {
      * @return The response metadata for the specified request, or null if none is available.
      */
     ResponseMetadata getCachedResponseMetadata(AmazonWebServiceRequest request);
+
+    AmazonRekognitionWaiters waiters();
 
 }

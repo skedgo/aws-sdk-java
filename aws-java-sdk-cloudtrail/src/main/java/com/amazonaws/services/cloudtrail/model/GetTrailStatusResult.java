@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,22 +28,24 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * Whether the CloudTrail is currently logging AWS API calls.
+     * Whether the CloudTrail trail is currently logging Amazon Web Services API calls.
      * </p>
      */
     private Boolean isLogging;
     /**
      * <p>
      * Displays any Amazon S3 error that CloudTrail encountered when attempting to deliver log files to the designated
-     * bucket. For more information see the topic <a
-     * href="http://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the Amazon S3
+     * bucket. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the Amazon S3
      * API Reference.
      * </p>
      * <note>
      * <p>
-     * This error occurs only when there is a problem with the destination S3 bucket and will not occur for timeouts. To
-     * resolve the issue, create a new bucket and call <code>UpdateTrail</code> to specify the new bucket, or fix the
-     * existing objects so that CloudTrail can again write to the bucket.
+     * This error occurs only when there is a problem with the destination S3 bucket, and does not occur for requests
+     * that time out. To resolve the issue, fix the <a
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create-s3-bucket-policy-for-cloudtrail.html"
+     * >bucket policy</a> so that CloudTrail can write to the bucket; or create a new bucket and call
+     * <code>UpdateTrail</code> to specify the new bucket.
      * </p>
      * </note>
      */
@@ -52,7 +54,7 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
      * <p>
      * Displays any Amazon SNS error that CloudTrail encountered when attempting to send a notification. For more
      * information about Amazon SNS errors, see the <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/welcome.html">Amazon SNS Developer Guide</a>.
+     * href="https://docs.aws.amazon.com/sns/latest/dg/welcome.html">Amazon SNS Developer Guide</a>.
      * </p>
      */
     private String latestNotificationError;
@@ -71,13 +73,15 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
     private java.util.Date latestNotificationTime;
     /**
      * <p>
-     * Specifies the most recent date and time when CloudTrail started recording API calls for an AWS account.
+     * Specifies the most recent date and time when CloudTrail started recording API calls for an Amazon Web Services
+     * account.
      * </p>
      */
     private java.util.Date startLoggingTime;
     /**
      * <p>
-     * Specifies the most recent date and time when CloudTrail stopped recording API calls for an AWS account.
+     * Specifies the most recent date and time when CloudTrail stopped recording API calls for an Amazon Web Services
+     * account.
      * </p>
      */
     private java.util.Date stopLoggingTime;
@@ -103,63 +107,65 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
     /**
      * <p>
      * Displays any Amazon S3 error that CloudTrail encountered when attempting to deliver a digest file to the
-     * designated bucket. For more information see the topic <a
-     * href="http://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the Amazon S3
+     * designated bucket. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the Amazon S3
      * API Reference.
      * </p>
      * <note>
      * <p>
-     * This error occurs only when there is a problem with the destination S3 bucket and will not occur for timeouts. To
-     * resolve the issue, create a new bucket and call <code>UpdateTrail</code> to specify the new bucket, or fix the
-     * existing objects so that CloudTrail can again write to the bucket.
+     * This error occurs only when there is a problem with the destination S3 bucket, and does not occur for requests
+     * that time out. To resolve the issue, fix the <a
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create-s3-bucket-policy-for-cloudtrail.html"
+     * >bucket policy</a> so that CloudTrail can write to the bucket; or create a new bucket and call
+     * <code>UpdateTrail</code> to specify the new bucket.
      * </p>
      * </note>
      */
     private String latestDigestDeliveryError;
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      */
     private String latestDeliveryAttemptTime;
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      */
     private String latestNotificationAttemptTime;
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      */
     private String latestNotificationAttemptSucceeded;
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      */
     private String latestDeliveryAttemptSucceeded;
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      */
     private String timeLoggingStarted;
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      */
     private String timeLoggingStopped;
 
     /**
      * <p>
-     * Whether the CloudTrail is currently logging AWS API calls.
+     * Whether the CloudTrail trail is currently logging Amazon Web Services API calls.
      * </p>
      * 
      * @param isLogging
-     *        Whether the CloudTrail is currently logging AWS API calls.
+     *        Whether the CloudTrail trail is currently logging Amazon Web Services API calls.
      */
 
     public void setIsLogging(Boolean isLogging) {
@@ -168,10 +174,10 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * Whether the CloudTrail is currently logging AWS API calls.
+     * Whether the CloudTrail trail is currently logging Amazon Web Services API calls.
      * </p>
      * 
-     * @return Whether the CloudTrail is currently logging AWS API calls.
+     * @return Whether the CloudTrail trail is currently logging Amazon Web Services API calls.
      */
 
     public Boolean getIsLogging() {
@@ -180,11 +186,11 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * Whether the CloudTrail is currently logging AWS API calls.
+     * Whether the CloudTrail trail is currently logging Amazon Web Services API calls.
      * </p>
      * 
      * @param isLogging
-     *        Whether the CloudTrail is currently logging AWS API calls.
+     *        Whether the CloudTrail trail is currently logging Amazon Web Services API calls.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -195,10 +201,10 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * Whether the CloudTrail is currently logging AWS API calls.
+     * Whether the CloudTrail trail is currently logging Amazon Web Services API calls.
      * </p>
      * 
-     * @return Whether the CloudTrail is currently logging AWS API calls.
+     * @return Whether the CloudTrail trail is currently logging Amazon Web Services API calls.
      */
 
     public Boolean isLogging() {
@@ -208,27 +214,31 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
     /**
      * <p>
      * Displays any Amazon S3 error that CloudTrail encountered when attempting to deliver log files to the designated
-     * bucket. For more information see the topic <a
-     * href="http://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the Amazon S3
+     * bucket. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the Amazon S3
      * API Reference.
      * </p>
      * <note>
      * <p>
-     * This error occurs only when there is a problem with the destination S3 bucket and will not occur for timeouts. To
-     * resolve the issue, create a new bucket and call <code>UpdateTrail</code> to specify the new bucket, or fix the
-     * existing objects so that CloudTrail can again write to the bucket.
+     * This error occurs only when there is a problem with the destination S3 bucket, and does not occur for requests
+     * that time out. To resolve the issue, fix the <a
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create-s3-bucket-policy-for-cloudtrail.html"
+     * >bucket policy</a> so that CloudTrail can write to the bucket; or create a new bucket and call
+     * <code>UpdateTrail</code> to specify the new bucket.
      * </p>
      * </note>
      * 
      * @param latestDeliveryError
      *        Displays any Amazon S3 error that CloudTrail encountered when attempting to deliver log files to the
-     *        designated bucket. For more information see the topic <a
-     *        href="http://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the
+     *        designated bucket. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the
      *        Amazon S3 API Reference. </p> <note>
      *        <p>
-     *        This error occurs only when there is a problem with the destination S3 bucket and will not occur for
-     *        timeouts. To resolve the issue, create a new bucket and call <code>UpdateTrail</code> to specify the new
-     *        bucket, or fix the existing objects so that CloudTrail can again write to the bucket.
+     *        This error occurs only when there is a problem with the destination S3 bucket, and does not occur for
+     *        requests that time out. To resolve the issue, fix the <a href=
+     *        "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create-s3-bucket-policy-for-cloudtrail.html"
+     *        >bucket policy</a> so that CloudTrail can write to the bucket; or create a new bucket and call
+     *        <code>UpdateTrail</code> to specify the new bucket.
      *        </p>
      */
 
@@ -239,26 +249,30 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
     /**
      * <p>
      * Displays any Amazon S3 error that CloudTrail encountered when attempting to deliver log files to the designated
-     * bucket. For more information see the topic <a
-     * href="http://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the Amazon S3
+     * bucket. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the Amazon S3
      * API Reference.
      * </p>
      * <note>
      * <p>
-     * This error occurs only when there is a problem with the destination S3 bucket and will not occur for timeouts. To
-     * resolve the issue, create a new bucket and call <code>UpdateTrail</code> to specify the new bucket, or fix the
-     * existing objects so that CloudTrail can again write to the bucket.
+     * This error occurs only when there is a problem with the destination S3 bucket, and does not occur for requests
+     * that time out. To resolve the issue, fix the <a
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create-s3-bucket-policy-for-cloudtrail.html"
+     * >bucket policy</a> so that CloudTrail can write to the bucket; or create a new bucket and call
+     * <code>UpdateTrail</code> to specify the new bucket.
      * </p>
      * </note>
      * 
      * @return Displays any Amazon S3 error that CloudTrail encountered when attempting to deliver log files to the
-     *         designated bucket. For more information see the topic <a
-     *         href="http://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the
+     *         designated bucket. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the
      *         Amazon S3 API Reference. </p> <note>
      *         <p>
-     *         This error occurs only when there is a problem with the destination S3 bucket and will not occur for
-     *         timeouts. To resolve the issue, create a new bucket and call <code>UpdateTrail</code> to specify the new
-     *         bucket, or fix the existing objects so that CloudTrail can again write to the bucket.
+     *         This error occurs only when there is a problem with the destination S3 bucket, and does not occur for
+     *         requests that time out. To resolve the issue, fix the <a href=
+     *         "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create-s3-bucket-policy-for-cloudtrail.html"
+     *         >bucket policy</a> so that CloudTrail can write to the bucket; or create a new bucket and call
+     *         <code>UpdateTrail</code> to specify the new bucket.
      *         </p>
      */
 
@@ -269,27 +283,31 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
     /**
      * <p>
      * Displays any Amazon S3 error that CloudTrail encountered when attempting to deliver log files to the designated
-     * bucket. For more information see the topic <a
-     * href="http://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the Amazon S3
+     * bucket. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the Amazon S3
      * API Reference.
      * </p>
      * <note>
      * <p>
-     * This error occurs only when there is a problem with the destination S3 bucket and will not occur for timeouts. To
-     * resolve the issue, create a new bucket and call <code>UpdateTrail</code> to specify the new bucket, or fix the
-     * existing objects so that CloudTrail can again write to the bucket.
+     * This error occurs only when there is a problem with the destination S3 bucket, and does not occur for requests
+     * that time out. To resolve the issue, fix the <a
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create-s3-bucket-policy-for-cloudtrail.html"
+     * >bucket policy</a> so that CloudTrail can write to the bucket; or create a new bucket and call
+     * <code>UpdateTrail</code> to specify the new bucket.
      * </p>
      * </note>
      * 
      * @param latestDeliveryError
      *        Displays any Amazon S3 error that CloudTrail encountered when attempting to deliver log files to the
-     *        designated bucket. For more information see the topic <a
-     *        href="http://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the
+     *        designated bucket. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the
      *        Amazon S3 API Reference. </p> <note>
      *        <p>
-     *        This error occurs only when there is a problem with the destination S3 bucket and will not occur for
-     *        timeouts. To resolve the issue, create a new bucket and call <code>UpdateTrail</code> to specify the new
-     *        bucket, or fix the existing objects so that CloudTrail can again write to the bucket.
+     *        This error occurs only when there is a problem with the destination S3 bucket, and does not occur for
+     *        requests that time out. To resolve the issue, fix the <a href=
+     *        "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create-s3-bucket-policy-for-cloudtrail.html"
+     *        >bucket policy</a> so that CloudTrail can write to the bucket; or create a new bucket and call
+     *        <code>UpdateTrail</code> to specify the new bucket.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -303,13 +321,13 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
      * <p>
      * Displays any Amazon SNS error that CloudTrail encountered when attempting to send a notification. For more
      * information about Amazon SNS errors, see the <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/welcome.html">Amazon SNS Developer Guide</a>.
+     * href="https://docs.aws.amazon.com/sns/latest/dg/welcome.html">Amazon SNS Developer Guide</a>.
      * </p>
      * 
      * @param latestNotificationError
      *        Displays any Amazon SNS error that CloudTrail encountered when attempting to send a notification. For more
      *        information about Amazon SNS errors, see the <a
-     *        href="http://docs.aws.amazon.com/sns/latest/dg/welcome.html">Amazon SNS Developer Guide</a>.
+     *        href="https://docs.aws.amazon.com/sns/latest/dg/welcome.html">Amazon SNS Developer Guide</a>.
      */
 
     public void setLatestNotificationError(String latestNotificationError) {
@@ -320,12 +338,12 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
      * <p>
      * Displays any Amazon SNS error that CloudTrail encountered when attempting to send a notification. For more
      * information about Amazon SNS errors, see the <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/welcome.html">Amazon SNS Developer Guide</a>.
+     * href="https://docs.aws.amazon.com/sns/latest/dg/welcome.html">Amazon SNS Developer Guide</a>.
      * </p>
      * 
      * @return Displays any Amazon SNS error that CloudTrail encountered when attempting to send a notification. For
      *         more information about Amazon SNS errors, see the <a
-     *         href="http://docs.aws.amazon.com/sns/latest/dg/welcome.html">Amazon SNS Developer Guide</a>.
+     *         href="https://docs.aws.amazon.com/sns/latest/dg/welcome.html">Amazon SNS Developer Guide</a>.
      */
 
     public String getLatestNotificationError() {
@@ -336,13 +354,13 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
      * <p>
      * Displays any Amazon SNS error that CloudTrail encountered when attempting to send a notification. For more
      * information about Amazon SNS errors, see the <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/welcome.html">Amazon SNS Developer Guide</a>.
+     * href="https://docs.aws.amazon.com/sns/latest/dg/welcome.html">Amazon SNS Developer Guide</a>.
      * </p>
      * 
      * @param latestNotificationError
      *        Displays any Amazon SNS error that CloudTrail encountered when attempting to send a notification. For more
      *        information about Amazon SNS errors, see the <a
-     *        href="http://docs.aws.amazon.com/sns/latest/dg/welcome.html">Amazon SNS Developer Guide</a>.
+     *        href="https://docs.aws.amazon.com/sns/latest/dg/welcome.html">Amazon SNS Developer Guide</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -439,11 +457,13 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * Specifies the most recent date and time when CloudTrail started recording API calls for an AWS account.
+     * Specifies the most recent date and time when CloudTrail started recording API calls for an Amazon Web Services
+     * account.
      * </p>
      * 
      * @param startLoggingTime
-     *        Specifies the most recent date and time when CloudTrail started recording API calls for an AWS account.
+     *        Specifies the most recent date and time when CloudTrail started recording API calls for an Amazon Web
+     *        Services account.
      */
 
     public void setStartLoggingTime(java.util.Date startLoggingTime) {
@@ -452,10 +472,12 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * Specifies the most recent date and time when CloudTrail started recording API calls for an AWS account.
+     * Specifies the most recent date and time when CloudTrail started recording API calls for an Amazon Web Services
+     * account.
      * </p>
      * 
-     * @return Specifies the most recent date and time when CloudTrail started recording API calls for an AWS account.
+     * @return Specifies the most recent date and time when CloudTrail started recording API calls for an Amazon Web
+     *         Services account.
      */
 
     public java.util.Date getStartLoggingTime() {
@@ -464,11 +486,13 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * Specifies the most recent date and time when CloudTrail started recording API calls for an AWS account.
+     * Specifies the most recent date and time when CloudTrail started recording API calls for an Amazon Web Services
+     * account.
      * </p>
      * 
      * @param startLoggingTime
-     *        Specifies the most recent date and time when CloudTrail started recording API calls for an AWS account.
+     *        Specifies the most recent date and time when CloudTrail started recording API calls for an Amazon Web
+     *        Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -479,11 +503,13 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * Specifies the most recent date and time when CloudTrail stopped recording API calls for an AWS account.
+     * Specifies the most recent date and time when CloudTrail stopped recording API calls for an Amazon Web Services
+     * account.
      * </p>
      * 
      * @param stopLoggingTime
-     *        Specifies the most recent date and time when CloudTrail stopped recording API calls for an AWS account.
+     *        Specifies the most recent date and time when CloudTrail stopped recording API calls for an Amazon Web
+     *        Services account.
      */
 
     public void setStopLoggingTime(java.util.Date stopLoggingTime) {
@@ -492,10 +518,12 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * Specifies the most recent date and time when CloudTrail stopped recording API calls for an AWS account.
+     * Specifies the most recent date and time when CloudTrail stopped recording API calls for an Amazon Web Services
+     * account.
      * </p>
      * 
-     * @return Specifies the most recent date and time when CloudTrail stopped recording API calls for an AWS account.
+     * @return Specifies the most recent date and time when CloudTrail stopped recording API calls for an Amazon Web
+     *         Services account.
      */
 
     public java.util.Date getStopLoggingTime() {
@@ -504,11 +532,13 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * Specifies the most recent date and time when CloudTrail stopped recording API calls for an AWS account.
+     * Specifies the most recent date and time when CloudTrail stopped recording API calls for an Amazon Web Services
+     * account.
      * </p>
      * 
      * @param stopLoggingTime
-     *        Specifies the most recent date and time when CloudTrail stopped recording API calls for an AWS account.
+     *        Specifies the most recent date and time when CloudTrail stopped recording API calls for an Amazon Web
+     *        Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -647,27 +677,31 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
     /**
      * <p>
      * Displays any Amazon S3 error that CloudTrail encountered when attempting to deliver a digest file to the
-     * designated bucket. For more information see the topic <a
-     * href="http://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the Amazon S3
+     * designated bucket. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the Amazon S3
      * API Reference.
      * </p>
      * <note>
      * <p>
-     * This error occurs only when there is a problem with the destination S3 bucket and will not occur for timeouts. To
-     * resolve the issue, create a new bucket and call <code>UpdateTrail</code> to specify the new bucket, or fix the
-     * existing objects so that CloudTrail can again write to the bucket.
+     * This error occurs only when there is a problem with the destination S3 bucket, and does not occur for requests
+     * that time out. To resolve the issue, fix the <a
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create-s3-bucket-policy-for-cloudtrail.html"
+     * >bucket policy</a> so that CloudTrail can write to the bucket; or create a new bucket and call
+     * <code>UpdateTrail</code> to specify the new bucket.
      * </p>
      * </note>
      * 
      * @param latestDigestDeliveryError
      *        Displays any Amazon S3 error that CloudTrail encountered when attempting to deliver a digest file to the
-     *        designated bucket. For more information see the topic <a
-     *        href="http://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the
+     *        designated bucket. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the
      *        Amazon S3 API Reference. </p> <note>
      *        <p>
-     *        This error occurs only when there is a problem with the destination S3 bucket and will not occur for
-     *        timeouts. To resolve the issue, create a new bucket and call <code>UpdateTrail</code> to specify the new
-     *        bucket, or fix the existing objects so that CloudTrail can again write to the bucket.
+     *        This error occurs only when there is a problem with the destination S3 bucket, and does not occur for
+     *        requests that time out. To resolve the issue, fix the <a href=
+     *        "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create-s3-bucket-policy-for-cloudtrail.html"
+     *        >bucket policy</a> so that CloudTrail can write to the bucket; or create a new bucket and call
+     *        <code>UpdateTrail</code> to specify the new bucket.
      *        </p>
      */
 
@@ -678,26 +712,30 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
     /**
      * <p>
      * Displays any Amazon S3 error that CloudTrail encountered when attempting to deliver a digest file to the
-     * designated bucket. For more information see the topic <a
-     * href="http://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the Amazon S3
+     * designated bucket. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the Amazon S3
      * API Reference.
      * </p>
      * <note>
      * <p>
-     * This error occurs only when there is a problem with the destination S3 bucket and will not occur for timeouts. To
-     * resolve the issue, create a new bucket and call <code>UpdateTrail</code> to specify the new bucket, or fix the
-     * existing objects so that CloudTrail can again write to the bucket.
+     * This error occurs only when there is a problem with the destination S3 bucket, and does not occur for requests
+     * that time out. To resolve the issue, fix the <a
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create-s3-bucket-policy-for-cloudtrail.html"
+     * >bucket policy</a> so that CloudTrail can write to the bucket; or create a new bucket and call
+     * <code>UpdateTrail</code> to specify the new bucket.
      * </p>
      * </note>
      * 
      * @return Displays any Amazon S3 error that CloudTrail encountered when attempting to deliver a digest file to the
-     *         designated bucket. For more information see the topic <a
-     *         href="http://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the
+     *         designated bucket. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the
      *         Amazon S3 API Reference. </p> <note>
      *         <p>
-     *         This error occurs only when there is a problem with the destination S3 bucket and will not occur for
-     *         timeouts. To resolve the issue, create a new bucket and call <code>UpdateTrail</code> to specify the new
-     *         bucket, or fix the existing objects so that CloudTrail can again write to the bucket.
+     *         This error occurs only when there is a problem with the destination S3 bucket, and does not occur for
+     *         requests that time out. To resolve the issue, fix the <a href=
+     *         "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create-s3-bucket-policy-for-cloudtrail.html"
+     *         >bucket policy</a> so that CloudTrail can write to the bucket; or create a new bucket and call
+     *         <code>UpdateTrail</code> to specify the new bucket.
      *         </p>
      */
 
@@ -708,27 +746,31 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
     /**
      * <p>
      * Displays any Amazon S3 error that CloudTrail encountered when attempting to deliver a digest file to the
-     * designated bucket. For more information see the topic <a
-     * href="http://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the Amazon S3
+     * designated bucket. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the Amazon S3
      * API Reference.
      * </p>
      * <note>
      * <p>
-     * This error occurs only when there is a problem with the destination S3 bucket and will not occur for timeouts. To
-     * resolve the issue, create a new bucket and call <code>UpdateTrail</code> to specify the new bucket, or fix the
-     * existing objects so that CloudTrail can again write to the bucket.
+     * This error occurs only when there is a problem with the destination S3 bucket, and does not occur for requests
+     * that time out. To resolve the issue, fix the <a
+     * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create-s3-bucket-policy-for-cloudtrail.html"
+     * >bucket policy</a> so that CloudTrail can write to the bucket; or create a new bucket and call
+     * <code>UpdateTrail</code> to specify the new bucket.
      * </p>
      * </note>
      * 
      * @param latestDigestDeliveryError
      *        Displays any Amazon S3 error that CloudTrail encountered when attempting to deliver a digest file to the
-     *        designated bucket. For more information see the topic <a
-     *        href="http://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the
+     *        designated bucket. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html">Error Responses</a> in the
      *        Amazon S3 API Reference. </p> <note>
      *        <p>
-     *        This error occurs only when there is a problem with the destination S3 bucket and will not occur for
-     *        timeouts. To resolve the issue, create a new bucket and call <code>UpdateTrail</code> to specify the new
-     *        bucket, or fix the existing objects so that CloudTrail can again write to the bucket.
+     *        This error occurs only when there is a problem with the destination S3 bucket, and does not occur for
+     *        requests that time out. To resolve the issue, fix the <a href=
+     *        "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create-s3-bucket-policy-for-cloudtrail.html"
+     *        >bucket policy</a> so that CloudTrail can write to the bucket; or create a new bucket and call
+     *        <code>UpdateTrail</code> to specify the new bucket.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -740,11 +782,11 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      * 
      * @param latestDeliveryAttemptTime
-     *        This field is deprecated.
+     *        This field is no longer in use.
      */
 
     public void setLatestDeliveryAttemptTime(String latestDeliveryAttemptTime) {
@@ -753,10 +795,10 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      * 
-     * @return This field is deprecated.
+     * @return This field is no longer in use.
      */
 
     public String getLatestDeliveryAttemptTime() {
@@ -765,11 +807,11 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      * 
      * @param latestDeliveryAttemptTime
-     *        This field is deprecated.
+     *        This field is no longer in use.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -780,11 +822,11 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      * 
      * @param latestNotificationAttemptTime
-     *        This field is deprecated.
+     *        This field is no longer in use.
      */
 
     public void setLatestNotificationAttemptTime(String latestNotificationAttemptTime) {
@@ -793,10 +835,10 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      * 
-     * @return This field is deprecated.
+     * @return This field is no longer in use.
      */
 
     public String getLatestNotificationAttemptTime() {
@@ -805,11 +847,11 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      * 
      * @param latestNotificationAttemptTime
-     *        This field is deprecated.
+     *        This field is no longer in use.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -820,11 +862,11 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      * 
      * @param latestNotificationAttemptSucceeded
-     *        This field is deprecated.
+     *        This field is no longer in use.
      */
 
     public void setLatestNotificationAttemptSucceeded(String latestNotificationAttemptSucceeded) {
@@ -833,10 +875,10 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      * 
-     * @return This field is deprecated.
+     * @return This field is no longer in use.
      */
 
     public String getLatestNotificationAttemptSucceeded() {
@@ -845,11 +887,11 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      * 
      * @param latestNotificationAttemptSucceeded
-     *        This field is deprecated.
+     *        This field is no longer in use.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -860,11 +902,11 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      * 
      * @param latestDeliveryAttemptSucceeded
-     *        This field is deprecated.
+     *        This field is no longer in use.
      */
 
     public void setLatestDeliveryAttemptSucceeded(String latestDeliveryAttemptSucceeded) {
@@ -873,10 +915,10 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      * 
-     * @return This field is deprecated.
+     * @return This field is no longer in use.
      */
 
     public String getLatestDeliveryAttemptSucceeded() {
@@ -885,11 +927,11 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      * 
      * @param latestDeliveryAttemptSucceeded
-     *        This field is deprecated.
+     *        This field is no longer in use.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -900,11 +942,11 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      * 
      * @param timeLoggingStarted
-     *        This field is deprecated.
+     *        This field is no longer in use.
      */
 
     public void setTimeLoggingStarted(String timeLoggingStarted) {
@@ -913,10 +955,10 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      * 
-     * @return This field is deprecated.
+     * @return This field is no longer in use.
      */
 
     public String getTimeLoggingStarted() {
@@ -925,11 +967,11 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      * 
      * @param timeLoggingStarted
-     *        This field is deprecated.
+     *        This field is no longer in use.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -940,11 +982,11 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      * 
      * @param timeLoggingStopped
-     *        This field is deprecated.
+     *        This field is no longer in use.
      */
 
     public void setTimeLoggingStopped(String timeLoggingStopped) {
@@ -953,10 +995,10 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      * 
-     * @return This field is deprecated.
+     * @return This field is no longer in use.
      */
 
     public String getTimeLoggingStopped() {
@@ -965,11 +1007,11 @@ public class GetTrailStatusResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * This field is deprecated.
+     * This field is no longer in use.
      * </p>
      * 
      * @param timeLoggingStopped
-     *        This field is deprecated.
+     *        This field is no longer in use.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

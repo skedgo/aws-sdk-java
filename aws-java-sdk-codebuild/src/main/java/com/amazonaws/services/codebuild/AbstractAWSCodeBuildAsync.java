@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,6 +41,19 @@ public class AbstractAWSCodeBuildAsync extends AbstractAWSCodeBuild implements A
     }
 
     @Override
+    public java.util.concurrent.Future<BatchGetBuildBatchesResult> batchGetBuildBatchesAsync(BatchGetBuildBatchesRequest request) {
+
+        return batchGetBuildBatchesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchGetBuildBatchesResult> batchGetBuildBatchesAsync(BatchGetBuildBatchesRequest request,
+            com.amazonaws.handlers.AsyncHandler<BatchGetBuildBatchesRequest, BatchGetBuildBatchesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<BatchGetBuildsResult> batchGetBuildsAsync(BatchGetBuildsRequest request) {
 
         return batchGetBuildsAsync(request, null);
@@ -49,6 +62,19 @@ public class AbstractAWSCodeBuildAsync extends AbstractAWSCodeBuild implements A
     @Override
     public java.util.concurrent.Future<BatchGetBuildsResult> batchGetBuildsAsync(BatchGetBuildsRequest request,
             com.amazonaws.handlers.AsyncHandler<BatchGetBuildsRequest, BatchGetBuildsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchGetFleetsResult> batchGetFleetsAsync(BatchGetFleetsRequest request) {
+
+        return batchGetFleetsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchGetFleetsResult> batchGetFleetsAsync(BatchGetFleetsRequest request,
+            com.amazonaws.handlers.AsyncHandler<BatchGetFleetsRequest, BatchGetFleetsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -67,6 +93,45 @@ public class AbstractAWSCodeBuildAsync extends AbstractAWSCodeBuild implements A
     }
 
     @Override
+    public java.util.concurrent.Future<BatchGetReportGroupsResult> batchGetReportGroupsAsync(BatchGetReportGroupsRequest request) {
+
+        return batchGetReportGroupsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchGetReportGroupsResult> batchGetReportGroupsAsync(BatchGetReportGroupsRequest request,
+            com.amazonaws.handlers.AsyncHandler<BatchGetReportGroupsRequest, BatchGetReportGroupsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchGetReportsResult> batchGetReportsAsync(BatchGetReportsRequest request) {
+
+        return batchGetReportsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchGetReportsResult> batchGetReportsAsync(BatchGetReportsRequest request,
+            com.amazonaws.handlers.AsyncHandler<BatchGetReportsRequest, BatchGetReportsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFleetResult> createFleetAsync(CreateFleetRequest request) {
+
+        return createFleetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFleetResult> createFleetAsync(CreateFleetRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateFleetRequest, CreateFleetResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateProjectResult> createProjectAsync(CreateProjectRequest request) {
 
         return createProjectAsync(request, null);
@@ -75,6 +140,19 @@ public class AbstractAWSCodeBuildAsync extends AbstractAWSCodeBuild implements A
     @Override
     public java.util.concurrent.Future<CreateProjectResult> createProjectAsync(CreateProjectRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateProjectRequest, CreateProjectResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateReportGroupResult> createReportGroupAsync(CreateReportGroupRequest request) {
+
+        return createReportGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateReportGroupResult> createReportGroupAsync(CreateReportGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateReportGroupRequest, CreateReportGroupResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -93,6 +171,32 @@ public class AbstractAWSCodeBuildAsync extends AbstractAWSCodeBuild implements A
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteBuildBatchResult> deleteBuildBatchAsync(DeleteBuildBatchRequest request) {
+
+        return deleteBuildBatchAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteBuildBatchResult> deleteBuildBatchAsync(DeleteBuildBatchRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteBuildBatchRequest, DeleteBuildBatchResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteFleetResult> deleteFleetAsync(DeleteFleetRequest request) {
+
+        return deleteFleetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteFleetResult> deleteFleetAsync(DeleteFleetRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteFleetRequest, DeleteFleetResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteProjectResult> deleteProjectAsync(DeleteProjectRequest request) {
 
         return deleteProjectAsync(request, null);
@@ -101,6 +205,45 @@ public class AbstractAWSCodeBuildAsync extends AbstractAWSCodeBuild implements A
     @Override
     public java.util.concurrent.Future<DeleteProjectResult> deleteProjectAsync(DeleteProjectRequest request,
             com.amazonaws.handlers.AsyncHandler<DeleteProjectRequest, DeleteProjectResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteReportResult> deleteReportAsync(DeleteReportRequest request) {
+
+        return deleteReportAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteReportResult> deleteReportAsync(DeleteReportRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteReportRequest, DeleteReportResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteReportGroupResult> deleteReportGroupAsync(DeleteReportGroupRequest request) {
+
+        return deleteReportGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteReportGroupResult> deleteReportGroupAsync(DeleteReportGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteReportGroupRequest, DeleteReportGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(DeleteResourcePolicyRequest request) {
+
+        return deleteResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(DeleteResourcePolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteResourcePolicyRequest, DeleteResourcePolicyResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -132,6 +275,58 @@ public class AbstractAWSCodeBuildAsync extends AbstractAWSCodeBuild implements A
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeCodeCoveragesResult> describeCodeCoveragesAsync(DescribeCodeCoveragesRequest request) {
+
+        return describeCodeCoveragesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCodeCoveragesResult> describeCodeCoveragesAsync(DescribeCodeCoveragesRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeCodeCoveragesRequest, DescribeCodeCoveragesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTestCasesResult> describeTestCasesAsync(DescribeTestCasesRequest request) {
+
+        return describeTestCasesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTestCasesResult> describeTestCasesAsync(DescribeTestCasesRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeTestCasesRequest, DescribeTestCasesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetReportGroupTrendResult> getReportGroupTrendAsync(GetReportGroupTrendRequest request) {
+
+        return getReportGroupTrendAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetReportGroupTrendResult> getReportGroupTrendAsync(GetReportGroupTrendRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetReportGroupTrendRequest, GetReportGroupTrendResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetResourcePolicyResult> getResourcePolicyAsync(GetResourcePolicyRequest request) {
+
+        return getResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetResourcePolicyResult> getResourcePolicyAsync(GetResourcePolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetResourcePolicyRequest, GetResourcePolicyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ImportSourceCredentialsResult> importSourceCredentialsAsync(ImportSourceCredentialsRequest request) {
 
         return importSourceCredentialsAsync(request, null);
@@ -153,6 +348,32 @@ public class AbstractAWSCodeBuildAsync extends AbstractAWSCodeBuild implements A
     @Override
     public java.util.concurrent.Future<InvalidateProjectCacheResult> invalidateProjectCacheAsync(InvalidateProjectCacheRequest request,
             com.amazonaws.handlers.AsyncHandler<InvalidateProjectCacheRequest, InvalidateProjectCacheResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListBuildBatchesResult> listBuildBatchesAsync(ListBuildBatchesRequest request) {
+
+        return listBuildBatchesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListBuildBatchesResult> listBuildBatchesAsync(ListBuildBatchesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListBuildBatchesRequest, ListBuildBatchesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListBuildBatchesForProjectResult> listBuildBatchesForProjectAsync(ListBuildBatchesForProjectRequest request) {
+
+        return listBuildBatchesForProjectAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListBuildBatchesForProjectResult> listBuildBatchesForProjectAsync(ListBuildBatchesForProjectRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListBuildBatchesForProjectRequest, ListBuildBatchesForProjectResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -197,6 +418,19 @@ public class AbstractAWSCodeBuildAsync extends AbstractAWSCodeBuild implements A
     }
 
     @Override
+    public java.util.concurrent.Future<ListFleetsResult> listFleetsAsync(ListFleetsRequest request) {
+
+        return listFleetsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFleetsResult> listFleetsAsync(ListFleetsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListFleetsRequest, ListFleetsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListProjectsResult> listProjectsAsync(ListProjectsRequest request) {
 
         return listProjectsAsync(request, null);
@@ -205,6 +439,71 @@ public class AbstractAWSCodeBuildAsync extends AbstractAWSCodeBuild implements A
     @Override
     public java.util.concurrent.Future<ListProjectsResult> listProjectsAsync(ListProjectsRequest request,
             com.amazonaws.handlers.AsyncHandler<ListProjectsRequest, ListProjectsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListReportGroupsResult> listReportGroupsAsync(ListReportGroupsRequest request) {
+
+        return listReportGroupsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListReportGroupsResult> listReportGroupsAsync(ListReportGroupsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListReportGroupsRequest, ListReportGroupsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListReportsResult> listReportsAsync(ListReportsRequest request) {
+
+        return listReportsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListReportsResult> listReportsAsync(ListReportsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListReportsRequest, ListReportsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListReportsForReportGroupResult> listReportsForReportGroupAsync(ListReportsForReportGroupRequest request) {
+
+        return listReportsForReportGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListReportsForReportGroupResult> listReportsForReportGroupAsync(ListReportsForReportGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListReportsForReportGroupRequest, ListReportsForReportGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSharedProjectsResult> listSharedProjectsAsync(ListSharedProjectsRequest request) {
+
+        return listSharedProjectsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSharedProjectsResult> listSharedProjectsAsync(ListSharedProjectsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListSharedProjectsRequest, ListSharedProjectsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSharedReportGroupsResult> listSharedReportGroupsAsync(ListSharedReportGroupsRequest request) {
+
+        return listSharedReportGroupsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSharedReportGroupsResult> listSharedReportGroupsAsync(ListSharedReportGroupsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListSharedReportGroupsRequest, ListSharedReportGroupsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -223,6 +522,45 @@ public class AbstractAWSCodeBuildAsync extends AbstractAWSCodeBuild implements A
     }
 
     @Override
+    public java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(PutResourcePolicyRequest request) {
+
+        return putResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(PutResourcePolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<PutResourcePolicyRequest, PutResourcePolicyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<RetryBuildResult> retryBuildAsync(RetryBuildRequest request) {
+
+        return retryBuildAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RetryBuildResult> retryBuildAsync(RetryBuildRequest request,
+            com.amazonaws.handlers.AsyncHandler<RetryBuildRequest, RetryBuildResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<RetryBuildBatchResult> retryBuildBatchAsync(RetryBuildBatchRequest request) {
+
+        return retryBuildBatchAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RetryBuildBatchResult> retryBuildBatchAsync(RetryBuildBatchRequest request,
+            com.amazonaws.handlers.AsyncHandler<RetryBuildBatchRequest, RetryBuildBatchResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<StartBuildResult> startBuildAsync(StartBuildRequest request) {
 
         return startBuildAsync(request, null);
@@ -231,6 +569,19 @@ public class AbstractAWSCodeBuildAsync extends AbstractAWSCodeBuild implements A
     @Override
     public java.util.concurrent.Future<StartBuildResult> startBuildAsync(StartBuildRequest request,
             com.amazonaws.handlers.AsyncHandler<StartBuildRequest, StartBuildResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartBuildBatchResult> startBuildBatchAsync(StartBuildBatchRequest request) {
+
+        return startBuildBatchAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartBuildBatchResult> startBuildBatchAsync(StartBuildBatchRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartBuildBatchRequest, StartBuildBatchResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -249,6 +600,32 @@ public class AbstractAWSCodeBuildAsync extends AbstractAWSCodeBuild implements A
     }
 
     @Override
+    public java.util.concurrent.Future<StopBuildBatchResult> stopBuildBatchAsync(StopBuildBatchRequest request) {
+
+        return stopBuildBatchAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopBuildBatchResult> stopBuildBatchAsync(StopBuildBatchRequest request,
+            com.amazonaws.handlers.AsyncHandler<StopBuildBatchRequest, StopBuildBatchResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateFleetResult> updateFleetAsync(UpdateFleetRequest request) {
+
+        return updateFleetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateFleetResult> updateFleetAsync(UpdateFleetRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateFleetRequest, UpdateFleetResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateProjectResult> updateProjectAsync(UpdateProjectRequest request) {
 
         return updateProjectAsync(request, null);
@@ -257,6 +634,32 @@ public class AbstractAWSCodeBuildAsync extends AbstractAWSCodeBuild implements A
     @Override
     public java.util.concurrent.Future<UpdateProjectResult> updateProjectAsync(UpdateProjectRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateProjectRequest, UpdateProjectResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateProjectVisibilityResult> updateProjectVisibilityAsync(UpdateProjectVisibilityRequest request) {
+
+        return updateProjectVisibilityAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateProjectVisibilityResult> updateProjectVisibilityAsync(UpdateProjectVisibilityRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateProjectVisibilityRequest, UpdateProjectVisibilityResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateReportGroupResult> updateReportGroupAsync(UpdateReportGroupRequest request) {
+
+        return updateReportGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateReportGroupResult> updateReportGroupAsync(UpdateReportGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateReportGroupRequest, UpdateReportGroupResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,6 +30,8 @@ public class AwsCloudMapServiceDiscoveryMarshaller {
 
     private static final MarshallingInfo<List> ATTRIBUTES_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("attributes").build();
+    private static final MarshallingInfo<String> IPPREFERENCE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ipPreference").build();
     private static final MarshallingInfo<String> NAMESPACENAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("namespaceName").build();
     private static final MarshallingInfo<String> SERVICENAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -52,6 +54,7 @@ public class AwsCloudMapServiceDiscoveryMarshaller {
 
         try {
             protocolMarshaller.marshall(awsCloudMapServiceDiscovery.getAttributes(), ATTRIBUTES_BINDING);
+            protocolMarshaller.marshall(awsCloudMapServiceDiscovery.getIpPreference(), IPPREFERENCE_BINDING);
             protocolMarshaller.marshall(awsCloudMapServiceDiscovery.getNamespaceName(), NAMESPACENAME_BINDING);
             protocolMarshaller.marshall(awsCloudMapServiceDiscovery.getServiceName(), SERVICENAME_BINDING);
         } catch (Exception e) {

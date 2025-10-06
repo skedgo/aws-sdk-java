@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,7 +48,19 @@ public class AWSRoboMakerAsyncClient extends AWSRoboMakerClient implements AWSRo
      *        Object providing client parameters.
      */
     AWSRoboMakerAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on RoboMaker using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSRoboMakerAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -59,6 +71,39 @@ public class AWSRoboMakerAsyncClient extends AWSRoboMakerClient implements AWSRo
      */
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchDeleteWorldsResult> batchDeleteWorldsAsync(BatchDeleteWorldsRequest request) {
+
+        return batchDeleteWorldsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchDeleteWorldsResult> batchDeleteWorldsAsync(final BatchDeleteWorldsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<BatchDeleteWorldsRequest, BatchDeleteWorldsResult> asyncHandler) {
+        final BatchDeleteWorldsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<BatchDeleteWorldsResult>() {
+            @Override
+            public BatchDeleteWorldsResult call() throws Exception {
+                BatchDeleteWorldsResult result = null;
+
+                try {
+                    result = executeBatchDeleteWorlds(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -95,12 +140,14 @@ public class AWSRoboMakerAsyncClient extends AWSRoboMakerClient implements AWSRo
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<CancelDeploymentJobResult> cancelDeploymentJobAsync(CancelDeploymentJobRequest request) {
 
         return cancelDeploymentJobAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<CancelDeploymentJobResult> cancelDeploymentJobAsync(final CancelDeploymentJobRequest request,
             final com.amazonaws.handlers.AsyncHandler<CancelDeploymentJobRequest, CancelDeploymentJobResult> asyncHandler) {
         final CancelDeploymentJobRequest finalRequest = beforeClientExecution(request);
@@ -161,12 +208,113 @@ public class AWSRoboMakerAsyncClient extends AWSRoboMakerClient implements AWSRo
     }
 
     @Override
+    public java.util.concurrent.Future<CancelSimulationJobBatchResult> cancelSimulationJobBatchAsync(CancelSimulationJobBatchRequest request) {
+
+        return cancelSimulationJobBatchAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelSimulationJobBatchResult> cancelSimulationJobBatchAsync(final CancelSimulationJobBatchRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CancelSimulationJobBatchRequest, CancelSimulationJobBatchResult> asyncHandler) {
+        final CancelSimulationJobBatchRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CancelSimulationJobBatchResult>() {
+            @Override
+            public CancelSimulationJobBatchResult call() throws Exception {
+                CancelSimulationJobBatchResult result = null;
+
+                try {
+                    result = executeCancelSimulationJobBatch(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelWorldExportJobResult> cancelWorldExportJobAsync(CancelWorldExportJobRequest request) {
+
+        return cancelWorldExportJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelWorldExportJobResult> cancelWorldExportJobAsync(final CancelWorldExportJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CancelWorldExportJobRequest, CancelWorldExportJobResult> asyncHandler) {
+        final CancelWorldExportJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CancelWorldExportJobResult>() {
+            @Override
+            public CancelWorldExportJobResult call() throws Exception {
+                CancelWorldExportJobResult result = null;
+
+                try {
+                    result = executeCancelWorldExportJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelWorldGenerationJobResult> cancelWorldGenerationJobAsync(CancelWorldGenerationJobRequest request) {
+
+        return cancelWorldGenerationJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelWorldGenerationJobResult> cancelWorldGenerationJobAsync(final CancelWorldGenerationJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CancelWorldGenerationJobRequest, CancelWorldGenerationJobResult> asyncHandler) {
+        final CancelWorldGenerationJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CancelWorldGenerationJobResult>() {
+            @Override
+            public CancelWorldGenerationJobResult call() throws Exception {
+                CancelWorldGenerationJobResult result = null;
+
+                try {
+                    result = executeCancelWorldGenerationJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    @Deprecated
     public java.util.concurrent.Future<CreateDeploymentJobResult> createDeploymentJobAsync(CreateDeploymentJobRequest request) {
 
         return createDeploymentJobAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<CreateDeploymentJobResult> createDeploymentJobAsync(final CreateDeploymentJobRequest request,
             final com.amazonaws.handlers.AsyncHandler<CreateDeploymentJobRequest, CreateDeploymentJobResult> asyncHandler) {
         final CreateDeploymentJobRequest finalRequest = beforeClientExecution(request);
@@ -194,12 +342,14 @@ public class AWSRoboMakerAsyncClient extends AWSRoboMakerClient implements AWSRo
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<CreateFleetResult> createFleetAsync(CreateFleetRequest request) {
 
         return createFleetAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<CreateFleetResult> createFleetAsync(final CreateFleetRequest request,
             final com.amazonaws.handlers.AsyncHandler<CreateFleetRequest, CreateFleetResult> asyncHandler) {
         final CreateFleetRequest finalRequest = beforeClientExecution(request);
@@ -227,12 +377,14 @@ public class AWSRoboMakerAsyncClient extends AWSRoboMakerClient implements AWSRo
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<CreateRobotResult> createRobotAsync(CreateRobotRequest request) {
 
         return createRobotAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<CreateRobotResult> createRobotAsync(final CreateRobotRequest request,
             final com.amazonaws.handlers.AsyncHandler<CreateRobotRequest, CreateRobotResult> asyncHandler) {
         final CreateRobotRequest finalRequest = beforeClientExecution(request);
@@ -428,12 +580,113 @@ public class AWSRoboMakerAsyncClient extends AWSRoboMakerClient implements AWSRo
     }
 
     @Override
+    public java.util.concurrent.Future<CreateWorldExportJobResult> createWorldExportJobAsync(CreateWorldExportJobRequest request) {
+
+        return createWorldExportJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateWorldExportJobResult> createWorldExportJobAsync(final CreateWorldExportJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateWorldExportJobRequest, CreateWorldExportJobResult> asyncHandler) {
+        final CreateWorldExportJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateWorldExportJobResult>() {
+            @Override
+            public CreateWorldExportJobResult call() throws Exception {
+                CreateWorldExportJobResult result = null;
+
+                try {
+                    result = executeCreateWorldExportJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateWorldGenerationJobResult> createWorldGenerationJobAsync(CreateWorldGenerationJobRequest request) {
+
+        return createWorldGenerationJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateWorldGenerationJobResult> createWorldGenerationJobAsync(final CreateWorldGenerationJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateWorldGenerationJobRequest, CreateWorldGenerationJobResult> asyncHandler) {
+        final CreateWorldGenerationJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateWorldGenerationJobResult>() {
+            @Override
+            public CreateWorldGenerationJobResult call() throws Exception {
+                CreateWorldGenerationJobResult result = null;
+
+                try {
+                    result = executeCreateWorldGenerationJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateWorldTemplateResult> createWorldTemplateAsync(CreateWorldTemplateRequest request) {
+
+        return createWorldTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateWorldTemplateResult> createWorldTemplateAsync(final CreateWorldTemplateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateWorldTemplateRequest, CreateWorldTemplateResult> asyncHandler) {
+        final CreateWorldTemplateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateWorldTemplateResult>() {
+            @Override
+            public CreateWorldTemplateResult call() throws Exception {
+                CreateWorldTemplateResult result = null;
+
+                try {
+                    result = executeCreateWorldTemplate(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    @Deprecated
     public java.util.concurrent.Future<DeleteFleetResult> deleteFleetAsync(DeleteFleetRequest request) {
 
         return deleteFleetAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DeleteFleetResult> deleteFleetAsync(final DeleteFleetRequest request,
             final com.amazonaws.handlers.AsyncHandler<DeleteFleetRequest, DeleteFleetResult> asyncHandler) {
         final DeleteFleetRequest finalRequest = beforeClientExecution(request);
@@ -461,12 +714,14 @@ public class AWSRoboMakerAsyncClient extends AWSRoboMakerClient implements AWSRo
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DeleteRobotResult> deleteRobotAsync(DeleteRobotRequest request) {
 
         return deleteRobotAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DeleteRobotResult> deleteRobotAsync(final DeleteRobotRequest request,
             final com.amazonaws.handlers.AsyncHandler<DeleteRobotRequest, DeleteRobotResult> asyncHandler) {
         final DeleteRobotRequest finalRequest = beforeClientExecution(request);
@@ -560,12 +815,47 @@ public class AWSRoboMakerAsyncClient extends AWSRoboMakerClient implements AWSRo
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteWorldTemplateResult> deleteWorldTemplateAsync(DeleteWorldTemplateRequest request) {
+
+        return deleteWorldTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteWorldTemplateResult> deleteWorldTemplateAsync(final DeleteWorldTemplateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteWorldTemplateRequest, DeleteWorldTemplateResult> asyncHandler) {
+        final DeleteWorldTemplateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteWorldTemplateResult>() {
+            @Override
+            public DeleteWorldTemplateResult call() throws Exception {
+                DeleteWorldTemplateResult result = null;
+
+                try {
+                    result = executeDeleteWorldTemplate(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    @Deprecated
     public java.util.concurrent.Future<DeregisterRobotResult> deregisterRobotAsync(DeregisterRobotRequest request) {
 
         return deregisterRobotAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DeregisterRobotResult> deregisterRobotAsync(final DeregisterRobotRequest request,
             final com.amazonaws.handlers.AsyncHandler<DeregisterRobotRequest, DeregisterRobotResult> asyncHandler) {
         final DeregisterRobotRequest finalRequest = beforeClientExecution(request);
@@ -593,12 +883,14 @@ public class AWSRoboMakerAsyncClient extends AWSRoboMakerClient implements AWSRo
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeDeploymentJobResult> describeDeploymentJobAsync(DescribeDeploymentJobRequest request) {
 
         return describeDeploymentJobAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeDeploymentJobResult> describeDeploymentJobAsync(final DescribeDeploymentJobRequest request,
             final com.amazonaws.handlers.AsyncHandler<DescribeDeploymentJobRequest, DescribeDeploymentJobResult> asyncHandler) {
         final DescribeDeploymentJobRequest finalRequest = beforeClientExecution(request);
@@ -626,12 +918,14 @@ public class AWSRoboMakerAsyncClient extends AWSRoboMakerClient implements AWSRo
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeFleetResult> describeFleetAsync(DescribeFleetRequest request) {
 
         return describeFleetAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeFleetResult> describeFleetAsync(final DescribeFleetRequest request,
             final com.amazonaws.handlers.AsyncHandler<DescribeFleetRequest, DescribeFleetResult> asyncHandler) {
         final DescribeFleetRequest finalRequest = beforeClientExecution(request);
@@ -659,12 +953,14 @@ public class AWSRoboMakerAsyncClient extends AWSRoboMakerClient implements AWSRo
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeRobotResult> describeRobotAsync(DescribeRobotRequest request) {
 
         return describeRobotAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeRobotResult> describeRobotAsync(final DescribeRobotRequest request,
             final com.amazonaws.handlers.AsyncHandler<DescribeRobotRequest, DescribeRobotResult> asyncHandler) {
         final DescribeRobotRequest finalRequest = beforeClientExecution(request);
@@ -792,12 +1088,212 @@ public class AWSRoboMakerAsyncClient extends AWSRoboMakerClient implements AWSRo
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeSimulationJobBatchResult> describeSimulationJobBatchAsync(DescribeSimulationJobBatchRequest request) {
+
+        return describeSimulationJobBatchAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeSimulationJobBatchResult> describeSimulationJobBatchAsync(final DescribeSimulationJobBatchRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeSimulationJobBatchRequest, DescribeSimulationJobBatchResult> asyncHandler) {
+        final DescribeSimulationJobBatchRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeSimulationJobBatchResult>() {
+            @Override
+            public DescribeSimulationJobBatchResult call() throws Exception {
+                DescribeSimulationJobBatchResult result = null;
+
+                try {
+                    result = executeDescribeSimulationJobBatch(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorldResult> describeWorldAsync(DescribeWorldRequest request) {
+
+        return describeWorldAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorldResult> describeWorldAsync(final DescribeWorldRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeWorldRequest, DescribeWorldResult> asyncHandler) {
+        final DescribeWorldRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeWorldResult>() {
+            @Override
+            public DescribeWorldResult call() throws Exception {
+                DescribeWorldResult result = null;
+
+                try {
+                    result = executeDescribeWorld(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorldExportJobResult> describeWorldExportJobAsync(DescribeWorldExportJobRequest request) {
+
+        return describeWorldExportJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorldExportJobResult> describeWorldExportJobAsync(final DescribeWorldExportJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeWorldExportJobRequest, DescribeWorldExportJobResult> asyncHandler) {
+        final DescribeWorldExportJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeWorldExportJobResult>() {
+            @Override
+            public DescribeWorldExportJobResult call() throws Exception {
+                DescribeWorldExportJobResult result = null;
+
+                try {
+                    result = executeDescribeWorldExportJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorldGenerationJobResult> describeWorldGenerationJobAsync(DescribeWorldGenerationJobRequest request) {
+
+        return describeWorldGenerationJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorldGenerationJobResult> describeWorldGenerationJobAsync(final DescribeWorldGenerationJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeWorldGenerationJobRequest, DescribeWorldGenerationJobResult> asyncHandler) {
+        final DescribeWorldGenerationJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeWorldGenerationJobResult>() {
+            @Override
+            public DescribeWorldGenerationJobResult call() throws Exception {
+                DescribeWorldGenerationJobResult result = null;
+
+                try {
+                    result = executeDescribeWorldGenerationJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorldTemplateResult> describeWorldTemplateAsync(DescribeWorldTemplateRequest request) {
+
+        return describeWorldTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorldTemplateResult> describeWorldTemplateAsync(final DescribeWorldTemplateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeWorldTemplateRequest, DescribeWorldTemplateResult> asyncHandler) {
+        final DescribeWorldTemplateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeWorldTemplateResult>() {
+            @Override
+            public DescribeWorldTemplateResult call() throws Exception {
+                DescribeWorldTemplateResult result = null;
+
+                try {
+                    result = executeDescribeWorldTemplate(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetWorldTemplateBodyResult> getWorldTemplateBodyAsync(GetWorldTemplateBodyRequest request) {
+
+        return getWorldTemplateBodyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetWorldTemplateBodyResult> getWorldTemplateBodyAsync(final GetWorldTemplateBodyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetWorldTemplateBodyRequest, GetWorldTemplateBodyResult> asyncHandler) {
+        final GetWorldTemplateBodyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetWorldTemplateBodyResult>() {
+            @Override
+            public GetWorldTemplateBodyResult call() throws Exception {
+                GetWorldTemplateBodyResult result = null;
+
+                try {
+                    result = executeGetWorldTemplateBody(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    @Deprecated
     public java.util.concurrent.Future<ListDeploymentJobsResult> listDeploymentJobsAsync(ListDeploymentJobsRequest request) {
 
         return listDeploymentJobsAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<ListDeploymentJobsResult> listDeploymentJobsAsync(final ListDeploymentJobsRequest request,
             final com.amazonaws.handlers.AsyncHandler<ListDeploymentJobsRequest, ListDeploymentJobsResult> asyncHandler) {
         final ListDeploymentJobsRequest finalRequest = beforeClientExecution(request);
@@ -825,12 +1321,14 @@ public class AWSRoboMakerAsyncClient extends AWSRoboMakerClient implements AWSRo
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<ListFleetsResult> listFleetsAsync(ListFleetsRequest request) {
 
         return listFleetsAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<ListFleetsResult> listFleetsAsync(final ListFleetsRequest request,
             final com.amazonaws.handlers.AsyncHandler<ListFleetsRequest, ListFleetsResult> asyncHandler) {
         final ListFleetsRequest finalRequest = beforeClientExecution(request);
@@ -891,12 +1389,14 @@ public class AWSRoboMakerAsyncClient extends AWSRoboMakerClient implements AWSRo
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<ListRobotsResult> listRobotsAsync(ListRobotsRequest request) {
 
         return listRobotsAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<ListRobotsResult> listRobotsAsync(final ListRobotsRequest request,
             final com.amazonaws.handlers.AsyncHandler<ListRobotsRequest, ListRobotsResult> asyncHandler) {
         final ListRobotsRequest finalRequest = beforeClientExecution(request);
@@ -941,6 +1441,39 @@ public class AWSRoboMakerAsyncClient extends AWSRoboMakerClient implements AWSRo
 
                 try {
                     result = executeListSimulationApplications(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSimulationJobBatchesResult> listSimulationJobBatchesAsync(ListSimulationJobBatchesRequest request) {
+
+        return listSimulationJobBatchesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSimulationJobBatchesResult> listSimulationJobBatchesAsync(final ListSimulationJobBatchesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListSimulationJobBatchesRequest, ListSimulationJobBatchesResult> asyncHandler) {
+        final ListSimulationJobBatchesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListSimulationJobBatchesResult>() {
+            @Override
+            public ListSimulationJobBatchesResult call() throws Exception {
+                ListSimulationJobBatchesResult result = null;
+
+                try {
+                    result = executeListSimulationJobBatches(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1023,12 +1556,146 @@ public class AWSRoboMakerAsyncClient extends AWSRoboMakerClient implements AWSRo
     }
 
     @Override
+    public java.util.concurrent.Future<ListWorldExportJobsResult> listWorldExportJobsAsync(ListWorldExportJobsRequest request) {
+
+        return listWorldExportJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListWorldExportJobsResult> listWorldExportJobsAsync(final ListWorldExportJobsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListWorldExportJobsRequest, ListWorldExportJobsResult> asyncHandler) {
+        final ListWorldExportJobsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListWorldExportJobsResult>() {
+            @Override
+            public ListWorldExportJobsResult call() throws Exception {
+                ListWorldExportJobsResult result = null;
+
+                try {
+                    result = executeListWorldExportJobs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListWorldGenerationJobsResult> listWorldGenerationJobsAsync(ListWorldGenerationJobsRequest request) {
+
+        return listWorldGenerationJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListWorldGenerationJobsResult> listWorldGenerationJobsAsync(final ListWorldGenerationJobsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListWorldGenerationJobsRequest, ListWorldGenerationJobsResult> asyncHandler) {
+        final ListWorldGenerationJobsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListWorldGenerationJobsResult>() {
+            @Override
+            public ListWorldGenerationJobsResult call() throws Exception {
+                ListWorldGenerationJobsResult result = null;
+
+                try {
+                    result = executeListWorldGenerationJobs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListWorldTemplatesResult> listWorldTemplatesAsync(ListWorldTemplatesRequest request) {
+
+        return listWorldTemplatesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListWorldTemplatesResult> listWorldTemplatesAsync(final ListWorldTemplatesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListWorldTemplatesRequest, ListWorldTemplatesResult> asyncHandler) {
+        final ListWorldTemplatesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListWorldTemplatesResult>() {
+            @Override
+            public ListWorldTemplatesResult call() throws Exception {
+                ListWorldTemplatesResult result = null;
+
+                try {
+                    result = executeListWorldTemplates(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListWorldsResult> listWorldsAsync(ListWorldsRequest request) {
+
+        return listWorldsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListWorldsResult> listWorldsAsync(final ListWorldsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListWorldsRequest, ListWorldsResult> asyncHandler) {
+        final ListWorldsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListWorldsResult>() {
+            @Override
+            public ListWorldsResult call() throws Exception {
+                ListWorldsResult result = null;
+
+                try {
+                    result = executeListWorlds(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    @Deprecated
     public java.util.concurrent.Future<RegisterRobotResult> registerRobotAsync(RegisterRobotRequest request) {
 
         return registerRobotAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<RegisterRobotResult> registerRobotAsync(final RegisterRobotRequest request,
             final com.amazonaws.handlers.AsyncHandler<RegisterRobotRequest, RegisterRobotResult> asyncHandler) {
         final RegisterRobotRequest finalRequest = beforeClientExecution(request);
@@ -1089,12 +1756,47 @@ public class AWSRoboMakerAsyncClient extends AWSRoboMakerClient implements AWSRo
     }
 
     @Override
+    public java.util.concurrent.Future<StartSimulationJobBatchResult> startSimulationJobBatchAsync(StartSimulationJobBatchRequest request) {
+
+        return startSimulationJobBatchAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartSimulationJobBatchResult> startSimulationJobBatchAsync(final StartSimulationJobBatchRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartSimulationJobBatchRequest, StartSimulationJobBatchResult> asyncHandler) {
+        final StartSimulationJobBatchRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartSimulationJobBatchResult>() {
+            @Override
+            public StartSimulationJobBatchResult call() throws Exception {
+                StartSimulationJobBatchResult result = null;
+
+                try {
+                    result = executeStartSimulationJobBatch(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    @Deprecated
     public java.util.concurrent.Future<SyncDeploymentJobResult> syncDeploymentJobAsync(SyncDeploymentJobRequest request) {
 
         return syncDeploymentJobAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<SyncDeploymentJobResult> syncDeploymentJobAsync(final SyncDeploymentJobRequest request,
             final com.amazonaws.handlers.AsyncHandler<SyncDeploymentJobRequest, SyncDeploymentJobResult> asyncHandler) {
         final SyncDeploymentJobRequest finalRequest = beforeClientExecution(request);
@@ -1238,6 +1940,39 @@ public class AWSRoboMakerAsyncClient extends AWSRoboMakerClient implements AWSRo
 
                 try {
                     result = executeUpdateSimulationApplication(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateWorldTemplateResult> updateWorldTemplateAsync(UpdateWorldTemplateRequest request) {
+
+        return updateWorldTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateWorldTemplateResult> updateWorldTemplateAsync(final UpdateWorldTemplateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateWorldTemplateRequest, UpdateWorldTemplateResult> asyncHandler) {
+        final UpdateWorldTemplateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateWorldTemplateResult>() {
+            @Override
+            public UpdateWorldTemplateResult call() throws Exception {
+                UpdateWorldTemplateResult result = null;
+
+                try {
+                    result = executeUpdateWorldTemplate(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

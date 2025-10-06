@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,6 +21,7 @@ import com.amazonaws.http.HttpMethodName;
 import com.amazonaws.services.ec2.model.*;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringUtils;
+import com.amazonaws.util.IdempotentUtils;
 
 /**
  * RunInstancesRequest Marshaller
@@ -84,13 +85,23 @@ public class RunInstancesRequestMarshaller implements Marshaller<Request<RunInst
                                 StringUtils.fromString(ebs.getVolumeType()));
                     }
 
+                    if (ebs.getKmsKeyId() != null) {
+                        request.addParameter("BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.KmsKeyId", StringUtils.fromString(ebs.getKmsKeyId()));
+                    }
+
+                    if (ebs.getThroughput() != null) {
+                        request.addParameter("BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.Throughput",
+                                StringUtils.fromInteger(ebs.getThroughput()));
+                    }
+
+                    if (ebs.getOutpostArn() != null) {
+                        request.addParameter("BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.OutpostArn",
+                                StringUtils.fromString(ebs.getOutpostArn()));
+                    }
+
                     if (ebs.getEncrypted() != null) {
                         request.addParameter("BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.Encrypted",
                                 StringUtils.fromBoolean(ebs.getEncrypted()));
-                    }
-
-                    if (ebs.getKmsKeyId() != null) {
-                        request.addParameter("BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.KmsKeyId", StringUtils.fromString(ebs.getKmsKeyId()));
                     }
                 }
 
@@ -124,6 +135,11 @@ public class RunInstancesRequestMarshaller implements Marshaller<Request<RunInst
                 if (runInstancesRequestIpv6AddressesListValue.getIpv6Address() != null) {
                     request.addParameter("Ipv6Address." + ipv6AddressesListIndex + ".Ipv6Address",
                             StringUtils.fromString(runInstancesRequestIpv6AddressesListValue.getIpv6Address()));
+                }
+
+                if (runInstancesRequestIpv6AddressesListValue.getIsPrimaryIpv6() != null) {
+                    request.addParameter("Ipv6Address." + ipv6AddressesListIndex + ".IsPrimaryIpv6",
+                            StringUtils.fromBoolean(runInstancesRequestIpv6AddressesListValue.getIsPrimaryIpv6()));
                 }
                 ipv6AddressesListIndex++;
             }
@@ -179,6 +195,14 @@ public class RunInstancesRequestMarshaller implements Marshaller<Request<RunInst
             if (placement.getSpreadDomain() != null) {
                 request.addParameter("Placement.SpreadDomain", StringUtils.fromString(placement.getSpreadDomain()));
             }
+
+            if (placement.getHostResourceGroupArn() != null) {
+                request.addParameter("Placement.HostResourceGroupArn", StringUtils.fromString(placement.getHostResourceGroupArn()));
+            }
+
+            if (placement.getGroupId() != null) {
+                request.addParameter("Placement.GroupId", StringUtils.fromString(placement.getGroupId()));
+            }
         }
 
         if (runInstancesRequest.getRamdiskId() != null) {
@@ -223,9 +247,7 @@ public class RunInstancesRequestMarshaller implements Marshaller<Request<RunInst
             request.addParameter("AdditionalInfo", StringUtils.fromString(runInstancesRequest.getAdditionalInfo()));
         }
 
-        if (runInstancesRequest.getClientToken() != null) {
-            request.addParameter("ClientToken", StringUtils.fromString(runInstancesRequest.getClientToken()));
-        }
+        request.addParameter("ClientToken", IdempotentUtils.resolveString(runInstancesRequest.getClientToken()));
 
         if (runInstancesRequest.getDisableApiTermination() != null) {
             request.addParameter("DisableApiTermination", StringUtils.fromBoolean(runInstancesRequest.getDisableApiTermination()));
@@ -310,6 +332,11 @@ public class RunInstancesRequestMarshaller implements Marshaller<Request<RunInst
                                     "NetworkInterface." + networkInterfacesListIndex + ".Ipv6Addresses." + ipv6AddressesListIndex + ".Ipv6Address",
                                     StringUtils.fromString(instanceNetworkInterfaceSpecificationIpv6AddressesListValue.getIpv6Address()));
                         }
+
+                        if (instanceNetworkInterfaceSpecificationIpv6AddressesListValue.getIsPrimaryIpv6() != null) {
+                            request.addParameter("NetworkInterface." + networkInterfacesListIndex + ".Ipv6Addresses." + ipv6AddressesListIndex
+                                    + ".IsPrimaryIpv6", StringUtils.fromBoolean(instanceNetworkInterfaceSpecificationIpv6AddressesListValue.getIsPrimaryIpv6()));
+                        }
                         ipv6AddressesListIndex++;
                     }
                 }
@@ -356,9 +383,105 @@ public class RunInstancesRequestMarshaller implements Marshaller<Request<RunInst
                             StringUtils.fromString(runInstancesRequestNetworkInterfacesListValue.getSubnetId()));
                 }
 
+                if (runInstancesRequestNetworkInterfacesListValue.getAssociateCarrierIpAddress() != null) {
+                    request.addParameter("NetworkInterface." + networkInterfacesListIndex + ".AssociateCarrierIpAddress",
+                            StringUtils.fromBoolean(runInstancesRequestNetworkInterfacesListValue.getAssociateCarrierIpAddress()));
+                }
+
                 if (runInstancesRequestNetworkInterfacesListValue.getInterfaceType() != null) {
                     request.addParameter("NetworkInterface." + networkInterfacesListIndex + ".InterfaceType",
                             StringUtils.fromString(runInstancesRequestNetworkInterfacesListValue.getInterfaceType()));
+                }
+
+                if (runInstancesRequestNetworkInterfacesListValue.getNetworkCardIndex() != null) {
+                    request.addParameter("NetworkInterface." + networkInterfacesListIndex + ".NetworkCardIndex",
+                            StringUtils.fromInteger(runInstancesRequestNetworkInterfacesListValue.getNetworkCardIndex()));
+                }
+
+                com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecificationRequest> instanceNetworkInterfaceSpecificationIpv4PrefixesList = (com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecificationRequest>) runInstancesRequestNetworkInterfacesListValue
+                        .getIpv4Prefixes();
+                if (!instanceNetworkInterfaceSpecificationIpv4PrefixesList.isEmpty()
+                        || !instanceNetworkInterfaceSpecificationIpv4PrefixesList.isAutoConstruct()) {
+                    int ipv4PrefixesListIndex = 1;
+
+                    for (Ipv4PrefixSpecificationRequest instanceNetworkInterfaceSpecificationIpv4PrefixesListValue : instanceNetworkInterfaceSpecificationIpv4PrefixesList) {
+
+                        if (instanceNetworkInterfaceSpecificationIpv4PrefixesListValue.getIpv4Prefix() != null) {
+                            request.addParameter("NetworkInterface." + networkInterfacesListIndex + ".Ipv4Prefix." + ipv4PrefixesListIndex + ".Ipv4Prefix",
+                                    StringUtils.fromString(instanceNetworkInterfaceSpecificationIpv4PrefixesListValue.getIpv4Prefix()));
+                        }
+                        ipv4PrefixesListIndex++;
+                    }
+                }
+
+                if (runInstancesRequestNetworkInterfacesListValue.getIpv4PrefixCount() != null) {
+                    request.addParameter("NetworkInterface." + networkInterfacesListIndex + ".Ipv4PrefixCount",
+                            StringUtils.fromInteger(runInstancesRequestNetworkInterfacesListValue.getIpv4PrefixCount()));
+                }
+
+                com.amazonaws.internal.SdkInternalList<Ipv6PrefixSpecificationRequest> instanceNetworkInterfaceSpecificationIpv6PrefixesList = (com.amazonaws.internal.SdkInternalList<Ipv6PrefixSpecificationRequest>) runInstancesRequestNetworkInterfacesListValue
+                        .getIpv6Prefixes();
+                if (!instanceNetworkInterfaceSpecificationIpv6PrefixesList.isEmpty()
+                        || !instanceNetworkInterfaceSpecificationIpv6PrefixesList.isAutoConstruct()) {
+                    int ipv6PrefixesListIndex = 1;
+
+                    for (Ipv6PrefixSpecificationRequest instanceNetworkInterfaceSpecificationIpv6PrefixesListValue : instanceNetworkInterfaceSpecificationIpv6PrefixesList) {
+
+                        if (instanceNetworkInterfaceSpecificationIpv6PrefixesListValue.getIpv6Prefix() != null) {
+                            request.addParameter("NetworkInterface." + networkInterfacesListIndex + ".Ipv6Prefix." + ipv6PrefixesListIndex + ".Ipv6Prefix",
+                                    StringUtils.fromString(instanceNetworkInterfaceSpecificationIpv6PrefixesListValue.getIpv6Prefix()));
+                        }
+                        ipv6PrefixesListIndex++;
+                    }
+                }
+
+                if (runInstancesRequestNetworkInterfacesListValue.getIpv6PrefixCount() != null) {
+                    request.addParameter("NetworkInterface." + networkInterfacesListIndex + ".Ipv6PrefixCount",
+                            StringUtils.fromInteger(runInstancesRequestNetworkInterfacesListValue.getIpv6PrefixCount()));
+                }
+
+                if (runInstancesRequestNetworkInterfacesListValue.getPrimaryIpv6() != null) {
+                    request.addParameter("NetworkInterface." + networkInterfacesListIndex + ".PrimaryIpv6",
+                            StringUtils.fromBoolean(runInstancesRequestNetworkInterfacesListValue.getPrimaryIpv6()));
+                }
+
+                EnaSrdSpecificationRequest enaSrdSpecification = runInstancesRequestNetworkInterfacesListValue.getEnaSrdSpecification();
+                if (enaSrdSpecification != null) {
+
+                    if (enaSrdSpecification.getEnaSrdEnabled() != null) {
+                        request.addParameter("NetworkInterface." + networkInterfacesListIndex + ".EnaSrdSpecification.EnaSrdEnabled",
+                                StringUtils.fromBoolean(enaSrdSpecification.getEnaSrdEnabled()));
+                    }
+
+                    EnaSrdUdpSpecificationRequest enaSrdUdpSpecification = enaSrdSpecification.getEnaSrdUdpSpecification();
+                    if (enaSrdUdpSpecification != null) {
+
+                        if (enaSrdUdpSpecification.getEnaSrdUdpEnabled() != null) {
+                            request.addParameter("NetworkInterface." + networkInterfacesListIndex
+                                    + ".EnaSrdSpecification.EnaSrdUdpSpecification.EnaSrdUdpEnabled",
+                                    StringUtils.fromBoolean(enaSrdUdpSpecification.getEnaSrdUdpEnabled()));
+                        }
+                    }
+                }
+
+                ConnectionTrackingSpecificationRequest connectionTrackingSpecification = runInstancesRequestNetworkInterfacesListValue
+                        .getConnectionTrackingSpecification();
+                if (connectionTrackingSpecification != null) {
+
+                    if (connectionTrackingSpecification.getTcpEstablishedTimeout() != null) {
+                        request.addParameter("NetworkInterface." + networkInterfacesListIndex + ".ConnectionTrackingSpecification.TcpEstablishedTimeout",
+                                StringUtils.fromInteger(connectionTrackingSpecification.getTcpEstablishedTimeout()));
+                    }
+
+                    if (connectionTrackingSpecification.getUdpStreamTimeout() != null) {
+                        request.addParameter("NetworkInterface." + networkInterfacesListIndex + ".ConnectionTrackingSpecification.UdpStreamTimeout",
+                                StringUtils.fromInteger(connectionTrackingSpecification.getUdpStreamTimeout()));
+                    }
+
+                    if (connectionTrackingSpecification.getUdpTimeout() != null) {
+                        request.addParameter("NetworkInterface." + networkInterfacesListIndex + ".ConnectionTrackingSpecification.UdpTimeout",
+                                StringUtils.fromInteger(connectionTrackingSpecification.getUdpTimeout()));
+                    }
                 }
                 networkInterfacesListIndex++;
             }
@@ -393,6 +516,11 @@ public class RunInstancesRequestMarshaller implements Marshaller<Request<RunInst
                 if (runInstancesRequestElasticInferenceAcceleratorsListValue.getType() != null) {
                     request.addParameter("ElasticInferenceAccelerator." + elasticInferenceAcceleratorsListIndex + ".Type",
                             StringUtils.fromString(runInstancesRequestElasticInferenceAcceleratorsListValue.getType()));
+                }
+
+                if (runInstancesRequestElasticInferenceAcceleratorsListValue.getCount() != null) {
+                    request.addParameter("ElasticInferenceAccelerator." + elasticInferenceAcceleratorsListIndex + ".Count",
+                            StringUtils.fromInteger(runInstancesRequestElasticInferenceAcceleratorsListValue.getCount()));
                 }
                 elasticInferenceAcceleratorsListIndex++;
             }
@@ -501,6 +629,10 @@ public class RunInstancesRequestMarshaller implements Marshaller<Request<RunInst
             if (cpuOptions.getThreadsPerCore() != null) {
                 request.addParameter("CpuOptions.ThreadsPerCore", StringUtils.fromInteger(cpuOptions.getThreadsPerCore()));
             }
+
+            if (cpuOptions.getAmdSevSnp() != null) {
+                request.addParameter("CpuOptions.AmdSevSnp", StringUtils.fromString(cpuOptions.getAmdSevSnp()));
+            }
         }
 
         CapacityReservationSpecification capacityReservationSpecification = runInstancesRequest.getCapacityReservationSpecification();
@@ -517,6 +649,11 @@ public class RunInstancesRequestMarshaller implements Marshaller<Request<RunInst
                 if (capacityReservationTarget.getCapacityReservationId() != null) {
                     request.addParameter("CapacityReservationSpecification.CapacityReservationTarget.CapacityReservationId",
                             StringUtils.fromString(capacityReservationTarget.getCapacityReservationId()));
+                }
+
+                if (capacityReservationTarget.getCapacityReservationResourceGroupArn() != null) {
+                    request.addParameter("CapacityReservationSpecification.CapacityReservationTarget.CapacityReservationResourceGroupArn",
+                            StringUtils.fromString(capacityReservationTarget.getCapacityReservationResourceGroupArn()));
                 }
             }
         }
@@ -542,6 +679,72 @@ public class RunInstancesRequestMarshaller implements Marshaller<Request<RunInst
                 }
                 licenseSpecificationsListIndex++;
             }
+        }
+
+        InstanceMetadataOptionsRequest metadataOptions = runInstancesRequest.getMetadataOptions();
+        if (metadataOptions != null) {
+
+            if (metadataOptions.getHttpTokens() != null) {
+                request.addParameter("MetadataOptions.HttpTokens", StringUtils.fromString(metadataOptions.getHttpTokens()));
+            }
+
+            if (metadataOptions.getHttpPutResponseHopLimit() != null) {
+                request.addParameter("MetadataOptions.HttpPutResponseHopLimit", StringUtils.fromInteger(metadataOptions.getHttpPutResponseHopLimit()));
+            }
+
+            if (metadataOptions.getHttpEndpoint() != null) {
+                request.addParameter("MetadataOptions.HttpEndpoint", StringUtils.fromString(metadataOptions.getHttpEndpoint()));
+            }
+
+            if (metadataOptions.getHttpProtocolIpv6() != null) {
+                request.addParameter("MetadataOptions.HttpProtocolIpv6", StringUtils.fromString(metadataOptions.getHttpProtocolIpv6()));
+            }
+
+            if (metadataOptions.getInstanceMetadataTags() != null) {
+                request.addParameter("MetadataOptions.InstanceMetadataTags", StringUtils.fromString(metadataOptions.getInstanceMetadataTags()));
+            }
+        }
+
+        EnclaveOptionsRequest enclaveOptions = runInstancesRequest.getEnclaveOptions();
+        if (enclaveOptions != null) {
+
+            if (enclaveOptions.getEnabled() != null) {
+                request.addParameter("EnclaveOptions.Enabled", StringUtils.fromBoolean(enclaveOptions.getEnabled()));
+            }
+        }
+
+        PrivateDnsNameOptionsRequest privateDnsNameOptions = runInstancesRequest.getPrivateDnsNameOptions();
+        if (privateDnsNameOptions != null) {
+
+            if (privateDnsNameOptions.getHostnameType() != null) {
+                request.addParameter("PrivateDnsNameOptions.HostnameType", StringUtils.fromString(privateDnsNameOptions.getHostnameType()));
+            }
+
+            if (privateDnsNameOptions.getEnableResourceNameDnsARecord() != null) {
+                request.addParameter("PrivateDnsNameOptions.EnableResourceNameDnsARecord",
+                        StringUtils.fromBoolean(privateDnsNameOptions.getEnableResourceNameDnsARecord()));
+            }
+
+            if (privateDnsNameOptions.getEnableResourceNameDnsAAAARecord() != null) {
+                request.addParameter("PrivateDnsNameOptions.EnableResourceNameDnsAAAARecord",
+                        StringUtils.fromBoolean(privateDnsNameOptions.getEnableResourceNameDnsAAAARecord()));
+            }
+        }
+
+        InstanceMaintenanceOptionsRequest maintenanceOptions = runInstancesRequest.getMaintenanceOptions();
+        if (maintenanceOptions != null) {
+
+            if (maintenanceOptions.getAutoRecovery() != null) {
+                request.addParameter("MaintenanceOptions.AutoRecovery", StringUtils.fromString(maintenanceOptions.getAutoRecovery()));
+            }
+        }
+
+        if (runInstancesRequest.getDisableApiStop() != null) {
+            request.addParameter("DisableApiStop", StringUtils.fromBoolean(runInstancesRequest.getDisableApiStop()));
+        }
+
+        if (runInstancesRequest.getEnablePrimaryIpv6() != null) {
+            request.addParameter("EnablePrimaryIpv6", StringUtils.fromBoolean(runInstancesRequest.getEnablePrimaryIpv6()));
         }
 
         return request;

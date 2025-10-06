@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -256,7 +256,19 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
      *        Object providing client parameters.
      */
     AmazonRedshiftAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Amazon Redshift using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonRedshiftAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -303,6 +315,72 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<AddPartnerResult> addPartnerAsync(AddPartnerRequest request) {
+
+        return addPartnerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AddPartnerResult> addPartnerAsync(final AddPartnerRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AddPartnerRequest, AddPartnerResult> asyncHandler) {
+        final AddPartnerRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AddPartnerResult>() {
+            @Override
+            public AddPartnerResult call() throws Exception {
+                AddPartnerResult result = null;
+
+                try {
+                    result = executeAddPartner(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateDataShareConsumerResult> associateDataShareConsumerAsync(AssociateDataShareConsumerRequest request) {
+
+        return associateDataShareConsumerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateDataShareConsumerResult> associateDataShareConsumerAsync(final AssociateDataShareConsumerRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AssociateDataShareConsumerRequest, AssociateDataShareConsumerResult> asyncHandler) {
+        final AssociateDataShareConsumerRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AssociateDataShareConsumerResult>() {
+            @Override
+            public AssociateDataShareConsumerResult call() throws Exception {
+                AssociateDataShareConsumerResult result = null;
+
+                try {
+                    result = executeAssociateDataShareConsumer(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ClusterSecurityGroup> authorizeClusterSecurityGroupIngressAsync(AuthorizeClusterSecurityGroupIngressRequest request) {
 
         return authorizeClusterSecurityGroupIngressAsync(request, null);
@@ -321,6 +399,72 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
 
                 try {
                     result = executeAuthorizeClusterSecurityGroupIngress(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<AuthorizeDataShareResult> authorizeDataShareAsync(AuthorizeDataShareRequest request) {
+
+        return authorizeDataShareAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AuthorizeDataShareResult> authorizeDataShareAsync(final AuthorizeDataShareRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AuthorizeDataShareRequest, AuthorizeDataShareResult> asyncHandler) {
+        final AuthorizeDataShareRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AuthorizeDataShareResult>() {
+            @Override
+            public AuthorizeDataShareResult call() throws Exception {
+                AuthorizeDataShareResult result = null;
+
+                try {
+                    result = executeAuthorizeDataShare(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<AuthorizeEndpointAccessResult> authorizeEndpointAccessAsync(AuthorizeEndpointAccessRequest request) {
+
+        return authorizeEndpointAccessAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AuthorizeEndpointAccessResult> authorizeEndpointAccessAsync(final AuthorizeEndpointAccessRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AuthorizeEndpointAccessRequest, AuthorizeEndpointAccessResult> asyncHandler) {
+        final AuthorizeEndpointAccessRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AuthorizeEndpointAccessResult>() {
+            @Override
+            public AuthorizeEndpointAccessResult call() throws Exception {
+                AuthorizeEndpointAccessResult result = null;
+
+                try {
+                    result = executeAuthorizeEndpointAccess(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -502,6 +646,39 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<CreateAuthenticationProfileResult> createAuthenticationProfileAsync(CreateAuthenticationProfileRequest request) {
+
+        return createAuthenticationProfileAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateAuthenticationProfileResult> createAuthenticationProfileAsync(final CreateAuthenticationProfileRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateAuthenticationProfileRequest, CreateAuthenticationProfileResult> asyncHandler) {
+        final CreateAuthenticationProfileRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateAuthenticationProfileResult>() {
+            @Override
+            public CreateAuthenticationProfileResult call() throws Exception {
+                CreateAuthenticationProfileResult result = null;
+
+                try {
+                    result = executeCreateAuthenticationProfile(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<Cluster> createClusterAsync(CreateClusterRequest request) {
 
         return createClusterAsync(request, null);
@@ -667,6 +844,73 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<CreateCustomDomainAssociationResult> createCustomDomainAssociationAsync(CreateCustomDomainAssociationRequest request) {
+
+        return createCustomDomainAssociationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCustomDomainAssociationResult> createCustomDomainAssociationAsync(
+            final CreateCustomDomainAssociationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateCustomDomainAssociationRequest, CreateCustomDomainAssociationResult> asyncHandler) {
+        final CreateCustomDomainAssociationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateCustomDomainAssociationResult>() {
+            @Override
+            public CreateCustomDomainAssociationResult call() throws Exception {
+                CreateCustomDomainAssociationResult result = null;
+
+                try {
+                    result = executeCreateCustomDomainAssociation(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateEndpointAccessResult> createEndpointAccessAsync(CreateEndpointAccessRequest request) {
+
+        return createEndpointAccessAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateEndpointAccessResult> createEndpointAccessAsync(final CreateEndpointAccessRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateEndpointAccessRequest, CreateEndpointAccessResult> asyncHandler) {
+        final CreateEndpointAccessRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateEndpointAccessResult>() {
+            @Override
+            public CreateEndpointAccessResult call() throws Exception {
+                CreateEndpointAccessResult result = null;
+
+                try {
+                    result = executeCreateEndpointAccess(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<EventSubscription> createEventSubscriptionAsync(CreateEventSubscriptionRequest request) {
 
         return createEventSubscriptionAsync(request, null);
@@ -766,6 +1010,72 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<RedshiftIdcApplication> createRedshiftIdcApplicationAsync(CreateRedshiftIdcApplicationRequest request) {
+
+        return createRedshiftIdcApplicationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RedshiftIdcApplication> createRedshiftIdcApplicationAsync(final CreateRedshiftIdcApplicationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateRedshiftIdcApplicationRequest, RedshiftIdcApplication> asyncHandler) {
+        final CreateRedshiftIdcApplicationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RedshiftIdcApplication>() {
+            @Override
+            public RedshiftIdcApplication call() throws Exception {
+                RedshiftIdcApplication result = null;
+
+                try {
+                    result = executeCreateRedshiftIdcApplication(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateScheduledActionResult> createScheduledActionAsync(CreateScheduledActionRequest request) {
+
+        return createScheduledActionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateScheduledActionResult> createScheduledActionAsync(final CreateScheduledActionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateScheduledActionRequest, CreateScheduledActionResult> asyncHandler) {
+        final CreateScheduledActionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateScheduledActionResult>() {
+            @Override
+            public CreateScheduledActionResult call() throws Exception {
+                CreateScheduledActionResult result = null;
+
+                try {
+                    result = executeCreateScheduledAction(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<SnapshotCopyGrant> createSnapshotCopyGrantAsync(CreateSnapshotCopyGrantRequest request) {
 
         return createSnapshotCopyGrantAsync(request, null);
@@ -849,6 +1159,105 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
 
                 try {
                     result = executeCreateTags(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateUsageLimitResult> createUsageLimitAsync(CreateUsageLimitRequest request) {
+
+        return createUsageLimitAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateUsageLimitResult> createUsageLimitAsync(final CreateUsageLimitRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateUsageLimitRequest, CreateUsageLimitResult> asyncHandler) {
+        final CreateUsageLimitRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateUsageLimitResult>() {
+            @Override
+            public CreateUsageLimitResult call() throws Exception {
+                CreateUsageLimitResult result = null;
+
+                try {
+                    result = executeCreateUsageLimit(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeauthorizeDataShareResult> deauthorizeDataShareAsync(DeauthorizeDataShareRequest request) {
+
+        return deauthorizeDataShareAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeauthorizeDataShareResult> deauthorizeDataShareAsync(final DeauthorizeDataShareRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeauthorizeDataShareRequest, DeauthorizeDataShareResult> asyncHandler) {
+        final DeauthorizeDataShareRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeauthorizeDataShareResult>() {
+            @Override
+            public DeauthorizeDataShareResult call() throws Exception {
+                DeauthorizeDataShareResult result = null;
+
+                try {
+                    result = executeDeauthorizeDataShare(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAuthenticationProfileResult> deleteAuthenticationProfileAsync(DeleteAuthenticationProfileRequest request) {
+
+        return deleteAuthenticationProfileAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAuthenticationProfileResult> deleteAuthenticationProfileAsync(final DeleteAuthenticationProfileRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteAuthenticationProfileRequest, DeleteAuthenticationProfileResult> asyncHandler) {
+        final DeleteAuthenticationProfileRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteAuthenticationProfileResult>() {
+            @Override
+            public DeleteAuthenticationProfileResult call() throws Exception {
+                DeleteAuthenticationProfileResult result = null;
+
+                try {
+                    result = executeDeleteAuthenticationProfile(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1030,6 +1439,73 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteCustomDomainAssociationResult> deleteCustomDomainAssociationAsync(DeleteCustomDomainAssociationRequest request) {
+
+        return deleteCustomDomainAssociationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCustomDomainAssociationResult> deleteCustomDomainAssociationAsync(
+            final DeleteCustomDomainAssociationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteCustomDomainAssociationRequest, DeleteCustomDomainAssociationResult> asyncHandler) {
+        final DeleteCustomDomainAssociationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteCustomDomainAssociationResult>() {
+            @Override
+            public DeleteCustomDomainAssociationResult call() throws Exception {
+                DeleteCustomDomainAssociationResult result = null;
+
+                try {
+                    result = executeDeleteCustomDomainAssociation(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteEndpointAccessResult> deleteEndpointAccessAsync(DeleteEndpointAccessRequest request) {
+
+        return deleteEndpointAccessAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteEndpointAccessResult> deleteEndpointAccessAsync(final DeleteEndpointAccessRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteEndpointAccessRequest, DeleteEndpointAccessResult> asyncHandler) {
+        final DeleteEndpointAccessRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteEndpointAccessResult>() {
+            @Override
+            public DeleteEndpointAccessResult call() throws Exception {
+                DeleteEndpointAccessResult result = null;
+
+                try {
+                    result = executeDeleteEndpointAccess(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteEventSubscriptionResult> deleteEventSubscriptionAsync(DeleteEventSubscriptionRequest request) {
 
         return deleteEventSubscriptionAsync(request, null);
@@ -1113,6 +1589,138 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
 
                 try {
                     result = executeDeleteHsmConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeletePartnerResult> deletePartnerAsync(DeletePartnerRequest request) {
+
+        return deletePartnerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeletePartnerResult> deletePartnerAsync(final DeletePartnerRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeletePartnerRequest, DeletePartnerResult> asyncHandler) {
+        final DeletePartnerRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeletePartnerResult>() {
+            @Override
+            public DeletePartnerResult call() throws Exception {
+                DeletePartnerResult result = null;
+
+                try {
+                    result = executeDeletePartner(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRedshiftIdcApplicationResult> deleteRedshiftIdcApplicationAsync(DeleteRedshiftIdcApplicationRequest request) {
+
+        return deleteRedshiftIdcApplicationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRedshiftIdcApplicationResult> deleteRedshiftIdcApplicationAsync(final DeleteRedshiftIdcApplicationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteRedshiftIdcApplicationRequest, DeleteRedshiftIdcApplicationResult> asyncHandler) {
+        final DeleteRedshiftIdcApplicationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteRedshiftIdcApplicationResult>() {
+            @Override
+            public DeleteRedshiftIdcApplicationResult call() throws Exception {
+                DeleteRedshiftIdcApplicationResult result = null;
+
+                try {
+                    result = executeDeleteRedshiftIdcApplication(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(DeleteResourcePolicyRequest request) {
+
+        return deleteResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(final DeleteResourcePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteResourcePolicyRequest, DeleteResourcePolicyResult> asyncHandler) {
+        final DeleteResourcePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteResourcePolicyResult>() {
+            @Override
+            public DeleteResourcePolicyResult call() throws Exception {
+                DeleteResourcePolicyResult result = null;
+
+                try {
+                    result = executeDeleteResourcePolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteScheduledActionResult> deleteScheduledActionAsync(DeleteScheduledActionRequest request) {
+
+        return deleteScheduledActionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteScheduledActionResult> deleteScheduledActionAsync(final DeleteScheduledActionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteScheduledActionRequest, DeleteScheduledActionResult> asyncHandler) {
+        final DeleteScheduledActionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteScheduledActionResult>() {
+            @Override
+            public DeleteScheduledActionResult call() throws Exception {
+                DeleteScheduledActionResult result = null;
+
+                try {
+                    result = executeDeleteScheduledAction(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1228,6 +1836,39 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteUsageLimitResult> deleteUsageLimitAsync(DeleteUsageLimitRequest request) {
+
+        return deleteUsageLimitAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteUsageLimitResult> deleteUsageLimitAsync(final DeleteUsageLimitRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteUsageLimitRequest, DeleteUsageLimitResult> asyncHandler) {
+        final DeleteUsageLimitRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteUsageLimitResult>() {
+            @Override
+            public DeleteUsageLimitResult call() throws Exception {
+                DeleteUsageLimitResult result = null;
+
+                try {
+                    result = executeDeleteUsageLimit(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeAccountAttributesResult> describeAccountAttributesAsync(DescribeAccountAttributesRequest request) {
 
         return describeAccountAttributesAsync(request, null);
@@ -1245,6 +1886,40 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
 
                 try {
                     result = executeDescribeAccountAttributes(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeAuthenticationProfilesResult> describeAuthenticationProfilesAsync(DescribeAuthenticationProfilesRequest request) {
+
+        return describeAuthenticationProfilesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeAuthenticationProfilesResult> describeAuthenticationProfilesAsync(
+            final DescribeAuthenticationProfilesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeAuthenticationProfilesRequest, DescribeAuthenticationProfilesResult> asyncHandler) {
+        final DescribeAuthenticationProfilesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeAuthenticationProfilesResult>() {
+            @Override
+            public DescribeAuthenticationProfilesResult call() throws Exception {
+                DescribeAuthenticationProfilesResult result = null;
+
+                try {
+                    result = executeDescribeAuthenticationProfiles(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1700,6 +2375,142 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeCustomDomainAssociationsResult> describeCustomDomainAssociationsAsync(
+            DescribeCustomDomainAssociationsRequest request) {
+
+        return describeCustomDomainAssociationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCustomDomainAssociationsResult> describeCustomDomainAssociationsAsync(
+            final DescribeCustomDomainAssociationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeCustomDomainAssociationsRequest, DescribeCustomDomainAssociationsResult> asyncHandler) {
+        final DescribeCustomDomainAssociationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeCustomDomainAssociationsResult>() {
+            @Override
+            public DescribeCustomDomainAssociationsResult call() throws Exception {
+                DescribeCustomDomainAssociationsResult result = null;
+
+                try {
+                    result = executeDescribeCustomDomainAssociations(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDataSharesResult> describeDataSharesAsync(DescribeDataSharesRequest request) {
+
+        return describeDataSharesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDataSharesResult> describeDataSharesAsync(final DescribeDataSharesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeDataSharesRequest, DescribeDataSharesResult> asyncHandler) {
+        final DescribeDataSharesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeDataSharesResult>() {
+            @Override
+            public DescribeDataSharesResult call() throws Exception {
+                DescribeDataSharesResult result = null;
+
+                try {
+                    result = executeDescribeDataShares(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDataSharesForConsumerResult> describeDataSharesForConsumerAsync(DescribeDataSharesForConsumerRequest request) {
+
+        return describeDataSharesForConsumerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDataSharesForConsumerResult> describeDataSharesForConsumerAsync(
+            final DescribeDataSharesForConsumerRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeDataSharesForConsumerRequest, DescribeDataSharesForConsumerResult> asyncHandler) {
+        final DescribeDataSharesForConsumerRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeDataSharesForConsumerResult>() {
+            @Override
+            public DescribeDataSharesForConsumerResult call() throws Exception {
+                DescribeDataSharesForConsumerResult result = null;
+
+                try {
+                    result = executeDescribeDataSharesForConsumer(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDataSharesForProducerResult> describeDataSharesForProducerAsync(DescribeDataSharesForProducerRequest request) {
+
+        return describeDataSharesForProducerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDataSharesForProducerResult> describeDataSharesForProducerAsync(
+            final DescribeDataSharesForProducerRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeDataSharesForProducerRequest, DescribeDataSharesForProducerResult> asyncHandler) {
+        final DescribeDataSharesForProducerRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeDataSharesForProducerResult>() {
+            @Override
+            public DescribeDataSharesForProducerResult call() throws Exception {
+                DescribeDataSharesForProducerResult result = null;
+
+                try {
+                    result = executeDescribeDataSharesForProducer(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DefaultClusterParameters> describeDefaultClusterParametersAsync(DescribeDefaultClusterParametersRequest request) {
 
         return describeDefaultClusterParametersAsync(request, null);
@@ -1717,6 +2528,73 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
 
                 try {
                     result = executeDescribeDefaultClusterParameters(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeEndpointAccessResult> describeEndpointAccessAsync(DescribeEndpointAccessRequest request) {
+
+        return describeEndpointAccessAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeEndpointAccessResult> describeEndpointAccessAsync(final DescribeEndpointAccessRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeEndpointAccessRequest, DescribeEndpointAccessResult> asyncHandler) {
+        final DescribeEndpointAccessRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeEndpointAccessResult>() {
+            @Override
+            public DescribeEndpointAccessResult call() throws Exception {
+                DescribeEndpointAccessResult result = null;
+
+                try {
+                    result = executeDescribeEndpointAccess(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeEndpointAuthorizationResult> describeEndpointAuthorizationAsync(DescribeEndpointAuthorizationRequest request) {
+
+        return describeEndpointAuthorizationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeEndpointAuthorizationResult> describeEndpointAuthorizationAsync(
+            final DescribeEndpointAuthorizationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeEndpointAuthorizationRequest, DescribeEndpointAuthorizationResult> asyncHandler) {
+        final DescribeEndpointAuthorizationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeEndpointAuthorizationResult>() {
+            @Override
+            public DescribeEndpointAuthorizationResult call() throws Exception {
+                DescribeEndpointAuthorizationResult result = null;
+
+                try {
+                    result = executeDescribeEndpointAuthorization(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -2015,6 +2893,39 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeInboundIntegrationsResult> describeInboundIntegrationsAsync(DescribeInboundIntegrationsRequest request) {
+
+        return describeInboundIntegrationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeInboundIntegrationsResult> describeInboundIntegrationsAsync(final DescribeInboundIntegrationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeInboundIntegrationsRequest, DescribeInboundIntegrationsResult> asyncHandler) {
+        final DescribeInboundIntegrationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeInboundIntegrationsResult>() {
+            @Override
+            public DescribeInboundIntegrationsResult call() throws Exception {
+                DescribeInboundIntegrationsResult result = null;
+
+                try {
+                    result = executeDescribeInboundIntegrations(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeLoggingStatusResult> describeLoggingStatusAsync(DescribeLoggingStatusRequest request) {
 
         return describeLoggingStatusAsync(request, null);
@@ -2032,6 +2943,41 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
 
                 try {
                     result = executeDescribeLoggingStatus(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeNodeConfigurationOptionsResult> describeNodeConfigurationOptionsAsync(
+            DescribeNodeConfigurationOptionsRequest request) {
+
+        return describeNodeConfigurationOptionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeNodeConfigurationOptionsResult> describeNodeConfigurationOptionsAsync(
+            final DescribeNodeConfigurationOptionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeNodeConfigurationOptionsRequest, DescribeNodeConfigurationOptionsResult> asyncHandler) {
+        final DescribeNodeConfigurationOptionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeNodeConfigurationOptionsResult>() {
+            @Override
+            public DescribeNodeConfigurationOptionsResult call() throws Exception {
+                DescribeNodeConfigurationOptionsResult result = null;
+
+                try {
+                    result = executeDescribeNodeConfigurationOptions(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -2104,6 +3050,109 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
             com.amazonaws.handlers.AsyncHandler<DescribeOrderableClusterOptionsRequest, DescribeOrderableClusterOptionsResult> asyncHandler) {
 
         return describeOrderableClusterOptionsAsync(new DescribeOrderableClusterOptionsRequest(), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribePartnersResult> describePartnersAsync(DescribePartnersRequest request) {
+
+        return describePartnersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribePartnersResult> describePartnersAsync(final DescribePartnersRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribePartnersRequest, DescribePartnersResult> asyncHandler) {
+        final DescribePartnersRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribePartnersResult>() {
+            @Override
+            public DescribePartnersResult call() throws Exception {
+                DescribePartnersResult result = null;
+
+                try {
+                    result = executeDescribePartners(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeRedshiftIdcApplicationsResult> describeRedshiftIdcApplicationsAsync(
+            DescribeRedshiftIdcApplicationsRequest request) {
+
+        return describeRedshiftIdcApplicationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeRedshiftIdcApplicationsResult> describeRedshiftIdcApplicationsAsync(
+            final DescribeRedshiftIdcApplicationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeRedshiftIdcApplicationsRequest, DescribeRedshiftIdcApplicationsResult> asyncHandler) {
+        final DescribeRedshiftIdcApplicationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeRedshiftIdcApplicationsResult>() {
+            @Override
+            public DescribeRedshiftIdcApplicationsResult call() throws Exception {
+                DescribeRedshiftIdcApplicationsResult result = null;
+
+                try {
+                    result = executeDescribeRedshiftIdcApplications(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeReservedNodeExchangeStatusResult> describeReservedNodeExchangeStatusAsync(
+            DescribeReservedNodeExchangeStatusRequest request) {
+
+        return describeReservedNodeExchangeStatusAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeReservedNodeExchangeStatusResult> describeReservedNodeExchangeStatusAsync(
+            final DescribeReservedNodeExchangeStatusRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeReservedNodeExchangeStatusRequest, DescribeReservedNodeExchangeStatusResult> asyncHandler) {
+        final DescribeReservedNodeExchangeStatusRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeReservedNodeExchangeStatusResult>() {
+            @Override
+            public DescribeReservedNodeExchangeStatusResult call() throws Exception {
+                DescribeReservedNodeExchangeStatusResult result = null;
+
+                try {
+                    result = executeDescribeReservedNodeExchangeStatus(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -2238,6 +3287,39 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
 
                 try {
                     result = executeDescribeResize(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeScheduledActionsResult> describeScheduledActionsAsync(DescribeScheduledActionsRequest request) {
+
+        return describeScheduledActionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeScheduledActionsResult> describeScheduledActionsAsync(final DescribeScheduledActionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeScheduledActionsRequest, DescribeScheduledActionsResult> asyncHandler) {
+        final DescribeScheduledActionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeScheduledActionsResult>() {
+            @Override
+            public DescribeScheduledActionsResult call() throws Exception {
+                DescribeScheduledActionsResult result = null;
+
+                try {
+                    result = executeDescribeScheduledActions(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -2488,6 +3570,39 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeUsageLimitsResult> describeUsageLimitsAsync(DescribeUsageLimitsRequest request) {
+
+        return describeUsageLimitsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeUsageLimitsResult> describeUsageLimitsAsync(final DescribeUsageLimitsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeUsageLimitsRequest, DescribeUsageLimitsResult> asyncHandler) {
+        final DescribeUsageLimitsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeUsageLimitsResult>() {
+            @Override
+            public DescribeUsageLimitsResult call() throws Exception {
+                DescribeUsageLimitsResult result = null;
+
+                try {
+                    result = executeDescribeUsageLimits(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DisableLoggingResult> disableLoggingAsync(DisableLoggingRequest request) {
 
         return disableLoggingAsync(request, null);
@@ -2538,6 +3653,40 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
 
                 try {
                     result = executeDisableSnapshotCopy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateDataShareConsumerResult> disassociateDataShareConsumerAsync(DisassociateDataShareConsumerRequest request) {
+
+        return disassociateDataShareConsumerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateDataShareConsumerResult> disassociateDataShareConsumerAsync(
+            final DisassociateDataShareConsumerRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisassociateDataShareConsumerRequest, DisassociateDataShareConsumerResult> asyncHandler) {
+        final DisassociateDataShareConsumerRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisassociateDataShareConsumerResult>() {
+            @Override
+            public DisassociateDataShareConsumerResult call() throws Exception {
+                DisassociateDataShareConsumerResult result = null;
+
+                try {
+                    result = executeDisassociateDataShareConsumer(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -2620,6 +3769,39 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<Cluster> failoverPrimaryComputeAsync(FailoverPrimaryComputeRequest request) {
+
+        return failoverPrimaryComputeAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<Cluster> failoverPrimaryComputeAsync(final FailoverPrimaryComputeRequest request,
+            final com.amazonaws.handlers.AsyncHandler<FailoverPrimaryComputeRequest, Cluster> asyncHandler) {
+        final FailoverPrimaryComputeRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<Cluster>() {
+            @Override
+            public Cluster call() throws Exception {
+                Cluster result = null;
+
+                try {
+                    result = executeFailoverPrimaryCompute(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetClusterCredentialsResult> getClusterCredentialsAsync(GetClusterCredentialsRequest request) {
 
         return getClusterCredentialsAsync(request, null);
@@ -2637,6 +3819,74 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
 
                 try {
                     result = executeGetClusterCredentials(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetClusterCredentialsWithIAMResult> getClusterCredentialsWithIAMAsync(GetClusterCredentialsWithIAMRequest request) {
+
+        return getClusterCredentialsWithIAMAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetClusterCredentialsWithIAMResult> getClusterCredentialsWithIAMAsync(final GetClusterCredentialsWithIAMRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetClusterCredentialsWithIAMRequest, GetClusterCredentialsWithIAMResult> asyncHandler) {
+        final GetClusterCredentialsWithIAMRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetClusterCredentialsWithIAMResult>() {
+            @Override
+            public GetClusterCredentialsWithIAMResult call() throws Exception {
+                GetClusterCredentialsWithIAMResult result = null;
+
+                try {
+                    result = executeGetClusterCredentialsWithIAM(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetReservedNodeExchangeConfigurationOptionsResult> getReservedNodeExchangeConfigurationOptionsAsync(
+            GetReservedNodeExchangeConfigurationOptionsRequest request) {
+
+        return getReservedNodeExchangeConfigurationOptionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetReservedNodeExchangeConfigurationOptionsResult> getReservedNodeExchangeConfigurationOptionsAsync(
+            final GetReservedNodeExchangeConfigurationOptionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetReservedNodeExchangeConfigurationOptionsRequest, GetReservedNodeExchangeConfigurationOptionsResult> asyncHandler) {
+        final GetReservedNodeExchangeConfigurationOptionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetReservedNodeExchangeConfigurationOptionsResult>() {
+            @Override
+            public GetReservedNodeExchangeConfigurationOptionsResult call() throws Exception {
+                GetReservedNodeExchangeConfigurationOptionsResult result = null;
+
+                try {
+                    result = executeGetReservedNodeExchangeConfigurationOptions(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -2672,6 +3922,138 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
 
                 try {
                     result = executeGetReservedNodeExchangeOfferings(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetResourcePolicyResult> getResourcePolicyAsync(GetResourcePolicyRequest request) {
+
+        return getResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetResourcePolicyResult> getResourcePolicyAsync(final GetResourcePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetResourcePolicyRequest, GetResourcePolicyResult> asyncHandler) {
+        final GetResourcePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetResourcePolicyResult>() {
+            @Override
+            public GetResourcePolicyResult call() throws Exception {
+                GetResourcePolicyResult result = null;
+
+                try {
+                    result = executeGetResourcePolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRecommendationsResult> listRecommendationsAsync(ListRecommendationsRequest request) {
+
+        return listRecommendationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRecommendationsResult> listRecommendationsAsync(final ListRecommendationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListRecommendationsRequest, ListRecommendationsResult> asyncHandler) {
+        final ListRecommendationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListRecommendationsResult>() {
+            @Override
+            public ListRecommendationsResult call() throws Exception {
+                ListRecommendationsResult result = null;
+
+                try {
+                    result = executeListRecommendations(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyAquaConfigurationResult> modifyAquaConfigurationAsync(ModifyAquaConfigurationRequest request) {
+
+        return modifyAquaConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyAquaConfigurationResult> modifyAquaConfigurationAsync(final ModifyAquaConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyAquaConfigurationRequest, ModifyAquaConfigurationResult> asyncHandler) {
+        final ModifyAquaConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyAquaConfigurationResult>() {
+            @Override
+            public ModifyAquaConfigurationResult call() throws Exception {
+                ModifyAquaConfigurationResult result = null;
+
+                try {
+                    result = executeModifyAquaConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyAuthenticationProfileResult> modifyAuthenticationProfileAsync(ModifyAuthenticationProfileRequest request) {
+
+        return modifyAuthenticationProfileAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyAuthenticationProfileResult> modifyAuthenticationProfileAsync(final ModifyAuthenticationProfileRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyAuthenticationProfileRequest, ModifyAuthenticationProfileResult> asyncHandler) {
+        final ModifyAuthenticationProfileRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyAuthenticationProfileResult>() {
+            @Override
+            public ModifyAuthenticationProfileResult call() throws Exception {
+                ModifyAuthenticationProfileResult result = null;
+
+                try {
+                    result = executeModifyAuthenticationProfile(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -2953,6 +4335,73 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<ModifyCustomDomainAssociationResult> modifyCustomDomainAssociationAsync(ModifyCustomDomainAssociationRequest request) {
+
+        return modifyCustomDomainAssociationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyCustomDomainAssociationResult> modifyCustomDomainAssociationAsync(
+            final ModifyCustomDomainAssociationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyCustomDomainAssociationRequest, ModifyCustomDomainAssociationResult> asyncHandler) {
+        final ModifyCustomDomainAssociationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyCustomDomainAssociationResult>() {
+            @Override
+            public ModifyCustomDomainAssociationResult call() throws Exception {
+                ModifyCustomDomainAssociationResult result = null;
+
+                try {
+                    result = executeModifyCustomDomainAssociation(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyEndpointAccessResult> modifyEndpointAccessAsync(ModifyEndpointAccessRequest request) {
+
+        return modifyEndpointAccessAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyEndpointAccessResult> modifyEndpointAccessAsync(final ModifyEndpointAccessRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyEndpointAccessRequest, ModifyEndpointAccessResult> asyncHandler) {
+        final ModifyEndpointAccessRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyEndpointAccessResult>() {
+            @Override
+            public ModifyEndpointAccessResult call() throws Exception {
+                ModifyEndpointAccessResult result = null;
+
+                try {
+                    result = executeModifyEndpointAccess(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<EventSubscription> modifyEventSubscriptionAsync(ModifyEventSubscriptionRequest request) {
 
         return modifyEventSubscriptionAsync(request, null);
@@ -2970,6 +4419,72 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
 
                 try {
                     result = executeModifyEventSubscription(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RedshiftIdcApplication> modifyRedshiftIdcApplicationAsync(ModifyRedshiftIdcApplicationRequest request) {
+
+        return modifyRedshiftIdcApplicationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RedshiftIdcApplication> modifyRedshiftIdcApplicationAsync(final ModifyRedshiftIdcApplicationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyRedshiftIdcApplicationRequest, RedshiftIdcApplication> asyncHandler) {
+        final ModifyRedshiftIdcApplicationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RedshiftIdcApplication>() {
+            @Override
+            public RedshiftIdcApplication call() throws Exception {
+                RedshiftIdcApplication result = null;
+
+                try {
+                    result = executeModifyRedshiftIdcApplication(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyScheduledActionResult> modifyScheduledActionAsync(ModifyScheduledActionRequest request) {
+
+        return modifyScheduledActionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyScheduledActionResult> modifyScheduledActionAsync(final ModifyScheduledActionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyScheduledActionRequest, ModifyScheduledActionResult> asyncHandler) {
+        final ModifyScheduledActionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyScheduledActionResult>() {
+            @Override
+            public ModifyScheduledActionResult call() throws Exception {
+                ModifyScheduledActionResult result = null;
+
+                try {
+                    result = executeModifyScheduledAction(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -3052,6 +4567,72 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<ModifyUsageLimitResult> modifyUsageLimitAsync(ModifyUsageLimitRequest request) {
+
+        return modifyUsageLimitAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyUsageLimitResult> modifyUsageLimitAsync(final ModifyUsageLimitRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyUsageLimitRequest, ModifyUsageLimitResult> asyncHandler) {
+        final ModifyUsageLimitRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyUsageLimitResult>() {
+            @Override
+            public ModifyUsageLimitResult call() throws Exception {
+                ModifyUsageLimitResult result = null;
+
+                try {
+                    result = executeModifyUsageLimit(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<Cluster> pauseClusterAsync(PauseClusterRequest request) {
+
+        return pauseClusterAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<Cluster> pauseClusterAsync(final PauseClusterRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PauseClusterRequest, Cluster> asyncHandler) {
+        final PauseClusterRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<Cluster>() {
+            @Override
+            public Cluster call() throws Exception {
+                Cluster result = null;
+
+                try {
+                    result = executePauseCluster(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ReservedNode> purchaseReservedNodeOfferingAsync(PurchaseReservedNodeOfferingRequest request) {
 
         return purchaseReservedNodeOfferingAsync(request, null);
@@ -3085,6 +4666,39 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(PutResourcePolicyRequest request) {
+
+        return putResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(final PutResourcePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutResourcePolicyRequest, PutResourcePolicyResult> asyncHandler) {
+        final PutResourcePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutResourcePolicyResult>() {
+            @Override
+            public PutResourcePolicyResult call() throws Exception {
+                PutResourcePolicyResult result = null;
+
+                try {
+                    result = executePutResourcePolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<Cluster> rebootClusterAsync(RebootClusterRequest request) {
 
         return rebootClusterAsync(request, null);
@@ -3102,6 +4716,39 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
 
                 try {
                     result = executeRebootCluster(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RejectDataShareResult> rejectDataShareAsync(RejectDataShareRequest request) {
+
+        return rejectDataShareAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RejectDataShareResult> rejectDataShareAsync(final RejectDataShareRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RejectDataShareRequest, RejectDataShareResult> asyncHandler) {
+        final RejectDataShareRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RejectDataShareResult>() {
+            @Override
+            public RejectDataShareResult call() throws Exception {
+                RejectDataShareResult result = null;
+
+                try {
+                    result = executeRejectDataShare(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -3250,6 +4897,39 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<Cluster> resumeClusterAsync(ResumeClusterRequest request) {
+
+        return resumeClusterAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<Cluster> resumeClusterAsync(final ResumeClusterRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ResumeClusterRequest, Cluster> asyncHandler) {
+        final ResumeClusterRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<Cluster>() {
+            @Override
+            public Cluster call() throws Exception {
+                Cluster result = null;
+
+                try {
+                    result = executeResumeCluster(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ClusterSecurityGroup> revokeClusterSecurityGroupIngressAsync(RevokeClusterSecurityGroupIngressRequest request) {
 
         return revokeClusterSecurityGroupIngressAsync(request, null);
@@ -3267,6 +4947,39 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
 
                 try {
                     result = executeRevokeClusterSecurityGroupIngress(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RevokeEndpointAccessResult> revokeEndpointAccessAsync(RevokeEndpointAccessRequest request) {
+
+        return revokeEndpointAccessAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RevokeEndpointAccessResult> revokeEndpointAccessAsync(final RevokeEndpointAccessRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RevokeEndpointAccessRequest, RevokeEndpointAccessResult> asyncHandler) {
+        final RevokeEndpointAccessRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RevokeEndpointAccessResult>() {
+            @Override
+            public RevokeEndpointAccessResult call() throws Exception {
+                RevokeEndpointAccessResult result = null;
+
+                try {
+                    result = executeRevokeEndpointAccess(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -3333,6 +5046,39 @@ public class AmazonRedshiftAsyncClient extends AmazonRedshiftClient implements A
 
                 try {
                     result = executeRotateEncryptionKey(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePartnerStatusResult> updatePartnerStatusAsync(UpdatePartnerStatusRequest request) {
+
+        return updatePartnerStatusAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePartnerStatusResult> updatePartnerStatusAsync(final UpdatePartnerStatusRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdatePartnerStatusRequest, UpdatePartnerStatusResult> asyncHandler) {
+        final UpdatePartnerStatusRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdatePartnerStatusResult>() {
+            @Override
+            public UpdatePartnerStatusResult call() throws Exception {
+                UpdatePartnerStatusResult result = null;
+
+                try {
+                    result = executeUpdatePartnerStatus(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

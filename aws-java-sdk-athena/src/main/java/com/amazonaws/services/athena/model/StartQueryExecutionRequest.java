@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,12 +35,16 @@ public class StartQueryExecutionRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * A unique case-sensitive string used to ensure the request to create the query is idempotent (executes only once).
      * If another <code>StartQueryExecution</code> request is received, the same response is returned and another query
-     * is not created. If a parameter has changed, for example, the <code>QueryString</code>, an error is returned.
+     * is not created. An error is returned if a parameter, such as <code>QueryString</code>, has changed. A call to
+     * <code>StartQueryExecution</code> that uses a previous client request token returns the same
+     * <code>QueryExecutionId</code> even if the requester doesn't have permission on the tables specified in
+     * <code>QueryString</code>.
      * </p>
      * <important>
      * <p>
-     * This token is listed as not required because AWS SDKs (for example the AWS SDK for Java) auto-generate the token
-     * for users. If you are not using the AWS SDK or the AWS CLI, you must provide this token or the action will fail.
+     * This token is listed as not required because Amazon Web Services SDKs (for example the Amazon Web Services SDK
+     * for Java) auto-generate the token for users. If you are not using the Amazon Web Services SDK or the Amazon Web
+     * Services CLI, you must provide this token or the action will fail.
      * </p>
      * </important>
      */
@@ -66,6 +70,19 @@ public class StartQueryExecutionRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      */
     private String workGroup;
+    /**
+     * <p>
+     * A list of values for the parameters in a query. The values are applied sequentially to the parameters in the
+     * query in the order in which the parameters occur.
+     * </p>
+     */
+    private java.util.List<String> executionParameters;
+    /**
+     * <p>
+     * Specifies the query result reuse behavior for the query.
+     * </p>
+     */
+    private ResultReuseConfiguration resultReuseConfiguration;
 
     /**
      * <p>
@@ -111,24 +128,30 @@ public class StartQueryExecutionRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * A unique case-sensitive string used to ensure the request to create the query is idempotent (executes only once).
      * If another <code>StartQueryExecution</code> request is received, the same response is returned and another query
-     * is not created. If a parameter has changed, for example, the <code>QueryString</code>, an error is returned.
+     * is not created. An error is returned if a parameter, such as <code>QueryString</code>, has changed. A call to
+     * <code>StartQueryExecution</code> that uses a previous client request token returns the same
+     * <code>QueryExecutionId</code> even if the requester doesn't have permission on the tables specified in
+     * <code>QueryString</code>.
      * </p>
      * <important>
      * <p>
-     * This token is listed as not required because AWS SDKs (for example the AWS SDK for Java) auto-generate the token
-     * for users. If you are not using the AWS SDK or the AWS CLI, you must provide this token or the action will fail.
+     * This token is listed as not required because Amazon Web Services SDKs (for example the Amazon Web Services SDK
+     * for Java) auto-generate the token for users. If you are not using the Amazon Web Services SDK or the Amazon Web
+     * Services CLI, you must provide this token or the action will fail.
      * </p>
      * </important>
      * 
      * @param clientRequestToken
      *        A unique case-sensitive string used to ensure the request to create the query is idempotent (executes only
      *        once). If another <code>StartQueryExecution</code> request is received, the same response is returned and
-     *        another query is not created. If a parameter has changed, for example, the <code>QueryString</code>, an
-     *        error is returned.</p> <important>
+     *        another query is not created. An error is returned if a parameter, such as <code>QueryString</code>, has
+     *        changed. A call to <code>StartQueryExecution</code> that uses a previous client request token returns the
+     *        same <code>QueryExecutionId</code> even if the requester doesn't have permission on the tables specified
+     *        in <code>QueryString</code>.</p> <important>
      *        <p>
-     *        This token is listed as not required because AWS SDKs (for example the AWS SDK for Java) auto-generate the
-     *        token for users. If you are not using the AWS SDK or the AWS CLI, you must provide this token or the
-     *        action will fail.
+     *        This token is listed as not required because Amazon Web Services SDKs (for example the Amazon Web Services
+     *        SDK for Java) auto-generate the token for users. If you are not using the Amazon Web Services SDK or the
+     *        Amazon Web Services CLI, you must provide this token or the action will fail.
      *        </p>
      */
 
@@ -140,23 +163,29 @@ public class StartQueryExecutionRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * A unique case-sensitive string used to ensure the request to create the query is idempotent (executes only once).
      * If another <code>StartQueryExecution</code> request is received, the same response is returned and another query
-     * is not created. If a parameter has changed, for example, the <code>QueryString</code>, an error is returned.
+     * is not created. An error is returned if a parameter, such as <code>QueryString</code>, has changed. A call to
+     * <code>StartQueryExecution</code> that uses a previous client request token returns the same
+     * <code>QueryExecutionId</code> even if the requester doesn't have permission on the tables specified in
+     * <code>QueryString</code>.
      * </p>
      * <important>
      * <p>
-     * This token is listed as not required because AWS SDKs (for example the AWS SDK for Java) auto-generate the token
-     * for users. If you are not using the AWS SDK or the AWS CLI, you must provide this token or the action will fail.
+     * This token is listed as not required because Amazon Web Services SDKs (for example the Amazon Web Services SDK
+     * for Java) auto-generate the token for users. If you are not using the Amazon Web Services SDK or the Amazon Web
+     * Services CLI, you must provide this token or the action will fail.
      * </p>
      * </important>
      * 
      * @return A unique case-sensitive string used to ensure the request to create the query is idempotent (executes
      *         only once). If another <code>StartQueryExecution</code> request is received, the same response is
-     *         returned and another query is not created. If a parameter has changed, for example, the
-     *         <code>QueryString</code>, an error is returned.</p> <important>
+     *         returned and another query is not created. An error is returned if a parameter, such as
+     *         <code>QueryString</code>, has changed. A call to <code>StartQueryExecution</code> that uses a previous
+     *         client request token returns the same <code>QueryExecutionId</code> even if the requester doesn't have
+     *         permission on the tables specified in <code>QueryString</code>.</p> <important>
      *         <p>
-     *         This token is listed as not required because AWS SDKs (for example the AWS SDK for Java) auto-generate
-     *         the token for users. If you are not using the AWS SDK or the AWS CLI, you must provide this token or the
-     *         action will fail.
+     *         This token is listed as not required because Amazon Web Services SDKs (for example the Amazon Web
+     *         Services SDK for Java) auto-generate the token for users. If you are not using the Amazon Web Services
+     *         SDK or the Amazon Web Services CLI, you must provide this token or the action will fail.
      *         </p>
      */
 
@@ -168,24 +197,30 @@ public class StartQueryExecutionRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * A unique case-sensitive string used to ensure the request to create the query is idempotent (executes only once).
      * If another <code>StartQueryExecution</code> request is received, the same response is returned and another query
-     * is not created. If a parameter has changed, for example, the <code>QueryString</code>, an error is returned.
+     * is not created. An error is returned if a parameter, such as <code>QueryString</code>, has changed. A call to
+     * <code>StartQueryExecution</code> that uses a previous client request token returns the same
+     * <code>QueryExecutionId</code> even if the requester doesn't have permission on the tables specified in
+     * <code>QueryString</code>.
      * </p>
      * <important>
      * <p>
-     * This token is listed as not required because AWS SDKs (for example the AWS SDK for Java) auto-generate the token
-     * for users. If you are not using the AWS SDK or the AWS CLI, you must provide this token or the action will fail.
+     * This token is listed as not required because Amazon Web Services SDKs (for example the Amazon Web Services SDK
+     * for Java) auto-generate the token for users. If you are not using the Amazon Web Services SDK or the Amazon Web
+     * Services CLI, you must provide this token or the action will fail.
      * </p>
      * </important>
      * 
      * @param clientRequestToken
      *        A unique case-sensitive string used to ensure the request to create the query is idempotent (executes only
      *        once). If another <code>StartQueryExecution</code> request is received, the same response is returned and
-     *        another query is not created. If a parameter has changed, for example, the <code>QueryString</code>, an
-     *        error is returned.</p> <important>
+     *        another query is not created. An error is returned if a parameter, such as <code>QueryString</code>, has
+     *        changed. A call to <code>StartQueryExecution</code> that uses a previous client request token returns the
+     *        same <code>QueryExecutionId</code> even if the requester doesn't have permission on the tables specified
+     *        in <code>QueryString</code>.</p> <important>
      *        <p>
-     *        This token is listed as not required because AWS SDKs (for example the AWS SDK for Java) auto-generate the
-     *        token for users. If you are not using the AWS SDK or the AWS CLI, you must provide this token or the
-     *        action will fail.
+     *        This token is listed as not required because Amazon Web Services SDKs (for example the Amazon Web Services
+     *        SDK for Java) auto-generate the token for users. If you are not using the Amazon Web Services SDK or the
+     *        Amazon Web Services CLI, you must provide this token or the action will fail.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -334,6 +369,124 @@ public class StartQueryExecutionRequest extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
+     * <p>
+     * A list of values for the parameters in a query. The values are applied sequentially to the parameters in the
+     * query in the order in which the parameters occur.
+     * </p>
+     * 
+     * @return A list of values for the parameters in a query. The values are applied sequentially to the parameters in
+     *         the query in the order in which the parameters occur.
+     */
+
+    public java.util.List<String> getExecutionParameters() {
+        return executionParameters;
+    }
+
+    /**
+     * <p>
+     * A list of values for the parameters in a query. The values are applied sequentially to the parameters in the
+     * query in the order in which the parameters occur.
+     * </p>
+     * 
+     * @param executionParameters
+     *        A list of values for the parameters in a query. The values are applied sequentially to the parameters in
+     *        the query in the order in which the parameters occur.
+     */
+
+    public void setExecutionParameters(java.util.Collection<String> executionParameters) {
+        if (executionParameters == null) {
+            this.executionParameters = null;
+            return;
+        }
+
+        this.executionParameters = new java.util.ArrayList<String>(executionParameters);
+    }
+
+    /**
+     * <p>
+     * A list of values for the parameters in a query. The values are applied sequentially to the parameters in the
+     * query in the order in which the parameters occur.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setExecutionParameters(java.util.Collection)} or {@link #withExecutionParameters(java.util.Collection)}
+     * if you want to override the existing values.
+     * </p>
+     * 
+     * @param executionParameters
+     *        A list of values for the parameters in a query. The values are applied sequentially to the parameters in
+     *        the query in the order in which the parameters occur.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartQueryExecutionRequest withExecutionParameters(String... executionParameters) {
+        if (this.executionParameters == null) {
+            setExecutionParameters(new java.util.ArrayList<String>(executionParameters.length));
+        }
+        for (String ele : executionParameters) {
+            this.executionParameters.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of values for the parameters in a query. The values are applied sequentially to the parameters in the
+     * query in the order in which the parameters occur.
+     * </p>
+     * 
+     * @param executionParameters
+     *        A list of values for the parameters in a query. The values are applied sequentially to the parameters in
+     *        the query in the order in which the parameters occur.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartQueryExecutionRequest withExecutionParameters(java.util.Collection<String> executionParameters) {
+        setExecutionParameters(executionParameters);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the query result reuse behavior for the query.
+     * </p>
+     * 
+     * @param resultReuseConfiguration
+     *        Specifies the query result reuse behavior for the query.
+     */
+
+    public void setResultReuseConfiguration(ResultReuseConfiguration resultReuseConfiguration) {
+        this.resultReuseConfiguration = resultReuseConfiguration;
+    }
+
+    /**
+     * <p>
+     * Specifies the query result reuse behavior for the query.
+     * </p>
+     * 
+     * @return Specifies the query result reuse behavior for the query.
+     */
+
+    public ResultReuseConfiguration getResultReuseConfiguration() {
+        return this.resultReuseConfiguration;
+    }
+
+    /**
+     * <p>
+     * Specifies the query result reuse behavior for the query.
+     * </p>
+     * 
+     * @param resultReuseConfiguration
+     *        Specifies the query result reuse behavior for the query.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartQueryExecutionRequest withResultReuseConfiguration(ResultReuseConfiguration resultReuseConfiguration) {
+        setResultReuseConfiguration(resultReuseConfiguration);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -354,7 +507,11 @@ public class StartQueryExecutionRequest extends com.amazonaws.AmazonWebServiceRe
         if (getResultConfiguration() != null)
             sb.append("ResultConfiguration: ").append(getResultConfiguration()).append(",");
         if (getWorkGroup() != null)
-            sb.append("WorkGroup: ").append(getWorkGroup());
+            sb.append("WorkGroup: ").append(getWorkGroup()).append(",");
+        if (getExecutionParameters() != null)
+            sb.append("ExecutionParameters: ").append(getExecutionParameters()).append(",");
+        if (getResultReuseConfiguration() != null)
+            sb.append("ResultReuseConfiguration: ").append(getResultReuseConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -389,6 +546,14 @@ public class StartQueryExecutionRequest extends com.amazonaws.AmazonWebServiceRe
             return false;
         if (other.getWorkGroup() != null && other.getWorkGroup().equals(this.getWorkGroup()) == false)
             return false;
+        if (other.getExecutionParameters() == null ^ this.getExecutionParameters() == null)
+            return false;
+        if (other.getExecutionParameters() != null && other.getExecutionParameters().equals(this.getExecutionParameters()) == false)
+            return false;
+        if (other.getResultReuseConfiguration() == null ^ this.getResultReuseConfiguration() == null)
+            return false;
+        if (other.getResultReuseConfiguration() != null && other.getResultReuseConfiguration().equals(this.getResultReuseConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -402,6 +567,8 @@ public class StartQueryExecutionRequest extends com.amazonaws.AmazonWebServiceRe
         hashCode = prime * hashCode + ((getQueryExecutionContext() == null) ? 0 : getQueryExecutionContext().hashCode());
         hashCode = prime * hashCode + ((getResultConfiguration() == null) ? 0 : getResultConfiguration().hashCode());
         hashCode = prime * hashCode + ((getWorkGroup() == null) ? 0 : getWorkGroup().hashCode());
+        hashCode = prime * hashCode + ((getExecutionParameters() == null) ? 0 : getExecutionParameters().hashCode());
+        hashCode = prime * hashCode + ((getResultReuseConfiguration() == null) ? 0 : getResultReuseConfiguration().hashCode());
         return hashCode;
     }
 

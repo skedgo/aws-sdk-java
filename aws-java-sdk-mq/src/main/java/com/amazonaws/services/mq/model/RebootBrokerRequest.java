@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,11 +25,17 @@ import com.amazonaws.AmazonWebServiceRequest;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class RebootBrokerRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
 
-    /** The unique ID that Amazon MQ generates for the broker. */
+    /**
+     * <p>
+     * The unique ID that Amazon MQ generates for the broker.
+     * </p>
+     */
     private String brokerId;
 
     /**
+     * <p>
      * The unique ID that Amazon MQ generates for the broker.
+     * </p>
      * 
      * @param brokerId
      *        The unique ID that Amazon MQ generates for the broker.
@@ -40,7 +46,9 @@ public class RebootBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
+     * <p>
      * The unique ID that Amazon MQ generates for the broker.
+     * </p>
      * 
      * @return The unique ID that Amazon MQ generates for the broker.
      */
@@ -50,7 +58,9 @@ public class RebootBrokerRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
+     * <p>
      * The unique ID that Amazon MQ generates for the broker.
+     * </p>
      * 
      * @param brokerId
      *        The unique ID that Amazon MQ generates for the broker.

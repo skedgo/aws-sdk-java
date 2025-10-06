@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
- * Overlay motion graphics on top of your video at the time that you specify.
+ * Overlay motion graphics on top of your video. The motion graphics that you specify here appear on all outputs in all
+ * output groups. For more information, see
+ * https://docs.aws.amazon.com/mediaconvert/latest/ug/motion-graphic-overlay.html.
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/MotionImageInserter" target="_top">AWS
  *      API Documentation</a>
@@ -64,9 +66,7 @@ public class MotionImageInserter implements Serializable, Cloneable, StructuredP
      * settings and input settings. The simplest way to do that is to set both to start at 0. If you need to set up your
      * job to follow timecodes embedded in your source that don't start at zero, make sure that you specify a start time
      * that is after the first embedded timecode. For more information, see
-     * https://docs.aws.amazon.com/mediaconvert/latest/ug/setting-up-timecode.html Find job-wide and input timecode
-     * configuration settings in your JSON job settings specification at settings>timecodeConfig>source and
-     * settings>inputs>timecodeSource.
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/setting-up-timecode.html
      */
     private String startTime;
 
@@ -372,9 +372,7 @@ public class MotionImageInserter implements Serializable, Cloneable, StructuredP
      * settings and input settings. The simplest way to do that is to set both to start at 0. If you need to set up your
      * job to follow timecodes embedded in your source that don't start at zero, make sure that you specify a start time
      * that is after the first embedded timecode. For more information, see
-     * https://docs.aws.amazon.com/mediaconvert/latest/ug/setting-up-timecode.html Find job-wide and input timecode
-     * configuration settings in your JSON job settings specification at settings>timecodeConfig>source and
-     * settings>inputs>timecodeSource.
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/setting-up-timecode.html
      * 
      * @param startTime
      *        Specify when the motion overlay begins. Use timecode format (HH:MM:SS:FF or HH:MM:SS;FF). Make sure that
@@ -382,9 +380,7 @@ public class MotionImageInserter implements Serializable, Cloneable, StructuredP
      *        both job settings and input settings. The simplest way to do that is to set both to start at 0. If you
      *        need to set up your job to follow timecodes embedded in your source that don't start at zero, make sure
      *        that you specify a start time that is after the first embedded timecode. For more information, see
-     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/setting-up-timecode.html Find job-wide and input
-     *        timecode configuration settings in your JSON job settings specification at settings>timecodeConfig>source
-     *        and settings>inputs>timecodeSource.
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/setting-up-timecode.html
      */
 
     public void setStartTime(String startTime) {
@@ -397,18 +393,14 @@ public class MotionImageInserter implements Serializable, Cloneable, StructuredP
      * settings and input settings. The simplest way to do that is to set both to start at 0. If you need to set up your
      * job to follow timecodes embedded in your source that don't start at zero, make sure that you specify a start time
      * that is after the first embedded timecode. For more information, see
-     * https://docs.aws.amazon.com/mediaconvert/latest/ug/setting-up-timecode.html Find job-wide and input timecode
-     * configuration settings in your JSON job settings specification at settings>timecodeConfig>source and
-     * settings>inputs>timecodeSource.
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/setting-up-timecode.html
      * 
      * @return Specify when the motion overlay begins. Use timecode format (HH:MM:SS:FF or HH:MM:SS;FF). Make sure that
      *         the timecode you provide here takes into account how you have set up your timecode configuration under
      *         both job settings and input settings. The simplest way to do that is to set both to start at 0. If you
      *         need to set up your job to follow timecodes embedded in your source that don't start at zero, make sure
      *         that you specify a start time that is after the first embedded timecode. For more information, see
-     *         https://docs.aws.amazon.com/mediaconvert/latest/ug/setting-up-timecode.html Find job-wide and input
-     *         timecode configuration settings in your JSON job settings specification at settings>timecodeConfig>source
-     *         and settings>inputs>timecodeSource.
+     *         https://docs.aws.amazon.com/mediaconvert/latest/ug/setting-up-timecode.html
      */
 
     public String getStartTime() {
@@ -421,9 +413,7 @@ public class MotionImageInserter implements Serializable, Cloneable, StructuredP
      * settings and input settings. The simplest way to do that is to set both to start at 0. If you need to set up your
      * job to follow timecodes embedded in your source that don't start at zero, make sure that you specify a start time
      * that is after the first embedded timecode. For more information, see
-     * https://docs.aws.amazon.com/mediaconvert/latest/ug/setting-up-timecode.html Find job-wide and input timecode
-     * configuration settings in your JSON job settings specification at settings>timecodeConfig>source and
-     * settings>inputs>timecodeSource.
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/setting-up-timecode.html
      * 
      * @param startTime
      *        Specify when the motion overlay begins. Use timecode format (HH:MM:SS:FF or HH:MM:SS;FF). Make sure that
@@ -431,9 +421,7 @@ public class MotionImageInserter implements Serializable, Cloneable, StructuredP
      *        both job settings and input settings. The simplest way to do that is to set both to start at 0. If you
      *        need to set up your job to follow timecodes embedded in your source that don't start at zero, make sure
      *        that you specify a start time that is after the first embedded timecode. For more information, see
-     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/setting-up-timecode.html Find job-wide and input
-     *        timecode configuration settings in your JSON job settings specification at settings>timecodeConfig>source
-     *        and settings>inputs>timecodeSource.
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/setting-up-timecode.html
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

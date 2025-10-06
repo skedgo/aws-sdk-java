@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,6 +33,10 @@ public enum ElastiCacheActions implements Action {
     BatchApplyUpdateAction("elasticache:BatchApplyUpdateAction"),
     /** Action for the BatchStopUpdateAction operation. */
     BatchStopUpdateAction("elasticache:BatchStopUpdateAction"),
+    /** Action for the CompleteMigration operation. */
+    CompleteMigration("elasticache:CompleteMigration"),
+    /** Action for the CopyServerlessCacheSnapshot operation. */
+    CopyServerlessCacheSnapshot("elasticache:CopyServerlessCacheSnapshot"),
     /** Action for the CopySnapshot operation. */
     CopySnapshot("elasticache:CopySnapshot"),
     /** Action for the CreateCacheCluster operation. */
@@ -43,10 +47,22 @@ public enum ElastiCacheActions implements Action {
     CreateCacheSecurityGroup("elasticache:CreateCacheSecurityGroup"),
     /** Action for the CreateCacheSubnetGroup operation. */
     CreateCacheSubnetGroup("elasticache:CreateCacheSubnetGroup"),
+    /** Action for the CreateGlobalReplicationGroup operation. */
+    CreateGlobalReplicationGroup("elasticache:CreateGlobalReplicationGroup"),
     /** Action for the CreateReplicationGroup operation. */
     CreateReplicationGroup("elasticache:CreateReplicationGroup"),
+    /** Action for the CreateServerlessCache operation. */
+    CreateServerlessCache("elasticache:CreateServerlessCache"),
+    /** Action for the CreateServerlessCacheSnapshot operation. */
+    CreateServerlessCacheSnapshot("elasticache:CreateServerlessCacheSnapshot"),
     /** Action for the CreateSnapshot operation. */
     CreateSnapshot("elasticache:CreateSnapshot"),
+    /** Action for the CreateUser operation. */
+    CreateUser("elasticache:CreateUser"),
+    /** Action for the CreateUserGroup operation. */
+    CreateUserGroup("elasticache:CreateUserGroup"),
+    /** Action for the DecreaseNodeGroupsInGlobalReplicationGroup operation. */
+    DecreaseNodeGroupsInGlobalReplicationGroup("elasticache:DecreaseNodeGroupsInGlobalReplicationGroup"),
     /** Action for the DecreaseReplicaCount operation. */
     DecreaseReplicaCount("elasticache:DecreaseReplicaCount"),
     /** Action for the DeleteCacheCluster operation. */
@@ -57,10 +73,20 @@ public enum ElastiCacheActions implements Action {
     DeleteCacheSecurityGroup("elasticache:DeleteCacheSecurityGroup"),
     /** Action for the DeleteCacheSubnetGroup operation. */
     DeleteCacheSubnetGroup("elasticache:DeleteCacheSubnetGroup"),
+    /** Action for the DeleteGlobalReplicationGroup operation. */
+    DeleteGlobalReplicationGroup("elasticache:DeleteGlobalReplicationGroup"),
     /** Action for the DeleteReplicationGroup operation. */
     DeleteReplicationGroup("elasticache:DeleteReplicationGroup"),
+    /** Action for the DeleteServerlessCache operation. */
+    DeleteServerlessCache("elasticache:DeleteServerlessCache"),
+    /** Action for the DeleteServerlessCacheSnapshot operation. */
+    DeleteServerlessCacheSnapshot("elasticache:DeleteServerlessCacheSnapshot"),
     /** Action for the DeleteSnapshot operation. */
     DeleteSnapshot("elasticache:DeleteSnapshot"),
+    /** Action for the DeleteUser operation. */
+    DeleteUser("elasticache:DeleteUser"),
+    /** Action for the DeleteUserGroup operation. */
+    DeleteUserGroup("elasticache:DeleteUserGroup"),
     /** Action for the DescribeCacheClusters operation. */
     DescribeCacheClusters("elasticache:DescribeCacheClusters"),
     /** Action for the DescribeCacheEngineVersions operation. */
@@ -77,18 +103,36 @@ public enum ElastiCacheActions implements Action {
     DescribeEngineDefaultParameters("elasticache:DescribeEngineDefaultParameters"),
     /** Action for the DescribeEvents operation. */
     DescribeEvents("elasticache:DescribeEvents"),
+    /** Action for the DescribeGlobalReplicationGroups operation. */
+    DescribeGlobalReplicationGroups("elasticache:DescribeGlobalReplicationGroups"),
     /** Action for the DescribeReplicationGroups operation. */
     DescribeReplicationGroups("elasticache:DescribeReplicationGroups"),
     /** Action for the DescribeReservedCacheNodes operation. */
     DescribeReservedCacheNodes("elasticache:DescribeReservedCacheNodes"),
     /** Action for the DescribeReservedCacheNodesOfferings operation. */
     DescribeReservedCacheNodesOfferings("elasticache:DescribeReservedCacheNodesOfferings"),
+    /** Action for the DescribeServerlessCacheSnapshots operation. */
+    DescribeServerlessCacheSnapshots("elasticache:DescribeServerlessCacheSnapshots"),
+    /** Action for the DescribeServerlessCaches operation. */
+    DescribeServerlessCaches("elasticache:DescribeServerlessCaches"),
     /** Action for the DescribeServiceUpdates operation. */
     DescribeServiceUpdates("elasticache:DescribeServiceUpdates"),
     /** Action for the DescribeSnapshots operation. */
     DescribeSnapshots("elasticache:DescribeSnapshots"),
     /** Action for the DescribeUpdateActions operation. */
     DescribeUpdateActions("elasticache:DescribeUpdateActions"),
+    /** Action for the DescribeUserGroups operation. */
+    DescribeUserGroups("elasticache:DescribeUserGroups"),
+    /** Action for the DescribeUsers operation. */
+    DescribeUsers("elasticache:DescribeUsers"),
+    /** Action for the DisassociateGlobalReplicationGroup operation. */
+    DisassociateGlobalReplicationGroup("elasticache:DisassociateGlobalReplicationGroup"),
+    /** Action for the ExportServerlessCacheSnapshot operation. */
+    ExportServerlessCacheSnapshot("elasticache:ExportServerlessCacheSnapshot"),
+    /** Action for the FailoverGlobalReplicationGroup operation. */
+    FailoverGlobalReplicationGroup("elasticache:FailoverGlobalReplicationGroup"),
+    /** Action for the IncreaseNodeGroupsInGlobalReplicationGroup operation. */
+    IncreaseNodeGroupsInGlobalReplicationGroup("elasticache:IncreaseNodeGroupsInGlobalReplicationGroup"),
     /** Action for the IncreaseReplicaCount operation. */
     IncreaseReplicaCount("elasticache:IncreaseReplicaCount"),
     /** Action for the ListAllowedNodeTypeModifications operation. */
@@ -101,12 +145,22 @@ public enum ElastiCacheActions implements Action {
     ModifyCacheParameterGroup("elasticache:ModifyCacheParameterGroup"),
     /** Action for the ModifyCacheSubnetGroup operation. */
     ModifyCacheSubnetGroup("elasticache:ModifyCacheSubnetGroup"),
+    /** Action for the ModifyGlobalReplicationGroup operation. */
+    ModifyGlobalReplicationGroup("elasticache:ModifyGlobalReplicationGroup"),
     /** Action for the ModifyReplicationGroup operation. */
     ModifyReplicationGroup("elasticache:ModifyReplicationGroup"),
     /** Action for the ModifyReplicationGroupShardConfiguration operation. */
     ModifyReplicationGroupShardConfiguration("elasticache:ModifyReplicationGroupShardConfiguration"),
+    /** Action for the ModifyServerlessCache operation. */
+    ModifyServerlessCache("elasticache:ModifyServerlessCache"),
+    /** Action for the ModifyUser operation. */
+    ModifyUser("elasticache:ModifyUser"),
+    /** Action for the ModifyUserGroup operation. */
+    ModifyUserGroup("elasticache:ModifyUserGroup"),
     /** Action for the PurchaseReservedCacheNodesOffering operation. */
     PurchaseReservedCacheNodesOffering("elasticache:PurchaseReservedCacheNodesOffering"),
+    /** Action for the RebalanceSlotsInGlobalReplicationGroup operation. */
+    RebalanceSlotsInGlobalReplicationGroup("elasticache:RebalanceSlotsInGlobalReplicationGroup"),
     /** Action for the RebootCacheCluster operation. */
     RebootCacheCluster("elasticache:RebootCacheCluster"),
     /** Action for the RemoveTagsFromResource operation. */
@@ -115,8 +169,12 @@ public enum ElastiCacheActions implements Action {
     ResetCacheParameterGroup("elasticache:ResetCacheParameterGroup"),
     /** Action for the RevokeCacheSecurityGroupIngress operation. */
     RevokeCacheSecurityGroupIngress("elasticache:RevokeCacheSecurityGroupIngress"),
+    /** Action for the StartMigration operation. */
+    StartMigration("elasticache:StartMigration"),
     /** Action for the TestFailover operation. */
     TestFailover("elasticache:TestFailover"),
+    /** Action for the TestMigration operation. */
+    TestMigration("elasticache:TestMigration"),
 
     ;
 
@@ -128,5 +186,9 @@ public enum ElastiCacheActions implements Action {
 
     public String getActionName() {
         return this.action;
+    }
+
+    public boolean isNotType() {
+        return false;
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -76,9 +76,17 @@ public class ClusterJsonUnmarshaller implements Unmarshaller<Cluster, JsonUnmars
                     context.nextToken();
                     cluster.setResourcesVpcConfig(VpcConfigResponseJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("kubernetesNetworkConfig", targetDepth)) {
+                    context.nextToken();
+                    cluster.setKubernetesNetworkConfig(KubernetesNetworkConfigResponseJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("logging", targetDepth)) {
                     context.nextToken();
                     cluster.setLogging(LoggingJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("identity", targetDepth)) {
+                    context.nextToken();
+                    cluster.setIdentity(IdentityJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("status", targetDepth)) {
                     context.nextToken();
@@ -95,6 +103,41 @@ public class ClusterJsonUnmarshaller implements Unmarshaller<Cluster, JsonUnmars
                 if (context.testExpression("platformVersion", targetDepth)) {
                     context.nextToken();
                     cluster.setPlatformVersion(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("tags", targetDepth)) {
+                    context.nextToken();
+                    cluster.setTags(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context.getUnmarshaller(String.class))
+                            .unmarshall(context));
+                }
+                if (context.testExpression("encryptionConfig", targetDepth)) {
+                    context.nextToken();
+                    cluster.setEncryptionConfig(new ListUnmarshaller<EncryptionConfig>(EncryptionConfigJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("connectorConfig", targetDepth)) {
+                    context.nextToken();
+                    cluster.setConnectorConfig(ConnectorConfigResponseJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("id", targetDepth)) {
+                    context.nextToken();
+                    cluster.setId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("health", targetDepth)) {
+                    context.nextToken();
+                    cluster.setHealth(ClusterHealthJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("outpostConfig", targetDepth)) {
+                    context.nextToken();
+                    cluster.setOutpostConfig(OutpostConfigResponseJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("accessConfig", targetDepth)) {
+                    context.nextToken();
+                    cluster.setAccessConfig(AccessConfigResponseJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("upgradePolicy", targetDepth)) {
+                    context.nextToken();
+                    cluster.setUpgradePolicy(UpgradePolicyResponseJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

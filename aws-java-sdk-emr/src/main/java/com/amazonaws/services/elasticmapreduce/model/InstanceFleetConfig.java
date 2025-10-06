@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -23,7 +23,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * </p>
  * <note>
  * <p>
- * The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x versions.
+ * The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x versions.
  * </p>
  * </note>
  * 
@@ -41,16 +41,16 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
     private String name;
     /**
      * <p>
-     * The node type that the instance fleet hosts. Valid values are MASTER,CORE,and TASK.
+     * The node type that the instance fleet hosts. Valid values are MASTER, CORE, and TASK.
      * </p>
      */
     private String instanceFleetType;
     /**
      * <p>
-     * The target capacity of On-Demand units for the instance fleet, which determines how many On-Demand instances to
-     * provision. When the instance fleet launches, Amazon EMR tries to provision On-Demand instances as specified by
+     * The target capacity of On-Demand units for the instance fleet, which determines how many On-Demand Instances to
+     * provision. When the instance fleet launches, Amazon EMR tries to provision On-Demand Instances as specified by
      * <a>InstanceTypeConfig</a>. Each instance configuration has a specified <code>WeightedCapacity</code>. When an
-     * On-Demand instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity.
+     * On-Demand Instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity.
      * Amazon EMR provisions instances until the target capacity is totally fulfilled, even if this results in an
      * overage. For example, if there are 2 units remaining to fulfill capacity, and Amazon EMR can only provision an
      * instance with a <code>WeightedCapacity</code> of 5 units, the instance is provisioned, and the target capacity is
@@ -58,7 +58,7 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
      * </p>
      * <note>
      * <p>
-     * If not specified or set to 0, only Spot instances are provisioned for the instance fleet using
+     * If not specified or set to 0, only Spot Instances are provisioned for the instance fleet using
      * <code>TargetSpotCapacity</code>. At least one of <code>TargetSpotCapacity</code> and
      * <code>TargetOnDemandCapacity</code> should be greater than 0. For a master instance fleet, only one of
      * <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> can be specified, and its value must be
@@ -69,10 +69,10 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
     private Integer targetOnDemandCapacity;
     /**
      * <p>
-     * The target capacity of Spot units for the instance fleet, which determines how many Spot instances to provision.
-     * When the instance fleet launches, Amazon EMR tries to provision Spot instances as specified by
+     * The target capacity of Spot units for the instance fleet, which determines how many Spot Instances to provision.
+     * When the instance fleet launches, Amazon EMR tries to provision Spot Instances as specified by
      * <a>InstanceTypeConfig</a>. Each instance configuration has a specified <code>WeightedCapacity</code>. When a Spot
-     * instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity. Amazon EMR
+     * Instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity. Amazon EMR
      * provisions instances until the target capacity is totally fulfilled, even if this results in an overage. For
      * example, if there are 2 units remaining to fulfill capacity, and Amazon EMR can only provision an instance with a
      * <code>WeightedCapacity</code> of 5 units, the instance is provisioned, and the target capacity is exceeded by 3
@@ -80,7 +80,7 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
      * </p>
      * <note>
      * <p>
-     * If not specified or set to 0, only On-Demand instances are provisioned for the instance fleet. At least one of
+     * If not specified or set to 0, only On-Demand Instances are provisioned for the instance fleet. At least one of
      * <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> should be greater than 0. For a master
      * instance fleet, only one of <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> can be
      * specified, and its value must be 1.
@@ -90,7 +90,7 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
     private Integer targetSpotCapacity;
     /**
      * <p>
-     * The instance type configurations that define the EC2 instances in the instance fleet.
+     * The instance type configurations that define the Amazon EC2 instances in the instance fleet.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<InstanceTypeConfig> instanceTypeConfigs;
@@ -100,6 +100,12 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
      * </p>
      */
     private InstanceFleetProvisioningSpecifications launchSpecifications;
+    /**
+     * <p>
+     * The resize specification for the instance fleet.
+     * </p>
+     */
+    private InstanceFleetResizingSpecifications resizeSpecifications;
 
     /**
      * <p>
@@ -143,11 +149,11 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The node type that the instance fleet hosts. Valid values are MASTER,CORE,and TASK.
+     * The node type that the instance fleet hosts. Valid values are MASTER, CORE, and TASK.
      * </p>
      * 
      * @param instanceFleetType
-     *        The node type that the instance fleet hosts. Valid values are MASTER,CORE,and TASK.
+     *        The node type that the instance fleet hosts. Valid values are MASTER, CORE, and TASK.
      * @see InstanceFleetType
      */
 
@@ -157,10 +163,10 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The node type that the instance fleet hosts. Valid values are MASTER,CORE,and TASK.
+     * The node type that the instance fleet hosts. Valid values are MASTER, CORE, and TASK.
      * </p>
      * 
-     * @return The node type that the instance fleet hosts. Valid values are MASTER,CORE,and TASK.
+     * @return The node type that the instance fleet hosts. Valid values are MASTER, CORE, and TASK.
      * @see InstanceFleetType
      */
 
@@ -170,11 +176,11 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The node type that the instance fleet hosts. Valid values are MASTER,CORE,and TASK.
+     * The node type that the instance fleet hosts. Valid values are MASTER, CORE, and TASK.
      * </p>
      * 
      * @param instanceFleetType
-     *        The node type that the instance fleet hosts. Valid values are MASTER,CORE,and TASK.
+     *        The node type that the instance fleet hosts. Valid values are MASTER, CORE, and TASK.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InstanceFleetType
      */
@@ -186,11 +192,11 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The node type that the instance fleet hosts. Valid values are MASTER,CORE,and TASK.
+     * The node type that the instance fleet hosts. Valid values are MASTER, CORE, and TASK.
      * </p>
      * 
      * @param instanceFleetType
-     *        The node type that the instance fleet hosts. Valid values are MASTER,CORE,and TASK.
+     *        The node type that the instance fleet hosts. Valid values are MASTER, CORE, and TASK.
      * @see InstanceFleetType
      */
 
@@ -200,11 +206,11 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The node type that the instance fleet hosts. Valid values are MASTER,CORE,and TASK.
+     * The node type that the instance fleet hosts. Valid values are MASTER, CORE, and TASK.
      * </p>
      * 
      * @param instanceFleetType
-     *        The node type that the instance fleet hosts. Valid values are MASTER,CORE,and TASK.
+     *        The node type that the instance fleet hosts. Valid values are MASTER, CORE, and TASK.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InstanceFleetType
      */
@@ -216,10 +222,10 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The target capacity of On-Demand units for the instance fleet, which determines how many On-Demand instances to
-     * provision. When the instance fleet launches, Amazon EMR tries to provision On-Demand instances as specified by
+     * The target capacity of On-Demand units for the instance fleet, which determines how many On-Demand Instances to
+     * provision. When the instance fleet launches, Amazon EMR tries to provision On-Demand Instances as specified by
      * <a>InstanceTypeConfig</a>. Each instance configuration has a specified <code>WeightedCapacity</code>. When an
-     * On-Demand instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity.
+     * On-Demand Instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity.
      * Amazon EMR provisions instances until the target capacity is totally fulfilled, even if this results in an
      * overage. For example, if there are 2 units remaining to fulfill capacity, and Amazon EMR can only provision an
      * instance with a <code>WeightedCapacity</code> of 5 units, the instance is provisioned, and the target capacity is
@@ -227,7 +233,7 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
      * </p>
      * <note>
      * <p>
-     * If not specified or set to 0, only Spot instances are provisioned for the instance fleet using
+     * If not specified or set to 0, only Spot Instances are provisioned for the instance fleet using
      * <code>TargetSpotCapacity</code>. At least one of <code>TargetSpotCapacity</code> and
      * <code>TargetOnDemandCapacity</code> should be greater than 0. For a master instance fleet, only one of
      * <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> can be specified, and its value must be
@@ -237,16 +243,16 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
      * 
      * @param targetOnDemandCapacity
      *        The target capacity of On-Demand units for the instance fleet, which determines how many On-Demand
-     *        instances to provision. When the instance fleet launches, Amazon EMR tries to provision On-Demand
-     *        instances as specified by <a>InstanceTypeConfig</a>. Each instance configuration has a specified
-     *        <code>WeightedCapacity</code>. When an On-Demand instance is provisioned, the
+     *        Instances to provision. When the instance fleet launches, Amazon EMR tries to provision On-Demand
+     *        Instances as specified by <a>InstanceTypeConfig</a>. Each instance configuration has a specified
+     *        <code>WeightedCapacity</code>. When an On-Demand Instance is provisioned, the
      *        <code>WeightedCapacity</code> units count toward the target capacity. Amazon EMR provisions instances
      *        until the target capacity is totally fulfilled, even if this results in an overage. For example, if there
      *        are 2 units remaining to fulfill capacity, and Amazon EMR can only provision an instance with a
      *        <code>WeightedCapacity</code> of 5 units, the instance is provisioned, and the target capacity is exceeded
      *        by 3 units.</p> <note>
      *        <p>
-     *        If not specified or set to 0, only Spot instances are provisioned for the instance fleet using
+     *        If not specified or set to 0, only Spot Instances are provisioned for the instance fleet using
      *        <code>TargetSpotCapacity</code>. At least one of <code>TargetSpotCapacity</code> and
      *        <code>TargetOnDemandCapacity</code> should be greater than 0. For a master instance fleet, only one of
      *        <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> can be specified, and its value
@@ -260,10 +266,10 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The target capacity of On-Demand units for the instance fleet, which determines how many On-Demand instances to
-     * provision. When the instance fleet launches, Amazon EMR tries to provision On-Demand instances as specified by
+     * The target capacity of On-Demand units for the instance fleet, which determines how many On-Demand Instances to
+     * provision. When the instance fleet launches, Amazon EMR tries to provision On-Demand Instances as specified by
      * <a>InstanceTypeConfig</a>. Each instance configuration has a specified <code>WeightedCapacity</code>. When an
-     * On-Demand instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity.
+     * On-Demand Instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity.
      * Amazon EMR provisions instances until the target capacity is totally fulfilled, even if this results in an
      * overage. For example, if there are 2 units remaining to fulfill capacity, and Amazon EMR can only provision an
      * instance with a <code>WeightedCapacity</code> of 5 units, the instance is provisioned, and the target capacity is
@@ -271,7 +277,7 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
      * </p>
      * <note>
      * <p>
-     * If not specified or set to 0, only Spot instances are provisioned for the instance fleet using
+     * If not specified or set to 0, only Spot Instances are provisioned for the instance fleet using
      * <code>TargetSpotCapacity</code>. At least one of <code>TargetSpotCapacity</code> and
      * <code>TargetOnDemandCapacity</code> should be greater than 0. For a master instance fleet, only one of
      * <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> can be specified, and its value must be
@@ -280,16 +286,16 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
      * </note>
      * 
      * @return The target capacity of On-Demand units for the instance fleet, which determines how many On-Demand
-     *         instances to provision. When the instance fleet launches, Amazon EMR tries to provision On-Demand
-     *         instances as specified by <a>InstanceTypeConfig</a>. Each instance configuration has a specified
-     *         <code>WeightedCapacity</code>. When an On-Demand instance is provisioned, the
+     *         Instances to provision. When the instance fleet launches, Amazon EMR tries to provision On-Demand
+     *         Instances as specified by <a>InstanceTypeConfig</a>. Each instance configuration has a specified
+     *         <code>WeightedCapacity</code>. When an On-Demand Instance is provisioned, the
      *         <code>WeightedCapacity</code> units count toward the target capacity. Amazon EMR provisions instances
      *         until the target capacity is totally fulfilled, even if this results in an overage. For example, if there
      *         are 2 units remaining to fulfill capacity, and Amazon EMR can only provision an instance with a
      *         <code>WeightedCapacity</code> of 5 units, the instance is provisioned, and the target capacity is
      *         exceeded by 3 units.</p> <note>
      *         <p>
-     *         If not specified or set to 0, only Spot instances are provisioned for the instance fleet using
+     *         If not specified or set to 0, only Spot Instances are provisioned for the instance fleet using
      *         <code>TargetSpotCapacity</code>. At least one of <code>TargetSpotCapacity</code> and
      *         <code>TargetOnDemandCapacity</code> should be greater than 0. For a master instance fleet, only one of
      *         <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> can be specified, and its value
@@ -303,10 +309,10 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The target capacity of On-Demand units for the instance fleet, which determines how many On-Demand instances to
-     * provision. When the instance fleet launches, Amazon EMR tries to provision On-Demand instances as specified by
+     * The target capacity of On-Demand units for the instance fleet, which determines how many On-Demand Instances to
+     * provision. When the instance fleet launches, Amazon EMR tries to provision On-Demand Instances as specified by
      * <a>InstanceTypeConfig</a>. Each instance configuration has a specified <code>WeightedCapacity</code>. When an
-     * On-Demand instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity.
+     * On-Demand Instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity.
      * Amazon EMR provisions instances until the target capacity is totally fulfilled, even if this results in an
      * overage. For example, if there are 2 units remaining to fulfill capacity, and Amazon EMR can only provision an
      * instance with a <code>WeightedCapacity</code> of 5 units, the instance is provisioned, and the target capacity is
@@ -314,7 +320,7 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
      * </p>
      * <note>
      * <p>
-     * If not specified or set to 0, only Spot instances are provisioned for the instance fleet using
+     * If not specified or set to 0, only Spot Instances are provisioned for the instance fleet using
      * <code>TargetSpotCapacity</code>. At least one of <code>TargetSpotCapacity</code> and
      * <code>TargetOnDemandCapacity</code> should be greater than 0. For a master instance fleet, only one of
      * <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> can be specified, and its value must be
@@ -324,16 +330,16 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
      * 
      * @param targetOnDemandCapacity
      *        The target capacity of On-Demand units for the instance fleet, which determines how many On-Demand
-     *        instances to provision. When the instance fleet launches, Amazon EMR tries to provision On-Demand
-     *        instances as specified by <a>InstanceTypeConfig</a>. Each instance configuration has a specified
-     *        <code>WeightedCapacity</code>. When an On-Demand instance is provisioned, the
+     *        Instances to provision. When the instance fleet launches, Amazon EMR tries to provision On-Demand
+     *        Instances as specified by <a>InstanceTypeConfig</a>. Each instance configuration has a specified
+     *        <code>WeightedCapacity</code>. When an On-Demand Instance is provisioned, the
      *        <code>WeightedCapacity</code> units count toward the target capacity. Amazon EMR provisions instances
      *        until the target capacity is totally fulfilled, even if this results in an overage. For example, if there
      *        are 2 units remaining to fulfill capacity, and Amazon EMR can only provision an instance with a
      *        <code>WeightedCapacity</code> of 5 units, the instance is provisioned, and the target capacity is exceeded
      *        by 3 units.</p> <note>
      *        <p>
-     *        If not specified or set to 0, only Spot instances are provisioned for the instance fleet using
+     *        If not specified or set to 0, only Spot Instances are provisioned for the instance fleet using
      *        <code>TargetSpotCapacity</code>. At least one of <code>TargetSpotCapacity</code> and
      *        <code>TargetOnDemandCapacity</code> should be greater than 0. For a master instance fleet, only one of
      *        <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> can be specified, and its value
@@ -349,10 +355,10 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The target capacity of Spot units for the instance fleet, which determines how many Spot instances to provision.
-     * When the instance fleet launches, Amazon EMR tries to provision Spot instances as specified by
+     * The target capacity of Spot units for the instance fleet, which determines how many Spot Instances to provision.
+     * When the instance fleet launches, Amazon EMR tries to provision Spot Instances as specified by
      * <a>InstanceTypeConfig</a>. Each instance configuration has a specified <code>WeightedCapacity</code>. When a Spot
-     * instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity. Amazon EMR
+     * Instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity. Amazon EMR
      * provisions instances until the target capacity is totally fulfilled, even if this results in an overage. For
      * example, if there are 2 units remaining to fulfill capacity, and Amazon EMR can only provision an instance with a
      * <code>WeightedCapacity</code> of 5 units, the instance is provisioned, and the target capacity is exceeded by 3
@@ -360,7 +366,7 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
      * </p>
      * <note>
      * <p>
-     * If not specified or set to 0, only On-Demand instances are provisioned for the instance fleet. At least one of
+     * If not specified or set to 0, only On-Demand Instances are provisioned for the instance fleet. At least one of
      * <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> should be greater than 0. For a master
      * instance fleet, only one of <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> can be
      * specified, and its value must be 1.
@@ -368,16 +374,16 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
      * </note>
      * 
      * @param targetSpotCapacity
-     *        The target capacity of Spot units for the instance fleet, which determines how many Spot instances to
-     *        provision. When the instance fleet launches, Amazon EMR tries to provision Spot instances as specified by
+     *        The target capacity of Spot units for the instance fleet, which determines how many Spot Instances to
+     *        provision. When the instance fleet launches, Amazon EMR tries to provision Spot Instances as specified by
      *        <a>InstanceTypeConfig</a>. Each instance configuration has a specified <code>WeightedCapacity</code>. When
-     *        a Spot instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity.
+     *        a Spot Instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity.
      *        Amazon EMR provisions instances until the target capacity is totally fulfilled, even if this results in an
      *        overage. For example, if there are 2 units remaining to fulfill capacity, and Amazon EMR can only
      *        provision an instance with a <code>WeightedCapacity</code> of 5 units, the instance is provisioned, and
      *        the target capacity is exceeded by 3 units.</p> <note>
      *        <p>
-     *        If not specified or set to 0, only On-Demand instances are provisioned for the instance fleet. At least
+     *        If not specified or set to 0, only On-Demand Instances are provisioned for the instance fleet. At least
      *        one of <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> should be greater than 0.
      *        For a master instance fleet, only one of <code>TargetSpotCapacity</code> and
      *        <code>TargetOnDemandCapacity</code> can be specified, and its value must be 1.
@@ -390,10 +396,10 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The target capacity of Spot units for the instance fleet, which determines how many Spot instances to provision.
-     * When the instance fleet launches, Amazon EMR tries to provision Spot instances as specified by
+     * The target capacity of Spot units for the instance fleet, which determines how many Spot Instances to provision.
+     * When the instance fleet launches, Amazon EMR tries to provision Spot Instances as specified by
      * <a>InstanceTypeConfig</a>. Each instance configuration has a specified <code>WeightedCapacity</code>. When a Spot
-     * instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity. Amazon EMR
+     * Instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity. Amazon EMR
      * provisions instances until the target capacity is totally fulfilled, even if this results in an overage. For
      * example, if there are 2 units remaining to fulfill capacity, and Amazon EMR can only provision an instance with a
      * <code>WeightedCapacity</code> of 5 units, the instance is provisioned, and the target capacity is exceeded by 3
@@ -401,23 +407,23 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
      * </p>
      * <note>
      * <p>
-     * If not specified or set to 0, only On-Demand instances are provisioned for the instance fleet. At least one of
+     * If not specified or set to 0, only On-Demand Instances are provisioned for the instance fleet. At least one of
      * <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> should be greater than 0. For a master
      * instance fleet, only one of <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> can be
      * specified, and its value must be 1.
      * </p>
      * </note>
      * 
-     * @return The target capacity of Spot units for the instance fleet, which determines how many Spot instances to
-     *         provision. When the instance fleet launches, Amazon EMR tries to provision Spot instances as specified by
+     * @return The target capacity of Spot units for the instance fleet, which determines how many Spot Instances to
+     *         provision. When the instance fleet launches, Amazon EMR tries to provision Spot Instances as specified by
      *         <a>InstanceTypeConfig</a>. Each instance configuration has a specified <code>WeightedCapacity</code>.
-     *         When a Spot instance is provisioned, the <code>WeightedCapacity</code> units count toward the target
+     *         When a Spot Instance is provisioned, the <code>WeightedCapacity</code> units count toward the target
      *         capacity. Amazon EMR provisions instances until the target capacity is totally fulfilled, even if this
      *         results in an overage. For example, if there are 2 units remaining to fulfill capacity, and Amazon EMR
      *         can only provision an instance with a <code>WeightedCapacity</code> of 5 units, the instance is
      *         provisioned, and the target capacity is exceeded by 3 units.</p> <note>
      *         <p>
-     *         If not specified or set to 0, only On-Demand instances are provisioned for the instance fleet. At least
+     *         If not specified or set to 0, only On-Demand Instances are provisioned for the instance fleet. At least
      *         one of <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> should be greater than 0.
      *         For a master instance fleet, only one of <code>TargetSpotCapacity</code> and
      *         <code>TargetOnDemandCapacity</code> can be specified, and its value must be 1.
@@ -430,10 +436,10 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The target capacity of Spot units for the instance fleet, which determines how many Spot instances to provision.
-     * When the instance fleet launches, Amazon EMR tries to provision Spot instances as specified by
+     * The target capacity of Spot units for the instance fleet, which determines how many Spot Instances to provision.
+     * When the instance fleet launches, Amazon EMR tries to provision Spot Instances as specified by
      * <a>InstanceTypeConfig</a>. Each instance configuration has a specified <code>WeightedCapacity</code>. When a Spot
-     * instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity. Amazon EMR
+     * Instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity. Amazon EMR
      * provisions instances until the target capacity is totally fulfilled, even if this results in an overage. For
      * example, if there are 2 units remaining to fulfill capacity, and Amazon EMR can only provision an instance with a
      * <code>WeightedCapacity</code> of 5 units, the instance is provisioned, and the target capacity is exceeded by 3
@@ -441,7 +447,7 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
      * </p>
      * <note>
      * <p>
-     * If not specified or set to 0, only On-Demand instances are provisioned for the instance fleet. At least one of
+     * If not specified or set to 0, only On-Demand Instances are provisioned for the instance fleet. At least one of
      * <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> should be greater than 0. For a master
      * instance fleet, only one of <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> can be
      * specified, and its value must be 1.
@@ -449,16 +455,16 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
      * </note>
      * 
      * @param targetSpotCapacity
-     *        The target capacity of Spot units for the instance fleet, which determines how many Spot instances to
-     *        provision. When the instance fleet launches, Amazon EMR tries to provision Spot instances as specified by
+     *        The target capacity of Spot units for the instance fleet, which determines how many Spot Instances to
+     *        provision. When the instance fleet launches, Amazon EMR tries to provision Spot Instances as specified by
      *        <a>InstanceTypeConfig</a>. Each instance configuration has a specified <code>WeightedCapacity</code>. When
-     *        a Spot instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity.
+     *        a Spot Instance is provisioned, the <code>WeightedCapacity</code> units count toward the target capacity.
      *        Amazon EMR provisions instances until the target capacity is totally fulfilled, even if this results in an
      *        overage. For example, if there are 2 units remaining to fulfill capacity, and Amazon EMR can only
      *        provision an instance with a <code>WeightedCapacity</code> of 5 units, the instance is provisioned, and
      *        the target capacity is exceeded by 3 units.</p> <note>
      *        <p>
-     *        If not specified or set to 0, only On-Demand instances are provisioned for the instance fleet. At least
+     *        If not specified or set to 0, only On-Demand Instances are provisioned for the instance fleet. At least
      *        one of <code>TargetSpotCapacity</code> and <code>TargetOnDemandCapacity</code> should be greater than 0.
      *        For a master instance fleet, only one of <code>TargetSpotCapacity</code> and
      *        <code>TargetOnDemandCapacity</code> can be specified, and its value must be 1.
@@ -473,10 +479,10 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The instance type configurations that define the EC2 instances in the instance fleet.
+     * The instance type configurations that define the Amazon EC2 instances in the instance fleet.
      * </p>
      * 
-     * @return The instance type configurations that define the EC2 instances in the instance fleet.
+     * @return The instance type configurations that define the Amazon EC2 instances in the instance fleet.
      */
 
     public java.util.List<InstanceTypeConfig> getInstanceTypeConfigs() {
@@ -488,11 +494,11 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The instance type configurations that define the EC2 instances in the instance fleet.
+     * The instance type configurations that define the Amazon EC2 instances in the instance fleet.
      * </p>
      * 
      * @param instanceTypeConfigs
-     *        The instance type configurations that define the EC2 instances in the instance fleet.
+     *        The instance type configurations that define the Amazon EC2 instances in the instance fleet.
      */
 
     public void setInstanceTypeConfigs(java.util.Collection<InstanceTypeConfig> instanceTypeConfigs) {
@@ -506,7 +512,7 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The instance type configurations that define the EC2 instances in the instance fleet.
+     * The instance type configurations that define the Amazon EC2 instances in the instance fleet.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -515,7 +521,7 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
      * </p>
      * 
      * @param instanceTypeConfigs
-     *        The instance type configurations that define the EC2 instances in the instance fleet.
+     *        The instance type configurations that define the Amazon EC2 instances in the instance fleet.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -531,11 +537,11 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The instance type configurations that define the EC2 instances in the instance fleet.
+     * The instance type configurations that define the Amazon EC2 instances in the instance fleet.
      * </p>
      * 
      * @param instanceTypeConfigs
-     *        The instance type configurations that define the EC2 instances in the instance fleet.
+     *        The instance type configurations that define the Amazon EC2 instances in the instance fleet.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -585,6 +591,46 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
     }
 
     /**
+     * <p>
+     * The resize specification for the instance fleet.
+     * </p>
+     * 
+     * @param resizeSpecifications
+     *        The resize specification for the instance fleet.
+     */
+
+    public void setResizeSpecifications(InstanceFleetResizingSpecifications resizeSpecifications) {
+        this.resizeSpecifications = resizeSpecifications;
+    }
+
+    /**
+     * <p>
+     * The resize specification for the instance fleet.
+     * </p>
+     * 
+     * @return The resize specification for the instance fleet.
+     */
+
+    public InstanceFleetResizingSpecifications getResizeSpecifications() {
+        return this.resizeSpecifications;
+    }
+
+    /**
+     * <p>
+     * The resize specification for the instance fleet.
+     * </p>
+     * 
+     * @param resizeSpecifications
+     *        The resize specification for the instance fleet.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceFleetConfig withResizeSpecifications(InstanceFleetResizingSpecifications resizeSpecifications) {
+        setResizeSpecifications(resizeSpecifications);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -607,7 +653,9 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
         if (getInstanceTypeConfigs() != null)
             sb.append("InstanceTypeConfigs: ").append(getInstanceTypeConfigs()).append(",");
         if (getLaunchSpecifications() != null)
-            sb.append("LaunchSpecifications: ").append(getLaunchSpecifications());
+            sb.append("LaunchSpecifications: ").append(getLaunchSpecifications()).append(",");
+        if (getResizeSpecifications() != null)
+            sb.append("ResizeSpecifications: ").append(getResizeSpecifications());
         sb.append("}");
         return sb.toString();
     }
@@ -646,6 +694,10 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
             return false;
         if (other.getLaunchSpecifications() != null && other.getLaunchSpecifications().equals(this.getLaunchSpecifications()) == false)
             return false;
+        if (other.getResizeSpecifications() == null ^ this.getResizeSpecifications() == null)
+            return false;
+        if (other.getResizeSpecifications() != null && other.getResizeSpecifications().equals(this.getResizeSpecifications()) == false)
+            return false;
         return true;
     }
 
@@ -660,6 +712,7 @@ public class InstanceFleetConfig implements Serializable, Cloneable, StructuredP
         hashCode = prime * hashCode + ((getTargetSpotCapacity() == null) ? 0 : getTargetSpotCapacity().hashCode());
         hashCode = prime * hashCode + ((getInstanceTypeConfigs() == null) ? 0 : getInstanceTypeConfigs().hashCode());
         hashCode = prime * hashCode + ((getLaunchSpecifications() == null) ? 0 : getLaunchSpecifications().hashCode());
+        hashCode = prime * hashCode + ((getResizeSpecifications() == null) ? 0 : getResizeSpecifications().hashCode());
         return hashCode;
     }
 

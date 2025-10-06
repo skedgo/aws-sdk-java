@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,17 +33,32 @@ public class CreateDatasetGroupRequest extends com.amazonaws.AmazonWebServiceReq
     private String name;
     /**
      * <p>
-     * The ARN of the IAM role that has permissions to access the KMS key. Supplying an IAM role is only valid when also
-     * specifying a KMS key.
+     * The ARN of the Identity and Access Management (IAM) role that has permissions to access the Key Management
+     * Service (KMS) key. Supplying an IAM role is only valid when also specifying a KMS key.
      * </p>
      */
     private String roleArn;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of a KMS key used to encrypt the datasets.
+     * The Amazon Resource Name (ARN) of a Key Management Service (KMS) key used to encrypt the datasets.
      * </p>
      */
     private String kmsKeyArn;
+    /**
+     * <p>
+     * The domain of the dataset group. Specify a domain to create a Domain dataset group. The domain you specify
+     * determines the default schemas for datasets and the use cases available for recommenders. If you don't specify a
+     * domain, you create a Custom dataset group with solution versions that you deploy with a campaign.
+     * </p>
+     */
+    private String domain;
+    /**
+     * <p>
+     * A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to
+     * the dataset group.
+     * </p>
+     */
+    private java.util.List<Tag> tags;
 
     /**
      * <p>
@@ -87,13 +102,13 @@ public class CreateDatasetGroupRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The ARN of the IAM role that has permissions to access the KMS key. Supplying an IAM role is only valid when also
-     * specifying a KMS key.
+     * The ARN of the Identity and Access Management (IAM) role that has permissions to access the Key Management
+     * Service (KMS) key. Supplying an IAM role is only valid when also specifying a KMS key.
      * </p>
      * 
      * @param roleArn
-     *        The ARN of the IAM role that has permissions to access the KMS key. Supplying an IAM role is only valid
-     *        when also specifying a KMS key.
+     *        The ARN of the Identity and Access Management (IAM) role that has permissions to access the Key Management
+     *        Service (KMS) key. Supplying an IAM role is only valid when also specifying a KMS key.
      */
 
     public void setRoleArn(String roleArn) {
@@ -102,12 +117,12 @@ public class CreateDatasetGroupRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The ARN of the IAM role that has permissions to access the KMS key. Supplying an IAM role is only valid when also
-     * specifying a KMS key.
+     * The ARN of the Identity and Access Management (IAM) role that has permissions to access the Key Management
+     * Service (KMS) key. Supplying an IAM role is only valid when also specifying a KMS key.
      * </p>
      * 
-     * @return The ARN of the IAM role that has permissions to access the KMS key. Supplying an IAM role is only valid
-     *         when also specifying a KMS key.
+     * @return The ARN of the Identity and Access Management (IAM) role that has permissions to access the Key
+     *         Management Service (KMS) key. Supplying an IAM role is only valid when also specifying a KMS key.
      */
 
     public String getRoleArn() {
@@ -116,13 +131,13 @@ public class CreateDatasetGroupRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The ARN of the IAM role that has permissions to access the KMS key. Supplying an IAM role is only valid when also
-     * specifying a KMS key.
+     * The ARN of the Identity and Access Management (IAM) role that has permissions to access the Key Management
+     * Service (KMS) key. Supplying an IAM role is only valid when also specifying a KMS key.
      * </p>
      * 
      * @param roleArn
-     *        The ARN of the IAM role that has permissions to access the KMS key. Supplying an IAM role is only valid
-     *        when also specifying a KMS key.
+     *        The ARN of the Identity and Access Management (IAM) role that has permissions to access the Key Management
+     *        Service (KMS) key. Supplying an IAM role is only valid when also specifying a KMS key.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -133,11 +148,11 @@ public class CreateDatasetGroupRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of a KMS key used to encrypt the datasets.
+     * The Amazon Resource Name (ARN) of a Key Management Service (KMS) key used to encrypt the datasets.
      * </p>
      * 
      * @param kmsKeyArn
-     *        The Amazon Resource Name (ARN) of a KMS key used to encrypt the datasets.
+     *        The Amazon Resource Name (ARN) of a Key Management Service (KMS) key used to encrypt the datasets.
      */
 
     public void setKmsKeyArn(String kmsKeyArn) {
@@ -146,10 +161,10 @@ public class CreateDatasetGroupRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of a KMS key used to encrypt the datasets.
+     * The Amazon Resource Name (ARN) of a Key Management Service (KMS) key used to encrypt the datasets.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of a KMS key used to encrypt the datasets.
+     * @return The Amazon Resource Name (ARN) of a Key Management Service (KMS) key used to encrypt the datasets.
      */
 
     public String getKmsKeyArn() {
@@ -158,16 +173,173 @@ public class CreateDatasetGroupRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of a KMS key used to encrypt the datasets.
+     * The Amazon Resource Name (ARN) of a Key Management Service (KMS) key used to encrypt the datasets.
      * </p>
      * 
      * @param kmsKeyArn
-     *        The Amazon Resource Name (ARN) of a KMS key used to encrypt the datasets.
+     *        The Amazon Resource Name (ARN) of a Key Management Service (KMS) key used to encrypt the datasets.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateDatasetGroupRequest withKmsKeyArn(String kmsKeyArn) {
         setKmsKeyArn(kmsKeyArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The domain of the dataset group. Specify a domain to create a Domain dataset group. The domain you specify
+     * determines the default schemas for datasets and the use cases available for recommenders. If you don't specify a
+     * domain, you create a Custom dataset group with solution versions that you deploy with a campaign.
+     * </p>
+     * 
+     * @param domain
+     *        The domain of the dataset group. Specify a domain to create a Domain dataset group. The domain you specify
+     *        determines the default schemas for datasets and the use cases available for recommenders. If you don't
+     *        specify a domain, you create a Custom dataset group with solution versions that you deploy with a
+     *        campaign.
+     * @see Domain
+     */
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
+    /**
+     * <p>
+     * The domain of the dataset group. Specify a domain to create a Domain dataset group. The domain you specify
+     * determines the default schemas for datasets and the use cases available for recommenders. If you don't specify a
+     * domain, you create a Custom dataset group with solution versions that you deploy with a campaign.
+     * </p>
+     * 
+     * @return The domain of the dataset group. Specify a domain to create a Domain dataset group. The domain you
+     *         specify determines the default schemas for datasets and the use cases available for recommenders. If you
+     *         don't specify a domain, you create a Custom dataset group with solution versions that you deploy with a
+     *         campaign.
+     * @see Domain
+     */
+
+    public String getDomain() {
+        return this.domain;
+    }
+
+    /**
+     * <p>
+     * The domain of the dataset group. Specify a domain to create a Domain dataset group. The domain you specify
+     * determines the default schemas for datasets and the use cases available for recommenders. If you don't specify a
+     * domain, you create a Custom dataset group with solution versions that you deploy with a campaign.
+     * </p>
+     * 
+     * @param domain
+     *        The domain of the dataset group. Specify a domain to create a Domain dataset group. The domain you specify
+     *        determines the default schemas for datasets and the use cases available for recommenders. If you don't
+     *        specify a domain, you create a Custom dataset group with solution versions that you deploy with a
+     *        campaign.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Domain
+     */
+
+    public CreateDatasetGroupRequest withDomain(String domain) {
+        setDomain(domain);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The domain of the dataset group. Specify a domain to create a Domain dataset group. The domain you specify
+     * determines the default schemas for datasets and the use cases available for recommenders. If you don't specify a
+     * domain, you create a Custom dataset group with solution versions that you deploy with a campaign.
+     * </p>
+     * 
+     * @param domain
+     *        The domain of the dataset group. Specify a domain to create a Domain dataset group. The domain you specify
+     *        determines the default schemas for datasets and the use cases available for recommenders. If you don't
+     *        specify a domain, you create a Custom dataset group with solution versions that you deploy with a
+     *        campaign.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Domain
+     */
+
+    public CreateDatasetGroupRequest withDomain(Domain domain) {
+        this.domain = domain.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to
+     * the dataset group.
+     * </p>
+     * 
+     * @return A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to
+     *         apply to the dataset group.
+     */
+
+    public java.util.List<Tag> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to
+     * the dataset group.
+     * </p>
+     * 
+     * @param tags
+     *        A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to
+     *        apply to the dataset group.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new java.util.ArrayList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to
+     * the dataset group.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to
+     *        apply to the dataset group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDatasetGroupRequest withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new java.util.ArrayList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to
+     * the dataset group.
+     * </p>
+     * 
+     * @param tags
+     *        A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to
+     *        apply to the dataset group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDatasetGroupRequest withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
         return this;
     }
 
@@ -188,7 +360,11 @@ public class CreateDatasetGroupRequest extends com.amazonaws.AmazonWebServiceReq
         if (getRoleArn() != null)
             sb.append("RoleArn: ").append(getRoleArn()).append(",");
         if (getKmsKeyArn() != null)
-            sb.append("KmsKeyArn: ").append(getKmsKeyArn());
+            sb.append("KmsKeyArn: ").append(getKmsKeyArn()).append(",");
+        if (getDomain() != null)
+            sb.append("Domain: ").append(getDomain()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -215,6 +391,14 @@ public class CreateDatasetGroupRequest extends com.amazonaws.AmazonWebServiceReq
             return false;
         if (other.getKmsKeyArn() != null && other.getKmsKeyArn().equals(this.getKmsKeyArn()) == false)
             return false;
+        if (other.getDomain() == null ^ this.getDomain() == null)
+            return false;
+        if (other.getDomain() != null && other.getDomain().equals(this.getDomain()) == false)
+            return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
         return true;
     }
 
@@ -226,6 +410,8 @@ public class CreateDatasetGroupRequest extends com.amazonaws.AmazonWebServiceReq
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getRoleArn() == null) ? 0 : getRoleArn().hashCode());
         hashCode = prime * hashCode + ((getKmsKeyArn() == null) ? 0 : getKmsKeyArn().hashCode());
+        hashCode = prime * hashCode + ((getDomain() == null) ? 0 : getDomain().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

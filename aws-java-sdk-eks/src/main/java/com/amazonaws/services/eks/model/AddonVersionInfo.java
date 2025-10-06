@@ -1,0 +1,432 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.eks.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
+
+/**
+ * <p>
+ * Information about an add-on version.
+ * </p>
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eks-2017-11-01/AddonVersionInfo" target="_top">AWS API
+ *      Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class AddonVersionInfo implements Serializable, Cloneable, StructuredPojo {
+
+    /**
+     * <p>
+     * The version of the add-on.
+     * </p>
+     */
+    private String addonVersion;
+    /**
+     * <p>
+     * The architectures that the version supports.
+     * </p>
+     */
+    private java.util.List<String> architecture;
+    /**
+     * <p>
+     * An object representing the compatibilities of a version.
+     * </p>
+     */
+    private java.util.List<Compatibility> compatibilities;
+    /**
+     * <p>
+     * Whether the add-on requires configuration.
+     * </p>
+     */
+    private Boolean requiresConfiguration;
+    /**
+     * <p>
+     * Indicates if the Addon requires IAM Permissions to operate, such as networking permissions.
+     * </p>
+     */
+    private Boolean requiresIamPermissions;
+
+    /**
+     * <p>
+     * The version of the add-on.
+     * </p>
+     * 
+     * @param addonVersion
+     *        The version of the add-on.
+     */
+
+    public void setAddonVersion(String addonVersion) {
+        this.addonVersion = addonVersion;
+    }
+
+    /**
+     * <p>
+     * The version of the add-on.
+     * </p>
+     * 
+     * @return The version of the add-on.
+     */
+
+    public String getAddonVersion() {
+        return this.addonVersion;
+    }
+
+    /**
+     * <p>
+     * The version of the add-on.
+     * </p>
+     * 
+     * @param addonVersion
+     *        The version of the add-on.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AddonVersionInfo withAddonVersion(String addonVersion) {
+        setAddonVersion(addonVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The architectures that the version supports.
+     * </p>
+     * 
+     * @return The architectures that the version supports.
+     */
+
+    public java.util.List<String> getArchitecture() {
+        return architecture;
+    }
+
+    /**
+     * <p>
+     * The architectures that the version supports.
+     * </p>
+     * 
+     * @param architecture
+     *        The architectures that the version supports.
+     */
+
+    public void setArchitecture(java.util.Collection<String> architecture) {
+        if (architecture == null) {
+            this.architecture = null;
+            return;
+        }
+
+        this.architecture = new java.util.ArrayList<String>(architecture);
+    }
+
+    /**
+     * <p>
+     * The architectures that the version supports.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setArchitecture(java.util.Collection)} or {@link #withArchitecture(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param architecture
+     *        The architectures that the version supports.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AddonVersionInfo withArchitecture(String... architecture) {
+        if (this.architecture == null) {
+            setArchitecture(new java.util.ArrayList<String>(architecture.length));
+        }
+        for (String ele : architecture) {
+            this.architecture.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The architectures that the version supports.
+     * </p>
+     * 
+     * @param architecture
+     *        The architectures that the version supports.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AddonVersionInfo withArchitecture(java.util.Collection<String> architecture) {
+        setArchitecture(architecture);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An object representing the compatibilities of a version.
+     * </p>
+     * 
+     * @return An object representing the compatibilities of a version.
+     */
+
+    public java.util.List<Compatibility> getCompatibilities() {
+        return compatibilities;
+    }
+
+    /**
+     * <p>
+     * An object representing the compatibilities of a version.
+     * </p>
+     * 
+     * @param compatibilities
+     *        An object representing the compatibilities of a version.
+     */
+
+    public void setCompatibilities(java.util.Collection<Compatibility> compatibilities) {
+        if (compatibilities == null) {
+            this.compatibilities = null;
+            return;
+        }
+
+        this.compatibilities = new java.util.ArrayList<Compatibility>(compatibilities);
+    }
+
+    /**
+     * <p>
+     * An object representing the compatibilities of a version.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setCompatibilities(java.util.Collection)} or {@link #withCompatibilities(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param compatibilities
+     *        An object representing the compatibilities of a version.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AddonVersionInfo withCompatibilities(Compatibility... compatibilities) {
+        if (this.compatibilities == null) {
+            setCompatibilities(new java.util.ArrayList<Compatibility>(compatibilities.length));
+        }
+        for (Compatibility ele : compatibilities) {
+            this.compatibilities.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * An object representing the compatibilities of a version.
+     * </p>
+     * 
+     * @param compatibilities
+     *        An object representing the compatibilities of a version.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AddonVersionInfo withCompatibilities(java.util.Collection<Compatibility> compatibilities) {
+        setCompatibilities(compatibilities);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Whether the add-on requires configuration.
+     * </p>
+     * 
+     * @param requiresConfiguration
+     *        Whether the add-on requires configuration.
+     */
+
+    public void setRequiresConfiguration(Boolean requiresConfiguration) {
+        this.requiresConfiguration = requiresConfiguration;
+    }
+
+    /**
+     * <p>
+     * Whether the add-on requires configuration.
+     * </p>
+     * 
+     * @return Whether the add-on requires configuration.
+     */
+
+    public Boolean getRequiresConfiguration() {
+        return this.requiresConfiguration;
+    }
+
+    /**
+     * <p>
+     * Whether the add-on requires configuration.
+     * </p>
+     * 
+     * @param requiresConfiguration
+     *        Whether the add-on requires configuration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AddonVersionInfo withRequiresConfiguration(Boolean requiresConfiguration) {
+        setRequiresConfiguration(requiresConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Whether the add-on requires configuration.
+     * </p>
+     * 
+     * @return Whether the add-on requires configuration.
+     */
+
+    public Boolean isRequiresConfiguration() {
+        return this.requiresConfiguration;
+    }
+
+    /**
+     * <p>
+     * Indicates if the Addon requires IAM Permissions to operate, such as networking permissions.
+     * </p>
+     * 
+     * @param requiresIamPermissions
+     *        Indicates if the Addon requires IAM Permissions to operate, such as networking permissions.
+     */
+
+    public void setRequiresIamPermissions(Boolean requiresIamPermissions) {
+        this.requiresIamPermissions = requiresIamPermissions;
+    }
+
+    /**
+     * <p>
+     * Indicates if the Addon requires IAM Permissions to operate, such as networking permissions.
+     * </p>
+     * 
+     * @return Indicates if the Addon requires IAM Permissions to operate, such as networking permissions.
+     */
+
+    public Boolean getRequiresIamPermissions() {
+        return this.requiresIamPermissions;
+    }
+
+    /**
+     * <p>
+     * Indicates if the Addon requires IAM Permissions to operate, such as networking permissions.
+     * </p>
+     * 
+     * @param requiresIamPermissions
+     *        Indicates if the Addon requires IAM Permissions to operate, such as networking permissions.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AddonVersionInfo withRequiresIamPermissions(Boolean requiresIamPermissions) {
+        setRequiresIamPermissions(requiresIamPermissions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates if the Addon requires IAM Permissions to operate, such as networking permissions.
+     * </p>
+     * 
+     * @return Indicates if the Addon requires IAM Permissions to operate, such as networking permissions.
+     */
+
+    public Boolean isRequiresIamPermissions() {
+        return this.requiresIamPermissions;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getAddonVersion() != null)
+            sb.append("AddonVersion: ").append(getAddonVersion()).append(",");
+        if (getArchitecture() != null)
+            sb.append("Architecture: ").append(getArchitecture()).append(",");
+        if (getCompatibilities() != null)
+            sb.append("Compatibilities: ").append(getCompatibilities()).append(",");
+        if (getRequiresConfiguration() != null)
+            sb.append("RequiresConfiguration: ").append(getRequiresConfiguration()).append(",");
+        if (getRequiresIamPermissions() != null)
+            sb.append("RequiresIamPermissions: ").append(getRequiresIamPermissions());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof AddonVersionInfo == false)
+            return false;
+        AddonVersionInfo other = (AddonVersionInfo) obj;
+        if (other.getAddonVersion() == null ^ this.getAddonVersion() == null)
+            return false;
+        if (other.getAddonVersion() != null && other.getAddonVersion().equals(this.getAddonVersion()) == false)
+            return false;
+        if (other.getArchitecture() == null ^ this.getArchitecture() == null)
+            return false;
+        if (other.getArchitecture() != null && other.getArchitecture().equals(this.getArchitecture()) == false)
+            return false;
+        if (other.getCompatibilities() == null ^ this.getCompatibilities() == null)
+            return false;
+        if (other.getCompatibilities() != null && other.getCompatibilities().equals(this.getCompatibilities()) == false)
+            return false;
+        if (other.getRequiresConfiguration() == null ^ this.getRequiresConfiguration() == null)
+            return false;
+        if (other.getRequiresConfiguration() != null && other.getRequiresConfiguration().equals(this.getRequiresConfiguration()) == false)
+            return false;
+        if (other.getRequiresIamPermissions() == null ^ this.getRequiresIamPermissions() == null)
+            return false;
+        if (other.getRequiresIamPermissions() != null && other.getRequiresIamPermissions().equals(this.getRequiresIamPermissions()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getAddonVersion() == null) ? 0 : getAddonVersion().hashCode());
+        hashCode = prime * hashCode + ((getArchitecture() == null) ? 0 : getArchitecture().hashCode());
+        hashCode = prime * hashCode + ((getCompatibilities() == null) ? 0 : getCompatibilities().hashCode());
+        hashCode = prime * hashCode + ((getRequiresConfiguration() == null) ? 0 : getRequiresConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getRequiresIamPermissions() == null) ? 0 : getRequiresIamPermissions().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public AddonVersionInfo clone() {
+        try {
+            return (AddonVersionInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.eks.model.transform.AddonVersionInfoMarshaller.getInstance().marshall(this, protocolMarshaller);
+    }
+}

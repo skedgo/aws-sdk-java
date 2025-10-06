@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,9 +20,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 /**
  * <p>
  * The configuration information that will be updated for this workgroup, which includes the location in Amazon S3 where
- * query results are stored, the encryption option, if any, used for query results, whether the Amazon CloudWatch
- * Metrics are enabled for the workgroup, whether the workgroup settings override the client-side settings, and the data
- * usage limit for the amount of bytes scanned per query, if it is specified.
+ * query and calculation results are stored, the encryption option, if any, used for query results, whether the Amazon
+ * CloudWatch Metrics are enabled for the workgroup, whether the workgroup settings override the client-side settings,
+ * and the data usage limit for the amount of bytes scanned per query, if it is specified.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/athena-2017-05-18/WorkGroupConfigurationUpdates"
@@ -66,6 +66,66 @@ public class WorkGroupConfigurationUpdates implements Serializable, Cloneable, S
      * </p>
      */
     private Boolean removeBytesScannedCutoffPerQuery;
+    /**
+     * <p>
+     * If set to <code>true</code>, allows members assigned to a workgroup to specify Amazon S3 Requester Pays buckets
+     * in queries. If set to <code>false</code>, workgroup members cannot query data from Requester Pays buckets, and
+     * queries that retrieve data from Requester Pays buckets cause an error. The default is <code>false</code>. For
+     * more information about Requester Pays buckets, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html">Requester Pays Buckets</a> in
+     * the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
+     */
+    private Boolean requesterPaysEnabled;
+    /**
+     * <p>
+     * The engine version requested when a workgroup is updated. After the update, all queries on the workgroup run on
+     * the requested engine version. If no value was previously set, the default is Auto. Queries on the
+     * <code>AmazonAthenaPreviewFunctionality</code> workgroup run on the preview engine regardless of this setting.
+     * </p>
+     */
+    private EngineVersion engineVersion;
+    /**
+     * <p>
+     * Removes content encryption configuration from an Apache Spark-enabled Athena workgroup.
+     * </p>
+     */
+    private Boolean removeCustomerContentEncryptionConfiguration;
+    /**
+     * <p>
+     * Contains a user defined string in JSON format for a Spark-enabled workgroup.
+     * </p>
+     */
+    private String additionalConfiguration;
+    /**
+     * <p>
+     * The ARN of the execution role used to access user resources for Spark sessions and Identity Center enabled
+     * workgroups. This property applies only to Spark enabled workgroups and Identity Center enabled workgroups.
+     * </p>
+     */
+    private String executionRole;
+
+    private CustomerContentEncryptionConfiguration customerContentEncryptionConfiguration;
+    /**
+     * <p>
+     * Enforces a minimal level of encryption for the workgroup for query and calculation results that are written to
+     * Amazon S3. When enabled, workgroup users can set encryption only to the minimum level set by the administrator or
+     * higher when they submit queries. This setting does not apply to Spark-enabled workgroups.
+     * </p>
+     * <p>
+     * The <code>EnforceWorkGroupConfiguration</code> setting takes precedence over the
+     * <code>EnableMinimumEncryptionConfiguration</code> flag. This means that if
+     * <code>EnforceWorkGroupConfiguration</code> is true, the <code>EnableMinimumEncryptionConfiguration</code> flag is
+     * ignored, and the workgroup configuration for encryption is used.
+     * </p>
+     */
+    private Boolean enableMinimumEncryptionConfiguration;
+    /**
+     * <p>
+     * Specifies whether Amazon S3 access grants are enabled for query results.
+     * </p>
+     */
+    private QueryResultsS3AccessGrantsConfiguration queryResultsS3AccessGrantsConfiguration;
 
     /**
      * <p>
@@ -342,6 +402,476 @@ public class WorkGroupConfigurationUpdates implements Serializable, Cloneable, S
     }
 
     /**
+     * <p>
+     * If set to <code>true</code>, allows members assigned to a workgroup to specify Amazon S3 Requester Pays buckets
+     * in queries. If set to <code>false</code>, workgroup members cannot query data from Requester Pays buckets, and
+     * queries that retrieve data from Requester Pays buckets cause an error. The default is <code>false</code>. For
+     * more information about Requester Pays buckets, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html">Requester Pays Buckets</a> in
+     * the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
+     * 
+     * @param requesterPaysEnabled
+     *        If set to <code>true</code>, allows members assigned to a workgroup to specify Amazon S3 Requester Pays
+     *        buckets in queries. If set to <code>false</code>, workgroup members cannot query data from Requester Pays
+     *        buckets, and queries that retrieve data from Requester Pays buckets cause an error. The default is
+     *        <code>false</code>. For more information about Requester Pays buckets, see <a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html">Requester Pays
+     *        Buckets</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     */
+
+    public void setRequesterPaysEnabled(Boolean requesterPaysEnabled) {
+        this.requesterPaysEnabled = requesterPaysEnabled;
+    }
+
+    /**
+     * <p>
+     * If set to <code>true</code>, allows members assigned to a workgroup to specify Amazon S3 Requester Pays buckets
+     * in queries. If set to <code>false</code>, workgroup members cannot query data from Requester Pays buckets, and
+     * queries that retrieve data from Requester Pays buckets cause an error. The default is <code>false</code>. For
+     * more information about Requester Pays buckets, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html">Requester Pays Buckets</a> in
+     * the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
+     * 
+     * @return If set to <code>true</code>, allows members assigned to a workgroup to specify Amazon S3 Requester Pays
+     *         buckets in queries. If set to <code>false</code>, workgroup members cannot query data from Requester Pays
+     *         buckets, and queries that retrieve data from Requester Pays buckets cause an error. The default is
+     *         <code>false</code>. For more information about Requester Pays buckets, see <a
+     *         href="https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html">Requester Pays
+     *         Buckets</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     */
+
+    public Boolean getRequesterPaysEnabled() {
+        return this.requesterPaysEnabled;
+    }
+
+    /**
+     * <p>
+     * If set to <code>true</code>, allows members assigned to a workgroup to specify Amazon S3 Requester Pays buckets
+     * in queries. If set to <code>false</code>, workgroup members cannot query data from Requester Pays buckets, and
+     * queries that retrieve data from Requester Pays buckets cause an error. The default is <code>false</code>. For
+     * more information about Requester Pays buckets, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html">Requester Pays Buckets</a> in
+     * the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
+     * 
+     * @param requesterPaysEnabled
+     *        If set to <code>true</code>, allows members assigned to a workgroup to specify Amazon S3 Requester Pays
+     *        buckets in queries. If set to <code>false</code>, workgroup members cannot query data from Requester Pays
+     *        buckets, and queries that retrieve data from Requester Pays buckets cause an error. The default is
+     *        <code>false</code>. For more information about Requester Pays buckets, see <a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html">Requester Pays
+     *        Buckets</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkGroupConfigurationUpdates withRequesterPaysEnabled(Boolean requesterPaysEnabled) {
+        setRequesterPaysEnabled(requesterPaysEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If set to <code>true</code>, allows members assigned to a workgroup to specify Amazon S3 Requester Pays buckets
+     * in queries. If set to <code>false</code>, workgroup members cannot query data from Requester Pays buckets, and
+     * queries that retrieve data from Requester Pays buckets cause an error. The default is <code>false</code>. For
+     * more information about Requester Pays buckets, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html">Requester Pays Buckets</a> in
+     * the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
+     * 
+     * @return If set to <code>true</code>, allows members assigned to a workgroup to specify Amazon S3 Requester Pays
+     *         buckets in queries. If set to <code>false</code>, workgroup members cannot query data from Requester Pays
+     *         buckets, and queries that retrieve data from Requester Pays buckets cause an error. The default is
+     *         <code>false</code>. For more information about Requester Pays buckets, see <a
+     *         href="https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html">Requester Pays
+     *         Buckets</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     */
+
+    public Boolean isRequesterPaysEnabled() {
+        return this.requesterPaysEnabled;
+    }
+
+    /**
+     * <p>
+     * The engine version requested when a workgroup is updated. After the update, all queries on the workgroup run on
+     * the requested engine version. If no value was previously set, the default is Auto. Queries on the
+     * <code>AmazonAthenaPreviewFunctionality</code> workgroup run on the preview engine regardless of this setting.
+     * </p>
+     * 
+     * @param engineVersion
+     *        The engine version requested when a workgroup is updated. After the update, all queries on the workgroup
+     *        run on the requested engine version. If no value was previously set, the default is Auto. Queries on the
+     *        <code>AmazonAthenaPreviewFunctionality</code> workgroup run on the preview engine regardless of this
+     *        setting.
+     */
+
+    public void setEngineVersion(EngineVersion engineVersion) {
+        this.engineVersion = engineVersion;
+    }
+
+    /**
+     * <p>
+     * The engine version requested when a workgroup is updated. After the update, all queries on the workgroup run on
+     * the requested engine version. If no value was previously set, the default is Auto. Queries on the
+     * <code>AmazonAthenaPreviewFunctionality</code> workgroup run on the preview engine regardless of this setting.
+     * </p>
+     * 
+     * @return The engine version requested when a workgroup is updated. After the update, all queries on the workgroup
+     *         run on the requested engine version. If no value was previously set, the default is Auto. Queries on the
+     *         <code>AmazonAthenaPreviewFunctionality</code> workgroup run on the preview engine regardless of this
+     *         setting.
+     */
+
+    public EngineVersion getEngineVersion() {
+        return this.engineVersion;
+    }
+
+    /**
+     * <p>
+     * The engine version requested when a workgroup is updated. After the update, all queries on the workgroup run on
+     * the requested engine version. If no value was previously set, the default is Auto. Queries on the
+     * <code>AmazonAthenaPreviewFunctionality</code> workgroup run on the preview engine regardless of this setting.
+     * </p>
+     * 
+     * @param engineVersion
+     *        The engine version requested when a workgroup is updated. After the update, all queries on the workgroup
+     *        run on the requested engine version. If no value was previously set, the default is Auto. Queries on the
+     *        <code>AmazonAthenaPreviewFunctionality</code> workgroup run on the preview engine regardless of this
+     *        setting.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkGroupConfigurationUpdates withEngineVersion(EngineVersion engineVersion) {
+        setEngineVersion(engineVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Removes content encryption configuration from an Apache Spark-enabled Athena workgroup.
+     * </p>
+     * 
+     * @param removeCustomerContentEncryptionConfiguration
+     *        Removes content encryption configuration from an Apache Spark-enabled Athena workgroup.
+     */
+
+    public void setRemoveCustomerContentEncryptionConfiguration(Boolean removeCustomerContentEncryptionConfiguration) {
+        this.removeCustomerContentEncryptionConfiguration = removeCustomerContentEncryptionConfiguration;
+    }
+
+    /**
+     * <p>
+     * Removes content encryption configuration from an Apache Spark-enabled Athena workgroup.
+     * </p>
+     * 
+     * @return Removes content encryption configuration from an Apache Spark-enabled Athena workgroup.
+     */
+
+    public Boolean getRemoveCustomerContentEncryptionConfiguration() {
+        return this.removeCustomerContentEncryptionConfiguration;
+    }
+
+    /**
+     * <p>
+     * Removes content encryption configuration from an Apache Spark-enabled Athena workgroup.
+     * </p>
+     * 
+     * @param removeCustomerContentEncryptionConfiguration
+     *        Removes content encryption configuration from an Apache Spark-enabled Athena workgroup.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkGroupConfigurationUpdates withRemoveCustomerContentEncryptionConfiguration(Boolean removeCustomerContentEncryptionConfiguration) {
+        setRemoveCustomerContentEncryptionConfiguration(removeCustomerContentEncryptionConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Removes content encryption configuration from an Apache Spark-enabled Athena workgroup.
+     * </p>
+     * 
+     * @return Removes content encryption configuration from an Apache Spark-enabled Athena workgroup.
+     */
+
+    public Boolean isRemoveCustomerContentEncryptionConfiguration() {
+        return this.removeCustomerContentEncryptionConfiguration;
+    }
+
+    /**
+     * <p>
+     * Contains a user defined string in JSON format for a Spark-enabled workgroup.
+     * </p>
+     * 
+     * @param additionalConfiguration
+     *        Contains a user defined string in JSON format for a Spark-enabled workgroup.
+     */
+
+    public void setAdditionalConfiguration(String additionalConfiguration) {
+        this.additionalConfiguration = additionalConfiguration;
+    }
+
+    /**
+     * <p>
+     * Contains a user defined string in JSON format for a Spark-enabled workgroup.
+     * </p>
+     * 
+     * @return Contains a user defined string in JSON format for a Spark-enabled workgroup.
+     */
+
+    public String getAdditionalConfiguration() {
+        return this.additionalConfiguration;
+    }
+
+    /**
+     * <p>
+     * Contains a user defined string in JSON format for a Spark-enabled workgroup.
+     * </p>
+     * 
+     * @param additionalConfiguration
+     *        Contains a user defined string in JSON format for a Spark-enabled workgroup.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkGroupConfigurationUpdates withAdditionalConfiguration(String additionalConfiguration) {
+        setAdditionalConfiguration(additionalConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN of the execution role used to access user resources for Spark sessions and Identity Center enabled
+     * workgroups. This property applies only to Spark enabled workgroups and Identity Center enabled workgroups.
+     * </p>
+     * 
+     * @param executionRole
+     *        The ARN of the execution role used to access user resources for Spark sessions and Identity Center enabled
+     *        workgroups. This property applies only to Spark enabled workgroups and Identity Center enabled workgroups.
+     */
+
+    public void setExecutionRole(String executionRole) {
+        this.executionRole = executionRole;
+    }
+
+    /**
+     * <p>
+     * The ARN of the execution role used to access user resources for Spark sessions and Identity Center enabled
+     * workgroups. This property applies only to Spark enabled workgroups and Identity Center enabled workgroups.
+     * </p>
+     * 
+     * @return The ARN of the execution role used to access user resources for Spark sessions and Identity Center
+     *         enabled workgroups. This property applies only to Spark enabled workgroups and Identity Center enabled
+     *         workgroups.
+     */
+
+    public String getExecutionRole() {
+        return this.executionRole;
+    }
+
+    /**
+     * <p>
+     * The ARN of the execution role used to access user resources for Spark sessions and Identity Center enabled
+     * workgroups. This property applies only to Spark enabled workgroups and Identity Center enabled workgroups.
+     * </p>
+     * 
+     * @param executionRole
+     *        The ARN of the execution role used to access user resources for Spark sessions and Identity Center enabled
+     *        workgroups. This property applies only to Spark enabled workgroups and Identity Center enabled workgroups.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkGroupConfigurationUpdates withExecutionRole(String executionRole) {
+        setExecutionRole(executionRole);
+        return this;
+    }
+
+    /**
+     * @param customerContentEncryptionConfiguration
+     */
+
+    public void setCustomerContentEncryptionConfiguration(CustomerContentEncryptionConfiguration customerContentEncryptionConfiguration) {
+        this.customerContentEncryptionConfiguration = customerContentEncryptionConfiguration;
+    }
+
+    /**
+     * @return
+     */
+
+    public CustomerContentEncryptionConfiguration getCustomerContentEncryptionConfiguration() {
+        return this.customerContentEncryptionConfiguration;
+    }
+
+    /**
+     * @param customerContentEncryptionConfiguration
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkGroupConfigurationUpdates withCustomerContentEncryptionConfiguration(
+            CustomerContentEncryptionConfiguration customerContentEncryptionConfiguration) {
+        setCustomerContentEncryptionConfiguration(customerContentEncryptionConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enforces a minimal level of encryption for the workgroup for query and calculation results that are written to
+     * Amazon S3. When enabled, workgroup users can set encryption only to the minimum level set by the administrator or
+     * higher when they submit queries. This setting does not apply to Spark-enabled workgroups.
+     * </p>
+     * <p>
+     * The <code>EnforceWorkGroupConfiguration</code> setting takes precedence over the
+     * <code>EnableMinimumEncryptionConfiguration</code> flag. This means that if
+     * <code>EnforceWorkGroupConfiguration</code> is true, the <code>EnableMinimumEncryptionConfiguration</code> flag is
+     * ignored, and the workgroup configuration for encryption is used.
+     * </p>
+     * 
+     * @param enableMinimumEncryptionConfiguration
+     *        Enforces a minimal level of encryption for the workgroup for query and calculation results that are
+     *        written to Amazon S3. When enabled, workgroup users can set encryption only to the minimum level set by
+     *        the administrator or higher when they submit queries. This setting does not apply to Spark-enabled
+     *        workgroups.</p>
+     *        <p>
+     *        The <code>EnforceWorkGroupConfiguration</code> setting takes precedence over the
+     *        <code>EnableMinimumEncryptionConfiguration</code> flag. This means that if
+     *        <code>EnforceWorkGroupConfiguration</code> is true, the <code>EnableMinimumEncryptionConfiguration</code>
+     *        flag is ignored, and the workgroup configuration for encryption is used.
+     */
+
+    public void setEnableMinimumEncryptionConfiguration(Boolean enableMinimumEncryptionConfiguration) {
+        this.enableMinimumEncryptionConfiguration = enableMinimumEncryptionConfiguration;
+    }
+
+    /**
+     * <p>
+     * Enforces a minimal level of encryption for the workgroup for query and calculation results that are written to
+     * Amazon S3. When enabled, workgroup users can set encryption only to the minimum level set by the administrator or
+     * higher when they submit queries. This setting does not apply to Spark-enabled workgroups.
+     * </p>
+     * <p>
+     * The <code>EnforceWorkGroupConfiguration</code> setting takes precedence over the
+     * <code>EnableMinimumEncryptionConfiguration</code> flag. This means that if
+     * <code>EnforceWorkGroupConfiguration</code> is true, the <code>EnableMinimumEncryptionConfiguration</code> flag is
+     * ignored, and the workgroup configuration for encryption is used.
+     * </p>
+     * 
+     * @return Enforces a minimal level of encryption for the workgroup for query and calculation results that are
+     *         written to Amazon S3. When enabled, workgroup users can set encryption only to the minimum level set by
+     *         the administrator or higher when they submit queries. This setting does not apply to Spark-enabled
+     *         workgroups.</p>
+     *         <p>
+     *         The <code>EnforceWorkGroupConfiguration</code> setting takes precedence over the
+     *         <code>EnableMinimumEncryptionConfiguration</code> flag. This means that if
+     *         <code>EnforceWorkGroupConfiguration</code> is true, the <code>EnableMinimumEncryptionConfiguration</code>
+     *         flag is ignored, and the workgroup configuration for encryption is used.
+     */
+
+    public Boolean getEnableMinimumEncryptionConfiguration() {
+        return this.enableMinimumEncryptionConfiguration;
+    }
+
+    /**
+     * <p>
+     * Enforces a minimal level of encryption for the workgroup for query and calculation results that are written to
+     * Amazon S3. When enabled, workgroup users can set encryption only to the minimum level set by the administrator or
+     * higher when they submit queries. This setting does not apply to Spark-enabled workgroups.
+     * </p>
+     * <p>
+     * The <code>EnforceWorkGroupConfiguration</code> setting takes precedence over the
+     * <code>EnableMinimumEncryptionConfiguration</code> flag. This means that if
+     * <code>EnforceWorkGroupConfiguration</code> is true, the <code>EnableMinimumEncryptionConfiguration</code> flag is
+     * ignored, and the workgroup configuration for encryption is used.
+     * </p>
+     * 
+     * @param enableMinimumEncryptionConfiguration
+     *        Enforces a minimal level of encryption for the workgroup for query and calculation results that are
+     *        written to Amazon S3. When enabled, workgroup users can set encryption only to the minimum level set by
+     *        the administrator or higher when they submit queries. This setting does not apply to Spark-enabled
+     *        workgroups.</p>
+     *        <p>
+     *        The <code>EnforceWorkGroupConfiguration</code> setting takes precedence over the
+     *        <code>EnableMinimumEncryptionConfiguration</code> flag. This means that if
+     *        <code>EnforceWorkGroupConfiguration</code> is true, the <code>EnableMinimumEncryptionConfiguration</code>
+     *        flag is ignored, and the workgroup configuration for encryption is used.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkGroupConfigurationUpdates withEnableMinimumEncryptionConfiguration(Boolean enableMinimumEncryptionConfiguration) {
+        setEnableMinimumEncryptionConfiguration(enableMinimumEncryptionConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enforces a minimal level of encryption for the workgroup for query and calculation results that are written to
+     * Amazon S3. When enabled, workgroup users can set encryption only to the minimum level set by the administrator or
+     * higher when they submit queries. This setting does not apply to Spark-enabled workgroups.
+     * </p>
+     * <p>
+     * The <code>EnforceWorkGroupConfiguration</code> setting takes precedence over the
+     * <code>EnableMinimumEncryptionConfiguration</code> flag. This means that if
+     * <code>EnforceWorkGroupConfiguration</code> is true, the <code>EnableMinimumEncryptionConfiguration</code> flag is
+     * ignored, and the workgroup configuration for encryption is used.
+     * </p>
+     * 
+     * @return Enforces a minimal level of encryption for the workgroup for query and calculation results that are
+     *         written to Amazon S3. When enabled, workgroup users can set encryption only to the minimum level set by
+     *         the administrator or higher when they submit queries. This setting does not apply to Spark-enabled
+     *         workgroups.</p>
+     *         <p>
+     *         The <code>EnforceWorkGroupConfiguration</code> setting takes precedence over the
+     *         <code>EnableMinimumEncryptionConfiguration</code> flag. This means that if
+     *         <code>EnforceWorkGroupConfiguration</code> is true, the <code>EnableMinimumEncryptionConfiguration</code>
+     *         flag is ignored, and the workgroup configuration for encryption is used.
+     */
+
+    public Boolean isEnableMinimumEncryptionConfiguration() {
+        return this.enableMinimumEncryptionConfiguration;
+    }
+
+    /**
+     * <p>
+     * Specifies whether Amazon S3 access grants are enabled for query results.
+     * </p>
+     * 
+     * @param queryResultsS3AccessGrantsConfiguration
+     *        Specifies whether Amazon S3 access grants are enabled for query results.
+     */
+
+    public void setQueryResultsS3AccessGrantsConfiguration(QueryResultsS3AccessGrantsConfiguration queryResultsS3AccessGrantsConfiguration) {
+        this.queryResultsS3AccessGrantsConfiguration = queryResultsS3AccessGrantsConfiguration;
+    }
+
+    /**
+     * <p>
+     * Specifies whether Amazon S3 access grants are enabled for query results.
+     * </p>
+     * 
+     * @return Specifies whether Amazon S3 access grants are enabled for query results.
+     */
+
+    public QueryResultsS3AccessGrantsConfiguration getQueryResultsS3AccessGrantsConfiguration() {
+        return this.queryResultsS3AccessGrantsConfiguration;
+    }
+
+    /**
+     * <p>
+     * Specifies whether Amazon S3 access grants are enabled for query results.
+     * </p>
+     * 
+     * @param queryResultsS3AccessGrantsConfiguration
+     *        Specifies whether Amazon S3 access grants are enabled for query results.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkGroupConfigurationUpdates withQueryResultsS3AccessGrantsConfiguration(
+            QueryResultsS3AccessGrantsConfiguration queryResultsS3AccessGrantsConfiguration) {
+        setQueryResultsS3AccessGrantsConfiguration(queryResultsS3AccessGrantsConfiguration);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -362,7 +892,23 @@ public class WorkGroupConfigurationUpdates implements Serializable, Cloneable, S
         if (getBytesScannedCutoffPerQuery() != null)
             sb.append("BytesScannedCutoffPerQuery: ").append(getBytesScannedCutoffPerQuery()).append(",");
         if (getRemoveBytesScannedCutoffPerQuery() != null)
-            sb.append("RemoveBytesScannedCutoffPerQuery: ").append(getRemoveBytesScannedCutoffPerQuery());
+            sb.append("RemoveBytesScannedCutoffPerQuery: ").append(getRemoveBytesScannedCutoffPerQuery()).append(",");
+        if (getRequesterPaysEnabled() != null)
+            sb.append("RequesterPaysEnabled: ").append(getRequesterPaysEnabled()).append(",");
+        if (getEngineVersion() != null)
+            sb.append("EngineVersion: ").append(getEngineVersion()).append(",");
+        if (getRemoveCustomerContentEncryptionConfiguration() != null)
+            sb.append("RemoveCustomerContentEncryptionConfiguration: ").append(getRemoveCustomerContentEncryptionConfiguration()).append(",");
+        if (getAdditionalConfiguration() != null)
+            sb.append("AdditionalConfiguration: ").append(getAdditionalConfiguration()).append(",");
+        if (getExecutionRole() != null)
+            sb.append("ExecutionRole: ").append(getExecutionRole()).append(",");
+        if (getCustomerContentEncryptionConfiguration() != null)
+            sb.append("CustomerContentEncryptionConfiguration: ").append(getCustomerContentEncryptionConfiguration()).append(",");
+        if (getEnableMinimumEncryptionConfiguration() != null)
+            sb.append("EnableMinimumEncryptionConfiguration: ").append(getEnableMinimumEncryptionConfiguration()).append(",");
+        if (getQueryResultsS3AccessGrantsConfiguration() != null)
+            sb.append("QueryResultsS3AccessGrantsConfiguration: ").append(getQueryResultsS3AccessGrantsConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -400,6 +946,42 @@ public class WorkGroupConfigurationUpdates implements Serializable, Cloneable, S
         if (other.getRemoveBytesScannedCutoffPerQuery() != null
                 && other.getRemoveBytesScannedCutoffPerQuery().equals(this.getRemoveBytesScannedCutoffPerQuery()) == false)
             return false;
+        if (other.getRequesterPaysEnabled() == null ^ this.getRequesterPaysEnabled() == null)
+            return false;
+        if (other.getRequesterPaysEnabled() != null && other.getRequesterPaysEnabled().equals(this.getRequesterPaysEnabled()) == false)
+            return false;
+        if (other.getEngineVersion() == null ^ this.getEngineVersion() == null)
+            return false;
+        if (other.getEngineVersion() != null && other.getEngineVersion().equals(this.getEngineVersion()) == false)
+            return false;
+        if (other.getRemoveCustomerContentEncryptionConfiguration() == null ^ this.getRemoveCustomerContentEncryptionConfiguration() == null)
+            return false;
+        if (other.getRemoveCustomerContentEncryptionConfiguration() != null
+                && other.getRemoveCustomerContentEncryptionConfiguration().equals(this.getRemoveCustomerContentEncryptionConfiguration()) == false)
+            return false;
+        if (other.getAdditionalConfiguration() == null ^ this.getAdditionalConfiguration() == null)
+            return false;
+        if (other.getAdditionalConfiguration() != null && other.getAdditionalConfiguration().equals(this.getAdditionalConfiguration()) == false)
+            return false;
+        if (other.getExecutionRole() == null ^ this.getExecutionRole() == null)
+            return false;
+        if (other.getExecutionRole() != null && other.getExecutionRole().equals(this.getExecutionRole()) == false)
+            return false;
+        if (other.getCustomerContentEncryptionConfiguration() == null ^ this.getCustomerContentEncryptionConfiguration() == null)
+            return false;
+        if (other.getCustomerContentEncryptionConfiguration() != null
+                && other.getCustomerContentEncryptionConfiguration().equals(this.getCustomerContentEncryptionConfiguration()) == false)
+            return false;
+        if (other.getEnableMinimumEncryptionConfiguration() == null ^ this.getEnableMinimumEncryptionConfiguration() == null)
+            return false;
+        if (other.getEnableMinimumEncryptionConfiguration() != null
+                && other.getEnableMinimumEncryptionConfiguration().equals(this.getEnableMinimumEncryptionConfiguration()) == false)
+            return false;
+        if (other.getQueryResultsS3AccessGrantsConfiguration() == null ^ this.getQueryResultsS3AccessGrantsConfiguration() == null)
+            return false;
+        if (other.getQueryResultsS3AccessGrantsConfiguration() != null
+                && other.getQueryResultsS3AccessGrantsConfiguration().equals(this.getQueryResultsS3AccessGrantsConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -413,6 +995,15 @@ public class WorkGroupConfigurationUpdates implements Serializable, Cloneable, S
         hashCode = prime * hashCode + ((getPublishCloudWatchMetricsEnabled() == null) ? 0 : getPublishCloudWatchMetricsEnabled().hashCode());
         hashCode = prime * hashCode + ((getBytesScannedCutoffPerQuery() == null) ? 0 : getBytesScannedCutoffPerQuery().hashCode());
         hashCode = prime * hashCode + ((getRemoveBytesScannedCutoffPerQuery() == null) ? 0 : getRemoveBytesScannedCutoffPerQuery().hashCode());
+        hashCode = prime * hashCode + ((getRequesterPaysEnabled() == null) ? 0 : getRequesterPaysEnabled().hashCode());
+        hashCode = prime * hashCode + ((getEngineVersion() == null) ? 0 : getEngineVersion().hashCode());
+        hashCode = prime * hashCode
+                + ((getRemoveCustomerContentEncryptionConfiguration() == null) ? 0 : getRemoveCustomerContentEncryptionConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getAdditionalConfiguration() == null) ? 0 : getAdditionalConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getExecutionRole() == null) ? 0 : getExecutionRole().hashCode());
+        hashCode = prime * hashCode + ((getCustomerContentEncryptionConfiguration() == null) ? 0 : getCustomerContentEncryptionConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getEnableMinimumEncryptionConfiguration() == null) ? 0 : getEnableMinimumEncryptionConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getQueryResultsS3AccessGrantsConfiguration() == null) ? 0 : getQueryResultsS3AccessGrantsConfiguration().hashCode());
         return hashCode;
     }
 

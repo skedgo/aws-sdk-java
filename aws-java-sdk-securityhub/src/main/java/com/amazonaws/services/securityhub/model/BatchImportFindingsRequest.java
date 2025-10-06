@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,8 +28,8 @@ public class BatchImportFindingsRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * A list of findings to import. To successfully import a finding, it must follow the <a
-     * href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html">AWS Security
-     * Finding Format</a>.
+     * href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html">Amazon Web
+     * Services Security Finding Format</a>. Maximum of 100 findings per request.
      * </p>
      */
     private java.util.List<AwsSecurityFinding> findings;
@@ -37,13 +37,13 @@ public class BatchImportFindingsRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * A list of findings to import. To successfully import a finding, it must follow the <a
-     * href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html">AWS Security
-     * Finding Format</a>.
+     * href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html">Amazon Web
+     * Services Security Finding Format</a>. Maximum of 100 findings per request.
      * </p>
      * 
      * @return A list of findings to import. To successfully import a finding, it must follow the <a
-     *         href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html">AWS
-     *         Security Finding Format</a>.
+     *         href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html">Amazon
+     *         Web Services Security Finding Format</a>. Maximum of 100 findings per request.
      */
 
     public java.util.List<AwsSecurityFinding> getFindings() {
@@ -53,14 +53,14 @@ public class BatchImportFindingsRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * A list of findings to import. To successfully import a finding, it must follow the <a
-     * href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html">AWS Security
-     * Finding Format</a>.
+     * href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html">Amazon Web
+     * Services Security Finding Format</a>. Maximum of 100 findings per request.
      * </p>
      * 
      * @param findings
      *        A list of findings to import. To successfully import a finding, it must follow the <a
-     *        href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html">AWS
-     *        Security Finding Format</a>.
+     *        href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html">Amazon
+     *        Web Services Security Finding Format</a>. Maximum of 100 findings per request.
      */
 
     public void setFindings(java.util.Collection<AwsSecurityFinding> findings) {
@@ -75,8 +75,8 @@ public class BatchImportFindingsRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * A list of findings to import. To successfully import a finding, it must follow the <a
-     * href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html">AWS Security
-     * Finding Format</a>.
+     * href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html">Amazon Web
+     * Services Security Finding Format</a>. Maximum of 100 findings per request.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -86,8 +86,8 @@ public class BatchImportFindingsRequest extends com.amazonaws.AmazonWebServiceRe
      * 
      * @param findings
      *        A list of findings to import. To successfully import a finding, it must follow the <a
-     *        href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html">AWS
-     *        Security Finding Format</a>.
+     *        href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html">Amazon
+     *        Web Services Security Finding Format</a>. Maximum of 100 findings per request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -104,14 +104,14 @@ public class BatchImportFindingsRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * A list of findings to import. To successfully import a finding, it must follow the <a
-     * href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html">AWS Security
-     * Finding Format</a>.
+     * href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html">Amazon Web
+     * Services Security Finding Format</a>. Maximum of 100 findings per request.
      * </p>
      * 
      * @param findings
      *        A list of findings to import. To successfully import a finding, it must follow the <a
-     *        href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html">AWS
-     *        Security Finding Format</a>.
+     *        href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html">Amazon
+     *        Web Services Security Finding Format</a>. Maximum of 100 findings per request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

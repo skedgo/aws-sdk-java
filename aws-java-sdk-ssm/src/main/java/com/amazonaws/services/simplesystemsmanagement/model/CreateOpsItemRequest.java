@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,10 +27,47 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Information about the OpsItem.
+     * User-defined text that contains information about the OpsItem, in Markdown format.
      * </p>
+     * <note>
+     * <p>
+     * Provide enough information so that users viewing this OpsItem for the first time understand the issue.
+     * </p>
+     * </note>
      */
     private String description;
+    /**
+     * <p>
+     * The type of OpsItem to create. Systems Manager supports the following types of OpsItems:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>/aws/issue</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used for default OpsItems created by OpsCenter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/aws/changerequest</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used by Change Manager for reviewing and approving or rejecting change requests.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/aws/insight</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used by OpsCenter for aggregating and reporting on duplicate OpsItems.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String opsItemType;
     /**
      * <p>
      * Operational data is custom data that provides useful reference details about the OpsItem. For example, you can
@@ -40,22 +77,24 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * <important>
      * <p>
-     * Operational data keys <i>can't</i> begin with the following: amazon, aws, amzn, ssm, /amazon, /aws, /amzn, /ssm.
+     * Operational data keys <i>can't</i> begin with the following: <code>amazon</code>, <code>aws</code>,
+     * <code>amzn</code>, <code>ssm</code>, <code>/amazon</code>, <code>/aws</code>, <code>/amzn</code>,
+     * <code>/ssm</code>.
      * </p>
      * </important>
      * <p>
      * You can choose to make the data searchable by other users in the account or you can restrict search access.
      * Searchable data means that all users with access to the OpsItem Overview page (as provided by the
-     * <a>DescribeOpsItems</a> API action) can view and search on the specified data. Operational data that is not
+     * <a>DescribeOpsItems</a> API operation) can view and search on the specified data. Operational data that isn't
      * searchable is only viewable by users who have access to the OpsItem (as provided by the <a>GetOpsItem</a> API
-     * action).
+     * operation).
      * </p>
      * <p>
      * Use the <code>/aws/resources</code> key in OperationalData to specify a related resource in the request. Use the
      * <code>/aws/automations</code> key in OperationalData to associate an Automation runbook with the OpsItem. To view
-     * AWS CLI example commands that use these keys, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-creating-OpsItems.html#OpsCenter-manually-create-OpsItems"
-     * >Creating OpsItems Manually</a> in the <i>AWS Systems Manager User Guide</i>.
+     * Amazon Web Services CLI example commands that use these keys, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-manually-create-OpsItems.html"
+     * >Create OpsItems manually</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      */
     private java.util.Map<String, OpsItemDataValue> operationalData;
@@ -81,8 +120,14 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
     private com.amazonaws.internal.SdkInternalList<RelatedOpsItem> relatedOpsItems;
     /**
      * <p>
-     * The origin of the OpsItem, such as Amazon EC2 or AWS Systems Manager.
+     * The origin of the OpsItem, such as Amazon EC2 or Systems Manager.
      * </p>
+     * <note>
+     * <p>
+     * The source name can't contain the following strings: <code>aws</code>, <code>amazon</code>, and <code>amzn</code>
+     * .
+     * </p>
+     * </note>
      */
     private String source;
     /**
@@ -93,10 +138,7 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String title;
     /**
      * <p>
-     * Optional metadata that you assign to a resource. You can restrict access to OpsItems by using an inline IAM
-     * policy that specifies tags. For more information, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html#OpsCenter-getting-started-user-permissions"
-     * >Getting Started with OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.
+     * Optional metadata that you assign to a resource.
      * </p>
      * <p>
      * Tags use a key-value pair. For example:
@@ -104,21 +146,79 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * <code>Key=Department,Value=Finance</code>
      * </p>
-     * <note>
+     * <important>
      * <p>
-     * To add tags to an existing OpsItem, use the <a>AddTagsToResource</a> action.
+     * To add tags to a new OpsItem, a user must have IAM permissions for both the <code>ssm:CreateOpsItems</code>
+     * operation and the <code>ssm:AddTagsToResource</code> operation. To add tags to an existing OpsItem, use the
+     * <a>AddTagsToResource</a> operation.
      * </p>
-     * </note>
+     * </important>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
+    /**
+     * <p>
+     * Specify a category to assign to an OpsItem.
+     * </p>
+     */
+    private String category;
+    /**
+     * <p>
+     * Specify a severity to assign to an OpsItem.
+     * </p>
+     */
+    private String severity;
+    /**
+     * <p>
+     * The time a runbook workflow started. Currently reported only for the OpsItem type <code>/aws/changerequest</code>
+     * .
+     * </p>
+     */
+    private java.util.Date actualStartTime;
+    /**
+     * <p>
+     * The time a runbook workflow ended. Currently reported only for the OpsItem type <code>/aws/changerequest</code>.
+     * </p>
+     */
+    private java.util.Date actualEndTime;
+    /**
+     * <p>
+     * The time specified in a change request for a runbook workflow to start. Currently supported only for the OpsItem
+     * type <code>/aws/changerequest</code>.
+     * </p>
+     */
+    private java.util.Date plannedStartTime;
+    /**
+     * <p>
+     * The time specified in a change request for a runbook workflow to end. Currently supported only for the OpsItem
+     * type <code>/aws/changerequest</code>.
+     * </p>
+     */
+    private java.util.Date plannedEndTime;
+    /**
+     * <p>
+     * The target Amazon Web Services account where you want to create an OpsItem. To make this call, your account must
+     * be configured to work with OpsItems across accounts. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-setup.html">Set up OpsCenter</a> in
+     * the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     */
+    private String accountId;
 
     /**
      * <p>
-     * Information about the OpsItem.
+     * User-defined text that contains information about the OpsItem, in Markdown format.
      * </p>
+     * <note>
+     * <p>
+     * Provide enough information so that users viewing this OpsItem for the first time understand the issue.
+     * </p>
+     * </note>
      * 
      * @param description
-     *        Information about the OpsItem.
+     *        User-defined text that contains information about the OpsItem, in Markdown format. </p> <note>
+     *        <p>
+     *        Provide enough information so that users viewing this OpsItem for the first time understand the issue.
+     *        </p>
      */
 
     public void setDescription(String description) {
@@ -127,10 +227,18 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Information about the OpsItem.
+     * User-defined text that contains information about the OpsItem, in Markdown format.
      * </p>
+     * <note>
+     * <p>
+     * Provide enough information so that users viewing this OpsItem for the first time understand the issue.
+     * </p>
+     * </note>
      * 
-     * @return Information about the OpsItem.
+     * @return User-defined text that contains information about the OpsItem, in Markdown format. </p> <note>
+     *         <p>
+     *         Provide enough information so that users viewing this OpsItem for the first time understand the issue.
+     *         </p>
      */
 
     public String getDescription() {
@@ -139,16 +247,217 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Information about the OpsItem.
+     * User-defined text that contains information about the OpsItem, in Markdown format.
      * </p>
+     * <note>
+     * <p>
+     * Provide enough information so that users viewing this OpsItem for the first time understand the issue.
+     * </p>
+     * </note>
      * 
      * @param description
-     *        Information about the OpsItem.
+     *        User-defined text that contains information about the OpsItem, in Markdown format. </p> <note>
+     *        <p>
+     *        Provide enough information so that users viewing this OpsItem for the first time understand the issue.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateOpsItemRequest withDescription(String description) {
         setDescription(description);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of OpsItem to create. Systems Manager supports the following types of OpsItems:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>/aws/issue</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used for default OpsItems created by OpsCenter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/aws/changerequest</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used by Change Manager for reviewing and approving or rejecting change requests.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/aws/insight</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used by OpsCenter for aggregating and reporting on duplicate OpsItems.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param opsItemType
+     *        The type of OpsItem to create. Systems Manager supports the following types of OpsItems:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>/aws/issue</code>
+     *        </p>
+     *        <p>
+     *        This type of OpsItem is used for default OpsItems created by OpsCenter.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>/aws/changerequest</code>
+     *        </p>
+     *        <p>
+     *        This type of OpsItem is used by Change Manager for reviewing and approving or rejecting change requests.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>/aws/insight</code>
+     *        </p>
+     *        <p>
+     *        This type of OpsItem is used by OpsCenter for aggregating and reporting on duplicate OpsItems.
+     *        </p>
+     *        </li>
+     */
+
+    public void setOpsItemType(String opsItemType) {
+        this.opsItemType = opsItemType;
+    }
+
+    /**
+     * <p>
+     * The type of OpsItem to create. Systems Manager supports the following types of OpsItems:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>/aws/issue</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used for default OpsItems created by OpsCenter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/aws/changerequest</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used by Change Manager for reviewing and approving or rejecting change requests.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/aws/insight</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used by OpsCenter for aggregating and reporting on duplicate OpsItems.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The type of OpsItem to create. Systems Manager supports the following types of OpsItems:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>/aws/issue</code>
+     *         </p>
+     *         <p>
+     *         This type of OpsItem is used for default OpsItems created by OpsCenter.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>/aws/changerequest</code>
+     *         </p>
+     *         <p>
+     *         This type of OpsItem is used by Change Manager for reviewing and approving or rejecting change requests.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>/aws/insight</code>
+     *         </p>
+     *         <p>
+     *         This type of OpsItem is used by OpsCenter for aggregating and reporting on duplicate OpsItems.
+     *         </p>
+     *         </li>
+     */
+
+    public String getOpsItemType() {
+        return this.opsItemType;
+    }
+
+    /**
+     * <p>
+     * The type of OpsItem to create. Systems Manager supports the following types of OpsItems:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>/aws/issue</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used for default OpsItems created by OpsCenter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/aws/changerequest</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used by Change Manager for reviewing and approving or rejecting change requests.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>/aws/insight</code>
+     * </p>
+     * <p>
+     * This type of OpsItem is used by OpsCenter for aggregating and reporting on duplicate OpsItems.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param opsItemType
+     *        The type of OpsItem to create. Systems Manager supports the following types of OpsItems:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>/aws/issue</code>
+     *        </p>
+     *        <p>
+     *        This type of OpsItem is used for default OpsItems created by OpsCenter.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>/aws/changerequest</code>
+     *        </p>
+     *        <p>
+     *        This type of OpsItem is used by Change Manager for reviewing and approving or rejecting change requests.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>/aws/insight</code>
+     *        </p>
+     *        <p>
+     *        This type of OpsItem is used by OpsCenter for aggregating and reporting on duplicate OpsItems.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateOpsItemRequest withOpsItemType(String opsItemType) {
+        setOpsItemType(opsItemType);
         return this;
     }
 
@@ -161,22 +470,24 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * <important>
      * <p>
-     * Operational data keys <i>can't</i> begin with the following: amazon, aws, amzn, ssm, /amazon, /aws, /amzn, /ssm.
+     * Operational data keys <i>can't</i> begin with the following: <code>amazon</code>, <code>aws</code>,
+     * <code>amzn</code>, <code>ssm</code>, <code>/amazon</code>, <code>/aws</code>, <code>/amzn</code>,
+     * <code>/ssm</code>.
      * </p>
      * </important>
      * <p>
      * You can choose to make the data searchable by other users in the account or you can restrict search access.
      * Searchable data means that all users with access to the OpsItem Overview page (as provided by the
-     * <a>DescribeOpsItems</a> API action) can view and search on the specified data. Operational data that is not
+     * <a>DescribeOpsItems</a> API operation) can view and search on the specified data. Operational data that isn't
      * searchable is only viewable by users who have access to the OpsItem (as provided by the <a>GetOpsItem</a> API
-     * action).
+     * operation).
      * </p>
      * <p>
      * Use the <code>/aws/resources</code> key in OperationalData to specify a related resource in the request. Use the
      * <code>/aws/automations</code> key in OperationalData to associate an Automation runbook with the OpsItem. To view
-     * AWS CLI example commands that use these keys, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-creating-OpsItems.html#OpsCenter-manually-create-OpsItems"
-     * >Creating OpsItems Manually</a> in the <i>AWS Systems Manager User Guide</i>.
+     * Amazon Web Services CLI example commands that use these keys, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-manually-create-OpsItems.html"
+     * >Create OpsItems manually</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @return Operational data is custom data that provides useful reference details about the OpsItem. For example,
@@ -184,23 +495,24 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
      *         enter operational data as key-value pairs. The key has a maximum length of 128 characters. The value has
      *         a maximum size of 20 KB.</p> <important>
      *         <p>
-     *         Operational data keys <i>can't</i> begin with the following: amazon, aws, amzn, ssm, /amazon, /aws,
-     *         /amzn, /ssm.
+     *         Operational data keys <i>can't</i> begin with the following: <code>amazon</code>, <code>aws</code>,
+     *         <code>amzn</code>, <code>ssm</code>, <code>/amazon</code>, <code>/aws</code>, <code>/amzn</code>,
+     *         <code>/ssm</code>.
      *         </p>
      *         </important>
      *         <p>
      *         You can choose to make the data searchable by other users in the account or you can restrict search
      *         access. Searchable data means that all users with access to the OpsItem Overview page (as provided by the
-     *         <a>DescribeOpsItems</a> API action) can view and search on the specified data. Operational data that is
-     *         not searchable is only viewable by users who have access to the OpsItem (as provided by the
-     *         <a>GetOpsItem</a> API action).
+     *         <a>DescribeOpsItems</a> API operation) can view and search on the specified data. Operational data that
+     *         isn't searchable is only viewable by users who have access to the OpsItem (as provided by the
+     *         <a>GetOpsItem</a> API operation).
      *         </p>
      *         <p>
      *         Use the <code>/aws/resources</code> key in OperationalData to specify a related resource in the request.
      *         Use the <code>/aws/automations</code> key in OperationalData to associate an Automation runbook with the
-     *         OpsItem. To view AWS CLI example commands that use these keys, see <a href=
-     *         "http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-creating-OpsItems.html#OpsCenter-manually-create-OpsItems"
-     *         >Creating OpsItems Manually</a> in the <i>AWS Systems Manager User Guide</i>.
+     *         OpsItem. To view Amazon Web Services CLI example commands that use these keys, see <a href=
+     *         "https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-manually-create-OpsItems.html"
+     *         >Create OpsItems manually</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      */
 
     public java.util.Map<String, OpsItemDataValue> getOperationalData() {
@@ -216,22 +528,24 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * <important>
      * <p>
-     * Operational data keys <i>can't</i> begin with the following: amazon, aws, amzn, ssm, /amazon, /aws, /amzn, /ssm.
+     * Operational data keys <i>can't</i> begin with the following: <code>amazon</code>, <code>aws</code>,
+     * <code>amzn</code>, <code>ssm</code>, <code>/amazon</code>, <code>/aws</code>, <code>/amzn</code>,
+     * <code>/ssm</code>.
      * </p>
      * </important>
      * <p>
      * You can choose to make the data searchable by other users in the account or you can restrict search access.
      * Searchable data means that all users with access to the OpsItem Overview page (as provided by the
-     * <a>DescribeOpsItems</a> API action) can view and search on the specified data. Operational data that is not
+     * <a>DescribeOpsItems</a> API operation) can view and search on the specified data. Operational data that isn't
      * searchable is only viewable by users who have access to the OpsItem (as provided by the <a>GetOpsItem</a> API
-     * action).
+     * operation).
      * </p>
      * <p>
      * Use the <code>/aws/resources</code> key in OperationalData to specify a related resource in the request. Use the
      * <code>/aws/automations</code> key in OperationalData to associate an Automation runbook with the OpsItem. To view
-     * AWS CLI example commands that use these keys, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-creating-OpsItems.html#OpsCenter-manually-create-OpsItems"
-     * >Creating OpsItems Manually</a> in the <i>AWS Systems Manager User Guide</i>.
+     * Amazon Web Services CLI example commands that use these keys, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-manually-create-OpsItems.html"
+     * >Create OpsItems manually</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param operationalData
@@ -240,23 +554,24 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        enter operational data as key-value pairs. The key has a maximum length of 128 characters. The value has a
      *        maximum size of 20 KB.</p> <important>
      *        <p>
-     *        Operational data keys <i>can't</i> begin with the following: amazon, aws, amzn, ssm, /amazon, /aws, /amzn,
-     *        /ssm.
+     *        Operational data keys <i>can't</i> begin with the following: <code>amazon</code>, <code>aws</code>,
+     *        <code>amzn</code>, <code>ssm</code>, <code>/amazon</code>, <code>/aws</code>, <code>/amzn</code>,
+     *        <code>/ssm</code>.
      *        </p>
      *        </important>
      *        <p>
      *        You can choose to make the data searchable by other users in the account or you can restrict search
      *        access. Searchable data means that all users with access to the OpsItem Overview page (as provided by the
-     *        <a>DescribeOpsItems</a> API action) can view and search on the specified data. Operational data that is
-     *        not searchable is only viewable by users who have access to the OpsItem (as provided by the
-     *        <a>GetOpsItem</a> API action).
+     *        <a>DescribeOpsItems</a> API operation) can view and search on the specified data. Operational data that
+     *        isn't searchable is only viewable by users who have access to the OpsItem (as provided by the
+     *        <a>GetOpsItem</a> API operation).
      *        </p>
      *        <p>
      *        Use the <code>/aws/resources</code> key in OperationalData to specify a related resource in the request.
      *        Use the <code>/aws/automations</code> key in OperationalData to associate an Automation runbook with the
-     *        OpsItem. To view AWS CLI example commands that use these keys, see <a href=
-     *        "http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-creating-OpsItems.html#OpsCenter-manually-create-OpsItems"
-     *        >Creating OpsItems Manually</a> in the <i>AWS Systems Manager User Guide</i>.
+     *        OpsItem. To view Amazon Web Services CLI example commands that use these keys, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-manually-create-OpsItems.html"
+     *        >Create OpsItems manually</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      */
 
     public void setOperationalData(java.util.Map<String, OpsItemDataValue> operationalData) {
@@ -272,22 +587,24 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * <important>
      * <p>
-     * Operational data keys <i>can't</i> begin with the following: amazon, aws, amzn, ssm, /amazon, /aws, /amzn, /ssm.
+     * Operational data keys <i>can't</i> begin with the following: <code>amazon</code>, <code>aws</code>,
+     * <code>amzn</code>, <code>ssm</code>, <code>/amazon</code>, <code>/aws</code>, <code>/amzn</code>,
+     * <code>/ssm</code>.
      * </p>
      * </important>
      * <p>
      * You can choose to make the data searchable by other users in the account or you can restrict search access.
      * Searchable data means that all users with access to the OpsItem Overview page (as provided by the
-     * <a>DescribeOpsItems</a> API action) can view and search on the specified data. Operational data that is not
+     * <a>DescribeOpsItems</a> API operation) can view and search on the specified data. Operational data that isn't
      * searchable is only viewable by users who have access to the OpsItem (as provided by the <a>GetOpsItem</a> API
-     * action).
+     * operation).
      * </p>
      * <p>
      * Use the <code>/aws/resources</code> key in OperationalData to specify a related resource in the request. Use the
      * <code>/aws/automations</code> key in OperationalData to associate an Automation runbook with the OpsItem. To view
-     * AWS CLI example commands that use these keys, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-creating-OpsItems.html#OpsCenter-manually-create-OpsItems"
-     * >Creating OpsItems Manually</a> in the <i>AWS Systems Manager User Guide</i>.
+     * Amazon Web Services CLI example commands that use these keys, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-manually-create-OpsItems.html"
+     * >Create OpsItems manually</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param operationalData
@@ -296,23 +613,24 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        enter operational data as key-value pairs. The key has a maximum length of 128 characters. The value has a
      *        maximum size of 20 KB.</p> <important>
      *        <p>
-     *        Operational data keys <i>can't</i> begin with the following: amazon, aws, amzn, ssm, /amazon, /aws, /amzn,
-     *        /ssm.
+     *        Operational data keys <i>can't</i> begin with the following: <code>amazon</code>, <code>aws</code>,
+     *        <code>amzn</code>, <code>ssm</code>, <code>/amazon</code>, <code>/aws</code>, <code>/amzn</code>,
+     *        <code>/ssm</code>.
      *        </p>
      *        </important>
      *        <p>
      *        You can choose to make the data searchable by other users in the account or you can restrict search
      *        access. Searchable data means that all users with access to the OpsItem Overview page (as provided by the
-     *        <a>DescribeOpsItems</a> API action) can view and search on the specified data. Operational data that is
-     *        not searchable is only viewable by users who have access to the OpsItem (as provided by the
-     *        <a>GetOpsItem</a> API action).
+     *        <a>DescribeOpsItems</a> API operation) can view and search on the specified data. Operational data that
+     *        isn't searchable is only viewable by users who have access to the OpsItem (as provided by the
+     *        <a>GetOpsItem</a> API operation).
      *        </p>
      *        <p>
      *        Use the <code>/aws/resources</code> key in OperationalData to specify a related resource in the request.
      *        Use the <code>/aws/automations</code> key in OperationalData to associate an Automation runbook with the
-     *        OpsItem. To view AWS CLI example commands that use these keys, see <a href=
-     *        "http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-creating-OpsItems.html#OpsCenter-manually-create-OpsItems"
-     *        >Creating OpsItems Manually</a> in the <i>AWS Systems Manager User Guide</i>.
+     *        OpsItem. To view Amazon Web Services CLI example commands that use these keys, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-manually-create-OpsItems.html"
+     *        >Create OpsItems manually</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -320,6 +638,13 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
         setOperationalData(operationalData);
         return this;
     }
+
+    /**
+     * Add a single OperationalData entry
+     *
+     * @see CreateOpsItemRequest#withOperationalData
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public CreateOpsItemRequest addOperationalDataEntry(String key, OpsItemDataValue value) {
         if (null == this.operationalData) {
@@ -550,11 +875,21 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The origin of the OpsItem, such as Amazon EC2 or AWS Systems Manager.
+     * The origin of the OpsItem, such as Amazon EC2 or Systems Manager.
      * </p>
+     * <note>
+     * <p>
+     * The source name can't contain the following strings: <code>aws</code>, <code>amazon</code>, and <code>amzn</code>
+     * .
+     * </p>
+     * </note>
      * 
      * @param source
-     *        The origin of the OpsItem, such as Amazon EC2 or AWS Systems Manager.
+     *        The origin of the OpsItem, such as Amazon EC2 or Systems Manager.</p> <note>
+     *        <p>
+     *        The source name can't contain the following strings: <code>aws</code>, <code>amazon</code>, and
+     *        <code>amzn</code>.
+     *        </p>
      */
 
     public void setSource(String source) {
@@ -563,10 +898,20 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The origin of the OpsItem, such as Amazon EC2 or AWS Systems Manager.
+     * The origin of the OpsItem, such as Amazon EC2 or Systems Manager.
      * </p>
+     * <note>
+     * <p>
+     * The source name can't contain the following strings: <code>aws</code>, <code>amazon</code>, and <code>amzn</code>
+     * .
+     * </p>
+     * </note>
      * 
-     * @return The origin of the OpsItem, such as Amazon EC2 or AWS Systems Manager.
+     * @return The origin of the OpsItem, such as Amazon EC2 or Systems Manager.</p> <note>
+     *         <p>
+     *         The source name can't contain the following strings: <code>aws</code>, <code>amazon</code>, and
+     *         <code>amzn</code>.
+     *         </p>
      */
 
     public String getSource() {
@@ -575,11 +920,21 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The origin of the OpsItem, such as Amazon EC2 or AWS Systems Manager.
+     * The origin of the OpsItem, such as Amazon EC2 or Systems Manager.
      * </p>
+     * <note>
+     * <p>
+     * The source name can't contain the following strings: <code>aws</code>, <code>amazon</code>, and <code>amzn</code>
+     * .
+     * </p>
+     * </note>
      * 
      * @param source
-     *        The origin of the OpsItem, such as Amazon EC2 or AWS Systems Manager.
+     *        The origin of the OpsItem, such as Amazon EC2 or Systems Manager.</p> <note>
+     *        <p>
+     *        The source name can't contain the following strings: <code>aws</code>, <code>amazon</code>, and
+     *        <code>amzn</code>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -630,10 +985,7 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Optional metadata that you assign to a resource. You can restrict access to OpsItems by using an inline IAM
-     * policy that specifies tags. For more information, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html#OpsCenter-getting-started-user-permissions"
-     * >Getting Started with OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.
+     * Optional metadata that you assign to a resource.
      * </p>
      * <p>
      * Tags use a key-value pair. For example:
@@ -641,25 +993,26 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * <code>Key=Department,Value=Finance</code>
      * </p>
-     * <note>
+     * <important>
      * <p>
-     * To add tags to an existing OpsItem, use the <a>AddTagsToResource</a> action.
+     * To add tags to a new OpsItem, a user must have IAM permissions for both the <code>ssm:CreateOpsItems</code>
+     * operation and the <code>ssm:AddTagsToResource</code> operation. To add tags to an existing OpsItem, use the
+     * <a>AddTagsToResource</a> operation.
      * </p>
-     * </note>
+     * </important>
      * 
-     * @return Optional metadata that you assign to a resource. You can restrict access to OpsItems by using an inline
-     *         IAM policy that specifies tags. For more information, see <a href=
-     *         "http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html#OpsCenter-getting-started-user-permissions"
-     *         >Getting Started with OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.</p>
+     * @return Optional metadata that you assign to a resource.</p>
      *         <p>
      *         Tags use a key-value pair. For example:
      *         </p>
      *         <p>
      *         <code>Key=Department,Value=Finance</code>
      *         </p>
-     *         <note>
+     *         <important>
      *         <p>
-     *         To add tags to an existing OpsItem, use the <a>AddTagsToResource</a> action.
+     *         To add tags to a new OpsItem, a user must have IAM permissions for both the
+     *         <code>ssm:CreateOpsItems</code> operation and the <code>ssm:AddTagsToResource</code> operation. To add
+     *         tags to an existing OpsItem, use the <a>AddTagsToResource</a> operation.
      *         </p>
      */
 
@@ -672,10 +1025,7 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Optional metadata that you assign to a resource. You can restrict access to OpsItems by using an inline IAM
-     * policy that specifies tags. For more information, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html#OpsCenter-getting-started-user-permissions"
-     * >Getting Started with OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.
+     * Optional metadata that you assign to a resource.
      * </p>
      * <p>
      * Tags use a key-value pair. For example:
@@ -683,26 +1033,27 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * <code>Key=Department,Value=Finance</code>
      * </p>
-     * <note>
+     * <important>
      * <p>
-     * To add tags to an existing OpsItem, use the <a>AddTagsToResource</a> action.
+     * To add tags to a new OpsItem, a user must have IAM permissions for both the <code>ssm:CreateOpsItems</code>
+     * operation and the <code>ssm:AddTagsToResource</code> operation. To add tags to an existing OpsItem, use the
+     * <a>AddTagsToResource</a> operation.
      * </p>
-     * </note>
+     * </important>
      * 
      * @param tags
-     *        Optional metadata that you assign to a resource. You can restrict access to OpsItems by using an inline
-     *        IAM policy that specifies tags. For more information, see <a href=
-     *        "http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html#OpsCenter-getting-started-user-permissions"
-     *        >Getting Started with OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.</p>
+     *        Optional metadata that you assign to a resource.</p>
      *        <p>
      *        Tags use a key-value pair. For example:
      *        </p>
      *        <p>
      *        <code>Key=Department,Value=Finance</code>
      *        </p>
-     *        <note>
+     *        <important>
      *        <p>
-     *        To add tags to an existing OpsItem, use the <a>AddTagsToResource</a> action.
+     *        To add tags to a new OpsItem, a user must have IAM permissions for both the
+     *        <code>ssm:CreateOpsItems</code> operation and the <code>ssm:AddTagsToResource</code> operation. To add
+     *        tags to an existing OpsItem, use the <a>AddTagsToResource</a> operation.
      *        </p>
      */
 
@@ -717,10 +1068,7 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Optional metadata that you assign to a resource. You can restrict access to OpsItems by using an inline IAM
-     * policy that specifies tags. For more information, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html#OpsCenter-getting-started-user-permissions"
-     * >Getting Started with OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.
+     * Optional metadata that you assign to a resource.
      * </p>
      * <p>
      * Tags use a key-value pair. For example:
@@ -728,11 +1076,13 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * <code>Key=Department,Value=Finance</code>
      * </p>
-     * <note>
+     * <important>
      * <p>
-     * To add tags to an existing OpsItem, use the <a>AddTagsToResource</a> action.
+     * To add tags to a new OpsItem, a user must have IAM permissions for both the <code>ssm:CreateOpsItems</code>
+     * operation and the <code>ssm:AddTagsToResource</code> operation. To add tags to an existing OpsItem, use the
+     * <a>AddTagsToResource</a> operation.
      * </p>
-     * </note>
+     * </important>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
@@ -740,19 +1090,18 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * 
      * @param tags
-     *        Optional metadata that you assign to a resource. You can restrict access to OpsItems by using an inline
-     *        IAM policy that specifies tags. For more information, see <a href=
-     *        "http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html#OpsCenter-getting-started-user-permissions"
-     *        >Getting Started with OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.</p>
+     *        Optional metadata that you assign to a resource.</p>
      *        <p>
      *        Tags use a key-value pair. For example:
      *        </p>
      *        <p>
      *        <code>Key=Department,Value=Finance</code>
      *        </p>
-     *        <note>
+     *        <important>
      *        <p>
-     *        To add tags to an existing OpsItem, use the <a>AddTagsToResource</a> action.
+     *        To add tags to a new OpsItem, a user must have IAM permissions for both the
+     *        <code>ssm:CreateOpsItems</code> operation and the <code>ssm:AddTagsToResource</code> operation. To add
+     *        tags to an existing OpsItem, use the <a>AddTagsToResource</a> operation.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -769,10 +1118,7 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Optional metadata that you assign to a resource. You can restrict access to OpsItems by using an inline IAM
-     * policy that specifies tags. For more information, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html#OpsCenter-getting-started-user-permissions"
-     * >Getting Started with OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.
+     * Optional metadata that you assign to a resource.
      * </p>
      * <p>
      * Tags use a key-value pair. For example:
@@ -780,32 +1126,352 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * <code>Key=Department,Value=Finance</code>
      * </p>
-     * <note>
+     * <important>
      * <p>
-     * To add tags to an existing OpsItem, use the <a>AddTagsToResource</a> action.
+     * To add tags to a new OpsItem, a user must have IAM permissions for both the <code>ssm:CreateOpsItems</code>
+     * operation and the <code>ssm:AddTagsToResource</code> operation. To add tags to an existing OpsItem, use the
+     * <a>AddTagsToResource</a> operation.
      * </p>
-     * </note>
+     * </important>
      * 
      * @param tags
-     *        Optional metadata that you assign to a resource. You can restrict access to OpsItems by using an inline
-     *        IAM policy that specifies tags. For more information, see <a href=
-     *        "http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html#OpsCenter-getting-started-user-permissions"
-     *        >Getting Started with OpsCenter</a> in the <i>AWS Systems Manager User Guide</i>.</p>
+     *        Optional metadata that you assign to a resource.</p>
      *        <p>
      *        Tags use a key-value pair. For example:
      *        </p>
      *        <p>
      *        <code>Key=Department,Value=Finance</code>
      *        </p>
-     *        <note>
+     *        <important>
      *        <p>
-     *        To add tags to an existing OpsItem, use the <a>AddTagsToResource</a> action.
+     *        To add tags to a new OpsItem, a user must have IAM permissions for both the
+     *        <code>ssm:CreateOpsItems</code> operation and the <code>ssm:AddTagsToResource</code> operation. To add
+     *        tags to an existing OpsItem, use the <a>AddTagsToResource</a> operation.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateOpsItemRequest withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specify a category to assign to an OpsItem.
+     * </p>
+     * 
+     * @param category
+     *        Specify a category to assign to an OpsItem.
+     */
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    /**
+     * <p>
+     * Specify a category to assign to an OpsItem.
+     * </p>
+     * 
+     * @return Specify a category to assign to an OpsItem.
+     */
+
+    public String getCategory() {
+        return this.category;
+    }
+
+    /**
+     * <p>
+     * Specify a category to assign to an OpsItem.
+     * </p>
+     * 
+     * @param category
+     *        Specify a category to assign to an OpsItem.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateOpsItemRequest withCategory(String category) {
+        setCategory(category);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specify a severity to assign to an OpsItem.
+     * </p>
+     * 
+     * @param severity
+     *        Specify a severity to assign to an OpsItem.
+     */
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
+
+    /**
+     * <p>
+     * Specify a severity to assign to an OpsItem.
+     * </p>
+     * 
+     * @return Specify a severity to assign to an OpsItem.
+     */
+
+    public String getSeverity() {
+        return this.severity;
+    }
+
+    /**
+     * <p>
+     * Specify a severity to assign to an OpsItem.
+     * </p>
+     * 
+     * @param severity
+     *        Specify a severity to assign to an OpsItem.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateOpsItemRequest withSeverity(String severity) {
+        setSeverity(severity);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The time a runbook workflow started. Currently reported only for the OpsItem type <code>/aws/changerequest</code>
+     * .
+     * </p>
+     * 
+     * @param actualStartTime
+     *        The time a runbook workflow started. Currently reported only for the OpsItem type
+     *        <code>/aws/changerequest</code>.
+     */
+
+    public void setActualStartTime(java.util.Date actualStartTime) {
+        this.actualStartTime = actualStartTime;
+    }
+
+    /**
+     * <p>
+     * The time a runbook workflow started. Currently reported only for the OpsItem type <code>/aws/changerequest</code>
+     * .
+     * </p>
+     * 
+     * @return The time a runbook workflow started. Currently reported only for the OpsItem type
+     *         <code>/aws/changerequest</code>.
+     */
+
+    public java.util.Date getActualStartTime() {
+        return this.actualStartTime;
+    }
+
+    /**
+     * <p>
+     * The time a runbook workflow started. Currently reported only for the OpsItem type <code>/aws/changerequest</code>
+     * .
+     * </p>
+     * 
+     * @param actualStartTime
+     *        The time a runbook workflow started. Currently reported only for the OpsItem type
+     *        <code>/aws/changerequest</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateOpsItemRequest withActualStartTime(java.util.Date actualStartTime) {
+        setActualStartTime(actualStartTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The time a runbook workflow ended. Currently reported only for the OpsItem type <code>/aws/changerequest</code>.
+     * </p>
+     * 
+     * @param actualEndTime
+     *        The time a runbook workflow ended. Currently reported only for the OpsItem type
+     *        <code>/aws/changerequest</code>.
+     */
+
+    public void setActualEndTime(java.util.Date actualEndTime) {
+        this.actualEndTime = actualEndTime;
+    }
+
+    /**
+     * <p>
+     * The time a runbook workflow ended. Currently reported only for the OpsItem type <code>/aws/changerequest</code>.
+     * </p>
+     * 
+     * @return The time a runbook workflow ended. Currently reported only for the OpsItem type
+     *         <code>/aws/changerequest</code>.
+     */
+
+    public java.util.Date getActualEndTime() {
+        return this.actualEndTime;
+    }
+
+    /**
+     * <p>
+     * The time a runbook workflow ended. Currently reported only for the OpsItem type <code>/aws/changerequest</code>.
+     * </p>
+     * 
+     * @param actualEndTime
+     *        The time a runbook workflow ended. Currently reported only for the OpsItem type
+     *        <code>/aws/changerequest</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateOpsItemRequest withActualEndTime(java.util.Date actualEndTime) {
+        setActualEndTime(actualEndTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The time specified in a change request for a runbook workflow to start. Currently supported only for the OpsItem
+     * type <code>/aws/changerequest</code>.
+     * </p>
+     * 
+     * @param plannedStartTime
+     *        The time specified in a change request for a runbook workflow to start. Currently supported only for the
+     *        OpsItem type <code>/aws/changerequest</code>.
+     */
+
+    public void setPlannedStartTime(java.util.Date plannedStartTime) {
+        this.plannedStartTime = plannedStartTime;
+    }
+
+    /**
+     * <p>
+     * The time specified in a change request for a runbook workflow to start. Currently supported only for the OpsItem
+     * type <code>/aws/changerequest</code>.
+     * </p>
+     * 
+     * @return The time specified in a change request for a runbook workflow to start. Currently supported only for the
+     *         OpsItem type <code>/aws/changerequest</code>.
+     */
+
+    public java.util.Date getPlannedStartTime() {
+        return this.plannedStartTime;
+    }
+
+    /**
+     * <p>
+     * The time specified in a change request for a runbook workflow to start. Currently supported only for the OpsItem
+     * type <code>/aws/changerequest</code>.
+     * </p>
+     * 
+     * @param plannedStartTime
+     *        The time specified in a change request for a runbook workflow to start. Currently supported only for the
+     *        OpsItem type <code>/aws/changerequest</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateOpsItemRequest withPlannedStartTime(java.util.Date plannedStartTime) {
+        setPlannedStartTime(plannedStartTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The time specified in a change request for a runbook workflow to end. Currently supported only for the OpsItem
+     * type <code>/aws/changerequest</code>.
+     * </p>
+     * 
+     * @param plannedEndTime
+     *        The time specified in a change request for a runbook workflow to end. Currently supported only for the
+     *        OpsItem type <code>/aws/changerequest</code>.
+     */
+
+    public void setPlannedEndTime(java.util.Date plannedEndTime) {
+        this.plannedEndTime = plannedEndTime;
+    }
+
+    /**
+     * <p>
+     * The time specified in a change request for a runbook workflow to end. Currently supported only for the OpsItem
+     * type <code>/aws/changerequest</code>.
+     * </p>
+     * 
+     * @return The time specified in a change request for a runbook workflow to end. Currently supported only for the
+     *         OpsItem type <code>/aws/changerequest</code>.
+     */
+
+    public java.util.Date getPlannedEndTime() {
+        return this.plannedEndTime;
+    }
+
+    /**
+     * <p>
+     * The time specified in a change request for a runbook workflow to end. Currently supported only for the OpsItem
+     * type <code>/aws/changerequest</code>.
+     * </p>
+     * 
+     * @param plannedEndTime
+     *        The time specified in a change request for a runbook workflow to end. Currently supported only for the
+     *        OpsItem type <code>/aws/changerequest</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateOpsItemRequest withPlannedEndTime(java.util.Date plannedEndTime) {
+        setPlannedEndTime(plannedEndTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The target Amazon Web Services account where you want to create an OpsItem. To make this call, your account must
+     * be configured to work with OpsItems across accounts. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-setup.html">Set up OpsCenter</a> in
+     * the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * 
+     * @param accountId
+     *        The target Amazon Web Services account where you want to create an OpsItem. To make this call, your
+     *        account must be configured to work with OpsItems across accounts. For more information, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-setup.html">Set up
+     *        OpsCenter</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     */
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    /**
+     * <p>
+     * The target Amazon Web Services account where you want to create an OpsItem. To make this call, your account must
+     * be configured to work with OpsItems across accounts. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-setup.html">Set up OpsCenter</a> in
+     * the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * 
+     * @return The target Amazon Web Services account where you want to create an OpsItem. To make this call, your
+     *         account must be configured to work with OpsItems across accounts. For more information, see <a
+     *         href="https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-setup.html">Set up
+     *         OpsCenter</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     */
+
+    public String getAccountId() {
+        return this.accountId;
+    }
+
+    /**
+     * <p>
+     * The target Amazon Web Services account where you want to create an OpsItem. To make this call, your account must
+     * be configured to work with OpsItems across accounts. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-setup.html">Set up OpsCenter</a> in
+     * the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * 
+     * @param accountId
+     *        The target Amazon Web Services account where you want to create an OpsItem. To make this call, your
+     *        account must be configured to work with OpsItems across accounts. For more information, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-setup.html">Set up
+     *        OpsCenter</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateOpsItemRequest withAccountId(String accountId) {
+        setAccountId(accountId);
         return this;
     }
 
@@ -823,6 +1489,8 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
         sb.append("{");
         if (getDescription() != null)
             sb.append("Description: ").append(getDescription()).append(",");
+        if (getOpsItemType() != null)
+            sb.append("OpsItemType: ").append(getOpsItemType()).append(",");
         if (getOperationalData() != null)
             sb.append("OperationalData: ").append(getOperationalData()).append(",");
         if (getNotifications() != null)
@@ -836,7 +1504,21 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (getTitle() != null)
             sb.append("Title: ").append(getTitle()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getCategory() != null)
+            sb.append("Category: ").append(getCategory()).append(",");
+        if (getSeverity() != null)
+            sb.append("Severity: ").append(getSeverity()).append(",");
+        if (getActualStartTime() != null)
+            sb.append("ActualStartTime: ").append(getActualStartTime()).append(",");
+        if (getActualEndTime() != null)
+            sb.append("ActualEndTime: ").append(getActualEndTime()).append(",");
+        if (getPlannedStartTime() != null)
+            sb.append("PlannedStartTime: ").append(getPlannedStartTime()).append(",");
+        if (getPlannedEndTime() != null)
+            sb.append("PlannedEndTime: ").append(getPlannedEndTime()).append(",");
+        if (getAccountId() != null)
+            sb.append("AccountId: ").append(getAccountId());
         sb.append("}");
         return sb.toString();
     }
@@ -854,6 +1536,10 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (other.getDescription() == null ^ this.getDescription() == null)
             return false;
         if (other.getDescription() != null && other.getDescription().equals(this.getDescription()) == false)
+            return false;
+        if (other.getOpsItemType() == null ^ this.getOpsItemType() == null)
+            return false;
+        if (other.getOpsItemType() != null && other.getOpsItemType().equals(this.getOpsItemType()) == false)
             return false;
         if (other.getOperationalData() == null ^ this.getOperationalData() == null)
             return false;
@@ -883,6 +1569,34 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getCategory() == null ^ this.getCategory() == null)
+            return false;
+        if (other.getCategory() != null && other.getCategory().equals(this.getCategory()) == false)
+            return false;
+        if (other.getSeverity() == null ^ this.getSeverity() == null)
+            return false;
+        if (other.getSeverity() != null && other.getSeverity().equals(this.getSeverity()) == false)
+            return false;
+        if (other.getActualStartTime() == null ^ this.getActualStartTime() == null)
+            return false;
+        if (other.getActualStartTime() != null && other.getActualStartTime().equals(this.getActualStartTime()) == false)
+            return false;
+        if (other.getActualEndTime() == null ^ this.getActualEndTime() == null)
+            return false;
+        if (other.getActualEndTime() != null && other.getActualEndTime().equals(this.getActualEndTime()) == false)
+            return false;
+        if (other.getPlannedStartTime() == null ^ this.getPlannedStartTime() == null)
+            return false;
+        if (other.getPlannedStartTime() != null && other.getPlannedStartTime().equals(this.getPlannedStartTime()) == false)
+            return false;
+        if (other.getPlannedEndTime() == null ^ this.getPlannedEndTime() == null)
+            return false;
+        if (other.getPlannedEndTime() != null && other.getPlannedEndTime().equals(this.getPlannedEndTime()) == false)
+            return false;
+        if (other.getAccountId() == null ^ this.getAccountId() == null)
+            return false;
+        if (other.getAccountId() != null && other.getAccountId().equals(this.getAccountId()) == false)
+            return false;
         return true;
     }
 
@@ -892,6 +1606,7 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
+        hashCode = prime * hashCode + ((getOpsItemType() == null) ? 0 : getOpsItemType().hashCode());
         hashCode = prime * hashCode + ((getOperationalData() == null) ? 0 : getOperationalData().hashCode());
         hashCode = prime * hashCode + ((getNotifications() == null) ? 0 : getNotifications().hashCode());
         hashCode = prime * hashCode + ((getPriority() == null) ? 0 : getPriority().hashCode());
@@ -899,6 +1614,13 @@ public class CreateOpsItemRequest extends com.amazonaws.AmazonWebServiceRequest 
         hashCode = prime * hashCode + ((getSource() == null) ? 0 : getSource().hashCode());
         hashCode = prime * hashCode + ((getTitle() == null) ? 0 : getTitle().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getCategory() == null) ? 0 : getCategory().hashCode());
+        hashCode = prime * hashCode + ((getSeverity() == null) ? 0 : getSeverity().hashCode());
+        hashCode = prime * hashCode + ((getActualStartTime() == null) ? 0 : getActualStartTime().hashCode());
+        hashCode = prime * hashCode + ((getActualEndTime() == null) ? 0 : getActualEndTime().hashCode());
+        hashCode = prime * hashCode + ((getPlannedStartTime() == null) ? 0 : getPlannedStartTime().hashCode());
+        hashCode = prime * hashCode + ((getPlannedEndTime() == null) ? 0 : getPlannedEndTime().hashCode());
+        hashCode = prime * hashCode + ((getAccountId() == null) ? 0 : getAccountId().hashCode());
         return hashCode;
     }
 

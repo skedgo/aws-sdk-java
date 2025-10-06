@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,15 +26,27 @@ import com.amazonaws.services.chime.model.*;
  * {@link com.amazonaws.services.chime.AbstractAmazonChime} instead.
  * </p>
  * <p>
+ * <important>
  * <p>
- * The Amazon Chime API (application programming interface) is designed for administrators to use to perform key tasks,
- * such as creating and managing Amazon Chime accounts and users. This guide provides detailed information about the
- * Amazon Chime API, including operations, types, inputs and outputs, and error codes.
+ * <b>Most of these APIs are no longer supported and will not be updated.</b> We recommend using the latest versions in
+ * the <a href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/welcome.html">Amazon Chime SDK API
+ * reference</a>, in the Amazon Chime SDK.
  * </p>
  * <p>
- * You can use an AWS SDK, the AWS Command Line Interface (AWS CLI), or the REST API to make API calls. We recommend
- * using an AWS SDK or the AWS CLI. Each API operation includes links to information about using it with a
- * language-specific AWS SDK or the AWS CLI.
+ * Using the latest versions requires migrating to dedicated namespaces. For more information, refer to <a
+ * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+ * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+ * </p>
+ * </important>
+ * <p>
+ * The Amazon Chime application programming interface (API) is designed so administrators can perform key tasks, such as
+ * creating and managing Amazon Chime accounts, users, and Voice Connectors. This guide provides detailed information
+ * about the Amazon Chime API, including operations, types, inputs and outputs, and error codes.
+ * </p>
+ * <p>
+ * You can use an AWS SDK, the AWS Command Line Interface (AWS CLI), or the REST API to make API calls for Amazon Chime.
+ * We recommend using an AWS SDK or the AWS CLI. The page for each API action contains a <i>See Also</i> section that
+ * includes links to information about using the action with a language-specific AWS SDK or the AWS CLI.
  * </p>
  * <dl>
  * <dt>Using an AWS SDK</dt>
@@ -55,11 +67,11 @@ import com.amazonaws.services.chime.model.*;
  * Command Reference</i>.
  * </p>
  * </dd>
- * <dt>Using REST API</dt>
+ * <dt>Using REST APIs</dt>
  * <dd>
  * <p>
  * If you use REST to make API calls, you must authenticate your request by providing a signature. Amazon Chime supports
- * signature version 4. For more information, see <a
+ * Signature Version 4. For more information, see <a
  * href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">Signature Version 4 Signing Process</a>
  * in the <i>Amazon Web Services General Reference</i>.
  * </p>
@@ -71,8 +83,8 @@ import com.amazonaws.services.chime.model.*;
  * </dl>
  * <p>
  * Administrative permissions are controlled using AWS Identity and Access Management (IAM). For more information, see
- * <a href="https://docs.aws.amazon.com/chime/latest/ag/control-access.html">Control Access to the Amazon Chime
- * Console</a> in the <i>Amazon Chime Administration Guide</i>.
+ * <a href="https://docs.aws.amazon.com/chime/latest/ag/security-iam.html">Identity and Access Management for Amazon
+ * Chime</a> in the <i>Amazon Chime Administration Guide</i>.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -98,10 +110,11 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
+     * @throws AccessDeniedException
+     *         You don't have permissions to perform the requested operation.
      * @throws ThrottledClientException
      *         The client exceeded its request rate limit.
      * @throws ServiceUnavailableException
@@ -116,8 +129,21 @@ public interface AmazonChime {
 
     /**
      * <p>
-     * Associates a phone number with the specified Amazon Chime Voice Connector.
+     * Associates phone numbers with the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_AssociatePhoneNumbersWithVoiceConnector.html"
+     * >AssociatePhoneNumbersWithVoiceConnector</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param associatePhoneNumbersWithVoiceConnectorRequest
      * @return Result of the AssociatePhoneNumbersWithVoiceConnector operation returned by the service.
@@ -126,10 +152,11 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
+     * @throws AccessDeniedException
+     *         You don't have permissions to perform the requested operation.
      * @throws ThrottledClientException
      *         The client exceeded its request rate limit.
      * @throws ServiceUnavailableException
@@ -140,8 +167,196 @@ public interface AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/AssociatePhoneNumbersWithVoiceConnector"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     AssociatePhoneNumbersWithVoiceConnectorResult associatePhoneNumbersWithVoiceConnector(
             AssociatePhoneNumbersWithVoiceConnectorRequest associatePhoneNumbersWithVoiceConnectorRequest);
+
+    /**
+     * <p>
+     * Associates phone numbers with the specified Amazon Chime Voice Connector group.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_AssociatePhoneNumbersWithVoiceConnectorGroup.html"
+     * >AssociatePhoneNumbersWithVoiceConnectorGroup</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param associatePhoneNumbersWithVoiceConnectorGroupRequest
+     * @return Result of the AssociatePhoneNumbersWithVoiceConnectorGroup operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws AccessDeniedException
+     *         You don't have permissions to perform the requested operation.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.AssociatePhoneNumbersWithVoiceConnectorGroup
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/AssociatePhoneNumbersWithVoiceConnectorGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    AssociatePhoneNumbersWithVoiceConnectorGroupResult associatePhoneNumbersWithVoiceConnectorGroup(
+            AssociatePhoneNumbersWithVoiceConnectorGroupRequest associatePhoneNumbersWithVoiceConnectorGroupRequest);
+
+    /**
+     * <p>
+     * Associates the specified sign-in delegate groups with the specified Amazon Chime account.
+     * </p>
+     * 
+     * @param associateSigninDelegateGroupsWithAccountRequest
+     * @return Result of the AssociateSigninDelegateGroupsWithAccount operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.AssociateSigninDelegateGroupsWithAccount
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/AssociateSigninDelegateGroupsWithAccount"
+     *      target="_top">AWS API Documentation</a>
+     */
+    AssociateSigninDelegateGroupsWithAccountResult associateSigninDelegateGroupsWithAccount(
+            AssociateSigninDelegateGroupsWithAccountRequest associateSigninDelegateGroupsWithAccountRequest);
+
+    /**
+     * <p>
+     * Creates up to 100 new attendees for an active Amazon Chime SDK meeting.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_BatchCreateAttendee.html">
+     * BatchCreateAttendee</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * <p>
+     * For more information about the Amazon Chime SDK, see <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime SDK</a> in the
+     * <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * 
+     * @param batchCreateAttendeeRequest
+     * @return Result of the BatchCreateAttendee operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.BatchCreateAttendee
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/BatchCreateAttendee" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    BatchCreateAttendeeResult batchCreateAttendee(BatchCreateAttendeeRequest batchCreateAttendeeRequest);
+
+    /**
+     * <p>
+     * Adds a specified number of users to a channel.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_BatchCreateChannelMembership.html"
+     * >BatchCreateChannelMembership</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param batchCreateChannelMembershipRequest
+     * @return Result of the BatchCreateChannelMembership operation returned by the service.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @sample AmazonChime.BatchCreateChannelMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/BatchCreateChannelMembership"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    BatchCreateChannelMembershipResult batchCreateChannelMembership(BatchCreateChannelMembershipRequest batchCreateChannelMembershipRequest);
+
+    /**
+     * <p>
+     * Adds up to 50 members to a chat room in an Amazon Chime Enterprise account. Members can be users or bots. The
+     * member role designates whether the member is a chat room administrator or a general chat room member.
+     * </p>
+     * 
+     * @param batchCreateRoomMembershipRequest
+     * @return Result of the BatchCreateRoomMembership operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.BatchCreateRoomMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/BatchCreateRoomMembership"
+     *      target="_top">AWS API Documentation</a>
+     */
+    BatchCreateRoomMembershipResult batchCreateRoomMembership(BatchCreateRoomMembershipRequest batchCreateRoomMembershipRequest);
 
     /**
      * <p>
@@ -159,8 +374,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -183,7 +397,7 @@ public interface AmazonChime {
      * Accounts</a> in the <i>Amazon Chime Administration Guide</i>.
      * </p>
      * <p>
-     * Users suspended from a <code>Team</code> account are dissasociated from the account, but they can continue to use
+     * Users suspended from a <code>Team</code> account are disassociated from the account,but they can continue to use
      * Amazon Chime as free users. To remove the suspension from suspended <code>Team</code> account users, invite them
      * to the <code>Team</code> account again. You can use the <a>InviteUsers</a> action to do so.
      * </p>
@@ -203,8 +417,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -224,8 +437,8 @@ public interface AmazonChime {
      * Removes the suspension from up to 50 previously suspended users for the specified Amazon Chime
      * <code>EnterpriseLWA</code> account. Only users on <code>EnterpriseLWA</code> accounts can be unsuspended using
      * this action. For more information about different account types, see <a
-     * href="https://docs.aws.amazon.com/chime/latest/ag/manage-chime-account.html">Managing Your Amazon Chime
-     * Accounts</a> in the <i>Amazon Chime Administration Guide</i>.
+     * href="https://docs.aws.amazon.com/chime/latest/ag/manage-chime-account.html"> Managing Your Amazon Chime Accounts
+     * </a> in the account types, in the <i>Amazon Chime Administration Guide</i>.
      * </p>
      * <p>
      * Previously suspended users who are unsuspended using this action are returned to <code>Registered</code> status.
@@ -239,8 +452,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -257,8 +469,16 @@ public interface AmazonChime {
 
     /**
      * <p>
-     * Updates phone number product types. Choose from Amazon Chime Business Calling and Amazon Chime Voice Connector
-     * product types. For toll-free numbers, you can use only the Amazon Chime Voice Connector product type.
+     * Updates phone number product types or calling names. You can update one attribute at a time for each
+     * <code>UpdatePhoneNumberRequestItem</code>. For example, you can update the product type or the calling name.
+     * </p>
+     * <p>
+     * For toll-free numbers, you cannot use the Amazon Chime Business Calling product type. For numbers outside the
+     * U.S., you must use the Amazon Chime SIP Media Application Dial-In product type.
+     * </p>
+     * <p>
+     * Updates to outbound calling names can take up to 72 hours to complete. Pending updates to outbound calling names
+     * must be complete before you can request another update.
      * </p>
      * 
      * @param batchUpdatePhoneNumberRequest
@@ -268,8 +488,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -297,8 +516,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -328,8 +546,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -346,6 +563,195 @@ public interface AmazonChime {
 
     /**
      * <p>
+     * Creates an Amazon Chime SDK messaging <code>AppInstance</code> under an AWS account. Only SDK messaging customers
+     * use this API. <code>CreateAppInstance</code> supports idempotency behavior as described in the AWS API Standard.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_CreateAppInstance.html">
+     * CreateAppInstance</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createAppInstanceRequest
+     * @return Result of the CreateAppInstance operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.CreateAppInstance
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateAppInstance" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    CreateAppInstanceResult createAppInstance(CreateAppInstanceRequest createAppInstanceRequest);
+
+    /**
+     * <p>
+     * Promotes an <code>AppInstanceUser</code> to an <code>AppInstanceAdmin</code>. The promoted user can perform the
+     * following actions.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_CreateAppInstanceAdmin.html">
+     * CreateAppInstanceAdmin</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ChannelModerator</code> actions across all channels in the <code>AppInstance</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DeleteChannelMessage</code> actions.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Only an <code>AppInstanceUser</code> can be promoted to an <code>AppInstanceAdmin</code> role.
+     * </p>
+     * 
+     * @param createAppInstanceAdminRequest
+     * @return Result of the CreateAppInstanceAdmin operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.CreateAppInstanceAdmin
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateAppInstanceAdmin" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    CreateAppInstanceAdminResult createAppInstanceAdmin(CreateAppInstanceAdminRequest createAppInstanceAdminRequest);
+
+    /**
+     * <p>
+     * Creates a user under an Amazon Chime <code>AppInstance</code>. The request consists of a unique
+     * <code>appInstanceUserId</code> and <code>Name</code> for that user.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_CreateAppInstanceUser.html">
+     * CreateAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createAppInstanceUserRequest
+     * @return Result of the CreateAppInstanceUser operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.CreateAppInstanceUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateAppInstanceUser" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    CreateAppInstanceUserResult createAppInstanceUser(CreateAppInstanceUserRequest createAppInstanceUserRequest);
+
+    /**
+     * <p>
+     * Creates a new attendee for an active Amazon Chime SDK meeting. For more information about the Amazon Chime SDK,
+     * see <a href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime SDK</a> in
+     * the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_CreateAttendee.html">CreateAttendee
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createAttendeeRequest
+     * @return Result of the CreateAttendee operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.CreateAttendee
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateAttendee" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    CreateAttendeeResult createAttendee(CreateAttendeeRequest createAttendeeRequest);
+
+    /**
+     * <p>
      * Creates a bot for an Amazon Chime Enterprise account.
      * </p>
      * 
@@ -356,8 +762,7 @@ public interface AmazonChime {
      * @throws ServiceFailureException
      *         The service encountered an unexpected error.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws UnauthorizedClientException
@@ -366,6 +771,8 @@ public interface AmazonChime {
      *         The request exceeds the resource limit.
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
      * @sample AmazonChime.CreateBot
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateBot" target="_top">AWS API
      *      Documentation</a>
@@ -374,22 +781,466 @@ public interface AmazonChime {
 
     /**
      * <p>
-     * Creates an order for phone numbers to be provisioned. Choose from Amazon Chime Business Calling and Amazon Chime
-     * Voice Connector product types. For toll-free numbers, you can use only the Amazon Chime Voice Connector product
-     * type.
+     * Creates a channel to which you can add users and send messages.
+     * </p>
+     * <p>
+     * <b>Restriction</b>: You can't change a channel's privacy.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_CreateChannel.html">CreateChannel
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createChannelRequest
+     * @return Result of the CreateChannel operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.CreateChannel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateChannel" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    CreateChannelResult createChannel(CreateChannelRequest createChannelRequest);
+
+    /**
+     * <p>
+     * Permanently bans a member from a channel. Moderators can't add banned members to a channel. To undo a ban, you
+     * first have to <code>DeleteChannelBan</code>, and then <code>CreateChannelMembership</code>. Bans are cleaned up
+     * when you delete users or channels.
+     * </p>
+     * <p>
+     * If you ban a user who is already part of a channel, that user is automatically kicked from the channel.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_CreateChannelBan.html">
+     * CreateChannelBan</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createChannelBanRequest
+     * @return Result of the CreateChannelBan operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.CreateChannelBan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateChannelBan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    CreateChannelBanResult createChannelBan(CreateChannelBanRequest createChannelBanRequest);
+
+    /**
+     * <p>
+     * Adds a user to a channel. The <code>InvitedBy</code> response field is derived from the request header. A channel
+     * member can:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * List messages
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Send messages
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Receive messages
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Edit their own messages
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Leave the channel
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Privacy settings impact this action as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Public Channels: You do not need to be a member to list messages, but you must be a member to send messages.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Private Channels: You must be a member to list or send messages.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_CreateChannelMembership.html">
+     * CreateChannelMembership</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createChannelMembershipRequest
+     * @return Result of the CreateChannelMembership operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.CreateChannelMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateChannelMembership" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    CreateChannelMembershipResult createChannelMembership(CreateChannelMembershipRequest createChannelMembershipRequest);
+
+    /**
+     * <p>
+     * Creates a new <code>ChannelModerator</code>. A channel moderator can:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Add and remove other members of the channel.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Add and remove other moderators of the channel.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Add and remove user bans for the channel.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Redact messages in the channel.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * List messages in the channel.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_CreateChannelModerator.html">
+     * CreateChannelModerator</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createChannelModeratorRequest
+     * @return Result of the CreateChannelModerator operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.CreateChannelModerator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateChannelModerator" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    CreateChannelModeratorResult createChannelModerator(CreateChannelModeratorRequest createChannelModeratorRequest);
+
+    /**
+     * <p>
+     * Creates a media capture pipeline.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_media-pipelines-chime_CreateMediaCapturePipeline"
+     * >CreateMediaCapturePipeline</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createMediaCapturePipelineRequest
+     * @return Result of the CreateMediaCapturePipeline operation returned by the service.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.CreateMediaCapturePipeline
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateMediaCapturePipeline"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    CreateMediaCapturePipelineResult createMediaCapturePipeline(CreateMediaCapturePipelineRequest createMediaCapturePipelineRequest);
+
+    /**
+     * <p>
+     * Creates a new Amazon Chime SDK meeting in the specified media Region with no initial attendees. For more
+     * information about specifying media Regions, see <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/chime-sdk-meetings-regions.html">Amazon Chime SDK Media
+     * Regions</a> in the <i>Amazon Chime SDK Developer Guide</i> . For more information about the Amazon Chime SDK, see
+     * <a href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime SDK</a> in the
+     * <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_CreateMeeting.html">CreateMeeting
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createMeetingRequest
+     * @return Result of the CreateMeeting operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.CreateMeeting
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateMeeting" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    CreateMeetingResult createMeeting(CreateMeetingRequest createMeetingRequest);
+
+    /**
+     * <p>
+     * Uses the join token and call metadata in a meeting request (From number, To number, and so forth) to initiate an
+     * outbound call to a public switched telephone network (PSTN) and join them into a Chime meeting. Also ensures that
+     * the From number belongs to the customer.
+     * </p>
+     * <p>
+     * To play welcome audio or implement an interactive voice response (IVR), use the
+     * <code>CreateSipMediaApplicationCall</code> action with the corresponding SIP media application ID.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is not available in a dedicated namespace.</b>
+     * </p>
+     * </important>
+     * 
+     * @param createMeetingDialOutRequest
+     * @return Result of the CreateMeetingDialOut operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws AccessDeniedException
+     *         You don't have permissions to perform the requested operation.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.CreateMeetingDialOut
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateMeetingDialOut" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CreateMeetingDialOutResult createMeetingDialOut(CreateMeetingDialOutRequest createMeetingDialOutRequest);
+
+    /**
+     * <p>
+     * Creates a new Amazon Chime SDK meeting in the specified media Region, with attendees. For more information about
+     * specifying media Regions, see <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/chime-sdk-meetings-regions.html">Amazon Chime SDK Media
+     * Regions</a> in the <i>Amazon Chime SDK Developer Guide</i> . For more information about the Amazon Chime SDK, see
+     * <a href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime SDK</a> in the
+     * <i>Amazon Chime SDK Developer Guide</i> .
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_CreateMeetingWithAttendees.html"
+     * >CreateMeetingWithAttendees</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createMeetingWithAttendeesRequest
+     * @return Result of the CreateMeetingWithAttendees operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.CreateMeetingWithAttendees
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateMeetingWithAttendees"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    CreateMeetingWithAttendeesResult createMeetingWithAttendees(CreateMeetingWithAttendeesRequest createMeetingWithAttendeesRequest);
+
+    /**
+     * <p>
+     * Creates an order for phone numbers to be provisioned. For toll-free numbers, you cannot use the Amazon Chime
+     * Business Calling product type. For numbers outside the U.S., you must use the Amazon Chime SIP Media Application
+     * Dial-In product type.
      * </p>
      * 
      * @param createPhoneNumberOrderRequest
      * @return Result of the CreatePhoneNumberOrder operation returned by the service.
-     * @throws UnauthorizedClientException
-     *         The client is not currently authorized to make the request.
-     * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws AccessDeniedException
+     *         You don't have permissions to perform the requested operation.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
      * @throws ThrottledClientException
      *         The client exceeded its request rate limit.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
      * @throws ServiceUnavailableException
      *         The service is currently unavailable.
      * @throws ServiceFailureException
@@ -402,19 +1253,30 @@ public interface AmazonChime {
 
     /**
      * <p>
-     * Creates an Amazon Chime Voice Connector under the administrator's AWS account. Enabling
-     * <a>CreateVoiceConnectorRequest$RequireEncryption</a> configures your Amazon Chime Voice Connector to use TLS
-     * transport for SIP signaling and Secure RTP (SRTP) for media. Inbound calls use TLS transport, and unencrypted
-     * outbound calls are blocked.
+     * Creates a proxy session on the specified Amazon Chime Voice Connector for the specified participant phone
+     * numbers.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_CreateProxySession.html">
+     * CreateProxySession</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
-     * @param createVoiceConnectorRequest
-     * @return Result of the CreateVoiceConnector operation returned by the service.
+     * @param createProxySessionRequest
+     * @return Result of the CreateProxySession operation returned by the service.
      * @throws UnauthorizedClientException
      *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -423,16 +1285,336 @@ public interface AmazonChime {
      *         The service is currently unavailable.
      * @throws ServiceFailureException
      *         The service encountered an unexpected error.
+     * @sample AmazonChime.CreateProxySession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateProxySession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    CreateProxySessionResult createProxySession(CreateProxySessionRequest createProxySessionRequest);
+
+    /**
+     * <p>
+     * Creates a chat room for the specified Amazon Chime Enterprise account.
+     * </p>
+     * 
+     * @param createRoomRequest
+     * @return Result of the CreateRoom operation returned by the service.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.CreateRoom
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateRoom" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CreateRoomResult createRoom(CreateRoomRequest createRoomRequest);
+
+    /**
+     * <p>
+     * Adds a member to a chat room in an Amazon Chime Enterprise account. A member can be either a user or a bot. The
+     * member role designates whether the member is a chat room administrator or a general chat room member.
+     * </p>
+     * 
+     * @param createRoomMembershipRequest
+     * @return Result of the CreateRoomMembership operation returned by the service.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.CreateRoomMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateRoomMembership" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CreateRoomMembershipResult createRoomMembership(CreateRoomMembershipRequest createRoomMembershipRequest);
+
+    /**
+     * <p>
+     * Creates a SIP media application.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_CreateSipMediaApplication.html">
+     * CreateSipMediaApplication</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createSipMediaApplicationRequest
+     * @return Result of the CreateSipMediaApplication operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws AccessDeniedException
+     *         You don't have permissions to perform the requested operation.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.CreateSipMediaApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateSipMediaApplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    CreateSipMediaApplicationResult createSipMediaApplication(CreateSipMediaApplicationRequest createSipMediaApplicationRequest);
+
+    /**
+     * <p>
+     * Creates an outbound call to a phone number from the phone number specified in the request, and it invokes the
+     * endpoint of the specified <code>sipMediaApplicationId</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_CreateSipMediaApplicationCall.html"
+     * >CreateSipMediaApplicationCall</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createSipMediaApplicationCallRequest
+     * @return Result of the CreateSipMediaApplicationCall operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws AccessDeniedException
+     *         You don't have permissions to perform the requested operation.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.CreateSipMediaApplicationCall
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateSipMediaApplicationCall"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    CreateSipMediaApplicationCallResult createSipMediaApplicationCall(CreateSipMediaApplicationCallRequest createSipMediaApplicationCallRequest);
+
+    /**
+     * <p>
+     * Creates a SIP rule which can be used to run a SIP media application as a target for a specific trigger type.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_CreateSipRule.html">CreateSipRule</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createSipRuleRequest
+     * @return Result of the CreateSipRule operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws AccessDeniedException
+     *         You don't have permissions to perform the requested operation.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.CreateSipRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateSipRule" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    CreateSipRuleResult createSipRule(CreateSipRuleRequest createSipRuleRequest);
+
+    /**
+     * <p>
+     * Creates a user under the specified Amazon Chime account.
+     * </p>
+     * 
+     * @param createUserRequest
+     * @return Result of the CreateUser operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.CreateUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateUser" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CreateUserResult createUser(CreateUserRequest createUserRequest);
+
+    /**
+     * <p>
+     * Creates an Amazon Chime Voice Connector under the administrator's AWS account. You can choose to create an Amazon
+     * Chime Voice Connector in a specific AWS Region.
+     * </p>
+     * <p>
+     * Enabling <a>CreateVoiceConnectorRequest$RequireEncryption</a> configures your Amazon Chime Voice Connector to use
+     * TLS transport for SIP signaling and Secure RTP (SRTP) for media. Inbound calls use TLS transport, and unencrypted
+     * outbound calls are blocked.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_CreateVoiceConnector.html">
+     * CreateVoiceConnector</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createVoiceConnectorRequest
+     * @return Result of the CreateVoiceConnector operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws AccessDeniedException
+     *         You don't have permissions to perform the requested operation.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
      * @sample AmazonChime.CreateVoiceConnector
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateVoiceConnector" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     CreateVoiceConnectorResult createVoiceConnector(CreateVoiceConnectorRequest createVoiceConnectorRequest);
 
     /**
      * <p>
-     * Deletes the specified Amazon Chime account. You must suspend all users before deleting a <code>Team</code>
-     * account. You can use the <a>BatchSuspendUser</a> action to do so.
+     * Creates an Amazon Chime Voice Connector group under the administrator's AWS account. You can associate Amazon
+     * Chime Voice Connectors with the Amazon Chime Voice Connector group by including <code>VoiceConnectorItems</code>
+     * in the request.
+     * </p>
+     * <p>
+     * You can include Amazon Chime Voice Connectors from different AWS Regions in your group. This creates a fault
+     * tolerant mechanism for fallback in case of availability events.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_CreateVoiceConnectorGroup.html">
+     * CreateVoiceConnectorGroup</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createVoiceConnectorGroupRequest
+     * @return Result of the CreateVoiceConnectorGroup operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws AccessDeniedException
+     *         You don't have permissions to perform the requested operation.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.CreateVoiceConnectorGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateVoiceConnectorGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    CreateVoiceConnectorGroupResult createVoiceConnectorGroup(CreateVoiceConnectorGroupRequest createVoiceConnectorGroupRequest);
+
+    /**
+     * <p>
+     * Deletes the specified Amazon Chime account. You must suspend all users before deleting <code>Team</code> account.
+     * You can use the <a>BatchSuspendUser</a> action to dodo.
      * </p>
      * <p>
      * For <code>EnterpriseLWA</code> and <code>EnterpriseAD</code> accounts, you must release the claimed domains for
@@ -440,8 +1622,8 @@ public interface AmazonChime {
      * suspended.
      * </p>
      * <p>
-     * Deleted accounts appear in your <code>Disabled</code> accounts list for 90 days. To restore a deleted account
-     * from your <code>Disabled</code> accounts list, you must contact AWS Support.
+     * Deleted accounts appear in your <code>Disabled</code> accounts list for 90 days. To restore deleted account from
+     * your <code>Disabled</code> accounts list, you must contact AWS Support.
      * </p>
      * <p>
      * After 90 days, deleted accounts are permanently removed from your <code>Disabled</code> accounts list.
@@ -454,8 +1636,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -474,6 +1655,430 @@ public interface AmazonChime {
 
     /**
      * <p>
+     * Deletes an <code>AppInstance</code> and all associated data asynchronously.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_DeleteAppInstance.html">
+     * DeleteAppInstance</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteAppInstanceRequest
+     * @return Result of the DeleteAppInstance operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DeleteAppInstance
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteAppInstance" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    DeleteAppInstanceResult deleteAppInstance(DeleteAppInstanceRequest deleteAppInstanceRequest);
+
+    /**
+     * <p>
+     * Demotes an <code>AppInstanceAdmin</code> to an <code>AppInstanceUser</code>. This action does not delete the
+     * user.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_DeleteAppInstanceAdmin.html">
+     * DeleteAppInstanceAdmin</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteAppInstanceAdminRequest
+     * @return Result of the DeleteAppInstanceAdmin operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DeleteAppInstanceAdmin
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteAppInstanceAdmin" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    DeleteAppInstanceAdminResult deleteAppInstanceAdmin(DeleteAppInstanceAdminRequest deleteAppInstanceAdminRequest);
+
+    /**
+     * <p>
+     * Deletes the streaming configurations of an <code>AppInstance</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_DeleteAppInstanceStreamingConfigurations.html"
+     * >DeleteAppInstanceStreamingConfigurations</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteAppInstanceStreamingConfigurationsRequest
+     * @return Result of the DeleteAppInstanceStreamingConfigurations operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DeleteAppInstanceStreamingConfigurations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteAppInstanceStreamingConfigurations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    DeleteAppInstanceStreamingConfigurationsResult deleteAppInstanceStreamingConfigurations(
+            DeleteAppInstanceStreamingConfigurationsRequest deleteAppInstanceStreamingConfigurationsRequest);
+
+    /**
+     * <p>
+     * Deletes an <code>AppInstanceUser</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_DeleteAppInstanceUser.html">
+     * DeleteAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteAppInstanceUserRequest
+     * @return Result of the DeleteAppInstanceUser operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DeleteAppInstanceUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteAppInstanceUser" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    DeleteAppInstanceUserResult deleteAppInstanceUser(DeleteAppInstanceUserRequest deleteAppInstanceUserRequest);
+
+    /**
+     * <p>
+     * Deletes an attendee from the specified Amazon Chime SDK meeting and deletes their <code>JoinToken</code>.
+     * Attendees are automatically deleted when a Amazon Chime SDK meeting is deleted. For more information about the
+     * Amazon Chime SDK, see <a href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the
+     * Amazon Chime SDK</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_DeleteAttendee.html">DeleteAttendee
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteAttendeeRequest
+     * @return Result of the DeleteAttendee operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DeleteAttendee
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteAttendee" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    DeleteAttendeeResult deleteAttendee(DeleteAttendeeRequest deleteAttendeeRequest);
+
+    /**
+     * <p>
+     * Immediately makes a channel and its memberships inaccessible and marks them for deletion. This is an irreversible
+     * process.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DeleteChannel.html">DeleteChannel
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteChannelRequest
+     * @return Result of the DeleteChannel operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DeleteChannel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteChannel" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    DeleteChannelResult deleteChannel(DeleteChannelRequest deleteChannelRequest);
+
+    /**
+     * <p>
+     * Removes a user from a channel's ban list.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DeleteChannelBan.html">
+     * DeleteChannelBan</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteChannelBanRequest
+     * @return Result of the DeleteChannelBan operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DeleteChannelBan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteChannelBan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    DeleteChannelBanResult deleteChannelBan(DeleteChannelBanRequest deleteChannelBanRequest);
+
+    /**
+     * <p>
+     * Removes a member from a channel.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DeleteChannelMembership.html">
+     * DeleteChannelMembership</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteChannelMembershipRequest
+     * @return Result of the DeleteChannelMembership operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DeleteChannelMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteChannelMembership" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    DeleteChannelMembershipResult deleteChannelMembership(DeleteChannelMembershipRequest deleteChannelMembershipRequest);
+
+    /**
+     * <p>
+     * Deletes a channel message. Only admins can perform this action. Deletion makes messages inaccessible immediately.
+     * A background process deletes any revisions created by <code>UpdateChannelMessage</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DeleteChannelMessage.html">
+     * DeleteChannelMessage</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteChannelMessageRequest
+     * @return Result of the DeleteChannelMessage operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DeleteChannelMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteChannelMessage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    DeleteChannelMessageResult deleteChannelMessage(DeleteChannelMessageRequest deleteChannelMessageRequest);
+
+    /**
+     * <p>
+     * Deletes a channel moderator.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DeleteChannelModerator.html">
+     * DeleteChannelModerator</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteChannelModeratorRequest
+     * @return Result of the DeleteChannelModerator operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DeleteChannelModerator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteChannelModerator" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    DeleteChannelModeratorResult deleteChannelModerator(DeleteChannelModeratorRequest deleteChannelModeratorRequest);
+
+    /**
+     * <p>
      * Deletes the events configuration that allows a bot to receive outgoing events.
      * </p>
      * 
@@ -484,8 +2089,7 @@ public interface AmazonChime {
      * @throws ServiceFailureException
      *         The service encountered an unexpected error.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws UnauthorizedClientException
@@ -497,6 +2101,91 @@ public interface AmazonChime {
      *      target="_top">AWS API Documentation</a>
      */
     DeleteEventsConfigurationResult deleteEventsConfiguration(DeleteEventsConfigurationRequest deleteEventsConfigurationRequest);
+
+    /**
+     * <p>
+     * Deletes the media capture pipeline.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_media-pipelines-chime_DeleteMediaCapturePipeline.html"
+     * >DeleteMediaCapturePipeline</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteMediaCapturePipelineRequest
+     * @return Result of the DeleteMediaCapturePipeline operation returned by the service.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DeleteMediaCapturePipeline
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteMediaCapturePipeline"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    DeleteMediaCapturePipelineResult deleteMediaCapturePipeline(DeleteMediaCapturePipelineRequest deleteMediaCapturePipelineRequest);
+
+    /**
+     * <p>
+     * Deletes the specified Amazon Chime SDK meeting. The operation deletes all attendees, disconnects all clients, and
+     * prevents new clients from joining the meeting. For more information about the Amazon Chime SDK, see <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime SDK</a> in the
+     * <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_DeleteMeeting.html">DeleteMeeting
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteMeetingRequest
+     * @return Result of the DeleteMeeting operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DeleteMeeting
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteMeeting" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    DeleteMeetingResult deleteMeeting(DeleteMeetingRequest deleteMeetingRequest);
 
     /**
      * <p>
@@ -514,8 +2203,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -532,9 +2220,200 @@ public interface AmazonChime {
 
     /**
      * <p>
-     * Deletes the specified Amazon Chime Voice Connector. Any phone numbers assigned to the Amazon Chime Voice
-     * Connector must be unassigned from it before it can be deleted.
+     * Deletes the specified proxy session from the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteProxySession.html">
+     * DeleteProxySession</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteProxySessionRequest
+     * @return Result of the DeleteProxySession operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DeleteProxySession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteProxySession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    DeleteProxySessionResult deleteProxySession(DeleteProxySessionRequest deleteProxySessionRequest);
+
+    /**
+     * <p>
+     * Deletes a chat room in an Amazon Chime Enterprise account.
+     * </p>
+     * 
+     * @param deleteRoomRequest
+     * @return Result of the DeleteRoom operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DeleteRoom
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteRoom" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeleteRoomResult deleteRoom(DeleteRoomRequest deleteRoomRequest);
+
+    /**
+     * <p>
+     * Removes a member from a chat room in an Amazon Chime Enterprise account.
+     * </p>
+     * 
+     * @param deleteRoomMembershipRequest
+     * @return Result of the DeleteRoomMembership operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DeleteRoomMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteRoomMembership" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeleteRoomMembershipResult deleteRoomMembership(DeleteRoomMembershipRequest deleteRoomMembershipRequest);
+
+    /**
+     * <p>
+     * Deletes a SIP media application.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteSipMediaApplication.html">
+     * DeleteSipMediaApplication</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteSipMediaApplicationRequest
+     * @return Result of the DeleteSipMediaApplication operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DeleteSipMediaApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteSipMediaApplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    DeleteSipMediaApplicationResult deleteSipMediaApplication(DeleteSipMediaApplicationRequest deleteSipMediaApplicationRequest);
+
+    /**
+     * <p>
+     * Deletes a SIP rule. You must disable a SIP rule before you can delete it.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteSipRule.html">DeleteSipRule</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteSipRuleRequest
+     * @return Result of the DeleteSipRule operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DeleteSipRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteSipRule" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    DeleteSipRuleResult deleteSipRule(DeleteSipRuleRequest deleteSipRuleRequest);
+
+    /**
+     * <p>
+     * Deletes the specified Amazon Chime Voice Connector. Any phone numbers associated with the Amazon Chime Voice
+     * Connector must be disassociated from it before it can be deleted.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnector.html">
+     * DeleteVoiceConnector</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param deleteVoiceConnectorRequest
      * @return Result of the DeleteVoiceConnector operation returned by the service.
@@ -543,10 +2422,11 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
      * @throws ThrottledClientException
      *         The client exceeded its request rate limit.
      * @throws ServiceUnavailableException
@@ -557,12 +2437,117 @@ public interface AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnector" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     DeleteVoiceConnectorResult deleteVoiceConnector(DeleteVoiceConnectorRequest deleteVoiceConnectorRequest);
+
+    /**
+     * <p>
+     * Deletes the emergency calling configuration details from the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnectorEmergencyCallingConfiguration.html"
+     * >DeleteVoiceConnectorEmergencyCallingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteVoiceConnectorEmergencyCallingConfigurationRequest
+     * @return Result of the DeleteVoiceConnectorEmergencyCallingConfiguration operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DeleteVoiceConnectorEmergencyCallingConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnectorEmergencyCallingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    DeleteVoiceConnectorEmergencyCallingConfigurationResult deleteVoiceConnectorEmergencyCallingConfiguration(
+            DeleteVoiceConnectorEmergencyCallingConfigurationRequest deleteVoiceConnectorEmergencyCallingConfigurationRequest);
+
+    /**
+     * <p>
+     * Deletes the specified Amazon Chime Voice Connector group. Any <code>VoiceConnectorItems</code> and phone numbers
+     * associated with the group must be removed before it can be deleted.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnectorGroup.html">
+     * DeleteVoiceConnectorGroup</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteVoiceConnectorGroupRequest
+     * @return Result of the DeleteVoiceConnectorGroup operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DeleteVoiceConnectorGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnectorGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    DeleteVoiceConnectorGroupResult deleteVoiceConnectorGroup(DeleteVoiceConnectorGroupRequest deleteVoiceConnectorGroupRequest);
 
     /**
      * <p>
      * Deletes the origination settings for the specified Amazon Chime Voice Connector.
      * </p>
+     * <note>
+     * <p>
+     * If emergency calling is configured for the Amazon Chime Voice Connector, it must be deleted prior to deleting the
+     * origination settings.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnectorOrigination.html"
+     * >DeleteVoiceConnectorOrigination</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param deleteVoiceConnectorOriginationRequest
      * @return Result of the DeleteVoiceConnectorOrigination operation returned by the service.
@@ -571,8 +2556,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -585,12 +2569,113 @@ public interface AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnectorOrigination"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     DeleteVoiceConnectorOriginationResult deleteVoiceConnectorOrigination(DeleteVoiceConnectorOriginationRequest deleteVoiceConnectorOriginationRequest);
+
+    /**
+     * <p>
+     * Deletes the proxy configuration from the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnectorProxy.html">
+     * DeleteVoiceProxy</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteVoiceConnectorProxyRequest
+     * @return Result of the DeleteVoiceConnectorProxy operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DeleteVoiceConnectorProxy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnectorProxy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    DeleteVoiceConnectorProxyResult deleteVoiceConnectorProxy(DeleteVoiceConnectorProxyRequest deleteVoiceConnectorProxyRequest);
+
+    /**
+     * <p>
+     * Deletes the streaming configuration for the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnectorStreamingConfiguration.html"
+     * >DeleteVoiceConnectorStreamingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteVoiceConnectorStreamingConfigurationRequest
+     * @return Result of the DeleteVoiceConnectorStreamingConfiguration operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DeleteVoiceConnectorStreamingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnectorStreamingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    DeleteVoiceConnectorStreamingConfigurationResult deleteVoiceConnectorStreamingConfiguration(
+            DeleteVoiceConnectorStreamingConfigurationRequest deleteVoiceConnectorStreamingConfigurationRequest);
 
     /**
      * <p>
      * Deletes the termination settings for the specified Amazon Chime Voice Connector.
      * </p>
+     * <note>
+     * <p>
+     * If emergency calling is configured for the Amazon Chime Voice Connector, it must be deleted prior to deleting the
+     * termination settings.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnectorTermination.html"
+     * >DeleteVoiceConnectorTermination</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param deleteVoiceConnectorTerminationRequest
      * @return Result of the DeleteVoiceConnectorTermination operation returned by the service.
@@ -599,8 +2684,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -613,12 +2697,26 @@ public interface AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnectorTermination"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     DeleteVoiceConnectorTerminationResult deleteVoiceConnectorTermination(DeleteVoiceConnectorTerminationRequest deleteVoiceConnectorTerminationRequest);
 
     /**
      * <p>
      * Deletes the specified SIP credentials used by your equipment to authenticate during call termination.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnectorTerminationCredentials.html"
+     * >DeleteVoiceConnectorTerminationCredentials</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param deleteVoiceConnectorTerminationCredentialsRequest
      * @return Result of the DeleteVoiceConnectorTerminationCredentials operation returned by the service.
@@ -627,8 +2725,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -641,8 +2738,395 @@ public interface AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnectorTerminationCredentials"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     DeleteVoiceConnectorTerminationCredentialsResult deleteVoiceConnectorTerminationCredentials(
             DeleteVoiceConnectorTerminationCredentialsRequest deleteVoiceConnectorTerminationCredentialsRequest);
+
+    /**
+     * <p>
+     * Returns the full details of an <code>AppInstance</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_DescribeAppInstance.html">
+     * DescribeAppInstance</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeAppInstanceRequest
+     * @return Result of the DescribeAppInstance operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DescribeAppInstance
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeAppInstance" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    DescribeAppInstanceResult describeAppInstance(DescribeAppInstanceRequest describeAppInstanceRequest);
+
+    /**
+     * <p>
+     * Returns the full details of an <code>AppInstanceAdmin</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_DescribeAppInstanceAdmin.html">
+     * DescribeAppInstanceAdmin</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeAppInstanceAdminRequest
+     * @return Result of the DescribeAppInstanceAdmin operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DescribeAppInstanceAdmin
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeAppInstanceAdmin" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    DescribeAppInstanceAdminResult describeAppInstanceAdmin(DescribeAppInstanceAdminRequest describeAppInstanceAdminRequest);
+
+    /**
+     * <p>
+     * Returns the full details of an <code>AppInstanceUser</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_DescribeAppInstanceUser.html">
+     * DescribeAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeAppInstanceUserRequest
+     * @return Result of the DescribeAppInstanceUser operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DescribeAppInstanceUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeAppInstanceUser" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    DescribeAppInstanceUserResult describeAppInstanceUser(DescribeAppInstanceUserRequest describeAppInstanceUserRequest);
+
+    /**
+     * <p>
+     * Returns the full details of a channel in an Amazon Chime <code>AppInstance</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DescribeChannel.html">
+     * DescribeChannel</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeChannelRequest
+     * @return Result of the DescribeChannel operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DescribeChannel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeChannel" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    DescribeChannelResult describeChannel(DescribeChannelRequest describeChannelRequest);
+
+    /**
+     * <p>
+     * Returns the full details of a channel ban.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DescribeChannelBan.html">
+     * DescribeChannelBan</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeChannelBanRequest
+     * @return Result of the DescribeChannelBan operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DescribeChannelBan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeChannelBan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    DescribeChannelBanResult describeChannelBan(DescribeChannelBanRequest describeChannelBanRequest);
+
+    /**
+     * <p>
+     * Returns the full details of a user's channel membership.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DescribeChannelMembership.html"
+     * >DescribeChannelMembership</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeChannelMembershipRequest
+     * @return Result of the DescribeChannelMembership operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DescribeChannelMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeChannelMembership"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    DescribeChannelMembershipResult describeChannelMembership(DescribeChannelMembershipRequest describeChannelMembershipRequest);
+
+    /**
+     * <p>
+     * Returns the details of a channel based on the membership of the specified <code>AppInstanceUser</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DescribeChannelMembershipForAppInstanceUser.html"
+     * >DescribeChannelMembershipForAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeChannelMembershipForAppInstanceUserRequest
+     * @return Result of the DescribeChannelMembershipForAppInstanceUser operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DescribeChannelMembershipForAppInstanceUser
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeChannelMembershipForAppInstanceUser"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    DescribeChannelMembershipForAppInstanceUserResult describeChannelMembershipForAppInstanceUser(
+            DescribeChannelMembershipForAppInstanceUserRequest describeChannelMembershipForAppInstanceUserRequest);
+
+    /**
+     * <p>
+     * Returns the full details of a channel moderated by the specified <code>AppInstanceUser</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DescribeChannelModeratedByAppInstanceUser.html"
+     * >DescribeChannelModeratedByAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeChannelModeratedByAppInstanceUserRequest
+     * @return Result of the DescribeChannelModeratedByAppInstanceUser operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DescribeChannelModeratedByAppInstanceUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeChannelModeratedByAppInstanceUser"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    DescribeChannelModeratedByAppInstanceUserResult describeChannelModeratedByAppInstanceUser(
+            DescribeChannelModeratedByAppInstanceUserRequest describeChannelModeratedByAppInstanceUserRequest);
+
+    /**
+     * <p>
+     * Returns the full details of a single ChannelModerator.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DescribeChannelModerator.html"
+     * >DescribeChannelModerator</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeChannelModeratorRequest
+     * @return Result of the DescribeChannelModerator operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DescribeChannelModerator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeChannelModerator" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    DescribeChannelModeratorResult describeChannelModerator(DescribeChannelModeratorRequest describeChannelModeratorRequest);
 
     /**
      * <p>
@@ -656,8 +3140,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -674,8 +3157,21 @@ public interface AmazonChime {
 
     /**
      * <p>
-     * Disassociates the specified phone number from the specified Amazon Chime Voice Connector.
+     * Disassociates the specified phone numbers from the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DisassociatePhoneNumbersFromVoiceConnector.html"
+     * >DisassociatePhoneNumbersFromVoiceConnector</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param disassociatePhoneNumbersFromVoiceConnectorRequest
      * @return Result of the DisassociatePhoneNumbersFromVoiceConnector operation returned by the service.
@@ -684,8 +3180,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -698,8 +3193,81 @@ public interface AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DisassociatePhoneNumbersFromVoiceConnector"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     DisassociatePhoneNumbersFromVoiceConnectorResult disassociatePhoneNumbersFromVoiceConnector(
             DisassociatePhoneNumbersFromVoiceConnectorRequest disassociatePhoneNumbersFromVoiceConnectorRequest);
+
+    /**
+     * <p>
+     * Disassociates the specified phone numbers from the specified Amazon Chime Voice Connector group.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DisassociatePhoneNumbersFromVoiceConnectorGroup.html"
+     * >DisassociatePhoneNumbersFromVoiceConnectorGroup</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param disassociatePhoneNumbersFromVoiceConnectorGroupRequest
+     * @return Result of the DisassociatePhoneNumbersFromVoiceConnectorGroup operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DisassociatePhoneNumbersFromVoiceConnectorGroup
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DisassociatePhoneNumbersFromVoiceConnectorGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    DisassociatePhoneNumbersFromVoiceConnectorGroupResult disassociatePhoneNumbersFromVoiceConnectorGroup(
+            DisassociatePhoneNumbersFromVoiceConnectorGroupRequest disassociatePhoneNumbersFromVoiceConnectorGroupRequest);
+
+    /**
+     * <p>
+     * Disassociates the specified sign-in delegate groups from the specified Amazon Chime account.
+     * </p>
+     * 
+     * @param disassociateSigninDelegateGroupsFromAccountRequest
+     * @return Result of the DisassociateSigninDelegateGroupsFromAccount operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.DisassociateSigninDelegateGroupsFromAccount
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DisassociateSigninDelegateGroupsFromAccount"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DisassociateSigninDelegateGroupsFromAccountResult disassociateSigninDelegateGroupsFromAccount(
+            DisassociateSigninDelegateGroupsFromAccountRequest disassociateSigninDelegateGroupsFromAccountRequest);
 
     /**
      * <p>
@@ -713,8 +3281,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -731,7 +3298,7 @@ public interface AmazonChime {
 
     /**
      * <p>
-     * Retrieves account settings for the specified Amazon Chime account ID, such as remote control and dial out
+     * Retrieves account settings for the specified Amazon Chime account ID, such as remote control and dialout
      * settings. For more information about these settings, see <a
      * href="https://docs.aws.amazon.com/chime/latest/ag/policies.html">Use the Policies Page</a> in the <i>Amazon Chime
      * Administration Guide</i>.
@@ -746,8 +3313,7 @@ public interface AmazonChime {
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws ThrottledClientException
      *         The client exceeded its request rate limit.
      * @throws ServiceUnavailableException
@@ -762,6 +3328,132 @@ public interface AmazonChime {
 
     /**
      * <p>
+     * Gets the retention settings for an <code>AppInstance</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_GetAppInstanceRetentionSettings.html"
+     * >GetMessagingRetentionSettings</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getAppInstanceRetentionSettingsRequest
+     * @return Result of the GetAppInstanceRetentionSettings operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.GetAppInstanceRetentionSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetAppInstanceRetentionSettings"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    GetAppInstanceRetentionSettingsResult getAppInstanceRetentionSettings(GetAppInstanceRetentionSettingsRequest getAppInstanceRetentionSettingsRequest);
+
+    /**
+     * <p>
+     * Gets the streaming settings for an <code>AppInstance</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_GetMessagingStreamingConfigurations.html"
+     * >GetMessagingStreamingConfigurations</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getAppInstanceStreamingConfigurationsRequest
+     * @return Result of the GetAppInstanceStreamingConfigurations operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.GetAppInstanceStreamingConfigurations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetAppInstanceStreamingConfigurations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    GetAppInstanceStreamingConfigurationsResult getAppInstanceStreamingConfigurations(
+            GetAppInstanceStreamingConfigurationsRequest getAppInstanceStreamingConfigurationsRequest);
+
+    /**
+     * <p>
+     * Gets the Amazon Chime SDK attendee details for a specified meeting ID and attendee ID. For more information about
+     * the Amazon Chime SDK, see <a href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the
+     * Amazon Chime SDK</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_GetAttendee.html">GetAttendee</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getAttendeeRequest
+     * @return Result of the GetAttendee operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.GetAttendee
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetAttendee" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    GetAttendeeResult getAttendee(GetAttendeeRequest getAttendeeRequest);
+
+    /**
+     * <p>
      * Retrieves details for the specified bot, such as bot email address, bot type, status, and display name.
      * </p>
      * 
@@ -772,19 +3464,65 @@ public interface AmazonChime {
      * @throws ServiceFailureException
      *         The service encountered an unexpected error.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws UnauthorizedClientException
      *         The client is not currently authorized to make the request.
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
      * @sample AmazonChime.GetBot
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetBot" target="_top">AWS API
      *      Documentation</a>
      */
     GetBotResult getBot(GetBotRequest getBotRequest);
+
+    /**
+     * <p>
+     * Gets the full details of a channel message.
+     * </p>
+     * <note>
+     * <p>
+     * The x-amz-chime-bearer request header is mandatory. Use the <code>AppInstanceUserArn</code> of the user that
+     * makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_GetChannelMessage.html">
+     * GetChannelMessage</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getChannelMessageRequest
+     * @return Result of the GetChannelMessage operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.GetChannelMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetChannelMessage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    GetChannelMessageResult getChannelMessage(GetChannelMessageRequest getChannelMessageRequest);
 
     /**
      * <p>
@@ -799,8 +3537,7 @@ public interface AmazonChime {
      * @throws ServiceFailureException
      *         The service encountered an unexpected error.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws UnauthorizedClientException
@@ -826,8 +3563,7 @@ public interface AmazonChime {
      * @throws UnauthorizedClientException
      *         The client is not currently authorized to make the request.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -844,6 +3580,127 @@ public interface AmazonChime {
 
     /**
      * <p>
+     * Gets an existing media capture pipeline.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_media-pipelines-chime_GetMediaCapturePipeline.html"
+     * >GetMediaCapturePipeline</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getMediaCapturePipelineRequest
+     * @return Result of the GetMediaCapturePipeline operation returned by the service.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.GetMediaCapturePipeline
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetMediaCapturePipeline" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    GetMediaCapturePipelineResult getMediaCapturePipeline(GetMediaCapturePipelineRequest getMediaCapturePipelineRequest);
+
+    /**
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_GetMeeting.html">GetMeeting</a>, in
+     * the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * <p>
+     * Gets the Amazon Chime SDK meeting details for the specified meeting ID. For more information about the Amazon
+     * Chime SDK, see <a href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime
+     * SDK</a> in the <i>Amazon Chime SDK Developer Guide</i> .
+     * </p>
+     * 
+     * @param getMeetingRequest
+     * @return Result of the GetMeeting operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.GetMeeting
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetMeeting" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    GetMeetingResult getMeeting(GetMeetingRequest getMeetingRequest);
+
+    /**
+     * <p>
+     * The details of the endpoint for the messaging session.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_GetMessagingSessionEndpoint.html"
+     * >GetMessagingSessionEndpoint</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getMessagingSessionEndpointRequest
+     * @return Result of the GetMessagingSessionEndpoint operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.GetMessagingSessionEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetMessagingSessionEndpoint"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    GetMessagingSessionEndpointResult getMessagingSessionEndpoint(GetMessagingSessionEndpointRequest getMessagingSessionEndpointRequest);
+
+    /**
+     * <p>
      * Retrieves details for the specified phone number ID, such as associations, capabilities, and product type.
      * </p>
      * 
@@ -854,8 +3711,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -872,8 +3728,8 @@ public interface AmazonChime {
 
     /**
      * <p>
-     * Retrieves details for the specified phone number order, such as order creation timestamp, phone numbers in E.164
-     * format, product type, and order status.
+     * Retrieves details for the specified phone number order, such as the order creation timestamp, phone numbers in
+     * E.164 format, product type, and order status.
      * </p>
      * 
      * @param getPhoneNumberOrderRequest
@@ -883,8 +3739,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -901,7 +3756,252 @@ public interface AmazonChime {
 
     /**
      * <p>
-     * Retrieves details for the specified user ID, such as primary email address, license type, and personal meeting
+     * Retrieves the phone number settings for the administrator's AWS account, such as the default outbound calling
+     * name.
+     * </p>
+     * 
+     * @param getPhoneNumberSettingsRequest
+     * @return Result of the GetPhoneNumberSettings operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.GetPhoneNumberSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetPhoneNumberSettings" target="_top">AWS
+     *      API Documentation</a>
+     */
+    GetPhoneNumberSettingsResult getPhoneNumberSettings(GetPhoneNumberSettingsRequest getPhoneNumberSettingsRequest);
+
+    /**
+     * <p>
+     * Gets the specified proxy session details for the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetProxySession.html">GetProxySession
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getProxySessionRequest
+     * @return Result of the GetProxySession operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.GetProxySession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetProxySession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    GetProxySessionResult getProxySession(GetProxySessionRequest getProxySessionRequest);
+
+    /**
+     * <p>
+     * Gets the retention settings for the specified Amazon Chime Enterprise account. For more information about
+     * retention settings, see <a href="https://docs.aws.amazon.com/chime/latest/ag/chat-retention.html">Managing Chat
+     * Retention Policies</a> in the <i>Amazon Chime Administration Guide</i>.
+     * </p>
+     * 
+     * @param getRetentionSettingsRequest
+     * @return Result of the GetRetentionSettings operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.GetRetentionSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetRetentionSettings" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetRetentionSettingsResult getRetentionSettings(GetRetentionSettingsRequest getRetentionSettingsRequest);
+
+    /**
+     * <p>
+     * Retrieves room details, such as the room name, for a room in an Amazon Chime Enterprise account.
+     * </p>
+     * 
+     * @param getRoomRequest
+     * @return Result of the GetRoom operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.GetRoom
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetRoom" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetRoomResult getRoom(GetRoomRequest getRoomRequest);
+
+    /**
+     * <p>
+     * Retrieves the information for a SIP media application, including name, AWS Region, and endpoints.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetSipMediaApplication.html">
+     * GetSipMediaApplication</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getSipMediaApplicationRequest
+     * @return Result of the GetSipMediaApplication operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.GetSipMediaApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetSipMediaApplication" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    GetSipMediaApplicationResult getSipMediaApplication(GetSipMediaApplicationRequest getSipMediaApplicationRequest);
+
+    /**
+     * <p>
+     * Returns the logging configuration for the specified SIP media application.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetSipMediaApplicationLoggingConfiguration.html"
+     * >GetSipMediaApplicationLoggingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getSipMediaApplicationLoggingConfigurationRequest
+     * @return Result of the GetSipMediaApplicationLoggingConfiguration operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.GetSipMediaApplicationLoggingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetSipMediaApplicationLoggingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    GetSipMediaApplicationLoggingConfigurationResult getSipMediaApplicationLoggingConfiguration(
+            GetSipMediaApplicationLoggingConfigurationRequest getSipMediaApplicationLoggingConfigurationRequest);
+
+    /**
+     * <p>
+     * Retrieves the details of a SIP rule, such as the rule ID, name, triggers, and target endpoints.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetSipRule.html">GetSipRule</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getSipRuleRequest
+     * @return Result of the GetSipRule operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.GetSipRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetSipRule" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    GetSipRuleResult getSipRule(GetSipRuleRequest getSipRuleRequest);
+
+    /**
+     * <p>
+     * Retrieves details for the specified user ID, such as primary email address, license type,and personal meeting
      * PIN.
      * </p>
      * <p>
@@ -916,8 +4016,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -944,8 +4043,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -962,9 +4060,21 @@ public interface AmazonChime {
 
     /**
      * <p>
-     * Retrieves details for the specified Amazon Chime Voice Connector, such as timestamps, name, outbound host, and
+     * Retrieves details for the specified Amazon Chime Voice Connector, such as timestamps,name, outbound host, and
      * encryption requirements.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnector.html">
+     * GetVoiceConnector</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param getVoiceConnectorRequest
      * @return Result of the GetVoiceConnector operation returned by the service.
@@ -973,8 +4083,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -987,12 +4096,153 @@ public interface AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnector" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     GetVoiceConnectorResult getVoiceConnector(GetVoiceConnectorRequest getVoiceConnectorRequest);
+
+    /**
+     * <p>
+     * Gets the emergency calling configuration details for the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorEmergencyCallingConfiguration.html"
+     * >GetVoiceConnectorEmergencyCallingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getVoiceConnectorEmergencyCallingConfigurationRequest
+     * @return Result of the GetVoiceConnectorEmergencyCallingConfiguration operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.GetVoiceConnectorEmergencyCallingConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorEmergencyCallingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    GetVoiceConnectorEmergencyCallingConfigurationResult getVoiceConnectorEmergencyCallingConfiguration(
+            GetVoiceConnectorEmergencyCallingConfigurationRequest getVoiceConnectorEmergencyCallingConfigurationRequest);
+
+    /**
+     * <p>
+     * Retrieves details for the specified Amazon Chime Voice Connector group, such as timestamps,name, and associated
+     * <code>VoiceConnectorItems</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorGroup.html">
+     * GetVoiceConnectorGroup</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getVoiceConnectorGroupRequest
+     * @return Result of the GetVoiceConnectorGroup operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.GetVoiceConnectorGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorGroup" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    GetVoiceConnectorGroupResult getVoiceConnectorGroup(GetVoiceConnectorGroupRequest getVoiceConnectorGroupRequest);
+
+    /**
+     * <p>
+     * Retrieves the logging configuration details for the specified Amazon Chime Voice Connector. Shows whether SIP
+     * message logs are enabled for sending to Amazon CloudWatch Logs.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorLoggingConfiguration.html"
+     * >GetVoiceConnectorLoggingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getVoiceConnectorLoggingConfigurationRequest
+     * @return Result of the GetVoiceConnectorLoggingConfiguration operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.GetVoiceConnectorLoggingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorLoggingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    GetVoiceConnectorLoggingConfigurationResult getVoiceConnectorLoggingConfiguration(
+            GetVoiceConnectorLoggingConfigurationRequest getVoiceConnectorLoggingConfigurationRequest);
 
     /**
      * <p>
      * Retrieves origination setting details for the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorOrigination.html"
+     * >GetVoiceConnectorOrigination</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param getVoiceConnectorOriginationRequest
      * @return Result of the GetVoiceConnectorOrigination operation returned by the service.
@@ -1001,8 +4251,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -1015,12 +4264,110 @@ public interface AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorOrigination"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     GetVoiceConnectorOriginationResult getVoiceConnectorOrigination(GetVoiceConnectorOriginationRequest getVoiceConnectorOriginationRequest);
+
+    /**
+     * <p>
+     * Gets the proxy configuration details for the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorProxy.html">
+     * GetVoiceConnectorProxy</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getVoiceConnectorProxyRequest
+     * @return Result of the GetVoiceConnectorProxy operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.GetVoiceConnectorProxy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorProxy" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    GetVoiceConnectorProxyResult getVoiceConnectorProxy(GetVoiceConnectorProxyRequest getVoiceConnectorProxyRequest);
+
+    /**
+     * <p>
+     * Retrieves the streaming configuration details for the specified Amazon Chime Voice Connector. Shows whether media
+     * streaming is enabled for sending to Amazon Kinesis. It also shows the retention period, in hours, for the Amazon
+     * Kinesis data.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorStreamingConfiguration.html"
+     * >GetVoiceConnectorStreamingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getVoiceConnectorStreamingConfigurationRequest
+     * @return Result of the GetVoiceConnectorStreamingConfiguration operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.GetVoiceConnectorStreamingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorStreamingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    GetVoiceConnectorStreamingConfigurationResult getVoiceConnectorStreamingConfiguration(
+            GetVoiceConnectorStreamingConfigurationRequest getVoiceConnectorStreamingConfigurationRequest);
 
     /**
      * <p>
      * Retrieves termination setting details for the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorTermination.html"
+     * >GetVoiceConnectorTermination</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param getVoiceConnectorTerminationRequest
      * @return Result of the GetVoiceConnectorTermination operation returned by the service.
@@ -1029,8 +4376,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -1043,9 +4389,23 @@ public interface AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorTermination"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     GetVoiceConnectorTerminationResult getVoiceConnectorTermination(GetVoiceConnectorTerminationRequest getVoiceConnectorTerminationRequest);
 
     /**
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorTerminationHealth.html"
+     * >GetVoiceConnectorTerminationHealth</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * <p>
      * Retrieves information about the last time a SIP <code>OPTIONS</code> ping was received from your SIP
      * infrastructure for the specified Amazon Chime Voice Connector.
@@ -1058,8 +4418,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -1072,13 +4431,14 @@ public interface AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorTerminationHealth"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     GetVoiceConnectorTerminationHealthResult getVoiceConnectorTerminationHealth(
             GetVoiceConnectorTerminationHealthRequest getVoiceConnectorTerminationHealthRequest);
 
     /**
      * <p>
-     * Sends email invites to as many as 50 users, inviting them to the specified Amazon Chime <code>Team</code>
-     * account. Only <code>Team</code> account types are currently supported for this action.
+     * Sends email to a maximum of 50 users, inviting them to the specified Amazon Chime <code>Team</code> account. Only
+     * <code>Team</code> account types are currently supported for this action.
      * </p>
      * 
      * @param inviteUsersRequest
@@ -1088,8 +4448,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -1118,8 +4477,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -1136,6 +4494,197 @@ public interface AmazonChime {
 
     /**
      * <p>
+     * Returns a list of the administrators in the <code>AppInstance</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_ListAppInstanceAdmins.html">
+     * ListAppInstanceAdmins</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listAppInstanceAdminsRequest
+     * @return Result of the ListAppInstanceAdmins operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListAppInstanceAdmins
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListAppInstanceAdmins" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    ListAppInstanceAdminsResult listAppInstanceAdmins(ListAppInstanceAdminsRequest listAppInstanceAdminsRequest);
+
+    /**
+     * <p>
+     * List all <code>AppInstanceUsers</code> created under a single <code>AppInstance</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_ListAppInstanceUsers.html">
+     * ListAppInstanceUsers</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listAppInstanceUsersRequest
+     * @return Result of the ListAppInstanceUsers operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListAppInstanceUsers
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListAppInstanceUsers" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    ListAppInstanceUsersResult listAppInstanceUsers(ListAppInstanceUsersRequest listAppInstanceUsersRequest);
+
+    /**
+     * <p>
+     * Lists all Amazon Chime <code>AppInstance</code>s created under a single AWS account.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_ListAppInstances.html">
+     * ListAppInstances</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listAppInstancesRequest
+     * @return Result of the ListAppInstances operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListAppInstances
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListAppInstances" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    ListAppInstancesResult listAppInstances(ListAppInstancesRequest listAppInstancesRequest);
+
+    /**
+     * <p>
+     * Lists the tags applied to an Amazon Chime SDK attendee resource.
+     * </p>
+     * <important>
+     * <p>
+     * ListAttendeeTags is not supported in the Amazon Chime SDK Meetings Namespace. Update your application to remove
+     * calls to this API.
+     * </p>
+     * </important>
+     * 
+     * @param listAttendeeTagsRequest
+     * @return Result of the ListAttendeeTags operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListAttendeeTags
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListAttendeeTags" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    ListAttendeeTagsResult listAttendeeTags(ListAttendeeTagsRequest listAttendeeTagsRequest);
+
+    /**
+     * <p>
+     * Lists the attendees for the specified Amazon Chime SDK meeting. For more information about the Amazon Chime SDK,
+     * see <a href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime SDK</a> in
+     * the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_ListAttendees.html">ListAttendees
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listAttendeesRequest
+     * @return Result of the ListAttendees operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListAttendees
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListAttendees" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    ListAttendeesResult listAttendees(ListAttendeesRequest listAttendeesRequest);
+
+    /**
+     * <p>
      * Lists the bots associated with the administrator's Amazon Chime Enterprise account ID.
      * </p>
      * 
@@ -1146,19 +4695,465 @@ public interface AmazonChime {
      * @throws ServiceFailureException
      *         The service encountered an unexpected error.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws UnauthorizedClientException
      *         The client is not currently authorized to make the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
      * @sample AmazonChime.ListBots
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListBots" target="_top">AWS API
      *      Documentation</a>
      */
     ListBotsResult listBots(ListBotsRequest listBotsRequest);
+
+    /**
+     * <p>
+     * Lists all the users banned from a particular channel.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListChannelBans.html">
+     * ListChannelBans</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listChannelBansRequest
+     * @return Result of the ListChannelBans operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListChannelBans
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListChannelBans" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    ListChannelBansResult listChannelBans(ListChannelBansRequest listChannelBansRequest);
+
+    /**
+     * <p>
+     * Lists all channel memberships in a channel.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListChannelMemberships.html">
+     * ListChannelMemberships</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listChannelMembershipsRequest
+     * @return Result of the ListChannelMemberships operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListChannelMemberships
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListChannelMemberships" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    ListChannelMembershipsResult listChannelMemberships(ListChannelMembershipsRequest listChannelMembershipsRequest);
+
+    /**
+     * <p>
+     * Lists all channels that a particular <code>AppInstanceUser</code> is a part of. Only an
+     * <code>AppInstanceAdmin</code> can call the API with a user ARN that is not their own.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListChannelMembershipsForAppInstanceUser.html"
+     * >ListChannelMembershipsForAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listChannelMembershipsForAppInstanceUserRequest
+     * @return Result of the ListChannelMembershipsForAppInstanceUser operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListChannelMembershipsForAppInstanceUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListChannelMembershipsForAppInstanceUser"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    ListChannelMembershipsForAppInstanceUserResult listChannelMembershipsForAppInstanceUser(
+            ListChannelMembershipsForAppInstanceUserRequest listChannelMembershipsForAppInstanceUserRequest);
+
+    /**
+     * <p>
+     * List all the messages in a channel. Returns a paginated list of <code>ChannelMessages</code>. By default, sorted
+     * by creation timestamp in descending order.
+     * </p>
+     * <note>
+     * <p>
+     * Redacted messages appear in the results as empty, since they are only redacted, not deleted. Deleted messages do
+     * not appear in the results. This action always returns the latest version of an edited message.
+     * </p>
+     * <p>
+     * Also, the x-amz-chime-bearer request header is mandatory. Use the <code>AppInstanceUserArn</code> of the user
+     * that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListChannelMessages.html">
+     * ListChannelMessages</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listChannelMessagesRequest
+     * @return Result of the ListChannelMessages operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListChannelMessages
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListChannelMessages" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    ListChannelMessagesResult listChannelMessages(ListChannelMessagesRequest listChannelMessagesRequest);
+
+    /**
+     * <p>
+     * Lists all the moderators for a channel.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListChannelModerators.html">
+     * ListChannelModerators</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listChannelModeratorsRequest
+     * @return Result of the ListChannelModerators operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListChannelModerators
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListChannelModerators" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    ListChannelModeratorsResult listChannelModerators(ListChannelModeratorsRequest listChannelModeratorsRequest);
+
+    /**
+     * <p>
+     * Lists all Channels created under a single Chime App as a paginated list. You can specify filters to narrow
+     * results.
+     * </p>
+     * <p class="title">
+     * <b>Functionality &amp; restrictions</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Use privacy = <code>PUBLIC</code> to retrieve all public channels in the account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Only an <code>AppInstanceAdmin</code> can set privacy = <code>PRIVATE</code> to list the private channels in an
+     * account.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListChannels.html">ListChannels
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listChannelsRequest
+     * @return Result of the ListChannels operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListChannels
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListChannels" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    ListChannelsResult listChannels(ListChannelsRequest listChannelsRequest);
+
+    /**
+     * <p>
+     * A list of the channels moderated by an <code>AppInstanceUser</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListChannelsModeratedByAppInstanceUser.html"
+     * >ListChannelsModeratedByAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listChannelsModeratedByAppInstanceUserRequest
+     * @return Result of the ListChannelsModeratedByAppInstanceUser operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListChannelsModeratedByAppInstanceUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListChannelsModeratedByAppInstanceUser"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    ListChannelsModeratedByAppInstanceUserResult listChannelsModeratedByAppInstanceUser(
+            ListChannelsModeratedByAppInstanceUserRequest listChannelsModeratedByAppInstanceUserRequest);
+
+    /**
+     * <p>
+     * Returns a list of media capture pipelines.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_media-pipelines-chime_ListMediaCapturePipelines.html"
+     * >ListMediaCapturePipelines</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listMediaCapturePipelinesRequest
+     * @return Result of the ListMediaCapturePipelines operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListMediaCapturePipelines
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListMediaCapturePipelines"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    ListMediaCapturePipelinesResult listMediaCapturePipelines(ListMediaCapturePipelinesRequest listMediaCapturePipelinesRequest);
+
+    /**
+     * <p>
+     * Lists the tags applied to an Amazon Chime SDK meeting resource.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_ListTagsForResource.html">
+     * ListTagsForResource</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listMeetingTagsRequest
+     * @return Result of the ListMeetingTags operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListMeetingTags
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListMeetingTags" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    ListMeetingTagsResult listMeetingTags(ListMeetingTagsRequest listMeetingTagsRequest);
+
+    /**
+     * <p>
+     * Lists up to 100 active Amazon Chime SDK meetings.
+     * </p>
+     * <important>
+     * <p>
+     * ListMeetings is not supported in the Amazon Chime SDK Meetings Namespace. Update your application to remove calls
+     * to this API.
+     * </p>
+     * </important>
+     * <p>
+     * For more information about the Amazon Chime SDK, see <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime SDK</a> in the
+     * <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * 
+     * @param listMeetingsRequest
+     * @return Result of the ListMeetings operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListMeetings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListMeetings" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    ListMeetingsResult listMeetings(ListMeetingsRequest listMeetingsRequest);
 
     /**
      * <p>
@@ -1170,8 +5165,7 @@ public interface AmazonChime {
      * @throws UnauthorizedClientException
      *         The client is not currently authorized to make the request.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -1188,8 +5182,8 @@ public interface AmazonChime {
 
     /**
      * <p>
-     * Lists the phone numbers for the specified Amazon Chime account, Amazon Chime user, or Amazon Chime Voice
-     * Connector.
+     * Lists the phone numbers for the specified Amazon Chime account, Amazon Chime user, Amazon Chime Voice Connector,
+     * or Amazon Chime Voice Connector group.
      * </p>
      * 
      * @param listPhoneNumbersRequest
@@ -1197,10 +5191,11 @@ public interface AmazonChime {
      * @throws UnauthorizedClientException
      *         The client is not currently authorized to make the request.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
      * @throws ThrottledClientException
      *         The client exceeded its request rate limit.
      * @throws ServiceUnavailableException
@@ -1215,6 +5210,259 @@ public interface AmazonChime {
 
     /**
      * <p>
+     * Lists the proxy sessions for the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_ListProxySessions.html">
+     * ListProxySessions</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listProxySessionsRequest
+     * @return Result of the ListProxySessions operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListProxySessions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListProxySessions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    ListProxySessionsResult listProxySessions(ListProxySessionsRequest listProxySessionsRequest);
+
+    /**
+     * <p>
+     * Lists the membership details for the specified room in an Amazon Chime Enterprise account, such as the members'
+     * IDs, email addresses, and names.
+     * </p>
+     * 
+     * @param listRoomMembershipsRequest
+     * @return Result of the ListRoomMemberships operation returned by the service.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListRoomMemberships
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListRoomMemberships" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListRoomMembershipsResult listRoomMemberships(ListRoomMembershipsRequest listRoomMembershipsRequest);
+
+    /**
+     * <p>
+     * Lists the room details for the specified Amazon Chime Enterprise account. Optionally, filter the results by a
+     * member ID (user ID or bot ID) to see a list of rooms that the member belongs to.
+     * </p>
+     * 
+     * @param listRoomsRequest
+     * @return Result of the ListRooms operation returned by the service.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListRooms
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListRooms" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListRoomsResult listRooms(ListRoomsRequest listRoomsRequest);
+
+    /**
+     * <p>
+     * Lists the SIP media applications under the administrator's AWS account.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_ListSipMediaApplications.html">
+     * ListSipMediaApplications</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listSipMediaApplicationsRequest
+     * @return Result of the ListSipMediaApplications operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListSipMediaApplications
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListSipMediaApplications" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    ListSipMediaApplicationsResult listSipMediaApplications(ListSipMediaApplicationsRequest listSipMediaApplicationsRequest);
+
+    /**
+     * <p>
+     * Lists the SIP rules under the administrator's AWS account.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_ListSipRules.html">ListSipRules</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listSipRulesRequest
+     * @return Result of the ListSipRules operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListSipRules
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListSipRules" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    ListSipRulesResult listSipRules(ListSipRulesRequest listSipRulesRequest);
+
+    /**
+     * <p>
+     * Lists supported phone number countries.
+     * </p>
+     * 
+     * @param listSupportedPhoneNumberCountriesRequest
+     * @return Result of the ListSupportedPhoneNumberCountries operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws AccessDeniedException
+     *         You don't have permissions to perform the requested operation.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListSupportedPhoneNumberCountries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListSupportedPhoneNumberCountries"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListSupportedPhoneNumberCountriesResult listSupportedPhoneNumberCountries(ListSupportedPhoneNumberCountriesRequest listSupportedPhoneNumberCountriesRequest);
+
+    /**
+     * <p>
+     * Lists the tags applied to an Amazon Chime SDK meeting and messaging resources.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the applicable latest
+     * version in the Amazon Chime SDK.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For meetings: <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_ListTagsForResource.html"
+     * >ListTagsForResource</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For messaging: <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListTagsForResource.html"
+     * >ListTagsForResource</a>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListTagsForResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest);
+
+    /**
+     * <p>
      * Lists the users that belong to the specified Amazon Chime account. You can specify an email address to list only
      * the user that the email address belongs to.
      * </p>
@@ -1226,8 +5474,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -1244,8 +5491,59 @@ public interface AmazonChime {
 
     /**
      * <p>
+     * Lists the Amazon Chime Voice Connector groups for the administrator's AWS account.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_ListVoiceConnectorGroups.html">
+     * ListVoiceConnectorGroups</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listVoiceConnectorGroupsRequest
+     * @return Result of the ListVoiceConnectorGroups operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ListVoiceConnectorGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListVoiceConnectorGroups" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    ListVoiceConnectorGroupsResult listVoiceConnectorGroups(ListVoiceConnectorGroupsRequest listVoiceConnectorGroupsRequest);
+
+    /**
+     * <p>
      * Lists the SIP credentials for the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_ListVoiceConnectorTerminationCredentials.html"
+     * >ListVoiceConnectorTerminationCredentials</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param listVoiceConnectorTerminationCredentialsRequest
      * @return Result of the ListVoiceConnectorTerminationCredentials operation returned by the service.
@@ -1254,8 +5552,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -1268,6 +5565,7 @@ public interface AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListVoiceConnectorTerminationCredentials"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     ListVoiceConnectorTerminationCredentialsResult listVoiceConnectorTerminationCredentials(
             ListVoiceConnectorTerminationCredentialsRequest listVoiceConnectorTerminationCredentialsRequest);
 
@@ -1275,14 +5573,25 @@ public interface AmazonChime {
      * <p>
      * Lists the Amazon Chime Voice Connectors for the administrator's AWS account.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_ListVoiceConnectors.html">
+     * ListVoiceConnectors</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param listVoiceConnectorsRequest
      * @return Result of the ListVoiceConnectors operation returned by the service.
      * @throws UnauthorizedClientException
      *         The client is not currently authorized to make the request.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -1295,6 +5604,7 @@ public interface AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListVoiceConnectors" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     ListVoiceConnectorsResult listVoiceConnectors(ListVoiceConnectorsRequest listVoiceConnectorsRequest);
 
     /**
@@ -1309,8 +5619,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -1327,6 +5636,91 @@ public interface AmazonChime {
 
     /**
      * <p>
+     * Sets the amount of time in days that a given <code>AppInstance</code> retains data.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_PutAppInstanceRetentionSettings.html"
+     * >PutAppInstanceRetentionSettings</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param putAppInstanceRetentionSettingsRequest
+     * @return Result of the PutAppInstanceRetentionSettings operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.PutAppInstanceRetentionSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutAppInstanceRetentionSettings"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    PutAppInstanceRetentionSettingsResult putAppInstanceRetentionSettings(PutAppInstanceRetentionSettingsRequest putAppInstanceRetentionSettingsRequest);
+
+    /**
+     * <p>
+     * The data streaming configurations of an <code>AppInstance</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_PutMessagingStreamingConfigurations.html"
+     * >PutMessagingStreamingConfigurations</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param putAppInstanceStreamingConfigurationsRequest
+     * @return Result of the PutAppInstanceStreamingConfigurations operation returned by the service.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.PutAppInstanceStreamingConfigurations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutAppInstanceStreamingConfigurations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    PutAppInstanceStreamingConfigurationsResult putAppInstanceStreamingConfigurations(
+            PutAppInstanceStreamingConfigurationsRequest putAppInstanceStreamingConfigurationsRequest);
+
+    /**
+     * <p>
      * Creates an events configuration that allows a bot to receive outgoing events sent by Amazon Chime. Choose either
      * an HTTPS endpoint or a Lambda function ARN. For more information, see <a>Bot</a>.
      * </p>
@@ -1338,8 +5732,7 @@ public interface AmazonChime {
      * @throws ServiceFailureException
      *         The service encountered an unexpected error.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws UnauthorizedClientException
@@ -1356,8 +5749,194 @@ public interface AmazonChime {
 
     /**
      * <p>
+     * Puts retention settings for the specified Amazon Chime Enterprise account. We recommend using AWS CloudTrail to
+     * monitor usage of this API for your account. For more information, see <a
+     * href="https://docs.aws.amazon.com/chime/latest/ag/cloudtrail.html">Logging Amazon Chime API Calls with AWS
+     * CloudTrail</a> in the <i>Amazon Chime Administration Guide</i>.
+     * </p>
+     * <p>
+     * To turn off existing retention settings, remove the number of days from the corresponding <b>RetentionDays</b>
+     * field in the <b>RetentionSettings</b> object. For more information about retention settings, see <a
+     * href="https://docs.aws.amazon.com/chime/latest/ag/chat-retention.html">Managing Chat Retention Policies</a> in
+     * the <i>Amazon Chime Administration Guide</i>.
+     * </p>
+     * 
+     * @param putRetentionSettingsRequest
+     * @return Result of the PutRetentionSettings operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.PutRetentionSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutRetentionSettings" target="_top">AWS API
+     *      Documentation</a>
+     */
+    PutRetentionSettingsResult putRetentionSettings(PutRetentionSettingsRequest putRetentionSettingsRequest);
+
+    /**
+     * <p>
+     * Updates the logging configuration for the specified SIP media application.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutSipMediaApplicationLoggingConfiguration.html"
+     * >PutSipMediaApplicationLoggingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param putSipMediaApplicationLoggingConfigurationRequest
+     * @return Result of the PutSipMediaApplicationLoggingConfiguration operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.PutSipMediaApplicationLoggingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutSipMediaApplicationLoggingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    PutSipMediaApplicationLoggingConfigurationResult putSipMediaApplicationLoggingConfiguration(
+            PutSipMediaApplicationLoggingConfigurationRequest putSipMediaApplicationLoggingConfigurationRequest);
+
+    /**
+     * <p>
+     * Puts emergency calling configuration details to the specified Amazon Chime Voice Connector, such as emergency
+     * phone numbers and calling countries. Origination and termination settings must be enabled for the Amazon Chime
+     * Voice Connector before emergency calling can be configured.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutVoiceConnectorEmergencyCallingConfiguration.html"
+     * >PutVoiceConnectorEmergencyCallingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param putVoiceConnectorEmergencyCallingConfigurationRequest
+     * @return Result of the PutVoiceConnectorEmergencyCallingConfiguration operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.PutVoiceConnectorEmergencyCallingConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutVoiceConnectorEmergencyCallingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    PutVoiceConnectorEmergencyCallingConfigurationResult putVoiceConnectorEmergencyCallingConfiguration(
+            PutVoiceConnectorEmergencyCallingConfigurationRequest putVoiceConnectorEmergencyCallingConfigurationRequest);
+
+    /**
+     * <p>
+     * Adds a logging configuration for the specified Amazon Chime Voice Connector. The logging configuration specifies
+     * whether SIP message logs are enabled for sending to Amazon CloudWatch Logs.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutVoiceConnectorLoggingConfiguration.html"
+     * >PutVoiceConnectorLoggingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param putVoiceConnectorLoggingConfigurationRequest
+     * @return Result of the PutVoiceConnectorLoggingConfiguration operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.PutVoiceConnectorLoggingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutVoiceConnectorLoggingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    PutVoiceConnectorLoggingConfigurationResult putVoiceConnectorLoggingConfiguration(
+            PutVoiceConnectorLoggingConfigurationRequest putVoiceConnectorLoggingConfigurationRequest);
+
+    /**
+     * <p>
      * Adds origination settings for the specified Amazon Chime Voice Connector.
      * </p>
+     * <note>
+     * <p>
+     * If emergency calling is configured for the Amazon Chime Voice Connector, it must be deleted prior to turning off
+     * origination settings.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutVoiceConnectorOrigination.html"
+     * >PutVoiceConnectorOrigination</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param putVoiceConnectorOriginationRequest
      * @return Result of the PutVoiceConnectorOrigination operation returned by the service.
@@ -1366,8 +5945,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -1380,12 +5958,117 @@ public interface AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutVoiceConnectorOrigination"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     PutVoiceConnectorOriginationResult putVoiceConnectorOrigination(PutVoiceConnectorOriginationRequest putVoiceConnectorOriginationRequest);
+
+    /**
+     * <p>
+     * Puts the specified proxy configuration to the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutVoiceConnectorProxy.html">
+     * PutVoiceConnectorProxy</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param putVoiceConnectorProxyRequest
+     * @return Result of the PutVoiceConnectorProxy operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws AccessDeniedException
+     *         You don't have permissions to perform the requested operation.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.PutVoiceConnectorProxy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutVoiceConnectorProxy" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    PutVoiceConnectorProxyResult putVoiceConnectorProxy(PutVoiceConnectorProxyRequest putVoiceConnectorProxyRequest);
+
+    /**
+     * <p>
+     * Adds a streaming configuration for the specified Amazon Chime Voice Connector. The streaming configuration
+     * specifies whether media streaming is enabled for sending to Kinesis. It also sets the retention period, in hours,
+     * for the Amazon Kinesis data.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutVoiceConnectorStreamingConfiguration.html"
+     * >PutVoiceConnectorStreamingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param putVoiceConnectorStreamingConfigurationRequest
+     * @return Result of the PutVoiceConnectorStreamingConfiguration operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.PutVoiceConnectorStreamingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutVoiceConnectorStreamingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    PutVoiceConnectorStreamingConfigurationResult putVoiceConnectorStreamingConfiguration(
+            PutVoiceConnectorStreamingConfigurationRequest putVoiceConnectorStreamingConfigurationRequest);
 
     /**
      * <p>
      * Adds termination settings for the specified Amazon Chime Voice Connector.
      * </p>
+     * <note>
+     * <p>
+     * If emergency calling is configured for the Amazon Chime Voice Connector, it must be deleted prior to turning off
+     * termination settings.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutVoiceConnectorTermination.html"
+     * >PutVoiceConnectorTermination</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param putVoiceConnectorTerminationRequest
      * @return Result of the PutVoiceConnectorTermination operation returned by the service.
@@ -1394,10 +6077,11 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
+     * @throws AccessDeniedException
+     *         You don't have permissions to perform the requested operation.
      * @throws ThrottledClientException
      *         The client exceeded its request rate limit.
      * @throws ServiceUnavailableException
@@ -1408,12 +6092,26 @@ public interface AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutVoiceConnectorTermination"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     PutVoiceConnectorTerminationResult putVoiceConnectorTermination(PutVoiceConnectorTerminationRequest putVoiceConnectorTerminationRequest);
 
     /**
      * <p>
      * Adds termination SIP credentials for the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutVoiceConnectorTerminationCredentials.html"
+     * >PutVoiceConnectorTerminationCredentials</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param putVoiceConnectorTerminationCredentialsRequest
      * @return Result of the PutVoiceConnectorTerminationCredentials operation returned by the service.
@@ -1422,8 +6120,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -1436,8 +6133,107 @@ public interface AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutVoiceConnectorTerminationCredentials"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     PutVoiceConnectorTerminationCredentialsResult putVoiceConnectorTerminationCredentials(
             PutVoiceConnectorTerminationCredentialsRequest putVoiceConnectorTerminationCredentialsRequest);
+
+    /**
+     * <p>
+     * Redacts message content, but not metadata. The message exists in the back end, but the action returns null
+     * content, and the state shows as redacted.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_RedactChannelMessage.html">
+     * RedactChannelMessage</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param redactChannelMessageRequest
+     * @return Result of the RedactChannelMessage operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.RedactChannelMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/RedactChannelMessage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    RedactChannelMessageResult redactChannelMessage(RedactChannelMessageRequest redactChannelMessageRequest);
+
+    /**
+     * <p>
+     * Redacts the specified message from the specified Amazon Chime conversation.
+     * </p>
+     * 
+     * @param redactConversationMessageRequest
+     * @return Result of the RedactConversationMessage operation returned by the service.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.RedactConversationMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/RedactConversationMessage"
+     *      target="_top">AWS API Documentation</a>
+     */
+    RedactConversationMessageResult redactConversationMessage(RedactConversationMessageRequest redactConversationMessageRequest);
+
+    /**
+     * <p>
+     * Redacts the specified message from the specified Amazon Chime channel.
+     * </p>
+     * 
+     * @param redactRoomMessageRequest
+     * @return Result of the RedactRoomMessage operation returned by the service.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.RedactRoomMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/RedactRoomMessage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    RedactRoomMessageResult redactRoomMessage(RedactRoomMessageRequest redactRoomMessageRequest);
 
     /**
      * <p>
@@ -1451,14 +6247,15 @@ public interface AmazonChime {
      * @throws ServiceFailureException
      *         The service encountered an unexpected error.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws UnauthorizedClientException
      *         The client is not currently authorized to make the request.
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
      * @sample AmazonChime.RegenerateSecurityToken
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/RegenerateSecurityToken" target="_top">AWS
      *      API Documentation</a>
@@ -1478,8 +6275,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -1506,12 +6302,13 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
      *         The client exceeded its request rate limit.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
      * @throws ServiceUnavailableException
      *         The service is currently unavailable.
      * @throws ServiceFailureException
@@ -1524,18 +6321,22 @@ public interface AmazonChime {
 
     /**
      * <p>
-     * Searches phone numbers that can be ordered.
+     * Searches for phone numbers that can be ordered. For US numbers, provide at least one of the following search
+     * filters: <code>AreaCode</code>, <code>City</code>, <code>State</code>, or <code>TollFreePrefix</code>. If you
+     * provide <code>City</code>, you must also provide <code>State</code>. Numbers outside the US only support the
+     * <code>PhoneNumberType</code> filter, which you must use.
      * </p>
      * 
      * @param searchAvailablePhoneNumbersRequest
      * @return Result of the SearchAvailablePhoneNumbers operation returned by the service.
-     * @throws UnauthorizedClientException
-     *         The client is not currently authorized to make the request.
-     * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws AccessDeniedException
+     *         You don't have permissions to perform the requested operation.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
      * @throws ThrottledClientException
      *         The client exceeded its request rate limit.
      * @throws ServiceUnavailableException
@@ -1550,8 +6351,394 @@ public interface AmazonChime {
 
     /**
      * <p>
-     * Updates account details for the specified Amazon Chime account. Currently, only account name updates are
-     * supported for this action.
+     * Sends a message to a particular channel that the member is a part of.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * <p>
+     * Also, <code>STANDARD</code> messages can contain 4KB of data and the 1KB of metadata. <code>CONTROL</code>
+     * messages can contain 30 bytes of data and no metadata.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_SendChannelMessage.html">
+     * SendChannelMessage</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param sendChannelMessageRequest
+     * @return Result of the SendChannelMessage operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.SendChannelMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/SendChannelMessage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    SendChannelMessageResult sendChannelMessage(SendChannelMessageRequest sendChannelMessageRequest);
+
+    /**
+     * <p>
+     * Starts transcription for the specified <code>meetingId</code>. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meeting-transcription.html"> Using Amazon Chime SDK live
+     * transcription </a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * <p>
+     * If you specify an invalid configuration, a <code>TranscriptFailed</code> event will be sent with the contents of
+     * the <code>BadRequestException</code> generated by Amazon Transcribe. For more information on each parameter and
+     * which combinations are valid, refer to the <a
+     * href="https://docs.aws.amazon.com/transcribe/latest/APIReference/API_streaming_StartStreamTranscription.html"
+     * >StartStreamTranscription</a> API in the <i>Amazon Transcribe Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * Amazon Chime SDK live transcription is powered by Amazon Transcribe. Use of Amazon Transcribe is subject to the
+     * <a href="https://aws.amazon.com/service-terms/">AWS Service Terms</a>, including the terms specific to the AWS
+     * Machine Learning and Artificial Intelligence Services.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_StartMeetingTranscription.html">
+     * StartMeetingTranscription</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param startMeetingTranscriptionRequest
+     * @return Result of the StartMeetingTranscription operation returned by the service.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws UnprocessableEntityException
+     *         The request was well-formed but was unable to be followed due to semantic errors.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.StartMeetingTranscription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/StartMeetingTranscription"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    StartMeetingTranscriptionResult startMeetingTranscription(StartMeetingTranscriptionRequest startMeetingTranscriptionRequest);
+
+    /**
+     * <p>
+     * Stops transcription for the specified <code>meetingId</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_StopMeetingTranscription.html">
+     * StopMeetingTranscription</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param stopMeetingTranscriptionRequest
+     * @return Result of the StopMeetingTranscription operation returned by the service.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws UnprocessableEntityException
+     *         The request was well-formed but was unable to be followed due to semantic errors.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.StopMeetingTranscription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/StopMeetingTranscription" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    StopMeetingTranscriptionResult stopMeetingTranscription(StopMeetingTranscriptionRequest stopMeetingTranscriptionRequest);
+
+    /**
+     * <p>
+     * Applies the specified tags to the specified Amazon Chime attendee.
+     * </p>
+     * <important>
+     * <p>
+     * TagAttendee is not supported in the Amazon Chime SDK Meetings Namespace. Update your application to remove calls
+     * to this API.
+     * </p>
+     * </important>
+     * 
+     * @param tagAttendeeRequest
+     * @return Result of the TagAttendee operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.TagAttendee
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/TagAttendee" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    TagAttendeeResult tagAttendee(TagAttendeeRequest tagAttendeeRequest);
+
+    /**
+     * <p>
+     * Applies the specified tags to the specified Amazon Chime SDK meeting.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_TagResource.html">TagResource</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param tagMeetingRequest
+     * @return Result of the TagMeeting operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.TagMeeting
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/TagMeeting" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    TagMeetingResult tagMeeting(TagMeetingRequest tagMeetingRequest);
+
+    /**
+     * <p>
+     * Applies the specified tags to the specified Amazon Chime SDK meeting resource.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_TagResource.html">TagResource</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/TagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    TagResourceResult tagResource(TagResourceRequest tagResourceRequest);
+
+    /**
+     * <p>
+     * Untags the specified tags from the specified Amazon Chime SDK attendee.
+     * </p>
+     * <important>
+     * <p>
+     * UntagAttendee is not supported in the Amazon Chime SDK Meetings Namespace. Update your application to remove
+     * calls to this API.
+     * </p>
+     * </important>
+     * 
+     * @param untagAttendeeRequest
+     * @return Result of the UntagAttendee operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.UntagAttendee
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UntagAttendee" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    UntagAttendeeResult untagAttendee(UntagAttendeeRequest untagAttendeeRequest);
+
+    /**
+     * <p>
+     * Untags the specified tags from the specified Amazon Chime SDK meeting.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_UntagResource.html">UntagResource
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param untagMeetingRequest
+     * @return Result of the UntagMeeting operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.UntagMeeting
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UntagMeeting" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    UntagMeetingResult untagMeeting(UntagMeetingRequest untagMeetingRequest);
+
+    /**
+     * <p>
+     * Untags the specified tags from the specified Amazon Chime SDK meeting resource.
+     * </p>
+     * <p>
+     * Applies the specified tags to the specified Amazon Chime SDK meeting resource.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_UntagResource.html">UntagResource
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UntagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    UntagResourceResult untagResource(UntagResourceRequest untagResourceRequest);
+
+    /**
+     * <p>
+     * Updates account details for the specified Amazon Chime account. Currently, only account name and default license
+     * updates are supported for this action.
      * </p>
      * 
      * @param updateAccountRequest
@@ -1561,8 +6748,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -1594,8 +6780,7 @@ public interface AmazonChime {
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws ConflictException
      *         The request could not be processed because of conflict in the current state of the resource.
      * @throws ThrottledClientException
@@ -1612,6 +6797,86 @@ public interface AmazonChime {
 
     /**
      * <p>
+     * Updates <code>AppInstance</code> metadata.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_UpdateAppInstance.html">
+     * UpdateAppInstance</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateAppInstanceRequest
+     * @return Result of the UpdateAppInstance operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.UpdateAppInstance
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateAppInstance" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    UpdateAppInstanceResult updateAppInstance(UpdateAppInstanceRequest updateAppInstanceRequest);
+
+    /**
+     * <p>
+     * Updates the details of an <code>AppInstanceUser</code>. You can update names and metadata.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_UpdateAppInstanceUser.html">
+     * UpdateAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateAppInstanceUserRequest
+     * @return Result of the UpdateAppInstanceUser operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.UpdateAppInstanceUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateAppInstanceUser" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    UpdateAppInstanceUserResult updateAppInstanceUser(UpdateAppInstanceUserRequest updateAppInstanceUserRequest);
+
+    /**
+     * <p>
      * Updates the status of the specified bot, such as starting or stopping the bot from running in your Amazon Chime
      * Enterprise account.
      * </p>
@@ -1623,19 +6888,160 @@ public interface AmazonChime {
      * @throws ServiceFailureException
      *         The service encountered an unexpected error.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws UnauthorizedClientException
      *         The client is not currently authorized to make the request.
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
      * @sample AmazonChime.UpdateBot
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateBot" target="_top">AWS API
      *      Documentation</a>
      */
     UpdateBotResult updateBot(UpdateBotRequest updateBotRequest);
+
+    /**
+     * <p>
+     * Update a channel's attributes.
+     * </p>
+     * <p>
+     * <b>Restriction</b>: You can't change a channel's privacy.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_UpdateChannel.html">UpdateChannel
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateChannelRequest
+     * @return Result of the UpdateChannel operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.UpdateChannel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateChannel" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    UpdateChannelResult updateChannel(UpdateChannelRequest updateChannelRequest);
+
+    /**
+     * <p>
+     * Updates the content of a message.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_UpdateChannelMessage.html">
+     * UpdateChannelMessage</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateChannelMessageRequest
+     * @return Result of the UpdateChannelMessage operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.UpdateChannelMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateChannelMessage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    UpdateChannelMessageResult updateChannelMessage(UpdateChannelMessageRequest updateChannelMessageRequest);
+
+    /**
+     * <p>
+     * The details of the time when a user last read messages in a channel.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_UpdateChannelReadMarker.html">
+     * UpdateChannelReadMarker</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateChannelReadMarkerRequest
+     * @return Result of the UpdateChannelReadMarker operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.UpdateChannelReadMarker
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateChannelReadMarker" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    UpdateChannelReadMarkerResult updateChannelReadMarker(UpdateChannelReadMarkerRequest updateChannelReadMarkerRequest);
 
     /**
      * <p>
@@ -1648,8 +7054,7 @@ public interface AmazonChime {
      * @throws UnauthorizedClientException
      *         The client is not currently authorized to make the request.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -1666,8 +7071,17 @@ public interface AmazonChime {
 
     /**
      * <p>
-     * Updates phone number details, such as product type, for the specified phone number ID. For toll-free numbers, you
-     * can use only the Amazon Chime Voice Connector product type.
+     * Updates phone number details, such as product type or calling name, for the specified phone number ID. You can
+     * update one phone number detail at a time. For example, you can update either the product type or the calling name
+     * in one action.
+     * </p>
+     * <p>
+     * For toll-free numbers, you cannot use the Amazon Chime Business Calling product type. For numbers outside the
+     * U.S., you must use the Amazon Chime SIP Media Application Dial-In product type.
+     * </p>
+     * <p>
+     * Updates to outbound calling names can take 72 hours to complete. Pending updates to outbound calling names must
+     * be complete before you can request another update.
      * </p>
      * 
      * @param updatePhoneNumberRequest
@@ -1677,12 +7091,13 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
      *         The client exceeded its request rate limit.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
      * @throws ServiceUnavailableException
      *         The service is currently unavailable.
      * @throws ServiceFailureException
@@ -1692,6 +7107,260 @@ public interface AmazonChime {
      *      Documentation</a>
      */
     UpdatePhoneNumberResult updatePhoneNumber(UpdatePhoneNumberRequest updatePhoneNumberRequest);
+
+    /**
+     * <p>
+     * Updates the phone number settings for the administrator's AWS account, such as the default outbound calling name.
+     * You can update the default outbound calling name once every seven days. Outbound calling names can take up to 72
+     * hours to update.
+     * </p>
+     * 
+     * @param updatePhoneNumberSettingsRequest
+     * @return Result of the UpdatePhoneNumberSettings operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.UpdatePhoneNumberSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdatePhoneNumberSettings"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdatePhoneNumberSettingsResult updatePhoneNumberSettings(UpdatePhoneNumberSettingsRequest updatePhoneNumberSettingsRequest);
+
+    /**
+     * <p>
+     * Updates the specified proxy session details, such as voice or SMS capabilities.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_UpdateProxySession.html">
+     * UpdateProxySession</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateProxySessionRequest
+     * @return Result of the UpdateProxySession operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.UpdateProxySession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateProxySession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    UpdateProxySessionResult updateProxySession(UpdateProxySessionRequest updateProxySessionRequest);
+
+    /**
+     * <p>
+     * Updates room details, such as the room name, for a room in an Amazon Chime Enterprise account.
+     * </p>
+     * 
+     * @param updateRoomRequest
+     * @return Result of the UpdateRoom operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.UpdateRoom
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateRoom" target="_top">AWS API
+     *      Documentation</a>
+     */
+    UpdateRoomResult updateRoom(UpdateRoomRequest updateRoomRequest);
+
+    /**
+     * <p>
+     * Updates room membership details, such as the member role, for a room in an Amazon Chime Enterprise account. The
+     * member role designates whether the member is a chat room administrator or a general chat room member. The member
+     * role can be updated only for user IDs.
+     * </p>
+     * 
+     * @param updateRoomMembershipRequest
+     * @return Result of the UpdateRoomMembership operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.UpdateRoomMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateRoomMembership" target="_top">AWS API
+     *      Documentation</a>
+     */
+    UpdateRoomMembershipResult updateRoomMembership(UpdateRoomMembershipRequest updateRoomMembershipRequest);
+
+    /**
+     * <p>
+     * Updates the details of the specified SIP media application.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_UpdateSipMediaApplication.html">
+     * UpdateSipMediaApplication</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateSipMediaApplicationRequest
+     * @return Result of the UpdateSipMediaApplication operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.UpdateSipMediaApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateSipMediaApplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    UpdateSipMediaApplicationResult updateSipMediaApplication(UpdateSipMediaApplicationRequest updateSipMediaApplicationRequest);
+
+    /**
+     * <p>
+     * Invokes the AWS Lambda function associated with the SIP media application and transaction ID in an update
+     * request. The Lambda function can then return a new set of actions.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_UpdateSipMediaApplicationCall.html"
+     * >UpdateSipMediaApplicationCall</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateSipMediaApplicationCallRequest
+     * @return Result of the UpdateSipMediaApplicationCall operation returned by the service.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.UpdateSipMediaApplicationCall
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateSipMediaApplicationCall"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    UpdateSipMediaApplicationCallResult updateSipMediaApplicationCall(UpdateSipMediaApplicationCallRequest updateSipMediaApplicationCallRequest);
+
+    /**
+     * <p>
+     * Updates the details of the specified SIP rule.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_UpdateSipRule.html">UpdateSipRule</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateSipRuleRequest
+     * @return Result of the UpdateSipRule operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ResourceLimitExceededException
+     *         The request exceeds the resource limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.UpdateSipRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateSipRule" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    UpdateSipRuleResult updateSipRule(UpdateSipRuleRequest updateSipRuleRequest);
 
     /**
      * <p>
@@ -1706,8 +7375,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -1734,8 +7402,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -1754,6 +7421,18 @@ public interface AmazonChime {
      * <p>
      * Updates details for the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_UpdateVoiceConnector.html">
+     * UpdateVoiceConnector</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param updateVoiceConnectorRequest
      * @return Result of the UpdateVoiceConnector operation returned by the service.
@@ -1762,8 +7441,7 @@ public interface AmazonChime {
      * @throws NotFoundException
      *         One or more of the resources in the request does not exist in the system.
      * @throws ForbiddenException
-     *         The client is permanently forbidden from making the request. For example, when a user tries to create an
-     *         account from an unsupported Region.
+     *         The client is permanently forbidden from making the request.
      * @throws BadRequestException
      *         The input parameters don't match the service's restrictions.
      * @throws ThrottledClientException
@@ -1776,7 +7454,93 @@ public interface AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateVoiceConnector" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     UpdateVoiceConnectorResult updateVoiceConnector(UpdateVoiceConnectorRequest updateVoiceConnectorRequest);
+
+    /**
+     * <p>
+     * Updates details of the specified Amazon Chime Voice Connector group, such as the name and Amazon Chime Voice
+     * Connector priority ranking.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_UpdateVoiceConnectorGroup.html">
+     * UpdateVoiceConnectorGroup</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateVoiceConnectorGroupRequest
+     * @return Result of the UpdateVoiceConnectorGroup operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ConflictException
+     *         The request could not be processed because of conflict in the current state of the resource.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.UpdateVoiceConnectorGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateVoiceConnectorGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    UpdateVoiceConnectorGroupResult updateVoiceConnectorGroup(UpdateVoiceConnectorGroupRequest updateVoiceConnectorGroupRequest);
+
+    /**
+     * <p>
+     * Validates an address to be used for 911 calls made with Amazon Chime Voice Connectors. You can use validated
+     * addresses in a Presence Information Data Format Location Object file that you include in SIP requests. That helps
+     * ensure that addresses are routed to the appropriate Public Safety Answering Point.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_ValidateE911Address.html">
+     * ValidateE911Address</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param validateE911AddressRequest
+     * @return Result of the ValidateE911Address operation returned by the service.
+     * @throws UnauthorizedClientException
+     *         The client is not currently authorized to make the request.
+     * @throws NotFoundException
+     *         One or more of the resources in the request does not exist in the system.
+     * @throws ForbiddenException
+     *         The client is permanently forbidden from making the request.
+     * @throws BadRequestException
+     *         The input parameters don't match the service's restrictions.
+     * @throws ThrottledClientException
+     *         The client exceeded its request rate limit.
+     * @throws ServiceUnavailableException
+     *         The service is currently unavailable.
+     * @throws ServiceFailureException
+     *         The service encountered an unexpected error.
+     * @sample AmazonChime.ValidateE911Address
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ValidateE911Address" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    ValidateE911AddressResult validateE911Address(ValidateE911AddressRequest validateE911AddressRequest);
 
     /**
      * Shuts down this client object, releasing any resources that might be held open. This is an optional method, and

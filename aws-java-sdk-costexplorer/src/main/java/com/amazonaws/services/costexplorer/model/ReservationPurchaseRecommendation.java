@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A specific reservation that AWS recommends for purchase.
+ * A specific reservation that Amazon Web Services recommends for purchase.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/ReservationPurchaseRecommendation"
@@ -30,14 +30,14 @@ public class ReservationPurchaseRecommendation implements Serializable, Cloneabl
 
     /**
      * <p>
-     * The account scope that AWS recommends that you purchase this instance for. For example, you can purchase this
-     * reservation for an entire organization in AWS Organizations.
+     * The account scope that Amazon Web Services recommends that you purchase this instance for. For example, you can
+     * purchase this reservation for an entire organization in Amazon Web Services Organizations.
      * </p>
      */
     private String accountScope;
     /**
      * <p>
-     * How many days of previous usage that AWS considers when making this recommendation.
+     * How many days of previous usage that Amazon Web Services considers when making this recommendation.
      * </p>
      */
     private String lookbackPeriodInDays;
@@ -49,7 +49,7 @@ public class ReservationPurchaseRecommendation implements Serializable, Cloneabl
     private String termInYears;
     /**
      * <p>
-     * The payment option for the reservation. For example, <code>AllUpfront</code> or <code>NoUpfront</code>.
+     * The payment option for the reservation (for example, <code>AllUpfront</code> or <code>NoUpfront</code>).
      * </p>
      */
     private String paymentOption;
@@ -74,13 +74,13 @@ public class ReservationPurchaseRecommendation implements Serializable, Cloneabl
 
     /**
      * <p>
-     * The account scope that AWS recommends that you purchase this instance for. For example, you can purchase this
-     * reservation for an entire organization in AWS Organizations.
+     * The account scope that Amazon Web Services recommends that you purchase this instance for. For example, you can
+     * purchase this reservation for an entire organization in Amazon Web Services Organizations.
      * </p>
      * 
      * @param accountScope
-     *        The account scope that AWS recommends that you purchase this instance for. For example, you can purchase
-     *        this reservation for an entire organization in AWS Organizations.
+     *        The account scope that Amazon Web Services recommends that you purchase this instance for. For example,
+     *        you can purchase this reservation for an entire organization in Amazon Web Services Organizations.
      * @see AccountScope
      */
 
@@ -90,12 +90,12 @@ public class ReservationPurchaseRecommendation implements Serializable, Cloneabl
 
     /**
      * <p>
-     * The account scope that AWS recommends that you purchase this instance for. For example, you can purchase this
-     * reservation for an entire organization in AWS Organizations.
+     * The account scope that Amazon Web Services recommends that you purchase this instance for. For example, you can
+     * purchase this reservation for an entire organization in Amazon Web Services Organizations.
      * </p>
      * 
-     * @return The account scope that AWS recommends that you purchase this instance for. For example, you can purchase
-     *         this reservation for an entire organization in AWS Organizations.
+     * @return The account scope that Amazon Web Services recommends that you purchase this instance for. For example,
+     *         you can purchase this reservation for an entire organization in Amazon Web Services Organizations.
      * @see AccountScope
      */
 
@@ -105,13 +105,13 @@ public class ReservationPurchaseRecommendation implements Serializable, Cloneabl
 
     /**
      * <p>
-     * The account scope that AWS recommends that you purchase this instance for. For example, you can purchase this
-     * reservation for an entire organization in AWS Organizations.
+     * The account scope that Amazon Web Services recommends that you purchase this instance for. For example, you can
+     * purchase this reservation for an entire organization in Amazon Web Services Organizations.
      * </p>
      * 
      * @param accountScope
-     *        The account scope that AWS recommends that you purchase this instance for. For example, you can purchase
-     *        this reservation for an entire organization in AWS Organizations.
+     *        The account scope that Amazon Web Services recommends that you purchase this instance for. For example,
+     *        you can purchase this reservation for an entire organization in Amazon Web Services Organizations.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AccountScope
      */
@@ -123,13 +123,13 @@ public class ReservationPurchaseRecommendation implements Serializable, Cloneabl
 
     /**
      * <p>
-     * The account scope that AWS recommends that you purchase this instance for. For example, you can purchase this
-     * reservation for an entire organization in AWS Organizations.
+     * The account scope that Amazon Web Services recommends that you purchase this instance for. For example, you can
+     * purchase this reservation for an entire organization in Amazon Web Services Organizations.
      * </p>
      * 
      * @param accountScope
-     *        The account scope that AWS recommends that you purchase this instance for. For example, you can purchase
-     *        this reservation for an entire organization in AWS Organizations.
+     *        The account scope that Amazon Web Services recommends that you purchase this instance for. For example,
+     *        you can purchase this reservation for an entire organization in Amazon Web Services Organizations.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AccountScope
      */
@@ -141,11 +141,11 @@ public class ReservationPurchaseRecommendation implements Serializable, Cloneabl
 
     /**
      * <p>
-     * How many days of previous usage that AWS considers when making this recommendation.
+     * How many days of previous usage that Amazon Web Services considers when making this recommendation.
      * </p>
      * 
      * @param lookbackPeriodInDays
-     *        How many days of previous usage that AWS considers when making this recommendation.
+     *        How many days of previous usage that Amazon Web Services considers when making this recommendation.
      * @see LookbackPeriodInDays
      */
 
@@ -155,10 +155,10 @@ public class ReservationPurchaseRecommendation implements Serializable, Cloneabl
 
     /**
      * <p>
-     * How many days of previous usage that AWS considers when making this recommendation.
+     * How many days of previous usage that Amazon Web Services considers when making this recommendation.
      * </p>
      * 
-     * @return How many days of previous usage that AWS considers when making this recommendation.
+     * @return How many days of previous usage that Amazon Web Services considers when making this recommendation.
      * @see LookbackPeriodInDays
      */
 
@@ -168,11 +168,11 @@ public class ReservationPurchaseRecommendation implements Serializable, Cloneabl
 
     /**
      * <p>
-     * How many days of previous usage that AWS considers when making this recommendation.
+     * How many days of previous usage that Amazon Web Services considers when making this recommendation.
      * </p>
      * 
      * @param lookbackPeriodInDays
-     *        How many days of previous usage that AWS considers when making this recommendation.
+     *        How many days of previous usage that Amazon Web Services considers when making this recommendation.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LookbackPeriodInDays
      */
@@ -184,11 +184,11 @@ public class ReservationPurchaseRecommendation implements Serializable, Cloneabl
 
     /**
      * <p>
-     * How many days of previous usage that AWS considers when making this recommendation.
+     * How many days of previous usage that Amazon Web Services considers when making this recommendation.
      * </p>
      * 
      * @param lookbackPeriodInDays
-     *        How many days of previous usage that AWS considers when making this recommendation.
+     *        How many days of previous usage that Amazon Web Services considers when making this recommendation.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LookbackPeriodInDays
      */
@@ -259,11 +259,11 @@ public class ReservationPurchaseRecommendation implements Serializable, Cloneabl
 
     /**
      * <p>
-     * The payment option for the reservation. For example, <code>AllUpfront</code> or <code>NoUpfront</code>.
+     * The payment option for the reservation (for example, <code>AllUpfront</code> or <code>NoUpfront</code>).
      * </p>
      * 
      * @param paymentOption
-     *        The payment option for the reservation. For example, <code>AllUpfront</code> or <code>NoUpfront</code>.
+     *        The payment option for the reservation (for example, <code>AllUpfront</code> or <code>NoUpfront</code>).
      * @see PaymentOption
      */
 
@@ -273,10 +273,10 @@ public class ReservationPurchaseRecommendation implements Serializable, Cloneabl
 
     /**
      * <p>
-     * The payment option for the reservation. For example, <code>AllUpfront</code> or <code>NoUpfront</code>.
+     * The payment option for the reservation (for example, <code>AllUpfront</code> or <code>NoUpfront</code>).
      * </p>
      * 
-     * @return The payment option for the reservation. For example, <code>AllUpfront</code> or <code>NoUpfront</code>.
+     * @return The payment option for the reservation (for example, <code>AllUpfront</code> or <code>NoUpfront</code>).
      * @see PaymentOption
      */
 
@@ -286,11 +286,11 @@ public class ReservationPurchaseRecommendation implements Serializable, Cloneabl
 
     /**
      * <p>
-     * The payment option for the reservation. For example, <code>AllUpfront</code> or <code>NoUpfront</code>.
+     * The payment option for the reservation (for example, <code>AllUpfront</code> or <code>NoUpfront</code>).
      * </p>
      * 
      * @param paymentOption
-     *        The payment option for the reservation. For example, <code>AllUpfront</code> or <code>NoUpfront</code>.
+     *        The payment option for the reservation (for example, <code>AllUpfront</code> or <code>NoUpfront</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PaymentOption
      */
@@ -302,11 +302,11 @@ public class ReservationPurchaseRecommendation implements Serializable, Cloneabl
 
     /**
      * <p>
-     * The payment option for the reservation. For example, <code>AllUpfront</code> or <code>NoUpfront</code>.
+     * The payment option for the reservation (for example, <code>AllUpfront</code> or <code>NoUpfront</code>).
      * </p>
      * 
      * @param paymentOption
-     *        The payment option for the reservation. For example, <code>AllUpfront</code> or <code>NoUpfront</code>.
+     *        The payment option for the reservation (for example, <code>AllUpfront</code> or <code>NoUpfront</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PaymentOption
      */

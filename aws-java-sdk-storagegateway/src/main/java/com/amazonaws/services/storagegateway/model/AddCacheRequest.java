@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,7 @@ public class AddCacheRequest extends com.amazonaws.AmazonWebServiceRequest imple
     private String gatewayARN;
     /**
      * <p>
-     * An array of strings that identify disks that are to be configured as working storage. Each string have a minimum
+     * An array of strings that identify disks that are to be configured as working storage. Each string has a minimum
      * length of 1 and maximum length of 300. You can get the disk IDs from the <a>ListLocalDisks</a> API.
      * </p>
      */
@@ -62,11 +62,11 @@ public class AddCacheRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * An array of strings that identify disks that are to be configured as working storage. Each string have a minimum
+     * An array of strings that identify disks that are to be configured as working storage. Each string has a minimum
      * length of 1 and maximum length of 300. You can get the disk IDs from the <a>ListLocalDisks</a> API.
      * </p>
      * 
-     * @return An array of strings that identify disks that are to be configured as working storage. Each string have a
+     * @return An array of strings that identify disks that are to be configured as working storage. Each string has a
      *         minimum length of 1 and maximum length of 300. You can get the disk IDs from the <a>ListLocalDisks</a>
      *         API.
      */
@@ -80,12 +80,12 @@ public class AddCacheRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * An array of strings that identify disks that are to be configured as working storage. Each string have a minimum
+     * An array of strings that identify disks that are to be configured as working storage. Each string has a minimum
      * length of 1 and maximum length of 300. You can get the disk IDs from the <a>ListLocalDisks</a> API.
      * </p>
      * 
      * @param diskIds
-     *        An array of strings that identify disks that are to be configured as working storage. Each string have a
+     *        An array of strings that identify disks that are to be configured as working storage. Each string has a
      *        minimum length of 1 and maximum length of 300. You can get the disk IDs from the <a>ListLocalDisks</a>
      *        API.
      */
@@ -101,7 +101,7 @@ public class AddCacheRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * An array of strings that identify disks that are to be configured as working storage. Each string have a minimum
+     * An array of strings that identify disks that are to be configured as working storage. Each string has a minimum
      * length of 1 and maximum length of 300. You can get the disk IDs from the <a>ListLocalDisks</a> API.
      * </p>
      * <p>
@@ -111,7 +111,7 @@ public class AddCacheRequest extends com.amazonaws.AmazonWebServiceRequest imple
      * </p>
      * 
      * @param diskIds
-     *        An array of strings that identify disks that are to be configured as working storage. Each string have a
+     *        An array of strings that identify disks that are to be configured as working storage. Each string has a
      *        minimum length of 1 and maximum length of 300. You can get the disk IDs from the <a>ListLocalDisks</a>
      *        API.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -129,12 +129,12 @@ public class AddCacheRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * An array of strings that identify disks that are to be configured as working storage. Each string have a minimum
+     * An array of strings that identify disks that are to be configured as working storage. Each string has a minimum
      * length of 1 and maximum length of 300. You can get the disk IDs from the <a>ListLocalDisks</a> API.
      * </p>
      * 
      * @param diskIds
-     *        An array of strings that identify disks that are to be configured as working storage. Each string have a
+     *        An array of strings that identify disks that are to be configured as working storage. Each string has a
      *        minimum length of 1 and maximum length of 300. You can get the disk IDs from the <a>ListLocalDisks</a>
      *        API.
      * @return Returns a reference to this object so that method calls can be chained together.

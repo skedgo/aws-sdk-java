@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Specifies the objects that define configuration and other settings for a message.
+ * Specifies the configuration and other settings for a message.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/MessageRequest" target="_top">AWS API
@@ -30,10 +30,13 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A map of key-value pairs, where each key is an address and each value is an AddressConfiguration object. An
-     * address can be a push notification token, a phone number, or an email address. You can use an
-     * AddressConfiguration object to tailor the message for an address by specifying settings such as content overrides
-     * and message variables.
+     * A map of key-value pairs, where each key is an address and each value is an <a href=
+     * "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration"
+     * >AddressConfiguration</a> object. An address can be a push notification token, a phone number, or an email
+     * address. You can use an <a href=
+     * "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration"
+     * >AddressConfiguration</a> object to tailor the message for an address by specifying settings such as content
+     * overrides and message variables.
      * </p>
      */
     private java.util.Map<String, AddressConfiguration> addresses;
@@ -47,18 +50,27 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
     private java.util.Map<String, String> context;
     /**
      * <p>
-     * A map of key-value pairs, where each key is an endpoint ID and each value is an EndpointSendConfiguration object.
-     * You can use an EndpointSendConfiguration object to tailor the message for an endpoint by specifying settings such
-     * as content overrides and message variables.
+     * A map of key-value pairs, where each key is an endpoint ID and each value is an <a href=
+     * "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration"
+     * >EndpointSendConfiguration</a> object. You can use an <a href=
+     * "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration"
+     * >EndpointSendConfiguration</a> object to tailor the message for an endpoint by specifying settings such as
+     * content overrides and message variables.
      * </p>
      */
     private java.util.Map<String, EndpointSendConfiguration> endpoints;
     /**
      * <p>
-     * The set of properties that defines the configuration settings for the message.
+     * The settings and content for the default message and any default messages that you defined for specific channels.
      * </p>
      */
     private DirectMessageConfiguration messageConfiguration;
+    /**
+     * <p>
+     * The message template to use for the message.
+     * </p>
+     */
+    private TemplateConfiguration templateConfiguration;
     /**
      * <p>
      * The unique identifier for tracing the message. This identifier is visible to message recipients.
@@ -68,16 +80,22 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A map of key-value pairs, where each key is an address and each value is an AddressConfiguration object. An
-     * address can be a push notification token, a phone number, or an email address. You can use an
-     * AddressConfiguration object to tailor the message for an address by specifying settings such as content overrides
-     * and message variables.
+     * A map of key-value pairs, where each key is an address and each value is an <a href=
+     * "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration"
+     * >AddressConfiguration</a> object. An address can be a push notification token, a phone number, or an email
+     * address. You can use an <a href=
+     * "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration"
+     * >AddressConfiguration</a> object to tailor the message for an address by specifying settings such as content
+     * overrides and message variables.
      * </p>
      * 
-     * @return A map of key-value pairs, where each key is an address and each value is an AddressConfiguration object.
-     *         An address can be a push notification token, a phone number, or an email address. You can use an
-     *         AddressConfiguration object to tailor the message for an address by specifying settings such as content
-     *         overrides and message variables.
+     * @return A map of key-value pairs, where each key is an address and each value is an <a href=
+     *         "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration"
+     *         >AddressConfiguration</a> object. An address can be a push notification token, a phone number, or an
+     *         email address. You can use an <a href=
+     *         "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration"
+     *         >AddressConfiguration</a> object to tailor the message for an address by specifying settings such as
+     *         content overrides and message variables.
      */
 
     public java.util.Map<String, AddressConfiguration> getAddresses() {
@@ -86,17 +104,23 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A map of key-value pairs, where each key is an address and each value is an AddressConfiguration object. An
-     * address can be a push notification token, a phone number, or an email address. You can use an
-     * AddressConfiguration object to tailor the message for an address by specifying settings such as content overrides
-     * and message variables.
+     * A map of key-value pairs, where each key is an address and each value is an <a href=
+     * "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration"
+     * >AddressConfiguration</a> object. An address can be a push notification token, a phone number, or an email
+     * address. You can use an <a href=
+     * "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration"
+     * >AddressConfiguration</a> object to tailor the message for an address by specifying settings such as content
+     * overrides and message variables.
      * </p>
      * 
      * @param addresses
-     *        A map of key-value pairs, where each key is an address and each value is an AddressConfiguration object.
-     *        An address can be a push notification token, a phone number, or an email address. You can use an
-     *        AddressConfiguration object to tailor the message for an address by specifying settings such as content
-     *        overrides and message variables.
+     *        A map of key-value pairs, where each key is an address and each value is an <a href=
+     *        "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration"
+     *        >AddressConfiguration</a> object. An address can be a push notification token, a phone number, or an email
+     *        address. You can use an <a href=
+     *        "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration"
+     *        >AddressConfiguration</a> object to tailor the message for an address by specifying settings such as
+     *        content overrides and message variables.
      */
 
     public void setAddresses(java.util.Map<String, AddressConfiguration> addresses) {
@@ -105,17 +129,23 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A map of key-value pairs, where each key is an address and each value is an AddressConfiguration object. An
-     * address can be a push notification token, a phone number, or an email address. You can use an
-     * AddressConfiguration object to tailor the message for an address by specifying settings such as content overrides
-     * and message variables.
+     * A map of key-value pairs, where each key is an address and each value is an <a href=
+     * "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration"
+     * >AddressConfiguration</a> object. An address can be a push notification token, a phone number, or an email
+     * address. You can use an <a href=
+     * "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration"
+     * >AddressConfiguration</a> object to tailor the message for an address by specifying settings such as content
+     * overrides and message variables.
      * </p>
      * 
      * @param addresses
-     *        A map of key-value pairs, where each key is an address and each value is an AddressConfiguration object.
-     *        An address can be a push notification token, a phone number, or an email address. You can use an
-     *        AddressConfiguration object to tailor the message for an address by specifying settings such as content
-     *        overrides and message variables.
+     *        A map of key-value pairs, where each key is an address and each value is an <a href=
+     *        "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration"
+     *        >AddressConfiguration</a> object. An address can be a push notification token, a phone number, or an email
+     *        address. You can use an <a href=
+     *        "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration"
+     *        >AddressConfiguration</a> object to tailor the message for an address by specifying settings such as
+     *        content overrides and message variables.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -123,6 +153,13 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
         setAddresses(addresses);
         return this;
     }
+
+    /**
+     * Add a single Addresses entry
+     *
+     * @see MessageRequest#withAddresses
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public MessageRequest addAddressesEntry(String key, AddressConfiguration value) {
         if (null == this.addresses) {
@@ -197,6 +234,13 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
         return this;
     }
 
+    /**
+     * Add a single Context entry
+     *
+     * @see MessageRequest#withContext
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public MessageRequest addContextEntry(String key, String value) {
         if (null == this.context) {
             this.context = new java.util.HashMap<String, String>();
@@ -220,14 +264,20 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A map of key-value pairs, where each key is an endpoint ID and each value is an EndpointSendConfiguration object.
-     * You can use an EndpointSendConfiguration object to tailor the message for an endpoint by specifying settings such
-     * as content overrides and message variables.
+     * A map of key-value pairs, where each key is an endpoint ID and each value is an <a href=
+     * "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration"
+     * >EndpointSendConfiguration</a> object. You can use an <a href=
+     * "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration"
+     * >EndpointSendConfiguration</a> object to tailor the message for an endpoint by specifying settings such as
+     * content overrides and message variables.
      * </p>
      * 
-     * @return A map of key-value pairs, where each key is an endpoint ID and each value is an EndpointSendConfiguration
-     *         object. You can use an EndpointSendConfiguration object to tailor the message for an endpoint by
-     *         specifying settings such as content overrides and message variables.
+     * @return A map of key-value pairs, where each key is an endpoint ID and each value is an <a href=
+     *         "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration"
+     *         >EndpointSendConfiguration</a> object. You can use an <a href=
+     *         "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration"
+     *         >EndpointSendConfiguration</a> object to tailor the message for an endpoint by specifying settings such
+     *         as content overrides and message variables.
      */
 
     public java.util.Map<String, EndpointSendConfiguration> getEndpoints() {
@@ -236,15 +286,21 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A map of key-value pairs, where each key is an endpoint ID and each value is an EndpointSendConfiguration object.
-     * You can use an EndpointSendConfiguration object to tailor the message for an endpoint by specifying settings such
-     * as content overrides and message variables.
+     * A map of key-value pairs, where each key is an endpoint ID and each value is an <a href=
+     * "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration"
+     * >EndpointSendConfiguration</a> object. You can use an <a href=
+     * "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration"
+     * >EndpointSendConfiguration</a> object to tailor the message for an endpoint by specifying settings such as
+     * content overrides and message variables.
      * </p>
      * 
      * @param endpoints
-     *        A map of key-value pairs, where each key is an endpoint ID and each value is an EndpointSendConfiguration
-     *        object. You can use an EndpointSendConfiguration object to tailor the message for an endpoint by
-     *        specifying settings such as content overrides and message variables.
+     *        A map of key-value pairs, where each key is an endpoint ID and each value is an <a href=
+     *        "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration"
+     *        >EndpointSendConfiguration</a> object. You can use an <a href=
+     *        "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration"
+     *        >EndpointSendConfiguration</a> object to tailor the message for an endpoint by specifying settings such as
+     *        content overrides and message variables.
      */
 
     public void setEndpoints(java.util.Map<String, EndpointSendConfiguration> endpoints) {
@@ -253,15 +309,21 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A map of key-value pairs, where each key is an endpoint ID and each value is an EndpointSendConfiguration object.
-     * You can use an EndpointSendConfiguration object to tailor the message for an endpoint by specifying settings such
-     * as content overrides and message variables.
+     * A map of key-value pairs, where each key is an endpoint ID and each value is an <a href=
+     * "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration"
+     * >EndpointSendConfiguration</a> object. You can use an <a href=
+     * "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration"
+     * >EndpointSendConfiguration</a> object to tailor the message for an endpoint by specifying settings such as
+     * content overrides and message variables.
      * </p>
      * 
      * @param endpoints
-     *        A map of key-value pairs, where each key is an endpoint ID and each value is an EndpointSendConfiguration
-     *        object. You can use an EndpointSendConfiguration object to tailor the message for an endpoint by
-     *        specifying settings such as content overrides and message variables.
+     *        A map of key-value pairs, where each key is an endpoint ID and each value is an <a href=
+     *        "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration"
+     *        >EndpointSendConfiguration</a> object. You can use an <a href=
+     *        "https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration"
+     *        >EndpointSendConfiguration</a> object to tailor the message for an endpoint by specifying settings such as
+     *        content overrides and message variables.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -269,6 +331,13 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
         setEndpoints(endpoints);
         return this;
     }
+
+    /**
+     * Add a single Endpoints entry
+     *
+     * @see MessageRequest#withEndpoints
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public MessageRequest addEndpointsEntry(String key, EndpointSendConfiguration value) {
         if (null == this.endpoints) {
@@ -293,11 +362,12 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The set of properties that defines the configuration settings for the message.
+     * The settings and content for the default message and any default messages that you defined for specific channels.
      * </p>
      * 
      * @param messageConfiguration
-     *        The set of properties that defines the configuration settings for the message.
+     *        The settings and content for the default message and any default messages that you defined for specific
+     *        channels.
      */
 
     public void setMessageConfiguration(DirectMessageConfiguration messageConfiguration) {
@@ -306,10 +376,11 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The set of properties that defines the configuration settings for the message.
+     * The settings and content for the default message and any default messages that you defined for specific channels.
      * </p>
      * 
-     * @return The set of properties that defines the configuration settings for the message.
+     * @return The settings and content for the default message and any default messages that you defined for specific
+     *         channels.
      */
 
     public DirectMessageConfiguration getMessageConfiguration() {
@@ -318,16 +389,57 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The set of properties that defines the configuration settings for the message.
+     * The settings and content for the default message and any default messages that you defined for specific channels.
      * </p>
      * 
      * @param messageConfiguration
-     *        The set of properties that defines the configuration settings for the message.
+     *        The settings and content for the default message and any default messages that you defined for specific
+     *        channels.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public MessageRequest withMessageConfiguration(DirectMessageConfiguration messageConfiguration) {
         setMessageConfiguration(messageConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The message template to use for the message.
+     * </p>
+     * 
+     * @param templateConfiguration
+     *        The message template to use for the message.
+     */
+
+    public void setTemplateConfiguration(TemplateConfiguration templateConfiguration) {
+        this.templateConfiguration = templateConfiguration;
+    }
+
+    /**
+     * <p>
+     * The message template to use for the message.
+     * </p>
+     * 
+     * @return The message template to use for the message.
+     */
+
+    public TemplateConfiguration getTemplateConfiguration() {
+        return this.templateConfiguration;
+    }
+
+    /**
+     * <p>
+     * The message template to use for the message.
+     * </p>
+     * 
+     * @param templateConfiguration
+     *        The message template to use for the message.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MessageRequest withTemplateConfiguration(TemplateConfiguration templateConfiguration) {
+        setTemplateConfiguration(templateConfiguration);
         return this;
     }
 
@@ -391,6 +503,8 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
             sb.append("Endpoints: ").append(getEndpoints()).append(",");
         if (getMessageConfiguration() != null)
             sb.append("MessageConfiguration: ").append(getMessageConfiguration()).append(",");
+        if (getTemplateConfiguration() != null)
+            sb.append("TemplateConfiguration: ").append(getTemplateConfiguration()).append(",");
         if (getTraceId() != null)
             sb.append("TraceId: ").append(getTraceId());
         sb.append("}");
@@ -423,6 +537,10 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getMessageConfiguration() != null && other.getMessageConfiguration().equals(this.getMessageConfiguration()) == false)
             return false;
+        if (other.getTemplateConfiguration() == null ^ this.getTemplateConfiguration() == null)
+            return false;
+        if (other.getTemplateConfiguration() != null && other.getTemplateConfiguration().equals(this.getTemplateConfiguration()) == false)
+            return false;
         if (other.getTraceId() == null ^ this.getTraceId() == null)
             return false;
         if (other.getTraceId() != null && other.getTraceId().equals(this.getTraceId()) == false)
@@ -439,6 +557,7 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getContext() == null) ? 0 : getContext().hashCode());
         hashCode = prime * hashCode + ((getEndpoints() == null) ? 0 : getEndpoints().hashCode());
         hashCode = prime * hashCode + ((getMessageConfiguration() == null) ? 0 : getMessageConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getTemplateConfiguration() == null) ? 0 : getTemplateConfiguration().hashCode());
         hashCode = prime * hashCode + ((getTraceId() == null) ? 0 : getTraceId().hashCode());
         return hashCode;
     }

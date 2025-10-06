@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,8 +17,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * A set of criteria that AWS CloudFormation uses to validate parameter values. Although other constraints might be
- * defined in the stack template, AWS CloudFormation returns only the <code>AllowedValues</code> property.
+ * A set of criteria that CloudFormation uses to validate parameter values. Although other constraints might be defined
+ * in the stack template, CloudFormation returns only the <code>AllowedValues</code> property.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/ParameterConstraints"

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,9 +25,9 @@ import com.amazonaws.services.glue.model.*;
  * {@link com.amazonaws.services.glue.AbstractAWSGlueAsync} instead.
  * </p>
  * <p>
- * <fullname>AWS Glue</fullname>
+ * <fullname>Glue</fullname>
  * <p>
- * Defines the public endpoint for the AWS Glue service.
+ * Defines the public endpoint for the Glue service.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -132,12 +132,12 @@ public interface AWSGlueAsync extends AWSGlue {
      * </p>
      * <note>
      * <p>
-     * After completing this operation, you will no longer have access to the table versions and partitions that belong
-     * to the deleted table. AWS Glue deletes these "orphaned" resources asynchronously in a timely manner, at the
-     * discretion of the service.
+     * After completing this operation, you no longer have access to the table versions and partitions that belong to
+     * the deleted table. Glue deletes these "orphaned" resources asynchronously in a timely manner, at the discretion
+     * of the service.
      * </p>
      * <p>
-     * To ensure immediate deletion of all related resources, before calling <code>BatchDeleteTable</code>, use
+     * To ensure the immediate deletion of all related resources, before calling <code>BatchDeleteTable</code>, use
      * <code>DeleteTableVersion</code> or <code>BatchDeleteTableVersion</code>, and <code>DeletePartition</code> or
      * <code>BatchDeletePartition</code>, to delete any resources that belong to the table.
      * </p>
@@ -157,12 +157,12 @@ public interface AWSGlueAsync extends AWSGlue {
      * </p>
      * <note>
      * <p>
-     * After completing this operation, you will no longer have access to the table versions and partitions that belong
-     * to the deleted table. AWS Glue deletes these "orphaned" resources asynchronously in a timely manner, at the
-     * discretion of the service.
+     * After completing this operation, you no longer have access to the table versions and partitions that belong to
+     * the deleted table. Glue deletes these "orphaned" resources asynchronously in a timely manner, at the discretion
+     * of the service.
      * </p>
      * <p>
-     * To ensure immediate deletion of all related resources, before calling <code>BatchDeleteTable</code>, use
+     * To ensure the immediate deletion of all related resources, before calling <code>BatchDeleteTable</code>, use
      * <code>DeleteTableVersion</code> or <code>BatchDeleteTableVersion</code>, and <code>DeletePartition</code> or
      * <code>BatchDeletePartition</code>, to delete any resources that belong to the table.
      * </p>
@@ -214,6 +214,37 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Retrieves information about a list of blueprints.
+     * </p>
+     * 
+     * @param batchGetBlueprintsRequest
+     * @return A Java Future containing the result of the BatchGetBlueprints operation returned by the service.
+     * @sample AWSGlueAsync.BatchGetBlueprints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/BatchGetBlueprints" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<BatchGetBlueprintsResult> batchGetBlueprintsAsync(BatchGetBlueprintsRequest batchGetBlueprintsRequest);
+
+    /**
+     * <p>
+     * Retrieves information about a list of blueprints.
+     * </p>
+     * 
+     * @param batchGetBlueprintsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the BatchGetBlueprints operation returned by the service.
+     * @sample AWSGlueAsyncHandler.BatchGetBlueprints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/BatchGetBlueprints" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<BatchGetBlueprintsResult> batchGetBlueprintsAsync(BatchGetBlueprintsRequest batchGetBlueprintsRequest,
+            com.amazonaws.handlers.AsyncHandler<BatchGetBlueprintsRequest, BatchGetBlueprintsResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns a list of resource metadata for a given list of crawler names. After calling the
      * <code>ListCrawlers</code> operation, you can call this operation to access the data to which you have been
      * granted permissions. This operation supports all IAM permissions, including permission conditions that uses tags.
@@ -246,6 +277,72 @@ public interface AWSGlueAsync extends AWSGlue {
      */
     java.util.concurrent.Future<BatchGetCrawlersResult> batchGetCrawlersAsync(BatchGetCrawlersRequest batchGetCrawlersRequest,
             com.amazonaws.handlers.AsyncHandler<BatchGetCrawlersRequest, BatchGetCrawlersResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves the details for the custom patterns specified by a list of names.
+     * </p>
+     * 
+     * @param batchGetCustomEntityTypesRequest
+     * @return A Java Future containing the result of the BatchGetCustomEntityTypes operation returned by the service.
+     * @sample AWSGlueAsync.BatchGetCustomEntityTypes
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/BatchGetCustomEntityTypes" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<BatchGetCustomEntityTypesResult> batchGetCustomEntityTypesAsync(
+            BatchGetCustomEntityTypesRequest batchGetCustomEntityTypesRequest);
+
+    /**
+     * <p>
+     * Retrieves the details for the custom patterns specified by a list of names.
+     * </p>
+     * 
+     * @param batchGetCustomEntityTypesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the BatchGetCustomEntityTypes operation returned by the service.
+     * @sample AWSGlueAsyncHandler.BatchGetCustomEntityTypes
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/BatchGetCustomEntityTypes" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<BatchGetCustomEntityTypesResult> batchGetCustomEntityTypesAsync(
+            BatchGetCustomEntityTypesRequest batchGetCustomEntityTypesRequest,
+            com.amazonaws.handlers.AsyncHandler<BatchGetCustomEntityTypesRequest, BatchGetCustomEntityTypesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves a list of data quality results for the specified result IDs.
+     * </p>
+     * 
+     * @param batchGetDataQualityResultRequest
+     * @return A Java Future containing the result of the BatchGetDataQualityResult operation returned by the service.
+     * @sample AWSGlueAsync.BatchGetDataQualityResult
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/BatchGetDataQualityResult" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<BatchGetDataQualityResultResult> batchGetDataQualityResultAsync(
+            BatchGetDataQualityResultRequest batchGetDataQualityResultRequest);
+
+    /**
+     * <p>
+     * Retrieves a list of data quality results for the specified result IDs.
+     * </p>
+     * 
+     * @param batchGetDataQualityResultRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the BatchGetDataQualityResult operation returned by the service.
+     * @sample AWSGlueAsyncHandler.BatchGetDataQualityResult
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/BatchGetDataQualityResult" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<BatchGetDataQualityResultResult> batchGetDataQualityResultAsync(
+            BatchGetDataQualityResultRequest batchGetDataQualityResultRequest,
+            com.amazonaws.handlers.AsyncHandler<BatchGetDataQualityResultRequest, BatchGetDataQualityResultResult> asyncHandler);
 
     /**
      * <p>
@@ -350,6 +447,37 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Returns the configuration for the specified table optimizers.
+     * </p>
+     * 
+     * @param batchGetTableOptimizerRequest
+     * @return A Java Future containing the result of the BatchGetTableOptimizer operation returned by the service.
+     * @sample AWSGlueAsync.BatchGetTableOptimizer
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/BatchGetTableOptimizer" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<BatchGetTableOptimizerResult> batchGetTableOptimizerAsync(BatchGetTableOptimizerRequest batchGetTableOptimizerRequest);
+
+    /**
+     * <p>
+     * Returns the configuration for the specified table optimizers.
+     * </p>
+     * 
+     * @param batchGetTableOptimizerRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the BatchGetTableOptimizer operation returned by the service.
+     * @sample AWSGlueAsyncHandler.BatchGetTableOptimizer
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/BatchGetTableOptimizer" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<BatchGetTableOptimizerResult> batchGetTableOptimizerAsync(BatchGetTableOptimizerRequest batchGetTableOptimizerRequest,
+            com.amazonaws.handlers.AsyncHandler<BatchGetTableOptimizerRequest, BatchGetTableOptimizerResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns a list of resource metadata for a given list of trigger names. After calling the
      * <code>ListTriggers</code> operation, you can call this operation to access the data to which you have been
      * granted permissions. This operation supports all IAM permissions, including permission conditions that uses tags.
@@ -451,6 +579,243 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Updates one or more partitions in a batch operation.
+     * </p>
+     * 
+     * @param batchUpdatePartitionRequest
+     * @return A Java Future containing the result of the BatchUpdatePartition operation returned by the service.
+     * @sample AWSGlueAsync.BatchUpdatePartition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/BatchUpdatePartition" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<BatchUpdatePartitionResult> batchUpdatePartitionAsync(BatchUpdatePartitionRequest batchUpdatePartitionRequest);
+
+    /**
+     * <p>
+     * Updates one or more partitions in a batch operation.
+     * </p>
+     * 
+     * @param batchUpdatePartitionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the BatchUpdatePartition operation returned by the service.
+     * @sample AWSGlueAsyncHandler.BatchUpdatePartition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/BatchUpdatePartition" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<BatchUpdatePartitionResult> batchUpdatePartitionAsync(BatchUpdatePartitionRequest batchUpdatePartitionRequest,
+            com.amazonaws.handlers.AsyncHandler<BatchUpdatePartitionRequest, BatchUpdatePartitionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Cancels the specified recommendation run that was being used to generate rules.
+     * </p>
+     * 
+     * @param cancelDataQualityRuleRecommendationRunRequest
+     * @return A Java Future containing the result of the CancelDataQualityRuleRecommendationRun operation returned by
+     *         the service.
+     * @sample AWSGlueAsync.CancelDataQualityRuleRecommendationRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CancelDataQualityRuleRecommendationRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CancelDataQualityRuleRecommendationRunResult> cancelDataQualityRuleRecommendationRunAsync(
+            CancelDataQualityRuleRecommendationRunRequest cancelDataQualityRuleRecommendationRunRequest);
+
+    /**
+     * <p>
+     * Cancels the specified recommendation run that was being used to generate rules.
+     * </p>
+     * 
+     * @param cancelDataQualityRuleRecommendationRunRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CancelDataQualityRuleRecommendationRun operation returned by
+     *         the service.
+     * @sample AWSGlueAsyncHandler.CancelDataQualityRuleRecommendationRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CancelDataQualityRuleRecommendationRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CancelDataQualityRuleRecommendationRunResult> cancelDataQualityRuleRecommendationRunAsync(
+            CancelDataQualityRuleRecommendationRunRequest cancelDataQualityRuleRecommendationRunRequest,
+            com.amazonaws.handlers.AsyncHandler<CancelDataQualityRuleRecommendationRunRequest, CancelDataQualityRuleRecommendationRunResult> asyncHandler);
+
+    /**
+     * <p>
+     * Cancels a run where a ruleset is being evaluated against a data source.
+     * </p>
+     * 
+     * @param cancelDataQualityRulesetEvaluationRunRequest
+     * @return A Java Future containing the result of the CancelDataQualityRulesetEvaluationRun operation returned by
+     *         the service.
+     * @sample AWSGlueAsync.CancelDataQualityRulesetEvaluationRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CancelDataQualityRulesetEvaluationRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CancelDataQualityRulesetEvaluationRunResult> cancelDataQualityRulesetEvaluationRunAsync(
+            CancelDataQualityRulesetEvaluationRunRequest cancelDataQualityRulesetEvaluationRunRequest);
+
+    /**
+     * <p>
+     * Cancels a run where a ruleset is being evaluated against a data source.
+     * </p>
+     * 
+     * @param cancelDataQualityRulesetEvaluationRunRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CancelDataQualityRulesetEvaluationRun operation returned by
+     *         the service.
+     * @sample AWSGlueAsyncHandler.CancelDataQualityRulesetEvaluationRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CancelDataQualityRulesetEvaluationRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CancelDataQualityRulesetEvaluationRunResult> cancelDataQualityRulesetEvaluationRunAsync(
+            CancelDataQualityRulesetEvaluationRunRequest cancelDataQualityRulesetEvaluationRunRequest,
+            com.amazonaws.handlers.AsyncHandler<CancelDataQualityRulesetEvaluationRunRequest, CancelDataQualityRulesetEvaluationRunResult> asyncHandler);
+
+    /**
+     * <p>
+     * Cancels (stops) a task run. Machine learning task runs are asynchronous tasks that Glue runs on your behalf as
+     * part of various machine learning workflows. You can cancel a machine learning task run at any time by calling
+     * <code>CancelMLTaskRun</code> with a task run's parent transform's <code>TransformID</code> and the task run's
+     * <code>TaskRunId</code>.
+     * </p>
+     * 
+     * @param cancelMLTaskRunRequest
+     * @return A Java Future containing the result of the CancelMLTaskRun operation returned by the service.
+     * @sample AWSGlueAsync.CancelMLTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CancelMLTaskRun" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CancelMLTaskRunResult> cancelMLTaskRunAsync(CancelMLTaskRunRequest cancelMLTaskRunRequest);
+
+    /**
+     * <p>
+     * Cancels (stops) a task run. Machine learning task runs are asynchronous tasks that Glue runs on your behalf as
+     * part of various machine learning workflows. You can cancel a machine learning task run at any time by calling
+     * <code>CancelMLTaskRun</code> with a task run's parent transform's <code>TransformID</code> and the task run's
+     * <code>TaskRunId</code>.
+     * </p>
+     * 
+     * @param cancelMLTaskRunRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CancelMLTaskRun operation returned by the service.
+     * @sample AWSGlueAsyncHandler.CancelMLTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CancelMLTaskRun" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CancelMLTaskRunResult> cancelMLTaskRunAsync(CancelMLTaskRunRequest cancelMLTaskRunRequest,
+            com.amazonaws.handlers.AsyncHandler<CancelMLTaskRunRequest, CancelMLTaskRunResult> asyncHandler);
+
+    /**
+     * <p>
+     * Cancels the statement.
+     * </p>
+     * 
+     * @param cancelStatementRequest
+     * @return A Java Future containing the result of the CancelStatement operation returned by the service.
+     * @sample AWSGlueAsync.CancelStatement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CancelStatement" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CancelStatementResult> cancelStatementAsync(CancelStatementRequest cancelStatementRequest);
+
+    /**
+     * <p>
+     * Cancels the statement.
+     * </p>
+     * 
+     * @param cancelStatementRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CancelStatement operation returned by the service.
+     * @sample AWSGlueAsyncHandler.CancelStatement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CancelStatement" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CancelStatementResult> cancelStatementAsync(CancelStatementRequest cancelStatementRequest,
+            com.amazonaws.handlers.AsyncHandler<CancelStatementRequest, CancelStatementResult> asyncHandler);
+
+    /**
+     * <p>
+     * Validates the supplied schema. This call has no side effects, it simply validates using the supplied schema using
+     * <code>DataFormat</code> as the format. Since it does not take a schema set name, no compatibility checks are
+     * performed.
+     * </p>
+     * 
+     * @param checkSchemaVersionValidityRequest
+     * @return A Java Future containing the result of the CheckSchemaVersionValidity operation returned by the service.
+     * @sample AWSGlueAsync.CheckSchemaVersionValidity
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CheckSchemaVersionValidity"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CheckSchemaVersionValidityResult> checkSchemaVersionValidityAsync(
+            CheckSchemaVersionValidityRequest checkSchemaVersionValidityRequest);
+
+    /**
+     * <p>
+     * Validates the supplied schema. This call has no side effects, it simply validates using the supplied schema using
+     * <code>DataFormat</code> as the format. Since it does not take a schema set name, no compatibility checks are
+     * performed.
+     * </p>
+     * 
+     * @param checkSchemaVersionValidityRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CheckSchemaVersionValidity operation returned by the service.
+     * @sample AWSGlueAsyncHandler.CheckSchemaVersionValidity
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CheckSchemaVersionValidity"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CheckSchemaVersionValidityResult> checkSchemaVersionValidityAsync(
+            CheckSchemaVersionValidityRequest checkSchemaVersionValidityRequest,
+            com.amazonaws.handlers.AsyncHandler<CheckSchemaVersionValidityRequest, CheckSchemaVersionValidityResult> asyncHandler);
+
+    /**
+     * <p>
+     * Registers a blueprint with Glue.
+     * </p>
+     * 
+     * @param createBlueprintRequest
+     * @return A Java Future containing the result of the CreateBlueprint operation returned by the service.
+     * @sample AWSGlueAsync.CreateBlueprint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateBlueprint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateBlueprintResult> createBlueprintAsync(CreateBlueprintRequest createBlueprintRequest);
+
+    /**
+     * <p>
+     * Registers a blueprint with Glue.
+     * </p>
+     * 
+     * @param createBlueprintRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateBlueprint operation returned by the service.
+     * @sample AWSGlueAsyncHandler.CreateBlueprint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateBlueprint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateBlueprintResult> createBlueprintAsync(CreateBlueprintRequest createBlueprintRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateBlueprintRequest, CreateBlueprintResult> asyncHandler);
+
+    /**
+     * <p>
      * Creates a classifier in the user's account. This can be a <code>GrokClassifier</code>, an
      * <code>XMLClassifier</code>, a <code>JsonClassifier</code>, or a <code>CsvClassifier</code>, depending on which
      * field of the request is present.
@@ -488,6 +853,9 @@ public interface AWSGlueAsync extends AWSGlue {
      * <p>
      * Creates a connection definition in the Data Catalog.
      * </p>
+     * <p>
+     * Connections used for creating federated resources require the IAM <code>glue:PassConnection</code> permission.
+     * </p>
      * 
      * @param createConnectionRequest
      * @return A Java Future containing the result of the CreateConnection operation returned by the service.
@@ -500,6 +868,9 @@ public interface AWSGlueAsync extends AWSGlue {
     /**
      * <p>
      * Creates a connection definition in the Data Catalog.
+     * </p>
+     * <p>
+     * Connections used for creating federated resources require the IAM <code>glue:PassConnection</code> permission.
      * </p>
      * 
      * @param createConnectionRequest
@@ -549,6 +920,86 @@ public interface AWSGlueAsync extends AWSGlue {
      */
     java.util.concurrent.Future<CreateCrawlerResult> createCrawlerAsync(CreateCrawlerRequest createCrawlerRequest,
             com.amazonaws.handlers.AsyncHandler<CreateCrawlerRequest, CreateCrawlerResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a custom pattern that is used to detect sensitive data across the columns and rows of your structured
+     * data.
+     * </p>
+     * <p>
+     * Each custom pattern you create specifies a regular expression and an optional list of context words. If no
+     * context words are passed only a regular expression is checked.
+     * </p>
+     * 
+     * @param createCustomEntityTypeRequest
+     * @return A Java Future containing the result of the CreateCustomEntityType operation returned by the service.
+     * @sample AWSGlueAsync.CreateCustomEntityType
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateCustomEntityType" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateCustomEntityTypeResult> createCustomEntityTypeAsync(CreateCustomEntityTypeRequest createCustomEntityTypeRequest);
+
+    /**
+     * <p>
+     * Creates a custom pattern that is used to detect sensitive data across the columns and rows of your structured
+     * data.
+     * </p>
+     * <p>
+     * Each custom pattern you create specifies a regular expression and an optional list of context words. If no
+     * context words are passed only a regular expression is checked.
+     * </p>
+     * 
+     * @param createCustomEntityTypeRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateCustomEntityType operation returned by the service.
+     * @sample AWSGlueAsyncHandler.CreateCustomEntityType
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateCustomEntityType" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateCustomEntityTypeResult> createCustomEntityTypeAsync(CreateCustomEntityTypeRequest createCustomEntityTypeRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateCustomEntityTypeRequest, CreateCustomEntityTypeResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a data quality ruleset with DQDL rules applied to a specified Glue table.
+     * </p>
+     * <p>
+     * You create the ruleset using the Data Quality Definition Language (DQDL). For more information, see the Glue
+     * developer guide.
+     * </p>
+     * 
+     * @param createDataQualityRulesetRequest
+     * @return A Java Future containing the result of the CreateDataQualityRuleset operation returned by the service.
+     * @sample AWSGlueAsync.CreateDataQualityRuleset
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateDataQualityRuleset" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateDataQualityRulesetResult> createDataQualityRulesetAsync(CreateDataQualityRulesetRequest createDataQualityRulesetRequest);
+
+    /**
+     * <p>
+     * Creates a data quality ruleset with DQDL rules applied to a specified Glue table.
+     * </p>
+     * <p>
+     * You create the ruleset using the Data Quality Definition Language (DQDL). For more information, see the Glue
+     * developer guide.
+     * </p>
+     * 
+     * @param createDataQualityRulesetRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateDataQualityRuleset operation returned by the service.
+     * @sample AWSGlueAsyncHandler.CreateDataQualityRuleset
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateDataQualityRuleset" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateDataQualityRulesetResult> createDataQualityRulesetAsync(CreateDataQualityRulesetRequest createDataQualityRulesetRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateDataQualityRulesetRequest, CreateDataQualityRulesetResult> asyncHandler);
 
     /**
      * <p>
@@ -645,6 +1096,61 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Creates an Glue machine learning transform. This operation creates the transform and all the necessary parameters
+     * to train it.
+     * </p>
+     * <p>
+     * Call this operation as the first step in the process of using a machine learning transform (such as the
+     * <code>FindMatches</code> transform) for deduplicating data. You can provide an optional <code>Description</code>,
+     * in addition to the parameters that you want to use for your algorithm.
+     * </p>
+     * <p>
+     * You must also specify certain parameters for the tasks that Glue runs on your behalf as part of learning from
+     * your data and creating a high-quality machine learning transform. These parameters include <code>Role</code>, and
+     * optionally, <code>AllocatedCapacity</code>, <code>Timeout</code>, and <code>MaxRetries</code>. For more
+     * information, see <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-jobs-job.html">Jobs</a>.
+     * </p>
+     * 
+     * @param createMLTransformRequest
+     * @return A Java Future containing the result of the CreateMLTransform operation returned by the service.
+     * @sample AWSGlueAsync.CreateMLTransform
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateMLTransform" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateMLTransformResult> createMLTransformAsync(CreateMLTransformRequest createMLTransformRequest);
+
+    /**
+     * <p>
+     * Creates an Glue machine learning transform. This operation creates the transform and all the necessary parameters
+     * to train it.
+     * </p>
+     * <p>
+     * Call this operation as the first step in the process of using a machine learning transform (such as the
+     * <code>FindMatches</code> transform) for deduplicating data. You can provide an optional <code>Description</code>,
+     * in addition to the parameters that you want to use for your algorithm.
+     * </p>
+     * <p>
+     * You must also specify certain parameters for the tasks that Glue runs on your behalf as part of learning from
+     * your data and creating a high-quality machine learning transform. These parameters include <code>Role</code>, and
+     * optionally, <code>AllocatedCapacity</code>, <code>Timeout</code>, and <code>MaxRetries</code>. For more
+     * information, see <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-jobs-job.html">Jobs</a>.
+     * </p>
+     * 
+     * @param createMLTransformRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateMLTransform operation returned by the service.
+     * @sample AWSGlueAsyncHandler.CreateMLTransform
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateMLTransform" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateMLTransformResult> createMLTransformAsync(CreateMLTransformRequest createMLTransformRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateMLTransformRequest, CreateMLTransformResult> asyncHandler);
+
+    /**
+     * <p>
      * Creates a new partition.
      * </p>
      * 
@@ -673,6 +1179,121 @@ public interface AWSGlueAsync extends AWSGlue {
      */
     java.util.concurrent.Future<CreatePartitionResult> createPartitionAsync(CreatePartitionRequest createPartitionRequest,
             com.amazonaws.handlers.AsyncHandler<CreatePartitionRequest, CreatePartitionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a specified partition index in an existing table.
+     * </p>
+     * 
+     * @param createPartitionIndexRequest
+     * @return A Java Future containing the result of the CreatePartitionIndex operation returned by the service.
+     * @sample AWSGlueAsync.CreatePartitionIndex
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreatePartitionIndex" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreatePartitionIndexResult> createPartitionIndexAsync(CreatePartitionIndexRequest createPartitionIndexRequest);
+
+    /**
+     * <p>
+     * Creates a specified partition index in an existing table.
+     * </p>
+     * 
+     * @param createPartitionIndexRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreatePartitionIndex operation returned by the service.
+     * @sample AWSGlueAsyncHandler.CreatePartitionIndex
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreatePartitionIndex" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreatePartitionIndexResult> createPartitionIndexAsync(CreatePartitionIndexRequest createPartitionIndexRequest,
+            com.amazonaws.handlers.AsyncHandler<CreatePartitionIndexRequest, CreatePartitionIndexResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a new registry which may be used to hold a collection of schemas.
+     * </p>
+     * 
+     * @param createRegistryRequest
+     * @return A Java Future containing the result of the CreateRegistry operation returned by the service.
+     * @sample AWSGlueAsync.CreateRegistry
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateRegistry" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateRegistryResult> createRegistryAsync(CreateRegistryRequest createRegistryRequest);
+
+    /**
+     * <p>
+     * Creates a new registry which may be used to hold a collection of schemas.
+     * </p>
+     * 
+     * @param createRegistryRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateRegistry operation returned by the service.
+     * @sample AWSGlueAsyncHandler.CreateRegistry
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateRegistry" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateRegistryResult> createRegistryAsync(CreateRegistryRequest createRegistryRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateRegistryRequest, CreateRegistryResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a new schema set and registers the schema definition. Returns an error if the schema set already exists
+     * without actually registering the version.
+     * </p>
+     * <p>
+     * When the schema set is created, a version checkpoint will be set to the first version. Compatibility mode
+     * "DISABLED" restricts any additional schema versions from being added after the first schema version. For all
+     * other compatibility modes, validation of compatibility settings will be applied only from the second version
+     * onwards when the <code>RegisterSchemaVersion</code> API is used.
+     * </p>
+     * <p>
+     * When this API is called without a <code>RegistryId</code>, this will create an entry for a "default-registry" in
+     * the registry database tables, if it is not already present.
+     * </p>
+     * 
+     * @param createSchemaRequest
+     * @return A Java Future containing the result of the CreateSchema operation returned by the service.
+     * @sample AWSGlueAsync.CreateSchema
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateSchema" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateSchemaResult> createSchemaAsync(CreateSchemaRequest createSchemaRequest);
+
+    /**
+     * <p>
+     * Creates a new schema set and registers the schema definition. Returns an error if the schema set already exists
+     * without actually registering the version.
+     * </p>
+     * <p>
+     * When the schema set is created, a version checkpoint will be set to the first version. Compatibility mode
+     * "DISABLED" restricts any additional schema versions from being added after the first schema version. For all
+     * other compatibility modes, validation of compatibility settings will be applied only from the second version
+     * onwards when the <code>RegisterSchemaVersion</code> API is used.
+     * </p>
+     * <p>
+     * When this API is called without a <code>RegistryId</code>, this will create an entry for a "default-registry" in
+     * the registry database tables, if it is not already present.
+     * </p>
+     * 
+     * @param createSchemaRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateSchema operation returned by the service.
+     * @sample AWSGlueAsyncHandler.CreateSchema
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateSchema" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateSchemaResult> createSchemaAsync(CreateSchemaRequest createSchemaRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateSchemaRequest, CreateSchemaResult> asyncHandler);
 
     /**
      * <p>
@@ -708,8 +1329,8 @@ public interface AWSGlueAsync extends AWSGlue {
     /**
      * <p>
      * Creates a new security configuration. A security configuration is a set of security properties that can be used
-     * by AWS Glue. You can use a security configuration to encrypt data at rest. For information about using security
-     * configurations in AWS Glue, see <a
+     * by Glue. You can use a security configuration to encrypt data at rest. For information about using security
+     * configurations in Glue, see <a
      * href="https://docs.aws.amazon.com/glue/latest/dg/encryption-security-configuration.html">Encrypting Data Written
      * by Crawlers, Jobs, and Development Endpoints</a>.
      * </p>
@@ -726,8 +1347,8 @@ public interface AWSGlueAsync extends AWSGlue {
     /**
      * <p>
      * Creates a new security configuration. A security configuration is a set of security properties that can be used
-     * by AWS Glue. You can use a security configuration to encrypt data at rest. For information about using security
-     * configurations in AWS Glue, see <a
+     * by Glue. You can use a security configuration to encrypt data at rest. For information about using security
+     * configurations in Glue, see <a
      * href="https://docs.aws.amazon.com/glue/latest/dg/encryption-security-configuration.html">Encrypting Data Written
      * by Crawlers, Jobs, and Development Endpoints</a>.
      * </p>
@@ -745,6 +1366,39 @@ public interface AWSGlueAsync extends AWSGlue {
     java.util.concurrent.Future<CreateSecurityConfigurationResult> createSecurityConfigurationAsync(
             CreateSecurityConfigurationRequest createSecurityConfigurationRequest,
             com.amazonaws.handlers.AsyncHandler<CreateSecurityConfigurationRequest, CreateSecurityConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a new session.
+     * </p>
+     * 
+     * @param createSessionRequest
+     *        Request to create a new session.
+     * @return A Java Future containing the result of the CreateSession operation returned by the service.
+     * @sample AWSGlueAsync.CreateSession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateSession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateSessionResult> createSessionAsync(CreateSessionRequest createSessionRequest);
+
+    /**
+     * <p>
+     * Creates a new session.
+     * </p>
+     * 
+     * @param createSessionRequest
+     *        Request to create a new session.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateSession operation returned by the service.
+     * @sample AWSGlueAsyncHandler.CreateSession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateSession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateSessionResult> createSessionAsync(CreateSessionRequest createSessionRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateSessionRequest, CreateSessionResult> asyncHandler);
 
     /**
      * <p>
@@ -779,6 +1433,39 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Creates a new table optimizer for a specific function. <code>compaction</code> is the only currently supported
+     * optimizer type.
+     * </p>
+     * 
+     * @param createTableOptimizerRequest
+     * @return A Java Future containing the result of the CreateTableOptimizer operation returned by the service.
+     * @sample AWSGlueAsync.CreateTableOptimizer
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateTableOptimizer" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateTableOptimizerResult> createTableOptimizerAsync(CreateTableOptimizerRequest createTableOptimizerRequest);
+
+    /**
+     * <p>
+     * Creates a new table optimizer for a specific function. <code>compaction</code> is the only currently supported
+     * optimizer type.
+     * </p>
+     * 
+     * @param createTableOptimizerRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateTableOptimizer operation returned by the service.
+     * @sample AWSGlueAsyncHandler.CreateTableOptimizer
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateTableOptimizer" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateTableOptimizerResult> createTableOptimizerAsync(CreateTableOptimizerRequest createTableOptimizerRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateTableOptimizerRequest, CreateTableOptimizerResult> asyncHandler);
+
+    /**
+     * <p>
      * Creates a new trigger.
      * </p>
      * 
@@ -807,6 +1494,37 @@ public interface AWSGlueAsync extends AWSGlue {
      */
     java.util.concurrent.Future<CreateTriggerResult> createTriggerAsync(CreateTriggerRequest createTriggerRequest,
             com.amazonaws.handlers.AsyncHandler<CreateTriggerRequest, CreateTriggerResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates an Glue usage profile.
+     * </p>
+     * 
+     * @param createUsageProfileRequest
+     * @return A Java Future containing the result of the CreateUsageProfile operation returned by the service.
+     * @sample AWSGlueAsync.CreateUsageProfile
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateUsageProfile" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateUsageProfileResult> createUsageProfileAsync(CreateUsageProfileRequest createUsageProfileRequest);
+
+    /**
+     * <p>
+     * Creates an Glue usage profile.
+     * </p>
+     * 
+     * @param createUsageProfileRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateUsageProfile operation returned by the service.
+     * @sample AWSGlueAsyncHandler.CreateUsageProfile
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateUsageProfile" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateUsageProfileResult> createUsageProfileAsync(CreateUsageProfileRequest createUsageProfileRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateUsageProfileRequest, CreateUsageProfileResult> asyncHandler);
 
     /**
      * <p>
@@ -874,6 +1592,37 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Deletes an existing blueprint.
+     * </p>
+     * 
+     * @param deleteBlueprintRequest
+     * @return A Java Future containing the result of the DeleteBlueprint operation returned by the service.
+     * @sample AWSGlueAsync.DeleteBlueprint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteBlueprint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteBlueprintResult> deleteBlueprintAsync(DeleteBlueprintRequest deleteBlueprintRequest);
+
+    /**
+     * <p>
+     * Deletes an existing blueprint.
+     * </p>
+     * 
+     * @param deleteBlueprintRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteBlueprint operation returned by the service.
+     * @sample AWSGlueAsyncHandler.DeleteBlueprint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteBlueprint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteBlueprintResult> deleteBlueprintAsync(DeleteBlueprintRequest deleteBlueprintRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteBlueprintRequest, DeleteBlueprintResult> asyncHandler);
+
+    /**
+     * <p>
      * Removes a classifier from the Data Catalog.
      * </p>
      * 
@@ -902,6 +1651,88 @@ public interface AWSGlueAsync extends AWSGlue {
      */
     java.util.concurrent.Future<DeleteClassifierResult> deleteClassifierAsync(DeleteClassifierRequest deleteClassifierRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteClassifierRequest, DeleteClassifierResult> asyncHandler);
+
+    /**
+     * <p>
+     * Delete the partition column statistics of a column.
+     * </p>
+     * <p>
+     * The Identity and Access Management (IAM) permission required for this operation is <code>DeletePartition</code>.
+     * </p>
+     * 
+     * @param deleteColumnStatisticsForPartitionRequest
+     * @return A Java Future containing the result of the DeleteColumnStatisticsForPartition operation returned by the
+     *         service.
+     * @sample AWSGlueAsync.DeleteColumnStatisticsForPartition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteColumnStatisticsForPartition"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteColumnStatisticsForPartitionResult> deleteColumnStatisticsForPartitionAsync(
+            DeleteColumnStatisticsForPartitionRequest deleteColumnStatisticsForPartitionRequest);
+
+    /**
+     * <p>
+     * Delete the partition column statistics of a column.
+     * </p>
+     * <p>
+     * The Identity and Access Management (IAM) permission required for this operation is <code>DeletePartition</code>.
+     * </p>
+     * 
+     * @param deleteColumnStatisticsForPartitionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteColumnStatisticsForPartition operation returned by the
+     *         service.
+     * @sample AWSGlueAsyncHandler.DeleteColumnStatisticsForPartition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteColumnStatisticsForPartition"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteColumnStatisticsForPartitionResult> deleteColumnStatisticsForPartitionAsync(
+            DeleteColumnStatisticsForPartitionRequest deleteColumnStatisticsForPartitionRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteColumnStatisticsForPartitionRequest, DeleteColumnStatisticsForPartitionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves table statistics of columns.
+     * </p>
+     * <p>
+     * The Identity and Access Management (IAM) permission required for this operation is <code>DeleteTable</code>.
+     * </p>
+     * 
+     * @param deleteColumnStatisticsForTableRequest
+     * @return A Java Future containing the result of the DeleteColumnStatisticsForTable operation returned by the
+     *         service.
+     * @sample AWSGlueAsync.DeleteColumnStatisticsForTable
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteColumnStatisticsForTable"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteColumnStatisticsForTableResult> deleteColumnStatisticsForTableAsync(
+            DeleteColumnStatisticsForTableRequest deleteColumnStatisticsForTableRequest);
+
+    /**
+     * <p>
+     * Retrieves table statistics of columns.
+     * </p>
+     * <p>
+     * The Identity and Access Management (IAM) permission required for this operation is <code>DeleteTable</code>.
+     * </p>
+     * 
+     * @param deleteColumnStatisticsForTableRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteColumnStatisticsForTable operation returned by the
+     *         service.
+     * @sample AWSGlueAsyncHandler.DeleteColumnStatisticsForTable
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteColumnStatisticsForTable"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteColumnStatisticsForTableResult> deleteColumnStatisticsForTableAsync(
+            DeleteColumnStatisticsForTableRequest deleteColumnStatisticsForTableRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteColumnStatisticsForTableRequest, DeleteColumnStatisticsForTableResult> asyncHandler);
 
     /**
      * <p>
@@ -936,7 +1767,7 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Removes a specified crawler from the AWS Glue Data Catalog, unless the crawler state is <code>RUNNING</code>.
+     * Removes a specified crawler from the Glue Data Catalog, unless the crawler state is <code>RUNNING</code>.
      * </p>
      * 
      * @param deleteCrawlerRequest
@@ -949,7 +1780,7 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Removes a specified crawler from the AWS Glue Data Catalog, unless the crawler state is <code>RUNNING</code>.
+     * Removes a specified crawler from the Glue Data Catalog, unless the crawler state is <code>RUNNING</code>.
      * </p>
      * 
      * @param deleteCrawlerRequest
@@ -967,16 +1798,78 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Removes a specified Database from a Data Catalog.
+     * Deletes a custom pattern by specifying its name.
+     * </p>
+     * 
+     * @param deleteCustomEntityTypeRequest
+     * @return A Java Future containing the result of the DeleteCustomEntityType operation returned by the service.
+     * @sample AWSGlueAsync.DeleteCustomEntityType
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteCustomEntityType" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteCustomEntityTypeResult> deleteCustomEntityTypeAsync(DeleteCustomEntityTypeRequest deleteCustomEntityTypeRequest);
+
+    /**
+     * <p>
+     * Deletes a custom pattern by specifying its name.
+     * </p>
+     * 
+     * @param deleteCustomEntityTypeRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteCustomEntityType operation returned by the service.
+     * @sample AWSGlueAsyncHandler.DeleteCustomEntityType
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteCustomEntityType" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteCustomEntityTypeResult> deleteCustomEntityTypeAsync(DeleteCustomEntityTypeRequest deleteCustomEntityTypeRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteCustomEntityTypeRequest, DeleteCustomEntityTypeResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a data quality ruleset.
+     * </p>
+     * 
+     * @param deleteDataQualityRulesetRequest
+     * @return A Java Future containing the result of the DeleteDataQualityRuleset operation returned by the service.
+     * @sample AWSGlueAsync.DeleteDataQualityRuleset
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteDataQualityRuleset" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteDataQualityRulesetResult> deleteDataQualityRulesetAsync(DeleteDataQualityRulesetRequest deleteDataQualityRulesetRequest);
+
+    /**
+     * <p>
+     * Deletes a data quality ruleset.
+     * </p>
+     * 
+     * @param deleteDataQualityRulesetRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteDataQualityRuleset operation returned by the service.
+     * @sample AWSGlueAsyncHandler.DeleteDataQualityRuleset
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteDataQualityRuleset" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteDataQualityRulesetResult> deleteDataQualityRulesetAsync(DeleteDataQualityRulesetRequest deleteDataQualityRulesetRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteDataQualityRulesetRequest, DeleteDataQualityRulesetResult> asyncHandler);
+
+    /**
+     * <p>
+     * Removes a specified database from a Data Catalog.
      * </p>
      * <note>
      * <p>
-     * After completing this operation, you will no longer have access to the tables (and all table versions and
-     * partitions that might belong to the tables) and the user-defined functions in the deleted database. AWS Glue
-     * deletes these "orphaned" resources asynchronously in a timely manner, at the discretion of the service.
+     * After completing this operation, you no longer have access to the tables (and all table versions and partitions
+     * that might belong to the tables) and the user-defined functions in the deleted database. Glue deletes these
+     * "orphaned" resources asynchronously in a timely manner, at the discretion of the service.
      * </p>
      * <p>
-     * To ensure immediate deletion of all related resources, before calling <code>DeleteDatabase</code>, use
+     * To ensure the immediate deletion of all related resources, before calling <code>DeleteDatabase</code>, use
      * <code>DeleteTableVersion</code> or <code>BatchDeleteTableVersion</code>, <code>DeletePartition</code> or
      * <code>BatchDeletePartition</code>, <code>DeleteUserDefinedFunction</code>, and <code>DeleteTable</code> or
      * <code>BatchDeleteTable</code>, to delete any resources that belong to the database.
@@ -993,16 +1886,16 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Removes a specified Database from a Data Catalog.
+     * Removes a specified database from a Data Catalog.
      * </p>
      * <note>
      * <p>
-     * After completing this operation, you will no longer have access to the tables (and all table versions and
-     * partitions that might belong to the tables) and the user-defined functions in the deleted database. AWS Glue
-     * deletes these "orphaned" resources asynchronously in a timely manner, at the discretion of the service.
+     * After completing this operation, you no longer have access to the tables (and all table versions and partitions
+     * that might belong to the tables) and the user-defined functions in the deleted database. Glue deletes these
+     * "orphaned" resources asynchronously in a timely manner, at the discretion of the service.
      * </p>
      * <p>
-     * To ensure immediate deletion of all related resources, before calling <code>DeleteDatabase</code>, use
+     * To ensure the immediate deletion of all related resources, before calling <code>DeleteDatabase</code>, use
      * <code>DeleteTableVersion</code> or <code>BatchDeleteTableVersion</code>, <code>DeletePartition</code> or
      * <code>BatchDeletePartition</code>, <code>DeleteUserDefinedFunction</code>, and <code>DeleteTable</code> or
      * <code>BatchDeleteTable</code>, to delete any resources that belong to the database.
@@ -1086,6 +1979,45 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Deletes an Glue machine learning transform. Machine learning transforms are a special type of transform that use
+     * machine learning to learn the details of the transformation to be performed by learning from examples provided by
+     * humans. These transformations are then saved by Glue. If you no longer need a transform, you can delete it by
+     * calling <code>DeleteMLTransforms</code>. However, any Glue jobs that still reference the deleted transform will
+     * no longer succeed.
+     * </p>
+     * 
+     * @param deleteMLTransformRequest
+     * @return A Java Future containing the result of the DeleteMLTransform operation returned by the service.
+     * @sample AWSGlueAsync.DeleteMLTransform
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteMLTransform" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteMLTransformResult> deleteMLTransformAsync(DeleteMLTransformRequest deleteMLTransformRequest);
+
+    /**
+     * <p>
+     * Deletes an Glue machine learning transform. Machine learning transforms are a special type of transform that use
+     * machine learning to learn the details of the transformation to be performed by learning from examples provided by
+     * humans. These transformations are then saved by Glue. If you no longer need a transform, you can delete it by
+     * calling <code>DeleteMLTransforms</code>. However, any Glue jobs that still reference the deleted transform will
+     * no longer succeed.
+     * </p>
+     * 
+     * @param deleteMLTransformRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteMLTransform operation returned by the service.
+     * @sample AWSGlueAsyncHandler.DeleteMLTransform
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteMLTransform" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteMLTransformResult> deleteMLTransformAsync(DeleteMLTransformRequest deleteMLTransformRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteMLTransformRequest, DeleteMLTransformResult> asyncHandler);
+
+    /**
+     * <p>
      * Deletes a specified partition.
      * </p>
      * 
@@ -1117,6 +2049,74 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Deletes a specified partition index from an existing table.
+     * </p>
+     * 
+     * @param deletePartitionIndexRequest
+     * @return A Java Future containing the result of the DeletePartitionIndex operation returned by the service.
+     * @sample AWSGlueAsync.DeletePartitionIndex
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeletePartitionIndex" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeletePartitionIndexResult> deletePartitionIndexAsync(DeletePartitionIndexRequest deletePartitionIndexRequest);
+
+    /**
+     * <p>
+     * Deletes a specified partition index from an existing table.
+     * </p>
+     * 
+     * @param deletePartitionIndexRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeletePartitionIndex operation returned by the service.
+     * @sample AWSGlueAsyncHandler.DeletePartitionIndex
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeletePartitionIndex" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeletePartitionIndexResult> deletePartitionIndexAsync(DeletePartitionIndexRequest deletePartitionIndexRequest,
+            com.amazonaws.handlers.AsyncHandler<DeletePartitionIndexRequest, DeletePartitionIndexResult> asyncHandler);
+
+    /**
+     * <p>
+     * Delete the entire registry including schema and all of its versions. To get the status of the delete operation,
+     * you can call the <code>GetRegistry</code> API after the asynchronous call. Deleting a registry will deactivate
+     * all online operations for the registry such as the <code>UpdateRegistry</code>, <code>CreateSchema</code>,
+     * <code>UpdateSchema</code>, and <code>RegisterSchemaVersion</code> APIs.
+     * </p>
+     * 
+     * @param deleteRegistryRequest
+     * @return A Java Future containing the result of the DeleteRegistry operation returned by the service.
+     * @sample AWSGlueAsync.DeleteRegistry
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteRegistry" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteRegistryResult> deleteRegistryAsync(DeleteRegistryRequest deleteRegistryRequest);
+
+    /**
+     * <p>
+     * Delete the entire registry including schema and all of its versions. To get the status of the delete operation,
+     * you can call the <code>GetRegistry</code> API after the asynchronous call. Deleting a registry will deactivate
+     * all online operations for the registry such as the <code>UpdateRegistry</code>, <code>CreateSchema</code>,
+     * <code>UpdateSchema</code>, and <code>RegisterSchemaVersion</code> APIs.
+     * </p>
+     * 
+     * @param deleteRegistryRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteRegistry operation returned by the service.
+     * @sample AWSGlueAsyncHandler.DeleteRegistry
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteRegistry" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteRegistryResult> deleteRegistryAsync(DeleteRegistryRequest deleteRegistryRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteRegistryRequest, DeleteRegistryResult> asyncHandler);
+
+    /**
+     * <p>
      * Deletes a specified policy.
      * </p>
      * 
@@ -1145,6 +2145,108 @@ public interface AWSGlueAsync extends AWSGlue {
      */
     java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(DeleteResourcePolicyRequest deleteResourcePolicyRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteResourcePolicyRequest, DeleteResourcePolicyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes the entire schema set, including the schema set and all of its versions. To get the status of the delete
+     * operation, you can call <code>GetSchema</code> API after the asynchronous call. Deleting a registry will
+     * deactivate all online operations for the schema, such as the <code>GetSchemaByDefinition</code>, and
+     * <code>RegisterSchemaVersion</code> APIs.
+     * </p>
+     * 
+     * @param deleteSchemaRequest
+     * @return A Java Future containing the result of the DeleteSchema operation returned by the service.
+     * @sample AWSGlueAsync.DeleteSchema
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteSchema" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteSchemaResult> deleteSchemaAsync(DeleteSchemaRequest deleteSchemaRequest);
+
+    /**
+     * <p>
+     * Deletes the entire schema set, including the schema set and all of its versions. To get the status of the delete
+     * operation, you can call <code>GetSchema</code> API after the asynchronous call. Deleting a registry will
+     * deactivate all online operations for the schema, such as the <code>GetSchemaByDefinition</code>, and
+     * <code>RegisterSchemaVersion</code> APIs.
+     * </p>
+     * 
+     * @param deleteSchemaRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteSchema operation returned by the service.
+     * @sample AWSGlueAsyncHandler.DeleteSchema
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteSchema" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteSchemaResult> deleteSchemaAsync(DeleteSchemaRequest deleteSchemaRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteSchemaRequest, DeleteSchemaResult> asyncHandler);
+
+    /**
+     * <p>
+     * Remove versions from the specified schema. A version number or range may be supplied. If the compatibility mode
+     * forbids deleting of a version that is necessary, such as BACKWARDS_FULL, an error is returned. Calling the
+     * <code>GetSchemaVersions</code> API after this call will list the status of the deleted versions.
+     * </p>
+     * <p>
+     * When the range of version numbers contain check pointed version, the API will return a 409 conflict and will not
+     * proceed with the deletion. You have to remove the checkpoint first using the <code>DeleteSchemaCheckpoint</code>
+     * API before using this API.
+     * </p>
+     * <p>
+     * You cannot use the <code>DeleteSchemaVersions</code> API to delete the first schema version in the schema set.
+     * The first schema version can only be deleted by the <code>DeleteSchema</code> API. This operation will also
+     * delete the attached <code>SchemaVersionMetadata</code> under the schema versions. Hard deletes will be enforced
+     * on the database.
+     * </p>
+     * <p>
+     * If the compatibility mode forbids deleting of a version that is necessary, such as BACKWARDS_FULL, an error is
+     * returned.
+     * </p>
+     * 
+     * @param deleteSchemaVersionsRequest
+     * @return A Java Future containing the result of the DeleteSchemaVersions operation returned by the service.
+     * @sample AWSGlueAsync.DeleteSchemaVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteSchemaVersions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteSchemaVersionsResult> deleteSchemaVersionsAsync(DeleteSchemaVersionsRequest deleteSchemaVersionsRequest);
+
+    /**
+     * <p>
+     * Remove versions from the specified schema. A version number or range may be supplied. If the compatibility mode
+     * forbids deleting of a version that is necessary, such as BACKWARDS_FULL, an error is returned. Calling the
+     * <code>GetSchemaVersions</code> API after this call will list the status of the deleted versions.
+     * </p>
+     * <p>
+     * When the range of version numbers contain check pointed version, the API will return a 409 conflict and will not
+     * proceed with the deletion. You have to remove the checkpoint first using the <code>DeleteSchemaCheckpoint</code>
+     * API before using this API.
+     * </p>
+     * <p>
+     * You cannot use the <code>DeleteSchemaVersions</code> API to delete the first schema version in the schema set.
+     * The first schema version can only be deleted by the <code>DeleteSchema</code> API. This operation will also
+     * delete the attached <code>SchemaVersionMetadata</code> under the schema versions. Hard deletes will be enforced
+     * on the database.
+     * </p>
+     * <p>
+     * If the compatibility mode forbids deleting of a version that is necessary, such as BACKWARDS_FULL, an error is
+     * returned.
+     * </p>
+     * 
+     * @param deleteSchemaVersionsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteSchemaVersions operation returned by the service.
+     * @sample AWSGlueAsyncHandler.DeleteSchemaVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteSchemaVersions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteSchemaVersionsResult> deleteSchemaVersionsAsync(DeleteSchemaVersionsRequest deleteSchemaVersionsRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteSchemaVersionsRequest, DeleteSchemaVersionsResult> asyncHandler);
 
     /**
      * <p>
@@ -1181,16 +2283,47 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Deletes the session.
+     * </p>
+     * 
+     * @param deleteSessionRequest
+     * @return A Java Future containing the result of the DeleteSession operation returned by the service.
+     * @sample AWSGlueAsync.DeleteSession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteSession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteSessionResult> deleteSessionAsync(DeleteSessionRequest deleteSessionRequest);
+
+    /**
+     * <p>
+     * Deletes the session.
+     * </p>
+     * 
+     * @param deleteSessionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteSession operation returned by the service.
+     * @sample AWSGlueAsyncHandler.DeleteSession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteSession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteSessionResult> deleteSessionAsync(DeleteSessionRequest deleteSessionRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteSessionRequest, DeleteSessionResult> asyncHandler);
+
+    /**
+     * <p>
      * Removes a table definition from the Data Catalog.
      * </p>
      * <note>
      * <p>
-     * After completing this operation, you will no longer have access to the table versions and partitions that belong
-     * to the deleted table. AWS Glue deletes these "orphaned" resources asynchronously in a timely manner, at the
-     * discretion of the service.
+     * After completing this operation, you no longer have access to the table versions and partitions that belong to
+     * the deleted table. Glue deletes these "orphaned" resources asynchronously in a timely manner, at the discretion
+     * of the service.
      * </p>
      * <p>
-     * To ensure immediate deletion of all related resources, before calling <code>DeleteTable</code>, use
+     * To ensure the immediate deletion of all related resources, before calling <code>DeleteTable</code>, use
      * <code>DeleteTableVersion</code> or <code>BatchDeleteTableVersion</code>, and <code>DeletePartition</code> or
      * <code>BatchDeletePartition</code>, to delete any resources that belong to the table.
      * </p>
@@ -1210,12 +2343,12 @@ public interface AWSGlueAsync extends AWSGlue {
      * </p>
      * <note>
      * <p>
-     * After completing this operation, you will no longer have access to the table versions and partitions that belong
-     * to the deleted table. AWS Glue deletes these "orphaned" resources asynchronously in a timely manner, at the
-     * discretion of the service.
+     * After completing this operation, you no longer have access to the table versions and partitions that belong to
+     * the deleted table. Glue deletes these "orphaned" resources asynchronously in a timely manner, at the discretion
+     * of the service.
      * </p>
      * <p>
-     * To ensure immediate deletion of all related resources, before calling <code>DeleteTable</code>, use
+     * To ensure the immediate deletion of all related resources, before calling <code>DeleteTable</code>, use
      * <code>DeleteTableVersion</code> or <code>BatchDeleteTableVersion</code>, and <code>DeletePartition</code> or
      * <code>BatchDeletePartition</code>, to delete any resources that belong to the table.
      * </p>
@@ -1233,6 +2366,39 @@ public interface AWSGlueAsync extends AWSGlue {
      */
     java.util.concurrent.Future<DeleteTableResult> deleteTableAsync(DeleteTableRequest deleteTableRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteTableRequest, DeleteTableResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes an optimizer and all associated metadata for a table. The optimization will no longer be performed on the
+     * table.
+     * </p>
+     * 
+     * @param deleteTableOptimizerRequest
+     * @return A Java Future containing the result of the DeleteTableOptimizer operation returned by the service.
+     * @sample AWSGlueAsync.DeleteTableOptimizer
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteTableOptimizer" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteTableOptimizerResult> deleteTableOptimizerAsync(DeleteTableOptimizerRequest deleteTableOptimizerRequest);
+
+    /**
+     * <p>
+     * Deletes an optimizer and all associated metadata for a table. The optimization will no longer be performed on the
+     * table.
+     * </p>
+     * 
+     * @param deleteTableOptimizerRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteTableOptimizer operation returned by the service.
+     * @sample AWSGlueAsyncHandler.DeleteTableOptimizer
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteTableOptimizer" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteTableOptimizerResult> deleteTableOptimizerAsync(DeleteTableOptimizerRequest deleteTableOptimizerRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteTableOptimizerRequest, DeleteTableOptimizerResult> asyncHandler);
 
     /**
      * <p>
@@ -1298,6 +2464,37 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Deletes the Glue specified usage profile.
+     * </p>
+     * 
+     * @param deleteUsageProfileRequest
+     * @return A Java Future containing the result of the DeleteUsageProfile operation returned by the service.
+     * @sample AWSGlueAsync.DeleteUsageProfile
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteUsageProfile" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteUsageProfileResult> deleteUsageProfileAsync(DeleteUsageProfileRequest deleteUsageProfileRequest);
+
+    /**
+     * <p>
+     * Deletes the Glue specified usage profile.
+     * </p>
+     * 
+     * @param deleteUsageProfileRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteUsageProfile operation returned by the service.
+     * @sample AWSGlueAsyncHandler.DeleteUsageProfile
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteUsageProfile" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteUsageProfileResult> deleteUsageProfileAsync(DeleteUsageProfileRequest deleteUsageProfileRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteUsageProfileRequest, DeleteUsageProfileResult> asyncHandler);
+
+    /**
+     * <p>
      * Deletes an existing function definition from the Data Catalog.
      * </p>
      * 
@@ -1359,6 +2556,99 @@ public interface AWSGlueAsync extends AWSGlue {
      */
     java.util.concurrent.Future<DeleteWorkflowResult> deleteWorkflowAsync(DeleteWorkflowRequest deleteWorkflowRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteWorkflowRequest, DeleteWorkflowResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves the details of a blueprint.
+     * </p>
+     * 
+     * @param getBlueprintRequest
+     * @return A Java Future containing the result of the GetBlueprint operation returned by the service.
+     * @sample AWSGlueAsync.GetBlueprint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetBlueprint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetBlueprintResult> getBlueprintAsync(GetBlueprintRequest getBlueprintRequest);
+
+    /**
+     * <p>
+     * Retrieves the details of a blueprint.
+     * </p>
+     * 
+     * @param getBlueprintRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetBlueprint operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetBlueprint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetBlueprint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetBlueprintResult> getBlueprintAsync(GetBlueprintRequest getBlueprintRequest,
+            com.amazonaws.handlers.AsyncHandler<GetBlueprintRequest, GetBlueprintResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves the details of a blueprint run.
+     * </p>
+     * 
+     * @param getBlueprintRunRequest
+     * @return A Java Future containing the result of the GetBlueprintRun operation returned by the service.
+     * @sample AWSGlueAsync.GetBlueprintRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetBlueprintRun" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetBlueprintRunResult> getBlueprintRunAsync(GetBlueprintRunRequest getBlueprintRunRequest);
+
+    /**
+     * <p>
+     * Retrieves the details of a blueprint run.
+     * </p>
+     * 
+     * @param getBlueprintRunRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetBlueprintRun operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetBlueprintRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetBlueprintRun" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetBlueprintRunResult> getBlueprintRunAsync(GetBlueprintRunRequest getBlueprintRunRequest,
+            com.amazonaws.handlers.AsyncHandler<GetBlueprintRunRequest, GetBlueprintRunResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves the details of blueprint runs for a specified blueprint.
+     * </p>
+     * 
+     * @param getBlueprintRunsRequest
+     * @return A Java Future containing the result of the GetBlueprintRuns operation returned by the service.
+     * @sample AWSGlueAsync.GetBlueprintRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetBlueprintRuns" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetBlueprintRunsResult> getBlueprintRunsAsync(GetBlueprintRunsRequest getBlueprintRunsRequest);
+
+    /**
+     * <p>
+     * Retrieves the details of blueprint runs for a specified blueprint.
+     * </p>
+     * 
+     * @param getBlueprintRunsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetBlueprintRuns operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetBlueprintRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetBlueprintRuns" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetBlueprintRunsResult> getBlueprintRunsAsync(GetBlueprintRunsRequest getBlueprintRunsRequest,
+            com.amazonaws.handlers.AsyncHandler<GetBlueprintRunsRequest, GetBlueprintRunsResult> asyncHandler);
 
     /**
      * <p>
@@ -1452,6 +2742,152 @@ public interface AWSGlueAsync extends AWSGlue {
      */
     java.util.concurrent.Future<GetClassifiersResult> getClassifiersAsync(GetClassifiersRequest getClassifiersRequest,
             com.amazonaws.handlers.AsyncHandler<GetClassifiersRequest, GetClassifiersResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves partition statistics of columns.
+     * </p>
+     * <p>
+     * The Identity and Access Management (IAM) permission required for this operation is <code>GetPartition</code>.
+     * </p>
+     * 
+     * @param getColumnStatisticsForPartitionRequest
+     * @return A Java Future containing the result of the GetColumnStatisticsForPartition operation returned by the
+     *         service.
+     * @sample AWSGlueAsync.GetColumnStatisticsForPartition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetColumnStatisticsForPartition"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetColumnStatisticsForPartitionResult> getColumnStatisticsForPartitionAsync(
+            GetColumnStatisticsForPartitionRequest getColumnStatisticsForPartitionRequest);
+
+    /**
+     * <p>
+     * Retrieves partition statistics of columns.
+     * </p>
+     * <p>
+     * The Identity and Access Management (IAM) permission required for this operation is <code>GetPartition</code>.
+     * </p>
+     * 
+     * @param getColumnStatisticsForPartitionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetColumnStatisticsForPartition operation returned by the
+     *         service.
+     * @sample AWSGlueAsyncHandler.GetColumnStatisticsForPartition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetColumnStatisticsForPartition"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetColumnStatisticsForPartitionResult> getColumnStatisticsForPartitionAsync(
+            GetColumnStatisticsForPartitionRequest getColumnStatisticsForPartitionRequest,
+            com.amazonaws.handlers.AsyncHandler<GetColumnStatisticsForPartitionRequest, GetColumnStatisticsForPartitionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves table statistics of columns.
+     * </p>
+     * <p>
+     * The Identity and Access Management (IAM) permission required for this operation is <code>GetTable</code>.
+     * </p>
+     * 
+     * @param getColumnStatisticsForTableRequest
+     * @return A Java Future containing the result of the GetColumnStatisticsForTable operation returned by the service.
+     * @sample AWSGlueAsync.GetColumnStatisticsForTable
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetColumnStatisticsForTable"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetColumnStatisticsForTableResult> getColumnStatisticsForTableAsync(
+            GetColumnStatisticsForTableRequest getColumnStatisticsForTableRequest);
+
+    /**
+     * <p>
+     * Retrieves table statistics of columns.
+     * </p>
+     * <p>
+     * The Identity and Access Management (IAM) permission required for this operation is <code>GetTable</code>.
+     * </p>
+     * 
+     * @param getColumnStatisticsForTableRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetColumnStatisticsForTable operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetColumnStatisticsForTable
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetColumnStatisticsForTable"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetColumnStatisticsForTableResult> getColumnStatisticsForTableAsync(
+            GetColumnStatisticsForTableRequest getColumnStatisticsForTableRequest,
+            com.amazonaws.handlers.AsyncHandler<GetColumnStatisticsForTableRequest, GetColumnStatisticsForTableResult> asyncHandler);
+
+    /**
+     * <p>
+     * Get the associated metadata/information for a task run, given a task run ID.
+     * </p>
+     * 
+     * @param getColumnStatisticsTaskRunRequest
+     * @return A Java Future containing the result of the GetColumnStatisticsTaskRun operation returned by the service.
+     * @sample AWSGlueAsync.GetColumnStatisticsTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetColumnStatisticsTaskRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetColumnStatisticsTaskRunResult> getColumnStatisticsTaskRunAsync(
+            GetColumnStatisticsTaskRunRequest getColumnStatisticsTaskRunRequest);
+
+    /**
+     * <p>
+     * Get the associated metadata/information for a task run, given a task run ID.
+     * </p>
+     * 
+     * @param getColumnStatisticsTaskRunRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetColumnStatisticsTaskRun operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetColumnStatisticsTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetColumnStatisticsTaskRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetColumnStatisticsTaskRunResult> getColumnStatisticsTaskRunAsync(
+            GetColumnStatisticsTaskRunRequest getColumnStatisticsTaskRunRequest,
+            com.amazonaws.handlers.AsyncHandler<GetColumnStatisticsTaskRunRequest, GetColumnStatisticsTaskRunResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves information about all runs associated with the specified table.
+     * </p>
+     * 
+     * @param getColumnStatisticsTaskRunsRequest
+     * @return A Java Future containing the result of the GetColumnStatisticsTaskRuns operation returned by the service.
+     * @sample AWSGlueAsync.GetColumnStatisticsTaskRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetColumnStatisticsTaskRuns"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetColumnStatisticsTaskRunsResult> getColumnStatisticsTaskRunsAsync(
+            GetColumnStatisticsTaskRunsRequest getColumnStatisticsTaskRunsRequest);
+
+    /**
+     * <p>
+     * Retrieves information about all runs associated with the specified table.
+     * </p>
+     * 
+     * @param getColumnStatisticsTaskRunsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetColumnStatisticsTaskRuns operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetColumnStatisticsTaskRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetColumnStatisticsTaskRuns"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetColumnStatisticsTaskRunsResult> getColumnStatisticsTaskRunsAsync(
+            GetColumnStatisticsTaskRunsRequest getColumnStatisticsTaskRunsRequest,
+            com.amazonaws.handlers.AsyncHandler<GetColumnStatisticsTaskRunsRequest, GetColumnStatisticsTaskRunsResult> asyncHandler);
 
     /**
      * <p>
@@ -1610,6 +3046,37 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Retrieves the details of a custom pattern by specifying its name.
+     * </p>
+     * 
+     * @param getCustomEntityTypeRequest
+     * @return A Java Future containing the result of the GetCustomEntityType operation returned by the service.
+     * @sample AWSGlueAsync.GetCustomEntityType
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetCustomEntityType" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetCustomEntityTypeResult> getCustomEntityTypeAsync(GetCustomEntityTypeRequest getCustomEntityTypeRequest);
+
+    /**
+     * <p>
+     * Retrieves the details of a custom pattern by specifying its name.
+     * </p>
+     * 
+     * @param getCustomEntityTypeRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetCustomEntityType operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetCustomEntityType
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetCustomEntityType" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetCustomEntityTypeResult> getCustomEntityTypeAsync(GetCustomEntityTypeRequest getCustomEntityTypeRequest,
+            com.amazonaws.handlers.AsyncHandler<GetCustomEntityTypeRequest, GetCustomEntityTypeResult> asyncHandler);
+
+    /**
+     * <p>
      * Retrieves the security configuration for a specified catalog.
      * </p>
      * 
@@ -1645,6 +3112,138 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Retrieves the result of a data quality rule evaluation.
+     * </p>
+     * 
+     * @param getDataQualityResultRequest
+     * @return A Java Future containing the result of the GetDataQualityResult operation returned by the service.
+     * @sample AWSGlueAsync.GetDataQualityResult
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetDataQualityResult" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetDataQualityResultResult> getDataQualityResultAsync(GetDataQualityResultRequest getDataQualityResultRequest);
+
+    /**
+     * <p>
+     * Retrieves the result of a data quality rule evaluation.
+     * </p>
+     * 
+     * @param getDataQualityResultRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetDataQualityResult operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetDataQualityResult
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetDataQualityResult" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetDataQualityResultResult> getDataQualityResultAsync(GetDataQualityResultRequest getDataQualityResultRequest,
+            com.amazonaws.handlers.AsyncHandler<GetDataQualityResultRequest, GetDataQualityResultResult> asyncHandler);
+
+    /**
+     * <p>
+     * Gets the specified recommendation run that was used to generate rules.
+     * </p>
+     * 
+     * @param getDataQualityRuleRecommendationRunRequest
+     * @return A Java Future containing the result of the GetDataQualityRuleRecommendationRun operation returned by the
+     *         service.
+     * @sample AWSGlueAsync.GetDataQualityRuleRecommendationRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetDataQualityRuleRecommendationRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetDataQualityRuleRecommendationRunResult> getDataQualityRuleRecommendationRunAsync(
+            GetDataQualityRuleRecommendationRunRequest getDataQualityRuleRecommendationRunRequest);
+
+    /**
+     * <p>
+     * Gets the specified recommendation run that was used to generate rules.
+     * </p>
+     * 
+     * @param getDataQualityRuleRecommendationRunRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetDataQualityRuleRecommendationRun operation returned by the
+     *         service.
+     * @sample AWSGlueAsyncHandler.GetDataQualityRuleRecommendationRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetDataQualityRuleRecommendationRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetDataQualityRuleRecommendationRunResult> getDataQualityRuleRecommendationRunAsync(
+            GetDataQualityRuleRecommendationRunRequest getDataQualityRuleRecommendationRunRequest,
+            com.amazonaws.handlers.AsyncHandler<GetDataQualityRuleRecommendationRunRequest, GetDataQualityRuleRecommendationRunResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns an existing ruleset by identifier or name.
+     * </p>
+     * 
+     * @param getDataQualityRulesetRequest
+     * @return A Java Future containing the result of the GetDataQualityRuleset operation returned by the service.
+     * @sample AWSGlueAsync.GetDataQualityRuleset
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetDataQualityRuleset" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetDataQualityRulesetResult> getDataQualityRulesetAsync(GetDataQualityRulesetRequest getDataQualityRulesetRequest);
+
+    /**
+     * <p>
+     * Returns an existing ruleset by identifier or name.
+     * </p>
+     * 
+     * @param getDataQualityRulesetRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetDataQualityRuleset operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetDataQualityRuleset
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetDataQualityRuleset" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetDataQualityRulesetResult> getDataQualityRulesetAsync(GetDataQualityRulesetRequest getDataQualityRulesetRequest,
+            com.amazonaws.handlers.AsyncHandler<GetDataQualityRulesetRequest, GetDataQualityRulesetResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves a specific run where a ruleset is evaluated against a data source.
+     * </p>
+     * 
+     * @param getDataQualityRulesetEvaluationRunRequest
+     * @return A Java Future containing the result of the GetDataQualityRulesetEvaluationRun operation returned by the
+     *         service.
+     * @sample AWSGlueAsync.GetDataQualityRulesetEvaluationRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetDataQualityRulesetEvaluationRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetDataQualityRulesetEvaluationRunResult> getDataQualityRulesetEvaluationRunAsync(
+            GetDataQualityRulesetEvaluationRunRequest getDataQualityRulesetEvaluationRunRequest);
+
+    /**
+     * <p>
+     * Retrieves a specific run where a ruleset is evaluated against a data source.
+     * </p>
+     * 
+     * @param getDataQualityRulesetEvaluationRunRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetDataQualityRulesetEvaluationRun operation returned by the
+     *         service.
+     * @sample AWSGlueAsyncHandler.GetDataQualityRulesetEvaluationRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetDataQualityRulesetEvaluationRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetDataQualityRulesetEvaluationRunResult> getDataQualityRulesetEvaluationRunAsync(
+            GetDataQualityRulesetEvaluationRunRequest getDataQualityRulesetEvaluationRunRequest,
+            com.amazonaws.handlers.AsyncHandler<GetDataQualityRulesetEvaluationRunRequest, GetDataQualityRulesetEvaluationRunResult> asyncHandler);
+
+    /**
+     * <p>
      * Retrieves the definition of a specified database.
      * </p>
      * 
@@ -1676,7 +3275,7 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Retrieves all Databases defined in a given Data Catalog.
+     * Retrieves all databases defined in a given Data Catalog.
      * </p>
      * 
      * @param getDatabasesRequest
@@ -1689,7 +3288,7 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Retrieves all Databases defined in a given Data Catalog.
+     * Retrieves all databases defined in a given Data Catalog.
      * </p>
      * 
      * @param getDatabasesRequest
@@ -1742,9 +3341,9 @@ public interface AWSGlueAsync extends AWSGlue {
      * </p>
      * <note>
      * <p>
-     * When you create a development endpoint in a virtual private cloud (VPC), AWS Glue returns only a private IP
-     * address, and the public IP address field is not populated. When you create a non-VPC development endpoint, AWS
-     * Glue returns only a public IP address.
+     * When you create a development endpoint in a virtual private cloud (VPC), Glue returns only a private IP address,
+     * and the public IP address field is not populated. When you create a non-VPC development endpoint, Glue returns
+     * only a public IP address.
      * </p>
      * </note>
      * 
@@ -1762,9 +3361,9 @@ public interface AWSGlueAsync extends AWSGlue {
      * </p>
      * <note>
      * <p>
-     * When you create a development endpoint in a virtual private cloud (VPC), AWS Glue returns only a private IP
-     * address, and the public IP address field is not populated. When you create a non-VPC development endpoint, AWS
-     * Glue returns only a public IP address.
+     * When you create a development endpoint in a virtual private cloud (VPC), Glue returns only a private IP address,
+     * and the public IP address field is not populated. When you create a non-VPC development endpoint, Glue returns
+     * only a public IP address.
      * </p>
      * </note>
      * 
@@ -1783,13 +3382,13 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Retrieves all the development endpoints in this AWS account.
+     * Retrieves all the development endpoints in this Amazon Web Services account.
      * </p>
      * <note>
      * <p>
-     * When you create a development endpoint in a virtual private cloud (VPC), AWS Glue returns only a private IP
-     * address and the public IP address field is not populated. When you create a non-VPC development endpoint, AWS
-     * Glue returns only a public IP address.
+     * When you create a development endpoint in a virtual private cloud (VPC), Glue returns only a private IP address
+     * and the public IP address field is not populated. When you create a non-VPC development endpoint, Glue returns
+     * only a public IP address.
      * </p>
      * </note>
      * 
@@ -1803,13 +3402,13 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Retrieves all the development endpoints in this AWS account.
+     * Retrieves all the development endpoints in this Amazon Web Services account.
      * </p>
      * <note>
      * <p>
-     * When you create a development endpoint in a virtual private cloud (VPC), AWS Glue returns only a private IP
-     * address and the public IP address field is not populated. When you create a non-VPC development endpoint, AWS
-     * Glue returns only a public IP address.
+     * When you create a development endpoint in a virtual private cloud (VPC), Glue returns only a private IP address
+     * and the public IP address field is not populated. When you create a non-VPC development endpoint, Glue returns
+     * only a public IP address.
      * </p>
      * </note>
      * 
@@ -1861,6 +3460,29 @@ public interface AWSGlueAsync extends AWSGlue {
      * <p>
      * Returns information on a job bookmark entry.
      * </p>
+     * <p>
+     * For more information about enabling and using job bookmarks, see:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-continuations.html">Tracking processed data using job
+     * bookmarks</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html">Job parameters
+     * used by Glue</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-jobs-job.html#aws-glue-api-jobs-job-Job">Job
+     * structure</a>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param getJobBookmarkRequest
      * @return A Java Future containing the result of the GetJobBookmark operation returned by the service.
@@ -1874,6 +3496,29 @@ public interface AWSGlueAsync extends AWSGlue {
      * <p>
      * Returns information on a job bookmark entry.
      * </p>
+     * <p>
+     * For more information about enabling and using job bookmarks, see:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-continuations.html">Tracking processed data using job
+     * bookmarks</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html">Job parameters
+     * used by Glue</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-jobs-job.html#aws-glue-api-jobs-job-Job">Job
+     * structure</a>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param getJobBookmarkRequest
      * @param asyncHandler
@@ -1890,38 +3535,8 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Returns information on the job bookmark entries. The list is ordered on decreasing version numbers.
-     * </p>
-     * 
-     * @param getJobBookmarksRequest
-     * @return A Java Future containing the result of the GetJobBookmarks operation returned by the service.
-     * @sample AWSGlueAsync.GetJobBookmarks
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetJobBookmarks" target="_top">AWS API
-     *      Documentation</a>
-     */
-    java.util.concurrent.Future<GetJobBookmarksResult> getJobBookmarksAsync(GetJobBookmarksRequest getJobBookmarksRequest);
-
-    /**
-     * <p>
-     * Returns information on the job bookmark entries. The list is ordered on decreasing version numbers.
-     * </p>
-     * 
-     * @param getJobBookmarksRequest
-     * @param asyncHandler
-     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
-     *        implementation of the callback methods in this interface to receive notification of successful or
-     *        unsuccessful completion of the operation.
-     * @return A Java Future containing the result of the GetJobBookmarks operation returned by the service.
-     * @sample AWSGlueAsyncHandler.GetJobBookmarks
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetJobBookmarks" target="_top">AWS API
-     *      Documentation</a>
-     */
-    java.util.concurrent.Future<GetJobBookmarksResult> getJobBookmarksAsync(GetJobBookmarksRequest getJobBookmarksRequest,
-            com.amazonaws.handlers.AsyncHandler<GetJobBookmarksRequest, GetJobBookmarksResult> asyncHandler);
-
-    /**
-     * <p>
-     * Retrieves the metadata for a given job run.
+     * Retrieves the metadata for a given job run. Job run history is accessible for 90 days for your workflow and job
+     * run.
      * </p>
      * 
      * @param getJobRunRequest
@@ -1934,7 +3549,8 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Retrieves the metadata for a given job run.
+     * Retrieves the metadata for a given job run. Job run history is accessible for 90 days for your workflow and job
+     * run.
      * </p>
      * 
      * @param getJobRunRequest
@@ -2014,6 +3630,160 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Gets details for a specific task run on a machine learning transform. Machine learning task runs are asynchronous
+     * tasks that Glue runs on your behalf as part of various machine learning workflows. You can check the stats of any
+     * task run by calling <code>GetMLTaskRun</code> with the <code>TaskRunID</code> and its parent transform's
+     * <code>TransformID</code>.
+     * </p>
+     * 
+     * @param getMLTaskRunRequest
+     * @return A Java Future containing the result of the GetMLTaskRun operation returned by the service.
+     * @sample AWSGlueAsync.GetMLTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetMLTaskRun" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetMLTaskRunResult> getMLTaskRunAsync(GetMLTaskRunRequest getMLTaskRunRequest);
+
+    /**
+     * <p>
+     * Gets details for a specific task run on a machine learning transform. Machine learning task runs are asynchronous
+     * tasks that Glue runs on your behalf as part of various machine learning workflows. You can check the stats of any
+     * task run by calling <code>GetMLTaskRun</code> with the <code>TaskRunID</code> and its parent transform's
+     * <code>TransformID</code>.
+     * </p>
+     * 
+     * @param getMLTaskRunRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetMLTaskRun operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetMLTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetMLTaskRun" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetMLTaskRunResult> getMLTaskRunAsync(GetMLTaskRunRequest getMLTaskRunRequest,
+            com.amazonaws.handlers.AsyncHandler<GetMLTaskRunRequest, GetMLTaskRunResult> asyncHandler);
+
+    /**
+     * <p>
+     * Gets a list of runs for a machine learning transform. Machine learning task runs are asynchronous tasks that Glue
+     * runs on your behalf as part of various machine learning workflows. You can get a sortable, filterable list of
+     * machine learning task runs by calling <code>GetMLTaskRuns</code> with their parent transform's
+     * <code>TransformID</code> and other optional parameters as documented in this section.
+     * </p>
+     * <p>
+     * This operation returns a list of historic runs and must be paginated.
+     * </p>
+     * 
+     * @param getMLTaskRunsRequest
+     * @return A Java Future containing the result of the GetMLTaskRuns operation returned by the service.
+     * @sample AWSGlueAsync.GetMLTaskRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetMLTaskRuns" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetMLTaskRunsResult> getMLTaskRunsAsync(GetMLTaskRunsRequest getMLTaskRunsRequest);
+
+    /**
+     * <p>
+     * Gets a list of runs for a machine learning transform. Machine learning task runs are asynchronous tasks that Glue
+     * runs on your behalf as part of various machine learning workflows. You can get a sortable, filterable list of
+     * machine learning task runs by calling <code>GetMLTaskRuns</code> with their parent transform's
+     * <code>TransformID</code> and other optional parameters as documented in this section.
+     * </p>
+     * <p>
+     * This operation returns a list of historic runs and must be paginated.
+     * </p>
+     * 
+     * @param getMLTaskRunsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetMLTaskRuns operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetMLTaskRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetMLTaskRuns" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetMLTaskRunsResult> getMLTaskRunsAsync(GetMLTaskRunsRequest getMLTaskRunsRequest,
+            com.amazonaws.handlers.AsyncHandler<GetMLTaskRunsRequest, GetMLTaskRunsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Gets an Glue machine learning transform artifact and all its corresponding metadata. Machine learning transforms
+     * are a special type of transform that use machine learning to learn the details of the transformation to be
+     * performed by learning from examples provided by humans. These transformations are then saved by Glue. You can
+     * retrieve their metadata by calling <code>GetMLTransform</code>.
+     * </p>
+     * 
+     * @param getMLTransformRequest
+     * @return A Java Future containing the result of the GetMLTransform operation returned by the service.
+     * @sample AWSGlueAsync.GetMLTransform
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetMLTransform" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetMLTransformResult> getMLTransformAsync(GetMLTransformRequest getMLTransformRequest);
+
+    /**
+     * <p>
+     * Gets an Glue machine learning transform artifact and all its corresponding metadata. Machine learning transforms
+     * are a special type of transform that use machine learning to learn the details of the transformation to be
+     * performed by learning from examples provided by humans. These transformations are then saved by Glue. You can
+     * retrieve their metadata by calling <code>GetMLTransform</code>.
+     * </p>
+     * 
+     * @param getMLTransformRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetMLTransform operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetMLTransform
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetMLTransform" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetMLTransformResult> getMLTransformAsync(GetMLTransformRequest getMLTransformRequest,
+            com.amazonaws.handlers.AsyncHandler<GetMLTransformRequest, GetMLTransformResult> asyncHandler);
+
+    /**
+     * <p>
+     * Gets a sortable, filterable list of existing Glue machine learning transforms. Machine learning transforms are a
+     * special type of transform that use machine learning to learn the details of the transformation to be performed by
+     * learning from examples provided by humans. These transformations are then saved by Glue, and you can retrieve
+     * their metadata by calling <code>GetMLTransforms</code>.
+     * </p>
+     * 
+     * @param getMLTransformsRequest
+     * @return A Java Future containing the result of the GetMLTransforms operation returned by the service.
+     * @sample AWSGlueAsync.GetMLTransforms
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetMLTransforms" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetMLTransformsResult> getMLTransformsAsync(GetMLTransformsRequest getMLTransformsRequest);
+
+    /**
+     * <p>
+     * Gets a sortable, filterable list of existing Glue machine learning transforms. Machine learning transforms are a
+     * special type of transform that use machine learning to learn the details of the transformation to be performed by
+     * learning from examples provided by humans. These transformations are then saved by Glue, and you can retrieve
+     * their metadata by calling <code>GetMLTransforms</code>.
+     * </p>
+     * 
+     * @param getMLTransformsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetMLTransforms operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetMLTransforms
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetMLTransforms" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetMLTransformsResult> getMLTransformsAsync(GetMLTransformsRequest getMLTransformsRequest,
+            com.amazonaws.handlers.AsyncHandler<GetMLTransformsRequest, GetMLTransformsResult> asyncHandler);
+
+    /**
+     * <p>
      * Creates mappings.
      * </p>
      * 
@@ -2073,6 +3843,37 @@ public interface AWSGlueAsync extends AWSGlue {
      */
     java.util.concurrent.Future<GetPartitionResult> getPartitionAsync(GetPartitionRequest getPartitionRequest,
             com.amazonaws.handlers.AsyncHandler<GetPartitionRequest, GetPartitionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves the partition indexes associated with a table.
+     * </p>
+     * 
+     * @param getPartitionIndexesRequest
+     * @return A Java Future containing the result of the GetPartitionIndexes operation returned by the service.
+     * @sample AWSGlueAsync.GetPartitionIndexes
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetPartitionIndexes" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetPartitionIndexesResult> getPartitionIndexesAsync(GetPartitionIndexesRequest getPartitionIndexesRequest);
+
+    /**
+     * <p>
+     * Retrieves the partition indexes associated with a table.
+     * </p>
+     * 
+     * @param getPartitionIndexesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetPartitionIndexes operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetPartitionIndexes
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetPartitionIndexes" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetPartitionIndexesResult> getPartitionIndexesAsync(GetPartitionIndexesRequest getPartitionIndexesRequest,
+            com.amazonaws.handlers.AsyncHandler<GetPartitionIndexesRequest, GetPartitionIndexesResult> asyncHandler);
 
     /**
      * <p>
@@ -2138,6 +3939,78 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Describes the specified registry in detail.
+     * </p>
+     * 
+     * @param getRegistryRequest
+     * @return A Java Future containing the result of the GetRegistry operation returned by the service.
+     * @sample AWSGlueAsync.GetRegistry
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetRegistry" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetRegistryResult> getRegistryAsync(GetRegistryRequest getRegistryRequest);
+
+    /**
+     * <p>
+     * Describes the specified registry in detail.
+     * </p>
+     * 
+     * @param getRegistryRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetRegistry operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetRegistry
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetRegistry" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetRegistryResult> getRegistryAsync(GetRegistryRequest getRegistryRequest,
+            com.amazonaws.handlers.AsyncHandler<GetRegistryRequest, GetRegistryResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves the resource policies set on individual resources by Resource Access Manager during cross-account
+     * permission grants. Also retrieves the Data Catalog resource policy.
+     * </p>
+     * <p>
+     * If you enabled metadata encryption in Data Catalog settings, and you do not have permission on the KMS key, the
+     * operation can't return the Data Catalog resource policy.
+     * </p>
+     * 
+     * @param getResourcePoliciesRequest
+     * @return A Java Future containing the result of the GetResourcePolicies operation returned by the service.
+     * @sample AWSGlueAsync.GetResourcePolicies
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetResourcePolicies" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetResourcePoliciesResult> getResourcePoliciesAsync(GetResourcePoliciesRequest getResourcePoliciesRequest);
+
+    /**
+     * <p>
+     * Retrieves the resource policies set on individual resources by Resource Access Manager during cross-account
+     * permission grants. Also retrieves the Data Catalog resource policy.
+     * </p>
+     * <p>
+     * If you enabled metadata encryption in Data Catalog settings, and you do not have permission on the KMS key, the
+     * operation can't return the Data Catalog resource policy.
+     * </p>
+     * 
+     * @param getResourcePoliciesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetResourcePolicies operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetResourcePolicies
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetResourcePolicies" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetResourcePoliciesResult> getResourcePoliciesAsync(GetResourcePoliciesRequest getResourcePoliciesRequest,
+            com.amazonaws.handlers.AsyncHandler<GetResourcePoliciesRequest, GetResourcePoliciesResult> asyncHandler);
+
+    /**
+     * <p>
      * Retrieves a specified resource policy.
      * </p>
      * 
@@ -2166,6 +4039,146 @@ public interface AWSGlueAsync extends AWSGlue {
      */
     java.util.concurrent.Future<GetResourcePolicyResult> getResourcePolicyAsync(GetResourcePolicyRequest getResourcePolicyRequest,
             com.amazonaws.handlers.AsyncHandler<GetResourcePolicyRequest, GetResourcePolicyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Describes the specified schema in detail.
+     * </p>
+     * 
+     * @param getSchemaRequest
+     * @return A Java Future containing the result of the GetSchema operation returned by the service.
+     * @sample AWSGlueAsync.GetSchema
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetSchema" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetSchemaResult> getSchemaAsync(GetSchemaRequest getSchemaRequest);
+
+    /**
+     * <p>
+     * Describes the specified schema in detail.
+     * </p>
+     * 
+     * @param getSchemaRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetSchema operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetSchema
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetSchema" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetSchemaResult> getSchemaAsync(GetSchemaRequest getSchemaRequest,
+            com.amazonaws.handlers.AsyncHandler<GetSchemaRequest, GetSchemaResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves a schema by the <code>SchemaDefinition</code>. The schema definition is sent to the Schema Registry,
+     * canonicalized, and hashed. If the hash is matched within the scope of the <code>SchemaName</code> or ARN (or the
+     * default registry, if none is supplied), that schema’s metadata is returned. Otherwise, a 404 or NotFound error is
+     * returned. Schema versions in <code>Deleted</code> statuses will not be included in the results.
+     * </p>
+     * 
+     * @param getSchemaByDefinitionRequest
+     * @return A Java Future containing the result of the GetSchemaByDefinition operation returned by the service.
+     * @sample AWSGlueAsync.GetSchemaByDefinition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetSchemaByDefinition" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetSchemaByDefinitionResult> getSchemaByDefinitionAsync(GetSchemaByDefinitionRequest getSchemaByDefinitionRequest);
+
+    /**
+     * <p>
+     * Retrieves a schema by the <code>SchemaDefinition</code>. The schema definition is sent to the Schema Registry,
+     * canonicalized, and hashed. If the hash is matched within the scope of the <code>SchemaName</code> or ARN (or the
+     * default registry, if none is supplied), that schema’s metadata is returned. Otherwise, a 404 or NotFound error is
+     * returned. Schema versions in <code>Deleted</code> statuses will not be included in the results.
+     * </p>
+     * 
+     * @param getSchemaByDefinitionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetSchemaByDefinition operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetSchemaByDefinition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetSchemaByDefinition" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetSchemaByDefinitionResult> getSchemaByDefinitionAsync(GetSchemaByDefinitionRequest getSchemaByDefinitionRequest,
+            com.amazonaws.handlers.AsyncHandler<GetSchemaByDefinitionRequest, GetSchemaByDefinitionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Get the specified schema by its unique ID assigned when a version of the schema is created or registered. Schema
+     * versions in Deleted status will not be included in the results.
+     * </p>
+     * 
+     * @param getSchemaVersionRequest
+     * @return A Java Future containing the result of the GetSchemaVersion operation returned by the service.
+     * @sample AWSGlueAsync.GetSchemaVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetSchemaVersion" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetSchemaVersionResult> getSchemaVersionAsync(GetSchemaVersionRequest getSchemaVersionRequest);
+
+    /**
+     * <p>
+     * Get the specified schema by its unique ID assigned when a version of the schema is created or registered. Schema
+     * versions in Deleted status will not be included in the results.
+     * </p>
+     * 
+     * @param getSchemaVersionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetSchemaVersion operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetSchemaVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetSchemaVersion" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetSchemaVersionResult> getSchemaVersionAsync(GetSchemaVersionRequest getSchemaVersionRequest,
+            com.amazonaws.handlers.AsyncHandler<GetSchemaVersionRequest, GetSchemaVersionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Fetches the schema version difference in the specified difference type between two stored schema versions in the
+     * Schema Registry.
+     * </p>
+     * <p>
+     * This API allows you to compare two schema versions between two schema definitions under the same schema.
+     * </p>
+     * 
+     * @param getSchemaVersionsDiffRequest
+     * @return A Java Future containing the result of the GetSchemaVersionsDiff operation returned by the service.
+     * @sample AWSGlueAsync.GetSchemaVersionsDiff
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetSchemaVersionsDiff" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetSchemaVersionsDiffResult> getSchemaVersionsDiffAsync(GetSchemaVersionsDiffRequest getSchemaVersionsDiffRequest);
+
+    /**
+     * <p>
+     * Fetches the schema version difference in the specified difference type between two stored schema versions in the
+     * Schema Registry.
+     * </p>
+     * <p>
+     * This API allows you to compare two schema versions between two schema definitions under the same schema.
+     * </p>
+     * 
+     * @param getSchemaVersionsDiffRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetSchemaVersionsDiff operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetSchemaVersionsDiff
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetSchemaVersionsDiff" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetSchemaVersionsDiffResult> getSchemaVersionsDiffAsync(GetSchemaVersionsDiffRequest getSchemaVersionsDiffRequest,
+            com.amazonaws.handlers.AsyncHandler<GetSchemaVersionsDiffRequest, GetSchemaVersionsDiffResult> asyncHandler);
 
     /**
      * <p>
@@ -2233,6 +4246,68 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Retrieves the session.
+     * </p>
+     * 
+     * @param getSessionRequest
+     * @return A Java Future containing the result of the GetSession operation returned by the service.
+     * @sample AWSGlueAsync.GetSession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetSession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetSessionResult> getSessionAsync(GetSessionRequest getSessionRequest);
+
+    /**
+     * <p>
+     * Retrieves the session.
+     * </p>
+     * 
+     * @param getSessionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetSession operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetSession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetSession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetSessionResult> getSessionAsync(GetSessionRequest getSessionRequest,
+            com.amazonaws.handlers.AsyncHandler<GetSessionRequest, GetSessionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves the statement.
+     * </p>
+     * 
+     * @param getStatementRequest
+     * @return A Java Future containing the result of the GetStatement operation returned by the service.
+     * @sample AWSGlueAsync.GetStatement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetStatement" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetStatementResult> getStatementAsync(GetStatementRequest getStatementRequest);
+
+    /**
+     * <p>
+     * Retrieves the statement.
+     * </p>
+     * 
+     * @param getStatementRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetStatement operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetStatement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetStatement" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetStatementResult> getStatementAsync(GetStatementRequest getStatementRequest,
+            com.amazonaws.handlers.AsyncHandler<GetStatementRequest, GetStatementResult> asyncHandler);
+
+    /**
+     * <p>
      * Retrieves the <code>Table</code> definition in a Data Catalog for a specified table.
      * </p>
      * 
@@ -2261,6 +4336,37 @@ public interface AWSGlueAsync extends AWSGlue {
      */
     java.util.concurrent.Future<GetTableResult> getTableAsync(GetTableRequest getTableRequest,
             com.amazonaws.handlers.AsyncHandler<GetTableRequest, GetTableResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns the configuration of all optimizers associated with a specified table.
+     * </p>
+     * 
+     * @param getTableOptimizerRequest
+     * @return A Java Future containing the result of the GetTableOptimizer operation returned by the service.
+     * @sample AWSGlueAsync.GetTableOptimizer
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetTableOptimizer" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetTableOptimizerResult> getTableOptimizerAsync(GetTableOptimizerRequest getTableOptimizerRequest);
+
+    /**
+     * <p>
+     * Returns the configuration of all optimizers associated with a specified table.
+     * </p>
+     * 
+     * @param getTableOptimizerRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetTableOptimizer operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetTableOptimizer
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetTableOptimizer" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetTableOptimizerResult> getTableOptimizerAsync(GetTableOptimizerRequest getTableOptimizerRequest,
+            com.amazonaws.handlers.AsyncHandler<GetTableOptimizerRequest, GetTableOptimizerResult> asyncHandler);
 
     /**
      * <p>
@@ -2450,6 +4556,158 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Retrieves partition metadata from the Data Catalog that contains unfiltered metadata.
+     * </p>
+     * <p>
+     * For IAM authorization, the public IAM action associated with this API is <code>glue:GetPartition</code>.
+     * </p>
+     * 
+     * @param getUnfilteredPartitionMetadataRequest
+     * @return A Java Future containing the result of the GetUnfilteredPartitionMetadata operation returned by the
+     *         service.
+     * @sample AWSGlueAsync.GetUnfilteredPartitionMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetUnfilteredPartitionMetadata"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetUnfilteredPartitionMetadataResult> getUnfilteredPartitionMetadataAsync(
+            GetUnfilteredPartitionMetadataRequest getUnfilteredPartitionMetadataRequest);
+
+    /**
+     * <p>
+     * Retrieves partition metadata from the Data Catalog that contains unfiltered metadata.
+     * </p>
+     * <p>
+     * For IAM authorization, the public IAM action associated with this API is <code>glue:GetPartition</code>.
+     * </p>
+     * 
+     * @param getUnfilteredPartitionMetadataRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetUnfilteredPartitionMetadata operation returned by the
+     *         service.
+     * @sample AWSGlueAsyncHandler.GetUnfilteredPartitionMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetUnfilteredPartitionMetadata"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetUnfilteredPartitionMetadataResult> getUnfilteredPartitionMetadataAsync(
+            GetUnfilteredPartitionMetadataRequest getUnfilteredPartitionMetadataRequest,
+            com.amazonaws.handlers.AsyncHandler<GetUnfilteredPartitionMetadataRequest, GetUnfilteredPartitionMetadataResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves partition metadata from the Data Catalog that contains unfiltered metadata.
+     * </p>
+     * <p>
+     * For IAM authorization, the public IAM action associated with this API is <code>glue:GetPartitions</code>.
+     * </p>
+     * 
+     * @param getUnfilteredPartitionsMetadataRequest
+     * @return A Java Future containing the result of the GetUnfilteredPartitionsMetadata operation returned by the
+     *         service.
+     * @sample AWSGlueAsync.GetUnfilteredPartitionsMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetUnfilteredPartitionsMetadata"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetUnfilteredPartitionsMetadataResult> getUnfilteredPartitionsMetadataAsync(
+            GetUnfilteredPartitionsMetadataRequest getUnfilteredPartitionsMetadataRequest);
+
+    /**
+     * <p>
+     * Retrieves partition metadata from the Data Catalog that contains unfiltered metadata.
+     * </p>
+     * <p>
+     * For IAM authorization, the public IAM action associated with this API is <code>glue:GetPartitions</code>.
+     * </p>
+     * 
+     * @param getUnfilteredPartitionsMetadataRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetUnfilteredPartitionsMetadata operation returned by the
+     *         service.
+     * @sample AWSGlueAsyncHandler.GetUnfilteredPartitionsMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetUnfilteredPartitionsMetadata"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetUnfilteredPartitionsMetadataResult> getUnfilteredPartitionsMetadataAsync(
+            GetUnfilteredPartitionsMetadataRequest getUnfilteredPartitionsMetadataRequest,
+            com.amazonaws.handlers.AsyncHandler<GetUnfilteredPartitionsMetadataRequest, GetUnfilteredPartitionsMetadataResult> asyncHandler);
+
+    /**
+     * <p>
+     * Allows a third-party analytical engine to retrieve unfiltered table metadata from the Data Catalog.
+     * </p>
+     * <p>
+     * For IAM authorization, the public IAM action associated with this API is <code>glue:GetTable</code>.
+     * </p>
+     * 
+     * @param getUnfilteredTableMetadataRequest
+     * @return A Java Future containing the result of the GetUnfilteredTableMetadata operation returned by the service.
+     * @sample AWSGlueAsync.GetUnfilteredTableMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetUnfilteredTableMetadata"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetUnfilteredTableMetadataResult> getUnfilteredTableMetadataAsync(
+            GetUnfilteredTableMetadataRequest getUnfilteredTableMetadataRequest);
+
+    /**
+     * <p>
+     * Allows a third-party analytical engine to retrieve unfiltered table metadata from the Data Catalog.
+     * </p>
+     * <p>
+     * For IAM authorization, the public IAM action associated with this API is <code>glue:GetTable</code>.
+     * </p>
+     * 
+     * @param getUnfilteredTableMetadataRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetUnfilteredTableMetadata operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetUnfilteredTableMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetUnfilteredTableMetadata"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetUnfilteredTableMetadataResult> getUnfilteredTableMetadataAsync(
+            GetUnfilteredTableMetadataRequest getUnfilteredTableMetadataRequest,
+            com.amazonaws.handlers.AsyncHandler<GetUnfilteredTableMetadataRequest, GetUnfilteredTableMetadataResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves information about the specified Glue usage profile.
+     * </p>
+     * 
+     * @param getUsageProfileRequest
+     * @return A Java Future containing the result of the GetUsageProfile operation returned by the service.
+     * @sample AWSGlueAsync.GetUsageProfile
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetUsageProfile" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetUsageProfileResult> getUsageProfileAsync(GetUsageProfileRequest getUsageProfileRequest);
+
+    /**
+     * <p>
+     * Retrieves information about the specified Glue usage profile.
+     * </p>
+     * 
+     * @param getUsageProfileRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetUsageProfile operation returned by the service.
+     * @sample AWSGlueAsyncHandler.GetUsageProfile
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetUsageProfile" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetUsageProfileResult> getUsageProfileAsync(GetUsageProfileRequest getUsageProfileRequest,
+            com.amazonaws.handlers.AsyncHandler<GetUsageProfileRequest, GetUsageProfileResult> asyncHandler);
+
+    /**
+     * <p>
      * Retrieves a specified function definition from the Data Catalog.
      * </p>
      * 
@@ -2481,7 +4739,7 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Retrieves a multiple function definitions from the Data Catalog.
+     * Retrieves multiple function definitions from the Data Catalog.
      * </p>
      * 
      * @param getUserDefinedFunctionsRequest
@@ -2494,7 +4752,7 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Retrieves a multiple function definitions from the Data Catalog.
+     * Retrieves multiple function definitions from the Data Catalog.
      * </p>
      * 
      * @param getUserDefinedFunctionsRequest
@@ -2543,7 +4801,8 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Retrieves the metadata for a given workflow run.
+     * Retrieves the metadata for a given workflow run. Job run history is accessible for 90 days for your workflow and
+     * job run.
      * </p>
      * 
      * @param getWorkflowRunRequest
@@ -2556,7 +4815,8 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Retrieves the metadata for a given workflow run.
+     * Retrieves the metadata for a given workflow run. Job run history is accessible for 90 days for your workflow and
+     * job run.
      * </p>
      * 
      * @param getWorkflowRunRequest
@@ -2636,7 +4896,7 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Imports an existing Athena Data Catalog to AWS Glue
+     * Imports an existing Amazon Athena Data Catalog to Glue.
      * </p>
      * 
      * @param importCatalogToGlueRequest
@@ -2649,7 +4909,7 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Imports an existing Athena Data Catalog to AWS Glue
+     * Imports an existing Amazon Athena Data Catalog to Glue.
      * </p>
      * 
      * @param importCatalogToGlueRequest
@@ -2667,8 +4927,74 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Retrieves the names of all crawler resources in this AWS account, or the resources with the specified tag. This
-     * operation allows you to see which resources are available in your account, and their names.
+     * Lists all the blueprint names in an account.
+     * </p>
+     * 
+     * @param listBlueprintsRequest
+     * @return A Java Future containing the result of the ListBlueprints operation returned by the service.
+     * @sample AWSGlueAsync.ListBlueprints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListBlueprints" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListBlueprintsResult> listBlueprintsAsync(ListBlueprintsRequest listBlueprintsRequest);
+
+    /**
+     * <p>
+     * Lists all the blueprint names in an account.
+     * </p>
+     * 
+     * @param listBlueprintsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListBlueprints operation returned by the service.
+     * @sample AWSGlueAsyncHandler.ListBlueprints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListBlueprints" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListBlueprintsResult> listBlueprintsAsync(ListBlueprintsRequest listBlueprintsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListBlueprintsRequest, ListBlueprintsResult> asyncHandler);
+
+    /**
+     * <p>
+     * List all task runs for a particular account.
+     * </p>
+     * 
+     * @param listColumnStatisticsTaskRunsRequest
+     * @return A Java Future containing the result of the ListColumnStatisticsTaskRuns operation returned by the
+     *         service.
+     * @sample AWSGlueAsync.ListColumnStatisticsTaskRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListColumnStatisticsTaskRuns"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListColumnStatisticsTaskRunsResult> listColumnStatisticsTaskRunsAsync(
+            ListColumnStatisticsTaskRunsRequest listColumnStatisticsTaskRunsRequest);
+
+    /**
+     * <p>
+     * List all task runs for a particular account.
+     * </p>
+     * 
+     * @param listColumnStatisticsTaskRunsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListColumnStatisticsTaskRuns operation returned by the
+     *         service.
+     * @sample AWSGlueAsyncHandler.ListColumnStatisticsTaskRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListColumnStatisticsTaskRuns"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListColumnStatisticsTaskRunsResult> listColumnStatisticsTaskRunsAsync(
+            ListColumnStatisticsTaskRunsRequest listColumnStatisticsTaskRunsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListColumnStatisticsTaskRunsRequest, ListColumnStatisticsTaskRunsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves the names of all crawler resources in this Amazon Web Services account, or the resources with the
+     * specified tag. This operation allows you to see which resources are available in your account, and their names.
      * </p>
      * <p>
      * This operation takes the optional <code>Tags</code> field, which you can use as a filter on the response so that
@@ -2686,8 +5012,8 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Retrieves the names of all crawler resources in this AWS account, or the resources with the specified tag. This
-     * operation allows you to see which resources are available in your account, and their names.
+     * Retrieves the names of all crawler resources in this Amazon Web Services account, or the resources with the
+     * specified tag. This operation allows you to see which resources are available in your account, and their names.
      * </p>
      * <p>
      * This operation takes the optional <code>Tags</code> field, which you can use as a filter on the response so that
@@ -2710,8 +5036,255 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Retrieves the names of all <code>DevEndpoint</code> resources in this AWS account, or the resources with the
-     * specified tag. This operation allows you to see which resources are available in your account, and their names.
+     * Returns all the crawls of a specified crawler. Returns only the crawls that have occurred since the launch date
+     * of the crawler history feature, and only retains up to 12 months of crawls. Older crawls will not be returned.
+     * </p>
+     * <p>
+     * You may use this API to:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Retrive all the crawls of a specified crawler.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Retrieve all the crawls of a specified crawler within a limited count.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Retrieve all the crawls of a specified crawler in a specific time range.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Retrieve all the crawls of a specified crawler with a particular state, crawl ID, or DPU hour value.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param listCrawlsRequest
+     * @return A Java Future containing the result of the ListCrawls operation returned by the service.
+     * @sample AWSGlueAsync.ListCrawls
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListCrawls" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListCrawlsResult> listCrawlsAsync(ListCrawlsRequest listCrawlsRequest);
+
+    /**
+     * <p>
+     * Returns all the crawls of a specified crawler. Returns only the crawls that have occurred since the launch date
+     * of the crawler history feature, and only retains up to 12 months of crawls. Older crawls will not be returned.
+     * </p>
+     * <p>
+     * You may use this API to:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Retrive all the crawls of a specified crawler.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Retrieve all the crawls of a specified crawler within a limited count.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Retrieve all the crawls of a specified crawler in a specific time range.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Retrieve all the crawls of a specified crawler with a particular state, crawl ID, or DPU hour value.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param listCrawlsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListCrawls operation returned by the service.
+     * @sample AWSGlueAsyncHandler.ListCrawls
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListCrawls" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListCrawlsResult> listCrawlsAsync(ListCrawlsRequest listCrawlsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListCrawlsRequest, ListCrawlsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists all the custom patterns that have been created.
+     * </p>
+     * 
+     * @param listCustomEntityTypesRequest
+     * @return A Java Future containing the result of the ListCustomEntityTypes operation returned by the service.
+     * @sample AWSGlueAsync.ListCustomEntityTypes
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListCustomEntityTypes" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListCustomEntityTypesResult> listCustomEntityTypesAsync(ListCustomEntityTypesRequest listCustomEntityTypesRequest);
+
+    /**
+     * <p>
+     * Lists all the custom patterns that have been created.
+     * </p>
+     * 
+     * @param listCustomEntityTypesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListCustomEntityTypes operation returned by the service.
+     * @sample AWSGlueAsyncHandler.ListCustomEntityTypes
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListCustomEntityTypes" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListCustomEntityTypesResult> listCustomEntityTypesAsync(ListCustomEntityTypesRequest listCustomEntityTypesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListCustomEntityTypesRequest, ListCustomEntityTypesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns all data quality execution results for your account.
+     * </p>
+     * 
+     * @param listDataQualityResultsRequest
+     * @return A Java Future containing the result of the ListDataQualityResults operation returned by the service.
+     * @sample AWSGlueAsync.ListDataQualityResults
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListDataQualityResults" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListDataQualityResultsResult> listDataQualityResultsAsync(ListDataQualityResultsRequest listDataQualityResultsRequest);
+
+    /**
+     * <p>
+     * Returns all data quality execution results for your account.
+     * </p>
+     * 
+     * @param listDataQualityResultsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListDataQualityResults operation returned by the service.
+     * @sample AWSGlueAsyncHandler.ListDataQualityResults
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListDataQualityResults" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListDataQualityResultsResult> listDataQualityResultsAsync(ListDataQualityResultsRequest listDataQualityResultsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListDataQualityResultsRequest, ListDataQualityResultsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists the recommendation runs meeting the filter criteria.
+     * </p>
+     * 
+     * @param listDataQualityRuleRecommendationRunsRequest
+     * @return A Java Future containing the result of the ListDataQualityRuleRecommendationRuns operation returned by
+     *         the service.
+     * @sample AWSGlueAsync.ListDataQualityRuleRecommendationRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListDataQualityRuleRecommendationRuns"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListDataQualityRuleRecommendationRunsResult> listDataQualityRuleRecommendationRunsAsync(
+            ListDataQualityRuleRecommendationRunsRequest listDataQualityRuleRecommendationRunsRequest);
+
+    /**
+     * <p>
+     * Lists the recommendation runs meeting the filter criteria.
+     * </p>
+     * 
+     * @param listDataQualityRuleRecommendationRunsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListDataQualityRuleRecommendationRuns operation returned by
+     *         the service.
+     * @sample AWSGlueAsyncHandler.ListDataQualityRuleRecommendationRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListDataQualityRuleRecommendationRuns"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListDataQualityRuleRecommendationRunsResult> listDataQualityRuleRecommendationRunsAsync(
+            ListDataQualityRuleRecommendationRunsRequest listDataQualityRuleRecommendationRunsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListDataQualityRuleRecommendationRunsRequest, ListDataQualityRuleRecommendationRunsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists all the runs meeting the filter criteria, where a ruleset is evaluated against a data source.
+     * </p>
+     * 
+     * @param listDataQualityRulesetEvaluationRunsRequest
+     * @return A Java Future containing the result of the ListDataQualityRulesetEvaluationRuns operation returned by the
+     *         service.
+     * @sample AWSGlueAsync.ListDataQualityRulesetEvaluationRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListDataQualityRulesetEvaluationRuns"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListDataQualityRulesetEvaluationRunsResult> listDataQualityRulesetEvaluationRunsAsync(
+            ListDataQualityRulesetEvaluationRunsRequest listDataQualityRulesetEvaluationRunsRequest);
+
+    /**
+     * <p>
+     * Lists all the runs meeting the filter criteria, where a ruleset is evaluated against a data source.
+     * </p>
+     * 
+     * @param listDataQualityRulesetEvaluationRunsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListDataQualityRulesetEvaluationRuns operation returned by the
+     *         service.
+     * @sample AWSGlueAsyncHandler.ListDataQualityRulesetEvaluationRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListDataQualityRulesetEvaluationRuns"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListDataQualityRulesetEvaluationRunsResult> listDataQualityRulesetEvaluationRunsAsync(
+            ListDataQualityRulesetEvaluationRunsRequest listDataQualityRulesetEvaluationRunsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListDataQualityRulesetEvaluationRunsRequest, ListDataQualityRulesetEvaluationRunsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a paginated list of rulesets for the specified list of Glue tables.
+     * </p>
+     * 
+     * @param listDataQualityRulesetsRequest
+     * @return A Java Future containing the result of the ListDataQualityRulesets operation returned by the service.
+     * @sample AWSGlueAsync.ListDataQualityRulesets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListDataQualityRulesets" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListDataQualityRulesetsResult> listDataQualityRulesetsAsync(ListDataQualityRulesetsRequest listDataQualityRulesetsRequest);
+
+    /**
+     * <p>
+     * Returns a paginated list of rulesets for the specified list of Glue tables.
+     * </p>
+     * 
+     * @param listDataQualityRulesetsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListDataQualityRulesets operation returned by the service.
+     * @sample AWSGlueAsyncHandler.ListDataQualityRulesets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListDataQualityRulesets" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListDataQualityRulesetsResult> listDataQualityRulesetsAsync(ListDataQualityRulesetsRequest listDataQualityRulesetsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListDataQualityRulesetsRequest, ListDataQualityRulesetsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves the names of all <code>DevEndpoint</code> resources in this Amazon Web Services account, or the
+     * resources with the specified tag. This operation allows you to see which resources are available in your account,
+     * and their names.
      * </p>
      * <p>
      * This operation takes the optional <code>Tags</code> field, which you can use as a filter on the response so that
@@ -2729,8 +5302,9 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Retrieves the names of all <code>DevEndpoint</code> resources in this AWS account, or the resources with the
-     * specified tag. This operation allows you to see which resources are available in your account, and their names.
+     * Retrieves the names of all <code>DevEndpoint</code> resources in this Amazon Web Services account, or the
+     * resources with the specified tag. This operation allows you to see which resources are available in your account,
+     * and their names.
      * </p>
      * <p>
      * This operation takes the optional <code>Tags</code> field, which you can use as a filter on the response so that
@@ -2753,8 +5327,8 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Retrieves the names of all job resources in this AWS account, or the resources with the specified tag. This
-     * operation allows you to see which resources are available in your account, and their names.
+     * Retrieves the names of all job resources in this Amazon Web Services account, or the resources with the specified
+     * tag. This operation allows you to see which resources are available in your account, and their names.
      * </p>
      * <p>
      * This operation takes the optional <code>Tags</code> field, which you can use as a filter on the response so that
@@ -2772,8 +5346,8 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Retrieves the names of all job resources in this AWS account, or the resources with the specified tag. This
-     * operation allows you to see which resources are available in your account, and their names.
+     * Retrieves the names of all job resources in this Amazon Web Services account, or the resources with the specified
+     * tag. This operation allows you to see which resources are available in your account, and their names.
      * </p>
      * <p>
      * This operation takes the optional <code>Tags</code> field, which you can use as a filter on the response so that
@@ -2796,8 +5370,249 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Retrieves the names of all trigger resources in this AWS account, or the resources with the specified tag. This
-     * operation allows you to see which resources are available in your account, and their names.
+     * Retrieves a sortable, filterable list of existing Glue machine learning transforms in this Amazon Web Services
+     * account, or the resources with the specified tag. This operation takes the optional <code>Tags</code> field,
+     * which you can use as a filter of the responses so that tagged resources can be retrieved as a group. If you
+     * choose to use tag filtering, only resources with the tags are retrieved.
+     * </p>
+     * 
+     * @param listMLTransformsRequest
+     * @return A Java Future containing the result of the ListMLTransforms operation returned by the service.
+     * @sample AWSGlueAsync.ListMLTransforms
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListMLTransforms" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListMLTransformsResult> listMLTransformsAsync(ListMLTransformsRequest listMLTransformsRequest);
+
+    /**
+     * <p>
+     * Retrieves a sortable, filterable list of existing Glue machine learning transforms in this Amazon Web Services
+     * account, or the resources with the specified tag. This operation takes the optional <code>Tags</code> field,
+     * which you can use as a filter of the responses so that tagged resources can be retrieved as a group. If you
+     * choose to use tag filtering, only resources with the tags are retrieved.
+     * </p>
+     * 
+     * @param listMLTransformsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListMLTransforms operation returned by the service.
+     * @sample AWSGlueAsyncHandler.ListMLTransforms
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListMLTransforms" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListMLTransformsResult> listMLTransformsAsync(ListMLTransformsRequest listMLTransformsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListMLTransformsRequest, ListMLTransformsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of registries that you have created, with minimal registry information. Registries in the
+     * <code>Deleting</code> status will not be included in the results. Empty results will be returned if there are no
+     * registries available.
+     * </p>
+     * 
+     * @param listRegistriesRequest
+     * @return A Java Future containing the result of the ListRegistries operation returned by the service.
+     * @sample AWSGlueAsync.ListRegistries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListRegistries" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListRegistriesResult> listRegistriesAsync(ListRegistriesRequest listRegistriesRequest);
+
+    /**
+     * <p>
+     * Returns a list of registries that you have created, with minimal registry information. Registries in the
+     * <code>Deleting</code> status will not be included in the results. Empty results will be returned if there are no
+     * registries available.
+     * </p>
+     * 
+     * @param listRegistriesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListRegistries operation returned by the service.
+     * @sample AWSGlueAsyncHandler.ListRegistries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListRegistries" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListRegistriesResult> listRegistriesAsync(ListRegistriesRequest listRegistriesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListRegistriesRequest, ListRegistriesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of schema versions that you have created, with minimal information. Schema versions in Deleted
+     * status will not be included in the results. Empty results will be returned if there are no schema versions
+     * available.
+     * </p>
+     * 
+     * @param listSchemaVersionsRequest
+     * @return A Java Future containing the result of the ListSchemaVersions operation returned by the service.
+     * @sample AWSGlueAsync.ListSchemaVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListSchemaVersions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListSchemaVersionsResult> listSchemaVersionsAsync(ListSchemaVersionsRequest listSchemaVersionsRequest);
+
+    /**
+     * <p>
+     * Returns a list of schema versions that you have created, with minimal information. Schema versions in Deleted
+     * status will not be included in the results. Empty results will be returned if there are no schema versions
+     * available.
+     * </p>
+     * 
+     * @param listSchemaVersionsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListSchemaVersions operation returned by the service.
+     * @sample AWSGlueAsyncHandler.ListSchemaVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListSchemaVersions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListSchemaVersionsResult> listSchemaVersionsAsync(ListSchemaVersionsRequest listSchemaVersionsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListSchemaVersionsRequest, ListSchemaVersionsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of schemas with minimal details. Schemas in Deleting status will not be included in the results.
+     * Empty results will be returned if there are no schemas available.
+     * </p>
+     * <p>
+     * When the <code>RegistryId</code> is not provided, all the schemas across registries will be part of the API
+     * response.
+     * </p>
+     * 
+     * @param listSchemasRequest
+     * @return A Java Future containing the result of the ListSchemas operation returned by the service.
+     * @sample AWSGlueAsync.ListSchemas
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListSchemas" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListSchemasResult> listSchemasAsync(ListSchemasRequest listSchemasRequest);
+
+    /**
+     * <p>
+     * Returns a list of schemas with minimal details. Schemas in Deleting status will not be included in the results.
+     * Empty results will be returned if there are no schemas available.
+     * </p>
+     * <p>
+     * When the <code>RegistryId</code> is not provided, all the schemas across registries will be part of the API
+     * response.
+     * </p>
+     * 
+     * @param listSchemasRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListSchemas operation returned by the service.
+     * @sample AWSGlueAsyncHandler.ListSchemas
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListSchemas" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListSchemasResult> listSchemasAsync(ListSchemasRequest listSchemasRequest,
+            com.amazonaws.handlers.AsyncHandler<ListSchemasRequest, ListSchemasResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieve a list of sessions.
+     * </p>
+     * 
+     * @param listSessionsRequest
+     * @return A Java Future containing the result of the ListSessions operation returned by the service.
+     * @sample AWSGlueAsync.ListSessions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListSessions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListSessionsResult> listSessionsAsync(ListSessionsRequest listSessionsRequest);
+
+    /**
+     * <p>
+     * Retrieve a list of sessions.
+     * </p>
+     * 
+     * @param listSessionsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListSessions operation returned by the service.
+     * @sample AWSGlueAsyncHandler.ListSessions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListSessions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListSessionsResult> listSessionsAsync(ListSessionsRequest listSessionsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListSessionsRequest, ListSessionsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists statements for the session.
+     * </p>
+     * 
+     * @param listStatementsRequest
+     * @return A Java Future containing the result of the ListStatements operation returned by the service.
+     * @sample AWSGlueAsync.ListStatements
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListStatements" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListStatementsResult> listStatementsAsync(ListStatementsRequest listStatementsRequest);
+
+    /**
+     * <p>
+     * Lists statements for the session.
+     * </p>
+     * 
+     * @param listStatementsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListStatements operation returned by the service.
+     * @sample AWSGlueAsyncHandler.ListStatements
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListStatements" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListStatementsResult> listStatementsAsync(ListStatementsRequest listStatementsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListStatementsRequest, ListStatementsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists the history of previous optimizer runs for a specific table.
+     * </p>
+     * 
+     * @param listTableOptimizerRunsRequest
+     * @return A Java Future containing the result of the ListTableOptimizerRuns operation returned by the service.
+     * @sample AWSGlueAsync.ListTableOptimizerRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListTableOptimizerRuns" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListTableOptimizerRunsResult> listTableOptimizerRunsAsync(ListTableOptimizerRunsRequest listTableOptimizerRunsRequest);
+
+    /**
+     * <p>
+     * Lists the history of previous optimizer runs for a specific table.
+     * </p>
+     * 
+     * @param listTableOptimizerRunsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListTableOptimizerRuns operation returned by the service.
+     * @sample AWSGlueAsyncHandler.ListTableOptimizerRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListTableOptimizerRuns" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListTableOptimizerRunsResult> listTableOptimizerRunsAsync(ListTableOptimizerRunsRequest listTableOptimizerRunsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListTableOptimizerRunsRequest, ListTableOptimizerRunsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves the names of all trigger resources in this Amazon Web Services account, or the resources with the
+     * specified tag. This operation allows you to see which resources are available in your account, and their names.
      * </p>
      * <p>
      * This operation takes the optional <code>Tags</code> field, which you can use as a filter on the response so that
@@ -2815,8 +5630,8 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Retrieves the names of all trigger resources in this AWS account, or the resources with the specified tag. This
-     * operation allows you to see which resources are available in your account, and their names.
+     * Retrieves the names of all trigger resources in this Amazon Web Services account, or the resources with the
+     * specified tag. This operation allows you to see which resources are available in your account, and their names.
      * </p>
      * <p>
      * This operation takes the optional <code>Tags</code> field, which you can use as a filter on the response so that
@@ -2836,6 +5651,37 @@ public interface AWSGlueAsync extends AWSGlue {
      */
     java.util.concurrent.Future<ListTriggersResult> listTriggersAsync(ListTriggersRequest listTriggersRequest,
             com.amazonaws.handlers.AsyncHandler<ListTriggersRequest, ListTriggersResult> asyncHandler);
+
+    /**
+     * <p>
+     * List all the Glue usage profiles.
+     * </p>
+     * 
+     * @param listUsageProfilesRequest
+     * @return A Java Future containing the result of the ListUsageProfiles operation returned by the service.
+     * @sample AWSGlueAsync.ListUsageProfiles
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListUsageProfiles" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListUsageProfilesResult> listUsageProfilesAsync(ListUsageProfilesRequest listUsageProfilesRequest);
+
+    /**
+     * <p>
+     * List all the Glue usage profiles.
+     * </p>
+     * 
+     * @param listUsageProfilesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListUsageProfiles operation returned by the service.
+     * @sample AWSGlueAsyncHandler.ListUsageProfiles
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListUsageProfiles" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListUsageProfilesResult> listUsageProfilesAsync(ListUsageProfilesRequest listUsageProfilesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListUsageProfilesRequest, ListUsageProfilesResult> asyncHandler);
 
     /**
      * <p>
@@ -2938,6 +5784,39 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Puts the metadata key value pair for a specified schema version ID. A maximum of 10 key value pairs will be
+     * allowed per schema version. They can be added over one or more calls.
+     * </p>
+     * 
+     * @param putSchemaVersionMetadataRequest
+     * @return A Java Future containing the result of the PutSchemaVersionMetadata operation returned by the service.
+     * @sample AWSGlueAsync.PutSchemaVersionMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/PutSchemaVersionMetadata" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<PutSchemaVersionMetadataResult> putSchemaVersionMetadataAsync(PutSchemaVersionMetadataRequest putSchemaVersionMetadataRequest);
+
+    /**
+     * <p>
+     * Puts the metadata key value pair for a specified schema version ID. A maximum of 10 key value pairs will be
+     * allowed per schema version. They can be added over one or more calls.
+     * </p>
+     * 
+     * @param putSchemaVersionMetadataRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutSchemaVersionMetadata operation returned by the service.
+     * @sample AWSGlueAsyncHandler.PutSchemaVersionMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/PutSchemaVersionMetadata" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<PutSchemaVersionMetadataResult> putSchemaVersionMetadataAsync(PutSchemaVersionMetadataRequest putSchemaVersionMetadataRequest,
+            com.amazonaws.handlers.AsyncHandler<PutSchemaVersionMetadataRequest, PutSchemaVersionMetadataResult> asyncHandler);
+
+    /**
+     * <p>
      * Puts the specified workflow run properties for the given workflow run. If a property already exists for the
      * specified run, then it overrides the value otherwise adds the property to existing properties.
      * </p>
@@ -2971,8 +5850,152 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Queries for the schema version metadata information.
+     * </p>
+     * 
+     * @param querySchemaVersionMetadataRequest
+     * @return A Java Future containing the result of the QuerySchemaVersionMetadata operation returned by the service.
+     * @sample AWSGlueAsync.QuerySchemaVersionMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/QuerySchemaVersionMetadata"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<QuerySchemaVersionMetadataResult> querySchemaVersionMetadataAsync(
+            QuerySchemaVersionMetadataRequest querySchemaVersionMetadataRequest);
+
+    /**
+     * <p>
+     * Queries for the schema version metadata information.
+     * </p>
+     * 
+     * @param querySchemaVersionMetadataRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the QuerySchemaVersionMetadata operation returned by the service.
+     * @sample AWSGlueAsyncHandler.QuerySchemaVersionMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/QuerySchemaVersionMetadata"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<QuerySchemaVersionMetadataResult> querySchemaVersionMetadataAsync(
+            QuerySchemaVersionMetadataRequest querySchemaVersionMetadataRequest,
+            com.amazonaws.handlers.AsyncHandler<QuerySchemaVersionMetadataRequest, QuerySchemaVersionMetadataResult> asyncHandler);
+
+    /**
+     * <p>
+     * Adds a new version to the existing schema. Returns an error if new version of schema does not meet the
+     * compatibility requirements of the schema set. This API will not create a new schema set and will return a 404
+     * error if the schema set is not already present in the Schema Registry.
+     * </p>
+     * <p>
+     * If this is the first schema definition to be registered in the Schema Registry, this API will store the schema
+     * version and return immediately. Otherwise, this call has the potential to run longer than other operations due to
+     * compatibility modes. You can call the <code>GetSchemaVersion</code> API with the <code>SchemaVersionId</code> to
+     * check compatibility modes.
+     * </p>
+     * <p>
+     * If the same schema definition is already stored in Schema Registry as a version, the schema ID of the existing
+     * schema is returned to the caller.
+     * </p>
+     * 
+     * @param registerSchemaVersionRequest
+     * @return A Java Future containing the result of the RegisterSchemaVersion operation returned by the service.
+     * @sample AWSGlueAsync.RegisterSchemaVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/RegisterSchemaVersion" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<RegisterSchemaVersionResult> registerSchemaVersionAsync(RegisterSchemaVersionRequest registerSchemaVersionRequest);
+
+    /**
+     * <p>
+     * Adds a new version to the existing schema. Returns an error if new version of schema does not meet the
+     * compatibility requirements of the schema set. This API will not create a new schema set and will return a 404
+     * error if the schema set is not already present in the Schema Registry.
+     * </p>
+     * <p>
+     * If this is the first schema definition to be registered in the Schema Registry, this API will store the schema
+     * version and return immediately. Otherwise, this call has the potential to run longer than other operations due to
+     * compatibility modes. You can call the <code>GetSchemaVersion</code> API with the <code>SchemaVersionId</code> to
+     * check compatibility modes.
+     * </p>
+     * <p>
+     * If the same schema definition is already stored in Schema Registry as a version, the schema ID of the existing
+     * schema is returned to the caller.
+     * </p>
+     * 
+     * @param registerSchemaVersionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RegisterSchemaVersion operation returned by the service.
+     * @sample AWSGlueAsyncHandler.RegisterSchemaVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/RegisterSchemaVersion" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<RegisterSchemaVersionResult> registerSchemaVersionAsync(RegisterSchemaVersionRequest registerSchemaVersionRequest,
+            com.amazonaws.handlers.AsyncHandler<RegisterSchemaVersionRequest, RegisterSchemaVersionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Removes a key value pair from the schema version metadata for the specified schema version ID.
+     * </p>
+     * 
+     * @param removeSchemaVersionMetadataRequest
+     * @return A Java Future containing the result of the RemoveSchemaVersionMetadata operation returned by the service.
+     * @sample AWSGlueAsync.RemoveSchemaVersionMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/RemoveSchemaVersionMetadata"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<RemoveSchemaVersionMetadataResult> removeSchemaVersionMetadataAsync(
+            RemoveSchemaVersionMetadataRequest removeSchemaVersionMetadataRequest);
+
+    /**
+     * <p>
+     * Removes a key value pair from the schema version metadata for the specified schema version ID.
+     * </p>
+     * 
+     * @param removeSchemaVersionMetadataRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RemoveSchemaVersionMetadata operation returned by the service.
+     * @sample AWSGlueAsyncHandler.RemoveSchemaVersionMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/RemoveSchemaVersionMetadata"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<RemoveSchemaVersionMetadataResult> removeSchemaVersionMetadataAsync(
+            RemoveSchemaVersionMetadataRequest removeSchemaVersionMetadataRequest,
+            com.amazonaws.handlers.AsyncHandler<RemoveSchemaVersionMetadataRequest, RemoveSchemaVersionMetadataResult> asyncHandler);
+
+    /**
+     * <p>
      * Resets a bookmark entry.
      * </p>
+     * <p>
+     * For more information about enabling and using job bookmarks, see:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-continuations.html">Tracking processed data using job
+     * bookmarks</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html">Job parameters
+     * used by Glue</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-jobs-job.html#aws-glue-api-jobs-job-Job">Job
+     * structure</a>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param resetJobBookmarkRequest
      * @return A Java Future containing the result of the ResetJobBookmark operation returned by the service.
@@ -2986,6 +6009,29 @@ public interface AWSGlueAsync extends AWSGlue {
      * <p>
      * Resets a bookmark entry.
      * </p>
+     * <p>
+     * For more information about enabling and using job bookmarks, see:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-continuations.html">Tracking processed data using job
+     * bookmarks</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html">Job parameters
+     * used by Glue</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-jobs-job.html#aws-glue-api-jobs-job-Job">Job
+     * structure</a>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param resetJobBookmarkRequest
      * @param asyncHandler
@@ -2999,6 +6045,183 @@ public interface AWSGlueAsync extends AWSGlue {
      */
     java.util.concurrent.Future<ResetJobBookmarkResult> resetJobBookmarkAsync(ResetJobBookmarkRequest resetJobBookmarkRequest,
             com.amazonaws.handlers.AsyncHandler<ResetJobBookmarkRequest, ResetJobBookmarkResult> asyncHandler);
+
+    /**
+     * <p>
+     * Restarts selected nodes of a previous partially completed workflow run and resumes the workflow run. The selected
+     * nodes and all nodes that are downstream from the selected nodes are run.
+     * </p>
+     * 
+     * @param resumeWorkflowRunRequest
+     * @return A Java Future containing the result of the ResumeWorkflowRun operation returned by the service.
+     * @sample AWSGlueAsync.ResumeWorkflowRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ResumeWorkflowRun" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ResumeWorkflowRunResult> resumeWorkflowRunAsync(ResumeWorkflowRunRequest resumeWorkflowRunRequest);
+
+    /**
+     * <p>
+     * Restarts selected nodes of a previous partially completed workflow run and resumes the workflow run. The selected
+     * nodes and all nodes that are downstream from the selected nodes are run.
+     * </p>
+     * 
+     * @param resumeWorkflowRunRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ResumeWorkflowRun operation returned by the service.
+     * @sample AWSGlueAsyncHandler.ResumeWorkflowRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ResumeWorkflowRun" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ResumeWorkflowRunResult> resumeWorkflowRunAsync(ResumeWorkflowRunRequest resumeWorkflowRunRequest,
+            com.amazonaws.handlers.AsyncHandler<ResumeWorkflowRunRequest, ResumeWorkflowRunResult> asyncHandler);
+
+    /**
+     * <p>
+     * Executes the statement.
+     * </p>
+     * 
+     * @param runStatementRequest
+     * @return A Java Future containing the result of the RunStatement operation returned by the service.
+     * @sample AWSGlueAsync.RunStatement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/RunStatement" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<RunStatementResult> runStatementAsync(RunStatementRequest runStatementRequest);
+
+    /**
+     * <p>
+     * Executes the statement.
+     * </p>
+     * 
+     * @param runStatementRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RunStatement operation returned by the service.
+     * @sample AWSGlueAsyncHandler.RunStatement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/RunStatement" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<RunStatementResult> runStatementAsync(RunStatementRequest runStatementRequest,
+            com.amazonaws.handlers.AsyncHandler<RunStatementRequest, RunStatementResult> asyncHandler);
+
+    /**
+     * <p>
+     * Searches a set of tables based on properties in the table metadata as well as on the parent database. You can
+     * search against text or filter conditions.
+     * </p>
+     * <p>
+     * You can only get tables that you have access to based on the security policies defined in Lake Formation. You
+     * need at least a read-only access to the table for it to be returned. If you do not have access to all the columns
+     * in the table, these columns will not be searched against when returning the list of tables back to you. If you
+     * have access to the columns but not the data in the columns, those columns and the associated metadata for those
+     * columns will be included in the search.
+     * </p>
+     * 
+     * @param searchTablesRequest
+     * @return A Java Future containing the result of the SearchTables operation returned by the service.
+     * @sample AWSGlueAsync.SearchTables
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/SearchTables" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<SearchTablesResult> searchTablesAsync(SearchTablesRequest searchTablesRequest);
+
+    /**
+     * <p>
+     * Searches a set of tables based on properties in the table metadata as well as on the parent database. You can
+     * search against text or filter conditions.
+     * </p>
+     * <p>
+     * You can only get tables that you have access to based on the security policies defined in Lake Formation. You
+     * need at least a read-only access to the table for it to be returned. If you do not have access to all the columns
+     * in the table, these columns will not be searched against when returning the list of tables back to you. If you
+     * have access to the columns but not the data in the columns, those columns and the associated metadata for those
+     * columns will be included in the search.
+     * </p>
+     * 
+     * @param searchTablesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the SearchTables operation returned by the service.
+     * @sample AWSGlueAsyncHandler.SearchTables
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/SearchTables" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<SearchTablesResult> searchTablesAsync(SearchTablesRequest searchTablesRequest,
+            com.amazonaws.handlers.AsyncHandler<SearchTablesRequest, SearchTablesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Starts a new run of the specified blueprint.
+     * </p>
+     * 
+     * @param startBlueprintRunRequest
+     * @return A Java Future containing the result of the StartBlueprintRun operation returned by the service.
+     * @sample AWSGlueAsync.StartBlueprintRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartBlueprintRun" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StartBlueprintRunResult> startBlueprintRunAsync(StartBlueprintRunRequest startBlueprintRunRequest);
+
+    /**
+     * <p>
+     * Starts a new run of the specified blueprint.
+     * </p>
+     * 
+     * @param startBlueprintRunRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartBlueprintRun operation returned by the service.
+     * @sample AWSGlueAsyncHandler.StartBlueprintRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartBlueprintRun" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StartBlueprintRunResult> startBlueprintRunAsync(StartBlueprintRunRequest startBlueprintRunRequest,
+            com.amazonaws.handlers.AsyncHandler<StartBlueprintRunRequest, StartBlueprintRunResult> asyncHandler);
+
+    /**
+     * <p>
+     * Starts a column statistics task run, for a specified table and columns.
+     * </p>
+     * 
+     * @param startColumnStatisticsTaskRunRequest
+     * @return A Java Future containing the result of the StartColumnStatisticsTaskRun operation returned by the
+     *         service.
+     * @sample AWSGlueAsync.StartColumnStatisticsTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartColumnStatisticsTaskRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartColumnStatisticsTaskRunResult> startColumnStatisticsTaskRunAsync(
+            StartColumnStatisticsTaskRunRequest startColumnStatisticsTaskRunRequest);
+
+    /**
+     * <p>
+     * Starts a column statistics task run, for a specified table and columns.
+     * </p>
+     * 
+     * @param startColumnStatisticsTaskRunRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartColumnStatisticsTaskRun operation returned by the
+     *         service.
+     * @sample AWSGlueAsyncHandler.StartColumnStatisticsTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartColumnStatisticsTaskRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartColumnStatisticsTaskRunResult> startColumnStatisticsTaskRunAsync(
+            StartColumnStatisticsTaskRunRequest startColumnStatisticsTaskRunRequest,
+            com.amazonaws.handlers.AsyncHandler<StartColumnStatisticsTaskRunRequest, StartColumnStatisticsTaskRunResult> asyncHandler);
 
     /**
      * <p>
@@ -3072,6 +6295,208 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Starts a recommendation run that is used to generate rules when you don't know what rules to write. Glue Data
+     * Quality analyzes the data and comes up with recommendations for a potential ruleset. You can then triage the
+     * ruleset and modify the generated ruleset to your liking.
+     * </p>
+     * <p>
+     * Recommendation runs are automatically deleted after 90 days.
+     * </p>
+     * 
+     * @param startDataQualityRuleRecommendationRunRequest
+     * @return A Java Future containing the result of the StartDataQualityRuleRecommendationRun operation returned by
+     *         the service.
+     * @sample AWSGlueAsync.StartDataQualityRuleRecommendationRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartDataQualityRuleRecommendationRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartDataQualityRuleRecommendationRunResult> startDataQualityRuleRecommendationRunAsync(
+            StartDataQualityRuleRecommendationRunRequest startDataQualityRuleRecommendationRunRequest);
+
+    /**
+     * <p>
+     * Starts a recommendation run that is used to generate rules when you don't know what rules to write. Glue Data
+     * Quality analyzes the data and comes up with recommendations for a potential ruleset. You can then triage the
+     * ruleset and modify the generated ruleset to your liking.
+     * </p>
+     * <p>
+     * Recommendation runs are automatically deleted after 90 days.
+     * </p>
+     * 
+     * @param startDataQualityRuleRecommendationRunRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartDataQualityRuleRecommendationRun operation returned by
+     *         the service.
+     * @sample AWSGlueAsyncHandler.StartDataQualityRuleRecommendationRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartDataQualityRuleRecommendationRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartDataQualityRuleRecommendationRunResult> startDataQualityRuleRecommendationRunAsync(
+            StartDataQualityRuleRecommendationRunRequest startDataQualityRuleRecommendationRunRequest,
+            com.amazonaws.handlers.AsyncHandler<StartDataQualityRuleRecommendationRunRequest, StartDataQualityRuleRecommendationRunResult> asyncHandler);
+
+    /**
+     * <p>
+     * Once you have a ruleset definition (either recommended or your own), you call this operation to evaluate the
+     * ruleset against a data source (Glue table). The evaluation computes results which you can retrieve with the
+     * <code>GetDataQualityResult</code> API.
+     * </p>
+     * 
+     * @param startDataQualityRulesetEvaluationRunRequest
+     * @return A Java Future containing the result of the StartDataQualityRulesetEvaluationRun operation returned by the
+     *         service.
+     * @sample AWSGlueAsync.StartDataQualityRulesetEvaluationRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartDataQualityRulesetEvaluationRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartDataQualityRulesetEvaluationRunResult> startDataQualityRulesetEvaluationRunAsync(
+            StartDataQualityRulesetEvaluationRunRequest startDataQualityRulesetEvaluationRunRequest);
+
+    /**
+     * <p>
+     * Once you have a ruleset definition (either recommended or your own), you call this operation to evaluate the
+     * ruleset against a data source (Glue table). The evaluation computes results which you can retrieve with the
+     * <code>GetDataQualityResult</code> API.
+     * </p>
+     * 
+     * @param startDataQualityRulesetEvaluationRunRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartDataQualityRulesetEvaluationRun operation returned by the
+     *         service.
+     * @sample AWSGlueAsyncHandler.StartDataQualityRulesetEvaluationRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartDataQualityRulesetEvaluationRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartDataQualityRulesetEvaluationRunResult> startDataQualityRulesetEvaluationRunAsync(
+            StartDataQualityRulesetEvaluationRunRequest startDataQualityRulesetEvaluationRunRequest,
+            com.amazonaws.handlers.AsyncHandler<StartDataQualityRulesetEvaluationRunRequest, StartDataQualityRulesetEvaluationRunResult> asyncHandler);
+
+    /**
+     * <p>
+     * Begins an asynchronous task to export all labeled data for a particular transform. This task is the only
+     * label-related API call that is not part of the typical active learning workflow. You typically use
+     * <code>StartExportLabelsTaskRun</code> when you want to work with all of your existing labels at the same time,
+     * such as when you want to remove or change labels that were previously submitted as truth. This API operation
+     * accepts the <code>TransformId</code> whose labels you want to export and an Amazon Simple Storage Service (Amazon
+     * S3) path to export the labels to. The operation returns a <code>TaskRunId</code>. You can check on the status of
+     * your task run by calling the <code>GetMLTaskRun</code> API.
+     * </p>
+     * 
+     * @param startExportLabelsTaskRunRequest
+     * @return A Java Future containing the result of the StartExportLabelsTaskRun operation returned by the service.
+     * @sample AWSGlueAsync.StartExportLabelsTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartExportLabelsTaskRun" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<StartExportLabelsTaskRunResult> startExportLabelsTaskRunAsync(StartExportLabelsTaskRunRequest startExportLabelsTaskRunRequest);
+
+    /**
+     * <p>
+     * Begins an asynchronous task to export all labeled data for a particular transform. This task is the only
+     * label-related API call that is not part of the typical active learning workflow. You typically use
+     * <code>StartExportLabelsTaskRun</code> when you want to work with all of your existing labels at the same time,
+     * such as when you want to remove or change labels that were previously submitted as truth. This API operation
+     * accepts the <code>TransformId</code> whose labels you want to export and an Amazon Simple Storage Service (Amazon
+     * S3) path to export the labels to. The operation returns a <code>TaskRunId</code>. You can check on the status of
+     * your task run by calling the <code>GetMLTaskRun</code> API.
+     * </p>
+     * 
+     * @param startExportLabelsTaskRunRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartExportLabelsTaskRun operation returned by the service.
+     * @sample AWSGlueAsyncHandler.StartExportLabelsTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartExportLabelsTaskRun" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<StartExportLabelsTaskRunResult> startExportLabelsTaskRunAsync(StartExportLabelsTaskRunRequest startExportLabelsTaskRunRequest,
+            com.amazonaws.handlers.AsyncHandler<StartExportLabelsTaskRunRequest, StartExportLabelsTaskRunResult> asyncHandler);
+
+    /**
+     * <p>
+     * Enables you to provide additional labels (examples of truth) to be used to teach the machine learning transform
+     * and improve its quality. This API operation is generally used as part of the active learning workflow that starts
+     * with the <code>StartMLLabelingSetGenerationTaskRun</code> call and that ultimately results in improving the
+     * quality of your machine learning transform.
+     * </p>
+     * <p>
+     * After the <code>StartMLLabelingSetGenerationTaskRun</code> finishes, Glue machine learning will have generated a
+     * series of questions for humans to answer. (Answering these questions is often called 'labeling' in the machine
+     * learning workflows). In the case of the <code>FindMatches</code> transform, these questions are of the form,
+     * “What is the correct way to group these rows together into groups composed entirely of matching records?” After
+     * the labeling process is finished, users upload their answers/labels with a call to
+     * <code>StartImportLabelsTaskRun</code>. After <code>StartImportLabelsTaskRun</code> finishes, all future runs of
+     * the machine learning transform use the new and improved labels and perform a higher-quality transformation.
+     * </p>
+     * <p>
+     * By default, <code>StartMLLabelingSetGenerationTaskRun</code> continually learns from and combines all labels that
+     * you upload unless you set <code>Replace</code> to true. If you set <code>Replace</code> to true,
+     * <code>StartImportLabelsTaskRun</code> deletes and forgets all previously uploaded labels and learns only from the
+     * exact set that you upload. Replacing labels can be helpful if you realize that you previously uploaded incorrect
+     * labels, and you believe that they are having a negative effect on your transform quality.
+     * </p>
+     * <p>
+     * You can check on the status of your task run by calling the <code>GetMLTaskRun</code> operation.
+     * </p>
+     * 
+     * @param startImportLabelsTaskRunRequest
+     * @return A Java Future containing the result of the StartImportLabelsTaskRun operation returned by the service.
+     * @sample AWSGlueAsync.StartImportLabelsTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartImportLabelsTaskRun" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<StartImportLabelsTaskRunResult> startImportLabelsTaskRunAsync(StartImportLabelsTaskRunRequest startImportLabelsTaskRunRequest);
+
+    /**
+     * <p>
+     * Enables you to provide additional labels (examples of truth) to be used to teach the machine learning transform
+     * and improve its quality. This API operation is generally used as part of the active learning workflow that starts
+     * with the <code>StartMLLabelingSetGenerationTaskRun</code> call and that ultimately results in improving the
+     * quality of your machine learning transform.
+     * </p>
+     * <p>
+     * After the <code>StartMLLabelingSetGenerationTaskRun</code> finishes, Glue machine learning will have generated a
+     * series of questions for humans to answer. (Answering these questions is often called 'labeling' in the machine
+     * learning workflows). In the case of the <code>FindMatches</code> transform, these questions are of the form,
+     * “What is the correct way to group these rows together into groups composed entirely of matching records?” After
+     * the labeling process is finished, users upload their answers/labels with a call to
+     * <code>StartImportLabelsTaskRun</code>. After <code>StartImportLabelsTaskRun</code> finishes, all future runs of
+     * the machine learning transform use the new and improved labels and perform a higher-quality transformation.
+     * </p>
+     * <p>
+     * By default, <code>StartMLLabelingSetGenerationTaskRun</code> continually learns from and combines all labels that
+     * you upload unless you set <code>Replace</code> to true. If you set <code>Replace</code> to true,
+     * <code>StartImportLabelsTaskRun</code> deletes and forgets all previously uploaded labels and learns only from the
+     * exact set that you upload. Replacing labels can be helpful if you realize that you previously uploaded incorrect
+     * labels, and you believe that they are having a negative effect on your transform quality.
+     * </p>
+     * <p>
+     * You can check on the status of your task run by calling the <code>GetMLTaskRun</code> operation.
+     * </p>
+     * 
+     * @param startImportLabelsTaskRunRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartImportLabelsTaskRun operation returned by the service.
+     * @sample AWSGlueAsyncHandler.StartImportLabelsTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartImportLabelsTaskRun" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<StartImportLabelsTaskRunResult> startImportLabelsTaskRunAsync(StartImportLabelsTaskRunRequest startImportLabelsTaskRunRequest,
+            com.amazonaws.handlers.AsyncHandler<StartImportLabelsTaskRunRequest, StartImportLabelsTaskRunResult> asyncHandler);
+
+    /**
+     * <p>
      * Starts a job run using a job definition.
      * </p>
      * 
@@ -3100,6 +6525,116 @@ public interface AWSGlueAsync extends AWSGlue {
      */
     java.util.concurrent.Future<StartJobRunResult> startJobRunAsync(StartJobRunRequest startJobRunRequest,
             com.amazonaws.handlers.AsyncHandler<StartJobRunRequest, StartJobRunResult> asyncHandler);
+
+    /**
+     * <p>
+     * Starts a task to estimate the quality of the transform.
+     * </p>
+     * <p>
+     * When you provide label sets as examples of truth, Glue machine learning uses some of those examples to learn from
+     * them. The rest of the labels are used as a test to estimate quality.
+     * </p>
+     * <p>
+     * Returns a unique identifier for the run. You can call <code>GetMLTaskRun</code> to get more information about the
+     * stats of the <code>EvaluationTaskRun</code>.
+     * </p>
+     * 
+     * @param startMLEvaluationTaskRunRequest
+     * @return A Java Future containing the result of the StartMLEvaluationTaskRun operation returned by the service.
+     * @sample AWSGlueAsync.StartMLEvaluationTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartMLEvaluationTaskRun" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<StartMLEvaluationTaskRunResult> startMLEvaluationTaskRunAsync(StartMLEvaluationTaskRunRequest startMLEvaluationTaskRunRequest);
+
+    /**
+     * <p>
+     * Starts a task to estimate the quality of the transform.
+     * </p>
+     * <p>
+     * When you provide label sets as examples of truth, Glue machine learning uses some of those examples to learn from
+     * them. The rest of the labels are used as a test to estimate quality.
+     * </p>
+     * <p>
+     * Returns a unique identifier for the run. You can call <code>GetMLTaskRun</code> to get more information about the
+     * stats of the <code>EvaluationTaskRun</code>.
+     * </p>
+     * 
+     * @param startMLEvaluationTaskRunRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartMLEvaluationTaskRun operation returned by the service.
+     * @sample AWSGlueAsyncHandler.StartMLEvaluationTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartMLEvaluationTaskRun" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<StartMLEvaluationTaskRunResult> startMLEvaluationTaskRunAsync(StartMLEvaluationTaskRunRequest startMLEvaluationTaskRunRequest,
+            com.amazonaws.handlers.AsyncHandler<StartMLEvaluationTaskRunRequest, StartMLEvaluationTaskRunResult> asyncHandler);
+
+    /**
+     * <p>
+     * Starts the active learning workflow for your machine learning transform to improve the transform's quality by
+     * generating label sets and adding labels.
+     * </p>
+     * <p>
+     * When the <code>StartMLLabelingSetGenerationTaskRun</code> finishes, Glue will have generated a "labeling set" or
+     * a set of questions for humans to answer.
+     * </p>
+     * <p>
+     * In the case of the <code>FindMatches</code> transform, these questions are of the form, “What is the correct way
+     * to group these rows together into groups composed entirely of matching records?”
+     * </p>
+     * <p>
+     * After the labeling process is finished, you can upload your labels with a call to
+     * <code>StartImportLabelsTaskRun</code>. After <code>StartImportLabelsTaskRun</code> finishes, all future runs of
+     * the machine learning transform will use the new and improved labels and perform a higher-quality transformation.
+     * </p>
+     * 
+     * @param startMLLabelingSetGenerationTaskRunRequest
+     * @return A Java Future containing the result of the StartMLLabelingSetGenerationTaskRun operation returned by the
+     *         service.
+     * @sample AWSGlueAsync.StartMLLabelingSetGenerationTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartMLLabelingSetGenerationTaskRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartMLLabelingSetGenerationTaskRunResult> startMLLabelingSetGenerationTaskRunAsync(
+            StartMLLabelingSetGenerationTaskRunRequest startMLLabelingSetGenerationTaskRunRequest);
+
+    /**
+     * <p>
+     * Starts the active learning workflow for your machine learning transform to improve the transform's quality by
+     * generating label sets and adding labels.
+     * </p>
+     * <p>
+     * When the <code>StartMLLabelingSetGenerationTaskRun</code> finishes, Glue will have generated a "labeling set" or
+     * a set of questions for humans to answer.
+     * </p>
+     * <p>
+     * In the case of the <code>FindMatches</code> transform, these questions are of the form, “What is the correct way
+     * to group these rows together into groups composed entirely of matching records?”
+     * </p>
+     * <p>
+     * After the labeling process is finished, you can upload your labels with a call to
+     * <code>StartImportLabelsTaskRun</code>. After <code>StartImportLabelsTaskRun</code> finishes, all future runs of
+     * the machine learning transform will use the new and improved labels and perform a higher-quality transformation.
+     * </p>
+     * 
+     * @param startMLLabelingSetGenerationTaskRunRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartMLLabelingSetGenerationTaskRun operation returned by the
+     *         service.
+     * @sample AWSGlueAsyncHandler.StartMLLabelingSetGenerationTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartMLLabelingSetGenerationTaskRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartMLLabelingSetGenerationTaskRunResult> startMLLabelingSetGenerationTaskRunAsync(
+            StartMLLabelingSetGenerationTaskRunRequest startMLLabelingSetGenerationTaskRunRequest,
+            com.amazonaws.handlers.AsyncHandler<StartMLLabelingSetGenerationTaskRunRequest, StartMLLabelingSetGenerationTaskRunResult> asyncHandler);
 
     /**
      * <p>
@@ -3167,6 +6702,39 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Stops a task run for the specified table.
+     * </p>
+     * 
+     * @param stopColumnStatisticsTaskRunRequest
+     * @return A Java Future containing the result of the StopColumnStatisticsTaskRun operation returned by the service.
+     * @sample AWSGlueAsync.StopColumnStatisticsTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StopColumnStatisticsTaskRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StopColumnStatisticsTaskRunResult> stopColumnStatisticsTaskRunAsync(
+            StopColumnStatisticsTaskRunRequest stopColumnStatisticsTaskRunRequest);
+
+    /**
+     * <p>
+     * Stops a task run for the specified table.
+     * </p>
+     * 
+     * @param stopColumnStatisticsTaskRunRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StopColumnStatisticsTaskRun operation returned by the service.
+     * @sample AWSGlueAsyncHandler.StopColumnStatisticsTaskRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StopColumnStatisticsTaskRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StopColumnStatisticsTaskRunResult> stopColumnStatisticsTaskRunAsync(
+            StopColumnStatisticsTaskRunRequest stopColumnStatisticsTaskRunRequest,
+            com.amazonaws.handlers.AsyncHandler<StopColumnStatisticsTaskRunRequest, StopColumnStatisticsTaskRunResult> asyncHandler);
+
+    /**
+     * <p>
      * If the specified crawler is running, stops the crawl.
      * </p>
      * 
@@ -3231,6 +6799,37 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Stops the session.
+     * </p>
+     * 
+     * @param stopSessionRequest
+     * @return A Java Future containing the result of the StopSession operation returned by the service.
+     * @sample AWSGlueAsync.StopSession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StopSession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StopSessionResult> stopSessionAsync(StopSessionRequest stopSessionRequest);
+
+    /**
+     * <p>
+     * Stops the session.
+     * </p>
+     * 
+     * @param stopSessionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StopSession operation returned by the service.
+     * @sample AWSGlueAsyncHandler.StopSession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StopSession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StopSessionResult> stopSessionAsync(StopSessionRequest stopSessionRequest,
+            com.amazonaws.handlers.AsyncHandler<StopSessionRequest, StopSessionResult> asyncHandler);
+
+    /**
+     * <p>
      * Stops a specified trigger.
      * </p>
      * 
@@ -3262,9 +6861,40 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Adds tags to a resource. A tag is a label you can assign to an AWS resource. In AWS Glue, you can tag only
-     * certain resources. For information about what resources you can tag, see <a
-     * href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">AWS Tags in AWS Glue</a>.
+     * Stops the execution of the specified workflow run.
+     * </p>
+     * 
+     * @param stopWorkflowRunRequest
+     * @return A Java Future containing the result of the StopWorkflowRun operation returned by the service.
+     * @sample AWSGlueAsync.StopWorkflowRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StopWorkflowRun" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StopWorkflowRunResult> stopWorkflowRunAsync(StopWorkflowRunRequest stopWorkflowRunRequest);
+
+    /**
+     * <p>
+     * Stops the execution of the specified workflow run.
+     * </p>
+     * 
+     * @param stopWorkflowRunRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StopWorkflowRun operation returned by the service.
+     * @sample AWSGlueAsyncHandler.StopWorkflowRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StopWorkflowRun" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StopWorkflowRunResult> stopWorkflowRunAsync(StopWorkflowRunRequest stopWorkflowRunRequest,
+            com.amazonaws.handlers.AsyncHandler<StopWorkflowRunRequest, StopWorkflowRunResult> asyncHandler);
+
+    /**
+     * <p>
+     * Adds tags to a resource. A tag is a label you can assign to an Amazon Web Services resource. In Glue, you can tag
+     * only certain resources. For information about what resources you can tag, see <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">Amazon Web Services Tags in Glue</a>.
      * </p>
      * 
      * @param tagResourceRequest
@@ -3277,9 +6907,9 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Adds tags to a resource. A tag is a label you can assign to an AWS resource. In AWS Glue, you can tag only
-     * certain resources. For information about what resources you can tag, see <a
-     * href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">AWS Tags in AWS Glue</a>.
+     * Adds tags to a resource. A tag is a label you can assign to an Amazon Web Services resource. In Glue, you can tag
+     * only certain resources. For information about what resources you can tag, see <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">Amazon Web Services Tags in Glue</a>.
      * </p>
      * 
      * @param tagResourceRequest
@@ -3328,6 +6958,37 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Updates a registered blueprint.
+     * </p>
+     * 
+     * @param updateBlueprintRequest
+     * @return A Java Future containing the result of the UpdateBlueprint operation returned by the service.
+     * @sample AWSGlueAsync.UpdateBlueprint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateBlueprint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateBlueprintResult> updateBlueprintAsync(UpdateBlueprintRequest updateBlueprintRequest);
+
+    /**
+     * <p>
+     * Updates a registered blueprint.
+     * </p>
+     * 
+     * @param updateBlueprintRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateBlueprint operation returned by the service.
+     * @sample AWSGlueAsyncHandler.UpdateBlueprint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateBlueprint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateBlueprintResult> updateBlueprintAsync(UpdateBlueprintRequest updateBlueprintRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateBlueprintRequest, UpdateBlueprintResult> asyncHandler);
+
+    /**
+     * <p>
      * Modifies an existing classifier (a <code>GrokClassifier</code>, an <code>XMLClassifier</code>, a
      * <code>JsonClassifier</code>, or a <code>CsvClassifier</code>, depending on which field is present).
      * </p>
@@ -3358,6 +7019,88 @@ public interface AWSGlueAsync extends AWSGlue {
      */
     java.util.concurrent.Future<UpdateClassifierResult> updateClassifierAsync(UpdateClassifierRequest updateClassifierRequest,
             com.amazonaws.handlers.AsyncHandler<UpdateClassifierRequest, UpdateClassifierResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates or updates partition statistics of columns.
+     * </p>
+     * <p>
+     * The Identity and Access Management (IAM) permission required for this operation is <code>UpdatePartition</code>.
+     * </p>
+     * 
+     * @param updateColumnStatisticsForPartitionRequest
+     * @return A Java Future containing the result of the UpdateColumnStatisticsForPartition operation returned by the
+     *         service.
+     * @sample AWSGlueAsync.UpdateColumnStatisticsForPartition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateColumnStatisticsForPartition"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateColumnStatisticsForPartitionResult> updateColumnStatisticsForPartitionAsync(
+            UpdateColumnStatisticsForPartitionRequest updateColumnStatisticsForPartitionRequest);
+
+    /**
+     * <p>
+     * Creates or updates partition statistics of columns.
+     * </p>
+     * <p>
+     * The Identity and Access Management (IAM) permission required for this operation is <code>UpdatePartition</code>.
+     * </p>
+     * 
+     * @param updateColumnStatisticsForPartitionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateColumnStatisticsForPartition operation returned by the
+     *         service.
+     * @sample AWSGlueAsyncHandler.UpdateColumnStatisticsForPartition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateColumnStatisticsForPartition"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateColumnStatisticsForPartitionResult> updateColumnStatisticsForPartitionAsync(
+            UpdateColumnStatisticsForPartitionRequest updateColumnStatisticsForPartitionRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateColumnStatisticsForPartitionRequest, UpdateColumnStatisticsForPartitionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates or updates table statistics of columns.
+     * </p>
+     * <p>
+     * The Identity and Access Management (IAM) permission required for this operation is <code>UpdateTable</code>.
+     * </p>
+     * 
+     * @param updateColumnStatisticsForTableRequest
+     * @return A Java Future containing the result of the UpdateColumnStatisticsForTable operation returned by the
+     *         service.
+     * @sample AWSGlueAsync.UpdateColumnStatisticsForTable
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateColumnStatisticsForTable"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateColumnStatisticsForTableResult> updateColumnStatisticsForTableAsync(
+            UpdateColumnStatisticsForTableRequest updateColumnStatisticsForTableRequest);
+
+    /**
+     * <p>
+     * Creates or updates table statistics of columns.
+     * </p>
+     * <p>
+     * The Identity and Access Management (IAM) permission required for this operation is <code>UpdateTable</code>.
+     * </p>
+     * 
+     * @param updateColumnStatisticsForTableRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateColumnStatisticsForTable operation returned by the
+     *         service.
+     * @sample AWSGlueAsyncHandler.UpdateColumnStatisticsForTable
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateColumnStatisticsForTable"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateColumnStatisticsForTableResult> updateColumnStatisticsForTableAsync(
+            UpdateColumnStatisticsForTableRequest updateColumnStatisticsForTableRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateColumnStatisticsForTableRequest, UpdateColumnStatisticsForTableResult> asyncHandler);
 
     /**
      * <p>
@@ -3454,6 +7197,37 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Updates the specified data quality ruleset.
+     * </p>
+     * 
+     * @param updateDataQualityRulesetRequest
+     * @return A Java Future containing the result of the UpdateDataQualityRuleset operation returned by the service.
+     * @sample AWSGlueAsync.UpdateDataQualityRuleset
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateDataQualityRuleset" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateDataQualityRulesetResult> updateDataQualityRulesetAsync(UpdateDataQualityRulesetRequest updateDataQualityRulesetRequest);
+
+    /**
+     * <p>
+     * Updates the specified data quality ruleset.
+     * </p>
+     * 
+     * @param updateDataQualityRulesetRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateDataQualityRuleset operation returned by the service.
+     * @sample AWSGlueAsyncHandler.UpdateDataQualityRuleset
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateDataQualityRuleset" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateDataQualityRulesetResult> updateDataQualityRulesetAsync(UpdateDataQualityRulesetRequest updateDataQualityRulesetRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateDataQualityRulesetRequest, UpdateDataQualityRulesetResult> asyncHandler);
+
+    /**
+     * <p>
      * Updates an existing database definition in a Data Catalog.
      * </p>
      * 
@@ -3516,7 +7290,7 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Updates an existing job definition.
+     * Updates an existing job definition. The previous job definition is completely overwritten by this information.
      * </p>
      * 
      * @param updateJobRequest
@@ -3529,7 +7303,7 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
-     * Updates an existing job definition.
+     * Updates an existing job definition. The previous job definition is completely overwritten by this information.
      * </p>
      * 
      * @param updateJobRequest
@@ -3544,6 +7318,90 @@ public interface AWSGlueAsync extends AWSGlue {
      */
     java.util.concurrent.Future<UpdateJobResult> updateJobAsync(UpdateJobRequest updateJobRequest,
             com.amazonaws.handlers.AsyncHandler<UpdateJobRequest, UpdateJobResult> asyncHandler);
+
+    /**
+     * <p>
+     * Synchronizes a job from the source control repository. This operation takes the job artifacts that are located in
+     * the remote repository and updates the Glue internal stores with these artifacts.
+     * </p>
+     * <p>
+     * This API supports optional parameters which take in the repository information.
+     * </p>
+     * 
+     * @param updateJobFromSourceControlRequest
+     * @return A Java Future containing the result of the UpdateJobFromSourceControl operation returned by the service.
+     * @sample AWSGlueAsync.UpdateJobFromSourceControl
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateJobFromSourceControl"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateJobFromSourceControlResult> updateJobFromSourceControlAsync(
+            UpdateJobFromSourceControlRequest updateJobFromSourceControlRequest);
+
+    /**
+     * <p>
+     * Synchronizes a job from the source control repository. This operation takes the job artifacts that are located in
+     * the remote repository and updates the Glue internal stores with these artifacts.
+     * </p>
+     * <p>
+     * This API supports optional parameters which take in the repository information.
+     * </p>
+     * 
+     * @param updateJobFromSourceControlRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateJobFromSourceControl operation returned by the service.
+     * @sample AWSGlueAsyncHandler.UpdateJobFromSourceControl
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateJobFromSourceControl"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateJobFromSourceControlResult> updateJobFromSourceControlAsync(
+            UpdateJobFromSourceControlRequest updateJobFromSourceControlRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateJobFromSourceControlRequest, UpdateJobFromSourceControlResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates an existing machine learning transform. Call this operation to tune the algorithm parameters to achieve
+     * better results.
+     * </p>
+     * <p>
+     * After calling this operation, you can call the <code>StartMLEvaluationTaskRun</code> operation to assess how well
+     * your new parameters achieved your goals (such as improving the quality of your machine learning transform, or
+     * making it more cost-effective).
+     * </p>
+     * 
+     * @param updateMLTransformRequest
+     * @return A Java Future containing the result of the UpdateMLTransform operation returned by the service.
+     * @sample AWSGlueAsync.UpdateMLTransform
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateMLTransform" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateMLTransformResult> updateMLTransformAsync(UpdateMLTransformRequest updateMLTransformRequest);
+
+    /**
+     * <p>
+     * Updates an existing machine learning transform. Call this operation to tune the algorithm parameters to achieve
+     * better results.
+     * </p>
+     * <p>
+     * After calling this operation, you can call the <code>StartMLEvaluationTaskRun</code> operation to assess how well
+     * your new parameters achieved your goals (such as improving the quality of your machine learning transform, or
+     * making it more cost-effective).
+     * </p>
+     * 
+     * @param updateMLTransformRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateMLTransform operation returned by the service.
+     * @sample AWSGlueAsyncHandler.UpdateMLTransform
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateMLTransform" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateMLTransformResult> updateMLTransformAsync(UpdateMLTransformRequest updateMLTransformRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateMLTransformRequest, UpdateMLTransformResult> asyncHandler);
 
     /**
      * <p>
@@ -3578,6 +7436,137 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Updates an existing registry which is used to hold a collection of schemas. The updated properties relate to the
+     * registry, and do not modify any of the schemas within the registry.
+     * </p>
+     * 
+     * @param updateRegistryRequest
+     * @return A Java Future containing the result of the UpdateRegistry operation returned by the service.
+     * @sample AWSGlueAsync.UpdateRegistry
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateRegistry" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateRegistryResult> updateRegistryAsync(UpdateRegistryRequest updateRegistryRequest);
+
+    /**
+     * <p>
+     * Updates an existing registry which is used to hold a collection of schemas. The updated properties relate to the
+     * registry, and do not modify any of the schemas within the registry.
+     * </p>
+     * 
+     * @param updateRegistryRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateRegistry operation returned by the service.
+     * @sample AWSGlueAsyncHandler.UpdateRegistry
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateRegistry" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateRegistryResult> updateRegistryAsync(UpdateRegistryRequest updateRegistryRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateRegistryRequest, UpdateRegistryResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the description, compatibility setting, or version checkpoint for a schema set.
+     * </p>
+     * <p>
+     * For updating the compatibility setting, the call will not validate compatibility for the entire set of schema
+     * versions with the new compatibility setting. If the value for <code>Compatibility</code> is provided, the
+     * <code>VersionNumber</code> (a checkpoint) is also required. The API will validate the checkpoint version number
+     * for consistency.
+     * </p>
+     * <p>
+     * If the value for the <code>VersionNumber</code> (checkpoint) is provided, <code>Compatibility</code> is optional
+     * and this can be used to set/reset a checkpoint for the schema.
+     * </p>
+     * <p>
+     * This update will happen only if the schema is in the AVAILABLE state.
+     * </p>
+     * 
+     * @param updateSchemaRequest
+     * @return A Java Future containing the result of the UpdateSchema operation returned by the service.
+     * @sample AWSGlueAsync.UpdateSchema
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateSchema" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateSchemaResult> updateSchemaAsync(UpdateSchemaRequest updateSchemaRequest);
+
+    /**
+     * <p>
+     * Updates the description, compatibility setting, or version checkpoint for a schema set.
+     * </p>
+     * <p>
+     * For updating the compatibility setting, the call will not validate compatibility for the entire set of schema
+     * versions with the new compatibility setting. If the value for <code>Compatibility</code> is provided, the
+     * <code>VersionNumber</code> (a checkpoint) is also required. The API will validate the checkpoint version number
+     * for consistency.
+     * </p>
+     * <p>
+     * If the value for the <code>VersionNumber</code> (checkpoint) is provided, <code>Compatibility</code> is optional
+     * and this can be used to set/reset a checkpoint for the schema.
+     * </p>
+     * <p>
+     * This update will happen only if the schema is in the AVAILABLE state.
+     * </p>
+     * 
+     * @param updateSchemaRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateSchema operation returned by the service.
+     * @sample AWSGlueAsyncHandler.UpdateSchema
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateSchema" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateSchemaResult> updateSchemaAsync(UpdateSchemaRequest updateSchemaRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateSchemaRequest, UpdateSchemaResult> asyncHandler);
+
+    /**
+     * <p>
+     * Synchronizes a job to the source control repository. This operation takes the job artifacts from the Glue
+     * internal stores and makes a commit to the remote repository that is configured on the job.
+     * </p>
+     * <p>
+     * This API supports optional parameters which take in the repository information.
+     * </p>
+     * 
+     * @param updateSourceControlFromJobRequest
+     * @return A Java Future containing the result of the UpdateSourceControlFromJob operation returned by the service.
+     * @sample AWSGlueAsync.UpdateSourceControlFromJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateSourceControlFromJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateSourceControlFromJobResult> updateSourceControlFromJobAsync(
+            UpdateSourceControlFromJobRequest updateSourceControlFromJobRequest);
+
+    /**
+     * <p>
+     * Synchronizes a job to the source control repository. This operation takes the job artifacts from the Glue
+     * internal stores and makes a commit to the remote repository that is configured on the job.
+     * </p>
+     * <p>
+     * This API supports optional parameters which take in the repository information.
+     * </p>
+     * 
+     * @param updateSourceControlFromJobRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateSourceControlFromJob operation returned by the service.
+     * @sample AWSGlueAsyncHandler.UpdateSourceControlFromJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateSourceControlFromJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateSourceControlFromJobResult> updateSourceControlFromJobAsync(
+            UpdateSourceControlFromJobRequest updateSourceControlFromJobRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateSourceControlFromJobRequest, UpdateSourceControlFromJobResult> asyncHandler);
+
+    /**
+     * <p>
      * Updates a metadata table in the Data Catalog.
      * </p>
      * 
@@ -3609,6 +7598,37 @@ public interface AWSGlueAsync extends AWSGlue {
 
     /**
      * <p>
+     * Updates the configuration for an existing table optimizer.
+     * </p>
+     * 
+     * @param updateTableOptimizerRequest
+     * @return A Java Future containing the result of the UpdateTableOptimizer operation returned by the service.
+     * @sample AWSGlueAsync.UpdateTableOptimizer
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateTableOptimizer" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateTableOptimizerResult> updateTableOptimizerAsync(UpdateTableOptimizerRequest updateTableOptimizerRequest);
+
+    /**
+     * <p>
+     * Updates the configuration for an existing table optimizer.
+     * </p>
+     * 
+     * @param updateTableOptimizerRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateTableOptimizer operation returned by the service.
+     * @sample AWSGlueAsyncHandler.UpdateTableOptimizer
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateTableOptimizer" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateTableOptimizerResult> updateTableOptimizerAsync(UpdateTableOptimizerRequest updateTableOptimizerRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateTableOptimizerRequest, UpdateTableOptimizerResult> asyncHandler);
+
+    /**
+     * <p>
      * Updates a trigger definition.
      * </p>
      * 
@@ -3637,6 +7657,37 @@ public interface AWSGlueAsync extends AWSGlue {
      */
     java.util.concurrent.Future<UpdateTriggerResult> updateTriggerAsync(UpdateTriggerRequest updateTriggerRequest,
             com.amazonaws.handlers.AsyncHandler<UpdateTriggerRequest, UpdateTriggerResult> asyncHandler);
+
+    /**
+     * <p>
+     * Update an Glue usage profile.
+     * </p>
+     * 
+     * @param updateUsageProfileRequest
+     * @return A Java Future containing the result of the UpdateUsageProfile operation returned by the service.
+     * @sample AWSGlueAsync.UpdateUsageProfile
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateUsageProfile" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateUsageProfileResult> updateUsageProfileAsync(UpdateUsageProfileRequest updateUsageProfileRequest);
+
+    /**
+     * <p>
+     * Update an Glue usage profile.
+     * </p>
+     * 
+     * @param updateUsageProfileRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateUsageProfile operation returned by the service.
+     * @sample AWSGlueAsyncHandler.UpdateUsageProfile
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateUsageProfile" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateUsageProfileResult> updateUsageProfileAsync(UpdateUsageProfileRequest updateUsageProfileRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateUsageProfileRequest, UpdateUsageProfileResult> asyncHandler);
 
     /**
      * <p>

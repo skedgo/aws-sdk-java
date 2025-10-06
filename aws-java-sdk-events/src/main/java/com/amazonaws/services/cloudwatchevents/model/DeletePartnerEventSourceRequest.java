@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,7 +33,7 @@ public class DeletePartnerEventSourceRequest extends com.amazonaws.AmazonWebServ
     private String name;
     /**
      * <p>
-     * The AWS account ID of the AWS customer that the event source was created for.
+     * The Amazon Web Services account ID of the Amazon Web Services customer that the event source was created for.
      * </p>
      */
     private String account;
@@ -80,11 +80,12 @@ public class DeletePartnerEventSourceRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The AWS account ID of the AWS customer that the event source was created for.
+     * The Amazon Web Services account ID of the Amazon Web Services customer that the event source was created for.
      * </p>
      * 
      * @param account
-     *        The AWS account ID of the AWS customer that the event source was created for.
+     *        The Amazon Web Services account ID of the Amazon Web Services customer that the event source was created
+     *        for.
      */
 
     public void setAccount(String account) {
@@ -93,10 +94,11 @@ public class DeletePartnerEventSourceRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The AWS account ID of the AWS customer that the event source was created for.
+     * The Amazon Web Services account ID of the Amazon Web Services customer that the event source was created for.
      * </p>
      * 
-     * @return The AWS account ID of the AWS customer that the event source was created for.
+     * @return The Amazon Web Services account ID of the Amazon Web Services customer that the event source was created
+     *         for.
      */
 
     public String getAccount() {
@@ -105,11 +107,12 @@ public class DeletePartnerEventSourceRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The AWS account ID of the AWS customer that the event source was created for.
+     * The Amazon Web Services account ID of the Amazon Web Services customer that the event source was created for.
      * </p>
      * 
      * @param account
-     *        The AWS account ID of the AWS customer that the event source was created for.
+     *        The Amazon Web Services account ID of the Amazon Web Services customer that the event source was created
+     *        for.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

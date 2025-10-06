@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * For an SQL-based Amazon Kinesis Data Analytics application, represents an update to the <a>InputLambdaProcessor</a>
- * that is used to preprocess the records in the stream.
+ * For a SQL-based Kinesis Data Analytics application, represents an update to the <a>InputLambdaProcessor</a> that is
+ * used to preprocess the records in the stream.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/InputLambdaProcessorUpdate"
@@ -31,14 +31,15 @@ public class InputLambdaProcessorUpdate implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the new AWS Lambda function that is used to preprocess the records in the
+     * The Amazon Resource Name (ARN) of the new Amazon Lambda function that is used to preprocess the records in the
      * stream.
      * </p>
      * <note>
      * <p>
      * To specify an earlier version of the Lambda function than the latest, include the Lambda function version in the
      * Lambda function ARN. For more information about Lambda ARNs, see <a
-     * href="/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs: AWS Lambda</a>
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs:
+     * Amazon Lambda</a>
      * </p>
      * </note>
      */
@@ -46,24 +47,26 @@ public class InputLambdaProcessorUpdate implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the new AWS Lambda function that is used to preprocess the records in the
+     * The Amazon Resource Name (ARN) of the new Amazon Lambda function that is used to preprocess the records in the
      * stream.
      * </p>
      * <note>
      * <p>
      * To specify an earlier version of the Lambda function than the latest, include the Lambda function version in the
      * Lambda function ARN. For more information about Lambda ARNs, see <a
-     * href="/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs: AWS Lambda</a>
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs:
+     * Amazon Lambda</a>
      * </p>
      * </note>
      * 
      * @param resourceARNUpdate
-     *        The Amazon Resource Name (ARN) of the new AWS Lambda function that is used to preprocess the records in
+     *        The Amazon Resource Name (ARN) of the new Amazon Lambda function that is used to preprocess the records in
      *        the stream.</p> <note>
      *        <p>
      *        To specify an earlier version of the Lambda function than the latest, include the Lambda function version
      *        in the Lambda function ARN. For more information about Lambda ARNs, see <a
-     *        href="/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs: AWS Lambda</a>
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda"
+     *        >Example ARNs: Amazon Lambda</a>
      *        </p>
      */
 
@@ -73,23 +76,25 @@ public class InputLambdaProcessorUpdate implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the new AWS Lambda function that is used to preprocess the records in the
+     * The Amazon Resource Name (ARN) of the new Amazon Lambda function that is used to preprocess the records in the
      * stream.
      * </p>
      * <note>
      * <p>
      * To specify an earlier version of the Lambda function than the latest, include the Lambda function version in the
      * Lambda function ARN. For more information about Lambda ARNs, see <a
-     * href="/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs: AWS Lambda</a>
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs:
+     * Amazon Lambda</a>
      * </p>
      * </note>
      * 
-     * @return The Amazon Resource Name (ARN) of the new AWS Lambda function that is used to preprocess the records in
-     *         the stream.</p> <note>
+     * @return The Amazon Resource Name (ARN) of the new Amazon Lambda function that is used to preprocess the records
+     *         in the stream.</p> <note>
      *         <p>
      *         To specify an earlier version of the Lambda function than the latest, include the Lambda function version
      *         in the Lambda function ARN. For more information about Lambda ARNs, see <a
-     *         href="/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs: AWS Lambda</a>
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda"
+     *         >Example ARNs: Amazon Lambda</a>
      *         </p>
      */
 
@@ -99,24 +104,26 @@ public class InputLambdaProcessorUpdate implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the new AWS Lambda function that is used to preprocess the records in the
+     * The Amazon Resource Name (ARN) of the new Amazon Lambda function that is used to preprocess the records in the
      * stream.
      * </p>
      * <note>
      * <p>
      * To specify an earlier version of the Lambda function than the latest, include the Lambda function version in the
      * Lambda function ARN. For more information about Lambda ARNs, see <a
-     * href="/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs: AWS Lambda</a>
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs:
+     * Amazon Lambda</a>
      * </p>
      * </note>
      * 
      * @param resourceARNUpdate
-     *        The Amazon Resource Name (ARN) of the new AWS Lambda function that is used to preprocess the records in
+     *        The Amazon Resource Name (ARN) of the new Amazon Lambda function that is used to preprocess the records in
      *        the stream.</p> <note>
      *        <p>
      *        To specify an earlier version of the Lambda function than the latest, include the Lambda function version
      *        in the Lambda function ARN. For more information about Lambda ARNs, see <a
-     *        href="/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs: AWS Lambda</a>
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda"
+     *        >Example ARNs: Amazon Lambda</a>
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */

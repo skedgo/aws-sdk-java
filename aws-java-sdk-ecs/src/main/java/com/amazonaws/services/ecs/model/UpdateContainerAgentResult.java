@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,18 +25,18 @@ public class UpdateContainerAgentResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The container instance for which the container agent was updated.
+     * The container instance that the container agent was updated for.
      * </p>
      */
     private ContainerInstance containerInstance;
 
     /**
      * <p>
-     * The container instance for which the container agent was updated.
+     * The container instance that the container agent was updated for.
      * </p>
      * 
      * @param containerInstance
-     *        The container instance for which the container agent was updated.
+     *        The container instance that the container agent was updated for.
      */
 
     public void setContainerInstance(ContainerInstance containerInstance) {
@@ -45,10 +45,10 @@ public class UpdateContainerAgentResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The container instance for which the container agent was updated.
+     * The container instance that the container agent was updated for.
      * </p>
      * 
-     * @return The container instance for which the container agent was updated.
+     * @return The container instance that the container agent was updated for.
      */
 
     public ContainerInstance getContainerInstance() {
@@ -57,11 +57,11 @@ public class UpdateContainerAgentResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The container instance for which the container agent was updated.
+     * The container instance that the container agent was updated for.
      * </p>
      * 
      * @param containerInstance
-     *        The container instance for which the container agent was updated.
+     *        The container instance that the container agent was updated for.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

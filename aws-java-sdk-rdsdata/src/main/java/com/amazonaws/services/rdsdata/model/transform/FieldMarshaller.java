@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,18 +27,20 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class FieldMarshaller {
 
-    private static final MarshallingInfo<java.nio.ByteBuffer> BLOBVALUE_BINDING = MarshallingInfo.builder(MarshallingType.BYTE_BUFFER)
-            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("blobValue").build();
-    private static final MarshallingInfo<Boolean> BOOLEANVALUE_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
-            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("booleanValue").build();
-    private static final MarshallingInfo<Double> DOUBLEVALUE_BINDING = MarshallingInfo.builder(MarshallingType.DOUBLE)
-            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("doubleValue").build();
     private static final MarshallingInfo<Boolean> ISNULL_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("isNull").build();
+    private static final MarshallingInfo<Boolean> BOOLEANVALUE_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("booleanValue").build();
     private static final MarshallingInfo<Long> LONGVALUE_BINDING = MarshallingInfo.builder(MarshallingType.LONG).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("longValue").build();
+    private static final MarshallingInfo<Double> DOUBLEVALUE_BINDING = MarshallingInfo.builder(MarshallingType.DOUBLE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("doubleValue").build();
     private static final MarshallingInfo<String> STRINGVALUE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("stringValue").build();
+    private static final MarshallingInfo<java.nio.ByteBuffer> BLOBVALUE_BINDING = MarshallingInfo.builder(MarshallingType.BYTE_BUFFER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("blobValue").build();
+    private static final MarshallingInfo<StructuredPojo> ARRAYVALUE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("arrayValue").build();
 
     private static final FieldMarshaller instance = new FieldMarshaller();
 
@@ -56,12 +58,13 @@ public class FieldMarshaller {
         }
 
         try {
-            protocolMarshaller.marshall(field.getBlobValue(), BLOBVALUE_BINDING);
-            protocolMarshaller.marshall(field.getBooleanValue(), BOOLEANVALUE_BINDING);
-            protocolMarshaller.marshall(field.getDoubleValue(), DOUBLEVALUE_BINDING);
             protocolMarshaller.marshall(field.getIsNull(), ISNULL_BINDING);
+            protocolMarshaller.marshall(field.getBooleanValue(), BOOLEANVALUE_BINDING);
             protocolMarshaller.marshall(field.getLongValue(), LONGVALUE_BINDING);
+            protocolMarshaller.marshall(field.getDoubleValue(), DOUBLEVALUE_BINDING);
             protocolMarshaller.marshall(field.getStringValue(), STRINGVALUE_BINDING);
+            protocolMarshaller.marshall(field.getBlobValue(), BLOBVALUE_BINDING);
+            protocolMarshaller.marshall(field.getArrayValue(), ARRAYVALUE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

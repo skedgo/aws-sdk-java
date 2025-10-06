@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,27 +28,41 @@ public class CreateHyperParameterTuningJobRequest extends com.amazonaws.AmazonWe
     /**
      * <p>
      * The name of the tuning job. This name is the prefix for the names of all training jobs that this tuning job
-     * launches. The name must be unique within the same AWS account and AWS Region. The name must have { } to { }
-     * characters. Valid characters are a-z, A-Z, 0-9, and : + = @ _ % - (hyphen). The name is not case sensitive.
+     * launches. The name must be unique within the same Amazon Web Services account and Amazon Web Services Region. The
+     * name must have 1 to 32 characters. Valid characters are a-z, A-Z, 0-9, and : + = @ _ % - (hyphen). The name is
+     * not case sensitive.
      * </p>
      */
     private String hyperParameterTuningJobName;
     /**
      * <p>
-     * The <a>HyperParameterTuningJobConfig</a> object that describes the tuning job, including the search strategy, the
+     * The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html">
+     * HyperParameterTuningJobConfig</a> object that describes the tuning job, including the search strategy, the
      * objective metric used to evaluate training jobs, ranges of parameters to search, and resource limits for the
-     * tuning job. For more information, see <a>automatic-model-tuning</a>
+     * tuning job. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How
+     * Hyperparameter Tuning Works</a>.
      * </p>
      */
     private HyperParameterTuningJobConfig hyperParameterTuningJobConfig;
     /**
      * <p>
-     * The <a>HyperParameterTrainingJobDefinition</a> object that describes the training jobs that this tuning job
-     * launches, including static hyperparameters, input data configuration, output data configuration, resource
-     * configuration, and stopping condition.
+     * The <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html"
+     * >HyperParameterTrainingJobDefinition</a> object that describes the training jobs that this tuning job launches,
+     * including static hyperparameters, input data configuration, output data configuration, resource configuration,
+     * and stopping condition.
      * </p>
      */
     private HyperParameterTrainingJobDefinition trainingJobDefinition;
+    /**
+     * <p>
+     * A list of the <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html"
+     * >HyperParameterTrainingJobDefinition</a> objects launched for this tuning job.
+     * </p>
+     */
+    private java.util.List<HyperParameterTrainingJobDefinition> trainingJobDefinitions;
     /**
      * <p>
      * Specifies the configuration for starting the hyperparameter tuning job using one or more previous tuning jobs as
@@ -72,28 +86,80 @@ public class CreateHyperParameterTuningJobRequest extends com.amazonaws.AmazonWe
     private HyperParameterTuningJobWarmStartConfig warmStartConfig;
     /**
      * <p>
-     * An array of key-value pairs. You can use tags to categorize your AWS resources in different ways, for example, by
-     * purpose, owner, or environment. For more information, see <a
-     * href="https://aws.amazon.com/answers/account-management/aws-tagging-strategies/">AWS Tagging Strategies</a>.
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
      * </p>
      * <p>
      * Tags that you specify for the tuning job are also added to all training jobs that the tuning job launches.
      * </p>
      */
     private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * Configures SageMaker Automatic model tuning (AMT) to automatically find optimal parameters for the following
+     * fields:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html#sagemaker-Type-HyperParameterTuningJobConfig-ParameterRanges"
+     * >ParameterRanges</a>: The names and ranges of parameters that a hyperparameter tuning job can optimize.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ResourceLimits.html">ResourceLimits</a>:
+     * The maximum resources that can be used for a training job. These resources include the maximum number of training
+     * jobs, the maximum runtime of a tuning job, and the maximum number of training jobs to run at the same time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html#sagemaker-Type-HyperParameterTuningJobConfig-TrainingJobEarlyStoppingType"
+     * >TrainingJobEarlyStoppingType</a>: A flag that specifies whether or not to use early stopping for training jobs
+     * launched by a hyperparameter tuning job.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html#sagemaker-Type-HyperParameterTrainingJobDefinition-RetryStrategy"
+     * >RetryStrategy</a>: The number of times to retry a training job.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html">
+     * Strategy</a>: Specifies how hyperparameter tuning chooses the combinations of hyperparameter values to use for
+     * the training jobs that it launches.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ConvergenceDetected.html">
+     * ConvergenceDetected</a>: A flag to indicate that Automatic model tuning (AMT) has detected model convergence.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private Autotune autotune;
 
     /**
      * <p>
      * The name of the tuning job. This name is the prefix for the names of all training jobs that this tuning job
-     * launches. The name must be unique within the same AWS account and AWS Region. The name must have { } to { }
-     * characters. Valid characters are a-z, A-Z, 0-9, and : + = @ _ % - (hyphen). The name is not case sensitive.
+     * launches. The name must be unique within the same Amazon Web Services account and Amazon Web Services Region. The
+     * name must have 1 to 32 characters. Valid characters are a-z, A-Z, 0-9, and : + = @ _ % - (hyphen). The name is
+     * not case sensitive.
      * </p>
      * 
      * @param hyperParameterTuningJobName
      *        The name of the tuning job. This name is the prefix for the names of all training jobs that this tuning
-     *        job launches. The name must be unique within the same AWS account and AWS Region. The name must have { }
-     *        to { } characters. Valid characters are a-z, A-Z, 0-9, and : + = @ _ % - (hyphen). The name is not case
-     *        sensitive.
+     *        job launches. The name must be unique within the same Amazon Web Services account and Amazon Web Services
+     *        Region. The name must have 1 to 32 characters. Valid characters are a-z, A-Z, 0-9, and : + = @ _ % -
+     *        (hyphen). The name is not case sensitive.
      */
 
     public void setHyperParameterTuningJobName(String hyperParameterTuningJobName) {
@@ -103,14 +169,15 @@ public class CreateHyperParameterTuningJobRequest extends com.amazonaws.AmazonWe
     /**
      * <p>
      * The name of the tuning job. This name is the prefix for the names of all training jobs that this tuning job
-     * launches. The name must be unique within the same AWS account and AWS Region. The name must have { } to { }
-     * characters. Valid characters are a-z, A-Z, 0-9, and : + = @ _ % - (hyphen). The name is not case sensitive.
+     * launches. The name must be unique within the same Amazon Web Services account and Amazon Web Services Region. The
+     * name must have 1 to 32 characters. Valid characters are a-z, A-Z, 0-9, and : + = @ _ % - (hyphen). The name is
+     * not case sensitive.
      * </p>
      * 
      * @return The name of the tuning job. This name is the prefix for the names of all training jobs that this tuning
-     *         job launches. The name must be unique within the same AWS account and AWS Region. The name must have { }
-     *         to { } characters. Valid characters are a-z, A-Z, 0-9, and : + = @ _ % - (hyphen). The name is not case
-     *         sensitive.
+     *         job launches. The name must be unique within the same Amazon Web Services account and Amazon Web Services
+     *         Region. The name must have 1 to 32 characters. Valid characters are a-z, A-Z, 0-9, and : + = @ _ % -
+     *         (hyphen). The name is not case sensitive.
      */
 
     public String getHyperParameterTuningJobName() {
@@ -120,15 +187,16 @@ public class CreateHyperParameterTuningJobRequest extends com.amazonaws.AmazonWe
     /**
      * <p>
      * The name of the tuning job. This name is the prefix for the names of all training jobs that this tuning job
-     * launches. The name must be unique within the same AWS account and AWS Region. The name must have { } to { }
-     * characters. Valid characters are a-z, A-Z, 0-9, and : + = @ _ % - (hyphen). The name is not case sensitive.
+     * launches. The name must be unique within the same Amazon Web Services account and Amazon Web Services Region. The
+     * name must have 1 to 32 characters. Valid characters are a-z, A-Z, 0-9, and : + = @ _ % - (hyphen). The name is
+     * not case sensitive.
      * </p>
      * 
      * @param hyperParameterTuningJobName
      *        The name of the tuning job. This name is the prefix for the names of all training jobs that this tuning
-     *        job launches. The name must be unique within the same AWS account and AWS Region. The name must have { }
-     *        to { } characters. Valid characters are a-z, A-Z, 0-9, and : + = @ _ % - (hyphen). The name is not case
-     *        sensitive.
+     *        job launches. The name must be unique within the same Amazon Web Services account and Amazon Web Services
+     *        Region. The name must have 1 to 32 characters. Valid characters are a-z, A-Z, 0-9, and : + = @ _ % -
+     *        (hyphen). The name is not case sensitive.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -139,15 +207,22 @@ public class CreateHyperParameterTuningJobRequest extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * The <a>HyperParameterTuningJobConfig</a> object that describes the tuning job, including the search strategy, the
+     * The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html">
+     * HyperParameterTuningJobConfig</a> object that describes the tuning job, including the search strategy, the
      * objective metric used to evaluate training jobs, ranges of parameters to search, and resource limits for the
-     * tuning job. For more information, see <a>automatic-model-tuning</a>
+     * tuning job. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How
+     * Hyperparameter Tuning Works</a>.
      * </p>
      * 
      * @param hyperParameterTuningJobConfig
-     *        The <a>HyperParameterTuningJobConfig</a> object that describes the tuning job, including the search
-     *        strategy, the objective metric used to evaluate training jobs, ranges of parameters to search, and
-     *        resource limits for the tuning job. For more information, see <a>automatic-model-tuning</a>
+     *        The <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html"
+     *        >HyperParameterTuningJobConfig</a> object that describes the tuning job, including the search strategy,
+     *        the objective metric used to evaluate training jobs, ranges of parameters to search, and resource limits
+     *        for the tuning job. For more information, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How
+     *        Hyperparameter Tuning Works</a>.
      */
 
     public void setHyperParameterTuningJobConfig(HyperParameterTuningJobConfig hyperParameterTuningJobConfig) {
@@ -156,14 +231,21 @@ public class CreateHyperParameterTuningJobRequest extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * The <a>HyperParameterTuningJobConfig</a> object that describes the tuning job, including the search strategy, the
+     * The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html">
+     * HyperParameterTuningJobConfig</a> object that describes the tuning job, including the search strategy, the
      * objective metric used to evaluate training jobs, ranges of parameters to search, and resource limits for the
-     * tuning job. For more information, see <a>automatic-model-tuning</a>
+     * tuning job. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How
+     * Hyperparameter Tuning Works</a>.
      * </p>
      * 
-     * @return The <a>HyperParameterTuningJobConfig</a> object that describes the tuning job, including the search
-     *         strategy, the objective metric used to evaluate training jobs, ranges of parameters to search, and
-     *         resource limits for the tuning job. For more information, see <a>automatic-model-tuning</a>
+     * @return The <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html"
+     *         >HyperParameterTuningJobConfig</a> object that describes the tuning job, including the search strategy,
+     *         the objective metric used to evaluate training jobs, ranges of parameters to search, and resource limits
+     *         for the tuning job. For more information, see <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How
+     *         Hyperparameter Tuning Works</a>.
      */
 
     public HyperParameterTuningJobConfig getHyperParameterTuningJobConfig() {
@@ -172,15 +254,22 @@ public class CreateHyperParameterTuningJobRequest extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * The <a>HyperParameterTuningJobConfig</a> object that describes the tuning job, including the search strategy, the
+     * The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html">
+     * HyperParameterTuningJobConfig</a> object that describes the tuning job, including the search strategy, the
      * objective metric used to evaluate training jobs, ranges of parameters to search, and resource limits for the
-     * tuning job. For more information, see <a>automatic-model-tuning</a>
+     * tuning job. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How
+     * Hyperparameter Tuning Works</a>.
      * </p>
      * 
      * @param hyperParameterTuningJobConfig
-     *        The <a>HyperParameterTuningJobConfig</a> object that describes the tuning job, including the search
-     *        strategy, the objective metric used to evaluate training jobs, ranges of parameters to search, and
-     *        resource limits for the tuning job. For more information, see <a>automatic-model-tuning</a>
+     *        The <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html"
+     *        >HyperParameterTuningJobConfig</a> object that describes the tuning job, including the search strategy,
+     *        the objective metric used to evaluate training jobs, ranges of parameters to search, and resource limits
+     *        for the tuning job. For more information, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How
+     *        Hyperparameter Tuning Works</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -191,15 +280,19 @@ public class CreateHyperParameterTuningJobRequest extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * The <a>HyperParameterTrainingJobDefinition</a> object that describes the training jobs that this tuning job
-     * launches, including static hyperparameters, input data configuration, output data configuration, resource
-     * configuration, and stopping condition.
+     * The <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html"
+     * >HyperParameterTrainingJobDefinition</a> object that describes the training jobs that this tuning job launches,
+     * including static hyperparameters, input data configuration, output data configuration, resource configuration,
+     * and stopping condition.
      * </p>
      * 
      * @param trainingJobDefinition
-     *        The <a>HyperParameterTrainingJobDefinition</a> object that describes the training jobs that this tuning
-     *        job launches, including static hyperparameters, input data configuration, output data configuration,
-     *        resource configuration, and stopping condition.
+     *        The <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html"
+     *        >HyperParameterTrainingJobDefinition</a> object that describes the training jobs that this tuning job
+     *        launches, including static hyperparameters, input data configuration, output data configuration, resource
+     *        configuration, and stopping condition.
      */
 
     public void setTrainingJobDefinition(HyperParameterTrainingJobDefinition trainingJobDefinition) {
@@ -208,14 +301,18 @@ public class CreateHyperParameterTuningJobRequest extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * The <a>HyperParameterTrainingJobDefinition</a> object that describes the training jobs that this tuning job
-     * launches, including static hyperparameters, input data configuration, output data configuration, resource
-     * configuration, and stopping condition.
+     * The <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html"
+     * >HyperParameterTrainingJobDefinition</a> object that describes the training jobs that this tuning job launches,
+     * including static hyperparameters, input data configuration, output data configuration, resource configuration,
+     * and stopping condition.
      * </p>
      * 
-     * @return The <a>HyperParameterTrainingJobDefinition</a> object that describes the training jobs that this tuning
-     *         job launches, including static hyperparameters, input data configuration, output data configuration,
-     *         resource configuration, and stopping condition.
+     * @return The <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html"
+     *         >HyperParameterTrainingJobDefinition</a> object that describes the training jobs that this tuning job
+     *         launches, including static hyperparameters, input data configuration, output data configuration, resource
+     *         configuration, and stopping condition.
      */
 
     public HyperParameterTrainingJobDefinition getTrainingJobDefinition() {
@@ -224,20 +321,110 @@ public class CreateHyperParameterTuningJobRequest extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * The <a>HyperParameterTrainingJobDefinition</a> object that describes the training jobs that this tuning job
-     * launches, including static hyperparameters, input data configuration, output data configuration, resource
-     * configuration, and stopping condition.
+     * The <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html"
+     * >HyperParameterTrainingJobDefinition</a> object that describes the training jobs that this tuning job launches,
+     * including static hyperparameters, input data configuration, output data configuration, resource configuration,
+     * and stopping condition.
      * </p>
      * 
      * @param trainingJobDefinition
-     *        The <a>HyperParameterTrainingJobDefinition</a> object that describes the training jobs that this tuning
-     *        job launches, including static hyperparameters, input data configuration, output data configuration,
-     *        resource configuration, and stopping condition.
+     *        The <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html"
+     *        >HyperParameterTrainingJobDefinition</a> object that describes the training jobs that this tuning job
+     *        launches, including static hyperparameters, input data configuration, output data configuration, resource
+     *        configuration, and stopping condition.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateHyperParameterTuningJobRequest withTrainingJobDefinition(HyperParameterTrainingJobDefinition trainingJobDefinition) {
         setTrainingJobDefinition(trainingJobDefinition);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of the <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html"
+     * >HyperParameterTrainingJobDefinition</a> objects launched for this tuning job.
+     * </p>
+     * 
+     * @return A list of the <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html"
+     *         >HyperParameterTrainingJobDefinition</a> objects launched for this tuning job.
+     */
+
+    public java.util.List<HyperParameterTrainingJobDefinition> getTrainingJobDefinitions() {
+        return trainingJobDefinitions;
+    }
+
+    /**
+     * <p>
+     * A list of the <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html"
+     * >HyperParameterTrainingJobDefinition</a> objects launched for this tuning job.
+     * </p>
+     * 
+     * @param trainingJobDefinitions
+     *        A list of the <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html"
+     *        >HyperParameterTrainingJobDefinition</a> objects launched for this tuning job.
+     */
+
+    public void setTrainingJobDefinitions(java.util.Collection<HyperParameterTrainingJobDefinition> trainingJobDefinitions) {
+        if (trainingJobDefinitions == null) {
+            this.trainingJobDefinitions = null;
+            return;
+        }
+
+        this.trainingJobDefinitions = new java.util.ArrayList<HyperParameterTrainingJobDefinition>(trainingJobDefinitions);
+    }
+
+    /**
+     * <p>
+     * A list of the <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html"
+     * >HyperParameterTrainingJobDefinition</a> objects launched for this tuning job.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTrainingJobDefinitions(java.util.Collection)} or
+     * {@link #withTrainingJobDefinitions(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param trainingJobDefinitions
+     *        A list of the <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html"
+     *        >HyperParameterTrainingJobDefinition</a> objects launched for this tuning job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateHyperParameterTuningJobRequest withTrainingJobDefinitions(HyperParameterTrainingJobDefinition... trainingJobDefinitions) {
+        if (this.trainingJobDefinitions == null) {
+            setTrainingJobDefinitions(new java.util.ArrayList<HyperParameterTrainingJobDefinition>(trainingJobDefinitions.length));
+        }
+        for (HyperParameterTrainingJobDefinition ele : trainingJobDefinitions) {
+            this.trainingJobDefinitions.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of the <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html"
+     * >HyperParameterTrainingJobDefinition</a> objects launched for this tuning job.
+     * </p>
+     * 
+     * @param trainingJobDefinitions
+     *        A list of the <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html"
+     *        >HyperParameterTrainingJobDefinition</a> objects launched for this tuning job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateHyperParameterTuningJobRequest withTrainingJobDefinitions(java.util.Collection<HyperParameterTrainingJobDefinition> trainingJobDefinitions) {
+        setTrainingJobDefinitions(trainingJobDefinitions);
         return this;
     }
 
@@ -370,18 +557,18 @@ public class CreateHyperParameterTuningJobRequest extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * An array of key-value pairs. You can use tags to categorize your AWS resources in different ways, for example, by
-     * purpose, owner, or environment. For more information, see <a
-     * href="https://aws.amazon.com/answers/account-management/aws-tagging-strategies/">AWS Tagging Strategies</a>.
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
      * </p>
      * <p>
      * Tags that you specify for the tuning job are also added to all training jobs that the tuning job launches.
      * </p>
      * 
-     * @return An array of key-value pairs. You can use tags to categorize your AWS resources in different ways, for
-     *         example, by purpose, owner, or environment. For more information, see <a
-     *         href="https://aws.amazon.com/answers/account-management/aws-tagging-strategies/">AWS Tagging
-     *         Strategies</a>.</p>
+     * @return An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *         different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *         Resources</a>.</p>
      *         <p>
      *         Tags that you specify for the tuning job are also added to all training jobs that the tuning job
      *         launches.
@@ -393,19 +580,19 @@ public class CreateHyperParameterTuningJobRequest extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * An array of key-value pairs. You can use tags to categorize your AWS resources in different ways, for example, by
-     * purpose, owner, or environment. For more information, see <a
-     * href="https://aws.amazon.com/answers/account-management/aws-tagging-strategies/">AWS Tagging Strategies</a>.
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
      * </p>
      * <p>
      * Tags that you specify for the tuning job are also added to all training jobs that the tuning job launches.
      * </p>
      * 
      * @param tags
-     *        An array of key-value pairs. You can use tags to categorize your AWS resources in different ways, for
-     *        example, by purpose, owner, or environment. For more information, see <a
-     *        href="https://aws.amazon.com/answers/account-management/aws-tagging-strategies/">AWS Tagging
-     *        Strategies</a>.</p>
+     *        An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *        different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        Resources</a>.</p>
      *        <p>
      *        Tags that you specify for the tuning job are also added to all training jobs that the tuning job launches.
      */
@@ -421,9 +608,9 @@ public class CreateHyperParameterTuningJobRequest extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * An array of key-value pairs. You can use tags to categorize your AWS resources in different ways, for example, by
-     * purpose, owner, or environment. For more information, see <a
-     * href="https://aws.amazon.com/answers/account-management/aws-tagging-strategies/">AWS Tagging Strategies</a>.
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
      * </p>
      * <p>
      * Tags that you specify for the tuning job are also added to all training jobs that the tuning job launches.
@@ -435,10 +622,10 @@ public class CreateHyperParameterTuningJobRequest extends com.amazonaws.AmazonWe
      * </p>
      * 
      * @param tags
-     *        An array of key-value pairs. You can use tags to categorize your AWS resources in different ways, for
-     *        example, by purpose, owner, or environment. For more information, see <a
-     *        href="https://aws.amazon.com/answers/account-management/aws-tagging-strategies/">AWS Tagging
-     *        Strategies</a>.</p>
+     *        An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *        different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        Resources</a>.</p>
      *        <p>
      *        Tags that you specify for the tuning job are also added to all training jobs that the tuning job launches.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -456,19 +643,19 @@ public class CreateHyperParameterTuningJobRequest extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * An array of key-value pairs. You can use tags to categorize your AWS resources in different ways, for example, by
-     * purpose, owner, or environment. For more information, see <a
-     * href="https://aws.amazon.com/answers/account-management/aws-tagging-strategies/">AWS Tagging Strategies</a>.
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
      * </p>
      * <p>
      * Tags that you specify for the tuning job are also added to all training jobs that the tuning job launches.
      * </p>
      * 
      * @param tags
-     *        An array of key-value pairs. You can use tags to categorize your AWS resources in different ways, for
-     *        example, by purpose, owner, or environment. For more information, see <a
-     *        href="https://aws.amazon.com/answers/account-management/aws-tagging-strategies/">AWS Tagging
-     *        Strategies</a>.</p>
+     *        An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *        different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        Resources</a>.</p>
      *        <p>
      *        Tags that you specify for the tuning job are also added to all training jobs that the tuning job launches.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -476,6 +663,325 @@ public class CreateHyperParameterTuningJobRequest extends com.amazonaws.AmazonWe
 
     public CreateHyperParameterTuningJobRequest withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Configures SageMaker Automatic model tuning (AMT) to automatically find optimal parameters for the following
+     * fields:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html#sagemaker-Type-HyperParameterTuningJobConfig-ParameterRanges"
+     * >ParameterRanges</a>: The names and ranges of parameters that a hyperparameter tuning job can optimize.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ResourceLimits.html">ResourceLimits</a>:
+     * The maximum resources that can be used for a training job. These resources include the maximum number of training
+     * jobs, the maximum runtime of a tuning job, and the maximum number of training jobs to run at the same time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html#sagemaker-Type-HyperParameterTuningJobConfig-TrainingJobEarlyStoppingType"
+     * >TrainingJobEarlyStoppingType</a>: A flag that specifies whether or not to use early stopping for training jobs
+     * launched by a hyperparameter tuning job.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html#sagemaker-Type-HyperParameterTrainingJobDefinition-RetryStrategy"
+     * >RetryStrategy</a>: The number of times to retry a training job.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html">
+     * Strategy</a>: Specifies how hyperparameter tuning chooses the combinations of hyperparameter values to use for
+     * the training jobs that it launches.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ConvergenceDetected.html">
+     * ConvergenceDetected</a>: A flag to indicate that Automatic model tuning (AMT) has detected model convergence.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param autotune
+     *        Configures SageMaker Automatic model tuning (AMT) to automatically find optimal parameters for the
+     *        following fields:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html#sagemaker-Type-HyperParameterTuningJobConfig-ParameterRanges"
+     *        >ParameterRanges</a>: The names and ranges of parameters that a hyperparameter tuning job can optimize.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ResourceLimits.html">ResourceLimits<
+     *        /a>: The maximum resources that can be used for a training job. These resources include the maximum number
+     *        of training jobs, the maximum runtime of a tuning job, and the maximum number of training jobs to run at
+     *        the same time.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html#sagemaker-Type-HyperParameterTuningJobConfig-TrainingJobEarlyStoppingType"
+     *        >TrainingJobEarlyStoppingType</a>: A flag that specifies whether or not to use early stopping for training
+     *        jobs launched by a hyperparameter tuning job.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html#sagemaker-Type-HyperParameterTrainingJobDefinition-RetryStrategy"
+     *        >RetryStrategy</a>: The number of times to retry a training job.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html">
+     *        Strategy</a>: Specifies how hyperparameter tuning chooses the combinations of hyperparameter values to use
+     *        for the training jobs that it launches.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ConvergenceDetected.html">
+     *        ConvergenceDetected</a>: A flag to indicate that Automatic model tuning (AMT) has detected model
+     *        convergence.
+     *        </p>
+     *        </li>
+     */
+
+    public void setAutotune(Autotune autotune) {
+        this.autotune = autotune;
+    }
+
+    /**
+     * <p>
+     * Configures SageMaker Automatic model tuning (AMT) to automatically find optimal parameters for the following
+     * fields:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html#sagemaker-Type-HyperParameterTuningJobConfig-ParameterRanges"
+     * >ParameterRanges</a>: The names and ranges of parameters that a hyperparameter tuning job can optimize.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ResourceLimits.html">ResourceLimits</a>:
+     * The maximum resources that can be used for a training job. These resources include the maximum number of training
+     * jobs, the maximum runtime of a tuning job, and the maximum number of training jobs to run at the same time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html#sagemaker-Type-HyperParameterTuningJobConfig-TrainingJobEarlyStoppingType"
+     * >TrainingJobEarlyStoppingType</a>: A flag that specifies whether or not to use early stopping for training jobs
+     * launched by a hyperparameter tuning job.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html#sagemaker-Type-HyperParameterTrainingJobDefinition-RetryStrategy"
+     * >RetryStrategy</a>: The number of times to retry a training job.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html">
+     * Strategy</a>: Specifies how hyperparameter tuning chooses the combinations of hyperparameter values to use for
+     * the training jobs that it launches.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ConvergenceDetected.html">
+     * ConvergenceDetected</a>: A flag to indicate that Automatic model tuning (AMT) has detected model convergence.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Configures SageMaker Automatic model tuning (AMT) to automatically find optimal parameters for the
+     *         following fields:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <a href=
+     *         "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html#sagemaker-Type-HyperParameterTuningJobConfig-ParameterRanges"
+     *         >ParameterRanges</a>: The names and ranges of parameters that a hyperparameter tuning job can optimize.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ResourceLimits.html">ResourceLimits
+     *         </a>: The maximum resources that can be used for a training job. These resources include the maximum
+     *         number of training jobs, the maximum runtime of a tuning job, and the maximum number of training jobs to
+     *         run at the same time.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <a href=
+     *         "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html#sagemaker-Type-HyperParameterTuningJobConfig-TrainingJobEarlyStoppingType"
+     *         >TrainingJobEarlyStoppingType</a>: A flag that specifies whether or not to use early stopping for
+     *         training jobs launched by a hyperparameter tuning job.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <a href=
+     *         "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html#sagemaker-Type-HyperParameterTrainingJobDefinition-RetryStrategy"
+     *         >RetryStrategy</a>: The number of times to retry a training job.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html"
+     *         >Strategy</a>: Specifies how hyperparameter tuning chooses the combinations of hyperparameter values to
+     *         use for the training jobs that it launches.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ConvergenceDetected.html">
+     *         ConvergenceDetected</a>: A flag to indicate that Automatic model tuning (AMT) has detected model
+     *         convergence.
+     *         </p>
+     *         </li>
+     */
+
+    public Autotune getAutotune() {
+        return this.autotune;
+    }
+
+    /**
+     * <p>
+     * Configures SageMaker Automatic model tuning (AMT) to automatically find optimal parameters for the following
+     * fields:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html#sagemaker-Type-HyperParameterTuningJobConfig-ParameterRanges"
+     * >ParameterRanges</a>: The names and ranges of parameters that a hyperparameter tuning job can optimize.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ResourceLimits.html">ResourceLimits</a>:
+     * The maximum resources that can be used for a training job. These resources include the maximum number of training
+     * jobs, the maximum runtime of a tuning job, and the maximum number of training jobs to run at the same time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html#sagemaker-Type-HyperParameterTuningJobConfig-TrainingJobEarlyStoppingType"
+     * >TrainingJobEarlyStoppingType</a>: A flag that specifies whether or not to use early stopping for training jobs
+     * launched by a hyperparameter tuning job.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html#sagemaker-Type-HyperParameterTrainingJobDefinition-RetryStrategy"
+     * >RetryStrategy</a>: The number of times to retry a training job.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html">
+     * Strategy</a>: Specifies how hyperparameter tuning chooses the combinations of hyperparameter values to use for
+     * the training jobs that it launches.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ConvergenceDetected.html">
+     * ConvergenceDetected</a>: A flag to indicate that Automatic model tuning (AMT) has detected model convergence.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param autotune
+     *        Configures SageMaker Automatic model tuning (AMT) to automatically find optimal parameters for the
+     *        following fields:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html#sagemaker-Type-HyperParameterTuningJobConfig-ParameterRanges"
+     *        >ParameterRanges</a>: The names and ranges of parameters that a hyperparameter tuning job can optimize.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ResourceLimits.html">ResourceLimits<
+     *        /a>: The maximum resources that can be used for a training job. These resources include the maximum number
+     *        of training jobs, the maximum runtime of a tuning job, and the maximum number of training jobs to run at
+     *        the same time.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html#sagemaker-Type-HyperParameterTuningJobConfig-TrainingJobEarlyStoppingType"
+     *        >TrainingJobEarlyStoppingType</a>: A flag that specifies whether or not to use early stopping for training
+     *        jobs launched by a hyperparameter tuning job.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTrainingJobDefinition.html#sagemaker-Type-HyperParameterTrainingJobDefinition-RetryStrategy"
+     *        >RetryStrategy</a>: The number of times to retry a training job.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobConfig.html">
+     *        Strategy</a>: Specifies how hyperparameter tuning chooses the combinations of hyperparameter values to use
+     *        for the training jobs that it launches.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ConvergenceDetected.html">
+     *        ConvergenceDetected</a>: A flag to indicate that Automatic model tuning (AMT) has detected model
+     *        convergence.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateHyperParameterTuningJobRequest withAutotune(Autotune autotune) {
+        setAutotune(autotune);
         return this;
     }
 
@@ -497,10 +1003,14 @@ public class CreateHyperParameterTuningJobRequest extends com.amazonaws.AmazonWe
             sb.append("HyperParameterTuningJobConfig: ").append(getHyperParameterTuningJobConfig()).append(",");
         if (getTrainingJobDefinition() != null)
             sb.append("TrainingJobDefinition: ").append(getTrainingJobDefinition()).append(",");
+        if (getTrainingJobDefinitions() != null)
+            sb.append("TrainingJobDefinitions: ").append(getTrainingJobDefinitions()).append(",");
         if (getWarmStartConfig() != null)
             sb.append("WarmStartConfig: ").append(getWarmStartConfig()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getAutotune() != null)
+            sb.append("Autotune: ").append(getAutotune());
         sb.append("}");
         return sb.toString();
     }
@@ -528,6 +1038,10 @@ public class CreateHyperParameterTuningJobRequest extends com.amazonaws.AmazonWe
             return false;
         if (other.getTrainingJobDefinition() != null && other.getTrainingJobDefinition().equals(this.getTrainingJobDefinition()) == false)
             return false;
+        if (other.getTrainingJobDefinitions() == null ^ this.getTrainingJobDefinitions() == null)
+            return false;
+        if (other.getTrainingJobDefinitions() != null && other.getTrainingJobDefinitions().equals(this.getTrainingJobDefinitions()) == false)
+            return false;
         if (other.getWarmStartConfig() == null ^ this.getWarmStartConfig() == null)
             return false;
         if (other.getWarmStartConfig() != null && other.getWarmStartConfig().equals(this.getWarmStartConfig()) == false)
@@ -535,6 +1049,10 @@ public class CreateHyperParameterTuningJobRequest extends com.amazonaws.AmazonWe
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getAutotune() == null ^ this.getAutotune() == null)
+            return false;
+        if (other.getAutotune() != null && other.getAutotune().equals(this.getAutotune()) == false)
             return false;
         return true;
     }
@@ -547,8 +1065,10 @@ public class CreateHyperParameterTuningJobRequest extends com.amazonaws.AmazonWe
         hashCode = prime * hashCode + ((getHyperParameterTuningJobName() == null) ? 0 : getHyperParameterTuningJobName().hashCode());
         hashCode = prime * hashCode + ((getHyperParameterTuningJobConfig() == null) ? 0 : getHyperParameterTuningJobConfig().hashCode());
         hashCode = prime * hashCode + ((getTrainingJobDefinition() == null) ? 0 : getTrainingJobDefinition().hashCode());
+        hashCode = prime * hashCode + ((getTrainingJobDefinitions() == null) ? 0 : getTrainingJobDefinitions().hashCode());
         hashCode = prime * hashCode + ((getWarmStartConfig() == null) ? 0 : getWarmStartConfig().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getAutotune() == null) ? 0 : getAutotune().hashCode());
         return hashCode;
     }
 

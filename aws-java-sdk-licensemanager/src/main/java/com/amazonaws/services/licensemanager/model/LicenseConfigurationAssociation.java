@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Describes a server resource that is associated with a license configuration.
+ * Describes an association with a license configuration.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/license-manager-2018-08-01/LicenseConfigurationAssociation"
@@ -30,7 +30,7 @@ public class LicenseConfigurationAssociation implements Serializable, Cloneable,
 
     /**
      * <p>
-     * ARN of the resource associated with the license configuration.
+     * Amazon Resource Name (ARN) of the resource.
      * </p>
      */
     private String resourceArn;
@@ -42,7 +42,7 @@ public class LicenseConfigurationAssociation implements Serializable, Cloneable,
     private String resourceType;
     /**
      * <p>
-     * ID of the AWS account that owns the resource consuming licenses.
+     * ID of the Amazon Web Services account that owns the resource consuming licenses.
      * </p>
      */
     private String resourceOwnerId;
@@ -52,14 +52,20 @@ public class LicenseConfigurationAssociation implements Serializable, Cloneable,
      * </p>
      */
     private java.util.Date associationTime;
+    /**
+     * <p>
+     * Scope of AMI associations. The possible value is <code>cross-account</code>.
+     * </p>
+     */
+    private String amiAssociationScope;
 
     /**
      * <p>
-     * ARN of the resource associated with the license configuration.
+     * Amazon Resource Name (ARN) of the resource.
      * </p>
      * 
      * @param resourceArn
-     *        ARN of the resource associated with the license configuration.
+     *        Amazon Resource Name (ARN) of the resource.
      */
 
     public void setResourceArn(String resourceArn) {
@@ -68,10 +74,10 @@ public class LicenseConfigurationAssociation implements Serializable, Cloneable,
 
     /**
      * <p>
-     * ARN of the resource associated with the license configuration.
+     * Amazon Resource Name (ARN) of the resource.
      * </p>
      * 
-     * @return ARN of the resource associated with the license configuration.
+     * @return Amazon Resource Name (ARN) of the resource.
      */
 
     public String getResourceArn() {
@@ -80,11 +86,11 @@ public class LicenseConfigurationAssociation implements Serializable, Cloneable,
 
     /**
      * <p>
-     * ARN of the resource associated with the license configuration.
+     * Amazon Resource Name (ARN) of the resource.
      * </p>
      * 
      * @param resourceArn
-     *        ARN of the resource associated with the license configuration.
+     *        Amazon Resource Name (ARN) of the resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -154,11 +160,11 @@ public class LicenseConfigurationAssociation implements Serializable, Cloneable,
 
     /**
      * <p>
-     * ID of the AWS account that owns the resource consuming licenses.
+     * ID of the Amazon Web Services account that owns the resource consuming licenses.
      * </p>
      * 
      * @param resourceOwnerId
-     *        ID of the AWS account that owns the resource consuming licenses.
+     *        ID of the Amazon Web Services account that owns the resource consuming licenses.
      */
 
     public void setResourceOwnerId(String resourceOwnerId) {
@@ -167,10 +173,10 @@ public class LicenseConfigurationAssociation implements Serializable, Cloneable,
 
     /**
      * <p>
-     * ID of the AWS account that owns the resource consuming licenses.
+     * ID of the Amazon Web Services account that owns the resource consuming licenses.
      * </p>
      * 
-     * @return ID of the AWS account that owns the resource consuming licenses.
+     * @return ID of the Amazon Web Services account that owns the resource consuming licenses.
      */
 
     public String getResourceOwnerId() {
@@ -179,11 +185,11 @@ public class LicenseConfigurationAssociation implements Serializable, Cloneable,
 
     /**
      * <p>
-     * ID of the AWS account that owns the resource consuming licenses.
+     * ID of the Amazon Web Services account that owns the resource consuming licenses.
      * </p>
      * 
      * @param resourceOwnerId
-     *        ID of the AWS account that owns the resource consuming licenses.
+     *        ID of the Amazon Web Services account that owns the resource consuming licenses.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -233,6 +239,46 @@ public class LicenseConfigurationAssociation implements Serializable, Cloneable,
     }
 
     /**
+     * <p>
+     * Scope of AMI associations. The possible value is <code>cross-account</code>.
+     * </p>
+     * 
+     * @param amiAssociationScope
+     *        Scope of AMI associations. The possible value is <code>cross-account</code>.
+     */
+
+    public void setAmiAssociationScope(String amiAssociationScope) {
+        this.amiAssociationScope = amiAssociationScope;
+    }
+
+    /**
+     * <p>
+     * Scope of AMI associations. The possible value is <code>cross-account</code>.
+     * </p>
+     * 
+     * @return Scope of AMI associations. The possible value is <code>cross-account</code>.
+     */
+
+    public String getAmiAssociationScope() {
+        return this.amiAssociationScope;
+    }
+
+    /**
+     * <p>
+     * Scope of AMI associations. The possible value is <code>cross-account</code>.
+     * </p>
+     * 
+     * @param amiAssociationScope
+     *        Scope of AMI associations. The possible value is <code>cross-account</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LicenseConfigurationAssociation withAmiAssociationScope(String amiAssociationScope) {
+        setAmiAssociationScope(amiAssociationScope);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -251,7 +297,9 @@ public class LicenseConfigurationAssociation implements Serializable, Cloneable,
         if (getResourceOwnerId() != null)
             sb.append("ResourceOwnerId: ").append(getResourceOwnerId()).append(",");
         if (getAssociationTime() != null)
-            sb.append("AssociationTime: ").append(getAssociationTime());
+            sb.append("AssociationTime: ").append(getAssociationTime()).append(",");
+        if (getAmiAssociationScope() != null)
+            sb.append("AmiAssociationScope: ").append(getAmiAssociationScope());
         sb.append("}");
         return sb.toString();
     }
@@ -282,6 +330,10 @@ public class LicenseConfigurationAssociation implements Serializable, Cloneable,
             return false;
         if (other.getAssociationTime() != null && other.getAssociationTime().equals(this.getAssociationTime()) == false)
             return false;
+        if (other.getAmiAssociationScope() == null ^ this.getAmiAssociationScope() == null)
+            return false;
+        if (other.getAmiAssociationScope() != null && other.getAmiAssociationScope().equals(this.getAmiAssociationScope()) == false)
+            return false;
         return true;
     }
 
@@ -294,6 +346,7 @@ public class LicenseConfigurationAssociation implements Serializable, Cloneable,
         hashCode = prime * hashCode + ((getResourceType() == null) ? 0 : getResourceType().hashCode());
         hashCode = prime * hashCode + ((getResourceOwnerId() == null) ? 0 : getResourceOwnerId().hashCode());
         hashCode = prime * hashCode + ((getAssociationTime() == null) ? 0 : getAssociationTime().hashCode());
+        hashCode = prime * hashCode + ((getAmiAssociationScope() == null) ? 0 : getAmiAssociationScope().hashCode());
         return hashCode;
     }
 

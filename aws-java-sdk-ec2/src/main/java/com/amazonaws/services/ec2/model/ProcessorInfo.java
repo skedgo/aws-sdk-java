@@ -1,0 +1,433 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.ec2.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+
+/**
+ * <p>
+ * Describes the processor used by the instance type.
+ * </p>
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ProcessorInfo" target="_top">AWS API
+ *      Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class ProcessorInfo implements Serializable, Cloneable {
+
+    /**
+     * <p>
+     * The architectures supported by the instance type.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> supportedArchitectures;
+    /**
+     * <p>
+     * The speed of the processor, in GHz.
+     * </p>
+     */
+    private Double sustainedClockSpeedInGhz;
+    /**
+     * <p>
+     * Indicates whether the instance type supports AMD SEV-SNP. If the request returns <code>amd-sev-snp</code>, AMD
+     * SEV-SNP is supported. Otherwise, it is not supported. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html"> AMD SEV-SNP</a>.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> supportedFeatures;
+    /**
+     * <p>
+     * The manufacturer of the processor.
+     * </p>
+     */
+    private String manufacturer;
+
+    /**
+     * <p>
+     * The architectures supported by the instance type.
+     * </p>
+     * 
+     * @return The architectures supported by the instance type.
+     * @see ArchitectureType
+     */
+
+    public java.util.List<String> getSupportedArchitectures() {
+        if (supportedArchitectures == null) {
+            supportedArchitectures = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return supportedArchitectures;
+    }
+
+    /**
+     * <p>
+     * The architectures supported by the instance type.
+     * </p>
+     * 
+     * @param supportedArchitectures
+     *        The architectures supported by the instance type.
+     * @see ArchitectureType
+     */
+
+    public void setSupportedArchitectures(java.util.Collection<String> supportedArchitectures) {
+        if (supportedArchitectures == null) {
+            this.supportedArchitectures = null;
+            return;
+        }
+
+        this.supportedArchitectures = new com.amazonaws.internal.SdkInternalList<String>(supportedArchitectures);
+    }
+
+    /**
+     * <p>
+     * The architectures supported by the instance type.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSupportedArchitectures(java.util.Collection)} or
+     * {@link #withSupportedArchitectures(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param supportedArchitectures
+     *        The architectures supported by the instance type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ArchitectureType
+     */
+
+    public ProcessorInfo withSupportedArchitectures(String... supportedArchitectures) {
+        if (this.supportedArchitectures == null) {
+            setSupportedArchitectures(new com.amazonaws.internal.SdkInternalList<String>(supportedArchitectures.length));
+        }
+        for (String ele : supportedArchitectures) {
+            this.supportedArchitectures.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The architectures supported by the instance type.
+     * </p>
+     * 
+     * @param supportedArchitectures
+     *        The architectures supported by the instance type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ArchitectureType
+     */
+
+    public ProcessorInfo withSupportedArchitectures(java.util.Collection<String> supportedArchitectures) {
+        setSupportedArchitectures(supportedArchitectures);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The architectures supported by the instance type.
+     * </p>
+     * 
+     * @param supportedArchitectures
+     *        The architectures supported by the instance type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ArchitectureType
+     */
+
+    public ProcessorInfo withSupportedArchitectures(ArchitectureType... supportedArchitectures) {
+        com.amazonaws.internal.SdkInternalList<String> supportedArchitecturesCopy = new com.amazonaws.internal.SdkInternalList<String>(
+                supportedArchitectures.length);
+        for (ArchitectureType value : supportedArchitectures) {
+            supportedArchitecturesCopy.add(value.toString());
+        }
+        if (getSupportedArchitectures() == null) {
+            setSupportedArchitectures(supportedArchitecturesCopy);
+        } else {
+            getSupportedArchitectures().addAll(supportedArchitecturesCopy);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The speed of the processor, in GHz.
+     * </p>
+     * 
+     * @param sustainedClockSpeedInGhz
+     *        The speed of the processor, in GHz.
+     */
+
+    public void setSustainedClockSpeedInGhz(Double sustainedClockSpeedInGhz) {
+        this.sustainedClockSpeedInGhz = sustainedClockSpeedInGhz;
+    }
+
+    /**
+     * <p>
+     * The speed of the processor, in GHz.
+     * </p>
+     * 
+     * @return The speed of the processor, in GHz.
+     */
+
+    public Double getSustainedClockSpeedInGhz() {
+        return this.sustainedClockSpeedInGhz;
+    }
+
+    /**
+     * <p>
+     * The speed of the processor, in GHz.
+     * </p>
+     * 
+     * @param sustainedClockSpeedInGhz
+     *        The speed of the processor, in GHz.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProcessorInfo withSustainedClockSpeedInGhz(Double sustainedClockSpeedInGhz) {
+        setSustainedClockSpeedInGhz(sustainedClockSpeedInGhz);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the instance type supports AMD SEV-SNP. If the request returns <code>amd-sev-snp</code>, AMD
+     * SEV-SNP is supported. Otherwise, it is not supported. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html"> AMD SEV-SNP</a>.
+     * </p>
+     * 
+     * @return Indicates whether the instance type supports AMD SEV-SNP. If the request returns <code>amd-sev-snp</code>
+     *         , AMD SEV-SNP is supported. Otherwise, it is not supported. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html"> AMD SEV-SNP</a>.
+     * @see SupportedAdditionalProcessorFeature
+     */
+
+    public java.util.List<String> getSupportedFeatures() {
+        if (supportedFeatures == null) {
+            supportedFeatures = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return supportedFeatures;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the instance type supports AMD SEV-SNP. If the request returns <code>amd-sev-snp</code>, AMD
+     * SEV-SNP is supported. Otherwise, it is not supported. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html"> AMD SEV-SNP</a>.
+     * </p>
+     * 
+     * @param supportedFeatures
+     *        Indicates whether the instance type supports AMD SEV-SNP. If the request returns <code>amd-sev-snp</code>,
+     *        AMD SEV-SNP is supported. Otherwise, it is not supported. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html"> AMD SEV-SNP</a>.
+     * @see SupportedAdditionalProcessorFeature
+     */
+
+    public void setSupportedFeatures(java.util.Collection<String> supportedFeatures) {
+        if (supportedFeatures == null) {
+            this.supportedFeatures = null;
+            return;
+        }
+
+        this.supportedFeatures = new com.amazonaws.internal.SdkInternalList<String>(supportedFeatures);
+    }
+
+    /**
+     * <p>
+     * Indicates whether the instance type supports AMD SEV-SNP. If the request returns <code>amd-sev-snp</code>, AMD
+     * SEV-SNP is supported. Otherwise, it is not supported. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html"> AMD SEV-SNP</a>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSupportedFeatures(java.util.Collection)} or {@link #withSupportedFeatures(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param supportedFeatures
+     *        Indicates whether the instance type supports AMD SEV-SNP. If the request returns <code>amd-sev-snp</code>,
+     *        AMD SEV-SNP is supported. Otherwise, it is not supported. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html"> AMD SEV-SNP</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SupportedAdditionalProcessorFeature
+     */
+
+    public ProcessorInfo withSupportedFeatures(String... supportedFeatures) {
+        if (this.supportedFeatures == null) {
+            setSupportedFeatures(new com.amazonaws.internal.SdkInternalList<String>(supportedFeatures.length));
+        }
+        for (String ele : supportedFeatures) {
+            this.supportedFeatures.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the instance type supports AMD SEV-SNP. If the request returns <code>amd-sev-snp</code>, AMD
+     * SEV-SNP is supported. Otherwise, it is not supported. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html"> AMD SEV-SNP</a>.
+     * </p>
+     * 
+     * @param supportedFeatures
+     *        Indicates whether the instance type supports AMD SEV-SNP. If the request returns <code>amd-sev-snp</code>,
+     *        AMD SEV-SNP is supported. Otherwise, it is not supported. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html"> AMD SEV-SNP</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SupportedAdditionalProcessorFeature
+     */
+
+    public ProcessorInfo withSupportedFeatures(java.util.Collection<String> supportedFeatures) {
+        setSupportedFeatures(supportedFeatures);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the instance type supports AMD SEV-SNP. If the request returns <code>amd-sev-snp</code>, AMD
+     * SEV-SNP is supported. Otherwise, it is not supported. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html"> AMD SEV-SNP</a>.
+     * </p>
+     * 
+     * @param supportedFeatures
+     *        Indicates whether the instance type supports AMD SEV-SNP. If the request returns <code>amd-sev-snp</code>,
+     *        AMD SEV-SNP is supported. Otherwise, it is not supported. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html"> AMD SEV-SNP</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SupportedAdditionalProcessorFeature
+     */
+
+    public ProcessorInfo withSupportedFeatures(SupportedAdditionalProcessorFeature... supportedFeatures) {
+        com.amazonaws.internal.SdkInternalList<String> supportedFeaturesCopy = new com.amazonaws.internal.SdkInternalList<String>(supportedFeatures.length);
+        for (SupportedAdditionalProcessorFeature value : supportedFeatures) {
+            supportedFeaturesCopy.add(value.toString());
+        }
+        if (getSupportedFeatures() == null) {
+            setSupportedFeatures(supportedFeaturesCopy);
+        } else {
+            getSupportedFeatures().addAll(supportedFeaturesCopy);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The manufacturer of the processor.
+     * </p>
+     * 
+     * @param manufacturer
+     *        The manufacturer of the processor.
+     */
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    /**
+     * <p>
+     * The manufacturer of the processor.
+     * </p>
+     * 
+     * @return The manufacturer of the processor.
+     */
+
+    public String getManufacturer() {
+        return this.manufacturer;
+    }
+
+    /**
+     * <p>
+     * The manufacturer of the processor.
+     * </p>
+     * 
+     * @param manufacturer
+     *        The manufacturer of the processor.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProcessorInfo withManufacturer(String manufacturer) {
+        setManufacturer(manufacturer);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getSupportedArchitectures() != null)
+            sb.append("SupportedArchitectures: ").append(getSupportedArchitectures()).append(",");
+        if (getSustainedClockSpeedInGhz() != null)
+            sb.append("SustainedClockSpeedInGhz: ").append(getSustainedClockSpeedInGhz()).append(",");
+        if (getSupportedFeatures() != null)
+            sb.append("SupportedFeatures: ").append(getSupportedFeatures()).append(",");
+        if (getManufacturer() != null)
+            sb.append("Manufacturer: ").append(getManufacturer());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof ProcessorInfo == false)
+            return false;
+        ProcessorInfo other = (ProcessorInfo) obj;
+        if (other.getSupportedArchitectures() == null ^ this.getSupportedArchitectures() == null)
+            return false;
+        if (other.getSupportedArchitectures() != null && other.getSupportedArchitectures().equals(this.getSupportedArchitectures()) == false)
+            return false;
+        if (other.getSustainedClockSpeedInGhz() == null ^ this.getSustainedClockSpeedInGhz() == null)
+            return false;
+        if (other.getSustainedClockSpeedInGhz() != null && other.getSustainedClockSpeedInGhz().equals(this.getSustainedClockSpeedInGhz()) == false)
+            return false;
+        if (other.getSupportedFeatures() == null ^ this.getSupportedFeatures() == null)
+            return false;
+        if (other.getSupportedFeatures() != null && other.getSupportedFeatures().equals(this.getSupportedFeatures()) == false)
+            return false;
+        if (other.getManufacturer() == null ^ this.getManufacturer() == null)
+            return false;
+        if (other.getManufacturer() != null && other.getManufacturer().equals(this.getManufacturer()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getSupportedArchitectures() == null) ? 0 : getSupportedArchitectures().hashCode());
+        hashCode = prime * hashCode + ((getSustainedClockSpeedInGhz() == null) ? 0 : getSustainedClockSpeedInGhz().hashCode());
+        hashCode = prime * hashCode + ((getSupportedFeatures() == null) ? 0 : getSupportedFeatures().hashCode());
+        hashCode = prime * hashCode + ((getManufacturer() == null) ? 0 : getManufacturer().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public ProcessorInfo clone() {
+        try {
+            return (ProcessorInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+}

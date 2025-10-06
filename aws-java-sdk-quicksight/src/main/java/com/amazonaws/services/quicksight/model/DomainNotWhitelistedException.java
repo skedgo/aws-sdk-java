@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,7 +16,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * The domain specified is not on the allowlist. All domains for embedded dashboards must be added to the approved list
+ * The domain specified isn't on the allow list. All domains for embedded dashboards must be added to the approved list
  * by an Amazon QuickSight admin.
  * </p>
  */
@@ -26,7 +26,7 @@ public class DomainNotWhitelistedException extends com.amazonaws.services.quicks
 
     /**
      * <p>
-     * The AWS request ID for this request.
+     * The Amazon Web Services request ID for this request.
      * </p>
      */
     private String requestId;
@@ -43,11 +43,11 @@ public class DomainNotWhitelistedException extends com.amazonaws.services.quicks
 
     /**
      * <p>
-     * The AWS request ID for this request.
+     * The Amazon Web Services request ID for this request.
      * </p>
      * 
      * @param requestId
-     *        The AWS request ID for this request.
+     *        The Amazon Web Services request ID for this request.
      */
 
     @com.fasterxml.jackson.annotation.JsonProperty("RequestId")
@@ -57,10 +57,10 @@ public class DomainNotWhitelistedException extends com.amazonaws.services.quicks
 
     /**
      * <p>
-     * The AWS request ID for this request.
+     * The Amazon Web Services request ID for this request.
      * </p>
      * 
-     * @return The AWS request ID for this request.
+     * @return The Amazon Web Services request ID for this request.
      */
 
     @com.fasterxml.jackson.annotation.JsonProperty("RequestId")
@@ -70,11 +70,11 @@ public class DomainNotWhitelistedException extends com.amazonaws.services.quicks
 
     /**
      * <p>
-     * The AWS request ID for this request.
+     * The Amazon Web Services request ID for this request.
      * </p>
      * 
      * @param requestId
-     *        The AWS request ID for this request.
+     *        The Amazon Web Services request ID for this request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

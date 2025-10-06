@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,7 +38,7 @@ public class SetRiskConfigurationRequest extends com.amazonaws.AmazonWebServiceR
      * the userPool.
      * </p>
      * <p>
-     * Otherwise, <code>ClientId</code> is mapped to the client. When the client ID is not null, the user pool
+     * Otherwise, <code>ClientId</code> is mapped to the client. When the client ID isn't null, the user pool
      * configuration is overridden and the risk configuration for the client is used instead.
      * </p>
      */
@@ -109,7 +109,7 @@ public class SetRiskConfigurationRequest extends com.amazonaws.AmazonWebServiceR
      * the userPool.
      * </p>
      * <p>
-     * Otherwise, <code>ClientId</code> is mapped to the client. When the client ID is not null, the user pool
+     * Otherwise, <code>ClientId</code> is mapped to the client. When the client ID isn't null, the user pool
      * configuration is overridden and the risk configuration for the client is used instead.
      * </p>
      * 
@@ -118,7 +118,7 @@ public class SetRiskConfigurationRequest extends com.amazonaws.AmazonWebServiceR
      *        <code>userPoolId</code>. When the client ID is null, the same risk configuration is applied to all the
      *        clients in the userPool.</p>
      *        <p>
-     *        Otherwise, <code>ClientId</code> is mapped to the client. When the client ID is not null, the user pool
+     *        Otherwise, <code>ClientId</code> is mapped to the client. When the client ID isn't null, the user pool
      *        configuration is overridden and the risk configuration for the client is used instead.
      */
 
@@ -133,7 +133,7 @@ public class SetRiskConfigurationRequest extends com.amazonaws.AmazonWebServiceR
      * the userPool.
      * </p>
      * <p>
-     * Otherwise, <code>ClientId</code> is mapped to the client. When the client ID is not null, the user pool
+     * Otherwise, <code>ClientId</code> is mapped to the client. When the client ID isn't null, the user pool
      * configuration is overridden and the risk configuration for the client is used instead.
      * </p>
      * 
@@ -141,7 +141,7 @@ public class SetRiskConfigurationRequest extends com.amazonaws.AmazonWebServiceR
      *         <code>userPoolId</code>. When the client ID is null, the same risk configuration is applied to all the
      *         clients in the userPool.</p>
      *         <p>
-     *         Otherwise, <code>ClientId</code> is mapped to the client. When the client ID is not null, the user pool
+     *         Otherwise, <code>ClientId</code> is mapped to the client. When the client ID isn't null, the user pool
      *         configuration is overridden and the risk configuration for the client is used instead.
      */
 
@@ -156,7 +156,7 @@ public class SetRiskConfigurationRequest extends com.amazonaws.AmazonWebServiceR
      * the userPool.
      * </p>
      * <p>
-     * Otherwise, <code>ClientId</code> is mapped to the client. When the client ID is not null, the user pool
+     * Otherwise, <code>ClientId</code> is mapped to the client. When the client ID isn't null, the user pool
      * configuration is overridden and the risk configuration for the client is used instead.
      * </p>
      * 
@@ -165,7 +165,7 @@ public class SetRiskConfigurationRequest extends com.amazonaws.AmazonWebServiceR
      *        <code>userPoolId</code>. When the client ID is null, the same risk configuration is applied to all the
      *        clients in the userPool.</p>
      *        <p>
-     *        Otherwise, <code>ClientId</code> is mapped to the client. When the client ID is not null, the user pool
+     *        Otherwise, <code>ClientId</code> is mapped to the client. When the client ID isn't null, the user pool
      *        configuration is overridden and the risk configuration for the client is used instead.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

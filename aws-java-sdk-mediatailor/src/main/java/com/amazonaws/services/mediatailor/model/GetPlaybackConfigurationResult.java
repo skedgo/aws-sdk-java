@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,11 +34,33 @@ public class GetPlaybackConfigurationResult extends com.amazonaws.AmazonWebServi
     private String adDecisionServerUrl;
     /**
      * <p>
+     * The configuration for avail suppression, also known as ad suppression. For more information about ad suppression,
+     * see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html">Ad Suppression</a>.
+     * </p>
+     */
+    private AvailSuppression availSuppression;
+    /**
+     * <p>
+     * The configuration for bumpers. Bumpers are short audio or video clips that play at the start or before the end of
+     * an ad break. To learn more about bumpers, see <a
+     * href="https://docs.aws.amazon.com/mediatailor/latest/ug/bumpers.html">Bumpers</a>.
+     * </p>
+     */
+    private Bumper bumper;
+    /**
+     * <p>
      * The configuration for using a content delivery network (CDN), like Amazon CloudFront, for content and ad segment
      * management.
      * </p>
      */
     private CdnConfiguration cdnConfiguration;
+    /**
+     * <p>
+     * The player parameters and aliases used as dynamic variables during session initialization. For more information,
+     * see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/variables-domain.html">Domain Variables</a>.
+     * </p>
+     */
+    private java.util.Map<String, java.util.Map<String, String>> configurationAliases;
     /**
      * <p>
      * The configuration for DASH content.
@@ -53,10 +75,50 @@ public class GetPlaybackConfigurationResult extends com.amazonaws.AmazonWebServi
     private HlsConfiguration hlsConfiguration;
     /**
      * <p>
+     * The setting that controls whether players can use stitched or guided ad insertion. The default,
+     * <code>STITCHED_ONLY</code>, forces all player sessions to use stitched (server-side) ad insertion. Choosing
+     * <code>PLAYER_SELECT</code> allows players to select either stitched or guided ad insertion at
+     * session-initialization time. The default for players that do not specify an insertion mode is stitched.
+     * </p>
+     */
+    private String insertionMode;
+    /**
+     * <p>
+     * The configuration for pre-roll ad insertion.
+     * </p>
+     */
+    private LivePreRollConfiguration livePreRollConfiguration;
+    /**
+     * <p>
+     * The Amazon CloudWatch log settings for a playback configuration.
+     * </p>
+     */
+    private LogConfiguration logConfiguration;
+    /**
+     * <p>
+     * The configuration for manifest processing rules. Manifest processing rules enable customization of the
+     * personalized manifests created by MediaTailor.
+     * </p>
+     */
+    private ManifestProcessingRules manifestProcessingRules;
+    /**
+     * <p>
      * The identifier for the playback configuration.
      * </p>
      */
     private String name;
+    /**
+     * <p>
+     * Defines the maximum duration of underfilled ad time (in seconds) allowed in an ad break. If the duration of
+     * underfilled ad time exceeds the personalization threshold, then the personalization of the ad break is abandoned
+     * and the underlying content is shown. This feature applies to <i>ad replacement</i> in live and VOD streams,
+     * rather than ad insertion, because it relies on an underlying content stream. For more information about ad break
+     * behavior, including ad replacement and insertion, see <a
+     * href="https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html">Ad Behavior in AWS Elemental
+     * MediaTailor</a>.
+     * </p>
+     */
+    private Integer personalizationThresholdSeconds;
     /**
      * <p>
      * The Amazon Resource Name (ARN) for the playback configuration.
@@ -87,7 +149,10 @@ public class GetPlaybackConfigurationResult extends com.amazonaws.AmazonWebServi
     private String slateAdUrl;
     /**
      * <p>
-     * The tags assigned to the playback configuration.
+     * The tags assigned to the playback configuration. Tags are key-value pairs that you can associate with Amazon
+     * resources to help with organization, access control, and cost tracking. For more information, see <a
+     * href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor
+     * Resources</a>.
      * </p>
      */
     private java.util.Map<String, String> tags;
@@ -101,7 +166,7 @@ public class GetPlaybackConfigurationResult extends com.amazonaws.AmazonWebServi
     private String transcodeProfileName;
     /**
      * <p>
-     * The URL prefix for the master playlist for the stream, minus the asset ID. The maximum length is 512 characters.
+     * The URL prefix for the parent manifest for the stream, minus the asset ID. The maximum length is 512 characters.
      * </p>
      */
     private String videoContentSourceUrl;
@@ -166,6 +231,107 @@ public class GetPlaybackConfigurationResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
+     * The configuration for avail suppression, also known as ad suppression. For more information about ad suppression,
+     * see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html">Ad Suppression</a>.
+     * </p>
+     * 
+     * @param availSuppression
+     *        The configuration for avail suppression, also known as ad suppression. For more information about ad
+     *        suppression, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html">Ad
+     *        Suppression</a>.
+     */
+
+    public void setAvailSuppression(AvailSuppression availSuppression) {
+        this.availSuppression = availSuppression;
+    }
+
+    /**
+     * <p>
+     * The configuration for avail suppression, also known as ad suppression. For more information about ad suppression,
+     * see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html">Ad Suppression</a>.
+     * </p>
+     * 
+     * @return The configuration for avail suppression, also known as ad suppression. For more information about ad
+     *         suppression, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html">Ad
+     *         Suppression</a>.
+     */
+
+    public AvailSuppression getAvailSuppression() {
+        return this.availSuppression;
+    }
+
+    /**
+     * <p>
+     * The configuration for avail suppression, also known as ad suppression. For more information about ad suppression,
+     * see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html">Ad Suppression</a>.
+     * </p>
+     * 
+     * @param availSuppression
+     *        The configuration for avail suppression, also known as ad suppression. For more information about ad
+     *        suppression, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html">Ad
+     *        Suppression</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPlaybackConfigurationResult withAvailSuppression(AvailSuppression availSuppression) {
+        setAvailSuppression(availSuppression);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The configuration for bumpers. Bumpers are short audio or video clips that play at the start or before the end of
+     * an ad break. To learn more about bumpers, see <a
+     * href="https://docs.aws.amazon.com/mediatailor/latest/ug/bumpers.html">Bumpers</a>.
+     * </p>
+     * 
+     * @param bumper
+     *        The configuration for bumpers. Bumpers are short audio or video clips that play at the start or before the
+     *        end of an ad break. To learn more about bumpers, see <a
+     *        href="https://docs.aws.amazon.com/mediatailor/latest/ug/bumpers.html">Bumpers</a>.
+     */
+
+    public void setBumper(Bumper bumper) {
+        this.bumper = bumper;
+    }
+
+    /**
+     * <p>
+     * The configuration for bumpers. Bumpers are short audio or video clips that play at the start or before the end of
+     * an ad break. To learn more about bumpers, see <a
+     * href="https://docs.aws.amazon.com/mediatailor/latest/ug/bumpers.html">Bumpers</a>.
+     * </p>
+     * 
+     * @return The configuration for bumpers. Bumpers are short audio or video clips that play at the start or before
+     *         the end of an ad break. To learn more about bumpers, see <a
+     *         href="https://docs.aws.amazon.com/mediatailor/latest/ug/bumpers.html">Bumpers</a>.
+     */
+
+    public Bumper getBumper() {
+        return this.bumper;
+    }
+
+    /**
+     * <p>
+     * The configuration for bumpers. Bumpers are short audio or video clips that play at the start or before the end of
+     * an ad break. To learn more about bumpers, see <a
+     * href="https://docs.aws.amazon.com/mediatailor/latest/ug/bumpers.html">Bumpers</a>.
+     * </p>
+     * 
+     * @param bumper
+     *        The configuration for bumpers. Bumpers are short audio or video clips that play at the start or before the
+     *        end of an ad break. To learn more about bumpers, see <a
+     *        href="https://docs.aws.amazon.com/mediatailor/latest/ug/bumpers.html">Bumpers</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPlaybackConfigurationResult withBumper(Bumper bumper) {
+        setBumper(bumper);
+        return this;
+    }
+
+    /**
+     * <p>
      * The configuration for using a content delivery network (CDN), like Amazon CloudFront, for content and ad segment
      * management.
      * </p>
@@ -207,6 +373,83 @@ public class GetPlaybackConfigurationResult extends com.amazonaws.AmazonWebServi
 
     public GetPlaybackConfigurationResult withCdnConfiguration(CdnConfiguration cdnConfiguration) {
         setCdnConfiguration(cdnConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The player parameters and aliases used as dynamic variables during session initialization. For more information,
+     * see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/variables-domain.html">Domain Variables</a>.
+     * </p>
+     * 
+     * @return The player parameters and aliases used as dynamic variables during session initialization. For more
+     *         information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/variables-domain.html">Domain
+     *         Variables</a>.
+     */
+
+    public java.util.Map<String, java.util.Map<String, String>> getConfigurationAliases() {
+        return configurationAliases;
+    }
+
+    /**
+     * <p>
+     * The player parameters and aliases used as dynamic variables during session initialization. For more information,
+     * see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/variables-domain.html">Domain Variables</a>.
+     * </p>
+     * 
+     * @param configurationAliases
+     *        The player parameters and aliases used as dynamic variables during session initialization. For more
+     *        information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/variables-domain.html">Domain
+     *        Variables</a>.
+     */
+
+    public void setConfigurationAliases(java.util.Map<String, java.util.Map<String, String>> configurationAliases) {
+        this.configurationAliases = configurationAliases;
+    }
+
+    /**
+     * <p>
+     * The player parameters and aliases used as dynamic variables during session initialization. For more information,
+     * see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/variables-domain.html">Domain Variables</a>.
+     * </p>
+     * 
+     * @param configurationAliases
+     *        The player parameters and aliases used as dynamic variables during session initialization. For more
+     *        information, see <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/variables-domain.html">Domain
+     *        Variables</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPlaybackConfigurationResult withConfigurationAliases(java.util.Map<String, java.util.Map<String, String>> configurationAliases) {
+        setConfigurationAliases(configurationAliases);
+        return this;
+    }
+
+    /**
+     * Add a single ConfigurationAliases entry
+     *
+     * @see GetPlaybackConfigurationResult#withConfigurationAliases
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPlaybackConfigurationResult addConfigurationAliasesEntry(String key, java.util.Map<String, String> value) {
+        if (null == this.configurationAliases) {
+            this.configurationAliases = new java.util.HashMap<String, java.util.Map<String, String>>();
+        }
+        if (this.configurationAliases.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.configurationAliases.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into ConfigurationAliases.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPlaybackConfigurationResult clearConfigurationAliasesEntries() {
+        this.configurationAliases = null;
         return this;
     }
 
@@ -292,6 +535,215 @@ public class GetPlaybackConfigurationResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
+     * The setting that controls whether players can use stitched or guided ad insertion. The default,
+     * <code>STITCHED_ONLY</code>, forces all player sessions to use stitched (server-side) ad insertion. Choosing
+     * <code>PLAYER_SELECT</code> allows players to select either stitched or guided ad insertion at
+     * session-initialization time. The default for players that do not specify an insertion mode is stitched.
+     * </p>
+     * 
+     * @param insertionMode
+     *        The setting that controls whether players can use stitched or guided ad insertion. The default,
+     *        <code>STITCHED_ONLY</code>, forces all player sessions to use stitched (server-side) ad insertion.
+     *        Choosing <code>PLAYER_SELECT</code> allows players to select either stitched or guided ad insertion at
+     *        session-initialization time. The default for players that do not specify an insertion mode is stitched.
+     * @see InsertionMode
+     */
+
+    public void setInsertionMode(String insertionMode) {
+        this.insertionMode = insertionMode;
+    }
+
+    /**
+     * <p>
+     * The setting that controls whether players can use stitched or guided ad insertion. The default,
+     * <code>STITCHED_ONLY</code>, forces all player sessions to use stitched (server-side) ad insertion. Choosing
+     * <code>PLAYER_SELECT</code> allows players to select either stitched or guided ad insertion at
+     * session-initialization time. The default for players that do not specify an insertion mode is stitched.
+     * </p>
+     * 
+     * @return The setting that controls whether players can use stitched or guided ad insertion. The default,
+     *         <code>STITCHED_ONLY</code>, forces all player sessions to use stitched (server-side) ad insertion.
+     *         Choosing <code>PLAYER_SELECT</code> allows players to select either stitched or guided ad insertion at
+     *         session-initialization time. The default for players that do not specify an insertion mode is stitched.
+     * @see InsertionMode
+     */
+
+    public String getInsertionMode() {
+        return this.insertionMode;
+    }
+
+    /**
+     * <p>
+     * The setting that controls whether players can use stitched or guided ad insertion. The default,
+     * <code>STITCHED_ONLY</code>, forces all player sessions to use stitched (server-side) ad insertion. Choosing
+     * <code>PLAYER_SELECT</code> allows players to select either stitched or guided ad insertion at
+     * session-initialization time. The default for players that do not specify an insertion mode is stitched.
+     * </p>
+     * 
+     * @param insertionMode
+     *        The setting that controls whether players can use stitched or guided ad insertion. The default,
+     *        <code>STITCHED_ONLY</code>, forces all player sessions to use stitched (server-side) ad insertion.
+     *        Choosing <code>PLAYER_SELECT</code> allows players to select either stitched or guided ad insertion at
+     *        session-initialization time. The default for players that do not specify an insertion mode is stitched.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see InsertionMode
+     */
+
+    public GetPlaybackConfigurationResult withInsertionMode(String insertionMode) {
+        setInsertionMode(insertionMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The setting that controls whether players can use stitched or guided ad insertion. The default,
+     * <code>STITCHED_ONLY</code>, forces all player sessions to use stitched (server-side) ad insertion. Choosing
+     * <code>PLAYER_SELECT</code> allows players to select either stitched or guided ad insertion at
+     * session-initialization time. The default for players that do not specify an insertion mode is stitched.
+     * </p>
+     * 
+     * @param insertionMode
+     *        The setting that controls whether players can use stitched or guided ad insertion. The default,
+     *        <code>STITCHED_ONLY</code>, forces all player sessions to use stitched (server-side) ad insertion.
+     *        Choosing <code>PLAYER_SELECT</code> allows players to select either stitched or guided ad insertion at
+     *        session-initialization time. The default for players that do not specify an insertion mode is stitched.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see InsertionMode
+     */
+
+    public GetPlaybackConfigurationResult withInsertionMode(InsertionMode insertionMode) {
+        this.insertionMode = insertionMode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The configuration for pre-roll ad insertion.
+     * </p>
+     * 
+     * @param livePreRollConfiguration
+     *        The configuration for pre-roll ad insertion.
+     */
+
+    public void setLivePreRollConfiguration(LivePreRollConfiguration livePreRollConfiguration) {
+        this.livePreRollConfiguration = livePreRollConfiguration;
+    }
+
+    /**
+     * <p>
+     * The configuration for pre-roll ad insertion.
+     * </p>
+     * 
+     * @return The configuration for pre-roll ad insertion.
+     */
+
+    public LivePreRollConfiguration getLivePreRollConfiguration() {
+        return this.livePreRollConfiguration;
+    }
+
+    /**
+     * <p>
+     * The configuration for pre-roll ad insertion.
+     * </p>
+     * 
+     * @param livePreRollConfiguration
+     *        The configuration for pre-roll ad insertion.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPlaybackConfigurationResult withLivePreRollConfiguration(LivePreRollConfiguration livePreRollConfiguration) {
+        setLivePreRollConfiguration(livePreRollConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon CloudWatch log settings for a playback configuration.
+     * </p>
+     * 
+     * @param logConfiguration
+     *        The Amazon CloudWatch log settings for a playback configuration.
+     */
+
+    public void setLogConfiguration(LogConfiguration logConfiguration) {
+        this.logConfiguration = logConfiguration;
+    }
+
+    /**
+     * <p>
+     * The Amazon CloudWatch log settings for a playback configuration.
+     * </p>
+     * 
+     * @return The Amazon CloudWatch log settings for a playback configuration.
+     */
+
+    public LogConfiguration getLogConfiguration() {
+        return this.logConfiguration;
+    }
+
+    /**
+     * <p>
+     * The Amazon CloudWatch log settings for a playback configuration.
+     * </p>
+     * 
+     * @param logConfiguration
+     *        The Amazon CloudWatch log settings for a playback configuration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPlaybackConfigurationResult withLogConfiguration(LogConfiguration logConfiguration) {
+        setLogConfiguration(logConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The configuration for manifest processing rules. Manifest processing rules enable customization of the
+     * personalized manifests created by MediaTailor.
+     * </p>
+     * 
+     * @param manifestProcessingRules
+     *        The configuration for manifest processing rules. Manifest processing rules enable customization of the
+     *        personalized manifests created by MediaTailor.
+     */
+
+    public void setManifestProcessingRules(ManifestProcessingRules manifestProcessingRules) {
+        this.manifestProcessingRules = manifestProcessingRules;
+    }
+
+    /**
+     * <p>
+     * The configuration for manifest processing rules. Manifest processing rules enable customization of the
+     * personalized manifests created by MediaTailor.
+     * </p>
+     * 
+     * @return The configuration for manifest processing rules. Manifest processing rules enable customization of the
+     *         personalized manifests created by MediaTailor.
+     */
+
+    public ManifestProcessingRules getManifestProcessingRules() {
+        return this.manifestProcessingRules;
+    }
+
+    /**
+     * <p>
+     * The configuration for manifest processing rules. Manifest processing rules enable customization of the
+     * personalized manifests created by MediaTailor.
+     * </p>
+     * 
+     * @param manifestProcessingRules
+     *        The configuration for manifest processing rules. Manifest processing rules enable customization of the
+     *        personalized manifests created by MediaTailor.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPlaybackConfigurationResult withManifestProcessingRules(ManifestProcessingRules manifestProcessingRules) {
+        setManifestProcessingRules(manifestProcessingRules);
+        return this;
+    }
+
+    /**
+     * <p>
      * The identifier for the playback configuration.
      * </p>
      * 
@@ -327,6 +779,82 @@ public class GetPlaybackConfigurationResult extends com.amazonaws.AmazonWebServi
 
     public GetPlaybackConfigurationResult withName(String name) {
         setName(name);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Defines the maximum duration of underfilled ad time (in seconds) allowed in an ad break. If the duration of
+     * underfilled ad time exceeds the personalization threshold, then the personalization of the ad break is abandoned
+     * and the underlying content is shown. This feature applies to <i>ad replacement</i> in live and VOD streams,
+     * rather than ad insertion, because it relies on an underlying content stream. For more information about ad break
+     * behavior, including ad replacement and insertion, see <a
+     * href="https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html">Ad Behavior in AWS Elemental
+     * MediaTailor</a>.
+     * </p>
+     * 
+     * @param personalizationThresholdSeconds
+     *        Defines the maximum duration of underfilled ad time (in seconds) allowed in an ad break. If the duration
+     *        of underfilled ad time exceeds the personalization threshold, then the personalization of the ad break is
+     *        abandoned and the underlying content is shown. This feature applies to <i>ad replacement</i> in live and
+     *        VOD streams, rather than ad insertion, because it relies on an underlying content stream. For more
+     *        information about ad break behavior, including ad replacement and insertion, see <a
+     *        href="https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html">Ad Behavior in AWS Elemental
+     *        MediaTailor</a>.
+     */
+
+    public void setPersonalizationThresholdSeconds(Integer personalizationThresholdSeconds) {
+        this.personalizationThresholdSeconds = personalizationThresholdSeconds;
+    }
+
+    /**
+     * <p>
+     * Defines the maximum duration of underfilled ad time (in seconds) allowed in an ad break. If the duration of
+     * underfilled ad time exceeds the personalization threshold, then the personalization of the ad break is abandoned
+     * and the underlying content is shown. This feature applies to <i>ad replacement</i> in live and VOD streams,
+     * rather than ad insertion, because it relies on an underlying content stream. For more information about ad break
+     * behavior, including ad replacement and insertion, see <a
+     * href="https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html">Ad Behavior in AWS Elemental
+     * MediaTailor</a>.
+     * </p>
+     * 
+     * @return Defines the maximum duration of underfilled ad time (in seconds) allowed in an ad break. If the duration
+     *         of underfilled ad time exceeds the personalization threshold, then the personalization of the ad break is
+     *         abandoned and the underlying content is shown. This feature applies to <i>ad replacement</i> in live and
+     *         VOD streams, rather than ad insertion, because it relies on an underlying content stream. For more
+     *         information about ad break behavior, including ad replacement and insertion, see <a
+     *         href="https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html">Ad Behavior in AWS Elemental
+     *         MediaTailor</a>.
+     */
+
+    public Integer getPersonalizationThresholdSeconds() {
+        return this.personalizationThresholdSeconds;
+    }
+
+    /**
+     * <p>
+     * Defines the maximum duration of underfilled ad time (in seconds) allowed in an ad break. If the duration of
+     * underfilled ad time exceeds the personalization threshold, then the personalization of the ad break is abandoned
+     * and the underlying content is shown. This feature applies to <i>ad replacement</i> in live and VOD streams,
+     * rather than ad insertion, because it relies on an underlying content stream. For more information about ad break
+     * behavior, including ad replacement and insertion, see <a
+     * href="https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html">Ad Behavior in AWS Elemental
+     * MediaTailor</a>.
+     * </p>
+     * 
+     * @param personalizationThresholdSeconds
+     *        Defines the maximum duration of underfilled ad time (in seconds) allowed in an ad break. If the duration
+     *        of underfilled ad time exceeds the personalization threshold, then the personalization of the ad break is
+     *        abandoned and the underlying content is shown. This feature applies to <i>ad replacement</i> in live and
+     *        VOD streams, rather than ad insertion, because it relies on an underlying content stream. For more
+     *        information about ad break behavior, including ad replacement and insertion, see <a
+     *        href="https://docs.aws.amazon.com/mediatailor/latest/ug/ad-behavior.html">Ad Behavior in AWS Elemental
+     *        MediaTailor</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPlaybackConfigurationResult withPersonalizationThresholdSeconds(Integer personalizationThresholdSeconds) {
+        setPersonalizationThresholdSeconds(personalizationThresholdSeconds);
         return this;
     }
 
@@ -519,10 +1047,16 @@ public class GetPlaybackConfigurationResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The tags assigned to the playback configuration.
+     * The tags assigned to the playback configuration. Tags are key-value pairs that you can associate with Amazon
+     * resources to help with organization, access control, and cost tracking. For more information, see <a
+     * href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor
+     * Resources</a>.
      * </p>
      * 
-     * @return The tags assigned to the playback configuration.
+     * @return The tags assigned to the playback configuration. Tags are key-value pairs that you can associate with
+     *         Amazon resources to help with organization, access control, and cost tracking. For more information, see
+     *         <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental
+     *         MediaTailor Resources</a>.
      */
 
     public java.util.Map<String, String> getTags() {
@@ -531,11 +1065,17 @@ public class GetPlaybackConfigurationResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The tags assigned to the playback configuration.
+     * The tags assigned to the playback configuration. Tags are key-value pairs that you can associate with Amazon
+     * resources to help with organization, access control, and cost tracking. For more information, see <a
+     * href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor
+     * Resources</a>.
      * </p>
      * 
      * @param tags
-     *        The tags assigned to the playback configuration.
+     *        The tags assigned to the playback configuration. Tags are key-value pairs that you can associate with
+     *        Amazon resources to help with organization, access control, and cost tracking. For more information, see
+     *        <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor
+     *        Resources</a>.
      */
 
     public void setTags(java.util.Map<String, String> tags) {
@@ -544,11 +1084,17 @@ public class GetPlaybackConfigurationResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The tags assigned to the playback configuration.
+     * The tags assigned to the playback configuration. Tags are key-value pairs that you can associate with Amazon
+     * resources to help with organization, access control, and cost tracking. For more information, see <a
+     * href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor
+     * Resources</a>.
      * </p>
      * 
      * @param tags
-     *        The tags assigned to the playback configuration.
+     *        The tags assigned to the playback configuration. Tags are key-value pairs that you can associate with
+     *        Amazon resources to help with organization, access control, and cost tracking. For more information, see
+     *        <a href="https://docs.aws.amazon.com/mediatailor/latest/ug/tagging.html">Tagging AWS Elemental MediaTailor
+     *        Resources</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -556,6 +1102,13 @@ public class GetPlaybackConfigurationResult extends com.amazonaws.AmazonWebServi
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see GetPlaybackConfigurationResult#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public GetPlaybackConfigurationResult addTagsEntry(String key, String value) {
         if (null == this.tags) {
@@ -632,11 +1185,11 @@ public class GetPlaybackConfigurationResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The URL prefix for the master playlist for the stream, minus the asset ID. The maximum length is 512 characters.
+     * The URL prefix for the parent manifest for the stream, minus the asset ID. The maximum length is 512 characters.
      * </p>
      * 
      * @param videoContentSourceUrl
-     *        The URL prefix for the master playlist for the stream, minus the asset ID. The maximum length is 512
+     *        The URL prefix for the parent manifest for the stream, minus the asset ID. The maximum length is 512
      *        characters.
      */
 
@@ -646,10 +1199,10 @@ public class GetPlaybackConfigurationResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The URL prefix for the master playlist for the stream, minus the asset ID. The maximum length is 512 characters.
+     * The URL prefix for the parent manifest for the stream, minus the asset ID. The maximum length is 512 characters.
      * </p>
      * 
-     * @return The URL prefix for the master playlist for the stream, minus the asset ID. The maximum length is 512
+     * @return The URL prefix for the parent manifest for the stream, minus the asset ID. The maximum length is 512
      *         characters.
      */
 
@@ -659,11 +1212,11 @@ public class GetPlaybackConfigurationResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The URL prefix for the master playlist for the stream, minus the asset ID. The maximum length is 512 characters.
+     * The URL prefix for the parent manifest for the stream, minus the asset ID. The maximum length is 512 characters.
      * </p>
      * 
      * @param videoContentSourceUrl
-     *        The URL prefix for the master playlist for the stream, minus the asset ID. The maximum length is 512
+     *        The URL prefix for the parent manifest for the stream, minus the asset ID. The maximum length is 512
      *        characters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -687,14 +1240,30 @@ public class GetPlaybackConfigurationResult extends com.amazonaws.AmazonWebServi
         sb.append("{");
         if (getAdDecisionServerUrl() != null)
             sb.append("AdDecisionServerUrl: ").append(getAdDecisionServerUrl()).append(",");
+        if (getAvailSuppression() != null)
+            sb.append("AvailSuppression: ").append(getAvailSuppression()).append(",");
+        if (getBumper() != null)
+            sb.append("Bumper: ").append(getBumper()).append(",");
         if (getCdnConfiguration() != null)
             sb.append("CdnConfiguration: ").append(getCdnConfiguration()).append(",");
+        if (getConfigurationAliases() != null)
+            sb.append("ConfigurationAliases: ").append(getConfigurationAliases()).append(",");
         if (getDashConfiguration() != null)
             sb.append("DashConfiguration: ").append(getDashConfiguration()).append(",");
         if (getHlsConfiguration() != null)
             sb.append("HlsConfiguration: ").append(getHlsConfiguration()).append(",");
+        if (getInsertionMode() != null)
+            sb.append("InsertionMode: ").append(getInsertionMode()).append(",");
+        if (getLivePreRollConfiguration() != null)
+            sb.append("LivePreRollConfiguration: ").append(getLivePreRollConfiguration()).append(",");
+        if (getLogConfiguration() != null)
+            sb.append("LogConfiguration: ").append(getLogConfiguration()).append(",");
+        if (getManifestProcessingRules() != null)
+            sb.append("ManifestProcessingRules: ").append(getManifestProcessingRules()).append(",");
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
+        if (getPersonalizationThresholdSeconds() != null)
+            sb.append("PersonalizationThresholdSeconds: ").append(getPersonalizationThresholdSeconds()).append(",");
         if (getPlaybackConfigurationArn() != null)
             sb.append("PlaybackConfigurationArn: ").append(getPlaybackConfigurationArn()).append(",");
         if (getPlaybackEndpointPrefix() != null)
@@ -727,9 +1296,21 @@ public class GetPlaybackConfigurationResult extends com.amazonaws.AmazonWebServi
             return false;
         if (other.getAdDecisionServerUrl() != null && other.getAdDecisionServerUrl().equals(this.getAdDecisionServerUrl()) == false)
             return false;
+        if (other.getAvailSuppression() == null ^ this.getAvailSuppression() == null)
+            return false;
+        if (other.getAvailSuppression() != null && other.getAvailSuppression().equals(this.getAvailSuppression()) == false)
+            return false;
+        if (other.getBumper() == null ^ this.getBumper() == null)
+            return false;
+        if (other.getBumper() != null && other.getBumper().equals(this.getBumper()) == false)
+            return false;
         if (other.getCdnConfiguration() == null ^ this.getCdnConfiguration() == null)
             return false;
         if (other.getCdnConfiguration() != null && other.getCdnConfiguration().equals(this.getCdnConfiguration()) == false)
+            return false;
+        if (other.getConfigurationAliases() == null ^ this.getConfigurationAliases() == null)
+            return false;
+        if (other.getConfigurationAliases() != null && other.getConfigurationAliases().equals(this.getConfigurationAliases()) == false)
             return false;
         if (other.getDashConfiguration() == null ^ this.getDashConfiguration() == null)
             return false;
@@ -739,9 +1320,30 @@ public class GetPlaybackConfigurationResult extends com.amazonaws.AmazonWebServi
             return false;
         if (other.getHlsConfiguration() != null && other.getHlsConfiguration().equals(this.getHlsConfiguration()) == false)
             return false;
+        if (other.getInsertionMode() == null ^ this.getInsertionMode() == null)
+            return false;
+        if (other.getInsertionMode() != null && other.getInsertionMode().equals(this.getInsertionMode()) == false)
+            return false;
+        if (other.getLivePreRollConfiguration() == null ^ this.getLivePreRollConfiguration() == null)
+            return false;
+        if (other.getLivePreRollConfiguration() != null && other.getLivePreRollConfiguration().equals(this.getLivePreRollConfiguration()) == false)
+            return false;
+        if (other.getLogConfiguration() == null ^ this.getLogConfiguration() == null)
+            return false;
+        if (other.getLogConfiguration() != null && other.getLogConfiguration().equals(this.getLogConfiguration()) == false)
+            return false;
+        if (other.getManifestProcessingRules() == null ^ this.getManifestProcessingRules() == null)
+            return false;
+        if (other.getManifestProcessingRules() != null && other.getManifestProcessingRules().equals(this.getManifestProcessingRules()) == false)
+            return false;
         if (other.getName() == null ^ this.getName() == null)
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
+            return false;
+        if (other.getPersonalizationThresholdSeconds() == null ^ this.getPersonalizationThresholdSeconds() == null)
+            return false;
+        if (other.getPersonalizationThresholdSeconds() != null
+                && other.getPersonalizationThresholdSeconds().equals(this.getPersonalizationThresholdSeconds()) == false)
             return false;
         if (other.getPlaybackConfigurationArn() == null ^ this.getPlaybackConfigurationArn() == null)
             return false;
@@ -781,10 +1383,18 @@ public class GetPlaybackConfigurationResult extends com.amazonaws.AmazonWebServi
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getAdDecisionServerUrl() == null) ? 0 : getAdDecisionServerUrl().hashCode());
+        hashCode = prime * hashCode + ((getAvailSuppression() == null) ? 0 : getAvailSuppression().hashCode());
+        hashCode = prime * hashCode + ((getBumper() == null) ? 0 : getBumper().hashCode());
         hashCode = prime * hashCode + ((getCdnConfiguration() == null) ? 0 : getCdnConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getConfigurationAliases() == null) ? 0 : getConfigurationAliases().hashCode());
         hashCode = prime * hashCode + ((getDashConfiguration() == null) ? 0 : getDashConfiguration().hashCode());
         hashCode = prime * hashCode + ((getHlsConfiguration() == null) ? 0 : getHlsConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getInsertionMode() == null) ? 0 : getInsertionMode().hashCode());
+        hashCode = prime * hashCode + ((getLivePreRollConfiguration() == null) ? 0 : getLivePreRollConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getLogConfiguration() == null) ? 0 : getLogConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getManifestProcessingRules() == null) ? 0 : getManifestProcessingRules().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
+        hashCode = prime * hashCode + ((getPersonalizationThresholdSeconds() == null) ? 0 : getPersonalizationThresholdSeconds().hashCode());
         hashCode = prime * hashCode + ((getPlaybackConfigurationArn() == null) ? 0 : getPlaybackConfigurationArn().hashCode());
         hashCode = prime * hashCode + ((getPlaybackEndpointPrefix() == null) ? 0 : getPlaybackEndpointPrefix().hashCode());
         hashCode = prime * hashCode + ((getSessionInitializationEndpointPrefix() == null) ? 0 : getSessionInitializationEndpointPrefix().hashCode());

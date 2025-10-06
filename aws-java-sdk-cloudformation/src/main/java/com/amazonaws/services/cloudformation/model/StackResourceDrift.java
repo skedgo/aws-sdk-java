@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,15 +18,15 @@ import javax.annotation.Generated;
 /**
  * <p>
  * Contains the drift information for a resource that has been checked for drift. This includes actual and expected
- * property values for resources in which AWS CloudFormation has detected drift. Only resource properties explicitly
- * defined in the stack template are checked for drift. For more information, see <a
+ * property values for resources in which CloudFormation has detected drift. Only resource properties explicitly defined
+ * in the stack template are checked for drift. For more information, see <a
  * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
  * Unregulated Configuration Changes to Stacks and Resources</a>.
  * </p>
  * <p>
- * Resources that do not currently support drift detection cannot be checked. For a list of resources that support drift
+ * Resources that don't currently support drift detection can't be checked. For a list of resources that support drift
  * detection, see <a
- * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
+ * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
  * >Resources that Support Drift Detection</a>.
  * </p>
  * <p>
@@ -54,16 +54,16 @@ public class StackResourceDrift implements Serializable, Cloneable {
     private String logicalResourceId;
     /**
      * <p>
-     * The name or unique identifier that corresponds to a physical instance ID of a resource supported by AWS
+     * The name or unique identifier that corresponds to a physical instance ID of a resource supported by
      * CloudFormation.
      * </p>
      */
     private String physicalResourceId;
     /**
      * <p>
-     * Context information that enables AWS CloudFormation to uniquely identify a resource. AWS CloudFormation uses
-     * context key-value pairs in cases where a resource's logical and physical IDs are not enough to uniquely identify
-     * that resource. Each context key-value pair specifies a unique resource that contains the targeted resource.
+     * Context information that enables CloudFormation to uniquely identify a resource. CloudFormation uses context
+     * key-value pairs in cases where a resource's logical and physical IDs aren't enough to uniquely identify that
+     * resource. Each context key-value pair specifies a unique resource that contains the targeted resource.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<PhysicalResourceIdContextKeyValuePair> physicalResourceIdContext;
@@ -103,7 +103,7 @@ public class StackResourceDrift implements Serializable, Cloneable {
     private com.amazonaws.internal.SdkInternalList<PropertyDifference> propertyDifferences;
     /**
      * <p>
-     * Status of the resource's actual configuration compared to its expected configuration
+     * Status of the resource's actual configuration compared to its expected configuration.
      * </p>
      * <ul>
      * <li>
@@ -120,12 +120,12 @@ public class StackResourceDrift implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>IN_SYNC</code>: The resources's actual configuration matches its expected template configuration.
+     * <code>IN_SYNC</code>: The resource's actual configuration matches its expected template configuration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation does not currently return this value.
+     * <code>NOT_CHECKED</code>: CloudFormation does not currently return this value.
      * </p>
      * </li>
      * </ul>
@@ -133,10 +133,17 @@ public class StackResourceDrift implements Serializable, Cloneable {
     private String stackResourceDriftStatus;
     /**
      * <p>
-     * Time at which AWS CloudFormation performed drift detection on the stack resource.
+     * Time at which CloudFormation performed drift detection on the stack resource.
      * </p>
      */
     private java.util.Date timestamp;
+    /**
+     * <p>
+     * Contains information about the module from which the resource was created, if the resource was created from a
+     * module included in the stack template.
+     * </p>
+     */
+    private ModuleInfo moduleInfo;
 
     /**
      * <p>
@@ -220,12 +227,12 @@ public class StackResourceDrift implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name or unique identifier that corresponds to a physical instance ID of a resource supported by AWS
+     * The name or unique identifier that corresponds to a physical instance ID of a resource supported by
      * CloudFormation.
      * </p>
      * 
      * @param physicalResourceId
-     *        The name or unique identifier that corresponds to a physical instance ID of a resource supported by AWS
+     *        The name or unique identifier that corresponds to a physical instance ID of a resource supported by
      *        CloudFormation.
      */
 
@@ -235,11 +242,11 @@ public class StackResourceDrift implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name or unique identifier that corresponds to a physical instance ID of a resource supported by AWS
+     * The name or unique identifier that corresponds to a physical instance ID of a resource supported by
      * CloudFormation.
      * </p>
      * 
-     * @return The name or unique identifier that corresponds to a physical instance ID of a resource supported by AWS
+     * @return The name or unique identifier that corresponds to a physical instance ID of a resource supported by
      *         CloudFormation.
      */
 
@@ -249,12 +256,12 @@ public class StackResourceDrift implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name or unique identifier that corresponds to a physical instance ID of a resource supported by AWS
+     * The name or unique identifier that corresponds to a physical instance ID of a resource supported by
      * CloudFormation.
      * </p>
      * 
      * @param physicalResourceId
-     *        The name or unique identifier that corresponds to a physical instance ID of a resource supported by AWS
+     *        The name or unique identifier that corresponds to a physical instance ID of a resource supported by
      *        CloudFormation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -266,15 +273,15 @@ public class StackResourceDrift implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Context information that enables AWS CloudFormation to uniquely identify a resource. AWS CloudFormation uses
-     * context key-value pairs in cases where a resource's logical and physical IDs are not enough to uniquely identify
-     * that resource. Each context key-value pair specifies a unique resource that contains the targeted resource.
+     * Context information that enables CloudFormation to uniquely identify a resource. CloudFormation uses context
+     * key-value pairs in cases where a resource's logical and physical IDs aren't enough to uniquely identify that
+     * resource. Each context key-value pair specifies a unique resource that contains the targeted resource.
      * </p>
      * 
-     * @return Context information that enables AWS CloudFormation to uniquely identify a resource. AWS CloudFormation
-     *         uses context key-value pairs in cases where a resource's logical and physical IDs are not enough to
-     *         uniquely identify that resource. Each context key-value pair specifies a unique resource that contains
-     *         the targeted resource.
+     * @return Context information that enables CloudFormation to uniquely identify a resource. CloudFormation uses
+     *         context key-value pairs in cases where a resource's logical and physical IDs aren't enough to uniquely
+     *         identify that resource. Each context key-value pair specifies a unique resource that contains the
+     *         targeted resource.
      */
 
     public java.util.List<PhysicalResourceIdContextKeyValuePair> getPhysicalResourceIdContext() {
@@ -286,16 +293,16 @@ public class StackResourceDrift implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Context information that enables AWS CloudFormation to uniquely identify a resource. AWS CloudFormation uses
-     * context key-value pairs in cases where a resource's logical and physical IDs are not enough to uniquely identify
-     * that resource. Each context key-value pair specifies a unique resource that contains the targeted resource.
+     * Context information that enables CloudFormation to uniquely identify a resource. CloudFormation uses context
+     * key-value pairs in cases where a resource's logical and physical IDs aren't enough to uniquely identify that
+     * resource. Each context key-value pair specifies a unique resource that contains the targeted resource.
      * </p>
      * 
      * @param physicalResourceIdContext
-     *        Context information that enables AWS CloudFormation to uniquely identify a resource. AWS CloudFormation
-     *        uses context key-value pairs in cases where a resource's logical and physical IDs are not enough to
-     *        uniquely identify that resource. Each context key-value pair specifies a unique resource that contains the
-     *        targeted resource.
+     *        Context information that enables CloudFormation to uniquely identify a resource. CloudFormation uses
+     *        context key-value pairs in cases where a resource's logical and physical IDs aren't enough to uniquely
+     *        identify that resource. Each context key-value pair specifies a unique resource that contains the targeted
+     *        resource.
      */
 
     public void setPhysicalResourceIdContext(java.util.Collection<PhysicalResourceIdContextKeyValuePair> physicalResourceIdContext) {
@@ -309,9 +316,9 @@ public class StackResourceDrift implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Context information that enables AWS CloudFormation to uniquely identify a resource. AWS CloudFormation uses
-     * context key-value pairs in cases where a resource's logical and physical IDs are not enough to uniquely identify
-     * that resource. Each context key-value pair specifies a unique resource that contains the targeted resource.
+     * Context information that enables CloudFormation to uniquely identify a resource. CloudFormation uses context
+     * key-value pairs in cases where a resource's logical and physical IDs aren't enough to uniquely identify that
+     * resource. Each context key-value pair specifies a unique resource that contains the targeted resource.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -320,10 +327,10 @@ public class StackResourceDrift implements Serializable, Cloneable {
      * </p>
      * 
      * @param physicalResourceIdContext
-     *        Context information that enables AWS CloudFormation to uniquely identify a resource. AWS CloudFormation
-     *        uses context key-value pairs in cases where a resource's logical and physical IDs are not enough to
-     *        uniquely identify that resource. Each context key-value pair specifies a unique resource that contains the
-     *        targeted resource.
+     *        Context information that enables CloudFormation to uniquely identify a resource. CloudFormation uses
+     *        context key-value pairs in cases where a resource's logical and physical IDs aren't enough to uniquely
+     *        identify that resource. Each context key-value pair specifies a unique resource that contains the targeted
+     *        resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -339,16 +346,16 @@ public class StackResourceDrift implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Context information that enables AWS CloudFormation to uniquely identify a resource. AWS CloudFormation uses
-     * context key-value pairs in cases where a resource's logical and physical IDs are not enough to uniquely identify
-     * that resource. Each context key-value pair specifies a unique resource that contains the targeted resource.
+     * Context information that enables CloudFormation to uniquely identify a resource. CloudFormation uses context
+     * key-value pairs in cases where a resource's logical and physical IDs aren't enough to uniquely identify that
+     * resource. Each context key-value pair specifies a unique resource that contains the targeted resource.
      * </p>
      * 
      * @param physicalResourceIdContext
-     *        Context information that enables AWS CloudFormation to uniquely identify a resource. AWS CloudFormation
-     *        uses context key-value pairs in cases where a resource's logical and physical IDs are not enough to
-     *        uniquely identify that resource. Each context key-value pair specifies a unique resource that contains the
-     *        targeted resource.
+     *        Context information that enables CloudFormation to uniquely identify a resource. CloudFormation uses
+     *        context key-value pairs in cases where a resource's logical and physical IDs aren't enough to uniquely
+     *        identify that resource. Each context key-value pair specifies a unique resource that contains the targeted
+     *        resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -409,7 +416,7 @@ public class StackResourceDrift implements Serializable, Cloneable {
      * 
      * @param expectedProperties
      *        A JSON structure containing the expected property values of the stack resource, as defined in the stack
-     *        template and any values specified as template parameters. </p>
+     *        template and any values specified as template parameters.</p>
      *        <p>
      *        For resources whose <code>StackResourceDriftStatus</code> is <code>DELETED</code>, this structure will not
      *        be present.
@@ -430,7 +437,7 @@ public class StackResourceDrift implements Serializable, Cloneable {
      * </p>
      * 
      * @return A JSON structure containing the expected property values of the stack resource, as defined in the stack
-     *         template and any values specified as template parameters. </p>
+     *         template and any values specified as template parameters.</p>
      *         <p>
      *         For resources whose <code>StackResourceDriftStatus</code> is <code>DELETED</code>, this structure will
      *         not be present.
@@ -452,7 +459,7 @@ public class StackResourceDrift implements Serializable, Cloneable {
      * 
      * @param expectedProperties
      *        A JSON structure containing the expected property values of the stack resource, as defined in the stack
-     *        template and any values specified as template parameters. </p>
+     *        template and any values specified as template parameters.</p>
      *        <p>
      *        For resources whose <code>StackResourceDriftStatus</code> is <code>DELETED</code>, this structure will not
      *        be present.
@@ -608,7 +615,7 @@ public class StackResourceDrift implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Status of the resource's actual configuration compared to its expected configuration
+     * Status of the resource's actual configuration compared to its expected configuration.
      * </p>
      * <ul>
      * <li>
@@ -625,18 +632,18 @@ public class StackResourceDrift implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>IN_SYNC</code>: The resources's actual configuration matches its expected template configuration.
+     * <code>IN_SYNC</code>: The resource's actual configuration matches its expected template configuration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation does not currently return this value.
+     * <code>NOT_CHECKED</code>: CloudFormation does not currently return this value.
      * </p>
      * </li>
      * </ul>
      * 
      * @param stackResourceDriftStatus
-     *        Status of the resource's actual configuration compared to its expected configuration</p>
+     *        Status of the resource's actual configuration compared to its expected configuration.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -652,12 +659,12 @@ public class StackResourceDrift implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>IN_SYNC</code>: The resources's actual configuration matches its expected template configuration.
+     *        <code>IN_SYNC</code>: The resource's actual configuration matches its expected template configuration.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>NOT_CHECKED</code>: AWS CloudFormation does not currently return this value.
+     *        <code>NOT_CHECKED</code>: CloudFormation does not currently return this value.
      *        </p>
      *        </li>
      * @see StackResourceDriftStatus
@@ -669,7 +676,7 @@ public class StackResourceDrift implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Status of the resource's actual configuration compared to its expected configuration
+     * Status of the resource's actual configuration compared to its expected configuration.
      * </p>
      * <ul>
      * <li>
@@ -686,17 +693,17 @@ public class StackResourceDrift implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>IN_SYNC</code>: The resources's actual configuration matches its expected template configuration.
+     * <code>IN_SYNC</code>: The resource's actual configuration matches its expected template configuration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation does not currently return this value.
+     * <code>NOT_CHECKED</code>: CloudFormation does not currently return this value.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return Status of the resource's actual configuration compared to its expected configuration</p>
+     * @return Status of the resource's actual configuration compared to its expected configuration.</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -712,12 +719,12 @@ public class StackResourceDrift implements Serializable, Cloneable {
      *         </li>
      *         <li>
      *         <p>
-     *         <code>IN_SYNC</code>: The resources's actual configuration matches its expected template configuration.
+     *         <code>IN_SYNC</code>: The resource's actual configuration matches its expected template configuration.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>NOT_CHECKED</code>: AWS CloudFormation does not currently return this value.
+     *         <code>NOT_CHECKED</code>: CloudFormation does not currently return this value.
      *         </p>
      *         </li>
      * @see StackResourceDriftStatus
@@ -729,7 +736,7 @@ public class StackResourceDrift implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Status of the resource's actual configuration compared to its expected configuration
+     * Status of the resource's actual configuration compared to its expected configuration.
      * </p>
      * <ul>
      * <li>
@@ -746,18 +753,18 @@ public class StackResourceDrift implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>IN_SYNC</code>: The resources's actual configuration matches its expected template configuration.
+     * <code>IN_SYNC</code>: The resource's actual configuration matches its expected template configuration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation does not currently return this value.
+     * <code>NOT_CHECKED</code>: CloudFormation does not currently return this value.
      * </p>
      * </li>
      * </ul>
      * 
      * @param stackResourceDriftStatus
-     *        Status of the resource's actual configuration compared to its expected configuration</p>
+     *        Status of the resource's actual configuration compared to its expected configuration.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -773,12 +780,12 @@ public class StackResourceDrift implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>IN_SYNC</code>: The resources's actual configuration matches its expected template configuration.
+     *        <code>IN_SYNC</code>: The resource's actual configuration matches its expected template configuration.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>NOT_CHECKED</code>: AWS CloudFormation does not currently return this value.
+     *        <code>NOT_CHECKED</code>: CloudFormation does not currently return this value.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -792,7 +799,7 @@ public class StackResourceDrift implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Status of the resource's actual configuration compared to its expected configuration
+     * Status of the resource's actual configuration compared to its expected configuration.
      * </p>
      * <ul>
      * <li>
@@ -809,18 +816,18 @@ public class StackResourceDrift implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>IN_SYNC</code>: The resources's actual configuration matches its expected template configuration.
+     * <code>IN_SYNC</code>: The resource's actual configuration matches its expected template configuration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation does not currently return this value.
+     * <code>NOT_CHECKED</code>: CloudFormation does not currently return this value.
      * </p>
      * </li>
      * </ul>
      * 
      * @param stackResourceDriftStatus
-     *        Status of the resource's actual configuration compared to its expected configuration</p>
+     *        Status of the resource's actual configuration compared to its expected configuration.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -836,12 +843,12 @@ public class StackResourceDrift implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>IN_SYNC</code>: The resources's actual configuration matches its expected template configuration.
+     *        <code>IN_SYNC</code>: The resource's actual configuration matches its expected template configuration.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>NOT_CHECKED</code>: AWS CloudFormation does not currently return this value.
+     *        <code>NOT_CHECKED</code>: CloudFormation does not currently return this value.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -855,11 +862,11 @@ public class StackResourceDrift implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Time at which AWS CloudFormation performed drift detection on the stack resource.
+     * Time at which CloudFormation performed drift detection on the stack resource.
      * </p>
      * 
      * @param timestamp
-     *        Time at which AWS CloudFormation performed drift detection on the stack resource.
+     *        Time at which CloudFormation performed drift detection on the stack resource.
      */
 
     public void setTimestamp(java.util.Date timestamp) {
@@ -868,10 +875,10 @@ public class StackResourceDrift implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Time at which AWS CloudFormation performed drift detection on the stack resource.
+     * Time at which CloudFormation performed drift detection on the stack resource.
      * </p>
      * 
-     * @return Time at which AWS CloudFormation performed drift detection on the stack resource.
+     * @return Time at which CloudFormation performed drift detection on the stack resource.
      */
 
     public java.util.Date getTimestamp() {
@@ -880,16 +887,62 @@ public class StackResourceDrift implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Time at which AWS CloudFormation performed drift detection on the stack resource.
+     * Time at which CloudFormation performed drift detection on the stack resource.
      * </p>
      * 
      * @param timestamp
-     *        Time at which AWS CloudFormation performed drift detection on the stack resource.
+     *        Time at which CloudFormation performed drift detection on the stack resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public StackResourceDrift withTimestamp(java.util.Date timestamp) {
         setTimestamp(timestamp);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Contains information about the module from which the resource was created, if the resource was created from a
+     * module included in the stack template.
+     * </p>
+     * 
+     * @param moduleInfo
+     *        Contains information about the module from which the resource was created, if the resource was created
+     *        from a module included in the stack template.
+     */
+
+    public void setModuleInfo(ModuleInfo moduleInfo) {
+        this.moduleInfo = moduleInfo;
+    }
+
+    /**
+     * <p>
+     * Contains information about the module from which the resource was created, if the resource was created from a
+     * module included in the stack template.
+     * </p>
+     * 
+     * @return Contains information about the module from which the resource was created, if the resource was created
+     *         from a module included in the stack template.
+     */
+
+    public ModuleInfo getModuleInfo() {
+        return this.moduleInfo;
+    }
+
+    /**
+     * <p>
+     * Contains information about the module from which the resource was created, if the resource was created from a
+     * module included in the stack template.
+     * </p>
+     * 
+     * @param moduleInfo
+     *        Contains information about the module from which the resource was created, if the resource was created
+     *        from a module included in the stack template.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StackResourceDrift withModuleInfo(ModuleInfo moduleInfo) {
+        setModuleInfo(moduleInfo);
         return this;
     }
 
@@ -924,7 +977,9 @@ public class StackResourceDrift implements Serializable, Cloneable {
         if (getStackResourceDriftStatus() != null)
             sb.append("StackResourceDriftStatus: ").append(getStackResourceDriftStatus()).append(",");
         if (getTimestamp() != null)
-            sb.append("Timestamp: ").append(getTimestamp());
+            sb.append("Timestamp: ").append(getTimestamp()).append(",");
+        if (getModuleInfo() != null)
+            sb.append("ModuleInfo: ").append(getModuleInfo());
         sb.append("}");
         return sb.toString();
     }
@@ -979,6 +1034,10 @@ public class StackResourceDrift implements Serializable, Cloneable {
             return false;
         if (other.getTimestamp() != null && other.getTimestamp().equals(this.getTimestamp()) == false)
             return false;
+        if (other.getModuleInfo() == null ^ this.getModuleInfo() == null)
+            return false;
+        if (other.getModuleInfo() != null && other.getModuleInfo().equals(this.getModuleInfo()) == false)
+            return false;
         return true;
     }
 
@@ -997,6 +1056,7 @@ public class StackResourceDrift implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getPropertyDifferences() == null) ? 0 : getPropertyDifferences().hashCode());
         hashCode = prime * hashCode + ((getStackResourceDriftStatus() == null) ? 0 : getStackResourceDriftStatus().hashCode());
         hashCode = prime * hashCode + ((getTimestamp() == null) ? 0 : getTimestamp().hashCode());
+        hashCode = prime * hashCode + ((getModuleInfo() == null) ? 0 : getModuleInfo().hashCode());
         return hashCode;
     }
 

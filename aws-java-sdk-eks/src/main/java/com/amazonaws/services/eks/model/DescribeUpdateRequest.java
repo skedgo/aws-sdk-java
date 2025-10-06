@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
+ * <p>
+ * Describes an update request.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eks-2017-11-01/DescribeUpdate" target="_top">AWS API
  *      Documentation</a>
@@ -27,7 +30,7 @@ public class DescribeUpdateRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the Amazon EKS cluster to update.
+     * The name of the Amazon EKS cluster associated with the update.
      * </p>
      */
     private String name;
@@ -37,14 +40,29 @@ public class DescribeUpdateRequest extends com.amazonaws.AmazonWebServiceRequest
      * </p>
      */
     private String updateId;
+    /**
+     * <p>
+     * The name of the Amazon EKS node group associated with the update. This parameter is required if the update is a
+     * node group update.
+     * </p>
+     */
+    private String nodegroupName;
+    /**
+     * <p>
+     * The name of the add-on. The name must match one of the names returned by <a
+     * href="https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html"> <code>ListAddons</code> </a>.
+     * This parameter is required if the update is an add-on update.
+     * </p>
+     */
+    private String addonName;
 
     /**
      * <p>
-     * The name of the Amazon EKS cluster to update.
+     * The name of the Amazon EKS cluster associated with the update.
      * </p>
      * 
      * @param name
-     *        The name of the Amazon EKS cluster to update.
+     *        The name of the Amazon EKS cluster associated with the update.
      */
 
     public void setName(String name) {
@@ -53,10 +71,10 @@ public class DescribeUpdateRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the Amazon EKS cluster to update.
+     * The name of the Amazon EKS cluster associated with the update.
      * </p>
      * 
-     * @return The name of the Amazon EKS cluster to update.
+     * @return The name of the Amazon EKS cluster associated with the update.
      */
 
     public String getName() {
@@ -65,11 +83,11 @@ public class DescribeUpdateRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the Amazon EKS cluster to update.
+     * The name of the Amazon EKS cluster associated with the update.
      * </p>
      * 
      * @param name
-     *        The name of the Amazon EKS cluster to update.
+     *        The name of the Amazon EKS cluster associated with the update.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -119,6 +137,104 @@ public class DescribeUpdateRequest extends com.amazonaws.AmazonWebServiceRequest
     }
 
     /**
+     * <p>
+     * The name of the Amazon EKS node group associated with the update. This parameter is required if the update is a
+     * node group update.
+     * </p>
+     * 
+     * @param nodegroupName
+     *        The name of the Amazon EKS node group associated with the update. This parameter is required if the update
+     *        is a node group update.
+     */
+
+    public void setNodegroupName(String nodegroupName) {
+        this.nodegroupName = nodegroupName;
+    }
+
+    /**
+     * <p>
+     * The name of the Amazon EKS node group associated with the update. This parameter is required if the update is a
+     * node group update.
+     * </p>
+     * 
+     * @return The name of the Amazon EKS node group associated with the update. This parameter is required if the
+     *         update is a node group update.
+     */
+
+    public String getNodegroupName() {
+        return this.nodegroupName;
+    }
+
+    /**
+     * <p>
+     * The name of the Amazon EKS node group associated with the update. This parameter is required if the update is a
+     * node group update.
+     * </p>
+     * 
+     * @param nodegroupName
+     *        The name of the Amazon EKS node group associated with the update. This parameter is required if the update
+     *        is a node group update.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeUpdateRequest withNodegroupName(String nodegroupName) {
+        setNodegroupName(nodegroupName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the add-on. The name must match one of the names returned by <a
+     * href="https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html"> <code>ListAddons</code> </a>.
+     * This parameter is required if the update is an add-on update.
+     * </p>
+     * 
+     * @param addonName
+     *        The name of the add-on. The name must match one of the names returned by <a
+     *        href="https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html"> <code>ListAddons</code>
+     *        </a>. This parameter is required if the update is an add-on update.
+     */
+
+    public void setAddonName(String addonName) {
+        this.addonName = addonName;
+    }
+
+    /**
+     * <p>
+     * The name of the add-on. The name must match one of the names returned by <a
+     * href="https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html"> <code>ListAddons</code> </a>.
+     * This parameter is required if the update is an add-on update.
+     * </p>
+     * 
+     * @return The name of the add-on. The name must match one of the names returned by <a
+     *         href="https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html"> <code>ListAddons</code>
+     *         </a>. This parameter is required if the update is an add-on update.
+     */
+
+    public String getAddonName() {
+        return this.addonName;
+    }
+
+    /**
+     * <p>
+     * The name of the add-on. The name must match one of the names returned by <a
+     * href="https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html"> <code>ListAddons</code> </a>.
+     * This parameter is required if the update is an add-on update.
+     * </p>
+     * 
+     * @param addonName
+     *        The name of the add-on. The name must match one of the names returned by <a
+     *        href="https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html"> <code>ListAddons</code>
+     *        </a>. This parameter is required if the update is an add-on update.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeUpdateRequest withAddonName(String addonName) {
+        setAddonName(addonName);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -133,7 +249,11 @@ public class DescribeUpdateRequest extends com.amazonaws.AmazonWebServiceRequest
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getUpdateId() != null)
-            sb.append("UpdateId: ").append(getUpdateId());
+            sb.append("UpdateId: ").append(getUpdateId()).append(",");
+        if (getNodegroupName() != null)
+            sb.append("NodegroupName: ").append(getNodegroupName()).append(",");
+        if (getAddonName() != null)
+            sb.append("AddonName: ").append(getAddonName());
         sb.append("}");
         return sb.toString();
     }
@@ -156,6 +276,14 @@ public class DescribeUpdateRequest extends com.amazonaws.AmazonWebServiceRequest
             return false;
         if (other.getUpdateId() != null && other.getUpdateId().equals(this.getUpdateId()) == false)
             return false;
+        if (other.getNodegroupName() == null ^ this.getNodegroupName() == null)
+            return false;
+        if (other.getNodegroupName() != null && other.getNodegroupName().equals(this.getNodegroupName()) == false)
+            return false;
+        if (other.getAddonName() == null ^ this.getAddonName() == null)
+            return false;
+        if (other.getAddonName() != null && other.getAddonName().equals(this.getAddonName()) == false)
+            return false;
         return true;
     }
 
@@ -166,6 +294,8 @@ public class DescribeUpdateRequest extends com.amazonaws.AmazonWebServiceRequest
 
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getUpdateId() == null) ? 0 : getUpdateId().hashCode());
+        hashCode = prime * hashCode + ((getNodegroupName() == null) ? 0 : getNodegroupName().hashCode());
+        hashCode = prime * hashCode + ((getAddonName() == null) ? 0 : getAddonName().hashCode());
         return hashCode;
     }
 

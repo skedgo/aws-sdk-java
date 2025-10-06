@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,20 +26,18 @@ import com.amazonaws.services.applicationinsights.model.*;
  * {@link com.amazonaws.services.applicationinsights.AbstractAmazonApplicationInsights} instead.
  * </p>
  * <p>
- * <fullname>Amazon CloudWatch Application Insights for .NET and SQL Server</fullname>
+ * <fullname>Amazon CloudWatch Application Insights</fullname>
  * <p>
- * Amazon CloudWatch Application Insights for .NET and SQL Server is a service that helps you detect common problems
- * with your .NET and SQL Server-based applications. It enables you to pinpoint the source of issues in your
- * applications (built with technologies such as Microsoft IIS, .NET, and Microsoft SQL Server), by providing key
- * insights into detected problems.
+ * Amazon CloudWatch Application Insights is a service that helps you detect common problems with your applications. It
+ * enables you to pinpoint the source of issues in your applications (built with technologies such as Microsoft IIS,
+ * .NET, and Microsoft SQL Server), by providing key insights into detected problems.
  * </p>
  * <p>
- * After you onboard your application, CloudWatch Application Insights for .NET and SQL Server identifies, recommends,
- * and sets up metrics and logs. It continuously analyzes and correlates your metrics and logs for unusual behavior to
- * surface actionable problems with your application. For example, if your application is slow and unresponsive and
- * leading to HTTP 500 errors in your Application Load Balancer (ALB), Application Insights informs you that a memory
- * pressure problem with your SQL Server database is occurring. It bases this analysis on impactful metrics and log
- * errors.
+ * After you onboard your application, CloudWatch Application Insights identifies, recommends, and sets up metrics and
+ * logs. It continuously analyzes and correlates your metrics and logs for unusual behavior to surface actionable
+ * problems with your application. For example, if your application is slow and unresponsive and leading to HTTP 500
+ * errors in your Application Load Balancer (ALB), Application Insights informs you that a memory pressure problem with
+ * your SQL Server database is occurring. It bases this analysis on impactful metrics and log errors.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -52,6 +50,27 @@ public interface AmazonApplicationInsights {
      * @see RegionUtils#getRegionsForService(String)
      */
     String ENDPOINT_PREFIX = "applicationinsights";
+
+    /**
+     * <p>
+     * Adds a workload to a component. Each component can have at most five workloads.
+     * </p>
+     * 
+     * @param addWorkloadRequest
+     * @return Result of the AddWorkload operation returned by the service.
+     * @throws ResourceInUseException
+     *         The resource is already created or in use.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.AddWorkload
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/AddWorkload"
+     *      target="_top">AWS API Documentation</a>
+     */
+    AddWorkloadResult addWorkload(AddWorkloadRequest addWorkloadRequest);
 
     /**
      * <p>
@@ -68,6 +87,10 @@ public interface AmazonApplicationInsights {
      *         The parameter is not valid.
      * @throws InternalServerException
      *         The server encountered an internal error and is unable to complete the request.
+     * @throws TagsAlreadyExistException
+     *         Tags are already registered for the specified application ARN.
+     * @throws AccessDeniedException
+     *         User does not have permissions to perform this action.
      * @sample AmazonApplicationInsights.CreateApplication
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/CreateApplication"
      *      target="_top">AWS API Documentation</a>
@@ -94,6 +117,27 @@ public interface AmazonApplicationInsights {
      *      target="_top">AWS API Documentation</a>
      */
     CreateComponentResult createComponent(CreateComponentRequest createComponentRequest);
+
+    /**
+     * <p>
+     * Adds an log pattern to a <code>LogPatternSet</code>.
+     * </p>
+     * 
+     * @param createLogPatternRequest
+     * @return Result of the CreateLogPattern operation returned by the service.
+     * @throws ResourceInUseException
+     *         The resource is already created or in use.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.CreateLogPattern
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/CreateLogPattern"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateLogPatternResult createLogPattern(CreateLogPatternRequest createLogPatternRequest);
 
     /**
      * <p>
@@ -135,6 +179,27 @@ public interface AmazonApplicationInsights {
      *      target="_top">AWS API Documentation</a>
      */
     DeleteComponentResult deleteComponent(DeleteComponentRequest deleteComponentRequest);
+
+    /**
+     * <p>
+     * Removes the specified log pattern from a <code>LogPatternSet</code>.
+     * </p>
+     * 
+     * @param deleteLogPatternRequest
+     * @return Result of the DeleteLogPattern operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws BadRequestException
+     *         The request is not understood by the server.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.DeleteLogPattern
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/DeleteLogPattern"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteLogPatternResult deleteLogPattern(DeleteLogPatternRequest deleteLogPatternRequest);
 
     /**
      * <p>
@@ -217,6 +282,25 @@ public interface AmazonApplicationInsights {
 
     /**
      * <p>
+     * Describe a specific log pattern from a <code>LogPatternSet</code>.
+     * </p>
+     * 
+     * @param describeLogPatternRequest
+     * @return Result of the DescribeLogPattern operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.DescribeLogPattern
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/DescribeLogPattern"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeLogPatternResult describeLogPattern(DescribeLogPatternRequest describeLogPatternRequest);
+
+    /**
+     * <p>
      * Describes an anomaly or error with the application.
      * </p>
      * 
@@ -274,6 +358,25 @@ public interface AmazonApplicationInsights {
 
     /**
      * <p>
+     * Describes a workload and its configuration.
+     * </p>
+     * 
+     * @param describeWorkloadRequest
+     * @return Result of the DescribeWorkload operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.DescribeWorkload
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/DescribeWorkload"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeWorkloadResult describeWorkload(DescribeWorkloadRequest describeWorkloadRequest);
+
+    /**
+     * <p>
      * Lists the IDs of the applications that you are monitoring.
      * </p>
      * 
@@ -310,6 +413,81 @@ public interface AmazonApplicationInsights {
 
     /**
      * <p>
+     * Lists the INFO, WARN, and ERROR events for periodic configuration updates performed by Application Insights.
+     * Examples of events represented are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * INFO: creating a new alarm or updating an alarm threshold.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * WARN: alarm not created due to insufficient data points used to predict thresholds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ERROR: alarm not created due to permission errors or exceeding quotas.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param listConfigurationHistoryRequest
+     * @return Result of the ListConfigurationHistory operation returned by the service.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.ListConfigurationHistory
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/ListConfigurationHistory"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListConfigurationHistoryResult listConfigurationHistory(ListConfigurationHistoryRequest listConfigurationHistoryRequest);
+
+    /**
+     * <p>
+     * Lists the log pattern sets in the specific application.
+     * </p>
+     * 
+     * @param listLogPatternSetsRequest
+     * @return Result of the ListLogPatternSets operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.ListLogPatternSets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/ListLogPatternSets"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListLogPatternSetsResult listLogPatternSets(ListLogPatternSetsRequest listLogPatternSetsRequest);
+
+    /**
+     * <p>
+     * Lists the log patterns in the specific log <code>LogPatternSet</code>.
+     * </p>
+     * 
+     * @param listLogPatternsRequest
+     * @return Result of the ListLogPatterns operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.ListLogPatterns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/ListLogPatterns"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListLogPatternsResult listLogPatterns(ListLogPatternsRequest listLogPatternsRequest);
+
+    /**
+     * <p>
      * Lists the problems with your application.
      * </p>
      * 
@@ -326,6 +504,108 @@ public interface AmazonApplicationInsights {
      *      target="_top">AWS API Documentation</a>
      */
     ListProblemsResult listProblems(ListProblemsRequest listProblemsRequest);
+
+    /**
+     * <p>
+     * Retrieve a list of the tags (keys and values) that are associated with a specified application. A <i>tag</i> is a
+     * label that you optionally define and associate with an application. Each tag consists of a required <i>tag
+     * key</i> and an optional associated <i>tag value</i>. A tag key is a general label that acts as a category for
+     * more specific tag values. A tag value acts as a descriptor within a tag key.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @sample AmazonApplicationInsights.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/ListTagsForResource"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest);
+
+    /**
+     * <p>
+     * Lists the workloads that are configured on a given component.
+     * </p>
+     * 
+     * @param listWorkloadsRequest
+     * @return Result of the ListWorkloads operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.ListWorkloads
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/ListWorkloads"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListWorkloadsResult listWorkloads(ListWorkloadsRequest listWorkloadsRequest);
+
+    /**
+     * <p>
+     * Remove workload from a component.
+     * </p>
+     * 
+     * @param removeWorkloadRequest
+     * @return Result of the RemoveWorkload operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.RemoveWorkload
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/RemoveWorkload"
+     *      target="_top">AWS API Documentation</a>
+     */
+    RemoveWorkloadResult removeWorkload(RemoveWorkloadRequest removeWorkloadRequest);
+
+    /**
+     * <p>
+     * Add one or more tags (keys and values) to a specified application. A <i>tag</i> is a label that you optionally
+     * define and associate with an application. Tags can help you categorize and manage application in different ways,
+     * such as by purpose, owner, environment, or other criteria.
+     * </p>
+     * <p>
+     * Each tag consists of a required <i>tag key</i> and an associated <i>tag value</i>, both of which you define. A
+     * tag key is a general label that acts as a category for more specific tag values. A tag value acts as a descriptor
+     * within a tag key.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws TooManyTagsException
+     *         The number of the provided tags is beyond the limit, or the number of total tags you are trying to attach
+     *         to the specified resource exceeds the limit.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @sample AmazonApplicationInsights.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/TagResource"
+     *      target="_top">AWS API Documentation</a>
+     */
+    TagResourceResult tagResource(TagResourceRequest tagResourceRequest);
+
+    /**
+     * <p>
+     * Remove one or more tags (keys and values) from a specified application.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @sample AmazonApplicationInsights.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/UntagResource"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UntagResourceResult untagResource(UntagResourceRequest untagResourceRequest);
 
     /**
      * <p>
@@ -382,12 +662,73 @@ public interface AmazonApplicationInsights {
      *         The parameter is not valid.
      * @throws InternalServerException
      *         The server encountered an internal error and is unable to complete the request.
+     * @throws ResourceInUseException
+     *         The resource is already created or in use.
      * @sample AmazonApplicationInsights.UpdateComponentConfiguration
      * @see <a
      *      href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/UpdateComponentConfiguration"
      *      target="_top">AWS API Documentation</a>
      */
     UpdateComponentConfigurationResult updateComponentConfiguration(UpdateComponentConfigurationRequest updateComponentConfigurationRequest);
+
+    /**
+     * <p>
+     * Adds a log pattern to a <code>LogPatternSet</code>.
+     * </p>
+     * 
+     * @param updateLogPatternRequest
+     * @return Result of the UpdateLogPattern operation returned by the service.
+     * @throws ResourceInUseException
+     *         The resource is already created or in use.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.UpdateLogPattern
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/UpdateLogPattern"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateLogPatternResult updateLogPattern(UpdateLogPatternRequest updateLogPatternRequest);
+
+    /**
+     * <p>
+     * Updates the visibility of the problem or specifies the problem as <code>RESOLVED</code>.
+     * </p>
+     * 
+     * @param updateProblemRequest
+     * @return Result of the UpdateProblem operation returned by the service.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @sample AmazonApplicationInsights.UpdateProblem
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/UpdateProblem"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateProblemResult updateProblem(UpdateProblemRequest updateProblemRequest);
+
+    /**
+     * <p>
+     * Adds a workload to a component. Each component can have at most five workloads.
+     * </p>
+     * 
+     * @param updateWorkloadRequest
+     * @return Result of the UpdateWorkload operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource does not exist in the customer account.
+     * @throws ValidationException
+     *         The parameter is not valid.
+     * @throws InternalServerException
+     *         The server encountered an internal error and is unable to complete the request.
+     * @sample AmazonApplicationInsights.UpdateWorkload
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/application-insights-2018-11-25/UpdateWorkload"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateWorkloadResult updateWorkload(UpdateWorkloadRequest updateWorkloadRequest);
 
     /**
      * Shuts down this client object, releasing any resources that might be held open. This is an optional method, and

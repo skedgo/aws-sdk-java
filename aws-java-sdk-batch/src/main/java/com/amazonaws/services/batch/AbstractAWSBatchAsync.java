@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -66,6 +66,19 @@ public class AbstractAWSBatchAsync extends AbstractAWSBatch implements AWSBatchA
     }
 
     @Override
+    public java.util.concurrent.Future<CreateSchedulingPolicyResult> createSchedulingPolicyAsync(CreateSchedulingPolicyRequest request) {
+
+        return createSchedulingPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateSchedulingPolicyResult> createSchedulingPolicyAsync(CreateSchedulingPolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateSchedulingPolicyRequest, CreateSchedulingPolicyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteComputeEnvironmentResult> deleteComputeEnvironmentAsync(DeleteComputeEnvironmentRequest request) {
 
         return deleteComputeEnvironmentAsync(request, null);
@@ -87,6 +100,19 @@ public class AbstractAWSBatchAsync extends AbstractAWSBatch implements AWSBatchA
     @Override
     public java.util.concurrent.Future<DeleteJobQueueResult> deleteJobQueueAsync(DeleteJobQueueRequest request,
             com.amazonaws.handlers.AsyncHandler<DeleteJobQueueRequest, DeleteJobQueueResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteSchedulingPolicyResult> deleteSchedulingPolicyAsync(DeleteSchedulingPolicyRequest request) {
+
+        return deleteSchedulingPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteSchedulingPolicyResult> deleteSchedulingPolicyAsync(DeleteSchedulingPolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteSchedulingPolicyRequest, DeleteSchedulingPolicyResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -157,6 +183,32 @@ public class AbstractAWSBatchAsync extends AbstractAWSBatch implements AWSBatchA
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeSchedulingPoliciesResult> describeSchedulingPoliciesAsync(DescribeSchedulingPoliciesRequest request) {
+
+        return describeSchedulingPoliciesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeSchedulingPoliciesResult> describeSchedulingPoliciesAsync(DescribeSchedulingPoliciesRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeSchedulingPoliciesRequest, DescribeSchedulingPoliciesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetJobQueueSnapshotResult> getJobQueueSnapshotAsync(GetJobQueueSnapshotRequest request) {
+
+        return getJobQueueSnapshotAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetJobQueueSnapshotResult> getJobQueueSnapshotAsync(GetJobQueueSnapshotRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetJobQueueSnapshotRequest, GetJobQueueSnapshotResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListJobsResult> listJobsAsync(ListJobsRequest request) {
 
         return listJobsAsync(request, null);
@@ -165,6 +217,32 @@ public class AbstractAWSBatchAsync extends AbstractAWSBatch implements AWSBatchA
     @Override
     public java.util.concurrent.Future<ListJobsResult> listJobsAsync(ListJobsRequest request,
             com.amazonaws.handlers.AsyncHandler<ListJobsRequest, ListJobsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSchedulingPoliciesResult> listSchedulingPoliciesAsync(ListSchedulingPoliciesRequest request) {
+
+        return listSchedulingPoliciesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSchedulingPoliciesResult> listSchedulingPoliciesAsync(ListSchedulingPoliciesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListSchedulingPoliciesRequest, ListSchedulingPoliciesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -196,6 +274,19 @@ public class AbstractAWSBatchAsync extends AbstractAWSBatch implements AWSBatchA
     }
 
     @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<TerminateJobResult> terminateJobAsync(TerminateJobRequest request) {
 
         return terminateJobAsync(request, null);
@@ -204,6 +295,19 @@ public class AbstractAWSBatchAsync extends AbstractAWSBatch implements AWSBatchA
     @Override
     public java.util.concurrent.Future<TerminateJobResult> terminateJobAsync(TerminateJobRequest request,
             com.amazonaws.handlers.AsyncHandler<TerminateJobRequest, TerminateJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -230,6 +334,19 @@ public class AbstractAWSBatchAsync extends AbstractAWSBatch implements AWSBatchA
     @Override
     public java.util.concurrent.Future<UpdateJobQueueResult> updateJobQueueAsync(UpdateJobQueueRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateJobQueueRequest, UpdateJobQueueResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateSchedulingPolicyResult> updateSchedulingPolicyAsync(UpdateSchedulingPolicyRequest request) {
+
+        return updateSchedulingPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateSchedulingPolicyResult> updateSchedulingPolicyAsync(UpdateSchedulingPolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateSchedulingPolicyRequest, UpdateSchedulingPolicyResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

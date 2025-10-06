@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -57,6 +57,10 @@ public class UpdateMaintenanceWindowTaskRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Description").build();
     private static final MarshallingInfo<Boolean> REPLACE_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Replace").build();
+    private static final MarshallingInfo<String> CUTOFFBEHAVIOR_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CutoffBehavior").build();
+    private static final MarshallingInfo<StructuredPojo> ALARMCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AlarmConfiguration").build();
 
     private static final UpdateMaintenanceWindowTaskRequestMarshaller instance = new UpdateMaintenanceWindowTaskRequestMarshaller();
 
@@ -88,6 +92,8 @@ public class UpdateMaintenanceWindowTaskRequestMarshaller {
             protocolMarshaller.marshall(updateMaintenanceWindowTaskRequest.getName(), NAME_BINDING);
             protocolMarshaller.marshall(updateMaintenanceWindowTaskRequest.getDescription(), DESCRIPTION_BINDING);
             protocolMarshaller.marshall(updateMaintenanceWindowTaskRequest.getReplace(), REPLACE_BINDING);
+            protocolMarshaller.marshall(updateMaintenanceWindowTaskRequest.getCutoffBehavior(), CUTOFFBEHAVIOR_BINDING);
+            protocolMarshaller.marshall(updateMaintenanceWindowTaskRequest.getAlarmConfiguration(), ALARMCONFIGURATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

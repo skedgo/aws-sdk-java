@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,23 +48,34 @@ public class ExecuteStatementResultJsonUnmarshaller implements Unmarshaller<Exec
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("records", targetDepth)) {
+                    context.nextToken();
+                    executeStatementResult.setRecords(new ListUnmarshaller<java.util.List<Field>>(new ListUnmarshaller<Field>(FieldJsonUnmarshaller
+                            .getInstance())
+
+                    )
+
+                    .unmarshall(context));
+                }
                 if (context.testExpression("columnMetadata", targetDepth)) {
                     context.nextToken();
                     executeStatementResult.setColumnMetadata(new ListUnmarshaller<ColumnMetadata>(ColumnMetadataJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
-                }
-                if (context.testExpression("generatedFields", targetDepth)) {
-                    context.nextToken();
-                    executeStatementResult.setGeneratedFields(new ListUnmarshaller<Field>(FieldJsonUnmarshaller.getInstance()).unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("numberOfRecordsUpdated", targetDepth)) {
                     context.nextToken();
                     executeStatementResult.setNumberOfRecordsUpdated(context.getUnmarshaller(Long.class).unmarshall(context));
                 }
-                if (context.testExpression("records", targetDepth)) {
+                if (context.testExpression("generatedFields", targetDepth)) {
                     context.nextToken();
-                    executeStatementResult.setRecords(new ListUnmarshaller<java.util.List<Field>>(new ListUnmarshaller<Field>(FieldJsonUnmarshaller
-                            .getInstance())).unmarshall(context));
+                    executeStatementResult.setGeneratedFields(new ListUnmarshaller<Field>(FieldJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("formattedRecords", targetDepth)) {
+                    context.nextToken();
+                    executeStatementResult.setFormattedRecords(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

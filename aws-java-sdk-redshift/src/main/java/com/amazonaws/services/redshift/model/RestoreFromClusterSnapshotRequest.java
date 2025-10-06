@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -56,7 +56,7 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * </li>
      * <li>
      * <p>
-     * Must be unique for all clusters within an AWS account.
+     * Must be unique for all clusters within an Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -64,13 +64,21 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
     private String clusterIdentifier;
     /**
      * <p>
-     * The name of the snapshot from which to create the new cluster. This parameter isn't case sensitive.
+     * The name of the snapshot from which to create the new cluster. This parameter isn't case sensitive. You must
+     * specify this parameter or <code>snapshotArn</code>, but not both.
      * </p>
      * <p>
      * Example: <code>my-snapshot-id</code>
      * </p>
      */
     private String snapshotIdentifier;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the snapshot associated with the message to restore from a cluster. You must
+     * specify this parameter or <code>snapshotIdentifier</code>, but not both.
+     * </p>
+     */
+    private String snapshotArn;
     /**
      * <p>
      * The name of the cluster the source snapshot was created from. This parameter is required if your IAM user has a
@@ -86,7 +94,9 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * Default: The same port as the original cluster.
      * </p>
      * <p>
-     * Constraints: Must be between <code>1115</code> and <code>65535</code>.
+     * Valid values: For clusters with DC2 nodes, must be within the range <code>1150</code>-<code>65535</code>. For
+     * clusters with ra3 nodes, must be within the ranges <code>5431</code>-<code>5455</code> or <code>8191</code>-
+     * <code>8215</code>.
      * </p>
      */
     private Integer port;
@@ -98,7 +108,7 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * Default: A random, system-chosen Availability Zone.
      * </p>
      * <p>
-     * Example: <code>us-east-1a</code>
+     * Example: <code>us-east-2a</code>
      * </p>
      */
     private String availabilityZone;
@@ -130,8 +140,8 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
     private Boolean publiclyAccessible;
     /**
      * <p>
-     * The AWS customer account used to create or copy the snapshot. Required if you are restoring a snapshot you do not
-     * own, optional if you own the snapshot.
+     * The Amazon Web Services account used to create or copy the snapshot. Required if you are restoring a snapshot you
+     * do not own, optional if you own the snapshot.
      * </p>
      */
     private String ownerAccount;
@@ -151,7 +161,8 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
     private String hsmConfigurationIdentifier;
     /**
      * <p>
-     * The elastic IP (EIP) address for the cluster.
+     * The Elastic IP (EIP) address for the cluster. Don't specify the Elastic IP address for a publicly accessible
+     * cluster with availability zone relocation turned on.
      * </p>
      */
     private String elasticIp;
@@ -238,6 +249,9 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * <a>CreateClusterSnapshot</a>.
      * </p>
      * <p>
+     * You can't disable automated snapshots for RA3 node types. Set the automated retention period from 1-35 days.
+     * </p>
+     * <p>
      * Default: The value selected for the cluster from which the snapshot was taken.
      * </p>
      * <p>
@@ -257,8 +271,11 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
     private Integer manualSnapshotRetentionPeriod;
     /**
      * <p>
-     * The AWS Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in the
-     * cluster that you restore from a shared snapshot.
+     * The Key Management Service (KMS) key ID of the encryption key that encrypts data in the cluster restored from a
+     * shared snapshot. You can also provide the key ID when you restore from an unencrypted snapshot to an encrypted
+     * cluster in the same account. Additionally, you can specify a new KMS key ID when you restore from an encrypted
+     * snapshot in the same account in order to change it. In that case, the restored cluster is encrypted with the new
+     * KMS key ID.
      * </p>
      */
     private String kmsKeyId;
@@ -267,13 +284,8 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * The node type that the restored cluster will be provisioned with.
      * </p>
      * <p>
-     * Default: The node type of the cluster from which the snapshot was taken. You can modify this if you are using any
-     * DS node type. In that case, you can choose to restore into another DS node type of the same size. For example,
-     * you can restore ds1.8xlarge into ds2.8xlarge, or ds1.xlarge into ds2.xlarge. If you have a DC instance type, you
-     * must restore into that same instance type and size. In other words, you can only restore a dc1.large instance
-     * type into another dc1.large instance type or dc2.large instance type. You can't restore dc1.8xlarge to
-     * dc2.8xlarge. First restore to a dc1.8xlareg cluster, then resize to a dc2.8large cluster. For more information
-     * about node types, see <a
+     * If you have a DC instance type, you must restore into that same instance type and size. In other words, you can
+     * only restore a dc2.large node type into another dc2 type. For more information about node types, see <a
      * href="https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#rs-about-clusters-and-nodes">
      * About Clusters and Nodes</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
@@ -302,12 +314,13 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
     private String additionalInfo;
     /**
      * <p>
-     * A list of AWS Identity and Access Management (IAM) roles that can be used by the cluster to access other AWS
-     * services. You must supply the IAM roles in their Amazon Resource Name (ARN) format. You can supply up to 10 IAM
-     * roles in a single request.
+     * A list of Identity and Access Management (IAM) roles that can be used by the cluster to access other Amazon Web
+     * Services services. You must supply the IAM roles in their Amazon Resource Name (ARN) format.
      * </p>
      * <p>
-     * A cluster can have up to 10 IAM roles associated at any time.
+     * The maximum number of IAM roles that you can associate is subject to a quota. For more information, go to <a
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/amazon-redshift-limits.html">Quotas and limits</a> in the
+     * <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> iamRoles;
@@ -327,6 +340,79 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * </p>
      */
     private String snapshotScheduleIdentifier;
+    /**
+     * <p>
+     * The number of nodes specified when provisioning the restored cluster.
+     * </p>
+     */
+    private Integer numberOfNodes;
+    /**
+     * <p>
+     * The option to enable relocation for an Amazon Redshift cluster between Availability Zones after the cluster is
+     * restored.
+     * </p>
+     */
+    private Boolean availabilityZoneRelocation;
+    /**
+     * <p>
+     * This parameter is retired. It does not set the AQUA configuration status. Amazon Redshift automatically
+     * determines whether to use AQUA (Advanced Query Accelerator).
+     * </p>
+     */
+    private String aquaConfigurationStatus;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the IAM role that was set as default for the cluster when the cluster was last
+     * modified while it was restored from a snapshot.
+     * </p>
+     */
+    private String defaultIamRoleArn;
+    /**
+     * <p>
+     * The identifier of the target reserved node offering.
+     * </p>
+     */
+    private String reservedNodeId;
+    /**
+     * <p>
+     * The identifier of the target reserved node offering.
+     * </p>
+     */
+    private String targetReservedNodeOfferingId;
+    /**
+     * <p>
+     * Enables support for restoring an unencrypted snapshot to a cluster encrypted with Key Management Service (KMS)
+     * and a customer managed key.
+     * </p>
+     */
+    private Boolean encrypted;
+    /**
+     * <p>
+     * If <code>true</code>, Amazon Redshift uses Secrets Manager to manage the restored cluster's admin credentials. If
+     * <code>ManageMasterPassword</code> is false or not set, Amazon Redshift uses the admin credentials the cluster had
+     * at the time the snapshot was taken.
+     * </p>
+     */
+    private Boolean manageMasterPassword;
+    /**
+     * <p>
+     * The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials secret.
+     * You can only use this parameter if <code>ManageMasterPassword</code> is true.
+     * </p>
+     */
+    private String masterPasswordSecretKmsKeyId;
+    /**
+     * <p>
+     * The IP address type for the cluster. Possible values are <code>ipv4</code> and <code>dualstack</code>.
+     * </p>
+     */
+    private String ipAddressType;
+    /**
+     * <p>
+     * If true, the snapshot will be restored to a cluster deployed in two Availability Zones.
+     * </p>
+     */
+    private Boolean multiAZ;
 
     /**
      * <p>
@@ -358,7 +444,7 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * </li>
      * <li>
      * <p>
-     * Must be unique for all clusters within an AWS account.
+     * Must be unique for all clusters within an Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -391,7 +477,7 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      *        </li>
      *        <li>
      *        <p>
-     *        Must be unique for all clusters within an AWS account.
+     *        Must be unique for all clusters within an Amazon Web Services account.
      *        </p>
      *        </li>
      */
@@ -430,7 +516,7 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * </li>
      * <li>
      * <p>
-     * Must be unique for all clusters within an AWS account.
+     * Must be unique for all clusters within an Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -462,7 +548,7 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      *         </li>
      *         <li>
      *         <p>
-     *         Must be unique for all clusters within an AWS account.
+     *         Must be unique for all clusters within an Amazon Web Services account.
      *         </p>
      *         </li>
      */
@@ -501,7 +587,7 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * </li>
      * <li>
      * <p>
-     * Must be unique for all clusters within an AWS account.
+     * Must be unique for all clusters within an Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -534,7 +620,7 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      *        </li>
      *        <li>
      *        <p>
-     *        Must be unique for all clusters within an AWS account.
+     *        Must be unique for all clusters within an Amazon Web Services account.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -547,14 +633,16 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The name of the snapshot from which to create the new cluster. This parameter isn't case sensitive.
+     * The name of the snapshot from which to create the new cluster. This parameter isn't case sensitive. You must
+     * specify this parameter or <code>snapshotArn</code>, but not both.
      * </p>
      * <p>
      * Example: <code>my-snapshot-id</code>
      * </p>
      * 
      * @param snapshotIdentifier
-     *        The name of the snapshot from which to create the new cluster. This parameter isn't case sensitive.</p>
+     *        The name of the snapshot from which to create the new cluster. This parameter isn't case sensitive. You
+     *        must specify this parameter or <code>snapshotArn</code>, but not both.</p>
      *        <p>
      *        Example: <code>my-snapshot-id</code>
      */
@@ -565,13 +653,15 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The name of the snapshot from which to create the new cluster. This parameter isn't case sensitive.
+     * The name of the snapshot from which to create the new cluster. This parameter isn't case sensitive. You must
+     * specify this parameter or <code>snapshotArn</code>, but not both.
      * </p>
      * <p>
      * Example: <code>my-snapshot-id</code>
      * </p>
      * 
-     * @return The name of the snapshot from which to create the new cluster. This parameter isn't case sensitive.</p>
+     * @return The name of the snapshot from which to create the new cluster. This parameter isn't case sensitive. You
+     *         must specify this parameter or <code>snapshotArn</code>, but not both.</p>
      *         <p>
      *         Example: <code>my-snapshot-id</code>
      */
@@ -582,14 +672,16 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The name of the snapshot from which to create the new cluster. This parameter isn't case sensitive.
+     * The name of the snapshot from which to create the new cluster. This parameter isn't case sensitive. You must
+     * specify this parameter or <code>snapshotArn</code>, but not both.
      * </p>
      * <p>
      * Example: <code>my-snapshot-id</code>
      * </p>
      * 
      * @param snapshotIdentifier
-     *        The name of the snapshot from which to create the new cluster. This parameter isn't case sensitive.</p>
+     *        The name of the snapshot from which to create the new cluster. This parameter isn't case sensitive. You
+     *        must specify this parameter or <code>snapshotArn</code>, but not both.</p>
      *        <p>
      *        Example: <code>my-snapshot-id</code>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -597,6 +689,52 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
 
     public RestoreFromClusterSnapshotRequest withSnapshotIdentifier(String snapshotIdentifier) {
         setSnapshotIdentifier(snapshotIdentifier);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the snapshot associated with the message to restore from a cluster. You must
+     * specify this parameter or <code>snapshotIdentifier</code>, but not both.
+     * </p>
+     * 
+     * @param snapshotArn
+     *        The Amazon Resource Name (ARN) of the snapshot associated with the message to restore from a cluster. You
+     *        must specify this parameter or <code>snapshotIdentifier</code>, but not both.
+     */
+
+    public void setSnapshotArn(String snapshotArn) {
+        this.snapshotArn = snapshotArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the snapshot associated with the message to restore from a cluster. You must
+     * specify this parameter or <code>snapshotIdentifier</code>, but not both.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the snapshot associated with the message to restore from a cluster. You
+     *         must specify this parameter or <code>snapshotIdentifier</code>, but not both.
+     */
+
+    public String getSnapshotArn() {
+        return this.snapshotArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the snapshot associated with the message to restore from a cluster. You must
+     * specify this parameter or <code>snapshotIdentifier</code>, but not both.
+     * </p>
+     * 
+     * @param snapshotArn
+     *        The Amazon Resource Name (ARN) of the snapshot associated with the message to restore from a cluster. You
+     *        must specify this parameter or <code>snapshotIdentifier</code>, but not both.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreFromClusterSnapshotRequest withSnapshotArn(String snapshotArn) {
+        setSnapshotArn(snapshotArn);
         return this;
     }
 
@@ -657,7 +795,9 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * Default: The same port as the original cluster.
      * </p>
      * <p>
-     * Constraints: Must be between <code>1115</code> and <code>65535</code>.
+     * Valid values: For clusters with DC2 nodes, must be within the range <code>1150</code>-<code>65535</code>. For
+     * clusters with ra3 nodes, must be within the ranges <code>5431</code>-<code>5455</code> or <code>8191</code>-
+     * <code>8215</code>.
      * </p>
      * 
      * @param port
@@ -666,7 +806,9 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      *        Default: The same port as the original cluster.
      *        </p>
      *        <p>
-     *        Constraints: Must be between <code>1115</code> and <code>65535</code>.
+     *        Valid values: For clusters with DC2 nodes, must be within the range <code>1150</code>-<code>65535</code>.
+     *        For clusters with ra3 nodes, must be within the ranges <code>5431</code>-<code>5455</code> or
+     *        <code>8191</code>-<code>8215</code>.
      */
 
     public void setPort(Integer port) {
@@ -681,7 +823,9 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * Default: The same port as the original cluster.
      * </p>
      * <p>
-     * Constraints: Must be between <code>1115</code> and <code>65535</code>.
+     * Valid values: For clusters with DC2 nodes, must be within the range <code>1150</code>-<code>65535</code>. For
+     * clusters with ra3 nodes, must be within the ranges <code>5431</code>-<code>5455</code> or <code>8191</code>-
+     * <code>8215</code>.
      * </p>
      * 
      * @return The port number on which the cluster accepts connections.</p>
@@ -689,7 +833,9 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      *         Default: The same port as the original cluster.
      *         </p>
      *         <p>
-     *         Constraints: Must be between <code>1115</code> and <code>65535</code>.
+     *         Valid values: For clusters with DC2 nodes, must be within the range <code>1150</code>-<code>65535</code>.
+     *         For clusters with ra3 nodes, must be within the ranges <code>5431</code>-<code>5455</code> or
+     *         <code>8191</code>-<code>8215</code>.
      */
 
     public Integer getPort() {
@@ -704,7 +850,9 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * Default: The same port as the original cluster.
      * </p>
      * <p>
-     * Constraints: Must be between <code>1115</code> and <code>65535</code>.
+     * Valid values: For clusters with DC2 nodes, must be within the range <code>1150</code>-<code>65535</code>. For
+     * clusters with ra3 nodes, must be within the ranges <code>5431</code>-<code>5455</code> or <code>8191</code>-
+     * <code>8215</code>.
      * </p>
      * 
      * @param port
@@ -713,7 +861,9 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      *        Default: The same port as the original cluster.
      *        </p>
      *        <p>
-     *        Constraints: Must be between <code>1115</code> and <code>65535</code>.
+     *        Valid values: For clusters with DC2 nodes, must be within the range <code>1150</code>-<code>65535</code>.
+     *        For clusters with ra3 nodes, must be within the ranges <code>5431</code>-<code>5455</code> or
+     *        <code>8191</code>-<code>8215</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -730,7 +880,7 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * Default: A random, system-chosen Availability Zone.
      * </p>
      * <p>
-     * Example: <code>us-east-1a</code>
+     * Example: <code>us-east-2a</code>
      * </p>
      * 
      * @param availabilityZone
@@ -739,7 +889,7 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      *        Default: A random, system-chosen Availability Zone.
      *        </p>
      *        <p>
-     *        Example: <code>us-east-1a</code>
+     *        Example: <code>us-east-2a</code>
      */
 
     public void setAvailabilityZone(String availabilityZone) {
@@ -754,7 +904,7 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * Default: A random, system-chosen Availability Zone.
      * </p>
      * <p>
-     * Example: <code>us-east-1a</code>
+     * Example: <code>us-east-2a</code>
      * </p>
      * 
      * @return The Amazon EC2 Availability Zone in which to restore the cluster.</p>
@@ -762,7 +912,7 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      *         Default: A random, system-chosen Availability Zone.
      *         </p>
      *         <p>
-     *         Example: <code>us-east-1a</code>
+     *         Example: <code>us-east-2a</code>
      */
 
     public String getAvailabilityZone() {
@@ -777,7 +927,7 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * Default: A random, system-chosen Availability Zone.
      * </p>
      * <p>
-     * Example: <code>us-east-1a</code>
+     * Example: <code>us-east-2a</code>
      * </p>
      * 
      * @param availabilityZone
@@ -786,7 +936,7 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      *        Default: A random, system-chosen Availability Zone.
      *        </p>
      *        <p>
-     *        Example: <code>us-east-1a</code>
+     *        Example: <code>us-east-2a</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -990,13 +1140,13 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The AWS customer account used to create or copy the snapshot. Required if you are restoring a snapshot you do not
-     * own, optional if you own the snapshot.
+     * The Amazon Web Services account used to create or copy the snapshot. Required if you are restoring a snapshot you
+     * do not own, optional if you own the snapshot.
      * </p>
      * 
      * @param ownerAccount
-     *        The AWS customer account used to create or copy the snapshot. Required if you are restoring a snapshot you
-     *        do not own, optional if you own the snapshot.
+     *        The Amazon Web Services account used to create or copy the snapshot. Required if you are restoring a
+     *        snapshot you do not own, optional if you own the snapshot.
      */
 
     public void setOwnerAccount(String ownerAccount) {
@@ -1005,12 +1155,12 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The AWS customer account used to create or copy the snapshot. Required if you are restoring a snapshot you do not
-     * own, optional if you own the snapshot.
+     * The Amazon Web Services account used to create or copy the snapshot. Required if you are restoring a snapshot you
+     * do not own, optional if you own the snapshot.
      * </p>
      * 
-     * @return The AWS customer account used to create or copy the snapshot. Required if you are restoring a snapshot
-     *         you do not own, optional if you own the snapshot.
+     * @return The Amazon Web Services account used to create or copy the snapshot. Required if you are restoring a
+     *         snapshot you do not own, optional if you own the snapshot.
      */
 
     public String getOwnerAccount() {
@@ -1019,13 +1169,13 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The AWS customer account used to create or copy the snapshot. Required if you are restoring a snapshot you do not
-     * own, optional if you own the snapshot.
+     * The Amazon Web Services account used to create or copy the snapshot. Required if you are restoring a snapshot you
+     * do not own, optional if you own the snapshot.
      * </p>
      * 
      * @param ownerAccount
-     *        The AWS customer account used to create or copy the snapshot. Required if you are restoring a snapshot you
-     *        do not own, optional if you own the snapshot.
+     *        The Amazon Web Services account used to create or copy the snapshot. Required if you are restoring a
+     *        snapshot you do not own, optional if you own the snapshot.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1128,11 +1278,13 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The elastic IP (EIP) address for the cluster.
+     * The Elastic IP (EIP) address for the cluster. Don't specify the Elastic IP address for a publicly accessible
+     * cluster with availability zone relocation turned on.
      * </p>
      * 
      * @param elasticIp
-     *        The elastic IP (EIP) address for the cluster.
+     *        The Elastic IP (EIP) address for the cluster. Don't specify the Elastic IP address for a publicly
+     *        accessible cluster with availability zone relocation turned on.
      */
 
     public void setElasticIp(String elasticIp) {
@@ -1141,10 +1293,12 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The elastic IP (EIP) address for the cluster.
+     * The Elastic IP (EIP) address for the cluster. Don't specify the Elastic IP address for a publicly accessible
+     * cluster with availability zone relocation turned on.
      * </p>
      * 
-     * @return The elastic IP (EIP) address for the cluster.
+     * @return The Elastic IP (EIP) address for the cluster. Don't specify the Elastic IP address for a publicly
+     *         accessible cluster with availability zone relocation turned on.
      */
 
     public String getElasticIp() {
@@ -1153,11 +1307,13 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The elastic IP (EIP) address for the cluster.
+     * The Elastic IP (EIP) address for the cluster. Don't specify the Elastic IP address for a publicly accessible
+     * cluster with availability zone relocation turned on.
      * </p>
      * 
      * @param elasticIp
-     *        The elastic IP (EIP) address for the cluster.
+     *        The Elastic IP (EIP) address for the cluster. Don't specify the Elastic IP address for a publicly
+     *        accessible cluster with availability zone relocation turned on.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1724,6 +1880,9 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * <a>CreateClusterSnapshot</a>.
      * </p>
      * <p>
+     * You can't disable automated snapshots for RA3 node types. Set the automated retention period from 1-35 days.
+     * </p>
+     * <p>
      * Default: The value selected for the cluster from which the snapshot was taken.
      * </p>
      * <p>
@@ -1734,6 +1893,10 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      *        The number of days that automated snapshots are retained. If the value is 0, automated snapshots are
      *        disabled. Even if automated snapshots are disabled, you can still create manual snapshots when you want
      *        with <a>CreateClusterSnapshot</a>. </p>
+     *        <p>
+     *        You can't disable automated snapshots for RA3 node types. Set the automated retention period from 1-35
+     *        days.
+     *        </p>
      *        <p>
      *        Default: The value selected for the cluster from which the snapshot was taken.
      *        </p>
@@ -1752,6 +1915,9 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * <a>CreateClusterSnapshot</a>.
      * </p>
      * <p>
+     * You can't disable automated snapshots for RA3 node types. Set the automated retention period from 1-35 days.
+     * </p>
+     * <p>
      * Default: The value selected for the cluster from which the snapshot was taken.
      * </p>
      * <p>
@@ -1761,6 +1927,10 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * @return The number of days that automated snapshots are retained. If the value is 0, automated snapshots are
      *         disabled. Even if automated snapshots are disabled, you can still create manual snapshots when you want
      *         with <a>CreateClusterSnapshot</a>. </p>
+     *         <p>
+     *         You can't disable automated snapshots for RA3 node types. Set the automated retention period from 1-35
+     *         days.
+     *         </p>
      *         <p>
      *         Default: The value selected for the cluster from which the snapshot was taken.
      *         </p>
@@ -1779,6 +1949,9 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * <a>CreateClusterSnapshot</a>.
      * </p>
      * <p>
+     * You can't disable automated snapshots for RA3 node types. Set the automated retention period from 1-35 days.
+     * </p>
+     * <p>
      * Default: The value selected for the cluster from which the snapshot was taken.
      * </p>
      * <p>
@@ -1789,6 +1962,10 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      *        The number of days that automated snapshots are retained. If the value is 0, automated snapshots are
      *        disabled. Even if automated snapshots are disabled, you can still create manual snapshots when you want
      *        with <a>CreateClusterSnapshot</a>. </p>
+     *        <p>
+     *        You can't disable automated snapshots for RA3 node types. Set the automated retention period from 1-35
+     *        days.
+     *        </p>
      *        <p>
      *        Default: The value selected for the cluster from which the snapshot was taken.
      *        </p>
@@ -1865,13 +2042,19 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The AWS Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in the
-     * cluster that you restore from a shared snapshot.
+     * The Key Management Service (KMS) key ID of the encryption key that encrypts data in the cluster restored from a
+     * shared snapshot. You can also provide the key ID when you restore from an unencrypted snapshot to an encrypted
+     * cluster in the same account. Additionally, you can specify a new KMS key ID when you restore from an encrypted
+     * snapshot in the same account in order to change it. In that case, the restored cluster is encrypted with the new
+     * KMS key ID.
      * </p>
      * 
      * @param kmsKeyId
-     *        The AWS Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in
-     *        the cluster that you restore from a shared snapshot.
+     *        The Key Management Service (KMS) key ID of the encryption key that encrypts data in the cluster restored
+     *        from a shared snapshot. You can also provide the key ID when you restore from an unencrypted snapshot to
+     *        an encrypted cluster in the same account. Additionally, you can specify a new KMS key ID when you restore
+     *        from an encrypted snapshot in the same account in order to change it. In that case, the restored cluster
+     *        is encrypted with the new KMS key ID.
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -1880,12 +2063,18 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The AWS Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in the
-     * cluster that you restore from a shared snapshot.
+     * The Key Management Service (KMS) key ID of the encryption key that encrypts data in the cluster restored from a
+     * shared snapshot. You can also provide the key ID when you restore from an unencrypted snapshot to an encrypted
+     * cluster in the same account. Additionally, you can specify a new KMS key ID when you restore from an encrypted
+     * snapshot in the same account in order to change it. In that case, the restored cluster is encrypted with the new
+     * KMS key ID.
      * </p>
      * 
-     * @return The AWS Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in
-     *         the cluster that you restore from a shared snapshot.
+     * @return The Key Management Service (KMS) key ID of the encryption key that encrypts data in the cluster restored
+     *         from a shared snapshot. You can also provide the key ID when you restore from an unencrypted snapshot to
+     *         an encrypted cluster in the same account. Additionally, you can specify a new KMS key ID when you restore
+     *         from an encrypted snapshot in the same account in order to change it. In that case, the restored cluster
+     *         is encrypted with the new KMS key ID.
      */
 
     public String getKmsKeyId() {
@@ -1894,13 +2083,19 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The AWS Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in the
-     * cluster that you restore from a shared snapshot.
+     * The Key Management Service (KMS) key ID of the encryption key that encrypts data in the cluster restored from a
+     * shared snapshot. You can also provide the key ID when you restore from an unencrypted snapshot to an encrypted
+     * cluster in the same account. Additionally, you can specify a new KMS key ID when you restore from an encrypted
+     * snapshot in the same account in order to change it. In that case, the restored cluster is encrypted with the new
+     * KMS key ID.
      * </p>
      * 
      * @param kmsKeyId
-     *        The AWS Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in
-     *        the cluster that you restore from a shared snapshot.
+     *        The Key Management Service (KMS) key ID of the encryption key that encrypts data in the cluster restored
+     *        from a shared snapshot. You can also provide the key ID when you restore from an unencrypted snapshot to
+     *        an encrypted cluster in the same account. Additionally, you can specify a new KMS key ID when you restore
+     *        from an encrypted snapshot in the same account in order to change it. In that case, the restored cluster
+     *        is encrypted with the new KMS key ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1914,13 +2109,8 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * The node type that the restored cluster will be provisioned with.
      * </p>
      * <p>
-     * Default: The node type of the cluster from which the snapshot was taken. You can modify this if you are using any
-     * DS node type. In that case, you can choose to restore into another DS node type of the same size. For example,
-     * you can restore ds1.8xlarge into ds2.8xlarge, or ds1.xlarge into ds2.xlarge. If you have a DC instance type, you
-     * must restore into that same instance type and size. In other words, you can only restore a dc1.large instance
-     * type into another dc1.large instance type or dc2.large instance type. You can't restore dc1.8xlarge to
-     * dc2.8xlarge. First restore to a dc1.8xlareg cluster, then resize to a dc2.8large cluster. For more information
-     * about node types, see <a
+     * If you have a DC instance type, you must restore into that same instance type and size. In other words, you can
+     * only restore a dc2.large node type into another dc2 type. For more information about node types, see <a
      * href="https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#rs-about-clusters-and-nodes">
      * About Clusters and Nodes</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
@@ -1928,13 +2118,9 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * @param nodeType
      *        The node type that the restored cluster will be provisioned with.</p>
      *        <p>
-     *        Default: The node type of the cluster from which the snapshot was taken. You can modify this if you are
-     *        using any DS node type. In that case, you can choose to restore into another DS node type of the same
-     *        size. For example, you can restore ds1.8xlarge into ds2.8xlarge, or ds1.xlarge into ds2.xlarge. If you
-     *        have a DC instance type, you must restore into that same instance type and size. In other words, you can
-     *        only restore a dc1.large instance type into another dc1.large instance type or dc2.large instance type.
-     *        You can't restore dc1.8xlarge to dc2.8xlarge. First restore to a dc1.8xlareg cluster, then resize to a
-     *        dc2.8large cluster. For more information about node types, see <a href=
+     *        If you have a DC instance type, you must restore into that same instance type and size. In other words,
+     *        you can only restore a dc2.large node type into another dc2 type. For more information about node types,
+     *        see <a href=
      *        "https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#rs-about-clusters-and-nodes">
      *        About Clusters and Nodes</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      */
@@ -1948,26 +2134,17 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * The node type that the restored cluster will be provisioned with.
      * </p>
      * <p>
-     * Default: The node type of the cluster from which the snapshot was taken. You can modify this if you are using any
-     * DS node type. In that case, you can choose to restore into another DS node type of the same size. For example,
-     * you can restore ds1.8xlarge into ds2.8xlarge, or ds1.xlarge into ds2.xlarge. If you have a DC instance type, you
-     * must restore into that same instance type and size. In other words, you can only restore a dc1.large instance
-     * type into another dc1.large instance type or dc2.large instance type. You can't restore dc1.8xlarge to
-     * dc2.8xlarge. First restore to a dc1.8xlareg cluster, then resize to a dc2.8large cluster. For more information
-     * about node types, see <a
+     * If you have a DC instance type, you must restore into that same instance type and size. In other words, you can
+     * only restore a dc2.large node type into another dc2 type. For more information about node types, see <a
      * href="https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#rs-about-clusters-and-nodes">
      * About Clusters and Nodes</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
      * 
      * @return The node type that the restored cluster will be provisioned with.</p>
      *         <p>
-     *         Default: The node type of the cluster from which the snapshot was taken. You can modify this if you are
-     *         using any DS node type. In that case, you can choose to restore into another DS node type of the same
-     *         size. For example, you can restore ds1.8xlarge into ds2.8xlarge, or ds1.xlarge into ds2.xlarge. If you
-     *         have a DC instance type, you must restore into that same instance type and size. In other words, you can
-     *         only restore a dc1.large instance type into another dc1.large instance type or dc2.large instance type.
-     *         You can't restore dc1.8xlarge to dc2.8xlarge. First restore to a dc1.8xlareg cluster, then resize to a
-     *         dc2.8large cluster. For more information about node types, see <a href=
+     *         If you have a DC instance type, you must restore into that same instance type and size. In other words,
+     *         you can only restore a dc2.large node type into another dc2 type. For more information about node types,
+     *         see <a href=
      *         "https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#rs-about-clusters-and-nodes"
      *         > About Clusters and Nodes</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      */
@@ -1981,13 +2158,8 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * The node type that the restored cluster will be provisioned with.
      * </p>
      * <p>
-     * Default: The node type of the cluster from which the snapshot was taken. You can modify this if you are using any
-     * DS node type. In that case, you can choose to restore into another DS node type of the same size. For example,
-     * you can restore ds1.8xlarge into ds2.8xlarge, or ds1.xlarge into ds2.xlarge. If you have a DC instance type, you
-     * must restore into that same instance type and size. In other words, you can only restore a dc1.large instance
-     * type into another dc1.large instance type or dc2.large instance type. You can't restore dc1.8xlarge to
-     * dc2.8xlarge. First restore to a dc1.8xlareg cluster, then resize to a dc2.8large cluster. For more information
-     * about node types, see <a
+     * If you have a DC instance type, you must restore into that same instance type and size. In other words, you can
+     * only restore a dc2.large node type into another dc2 type. For more information about node types, see <a
      * href="https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#rs-about-clusters-and-nodes">
      * About Clusters and Nodes</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
@@ -1995,13 +2167,9 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * @param nodeType
      *        The node type that the restored cluster will be provisioned with.</p>
      *        <p>
-     *        Default: The node type of the cluster from which the snapshot was taken. You can modify this if you are
-     *        using any DS node type. In that case, you can choose to restore into another DS node type of the same
-     *        size. For example, you can restore ds1.8xlarge into ds2.8xlarge, or ds1.xlarge into ds2.xlarge. If you
-     *        have a DC instance type, you must restore into that same instance type and size. In other words, you can
-     *        only restore a dc1.large instance type into another dc1.large instance type or dc2.large instance type.
-     *        You can't restore dc1.8xlarge to dc2.8xlarge. First restore to a dc1.8xlareg cluster, then resize to a
-     *        dc2.8large cluster. For more information about node types, see <a href=
+     *        If you have a DC instance type, you must restore into that same instance type and size. In other words,
+     *        you can only restore a dc2.large node type into another dc2 type. For more information about node types,
+     *        see <a href=
      *        "https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#rs-about-clusters-and-nodes">
      *        About Clusters and Nodes</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -2174,19 +2342,22 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * A list of AWS Identity and Access Management (IAM) roles that can be used by the cluster to access other AWS
-     * services. You must supply the IAM roles in their Amazon Resource Name (ARN) format. You can supply up to 10 IAM
-     * roles in a single request.
+     * A list of Identity and Access Management (IAM) roles that can be used by the cluster to access other Amazon Web
+     * Services services. You must supply the IAM roles in their Amazon Resource Name (ARN) format.
      * </p>
      * <p>
-     * A cluster can have up to 10 IAM roles associated at any time.
+     * The maximum number of IAM roles that you can associate is subject to a quota. For more information, go to <a
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/amazon-redshift-limits.html">Quotas and limits</a> in the
+     * <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
      * 
-     * @return A list of AWS Identity and Access Management (IAM) roles that can be used by the cluster to access other
-     *         AWS services. You must supply the IAM roles in their Amazon Resource Name (ARN) format. You can supply up
-     *         to 10 IAM roles in a single request.</p>
+     * @return A list of Identity and Access Management (IAM) roles that can be used by the cluster to access other
+     *         Amazon Web Services services. You must supply the IAM roles in their Amazon Resource Name (ARN) format.
+     *         </p>
      *         <p>
-     *         A cluster can have up to 10 IAM roles associated at any time.
+     *         The maximum number of IAM roles that you can associate is subject to a quota. For more information, go to
+     *         <a href="https://docs.aws.amazon.com/redshift/latest/mgmt/amazon-redshift-limits.html">Quotas and
+     *         limits</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      */
 
     public java.util.List<String> getIamRoles() {
@@ -2198,20 +2369,23 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * A list of AWS Identity and Access Management (IAM) roles that can be used by the cluster to access other AWS
-     * services. You must supply the IAM roles in their Amazon Resource Name (ARN) format. You can supply up to 10 IAM
-     * roles in a single request.
+     * A list of Identity and Access Management (IAM) roles that can be used by the cluster to access other Amazon Web
+     * Services services. You must supply the IAM roles in their Amazon Resource Name (ARN) format.
      * </p>
      * <p>
-     * A cluster can have up to 10 IAM roles associated at any time.
+     * The maximum number of IAM roles that you can associate is subject to a quota. For more information, go to <a
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/amazon-redshift-limits.html">Quotas and limits</a> in the
+     * <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
      * 
      * @param iamRoles
-     *        A list of AWS Identity and Access Management (IAM) roles that can be used by the cluster to access other
-     *        AWS services. You must supply the IAM roles in their Amazon Resource Name (ARN) format. You can supply up
-     *        to 10 IAM roles in a single request.</p>
+     *        A list of Identity and Access Management (IAM) roles that can be used by the cluster to access other
+     *        Amazon Web Services services. You must supply the IAM roles in their Amazon Resource Name (ARN) format.
+     *        </p>
      *        <p>
-     *        A cluster can have up to 10 IAM roles associated at any time.
+     *        The maximum number of IAM roles that you can associate is subject to a quota. For more information, go to
+     *        <a href="https://docs.aws.amazon.com/redshift/latest/mgmt/amazon-redshift-limits.html">Quotas and
+     *        limits</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      */
 
     public void setIamRoles(java.util.Collection<String> iamRoles) {
@@ -2225,12 +2399,13 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * A list of AWS Identity and Access Management (IAM) roles that can be used by the cluster to access other AWS
-     * services. You must supply the IAM roles in their Amazon Resource Name (ARN) format. You can supply up to 10 IAM
-     * roles in a single request.
+     * A list of Identity and Access Management (IAM) roles that can be used by the cluster to access other Amazon Web
+     * Services services. You must supply the IAM roles in their Amazon Resource Name (ARN) format.
      * </p>
      * <p>
-     * A cluster can have up to 10 IAM roles associated at any time.
+     * The maximum number of IAM roles that you can associate is subject to a quota. For more information, go to <a
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/amazon-redshift-limits.html">Quotas and limits</a> in the
+     * <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -2239,11 +2414,13 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * </p>
      * 
      * @param iamRoles
-     *        A list of AWS Identity and Access Management (IAM) roles that can be used by the cluster to access other
-     *        AWS services. You must supply the IAM roles in their Amazon Resource Name (ARN) format. You can supply up
-     *        to 10 IAM roles in a single request.</p>
+     *        A list of Identity and Access Management (IAM) roles that can be used by the cluster to access other
+     *        Amazon Web Services services. You must supply the IAM roles in their Amazon Resource Name (ARN) format.
+     *        </p>
      *        <p>
-     *        A cluster can have up to 10 IAM roles associated at any time.
+     *        The maximum number of IAM roles that you can associate is subject to a quota. For more information, go to
+     *        <a href="https://docs.aws.amazon.com/redshift/latest/mgmt/amazon-redshift-limits.html">Quotas and
+     *        limits</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2259,20 +2436,23 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * A list of AWS Identity and Access Management (IAM) roles that can be used by the cluster to access other AWS
-     * services. You must supply the IAM roles in their Amazon Resource Name (ARN) format. You can supply up to 10 IAM
-     * roles in a single request.
+     * A list of Identity and Access Management (IAM) roles that can be used by the cluster to access other Amazon Web
+     * Services services. You must supply the IAM roles in their Amazon Resource Name (ARN) format.
      * </p>
      * <p>
-     * A cluster can have up to 10 IAM roles associated at any time.
+     * The maximum number of IAM roles that you can associate is subject to a quota. For more information, go to <a
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/amazon-redshift-limits.html">Quotas and limits</a> in the
+     * <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
      * 
      * @param iamRoles
-     *        A list of AWS Identity and Access Management (IAM) roles that can be used by the cluster to access other
-     *        AWS services. You must supply the IAM roles in their Amazon Resource Name (ARN) format. You can supply up
-     *        to 10 IAM roles in a single request.</p>
+     *        A list of Identity and Access Management (IAM) roles that can be used by the cluster to access other
+     *        Amazon Web Services services. You must supply the IAM roles in their Amazon Resource Name (ARN) format.
+     *        </p>
      *        <p>
-     *        A cluster can have up to 10 IAM roles associated at any time.
+     *        The maximum number of IAM roles that you can associate is subject to a quota. For more information, go to
+     *        <a href="https://docs.aws.amazon.com/redshift/latest/mgmt/amazon-redshift-limits.html">Quotas and
+     *        limits</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2386,6 +2566,565 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
     }
 
     /**
+     * <p>
+     * The number of nodes specified when provisioning the restored cluster.
+     * </p>
+     * 
+     * @param numberOfNodes
+     *        The number of nodes specified when provisioning the restored cluster.
+     */
+
+    public void setNumberOfNodes(Integer numberOfNodes) {
+        this.numberOfNodes = numberOfNodes;
+    }
+
+    /**
+     * <p>
+     * The number of nodes specified when provisioning the restored cluster.
+     * </p>
+     * 
+     * @return The number of nodes specified when provisioning the restored cluster.
+     */
+
+    public Integer getNumberOfNodes() {
+        return this.numberOfNodes;
+    }
+
+    /**
+     * <p>
+     * The number of nodes specified when provisioning the restored cluster.
+     * </p>
+     * 
+     * @param numberOfNodes
+     *        The number of nodes specified when provisioning the restored cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreFromClusterSnapshotRequest withNumberOfNodes(Integer numberOfNodes) {
+        setNumberOfNodes(numberOfNodes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The option to enable relocation for an Amazon Redshift cluster between Availability Zones after the cluster is
+     * restored.
+     * </p>
+     * 
+     * @param availabilityZoneRelocation
+     *        The option to enable relocation for an Amazon Redshift cluster between Availability Zones after the
+     *        cluster is restored.
+     */
+
+    public void setAvailabilityZoneRelocation(Boolean availabilityZoneRelocation) {
+        this.availabilityZoneRelocation = availabilityZoneRelocation;
+    }
+
+    /**
+     * <p>
+     * The option to enable relocation for an Amazon Redshift cluster between Availability Zones after the cluster is
+     * restored.
+     * </p>
+     * 
+     * @return The option to enable relocation for an Amazon Redshift cluster between Availability Zones after the
+     *         cluster is restored.
+     */
+
+    public Boolean getAvailabilityZoneRelocation() {
+        return this.availabilityZoneRelocation;
+    }
+
+    /**
+     * <p>
+     * The option to enable relocation for an Amazon Redshift cluster between Availability Zones after the cluster is
+     * restored.
+     * </p>
+     * 
+     * @param availabilityZoneRelocation
+     *        The option to enable relocation for an Amazon Redshift cluster between Availability Zones after the
+     *        cluster is restored.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreFromClusterSnapshotRequest withAvailabilityZoneRelocation(Boolean availabilityZoneRelocation) {
+        setAvailabilityZoneRelocation(availabilityZoneRelocation);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The option to enable relocation for an Amazon Redshift cluster between Availability Zones after the cluster is
+     * restored.
+     * </p>
+     * 
+     * @return The option to enable relocation for an Amazon Redshift cluster between Availability Zones after the
+     *         cluster is restored.
+     */
+
+    public Boolean isAvailabilityZoneRelocation() {
+        return this.availabilityZoneRelocation;
+    }
+
+    /**
+     * <p>
+     * This parameter is retired. It does not set the AQUA configuration status. Amazon Redshift automatically
+     * determines whether to use AQUA (Advanced Query Accelerator).
+     * </p>
+     * 
+     * @param aquaConfigurationStatus
+     *        This parameter is retired. It does not set the AQUA configuration status. Amazon Redshift automatically
+     *        determines whether to use AQUA (Advanced Query Accelerator).
+     * @see AquaConfigurationStatus
+     */
+
+    public void setAquaConfigurationStatus(String aquaConfigurationStatus) {
+        this.aquaConfigurationStatus = aquaConfigurationStatus;
+    }
+
+    /**
+     * <p>
+     * This parameter is retired. It does not set the AQUA configuration status. Amazon Redshift automatically
+     * determines whether to use AQUA (Advanced Query Accelerator).
+     * </p>
+     * 
+     * @return This parameter is retired. It does not set the AQUA configuration status. Amazon Redshift automatically
+     *         determines whether to use AQUA (Advanced Query Accelerator).
+     * @see AquaConfigurationStatus
+     */
+
+    public String getAquaConfigurationStatus() {
+        return this.aquaConfigurationStatus;
+    }
+
+    /**
+     * <p>
+     * This parameter is retired. It does not set the AQUA configuration status. Amazon Redshift automatically
+     * determines whether to use AQUA (Advanced Query Accelerator).
+     * </p>
+     * 
+     * @param aquaConfigurationStatus
+     *        This parameter is retired. It does not set the AQUA configuration status. Amazon Redshift automatically
+     *        determines whether to use AQUA (Advanced Query Accelerator).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AquaConfigurationStatus
+     */
+
+    public RestoreFromClusterSnapshotRequest withAquaConfigurationStatus(String aquaConfigurationStatus) {
+        setAquaConfigurationStatus(aquaConfigurationStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This parameter is retired. It does not set the AQUA configuration status. Amazon Redshift automatically
+     * determines whether to use AQUA (Advanced Query Accelerator).
+     * </p>
+     * 
+     * @param aquaConfigurationStatus
+     *        This parameter is retired. It does not set the AQUA configuration status. Amazon Redshift automatically
+     *        determines whether to use AQUA (Advanced Query Accelerator).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AquaConfigurationStatus
+     */
+
+    public RestoreFromClusterSnapshotRequest withAquaConfigurationStatus(AquaConfigurationStatus aquaConfigurationStatus) {
+        this.aquaConfigurationStatus = aquaConfigurationStatus.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the IAM role that was set as default for the cluster when the cluster was last
+     * modified while it was restored from a snapshot.
+     * </p>
+     * 
+     * @param defaultIamRoleArn
+     *        The Amazon Resource Name (ARN) for the IAM role that was set as default for the cluster when the cluster
+     *        was last modified while it was restored from a snapshot.
+     */
+
+    public void setDefaultIamRoleArn(String defaultIamRoleArn) {
+        this.defaultIamRoleArn = defaultIamRoleArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the IAM role that was set as default for the cluster when the cluster was last
+     * modified while it was restored from a snapshot.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) for the IAM role that was set as default for the cluster when the cluster
+     *         was last modified while it was restored from a snapshot.
+     */
+
+    public String getDefaultIamRoleArn() {
+        return this.defaultIamRoleArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the IAM role that was set as default for the cluster when the cluster was last
+     * modified while it was restored from a snapshot.
+     * </p>
+     * 
+     * @param defaultIamRoleArn
+     *        The Amazon Resource Name (ARN) for the IAM role that was set as default for the cluster when the cluster
+     *        was last modified while it was restored from a snapshot.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreFromClusterSnapshotRequest withDefaultIamRoleArn(String defaultIamRoleArn) {
+        setDefaultIamRoleArn(defaultIamRoleArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The identifier of the target reserved node offering.
+     * </p>
+     * 
+     * @param reservedNodeId
+     *        The identifier of the target reserved node offering.
+     */
+
+    public void setReservedNodeId(String reservedNodeId) {
+        this.reservedNodeId = reservedNodeId;
+    }
+
+    /**
+     * <p>
+     * The identifier of the target reserved node offering.
+     * </p>
+     * 
+     * @return The identifier of the target reserved node offering.
+     */
+
+    public String getReservedNodeId() {
+        return this.reservedNodeId;
+    }
+
+    /**
+     * <p>
+     * The identifier of the target reserved node offering.
+     * </p>
+     * 
+     * @param reservedNodeId
+     *        The identifier of the target reserved node offering.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreFromClusterSnapshotRequest withReservedNodeId(String reservedNodeId) {
+        setReservedNodeId(reservedNodeId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The identifier of the target reserved node offering.
+     * </p>
+     * 
+     * @param targetReservedNodeOfferingId
+     *        The identifier of the target reserved node offering.
+     */
+
+    public void setTargetReservedNodeOfferingId(String targetReservedNodeOfferingId) {
+        this.targetReservedNodeOfferingId = targetReservedNodeOfferingId;
+    }
+
+    /**
+     * <p>
+     * The identifier of the target reserved node offering.
+     * </p>
+     * 
+     * @return The identifier of the target reserved node offering.
+     */
+
+    public String getTargetReservedNodeOfferingId() {
+        return this.targetReservedNodeOfferingId;
+    }
+
+    /**
+     * <p>
+     * The identifier of the target reserved node offering.
+     * </p>
+     * 
+     * @param targetReservedNodeOfferingId
+     *        The identifier of the target reserved node offering.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreFromClusterSnapshotRequest withTargetReservedNodeOfferingId(String targetReservedNodeOfferingId) {
+        setTargetReservedNodeOfferingId(targetReservedNodeOfferingId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enables support for restoring an unencrypted snapshot to a cluster encrypted with Key Management Service (KMS)
+     * and a customer managed key.
+     * </p>
+     * 
+     * @param encrypted
+     *        Enables support for restoring an unencrypted snapshot to a cluster encrypted with Key Management Service
+     *        (KMS) and a customer managed key.
+     */
+
+    public void setEncrypted(Boolean encrypted) {
+        this.encrypted = encrypted;
+    }
+
+    /**
+     * <p>
+     * Enables support for restoring an unencrypted snapshot to a cluster encrypted with Key Management Service (KMS)
+     * and a customer managed key.
+     * </p>
+     * 
+     * @return Enables support for restoring an unencrypted snapshot to a cluster encrypted with Key Management Service
+     *         (KMS) and a customer managed key.
+     */
+
+    public Boolean getEncrypted() {
+        return this.encrypted;
+    }
+
+    /**
+     * <p>
+     * Enables support for restoring an unencrypted snapshot to a cluster encrypted with Key Management Service (KMS)
+     * and a customer managed key.
+     * </p>
+     * 
+     * @param encrypted
+     *        Enables support for restoring an unencrypted snapshot to a cluster encrypted with Key Management Service
+     *        (KMS) and a customer managed key.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreFromClusterSnapshotRequest withEncrypted(Boolean encrypted) {
+        setEncrypted(encrypted);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enables support for restoring an unencrypted snapshot to a cluster encrypted with Key Management Service (KMS)
+     * and a customer managed key.
+     * </p>
+     * 
+     * @return Enables support for restoring an unencrypted snapshot to a cluster encrypted with Key Management Service
+     *         (KMS) and a customer managed key.
+     */
+
+    public Boolean isEncrypted() {
+        return this.encrypted;
+    }
+
+    /**
+     * <p>
+     * If <code>true</code>, Amazon Redshift uses Secrets Manager to manage the restored cluster's admin credentials. If
+     * <code>ManageMasterPassword</code> is false or not set, Amazon Redshift uses the admin credentials the cluster had
+     * at the time the snapshot was taken.
+     * </p>
+     * 
+     * @param manageMasterPassword
+     *        If <code>true</code>, Amazon Redshift uses Secrets Manager to manage the restored cluster's admin
+     *        credentials. If <code>ManageMasterPassword</code> is false or not set, Amazon Redshift uses the admin
+     *        credentials the cluster had at the time the snapshot was taken.
+     */
+
+    public void setManageMasterPassword(Boolean manageMasterPassword) {
+        this.manageMasterPassword = manageMasterPassword;
+    }
+
+    /**
+     * <p>
+     * If <code>true</code>, Amazon Redshift uses Secrets Manager to manage the restored cluster's admin credentials. If
+     * <code>ManageMasterPassword</code> is false or not set, Amazon Redshift uses the admin credentials the cluster had
+     * at the time the snapshot was taken.
+     * </p>
+     * 
+     * @return If <code>true</code>, Amazon Redshift uses Secrets Manager to manage the restored cluster's admin
+     *         credentials. If <code>ManageMasterPassword</code> is false or not set, Amazon Redshift uses the admin
+     *         credentials the cluster had at the time the snapshot was taken.
+     */
+
+    public Boolean getManageMasterPassword() {
+        return this.manageMasterPassword;
+    }
+
+    /**
+     * <p>
+     * If <code>true</code>, Amazon Redshift uses Secrets Manager to manage the restored cluster's admin credentials. If
+     * <code>ManageMasterPassword</code> is false or not set, Amazon Redshift uses the admin credentials the cluster had
+     * at the time the snapshot was taken.
+     * </p>
+     * 
+     * @param manageMasterPassword
+     *        If <code>true</code>, Amazon Redshift uses Secrets Manager to manage the restored cluster's admin
+     *        credentials. If <code>ManageMasterPassword</code> is false or not set, Amazon Redshift uses the admin
+     *        credentials the cluster had at the time the snapshot was taken.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreFromClusterSnapshotRequest withManageMasterPassword(Boolean manageMasterPassword) {
+        setManageMasterPassword(manageMasterPassword);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If <code>true</code>, Amazon Redshift uses Secrets Manager to manage the restored cluster's admin credentials. If
+     * <code>ManageMasterPassword</code> is false or not set, Amazon Redshift uses the admin credentials the cluster had
+     * at the time the snapshot was taken.
+     * </p>
+     * 
+     * @return If <code>true</code>, Amazon Redshift uses Secrets Manager to manage the restored cluster's admin
+     *         credentials. If <code>ManageMasterPassword</code> is false or not set, Amazon Redshift uses the admin
+     *         credentials the cluster had at the time the snapshot was taken.
+     */
+
+    public Boolean isManageMasterPassword() {
+        return this.manageMasterPassword;
+    }
+
+    /**
+     * <p>
+     * The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials secret.
+     * You can only use this parameter if <code>ManageMasterPassword</code> is true.
+     * </p>
+     * 
+     * @param masterPasswordSecretKmsKeyId
+     *        The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials
+     *        secret. You can only use this parameter if <code>ManageMasterPassword</code> is true.
+     */
+
+    public void setMasterPasswordSecretKmsKeyId(String masterPasswordSecretKmsKeyId) {
+        this.masterPasswordSecretKmsKeyId = masterPasswordSecretKmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials secret.
+     * You can only use this parameter if <code>ManageMasterPassword</code> is true.
+     * </p>
+     * 
+     * @return The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials
+     *         secret. You can only use this parameter if <code>ManageMasterPassword</code> is true.
+     */
+
+    public String getMasterPasswordSecretKmsKeyId() {
+        return this.masterPasswordSecretKmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials secret.
+     * You can only use this parameter if <code>ManageMasterPassword</code> is true.
+     * </p>
+     * 
+     * @param masterPasswordSecretKmsKeyId
+     *        The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials
+     *        secret. You can only use this parameter if <code>ManageMasterPassword</code> is true.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreFromClusterSnapshotRequest withMasterPasswordSecretKmsKeyId(String masterPasswordSecretKmsKeyId) {
+        setMasterPasswordSecretKmsKeyId(masterPasswordSecretKmsKeyId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IP address type for the cluster. Possible values are <code>ipv4</code> and <code>dualstack</code>.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The IP address type for the cluster. Possible values are <code>ipv4</code> and <code>dualstack</code>.
+     */
+
+    public void setIpAddressType(String ipAddressType) {
+        this.ipAddressType = ipAddressType;
+    }
+
+    /**
+     * <p>
+     * The IP address type for the cluster. Possible values are <code>ipv4</code> and <code>dualstack</code>.
+     * </p>
+     * 
+     * @return The IP address type for the cluster. Possible values are <code>ipv4</code> and <code>dualstack</code>.
+     */
+
+    public String getIpAddressType() {
+        return this.ipAddressType;
+    }
+
+    /**
+     * <p>
+     * The IP address type for the cluster. Possible values are <code>ipv4</code> and <code>dualstack</code>.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The IP address type for the cluster. Possible values are <code>ipv4</code> and <code>dualstack</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreFromClusterSnapshotRequest withIpAddressType(String ipAddressType) {
+        setIpAddressType(ipAddressType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If true, the snapshot will be restored to a cluster deployed in two Availability Zones.
+     * </p>
+     * 
+     * @param multiAZ
+     *        If true, the snapshot will be restored to a cluster deployed in two Availability Zones.
+     */
+
+    public void setMultiAZ(Boolean multiAZ) {
+        this.multiAZ = multiAZ;
+    }
+
+    /**
+     * <p>
+     * If true, the snapshot will be restored to a cluster deployed in two Availability Zones.
+     * </p>
+     * 
+     * @return If true, the snapshot will be restored to a cluster deployed in two Availability Zones.
+     */
+
+    public Boolean getMultiAZ() {
+        return this.multiAZ;
+    }
+
+    /**
+     * <p>
+     * If true, the snapshot will be restored to a cluster deployed in two Availability Zones.
+     * </p>
+     * 
+     * @param multiAZ
+     *        If true, the snapshot will be restored to a cluster deployed in two Availability Zones.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreFromClusterSnapshotRequest withMultiAZ(Boolean multiAZ) {
+        setMultiAZ(multiAZ);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If true, the snapshot will be restored to a cluster deployed in two Availability Zones.
+     * </p>
+     * 
+     * @return If true, the snapshot will be restored to a cluster deployed in two Availability Zones.
+     */
+
+    public Boolean isMultiAZ() {
+        return this.multiAZ;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -2401,6 +3140,8 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
             sb.append("ClusterIdentifier: ").append(getClusterIdentifier()).append(",");
         if (getSnapshotIdentifier() != null)
             sb.append("SnapshotIdentifier: ").append(getSnapshotIdentifier()).append(",");
+        if (getSnapshotArn() != null)
+            sb.append("SnapshotArn: ").append(getSnapshotArn()).append(",");
         if (getSnapshotClusterIdentifier() != null)
             sb.append("SnapshotClusterIdentifier: ").append(getSnapshotClusterIdentifier()).append(",");
         if (getPort() != null)
@@ -2446,7 +3187,29 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
         if (getMaintenanceTrackName() != null)
             sb.append("MaintenanceTrackName: ").append(getMaintenanceTrackName()).append(",");
         if (getSnapshotScheduleIdentifier() != null)
-            sb.append("SnapshotScheduleIdentifier: ").append(getSnapshotScheduleIdentifier());
+            sb.append("SnapshotScheduleIdentifier: ").append(getSnapshotScheduleIdentifier()).append(",");
+        if (getNumberOfNodes() != null)
+            sb.append("NumberOfNodes: ").append(getNumberOfNodes()).append(",");
+        if (getAvailabilityZoneRelocation() != null)
+            sb.append("AvailabilityZoneRelocation: ").append(getAvailabilityZoneRelocation()).append(",");
+        if (getAquaConfigurationStatus() != null)
+            sb.append("AquaConfigurationStatus: ").append(getAquaConfigurationStatus()).append(",");
+        if (getDefaultIamRoleArn() != null)
+            sb.append("DefaultIamRoleArn: ").append(getDefaultIamRoleArn()).append(",");
+        if (getReservedNodeId() != null)
+            sb.append("ReservedNodeId: ").append(getReservedNodeId()).append(",");
+        if (getTargetReservedNodeOfferingId() != null)
+            sb.append("TargetReservedNodeOfferingId: ").append(getTargetReservedNodeOfferingId()).append(",");
+        if (getEncrypted() != null)
+            sb.append("Encrypted: ").append(getEncrypted()).append(",");
+        if (getManageMasterPassword() != null)
+            sb.append("ManageMasterPassword: ").append(getManageMasterPassword()).append(",");
+        if (getMasterPasswordSecretKmsKeyId() != null)
+            sb.append("MasterPasswordSecretKmsKeyId: ").append(getMasterPasswordSecretKmsKeyId()).append(",");
+        if (getIpAddressType() != null)
+            sb.append("IpAddressType: ").append(getIpAddressType()).append(",");
+        if (getMultiAZ() != null)
+            sb.append("MultiAZ: ").append(getMultiAZ());
         sb.append("}");
         return sb.toString();
     }
@@ -2468,6 +3231,10 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
         if (other.getSnapshotIdentifier() == null ^ this.getSnapshotIdentifier() == null)
             return false;
         if (other.getSnapshotIdentifier() != null && other.getSnapshotIdentifier().equals(this.getSnapshotIdentifier()) == false)
+            return false;
+        if (other.getSnapshotArn() == null ^ this.getSnapshotArn() == null)
+            return false;
+        if (other.getSnapshotArn() != null && other.getSnapshotArn().equals(this.getSnapshotArn()) == false)
             return false;
         if (other.getSnapshotClusterIdentifier() == null ^ this.getSnapshotClusterIdentifier() == null)
             return false;
@@ -2564,6 +3331,50 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
             return false;
         if (other.getSnapshotScheduleIdentifier() != null && other.getSnapshotScheduleIdentifier().equals(this.getSnapshotScheduleIdentifier()) == false)
             return false;
+        if (other.getNumberOfNodes() == null ^ this.getNumberOfNodes() == null)
+            return false;
+        if (other.getNumberOfNodes() != null && other.getNumberOfNodes().equals(this.getNumberOfNodes()) == false)
+            return false;
+        if (other.getAvailabilityZoneRelocation() == null ^ this.getAvailabilityZoneRelocation() == null)
+            return false;
+        if (other.getAvailabilityZoneRelocation() != null && other.getAvailabilityZoneRelocation().equals(this.getAvailabilityZoneRelocation()) == false)
+            return false;
+        if (other.getAquaConfigurationStatus() == null ^ this.getAquaConfigurationStatus() == null)
+            return false;
+        if (other.getAquaConfigurationStatus() != null && other.getAquaConfigurationStatus().equals(this.getAquaConfigurationStatus()) == false)
+            return false;
+        if (other.getDefaultIamRoleArn() == null ^ this.getDefaultIamRoleArn() == null)
+            return false;
+        if (other.getDefaultIamRoleArn() != null && other.getDefaultIamRoleArn().equals(this.getDefaultIamRoleArn()) == false)
+            return false;
+        if (other.getReservedNodeId() == null ^ this.getReservedNodeId() == null)
+            return false;
+        if (other.getReservedNodeId() != null && other.getReservedNodeId().equals(this.getReservedNodeId()) == false)
+            return false;
+        if (other.getTargetReservedNodeOfferingId() == null ^ this.getTargetReservedNodeOfferingId() == null)
+            return false;
+        if (other.getTargetReservedNodeOfferingId() != null && other.getTargetReservedNodeOfferingId().equals(this.getTargetReservedNodeOfferingId()) == false)
+            return false;
+        if (other.getEncrypted() == null ^ this.getEncrypted() == null)
+            return false;
+        if (other.getEncrypted() != null && other.getEncrypted().equals(this.getEncrypted()) == false)
+            return false;
+        if (other.getManageMasterPassword() == null ^ this.getManageMasterPassword() == null)
+            return false;
+        if (other.getManageMasterPassword() != null && other.getManageMasterPassword().equals(this.getManageMasterPassword()) == false)
+            return false;
+        if (other.getMasterPasswordSecretKmsKeyId() == null ^ this.getMasterPasswordSecretKmsKeyId() == null)
+            return false;
+        if (other.getMasterPasswordSecretKmsKeyId() != null && other.getMasterPasswordSecretKmsKeyId().equals(this.getMasterPasswordSecretKmsKeyId()) == false)
+            return false;
+        if (other.getIpAddressType() == null ^ this.getIpAddressType() == null)
+            return false;
+        if (other.getIpAddressType() != null && other.getIpAddressType().equals(this.getIpAddressType()) == false)
+            return false;
+        if (other.getMultiAZ() == null ^ this.getMultiAZ() == null)
+            return false;
+        if (other.getMultiAZ() != null && other.getMultiAZ().equals(this.getMultiAZ()) == false)
+            return false;
         return true;
     }
 
@@ -2574,6 +3385,7 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
 
         hashCode = prime * hashCode + ((getClusterIdentifier() == null) ? 0 : getClusterIdentifier().hashCode());
         hashCode = prime * hashCode + ((getSnapshotIdentifier() == null) ? 0 : getSnapshotIdentifier().hashCode());
+        hashCode = prime * hashCode + ((getSnapshotArn() == null) ? 0 : getSnapshotArn().hashCode());
         hashCode = prime * hashCode + ((getSnapshotClusterIdentifier() == null) ? 0 : getSnapshotClusterIdentifier().hashCode());
         hashCode = prime * hashCode + ((getPort() == null) ? 0 : getPort().hashCode());
         hashCode = prime * hashCode + ((getAvailabilityZone() == null) ? 0 : getAvailabilityZone().hashCode());
@@ -2597,6 +3409,17 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
         hashCode = prime * hashCode + ((getIamRoles() == null) ? 0 : getIamRoles().hashCode());
         hashCode = prime * hashCode + ((getMaintenanceTrackName() == null) ? 0 : getMaintenanceTrackName().hashCode());
         hashCode = prime * hashCode + ((getSnapshotScheduleIdentifier() == null) ? 0 : getSnapshotScheduleIdentifier().hashCode());
+        hashCode = prime * hashCode + ((getNumberOfNodes() == null) ? 0 : getNumberOfNodes().hashCode());
+        hashCode = prime * hashCode + ((getAvailabilityZoneRelocation() == null) ? 0 : getAvailabilityZoneRelocation().hashCode());
+        hashCode = prime * hashCode + ((getAquaConfigurationStatus() == null) ? 0 : getAquaConfigurationStatus().hashCode());
+        hashCode = prime * hashCode + ((getDefaultIamRoleArn() == null) ? 0 : getDefaultIamRoleArn().hashCode());
+        hashCode = prime * hashCode + ((getReservedNodeId() == null) ? 0 : getReservedNodeId().hashCode());
+        hashCode = prime * hashCode + ((getTargetReservedNodeOfferingId() == null) ? 0 : getTargetReservedNodeOfferingId().hashCode());
+        hashCode = prime * hashCode + ((getEncrypted() == null) ? 0 : getEncrypted().hashCode());
+        hashCode = prime * hashCode + ((getManageMasterPassword() == null) ? 0 : getManageMasterPassword().hashCode());
+        hashCode = prime * hashCode + ((getMasterPasswordSecretKmsKeyId() == null) ? 0 : getMasterPasswordSecretKmsKeyId().hashCode());
+        hashCode = prime * hashCode + ((getIpAddressType() == null) ? 0 : getIpAddressType().hashCode());
+        hashCode = prime * hashCode + ((getMultiAZ() == null) ? 0 : getMultiAZ().hashCode());
         return hashCode;
     }
 

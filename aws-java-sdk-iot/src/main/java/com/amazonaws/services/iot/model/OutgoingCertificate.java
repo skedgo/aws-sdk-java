@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,7 +39,7 @@ public class OutgoingCertificate implements Serializable, Cloneable, StructuredP
     private String certificateId;
     /**
      * <p>
-     * The AWS account to which the transfer was made.
+     * The Amazon Web Services account to which the transfer was made.
      * </p>
      */
     private String transferredTo;
@@ -144,11 +144,11 @@ public class OutgoingCertificate implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The AWS account to which the transfer was made.
+     * The Amazon Web Services account to which the transfer was made.
      * </p>
      * 
      * @param transferredTo
-     *        The AWS account to which the transfer was made.
+     *        The Amazon Web Services account to which the transfer was made.
      */
 
     public void setTransferredTo(String transferredTo) {
@@ -157,10 +157,10 @@ public class OutgoingCertificate implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The AWS account to which the transfer was made.
+     * The Amazon Web Services account to which the transfer was made.
      * </p>
      * 
-     * @return The AWS account to which the transfer was made.
+     * @return The Amazon Web Services account to which the transfer was made.
      */
 
     public String getTransferredTo() {
@@ -169,11 +169,11 @@ public class OutgoingCertificate implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The AWS account to which the transfer was made.
+     * The Amazon Web Services account to which the transfer was made.
      * </p>
      * 
      * @param transferredTo
-     *        The AWS account to which the transfer was made.
+     *        The Amazon Web Services account to which the transfer was made.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

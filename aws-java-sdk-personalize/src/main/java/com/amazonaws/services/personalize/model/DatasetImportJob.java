@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 /**
  * <p>
  * Describes a job that imports training data from a data source (Amazon S3 bucket) to an Amazon Personalize dataset.
- * For more information, see <a>CreateDatasetImportJob</a>.
+ * For more information, see <a
+ * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDatasetImportJob.html">CreateDatasetImportJob</a>.
  * </p>
  * <p>
  * A dataset ACTIVE -or- CREATE FAILED
@@ -59,8 +60,7 @@ public class DatasetImportJob implements Serializable, Cloneable, StructuredPojo
     private DataSource dataSource;
     /**
      * <p>
-     * The ARN of the AWS Identity and Access Management (IAM) role that has permissions to read from the Amazon S3 data
-     * source.
+     * The ARN of the IAM role that has permissions to read from the Amazon S3 data source.
      * </p>
      */
     private String roleArn;
@@ -89,6 +89,18 @@ public class DatasetImportJob implements Serializable, Cloneable, StructuredPojo
      * </p>
      */
     private String failureReason;
+    /**
+     * <p>
+     * The import mode used by the dataset import job to import new records.
+     * </p>
+     */
+    private String importMode;
+    /**
+     * <p>
+     * Whether the job publishes metrics to Amazon S3 for a metric attribution.
+     * </p>
+     */
+    private Boolean publishAttributionMetricsToS3;
 
     /**
      * <p>
@@ -252,13 +264,11 @@ public class DatasetImportJob implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The ARN of the AWS Identity and Access Management (IAM) role that has permissions to read from the Amazon S3 data
-     * source.
+     * The ARN of the IAM role that has permissions to read from the Amazon S3 data source.
      * </p>
      * 
      * @param roleArn
-     *        The ARN of the AWS Identity and Access Management (IAM) role that has permissions to read from the Amazon
-     *        S3 data source.
+     *        The ARN of the IAM role that has permissions to read from the Amazon S3 data source.
      */
 
     public void setRoleArn(String roleArn) {
@@ -267,12 +277,10 @@ public class DatasetImportJob implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The ARN of the AWS Identity and Access Management (IAM) role that has permissions to read from the Amazon S3 data
-     * source.
+     * The ARN of the IAM role that has permissions to read from the Amazon S3 data source.
      * </p>
      * 
-     * @return The ARN of the AWS Identity and Access Management (IAM) role that has permissions to read from the Amazon
-     *         S3 data source.
+     * @return The ARN of the IAM role that has permissions to read from the Amazon S3 data source.
      */
 
     public String getRoleArn() {
@@ -281,13 +289,11 @@ public class DatasetImportJob implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The ARN of the AWS Identity and Access Management (IAM) role that has permissions to read from the Amazon S3 data
-     * source.
+     * The ARN of the IAM role that has permissions to read from the Amazon S3 data source.
      * </p>
      * 
      * @param roleArn
-     *        The ARN of the AWS Identity and Access Management (IAM) role that has permissions to read from the Amazon
-     *        S3 data source.
+     *        The ARN of the IAM role that has permissions to read from the Amazon S3 data source.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -514,6 +520,117 @@ public class DatasetImportJob implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
+     * <p>
+     * The import mode used by the dataset import job to import new records.
+     * </p>
+     * 
+     * @param importMode
+     *        The import mode used by the dataset import job to import new records.
+     * @see ImportMode
+     */
+
+    public void setImportMode(String importMode) {
+        this.importMode = importMode;
+    }
+
+    /**
+     * <p>
+     * The import mode used by the dataset import job to import new records.
+     * </p>
+     * 
+     * @return The import mode used by the dataset import job to import new records.
+     * @see ImportMode
+     */
+
+    public String getImportMode() {
+        return this.importMode;
+    }
+
+    /**
+     * <p>
+     * The import mode used by the dataset import job to import new records.
+     * </p>
+     * 
+     * @param importMode
+     *        The import mode used by the dataset import job to import new records.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ImportMode
+     */
+
+    public DatasetImportJob withImportMode(String importMode) {
+        setImportMode(importMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The import mode used by the dataset import job to import new records.
+     * </p>
+     * 
+     * @param importMode
+     *        The import mode used by the dataset import job to import new records.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ImportMode
+     */
+
+    public DatasetImportJob withImportMode(ImportMode importMode) {
+        this.importMode = importMode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Whether the job publishes metrics to Amazon S3 for a metric attribution.
+     * </p>
+     * 
+     * @param publishAttributionMetricsToS3
+     *        Whether the job publishes metrics to Amazon S3 for a metric attribution.
+     */
+
+    public void setPublishAttributionMetricsToS3(Boolean publishAttributionMetricsToS3) {
+        this.publishAttributionMetricsToS3 = publishAttributionMetricsToS3;
+    }
+
+    /**
+     * <p>
+     * Whether the job publishes metrics to Amazon S3 for a metric attribution.
+     * </p>
+     * 
+     * @return Whether the job publishes metrics to Amazon S3 for a metric attribution.
+     */
+
+    public Boolean getPublishAttributionMetricsToS3() {
+        return this.publishAttributionMetricsToS3;
+    }
+
+    /**
+     * <p>
+     * Whether the job publishes metrics to Amazon S3 for a metric attribution.
+     * </p>
+     * 
+     * @param publishAttributionMetricsToS3
+     *        Whether the job publishes metrics to Amazon S3 for a metric attribution.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DatasetImportJob withPublishAttributionMetricsToS3(Boolean publishAttributionMetricsToS3) {
+        setPublishAttributionMetricsToS3(publishAttributionMetricsToS3);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Whether the job publishes metrics to Amazon S3 for a metric attribution.
+     * </p>
+     * 
+     * @return Whether the job publishes metrics to Amazon S3 for a metric attribution.
+     */
+
+    public Boolean isPublishAttributionMetricsToS3() {
+        return this.publishAttributionMetricsToS3;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -542,7 +659,11 @@ public class DatasetImportJob implements Serializable, Cloneable, StructuredPojo
         if (getLastUpdatedDateTime() != null)
             sb.append("LastUpdatedDateTime: ").append(getLastUpdatedDateTime()).append(",");
         if (getFailureReason() != null)
-            sb.append("FailureReason: ").append(getFailureReason());
+            sb.append("FailureReason: ").append(getFailureReason()).append(",");
+        if (getImportMode() != null)
+            sb.append("ImportMode: ").append(getImportMode()).append(",");
+        if (getPublishAttributionMetricsToS3() != null)
+            sb.append("PublishAttributionMetricsToS3: ").append(getPublishAttributionMetricsToS3());
         sb.append("}");
         return sb.toString();
     }
@@ -593,6 +714,15 @@ public class DatasetImportJob implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getFailureReason() != null && other.getFailureReason().equals(this.getFailureReason()) == false)
             return false;
+        if (other.getImportMode() == null ^ this.getImportMode() == null)
+            return false;
+        if (other.getImportMode() != null && other.getImportMode().equals(this.getImportMode()) == false)
+            return false;
+        if (other.getPublishAttributionMetricsToS3() == null ^ this.getPublishAttributionMetricsToS3() == null)
+            return false;
+        if (other.getPublishAttributionMetricsToS3() != null
+                && other.getPublishAttributionMetricsToS3().equals(this.getPublishAttributionMetricsToS3()) == false)
+            return false;
         return true;
     }
 
@@ -610,6 +740,8 @@ public class DatasetImportJob implements Serializable, Cloneable, StructuredPojo
         hashCode = prime * hashCode + ((getCreationDateTime() == null) ? 0 : getCreationDateTime().hashCode());
         hashCode = prime * hashCode + ((getLastUpdatedDateTime() == null) ? 0 : getLastUpdatedDateTime().hashCode());
         hashCode = prime * hashCode + ((getFailureReason() == null) ? 0 : getFailureReason().hashCode());
+        hashCode = prime * hashCode + ((getImportMode() == null) ? 0 : getImportMode().hashCode());
+        hashCode = prime * hashCode + ((getPublishAttributionMetricsToS3() == null) ? 0 : getPublishAttributionMetricsToS3().hashCode());
         return hashCode;
     }
 

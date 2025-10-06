@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,9 @@ public class CreateUserPoolDomainRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The domain string.
+     * The domain string. For custom domains, this is the fully-qualified domain name, such as
+     * <code>auth.example.com</code>. For Amazon Cognito prefix domains, this is the prefix alone, such as
+     * <code>auth</code>.
      * </p>
      */
     private String domain;
@@ -55,11 +57,15 @@ public class CreateUserPoolDomainRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The domain string.
+     * The domain string. For custom domains, this is the fully-qualified domain name, such as
+     * <code>auth.example.com</code>. For Amazon Cognito prefix domains, this is the prefix alone, such as
+     * <code>auth</code>.
      * </p>
      * 
      * @param domain
-     *        The domain string.
+     *        The domain string. For custom domains, this is the fully-qualified domain name, such as
+     *        <code>auth.example.com</code>. For Amazon Cognito prefix domains, this is the prefix alone, such as
+     *        <code>auth</code>.
      */
 
     public void setDomain(String domain) {
@@ -68,10 +74,14 @@ public class CreateUserPoolDomainRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The domain string.
+     * The domain string. For custom domains, this is the fully-qualified domain name, such as
+     * <code>auth.example.com</code>. For Amazon Cognito prefix domains, this is the prefix alone, such as
+     * <code>auth</code>.
      * </p>
      * 
-     * @return The domain string.
+     * @return The domain string. For custom domains, this is the fully-qualified domain name, such as
+     *         <code>auth.example.com</code>. For Amazon Cognito prefix domains, this is the prefix alone, such as
+     *         <code>auth</code>.
      */
 
     public String getDomain() {
@@ -80,11 +90,15 @@ public class CreateUserPoolDomainRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The domain string.
+     * The domain string. For custom domains, this is the fully-qualified domain name, such as
+     * <code>auth.example.com</code>. For Amazon Cognito prefix domains, this is the prefix alone, such as
+     * <code>auth</code>.
      * </p>
      * 
      * @param domain
-     *        The domain string.
+     *        The domain string. For custom domains, this is the fully-qualified domain name, such as
+     *        <code>auth.example.com</code>. For Amazon Cognito prefix domains, this is the prefix alone, such as
+     *        <code>auth</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

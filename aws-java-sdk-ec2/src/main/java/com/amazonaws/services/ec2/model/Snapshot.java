@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -49,14 +49,14 @@ public class Snapshot implements Serializable, Cloneable {
     private Boolean encrypted;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS) customer master key (CMK) that was
-     * used to protect the volume encryption key for the parent volume.
+     * The Amazon Resource Name (ARN) of the KMS key that was used to protect the volume encryption key for the parent
+     * volume.
      * </p>
      */
     private String kmsKeyId;
     /**
      * <p>
-     * The AWS account ID of the EBS snapshot owner.
+     * The ID of the Amazon Web Services account that owns the EBS snapshot.
      * </p>
      */
     private String ownerId;
@@ -87,8 +87,8 @@ public class Snapshot implements Serializable, Cloneable {
     /**
      * <p>
      * Encrypted Amazon EBS snapshots are copied asynchronously. If a snapshot copy operation fails (for example, if the
-     * proper AWS Key Management Service (AWS KMS) permissions are not obtained) this field displays error state details
-     * to help you diagnose why the error occurred. This parameter is only returned by <a>DescribeSnapshots</a>.
+     * proper KMS permissions are not obtained) this field displays error state details to help you diagnose why the
+     * error occurred. This parameter is only returned by <a>DescribeSnapshots</a>.
      * </p>
      */
     private String stateMessage;
@@ -107,18 +107,46 @@ public class Snapshot implements Serializable, Cloneable {
     private Integer volumeSize;
     /**
      * <p>
-     * Value from an Amazon-maintained list (<code>amazon</code> | <code>self</code> | <code>all</code> |
-     * <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be confused with the
-     * user-configured AWS account alias, which is set from the IAM console.
+     * The Amazon Web Services owner alias, from an Amazon-maintained list (<code>amazon</code>). This is not the
+     * user-configured Amazon Web Services account alias set using the IAM console.
      * </p>
      */
     private String ownerAlias;
+    /**
+     * <p>
+     * The ARN of the Outpost on which the snapshot is stored. For more information, see <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html">Amazon EBS local snapshots on
+     * Outposts</a> in the <i>Amazon EBS User Guide</i>.
+     * </p>
+     */
+    private String outpostArn;
     /**
      * <p>
      * Any tags assigned to the snapshot.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
+    /**
+     * <p>
+     * The storage tier in which the snapshot is stored. <code>standard</code> indicates that the snapshot is stored in
+     * the standard snapshot storage tier and that it is ready for use. <code>archive</code> indicates that the snapshot
+     * is currently archived and that it must be restored before it can be used.
+     * </p>
+     */
+    private String storageTier;
+    /**
+     * <p>
+     * Only for archived snapshots that are temporarily restored. Indicates the date and time when a temporarily
+     * restored snapshot will be automatically re-archived.
+     * </p>
+     */
+    private java.util.Date restoreExpiryTime;
+    /**
+     * <p>
+     * Reserved for future use.
+     * </p>
+     */
+    private String sseType;
 
     /**
      * <p>
@@ -278,13 +306,13 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS) customer master key (CMK) that was
-     * used to protect the volume encryption key for the parent volume.
+     * The Amazon Resource Name (ARN) of the KMS key that was used to protect the volume encryption key for the parent
+     * volume.
      * </p>
      * 
      * @param kmsKeyId
-     *        The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS) customer master key (CMK) that
-     *        was used to protect the volume encryption key for the parent volume.
+     *        The Amazon Resource Name (ARN) of the KMS key that was used to protect the volume encryption key for the
+     *        parent volume.
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -293,12 +321,12 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS) customer master key (CMK) that was
-     * used to protect the volume encryption key for the parent volume.
+     * The Amazon Resource Name (ARN) of the KMS key that was used to protect the volume encryption key for the parent
+     * volume.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS) customer master key (CMK) that
-     *         was used to protect the volume encryption key for the parent volume.
+     * @return The Amazon Resource Name (ARN) of the KMS key that was used to protect the volume encryption key for the
+     *         parent volume.
      */
 
     public String getKmsKeyId() {
@@ -307,13 +335,13 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS) customer master key (CMK) that was
-     * used to protect the volume encryption key for the parent volume.
+     * The Amazon Resource Name (ARN) of the KMS key that was used to protect the volume encryption key for the parent
+     * volume.
      * </p>
      * 
      * @param kmsKeyId
-     *        The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS) customer master key (CMK) that
-     *        was used to protect the volume encryption key for the parent volume.
+     *        The Amazon Resource Name (ARN) of the KMS key that was used to protect the volume encryption key for the
+     *        parent volume.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -324,11 +352,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the EBS snapshot owner.
+     * The ID of the Amazon Web Services account that owns the EBS snapshot.
      * </p>
      * 
      * @param ownerId
-     *        The AWS account ID of the EBS snapshot owner.
+     *        The ID of the Amazon Web Services account that owns the EBS snapshot.
      */
 
     public void setOwnerId(String ownerId) {
@@ -337,10 +365,10 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the EBS snapshot owner.
+     * The ID of the Amazon Web Services account that owns the EBS snapshot.
      * </p>
      * 
-     * @return The AWS account ID of the EBS snapshot owner.
+     * @return The ID of the Amazon Web Services account that owns the EBS snapshot.
      */
 
     public String getOwnerId() {
@@ -349,11 +377,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the EBS snapshot owner.
+     * The ID of the Amazon Web Services account that owns the EBS snapshot.
      * </p>
      * 
      * @param ownerId
-     *        The AWS account ID of the EBS snapshot owner.
+     *        The ID of the Amazon Web Services account that owns the EBS snapshot.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -558,15 +586,14 @@ public class Snapshot implements Serializable, Cloneable {
     /**
      * <p>
      * Encrypted Amazon EBS snapshots are copied asynchronously. If a snapshot copy operation fails (for example, if the
-     * proper AWS Key Management Service (AWS KMS) permissions are not obtained) this field displays error state details
-     * to help you diagnose why the error occurred. This parameter is only returned by <a>DescribeSnapshots</a>.
+     * proper KMS permissions are not obtained) this field displays error state details to help you diagnose why the
+     * error occurred. This parameter is only returned by <a>DescribeSnapshots</a>.
      * </p>
      * 
      * @param stateMessage
      *        Encrypted Amazon EBS snapshots are copied asynchronously. If a snapshot copy operation fails (for example,
-     *        if the proper AWS Key Management Service (AWS KMS) permissions are not obtained) this field displays error
-     *        state details to help you diagnose why the error occurred. This parameter is only returned by
-     *        <a>DescribeSnapshots</a>.
+     *        if the proper KMS permissions are not obtained) this field displays error state details to help you
+     *        diagnose why the error occurred. This parameter is only returned by <a>DescribeSnapshots</a>.
      */
 
     public void setStateMessage(String stateMessage) {
@@ -576,14 +603,13 @@ public class Snapshot implements Serializable, Cloneable {
     /**
      * <p>
      * Encrypted Amazon EBS snapshots are copied asynchronously. If a snapshot copy operation fails (for example, if the
-     * proper AWS Key Management Service (AWS KMS) permissions are not obtained) this field displays error state details
-     * to help you diagnose why the error occurred. This parameter is only returned by <a>DescribeSnapshots</a>.
+     * proper KMS permissions are not obtained) this field displays error state details to help you diagnose why the
+     * error occurred. This parameter is only returned by <a>DescribeSnapshots</a>.
      * </p>
      * 
      * @return Encrypted Amazon EBS snapshots are copied asynchronously. If a snapshot copy operation fails (for
-     *         example, if the proper AWS Key Management Service (AWS KMS) permissions are not obtained) this field
-     *         displays error state details to help you diagnose why the error occurred. This parameter is only returned
-     *         by <a>DescribeSnapshots</a>.
+     *         example, if the proper KMS permissions are not obtained) this field displays error state details to help
+     *         you diagnose why the error occurred. This parameter is only returned by <a>DescribeSnapshots</a>.
      */
 
     public String getStateMessage() {
@@ -593,15 +619,14 @@ public class Snapshot implements Serializable, Cloneable {
     /**
      * <p>
      * Encrypted Amazon EBS snapshots are copied asynchronously. If a snapshot copy operation fails (for example, if the
-     * proper AWS Key Management Service (AWS KMS) permissions are not obtained) this field displays error state details
-     * to help you diagnose why the error occurred. This parameter is only returned by <a>DescribeSnapshots</a>.
+     * proper KMS permissions are not obtained) this field displays error state details to help you diagnose why the
+     * error occurred. This parameter is only returned by <a>DescribeSnapshots</a>.
      * </p>
      * 
      * @param stateMessage
      *        Encrypted Amazon EBS snapshots are copied asynchronously. If a snapshot copy operation fails (for example,
-     *        if the proper AWS Key Management Service (AWS KMS) permissions are not obtained) this field displays error
-     *        state details to help you diagnose why the error occurred. This parameter is only returned by
-     *        <a>DescribeSnapshots</a>.
+     *        if the proper KMS permissions are not obtained) this field displays error state details to help you
+     *        diagnose why the error occurred. This parameter is only returned by <a>DescribeSnapshots</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -698,15 +723,13 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Value from an Amazon-maintained list (<code>amazon</code> | <code>self</code> | <code>all</code> |
-     * <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be confused with the
-     * user-configured AWS account alias, which is set from the IAM console.
+     * The Amazon Web Services owner alias, from an Amazon-maintained list (<code>amazon</code>). This is not the
+     * user-configured Amazon Web Services account alias set using the IAM console.
      * </p>
      * 
      * @param ownerAlias
-     *        Value from an Amazon-maintained list (<code>amazon</code> | <code>self</code> | <code>all</code> |
-     *        <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be confused with the
-     *        user-configured AWS account alias, which is set from the IAM console.
+     *        The Amazon Web Services owner alias, from an Amazon-maintained list (<code>amazon</code>). This is not the
+     *        user-configured Amazon Web Services account alias set using the IAM console.
      */
 
     public void setOwnerAlias(String ownerAlias) {
@@ -715,14 +738,12 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Value from an Amazon-maintained list (<code>amazon</code> | <code>self</code> | <code>all</code> |
-     * <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be confused with the
-     * user-configured AWS account alias, which is set from the IAM console.
+     * The Amazon Web Services owner alias, from an Amazon-maintained list (<code>amazon</code>). This is not the
+     * user-configured Amazon Web Services account alias set using the IAM console.
      * </p>
      * 
-     * @return Value from an Amazon-maintained list (<code>amazon</code> | <code>self</code> | <code>all</code> |
-     *         <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be confused with the
-     *         user-configured AWS account alias, which is set from the IAM console.
+     * @return The Amazon Web Services owner alias, from an Amazon-maintained list (<code>amazon</code>). This is not
+     *         the user-configured Amazon Web Services account alias set using the IAM console.
      */
 
     public String getOwnerAlias() {
@@ -731,20 +752,70 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Value from an Amazon-maintained list (<code>amazon</code> | <code>self</code> | <code>all</code> |
-     * <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be confused with the
-     * user-configured AWS account alias, which is set from the IAM console.
+     * The Amazon Web Services owner alias, from an Amazon-maintained list (<code>amazon</code>). This is not the
+     * user-configured Amazon Web Services account alias set using the IAM console.
      * </p>
      * 
      * @param ownerAlias
-     *        Value from an Amazon-maintained list (<code>amazon</code> | <code>self</code> | <code>all</code> |
-     *        <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be confused with the
-     *        user-configured AWS account alias, which is set from the IAM console.
+     *        The Amazon Web Services owner alias, from an Amazon-maintained list (<code>amazon</code>). This is not the
+     *        user-configured Amazon Web Services account alias set using the IAM console.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Snapshot withOwnerAlias(String ownerAlias) {
         setOwnerAlias(ownerAlias);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN of the Outpost on which the snapshot is stored. For more information, see <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html">Amazon EBS local snapshots on
+     * Outposts</a> in the <i>Amazon EBS User Guide</i>.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The ARN of the Outpost on which the snapshot is stored. For more information, see <a
+     *        href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html">Amazon EBS local snapshots
+     *        on Outposts</a> in the <i>Amazon EBS User Guide</i>.
+     */
+
+    public void setOutpostArn(String outpostArn) {
+        this.outpostArn = outpostArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the Outpost on which the snapshot is stored. For more information, see <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html">Amazon EBS local snapshots on
+     * Outposts</a> in the <i>Amazon EBS User Guide</i>.
+     * </p>
+     * 
+     * @return The ARN of the Outpost on which the snapshot is stored. For more information, see <a
+     *         href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html">Amazon EBS local
+     *         snapshots on Outposts</a> in the <i>Amazon EBS User Guide</i>.
+     */
+
+    public String getOutpostArn() {
+        return this.outpostArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the Outpost on which the snapshot is stored. For more information, see <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html">Amazon EBS local snapshots on
+     * Outposts</a> in the <i>Amazon EBS User Guide</i>.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The ARN of the Outpost on which the snapshot is stored. For more information, see <a
+     *        href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html">Amazon EBS local snapshots
+     *        on Outposts</a> in the <i>Amazon EBS User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Snapshot withOutpostArn(String outpostArn) {
+        setOutpostArn(outpostArn);
         return this;
     }
 
@@ -822,6 +893,218 @@ public class Snapshot implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The storage tier in which the snapshot is stored. <code>standard</code> indicates that the snapshot is stored in
+     * the standard snapshot storage tier and that it is ready for use. <code>archive</code> indicates that the snapshot
+     * is currently archived and that it must be restored before it can be used.
+     * </p>
+     * 
+     * @param storageTier
+     *        The storage tier in which the snapshot is stored. <code>standard</code> indicates that the snapshot is
+     *        stored in the standard snapshot storage tier and that it is ready for use. <code>archive</code> indicates
+     *        that the snapshot is currently archived and that it must be restored before it can be used.
+     * @see StorageTier
+     */
+
+    public void setStorageTier(String storageTier) {
+        this.storageTier = storageTier;
+    }
+
+    /**
+     * <p>
+     * The storage tier in which the snapshot is stored. <code>standard</code> indicates that the snapshot is stored in
+     * the standard snapshot storage tier and that it is ready for use. <code>archive</code> indicates that the snapshot
+     * is currently archived and that it must be restored before it can be used.
+     * </p>
+     * 
+     * @return The storage tier in which the snapshot is stored. <code>standard</code> indicates that the snapshot is
+     *         stored in the standard snapshot storage tier and that it is ready for use. <code>archive</code> indicates
+     *         that the snapshot is currently archived and that it must be restored before it can be used.
+     * @see StorageTier
+     */
+
+    public String getStorageTier() {
+        return this.storageTier;
+    }
+
+    /**
+     * <p>
+     * The storage tier in which the snapshot is stored. <code>standard</code> indicates that the snapshot is stored in
+     * the standard snapshot storage tier and that it is ready for use. <code>archive</code> indicates that the snapshot
+     * is currently archived and that it must be restored before it can be used.
+     * </p>
+     * 
+     * @param storageTier
+     *        The storage tier in which the snapshot is stored. <code>standard</code> indicates that the snapshot is
+     *        stored in the standard snapshot storage tier and that it is ready for use. <code>archive</code> indicates
+     *        that the snapshot is currently archived and that it must be restored before it can be used.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see StorageTier
+     */
+
+    public Snapshot withStorageTier(String storageTier) {
+        setStorageTier(storageTier);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The storage tier in which the snapshot is stored. <code>standard</code> indicates that the snapshot is stored in
+     * the standard snapshot storage tier and that it is ready for use. <code>archive</code> indicates that the snapshot
+     * is currently archived and that it must be restored before it can be used.
+     * </p>
+     * 
+     * @param storageTier
+     *        The storage tier in which the snapshot is stored. <code>standard</code> indicates that the snapshot is
+     *        stored in the standard snapshot storage tier and that it is ready for use. <code>archive</code> indicates
+     *        that the snapshot is currently archived and that it must be restored before it can be used.
+     * @see StorageTier
+     */
+
+    public void setStorageTier(StorageTier storageTier) {
+        withStorageTier(storageTier);
+    }
+
+    /**
+     * <p>
+     * The storage tier in which the snapshot is stored. <code>standard</code> indicates that the snapshot is stored in
+     * the standard snapshot storage tier and that it is ready for use. <code>archive</code> indicates that the snapshot
+     * is currently archived and that it must be restored before it can be used.
+     * </p>
+     * 
+     * @param storageTier
+     *        The storage tier in which the snapshot is stored. <code>standard</code> indicates that the snapshot is
+     *        stored in the standard snapshot storage tier and that it is ready for use. <code>archive</code> indicates
+     *        that the snapshot is currently archived and that it must be restored before it can be used.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see StorageTier
+     */
+
+    public Snapshot withStorageTier(StorageTier storageTier) {
+        this.storageTier = storageTier.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Only for archived snapshots that are temporarily restored. Indicates the date and time when a temporarily
+     * restored snapshot will be automatically re-archived.
+     * </p>
+     * 
+     * @param restoreExpiryTime
+     *        Only for archived snapshots that are temporarily restored. Indicates the date and time when a temporarily
+     *        restored snapshot will be automatically re-archived.
+     */
+
+    public void setRestoreExpiryTime(java.util.Date restoreExpiryTime) {
+        this.restoreExpiryTime = restoreExpiryTime;
+    }
+
+    /**
+     * <p>
+     * Only for archived snapshots that are temporarily restored. Indicates the date and time when a temporarily
+     * restored snapshot will be automatically re-archived.
+     * </p>
+     * 
+     * @return Only for archived snapshots that are temporarily restored. Indicates the date and time when a temporarily
+     *         restored snapshot will be automatically re-archived.
+     */
+
+    public java.util.Date getRestoreExpiryTime() {
+        return this.restoreExpiryTime;
+    }
+
+    /**
+     * <p>
+     * Only for archived snapshots that are temporarily restored. Indicates the date and time when a temporarily
+     * restored snapshot will be automatically re-archived.
+     * </p>
+     * 
+     * @param restoreExpiryTime
+     *        Only for archived snapshots that are temporarily restored. Indicates the date and time when a temporarily
+     *        restored snapshot will be automatically re-archived.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Snapshot withRestoreExpiryTime(java.util.Date restoreExpiryTime) {
+        setRestoreExpiryTime(restoreExpiryTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Reserved for future use.
+     * </p>
+     * 
+     * @param sseType
+     *        Reserved for future use.
+     * @see SSEType
+     */
+
+    public void setSseType(String sseType) {
+        this.sseType = sseType;
+    }
+
+    /**
+     * <p>
+     * Reserved for future use.
+     * </p>
+     * 
+     * @return Reserved for future use.
+     * @see SSEType
+     */
+
+    public String getSseType() {
+        return this.sseType;
+    }
+
+    /**
+     * <p>
+     * Reserved for future use.
+     * </p>
+     * 
+     * @param sseType
+     *        Reserved for future use.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SSEType
+     */
+
+    public Snapshot withSseType(String sseType) {
+        setSseType(sseType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Reserved for future use.
+     * </p>
+     * 
+     * @param sseType
+     *        Reserved for future use.
+     * @see SSEType
+     */
+
+    public void setSseType(SSEType sseType) {
+        withSseType(sseType);
+    }
+
+    /**
+     * <p>
+     * Reserved for future use.
+     * </p>
+     * 
+     * @param sseType
+     *        Reserved for future use.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SSEType
+     */
+
+    public Snapshot withSseType(SSEType sseType) {
+        this.sseType = sseType.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -859,8 +1142,16 @@ public class Snapshot implements Serializable, Cloneable {
             sb.append("VolumeSize: ").append(getVolumeSize()).append(",");
         if (getOwnerAlias() != null)
             sb.append("OwnerAlias: ").append(getOwnerAlias()).append(",");
+        if (getOutpostArn() != null)
+            sb.append("OutpostArn: ").append(getOutpostArn()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getStorageTier() != null)
+            sb.append("StorageTier: ").append(getStorageTier()).append(",");
+        if (getRestoreExpiryTime() != null)
+            sb.append("RestoreExpiryTime: ").append(getRestoreExpiryTime()).append(",");
+        if (getSseType() != null)
+            sb.append("SseType: ").append(getSseType());
         sb.append("}");
         return sb.toString();
     }
@@ -927,9 +1218,25 @@ public class Snapshot implements Serializable, Cloneable {
             return false;
         if (other.getOwnerAlias() != null && other.getOwnerAlias().equals(this.getOwnerAlias()) == false)
             return false;
+        if (other.getOutpostArn() == null ^ this.getOutpostArn() == null)
+            return false;
+        if (other.getOutpostArn() != null && other.getOutpostArn().equals(this.getOutpostArn()) == false)
+            return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getStorageTier() == null ^ this.getStorageTier() == null)
+            return false;
+        if (other.getStorageTier() != null && other.getStorageTier().equals(this.getStorageTier()) == false)
+            return false;
+        if (other.getRestoreExpiryTime() == null ^ this.getRestoreExpiryTime() == null)
+            return false;
+        if (other.getRestoreExpiryTime() != null && other.getRestoreExpiryTime().equals(this.getRestoreExpiryTime()) == false)
+            return false;
+        if (other.getSseType() == null ^ this.getSseType() == null)
+            return false;
+        if (other.getSseType() != null && other.getSseType().equals(this.getSseType()) == false)
             return false;
         return true;
     }
@@ -952,7 +1259,11 @@ public class Snapshot implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getVolumeId() == null) ? 0 : getVolumeId().hashCode());
         hashCode = prime * hashCode + ((getVolumeSize() == null) ? 0 : getVolumeSize().hashCode());
         hashCode = prime * hashCode + ((getOwnerAlias() == null) ? 0 : getOwnerAlias().hashCode());
+        hashCode = prime * hashCode + ((getOutpostArn() == null) ? 0 : getOutpostArn().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getStorageTier() == null) ? 0 : getStorageTier().hashCode());
+        hashCode = prime * hashCode + ((getRestoreExpiryTime() == null) ? 0 : getRestoreExpiryTime().hashCode());
+        hashCode = prime * hashCode + ((getSseType() == null) ? 0 : getSseType().hashCode());
         return hashCode;
     }
 

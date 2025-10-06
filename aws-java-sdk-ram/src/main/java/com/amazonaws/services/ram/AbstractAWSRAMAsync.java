@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -53,6 +53,47 @@ public class AbstractAWSRAMAsync extends AbstractAWSRAM implements AWSRAMAsync {
     }
 
     @Override
+    public java.util.concurrent.Future<AssociateResourceSharePermissionResult> associateResourceSharePermissionAsync(
+            AssociateResourceSharePermissionRequest request) {
+
+        return associateResourceSharePermissionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateResourceSharePermissionResult> associateResourceSharePermissionAsync(
+            AssociateResourceSharePermissionRequest request,
+            com.amazonaws.handlers.AsyncHandler<AssociateResourceSharePermissionRequest, AssociateResourceSharePermissionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreatePermissionResult> createPermissionAsync(CreatePermissionRequest request) {
+
+        return createPermissionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreatePermissionResult> createPermissionAsync(CreatePermissionRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreatePermissionRequest, CreatePermissionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreatePermissionVersionResult> createPermissionVersionAsync(CreatePermissionVersionRequest request) {
+
+        return createPermissionVersionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreatePermissionVersionResult> createPermissionVersionAsync(CreatePermissionVersionRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreatePermissionVersionRequest, CreatePermissionVersionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateResourceShareResult> createResourceShareAsync(CreateResourceShareRequest request) {
 
         return createResourceShareAsync(request, null);
@@ -61,6 +102,32 @@ public class AbstractAWSRAMAsync extends AbstractAWSRAM implements AWSRAMAsync {
     @Override
     public java.util.concurrent.Future<CreateResourceShareResult> createResourceShareAsync(CreateResourceShareRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateResourceShareRequest, CreateResourceShareResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeletePermissionResult> deletePermissionAsync(DeletePermissionRequest request) {
+
+        return deletePermissionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeletePermissionResult> deletePermissionAsync(DeletePermissionRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeletePermissionRequest, DeletePermissionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeletePermissionVersionResult> deletePermissionVersionAsync(DeletePermissionVersionRequest request) {
+
+        return deletePermissionVersionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeletePermissionVersionResult> deletePermissionVersionAsync(DeletePermissionVersionRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeletePermissionVersionRequest, DeletePermissionVersionResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -92,6 +159,21 @@ public class AbstractAWSRAMAsync extends AbstractAWSRAM implements AWSRAMAsync {
     }
 
     @Override
+    public java.util.concurrent.Future<DisassociateResourceSharePermissionResult> disassociateResourceSharePermissionAsync(
+            DisassociateResourceSharePermissionRequest request) {
+
+        return disassociateResourceSharePermissionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateResourceSharePermissionResult> disassociateResourceSharePermissionAsync(
+            DisassociateResourceSharePermissionRequest request,
+            com.amazonaws.handlers.AsyncHandler<DisassociateResourceSharePermissionRequest, DisassociateResourceSharePermissionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<EnableSharingWithAwsOrganizationResult> enableSharingWithAwsOrganizationAsync(
             EnableSharingWithAwsOrganizationRequest request) {
 
@@ -102,6 +184,19 @@ public class AbstractAWSRAMAsync extends AbstractAWSRAM implements AWSRAMAsync {
     public java.util.concurrent.Future<EnableSharingWithAwsOrganizationResult> enableSharingWithAwsOrganizationAsync(
             EnableSharingWithAwsOrganizationRequest request,
             com.amazonaws.handlers.AsyncHandler<EnableSharingWithAwsOrganizationRequest, EnableSharingWithAwsOrganizationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetPermissionResult> getPermissionAsync(GetPermissionRequest request) {
+
+        return getPermissionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetPermissionResult> getPermissionAsync(GetPermissionRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetPermissionRequest, GetPermissionResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -159,6 +254,58 @@ public class AbstractAWSRAMAsync extends AbstractAWSRAM implements AWSRAMAsync {
     }
 
     @Override
+    public java.util.concurrent.Future<ListPendingInvitationResourcesResult> listPendingInvitationResourcesAsync(ListPendingInvitationResourcesRequest request) {
+
+        return listPendingInvitationResourcesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPendingInvitationResourcesResult> listPendingInvitationResourcesAsync(ListPendingInvitationResourcesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListPendingInvitationResourcesRequest, ListPendingInvitationResourcesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPermissionAssociationsResult> listPermissionAssociationsAsync(ListPermissionAssociationsRequest request) {
+
+        return listPermissionAssociationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPermissionAssociationsResult> listPermissionAssociationsAsync(ListPermissionAssociationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListPermissionAssociationsRequest, ListPermissionAssociationsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPermissionVersionsResult> listPermissionVersionsAsync(ListPermissionVersionsRequest request) {
+
+        return listPermissionVersionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPermissionVersionsResult> listPermissionVersionsAsync(ListPermissionVersionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListPermissionVersionsRequest, ListPermissionVersionsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPermissionsResult> listPermissionsAsync(ListPermissionsRequest request) {
+
+        return listPermissionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPermissionsResult> listPermissionsAsync(ListPermissionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListPermissionsRequest, ListPermissionsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListPrincipalsResult> listPrincipalsAsync(ListPrincipalsRequest request) {
 
         return listPrincipalsAsync(request, null);
@@ -167,6 +314,47 @@ public class AbstractAWSRAMAsync extends AbstractAWSRAM implements AWSRAMAsync {
     @Override
     public java.util.concurrent.Future<ListPrincipalsResult> listPrincipalsAsync(ListPrincipalsRequest request,
             com.amazonaws.handlers.AsyncHandler<ListPrincipalsRequest, ListPrincipalsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListReplacePermissionAssociationsWorkResult> listReplacePermissionAssociationsWorkAsync(
+            ListReplacePermissionAssociationsWorkRequest request) {
+
+        return listReplacePermissionAssociationsWorkAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListReplacePermissionAssociationsWorkResult> listReplacePermissionAssociationsWorkAsync(
+            ListReplacePermissionAssociationsWorkRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListReplacePermissionAssociationsWorkRequest, ListReplacePermissionAssociationsWorkResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListResourceSharePermissionsResult> listResourceSharePermissionsAsync(ListResourceSharePermissionsRequest request) {
+
+        return listResourceSharePermissionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListResourceSharePermissionsResult> listResourceSharePermissionsAsync(ListResourceSharePermissionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListResourceSharePermissionsRequest, ListResourceSharePermissionsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListResourceTypesResult> listResourceTypesAsync(ListResourceTypesRequest request) {
+
+        return listResourceTypesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListResourceTypesResult> listResourceTypesAsync(ListResourceTypesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListResourceTypesRequest, ListResourceTypesResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -185,6 +373,36 @@ public class AbstractAWSRAMAsync extends AbstractAWSRAM implements AWSRAMAsync {
     }
 
     @Override
+    public java.util.concurrent.Future<PromotePermissionCreatedFromPolicyResult> promotePermissionCreatedFromPolicyAsync(
+            PromotePermissionCreatedFromPolicyRequest request) {
+
+        return promotePermissionCreatedFromPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PromotePermissionCreatedFromPolicyResult> promotePermissionCreatedFromPolicyAsync(
+            PromotePermissionCreatedFromPolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<PromotePermissionCreatedFromPolicyRequest, PromotePermissionCreatedFromPolicyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<PromoteResourceShareCreatedFromPolicyResult> promoteResourceShareCreatedFromPolicyAsync(
+            PromoteResourceShareCreatedFromPolicyRequest request) {
+
+        return promoteResourceShareCreatedFromPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PromoteResourceShareCreatedFromPolicyResult> promoteResourceShareCreatedFromPolicyAsync(
+            PromoteResourceShareCreatedFromPolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<PromoteResourceShareCreatedFromPolicyRequest, PromoteResourceShareCreatedFromPolicyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<RejectResourceShareInvitationResult> rejectResourceShareInvitationAsync(RejectResourceShareInvitationRequest request) {
 
         return rejectResourceShareInvitationAsync(request, null);
@@ -193,6 +411,32 @@ public class AbstractAWSRAMAsync extends AbstractAWSRAM implements AWSRAMAsync {
     @Override
     public java.util.concurrent.Future<RejectResourceShareInvitationResult> rejectResourceShareInvitationAsync(RejectResourceShareInvitationRequest request,
             com.amazonaws.handlers.AsyncHandler<RejectResourceShareInvitationRequest, RejectResourceShareInvitationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ReplacePermissionAssociationsResult> replacePermissionAssociationsAsync(ReplacePermissionAssociationsRequest request) {
+
+        return replacePermissionAssociationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ReplacePermissionAssociationsResult> replacePermissionAssociationsAsync(ReplacePermissionAssociationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ReplacePermissionAssociationsRequest, ReplacePermissionAssociationsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<SetDefaultPermissionVersionResult> setDefaultPermissionVersionAsync(SetDefaultPermissionVersionRequest request) {
+
+        return setDefaultPermissionVersionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SetDefaultPermissionVersionResult> setDefaultPermissionVersionAsync(SetDefaultPermissionVersionRequest request,
+            com.amazonaws.handlers.AsyncHandler<SetDefaultPermissionVersionRequest, SetDefaultPermissionVersionResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

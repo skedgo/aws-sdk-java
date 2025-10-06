@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,24 +27,28 @@ public class GetAWSDefaultServiceQuotaRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Specifies the service that you want to use.
+     * Specifies the service identifier. To find the service code value for an Amazon Web Services service, use the
+     * <a>ListServices</a> operation.
      * </p>
      */
     private String serviceCode;
     /**
      * <p>
-     * Identifies the service quota you want to select.
+     * Specifies the quota identifier. To find the quota code for a specific quota, use the <a>ListServiceQuotas</a>
+     * operation, and look for the <code>QuotaCode</code> response in the output for the quota you want.
      * </p>
      */
     private String quotaCode;
 
     /**
      * <p>
-     * Specifies the service that you want to use.
+     * Specifies the service identifier. To find the service code value for an Amazon Web Services service, use the
+     * <a>ListServices</a> operation.
      * </p>
      * 
      * @param serviceCode
-     *        Specifies the service that you want to use.
+     *        Specifies the service identifier. To find the service code value for an Amazon Web Services service, use
+     *        the <a>ListServices</a> operation.
      */
 
     public void setServiceCode(String serviceCode) {
@@ -53,10 +57,12 @@ public class GetAWSDefaultServiceQuotaRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Specifies the service that you want to use.
+     * Specifies the service identifier. To find the service code value for an Amazon Web Services service, use the
+     * <a>ListServices</a> operation.
      * </p>
      * 
-     * @return Specifies the service that you want to use.
+     * @return Specifies the service identifier. To find the service code value for an Amazon Web Services service, use
+     *         the <a>ListServices</a> operation.
      */
 
     public String getServiceCode() {
@@ -65,11 +71,13 @@ public class GetAWSDefaultServiceQuotaRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Specifies the service that you want to use.
+     * Specifies the service identifier. To find the service code value for an Amazon Web Services service, use the
+     * <a>ListServices</a> operation.
      * </p>
      * 
      * @param serviceCode
-     *        Specifies the service that you want to use.
+     *        Specifies the service identifier. To find the service code value for an Amazon Web Services service, use
+     *        the <a>ListServices</a> operation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -80,11 +88,14 @@ public class GetAWSDefaultServiceQuotaRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Identifies the service quota you want to select.
+     * Specifies the quota identifier. To find the quota code for a specific quota, use the <a>ListServiceQuotas</a>
+     * operation, and look for the <code>QuotaCode</code> response in the output for the quota you want.
      * </p>
      * 
      * @param quotaCode
-     *        Identifies the service quota you want to select.
+     *        Specifies the quota identifier. To find the quota code for a specific quota, use the
+     *        <a>ListServiceQuotas</a> operation, and look for the <code>QuotaCode</code> response in the output for the
+     *        quota you want.
      */
 
     public void setQuotaCode(String quotaCode) {
@@ -93,10 +104,13 @@ public class GetAWSDefaultServiceQuotaRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Identifies the service quota you want to select.
+     * Specifies the quota identifier. To find the quota code for a specific quota, use the <a>ListServiceQuotas</a>
+     * operation, and look for the <code>QuotaCode</code> response in the output for the quota you want.
      * </p>
      * 
-     * @return Identifies the service quota you want to select.
+     * @return Specifies the quota identifier. To find the quota code for a specific quota, use the
+     *         <a>ListServiceQuotas</a> operation, and look for the <code>QuotaCode</code> response in the output for
+     *         the quota you want.
      */
 
     public String getQuotaCode() {
@@ -105,11 +119,14 @@ public class GetAWSDefaultServiceQuotaRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Identifies the service quota you want to select.
+     * Specifies the quota identifier. To find the quota code for a specific quota, use the <a>ListServiceQuotas</a>
+     * operation, and look for the <code>QuotaCode</code> response in the output for the quota you want.
      * </p>
      * 
      * @param quotaCode
-     *        Identifies the service quota you want to select.
+     *        Specifies the quota identifier. To find the quota code for a specific quota, use the
+     *        <a>ListServiceQuotas</a> operation, and look for the <code>QuotaCode</code> response in the output for the
+     *        quota you want.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

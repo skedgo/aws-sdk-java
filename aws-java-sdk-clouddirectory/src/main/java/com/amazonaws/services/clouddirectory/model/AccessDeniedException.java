@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,7 +16,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Access denied. Check your permissions.
+ * Access denied or directory not found. Either you don't have permissions for this directory or the directory does not
+ * exist. Try calling <a>ListDirectories</a> and check your permissions.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

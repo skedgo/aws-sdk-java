@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,6 +52,10 @@ public class ComputeResourceJsonUnmarshaller implements Unmarshaller<ComputeReso
                     context.nextToken();
                     computeResource.setType(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("allocationStrategy", targetDepth)) {
+                    context.nextToken();
+                    computeResource.setAllocationStrategy(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("minvCpus", targetDepth)) {
                     context.nextToken();
                     computeResource.setMinvCpus(context.getUnmarshaller(Integer.class).unmarshall(context));
@@ -66,7 +70,9 @@ public class ComputeResourceJsonUnmarshaller implements Unmarshaller<ComputeReso
                 }
                 if (context.testExpression("instanceTypes", targetDepth)) {
                     context.nextToken();
-                    computeResource.setInstanceTypes(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    computeResource.setInstanceTypes(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("imageId", targetDepth)) {
                     context.nextToken();
@@ -74,11 +80,15 @@ public class ComputeResourceJsonUnmarshaller implements Unmarshaller<ComputeReso
                 }
                 if (context.testExpression("subnets", targetDepth)) {
                     context.nextToken();
-                    computeResource.setSubnets(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    computeResource.setSubnets(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("securityGroupIds", targetDepth)) {
                     context.nextToken();
-                    computeResource.setSecurityGroupIds(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    computeResource.setSecurityGroupIds(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("ec2KeyPair", targetDepth)) {
                     context.nextToken();
@@ -108,6 +118,12 @@ public class ComputeResourceJsonUnmarshaller implements Unmarshaller<ComputeReso
                 if (context.testExpression("launchTemplate", targetDepth)) {
                     context.nextToken();
                     computeResource.setLaunchTemplate(LaunchTemplateSpecificationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ec2Configuration", targetDepth)) {
+                    context.nextToken();
+                    computeResource.setEc2Configuration(new ListUnmarshaller<Ec2Configuration>(Ec2ConfigurationJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,13 +26,31 @@ import java.util.concurrent.ExecutorService;
  * an asynchronous operation completes.
  * <p>
  * <p>
- * You can use Code Signing for Amazon FreeRTOS (AWS Signer) to sign code that you created for any of the IoT devices
- * that Amazon Web Services supports. AWS Signer is integrated with Amazon FreeRTOS, AWS Certificate Manager, and AWS
- * CloudTrail. Amazon FreeRTOS customers can use AWS Signer to sign code images before making them available for
- * microcontrollers. You can use ACM to import third-party certificates to be used by AWS Signer. For general
- * information about using AWS Signer, see the <a
- * href="http://docs.aws.amazon.com/signer/latest/developerguide/Welcome.html">Code Signing for Amazon FreeRTOS
- * Developer Guide</a>.
+ * AWS Signer is a fully managed code-signing service to help you ensure the trust and integrity of your code.
+ * </p>
+ * <p>
+ * Signer supports the following applications:
+ * </p>
+ * <p>
+ * With code signing for AWS Lambda, you can sign <a href="http://docs.aws.amazon.com/lambda/latest/dg/">AWS Lambda</a>
+ * deployment packages. Integrated support is provided for <a
+ * href="http://docs.aws.amazon.com/AmazonS3/latest/gsg/">Amazon S3</a>, <a
+ * href="http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/">Amazon CloudWatch</a>, and <a
+ * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/">AWS CloudTrail</a>. In order to sign code, you
+ * create a signing profile and then use Signer to sign Lambda zip files in S3.
+ * </p>
+ * <p>
+ * With code signing for IoT, you can sign code for any IoT device that is supported by AWS. IoT code signing is
+ * available for <a href="http://docs.aws.amazon.com/freertos/latest/userguide/">Amazon FreeRTOS</a> and <a
+ * href="http://docs.aws.amazon.com/iot/latest/developerguide/">AWS IoT Device Management</a>, and is integrated with <a
+ * href="http://docs.aws.amazon.com/acm/latest/userguide/">AWS Certificate Manager (ACM)</a>. In order to sign code, you
+ * Project</a>, you can sign container images stored in a container registry such as Amazon Elastic Container Registry
+ * (ECR). The signatures are stored in the registry alongside the images, where they are available for verifying image
+ * authenticity and integrity.
+ * </p>
+ * <p>
+ * For more information about Signer, see the <a
+ * href="https://docs.aws.amazon.com/signer/latest/developerguide/Welcome.html">AWS Signer Developer Guide</a>.
  * </p>
  */
 @ThreadSafe
@@ -54,7 +72,19 @@ public class AWSsignerAsyncClient extends AWSsignerClient implements AWSsignerAs
      *        Object providing client parameters.
      */
     AWSsignerAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on signer using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSsignerAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -65,6 +95,39 @@ public class AWSsignerAsyncClient extends AWSsignerClient implements AWSsignerAs
      */
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public java.util.concurrent.Future<AddProfilePermissionResult> addProfilePermissionAsync(AddProfilePermissionRequest request) {
+
+        return addProfilePermissionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AddProfilePermissionResult> addProfilePermissionAsync(final AddProfilePermissionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AddProfilePermissionRequest, AddProfilePermissionResult> asyncHandler) {
+        final AddProfilePermissionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AddProfilePermissionResult>() {
+            @Override
+            public AddProfilePermissionResult call() throws Exception {
+                AddProfilePermissionResult result = null;
+
+                try {
+                    result = executeAddProfilePermission(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -134,6 +197,39 @@ public class AWSsignerAsyncClient extends AWSsignerClient implements AWSsignerAs
     }
 
     @Override
+    public java.util.concurrent.Future<GetRevocationStatusResult> getRevocationStatusAsync(GetRevocationStatusRequest request) {
+
+        return getRevocationStatusAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRevocationStatusResult> getRevocationStatusAsync(final GetRevocationStatusRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetRevocationStatusRequest, GetRevocationStatusResult> asyncHandler) {
+        final GetRevocationStatusRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetRevocationStatusResult>() {
+            @Override
+            public GetRevocationStatusResult call() throws Exception {
+                GetRevocationStatusResult result = null;
+
+                try {
+                    result = executeGetRevocationStatus(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetSigningPlatformResult> getSigningPlatformAsync(GetSigningPlatformRequest request) {
 
         return getSigningPlatformAsync(request, null);
@@ -184,6 +280,39 @@ public class AWSsignerAsyncClient extends AWSsignerClient implements AWSsignerAs
 
                 try {
                     result = executeGetSigningProfile(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListProfilePermissionsResult> listProfilePermissionsAsync(ListProfilePermissionsRequest request) {
+
+        return listProfilePermissionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListProfilePermissionsResult> listProfilePermissionsAsync(final ListProfilePermissionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListProfilePermissionsRequest, ListProfilePermissionsResult> asyncHandler) {
+        final ListProfilePermissionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListProfilePermissionsResult>() {
+            @Override
+            public ListProfilePermissionsResult call() throws Exception {
+                ListProfilePermissionsResult result = null;
+
+                try {
+                    result = executeListProfilePermissions(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -299,6 +428,39 @@ public class AWSsignerAsyncClient extends AWSsignerClient implements AWSsignerAs
     }
 
     @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(final ListTagsForResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+        final ListTagsForResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListTagsForResourceResult>() {
+            @Override
+            public ListTagsForResourceResult call() throws Exception {
+                ListTagsForResourceResult result = null;
+
+                try {
+                    result = executeListTagsForResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<PutSigningProfileResult> putSigningProfileAsync(PutSigningProfileRequest request) {
 
         return putSigningProfileAsync(request, null);
@@ -332,6 +494,138 @@ public class AWSsignerAsyncClient extends AWSsignerClient implements AWSsignerAs
     }
 
     @Override
+    public java.util.concurrent.Future<RemoveProfilePermissionResult> removeProfilePermissionAsync(RemoveProfilePermissionRequest request) {
+
+        return removeProfilePermissionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RemoveProfilePermissionResult> removeProfilePermissionAsync(final RemoveProfilePermissionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RemoveProfilePermissionRequest, RemoveProfilePermissionResult> asyncHandler) {
+        final RemoveProfilePermissionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RemoveProfilePermissionResult>() {
+            @Override
+            public RemoveProfilePermissionResult call() throws Exception {
+                RemoveProfilePermissionResult result = null;
+
+                try {
+                    result = executeRemoveProfilePermission(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RevokeSignatureResult> revokeSignatureAsync(RevokeSignatureRequest request) {
+
+        return revokeSignatureAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RevokeSignatureResult> revokeSignatureAsync(final RevokeSignatureRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RevokeSignatureRequest, RevokeSignatureResult> asyncHandler) {
+        final RevokeSignatureRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RevokeSignatureResult>() {
+            @Override
+            public RevokeSignatureResult call() throws Exception {
+                RevokeSignatureResult result = null;
+
+                try {
+                    result = executeRevokeSignature(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RevokeSigningProfileResult> revokeSigningProfileAsync(RevokeSigningProfileRequest request) {
+
+        return revokeSigningProfileAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RevokeSigningProfileResult> revokeSigningProfileAsync(final RevokeSigningProfileRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RevokeSigningProfileRequest, RevokeSigningProfileResult> asyncHandler) {
+        final RevokeSigningProfileRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RevokeSigningProfileResult>() {
+            @Override
+            public RevokeSigningProfileResult call() throws Exception {
+                RevokeSigningProfileResult result = null;
+
+                try {
+                    result = executeRevokeSigningProfile(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<SignPayloadResult> signPayloadAsync(SignPayloadRequest request) {
+
+        return signPayloadAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SignPayloadResult> signPayloadAsync(final SignPayloadRequest request,
+            final com.amazonaws.handlers.AsyncHandler<SignPayloadRequest, SignPayloadResult> asyncHandler) {
+        final SignPayloadRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<SignPayloadResult>() {
+            @Override
+            public SignPayloadResult call() throws Exception {
+                SignPayloadResult result = null;
+
+                try {
+                    result = executeSignPayload(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<StartSigningJobResult> startSigningJobAsync(StartSigningJobRequest request) {
 
         return startSigningJobAsync(request, null);
@@ -349,6 +643,72 @@ public class AWSsignerAsyncClient extends AWSsignerClient implements AWSsignerAs
 
                 try {
                     result = executeStartSigningJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(final TagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+        final TagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TagResourceResult>() {
+            @Override
+            public TagResourceResult call() throws Exception {
+                TagResourceResult result = null;
+
+                try {
+                    result = executeTagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(final UntagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+        final UntagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UntagResourceResult>() {
+            @Override
+            public UntagResourceResult call() throws Exception {
+                UntagResourceResult result = null;
+
+                try {
+                    result = executeUntagResource(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

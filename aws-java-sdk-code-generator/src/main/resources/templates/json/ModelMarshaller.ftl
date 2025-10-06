@@ -1,6 +1,7 @@
 <#assign shapes = shapes/>
 <#assign metadata = metadata/>
 <#assign shapeName = shapeName/>
+<#assign shapeFqcn = shapeFqcn/>
 <#assign customConfig = customConfig/>
 <#assign shape = shapes[shapeName]/>
 
@@ -57,7 +58,7 @@ public class ${className} {
     /**
      * Marshall the given parameter object.
      */
-    public void marshall(${shapeName} ${shape.variable.variableName}, ProtocolMarshaller protocolMarshaller) {
+    public void marshall(${shapeFqcn} ${shape.variable.variableName}, ProtocolMarshaller protocolMarshaller) {
 
         if (${shape.variable.variableName} == null) {
             throw new SdkClientException("Invalid argument passed to marshall(...)");
@@ -67,9 +68,17 @@ public class ${className} {
             <#if shape.members??>
                 <#list shape.members as member>
                 <#assign getter = shape.variable.variableName + "." + member.getterMethodName + "()" />
+                <#if member.isList() && customConfig.isQueryCompatibleAutoConstructListSerialization()>
+                 if (${getter} != null && !${getter}.isEmpty()) {
+                     protocolMarshaller.marshall(
+                     ${getter},
+                     ${member.marshallerBindingFieldName});
+                 }
+                <#else>
                 protocolMarshaller.marshall(
                 ${getter},
                 ${member.marshallerBindingFieldName});
+                </#if>
                 </#list>
             </#if>
         } catch (Exception e) {

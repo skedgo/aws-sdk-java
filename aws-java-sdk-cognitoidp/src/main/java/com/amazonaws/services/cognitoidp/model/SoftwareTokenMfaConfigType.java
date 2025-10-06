@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,18 +30,18 @@ public class SoftwareTokenMfaConfigType implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Specifies whether software token MFA is enabled.
+     * Specifies whether software token MFA is activated.
      * </p>
      */
     private Boolean enabled;
 
     /**
      * <p>
-     * Specifies whether software token MFA is enabled.
+     * Specifies whether software token MFA is activated.
      * </p>
      * 
      * @param enabled
-     *        Specifies whether software token MFA is enabled.
+     *        Specifies whether software token MFA is activated.
      */
 
     public void setEnabled(Boolean enabled) {
@@ -50,10 +50,10 @@ public class SoftwareTokenMfaConfigType implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Specifies whether software token MFA is enabled.
+     * Specifies whether software token MFA is activated.
      * </p>
      * 
-     * @return Specifies whether software token MFA is enabled.
+     * @return Specifies whether software token MFA is activated.
      */
 
     public Boolean getEnabled() {
@@ -62,11 +62,11 @@ public class SoftwareTokenMfaConfigType implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Specifies whether software token MFA is enabled.
+     * Specifies whether software token MFA is activated.
      * </p>
      * 
      * @param enabled
-     *        Specifies whether software token MFA is enabled.
+     *        Specifies whether software token MFA is activated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -77,10 +77,10 @@ public class SoftwareTokenMfaConfigType implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Specifies whether software token MFA is enabled.
+     * Specifies whether software token MFA is activated.
      * </p>
      * 
-     * @return Specifies whether software token MFA is enabled.
+     * @return Specifies whether software token MFA is activated.
      */
 
     public Boolean isEnabled() {

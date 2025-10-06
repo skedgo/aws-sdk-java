@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,8 +48,12 @@ public class ServiceMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("pendingCount").build();
     private static final MarshallingInfo<String> LAUNCHTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("launchType").build();
+    private static final MarshallingInfo<List> CAPACITYPROVIDERSTRATEGY_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("capacityProviderStrategy").build();
     private static final MarshallingInfo<String> PLATFORMVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("platformVersion").build();
+    private static final MarshallingInfo<String> PLATFORMFAMILY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("platformFamily").build();
     private static final MarshallingInfo<String> TASKDEFINITION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("taskDefinition").build();
     private static final MarshallingInfo<StructuredPojo> DEPLOYMENTCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
@@ -84,6 +88,8 @@ public class ServiceMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("enableECSManagedTags").build();
     private static final MarshallingInfo<String> PROPAGATETAGS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("propagateTags").build();
+    private static final MarshallingInfo<Boolean> ENABLEEXECUTECOMMAND_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("enableExecuteCommand").build();
 
     private static final ServiceMarshaller instance = new ServiceMarshaller();
 
@@ -111,7 +117,9 @@ public class ServiceMarshaller {
             protocolMarshaller.marshall(service.getRunningCount(), RUNNINGCOUNT_BINDING);
             protocolMarshaller.marshall(service.getPendingCount(), PENDINGCOUNT_BINDING);
             protocolMarshaller.marshall(service.getLaunchType(), LAUNCHTYPE_BINDING);
+            protocolMarshaller.marshall(service.getCapacityProviderStrategy(), CAPACITYPROVIDERSTRATEGY_BINDING);
             protocolMarshaller.marshall(service.getPlatformVersion(), PLATFORMVERSION_BINDING);
+            protocolMarshaller.marshall(service.getPlatformFamily(), PLATFORMFAMILY_BINDING);
             protocolMarshaller.marshall(service.getTaskDefinition(), TASKDEFINITION_BINDING);
             protocolMarshaller.marshall(service.getDeploymentConfiguration(), DEPLOYMENTCONFIGURATION_BINDING);
             protocolMarshaller.marshall(service.getTaskSets(), TASKSETS_BINDING);
@@ -129,6 +137,7 @@ public class ServiceMarshaller {
             protocolMarshaller.marshall(service.getCreatedBy(), CREATEDBY_BINDING);
             protocolMarshaller.marshall(service.getEnableECSManagedTags(), ENABLEECSMANAGEDTAGS_BINDING);
             protocolMarshaller.marshall(service.getPropagateTags(), PROPAGATETAGS_BINDING);
+            protocolMarshaller.marshall(service.getEnableExecuteCommand(), ENABLEEXECUTECOMMAND_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -59,7 +59,12 @@ public class DescribeEndpointConfigResultJsonUnmarshaller implements Unmarshalle
                 if (context.testExpression("ProductionVariants", targetDepth)) {
                     context.nextToken();
                     describeEndpointConfigResult.setProductionVariants(new ListUnmarshaller<ProductionVariant>(ProductionVariantJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("DataCaptureConfig", targetDepth)) {
+                    context.nextToken();
+                    describeEndpointConfigResult.setDataCaptureConfig(DataCaptureConfigJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("KmsKeyId", targetDepth)) {
                     context.nextToken();
@@ -68,6 +73,33 @@ public class DescribeEndpointConfigResultJsonUnmarshaller implements Unmarshalle
                 if (context.testExpression("CreationTime", targetDepth)) {
                     context.nextToken();
                     describeEndpointConfigResult.setCreationTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("AsyncInferenceConfig", targetDepth)) {
+                    context.nextToken();
+                    describeEndpointConfigResult.setAsyncInferenceConfig(AsyncInferenceConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ExplainerConfig", targetDepth)) {
+                    context.nextToken();
+                    describeEndpointConfigResult.setExplainerConfig(ExplainerConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ShadowProductionVariants", targetDepth)) {
+                    context.nextToken();
+                    describeEndpointConfigResult.setShadowProductionVariants(new ListUnmarshaller<ProductionVariant>(ProductionVariantJsonUnmarshaller
+                            .getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("ExecutionRoleArn", targetDepth)) {
+                    context.nextToken();
+                    describeEndpointConfigResult.setExecutionRoleArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("VpcConfig", targetDepth)) {
+                    context.nextToken();
+                    describeEndpointConfigResult.setVpcConfig(VpcConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("EnableNetworkIsolation", targetDepth)) {
+                    context.nextToken();
+                    describeEndpointConfigResult.setEnableNetworkIsolation(context.getUnmarshaller(Boolean.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,8 +28,59 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates how to allocate the target capacity across the Spot pools specified by the Spot Fleet request. The
-     * default is <code>lowestPrice</code>.
+     * The strategy that determines how to allocate the target Spot Instance capacity across the Spot Instance pools
+     * specified by the Spot Fleet launch configuration. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-allocation-strategy.html">Allocation
+     * strategies for Spot Instances</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <dl>
+     * <dt>priceCapacityOptimized (recommended)</dt>
+     * <dd>
+     * <p>
+     * Spot Fleet identifies the pools with the highest capacity availability for the number of instances that are
+     * launching. This means that we will request Spot Instances from the pools that we believe have the lowest chance
+     * of interruption in the near term. Spot Fleet then requests Spot Instances from the lowest priced of these pools.
+     * </p>
+     * </dd>
+     * <dt>capacityOptimized</dt>
+     * <dd>
+     * <p>
+     * Spot Fleet identifies the pools with the highest capacity availability for the number of instances that are
+     * launching. This means that we will request Spot Instances from the pools that we believe have the lowest chance
+     * of interruption in the near term. To give certain instance types a higher chance of launching first, use
+     * <code>capacityOptimizedPrioritized</code>. Set a priority for each instance type by using the
+     * <code>Priority</code> parameter for <code>LaunchTemplateOverrides</code>. You can assign the same priority to
+     * different <code>LaunchTemplateOverrides</code>. EC2 implements the priorities on a best-effort basis, but
+     * optimizes for capacity first. <code>capacityOptimizedPrioritized</code> is supported only if your Spot Fleet uses
+     * a launch template. Note that if the <code>OnDemandAllocationStrategy</code> is set to <code>prioritized</code>,
+     * the same priority is applied when fulfilling On-Demand capacity.
+     * </p>
+     * </dd>
+     * <dt>diversified</dt>
+     * <dd>
+     * <p>
+     * Spot Fleet requests instances from all of the Spot Instance pools that you specify.
+     * </p>
+     * </dd>
+     * <dt>lowestPrice (not recommended)</dt>
+     * <dd><important>
+     * <p>
+     * We don't recommend the <code>lowestPrice</code> allocation strategy because it has the highest risk of
+     * interruption for your Spot Instances.
+     * </p>
+     * </important>
+     * <p>
+     * Spot Fleet requests instances from the lowest priced Spot Instance pool that has available capacity. If the
+     * lowest priced pool doesn't have available capacity, the Spot Instances come from the next lowest priced pool that
+     * has available capacity. If a pool runs out of capacity before fulfilling your desired capacity, Spot Fleet will
+     * continue to fulfill your request by drawing from the next lowest priced pool. To ensure that your desired
+     * capacity is met, you might receive Spot Instances from several pools. Because this strategy only considers
+     * instance price and not capacity availability, it might lead to high interruption rates.
+     * </p>
+     * </dd>
+     * </dl>
+     * <p>
+     * Default: <code>lowestPrice</code>
      * </p>
      */
     private String allocationStrategy;
@@ -45,6 +96,12 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
     private String onDemandAllocationStrategy;
     /**
      * <p>
+     * The strategies for managing your Spot Instances that are at an elevated risk of being interrupted.
+     * </p>
+     */
+    private SpotMaintenanceStrategies spotMaintenanceStrategies;
+    /**
+     * <p>
      * A unique, case-sensitive identifier that you provide to ensure the idempotency of your listings. This helps to
      * avoid duplicate listings. For more information, see <a
      * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
@@ -54,8 +111,11 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
     private String clientToken;
     /**
      * <p>
-     * Indicates whether running Spot Instances should be terminated if you decrease the target capacity of the Spot
-     * Fleet request below the current size of the Spot Fleet.
+     * Indicates whether running instances should be terminated if you decrease the target capacity of the Spot Fleet
+     * request below the current size of the Spot Fleet.
+     * </p>
+     * <p>
+     * Supported only for fleets of type <code>maintain</code>.
      * </p>
      */
     private String excessCapacityTerminationPolicy;
@@ -73,12 +133,14 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
     private Double onDemandFulfilledCapacity;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that grants the Spot Fleet the
+     * The Amazon Resource Name (ARN) of an Identity and Access Management (IAM) role that grants the Spot Fleet the
      * permission to request, launch, terminate, and tag instances on your behalf. For more information, see <a
      * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-requests.html#spot-fleet-prerequisites">Spot
-     * Fleet Prerequisites</a> in the <i>Amazon EC2 User Guide for Linux Instances</i>. Spot Fleet can terminate Spot
-     * Instances on your behalf when you cancel its Spot Fleet request using <a>CancelSpotFleetRequests</a> or when the
-     * Spot Fleet request expires, if you set <code>TerminateInstancesWithExpiration</code>.
+     * Fleet prerequisites</a> in the <i>Amazon EC2 User Guide</i>. Spot Fleet can terminate Spot Instances on your
+     * behalf when you cancel its Spot Fleet request using <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CancelSpotFleetRequests"
+     * >CancelSpotFleetRequests</a> or when the Spot Fleet request expires, if you set
+     * <code>TerminateInstancesWithExpiration</code>.
      * </p>
      */
     private String iamFleetRole;
@@ -88,6 +150,12 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
      * specify <code>LaunchTemplateConfigs</code>. If you include On-Demand capacity in your request, you must use
      * <code>LaunchTemplateConfigs</code>.
      * </p>
+     * <note>
+     * <p>
+     * If an AMI specified in a launch specification is deregistered or disabled, no new instances can be launched from
+     * the AMI. For fleets of type <code>maintain</code>, the target capacity will not be maintained.
+     * </p>
+     * </note>
      */
     private com.amazonaws.internal.SdkInternalList<SpotFleetLaunchSpecification> launchSpecifications;
     /**
@@ -100,9 +168,16 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
     private com.amazonaws.internal.SdkInternalList<LaunchTemplateConfig> launchTemplateConfigs;
     /**
      * <p>
-     * The maximum price per unit hour that you are willing to pay for a Spot Instance. The default is the On-Demand
-     * price.
+     * The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using this
+     * parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the
+     * current Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify
+     * this parameter.
+     * </p>
+     * </important>
      */
     private String spotPrice;
     /**
@@ -131,17 +206,38 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
      * amount you're willing to pay. When the maximum amount you're willing to pay is reached, the fleet stops launching
      * instances even if it hasn’t met the target capacity.
      * </p>
+     * <note>
+     * <p>
+     * If your fleet includes T instances that are configured as <code>unlimited</code>, and if their average CPU usage
+     * exceeds the baseline utilization, you will incur a charge for surplus credits. The
+     * <code>onDemandMaxTotalPrice</code> does not account for surplus credits, and, if you use surplus credits, your
+     * final cost might be higher than what you specified for <code>onDemandMaxTotalPrice</code>. For more information,
+     * see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances-unlimited-mode-concepts.html#unlimited-mode-surplus-credits"
+     * >Surplus credits can incur charges</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * </note>
      */
     private String onDemandMaxTotalPrice;
     /**
      * <p>
      * The maximum amount per hour for Spot Instances that you're willing to pay. You can use the
-     * <code>spotdMaxTotalPrice</code> parameter, the <code>onDemandMaxTotalPrice</code> parameter, or both parameters
-     * to ensure that your fleet cost does not exceed your budget. If you set a maximum price per hour for the On-Demand
+     * <code>spotMaxTotalPrice</code> parameter, the <code>onDemandMaxTotalPrice</code> parameter, or both parameters to
+     * ensure that your fleet cost does not exceed your budget. If you set a maximum price per hour for the On-Demand
      * Instances and Spot Instances in your request, Spot Fleet will launch instances until it reaches the maximum
      * amount you're willing to pay. When the maximum amount you're willing to pay is reached, the fleet stops launching
      * instances even if it hasn’t met the target capacity.
      * </p>
+     * <note>
+     * <p>
+     * If your fleet includes T instances that are configured as <code>unlimited</code>, and if their average CPU usage
+     * exceeds the baseline utilization, you will incur a charge for surplus credits. The <code>spotMaxTotalPrice</code>
+     * does not account for surplus credits, and, if you use surplus credits, your final cost might be higher than what
+     * you specified for <code>spotMaxTotalPrice</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances-unlimited-mode-concepts.html#unlimited-mode-surplus-credits"
+     * >Surplus credits can incur charges</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * </note>
      */
     private String spotMaxTotalPrice;
     /**
@@ -208,18 +304,159 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
      * <b>AllocationStrategy</b> is set to <code>lowest-price</code>. Spot Fleet selects the cheapest Spot pools and
      * evenly allocates your target Spot capacity across the number of Spot pools that you specify.
      * </p>
+     * <p>
+     * Note that Spot Fleet attempts to draw Spot Instances from the number of pools that you specify on a best effort
+     * basis. If a pool runs out of Spot capacity before fulfilling your target capacity, Spot Fleet will continue to
+     * fulfill your request by drawing from the next cheapest pool. To ensure that your target capacity is met, you
+     * might receive Spot Instances from more than the number of pools that you specified. Similarly, if most of the
+     * pools have no Spot capacity, you might receive your full target capacity from fewer than the number of pools that
+     * you specified.
+     * </p>
      */
     private Integer instancePoolsToUseCount;
+    /**
+     * <p>
+     * Reserved.
+     * </p>
+     */
+    private String context;
+    /**
+     * <p>
+     * The unit for the target capacity. You can specify this parameter only when using attribute-based instance type
+     * selection.
+     * </p>
+     * <p>
+     * Default: <code>units</code> (the number of instances)
+     * </p>
+     */
+    private String targetCapacityUnitType;
+    /**
+     * <p>
+     * The key-value pair for tagging the Spot Fleet request on creation. The value for <code>ResourceType</code> must
+     * be <code>spot-fleet-request</code>, otherwise the Spot Fleet request fails. To tag instances at launch, specify
+     * the tags in the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#create-launch-template"
+     * >launch template</a> (valid only if you use <code>LaunchTemplateConfigs</code>) or in the
+     * <code> <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetTagSpecification.html">SpotFleetTagSpecification</a> </code>
+     * (valid only if you use <code>LaunchSpecifications</code>). For information about tagging after launch, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-resources">Tag your resources</a>.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<TagSpecification> tagSpecifications;
 
     /**
      * <p>
-     * Indicates how to allocate the target capacity across the Spot pools specified by the Spot Fleet request. The
-     * default is <code>lowestPrice</code>.
+     * The strategy that determines how to allocate the target Spot Instance capacity across the Spot Instance pools
+     * specified by the Spot Fleet launch configuration. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-allocation-strategy.html">Allocation
+     * strategies for Spot Instances</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <dl>
+     * <dt>priceCapacityOptimized (recommended)</dt>
+     * <dd>
+     * <p>
+     * Spot Fleet identifies the pools with the highest capacity availability for the number of instances that are
+     * launching. This means that we will request Spot Instances from the pools that we believe have the lowest chance
+     * of interruption in the near term. Spot Fleet then requests Spot Instances from the lowest priced of these pools.
+     * </p>
+     * </dd>
+     * <dt>capacityOptimized</dt>
+     * <dd>
+     * <p>
+     * Spot Fleet identifies the pools with the highest capacity availability for the number of instances that are
+     * launching. This means that we will request Spot Instances from the pools that we believe have the lowest chance
+     * of interruption in the near term. To give certain instance types a higher chance of launching first, use
+     * <code>capacityOptimizedPrioritized</code>. Set a priority for each instance type by using the
+     * <code>Priority</code> parameter for <code>LaunchTemplateOverrides</code>. You can assign the same priority to
+     * different <code>LaunchTemplateOverrides</code>. EC2 implements the priorities on a best-effort basis, but
+     * optimizes for capacity first. <code>capacityOptimizedPrioritized</code> is supported only if your Spot Fleet uses
+     * a launch template. Note that if the <code>OnDemandAllocationStrategy</code> is set to <code>prioritized</code>,
+     * the same priority is applied when fulfilling On-Demand capacity.
+     * </p>
+     * </dd>
+     * <dt>diversified</dt>
+     * <dd>
+     * <p>
+     * Spot Fleet requests instances from all of the Spot Instance pools that you specify.
+     * </p>
+     * </dd>
+     * <dt>lowestPrice (not recommended)</dt>
+     * <dd><important>
+     * <p>
+     * We don't recommend the <code>lowestPrice</code> allocation strategy because it has the highest risk of
+     * interruption for your Spot Instances.
+     * </p>
+     * </important>
+     * <p>
+     * Spot Fleet requests instances from the lowest priced Spot Instance pool that has available capacity. If the
+     * lowest priced pool doesn't have available capacity, the Spot Instances come from the next lowest priced pool that
+     * has available capacity. If a pool runs out of capacity before fulfilling your desired capacity, Spot Fleet will
+     * continue to fulfill your request by drawing from the next lowest priced pool. To ensure that your desired
+     * capacity is met, you might receive Spot Instances from several pools. Because this strategy only considers
+     * instance price and not capacity availability, it might lead to high interruption rates.
+     * </p>
+     * </dd>
+     * </dl>
+     * <p>
+     * Default: <code>lowestPrice</code>
      * </p>
      * 
      * @param allocationStrategy
-     *        Indicates how to allocate the target capacity across the Spot pools specified by the Spot Fleet request.
-     *        The default is <code>lowestPrice</code>.
+     *        The strategy that determines how to allocate the target Spot Instance capacity across the Spot Instance
+     *        pools specified by the Spot Fleet launch configuration. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-allocation-strategy.html">Allocation
+     *        strategies for Spot Instances</a> in the <i>Amazon EC2 User Guide</i>.</p>
+     *        <dl>
+     *        <dt>priceCapacityOptimized (recommended)</dt>
+     *        <dd>
+     *        <p>
+     *        Spot Fleet identifies the pools with the highest capacity availability for the number of instances that
+     *        are launching. This means that we will request Spot Instances from the pools that we believe have the
+     *        lowest chance of interruption in the near term. Spot Fleet then requests Spot Instances from the lowest
+     *        priced of these pools.
+     *        </p>
+     *        </dd>
+     *        <dt>capacityOptimized</dt>
+     *        <dd>
+     *        <p>
+     *        Spot Fleet identifies the pools with the highest capacity availability for the number of instances that
+     *        are launching. This means that we will request Spot Instances from the pools that we believe have the
+     *        lowest chance of interruption in the near term. To give certain instance types a higher chance of
+     *        launching first, use <code>capacityOptimizedPrioritized</code>. Set a priority for each instance type by
+     *        using the <code>Priority</code> parameter for <code>LaunchTemplateOverrides</code>. You can assign the
+     *        same priority to different <code>LaunchTemplateOverrides</code>. EC2 implements the priorities on a
+     *        best-effort basis, but optimizes for capacity first. <code>capacityOptimizedPrioritized</code> is
+     *        supported only if your Spot Fleet uses a launch template. Note that if the
+     *        <code>OnDemandAllocationStrategy</code> is set to <code>prioritized</code>, the same priority is applied
+     *        when fulfilling On-Demand capacity.
+     *        </p>
+     *        </dd>
+     *        <dt>diversified</dt>
+     *        <dd>
+     *        <p>
+     *        Spot Fleet requests instances from all of the Spot Instance pools that you specify.
+     *        </p>
+     *        </dd>
+     *        <dt>lowestPrice (not recommended)</dt>
+     *        <dd><important>
+     *        <p>
+     *        We don't recommend the <code>lowestPrice</code> allocation strategy because it has the highest risk of
+     *        interruption for your Spot Instances.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        Spot Fleet requests instances from the lowest priced Spot Instance pool that has available capacity. If
+     *        the lowest priced pool doesn't have available capacity, the Spot Instances come from the next lowest
+     *        priced pool that has available capacity. If a pool runs out of capacity before fulfilling your desired
+     *        capacity, Spot Fleet will continue to fulfill your request by drawing from the next lowest priced pool. To
+     *        ensure that your desired capacity is met, you might receive Spot Instances from several pools. Because
+     *        this strategy only considers instance price and not capacity availability, it might lead to high
+     *        interruption rates.
+     *        </p>
+     *        </dd>
+     *        </dl>
+     *        <p>
+     *        Default: <code>lowestPrice</code>
      * @see AllocationStrategy
      */
 
@@ -229,12 +466,116 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates how to allocate the target capacity across the Spot pools specified by the Spot Fleet request. The
-     * default is <code>lowestPrice</code>.
+     * The strategy that determines how to allocate the target Spot Instance capacity across the Spot Instance pools
+     * specified by the Spot Fleet launch configuration. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-allocation-strategy.html">Allocation
+     * strategies for Spot Instances</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <dl>
+     * <dt>priceCapacityOptimized (recommended)</dt>
+     * <dd>
+     * <p>
+     * Spot Fleet identifies the pools with the highest capacity availability for the number of instances that are
+     * launching. This means that we will request Spot Instances from the pools that we believe have the lowest chance
+     * of interruption in the near term. Spot Fleet then requests Spot Instances from the lowest priced of these pools.
+     * </p>
+     * </dd>
+     * <dt>capacityOptimized</dt>
+     * <dd>
+     * <p>
+     * Spot Fleet identifies the pools with the highest capacity availability for the number of instances that are
+     * launching. This means that we will request Spot Instances from the pools that we believe have the lowest chance
+     * of interruption in the near term. To give certain instance types a higher chance of launching first, use
+     * <code>capacityOptimizedPrioritized</code>. Set a priority for each instance type by using the
+     * <code>Priority</code> parameter for <code>LaunchTemplateOverrides</code>. You can assign the same priority to
+     * different <code>LaunchTemplateOverrides</code>. EC2 implements the priorities on a best-effort basis, but
+     * optimizes for capacity first. <code>capacityOptimizedPrioritized</code> is supported only if your Spot Fleet uses
+     * a launch template. Note that if the <code>OnDemandAllocationStrategy</code> is set to <code>prioritized</code>,
+     * the same priority is applied when fulfilling On-Demand capacity.
+     * </p>
+     * </dd>
+     * <dt>diversified</dt>
+     * <dd>
+     * <p>
+     * Spot Fleet requests instances from all of the Spot Instance pools that you specify.
+     * </p>
+     * </dd>
+     * <dt>lowestPrice (not recommended)</dt>
+     * <dd><important>
+     * <p>
+     * We don't recommend the <code>lowestPrice</code> allocation strategy because it has the highest risk of
+     * interruption for your Spot Instances.
+     * </p>
+     * </important>
+     * <p>
+     * Spot Fleet requests instances from the lowest priced Spot Instance pool that has available capacity. If the
+     * lowest priced pool doesn't have available capacity, the Spot Instances come from the next lowest priced pool that
+     * has available capacity. If a pool runs out of capacity before fulfilling your desired capacity, Spot Fleet will
+     * continue to fulfill your request by drawing from the next lowest priced pool. To ensure that your desired
+     * capacity is met, you might receive Spot Instances from several pools. Because this strategy only considers
+     * instance price and not capacity availability, it might lead to high interruption rates.
+     * </p>
+     * </dd>
+     * </dl>
+     * <p>
+     * Default: <code>lowestPrice</code>
      * </p>
      * 
-     * @return Indicates how to allocate the target capacity across the Spot pools specified by the Spot Fleet request.
-     *         The default is <code>lowestPrice</code>.
+     * @return The strategy that determines how to allocate the target Spot Instance capacity across the Spot Instance
+     *         pools specified by the Spot Fleet launch configuration. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-allocation-strategy.html">Allocation
+     *         strategies for Spot Instances</a> in the <i>Amazon EC2 User Guide</i>.</p>
+     *         <dl>
+     *         <dt>priceCapacityOptimized (recommended)</dt>
+     *         <dd>
+     *         <p>
+     *         Spot Fleet identifies the pools with the highest capacity availability for the number of instances that
+     *         are launching. This means that we will request Spot Instances from the pools that we believe have the
+     *         lowest chance of interruption in the near term. Spot Fleet then requests Spot Instances from the lowest
+     *         priced of these pools.
+     *         </p>
+     *         </dd>
+     *         <dt>capacityOptimized</dt>
+     *         <dd>
+     *         <p>
+     *         Spot Fleet identifies the pools with the highest capacity availability for the number of instances that
+     *         are launching. This means that we will request Spot Instances from the pools that we believe have the
+     *         lowest chance of interruption in the near term. To give certain instance types a higher chance of
+     *         launching first, use <code>capacityOptimizedPrioritized</code>. Set a priority for each instance type by
+     *         using the <code>Priority</code> parameter for <code>LaunchTemplateOverrides</code>. You can assign the
+     *         same priority to different <code>LaunchTemplateOverrides</code>. EC2 implements the priorities on a
+     *         best-effort basis, but optimizes for capacity first. <code>capacityOptimizedPrioritized</code> is
+     *         supported only if your Spot Fleet uses a launch template. Note that if the
+     *         <code>OnDemandAllocationStrategy</code> is set to <code>prioritized</code>, the same priority is applied
+     *         when fulfilling On-Demand capacity.
+     *         </p>
+     *         </dd>
+     *         <dt>diversified</dt>
+     *         <dd>
+     *         <p>
+     *         Spot Fleet requests instances from all of the Spot Instance pools that you specify.
+     *         </p>
+     *         </dd>
+     *         <dt>lowestPrice (not recommended)</dt>
+     *         <dd><important>
+     *         <p>
+     *         We don't recommend the <code>lowestPrice</code> allocation strategy because it has the highest risk of
+     *         interruption for your Spot Instances.
+     *         </p>
+     *         </important>
+     *         <p>
+     *         Spot Fleet requests instances from the lowest priced Spot Instance pool that has available capacity. If
+     *         the lowest priced pool doesn't have available capacity, the Spot Instances come from the next lowest
+     *         priced pool that has available capacity. If a pool runs out of capacity before fulfilling your desired
+     *         capacity, Spot Fleet will continue to fulfill your request by drawing from the next lowest priced pool.
+     *         To ensure that your desired capacity is met, you might receive Spot Instances from several pools. Because
+     *         this strategy only considers instance price and not capacity availability, it might lead to high
+     *         interruption rates.
+     *         </p>
+     *         </dd>
+     *         </dl>
+     *         <p>
+     *         Default: <code>lowestPrice</code>
      * @see AllocationStrategy
      */
 
@@ -244,13 +585,117 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates how to allocate the target capacity across the Spot pools specified by the Spot Fleet request. The
-     * default is <code>lowestPrice</code>.
+     * The strategy that determines how to allocate the target Spot Instance capacity across the Spot Instance pools
+     * specified by the Spot Fleet launch configuration. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-allocation-strategy.html">Allocation
+     * strategies for Spot Instances</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <dl>
+     * <dt>priceCapacityOptimized (recommended)</dt>
+     * <dd>
+     * <p>
+     * Spot Fleet identifies the pools with the highest capacity availability for the number of instances that are
+     * launching. This means that we will request Spot Instances from the pools that we believe have the lowest chance
+     * of interruption in the near term. Spot Fleet then requests Spot Instances from the lowest priced of these pools.
+     * </p>
+     * </dd>
+     * <dt>capacityOptimized</dt>
+     * <dd>
+     * <p>
+     * Spot Fleet identifies the pools with the highest capacity availability for the number of instances that are
+     * launching. This means that we will request Spot Instances from the pools that we believe have the lowest chance
+     * of interruption in the near term. To give certain instance types a higher chance of launching first, use
+     * <code>capacityOptimizedPrioritized</code>. Set a priority for each instance type by using the
+     * <code>Priority</code> parameter for <code>LaunchTemplateOverrides</code>. You can assign the same priority to
+     * different <code>LaunchTemplateOverrides</code>. EC2 implements the priorities on a best-effort basis, but
+     * optimizes for capacity first. <code>capacityOptimizedPrioritized</code> is supported only if your Spot Fleet uses
+     * a launch template. Note that if the <code>OnDemandAllocationStrategy</code> is set to <code>prioritized</code>,
+     * the same priority is applied when fulfilling On-Demand capacity.
+     * </p>
+     * </dd>
+     * <dt>diversified</dt>
+     * <dd>
+     * <p>
+     * Spot Fleet requests instances from all of the Spot Instance pools that you specify.
+     * </p>
+     * </dd>
+     * <dt>lowestPrice (not recommended)</dt>
+     * <dd><important>
+     * <p>
+     * We don't recommend the <code>lowestPrice</code> allocation strategy because it has the highest risk of
+     * interruption for your Spot Instances.
+     * </p>
+     * </important>
+     * <p>
+     * Spot Fleet requests instances from the lowest priced Spot Instance pool that has available capacity. If the
+     * lowest priced pool doesn't have available capacity, the Spot Instances come from the next lowest priced pool that
+     * has available capacity. If a pool runs out of capacity before fulfilling your desired capacity, Spot Fleet will
+     * continue to fulfill your request by drawing from the next lowest priced pool. To ensure that your desired
+     * capacity is met, you might receive Spot Instances from several pools. Because this strategy only considers
+     * instance price and not capacity availability, it might lead to high interruption rates.
+     * </p>
+     * </dd>
+     * </dl>
+     * <p>
+     * Default: <code>lowestPrice</code>
      * </p>
      * 
      * @param allocationStrategy
-     *        Indicates how to allocate the target capacity across the Spot pools specified by the Spot Fleet request.
-     *        The default is <code>lowestPrice</code>.
+     *        The strategy that determines how to allocate the target Spot Instance capacity across the Spot Instance
+     *        pools specified by the Spot Fleet launch configuration. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-allocation-strategy.html">Allocation
+     *        strategies for Spot Instances</a> in the <i>Amazon EC2 User Guide</i>.</p>
+     *        <dl>
+     *        <dt>priceCapacityOptimized (recommended)</dt>
+     *        <dd>
+     *        <p>
+     *        Spot Fleet identifies the pools with the highest capacity availability for the number of instances that
+     *        are launching. This means that we will request Spot Instances from the pools that we believe have the
+     *        lowest chance of interruption in the near term. Spot Fleet then requests Spot Instances from the lowest
+     *        priced of these pools.
+     *        </p>
+     *        </dd>
+     *        <dt>capacityOptimized</dt>
+     *        <dd>
+     *        <p>
+     *        Spot Fleet identifies the pools with the highest capacity availability for the number of instances that
+     *        are launching. This means that we will request Spot Instances from the pools that we believe have the
+     *        lowest chance of interruption in the near term. To give certain instance types a higher chance of
+     *        launching first, use <code>capacityOptimizedPrioritized</code>. Set a priority for each instance type by
+     *        using the <code>Priority</code> parameter for <code>LaunchTemplateOverrides</code>. You can assign the
+     *        same priority to different <code>LaunchTemplateOverrides</code>. EC2 implements the priorities on a
+     *        best-effort basis, but optimizes for capacity first. <code>capacityOptimizedPrioritized</code> is
+     *        supported only if your Spot Fleet uses a launch template. Note that if the
+     *        <code>OnDemandAllocationStrategy</code> is set to <code>prioritized</code>, the same priority is applied
+     *        when fulfilling On-Demand capacity.
+     *        </p>
+     *        </dd>
+     *        <dt>diversified</dt>
+     *        <dd>
+     *        <p>
+     *        Spot Fleet requests instances from all of the Spot Instance pools that you specify.
+     *        </p>
+     *        </dd>
+     *        <dt>lowestPrice (not recommended)</dt>
+     *        <dd><important>
+     *        <p>
+     *        We don't recommend the <code>lowestPrice</code> allocation strategy because it has the highest risk of
+     *        interruption for your Spot Instances.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        Spot Fleet requests instances from the lowest priced Spot Instance pool that has available capacity. If
+     *        the lowest priced pool doesn't have available capacity, the Spot Instances come from the next lowest
+     *        priced pool that has available capacity. If a pool runs out of capacity before fulfilling your desired
+     *        capacity, Spot Fleet will continue to fulfill your request by drawing from the next lowest priced pool. To
+     *        ensure that your desired capacity is met, you might receive Spot Instances from several pools. Because
+     *        this strategy only considers instance price and not capacity availability, it might lead to high
+     *        interruption rates.
+     *        </p>
+     *        </dd>
+     *        </dl>
+     *        <p>
+     *        Default: <code>lowestPrice</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AllocationStrategy
      */
@@ -262,13 +707,117 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates how to allocate the target capacity across the Spot pools specified by the Spot Fleet request. The
-     * default is <code>lowestPrice</code>.
+     * The strategy that determines how to allocate the target Spot Instance capacity across the Spot Instance pools
+     * specified by the Spot Fleet launch configuration. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-allocation-strategy.html">Allocation
+     * strategies for Spot Instances</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <dl>
+     * <dt>priceCapacityOptimized (recommended)</dt>
+     * <dd>
+     * <p>
+     * Spot Fleet identifies the pools with the highest capacity availability for the number of instances that are
+     * launching. This means that we will request Spot Instances from the pools that we believe have the lowest chance
+     * of interruption in the near term. Spot Fleet then requests Spot Instances from the lowest priced of these pools.
+     * </p>
+     * </dd>
+     * <dt>capacityOptimized</dt>
+     * <dd>
+     * <p>
+     * Spot Fleet identifies the pools with the highest capacity availability for the number of instances that are
+     * launching. This means that we will request Spot Instances from the pools that we believe have the lowest chance
+     * of interruption in the near term. To give certain instance types a higher chance of launching first, use
+     * <code>capacityOptimizedPrioritized</code>. Set a priority for each instance type by using the
+     * <code>Priority</code> parameter for <code>LaunchTemplateOverrides</code>. You can assign the same priority to
+     * different <code>LaunchTemplateOverrides</code>. EC2 implements the priorities on a best-effort basis, but
+     * optimizes for capacity first. <code>capacityOptimizedPrioritized</code> is supported only if your Spot Fleet uses
+     * a launch template. Note that if the <code>OnDemandAllocationStrategy</code> is set to <code>prioritized</code>,
+     * the same priority is applied when fulfilling On-Demand capacity.
+     * </p>
+     * </dd>
+     * <dt>diversified</dt>
+     * <dd>
+     * <p>
+     * Spot Fleet requests instances from all of the Spot Instance pools that you specify.
+     * </p>
+     * </dd>
+     * <dt>lowestPrice (not recommended)</dt>
+     * <dd><important>
+     * <p>
+     * We don't recommend the <code>lowestPrice</code> allocation strategy because it has the highest risk of
+     * interruption for your Spot Instances.
+     * </p>
+     * </important>
+     * <p>
+     * Spot Fleet requests instances from the lowest priced Spot Instance pool that has available capacity. If the
+     * lowest priced pool doesn't have available capacity, the Spot Instances come from the next lowest priced pool that
+     * has available capacity. If a pool runs out of capacity before fulfilling your desired capacity, Spot Fleet will
+     * continue to fulfill your request by drawing from the next lowest priced pool. To ensure that your desired
+     * capacity is met, you might receive Spot Instances from several pools. Because this strategy only considers
+     * instance price and not capacity availability, it might lead to high interruption rates.
+     * </p>
+     * </dd>
+     * </dl>
+     * <p>
+     * Default: <code>lowestPrice</code>
      * </p>
      * 
      * @param allocationStrategy
-     *        Indicates how to allocate the target capacity across the Spot pools specified by the Spot Fleet request.
-     *        The default is <code>lowestPrice</code>.
+     *        The strategy that determines how to allocate the target Spot Instance capacity across the Spot Instance
+     *        pools specified by the Spot Fleet launch configuration. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-allocation-strategy.html">Allocation
+     *        strategies for Spot Instances</a> in the <i>Amazon EC2 User Guide</i>.</p>
+     *        <dl>
+     *        <dt>priceCapacityOptimized (recommended)</dt>
+     *        <dd>
+     *        <p>
+     *        Spot Fleet identifies the pools with the highest capacity availability for the number of instances that
+     *        are launching. This means that we will request Spot Instances from the pools that we believe have the
+     *        lowest chance of interruption in the near term. Spot Fleet then requests Spot Instances from the lowest
+     *        priced of these pools.
+     *        </p>
+     *        </dd>
+     *        <dt>capacityOptimized</dt>
+     *        <dd>
+     *        <p>
+     *        Spot Fleet identifies the pools with the highest capacity availability for the number of instances that
+     *        are launching. This means that we will request Spot Instances from the pools that we believe have the
+     *        lowest chance of interruption in the near term. To give certain instance types a higher chance of
+     *        launching first, use <code>capacityOptimizedPrioritized</code>. Set a priority for each instance type by
+     *        using the <code>Priority</code> parameter for <code>LaunchTemplateOverrides</code>. You can assign the
+     *        same priority to different <code>LaunchTemplateOverrides</code>. EC2 implements the priorities on a
+     *        best-effort basis, but optimizes for capacity first. <code>capacityOptimizedPrioritized</code> is
+     *        supported only if your Spot Fleet uses a launch template. Note that if the
+     *        <code>OnDemandAllocationStrategy</code> is set to <code>prioritized</code>, the same priority is applied
+     *        when fulfilling On-Demand capacity.
+     *        </p>
+     *        </dd>
+     *        <dt>diversified</dt>
+     *        <dd>
+     *        <p>
+     *        Spot Fleet requests instances from all of the Spot Instance pools that you specify.
+     *        </p>
+     *        </dd>
+     *        <dt>lowestPrice (not recommended)</dt>
+     *        <dd><important>
+     *        <p>
+     *        We don't recommend the <code>lowestPrice</code> allocation strategy because it has the highest risk of
+     *        interruption for your Spot Instances.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        Spot Fleet requests instances from the lowest priced Spot Instance pool that has available capacity. If
+     *        the lowest priced pool doesn't have available capacity, the Spot Instances come from the next lowest
+     *        priced pool that has available capacity. If a pool runs out of capacity before fulfilling your desired
+     *        capacity, Spot Fleet will continue to fulfill your request by drawing from the next lowest priced pool. To
+     *        ensure that your desired capacity is met, you might receive Spot Instances from several pools. Because
+     *        this strategy only considers instance price and not capacity availability, it might lead to high
+     *        interruption rates.
+     *        </p>
+     *        </dd>
+     *        </dl>
+     *        <p>
+     *        Default: <code>lowestPrice</code>
      * @see AllocationStrategy
      */
 
@@ -278,13 +827,117 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates how to allocate the target capacity across the Spot pools specified by the Spot Fleet request. The
-     * default is <code>lowestPrice</code>.
+     * The strategy that determines how to allocate the target Spot Instance capacity across the Spot Instance pools
+     * specified by the Spot Fleet launch configuration. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-allocation-strategy.html">Allocation
+     * strategies for Spot Instances</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <dl>
+     * <dt>priceCapacityOptimized (recommended)</dt>
+     * <dd>
+     * <p>
+     * Spot Fleet identifies the pools with the highest capacity availability for the number of instances that are
+     * launching. This means that we will request Spot Instances from the pools that we believe have the lowest chance
+     * of interruption in the near term. Spot Fleet then requests Spot Instances from the lowest priced of these pools.
+     * </p>
+     * </dd>
+     * <dt>capacityOptimized</dt>
+     * <dd>
+     * <p>
+     * Spot Fleet identifies the pools with the highest capacity availability for the number of instances that are
+     * launching. This means that we will request Spot Instances from the pools that we believe have the lowest chance
+     * of interruption in the near term. To give certain instance types a higher chance of launching first, use
+     * <code>capacityOptimizedPrioritized</code>. Set a priority for each instance type by using the
+     * <code>Priority</code> parameter for <code>LaunchTemplateOverrides</code>. You can assign the same priority to
+     * different <code>LaunchTemplateOverrides</code>. EC2 implements the priorities on a best-effort basis, but
+     * optimizes for capacity first. <code>capacityOptimizedPrioritized</code> is supported only if your Spot Fleet uses
+     * a launch template. Note that if the <code>OnDemandAllocationStrategy</code> is set to <code>prioritized</code>,
+     * the same priority is applied when fulfilling On-Demand capacity.
+     * </p>
+     * </dd>
+     * <dt>diversified</dt>
+     * <dd>
+     * <p>
+     * Spot Fleet requests instances from all of the Spot Instance pools that you specify.
+     * </p>
+     * </dd>
+     * <dt>lowestPrice (not recommended)</dt>
+     * <dd><important>
+     * <p>
+     * We don't recommend the <code>lowestPrice</code> allocation strategy because it has the highest risk of
+     * interruption for your Spot Instances.
+     * </p>
+     * </important>
+     * <p>
+     * Spot Fleet requests instances from the lowest priced Spot Instance pool that has available capacity. If the
+     * lowest priced pool doesn't have available capacity, the Spot Instances come from the next lowest priced pool that
+     * has available capacity. If a pool runs out of capacity before fulfilling your desired capacity, Spot Fleet will
+     * continue to fulfill your request by drawing from the next lowest priced pool. To ensure that your desired
+     * capacity is met, you might receive Spot Instances from several pools. Because this strategy only considers
+     * instance price and not capacity availability, it might lead to high interruption rates.
+     * </p>
+     * </dd>
+     * </dl>
+     * <p>
+     * Default: <code>lowestPrice</code>
      * </p>
      * 
      * @param allocationStrategy
-     *        Indicates how to allocate the target capacity across the Spot pools specified by the Spot Fleet request.
-     *        The default is <code>lowestPrice</code>.
+     *        The strategy that determines how to allocate the target Spot Instance capacity across the Spot Instance
+     *        pools specified by the Spot Fleet launch configuration. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-allocation-strategy.html">Allocation
+     *        strategies for Spot Instances</a> in the <i>Amazon EC2 User Guide</i>.</p>
+     *        <dl>
+     *        <dt>priceCapacityOptimized (recommended)</dt>
+     *        <dd>
+     *        <p>
+     *        Spot Fleet identifies the pools with the highest capacity availability for the number of instances that
+     *        are launching. This means that we will request Spot Instances from the pools that we believe have the
+     *        lowest chance of interruption in the near term. Spot Fleet then requests Spot Instances from the lowest
+     *        priced of these pools.
+     *        </p>
+     *        </dd>
+     *        <dt>capacityOptimized</dt>
+     *        <dd>
+     *        <p>
+     *        Spot Fleet identifies the pools with the highest capacity availability for the number of instances that
+     *        are launching. This means that we will request Spot Instances from the pools that we believe have the
+     *        lowest chance of interruption in the near term. To give certain instance types a higher chance of
+     *        launching first, use <code>capacityOptimizedPrioritized</code>. Set a priority for each instance type by
+     *        using the <code>Priority</code> parameter for <code>LaunchTemplateOverrides</code>. You can assign the
+     *        same priority to different <code>LaunchTemplateOverrides</code>. EC2 implements the priorities on a
+     *        best-effort basis, but optimizes for capacity first. <code>capacityOptimizedPrioritized</code> is
+     *        supported only if your Spot Fleet uses a launch template. Note that if the
+     *        <code>OnDemandAllocationStrategy</code> is set to <code>prioritized</code>, the same priority is applied
+     *        when fulfilling On-Demand capacity.
+     *        </p>
+     *        </dd>
+     *        <dt>diversified</dt>
+     *        <dd>
+     *        <p>
+     *        Spot Fleet requests instances from all of the Spot Instance pools that you specify.
+     *        </p>
+     *        </dd>
+     *        <dt>lowestPrice (not recommended)</dt>
+     *        <dd><important>
+     *        <p>
+     *        We don't recommend the <code>lowestPrice</code> allocation strategy because it has the highest risk of
+     *        interruption for your Spot Instances.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        Spot Fleet requests instances from the lowest priced Spot Instance pool that has available capacity. If
+     *        the lowest priced pool doesn't have available capacity, the Spot Instances come from the next lowest
+     *        priced pool that has available capacity. If a pool runs out of capacity before fulfilling your desired
+     *        capacity, Spot Fleet will continue to fulfill your request by drawing from the next lowest priced pool. To
+     *        ensure that your desired capacity is met, you might receive Spot Instances from several pools. Because
+     *        this strategy only considers instance price and not capacity availability, it might lead to high
+     *        interruption rates.
+     *        </p>
+     *        </dd>
+     *        </dl>
+     *        <p>
+     *        Default: <code>lowestPrice</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AllocationStrategy
      */
@@ -409,6 +1062,46 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
 
     /**
      * <p>
+     * The strategies for managing your Spot Instances that are at an elevated risk of being interrupted.
+     * </p>
+     * 
+     * @param spotMaintenanceStrategies
+     *        The strategies for managing your Spot Instances that are at an elevated risk of being interrupted.
+     */
+
+    public void setSpotMaintenanceStrategies(SpotMaintenanceStrategies spotMaintenanceStrategies) {
+        this.spotMaintenanceStrategies = spotMaintenanceStrategies;
+    }
+
+    /**
+     * <p>
+     * The strategies for managing your Spot Instances that are at an elevated risk of being interrupted.
+     * </p>
+     * 
+     * @return The strategies for managing your Spot Instances that are at an elevated risk of being interrupted.
+     */
+
+    public SpotMaintenanceStrategies getSpotMaintenanceStrategies() {
+        return this.spotMaintenanceStrategies;
+    }
+
+    /**
+     * <p>
+     * The strategies for managing your Spot Instances that are at an elevated risk of being interrupted.
+     * </p>
+     * 
+     * @param spotMaintenanceStrategies
+     *        The strategies for managing your Spot Instances that are at an elevated risk of being interrupted.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SpotFleetRequestConfigData withSpotMaintenanceStrategies(SpotMaintenanceStrategies spotMaintenanceStrategies) {
+        setSpotMaintenanceStrategies(spotMaintenanceStrategies);
+        return this;
+    }
+
+    /**
+     * <p>
      * A unique, case-sensitive identifier that you provide to ensure the idempotency of your listings. This helps to
      * avoid duplicate listings. For more information, see <a
      * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
@@ -467,13 +1160,18 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether running Spot Instances should be terminated if you decrease the target capacity of the Spot
-     * Fleet request below the current size of the Spot Fleet.
+     * Indicates whether running instances should be terminated if you decrease the target capacity of the Spot Fleet
+     * request below the current size of the Spot Fleet.
+     * </p>
+     * <p>
+     * Supported only for fleets of type <code>maintain</code>.
      * </p>
      * 
      * @param excessCapacityTerminationPolicy
-     *        Indicates whether running Spot Instances should be terminated if you decrease the target capacity of the
-     *        Spot Fleet request below the current size of the Spot Fleet.
+     *        Indicates whether running instances should be terminated if you decrease the target capacity of the Spot
+     *        Fleet request below the current size of the Spot Fleet.</p>
+     *        <p>
+     *        Supported only for fleets of type <code>maintain</code>.
      * @see ExcessCapacityTerminationPolicy
      */
 
@@ -483,12 +1181,17 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether running Spot Instances should be terminated if you decrease the target capacity of the Spot
-     * Fleet request below the current size of the Spot Fleet.
+     * Indicates whether running instances should be terminated if you decrease the target capacity of the Spot Fleet
+     * request below the current size of the Spot Fleet.
+     * </p>
+     * <p>
+     * Supported only for fleets of type <code>maintain</code>.
      * </p>
      * 
-     * @return Indicates whether running Spot Instances should be terminated if you decrease the target capacity of the
-     *         Spot Fleet request below the current size of the Spot Fleet.
+     * @return Indicates whether running instances should be terminated if you decrease the target capacity of the Spot
+     *         Fleet request below the current size of the Spot Fleet.</p>
+     *         <p>
+     *         Supported only for fleets of type <code>maintain</code>.
      * @see ExcessCapacityTerminationPolicy
      */
 
@@ -498,13 +1201,18 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether running Spot Instances should be terminated if you decrease the target capacity of the Spot
-     * Fleet request below the current size of the Spot Fleet.
+     * Indicates whether running instances should be terminated if you decrease the target capacity of the Spot Fleet
+     * request below the current size of the Spot Fleet.
+     * </p>
+     * <p>
+     * Supported only for fleets of type <code>maintain</code>.
      * </p>
      * 
      * @param excessCapacityTerminationPolicy
-     *        Indicates whether running Spot Instances should be terminated if you decrease the target capacity of the
-     *        Spot Fleet request below the current size of the Spot Fleet.
+     *        Indicates whether running instances should be terminated if you decrease the target capacity of the Spot
+     *        Fleet request below the current size of the Spot Fleet.</p>
+     *        <p>
+     *        Supported only for fleets of type <code>maintain</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ExcessCapacityTerminationPolicy
      */
@@ -516,13 +1224,18 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether running Spot Instances should be terminated if you decrease the target capacity of the Spot
-     * Fleet request below the current size of the Spot Fleet.
+     * Indicates whether running instances should be terminated if you decrease the target capacity of the Spot Fleet
+     * request below the current size of the Spot Fleet.
+     * </p>
+     * <p>
+     * Supported only for fleets of type <code>maintain</code>.
      * </p>
      * 
      * @param excessCapacityTerminationPolicy
-     *        Indicates whether running Spot Instances should be terminated if you decrease the target capacity of the
-     *        Spot Fleet request below the current size of the Spot Fleet.
+     *        Indicates whether running instances should be terminated if you decrease the target capacity of the Spot
+     *        Fleet request below the current size of the Spot Fleet.</p>
+     *        <p>
+     *        Supported only for fleets of type <code>maintain</code>.
      * @see ExcessCapacityTerminationPolicy
      */
 
@@ -532,13 +1245,18 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether running Spot Instances should be terminated if you decrease the target capacity of the Spot
-     * Fleet request below the current size of the Spot Fleet.
+     * Indicates whether running instances should be terminated if you decrease the target capacity of the Spot Fleet
+     * request below the current size of the Spot Fleet.
+     * </p>
+     * <p>
+     * Supported only for fleets of type <code>maintain</code>.
      * </p>
      * 
      * @param excessCapacityTerminationPolicy
-     *        Indicates whether running Spot Instances should be terminated if you decrease the target capacity of the
-     *        Spot Fleet request below the current size of the Spot Fleet.
+     *        Indicates whether running instances should be terminated if you decrease the target capacity of the Spot
+     *        Fleet request below the current size of the Spot Fleet.</p>
+     *        <p>
+     *        Supported only for fleets of type <code>maintain</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ExcessCapacityTerminationPolicy
      */
@@ -633,22 +1351,25 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that grants the Spot Fleet the
+     * The Amazon Resource Name (ARN) of an Identity and Access Management (IAM) role that grants the Spot Fleet the
      * permission to request, launch, terminate, and tag instances on your behalf. For more information, see <a
      * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-requests.html#spot-fleet-prerequisites">Spot
-     * Fleet Prerequisites</a> in the <i>Amazon EC2 User Guide for Linux Instances</i>. Spot Fleet can terminate Spot
-     * Instances on your behalf when you cancel its Spot Fleet request using <a>CancelSpotFleetRequests</a> or when the
-     * Spot Fleet request expires, if you set <code>TerminateInstancesWithExpiration</code>.
+     * Fleet prerequisites</a> in the <i>Amazon EC2 User Guide</i>. Spot Fleet can terminate Spot Instances on your
+     * behalf when you cancel its Spot Fleet request using <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CancelSpotFleetRequests"
+     * >CancelSpotFleetRequests</a> or when the Spot Fleet request expires, if you set
+     * <code>TerminateInstancesWithExpiration</code>.
      * </p>
      * 
      * @param iamFleetRole
-     *        The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that grants the Spot
-     *        Fleet the permission to request, launch, terminate, and tag instances on your behalf. For more
-     *        information, see <a href=
+     *        The Amazon Resource Name (ARN) of an Identity and Access Management (IAM) role that grants the Spot Fleet
+     *        the permission to request, launch, terminate, and tag instances on your behalf. For more information, see
+     *        <a href=
      *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-requests.html#spot-fleet-prerequisites"
-     *        >Spot Fleet Prerequisites</a> in the <i>Amazon EC2 User Guide for Linux Instances</i>. Spot Fleet can
-     *        terminate Spot Instances on your behalf when you cancel its Spot Fleet request using
-     *        <a>CancelSpotFleetRequests</a> or when the Spot Fleet request expires, if you set
+     *        >Spot Fleet prerequisites</a> in the <i>Amazon EC2 User Guide</i>. Spot Fleet can terminate Spot Instances
+     *        on your behalf when you cancel its Spot Fleet request using <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CancelSpotFleetRequests"
+     *        >CancelSpotFleetRequests</a> or when the Spot Fleet request expires, if you set
      *        <code>TerminateInstancesWithExpiration</code>.
      */
 
@@ -658,21 +1379,24 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that grants the Spot Fleet the
+     * The Amazon Resource Name (ARN) of an Identity and Access Management (IAM) role that grants the Spot Fleet the
      * permission to request, launch, terminate, and tag instances on your behalf. For more information, see <a
      * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-requests.html#spot-fleet-prerequisites">Spot
-     * Fleet Prerequisites</a> in the <i>Amazon EC2 User Guide for Linux Instances</i>. Spot Fleet can terminate Spot
-     * Instances on your behalf when you cancel its Spot Fleet request using <a>CancelSpotFleetRequests</a> or when the
-     * Spot Fleet request expires, if you set <code>TerminateInstancesWithExpiration</code>.
+     * Fleet prerequisites</a> in the <i>Amazon EC2 User Guide</i>. Spot Fleet can terminate Spot Instances on your
+     * behalf when you cancel its Spot Fleet request using <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CancelSpotFleetRequests"
+     * >CancelSpotFleetRequests</a> or when the Spot Fleet request expires, if you set
+     * <code>TerminateInstancesWithExpiration</code>.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that grants the Spot
-     *         Fleet the permission to request, launch, terminate, and tag instances on your behalf. For more
-     *         information, see <a href=
+     * @return The Amazon Resource Name (ARN) of an Identity and Access Management (IAM) role that grants the Spot Fleet
+     *         the permission to request, launch, terminate, and tag instances on your behalf. For more information, see
+     *         <a href=
      *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-requests.html#spot-fleet-prerequisites"
-     *         >Spot Fleet Prerequisites</a> in the <i>Amazon EC2 User Guide for Linux Instances</i>. Spot Fleet can
-     *         terminate Spot Instances on your behalf when you cancel its Spot Fleet request using
-     *         <a>CancelSpotFleetRequests</a> or when the Spot Fleet request expires, if you set
+     *         >Spot Fleet prerequisites</a> in the <i>Amazon EC2 User Guide</i>. Spot Fleet can terminate Spot
+     *         Instances on your behalf when you cancel its Spot Fleet request using <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CancelSpotFleetRequests"
+     *         >CancelSpotFleetRequests</a> or when the Spot Fleet request expires, if you set
      *         <code>TerminateInstancesWithExpiration</code>.
      */
 
@@ -682,22 +1406,25 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that grants the Spot Fleet the
+     * The Amazon Resource Name (ARN) of an Identity and Access Management (IAM) role that grants the Spot Fleet the
      * permission to request, launch, terminate, and tag instances on your behalf. For more information, see <a
      * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-requests.html#spot-fleet-prerequisites">Spot
-     * Fleet Prerequisites</a> in the <i>Amazon EC2 User Guide for Linux Instances</i>. Spot Fleet can terminate Spot
-     * Instances on your behalf when you cancel its Spot Fleet request using <a>CancelSpotFleetRequests</a> or when the
-     * Spot Fleet request expires, if you set <code>TerminateInstancesWithExpiration</code>.
+     * Fleet prerequisites</a> in the <i>Amazon EC2 User Guide</i>. Spot Fleet can terminate Spot Instances on your
+     * behalf when you cancel its Spot Fleet request using <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CancelSpotFleetRequests"
+     * >CancelSpotFleetRequests</a> or when the Spot Fleet request expires, if you set
+     * <code>TerminateInstancesWithExpiration</code>.
      * </p>
      * 
      * @param iamFleetRole
-     *        The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that grants the Spot
-     *        Fleet the permission to request, launch, terminate, and tag instances on your behalf. For more
-     *        information, see <a href=
+     *        The Amazon Resource Name (ARN) of an Identity and Access Management (IAM) role that grants the Spot Fleet
+     *        the permission to request, launch, terminate, and tag instances on your behalf. For more information, see
+     *        <a href=
      *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-requests.html#spot-fleet-prerequisites"
-     *        >Spot Fleet Prerequisites</a> in the <i>Amazon EC2 User Guide for Linux Instances</i>. Spot Fleet can
-     *        terminate Spot Instances on your behalf when you cancel its Spot Fleet request using
-     *        <a>CancelSpotFleetRequests</a> or when the Spot Fleet request expires, if you set
+     *        >Spot Fleet prerequisites</a> in the <i>Amazon EC2 User Guide</i>. Spot Fleet can terminate Spot Instances
+     *        on your behalf when you cancel its Spot Fleet request using <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CancelSpotFleetRequests"
+     *        >CancelSpotFleetRequests</a> or when the Spot Fleet request expires, if you set
      *        <code>TerminateInstancesWithExpiration</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -713,10 +1440,21 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
      * specify <code>LaunchTemplateConfigs</code>. If you include On-Demand capacity in your request, you must use
      * <code>LaunchTemplateConfigs</code>.
      * </p>
+     * <note>
+     * <p>
+     * If an AMI specified in a launch specification is deregistered or disabled, no new instances can be launched from
+     * the AMI. For fleets of type <code>maintain</code>, the target capacity will not be maintained.
+     * </p>
+     * </note>
      * 
      * @return The launch specifications for the Spot Fleet request. If you specify <code>LaunchSpecifications</code>,
      *         you can't specify <code>LaunchTemplateConfigs</code>. If you include On-Demand capacity in your request,
-     *         you must use <code>LaunchTemplateConfigs</code>.
+     *         you must use <code>LaunchTemplateConfigs</code>.</p> <note>
+     *         <p>
+     *         If an AMI specified in a launch specification is deregistered or disabled, no new instances can be
+     *         launched from the AMI. For fleets of type <code>maintain</code>, the target capacity will not be
+     *         maintained.
+     *         </p>
      */
 
     public java.util.List<SpotFleetLaunchSpecification> getLaunchSpecifications() {
@@ -732,11 +1470,22 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
      * specify <code>LaunchTemplateConfigs</code>. If you include On-Demand capacity in your request, you must use
      * <code>LaunchTemplateConfigs</code>.
      * </p>
+     * <note>
+     * <p>
+     * If an AMI specified in a launch specification is deregistered or disabled, no new instances can be launched from
+     * the AMI. For fleets of type <code>maintain</code>, the target capacity will not be maintained.
+     * </p>
+     * </note>
      * 
      * @param launchSpecifications
      *        The launch specifications for the Spot Fleet request. If you specify <code>LaunchSpecifications</code>,
      *        you can't specify <code>LaunchTemplateConfigs</code>. If you include On-Demand capacity in your request,
-     *        you must use <code>LaunchTemplateConfigs</code>.
+     *        you must use <code>LaunchTemplateConfigs</code>.</p> <note>
+     *        <p>
+     *        If an AMI specified in a launch specification is deregistered or disabled, no new instances can be
+     *        launched from the AMI. For fleets of type <code>maintain</code>, the target capacity will not be
+     *        maintained.
+     *        </p>
      */
 
     public void setLaunchSpecifications(java.util.Collection<SpotFleetLaunchSpecification> launchSpecifications) {
@@ -754,6 +1503,12 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
      * specify <code>LaunchTemplateConfigs</code>. If you include On-Demand capacity in your request, you must use
      * <code>LaunchTemplateConfigs</code>.
      * </p>
+     * <note>
+     * <p>
+     * If an AMI specified in a launch specification is deregistered or disabled, no new instances can be launched from
+     * the AMI. For fleets of type <code>maintain</code>, the target capacity will not be maintained.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setLaunchSpecifications(java.util.Collection)} or {@link #withLaunchSpecifications(java.util.Collection)}
@@ -763,7 +1518,12 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
      * @param launchSpecifications
      *        The launch specifications for the Spot Fleet request. If you specify <code>LaunchSpecifications</code>,
      *        you can't specify <code>LaunchTemplateConfigs</code>. If you include On-Demand capacity in your request,
-     *        you must use <code>LaunchTemplateConfigs</code>.
+     *        you must use <code>LaunchTemplateConfigs</code>.</p> <note>
+     *        <p>
+     *        If an AMI specified in a launch specification is deregistered or disabled, no new instances can be
+     *        launched from the AMI. For fleets of type <code>maintain</code>, the target capacity will not be
+     *        maintained.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -783,11 +1543,22 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
      * specify <code>LaunchTemplateConfigs</code>. If you include On-Demand capacity in your request, you must use
      * <code>LaunchTemplateConfigs</code>.
      * </p>
+     * <note>
+     * <p>
+     * If an AMI specified in a launch specification is deregistered or disabled, no new instances can be launched from
+     * the AMI. For fleets of type <code>maintain</code>, the target capacity will not be maintained.
+     * </p>
+     * </note>
      * 
      * @param launchSpecifications
      *        The launch specifications for the Spot Fleet request. If you specify <code>LaunchSpecifications</code>,
      *        you can't specify <code>LaunchTemplateConfigs</code>. If you include On-Demand capacity in your request,
-     *        you must use <code>LaunchTemplateConfigs</code>.
+     *        you must use <code>LaunchTemplateConfigs</code>.</p> <note>
+     *        <p>
+     *        If an AMI specified in a launch specification is deregistered or disabled, no new instances can be
+     *        launched from the AMI. For fleets of type <code>maintain</code>, the target capacity will not be
+     *        maintained.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -887,13 +1658,25 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum price per unit hour that you are willing to pay for a Spot Instance. The default is the On-Demand
-     * price.
+     * The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using this
+     * parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the
+     * current Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify
+     * this parameter.
+     * </p>
+     * </important>
      * 
      * @param spotPrice
-     *        The maximum price per unit hour that you are willing to pay for a Spot Instance. The default is the
-     *        On-Demand price.
+     *        The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using
+     *        this parameter because it can lead to increased interruptions. If you do not specify this parameter, you
+     *        will pay the current Spot price.</p> <important>
+     *        <p>
+     *        If you specify a maximum price, your instances will be interrupted more frequently than if you do not
+     *        specify this parameter.
+     *        </p>
      */
 
     public void setSpotPrice(String spotPrice) {
@@ -902,12 +1685,24 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum price per unit hour that you are willing to pay for a Spot Instance. The default is the On-Demand
-     * price.
+     * The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using this
+     * parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the
+     * current Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify
+     * this parameter.
+     * </p>
+     * </important>
      * 
-     * @return The maximum price per unit hour that you are willing to pay for a Spot Instance. The default is the
-     *         On-Demand price.
+     * @return The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend
+     *         using this parameter because it can lead to increased interruptions. If you do not specify this
+     *         parameter, you will pay the current Spot price.</p> <important>
+     *         <p>
+     *         If you specify a maximum price, your instances will be interrupted more frequently than if you do not
+     *         specify this parameter.
+     *         </p>
      */
 
     public String getSpotPrice() {
@@ -916,13 +1711,25 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum price per unit hour that you are willing to pay for a Spot Instance. The default is the On-Demand
-     * price.
+     * The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using this
+     * parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the
+     * current Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify
+     * this parameter.
+     * </p>
+     * </important>
      * 
      * @param spotPrice
-     *        The maximum price per unit hour that you are willing to pay for a Spot Instance. The default is the
-     *        On-Demand price.
+     *        The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using
+     *        this parameter because it can lead to increased interruptions. If you do not specify this parameter, you
+     *        will pay the current Spot price.</p> <important>
+     *        <p>
+     *        If you specify a maximum price, your instances will be interrupted more frequently than if you do not
+     *        specify this parameter.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1053,6 +1860,17 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
      * amount you're willing to pay. When the maximum amount you're willing to pay is reached, the fleet stops launching
      * instances even if it hasn’t met the target capacity.
      * </p>
+     * <note>
+     * <p>
+     * If your fleet includes T instances that are configured as <code>unlimited</code>, and if their average CPU usage
+     * exceeds the baseline utilization, you will incur a charge for surplus credits. The
+     * <code>onDemandMaxTotalPrice</code> does not account for surplus credits, and, if you use surplus credits, your
+     * final cost might be higher than what you specified for <code>onDemandMaxTotalPrice</code>. For more information,
+     * see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances-unlimited-mode-concepts.html#unlimited-mode-surplus-credits"
+     * >Surplus credits can incur charges</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @param onDemandMaxTotalPrice
      *        The maximum amount per hour for On-Demand Instances that you're willing to pay. You can use the
@@ -1060,7 +1878,16 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
      *        parameters to ensure that your fleet cost does not exceed your budget. If you set a maximum price per hour
      *        for the On-Demand Instances and Spot Instances in your request, Spot Fleet will launch instances until it
      *        reaches the maximum amount you're willing to pay. When the maximum amount you're willing to pay is
-     *        reached, the fleet stops launching instances even if it hasn’t met the target capacity.
+     *        reached, the fleet stops launching instances even if it hasn’t met the target capacity.</p> <note>
+     *        <p>
+     *        If your fleet includes T instances that are configured as <code>unlimited</code>, and if their average CPU
+     *        usage exceeds the baseline utilization, you will incur a charge for surplus credits. The
+     *        <code>onDemandMaxTotalPrice</code> does not account for surplus credits, and, if you use surplus credits,
+     *        your final cost might be higher than what you specified for <code>onDemandMaxTotalPrice</code>. For more
+     *        information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances-unlimited-mode-concepts.html#unlimited-mode-surplus-credits"
+     *        >Surplus credits can incur charges</a> in the <i>Amazon EC2 User Guide</i>.
+     *        </p>
      */
 
     public void setOnDemandMaxTotalPrice(String onDemandMaxTotalPrice) {
@@ -1076,13 +1903,33 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
      * amount you're willing to pay. When the maximum amount you're willing to pay is reached, the fleet stops launching
      * instances even if it hasn’t met the target capacity.
      * </p>
+     * <note>
+     * <p>
+     * If your fleet includes T instances that are configured as <code>unlimited</code>, and if their average CPU usage
+     * exceeds the baseline utilization, you will incur a charge for surplus credits. The
+     * <code>onDemandMaxTotalPrice</code> does not account for surplus credits, and, if you use surplus credits, your
+     * final cost might be higher than what you specified for <code>onDemandMaxTotalPrice</code>. For more information,
+     * see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances-unlimited-mode-concepts.html#unlimited-mode-surplus-credits"
+     * >Surplus credits can incur charges</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @return The maximum amount per hour for On-Demand Instances that you're willing to pay. You can use the
      *         <code>onDemandMaxTotalPrice</code> parameter, the <code>spotMaxTotalPrice</code> parameter, or both
      *         parameters to ensure that your fleet cost does not exceed your budget. If you set a maximum price per
      *         hour for the On-Demand Instances and Spot Instances in your request, Spot Fleet will launch instances
      *         until it reaches the maximum amount you're willing to pay. When the maximum amount you're willing to pay
-     *         is reached, the fleet stops launching instances even if it hasn’t met the target capacity.
+     *         is reached, the fleet stops launching instances even if it hasn’t met the target capacity.</p> <note>
+     *         <p>
+     *         If your fleet includes T instances that are configured as <code>unlimited</code>, and if their average
+     *         CPU usage exceeds the baseline utilization, you will incur a charge for surplus credits. The
+     *         <code>onDemandMaxTotalPrice</code> does not account for surplus credits, and, if you use surplus credits,
+     *         your final cost might be higher than what you specified for <code>onDemandMaxTotalPrice</code>. For more
+     *         information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances-unlimited-mode-concepts.html#unlimited-mode-surplus-credits"
+     *         >Surplus credits can incur charges</a> in the <i>Amazon EC2 User Guide</i>.
+     *         </p>
      */
 
     public String getOnDemandMaxTotalPrice() {
@@ -1098,6 +1945,17 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
      * amount you're willing to pay. When the maximum amount you're willing to pay is reached, the fleet stops launching
      * instances even if it hasn’t met the target capacity.
      * </p>
+     * <note>
+     * <p>
+     * If your fleet includes T instances that are configured as <code>unlimited</code>, and if their average CPU usage
+     * exceeds the baseline utilization, you will incur a charge for surplus credits. The
+     * <code>onDemandMaxTotalPrice</code> does not account for surplus credits, and, if you use surplus credits, your
+     * final cost might be higher than what you specified for <code>onDemandMaxTotalPrice</code>. For more information,
+     * see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances-unlimited-mode-concepts.html#unlimited-mode-surplus-credits"
+     * >Surplus credits can incur charges</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @param onDemandMaxTotalPrice
      *        The maximum amount per hour for On-Demand Instances that you're willing to pay. You can use the
@@ -1105,7 +1963,16 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
      *        parameters to ensure that your fleet cost does not exceed your budget. If you set a maximum price per hour
      *        for the On-Demand Instances and Spot Instances in your request, Spot Fleet will launch instances until it
      *        reaches the maximum amount you're willing to pay. When the maximum amount you're willing to pay is
-     *        reached, the fleet stops launching instances even if it hasn’t met the target capacity.
+     *        reached, the fleet stops launching instances even if it hasn’t met the target capacity.</p> <note>
+     *        <p>
+     *        If your fleet includes T instances that are configured as <code>unlimited</code>, and if their average CPU
+     *        usage exceeds the baseline utilization, you will incur a charge for surplus credits. The
+     *        <code>onDemandMaxTotalPrice</code> does not account for surplus credits, and, if you use surplus credits,
+     *        your final cost might be higher than what you specified for <code>onDemandMaxTotalPrice</code>. For more
+     *        information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances-unlimited-mode-concepts.html#unlimited-mode-surplus-credits"
+     *        >Surplus credits can incur charges</a> in the <i>Amazon EC2 User Guide</i>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1117,20 +1984,39 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
     /**
      * <p>
      * The maximum amount per hour for Spot Instances that you're willing to pay. You can use the
-     * <code>spotdMaxTotalPrice</code> parameter, the <code>onDemandMaxTotalPrice</code> parameter, or both parameters
-     * to ensure that your fleet cost does not exceed your budget. If you set a maximum price per hour for the On-Demand
+     * <code>spotMaxTotalPrice</code> parameter, the <code>onDemandMaxTotalPrice</code> parameter, or both parameters to
+     * ensure that your fleet cost does not exceed your budget. If you set a maximum price per hour for the On-Demand
      * Instances and Spot Instances in your request, Spot Fleet will launch instances until it reaches the maximum
      * amount you're willing to pay. When the maximum amount you're willing to pay is reached, the fleet stops launching
      * instances even if it hasn’t met the target capacity.
      * </p>
+     * <note>
+     * <p>
+     * If your fleet includes T instances that are configured as <code>unlimited</code>, and if their average CPU usage
+     * exceeds the baseline utilization, you will incur a charge for surplus credits. The <code>spotMaxTotalPrice</code>
+     * does not account for surplus credits, and, if you use surplus credits, your final cost might be higher than what
+     * you specified for <code>spotMaxTotalPrice</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances-unlimited-mode-concepts.html#unlimited-mode-surplus-credits"
+     * >Surplus credits can incur charges</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @param spotMaxTotalPrice
      *        The maximum amount per hour for Spot Instances that you're willing to pay. You can use the
-     *        <code>spotdMaxTotalPrice</code> parameter, the <code>onDemandMaxTotalPrice</code> parameter, or both
+     *        <code>spotMaxTotalPrice</code> parameter, the <code>onDemandMaxTotalPrice</code> parameter, or both
      *        parameters to ensure that your fleet cost does not exceed your budget. If you set a maximum price per hour
      *        for the On-Demand Instances and Spot Instances in your request, Spot Fleet will launch instances until it
      *        reaches the maximum amount you're willing to pay. When the maximum amount you're willing to pay is
-     *        reached, the fleet stops launching instances even if it hasn’t met the target capacity.
+     *        reached, the fleet stops launching instances even if it hasn’t met the target capacity.</p> <note>
+     *        <p>
+     *        If your fleet includes T instances that are configured as <code>unlimited</code>, and if their average CPU
+     *        usage exceeds the baseline utilization, you will incur a charge for surplus credits. The
+     *        <code>spotMaxTotalPrice</code> does not account for surplus credits, and, if you use surplus credits, your
+     *        final cost might be higher than what you specified for <code>spotMaxTotalPrice</code>. For more
+     *        information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances-unlimited-mode-concepts.html#unlimited-mode-surplus-credits"
+     *        >Surplus credits can incur charges</a> in the <i>Amazon EC2 User Guide</i>.
+     *        </p>
      */
 
     public void setSpotMaxTotalPrice(String spotMaxTotalPrice) {
@@ -1140,19 +2026,38 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
     /**
      * <p>
      * The maximum amount per hour for Spot Instances that you're willing to pay. You can use the
-     * <code>spotdMaxTotalPrice</code> parameter, the <code>onDemandMaxTotalPrice</code> parameter, or both parameters
-     * to ensure that your fleet cost does not exceed your budget. If you set a maximum price per hour for the On-Demand
+     * <code>spotMaxTotalPrice</code> parameter, the <code>onDemandMaxTotalPrice</code> parameter, or both parameters to
+     * ensure that your fleet cost does not exceed your budget. If you set a maximum price per hour for the On-Demand
      * Instances and Spot Instances in your request, Spot Fleet will launch instances until it reaches the maximum
      * amount you're willing to pay. When the maximum amount you're willing to pay is reached, the fleet stops launching
      * instances even if it hasn’t met the target capacity.
      * </p>
+     * <note>
+     * <p>
+     * If your fleet includes T instances that are configured as <code>unlimited</code>, and if their average CPU usage
+     * exceeds the baseline utilization, you will incur a charge for surplus credits. The <code>spotMaxTotalPrice</code>
+     * does not account for surplus credits, and, if you use surplus credits, your final cost might be higher than what
+     * you specified for <code>spotMaxTotalPrice</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances-unlimited-mode-concepts.html#unlimited-mode-surplus-credits"
+     * >Surplus credits can incur charges</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @return The maximum amount per hour for Spot Instances that you're willing to pay. You can use the
-     *         <code>spotdMaxTotalPrice</code> parameter, the <code>onDemandMaxTotalPrice</code> parameter, or both
+     *         <code>spotMaxTotalPrice</code> parameter, the <code>onDemandMaxTotalPrice</code> parameter, or both
      *         parameters to ensure that your fleet cost does not exceed your budget. If you set a maximum price per
      *         hour for the On-Demand Instances and Spot Instances in your request, Spot Fleet will launch instances
      *         until it reaches the maximum amount you're willing to pay. When the maximum amount you're willing to pay
-     *         is reached, the fleet stops launching instances even if it hasn’t met the target capacity.
+     *         is reached, the fleet stops launching instances even if it hasn’t met the target capacity.</p> <note>
+     *         <p>
+     *         If your fleet includes T instances that are configured as <code>unlimited</code>, and if their average
+     *         CPU usage exceeds the baseline utilization, you will incur a charge for surplus credits. The
+     *         <code>spotMaxTotalPrice</code> does not account for surplus credits, and, if you use surplus credits,
+     *         your final cost might be higher than what you specified for <code>spotMaxTotalPrice</code>. For more
+     *         information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances-unlimited-mode-concepts.html#unlimited-mode-surplus-credits"
+     *         >Surplus credits can incur charges</a> in the <i>Amazon EC2 User Guide</i>.
+     *         </p>
      */
 
     public String getSpotMaxTotalPrice() {
@@ -1162,20 +2067,39 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
     /**
      * <p>
      * The maximum amount per hour for Spot Instances that you're willing to pay. You can use the
-     * <code>spotdMaxTotalPrice</code> parameter, the <code>onDemandMaxTotalPrice</code> parameter, or both parameters
-     * to ensure that your fleet cost does not exceed your budget. If you set a maximum price per hour for the On-Demand
+     * <code>spotMaxTotalPrice</code> parameter, the <code>onDemandMaxTotalPrice</code> parameter, or both parameters to
+     * ensure that your fleet cost does not exceed your budget. If you set a maximum price per hour for the On-Demand
      * Instances and Spot Instances in your request, Spot Fleet will launch instances until it reaches the maximum
      * amount you're willing to pay. When the maximum amount you're willing to pay is reached, the fleet stops launching
      * instances even if it hasn’t met the target capacity.
      * </p>
+     * <note>
+     * <p>
+     * If your fleet includes T instances that are configured as <code>unlimited</code>, and if their average CPU usage
+     * exceeds the baseline utilization, you will incur a charge for surplus credits. The <code>spotMaxTotalPrice</code>
+     * does not account for surplus credits, and, if you use surplus credits, your final cost might be higher than what
+     * you specified for <code>spotMaxTotalPrice</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances-unlimited-mode-concepts.html#unlimited-mode-surplus-credits"
+     * >Surplus credits can incur charges</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @param spotMaxTotalPrice
      *        The maximum amount per hour for Spot Instances that you're willing to pay. You can use the
-     *        <code>spotdMaxTotalPrice</code> parameter, the <code>onDemandMaxTotalPrice</code> parameter, or both
+     *        <code>spotMaxTotalPrice</code> parameter, the <code>onDemandMaxTotalPrice</code> parameter, or both
      *        parameters to ensure that your fleet cost does not exceed your budget. If you set a maximum price per hour
      *        for the On-Demand Instances and Spot Instances in your request, Spot Fleet will launch instances until it
      *        reaches the maximum amount you're willing to pay. When the maximum amount you're willing to pay is
-     *        reached, the fleet stops launching instances even if it hasn’t met the target capacity.
+     *        reached, the fleet stops launching instances even if it hasn’t met the target capacity.</p> <note>
+     *        <p>
+     *        If your fleet includes T instances that are configured as <code>unlimited</code>, and if their average CPU
+     *        usage exceeds the baseline utilization, you will incur a charge for surplus credits. The
+     *        <code>spotMaxTotalPrice</code> does not account for surplus credits, and, if you use surplus credits, your
+     *        final cost might be higher than what you specified for <code>spotMaxTotalPrice</code>. For more
+     *        information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances-unlimited-mode-concepts.html#unlimited-mode-surplus-credits"
+     *        >Surplus credits can incur charges</a> in the <i>Amazon EC2 User Guide</i>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1677,11 +2601,26 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
      * <b>AllocationStrategy</b> is set to <code>lowest-price</code>. Spot Fleet selects the cheapest Spot pools and
      * evenly allocates your target Spot capacity across the number of Spot pools that you specify.
      * </p>
+     * <p>
+     * Note that Spot Fleet attempts to draw Spot Instances from the number of pools that you specify on a best effort
+     * basis. If a pool runs out of Spot capacity before fulfilling your target capacity, Spot Fleet will continue to
+     * fulfill your request by drawing from the next cheapest pool. To ensure that your target capacity is met, you
+     * might receive Spot Instances from more than the number of pools that you specified. Similarly, if most of the
+     * pools have no Spot capacity, you might receive your full target capacity from fewer than the number of pools that
+     * you specified.
+     * </p>
      * 
      * @param instancePoolsToUseCount
      *        The number of Spot pools across which to allocate your target Spot capacity. Valid only when Spot
      *        <b>AllocationStrategy</b> is set to <code>lowest-price</code>. Spot Fleet selects the cheapest Spot pools
-     *        and evenly allocates your target Spot capacity across the number of Spot pools that you specify.
+     *        and evenly allocates your target Spot capacity across the number of Spot pools that you specify.</p>
+     *        <p>
+     *        Note that Spot Fleet attempts to draw Spot Instances from the number of pools that you specify on a best
+     *        effort basis. If a pool runs out of Spot capacity before fulfilling your target capacity, Spot Fleet will
+     *        continue to fulfill your request by drawing from the next cheapest pool. To ensure that your target
+     *        capacity is met, you might receive Spot Instances from more than the number of pools that you specified.
+     *        Similarly, if most of the pools have no Spot capacity, you might receive your full target capacity from
+     *        fewer than the number of pools that you specified.
      */
 
     public void setInstancePoolsToUseCount(Integer instancePoolsToUseCount) {
@@ -1694,10 +2633,25 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
      * <b>AllocationStrategy</b> is set to <code>lowest-price</code>. Spot Fleet selects the cheapest Spot pools and
      * evenly allocates your target Spot capacity across the number of Spot pools that you specify.
      * </p>
+     * <p>
+     * Note that Spot Fleet attempts to draw Spot Instances from the number of pools that you specify on a best effort
+     * basis. If a pool runs out of Spot capacity before fulfilling your target capacity, Spot Fleet will continue to
+     * fulfill your request by drawing from the next cheapest pool. To ensure that your target capacity is met, you
+     * might receive Spot Instances from more than the number of pools that you specified. Similarly, if most of the
+     * pools have no Spot capacity, you might receive your full target capacity from fewer than the number of pools that
+     * you specified.
+     * </p>
      * 
      * @return The number of Spot pools across which to allocate your target Spot capacity. Valid only when Spot
      *         <b>AllocationStrategy</b> is set to <code>lowest-price</code>. Spot Fleet selects the cheapest Spot pools
-     *         and evenly allocates your target Spot capacity across the number of Spot pools that you specify.
+     *         and evenly allocates your target Spot capacity across the number of Spot pools that you specify.</p>
+     *         <p>
+     *         Note that Spot Fleet attempts to draw Spot Instances from the number of pools that you specify on a best
+     *         effort basis. If a pool runs out of Spot capacity before fulfilling your target capacity, Spot Fleet will
+     *         continue to fulfill your request by drawing from the next cheapest pool. To ensure that your target
+     *         capacity is met, you might receive Spot Instances from more than the number of pools that you specified.
+     *         Similarly, if most of the pools have no Spot capacity, you might receive your full target capacity from
+     *         fewer than the number of pools that you specified.
      */
 
     public Integer getInstancePoolsToUseCount() {
@@ -1710,16 +2664,312 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
      * <b>AllocationStrategy</b> is set to <code>lowest-price</code>. Spot Fleet selects the cheapest Spot pools and
      * evenly allocates your target Spot capacity across the number of Spot pools that you specify.
      * </p>
+     * <p>
+     * Note that Spot Fleet attempts to draw Spot Instances from the number of pools that you specify on a best effort
+     * basis. If a pool runs out of Spot capacity before fulfilling your target capacity, Spot Fleet will continue to
+     * fulfill your request by drawing from the next cheapest pool. To ensure that your target capacity is met, you
+     * might receive Spot Instances from more than the number of pools that you specified. Similarly, if most of the
+     * pools have no Spot capacity, you might receive your full target capacity from fewer than the number of pools that
+     * you specified.
+     * </p>
      * 
      * @param instancePoolsToUseCount
      *        The number of Spot pools across which to allocate your target Spot capacity. Valid only when Spot
      *        <b>AllocationStrategy</b> is set to <code>lowest-price</code>. Spot Fleet selects the cheapest Spot pools
-     *        and evenly allocates your target Spot capacity across the number of Spot pools that you specify.
+     *        and evenly allocates your target Spot capacity across the number of Spot pools that you specify.</p>
+     *        <p>
+     *        Note that Spot Fleet attempts to draw Spot Instances from the number of pools that you specify on a best
+     *        effort basis. If a pool runs out of Spot capacity before fulfilling your target capacity, Spot Fleet will
+     *        continue to fulfill your request by drawing from the next cheapest pool. To ensure that your target
+     *        capacity is met, you might receive Spot Instances from more than the number of pools that you specified.
+     *        Similarly, if most of the pools have no Spot capacity, you might receive your full target capacity from
+     *        fewer than the number of pools that you specified.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public SpotFleetRequestConfigData withInstancePoolsToUseCount(Integer instancePoolsToUseCount) {
         setInstancePoolsToUseCount(instancePoolsToUseCount);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Reserved.
+     * </p>
+     * 
+     * @param context
+     *        Reserved.
+     */
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
+    /**
+     * <p>
+     * Reserved.
+     * </p>
+     * 
+     * @return Reserved.
+     */
+
+    public String getContext() {
+        return this.context;
+    }
+
+    /**
+     * <p>
+     * Reserved.
+     * </p>
+     * 
+     * @param context
+     *        Reserved.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SpotFleetRequestConfigData withContext(String context) {
+        setContext(context);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The unit for the target capacity. You can specify this parameter only when using attribute-based instance type
+     * selection.
+     * </p>
+     * <p>
+     * Default: <code>units</code> (the number of instances)
+     * </p>
+     * 
+     * @param targetCapacityUnitType
+     *        The unit for the target capacity. You can specify this parameter only when using attribute-based instance
+     *        type selection.</p>
+     *        <p>
+     *        Default: <code>units</code> (the number of instances)
+     * @see TargetCapacityUnitType
+     */
+
+    public void setTargetCapacityUnitType(String targetCapacityUnitType) {
+        this.targetCapacityUnitType = targetCapacityUnitType;
+    }
+
+    /**
+     * <p>
+     * The unit for the target capacity. You can specify this parameter only when using attribute-based instance type
+     * selection.
+     * </p>
+     * <p>
+     * Default: <code>units</code> (the number of instances)
+     * </p>
+     * 
+     * @return The unit for the target capacity. You can specify this parameter only when using attribute-based instance
+     *         type selection.</p>
+     *         <p>
+     *         Default: <code>units</code> (the number of instances)
+     * @see TargetCapacityUnitType
+     */
+
+    public String getTargetCapacityUnitType() {
+        return this.targetCapacityUnitType;
+    }
+
+    /**
+     * <p>
+     * The unit for the target capacity. You can specify this parameter only when using attribute-based instance type
+     * selection.
+     * </p>
+     * <p>
+     * Default: <code>units</code> (the number of instances)
+     * </p>
+     * 
+     * @param targetCapacityUnitType
+     *        The unit for the target capacity. You can specify this parameter only when using attribute-based instance
+     *        type selection.</p>
+     *        <p>
+     *        Default: <code>units</code> (the number of instances)
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TargetCapacityUnitType
+     */
+
+    public SpotFleetRequestConfigData withTargetCapacityUnitType(String targetCapacityUnitType) {
+        setTargetCapacityUnitType(targetCapacityUnitType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The unit for the target capacity. You can specify this parameter only when using attribute-based instance type
+     * selection.
+     * </p>
+     * <p>
+     * Default: <code>units</code> (the number of instances)
+     * </p>
+     * 
+     * @param targetCapacityUnitType
+     *        The unit for the target capacity. You can specify this parameter only when using attribute-based instance
+     *        type selection.</p>
+     *        <p>
+     *        Default: <code>units</code> (the number of instances)
+     * @see TargetCapacityUnitType
+     */
+
+    public void setTargetCapacityUnitType(TargetCapacityUnitType targetCapacityUnitType) {
+        withTargetCapacityUnitType(targetCapacityUnitType);
+    }
+
+    /**
+     * <p>
+     * The unit for the target capacity. You can specify this parameter only when using attribute-based instance type
+     * selection.
+     * </p>
+     * <p>
+     * Default: <code>units</code> (the number of instances)
+     * </p>
+     * 
+     * @param targetCapacityUnitType
+     *        The unit for the target capacity. You can specify this parameter only when using attribute-based instance
+     *        type selection.</p>
+     *        <p>
+     *        Default: <code>units</code> (the number of instances)
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TargetCapacityUnitType
+     */
+
+    public SpotFleetRequestConfigData withTargetCapacityUnitType(TargetCapacityUnitType targetCapacityUnitType) {
+        this.targetCapacityUnitType = targetCapacityUnitType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The key-value pair for tagging the Spot Fleet request on creation. The value for <code>ResourceType</code> must
+     * be <code>spot-fleet-request</code>, otherwise the Spot Fleet request fails. To tag instances at launch, specify
+     * the tags in the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#create-launch-template"
+     * >launch template</a> (valid only if you use <code>LaunchTemplateConfigs</code>) or in the
+     * <code> <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetTagSpecification.html">SpotFleetTagSpecification</a> </code>
+     * (valid only if you use <code>LaunchSpecifications</code>). For information about tagging after launch, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-resources">Tag your resources</a>.
+     * </p>
+     * 
+     * @return The key-value pair for tagging the Spot Fleet request on creation. The value for
+     *         <code>ResourceType</code> must be <code>spot-fleet-request</code>, otherwise the Spot Fleet request
+     *         fails. To tag instances at launch, specify the tags in the <a href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#create-launch-template"
+     *         >launch template</a> (valid only if you use <code>LaunchTemplateConfigs</code>) or in the
+     *         <code> <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetTagSpecification.html">SpotFleetTagSpecification</a> </code>
+     *         (valid only if you use <code>LaunchSpecifications</code>). For information about tagging after launch,
+     *         see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-resources">Tag your
+     *         resources</a>.
+     */
+
+    public java.util.List<TagSpecification> getTagSpecifications() {
+        if (tagSpecifications == null) {
+            tagSpecifications = new com.amazonaws.internal.SdkInternalList<TagSpecification>();
+        }
+        return tagSpecifications;
+    }
+
+    /**
+     * <p>
+     * The key-value pair for tagging the Spot Fleet request on creation. The value for <code>ResourceType</code> must
+     * be <code>spot-fleet-request</code>, otherwise the Spot Fleet request fails. To tag instances at launch, specify
+     * the tags in the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#create-launch-template"
+     * >launch template</a> (valid only if you use <code>LaunchTemplateConfigs</code>) or in the
+     * <code> <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetTagSpecification.html">SpotFleetTagSpecification</a> </code>
+     * (valid only if you use <code>LaunchSpecifications</code>). For information about tagging after launch, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-resources">Tag your resources</a>.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The key-value pair for tagging the Spot Fleet request on creation. The value for <code>ResourceType</code>
+     *        must be <code>spot-fleet-request</code>, otherwise the Spot Fleet request fails. To tag instances at
+     *        launch, specify the tags in the <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#create-launch-template"
+     *        >launch template</a> (valid only if you use <code>LaunchTemplateConfigs</code>) or in the
+     *        <code> <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetTagSpecification.html">SpotFleetTagSpecification</a> </code>
+     *        (valid only if you use <code>LaunchSpecifications</code>). For information about tagging after launch, see
+     *        <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-resources">Tag your
+     *        resources</a>.
+     */
+
+    public void setTagSpecifications(java.util.Collection<TagSpecification> tagSpecifications) {
+        if (tagSpecifications == null) {
+            this.tagSpecifications = null;
+            return;
+        }
+
+        this.tagSpecifications = new com.amazonaws.internal.SdkInternalList<TagSpecification>(tagSpecifications);
+    }
+
+    /**
+     * <p>
+     * The key-value pair for tagging the Spot Fleet request on creation. The value for <code>ResourceType</code> must
+     * be <code>spot-fleet-request</code>, otherwise the Spot Fleet request fails. To tag instances at launch, specify
+     * the tags in the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#create-launch-template"
+     * >launch template</a> (valid only if you use <code>LaunchTemplateConfigs</code>) or in the
+     * <code> <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetTagSpecification.html">SpotFleetTagSpecification</a> </code>
+     * (valid only if you use <code>LaunchSpecifications</code>). For information about tagging after launch, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-resources">Tag your resources</a>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTagSpecifications(java.util.Collection)} or {@link #withTagSpecifications(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The key-value pair for tagging the Spot Fleet request on creation. The value for <code>ResourceType</code>
+     *        must be <code>spot-fleet-request</code>, otherwise the Spot Fleet request fails. To tag instances at
+     *        launch, specify the tags in the <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#create-launch-template"
+     *        >launch template</a> (valid only if you use <code>LaunchTemplateConfigs</code>) or in the
+     *        <code> <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetTagSpecification.html">SpotFleetTagSpecification</a> </code>
+     *        (valid only if you use <code>LaunchSpecifications</code>). For information about tagging after launch, see
+     *        <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-resources">Tag your
+     *        resources</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SpotFleetRequestConfigData withTagSpecifications(TagSpecification... tagSpecifications) {
+        if (this.tagSpecifications == null) {
+            setTagSpecifications(new com.amazonaws.internal.SdkInternalList<TagSpecification>(tagSpecifications.length));
+        }
+        for (TagSpecification ele : tagSpecifications) {
+            this.tagSpecifications.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The key-value pair for tagging the Spot Fleet request on creation. The value for <code>ResourceType</code> must
+     * be <code>spot-fleet-request</code>, otherwise the Spot Fleet request fails. To tag instances at launch, specify
+     * the tags in the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#create-launch-template"
+     * >launch template</a> (valid only if you use <code>LaunchTemplateConfigs</code>) or in the
+     * <code> <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetTagSpecification.html">SpotFleetTagSpecification</a> </code>
+     * (valid only if you use <code>LaunchSpecifications</code>). For information about tagging after launch, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-resources">Tag your resources</a>.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The key-value pair for tagging the Spot Fleet request on creation. The value for <code>ResourceType</code>
+     *        must be <code>spot-fleet-request</code>, otherwise the Spot Fleet request fails. To tag instances at
+     *        launch, specify the tags in the <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#create-launch-template"
+     *        >launch template</a> (valid only if you use <code>LaunchTemplateConfigs</code>) or in the
+     *        <code> <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SpotFleetTagSpecification.html">SpotFleetTagSpecification</a> </code>
+     *        (valid only if you use <code>LaunchSpecifications</code>). For information about tagging after launch, see
+     *        <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-resources">Tag your
+     *        resources</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SpotFleetRequestConfigData withTagSpecifications(java.util.Collection<TagSpecification> tagSpecifications) {
+        setTagSpecifications(tagSpecifications);
         return this;
     }
 
@@ -1739,6 +2989,8 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
             sb.append("AllocationStrategy: ").append(getAllocationStrategy()).append(",");
         if (getOnDemandAllocationStrategy() != null)
             sb.append("OnDemandAllocationStrategy: ").append(getOnDemandAllocationStrategy()).append(",");
+        if (getSpotMaintenanceStrategies() != null)
+            sb.append("SpotMaintenanceStrategies: ").append(getSpotMaintenanceStrategies()).append(",");
         if (getClientToken() != null)
             sb.append("ClientToken: ").append(getClientToken()).append(",");
         if (getExcessCapacityTerminationPolicy() != null)
@@ -1778,7 +3030,13 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
         if (getLoadBalancersConfig() != null)
             sb.append("LoadBalancersConfig: ").append(getLoadBalancersConfig()).append(",");
         if (getInstancePoolsToUseCount() != null)
-            sb.append("InstancePoolsToUseCount: ").append(getInstancePoolsToUseCount());
+            sb.append("InstancePoolsToUseCount: ").append(getInstancePoolsToUseCount()).append(",");
+        if (getContext() != null)
+            sb.append("Context: ").append(getContext()).append(",");
+        if (getTargetCapacityUnitType() != null)
+            sb.append("TargetCapacityUnitType: ").append(getTargetCapacityUnitType()).append(",");
+        if (getTagSpecifications() != null)
+            sb.append("TagSpecifications: ").append(getTagSpecifications());
         sb.append("}");
         return sb.toString();
     }
@@ -1800,6 +3058,10 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
         if (other.getOnDemandAllocationStrategy() == null ^ this.getOnDemandAllocationStrategy() == null)
             return false;
         if (other.getOnDemandAllocationStrategy() != null && other.getOnDemandAllocationStrategy().equals(this.getOnDemandAllocationStrategy()) == false)
+            return false;
+        if (other.getSpotMaintenanceStrategies() == null ^ this.getSpotMaintenanceStrategies() == null)
+            return false;
+        if (other.getSpotMaintenanceStrategies() != null && other.getSpotMaintenanceStrategies().equals(this.getSpotMaintenanceStrategies()) == false)
             return false;
         if (other.getClientToken() == null ^ this.getClientToken() == null)
             return false;
@@ -1883,6 +3145,18 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
             return false;
         if (other.getInstancePoolsToUseCount() != null && other.getInstancePoolsToUseCount().equals(this.getInstancePoolsToUseCount()) == false)
             return false;
+        if (other.getContext() == null ^ this.getContext() == null)
+            return false;
+        if (other.getContext() != null && other.getContext().equals(this.getContext()) == false)
+            return false;
+        if (other.getTargetCapacityUnitType() == null ^ this.getTargetCapacityUnitType() == null)
+            return false;
+        if (other.getTargetCapacityUnitType() != null && other.getTargetCapacityUnitType().equals(this.getTargetCapacityUnitType()) == false)
+            return false;
+        if (other.getTagSpecifications() == null ^ this.getTagSpecifications() == null)
+            return false;
+        if (other.getTagSpecifications() != null && other.getTagSpecifications().equals(this.getTagSpecifications()) == false)
+            return false;
         return true;
     }
 
@@ -1893,6 +3167,7 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
 
         hashCode = prime * hashCode + ((getAllocationStrategy() == null) ? 0 : getAllocationStrategy().hashCode());
         hashCode = prime * hashCode + ((getOnDemandAllocationStrategy() == null) ? 0 : getOnDemandAllocationStrategy().hashCode());
+        hashCode = prime * hashCode + ((getSpotMaintenanceStrategies() == null) ? 0 : getSpotMaintenanceStrategies().hashCode());
         hashCode = prime * hashCode + ((getClientToken() == null) ? 0 : getClientToken().hashCode());
         hashCode = prime * hashCode + ((getExcessCapacityTerminationPolicy() == null) ? 0 : getExcessCapacityTerminationPolicy().hashCode());
         hashCode = prime * hashCode + ((getFulfilledCapacity() == null) ? 0 : getFulfilledCapacity().hashCode());
@@ -1913,6 +3188,9 @@ public class SpotFleetRequestConfigData implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getInstanceInterruptionBehavior() == null) ? 0 : getInstanceInterruptionBehavior().hashCode());
         hashCode = prime * hashCode + ((getLoadBalancersConfig() == null) ? 0 : getLoadBalancersConfig().hashCode());
         hashCode = prime * hashCode + ((getInstancePoolsToUseCount() == null) ? 0 : getInstancePoolsToUseCount().hashCode());
+        hashCode = prime * hashCode + ((getContext() == null) ? 0 : getContext().hashCode());
+        hashCode = prime * hashCode + ((getTargetCapacityUnitType() == null) ? 0 : getTargetCapacityUnitType().hashCode());
+        hashCode = prime * hashCode + ((getTagSpecifications() == null) ? 0 : getTagSpecifications().hashCode());
         return hashCode;
     }
 

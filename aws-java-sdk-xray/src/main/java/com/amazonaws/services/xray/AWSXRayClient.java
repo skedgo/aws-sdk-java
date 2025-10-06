@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.xray.AWSXRayClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.xray.model.*;
+
 import com.amazonaws.services.xray.model.transform.*;
 
 /**
@@ -51,8 +52,8 @@ import com.amazonaws.services.xray.model.transform.*;
  * service call completes.
  * <p>
  * <p>
- * AWS X-Ray provides APIs for managing debug traces and retrieving service maps and other data created by processing
- * those traces.
+ * Amazon Web Services X-Ray provides APIs for managing debug traces and retrieving service maps and other data created
+ * by processing those traces.
  * </p>
  */
 @ThreadSafe
@@ -77,16 +78,37 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withModeledClass(
-                                    com.amazonaws.services.xray.model.InvalidRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MalformedPolicyDocumentException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.xray.model.transform.MalformedPolicyDocumentExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ThrottledException").withModeledClass(
-                                    com.amazonaws.services.xray.model.ThrottledException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.xray.model.transform.InvalidRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RuleLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.xray.model.RuleLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidPolicyRevisionIdException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.xray.model.transform.InvalidPolicyRevisionIdExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ThrottledException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.xray.model.transform.ThrottledExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("RuleLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.xray.model.transform.RuleLimitExceededExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("TooManyTagsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.xray.model.transform.TooManyTagsExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.xray.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("PolicyCountLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.xray.model.transform.PolicyCountLimitExceededExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("LockoutPreventionException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.xray.model.transform.LockoutPreventionExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("PolicySizeLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.xray.model.transform.PolicySizeLimitExceededExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.xray.model.AWSXRayException.class));
 
     /**
@@ -324,6 +346,8 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
                 request = new BatchGetTracesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(batchGetTracesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchGetTraces");
@@ -381,6 +405,8 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
                 request = new CreateGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateGroup");
@@ -404,11 +430,13 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
 
     /**
      * <p>
-     * Creates a rule to control sampling behavior for instrumented applications. Services retrieve rules with
-     * <a>GetSamplingRules</a>, and evaluate each rule in ascending order of <i>priority</i> for each request. If a rule
-     * matches, the service records a trace, borrowing it from the reservoir size. After 10 seconds, the service reports
-     * back to X-Ray with <a>GetSamplingTargets</a> to get updated versions of each in-use rule. The updated rule
-     * contains a trace quota that the service can use instead of borrowing from the reservoir.
+     * Creates a rule to control sampling behavior for instrumented applications. Services retrieve rules with <a
+     * href="https://docs.aws.amazon.com/xray/latest/api/API_GetSamplingRules.html">GetSamplingRules</a>, and evaluate
+     * each rule in ascending order of <i>priority</i> for each request. If a rule matches, the service records a trace,
+     * borrowing it from the reservoir size. After 10 seconds, the service reports back to X-Ray with <a
+     * href="https://docs.aws.amazon.com/xray/latest/api/API_GetSamplingTargets.html">GetSamplingTargets</a> to get
+     * updated versions of each in-use rule. The updated rule contains a trace quota that the service can use instead of
+     * borrowing from the reservoir.
      * </p>
      * 
      * @param createSamplingRuleRequest
@@ -444,6 +472,8 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
                 request = new CreateSamplingRuleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createSamplingRuleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSamplingRule");
@@ -501,6 +531,8 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
                 request = new DeleteGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteGroup");
@@ -512,6 +544,69 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
 
             HttpResponseHandler<AmazonWebServiceResponse<DeleteGroupResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteGroupResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a resource policy from the target Amazon Web Services account.
+     * </p>
+     * 
+     * @param deleteResourcePolicyRequest
+     * @return Result of the DeleteResourcePolicy operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is missing required parameters or has invalid parameters.
+     * @throws InvalidPolicyRevisionIdException
+     *         A policy revision id was provided which does not match the latest policy revision. This exception is also
+     *         if a policy revision id of 0 is provided via <code>PutResourcePolicy</code> and a policy with the same
+     *         name already exists.
+     * @throws ThrottledException
+     *         The request exceeds the maximum number of requests per second.
+     * @sample AWSXRay.DeleteResourcePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/DeleteResourcePolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteResourcePolicyResult deleteResourcePolicy(DeleteResourcePolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteResourcePolicy(request);
+    }
+
+    @SdkInternalApi
+    final DeleteResourcePolicyResult executeDeleteResourcePolicy(DeleteResourcePolicyRequest deleteResourcePolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteResourcePolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteResourcePolicyRequest> request = null;
+        Response<DeleteResourcePolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteResourcePolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteResourcePolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteResourcePolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteResourcePolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteResourcePolicyResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -558,6 +653,8 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
                 request = new DeleteSamplingRuleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteSamplingRuleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteSamplingRule");
@@ -615,6 +712,8 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
                 request = new GetEncryptionConfigRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getEncryptionConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetEncryptionConfig");
@@ -672,6 +771,8 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
                 request = new GetGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetGroup");
@@ -729,6 +830,8 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
                 request = new GetGroupsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetGroups");
@@ -740,6 +843,246 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
 
             HttpResponseHandler<AmazonWebServiceResponse<GetGroupsResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
                     .withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetGroupsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves the summary information of an insight. This includes impact to clients and root cause services, the top
+     * anomalous services, the category, the state of the insight, and the start and end time of the insight.
+     * </p>
+     * 
+     * @param getInsightRequest
+     * @return Result of the GetInsight operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is missing required parameters or has invalid parameters.
+     * @throws ThrottledException
+     *         The request exceeds the maximum number of requests per second.
+     * @sample AWSXRay.GetInsight
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/GetInsight" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetInsightResult getInsight(GetInsightRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetInsight(request);
+    }
+
+    @SdkInternalApi
+    final GetInsightResult executeGetInsight(GetInsightRequest getInsightRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getInsightRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetInsightRequest> request = null;
+        Response<GetInsightResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetInsightRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getInsightRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetInsight");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetInsightResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetInsightResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * X-Ray reevaluates insights periodically until they're resolved, and records each intermediate state as an event.
+     * You can review an insight's events in the Impact Timeline on the Inspect page in the X-Ray console.
+     * </p>
+     * 
+     * @param getInsightEventsRequest
+     * @return Result of the GetInsightEvents operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is missing required parameters or has invalid parameters.
+     * @throws ThrottledException
+     *         The request exceeds the maximum number of requests per second.
+     * @sample AWSXRay.GetInsightEvents
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/GetInsightEvents" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetInsightEventsResult getInsightEvents(GetInsightEventsRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetInsightEvents(request);
+    }
+
+    @SdkInternalApi
+    final GetInsightEventsResult executeGetInsightEvents(GetInsightEventsRequest getInsightEventsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getInsightEventsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetInsightEventsRequest> request = null;
+        Response<GetInsightEventsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetInsightEventsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getInsightEventsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetInsightEvents");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetInsightEventsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetInsightEventsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves a service graph structure filtered by the specified insight. The service graph is limited to only
+     * structural information. For a complete service graph, use this API with the GetServiceGraph API.
+     * </p>
+     * 
+     * @param getInsightImpactGraphRequest
+     * @return Result of the GetInsightImpactGraph operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is missing required parameters or has invalid parameters.
+     * @throws ThrottledException
+     *         The request exceeds the maximum number of requests per second.
+     * @sample AWSXRay.GetInsightImpactGraph
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/GetInsightImpactGraph" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetInsightImpactGraphResult getInsightImpactGraph(GetInsightImpactGraphRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetInsightImpactGraph(request);
+    }
+
+    @SdkInternalApi
+    final GetInsightImpactGraphResult executeGetInsightImpactGraph(GetInsightImpactGraphRequest getInsightImpactGraphRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getInsightImpactGraphRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetInsightImpactGraphRequest> request = null;
+        Response<GetInsightImpactGraphResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetInsightImpactGraphRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getInsightImpactGraphRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetInsightImpactGraph");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetInsightImpactGraphResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new GetInsightImpactGraphResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves the summaries of all insights in the specified group matching the provided filter values.
+     * </p>
+     * 
+     * @param getInsightSummariesRequest
+     * @return Result of the GetInsightSummaries operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is missing required parameters or has invalid parameters.
+     * @throws ThrottledException
+     *         The request exceeds the maximum number of requests per second.
+     * @sample AWSXRay.GetInsightSummaries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/GetInsightSummaries" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetInsightSummariesResult getInsightSummaries(GetInsightSummariesRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetInsightSummaries(request);
+    }
+
+    @SdkInternalApi
+    final GetInsightSummariesResult executeGetInsightSummaries(GetInsightSummariesRequest getInsightSummariesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getInsightSummariesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetInsightSummariesRequest> request = null;
+        Response<GetInsightSummariesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetInsightSummariesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getInsightSummariesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetInsightSummaries");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetInsightSummariesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetInsightSummariesResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -786,6 +1129,8 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
                 request = new GetSamplingRulesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getSamplingRulesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSamplingRules");
@@ -844,6 +1189,8 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
                         .beforeMarshalling(getSamplingStatisticSummariesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSamplingStatisticSummaries");
@@ -902,6 +1249,8 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
                 request = new GetSamplingTargetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getSamplingTargetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSamplingTargets");
@@ -927,8 +1276,9 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
      * <p>
      * Retrieves a document that describes services that process incoming requests, and downstream services that they
      * call as a result. Root services process incoming requests and make calls to downstream services. Root services
-     * are applications that use the AWS X-Ray SDK. Downstream services can be other applications, AWS resources, HTTP
-     * web APIs, or SQL databases.
+     * are applications that use the <a href="https://docs.aws.amazon.com/xray/index.html">Amazon Web Services X-Ray
+     * SDK</a>. Downstream services can be other applications, Amazon Web Services resources, HTTP web APIs, or SQL
+     * databases.
      * </p>
      * 
      * @param getServiceGraphRequest
@@ -962,6 +1312,8 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
                 request = new GetServiceGraphRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getServiceGraphRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetServiceGraph");
@@ -1020,6 +1372,8 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
                         .beforeMarshalling(getTimeSeriesServiceStatisticsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetTimeSeriesServiceStatistics");
@@ -1078,6 +1432,8 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
                 request = new GetTraceGraphRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getTraceGraphRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetTraceGraph");
@@ -1101,8 +1457,8 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
 
     /**
      * <p>
-     * Retrieves IDs and metadata for traces available for a specified time frame using an optional filter. To get the
-     * full traces, pass the trace IDs to <code>BatchGetTraces</code>.
+     * Retrieves IDs and annotations for traces available for a specified time frame using an optional filter. To get
+     * the full traces, pass the trace IDs to <code>BatchGetTraces</code>.
      * </p>
      * <p>
      * A filter expression can target traced requests that hit specific service nodes or edges, have errors, or come
@@ -1122,7 +1478,7 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
      * <p>
      * For a full list of indexed fields and keywords that you can use in filter expressions, see <a
      * href="https://docs.aws.amazon.com/xray/latest/devguide/xray-console-filters.html">Using Filter Expressions</a> in
-     * the <i>AWS X-Ray Developer Guide</i>.
+     * the <i>Amazon Web Services X-Ray Developer Guide</i>.
      * </p>
      * 
      * @param getTraceSummariesRequest
@@ -1156,6 +1512,8 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
                 request = new GetTraceSummariesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getTraceSummariesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetTraceSummaries");
@@ -1167,6 +1525,127 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
 
             HttpResponseHandler<AmazonWebServiceResponse<GetTraceSummariesResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetTraceSummariesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the list of resource policies in the target Amazon Web Services account.
+     * </p>
+     * 
+     * @param listResourcePoliciesRequest
+     * @return Result of the ListResourcePolicies operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is missing required parameters or has invalid parameters.
+     * @throws ThrottledException
+     *         The request exceeds the maximum number of requests per second.
+     * @sample AWSXRay.ListResourcePolicies
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/ListResourcePolicies" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListResourcePoliciesResult listResourcePolicies(ListResourcePoliciesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListResourcePolicies(request);
+    }
+
+    @SdkInternalApi
+    final ListResourcePoliciesResult executeListResourcePolicies(ListResourcePoliciesRequest listResourcePoliciesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listResourcePoliciesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListResourcePoliciesRequest> request = null;
+        Response<ListResourcePoliciesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListResourcePoliciesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listResourcePoliciesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListResourcePolicies");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListResourcePoliciesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListResourcePoliciesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of tags that are applied to the specified Amazon Web Services X-Ray group or sampling rule.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is missing required parameters or has invalid parameters.
+     * @throws ThrottledException
+     *         The request exceeds the maximum number of requests per second.
+     * @throws ResourceNotFoundException
+     *         The resource was not found. Verify that the name or Amazon Resource Name (ARN) of the resource is
+     *         correct.
+     * @sample AWSXRay.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/ListTagsForResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeListTagsForResource(request);
+    }
+
+    @SdkInternalApi
+    final ListTagsForResourceResult executeListTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listTagsForResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListTagsForResourceRequest> request = null;
+        Response<ListTagsForResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListTagsForResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListTagsForResourceResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1213,6 +1692,8 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
                 request = new PutEncryptionConfigRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putEncryptionConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutEncryptionConfig");
@@ -1236,7 +1717,80 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
 
     /**
      * <p>
-     * Used by the AWS X-Ray daemon to upload telemetry.
+     * Sets the resource policy to grant one or more Amazon Web Services services and accounts permissions to access
+     * X-Ray. Each resource policy will be associated with a specific Amazon Web Services account. Each Amazon Web
+     * Services account can have a maximum of 5 resource policies, and each policy name must be unique within that
+     * account. The maximum size of each resource policy is 5KB.
+     * </p>
+     * 
+     * @param putResourcePolicyRequest
+     * @return Result of the PutResourcePolicy operation returned by the service.
+     * @throws MalformedPolicyDocumentException
+     *         Invalid policy document provided in request.
+     * @throws LockoutPreventionException
+     *         The provided resource policy would prevent the caller of this request from calling PutResourcePolicy in
+     *         the future.
+     * @throws InvalidPolicyRevisionIdException
+     *         A policy revision id was provided which does not match the latest policy revision. This exception is also
+     *         if a policy revision id of 0 is provided via <code>PutResourcePolicy</code> and a policy with the same
+     *         name already exists.
+     * @throws PolicySizeLimitExceededException
+     *         Exceeded the maximum size for a resource policy.
+     * @throws PolicyCountLimitExceededException
+     *         Exceeded the maximum number of resource policies for a target Amazon Web Services account.
+     * @throws ThrottledException
+     *         The request exceeds the maximum number of requests per second.
+     * @sample AWSXRay.PutResourcePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/PutResourcePolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public PutResourcePolicyResult putResourcePolicy(PutResourcePolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executePutResourcePolicy(request);
+    }
+
+    @SdkInternalApi
+    final PutResourcePolicyResult executePutResourcePolicy(PutResourcePolicyRequest putResourcePolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putResourcePolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutResourcePolicyRequest> request = null;
+        Response<PutResourcePolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutResourcePolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putResourcePolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutResourcePolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutResourcePolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new PutResourcePolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Used by the Amazon Web Services X-Ray daemon to upload telemetry.
      * </p>
      * 
      * @param putTelemetryRecordsRequest
@@ -1270,6 +1824,8 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
                 request = new PutTelemetryRecordsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putTelemetryRecordsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutTelemetryRecords");
@@ -1293,17 +1849,18 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
 
     /**
      * <p>
-     * Uploads segment documents to AWS X-Ray. The X-Ray SDK generates segment documents and sends them to the X-Ray
-     * daemon, which uploads them in batches. A segment document can be a completed segment, an in-progress segment, or
-     * an array of subsegments.
+     * Uploads segment documents to Amazon Web Services X-Ray. The <a
+     * href="https://docs.aws.amazon.com/xray/index.html">X-Ray SDK</a> generates segment documents and sends them to
+     * the X-Ray daemon, which uploads them in batches. A segment document can be a completed segment, an in-progress
+     * segment, or an array of subsegments.
      * </p>
      * <p>
      * Segments must include the following fields. For the full segment document schema, see <a
-     * href="https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html">AWS X-Ray Segment
-     * Documents</a> in the <i>AWS X-Ray Developer Guide</i>.
+     * href="https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html">Amazon Web Services X-Ray
+     * Segment Documents</a> in the <i>Amazon Web Services X-Ray Developer Guide</i>.
      * </p>
      * <p class="title">
-     * <b>Required Segment Document Fields</b>
+     * <b>Required segment document fields</b>
      * </p>
      * <ul>
      * <li>
@@ -1338,9 +1895,9 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
      * <li>
      * <p>
      * <code>in_progress</code> - Set to <code>true</code> instead of specifying an <code>end_time</code> to record that
-     * a segment has been started, but is not complete. Send an in progress segment when your application receives a
-     * request that will take a long time to serve, to trace the fact that the request was received. When the response
-     * is sent, send the complete segment to overwrite the in-progress segment.
+     * a segment has been started, but is not complete. Send an in-progress segment when your application receives a
+     * request that will take a long time to serve, to trace that the request was received. When the response is sent,
+     * send the complete segment to overwrite the in-progress segment.
      * </p>
      * </li>
      * </ul>
@@ -1354,7 +1911,7 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
      * <ul>
      * <li>
      * <p>
-     * The version number, i.e. <code>1</code>.
+     * The version number, for instance, <code>1</code>.
      * </p>
      * </li>
      * <li>
@@ -1401,6 +1958,8 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
                 request = new PutTraceSegmentsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putTraceSegmentsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutTraceSegments");
@@ -1412,6 +1971,133 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
 
             HttpResponseHandler<AmazonWebServiceResponse<PutTraceSegmentsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new PutTraceSegmentsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Applies tags to an existing Amazon Web Services X-Ray group or sampling rule.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is missing required parameters or has invalid parameters.
+     * @throws ThrottledException
+     *         The request exceeds the maximum number of requests per second.
+     * @throws ResourceNotFoundException
+     *         The resource was not found. Verify that the name or Amazon Resource Name (ARN) of the resource is
+     *         correct.
+     * @throws TooManyTagsException
+     *         You have exceeded the maximum number of tags you can apply to this resource.
+     * @sample AWSXRay.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/TagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeTagResource(request);
+    }
+
+    @SdkInternalApi
+    final TagResourceResult executeTagResource(TagResourceRequest tagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(tagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TagResourceRequest> request = null;
+        Response<TagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<TagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new TagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Removes tags from an Amazon Web Services X-Ray group or sampling rule. You cannot edit or delete system tags
+     * (those with an <code>aws:</code> prefix).
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is missing required parameters or has invalid parameters.
+     * @throws ThrottledException
+     *         The request exceeds the maximum number of requests per second.
+     * @throws ResourceNotFoundException
+     *         The resource was not found. Verify that the name or Amazon Resource Name (ARN) of the resource is
+     *         correct.
+     * @sample AWSXRay.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/UntagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeUntagResource(request);
+    }
+
+    @SdkInternalApi
+    final UntagResourceResult executeUntagResource(UntagResourceRequest untagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(untagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UntagResourceRequest> request = null;
+        Response<UntagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UntagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UntagResourceResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1458,6 +2144,8 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
                 request = new UpdateGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateGroup");
@@ -1515,6 +2203,8 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
                 request = new UpdateSamplingRuleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateSamplingRuleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "XRay");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateSamplingRule");
@@ -1610,6 +2300,11 @@ public class AWSXRayClient extends AmazonWebServiceClient implements AWSXRay {
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

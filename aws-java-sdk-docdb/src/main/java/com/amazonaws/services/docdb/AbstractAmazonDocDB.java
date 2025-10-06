@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,6 +26,11 @@ import com.amazonaws.services.docdb.waiters.AmazonDocDBWaiters;
 public class AbstractAmazonDocDB implements AmazonDocDB {
 
     protected AbstractAmazonDocDB() {
+    }
+
+    @Override
+    public EventSubscription addSourceIdentifierToSubscription(AddSourceIdentifierToSubscriptionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
@@ -74,6 +79,16 @@ public class AbstractAmazonDocDB implements AmazonDocDB {
     }
 
     @Override
+    public EventSubscription createEventSubscription(CreateEventSubscriptionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GlobalCluster createGlobalCluster(CreateGlobalClusterRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DBCluster deleteDBCluster(DeleteDBClusterRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -95,6 +110,21 @@ public class AbstractAmazonDocDB implements AmazonDocDB {
 
     @Override
     public DeleteDBSubnetGroupResult deleteDBSubnetGroup(DeleteDBSubnetGroupRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public EventSubscription deleteEventSubscription(DeleteEventSubscriptionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GlobalCluster deleteGlobalCluster(DeleteGlobalClusterRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeCertificatesResult describeCertificates(DescribeCertificatesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -149,7 +179,17 @@ public class AbstractAmazonDocDB implements AmazonDocDB {
     }
 
     @Override
+    public DescribeEventSubscriptionsResult describeEventSubscriptions(DescribeEventSubscriptionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeEventsResult describeEvents(DescribeEventsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeGlobalClustersResult describeGlobalClusters(DescribeGlobalClustersRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -199,7 +239,27 @@ public class AbstractAmazonDocDB implements AmazonDocDB {
     }
 
     @Override
+    public EventSubscription modifyEventSubscription(ModifyEventSubscriptionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GlobalCluster modifyGlobalCluster(ModifyGlobalClusterRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DBInstance rebootDBInstance(RebootDBInstanceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GlobalCluster removeFromGlobalCluster(RemoveFromGlobalClusterRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public EventSubscription removeSourceIdentifierFromSubscription(RemoveSourceIdentifierFromSubscriptionRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -230,6 +290,11 @@ public class AbstractAmazonDocDB implements AmazonDocDB {
 
     @Override
     public DBCluster stopDBCluster(StopDBClusterRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GlobalCluster switchoverGlobalCluster(SwitchoverGlobalClusterRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

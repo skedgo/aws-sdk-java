@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,6 +36,9 @@ import java.util.concurrent.ExecutorService;
  * For more information about how AWS IoT Things Graph works, see the <a
  * href="https://docs.aws.amazon.com/thingsgraph/latest/ug/iot-tg-whatis.html">User Guide</a>.
  * </p>
+ * <p>
+ * The AWS IoT Things Graph service is discontinued.
+ * </p>
  */
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -57,7 +60,20 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
      *        Object providing client parameters.
      */
     AWSIoTThingsGraphAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on AWS IoT Things Graph using the specified
+     * parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSIoTThingsGraphAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -71,12 +87,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<AssociateEntityToThingResult> associateEntityToThingAsync(AssociateEntityToThingRequest request) {
 
         return associateEntityToThingAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<AssociateEntityToThingResult> associateEntityToThingAsync(final AssociateEntityToThingRequest request,
             final com.amazonaws.handlers.AsyncHandler<AssociateEntityToThingRequest, AssociateEntityToThingResult> asyncHandler) {
         final AssociateEntityToThingRequest finalRequest = beforeClientExecution(request);
@@ -104,12 +122,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<CreateFlowTemplateResult> createFlowTemplateAsync(CreateFlowTemplateRequest request) {
 
         return createFlowTemplateAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<CreateFlowTemplateResult> createFlowTemplateAsync(final CreateFlowTemplateRequest request,
             final com.amazonaws.handlers.AsyncHandler<CreateFlowTemplateRequest, CreateFlowTemplateResult> asyncHandler) {
         final CreateFlowTemplateRequest finalRequest = beforeClientExecution(request);
@@ -137,12 +157,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<CreateSystemInstanceResult> createSystemInstanceAsync(CreateSystemInstanceRequest request) {
 
         return createSystemInstanceAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<CreateSystemInstanceResult> createSystemInstanceAsync(final CreateSystemInstanceRequest request,
             final com.amazonaws.handlers.AsyncHandler<CreateSystemInstanceRequest, CreateSystemInstanceResult> asyncHandler) {
         final CreateSystemInstanceRequest finalRequest = beforeClientExecution(request);
@@ -170,12 +192,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<CreateSystemTemplateResult> createSystemTemplateAsync(CreateSystemTemplateRequest request) {
 
         return createSystemTemplateAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<CreateSystemTemplateResult> createSystemTemplateAsync(final CreateSystemTemplateRequest request,
             final com.amazonaws.handlers.AsyncHandler<CreateSystemTemplateRequest, CreateSystemTemplateResult> asyncHandler) {
         final CreateSystemTemplateRequest finalRequest = beforeClientExecution(request);
@@ -203,12 +227,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DeleteFlowTemplateResult> deleteFlowTemplateAsync(DeleteFlowTemplateRequest request) {
 
         return deleteFlowTemplateAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DeleteFlowTemplateResult> deleteFlowTemplateAsync(final DeleteFlowTemplateRequest request,
             final com.amazonaws.handlers.AsyncHandler<DeleteFlowTemplateRequest, DeleteFlowTemplateResult> asyncHandler) {
         final DeleteFlowTemplateRequest finalRequest = beforeClientExecution(request);
@@ -236,12 +262,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DeleteNamespaceResult> deleteNamespaceAsync(DeleteNamespaceRequest request) {
 
         return deleteNamespaceAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DeleteNamespaceResult> deleteNamespaceAsync(final DeleteNamespaceRequest request,
             final com.amazonaws.handlers.AsyncHandler<DeleteNamespaceRequest, DeleteNamespaceResult> asyncHandler) {
         final DeleteNamespaceRequest finalRequest = beforeClientExecution(request);
@@ -269,12 +297,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DeleteSystemInstanceResult> deleteSystemInstanceAsync(DeleteSystemInstanceRequest request) {
 
         return deleteSystemInstanceAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DeleteSystemInstanceResult> deleteSystemInstanceAsync(final DeleteSystemInstanceRequest request,
             final com.amazonaws.handlers.AsyncHandler<DeleteSystemInstanceRequest, DeleteSystemInstanceResult> asyncHandler) {
         final DeleteSystemInstanceRequest finalRequest = beforeClientExecution(request);
@@ -302,12 +332,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DeleteSystemTemplateResult> deleteSystemTemplateAsync(DeleteSystemTemplateRequest request) {
 
         return deleteSystemTemplateAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DeleteSystemTemplateResult> deleteSystemTemplateAsync(final DeleteSystemTemplateRequest request,
             final com.amazonaws.handlers.AsyncHandler<DeleteSystemTemplateRequest, DeleteSystemTemplateResult> asyncHandler) {
         final DeleteSystemTemplateRequest finalRequest = beforeClientExecution(request);
@@ -335,12 +367,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DeploySystemInstanceResult> deploySystemInstanceAsync(DeploySystemInstanceRequest request) {
 
         return deploySystemInstanceAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DeploySystemInstanceResult> deploySystemInstanceAsync(final DeploySystemInstanceRequest request,
             final com.amazonaws.handlers.AsyncHandler<DeploySystemInstanceRequest, DeploySystemInstanceResult> asyncHandler) {
         final DeploySystemInstanceRequest finalRequest = beforeClientExecution(request);
@@ -368,12 +402,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DeprecateFlowTemplateResult> deprecateFlowTemplateAsync(DeprecateFlowTemplateRequest request) {
 
         return deprecateFlowTemplateAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DeprecateFlowTemplateResult> deprecateFlowTemplateAsync(final DeprecateFlowTemplateRequest request,
             final com.amazonaws.handlers.AsyncHandler<DeprecateFlowTemplateRequest, DeprecateFlowTemplateResult> asyncHandler) {
         final DeprecateFlowTemplateRequest finalRequest = beforeClientExecution(request);
@@ -401,12 +437,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DeprecateSystemTemplateResult> deprecateSystemTemplateAsync(DeprecateSystemTemplateRequest request) {
 
         return deprecateSystemTemplateAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DeprecateSystemTemplateResult> deprecateSystemTemplateAsync(final DeprecateSystemTemplateRequest request,
             final com.amazonaws.handlers.AsyncHandler<DeprecateSystemTemplateRequest, DeprecateSystemTemplateResult> asyncHandler) {
         final DeprecateSystemTemplateRequest finalRequest = beforeClientExecution(request);
@@ -434,12 +472,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeNamespaceResult> describeNamespaceAsync(DescribeNamespaceRequest request) {
 
         return describeNamespaceAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeNamespaceResult> describeNamespaceAsync(final DescribeNamespaceRequest request,
             final com.amazonaws.handlers.AsyncHandler<DescribeNamespaceRequest, DescribeNamespaceResult> asyncHandler) {
         final DescribeNamespaceRequest finalRequest = beforeClientExecution(request);
@@ -467,12 +507,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DissociateEntityFromThingResult> dissociateEntityFromThingAsync(DissociateEntityFromThingRequest request) {
 
         return dissociateEntityFromThingAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DissociateEntityFromThingResult> dissociateEntityFromThingAsync(final DissociateEntityFromThingRequest request,
             final com.amazonaws.handlers.AsyncHandler<DissociateEntityFromThingRequest, DissociateEntityFromThingResult> asyncHandler) {
         final DissociateEntityFromThingRequest finalRequest = beforeClientExecution(request);
@@ -500,12 +542,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<GetEntitiesResult> getEntitiesAsync(GetEntitiesRequest request) {
 
         return getEntitiesAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<GetEntitiesResult> getEntitiesAsync(final GetEntitiesRequest request,
             final com.amazonaws.handlers.AsyncHandler<GetEntitiesRequest, GetEntitiesResult> asyncHandler) {
         final GetEntitiesRequest finalRequest = beforeClientExecution(request);
@@ -533,12 +577,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<GetFlowTemplateResult> getFlowTemplateAsync(GetFlowTemplateRequest request) {
 
         return getFlowTemplateAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<GetFlowTemplateResult> getFlowTemplateAsync(final GetFlowTemplateRequest request,
             final com.amazonaws.handlers.AsyncHandler<GetFlowTemplateRequest, GetFlowTemplateResult> asyncHandler) {
         final GetFlowTemplateRequest finalRequest = beforeClientExecution(request);
@@ -566,12 +612,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<GetFlowTemplateRevisionsResult> getFlowTemplateRevisionsAsync(GetFlowTemplateRevisionsRequest request) {
 
         return getFlowTemplateRevisionsAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<GetFlowTemplateRevisionsResult> getFlowTemplateRevisionsAsync(final GetFlowTemplateRevisionsRequest request,
             final com.amazonaws.handlers.AsyncHandler<GetFlowTemplateRevisionsRequest, GetFlowTemplateRevisionsResult> asyncHandler) {
         final GetFlowTemplateRevisionsRequest finalRequest = beforeClientExecution(request);
@@ -599,12 +647,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<GetNamespaceDeletionStatusResult> getNamespaceDeletionStatusAsync(GetNamespaceDeletionStatusRequest request) {
 
         return getNamespaceDeletionStatusAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<GetNamespaceDeletionStatusResult> getNamespaceDeletionStatusAsync(final GetNamespaceDeletionStatusRequest request,
             final com.amazonaws.handlers.AsyncHandler<GetNamespaceDeletionStatusRequest, GetNamespaceDeletionStatusResult> asyncHandler) {
         final GetNamespaceDeletionStatusRequest finalRequest = beforeClientExecution(request);
@@ -632,12 +682,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<GetSystemInstanceResult> getSystemInstanceAsync(GetSystemInstanceRequest request) {
 
         return getSystemInstanceAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<GetSystemInstanceResult> getSystemInstanceAsync(final GetSystemInstanceRequest request,
             final com.amazonaws.handlers.AsyncHandler<GetSystemInstanceRequest, GetSystemInstanceResult> asyncHandler) {
         final GetSystemInstanceRequest finalRequest = beforeClientExecution(request);
@@ -665,12 +717,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<GetSystemTemplateResult> getSystemTemplateAsync(GetSystemTemplateRequest request) {
 
         return getSystemTemplateAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<GetSystemTemplateResult> getSystemTemplateAsync(final GetSystemTemplateRequest request,
             final com.amazonaws.handlers.AsyncHandler<GetSystemTemplateRequest, GetSystemTemplateResult> asyncHandler) {
         final GetSystemTemplateRequest finalRequest = beforeClientExecution(request);
@@ -698,12 +752,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<GetSystemTemplateRevisionsResult> getSystemTemplateRevisionsAsync(GetSystemTemplateRevisionsRequest request) {
 
         return getSystemTemplateRevisionsAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<GetSystemTemplateRevisionsResult> getSystemTemplateRevisionsAsync(final GetSystemTemplateRevisionsRequest request,
             final com.amazonaws.handlers.AsyncHandler<GetSystemTemplateRevisionsRequest, GetSystemTemplateRevisionsResult> asyncHandler) {
         final GetSystemTemplateRevisionsRequest finalRequest = beforeClientExecution(request);
@@ -731,12 +787,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<GetUploadStatusResult> getUploadStatusAsync(GetUploadStatusRequest request) {
 
         return getUploadStatusAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<GetUploadStatusResult> getUploadStatusAsync(final GetUploadStatusRequest request,
             final com.amazonaws.handlers.AsyncHandler<GetUploadStatusRequest, GetUploadStatusResult> asyncHandler) {
         final GetUploadStatusRequest finalRequest = beforeClientExecution(request);
@@ -764,12 +822,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<ListFlowExecutionMessagesResult> listFlowExecutionMessagesAsync(ListFlowExecutionMessagesRequest request) {
 
         return listFlowExecutionMessagesAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<ListFlowExecutionMessagesResult> listFlowExecutionMessagesAsync(final ListFlowExecutionMessagesRequest request,
             final com.amazonaws.handlers.AsyncHandler<ListFlowExecutionMessagesRequest, ListFlowExecutionMessagesResult> asyncHandler) {
         final ListFlowExecutionMessagesRequest finalRequest = beforeClientExecution(request);
@@ -797,12 +857,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
 
         return listTagsForResourceAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(final ListTagsForResourceRequest request,
             final com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
         final ListTagsForResourceRequest finalRequest = beforeClientExecution(request);
@@ -830,12 +892,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<SearchEntitiesResult> searchEntitiesAsync(SearchEntitiesRequest request) {
 
         return searchEntitiesAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<SearchEntitiesResult> searchEntitiesAsync(final SearchEntitiesRequest request,
             final com.amazonaws.handlers.AsyncHandler<SearchEntitiesRequest, SearchEntitiesResult> asyncHandler) {
         final SearchEntitiesRequest finalRequest = beforeClientExecution(request);
@@ -863,12 +927,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<SearchFlowExecutionsResult> searchFlowExecutionsAsync(SearchFlowExecutionsRequest request) {
 
         return searchFlowExecutionsAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<SearchFlowExecutionsResult> searchFlowExecutionsAsync(final SearchFlowExecutionsRequest request,
             final com.amazonaws.handlers.AsyncHandler<SearchFlowExecutionsRequest, SearchFlowExecutionsResult> asyncHandler) {
         final SearchFlowExecutionsRequest finalRequest = beforeClientExecution(request);
@@ -896,12 +962,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<SearchFlowTemplatesResult> searchFlowTemplatesAsync(SearchFlowTemplatesRequest request) {
 
         return searchFlowTemplatesAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<SearchFlowTemplatesResult> searchFlowTemplatesAsync(final SearchFlowTemplatesRequest request,
             final com.amazonaws.handlers.AsyncHandler<SearchFlowTemplatesRequest, SearchFlowTemplatesResult> asyncHandler) {
         final SearchFlowTemplatesRequest finalRequest = beforeClientExecution(request);
@@ -929,12 +997,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<SearchSystemInstancesResult> searchSystemInstancesAsync(SearchSystemInstancesRequest request) {
 
         return searchSystemInstancesAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<SearchSystemInstancesResult> searchSystemInstancesAsync(final SearchSystemInstancesRequest request,
             final com.amazonaws.handlers.AsyncHandler<SearchSystemInstancesRequest, SearchSystemInstancesResult> asyncHandler) {
         final SearchSystemInstancesRequest finalRequest = beforeClientExecution(request);
@@ -962,12 +1032,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<SearchSystemTemplatesResult> searchSystemTemplatesAsync(SearchSystemTemplatesRequest request) {
 
         return searchSystemTemplatesAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<SearchSystemTemplatesResult> searchSystemTemplatesAsync(final SearchSystemTemplatesRequest request,
             final com.amazonaws.handlers.AsyncHandler<SearchSystemTemplatesRequest, SearchSystemTemplatesResult> asyncHandler) {
         final SearchSystemTemplatesRequest finalRequest = beforeClientExecution(request);
@@ -995,12 +1067,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<SearchThingsResult> searchThingsAsync(SearchThingsRequest request) {
 
         return searchThingsAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<SearchThingsResult> searchThingsAsync(final SearchThingsRequest request,
             final com.amazonaws.handlers.AsyncHandler<SearchThingsRequest, SearchThingsResult> asyncHandler) {
         final SearchThingsRequest finalRequest = beforeClientExecution(request);
@@ -1028,12 +1102,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
 
         return tagResourceAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(final TagResourceRequest request,
             final com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
         final TagResourceRequest finalRequest = beforeClientExecution(request);
@@ -1061,12 +1137,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<UndeploySystemInstanceResult> undeploySystemInstanceAsync(UndeploySystemInstanceRequest request) {
 
         return undeploySystemInstanceAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<UndeploySystemInstanceResult> undeploySystemInstanceAsync(final UndeploySystemInstanceRequest request,
             final com.amazonaws.handlers.AsyncHandler<UndeploySystemInstanceRequest, UndeploySystemInstanceResult> asyncHandler) {
         final UndeploySystemInstanceRequest finalRequest = beforeClientExecution(request);
@@ -1094,12 +1172,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
 
         return untagResourceAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(final UntagResourceRequest request,
             final com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
         final UntagResourceRequest finalRequest = beforeClientExecution(request);
@@ -1127,12 +1207,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<UpdateFlowTemplateResult> updateFlowTemplateAsync(UpdateFlowTemplateRequest request) {
 
         return updateFlowTemplateAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<UpdateFlowTemplateResult> updateFlowTemplateAsync(final UpdateFlowTemplateRequest request,
             final com.amazonaws.handlers.AsyncHandler<UpdateFlowTemplateRequest, UpdateFlowTemplateResult> asyncHandler) {
         final UpdateFlowTemplateRequest finalRequest = beforeClientExecution(request);
@@ -1160,12 +1242,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<UpdateSystemTemplateResult> updateSystemTemplateAsync(UpdateSystemTemplateRequest request) {
 
         return updateSystemTemplateAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<UpdateSystemTemplateResult> updateSystemTemplateAsync(final UpdateSystemTemplateRequest request,
             final com.amazonaws.handlers.AsyncHandler<UpdateSystemTemplateRequest, UpdateSystemTemplateResult> asyncHandler) {
         final UpdateSystemTemplateRequest finalRequest = beforeClientExecution(request);
@@ -1193,12 +1277,14 @@ public class AWSIoTThingsGraphAsyncClient extends AWSIoTThingsGraphClient implem
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<UploadEntityDefinitionsResult> uploadEntityDefinitionsAsync(UploadEntityDefinitionsRequest request) {
 
         return uploadEntityDefinitionsAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<UploadEntityDefinitionsResult> uploadEntityDefinitionsAsync(final UploadEntityDefinitionsRequest request,
             final com.amazonaws.handlers.AsyncHandler<UploadEntityDefinitionsRequest, UploadEntityDefinitionsResult> asyncHandler) {
         final UploadEntityDefinitionsRequest finalRequest = beforeClientExecution(request);

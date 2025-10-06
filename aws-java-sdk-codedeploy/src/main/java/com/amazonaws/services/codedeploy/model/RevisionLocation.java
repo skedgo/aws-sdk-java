@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,7 +45,13 @@ public class RevisionLocation implements Serializable, Cloneable, StructuredPojo
      * </li>
      * <li>
      * <p>
-     * String: A YAML-formatted or JSON-formatted string (AWS Lambda deployments only).
+     * String: A YAML-formatted or JSON-formatted string (Lambda deployments only).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * AppSpecContent: An <code>AppSpecContent</code> object that contains the contents of an AppSpec file for an Lambda
+     * or Amazon ECS deployment. The content is formatted as JSON or YAML stored as a RawString.
      * </p>
      * </li>
      * </ul>
@@ -65,14 +71,14 @@ public class RevisionLocation implements Serializable, Cloneable, StructuredPojo
     private GitHubLocation gitHubLocation;
     /**
      * <p>
-     * Information about the location of an AWS Lambda deployment revision stored as a RawString.
+     * Information about the location of an Lambda deployment revision stored as a RawString.
      * </p>
      */
     private RawString string;
     /**
      * <p>
-     * The content of an AppSpec file for an AWS Lambda or Amazon ECS deployment. The content is formatted as JSON or
-     * YAML and stored as a RawString.
+     * The content of an AppSpec file for an Lambda or Amazon ECS deployment. The content is formatted as JSON or YAML
+     * and stored as a RawString.
      * </p>
      */
     private AppSpecContent appSpecContent;
@@ -94,7 +100,13 @@ public class RevisionLocation implements Serializable, Cloneable, StructuredPojo
      * </li>
      * <li>
      * <p>
-     * String: A YAML-formatted or JSON-formatted string (AWS Lambda deployments only).
+     * String: A YAML-formatted or JSON-formatted string (Lambda deployments only).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * AppSpecContent: An <code>AppSpecContent</code> object that contains the contents of an AppSpec file for an Lambda
+     * or Amazon ECS deployment. The content is formatted as JSON or YAML stored as a RawString.
      * </p>
      * </li>
      * </ul>
@@ -114,7 +126,13 @@ public class RevisionLocation implements Serializable, Cloneable, StructuredPojo
      *        </li>
      *        <li>
      *        <p>
-     *        String: A YAML-formatted or JSON-formatted string (AWS Lambda deployments only).
+     *        String: A YAML-formatted or JSON-formatted string (Lambda deployments only).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        AppSpecContent: An <code>AppSpecContent</code> object that contains the contents of an AppSpec file for an
+     *        Lambda or Amazon ECS deployment. The content is formatted as JSON or YAML stored as a RawString.
      *        </p>
      *        </li>
      * @see RevisionLocationType
@@ -141,7 +159,13 @@ public class RevisionLocation implements Serializable, Cloneable, StructuredPojo
      * </li>
      * <li>
      * <p>
-     * String: A YAML-formatted or JSON-formatted string (AWS Lambda deployments only).
+     * String: A YAML-formatted or JSON-formatted string (Lambda deployments only).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * AppSpecContent: An <code>AppSpecContent</code> object that contains the contents of an AppSpec file for an Lambda
+     * or Amazon ECS deployment. The content is formatted as JSON or YAML stored as a RawString.
      * </p>
      * </li>
      * </ul>
@@ -160,7 +184,13 @@ public class RevisionLocation implements Serializable, Cloneable, StructuredPojo
      *         </li>
      *         <li>
      *         <p>
-     *         String: A YAML-formatted or JSON-formatted string (AWS Lambda deployments only).
+     *         String: A YAML-formatted or JSON-formatted string (Lambda deployments only).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         AppSpecContent: An <code>AppSpecContent</code> object that contains the contents of an AppSpec file for
+     *         an Lambda or Amazon ECS deployment. The content is formatted as JSON or YAML stored as a RawString.
      *         </p>
      *         </li>
      * @see RevisionLocationType
@@ -187,7 +217,13 @@ public class RevisionLocation implements Serializable, Cloneable, StructuredPojo
      * </li>
      * <li>
      * <p>
-     * String: A YAML-formatted or JSON-formatted string (AWS Lambda deployments only).
+     * String: A YAML-formatted or JSON-formatted string (Lambda deployments only).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * AppSpecContent: An <code>AppSpecContent</code> object that contains the contents of an AppSpec file for an Lambda
+     * or Amazon ECS deployment. The content is formatted as JSON or YAML stored as a RawString.
      * </p>
      * </li>
      * </ul>
@@ -207,7 +243,13 @@ public class RevisionLocation implements Serializable, Cloneable, StructuredPojo
      *        </li>
      *        <li>
      *        <p>
-     *        String: A YAML-formatted or JSON-formatted string (AWS Lambda deployments only).
+     *        String: A YAML-formatted or JSON-formatted string (Lambda deployments only).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        AppSpecContent: An <code>AppSpecContent</code> object that contains the contents of an AppSpec file for an
+     *        Lambda or Amazon ECS deployment. The content is formatted as JSON or YAML stored as a RawString.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -236,7 +278,13 @@ public class RevisionLocation implements Serializable, Cloneable, StructuredPojo
      * </li>
      * <li>
      * <p>
-     * String: A YAML-formatted or JSON-formatted string (AWS Lambda deployments only).
+     * String: A YAML-formatted or JSON-formatted string (Lambda deployments only).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * AppSpecContent: An <code>AppSpecContent</code> object that contains the contents of an AppSpec file for an Lambda
+     * or Amazon ECS deployment. The content is formatted as JSON or YAML stored as a RawString.
      * </p>
      * </li>
      * </ul>
@@ -256,7 +304,13 @@ public class RevisionLocation implements Serializable, Cloneable, StructuredPojo
      *        </li>
      *        <li>
      *        <p>
-     *        String: A YAML-formatted or JSON-formatted string (AWS Lambda deployments only).
+     *        String: A YAML-formatted or JSON-formatted string (Lambda deployments only).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        AppSpecContent: An <code>AppSpecContent</code> object that contains the contents of an AppSpec file for an
+     *        Lambda or Amazon ECS deployment. The content is formatted as JSON or YAML stored as a RawString.
      *        </p>
      *        </li>
      * @see RevisionLocationType
@@ -283,7 +337,13 @@ public class RevisionLocation implements Serializable, Cloneable, StructuredPojo
      * </li>
      * <li>
      * <p>
-     * String: A YAML-formatted or JSON-formatted string (AWS Lambda deployments only).
+     * String: A YAML-formatted or JSON-formatted string (Lambda deployments only).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * AppSpecContent: An <code>AppSpecContent</code> object that contains the contents of an AppSpec file for an Lambda
+     * or Amazon ECS deployment. The content is formatted as JSON or YAML stored as a RawString.
      * </p>
      * </li>
      * </ul>
@@ -303,7 +363,13 @@ public class RevisionLocation implements Serializable, Cloneable, StructuredPojo
      *        </li>
      *        <li>
      *        <p>
-     *        String: A YAML-formatted or JSON-formatted string (AWS Lambda deployments only).
+     *        String: A YAML-formatted or JSON-formatted string (Lambda deployments only).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        AppSpecContent: An <code>AppSpecContent</code> object that contains the contents of an AppSpec file for an
+     *        Lambda or Amazon ECS deployment. The content is formatted as JSON or YAML stored as a RawString.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -397,11 +463,11 @@ public class RevisionLocation implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Information about the location of an AWS Lambda deployment revision stored as a RawString.
+     * Information about the location of an Lambda deployment revision stored as a RawString.
      * </p>
      * 
      * @param string
-     *        Information about the location of an AWS Lambda deployment revision stored as a RawString.
+     *        Information about the location of an Lambda deployment revision stored as a RawString.
      */
     @Deprecated
     public void setString(RawString string) {
@@ -410,10 +476,10 @@ public class RevisionLocation implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Information about the location of an AWS Lambda deployment revision stored as a RawString.
+     * Information about the location of an Lambda deployment revision stored as a RawString.
      * </p>
      * 
-     * @return Information about the location of an AWS Lambda deployment revision stored as a RawString.
+     * @return Information about the location of an Lambda deployment revision stored as a RawString.
      */
     @Deprecated
     public RawString getString() {
@@ -422,11 +488,11 @@ public class RevisionLocation implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Information about the location of an AWS Lambda deployment revision stored as a RawString.
+     * Information about the location of an Lambda deployment revision stored as a RawString.
      * </p>
      * 
      * @param string
-     *        Information about the location of an AWS Lambda deployment revision stored as a RawString.
+     *        Information about the location of an Lambda deployment revision stored as a RawString.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
     @Deprecated
@@ -437,13 +503,13 @@ public class RevisionLocation implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The content of an AppSpec file for an AWS Lambda or Amazon ECS deployment. The content is formatted as JSON or
-     * YAML and stored as a RawString.
+     * The content of an AppSpec file for an Lambda or Amazon ECS deployment. The content is formatted as JSON or YAML
+     * and stored as a RawString.
      * </p>
      * 
      * @param appSpecContent
-     *        The content of an AppSpec file for an AWS Lambda or Amazon ECS deployment. The content is formatted as
-     *        JSON or YAML and stored as a RawString.
+     *        The content of an AppSpec file for an Lambda or Amazon ECS deployment. The content is formatted as JSON or
+     *        YAML and stored as a RawString.
      */
 
     public void setAppSpecContent(AppSpecContent appSpecContent) {
@@ -452,12 +518,12 @@ public class RevisionLocation implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The content of an AppSpec file for an AWS Lambda or Amazon ECS deployment. The content is formatted as JSON or
-     * YAML and stored as a RawString.
+     * The content of an AppSpec file for an Lambda or Amazon ECS deployment. The content is formatted as JSON or YAML
+     * and stored as a RawString.
      * </p>
      * 
-     * @return The content of an AppSpec file for an AWS Lambda or Amazon ECS deployment. The content is formatted as
-     *         JSON or YAML and stored as a RawString.
+     * @return The content of an AppSpec file for an Lambda or Amazon ECS deployment. The content is formatted as JSON
+     *         or YAML and stored as a RawString.
      */
 
     public AppSpecContent getAppSpecContent() {
@@ -466,13 +532,13 @@ public class RevisionLocation implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The content of an AppSpec file for an AWS Lambda or Amazon ECS deployment. The content is formatted as JSON or
-     * YAML and stored as a RawString.
+     * The content of an AppSpec file for an Lambda or Amazon ECS deployment. The content is formatted as JSON or YAML
+     * and stored as a RawString.
      * </p>
      * 
      * @param appSpecContent
-     *        The content of an AppSpec file for an AWS Lambda or Amazon ECS deployment. The content is formatted as
-     *        JSON or YAML and stored as a RawString.
+     *        The content of an AppSpec file for an Lambda or Amazon ECS deployment. The content is formatted as JSON or
+     *        YAML and stored as a RawString.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

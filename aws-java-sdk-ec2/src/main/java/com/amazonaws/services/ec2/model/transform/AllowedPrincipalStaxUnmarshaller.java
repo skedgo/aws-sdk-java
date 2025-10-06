@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -11,6 +11,8 @@
  * and limitations under the License.
  */
 package com.amazonaws.services.ec2.model.transform;
+
+import java.util.ArrayList;
 
 import javax.xml.stream.events.XMLEvent;
 import javax.annotation.Generated;
@@ -50,6 +52,26 @@ public class AllowedPrincipalStaxUnmarshaller implements Unmarshaller<AllowedPri
 
                 if (context.testExpression("principal", targetDepth)) {
                     allowedPrincipal.setPrincipal(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("servicePermissionId", targetDepth)) {
+                    allowedPrincipal.setServicePermissionId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("tagSet", targetDepth)) {
+                    allowedPrincipal.withTags(new ArrayList<Tag>());
+                    continue;
+                }
+
+                if (context.testExpression("tagSet/item", targetDepth)) {
+                    allowedPrincipal.withTags(TagStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("serviceId", targetDepth)) {
+                    allowedPrincipal.setServiceId(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

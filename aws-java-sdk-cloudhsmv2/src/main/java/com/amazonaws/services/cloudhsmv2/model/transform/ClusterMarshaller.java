@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,8 @@ public class ClusterMarshaller {
 
     private static final MarshallingInfo<String> BACKUPPOLICY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("BackupPolicy").build();
+    private static final MarshallingInfo<StructuredPojo> BACKUPRETENTIONPOLICY_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("BackupRetentionPolicy").build();
     private static final MarshallingInfo<String> CLUSTERID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("ClusterId").build();
     private static final MarshallingInfo<java.util.Date> CREATETIMESTAMP_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
@@ -55,6 +57,10 @@ public class ClusterMarshaller {
             .marshallLocationName("VpcId").build();
     private static final MarshallingInfo<StructuredPojo> CERTIFICATES_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Certificates").build();
+    private static final MarshallingInfo<List> TAGLIST_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("TagList").build();
+    private static final MarshallingInfo<String> MODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Mode").build();
 
     private static final ClusterMarshaller instance = new ClusterMarshaller();
 
@@ -73,6 +79,7 @@ public class ClusterMarshaller {
 
         try {
             protocolMarshaller.marshall(cluster.getBackupPolicy(), BACKUPPOLICY_BINDING);
+            protocolMarshaller.marshall(cluster.getBackupRetentionPolicy(), BACKUPRETENTIONPOLICY_BINDING);
             protocolMarshaller.marshall(cluster.getClusterId(), CLUSTERID_BINDING);
             protocolMarshaller.marshall(cluster.getCreateTimestamp(), CREATETIMESTAMP_BINDING);
             protocolMarshaller.marshall(cluster.getHsms(), HSMS_BINDING);
@@ -85,6 +92,8 @@ public class ClusterMarshaller {
             protocolMarshaller.marshall(cluster.getSubnetMapping(), SUBNETMAPPING_BINDING);
             protocolMarshaller.marshall(cluster.getVpcId(), VPCID_BINDING);
             protocolMarshaller.marshall(cluster.getCertificates(), CERTIFICATES_BINDING);
+            protocolMarshaller.marshall(cluster.getTagList(), TAGLIST_BINDING);
+            protocolMarshaller.marshall(cluster.getMode(), MODE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

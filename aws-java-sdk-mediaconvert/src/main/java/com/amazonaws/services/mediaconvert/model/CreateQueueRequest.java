@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,6 +41,8 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      * on-demand queues.
      */
     private ReservationPlanSettings reservationPlanSettings;
+    /** Initial state of the queue. If you create a paused queue, then jobs in that queue won't begin. */
+    private String status;
     /** The tags that you want to add to the resource. You can tag resources with a key-value pair or with only a key. */
     private java.util.Map<String, String> tags;
 
@@ -228,6 +230,57 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
     }
 
     /**
+     * Initial state of the queue. If you create a paused queue, then jobs in that queue won't begin.
+     * 
+     * @param status
+     *        Initial state of the queue. If you create a paused queue, then jobs in that queue won't begin.
+     * @see QueueStatus
+     */
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    /**
+     * Initial state of the queue. If you create a paused queue, then jobs in that queue won't begin.
+     * 
+     * @return Initial state of the queue. If you create a paused queue, then jobs in that queue won't begin.
+     * @see QueueStatus
+     */
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    /**
+     * Initial state of the queue. If you create a paused queue, then jobs in that queue won't begin.
+     * 
+     * @param status
+     *        Initial state of the queue. If you create a paused queue, then jobs in that queue won't begin.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see QueueStatus
+     */
+
+    public CreateQueueRequest withStatus(String status) {
+        setStatus(status);
+        return this;
+    }
+
+    /**
+     * Initial state of the queue. If you create a paused queue, then jobs in that queue won't begin.
+     * 
+     * @param status
+     *        Initial state of the queue. If you create a paused queue, then jobs in that queue won't begin.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see QueueStatus
+     */
+
+    public CreateQueueRequest withStatus(QueueStatus status) {
+        this.status = status.toString();
+        return this;
+    }
+
+    /**
      * The tags that you want to add to the resource. You can tag resources with a key-value pair or with only a key.
      * 
      * @return The tags that you want to add to the resource. You can tag resources with a key-value pair or with only a
@@ -263,6 +316,13 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateQueueRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public CreateQueueRequest addTagsEntry(String key, String value) {
         if (null == this.tags) {
@@ -305,6 +365,8 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
             sb.append("PricingPlan: ").append(getPricingPlan()).append(",");
         if (getReservationPlanSettings() != null)
             sb.append("ReservationPlanSettings: ").append(getReservationPlanSettings()).append(",");
+        if (getStatus() != null)
+            sb.append("Status: ").append(getStatus()).append(",");
         if (getTags() != null)
             sb.append("Tags: ").append(getTags());
         sb.append("}");
@@ -337,6 +399,10 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
             return false;
         if (other.getReservationPlanSettings() != null && other.getReservationPlanSettings().equals(this.getReservationPlanSettings()) == false)
             return false;
+        if (other.getStatus() == null ^ this.getStatus() == null)
+            return false;
+        if (other.getStatus() != null && other.getStatus().equals(this.getStatus()) == false)
+            return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
@@ -353,6 +419,7 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getPricingPlan() == null) ? 0 : getPricingPlan().hashCode());
         hashCode = prime * hashCode + ((getReservationPlanSettings() == null) ? 0 : getReservationPlanSettings().hashCode());
+        hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }

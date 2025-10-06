@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -56,6 +56,10 @@ public class ElasticsearchDestinationDescriptionJsonUnmarshaller implements Unma
                     context.nextToken();
                     elasticsearchDestinationDescription.setDomainARN(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("ClusterEndpoint", targetDepth)) {
+                    context.nextToken();
+                    elasticsearchDestinationDescription.setClusterEndpoint(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("IndexName", targetDepth)) {
                     context.nextToken();
                     elasticsearchDestinationDescription.setIndexName(context.getUnmarshaller(String.class).unmarshall(context));
@@ -91,6 +95,15 @@ public class ElasticsearchDestinationDescriptionJsonUnmarshaller implements Unma
                 if (context.testExpression("CloudWatchLoggingOptions", targetDepth)) {
                     context.nextToken();
                     elasticsearchDestinationDescription.setCloudWatchLoggingOptions(CloudWatchLoggingOptionsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("VpcConfigurationDescription", targetDepth)) {
+                    context.nextToken();
+                    elasticsearchDestinationDescription.setVpcConfigurationDescription(VpcConfigurationDescriptionJsonUnmarshaller.getInstance().unmarshall(
+                            context));
+                }
+                if (context.testExpression("DocumentIdOptions", targetDepth)) {
+                    context.nextToken();
+                    elasticsearchDestinationDescription.setDocumentIdOptions(DocumentIdOptionsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

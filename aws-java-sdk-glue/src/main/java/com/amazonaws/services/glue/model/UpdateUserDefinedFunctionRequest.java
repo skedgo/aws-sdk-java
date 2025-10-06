@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,8 +27,8 @@ public class UpdateUserDefinedFunctionRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The ID of the Data Catalog where the function to be updated is located. If none is supplied, the AWS account ID
-     * is used by default.
+     * The ID of the Data Catalog where the function to be updated is located. If none is provided, the Amazon Web
+     * Services account ID is used by default.
      * </p>
      */
     private String catalogId;
@@ -46,20 +46,20 @@ public class UpdateUserDefinedFunctionRequest extends com.amazonaws.AmazonWebSer
     private String functionName;
     /**
      * <p>
-     * A <code>FunctionInput</code> object that re-defines the function in the Data Catalog.
+     * A <code>FunctionInput</code> object that redefines the function in the Data Catalog.
      * </p>
      */
     private UserDefinedFunctionInput functionInput;
 
     /**
      * <p>
-     * The ID of the Data Catalog where the function to be updated is located. If none is supplied, the AWS account ID
-     * is used by default.
+     * The ID of the Data Catalog where the function to be updated is located. If none is provided, the Amazon Web
+     * Services account ID is used by default.
      * </p>
      * 
      * @param catalogId
-     *        The ID of the Data Catalog where the function to be updated is located. If none is supplied, the AWS
-     *        account ID is used by default.
+     *        The ID of the Data Catalog where the function to be updated is located. If none is provided, the Amazon
+     *        Web Services account ID is used by default.
      */
 
     public void setCatalogId(String catalogId) {
@@ -68,12 +68,12 @@ public class UpdateUserDefinedFunctionRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The ID of the Data Catalog where the function to be updated is located. If none is supplied, the AWS account ID
-     * is used by default.
+     * The ID of the Data Catalog where the function to be updated is located. If none is provided, the Amazon Web
+     * Services account ID is used by default.
      * </p>
      * 
-     * @return The ID of the Data Catalog where the function to be updated is located. If none is supplied, the AWS
-     *         account ID is used by default.
+     * @return The ID of the Data Catalog where the function to be updated is located. If none is provided, the Amazon
+     *         Web Services account ID is used by default.
      */
 
     public String getCatalogId() {
@@ -82,13 +82,13 @@ public class UpdateUserDefinedFunctionRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The ID of the Data Catalog where the function to be updated is located. If none is supplied, the AWS account ID
-     * is used by default.
+     * The ID of the Data Catalog where the function to be updated is located. If none is provided, the Amazon Web
+     * Services account ID is used by default.
      * </p>
      * 
      * @param catalogId
-     *        The ID of the Data Catalog where the function to be updated is located. If none is supplied, the AWS
-     *        account ID is used by default.
+     *        The ID of the Data Catalog where the function to be updated is located. If none is provided, the Amazon
+     *        Web Services account ID is used by default.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -179,11 +179,11 @@ public class UpdateUserDefinedFunctionRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * A <code>FunctionInput</code> object that re-defines the function in the Data Catalog.
+     * A <code>FunctionInput</code> object that redefines the function in the Data Catalog.
      * </p>
      * 
      * @param functionInput
-     *        A <code>FunctionInput</code> object that re-defines the function in the Data Catalog.
+     *        A <code>FunctionInput</code> object that redefines the function in the Data Catalog.
      */
 
     public void setFunctionInput(UserDefinedFunctionInput functionInput) {
@@ -192,10 +192,10 @@ public class UpdateUserDefinedFunctionRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * A <code>FunctionInput</code> object that re-defines the function in the Data Catalog.
+     * A <code>FunctionInput</code> object that redefines the function in the Data Catalog.
      * </p>
      * 
-     * @return A <code>FunctionInput</code> object that re-defines the function in the Data Catalog.
+     * @return A <code>FunctionInput</code> object that redefines the function in the Data Catalog.
      */
 
     public UserDefinedFunctionInput getFunctionInput() {
@@ -204,11 +204,11 @@ public class UpdateUserDefinedFunctionRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * A <code>FunctionInput</code> object that re-defines the function in the Data Catalog.
+     * A <code>FunctionInput</code> object that redefines the function in the Data Catalog.
      * </p>
      * 
      * @param functionInput
-     *        A <code>FunctionInput</code> object that re-defines the function in the Data Catalog.
+     *        A <code>FunctionInput</code> object that redefines the function in the Data Catalog.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

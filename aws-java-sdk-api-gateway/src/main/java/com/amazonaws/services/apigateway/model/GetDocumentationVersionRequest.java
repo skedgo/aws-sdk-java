@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,24 +27,24 @@ public class GetDocumentationVersionRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      */
     private String restApiId;
     /**
      * <p>
-     * [Required] The version identifier of the to-be-retrieved documentation snapshot.
+     * The version identifier of the to-be-retrieved documentation snapshot.
      * </p>
      */
     private String documentationVersion;
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
      * @param restApiId
-     *        [Required] The string identifier of the associated <a>RestApi</a>.
+     *        The string identifier of the associated RestApi.
      */
 
     public void setRestApiId(String restApiId) {
@@ -53,10 +53,10 @@ public class GetDocumentationVersionRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
-     * @return [Required] The string identifier of the associated <a>RestApi</a>.
+     * @return The string identifier of the associated RestApi.
      */
 
     public String getRestApiId() {
@@ -65,11 +65,11 @@ public class GetDocumentationVersionRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
      * @param restApiId
-     *        [Required] The string identifier of the associated <a>RestApi</a>.
+     *        The string identifier of the associated RestApi.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -80,11 +80,11 @@ public class GetDocumentationVersionRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * [Required] The version identifier of the to-be-retrieved documentation snapshot.
+     * The version identifier of the to-be-retrieved documentation snapshot.
      * </p>
      * 
      * @param documentationVersion
-     *        [Required] The version identifier of the to-be-retrieved documentation snapshot.
+     *        The version identifier of the to-be-retrieved documentation snapshot.
      */
 
     public void setDocumentationVersion(String documentationVersion) {
@@ -93,10 +93,10 @@ public class GetDocumentationVersionRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * [Required] The version identifier of the to-be-retrieved documentation snapshot.
+     * The version identifier of the to-be-retrieved documentation snapshot.
      * </p>
      * 
-     * @return [Required] The version identifier of the to-be-retrieved documentation snapshot.
+     * @return The version identifier of the to-be-retrieved documentation snapshot.
      */
 
     public String getDocumentationVersion() {
@@ -105,11 +105,11 @@ public class GetDocumentationVersionRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * [Required] The version identifier of the to-be-retrieved documentation snapshot.
+     * The version identifier of the to-be-retrieved documentation snapshot.
      * </p>
      * 
      * @param documentationVersion
-     *        [Required] The version identifier of the to-be-retrieved documentation snapshot.
+     *        The version identifier of the to-be-retrieved documentation snapshot.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

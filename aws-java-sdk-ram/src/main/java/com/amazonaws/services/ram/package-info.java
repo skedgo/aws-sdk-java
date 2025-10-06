@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -13,33 +13,27 @@
 
 /**
  * <p>
- * Use AWS Resource Access Manager to share AWS resources between AWS accounts. To share a resource, you create a
- * resource share, associate the resource with the resource share, and specify the principals that can access the
- * resource. The following principals are supported:
+ * This is the <i>Resource Access Manager API Reference</i>. This documentation provides descriptions and syntax for
+ * each of the actions and data types in RAM. RAM is a service that helps you securely share your Amazon Web Services
+ * resources to other Amazon Web Services accounts. If you use Organizations to manage your accounts, then you can share
+ * your resources with your entire organization or to organizational units (OUs). For supported resource types, you can
+ * also share resources with individual Identity and Access Management (IAM) roles and users.
+ * </p>
+ * <p>
+ * To learn more about RAM, see the following resources:
  * </p>
  * <ul>
  * <li>
  * <p>
- * The ID of an AWS account
+ * <a href="http://aws.amazon.com/ram">Resource Access Manager product page</a>
  * </p>
  * </li>
  * <li>
  * <p>
- * The Amazon Resource Name (ARN) of an OU from AWS Organizations
- * </p>
- * </li>
- * <li>
- * <p>
- * The Amazon Resource Name (ARN) of an organization from AWS Organizations
+ * <a href="https://docs.aws.amazon.com/ram/latest/userguide/">Resource Access Manager User Guide</a>
  * </p>
  * </li>
  * </ul>
- * <p>
- * If you specify an AWS account that doesn't exist in the same organization as the account that owns the resource
- * share, the owner of the specified account receives an invitation to accept the resource share. After the owner
- * accepts the invitation, they can access the resources in the resource share. An administrator of the specified
- * account can use IAM policies to restrict access resources in the resource share.
- * </p>
  */
 package com.amazonaws.services.ram;
 

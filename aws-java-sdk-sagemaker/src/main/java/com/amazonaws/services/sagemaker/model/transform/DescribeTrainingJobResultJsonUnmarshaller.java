@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -64,6 +64,10 @@ public class DescribeTrainingJobResultJsonUnmarshaller implements Unmarshaller<D
                     context.nextToken();
                     describeTrainingJobResult.setLabelingJobArn(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("AutoMLJobArn", targetDepth)) {
+                    context.nextToken();
+                    describeTrainingJobResult.setAutoMLJobArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("ModelArtifacts", targetDepth)) {
                     context.nextToken();
                     describeTrainingJobResult.setModelArtifacts(ModelArtifactsJsonUnmarshaller.getInstance().unmarshall(context));
@@ -95,7 +99,9 @@ public class DescribeTrainingJobResultJsonUnmarshaller implements Unmarshaller<D
                 }
                 if (context.testExpression("InputDataConfig", targetDepth)) {
                     context.nextToken();
-                    describeTrainingJobResult.setInputDataConfig(new ListUnmarshaller<Channel>(ChannelJsonUnmarshaller.getInstance()).unmarshall(context));
+                    describeTrainingJobResult.setInputDataConfig(new ListUnmarshaller<Channel>(ChannelJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("OutputDataConfig", targetDepth)) {
                     context.nextToken();
@@ -104,6 +110,10 @@ public class DescribeTrainingJobResultJsonUnmarshaller implements Unmarshaller<D
                 if (context.testExpression("ResourceConfig", targetDepth)) {
                     context.nextToken();
                     describeTrainingJobResult.setResourceConfig(ResourceConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("WarmPoolStatus", targetDepth)) {
+                    context.nextToken();
+                    describeTrainingJobResult.setWarmPoolStatus(WarmPoolStatusJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("VpcConfig", targetDepth)) {
                     context.nextToken();
@@ -132,12 +142,15 @@ public class DescribeTrainingJobResultJsonUnmarshaller implements Unmarshaller<D
                 if (context.testExpression("SecondaryStatusTransitions", targetDepth)) {
                     context.nextToken();
                     describeTrainingJobResult.setSecondaryStatusTransitions(new ListUnmarshaller<SecondaryStatusTransition>(
-                            SecondaryStatusTransitionJsonUnmarshaller.getInstance()).unmarshall(context));
+                            SecondaryStatusTransitionJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("FinalMetricDataList", targetDepth)) {
                     context.nextToken();
                     describeTrainingJobResult.setFinalMetricDataList(new ListUnmarshaller<MetricData>(MetricDataJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("EnableNetworkIsolation", targetDepth)) {
                     context.nextToken();
@@ -146,6 +159,87 @@ public class DescribeTrainingJobResultJsonUnmarshaller implements Unmarshaller<D
                 if (context.testExpression("EnableInterContainerTrafficEncryption", targetDepth)) {
                     context.nextToken();
                     describeTrainingJobResult.setEnableInterContainerTrafficEncryption(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("EnableManagedSpotTraining", targetDepth)) {
+                    context.nextToken();
+                    describeTrainingJobResult.setEnableManagedSpotTraining(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("CheckpointConfig", targetDepth)) {
+                    context.nextToken();
+                    describeTrainingJobResult.setCheckpointConfig(CheckpointConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("TrainingTimeInSeconds", targetDepth)) {
+                    context.nextToken();
+                    describeTrainingJobResult.setTrainingTimeInSeconds(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("BillableTimeInSeconds", targetDepth)) {
+                    context.nextToken();
+                    describeTrainingJobResult.setBillableTimeInSeconds(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("DebugHookConfig", targetDepth)) {
+                    context.nextToken();
+                    describeTrainingJobResult.setDebugHookConfig(DebugHookConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ExperimentConfig", targetDepth)) {
+                    context.nextToken();
+                    describeTrainingJobResult.setExperimentConfig(ExperimentConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("DebugRuleConfigurations", targetDepth)) {
+                    context.nextToken();
+                    describeTrainingJobResult.setDebugRuleConfigurations(new ListUnmarshaller<DebugRuleConfiguration>(DebugRuleConfigurationJsonUnmarshaller
+                            .getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("TensorBoardOutputConfig", targetDepth)) {
+                    context.nextToken();
+                    describeTrainingJobResult.setTensorBoardOutputConfig(TensorBoardOutputConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("DebugRuleEvaluationStatuses", targetDepth)) {
+                    context.nextToken();
+                    describeTrainingJobResult.setDebugRuleEvaluationStatuses(new ListUnmarshaller<DebugRuleEvaluationStatus>(
+                            DebugRuleEvaluationStatusJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("ProfilerConfig", targetDepth)) {
+                    context.nextToken();
+                    describeTrainingJobResult.setProfilerConfig(ProfilerConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ProfilerRuleConfigurations", targetDepth)) {
+                    context.nextToken();
+                    describeTrainingJobResult.setProfilerRuleConfigurations(new ListUnmarshaller<ProfilerRuleConfiguration>(
+                            ProfilerRuleConfigurationJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("ProfilerRuleEvaluationStatuses", targetDepth)) {
+                    context.nextToken();
+                    describeTrainingJobResult.setProfilerRuleEvaluationStatuses(new ListUnmarshaller<ProfilerRuleEvaluationStatus>(
+                            ProfilerRuleEvaluationStatusJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("ProfilingStatus", targetDepth)) {
+                    context.nextToken();
+                    describeTrainingJobResult.setProfilingStatus(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("Environment", targetDepth)) {
+                    context.nextToken();
+                    describeTrainingJobResult.setEnvironment(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context
+                            .getUnmarshaller(String.class)).unmarshall(context));
+                }
+                if (context.testExpression("RetryStrategy", targetDepth)) {
+                    context.nextToken();
+                    describeTrainingJobResult.setRetryStrategy(RetryStrategyJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("RemoteDebugConfig", targetDepth)) {
+                    context.nextToken();
+                    describeTrainingJobResult.setRemoteDebugConfig(RemoteDebugConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("InfraCheckConfig", targetDepth)) {
+                    context.nextToken();
+                    describeTrainingJobResult.setInfraCheckConfig(InfraCheckConfigJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

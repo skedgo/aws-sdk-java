@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,12 +30,28 @@ public class FleetLaunchTemplateOverrides implements Serializable, Cloneable {
      * <p>
      * The instance type.
      * </p>
+     * <p>
+     * <code>mac1.metal</code> is not supported as a launch template override.
+     * </p>
+     * <note>
+     * <p>
+     * If you specify <code>InstanceType</code>, you can't specify <code>InstanceRequirements</code>.
+     * </p>
+     * </note>
      */
     private String instanceType;
     /**
      * <p>
-     * The maximum price per unit hour that you are willing to pay for a Spot Instance.
+     * The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using this
+     * parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the
+     * current Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify
+     * this parameter.
+     * </p>
+     * </important>
      */
     private String maxPrice;
     /**
@@ -52,16 +68,41 @@ public class FleetLaunchTemplateOverrides implements Serializable, Cloneable {
     private String availabilityZone;
     /**
      * <p>
-     * The number of units provided by the specified instance type.
+     * The number of units provided by the specified instance type. These are the same units that you chose to set the
+     * target capacity in terms of instances, or a performance characteristic such as vCPUs, memory, or I/O.
      * </p>
+     * <p>
+     * If the target capacity divided by this value is not a whole number, Amazon EC2 rounds the number of instances to
+     * the next whole number. If this value is not specified, the default is 1.
+     * </p>
+     * <note>
+     * <p>
+     * When specifying weights, the price used in the <code>lowest-price</code> and
+     * <code>price-capacity-optimized</code> allocation strategies is per <i>unit</i> hour (where the instance price is
+     * divided by the specified weight). However, if all the specified weights are above the requested
+     * <code>TargetCapacity</code>, resulting in only 1 instance being launched, the price used is per <i>instance</i>
+     * hour.
+     * </p>
+     * </note>
      */
     private Double weightedCapacity;
     /**
      * <p>
-     * The priority for the launch template override. If <b>AllocationStrategy</b> is set to <code>prioritized</code>,
-     * EC2 Fleet uses priority to determine which launch template override to use first in fulfilling On-Demand
-     * capacity. The highest priority is launched first. Valid values are whole numbers starting at <code>0</code>. The
-     * lower the number, the higher the priority. If no number is set, the override has the lowest priority.
+     * The priority for the launch template override. The highest priority is launched first.
+     * </p>
+     * <p>
+     * If the On-Demand <code>AllocationStrategy</code> is set to <code>prioritized</code>, EC2 Fleet uses priority to
+     * determine which launch template override to use first in fulfilling On-Demand capacity.
+     * </p>
+     * <p>
+     * If the Spot <code>AllocationStrategy</code> is set to <code>capacity-optimized-prioritized</code>, EC2 Fleet uses
+     * priority on a best-effort basis to determine which launch template override to use in fulfilling Spot capacity,
+     * but optimizes for capacity first.
+     * </p>
+     * <p>
+     * Valid values are whole numbers starting at <code>0</code>. The lower the number, the higher the priority. If no
+     * number is set, the override has the lowest priority. You can set the same priority for different launch template
+     * overrides.
      * </p>
      */
     private Double priority;
@@ -71,14 +112,112 @@ public class FleetLaunchTemplateOverrides implements Serializable, Cloneable {
      * </p>
      */
     private PlacementResponse placement;
+    /**
+     * <p>
+     * The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify instance
+     * types with those attributes.
+     * </p>
+     * <note>
+     * <p>
+     * If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     * </p>
+     * </note>
+     */
+    private InstanceRequirements instanceRequirements;
+    /**
+     * <p>
+     * The ID of the AMI in the format <code>ami-17characters00000</code>.
+     * </p>
+     * <p>
+     * Alternatively, you can specify a Systems Manager parameter, using one of the following formats. The Systems
+     * Manager parameter will resolve to an AMI ID on launch.
+     * </p>
+     * <p>
+     * To reference a public parameter:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>public-parameter</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To reference a parameter stored in the same account:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name:version-number</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name:label</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To reference a parameter shared from another Amazon Web Services account:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN:version-number</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN:label</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-launch-template.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     * >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter is only available for fleets of type <code>instant</code>. For fleets of type
+     * <code>maintain</code> and <code>request</code>, you must specify the AMI ID in the launch template.
+     * </p>
+     * </note>
+     */
+    private String imageId;
 
     /**
      * <p>
      * The instance type.
      * </p>
+     * <p>
+     * <code>mac1.metal</code> is not supported as a launch template override.
+     * </p>
+     * <note>
+     * <p>
+     * If you specify <code>InstanceType</code>, you can't specify <code>InstanceRequirements</code>.
+     * </p>
+     * </note>
      * 
      * @param instanceType
-     *        The instance type.
+     *        The instance type.</p>
+     *        <p>
+     *        <code>mac1.metal</code> is not supported as a launch template override.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        If you specify <code>InstanceType</code>, you can't specify <code>InstanceRequirements</code>.
+     *        </p>
      * @see InstanceType
      */
 
@@ -90,8 +229,23 @@ public class FleetLaunchTemplateOverrides implements Serializable, Cloneable {
      * <p>
      * The instance type.
      * </p>
+     * <p>
+     * <code>mac1.metal</code> is not supported as a launch template override.
+     * </p>
+     * <note>
+     * <p>
+     * If you specify <code>InstanceType</code>, you can't specify <code>InstanceRequirements</code>.
+     * </p>
+     * </note>
      * 
-     * @return The instance type.
+     * @return The instance type.</p>
+     *         <p>
+     *         <code>mac1.metal</code> is not supported as a launch template override.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         If you specify <code>InstanceType</code>, you can't specify <code>InstanceRequirements</code>.
+     *         </p>
      * @see InstanceType
      */
 
@@ -103,9 +257,24 @@ public class FleetLaunchTemplateOverrides implements Serializable, Cloneable {
      * <p>
      * The instance type.
      * </p>
+     * <p>
+     * <code>mac1.metal</code> is not supported as a launch template override.
+     * </p>
+     * <note>
+     * <p>
+     * If you specify <code>InstanceType</code>, you can't specify <code>InstanceRequirements</code>.
+     * </p>
+     * </note>
      * 
      * @param instanceType
-     *        The instance type.
+     *        The instance type.</p>
+     *        <p>
+     *        <code>mac1.metal</code> is not supported as a launch template override.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        If you specify <code>InstanceType</code>, you can't specify <code>InstanceRequirements</code>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InstanceType
      */
@@ -119,9 +288,24 @@ public class FleetLaunchTemplateOverrides implements Serializable, Cloneable {
      * <p>
      * The instance type.
      * </p>
+     * <p>
+     * <code>mac1.metal</code> is not supported as a launch template override.
+     * </p>
+     * <note>
+     * <p>
+     * If you specify <code>InstanceType</code>, you can't specify <code>InstanceRequirements</code>.
+     * </p>
+     * </note>
      * 
      * @param instanceType
-     *        The instance type.
+     *        The instance type.</p>
+     *        <p>
+     *        <code>mac1.metal</code> is not supported as a launch template override.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        If you specify <code>InstanceType</code>, you can't specify <code>InstanceRequirements</code>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InstanceType
      */
@@ -133,11 +317,25 @@ public class FleetLaunchTemplateOverrides implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum price per unit hour that you are willing to pay for a Spot Instance.
+     * The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using this
+     * parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the
+     * current Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify
+     * this parameter.
+     * </p>
+     * </important>
      * 
      * @param maxPrice
-     *        The maximum price per unit hour that you are willing to pay for a Spot Instance.
+     *        The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using
+     *        this parameter because it can lead to increased interruptions. If you do not specify this parameter, you
+     *        will pay the current Spot price. </p> <important>
+     *        <p>
+     *        If you specify a maximum price, your instances will be interrupted more frequently than if you do not
+     *        specify this parameter.
+     *        </p>
      */
 
     public void setMaxPrice(String maxPrice) {
@@ -146,10 +344,24 @@ public class FleetLaunchTemplateOverrides implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum price per unit hour that you are willing to pay for a Spot Instance.
+     * The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using this
+     * parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the
+     * current Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify
+     * this parameter.
+     * </p>
+     * </important>
      * 
-     * @return The maximum price per unit hour that you are willing to pay for a Spot Instance.
+     * @return The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend
+     *         using this parameter because it can lead to increased interruptions. If you do not specify this
+     *         parameter, you will pay the current Spot price. </p> <important>
+     *         <p>
+     *         If you specify a maximum price, your instances will be interrupted more frequently than if you do not
+     *         specify this parameter.
+     *         </p>
      */
 
     public String getMaxPrice() {
@@ -158,11 +370,25 @@ public class FleetLaunchTemplateOverrides implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum price per unit hour that you are willing to pay for a Spot Instance.
+     * The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using this
+     * parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the
+     * current Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify
+     * this parameter.
+     * </p>
+     * </important>
      * 
      * @param maxPrice
-     *        The maximum price per unit hour that you are willing to pay for a Spot Instance.
+     *        The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using
+     *        this parameter because it can lead to increased interruptions. If you do not specify this parameter, you
+     *        will pay the current Spot price. </p> <important>
+     *        <p>
+     *        If you specify a maximum price, your instances will be interrupted more frequently than if you do not
+     *        specify this parameter.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -253,11 +479,39 @@ public class FleetLaunchTemplateOverrides implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of units provided by the specified instance type.
+     * The number of units provided by the specified instance type. These are the same units that you chose to set the
+     * target capacity in terms of instances, or a performance characteristic such as vCPUs, memory, or I/O.
      * </p>
+     * <p>
+     * If the target capacity divided by this value is not a whole number, Amazon EC2 rounds the number of instances to
+     * the next whole number. If this value is not specified, the default is 1.
+     * </p>
+     * <note>
+     * <p>
+     * When specifying weights, the price used in the <code>lowest-price</code> and
+     * <code>price-capacity-optimized</code> allocation strategies is per <i>unit</i> hour (where the instance price is
+     * divided by the specified weight). However, if all the specified weights are above the requested
+     * <code>TargetCapacity</code>, resulting in only 1 instance being launched, the price used is per <i>instance</i>
+     * hour.
+     * </p>
+     * </note>
      * 
      * @param weightedCapacity
-     *        The number of units provided by the specified instance type.
+     *        The number of units provided by the specified instance type. These are the same units that you chose to
+     *        set the target capacity in terms of instances, or a performance characteristic such as vCPUs, memory, or
+     *        I/O.</p>
+     *        <p>
+     *        If the target capacity divided by this value is not a whole number, Amazon EC2 rounds the number of
+     *        instances to the next whole number. If this value is not specified, the default is 1.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        When specifying weights, the price used in the <code>lowest-price</code> and
+     *        <code>price-capacity-optimized</code> allocation strategies is per <i>unit</i> hour (where the instance
+     *        price is divided by the specified weight). However, if all the specified weights are above the requested
+     *        <code>TargetCapacity</code>, resulting in only 1 instance being launched, the price used is per
+     *        <i>instance</i> hour.
+     *        </p>
      */
 
     public void setWeightedCapacity(Double weightedCapacity) {
@@ -266,10 +520,38 @@ public class FleetLaunchTemplateOverrides implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of units provided by the specified instance type.
+     * The number of units provided by the specified instance type. These are the same units that you chose to set the
+     * target capacity in terms of instances, or a performance characteristic such as vCPUs, memory, or I/O.
      * </p>
+     * <p>
+     * If the target capacity divided by this value is not a whole number, Amazon EC2 rounds the number of instances to
+     * the next whole number. If this value is not specified, the default is 1.
+     * </p>
+     * <note>
+     * <p>
+     * When specifying weights, the price used in the <code>lowest-price</code> and
+     * <code>price-capacity-optimized</code> allocation strategies is per <i>unit</i> hour (where the instance price is
+     * divided by the specified weight). However, if all the specified weights are above the requested
+     * <code>TargetCapacity</code>, resulting in only 1 instance being launched, the price used is per <i>instance</i>
+     * hour.
+     * </p>
+     * </note>
      * 
-     * @return The number of units provided by the specified instance type.
+     * @return The number of units provided by the specified instance type. These are the same units that you chose to
+     *         set the target capacity in terms of instances, or a performance characteristic such as vCPUs, memory, or
+     *         I/O.</p>
+     *         <p>
+     *         If the target capacity divided by this value is not a whole number, Amazon EC2 rounds the number of
+     *         instances to the next whole number. If this value is not specified, the default is 1.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         When specifying weights, the price used in the <code>lowest-price</code> and
+     *         <code>price-capacity-optimized</code> allocation strategies is per <i>unit</i> hour (where the instance
+     *         price is divided by the specified weight). However, if all the specified weights are above the requested
+     *         <code>TargetCapacity</code>, resulting in only 1 instance being launched, the price used is per
+     *         <i>instance</i> hour.
+     *         </p>
      */
 
     public Double getWeightedCapacity() {
@@ -278,11 +560,39 @@ public class FleetLaunchTemplateOverrides implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of units provided by the specified instance type.
+     * The number of units provided by the specified instance type. These are the same units that you chose to set the
+     * target capacity in terms of instances, or a performance characteristic such as vCPUs, memory, or I/O.
      * </p>
+     * <p>
+     * If the target capacity divided by this value is not a whole number, Amazon EC2 rounds the number of instances to
+     * the next whole number. If this value is not specified, the default is 1.
+     * </p>
+     * <note>
+     * <p>
+     * When specifying weights, the price used in the <code>lowest-price</code> and
+     * <code>price-capacity-optimized</code> allocation strategies is per <i>unit</i> hour (where the instance price is
+     * divided by the specified weight). However, if all the specified weights are above the requested
+     * <code>TargetCapacity</code>, resulting in only 1 instance being launched, the price used is per <i>instance</i>
+     * hour.
+     * </p>
+     * </note>
      * 
      * @param weightedCapacity
-     *        The number of units provided by the specified instance type.
+     *        The number of units provided by the specified instance type. These are the same units that you chose to
+     *        set the target capacity in terms of instances, or a performance characteristic such as vCPUs, memory, or
+     *        I/O.</p>
+     *        <p>
+     *        If the target capacity divided by this value is not a whole number, Amazon EC2 rounds the number of
+     *        instances to the next whole number. If this value is not specified, the default is 1.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        When specifying weights, the price used in the <code>lowest-price</code> and
+     *        <code>price-capacity-optimized</code> allocation strategies is per <i>unit</i> hour (where the instance
+     *        price is divided by the specified weight). However, if all the specified weights are above the requested
+     *        <code>TargetCapacity</code>, resulting in only 1 instance being launched, the price used is per
+     *        <i>instance</i> hour.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -293,18 +603,38 @@ public class FleetLaunchTemplateOverrides implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The priority for the launch template override. If <b>AllocationStrategy</b> is set to <code>prioritized</code>,
-     * EC2 Fleet uses priority to determine which launch template override to use first in fulfilling On-Demand
-     * capacity. The highest priority is launched first. Valid values are whole numbers starting at <code>0</code>. The
-     * lower the number, the higher the priority. If no number is set, the override has the lowest priority.
+     * The priority for the launch template override. The highest priority is launched first.
+     * </p>
+     * <p>
+     * If the On-Demand <code>AllocationStrategy</code> is set to <code>prioritized</code>, EC2 Fleet uses priority to
+     * determine which launch template override to use first in fulfilling On-Demand capacity.
+     * </p>
+     * <p>
+     * If the Spot <code>AllocationStrategy</code> is set to <code>capacity-optimized-prioritized</code>, EC2 Fleet uses
+     * priority on a best-effort basis to determine which launch template override to use in fulfilling Spot capacity,
+     * but optimizes for capacity first.
+     * </p>
+     * <p>
+     * Valid values are whole numbers starting at <code>0</code>. The lower the number, the higher the priority. If no
+     * number is set, the override has the lowest priority. You can set the same priority for different launch template
+     * overrides.
      * </p>
      * 
      * @param priority
-     *        The priority for the launch template override. If <b>AllocationStrategy</b> is set to
-     *        <code>prioritized</code>, EC2 Fleet uses priority to determine which launch template override to use first
-     *        in fulfilling On-Demand capacity. The highest priority is launched first. Valid values are whole numbers
-     *        starting at <code>0</code>. The lower the number, the higher the priority. If no number is set, the
-     *        override has the lowest priority.
+     *        The priority for the launch template override. The highest priority is launched first.</p>
+     *        <p>
+     *        If the On-Demand <code>AllocationStrategy</code> is set to <code>prioritized</code>, EC2 Fleet uses
+     *        priority to determine which launch template override to use first in fulfilling On-Demand capacity.
+     *        </p>
+     *        <p>
+     *        If the Spot <code>AllocationStrategy</code> is set to <code>capacity-optimized-prioritized</code>, EC2
+     *        Fleet uses priority on a best-effort basis to determine which launch template override to use in
+     *        fulfilling Spot capacity, but optimizes for capacity first.
+     *        </p>
+     *        <p>
+     *        Valid values are whole numbers starting at <code>0</code>. The lower the number, the higher the priority.
+     *        If no number is set, the override has the lowest priority. You can set the same priority for different
+     *        launch template overrides.
      */
 
     public void setPriority(Double priority) {
@@ -313,17 +643,37 @@ public class FleetLaunchTemplateOverrides implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The priority for the launch template override. If <b>AllocationStrategy</b> is set to <code>prioritized</code>,
-     * EC2 Fleet uses priority to determine which launch template override to use first in fulfilling On-Demand
-     * capacity. The highest priority is launched first. Valid values are whole numbers starting at <code>0</code>. The
-     * lower the number, the higher the priority. If no number is set, the override has the lowest priority.
+     * The priority for the launch template override. The highest priority is launched first.
+     * </p>
+     * <p>
+     * If the On-Demand <code>AllocationStrategy</code> is set to <code>prioritized</code>, EC2 Fleet uses priority to
+     * determine which launch template override to use first in fulfilling On-Demand capacity.
+     * </p>
+     * <p>
+     * If the Spot <code>AllocationStrategy</code> is set to <code>capacity-optimized-prioritized</code>, EC2 Fleet uses
+     * priority on a best-effort basis to determine which launch template override to use in fulfilling Spot capacity,
+     * but optimizes for capacity first.
+     * </p>
+     * <p>
+     * Valid values are whole numbers starting at <code>0</code>. The lower the number, the higher the priority. If no
+     * number is set, the override has the lowest priority. You can set the same priority for different launch template
+     * overrides.
      * </p>
      * 
-     * @return The priority for the launch template override. If <b>AllocationStrategy</b> is set to
-     *         <code>prioritized</code>, EC2 Fleet uses priority to determine which launch template override to use
-     *         first in fulfilling On-Demand capacity. The highest priority is launched first. Valid values are whole
-     *         numbers starting at <code>0</code>. The lower the number, the higher the priority. If no number is set,
-     *         the override has the lowest priority.
+     * @return The priority for the launch template override. The highest priority is launched first.</p>
+     *         <p>
+     *         If the On-Demand <code>AllocationStrategy</code> is set to <code>prioritized</code>, EC2 Fleet uses
+     *         priority to determine which launch template override to use first in fulfilling On-Demand capacity.
+     *         </p>
+     *         <p>
+     *         If the Spot <code>AllocationStrategy</code> is set to <code>capacity-optimized-prioritized</code>, EC2
+     *         Fleet uses priority on a best-effort basis to determine which launch template override to use in
+     *         fulfilling Spot capacity, but optimizes for capacity first.
+     *         </p>
+     *         <p>
+     *         Valid values are whole numbers starting at <code>0</code>. The lower the number, the higher the priority.
+     *         If no number is set, the override has the lowest priority. You can set the same priority for different
+     *         launch template overrides.
      */
 
     public Double getPriority() {
@@ -332,18 +682,38 @@ public class FleetLaunchTemplateOverrides implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The priority for the launch template override. If <b>AllocationStrategy</b> is set to <code>prioritized</code>,
-     * EC2 Fleet uses priority to determine which launch template override to use first in fulfilling On-Demand
-     * capacity. The highest priority is launched first. Valid values are whole numbers starting at <code>0</code>. The
-     * lower the number, the higher the priority. If no number is set, the override has the lowest priority.
+     * The priority for the launch template override. The highest priority is launched first.
+     * </p>
+     * <p>
+     * If the On-Demand <code>AllocationStrategy</code> is set to <code>prioritized</code>, EC2 Fleet uses priority to
+     * determine which launch template override to use first in fulfilling On-Demand capacity.
+     * </p>
+     * <p>
+     * If the Spot <code>AllocationStrategy</code> is set to <code>capacity-optimized-prioritized</code>, EC2 Fleet uses
+     * priority on a best-effort basis to determine which launch template override to use in fulfilling Spot capacity,
+     * but optimizes for capacity first.
+     * </p>
+     * <p>
+     * Valid values are whole numbers starting at <code>0</code>. The lower the number, the higher the priority. If no
+     * number is set, the override has the lowest priority. You can set the same priority for different launch template
+     * overrides.
      * </p>
      * 
      * @param priority
-     *        The priority for the launch template override. If <b>AllocationStrategy</b> is set to
-     *        <code>prioritized</code>, EC2 Fleet uses priority to determine which launch template override to use first
-     *        in fulfilling On-Demand capacity. The highest priority is launched first. Valid values are whole numbers
-     *        starting at <code>0</code>. The lower the number, the higher the priority. If no number is set, the
-     *        override has the lowest priority.
+     *        The priority for the launch template override. The highest priority is launched first.</p>
+     *        <p>
+     *        If the On-Demand <code>AllocationStrategy</code> is set to <code>prioritized</code>, EC2 Fleet uses
+     *        priority to determine which launch template override to use first in fulfilling On-Demand capacity.
+     *        </p>
+     *        <p>
+     *        If the Spot <code>AllocationStrategy</code> is set to <code>capacity-optimized-prioritized</code>, EC2
+     *        Fleet uses priority on a best-effort basis to determine which launch template override to use in
+     *        fulfilling Spot capacity, but optimizes for capacity first.
+     *        </p>
+     *        <p>
+     *        Valid values are whole numbers starting at <code>0</code>. The lower the number, the higher the priority.
+     *        If no number is set, the override has the lowest priority. You can set the same priority for different
+     *        launch template overrides.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -393,6 +763,503 @@ public class FleetLaunchTemplateOverrides implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify instance
+     * types with those attributes.
+     * </p>
+     * <note>
+     * <p>
+     * If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     * </p>
+     * </note>
+     * 
+     * @param instanceRequirements
+     *        The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify
+     *        instance types with those attributes.</p> <note>
+     *        <p>
+     *        If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     *        </p>
+     */
+
+    public void setInstanceRequirements(InstanceRequirements instanceRequirements) {
+        this.instanceRequirements = instanceRequirements;
+    }
+
+    /**
+     * <p>
+     * The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify instance
+     * types with those attributes.
+     * </p>
+     * <note>
+     * <p>
+     * If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     * </p>
+     * </note>
+     * 
+     * @return The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify
+     *         instance types with those attributes.</p> <note>
+     *         <p>
+     *         If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     *         </p>
+     */
+
+    public InstanceRequirements getInstanceRequirements() {
+        return this.instanceRequirements;
+    }
+
+    /**
+     * <p>
+     * The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify instance
+     * types with those attributes.
+     * </p>
+     * <note>
+     * <p>
+     * If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     * </p>
+     * </note>
+     * 
+     * @param instanceRequirements
+     *        The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify
+     *        instance types with those attributes.</p> <note>
+     *        <p>
+     *        If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public FleetLaunchTemplateOverrides withInstanceRequirements(InstanceRequirements instanceRequirements) {
+        setInstanceRequirements(instanceRequirements);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the AMI in the format <code>ami-17characters00000</code>.
+     * </p>
+     * <p>
+     * Alternatively, you can specify a Systems Manager parameter, using one of the following formats. The Systems
+     * Manager parameter will resolve to an AMI ID on launch.
+     * </p>
+     * <p>
+     * To reference a public parameter:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>public-parameter</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To reference a parameter stored in the same account:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name:version-number</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name:label</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To reference a parameter shared from another Amazon Web Services account:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN:version-number</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN:label</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-launch-template.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     * >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter is only available for fleets of type <code>instant</code>. For fleets of type
+     * <code>maintain</code> and <code>request</code>, you must specify the AMI ID in the launch template.
+     * </p>
+     * </note>
+     * 
+     * @param imageId
+     *        The ID of the AMI in the format <code>ami-17characters00000</code>.</p>
+     *        <p>
+     *        Alternatively, you can specify a Systems Manager parameter, using one of the following formats. The
+     *        Systems Manager parameter will resolve to an AMI ID on launch.
+     *        </p>
+     *        <p>
+     *        To reference a public parameter:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>public-parameter</i> </code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        To reference a parameter stored in the same account:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-name</i> </code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-name:version-number</i> </code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-name:label</i> </code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        To reference a parameter shared from another Amazon Web Services account:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-ARN</i> </code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-ARN:version-number</i> </code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-ARN:label</i> </code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-launch-template.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     *        >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        This parameter is only available for fleets of type <code>instant</code>. For fleets of type
+     *        <code>maintain</code> and <code>request</code>, you must specify the AMI ID in the launch template.
+     *        </p>
+     */
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
+    }
+
+    /**
+     * <p>
+     * The ID of the AMI in the format <code>ami-17characters00000</code>.
+     * </p>
+     * <p>
+     * Alternatively, you can specify a Systems Manager parameter, using one of the following formats. The Systems
+     * Manager parameter will resolve to an AMI ID on launch.
+     * </p>
+     * <p>
+     * To reference a public parameter:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>public-parameter</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To reference a parameter stored in the same account:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name:version-number</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name:label</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To reference a parameter shared from another Amazon Web Services account:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN:version-number</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN:label</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-launch-template.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     * >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter is only available for fleets of type <code>instant</code>. For fleets of type
+     * <code>maintain</code> and <code>request</code>, you must specify the AMI ID in the launch template.
+     * </p>
+     * </note>
+     * 
+     * @return The ID of the AMI in the format <code>ami-17characters00000</code>.</p>
+     *         <p>
+     *         Alternatively, you can specify a Systems Manager parameter, using one of the following formats. The
+     *         Systems Manager parameter will resolve to an AMI ID on launch.
+     *         </p>
+     *         <p>
+     *         To reference a public parameter:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>resolve:ssm:<i>public-parameter</i> </code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         To reference a parameter stored in the same account:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>resolve:ssm:<i>parameter-name</i> </code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>resolve:ssm:<i>parameter-name:version-number</i> </code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>resolve:ssm:<i>parameter-name:label</i> </code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         To reference a parameter shared from another Amazon Web Services account:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>resolve:ssm:<i>parameter-ARN</i> </code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>resolve:ssm:<i>parameter-ARN:version-number</i> </code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>resolve:ssm:<i>parameter-ARN:label</i> </code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-launch-template.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     *         >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         This parameter is only available for fleets of type <code>instant</code>. For fleets of type
+     *         <code>maintain</code> and <code>request</code>, you must specify the AMI ID in the launch template.
+     *         </p>
+     */
+
+    public String getImageId() {
+        return this.imageId;
+    }
+
+    /**
+     * <p>
+     * The ID of the AMI in the format <code>ami-17characters00000</code>.
+     * </p>
+     * <p>
+     * Alternatively, you can specify a Systems Manager parameter, using one of the following formats. The Systems
+     * Manager parameter will resolve to an AMI ID on launch.
+     * </p>
+     * <p>
+     * To reference a public parameter:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>public-parameter</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To reference a parameter stored in the same account:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name:version-number</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name:label</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To reference a parameter shared from another Amazon Web Services account:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN:version-number</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN:label</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-launch-template.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     * >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter is only available for fleets of type <code>instant</code>. For fleets of type
+     * <code>maintain</code> and <code>request</code>, you must specify the AMI ID in the launch template.
+     * </p>
+     * </note>
+     * 
+     * @param imageId
+     *        The ID of the AMI in the format <code>ami-17characters00000</code>.</p>
+     *        <p>
+     *        Alternatively, you can specify a Systems Manager parameter, using one of the following formats. The
+     *        Systems Manager parameter will resolve to an AMI ID on launch.
+     *        </p>
+     *        <p>
+     *        To reference a public parameter:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>public-parameter</i> </code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        To reference a parameter stored in the same account:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-name</i> </code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-name:version-number</i> </code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-name:label</i> </code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        To reference a parameter shared from another Amazon Web Services account:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-ARN</i> </code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-ARN:version-number</i> </code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-ARN:label</i> </code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-launch-template.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     *        >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        This parameter is only available for fleets of type <code>instant</code>. For fleets of type
+     *        <code>maintain</code> and <code>request</code>, you must specify the AMI ID in the launch template.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public FleetLaunchTemplateOverrides withImageId(String imageId) {
+        setImageId(imageId);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -417,7 +1284,11 @@ public class FleetLaunchTemplateOverrides implements Serializable, Cloneable {
         if (getPriority() != null)
             sb.append("Priority: ").append(getPriority()).append(",");
         if (getPlacement() != null)
-            sb.append("Placement: ").append(getPlacement());
+            sb.append("Placement: ").append(getPlacement()).append(",");
+        if (getInstanceRequirements() != null)
+            sb.append("InstanceRequirements: ").append(getInstanceRequirements()).append(",");
+        if (getImageId() != null)
+            sb.append("ImageId: ").append(getImageId());
         sb.append("}");
         return sb.toString();
     }
@@ -460,6 +1331,14 @@ public class FleetLaunchTemplateOverrides implements Serializable, Cloneable {
             return false;
         if (other.getPlacement() != null && other.getPlacement().equals(this.getPlacement()) == false)
             return false;
+        if (other.getInstanceRequirements() == null ^ this.getInstanceRequirements() == null)
+            return false;
+        if (other.getInstanceRequirements() != null && other.getInstanceRequirements().equals(this.getInstanceRequirements()) == false)
+            return false;
+        if (other.getImageId() == null ^ this.getImageId() == null)
+            return false;
+        if (other.getImageId() != null && other.getImageId().equals(this.getImageId()) == false)
+            return false;
         return true;
     }
 
@@ -475,6 +1354,8 @@ public class FleetLaunchTemplateOverrides implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getWeightedCapacity() == null) ? 0 : getWeightedCapacity().hashCode());
         hashCode = prime * hashCode + ((getPriority() == null) ? 0 : getPriority().hashCode());
         hashCode = prime * hashCode + ((getPlacement() == null) ? 0 : getPlacement().hashCode());
+        hashCode = prime * hashCode + ((getInstanceRequirements() == null) ? 0 : getInstanceRequirements().hashCode());
+        hashCode = prime * hashCode + ((getImageId() == null) ? 0 : getImageId().hashCode());
         return hashCode;
     }
 

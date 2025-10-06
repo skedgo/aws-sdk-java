@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -68,6 +68,10 @@ public class JobDefinitionJsonUnmarshaller implements Unmarshaller<JobDefinition
                     context.nextToken();
                     jobDefinition.setType(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("schedulingPriority", targetDepth)) {
+                    context.nextToken();
+                    jobDefinition.setSchedulingPriority(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
                 if (context.testExpression("parameters", targetDepth)) {
                     context.nextToken();
                     jobDefinition.setParameters(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context
@@ -88,6 +92,33 @@ public class JobDefinitionJsonUnmarshaller implements Unmarshaller<JobDefinition
                 if (context.testExpression("nodeProperties", targetDepth)) {
                     context.nextToken();
                     jobDefinition.setNodeProperties(NodePropertiesJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("tags", targetDepth)) {
+                    context.nextToken();
+                    jobDefinition.setTags(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context.getUnmarshaller(String.class))
+                            .unmarshall(context));
+                }
+                if (context.testExpression("propagateTags", targetDepth)) {
+                    context.nextToken();
+                    jobDefinition.setPropagateTags(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("platformCapabilities", targetDepth)) {
+                    context.nextToken();
+                    jobDefinition.setPlatformCapabilities(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("ecsProperties", targetDepth)) {
+                    context.nextToken();
+                    jobDefinition.setEcsProperties(EcsPropertiesJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("eksProperties", targetDepth)) {
+                    context.nextToken();
+                    jobDefinition.setEksProperties(EksPropertiesJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("containerOrchestrationType", targetDepth)) {
+                    context.nextToken();
+                    jobDefinition.setContainerOrchestrationType(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

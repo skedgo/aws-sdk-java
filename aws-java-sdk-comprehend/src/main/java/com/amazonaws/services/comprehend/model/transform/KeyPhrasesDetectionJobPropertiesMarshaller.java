@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,8 @@ public class KeyPhrasesDetectionJobPropertiesMarshaller {
 
     private static final MarshallingInfo<String> JOBID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("JobId").build();
+    private static final MarshallingInfo<String> JOBARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("JobArn").build();
     private static final MarshallingInfo<String> JOBNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("JobName").build();
     private static final MarshallingInfo<String> JOBSTATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -69,6 +71,7 @@ public class KeyPhrasesDetectionJobPropertiesMarshaller {
 
         try {
             protocolMarshaller.marshall(keyPhrasesDetectionJobProperties.getJobId(), JOBID_BINDING);
+            protocolMarshaller.marshall(keyPhrasesDetectionJobProperties.getJobArn(), JOBARN_BINDING);
             protocolMarshaller.marshall(keyPhrasesDetectionJobProperties.getJobName(), JOBNAME_BINDING);
             protocolMarshaller.marshall(keyPhrasesDetectionJobProperties.getJobStatus(), JOBSTATUS_BINDING);
             protocolMarshaller.marshall(keyPhrasesDetectionJobProperties.getMessage(), MESSAGE_BINDING);

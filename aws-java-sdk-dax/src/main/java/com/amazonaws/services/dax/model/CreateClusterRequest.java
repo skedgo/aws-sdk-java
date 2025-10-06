@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -67,7 +67,9 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * The number of nodes in the DAX cluster. A replication factor of 1 will create a single-node cluster, without any
      * read replicas. For additional fault tolerance, you can create a multiple node cluster with one or more read
-     * replicas. To do this, set <i>ReplicationFactor</i> to 2 or more.
+     * replicas. To do this, set <code>ReplicationFactor</code> to a number between 3 (one primary and two read
+     * replicas) and 10 (one primary and nine read replicas). <code>If the AvailabilityZones</code> parameter is
+     * provided, its length must equal the <code>ReplicationFactor</code>.
      * </p>
      * <note>
      * <p>
@@ -78,8 +80,9 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
     private Integer replicationFactor;
     /**
      * <p>
-     * The Availability Zones (AZs) in which the cluster nodes will be created. All nodes belonging to the cluster are
-     * placed in these Availability Zones. Use this parameter if you want to distribute the nodes across multiple AZs.
+     * The Availability Zones (AZs) in which the cluster nodes will reside after the cluster has been created or
+     * updated. If provided, the length of this list must equal the <code>ReplicationFactor</code> parameter. If you
+     * omit this parameter, DAX will spread the nodes across Availability Zones for the highest availability.
      * </p>
      */
     private java.util.List<String> availabilityZones;
@@ -195,6 +198,24 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      */
     private SSESpecification sSESpecification;
+    /**
+     * <p>
+     * The type of encryption the cluster's endpoint should support. Values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>NONE</code> for no encryption
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TLS</code> for Transport Layer Security
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String clusterEndpointEncryptionType;
 
     /**
      * <p>
@@ -437,7 +458,9 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * The number of nodes in the DAX cluster. A replication factor of 1 will create a single-node cluster, without any
      * read replicas. For additional fault tolerance, you can create a multiple node cluster with one or more read
-     * replicas. To do this, set <i>ReplicationFactor</i> to 2 or more.
+     * replicas. To do this, set <code>ReplicationFactor</code> to a number between 3 (one primary and two read
+     * replicas) and 10 (one primary and nine read replicas). <code>If the AvailabilityZones</code> parameter is
+     * provided, its length must equal the <code>ReplicationFactor</code>.
      * </p>
      * <note>
      * <p>
@@ -448,7 +471,9 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * @param replicationFactor
      *        The number of nodes in the DAX cluster. A replication factor of 1 will create a single-node cluster,
      *        without any read replicas. For additional fault tolerance, you can create a multiple node cluster with one
-     *        or more read replicas. To do this, set <i>ReplicationFactor</i> to 2 or more.</p> <note>
+     *        or more read replicas. To do this, set <code>ReplicationFactor</code> to a number between 3 (one primary
+     *        and two read replicas) and 10 (one primary and nine read replicas). <code>If the AvailabilityZones</code>
+     *        parameter is provided, its length must equal the <code>ReplicationFactor</code>.</p> <note>
      *        <p>
      *        AWS recommends that you have at least two read replicas per cluster.
      *        </p>
@@ -462,7 +487,9 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * The number of nodes in the DAX cluster. A replication factor of 1 will create a single-node cluster, without any
      * read replicas. For additional fault tolerance, you can create a multiple node cluster with one or more read
-     * replicas. To do this, set <i>ReplicationFactor</i> to 2 or more.
+     * replicas. To do this, set <code>ReplicationFactor</code> to a number between 3 (one primary and two read
+     * replicas) and 10 (one primary and nine read replicas). <code>If the AvailabilityZones</code> parameter is
+     * provided, its length must equal the <code>ReplicationFactor</code>.
      * </p>
      * <note>
      * <p>
@@ -472,7 +499,10 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * 
      * @return The number of nodes in the DAX cluster. A replication factor of 1 will create a single-node cluster,
      *         without any read replicas. For additional fault tolerance, you can create a multiple node cluster with
-     *         one or more read replicas. To do this, set <i>ReplicationFactor</i> to 2 or more.</p> <note>
+     *         one or more read replicas. To do this, set <code>ReplicationFactor</code> to a number between 3 (one
+     *         primary and two read replicas) and 10 (one primary and nine read replicas).
+     *         <code>If the AvailabilityZones</code> parameter is provided, its length must equal the
+     *         <code>ReplicationFactor</code>.</p> <note>
      *         <p>
      *         AWS recommends that you have at least two read replicas per cluster.
      *         </p>
@@ -486,7 +516,9 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * The number of nodes in the DAX cluster. A replication factor of 1 will create a single-node cluster, without any
      * read replicas. For additional fault tolerance, you can create a multiple node cluster with one or more read
-     * replicas. To do this, set <i>ReplicationFactor</i> to 2 or more.
+     * replicas. To do this, set <code>ReplicationFactor</code> to a number between 3 (one primary and two read
+     * replicas) and 10 (one primary and nine read replicas). <code>If the AvailabilityZones</code> parameter is
+     * provided, its length must equal the <code>ReplicationFactor</code>.
      * </p>
      * <note>
      * <p>
@@ -497,7 +529,9 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * @param replicationFactor
      *        The number of nodes in the DAX cluster. A replication factor of 1 will create a single-node cluster,
      *        without any read replicas. For additional fault tolerance, you can create a multiple node cluster with one
-     *        or more read replicas. To do this, set <i>ReplicationFactor</i> to 2 or more.</p> <note>
+     *        or more read replicas. To do this, set <code>ReplicationFactor</code> to a number between 3 (one primary
+     *        and two read replicas) and 10 (one primary and nine read replicas). <code>If the AvailabilityZones</code>
+     *        parameter is provided, its length must equal the <code>ReplicationFactor</code>.</p> <note>
      *        <p>
      *        AWS recommends that you have at least two read replicas per cluster.
      *        </p>
@@ -511,13 +545,15 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The Availability Zones (AZs) in which the cluster nodes will be created. All nodes belonging to the cluster are
-     * placed in these Availability Zones. Use this parameter if you want to distribute the nodes across multiple AZs.
+     * The Availability Zones (AZs) in which the cluster nodes will reside after the cluster has been created or
+     * updated. If provided, the length of this list must equal the <code>ReplicationFactor</code> parameter. If you
+     * omit this parameter, DAX will spread the nodes across Availability Zones for the highest availability.
      * </p>
      * 
-     * @return The Availability Zones (AZs) in which the cluster nodes will be created. All nodes belonging to the
-     *         cluster are placed in these Availability Zones. Use this parameter if you want to distribute the nodes
-     *         across multiple AZs.
+     * @return The Availability Zones (AZs) in which the cluster nodes will reside after the cluster has been created or
+     *         updated. If provided, the length of this list must equal the <code>ReplicationFactor</code> parameter. If
+     *         you omit this parameter, DAX will spread the nodes across Availability Zones for the highest
+     *         availability.
      */
 
     public java.util.List<String> getAvailabilityZones() {
@@ -526,14 +562,15 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The Availability Zones (AZs) in which the cluster nodes will be created. All nodes belonging to the cluster are
-     * placed in these Availability Zones. Use this parameter if you want to distribute the nodes across multiple AZs.
+     * The Availability Zones (AZs) in which the cluster nodes will reside after the cluster has been created or
+     * updated. If provided, the length of this list must equal the <code>ReplicationFactor</code> parameter. If you
+     * omit this parameter, DAX will spread the nodes across Availability Zones for the highest availability.
      * </p>
      * 
      * @param availabilityZones
-     *        The Availability Zones (AZs) in which the cluster nodes will be created. All nodes belonging to the
-     *        cluster are placed in these Availability Zones. Use this parameter if you want to distribute the nodes
-     *        across multiple AZs.
+     *        The Availability Zones (AZs) in which the cluster nodes will reside after the cluster has been created or
+     *        updated. If provided, the length of this list must equal the <code>ReplicationFactor</code> parameter. If
+     *        you omit this parameter, DAX will spread the nodes across Availability Zones for the highest availability.
      */
 
     public void setAvailabilityZones(java.util.Collection<String> availabilityZones) {
@@ -547,8 +584,9 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The Availability Zones (AZs) in which the cluster nodes will be created. All nodes belonging to the cluster are
-     * placed in these Availability Zones. Use this parameter if you want to distribute the nodes across multiple AZs.
+     * The Availability Zones (AZs) in which the cluster nodes will reside after the cluster has been created or
+     * updated. If provided, the length of this list must equal the <code>ReplicationFactor</code> parameter. If you
+     * omit this parameter, DAX will spread the nodes across Availability Zones for the highest availability.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -557,9 +595,9 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * 
      * @param availabilityZones
-     *        The Availability Zones (AZs) in which the cluster nodes will be created. All nodes belonging to the
-     *        cluster are placed in these Availability Zones. Use this parameter if you want to distribute the nodes
-     *        across multiple AZs.
+     *        The Availability Zones (AZs) in which the cluster nodes will reside after the cluster has been created or
+     *        updated. If provided, the length of this list must equal the <code>ReplicationFactor</code> parameter. If
+     *        you omit this parameter, DAX will spread the nodes across Availability Zones for the highest availability.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -575,14 +613,15 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The Availability Zones (AZs) in which the cluster nodes will be created. All nodes belonging to the cluster are
-     * placed in these Availability Zones. Use this parameter if you want to distribute the nodes across multiple AZs.
+     * The Availability Zones (AZs) in which the cluster nodes will reside after the cluster has been created or
+     * updated. If provided, the length of this list must equal the <code>ReplicationFactor</code> parameter. If you
+     * omit this parameter, DAX will spread the nodes across Availability Zones for the highest availability.
      * </p>
      * 
      * @param availabilityZones
-     *        The Availability Zones (AZs) in which the cluster nodes will be created. All nodes belonging to the
-     *        cluster are placed in these Availability Zones. Use this parameter if you want to distribute the nodes
-     *        across multiple AZs.
+     *        The Availability Zones (AZs) in which the cluster nodes will reside after the cluster has been created or
+     *        updated. If provided, the length of this list must equal the <code>ReplicationFactor</code> parameter. If
+     *        you omit this parameter, DAX will spread the nodes across Availability Zones for the highest availability.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1345,6 +1384,157 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
     }
 
     /**
+     * <p>
+     * The type of encryption the cluster's endpoint should support. Values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>NONE</code> for no encryption
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TLS</code> for Transport Layer Security
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param clusterEndpointEncryptionType
+     *        The type of encryption the cluster's endpoint should support. Values are:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>NONE</code> for no encryption
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TLS</code> for Transport Layer Security
+     *        </p>
+     *        </li>
+     * @see ClusterEndpointEncryptionType
+     */
+
+    public void setClusterEndpointEncryptionType(String clusterEndpointEncryptionType) {
+        this.clusterEndpointEncryptionType = clusterEndpointEncryptionType;
+    }
+
+    /**
+     * <p>
+     * The type of encryption the cluster's endpoint should support. Values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>NONE</code> for no encryption
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TLS</code> for Transport Layer Security
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The type of encryption the cluster's endpoint should support. Values are:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>NONE</code> for no encryption
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>TLS</code> for Transport Layer Security
+     *         </p>
+     *         </li>
+     * @see ClusterEndpointEncryptionType
+     */
+
+    public String getClusterEndpointEncryptionType() {
+        return this.clusterEndpointEncryptionType;
+    }
+
+    /**
+     * <p>
+     * The type of encryption the cluster's endpoint should support. Values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>NONE</code> for no encryption
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TLS</code> for Transport Layer Security
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param clusterEndpointEncryptionType
+     *        The type of encryption the cluster's endpoint should support. Values are:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>NONE</code> for no encryption
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TLS</code> for Transport Layer Security
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ClusterEndpointEncryptionType
+     */
+
+    public CreateClusterRequest withClusterEndpointEncryptionType(String clusterEndpointEncryptionType) {
+        setClusterEndpointEncryptionType(clusterEndpointEncryptionType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of encryption the cluster's endpoint should support. Values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>NONE</code> for no encryption
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TLS</code> for Transport Layer Security
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param clusterEndpointEncryptionType
+     *        The type of encryption the cluster's endpoint should support. Values are:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>NONE</code> for no encryption
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TLS</code> for Transport Layer Security
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ClusterEndpointEncryptionType
+     */
+
+    public CreateClusterRequest withClusterEndpointEncryptionType(ClusterEndpointEncryptionType clusterEndpointEncryptionType) {
+        this.clusterEndpointEncryptionType = clusterEndpointEncryptionType.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1381,7 +1571,9 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getSSESpecification() != null)
-            sb.append("SSESpecification: ").append(getSSESpecification());
+            sb.append("SSESpecification: ").append(getSSESpecification()).append(",");
+        if (getClusterEndpointEncryptionType() != null)
+            sb.append("ClusterEndpointEncryptionType: ").append(getClusterEndpointEncryptionType());
         sb.append("}");
         return sb.toString();
     }
@@ -1448,6 +1640,11 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getSSESpecification() != null && other.getSSESpecification().equals(this.getSSESpecification()) == false)
             return false;
+        if (other.getClusterEndpointEncryptionType() == null ^ this.getClusterEndpointEncryptionType() == null)
+            return false;
+        if (other.getClusterEndpointEncryptionType() != null
+                && other.getClusterEndpointEncryptionType().equals(this.getClusterEndpointEncryptionType()) == false)
+            return false;
         return true;
     }
 
@@ -1469,6 +1666,7 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
         hashCode = prime * hashCode + ((getParameterGroupName() == null) ? 0 : getParameterGroupName().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getSSESpecification() == null) ? 0 : getSSESpecification().hashCode());
+        hashCode = prime * hashCode + ((getClusterEndpointEncryptionType() == null) ? 0 : getClusterEndpointEncryptionType().hashCode());
         return hashCode;
     }
 

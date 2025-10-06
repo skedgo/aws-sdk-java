@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Describes a set of permissions for a security group rule.
+ * Describes the permissions for a security group rule.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/IpPermission" target="_top">AWS API
@@ -28,8 +28,8 @@ public class IpPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The start of port range for the TCP and UDP protocols, or an ICMP/ICMPv6 type number. A value of <code>-1</code>
-     * indicates all ICMP/ICMPv6 types. If you specify all ICMP/ICMPv6 types, you must specify all codes.
+     * If the protocol is TCP or UDP, this is the start of the port range. If the protocol is ICMP or ICMPv6, this is
+     * the ICMP type or -1 (all ICMP types).
      * </p>
      */
     private Integer fromPort;
@@ -39,57 +39,56 @@ public class IpPermission implements Serializable, Cloneable {
      * <a href="http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol Numbers</a>).
      * </p>
      * <p>
-     * [VPC only] Use <code>-1</code> to specify all protocols. When authorizing security group rules, specifying
-     * <code>-1</code> or a protocol number other than <code>tcp</code>, <code>udp</code>, <code>icmp</code>, or
-     * <code>icmpv6</code> allows traffic on all ports, regardless of any port range you specify. For <code>tcp</code>,
-     * <code>udp</code>, and <code>icmp</code>, you must specify a port range. For <code>icmpv6</code>, the port range
-     * is optional; if you omit the port range, traffic for all types and codes is allowed.
+     * Use <code>-1</code> to specify all protocols. When authorizing security group rules, specifying <code>-1</code>
+     * or a protocol number other than <code>tcp</code>, <code>udp</code>, <code>icmp</code>, or <code>icmpv6</code>
+     * allows traffic on all ports, regardless of any port range you specify. For <code>tcp</code>, <code>udp</code>,
+     * and <code>icmp</code>, you must specify a port range. For <code>icmpv6</code>, the port range is optional; if you
+     * omit the port range, traffic for all types and codes is allowed.
      * </p>
      */
     private String ipProtocol;
     /**
      * <p>
-     * [VPC only] The IPv6 ranges.
+     * The IPv6 address ranges.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Ipv6Range> ipv6Ranges;
     /**
      * <p>
-     * [VPC only] The prefix list IDs for an AWS service. With outbound rules, this is the AWS service to access through
-     * a VPC endpoint from instances associated with the security group.
+     * The prefix list IDs.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<PrefixListId> prefixListIds;
     /**
      * <p>
-     * The end of port range for the TCP and UDP protocols, or an ICMP/ICMPv6 code. A value of <code>-1</code> indicates
-     * all ICMP/ICMPv6 codes. If you specify all ICMP/ICMPv6 types, you must specify all codes.
+     * If the protocol is TCP or UDP, this is the end of the port range. If the protocol is ICMP or ICMPv6, this is the
+     * ICMP code or -1 (all ICMP codes). If the start port is -1 (all ICMP types), then the end port must be -1 (all
+     * ICMP codes).
      * </p>
      */
     private Integer toPort;
     /**
      * <p>
-     * The security group and AWS account ID pairs.
+     * The security group and Amazon Web Services account ID pairs.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<UserIdGroupPair> userIdGroupPairs;
     /**
      * <p>
-     * The IPv4 ranges.
+     * The IPv4 address ranges.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<IpRange> ipv4Ranges;
 
     /**
      * <p>
-     * The start of port range for the TCP and UDP protocols, or an ICMP/ICMPv6 type number. A value of <code>-1</code>
-     * indicates all ICMP/ICMPv6 types. If you specify all ICMP/ICMPv6 types, you must specify all codes.
+     * If the protocol is TCP or UDP, this is the start of the port range. If the protocol is ICMP or ICMPv6, this is
+     * the ICMP type or -1 (all ICMP types).
      * </p>
      * 
      * @param fromPort
-     *        The start of port range for the TCP and UDP protocols, or an ICMP/ICMPv6 type number. A value of
-     *        <code>-1</code> indicates all ICMP/ICMPv6 types. If you specify all ICMP/ICMPv6 types, you must specify
-     *        all codes.
+     *        If the protocol is TCP or UDP, this is the start of the port range. If the protocol is ICMP or ICMPv6,
+     *        this is the ICMP type or -1 (all ICMP types).
      */
 
     public void setFromPort(Integer fromPort) {
@@ -98,13 +97,12 @@ public class IpPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The start of port range for the TCP and UDP protocols, or an ICMP/ICMPv6 type number. A value of <code>-1</code>
-     * indicates all ICMP/ICMPv6 types. If you specify all ICMP/ICMPv6 types, you must specify all codes.
+     * If the protocol is TCP or UDP, this is the start of the port range. If the protocol is ICMP or ICMPv6, this is
+     * the ICMP type or -1 (all ICMP types).
      * </p>
      * 
-     * @return The start of port range for the TCP and UDP protocols, or an ICMP/ICMPv6 type number. A value of
-     *         <code>-1</code> indicates all ICMP/ICMPv6 types. If you specify all ICMP/ICMPv6 types, you must specify
-     *         all codes.
+     * @return If the protocol is TCP or UDP, this is the start of the port range. If the protocol is ICMP or ICMPv6,
+     *         this is the ICMP type or -1 (all ICMP types).
      */
 
     public Integer getFromPort() {
@@ -113,14 +111,13 @@ public class IpPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The start of port range for the TCP and UDP protocols, or an ICMP/ICMPv6 type number. A value of <code>-1</code>
-     * indicates all ICMP/ICMPv6 types. If you specify all ICMP/ICMPv6 types, you must specify all codes.
+     * If the protocol is TCP or UDP, this is the start of the port range. If the protocol is ICMP or ICMPv6, this is
+     * the ICMP type or -1 (all ICMP types).
      * </p>
      * 
      * @param fromPort
-     *        The start of port range for the TCP and UDP protocols, or an ICMP/ICMPv6 type number. A value of
-     *        <code>-1</code> indicates all ICMP/ICMPv6 types. If you specify all ICMP/ICMPv6 types, you must specify
-     *        all codes.
+     *        If the protocol is TCP or UDP, this is the start of the port range. If the protocol is ICMP or ICMPv6,
+     *        this is the ICMP type or -1 (all ICMP types).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -135,11 +132,11 @@ public class IpPermission implements Serializable, Cloneable {
      * <a href="http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol Numbers</a>).
      * </p>
      * <p>
-     * [VPC only] Use <code>-1</code> to specify all protocols. When authorizing security group rules, specifying
-     * <code>-1</code> or a protocol number other than <code>tcp</code>, <code>udp</code>, <code>icmp</code>, or
-     * <code>icmpv6</code> allows traffic on all ports, regardless of any port range you specify. For <code>tcp</code>,
-     * <code>udp</code>, and <code>icmp</code>, you must specify a port range. For <code>icmpv6</code>, the port range
-     * is optional; if you omit the port range, traffic for all types and codes is allowed.
+     * Use <code>-1</code> to specify all protocols. When authorizing security group rules, specifying <code>-1</code>
+     * or a protocol number other than <code>tcp</code>, <code>udp</code>, <code>icmp</code>, or <code>icmpv6</code>
+     * allows traffic on all ports, regardless of any port range you specify. For <code>tcp</code>, <code>udp</code>,
+     * and <code>icmp</code>, you must specify a port range. For <code>icmpv6</code>, the port range is optional; if you
+     * omit the port range, traffic for all types and codes is allowed.
      * </p>
      * 
      * @param ipProtocol
@@ -147,7 +144,7 @@ public class IpPermission implements Serializable, Cloneable {
      *        number (see <a href="http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
      *        Numbers</a>).</p>
      *        <p>
-     *        [VPC only] Use <code>-1</code> to specify all protocols. When authorizing security group rules, specifying
+     *        Use <code>-1</code> to specify all protocols. When authorizing security group rules, specifying
      *        <code>-1</code> or a protocol number other than <code>tcp</code>, <code>udp</code>, <code>icmp</code>, or
      *        <code>icmpv6</code> allows traffic on all ports, regardless of any port range you specify. For
      *        <code>tcp</code>, <code>udp</code>, and <code>icmp</code>, you must specify a port range. For
@@ -165,23 +162,23 @@ public class IpPermission implements Serializable, Cloneable {
      * <a href="http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol Numbers</a>).
      * </p>
      * <p>
-     * [VPC only] Use <code>-1</code> to specify all protocols. When authorizing security group rules, specifying
-     * <code>-1</code> or a protocol number other than <code>tcp</code>, <code>udp</code>, <code>icmp</code>, or
-     * <code>icmpv6</code> allows traffic on all ports, regardless of any port range you specify. For <code>tcp</code>,
-     * <code>udp</code>, and <code>icmp</code>, you must specify a port range. For <code>icmpv6</code>, the port range
-     * is optional; if you omit the port range, traffic for all types and codes is allowed.
+     * Use <code>-1</code> to specify all protocols. When authorizing security group rules, specifying <code>-1</code>
+     * or a protocol number other than <code>tcp</code>, <code>udp</code>, <code>icmp</code>, or <code>icmpv6</code>
+     * allows traffic on all ports, regardless of any port range you specify. For <code>tcp</code>, <code>udp</code>,
+     * and <code>icmp</code>, you must specify a port range. For <code>icmpv6</code>, the port range is optional; if you
+     * omit the port range, traffic for all types and codes is allowed.
      * </p>
      * 
      * @return The IP protocol name (<code>tcp</code>, <code>udp</code>, <code>icmp</code>, <code>icmpv6</code>) or
      *         number (see <a href="http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
      *         Numbers</a>).</p>
      *         <p>
-     *         [VPC only] Use <code>-1</code> to specify all protocols. When authorizing security group rules,
-     *         specifying <code>-1</code> or a protocol number other than <code>tcp</code>, <code>udp</code>,
-     *         <code>icmp</code>, or <code>icmpv6</code> allows traffic on all ports, regardless of any port range you
-     *         specify. For <code>tcp</code>, <code>udp</code>, and <code>icmp</code>, you must specify a port range.
-     *         For <code>icmpv6</code>, the port range is optional; if you omit the port range, traffic for all types
-     *         and codes is allowed.
+     *         Use <code>-1</code> to specify all protocols. When authorizing security group rules, specifying
+     *         <code>-1</code> or a protocol number other than <code>tcp</code>, <code>udp</code>, <code>icmp</code>, or
+     *         <code>icmpv6</code> allows traffic on all ports, regardless of any port range you specify. For
+     *         <code>tcp</code>, <code>udp</code>, and <code>icmp</code>, you must specify a port range. For
+     *         <code>icmpv6</code>, the port range is optional; if you omit the port range, traffic for all types and
+     *         codes is allowed.
      */
 
     public String getIpProtocol() {
@@ -194,11 +191,11 @@ public class IpPermission implements Serializable, Cloneable {
      * <a href="http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol Numbers</a>).
      * </p>
      * <p>
-     * [VPC only] Use <code>-1</code> to specify all protocols. When authorizing security group rules, specifying
-     * <code>-1</code> or a protocol number other than <code>tcp</code>, <code>udp</code>, <code>icmp</code>, or
-     * <code>icmpv6</code> allows traffic on all ports, regardless of any port range you specify. For <code>tcp</code>,
-     * <code>udp</code>, and <code>icmp</code>, you must specify a port range. For <code>icmpv6</code>, the port range
-     * is optional; if you omit the port range, traffic for all types and codes is allowed.
+     * Use <code>-1</code> to specify all protocols. When authorizing security group rules, specifying <code>-1</code>
+     * or a protocol number other than <code>tcp</code>, <code>udp</code>, <code>icmp</code>, or <code>icmpv6</code>
+     * allows traffic on all ports, regardless of any port range you specify. For <code>tcp</code>, <code>udp</code>,
+     * and <code>icmp</code>, you must specify a port range. For <code>icmpv6</code>, the port range is optional; if you
+     * omit the port range, traffic for all types and codes is allowed.
      * </p>
      * 
      * @param ipProtocol
@@ -206,7 +203,7 @@ public class IpPermission implements Serializable, Cloneable {
      *        number (see <a href="http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
      *        Numbers</a>).</p>
      *        <p>
-     *        [VPC only] Use <code>-1</code> to specify all protocols. When authorizing security group rules, specifying
+     *        Use <code>-1</code> to specify all protocols. When authorizing security group rules, specifying
      *        <code>-1</code> or a protocol number other than <code>tcp</code>, <code>udp</code>, <code>icmp</code>, or
      *        <code>icmpv6</code> allows traffic on all ports, regardless of any port range you specify. For
      *        <code>tcp</code>, <code>udp</code>, and <code>icmp</code>, you must specify a port range. For
@@ -222,10 +219,10 @@ public class IpPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [VPC only] The IPv6 ranges.
+     * The IPv6 address ranges.
      * </p>
      * 
-     * @return [VPC only] The IPv6 ranges.
+     * @return The IPv6 address ranges.
      */
 
     public java.util.List<Ipv6Range> getIpv6Ranges() {
@@ -237,11 +234,11 @@ public class IpPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [VPC only] The IPv6 ranges.
+     * The IPv6 address ranges.
      * </p>
      * 
      * @param ipv6Ranges
-     *        [VPC only] The IPv6 ranges.
+     *        The IPv6 address ranges.
      */
 
     public void setIpv6Ranges(java.util.Collection<Ipv6Range> ipv6Ranges) {
@@ -255,7 +252,7 @@ public class IpPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [VPC only] The IPv6 ranges.
+     * The IPv6 address ranges.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -264,7 +261,7 @@ public class IpPermission implements Serializable, Cloneable {
      * </p>
      * 
      * @param ipv6Ranges
-     *        [VPC only] The IPv6 ranges.
+     *        The IPv6 address ranges.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -280,11 +277,11 @@ public class IpPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [VPC only] The IPv6 ranges.
+     * The IPv6 address ranges.
      * </p>
      * 
      * @param ipv6Ranges
-     *        [VPC only] The IPv6 ranges.
+     *        The IPv6 address ranges.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -295,12 +292,10 @@ public class IpPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [VPC only] The prefix list IDs for an AWS service. With outbound rules, this is the AWS service to access through
-     * a VPC endpoint from instances associated with the security group.
+     * The prefix list IDs.
      * </p>
      * 
-     * @return [VPC only] The prefix list IDs for an AWS service. With outbound rules, this is the AWS service to access
-     *         through a VPC endpoint from instances associated with the security group.
+     * @return The prefix list IDs.
      */
 
     public java.util.List<PrefixListId> getPrefixListIds() {
@@ -312,13 +307,11 @@ public class IpPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [VPC only] The prefix list IDs for an AWS service. With outbound rules, this is the AWS service to access through
-     * a VPC endpoint from instances associated with the security group.
+     * The prefix list IDs.
      * </p>
      * 
      * @param prefixListIds
-     *        [VPC only] The prefix list IDs for an AWS service. With outbound rules, this is the AWS service to access
-     *        through a VPC endpoint from instances associated with the security group.
+     *        The prefix list IDs.
      */
 
     public void setPrefixListIds(java.util.Collection<PrefixListId> prefixListIds) {
@@ -332,8 +325,7 @@ public class IpPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [VPC only] The prefix list IDs for an AWS service. With outbound rules, this is the AWS service to access through
-     * a VPC endpoint from instances associated with the security group.
+     * The prefix list IDs.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -342,8 +334,7 @@ public class IpPermission implements Serializable, Cloneable {
      * </p>
      * 
      * @param prefixListIds
-     *        [VPC only] The prefix list IDs for an AWS service. With outbound rules, this is the AWS service to access
-     *        through a VPC endpoint from instances associated with the security group.
+     *        The prefix list IDs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -359,13 +350,11 @@ public class IpPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [VPC only] The prefix list IDs for an AWS service. With outbound rules, this is the AWS service to access through
-     * a VPC endpoint from instances associated with the security group.
+     * The prefix list IDs.
      * </p>
      * 
      * @param prefixListIds
-     *        [VPC only] The prefix list IDs for an AWS service. With outbound rules, this is the AWS service to access
-     *        through a VPC endpoint from instances associated with the security group.
+     *        The prefix list IDs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -376,13 +365,15 @@ public class IpPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The end of port range for the TCP and UDP protocols, or an ICMP/ICMPv6 code. A value of <code>-1</code> indicates
-     * all ICMP/ICMPv6 codes. If you specify all ICMP/ICMPv6 types, you must specify all codes.
+     * If the protocol is TCP or UDP, this is the end of the port range. If the protocol is ICMP or ICMPv6, this is the
+     * ICMP code or -1 (all ICMP codes). If the start port is -1 (all ICMP types), then the end port must be -1 (all
+     * ICMP codes).
      * </p>
      * 
      * @param toPort
-     *        The end of port range for the TCP and UDP protocols, or an ICMP/ICMPv6 code. A value of <code>-1</code>
-     *        indicates all ICMP/ICMPv6 codes. If you specify all ICMP/ICMPv6 types, you must specify all codes.
+     *        If the protocol is TCP or UDP, this is the end of the port range. If the protocol is ICMP or ICMPv6, this
+     *        is the ICMP code or -1 (all ICMP codes). If the start port is -1 (all ICMP types), then the end port must
+     *        be -1 (all ICMP codes).
      */
 
     public void setToPort(Integer toPort) {
@@ -391,12 +382,14 @@ public class IpPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The end of port range for the TCP and UDP protocols, or an ICMP/ICMPv6 code. A value of <code>-1</code> indicates
-     * all ICMP/ICMPv6 codes. If you specify all ICMP/ICMPv6 types, you must specify all codes.
+     * If the protocol is TCP or UDP, this is the end of the port range. If the protocol is ICMP or ICMPv6, this is the
+     * ICMP code or -1 (all ICMP codes). If the start port is -1 (all ICMP types), then the end port must be -1 (all
+     * ICMP codes).
      * </p>
      * 
-     * @return The end of port range for the TCP and UDP protocols, or an ICMP/ICMPv6 code. A value of <code>-1</code>
-     *         indicates all ICMP/ICMPv6 codes. If you specify all ICMP/ICMPv6 types, you must specify all codes.
+     * @return If the protocol is TCP or UDP, this is the end of the port range. If the protocol is ICMP or ICMPv6, this
+     *         is the ICMP code or -1 (all ICMP codes). If the start port is -1 (all ICMP types), then the end port must
+     *         be -1 (all ICMP codes).
      */
 
     public Integer getToPort() {
@@ -405,13 +398,15 @@ public class IpPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The end of port range for the TCP and UDP protocols, or an ICMP/ICMPv6 code. A value of <code>-1</code> indicates
-     * all ICMP/ICMPv6 codes. If you specify all ICMP/ICMPv6 types, you must specify all codes.
+     * If the protocol is TCP or UDP, this is the end of the port range. If the protocol is ICMP or ICMPv6, this is the
+     * ICMP code or -1 (all ICMP codes). If the start port is -1 (all ICMP types), then the end port must be -1 (all
+     * ICMP codes).
      * </p>
      * 
      * @param toPort
-     *        The end of port range for the TCP and UDP protocols, or an ICMP/ICMPv6 code. A value of <code>-1</code>
-     *        indicates all ICMP/ICMPv6 codes. If you specify all ICMP/ICMPv6 types, you must specify all codes.
+     *        If the protocol is TCP or UDP, this is the end of the port range. If the protocol is ICMP or ICMPv6, this
+     *        is the ICMP code or -1 (all ICMP codes). If the start port is -1 (all ICMP types), then the end port must
+     *        be -1 (all ICMP codes).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -422,10 +417,10 @@ public class IpPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The security group and AWS account ID pairs.
+     * The security group and Amazon Web Services account ID pairs.
      * </p>
      * 
-     * @return The security group and AWS account ID pairs.
+     * @return The security group and Amazon Web Services account ID pairs.
      */
 
     public java.util.List<UserIdGroupPair> getUserIdGroupPairs() {
@@ -437,11 +432,11 @@ public class IpPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The security group and AWS account ID pairs.
+     * The security group and Amazon Web Services account ID pairs.
      * </p>
      * 
      * @param userIdGroupPairs
-     *        The security group and AWS account ID pairs.
+     *        The security group and Amazon Web Services account ID pairs.
      */
 
     public void setUserIdGroupPairs(java.util.Collection<UserIdGroupPair> userIdGroupPairs) {
@@ -455,7 +450,7 @@ public class IpPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The security group and AWS account ID pairs.
+     * The security group and Amazon Web Services account ID pairs.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -464,7 +459,7 @@ public class IpPermission implements Serializable, Cloneable {
      * </p>
      * 
      * @param userIdGroupPairs
-     *        The security group and AWS account ID pairs.
+     *        The security group and Amazon Web Services account ID pairs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -480,11 +475,11 @@ public class IpPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The security group and AWS account ID pairs.
+     * The security group and Amazon Web Services account ID pairs.
      * </p>
      * 
      * @param userIdGroupPairs
-     *        The security group and AWS account ID pairs.
+     *        The security group and Amazon Web Services account ID pairs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -495,10 +490,10 @@ public class IpPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The IPv4 ranges.
+     * The IPv4 address ranges.
      * </p>
      * 
-     * @return The IPv4 ranges.
+     * @return The IPv4 address ranges.
      */
 
     public java.util.List<IpRange> getIpv4Ranges() {
@@ -510,11 +505,11 @@ public class IpPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The IPv4 ranges.
+     * The IPv4 address ranges.
      * </p>
      * 
      * @param ipv4Ranges
-     *        The IPv4 ranges.
+     *        The IPv4 address ranges.
      */
 
     public void setIpv4Ranges(java.util.Collection<IpRange> ipv4Ranges) {
@@ -528,7 +523,7 @@ public class IpPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The IPv4 ranges.
+     * The IPv4 address ranges.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -537,7 +532,7 @@ public class IpPermission implements Serializable, Cloneable {
      * </p>
      * 
      * @param ipv4Ranges
-     *        The IPv4 ranges.
+     *        The IPv4 address ranges.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -553,11 +548,11 @@ public class IpPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The IPv4 ranges.
+     * The IPv4 address ranges.
      * </p>
      * 
      * @param ipv4Ranges
-     *        The IPv4 ranges.
+     *        The IPv4 address ranges.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

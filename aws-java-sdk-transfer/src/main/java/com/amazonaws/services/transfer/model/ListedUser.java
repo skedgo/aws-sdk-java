@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,45 +30,83 @@ public class ListedUser implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This property is the unique Amazon Resource Name (ARN) for the user that you wish to learn about.
+     * Provides the unique Amazon Resource Name (ARN) for the user that you want to learn about.
      * </p>
      */
     private String arn;
     /**
      * <p>
-     * This value specifies the location that files are written to or read from an Amazon S3 bucket for the user you
-     * specify by their ARN.
+     * The landing directory (folder) for a user when they log in to the server using the client.
      * </p>
+     * <p>
+     * A <code>HomeDirectory</code> example is <code>/bucket_name/home/mydirectory</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>HomeDirectory</code> parameter is only used if <code>HomeDirectoryType</code> is set to
+     * <code>PATH</code>.
+     * </p>
+     * </note>
      */
     private String homeDirectory;
     /**
      * <p>
-     * The role in use by this user. A <i>role</i> is an AWS Identity and Access Management (IAM) entity that in this
-     * case allows the SFTP server to act on a user's behalf. It allows the server to inherit the trust relationship
-     * that enables that user to perform file operations to their Amazon S3 bucket.
+     * The type of landing directory (folder) that you want your users' home directory to be when they log in to the
+     * server. If you set it to <code>PATH</code>, the user will see the absolute Amazon S3 bucket or Amazon EFS path as
+     * is in their file transfer protocol clients. If you set it to <code>LOGICAL</code>, you need to provide mappings
+     * in the <code>HomeDirectoryMappings</code> for how you want to make Amazon S3 or Amazon EFS paths visible to your
+     * users.
      * </p>
+     * <note>
+     * <p>
+     * If <code>HomeDirectoryType</code> is <code>LOGICAL</code>, you must provide mappings, using the
+     * <code>HomeDirectoryMappings</code> parameter. If, on the other hand, <code>HomeDirectoryType</code> is
+     * <code>PATH</code>, you provide an absolute path using the <code>HomeDirectory</code> parameter. You cannot have
+     * both <code>HomeDirectory</code> and <code>HomeDirectoryMappings</code> in your template.
+     * </p>
+     * </note>
+     */
+    private String homeDirectoryType;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that controls your users' access
+     * to your Amazon S3 bucket or Amazon EFS file system. The policies attached to this role determine the level of
+     * access that you want to provide your users when transferring files into and out of your Amazon S3 bucket or
+     * Amazon EFS file system. The IAM role should also contain a trust relationship that allows the server to access
+     * your resources when servicing your users' transfer requests.
+     * </p>
+     * <note>
+     * <p>
+     * The IAM role that controls your users' access to your Amazon S3 bucket for servers with <code>Domain=S3</code>,
+     * or your EFS file system for servers with <code>Domain=EFS</code>.
+     * </p>
+     * <p>
+     * The policies attached to this role determine the level of access you want to provide your users when transferring
+     * files into and out of your S3 buckets or EFS file systems.
+     * </p>
+     * </note>
      */
     private String role;
     /**
      * <p>
-     * This value is the number of SSH public keys stored for the user you specified.
+     * Specifies the number of SSH public keys stored for the user you specified.
      * </p>
      */
     private Integer sshPublicKeyCount;
     /**
      * <p>
-     * The name of the user whose ARN was specified. User names are used for authentication purposes.
+     * Specifies the name of the user whose ARN was specified. User names are used for authentication purposes.
      * </p>
      */
     private String userName;
 
     /**
      * <p>
-     * This property is the unique Amazon Resource Name (ARN) for the user that you wish to learn about.
+     * Provides the unique Amazon Resource Name (ARN) for the user that you want to learn about.
      * </p>
      * 
      * @param arn
-     *        This property is the unique Amazon Resource Name (ARN) for the user that you wish to learn about.
+     *        Provides the unique Amazon Resource Name (ARN) for the user that you want to learn about.
      */
 
     public void setArn(String arn) {
@@ -77,10 +115,10 @@ public class ListedUser implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This property is the unique Amazon Resource Name (ARN) for the user that you wish to learn about.
+     * Provides the unique Amazon Resource Name (ARN) for the user that you want to learn about.
      * </p>
      * 
-     * @return This property is the unique Amazon Resource Name (ARN) for the user that you wish to learn about.
+     * @return Provides the unique Amazon Resource Name (ARN) for the user that you want to learn about.
      */
 
     public String getArn() {
@@ -89,11 +127,11 @@ public class ListedUser implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This property is the unique Amazon Resource Name (ARN) for the user that you wish to learn about.
+     * Provides the unique Amazon Resource Name (ARN) for the user that you want to learn about.
      * </p>
      * 
      * @param arn
-     *        This property is the unique Amazon Resource Name (ARN) for the user that you wish to learn about.
+     *        Provides the unique Amazon Resource Name (ARN) for the user that you want to learn about.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -104,13 +142,28 @@ public class ListedUser implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This value specifies the location that files are written to or read from an Amazon S3 bucket for the user you
-     * specify by their ARN.
+     * The landing directory (folder) for a user when they log in to the server using the client.
      * </p>
+     * <p>
+     * A <code>HomeDirectory</code> example is <code>/bucket_name/home/mydirectory</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>HomeDirectory</code> parameter is only used if <code>HomeDirectoryType</code> is set to
+     * <code>PATH</code>.
+     * </p>
+     * </note>
      * 
      * @param homeDirectory
-     *        This value specifies the location that files are written to or read from an Amazon S3 bucket for the user
-     *        you specify by their ARN.
+     *        The landing directory (folder) for a user when they log in to the server using the client.</p>
+     *        <p>
+     *        A <code>HomeDirectory</code> example is <code>/bucket_name/home/mydirectory</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        The <code>HomeDirectory</code> parameter is only used if <code>HomeDirectoryType</code> is set to
+     *        <code>PATH</code>.
+     *        </p>
      */
 
     public void setHomeDirectory(String homeDirectory) {
@@ -119,12 +172,27 @@ public class ListedUser implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This value specifies the location that files are written to or read from an Amazon S3 bucket for the user you
-     * specify by their ARN.
+     * The landing directory (folder) for a user when they log in to the server using the client.
      * </p>
+     * <p>
+     * A <code>HomeDirectory</code> example is <code>/bucket_name/home/mydirectory</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>HomeDirectory</code> parameter is only used if <code>HomeDirectoryType</code> is set to
+     * <code>PATH</code>.
+     * </p>
+     * </note>
      * 
-     * @return This value specifies the location that files are written to or read from an Amazon S3 bucket for the user
-     *         you specify by their ARN.
+     * @return The landing directory (folder) for a user when they log in to the server using the client.</p>
+     *         <p>
+     *         A <code>HomeDirectory</code> example is <code>/bucket_name/home/mydirectory</code>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         The <code>HomeDirectory</code> parameter is only used if <code>HomeDirectoryType</code> is set to
+     *         <code>PATH</code>.
+     *         </p>
      */
 
     public String getHomeDirectory() {
@@ -133,13 +201,28 @@ public class ListedUser implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This value specifies the location that files are written to or read from an Amazon S3 bucket for the user you
-     * specify by their ARN.
+     * The landing directory (folder) for a user when they log in to the server using the client.
      * </p>
+     * <p>
+     * A <code>HomeDirectory</code> example is <code>/bucket_name/home/mydirectory</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>HomeDirectory</code> parameter is only used if <code>HomeDirectoryType</code> is set to
+     * <code>PATH</code>.
+     * </p>
+     * </note>
      * 
      * @param homeDirectory
-     *        This value specifies the location that files are written to or read from an Amazon S3 bucket for the user
-     *        you specify by their ARN.
+     *        The landing directory (folder) for a user when they log in to the server using the client.</p>
+     *        <p>
+     *        A <code>HomeDirectory</code> example is <code>/bucket_name/home/mydirectory</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        The <code>HomeDirectory</code> parameter is only used if <code>HomeDirectoryType</code> is set to
+     *        <code>PATH</code>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -150,15 +233,184 @@ public class ListedUser implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The role in use by this user. A <i>role</i> is an AWS Identity and Access Management (IAM) entity that in this
-     * case allows the SFTP server to act on a user's behalf. It allows the server to inherit the trust relationship
-     * that enables that user to perform file operations to their Amazon S3 bucket.
+     * The type of landing directory (folder) that you want your users' home directory to be when they log in to the
+     * server. If you set it to <code>PATH</code>, the user will see the absolute Amazon S3 bucket or Amazon EFS path as
+     * is in their file transfer protocol clients. If you set it to <code>LOGICAL</code>, you need to provide mappings
+     * in the <code>HomeDirectoryMappings</code> for how you want to make Amazon S3 or Amazon EFS paths visible to your
+     * users.
      * </p>
+     * <note>
+     * <p>
+     * If <code>HomeDirectoryType</code> is <code>LOGICAL</code>, you must provide mappings, using the
+     * <code>HomeDirectoryMappings</code> parameter. If, on the other hand, <code>HomeDirectoryType</code> is
+     * <code>PATH</code>, you provide an absolute path using the <code>HomeDirectory</code> parameter. You cannot have
+     * both <code>HomeDirectory</code> and <code>HomeDirectoryMappings</code> in your template.
+     * </p>
+     * </note>
+     * 
+     * @param homeDirectoryType
+     *        The type of landing directory (folder) that you want your users' home directory to be when they log in to
+     *        the server. If you set it to <code>PATH</code>, the user will see the absolute Amazon S3 bucket or Amazon
+     *        EFS path as is in their file transfer protocol clients. If you set it to <code>LOGICAL</code>, you need to
+     *        provide mappings in the <code>HomeDirectoryMappings</code> for how you want to make Amazon S3 or Amazon
+     *        EFS paths visible to your users.</p> <note>
+     *        <p>
+     *        If <code>HomeDirectoryType</code> is <code>LOGICAL</code>, you must provide mappings, using the
+     *        <code>HomeDirectoryMappings</code> parameter. If, on the other hand, <code>HomeDirectoryType</code> is
+     *        <code>PATH</code>, you provide an absolute path using the <code>HomeDirectory</code> parameter. You cannot
+     *        have both <code>HomeDirectory</code> and <code>HomeDirectoryMappings</code> in your template.
+     *        </p>
+     * @see HomeDirectoryType
+     */
+
+    public void setHomeDirectoryType(String homeDirectoryType) {
+        this.homeDirectoryType = homeDirectoryType;
+    }
+
+    /**
+     * <p>
+     * The type of landing directory (folder) that you want your users' home directory to be when they log in to the
+     * server. If you set it to <code>PATH</code>, the user will see the absolute Amazon S3 bucket or Amazon EFS path as
+     * is in their file transfer protocol clients. If you set it to <code>LOGICAL</code>, you need to provide mappings
+     * in the <code>HomeDirectoryMappings</code> for how you want to make Amazon S3 or Amazon EFS paths visible to your
+     * users.
+     * </p>
+     * <note>
+     * <p>
+     * If <code>HomeDirectoryType</code> is <code>LOGICAL</code>, you must provide mappings, using the
+     * <code>HomeDirectoryMappings</code> parameter. If, on the other hand, <code>HomeDirectoryType</code> is
+     * <code>PATH</code>, you provide an absolute path using the <code>HomeDirectory</code> parameter. You cannot have
+     * both <code>HomeDirectory</code> and <code>HomeDirectoryMappings</code> in your template.
+     * </p>
+     * </note>
+     * 
+     * @return The type of landing directory (folder) that you want your users' home directory to be when they log in to
+     *         the server. If you set it to <code>PATH</code>, the user will see the absolute Amazon S3 bucket or Amazon
+     *         EFS path as is in their file transfer protocol clients. If you set it to <code>LOGICAL</code>, you need
+     *         to provide mappings in the <code>HomeDirectoryMappings</code> for how you want to make Amazon S3 or
+     *         Amazon EFS paths visible to your users.</p> <note>
+     *         <p>
+     *         If <code>HomeDirectoryType</code> is <code>LOGICAL</code>, you must provide mappings, using the
+     *         <code>HomeDirectoryMappings</code> parameter. If, on the other hand, <code>HomeDirectoryType</code> is
+     *         <code>PATH</code>, you provide an absolute path using the <code>HomeDirectory</code> parameter. You
+     *         cannot have both <code>HomeDirectory</code> and <code>HomeDirectoryMappings</code> in your template.
+     *         </p>
+     * @see HomeDirectoryType
+     */
+
+    public String getHomeDirectoryType() {
+        return this.homeDirectoryType;
+    }
+
+    /**
+     * <p>
+     * The type of landing directory (folder) that you want your users' home directory to be when they log in to the
+     * server. If you set it to <code>PATH</code>, the user will see the absolute Amazon S3 bucket or Amazon EFS path as
+     * is in their file transfer protocol clients. If you set it to <code>LOGICAL</code>, you need to provide mappings
+     * in the <code>HomeDirectoryMappings</code> for how you want to make Amazon S3 or Amazon EFS paths visible to your
+     * users.
+     * </p>
+     * <note>
+     * <p>
+     * If <code>HomeDirectoryType</code> is <code>LOGICAL</code>, you must provide mappings, using the
+     * <code>HomeDirectoryMappings</code> parameter. If, on the other hand, <code>HomeDirectoryType</code> is
+     * <code>PATH</code>, you provide an absolute path using the <code>HomeDirectory</code> parameter. You cannot have
+     * both <code>HomeDirectory</code> and <code>HomeDirectoryMappings</code> in your template.
+     * </p>
+     * </note>
+     * 
+     * @param homeDirectoryType
+     *        The type of landing directory (folder) that you want your users' home directory to be when they log in to
+     *        the server. If you set it to <code>PATH</code>, the user will see the absolute Amazon S3 bucket or Amazon
+     *        EFS path as is in their file transfer protocol clients. If you set it to <code>LOGICAL</code>, you need to
+     *        provide mappings in the <code>HomeDirectoryMappings</code> for how you want to make Amazon S3 or Amazon
+     *        EFS paths visible to your users.</p> <note>
+     *        <p>
+     *        If <code>HomeDirectoryType</code> is <code>LOGICAL</code>, you must provide mappings, using the
+     *        <code>HomeDirectoryMappings</code> parameter. If, on the other hand, <code>HomeDirectoryType</code> is
+     *        <code>PATH</code>, you provide an absolute path using the <code>HomeDirectory</code> parameter. You cannot
+     *        have both <code>HomeDirectory</code> and <code>HomeDirectoryMappings</code> in your template.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HomeDirectoryType
+     */
+
+    public ListedUser withHomeDirectoryType(String homeDirectoryType) {
+        setHomeDirectoryType(homeDirectoryType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of landing directory (folder) that you want your users' home directory to be when they log in to the
+     * server. If you set it to <code>PATH</code>, the user will see the absolute Amazon S3 bucket or Amazon EFS path as
+     * is in their file transfer protocol clients. If you set it to <code>LOGICAL</code>, you need to provide mappings
+     * in the <code>HomeDirectoryMappings</code> for how you want to make Amazon S3 or Amazon EFS paths visible to your
+     * users.
+     * </p>
+     * <note>
+     * <p>
+     * If <code>HomeDirectoryType</code> is <code>LOGICAL</code>, you must provide mappings, using the
+     * <code>HomeDirectoryMappings</code> parameter. If, on the other hand, <code>HomeDirectoryType</code> is
+     * <code>PATH</code>, you provide an absolute path using the <code>HomeDirectory</code> parameter. You cannot have
+     * both <code>HomeDirectory</code> and <code>HomeDirectoryMappings</code> in your template.
+     * </p>
+     * </note>
+     * 
+     * @param homeDirectoryType
+     *        The type of landing directory (folder) that you want your users' home directory to be when they log in to
+     *        the server. If you set it to <code>PATH</code>, the user will see the absolute Amazon S3 bucket or Amazon
+     *        EFS path as is in their file transfer protocol clients. If you set it to <code>LOGICAL</code>, you need to
+     *        provide mappings in the <code>HomeDirectoryMappings</code> for how you want to make Amazon S3 or Amazon
+     *        EFS paths visible to your users.</p> <note>
+     *        <p>
+     *        If <code>HomeDirectoryType</code> is <code>LOGICAL</code>, you must provide mappings, using the
+     *        <code>HomeDirectoryMappings</code> parameter. If, on the other hand, <code>HomeDirectoryType</code> is
+     *        <code>PATH</code>, you provide an absolute path using the <code>HomeDirectory</code> parameter. You cannot
+     *        have both <code>HomeDirectory</code> and <code>HomeDirectoryMappings</code> in your template.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HomeDirectoryType
+     */
+
+    public ListedUser withHomeDirectoryType(HomeDirectoryType homeDirectoryType) {
+        this.homeDirectoryType = homeDirectoryType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that controls your users' access
+     * to your Amazon S3 bucket or Amazon EFS file system. The policies attached to this role determine the level of
+     * access that you want to provide your users when transferring files into and out of your Amazon S3 bucket or
+     * Amazon EFS file system. The IAM role should also contain a trust relationship that allows the server to access
+     * your resources when servicing your users' transfer requests.
+     * </p>
+     * <note>
+     * <p>
+     * The IAM role that controls your users' access to your Amazon S3 bucket for servers with <code>Domain=S3</code>,
+     * or your EFS file system for servers with <code>Domain=EFS</code>.
+     * </p>
+     * <p>
+     * The policies attached to this role determine the level of access you want to provide your users when transferring
+     * files into and out of your S3 buckets or EFS file systems.
+     * </p>
+     * </note>
      * 
      * @param role
-     *        The role in use by this user. A <i>role</i> is an AWS Identity and Access Management (IAM) entity that in
-     *        this case allows the SFTP server to act on a user's behalf. It allows the server to inherit the trust
-     *        relationship that enables that user to perform file operations to their Amazon S3 bucket.
+     *        The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that controls your users'
+     *        access to your Amazon S3 bucket or Amazon EFS file system. The policies attached to this role determine
+     *        the level of access that you want to provide your users when transferring files into and out of your
+     *        Amazon S3 bucket or Amazon EFS file system. The IAM role should also contain a trust relationship that
+     *        allows the server to access your resources when servicing your users' transfer requests.</p> <note>
+     *        <p>
+     *        The IAM role that controls your users' access to your Amazon S3 bucket for servers with
+     *        <code>Domain=S3</code>, or your EFS file system for servers with <code>Domain=EFS</code>.
+     *        </p>
+     *        <p>
+     *        The policies attached to this role determine the level of access you want to provide your users when
+     *        transferring files into and out of your S3 buckets or EFS file systems.
+     *        </p>
      */
 
     public void setRole(String role) {
@@ -167,14 +419,36 @@ public class ListedUser implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The role in use by this user. A <i>role</i> is an AWS Identity and Access Management (IAM) entity that in this
-     * case allows the SFTP server to act on a user's behalf. It allows the server to inherit the trust relationship
-     * that enables that user to perform file operations to their Amazon S3 bucket.
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that controls your users' access
+     * to your Amazon S3 bucket or Amazon EFS file system. The policies attached to this role determine the level of
+     * access that you want to provide your users when transferring files into and out of your Amazon S3 bucket or
+     * Amazon EFS file system. The IAM role should also contain a trust relationship that allows the server to access
+     * your resources when servicing your users' transfer requests.
      * </p>
+     * <note>
+     * <p>
+     * The IAM role that controls your users' access to your Amazon S3 bucket for servers with <code>Domain=S3</code>,
+     * or your EFS file system for servers with <code>Domain=EFS</code>.
+     * </p>
+     * <p>
+     * The policies attached to this role determine the level of access you want to provide your users when transferring
+     * files into and out of your S3 buckets or EFS file systems.
+     * </p>
+     * </note>
      * 
-     * @return The role in use by this user. A <i>role</i> is an AWS Identity and Access Management (IAM) entity that in
-     *         this case allows the SFTP server to act on a user's behalf. It allows the server to inherit the trust
-     *         relationship that enables that user to perform file operations to their Amazon S3 bucket.
+     * @return The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that controls your users'
+     *         access to your Amazon S3 bucket or Amazon EFS file system. The policies attached to this role determine
+     *         the level of access that you want to provide your users when transferring files into and out of your
+     *         Amazon S3 bucket or Amazon EFS file system. The IAM role should also contain a trust relationship that
+     *         allows the server to access your resources when servicing your users' transfer requests.</p> <note>
+     *         <p>
+     *         The IAM role that controls your users' access to your Amazon S3 bucket for servers with
+     *         <code>Domain=S3</code>, or your EFS file system for servers with <code>Domain=EFS</code>.
+     *         </p>
+     *         <p>
+     *         The policies attached to this role determine the level of access you want to provide your users when
+     *         transferring files into and out of your S3 buckets or EFS file systems.
+     *         </p>
      */
 
     public String getRole() {
@@ -183,15 +457,37 @@ public class ListedUser implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The role in use by this user. A <i>role</i> is an AWS Identity and Access Management (IAM) entity that in this
-     * case allows the SFTP server to act on a user's behalf. It allows the server to inherit the trust relationship
-     * that enables that user to perform file operations to their Amazon S3 bucket.
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that controls your users' access
+     * to your Amazon S3 bucket or Amazon EFS file system. The policies attached to this role determine the level of
+     * access that you want to provide your users when transferring files into and out of your Amazon S3 bucket or
+     * Amazon EFS file system. The IAM role should also contain a trust relationship that allows the server to access
+     * your resources when servicing your users' transfer requests.
      * </p>
+     * <note>
+     * <p>
+     * The IAM role that controls your users' access to your Amazon S3 bucket for servers with <code>Domain=S3</code>,
+     * or your EFS file system for servers with <code>Domain=EFS</code>.
+     * </p>
+     * <p>
+     * The policies attached to this role determine the level of access you want to provide your users when transferring
+     * files into and out of your S3 buckets or EFS file systems.
+     * </p>
+     * </note>
      * 
      * @param role
-     *        The role in use by this user. A <i>role</i> is an AWS Identity and Access Management (IAM) entity that in
-     *        this case allows the SFTP server to act on a user's behalf. It allows the server to inherit the trust
-     *        relationship that enables that user to perform file operations to their Amazon S3 bucket.
+     *        The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that controls your users'
+     *        access to your Amazon S3 bucket or Amazon EFS file system. The policies attached to this role determine
+     *        the level of access that you want to provide your users when transferring files into and out of your
+     *        Amazon S3 bucket or Amazon EFS file system. The IAM role should also contain a trust relationship that
+     *        allows the server to access your resources when servicing your users' transfer requests.</p> <note>
+     *        <p>
+     *        The IAM role that controls your users' access to your Amazon S3 bucket for servers with
+     *        <code>Domain=S3</code>, or your EFS file system for servers with <code>Domain=EFS</code>.
+     *        </p>
+     *        <p>
+     *        The policies attached to this role determine the level of access you want to provide your users when
+     *        transferring files into and out of your S3 buckets or EFS file systems.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -202,11 +498,11 @@ public class ListedUser implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This value is the number of SSH public keys stored for the user you specified.
+     * Specifies the number of SSH public keys stored for the user you specified.
      * </p>
      * 
      * @param sshPublicKeyCount
-     *        This value is the number of SSH public keys stored for the user you specified.
+     *        Specifies the number of SSH public keys stored for the user you specified.
      */
 
     public void setSshPublicKeyCount(Integer sshPublicKeyCount) {
@@ -215,10 +511,10 @@ public class ListedUser implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This value is the number of SSH public keys stored for the user you specified.
+     * Specifies the number of SSH public keys stored for the user you specified.
      * </p>
      * 
-     * @return This value is the number of SSH public keys stored for the user you specified.
+     * @return Specifies the number of SSH public keys stored for the user you specified.
      */
 
     public Integer getSshPublicKeyCount() {
@@ -227,11 +523,11 @@ public class ListedUser implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This value is the number of SSH public keys stored for the user you specified.
+     * Specifies the number of SSH public keys stored for the user you specified.
      * </p>
      * 
      * @param sshPublicKeyCount
-     *        This value is the number of SSH public keys stored for the user you specified.
+     *        Specifies the number of SSH public keys stored for the user you specified.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -242,11 +538,11 @@ public class ListedUser implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the user whose ARN was specified. User names are used for authentication purposes.
+     * Specifies the name of the user whose ARN was specified. User names are used for authentication purposes.
      * </p>
      * 
      * @param userName
-     *        The name of the user whose ARN was specified. User names are used for authentication purposes.
+     *        Specifies the name of the user whose ARN was specified. User names are used for authentication purposes.
      */
 
     public void setUserName(String userName) {
@@ -255,10 +551,10 @@ public class ListedUser implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the user whose ARN was specified. User names are used for authentication purposes.
+     * Specifies the name of the user whose ARN was specified. User names are used for authentication purposes.
      * </p>
      * 
-     * @return The name of the user whose ARN was specified. User names are used for authentication purposes.
+     * @return Specifies the name of the user whose ARN was specified. User names are used for authentication purposes.
      */
 
     public String getUserName() {
@@ -267,11 +563,11 @@ public class ListedUser implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the user whose ARN was specified. User names are used for authentication purposes.
+     * Specifies the name of the user whose ARN was specified. User names are used for authentication purposes.
      * </p>
      * 
      * @param userName
-     *        The name of the user whose ARN was specified. User names are used for authentication purposes.
+     *        Specifies the name of the user whose ARN was specified. User names are used for authentication purposes.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -296,6 +592,8 @@ public class ListedUser implements Serializable, Cloneable, StructuredPojo {
             sb.append("Arn: ").append(getArn()).append(",");
         if (getHomeDirectory() != null)
             sb.append("HomeDirectory: ").append(getHomeDirectory()).append(",");
+        if (getHomeDirectoryType() != null)
+            sb.append("HomeDirectoryType: ").append(getHomeDirectoryType()).append(",");
         if (getRole() != null)
             sb.append("Role: ").append(getRole()).append(",");
         if (getSshPublicKeyCount() != null)
@@ -324,6 +622,10 @@ public class ListedUser implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getHomeDirectory() != null && other.getHomeDirectory().equals(this.getHomeDirectory()) == false)
             return false;
+        if (other.getHomeDirectoryType() == null ^ this.getHomeDirectoryType() == null)
+            return false;
+        if (other.getHomeDirectoryType() != null && other.getHomeDirectoryType().equals(this.getHomeDirectoryType()) == false)
+            return false;
         if (other.getRole() == null ^ this.getRole() == null)
             return false;
         if (other.getRole() != null && other.getRole().equals(this.getRole()) == false)
@@ -346,6 +648,7 @@ public class ListedUser implements Serializable, Cloneable, StructuredPojo {
 
         hashCode = prime * hashCode + ((getArn() == null) ? 0 : getArn().hashCode());
         hashCode = prime * hashCode + ((getHomeDirectory() == null) ? 0 : getHomeDirectory().hashCode());
+        hashCode = prime * hashCode + ((getHomeDirectoryType() == null) ? 0 : getHomeDirectoryType().hashCode());
         hashCode = prime * hashCode + ((getRole() == null) ? 0 : getRole().hashCode());
         hashCode = prime * hashCode + ((getSshPublicKeyCount() == null) ? 0 : getSshPublicKeyCount().hashCode());
         hashCode = prime * hashCode + ((getUserName() == null) ? 0 : getUserName().hashCode());

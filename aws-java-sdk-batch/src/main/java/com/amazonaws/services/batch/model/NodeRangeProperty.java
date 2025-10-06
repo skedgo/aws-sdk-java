@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An object representing the properties of the node range for a multi-node parallel job.
+ * This is an object that represents the properties of the node range for a multi-node parallel job.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/NodeRangeProperty" target="_top">AWS API
@@ -33,9 +33,9 @@ public class NodeRangeProperty implements Serializable, Cloneable, StructuredPoj
      * The range of nodes, using node index values. A range of <code>0:3</code> indicates nodes with index values of
      * <code>0</code> through <code>3</code>. If the starting range value is omitted (<code>:n</code>), then
      * <code>0</code> is used to start the range. If the ending range value is omitted (<code>n:</code>), then the
-     * highest possible node index is used to end the range. Your accumulative node ranges must account for all nodes
-     * (0:n). You may nest node ranges, for example 0:10 and 4:5, in which case the 4:5 range properties override the
-     * 0:10 properties.
+     * highest possible node index is used to end the range. Your accumulative node ranges must account for all nodes (
+     * <code>0:n</code>). You can nest node ranges (for example, <code>0:10</code> and <code>4:5</code>). In this case,
+     * the <code>4:5</code> range properties override the <code>0:10</code> properties.
      * </p>
      */
     private String targetNodes;
@@ -45,15 +45,41 @@ public class NodeRangeProperty implements Serializable, Cloneable, StructuredPoj
      * </p>
      */
     private ContainerProperties container;
+    /**
+     * <p>
+     * The instance types of the underlying host infrastructure of a multi-node parallel job.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to jobs that are running on Fargate resources.
+     * </p>
+     * <p>
+     * In addition, this list object is currently limited to one element.
+     * </p>
+     * </note>
+     */
+    private java.util.List<String> instanceTypes;
+    /**
+     * <p>
+     * This is an object that represents the properties of the node range for a multi-node parallel job.
+     * </p>
+     */
+    private EcsProperties ecsProperties;
+    /**
+     * <p>
+     * This is an object that represents the properties of the node range for a multi-node parallel job.
+     * </p>
+     */
+    private EksProperties eksProperties;
 
     /**
      * <p>
      * The range of nodes, using node index values. A range of <code>0:3</code> indicates nodes with index values of
      * <code>0</code> through <code>3</code>. If the starting range value is omitted (<code>:n</code>), then
      * <code>0</code> is used to start the range. If the ending range value is omitted (<code>n:</code>), then the
-     * highest possible node index is used to end the range. Your accumulative node ranges must account for all nodes
-     * (0:n). You may nest node ranges, for example 0:10 and 4:5, in which case the 4:5 range properties override the
-     * 0:10 properties.
+     * highest possible node index is used to end the range. Your accumulative node ranges must account for all nodes (
+     * <code>0:n</code>). You can nest node ranges (for example, <code>0:10</code> and <code>4:5</code>). In this case,
+     * the <code>4:5</code> range properties override the <code>0:10</code> properties.
      * </p>
      * 
      * @param targetNodes
@@ -61,8 +87,9 @@ public class NodeRangeProperty implements Serializable, Cloneable, StructuredPoj
      *        of <code>0</code> through <code>3</code>. If the starting range value is omitted (<code>:n</code>), then
      *        <code>0</code> is used to start the range. If the ending range value is omitted (<code>n:</code>), then
      *        the highest possible node index is used to end the range. Your accumulative node ranges must account for
-     *        all nodes (0:n). You may nest node ranges, for example 0:10 and 4:5, in which case the 4:5 range
-     *        properties override the 0:10 properties.
+     *        all nodes (<code>0:n</code>). You can nest node ranges (for example, <code>0:10</code> and
+     *        <code>4:5</code>). In this case, the <code>4:5</code> range properties override the <code>0:10</code>
+     *        properties.
      */
 
     public void setTargetNodes(String targetNodes) {
@@ -74,17 +101,18 @@ public class NodeRangeProperty implements Serializable, Cloneable, StructuredPoj
      * The range of nodes, using node index values. A range of <code>0:3</code> indicates nodes with index values of
      * <code>0</code> through <code>3</code>. If the starting range value is omitted (<code>:n</code>), then
      * <code>0</code> is used to start the range. If the ending range value is omitted (<code>n:</code>), then the
-     * highest possible node index is used to end the range. Your accumulative node ranges must account for all nodes
-     * (0:n). You may nest node ranges, for example 0:10 and 4:5, in which case the 4:5 range properties override the
-     * 0:10 properties.
+     * highest possible node index is used to end the range. Your accumulative node ranges must account for all nodes (
+     * <code>0:n</code>). You can nest node ranges (for example, <code>0:10</code> and <code>4:5</code>). In this case,
+     * the <code>4:5</code> range properties override the <code>0:10</code> properties.
      * </p>
      * 
      * @return The range of nodes, using node index values. A range of <code>0:3</code> indicates nodes with index
      *         values of <code>0</code> through <code>3</code>. If the starting range value is omitted (<code>:n</code>
      *         ), then <code>0</code> is used to start the range. If the ending range value is omitted (<code>n:</code>
      *         ), then the highest possible node index is used to end the range. Your accumulative node ranges must
-     *         account for all nodes (0:n). You may nest node ranges, for example 0:10 and 4:5, in which case the 4:5
-     *         range properties override the 0:10 properties.
+     *         account for all nodes (<code>0:n</code>). You can nest node ranges (for example, <code>0:10</code> and
+     *         <code>4:5</code>). In this case, the <code>4:5</code> range properties override the <code>0:10</code>
+     *         properties.
      */
 
     public String getTargetNodes() {
@@ -96,9 +124,9 @@ public class NodeRangeProperty implements Serializable, Cloneable, StructuredPoj
      * The range of nodes, using node index values. A range of <code>0:3</code> indicates nodes with index values of
      * <code>0</code> through <code>3</code>. If the starting range value is omitted (<code>:n</code>), then
      * <code>0</code> is used to start the range. If the ending range value is omitted (<code>n:</code>), then the
-     * highest possible node index is used to end the range. Your accumulative node ranges must account for all nodes
-     * (0:n). You may nest node ranges, for example 0:10 and 4:5, in which case the 4:5 range properties override the
-     * 0:10 properties.
+     * highest possible node index is used to end the range. Your accumulative node ranges must account for all nodes (
+     * <code>0:n</code>). You can nest node ranges (for example, <code>0:10</code> and <code>4:5</code>). In this case,
+     * the <code>4:5</code> range properties override the <code>0:10</code> properties.
      * </p>
      * 
      * @param targetNodes
@@ -106,8 +134,9 @@ public class NodeRangeProperty implements Serializable, Cloneable, StructuredPoj
      *        of <code>0</code> through <code>3</code>. If the starting range value is omitted (<code>:n</code>), then
      *        <code>0</code> is used to start the range. If the ending range value is omitted (<code>n:</code>), then
      *        the highest possible node index is used to end the range. Your accumulative node ranges must account for
-     *        all nodes (0:n). You may nest node ranges, for example 0:10 and 4:5, in which case the 4:5 range
-     *        properties override the 0:10 properties.
+     *        all nodes (<code>0:n</code>). You can nest node ranges (for example, <code>0:10</code> and
+     *        <code>4:5</code>). In this case, the <code>4:5</code> range properties override the <code>0:10</code>
+     *        properties.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -157,6 +186,212 @@ public class NodeRangeProperty implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
+     * <p>
+     * The instance types of the underlying host infrastructure of a multi-node parallel job.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to jobs that are running on Fargate resources.
+     * </p>
+     * <p>
+     * In addition, this list object is currently limited to one element.
+     * </p>
+     * </note>
+     * 
+     * @return The instance types of the underlying host infrastructure of a multi-node parallel job.</p> <note>
+     *         <p>
+     *         This parameter isn't applicable to jobs that are running on Fargate resources.
+     *         </p>
+     *         <p>
+     *         In addition, this list object is currently limited to one element.
+     *         </p>
+     */
+
+    public java.util.List<String> getInstanceTypes() {
+        return instanceTypes;
+    }
+
+    /**
+     * <p>
+     * The instance types of the underlying host infrastructure of a multi-node parallel job.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to jobs that are running on Fargate resources.
+     * </p>
+     * <p>
+     * In addition, this list object is currently limited to one element.
+     * </p>
+     * </note>
+     * 
+     * @param instanceTypes
+     *        The instance types of the underlying host infrastructure of a multi-node parallel job.</p> <note>
+     *        <p>
+     *        This parameter isn't applicable to jobs that are running on Fargate resources.
+     *        </p>
+     *        <p>
+     *        In addition, this list object is currently limited to one element.
+     *        </p>
+     */
+
+    public void setInstanceTypes(java.util.Collection<String> instanceTypes) {
+        if (instanceTypes == null) {
+            this.instanceTypes = null;
+            return;
+        }
+
+        this.instanceTypes = new java.util.ArrayList<String>(instanceTypes);
+    }
+
+    /**
+     * <p>
+     * The instance types of the underlying host infrastructure of a multi-node parallel job.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to jobs that are running on Fargate resources.
+     * </p>
+     * <p>
+     * In addition, this list object is currently limited to one element.
+     * </p>
+     * </note>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setInstanceTypes(java.util.Collection)} or {@link #withInstanceTypes(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param instanceTypes
+     *        The instance types of the underlying host infrastructure of a multi-node parallel job.</p> <note>
+     *        <p>
+     *        This parameter isn't applicable to jobs that are running on Fargate resources.
+     *        </p>
+     *        <p>
+     *        In addition, this list object is currently limited to one element.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NodeRangeProperty withInstanceTypes(String... instanceTypes) {
+        if (this.instanceTypes == null) {
+            setInstanceTypes(new java.util.ArrayList<String>(instanceTypes.length));
+        }
+        for (String ele : instanceTypes) {
+            this.instanceTypes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The instance types of the underlying host infrastructure of a multi-node parallel job.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to jobs that are running on Fargate resources.
+     * </p>
+     * <p>
+     * In addition, this list object is currently limited to one element.
+     * </p>
+     * </note>
+     * 
+     * @param instanceTypes
+     *        The instance types of the underlying host infrastructure of a multi-node parallel job.</p> <note>
+     *        <p>
+     *        This parameter isn't applicable to jobs that are running on Fargate resources.
+     *        </p>
+     *        <p>
+     *        In addition, this list object is currently limited to one element.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NodeRangeProperty withInstanceTypes(java.util.Collection<String> instanceTypes) {
+        setInstanceTypes(instanceTypes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This is an object that represents the properties of the node range for a multi-node parallel job.
+     * </p>
+     * 
+     * @param ecsProperties
+     *        This is an object that represents the properties of the node range for a multi-node parallel job.
+     */
+
+    public void setEcsProperties(EcsProperties ecsProperties) {
+        this.ecsProperties = ecsProperties;
+    }
+
+    /**
+     * <p>
+     * This is an object that represents the properties of the node range for a multi-node parallel job.
+     * </p>
+     * 
+     * @return This is an object that represents the properties of the node range for a multi-node parallel job.
+     */
+
+    public EcsProperties getEcsProperties() {
+        return this.ecsProperties;
+    }
+
+    /**
+     * <p>
+     * This is an object that represents the properties of the node range for a multi-node parallel job.
+     * </p>
+     * 
+     * @param ecsProperties
+     *        This is an object that represents the properties of the node range for a multi-node parallel job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NodeRangeProperty withEcsProperties(EcsProperties ecsProperties) {
+        setEcsProperties(ecsProperties);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This is an object that represents the properties of the node range for a multi-node parallel job.
+     * </p>
+     * 
+     * @param eksProperties
+     *        This is an object that represents the properties of the node range for a multi-node parallel job.
+     */
+
+    public void setEksProperties(EksProperties eksProperties) {
+        this.eksProperties = eksProperties;
+    }
+
+    /**
+     * <p>
+     * This is an object that represents the properties of the node range for a multi-node parallel job.
+     * </p>
+     * 
+     * @return This is an object that represents the properties of the node range for a multi-node parallel job.
+     */
+
+    public EksProperties getEksProperties() {
+        return this.eksProperties;
+    }
+
+    /**
+     * <p>
+     * This is an object that represents the properties of the node range for a multi-node parallel job.
+     * </p>
+     * 
+     * @param eksProperties
+     *        This is an object that represents the properties of the node range for a multi-node parallel job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NodeRangeProperty withEksProperties(EksProperties eksProperties) {
+        setEksProperties(eksProperties);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -171,7 +406,13 @@ public class NodeRangeProperty implements Serializable, Cloneable, StructuredPoj
         if (getTargetNodes() != null)
             sb.append("TargetNodes: ").append(getTargetNodes()).append(",");
         if (getContainer() != null)
-            sb.append("Container: ").append(getContainer());
+            sb.append("Container: ").append(getContainer()).append(",");
+        if (getInstanceTypes() != null)
+            sb.append("InstanceTypes: ").append(getInstanceTypes()).append(",");
+        if (getEcsProperties() != null)
+            sb.append("EcsProperties: ").append(getEcsProperties()).append(",");
+        if (getEksProperties() != null)
+            sb.append("EksProperties: ").append(getEksProperties());
         sb.append("}");
         return sb.toString();
     }
@@ -194,6 +435,18 @@ public class NodeRangeProperty implements Serializable, Cloneable, StructuredPoj
             return false;
         if (other.getContainer() != null && other.getContainer().equals(this.getContainer()) == false)
             return false;
+        if (other.getInstanceTypes() == null ^ this.getInstanceTypes() == null)
+            return false;
+        if (other.getInstanceTypes() != null && other.getInstanceTypes().equals(this.getInstanceTypes()) == false)
+            return false;
+        if (other.getEcsProperties() == null ^ this.getEcsProperties() == null)
+            return false;
+        if (other.getEcsProperties() != null && other.getEcsProperties().equals(this.getEcsProperties()) == false)
+            return false;
+        if (other.getEksProperties() == null ^ this.getEksProperties() == null)
+            return false;
+        if (other.getEksProperties() != null && other.getEksProperties().equals(this.getEksProperties()) == false)
+            return false;
         return true;
     }
 
@@ -204,6 +457,9 @@ public class NodeRangeProperty implements Serializable, Cloneable, StructuredPoj
 
         hashCode = prime * hashCode + ((getTargetNodes() == null) ? 0 : getTargetNodes().hashCode());
         hashCode = prime * hashCode + ((getContainer() == null) ? 0 : getContainer().hashCode());
+        hashCode = prime * hashCode + ((getInstanceTypes() == null) ? 0 : getInstanceTypes().hashCode());
+        hashCode = prime * hashCode + ((getEcsProperties() == null) ? 0 : getEcsProperties().hashCode());
+        hashCode = prime * hashCode + ((getEksProperties() == null) ? 0 : getEksProperties().hashCode());
         return hashCode;
     }
 

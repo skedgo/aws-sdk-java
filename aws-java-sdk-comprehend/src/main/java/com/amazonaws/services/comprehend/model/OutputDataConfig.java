@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Provides configuration parameters for the output of topic detection jobs.
+ * Provides configuration parameters for the output of inference jobs.
  * </p>
  * <p/>
  * 
@@ -32,7 +32,7 @@ public class OutputDataConfig implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * When you use the <code>OutputDataConfig</code> object with asynchronous operations, you specify the Amazon S3
-     * location where you want to write the output data. The URI must be in the same region as the API endpoint that you
+     * location where you want to write the output data. The URI must be in the same Region as the API endpoint that you
      * are calling. The location is used as the prefix for the actual location of the output file.
      * </p>
      * <p>
@@ -40,12 +40,20 @@ public class OutputDataConfig implements Serializable, Cloneable, StructuredPojo
      * The <code>S3Uri</code> field contains the location of the output file, called <code>output.tar.gz</code>. It is a
      * compressed archive that contains the ouput of the operation.
      * </p>
+     * <p>
+     * For a PII entity detection job, the output file is plain text, not a compressed archive. The output file name is
+     * the same as the input file, with <code>.out</code> appended at the end.
+     * </p>
      */
     private String s3Uri;
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt the output results from an
-     * analysis job. The KmsKeyId can be one of the following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt the output
+     * results from an analysis job. Specify the Key Id of a symmetric key, because you cannot use an asymmetric key for
+     * uploading data to S3.
+     * </p>
+     * <p>
+     * The KmsKeyId can be one of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -76,7 +84,7 @@ public class OutputDataConfig implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * When you use the <code>OutputDataConfig</code> object with asynchronous operations, you specify the Amazon S3
-     * location where you want to write the output data. The URI must be in the same region as the API endpoint that you
+     * location where you want to write the output data. The URI must be in the same Region as the API endpoint that you
      * are calling. The location is used as the prefix for the actual location of the output file.
      * </p>
      * <p>
@@ -84,16 +92,24 @@ public class OutputDataConfig implements Serializable, Cloneable, StructuredPojo
      * The <code>S3Uri</code> field contains the location of the output file, called <code>output.tar.gz</code>. It is a
      * compressed archive that contains the ouput of the operation.
      * </p>
+     * <p>
+     * For a PII entity detection job, the output file is plain text, not a compressed archive. The output file name is
+     * the same as the input file, with <code>.out</code> appended at the end.
+     * </p>
      * 
      * @param s3Uri
      *        When you use the <code>OutputDataConfig</code> object with asynchronous operations, you specify the Amazon
-     *        S3 location where you want to write the output data. The URI must be in the same region as the API
+     *        S3 location where you want to write the output data. The URI must be in the same Region as the API
      *        endpoint that you are calling. The location is used as the prefix for the actual location of the output
      *        file.</p>
      *        <p>
      *        When the topic detection job is finished, the service creates an output file in a directory specific to
      *        the job. The <code>S3Uri</code> field contains the location of the output file, called
      *        <code>output.tar.gz</code>. It is a compressed archive that contains the ouput of the operation.
+     *        </p>
+     *        <p>
+     *        For a PII entity detection job, the output file is plain text, not a compressed archive. The output file
+     *        name is the same as the input file, with <code>.out</code> appended at the end.
      */
 
     public void setS3Uri(String s3Uri) {
@@ -103,7 +119,7 @@ public class OutputDataConfig implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * When you use the <code>OutputDataConfig</code> object with asynchronous operations, you specify the Amazon S3
-     * location where you want to write the output data. The URI must be in the same region as the API endpoint that you
+     * location where you want to write the output data. The URI must be in the same Region as the API endpoint that you
      * are calling. The location is used as the prefix for the actual location of the output file.
      * </p>
      * <p>
@@ -111,15 +127,23 @@ public class OutputDataConfig implements Serializable, Cloneable, StructuredPojo
      * The <code>S3Uri</code> field contains the location of the output file, called <code>output.tar.gz</code>. It is a
      * compressed archive that contains the ouput of the operation.
      * </p>
+     * <p>
+     * For a PII entity detection job, the output file is plain text, not a compressed archive. The output file name is
+     * the same as the input file, with <code>.out</code> appended at the end.
+     * </p>
      * 
      * @return When you use the <code>OutputDataConfig</code> object with asynchronous operations, you specify the
-     *         Amazon S3 location where you want to write the output data. The URI must be in the same region as the API
+     *         Amazon S3 location where you want to write the output data. The URI must be in the same Region as the API
      *         endpoint that you are calling. The location is used as the prefix for the actual location of the output
      *         file.</p>
      *         <p>
      *         When the topic detection job is finished, the service creates an output file in a directory specific to
      *         the job. The <code>S3Uri</code> field contains the location of the output file, called
      *         <code>output.tar.gz</code>. It is a compressed archive that contains the ouput of the operation.
+     *         </p>
+     *         <p>
+     *         For a PII entity detection job, the output file is plain text, not a compressed archive. The output file
+     *         name is the same as the input file, with <code>.out</code> appended at the end.
      */
 
     public String getS3Uri() {
@@ -129,7 +153,7 @@ public class OutputDataConfig implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * When you use the <code>OutputDataConfig</code> object with asynchronous operations, you specify the Amazon S3
-     * location where you want to write the output data. The URI must be in the same region as the API endpoint that you
+     * location where you want to write the output data. The URI must be in the same Region as the API endpoint that you
      * are calling. The location is used as the prefix for the actual location of the output file.
      * </p>
      * <p>
@@ -137,16 +161,24 @@ public class OutputDataConfig implements Serializable, Cloneable, StructuredPojo
      * The <code>S3Uri</code> field contains the location of the output file, called <code>output.tar.gz</code>. It is a
      * compressed archive that contains the ouput of the operation.
      * </p>
+     * <p>
+     * For a PII entity detection job, the output file is plain text, not a compressed archive. The output file name is
+     * the same as the input file, with <code>.out</code> appended at the end.
+     * </p>
      * 
      * @param s3Uri
      *        When you use the <code>OutputDataConfig</code> object with asynchronous operations, you specify the Amazon
-     *        S3 location where you want to write the output data. The URI must be in the same region as the API
+     *        S3 location where you want to write the output data. The URI must be in the same Region as the API
      *        endpoint that you are calling. The location is used as the prefix for the actual location of the output
      *        file.</p>
      *        <p>
      *        When the topic detection job is finished, the service creates an output file in a directory specific to
      *        the job. The <code>S3Uri</code> field contains the location of the output file, called
      *        <code>output.tar.gz</code>. It is a compressed archive that contains the ouput of the operation.
+     *        </p>
+     *        <p>
+     *        For a PII entity detection job, the output file is plain text, not a compressed archive. The output file
+     *        name is the same as the input file, with <code>.out</code> appended at the end.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -157,8 +189,12 @@ public class OutputDataConfig implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt the output results from an
-     * analysis job. The KmsKeyId can be one of the following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt the output
+     * results from an analysis job. Specify the Key Id of a symmetric key, because you cannot use an asymmetric key for
+     * uploading data to S3.
+     * </p>
+     * <p>
+     * The KmsKeyId can be one of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -185,8 +221,12 @@ public class OutputDataConfig implements Serializable, Cloneable, StructuredPojo
      * </ul>
      * 
      * @param kmsKeyId
-     *        ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt the output results
-     *        from an analysis job. The KmsKeyId can be one of the following formats:</p>
+     *        ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt the
+     *        output results from an analysis job. Specify the Key Id of a symmetric key, because you cannot use an
+     *        asymmetric key for uploading data to S3.</p>
+     *        <p>
+     *        The KmsKeyId can be one of the following formats:
+     *        </p>
      *        <ul>
      *        <li>
      *        <p>
@@ -217,8 +257,12 @@ public class OutputDataConfig implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt the output results from an
-     * analysis job. The KmsKeyId can be one of the following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt the output
+     * results from an analysis job. Specify the Key Id of a symmetric key, because you cannot use an asymmetric key for
+     * uploading data to S3.
+     * </p>
+     * <p>
+     * The KmsKeyId can be one of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -244,8 +288,12 @@ public class OutputDataConfig implements Serializable, Cloneable, StructuredPojo
      * </li>
      * </ul>
      * 
-     * @return ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt the output results
-     *         from an analysis job. The KmsKeyId can be one of the following formats:</p>
+     * @return ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt
+     *         the output results from an analysis job. Specify the Key Id of a symmetric key, because you cannot use an
+     *         asymmetric key for uploading data to S3.</p>
+     *         <p>
+     *         The KmsKeyId can be one of the following formats:
+     *         </p>
      *         <ul>
      *         <li>
      *         <p>
@@ -276,8 +324,12 @@ public class OutputDataConfig implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt the output results from an
-     * analysis job. The KmsKeyId can be one of the following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt the output
+     * results from an analysis job. Specify the Key Id of a symmetric key, because you cannot use an asymmetric key for
+     * uploading data to S3.
+     * </p>
+     * <p>
+     * The KmsKeyId can be one of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -304,8 +356,12 @@ public class OutputDataConfig implements Serializable, Cloneable, StructuredPojo
      * </ul>
      * 
      * @param kmsKeyId
-     *        ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt the output results
-     *        from an analysis job. The KmsKeyId can be one of the following formats:</p>
+     *        ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt the
+     *        output results from an analysis job. Specify the Key Id of a symmetric key, because you cannot use an
+     *        asymmetric key for uploading data to S3.</p>
+     *        <p>
+     *        The KmsKeyId can be one of the following formats:
+     *        </p>
      *        <ul>
      *        <li>
      *        <p>

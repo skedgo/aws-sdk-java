@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,20 +27,18 @@ public class ResendContactReachabilityEmailRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The name of the domain for which you want Amazon Route 53 to resend a confirmation email to the registrant
-     * contact.
+     * The name of the domain for which you want Route 53 to resend a confirmation email to the registrant contact.
      * </p>
      */
     private String domainName;
 
     /**
      * <p>
-     * The name of the domain for which you want Amazon Route 53 to resend a confirmation email to the registrant
-     * contact.
+     * The name of the domain for which you want Route 53 to resend a confirmation email to the registrant contact.
      * </p>
      * 
      * @param domainName
-     *        The name of the domain for which you want Amazon Route 53 to resend a confirmation email to the registrant
+     *        The name of the domain for which you want Route 53 to resend a confirmation email to the registrant
      *        contact.
      */
 
@@ -50,12 +48,11 @@ public class ResendContactReachabilityEmailRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The name of the domain for which you want Amazon Route 53 to resend a confirmation email to the registrant
-     * contact.
+     * The name of the domain for which you want Route 53 to resend a confirmation email to the registrant contact.
      * </p>
      * 
-     * @return The name of the domain for which you want Amazon Route 53 to resend a confirmation email to the
-     *         registrant contact.
+     * @return The name of the domain for which you want Route 53 to resend a confirmation email to the registrant
+     *         contact.
      */
 
     public String getDomainName() {
@@ -64,12 +61,11 @@ public class ResendContactReachabilityEmailRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The name of the domain for which you want Amazon Route 53 to resend a confirmation email to the registrant
-     * contact.
+     * The name of the domain for which you want Route 53 to resend a confirmation email to the registrant contact.
      * </p>
      * 
      * @param domainName
-     *        The name of the domain for which you want Amazon Route 53 to resend a confirmation email to the registrant
+     *        The name of the domain for which you want Route 53 to resend a confirmation email to the registrant
      *        contact.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

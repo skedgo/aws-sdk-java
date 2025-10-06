@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class UnshareDirectoryRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The identifier of the AWS Managed Microsoft AD directory that you want to stop sharing.
+     * The identifier of the Managed Microsoft AD directory that you want to stop sharing.
      * </p>
      */
     private String directoryId;
@@ -40,11 +40,11 @@ public class UnshareDirectoryRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The identifier of the AWS Managed Microsoft AD directory that you want to stop sharing.
+     * The identifier of the Managed Microsoft AD directory that you want to stop sharing.
      * </p>
      * 
      * @param directoryId
-     *        The identifier of the AWS Managed Microsoft AD directory that you want to stop sharing.
+     *        The identifier of the Managed Microsoft AD directory that you want to stop sharing.
      */
 
     public void setDirectoryId(String directoryId) {
@@ -53,10 +53,10 @@ public class UnshareDirectoryRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The identifier of the AWS Managed Microsoft AD directory that you want to stop sharing.
+     * The identifier of the Managed Microsoft AD directory that you want to stop sharing.
      * </p>
      * 
-     * @return The identifier of the AWS Managed Microsoft AD directory that you want to stop sharing.
+     * @return The identifier of the Managed Microsoft AD directory that you want to stop sharing.
      */
 
     public String getDirectoryId() {
@@ -65,11 +65,11 @@ public class UnshareDirectoryRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The identifier of the AWS Managed Microsoft AD directory that you want to stop sharing.
+     * The identifier of the Managed Microsoft AD directory that you want to stop sharing.
      * </p>
      * 
      * @param directoryId
-     *        The identifier of the AWS Managed Microsoft AD directory that you want to stop sharing.
+     *        The identifier of the Managed Microsoft AD directory that you want to stop sharing.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

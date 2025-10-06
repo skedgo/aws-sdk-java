@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,9 +26,9 @@ import com.amazonaws.services.comprehend.model.*;
  * </p>
  * <p>
  * <p>
- * Amazon Comprehend is an AWS service for gaining insight into the content of documents. Use these actions to determine
- * the topics contained in your documents, the topics they discuss, the predominant sentiment expressed in them, the
- * predominant language used, and more.
+ * Amazon Comprehend is an Amazon Web Services service for gaining insight into the content of documents. Use these
+ * actions to determine the topics contained in your documents, the topics they discuss, the predominant sentiment
+ * expressed in them, the predominant language used, and more.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -74,7 +74,9 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
     /**
      * <p>
      * Inspects the text of a batch of documents for named entities and returns information about them. For more
-     * information about named entities, see <a>how-entities</a>
+     * information about named entities, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/how-entities.html">Entities</a> in the Comprehend
+     * Developer Guide.
      * </p>
      * 
      * @param batchDetectEntitiesRequest
@@ -88,7 +90,9 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
     /**
      * <p>
      * Inspects the text of a batch of documents for named entities and returns information about them. For more
-     * information about named entities, see <a>how-entities</a>
+     * information about named entities, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/how-entities.html">Entities</a> in the Comprehend
+     * Developer Guide.
      * </p>
      * 
      * @param batchDetectEntitiesRequest
@@ -171,7 +175,9 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
     /**
      * <p>
      * Inspects the text of a batch of documents for the syntax and part of speech of the words in the document and
-     * returns information about them. For more information, see <a>how-syntax</a>.
+     * returns information about them. For more information, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/how-syntax.html">Syntax</a> in the Comprehend Developer
+     * Guide.
      * </p>
      * 
      * @param batchDetectSyntaxRequest
@@ -185,7 +191,9 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
     /**
      * <p>
      * Inspects the text of a batch of documents for the syntax and part of speech of the words in the document and
-     * returns information about them. For more information, see <a>how-syntax</a>.
+     * returns information about them. For more information, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/how-syntax.html">Syntax</a> in the Comprehend Developer
+     * Guide.
      * </p>
      * 
      * @param batchDetectSyntaxRequest
@@ -203,10 +211,214 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
 
     /**
      * <p>
-     * Creates a new document classifier that you can use to categorize documents. To create a classifier you provide a
-     * set of training documents that labeled with the categories that you want to use. After the classifier is trained
-     * you can use it to categorize a set of labeled documents into the categories. For more information, see
-     * <a>how-document-classification</a>.
+     * Inspects a batch of documents and returns a sentiment analysis for each entity identified in the documents.
+     * </p>
+     * <p>
+     * For more information about targeted sentiment, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/how-targeted-sentiment.html">Targeted sentiment</a> in the
+     * <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param batchDetectTargetedSentimentRequest
+     * @return A Java Future containing the result of the BatchDetectTargetedSentiment operation returned by the
+     *         service.
+     * @sample AmazonComprehendAsync.BatchDetectTargetedSentiment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectTargetedSentiment"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<BatchDetectTargetedSentimentResult> batchDetectTargetedSentimentAsync(
+            BatchDetectTargetedSentimentRequest batchDetectTargetedSentimentRequest);
+
+    /**
+     * <p>
+     * Inspects a batch of documents and returns a sentiment analysis for each entity identified in the documents.
+     * </p>
+     * <p>
+     * For more information about targeted sentiment, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/how-targeted-sentiment.html">Targeted sentiment</a> in the
+     * <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param batchDetectTargetedSentimentRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the BatchDetectTargetedSentiment operation returned by the
+     *         service.
+     * @sample AmazonComprehendAsyncHandler.BatchDetectTargetedSentiment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectTargetedSentiment"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<BatchDetectTargetedSentimentResult> batchDetectTargetedSentimentAsync(
+            BatchDetectTargetedSentimentRequest batchDetectTargetedSentimentRequest,
+            com.amazonaws.handlers.AsyncHandler<BatchDetectTargetedSentimentRequest, BatchDetectTargetedSentimentResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a classification request to analyze a single document in real-time. <code>ClassifyDocument</code>
+     * supports the following model types:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Custom classifier - a custom model that you have created and trained. For input, you can provide plain text, a
+     * single-page document (PDF, Word, or image), or Amazon Textract API output. For more information, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/how-document-classification.html">Custom
+     * classification</a> in the <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Prompt safety classifier - Amazon Comprehend provides a pre-trained model for classifying input prompts for
+     * generative AI applications. For input, you provide English plain text input. For prompt safety classification,
+     * the response includes only the <code>Classes</code> field. For more information about prompt safety classifiers,
+     * see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/trust-safety.html#prompt-classification">Prompt
+     * safety classification</a> in the <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If the system detects errors while processing a page in the input document, the API response includes an
+     * <code>Errors</code> field that describes the errors.
+     * </p>
+     * <p>
+     * If the system detects a document-level error in your input document, the API returns an
+     * <code>InvalidRequestException</code> error response. For details about this exception, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/idp-inputs-sync-err.html"> Errors in semi-structured
+     * documents</a> in the Comprehend Developer Guide.
+     * </p>
+     * 
+     * @param classifyDocumentRequest
+     * @return A Java Future containing the result of the ClassifyDocument operation returned by the service.
+     * @sample AmazonComprehendAsync.ClassifyDocument
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ClassifyDocument" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ClassifyDocumentResult> classifyDocumentAsync(ClassifyDocumentRequest classifyDocumentRequest);
+
+    /**
+     * <p>
+     * Creates a classification request to analyze a single document in real-time. <code>ClassifyDocument</code>
+     * supports the following model types:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Custom classifier - a custom model that you have created and trained. For input, you can provide plain text, a
+     * single-page document (PDF, Word, or image), or Amazon Textract API output. For more information, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/how-document-classification.html">Custom
+     * classification</a> in the <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Prompt safety classifier - Amazon Comprehend provides a pre-trained model for classifying input prompts for
+     * generative AI applications. For input, you provide English plain text input. For prompt safety classification,
+     * the response includes only the <code>Classes</code> field. For more information about prompt safety classifiers,
+     * see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/trust-safety.html#prompt-classification">Prompt
+     * safety classification</a> in the <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If the system detects errors while processing a page in the input document, the API response includes an
+     * <code>Errors</code> field that describes the errors.
+     * </p>
+     * <p>
+     * If the system detects a document-level error in your input document, the API returns an
+     * <code>InvalidRequestException</code> error response. For details about this exception, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/idp-inputs-sync-err.html"> Errors in semi-structured
+     * documents</a> in the Comprehend Developer Guide.
+     * </p>
+     * 
+     * @param classifyDocumentRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ClassifyDocument operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.ClassifyDocument
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ClassifyDocument" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ClassifyDocumentResult> classifyDocumentAsync(ClassifyDocumentRequest classifyDocumentRequest,
+            com.amazonaws.handlers.AsyncHandler<ClassifyDocumentRequest, ClassifyDocumentResult> asyncHandler);
+
+    /**
+     * <p>
+     * Analyzes input text for the presence of personally identifiable information (PII) and returns the labels of
+     * identified PII entity types such as name, address, bank account number, or phone number.
+     * </p>
+     * 
+     * @param containsPiiEntitiesRequest
+     * @return A Java Future containing the result of the ContainsPiiEntities operation returned by the service.
+     * @sample AmazonComprehendAsync.ContainsPiiEntities
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ContainsPiiEntities" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ContainsPiiEntitiesResult> containsPiiEntitiesAsync(ContainsPiiEntitiesRequest containsPiiEntitiesRequest);
+
+    /**
+     * <p>
+     * Analyzes input text for the presence of personally identifiable information (PII) and returns the labels of
+     * identified PII entity types such as name, address, bank account number, or phone number.
+     * </p>
+     * 
+     * @param containsPiiEntitiesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ContainsPiiEntities operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.ContainsPiiEntities
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ContainsPiiEntities" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ContainsPiiEntitiesResult> containsPiiEntitiesAsync(ContainsPiiEntitiesRequest containsPiiEntitiesRequest,
+            com.amazonaws.handlers.AsyncHandler<ContainsPiiEntitiesRequest, ContainsPiiEntitiesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a dataset to upload training or test data for a model associated with a flywheel. For more information
+     * about datasets, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel
+     * overview</a> in the <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param createDatasetRequest
+     * @return A Java Future containing the result of the CreateDataset operation returned by the service.
+     * @sample AmazonComprehendAsync.CreateDataset
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/CreateDataset" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateDatasetResult> createDatasetAsync(CreateDatasetRequest createDatasetRequest);
+
+    /**
+     * <p>
+     * Creates a dataset to upload training or test data for a model associated with a flywheel. For more information
+     * about datasets, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel
+     * overview</a> in the <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param createDatasetRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateDataset operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.CreateDataset
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/CreateDataset" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateDatasetResult> createDatasetAsync(CreateDatasetRequest createDatasetRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateDatasetRequest, CreateDatasetResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a new document classifier that you can use to categorize documents. To create a classifier, you provide a
+     * set of training documents that are labeled with the categories that you want to use. For more information, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/training-classifier-model.html">Training classifier
+     * models</a> in the Comprehend Developer Guide.
      * </p>
      * 
      * @param createDocumentClassifierRequest
@@ -219,10 +431,10 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
 
     /**
      * <p>
-     * Creates a new document classifier that you can use to categorize documents. To create a classifier you provide a
-     * set of training documents that labeled with the categories that you want to use. After the classifier is trained
-     * you can use it to categorize a set of labeled documents into the categories. For more information, see
-     * <a>how-document-classification</a>.
+     * Creates a new document classifier that you can use to categorize documents. To create a classifier, you provide a
+     * set of training documents that are labeled with the categories that you want to use. For more information, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/training-classifier-model.html">Training classifier
+     * models</a> in the Comprehend Developer Guide.
      * </p>
      * 
      * @param createDocumentClassifierRequest
@@ -240,8 +452,43 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
 
     /**
      * <p>
+     * Creates a model-specific endpoint for synchronous inference for a previously trained custom model For information
+     * about endpoints, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html">Managing
+     * endpoints</a>.
+     * </p>
+     * 
+     * @param createEndpointRequest
+     * @return A Java Future containing the result of the CreateEndpoint operation returned by the service.
+     * @sample AmazonComprehendAsync.CreateEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/CreateEndpoint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateEndpointResult> createEndpointAsync(CreateEndpointRequest createEndpointRequest);
+
+    /**
+     * <p>
+     * Creates a model-specific endpoint for synchronous inference for a previously trained custom model For information
+     * about endpoints, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html">Managing
+     * endpoints</a>.
+     * </p>
+     * 
+     * @param createEndpointRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateEndpoint operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.CreateEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/CreateEndpoint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateEndpointResult> createEndpointAsync(CreateEndpointRequest createEndpointRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateEndpointRequest, CreateEndpointResult> asyncHandler);
+
+    /**
+     * <p>
      * Creates an entity recognizer using submitted files. After your <code>CreateEntityRecognizer</code> request is
-     * submitted, you can check job status using the API.
+     * submitted, you can check job status using the <code>DescribeEntityRecognizer</code> API.
      * </p>
      * 
      * @param createEntityRecognizerRequest
@@ -255,7 +502,7 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
     /**
      * <p>
      * Creates an entity recognizer using submitted files. After your <code>CreateEntityRecognizer</code> request is
-     * submitted, you can check job status using the API.
+     * submitted, you can check job status using the <code>DescribeEntityRecognizer</code> API.
      * </p>
      * 
      * @param createEntityRecognizerRequest
@@ -270,6 +517,75 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
      */
     java.util.concurrent.Future<CreateEntityRecognizerResult> createEntityRecognizerAsync(CreateEntityRecognizerRequest createEntityRecognizerRequest,
             com.amazonaws.handlers.AsyncHandler<CreateEntityRecognizerRequest, CreateEntityRecognizerResult> asyncHandler);
+
+    /**
+     * <p>
+     * A flywheel is an Amazon Web Services resource that orchestrates the ongoing training of a model for custom
+     * classification or custom entity recognition. You can create a flywheel to start with an existing trained model,
+     * or Comprehend can create and train a new model.
+     * </p>
+     * <p>
+     * When you create the flywheel, Comprehend creates a data lake in your account. The data lake holds the training
+     * data and test data for all versions of the model.
+     * </p>
+     * <p>
+     * To use a flywheel with an existing trained model, you specify the active model version. Comprehend copies the
+     * model's training data and test data into the flywheel's data lake.
+     * </p>
+     * <p>
+     * To use the flywheel with a new model, you need to provide a dataset for training data (and optional test data)
+     * when you create the flywheel.
+     * </p>
+     * <p>
+     * For more information about flywheels, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the
+     * <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param createFlywheelRequest
+     * @return A Java Future containing the result of the CreateFlywheel operation returned by the service.
+     * @sample AmazonComprehendAsync.CreateFlywheel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/CreateFlywheel" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateFlywheelResult> createFlywheelAsync(CreateFlywheelRequest createFlywheelRequest);
+
+    /**
+     * <p>
+     * A flywheel is an Amazon Web Services resource that orchestrates the ongoing training of a model for custom
+     * classification or custom entity recognition. You can create a flywheel to start with an existing trained model,
+     * or Comprehend can create and train a new model.
+     * </p>
+     * <p>
+     * When you create the flywheel, Comprehend creates a data lake in your account. The data lake holds the training
+     * data and test data for all versions of the model.
+     * </p>
+     * <p>
+     * To use a flywheel with an existing trained model, you specify the active model version. Comprehend copies the
+     * model's training data and test data into the flywheel's data lake.
+     * </p>
+     * <p>
+     * To use the flywheel with a new model, you need to provide a dataset for training data (and optional test data)
+     * when you create the flywheel.
+     * </p>
+     * <p>
+     * For more information about flywheels, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the
+     * <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param createFlywheelRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateFlywheel operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.CreateFlywheel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/CreateFlywheel" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateFlywheelResult> createFlywheelAsync(CreateFlywheelRequest createFlywheelRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateFlywheelRequest, CreateFlywheelResult> asyncHandler);
 
     /**
      * <p>
@@ -320,6 +636,41 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
 
     /**
      * <p>
+     * Deletes a model-specific endpoint for a previously-trained custom model. All endpoints must be deleted in order
+     * for the model to be deleted. For information about endpoints, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html">Managing endpoints</a>.
+     * </p>
+     * 
+     * @param deleteEndpointRequest
+     * @return A Java Future containing the result of the DeleteEndpoint operation returned by the service.
+     * @sample AmazonComprehendAsync.DeleteEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DeleteEndpoint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteEndpointResult> deleteEndpointAsync(DeleteEndpointRequest deleteEndpointRequest);
+
+    /**
+     * <p>
+     * Deletes a model-specific endpoint for a previously-trained custom model. All endpoints must be deleted in order
+     * for the model to be deleted. For information about endpoints, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html">Managing endpoints</a>.
+     * </p>
+     * 
+     * @param deleteEndpointRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteEndpoint operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.DeleteEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DeleteEndpoint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteEndpointResult> deleteEndpointAsync(DeleteEndpointRequest deleteEndpointRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteEndpointRequest, DeleteEndpointResult> asyncHandler);
+
+    /**
+     * <p>
      * Deletes an entity recognizer.
      * </p>
      * <p>
@@ -364,6 +715,115 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
      */
     java.util.concurrent.Future<DeleteEntityRecognizerResult> deleteEntityRecognizerAsync(DeleteEntityRecognizerRequest deleteEntityRecognizerRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteEntityRecognizerRequest, DeleteEntityRecognizerResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a flywheel. When you delete the flywheel, Amazon Comprehend does not delete the data lake or the model
+     * associated with the flywheel.
+     * </p>
+     * <p>
+     * For more information about flywheels, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the
+     * <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param deleteFlywheelRequest
+     * @return A Java Future containing the result of the DeleteFlywheel operation returned by the service.
+     * @sample AmazonComprehendAsync.DeleteFlywheel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DeleteFlywheel" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteFlywheelResult> deleteFlywheelAsync(DeleteFlywheelRequest deleteFlywheelRequest);
+
+    /**
+     * <p>
+     * Deletes a flywheel. When you delete the flywheel, Amazon Comprehend does not delete the data lake or the model
+     * associated with the flywheel.
+     * </p>
+     * <p>
+     * For more information about flywheels, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the
+     * <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param deleteFlywheelRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteFlywheel operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.DeleteFlywheel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DeleteFlywheel" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteFlywheelResult> deleteFlywheelAsync(DeleteFlywheelRequest deleteFlywheelRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteFlywheelRequest, DeleteFlywheelResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a resource-based policy that is attached to a custom model.
+     * </p>
+     * 
+     * @param deleteResourcePolicyRequest
+     * @return A Java Future containing the result of the DeleteResourcePolicy operation returned by the service.
+     * @sample AmazonComprehendAsync.DeleteResourcePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DeleteResourcePolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(DeleteResourcePolicyRequest deleteResourcePolicyRequest);
+
+    /**
+     * <p>
+     * Deletes a resource-based policy that is attached to a custom model.
+     * </p>
+     * 
+     * @param deleteResourcePolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteResourcePolicy operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.DeleteResourcePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DeleteResourcePolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(DeleteResourcePolicyRequest deleteResourcePolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteResourcePolicyRequest, DeleteResourcePolicyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns information about the dataset that you specify. For more information about datasets, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the
+     * <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param describeDatasetRequest
+     * @return A Java Future containing the result of the DescribeDataset operation returned by the service.
+     * @sample AmazonComprehendAsync.DescribeDataset
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribeDataset" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeDatasetResult> describeDatasetAsync(DescribeDatasetRequest describeDatasetRequest);
+
+    /**
+     * <p>
+     * Returns information about the dataset that you specify. For more information about datasets, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the
+     * <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param describeDatasetRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeDataset operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.DescribeDataset
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribeDataset" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeDatasetResult> describeDatasetAsync(DescribeDatasetRequest describeDatasetRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeDatasetRequest, DescribeDatasetResult> asyncHandler);
 
     /**
      * <p>
@@ -474,6 +934,41 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
 
     /**
      * <p>
+     * Gets the properties associated with a specific endpoint. Use this operation to get the status of an endpoint. For
+     * information about endpoints, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html">Managing endpoints</a>.
+     * </p>
+     * 
+     * @param describeEndpointRequest
+     * @return A Java Future containing the result of the DescribeEndpoint operation returned by the service.
+     * @sample AmazonComprehendAsync.DescribeEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribeEndpoint" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeEndpointResult> describeEndpointAsync(DescribeEndpointRequest describeEndpointRequest);
+
+    /**
+     * <p>
+     * Gets the properties associated with a specific endpoint. Use this operation to get the status of an endpoint. For
+     * information about endpoints, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html">Managing endpoints</a>.
+     * </p>
+     * 
+     * @param describeEndpointRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeEndpoint operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.DescribeEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribeEndpoint" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeEndpointResult> describeEndpointAsync(DescribeEndpointRequest describeEndpointRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeEndpointRequest, DescribeEndpointResult> asyncHandler);
+
+    /**
+     * <p>
      * Gets the properties associated with an entities detection job. Use this operation to get the status of a
      * detection job.
      * </p>
@@ -544,6 +1039,111 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
 
     /**
      * <p>
+     * Gets the status and details of an events detection job.
+     * </p>
+     * 
+     * @param describeEventsDetectionJobRequest
+     * @return A Java Future containing the result of the DescribeEventsDetectionJob operation returned by the service.
+     * @sample AmazonComprehendAsync.DescribeEventsDetectionJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribeEventsDetectionJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeEventsDetectionJobResult> describeEventsDetectionJobAsync(
+            DescribeEventsDetectionJobRequest describeEventsDetectionJobRequest);
+
+    /**
+     * <p>
+     * Gets the status and details of an events detection job.
+     * </p>
+     * 
+     * @param describeEventsDetectionJobRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeEventsDetectionJob operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.DescribeEventsDetectionJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribeEventsDetectionJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeEventsDetectionJobResult> describeEventsDetectionJobAsync(
+            DescribeEventsDetectionJobRequest describeEventsDetectionJobRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeEventsDetectionJobRequest, DescribeEventsDetectionJobResult> asyncHandler);
+
+    /**
+     * <p>
+     * Provides configuration information about the flywheel. For more information about flywheels, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the
+     * <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param describeFlywheelRequest
+     * @return A Java Future containing the result of the DescribeFlywheel operation returned by the service.
+     * @sample AmazonComprehendAsync.DescribeFlywheel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribeFlywheel" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeFlywheelResult> describeFlywheelAsync(DescribeFlywheelRequest describeFlywheelRequest);
+
+    /**
+     * <p>
+     * Provides configuration information about the flywheel. For more information about flywheels, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the
+     * <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param describeFlywheelRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeFlywheel operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.DescribeFlywheel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribeFlywheel" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeFlywheelResult> describeFlywheelAsync(DescribeFlywheelRequest describeFlywheelRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeFlywheelRequest, DescribeFlywheelResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieve the configuration properties of a flywheel iteration. For more information about flywheels, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the
+     * <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param describeFlywheelIterationRequest
+     * @return A Java Future containing the result of the DescribeFlywheelIteration operation returned by the service.
+     * @sample AmazonComprehendAsync.DescribeFlywheelIteration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribeFlywheelIteration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeFlywheelIterationResult> describeFlywheelIterationAsync(
+            DescribeFlywheelIterationRequest describeFlywheelIterationRequest);
+
+    /**
+     * <p>
+     * Retrieve the configuration properties of a flywheel iteration. For more information about flywheels, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the
+     * <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param describeFlywheelIterationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeFlywheelIteration operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.DescribeFlywheelIteration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribeFlywheelIteration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeFlywheelIterationResult> describeFlywheelIterationAsync(
+            DescribeFlywheelIterationRequest describeFlywheelIterationRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeFlywheelIterationRequest, DescribeFlywheelIterationResult> asyncHandler);
+
+    /**
+     * <p>
      * Gets the properties associated with a key phrases detection job. Use this operation to get the status of a
      * detection job.
      * </p>
@@ -581,6 +1181,76 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
 
     /**
      * <p>
+     * Gets the properties associated with a PII entities detection job. For example, you can use this operation to get
+     * the job status.
+     * </p>
+     * 
+     * @param describePiiEntitiesDetectionJobRequest
+     * @return A Java Future containing the result of the DescribePiiEntitiesDetectionJob operation returned by the
+     *         service.
+     * @sample AmazonComprehendAsync.DescribePiiEntitiesDetectionJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribePiiEntitiesDetectionJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribePiiEntitiesDetectionJobResult> describePiiEntitiesDetectionJobAsync(
+            DescribePiiEntitiesDetectionJobRequest describePiiEntitiesDetectionJobRequest);
+
+    /**
+     * <p>
+     * Gets the properties associated with a PII entities detection job. For example, you can use this operation to get
+     * the job status.
+     * </p>
+     * 
+     * @param describePiiEntitiesDetectionJobRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribePiiEntitiesDetectionJob operation returned by the
+     *         service.
+     * @sample AmazonComprehendAsyncHandler.DescribePiiEntitiesDetectionJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribePiiEntitiesDetectionJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribePiiEntitiesDetectionJobResult> describePiiEntitiesDetectionJobAsync(
+            DescribePiiEntitiesDetectionJobRequest describePiiEntitiesDetectionJobRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribePiiEntitiesDetectionJobRequest, DescribePiiEntitiesDetectionJobResult> asyncHandler);
+
+    /**
+     * <p>
+     * Gets the details of a resource-based policy that is attached to a custom model, including the JSON body of the
+     * policy.
+     * </p>
+     * 
+     * @param describeResourcePolicyRequest
+     * @return A Java Future containing the result of the DescribeResourcePolicy operation returned by the service.
+     * @sample AmazonComprehendAsync.DescribeResourcePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribeResourcePolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeResourcePolicyResult> describeResourcePolicyAsync(DescribeResourcePolicyRequest describeResourcePolicyRequest);
+
+    /**
+     * <p>
+     * Gets the details of a resource-based policy that is attached to a custom model, including the JSON body of the
+     * policy.
+     * </p>
+     * 
+     * @param describeResourcePolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeResourcePolicy operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.DescribeResourcePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribeResourcePolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeResourcePolicyResult> describeResourcePolicyAsync(DescribeResourcePolicyRequest describeResourcePolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeResourcePolicyRequest, DescribeResourcePolicyResult> asyncHandler);
+
+    /**
+     * <p>
      * Gets the properties associated with a sentiment detection job. Use this operation to get the status of a
      * detection job.
      * </p>
@@ -615,6 +1285,43 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
     java.util.concurrent.Future<DescribeSentimentDetectionJobResult> describeSentimentDetectionJobAsync(
             DescribeSentimentDetectionJobRequest describeSentimentDetectionJobRequest,
             com.amazonaws.handlers.AsyncHandler<DescribeSentimentDetectionJobRequest, DescribeSentimentDetectionJobResult> asyncHandler);
+
+    /**
+     * <p>
+     * Gets the properties associated with a targeted sentiment detection job. Use this operation to get the status of
+     * the job.
+     * </p>
+     * 
+     * @param describeTargetedSentimentDetectionJobRequest
+     * @return A Java Future containing the result of the DescribeTargetedSentimentDetectionJob operation returned by
+     *         the service.
+     * @sample AmazonComprehendAsync.DescribeTargetedSentimentDetectionJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribeTargetedSentimentDetectionJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeTargetedSentimentDetectionJobResult> describeTargetedSentimentDetectionJobAsync(
+            DescribeTargetedSentimentDetectionJobRequest describeTargetedSentimentDetectionJobRequest);
+
+    /**
+     * <p>
+     * Gets the properties associated with a targeted sentiment detection job. Use this operation to get the status of
+     * the job.
+     * </p>
+     * 
+     * @param describeTargetedSentimentDetectionJobRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeTargetedSentimentDetectionJob operation returned by
+     *         the service.
+     * @sample AmazonComprehendAsyncHandler.DescribeTargetedSentimentDetectionJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribeTargetedSentimentDetectionJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeTargetedSentimentDetectionJobResult> describeTargetedSentimentDetectionJobAsync(
+            DescribeTargetedSentimentDetectionJobRequest describeTargetedSentimentDetectionJobRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeTargetedSentimentDetectionJobRequest, DescribeTargetedSentimentDetectionJobResult> asyncHandler);
 
     /**
      * <p>
@@ -688,8 +1395,28 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
 
     /**
      * <p>
-     * Inspects text for named entities, and returns information about them. For more information, about named entities,
-     * see <a>how-entities</a>.
+     * Detects named entities in input text when you use the pre-trained model. Detects custom entities if you have a
+     * custom entity recognition model.
+     * </p>
+     * <p>
+     * When detecting named entities using the pre-trained model, use plain text as the input. For more information
+     * about named entities, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/how-entities.html">Entities</a> in the Comprehend
+     * Developer Guide.
+     * </p>
+     * <p>
+     * When you use a custom entity recognition model, you can input plain text or you can upload a single-page input
+     * document (text, PDF, Word, or image).
+     * </p>
+     * <p>
+     * If the system detects errors while processing a page in the input document, the API response includes an entry in
+     * <code>Errors</code> for each error.
+     * </p>
+     * <p>
+     * If the system detects a document-level error in your input document, the API returns an
+     * <code>InvalidRequestException</code> error response. For details about this exception, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/idp-inputs-sync-err.html"> Errors in semi-structured
+     * documents</a> in the Comprehend Developer Guide.
      * </p>
      * 
      * @param detectEntitiesRequest
@@ -702,8 +1429,28 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
 
     /**
      * <p>
-     * Inspects text for named entities, and returns information about them. For more information, about named entities,
-     * see <a>how-entities</a>.
+     * Detects named entities in input text when you use the pre-trained model. Detects custom entities if you have a
+     * custom entity recognition model.
+     * </p>
+     * <p>
+     * When detecting named entities using the pre-trained model, use plain text as the input. For more information
+     * about named entities, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/how-entities.html">Entities</a> in the Comprehend
+     * Developer Guide.
+     * </p>
+     * <p>
+     * When you use a custom entity recognition model, you can input plain text or you can upload a single-page input
+     * document (text, PDF, Word, or image).
+     * </p>
+     * <p>
+     * If the system detects errors while processing a page in the input document, the API response includes an entry in
+     * <code>Errors</code> for each error.
+     * </p>
+     * <p>
+     * If the system detects a document-level error in your input document, the API returns an
+     * <code>InvalidRequestException</code> error response. For details about this exception, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/idp-inputs-sync-err.html"> Errors in semi-structured
+     * documents</a> in the Comprehend Developer Guide.
      * </p>
      * 
      * @param detectEntitiesRequest
@@ -752,6 +1499,39 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
 
     /**
      * <p>
+     * Inspects the input text for entities that contain personally identifiable information (PII) and returns
+     * information about them.
+     * </p>
+     * 
+     * @param detectPiiEntitiesRequest
+     * @return A Java Future containing the result of the DetectPiiEntities operation returned by the service.
+     * @sample AmazonComprehendAsync.DetectPiiEntities
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectPiiEntities" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DetectPiiEntitiesResult> detectPiiEntitiesAsync(DetectPiiEntitiesRequest detectPiiEntitiesRequest);
+
+    /**
+     * <p>
+     * Inspects the input text for entities that contain personally identifiable information (PII) and returns
+     * information about them.
+     * </p>
+     * 
+     * @param detectPiiEntitiesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DetectPiiEntities operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.DetectPiiEntities
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectPiiEntities" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DetectPiiEntitiesResult> detectPiiEntitiesAsync(DetectPiiEntitiesRequest detectPiiEntitiesRequest,
+            com.amazonaws.handlers.AsyncHandler<DetectPiiEntitiesRequest, DetectPiiEntitiesResult> asyncHandler);
+
+    /**
+     * <p>
      * Inspects text and returns an inference of the prevailing sentiment (<code>POSITIVE</code>, <code>NEUTRAL</code>,
      * <code>MIXED</code>, or <code>NEGATIVE</code>).
      * </p>
@@ -785,8 +1565,9 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
 
     /**
      * <p>
-     * Inspects text for syntax and the part of speech of words in the document. For more information,
-     * <a>how-syntax</a>.
+     * Inspects text for syntax and the part of speech of words in the document. For more information, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/how-syntax.html">Syntax</a> in the Comprehend Developer
+     * Guide.
      * </p>
      * 
      * @param detectSyntaxRequest
@@ -799,8 +1580,9 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
 
     /**
      * <p>
-     * Inspects text for syntax and the part of speech of words in the document. For more information,
-     * <a>how-syntax</a>.
+     * Inspects text for syntax and the part of speech of words in the document. For more information, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/how-syntax.html">Syntax</a> in the Comprehend Developer
+     * Guide.
      * </p>
      * 
      * @param detectSyntaxRequest
@@ -815,6 +1597,168 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
      */
     java.util.concurrent.Future<DetectSyntaxResult> detectSyntaxAsync(DetectSyntaxRequest detectSyntaxRequest,
             com.amazonaws.handlers.AsyncHandler<DetectSyntaxRequest, DetectSyntaxResult> asyncHandler);
+
+    /**
+     * <p>
+     * Inspects the input text and returns a sentiment analysis for each entity identified in the text.
+     * </p>
+     * <p>
+     * For more information about targeted sentiment, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/how-targeted-sentiment.html">Targeted sentiment</a> in the
+     * <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param detectTargetedSentimentRequest
+     * @return A Java Future containing the result of the DetectTargetedSentiment operation returned by the service.
+     * @sample AmazonComprehendAsync.DetectTargetedSentiment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectTargetedSentiment"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DetectTargetedSentimentResult> detectTargetedSentimentAsync(DetectTargetedSentimentRequest detectTargetedSentimentRequest);
+
+    /**
+     * <p>
+     * Inspects the input text and returns a sentiment analysis for each entity identified in the text.
+     * </p>
+     * <p>
+     * For more information about targeted sentiment, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/how-targeted-sentiment.html">Targeted sentiment</a> in the
+     * <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param detectTargetedSentimentRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DetectTargetedSentiment operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.DetectTargetedSentiment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectTargetedSentiment"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DetectTargetedSentimentResult> detectTargetedSentimentAsync(DetectTargetedSentimentRequest detectTargetedSentimentRequest,
+            com.amazonaws.handlers.AsyncHandler<DetectTargetedSentimentRequest, DetectTargetedSentimentResult> asyncHandler);
+
+    /**
+     * <p>
+     * Performs toxicity analysis on the list of text strings that you provide as input. The API response contains a
+     * results list that matches the size of the input list. For more information about toxicity detection, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/toxicity-detection.html">Toxicity detection</a> in the
+     * <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param detectToxicContentRequest
+     * @return A Java Future containing the result of the DetectToxicContent operation returned by the service.
+     * @sample AmazonComprehendAsync.DetectToxicContent
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectToxicContent" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DetectToxicContentResult> detectToxicContentAsync(DetectToxicContentRequest detectToxicContentRequest);
+
+    /**
+     * <p>
+     * Performs toxicity analysis on the list of text strings that you provide as input. The API response contains a
+     * results list that matches the size of the input list. For more information about toxicity detection, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/toxicity-detection.html">Toxicity detection</a> in the
+     * <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param detectToxicContentRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DetectToxicContent operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.DetectToxicContent
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectToxicContent" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DetectToxicContentResult> detectToxicContentAsync(DetectToxicContentRequest detectToxicContentRequest,
+            com.amazonaws.handlers.AsyncHandler<DetectToxicContentRequest, DetectToxicContentResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a new custom model that replicates a source custom model that you import. The source model can be in your
+     * Amazon Web Services account or another one.
+     * </p>
+     * <p>
+     * If the source model is in another Amazon Web Services account, then it must have a resource-based policy that
+     * authorizes you to import it.
+     * </p>
+     * <p>
+     * The source model must be in the same Amazon Web Services Region that you're using when you import. You can't
+     * import a model that's in a different Region.
+     * </p>
+     * 
+     * @param importModelRequest
+     * @return A Java Future containing the result of the ImportModel operation returned by the service.
+     * @sample AmazonComprehendAsync.ImportModel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ImportModel" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ImportModelResult> importModelAsync(ImportModelRequest importModelRequest);
+
+    /**
+     * <p>
+     * Creates a new custom model that replicates a source custom model that you import. The source model can be in your
+     * Amazon Web Services account or another one.
+     * </p>
+     * <p>
+     * If the source model is in another Amazon Web Services account, then it must have a resource-based policy that
+     * authorizes you to import it.
+     * </p>
+     * <p>
+     * The source model must be in the same Amazon Web Services Region that you're using when you import. You can't
+     * import a model that's in a different Region.
+     * </p>
+     * 
+     * @param importModelRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ImportModel operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.ImportModel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ImportModel" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ImportModelResult> importModelAsync(ImportModelRequest importModelRequest,
+            com.amazonaws.handlers.AsyncHandler<ImportModelRequest, ImportModelResult> asyncHandler);
+
+    /**
+     * <p>
+     * List the datasets that you have configured in this Region. For more information about datasets, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the
+     * <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param listDatasetsRequest
+     * @return A Java Future containing the result of the ListDatasets operation returned by the service.
+     * @sample AmazonComprehendAsync.ListDatasets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListDatasets" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListDatasetsResult> listDatasetsAsync(ListDatasetsRequest listDatasetsRequest);
+
+    /**
+     * <p>
+     * List the datasets that you have configured in this Region. For more information about datasets, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the
+     * <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param listDatasetsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListDatasets operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.ListDatasets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListDatasets" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListDatasetsResult> listDatasetsAsync(ListDatasetsRequest listDatasetsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListDatasetsRequest, ListDatasetsResult> asyncHandler);
 
     /**
      * <p>
@@ -850,6 +1794,41 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
     java.util.concurrent.Future<ListDocumentClassificationJobsResult> listDocumentClassificationJobsAsync(
             ListDocumentClassificationJobsRequest listDocumentClassificationJobsRequest,
             com.amazonaws.handlers.AsyncHandler<ListDocumentClassificationJobsRequest, ListDocumentClassificationJobsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Gets a list of summaries of the document classifiers that you have created
+     * </p>
+     * 
+     * @param listDocumentClassifierSummariesRequest
+     * @return A Java Future containing the result of the ListDocumentClassifierSummaries operation returned by the
+     *         service.
+     * @sample AmazonComprehendAsync.ListDocumentClassifierSummaries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListDocumentClassifierSummaries"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListDocumentClassifierSummariesResult> listDocumentClassifierSummariesAsync(
+            ListDocumentClassifierSummariesRequest listDocumentClassifierSummariesRequest);
+
+    /**
+     * <p>
+     * Gets a list of summaries of the document classifiers that you have created
+     * </p>
+     * 
+     * @param listDocumentClassifierSummariesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListDocumentClassifierSummaries operation returned by the
+     *         service.
+     * @sample AmazonComprehendAsyncHandler.ListDocumentClassifierSummaries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListDocumentClassifierSummaries"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListDocumentClassifierSummariesResult> listDocumentClassifierSummariesAsync(
+            ListDocumentClassifierSummariesRequest listDocumentClassifierSummariesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListDocumentClassifierSummariesRequest, ListDocumentClassifierSummariesResult> asyncHandler);
 
     /**
      * <p>
@@ -919,6 +1898,39 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
 
     /**
      * <p>
+     * Gets a list of all existing endpoints that you've created. For information about endpoints, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html">Managing endpoints</a>.
+     * </p>
+     * 
+     * @param listEndpointsRequest
+     * @return A Java Future containing the result of the ListEndpoints operation returned by the service.
+     * @sample AmazonComprehendAsync.ListEndpoints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListEndpoints" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListEndpointsResult> listEndpointsAsync(ListEndpointsRequest listEndpointsRequest);
+
+    /**
+     * <p>
+     * Gets a list of all existing endpoints that you've created. For information about endpoints, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html">Managing endpoints</a>.
+     * </p>
+     * 
+     * @param listEndpointsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListEndpoints operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.ListEndpoints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListEndpoints" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListEndpointsResult> listEndpointsAsync(ListEndpointsRequest listEndpointsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListEndpointsRequest, ListEndpointsResult> asyncHandler);
+
+    /**
+     * <p>
      * Gets a list of the entity detection jobs that you have submitted.
      * </p>
      * 
@@ -949,6 +1961,41 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
     java.util.concurrent.Future<ListEntitiesDetectionJobsResult> listEntitiesDetectionJobsAsync(
             ListEntitiesDetectionJobsRequest listEntitiesDetectionJobsRequest,
             com.amazonaws.handlers.AsyncHandler<ListEntitiesDetectionJobsRequest, ListEntitiesDetectionJobsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Gets a list of summaries for the entity recognizers that you have created.
+     * </p>
+     * 
+     * @param listEntityRecognizerSummariesRequest
+     * @return A Java Future containing the result of the ListEntityRecognizerSummaries operation returned by the
+     *         service.
+     * @sample AmazonComprehendAsync.ListEntityRecognizerSummaries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListEntityRecognizerSummaries"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListEntityRecognizerSummariesResult> listEntityRecognizerSummariesAsync(
+            ListEntityRecognizerSummariesRequest listEntityRecognizerSummariesRequest);
+
+    /**
+     * <p>
+     * Gets a list of summaries for the entity recognizers that you have created.
+     * </p>
+     * 
+     * @param listEntityRecognizerSummariesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListEntityRecognizerSummaries operation returned by the
+     *         service.
+     * @sample AmazonComprehendAsyncHandler.ListEntityRecognizerSummaries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListEntityRecognizerSummaries"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListEntityRecognizerSummariesResult> listEntityRecognizerSummariesAsync(
+            ListEntityRecognizerSummariesRequest listEntityRecognizerSummariesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListEntityRecognizerSummariesRequest, ListEntityRecognizerSummariesResult> asyncHandler);
 
     /**
      * <p>
@@ -993,6 +2040,107 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
 
     /**
      * <p>
+     * Gets a list of the events detection jobs that you have submitted.
+     * </p>
+     * 
+     * @param listEventsDetectionJobsRequest
+     * @return A Java Future containing the result of the ListEventsDetectionJobs operation returned by the service.
+     * @sample AmazonComprehendAsync.ListEventsDetectionJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListEventsDetectionJobs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListEventsDetectionJobsResult> listEventsDetectionJobsAsync(ListEventsDetectionJobsRequest listEventsDetectionJobsRequest);
+
+    /**
+     * <p>
+     * Gets a list of the events detection jobs that you have submitted.
+     * </p>
+     * 
+     * @param listEventsDetectionJobsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListEventsDetectionJobs operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.ListEventsDetectionJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListEventsDetectionJobs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListEventsDetectionJobsResult> listEventsDetectionJobsAsync(ListEventsDetectionJobsRequest listEventsDetectionJobsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListEventsDetectionJobsRequest, ListEventsDetectionJobsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Information about the history of a flywheel iteration. For more information about flywheels, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the
+     * <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param listFlywheelIterationHistoryRequest
+     * @return A Java Future containing the result of the ListFlywheelIterationHistory operation returned by the
+     *         service.
+     * @sample AmazonComprehendAsync.ListFlywheelIterationHistory
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListFlywheelIterationHistory"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListFlywheelIterationHistoryResult> listFlywheelIterationHistoryAsync(
+            ListFlywheelIterationHistoryRequest listFlywheelIterationHistoryRequest);
+
+    /**
+     * <p>
+     * Information about the history of a flywheel iteration. For more information about flywheels, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html"> Flywheel overview</a> in the
+     * <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param listFlywheelIterationHistoryRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListFlywheelIterationHistory operation returned by the
+     *         service.
+     * @sample AmazonComprehendAsyncHandler.ListFlywheelIterationHistory
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListFlywheelIterationHistory"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListFlywheelIterationHistoryResult> listFlywheelIterationHistoryAsync(
+            ListFlywheelIterationHistoryRequest listFlywheelIterationHistoryRequest,
+            com.amazonaws.handlers.AsyncHandler<ListFlywheelIterationHistoryRequest, ListFlywheelIterationHistoryResult> asyncHandler);
+
+    /**
+     * <p>
+     * Gets a list of the flywheels that you have created.
+     * </p>
+     * 
+     * @param listFlywheelsRequest
+     * @return A Java Future containing the result of the ListFlywheels operation returned by the service.
+     * @sample AmazonComprehendAsync.ListFlywheels
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListFlywheels" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListFlywheelsResult> listFlywheelsAsync(ListFlywheelsRequest listFlywheelsRequest);
+
+    /**
+     * <p>
+     * Gets a list of the flywheels that you have created.
+     * </p>
+     * 
+     * @param listFlywheelsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListFlywheels operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.ListFlywheels
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListFlywheels" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListFlywheelsResult> listFlywheelsAsync(ListFlywheelsRequest listFlywheelsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListFlywheelsRequest, ListFlywheelsResult> asyncHandler);
+
+    /**
+     * <p>
      * Get a list of key phrase detection jobs that you have submitted.
      * </p>
      * 
@@ -1023,6 +2171,41 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
     java.util.concurrent.Future<ListKeyPhrasesDetectionJobsResult> listKeyPhrasesDetectionJobsAsync(
             ListKeyPhrasesDetectionJobsRequest listKeyPhrasesDetectionJobsRequest,
             com.amazonaws.handlers.AsyncHandler<ListKeyPhrasesDetectionJobsRequest, ListKeyPhrasesDetectionJobsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Gets a list of the PII entity detection jobs that you have submitted.
+     * </p>
+     * 
+     * @param listPiiEntitiesDetectionJobsRequest
+     * @return A Java Future containing the result of the ListPiiEntitiesDetectionJobs operation returned by the
+     *         service.
+     * @sample AmazonComprehendAsync.ListPiiEntitiesDetectionJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListPiiEntitiesDetectionJobs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListPiiEntitiesDetectionJobsResult> listPiiEntitiesDetectionJobsAsync(
+            ListPiiEntitiesDetectionJobsRequest listPiiEntitiesDetectionJobsRequest);
+
+    /**
+     * <p>
+     * Gets a list of the PII entity detection jobs that you have submitted.
+     * </p>
+     * 
+     * @param listPiiEntitiesDetectionJobsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListPiiEntitiesDetectionJobs operation returned by the
+     *         service.
+     * @sample AmazonComprehendAsyncHandler.ListPiiEntitiesDetectionJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListPiiEntitiesDetectionJobs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListPiiEntitiesDetectionJobsResult> listPiiEntitiesDetectionJobsAsync(
+            ListPiiEntitiesDetectionJobsRequest listPiiEntitiesDetectionJobsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListPiiEntitiesDetectionJobsRequest, ListPiiEntitiesDetectionJobsResult> asyncHandler);
 
     /**
      * <p>
@@ -1090,6 +2273,41 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
 
     /**
      * <p>
+     * Gets a list of targeted sentiment detection jobs that you have submitted.
+     * </p>
+     * 
+     * @param listTargetedSentimentDetectionJobsRequest
+     * @return A Java Future containing the result of the ListTargetedSentimentDetectionJobs operation returned by the
+     *         service.
+     * @sample AmazonComprehendAsync.ListTargetedSentimentDetectionJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListTargetedSentimentDetectionJobs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListTargetedSentimentDetectionJobsResult> listTargetedSentimentDetectionJobsAsync(
+            ListTargetedSentimentDetectionJobsRequest listTargetedSentimentDetectionJobsRequest);
+
+    /**
+     * <p>
+     * Gets a list of targeted sentiment detection jobs that you have submitted.
+     * </p>
+     * 
+     * @param listTargetedSentimentDetectionJobsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListTargetedSentimentDetectionJobs operation returned by the
+     *         service.
+     * @sample AmazonComprehendAsyncHandler.ListTargetedSentimentDetectionJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListTargetedSentimentDetectionJobs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListTargetedSentimentDetectionJobsResult> listTargetedSentimentDetectionJobsAsync(
+            ListTargetedSentimentDetectionJobsRequest listTargetedSentimentDetectionJobsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListTargetedSentimentDetectionJobsRequest, ListTargetedSentimentDetectionJobsResult> asyncHandler);
+
+    /**
+     * <p>
      * Gets a list of the topic detection jobs that you have submitted.
      * </p>
      * 
@@ -1121,7 +2339,43 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
 
     /**
      * <p>
-     * Starts an asynchronous document classification job. Use the operation to track the progress of the job.
+     * Attaches a resource-based policy to a custom model. You can use this policy to authorize an entity in another
+     * Amazon Web Services account to import the custom model, which replicates it in Amazon Comprehend in their
+     * account.
+     * </p>
+     * 
+     * @param putResourcePolicyRequest
+     * @return A Java Future containing the result of the PutResourcePolicy operation returned by the service.
+     * @sample AmazonComprehendAsync.PutResourcePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/PutResourcePolicy" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(PutResourcePolicyRequest putResourcePolicyRequest);
+
+    /**
+     * <p>
+     * Attaches a resource-based policy to a custom model. You can use this policy to authorize an entity in another
+     * Amazon Web Services account to import the custom model, which replicates it in Amazon Comprehend in their
+     * account.
+     * </p>
+     * 
+     * @param putResourcePolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutResourcePolicy operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.PutResourcePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/PutResourcePolicy" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(PutResourcePolicyRequest putResourcePolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<PutResourcePolicyRequest, PutResourcePolicyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Starts an asynchronous document classification job using a custom classification model. Use the
+     * <code>DescribeDocumentClassificationJob</code> operation to track the progress of the job.
      * </p>
      * 
      * @param startDocumentClassificationJobRequest
@@ -1136,7 +2390,8 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
 
     /**
      * <p>
-     * Starts an asynchronous document classification job. Use the operation to track the progress of the job.
+     * Starts an asynchronous document classification job using a custom classification model. Use the
+     * <code>DescribeDocumentClassificationJob</code> operation to track the progress of the job.
      * </p>
      * 
      * @param startDocumentClassificationJobRequest
@@ -1238,6 +2493,72 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
 
     /**
      * <p>
+     * Starts an asynchronous event detection job for a collection of documents.
+     * </p>
+     * 
+     * @param startEventsDetectionJobRequest
+     * @return A Java Future containing the result of the StartEventsDetectionJob operation returned by the service.
+     * @sample AmazonComprehendAsync.StartEventsDetectionJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/StartEventsDetectionJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartEventsDetectionJobResult> startEventsDetectionJobAsync(StartEventsDetectionJobRequest startEventsDetectionJobRequest);
+
+    /**
+     * <p>
+     * Starts an asynchronous event detection job for a collection of documents.
+     * </p>
+     * 
+     * @param startEventsDetectionJobRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartEventsDetectionJob operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.StartEventsDetectionJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/StartEventsDetectionJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartEventsDetectionJobResult> startEventsDetectionJobAsync(StartEventsDetectionJobRequest startEventsDetectionJobRequest,
+            com.amazonaws.handlers.AsyncHandler<StartEventsDetectionJobRequest, StartEventsDetectionJobResult> asyncHandler);
+
+    /**
+     * <p>
+     * Start the flywheel iteration.This operation uses any new datasets to train a new model version. For more
+     * information about flywheels, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html">
+     * Flywheel overview</a> in the <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param startFlywheelIterationRequest
+     * @return A Java Future containing the result of the StartFlywheelIteration operation returned by the service.
+     * @sample AmazonComprehendAsync.StartFlywheelIteration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/StartFlywheelIteration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartFlywheelIterationResult> startFlywheelIterationAsync(StartFlywheelIterationRequest startFlywheelIterationRequest);
+
+    /**
+     * <p>
+     * Start the flywheel iteration.This operation uses any new datasets to train a new model version. For more
+     * information about flywheels, see <a href="https://docs.aws.amazon.com/comprehend/latest/dg/flywheels-about.html">
+     * Flywheel overview</a> in the <i>Amazon Comprehend Developer Guide</i>.
+     * </p>
+     * 
+     * @param startFlywheelIterationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartFlywheelIteration operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.StartFlywheelIteration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/StartFlywheelIteration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartFlywheelIterationResult> startFlywheelIterationAsync(StartFlywheelIterationRequest startFlywheelIterationRequest,
+            com.amazonaws.handlers.AsyncHandler<StartFlywheelIterationRequest, StartFlywheelIterationResult> asyncHandler);
+
+    /**
+     * <p>
      * Starts an asynchronous key phrase detection job for a collection of documents. Use the operation to track the
      * status of a job.
      * </p>
@@ -1273,7 +2594,42 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
 
     /**
      * <p>
-     * Starts an asynchronous sentiment detection job for a collection of documents. use the operation to track the
+     * Starts an asynchronous PII entity detection job for a collection of documents.
+     * </p>
+     * 
+     * @param startPiiEntitiesDetectionJobRequest
+     * @return A Java Future containing the result of the StartPiiEntitiesDetectionJob operation returned by the
+     *         service.
+     * @sample AmazonComprehendAsync.StartPiiEntitiesDetectionJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/StartPiiEntitiesDetectionJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartPiiEntitiesDetectionJobResult> startPiiEntitiesDetectionJobAsync(
+            StartPiiEntitiesDetectionJobRequest startPiiEntitiesDetectionJobRequest);
+
+    /**
+     * <p>
+     * Starts an asynchronous PII entity detection job for a collection of documents.
+     * </p>
+     * 
+     * @param startPiiEntitiesDetectionJobRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartPiiEntitiesDetectionJob operation returned by the
+     *         service.
+     * @sample AmazonComprehendAsyncHandler.StartPiiEntitiesDetectionJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/StartPiiEntitiesDetectionJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartPiiEntitiesDetectionJobResult> startPiiEntitiesDetectionJobAsync(
+            StartPiiEntitiesDetectionJobRequest startPiiEntitiesDetectionJobRequest,
+            com.amazonaws.handlers.AsyncHandler<StartPiiEntitiesDetectionJobRequest, StartPiiEntitiesDetectionJobResult> asyncHandler);
+
+    /**
+     * <p>
+     * Starts an asynchronous sentiment detection job for a collection of documents. Use the operation to track the
      * status of a job.
      * </p>
      * 
@@ -1288,7 +2644,7 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
 
     /**
      * <p>
-     * Starts an asynchronous sentiment detection job for a collection of documents. use the operation to track the
+     * Starts an asynchronous sentiment detection job for a collection of documents. Use the operation to track the
      * status of a job.
      * </p>
      * 
@@ -1305,6 +2661,43 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
     java.util.concurrent.Future<StartSentimentDetectionJobResult> startSentimentDetectionJobAsync(
             StartSentimentDetectionJobRequest startSentimentDetectionJobRequest,
             com.amazonaws.handlers.AsyncHandler<StartSentimentDetectionJobRequest, StartSentimentDetectionJobResult> asyncHandler);
+
+    /**
+     * <p>
+     * Starts an asynchronous targeted sentiment detection job for a collection of documents. Use the
+     * <code>DescribeTargetedSentimentDetectionJob</code> operation to track the status of a job.
+     * </p>
+     * 
+     * @param startTargetedSentimentDetectionJobRequest
+     * @return A Java Future containing the result of the StartTargetedSentimentDetectionJob operation returned by the
+     *         service.
+     * @sample AmazonComprehendAsync.StartTargetedSentimentDetectionJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/StartTargetedSentimentDetectionJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartTargetedSentimentDetectionJobResult> startTargetedSentimentDetectionJobAsync(
+            StartTargetedSentimentDetectionJobRequest startTargetedSentimentDetectionJobRequest);
+
+    /**
+     * <p>
+     * Starts an asynchronous targeted sentiment detection job for a collection of documents. Use the
+     * <code>DescribeTargetedSentimentDetectionJob</code> operation to track the status of a job.
+     * </p>
+     * 
+     * @param startTargetedSentimentDetectionJobRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartTargetedSentimentDetectionJob operation returned by the
+     *         service.
+     * @sample AmazonComprehendAsyncHandler.StartTargetedSentimentDetectionJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/StartTargetedSentimentDetectionJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartTargetedSentimentDetectionJobResult> startTargetedSentimentDetectionJobAsync(
+            StartTargetedSentimentDetectionJobRequest startTargetedSentimentDetectionJobRequest,
+            com.amazonaws.handlers.AsyncHandler<StartTargetedSentimentDetectionJobRequest, StartTargetedSentimentDetectionJobResult> asyncHandler);
 
     /**
      * <p>
@@ -1455,6 +2848,37 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
 
     /**
      * <p>
+     * Stops an events detection job in progress.
+     * </p>
+     * 
+     * @param stopEventsDetectionJobRequest
+     * @return A Java Future containing the result of the StopEventsDetectionJob operation returned by the service.
+     * @sample AmazonComprehendAsync.StopEventsDetectionJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/StopEventsDetectionJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StopEventsDetectionJobResult> stopEventsDetectionJobAsync(StopEventsDetectionJobRequest stopEventsDetectionJobRequest);
+
+    /**
+     * <p>
+     * Stops an events detection job in progress.
+     * </p>
+     * 
+     * @param stopEventsDetectionJobRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StopEventsDetectionJob operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.StopEventsDetectionJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/StopEventsDetectionJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StopEventsDetectionJobResult> stopEventsDetectionJobAsync(StopEventsDetectionJobRequest stopEventsDetectionJobRequest,
+            com.amazonaws.handlers.AsyncHandler<StopEventsDetectionJobRequest, StopEventsDetectionJobResult> asyncHandler);
+
+    /**
+     * <p>
      * Stops a key phrases detection job in progress.
      * </p>
      * <p>
@@ -1512,10 +2936,43 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
 
     /**
      * <p>
+     * Stops a PII entities detection job in progress.
+     * </p>
+     * 
+     * @param stopPiiEntitiesDetectionJobRequest
+     * @return A Java Future containing the result of the StopPiiEntitiesDetectionJob operation returned by the service.
+     * @sample AmazonComprehendAsync.StopPiiEntitiesDetectionJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/StopPiiEntitiesDetectionJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StopPiiEntitiesDetectionJobResult> stopPiiEntitiesDetectionJobAsync(
+            StopPiiEntitiesDetectionJobRequest stopPiiEntitiesDetectionJobRequest);
+
+    /**
+     * <p>
+     * Stops a PII entities detection job in progress.
+     * </p>
+     * 
+     * @param stopPiiEntitiesDetectionJobRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StopPiiEntitiesDetectionJob operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.StopPiiEntitiesDetectionJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/StopPiiEntitiesDetectionJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StopPiiEntitiesDetectionJobResult> stopPiiEntitiesDetectionJobAsync(
+            StopPiiEntitiesDetectionJobRequest stopPiiEntitiesDetectionJobRequest,
+            com.amazonaws.handlers.AsyncHandler<StopPiiEntitiesDetectionJobRequest, StopPiiEntitiesDetectionJobResult> asyncHandler);
+
+    /**
+     * <p>
      * Stops a sentiment detection job in progress.
      * </p>
      * <p>
-     * If the job state is <code>IN_PROGRESS</code> the job is marked for termination and put into the
+     * If the job state is <code>IN_PROGRESS</code>, the job is marked for termination and put into the
      * <code>STOP_REQUESTED</code> state. If the job completes before it can be stopped, it is put into the
      * <code>COMPLETED</code> state; otherwise the job is be stopped and put into the <code>STOPPED</code> state.
      * </p>
@@ -1541,7 +2998,7 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
      * Stops a sentiment detection job in progress.
      * </p>
      * <p>
-     * If the job state is <code>IN_PROGRESS</code> the job is marked for termination and put into the
+     * If the job state is <code>IN_PROGRESS</code>, the job is marked for termination and put into the
      * <code>STOP_REQUESTED</code> state. If the job completes before it can be stopped, it is put into the
      * <code>COMPLETED</code> state; otherwise the job is be stopped and put into the <code>STOPPED</code> state.
      * </p>
@@ -1566,6 +3023,65 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
     java.util.concurrent.Future<StopSentimentDetectionJobResult> stopSentimentDetectionJobAsync(
             StopSentimentDetectionJobRequest stopSentimentDetectionJobRequest,
             com.amazonaws.handlers.AsyncHandler<StopSentimentDetectionJobRequest, StopSentimentDetectionJobResult> asyncHandler);
+
+    /**
+     * <p>
+     * Stops a targeted sentiment detection job in progress.
+     * </p>
+     * <p>
+     * If the job state is <code>IN_PROGRESS</code>, the job is marked for termination and put into the
+     * <code>STOP_REQUESTED</code> state. If the job completes before it can be stopped, it is put into the
+     * <code>COMPLETED</code> state; otherwise the job is be stopped and put into the <code>STOPPED</code> state.
+     * </p>
+     * <p>
+     * If the job is in the <code>COMPLETED</code> or <code>FAILED</code> state when you call the
+     * <code>StopDominantLanguageDetectionJob</code> operation, the operation returns a 400 Internal Request Exception.
+     * </p>
+     * <p>
+     * When a job is stopped, any documents already processed are written to the output location.
+     * </p>
+     * 
+     * @param stopTargetedSentimentDetectionJobRequest
+     * @return A Java Future containing the result of the StopTargetedSentimentDetectionJob operation returned by the
+     *         service.
+     * @sample AmazonComprehendAsync.StopTargetedSentimentDetectionJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/StopTargetedSentimentDetectionJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StopTargetedSentimentDetectionJobResult> stopTargetedSentimentDetectionJobAsync(
+            StopTargetedSentimentDetectionJobRequest stopTargetedSentimentDetectionJobRequest);
+
+    /**
+     * <p>
+     * Stops a targeted sentiment detection job in progress.
+     * </p>
+     * <p>
+     * If the job state is <code>IN_PROGRESS</code>, the job is marked for termination and put into the
+     * <code>STOP_REQUESTED</code> state. If the job completes before it can be stopped, it is put into the
+     * <code>COMPLETED</code> state; otherwise the job is be stopped and put into the <code>STOPPED</code> state.
+     * </p>
+     * <p>
+     * If the job is in the <code>COMPLETED</code> or <code>FAILED</code> state when you call the
+     * <code>StopDominantLanguageDetectionJob</code> operation, the operation returns a 400 Internal Request Exception.
+     * </p>
+     * <p>
+     * When a job is stopped, any documents already processed are written to the output location.
+     * </p>
+     * 
+     * @param stopTargetedSentimentDetectionJobRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StopTargetedSentimentDetectionJob operation returned by the
+     *         service.
+     * @sample AmazonComprehendAsyncHandler.StopTargetedSentimentDetectionJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/StopTargetedSentimentDetectionJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StopTargetedSentimentDetectionJobResult> stopTargetedSentimentDetectionJobAsync(
+            StopTargetedSentimentDetectionJobRequest stopTargetedSentimentDetectionJobRequest,
+            com.amazonaws.handlers.AsyncHandler<StopTargetedSentimentDetectionJobRequest, StopTargetedSentimentDetectionJobResult> asyncHandler);
 
     /**
      * <p>
@@ -1726,5 +3242,69 @@ public interface AmazonComprehendAsync extends AmazonComprehend {
      */
     java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest untagResourceRequest,
             com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates information about the specified endpoint. For information about endpoints, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html">Managing endpoints</a>.
+     * </p>
+     * 
+     * @param updateEndpointRequest
+     * @return A Java Future containing the result of the UpdateEndpoint operation returned by the service.
+     * @sample AmazonComprehendAsync.UpdateEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/UpdateEndpoint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateEndpointResult> updateEndpointAsync(UpdateEndpointRequest updateEndpointRequest);
+
+    /**
+     * <p>
+     * Updates information about the specified endpoint. For information about endpoints, see <a
+     * href="https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html">Managing endpoints</a>.
+     * </p>
+     * 
+     * @param updateEndpointRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateEndpoint operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.UpdateEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/UpdateEndpoint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateEndpointResult> updateEndpointAsync(UpdateEndpointRequest updateEndpointRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateEndpointRequest, UpdateEndpointResult> asyncHandler);
+
+    /**
+     * <p>
+     * Update the configuration information for an existing flywheel.
+     * </p>
+     * 
+     * @param updateFlywheelRequest
+     * @return A Java Future containing the result of the UpdateFlywheel operation returned by the service.
+     * @sample AmazonComprehendAsync.UpdateFlywheel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/UpdateFlywheel" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateFlywheelResult> updateFlywheelAsync(UpdateFlywheelRequest updateFlywheelRequest);
+
+    /**
+     * <p>
+     * Update the configuration information for an existing flywheel.
+     * </p>
+     * 
+     * @param updateFlywheelRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateFlywheel operation returned by the service.
+     * @sample AmazonComprehendAsyncHandler.UpdateFlywheel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/UpdateFlywheel" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateFlywheelResult> updateFlywheelAsync(UpdateFlywheelRequest updateFlywheelRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateFlywheelRequest, UpdateFlywheelResult> asyncHandler);
 
 }

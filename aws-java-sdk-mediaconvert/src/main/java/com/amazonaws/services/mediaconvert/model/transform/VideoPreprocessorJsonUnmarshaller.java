@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -56,6 +56,14 @@ public class VideoPreprocessorJsonUnmarshaller implements Unmarshaller<VideoPrep
                     context.nextToken();
                     videoPreprocessor.setDeinterlacer(DeinterlacerJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("dolbyVision", targetDepth)) {
+                    context.nextToken();
+                    videoPreprocessor.setDolbyVision(DolbyVisionJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("hdr10Plus", targetDepth)) {
+                    context.nextToken();
+                    videoPreprocessor.setHdr10Plus(Hdr10PlusJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("imageInserter", targetDepth)) {
                     context.nextToken();
                     videoPreprocessor.setImageInserter(ImageInserterJsonUnmarshaller.getInstance().unmarshall(context));
@@ -63,6 +71,10 @@ public class VideoPreprocessorJsonUnmarshaller implements Unmarshaller<VideoPrep
                 if (context.testExpression("noiseReducer", targetDepth)) {
                     context.nextToken();
                     videoPreprocessor.setNoiseReducer(NoiseReducerJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("partnerWatermarking", targetDepth)) {
+                    context.nextToken();
+                    videoPreprocessor.setPartnerWatermarking(PartnerWatermarkingJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("timecodeBurnin", targetDepth)) {
                     context.nextToken();

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,7 +26,7 @@ public class GetDeployablePatchSnapshotForInstanceResult extends com.amazonaws.A
 
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
      */
     private String instanceId;
@@ -38,25 +38,25 @@ public class GetDeployablePatchSnapshotForInstanceResult extends com.amazonaws.A
     private String snapshotId;
     /**
      * <p>
-     * A pre-signed Amazon S3 URL that can be used to download the patch snapshot.
+     * A pre-signed Amazon Simple Storage Service (Amazon S3) URL that can be used to download the patch snapshot.
      * </p>
      */
     private String snapshotDownloadUrl;
     /**
      * <p>
-     * Returns the specific operating system (for example Windows Server 2012 or Amazon Linux 2015.09) on the instance
-     * for the specified patch snapshot.
+     * Returns the specific operating system (for example Windows Server 2012 or Amazon Linux 2015.09) on the managed
+     * node for the specified patch snapshot.
      * </p>
      */
     private String product;
 
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
      * 
      * @param instanceId
-     *        The ID of the instance.
+     *        The managed node ID.
      */
 
     public void setInstanceId(String instanceId) {
@@ -65,10 +65,10 @@ public class GetDeployablePatchSnapshotForInstanceResult extends com.amazonaws.A
 
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
      * 
-     * @return The ID of the instance.
+     * @return The managed node ID.
      */
 
     public String getInstanceId() {
@@ -77,11 +77,11 @@ public class GetDeployablePatchSnapshotForInstanceResult extends com.amazonaws.A
 
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
      * 
      * @param instanceId
-     *        The ID of the instance.
+     *        The managed node ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -132,11 +132,12 @@ public class GetDeployablePatchSnapshotForInstanceResult extends com.amazonaws.A
 
     /**
      * <p>
-     * A pre-signed Amazon S3 URL that can be used to download the patch snapshot.
+     * A pre-signed Amazon Simple Storage Service (Amazon S3) URL that can be used to download the patch snapshot.
      * </p>
      * 
      * @param snapshotDownloadUrl
-     *        A pre-signed Amazon S3 URL that can be used to download the patch snapshot.
+     *        A pre-signed Amazon Simple Storage Service (Amazon S3) URL that can be used to download the patch
+     *        snapshot.
      */
 
     public void setSnapshotDownloadUrl(String snapshotDownloadUrl) {
@@ -145,10 +146,11 @@ public class GetDeployablePatchSnapshotForInstanceResult extends com.amazonaws.A
 
     /**
      * <p>
-     * A pre-signed Amazon S3 URL that can be used to download the patch snapshot.
+     * A pre-signed Amazon Simple Storage Service (Amazon S3) URL that can be used to download the patch snapshot.
      * </p>
      * 
-     * @return A pre-signed Amazon S3 URL that can be used to download the patch snapshot.
+     * @return A pre-signed Amazon Simple Storage Service (Amazon S3) URL that can be used to download the patch
+     *         snapshot.
      */
 
     public String getSnapshotDownloadUrl() {
@@ -157,11 +159,12 @@ public class GetDeployablePatchSnapshotForInstanceResult extends com.amazonaws.A
 
     /**
      * <p>
-     * A pre-signed Amazon S3 URL that can be used to download the patch snapshot.
+     * A pre-signed Amazon Simple Storage Service (Amazon S3) URL that can be used to download the patch snapshot.
      * </p>
      * 
      * @param snapshotDownloadUrl
-     *        A pre-signed Amazon S3 URL that can be used to download the patch snapshot.
+     *        A pre-signed Amazon Simple Storage Service (Amazon S3) URL that can be used to download the patch
+     *        snapshot.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -172,13 +175,13 @@ public class GetDeployablePatchSnapshotForInstanceResult extends com.amazonaws.A
 
     /**
      * <p>
-     * Returns the specific operating system (for example Windows Server 2012 or Amazon Linux 2015.09) on the instance
-     * for the specified patch snapshot.
+     * Returns the specific operating system (for example Windows Server 2012 or Amazon Linux 2015.09) on the managed
+     * node for the specified patch snapshot.
      * </p>
      * 
      * @param product
      *        Returns the specific operating system (for example Windows Server 2012 or Amazon Linux 2015.09) on the
-     *        instance for the specified patch snapshot.
+     *        managed node for the specified patch snapshot.
      */
 
     public void setProduct(String product) {
@@ -187,12 +190,12 @@ public class GetDeployablePatchSnapshotForInstanceResult extends com.amazonaws.A
 
     /**
      * <p>
-     * Returns the specific operating system (for example Windows Server 2012 or Amazon Linux 2015.09) on the instance
-     * for the specified patch snapshot.
+     * Returns the specific operating system (for example Windows Server 2012 or Amazon Linux 2015.09) on the managed
+     * node for the specified patch snapshot.
      * </p>
      * 
      * @return Returns the specific operating system (for example Windows Server 2012 or Amazon Linux 2015.09) on the
-     *         instance for the specified patch snapshot.
+     *         managed node for the specified patch snapshot.
      */
 
     public String getProduct() {
@@ -201,13 +204,13 @@ public class GetDeployablePatchSnapshotForInstanceResult extends com.amazonaws.A
 
     /**
      * <p>
-     * Returns the specific operating system (for example Windows Server 2012 or Amazon Linux 2015.09) on the instance
-     * for the specified patch snapshot.
+     * Returns the specific operating system (for example Windows Server 2012 or Amazon Linux 2015.09) on the managed
+     * node for the specified patch snapshot.
      * </p>
      * 
      * @param product
      *        Returns the specific operating system (for example Windows Server 2012 or Amazon Linux 2015.09) on the
-     *        instance for the specified patch snapshot.
+     *        managed node for the specified patch snapshot.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -112,7 +112,7 @@ public class AttributeValue implements Serializable, Cloneable, StructuredPojo {
      * An attribute of type List. For example:
      * </p>
      * <p>
-     * <code>"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N", "3.14159"}]</code>
+     * <code>"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N": "3.14159"}]</code>
      * </p>
      */
     private java.util.List<AttributeValue> l;
@@ -741,6 +741,13 @@ public class AttributeValue implements Serializable, Cloneable, StructuredPojo {
         return this;
     }
 
+    /**
+     * Add a single M entry
+     *
+     * @see AttributeValue#withM
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public AttributeValue addMEntry(String key, AttributeValue value) {
         if (null == this.m) {
             this.m = new java.util.HashMap<String, AttributeValue>();
@@ -767,12 +774,12 @@ public class AttributeValue implements Serializable, Cloneable, StructuredPojo {
      * An attribute of type List. For example:
      * </p>
      * <p>
-     * <code>"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N", "3.14159"}]</code>
+     * <code>"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N": "3.14159"}]</code>
      * </p>
      * 
      * @return An attribute of type List. For example:</p>
      *         <p>
-     *         <code>"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N", "3.14159"}]</code>
+     *         <code>"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N": "3.14159"}]</code>
      */
 
     public java.util.List<AttributeValue> getL() {
@@ -784,13 +791,13 @@ public class AttributeValue implements Serializable, Cloneable, StructuredPojo {
      * An attribute of type List. For example:
      * </p>
      * <p>
-     * <code>"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N", "3.14159"}]</code>
+     * <code>"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N": "3.14159"}]</code>
      * </p>
      * 
      * @param l
      *        An attribute of type List. For example:</p>
      *        <p>
-     *        <code>"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N", "3.14159"}]</code>
+     *        <code>"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N": "3.14159"}]</code>
      */
 
     public void setL(java.util.Collection<AttributeValue> l) {
@@ -807,7 +814,7 @@ public class AttributeValue implements Serializable, Cloneable, StructuredPojo {
      * An attribute of type List. For example:
      * </p>
      * <p>
-     * <code>"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N", "3.14159"}]</code>
+     * <code>"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N": "3.14159"}]</code>
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -818,7 +825,7 @@ public class AttributeValue implements Serializable, Cloneable, StructuredPojo {
      * @param l
      *        An attribute of type List. For example:</p>
      *        <p>
-     *        <code>"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N", "3.14159"}]</code>
+     *        <code>"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N": "3.14159"}]</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -837,13 +844,13 @@ public class AttributeValue implements Serializable, Cloneable, StructuredPojo {
      * An attribute of type List. For example:
      * </p>
      * <p>
-     * <code>"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N", "3.14159"}]</code>
+     * <code>"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N": "3.14159"}]</code>
      * </p>
      * 
      * @param l
      *        An attribute of type List. For example:</p>
      *        <p>
-     *        <code>"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N", "3.14159"}]</code>
+     *        <code>"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N": "3.14159"}]</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

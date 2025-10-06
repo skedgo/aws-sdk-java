@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,7 +46,7 @@ public class CreateClusterSubnetGroupRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Must be unique for all subnet groups that are created by your AWS account.
+     * Must be unique for all subnet groups that are created by your Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -94,7 +94,7 @@ public class CreateClusterSubnetGroupRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Must be unique for all subnet groups that are created by your AWS account.
+     * Must be unique for all subnet groups that are created by your Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -120,7 +120,7 @@ public class CreateClusterSubnetGroupRequest extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        Must be unique for all subnet groups that are created by your AWS account.
+     *        Must be unique for all subnet groups that are created by your Amazon Web Services account.
      *        </p>
      *        </li>
      *        </ul>
@@ -152,7 +152,7 @@ public class CreateClusterSubnetGroupRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Must be unique for all subnet groups that are created by your AWS account.
+     * Must be unique for all subnet groups that are created by your Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -177,7 +177,7 @@ public class CreateClusterSubnetGroupRequest extends com.amazonaws.AmazonWebServ
      *         </li>
      *         <li>
      *         <p>
-     *         Must be unique for all subnet groups that are created by your AWS account.
+     *         Must be unique for all subnet groups that are created by your Amazon Web Services account.
      *         </p>
      *         </li>
      *         </ul>
@@ -209,7 +209,7 @@ public class CreateClusterSubnetGroupRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Must be unique for all subnet groups that are created by your AWS account.
+     * Must be unique for all subnet groups that are created by your Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -235,7 +235,7 @@ public class CreateClusterSubnetGroupRequest extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        Must be unique for all subnet groups that are created by your AWS account.
+     *        Must be unique for all subnet groups that are created by your Amazon Web Services account.
      *        </p>
      *        </li>
      *        </ul>

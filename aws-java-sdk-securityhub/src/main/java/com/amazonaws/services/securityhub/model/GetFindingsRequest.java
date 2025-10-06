@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,21 +27,31 @@ public class GetFindingsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The findings attributes used to define a condition to filter the findings returned.
+     * The finding attributes used to define a condition to filter the returned findings.
+     * </p>
+     * <p>
+     * You can filter by up to 10 finding attributes. For each attribute, you can provide up to 20 filter values.
+     * </p>
+     * <p>
+     * Note that in the available filter fields, <code>WorkflowState</code> is deprecated. To search for a finding based
+     * on its workflow status, use <code>WorkflowStatus</code>.
      * </p>
      */
     private AwsSecurityFindingFilters filters;
     /**
      * <p>
-     * Findings attributes used to sort the list of findings returned.
+     * The finding attributes used to sort the list of returned findings.
      * </p>
      */
     private java.util.List<SortCriterion> sortCriteria;
     /**
      * <p>
-     * Paginates results. On your first call to the <code>GetFindings</code> operation, set the value of this parameter
-     * to <code>NULL</code>. For subsequent calls to the operation, fill <code>nextToken</code> in the request with the
-     * value of <code>nextToken</code> from the previous response to continue listing data.
+     * The token that is required for pagination. On your first call to the <code>GetFindings</code> operation, set the
+     * value of this parameter to <code>NULL</code>.
+     * </p>
+     * <p>
+     * For subsequent calls to the operation, to continue listing data, set the value of this parameter to the value
+     * returned from the previous response.
      * </p>
      */
     private String nextToken;
@@ -54,11 +64,24 @@ public class GetFindingsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The findings attributes used to define a condition to filter the findings returned.
+     * The finding attributes used to define a condition to filter the returned findings.
+     * </p>
+     * <p>
+     * You can filter by up to 10 finding attributes. For each attribute, you can provide up to 20 filter values.
+     * </p>
+     * <p>
+     * Note that in the available filter fields, <code>WorkflowState</code> is deprecated. To search for a finding based
+     * on its workflow status, use <code>WorkflowStatus</code>.
      * </p>
      * 
      * @param filters
-     *        The findings attributes used to define a condition to filter the findings returned.
+     *        The finding attributes used to define a condition to filter the returned findings.</p>
+     *        <p>
+     *        You can filter by up to 10 finding attributes. For each attribute, you can provide up to 20 filter values.
+     *        </p>
+     *        <p>
+     *        Note that in the available filter fields, <code>WorkflowState</code> is deprecated. To search for a
+     *        finding based on its workflow status, use <code>WorkflowStatus</code>.
      */
 
     public void setFilters(AwsSecurityFindingFilters filters) {
@@ -67,10 +90,24 @@ public class GetFindingsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The findings attributes used to define a condition to filter the findings returned.
+     * The finding attributes used to define a condition to filter the returned findings.
+     * </p>
+     * <p>
+     * You can filter by up to 10 finding attributes. For each attribute, you can provide up to 20 filter values.
+     * </p>
+     * <p>
+     * Note that in the available filter fields, <code>WorkflowState</code> is deprecated. To search for a finding based
+     * on its workflow status, use <code>WorkflowStatus</code>.
      * </p>
      * 
-     * @return The findings attributes used to define a condition to filter the findings returned.
+     * @return The finding attributes used to define a condition to filter the returned findings.</p>
+     *         <p>
+     *         You can filter by up to 10 finding attributes. For each attribute, you can provide up to 20 filter
+     *         values.
+     *         </p>
+     *         <p>
+     *         Note that in the available filter fields, <code>WorkflowState</code> is deprecated. To search for a
+     *         finding based on its workflow status, use <code>WorkflowStatus</code>.
      */
 
     public AwsSecurityFindingFilters getFilters() {
@@ -79,11 +116,24 @@ public class GetFindingsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The findings attributes used to define a condition to filter the findings returned.
+     * The finding attributes used to define a condition to filter the returned findings.
+     * </p>
+     * <p>
+     * You can filter by up to 10 finding attributes. For each attribute, you can provide up to 20 filter values.
+     * </p>
+     * <p>
+     * Note that in the available filter fields, <code>WorkflowState</code> is deprecated. To search for a finding based
+     * on its workflow status, use <code>WorkflowStatus</code>.
      * </p>
      * 
      * @param filters
-     *        The findings attributes used to define a condition to filter the findings returned.
+     *        The finding attributes used to define a condition to filter the returned findings.</p>
+     *        <p>
+     *        You can filter by up to 10 finding attributes. For each attribute, you can provide up to 20 filter values.
+     *        </p>
+     *        <p>
+     *        Note that in the available filter fields, <code>WorkflowState</code> is deprecated. To search for a
+     *        finding based on its workflow status, use <code>WorkflowStatus</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -94,10 +144,10 @@ public class GetFindingsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Findings attributes used to sort the list of findings returned.
+     * The finding attributes used to sort the list of returned findings.
      * </p>
      * 
-     * @return Findings attributes used to sort the list of findings returned.
+     * @return The finding attributes used to sort the list of returned findings.
      */
 
     public java.util.List<SortCriterion> getSortCriteria() {
@@ -106,11 +156,11 @@ public class GetFindingsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Findings attributes used to sort the list of findings returned.
+     * The finding attributes used to sort the list of returned findings.
      * </p>
      * 
      * @param sortCriteria
-     *        Findings attributes used to sort the list of findings returned.
+     *        The finding attributes used to sort the list of returned findings.
      */
 
     public void setSortCriteria(java.util.Collection<SortCriterion> sortCriteria) {
@@ -124,7 +174,7 @@ public class GetFindingsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Findings attributes used to sort the list of findings returned.
+     * The finding attributes used to sort the list of returned findings.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -133,7 +183,7 @@ public class GetFindingsRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * 
      * @param sortCriteria
-     *        Findings attributes used to sort the list of findings returned.
+     *        The finding attributes used to sort the list of returned findings.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -149,11 +199,11 @@ public class GetFindingsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Findings attributes used to sort the list of findings returned.
+     * The finding attributes used to sort the list of returned findings.
      * </p>
      * 
      * @param sortCriteria
-     *        Findings attributes used to sort the list of findings returned.
+     *        The finding attributes used to sort the list of returned findings.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -164,15 +214,20 @@ public class GetFindingsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Paginates results. On your first call to the <code>GetFindings</code> operation, set the value of this parameter
-     * to <code>NULL</code>. For subsequent calls to the operation, fill <code>nextToken</code> in the request with the
-     * value of <code>nextToken</code> from the previous response to continue listing data.
+     * The token that is required for pagination. On your first call to the <code>GetFindings</code> operation, set the
+     * value of this parameter to <code>NULL</code>.
+     * </p>
+     * <p>
+     * For subsequent calls to the operation, to continue listing data, set the value of this parameter to the value
+     * returned from the previous response.
      * </p>
      * 
      * @param nextToken
-     *        Paginates results. On your first call to the <code>GetFindings</code> operation, set the value of this
-     *        parameter to <code>NULL</code>. For subsequent calls to the operation, fill <code>nextToken</code> in the
-     *        request with the value of <code>nextToken</code> from the previous response to continue listing data.
+     *        The token that is required for pagination. On your first call to the <code>GetFindings</code> operation,
+     *        set the value of this parameter to <code>NULL</code>.</p>
+     *        <p>
+     *        For subsequent calls to the operation, to continue listing data, set the value of this parameter to the
+     *        value returned from the previous response.
      */
 
     public void setNextToken(String nextToken) {
@@ -181,14 +236,19 @@ public class GetFindingsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Paginates results. On your first call to the <code>GetFindings</code> operation, set the value of this parameter
-     * to <code>NULL</code>. For subsequent calls to the operation, fill <code>nextToken</code> in the request with the
-     * value of <code>nextToken</code> from the previous response to continue listing data.
+     * The token that is required for pagination. On your first call to the <code>GetFindings</code> operation, set the
+     * value of this parameter to <code>NULL</code>.
+     * </p>
+     * <p>
+     * For subsequent calls to the operation, to continue listing data, set the value of this parameter to the value
+     * returned from the previous response.
      * </p>
      * 
-     * @return Paginates results. On your first call to the <code>GetFindings</code> operation, set the value of this
-     *         parameter to <code>NULL</code>. For subsequent calls to the operation, fill <code>nextToken</code> in the
-     *         request with the value of <code>nextToken</code> from the previous response to continue listing data.
+     * @return The token that is required for pagination. On your first call to the <code>GetFindings</code> operation,
+     *         set the value of this parameter to <code>NULL</code>.</p>
+     *         <p>
+     *         For subsequent calls to the operation, to continue listing data, set the value of this parameter to the
+     *         value returned from the previous response.
      */
 
     public String getNextToken() {
@@ -197,15 +257,20 @@ public class GetFindingsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Paginates results. On your first call to the <code>GetFindings</code> operation, set the value of this parameter
-     * to <code>NULL</code>. For subsequent calls to the operation, fill <code>nextToken</code> in the request with the
-     * value of <code>nextToken</code> from the previous response to continue listing data.
+     * The token that is required for pagination. On your first call to the <code>GetFindings</code> operation, set the
+     * value of this parameter to <code>NULL</code>.
+     * </p>
+     * <p>
+     * For subsequent calls to the operation, to continue listing data, set the value of this parameter to the value
+     * returned from the previous response.
      * </p>
      * 
      * @param nextToken
-     *        Paginates results. On your first call to the <code>GetFindings</code> operation, set the value of this
-     *        parameter to <code>NULL</code>. For subsequent calls to the operation, fill <code>nextToken</code> in the
-     *        request with the value of <code>nextToken</code> from the previous response to continue listing data.
+     *        The token that is required for pagination. On your first call to the <code>GetFindings</code> operation,
+     *        set the value of this parameter to <code>NULL</code>.</p>
+     *        <p>
+     *        For subsequent calls to the operation, to continue listing data, set the value of this parameter to the
+     *        value returned from the previous response.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

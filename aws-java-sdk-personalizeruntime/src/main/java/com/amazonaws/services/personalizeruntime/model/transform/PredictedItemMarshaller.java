@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,8 @@
  */
 package com.amazonaws.services.personalizeruntime.model.transform;
 
+import java.util.Map;
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -29,6 +31,14 @@ public class PredictedItemMarshaller {
 
     private static final MarshallingInfo<String> ITEMID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("itemId").build();
+    private static final MarshallingInfo<Double> SCORE_BINDING = MarshallingInfo.builder(MarshallingType.DOUBLE).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("score").build();
+    private static final MarshallingInfo<String> PROMOTIONNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("promotionName").build();
+    private static final MarshallingInfo<Map> METADATA_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("metadata").build();
+    private static final MarshallingInfo<List> REASON_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("reason").build();
 
     private static final PredictedItemMarshaller instance = new PredictedItemMarshaller();
 
@@ -47,6 +57,10 @@ public class PredictedItemMarshaller {
 
         try {
             protocolMarshaller.marshall(predictedItem.getItemId(), ITEMID_BINDING);
+            protocolMarshaller.marshall(predictedItem.getScore(), SCORE_BINDING);
+            protocolMarshaller.marshall(predictedItem.getPromotionName(), PROMOTIONNAME_BINDING);
+            protocolMarshaller.marshall(predictedItem.getMetadata(), METADATA_BINDING);
+            protocolMarshaller.marshall(predictedItem.getReason(), REASON_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

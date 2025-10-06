@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,38 +36,56 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
     private String userPoolId;
     /**
      * <p>
-     * A container with the policies you wish to update in a user pool.
+     * A container with the policies you want to update in a user pool.
      * </p>
      */
     private UserPoolPolicyType policies;
     /**
      * <p>
-     * The AWS Lambda configuration information from the request to update the user pool.
+     * When active, <code>DeletionProtection</code> prevents accidental deletion of your user pool. Before you can
+     * delete a user pool that you have protected against deletion, you must deactivate this feature.
+     * </p>
+     * <p>
+     * When you try to delete a protected user pool in a <code>DeleteUserPool</code> API request, Amazon Cognito returns
+     * an <code>InvalidParameterException</code> error. To delete a protected user pool, send a new
+     * <code>DeleteUserPool</code> request after you deactivate deletion protection in an <code>UpdateUserPool</code>
+     * API request.
+     * </p>
+     */
+    private String deletionProtection;
+    /**
+     * <p>
+     * The Lambda configuration information from the request to update the user pool.
      * </p>
      */
     private LambdaConfigType lambdaConfig;
     /**
      * <p>
-     * The attributes that are automatically verified when the Amazon Cognito service makes a request to update user
-     * pools.
+     * The attributes that are automatically verified when Amazon Cognito requests to update user pools.
      * </p>
      */
     private java.util.List<String> autoVerifiedAttributes;
     /**
      * <p>
-     * A container with information about the SMS verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      */
     private String smsVerificationMessage;
     /**
      * <p>
-     * The contents of the email verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      */
     private String emailVerificationMessage;
     /**
      * <p>
-     * The subject of the email verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      */
     private String emailVerificationSubject;
@@ -85,18 +103,31 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
     private String smsAuthenticationMessage;
     /**
      * <p>
-     * Can be one of the following values:
+     * The settings for updates to user attributes. These settings include the property
+     * <code>AttributesRequireVerificationBeforeUpdate</code>, a user-pool setting that tells Amazon Cognito how to
+     * handle changes to the value of your users' email address and phone number attributes. For more information, see
+     * <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-email-phone-verification.html#user-pool-settings-verifications-verify-attribute-updates"
+     * > Verifying updates to email addresses and phone numbers</a>.
+     * </p>
+     */
+    private UserAttributeUpdateSettingsType userAttributeUpdateSettings;
+    /**
+     * <p>
+     * Possible values include:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>OFF</code> - MFA tokens are not required and cannot be specified during user registration.
+     * <code>OFF</code> - MFA tokens aren't required and can't be specified during user registration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when you are
-     * initially creating a user pool.
+     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify ON when you're
+     * initially creating a user pool. You can use the <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUserPoolMfaConfig.html"
+     * >SetUserPoolMfaConfig</a> API operation to turn MFA "ON" for existing user pools.
      * </p>
      * </li>
      * <li>
@@ -109,19 +140,30 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
     private String mfaConfiguration;
     /**
      * <p>
-     * Device configuration.
+     * The device-remembering configuration for a user pool. A null value indicates that you have deactivated device
+     * remembering in your user pool.
      * </p>
+     * <note>
+     * <p>
+     * When you provide a value for any <code>DeviceConfiguration</code> field, you activate the Amazon Cognito
+     * device-remembering feature.
+     * </p>
+     * </note>
      */
     private DeviceConfigurationType deviceConfiguration;
     /**
      * <p>
-     * Email configuration.
+     * The email configuration of your user pool. The email configuration type sets your preferred sending method,
+     * Amazon Web Services Region, and sender for email invitation and verification messages from your user pool.
      * </p>
      */
     private EmailConfigurationType emailConfiguration;
     /**
      * <p>
-     * SMS configuration.
+     * The SMS configuration with the settings that your Amazon Cognito user pool must use to send an SMS message from
+     * your Amazon Web Services account through Amazon Simple Notification Service. To send SMS messages with Amazon SNS
+     * in the Amazon Web Services Region that you want, the Amazon Cognito user pool uses an Identity and Access
+     * Management (IAM) role in your Amazon Web Services account.
      * </p>
      */
     private SmsConfigurationType smsConfiguration;
@@ -140,11 +182,27 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
     private AdminCreateUserConfigType adminCreateUserConfig;
     /**
      * <p>
-     * Used to enable advanced security risk detection. Set the key <code>AdvancedSecurityMode</code> to the value
-     * "AUDIT".
+     * User pool add-ons. Contains settings for activation of advanced security features. To log user security
+     * information but take no action, set to <code>AUDIT</code>. To configure automatic security responses to risky
+     * traffic to your user pool, set to <code>ENFORCED</code>.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html"
+     * >Adding advanced security to a user pool</a>.
      * </p>
      */
     private UserPoolAddOnsType userPoolAddOns;
+    /**
+     * <p>
+     * The available verified method a user can use to recover their password when they call <code>ForgotPassword</code>
+     * . You can use this setting to define a preferred method when a user has more than one method available. With this
+     * setting, SMS doesn't qualify for a valid password recovery mechanism if the user also has SMS multi-factor
+     * authentication (MFA) activated. In the absence of this setting, Amazon Cognito uses the legacy behavior to
+     * determine the recovery method where SMS is preferred through email.
+     * </p>
+     */
+    private AccountRecoverySettingType accountRecoverySetting;
 
     /**
      * <p>
@@ -188,11 +246,11 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A container with the policies you wish to update in a user pool.
+     * A container with the policies you want to update in a user pool.
      * </p>
      * 
      * @param policies
-     *        A container with the policies you wish to update in a user pool.
+     *        A container with the policies you want to update in a user pool.
      */
 
     public void setPolicies(UserPoolPolicyType policies) {
@@ -201,10 +259,10 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A container with the policies you wish to update in a user pool.
+     * A container with the policies you want to update in a user pool.
      * </p>
      * 
-     * @return A container with the policies you wish to update in a user pool.
+     * @return A container with the policies you want to update in a user pool.
      */
 
     public UserPoolPolicyType getPolicies() {
@@ -213,11 +271,11 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A container with the policies you wish to update in a user pool.
+     * A container with the policies you want to update in a user pool.
      * </p>
      * 
      * @param policies
-     *        A container with the policies you wish to update in a user pool.
+     *        A container with the policies you want to update in a user pool.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -228,11 +286,149 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The AWS Lambda configuration information from the request to update the user pool.
+     * When active, <code>DeletionProtection</code> prevents accidental deletion of your user pool. Before you can
+     * delete a user pool that you have protected against deletion, you must deactivate this feature.
+     * </p>
+     * <p>
+     * When you try to delete a protected user pool in a <code>DeleteUserPool</code> API request, Amazon Cognito returns
+     * an <code>InvalidParameterException</code> error. To delete a protected user pool, send a new
+     * <code>DeleteUserPool</code> request after you deactivate deletion protection in an <code>UpdateUserPool</code>
+     * API request.
+     * </p>
+     * 
+     * @param deletionProtection
+     *        When active, <code>DeletionProtection</code> prevents accidental deletion of your user pool. Before you
+     *        can delete a user pool that you have protected against deletion, you must deactivate this feature.</p>
+     *        <p>
+     *        When you try to delete a protected user pool in a <code>DeleteUserPool</code> API request, Amazon Cognito
+     *        returns an <code>InvalidParameterException</code> error. To delete a protected user pool, send a new
+     *        <code>DeleteUserPool</code> request after you deactivate deletion protection in an
+     *        <code>UpdateUserPool</code> API request.
+     * @see DeletionProtectionType
+     */
+
+    public void setDeletionProtection(String deletionProtection) {
+        this.deletionProtection = deletionProtection;
+    }
+
+    /**
+     * <p>
+     * When active, <code>DeletionProtection</code> prevents accidental deletion of your user pool. Before you can
+     * delete a user pool that you have protected against deletion, you must deactivate this feature.
+     * </p>
+     * <p>
+     * When you try to delete a protected user pool in a <code>DeleteUserPool</code> API request, Amazon Cognito returns
+     * an <code>InvalidParameterException</code> error. To delete a protected user pool, send a new
+     * <code>DeleteUserPool</code> request after you deactivate deletion protection in an <code>UpdateUserPool</code>
+     * API request.
+     * </p>
+     * 
+     * @return When active, <code>DeletionProtection</code> prevents accidental deletion of your user pool. Before you
+     *         can delete a user pool that you have protected against deletion, you must deactivate this feature.</p>
+     *         <p>
+     *         When you try to delete a protected user pool in a <code>DeleteUserPool</code> API request, Amazon Cognito
+     *         returns an <code>InvalidParameterException</code> error. To delete a protected user pool, send a new
+     *         <code>DeleteUserPool</code> request after you deactivate deletion protection in an
+     *         <code>UpdateUserPool</code> API request.
+     * @see DeletionProtectionType
+     */
+
+    public String getDeletionProtection() {
+        return this.deletionProtection;
+    }
+
+    /**
+     * <p>
+     * When active, <code>DeletionProtection</code> prevents accidental deletion of your user pool. Before you can
+     * delete a user pool that you have protected against deletion, you must deactivate this feature.
+     * </p>
+     * <p>
+     * When you try to delete a protected user pool in a <code>DeleteUserPool</code> API request, Amazon Cognito returns
+     * an <code>InvalidParameterException</code> error. To delete a protected user pool, send a new
+     * <code>DeleteUserPool</code> request after you deactivate deletion protection in an <code>UpdateUserPool</code>
+     * API request.
+     * </p>
+     * 
+     * @param deletionProtection
+     *        When active, <code>DeletionProtection</code> prevents accidental deletion of your user pool. Before you
+     *        can delete a user pool that you have protected against deletion, you must deactivate this feature.</p>
+     *        <p>
+     *        When you try to delete a protected user pool in a <code>DeleteUserPool</code> API request, Amazon Cognito
+     *        returns an <code>InvalidParameterException</code> error. To delete a protected user pool, send a new
+     *        <code>DeleteUserPool</code> request after you deactivate deletion protection in an
+     *        <code>UpdateUserPool</code> API request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DeletionProtectionType
+     */
+
+    public UpdateUserPoolRequest withDeletionProtection(String deletionProtection) {
+        setDeletionProtection(deletionProtection);
+        return this;
+    }
+
+    /**
+     * <p>
+     * When active, <code>DeletionProtection</code> prevents accidental deletion of your user pool. Before you can
+     * delete a user pool that you have protected against deletion, you must deactivate this feature.
+     * </p>
+     * <p>
+     * When you try to delete a protected user pool in a <code>DeleteUserPool</code> API request, Amazon Cognito returns
+     * an <code>InvalidParameterException</code> error. To delete a protected user pool, send a new
+     * <code>DeleteUserPool</code> request after you deactivate deletion protection in an <code>UpdateUserPool</code>
+     * API request.
+     * </p>
+     * 
+     * @param deletionProtection
+     *        When active, <code>DeletionProtection</code> prevents accidental deletion of your user pool. Before you
+     *        can delete a user pool that you have protected against deletion, you must deactivate this feature.</p>
+     *        <p>
+     *        When you try to delete a protected user pool in a <code>DeleteUserPool</code> API request, Amazon Cognito
+     *        returns an <code>InvalidParameterException</code> error. To delete a protected user pool, send a new
+     *        <code>DeleteUserPool</code> request after you deactivate deletion protection in an
+     *        <code>UpdateUserPool</code> API request.
+     * @see DeletionProtectionType
+     */
+
+    public void setDeletionProtection(DeletionProtectionType deletionProtection) {
+        withDeletionProtection(deletionProtection);
+    }
+
+    /**
+     * <p>
+     * When active, <code>DeletionProtection</code> prevents accidental deletion of your user pool. Before you can
+     * delete a user pool that you have protected against deletion, you must deactivate this feature.
+     * </p>
+     * <p>
+     * When you try to delete a protected user pool in a <code>DeleteUserPool</code> API request, Amazon Cognito returns
+     * an <code>InvalidParameterException</code> error. To delete a protected user pool, send a new
+     * <code>DeleteUserPool</code> request after you deactivate deletion protection in an <code>UpdateUserPool</code>
+     * API request.
+     * </p>
+     * 
+     * @param deletionProtection
+     *        When active, <code>DeletionProtection</code> prevents accidental deletion of your user pool. Before you
+     *        can delete a user pool that you have protected against deletion, you must deactivate this feature.</p>
+     *        <p>
+     *        When you try to delete a protected user pool in a <code>DeleteUserPool</code> API request, Amazon Cognito
+     *        returns an <code>InvalidParameterException</code> error. To delete a protected user pool, send a new
+     *        <code>DeleteUserPool</code> request after you deactivate deletion protection in an
+     *        <code>UpdateUserPool</code> API request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DeletionProtectionType
+     */
+
+    public UpdateUserPoolRequest withDeletionProtection(DeletionProtectionType deletionProtection) {
+        this.deletionProtection = deletionProtection.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Lambda configuration information from the request to update the user pool.
      * </p>
      * 
      * @param lambdaConfig
-     *        The AWS Lambda configuration information from the request to update the user pool.
+     *        The Lambda configuration information from the request to update the user pool.
      */
 
     public void setLambdaConfig(LambdaConfigType lambdaConfig) {
@@ -241,10 +437,10 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The AWS Lambda configuration information from the request to update the user pool.
+     * The Lambda configuration information from the request to update the user pool.
      * </p>
      * 
-     * @return The AWS Lambda configuration information from the request to update the user pool.
+     * @return The Lambda configuration information from the request to update the user pool.
      */
 
     public LambdaConfigType getLambdaConfig() {
@@ -253,11 +449,11 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The AWS Lambda configuration information from the request to update the user pool.
+     * The Lambda configuration information from the request to update the user pool.
      * </p>
      * 
      * @param lambdaConfig
-     *        The AWS Lambda configuration information from the request to update the user pool.
+     *        The Lambda configuration information from the request to update the user pool.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -268,12 +464,10 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The attributes that are automatically verified when the Amazon Cognito service makes a request to update user
-     * pools.
+     * The attributes that are automatically verified when Amazon Cognito requests to update user pools.
      * </p>
      * 
-     * @return The attributes that are automatically verified when the Amazon Cognito service makes a request to update
-     *         user pools.
+     * @return The attributes that are automatically verified when Amazon Cognito requests to update user pools.
      * @see VerifiedAttributeType
      */
 
@@ -283,13 +477,11 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The attributes that are automatically verified when the Amazon Cognito service makes a request to update user
-     * pools.
+     * The attributes that are automatically verified when Amazon Cognito requests to update user pools.
      * </p>
      * 
      * @param autoVerifiedAttributes
-     *        The attributes that are automatically verified when the Amazon Cognito service makes a request to update
-     *        user pools.
+     *        The attributes that are automatically verified when Amazon Cognito requests to update user pools.
      * @see VerifiedAttributeType
      */
 
@@ -304,8 +496,7 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The attributes that are automatically verified when the Amazon Cognito service makes a request to update user
-     * pools.
+     * The attributes that are automatically verified when Amazon Cognito requests to update user pools.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -314,8 +505,7 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
      * </p>
      * 
      * @param autoVerifiedAttributes
-     *        The attributes that are automatically verified when the Amazon Cognito service makes a request to update
-     *        user pools.
+     *        The attributes that are automatically verified when Amazon Cognito requests to update user pools.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see VerifiedAttributeType
      */
@@ -332,13 +522,11 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The attributes that are automatically verified when the Amazon Cognito service makes a request to update user
-     * pools.
+     * The attributes that are automatically verified when Amazon Cognito requests to update user pools.
      * </p>
      * 
      * @param autoVerifiedAttributes
-     *        The attributes that are automatically verified when the Amazon Cognito service makes a request to update
-     *        user pools.
+     *        The attributes that are automatically verified when Amazon Cognito requests to update user pools.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see VerifiedAttributeType
      */
@@ -350,13 +538,11 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The attributes that are automatically verified when the Amazon Cognito service makes a request to update user
-     * pools.
+     * The attributes that are automatically verified when Amazon Cognito requests to update user pools.
      * </p>
      * 
      * @param autoVerifiedAttributes
-     *        The attributes that are automatically verified when the Amazon Cognito service makes a request to update
-     *        user pools.
+     *        The attributes that are automatically verified when Amazon Cognito requests to update user pools.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see VerifiedAttributeType
      */
@@ -376,11 +562,15 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A container with information about the SMS verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      * 
      * @param smsVerificationMessage
-     *        A container with information about the SMS verification message.
+     *        This parameter is no longer used. See <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     *        >VerificationMessageTemplateType</a>.
      */
 
     public void setSmsVerificationMessage(String smsVerificationMessage) {
@@ -389,10 +579,14 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A container with information about the SMS verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      * 
-     * @return A container with information about the SMS verification message.
+     * @return This parameter is no longer used. See <a href=
+     *         "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     *         >VerificationMessageTemplateType</a>.
      */
 
     public String getSmsVerificationMessage() {
@@ -401,11 +595,15 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A container with information about the SMS verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      * 
      * @param smsVerificationMessage
-     *        A container with information about the SMS verification message.
+     *        This parameter is no longer used. See <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     *        >VerificationMessageTemplateType</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -416,11 +614,15 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The contents of the email verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      * 
      * @param emailVerificationMessage
-     *        The contents of the email verification message.
+     *        This parameter is no longer used. See <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     *        >VerificationMessageTemplateType</a>.
      */
 
     public void setEmailVerificationMessage(String emailVerificationMessage) {
@@ -429,10 +631,14 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The contents of the email verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      * 
-     * @return The contents of the email verification message.
+     * @return This parameter is no longer used. See <a href=
+     *         "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     *         >VerificationMessageTemplateType</a>.
      */
 
     public String getEmailVerificationMessage() {
@@ -441,11 +647,15 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The contents of the email verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      * 
      * @param emailVerificationMessage
-     *        The contents of the email verification message.
+     *        This parameter is no longer used. See <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     *        >VerificationMessageTemplateType</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -456,11 +666,15 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The subject of the email verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      * 
      * @param emailVerificationSubject
-     *        The subject of the email verification message.
+     *        This parameter is no longer used. See <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     *        >VerificationMessageTemplateType</a>.
      */
 
     public void setEmailVerificationSubject(String emailVerificationSubject) {
@@ -469,10 +683,14 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The subject of the email verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      * 
-     * @return The subject of the email verification message.
+     * @return This parameter is no longer used. See <a href=
+     *         "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     *         >VerificationMessageTemplateType</a>.
      */
 
     public String getEmailVerificationSubject() {
@@ -481,11 +699,15 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The subject of the email verification message.
+     * This parameter is no longer used. See <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     * >VerificationMessageTemplateType</a>.
      * </p>
      * 
      * @param emailVerificationSubject
-     *        The subject of the email verification message.
+     *        This parameter is no longer used. See <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerificationMessageTemplateType.html"
+     *        >VerificationMessageTemplateType</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -576,18 +798,90 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Can be one of the following values:
+     * The settings for updates to user attributes. These settings include the property
+     * <code>AttributesRequireVerificationBeforeUpdate</code>, a user-pool setting that tells Amazon Cognito how to
+     * handle changes to the value of your users' email address and phone number attributes. For more information, see
+     * <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-email-phone-verification.html#user-pool-settings-verifications-verify-attribute-updates"
+     * > Verifying updates to email addresses and phone numbers</a>.
+     * </p>
+     * 
+     * @param userAttributeUpdateSettings
+     *        The settings for updates to user attributes. These settings include the property
+     *        <code>AttributesRequireVerificationBeforeUpdate</code>, a user-pool setting that tells Amazon Cognito how
+     *        to handle changes to the value of your users' email address and phone number attributes. For more
+     *        information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-email-phone-verification.html#user-pool-settings-verifications-verify-attribute-updates"
+     *        > Verifying updates to email addresses and phone numbers</a>.
+     */
+
+    public void setUserAttributeUpdateSettings(UserAttributeUpdateSettingsType userAttributeUpdateSettings) {
+        this.userAttributeUpdateSettings = userAttributeUpdateSettings;
+    }
+
+    /**
+     * <p>
+     * The settings for updates to user attributes. These settings include the property
+     * <code>AttributesRequireVerificationBeforeUpdate</code>, a user-pool setting that tells Amazon Cognito how to
+     * handle changes to the value of your users' email address and phone number attributes. For more information, see
+     * <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-email-phone-verification.html#user-pool-settings-verifications-verify-attribute-updates"
+     * > Verifying updates to email addresses and phone numbers</a>.
+     * </p>
+     * 
+     * @return The settings for updates to user attributes. These settings include the property
+     *         <code>AttributesRequireVerificationBeforeUpdate</code>, a user-pool setting that tells Amazon Cognito how
+     *         to handle changes to the value of your users' email address and phone number attributes. For more
+     *         information, see <a href=
+     *         "https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-email-phone-verification.html#user-pool-settings-verifications-verify-attribute-updates"
+     *         > Verifying updates to email addresses and phone numbers</a>.
+     */
+
+    public UserAttributeUpdateSettingsType getUserAttributeUpdateSettings() {
+        return this.userAttributeUpdateSettings;
+    }
+
+    /**
+     * <p>
+     * The settings for updates to user attributes. These settings include the property
+     * <code>AttributesRequireVerificationBeforeUpdate</code>, a user-pool setting that tells Amazon Cognito how to
+     * handle changes to the value of your users' email address and phone number attributes. For more information, see
+     * <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-email-phone-verification.html#user-pool-settings-verifications-verify-attribute-updates"
+     * > Verifying updates to email addresses and phone numbers</a>.
+     * </p>
+     * 
+     * @param userAttributeUpdateSettings
+     *        The settings for updates to user attributes. These settings include the property
+     *        <code>AttributesRequireVerificationBeforeUpdate</code>, a user-pool setting that tells Amazon Cognito how
+     *        to handle changes to the value of your users' email address and phone number attributes. For more
+     *        information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-email-phone-verification.html#user-pool-settings-verifications-verify-attribute-updates"
+     *        > Verifying updates to email addresses and phone numbers</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateUserPoolRequest withUserAttributeUpdateSettings(UserAttributeUpdateSettingsType userAttributeUpdateSettings) {
+        setUserAttributeUpdateSettings(userAttributeUpdateSettings);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Possible values include:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>OFF</code> - MFA tokens are not required and cannot be specified during user registration.
+     * <code>OFF</code> - MFA tokens aren't required and can't be specified during user registration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when you are
-     * initially creating a user pool.
+     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify ON when you're
+     * initially creating a user pool. You can use the <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUserPoolMfaConfig.html"
+     * >SetUserPoolMfaConfig</a> API operation to turn MFA "ON" for existing user pools.
      * </p>
      * </li>
      * <li>
@@ -598,17 +892,19 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
      * </ul>
      * 
      * @param mfaConfiguration
-     *        Can be one of the following values:</p>
+     *        Possible values include:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>OFF</code> - MFA tokens are not required and cannot be specified during user registration.
+     *        <code>OFF</code> - MFA tokens aren't required and can't be specified during user registration.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when
-     *        you are initially creating a user pool.
+     *        <code>ON</code> - MFA tokens are required for all user registrations. You can only specify ON when you're
+     *        initially creating a user pool. You can use the <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUserPoolMfaConfig.html"
+     *        >SetUserPoolMfaConfig</a> API operation to turn MFA "ON" for existing user pools.
      *        </p>
      *        </li>
      *        <li>
@@ -625,18 +921,20 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Can be one of the following values:
+     * Possible values include:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>OFF</code> - MFA tokens are not required and cannot be specified during user registration.
+     * <code>OFF</code> - MFA tokens aren't required and can't be specified during user registration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when you are
-     * initially creating a user pool.
+     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify ON when you're
+     * initially creating a user pool. You can use the <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUserPoolMfaConfig.html"
+     * >SetUserPoolMfaConfig</a> API operation to turn MFA "ON" for existing user pools.
      * </p>
      * </li>
      * <li>
@@ -646,17 +944,19 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
      * </li>
      * </ul>
      * 
-     * @return Can be one of the following values:</p>
+     * @return Possible values include:</p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>OFF</code> - MFA tokens are not required and cannot be specified during user registration.
+     *         <code>OFF</code> - MFA tokens aren't required and can't be specified during user registration.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when
-     *         you are initially creating a user pool.
+     *         <code>ON</code> - MFA tokens are required for all user registrations. You can only specify ON when you're
+     *         initially creating a user pool. You can use the <a href=
+     *         "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUserPoolMfaConfig.html"
+     *         >SetUserPoolMfaConfig</a> API operation to turn MFA "ON" for existing user pools.
      *         </p>
      *         </li>
      *         <li>
@@ -673,18 +973,20 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Can be one of the following values:
+     * Possible values include:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>OFF</code> - MFA tokens are not required and cannot be specified during user registration.
+     * <code>OFF</code> - MFA tokens aren't required and can't be specified during user registration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when you are
-     * initially creating a user pool.
+     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify ON when you're
+     * initially creating a user pool. You can use the <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUserPoolMfaConfig.html"
+     * >SetUserPoolMfaConfig</a> API operation to turn MFA "ON" for existing user pools.
      * </p>
      * </li>
      * <li>
@@ -695,17 +997,19 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
      * </ul>
      * 
      * @param mfaConfiguration
-     *        Can be one of the following values:</p>
+     *        Possible values include:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>OFF</code> - MFA tokens are not required and cannot be specified during user registration.
+     *        <code>OFF</code> - MFA tokens aren't required and can't be specified during user registration.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when
-     *        you are initially creating a user pool.
+     *        <code>ON</code> - MFA tokens are required for all user registrations. You can only specify ON when you're
+     *        initially creating a user pool. You can use the <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUserPoolMfaConfig.html"
+     *        >SetUserPoolMfaConfig</a> API operation to turn MFA "ON" for existing user pools.
      *        </p>
      *        </li>
      *        <li>
@@ -724,18 +1028,20 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Can be one of the following values:
+     * Possible values include:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>OFF</code> - MFA tokens are not required and cannot be specified during user registration.
+     * <code>OFF</code> - MFA tokens aren't required and can't be specified during user registration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when you are
-     * initially creating a user pool.
+     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify ON when you're
+     * initially creating a user pool. You can use the <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUserPoolMfaConfig.html"
+     * >SetUserPoolMfaConfig</a> API operation to turn MFA "ON" for existing user pools.
      * </p>
      * </li>
      * <li>
@@ -746,17 +1052,19 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
      * </ul>
      * 
      * @param mfaConfiguration
-     *        Can be one of the following values:</p>
+     *        Possible values include:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>OFF</code> - MFA tokens are not required and cannot be specified during user registration.
+     *        <code>OFF</code> - MFA tokens aren't required and can't be specified during user registration.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when
-     *        you are initially creating a user pool.
+     *        <code>ON</code> - MFA tokens are required for all user registrations. You can only specify ON when you're
+     *        initially creating a user pool. You can use the <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUserPoolMfaConfig.html"
+     *        >SetUserPoolMfaConfig</a> API operation to turn MFA "ON" for existing user pools.
      *        </p>
      *        </li>
      *        <li>
@@ -773,18 +1081,20 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Can be one of the following values:
+     * Possible values include:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>OFF</code> - MFA tokens are not required and cannot be specified during user registration.
+     * <code>OFF</code> - MFA tokens aren't required and can't be specified during user registration.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when you are
-     * initially creating a user pool.
+     * <code>ON</code> - MFA tokens are required for all user registrations. You can only specify ON when you're
+     * initially creating a user pool. You can use the <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUserPoolMfaConfig.html"
+     * >SetUserPoolMfaConfig</a> API operation to turn MFA "ON" for existing user pools.
      * </p>
      * </li>
      * <li>
@@ -795,17 +1105,19 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
      * </ul>
      * 
      * @param mfaConfiguration
-     *        Can be one of the following values:</p>
+     *        Possible values include:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>OFF</code> - MFA tokens are not required and cannot be specified during user registration.
+     *        <code>OFF</code> - MFA tokens aren't required and can't be specified during user registration.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ON</code> - MFA tokens are required for all user registrations. You can only specify required when
-     *        you are initially creating a user pool.
+     *        <code>ON</code> - MFA tokens are required for all user registrations. You can only specify ON when you're
+     *        initially creating a user pool. You can use the <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_SetUserPoolMfaConfig.html"
+     *        >SetUserPoolMfaConfig</a> API operation to turn MFA "ON" for existing user pools.
      *        </p>
      *        </li>
      *        <li>
@@ -824,11 +1136,23 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Device configuration.
+     * The device-remembering configuration for a user pool. A null value indicates that you have deactivated device
+     * remembering in your user pool.
      * </p>
+     * <note>
+     * <p>
+     * When you provide a value for any <code>DeviceConfiguration</code> field, you activate the Amazon Cognito
+     * device-remembering feature.
+     * </p>
+     * </note>
      * 
      * @param deviceConfiguration
-     *        Device configuration.
+     *        The device-remembering configuration for a user pool. A null value indicates that you have deactivated
+     *        device remembering in your user pool.</p> <note>
+     *        <p>
+     *        When you provide a value for any <code>DeviceConfiguration</code> field, you activate the Amazon Cognito
+     *        device-remembering feature.
+     *        </p>
      */
 
     public void setDeviceConfiguration(DeviceConfigurationType deviceConfiguration) {
@@ -837,10 +1161,22 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Device configuration.
+     * The device-remembering configuration for a user pool. A null value indicates that you have deactivated device
+     * remembering in your user pool.
      * </p>
+     * <note>
+     * <p>
+     * When you provide a value for any <code>DeviceConfiguration</code> field, you activate the Amazon Cognito
+     * device-remembering feature.
+     * </p>
+     * </note>
      * 
-     * @return Device configuration.
+     * @return The device-remembering configuration for a user pool. A null value indicates that you have deactivated
+     *         device remembering in your user pool.</p> <note>
+     *         <p>
+     *         When you provide a value for any <code>DeviceConfiguration</code> field, you activate the Amazon Cognito
+     *         device-remembering feature.
+     *         </p>
      */
 
     public DeviceConfigurationType getDeviceConfiguration() {
@@ -849,11 +1185,23 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Device configuration.
+     * The device-remembering configuration for a user pool. A null value indicates that you have deactivated device
+     * remembering in your user pool.
      * </p>
+     * <note>
+     * <p>
+     * When you provide a value for any <code>DeviceConfiguration</code> field, you activate the Amazon Cognito
+     * device-remembering feature.
+     * </p>
+     * </note>
      * 
      * @param deviceConfiguration
-     *        Device configuration.
+     *        The device-remembering configuration for a user pool. A null value indicates that you have deactivated
+     *        device remembering in your user pool.</p> <note>
+     *        <p>
+     *        When you provide a value for any <code>DeviceConfiguration</code> field, you activate the Amazon Cognito
+     *        device-remembering feature.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -864,11 +1212,14 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Email configuration.
+     * The email configuration of your user pool. The email configuration type sets your preferred sending method,
+     * Amazon Web Services Region, and sender for email invitation and verification messages from your user pool.
      * </p>
      * 
      * @param emailConfiguration
-     *        Email configuration.
+     *        The email configuration of your user pool. The email configuration type sets your preferred sending
+     *        method, Amazon Web Services Region, and sender for email invitation and verification messages from your
+     *        user pool.
      */
 
     public void setEmailConfiguration(EmailConfigurationType emailConfiguration) {
@@ -877,10 +1228,13 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Email configuration.
+     * The email configuration of your user pool. The email configuration type sets your preferred sending method,
+     * Amazon Web Services Region, and sender for email invitation and verification messages from your user pool.
      * </p>
      * 
-     * @return Email configuration.
+     * @return The email configuration of your user pool. The email configuration type sets your preferred sending
+     *         method, Amazon Web Services Region, and sender for email invitation and verification messages from your
+     *         user pool.
      */
 
     public EmailConfigurationType getEmailConfiguration() {
@@ -889,11 +1243,14 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Email configuration.
+     * The email configuration of your user pool. The email configuration type sets your preferred sending method,
+     * Amazon Web Services Region, and sender for email invitation and verification messages from your user pool.
      * </p>
      * 
      * @param emailConfiguration
-     *        Email configuration.
+     *        The email configuration of your user pool. The email configuration type sets your preferred sending
+     *        method, Amazon Web Services Region, and sender for email invitation and verification messages from your
+     *        user pool.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -904,11 +1261,17 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * SMS configuration.
+     * The SMS configuration with the settings that your Amazon Cognito user pool must use to send an SMS message from
+     * your Amazon Web Services account through Amazon Simple Notification Service. To send SMS messages with Amazon SNS
+     * in the Amazon Web Services Region that you want, the Amazon Cognito user pool uses an Identity and Access
+     * Management (IAM) role in your Amazon Web Services account.
      * </p>
      * 
      * @param smsConfiguration
-     *        SMS configuration.
+     *        The SMS configuration with the settings that your Amazon Cognito user pool must use to send an SMS message
+     *        from your Amazon Web Services account through Amazon Simple Notification Service. To send SMS messages
+     *        with Amazon SNS in the Amazon Web Services Region that you want, the Amazon Cognito user pool uses an
+     *        Identity and Access Management (IAM) role in your Amazon Web Services account.
      */
 
     public void setSmsConfiguration(SmsConfigurationType smsConfiguration) {
@@ -917,10 +1280,16 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * SMS configuration.
+     * The SMS configuration with the settings that your Amazon Cognito user pool must use to send an SMS message from
+     * your Amazon Web Services account through Amazon Simple Notification Service. To send SMS messages with Amazon SNS
+     * in the Amazon Web Services Region that you want, the Amazon Cognito user pool uses an Identity and Access
+     * Management (IAM) role in your Amazon Web Services account.
      * </p>
      * 
-     * @return SMS configuration.
+     * @return The SMS configuration with the settings that your Amazon Cognito user pool must use to send an SMS
+     *         message from your Amazon Web Services account through Amazon Simple Notification Service. To send SMS
+     *         messages with Amazon SNS in the Amazon Web Services Region that you want, the Amazon Cognito user pool
+     *         uses an Identity and Access Management (IAM) role in your Amazon Web Services account.
      */
 
     public SmsConfigurationType getSmsConfiguration() {
@@ -929,11 +1298,17 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * SMS configuration.
+     * The SMS configuration with the settings that your Amazon Cognito user pool must use to send an SMS message from
+     * your Amazon Web Services account through Amazon Simple Notification Service. To send SMS messages with Amazon SNS
+     * in the Amazon Web Services Region that you want, the Amazon Cognito user pool uses an Identity and Access
+     * Management (IAM) role in your Amazon Web Services account.
      * </p>
      * 
      * @param smsConfiguration
-     *        SMS configuration.
+     *        The SMS configuration with the settings that your Amazon Cognito user pool must use to send an SMS message
+     *        from your Amazon Web Services account through Amazon Simple Notification Service. To send SMS messages
+     *        with Amazon SNS in the Amazon Web Services Region that you want, the Amazon Cognito user pool uses an
+     *        Identity and Access Management (IAM) role in your Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -987,6 +1362,13 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
         setUserPoolTags(userPoolTags);
         return this;
     }
+
+    /**
+     * Add a single UserPoolTags entry
+     *
+     * @see UpdateUserPoolRequest#withUserPoolTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public UpdateUserPoolRequest addUserPoolTagsEntry(String key, String value) {
         if (null == this.userPoolTags) {
@@ -1051,13 +1433,24 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Used to enable advanced security risk detection. Set the key <code>AdvancedSecurityMode</code> to the value
-     * "AUDIT".
+     * User pool add-ons. Contains settings for activation of advanced security features. To log user security
+     * information but take no action, set to <code>AUDIT</code>. To configure automatic security responses to risky
+     * traffic to your user pool, set to <code>ENFORCED</code>.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html"
+     * >Adding advanced security to a user pool</a>.
      * </p>
      * 
      * @param userPoolAddOns
-     *        Used to enable advanced security risk detection. Set the key <code>AdvancedSecurityMode</code> to the
-     *        value "AUDIT".
+     *        User pool add-ons. Contains settings for activation of advanced security features. To log user security
+     *        information but take no action, set to <code>AUDIT</code>. To configure automatic security responses to
+     *        risky traffic to your user pool, set to <code>ENFORCED</code>.</p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html"
+     *        >Adding advanced security to a user pool</a>.
      */
 
     public void setUserPoolAddOns(UserPoolAddOnsType userPoolAddOns) {
@@ -1066,12 +1459,23 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Used to enable advanced security risk detection. Set the key <code>AdvancedSecurityMode</code> to the value
-     * "AUDIT".
+     * User pool add-ons. Contains settings for activation of advanced security features. To log user security
+     * information but take no action, set to <code>AUDIT</code>. To configure automatic security responses to risky
+     * traffic to your user pool, set to <code>ENFORCED</code>.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html"
+     * >Adding advanced security to a user pool</a>.
      * </p>
      * 
-     * @return Used to enable advanced security risk detection. Set the key <code>AdvancedSecurityMode</code> to the
-     *         value "AUDIT".
+     * @return User pool add-ons. Contains settings for activation of advanced security features. To log user security
+     *         information but take no action, set to <code>AUDIT</code>. To configure automatic security responses to
+     *         risky traffic to your user pool, set to <code>ENFORCED</code>.</p>
+     *         <p>
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html"
+     *         >Adding advanced security to a user pool</a>.
      */
 
     public UserPoolAddOnsType getUserPoolAddOns() {
@@ -1080,18 +1484,96 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Used to enable advanced security risk detection. Set the key <code>AdvancedSecurityMode</code> to the value
-     * "AUDIT".
+     * User pool add-ons. Contains settings for activation of advanced security features. To log user security
+     * information but take no action, set to <code>AUDIT</code>. To configure automatic security responses to risky
+     * traffic to your user pool, set to <code>ENFORCED</code>.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html"
+     * >Adding advanced security to a user pool</a>.
      * </p>
      * 
      * @param userPoolAddOns
-     *        Used to enable advanced security risk detection. Set the key <code>AdvancedSecurityMode</code> to the
-     *        value "AUDIT".
+     *        User pool add-ons. Contains settings for activation of advanced security features. To log user security
+     *        information but take no action, set to <code>AUDIT</code>. To configure automatic security responses to
+     *        risky traffic to your user pool, set to <code>ENFORCED</code>.</p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html"
+     *        >Adding advanced security to a user pool</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public UpdateUserPoolRequest withUserPoolAddOns(UserPoolAddOnsType userPoolAddOns) {
         setUserPoolAddOns(userPoolAddOns);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The available verified method a user can use to recover their password when they call <code>ForgotPassword</code>
+     * . You can use this setting to define a preferred method when a user has more than one method available. With this
+     * setting, SMS doesn't qualify for a valid password recovery mechanism if the user also has SMS multi-factor
+     * authentication (MFA) activated. In the absence of this setting, Amazon Cognito uses the legacy behavior to
+     * determine the recovery method where SMS is preferred through email.
+     * </p>
+     * 
+     * @param accountRecoverySetting
+     *        The available verified method a user can use to recover their password when they call
+     *        <code>ForgotPassword</code>. You can use this setting to define a preferred method when a user has more
+     *        than one method available. With this setting, SMS doesn't qualify for a valid password recovery mechanism
+     *        if the user also has SMS multi-factor authentication (MFA) activated. In the absence of this setting,
+     *        Amazon Cognito uses the legacy behavior to determine the recovery method where SMS is preferred through
+     *        email.
+     */
+
+    public void setAccountRecoverySetting(AccountRecoverySettingType accountRecoverySetting) {
+        this.accountRecoverySetting = accountRecoverySetting;
+    }
+
+    /**
+     * <p>
+     * The available verified method a user can use to recover their password when they call <code>ForgotPassword</code>
+     * . You can use this setting to define a preferred method when a user has more than one method available. With this
+     * setting, SMS doesn't qualify for a valid password recovery mechanism if the user also has SMS multi-factor
+     * authentication (MFA) activated. In the absence of this setting, Amazon Cognito uses the legacy behavior to
+     * determine the recovery method where SMS is preferred through email.
+     * </p>
+     * 
+     * @return The available verified method a user can use to recover their password when they call
+     *         <code>ForgotPassword</code>. You can use this setting to define a preferred method when a user has more
+     *         than one method available. With this setting, SMS doesn't qualify for a valid password recovery mechanism
+     *         if the user also has SMS multi-factor authentication (MFA) activated. In the absence of this setting,
+     *         Amazon Cognito uses the legacy behavior to determine the recovery method where SMS is preferred through
+     *         email.
+     */
+
+    public AccountRecoverySettingType getAccountRecoverySetting() {
+        return this.accountRecoverySetting;
+    }
+
+    /**
+     * <p>
+     * The available verified method a user can use to recover their password when they call <code>ForgotPassword</code>
+     * . You can use this setting to define a preferred method when a user has more than one method available. With this
+     * setting, SMS doesn't qualify for a valid password recovery mechanism if the user also has SMS multi-factor
+     * authentication (MFA) activated. In the absence of this setting, Amazon Cognito uses the legacy behavior to
+     * determine the recovery method where SMS is preferred through email.
+     * </p>
+     * 
+     * @param accountRecoverySetting
+     *        The available verified method a user can use to recover their password when they call
+     *        <code>ForgotPassword</code>. You can use this setting to define a preferred method when a user has more
+     *        than one method available. With this setting, SMS doesn't qualify for a valid password recovery mechanism
+     *        if the user also has SMS multi-factor authentication (MFA) activated. In the absence of this setting,
+     *        Amazon Cognito uses the legacy behavior to determine the recovery method where SMS is preferred through
+     *        email.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateUserPoolRequest withAccountRecoverySetting(AccountRecoverySettingType accountRecoverySetting) {
+        setAccountRecoverySetting(accountRecoverySetting);
         return this;
     }
 
@@ -1111,6 +1593,8 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
             sb.append("UserPoolId: ").append(getUserPoolId()).append(",");
         if (getPolicies() != null)
             sb.append("Policies: ").append(getPolicies()).append(",");
+        if (getDeletionProtection() != null)
+            sb.append("DeletionProtection: ").append(getDeletionProtection()).append(",");
         if (getLambdaConfig() != null)
             sb.append("LambdaConfig: ").append(getLambdaConfig()).append(",");
         if (getAutoVerifiedAttributes() != null)
@@ -1125,6 +1609,8 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
             sb.append("VerificationMessageTemplate: ").append(getVerificationMessageTemplate()).append(",");
         if (getSmsAuthenticationMessage() != null)
             sb.append("SmsAuthenticationMessage: ").append(getSmsAuthenticationMessage()).append(",");
+        if (getUserAttributeUpdateSettings() != null)
+            sb.append("UserAttributeUpdateSettings: ").append(getUserAttributeUpdateSettings()).append(",");
         if (getMfaConfiguration() != null)
             sb.append("MfaConfiguration: ").append(getMfaConfiguration()).append(",");
         if (getDeviceConfiguration() != null)
@@ -1138,7 +1624,9 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
         if (getAdminCreateUserConfig() != null)
             sb.append("AdminCreateUserConfig: ").append(getAdminCreateUserConfig()).append(",");
         if (getUserPoolAddOns() != null)
-            sb.append("UserPoolAddOns: ").append(getUserPoolAddOns());
+            sb.append("UserPoolAddOns: ").append(getUserPoolAddOns()).append(",");
+        if (getAccountRecoverySetting() != null)
+            sb.append("AccountRecoverySetting: ").append(getAccountRecoverySetting());
         sb.append("}");
         return sb.toString();
     }
@@ -1160,6 +1648,10 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
         if (other.getPolicies() == null ^ this.getPolicies() == null)
             return false;
         if (other.getPolicies() != null && other.getPolicies().equals(this.getPolicies()) == false)
+            return false;
+        if (other.getDeletionProtection() == null ^ this.getDeletionProtection() == null)
+            return false;
+        if (other.getDeletionProtection() != null && other.getDeletionProtection().equals(this.getDeletionProtection()) == false)
             return false;
         if (other.getLambdaConfig() == null ^ this.getLambdaConfig() == null)
             return false;
@@ -1189,6 +1681,10 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
             return false;
         if (other.getSmsAuthenticationMessage() != null && other.getSmsAuthenticationMessage().equals(this.getSmsAuthenticationMessage()) == false)
             return false;
+        if (other.getUserAttributeUpdateSettings() == null ^ this.getUserAttributeUpdateSettings() == null)
+            return false;
+        if (other.getUserAttributeUpdateSettings() != null && other.getUserAttributeUpdateSettings().equals(this.getUserAttributeUpdateSettings()) == false)
+            return false;
         if (other.getMfaConfiguration() == null ^ this.getMfaConfiguration() == null)
             return false;
         if (other.getMfaConfiguration() != null && other.getMfaConfiguration().equals(this.getMfaConfiguration()) == false)
@@ -1217,6 +1713,10 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
             return false;
         if (other.getUserPoolAddOns() != null && other.getUserPoolAddOns().equals(this.getUserPoolAddOns()) == false)
             return false;
+        if (other.getAccountRecoverySetting() == null ^ this.getAccountRecoverySetting() == null)
+            return false;
+        if (other.getAccountRecoverySetting() != null && other.getAccountRecoverySetting().equals(this.getAccountRecoverySetting()) == false)
+            return false;
         return true;
     }
 
@@ -1227,6 +1727,7 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
 
         hashCode = prime * hashCode + ((getUserPoolId() == null) ? 0 : getUserPoolId().hashCode());
         hashCode = prime * hashCode + ((getPolicies() == null) ? 0 : getPolicies().hashCode());
+        hashCode = prime * hashCode + ((getDeletionProtection() == null) ? 0 : getDeletionProtection().hashCode());
         hashCode = prime * hashCode + ((getLambdaConfig() == null) ? 0 : getLambdaConfig().hashCode());
         hashCode = prime * hashCode + ((getAutoVerifiedAttributes() == null) ? 0 : getAutoVerifiedAttributes().hashCode());
         hashCode = prime * hashCode + ((getSmsVerificationMessage() == null) ? 0 : getSmsVerificationMessage().hashCode());
@@ -1234,6 +1735,7 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
         hashCode = prime * hashCode + ((getEmailVerificationSubject() == null) ? 0 : getEmailVerificationSubject().hashCode());
         hashCode = prime * hashCode + ((getVerificationMessageTemplate() == null) ? 0 : getVerificationMessageTemplate().hashCode());
         hashCode = prime * hashCode + ((getSmsAuthenticationMessage() == null) ? 0 : getSmsAuthenticationMessage().hashCode());
+        hashCode = prime * hashCode + ((getUserAttributeUpdateSettings() == null) ? 0 : getUserAttributeUpdateSettings().hashCode());
         hashCode = prime * hashCode + ((getMfaConfiguration() == null) ? 0 : getMfaConfiguration().hashCode());
         hashCode = prime * hashCode + ((getDeviceConfiguration() == null) ? 0 : getDeviceConfiguration().hashCode());
         hashCode = prime * hashCode + ((getEmailConfiguration() == null) ? 0 : getEmailConfiguration().hashCode());
@@ -1241,6 +1743,7 @@ public class UpdateUserPoolRequest extends com.amazonaws.AmazonWebServiceRequest
         hashCode = prime * hashCode + ((getUserPoolTags() == null) ? 0 : getUserPoolTags().hashCode());
         hashCode = prime * hashCode + ((getAdminCreateUserConfig() == null) ? 0 : getAdminCreateUserConfig().hashCode());
         hashCode = prime * hashCode + ((getUserPoolAddOns() == null) ? 0 : getUserPoolAddOns().hashCode());
+        hashCode = prime * hashCode + ((getAccountRecoverySetting() == null) ? 0 : getAccountRecoverySetting().hashCode());
         return hashCode;
     }
 

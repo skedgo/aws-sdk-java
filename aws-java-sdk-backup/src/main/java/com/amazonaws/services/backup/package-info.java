@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,9 +12,9 @@
  */
 
 /**
- * <fullname>AWS Backup</fullname>
+ * <fullname>Backup</fullname>
  * <p>
- * AWS Backup is a unified backup service designed to protect AWS services and their associated data. AWS Backup
+ * Backup is a unified backup service designed to protect Amazon Web Services services and their associated data. Backup
  * simplifies the creation, migration, restoration, and deletion of backups, while also providing reporting and
  * auditing.
  * </p>

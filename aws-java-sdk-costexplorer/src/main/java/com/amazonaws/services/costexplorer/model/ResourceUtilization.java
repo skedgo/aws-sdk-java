@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,18 +30,18 @@ public class ResourceUtilization implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Utilization of current Amazon EC2 Instance
+     * The utilization of current Amazon EC2 instance.
      * </p>
      */
     private EC2ResourceUtilization eC2ResourceUtilization;
 
     /**
      * <p>
-     * Utilization of current Amazon EC2 Instance
+     * The utilization of current Amazon EC2 instance.
      * </p>
      * 
      * @param eC2ResourceUtilization
-     *        Utilization of current Amazon EC2 Instance
+     *        The utilization of current Amazon EC2 instance.
      */
 
     public void setEC2ResourceUtilization(EC2ResourceUtilization eC2ResourceUtilization) {
@@ -50,10 +50,10 @@ public class ResourceUtilization implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Utilization of current Amazon EC2 Instance
+     * The utilization of current Amazon EC2 instance.
      * </p>
      * 
-     * @return Utilization of current Amazon EC2 Instance
+     * @return The utilization of current Amazon EC2 instance.
      */
 
     public EC2ResourceUtilization getEC2ResourceUtilization() {
@@ -62,11 +62,11 @@ public class ResourceUtilization implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Utilization of current Amazon EC2 Instance
+     * The utilization of current Amazon EC2 instance.
      * </p>
      * 
      * @param eC2ResourceUtilization
-     *        Utilization of current Amazon EC2 Instance
+     *        The utilization of current Amazon EC2 instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

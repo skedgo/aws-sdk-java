@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,8 @@
  */
 package com.amazonaws.services.rekognition.model.transform;
 
+import java.util.Map;
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -37,6 +39,16 @@ public class CreateStreamProcessorRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Settings").build();
     private static final MarshallingInfo<String> ROLEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("RoleArn").build();
+    private static final MarshallingInfo<Map> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Tags").build();
+    private static final MarshallingInfo<StructuredPojo> NOTIFICATIONCHANNEL_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("NotificationChannel").build();
+    private static final MarshallingInfo<String> KMSKEYID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("KmsKeyId").build();
+    private static final MarshallingInfo<List> REGIONSOFINTEREST_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RegionsOfInterest").build();
+    private static final MarshallingInfo<StructuredPojo> DATASHARINGPREFERENCE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DataSharingPreference").build();
 
     private static final CreateStreamProcessorRequestMarshaller instance = new CreateStreamProcessorRequestMarshaller();
 
@@ -59,6 +71,11 @@ public class CreateStreamProcessorRequestMarshaller {
             protocolMarshaller.marshall(createStreamProcessorRequest.getName(), NAME_BINDING);
             protocolMarshaller.marshall(createStreamProcessorRequest.getSettings(), SETTINGS_BINDING);
             protocolMarshaller.marshall(createStreamProcessorRequest.getRoleArn(), ROLEARN_BINDING);
+            protocolMarshaller.marshall(createStreamProcessorRequest.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(createStreamProcessorRequest.getNotificationChannel(), NOTIFICATIONCHANNEL_BINDING);
+            protocolMarshaller.marshall(createStreamProcessorRequest.getKmsKeyId(), KMSKEYID_BINDING);
+            protocolMarshaller.marshall(createStreamProcessorRequest.getRegionsOfInterest(), REGIONSOFINTEREST_BINDING);
+            protocolMarshaller.marshall(createStreamProcessorRequest.getDataSharingPreference(), DATASHARINGPREFERENCE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

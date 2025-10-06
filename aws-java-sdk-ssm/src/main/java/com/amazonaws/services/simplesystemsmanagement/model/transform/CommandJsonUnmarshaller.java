@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -71,15 +71,21 @@ public class CommandJsonUnmarshaller implements Unmarshaller<Command, JsonUnmars
                 if (context.testExpression("Parameters", targetDepth)) {
                     context.nextToken();
                     command.setParameters(new MapUnmarshaller<String, java.util.List<String>>(context.getUnmarshaller(String.class),
-                            new ListUnmarshaller<String>(context.getUnmarshaller(String.class))).unmarshall(context));
+                            new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    ).unmarshall(context));
                 }
                 if (context.testExpression("InstanceIds", targetDepth)) {
                     context.nextToken();
-                    command.setInstanceIds(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    command.setInstanceIds(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("Targets", targetDepth)) {
                     context.nextToken();
-                    command.setTargets(new ListUnmarshaller<Target>(TargetJsonUnmarshaller.getInstance()).unmarshall(context));
+                    command.setTargets(new ListUnmarshaller<Target>(TargetJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("RequestedDateTime", targetDepth)) {
                     context.nextToken();
@@ -140,6 +146,20 @@ public class CommandJsonUnmarshaller implements Unmarshaller<Command, JsonUnmars
                 if (context.testExpression("CloudWatchOutputConfig", targetDepth)) {
                     context.nextToken();
                     command.setCloudWatchOutputConfig(CloudWatchOutputConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("TimeoutSeconds", targetDepth)) {
+                    context.nextToken();
+                    command.setTimeoutSeconds(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("AlarmConfiguration", targetDepth)) {
+                    context.nextToken();
+                    command.setAlarmConfiguration(AlarmConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("TriggeredAlarms", targetDepth)) {
+                    context.nextToken();
+                    command.setTriggeredAlarms(new ListUnmarshaller<AlarmStateInformation>(AlarmStateInformationJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

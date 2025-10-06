@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,19 +30,16 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensure
      * Idempotency</a>.
-     * </p>
-     * <p>
-     * Constraint: Maximum 64 ASCII characters.
      * </p>
      */
     private String clientToken;
     /**
      * <p>
      * The instance type for which to reserve capacity. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance types</a> in the
+     * <i>Amazon EC2 User Guide</i>.
      * </p>
      */
     private String instanceType;
@@ -58,7 +55,11 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
      * </p>
      */
     private String availabilityZone;
-
+    /**
+     * <p>
+     * The ID of the Availability Zone in which to create the Capacity Reservation.
+     * </p>
+     */
     private String availabilityZoneId;
     /**
      * <p>
@@ -68,13 +69,14 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * <code>default</code> - The Capacity Reservation is created on hardware that is shared with other AWS accounts.
+     * <code>default</code> - The Capacity Reservation is created on hardware that is shared with other Amazon Web
+     * Services accounts.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>dedicated</code> - The Capacity Reservation is created on single-tenant hardware that is dedicated to a
-     * single AWS account.
+     * single Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -83,6 +85,9 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
     /**
      * <p>
      * The number of instances for which to reserve capacity.
+     * </p>
+     * <p>
+     * Valid range: 1 - 1000
      * </p>
      */
     private Integer instanceCount;
@@ -97,7 +102,7 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
     private Boolean ebsOptimized;
     /**
      * <p>
-     * Indicates whether the Capacity Reservation supports instances with temporary, block-level storage.
+     * <i>Deprecated.</i>
      * </p>
      */
     private Boolean ephemeralStorage;
@@ -170,25 +175,34 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<TagSpecification> tagSpecifications;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost on which to create the Capacity Reservation.
+     * </p>
+     */
+    private String outpostArn;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the cluster placement group in which to create the Capacity Reservation. For
+     * more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/cr-cpg.html"> Capacity
+     * Reservations for cluster placement groups</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     */
+    private String placementGroupArn;
 
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensure
      * Idempotency</a>.
-     * </p>
-     * <p>
-     * Constraint: Maximum 64 ASCII characters.
      * </p>
      * 
      * @param clientToken
      *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      *        information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *        Idempotency</a>.</p>
-     *        <p>
-     *        Constraint: Maximum 64 ASCII characters.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensure
+     *        Idempotency</a>.
      */
 
     public void setClientToken(String clientToken) {
@@ -199,19 +213,14 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensure
      * Idempotency</a>.
-     * </p>
-     * <p>
-     * Constraint: Maximum 64 ASCII characters.
      * </p>
      * 
      * @return Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      *         information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *         Idempotency</a>.</p>
-     *         <p>
-     *         Constraint: Maximum 64 ASCII characters.
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensure
+     *         Idempotency</a>.
      */
 
     public String getClientToken() {
@@ -222,20 +231,15 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensure
      * Idempotency</a>.
-     * </p>
-     * <p>
-     * Constraint: Maximum 64 ASCII characters.
      * </p>
      * 
      * @param clientToken
      *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      *        information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *        Idempotency</a>.</p>
-     *        <p>
-     *        Constraint: Maximum 64 ASCII characters.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensure
+     *        Idempotency</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -247,14 +251,14 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
     /**
      * <p>
      * The instance type for which to reserve capacity. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance types</a> in the
+     * <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param instanceType
      *        The instance type for which to reserve capacity. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a> in the
-     *        <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance types</a> in the
+     *        <i>Amazon EC2 User Guide</i>.
      */
 
     public void setInstanceType(String instanceType) {
@@ -264,13 +268,13 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
     /**
      * <p>
      * The instance type for which to reserve capacity. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance types</a> in the
+     * <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @return The instance type for which to reserve capacity. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a> in the
-     *         <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance types</a> in the
+     *         <i>Amazon EC2 User Guide</i>.
      */
 
     public String getInstanceType() {
@@ -280,14 +284,14 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
     /**
      * <p>
      * The instance type for which to reserve capacity. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance types</a> in the
+     * <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param instanceType
      *        The instance type for which to reserve capacity. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a> in the
-     *        <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance types</a> in the
+     *        <i>Amazon EC2 User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -396,7 +400,12 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
     }
 
     /**
+     * <p>
+     * The ID of the Availability Zone in which to create the Capacity Reservation.
+     * </p>
+     * 
      * @param availabilityZoneId
+     *        The ID of the Availability Zone in which to create the Capacity Reservation.
      */
 
     public void setAvailabilityZoneId(String availabilityZoneId) {
@@ -404,7 +413,11 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
     }
 
     /**
-     * @return
+     * <p>
+     * The ID of the Availability Zone in which to create the Capacity Reservation.
+     * </p>
+     * 
+     * @return The ID of the Availability Zone in which to create the Capacity Reservation.
      */
 
     public String getAvailabilityZoneId() {
@@ -412,7 +425,12 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
     }
 
     /**
+     * <p>
+     * The ID of the Availability Zone in which to create the Capacity Reservation.
+     * </p>
+     * 
      * @param availabilityZoneId
+     *        The ID of the Availability Zone in which to create the Capacity Reservation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -429,13 +447,14 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * <code>default</code> - The Capacity Reservation is created on hardware that is shared with other AWS accounts.
+     * <code>default</code> - The Capacity Reservation is created on hardware that is shared with other Amazon Web
+     * Services accounts.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>dedicated</code> - The Capacity Reservation is created on single-tenant hardware that is dedicated to a
-     * single AWS account.
+     * single Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -446,14 +465,14 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>default</code> - The Capacity Reservation is created on hardware that is shared with other AWS
-     *        accounts.
+     *        <code>default</code> - The Capacity Reservation is created on hardware that is shared with other Amazon
+     *        Web Services accounts.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>dedicated</code> - The Capacity Reservation is created on single-tenant hardware that is dedicated
-     *        to a single AWS account.
+     *        to a single Amazon Web Services account.
      *        </p>
      *        </li>
      * @see CapacityReservationTenancy
@@ -471,13 +490,14 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * <code>default</code> - The Capacity Reservation is created on hardware that is shared with other AWS accounts.
+     * <code>default</code> - The Capacity Reservation is created on hardware that is shared with other Amazon Web
+     * Services accounts.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>dedicated</code> - The Capacity Reservation is created on single-tenant hardware that is dedicated to a
-     * single AWS account.
+     * single Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -487,14 +507,14 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>default</code> - The Capacity Reservation is created on hardware that is shared with other AWS
-     *         accounts.
+     *         <code>default</code> - The Capacity Reservation is created on hardware that is shared with other Amazon
+     *         Web Services accounts.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         <code>dedicated</code> - The Capacity Reservation is created on single-tenant hardware that is dedicated
-     *         to a single AWS account.
+     *         to a single Amazon Web Services account.
      *         </p>
      *         </li>
      * @see CapacityReservationTenancy
@@ -512,13 +532,14 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * <code>default</code> - The Capacity Reservation is created on hardware that is shared with other AWS accounts.
+     * <code>default</code> - The Capacity Reservation is created on hardware that is shared with other Amazon Web
+     * Services accounts.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>dedicated</code> - The Capacity Reservation is created on single-tenant hardware that is dedicated to a
-     * single AWS account.
+     * single Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -529,14 +550,14 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>default</code> - The Capacity Reservation is created on hardware that is shared with other AWS
-     *        accounts.
+     *        <code>default</code> - The Capacity Reservation is created on hardware that is shared with other Amazon
+     *        Web Services accounts.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>dedicated</code> - The Capacity Reservation is created on single-tenant hardware that is dedicated
-     *        to a single AWS account.
+     *        to a single Amazon Web Services account.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -556,13 +577,14 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * <code>default</code> - The Capacity Reservation is created on hardware that is shared with other AWS accounts.
+     * <code>default</code> - The Capacity Reservation is created on hardware that is shared with other Amazon Web
+     * Services accounts.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>dedicated</code> - The Capacity Reservation is created on single-tenant hardware that is dedicated to a
-     * single AWS account.
+     * single Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -573,14 +595,14 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>default</code> - The Capacity Reservation is created on hardware that is shared with other AWS
-     *        accounts.
+     *        <code>default</code> - The Capacity Reservation is created on hardware that is shared with other Amazon
+     *        Web Services accounts.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>dedicated</code> - The Capacity Reservation is created on single-tenant hardware that is dedicated
-     *        to a single AWS account.
+     *        to a single Amazon Web Services account.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -596,9 +618,14 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
      * <p>
      * The number of instances for which to reserve capacity.
      * </p>
+     * <p>
+     * Valid range: 1 - 1000
+     * </p>
      * 
      * @param instanceCount
-     *        The number of instances for which to reserve capacity.
+     *        The number of instances for which to reserve capacity.</p>
+     *        <p>
+     *        Valid range: 1 - 1000
      */
 
     public void setInstanceCount(Integer instanceCount) {
@@ -609,8 +636,13 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
      * <p>
      * The number of instances for which to reserve capacity.
      * </p>
+     * <p>
+     * Valid range: 1 - 1000
+     * </p>
      * 
-     * @return The number of instances for which to reserve capacity.
+     * @return The number of instances for which to reserve capacity.</p>
+     *         <p>
+     *         Valid range: 1 - 1000
      */
 
     public Integer getInstanceCount() {
@@ -621,9 +653,14 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
      * <p>
      * The number of instances for which to reserve capacity.
      * </p>
+     * <p>
+     * Valid range: 1 - 1000
+     * </p>
      * 
      * @param instanceCount
-     *        The number of instances for which to reserve capacity.
+     *        The number of instances for which to reserve capacity.</p>
+     *        <p>
+     *        Valid range: 1 - 1000
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -710,11 +747,11 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Indicates whether the Capacity Reservation supports instances with temporary, block-level storage.
+     * <i>Deprecated.</i>
      * </p>
      * 
      * @param ephemeralStorage
-     *        Indicates whether the Capacity Reservation supports instances with temporary, block-level storage.
+     *        <i>Deprecated.</i>
      */
 
     public void setEphemeralStorage(Boolean ephemeralStorage) {
@@ -723,10 +760,10 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Indicates whether the Capacity Reservation supports instances with temporary, block-level storage.
+     * <i>Deprecated.</i>
      * </p>
      * 
-     * @return Indicates whether the Capacity Reservation supports instances with temporary, block-level storage.
+     * @return <i>Deprecated.</i>
      */
 
     public Boolean getEphemeralStorage() {
@@ -735,11 +772,11 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Indicates whether the Capacity Reservation supports instances with temporary, block-level storage.
+     * <i>Deprecated.</i>
      * </p>
      * 
      * @param ephemeralStorage
-     *        Indicates whether the Capacity Reservation supports instances with temporary, block-level storage.
+     *        <i>Deprecated.</i>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -750,10 +787,10 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Indicates whether the Capacity Reservation supports instances with temporary, block-level storage.
+     * <i>Deprecated.</i>
      * </p>
      * 
-     * @return Indicates whether the Capacity Reservation supports instances with temporary, block-level storage.
+     * @return <i>Deprecated.</i>
      */
 
     public Boolean isEphemeralStorage() {
@@ -1319,6 +1356,99 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
     }
 
     /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost on which to create the Capacity Reservation.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The Amazon Resource Name (ARN) of the Outpost on which to create the Capacity Reservation.
+     */
+
+    public void setOutpostArn(String outpostArn) {
+        this.outpostArn = outpostArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost on which to create the Capacity Reservation.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the Outpost on which to create the Capacity Reservation.
+     */
+
+    public String getOutpostArn() {
+        return this.outpostArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost on which to create the Capacity Reservation.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The Amazon Resource Name (ARN) of the Outpost on which to create the Capacity Reservation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateCapacityReservationRequest withOutpostArn(String outpostArn) {
+        setOutpostArn(outpostArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the cluster placement group in which to create the Capacity Reservation. For
+     * more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/cr-cpg.html"> Capacity
+     * Reservations for cluster placement groups</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param placementGroupArn
+     *        The Amazon Resource Name (ARN) of the cluster placement group in which to create the Capacity Reservation.
+     *        For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/cr-cpg.html">
+     *        Capacity Reservations for cluster placement groups</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public void setPlacementGroupArn(String placementGroupArn) {
+        this.placementGroupArn = placementGroupArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the cluster placement group in which to create the Capacity Reservation. For
+     * more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/cr-cpg.html"> Capacity
+     * Reservations for cluster placement groups</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the cluster placement group in which to create the Capacity
+     *         Reservation. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/cr-cpg.html"> Capacity Reservations for cluster
+     *         placement groups</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public String getPlacementGroupArn() {
+        return this.placementGroupArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the cluster placement group in which to create the Capacity Reservation. For
+     * more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/cr-cpg.html"> Capacity
+     * Reservations for cluster placement groups</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param placementGroupArn
+     *        The Amazon Resource Name (ARN) of the cluster placement group in which to create the Capacity Reservation.
+     *        For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/cr-cpg.html">
+     *        Capacity Reservations for cluster placement groups</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateCapacityReservationRequest withPlacementGroupArn(String placementGroupArn) {
+        setPlacementGroupArn(placementGroupArn);
+        return this;
+    }
+
+    /**
      * This method is intended for internal use only. Returns the marshaled request configured with additional
      * parameters to enable operation dry-run.
      */
@@ -1366,7 +1496,11 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
         if (getInstanceMatchCriteria() != null)
             sb.append("InstanceMatchCriteria: ").append(getInstanceMatchCriteria()).append(",");
         if (getTagSpecifications() != null)
-            sb.append("TagSpecifications: ").append(getTagSpecifications());
+            sb.append("TagSpecifications: ").append(getTagSpecifications()).append(",");
+        if (getOutpostArn() != null)
+            sb.append("OutpostArn: ").append(getOutpostArn()).append(",");
+        if (getPlacementGroupArn() != null)
+            sb.append("PlacementGroupArn: ").append(getPlacementGroupArn());
         sb.append("}");
         return sb.toString();
     }
@@ -1433,6 +1567,14 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
             return false;
         if (other.getTagSpecifications() != null && other.getTagSpecifications().equals(this.getTagSpecifications()) == false)
             return false;
+        if (other.getOutpostArn() == null ^ this.getOutpostArn() == null)
+            return false;
+        if (other.getOutpostArn() != null && other.getOutpostArn().equals(this.getOutpostArn()) == false)
+            return false;
+        if (other.getPlacementGroupArn() == null ^ this.getPlacementGroupArn() == null)
+            return false;
+        if (other.getPlacementGroupArn() != null && other.getPlacementGroupArn().equals(this.getPlacementGroupArn()) == false)
+            return false;
         return true;
     }
 
@@ -1454,6 +1596,8 @@ public class CreateCapacityReservationRequest extends AmazonWebServiceRequest im
         hashCode = prime * hashCode + ((getEndDateType() == null) ? 0 : getEndDateType().hashCode());
         hashCode = prime * hashCode + ((getInstanceMatchCriteria() == null) ? 0 : getInstanceMatchCriteria().hashCode());
         hashCode = prime * hashCode + ((getTagSpecifications() == null) ? 0 : getTagSpecifications().hashCode());
+        hashCode = prime * hashCode + ((getOutpostArn() == null) ? 0 : getOutpostArn().hashCode());
+        hashCode = prime * hashCode + ((getPlacementGroupArn() == null) ? 0 : getPlacementGroupArn().hashCode());
         return hashCode;
     }
 

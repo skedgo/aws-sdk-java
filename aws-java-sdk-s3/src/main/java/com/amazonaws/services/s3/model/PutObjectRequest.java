@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -71,7 +71,7 @@ import java.io.Serializable;
  * <p>
  * If you are uploading or accessing <a
  * href="http://aws.amazon.com/kms/">KMS</a>-encrypted objects, you need to
- * specify the correct region of the bucket on your client and configure AWS
+ * specify the correct region of the bucket on your client and configure Amazon Web Services
  * Signature Version 4 for added security. For more information on how to do
  * this, see
  * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify
@@ -82,7 +82,7 @@ import java.io.Serializable;
  * @see PutObjectRequest#PutObjectRequest(String, String, InputStream,
  *      ObjectMetadata)
  */
-public class PutObjectRequest extends AbstractPutObjectRequest implements Serializable {
+public class PutObjectRequest extends AbstractPutObjectRequest implements Serializable, ExpectedBucketOwnerRequest {
 
     /**
      * If enabled, the requester is charged for conducting this operation from
@@ -90,14 +90,28 @@ public class PutObjectRequest extends AbstractPutObjectRequest implements Serial
      */
     private boolean isRequesterPays;
 
+    private String expectedBucketOwner;
+
     /**
      * Constructs a new
      * {@link PutObjectRequest} object to upload a file to the
      * specified bucket and key. After constructing the request,
      * users may optionally specify object metadata or a canned ACL as well.
      *
+     * <p>
+     * When using this API with an access point, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * </p>
+     * <p>
+     * When using this operation using an access point through the Amazon Web Services SDKs, you provide
+     * the access point ARN in place of the bucket name. For more information about access point
+     * ARNs, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html\">
+     * Using access points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
+     *
      * @param bucketName
-     *            The name of an existing bucket to which the new object will be
+     *            The name of an existing bucket, or access point ARN, to which the new object will be
      *            uploaded.
      * @param key
      *            The key under which to store the new object.
@@ -118,8 +132,20 @@ public class PutObjectRequest extends AbstractPutObjectRequest implements Serial
      * {@link com.amazonaws.services.s3.Headers#REDIRECT_LOCATION} header.
      * </p>
      *
+     * <p>
+     * When using this API with an access point, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * </p>
+     * <p>
+     * When using this operation using an access point through the Amazon Web Services SDKs, you provide
+     * the access point ARN in place of the bucket name. For more information about access point
+     * ARNs, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html\">
+     * Using access points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
+     *
      * @param bucketName
-     *            The name of an existing bucket to which the new object will be
+     *            The name of an existing bucket, or access point ARN, to which the new object will be
      *            uploaded.
      * @param key
      *            The key under which to store the new object.
@@ -145,8 +171,20 @@ public class PutObjectRequest extends AbstractPutObjectRequest implements Serial
      * result in negative performance problems.
      * </p>
      *
+     * <p>
+     * When using this API with an access point, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * </p>
+     * <p>
+     * When using this operation using an access point through the Amazon Web Services SDKs, you provide
+     * the access point ARN in place of the bucket name. For more information about access point
+     * ARNs, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html\">
+     * Using access points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
+     *
      * @param bucketName
-     *            The name of an existing bucket to which the new object will be
+     *            The name of an existing bucket, or access point ARN, to which the new object will be
      *            uploaded.
      * @param key
      *            The key under which to store the new object.
@@ -159,6 +197,19 @@ public class PutObjectRequest extends AbstractPutObjectRequest implements Serial
     public PutObjectRequest(String bucketName, String key, InputStream input,
             ObjectMetadata metadata) {
         super(bucketName, key, input, metadata);
+    }
+
+    public String getExpectedBucketOwner() {
+        return expectedBucketOwner;
+    }
+
+    public PutObjectRequest withExpectedBucketOwner(String expectedBucketOwner) {
+        this.expectedBucketOwner = expectedBucketOwner;
+        return this;
+    }
+
+    public void setExpectedBucketOwner(String expectedBucketOwner) {
+        withExpectedBucketOwner(expectedBucketOwner);
     }
 
     /**
@@ -197,7 +248,7 @@ public class PutObjectRequest extends AbstractPutObjectRequest implements Serial
 
     @Override
     @SuppressWarnings("unchecked")
-    public PutObjectRequest  withFile(File file) {
+    public PutObjectRequest withFile(File file) {
         return super.withFile(file);
     }
 
@@ -209,7 +260,7 @@ public class PutObjectRequest extends AbstractPutObjectRequest implements Serial
 
     @Override
     @SuppressWarnings("unchecked")
-    public PutObjectRequest  withCannedAcl(CannedAccessControlList cannedAcl) {
+    public PutObjectRequest withCannedAcl(CannedAccessControlList cannedAcl) {
         return super.withCannedAcl(cannedAcl);
     }
 
@@ -222,7 +273,7 @@ public class PutObjectRequest extends AbstractPutObjectRequest implements Serial
 
     @Override
     @SuppressWarnings("unchecked")
-    public PutObjectRequest  withInputStream(InputStream inputStream) {
+    public PutObjectRequest withInputStream(InputStream inputStream) {
         return super.withInputStream(inputStream);
     }
 

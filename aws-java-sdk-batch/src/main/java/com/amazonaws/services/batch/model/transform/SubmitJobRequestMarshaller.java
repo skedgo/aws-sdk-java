@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,6 +33,10 @@ public class SubmitJobRequestMarshaller {
             .marshallLocationName("jobName").build();
     private static final MarshallingInfo<String> JOBQUEUE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("jobQueue").build();
+    private static final MarshallingInfo<String> SHAREIDENTIFIER_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("shareIdentifier").build();
+    private static final MarshallingInfo<Integer> SCHEDULINGPRIORITYOVERRIDE_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("schedulingPriorityOverride").build();
     private static final MarshallingInfo<StructuredPojo> ARRAYPROPERTIES_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("arrayProperties").build();
     private static final MarshallingInfo<List> DEPENDSON_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
@@ -47,8 +51,16 @@ public class SubmitJobRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("nodeOverrides").build();
     private static final MarshallingInfo<StructuredPojo> RETRYSTRATEGY_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("retryStrategy").build();
+    private static final MarshallingInfo<Boolean> PROPAGATETAGS_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("propagateTags").build();
     private static final MarshallingInfo<StructuredPojo> TIMEOUT_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("timeout").build();
+    private static final MarshallingInfo<Map> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("tags").build();
+    private static final MarshallingInfo<StructuredPojo> EKSPROPERTIESOVERRIDE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("eksPropertiesOverride").build();
+    private static final MarshallingInfo<StructuredPojo> ECSPROPERTIESOVERRIDE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ecsPropertiesOverride").build();
 
     private static final SubmitJobRequestMarshaller instance = new SubmitJobRequestMarshaller();
 
@@ -68,6 +80,8 @@ public class SubmitJobRequestMarshaller {
         try {
             protocolMarshaller.marshall(submitJobRequest.getJobName(), JOBNAME_BINDING);
             protocolMarshaller.marshall(submitJobRequest.getJobQueue(), JOBQUEUE_BINDING);
+            protocolMarshaller.marshall(submitJobRequest.getShareIdentifier(), SHAREIDENTIFIER_BINDING);
+            protocolMarshaller.marshall(submitJobRequest.getSchedulingPriorityOverride(), SCHEDULINGPRIORITYOVERRIDE_BINDING);
             protocolMarshaller.marshall(submitJobRequest.getArrayProperties(), ARRAYPROPERTIES_BINDING);
             protocolMarshaller.marshall(submitJobRequest.getDependsOn(), DEPENDSON_BINDING);
             protocolMarshaller.marshall(submitJobRequest.getJobDefinition(), JOBDEFINITION_BINDING);
@@ -75,7 +89,11 @@ public class SubmitJobRequestMarshaller {
             protocolMarshaller.marshall(submitJobRequest.getContainerOverrides(), CONTAINEROVERRIDES_BINDING);
             protocolMarshaller.marshall(submitJobRequest.getNodeOverrides(), NODEOVERRIDES_BINDING);
             protocolMarshaller.marshall(submitJobRequest.getRetryStrategy(), RETRYSTRATEGY_BINDING);
+            protocolMarshaller.marshall(submitJobRequest.getPropagateTags(), PROPAGATETAGS_BINDING);
             protocolMarshaller.marshall(submitJobRequest.getTimeout(), TIMEOUT_BINDING);
+            protocolMarshaller.marshall(submitJobRequest.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(submitJobRequest.getEksPropertiesOverride(), EKSPROPERTIESOVERRIDE_BINDING);
+            protocolMarshaller.marshall(submitJobRequest.getEcsPropertiesOverride(), ECSPROPERTIESOVERRIDE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,27 +27,24 @@ public class GetFederationTokenRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and select
-     * Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is displayed in
-     * the Overview section of your instance settings. For example, the instance ID is the set of characters at the end
-     * of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * The identifier of the Amazon Connect instance. You can <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in
+     * the Amazon Resource Name (ARN) of the instance.
      * </p>
      */
     private String instanceId;
 
     /**
      * <p>
-     * The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and select
-     * Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is displayed in
-     * the Overview section of your instance settings. For example, the instance ID is the set of characters at the end
-     * of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * The identifier of the Amazon Connect instance. You can <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in
+     * the Amazon Resource Name (ARN) of the instance.
      * </p>
      * 
      * @param instanceId
-     *        The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and
-     *        select Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is
-     *        displayed in the Overview section of your instance settings. For example, the instance ID is the set of
-     *        characters at the end of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     *        The identifier of the Amazon Connect instance. You can <a
+     *        href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance
+     *        ID</a> in the Amazon Resource Name (ARN) of the instance.
      */
 
     public void setInstanceId(String instanceId) {
@@ -56,17 +53,14 @@ public class GetFederationTokenRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and select
-     * Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is displayed in
-     * the Overview section of your instance settings. For example, the instance ID is the set of characters at the end
-     * of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * The identifier of the Amazon Connect instance. You can <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in
+     * the Amazon Resource Name (ARN) of the instance.
      * </p>
      * 
-     * @return The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console
-     *         and select Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID
-     *         is displayed in the Overview section of your instance settings. For example, the instance ID is the set
-     *         of characters at the end of the instance ARN, after instance/, such as
-     *         10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * @return The identifier of the Amazon Connect instance. You can <a
+     *         href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance
+     *         ID</a> in the Amazon Resource Name (ARN) of the instance.
      */
 
     public String getInstanceId() {
@@ -75,17 +69,15 @@ public class GetFederationTokenRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and select
-     * Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is displayed in
-     * the Overview section of your instance settings. For example, the instance ID is the set of characters at the end
-     * of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * The identifier of the Amazon Connect instance. You can <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in
+     * the Amazon Resource Name (ARN) of the instance.
      * </p>
      * 
      * @param instanceId
-     *        The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and
-     *        select Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is
-     *        displayed in the Overview section of your instance settings. For example, the instance ID is the set of
-     *        characters at the end of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     *        The identifier of the Amazon Connect instance. You can <a
+     *        href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance
+     *        ID</a> in the Amazon Resource Name (ARN) of the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,81 +30,70 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * representing the asynchronous operation; overloads which accept an {@code AsyncHandler} can be used to receive
  * notification when an asynchronous operation completes.
  * <p>
- * <fullname>AWS Support</fullname>
+ * <fullname>Amazon Web Services Support</fullname>
  * <p>
- * The AWS Support API reference is intended for programmers who need detailed information about the AWS Support
- * operations and data types. This service enables you to manage your AWS Support cases programmatically. It uses HTTP
- * methods that return results in JSON format.
+ * The <i>Amazon Web Services Support API Reference</i> is intended for programmers who need detailed information about
+ * the Amazon Web Services Support operations and data types. You can use the API to manage your support cases
+ * programmatically. The Amazon Web Services Support API uses HTTP methods that return results in JSON format.
+ * </p>
+ * <note>
+ * <ul>
+ * <li>
+ * <p>
+ * You must have a Business, Enterprise On-Ramp, or Enterprise Support plan to use the Amazon Web Services Support API.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * If you call the Amazon Web Services Support API from an account that doesn't have a Business, Enterprise On-Ramp, or
+ * Enterprise Support plan, the <code>SubscriptionRequiredException</code> error message appears. For information about
+ * changing your support plan, see <a href="http://aws.amazon.com/premiumsupport/">Amazon Web Services Support</a>.
+ * </p>
+ * </li>
+ * </ul>
+ * </note>
+ * <p>
+ * You can also use the Amazon Web Services Support API to access features for <a
+ * href="http://aws.amazon.com/premiumsupport/trustedadvisor/">Trusted Advisor</a>. You can return a list of checks and
+ * their descriptions, get check results, specify checks to refresh, and get the refresh status of checks.
  * </p>
  * <p>
- * The AWS Support service also exposes a set of <a href="http://aws.amazon.com/premiumsupport/trustedadvisor/">Trusted
- * Advisor</a> features. You can retrieve a list of checks and their descriptions, get check results, specify checks to
- * refresh, and get the refresh status of checks.
- * </p>
- * <p>
- * The following list describes the AWS Support case management operations:
+ * You can manage your support cases with the following Amazon Web Services Support API operations:
  * </p>
  * <ul>
  * <li>
  * <p>
- * <b>Service names, issue categories, and available severity levels. </b>The <a>DescribeServices</a> and
- * <a>DescribeSeverityLevels</a> operations return AWS service names, service codes, service categories, and problem
- * severity levels. You use these values when you call the <a>CreateCase</a> operation.
+ * The <a>CreateCase</a>, <a>DescribeCases</a>, <a>DescribeAttachment</a>, and <a>ResolveCase</a> operations create
+ * Amazon Web Services Support cases, retrieve information about cases, and resolve cases.
  * </p>
  * </li>
  * <li>
  * <p>
- * <b>Case creation, case details, and case resolution.</b> The <a>CreateCase</a>, <a>DescribeCases</a>,
- * <a>DescribeAttachment</a>, and <a>ResolveCase</a> operations create AWS Support cases, retrieve information about
- * cases, and resolve cases.
+ * The <a>DescribeCommunications</a>, <a>AddCommunicationToCase</a>, and <a>AddAttachmentsToSet</a> operations retrieve
+ * and add communications and attachments to Amazon Web Services Support cases.
  * </p>
  * </li>
  * <li>
  * <p>
- * <b>Case communication.</b> The <a>DescribeCommunications</a>, <a>AddCommunicationToCase</a>, and
- * <a>AddAttachmentsToSet</a> operations retrieve and add communications and attachments to AWS Support cases.
+ * The <a>DescribeServices</a> and <a>DescribeSeverityLevels</a> operations return Amazon Web Service names, service
+ * codes, service categories, and problem severity levels. You use these values when you call the <a>CreateCase</a>
+ * operation.
  * </p>
  * </li>
  * </ul>
  * <p>
- * The following list describes the operations available from the AWS Support service for Trusted Advisor:
- * </p>
- * <ul>
- * <li>
- * <p>
- * <a>DescribeTrustedAdvisorChecks</a> returns the list of checks that run against your AWS resources.
- * </p>
- * </li>
- * <li>
- * <p>
- * Using the <code>checkId</code> for a specific check returned by <a>DescribeTrustedAdvisorChecks</a>, you can call
- * <a>DescribeTrustedAdvisorCheckResult</a> to obtain the results for the check you specified.
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DescribeTrustedAdvisorCheckSummaries</a> returns summarized results for one or more Trusted Advisor checks.
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>RefreshTrustedAdvisorCheck</a> requests that Trusted Advisor rerun a specified check.
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DescribeTrustedAdvisorCheckRefreshStatuses</a> reports the refresh status of one or more checks.
- * </p>
- * </li>
- * </ul>
- * <p>
- * For authentication of requests, AWS Support uses <a
- * href="http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">Signature Version 4 Signing Process</a>.
+ * You can also use the Amazon Web Services Support API to call the Trusted Advisor operations. For more information,
+ * see <a href="https://docs.aws.amazon.com/">Trusted Advisor</a> in the <i>Amazon Web Services Support User Guide</i>.
  * </p>
  * <p>
- * See <a href="http://docs.aws.amazon.com/awssupport/latest/user/Welcome.html">About the AWS Support API</a> in the
- * <i>AWS Support User Guide</i> for information about how to use this service to create and manage your support cases,
- * and how to call Trusted Advisor for results of checks on your resources.
+ * For authentication of requests, Amazon Web Services Support uses <a
+ * href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">Signature Version 4 Signing
+ * Process</a>.
+ * </p>
+ * <p>
+ * For more information about this service and the endpoints to use, see <a
+ * href="https://docs.aws.amazon.com/awssupport/latest/user/about-support-api.html">About the Amazon Web Services
+ * Support API</a> in the <i>Amazon Web Services Support User Guide</i>.
  * </p>
  */
 @ThreadSafe
@@ -303,7 +292,19 @@ public class AWSSupportAsyncClient extends AWSSupportClient implements AWSSuppor
      *        Object providing client parameters.
      */
     AWSSupportAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on AWS Support using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSSupportAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -538,6 +539,39 @@ public class AWSSupportAsyncClient extends AWSSupportClient implements AWSSuppor
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeCreateCaseOptionsResult> describeCreateCaseOptionsAsync(DescribeCreateCaseOptionsRequest request) {
+
+        return describeCreateCaseOptionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCreateCaseOptionsResult> describeCreateCaseOptionsAsync(final DescribeCreateCaseOptionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeCreateCaseOptionsRequest, DescribeCreateCaseOptionsResult> asyncHandler) {
+        final DescribeCreateCaseOptionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeCreateCaseOptionsResult>() {
+            @Override
+            public DescribeCreateCaseOptionsResult call() throws Exception {
+                DescribeCreateCaseOptionsResult result = null;
+
+                try {
+                    result = executeDescribeCreateCaseOptions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeServicesResult> describeServicesAsync(DescribeServicesRequest request) {
 
         return describeServicesAsync(request, null);
@@ -647,6 +681,39 @@ public class AWSSupportAsyncClient extends AWSSupportClient implements AWSSuppor
             com.amazonaws.handlers.AsyncHandler<DescribeSeverityLevelsRequest, DescribeSeverityLevelsResult> asyncHandler) {
 
         return describeSeverityLevelsAsync(new DescribeSeverityLevelsRequest(), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeSupportedLanguagesResult> describeSupportedLanguagesAsync(DescribeSupportedLanguagesRequest request) {
+
+        return describeSupportedLanguagesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeSupportedLanguagesResult> describeSupportedLanguagesAsync(final DescribeSupportedLanguagesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeSupportedLanguagesRequest, DescribeSupportedLanguagesResult> asyncHandler) {
+        final DescribeSupportedLanguagesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeSupportedLanguagesResult>() {
+            @Override
+            public DescribeSupportedLanguagesResult call() throws Exception {
+                DescribeSupportedLanguagesResult result = null;
+
+                try {
+                    result = executeDescribeSupportedLanguages(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override

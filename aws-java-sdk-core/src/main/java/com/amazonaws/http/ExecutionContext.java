@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -15,12 +15,15 @@
 package com.amazonaws.http;
 
 import com.amazonaws.AmazonWebServiceClient;
+import com.amazonaws.Protocol;
 import com.amazonaws.annotation.NotThreadSafe;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.Signer;
+import com.amazonaws.endpoints.AccountIdEndpointMode;
 import com.amazonaws.handlers.RequestHandler2;
 import com.amazonaws.http.timers.client.ClientExecutionAbortTrackerTask;
+import com.amazonaws.http.timers.client.NoOpClientExecutionAbortTrackerTask;
 import com.amazonaws.internal.auth.NoOpSignerProvider;
 import com.amazonaws.internal.auth.SignerProviderContext;
 import com.amazonaws.internal.auth.SignerProvider;
@@ -56,7 +59,11 @@ public class ExecutionContext {
      */
     private AuthErrorRetryStrategy authErrorRetryStrategy;
 
-    private ClientExecutionAbortTrackerTask clientExecutionTrackerTask;
+    private AccountIdEndpointMode accountIdEndpointMode;
+
+    private Protocol clientProtocol;
+
+    private ClientExecutionAbortTrackerTask clientExecutionTrackerTask = NoOpClientExecutionAbortTrackerTask.INSTANCE;
 
     /** For testing purposes. */
     public ExecutionContext(boolean isMetricEnabled) {
@@ -185,6 +192,23 @@ public class ExecutionContext {
      */
     public void setAuthErrorRetryStrategy(AuthErrorRetryStrategy authErrorRetryStrategy) {
         this.authErrorRetryStrategy = authErrorRetryStrategy;
+    }
+
+
+    public AccountIdEndpointMode getAccountIdEndpointMode() {
+        return accountIdEndpointMode;
+    }
+
+    public void setAccountIdEndpointMode(AccountIdEndpointMode accountIdEndpointMode) {
+        this.accountIdEndpointMode = accountIdEndpointMode;
+    }
+
+    public Protocol getClientProtocol() {
+        return clientProtocol;
+    }
+
+    public void setClientProtocol(Protocol clientProtocol) {
+        this.clientProtocol = clientProtocol;
     }
 
     public ClientExecutionAbortTrackerTask getClientExecutionTrackerTask() {

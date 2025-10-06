@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,7 +26,7 @@ import com.amazonaws.services.appsync.model.*;
  * </p>
  * <p>
  * <p>
- * AWS AppSync provides API actions for creating and interacting with data sources using GraphQL from your application.
+ * AppSync provides API actions for creating and interacting with data sources using GraphQL from your application.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -34,7 +34,137 @@ public interface AWSAppSyncAsync extends AWSAppSync {
 
     /**
      * <p>
-     * Creates a unique key that you can distribute to clients who are executing your API.
+     * Maps an endpoint to your custom domain.
+     * </p>
+     * 
+     * @param associateApiRequest
+     * @return A Java Future containing the result of the AssociateApi operation returned by the service.
+     * @sample AWSAppSyncAsync.AssociateApi
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/AssociateApi" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<AssociateApiResult> associateApiAsync(AssociateApiRequest associateApiRequest);
+
+    /**
+     * <p>
+     * Maps an endpoint to your custom domain.
+     * </p>
+     * 
+     * @param associateApiRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the AssociateApi operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.AssociateApi
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/AssociateApi" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<AssociateApiResult> associateApiAsync(AssociateApiRequest associateApiRequest,
+            com.amazonaws.handlers.AsyncHandler<AssociateApiRequest, AssociateApiResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates an association between a Merged API and source API using the source API's identifier.
+     * </p>
+     * 
+     * @param associateMergedGraphqlApiRequest
+     * @return A Java Future containing the result of the AssociateMergedGraphqlApi operation returned by the service.
+     * @sample AWSAppSyncAsync.AssociateMergedGraphqlApi
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/AssociateMergedGraphqlApi"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<AssociateMergedGraphqlApiResult> associateMergedGraphqlApiAsync(
+            AssociateMergedGraphqlApiRequest associateMergedGraphqlApiRequest);
+
+    /**
+     * <p>
+     * Creates an association between a Merged API and source API using the source API's identifier.
+     * </p>
+     * 
+     * @param associateMergedGraphqlApiRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the AssociateMergedGraphqlApi operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.AssociateMergedGraphqlApi
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/AssociateMergedGraphqlApi"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<AssociateMergedGraphqlApiResult> associateMergedGraphqlApiAsync(
+            AssociateMergedGraphqlApiRequest associateMergedGraphqlApiRequest,
+            com.amazonaws.handlers.AsyncHandler<AssociateMergedGraphqlApiRequest, AssociateMergedGraphqlApiResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates an association between a Merged API and source API using the Merged API's identifier.
+     * </p>
+     * 
+     * @param associateSourceGraphqlApiRequest
+     * @return A Java Future containing the result of the AssociateSourceGraphqlApi operation returned by the service.
+     * @sample AWSAppSyncAsync.AssociateSourceGraphqlApi
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/AssociateSourceGraphqlApi"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<AssociateSourceGraphqlApiResult> associateSourceGraphqlApiAsync(
+            AssociateSourceGraphqlApiRequest associateSourceGraphqlApiRequest);
+
+    /**
+     * <p>
+     * Creates an association between a Merged API and source API using the Merged API's identifier.
+     * </p>
+     * 
+     * @param associateSourceGraphqlApiRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the AssociateSourceGraphqlApi operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.AssociateSourceGraphqlApi
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/AssociateSourceGraphqlApi"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<AssociateSourceGraphqlApiResult> associateSourceGraphqlApiAsync(
+            AssociateSourceGraphqlApiRequest associateSourceGraphqlApiRequest,
+            com.amazonaws.handlers.AsyncHandler<AssociateSourceGraphqlApiRequest, AssociateSourceGraphqlApiResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a cache for the GraphQL API.
+     * </p>
+     * 
+     * @param createApiCacheRequest
+     *        Represents the input of a <code>CreateApiCache</code> operation.
+     * @return A Java Future containing the result of the CreateApiCache operation returned by the service.
+     * @sample AWSAppSyncAsync.CreateApiCache
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateApiCache" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateApiCacheResult> createApiCacheAsync(CreateApiCacheRequest createApiCacheRequest);
+
+    /**
+     * <p>
+     * Creates a cache for the GraphQL API.
+     * </p>
+     * 
+     * @param createApiCacheRequest
+     *        Represents the input of a <code>CreateApiCache</code> operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateApiCache operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.CreateApiCache
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateApiCache" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateApiCacheResult> createApiCacheAsync(CreateApiCacheRequest createApiCacheRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateApiCacheRequest, CreateApiCacheResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a unique key that you can distribute to clients who invoke your API.
      * </p>
      * 
      * @param createApiKeyRequest
@@ -47,7 +177,7 @@ public interface AWSAppSyncAsync extends AWSAppSync {
 
     /**
      * <p>
-     * Creates a unique key that you can distribute to clients who are executing your API.
+     * Creates a unique key that you can distribute to clients who invoke your API.
      * </p>
      * 
      * @param createApiKeyRequest
@@ -96,10 +226,41 @@ public interface AWSAppSyncAsync extends AWSAppSync {
 
     /**
      * <p>
+     * Creates a custom <code>DomainName</code> object.
+     * </p>
+     * 
+     * @param createDomainNameRequest
+     * @return A Java Future containing the result of the CreateDomainName operation returned by the service.
+     * @sample AWSAppSyncAsync.CreateDomainName
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateDomainName" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateDomainNameResult> createDomainNameAsync(CreateDomainNameRequest createDomainNameRequest);
+
+    /**
+     * <p>
+     * Creates a custom <code>DomainName</code> object.
+     * </p>
+     * 
+     * @param createDomainNameRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateDomainName operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.CreateDomainName
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateDomainName" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateDomainNameResult> createDomainNameAsync(CreateDomainNameRequest createDomainNameRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateDomainNameRequest, CreateDomainNameResult> asyncHandler);
+
+    /**
+     * <p>
      * Creates a <code>Function</code> object.
      * </p>
      * <p>
-     * A function is a reusable entity. Multiple functions can be used to compose the resolver logic.
+     * A function is a reusable entity. You can use multiple functions to compose the resolver logic.
      * </p>
      * 
      * @param createFunctionRequest
@@ -115,7 +276,7 @@ public interface AWSAppSyncAsync extends AWSAppSync {
      * Creates a <code>Function</code> object.
      * </p>
      * <p>
-     * A function is a reusable entity. Multiple functions can be used to compose the resolver logic.
+     * A function is a reusable entity. You can use multiple functions to compose the resolver logic.
      * </p>
      * 
      * @param createFunctionRequest
@@ -167,7 +328,7 @@ public interface AWSAppSyncAsync extends AWSAppSync {
      * Creates a <code>Resolver</code> object.
      * </p>
      * <p>
-     * A resolver converts incoming requests into a format that a data source can understand and converts the data
+     * A resolver converts incoming requests into a format that a data source can understand, and converts the data
      * source's responses into GraphQL.
      * </p>
      * 
@@ -184,7 +345,7 @@ public interface AWSAppSyncAsync extends AWSAppSync {
      * Creates a <code>Resolver</code> object.
      * </p>
      * <p>
-     * A resolver converts incoming requests into a format that a data source can understand and converts the data
+     * A resolver converts incoming requests into a format that a data source can understand, and converts the data
      * source's responses into GraphQL.
      * </p>
      * 
@@ -231,6 +392,39 @@ public interface AWSAppSyncAsync extends AWSAppSync {
      */
     java.util.concurrent.Future<CreateTypeResult> createTypeAsync(CreateTypeRequest createTypeRequest,
             com.amazonaws.handlers.AsyncHandler<CreateTypeRequest, CreateTypeResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes an <code>ApiCache</code> object.
+     * </p>
+     * 
+     * @param deleteApiCacheRequest
+     *        Represents the input of a <code>DeleteApiCache</code> operation.
+     * @return A Java Future containing the result of the DeleteApiCache operation returned by the service.
+     * @sample AWSAppSyncAsync.DeleteApiCache
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteApiCache" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteApiCacheResult> deleteApiCacheAsync(DeleteApiCacheRequest deleteApiCacheRequest);
+
+    /**
+     * <p>
+     * Deletes an <code>ApiCache</code> object.
+     * </p>
+     * 
+     * @param deleteApiCacheRequest
+     *        Represents the input of a <code>DeleteApiCache</code> operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteApiCache operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.DeleteApiCache
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteApiCache" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteApiCacheResult> deleteApiCacheAsync(DeleteApiCacheRequest deleteApiCacheRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteApiCacheRequest, DeleteApiCacheResult> asyncHandler);
 
     /**
      * <p>
@@ -293,6 +487,37 @@ public interface AWSAppSyncAsync extends AWSAppSync {
      */
     java.util.concurrent.Future<DeleteDataSourceResult> deleteDataSourceAsync(DeleteDataSourceRequest deleteDataSourceRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteDataSourceRequest, DeleteDataSourceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a custom <code>DomainName</code> object.
+     * </p>
+     * 
+     * @param deleteDomainNameRequest
+     * @return A Java Future containing the result of the DeleteDomainName operation returned by the service.
+     * @sample AWSAppSyncAsync.DeleteDomainName
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteDomainName" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteDomainNameResult> deleteDomainNameAsync(DeleteDomainNameRequest deleteDomainNameRequest);
+
+    /**
+     * <p>
+     * Deletes a custom <code>DomainName</code> object.
+     * </p>
+     * 
+     * @param deleteDomainNameRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteDomainName operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.DeleteDomainName
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteDomainName" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteDomainNameResult> deleteDomainNameAsync(DeleteDomainNameRequest deleteDomainNameRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteDomainNameRequest, DeleteDomainNameResult> asyncHandler);
 
     /**
      * <p>
@@ -420,6 +645,294 @@ public interface AWSAppSyncAsync extends AWSAppSync {
 
     /**
      * <p>
+     * Removes an <code>ApiAssociation</code> object from a custom domain.
+     * </p>
+     * 
+     * @param disassociateApiRequest
+     * @return A Java Future containing the result of the DisassociateApi operation returned by the service.
+     * @sample AWSAppSyncAsync.DisassociateApi
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DisassociateApi" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DisassociateApiResult> disassociateApiAsync(DisassociateApiRequest disassociateApiRequest);
+
+    /**
+     * <p>
+     * Removes an <code>ApiAssociation</code> object from a custom domain.
+     * </p>
+     * 
+     * @param disassociateApiRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DisassociateApi operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.DisassociateApi
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DisassociateApi" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DisassociateApiResult> disassociateApiAsync(DisassociateApiRequest disassociateApiRequest,
+            com.amazonaws.handlers.AsyncHandler<DisassociateApiRequest, DisassociateApiResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes an association between a Merged API and source API using the source API's identifier and the association
+     * ID.
+     * </p>
+     * 
+     * @param disassociateMergedGraphqlApiRequest
+     * @return A Java Future containing the result of the DisassociateMergedGraphqlApi operation returned by the
+     *         service.
+     * @sample AWSAppSyncAsync.DisassociateMergedGraphqlApi
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DisassociateMergedGraphqlApi"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DisassociateMergedGraphqlApiResult> disassociateMergedGraphqlApiAsync(
+            DisassociateMergedGraphqlApiRequest disassociateMergedGraphqlApiRequest);
+
+    /**
+     * <p>
+     * Deletes an association between a Merged API and source API using the source API's identifier and the association
+     * ID.
+     * </p>
+     * 
+     * @param disassociateMergedGraphqlApiRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DisassociateMergedGraphqlApi operation returned by the
+     *         service.
+     * @sample AWSAppSyncAsyncHandler.DisassociateMergedGraphqlApi
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DisassociateMergedGraphqlApi"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DisassociateMergedGraphqlApiResult> disassociateMergedGraphqlApiAsync(
+            DisassociateMergedGraphqlApiRequest disassociateMergedGraphqlApiRequest,
+            com.amazonaws.handlers.AsyncHandler<DisassociateMergedGraphqlApiRequest, DisassociateMergedGraphqlApiResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes an association between a Merged API and source API using the Merged API's identifier and the association
+     * ID.
+     * </p>
+     * 
+     * @param disassociateSourceGraphqlApiRequest
+     * @return A Java Future containing the result of the DisassociateSourceGraphqlApi operation returned by the
+     *         service.
+     * @sample AWSAppSyncAsync.DisassociateSourceGraphqlApi
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DisassociateSourceGraphqlApi"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DisassociateSourceGraphqlApiResult> disassociateSourceGraphqlApiAsync(
+            DisassociateSourceGraphqlApiRequest disassociateSourceGraphqlApiRequest);
+
+    /**
+     * <p>
+     * Deletes an association between a Merged API and source API using the Merged API's identifier and the association
+     * ID.
+     * </p>
+     * 
+     * @param disassociateSourceGraphqlApiRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DisassociateSourceGraphqlApi operation returned by the
+     *         service.
+     * @sample AWSAppSyncAsyncHandler.DisassociateSourceGraphqlApi
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DisassociateSourceGraphqlApi"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DisassociateSourceGraphqlApiResult> disassociateSourceGraphqlApiAsync(
+            DisassociateSourceGraphqlApiRequest disassociateSourceGraphqlApiRequest,
+            com.amazonaws.handlers.AsyncHandler<DisassociateSourceGraphqlApiRequest, DisassociateSourceGraphqlApiResult> asyncHandler);
+
+    /**
+     * <p>
+     * Evaluates the given code and returns the response. The code definition requirements depend on the specified
+     * runtime. For <code>APPSYNC_JS</code> runtimes, the code defines the request and response functions. The request
+     * function takes the incoming request after a GraphQL operation is parsed and converts it into a request
+     * configuration for the selected data source operation. The response function interprets responses from the data
+     * source and maps it to the shape of the GraphQL field output type.
+     * </p>
+     * 
+     * @param evaluateCodeRequest
+     * @return A Java Future containing the result of the EvaluateCode operation returned by the service.
+     * @sample AWSAppSyncAsync.EvaluateCode
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/EvaluateCode" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<EvaluateCodeResult> evaluateCodeAsync(EvaluateCodeRequest evaluateCodeRequest);
+
+    /**
+     * <p>
+     * Evaluates the given code and returns the response. The code definition requirements depend on the specified
+     * runtime. For <code>APPSYNC_JS</code> runtimes, the code defines the request and response functions. The request
+     * function takes the incoming request after a GraphQL operation is parsed and converts it into a request
+     * configuration for the selected data source operation. The response function interprets responses from the data
+     * source and maps it to the shape of the GraphQL field output type.
+     * </p>
+     * 
+     * @param evaluateCodeRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the EvaluateCode operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.EvaluateCode
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/EvaluateCode" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<EvaluateCodeResult> evaluateCodeAsync(EvaluateCodeRequest evaluateCodeRequest,
+            com.amazonaws.handlers.AsyncHandler<EvaluateCodeRequest, EvaluateCodeResult> asyncHandler);
+
+    /**
+     * <p>
+     * Evaluates a given template and returns the response. The mapping template can be a request or response template.
+     * </p>
+     * <p>
+     * Request templates take the incoming request after a GraphQL operation is parsed and convert it into a request
+     * configuration for the selected data source operation. Response templates interpret responses from the data source
+     * and map it to the shape of the GraphQL field output type.
+     * </p>
+     * <p>
+     * Mapping templates are written in the Apache Velocity Template Language (VTL).
+     * </p>
+     * 
+     * @param evaluateMappingTemplateRequest
+     * @return A Java Future containing the result of the EvaluateMappingTemplate operation returned by the service.
+     * @sample AWSAppSyncAsync.EvaluateMappingTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/EvaluateMappingTemplate"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<EvaluateMappingTemplateResult> evaluateMappingTemplateAsync(EvaluateMappingTemplateRequest evaluateMappingTemplateRequest);
+
+    /**
+     * <p>
+     * Evaluates a given template and returns the response. The mapping template can be a request or response template.
+     * </p>
+     * <p>
+     * Request templates take the incoming request after a GraphQL operation is parsed and convert it into a request
+     * configuration for the selected data source operation. Response templates interpret responses from the data source
+     * and map it to the shape of the GraphQL field output type.
+     * </p>
+     * <p>
+     * Mapping templates are written in the Apache Velocity Template Language (VTL).
+     * </p>
+     * 
+     * @param evaluateMappingTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the EvaluateMappingTemplate operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.EvaluateMappingTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/EvaluateMappingTemplate"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<EvaluateMappingTemplateResult> evaluateMappingTemplateAsync(EvaluateMappingTemplateRequest evaluateMappingTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<EvaluateMappingTemplateRequest, EvaluateMappingTemplateResult> asyncHandler);
+
+    /**
+     * <p>
+     * Flushes an <code>ApiCache</code> object.
+     * </p>
+     * 
+     * @param flushApiCacheRequest
+     *        Represents the input of a <code>FlushApiCache</code> operation.
+     * @return A Java Future containing the result of the FlushApiCache operation returned by the service.
+     * @sample AWSAppSyncAsync.FlushApiCache
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/FlushApiCache" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<FlushApiCacheResult> flushApiCacheAsync(FlushApiCacheRequest flushApiCacheRequest);
+
+    /**
+     * <p>
+     * Flushes an <code>ApiCache</code> object.
+     * </p>
+     * 
+     * @param flushApiCacheRequest
+     *        Represents the input of a <code>FlushApiCache</code> operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the FlushApiCache operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.FlushApiCache
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/FlushApiCache" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<FlushApiCacheResult> flushApiCacheAsync(FlushApiCacheRequest flushApiCacheRequest,
+            com.amazonaws.handlers.AsyncHandler<FlushApiCacheRequest, FlushApiCacheResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves an <code>ApiAssociation</code> object.
+     * </p>
+     * 
+     * @param getApiAssociationRequest
+     * @return A Java Future containing the result of the GetApiAssociation operation returned by the service.
+     * @sample AWSAppSyncAsync.GetApiAssociation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetApiAssociation" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetApiAssociationResult> getApiAssociationAsync(GetApiAssociationRequest getApiAssociationRequest);
+
+    /**
+     * <p>
+     * Retrieves an <code>ApiAssociation</code> object.
+     * </p>
+     * 
+     * @param getApiAssociationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetApiAssociation operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.GetApiAssociation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetApiAssociation" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetApiAssociationResult> getApiAssociationAsync(GetApiAssociationRequest getApiAssociationRequest,
+            com.amazonaws.handlers.AsyncHandler<GetApiAssociationRequest, GetApiAssociationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves an <code>ApiCache</code> object.
+     * </p>
+     * 
+     * @param getApiCacheRequest
+     *        Represents the input of a <code>GetApiCache</code> operation.
+     * @return A Java Future containing the result of the GetApiCache operation returned by the service.
+     * @sample AWSAppSyncAsync.GetApiCache
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetApiCache" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetApiCacheResult> getApiCacheAsync(GetApiCacheRequest getApiCacheRequest);
+
+    /**
+     * <p>
+     * Retrieves an <code>ApiCache</code> object.
+     * </p>
+     * 
+     * @param getApiCacheRequest
+     *        Represents the input of a <code>GetApiCache</code> operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetApiCache operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.GetApiCache
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetApiCache" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetApiCacheResult> getApiCacheAsync(GetApiCacheRequest getApiCacheRequest,
+            com.amazonaws.handlers.AsyncHandler<GetApiCacheRequest, GetApiCacheResult> asyncHandler);
+
+    /**
+     * <p>
      * Retrieves a <code>DataSource</code> object.
      * </p>
      * 
@@ -448,6 +961,74 @@ public interface AWSAppSyncAsync extends AWSAppSync {
      */
     java.util.concurrent.Future<GetDataSourceResult> getDataSourceAsync(GetDataSourceRequest getDataSourceRequest,
             com.amazonaws.handlers.AsyncHandler<GetDataSourceRequest, GetDataSourceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves the record of an existing introspection. If the retrieval is successful, the result of the
+     * instrospection will also be returned. If the retrieval fails the operation, an error message will be returned
+     * instead.
+     * </p>
+     * 
+     * @param getDataSourceIntrospectionRequest
+     * @return A Java Future containing the result of the GetDataSourceIntrospection operation returned by the service.
+     * @sample AWSAppSyncAsync.GetDataSourceIntrospection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetDataSourceIntrospection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetDataSourceIntrospectionResult> getDataSourceIntrospectionAsync(
+            GetDataSourceIntrospectionRequest getDataSourceIntrospectionRequest);
+
+    /**
+     * <p>
+     * Retrieves the record of an existing introspection. If the retrieval is successful, the result of the
+     * instrospection will also be returned. If the retrieval fails the operation, an error message will be returned
+     * instead.
+     * </p>
+     * 
+     * @param getDataSourceIntrospectionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetDataSourceIntrospection operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.GetDataSourceIntrospection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetDataSourceIntrospection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetDataSourceIntrospectionResult> getDataSourceIntrospectionAsync(
+            GetDataSourceIntrospectionRequest getDataSourceIntrospectionRequest,
+            com.amazonaws.handlers.AsyncHandler<GetDataSourceIntrospectionRequest, GetDataSourceIntrospectionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves a custom <code>DomainName</code> object.
+     * </p>
+     * 
+     * @param getDomainNameRequest
+     * @return A Java Future containing the result of the GetDomainName operation returned by the service.
+     * @sample AWSAppSyncAsync.GetDomainName
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetDomainName" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetDomainNameResult> getDomainNameAsync(GetDomainNameRequest getDomainNameRequest);
+
+    /**
+     * <p>
+     * Retrieves a custom <code>DomainName</code> object.
+     * </p>
+     * 
+     * @param getDomainNameRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetDomainName operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.GetDomainName
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetDomainName" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetDomainNameResult> getDomainNameAsync(GetDomainNameRequest getDomainNameRequest,
+            com.amazonaws.handlers.AsyncHandler<GetDomainNameRequest, GetDomainNameResult> asyncHandler);
 
     /**
      * <p>
@@ -510,6 +1091,41 @@ public interface AWSAppSyncAsync extends AWSAppSync {
      */
     java.util.concurrent.Future<GetGraphqlApiResult> getGraphqlApiAsync(GetGraphqlApiRequest getGraphqlApiRequest,
             com.amazonaws.handlers.AsyncHandler<GetGraphqlApiRequest, GetGraphqlApiResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves the list of environmental variable key-value pairs associated with an API by its ID value.
+     * </p>
+     * 
+     * @param getGraphqlApiEnvironmentVariablesRequest
+     * @return A Java Future containing the result of the GetGraphqlApiEnvironmentVariables operation returned by the
+     *         service.
+     * @sample AWSAppSyncAsync.GetGraphqlApiEnvironmentVariables
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetGraphqlApiEnvironmentVariables"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetGraphqlApiEnvironmentVariablesResult> getGraphqlApiEnvironmentVariablesAsync(
+            GetGraphqlApiEnvironmentVariablesRequest getGraphqlApiEnvironmentVariablesRequest);
+
+    /**
+     * <p>
+     * Retrieves the list of environmental variable key-value pairs associated with an API by its ID value.
+     * </p>
+     * 
+     * @param getGraphqlApiEnvironmentVariablesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetGraphqlApiEnvironmentVariables operation returned by the
+     *         service.
+     * @sample AWSAppSyncAsyncHandler.GetGraphqlApiEnvironmentVariables
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetGraphqlApiEnvironmentVariables"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetGraphqlApiEnvironmentVariablesResult> getGraphqlApiEnvironmentVariablesAsync(
+            GetGraphqlApiEnvironmentVariablesRequest getGraphqlApiEnvironmentVariablesRequest,
+            com.amazonaws.handlers.AsyncHandler<GetGraphqlApiEnvironmentVariablesRequest, GetGraphqlApiEnvironmentVariablesResult> asyncHandler);
 
     /**
      * <p>
@@ -606,6 +1222,37 @@ public interface AWSAppSyncAsync extends AWSAppSync {
 
     /**
      * <p>
+     * Retrieves a <code>SourceApiAssociation</code> object.
+     * </p>
+     * 
+     * @param getSourceApiAssociationRequest
+     * @return A Java Future containing the result of the GetSourceApiAssociation operation returned by the service.
+     * @sample AWSAppSyncAsync.GetSourceApiAssociation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetSourceApiAssociation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetSourceApiAssociationResult> getSourceApiAssociationAsync(GetSourceApiAssociationRequest getSourceApiAssociationRequest);
+
+    /**
+     * <p>
+     * Retrieves a <code>SourceApiAssociation</code> object.
+     * </p>
+     * 
+     * @param getSourceApiAssociationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetSourceApiAssociation operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.GetSourceApiAssociation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetSourceApiAssociation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetSourceApiAssociationResult> getSourceApiAssociationAsync(GetSourceApiAssociationRequest getSourceApiAssociationRequest,
+            com.amazonaws.handlers.AsyncHandler<GetSourceApiAssociationRequest, GetSourceApiAssociationResult> asyncHandler);
+
+    /**
+     * <p>
      * Retrieves a <code>Type</code> object.
      * </p>
      * 
@@ -641,9 +1288,9 @@ public interface AWSAppSyncAsync extends AWSAppSync {
      * </p>
      * <note>
      * <p>
-     * API keys are deleted automatically sometime after they expire. However, they may still be included in the
-     * response until they have actually been deleted. You can safely call <code>DeleteApiKey</code> to manually delete
-     * a key before it's automatically deleted.
+     * API keys are deleted automatically 60 days after they expire. However, they may still be included in the response
+     * until they have actually been deleted. You can safely call <code>DeleteApiKey</code> to manually delete a key
+     * before it's automatically deleted.
      * </p>
      * </note>
      * 
@@ -661,9 +1308,9 @@ public interface AWSAppSyncAsync extends AWSAppSync {
      * </p>
      * <note>
      * <p>
-     * API keys are deleted automatically sometime after they expire. However, they may still be included in the
-     * response until they have actually been deleted. You can safely call <code>DeleteApiKey</code> to manually delete
-     * a key before it's automatically deleted.
+     * API keys are deleted automatically 60 days after they expire. However, they may still be included in the response
+     * until they have actually been deleted. You can safely call <code>DeleteApiKey</code> to manually delete a key
+     * before it's automatically deleted.
      * </p>
      * </note>
      * 
@@ -710,6 +1357,37 @@ public interface AWSAppSyncAsync extends AWSAppSync {
      */
     java.util.concurrent.Future<ListDataSourcesResult> listDataSourcesAsync(ListDataSourcesRequest listDataSourcesRequest,
             com.amazonaws.handlers.AsyncHandler<ListDataSourcesRequest, ListDataSourcesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists multiple custom domain names.
+     * </p>
+     * 
+     * @param listDomainNamesRequest
+     * @return A Java Future containing the result of the ListDomainNames operation returned by the service.
+     * @sample AWSAppSyncAsync.ListDomainNames
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListDomainNames" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListDomainNamesResult> listDomainNamesAsync(ListDomainNamesRequest listDomainNamesRequest);
+
+    /**
+     * <p>
+     * Lists multiple custom domain names.
+     * </p>
+     * 
+     * @param listDomainNamesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListDomainNames operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.ListDomainNames
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListDomainNames" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListDomainNamesResult> listDomainNamesAsync(ListDomainNamesRequest listDomainNamesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListDomainNamesRequest, ListDomainNamesResult> asyncHandler);
 
     /**
      * <p>
@@ -837,6 +1515,39 @@ public interface AWSAppSyncAsync extends AWSAppSync {
 
     /**
      * <p>
+     * Lists the <code>SourceApiAssociationSummary</code> data.
+     * </p>
+     * 
+     * @param listSourceApiAssociationsRequest
+     * @return A Java Future containing the result of the ListSourceApiAssociations operation returned by the service.
+     * @sample AWSAppSyncAsync.ListSourceApiAssociations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListSourceApiAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListSourceApiAssociationsResult> listSourceApiAssociationsAsync(
+            ListSourceApiAssociationsRequest listSourceApiAssociationsRequest);
+
+    /**
+     * <p>
+     * Lists the <code>SourceApiAssociationSummary</code> data.
+     * </p>
+     * 
+     * @param listSourceApiAssociationsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListSourceApiAssociations operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.ListSourceApiAssociations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListSourceApiAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListSourceApiAssociationsResult> listSourceApiAssociationsAsync(
+            ListSourceApiAssociationsRequest listSourceApiAssociationsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListSourceApiAssociationsRequest, ListSourceApiAssociationsResult> asyncHandler);
+
+    /**
+     * <p>
      * Lists the tags for a resource.
      * </p>
      * 
@@ -899,6 +1610,243 @@ public interface AWSAppSyncAsync extends AWSAppSync {
 
     /**
      * <p>
+     * Lists <code>Type</code> objects by the source API association ID.
+     * </p>
+     * 
+     * @param listTypesByAssociationRequest
+     * @return A Java Future containing the result of the ListTypesByAssociation operation returned by the service.
+     * @sample AWSAppSyncAsync.ListTypesByAssociation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListTypesByAssociation" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListTypesByAssociationResult> listTypesByAssociationAsync(ListTypesByAssociationRequest listTypesByAssociationRequest);
+
+    /**
+     * <p>
+     * Lists <code>Type</code> objects by the source API association ID.
+     * </p>
+     * 
+     * @param listTypesByAssociationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListTypesByAssociation operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.ListTypesByAssociation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListTypesByAssociation" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListTypesByAssociationResult> listTypesByAssociationAsync(ListTypesByAssociationRequest listTypesByAssociationRequest,
+            com.amazonaws.handlers.AsyncHandler<ListTypesByAssociationRequest, ListTypesByAssociationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a list of environmental variables in an API by its ID value.
+     * </p>
+     * <p>
+     * When creating an environmental variable, it must follow the constraints below:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Both JavaScript and VTL templates support environmental variables.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Environmental variables are not evaluated before function invocation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Environmental variables only support string values.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Any defined value in an environmental variable is considered a string literal and not expanded.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Variable evaluations should ideally be performed in the function code.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * When creating an environmental variable key-value pair, it must follow the additional constraints below:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Keys must begin with a letter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Keys must be at least two characters long.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Keys can only contain letters, numbers, and the underscore character (_).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Values can be up to 512 characters long.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You can configure up to 50 key-value pairs in a GraphQL API.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * You can create a list of environmental variables by adding it to the <code>environmentVariables</code> payload as
+     * a list in the format <code>{"key1":"value1","key2":"value2", …}</code>. Note that each call of the
+     * <code>PutGraphqlApiEnvironmentVariables</code> action will result in the overwriting of the existing
+     * environmental variable list of that API. This means the existing environmental variables will be lost. To avoid
+     * this, you must include all existing and new environmental variables in the list each time you call this action.
+     * </p>
+     * 
+     * @param putGraphqlApiEnvironmentVariablesRequest
+     * @return A Java Future containing the result of the PutGraphqlApiEnvironmentVariables operation returned by the
+     *         service.
+     * @sample AWSAppSyncAsync.PutGraphqlApiEnvironmentVariables
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/PutGraphqlApiEnvironmentVariables"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<PutGraphqlApiEnvironmentVariablesResult> putGraphqlApiEnvironmentVariablesAsync(
+            PutGraphqlApiEnvironmentVariablesRequest putGraphqlApiEnvironmentVariablesRequest);
+
+    /**
+     * <p>
+     * Creates a list of environmental variables in an API by its ID value.
+     * </p>
+     * <p>
+     * When creating an environmental variable, it must follow the constraints below:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Both JavaScript and VTL templates support environmental variables.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Environmental variables are not evaluated before function invocation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Environmental variables only support string values.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Any defined value in an environmental variable is considered a string literal and not expanded.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Variable evaluations should ideally be performed in the function code.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * When creating an environmental variable key-value pair, it must follow the additional constraints below:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Keys must begin with a letter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Keys must be at least two characters long.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Keys can only contain letters, numbers, and the underscore character (_).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Values can be up to 512 characters long.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You can configure up to 50 key-value pairs in a GraphQL API.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * You can create a list of environmental variables by adding it to the <code>environmentVariables</code> payload as
+     * a list in the format <code>{"key1":"value1","key2":"value2", …}</code>. Note that each call of the
+     * <code>PutGraphqlApiEnvironmentVariables</code> action will result in the overwriting of the existing
+     * environmental variable list of that API. This means the existing environmental variables will be lost. To avoid
+     * this, you must include all existing and new environmental variables in the list each time you call this action.
+     * </p>
+     * 
+     * @param putGraphqlApiEnvironmentVariablesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutGraphqlApiEnvironmentVariables operation returned by the
+     *         service.
+     * @sample AWSAppSyncAsyncHandler.PutGraphqlApiEnvironmentVariables
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/PutGraphqlApiEnvironmentVariables"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<PutGraphqlApiEnvironmentVariablesResult> putGraphqlApiEnvironmentVariablesAsync(
+            PutGraphqlApiEnvironmentVariablesRequest putGraphqlApiEnvironmentVariablesRequest,
+            com.amazonaws.handlers.AsyncHandler<PutGraphqlApiEnvironmentVariablesRequest, PutGraphqlApiEnvironmentVariablesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a new introspection. Returns the <code>introspectionId</code> of the new introspection after its
+     * creation.
+     * </p>
+     * 
+     * @param startDataSourceIntrospectionRequest
+     * @return A Java Future containing the result of the StartDataSourceIntrospection operation returned by the
+     *         service.
+     * @sample AWSAppSyncAsync.StartDataSourceIntrospection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/StartDataSourceIntrospection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartDataSourceIntrospectionResult> startDataSourceIntrospectionAsync(
+            StartDataSourceIntrospectionRequest startDataSourceIntrospectionRequest);
+
+    /**
+     * <p>
+     * Creates a new introspection. Returns the <code>introspectionId</code> of the new introspection after its
+     * creation.
+     * </p>
+     * 
+     * @param startDataSourceIntrospectionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartDataSourceIntrospection operation returned by the
+     *         service.
+     * @sample AWSAppSyncAsyncHandler.StartDataSourceIntrospection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/StartDataSourceIntrospection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartDataSourceIntrospectionResult> startDataSourceIntrospectionAsync(
+            StartDataSourceIntrospectionRequest startDataSourceIntrospectionRequest,
+            com.amazonaws.handlers.AsyncHandler<StartDataSourceIntrospectionRequest, StartDataSourceIntrospectionResult> asyncHandler);
+
+    /**
+     * <p>
      * Adds a new schema to your GraphQL API.
      * </p>
      * <p>
@@ -933,6 +1881,37 @@ public interface AWSAppSyncAsync extends AWSAppSync {
      */
     java.util.concurrent.Future<StartSchemaCreationResult> startSchemaCreationAsync(StartSchemaCreationRequest startSchemaCreationRequest,
             com.amazonaws.handlers.AsyncHandler<StartSchemaCreationRequest, StartSchemaCreationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Initiates a merge operation. Returns a status that shows the result of the merge operation.
+     * </p>
+     * 
+     * @param startSchemaMergeRequest
+     * @return A Java Future containing the result of the StartSchemaMerge operation returned by the service.
+     * @sample AWSAppSyncAsync.StartSchemaMerge
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/StartSchemaMerge" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StartSchemaMergeResult> startSchemaMergeAsync(StartSchemaMergeRequest startSchemaMergeRequest);
+
+    /**
+     * <p>
+     * Initiates a merge operation. Returns a status that shows the result of the merge operation.
+     * </p>
+     * 
+     * @param startSchemaMergeRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartSchemaMerge operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.StartSchemaMerge
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/StartSchemaMerge" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StartSchemaMergeResult> startSchemaMergeAsync(StartSchemaMergeRequest startSchemaMergeRequest,
+            com.amazonaws.handlers.AsyncHandler<StartSchemaMergeRequest, StartSchemaMergeResult> asyncHandler);
 
     /**
      * <p>
@@ -998,7 +1977,40 @@ public interface AWSAppSyncAsync extends AWSAppSync {
 
     /**
      * <p>
-     * Updates an API key.
+     * Updates the cache for the GraphQL API.
+     * </p>
+     * 
+     * @param updateApiCacheRequest
+     *        Represents the input of a <code>UpdateApiCache</code> operation.
+     * @return A Java Future containing the result of the UpdateApiCache operation returned by the service.
+     * @sample AWSAppSyncAsync.UpdateApiCache
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateApiCache" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateApiCacheResult> updateApiCacheAsync(UpdateApiCacheRequest updateApiCacheRequest);
+
+    /**
+     * <p>
+     * Updates the cache for the GraphQL API.
+     * </p>
+     * 
+     * @param updateApiCacheRequest
+     *        Represents the input of a <code>UpdateApiCache</code> operation.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateApiCache operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.UpdateApiCache
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateApiCache" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateApiCacheResult> updateApiCacheAsync(UpdateApiCacheRequest updateApiCacheRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateApiCacheRequest, UpdateApiCacheResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates an API key. You can update the key as long as it's not deleted.
      * </p>
      * 
      * @param updateApiKeyRequest
@@ -1011,7 +2023,7 @@ public interface AWSAppSyncAsync extends AWSAppSync {
 
     /**
      * <p>
-     * Updates an API key.
+     * Updates an API key. You can update the key as long as it's not deleted.
      * </p>
      * 
      * @param updateApiKeyRequest
@@ -1057,6 +2069,37 @@ public interface AWSAppSyncAsync extends AWSAppSync {
      */
     java.util.concurrent.Future<UpdateDataSourceResult> updateDataSourceAsync(UpdateDataSourceRequest updateDataSourceRequest,
             com.amazonaws.handlers.AsyncHandler<UpdateDataSourceRequest, UpdateDataSourceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates a custom <code>DomainName</code> object.
+     * </p>
+     * 
+     * @param updateDomainNameRequest
+     * @return A Java Future containing the result of the UpdateDomainName operation returned by the service.
+     * @sample AWSAppSyncAsync.UpdateDomainName
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateDomainName" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateDomainNameResult> updateDomainNameAsync(UpdateDomainNameRequest updateDomainNameRequest);
+
+    /**
+     * <p>
+     * Updates a custom <code>DomainName</code> object.
+     * </p>
+     * 
+     * @param updateDomainNameRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateDomainName operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.UpdateDomainName
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateDomainName" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateDomainNameResult> updateDomainNameAsync(UpdateDomainNameRequest updateDomainNameRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateDomainNameRequest, UpdateDomainNameResult> asyncHandler);
 
     /**
      * <p>
@@ -1150,6 +2193,39 @@ public interface AWSAppSyncAsync extends AWSAppSync {
      */
     java.util.concurrent.Future<UpdateResolverResult> updateResolverAsync(UpdateResolverRequest updateResolverRequest,
             com.amazonaws.handlers.AsyncHandler<UpdateResolverRequest, UpdateResolverResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates some of the configuration choices of a particular source API association.
+     * </p>
+     * 
+     * @param updateSourceApiAssociationRequest
+     * @return A Java Future containing the result of the UpdateSourceApiAssociation operation returned by the service.
+     * @sample AWSAppSyncAsync.UpdateSourceApiAssociation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateSourceApiAssociation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateSourceApiAssociationResult> updateSourceApiAssociationAsync(
+            UpdateSourceApiAssociationRequest updateSourceApiAssociationRequest);
+
+    /**
+     * <p>
+     * Updates some of the configuration choices of a particular source API association.
+     * </p>
+     * 
+     * @param updateSourceApiAssociationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateSourceApiAssociation operation returned by the service.
+     * @sample AWSAppSyncAsyncHandler.UpdateSourceApiAssociation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateSourceApiAssociation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateSourceApiAssociationResult> updateSourceApiAssociationAsync(
+            UpdateSourceApiAssociationRequest updateSourceApiAssociationRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateSourceApiAssociationRequest, UpdateSourceApiAssociationResult> asyncHandler);
 
     /**
      * <p>

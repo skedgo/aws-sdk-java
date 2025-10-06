@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,7 +33,47 @@ public class AbstractAmazonTextract implements AmazonTextract {
     }
 
     @Override
+    public AnalyzeExpenseResult analyzeExpense(AnalyzeExpenseRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AnalyzeIDResult analyzeID(AnalyzeIDRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateAdapterResult createAdapter(CreateAdapterRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateAdapterVersionResult createAdapterVersion(CreateAdapterVersionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteAdapterResult deleteAdapter(DeleteAdapterRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteAdapterVersionResult deleteAdapterVersion(DeleteAdapterVersionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DetectDocumentTextResult detectDocumentText(DetectDocumentTextRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetAdapterResult getAdapter(GetAdapterRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetAdapterVersionResult getAdapterVersion(GetAdapterVersionRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -48,12 +88,67 @@ public class AbstractAmazonTextract implements AmazonTextract {
     }
 
     @Override
+    public GetExpenseAnalysisResult getExpenseAnalysis(GetExpenseAnalysisRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetLendingAnalysisResult getLendingAnalysis(GetLendingAnalysisRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetLendingAnalysisSummaryResult getLendingAnalysisSummary(GetLendingAnalysisSummaryRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListAdapterVersionsResult listAdapterVersions(ListAdapterVersionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListAdaptersResult listAdapters(ListAdaptersRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public StartDocumentAnalysisResult startDocumentAnalysis(StartDocumentAnalysisRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public StartDocumentTextDetectionResult startDocumentTextDetection(StartDocumentTextDetectionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartExpenseAnalysisResult startExpenseAnalysis(StartExpenseAnalysisRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartLendingAnalysisResult startLendingAnalysis(StartLendingAnalysisRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateAdapterResult updateAdapter(UpdateAdapterRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

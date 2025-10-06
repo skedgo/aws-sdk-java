@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,8 +30,9 @@ import com.amazonaws.services.cloudfront.waiters.AmazonCloudFrontWaiters;
  * <fullname>Amazon CloudFront</fullname>
  * <p>
  * This is the <i>Amazon CloudFront API Reference</i>. This guide is for developers who need detailed information about
- * CloudFront API actions, data types, and errors. For detailed information about CloudFront features, see the <i>Amazon
- * CloudFront Developer Guide</i>.
+ * CloudFront API actions, data types, and errors. For detailed information about CloudFront features, see the <a
+ * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html">Amazon CloudFront
+ * Developer Guide</a>.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -99,6 +100,319 @@ public interface AmazonCloudFront {
 
     /**
      * <p>
+     * Associates an alias (also known as a CNAME or an alternate domain name) with a CloudFront distribution.
+     * </p>
+     * <p>
+     * With this operation you can move an alias that's already in use on a CloudFront distribution to a different
+     * distribution in one step. This prevents the downtime that could occur if you first remove the alias from one
+     * distribution and then separately add the alias to another distribution.
+     * </p>
+     * <p>
+     * To use this operation to associate an alias with a distribution, you provide the alias and the ID of the target
+     * distribution for the alias. For more information, including how to set up the target distribution, prerequisites
+     * that you must complete, and other restrictions, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/CNAMEs.html#alternate-domain-names-move"
+     * >Moving an alternate domain name to a different distribution</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * 
+     * @param associateAliasRequest
+     * @return Result of the AssociateAlias operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws NoSuchDistributionException
+     *         The specified distribution does not exist.
+     * @throws TooManyDistributionCNAMEsException
+     *         Your request contains more CNAMEs than are allowed per distribution.
+     * @throws IllegalUpdateException
+     *         The update contains modifications that are not allowed.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @sample AmazonCloudFront.AssociateAlias
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/AssociateAlias" target="_top">AWS API
+     *      Documentation</a>
+     */
+    AssociateAliasResult associateAlias(AssociateAliasRequest associateAliasRequest);
+
+    /**
+     * <p>
+     * Creates a staging distribution using the configuration of the provided primary distribution. A staging
+     * distribution is a copy of an existing distribution (called the primary distribution) that you can use in a
+     * continuous deployment workflow.
+     * </p>
+     * <p>
+     * After you create a staging distribution, you can use <code>UpdateDistribution</code> to modify the staging
+     * distribution's configuration. Then you can use <code>CreateContinuousDeploymentPolicy</code> to incrementally
+     * move traffic to the staging distribution.
+     * </p>
+     * <p>
+     * This API operation requires the following IAM permissions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetDistribution.html">GetDistribution</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateDistribution.html">
+     * CreateDistribution</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a
+     * href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CopyDistribution.html">CopyDistribution</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param copyDistributionRequest
+     * @return Result of the CopyDistribution operation returned by the service.
+     * @throws CNAMEAlreadyExistsException
+     *         The CNAME specified is already defined for CloudFront.
+     * @throws DistributionAlreadyExistsException
+     *         The caller reference you attempted to create the distribution with is associated with another
+     *         distribution.
+     * @throws InvalidOriginException
+     *         The Amazon S3 origin server specified does not refer to a valid Amazon S3 bucket.
+     * @throws InvalidOriginAccessIdentityException
+     *         The origin access identity is not valid or doesn't exist.
+     * @throws InvalidOriginAccessControlException
+     *         The origin access control is not valid.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchDistributionException
+     *         The specified distribution does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws TooManyTrustedSignersException
+     *         Your request contains more trusted signers than are allowed per distribution.
+     * @throws TrustedSignerDoesNotExistException
+     *         One or more of your trusted signers don't exist.
+     * @throws InvalidViewerCertificateException
+     *         A viewer certificate specified is not valid.
+     * @throws InvalidMinimumProtocolVersionException
+     *         The minimum protocol version specified is not valid.
+     * @throws MissingBodyException
+     *         This operation requires a body. Ensure that the body is present and the <code>Content-Type</code> header
+     *         is set.
+     * @throws TooManyDistributionCNAMEsException
+     *         Your request contains more CNAMEs than are allowed per distribution.
+     * @throws TooManyDistributionsException
+     *         Processing your request would cause you to exceed the maximum number of distributions allowed.
+     * @throws InvalidDefaultRootObjectException
+     *         The default root object file name is too big or contains an invalid character.
+     * @throws InvalidRelativePathException
+     *         The relative path is too big, is not URL-encoded, or does not begin with a slash (/).
+     * @throws InvalidErrorCodeException
+     *         An invalid error code was specified.
+     * @throws InvalidResponseCodeException
+     *         A response code is not valid.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws InvalidRequiredProtocolException
+     *         This operation requires the HTTPS protocol. Ensure that you specify the HTTPS protocol in your request,
+     *         or omit the <code>RequiredProtocols</code> element from your distribution configuration.
+     * @throws NoSuchOriginException
+     *         No origin exists with the specified <code>Origin Id</code>.
+     * @throws TooManyOriginsException
+     *         You cannot create more origins for the distribution.
+     * @throws TooManyOriginGroupsPerDistributionException
+     *         Processing your request would cause you to exceed the maximum number of origin groups allowed.
+     * @throws TooManyCacheBehaviorsException
+     *         You cannot create more cache behaviors for the distribution.
+     * @throws TooManyCookieNamesInWhiteListException
+     *         Your request contains more cookie names in the whitelist than are allowed per cache behavior.
+     * @throws InvalidForwardCookiesException
+     *         Your request contains forward cookies option which doesn't match with the expectation for the
+     *         <code>whitelisted</code> list of cookie names. Either list of cookie names has been specified when not
+     *         allowed or list of cookie names is missing when expected.
+     * @throws TooManyHeadersInForwardedValuesException
+     *         Your request contains too many headers in forwarded values.
+     * @throws InvalidHeadersForS3OriginException
+     *         The headers specified are not valid for an Amazon S3 origin.
+     * @throws InconsistentQuantitiesException
+     *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
+     * @throws TooManyCertificatesException
+     *         You cannot create anymore custom SSL/TLS certificates.
+     * @throws InvalidLocationCodeException
+     *         The location code specified is not valid.
+     * @throws InvalidGeoRestrictionParameterException
+     *         The specified geo restriction parameter is not valid.
+     * @throws InvalidProtocolSettingsException
+     *         You cannot specify SSLv3 as the minimum protocol version if you only want to support only clients that
+     *         support Server Name Indication (SNI).
+     * @throws InvalidTTLOrderException
+     *         The TTL order specified is not valid.
+     * @throws InvalidWebACLIdException
+     *         A web ACL ID specified is not valid. To specify a web ACL created using the latest version of WAF, use
+     *         the ACL ARN, for example
+     *         <code>arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/473e64fd-f30b-4765-81a0-62ad96dd167a</code>
+     *         . To specify a web ACL created using WAF Classic, use the ACL ID, for example
+     *         <code>473e64fd-f30b-4765-81a0-62ad96dd167a</code>.
+     * @throws TooManyOriginCustomHeadersException
+     *         Your request contains too many origin custom headers.
+     * @throws TooManyQueryStringParametersException
+     *         Your request contains too many query string parameters.
+     * @throws InvalidQueryStringParametersException
+     *         The query string parameters specified are not valid.
+     * @throws TooManyDistributionsWithLambdaAssociationsException
+     *         Processing your request would cause the maximum number of distributions with Lambda@Edge function
+     *         associations per owner to be exceeded.
+     * @throws TooManyDistributionsWithSingleFunctionARNException
+     *         The maximum number of distributions have been associated with the specified Lambda@Edge function.
+     * @throws TooManyLambdaFunctionAssociationsException
+     *         Your request contains more Lambda@Edge function associations than are allowed per distribution.
+     * @throws InvalidLambdaFunctionAssociationException
+     *         The specified Lambda@Edge function association is invalid.
+     * @throws TooManyDistributionsWithFunctionAssociationsException
+     *         You have reached the maximum number of distributions that are associated with a CloudFront function. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyFunctionAssociationsException
+     *         You have reached the maximum number of CloudFront function associations for this distribution. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws InvalidFunctionAssociationException
+     *         A CloudFront function association is invalid.
+     * @throws InvalidOriginReadTimeoutException
+     *         The read timeout specified for the origin is not valid.
+     * @throws InvalidOriginKeepaliveTimeoutException
+     *         The keep alive timeout specified for the origin is not valid.
+     * @throws NoSuchFieldLevelEncryptionConfigException
+     *         The specified configuration for field-level encryption doesn't exist.
+     * @throws IllegalFieldLevelEncryptionConfigAssociationWithCacheBehaviorException
+     *         The specified configuration for field-level encryption can't be associated with the specified cache
+     *         behavior.
+     * @throws TooManyDistributionsAssociatedToFieldLevelEncryptionConfigException
+     *         The maximum number of distributions have been associated with the specified configuration for field-level
+     *         encryption.
+     * @throws NoSuchCachePolicyException
+     *         The cache policy does not exist.
+     * @throws TooManyDistributionsAssociatedToCachePolicyException
+     *         The maximum number of distributions have been associated with the specified cache policy. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyDistributionsAssociatedToOriginAccessControlException
+     *         The maximum number of distributions have been associated with the specified origin access control.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws NoSuchResponseHeadersPolicyException
+     *         The response headers policy does not exist.
+     * @throws TooManyDistributionsAssociatedToResponseHeadersPolicyException
+     *         The maximum number of distributions have been associated with the specified response headers policy.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws NoSuchOriginRequestPolicyException
+     *         The origin request policy does not exist.
+     * @throws TooManyDistributionsAssociatedToOriginRequestPolicyException
+     *         The maximum number of distributions have been associated with the specified origin request policy. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyDistributionsAssociatedToKeyGroupException
+     *         The number of distributions that reference this key group is more than the maximum allowed. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyKeyGroupsAssociatedToDistributionException
+     *         The number of key groups referenced by this distribution is more than the maximum allowed. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TrustedKeyGroupDoesNotExistException
+     *         The specified key group does not exist.
+     * @throws NoSuchRealtimeLogConfigException
+     *         The real-time log configuration does not exist.
+     * @throws RealtimeLogConfigOwnerMismatchException
+     *         The specified real-time log configuration belongs to a different Amazon Web Services account.
+     * @sample AmazonCloudFront.CopyDistribution
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CopyDistribution" target="_top">AWS
+     *      API Documentation</a>
+     */
+    CopyDistributionResult copyDistribution(CopyDistributionRequest copyDistributionRequest);
+
+    /**
+     * <p>
+     * Creates a cache policy.
+     * </p>
+     * <p>
+     * After you create a cache policy, you can attach it to one or more cache behaviors. When it's attached to a cache
+     * behavior, the cache policy determines the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The values that CloudFront includes in the <i>cache key</i>. These values can include HTTP headers, cookies, and
+     * URL query strings. CloudFront uses the cache key to find an object in its cache that it can return to the viewer.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The default, minimum, and maximum time to live (TTL) values that you want objects to stay in the CloudFront
+     * cache.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The headers, cookies, and query strings that are included in the cache key are also included in requests that
+     * CloudFront sends to the origin. CloudFront sends a request when it can't find an object in its cache that matches
+     * the request's cache key. If you want to send values to the origin but <i>not</i> include them in the cache key,
+     * use <code>OriginRequestPolicy</code>.
+     * </p>
+     * <p>
+     * For more information about cache policies, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-the-cache-key.html"
+     * >Controlling the cache key</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * 
+     * @param createCachePolicyRequest
+     * @return Result of the CreateCachePolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InconsistentQuantitiesException
+     *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws CachePolicyAlreadyExistsException
+     *         A cache policy with this name already exists. You must provide a unique name. To modify an existing cache
+     *         policy, use <code>UpdateCachePolicy</code>.
+     * @throws TooManyCachePoliciesException
+     *         You have reached the maximum number of cache policies for this Amazon Web Services account. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyHeadersInCachePolicyException
+     *         The number of headers in the cache policy exceeds the maximum. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyCookiesInCachePolicyException
+     *         The number of cookies in the cache policy exceeds the maximum. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyQueryStringsInCachePolicyException
+     *         The number of query strings in the cache policy exceeds the maximum. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @sample AmazonCloudFront.CreateCachePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateCachePolicy" target="_top">AWS
+     *      API Documentation</a>
+     */
+    CreateCachePolicyResult createCachePolicy(CreateCachePolicyRequest createCachePolicyRequest);
+
+    /**
+     * <p>
      * Creates a new origin access identity. If you're using Amazon S3 for your origin, you can use an origin access
      * identity to require users to access your content using a CloudFront URL instead of the Amazon S3 URL. For more
      * information about how to use origin access identities, see <a
@@ -124,11 +438,11 @@ public interface AmazonCloudFront {
      * @throws TooManyCloudFrontOriginAccessIdentitiesException
      *         Processing your request would cause you to exceed the maximum number of origin access identities allowed.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InconsistentQuantitiesException
      *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
      * @sample AmazonCloudFront.CreateCloudFrontOriginAccessIdentity
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/CreateCloudFrontOriginAccessIdentity"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateCloudFrontOriginAccessIdentity"
      *      target="_top">AWS API Documentation</a>
      */
     CreateCloudFrontOriginAccessIdentityResult createCloudFrontOriginAccessIdentity(
@@ -136,23 +450,44 @@ public interface AmazonCloudFront {
 
     /**
      * <p>
-     * Creates a new web distribution. You create a CloudFront distribution to tell CloudFront where you want content to
-     * be delivered from, and the details about how to track and manage content delivery. Send a <code>POST</code>
-     * request to the <code>/<i>CloudFront API version</i>/distribution</code>/<code>distribution ID</code> resource.
+     * Creates a continuous deployment policy that distributes traffic for a custom domain name to two different
+     * CloudFront distributions.
      * </p>
-     * <important>
      * <p>
-     * When you update a distribution, there are more required fields than when you create a distribution. When you
-     * update your distribution by using <a
-     * href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateDistribution.html"
-     * >UpdateDistribution</a>, follow the steps included in the documentation to get the current configuration and then
-     * make your updates. This helps to make sure that you include all of the required fields. To view a summary, see <a
-     * href
-     * ="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-overview-required-fields.html"
-     * >Required Fields for Create Distribution and Update Distribution</a> in the <i>Amazon CloudFront Developer
-     * Guide</i>.
+     * To use a continuous deployment policy, first use <code>CopyDistribution</code> to create a staging distribution,
+     * then use <code>UpdateDistribution</code> to modify the staging distribution's configuration.
      * </p>
-     * </important>
+     * <p>
+     * After you create and update a staging distribution, you can use a continuous deployment policy to incrementally
+     * move traffic to the staging distribution. This workflow enables you to test changes to a distribution's
+     * configuration before moving all of your domain's production traffic to the new configuration.
+     * </p>
+     * 
+     * @param createContinuousDeploymentPolicyRequest
+     * @return Result of the CreateContinuousDeploymentPolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws InconsistentQuantitiesException
+     *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
+     * @throws ContinuousDeploymentPolicyAlreadyExistsException
+     *         A continuous deployment policy with this configuration already exists.
+     * @throws TooManyContinuousDeploymentPoliciesException
+     *         You have reached the maximum number of continuous deployment policies for this Amazon Web Services
+     *         account.
+     * @throws StagingDistributionInUseException
+     *         A continuous deployment policy for this staging distribution already exists.
+     * @sample AmazonCloudFront.CreateContinuousDeploymentPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateContinuousDeploymentPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateContinuousDeploymentPolicyResult createContinuousDeploymentPolicy(CreateContinuousDeploymentPolicyRequest createContinuousDeploymentPolicyRequest);
+
+    /**
+     * <p>
+     * Creates a CloudFront distribution.
+     * </p>
      * 
      * @param createDistributionRequest
      *        The request to create a new distribution.
@@ -166,6 +501,16 @@ public interface AmazonCloudFront {
      *         The Amazon S3 origin server specified does not refer to a valid Amazon S3 bucket.
      * @throws InvalidOriginAccessIdentityException
      *         The origin access identity is not valid or doesn't exist.
+     * @throws InvalidOriginAccessControlException
+     *         The origin access control is not valid.
+     * @throws IllegalOriginAccessConfigurationException
+     *         An origin cannot contain both an origin access control (OAC) and an origin access identity (OAI).
+     * @throws TooManyDistributionsAssociatedToOriginAccessControlException
+     *         The maximum number of distributions have been associated with the specified origin access control.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
      * @throws AccessDeniedException
      *         Access denied.
      * @throws TooManyTrustedSignersException
@@ -173,7 +518,7 @@ public interface AmazonCloudFront {
      * @throws TrustedSignerDoesNotExistException
      *         One or more of your trusted signers don't exist.
      * @throws InvalidViewerCertificateException
-     *         A viewer certificate specified in the response body is not valid.
+     *         A viewer certificate specified is not valid.
      * @throws InvalidMinimumProtocolVersionException
      *         The minimum protocol version specified is not valid.
      * @throws MissingBodyException
@@ -190,9 +535,9 @@ public interface AmazonCloudFront {
      * @throws InvalidErrorCodeException
      *         An invalid error code was specified.
      * @throws InvalidResponseCodeException
-     *         A response code specified in the response body is not valid.
+     *         A response code is not valid.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InvalidRequiredProtocolException
      *         This operation requires the HTTPS protocol. Ensure that you specify the HTTPS protocol in your request,
      *         or omit the <code>RequiredProtocols</code> element from your distribution configuration.
@@ -226,22 +571,40 @@ public interface AmazonCloudFront {
      *         You cannot specify SSLv3 as the minimum protocol version if you only want to support only clients that
      *         support Server Name Indication (SNI).
      * @throws InvalidTTLOrderException
-     *         TTL order specified in the response body is not valid.
+     *         The TTL order specified is not valid.
      * @throws InvalidWebACLIdException
-     *         A web ACL id specified in the response body is not valid.
+     *         A web ACL ID specified is not valid. To specify a web ACL created using the latest version of WAF, use
+     *         the ACL ARN, for example
+     *         <code>arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/473e64fd-f30b-4765-81a0-62ad96dd167a</code>
+     *         . To specify a web ACL created using WAF Classic, use the ACL ID, for example
+     *         <code>473e64fd-f30b-4765-81a0-62ad96dd167a</code>.
      * @throws TooManyOriginCustomHeadersException
      *         Your request contains too many origin custom headers.
      * @throws TooManyQueryStringParametersException
      *         Your request contains too many query string parameters.
      * @throws InvalidQueryStringParametersException
-     *         Query string parameters specified in the response body are not valid.
+     *         The query string parameters specified are not valid.
      * @throws TooManyDistributionsWithLambdaAssociationsException
-     *         Processing your request would cause the maximum number of distributions with Lambda function associations
-     *         per owner to be exceeded.
+     *         Processing your request would cause the maximum number of distributions with Lambda@Edge function
+     *         associations per owner to be exceeded.
+     * @throws TooManyDistributionsWithSingleFunctionARNException
+     *         The maximum number of distributions have been associated with the specified Lambda@Edge function.
      * @throws TooManyLambdaFunctionAssociationsException
-     *         Your request contains more Lambda function associations than are allowed per distribution.
+     *         Your request contains more Lambda@Edge function associations than are allowed per distribution.
      * @throws InvalidLambdaFunctionAssociationException
-     *         The specified Lambda function association is invalid.
+     *         The specified Lambda@Edge function association is invalid.
+     * @throws TooManyDistributionsWithFunctionAssociationsException
+     *         You have reached the maximum number of distributions that are associated with a CloudFront function. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyFunctionAssociationsException
+     *         You have reached the maximum number of CloudFront function associations for this distribution. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws InvalidFunctionAssociationException
+     *         A CloudFront function association is invalid.
      * @throws InvalidOriginReadTimeoutException
      *         The read timeout specified for the origin is not valid.
      * @throws InvalidOriginKeepaliveTimeoutException
@@ -254,16 +617,74 @@ public interface AmazonCloudFront {
      * @throws TooManyDistributionsAssociatedToFieldLevelEncryptionConfigException
      *         The maximum number of distributions have been associated with the specified configuration for field-level
      *         encryption.
+     * @throws NoSuchCachePolicyException
+     *         The cache policy does not exist.
+     * @throws TooManyDistributionsAssociatedToCachePolicyException
+     *         The maximum number of distributions have been associated with the specified cache policy. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws NoSuchResponseHeadersPolicyException
+     *         The response headers policy does not exist.
+     * @throws TooManyDistributionsAssociatedToResponseHeadersPolicyException
+     *         The maximum number of distributions have been associated with the specified response headers policy.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws NoSuchOriginRequestPolicyException
+     *         The origin request policy does not exist.
+     * @throws TooManyDistributionsAssociatedToOriginRequestPolicyException
+     *         The maximum number of distributions have been associated with the specified origin request policy. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyDistributionsAssociatedToKeyGroupException
+     *         The number of distributions that reference this key group is more than the maximum allowed. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyKeyGroupsAssociatedToDistributionException
+     *         The number of key groups referenced by this distribution is more than the maximum allowed. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TrustedKeyGroupDoesNotExistException
+     *         The specified key group does not exist.
+     * @throws NoSuchRealtimeLogConfigException
+     *         The real-time log configuration does not exist.
+     * @throws RealtimeLogConfigOwnerMismatchException
+     *         The specified real-time log configuration belongs to a different Amazon Web Services account.
+     * @throws ContinuousDeploymentPolicyInUseException
+     *         You cannot delete a continuous deployment policy that is associated with a primary distribution.
+     * @throws NoSuchContinuousDeploymentPolicyException
+     *         The continuous deployment policy doesn't exist.
+     * @throws InvalidDomainNameForOriginAccessControlException
+     *         An origin access control is associated with an origin whose domain name is not supported.
      * @sample AmazonCloudFront.CreateDistribution
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/CreateDistribution" target="_top">AWS
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateDistribution" target="_top">AWS
      *      API Documentation</a>
      */
     CreateDistributionResult createDistribution(CreateDistributionRequest createDistributionRequest);
 
     /**
      * <p>
-     * Create a new distribution with tags.
+     * Create a new distribution with tags. This API operation requires the following IAM permissions:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateDistribution.html">
+     * CreateDistribution</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_TagResource.html">TagResource</a>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param createDistributionWithTagsRequest
      *        The request to create a new distribution with tags.
@@ -277,6 +698,10 @@ public interface AmazonCloudFront {
      *         The Amazon S3 origin server specified does not refer to a valid Amazon S3 bucket.
      * @throws InvalidOriginAccessIdentityException
      *         The origin access identity is not valid or doesn't exist.
+     * @throws InvalidOriginAccessControlException
+     *         The origin access control is not valid.
+     * @throws IllegalOriginAccessConfigurationException
+     *         An origin cannot contain both an origin access control (OAC) and an origin access identity (OAI).
      * @throws AccessDeniedException
      *         Access denied.
      * @throws TooManyTrustedSignersException
@@ -284,7 +709,7 @@ public interface AmazonCloudFront {
      * @throws TrustedSignerDoesNotExistException
      *         One or more of your trusted signers don't exist.
      * @throws InvalidViewerCertificateException
-     *         A viewer certificate specified in the response body is not valid.
+     *         A viewer certificate specified is not valid.
      * @throws InvalidMinimumProtocolVersionException
      *         The minimum protocol version specified is not valid.
      * @throws MissingBodyException
@@ -301,9 +726,9 @@ public interface AmazonCloudFront {
      * @throws InvalidErrorCodeException
      *         An invalid error code was specified.
      * @throws InvalidResponseCodeException
-     *         A response code specified in the response body is not valid.
+     *         A response code is not valid.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InvalidRequiredProtocolException
      *         This operation requires the HTTPS protocol. Ensure that you specify the HTTPS protocol in your request,
      *         or omit the <code>RequiredProtocols</code> element from your distribution configuration.
@@ -337,24 +762,42 @@ public interface AmazonCloudFront {
      *         You cannot specify SSLv3 as the minimum protocol version if you only want to support only clients that
      *         support Server Name Indication (SNI).
      * @throws InvalidTTLOrderException
-     *         TTL order specified in the response body is not valid.
+     *         The TTL order specified is not valid.
      * @throws InvalidWebACLIdException
-     *         A web ACL id specified in the response body is not valid.
+     *         A web ACL ID specified is not valid. To specify a web ACL created using the latest version of WAF, use
+     *         the ACL ARN, for example
+     *         <code>arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/473e64fd-f30b-4765-81a0-62ad96dd167a</code>
+     *         . To specify a web ACL created using WAF Classic, use the ACL ID, for example
+     *         <code>473e64fd-f30b-4765-81a0-62ad96dd167a</code>.
      * @throws TooManyOriginCustomHeadersException
      *         Your request contains too many origin custom headers.
      * @throws InvalidTaggingException
-     *         Tagging specified in the response body is not valid.
+     *         The tagging specified is not valid.
      * @throws TooManyQueryStringParametersException
      *         Your request contains too many query string parameters.
      * @throws InvalidQueryStringParametersException
-     *         Query string parameters specified in the response body are not valid.
+     *         The query string parameters specified are not valid.
      * @throws TooManyDistributionsWithLambdaAssociationsException
-     *         Processing your request would cause the maximum number of distributions with Lambda function associations
-     *         per owner to be exceeded.
+     *         Processing your request would cause the maximum number of distributions with Lambda@Edge function
+     *         associations per owner to be exceeded.
+     * @throws TooManyDistributionsWithSingleFunctionARNException
+     *         The maximum number of distributions have been associated with the specified Lambda@Edge function.
      * @throws TooManyLambdaFunctionAssociationsException
-     *         Your request contains more Lambda function associations than are allowed per distribution.
+     *         Your request contains more Lambda@Edge function associations than are allowed per distribution.
      * @throws InvalidLambdaFunctionAssociationException
-     *         The specified Lambda function association is invalid.
+     *         The specified Lambda@Edge function association is invalid.
+     * @throws TooManyDistributionsWithFunctionAssociationsException
+     *         You have reached the maximum number of distributions that are associated with a CloudFront function. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyFunctionAssociationsException
+     *         You have reached the maximum number of CloudFront function associations for this distribution. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws InvalidFunctionAssociationException
+     *         A CloudFront function association is invalid.
      * @throws InvalidOriginReadTimeoutException
      *         The read timeout specified for the origin is not valid.
      * @throws InvalidOriginKeepaliveTimeoutException
@@ -367,8 +810,59 @@ public interface AmazonCloudFront {
      * @throws TooManyDistributionsAssociatedToFieldLevelEncryptionConfigException
      *         The maximum number of distributions have been associated with the specified configuration for field-level
      *         encryption.
+     * @throws NoSuchCachePolicyException
+     *         The cache policy does not exist.
+     * @throws TooManyDistributionsAssociatedToCachePolicyException
+     *         The maximum number of distributions have been associated with the specified cache policy. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyDistributionsAssociatedToOriginAccessControlException
+     *         The maximum number of distributions have been associated with the specified origin access control.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws NoSuchResponseHeadersPolicyException
+     *         The response headers policy does not exist.
+     * @throws TooManyDistributionsAssociatedToResponseHeadersPolicyException
+     *         The maximum number of distributions have been associated with the specified response headers policy.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws NoSuchOriginRequestPolicyException
+     *         The origin request policy does not exist.
+     * @throws TooManyDistributionsAssociatedToOriginRequestPolicyException
+     *         The maximum number of distributions have been associated with the specified origin request policy. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyDistributionsAssociatedToKeyGroupException
+     *         The number of distributions that reference this key group is more than the maximum allowed. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyKeyGroupsAssociatedToDistributionException
+     *         The number of key groups referenced by this distribution is more than the maximum allowed. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TrustedKeyGroupDoesNotExistException
+     *         The specified key group does not exist.
+     * @throws NoSuchRealtimeLogConfigException
+     *         The real-time log configuration does not exist.
+     * @throws RealtimeLogConfigOwnerMismatchException
+     *         The specified real-time log configuration belongs to a different Amazon Web Services account.
+     * @throws ContinuousDeploymentPolicyInUseException
+     *         You cannot delete a continuous deployment policy that is associated with a primary distribution.
+     * @throws NoSuchContinuousDeploymentPolicyException
+     *         The continuous deployment policy doesn't exist.
+     * @throws InvalidDomainNameForOriginAccessControlException
+     *         An origin access control is associated with an origin whose domain name is not supported.
      * @sample AmazonCloudFront.CreateDistributionWithTags
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/CreateDistributionWithTags"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateDistributionWithTags"
      *      target="_top">AWS API Documentation</a>
      */
     CreateDistributionWithTagsResult createDistributionWithTags(CreateDistributionWithTagsRequest createDistributionWithTagsRequest);
@@ -383,7 +877,7 @@ public interface AmazonCloudFront {
      * @throws InconsistentQuantitiesException
      *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws NoSuchFieldLevelEncryptionProfileException
      *         The specified profile for field-level encryption doesn't exist.
      * @throws FieldLevelEncryptionConfigAlreadyExistsException
@@ -397,7 +891,7 @@ public interface AmazonCloudFront {
      * @throws QueryArgProfileEmptyException
      *         No profile specified for the field-level encryption query argument.
      * @sample AmazonCloudFront.CreateFieldLevelEncryptionConfig
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/CreateFieldLevelEncryptionConfig"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateFieldLevelEncryptionConfig"
      *      target="_top">AWS API Documentation</a>
      */
     CreateFieldLevelEncryptionConfigResult createFieldLevelEncryptionConfig(CreateFieldLevelEncryptionConfigRequest createFieldLevelEncryptionConfigRequest);
@@ -412,7 +906,7 @@ public interface AmazonCloudFront {
      * @throws InconsistentQuantitiesException
      *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws NoSuchPublicKeyException
      *         The specified public key doesn't exist.
      * @throws FieldLevelEncryptionProfileAlreadyExistsException
@@ -426,14 +920,58 @@ public interface AmazonCloudFront {
      * @throws TooManyFieldLevelEncryptionFieldPatternsException
      *         The maximum number of field patterns for field-level encryption have been created.
      * @sample AmazonCloudFront.CreateFieldLevelEncryptionProfile
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/CreateFieldLevelEncryptionProfile"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateFieldLevelEncryptionProfile"
      *      target="_top">AWS API Documentation</a>
      */
     CreateFieldLevelEncryptionProfileResult createFieldLevelEncryptionProfile(CreateFieldLevelEncryptionProfileRequest createFieldLevelEncryptionProfileRequest);
 
     /**
      * <p>
-     * Create a new invalidation.
+     * Creates a CloudFront function.
+     * </p>
+     * <p>
+     * To create a function, you provide the function code and some configuration information about the function. The
+     * response contains an Amazon Resource Name (ARN) that uniquely identifies the function.
+     * </p>
+     * <p>
+     * When you create a function, it's in the <code>DEVELOPMENT</code> stage. In this stage, you can test the function
+     * with <code>TestFunction</code>, and update it with <code>UpdateFunction</code>.
+     * </p>
+     * <p>
+     * When you're ready to use your function with a CloudFront distribution, use <code>PublishFunction</code> to copy
+     * the function from the <code>DEVELOPMENT</code> stage to <code>LIVE</code>. When it's live, you can attach the
+     * function to a distribution's cache behavior, using the function's ARN.
+     * </p>
+     * 
+     * @param createFunctionRequest
+     * @return Result of the CreateFunction operation returned by the service.
+     * @throws TooManyFunctionsException
+     *         You have reached the maximum number of CloudFront functions for this Amazon Web Services account. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws FunctionAlreadyExistsException
+     *         A function with the same name already exists in this Amazon Web Services account. To create a function,
+     *         you must provide a unique name. To update an existing function, use <code>UpdateFunction</code>.
+     * @throws FunctionSizeLimitExceededException
+     *         The function is too large. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.CreateFunction
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateFunction" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CreateFunctionResult createFunction(CreateFunctionRequest createFunctionRequest);
+
+    /**
+     * <p>
+     * Create a new invalidation. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html">Invalidating
+     * files</a> in the <i>Amazon CloudFront Developer Guide</i>.
      * </p>
      * 
      * @param createInvalidationRequest
@@ -445,7 +983,7 @@ public interface AmazonCloudFront {
      *         This operation requires a body. Ensure that the body is present and the <code>Content-Type</code> header
      *         is set.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws NoSuchDistributionException
      *         The specified distribution does not exist.
      * @throws BatchTooLargeException
@@ -456,15 +994,221 @@ public interface AmazonCloudFront {
      * @throws InconsistentQuantitiesException
      *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
      * @sample AmazonCloudFront.CreateInvalidation
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/CreateInvalidation" target="_top">AWS
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateInvalidation" target="_top">AWS
      *      API Documentation</a>
      */
     CreateInvalidationResult createInvalidation(CreateInvalidationRequest createInvalidationRequest);
 
     /**
      * <p>
-     * Add a new public key to CloudFront to use, for example, for field-level encryption. You can add a maximum of 10
-     * public keys with one AWS account.
+     * Creates a key group that you can use with <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html">CloudFront signed
+     * URLs and signed cookies</a>.
+     * </p>
+     * <p>
+     * To create a key group, you must specify at least one public key for the key group. After you create a key group,
+     * you can reference it from one or more cache behaviors. When you reference a key group in a cache behavior,
+     * CloudFront requires signed URLs or signed cookies for all requests that match the cache behavior. The URLs or
+     * cookies must be signed with a private key whose corresponding public key is in the key group. The signed URL or
+     * cookie contains information about which public key CloudFront should use to verify the signature. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html">Serving private
+     * content</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * 
+     * @param createKeyGroupRequest
+     * @return Result of the CreateKeyGroup operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws KeyGroupAlreadyExistsException
+     *         A key group with this name already exists. You must provide a unique name. To modify an existing key
+     *         group, use <code>UpdateKeyGroup</code>.
+     * @throws TooManyKeyGroupsException
+     *         You have reached the maximum number of key groups for this Amazon Web Services account. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyPublicKeysInKeyGroupException
+     *         The number of public keys in this key group is more than the maximum allowed. For more information, see
+     *         <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html">Quotas
+     *         </a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @sample AmazonCloudFront.CreateKeyGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateKeyGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CreateKeyGroupResult createKeyGroup(CreateKeyGroupRequest createKeyGroupRequest);
+
+    /**
+     * <p>
+     * Specifies the key value store resource to add to your account. In your account, the key value store names must be
+     * unique. You can also import key value store data in JSON format from an S3 bucket by providing a valid
+     * <code>ImportSource</code> that you own.
+     * </p>
+     * 
+     * @param createKeyValueStoreRequest
+     * @return Result of the CreateKeyValueStore operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws EntityLimitExceededException
+     *         The key value store entity limit has been exceeded.
+     * @throws EntityAlreadyExistsException
+     *         The key value store entity already exists. You must provide a unique key value store entity.
+     * @throws EntitySizeLimitExceededException
+     *         The key value store entity size limit was exceeded.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.CreateKeyValueStore
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateKeyValueStore" target="_top">AWS
+     *      API Documentation</a>
+     */
+    CreateKeyValueStoreResult createKeyValueStore(CreateKeyValueStoreRequest createKeyValueStoreRequest);
+
+    /**
+     * <p>
+     * Enables additional CloudWatch metrics for the specified CloudFront distribution. The additional metrics incur an
+     * additional cost.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/viewing-cloudfront-metrics.html#monitoring-console.distributions-additional"
+     * >Viewing additional CloudFront distribution metrics</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * 
+     * @param createMonitoringSubscriptionRequest
+     * @return Result of the CreateMonitoringSubscription operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchDistributionException
+     *         The specified distribution does not exist.
+     * @throws MonitoringSubscriptionAlreadyExistsException
+     *         A monitoring subscription already exists for the specified distribution.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.CreateMonitoringSubscription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateMonitoringSubscription"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateMonitoringSubscriptionResult createMonitoringSubscription(CreateMonitoringSubscriptionRequest createMonitoringSubscriptionRequest);
+
+    /**
+     * <p>
+     * Creates a new origin access control in CloudFront. After you create an origin access control, you can add it to
+     * an origin in a CloudFront distribution so that CloudFront sends authenticated (signed) requests to the origin.
+     * </p>
+     * <p>
+     * This makes it possible to block public access to the origin, allowing viewers (users) to access the origin's
+     * content only through CloudFront.
+     * </p>
+     * <p>
+     * For more information about using a CloudFront origin access control, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-origin.html"
+     * >Restricting access to an Amazon Web Services origin</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * 
+     * @param createOriginAccessControlRequest
+     * @return Result of the CreateOriginAccessControl operation returned by the service.
+     * @throws OriginAccessControlAlreadyExistsException
+     *         An origin access control with the specified parameters already exists.
+     * @throws TooManyOriginAccessControlsException
+     *         The number of origin access controls in your Amazon Web Services account exceeds the maximum allowed.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @sample AmazonCloudFront.CreateOriginAccessControl
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateOriginAccessControl"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateOriginAccessControlResult createOriginAccessControl(CreateOriginAccessControlRequest createOriginAccessControlRequest);
+
+    /**
+     * <p>
+     * Creates an origin request policy.
+     * </p>
+     * <p>
+     * After you create an origin request policy, you can attach it to one or more cache behaviors. When it's attached
+     * to a cache behavior, the origin request policy determines the values that CloudFront includes in requests that it
+     * sends to the origin. Each request that CloudFront sends to the origin includes the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The request body and the URL path (without the domain name) from the viewer request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The headers that CloudFront automatically includes in every origin request, including <code>Host</code>,
+     * <code>User-Agent</code>, and <code>X-Amz-Cf-Id</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * All HTTP headers, cookies, and URL query strings that are specified in the cache policy or the origin request
+     * policy. These can include items from the viewer request and, in the case of headers, additional ones that are
+     * added by CloudFront.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * CloudFront sends a request when it can't find a valid object in its cache that matches the request. If you want
+     * to send values to the origin and also include them in the cache key, use <code>CachePolicy</code>.
+     * </p>
+     * <p>
+     * For more information about origin request policies, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-origin-requests.html"
+     * >Controlling origin requests</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * 
+     * @param createOriginRequestPolicyRequest
+     * @return Result of the CreateOriginRequestPolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InconsistentQuantitiesException
+     *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws OriginRequestPolicyAlreadyExistsException
+     *         An origin request policy with this name already exists. You must provide a unique name. To modify an
+     *         existing origin request policy, use <code>UpdateOriginRequestPolicy</code>.
+     * @throws TooManyOriginRequestPoliciesException
+     *         You have reached the maximum number of origin request policies for this Amazon Web Services account. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyHeadersInOriginRequestPolicyException
+     *         The number of headers in the origin request policy exceeds the maximum. For more information, see <a
+     *         href=
+     *         "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html">Quotas</a>
+     *         (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyCookiesInOriginRequestPolicyException
+     *         The number of cookies in the origin request policy exceeds the maximum. For more information, see <a
+     *         href=
+     *         "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html">Quotas</a>
+     *         (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyQueryStringsInOriginRequestPolicyException
+     *         The number of query strings in the origin request policy exceeds the maximum. For more information, see
+     *         <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html">Quotas
+     *         </a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @sample AmazonCloudFront.CreateOriginRequestPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateOriginRequestPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateOriginRequestPolicyResult createOriginRequestPolicy(CreateOriginRequestPolicyRequest createOriginRequestPolicyRequest);
+
+    /**
+     * <p>
+     * Uploads a public key to CloudFront that you can use with <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html">signed URLs and
+     * signed cookies</a>, or with <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html">field-level
+     * encryption</a>.
      * </p>
      * 
      * @param createPublicKeyRequest
@@ -472,48 +1216,123 @@ public interface AmazonCloudFront {
      * @throws PublicKeyAlreadyExistsException
      *         The specified public key already exists.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws TooManyPublicKeysException
      *         The maximum number of public keys for field-level encryption have been created. To create a new public
      *         key, delete one of the existing keys.
      * @sample AmazonCloudFront.CreatePublicKey
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/CreatePublicKey" target="_top">AWS API
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreatePublicKey" target="_top">AWS API
      *      Documentation</a>
      */
     CreatePublicKeyResult createPublicKey(CreatePublicKeyRequest createPublicKeyRequest);
 
     /**
      * <p>
-     * Creates a new RTMP distribution. An RTMP distribution is similar to a web distribution, but an RTMP distribution
-     * streams media files using the Adobe Real-Time Messaging Protocol (RTMP) instead of serving files using HTTP.
+     * Creates a real-time log configuration.
      * </p>
      * <p>
-     * To create a new distribution, submit a <code>POST</code> request to the <i>CloudFront API
-     * version</i>/distribution resource. The request body must include a document with a
-     * <i>StreamingDistributionConfig</i> element. The response echoes the <code>StreamingDistributionConfig</code>
-     * element and returns other information about the RTMP distribution.
+     * After you create a real-time log configuration, you can attach it to one or more cache behaviors to send
+     * real-time log data to the specified Amazon Kinesis data stream.
      * </p>
      * <p>
-     * To get the status of your request, use the <i>GET StreamingDistribution</i> API action. When the value of
-     * <code>Enabled</code> is <code>true</code> and the value of <code>Status</code> is <code>Deployed</code>, your
-     * distribution is ready. A distribution usually deploys in less than 15 minutes.
+     * For more information about real-time log configurations, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html">Real-time logs</a>
+     * in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * 
+     * @param createRealtimeLogConfigRequest
+     * @return Result of the CreateRealtimeLogConfig operation returned by the service.
+     * @throws RealtimeLogConfigAlreadyExistsException
+     *         A real-time log configuration with this name already exists. You must provide a unique name. To modify an
+     *         existing real-time log configuration, use <code>UpdateRealtimeLogConfig</code>.
+     * @throws TooManyRealtimeLogConfigsException
+     *         You have reached the maximum number of real-time log configurations for this Amazon Web Services account.
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @sample AmazonCloudFront.CreateRealtimeLogConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateRealtimeLogConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateRealtimeLogConfigResult createRealtimeLogConfig(CreateRealtimeLogConfigRequest createRealtimeLogConfigRequest);
+
+    /**
+     * <p>
+     * Creates a response headers policy.
      * </p>
      * <p>
-     * For more information about web distributions, see <a
-     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-rtmp.html">Working with
-     * RTMP Distributions</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * A response headers policy contains information about a set of HTTP headers. To create a response headers policy,
+     * you provide some metadata about the policy and a set of configurations that specify the headers.
      * </p>
-     * <important>
      * <p>
-     * Beginning with the 2012-05-05 version of the CloudFront API, we made substantial changes to the format of the XML
-     * document that you include in the request body when you create or update a web distribution or an RTMP
-     * distribution, and when you invalidate objects. With previous versions of the API, we discovered that it was too
-     * easy to accidentally delete one or more values for an element that accepts multiple values, for example, CNAMEs
-     * and trusted signers. Our changes for the 2012-05-05 release are intended to prevent these accidental deletions
-     * and to notify you when there's a mismatch between the number of values you say you're specifying in the
-     * <code>Quantity</code> element and the number of values specified.
+     * After you create a response headers policy, you can use its ID to attach it to one or more cache behaviors in a
+     * CloudFront distribution. When it's attached to a cache behavior, the response headers policy affects the HTTP
+     * headers that CloudFront includes in HTTP responses to requests that match the cache behavior. CloudFront adds or
+     * removes response headers according to the configuration of the response headers policy.
      * </p>
-     * </important>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/modifying-response-headers.html">Adding
+     * or removing HTTP headers in CloudFront responses</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * 
+     * @param createResponseHeadersPolicyRequest
+     * @return Result of the CreateResponseHeadersPolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InconsistentQuantitiesException
+     *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws ResponseHeadersPolicyAlreadyExistsException
+     *         A response headers policy with this name already exists. You must provide a unique name. To modify an
+     *         existing response headers policy, use <code>UpdateResponseHeadersPolicy</code>.
+     * @throws TooManyResponseHeadersPoliciesException
+     *         You have reached the maximum number of response headers policies for this Amazon Web Services
+     *         account.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyCustomHeadersInResponseHeadersPolicyException
+     *         The number of custom headers in the response headers policy exceeds the maximum.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooLongCSPInResponseHeadersPolicyException
+     *         The length of the <code>Content-Security-Policy</code> header value in the response headers policy
+     *         exceeds the maximum.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyRemoveHeadersInResponseHeadersPolicyException
+     *         The number of headers in <code>RemoveHeadersConfig</code> in the response headers policy exceeds the
+     *         maximum.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @sample AmazonCloudFront.CreateResponseHeadersPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateResponseHeadersPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateResponseHeadersPolicyResult createResponseHeadersPolicy(CreateResponseHeadersPolicyRequest createResponseHeadersPolicyRequest);
+
+    /**
+     * <p>
+     * This API is deprecated. Amazon CloudFront is deprecating real-time messaging protocol (RTMP) distributions on
+     * December 31, 2020. For more information, <a href="http://forums.aws.amazon.com/ann.jspa?annID=7356">read the
+     * announcement</a> on the Amazon CloudFront discussion forum.
+     * </p>
      * 
      * @param createStreamingDistributionRequest
      *        The request to create a new streaming distribution.
@@ -527,6 +1346,8 @@ public interface AmazonCloudFront {
      *         The Amazon S3 origin server specified does not refer to a valid Amazon S3 bucket.
      * @throws InvalidOriginAccessIdentityException
      *         The origin access identity is not valid or doesn't exist.
+     * @throws InvalidOriginAccessControlException
+     *         The origin access control is not valid.
      * @throws AccessDeniedException
      *         Access denied.
      * @throws TooManyTrustedSignersException
@@ -541,18 +1362,20 @@ public interface AmazonCloudFront {
      * @throws TooManyStreamingDistributionsException
      *         Processing your request would cause you to exceed the maximum number of streaming distributions allowed.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InconsistentQuantitiesException
      *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
      * @sample AmazonCloudFront.CreateStreamingDistribution
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/CreateStreamingDistribution"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateStreamingDistribution"
      *      target="_top">AWS API Documentation</a>
      */
     CreateStreamingDistributionResult createStreamingDistribution(CreateStreamingDistributionRequest createStreamingDistributionRequest);
 
     /**
      * <p>
-     * Create a new streaming distribution with tags.
+     * This API is deprecated. Amazon CloudFront is deprecating real-time messaging protocol (RTMP) distributions on
+     * December 31, 2020. For more information, <a href="http://forums.aws.amazon.com/ann.jspa?annID=7356">read the
+     * announcement</a> on the Amazon CloudFront discussion forum.
      * </p>
      * 
      * @param createStreamingDistributionWithTagsRequest
@@ -567,6 +1390,8 @@ public interface AmazonCloudFront {
      *         The Amazon S3 origin server specified does not refer to a valid Amazon S3 bucket.
      * @throws InvalidOriginAccessIdentityException
      *         The origin access identity is not valid or doesn't exist.
+     * @throws InvalidOriginAccessControlException
+     *         The origin access control is not valid.
      * @throws AccessDeniedException
      *         Access denied.
      * @throws TooManyTrustedSignersException
@@ -581,17 +1406,50 @@ public interface AmazonCloudFront {
      * @throws TooManyStreamingDistributionsException
      *         Processing your request would cause you to exceed the maximum number of streaming distributions allowed.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InconsistentQuantitiesException
      *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
      * @throws InvalidTaggingException
-     *         Tagging specified in the response body is not valid.
+     *         The tagging specified is not valid.
      * @sample AmazonCloudFront.CreateStreamingDistributionWithTags
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/CreateStreamingDistributionWithTags"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateStreamingDistributionWithTags"
      *      target="_top">AWS API Documentation</a>
      */
     CreateStreamingDistributionWithTagsResult createStreamingDistributionWithTags(
             CreateStreamingDistributionWithTagsRequest createStreamingDistributionWithTagsRequest);
+
+    /**
+     * <p>
+     * Deletes a cache policy.
+     * </p>
+     * <p>
+     * You cannot delete a cache policy if it's attached to a cache behavior. First update your distributions to remove
+     * the cache policy from all cache behaviors, then delete the cache policy.
+     * </p>
+     * <p>
+     * To delete a cache policy, you must provide the policy's identifier and version. To get these values, you can use
+     * <code>ListCachePolicies</code> or <code>GetCachePolicy</code>.
+     * </p>
+     * 
+     * @param deleteCachePolicyRequest
+     * @return Result of the DeleteCachePolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchCachePolicyException
+     *         The cache policy does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws IllegalDeleteException
+     *         You cannot delete a managed policy.
+     * @throws CachePolicyInUseException
+     *         Cannot delete the cache policy because it is attached to one or more cache behaviors.
+     * @sample AmazonCloudFront.DeleteCachePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteCachePolicy" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DeleteCachePolicyResult deleteCachePolicy(DeleteCachePolicyRequest deleteCachePolicyRequest);
 
     /**
      * <p>
@@ -604,19 +1462,48 @@ public interface AmazonCloudFront {
      * @throws AccessDeniedException
      *         Access denied.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws NoSuchCloudFrontOriginAccessIdentityException
      *         The specified origin access identity does not exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @throws CloudFrontOriginAccessIdentityInUseException
      *         The Origin Access Identity specified is already in use.
      * @sample AmazonCloudFront.DeleteCloudFrontOriginAccessIdentity
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/DeleteCloudFrontOriginAccessIdentity"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteCloudFrontOriginAccessIdentity"
      *      target="_top">AWS API Documentation</a>
      */
     DeleteCloudFrontOriginAccessIdentityResult deleteCloudFrontOriginAccessIdentity(
             DeleteCloudFrontOriginAccessIdentityRequest deleteCloudFrontOriginAccessIdentityRequest);
+
+    /**
+     * <p>
+     * Deletes a continuous deployment policy.
+     * </p>
+     * <p>
+     * You cannot delete a continuous deployment policy that's attached to a primary distribution. First update your
+     * distribution to remove the continuous deployment policy, then you can delete the policy.
+     * </p>
+     * 
+     * @param deleteContinuousDeploymentPolicyRequest
+     * @return Result of the DeleteContinuousDeploymentPolicy operation returned by the service.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws ContinuousDeploymentPolicyInUseException
+     *         You cannot delete a continuous deployment policy that is associated with a primary distribution.
+     * @throws NoSuchContinuousDeploymentPolicyException
+     *         The continuous deployment policy doesn't exist.
+     * @sample AmazonCloudFront.DeleteContinuousDeploymentPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteContinuousDeploymentPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteContinuousDeploymentPolicyResult deleteContinuousDeploymentPolicy(DeleteContinuousDeploymentPolicyRequest deleteContinuousDeploymentPolicyRequest);
 
     /**
      * <p>
@@ -692,13 +1579,13 @@ public interface AmazonCloudFront {
      *         The specified CloudFront distribution is not disabled. You must disable the distribution before you can
      *         delete it.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws NoSuchDistributionException
      *         The specified distribution does not exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @sample AmazonCloudFront.DeleteDistribution
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/DeleteDistribution" target="_top">AWS
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteDistribution" target="_top">AWS
      *      API Documentation</a>
      */
     DeleteDistributionResult deleteDistribution(DeleteDistributionRequest deleteDistributionRequest);
@@ -713,15 +1600,15 @@ public interface AmazonCloudFront {
      * @throws AccessDeniedException
      *         Access denied.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws NoSuchFieldLevelEncryptionConfigException
      *         The specified configuration for field-level encryption doesn't exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @throws FieldLevelEncryptionConfigInUseException
      *         The specified configuration for field-level encryption is in use.
      * @sample AmazonCloudFront.DeleteFieldLevelEncryptionConfig
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/DeleteFieldLevelEncryptionConfig"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteFieldLevelEncryptionConfig"
      *      target="_top">AWS API Documentation</a>
      */
     DeleteFieldLevelEncryptionConfigResult deleteFieldLevelEncryptionConfig(DeleteFieldLevelEncryptionConfigRequest deleteFieldLevelEncryptionConfigRequest);
@@ -736,18 +1623,185 @@ public interface AmazonCloudFront {
      * @throws AccessDeniedException
      *         Access denied.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws NoSuchFieldLevelEncryptionProfileException
      *         The specified profile for field-level encryption doesn't exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @throws FieldLevelEncryptionProfileInUseException
      *         The specified profile for field-level encryption is in use.
      * @sample AmazonCloudFront.DeleteFieldLevelEncryptionProfile
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/DeleteFieldLevelEncryptionProfile"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteFieldLevelEncryptionProfile"
      *      target="_top">AWS API Documentation</a>
      */
     DeleteFieldLevelEncryptionProfileResult deleteFieldLevelEncryptionProfile(DeleteFieldLevelEncryptionProfileRequest deleteFieldLevelEncryptionProfileRequest);
+
+    /**
+     * <p>
+     * Deletes a CloudFront function.
+     * </p>
+     * <p>
+     * You cannot delete a function if it's associated with a cache behavior. First, update your distributions to remove
+     * the function association from all cache behaviors, then delete the function.
+     * </p>
+     * <p>
+     * To delete a function, you must provide the function's name and version (<code>ETag</code> value). To get these
+     * values, you can use <code>ListFunctions</code> and <code>DescribeFunction</code>.
+     * </p>
+     * 
+     * @param deleteFunctionRequest
+     * @return Result of the DeleteFunction operation returned by the service.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchFunctionExistsException
+     *         The function does not exist.
+     * @throws FunctionInUseException
+     *         Cannot delete the function because it's attached to one or more cache behaviors.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.DeleteFunction
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteFunction" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeleteFunctionResult deleteFunction(DeleteFunctionRequest deleteFunctionRequest);
+
+    /**
+     * <p>
+     * Deletes a key group.
+     * </p>
+     * <p>
+     * You cannot delete a key group that is referenced in a cache behavior. First update your distributions to remove
+     * the key group from all cache behaviors, then delete the key group.
+     * </p>
+     * <p>
+     * To delete a key group, you must provide the key group's identifier and version. To get these values, use
+     * <code>ListKeyGroups</code> followed by <code>GetKeyGroup</code> or <code>GetKeyGroupConfig</code>.
+     * </p>
+     * 
+     * @param deleteKeyGroupRequest
+     * @return Result of the DeleteKeyGroup operation returned by the service.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchResourceException
+     *         A resource that was specified is not valid.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws ResourceInUseException
+     *         Cannot delete this resource because it is in use.
+     * @sample AmazonCloudFront.DeleteKeyGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteKeyGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeleteKeyGroupResult deleteKeyGroup(DeleteKeyGroupRequest deleteKeyGroupRequest);
+
+    /**
+     * <p>
+     * Specifies the key value store to delete.
+     * </p>
+     * 
+     * @param deleteKeyValueStoreRequest
+     * @return Result of the DeleteKeyValueStore operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws EntityNotFoundException
+     *         The key value store entity was not found.
+     * @throws CannotDeleteEntityWhileInUseException
+     *         The key value store entity cannot be deleted while it is in use.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.DeleteKeyValueStore
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteKeyValueStore" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DeleteKeyValueStoreResult deleteKeyValueStore(DeleteKeyValueStoreRequest deleteKeyValueStoreRequest);
+
+    /**
+     * <p>
+     * Disables additional CloudWatch metrics for the specified CloudFront distribution.
+     * </p>
+     * 
+     * @param deleteMonitoringSubscriptionRequest
+     * @return Result of the DeleteMonitoringSubscription operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchDistributionException
+     *         The specified distribution does not exist.
+     * @throws NoSuchMonitoringSubscriptionException
+     *         A monitoring subscription does not exist for the specified distribution.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.DeleteMonitoringSubscription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteMonitoringSubscription"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteMonitoringSubscriptionResult deleteMonitoringSubscription(DeleteMonitoringSubscriptionRequest deleteMonitoringSubscriptionRequest);
+
+    /**
+     * <p>
+     * Deletes a CloudFront origin access control.
+     * </p>
+     * <p>
+     * You cannot delete an origin access control if it's in use. First, update all distributions to remove the origin
+     * access control from all origins, then delete the origin access control.
+     * </p>
+     * 
+     * @param deleteOriginAccessControlRequest
+     * @return Result of the DeleteOriginAccessControl operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchOriginAccessControlException
+     *         The origin access control does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws OriginAccessControlInUseException
+     *         Cannot delete the origin access control because it's in use by one or more distributions.
+     * @sample AmazonCloudFront.DeleteOriginAccessControl
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteOriginAccessControl"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteOriginAccessControlResult deleteOriginAccessControl(DeleteOriginAccessControlRequest deleteOriginAccessControlRequest);
+
+    /**
+     * <p>
+     * Deletes an origin request policy.
+     * </p>
+     * <p>
+     * You cannot delete an origin request policy if it's attached to any cache behaviors. First update your
+     * distributions to remove the origin request policy from all cache behaviors, then delete the origin request
+     * policy.
+     * </p>
+     * <p>
+     * To delete an origin request policy, you must provide the policy's identifier and version. To get the identifier,
+     * you can use <code>ListOriginRequestPolicies</code> or <code>GetOriginRequestPolicy</code>.
+     * </p>
+     * 
+     * @param deleteOriginRequestPolicyRequest
+     * @return Result of the DeleteOriginRequestPolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchOriginRequestPolicyException
+     *         The origin request policy does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws IllegalDeleteException
+     *         You cannot delete a managed policy.
+     * @throws OriginRequestPolicyInUseException
+     *         Cannot delete the origin request policy because it is attached to one or more cache behaviors.
+     * @sample AmazonCloudFront.DeleteOriginRequestPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteOriginRequestPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteOriginRequestPolicyResult deleteOriginRequestPolicy(DeleteOriginRequestPolicyRequest deleteOriginRequestPolicyRequest);
 
     /**
      * <p>
@@ -761,16 +1815,81 @@ public interface AmazonCloudFront {
      * @throws PublicKeyInUseException
      *         The specified public key is in use.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws NoSuchPublicKeyException
      *         The specified public key doesn't exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @sample AmazonCloudFront.DeletePublicKey
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/DeletePublicKey" target="_top">AWS API
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeletePublicKey" target="_top">AWS API
      *      Documentation</a>
      */
     DeletePublicKeyResult deletePublicKey(DeletePublicKeyRequest deletePublicKeyRequest);
+
+    /**
+     * <p>
+     * Deletes a real-time log configuration.
+     * </p>
+     * <p>
+     * You cannot delete a real-time log configuration if it's attached to a cache behavior. First update your
+     * distributions to remove the real-time log configuration from all cache behaviors, then delete the real-time log
+     * configuration.
+     * </p>
+     * <p>
+     * To delete a real-time log configuration, you can provide the configuration's name or its Amazon Resource Name
+     * (ARN). You must provide at least one. If you provide both, CloudFront uses the name to identify the real-time log
+     * configuration to delete.
+     * </p>
+     * 
+     * @param deleteRealtimeLogConfigRequest
+     * @return Result of the DeleteRealtimeLogConfig operation returned by the service.
+     * @throws NoSuchRealtimeLogConfigException
+     *         The real-time log configuration does not exist.
+     * @throws RealtimeLogConfigInUseException
+     *         Cannot delete the real-time log configuration because it is attached to one or more cache behaviors.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @sample AmazonCloudFront.DeleteRealtimeLogConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteRealtimeLogConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteRealtimeLogConfigResult deleteRealtimeLogConfig(DeleteRealtimeLogConfigRequest deleteRealtimeLogConfigRequest);
+
+    /**
+     * <p>
+     * Deletes a response headers policy.
+     * </p>
+     * <p>
+     * You cannot delete a response headers policy if it's attached to a cache behavior. First update your distributions
+     * to remove the response headers policy from all cache behaviors, then delete the response headers policy.
+     * </p>
+     * <p>
+     * To delete a response headers policy, you must provide the policy's identifier and version. To get these values,
+     * you can use <code>ListResponseHeadersPolicies</code> or <code>GetResponseHeadersPolicy</code>.
+     * </p>
+     * 
+     * @param deleteResponseHeadersPolicyRequest
+     * @return Result of the DeleteResponseHeadersPolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchResponseHeadersPolicyException
+     *         The response headers policy does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws IllegalDeleteException
+     *         You cannot delete a managed policy.
+     * @throws ResponseHeadersPolicyInUseException
+     *         Cannot delete the response headers policy because it is attached to one or more cache behaviors in a
+     *         CloudFront distribution.
+     * @sample AmazonCloudFront.DeleteResponseHeadersPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteResponseHeadersPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteResponseHeadersPolicyResult deleteResponseHeadersPolicy(DeleteResponseHeadersPolicyRequest deleteResponseHeadersPolicyRequest);
 
     /**
      * <p>
@@ -847,16 +1966,117 @@ public interface AmazonCloudFront {
      *         The specified CloudFront distribution is not disabled. You must disable the distribution before you can
      *         delete it.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws NoSuchStreamingDistributionException
      *         The specified streaming distribution does not exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @sample AmazonCloudFront.DeleteStreamingDistribution
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/DeleteStreamingDistribution"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteStreamingDistribution"
      *      target="_top">AWS API Documentation</a>
      */
     DeleteStreamingDistributionResult deleteStreamingDistribution(DeleteStreamingDistributionRequest deleteStreamingDistributionRequest);
+
+    /**
+     * <p>
+     * Gets configuration information and metadata about a CloudFront function, but not the function's code. To get a
+     * function's code, use <code>GetFunction</code>.
+     * </p>
+     * <p>
+     * To get configuration information and metadata about a function, you must provide the function's name and stage.
+     * To get these values, you can use <code>ListFunctions</code>.
+     * </p>
+     * 
+     * @param describeFunctionRequest
+     * @return Result of the DescribeFunction operation returned by the service.
+     * @throws NoSuchFunctionExistsException
+     *         The function does not exist.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.DescribeFunction
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DescribeFunction" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DescribeFunctionResult describeFunction(DescribeFunctionRequest describeFunctionRequest);
+
+    /**
+     * <p>
+     * Specifies the key value store and its configuration.
+     * </p>
+     * 
+     * @param describeKeyValueStoreRequest
+     * @return Result of the DescribeKeyValueStore operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws EntityNotFoundException
+     *         The key value store entity was not found.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.DescribeKeyValueStore
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DescribeKeyValueStore"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeKeyValueStoreResult describeKeyValueStore(DescribeKeyValueStoreRequest describeKeyValueStoreRequest);
+
+    /**
+     * <p>
+     * Gets a cache policy, including the following metadata:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The policy's identifier.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The date and time when the policy was last modified.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To get a cache policy, you must provide the policy's identifier. If the cache policy is attached to a
+     * distribution's cache behavior, you can get the policy's identifier using <code>ListDistributions</code> or
+     * <code>GetDistribution</code>. If the cache policy is not attached to a cache behavior, you can get the identifier
+     * using <code>ListCachePolicies</code>.
+     * </p>
+     * 
+     * @param getCachePolicyRequest
+     * @return Result of the GetCachePolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchCachePolicyException
+     *         The cache policy does not exist.
+     * @sample AmazonCloudFront.GetCachePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetCachePolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetCachePolicyResult getCachePolicy(GetCachePolicyRequest getCachePolicyRequest);
+
+    /**
+     * <p>
+     * Gets a cache policy configuration.
+     * </p>
+     * <p>
+     * To get a cache policy configuration, you must provide the policy's identifier. If the cache policy is attached to
+     * a distribution's cache behavior, you can get the policy's identifier using <code>ListDistributions</code> or
+     * <code>GetDistribution</code>. If the cache policy is not attached to a cache behavior, you can get the identifier
+     * using <code>ListCachePolicies</code>.
+     * </p>
+     * 
+     * @param getCachePolicyConfigRequest
+     * @return Result of the GetCachePolicyConfig operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchCachePolicyException
+     *         The cache policy does not exist.
+     * @sample AmazonCloudFront.GetCachePolicyConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetCachePolicyConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetCachePolicyConfigResult getCachePolicyConfig(GetCachePolicyConfigRequest getCachePolicyConfigRequest);
 
     /**
      * <p>
@@ -871,7 +2091,7 @@ public interface AmazonCloudFront {
      * @throws AccessDeniedException
      *         Access denied.
      * @sample AmazonCloudFront.GetCloudFrontOriginAccessIdentity
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetCloudFrontOriginAccessIdentity"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetCloudFrontOriginAccessIdentity"
      *      target="_top">AWS API Documentation</a>
      */
     GetCloudFrontOriginAccessIdentityResult getCloudFrontOriginAccessIdentity(GetCloudFrontOriginAccessIdentityRequest getCloudFrontOriginAccessIdentityRequest);
@@ -892,11 +2112,47 @@ public interface AmazonCloudFront {
      *         Access denied.
      * @sample AmazonCloudFront.GetCloudFrontOriginAccessIdentityConfig
      * @see <a
-     *      href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetCloudFrontOriginAccessIdentityConfig"
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetCloudFrontOriginAccessIdentityConfig"
      *      target="_top">AWS API Documentation</a>
      */
     GetCloudFrontOriginAccessIdentityConfigResult getCloudFrontOriginAccessIdentityConfig(
             GetCloudFrontOriginAccessIdentityConfigRequest getCloudFrontOriginAccessIdentityConfigRequest);
+
+    /**
+     * <p>
+     * Gets a continuous deployment policy, including metadata (the policy's identifier and the date and time when the
+     * policy was last modified).
+     * </p>
+     * 
+     * @param getContinuousDeploymentPolicyRequest
+     * @return Result of the GetContinuousDeploymentPolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchContinuousDeploymentPolicyException
+     *         The continuous deployment policy doesn't exist.
+     * @sample AmazonCloudFront.GetContinuousDeploymentPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetContinuousDeploymentPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetContinuousDeploymentPolicyResult getContinuousDeploymentPolicy(GetContinuousDeploymentPolicyRequest getContinuousDeploymentPolicyRequest);
+
+    /**
+     * <p>
+     * Gets configuration information about a continuous deployment policy.
+     * </p>
+     * 
+     * @param getContinuousDeploymentPolicyConfigRequest
+     * @return Result of the GetContinuousDeploymentPolicyConfig operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchContinuousDeploymentPolicyException
+     *         The continuous deployment policy doesn't exist.
+     * @sample AmazonCloudFront.GetContinuousDeploymentPolicyConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetContinuousDeploymentPolicyConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetContinuousDeploymentPolicyConfigResult getContinuousDeploymentPolicyConfig(
+            GetContinuousDeploymentPolicyConfigRequest getContinuousDeploymentPolicyConfigRequest);
 
     /**
      * <p>
@@ -911,7 +2167,7 @@ public interface AmazonCloudFront {
      * @throws AccessDeniedException
      *         Access denied.
      * @sample AmazonCloudFront.GetDistribution
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetDistribution" target="_top">AWS API
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetDistribution" target="_top">AWS API
      *      Documentation</a>
      */
     GetDistributionResult getDistribution(GetDistributionRequest getDistributionRequest);
@@ -929,7 +2185,7 @@ public interface AmazonCloudFront {
      * @throws AccessDeniedException
      *         Access denied.
      * @sample AmazonCloudFront.GetDistributionConfig
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetDistributionConfig"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetDistributionConfig"
      *      target="_top">AWS API Documentation</a>
      */
     GetDistributionConfigResult getDistributionConfig(GetDistributionConfigRequest getDistributionConfigRequest);
@@ -946,7 +2202,7 @@ public interface AmazonCloudFront {
      * @throws NoSuchFieldLevelEncryptionConfigException
      *         The specified configuration for field-level encryption doesn't exist.
      * @sample AmazonCloudFront.GetFieldLevelEncryption
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetFieldLevelEncryption"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetFieldLevelEncryption"
      *      target="_top">AWS API Documentation</a>
      */
     GetFieldLevelEncryptionResult getFieldLevelEncryption(GetFieldLevelEncryptionRequest getFieldLevelEncryptionRequest);
@@ -963,7 +2219,7 @@ public interface AmazonCloudFront {
      * @throws NoSuchFieldLevelEncryptionConfigException
      *         The specified configuration for field-level encryption doesn't exist.
      * @sample AmazonCloudFront.GetFieldLevelEncryptionConfig
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetFieldLevelEncryptionConfig"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetFieldLevelEncryptionConfig"
      *      target="_top">AWS API Documentation</a>
      */
     GetFieldLevelEncryptionConfigResult getFieldLevelEncryptionConfig(GetFieldLevelEncryptionConfigRequest getFieldLevelEncryptionConfigRequest);
@@ -980,7 +2236,7 @@ public interface AmazonCloudFront {
      * @throws NoSuchFieldLevelEncryptionProfileException
      *         The specified profile for field-level encryption doesn't exist.
      * @sample AmazonCloudFront.GetFieldLevelEncryptionProfile
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetFieldLevelEncryptionProfile"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetFieldLevelEncryptionProfile"
      *      target="_top">AWS API Documentation</a>
      */
     GetFieldLevelEncryptionProfileResult getFieldLevelEncryptionProfile(GetFieldLevelEncryptionProfileRequest getFieldLevelEncryptionProfileRequest);
@@ -997,11 +2253,33 @@ public interface AmazonCloudFront {
      * @throws NoSuchFieldLevelEncryptionProfileException
      *         The specified profile for field-level encryption doesn't exist.
      * @sample AmazonCloudFront.GetFieldLevelEncryptionProfileConfig
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetFieldLevelEncryptionProfileConfig"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetFieldLevelEncryptionProfileConfig"
      *      target="_top">AWS API Documentation</a>
      */
     GetFieldLevelEncryptionProfileConfigResult getFieldLevelEncryptionProfileConfig(
             GetFieldLevelEncryptionProfileConfigRequest getFieldLevelEncryptionProfileConfigRequest);
+
+    /**
+     * <p>
+     * Gets the code of a CloudFront function. To get configuration information and metadata about a function, use
+     * <code>DescribeFunction</code>.
+     * </p>
+     * <p>
+     * To get a function's code, you must provide the function's name and stage. To get these values, you can use
+     * <code>ListFunctions</code>.
+     * </p>
+     * 
+     * @param getFunctionRequest
+     * @return Result of the GetFunction operation returned by the service.
+     * @throws NoSuchFunctionExistsException
+     *         The function does not exist.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.GetFunction
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetFunction" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetFunctionResult getFunction(GetFunctionRequest getFunctionRequest);
 
     /**
      * <p>
@@ -1018,14 +2296,170 @@ public interface AmazonCloudFront {
      * @throws AccessDeniedException
      *         Access denied.
      * @sample AmazonCloudFront.GetInvalidation
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetInvalidation" target="_top">AWS API
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetInvalidation" target="_top">AWS API
      *      Documentation</a>
      */
     GetInvalidationResult getInvalidation(GetInvalidationRequest getInvalidationRequest);
 
     /**
      * <p>
-     * Get the public key information.
+     * Gets a key group, including the date and time when the key group was last modified.
+     * </p>
+     * <p>
+     * To get a key group, you must provide the key group's identifier. If the key group is referenced in a
+     * distribution's cache behavior, you can get the key group's identifier using <code>ListDistributions</code> or
+     * <code>GetDistribution</code>. If the key group is not referenced in a cache behavior, you can get the identifier
+     * using <code>ListKeyGroups</code>.
+     * </p>
+     * 
+     * @param getKeyGroupRequest
+     * @return Result of the GetKeyGroup operation returned by the service.
+     * @throws NoSuchResourceException
+     *         A resource that was specified is not valid.
+     * @sample AmazonCloudFront.GetKeyGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetKeyGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetKeyGroupResult getKeyGroup(GetKeyGroupRequest getKeyGroupRequest);
+
+    /**
+     * <p>
+     * Gets a key group configuration.
+     * </p>
+     * <p>
+     * To get a key group configuration, you must provide the key group's identifier. If the key group is referenced in
+     * a distribution's cache behavior, you can get the key group's identifier using <code>ListDistributions</code> or
+     * <code>GetDistribution</code>. If the key group is not referenced in a cache behavior, you can get the identifier
+     * using <code>ListKeyGroups</code>.
+     * </p>
+     * 
+     * @param getKeyGroupConfigRequest
+     * @return Result of the GetKeyGroupConfig operation returned by the service.
+     * @throws NoSuchResourceException
+     *         A resource that was specified is not valid.
+     * @sample AmazonCloudFront.GetKeyGroupConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetKeyGroupConfig" target="_top">AWS
+     *      API Documentation</a>
+     */
+    GetKeyGroupConfigResult getKeyGroupConfig(GetKeyGroupConfigRequest getKeyGroupConfigRequest);
+
+    /**
+     * <p>
+     * Gets information about whether additional CloudWatch metrics are enabled for the specified CloudFront
+     * distribution.
+     * </p>
+     * 
+     * @param getMonitoringSubscriptionRequest
+     * @return Result of the GetMonitoringSubscription operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchDistributionException
+     *         The specified distribution does not exist.
+     * @throws NoSuchMonitoringSubscriptionException
+     *         A monitoring subscription does not exist for the specified distribution.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.GetMonitoringSubscription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetMonitoringSubscription"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetMonitoringSubscriptionResult getMonitoringSubscription(GetMonitoringSubscriptionRequest getMonitoringSubscriptionRequest);
+
+    /**
+     * <p>
+     * Gets a CloudFront origin access control, including its unique identifier.
+     * </p>
+     * 
+     * @param getOriginAccessControlRequest
+     * @return Result of the GetOriginAccessControl operation returned by the service.
+     * @throws NoSuchOriginAccessControlException
+     *         The origin access control does not exist.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @sample AmazonCloudFront.GetOriginAccessControl
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetOriginAccessControl"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetOriginAccessControlResult getOriginAccessControl(GetOriginAccessControlRequest getOriginAccessControlRequest);
+
+    /**
+     * <p>
+     * Gets a CloudFront origin access control configuration.
+     * </p>
+     * 
+     * @param getOriginAccessControlConfigRequest
+     * @return Result of the GetOriginAccessControlConfig operation returned by the service.
+     * @throws NoSuchOriginAccessControlException
+     *         The origin access control does not exist.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @sample AmazonCloudFront.GetOriginAccessControlConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetOriginAccessControlConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetOriginAccessControlConfigResult getOriginAccessControlConfig(GetOriginAccessControlConfigRequest getOriginAccessControlConfigRequest);
+
+    /**
+     * <p>
+     * Gets an origin request policy, including the following metadata:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The policy's identifier.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The date and time when the policy was last modified.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To get an origin request policy, you must provide the policy's identifier. If the origin request policy is
+     * attached to a distribution's cache behavior, you can get the policy's identifier using
+     * <code>ListDistributions</code> or <code>GetDistribution</code>. If the origin request policy is not attached to a
+     * cache behavior, you can get the identifier using <code>ListOriginRequestPolicies</code>.
+     * </p>
+     * 
+     * @param getOriginRequestPolicyRequest
+     * @return Result of the GetOriginRequestPolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchOriginRequestPolicyException
+     *         The origin request policy does not exist.
+     * @sample AmazonCloudFront.GetOriginRequestPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetOriginRequestPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetOriginRequestPolicyResult getOriginRequestPolicy(GetOriginRequestPolicyRequest getOriginRequestPolicyRequest);
+
+    /**
+     * <p>
+     * Gets an origin request policy configuration.
+     * </p>
+     * <p>
+     * To get an origin request policy configuration, you must provide the policy's identifier. If the origin request
+     * policy is attached to a distribution's cache behavior, you can get the policy's identifier using
+     * <code>ListDistributions</code> or <code>GetDistribution</code>. If the origin request policy is not attached to a
+     * cache behavior, you can get the identifier using <code>ListOriginRequestPolicies</code>.
+     * </p>
+     * 
+     * @param getOriginRequestPolicyConfigRequest
+     * @return Result of the GetOriginRequestPolicyConfig operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchOriginRequestPolicyException
+     *         The origin request policy does not exist.
+     * @sample AmazonCloudFront.GetOriginRequestPolicyConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetOriginRequestPolicyConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetOriginRequestPolicyConfigResult getOriginRequestPolicyConfig(GetOriginRequestPolicyConfigRequest getOriginRequestPolicyConfigRequest);
+
+    /**
+     * <p>
+     * Gets a public key.
      * </p>
      * 
      * @param getPublicKeyRequest
@@ -1035,14 +2469,14 @@ public interface AmazonCloudFront {
      * @throws NoSuchPublicKeyException
      *         The specified public key doesn't exist.
      * @sample AmazonCloudFront.GetPublicKey
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetPublicKey" target="_top">AWS API
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetPublicKey" target="_top">AWS API
      *      Documentation</a>
      */
     GetPublicKeyResult getPublicKey(GetPublicKeyRequest getPublicKeyRequest);
 
     /**
      * <p>
-     * Return public key configuration informaation
+     * Gets a public key configuration.
      * </p>
      * 
      * @param getPublicKeyConfigRequest
@@ -1052,10 +2486,81 @@ public interface AmazonCloudFront {
      * @throws NoSuchPublicKeyException
      *         The specified public key doesn't exist.
      * @sample AmazonCloudFront.GetPublicKeyConfig
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetPublicKeyConfig" target="_top">AWS
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetPublicKeyConfig" target="_top">AWS
      *      API Documentation</a>
      */
     GetPublicKeyConfigResult getPublicKeyConfig(GetPublicKeyConfigRequest getPublicKeyConfigRequest);
+
+    /**
+     * <p>
+     * Gets a real-time log configuration.
+     * </p>
+     * <p>
+     * To get a real-time log configuration, you can provide the configuration's name or its Amazon Resource Name (ARN).
+     * You must provide at least one. If you provide both, CloudFront uses the name to identify the real-time log
+     * configuration to get.
+     * </p>
+     * 
+     * @param getRealtimeLogConfigRequest
+     * @return Result of the GetRealtimeLogConfig operation returned by the service.
+     * @throws NoSuchRealtimeLogConfigException
+     *         The real-time log configuration does not exist.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @sample AmazonCloudFront.GetRealtimeLogConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetRealtimeLogConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetRealtimeLogConfigResult getRealtimeLogConfig(GetRealtimeLogConfigRequest getRealtimeLogConfigRequest);
+
+    /**
+     * <p>
+     * Gets a response headers policy, including metadata (the policy's identifier and the date and time when the policy
+     * was last modified).
+     * </p>
+     * <p>
+     * To get a response headers policy, you must provide the policy's identifier. If the response headers policy is
+     * attached to a distribution's cache behavior, you can get the policy's identifier using
+     * <code>ListDistributions</code> or <code>GetDistribution</code>. If the response headers policy is not attached to
+     * a cache behavior, you can get the identifier using <code>ListResponseHeadersPolicies</code>.
+     * </p>
+     * 
+     * @param getResponseHeadersPolicyRequest
+     * @return Result of the GetResponseHeadersPolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchResponseHeadersPolicyException
+     *         The response headers policy does not exist.
+     * @sample AmazonCloudFront.GetResponseHeadersPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetResponseHeadersPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetResponseHeadersPolicyResult getResponseHeadersPolicy(GetResponseHeadersPolicyRequest getResponseHeadersPolicyRequest);
+
+    /**
+     * <p>
+     * Gets a response headers policy configuration.
+     * </p>
+     * <p>
+     * To get a response headers policy configuration, you must provide the policy's identifier. If the response headers
+     * policy is attached to a distribution's cache behavior, you can get the policy's identifier using
+     * <code>ListDistributions</code> or <code>GetDistribution</code>. If the response headers policy is not attached to
+     * a cache behavior, you can get the identifier using <code>ListResponseHeadersPolicies</code>.
+     * </p>
+     * 
+     * @param getResponseHeadersPolicyConfigRequest
+     * @return Result of the GetResponseHeadersPolicyConfig operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchResponseHeadersPolicyException
+     *         The response headers policy does not exist.
+     * @sample AmazonCloudFront.GetResponseHeadersPolicyConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetResponseHeadersPolicyConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetResponseHeadersPolicyConfigResult getResponseHeadersPolicyConfig(GetResponseHeadersPolicyConfigRequest getResponseHeadersPolicyConfigRequest);
 
     /**
      * <p>
@@ -1070,7 +2575,7 @@ public interface AmazonCloudFront {
      * @throws AccessDeniedException
      *         Access denied.
      * @sample AmazonCloudFront.GetStreamingDistribution
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetStreamingDistribution"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetStreamingDistribution"
      *      target="_top">AWS API Documentation</a>
      */
     GetStreamingDistributionResult getStreamingDistribution(GetStreamingDistributionRequest getStreamingDistributionRequest);
@@ -1088,10 +2593,39 @@ public interface AmazonCloudFront {
      * @throws AccessDeniedException
      *         Access denied.
      * @sample AmazonCloudFront.GetStreamingDistributionConfig
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetStreamingDistributionConfig"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetStreamingDistributionConfig"
      *      target="_top">AWS API Documentation</a>
      */
     GetStreamingDistributionConfigResult getStreamingDistributionConfig(GetStreamingDistributionConfigRequest getStreamingDistributionConfigRequest);
+
+    /**
+     * <p>
+     * Gets a list of cache policies.
+     * </p>
+     * <p>
+     * You can optionally apply a filter to return only the managed policies created by Amazon Web Services, or only the
+     * custom policies created in your Amazon Web Services account.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listCachePoliciesRequest
+     * @return Result of the ListCachePolicies operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchCachePolicyException
+     *         The cache policy does not exist.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @sample AmazonCloudFront.ListCachePolicies
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListCachePolicies" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ListCachePoliciesResult listCachePolicies(ListCachePoliciesRequest listCachePoliciesRequest);
 
     /**
      * <p>
@@ -1102,13 +2636,80 @@ public interface AmazonCloudFront {
      *        The request to list origin access identities.
      * @return Result of the ListCloudFrontOriginAccessIdentities operation returned by the service.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @sample AmazonCloudFront.ListCloudFrontOriginAccessIdentities
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/ListCloudFrontOriginAccessIdentities"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListCloudFrontOriginAccessIdentities"
      *      target="_top">AWS API Documentation</a>
      */
     ListCloudFrontOriginAccessIdentitiesResult listCloudFrontOriginAccessIdentities(
             ListCloudFrontOriginAccessIdentitiesRequest listCloudFrontOriginAccessIdentitiesRequest);
+
+    /**
+     * <p>
+     * Gets a list of aliases (also called CNAMEs or alternate domain names) that conflict or overlap with the provided
+     * alias, and the associated CloudFront distributions and Amazon Web Services accounts for each conflicting alias.
+     * In the returned list, the distribution and account IDs are partially hidden, which allows you to identify the
+     * distributions and accounts that you own, but helps to protect the information of ones that you don't own.
+     * </p>
+     * <p>
+     * Use this operation to find aliases that are in use in CloudFront that conflict or overlap with the provided
+     * alias. For example, if you provide <code>www.example.com</code> as input, the returned list can include
+     * <code>www.example.com</code> and the overlapping wildcard alternate domain name (<code>*.example.com</code>), if
+     * they exist. If you provide <code>*.example.com</code> as input, the returned list can include
+     * <code>*.example.com</code> and any alternate domain names covered by that wildcard (for example,
+     * <code>www.example.com</code>, <code>test.example.com</code>, <code>dev.example.com</code>, and so on), if they
+     * exist.
+     * </p>
+     * <p>
+     * To list conflicting aliases, you provide the alias to search and the ID of a distribution in your account that
+     * has an attached SSL/TLS certificate that includes the provided alias. For more information, including how to set
+     * up the distribution and certificate, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/CNAMEs.html#alternate-domain-names-move"
+     * >Moving an alternate domain name to a different distribution</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listConflictingAliasesRequest
+     * @return Result of the ListConflictingAliases operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws NoSuchDistributionException
+     *         The specified distribution does not exist.
+     * @sample AmazonCloudFront.ListConflictingAliases
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListConflictingAliases"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListConflictingAliasesResult listConflictingAliases(ListConflictingAliasesRequest listConflictingAliasesRequest);
+
+    /**
+     * <p>
+     * Gets a list of the continuous deployment policies in your Amazon Web Services account.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listContinuousDeploymentPoliciesRequest
+     * @return Result of the ListContinuousDeploymentPolicies operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchContinuousDeploymentPolicyException
+     *         The continuous deployment policy doesn't exist.
+     * @sample AmazonCloudFront.ListContinuousDeploymentPolicies
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListContinuousDeploymentPolicies"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListContinuousDeploymentPoliciesResult listContinuousDeploymentPolicies(ListContinuousDeploymentPoliciesRequest listContinuousDeploymentPoliciesRequest);
 
     /**
      * <p>
@@ -1119,27 +2720,165 @@ public interface AmazonCloudFront {
      *        The request to list your distributions.
      * @return Result of the ListDistributions operation returned by the service.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @sample AmazonCloudFront.ListDistributions
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/ListDistributions" target="_top">AWS
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListDistributions" target="_top">AWS
      *      API Documentation</a>
      */
     ListDistributionsResult listDistributions(ListDistributionsRequest listDistributionsRequest);
 
     /**
      * <p>
-     * List the distributions that are associated with a specified AWS WAF web ACL.
+     * Gets a list of distribution IDs for distributions that have a cache behavior that's associated with the specified
+     * cache policy.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listDistributionsByCachePolicyIdRequest
+     * @return Result of the ListDistributionsByCachePolicyId operation returned by the service.
+     * @throws NoSuchCachePolicyException
+     *         The cache policy does not exist.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @sample AmazonCloudFront.ListDistributionsByCachePolicyId
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListDistributionsByCachePolicyId"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListDistributionsByCachePolicyIdResult listDistributionsByCachePolicyId(ListDistributionsByCachePolicyIdRequest listDistributionsByCachePolicyIdRequest);
+
+    /**
+     * <p>
+     * Gets a list of distribution IDs for distributions that have a cache behavior that references the specified key
+     * group.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listDistributionsByKeyGroupRequest
+     * @return Result of the ListDistributionsByKeyGroup operation returned by the service.
+     * @throws NoSuchResourceException
+     *         A resource that was specified is not valid.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @sample AmazonCloudFront.ListDistributionsByKeyGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListDistributionsByKeyGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListDistributionsByKeyGroupResult listDistributionsByKeyGroup(ListDistributionsByKeyGroupRequest listDistributionsByKeyGroupRequest);
+
+    /**
+     * <p>
+     * Gets a list of distribution IDs for distributions that have a cache behavior that's associated with the specified
+     * origin request policy.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listDistributionsByOriginRequestPolicyIdRequest
+     * @return Result of the ListDistributionsByOriginRequestPolicyId operation returned by the service.
+     * @throws NoSuchOriginRequestPolicyException
+     *         The origin request policy does not exist.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @sample AmazonCloudFront.ListDistributionsByOriginRequestPolicyId
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListDistributionsByOriginRequestPolicyId"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListDistributionsByOriginRequestPolicyIdResult listDistributionsByOriginRequestPolicyId(
+            ListDistributionsByOriginRequestPolicyIdRequest listDistributionsByOriginRequestPolicyIdRequest);
+
+    /**
+     * <p>
+     * Gets a list of distributions that have a cache behavior that's associated with the specified real-time log
+     * configuration.
+     * </p>
+     * <p>
+     * You can specify the real-time log configuration by its name or its Amazon Resource Name (ARN). You must provide
+     * at least one. If you provide both, CloudFront uses the name to identify the real-time log configuration to list
+     * distributions for.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listDistributionsByRealtimeLogConfigRequest
+     * @return Result of the ListDistributionsByRealtimeLogConfig operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @sample AmazonCloudFront.ListDistributionsByRealtimeLogConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListDistributionsByRealtimeLogConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListDistributionsByRealtimeLogConfigResult listDistributionsByRealtimeLogConfig(
+            ListDistributionsByRealtimeLogConfigRequest listDistributionsByRealtimeLogConfigRequest);
+
+    /**
+     * <p>
+     * Gets a list of distribution IDs for distributions that have a cache behavior that's associated with the specified
+     * response headers policy.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listDistributionsByResponseHeadersPolicyIdRequest
+     * @return Result of the ListDistributionsByResponseHeadersPolicyId operation returned by the service.
+     * @throws NoSuchResponseHeadersPolicyException
+     *         The response headers policy does not exist.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @sample AmazonCloudFront.ListDistributionsByResponseHeadersPolicyId
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListDistributionsByResponseHeadersPolicyId"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListDistributionsByResponseHeadersPolicyIdResult listDistributionsByResponseHeadersPolicyId(
+            ListDistributionsByResponseHeadersPolicyIdRequest listDistributionsByResponseHeadersPolicyIdRequest);
+
+    /**
+     * <p>
+     * List the distributions that are associated with a specified WAF web ACL.
      * </p>
      * 
      * @param listDistributionsByWebACLIdRequest
-     *        The request to list distributions that are associated with a specified AWS WAF web ACL.
+     *        The request to list distributions that are associated with a specified WAF web ACL.
      * @return Result of the ListDistributionsByWebACLId operation returned by the service.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InvalidWebACLIdException
-     *         A web ACL id specified in the response body is not valid.
+     *         A web ACL ID specified is not valid. To specify a web ACL created using the latest version of WAF, use
+     *         the ACL ARN, for example
+     *         <code>arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/473e64fd-f30b-4765-81a0-62ad96dd167a</code>
+     *         . To specify a web ACL created using WAF Classic, use the ACL ID, for example
+     *         <code>473e64fd-f30b-4765-81a0-62ad96dd167a</code>.
      * @sample AmazonCloudFront.ListDistributionsByWebACLId
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/ListDistributionsByWebACLId"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListDistributionsByWebACLId"
      *      target="_top">AWS API Documentation</a>
      */
     ListDistributionsByWebACLIdResult listDistributionsByWebACLId(ListDistributionsByWebACLIdRequest listDistributionsByWebACLIdRequest);
@@ -1152,9 +2891,9 @@ public interface AmazonCloudFront {
      * @param listFieldLevelEncryptionConfigsRequest
      * @return Result of the ListFieldLevelEncryptionConfigs operation returned by the service.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @sample AmazonCloudFront.ListFieldLevelEncryptionConfigs
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/ListFieldLevelEncryptionConfigs"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListFieldLevelEncryptionConfigs"
      *      target="_top">AWS API Documentation</a>
      */
     ListFieldLevelEncryptionConfigsResult listFieldLevelEncryptionConfigs(ListFieldLevelEncryptionConfigsRequest listFieldLevelEncryptionConfigsRequest);
@@ -1167,12 +2906,39 @@ public interface AmazonCloudFront {
      * @param listFieldLevelEncryptionProfilesRequest
      * @return Result of the ListFieldLevelEncryptionProfiles operation returned by the service.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @sample AmazonCloudFront.ListFieldLevelEncryptionProfiles
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/ListFieldLevelEncryptionProfiles"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListFieldLevelEncryptionProfiles"
      *      target="_top">AWS API Documentation</a>
      */
     ListFieldLevelEncryptionProfilesResult listFieldLevelEncryptionProfiles(ListFieldLevelEncryptionProfilesRequest listFieldLevelEncryptionProfilesRequest);
+
+    /**
+     * <p>
+     * Gets a list of all CloudFront functions in your Amazon Web Services account.
+     * </p>
+     * <p>
+     * You can optionally apply a filter to return only the functions that are in the specified stage, either
+     * <code>DEVELOPMENT</code> or <code>LIVE</code>.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listFunctionsRequest
+     * @return Result of the ListFunctions operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.ListFunctions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListFunctions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListFunctionsResult listFunctions(ListFunctionsRequest listFunctionsRequest);
 
     /**
      * <p>
@@ -1183,16 +2949,106 @@ public interface AmazonCloudFront {
      *        The request to list invalidations.
      * @return Result of the ListInvalidations operation returned by the service.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws NoSuchDistributionException
      *         The specified distribution does not exist.
      * @throws AccessDeniedException
      *         Access denied.
      * @sample AmazonCloudFront.ListInvalidations
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/ListInvalidations" target="_top">AWS
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListInvalidations" target="_top">AWS
      *      API Documentation</a>
      */
     ListInvalidationsResult listInvalidations(ListInvalidationsRequest listInvalidationsRequest);
+
+    /**
+     * <p>
+     * Gets a list of key groups.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listKeyGroupsRequest
+     * @return Result of the ListKeyGroups operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @sample AmazonCloudFront.ListKeyGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListKeyGroups" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListKeyGroupsResult listKeyGroups(ListKeyGroupsRequest listKeyGroupsRequest);
+
+    /**
+     * <p>
+     * Specifies the key value stores to list.
+     * </p>
+     * 
+     * @param listKeyValueStoresRequest
+     * @return Result of the ListKeyValueStores operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.ListKeyValueStores
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListKeyValueStores" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ListKeyValueStoresResult listKeyValueStores(ListKeyValueStoresRequest listKeyValueStoresRequest);
+
+    /**
+     * <p>
+     * Gets the list of CloudFront origin access controls in this Amazon Web Services account.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send another request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the next request.
+     * </p>
+     * 
+     * @param listOriginAccessControlsRequest
+     * @return Result of the ListOriginAccessControls operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @sample AmazonCloudFront.ListOriginAccessControls
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListOriginAccessControls"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListOriginAccessControlsResult listOriginAccessControls(ListOriginAccessControlsRequest listOriginAccessControlsRequest);
+
+    /**
+     * <p>
+     * Gets a list of origin request policies.
+     * </p>
+     * <p>
+     * You can optionally apply a filter to return only the managed policies created by Amazon Web Services, or only the
+     * custom policies created in your Amazon Web Services account.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listOriginRequestPoliciesRequest
+     * @return Result of the ListOriginRequestPolicies operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchOriginRequestPolicyException
+     *         The origin request policy does not exist.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @sample AmazonCloudFront.ListOriginRequestPolicies
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListOriginRequestPolicies"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListOriginRequestPoliciesResult listOriginRequestPolicies(ListOriginRequestPoliciesRequest listOriginRequestPoliciesRequest);
 
     /**
      * <p>
@@ -1202,12 +3058,66 @@ public interface AmazonCloudFront {
      * @param listPublicKeysRequest
      * @return Result of the ListPublicKeys operation returned by the service.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @sample AmazonCloudFront.ListPublicKeys
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/ListPublicKeys" target="_top">AWS API
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListPublicKeys" target="_top">AWS API
      *      Documentation</a>
      */
     ListPublicKeysResult listPublicKeys(ListPublicKeysRequest listPublicKeysRequest);
+
+    /**
+     * <p>
+     * Gets a list of real-time log configurations.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listRealtimeLogConfigsRequest
+     * @return Result of the ListRealtimeLogConfigs operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchRealtimeLogConfigException
+     *         The real-time log configuration does not exist.
+     * @sample AmazonCloudFront.ListRealtimeLogConfigs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListRealtimeLogConfigs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListRealtimeLogConfigsResult listRealtimeLogConfigs(ListRealtimeLogConfigsRequest listRealtimeLogConfigsRequest);
+
+    /**
+     * <p>
+     * Gets a list of response headers policies.
+     * </p>
+     * <p>
+     * You can optionally apply a filter to get only the managed policies created by Amazon Web Services, or only the
+     * custom policies created in your Amazon Web Services account.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listResponseHeadersPoliciesRequest
+     * @return Result of the ListResponseHeadersPolicies operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchResponseHeadersPolicyException
+     *         The response headers policy does not exist.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @sample AmazonCloudFront.ListResponseHeadersPolicies
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListResponseHeadersPolicies"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListResponseHeadersPoliciesResult listResponseHeadersPolicies(ListResponseHeadersPoliciesRequest listResponseHeadersPoliciesRequest);
 
     /**
      * <p>
@@ -1218,16 +3128,18 @@ public interface AmazonCloudFront {
      *        The request to list your streaming distributions.
      * @return Result of the ListStreamingDistributions operation returned by the service.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @sample AmazonCloudFront.ListStreamingDistributions
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/ListStreamingDistributions"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListStreamingDistributions"
      *      target="_top">AWS API Documentation</a>
      */
     ListStreamingDistributionsResult listStreamingDistributions(ListStreamingDistributionsRequest listStreamingDistributionsRequest);
 
     /**
      * <p>
-     * List tags for a CloudFront resource.
+     * List tags for a CloudFront resource. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/tagging.html">Tagging a distribution</a>
+     * in the <i>Amazon CloudFront Developer Guide</i>.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -1236,20 +3148,55 @@ public interface AmazonCloudFront {
      * @throws AccessDeniedException
      *         Access denied.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InvalidTaggingException
-     *         Tagging specified in the response body is not valid.
+     *         The tagging specified is not valid.
      * @throws NoSuchResourceException
      *         A resource that was specified is not valid.
      * @sample AmazonCloudFront.ListTagsForResource
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/ListTagsForResource" target="_top">AWS
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListTagsForResource" target="_top">AWS
      *      API Documentation</a>
      */
     ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest);
 
     /**
      * <p>
-     * Add tags to a CloudFront resource.
+     * Publishes a CloudFront function by copying the function code from the <code>DEVELOPMENT</code> stage to
+     * <code>LIVE</code>. This automatically updates all cache behaviors that are using this function to use the newly
+     * published copy in the <code>LIVE</code> stage.
+     * </p>
+     * <p>
+     * When a function is published to the <code>LIVE</code> stage, you can attach the function to a distribution's
+     * cache behavior, using the function's Amazon Resource Name (ARN).
+     * </p>
+     * <p>
+     * To publish a function, you must provide the function's name and version (<code>ETag</code> value). To get these
+     * values, you can use <code>ListFunctions</code> and <code>DescribeFunction</code>.
+     * </p>
+     * 
+     * @param publishFunctionRequest
+     * @return Result of the PublishFunction operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchFunctionExistsException
+     *         The function does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.PublishFunction
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/PublishFunction" target="_top">AWS API
+     *      Documentation</a>
+     */
+    PublishFunctionResult publishFunction(PublishFunctionRequest publishFunctionRequest);
+
+    /**
+     * <p>
+     * Add tags to a CloudFront resource. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/tagging.html">Tagging a distribution</a>
+     * in the <i>Amazon CloudFront Developer Guide</i>.
      * </p>
      * 
      * @param tagResourceRequest
@@ -1258,20 +3205,59 @@ public interface AmazonCloudFront {
      * @throws AccessDeniedException
      *         Access denied.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InvalidTaggingException
-     *         Tagging specified in the response body is not valid.
+     *         The tagging specified is not valid.
      * @throws NoSuchResourceException
      *         A resource that was specified is not valid.
      * @sample AmazonCloudFront.TagResource
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/TagResource" target="_top">AWS API
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/TagResource" target="_top">AWS API
      *      Documentation</a>
      */
     TagResourceResult tagResource(TagResourceRequest tagResourceRequest);
 
     /**
      * <p>
-     * Remove tags from a CloudFront resource.
+     * Tests a CloudFront function.
+     * </p>
+     * <p>
+     * To test a function, you provide an <i>event object</i> that represents an HTTP request or response that your
+     * CloudFront distribution could receive in production. CloudFront runs the function, passing it the event object
+     * that you provided, and returns the function's result (the modified event object) in the response. The response
+     * also contains function logs and error messages, if any exist. For more information about testing functions, see
+     * <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/managing-functions.html#test-function"
+     * >Testing functions</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * <p>
+     * To test a function, you provide the function's name and version (<code>ETag</code> value) along with the event
+     * object. To get the function's name and version, you can use <code>ListFunctions</code> and
+     * <code>DescribeFunction</code>.
+     * </p>
+     * 
+     * @param testFunctionRequest
+     * @return Result of the TestFunction operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchFunctionExistsException
+     *         The function does not exist.
+     * @throws TestFunctionFailedException
+     *         The CloudFront function failed.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.TestFunction
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/TestFunction" target="_top">AWS API
+     *      Documentation</a>
+     */
+    TestFunctionResult testFunction(TestFunctionRequest testFunctionRequest);
+
+    /**
+     * <p>
+     * Remove tags from a CloudFront resource. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/tagging.html">Tagging a distribution</a>
+     * in the <i>Amazon CloudFront Developer Guide</i>.
      * </p>
      * 
      * @param untagResourceRequest
@@ -1280,16 +3266,80 @@ public interface AmazonCloudFront {
      * @throws AccessDeniedException
      *         Access denied.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InvalidTaggingException
-     *         Tagging specified in the response body is not valid.
+     *         The tagging specified is not valid.
      * @throws NoSuchResourceException
      *         A resource that was specified is not valid.
      * @sample AmazonCloudFront.UntagResource
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/UntagResource" target="_top">AWS API
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UntagResource" target="_top">AWS API
      *      Documentation</a>
      */
     UntagResourceResult untagResource(UntagResourceRequest untagResourceRequest);
+
+    /**
+     * <p>
+     * Updates a cache policy configuration.
+     * </p>
+     * <p>
+     * When you update a cache policy configuration, all the fields are updated with the values provided in the request.
+     * You cannot update some fields independent of others. To update a cache policy configuration:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Use <code>GetCachePolicyConfig</code> to get the current configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Locally modify the fields in the cache policy configuration that you want to update.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Call <code>UpdateCachePolicy</code> by providing the entire cache policy configuration, including the fields that
+     * you modified and those that you didn't.
+     * </p>
+     * </li>
+     * </ol>
+     * 
+     * @param updateCachePolicyRequest
+     * @return Result of the UpdateCachePolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws IllegalUpdateException
+     *         The update contains modifications that are not allowed.
+     * @throws InconsistentQuantitiesException
+     *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchCachePolicyException
+     *         The cache policy does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws CachePolicyAlreadyExistsException
+     *         A cache policy with this name already exists. You must provide a unique name. To modify an existing cache
+     *         policy, use <code>UpdateCachePolicy</code>.
+     * @throws TooManyHeadersInCachePolicyException
+     *         The number of headers in the cache policy exceeds the maximum. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyCookiesInCachePolicyException
+     *         The number of cookies in the cache policy exceeds the maximum. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyQueryStringsInCachePolicyException
+     *         The number of query strings in the cache policy exceeds the maximum. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @sample AmazonCloudFront.UpdateCachePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateCachePolicy" target="_top">AWS
+     *      API Documentation</a>
+     */
+    UpdateCachePolicyResult updateCachePolicy(UpdateCachePolicyRequest updateCachePolicyRequest);
 
     /**
      * <p>
@@ -1302,22 +3352,22 @@ public interface AmazonCloudFront {
      * @throws AccessDeniedException
      *         Access denied.
      * @throws IllegalUpdateException
-     *         Origin and <code>CallerReference</code> cannot be updated.
+     *         The update contains modifications that are not allowed.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws MissingBodyException
      *         This operation requires a body. Ensure that the body is present and the <code>Content-Type</code> header
      *         is set.
      * @throws NoSuchCloudFrontOriginAccessIdentityException
      *         The specified origin access identity does not exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InconsistentQuantitiesException
      *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
      * @sample AmazonCloudFront.UpdateCloudFrontOriginAccessIdentity
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/UpdateCloudFrontOriginAccessIdentity"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateCloudFrontOriginAccessIdentity"
      *      target="_top">AWS API Documentation</a>
      */
     UpdateCloudFrontOriginAccessIdentityResult updateCloudFrontOriginAccessIdentity(
@@ -1325,27 +3375,63 @@ public interface AmazonCloudFront {
 
     /**
      * <p>
-     * Updates the configuration for a web distribution.
-     * </p>
-     * <important>
-     * <p>
-     * When you update a distribution, there are more required fields than when you create a distribution. When you
-     * update your distribution by using this API action, follow the steps here to get the current configuration and
-     * then make your updates, to make sure that you include all of the required fields. To view a summary, see <a href=
-     * "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-overview-required-fields.html"
-     * >Required Fields for Create Distribution and Update Distribution</a> in the <i>Amazon CloudFront Developer
-     * Guide</i>.
-     * </p>
-     * </important>
-     * <p>
-     * The update process includes getting the current distribution configuration, updating the XML document that is
-     * returned to make your changes, and then submitting an <code>UpdateDistribution</code> request to make the
-     * updates.
+     * Updates a continuous deployment policy. You can update a continuous deployment policy to enable or disable it, to
+     * change the percentage of traffic that it sends to the staging distribution, or to change the staging distribution
+     * that it sends traffic to.
      * </p>
      * <p>
-     * For information about updating a distribution using the CloudFront console instead, see <a href=
-     * "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-creating-console.html"
-     * >Creating a Distribution</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * When you update a continuous deployment policy configuration, all the fields are updated with the values that are
+     * provided in the request. You cannot update some fields independent of others. To update a continuous deployment
+     * policy configuration:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Use <code>GetContinuousDeploymentPolicyConfig</code> to get the current configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Locally modify the fields in the continuous deployment policy configuration that you want to update.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use <code>UpdateContinuousDeploymentPolicy</code>, providing the entire continuous deployment policy
+     * configuration, including the fields that you modified and those that you didn't.
+     * </p>
+     * </li>
+     * </ol>
+     * 
+     * @param updateContinuousDeploymentPolicyRequest
+     * @return Result of the UpdateContinuousDeploymentPolicy operation returned by the service.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InconsistentQuantitiesException
+     *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws StagingDistributionInUseException
+     *         A continuous deployment policy for this staging distribution already exists.
+     * @throws NoSuchContinuousDeploymentPolicyException
+     *         The continuous deployment policy doesn't exist.
+     * @sample AmazonCloudFront.UpdateContinuousDeploymentPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateContinuousDeploymentPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateContinuousDeploymentPolicyResult updateContinuousDeploymentPolicy(UpdateContinuousDeploymentPolicyRequest updateContinuousDeploymentPolicyRequest);
+
+    /**
+     * <p>
+     * Updates the configuration for a CloudFront distribution.
+     * </p>
+     * <p>
+     * The update process includes getting the current distribution configuration, updating it to make your changes, and
+     * then submitting an <code>UpdateDistribution</code> request to make the updates.
      * </p>
      * <p>
      * <b>To update a web distribution using the CloudFront API</b>
@@ -1353,85 +3439,35 @@ public interface AmazonCloudFront {
      * <ol>
      * <li>
      * <p>
-     * Submit a <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetDistributionConfig.html">
-     * GetDistributionConfig</a> request to get the current configuration and an <code>Etag</code> header for the
-     * distribution.
+     * Use <code>GetDistributionConfig</code> to get the current configuration, including the version identifier (
+     * <code>ETag</code>).
      * </p>
-     * <note>
-     * <p>
-     * If you update the distribution again, you must get a new <code>Etag</code> header.
-     * </p>
-     * </note></li>
+     * </li>
      * <li>
      * <p>
-     * Update the XML document that was returned in the response to your <code>GetDistributionConfig</code> request to
-     * include your changes.
-     * </p>
-     * <important>
-     * <p>
-     * When you edit the XML file, be aware of the following:
+     * Update the distribution configuration that was returned in the response. Note the following important
+     * requirements and restrictions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * You must strip out the ETag parameter that is returned.
+     * You must rename the <code>ETag</code> field to <code>IfMatch</code>, leaving the value unchanged. (Set the value
+     * of <code>IfMatch</code> to the value of <code>ETag</code>, then remove the <code>ETag</code> field.)
      * </p>
      * </li>
      * <li>
      * <p>
-     * Additional fields are required when you update a distribution. There may be fields included in the XML file for
-     * features that you haven't configured for your distribution. This is expected and required to successfully update
-     * the distribution.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * You can't change the value of <code>CallerReference</code>. If you try to change this value, CloudFront returns
-     * an <code>IllegalUpdate</code> error.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * The new configuration replaces the existing configuration; the values that you specify in an
-     * <code>UpdateDistribution</code> request are not merged into your existing configuration. When you add, delete, or
-     * replace values in an element that allows multiple values (for example, <code>CNAME</code>), you must specify all
-     * of the values that you want to appear in the updated distribution. In addition, you must update the corresponding
-     * <code>Quantity</code> element.
-     * </p>
-     * </li>
-     * </ul>
-     * </important></li>
-     * <li>
-     * <p>
-     * Submit an <code>UpdateDistribution</code> request to update the configuration for your distribution:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * In the request body, include the XML document that you updated in Step 2. The request body must include an XML
-     * document with a <code>DistributionConfig</code> element.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Set the value of the HTTP <code>If-Match</code> header to the value of the <code>ETag</code> header that
-     * CloudFront returned when you submitted the <code>GetDistributionConfig</code> request in Step 1.
+     * You can't change the value of <code>CallerReference</code>.
      * </p>
      * </li>
      * </ul>
      * </li>
      * <li>
      * <p>
-     * Review the response to the <code>UpdateDistribution</code> request to confirm that the configuration was
-     * successfully updated.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Optional: Submit a <a
-     * href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetDistribution.html">GetDistribution</a>
-     * request to confirm that your changes have propagated. When propagation is complete, the value of
-     * <code>Status</code> is <code>Deployed</code>.
+     * Submit an <code>UpdateDistribution</code> request, providing the distribution configuration. The new
+     * configuration replaces the existing configuration. The values that you specify in an
+     * <code>UpdateDistribution</code> request are not merged into your existing configuration. Make sure to include all
+     * fields: the ones that you modified and also the ones that you didn't.
      * </p>
      * </li>
      * </ol>
@@ -1444,16 +3480,16 @@ public interface AmazonCloudFront {
      * @throws CNAMEAlreadyExistsException
      *         The CNAME specified is already defined for CloudFront.
      * @throws IllegalUpdateException
-     *         Origin and <code>CallerReference</code> cannot be updated.
+     *         The update contains modifications that are not allowed.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws MissingBodyException
      *         This operation requires a body. Ensure that the body is present and the <code>Content-Type</code> header
      *         is set.
      * @throws NoSuchDistributionException
      *         The specified distribution does not exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @throws TooManyDistributionCNAMEsException
      *         Your request contains more CNAMEs than are allowed per distribution.
      * @throws InvalidDefaultRootObjectException
@@ -1463,17 +3499,19 @@ public interface AmazonCloudFront {
      * @throws InvalidErrorCodeException
      *         An invalid error code was specified.
      * @throws InvalidResponseCodeException
-     *         A response code specified in the response body is not valid.
+     *         A response code is not valid.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InvalidOriginAccessIdentityException
      *         The origin access identity is not valid or doesn't exist.
+     * @throws InvalidOriginAccessControlException
+     *         The origin access control is not valid.
      * @throws TooManyTrustedSignersException
      *         Your request contains more trusted signers than are allowed per distribution.
      * @throws TrustedSignerDoesNotExistException
      *         One or more of your trusted signers don't exist.
      * @throws InvalidViewerCertificateException
-     *         A viewer certificate specified in the response body is not valid.
+     *         A viewer certificate specified is not valid.
      * @throws InvalidMinimumProtocolVersionException
      *         The minimum protocol version specified is not valid.
      * @throws InvalidRequiredProtocolException
@@ -1506,22 +3544,40 @@ public interface AmazonCloudFront {
      * @throws InvalidGeoRestrictionParameterException
      *         The specified geo restriction parameter is not valid.
      * @throws InvalidTTLOrderException
-     *         TTL order specified in the response body is not valid.
+     *         The TTL order specified is not valid.
      * @throws InvalidWebACLIdException
-     *         A web ACL id specified in the response body is not valid.
+     *         A web ACL ID specified is not valid. To specify a web ACL created using the latest version of WAF, use
+     *         the ACL ARN, for example
+     *         <code>arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/473e64fd-f30b-4765-81a0-62ad96dd167a</code>
+     *         . To specify a web ACL created using WAF Classic, use the ACL ID, for example
+     *         <code>473e64fd-f30b-4765-81a0-62ad96dd167a</code>.
      * @throws TooManyOriginCustomHeadersException
      *         Your request contains too many origin custom headers.
      * @throws TooManyQueryStringParametersException
      *         Your request contains too many query string parameters.
      * @throws InvalidQueryStringParametersException
-     *         Query string parameters specified in the response body are not valid.
+     *         The query string parameters specified are not valid.
      * @throws TooManyDistributionsWithLambdaAssociationsException
-     *         Processing your request would cause the maximum number of distributions with Lambda function associations
-     *         per owner to be exceeded.
+     *         Processing your request would cause the maximum number of distributions with Lambda@Edge function
+     *         associations per owner to be exceeded.
+     * @throws TooManyDistributionsWithSingleFunctionARNException
+     *         The maximum number of distributions have been associated with the specified Lambda@Edge function.
      * @throws TooManyLambdaFunctionAssociationsException
-     *         Your request contains more Lambda function associations than are allowed per distribution.
+     *         Your request contains more Lambda@Edge function associations than are allowed per distribution.
      * @throws InvalidLambdaFunctionAssociationException
-     *         The specified Lambda function association is invalid.
+     *         The specified Lambda@Edge function association is invalid.
+     * @throws TooManyDistributionsWithFunctionAssociationsException
+     *         You have reached the maximum number of distributions that are associated with a CloudFront function. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyFunctionAssociationsException
+     *         You have reached the maximum number of CloudFront function associations for this distribution. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws InvalidFunctionAssociationException
+     *         A CloudFront function association is invalid.
      * @throws InvalidOriginReadTimeoutException
      *         The read timeout specified for the origin is not valid.
      * @throws InvalidOriginKeepaliveTimeoutException
@@ -1534,11 +3590,266 @@ public interface AmazonCloudFront {
      * @throws TooManyDistributionsAssociatedToFieldLevelEncryptionConfigException
      *         The maximum number of distributions have been associated with the specified configuration for field-level
      *         encryption.
+     * @throws NoSuchCachePolicyException
+     *         The cache policy does not exist.
+     * @throws TooManyDistributionsAssociatedToCachePolicyException
+     *         The maximum number of distributions have been associated with the specified cache policy. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyDistributionsAssociatedToOriginAccessControlException
+     *         The maximum number of distributions have been associated with the specified origin access control.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws NoSuchResponseHeadersPolicyException
+     *         The response headers policy does not exist.
+     * @throws TooManyDistributionsAssociatedToResponseHeadersPolicyException
+     *         The maximum number of distributions have been associated with the specified response headers policy.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws NoSuchOriginRequestPolicyException
+     *         The origin request policy does not exist.
+     * @throws TooManyDistributionsAssociatedToOriginRequestPolicyException
+     *         The maximum number of distributions have been associated with the specified origin request policy. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyDistributionsAssociatedToKeyGroupException
+     *         The number of distributions that reference this key group is more than the maximum allowed. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyKeyGroupsAssociatedToDistributionException
+     *         The number of key groups referenced by this distribution is more than the maximum allowed. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TrustedKeyGroupDoesNotExistException
+     *         The specified key group does not exist.
+     * @throws NoSuchRealtimeLogConfigException
+     *         The real-time log configuration does not exist.
+     * @throws RealtimeLogConfigOwnerMismatchException
+     *         The specified real-time log configuration belongs to a different Amazon Web Services account.
+     * @throws ContinuousDeploymentPolicyInUseException
+     *         You cannot delete a continuous deployment policy that is associated with a primary distribution.
+     * @throws NoSuchContinuousDeploymentPolicyException
+     *         The continuous deployment policy doesn't exist.
+     * @throws StagingDistributionInUseException
+     *         A continuous deployment policy for this staging distribution already exists.
+     * @throws IllegalOriginAccessConfigurationException
+     *         An origin cannot contain both an origin access control (OAC) and an origin access identity (OAI).
+     * @throws InvalidDomainNameForOriginAccessControlException
+     *         An origin access control is associated with an origin whose domain name is not supported.
      * @sample AmazonCloudFront.UpdateDistribution
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/UpdateDistribution" target="_top">AWS
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateDistribution" target="_top">AWS
      *      API Documentation</a>
      */
     UpdateDistributionResult updateDistribution(UpdateDistributionRequest updateDistributionRequest);
+
+    /**
+     * <p>
+     * Copies the staging distribution's configuration to its corresponding primary distribution. The primary
+     * distribution retains its <code>Aliases</code> (also known as alternate domain names or CNAMEs) and
+     * <code>ContinuousDeploymentPolicyId</code> value, but otherwise its configuration is overwritten to match the
+     * staging distribution.
+     * </p>
+     * <p>
+     * You can use this operation in a continuous deployment workflow after you have tested configuration changes on the
+     * staging distribution. After using a continuous deployment policy to move a portion of your domain name's traffic
+     * to the staging distribution and verifying that it works as intended, you can use this operation to copy the
+     * staging distribution's configuration to the primary distribution. This action will disable the continuous
+     * deployment policy and move your domain's traffic back to the primary distribution.
+     * </p>
+     * <p>
+     * This API operation requires the following IAM permissions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetDistribution.html">GetDistribution</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateDistribution.html">
+     * UpdateDistribution</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param updateDistributionWithStagingConfigRequest
+     * @return Result of the UpdateDistributionWithStagingConfig operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws CNAMEAlreadyExistsException
+     *         The CNAME specified is already defined for CloudFront.
+     * @throws IllegalUpdateException
+     *         The update contains modifications that are not allowed.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws MissingBodyException
+     *         This operation requires a body. Ensure that the body is present and the <code>Content-Type</code> header
+     *         is set.
+     * @throws NoSuchDistributionException
+     *         The specified distribution does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws TooManyDistributionCNAMEsException
+     *         Your request contains more CNAMEs than are allowed per distribution.
+     * @throws InvalidDefaultRootObjectException
+     *         The default root object file name is too big or contains an invalid character.
+     * @throws InvalidRelativePathException
+     *         The relative path is too big, is not URL-encoded, or does not begin with a slash (/).
+     * @throws InvalidErrorCodeException
+     *         An invalid error code was specified.
+     * @throws InvalidResponseCodeException
+     *         A response code is not valid.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws InvalidOriginAccessIdentityException
+     *         The origin access identity is not valid or doesn't exist.
+     * @throws InvalidOriginAccessControlException
+     *         The origin access control is not valid.
+     * @throws TooManyTrustedSignersException
+     *         Your request contains more trusted signers than are allowed per distribution.
+     * @throws TrustedSignerDoesNotExistException
+     *         One or more of your trusted signers don't exist.
+     * @throws InvalidViewerCertificateException
+     *         A viewer certificate specified is not valid.
+     * @throws InvalidMinimumProtocolVersionException
+     *         The minimum protocol version specified is not valid.
+     * @throws InvalidRequiredProtocolException
+     *         This operation requires the HTTPS protocol. Ensure that you specify the HTTPS protocol in your request,
+     *         or omit the <code>RequiredProtocols</code> element from your distribution configuration.
+     * @throws NoSuchOriginException
+     *         No origin exists with the specified <code>Origin Id</code>.
+     * @throws TooManyOriginsException
+     *         You cannot create more origins for the distribution.
+     * @throws TooManyOriginGroupsPerDistributionException
+     *         Processing your request would cause you to exceed the maximum number of origin groups allowed.
+     * @throws TooManyCacheBehaviorsException
+     *         You cannot create more cache behaviors for the distribution.
+     * @throws TooManyCookieNamesInWhiteListException
+     *         Your request contains more cookie names in the whitelist than are allowed per cache behavior.
+     * @throws InvalidForwardCookiesException
+     *         Your request contains forward cookies option which doesn't match with the expectation for the
+     *         <code>whitelisted</code> list of cookie names. Either list of cookie names has been specified when not
+     *         allowed or list of cookie names is missing when expected.
+     * @throws TooManyHeadersInForwardedValuesException
+     *         Your request contains too many headers in forwarded values.
+     * @throws InvalidHeadersForS3OriginException
+     *         The headers specified are not valid for an Amazon S3 origin.
+     * @throws InconsistentQuantitiesException
+     *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
+     * @throws TooManyCertificatesException
+     *         You cannot create anymore custom SSL/TLS certificates.
+     * @throws InvalidLocationCodeException
+     *         The location code specified is not valid.
+     * @throws InvalidGeoRestrictionParameterException
+     *         The specified geo restriction parameter is not valid.
+     * @throws InvalidTTLOrderException
+     *         The TTL order specified is not valid.
+     * @throws InvalidWebACLIdException
+     *         A web ACL ID specified is not valid. To specify a web ACL created using the latest version of WAF, use
+     *         the ACL ARN, for example
+     *         <code>arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/473e64fd-f30b-4765-81a0-62ad96dd167a</code>
+     *         . To specify a web ACL created using WAF Classic, use the ACL ID, for example
+     *         <code>473e64fd-f30b-4765-81a0-62ad96dd167a</code>.
+     * @throws TooManyOriginCustomHeadersException
+     *         Your request contains too many origin custom headers.
+     * @throws TooManyQueryStringParametersException
+     *         Your request contains too many query string parameters.
+     * @throws InvalidQueryStringParametersException
+     *         The query string parameters specified are not valid.
+     * @throws TooManyDistributionsWithLambdaAssociationsException
+     *         Processing your request would cause the maximum number of distributions with Lambda@Edge function
+     *         associations per owner to be exceeded.
+     * @throws TooManyDistributionsWithSingleFunctionARNException
+     *         The maximum number of distributions have been associated with the specified Lambda@Edge function.
+     * @throws TooManyLambdaFunctionAssociationsException
+     *         Your request contains more Lambda@Edge function associations than are allowed per distribution.
+     * @throws InvalidLambdaFunctionAssociationException
+     *         The specified Lambda@Edge function association is invalid.
+     * @throws TooManyDistributionsWithFunctionAssociationsException
+     *         You have reached the maximum number of distributions that are associated with a CloudFront function. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyFunctionAssociationsException
+     *         You have reached the maximum number of CloudFront function associations for this distribution. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws InvalidFunctionAssociationException
+     *         A CloudFront function association is invalid.
+     * @throws InvalidOriginReadTimeoutException
+     *         The read timeout specified for the origin is not valid.
+     * @throws InvalidOriginKeepaliveTimeoutException
+     *         The keep alive timeout specified for the origin is not valid.
+     * @throws NoSuchFieldLevelEncryptionConfigException
+     *         The specified configuration for field-level encryption doesn't exist.
+     * @throws IllegalFieldLevelEncryptionConfigAssociationWithCacheBehaviorException
+     *         The specified configuration for field-level encryption can't be associated with the specified cache
+     *         behavior.
+     * @throws TooManyDistributionsAssociatedToFieldLevelEncryptionConfigException
+     *         The maximum number of distributions have been associated with the specified configuration for field-level
+     *         encryption.
+     * @throws NoSuchCachePolicyException
+     *         The cache policy does not exist.
+     * @throws TooManyDistributionsAssociatedToCachePolicyException
+     *         The maximum number of distributions have been associated with the specified cache policy. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyDistributionsAssociatedToOriginAccessControlException
+     *         The maximum number of distributions have been associated with the specified origin access control.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws NoSuchResponseHeadersPolicyException
+     *         The response headers policy does not exist.
+     * @throws TooManyDistributionsAssociatedToResponseHeadersPolicyException
+     *         The maximum number of distributions have been associated with the specified response headers policy.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws NoSuchOriginRequestPolicyException
+     *         The origin request policy does not exist.
+     * @throws TooManyDistributionsAssociatedToOriginRequestPolicyException
+     *         The maximum number of distributions have been associated with the specified origin request policy. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyDistributionsAssociatedToKeyGroupException
+     *         The number of distributions that reference this key group is more than the maximum allowed. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyKeyGroupsAssociatedToDistributionException
+     *         The number of key groups referenced by this distribution is more than the maximum allowed. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TrustedKeyGroupDoesNotExistException
+     *         The specified key group does not exist.
+     * @throws NoSuchRealtimeLogConfigException
+     *         The real-time log configuration does not exist.
+     * @throws RealtimeLogConfigOwnerMismatchException
+     *         The specified real-time log configuration belongs to a different Amazon Web Services account.
+     * @sample AmazonCloudFront.UpdateDistributionWithStagingConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateDistributionWithStagingConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateDistributionWithStagingConfigResult updateDistributionWithStagingConfig(
+            UpdateDistributionWithStagingConfigRequest updateDistributionWithStagingConfigRequest);
 
     /**
      * <p>
@@ -1550,19 +3861,19 @@ public interface AmazonCloudFront {
      * @throws AccessDeniedException
      *         Access denied.
      * @throws IllegalUpdateException
-     *         Origin and <code>CallerReference</code> cannot be updated.
+     *         The update contains modifications that are not allowed.
      * @throws InconsistentQuantitiesException
      *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws NoSuchFieldLevelEncryptionProfileException
      *         The specified profile for field-level encryption doesn't exist.
      * @throws NoSuchFieldLevelEncryptionConfigException
      *         The specified configuration for field-level encryption doesn't exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @throws TooManyFieldLevelEncryptionQueryArgProfilesException
      *         The maximum number of query arg profiles for field-level encryption have been created.
      * @throws TooManyFieldLevelEncryptionContentTypeProfilesException
@@ -1570,7 +3881,7 @@ public interface AmazonCloudFront {
      * @throws QueryArgProfileEmptyException
      *         No profile specified for the field-level encryption query argument.
      * @sample AmazonCloudFront.UpdateFieldLevelEncryptionConfig
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/UpdateFieldLevelEncryptionConfig"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateFieldLevelEncryptionConfig"
      *      target="_top">AWS API Documentation</a>
      */
     UpdateFieldLevelEncryptionConfigResult updateFieldLevelEncryptionConfig(UpdateFieldLevelEncryptionConfigRequest updateFieldLevelEncryptionConfigRequest);
@@ -1587,19 +3898,19 @@ public interface AmazonCloudFront {
      * @throws FieldLevelEncryptionProfileAlreadyExistsException
      *         The specified profile for field-level encryption already exists.
      * @throws IllegalUpdateException
-     *         Origin and <code>CallerReference</code> cannot be updated.
+     *         The update contains modifications that are not allowed.
      * @throws InconsistentQuantitiesException
      *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws NoSuchPublicKeyException
      *         The specified public key doesn't exist.
      * @throws NoSuchFieldLevelEncryptionProfileException
      *         The specified profile for field-level encryption doesn't exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @throws FieldLevelEncryptionProfileSizeExceededException
      *         The maximum size of a profile for field-level encryption was exceeded.
      * @throws TooManyFieldLevelEncryptionEncryptionEntitiesException
@@ -1607,10 +3918,216 @@ public interface AmazonCloudFront {
      * @throws TooManyFieldLevelEncryptionFieldPatternsException
      *         The maximum number of field patterns for field-level encryption have been created.
      * @sample AmazonCloudFront.UpdateFieldLevelEncryptionProfile
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/UpdateFieldLevelEncryptionProfile"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateFieldLevelEncryptionProfile"
      *      target="_top">AWS API Documentation</a>
      */
     UpdateFieldLevelEncryptionProfileResult updateFieldLevelEncryptionProfile(UpdateFieldLevelEncryptionProfileRequest updateFieldLevelEncryptionProfileRequest);
+
+    /**
+     * <p>
+     * Updates a CloudFront function.
+     * </p>
+     * <p>
+     * You can update a function's code or the comment that describes the function. You cannot update a function's name.
+     * </p>
+     * <p>
+     * To update a function, you provide the function's name and version (<code>ETag</code> value) along with the
+     * updated function code. To get the name and version, you can use <code>ListFunctions</code> and
+     * <code>DescribeFunction</code>.
+     * </p>
+     * 
+     * @param updateFunctionRequest
+     * @return Result of the UpdateFunction operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchFunctionExistsException
+     *         The function does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws FunctionSizeLimitExceededException
+     *         The function is too large. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.UpdateFunction
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateFunction" target="_top">AWS API
+     *      Documentation</a>
+     */
+    UpdateFunctionResult updateFunction(UpdateFunctionRequest updateFunctionRequest);
+
+    /**
+     * <p>
+     * Updates a key group.
+     * </p>
+     * <p>
+     * When you update a key group, all the fields are updated with the values provided in the request. You cannot
+     * update some fields independent of others. To update a key group:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Get the current key group with <code>GetKeyGroup</code> or <code>GetKeyGroupConfig</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Locally modify the fields in the key group that you want to update. For example, add or remove public key IDs.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Call <code>UpdateKeyGroup</code> with the entire key group object, including the fields that you modified and
+     * those that you didn't.
+     * </p>
+     * </li>
+     * </ol>
+     * 
+     * @param updateKeyGroupRequest
+     * @return Result of the UpdateKeyGroup operation returned by the service.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchResourceException
+     *         A resource that was specified is not valid.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws KeyGroupAlreadyExistsException
+     *         A key group with this name already exists. You must provide a unique name. To modify an existing key
+     *         group, use <code>UpdateKeyGroup</code>.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws TooManyPublicKeysInKeyGroupException
+     *         The number of public keys in this key group is more than the maximum allowed. For more information, see
+     *         <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html">Quotas
+     *         </a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @sample AmazonCloudFront.UpdateKeyGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateKeyGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    UpdateKeyGroupResult updateKeyGroup(UpdateKeyGroupRequest updateKeyGroupRequest);
+
+    /**
+     * <p>
+     * Specifies the key value store to update.
+     * </p>
+     * 
+     * @param updateKeyValueStoreRequest
+     * @return Result of the UpdateKeyValueStore operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws EntityNotFoundException
+     *         The key value store entity was not found.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.UpdateKeyValueStore
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateKeyValueStore" target="_top">AWS
+     *      API Documentation</a>
+     */
+    UpdateKeyValueStoreResult updateKeyValueStore(UpdateKeyValueStoreRequest updateKeyValueStoreRequest);
+
+    /**
+     * <p>
+     * Updates a CloudFront origin access control.
+     * </p>
+     * 
+     * @param updateOriginAccessControlRequest
+     * @return Result of the UpdateOriginAccessControl operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws IllegalUpdateException
+     *         The update contains modifications that are not allowed.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws OriginAccessControlAlreadyExistsException
+     *         An origin access control with the specified parameters already exists.
+     * @throws NoSuchOriginAccessControlException
+     *         The origin access control does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @sample AmazonCloudFront.UpdateOriginAccessControl
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateOriginAccessControl"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateOriginAccessControlResult updateOriginAccessControl(UpdateOriginAccessControlRequest updateOriginAccessControlRequest);
+
+    /**
+     * <p>
+     * Updates an origin request policy configuration.
+     * </p>
+     * <p>
+     * When you update an origin request policy configuration, all the fields are updated with the values provided in
+     * the request. You cannot update some fields independent of others. To update an origin request policy
+     * configuration:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Use <code>GetOriginRequestPolicyConfig</code> to get the current configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Locally modify the fields in the origin request policy configuration that you want to update.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Call <code>UpdateOriginRequestPolicy</code> by providing the entire origin request policy configuration,
+     * including the fields that you modified and those that you didn't.
+     * </p>
+     * </li>
+     * </ol>
+     * 
+     * @param updateOriginRequestPolicyRequest
+     * @return Result of the UpdateOriginRequestPolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws IllegalUpdateException
+     *         The update contains modifications that are not allowed.
+     * @throws InconsistentQuantitiesException
+     *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchOriginRequestPolicyException
+     *         The origin request policy does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws OriginRequestPolicyAlreadyExistsException
+     *         An origin request policy with this name already exists. You must provide a unique name. To modify an
+     *         existing origin request policy, use <code>UpdateOriginRequestPolicy</code>.
+     * @throws TooManyHeadersInOriginRequestPolicyException
+     *         The number of headers in the origin request policy exceeds the maximum. For more information, see <a
+     *         href=
+     *         "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html">Quotas</a>
+     *         (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyCookiesInOriginRequestPolicyException
+     *         The number of cookies in the origin request policy exceeds the maximum. For more information, see <a
+     *         href=
+     *         "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html">Quotas</a>
+     *         (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyQueryStringsInOriginRequestPolicyException
+     *         The number of query strings in the origin request policy exceeds the maximum. For more information, see
+     *         <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html">Quotas
+     *         </a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @sample AmazonCloudFront.UpdateOriginRequestPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateOriginRequestPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateOriginRequestPolicyResult updateOriginRequestPolicy(UpdateOriginRequestPolicyRequest updateOriginRequestPolicyRequest);
 
     /**
      * <p>
@@ -1624,20 +4141,138 @@ public interface AmazonCloudFront {
      * @throws CannotChangeImmutablePublicKeyFieldsException
      *         You can't change the value of a public key.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws IllegalUpdateException
-     *         Origin and <code>CallerReference</code> cannot be updated.
+     *         The update contains modifications that are not allowed.
      * @throws NoSuchPublicKeyException
      *         The specified public key doesn't exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @sample AmazonCloudFront.UpdatePublicKey
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/UpdatePublicKey" target="_top">AWS API
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdatePublicKey" target="_top">AWS API
      *      Documentation</a>
      */
     UpdatePublicKeyResult updatePublicKey(UpdatePublicKeyRequest updatePublicKeyRequest);
+
+    /**
+     * <p>
+     * Updates a real-time log configuration.
+     * </p>
+     * <p>
+     * When you update a real-time log configuration, all the parameters are updated with the values provided in the
+     * request. You cannot update some parameters independent of others. To update a real-time log configuration:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Call <code>GetRealtimeLogConfig</code> to get the current real-time log configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Locally modify the parameters in the real-time log configuration that you want to update.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Call this API (<code>UpdateRealtimeLogConfig</code>) by providing the entire real-time log configuration,
+     * including the parameters that you modified and those that you didn't.
+     * </p>
+     * </li>
+     * </ol>
+     * <p>
+     * You cannot update a real-time log configuration's <code>Name</code> or <code>ARN</code>.
+     * </p>
+     * 
+     * @param updateRealtimeLogConfigRequest
+     * @return Result of the UpdateRealtimeLogConfig operation returned by the service.
+     * @throws NoSuchRealtimeLogConfigException
+     *         The real-time log configuration does not exist.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @sample AmazonCloudFront.UpdateRealtimeLogConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateRealtimeLogConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateRealtimeLogConfigResult updateRealtimeLogConfig(UpdateRealtimeLogConfigRequest updateRealtimeLogConfigRequest);
+
+    /**
+     * <p>
+     * Updates a response headers policy.
+     * </p>
+     * <p>
+     * When you update a response headers policy, the entire policy is replaced. You cannot update some policy fields
+     * independent of others. To update a response headers policy configuration:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Use <code>GetResponseHeadersPolicyConfig</code> to get the current policy's configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Modify the fields in the response headers policy configuration that you want to update.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Call <code>UpdateResponseHeadersPolicy</code>, providing the entire response headers policy configuration,
+     * including the fields that you modified and those that you didn't.
+     * </p>
+     * </li>
+     * </ol>
+     * 
+     * @param updateResponseHeadersPolicyRequest
+     * @return Result of the UpdateResponseHeadersPolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws IllegalUpdateException
+     *         The update contains modifications that are not allowed.
+     * @throws InconsistentQuantitiesException
+     *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchResponseHeadersPolicyException
+     *         The response headers policy does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws ResponseHeadersPolicyAlreadyExistsException
+     *         A response headers policy with this name already exists. You must provide a unique name. To modify an
+     *         existing response headers policy, use <code>UpdateResponseHeadersPolicy</code>.
+     * @throws TooManyCustomHeadersInResponseHeadersPolicyException
+     *         The number of custom headers in the response headers policy exceeds the maximum.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooLongCSPInResponseHeadersPolicyException
+     *         The length of the <code>Content-Security-Policy</code> header value in the response headers policy
+     *         exceeds the maximum.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyRemoveHeadersInResponseHeadersPolicyException
+     *         The number of headers in <code>RemoveHeadersConfig</code> in the response headers policy exceeds the
+     *         maximum.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @sample AmazonCloudFront.UpdateResponseHeadersPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateResponseHeadersPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateResponseHeadersPolicyResult updateResponseHeadersPolicy(UpdateResponseHeadersPolicyRequest updateResponseHeadersPolicyRequest);
 
     /**
      * <p>
@@ -1652,22 +4287,24 @@ public interface AmazonCloudFront {
      * @throws CNAMEAlreadyExistsException
      *         The CNAME specified is already defined for CloudFront.
      * @throws IllegalUpdateException
-     *         Origin and <code>CallerReference</code> cannot be updated.
+     *         The update contains modifications that are not allowed.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws MissingBodyException
      *         This operation requires a body. Ensure that the body is present and the <code>Content-Type</code> header
      *         is set.
      * @throws NoSuchStreamingDistributionException
      *         The specified streaming distribution does not exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @throws TooManyStreamingDistributionCNAMEsException
      *         Your request contains more CNAMEs than are allowed per distribution.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InvalidOriginAccessIdentityException
      *         The origin access identity is not valid or doesn't exist.
+     * @throws InvalidOriginAccessControlException
+     *         The origin access control is not valid.
      * @throws TooManyTrustedSignersException
      *         Your request contains more trusted signers than are allowed per distribution.
      * @throws TrustedSignerDoesNotExistException
@@ -1675,7 +4312,7 @@ public interface AmazonCloudFront {
      * @throws InconsistentQuantitiesException
      *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
      * @sample AmazonCloudFront.UpdateStreamingDistribution
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/UpdateStreamingDistribution"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateStreamingDistribution"
      *      target="_top">AWS API Documentation</a>
      */
     UpdateStreamingDistributionResult updateStreamingDistribution(UpdateStreamingDistributionRequest updateStreamingDistributionRequest);

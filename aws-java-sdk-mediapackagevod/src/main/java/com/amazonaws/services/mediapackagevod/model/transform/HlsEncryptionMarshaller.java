@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,6 +27,8 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class HlsEncryptionMarshaller {
 
+    private static final MarshallingInfo<String> CONSTANTINITIALIZATIONVECTOR_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("constantInitializationVector").build();
     private static final MarshallingInfo<String> ENCRYPTIONMETHOD_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("encryptionMethod").build();
     private static final MarshallingInfo<StructuredPojo> SPEKEKEYPROVIDER_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
@@ -48,6 +50,7 @@ public class HlsEncryptionMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(hlsEncryption.getConstantInitializationVector(), CONSTANTINITIALIZATIONVECTOR_BINDING);
             protocolMarshaller.marshall(hlsEncryption.getEncryptionMethod(), ENCRYPTIONMETHOD_BINDING);
             protocolMarshaller.marshall(hlsEncryption.getSpekeKeyProvider(), SPEKEKEYPROVIDER_BINDING);
         } catch (Exception e) {

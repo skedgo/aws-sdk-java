@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,7 +38,8 @@ public class Put implements Serializable, Cloneable, StructuredPojo {
     private java.util.Map<String, AttributeValue> item;
     /**
      * <p>
-     * Name of the table in which to write the item.
+     * Name of the table in which to write the item. You can also provide the Amazon Resource Name (ARN) of the table in
+     * this parameter.
      * </p>
      */
     private String tableName;
@@ -126,6 +127,13 @@ public class Put implements Serializable, Cloneable, StructuredPojo {
         return this;
     }
 
+    /**
+     * Add a single Item entry
+     *
+     * @see Put#withItem
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public Put addItemEntry(String key, AttributeValue value) {
         if (null == this.item) {
             this.item = new java.util.HashMap<String, AttributeValue>();
@@ -149,11 +157,13 @@ public class Put implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Name of the table in which to write the item.
+     * Name of the table in which to write the item. You can also provide the Amazon Resource Name (ARN) of the table in
+     * this parameter.
      * </p>
      * 
      * @param tableName
-     *        Name of the table in which to write the item.
+     *        Name of the table in which to write the item. You can also provide the Amazon Resource Name (ARN) of the
+     *        table in this parameter.
      */
 
     public void setTableName(String tableName) {
@@ -162,10 +172,12 @@ public class Put implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Name of the table in which to write the item.
+     * Name of the table in which to write the item. You can also provide the Amazon Resource Name (ARN) of the table in
+     * this parameter.
      * </p>
      * 
-     * @return Name of the table in which to write the item.
+     * @return Name of the table in which to write the item. You can also provide the Amazon Resource Name (ARN) of the
+     *         table in this parameter.
      */
 
     public String getTableName() {
@@ -174,11 +186,13 @@ public class Put implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Name of the table in which to write the item.
+     * Name of the table in which to write the item. You can also provide the Amazon Resource Name (ARN) of the table in
+     * this parameter.
      * </p>
      * 
      * @param tableName
-     *        Name of the table in which to write the item.
+     *        Name of the table in which to write the item. You can also provide the Amazon Resource Name (ARN) of the
+     *        table in this parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -267,6 +281,13 @@ public class Put implements Serializable, Cloneable, StructuredPojo {
         return this;
     }
 
+    /**
+     * Add a single ExpressionAttributeNames entry
+     *
+     * @see Put#withExpressionAttributeNames
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public Put addExpressionAttributeNamesEntry(String key, String value) {
         if (null == this.expressionAttributeNames) {
             this.expressionAttributeNames = new java.util.HashMap<String, String>();
@@ -327,6 +348,13 @@ public class Put implements Serializable, Cloneable, StructuredPojo {
         setExpressionAttributeValues(expressionAttributeValues);
         return this;
     }
+
+    /**
+     * Add a single ExpressionAttributeValues entry
+     *
+     * @see Put#withExpressionAttributeValues
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public Put addExpressionAttributeValuesEntry(String key, AttributeValue value) {
         if (null == this.expressionAttributeValues) {

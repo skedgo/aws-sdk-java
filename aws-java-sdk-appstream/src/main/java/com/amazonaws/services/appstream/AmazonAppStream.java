@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,6 +35,15 @@ import com.amazonaws.services.appstream.waiters.AmazonAppStreamWaiters;
  * AWS resources that are required to host and run your applications, scales automatically, and provides access to your
  * users on demand.
  * </p>
+ * <note>
+ * <p>
+ * You can call the AppStream 2.0 API operations by using an interface VPC endpoint (interface endpoint). For more
+ * information, see <a href=
+ * "https://docs.aws.amazon.com/appstream2/latest/developerguide/access-api-cli-through-interface-vpc-endpoint.html"
+ * >Access AppStream 2.0 API Operations and CLI Commands Through an Interface VPC Endpoint</a> in the <i>Amazon
+ * AppStream 2.0 Administration Guide</i>.
+ * </p>
+ * </note>
  * <p>
  * To learn more about AppStream 2.0, see the following resources:
  * </p>
@@ -116,6 +125,75 @@ public interface AmazonAppStream {
 
     /**
      * <p>
+     * Associates the specified app block builder with the specified app block.
+     * </p>
+     * 
+     * @param associateAppBlockBuilderAppBlockRequest
+     * @return Result of the AssociateAppBlockBuilderAppBlock operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws LimitExceededException
+     *         The requested limit exceeds the permitted limit for an account.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws InvalidParameterCombinationException
+     *         Indicates an incorrect combination of parameters, or a missing parameter.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @sample AmazonAppStream.AssociateAppBlockBuilderAppBlock
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/AssociateAppBlockBuilderAppBlock"
+     *      target="_top">AWS API Documentation</a>
+     */
+    AssociateAppBlockBuilderAppBlockResult associateAppBlockBuilderAppBlock(AssociateAppBlockBuilderAppBlockRequest associateAppBlockBuilderAppBlockRequest);
+
+    /**
+     * <p>
+     * Associates the specified application with the specified fleet. This is only supported for Elastic fleets.
+     * </p>
+     * 
+     * @param associateApplicationFleetRequest
+     * @return Result of the AssociateApplicationFleet operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws LimitExceededException
+     *         The requested limit exceeds the permitted limit for an account.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws InvalidParameterCombinationException
+     *         Indicates an incorrect combination of parameters, or a missing parameter.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @sample AmazonAppStream.AssociateApplicationFleet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/AssociateApplicationFleet"
+     *      target="_top">AWS API Documentation</a>
+     */
+    AssociateApplicationFleetResult associateApplicationFleet(AssociateApplicationFleetRequest associateApplicationFleetRequest);
+
+    /**
+     * <p>
+     * Associates an application to entitle.
+     * </p>
+     * 
+     * @param associateApplicationToEntitlementRequest
+     * @return Result of the AssociateApplicationToEntitlement operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws EntitlementNotFoundException
+     *         The entitlement can't be found.
+     * @throws LimitExceededException
+     *         The requested limit exceeds the permitted limit for an account.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @sample AmazonAppStream.AssociateApplicationToEntitlement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/AssociateApplicationToEntitlement"
+     *      target="_top">AWS API Documentation</a>
+     */
+    AssociateApplicationToEntitlementResult associateApplicationToEntitlement(AssociateApplicationToEntitlementRequest associateApplicationToEntitlementRequest);
+
+    /**
+     * <p>
      * Associates the specified fleet with the specified stack.
      * </p>
      * 
@@ -131,7 +209,7 @@ public interface AmazonAppStream {
      * @throws ConcurrentModificationException
      *         An API error occurred. Wait a few minutes and try again.
      * @throws IncompatibleImageException
-     *         The image does not support storage connectors.
+     *         The image can't be updated because it's not compatible for updates.
      * @throws OperationNotPermittedException
      *         The attempted operation is not permitted.
      * @sample AmazonAppStream.AssociateFleet
@@ -150,6 +228,8 @@ public interface AmazonAppStream {
      * @return Result of the BatchAssociateUserStack operation returned by the service.
      * @throws OperationNotPermittedException
      *         The attempted operation is not permitted.
+     * @throws InvalidParameterCombinationException
+     *         Indicates an incorrect combination of parameters, or a missing parameter.
      * @sample AmazonAppStream.BatchAssociateUserStack
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/BatchAssociateUserStack"
      *      target="_top">AWS API Documentation</a>
@@ -163,6 +243,10 @@ public interface AmazonAppStream {
      * 
      * @param batchDisassociateUserStackRequest
      * @return Result of the BatchDisassociateUserStack operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws InvalidParameterCombinationException
+     *         Indicates an incorrect combination of parameters, or a missing parameter.
      * @sample AmazonAppStream.BatchDisassociateUserStack
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/BatchDisassociateUserStack"
      *      target="_top">AWS API Documentation</a>
@@ -189,12 +273,126 @@ public interface AmazonAppStream {
      *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
      *         Support.
      * @throws IncompatibleImageException
-     *         The image does not support storage connectors.
+     *         The image can't be updated because it's not compatible for updates.
      * @sample AmazonAppStream.CopyImage
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CopyImage" target="_top">AWS API
      *      Documentation</a>
      */
     CopyImageResult copyImage(CopyImageRequest copyImageRequest);
+
+    /**
+     * <p>
+     * Creates an app block.
+     * </p>
+     * <p>
+     * App blocks are an Amazon AppStream 2.0 resource that stores the details about the virtual hard disk in an S3
+     * bucket. It also stores the setup script with details about how to mount the virtual hard disk. The virtual hard
+     * disk includes the application binaries and other files necessary to launch your applications. Multiple
+     * applications can be assigned to a single app block.
+     * </p>
+     * <p>
+     * This is only supported for Elastic fleets.
+     * </p>
+     * 
+     * @param createAppBlockRequest
+     * @return Result of the CreateAppBlock operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws LimitExceededException
+     *         The requested limit exceeds the permitted limit for an account.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @sample AmazonAppStream.CreateAppBlock
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateAppBlock" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CreateAppBlockResult createAppBlock(CreateAppBlockRequest createAppBlockRequest);
+
+    /**
+     * <p>
+     * Creates an app block builder.
+     * </p>
+     * 
+     * @param createAppBlockBuilderRequest
+     * @return Result of the CreateAppBlockBuilder operation returned by the service.
+     * @throws LimitExceededException
+     *         The requested limit exceeds the permitted limit for an account.
+     * @throws RequestLimitExceededException
+     *         AppStream 2.0 can’t process the request right now because the Describe calls from your AWS account are
+     *         being throttled by Amazon EC2. Try again later.
+     * @throws InvalidAccountStatusException
+     *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
+     *         Support.
+     * @throws InvalidRoleException
+     *         The specified role is invalid.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws ResourceNotAvailableException
+     *         The specified resource exists and is not in use, but isn't available.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws InvalidParameterCombinationException
+     *         Indicates an incorrect combination of parameters, or a missing parameter.
+     * @sample AmazonAppStream.CreateAppBlockBuilder
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateAppBlockBuilder"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateAppBlockBuilderResult createAppBlockBuilder(CreateAppBlockBuilderRequest createAppBlockBuilderRequest);
+
+    /**
+     * <p>
+     * Creates a URL to start a create app block builder streaming session.
+     * </p>
+     * 
+     * @param createAppBlockBuilderStreamingURLRequest
+     * @return Result of the CreateAppBlockBuilderStreamingURL operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @sample AmazonAppStream.CreateAppBlockBuilderStreamingURL
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateAppBlockBuilderStreamingURL"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateAppBlockBuilderStreamingURLResult createAppBlockBuilderStreamingURL(CreateAppBlockBuilderStreamingURLRequest createAppBlockBuilderStreamingURLRequest);
+
+    /**
+     * <p>
+     * Creates an application.
+     * </p>
+     * <p>
+     * Applications are an Amazon AppStream 2.0 resource that stores the details about how to launch applications on
+     * Elastic fleet streaming instances. An application consists of the launch details, icon, and display name.
+     * Applications are associated with an app block that contains the application binaries and other files. The
+     * applications assigned to an Elastic fleet are the applications users can launch.
+     * </p>
+     * <p>
+     * This is only supported for Elastic fleets.
+     * </p>
+     * 
+     * @param createApplicationRequest
+     * @return Result of the CreateApplication operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws LimitExceededException
+     *         The requested limit exceeds the permitted limit for an account.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AmazonAppStream.CreateApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateApplication" target="_top">AWS
+     *      API Documentation</a>
+     */
+    CreateApplicationResult createApplication(CreateApplicationRequest createApplicationRequest);
 
     /**
      * <p>
@@ -204,6 +402,8 @@ public interface AmazonAppStream {
      * 
      * @param createDirectoryConfigRequest
      * @return Result of the CreateDirectoryConfig operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
      * @throws ResourceAlreadyExistsException
      *         The specified resource already exists.
      * @throws LimitExceededException
@@ -211,6 +411,10 @@ public interface AmazonAppStream {
      * @throws InvalidAccountStatusException
      *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
      *         Support.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws InvalidRoleException
+     *         The specified role is invalid.
      * @sample AmazonAppStream.CreateDirectoryConfig
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateDirectoryConfig"
      *      target="_top">AWS API Documentation</a>
@@ -219,7 +423,32 @@ public interface AmazonAppStream {
 
     /**
      * <p>
-     * Creates a fleet. A fleet consists of streaming instances that run a specified image.
+     * Creates a new entitlement. Entitlements control access to specific applications within a stack, based on user
+     * attributes. Entitlements apply to SAML 2.0 federated user identities. Amazon AppStream 2.0 user pool and
+     * streaming URL users are entitled to all applications in a stack. Entitlements don't apply to the desktop stream
+     * view application, or to applications managed by a dynamic app provider using the Dynamic Application Framework.
+     * </p>
+     * 
+     * @param createEntitlementRequest
+     * @return Result of the CreateEntitlement operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws LimitExceededException
+     *         The requested limit exceeds the permitted limit for an account.
+     * @throws EntitlementAlreadyExistsException
+     *         The entitlement already exists.
+     * @sample AmazonAppStream.CreateEntitlement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateEntitlement" target="_top">AWS
+     *      API Documentation</a>
+     */
+    CreateEntitlementResult createEntitlement(CreateEntitlementRequest createEntitlementRequest);
+
+    /**
+     * <p>
+     * Creates a fleet. A fleet consists of streaming instances that your users access for their applications and
+     * desktops.
      * </p>
      * 
      * @param createFleetRequest
@@ -232,6 +461,9 @@ public interface AmazonAppStream {
      *         The specified resource was not found.
      * @throws LimitExceededException
      *         The requested limit exceeds the permitted limit for an account.
+     * @throws RequestLimitExceededException
+     *         AppStream 2.0 can’t process the request right now because the Describe calls from your AWS account are
+     *         being throttled by Amazon EC2. Try again later.
      * @throws InvalidAccountStatusException
      *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
      *         Support.
@@ -242,7 +474,7 @@ public interface AmazonAppStream {
      * @throws InvalidParameterCombinationException
      *         Indicates an incorrect combination of parameters, or a missing parameter.
      * @throws IncompatibleImageException
-     *         The image does not support storage connectors.
+     *         The image can't be updated because it's not compatible for updates.
      * @throws OperationNotPermittedException
      *         The attempted operation is not permitted.
      * @sample AmazonAppStream.CreateFleet
@@ -263,6 +495,9 @@ public interface AmazonAppStream {
      * @return Result of the CreateImageBuilder operation returned by the service.
      * @throws LimitExceededException
      *         The requested limit exceeds the permitted limit for an account.
+     * @throws RequestLimitExceededException
+     *         AppStream 2.0 can’t process the request right now because the Describe calls from your AWS account are
+     *         being throttled by Amazon EC2. Try again later.
      * @throws InvalidAccountStatusException
      *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
      *         Support.
@@ -279,7 +514,7 @@ public interface AmazonAppStream {
      * @throws InvalidParameterCombinationException
      *         Indicates an incorrect combination of parameters, or a missing parameter.
      * @throws IncompatibleImageException
-     *         The image does not support storage connectors.
+     *         The image can't be updated because it's not compatible for updates.
      * @throws OperationNotPermittedException
      *         The attempted operation is not permitted.
      * @sample AmazonAppStream.CreateImageBuilder
@@ -328,6 +563,8 @@ public interface AmazonAppStream {
      *         The specified resource was not found.
      * @throws InvalidParameterCombinationException
      *         Indicates an incorrect combination of parameters, or a missing parameter.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
      * @sample AmazonAppStream.CreateStack
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateStack" target="_top">AWS API
      *      Documentation</a>
@@ -358,6 +595,40 @@ public interface AmazonAppStream {
 
     /**
      * <p>
+     * Creates a new image with the latest Windows operating system updates, driver updates, and AppStream 2.0 agent
+     * software.
+     * </p>
+     * <p>
+     * For more information, see the "Update an Image by Using Managed AppStream 2.0 Image Updates" section in <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/administer-images.html">Administer Your
+     * AppStream 2.0 Images</a>, in the <i>Amazon AppStream 2.0 Administration Guide</i>.
+     * </p>
+     * 
+     * @param createUpdatedImageRequest
+     * @return Result of the CreateUpdatedImage operation returned by the service.
+     * @throws LimitExceededException
+     *         The requested limit exceeds the permitted limit for an account.
+     * @throws InvalidAccountStatusException
+     *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
+     *         Support.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws IncompatibleImageException
+     *         The image can't be updated because it's not compatible for updates.
+     * @sample AmazonAppStream.CreateUpdatedImage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateUpdatedImage" target="_top">AWS
+     *      API Documentation</a>
+     */
+    CreateUpdatedImageResult createUpdatedImage(CreateUpdatedImageRequest createUpdatedImageRequest);
+
+    /**
+     * <p>
      * Creates a usage report subscription. Usage reports are generated daily.
      * </p>
      * 
@@ -368,6 +639,8 @@ public interface AmazonAppStream {
      * @throws InvalidAccountStatusException
      *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
      *         Support.
+     * @throws LimitExceededException
+     *         The requested limit exceeds the permitted limit for an account.
      * @sample AmazonAppStream.CreateUsageReportSubscription
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateUsageReportSubscription"
      *      target="_top">AWS API Documentation</a>
@@ -400,6 +673,70 @@ public interface AmazonAppStream {
 
     /**
      * <p>
+     * Deletes an app block.
+     * </p>
+     * 
+     * @param deleteAppBlockRequest
+     * @return Result of the DeleteAppBlock operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AmazonAppStream.DeleteAppBlock
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteAppBlock" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeleteAppBlockResult deleteAppBlock(DeleteAppBlockRequest deleteAppBlockRequest);
+
+    /**
+     * <p>
+     * Deletes an app block builder.
+     * </p>
+     * <p>
+     * An app block builder can only be deleted when it has no association with an app block.
+     * </p>
+     * 
+     * @param deleteAppBlockBuilderRequest
+     * @return Result of the DeleteAppBlockBuilder operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AmazonAppStream.DeleteAppBlockBuilder
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteAppBlockBuilder"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteAppBlockBuilderResult deleteAppBlockBuilder(DeleteAppBlockBuilderRequest deleteAppBlockBuilderRequest);
+
+    /**
+     * <p>
+     * Deletes an application.
+     * </p>
+     * 
+     * @param deleteApplicationRequest
+     * @return Result of the DeleteApplication operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @sample AmazonAppStream.DeleteApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteApplication" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DeleteApplicationResult deleteApplication(DeleteApplicationRequest deleteApplicationRequest);
+
+    /**
+     * <p>
      * Deletes the specified Directory Config object from AppStream 2.0. This object includes the information required
      * to join streaming instances to an Active Directory domain.
      * </p>
@@ -415,6 +752,29 @@ public interface AmazonAppStream {
      *      target="_top">AWS API Documentation</a>
      */
     DeleteDirectoryConfigResult deleteDirectoryConfig(DeleteDirectoryConfigRequest deleteDirectoryConfigRequest);
+
+    /**
+     * <p>
+     * Deletes the specified entitlement.
+     * </p>
+     * 
+     * @param deleteEntitlementRequest
+     * @return Result of the DeleteEntitlement operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws EntitlementNotFoundException
+     *         The entitlement can't be found.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @sample AmazonAppStream.DeleteEntitlement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteEntitlement" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DeleteEntitlementResult deleteEntitlement(DeleteEntitlementRequest deleteEntitlementRequest);
 
     /**
      * <p>
@@ -507,6 +867,8 @@ public interface AmazonAppStream {
      *         The specified resource is in use.
      * @throws ResourceNotFoundException
      *         The specified resource was not found.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
      * @throws ConcurrentModificationException
      *         An API error occurred. Wait a few minutes and try again.
      * @sample AmazonAppStream.DeleteStack
@@ -550,6 +912,95 @@ public interface AmazonAppStream {
 
     /**
      * <p>
+     * Retrieves a list that describes one or more app block builder associations.
+     * </p>
+     * 
+     * @param describeAppBlockBuilderAppBlockAssociationsRequest
+     * @return Result of the DescribeAppBlockBuilderAppBlockAssociations operation returned by the service.
+     * @throws InvalidParameterCombinationException
+     *         Indicates an incorrect combination of parameters, or a missing parameter.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @sample AmazonAppStream.DescribeAppBlockBuilderAppBlockAssociations
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeAppBlockBuilderAppBlockAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeAppBlockBuilderAppBlockAssociationsResult describeAppBlockBuilderAppBlockAssociations(
+            DescribeAppBlockBuilderAppBlockAssociationsRequest describeAppBlockBuilderAppBlockAssociationsRequest);
+
+    /**
+     * <p>
+     * Retrieves a list that describes one or more app block builders.
+     * </p>
+     * 
+     * @param describeAppBlockBuildersRequest
+     * @return Result of the DescribeAppBlockBuilders operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AmazonAppStream.DescribeAppBlockBuilders
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeAppBlockBuilders"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeAppBlockBuildersResult describeAppBlockBuilders(DescribeAppBlockBuildersRequest describeAppBlockBuildersRequest);
+
+    /**
+     * <p>
+     * Retrieves a list that describes one or more app blocks.
+     * </p>
+     * 
+     * @param describeAppBlocksRequest
+     * @return Result of the DescribeAppBlocks operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AmazonAppStream.DescribeAppBlocks
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeAppBlocks" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DescribeAppBlocksResult describeAppBlocks(DescribeAppBlocksRequest describeAppBlocksRequest);
+
+    /**
+     * <p>
+     * Retrieves a list that describes one or more application fleet associations. Either ApplicationArn or FleetName
+     * must be specified.
+     * </p>
+     * 
+     * @param describeApplicationFleetAssociationsRequest
+     * @return Result of the DescribeApplicationFleetAssociations operation returned by the service.
+     * @throws InvalidParameterCombinationException
+     *         Indicates an incorrect combination of parameters, or a missing parameter.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @sample AmazonAppStream.DescribeApplicationFleetAssociations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeApplicationFleetAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeApplicationFleetAssociationsResult describeApplicationFleetAssociations(
+            DescribeApplicationFleetAssociationsRequest describeApplicationFleetAssociationsRequest);
+
+    /**
+     * <p>
+     * Retrieves a list that describes one or more applications.
+     * </p>
+     * 
+     * @param describeApplicationsRequest
+     * @return Result of the DescribeApplications operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AmazonAppStream.DescribeApplications
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeApplications" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DescribeApplicationsResult describeApplications(DescribeApplicationsRequest describeApplicationsRequest);
+
+    /**
+     * <p>
      * Retrieves a list that describes one or more specified Directory Config objects for AppStream 2.0, if the names
      * for these objects are provided. Otherwise, all Directory Config objects in the account are described. These
      * objects include the configuration information required to join fleets and image builders to Microsoft Active
@@ -569,6 +1020,25 @@ public interface AmazonAppStream {
      *      target="_top">AWS API Documentation</a>
      */
     DescribeDirectoryConfigsResult describeDirectoryConfigs(DescribeDirectoryConfigsRequest describeDirectoryConfigsRequest);
+
+    /**
+     * <p>
+     * Retrieves a list that describes one of more entitlements.
+     * </p>
+     * 
+     * @param describeEntitlementsRequest
+     * @return Result of the DescribeEntitlements operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws EntitlementNotFoundException
+     *         The entitlement can't be found.
+     * @sample AmazonAppStream.DescribeEntitlements
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeEntitlements" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DescribeEntitlementsResult describeEntitlements(DescribeEntitlementsRequest describeEntitlementsRequest);
 
     /**
      * <p>
@@ -708,6 +1178,8 @@ public interface AmazonAppStream {
      * @return Result of the DescribeUserStackAssociations operation returned by the service.
      * @throws InvalidParameterCombinationException
      *         Indicates an incorrect combination of parameters, or a missing parameter.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
      * @sample AmazonAppStream.DescribeUserStackAssociations
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeUserStackAssociations"
      *      target="_top">AWS API Documentation</a>
@@ -725,6 +1197,8 @@ public interface AmazonAppStream {
      *         The specified resource was not found.
      * @throws InvalidParameterCombinationException
      *         Indicates an incorrect combination of parameters, or a missing parameter.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
      * @sample AmazonAppStream.DescribeUsers
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeUsers" target="_top">AWS API
      *      Documentation</a>
@@ -749,6 +1223,69 @@ public interface AmazonAppStream {
 
     /**
      * <p>
+     * Disassociates a specified app block builder from a specified app block.
+     * </p>
+     * 
+     * @param disassociateAppBlockBuilderAppBlockRequest
+     * @return Result of the DisassociateAppBlockBuilderAppBlock operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws InvalidParameterCombinationException
+     *         Indicates an incorrect combination of parameters, or a missing parameter.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AmazonAppStream.DisassociateAppBlockBuilderAppBlock
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DisassociateAppBlockBuilderAppBlock"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DisassociateAppBlockBuilderAppBlockResult disassociateAppBlockBuilderAppBlock(
+            DisassociateAppBlockBuilderAppBlockRequest disassociateAppBlockBuilderAppBlockRequest);
+
+    /**
+     * <p>
+     * Disassociates the specified application from the fleet.
+     * </p>
+     * 
+     * @param disassociateApplicationFleetRequest
+     * @return Result of the DisassociateApplicationFleet operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws InvalidParameterCombinationException
+     *         Indicates an incorrect combination of parameters, or a missing parameter.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @sample AmazonAppStream.DisassociateApplicationFleet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DisassociateApplicationFleet"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DisassociateApplicationFleetResult disassociateApplicationFleet(DisassociateApplicationFleetRequest disassociateApplicationFleetRequest);
+
+    /**
+     * <p>
+     * Deletes the specified application from the specified entitlement.
+     * </p>
+     * 
+     * @param disassociateApplicationFromEntitlementRequest
+     * @return Result of the DisassociateApplicationFromEntitlement operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws EntitlementNotFoundException
+     *         The entitlement can't be found.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @sample AmazonAppStream.DisassociateApplicationFromEntitlement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DisassociateApplicationFromEntitlement"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DisassociateApplicationFromEntitlementResult disassociateApplicationFromEntitlement(
+            DisassociateApplicationFromEntitlementRequest disassociateApplicationFromEntitlementRequest);
+
+    /**
+     * <p>
      * Disassociates the specified fleet from the specified stack.
      * </p>
      * 
@@ -760,6 +1297,8 @@ public interface AmazonAppStream {
      *         The specified resource was not found.
      * @throws ConcurrentModificationException
      *         An API error occurred. Wait a few minutes and try again.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
      * @sample AmazonAppStream.DisassociateFleet
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DisassociateFleet" target="_top">AWS
      *      API Documentation</a>
@@ -826,13 +1365,32 @@ public interface AmazonAppStream {
 
     /**
      * <p>
+     * Retrieves a list of entitled applications.
+     * </p>
+     * 
+     * @param listEntitledApplicationsRequest
+     * @return Result of the ListEntitledApplications operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws EntitlementNotFoundException
+     *         The entitlement can't be found.
+     * @sample AmazonAppStream.ListEntitledApplications
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/ListEntitledApplications"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListEntitledApplicationsResult listEntitledApplications(ListEntitledApplicationsRequest listEntitledApplicationsRequest);
+
+    /**
+     * <p>
      * Retrieves a list of all tags for the specified AppStream 2.0 resource. You can tag AppStream 2.0 image builders,
      * images, fleets, and stacks.
      * </p>
      * <p>
      * For more information about tags, see <a
      * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging Your Resources</a>
-     * in the <i>Amazon AppStream 2.0 Developer Guide</i>.
+     * in the <i>Amazon AppStream 2.0 Administration Guide</i>.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -847,6 +1405,42 @@ public interface AmazonAppStream {
 
     /**
      * <p>
+     * Starts an app block builder.
+     * </p>
+     * <p>
+     * An app block builder can only be started when it's associated with an app block.
+     * </p>
+     * <p>
+     * Starting an app block builder starts a new instance, which is equivalent to an elastic fleet instance with
+     * application builder assistance functionality.
+     * </p>
+     * 
+     * @param startAppBlockBuilderRequest
+     * @return Result of the StartAppBlockBuilder operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws InvalidAccountStatusException
+     *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
+     *         Support.
+     * @throws LimitExceededException
+     *         The requested limit exceeds the permitted limit for an account.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws RequestLimitExceededException
+     *         AppStream 2.0 can’t process the request right now because the Describe calls from your AWS account are
+     *         being throttled by Amazon EC2. Try again later.
+     * @throws ResourceNotAvailableException
+     *         The specified resource exists and is not in use, but isn't available.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AmazonAppStream.StartAppBlockBuilder
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StartAppBlockBuilder" target="_top">AWS
+     *      API Documentation</a>
+     */
+    StartAppBlockBuilderResult startAppBlockBuilder(StartAppBlockBuilderRequest startAppBlockBuilderRequest);
+
+    /**
+     * <p>
      * Starts the specified fleet.
      * </p>
      * 
@@ -858,11 +1452,18 @@ public interface AmazonAppStream {
      *         The attempted operation is not permitted.
      * @throws LimitExceededException
      *         The requested limit exceeds the permitted limit for an account.
+     * @throws RequestLimitExceededException
+     *         AppStream 2.0 can’t process the request right now because the Describe calls from your AWS account are
+     *         being throttled by Amazon EC2. Try again later.
      * @throws InvalidAccountStatusException
      *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
      *         Support.
      * @throws ConcurrentModificationException
      *         An API error occurred. Wait a few minutes and try again.
+     * @throws ResourceNotAvailableException
+     *         The specified resource exists and is not in use, but isn't available.
+     * @throws InvalidRoleException
+     *         The specified role is invalid.
      * @sample AmazonAppStream.StartFleet
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StartFleet" target="_top">AWS API
      *      Documentation</a>
@@ -886,12 +1487,34 @@ public interface AmazonAppStream {
      *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
      *         Support.
      * @throws IncompatibleImageException
-     *         The image does not support storage connectors.
+     *         The image can't be updated because it's not compatible for updates.
      * @sample AmazonAppStream.StartImageBuilder
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StartImageBuilder" target="_top">AWS
      *      API Documentation</a>
      */
     StartImageBuilderResult startImageBuilder(StartImageBuilderRequest startImageBuilderRequest);
+
+    /**
+     * <p>
+     * Stops an app block builder.
+     * </p>
+     * <p>
+     * Stopping an app block builder terminates the instance, and the instance state is not persisted.
+     * </p>
+     * 
+     * @param stopAppBlockBuilderRequest
+     * @return Result of the StopAppBlockBuilder operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AmazonAppStream.StopAppBlockBuilder
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StopAppBlockBuilder" target="_top">AWS
+     *      API Documentation</a>
+     */
+    StopAppBlockBuilderResult stopAppBlockBuilder(StopAppBlockBuilderRequest stopAppBlockBuilderRequest);
 
     /**
      * <p>
@@ -945,7 +1568,7 @@ public interface AmazonAppStream {
      * <p>
      * For more information about tags, see <a
      * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging Your Resources</a>
-     * in the <i>Amazon AppStream 2.0 Developer Guide</i>.
+     * in the <i>Amazon AppStream 2.0 Administration Guide</i>.
      * </p>
      * 
      * @param tagResourceRequest
@@ -973,7 +1596,7 @@ public interface AmazonAppStream {
      * <p>
      * For more information about tags, see <a
      * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging Your Resources</a>
-     * in the <i>Amazon AppStream 2.0 Developer Guide</i>.
+     * in the <i>Amazon AppStream 2.0 Administration Guide</i>.
      * </p>
      * 
      * @param untagResourceRequest
@@ -985,6 +1608,65 @@ public interface AmazonAppStream {
      *      Documentation</a>
      */
     UntagResourceResult untagResource(UntagResourceRequest untagResourceRequest);
+
+    /**
+     * <p>
+     * Updates an app block builder.
+     * </p>
+     * <p>
+     * If the app block builder is in the <code>STARTING</code> or <code>STOPPING</code> state, you can't update it. If
+     * the app block builder is in the <code>RUNNING</code> state, you can only update the DisplayName and Description.
+     * If the app block builder is in the <code>STOPPED</code> state, you can update any attribute except the Name.
+     * </p>
+     * 
+     * @param updateAppBlockBuilderRequest
+     * @return Result of the UpdateAppBlockBuilder operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws InvalidAccountStatusException
+     *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
+     *         Support.
+     * @throws InvalidParameterCombinationException
+     *         Indicates an incorrect combination of parameters, or a missing parameter.
+     * @throws InvalidRoleException
+     *         The specified role is invalid.
+     * @throws LimitExceededException
+     *         The requested limit exceeds the permitted limit for an account.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws RequestLimitExceededException
+     *         AppStream 2.0 can’t process the request right now because the Describe calls from your AWS account are
+     *         being throttled by Amazon EC2. Try again later.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @throws ResourceNotAvailableException
+     *         The specified resource exists and is not in use, but isn't available.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AmazonAppStream.UpdateAppBlockBuilder
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/UpdateAppBlockBuilder"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateAppBlockBuilderResult updateAppBlockBuilder(UpdateAppBlockBuilderRequest updateAppBlockBuilderRequest);
+
+    /**
+     * <p>
+     * Updates the specified application.
+     * </p>
+     * 
+     * @param updateApplicationRequest
+     * @return Result of the UpdateApplication operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AmazonAppStream.UpdateApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/UpdateApplication" target="_top">AWS
+     *      API Documentation</a>
+     */
+    UpdateApplicationResult updateApplication(UpdateApplicationRequest updateApplicationRequest);
 
     /**
      * <p>
@@ -1000,6 +1682,10 @@ public interface AmazonAppStream {
      *         The specified resource was not found.
      * @throws ConcurrentModificationException
      *         An API error occurred. Wait a few minutes and try again.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws InvalidRoleException
+     *         The specified role is invalid.
      * @sample AmazonAppStream.UpdateDirectoryConfig
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/UpdateDirectoryConfig"
      *      target="_top">AWS API Documentation</a>
@@ -1008,14 +1694,59 @@ public interface AmazonAppStream {
 
     /**
      * <p>
+     * Updates the specified entitlement.
+     * </p>
+     * 
+     * @param updateEntitlementRequest
+     * @return Result of the UpdateEntitlement operation returned by the service.
+     * @throws OperationNotPermittedException
+     *         The attempted operation is not permitted.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws EntitlementNotFoundException
+     *         The entitlement can't be found.
+     * @throws ConcurrentModificationException
+     *         An API error occurred. Wait a few minutes and try again.
+     * @sample AmazonAppStream.UpdateEntitlement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/UpdateEntitlement" target="_top">AWS
+     *      API Documentation</a>
+     */
+    UpdateEntitlementResult updateEntitlement(UpdateEntitlementRequest updateEntitlementRequest);
+
+    /**
+     * <p>
      * Updates the specified fleet.
      * </p>
      * <p>
-     * If the fleet is in the <code>STOPPED</code> state, you can update any attribute except the fleet name. If the
-     * fleet is in the <code>RUNNING</code> state, you can update the <code>DisplayName</code>,
-     * <code>ComputeCapacity</code>, <code>ImageARN</code>, <code>ImageName</code>, and
-     * <code>DisconnectTimeoutInSeconds</code> attributes. If the fleet is in the <code>STARTING</code> or
-     * <code>STOPPING</code> state, you can't update it.
+     * If the fleet is in the <code>STOPPED</code> state, you can update any attribute except the fleet name.
+     * </p>
+     * <p>
+     * If the fleet is in the <code>RUNNING</code> state, you can update the following based on the fleet type:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Always-On and On-Demand fleet types
+     * </p>
+     * <p>
+     * You can update the <code>DisplayName</code>, <code>ComputeCapacity</code>, <code>ImageARN</code>,
+     * <code>ImageName</code>, <code>IdleDisconnectTimeoutInSeconds</code>, and <code>DisconnectTimeoutInSeconds</code>
+     * attributes.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Elastic fleet type
+     * </p>
+     * <p>
+     * You can update the <code>DisplayName</code>, <code>IdleDisconnectTimeoutInSeconds</code>,
+     * <code>DisconnectTimeoutInSeconds</code>, <code>MaxConcurrentSessions</code>, <code>SessionScriptS3Location</code>
+     * and <code>UsbDeviceFilterStrings</code> attributes.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If the fleet is in the <code>STARTING</code> or <code>STOPPED</code> state, you can't update it.
      * </p>
      * 
      * @param updateFleetRequest
@@ -1024,6 +1755,9 @@ public interface AmazonAppStream {
      *         The specified resource is in use.
      * @throws LimitExceededException
      *         The requested limit exceeds the permitted limit for an account.
+     * @throws RequestLimitExceededException
+     *         AppStream 2.0 can’t process the request right now because the Describe calls from your AWS account are
+     *         being throttled by Amazon EC2. Try again later.
      * @throws InvalidAccountStatusException
      *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
      *         Support.
@@ -1038,7 +1772,7 @@ public interface AmazonAppStream {
      * @throws ConcurrentModificationException
      *         An API error occurred. Wait a few minutes and try again.
      * @throws IncompatibleImageException
-     *         The image does not support storage connectors.
+     *         The image can't be updated because it's not compatible for updates.
      * @throws OperationNotPermittedException
      *         The attempted operation is not permitted.
      * @sample AmazonAppStream.UpdateFleet
@@ -1087,7 +1821,7 @@ public interface AmazonAppStream {
      *         The resource cannot be created because your AWS account is suspended. For assistance, contact AWS
      *         Support.
      * @throws IncompatibleImageException
-     *         The image does not support storage connectors.
+     *         The image can't be updated because it's not compatible for updates.
      * @throws OperationNotPermittedException
      *         The attempted operation is not permitted.
      * @throws ConcurrentModificationException

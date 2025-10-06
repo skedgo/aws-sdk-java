@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,30 +27,62 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The ARN of the CloudWatch resource that you're adding tags to. For more information on ARN format, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-cloudwatch">Example
-     * ARNs</a> in the <i>Amazon Web Services General Reference</i>.
+     * The ARN of the CloudWatch resource that you're adding tags to.
+     * </p>
+     * <p>
+     * The ARN format of an alarm is
+     * <code>arn:aws:cloudwatch:<i>Region</i>:<i>account-id</i>:alarm:<i>alarm-name</i> </code>
+     * </p>
+     * <p>
+     * The ARN format of a Contributor Insights rule is
+     * <code>arn:aws:cloudwatch:<i>Region</i>:<i>account-id</i>:insight-rule/<i>insight-rule-name</i> </code>
+     * </p>
+     * <p>
+     * For more information about ARN format, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatch.html#amazoncloudwatch-resources-for-iam-policies"
+     * > Resource Types Defined by Amazon CloudWatch</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      */
     private String resourceARN;
     /**
      * <p>
-     * The list of key-value pairs to associate with the resource.
+     * The list of key-value pairs to associate with the alarm.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
 
     /**
      * <p>
-     * The ARN of the CloudWatch resource that you're adding tags to. For more information on ARN format, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-cloudwatch">Example
-     * ARNs</a> in the <i>Amazon Web Services General Reference</i>.
+     * The ARN of the CloudWatch resource that you're adding tags to.
+     * </p>
+     * <p>
+     * The ARN format of an alarm is
+     * <code>arn:aws:cloudwatch:<i>Region</i>:<i>account-id</i>:alarm:<i>alarm-name</i> </code>
+     * </p>
+     * <p>
+     * The ARN format of a Contributor Insights rule is
+     * <code>arn:aws:cloudwatch:<i>Region</i>:<i>account-id</i>:insight-rule/<i>insight-rule-name</i> </code>
+     * </p>
+     * <p>
+     * For more information about ARN format, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatch.html#amazoncloudwatch-resources-for-iam-policies"
+     * > Resource Types Defined by Amazon CloudWatch</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @param resourceARN
-     *        The ARN of the CloudWatch resource that you're adding tags to. For more information on ARN format, see <a
-     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-cloudwatch">
-     *        Example ARNs</a> in the <i>Amazon Web Services General Reference</i>.
+     *        The ARN of the CloudWatch resource that you're adding tags to.</p>
+     *        <p>
+     *        The ARN format of an alarm is
+     *        <code>arn:aws:cloudwatch:<i>Region</i>:<i>account-id</i>:alarm:<i>alarm-name</i> </code>
+     *        </p>
+     *        <p>
+     *        The ARN format of a Contributor Insights rule is
+     *        <code>arn:aws:cloudwatch:<i>Region</i>:<i>account-id</i>:insight-rule/<i>insight-rule-name</i> </code>
+     *        </p>
+     *        <p>
+     *        For more information about ARN format, see <a href=
+     *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatch.html#amazoncloudwatch-resources-for-iam-policies"
+     *        > Resource Types Defined by Amazon CloudWatch</a> in the <i>Amazon Web Services General Reference</i>.
      */
 
     public void setResourceARN(String resourceARN) {
@@ -59,14 +91,35 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The ARN of the CloudWatch resource that you're adding tags to. For more information on ARN format, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-cloudwatch">Example
-     * ARNs</a> in the <i>Amazon Web Services General Reference</i>.
+     * The ARN of the CloudWatch resource that you're adding tags to.
+     * </p>
+     * <p>
+     * The ARN format of an alarm is
+     * <code>arn:aws:cloudwatch:<i>Region</i>:<i>account-id</i>:alarm:<i>alarm-name</i> </code>
+     * </p>
+     * <p>
+     * The ARN format of a Contributor Insights rule is
+     * <code>arn:aws:cloudwatch:<i>Region</i>:<i>account-id</i>:insight-rule/<i>insight-rule-name</i> </code>
+     * </p>
+     * <p>
+     * For more information about ARN format, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatch.html#amazoncloudwatch-resources-for-iam-policies"
+     * > Resource Types Defined by Amazon CloudWatch</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
-     * @return The ARN of the CloudWatch resource that you're adding tags to. For more information on ARN format, see <a
-     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-cloudwatch">
-     *         Example ARNs</a> in the <i>Amazon Web Services General Reference</i>.
+     * @return The ARN of the CloudWatch resource that you're adding tags to.</p>
+     *         <p>
+     *         The ARN format of an alarm is
+     *         <code>arn:aws:cloudwatch:<i>Region</i>:<i>account-id</i>:alarm:<i>alarm-name</i> </code>
+     *         </p>
+     *         <p>
+     *         The ARN format of a Contributor Insights rule is
+     *         <code>arn:aws:cloudwatch:<i>Region</i>:<i>account-id</i>:insight-rule/<i>insight-rule-name</i> </code>
+     *         </p>
+     *         <p>
+     *         For more information about ARN format, see <a href=
+     *         "https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatch.html#amazoncloudwatch-resources-for-iam-policies"
+     *         > Resource Types Defined by Amazon CloudWatch</a> in the <i>Amazon Web Services General Reference</i>.
      */
 
     public String getResourceARN() {
@@ -75,15 +128,36 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The ARN of the CloudWatch resource that you're adding tags to. For more information on ARN format, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-cloudwatch">Example
-     * ARNs</a> in the <i>Amazon Web Services General Reference</i>.
+     * The ARN of the CloudWatch resource that you're adding tags to.
+     * </p>
+     * <p>
+     * The ARN format of an alarm is
+     * <code>arn:aws:cloudwatch:<i>Region</i>:<i>account-id</i>:alarm:<i>alarm-name</i> </code>
+     * </p>
+     * <p>
+     * The ARN format of a Contributor Insights rule is
+     * <code>arn:aws:cloudwatch:<i>Region</i>:<i>account-id</i>:insight-rule/<i>insight-rule-name</i> </code>
+     * </p>
+     * <p>
+     * For more information about ARN format, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatch.html#amazoncloudwatch-resources-for-iam-policies"
+     * > Resource Types Defined by Amazon CloudWatch</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @param resourceARN
-     *        The ARN of the CloudWatch resource that you're adding tags to. For more information on ARN format, see <a
-     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-cloudwatch">
-     *        Example ARNs</a> in the <i>Amazon Web Services General Reference</i>.
+     *        The ARN of the CloudWatch resource that you're adding tags to.</p>
+     *        <p>
+     *        The ARN format of an alarm is
+     *        <code>arn:aws:cloudwatch:<i>Region</i>:<i>account-id</i>:alarm:<i>alarm-name</i> </code>
+     *        </p>
+     *        <p>
+     *        The ARN format of a Contributor Insights rule is
+     *        <code>arn:aws:cloudwatch:<i>Region</i>:<i>account-id</i>:insight-rule/<i>insight-rule-name</i> </code>
+     *        </p>
+     *        <p>
+     *        For more information about ARN format, see <a href=
+     *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatch.html#amazoncloudwatch-resources-for-iam-policies"
+     *        > Resource Types Defined by Amazon CloudWatch</a> in the <i>Amazon Web Services General Reference</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -94,10 +168,10 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The list of key-value pairs to associate with the resource.
+     * The list of key-value pairs to associate with the alarm.
      * </p>
      * 
-     * @return The list of key-value pairs to associate with the resource.
+     * @return The list of key-value pairs to associate with the alarm.
      */
 
     public java.util.List<Tag> getTags() {
@@ -109,11 +183,11 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The list of key-value pairs to associate with the resource.
+     * The list of key-value pairs to associate with the alarm.
      * </p>
      * 
      * @param tags
-     *        The list of key-value pairs to associate with the resource.
+     *        The list of key-value pairs to associate with the alarm.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -127,7 +201,7 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The list of key-value pairs to associate with the resource.
+     * The list of key-value pairs to associate with the alarm.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -136,7 +210,7 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * 
      * @param tags
-     *        The list of key-value pairs to associate with the resource.
+     *        The list of key-value pairs to associate with the alarm.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -152,11 +226,11 @@ public class TagResourceRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The list of key-value pairs to associate with the resource.
+     * The list of key-value pairs to associate with the alarm.
      * </p>
      * 
      * @param tags
-     *        The list of key-value pairs to associate with the resource.
+     *        The list of key-value pairs to associate with the alarm.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

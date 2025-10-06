@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,8 @@ public class OptionsMarshaller {
 
     private static final MarshallingInfo<String> VERIFYMODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VerifyMode").build();
+    private static final MarshallingInfo<String> OVERWRITEMODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OverwriteMode").build();
     private static final MarshallingInfo<String> ATIME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Atime").build();
     private static final MarshallingInfo<String> MTIME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -45,6 +47,16 @@ public class OptionsMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PosixPermissions").build();
     private static final MarshallingInfo<Long> BYTESPERSECOND_BINDING = MarshallingInfo.builder(MarshallingType.LONG)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("BytesPerSecond").build();
+    private static final MarshallingInfo<String> TASKQUEUEING_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TaskQueueing").build();
+    private static final MarshallingInfo<String> LOGLEVEL_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("LogLevel").build();
+    private static final MarshallingInfo<String> TRANSFERMODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TransferMode").build();
+    private static final MarshallingInfo<String> SECURITYDESCRIPTORCOPYFLAGS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SecurityDescriptorCopyFlags").build();
+    private static final MarshallingInfo<String> OBJECTTAGS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ObjectTags").build();
 
     private static final OptionsMarshaller instance = new OptionsMarshaller();
 
@@ -63,6 +75,7 @@ public class OptionsMarshaller {
 
         try {
             protocolMarshaller.marshall(options.getVerifyMode(), VERIFYMODE_BINDING);
+            protocolMarshaller.marshall(options.getOverwriteMode(), OVERWRITEMODE_BINDING);
             protocolMarshaller.marshall(options.getAtime(), ATIME_BINDING);
             protocolMarshaller.marshall(options.getMtime(), MTIME_BINDING);
             protocolMarshaller.marshall(options.getUid(), UID_BINDING);
@@ -71,6 +84,11 @@ public class OptionsMarshaller {
             protocolMarshaller.marshall(options.getPreserveDevices(), PRESERVEDEVICES_BINDING);
             protocolMarshaller.marshall(options.getPosixPermissions(), POSIXPERMISSIONS_BINDING);
             protocolMarshaller.marshall(options.getBytesPerSecond(), BYTESPERSECOND_BINDING);
+            protocolMarshaller.marshall(options.getTaskQueueing(), TASKQUEUEING_BINDING);
+            protocolMarshaller.marshall(options.getLogLevel(), LOGLEVEL_BINDING);
+            protocolMarshaller.marshall(options.getTransferMode(), TRANSFERMODE_BINDING);
+            protocolMarshaller.marshall(options.getSecurityDescriptorCopyFlags(), SECURITYDESCRIPTORCOPYFLAGS_BINDING);
+            protocolMarshaller.marshall(options.getObjectTags(), OBJECTTAGS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

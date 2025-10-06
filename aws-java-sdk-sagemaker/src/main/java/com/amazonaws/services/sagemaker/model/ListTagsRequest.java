@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,8 +33,8 @@ public class ListTagsRequest extends com.amazonaws.AmazonWebServiceRequest imple
     private String resourceArn;
     /**
      * <p>
-     * If the response to the previous <code>ListTags</code> request is truncated, Amazon SageMaker returns this token.
-     * To retrieve the next set of tags, use it in the subsequent request.
+     * If the response to the previous <code>ListTags</code> request is truncated, SageMaker returns this token. To
+     * retrieve the next set of tags, use it in the subsequent request.
      * </p>
      */
     private String nextToken;
@@ -87,13 +87,13 @@ public class ListTagsRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * If the response to the previous <code>ListTags</code> request is truncated, Amazon SageMaker returns this token.
-     * To retrieve the next set of tags, use it in the subsequent request.
+     * If the response to the previous <code>ListTags</code> request is truncated, SageMaker returns this token. To
+     * retrieve the next set of tags, use it in the subsequent request.
      * </p>
      * 
      * @param nextToken
-     *        If the response to the previous <code>ListTags</code> request is truncated, Amazon SageMaker returns this
-     *        token. To retrieve the next set of tags, use it in the subsequent request.
+     *        If the response to the previous <code>ListTags</code> request is truncated, SageMaker returns this token.
+     *        To retrieve the next set of tags, use it in the subsequent request.
      */
 
     public void setNextToken(String nextToken) {
@@ -102,12 +102,12 @@ public class ListTagsRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * If the response to the previous <code>ListTags</code> request is truncated, Amazon SageMaker returns this token.
-     * To retrieve the next set of tags, use it in the subsequent request.
+     * If the response to the previous <code>ListTags</code> request is truncated, SageMaker returns this token. To
+     * retrieve the next set of tags, use it in the subsequent request.
      * </p>
      * 
-     * @return If the response to the previous <code>ListTags</code> request is truncated, Amazon SageMaker returns this
-     *         token. To retrieve the next set of tags, use it in the subsequent request.
+     * @return If the response to the previous <code>ListTags</code> request is truncated, SageMaker returns this token.
+     *         To retrieve the next set of tags, use it in the subsequent request.
      */
 
     public String getNextToken() {
@@ -116,13 +116,13 @@ public class ListTagsRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * If the response to the previous <code>ListTags</code> request is truncated, Amazon SageMaker returns this token.
-     * To retrieve the next set of tags, use it in the subsequent request.
+     * If the response to the previous <code>ListTags</code> request is truncated, SageMaker returns this token. To
+     * retrieve the next set of tags, use it in the subsequent request.
      * </p>
      * 
      * @param nextToken
-     *        If the response to the previous <code>ListTags</code> request is truncated, Amazon SageMaker returns this
-     *        token. To retrieve the next set of tags, use it in the subsequent request.
+     *        If the response to the previous <code>ListTags</code> request is truncated, SageMaker returns this token.
+     *        To retrieve the next set of tags, use it in the subsequent request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

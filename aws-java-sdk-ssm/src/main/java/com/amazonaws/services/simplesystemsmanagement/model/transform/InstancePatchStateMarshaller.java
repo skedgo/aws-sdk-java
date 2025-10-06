@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,6 +43,8 @@ public class InstancePatchStateMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("InstalledCount").build();
     private static final MarshallingInfo<Integer> INSTALLEDOTHERCOUNT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("InstalledOtherCount").build();
+    private static final MarshallingInfo<Integer> INSTALLEDPENDINGREBOOTCOUNT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("InstalledPendingRebootCount").build();
     private static final MarshallingInfo<Integer> INSTALLEDREJECTEDCOUNT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("InstalledRejectedCount").build();
     private static final MarshallingInfo<Integer> MISSINGCOUNT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
@@ -59,6 +61,16 @@ public class InstancePatchStateMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OperationEndTime").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<String> OPERATION_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Operation").build();
+    private static final MarshallingInfo<java.util.Date> LASTNOREBOOTINSTALLOPERATIONTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LastNoRebootInstallOperationTime").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<String> REBOOTOPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RebootOption").build();
+    private static final MarshallingInfo<Integer> CRITICALNONCOMPLIANTCOUNT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CriticalNonCompliantCount").build();
+    private static final MarshallingInfo<Integer> SECURITYNONCOMPLIANTCOUNT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SecurityNonCompliantCount").build();
+    private static final MarshallingInfo<Integer> OTHERNONCOMPLIANTCOUNT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OtherNonCompliantCount").build();
 
     private static final InstancePatchStateMarshaller instance = new InstancePatchStateMarshaller();
 
@@ -84,6 +96,7 @@ public class InstancePatchStateMarshaller {
             protocolMarshaller.marshall(instancePatchState.getOwnerInformation(), OWNERINFORMATION_BINDING);
             protocolMarshaller.marshall(instancePatchState.getInstalledCount(), INSTALLEDCOUNT_BINDING);
             protocolMarshaller.marshall(instancePatchState.getInstalledOtherCount(), INSTALLEDOTHERCOUNT_BINDING);
+            protocolMarshaller.marshall(instancePatchState.getInstalledPendingRebootCount(), INSTALLEDPENDINGREBOOTCOUNT_BINDING);
             protocolMarshaller.marshall(instancePatchState.getInstalledRejectedCount(), INSTALLEDREJECTEDCOUNT_BINDING);
             protocolMarshaller.marshall(instancePatchState.getMissingCount(), MISSINGCOUNT_BINDING);
             protocolMarshaller.marshall(instancePatchState.getFailedCount(), FAILEDCOUNT_BINDING);
@@ -92,6 +105,11 @@ public class InstancePatchStateMarshaller {
             protocolMarshaller.marshall(instancePatchState.getOperationStartTime(), OPERATIONSTARTTIME_BINDING);
             protocolMarshaller.marshall(instancePatchState.getOperationEndTime(), OPERATIONENDTIME_BINDING);
             protocolMarshaller.marshall(instancePatchState.getOperation(), OPERATION_BINDING);
+            protocolMarshaller.marshall(instancePatchState.getLastNoRebootInstallOperationTime(), LASTNOREBOOTINSTALLOPERATIONTIME_BINDING);
+            protocolMarshaller.marshall(instancePatchState.getRebootOption(), REBOOTOPTION_BINDING);
+            protocolMarshaller.marshall(instancePatchState.getCriticalNonCompliantCount(), CRITICALNONCOMPLIANTCOUNT_BINDING);
+            protocolMarshaller.marshall(instancePatchState.getSecurityNonCompliantCount(), SECURITYNONCOMPLIANTCOUNT_BINDING);
+            protocolMarshaller.marshall(instancePatchState.getOtherNonCompliantCount(), OTHERNONCOMPLIANTCOUNT_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

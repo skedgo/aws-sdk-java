@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * Requests API Gateway to create a <a>Deployment</a> resource.
+ * Requests API Gateway to create a Deployment resource.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -27,44 +27,45 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      */
     private String restApiId;
     /**
      * <p>
-     * The name of the <a>Stage</a> resource for the <a>Deployment</a> resource to create.
+     * The name of the Stage resource for the Deployment resource to create.
      * </p>
      */
     private String stageName;
     /**
      * <p>
-     * The description of the <a>Stage</a> resource for the <a>Deployment</a> resource to create.
+     * The description of the Stage resource for the Deployment resource to create.
      * </p>
      */
     private String stageDescription;
     /**
      * <p>
-     * The description for the <a>Deployment</a> resource to create.
+     * The description for the Deployment resource to create.
      * </p>
      */
     private String description;
     /**
      * <p>
-     * Enables a cache cluster for the <a>Stage</a> resource specified in the input.
+     * Enables a cache cluster for the Stage resource specified in the input.
      * </p>
      */
     private Boolean cacheClusterEnabled;
     /**
      * <p>
-     * Specifies the cache cluster size for the <a>Stage</a> resource specified in the input, if a cache cluster is
-     * enabled.
+     * The stage's cache capacity in GB. For more information about choosing a cache size, see <a
+     * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html">Enabling API caching
+     * to enhance responsiveness</a>.
      * </p>
      */
     private String cacheClusterSize;
     /**
      * <p>
-     * A map that defines the stage variables for the <a>Stage</a> resource that is associated with the new deployment.
+     * A map that defines the stage variables for the Stage resource that is associated with the new deployment.
      * Variable names can have alphanumeric and underscore characters, and the values must match
      * <code>[A-Za-z0-9-._~:/?#&amp;=,]+</code>.
      * </p>
@@ -78,18 +79,18 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
     private DeploymentCanarySettings canarySettings;
     /**
      * <p>
-     * Specifies whether active tracing with X-ray is enabled for the <a>Stage</a>.
+     * Specifies whether active tracing with X-ray is enabled for the Stage.
      * </p>
      */
     private Boolean tracingEnabled;
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
      * @param restApiId
-     *        [Required] The string identifier of the associated <a>RestApi</a>.
+     *        The string identifier of the associated RestApi.
      */
 
     public void setRestApiId(String restApiId) {
@@ -98,10 +99,10 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
-     * @return [Required] The string identifier of the associated <a>RestApi</a>.
+     * @return The string identifier of the associated RestApi.
      */
 
     public String getRestApiId() {
@@ -110,11 +111,11 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
      * @param restApiId
-     *        [Required] The string identifier of the associated <a>RestApi</a>.
+     *        The string identifier of the associated RestApi.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -125,11 +126,11 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The name of the <a>Stage</a> resource for the <a>Deployment</a> resource to create.
+     * The name of the Stage resource for the Deployment resource to create.
      * </p>
      * 
      * @param stageName
-     *        The name of the <a>Stage</a> resource for the <a>Deployment</a> resource to create.
+     *        The name of the Stage resource for the Deployment resource to create.
      */
 
     public void setStageName(String stageName) {
@@ -138,10 +139,10 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The name of the <a>Stage</a> resource for the <a>Deployment</a> resource to create.
+     * The name of the Stage resource for the Deployment resource to create.
      * </p>
      * 
-     * @return The name of the <a>Stage</a> resource for the <a>Deployment</a> resource to create.
+     * @return The name of the Stage resource for the Deployment resource to create.
      */
 
     public String getStageName() {
@@ -150,11 +151,11 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The name of the <a>Stage</a> resource for the <a>Deployment</a> resource to create.
+     * The name of the Stage resource for the Deployment resource to create.
      * </p>
      * 
      * @param stageName
-     *        The name of the <a>Stage</a> resource for the <a>Deployment</a> resource to create.
+     *        The name of the Stage resource for the Deployment resource to create.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -165,11 +166,11 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The description of the <a>Stage</a> resource for the <a>Deployment</a> resource to create.
+     * The description of the Stage resource for the Deployment resource to create.
      * </p>
      * 
      * @param stageDescription
-     *        The description of the <a>Stage</a> resource for the <a>Deployment</a> resource to create.
+     *        The description of the Stage resource for the Deployment resource to create.
      */
 
     public void setStageDescription(String stageDescription) {
@@ -178,10 +179,10 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The description of the <a>Stage</a> resource for the <a>Deployment</a> resource to create.
+     * The description of the Stage resource for the Deployment resource to create.
      * </p>
      * 
-     * @return The description of the <a>Stage</a> resource for the <a>Deployment</a> resource to create.
+     * @return The description of the Stage resource for the Deployment resource to create.
      */
 
     public String getStageDescription() {
@@ -190,11 +191,11 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The description of the <a>Stage</a> resource for the <a>Deployment</a> resource to create.
+     * The description of the Stage resource for the Deployment resource to create.
      * </p>
      * 
      * @param stageDescription
-     *        The description of the <a>Stage</a> resource for the <a>Deployment</a> resource to create.
+     *        The description of the Stage resource for the Deployment resource to create.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -205,11 +206,11 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The description for the <a>Deployment</a> resource to create.
+     * The description for the Deployment resource to create.
      * </p>
      * 
      * @param description
-     *        The description for the <a>Deployment</a> resource to create.
+     *        The description for the Deployment resource to create.
      */
 
     public void setDescription(String description) {
@@ -218,10 +219,10 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The description for the <a>Deployment</a> resource to create.
+     * The description for the Deployment resource to create.
      * </p>
      * 
-     * @return The description for the <a>Deployment</a> resource to create.
+     * @return The description for the Deployment resource to create.
      */
 
     public String getDescription() {
@@ -230,11 +231,11 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The description for the <a>Deployment</a> resource to create.
+     * The description for the Deployment resource to create.
      * </p>
      * 
      * @param description
-     *        The description for the <a>Deployment</a> resource to create.
+     *        The description for the Deployment resource to create.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -245,11 +246,11 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Enables a cache cluster for the <a>Stage</a> resource specified in the input.
+     * Enables a cache cluster for the Stage resource specified in the input.
      * </p>
      * 
      * @param cacheClusterEnabled
-     *        Enables a cache cluster for the <a>Stage</a> resource specified in the input.
+     *        Enables a cache cluster for the Stage resource specified in the input.
      */
 
     public void setCacheClusterEnabled(Boolean cacheClusterEnabled) {
@@ -258,10 +259,10 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Enables a cache cluster for the <a>Stage</a> resource specified in the input.
+     * Enables a cache cluster for the Stage resource specified in the input.
      * </p>
      * 
-     * @return Enables a cache cluster for the <a>Stage</a> resource specified in the input.
+     * @return Enables a cache cluster for the Stage resource specified in the input.
      */
 
     public Boolean getCacheClusterEnabled() {
@@ -270,11 +271,11 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Enables a cache cluster for the <a>Stage</a> resource specified in the input.
+     * Enables a cache cluster for the Stage resource specified in the input.
      * </p>
      * 
      * @param cacheClusterEnabled
-     *        Enables a cache cluster for the <a>Stage</a> resource specified in the input.
+     *        Enables a cache cluster for the Stage resource specified in the input.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -285,10 +286,10 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Enables a cache cluster for the <a>Stage</a> resource specified in the input.
+     * Enables a cache cluster for the Stage resource specified in the input.
      * </p>
      * 
-     * @return Enables a cache cluster for the <a>Stage</a> resource specified in the input.
+     * @return Enables a cache cluster for the Stage resource specified in the input.
      */
 
     public Boolean isCacheClusterEnabled() {
@@ -297,13 +298,15 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Specifies the cache cluster size for the <a>Stage</a> resource specified in the input, if a cache cluster is
-     * enabled.
+     * The stage's cache capacity in GB. For more information about choosing a cache size, see <a
+     * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html">Enabling API caching
+     * to enhance responsiveness</a>.
      * </p>
      * 
      * @param cacheClusterSize
-     *        Specifies the cache cluster size for the <a>Stage</a> resource specified in the input, if a cache cluster
-     *        is enabled.
+     *        The stage's cache capacity in GB. For more information about choosing a cache size, see <a
+     *        href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html">Enabling API
+     *        caching to enhance responsiveness</a>.
      */
 
     public void setCacheClusterSize(String cacheClusterSize) {
@@ -312,12 +315,14 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Specifies the cache cluster size for the <a>Stage</a> resource specified in the input, if a cache cluster is
-     * enabled.
+     * The stage's cache capacity in GB. For more information about choosing a cache size, see <a
+     * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html">Enabling API caching
+     * to enhance responsiveness</a>.
      * </p>
      * 
-     * @return Specifies the cache cluster size for the <a>Stage</a> resource specified in the input, if a cache cluster
-     *         is enabled.
+     * @return The stage's cache capacity in GB. For more information about choosing a cache size, see <a
+     *         href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html">Enabling API
+     *         caching to enhance responsiveness</a>.
      */
 
     public String getCacheClusterSize() {
@@ -326,13 +331,15 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Specifies the cache cluster size for the <a>Stage</a> resource specified in the input, if a cache cluster is
-     * enabled.
+     * The stage's cache capacity in GB. For more information about choosing a cache size, see <a
+     * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html">Enabling API caching
+     * to enhance responsiveness</a>.
      * </p>
      * 
      * @param cacheClusterSize
-     *        Specifies the cache cluster size for the <a>Stage</a> resource specified in the input, if a cache cluster
-     *        is enabled.
+     *        The stage's cache capacity in GB. For more information about choosing a cache size, see <a
+     *        href="https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html">Enabling API
+     *        caching to enhance responsiveness</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -343,13 +350,13 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * A map that defines the stage variables for the <a>Stage</a> resource that is associated with the new deployment.
+     * A map that defines the stage variables for the Stage resource that is associated with the new deployment.
      * Variable names can have alphanumeric and underscore characters, and the values must match
      * <code>[A-Za-z0-9-._~:/?#&amp;=,]+</code>.
      * </p>
      * 
-     * @return A map that defines the stage variables for the <a>Stage</a> resource that is associated with the new
-     *         deployment. Variable names can have alphanumeric and underscore characters, and the values must match
+     * @return A map that defines the stage variables for the Stage resource that is associated with the new deployment.
+     *         Variable names can have alphanumeric and underscore characters, and the values must match
      *         <code>[A-Za-z0-9-._~:/?#&amp;=,]+</code>.
      */
 
@@ -359,14 +366,14 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * A map that defines the stage variables for the <a>Stage</a> resource that is associated with the new deployment.
+     * A map that defines the stage variables for the Stage resource that is associated with the new deployment.
      * Variable names can have alphanumeric and underscore characters, and the values must match
      * <code>[A-Za-z0-9-._~:/?#&amp;=,]+</code>.
      * </p>
      * 
      * @param variables
-     *        A map that defines the stage variables for the <a>Stage</a> resource that is associated with the new
-     *        deployment. Variable names can have alphanumeric and underscore characters, and the values must match
+     *        A map that defines the stage variables for the Stage resource that is associated with the new deployment.
+     *        Variable names can have alphanumeric and underscore characters, and the values must match
      *        <code>[A-Za-z0-9-._~:/?#&amp;=,]+</code>.
      */
 
@@ -376,14 +383,14 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * A map that defines the stage variables for the <a>Stage</a> resource that is associated with the new deployment.
+     * A map that defines the stage variables for the Stage resource that is associated with the new deployment.
      * Variable names can have alphanumeric and underscore characters, and the values must match
      * <code>[A-Za-z0-9-._~:/?#&amp;=,]+</code>.
      * </p>
      * 
      * @param variables
-     *        A map that defines the stage variables for the <a>Stage</a> resource that is associated with the new
-     *        deployment. Variable names can have alphanumeric and underscore characters, and the values must match
+     *        A map that defines the stage variables for the Stage resource that is associated with the new deployment.
+     *        Variable names can have alphanumeric and underscore characters, and the values must match
      *        <code>[A-Za-z0-9-._~:/?#&amp;=,]+</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -392,6 +399,13 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
         setVariables(variables);
         return this;
     }
+
+    /**
+     * Add a single Variables entry
+     *
+     * @see CreateDeploymentRequest#withVariables
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public CreateDeploymentRequest addVariablesEntry(String key, String value) {
         if (null == this.variables) {
@@ -456,11 +470,11 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Specifies whether active tracing with X-ray is enabled for the <a>Stage</a>.
+     * Specifies whether active tracing with X-ray is enabled for the Stage.
      * </p>
      * 
      * @param tracingEnabled
-     *        Specifies whether active tracing with X-ray is enabled for the <a>Stage</a>.
+     *        Specifies whether active tracing with X-ray is enabled for the Stage.
      */
 
     public void setTracingEnabled(Boolean tracingEnabled) {
@@ -469,10 +483,10 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Specifies whether active tracing with X-ray is enabled for the <a>Stage</a>.
+     * Specifies whether active tracing with X-ray is enabled for the Stage.
      * </p>
      * 
-     * @return Specifies whether active tracing with X-ray is enabled for the <a>Stage</a>.
+     * @return Specifies whether active tracing with X-ray is enabled for the Stage.
      */
 
     public Boolean getTracingEnabled() {
@@ -481,11 +495,11 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Specifies whether active tracing with X-ray is enabled for the <a>Stage</a>.
+     * Specifies whether active tracing with X-ray is enabled for the Stage.
      * </p>
      * 
      * @param tracingEnabled
-     *        Specifies whether active tracing with X-ray is enabled for the <a>Stage</a>.
+     *        Specifies whether active tracing with X-ray is enabled for the Stage.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -496,10 +510,10 @@ public class CreateDeploymentRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Specifies whether active tracing with X-ray is enabled for the <a>Stage</a>.
+     * Specifies whether active tracing with X-ray is enabled for the Stage.
      * </p>
      * 
-     * @return Specifies whether active tracing with X-ray is enabled for the <a>Stage</a>.
+     * @return Specifies whether active tracing with X-ray is enabled for the Stage.
      */
 
     public Boolean isTracingEnabled() {

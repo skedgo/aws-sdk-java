@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,15 +27,14 @@ public class SearchRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The name of the Amazon SageMaker resource to search for. Currently, the only valid <code>Resource</code> value is
-     * <code>TrainingJob</code>.
+     * The name of the SageMaker resource to search for.
      * </p>
      */
     private String resource;
     /**
      * <p>
-     * A Boolean conditional statement. Resource objects must satisfy this condition to be included in search results.
-     * You must provide at least one subexpression, filter, or nested filter. The maximum number of recursive
+     * A Boolean conditional statement. Resources must satisfy this condition to be included in search results. You must
+     * provide at least one subexpression, filter, or nested filter. The maximum number of recursive
      * <code>SubExpressions</code>, <code>NestedFilters</code>, and <code>Filters</code> that can be included in a
      * <code>SearchExpression</code> object is 50.
      * </p>
@@ -57,29 +56,44 @@ public class SearchRequest extends com.amazonaws.AmazonWebServiceRequest impleme
     private String sortOrder;
     /**
      * <p>
-     * If more than <code>MaxResults</code> resource objects match the specified <code>SearchExpression</code>, the
-     * <code>SearchResponse</code> includes a <code>NextToken</code>. The <code>NextToken</code> can be passed to the
-     * next <code>SearchRequest</code> to continue retrieving results for the specified <code>SearchExpression</code>
-     * and <code>Sort</code> parameters.
+     * If more than <code>MaxResults</code> resources match the specified <code>SearchExpression</code>, the response
+     * includes a <code>NextToken</code>. The <code>NextToken</code> can be passed to the next
+     * <code>SearchRequest</code> to continue retrieving results.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * The maximum number of results to return in a <code>SearchResponse</code>.
+     * The maximum number of results to return.
      * </p>
      */
     private Integer maxResults;
+    /**
+     * <p>
+     * A cross account filter option. When the value is <code>"CrossAccount"</code> the search results will only include
+     * resources made discoverable to you from other accounts. When the value is <code>"SameAccount"</code> or
+     * <code>null</code> the search results will only include resources from your account. Default is <code>null</code>.
+     * For more information on searching for resources made discoverable to your account, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store-cross-account-discoverability-use.html">
+     * Search discoverable resources</a> in the SageMaker Developer Guide. The maximum number of
+     * <code>ResourceCatalog</code>s viewable is 1000.
+     * </p>
+     */
+    private String crossAccountFilterOption;
+    /**
+     * <p>
+     * Limits the results of your search request to the resources that you can access.
+     * </p>
+     */
+    private java.util.List<VisibilityConditions> visibilityConditions;
 
     /**
      * <p>
-     * The name of the Amazon SageMaker resource to search for. Currently, the only valid <code>Resource</code> value is
-     * <code>TrainingJob</code>.
+     * The name of the SageMaker resource to search for.
      * </p>
      * 
      * @param resource
-     *        The name of the Amazon SageMaker resource to search for. Currently, the only valid <code>Resource</code>
-     *        value is <code>TrainingJob</code>.
+     *        The name of the SageMaker resource to search for.
      * @see ResourceType
      */
 
@@ -89,12 +103,10 @@ public class SearchRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The name of the Amazon SageMaker resource to search for. Currently, the only valid <code>Resource</code> value is
-     * <code>TrainingJob</code>.
+     * The name of the SageMaker resource to search for.
      * </p>
      * 
-     * @return The name of the Amazon SageMaker resource to search for. Currently, the only valid <code>Resource</code>
-     *         value is <code>TrainingJob</code>.
+     * @return The name of the SageMaker resource to search for.
      * @see ResourceType
      */
 
@@ -104,13 +116,11 @@ public class SearchRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The name of the Amazon SageMaker resource to search for. Currently, the only valid <code>Resource</code> value is
-     * <code>TrainingJob</code>.
+     * The name of the SageMaker resource to search for.
      * </p>
      * 
      * @param resource
-     *        The name of the Amazon SageMaker resource to search for. Currently, the only valid <code>Resource</code>
-     *        value is <code>TrainingJob</code>.
+     *        The name of the SageMaker resource to search for.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceType
      */
@@ -122,13 +132,11 @@ public class SearchRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The name of the Amazon SageMaker resource to search for. Currently, the only valid <code>Resource</code> value is
-     * <code>TrainingJob</code>.
+     * The name of the SageMaker resource to search for.
      * </p>
      * 
      * @param resource
-     *        The name of the Amazon SageMaker resource to search for. Currently, the only valid <code>Resource</code>
-     *        value is <code>TrainingJob</code>.
+     *        The name of the SageMaker resource to search for.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceType
      */
@@ -140,17 +148,17 @@ public class SearchRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * A Boolean conditional statement. Resource objects must satisfy this condition to be included in search results.
-     * You must provide at least one subexpression, filter, or nested filter. The maximum number of recursive
+     * A Boolean conditional statement. Resources must satisfy this condition to be included in search results. You must
+     * provide at least one subexpression, filter, or nested filter. The maximum number of recursive
      * <code>SubExpressions</code>, <code>NestedFilters</code>, and <code>Filters</code> that can be included in a
      * <code>SearchExpression</code> object is 50.
      * </p>
      * 
      * @param searchExpression
-     *        A Boolean conditional statement. Resource objects must satisfy this condition to be included in search
-     *        results. You must provide at least one subexpression, filter, or nested filter. The maximum number of
-     *        recursive <code>SubExpressions</code>, <code>NestedFilters</code>, and <code>Filters</code> that can be
-     *        included in a <code>SearchExpression</code> object is 50.
+     *        A Boolean conditional statement. Resources must satisfy this condition to be included in search results.
+     *        You must provide at least one subexpression, filter, or nested filter. The maximum number of recursive
+     *        <code>SubExpressions</code>, <code>NestedFilters</code>, and <code>Filters</code> that can be included in
+     *        a <code>SearchExpression</code> object is 50.
      */
 
     public void setSearchExpression(SearchExpression searchExpression) {
@@ -159,16 +167,16 @@ public class SearchRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * A Boolean conditional statement. Resource objects must satisfy this condition to be included in search results.
-     * You must provide at least one subexpression, filter, or nested filter. The maximum number of recursive
+     * A Boolean conditional statement. Resources must satisfy this condition to be included in search results. You must
+     * provide at least one subexpression, filter, or nested filter. The maximum number of recursive
      * <code>SubExpressions</code>, <code>NestedFilters</code>, and <code>Filters</code> that can be included in a
      * <code>SearchExpression</code> object is 50.
      * </p>
      * 
-     * @return A Boolean conditional statement. Resource objects must satisfy this condition to be included in search
-     *         results. You must provide at least one subexpression, filter, or nested filter. The maximum number of
-     *         recursive <code>SubExpressions</code>, <code>NestedFilters</code>, and <code>Filters</code> that can be
-     *         included in a <code>SearchExpression</code> object is 50.
+     * @return A Boolean conditional statement. Resources must satisfy this condition to be included in search results.
+     *         You must provide at least one subexpression, filter, or nested filter. The maximum number of recursive
+     *         <code>SubExpressions</code>, <code>NestedFilters</code>, and <code>Filters</code> that can be included in
+     *         a <code>SearchExpression</code> object is 50.
      */
 
     public SearchExpression getSearchExpression() {
@@ -177,17 +185,17 @@ public class SearchRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * A Boolean conditional statement. Resource objects must satisfy this condition to be included in search results.
-     * You must provide at least one subexpression, filter, or nested filter. The maximum number of recursive
+     * A Boolean conditional statement. Resources must satisfy this condition to be included in search results. You must
+     * provide at least one subexpression, filter, or nested filter. The maximum number of recursive
      * <code>SubExpressions</code>, <code>NestedFilters</code>, and <code>Filters</code> that can be included in a
      * <code>SearchExpression</code> object is 50.
      * </p>
      * 
      * @param searchExpression
-     *        A Boolean conditional statement. Resource objects must satisfy this condition to be included in search
-     *        results. You must provide at least one subexpression, filter, or nested filter. The maximum number of
-     *        recursive <code>SubExpressions</code>, <code>NestedFilters</code>, and <code>Filters</code> that can be
-     *        included in a <code>SearchExpression</code> object is 50.
+     *        A Boolean conditional statement. Resources must satisfy this condition to be included in search results.
+     *        You must provide at least one subexpression, filter, or nested filter. The maximum number of recursive
+     *        <code>SubExpressions</code>, <code>NestedFilters</code>, and <code>Filters</code> that can be included in
+     *        a <code>SearchExpression</code> object is 50.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -311,17 +319,15 @@ public class SearchRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * If more than <code>MaxResults</code> resource objects match the specified <code>SearchExpression</code>, the
-     * <code>SearchResponse</code> includes a <code>NextToken</code>. The <code>NextToken</code> can be passed to the
-     * next <code>SearchRequest</code> to continue retrieving results for the specified <code>SearchExpression</code>
-     * and <code>Sort</code> parameters.
+     * If more than <code>MaxResults</code> resources match the specified <code>SearchExpression</code>, the response
+     * includes a <code>NextToken</code>. The <code>NextToken</code> can be passed to the next
+     * <code>SearchRequest</code> to continue retrieving results.
      * </p>
      * 
      * @param nextToken
-     *        If more than <code>MaxResults</code> resource objects match the specified <code>SearchExpression</code>,
-     *        the <code>SearchResponse</code> includes a <code>NextToken</code>. The <code>NextToken</code> can be
-     *        passed to the next <code>SearchRequest</code> to continue retrieving results for the specified
-     *        <code>SearchExpression</code> and <code>Sort</code> parameters.
+     *        If more than <code>MaxResults</code> resources match the specified <code>SearchExpression</code>, the
+     *        response includes a <code>NextToken</code>. The <code>NextToken</code> can be passed to the next
+     *        <code>SearchRequest</code> to continue retrieving results.
      */
 
     public void setNextToken(String nextToken) {
@@ -330,16 +336,14 @@ public class SearchRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * If more than <code>MaxResults</code> resource objects match the specified <code>SearchExpression</code>, the
-     * <code>SearchResponse</code> includes a <code>NextToken</code>. The <code>NextToken</code> can be passed to the
-     * next <code>SearchRequest</code> to continue retrieving results for the specified <code>SearchExpression</code>
-     * and <code>Sort</code> parameters.
+     * If more than <code>MaxResults</code> resources match the specified <code>SearchExpression</code>, the response
+     * includes a <code>NextToken</code>. The <code>NextToken</code> can be passed to the next
+     * <code>SearchRequest</code> to continue retrieving results.
      * </p>
      * 
-     * @return If more than <code>MaxResults</code> resource objects match the specified <code>SearchExpression</code>,
-     *         the <code>SearchResponse</code> includes a <code>NextToken</code>. The <code>NextToken</code> can be
-     *         passed to the next <code>SearchRequest</code> to continue retrieving results for the specified
-     *         <code>SearchExpression</code> and <code>Sort</code> parameters.
+     * @return If more than <code>MaxResults</code> resources match the specified <code>SearchExpression</code>, the
+     *         response includes a <code>NextToken</code>. The <code>NextToken</code> can be passed to the next
+     *         <code>SearchRequest</code> to continue retrieving results.
      */
 
     public String getNextToken() {
@@ -348,17 +352,15 @@ public class SearchRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * If more than <code>MaxResults</code> resource objects match the specified <code>SearchExpression</code>, the
-     * <code>SearchResponse</code> includes a <code>NextToken</code>. The <code>NextToken</code> can be passed to the
-     * next <code>SearchRequest</code> to continue retrieving results for the specified <code>SearchExpression</code>
-     * and <code>Sort</code> parameters.
+     * If more than <code>MaxResults</code> resources match the specified <code>SearchExpression</code>, the response
+     * includes a <code>NextToken</code>. The <code>NextToken</code> can be passed to the next
+     * <code>SearchRequest</code> to continue retrieving results.
      * </p>
      * 
      * @param nextToken
-     *        If more than <code>MaxResults</code> resource objects match the specified <code>SearchExpression</code>,
-     *        the <code>SearchResponse</code> includes a <code>NextToken</code>. The <code>NextToken</code> can be
-     *        passed to the next <code>SearchRequest</code> to continue retrieving results for the specified
-     *        <code>SearchExpression</code> and <code>Sort</code> parameters.
+     *        If more than <code>MaxResults</code> resources match the specified <code>SearchExpression</code>, the
+     *        response includes a <code>NextToken</code>. The <code>NextToken</code> can be passed to the next
+     *        <code>SearchRequest</code> to continue retrieving results.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -369,11 +371,11 @@ public class SearchRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The maximum number of results to return in a <code>SearchResponse</code>.
+     * The maximum number of results to return.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return in a <code>SearchResponse</code>.
+     *        The maximum number of results to return.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -382,10 +384,10 @@ public class SearchRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The maximum number of results to return in a <code>SearchResponse</code>.
+     * The maximum number of results to return.
      * </p>
      * 
-     * @return The maximum number of results to return in a <code>SearchResponse</code>.
+     * @return The maximum number of results to return.
      */
 
     public Integer getMaxResults() {
@@ -394,16 +396,197 @@ public class SearchRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The maximum number of results to return in a <code>SearchResponse</code>.
+     * The maximum number of results to return.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return in a <code>SearchResponse</code>.
+     *        The maximum number of results to return.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public SearchRequest withMaxResults(Integer maxResults) {
         setMaxResults(maxResults);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A cross account filter option. When the value is <code>"CrossAccount"</code> the search results will only include
+     * resources made discoverable to you from other accounts. When the value is <code>"SameAccount"</code> or
+     * <code>null</code> the search results will only include resources from your account. Default is <code>null</code>.
+     * For more information on searching for resources made discoverable to your account, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store-cross-account-discoverability-use.html">
+     * Search discoverable resources</a> in the SageMaker Developer Guide. The maximum number of
+     * <code>ResourceCatalog</code>s viewable is 1000.
+     * </p>
+     * 
+     * @param crossAccountFilterOption
+     *        A cross account filter option. When the value is <code>"CrossAccount"</code> the search results will only
+     *        include resources made discoverable to you from other accounts. When the value is
+     *        <code>"SameAccount"</code> or <code>null</code> the search results will only include resources from your
+     *        account. Default is <code>null</code>. For more information on searching for resources made discoverable
+     *        to your account, see <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store-cross-account-discoverability-use.html">
+     *        Search discoverable resources</a> in the SageMaker Developer Guide. The maximum number of
+     *        <code>ResourceCatalog</code>s viewable is 1000.
+     * @see CrossAccountFilterOption
+     */
+
+    public void setCrossAccountFilterOption(String crossAccountFilterOption) {
+        this.crossAccountFilterOption = crossAccountFilterOption;
+    }
+
+    /**
+     * <p>
+     * A cross account filter option. When the value is <code>"CrossAccount"</code> the search results will only include
+     * resources made discoverable to you from other accounts. When the value is <code>"SameAccount"</code> or
+     * <code>null</code> the search results will only include resources from your account. Default is <code>null</code>.
+     * For more information on searching for resources made discoverable to your account, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store-cross-account-discoverability-use.html">
+     * Search discoverable resources</a> in the SageMaker Developer Guide. The maximum number of
+     * <code>ResourceCatalog</code>s viewable is 1000.
+     * </p>
+     * 
+     * @return A cross account filter option. When the value is <code>"CrossAccount"</code> the search results will only
+     *         include resources made discoverable to you from other accounts. When the value is
+     *         <code>"SameAccount"</code> or <code>null</code> the search results will only include resources from your
+     *         account. Default is <code>null</code>. For more information on searching for resources made discoverable
+     *         to your account, see <a href=
+     *         "https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store-cross-account-discoverability-use.html">
+     *         Search discoverable resources</a> in the SageMaker Developer Guide. The maximum number of
+     *         <code>ResourceCatalog</code>s viewable is 1000.
+     * @see CrossAccountFilterOption
+     */
+
+    public String getCrossAccountFilterOption() {
+        return this.crossAccountFilterOption;
+    }
+
+    /**
+     * <p>
+     * A cross account filter option. When the value is <code>"CrossAccount"</code> the search results will only include
+     * resources made discoverable to you from other accounts. When the value is <code>"SameAccount"</code> or
+     * <code>null</code> the search results will only include resources from your account. Default is <code>null</code>.
+     * For more information on searching for resources made discoverable to your account, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store-cross-account-discoverability-use.html">
+     * Search discoverable resources</a> in the SageMaker Developer Guide. The maximum number of
+     * <code>ResourceCatalog</code>s viewable is 1000.
+     * </p>
+     * 
+     * @param crossAccountFilterOption
+     *        A cross account filter option. When the value is <code>"CrossAccount"</code> the search results will only
+     *        include resources made discoverable to you from other accounts. When the value is
+     *        <code>"SameAccount"</code> or <code>null</code> the search results will only include resources from your
+     *        account. Default is <code>null</code>. For more information on searching for resources made discoverable
+     *        to your account, see <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store-cross-account-discoverability-use.html">
+     *        Search discoverable resources</a> in the SageMaker Developer Guide. The maximum number of
+     *        <code>ResourceCatalog</code>s viewable is 1000.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CrossAccountFilterOption
+     */
+
+    public SearchRequest withCrossAccountFilterOption(String crossAccountFilterOption) {
+        setCrossAccountFilterOption(crossAccountFilterOption);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A cross account filter option. When the value is <code>"CrossAccount"</code> the search results will only include
+     * resources made discoverable to you from other accounts. When the value is <code>"SameAccount"</code> or
+     * <code>null</code> the search results will only include resources from your account. Default is <code>null</code>.
+     * For more information on searching for resources made discoverable to your account, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store-cross-account-discoverability-use.html">
+     * Search discoverable resources</a> in the SageMaker Developer Guide. The maximum number of
+     * <code>ResourceCatalog</code>s viewable is 1000.
+     * </p>
+     * 
+     * @param crossAccountFilterOption
+     *        A cross account filter option. When the value is <code>"CrossAccount"</code> the search results will only
+     *        include resources made discoverable to you from other accounts. When the value is
+     *        <code>"SameAccount"</code> or <code>null</code> the search results will only include resources from your
+     *        account. Default is <code>null</code>. For more information on searching for resources made discoverable
+     *        to your account, see <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store-cross-account-discoverability-use.html">
+     *        Search discoverable resources</a> in the SageMaker Developer Guide. The maximum number of
+     *        <code>ResourceCatalog</code>s viewable is 1000.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CrossAccountFilterOption
+     */
+
+    public SearchRequest withCrossAccountFilterOption(CrossAccountFilterOption crossAccountFilterOption) {
+        this.crossAccountFilterOption = crossAccountFilterOption.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Limits the results of your search request to the resources that you can access.
+     * </p>
+     * 
+     * @return Limits the results of your search request to the resources that you can access.
+     */
+
+    public java.util.List<VisibilityConditions> getVisibilityConditions() {
+        return visibilityConditions;
+    }
+
+    /**
+     * <p>
+     * Limits the results of your search request to the resources that you can access.
+     * </p>
+     * 
+     * @param visibilityConditions
+     *        Limits the results of your search request to the resources that you can access.
+     */
+
+    public void setVisibilityConditions(java.util.Collection<VisibilityConditions> visibilityConditions) {
+        if (visibilityConditions == null) {
+            this.visibilityConditions = null;
+            return;
+        }
+
+        this.visibilityConditions = new java.util.ArrayList<VisibilityConditions>(visibilityConditions);
+    }
+
+    /**
+     * <p>
+     * Limits the results of your search request to the resources that you can access.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setVisibilityConditions(java.util.Collection)} or {@link #withVisibilityConditions(java.util.Collection)}
+     * if you want to override the existing values.
+     * </p>
+     * 
+     * @param visibilityConditions
+     *        Limits the results of your search request to the resources that you can access.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SearchRequest withVisibilityConditions(VisibilityConditions... visibilityConditions) {
+        if (this.visibilityConditions == null) {
+            setVisibilityConditions(new java.util.ArrayList<VisibilityConditions>(visibilityConditions.length));
+        }
+        for (VisibilityConditions ele : visibilityConditions) {
+            this.visibilityConditions.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Limits the results of your search request to the resources that you can access.
+     * </p>
+     * 
+     * @param visibilityConditions
+     *        Limits the results of your search request to the resources that you can access.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SearchRequest withVisibilityConditions(java.util.Collection<VisibilityConditions> visibilityConditions) {
+        setVisibilityConditions(visibilityConditions);
         return this;
     }
 
@@ -430,7 +613,11 @@ public class SearchRequest extends com.amazonaws.AmazonWebServiceRequest impleme
         if (getNextToken() != null)
             sb.append("NextToken: ").append(getNextToken()).append(",");
         if (getMaxResults() != null)
-            sb.append("MaxResults: ").append(getMaxResults());
+            sb.append("MaxResults: ").append(getMaxResults()).append(",");
+        if (getCrossAccountFilterOption() != null)
+            sb.append("CrossAccountFilterOption: ").append(getCrossAccountFilterOption()).append(",");
+        if (getVisibilityConditions() != null)
+            sb.append("VisibilityConditions: ").append(getVisibilityConditions());
         sb.append("}");
         return sb.toString();
     }
@@ -469,6 +656,14 @@ public class SearchRequest extends com.amazonaws.AmazonWebServiceRequest impleme
             return false;
         if (other.getMaxResults() != null && other.getMaxResults().equals(this.getMaxResults()) == false)
             return false;
+        if (other.getCrossAccountFilterOption() == null ^ this.getCrossAccountFilterOption() == null)
+            return false;
+        if (other.getCrossAccountFilterOption() != null && other.getCrossAccountFilterOption().equals(this.getCrossAccountFilterOption()) == false)
+            return false;
+        if (other.getVisibilityConditions() == null ^ this.getVisibilityConditions() == null)
+            return false;
+        if (other.getVisibilityConditions() != null && other.getVisibilityConditions().equals(this.getVisibilityConditions()) == false)
+            return false;
         return true;
     }
 
@@ -483,6 +678,8 @@ public class SearchRequest extends com.amazonaws.AmazonWebServiceRequest impleme
         hashCode = prime * hashCode + ((getSortOrder() == null) ? 0 : getSortOrder().hashCode());
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
         hashCode = prime * hashCode + ((getMaxResults() == null) ? 0 : getMaxResults().hashCode());
+        hashCode = prime * hashCode + ((getCrossAccountFilterOption() == null) ? 0 : getCrossAccountFilterOption().hashCode());
+        hashCode = prime * hashCode + ((getVisibilityConditions() == null) ? 0 : getVisibilityConditions().hashCode());
         return hashCode;
     }
 

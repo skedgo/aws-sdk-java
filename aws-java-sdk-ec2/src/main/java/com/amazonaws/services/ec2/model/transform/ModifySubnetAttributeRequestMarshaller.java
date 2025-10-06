@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,6 +50,40 @@ public class ModifySubnetAttributeRequestMarshaller implements Marshaller<Reques
 
         if (modifySubnetAttributeRequest.getSubnetId() != null) {
             request.addParameter("SubnetId", StringUtils.fromString(modifySubnetAttributeRequest.getSubnetId()));
+        }
+
+        if (modifySubnetAttributeRequest.getMapCustomerOwnedIpOnLaunch() != null) {
+            request.addParameter("MapCustomerOwnedIpOnLaunch.Value", StringUtils.fromBoolean(modifySubnetAttributeRequest.getMapCustomerOwnedIpOnLaunch()));
+        }
+
+        if (modifySubnetAttributeRequest.getCustomerOwnedIpv4Pool() != null) {
+            request.addParameter("CustomerOwnedIpv4Pool", StringUtils.fromString(modifySubnetAttributeRequest.getCustomerOwnedIpv4Pool()));
+        }
+
+        if (modifySubnetAttributeRequest.getEnableDns64() != null) {
+            request.addParameter("EnableDns64.Value", StringUtils.fromBoolean(modifySubnetAttributeRequest.getEnableDns64()));
+        }
+
+        if (modifySubnetAttributeRequest.getPrivateDnsHostnameTypeOnLaunch() != null) {
+            request.addParameter("PrivateDnsHostnameTypeOnLaunch", StringUtils.fromString(modifySubnetAttributeRequest.getPrivateDnsHostnameTypeOnLaunch()));
+        }
+
+        if (modifySubnetAttributeRequest.getEnableResourceNameDnsARecordOnLaunch() != null) {
+            request.addParameter("EnableResourceNameDnsARecordOnLaunch.Value",
+                    StringUtils.fromBoolean(modifySubnetAttributeRequest.getEnableResourceNameDnsARecordOnLaunch()));
+        }
+
+        if (modifySubnetAttributeRequest.getEnableResourceNameDnsAAAARecordOnLaunch() != null) {
+            request.addParameter("EnableResourceNameDnsAAAARecordOnLaunch.Value",
+                    StringUtils.fromBoolean(modifySubnetAttributeRequest.getEnableResourceNameDnsAAAARecordOnLaunch()));
+        }
+
+        if (modifySubnetAttributeRequest.getEnableLniAtDeviceIndex() != null) {
+            request.addParameter("EnableLniAtDeviceIndex", StringUtils.fromInteger(modifySubnetAttributeRequest.getEnableLniAtDeviceIndex()));
+        }
+
+        if (modifySubnetAttributeRequest.getDisableLniAtDeviceIndex() != null) {
+            request.addParameter("DisableLniAtDeviceIndex.Value", StringUtils.fromBoolean(modifySubnetAttributeRequest.getDisableLniAtDeviceIndex()));
         }
 
         return request;

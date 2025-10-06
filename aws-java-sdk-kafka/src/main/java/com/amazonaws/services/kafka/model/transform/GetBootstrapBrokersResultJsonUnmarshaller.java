@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -55,6 +55,38 @@ public class GetBootstrapBrokersResultJsonUnmarshaller implements Unmarshaller<G
                 if (context.testExpression("bootstrapBrokerStringTls", targetDepth)) {
                     context.nextToken();
                     getBootstrapBrokersResult.setBootstrapBrokerStringTls(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("bootstrapBrokerStringSaslScram", targetDepth)) {
+                    context.nextToken();
+                    getBootstrapBrokersResult.setBootstrapBrokerStringSaslScram(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("bootstrapBrokerStringSaslIam", targetDepth)) {
+                    context.nextToken();
+                    getBootstrapBrokersResult.setBootstrapBrokerStringSaslIam(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("bootstrapBrokerStringPublicTls", targetDepth)) {
+                    context.nextToken();
+                    getBootstrapBrokersResult.setBootstrapBrokerStringPublicTls(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("bootstrapBrokerStringPublicSaslScram", targetDepth)) {
+                    context.nextToken();
+                    getBootstrapBrokersResult.setBootstrapBrokerStringPublicSaslScram(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("bootstrapBrokerStringPublicSaslIam", targetDepth)) {
+                    context.nextToken();
+                    getBootstrapBrokersResult.setBootstrapBrokerStringPublicSaslIam(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("bootstrapBrokerStringVpcConnectivityTls", targetDepth)) {
+                    context.nextToken();
+                    getBootstrapBrokersResult.setBootstrapBrokerStringVpcConnectivityTls(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("bootstrapBrokerStringVpcConnectivitySaslScram", targetDepth)) {
+                    context.nextToken();
+                    getBootstrapBrokersResult.setBootstrapBrokerStringVpcConnectivitySaslScram(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("bootstrapBrokerStringVpcConnectivitySaslIam", targetDepth)) {
+                    context.nextToken();
+                    getBootstrapBrokersResult.setBootstrapBrokerStringVpcConnectivitySaslIam(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

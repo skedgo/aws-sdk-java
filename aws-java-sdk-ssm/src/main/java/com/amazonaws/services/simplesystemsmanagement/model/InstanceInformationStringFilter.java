@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The filters to describe or get information about your managed instances.
+ * The filters to describe or get information about your managed nodes.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/InstanceInformationStringFilter"
@@ -30,12 +30,45 @@ public class InstanceInformationStringFilter implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The filter key name to describe your instances. For example:
+     * The filter key name to describe your managed nodes.
      * </p>
      * <p>
-     * "InstanceIds"|"AgentVersion"|"PingStatus"|"PlatformTypes"|"ActivationIds"|"IamRole"|"ResourceType"|
-     * "AssociationStatus"|"Tag Key"
+     * Valid filter key values: ActivationIds | AgentVersion | AssociationStatus | IamRole | InstanceIds | PingStatus |
+     * PlatformTypes | ResourceType | SourceIds | SourceTypes | "tag-key" | "tag:<code>{keyname}</code>
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Valid values for the <code>AssociationStatus</code> filter key: Success | Pending | Failed
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Valid values for the <code>PingStatus</code> filter key: Online | ConnectionLost | Inactive (deprecated)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Valid values for the <code>PlatformType</code> filter key: Windows | Linux | MacOS
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Valid values for the <code>ResourceType</code> filter key: EC2Instance | ManagedInstance
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Valid values for the <code>SourceType</code> filter key: AWS::EC2::Instance | AWS::SSM::ManagedInstance |
+     * AWS::IoT::Thing
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Valid tag examples: <code>Key=tag-key,Values=Purpose</code> | <code>Key=tag:Purpose,Values=Test</code>.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String key;
     /**
@@ -47,18 +80,85 @@ public class InstanceInformationStringFilter implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The filter key name to describe your instances. For example:
+     * The filter key name to describe your managed nodes.
      * </p>
      * <p>
-     * "InstanceIds"|"AgentVersion"|"PingStatus"|"PlatformTypes"|"ActivationIds"|"IamRole"|"ResourceType"|
-     * "AssociationStatus"|"Tag Key"
+     * Valid filter key values: ActivationIds | AgentVersion | AssociationStatus | IamRole | InstanceIds | PingStatus |
+     * PlatformTypes | ResourceType | SourceIds | SourceTypes | "tag-key" | "tag:<code>{keyname}</code>
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Valid values for the <code>AssociationStatus</code> filter key: Success | Pending | Failed
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Valid values for the <code>PingStatus</code> filter key: Online | ConnectionLost | Inactive (deprecated)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Valid values for the <code>PlatformType</code> filter key: Windows | Linux | MacOS
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Valid values for the <code>ResourceType</code> filter key: EC2Instance | ManagedInstance
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Valid values for the <code>SourceType</code> filter key: AWS::EC2::Instance | AWS::SSM::ManagedInstance |
+     * AWS::IoT::Thing
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Valid tag examples: <code>Key=tag-key,Values=Purpose</code> | <code>Key=tag:Purpose,Values=Test</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param key
-     *        The filter key name to describe your instances. For example:</p>
+     *        The filter key name to describe your managed nodes.</p>
      *        <p>
-     *        "InstanceIds"|"AgentVersion"|"PingStatus"|"PlatformTypes"|"ActivationIds"|"IamRole"|"ResourceType"|
-     *        "AssociationStatus"|"Tag Key"
+     *        Valid filter key values: ActivationIds | AgentVersion | AssociationStatus | IamRole | InstanceIds |
+     *        PingStatus | PlatformTypes | ResourceType | SourceIds | SourceTypes | "tag-key" | "tag:
+     *        <code>{keyname}</code>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Valid values for the <code>AssociationStatus</code> filter key: Success | Pending | Failed
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Valid values for the <code>PingStatus</code> filter key: Online | ConnectionLost | Inactive (deprecated)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Valid values for the <code>PlatformType</code> filter key: Windows | Linux | MacOS
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Valid values for the <code>ResourceType</code> filter key: EC2Instance | ManagedInstance
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Valid values for the <code>SourceType</code> filter key: AWS::EC2::Instance | AWS::SSM::ManagedInstance |
+     *        AWS::IoT::Thing
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Valid tag examples: <code>Key=tag-key,Values=Purpose</code> | <code>Key=tag:Purpose,Values=Test</code>.
+     *        </p>
+     *        </li>
      */
 
     public void setKey(String key) {
@@ -67,17 +167,84 @@ public class InstanceInformationStringFilter implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The filter key name to describe your instances. For example:
+     * The filter key name to describe your managed nodes.
      * </p>
      * <p>
-     * "InstanceIds"|"AgentVersion"|"PingStatus"|"PlatformTypes"|"ActivationIds"|"IamRole"|"ResourceType"|
-     * "AssociationStatus"|"Tag Key"
+     * Valid filter key values: ActivationIds | AgentVersion | AssociationStatus | IamRole | InstanceIds | PingStatus |
+     * PlatformTypes | ResourceType | SourceIds | SourceTypes | "tag-key" | "tag:<code>{keyname}</code>
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Valid values for the <code>AssociationStatus</code> filter key: Success | Pending | Failed
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Valid values for the <code>PingStatus</code> filter key: Online | ConnectionLost | Inactive (deprecated)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Valid values for the <code>PlatformType</code> filter key: Windows | Linux | MacOS
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Valid values for the <code>ResourceType</code> filter key: EC2Instance | ManagedInstance
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Valid values for the <code>SourceType</code> filter key: AWS::EC2::Instance | AWS::SSM::ManagedInstance |
+     * AWS::IoT::Thing
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Valid tag examples: <code>Key=tag-key,Values=Purpose</code> | <code>Key=tag:Purpose,Values=Test</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The filter key name to describe your instances. For example:</p>
+     * @return The filter key name to describe your managed nodes.</p>
      *         <p>
-     *         "InstanceIds"|"AgentVersion"|"PingStatus"|"PlatformTypes"|"ActivationIds"|"IamRole"|"ResourceType"|
-     *         "AssociationStatus"|"Tag Key"
+     *         Valid filter key values: ActivationIds | AgentVersion | AssociationStatus | IamRole | InstanceIds |
+     *         PingStatus | PlatformTypes | ResourceType | SourceIds | SourceTypes | "tag-key" | "tag:
+     *         <code>{keyname}</code>
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Valid values for the <code>AssociationStatus</code> filter key: Success | Pending | Failed
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Valid values for the <code>PingStatus</code> filter key: Online | ConnectionLost | Inactive (deprecated)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Valid values for the <code>PlatformType</code> filter key: Windows | Linux | MacOS
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Valid values for the <code>ResourceType</code> filter key: EC2Instance | ManagedInstance
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Valid values for the <code>SourceType</code> filter key: AWS::EC2::Instance | AWS::SSM::ManagedInstance |
+     *         AWS::IoT::Thing
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Valid tag examples: <code>Key=tag-key,Values=Purpose</code> | <code>Key=tag:Purpose,Values=Test</code>.
+     *         </p>
+     *         </li>
      */
 
     public String getKey() {
@@ -86,18 +253,85 @@ public class InstanceInformationStringFilter implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The filter key name to describe your instances. For example:
+     * The filter key name to describe your managed nodes.
      * </p>
      * <p>
-     * "InstanceIds"|"AgentVersion"|"PingStatus"|"PlatformTypes"|"ActivationIds"|"IamRole"|"ResourceType"|
-     * "AssociationStatus"|"Tag Key"
+     * Valid filter key values: ActivationIds | AgentVersion | AssociationStatus | IamRole | InstanceIds | PingStatus |
+     * PlatformTypes | ResourceType | SourceIds | SourceTypes | "tag-key" | "tag:<code>{keyname}</code>
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Valid values for the <code>AssociationStatus</code> filter key: Success | Pending | Failed
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Valid values for the <code>PingStatus</code> filter key: Online | ConnectionLost | Inactive (deprecated)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Valid values for the <code>PlatformType</code> filter key: Windows | Linux | MacOS
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Valid values for the <code>ResourceType</code> filter key: EC2Instance | ManagedInstance
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Valid values for the <code>SourceType</code> filter key: AWS::EC2::Instance | AWS::SSM::ManagedInstance |
+     * AWS::IoT::Thing
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Valid tag examples: <code>Key=tag-key,Values=Purpose</code> | <code>Key=tag:Purpose,Values=Test</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param key
-     *        The filter key name to describe your instances. For example:</p>
+     *        The filter key name to describe your managed nodes.</p>
      *        <p>
-     *        "InstanceIds"|"AgentVersion"|"PingStatus"|"PlatformTypes"|"ActivationIds"|"IamRole"|"ResourceType"|
-     *        "AssociationStatus"|"Tag Key"
+     *        Valid filter key values: ActivationIds | AgentVersion | AssociationStatus | IamRole | InstanceIds |
+     *        PingStatus | PlatformTypes | ResourceType | SourceIds | SourceTypes | "tag-key" | "tag:
+     *        <code>{keyname}</code>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Valid values for the <code>AssociationStatus</code> filter key: Success | Pending | Failed
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Valid values for the <code>PingStatus</code> filter key: Online | ConnectionLost | Inactive (deprecated)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Valid values for the <code>PlatformType</code> filter key: Windows | Linux | MacOS
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Valid values for the <code>ResourceType</code> filter key: EC2Instance | ManagedInstance
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Valid values for the <code>SourceType</code> filter key: AWS::EC2::Instance | AWS::SSM::ManagedInstance |
+     *        AWS::IoT::Thing
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Valid tag examples: <code>Key=tag-key,Values=Purpose</code> | <code>Key=tag:Purpose,Values=Test</code>.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

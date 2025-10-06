@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -56,8 +56,12 @@ public class TaskSetMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("updatedAt").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<String> LAUNCHTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("launchType").build();
+    private static final MarshallingInfo<List> CAPACITYPROVIDERSTRATEGY_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("capacityProviderStrategy").build();
     private static final MarshallingInfo<String> PLATFORMVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("platformVersion").build();
+    private static final MarshallingInfo<String> PLATFORMFAMILY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("platformFamily").build();
     private static final MarshallingInfo<StructuredPojo> NETWORKCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("networkConfiguration").build();
     private static final MarshallingInfo<List> LOADBALANCERS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
@@ -70,6 +74,10 @@ public class TaskSetMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("stabilityStatus").build();
     private static final MarshallingInfo<java.util.Date> STABILITYSTATUSAT_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("stabilityStatusAt").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<List> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("tags").build();
+    private static final MarshallingInfo<StructuredPojo> FARGATEEPHEMERALSTORAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("fargateEphemeralStorage").build();
 
     private static final TaskSetMarshaller instance = new TaskSetMarshaller();
 
@@ -101,13 +109,17 @@ public class TaskSetMarshaller {
             protocolMarshaller.marshall(taskSet.getCreatedAt(), CREATEDAT_BINDING);
             protocolMarshaller.marshall(taskSet.getUpdatedAt(), UPDATEDAT_BINDING);
             protocolMarshaller.marshall(taskSet.getLaunchType(), LAUNCHTYPE_BINDING);
+            protocolMarshaller.marshall(taskSet.getCapacityProviderStrategy(), CAPACITYPROVIDERSTRATEGY_BINDING);
             protocolMarshaller.marshall(taskSet.getPlatformVersion(), PLATFORMVERSION_BINDING);
+            protocolMarshaller.marshall(taskSet.getPlatformFamily(), PLATFORMFAMILY_BINDING);
             protocolMarshaller.marshall(taskSet.getNetworkConfiguration(), NETWORKCONFIGURATION_BINDING);
             protocolMarshaller.marshall(taskSet.getLoadBalancers(), LOADBALANCERS_BINDING);
             protocolMarshaller.marshall(taskSet.getServiceRegistries(), SERVICEREGISTRIES_BINDING);
             protocolMarshaller.marshall(taskSet.getScale(), SCALE_BINDING);
             protocolMarshaller.marshall(taskSet.getStabilityStatus(), STABILITYSTATUS_BINDING);
             protocolMarshaller.marshall(taskSet.getStabilityStatusAt(), STABILITYSTATUSAT_BINDING);
+            protocolMarshaller.marshall(taskSet.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(taskSet.getFargateEphemeralStorage(), FARGATEEPHEMERALSTORAGE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

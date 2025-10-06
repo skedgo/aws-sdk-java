@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -60,7 +60,7 @@ public class PipelineActivity implements Serializable, Cloneable, StructuredPojo
     private RemoveAttributesActivity removeAttributes;
     /**
      * <p>
-     * Creates a new message using only the specified attributes from the original message.
+     * Used to create a new message using only the specified attributes from the original message.
      * </p>
      */
     private SelectAttributesActivity selectAttributes;
@@ -78,13 +78,13 @@ public class PipelineActivity implements Serializable, Cloneable, StructuredPojo
     private MathActivity math;
     /**
      * <p>
-     * Adds data from the AWS IoT device registry to your message.
+     * Adds data from the IoT device registry to your message.
      * </p>
      */
     private DeviceRegistryEnrichActivity deviceRegistryEnrich;
     /**
      * <p>
-     * Adds information from the AWS IoT Device Shadows service to a message.
+     * Adds information from the IoT Device Shadow service to a message.
      * </p>
      */
     private DeviceShadowEnrichActivity deviceShadowEnrich;
@@ -291,11 +291,11 @@ public class PipelineActivity implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Creates a new message using only the specified attributes from the original message.
+     * Used to create a new message using only the specified attributes from the original message.
      * </p>
      * 
      * @param selectAttributes
-     *        Creates a new message using only the specified attributes from the original message.
+     *        Used to create a new message using only the specified attributes from the original message.
      */
 
     public void setSelectAttributes(SelectAttributesActivity selectAttributes) {
@@ -304,10 +304,10 @@ public class PipelineActivity implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Creates a new message using only the specified attributes from the original message.
+     * Used to create a new message using only the specified attributes from the original message.
      * </p>
      * 
-     * @return Creates a new message using only the specified attributes from the original message.
+     * @return Used to create a new message using only the specified attributes from the original message.
      */
 
     public SelectAttributesActivity getSelectAttributes() {
@@ -316,11 +316,11 @@ public class PipelineActivity implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Creates a new message using only the specified attributes from the original message.
+     * Used to create a new message using only the specified attributes from the original message.
      * </p>
      * 
      * @param selectAttributes
-     *        Creates a new message using only the specified attributes from the original message.
+     *        Used to create a new message using only the specified attributes from the original message.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -411,11 +411,11 @@ public class PipelineActivity implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Adds data from the AWS IoT device registry to your message.
+     * Adds data from the IoT device registry to your message.
      * </p>
      * 
      * @param deviceRegistryEnrich
-     *        Adds data from the AWS IoT device registry to your message.
+     *        Adds data from the IoT device registry to your message.
      */
 
     public void setDeviceRegistryEnrich(DeviceRegistryEnrichActivity deviceRegistryEnrich) {
@@ -424,10 +424,10 @@ public class PipelineActivity implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Adds data from the AWS IoT device registry to your message.
+     * Adds data from the IoT device registry to your message.
      * </p>
      * 
-     * @return Adds data from the AWS IoT device registry to your message.
+     * @return Adds data from the IoT device registry to your message.
      */
 
     public DeviceRegistryEnrichActivity getDeviceRegistryEnrich() {
@@ -436,11 +436,11 @@ public class PipelineActivity implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Adds data from the AWS IoT device registry to your message.
+     * Adds data from the IoT device registry to your message.
      * </p>
      * 
      * @param deviceRegistryEnrich
-     *        Adds data from the AWS IoT device registry to your message.
+     *        Adds data from the IoT device registry to your message.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -451,11 +451,11 @@ public class PipelineActivity implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Adds information from the AWS IoT Device Shadows service to a message.
+     * Adds information from the IoT Device Shadow service to a message.
      * </p>
      * 
      * @param deviceShadowEnrich
-     *        Adds information from the AWS IoT Device Shadows service to a message.
+     *        Adds information from the IoT Device Shadow service to a message.
      */
 
     public void setDeviceShadowEnrich(DeviceShadowEnrichActivity deviceShadowEnrich) {
@@ -464,10 +464,10 @@ public class PipelineActivity implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Adds information from the AWS IoT Device Shadows service to a message.
+     * Adds information from the IoT Device Shadow service to a message.
      * </p>
      * 
-     * @return Adds information from the AWS IoT Device Shadows service to a message.
+     * @return Adds information from the IoT Device Shadow service to a message.
      */
 
     public DeviceShadowEnrichActivity getDeviceShadowEnrich() {
@@ -476,11 +476,11 @@ public class PipelineActivity implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Adds information from the AWS IoT Device Shadows service to a message.
+     * Adds information from the IoT Device Shadow service to a message.
      * </p>
      * 
      * @param deviceShadowEnrich
-     *        Adds information from the AWS IoT Device Shadows service to a message.
+     *        Adds information from the IoT Device Shadow service to a message.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

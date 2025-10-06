@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,8 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
- * Selector for Audio
+ * Use Audio selectors to specify a track or set of tracks from the input that you will use in your outputs. You can use
+ * multiple Audio selectors per input.
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/AudioSelector" target="_top">AWS API
  *      Documentation</a>
@@ -26,6 +27,19 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class AudioSelector implements Serializable, Cloneable, StructuredPojo {
 
+    /**
+     * Apply audio timing corrections to help synchronize audio and video in your output. To apply timing corrections,
+     * your input must meet the following requirements: * Container: MP4, or MOV, with an accurate time-to-sample (STTS)
+     * table. * Audio track: AAC. Choose from the following audio timing correction settings: * Disabled (Default): Apply
+     * no correction. * Auto: Recommended for most inputs. MediaConvert analyzes the audio timing in your input and
+     * determines which correction setting to use, if needed. * Track: Adjust the duration of each audio frame by a
+     * constant amount to align the audio track length with STTS duration. Track-level correction does not affect pitch,
+     * and is recommended for tonal audio content such as music. * Frame: Adjust the duration of each audio frame by a
+     * variable amount to align audio frames with STTS timestamps. No corrections are made to already-aligned frames.
+     * Frame-level correction may affect the pitch of corrected frames, and is recommended for atonal audio content such
+     * as speech or percussion.
+     */
+    private String audioDurationCorrection;
     /**
      * Selects a specific language code from within an audio source, using the ISO 639-2 or ISO 639-3 three-letter
      * language code
@@ -38,6 +52,15 @@ public class AudioSelector implements Serializable, Cloneable, StructuredPojo {
     private String defaultSelection;
     /** Specifies audio data from an external file source. */
     private String externalAudioFileInput;
+    /**
+     * Settings specific to audio sources in an HLS alternate rendition group. Specify the properties (renditionGroupId,
+     * renditionName or renditionLanguageCode) to identify the unique audio track among the alternative rendition groups
+     * present in the HLS manifest. If no unique track is found, or multiple tracks match the properties provided, the
+     * job fails. If no properties in hlsRenditionGroupSettings are specified, the default audio track within the video
+     * segment is chosen. If there is no audio within video segment, the alternative audio with DEFAULT=YES is chosen
+     * instead.
+     */
+    private HlsRenditionGroupSettings hlsRenditionGroupSettings;
     /** Selects a specific language code from within an audio source. */
     private String languageCode;
     /** Specifies a time delta in milliseconds to offset the audio from the input video. */
@@ -48,9 +71,8 @@ public class AudioSelector implements Serializable, Cloneable, StructuredPojo {
      * Use this setting for input streams that contain Dolby E, to have the service extract specific program data from
      * the track. To select multiple programs, create multiple selectors with the same Track and different Program
      * numbers. In the console, this setting is visible when you set Selector type to Track. Choose the program number
-     * from the dropdown list. If you are sending a JSON file, provide the program ID, which is part of the audio
-     * metadata. If your input file has incorrect metadata, you can choose All channels instead of a program number to
-     * have the service ignore the program IDs and include all the programs in the track.
+     * from the dropdown list. If your input file has incorrect metadata, you can choose All channels instead of a
+     * program number to have the service ignore the program IDs and include all the programs in the track.
      */
     private Integer programSelection;
     /**
@@ -63,10 +85,133 @@ public class AudioSelector implements Serializable, Cloneable, StructuredPojo {
     /**
      * Identify a track from the input audio to include in this selector by entering the track index number. To include
      * several tracks in a single audio selector, specify multiple tracks as follows. Using the console, enter a
-     * comma-separated list. For examle, type "1,2,3" to include tracks 1 through 3. Specifying directly in your JSON job
-     * file, provide the track numbers in an array. For example, "tracks": [1,2,3].
+     * comma-separated list. For example, type "1,2,3" to include tracks 1 through 3.
      */
     private java.util.List<Integer> tracks;
+
+    /**
+     * Apply audio timing corrections to help synchronize audio and video in your output. To apply timing corrections,
+     * your input must meet the following requirements: * Container: MP4, or MOV, with an accurate time-to-sample (STTS)
+     * table. * Audio track: AAC. Choose from the following audio timing correction settings: * Disabled (Default): Apply
+     * no correction. * Auto: Recommended for most inputs. MediaConvert analyzes the audio timing in your input and
+     * determines which correction setting to use, if needed. * Track: Adjust the duration of each audio frame by a
+     * constant amount to align the audio track length with STTS duration. Track-level correction does not affect pitch,
+     * and is recommended for tonal audio content such as music. * Frame: Adjust the duration of each audio frame by a
+     * variable amount to align audio frames with STTS timestamps. No corrections are made to already-aligned frames.
+     * Frame-level correction may affect the pitch of corrected frames, and is recommended for atonal audio content such
+     * as speech or percussion.
+     * 
+     * @param audioDurationCorrection
+     *        Apply audio timing corrections to help synchronize audio and video in your output. To apply timing
+     *        corrections, your input must meet the following requirements: * Container: MP4, or MOV, with an accurate
+     *        time-to-sample (STTS) table. * Audio track: AAC. Choose from the following audio timing correction
+     *        settings: * Disabled (Default): Apply no correction. * Auto: Recommended for most inputs. MediaConvert
+     *        analyzes the audio timing in your input and determines which correction setting to use, if needed. *
+     *        Track: Adjust the duration of each audio frame by a constant amount to align the audio track length with
+     *        STTS duration. Track-level correction does not affect pitch, and is recommended for tonal audio content
+     *        such as music. * Frame: Adjust the duration of each audio frame by a variable amount to align audio frames
+     *        with STTS timestamps. No corrections are made to already-aligned frames. Frame-level correction may affect
+     *        the pitch of corrected frames, and is recommended for atonal audio content such as speech or percussion.
+     * @see AudioDurationCorrection
+     */
+
+    public void setAudioDurationCorrection(String audioDurationCorrection) {
+        this.audioDurationCorrection = audioDurationCorrection;
+    }
+
+    /**
+     * Apply audio timing corrections to help synchronize audio and video in your output. To apply timing corrections,
+     * your input must meet the following requirements: * Container: MP4, or MOV, with an accurate time-to-sample (STTS)
+     * table. * Audio track: AAC. Choose from the following audio timing correction settings: * Disabled (Default): Apply
+     * no correction. * Auto: Recommended for most inputs. MediaConvert analyzes the audio timing in your input and
+     * determines which correction setting to use, if needed. * Track: Adjust the duration of each audio frame by a
+     * constant amount to align the audio track length with STTS duration. Track-level correction does not affect pitch,
+     * and is recommended for tonal audio content such as music. * Frame: Adjust the duration of each audio frame by a
+     * variable amount to align audio frames with STTS timestamps. No corrections are made to already-aligned frames.
+     * Frame-level correction may affect the pitch of corrected frames, and is recommended for atonal audio content such
+     * as speech or percussion.
+     * 
+     * @return Apply audio timing corrections to help synchronize audio and video in your output. To apply timing
+     *         corrections, your input must meet the following requirements: * Container: MP4, or MOV, with an accurate
+     *         time-to-sample (STTS) table. * Audio track: AAC. Choose from the following audio timing correction
+     *         settings: * Disabled (Default): Apply no correction. * Auto: Recommended for most inputs. MediaConvert
+     *         analyzes the audio timing in your input and determines which correction setting to use, if needed. *
+     *         Track: Adjust the duration of each audio frame by a constant amount to align the audio track length with
+     *         STTS duration. Track-level correction does not affect pitch, and is recommended for tonal audio content
+     *         such as music. * Frame: Adjust the duration of each audio frame by a variable amount to align audio
+     *         frames with STTS timestamps. No corrections are made to already-aligned frames. Frame-level correction
+     *         may affect the pitch of corrected frames, and is recommended for atonal audio content such as speech or
+     *         percussion.
+     * @see AudioDurationCorrection
+     */
+
+    public String getAudioDurationCorrection() {
+        return this.audioDurationCorrection;
+    }
+
+    /**
+     * Apply audio timing corrections to help synchronize audio and video in your output. To apply timing corrections,
+     * your input must meet the following requirements: * Container: MP4, or MOV, with an accurate time-to-sample (STTS)
+     * table. * Audio track: AAC. Choose from the following audio timing correction settings: * Disabled (Default): Apply
+     * no correction. * Auto: Recommended for most inputs. MediaConvert analyzes the audio timing in your input and
+     * determines which correction setting to use, if needed. * Track: Adjust the duration of each audio frame by a
+     * constant amount to align the audio track length with STTS duration. Track-level correction does not affect pitch,
+     * and is recommended for tonal audio content such as music. * Frame: Adjust the duration of each audio frame by a
+     * variable amount to align audio frames with STTS timestamps. No corrections are made to already-aligned frames.
+     * Frame-level correction may affect the pitch of corrected frames, and is recommended for atonal audio content such
+     * as speech or percussion.
+     * 
+     * @param audioDurationCorrection
+     *        Apply audio timing corrections to help synchronize audio and video in your output. To apply timing
+     *        corrections, your input must meet the following requirements: * Container: MP4, or MOV, with an accurate
+     *        time-to-sample (STTS) table. * Audio track: AAC. Choose from the following audio timing correction
+     *        settings: * Disabled (Default): Apply no correction. * Auto: Recommended for most inputs. MediaConvert
+     *        analyzes the audio timing in your input and determines which correction setting to use, if needed. *
+     *        Track: Adjust the duration of each audio frame by a constant amount to align the audio track length with
+     *        STTS duration. Track-level correction does not affect pitch, and is recommended for tonal audio content
+     *        such as music. * Frame: Adjust the duration of each audio frame by a variable amount to align audio frames
+     *        with STTS timestamps. No corrections are made to already-aligned frames. Frame-level correction may affect
+     *        the pitch of corrected frames, and is recommended for atonal audio content such as speech or percussion.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AudioDurationCorrection
+     */
+
+    public AudioSelector withAudioDurationCorrection(String audioDurationCorrection) {
+        setAudioDurationCorrection(audioDurationCorrection);
+        return this;
+    }
+
+    /**
+     * Apply audio timing corrections to help synchronize audio and video in your output. To apply timing corrections,
+     * your input must meet the following requirements: * Container: MP4, or MOV, with an accurate time-to-sample (STTS)
+     * table. * Audio track: AAC. Choose from the following audio timing correction settings: * Disabled (Default): Apply
+     * no correction. * Auto: Recommended for most inputs. MediaConvert analyzes the audio timing in your input and
+     * determines which correction setting to use, if needed. * Track: Adjust the duration of each audio frame by a
+     * constant amount to align the audio track length with STTS duration. Track-level correction does not affect pitch,
+     * and is recommended for tonal audio content such as music. * Frame: Adjust the duration of each audio frame by a
+     * variable amount to align audio frames with STTS timestamps. No corrections are made to already-aligned frames.
+     * Frame-level correction may affect the pitch of corrected frames, and is recommended for atonal audio content such
+     * as speech or percussion.
+     * 
+     * @param audioDurationCorrection
+     *        Apply audio timing corrections to help synchronize audio and video in your output. To apply timing
+     *        corrections, your input must meet the following requirements: * Container: MP4, or MOV, with an accurate
+     *        time-to-sample (STTS) table. * Audio track: AAC. Choose from the following audio timing correction
+     *        settings: * Disabled (Default): Apply no correction. * Auto: Recommended for most inputs. MediaConvert
+     *        analyzes the audio timing in your input and determines which correction setting to use, if needed. *
+     *        Track: Adjust the duration of each audio frame by a constant amount to align the audio track length with
+     *        STTS duration. Track-level correction does not affect pitch, and is recommended for tonal audio content
+     *        such as music. * Frame: Adjust the duration of each audio frame by a variable amount to align audio frames
+     *        with STTS timestamps. No corrections are made to already-aligned frames. Frame-level correction may affect
+     *        the pitch of corrected frames, and is recommended for atonal audio content such as speech or percussion.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AudioDurationCorrection
+     */
+
+    public AudioSelector withAudioDurationCorrection(AudioDurationCorrection audioDurationCorrection) {
+        this.audioDurationCorrection = audioDurationCorrection.toString();
+        return this;
+    }
 
     /**
      * Selects a specific language code from within an audio source, using the ISO 639-2 or ISO 639-3 three-letter
@@ -202,6 +347,70 @@ public class AudioSelector implements Serializable, Cloneable, StructuredPojo {
 
     public AudioSelector withExternalAudioFileInput(String externalAudioFileInput) {
         setExternalAudioFileInput(externalAudioFileInput);
+        return this;
+    }
+
+    /**
+     * Settings specific to audio sources in an HLS alternate rendition group. Specify the properties (renditionGroupId,
+     * renditionName or renditionLanguageCode) to identify the unique audio track among the alternative rendition groups
+     * present in the HLS manifest. If no unique track is found, or multiple tracks match the properties provided, the
+     * job fails. If no properties in hlsRenditionGroupSettings are specified, the default audio track within the video
+     * segment is chosen. If there is no audio within video segment, the alternative audio with DEFAULT=YES is chosen
+     * instead.
+     * 
+     * @param hlsRenditionGroupSettings
+     *        Settings specific to audio sources in an HLS alternate rendition group. Specify the properties
+     *        (renditionGroupId, renditionName or renditionLanguageCode) to identify the unique audio track among the
+     *        alternative rendition groups present in the HLS manifest. If no unique track is found, or multiple tracks
+     *        match the properties provided, the job fails. If no properties in hlsRenditionGroupSettings are specified,
+     *        the default audio track within the video segment is chosen. If there is no audio within video segment, the
+     *        alternative audio with DEFAULT=YES is chosen instead.
+     */
+
+    public void setHlsRenditionGroupSettings(HlsRenditionGroupSettings hlsRenditionGroupSettings) {
+        this.hlsRenditionGroupSettings = hlsRenditionGroupSettings;
+    }
+
+    /**
+     * Settings specific to audio sources in an HLS alternate rendition group. Specify the properties (renditionGroupId,
+     * renditionName or renditionLanguageCode) to identify the unique audio track among the alternative rendition groups
+     * present in the HLS manifest. If no unique track is found, or multiple tracks match the properties provided, the
+     * job fails. If no properties in hlsRenditionGroupSettings are specified, the default audio track within the video
+     * segment is chosen. If there is no audio within video segment, the alternative audio with DEFAULT=YES is chosen
+     * instead.
+     * 
+     * @return Settings specific to audio sources in an HLS alternate rendition group. Specify the properties
+     *         (renditionGroupId, renditionName or renditionLanguageCode) to identify the unique audio track among the
+     *         alternative rendition groups present in the HLS manifest. If no unique track is found, or multiple tracks
+     *         match the properties provided, the job fails. If no properties in hlsRenditionGroupSettings are
+     *         specified, the default audio track within the video segment is chosen. If there is no audio within video
+     *         segment, the alternative audio with DEFAULT=YES is chosen instead.
+     */
+
+    public HlsRenditionGroupSettings getHlsRenditionGroupSettings() {
+        return this.hlsRenditionGroupSettings;
+    }
+
+    /**
+     * Settings specific to audio sources in an HLS alternate rendition group. Specify the properties (renditionGroupId,
+     * renditionName or renditionLanguageCode) to identify the unique audio track among the alternative rendition groups
+     * present in the HLS manifest. If no unique track is found, or multiple tracks match the properties provided, the
+     * job fails. If no properties in hlsRenditionGroupSettings are specified, the default audio track within the video
+     * segment is chosen. If there is no audio within video segment, the alternative audio with DEFAULT=YES is chosen
+     * instead.
+     * 
+     * @param hlsRenditionGroupSettings
+     *        Settings specific to audio sources in an HLS alternate rendition group. Specify the properties
+     *        (renditionGroupId, renditionName or renditionLanguageCode) to identify the unique audio track among the
+     *        alternative rendition groups present in the HLS manifest. If no unique track is found, or multiple tracks
+     *        match the properties provided, the job fails. If no properties in hlsRenditionGroupSettings are specified,
+     *        the default audio track within the video segment is chosen. If there is no audio within video segment, the
+     *        alternative audio with DEFAULT=YES is chosen instead.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AudioSelector withHlsRenditionGroupSettings(HlsRenditionGroupSettings hlsRenditionGroupSettings) {
+        setHlsRenditionGroupSettings(hlsRenditionGroupSettings);
         return this;
     }
 
@@ -356,17 +565,16 @@ public class AudioSelector implements Serializable, Cloneable, StructuredPojo {
      * Use this setting for input streams that contain Dolby E, to have the service extract specific program data from
      * the track. To select multiple programs, create multiple selectors with the same Track and different Program
      * numbers. In the console, this setting is visible when you set Selector type to Track. Choose the program number
-     * from the dropdown list. If you are sending a JSON file, provide the program ID, which is part of the audio
-     * metadata. If your input file has incorrect metadata, you can choose All channels instead of a program number to
-     * have the service ignore the program IDs and include all the programs in the track.
+     * from the dropdown list. If your input file has incorrect metadata, you can choose All channels instead of a
+     * program number to have the service ignore the program IDs and include all the programs in the track.
      * 
      * @param programSelection
      *        Use this setting for input streams that contain Dolby E, to have the service extract specific program data
      *        from the track. To select multiple programs, create multiple selectors with the same Track and different
      *        Program numbers. In the console, this setting is visible when you set Selector type to Track. Choose the
-     *        program number from the dropdown list. If you are sending a JSON file, provide the program ID, which is
-     *        part of the audio metadata. If your input file has incorrect metadata, you can choose All channels instead
-     *        of a program number to have the service ignore the program IDs and include all the programs in the track.
+     *        program number from the dropdown list. If your input file has incorrect metadata, you can choose All
+     *        channels instead of a program number to have the service ignore the program IDs and include all the
+     *        programs in the track.
      */
 
     public void setProgramSelection(Integer programSelection) {
@@ -377,17 +585,15 @@ public class AudioSelector implements Serializable, Cloneable, StructuredPojo {
      * Use this setting for input streams that contain Dolby E, to have the service extract specific program data from
      * the track. To select multiple programs, create multiple selectors with the same Track and different Program
      * numbers. In the console, this setting is visible when you set Selector type to Track. Choose the program number
-     * from the dropdown list. If you are sending a JSON file, provide the program ID, which is part of the audio
-     * metadata. If your input file has incorrect metadata, you can choose All channels instead of a program number to
-     * have the service ignore the program IDs and include all the programs in the track.
+     * from the dropdown list. If your input file has incorrect metadata, you can choose All channels instead of a
+     * program number to have the service ignore the program IDs and include all the programs in the track.
      * 
      * @return Use this setting for input streams that contain Dolby E, to have the service extract specific program
      *         data from the track. To select multiple programs, create multiple selectors with the same Track and
      *         different Program numbers. In the console, this setting is visible when you set Selector type to Track.
-     *         Choose the program number from the dropdown list. If you are sending a JSON file, provide the program ID,
-     *         which is part of the audio metadata. If your input file has incorrect metadata, you can choose All
-     *         channels instead of a program number to have the service ignore the program IDs and include all the
-     *         programs in the track.
+     *         Choose the program number from the dropdown list. If your input file has incorrect metadata, you can
+     *         choose All channels instead of a program number to have the service ignore the program IDs and include
+     *         all the programs in the track.
      */
 
     public Integer getProgramSelection() {
@@ -398,17 +604,16 @@ public class AudioSelector implements Serializable, Cloneable, StructuredPojo {
      * Use this setting for input streams that contain Dolby E, to have the service extract specific program data from
      * the track. To select multiple programs, create multiple selectors with the same Track and different Program
      * numbers. In the console, this setting is visible when you set Selector type to Track. Choose the program number
-     * from the dropdown list. If you are sending a JSON file, provide the program ID, which is part of the audio
-     * metadata. If your input file has incorrect metadata, you can choose All channels instead of a program number to
-     * have the service ignore the program IDs and include all the programs in the track.
+     * from the dropdown list. If your input file has incorrect metadata, you can choose All channels instead of a
+     * program number to have the service ignore the program IDs and include all the programs in the track.
      * 
      * @param programSelection
      *        Use this setting for input streams that contain Dolby E, to have the service extract specific program data
      *        from the track. To select multiple programs, create multiple selectors with the same Track and different
      *        Program numbers. In the console, this setting is visible when you set Selector type to Track. Choose the
-     *        program number from the dropdown list. If you are sending a JSON file, provide the program ID, which is
-     *        part of the audio metadata. If your input file has incorrect metadata, you can choose All channels instead
-     *        of a program number to have the service ignore the program IDs and include all the programs in the track.
+     *        program number from the dropdown list. If your input file has incorrect metadata, you can choose All
+     *        channels instead of a program number to have the service ignore the program IDs and include all the
+     *        programs in the track.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -511,13 +716,11 @@ public class AudioSelector implements Serializable, Cloneable, StructuredPojo {
     /**
      * Identify a track from the input audio to include in this selector by entering the track index number. To include
      * several tracks in a single audio selector, specify multiple tracks as follows. Using the console, enter a
-     * comma-separated list. For examle, type "1,2,3" to include tracks 1 through 3. Specifying directly in your JSON job
-     * file, provide the track numbers in an array. For example, "tracks": [1,2,3].
+     * comma-separated list. For example, type "1,2,3" to include tracks 1 through 3.
      * 
      * @return Identify a track from the input audio to include in this selector by entering the track index number. To
      *         include several tracks in a single audio selector, specify multiple tracks as follows. Using the console,
-     *         enter a comma-separated list. For examle, type "1,2,3" to include tracks 1 through 3. Specifying directly
-     *         in your JSON job file, provide the track numbers in an array. For example, "tracks": [1,2,3].
+     *         enter a comma-separated list. For example, type "1,2,3" to include tracks 1 through 3.
      */
 
     public java.util.List<Integer> getTracks() {
@@ -527,14 +730,12 @@ public class AudioSelector implements Serializable, Cloneable, StructuredPojo {
     /**
      * Identify a track from the input audio to include in this selector by entering the track index number. To include
      * several tracks in a single audio selector, specify multiple tracks as follows. Using the console, enter a
-     * comma-separated list. For examle, type "1,2,3" to include tracks 1 through 3. Specifying directly in your JSON job
-     * file, provide the track numbers in an array. For example, "tracks": [1,2,3].
+     * comma-separated list. For example, type "1,2,3" to include tracks 1 through 3.
      * 
      * @param tracks
      *        Identify a track from the input audio to include in this selector by entering the track index number. To
      *        include several tracks in a single audio selector, specify multiple tracks as follows. Using the console,
-     *        enter a comma-separated list. For examle, type "1,2,3" to include tracks 1 through 3. Specifying directly
-     *        in your JSON job file, provide the track numbers in an array. For example, "tracks": [1,2,3].
+     *        enter a comma-separated list. For example, type "1,2,3" to include tracks 1 through 3.
      */
 
     public void setTracks(java.util.Collection<Integer> tracks) {
@@ -549,8 +750,7 @@ public class AudioSelector implements Serializable, Cloneable, StructuredPojo {
     /**
      * Identify a track from the input audio to include in this selector by entering the track index number. To include
      * several tracks in a single audio selector, specify multiple tracks as follows. Using the console, enter a
-     * comma-separated list. For examle, type "1,2,3" to include tracks 1 through 3. Specifying directly in your JSON job
-     * file, provide the track numbers in an array. For example, "tracks": [1,2,3].
+     * comma-separated list. For example, type "1,2,3" to include tracks 1 through 3.
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setTracks(java.util.Collection)} or {@link #withTracks(java.util.Collection)} if you want to override the
@@ -560,8 +760,7 @@ public class AudioSelector implements Serializable, Cloneable, StructuredPojo {
      * @param tracks
      *        Identify a track from the input audio to include in this selector by entering the track index number. To
      *        include several tracks in a single audio selector, specify multiple tracks as follows. Using the console,
-     *        enter a comma-separated list. For examle, type "1,2,3" to include tracks 1 through 3. Specifying directly
-     *        in your JSON job file, provide the track numbers in an array. For example, "tracks": [1,2,3].
+     *        enter a comma-separated list. For example, type "1,2,3" to include tracks 1 through 3.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -578,14 +777,12 @@ public class AudioSelector implements Serializable, Cloneable, StructuredPojo {
     /**
      * Identify a track from the input audio to include in this selector by entering the track index number. To include
      * several tracks in a single audio selector, specify multiple tracks as follows. Using the console, enter a
-     * comma-separated list. For examle, type "1,2,3" to include tracks 1 through 3. Specifying directly in your JSON job
-     * file, provide the track numbers in an array. For example, "tracks": [1,2,3].
+     * comma-separated list. For example, type "1,2,3" to include tracks 1 through 3.
      * 
      * @param tracks
      *        Identify a track from the input audio to include in this selector by entering the track index number. To
      *        include several tracks in a single audio selector, specify multiple tracks as follows. Using the console,
-     *        enter a comma-separated list. For examle, type "1,2,3" to include tracks 1 through 3. Specifying directly
-     *        in your JSON job file, provide the track numbers in an array. For example, "tracks": [1,2,3].
+     *        enter a comma-separated list. For example, type "1,2,3" to include tracks 1 through 3.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -606,12 +803,16 @@ public class AudioSelector implements Serializable, Cloneable, StructuredPojo {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getAudioDurationCorrection() != null)
+            sb.append("AudioDurationCorrection: ").append(getAudioDurationCorrection()).append(",");
         if (getCustomLanguageCode() != null)
             sb.append("CustomLanguageCode: ").append(getCustomLanguageCode()).append(",");
         if (getDefaultSelection() != null)
             sb.append("DefaultSelection: ").append(getDefaultSelection()).append(",");
         if (getExternalAudioFileInput() != null)
             sb.append("ExternalAudioFileInput: ").append(getExternalAudioFileInput()).append(",");
+        if (getHlsRenditionGroupSettings() != null)
+            sb.append("HlsRenditionGroupSettings: ").append(getHlsRenditionGroupSettings()).append(",");
         if (getLanguageCode() != null)
             sb.append("LanguageCode: ").append(getLanguageCode()).append(",");
         if (getOffset() != null)
@@ -640,6 +841,10 @@ public class AudioSelector implements Serializable, Cloneable, StructuredPojo {
         if (obj instanceof AudioSelector == false)
             return false;
         AudioSelector other = (AudioSelector) obj;
+        if (other.getAudioDurationCorrection() == null ^ this.getAudioDurationCorrection() == null)
+            return false;
+        if (other.getAudioDurationCorrection() != null && other.getAudioDurationCorrection().equals(this.getAudioDurationCorrection()) == false)
+            return false;
         if (other.getCustomLanguageCode() == null ^ this.getCustomLanguageCode() == null)
             return false;
         if (other.getCustomLanguageCode() != null && other.getCustomLanguageCode().equals(this.getCustomLanguageCode()) == false)
@@ -651,6 +856,10 @@ public class AudioSelector implements Serializable, Cloneable, StructuredPojo {
         if (other.getExternalAudioFileInput() == null ^ this.getExternalAudioFileInput() == null)
             return false;
         if (other.getExternalAudioFileInput() != null && other.getExternalAudioFileInput().equals(this.getExternalAudioFileInput()) == false)
+            return false;
+        if (other.getHlsRenditionGroupSettings() == null ^ this.getHlsRenditionGroupSettings() == null)
+            return false;
+        if (other.getHlsRenditionGroupSettings() != null && other.getHlsRenditionGroupSettings().equals(this.getHlsRenditionGroupSettings()) == false)
             return false;
         if (other.getLanguageCode() == null ^ this.getLanguageCode() == null)
             return false;
@@ -688,9 +897,11 @@ public class AudioSelector implements Serializable, Cloneable, StructuredPojo {
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getAudioDurationCorrection() == null) ? 0 : getAudioDurationCorrection().hashCode());
         hashCode = prime * hashCode + ((getCustomLanguageCode() == null) ? 0 : getCustomLanguageCode().hashCode());
         hashCode = prime * hashCode + ((getDefaultSelection() == null) ? 0 : getDefaultSelection().hashCode());
         hashCode = prime * hashCode + ((getExternalAudioFileInput() == null) ? 0 : getExternalAudioFileInput().hashCode());
+        hashCode = prime * hashCode + ((getHlsRenditionGroupSettings() == null) ? 0 : getHlsRenditionGroupSettings().hashCode());
         hashCode = prime * hashCode + ((getLanguageCode() == null) ? 0 : getLanguageCode().hashCode());
         hashCode = prime * hashCode + ((getOffset() == null) ? 0 : getOffset().hashCode());
         hashCode = prime * hashCode + ((getPids() == null) ? 0 : getPids().hashCode());

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.pinpointemail.AmazonPinpointEmailClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.pinpointemail.model.*;
+
 import com.amazonaws.services.pinpointemail.model.transform.*;
 
 /**
@@ -52,15 +53,30 @@ import com.amazonaws.services.pinpointemail.model.transform.*;
  * <p>
  * <fullname>Amazon Pinpoint Email Service</fullname>
  * <p>
- * This document contains reference information for the <a href="https://aws.amazon.com/pinpoint">Amazon Pinpoint</a>
- * Email API, version 1.0. This document is best used in conjunction with the <a
+ * Welcome to the <i>Amazon Pinpoint Email API Reference</i>. This guide provides information about the Amazon Pinpoint
+ * Email API (version 1.0), including supported operations, data types, parameters, and schemas.
+ * </p>
+ * <p>
+ * <a href="https://aws.amazon.com/pinpoint">Amazon Pinpoint</a> is an AWS service that you can use to engage with your
+ * customers across multiple messaging channels. You can use Amazon Pinpoint to send email, SMS text messages, voice
+ * messages, and push notifications. The Amazon Pinpoint Email API provides programmatic access to options that are
+ * unique to the email channel and supplement the options provided by the Amazon Pinpoint API.
+ * </p>
+ * <p>
+ * If you're new to Amazon Pinpoint, you might find it helpful to also review the <a
  * href="https://docs.aws.amazon.com/pinpoint/latest/developerguide/welcome.html">Amazon Pinpoint Developer Guide</a>.
+ * The <i>Amazon Pinpoint Developer Guide</i> provides tutorials, code samples, and procedures that demonstrate how to
+ * use Amazon Pinpoint features programmatically and how to integrate Amazon Pinpoint functionality into mobile apps and
+ * other types of applications. The guide also provides information about key topics such as Amazon Pinpoint integration
+ * with other AWS services and the limits that apply to using the service.
  * </p>
  * <p>
  * The Amazon Pinpoint Email API is available in several AWS Regions and it provides an endpoint for each of these
  * Regions. For a list of all the Regions and endpoints where the API is currently available, see <a
- * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#pinpoint_region">AWS Regions and Endpoints</a> in the
- * <i>Amazon Web Services General Reference</i>.
+ * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#pinpoint_region">AWS Service Endpoints</a> in the
+ * <i>Amazon Web Services General Reference</i>. To learn more about AWS Regions, see <a
+ * href="https://docs.aws.amazon.com/general/latest/gr/rande-manage.html">Managing AWS Regions</a> in the <i>Amazon Web
+ * Services General Reference</i>.
  * </p>
  * <p>
  * In each Region, AWS maintains multiple Availability Zones. These Availability Zones are physically isolated from each
@@ -92,37 +108,37 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ConcurrentModificationException").withModeledClass(
-                                    com.amazonaws.services.pinpointemail.model.ConcurrentModificationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConcurrentModificationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.pinpointemail.model.transform.ConcurrentModificationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MessageRejected").withModeledClass(
-                                    com.amazonaws.services.pinpointemail.model.MessageRejectedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MessageRejected").withExceptionUnmarshaller(
+                                    com.amazonaws.services.pinpointemail.model.transform.MessageRejectedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withModeledClass(
-                                    com.amazonaws.services.pinpointemail.model.NotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.pinpointemail.model.transform.NotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("SendingPausedException").withModeledClass(
-                                    com.amazonaws.services.pinpointemail.model.SendingPausedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("SendingPausedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.pinpointemail.model.transform.SendingPausedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withModeledClass(
-                                    com.amazonaws.services.pinpointemail.model.LimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.pinpointemail.model.transform.LimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AccountSuspendedException").withModeledClass(
-                                    com.amazonaws.services.pinpointemail.model.AccountSuspendedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("AccountSuspendedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.pinpointemail.model.transform.AccountSuspendedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.pinpointemail.model.AlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("AlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.pinpointemail.model.transform.AlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withModeledClass(
-                                    com.amazonaws.services.pinpointemail.model.TooManyRequestsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.pinpointemail.model.transform.TooManyRequestsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MailFromDomainNotVerifiedException").withModeledClass(
-                                    com.amazonaws.services.pinpointemail.model.MailFromDomainNotVerifiedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MailFromDomainNotVerifiedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.pinpointemail.model.transform.MailFromDomainNotVerifiedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withModeledClass(
-                                    com.amazonaws.services.pinpointemail.model.BadRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.pinpointemail.model.transform.BadRequestExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.pinpointemail.model.AmazonPinpointEmailException.class));
 
     public static AmazonPinpointEmailClientBuilder builder() {
@@ -219,6 +235,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                 request = new CreateConfigurationSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createConfigurationSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateConfigurationSet");
@@ -293,6 +311,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(createConfigurationSetEventDestinationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateConfigurationSetEventDestination");
@@ -361,6 +381,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                 request = new CreateDedicatedIpPoolRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDedicatedIpPoolRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDedicatedIpPool");
@@ -445,6 +467,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(createDeliverabilityTestReportRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDeliverabilityTestReport");
@@ -521,6 +545,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                 request = new CreateEmailIdentityRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createEmailIdentityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateEmailIdentity");
@@ -589,6 +615,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                 request = new DeleteConfigurationSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteConfigurationSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteConfigurationSet");
@@ -659,6 +687,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(deleteConfigurationSetEventDestinationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteConfigurationSetEventDestination");
@@ -722,6 +752,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                 request = new DeleteDedicatedIpPoolRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteDedicatedIpPoolRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDedicatedIpPool");
@@ -788,6 +820,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                 request = new DeleteEmailIdentityRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteEmailIdentityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteEmailIdentity");
@@ -847,6 +881,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                 request = new GetAccountRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getAccountRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetAccount");
@@ -907,6 +943,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                 request = new GetBlacklistReportsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getBlacklistReportsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetBlacklistReports");
@@ -974,6 +1012,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                 request = new GetConfigurationSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getConfigurationSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetConfigurationSet");
@@ -1043,6 +1083,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(getConfigurationSetEventDestinationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetConfigurationSetEventDestinations");
@@ -1105,6 +1147,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                 request = new GetDedicatedIpRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDedicatedIpRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDedicatedIp");
@@ -1165,6 +1209,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                 request = new GetDedicatedIpsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDedicatedIpsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDedicatedIps");
@@ -1243,6 +1289,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(getDeliverabilityDashboardOptionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDeliverabilityDashboardOptions");
@@ -1305,6 +1353,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(getDeliverabilityTestReportRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDeliverabilityTestReport");
@@ -1372,6 +1422,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(getDomainDeliverabilityCampaignRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDomainDeliverabilityCampaign");
@@ -1434,6 +1486,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(getDomainStatisticsReportRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDomainStatisticsReport");
@@ -1496,6 +1550,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                 request = new GetEmailIdentityRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getEmailIdentityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetEmailIdentity");
@@ -1561,6 +1617,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                 request = new ListConfigurationSetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listConfigurationSetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListConfigurationSets");
@@ -1620,6 +1678,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                 request = new ListDedicatedIpPoolsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDedicatedIpPoolsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDedicatedIpPools");
@@ -1683,6 +1743,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(listDeliverabilityTestReportsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDeliverabilityTestReports");
@@ -1750,6 +1812,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(listDomainDeliverabilityCampaignsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDomainDeliverabilityCampaigns");
@@ -1813,6 +1877,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                 request = new ListEmailIdentitiesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listEmailIdentitiesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListEmailIdentities");
@@ -1875,6 +1941,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                 request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -1936,6 +2004,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(putAccountDedicatedIpWarmupAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutAccountDedicatedIpWarmupAttributes");
@@ -1996,6 +2066,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(putAccountSendingAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutAccountSendingAttributes");
@@ -2061,6 +2133,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(putConfigurationSetDeliveryOptionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutConfigurationSetDeliveryOptions");
@@ -2126,6 +2200,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(putConfigurationSetReputationOptionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutConfigurationSetReputationOptions");
@@ -2190,6 +2266,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(putConfigurationSetSendingOptionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutConfigurationSetSendingOptions");
@@ -2254,6 +2332,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(putConfigurationSetTrackingOptionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutConfigurationSetTrackingOptions");
@@ -2325,6 +2405,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                 request = new PutDedicatedIpInPoolRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putDedicatedIpInPoolRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutDedicatedIpInPool");
@@ -2385,6 +2467,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(putDedicatedIpWarmupAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutDedicatedIpWarmupAttributes");
@@ -2468,6 +2552,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(putDeliverabilityDashboardOptionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutDeliverabilityDashboardOption");
@@ -2530,6 +2616,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(putEmailIdentityDkimAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutEmailIdentityDkimAttributes");
@@ -2606,6 +2694,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(putEmailIdentityFeedbackAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutEmailIdentityFeedbackAttributes");
@@ -2670,6 +2760,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(putEmailIdentityMailFromAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutEmailIdentityMailFromAttributes");
@@ -2756,6 +2848,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                 request = new SendEmailRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(sendEmailRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SendEmail");
@@ -2825,6 +2919,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -2886,6 +2982,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -2955,6 +3053,8 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(updateConfigurationSetEventDestinationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Pinpoint Email");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateConfigurationSetEventDestination");
@@ -3051,6 +3151,11 @@ public class AmazonPinpointEmailClient extends AmazonWebServiceClient implements
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

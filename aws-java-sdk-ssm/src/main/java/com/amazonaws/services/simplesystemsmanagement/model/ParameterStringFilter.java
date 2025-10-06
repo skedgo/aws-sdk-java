@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,12 +21,6 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * <p>
  * One or more filters. Use a filter to return a more specific list of results.
  * </p>
- * <note>
- * <p>
- * The <code>Name</code> and <code>Tier</code> filter keys can't be used with the <a>GetParametersByPath</a> API action.
- * Also, the <code>Label</code> filter key can't be used with the <a>DescribeParameters</a> API action.
- * </p>
- * </note>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ParameterStringFilter" target="_top">AWS API
  *      Documentation</a>
@@ -38,11 +32,36 @@ public class ParameterStringFilter implements Serializable, Cloneable, Structure
      * <p>
      * The name of the filter.
      * </p>
+     * <p>
+     * The <code>ParameterStringFilter</code> object is used by the <a>DescribeParameters</a> and
+     * <a>GetParametersByPath</a> API operations. However, not all of the pattern values listed for <code>Key</code> can
+     * be used with both operations.
+     * </p>
+     * <p>
+     * For <code>DescribeParameters</code>, all of the listed patterns are valid except <code>Label</code>.
+     * </p>
+     * <p>
+     * For <code>GetParametersByPath</code>, the following patterns listed for <code>Key</code> aren't valid:
+     * <code>tag</code>, <code>DataType</code>, <code>Name</code>, <code>Path</code>, and <code>Tier</code>.
+     * </p>
+     * <p>
+     * For examples of Amazon Web Services CLI commands demonstrating valid parameter filter constructions, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-search.html">Searching for Systems
+     * Manager parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
      */
     private String key;
     /**
      * <p>
-     * Valid options are Equals and BeginsWith. For Path filter, valid options are Recursive and OneLevel.
+     * For all filters used with <a>DescribeParameters</a>, valid options include <code>Equals</code> and
+     * <code>BeginsWith</code>. The <code>Name</code> filter additionally supports the <code>Contains</code> option.
+     * (Exception: For filters using the key <code>Path</code>, valid options include <code>Recursive</code> and
+     * <code>OneLevel</code>.)
+     * </p>
+     * <p>
+     * For filters used with <a>GetParametersByPath</a>, valid options include <code>Equals</code> and
+     * <code>BeginsWith</code>. (Exception: For filters using <code>Label</code> as the Key name, the only valid option
+     * is <code>Equals</code>.)
      * </p>
      */
     private String option;
@@ -57,9 +76,42 @@ public class ParameterStringFilter implements Serializable, Cloneable, Structure
      * <p>
      * The name of the filter.
      * </p>
+     * <p>
+     * The <code>ParameterStringFilter</code> object is used by the <a>DescribeParameters</a> and
+     * <a>GetParametersByPath</a> API operations. However, not all of the pattern values listed for <code>Key</code> can
+     * be used with both operations.
+     * </p>
+     * <p>
+     * For <code>DescribeParameters</code>, all of the listed patterns are valid except <code>Label</code>.
+     * </p>
+     * <p>
+     * For <code>GetParametersByPath</code>, the following patterns listed for <code>Key</code> aren't valid:
+     * <code>tag</code>, <code>DataType</code>, <code>Name</code>, <code>Path</code>, and <code>Tier</code>.
+     * </p>
+     * <p>
+     * For examples of Amazon Web Services CLI commands demonstrating valid parameter filter constructions, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-search.html">Searching for Systems
+     * Manager parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
      * 
      * @param key
-     *        The name of the filter.
+     *        The name of the filter.</p>
+     *        <p>
+     *        The <code>ParameterStringFilter</code> object is used by the <a>DescribeParameters</a> and
+     *        <a>GetParametersByPath</a> API operations. However, not all of the pattern values listed for
+     *        <code>Key</code> can be used with both operations.
+     *        </p>
+     *        <p>
+     *        For <code>DescribeParameters</code>, all of the listed patterns are valid except <code>Label</code>.
+     *        </p>
+     *        <p>
+     *        For <code>GetParametersByPath</code>, the following patterns listed for <code>Key</code> aren't valid:
+     *        <code>tag</code>, <code>DataType</code>, <code>Name</code>, <code>Path</code>, and <code>Tier</code>.
+     *        </p>
+     *        <p>
+     *        For examples of Amazon Web Services CLI commands demonstrating valid parameter filter constructions, see
+     *        <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-search.html">Searching for
+     *        Systems Manager parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      */
 
     public void setKey(String key) {
@@ -70,8 +122,41 @@ public class ParameterStringFilter implements Serializable, Cloneable, Structure
      * <p>
      * The name of the filter.
      * </p>
+     * <p>
+     * The <code>ParameterStringFilter</code> object is used by the <a>DescribeParameters</a> and
+     * <a>GetParametersByPath</a> API operations. However, not all of the pattern values listed for <code>Key</code> can
+     * be used with both operations.
+     * </p>
+     * <p>
+     * For <code>DescribeParameters</code>, all of the listed patterns are valid except <code>Label</code>.
+     * </p>
+     * <p>
+     * For <code>GetParametersByPath</code>, the following patterns listed for <code>Key</code> aren't valid:
+     * <code>tag</code>, <code>DataType</code>, <code>Name</code>, <code>Path</code>, and <code>Tier</code>.
+     * </p>
+     * <p>
+     * For examples of Amazon Web Services CLI commands demonstrating valid parameter filter constructions, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-search.html">Searching for Systems
+     * Manager parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
      * 
-     * @return The name of the filter.
+     * @return The name of the filter.</p>
+     *         <p>
+     *         The <code>ParameterStringFilter</code> object is used by the <a>DescribeParameters</a> and
+     *         <a>GetParametersByPath</a> API operations. However, not all of the pattern values listed for
+     *         <code>Key</code> can be used with both operations.
+     *         </p>
+     *         <p>
+     *         For <code>DescribeParameters</code>, all of the listed patterns are valid except <code>Label</code>.
+     *         </p>
+     *         <p>
+     *         For <code>GetParametersByPath</code>, the following patterns listed for <code>Key</code> aren't valid:
+     *         <code>tag</code>, <code>DataType</code>, <code>Name</code>, <code>Path</code>, and <code>Tier</code>.
+     *         </p>
+     *         <p>
+     *         For examples of Amazon Web Services CLI commands demonstrating valid parameter filter constructions, see
+     *         <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-search.html">Searching
+     *         for Systems Manager parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      */
 
     public String getKey() {
@@ -82,9 +167,42 @@ public class ParameterStringFilter implements Serializable, Cloneable, Structure
      * <p>
      * The name of the filter.
      * </p>
+     * <p>
+     * The <code>ParameterStringFilter</code> object is used by the <a>DescribeParameters</a> and
+     * <a>GetParametersByPath</a> API operations. However, not all of the pattern values listed for <code>Key</code> can
+     * be used with both operations.
+     * </p>
+     * <p>
+     * For <code>DescribeParameters</code>, all of the listed patterns are valid except <code>Label</code>.
+     * </p>
+     * <p>
+     * For <code>GetParametersByPath</code>, the following patterns listed for <code>Key</code> aren't valid:
+     * <code>tag</code>, <code>DataType</code>, <code>Name</code>, <code>Path</code>, and <code>Tier</code>.
+     * </p>
+     * <p>
+     * For examples of Amazon Web Services CLI commands demonstrating valid parameter filter constructions, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-search.html">Searching for Systems
+     * Manager parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
      * 
      * @param key
-     *        The name of the filter.
+     *        The name of the filter.</p>
+     *        <p>
+     *        The <code>ParameterStringFilter</code> object is used by the <a>DescribeParameters</a> and
+     *        <a>GetParametersByPath</a> API operations. However, not all of the pattern values listed for
+     *        <code>Key</code> can be used with both operations.
+     *        </p>
+     *        <p>
+     *        For <code>DescribeParameters</code>, all of the listed patterns are valid except <code>Label</code>.
+     *        </p>
+     *        <p>
+     *        For <code>GetParametersByPath</code>, the following patterns listed for <code>Key</code> aren't valid:
+     *        <code>tag</code>, <code>DataType</code>, <code>Name</code>, <code>Path</code>, and <code>Tier</code>.
+     *        </p>
+     *        <p>
+     *        For examples of Amazon Web Services CLI commands demonstrating valid parameter filter constructions, see
+     *        <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-search.html">Searching for
+     *        Systems Manager parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -95,11 +213,26 @@ public class ParameterStringFilter implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * Valid options are Equals and BeginsWith. For Path filter, valid options are Recursive and OneLevel.
+     * For all filters used with <a>DescribeParameters</a>, valid options include <code>Equals</code> and
+     * <code>BeginsWith</code>. The <code>Name</code> filter additionally supports the <code>Contains</code> option.
+     * (Exception: For filters using the key <code>Path</code>, valid options include <code>Recursive</code> and
+     * <code>OneLevel</code>.)
+     * </p>
+     * <p>
+     * For filters used with <a>GetParametersByPath</a>, valid options include <code>Equals</code> and
+     * <code>BeginsWith</code>. (Exception: For filters using <code>Label</code> as the Key name, the only valid option
+     * is <code>Equals</code>.)
      * </p>
      * 
      * @param option
-     *        Valid options are Equals and BeginsWith. For Path filter, valid options are Recursive and OneLevel.
+     *        For all filters used with <a>DescribeParameters</a>, valid options include <code>Equals</code> and
+     *        <code>BeginsWith</code>. The <code>Name</code> filter additionally supports the <code>Contains</code>
+     *        option. (Exception: For filters using the key <code>Path</code>, valid options include
+     *        <code>Recursive</code> and <code>OneLevel</code>.)</p>
+     *        <p>
+     *        For filters used with <a>GetParametersByPath</a>, valid options include <code>Equals</code> and
+     *        <code>BeginsWith</code>. (Exception: For filters using <code>Label</code> as the Key name, the only valid
+     *        option is <code>Equals</code>.)
      */
 
     public void setOption(String option) {
@@ -108,10 +241,25 @@ public class ParameterStringFilter implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * Valid options are Equals and BeginsWith. For Path filter, valid options are Recursive and OneLevel.
+     * For all filters used with <a>DescribeParameters</a>, valid options include <code>Equals</code> and
+     * <code>BeginsWith</code>. The <code>Name</code> filter additionally supports the <code>Contains</code> option.
+     * (Exception: For filters using the key <code>Path</code>, valid options include <code>Recursive</code> and
+     * <code>OneLevel</code>.)
+     * </p>
+     * <p>
+     * For filters used with <a>GetParametersByPath</a>, valid options include <code>Equals</code> and
+     * <code>BeginsWith</code>. (Exception: For filters using <code>Label</code> as the Key name, the only valid option
+     * is <code>Equals</code>.)
      * </p>
      * 
-     * @return Valid options are Equals and BeginsWith. For Path filter, valid options are Recursive and OneLevel.
+     * @return For all filters used with <a>DescribeParameters</a>, valid options include <code>Equals</code> and
+     *         <code>BeginsWith</code>. The <code>Name</code> filter additionally supports the <code>Contains</code>
+     *         option. (Exception: For filters using the key <code>Path</code>, valid options include
+     *         <code>Recursive</code> and <code>OneLevel</code>.)</p>
+     *         <p>
+     *         For filters used with <a>GetParametersByPath</a>, valid options include <code>Equals</code> and
+     *         <code>BeginsWith</code>. (Exception: For filters using <code>Label</code> as the Key name, the only valid
+     *         option is <code>Equals</code>.)
      */
 
     public String getOption() {
@@ -120,11 +268,26 @@ public class ParameterStringFilter implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * Valid options are Equals and BeginsWith. For Path filter, valid options are Recursive and OneLevel.
+     * For all filters used with <a>DescribeParameters</a>, valid options include <code>Equals</code> and
+     * <code>BeginsWith</code>. The <code>Name</code> filter additionally supports the <code>Contains</code> option.
+     * (Exception: For filters using the key <code>Path</code>, valid options include <code>Recursive</code> and
+     * <code>OneLevel</code>.)
+     * </p>
+     * <p>
+     * For filters used with <a>GetParametersByPath</a>, valid options include <code>Equals</code> and
+     * <code>BeginsWith</code>. (Exception: For filters using <code>Label</code> as the Key name, the only valid option
+     * is <code>Equals</code>.)
      * </p>
      * 
      * @param option
-     *        Valid options are Equals and BeginsWith. For Path filter, valid options are Recursive and OneLevel.
+     *        For all filters used with <a>DescribeParameters</a>, valid options include <code>Equals</code> and
+     *        <code>BeginsWith</code>. The <code>Name</code> filter additionally supports the <code>Contains</code>
+     *        option. (Exception: For filters using the key <code>Path</code>, valid options include
+     *        <code>Recursive</code> and <code>OneLevel</code>.)</p>
+     *        <p>
+     *        For filters used with <a>GetParametersByPath</a>, valid options include <code>Equals</code> and
+     *        <code>BeginsWith</code>. (Exception: For filters using <code>Label</code> as the Key name, the only valid
+     *        option is <code>Equals</code>.)
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

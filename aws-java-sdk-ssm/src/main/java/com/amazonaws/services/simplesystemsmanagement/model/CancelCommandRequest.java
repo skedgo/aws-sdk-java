@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,8 +34,8 @@ public class CancelCommandRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String commandId;
     /**
      * <p>
-     * (Optional) A list of instance IDs on which you want to cancel the command. If not provided, the command is
-     * canceled on every instance on which it was requested.
+     * (Optional) A list of managed node IDs on which you want to cancel the command. If not provided, the command is
+     * canceled on every node on which it was requested.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> instanceIds;
@@ -82,12 +82,12 @@ public class CancelCommandRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * (Optional) A list of instance IDs on which you want to cancel the command. If not provided, the command is
-     * canceled on every instance on which it was requested.
+     * (Optional) A list of managed node IDs on which you want to cancel the command. If not provided, the command is
+     * canceled on every node on which it was requested.
      * </p>
      * 
-     * @return (Optional) A list of instance IDs on which you want to cancel the command. If not provided, the command
-     *         is canceled on every instance on which it was requested.
+     * @return (Optional) A list of managed node IDs on which you want to cancel the command. If not provided, the
+     *         command is canceled on every node on which it was requested.
      */
 
     public java.util.List<String> getInstanceIds() {
@@ -99,13 +99,13 @@ public class CancelCommandRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * (Optional) A list of instance IDs on which you want to cancel the command. If not provided, the command is
-     * canceled on every instance on which it was requested.
+     * (Optional) A list of managed node IDs on which you want to cancel the command. If not provided, the command is
+     * canceled on every node on which it was requested.
      * </p>
      * 
      * @param instanceIds
-     *        (Optional) A list of instance IDs on which you want to cancel the command. If not provided, the command is
-     *        canceled on every instance on which it was requested.
+     *        (Optional) A list of managed node IDs on which you want to cancel the command. If not provided, the
+     *        command is canceled on every node on which it was requested.
      */
 
     public void setInstanceIds(java.util.Collection<String> instanceIds) {
@@ -119,8 +119,8 @@ public class CancelCommandRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * (Optional) A list of instance IDs on which you want to cancel the command. If not provided, the command is
-     * canceled on every instance on which it was requested.
+     * (Optional) A list of managed node IDs on which you want to cancel the command. If not provided, the command is
+     * canceled on every node on which it was requested.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -129,8 +129,8 @@ public class CancelCommandRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * 
      * @param instanceIds
-     *        (Optional) A list of instance IDs on which you want to cancel the command. If not provided, the command is
-     *        canceled on every instance on which it was requested.
+     *        (Optional) A list of managed node IDs on which you want to cancel the command. If not provided, the
+     *        command is canceled on every node on which it was requested.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -146,13 +146,13 @@ public class CancelCommandRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * (Optional) A list of instance IDs on which you want to cancel the command. If not provided, the command is
-     * canceled on every instance on which it was requested.
+     * (Optional) A list of managed node IDs on which you want to cancel the command. If not provided, the command is
+     * canceled on every node on which it was requested.
      * </p>
      * 
      * @param instanceIds
-     *        (Optional) A list of instance IDs on which you want to cancel the command. If not provided, the command is
-     *        canceled on every instance on which it was requested.
+     *        (Optional) A list of managed node IDs on which you want to cancel the command. If not provided, the
+     *        command is canceled on every node on which it was requested.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

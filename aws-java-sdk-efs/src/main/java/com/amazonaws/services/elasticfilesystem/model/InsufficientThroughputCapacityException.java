@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,8 +18,8 @@ import javax.annotation.Generated;
  * <p>
  * Returned if there's not enough capacity to provision additional throughput. This value might be returned when you try
  * to create a file system in provisioned throughput mode, when you attempt to increase the provisioned throughput of an
- * existing file system, or when you attempt to change an existing file system from bursting to provisioned throughput
- * mode.
+ * existing file system, or when you attempt to change an existing file system from Bursting Throughput to Provisioned
+ * Throughput mode. Try again later.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

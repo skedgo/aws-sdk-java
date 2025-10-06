@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,24 +31,24 @@ public class ViewBillingRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * The beginning date and time for the time period for which you want a list of billing records. Specify the date
-     * and time in Coordinated Universal time (UTC).
+     * and time in Unix time format and Coordinated Universal time (UTC).
      * </p>
      */
     private java.util.Date start;
     /**
      * <p>
      * The end date and time for the time period for which you want a list of billing records. Specify the date and time
-     * in Coordinated Universal time (UTC).
+     * in Unix time format and Coordinated Universal time (UTC).
      * </p>
      */
     private java.util.Date end;
     /**
      * <p>
      * For an initial request for a list of billing records, omit this element. If the number of billing records that
-     * are associated with the current AWS account during the specified period is greater than the value that you
-     * specified for <code>MaxItems</code>, you can use <code>Marker</code> to return additional billing records. Get
-     * the value of <code>NextPageMarker</code> from the previous response, and submit another request that includes the
-     * value of <code>NextPageMarker</code> in the <code>Marker</code> element.
+     * are associated with the current Amazon Web Services account during the specified period is greater than the value
+     * that you specified for <code>MaxItems</code>, you can use <code>Marker</code> to return additional billing
+     * records. Get the value of <code>NextPageMarker</code> from the previous response, and submit another request that
+     * includes the value of <code>NextPageMarker</code> in the <code>Marker</code> element.
      * </p>
      * <p>
      * Constraints: The marker must match the value of <code>NextPageMarker</code> that was returned in the previous
@@ -69,12 +69,12 @@ public class ViewBillingRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * The beginning date and time for the time period for which you want a list of billing records. Specify the date
-     * and time in Coordinated Universal time (UTC).
+     * and time in Unix time format and Coordinated Universal time (UTC).
      * </p>
      * 
      * @param start
      *        The beginning date and time for the time period for which you want a list of billing records. Specify the
-     *        date and time in Coordinated Universal time (UTC).
+     *        date and time in Unix time format and Coordinated Universal time (UTC).
      */
 
     public void setStart(java.util.Date start) {
@@ -84,11 +84,11 @@ public class ViewBillingRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * The beginning date and time for the time period for which you want a list of billing records. Specify the date
-     * and time in Coordinated Universal time (UTC).
+     * and time in Unix time format and Coordinated Universal time (UTC).
      * </p>
      * 
      * @return The beginning date and time for the time period for which you want a list of billing records. Specify the
-     *         date and time in Coordinated Universal time (UTC).
+     *         date and time in Unix time format and Coordinated Universal time (UTC).
      */
 
     public java.util.Date getStart() {
@@ -98,12 +98,12 @@ public class ViewBillingRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * The beginning date and time for the time period for which you want a list of billing records. Specify the date
-     * and time in Coordinated Universal time (UTC).
+     * and time in Unix time format and Coordinated Universal time (UTC).
      * </p>
      * 
      * @param start
      *        The beginning date and time for the time period for which you want a list of billing records. Specify the
-     *        date and time in Coordinated Universal time (UTC).
+     *        date and time in Unix time format and Coordinated Universal time (UTC).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -115,12 +115,12 @@ public class ViewBillingRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * The end date and time for the time period for which you want a list of billing records. Specify the date and time
-     * in Coordinated Universal time (UTC).
+     * in Unix time format and Coordinated Universal time (UTC).
      * </p>
      * 
      * @param end
      *        The end date and time for the time period for which you want a list of billing records. Specify the date
-     *        and time in Coordinated Universal time (UTC).
+     *        and time in Unix time format and Coordinated Universal time (UTC).
      */
 
     public void setEnd(java.util.Date end) {
@@ -130,11 +130,11 @@ public class ViewBillingRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * The end date and time for the time period for which you want a list of billing records. Specify the date and time
-     * in Coordinated Universal time (UTC).
+     * in Unix time format and Coordinated Universal time (UTC).
      * </p>
      * 
      * @return The end date and time for the time period for which you want a list of billing records. Specify the date
-     *         and time in Coordinated Universal time (UTC).
+     *         and time in Unix time format and Coordinated Universal time (UTC).
      */
 
     public java.util.Date getEnd() {
@@ -144,12 +144,12 @@ public class ViewBillingRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * The end date and time for the time period for which you want a list of billing records. Specify the date and time
-     * in Coordinated Universal time (UTC).
+     * in Unix time format and Coordinated Universal time (UTC).
      * </p>
      * 
      * @param end
      *        The end date and time for the time period for which you want a list of billing records. Specify the date
-     *        and time in Coordinated Universal time (UTC).
+     *        and time in Unix time format and Coordinated Universal time (UTC).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -161,10 +161,10 @@ public class ViewBillingRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * For an initial request for a list of billing records, omit this element. If the number of billing records that
-     * are associated with the current AWS account during the specified period is greater than the value that you
-     * specified for <code>MaxItems</code>, you can use <code>Marker</code> to return additional billing records. Get
-     * the value of <code>NextPageMarker</code> from the previous response, and submit another request that includes the
-     * value of <code>NextPageMarker</code> in the <code>Marker</code> element.
+     * are associated with the current Amazon Web Services account during the specified period is greater than the value
+     * that you specified for <code>MaxItems</code>, you can use <code>Marker</code> to return additional billing
+     * records. Get the value of <code>NextPageMarker</code> from the previous response, and submit another request that
+     * includes the value of <code>NextPageMarker</code> in the <code>Marker</code> element.
      * </p>
      * <p>
      * Constraints: The marker must match the value of <code>NextPageMarker</code> that was returned in the previous
@@ -173,10 +173,11 @@ public class ViewBillingRequest extends com.amazonaws.AmazonWebServiceRequest im
      * 
      * @param marker
      *        For an initial request for a list of billing records, omit this element. If the number of billing records
-     *        that are associated with the current AWS account during the specified period is greater than the value
-     *        that you specified for <code>MaxItems</code>, you can use <code>Marker</code> to return additional billing
-     *        records. Get the value of <code>NextPageMarker</code> from the previous response, and submit another
-     *        request that includes the value of <code>NextPageMarker</code> in the <code>Marker</code> element. </p>
+     *        that are associated with the current Amazon Web Services account during the specified period is greater
+     *        than the value that you specified for <code>MaxItems</code>, you can use <code>Marker</code> to return
+     *        additional billing records. Get the value of <code>NextPageMarker</code> from the previous response, and
+     *        submit another request that includes the value of <code>NextPageMarker</code> in the <code>Marker</code>
+     *        element. </p>
      *        <p>
      *        Constraints: The marker must match the value of <code>NextPageMarker</code> that was returned in the
      *        previous response.
@@ -189,10 +190,10 @@ public class ViewBillingRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * For an initial request for a list of billing records, omit this element. If the number of billing records that
-     * are associated with the current AWS account during the specified period is greater than the value that you
-     * specified for <code>MaxItems</code>, you can use <code>Marker</code> to return additional billing records. Get
-     * the value of <code>NextPageMarker</code> from the previous response, and submit another request that includes the
-     * value of <code>NextPageMarker</code> in the <code>Marker</code> element.
+     * are associated with the current Amazon Web Services account during the specified period is greater than the value
+     * that you specified for <code>MaxItems</code>, you can use <code>Marker</code> to return additional billing
+     * records. Get the value of <code>NextPageMarker</code> from the previous response, and submit another request that
+     * includes the value of <code>NextPageMarker</code> in the <code>Marker</code> element.
      * </p>
      * <p>
      * Constraints: The marker must match the value of <code>NextPageMarker</code> that was returned in the previous
@@ -200,10 +201,10 @@ public class ViewBillingRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * 
      * @return For an initial request for a list of billing records, omit this element. If the number of billing records
-     *         that are associated with the current AWS account during the specified period is greater than the value
-     *         that you specified for <code>MaxItems</code>, you can use <code>Marker</code> to return additional
-     *         billing records. Get the value of <code>NextPageMarker</code> from the previous response, and submit
-     *         another request that includes the value of <code>NextPageMarker</code> in the <code>Marker</code>
+     *         that are associated with the current Amazon Web Services account during the specified period is greater
+     *         than the value that you specified for <code>MaxItems</code>, you can use <code>Marker</code> to return
+     *         additional billing records. Get the value of <code>NextPageMarker</code> from the previous response, and
+     *         submit another request that includes the value of <code>NextPageMarker</code> in the <code>Marker</code>
      *         element. </p>
      *         <p>
      *         Constraints: The marker must match the value of <code>NextPageMarker</code> that was returned in the
@@ -217,10 +218,10 @@ public class ViewBillingRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * For an initial request for a list of billing records, omit this element. If the number of billing records that
-     * are associated with the current AWS account during the specified period is greater than the value that you
-     * specified for <code>MaxItems</code>, you can use <code>Marker</code> to return additional billing records. Get
-     * the value of <code>NextPageMarker</code> from the previous response, and submit another request that includes the
-     * value of <code>NextPageMarker</code> in the <code>Marker</code> element.
+     * are associated with the current Amazon Web Services account during the specified period is greater than the value
+     * that you specified for <code>MaxItems</code>, you can use <code>Marker</code> to return additional billing
+     * records. Get the value of <code>NextPageMarker</code> from the previous response, and submit another request that
+     * includes the value of <code>NextPageMarker</code> in the <code>Marker</code> element.
      * </p>
      * <p>
      * Constraints: The marker must match the value of <code>NextPageMarker</code> that was returned in the previous
@@ -229,10 +230,11 @@ public class ViewBillingRequest extends com.amazonaws.AmazonWebServiceRequest im
      * 
      * @param marker
      *        For an initial request for a list of billing records, omit this element. If the number of billing records
-     *        that are associated with the current AWS account during the specified period is greater than the value
-     *        that you specified for <code>MaxItems</code>, you can use <code>Marker</code> to return additional billing
-     *        records. Get the value of <code>NextPageMarker</code> from the previous response, and submit another
-     *        request that includes the value of <code>NextPageMarker</code> in the <code>Marker</code> element. </p>
+     *        that are associated with the current Amazon Web Services account during the specified period is greater
+     *        than the value that you specified for <code>MaxItems</code>, you can use <code>Marker</code> to return
+     *        additional billing records. Get the value of <code>NextPageMarker</code> from the previous response, and
+     *        submit another request that includes the value of <code>NextPageMarker</code> in the <code>Marker</code>
+     *        element. </p>
      *        <p>
      *        Constraints: The marker must match the value of <code>NextPageMarker</code> that was returned in the
      *        previous response.

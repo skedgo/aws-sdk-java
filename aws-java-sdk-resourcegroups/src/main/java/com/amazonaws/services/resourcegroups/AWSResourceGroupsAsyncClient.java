@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,16 +25,16 @@ import java.util.concurrent.ExecutorService;
  * representing the asynchronous operation; overloads which accept an {@code AsyncHandler} can be used to receive
  * notification when an asynchronous operation completes.
  * <p>
- * <fullname>AWS Resource Groups</fullname>
  * <p>
- * AWS Resource Groups lets you organize AWS resources such as Amazon EC2 instances, Amazon Relational Database Service
- * databases, and Amazon S3 buckets into groups using criteria that you define as tags. A resource group is a collection
- * of resources that match the resource types specified in a query, and share one or more tags or portions of tags. You
- * can create a group of resources based on their roles in your cloud infrastructure, lifecycle stages, regions,
- * application layers, or virtually any criteria. Resource groups enable you to automate management tasks, such as those
- * in AWS Systems Manager Automation documents, on tag-related resources in AWS Systems Manager. Groups of tagged
- * resources also let you quickly view a custom console in AWS Systems Manager that shows AWS Config compliance and
- * other monitoring data about member resources.
+ * Resource Groups lets you organize Amazon Web Services resources such as Amazon Elastic Compute Cloud instances,
+ * Amazon Relational Database Service databases, and Amazon Simple Storage Service buckets into groups using criteria
+ * that you define as tags. A resource group is a collection of resources that match the resource types specified in a
+ * query, and share one or more tags or portions of tags. You can create a group of resources based on their roles in
+ * your cloud infrastructure, lifecycle stages, regions, application layers, or virtually any criteria. Resource Groups
+ * enable you to automate management tasks, such as those in Amazon Web Services Systems Manager Automation documents,
+ * on tag-related resources in Amazon Web Services Systems Manager. Groups of tagged resources also let you quickly view
+ * a custom console in Amazon Web Services Systems Manager that shows Config compliance and other monitoring data about
+ * member resources.
  * </p>
  * <p>
  * To create a resource group, build a resource query, and specify tags that identify the criteria that members of the
@@ -42,10 +42,10 @@ import java.util.concurrent.ExecutorService;
  * </p>
  * <p>
  * For more information about Resource Groups, see the <a
- * href="https://docs.aws.amazon.com/ARG/latest/userguide/welcome.html">AWS Resource Groups User Guide</a>.
+ * href="https://docs.aws.amazon.com/ARG/latest/userguide/welcome.html">Resource Groups User Guide</a>.
  * </p>
  * <p>
- * AWS Resource Groups uses a REST-compliant API that you can use to perform the following types of operations.
+ * Resource Groups uses a REST-compliant API that you can use to perform the following types of operations.
  * </p>
  * <ul>
  * <li>
@@ -70,7 +70,7 @@ import java.util.concurrent.ExecutorService;
  * </li>
  * <li>
  * <p>
- * Searching AWS resources based on a resource query
+ * Searching Amazon Web Services resources based on a resource query
  * </p>
  * </li>
  * </ul>
@@ -94,7 +94,19 @@ public class AWSResourceGroupsAsyncClient extends AWSResourceGroupsClient implem
      *        Object providing client parameters.
      */
     AWSResourceGroupsAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Resource Groups using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSResourceGroupsAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -174,6 +186,39 @@ public class AWSResourceGroupsAsyncClient extends AWSResourceGroupsClient implem
     }
 
     @Override
+    public java.util.concurrent.Future<GetAccountSettingsResult> getAccountSettingsAsync(GetAccountSettingsRequest request) {
+
+        return getAccountSettingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetAccountSettingsResult> getAccountSettingsAsync(final GetAccountSettingsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetAccountSettingsRequest, GetAccountSettingsResult> asyncHandler) {
+        final GetAccountSettingsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetAccountSettingsResult>() {
+            @Override
+            public GetAccountSettingsResult call() throws Exception {
+                GetAccountSettingsResult result = null;
+
+                try {
+                    result = executeGetAccountSettings(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetGroupResult> getGroupAsync(GetGroupRequest request) {
 
         return getGroupAsync(request, null);
@@ -191,6 +236,39 @@ public class AWSResourceGroupsAsyncClient extends AWSResourceGroupsClient implem
 
                 try {
                     result = executeGetGroup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetGroupConfigurationResult> getGroupConfigurationAsync(GetGroupConfigurationRequest request) {
+
+        return getGroupConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetGroupConfigurationResult> getGroupConfigurationAsync(final GetGroupConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetGroupConfigurationRequest, GetGroupConfigurationResult> asyncHandler) {
+        final GetGroupConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetGroupConfigurationResult>() {
+            @Override
+            public GetGroupConfigurationResult call() throws Exception {
+                GetGroupConfigurationResult result = null;
+
+                try {
+                    result = executeGetGroupConfiguration(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -273,6 +351,39 @@ public class AWSResourceGroupsAsyncClient extends AWSResourceGroupsClient implem
     }
 
     @Override
+    public java.util.concurrent.Future<GroupResourcesResult> groupResourcesAsync(GroupResourcesRequest request) {
+
+        return groupResourcesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GroupResourcesResult> groupResourcesAsync(final GroupResourcesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GroupResourcesRequest, GroupResourcesResult> asyncHandler) {
+        final GroupResourcesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GroupResourcesResult>() {
+            @Override
+            public GroupResourcesResult call() throws Exception {
+                GroupResourcesResult result = null;
+
+                try {
+                    result = executeGroupResources(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListGroupResourcesResult> listGroupResourcesAsync(ListGroupResourcesRequest request) {
 
         return listGroupResourcesAsync(request, null);
@@ -323,6 +434,39 @@ public class AWSResourceGroupsAsyncClient extends AWSResourceGroupsClient implem
 
                 try {
                     result = executeListGroups(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutGroupConfigurationResult> putGroupConfigurationAsync(PutGroupConfigurationRequest request) {
+
+        return putGroupConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutGroupConfigurationResult> putGroupConfigurationAsync(final PutGroupConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutGroupConfigurationRequest, PutGroupConfigurationResult> asyncHandler) {
+        final PutGroupConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutGroupConfigurationResult>() {
+            @Override
+            public PutGroupConfigurationResult call() throws Exception {
+                PutGroupConfigurationResult result = null;
+
+                try {
+                    result = executePutGroupConfiguration(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -405,6 +549,39 @@ public class AWSResourceGroupsAsyncClient extends AWSResourceGroupsClient implem
     }
 
     @Override
+    public java.util.concurrent.Future<UngroupResourcesResult> ungroupResourcesAsync(UngroupResourcesRequest request) {
+
+        return ungroupResourcesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UngroupResourcesResult> ungroupResourcesAsync(final UngroupResourcesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UngroupResourcesRequest, UngroupResourcesResult> asyncHandler) {
+        final UngroupResourcesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UngroupResourcesResult>() {
+            @Override
+            public UngroupResourcesResult call() throws Exception {
+                UngroupResourcesResult result = null;
+
+                try {
+                    result = executeUngroupResources(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<UntagResult> untagAsync(UntagRequest request) {
 
         return untagAsync(request, null);
@@ -422,6 +599,39 @@ public class AWSResourceGroupsAsyncClient extends AWSResourceGroupsClient implem
 
                 try {
                     result = executeUntag(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateAccountSettingsResult> updateAccountSettingsAsync(UpdateAccountSettingsRequest request) {
+
+        return updateAccountSettingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateAccountSettingsResult> updateAccountSettingsAsync(final UpdateAccountSettingsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateAccountSettingsRequest, UpdateAccountSettingsResult> asyncHandler) {
+        final UpdateAccountSettingsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateAccountSettingsResult>() {
+            @Override
+            public UpdateAccountSettingsResult call() throws Exception {
+                UpdateAccountSettingsResult result = null;
+
+                try {
+                    result = executeUpdateAccountSettings(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

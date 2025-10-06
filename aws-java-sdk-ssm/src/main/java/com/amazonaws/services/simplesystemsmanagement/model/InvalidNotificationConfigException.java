@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,8 +16,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * One or more configuration items is not valid. Verify that a valid Amazon Resource Name (ARN) was provided for an
- * Amazon SNS topic.
+ * One or more configuration items isn't valid. Verify that a valid Amazon Resource Name (ARN) was provided for an
+ * Amazon Simple Notification Service topic.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

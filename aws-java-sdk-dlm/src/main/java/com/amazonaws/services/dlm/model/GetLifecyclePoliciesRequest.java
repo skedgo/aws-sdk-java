@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -60,10 +60,33 @@ public class GetLifecyclePoliciesRequest extends com.amazonaws.AmazonWebServiceR
      * Tags are strings in the format <code>key=value</code>.
      * </p>
      * <p>
-     * These user-defined tags are added in addition to the AWS-added lifecycle tags.
+     * These user-defined tags are added in addition to the Amazon Web Services-added lifecycle tags.
      * </p>
      */
     private java.util.List<String> tagsToAdd;
+    /**
+     * <p>
+     * <b>[Default policies only]</b> Specifies the type of default policy to get. Specify one of the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>VOLUME</code> - To get only the default policy for EBS snapshots
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INSTANCE</code> - To get only the default policy for EBS-backed AMIs
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ALL</code> - To get all default policies
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String defaultPolicyType;
 
     /**
      * <p>
@@ -390,7 +413,7 @@ public class GetLifecyclePoliciesRequest extends com.amazonaws.AmazonWebServiceR
      * Tags are strings in the format <code>key=value</code>.
      * </p>
      * <p>
-     * These user-defined tags are added in addition to the AWS-added lifecycle tags.
+     * These user-defined tags are added in addition to the Amazon Web Services-added lifecycle tags.
      * </p>
      * 
      * @return The tags to add to objects created by the policy.</p>
@@ -398,7 +421,7 @@ public class GetLifecyclePoliciesRequest extends com.amazonaws.AmazonWebServiceR
      *         Tags are strings in the format <code>key=value</code>.
      *         </p>
      *         <p>
-     *         These user-defined tags are added in addition to the AWS-added lifecycle tags.
+     *         These user-defined tags are added in addition to the Amazon Web Services-added lifecycle tags.
      */
 
     public java.util.List<String> getTagsToAdd() {
@@ -413,7 +436,7 @@ public class GetLifecyclePoliciesRequest extends com.amazonaws.AmazonWebServiceR
      * Tags are strings in the format <code>key=value</code>.
      * </p>
      * <p>
-     * These user-defined tags are added in addition to the AWS-added lifecycle tags.
+     * These user-defined tags are added in addition to the Amazon Web Services-added lifecycle tags.
      * </p>
      * 
      * @param tagsToAdd
@@ -422,7 +445,7 @@ public class GetLifecyclePoliciesRequest extends com.amazonaws.AmazonWebServiceR
      *        Tags are strings in the format <code>key=value</code>.
      *        </p>
      *        <p>
-     *        These user-defined tags are added in addition to the AWS-added lifecycle tags.
+     *        These user-defined tags are added in addition to the Amazon Web Services-added lifecycle tags.
      */
 
     public void setTagsToAdd(java.util.Collection<String> tagsToAdd) {
@@ -442,7 +465,7 @@ public class GetLifecyclePoliciesRequest extends com.amazonaws.AmazonWebServiceR
      * Tags are strings in the format <code>key=value</code>.
      * </p>
      * <p>
-     * These user-defined tags are added in addition to the AWS-added lifecycle tags.
+     * These user-defined tags are added in addition to the Amazon Web Services-added lifecycle tags.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -456,7 +479,7 @@ public class GetLifecyclePoliciesRequest extends com.amazonaws.AmazonWebServiceR
      *        Tags are strings in the format <code>key=value</code>.
      *        </p>
      *        <p>
-     *        These user-defined tags are added in addition to the AWS-added lifecycle tags.
+     *        These user-defined tags are added in addition to the Amazon Web Services-added lifecycle tags.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -478,7 +501,7 @@ public class GetLifecyclePoliciesRequest extends com.amazonaws.AmazonWebServiceR
      * Tags are strings in the format <code>key=value</code>.
      * </p>
      * <p>
-     * These user-defined tags are added in addition to the AWS-added lifecycle tags.
+     * These user-defined tags are added in addition to the Amazon Web Services-added lifecycle tags.
      * </p>
      * 
      * @param tagsToAdd
@@ -487,12 +510,207 @@ public class GetLifecyclePoliciesRequest extends com.amazonaws.AmazonWebServiceR
      *        Tags are strings in the format <code>key=value</code>.
      *        </p>
      *        <p>
-     *        These user-defined tags are added in addition to the AWS-added lifecycle tags.
+     *        These user-defined tags are added in addition to the Amazon Web Services-added lifecycle tags.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public GetLifecyclePoliciesRequest withTagsToAdd(java.util.Collection<String> tagsToAdd) {
         setTagsToAdd(tagsToAdd);
+        return this;
+    }
+
+    /**
+     * <p>
+     * <b>[Default policies only]</b> Specifies the type of default policy to get. Specify one of the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>VOLUME</code> - To get only the default policy for EBS snapshots
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INSTANCE</code> - To get only the default policy for EBS-backed AMIs
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ALL</code> - To get all default policies
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param defaultPolicyType
+     *        <b>[Default policies only]</b> Specifies the type of default policy to get. Specify one of the
+     *        following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>VOLUME</code> - To get only the default policy for EBS snapshots
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>INSTANCE</code> - To get only the default policy for EBS-backed AMIs
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ALL</code> - To get all default policies
+     *        </p>
+     *        </li>
+     * @see DefaultPoliciesTypeValues
+     */
+
+    public void setDefaultPolicyType(String defaultPolicyType) {
+        this.defaultPolicyType = defaultPolicyType;
+    }
+
+    /**
+     * <p>
+     * <b>[Default policies only]</b> Specifies the type of default policy to get. Specify one of the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>VOLUME</code> - To get only the default policy for EBS snapshots
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INSTANCE</code> - To get only the default policy for EBS-backed AMIs
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ALL</code> - To get all default policies
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return <b>[Default policies only]</b> Specifies the type of default policy to get. Specify one of the
+     *         following:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>VOLUME</code> - To get only the default policy for EBS snapshots
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>INSTANCE</code> - To get only the default policy for EBS-backed AMIs
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ALL</code> - To get all default policies
+     *         </p>
+     *         </li>
+     * @see DefaultPoliciesTypeValues
+     */
+
+    public String getDefaultPolicyType() {
+        return this.defaultPolicyType;
+    }
+
+    /**
+     * <p>
+     * <b>[Default policies only]</b> Specifies the type of default policy to get. Specify one of the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>VOLUME</code> - To get only the default policy for EBS snapshots
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INSTANCE</code> - To get only the default policy for EBS-backed AMIs
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ALL</code> - To get all default policies
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param defaultPolicyType
+     *        <b>[Default policies only]</b> Specifies the type of default policy to get. Specify one of the
+     *        following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>VOLUME</code> - To get only the default policy for EBS snapshots
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>INSTANCE</code> - To get only the default policy for EBS-backed AMIs
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ALL</code> - To get all default policies
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DefaultPoliciesTypeValues
+     */
+
+    public GetLifecyclePoliciesRequest withDefaultPolicyType(String defaultPolicyType) {
+        setDefaultPolicyType(defaultPolicyType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * <b>[Default policies only]</b> Specifies the type of default policy to get. Specify one of the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>VOLUME</code> - To get only the default policy for EBS snapshots
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INSTANCE</code> - To get only the default policy for EBS-backed AMIs
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ALL</code> - To get all default policies
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param defaultPolicyType
+     *        <b>[Default policies only]</b> Specifies the type of default policy to get. Specify one of the
+     *        following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>VOLUME</code> - To get only the default policy for EBS snapshots
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>INSTANCE</code> - To get only the default policy for EBS-backed AMIs
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ALL</code> - To get all default policies
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DefaultPoliciesTypeValues
+     */
+
+    public GetLifecyclePoliciesRequest withDefaultPolicyType(DefaultPoliciesTypeValues defaultPolicyType) {
+        this.defaultPolicyType = defaultPolicyType.toString();
         return this;
     }
 
@@ -517,7 +735,9 @@ public class GetLifecyclePoliciesRequest extends com.amazonaws.AmazonWebServiceR
         if (getTargetTags() != null)
             sb.append("TargetTags: ").append(getTargetTags()).append(",");
         if (getTagsToAdd() != null)
-            sb.append("TagsToAdd: ").append(getTagsToAdd());
+            sb.append("TagsToAdd: ").append(getTagsToAdd()).append(",");
+        if (getDefaultPolicyType() != null)
+            sb.append("DefaultPolicyType: ").append(getDefaultPolicyType());
         sb.append("}");
         return sb.toString();
     }
@@ -552,6 +772,10 @@ public class GetLifecyclePoliciesRequest extends com.amazonaws.AmazonWebServiceR
             return false;
         if (other.getTagsToAdd() != null && other.getTagsToAdd().equals(this.getTagsToAdd()) == false)
             return false;
+        if (other.getDefaultPolicyType() == null ^ this.getDefaultPolicyType() == null)
+            return false;
+        if (other.getDefaultPolicyType() != null && other.getDefaultPolicyType().equals(this.getDefaultPolicyType()) == false)
+            return false;
         return true;
     }
 
@@ -565,6 +789,7 @@ public class GetLifecyclePoliciesRequest extends com.amazonaws.AmazonWebServiceR
         hashCode = prime * hashCode + ((getResourceTypes() == null) ? 0 : getResourceTypes().hashCode());
         hashCode = prime * hashCode + ((getTargetTags() == null) ? 0 : getTargetTags().hashCode());
         hashCode = prime * hashCode + ((getTagsToAdd() == null) ? 0 : getTagsToAdd().hashCode());
+        hashCode = prime * hashCode + ((getDefaultPolicyType() == null) ? 0 : getDefaultPolicyType().hashCode());
         return hashCode;
     }
 

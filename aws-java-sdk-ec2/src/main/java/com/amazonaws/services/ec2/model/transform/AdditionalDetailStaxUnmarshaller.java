@@ -1,0 +1,123 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.ec2.model.transform;
+
+import java.util.ArrayList;
+
+import javax.xml.stream.events.XMLEvent;
+import javax.annotation.Generated;
+
+import com.amazonaws.services.ec2.model.*;
+import com.amazonaws.transform.Unmarshaller;
+
+import com.amazonaws.transform.StaxUnmarshallerContext;
+import com.amazonaws.transform.SimpleTypeStaxUnmarshallers.*;
+
+/**
+ * AdditionalDetail StAX Unmarshaller
+ */
+
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class AdditionalDetailStaxUnmarshaller implements Unmarshaller<AdditionalDetail, StaxUnmarshallerContext> {
+
+    public AdditionalDetail unmarshall(StaxUnmarshallerContext context) throws Exception {
+        AdditionalDetail additionalDetail = new AdditionalDetail();
+        int originalDepth = context.getCurrentDepth();
+        int targetDepth = originalDepth + 1;
+
+        if (context.isStartOfDocument())
+            targetDepth += 1;
+
+        while (true) {
+            XMLEvent xmlEvent = context.nextEvent();
+            if (xmlEvent.isEndDocument())
+                return additionalDetail;
+
+            if (xmlEvent.isAttribute() || xmlEvent.isStartElement()) {
+
+                if (context.testExpression("additionalDetailType", targetDepth)) {
+                    additionalDetail.setAdditionalDetailType(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("component", targetDepth)) {
+                    additionalDetail.setComponent(AnalysisComponentStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("vpcEndpointService", targetDepth)) {
+                    additionalDetail.setVpcEndpointService(AnalysisComponentStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ruleOptionSet", targetDepth)) {
+                    additionalDetail.withRuleOptions(new ArrayList<RuleOption>());
+                    continue;
+                }
+
+                if (context.testExpression("ruleOptionSet/item", targetDepth)) {
+                    additionalDetail.withRuleOptions(RuleOptionStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ruleGroupTypePairSet", targetDepth)) {
+                    additionalDetail.withRuleGroupTypePairs(new ArrayList<RuleGroupTypePair>());
+                    continue;
+                }
+
+                if (context.testExpression("ruleGroupTypePairSet/item", targetDepth)) {
+                    additionalDetail.withRuleGroupTypePairs(RuleGroupTypePairStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ruleGroupRuleOptionsPairSet", targetDepth)) {
+                    additionalDetail.withRuleGroupRuleOptionsPairs(new ArrayList<RuleGroupRuleOptionsPair>());
+                    continue;
+                }
+
+                if (context.testExpression("ruleGroupRuleOptionsPairSet/item", targetDepth)) {
+                    additionalDetail.withRuleGroupRuleOptionsPairs(RuleGroupRuleOptionsPairStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("serviceName", targetDepth)) {
+                    additionalDetail.setServiceName(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("loadBalancerSet", targetDepth)) {
+                    additionalDetail.withLoadBalancers(new ArrayList<AnalysisComponent>());
+                    continue;
+                }
+
+                if (context.testExpression("loadBalancerSet/item", targetDepth)) {
+                    additionalDetail.withLoadBalancers(AnalysisComponentStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+            } else if (xmlEvent.isEndElement()) {
+                if (context.getCurrentDepth() < originalDepth) {
+                    return additionalDetail;
+                }
+            }
+        }
+    }
+
+    private static AdditionalDetailStaxUnmarshaller instance;
+
+    public static AdditionalDetailStaxUnmarshaller getInstance() {
+        if (instance == null)
+            instance = new AdditionalDetailStaxUnmarshaller();
+        return instance;
+    }
+}

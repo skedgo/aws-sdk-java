@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,9 +19,16 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * In the response to a <a>CreateResolverEndpoint</a>, <a>DeleteResolverEndpoint</a>, <a>GetResolverEndpoint</a>,
- * <a>ListResolverEndpoints</a>, or <a>UpdateResolverEndpoint</a> request, a complex type that contains settings for an
- * existing inbound or outbound resolver endpoint.
+ * In the response to a <a
+ * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_CreateResolverEndpoint.html"
+ * >CreateResolverEndpoint</a>, <a
+ * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_DeleteResolverEndpoint.html"
+ * >DeleteResolverEndpoint</a>, <a
+ * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_GetResolverEndpoint.html"
+ * >GetResolverEndpoint</a>, Updates the name, or ResolverEndpointType for an endpoint, or <a
+ * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_UpdateResolverEndpoint.html"
+ * >UpdateResolverEndpoint</a> request, a complex type that contains settings for an existing inbound or outbound
+ * Resolver endpoint.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53resolver-2018-04-01/ResolverEndpoint" target="_top">AWS
@@ -32,49 +39,53 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The ID of the resolver endpoint.
+     * The ID of the Resolver endpoint.
      * </p>
      */
     private String id;
     /**
      * <p>
-     * A unique string that identifies the request that created the resolver endpoint. The <code>CreatorRequestId</code>
-     * allows failed requests to be retried without the risk of executing the operation twice.
+     * A unique string that identifies the request that created the Resolver endpoint. The <code>CreatorRequestId</code>
+     * allows failed requests to be retried without the risk of running the operation twice.
      * </p>
      */
     private String creatorRequestId;
     /**
      * <p>
-     * The ARN (Amazon Resource Name) for the resolver endpoint.
+     * The ARN (Amazon Resource Name) for the Resolver endpoint.
      * </p>
      */
     private String arn;
     /**
      * <p>
-     * The name that you assigned to the resolver endpoint when you submitted a <a>CreateResolverEndpoint</a> request.
+     * The name that you assigned to the Resolver endpoint when you submitted a <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_CreateResolverEndpoint.html"
+     * >CreateResolverEndpoint</a> request.
      * </p>
      */
     private String name;
     /**
      * <p>
      * The ID of one or more security groups that control access to this VPC. The security group must include one or
-     * more inbound resolver rules.
+     * more inbound rules (for inbound endpoints) or outbound rules (for outbound endpoints). Inbound and outbound rules
+     * must allow TCP and UDP access. For inbound access, open port 53. For outbound access, open the port that you're
+     * using for DNS queries on your network.
      * </p>
      */
     private java.util.List<String> securityGroupIds;
     /**
      * <p>
-     * Indicates whether the resolver endpoint allows inbound or outbound DNS queries:
+     * Indicates whether the Resolver endpoint allows inbound or outbound DNS queries:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>INBOUND</code>: allows DNS queries to your VPC from your network or another VPC
+     * <code>INBOUND</code>: allows DNS queries to your VPC from your network
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>OUTBOUND</code>: allows DNS queries from your VPC to your network or another VPC
+     * <code>OUTBOUND</code>: allows DNS queries from your VPC to your network
      * </p>
      * </li>
      * </ul>
@@ -82,25 +93,81 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
     private String direction;
     /**
      * <p>
-     * The number of IP addresses that the resolver endpoint can use for DNS queries.
+     * The number of IP addresses that the Resolver endpoint can use for DNS queries.
      * </p>
      */
     private Integer ipAddressCount;
     /**
      * <p>
-     * The ID of the VPC that you want to create the resolver endpoint in.
+     * The ID of the VPC that you want to create the Resolver endpoint in.
      * </p>
      */
     private String hostVPCId;
     /**
      * <p>
-     * A code that specifies the current status of the resolver endpoint.
+     * A code that specifies the current status of the Resolver endpoint. Valid values include the following:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>CREATING</code>: Resolver is creating and configuring one or more Amazon VPC network interfaces for this
+     * endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OPERATIONAL</code>: The Amazon VPC network interfaces for this endpoint are correctly configured and able
+     * to pass inbound or outbound DNS queries between your network and Resolver.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UPDATING</code>: Resolver is associating or disassociating one or more network interfaces with this
+     * endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AUTO_RECOVERING</code>: Resolver is trying to recover one or more of the network interfaces that are
+     * associated with this endpoint. During the recovery process, the endpoint functions with limited capacity because
+     * of the limit on the number of DNS queries per IP address (per network interface). For the current limit, see <a
+     * href
+     * ="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html#limits-api-entities-resolver">
+     * Limits on Route 53 Resolver</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ACTION_NEEDED</code>: This endpoint is unhealthy, and Resolver can't automatically recover it. To resolve
+     * the problem, we recommend that you check each IP address that you associated with the endpoint. For each IP
+     * address that isn't available, add another IP address and then delete the IP address that isn't available. (An
+     * endpoint must always include at least two IP addresses.) A status of <code>ACTION_NEEDED</code> can have a
+     * variety of causes. Here are two common causes:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * One or more of the network interfaces that are associated with the endpoint were deleted using Amazon VPC.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The network interface couldn't be created for some reason that's outside the control of Resolver.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DELETING</code>: Resolver is deleting this endpoint and the associated network interfaces.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String status;
     /**
      * <p>
-     * A detailed description of the status of the resolver endpoint.
+     * A detailed description of the status of the Resolver endpoint.
      * </p>
      */
     private String statusMessage;
@@ -116,14 +183,98 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
      * </p>
      */
     private String modificationTime;
+    /**
+     * <p>
+     * The ARN (Amazon Resource Name) for the Outpost.
+     * </p>
+     */
+    private String outpostArn;
+    /**
+     * <p>
+     * The Amazon EC2 instance type.
+     * </p>
+     */
+    private String preferredInstanceType;
+    /**
+     * <p>
+     * The Resolver endpoint IP address type.
+     * </p>
+     */
+    private String resolverEndpointType;
+    /**
+     * <p>
+     * Protocols used for the endpoint. DoH-FIPS is applicable for inbound endpoints only.
+     * </p>
+     * <p>
+     * For an inbound endpoint you can apply the protocols as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Do53 and DoH in combination.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do53 and DoH-FIPS in combination.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do53 alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DoH alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DoH-FIPS alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * None, which is treated as Do53.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For an outbound endpoint you can apply the protocols as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Do53 and DoH in combination.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do53 alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DoH alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * None, which is treated as Do53.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private java.util.List<String> protocols;
 
     /**
      * <p>
-     * The ID of the resolver endpoint.
+     * The ID of the Resolver endpoint.
      * </p>
      * 
      * @param id
-     *        The ID of the resolver endpoint.
+     *        The ID of the Resolver endpoint.
      */
 
     public void setId(String id) {
@@ -132,10 +283,10 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The ID of the resolver endpoint.
+     * The ID of the Resolver endpoint.
      * </p>
      * 
-     * @return The ID of the resolver endpoint.
+     * @return The ID of the Resolver endpoint.
      */
 
     public String getId() {
@@ -144,11 +295,11 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The ID of the resolver endpoint.
+     * The ID of the Resolver endpoint.
      * </p>
      * 
      * @param id
-     *        The ID of the resolver endpoint.
+     *        The ID of the Resolver endpoint.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -159,13 +310,13 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A unique string that identifies the request that created the resolver endpoint. The <code>CreatorRequestId</code>
-     * allows failed requests to be retried without the risk of executing the operation twice.
+     * A unique string that identifies the request that created the Resolver endpoint. The <code>CreatorRequestId</code>
+     * allows failed requests to be retried without the risk of running the operation twice.
      * </p>
      * 
      * @param creatorRequestId
-     *        A unique string that identifies the request that created the resolver endpoint. The
-     *        <code>CreatorRequestId</code> allows failed requests to be retried without the risk of executing the
+     *        A unique string that identifies the request that created the Resolver endpoint. The
+     *        <code>CreatorRequestId</code> allows failed requests to be retried without the risk of running the
      *        operation twice.
      */
 
@@ -175,12 +326,12 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A unique string that identifies the request that created the resolver endpoint. The <code>CreatorRequestId</code>
-     * allows failed requests to be retried without the risk of executing the operation twice.
+     * A unique string that identifies the request that created the Resolver endpoint. The <code>CreatorRequestId</code>
+     * allows failed requests to be retried without the risk of running the operation twice.
      * </p>
      * 
-     * @return A unique string that identifies the request that created the resolver endpoint. The
-     *         <code>CreatorRequestId</code> allows failed requests to be retried without the risk of executing the
+     * @return A unique string that identifies the request that created the Resolver endpoint. The
+     *         <code>CreatorRequestId</code> allows failed requests to be retried without the risk of running the
      *         operation twice.
      */
 
@@ -190,13 +341,13 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A unique string that identifies the request that created the resolver endpoint. The <code>CreatorRequestId</code>
-     * allows failed requests to be retried without the risk of executing the operation twice.
+     * A unique string that identifies the request that created the Resolver endpoint. The <code>CreatorRequestId</code>
+     * allows failed requests to be retried without the risk of running the operation twice.
      * </p>
      * 
      * @param creatorRequestId
-     *        A unique string that identifies the request that created the resolver endpoint. The
-     *        <code>CreatorRequestId</code> allows failed requests to be retried without the risk of executing the
+     *        A unique string that identifies the request that created the Resolver endpoint. The
+     *        <code>CreatorRequestId</code> allows failed requests to be retried without the risk of running the
      *        operation twice.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -208,11 +359,11 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The ARN (Amazon Resource Name) for the resolver endpoint.
+     * The ARN (Amazon Resource Name) for the Resolver endpoint.
      * </p>
      * 
      * @param arn
-     *        The ARN (Amazon Resource Name) for the resolver endpoint.
+     *        The ARN (Amazon Resource Name) for the Resolver endpoint.
      */
 
     public void setArn(String arn) {
@@ -221,10 +372,10 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The ARN (Amazon Resource Name) for the resolver endpoint.
+     * The ARN (Amazon Resource Name) for the Resolver endpoint.
      * </p>
      * 
-     * @return The ARN (Amazon Resource Name) for the resolver endpoint.
+     * @return The ARN (Amazon Resource Name) for the Resolver endpoint.
      */
 
     public String getArn() {
@@ -233,11 +384,11 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The ARN (Amazon Resource Name) for the resolver endpoint.
+     * The ARN (Amazon Resource Name) for the Resolver endpoint.
      * </p>
      * 
      * @param arn
-     *        The ARN (Amazon Resource Name) for the resolver endpoint.
+     *        The ARN (Amazon Resource Name) for the Resolver endpoint.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -248,12 +399,15 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The name that you assigned to the resolver endpoint when you submitted a <a>CreateResolverEndpoint</a> request.
+     * The name that you assigned to the Resolver endpoint when you submitted a <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_CreateResolverEndpoint.html"
+     * >CreateResolverEndpoint</a> request.
      * </p>
      * 
      * @param name
-     *        The name that you assigned to the resolver endpoint when you submitted a <a>CreateResolverEndpoint</a>
-     *        request.
+     *        The name that you assigned to the Resolver endpoint when you submitted a <a href=
+     *        "https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_CreateResolverEndpoint.html"
+     *        >CreateResolverEndpoint</a> request.
      */
 
     public void setName(String name) {
@@ -262,11 +416,14 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The name that you assigned to the resolver endpoint when you submitted a <a>CreateResolverEndpoint</a> request.
+     * The name that you assigned to the Resolver endpoint when you submitted a <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_CreateResolverEndpoint.html"
+     * >CreateResolverEndpoint</a> request.
      * </p>
      * 
-     * @return The name that you assigned to the resolver endpoint when you submitted a <a>CreateResolverEndpoint</a>
-     *         request.
+     * @return The name that you assigned to the Resolver endpoint when you submitted a <a
+     *         href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_CreateResolverEndpoint.html"
+     *         >CreateResolverEndpoint</a> request.
      */
 
     public String getName() {
@@ -275,12 +432,15 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The name that you assigned to the resolver endpoint when you submitted a <a>CreateResolverEndpoint</a> request.
+     * The name that you assigned to the Resolver endpoint when you submitted a <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_CreateResolverEndpoint.html"
+     * >CreateResolverEndpoint</a> request.
      * </p>
      * 
      * @param name
-     *        The name that you assigned to the resolver endpoint when you submitted a <a>CreateResolverEndpoint</a>
-     *        request.
+     *        The name that you assigned to the Resolver endpoint when you submitted a <a href=
+     *        "https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_CreateResolverEndpoint.html"
+     *        >CreateResolverEndpoint</a> request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -292,11 +452,15 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * The ID of one or more security groups that control access to this VPC. The security group must include one or
-     * more inbound resolver rules.
+     * more inbound rules (for inbound endpoints) or outbound rules (for outbound endpoints). Inbound and outbound rules
+     * must allow TCP and UDP access. For inbound access, open port 53. For outbound access, open the port that you're
+     * using for DNS queries on your network.
      * </p>
      * 
      * @return The ID of one or more security groups that control access to this VPC. The security group must include
-     *         one or more inbound resolver rules.
+     *         one or more inbound rules (for inbound endpoints) or outbound rules (for outbound endpoints). Inbound and
+     *         outbound rules must allow TCP and UDP access. For inbound access, open port 53. For outbound access, open
+     *         the port that you're using for DNS queries on your network.
      */
 
     public java.util.List<String> getSecurityGroupIds() {
@@ -306,12 +470,16 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * The ID of one or more security groups that control access to this VPC. The security group must include one or
-     * more inbound resolver rules.
+     * more inbound rules (for inbound endpoints) or outbound rules (for outbound endpoints). Inbound and outbound rules
+     * must allow TCP and UDP access. For inbound access, open port 53. For outbound access, open the port that you're
+     * using for DNS queries on your network.
      * </p>
      * 
      * @param securityGroupIds
      *        The ID of one or more security groups that control access to this VPC. The security group must include one
-     *        or more inbound resolver rules.
+     *        or more inbound rules (for inbound endpoints) or outbound rules (for outbound endpoints). Inbound and
+     *        outbound rules must allow TCP and UDP access. For inbound access, open port 53. For outbound access, open
+     *        the port that you're using for DNS queries on your network.
      */
 
     public void setSecurityGroupIds(java.util.Collection<String> securityGroupIds) {
@@ -326,7 +494,9 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * The ID of one or more security groups that control access to this VPC. The security group must include one or
-     * more inbound resolver rules.
+     * more inbound rules (for inbound endpoints) or outbound rules (for outbound endpoints). Inbound and outbound rules
+     * must allow TCP and UDP access. For inbound access, open port 53. For outbound access, open the port that you're
+     * using for DNS queries on your network.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -336,7 +506,9 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
      * 
      * @param securityGroupIds
      *        The ID of one or more security groups that control access to this VPC. The security group must include one
-     *        or more inbound resolver rules.
+     *        or more inbound rules (for inbound endpoints) or outbound rules (for outbound endpoints). Inbound and
+     *        outbound rules must allow TCP and UDP access. For inbound access, open port 53. For outbound access, open
+     *        the port that you're using for DNS queries on your network.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -353,12 +525,16 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * The ID of one or more security groups that control access to this VPC. The security group must include one or
-     * more inbound resolver rules.
+     * more inbound rules (for inbound endpoints) or outbound rules (for outbound endpoints). Inbound and outbound rules
+     * must allow TCP and UDP access. For inbound access, open port 53. For outbound access, open the port that you're
+     * using for DNS queries on your network.
      * </p>
      * 
      * @param securityGroupIds
      *        The ID of one or more security groups that control access to this VPC. The security group must include one
-     *        or more inbound resolver rules.
+     *        or more inbound rules (for inbound endpoints) or outbound rules (for outbound endpoints). Inbound and
+     *        outbound rules must allow TCP and UDP access. For inbound access, open port 53. For outbound access, open
+     *        the port that you're using for DNS queries on your network.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -369,32 +545,32 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Indicates whether the resolver endpoint allows inbound or outbound DNS queries:
+     * Indicates whether the Resolver endpoint allows inbound or outbound DNS queries:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>INBOUND</code>: allows DNS queries to your VPC from your network or another VPC
+     * <code>INBOUND</code>: allows DNS queries to your VPC from your network
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>OUTBOUND</code>: allows DNS queries from your VPC to your network or another VPC
+     * <code>OUTBOUND</code>: allows DNS queries from your VPC to your network
      * </p>
      * </li>
      * </ul>
      * 
      * @param direction
-     *        Indicates whether the resolver endpoint allows inbound or outbound DNS queries:</p>
+     *        Indicates whether the Resolver endpoint allows inbound or outbound DNS queries:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>INBOUND</code>: allows DNS queries to your VPC from your network or another VPC
+     *        <code>INBOUND</code>: allows DNS queries to your VPC from your network
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>OUTBOUND</code>: allows DNS queries from your VPC to your network or another VPC
+     *        <code>OUTBOUND</code>: allows DNS queries from your VPC to your network
      *        </p>
      *        </li>
      * @see ResolverEndpointDirection
@@ -406,31 +582,31 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Indicates whether the resolver endpoint allows inbound or outbound DNS queries:
+     * Indicates whether the Resolver endpoint allows inbound or outbound DNS queries:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>INBOUND</code>: allows DNS queries to your VPC from your network or another VPC
+     * <code>INBOUND</code>: allows DNS queries to your VPC from your network
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>OUTBOUND</code>: allows DNS queries from your VPC to your network or another VPC
+     * <code>OUTBOUND</code>: allows DNS queries from your VPC to your network
      * </p>
      * </li>
      * </ul>
      * 
-     * @return Indicates whether the resolver endpoint allows inbound or outbound DNS queries:</p>
+     * @return Indicates whether the Resolver endpoint allows inbound or outbound DNS queries:</p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>INBOUND</code>: allows DNS queries to your VPC from your network or another VPC
+     *         <code>INBOUND</code>: allows DNS queries to your VPC from your network
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>OUTBOUND</code>: allows DNS queries from your VPC to your network or another VPC
+     *         <code>OUTBOUND</code>: allows DNS queries from your VPC to your network
      *         </p>
      *         </li>
      * @see ResolverEndpointDirection
@@ -442,32 +618,32 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Indicates whether the resolver endpoint allows inbound or outbound DNS queries:
+     * Indicates whether the Resolver endpoint allows inbound or outbound DNS queries:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>INBOUND</code>: allows DNS queries to your VPC from your network or another VPC
+     * <code>INBOUND</code>: allows DNS queries to your VPC from your network
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>OUTBOUND</code>: allows DNS queries from your VPC to your network or another VPC
+     * <code>OUTBOUND</code>: allows DNS queries from your VPC to your network
      * </p>
      * </li>
      * </ul>
      * 
      * @param direction
-     *        Indicates whether the resolver endpoint allows inbound or outbound DNS queries:</p>
+     *        Indicates whether the Resolver endpoint allows inbound or outbound DNS queries:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>INBOUND</code>: allows DNS queries to your VPC from your network or another VPC
+     *        <code>INBOUND</code>: allows DNS queries to your VPC from your network
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>OUTBOUND</code>: allows DNS queries from your VPC to your network or another VPC
+     *        <code>OUTBOUND</code>: allows DNS queries from your VPC to your network
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -481,32 +657,32 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Indicates whether the resolver endpoint allows inbound or outbound DNS queries:
+     * Indicates whether the Resolver endpoint allows inbound or outbound DNS queries:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>INBOUND</code>: allows DNS queries to your VPC from your network or another VPC
+     * <code>INBOUND</code>: allows DNS queries to your VPC from your network
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>OUTBOUND</code>: allows DNS queries from your VPC to your network or another VPC
+     * <code>OUTBOUND</code>: allows DNS queries from your VPC to your network
      * </p>
      * </li>
      * </ul>
      * 
      * @param direction
-     *        Indicates whether the resolver endpoint allows inbound or outbound DNS queries:</p>
+     *        Indicates whether the Resolver endpoint allows inbound or outbound DNS queries:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>INBOUND</code>: allows DNS queries to your VPC from your network or another VPC
+     *        <code>INBOUND</code>: allows DNS queries to your VPC from your network
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>OUTBOUND</code>: allows DNS queries from your VPC to your network or another VPC
+     *        <code>OUTBOUND</code>: allows DNS queries from your VPC to your network
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -520,11 +696,11 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The number of IP addresses that the resolver endpoint can use for DNS queries.
+     * The number of IP addresses that the Resolver endpoint can use for DNS queries.
      * </p>
      * 
      * @param ipAddressCount
-     *        The number of IP addresses that the resolver endpoint can use for DNS queries.
+     *        The number of IP addresses that the Resolver endpoint can use for DNS queries.
      */
 
     public void setIpAddressCount(Integer ipAddressCount) {
@@ -533,10 +709,10 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The number of IP addresses that the resolver endpoint can use for DNS queries.
+     * The number of IP addresses that the Resolver endpoint can use for DNS queries.
      * </p>
      * 
-     * @return The number of IP addresses that the resolver endpoint can use for DNS queries.
+     * @return The number of IP addresses that the Resolver endpoint can use for DNS queries.
      */
 
     public Integer getIpAddressCount() {
@@ -545,11 +721,11 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The number of IP addresses that the resolver endpoint can use for DNS queries.
+     * The number of IP addresses that the Resolver endpoint can use for DNS queries.
      * </p>
      * 
      * @param ipAddressCount
-     *        The number of IP addresses that the resolver endpoint can use for DNS queries.
+     *        The number of IP addresses that the Resolver endpoint can use for DNS queries.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -560,11 +736,11 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The ID of the VPC that you want to create the resolver endpoint in.
+     * The ID of the VPC that you want to create the Resolver endpoint in.
      * </p>
      * 
      * @param hostVPCId
-     *        The ID of the VPC that you want to create the resolver endpoint in.
+     *        The ID of the VPC that you want to create the Resolver endpoint in.
      */
 
     public void setHostVPCId(String hostVPCId) {
@@ -573,10 +749,10 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The ID of the VPC that you want to create the resolver endpoint in.
+     * The ID of the VPC that you want to create the Resolver endpoint in.
      * </p>
      * 
-     * @return The ID of the VPC that you want to create the resolver endpoint in.
+     * @return The ID of the VPC that you want to create the Resolver endpoint in.
      */
 
     public String getHostVPCId() {
@@ -585,11 +761,11 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The ID of the VPC that you want to create the resolver endpoint in.
+     * The ID of the VPC that you want to create the Resolver endpoint in.
      * </p>
      * 
      * @param hostVPCId
-     *        The ID of the VPC that you want to create the resolver endpoint in.
+     *        The ID of the VPC that you want to create the Resolver endpoint in.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -600,11 +776,122 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A code that specifies the current status of the resolver endpoint.
+     * A code that specifies the current status of the Resolver endpoint. Valid values include the following:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>CREATING</code>: Resolver is creating and configuring one or more Amazon VPC network interfaces for this
+     * endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OPERATIONAL</code>: The Amazon VPC network interfaces for this endpoint are correctly configured and able
+     * to pass inbound or outbound DNS queries between your network and Resolver.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UPDATING</code>: Resolver is associating or disassociating one or more network interfaces with this
+     * endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AUTO_RECOVERING</code>: Resolver is trying to recover one or more of the network interfaces that are
+     * associated with this endpoint. During the recovery process, the endpoint functions with limited capacity because
+     * of the limit on the number of DNS queries per IP address (per network interface). For the current limit, see <a
+     * href
+     * ="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html#limits-api-entities-resolver">
+     * Limits on Route 53 Resolver</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ACTION_NEEDED</code>: This endpoint is unhealthy, and Resolver can't automatically recover it. To resolve
+     * the problem, we recommend that you check each IP address that you associated with the endpoint. For each IP
+     * address that isn't available, add another IP address and then delete the IP address that isn't available. (An
+     * endpoint must always include at least two IP addresses.) A status of <code>ACTION_NEEDED</code> can have a
+     * variety of causes. Here are two common causes:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * One or more of the network interfaces that are associated with the endpoint were deleted using Amazon VPC.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The network interface couldn't be created for some reason that's outside the control of Resolver.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DELETING</code>: Resolver is deleting this endpoint and the associated network interfaces.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param status
-     *        A code that specifies the current status of the resolver endpoint.
+     *        A code that specifies the current status of the Resolver endpoint. Valid values include the following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>CREATING</code>: Resolver is creating and configuring one or more Amazon VPC network interfaces for
+     *        this endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>OPERATIONAL</code>: The Amazon VPC network interfaces for this endpoint are correctly configured and
+     *        able to pass inbound or outbound DNS queries between your network and Resolver.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UPDATING</code>: Resolver is associating or disassociating one or more network interfaces with this
+     *        endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AUTO_RECOVERING</code>: Resolver is trying to recover one or more of the network interfaces that are
+     *        associated with this endpoint. During the recovery process, the endpoint functions with limited capacity
+     *        because of the limit on the number of DNS queries per IP address (per network interface). For the current
+     *        limit, see <a href=
+     *        "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html#limits-api-entities-resolver"
+     *        >Limits on Route 53 Resolver</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ACTION_NEEDED</code>: This endpoint is unhealthy, and Resolver can't automatically recover it. To
+     *        resolve the problem, we recommend that you check each IP address that you associated with the endpoint.
+     *        For each IP address that isn't available, add another IP address and then delete the IP address that isn't
+     *        available. (An endpoint must always include at least two IP addresses.) A status of
+     *        <code>ACTION_NEEDED</code> can have a variety of causes. Here are two common causes:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        One or more of the network interfaces that are associated with the endpoint were deleted using Amazon VPC.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The network interface couldn't be created for some reason that's outside the control of Resolver.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DELETING</code>: Resolver is deleting this endpoint and the associated network interfaces.
+     *        </p>
+     *        </li>
      * @see ResolverEndpointStatus
      */
 
@@ -614,10 +901,123 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A code that specifies the current status of the resolver endpoint.
+     * A code that specifies the current status of the Resolver endpoint. Valid values include the following:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>CREATING</code>: Resolver is creating and configuring one or more Amazon VPC network interfaces for this
+     * endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OPERATIONAL</code>: The Amazon VPC network interfaces for this endpoint are correctly configured and able
+     * to pass inbound or outbound DNS queries between your network and Resolver.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UPDATING</code>: Resolver is associating or disassociating one or more network interfaces with this
+     * endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AUTO_RECOVERING</code>: Resolver is trying to recover one or more of the network interfaces that are
+     * associated with this endpoint. During the recovery process, the endpoint functions with limited capacity because
+     * of the limit on the number of DNS queries per IP address (per network interface). For the current limit, see <a
+     * href
+     * ="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html#limits-api-entities-resolver">
+     * Limits on Route 53 Resolver</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ACTION_NEEDED</code>: This endpoint is unhealthy, and Resolver can't automatically recover it. To resolve
+     * the problem, we recommend that you check each IP address that you associated with the endpoint. For each IP
+     * address that isn't available, add another IP address and then delete the IP address that isn't available. (An
+     * endpoint must always include at least two IP addresses.) A status of <code>ACTION_NEEDED</code> can have a
+     * variety of causes. Here are two common causes:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * One or more of the network interfaces that are associated with the endpoint were deleted using Amazon VPC.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The network interface couldn't be created for some reason that's outside the control of Resolver.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DELETING</code>: Resolver is deleting this endpoint and the associated network interfaces.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return A code that specifies the current status of the resolver endpoint.
+     * @return A code that specifies the current status of the Resolver endpoint. Valid values include the
+     *         following:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>CREATING</code>: Resolver is creating and configuring one or more Amazon VPC network interfaces for
+     *         this endpoint.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>OPERATIONAL</code>: The Amazon VPC network interfaces for this endpoint are correctly configured
+     *         and able to pass inbound or outbound DNS queries between your network and Resolver.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>UPDATING</code>: Resolver is associating or disassociating one or more network interfaces with this
+     *         endpoint.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>AUTO_RECOVERING</code>: Resolver is trying to recover one or more of the network interfaces that
+     *         are associated with this endpoint. During the recovery process, the endpoint functions with limited
+     *         capacity because of the limit on the number of DNS queries per IP address (per network interface). For
+     *         the current limit, see <a href=
+     *         "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html#limits-api-entities-resolver"
+     *         >Limits on Route 53 Resolver</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ACTION_NEEDED</code>: This endpoint is unhealthy, and Resolver can't automatically recover it. To
+     *         resolve the problem, we recommend that you check each IP address that you associated with the endpoint.
+     *         For each IP address that isn't available, add another IP address and then delete the IP address that
+     *         isn't available. (An endpoint must always include at least two IP addresses.) A status of
+     *         <code>ACTION_NEEDED</code> can have a variety of causes. Here are two common causes:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         One or more of the network interfaces that are associated with the endpoint were deleted using Amazon
+     *         VPC.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The network interface couldn't be created for some reason that's outside the control of Resolver.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>DELETING</code>: Resolver is deleting this endpoint and the associated network interfaces.
+     *         </p>
+     *         </li>
      * @see ResolverEndpointStatus
      */
 
@@ -627,11 +1027,122 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A code that specifies the current status of the resolver endpoint.
+     * A code that specifies the current status of the Resolver endpoint. Valid values include the following:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>CREATING</code>: Resolver is creating and configuring one or more Amazon VPC network interfaces for this
+     * endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OPERATIONAL</code>: The Amazon VPC network interfaces for this endpoint are correctly configured and able
+     * to pass inbound or outbound DNS queries between your network and Resolver.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UPDATING</code>: Resolver is associating or disassociating one or more network interfaces with this
+     * endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AUTO_RECOVERING</code>: Resolver is trying to recover one or more of the network interfaces that are
+     * associated with this endpoint. During the recovery process, the endpoint functions with limited capacity because
+     * of the limit on the number of DNS queries per IP address (per network interface). For the current limit, see <a
+     * href
+     * ="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html#limits-api-entities-resolver">
+     * Limits on Route 53 Resolver</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ACTION_NEEDED</code>: This endpoint is unhealthy, and Resolver can't automatically recover it. To resolve
+     * the problem, we recommend that you check each IP address that you associated with the endpoint. For each IP
+     * address that isn't available, add another IP address and then delete the IP address that isn't available. (An
+     * endpoint must always include at least two IP addresses.) A status of <code>ACTION_NEEDED</code> can have a
+     * variety of causes. Here are two common causes:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * One or more of the network interfaces that are associated with the endpoint were deleted using Amazon VPC.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The network interface couldn't be created for some reason that's outside the control of Resolver.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DELETING</code>: Resolver is deleting this endpoint and the associated network interfaces.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param status
-     *        A code that specifies the current status of the resolver endpoint.
+     *        A code that specifies the current status of the Resolver endpoint. Valid values include the following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>CREATING</code>: Resolver is creating and configuring one or more Amazon VPC network interfaces for
+     *        this endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>OPERATIONAL</code>: The Amazon VPC network interfaces for this endpoint are correctly configured and
+     *        able to pass inbound or outbound DNS queries between your network and Resolver.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UPDATING</code>: Resolver is associating or disassociating one or more network interfaces with this
+     *        endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AUTO_RECOVERING</code>: Resolver is trying to recover one or more of the network interfaces that are
+     *        associated with this endpoint. During the recovery process, the endpoint functions with limited capacity
+     *        because of the limit on the number of DNS queries per IP address (per network interface). For the current
+     *        limit, see <a href=
+     *        "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html#limits-api-entities-resolver"
+     *        >Limits on Route 53 Resolver</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ACTION_NEEDED</code>: This endpoint is unhealthy, and Resolver can't automatically recover it. To
+     *        resolve the problem, we recommend that you check each IP address that you associated with the endpoint.
+     *        For each IP address that isn't available, add another IP address and then delete the IP address that isn't
+     *        available. (An endpoint must always include at least two IP addresses.) A status of
+     *        <code>ACTION_NEEDED</code> can have a variety of causes. Here are two common causes:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        One or more of the network interfaces that are associated with the endpoint were deleted using Amazon VPC.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The network interface couldn't be created for some reason that's outside the control of Resolver.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DELETING</code>: Resolver is deleting this endpoint and the associated network interfaces.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResolverEndpointStatus
      */
@@ -643,11 +1154,122 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A code that specifies the current status of the resolver endpoint.
+     * A code that specifies the current status of the Resolver endpoint. Valid values include the following:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>CREATING</code>: Resolver is creating and configuring one or more Amazon VPC network interfaces for this
+     * endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OPERATIONAL</code>: The Amazon VPC network interfaces for this endpoint are correctly configured and able
+     * to pass inbound or outbound DNS queries between your network and Resolver.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UPDATING</code>: Resolver is associating or disassociating one or more network interfaces with this
+     * endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AUTO_RECOVERING</code>: Resolver is trying to recover one or more of the network interfaces that are
+     * associated with this endpoint. During the recovery process, the endpoint functions with limited capacity because
+     * of the limit on the number of DNS queries per IP address (per network interface). For the current limit, see <a
+     * href
+     * ="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html#limits-api-entities-resolver">
+     * Limits on Route 53 Resolver</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ACTION_NEEDED</code>: This endpoint is unhealthy, and Resolver can't automatically recover it. To resolve
+     * the problem, we recommend that you check each IP address that you associated with the endpoint. For each IP
+     * address that isn't available, add another IP address and then delete the IP address that isn't available. (An
+     * endpoint must always include at least two IP addresses.) A status of <code>ACTION_NEEDED</code> can have a
+     * variety of causes. Here are two common causes:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * One or more of the network interfaces that are associated with the endpoint were deleted using Amazon VPC.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The network interface couldn't be created for some reason that's outside the control of Resolver.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DELETING</code>: Resolver is deleting this endpoint and the associated network interfaces.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param status
-     *        A code that specifies the current status of the resolver endpoint.
+     *        A code that specifies the current status of the Resolver endpoint. Valid values include the following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>CREATING</code>: Resolver is creating and configuring one or more Amazon VPC network interfaces for
+     *        this endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>OPERATIONAL</code>: The Amazon VPC network interfaces for this endpoint are correctly configured and
+     *        able to pass inbound or outbound DNS queries between your network and Resolver.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UPDATING</code>: Resolver is associating or disassociating one or more network interfaces with this
+     *        endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AUTO_RECOVERING</code>: Resolver is trying to recover one or more of the network interfaces that are
+     *        associated with this endpoint. During the recovery process, the endpoint functions with limited capacity
+     *        because of the limit on the number of DNS queries per IP address (per network interface). For the current
+     *        limit, see <a href=
+     *        "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html#limits-api-entities-resolver"
+     *        >Limits on Route 53 Resolver</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ACTION_NEEDED</code>: This endpoint is unhealthy, and Resolver can't automatically recover it. To
+     *        resolve the problem, we recommend that you check each IP address that you associated with the endpoint.
+     *        For each IP address that isn't available, add another IP address and then delete the IP address that isn't
+     *        available. (An endpoint must always include at least two IP addresses.) A status of
+     *        <code>ACTION_NEEDED</code> can have a variety of causes. Here are two common causes:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        One or more of the network interfaces that are associated with the endpoint were deleted using Amazon VPC.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The network interface couldn't be created for some reason that's outside the control of Resolver.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DELETING</code>: Resolver is deleting this endpoint and the associated network interfaces.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResolverEndpointStatus
      */
@@ -659,11 +1281,11 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A detailed description of the status of the resolver endpoint.
+     * A detailed description of the status of the Resolver endpoint.
      * </p>
      * 
      * @param statusMessage
-     *        A detailed description of the status of the resolver endpoint.
+     *        A detailed description of the status of the Resolver endpoint.
      */
 
     public void setStatusMessage(String statusMessage) {
@@ -672,10 +1294,10 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A detailed description of the status of the resolver endpoint.
+     * A detailed description of the status of the Resolver endpoint.
      * </p>
      * 
-     * @return A detailed description of the status of the resolver endpoint.
+     * @return A detailed description of the status of the Resolver endpoint.
      */
 
     public String getStatusMessage() {
@@ -684,11 +1306,11 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A detailed description of the status of the resolver endpoint.
+     * A detailed description of the status of the Resolver endpoint.
      * </p>
      * 
      * @param statusMessage
-     *        A detailed description of the status of the resolver endpoint.
+     *        A detailed description of the status of the Resolver endpoint.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -782,6 +1404,838 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
+     * <p>
+     * The ARN (Amazon Resource Name) for the Outpost.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The ARN (Amazon Resource Name) for the Outpost.
+     */
+
+    public void setOutpostArn(String outpostArn) {
+        this.outpostArn = outpostArn;
+    }
+
+    /**
+     * <p>
+     * The ARN (Amazon Resource Name) for the Outpost.
+     * </p>
+     * 
+     * @return The ARN (Amazon Resource Name) for the Outpost.
+     */
+
+    public String getOutpostArn() {
+        return this.outpostArn;
+    }
+
+    /**
+     * <p>
+     * The ARN (Amazon Resource Name) for the Outpost.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The ARN (Amazon Resource Name) for the Outpost.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResolverEndpoint withOutpostArn(String outpostArn) {
+        setOutpostArn(outpostArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon EC2 instance type.
+     * </p>
+     * 
+     * @param preferredInstanceType
+     *        The Amazon EC2 instance type.
+     */
+
+    public void setPreferredInstanceType(String preferredInstanceType) {
+        this.preferredInstanceType = preferredInstanceType;
+    }
+
+    /**
+     * <p>
+     * The Amazon EC2 instance type.
+     * </p>
+     * 
+     * @return The Amazon EC2 instance type.
+     */
+
+    public String getPreferredInstanceType() {
+        return this.preferredInstanceType;
+    }
+
+    /**
+     * <p>
+     * The Amazon EC2 instance type.
+     * </p>
+     * 
+     * @param preferredInstanceType
+     *        The Amazon EC2 instance type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResolverEndpoint withPreferredInstanceType(String preferredInstanceType) {
+        setPreferredInstanceType(preferredInstanceType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Resolver endpoint IP address type.
+     * </p>
+     * 
+     * @param resolverEndpointType
+     *        The Resolver endpoint IP address type.
+     * @see ResolverEndpointType
+     */
+
+    public void setResolverEndpointType(String resolverEndpointType) {
+        this.resolverEndpointType = resolverEndpointType;
+    }
+
+    /**
+     * <p>
+     * The Resolver endpoint IP address type.
+     * </p>
+     * 
+     * @return The Resolver endpoint IP address type.
+     * @see ResolverEndpointType
+     */
+
+    public String getResolverEndpointType() {
+        return this.resolverEndpointType;
+    }
+
+    /**
+     * <p>
+     * The Resolver endpoint IP address type.
+     * </p>
+     * 
+     * @param resolverEndpointType
+     *        The Resolver endpoint IP address type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ResolverEndpointType
+     */
+
+    public ResolverEndpoint withResolverEndpointType(String resolverEndpointType) {
+        setResolverEndpointType(resolverEndpointType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Resolver endpoint IP address type.
+     * </p>
+     * 
+     * @param resolverEndpointType
+     *        The Resolver endpoint IP address type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ResolverEndpointType
+     */
+
+    public ResolverEndpoint withResolverEndpointType(ResolverEndpointType resolverEndpointType) {
+        this.resolverEndpointType = resolverEndpointType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Protocols used for the endpoint. DoH-FIPS is applicable for inbound endpoints only.
+     * </p>
+     * <p>
+     * For an inbound endpoint you can apply the protocols as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Do53 and DoH in combination.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do53 and DoH-FIPS in combination.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do53 alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DoH alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DoH-FIPS alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * None, which is treated as Do53.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For an outbound endpoint you can apply the protocols as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Do53 and DoH in combination.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do53 alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DoH alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * None, which is treated as Do53.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Protocols used for the endpoint. DoH-FIPS is applicable for inbound endpoints only. </p>
+     *         <p>
+     *         For an inbound endpoint you can apply the protocols as follows:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Do53 and DoH in combination.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Do53 and DoH-FIPS in combination.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Do53 alone.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         DoH alone.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         DoH-FIPS alone.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         None, which is treated as Do53.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For an outbound endpoint you can apply the protocols as follows:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Do53 and DoH in combination.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Do53 alone.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         DoH alone.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         None, which is treated as Do53.
+     *         </p>
+     *         </li>
+     * @see Protocol
+     */
+
+    public java.util.List<String> getProtocols() {
+        return protocols;
+    }
+
+    /**
+     * <p>
+     * Protocols used for the endpoint. DoH-FIPS is applicable for inbound endpoints only.
+     * </p>
+     * <p>
+     * For an inbound endpoint you can apply the protocols as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Do53 and DoH in combination.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do53 and DoH-FIPS in combination.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do53 alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DoH alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DoH-FIPS alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * None, which is treated as Do53.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For an outbound endpoint you can apply the protocols as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Do53 and DoH in combination.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do53 alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DoH alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * None, which is treated as Do53.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param protocols
+     *        Protocols used for the endpoint. DoH-FIPS is applicable for inbound endpoints only. </p>
+     *        <p>
+     *        For an inbound endpoint you can apply the protocols as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Do53 and DoH in combination.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do53 and DoH-FIPS in combination.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do53 alone.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DoH alone.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DoH-FIPS alone.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        None, which is treated as Do53.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For an outbound endpoint you can apply the protocols as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Do53 and DoH in combination.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do53 alone.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DoH alone.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        None, which is treated as Do53.
+     *        </p>
+     *        </li>
+     * @see Protocol
+     */
+
+    public void setProtocols(java.util.Collection<String> protocols) {
+        if (protocols == null) {
+            this.protocols = null;
+            return;
+        }
+
+        this.protocols = new java.util.ArrayList<String>(protocols);
+    }
+
+    /**
+     * <p>
+     * Protocols used for the endpoint. DoH-FIPS is applicable for inbound endpoints only.
+     * </p>
+     * <p>
+     * For an inbound endpoint you can apply the protocols as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Do53 and DoH in combination.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do53 and DoH-FIPS in combination.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do53 alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DoH alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DoH-FIPS alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * None, which is treated as Do53.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For an outbound endpoint you can apply the protocols as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Do53 and DoH in combination.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do53 alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DoH alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * None, which is treated as Do53.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setProtocols(java.util.Collection)} or {@link #withProtocols(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param protocols
+     *        Protocols used for the endpoint. DoH-FIPS is applicable for inbound endpoints only. </p>
+     *        <p>
+     *        For an inbound endpoint you can apply the protocols as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Do53 and DoH in combination.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do53 and DoH-FIPS in combination.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do53 alone.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DoH alone.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DoH-FIPS alone.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        None, which is treated as Do53.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For an outbound endpoint you can apply the protocols as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Do53 and DoH in combination.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do53 alone.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DoH alone.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        None, which is treated as Do53.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Protocol
+     */
+
+    public ResolverEndpoint withProtocols(String... protocols) {
+        if (this.protocols == null) {
+            setProtocols(new java.util.ArrayList<String>(protocols.length));
+        }
+        for (String ele : protocols) {
+            this.protocols.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Protocols used for the endpoint. DoH-FIPS is applicable for inbound endpoints only.
+     * </p>
+     * <p>
+     * For an inbound endpoint you can apply the protocols as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Do53 and DoH in combination.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do53 and DoH-FIPS in combination.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do53 alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DoH alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DoH-FIPS alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * None, which is treated as Do53.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For an outbound endpoint you can apply the protocols as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Do53 and DoH in combination.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do53 alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DoH alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * None, which is treated as Do53.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param protocols
+     *        Protocols used for the endpoint. DoH-FIPS is applicable for inbound endpoints only. </p>
+     *        <p>
+     *        For an inbound endpoint you can apply the protocols as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Do53 and DoH in combination.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do53 and DoH-FIPS in combination.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do53 alone.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DoH alone.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DoH-FIPS alone.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        None, which is treated as Do53.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For an outbound endpoint you can apply the protocols as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Do53 and DoH in combination.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do53 alone.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DoH alone.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        None, which is treated as Do53.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Protocol
+     */
+
+    public ResolverEndpoint withProtocols(java.util.Collection<String> protocols) {
+        setProtocols(protocols);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Protocols used for the endpoint. DoH-FIPS is applicable for inbound endpoints only.
+     * </p>
+     * <p>
+     * For an inbound endpoint you can apply the protocols as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Do53 and DoH in combination.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do53 and DoH-FIPS in combination.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do53 alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DoH alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DoH-FIPS alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * None, which is treated as Do53.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For an outbound endpoint you can apply the protocols as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Do53 and DoH in combination.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do53 alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DoH alone.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * None, which is treated as Do53.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param protocols
+     *        Protocols used for the endpoint. DoH-FIPS is applicable for inbound endpoints only. </p>
+     *        <p>
+     *        For an inbound endpoint you can apply the protocols as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Do53 and DoH in combination.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do53 and DoH-FIPS in combination.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do53 alone.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DoH alone.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DoH-FIPS alone.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        None, which is treated as Do53.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For an outbound endpoint you can apply the protocols as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Do53 and DoH in combination.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do53 alone.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DoH alone.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        None, which is treated as Do53.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Protocol
+     */
+
+    public ResolverEndpoint withProtocols(Protocol... protocols) {
+        java.util.ArrayList<String> protocolsCopy = new java.util.ArrayList<String>(protocols.length);
+        for (Protocol value : protocols) {
+            protocolsCopy.add(value.toString());
+        }
+        if (getProtocols() == null) {
+            setProtocols(protocolsCopy);
+        } else {
+            getProtocols().addAll(protocolsCopy);
+        }
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -816,7 +2270,15 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
         if (getCreationTime() != null)
             sb.append("CreationTime: ").append(getCreationTime()).append(",");
         if (getModificationTime() != null)
-            sb.append("ModificationTime: ").append(getModificationTime());
+            sb.append("ModificationTime: ").append(getModificationTime()).append(",");
+        if (getOutpostArn() != null)
+            sb.append("OutpostArn: ").append(getOutpostArn()).append(",");
+        if (getPreferredInstanceType() != null)
+            sb.append("PreferredInstanceType: ").append(getPreferredInstanceType()).append(",");
+        if (getResolverEndpointType() != null)
+            sb.append("ResolverEndpointType: ").append(getResolverEndpointType()).append(",");
+        if (getProtocols() != null)
+            sb.append("Protocols: ").append(getProtocols());
         sb.append("}");
         return sb.toString();
     }
@@ -879,6 +2341,22 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getModificationTime() != null && other.getModificationTime().equals(this.getModificationTime()) == false)
             return false;
+        if (other.getOutpostArn() == null ^ this.getOutpostArn() == null)
+            return false;
+        if (other.getOutpostArn() != null && other.getOutpostArn().equals(this.getOutpostArn()) == false)
+            return false;
+        if (other.getPreferredInstanceType() == null ^ this.getPreferredInstanceType() == null)
+            return false;
+        if (other.getPreferredInstanceType() != null && other.getPreferredInstanceType().equals(this.getPreferredInstanceType()) == false)
+            return false;
+        if (other.getResolverEndpointType() == null ^ this.getResolverEndpointType() == null)
+            return false;
+        if (other.getResolverEndpointType() != null && other.getResolverEndpointType().equals(this.getResolverEndpointType()) == false)
+            return false;
+        if (other.getProtocols() == null ^ this.getProtocols() == null)
+            return false;
+        if (other.getProtocols() != null && other.getProtocols().equals(this.getProtocols()) == false)
+            return false;
         return true;
     }
 
@@ -899,6 +2377,10 @@ public class ResolverEndpoint implements Serializable, Cloneable, StructuredPojo
         hashCode = prime * hashCode + ((getStatusMessage() == null) ? 0 : getStatusMessage().hashCode());
         hashCode = prime * hashCode + ((getCreationTime() == null) ? 0 : getCreationTime().hashCode());
         hashCode = prime * hashCode + ((getModificationTime() == null) ? 0 : getModificationTime().hashCode());
+        hashCode = prime * hashCode + ((getOutpostArn() == null) ? 0 : getOutpostArn().hashCode());
+        hashCode = prime * hashCode + ((getPreferredInstanceType() == null) ? 0 : getPreferredInstanceType().hashCode());
+        hashCode = prime * hashCode + ((getResolverEndpointType() == null) ? 0 : getResolverEndpointType().hashCode());
+        hashCode = prime * hashCode + ((getProtocols() == null) ? 0 : getProtocols().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,10 +25,17 @@ public class AssignIpv6AddressesResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The IPv6 addresses assigned to the network interface.
+     * The new IPv6 addresses assigned to the network interface. Existing IPv6 addresses that were assigned to the
+     * network interface before the request are not included.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> assignedIpv6Addresses;
+    /**
+     * <p>
+     * The IPv6 prefixes that are assigned to the network interface.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> assignedIpv6Prefixes;
     /**
      * <p>
      * The ID of the network interface.
@@ -38,10 +45,12 @@ public class AssignIpv6AddressesResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The IPv6 addresses assigned to the network interface.
+     * The new IPv6 addresses assigned to the network interface. Existing IPv6 addresses that were assigned to the
+     * network interface before the request are not included.
      * </p>
      * 
-     * @return The IPv6 addresses assigned to the network interface.
+     * @return The new IPv6 addresses assigned to the network interface. Existing IPv6 addresses that were assigned to
+     *         the network interface before the request are not included.
      */
 
     public java.util.List<String> getAssignedIpv6Addresses() {
@@ -53,11 +62,13 @@ public class AssignIpv6AddressesResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The IPv6 addresses assigned to the network interface.
+     * The new IPv6 addresses assigned to the network interface. Existing IPv6 addresses that were assigned to the
+     * network interface before the request are not included.
      * </p>
      * 
      * @param assignedIpv6Addresses
-     *        The IPv6 addresses assigned to the network interface.
+     *        The new IPv6 addresses assigned to the network interface. Existing IPv6 addresses that were assigned to
+     *        the network interface before the request are not included.
      */
 
     public void setAssignedIpv6Addresses(java.util.Collection<String> assignedIpv6Addresses) {
@@ -71,7 +82,8 @@ public class AssignIpv6AddressesResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The IPv6 addresses assigned to the network interface.
+     * The new IPv6 addresses assigned to the network interface. Existing IPv6 addresses that were assigned to the
+     * network interface before the request are not included.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -80,7 +92,8 @@ public class AssignIpv6AddressesResult extends com.amazonaws.AmazonWebServiceRes
      * </p>
      * 
      * @param assignedIpv6Addresses
-     *        The IPv6 addresses assigned to the network interface.
+     *        The new IPv6 addresses assigned to the network interface. Existing IPv6 addresses that were assigned to
+     *        the network interface before the request are not included.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -96,16 +109,91 @@ public class AssignIpv6AddressesResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The IPv6 addresses assigned to the network interface.
+     * The new IPv6 addresses assigned to the network interface. Existing IPv6 addresses that were assigned to the
+     * network interface before the request are not included.
      * </p>
      * 
      * @param assignedIpv6Addresses
-     *        The IPv6 addresses assigned to the network interface.
+     *        The new IPv6 addresses assigned to the network interface. Existing IPv6 addresses that were assigned to
+     *        the network interface before the request are not included.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public AssignIpv6AddressesResult withAssignedIpv6Addresses(java.util.Collection<String> assignedIpv6Addresses) {
         setAssignedIpv6Addresses(assignedIpv6Addresses);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv6 prefixes that are assigned to the network interface.
+     * </p>
+     * 
+     * @return The IPv6 prefixes that are assigned to the network interface.
+     */
+
+    public java.util.List<String> getAssignedIpv6Prefixes() {
+        if (assignedIpv6Prefixes == null) {
+            assignedIpv6Prefixes = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return assignedIpv6Prefixes;
+    }
+
+    /**
+     * <p>
+     * The IPv6 prefixes that are assigned to the network interface.
+     * </p>
+     * 
+     * @param assignedIpv6Prefixes
+     *        The IPv6 prefixes that are assigned to the network interface.
+     */
+
+    public void setAssignedIpv6Prefixes(java.util.Collection<String> assignedIpv6Prefixes) {
+        if (assignedIpv6Prefixes == null) {
+            this.assignedIpv6Prefixes = null;
+            return;
+        }
+
+        this.assignedIpv6Prefixes = new com.amazonaws.internal.SdkInternalList<String>(assignedIpv6Prefixes);
+    }
+
+    /**
+     * <p>
+     * The IPv6 prefixes that are assigned to the network interface.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAssignedIpv6Prefixes(java.util.Collection)} or {@link #withAssignedIpv6Prefixes(java.util.Collection)}
+     * if you want to override the existing values.
+     * </p>
+     * 
+     * @param assignedIpv6Prefixes
+     *        The IPv6 prefixes that are assigned to the network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AssignIpv6AddressesResult withAssignedIpv6Prefixes(String... assignedIpv6Prefixes) {
+        if (this.assignedIpv6Prefixes == null) {
+            setAssignedIpv6Prefixes(new com.amazonaws.internal.SdkInternalList<String>(assignedIpv6Prefixes.length));
+        }
+        for (String ele : assignedIpv6Prefixes) {
+            this.assignedIpv6Prefixes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv6 prefixes that are assigned to the network interface.
+     * </p>
+     * 
+     * @param assignedIpv6Prefixes
+     *        The IPv6 prefixes that are assigned to the network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AssignIpv6AddressesResult withAssignedIpv6Prefixes(java.util.Collection<String> assignedIpv6Prefixes) {
+        setAssignedIpv6Prefixes(assignedIpv6Prefixes);
         return this;
     }
 
@@ -163,6 +251,8 @@ public class AssignIpv6AddressesResult extends com.amazonaws.AmazonWebServiceRes
         sb.append("{");
         if (getAssignedIpv6Addresses() != null)
             sb.append("AssignedIpv6Addresses: ").append(getAssignedIpv6Addresses()).append(",");
+        if (getAssignedIpv6Prefixes() != null)
+            sb.append("AssignedIpv6Prefixes: ").append(getAssignedIpv6Prefixes()).append(",");
         if (getNetworkInterfaceId() != null)
             sb.append("NetworkInterfaceId: ").append(getNetworkInterfaceId());
         sb.append("}");
@@ -183,6 +273,10 @@ public class AssignIpv6AddressesResult extends com.amazonaws.AmazonWebServiceRes
             return false;
         if (other.getAssignedIpv6Addresses() != null && other.getAssignedIpv6Addresses().equals(this.getAssignedIpv6Addresses()) == false)
             return false;
+        if (other.getAssignedIpv6Prefixes() == null ^ this.getAssignedIpv6Prefixes() == null)
+            return false;
+        if (other.getAssignedIpv6Prefixes() != null && other.getAssignedIpv6Prefixes().equals(this.getAssignedIpv6Prefixes()) == false)
+            return false;
         if (other.getNetworkInterfaceId() == null ^ this.getNetworkInterfaceId() == null)
             return false;
         if (other.getNetworkInterfaceId() != null && other.getNetworkInterfaceId().equals(this.getNetworkInterfaceId()) == false)
@@ -196,6 +290,7 @@ public class AssignIpv6AddressesResult extends com.amazonaws.AmazonWebServiceRes
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getAssignedIpv6Addresses() == null) ? 0 : getAssignedIpv6Addresses().hashCode());
+        hashCode = prime * hashCode + ((getAssignedIpv6Prefixes() == null) ? 0 : getAssignedIpv6Prefixes().hashCode());
         hashCode = prime * hashCode + ((getNetworkInterfaceId() == null) ? 0 : getNetworkInterfaceId().hashCode());
         return hashCode;
     }

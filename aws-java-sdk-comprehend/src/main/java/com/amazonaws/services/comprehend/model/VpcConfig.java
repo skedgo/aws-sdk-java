@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 /**
  * <p>
  * Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using
- * for the job. For For more information, see <a
+ * for the job. For more information, see <a
  * href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>.
  * </p>
  * 
@@ -43,7 +43,7 @@ public class VpcConfig implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The ID for each subnet being used in your private VPC. This subnet is a subset of the a range of IPv4 addresses
-     * used by the VPC and is specific to a given availability zone in the VPC’s region. This ID number is preceded by
+     * used by the VPC and is specific to a given availability zone in the VPC’s Region. This ID number is preceded by
      * "subnet-", for instance: "subnet-04ccf456919e69055". For more information, see <a
      * href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html">VPCs and Subnets</a>.
      * </p>
@@ -159,13 +159,13 @@ public class VpcConfig implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The ID for each subnet being used in your private VPC. This subnet is a subset of the a range of IPv4 addresses
-     * used by the VPC and is specific to a given availability zone in the VPC’s region. This ID number is preceded by
+     * used by the VPC and is specific to a given availability zone in the VPC’s Region. This ID number is preceded by
      * "subnet-", for instance: "subnet-04ccf456919e69055". For more information, see <a
      * href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html">VPCs and Subnets</a>.
      * </p>
      * 
      * @return The ID for each subnet being used in your private VPC. This subnet is a subset of the a range of IPv4
-     *         addresses used by the VPC and is specific to a given availability zone in the VPC’s region. This ID
+     *         addresses used by the VPC and is specific to a given availability zone in the VPC’s Region. This ID
      *         number is preceded by "subnet-", for instance: "subnet-04ccf456919e69055". For more information, see <a
      *         href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html">VPCs and Subnets</a>.
      */
@@ -177,14 +177,14 @@ public class VpcConfig implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The ID for each subnet being used in your private VPC. This subnet is a subset of the a range of IPv4 addresses
-     * used by the VPC and is specific to a given availability zone in the VPC’s region. This ID number is preceded by
+     * used by the VPC and is specific to a given availability zone in the VPC’s Region. This ID number is preceded by
      * "subnet-", for instance: "subnet-04ccf456919e69055". For more information, see <a
      * href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html">VPCs and Subnets</a>.
      * </p>
      * 
      * @param subnets
      *        The ID for each subnet being used in your private VPC. This subnet is a subset of the a range of IPv4
-     *        addresses used by the VPC and is specific to a given availability zone in the VPC’s region. This ID number
+     *        addresses used by the VPC and is specific to a given availability zone in the VPC’s Region. This ID number
      *        is preceded by "subnet-", for instance: "subnet-04ccf456919e69055". For more information, see <a
      *        href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html">VPCs and Subnets</a>.
      */
@@ -201,7 +201,7 @@ public class VpcConfig implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The ID for each subnet being used in your private VPC. This subnet is a subset of the a range of IPv4 addresses
-     * used by the VPC and is specific to a given availability zone in the VPC’s region. This ID number is preceded by
+     * used by the VPC and is specific to a given availability zone in the VPC’s Region. This ID number is preceded by
      * "subnet-", for instance: "subnet-04ccf456919e69055". For more information, see <a
      * href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html">VPCs and Subnets</a>.
      * </p>
@@ -213,7 +213,7 @@ public class VpcConfig implements Serializable, Cloneable, StructuredPojo {
      * 
      * @param subnets
      *        The ID for each subnet being used in your private VPC. This subnet is a subset of the a range of IPv4
-     *        addresses used by the VPC and is specific to a given availability zone in the VPC’s region. This ID number
+     *        addresses used by the VPC and is specific to a given availability zone in the VPC’s Region. This ID number
      *        is preceded by "subnet-", for instance: "subnet-04ccf456919e69055". For more information, see <a
      *        href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html">VPCs and Subnets</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -232,14 +232,14 @@ public class VpcConfig implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The ID for each subnet being used in your private VPC. This subnet is a subset of the a range of IPv4 addresses
-     * used by the VPC and is specific to a given availability zone in the VPC’s region. This ID number is preceded by
+     * used by the VPC and is specific to a given availability zone in the VPC’s Region. This ID number is preceded by
      * "subnet-", for instance: "subnet-04ccf456919e69055". For more information, see <a
      * href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html">VPCs and Subnets</a>.
      * </p>
      * 
      * @param subnets
      *        The ID for each subnet being used in your private VPC. This subnet is a subset of the a range of IPv4
-     *        addresses used by the VPC and is specific to a given availability zone in the VPC’s region. This ID number
+     *        addresses used by the VPC and is specific to a given availability zone in the VPC’s Region. This ID number
      *        is preceded by "subnet-", for instance: "subnet-04ccf456919e69055". For more information, see <a
      *        href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html">VPCs and Subnets</a>.
      * @return Returns a reference to this object so that method calls can be chained together.

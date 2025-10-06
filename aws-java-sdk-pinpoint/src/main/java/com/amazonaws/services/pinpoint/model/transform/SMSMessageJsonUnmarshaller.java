@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -56,6 +56,10 @@ public class SMSMessageJsonUnmarshaller implements Unmarshaller<SMSMessage, Json
                     context.nextToken();
                     sMSMessage.setKeyword(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("MediaUrl", targetDepth)) {
+                    context.nextToken();
+                    sMSMessage.setMediaUrl(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("MessageType", targetDepth)) {
                     context.nextToken();
                     sMSMessage.setMessageType(context.getUnmarshaller(String.class).unmarshall(context));
@@ -71,7 +75,17 @@ public class SMSMessageJsonUnmarshaller implements Unmarshaller<SMSMessage, Json
                 if (context.testExpression("Substitutions", targetDepth)) {
                     context.nextToken();
                     sMSMessage.setSubstitutions(new MapUnmarshaller<String, java.util.List<String>>(context.getUnmarshaller(String.class),
-                            new ListUnmarshaller<String>(context.getUnmarshaller(String.class))).unmarshall(context));
+                            new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    ).unmarshall(context));
+                }
+                if (context.testExpression("EntityId", targetDepth)) {
+                    context.nextToken();
+                    sMSMessage.setEntityId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("TemplateId", targetDepth)) {
+                    context.nextToken();
+                    sMSMessage.setTemplateId(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

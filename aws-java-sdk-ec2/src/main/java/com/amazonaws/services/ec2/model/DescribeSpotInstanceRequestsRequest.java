@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -87,9 +87,10 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      * </li>
      * <li>
      * <p>
-     * <code>launch.block-device-mapping.volume-type</code> - The type of EBS volume: <code>gp2</code> for General
-     * Purpose SSD, <code>io1</code> for Provisioned IOPS SSD, <code>st1</code> for Throughput Optimized HDD,
-     * <code>sc1</code>for Cold HDD, or <code>standard</code> for Magnetic.
+     * <code>launch.block-device-mapping.volume-type</code> - The type of EBS volume: <code>gp2</code> or
+     * <code>gp3</code> for General Purpose SSD, <code>io1</code> or <code>io2</code> for Provisioned IOPS SSD,
+     * <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code> for
+     * Magnetic.
      * </p>
      * </li>
      * <li>
@@ -201,8 +202,8 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      * <code>state</code> - The state of the Spot Instance request (<code>open</code> | <code>active</code> |
      * <code>closed</code> | <code>cancelled</code> | <code>failed</code>). Spot request status information can help you
      * track your Amazon EC2 Spot Instance requests. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html">Spot Request Status</a> in the
-     * <i>Amazon EC2 User Guide for Linux Instances</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html">Spot request status</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * </li>
      * <li>
@@ -217,7 +218,7 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      * </li>
      * <li>
      * <p>
-     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag key in
      * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
      * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
      * and <code>TeamA</code> for the filter value.
@@ -249,28 +250,29 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
     private com.amazonaws.internal.SdkInternalList<Filter> filters;
     /**
      * <p>
-     * One or more Spot Instance request IDs.
+     * The IDs of the Spot Instance requests.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> spotInstanceRequestIds;
     /**
      * <p>
-     * The token to request the next set of results. This value is <code>null</code> when there are no more results to
-     * return.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * The maximum number of results to return in a single call. Specify a value between 5 and 1000. To retrieve the
-     * remaining results, make another call with the returned <code>NextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      */
     private Integer maxResults;
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -327,9 +329,10 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      * </li>
      * <li>
      * <p>
-     * <code>launch.block-device-mapping.volume-type</code> - The type of EBS volume: <code>gp2</code> for General
-     * Purpose SSD, <code>io1</code> for Provisioned IOPS SSD, <code>st1</code> for Throughput Optimized HDD,
-     * <code>sc1</code>for Cold HDD, or <code>standard</code> for Magnetic.
+     * <code>launch.block-device-mapping.volume-type</code> - The type of EBS volume: <code>gp2</code> or
+     * <code>gp3</code> for General Purpose SSD, <code>io1</code> or <code>io2</code> for Provisioned IOPS SSD,
+     * <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code> for
+     * Magnetic.
      * </p>
      * </li>
      * <li>
@@ -441,8 +444,8 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      * <code>state</code> - The state of the Spot Instance request (<code>open</code> | <code>active</code> |
      * <code>closed</code> | <code>cancelled</code> | <code>failed</code>). Spot request status information can help you
      * track your Amazon EC2 Spot Instance requests. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html">Spot Request Status</a> in the
-     * <i>Amazon EC2 User Guide for Linux Instances</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html">Spot request status</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * </li>
      * <li>
@@ -457,7 +460,7 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      * </li>
      * <li>
      * <p>
-     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag key in
      * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
      * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
      * and <code>TeamA</code> for the filter value.
@@ -486,7 +489,7 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      * </li>
      * </ul>
      * 
-     * @return One or more filters.</p>
+     * @return The filters.</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -542,9 +545,10 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      *         </li>
      *         <li>
      *         <p>
-     *         <code>launch.block-device-mapping.volume-type</code> - The type of EBS volume: <code>gp2</code> for
-     *         General Purpose SSD, <code>io1</code> for Provisioned IOPS SSD, <code>st1</code> for Throughput Optimized
-     *         HDD, <code>sc1</code>for Cold HDD, or <code>standard</code> for Magnetic.
+     *         <code>launch.block-device-mapping.volume-type</code> - The type of EBS volume: <code>gp2</code> or
+     *         <code>gp3</code> for General Purpose SSD, <code>io1</code> or <code>io2</code> for Provisioned IOPS SSD,
+     *         <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code>
+     *         for Magnetic.
      *         </p>
      *         </li>
      *         <li>
@@ -658,8 +662,8 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      *         <code>state</code> - The state of the Spot Instance request (<code>open</code> | <code>active</code> |
      *         <code>closed</code> | <code>cancelled</code> | <code>failed</code>). Spot request status information can
      *         help you track your Amazon EC2 Spot Instance requests. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html">Spot Request Status</a>
-     *         in the <i>Amazon EC2 User Guide for Linux Instances</i>.
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html">Spot request
+     *         status</a> in the <i>Amazon EC2 User Guide</i>.
      *         </p>
      *         </li>
      *         <li>
@@ -675,7 +679,7 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      *         </li>
      *         <li>
      *         <p>
-     *         <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *         <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag
      *         key in the filter name and the tag value as the filter value. For example, to find all resources that
      *         have a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify
      *         <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter value.
@@ -713,7 +717,7 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -770,9 +774,10 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      * </li>
      * <li>
      * <p>
-     * <code>launch.block-device-mapping.volume-type</code> - The type of EBS volume: <code>gp2</code> for General
-     * Purpose SSD, <code>io1</code> for Provisioned IOPS SSD, <code>st1</code> for Throughput Optimized HDD,
-     * <code>sc1</code>for Cold HDD, or <code>standard</code> for Magnetic.
+     * <code>launch.block-device-mapping.volume-type</code> - The type of EBS volume: <code>gp2</code> or
+     * <code>gp3</code> for General Purpose SSD, <code>io1</code> or <code>io2</code> for Provisioned IOPS SSD,
+     * <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code> for
+     * Magnetic.
      * </p>
      * </li>
      * <li>
@@ -884,8 +889,8 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      * <code>state</code> - The state of the Spot Instance request (<code>open</code> | <code>active</code> |
      * <code>closed</code> | <code>cancelled</code> | <code>failed</code>). Spot request status information can help you
      * track your Amazon EC2 Spot Instance requests. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html">Spot Request Status</a> in the
-     * <i>Amazon EC2 User Guide for Linux Instances</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html">Spot request status</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * </li>
      * <li>
@@ -900,7 +905,7 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      * </li>
      * <li>
      * <p>
-     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag key in
      * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
      * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
      * and <code>TeamA</code> for the filter value.
@@ -930,7 +935,7 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      * </ul>
      * 
      * @param filters
-     *        One or more filters.</p>
+     *        The filters.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -986,9 +991,10 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      *        </li>
      *        <li>
      *        <p>
-     *        <code>launch.block-device-mapping.volume-type</code> - The type of EBS volume: <code>gp2</code> for
-     *        General Purpose SSD, <code>io1</code> for Provisioned IOPS SSD, <code>st1</code> for Throughput Optimized
-     *        HDD, <code>sc1</code>for Cold HDD, or <code>standard</code> for Magnetic.
+     *        <code>launch.block-device-mapping.volume-type</code> - The type of EBS volume: <code>gp2</code> or
+     *        <code>gp3</code> for General Purpose SSD, <code>io1</code> or <code>io2</code> for Provisioned IOPS SSD,
+     *        <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code> for
+     *        Magnetic.
      *        </p>
      *        </li>
      *        <li>
@@ -1102,8 +1108,8 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      *        <code>state</code> - The state of the Spot Instance request (<code>open</code> | <code>active</code> |
      *        <code>closed</code> | <code>cancelled</code> | <code>failed</code>). Spot request status information can
      *        help you track your Amazon EC2 Spot Instance requests. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html">Spot Request Status</a> in
-     *        the <i>Amazon EC2 User Guide for Linux Instances</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html">Spot request
+     *        status</a> in the <i>Amazon EC2 User Guide</i>.
      *        </p>
      *        </li>
      *        <li>
@@ -1119,7 +1125,7 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      *        </li>
      *        <li>
      *        <p>
-     *        <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *        <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag
      *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
      *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
      *        the filter name and <code>TeamA</code> for the filter value.
@@ -1159,7 +1165,7 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -1216,9 +1222,10 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      * </li>
      * <li>
      * <p>
-     * <code>launch.block-device-mapping.volume-type</code> - The type of EBS volume: <code>gp2</code> for General
-     * Purpose SSD, <code>io1</code> for Provisioned IOPS SSD, <code>st1</code> for Throughput Optimized HDD,
-     * <code>sc1</code>for Cold HDD, or <code>standard</code> for Magnetic.
+     * <code>launch.block-device-mapping.volume-type</code> - The type of EBS volume: <code>gp2</code> or
+     * <code>gp3</code> for General Purpose SSD, <code>io1</code> or <code>io2</code> for Provisioned IOPS SSD,
+     * <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code> for
+     * Magnetic.
      * </p>
      * </li>
      * <li>
@@ -1330,8 +1337,8 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      * <code>state</code> - The state of the Spot Instance request (<code>open</code> | <code>active</code> |
      * <code>closed</code> | <code>cancelled</code> | <code>failed</code>). Spot request status information can help you
      * track your Amazon EC2 Spot Instance requests. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html">Spot Request Status</a> in the
-     * <i>Amazon EC2 User Guide for Linux Instances</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html">Spot request status</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * </li>
      * <li>
@@ -1346,7 +1353,7 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      * </li>
      * <li>
      * <p>
-     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag key in
      * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
      * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
      * and <code>TeamA</code> for the filter value.
@@ -1381,7 +1388,7 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      * </p>
      * 
      * @param filters
-     *        One or more filters.</p>
+     *        The filters.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1437,9 +1444,10 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      *        </li>
      *        <li>
      *        <p>
-     *        <code>launch.block-device-mapping.volume-type</code> - The type of EBS volume: <code>gp2</code> for
-     *        General Purpose SSD, <code>io1</code> for Provisioned IOPS SSD, <code>st1</code> for Throughput Optimized
-     *        HDD, <code>sc1</code>for Cold HDD, or <code>standard</code> for Magnetic.
+     *        <code>launch.block-device-mapping.volume-type</code> - The type of EBS volume: <code>gp2</code> or
+     *        <code>gp3</code> for General Purpose SSD, <code>io1</code> or <code>io2</code> for Provisioned IOPS SSD,
+     *        <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code> for
+     *        Magnetic.
      *        </p>
      *        </li>
      *        <li>
@@ -1553,8 +1561,8 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      *        <code>state</code> - The state of the Spot Instance request (<code>open</code> | <code>active</code> |
      *        <code>closed</code> | <code>cancelled</code> | <code>failed</code>). Spot request status information can
      *        help you track your Amazon EC2 Spot Instance requests. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html">Spot Request Status</a> in
-     *        the <i>Amazon EC2 User Guide for Linux Instances</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html">Spot request
+     *        status</a> in the <i>Amazon EC2 User Guide</i>.
      *        </p>
      *        </li>
      *        <li>
@@ -1570,7 +1578,7 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      *        </li>
      *        <li>
      *        <p>
-     *        <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *        <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag
      *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
      *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
      *        the filter name and <code>TeamA</code> for the filter value.
@@ -1612,7 +1620,7 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -1669,9 +1677,10 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      * </li>
      * <li>
      * <p>
-     * <code>launch.block-device-mapping.volume-type</code> - The type of EBS volume: <code>gp2</code> for General
-     * Purpose SSD, <code>io1</code> for Provisioned IOPS SSD, <code>st1</code> for Throughput Optimized HDD,
-     * <code>sc1</code>for Cold HDD, or <code>standard</code> for Magnetic.
+     * <code>launch.block-device-mapping.volume-type</code> - The type of EBS volume: <code>gp2</code> or
+     * <code>gp3</code> for General Purpose SSD, <code>io1</code> or <code>io2</code> for Provisioned IOPS SSD,
+     * <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code> for
+     * Magnetic.
      * </p>
      * </li>
      * <li>
@@ -1783,8 +1792,8 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      * <code>state</code> - The state of the Spot Instance request (<code>open</code> | <code>active</code> |
      * <code>closed</code> | <code>cancelled</code> | <code>failed</code>). Spot request status information can help you
      * track your Amazon EC2 Spot Instance requests. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html">Spot Request Status</a> in the
-     * <i>Amazon EC2 User Guide for Linux Instances</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html">Spot request status</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * </li>
      * <li>
@@ -1799,7 +1808,7 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      * </li>
      * <li>
      * <p>
-     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag key in
      * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
      * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
      * and <code>TeamA</code> for the filter value.
@@ -1829,7 +1838,7 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      * </ul>
      * 
      * @param filters
-     *        One or more filters.</p>
+     *        The filters.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1885,9 +1894,10 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      *        </li>
      *        <li>
      *        <p>
-     *        <code>launch.block-device-mapping.volume-type</code> - The type of EBS volume: <code>gp2</code> for
-     *        General Purpose SSD, <code>io1</code> for Provisioned IOPS SSD, <code>st1</code> for Throughput Optimized
-     *        HDD, <code>sc1</code>for Cold HDD, or <code>standard</code> for Magnetic.
+     *        <code>launch.block-device-mapping.volume-type</code> - The type of EBS volume: <code>gp2</code> or
+     *        <code>gp3</code> for General Purpose SSD, <code>io1</code> or <code>io2</code> for Provisioned IOPS SSD,
+     *        <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code> for
+     *        Magnetic.
      *        </p>
      *        </li>
      *        <li>
@@ -2001,8 +2011,8 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      *        <code>state</code> - The state of the Spot Instance request (<code>open</code> | <code>active</code> |
      *        <code>closed</code> | <code>cancelled</code> | <code>failed</code>). Spot request status information can
      *        help you track your Amazon EC2 Spot Instance requests. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html">Spot Request Status</a> in
-     *        the <i>Amazon EC2 User Guide for Linux Instances</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html">Spot request
+     *        status</a> in the <i>Amazon EC2 User Guide</i>.
      *        </p>
      *        </li>
      *        <li>
@@ -2018,7 +2028,7 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      *        </li>
      *        <li>
      *        <p>
-     *        <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *        <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag
      *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
      *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
      *        the filter name and <code>TeamA</code> for the filter value.
@@ -2055,10 +2065,10 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * One or more Spot Instance request IDs.
+     * The IDs of the Spot Instance requests.
      * </p>
      * 
-     * @return One or more Spot Instance request IDs.
+     * @return The IDs of the Spot Instance requests.
      */
 
     public java.util.List<String> getSpotInstanceRequestIds() {
@@ -2070,11 +2080,11 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * One or more Spot Instance request IDs.
+     * The IDs of the Spot Instance requests.
      * </p>
      * 
      * @param spotInstanceRequestIds
-     *        One or more Spot Instance request IDs.
+     *        The IDs of the Spot Instance requests.
      */
 
     public void setSpotInstanceRequestIds(java.util.Collection<String> spotInstanceRequestIds) {
@@ -2088,7 +2098,7 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * One or more Spot Instance request IDs.
+     * The IDs of the Spot Instance requests.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -2097,7 +2107,7 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
      * </p>
      * 
      * @param spotInstanceRequestIds
-     *        One or more Spot Instance request IDs.
+     *        The IDs of the Spot Instance requests.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2113,11 +2123,11 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * One or more Spot Instance request IDs.
+     * The IDs of the Spot Instance requests.
      * </p>
      * 
      * @param spotInstanceRequestIds
-     *        One or more Spot Instance request IDs.
+     *        The IDs of the Spot Instance requests.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2128,13 +2138,13 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The token to request the next set of results. This value is <code>null</code> when there are no more results to
-     * return.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
      * @param nextToken
-     *        The token to request the next set of results. This value is <code>null</code> when there are no more
-     *        results to return.
+     *        The token returned from a previous paginated request. Pagination continues from the end of the items
+     *        returned by the previous request.
      */
 
     public void setNextToken(String nextToken) {
@@ -2143,12 +2153,12 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The token to request the next set of results. This value is <code>null</code> when there are no more results to
-     * return.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
-     * @return The token to request the next set of results. This value is <code>null</code> when there are no more
-     *         results to return.
+     * @return The token returned from a previous paginated request. Pagination continues from the end of the items
+     *         returned by the previous request.
      */
 
     public String getNextToken() {
@@ -2157,13 +2167,13 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The token to request the next set of results. This value is <code>null</code> when there are no more results to
-     * return.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
      * @param nextToken
-     *        The token to request the next set of results. This value is <code>null</code> when there are no more
-     *        results to return.
+     *        The token returned from a previous paginated request. Pagination continues from the end of the items
+     *        returned by the previous request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2174,13 +2184,16 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The maximum number of results to return in a single call. Specify a value between 5 and 1000. To retrieve the
-     * remaining results, make another call with the returned <code>NextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return in a single call. Specify a value between 5 and 1000. To retrieve
-     *        the remaining results, make another call with the returned <code>NextToken</code> value.
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -2189,12 +2202,15 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The maximum number of results to return in a single call. Specify a value between 5 and 1000. To retrieve the
-     * remaining results, make another call with the returned <code>NextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
-     * @return The maximum number of results to return in a single call. Specify a value between 5 and 1000. To retrieve
-     *         the remaining results, make another call with the returned <code>NextToken</code> value.
+     * @return The maximum number of items to return for this request. To get the next page of items, make another
+     *         request with the token returned in the output. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *         >Pagination</a>.
      */
 
     public Integer getMaxResults() {
@@ -2203,13 +2219,16 @@ public class DescribeSpotInstanceRequestsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The maximum number of results to return in a single call. Specify a value between 5 and 1000. To retrieve the
-     * remaining results, make another call with the returned <code>NextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return in a single call. Specify a value between 5 and 1000. To retrieve
-     *        the remaining results, make another call with the returned <code>NextToken</code> value.
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,6 +43,26 @@ public class CreateGraphqlApiRequestMarshaller {
             .marshallLocationName("tags").build();
     private static final MarshallingInfo<List> ADDITIONALAUTHENTICATIONPROVIDERS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("additionalAuthenticationProviders").build();
+    private static final MarshallingInfo<Boolean> XRAYENABLED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("xrayEnabled").build();
+    private static final MarshallingInfo<StructuredPojo> LAMBDAAUTHORIZERCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("lambdaAuthorizerConfig").build();
+    private static final MarshallingInfo<String> VISIBILITY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("visibility").build();
+    private static final MarshallingInfo<String> APITYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("apiType").build();
+    private static final MarshallingInfo<String> MERGEDAPIEXECUTIONROLEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("mergedApiExecutionRoleArn").build();
+    private static final MarshallingInfo<String> OWNERCONTACT_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ownerContact").build();
+    private static final MarshallingInfo<String> INTROSPECTIONCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("introspectionConfig").build();
+    private static final MarshallingInfo<Integer> QUERYDEPTHLIMIT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("queryDepthLimit").build();
+    private static final MarshallingInfo<Integer> RESOLVERCOUNTLIMIT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("resolverCountLimit").build();
+    private static final MarshallingInfo<StructuredPojo> ENHANCEDMETRICSCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("enhancedMetricsConfig").build();
 
     private static final CreateGraphqlApiRequestMarshaller instance = new CreateGraphqlApiRequestMarshaller();
 
@@ -67,6 +87,16 @@ public class CreateGraphqlApiRequestMarshaller {
             protocolMarshaller.marshall(createGraphqlApiRequest.getOpenIDConnectConfig(), OPENIDCONNECTCONFIG_BINDING);
             protocolMarshaller.marshall(createGraphqlApiRequest.getTags(), TAGS_BINDING);
             protocolMarshaller.marshall(createGraphqlApiRequest.getAdditionalAuthenticationProviders(), ADDITIONALAUTHENTICATIONPROVIDERS_BINDING);
+            protocolMarshaller.marshall(createGraphqlApiRequest.getXrayEnabled(), XRAYENABLED_BINDING);
+            protocolMarshaller.marshall(createGraphqlApiRequest.getLambdaAuthorizerConfig(), LAMBDAAUTHORIZERCONFIG_BINDING);
+            protocolMarshaller.marshall(createGraphqlApiRequest.getVisibility(), VISIBILITY_BINDING);
+            protocolMarshaller.marshall(createGraphqlApiRequest.getApiType(), APITYPE_BINDING);
+            protocolMarshaller.marshall(createGraphqlApiRequest.getMergedApiExecutionRoleArn(), MERGEDAPIEXECUTIONROLEARN_BINDING);
+            protocolMarshaller.marshall(createGraphqlApiRequest.getOwnerContact(), OWNERCONTACT_BINDING);
+            protocolMarshaller.marshall(createGraphqlApiRequest.getIntrospectionConfig(), INTROSPECTIONCONFIG_BINDING);
+            protocolMarshaller.marshall(createGraphqlApiRequest.getQueryDepthLimit(), QUERYDEPTHLIMIT_BINDING);
+            protocolMarshaller.marshall(createGraphqlApiRequest.getResolverCountLimit(), RESOLVERCOUNTLIMIT_BINDING);
+            protocolMarshaller.marshall(createGraphqlApiRequest.getEnhancedMetricsConfig(), ENHANCEDMETRICSCONFIG_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

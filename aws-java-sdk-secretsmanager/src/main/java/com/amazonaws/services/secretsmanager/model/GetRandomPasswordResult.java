@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,18 +25,18 @@ public class GetRandomPasswordResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * A string with the generated password.
+     * A string with the password.
      * </p>
      */
     private String randomPassword;
 
     /**
      * <p>
-     * A string with the generated password.
+     * A string with the password.
      * </p>
      * 
      * @param randomPassword
-     *        A string with the generated password.
+     *        A string with the password.
      */
 
     public void setRandomPassword(String randomPassword) {
@@ -45,10 +45,10 @@ public class GetRandomPasswordResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * A string with the generated password.
+     * A string with the password.
      * </p>
      * 
-     * @return A string with the generated password.
+     * @return A string with the password.
      */
 
     public String getRandomPassword() {
@@ -57,11 +57,11 @@ public class GetRandomPasswordResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * A string with the generated password.
+     * A string with the password.
      * </p>
      * 
      * @param randomPassword
-     *        A string with the generated password.
+     *        A string with the password.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

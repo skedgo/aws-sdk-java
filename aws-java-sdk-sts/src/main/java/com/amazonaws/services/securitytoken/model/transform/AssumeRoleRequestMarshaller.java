@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -58,9 +58,11 @@ public class AssumeRoleRequestMarshaller implements Marshaller<Request<AssumeRol
                 int policyArnsListIndex = 1;
 
                 for (PolicyDescriptorType policyArnsListValue : policyArnsList) {
+                    if (policyArnsListValue != null) {
 
-                    if (policyArnsListValue.getArn() != null) {
-                        request.addParameter("PolicyArns.member." + policyArnsListIndex + ".arn", StringUtils.fromString(policyArnsListValue.getArn()));
+                        if (policyArnsListValue.getArn() != null) {
+                            request.addParameter("PolicyArns.member." + policyArnsListIndex + ".arn", StringUtils.fromString(policyArnsListValue.getArn()));
+                        }
                     }
                     policyArnsListIndex++;
                 }
@@ -75,6 +77,45 @@ public class AssumeRoleRequestMarshaller implements Marshaller<Request<AssumeRol
             request.addParameter("DurationSeconds", StringUtils.fromInteger(assumeRoleRequest.getDurationSeconds()));
         }
 
+        if (assumeRoleRequest.getTags() != null) {
+            java.util.List<Tag> tagsList = assumeRoleRequest.getTags();
+            if (tagsList.isEmpty()) {
+                request.addParameter("Tags", "");
+            } else {
+                int tagsListIndex = 1;
+
+                for (Tag tagsListValue : tagsList) {
+                    if (tagsListValue != null) {
+
+                        if (tagsListValue.getKey() != null) {
+                            request.addParameter("Tags.member." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
+                        }
+
+                        if (tagsListValue.getValue() != null) {
+                            request.addParameter("Tags.member." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                        }
+                    }
+                    tagsListIndex++;
+                }
+            }
+        }
+
+        if (assumeRoleRequest.getTransitiveTagKeys() != null) {
+            java.util.List<String> transitiveTagKeysList = assumeRoleRequest.getTransitiveTagKeys();
+            if (transitiveTagKeysList.isEmpty()) {
+                request.addParameter("TransitiveTagKeys", "");
+            } else {
+                int transitiveTagKeysListIndex = 1;
+
+                for (String transitiveTagKeysListValue : transitiveTagKeysList) {
+                    if (transitiveTagKeysListValue != null) {
+                        request.addParameter("TransitiveTagKeys.member." + transitiveTagKeysListIndex, StringUtils.fromString(transitiveTagKeysListValue));
+                    }
+                    transitiveTagKeysListIndex++;
+                }
+            }
+        }
+
         if (assumeRoleRequest.getExternalId() != null) {
             request.addParameter("ExternalId", StringUtils.fromString(assumeRoleRequest.getExternalId()));
         }
@@ -85,6 +126,35 @@ public class AssumeRoleRequestMarshaller implements Marshaller<Request<AssumeRol
 
         if (assumeRoleRequest.getTokenCode() != null) {
             request.addParameter("TokenCode", StringUtils.fromString(assumeRoleRequest.getTokenCode()));
+        }
+
+        if (assumeRoleRequest.getSourceIdentity() != null) {
+            request.addParameter("SourceIdentity", StringUtils.fromString(assumeRoleRequest.getSourceIdentity()));
+        }
+
+        if (assumeRoleRequest.getProvidedContexts() != null) {
+            java.util.List<ProvidedContext> providedContextsList = assumeRoleRequest.getProvidedContexts();
+            if (providedContextsList.isEmpty()) {
+                request.addParameter("ProvidedContexts", "");
+            } else {
+                int providedContextsListIndex = 1;
+
+                for (ProvidedContext providedContextsListValue : providedContextsList) {
+                    if (providedContextsListValue != null) {
+
+                        if (providedContextsListValue.getProviderArn() != null) {
+                            request.addParameter("ProvidedContexts.member." + providedContextsListIndex + ".ProviderArn",
+                                    StringUtils.fromString(providedContextsListValue.getProviderArn()));
+                        }
+
+                        if (providedContextsListValue.getContextAssertion() != null) {
+                            request.addParameter("ProvidedContexts.member." + providedContextsListIndex + ".ContextAssertion",
+                                    StringUtils.fromString(providedContextsListValue.getContextAssertion()));
+                        }
+                    }
+                    providedContextsListIndex++;
+                }
+            }
         }
 
         return request;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -15,17 +15,16 @@ package com.amazonaws.services.mediaconvert.model;
 import javax.annotation.Generated;
 
 /**
- * Optional. Choose a tag type that AWS Billing and Cost Management will use to sort your AWS Elemental MediaConvert
- * costs on any billing report that you set up. Any transcoding outputs that don't have an associated tag will appear in
- * your billing report unsorted. If you don't choose a valid value for this field, your job outputs will appear on the
- * billing report unsorted.
+ * The tag type that AWS Billing and Cost Management will use to sort your AWS Elemental MediaConvert costs on any
+ * billing report that you set up.
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public enum BillingTagsSource {
 
     QUEUE("QUEUE"),
     PRESET("PRESET"),
-    JOB_TEMPLATE("JOB_TEMPLATE");
+    JOB_TEMPLATE("JOB_TEMPLATE"),
+    JOB("JOB");
 
     private String value;
 

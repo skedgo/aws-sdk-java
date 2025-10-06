@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,8 +29,8 @@ public class ReshardingConfiguration implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Either the ElastiCache for Redis supplied 4-digit id or a user supplied id for the node group these configuration
-     * values apply to.
+     * Either the ElastiCache (Redis OSS) supplied 4-digit id or a user supplied id for the node group these
+     * configuration values apply to.
      * </p>
      */
     private String nodeGroupId;
@@ -43,12 +43,12 @@ public class ReshardingConfiguration implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Either the ElastiCache for Redis supplied 4-digit id or a user supplied id for the node group these configuration
-     * values apply to.
+     * Either the ElastiCache (Redis OSS) supplied 4-digit id or a user supplied id for the node group these
+     * configuration values apply to.
      * </p>
      * 
      * @param nodeGroupId
-     *        Either the ElastiCache for Redis supplied 4-digit id or a user supplied id for the node group these
+     *        Either the ElastiCache (Redis OSS) supplied 4-digit id or a user supplied id for the node group these
      *        configuration values apply to.
      */
 
@@ -58,11 +58,11 @@ public class ReshardingConfiguration implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Either the ElastiCache for Redis supplied 4-digit id or a user supplied id for the node group these configuration
-     * values apply to.
+     * Either the ElastiCache (Redis OSS) supplied 4-digit id or a user supplied id for the node group these
+     * configuration values apply to.
      * </p>
      * 
-     * @return Either the ElastiCache for Redis supplied 4-digit id or a user supplied id for the node group these
+     * @return Either the ElastiCache (Redis OSS) supplied 4-digit id or a user supplied id for the node group these
      *         configuration values apply to.
      */
 
@@ -72,12 +72,12 @@ public class ReshardingConfiguration implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Either the ElastiCache for Redis supplied 4-digit id or a user supplied id for the node group these configuration
-     * values apply to.
+     * Either the ElastiCache (Redis OSS) supplied 4-digit id or a user supplied id for the node group these
+     * configuration values apply to.
      * </p>
      * 
      * @param nodeGroupId
-     *        Either the ElastiCache for Redis supplied 4-digit id or a user supplied id for the node group these
+     *        Either the ElastiCache (Redis OSS) supplied 4-digit id or a user supplied id for the node group these
      *        configuration values apply to.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

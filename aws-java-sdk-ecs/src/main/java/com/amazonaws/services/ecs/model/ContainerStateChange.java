@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An object representing a change in state for a container.
+ * An object that represents a change in state for a container.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/ContainerStateChange" target="_top">AWS API
@@ -36,13 +36,25 @@ public class ContainerStateChange implements Serializable, Cloneable, Structured
     private String containerName;
     /**
      * <p>
+     * The container image SHA 256 digest.
+     * </p>
+     */
+    private String imageDigest;
+    /**
+     * <p>
+     * The ID of the Docker container.
+     * </p>
+     */
+    private String runtimeId;
+    /**
+     * <p>
      * The exit code for the container, if the state change is a result of the container exiting.
      * </p>
      */
     private Integer exitCode;
     /**
      * <p>
-     * Any network bindings associated with the container.
+     * Any network bindings that are associated with the container.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<NetworkBinding> networkBindings;
@@ -101,6 +113,86 @@ public class ContainerStateChange implements Serializable, Cloneable, Structured
 
     /**
      * <p>
+     * The container image SHA 256 digest.
+     * </p>
+     * 
+     * @param imageDigest
+     *        The container image SHA 256 digest.
+     */
+
+    public void setImageDigest(String imageDigest) {
+        this.imageDigest = imageDigest;
+    }
+
+    /**
+     * <p>
+     * The container image SHA 256 digest.
+     * </p>
+     * 
+     * @return The container image SHA 256 digest.
+     */
+
+    public String getImageDigest() {
+        return this.imageDigest;
+    }
+
+    /**
+     * <p>
+     * The container image SHA 256 digest.
+     * </p>
+     * 
+     * @param imageDigest
+     *        The container image SHA 256 digest.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerStateChange withImageDigest(String imageDigest) {
+        setImageDigest(imageDigest);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the Docker container.
+     * </p>
+     * 
+     * @param runtimeId
+     *        The ID of the Docker container.
+     */
+
+    public void setRuntimeId(String runtimeId) {
+        this.runtimeId = runtimeId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Docker container.
+     * </p>
+     * 
+     * @return The ID of the Docker container.
+     */
+
+    public String getRuntimeId() {
+        return this.runtimeId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Docker container.
+     * </p>
+     * 
+     * @param runtimeId
+     *        The ID of the Docker container.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerStateChange withRuntimeId(String runtimeId) {
+        setRuntimeId(runtimeId);
+        return this;
+    }
+
+    /**
+     * <p>
      * The exit code for the container, if the state change is a result of the container exiting.
      * </p>
      * 
@@ -141,10 +233,10 @@ public class ContainerStateChange implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Any network bindings associated with the container.
+     * Any network bindings that are associated with the container.
      * </p>
      * 
-     * @return Any network bindings associated with the container.
+     * @return Any network bindings that are associated with the container.
      */
 
     public java.util.List<NetworkBinding> getNetworkBindings() {
@@ -156,11 +248,11 @@ public class ContainerStateChange implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Any network bindings associated with the container.
+     * Any network bindings that are associated with the container.
      * </p>
      * 
      * @param networkBindings
-     *        Any network bindings associated with the container.
+     *        Any network bindings that are associated with the container.
      */
 
     public void setNetworkBindings(java.util.Collection<NetworkBinding> networkBindings) {
@@ -174,7 +266,7 @@ public class ContainerStateChange implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Any network bindings associated with the container.
+     * Any network bindings that are associated with the container.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -183,7 +275,7 @@ public class ContainerStateChange implements Serializable, Cloneable, Structured
      * </p>
      * 
      * @param networkBindings
-     *        Any network bindings associated with the container.
+     *        Any network bindings that are associated with the container.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -199,11 +291,11 @@ public class ContainerStateChange implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Any network bindings associated with the container.
+     * Any network bindings that are associated with the container.
      * </p>
      * 
      * @param networkBindings
-     *        Any network bindings associated with the container.
+     *        Any network bindings that are associated with the container.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -306,6 +398,10 @@ public class ContainerStateChange implements Serializable, Cloneable, Structured
         sb.append("{");
         if (getContainerName() != null)
             sb.append("ContainerName: ").append(getContainerName()).append(",");
+        if (getImageDigest() != null)
+            sb.append("ImageDigest: ").append(getImageDigest()).append(",");
+        if (getRuntimeId() != null)
+            sb.append("RuntimeId: ").append(getRuntimeId()).append(",");
         if (getExitCode() != null)
             sb.append("ExitCode: ").append(getExitCode()).append(",");
         if (getNetworkBindings() != null)
@@ -332,6 +428,14 @@ public class ContainerStateChange implements Serializable, Cloneable, Structured
             return false;
         if (other.getContainerName() != null && other.getContainerName().equals(this.getContainerName()) == false)
             return false;
+        if (other.getImageDigest() == null ^ this.getImageDigest() == null)
+            return false;
+        if (other.getImageDigest() != null && other.getImageDigest().equals(this.getImageDigest()) == false)
+            return false;
+        if (other.getRuntimeId() == null ^ this.getRuntimeId() == null)
+            return false;
+        if (other.getRuntimeId() != null && other.getRuntimeId().equals(this.getRuntimeId()) == false)
+            return false;
         if (other.getExitCode() == null ^ this.getExitCode() == null)
             return false;
         if (other.getExitCode() != null && other.getExitCode().equals(this.getExitCode()) == false)
@@ -357,6 +461,8 @@ public class ContainerStateChange implements Serializable, Cloneable, Structured
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getContainerName() == null) ? 0 : getContainerName().hashCode());
+        hashCode = prime * hashCode + ((getImageDigest() == null) ? 0 : getImageDigest().hashCode());
+        hashCode = prime * hashCode + ((getRuntimeId() == null) ? 0 : getRuntimeId().hashCode());
         hashCode = prime * hashCode + ((getExitCode() == null) ? 0 : getExitCode().hashCode());
         hashCode = prime * hashCode + ((getNetworkBindings() == null) ? 0 : getNetworkBindings().hashCode());
         hashCode = prime * hashCode + ((getReason() == null) ? 0 : getReason().hashCode());

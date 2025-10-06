@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -57,6 +57,10 @@ public class CreateStackSetRequestMarshaller implements Marshaller<Request<Creat
             request.addParameter("TemplateURL", StringUtils.fromString(createStackSetRequest.getTemplateURL()));
         }
 
+        if (createStackSetRequest.getStackId() != null) {
+            request.addParameter("StackId", StringUtils.fromString(createStackSetRequest.getStackId()));
+        }
+
         if (createStackSetRequest.getParameters().isEmpty()
                 && !((com.amazonaws.internal.SdkInternalList<Parameter>) createStackSetRequest.getParameters()).isAutoConstruct()) {
             request.addParameter("Parameters", "");
@@ -68,25 +72,27 @@ public class CreateStackSetRequestMarshaller implements Marshaller<Request<Creat
             int parametersListIndex = 1;
 
             for (Parameter parametersListValue : parametersList) {
+                if (parametersListValue != null) {
 
-                if (parametersListValue.getParameterKey() != null) {
-                    request.addParameter("Parameters.member." + parametersListIndex + ".ParameterKey",
-                            StringUtils.fromString(parametersListValue.getParameterKey()));
-                }
+                    if (parametersListValue.getParameterKey() != null) {
+                        request.addParameter("Parameters.member." + parametersListIndex + ".ParameterKey",
+                                StringUtils.fromString(parametersListValue.getParameterKey()));
+                    }
 
-                if (parametersListValue.getParameterValue() != null) {
-                    request.addParameter("Parameters.member." + parametersListIndex + ".ParameterValue",
-                            StringUtils.fromString(parametersListValue.getParameterValue()));
-                }
+                    if (parametersListValue.getParameterValue() != null) {
+                        request.addParameter("Parameters.member." + parametersListIndex + ".ParameterValue",
+                                StringUtils.fromString(parametersListValue.getParameterValue()));
+                    }
 
-                if (parametersListValue.getUsePreviousValue() != null) {
-                    request.addParameter("Parameters.member." + parametersListIndex + ".UsePreviousValue",
-                            StringUtils.fromBoolean(parametersListValue.getUsePreviousValue()));
-                }
+                    if (parametersListValue.getUsePreviousValue() != null) {
+                        request.addParameter("Parameters.member." + parametersListIndex + ".UsePreviousValue",
+                                StringUtils.fromBoolean(parametersListValue.getUsePreviousValue()));
+                    }
 
-                if (parametersListValue.getResolvedValue() != null) {
-                    request.addParameter("Parameters.member." + parametersListIndex + ".ResolvedValue",
-                            StringUtils.fromString(parametersListValue.getResolvedValue()));
+                    if (parametersListValue.getResolvedValue() != null) {
+                        request.addParameter("Parameters.member." + parametersListIndex + ".ResolvedValue",
+                                StringUtils.fromString(parametersListValue.getResolvedValue()));
+                    }
                 }
                 parametersListIndex++;
             }
@@ -118,13 +124,15 @@ public class CreateStackSetRequestMarshaller implements Marshaller<Request<Creat
             int tagsListIndex = 1;
 
             for (Tag tagsListValue : tagsList) {
+                if (tagsListValue != null) {
 
-                if (tagsListValue.getKey() != null) {
-                    request.addParameter("Tags.member." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
-                }
+                    if (tagsListValue.getKey() != null) {
+                        request.addParameter("Tags.member." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
+                    }
 
-                if (tagsListValue.getValue() != null) {
-                    request.addParameter("Tags.member." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                    if (tagsListValue.getValue() != null) {
+                        request.addParameter("Tags.member." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                    }
                 }
                 tagsListIndex++;
             }
@@ -138,7 +146,40 @@ public class CreateStackSetRequestMarshaller implements Marshaller<Request<Creat
             request.addParameter("ExecutionRoleName", StringUtils.fromString(createStackSetRequest.getExecutionRoleName()));
         }
 
+        if (createStackSetRequest.getPermissionModel() != null) {
+            request.addParameter("PermissionModel", StringUtils.fromString(createStackSetRequest.getPermissionModel()));
+        }
+
+        {
+            AutoDeployment autoDeployment = createStackSetRequest.getAutoDeployment();
+            if (autoDeployment != null) {
+
+                if (autoDeployment.getEnabled() != null) {
+                    request.addParameter("AutoDeployment.Enabled", StringUtils.fromBoolean(autoDeployment.getEnabled()));
+                }
+
+                if (autoDeployment.getRetainStacksOnAccountRemoval() != null) {
+                    request.addParameter("AutoDeployment.RetainStacksOnAccountRemoval",
+                            StringUtils.fromBoolean(autoDeployment.getRetainStacksOnAccountRemoval()));
+                }
+            }
+        }
+
+        if (createStackSetRequest.getCallAs() != null) {
+            request.addParameter("CallAs", StringUtils.fromString(createStackSetRequest.getCallAs()));
+        }
+
         request.addParameter("ClientRequestToken", IdempotentUtils.resolveString(createStackSetRequest.getClientRequestToken()));
+
+        {
+            ManagedExecution managedExecution = createStackSetRequest.getManagedExecution();
+            if (managedExecution != null) {
+
+                if (managedExecution.getActive() != null) {
+                    request.addParameter("ManagedExecution.Active", StringUtils.fromBoolean(managedExecution.getActive()));
+                }
+            }
+        }
 
         return request;
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 /**
  * 
  <p>
- * Contains information about the EBS storage volumes attached to Kafka broker nodes.
+ * Contains information about the EBS storage volumes attached to Apache Kafka broker nodes.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/EBSStorageInfo" target="_top">AWS API
@@ -31,10 +31,62 @@ public class EBSStorageInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
+     * EBS volume provisioned throughput information.
+     * </p>
+     */
+    private ProvisionedThroughput provisionedThroughput;
+    /**
+     * <p>
      * The size in GiB of the EBS volume for the data drive on each broker node.
      * </p>
      */
     private Integer volumeSize;
+
+    /**
+     * <p>
+     * EBS volume provisioned throughput information.
+     * </p>
+     * 
+     * @param provisionedThroughput
+     *        <p>
+     *        EBS volume provisioned throughput information.
+     *        </p>
+     */
+
+    public void setProvisionedThroughput(ProvisionedThroughput provisionedThroughput) {
+        this.provisionedThroughput = provisionedThroughput;
+    }
+
+    /**
+     * <p>
+     * EBS volume provisioned throughput information.
+     * </p>
+     * 
+     * @return <p>
+     *         EBS volume provisioned throughput information.
+     *         </p>
+     */
+
+    public ProvisionedThroughput getProvisionedThroughput() {
+        return this.provisionedThroughput;
+    }
+
+    /**
+     * <p>
+     * EBS volume provisioned throughput information.
+     * </p>
+     * 
+     * @param provisionedThroughput
+     *        <p>
+     *        EBS volume provisioned throughput information.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EBSStorageInfo withProvisionedThroughput(ProvisionedThroughput provisionedThroughput) {
+        setProvisionedThroughput(provisionedThroughput);
+        return this;
+    }
 
     /**
      * <p>
@@ -94,6 +146,8 @@ public class EBSStorageInfo implements Serializable, Cloneable, StructuredPojo {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getProvisionedThroughput() != null)
+            sb.append("ProvisionedThroughput: ").append(getProvisionedThroughput()).append(",");
         if (getVolumeSize() != null)
             sb.append("VolumeSize: ").append(getVolumeSize());
         sb.append("}");
@@ -110,6 +164,10 @@ public class EBSStorageInfo implements Serializable, Cloneable, StructuredPojo {
         if (obj instanceof EBSStorageInfo == false)
             return false;
         EBSStorageInfo other = (EBSStorageInfo) obj;
+        if (other.getProvisionedThroughput() == null ^ this.getProvisionedThroughput() == null)
+            return false;
+        if (other.getProvisionedThroughput() != null && other.getProvisionedThroughput().equals(this.getProvisionedThroughput()) == false)
+            return false;
         if (other.getVolumeSize() == null ^ this.getVolumeSize() == null)
             return false;
         if (other.getVolumeSize() != null && other.getVolumeSize().equals(this.getVolumeSize()) == false)
@@ -122,6 +180,7 @@ public class EBSStorageInfo implements Serializable, Cloneable, StructuredPojo {
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getProvisionedThroughput() == null) ? 0 : getProvisionedThroughput().hashCode());
         hashCode = prime * hashCode + ((getVolumeSize() == null) ? 0 : getVolumeSize().hashCode());
         return hashCode;
     }

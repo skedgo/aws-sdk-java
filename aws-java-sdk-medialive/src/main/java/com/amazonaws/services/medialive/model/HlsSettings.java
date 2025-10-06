@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,6 +28,10 @@ public class HlsSettings implements Serializable, Cloneable, StructuredPojo {
 
     private AudioOnlyHlsSettings audioOnlyHlsSettings;
 
+    private Fmp4HlsSettings fmp4HlsSettings;
+
+    private FrameCaptureHlsSettings frameCaptureHlsSettings;
+
     private StandardHlsSettings standardHlsSettings;
 
     /**
@@ -53,6 +57,58 @@ public class HlsSettings implements Serializable, Cloneable, StructuredPojo {
 
     public HlsSettings withAudioOnlyHlsSettings(AudioOnlyHlsSettings audioOnlyHlsSettings) {
         setAudioOnlyHlsSettings(audioOnlyHlsSettings);
+        return this;
+    }
+
+    /**
+     * @param fmp4HlsSettings
+     */
+
+    public void setFmp4HlsSettings(Fmp4HlsSettings fmp4HlsSettings) {
+        this.fmp4HlsSettings = fmp4HlsSettings;
+    }
+
+    /**
+     * @return
+     */
+
+    public Fmp4HlsSettings getFmp4HlsSettings() {
+        return this.fmp4HlsSettings;
+    }
+
+    /**
+     * @param fmp4HlsSettings
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HlsSettings withFmp4HlsSettings(Fmp4HlsSettings fmp4HlsSettings) {
+        setFmp4HlsSettings(fmp4HlsSettings);
+        return this;
+    }
+
+    /**
+     * @param frameCaptureHlsSettings
+     */
+
+    public void setFrameCaptureHlsSettings(FrameCaptureHlsSettings frameCaptureHlsSettings) {
+        this.frameCaptureHlsSettings = frameCaptureHlsSettings;
+    }
+
+    /**
+     * @return
+     */
+
+    public FrameCaptureHlsSettings getFrameCaptureHlsSettings() {
+        return this.frameCaptureHlsSettings;
+    }
+
+    /**
+     * @param frameCaptureHlsSettings
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HlsSettings withFrameCaptureHlsSettings(FrameCaptureHlsSettings frameCaptureHlsSettings) {
+        setFrameCaptureHlsSettings(frameCaptureHlsSettings);
         return this;
     }
 
@@ -96,6 +152,10 @@ public class HlsSettings implements Serializable, Cloneable, StructuredPojo {
         sb.append("{");
         if (getAudioOnlyHlsSettings() != null)
             sb.append("AudioOnlyHlsSettings: ").append(getAudioOnlyHlsSettings()).append(",");
+        if (getFmp4HlsSettings() != null)
+            sb.append("Fmp4HlsSettings: ").append(getFmp4HlsSettings()).append(",");
+        if (getFrameCaptureHlsSettings() != null)
+            sb.append("FrameCaptureHlsSettings: ").append(getFrameCaptureHlsSettings()).append(",");
         if (getStandardHlsSettings() != null)
             sb.append("StandardHlsSettings: ").append(getStandardHlsSettings());
         sb.append("}");
@@ -116,6 +176,14 @@ public class HlsSettings implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getAudioOnlyHlsSettings() != null && other.getAudioOnlyHlsSettings().equals(this.getAudioOnlyHlsSettings()) == false)
             return false;
+        if (other.getFmp4HlsSettings() == null ^ this.getFmp4HlsSettings() == null)
+            return false;
+        if (other.getFmp4HlsSettings() != null && other.getFmp4HlsSettings().equals(this.getFmp4HlsSettings()) == false)
+            return false;
+        if (other.getFrameCaptureHlsSettings() == null ^ this.getFrameCaptureHlsSettings() == null)
+            return false;
+        if (other.getFrameCaptureHlsSettings() != null && other.getFrameCaptureHlsSettings().equals(this.getFrameCaptureHlsSettings()) == false)
+            return false;
         if (other.getStandardHlsSettings() == null ^ this.getStandardHlsSettings() == null)
             return false;
         if (other.getStandardHlsSettings() != null && other.getStandardHlsSettings().equals(this.getStandardHlsSettings()) == false)
@@ -129,6 +197,8 @@ public class HlsSettings implements Serializable, Cloneable, StructuredPojo {
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getAudioOnlyHlsSettings() == null) ? 0 : getAudioOnlyHlsSettings().hashCode());
+        hashCode = prime * hashCode + ((getFmp4HlsSettings() == null) ? 0 : getFmp4HlsSettings().hashCode());
+        hashCode = prime * hashCode + ((getFrameCaptureHlsSettings() == null) ? 0 : getFrameCaptureHlsSettings().hashCode());
         hashCode = prime * hashCode + ((getStandardHlsSettings() == null) ? 0 : getStandardHlsSettings().hashCode());
         return hashCode;
     }

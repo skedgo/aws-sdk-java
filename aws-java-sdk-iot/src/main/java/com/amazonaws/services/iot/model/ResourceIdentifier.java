@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -61,6 +61,30 @@ public class ResourceIdentifier implements Serializable, Cloneable, StructuredPo
      * </p>
      */
     private String account;
+    /**
+     * <p>
+     * The ARN of the IAM role that has overly permissive actions.
+     * </p>
+     */
+    private String iamRoleArn;
+    /**
+     * <p>
+     * The ARN of the role alias that has overly permissive actions.
+     * </p>
+     */
+    private String roleAliasArn;
+    /**
+     * <p>
+     * The issuer certificate identifier.
+     * </p>
+     */
+    private IssuerCertificateIdentifier issuerCertificateIdentifier;
+    /**
+     * <p>
+     * The ARN of the identified device certificate.
+     * </p>
+     */
+    private String deviceCertificateArn;
 
     /**
      * <p>
@@ -303,6 +327,166 @@ public class ResourceIdentifier implements Serializable, Cloneable, StructuredPo
     }
 
     /**
+     * <p>
+     * The ARN of the IAM role that has overly permissive actions.
+     * </p>
+     * 
+     * @param iamRoleArn
+     *        The ARN of the IAM role that has overly permissive actions.
+     */
+
+    public void setIamRoleArn(String iamRoleArn) {
+        this.iamRoleArn = iamRoleArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the IAM role that has overly permissive actions.
+     * </p>
+     * 
+     * @return The ARN of the IAM role that has overly permissive actions.
+     */
+
+    public String getIamRoleArn() {
+        return this.iamRoleArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the IAM role that has overly permissive actions.
+     * </p>
+     * 
+     * @param iamRoleArn
+     *        The ARN of the IAM role that has overly permissive actions.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResourceIdentifier withIamRoleArn(String iamRoleArn) {
+        setIamRoleArn(iamRoleArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN of the role alias that has overly permissive actions.
+     * </p>
+     * 
+     * @param roleAliasArn
+     *        The ARN of the role alias that has overly permissive actions.
+     */
+
+    public void setRoleAliasArn(String roleAliasArn) {
+        this.roleAliasArn = roleAliasArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the role alias that has overly permissive actions.
+     * </p>
+     * 
+     * @return The ARN of the role alias that has overly permissive actions.
+     */
+
+    public String getRoleAliasArn() {
+        return this.roleAliasArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the role alias that has overly permissive actions.
+     * </p>
+     * 
+     * @param roleAliasArn
+     *        The ARN of the role alias that has overly permissive actions.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResourceIdentifier withRoleAliasArn(String roleAliasArn) {
+        setRoleAliasArn(roleAliasArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The issuer certificate identifier.
+     * </p>
+     * 
+     * @param issuerCertificateIdentifier
+     *        The issuer certificate identifier.
+     */
+
+    public void setIssuerCertificateIdentifier(IssuerCertificateIdentifier issuerCertificateIdentifier) {
+        this.issuerCertificateIdentifier = issuerCertificateIdentifier;
+    }
+
+    /**
+     * <p>
+     * The issuer certificate identifier.
+     * </p>
+     * 
+     * @return The issuer certificate identifier.
+     */
+
+    public IssuerCertificateIdentifier getIssuerCertificateIdentifier() {
+        return this.issuerCertificateIdentifier;
+    }
+
+    /**
+     * <p>
+     * The issuer certificate identifier.
+     * </p>
+     * 
+     * @param issuerCertificateIdentifier
+     *        The issuer certificate identifier.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResourceIdentifier withIssuerCertificateIdentifier(IssuerCertificateIdentifier issuerCertificateIdentifier) {
+        setIssuerCertificateIdentifier(issuerCertificateIdentifier);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN of the identified device certificate.
+     * </p>
+     * 
+     * @param deviceCertificateArn
+     *        The ARN of the identified device certificate.
+     */
+
+    public void setDeviceCertificateArn(String deviceCertificateArn) {
+        this.deviceCertificateArn = deviceCertificateArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the identified device certificate.
+     * </p>
+     * 
+     * @return The ARN of the identified device certificate.
+     */
+
+    public String getDeviceCertificateArn() {
+        return this.deviceCertificateArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the identified device certificate.
+     * </p>
+     * 
+     * @param deviceCertificateArn
+     *        The ARN of the identified device certificate.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResourceIdentifier withDeviceCertificateArn(String deviceCertificateArn) {
+        setDeviceCertificateArn(deviceCertificateArn);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -325,7 +509,15 @@ public class ResourceIdentifier implements Serializable, Cloneable, StructuredPo
         if (getPolicyVersionIdentifier() != null)
             sb.append("PolicyVersionIdentifier: ").append(getPolicyVersionIdentifier()).append(",");
         if (getAccount() != null)
-            sb.append("Account: ").append(getAccount());
+            sb.append("Account: ").append(getAccount()).append(",");
+        if (getIamRoleArn() != null)
+            sb.append("IamRoleArn: ").append(getIamRoleArn()).append(",");
+        if (getRoleAliasArn() != null)
+            sb.append("RoleAliasArn: ").append(getRoleAliasArn()).append(",");
+        if (getIssuerCertificateIdentifier() != null)
+            sb.append("IssuerCertificateIdentifier: ").append(getIssuerCertificateIdentifier()).append(",");
+        if (getDeviceCertificateArn() != null)
+            sb.append("DeviceCertificateArn: ").append(getDeviceCertificateArn());
         sb.append("}");
         return sb.toString();
     }
@@ -364,6 +556,22 @@ public class ResourceIdentifier implements Serializable, Cloneable, StructuredPo
             return false;
         if (other.getAccount() != null && other.getAccount().equals(this.getAccount()) == false)
             return false;
+        if (other.getIamRoleArn() == null ^ this.getIamRoleArn() == null)
+            return false;
+        if (other.getIamRoleArn() != null && other.getIamRoleArn().equals(this.getIamRoleArn()) == false)
+            return false;
+        if (other.getRoleAliasArn() == null ^ this.getRoleAliasArn() == null)
+            return false;
+        if (other.getRoleAliasArn() != null && other.getRoleAliasArn().equals(this.getRoleAliasArn()) == false)
+            return false;
+        if (other.getIssuerCertificateIdentifier() == null ^ this.getIssuerCertificateIdentifier() == null)
+            return false;
+        if (other.getIssuerCertificateIdentifier() != null && other.getIssuerCertificateIdentifier().equals(this.getIssuerCertificateIdentifier()) == false)
+            return false;
+        if (other.getDeviceCertificateArn() == null ^ this.getDeviceCertificateArn() == null)
+            return false;
+        if (other.getDeviceCertificateArn() != null && other.getDeviceCertificateArn().equals(this.getDeviceCertificateArn()) == false)
+            return false;
         return true;
     }
 
@@ -378,6 +586,10 @@ public class ResourceIdentifier implements Serializable, Cloneable, StructuredPo
         hashCode = prime * hashCode + ((getClientId() == null) ? 0 : getClientId().hashCode());
         hashCode = prime * hashCode + ((getPolicyVersionIdentifier() == null) ? 0 : getPolicyVersionIdentifier().hashCode());
         hashCode = prime * hashCode + ((getAccount() == null) ? 0 : getAccount().hashCode());
+        hashCode = prime * hashCode + ((getIamRoleArn() == null) ? 0 : getIamRoleArn().hashCode());
+        hashCode = prime * hashCode + ((getRoleAliasArn() == null) ? 0 : getRoleAliasArn().hashCode());
+        hashCode = prime * hashCode + ((getIssuerCertificateIdentifier() == null) ? 0 : getIssuerCertificateIdentifier().hashCode());
+        hashCode = prime * hashCode + ((getDeviceCertificateArn() == null) ? 0 : getDeviceCertificateArn().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,15 +30,15 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
      * <p>
      * The IPv4 address range, in CIDR notation, from which to assign client IP addresses. The address range cannot
      * overlap with the local CIDR of the VPC in which the associated subnet is located, or the routes that you add
-     * manually. The address range cannot be changed after the Client VPN endpoint has been created. The CIDR block
-     * should be /22 or greater.
+     * manually. The address range cannot be changed after the Client VPN endpoint has been created. Client CIDR range
+     * must have a size of at least /22 and must not be greater than /12.
      * </p>
      */
     private String clientCidrBlock;
     /**
      * <p>
      * The ARN of the server certificate. For more information, see the <a
-     * href="https://docs.aws.amazon.com/acm/latest/userguide/">AWS Certificate Manager User Guide</a>.
+     * href="https://docs.aws.amazon.com/acm/latest/userguide/">Certificate Manager User Guide</a>.
      * </p>
      */
     private String serverCertificateArn;
@@ -83,8 +83,7 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Information about the DNS servers to be used for DNS resolution. A Client VPN endpoint can have up to two DNS
-     * servers. If no DNS server is specified, the DNS address of the VPC that is to be associated with Client VPN
-     * endpoint is used as the DNS server.
+     * servers. If no DNS server is specified, the DNS address configured on the device is used for the DNS server.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> dnsServers;
@@ -99,30 +98,41 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
     private String transportProtocol;
     /**
      * <p>
+     * The port number to assign to the Client VPN endpoint for TCP and UDP traffic.
+     * </p>
+     * <p>
+     * Valid Values: <code>443</code> | <code>1194</code>
+     * </p>
+     * <p>
+     * Default Value: <code>443</code>
+     * </p>
+     */
+    private Integer vpnPort;
+    /**
+     * <p>
      * A brief description of the Client VPN endpoint.
      * </p>
      */
     private String description;
     /**
      * <p>
-     * Indicates whether split-tunnel is enabled on the AWS Client VPN endpoint endpoint.
+     * Indicates whether split-tunnel is enabled on the Client VPN endpoint.
      * </p>
      * <p>
      * By default, split-tunnel on a VPN endpoint is disabled.
      * </p>
      * <p>
      * For information about split-tunnel VPN endpoints, see <a
-     * href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel AWS Client VPN
-     * Endpoint</a> in the <i>AWS Client VPN Administrator Guide</i>.
+     * href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-tunnel Client VPN
+     * endpoint</a> in the <i>Client VPN Administrator Guide</i>.
      * </p>
      */
     private Boolean splitTunnel;
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     * idempotency</a>.
      * </p>
      */
     private String clientToken;
@@ -132,20 +142,68 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<TagSpecification> tagSpecifications;
+    /**
+     * <p>
+     * The IDs of one or more security groups to apply to the target network. You must also specify the ID of the VPC
+     * that contains the security groups.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> securityGroupIds;
+    /**
+     * <p>
+     * The ID of the VPC to associate with the Client VPN endpoint. If no security group IDs are specified in the
+     * request, the default security group for the VPC is applied.
+     * </p>
+     */
+    private String vpcId;
+    /**
+     * <p>
+     * Specify whether to enable the self-service portal for the Client VPN endpoint.
+     * </p>
+     * <p>
+     * Default Value: <code>enabled</code>
+     * </p>
+     */
+    private String selfServicePortal;
+    /**
+     * <p>
+     * The options for managing connection authorization for new client connections.
+     * </p>
+     */
+    private ClientConnectOptions clientConnectOptions;
+    /**
+     * <p>
+     * The maximum VPN session duration time in hours.
+     * </p>
+     * <p>
+     * Valid values: <code>8 | 10 | 12 | 24</code>
+     * </p>
+     * <p>
+     * Default value: <code>24</code>
+     * </p>
+     */
+    private Integer sessionTimeoutHours;
+    /**
+     * <p>
+     * Options for enabling a customizable text banner that will be displayed on Amazon Web Services provided clients
+     * when a VPN session is established.
+     * </p>
+     */
+    private ClientLoginBannerOptions clientLoginBannerOptions;
 
     /**
      * <p>
      * The IPv4 address range, in CIDR notation, from which to assign client IP addresses. The address range cannot
      * overlap with the local CIDR of the VPC in which the associated subnet is located, or the routes that you add
-     * manually. The address range cannot be changed after the Client VPN endpoint has been created. The CIDR block
-     * should be /22 or greater.
+     * manually. The address range cannot be changed after the Client VPN endpoint has been created. Client CIDR range
+     * must have a size of at least /22 and must not be greater than /12.
      * </p>
      * 
      * @param clientCidrBlock
      *        The IPv4 address range, in CIDR notation, from which to assign client IP addresses. The address range
      *        cannot overlap with the local CIDR of the VPC in which the associated subnet is located, or the routes
      *        that you add manually. The address range cannot be changed after the Client VPN endpoint has been created.
-     *        The CIDR block should be /22 or greater.
+     *        Client CIDR range must have a size of at least /22 and must not be greater than /12.
      */
 
     public void setClientCidrBlock(String clientCidrBlock) {
@@ -156,14 +214,14 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
      * <p>
      * The IPv4 address range, in CIDR notation, from which to assign client IP addresses. The address range cannot
      * overlap with the local CIDR of the VPC in which the associated subnet is located, or the routes that you add
-     * manually. The address range cannot be changed after the Client VPN endpoint has been created. The CIDR block
-     * should be /22 or greater.
+     * manually. The address range cannot be changed after the Client VPN endpoint has been created. Client CIDR range
+     * must have a size of at least /22 and must not be greater than /12.
      * </p>
      * 
      * @return The IPv4 address range, in CIDR notation, from which to assign client IP addresses. The address range
      *         cannot overlap with the local CIDR of the VPC in which the associated subnet is located, or the routes
      *         that you add manually. The address range cannot be changed after the Client VPN endpoint has been
-     *         created. The CIDR block should be /22 or greater.
+     *         created. Client CIDR range must have a size of at least /22 and must not be greater than /12.
      */
 
     public String getClientCidrBlock() {
@@ -174,15 +232,15 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
      * <p>
      * The IPv4 address range, in CIDR notation, from which to assign client IP addresses. The address range cannot
      * overlap with the local CIDR of the VPC in which the associated subnet is located, or the routes that you add
-     * manually. The address range cannot be changed after the Client VPN endpoint has been created. The CIDR block
-     * should be /22 or greater.
+     * manually. The address range cannot be changed after the Client VPN endpoint has been created. Client CIDR range
+     * must have a size of at least /22 and must not be greater than /12.
      * </p>
      * 
      * @param clientCidrBlock
      *        The IPv4 address range, in CIDR notation, from which to assign client IP addresses. The address range
      *        cannot overlap with the local CIDR of the VPC in which the associated subnet is located, or the routes
      *        that you add manually. The address range cannot be changed after the Client VPN endpoint has been created.
-     *        The CIDR block should be /22 or greater.
+     *        Client CIDR range must have a size of at least /22 and must not be greater than /12.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -194,12 +252,12 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * The ARN of the server certificate. For more information, see the <a
-     * href="https://docs.aws.amazon.com/acm/latest/userguide/">AWS Certificate Manager User Guide</a>.
+     * href="https://docs.aws.amazon.com/acm/latest/userguide/">Certificate Manager User Guide</a>.
      * </p>
      * 
      * @param serverCertificateArn
      *        The ARN of the server certificate. For more information, see the <a
-     *        href="https://docs.aws.amazon.com/acm/latest/userguide/">AWS Certificate Manager User Guide</a>.
+     *        href="https://docs.aws.amazon.com/acm/latest/userguide/">Certificate Manager User Guide</a>.
      */
 
     public void setServerCertificateArn(String serverCertificateArn) {
@@ -209,11 +267,11 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * The ARN of the server certificate. For more information, see the <a
-     * href="https://docs.aws.amazon.com/acm/latest/userguide/">AWS Certificate Manager User Guide</a>.
+     * href="https://docs.aws.amazon.com/acm/latest/userguide/">Certificate Manager User Guide</a>.
      * </p>
      * 
      * @return The ARN of the server certificate. For more information, see the <a
-     *         href="https://docs.aws.amazon.com/acm/latest/userguide/">AWS Certificate Manager User Guide</a>.
+     *         href="https://docs.aws.amazon.com/acm/latest/userguide/">Certificate Manager User Guide</a>.
      */
 
     public String getServerCertificateArn() {
@@ -223,12 +281,12 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * The ARN of the server certificate. For more information, see the <a
-     * href="https://docs.aws.amazon.com/acm/latest/userguide/">AWS Certificate Manager User Guide</a>.
+     * href="https://docs.aws.amazon.com/acm/latest/userguide/">Certificate Manager User Guide</a>.
      * </p>
      * 
      * @param serverCertificateArn
      *        The ARN of the server certificate. For more information, see the <a
-     *        href="https://docs.aws.amazon.com/acm/latest/userguide/">AWS Certificate Manager User Guide</a>.
+     *        href="https://docs.aws.amazon.com/acm/latest/userguide/">Certificate Manager User Guide</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -506,13 +564,12 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Information about the DNS servers to be used for DNS resolution. A Client VPN endpoint can have up to two DNS
-     * servers. If no DNS server is specified, the DNS address of the VPC that is to be associated with Client VPN
-     * endpoint is used as the DNS server.
+     * servers. If no DNS server is specified, the DNS address configured on the device is used for the DNS server.
      * </p>
      * 
      * @return Information about the DNS servers to be used for DNS resolution. A Client VPN endpoint can have up to two
-     *         DNS servers. If no DNS server is specified, the DNS address of the VPC that is to be associated with
-     *         Client VPN endpoint is used as the DNS server.
+     *         DNS servers. If no DNS server is specified, the DNS address configured on the device is used for the DNS
+     *         server.
      */
 
     public java.util.List<String> getDnsServers() {
@@ -525,14 +582,13 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Information about the DNS servers to be used for DNS resolution. A Client VPN endpoint can have up to two DNS
-     * servers. If no DNS server is specified, the DNS address of the VPC that is to be associated with Client VPN
-     * endpoint is used as the DNS server.
+     * servers. If no DNS server is specified, the DNS address configured on the device is used for the DNS server.
      * </p>
      * 
      * @param dnsServers
      *        Information about the DNS servers to be used for DNS resolution. A Client VPN endpoint can have up to two
-     *        DNS servers. If no DNS server is specified, the DNS address of the VPC that is to be associated with
-     *        Client VPN endpoint is used as the DNS server.
+     *        DNS servers. If no DNS server is specified, the DNS address configured on the device is used for the DNS
+     *        server.
      */
 
     public void setDnsServers(java.util.Collection<String> dnsServers) {
@@ -547,8 +603,7 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Information about the DNS servers to be used for DNS resolution. A Client VPN endpoint can have up to two DNS
-     * servers. If no DNS server is specified, the DNS address of the VPC that is to be associated with Client VPN
-     * endpoint is used as the DNS server.
+     * servers. If no DNS server is specified, the DNS address configured on the device is used for the DNS server.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -558,8 +613,8 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
      * 
      * @param dnsServers
      *        Information about the DNS servers to be used for DNS resolution. A Client VPN endpoint can have up to two
-     *        DNS servers. If no DNS server is specified, the DNS address of the VPC that is to be associated with
-     *        Client VPN endpoint is used as the DNS server.
+     *        DNS servers. If no DNS server is specified, the DNS address configured on the device is used for the DNS
+     *        server.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -576,14 +631,13 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Information about the DNS servers to be used for DNS resolution. A Client VPN endpoint can have up to two DNS
-     * servers. If no DNS server is specified, the DNS address of the VPC that is to be associated with Client VPN
-     * endpoint is used as the DNS server.
+     * servers. If no DNS server is specified, the DNS address configured on the device is used for the DNS server.
      * </p>
      * 
      * @param dnsServers
      *        Information about the DNS servers to be used for DNS resolution. A Client VPN endpoint can have up to two
-     *        DNS servers. If no DNS server is specified, the DNS address of the VPC that is to be associated with
-     *        Client VPN endpoint is used as the DNS server.
+     *        DNS servers. If no DNS server is specified, the DNS address configured on the device is used for the DNS
+     *        server.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -673,6 +727,79 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
+     * The port number to assign to the Client VPN endpoint for TCP and UDP traffic.
+     * </p>
+     * <p>
+     * Valid Values: <code>443</code> | <code>1194</code>
+     * </p>
+     * <p>
+     * Default Value: <code>443</code>
+     * </p>
+     * 
+     * @param vpnPort
+     *        The port number to assign to the Client VPN endpoint for TCP and UDP traffic.</p>
+     *        <p>
+     *        Valid Values: <code>443</code> | <code>1194</code>
+     *        </p>
+     *        <p>
+     *        Default Value: <code>443</code>
+     */
+
+    public void setVpnPort(Integer vpnPort) {
+        this.vpnPort = vpnPort;
+    }
+
+    /**
+     * <p>
+     * The port number to assign to the Client VPN endpoint for TCP and UDP traffic.
+     * </p>
+     * <p>
+     * Valid Values: <code>443</code> | <code>1194</code>
+     * </p>
+     * <p>
+     * Default Value: <code>443</code>
+     * </p>
+     * 
+     * @return The port number to assign to the Client VPN endpoint for TCP and UDP traffic.</p>
+     *         <p>
+     *         Valid Values: <code>443</code> | <code>1194</code>
+     *         </p>
+     *         <p>
+     *         Default Value: <code>443</code>
+     */
+
+    public Integer getVpnPort() {
+        return this.vpnPort;
+    }
+
+    /**
+     * <p>
+     * The port number to assign to the Client VPN endpoint for TCP and UDP traffic.
+     * </p>
+     * <p>
+     * Valid Values: <code>443</code> | <code>1194</code>
+     * </p>
+     * <p>
+     * Default Value: <code>443</code>
+     * </p>
+     * 
+     * @param vpnPort
+     *        The port number to assign to the Client VPN endpoint for TCP and UDP traffic.</p>
+     *        <p>
+     *        Valid Values: <code>443</code> | <code>1194</code>
+     *        </p>
+     *        <p>
+     *        Default Value: <code>443</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClientVpnEndpointRequest withVpnPort(Integer vpnPort) {
+        setVpnPort(vpnPort);
+        return this;
+    }
+
+    /**
+     * <p>
      * A brief description of the Client VPN endpoint.
      * </p>
      * 
@@ -713,26 +840,26 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Indicates whether split-tunnel is enabled on the AWS Client VPN endpoint endpoint.
+     * Indicates whether split-tunnel is enabled on the Client VPN endpoint.
      * </p>
      * <p>
      * By default, split-tunnel on a VPN endpoint is disabled.
      * </p>
      * <p>
      * For information about split-tunnel VPN endpoints, see <a
-     * href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel AWS Client VPN
-     * Endpoint</a> in the <i>AWS Client VPN Administrator Guide</i>.
+     * href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-tunnel Client VPN
+     * endpoint</a> in the <i>Client VPN Administrator Guide</i>.
      * </p>
      * 
      * @param splitTunnel
-     *        Indicates whether split-tunnel is enabled on the AWS Client VPN endpoint endpoint.</p>
+     *        Indicates whether split-tunnel is enabled on the Client VPN endpoint.</p>
      *        <p>
      *        By default, split-tunnel on a VPN endpoint is disabled.
      *        </p>
      *        <p>
      *        For information about split-tunnel VPN endpoints, see <a
-     *        href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel AWS
-     *        Client VPN Endpoint</a> in the <i>AWS Client VPN Administrator Guide</i>.
+     *        href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-tunnel Client
+     *        VPN endpoint</a> in the <i>Client VPN Administrator Guide</i>.
      */
 
     public void setSplitTunnel(Boolean splitTunnel) {
@@ -741,25 +868,25 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Indicates whether split-tunnel is enabled on the AWS Client VPN endpoint endpoint.
+     * Indicates whether split-tunnel is enabled on the Client VPN endpoint.
      * </p>
      * <p>
      * By default, split-tunnel on a VPN endpoint is disabled.
      * </p>
      * <p>
      * For information about split-tunnel VPN endpoints, see <a
-     * href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel AWS Client VPN
-     * Endpoint</a> in the <i>AWS Client VPN Administrator Guide</i>.
+     * href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-tunnel Client VPN
+     * endpoint</a> in the <i>Client VPN Administrator Guide</i>.
      * </p>
      * 
-     * @return Indicates whether split-tunnel is enabled on the AWS Client VPN endpoint endpoint.</p>
+     * @return Indicates whether split-tunnel is enabled on the Client VPN endpoint.</p>
      *         <p>
      *         By default, split-tunnel on a VPN endpoint is disabled.
      *         </p>
      *         <p>
      *         For information about split-tunnel VPN endpoints, see <a
-     *         href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel AWS
-     *         Client VPN Endpoint</a> in the <i>AWS Client VPN Administrator Guide</i>.
+     *         href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-tunnel Client
+     *         VPN endpoint</a> in the <i>Client VPN Administrator Guide</i>.
      */
 
     public Boolean getSplitTunnel() {
@@ -768,26 +895,26 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Indicates whether split-tunnel is enabled on the AWS Client VPN endpoint endpoint.
+     * Indicates whether split-tunnel is enabled on the Client VPN endpoint.
      * </p>
      * <p>
      * By default, split-tunnel on a VPN endpoint is disabled.
      * </p>
      * <p>
      * For information about split-tunnel VPN endpoints, see <a
-     * href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel AWS Client VPN
-     * Endpoint</a> in the <i>AWS Client VPN Administrator Guide</i>.
+     * href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-tunnel Client VPN
+     * endpoint</a> in the <i>Client VPN Administrator Guide</i>.
      * </p>
      * 
      * @param splitTunnel
-     *        Indicates whether split-tunnel is enabled on the AWS Client VPN endpoint endpoint.</p>
+     *        Indicates whether split-tunnel is enabled on the Client VPN endpoint.</p>
      *        <p>
      *        By default, split-tunnel on a VPN endpoint is disabled.
      *        </p>
      *        <p>
      *        For information about split-tunnel VPN endpoints, see <a
-     *        href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel AWS
-     *        Client VPN Endpoint</a> in the <i>AWS Client VPN Administrator Guide</i>.
+     *        href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-tunnel Client
+     *        VPN endpoint</a> in the <i>Client VPN Administrator Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -798,25 +925,25 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Indicates whether split-tunnel is enabled on the AWS Client VPN endpoint endpoint.
+     * Indicates whether split-tunnel is enabled on the Client VPN endpoint.
      * </p>
      * <p>
      * By default, split-tunnel on a VPN endpoint is disabled.
      * </p>
      * <p>
      * For information about split-tunnel VPN endpoints, see <a
-     * href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel AWS Client VPN
-     * Endpoint</a> in the <i>AWS Client VPN Administrator Guide</i>.
+     * href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-tunnel Client VPN
+     * endpoint</a> in the <i>Client VPN Administrator Guide</i>.
      * </p>
      * 
-     * @return Indicates whether split-tunnel is enabled on the AWS Client VPN endpoint endpoint.</p>
+     * @return Indicates whether split-tunnel is enabled on the Client VPN endpoint.</p>
      *         <p>
      *         By default, split-tunnel on a VPN endpoint is disabled.
      *         </p>
      *         <p>
      *         For information about split-tunnel VPN endpoints, see <a
-     *         href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel AWS
-     *         Client VPN Endpoint</a> in the <i>AWS Client VPN Administrator Guide</i>.
+     *         href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-tunnel Client
+     *         VPN endpoint</a> in the <i>Client VPN Administrator Guide</i>.
      */
 
     public Boolean isSplitTunnel() {
@@ -826,16 +953,14 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     * idempotency</a>.
      * </p>
      * 
      * @param clientToken
      *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      *        information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *        Idempotency</a>.
+     *        href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency</a>.
      */
 
     public void setClientToken(String clientToken) {
@@ -845,15 +970,13 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     * idempotency</a>.
      * </p>
      * 
      * @return Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      *         information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *         Idempotency</a>.
+     *         href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency</a>.
      */
 
     public String getClientToken() {
@@ -863,16 +986,14 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     * idempotency</a>.
      * </p>
      * 
      * @param clientToken
      *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      *        information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *        Idempotency</a>.
+     *        href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -955,6 +1076,371 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
     }
 
     /**
+     * <p>
+     * The IDs of one or more security groups to apply to the target network. You must also specify the ID of the VPC
+     * that contains the security groups.
+     * </p>
+     * 
+     * @return The IDs of one or more security groups to apply to the target network. You must also specify the ID of
+     *         the VPC that contains the security groups.
+     */
+
+    public java.util.List<String> getSecurityGroupIds() {
+        if (securityGroupIds == null) {
+            securityGroupIds = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return securityGroupIds;
+    }
+
+    /**
+     * <p>
+     * The IDs of one or more security groups to apply to the target network. You must also specify the ID of the VPC
+     * that contains the security groups.
+     * </p>
+     * 
+     * @param securityGroupIds
+     *        The IDs of one or more security groups to apply to the target network. You must also specify the ID of the
+     *        VPC that contains the security groups.
+     */
+
+    public void setSecurityGroupIds(java.util.Collection<String> securityGroupIds) {
+        if (securityGroupIds == null) {
+            this.securityGroupIds = null;
+            return;
+        }
+
+        this.securityGroupIds = new com.amazonaws.internal.SdkInternalList<String>(securityGroupIds);
+    }
+
+    /**
+     * <p>
+     * The IDs of one or more security groups to apply to the target network. You must also specify the ID of the VPC
+     * that contains the security groups.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSecurityGroupIds(java.util.Collection)} or {@link #withSecurityGroupIds(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param securityGroupIds
+     *        The IDs of one or more security groups to apply to the target network. You must also specify the ID of the
+     *        VPC that contains the security groups.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClientVpnEndpointRequest withSecurityGroupIds(String... securityGroupIds) {
+        if (this.securityGroupIds == null) {
+            setSecurityGroupIds(new com.amazonaws.internal.SdkInternalList<String>(securityGroupIds.length));
+        }
+        for (String ele : securityGroupIds) {
+            this.securityGroupIds.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IDs of one or more security groups to apply to the target network. You must also specify the ID of the VPC
+     * that contains the security groups.
+     * </p>
+     * 
+     * @param securityGroupIds
+     *        The IDs of one or more security groups to apply to the target network. You must also specify the ID of the
+     *        VPC that contains the security groups.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClientVpnEndpointRequest withSecurityGroupIds(java.util.Collection<String> securityGroupIds) {
+        setSecurityGroupIds(securityGroupIds);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the VPC to associate with the Client VPN endpoint. If no security group IDs are specified in the
+     * request, the default security group for the VPC is applied.
+     * </p>
+     * 
+     * @param vpcId
+     *        The ID of the VPC to associate with the Client VPN endpoint. If no security group IDs are specified in the
+     *        request, the default security group for the VPC is applied.
+     */
+
+    public void setVpcId(String vpcId) {
+        this.vpcId = vpcId;
+    }
+
+    /**
+     * <p>
+     * The ID of the VPC to associate with the Client VPN endpoint. If no security group IDs are specified in the
+     * request, the default security group for the VPC is applied.
+     * </p>
+     * 
+     * @return The ID of the VPC to associate with the Client VPN endpoint. If no security group IDs are specified in
+     *         the request, the default security group for the VPC is applied.
+     */
+
+    public String getVpcId() {
+        return this.vpcId;
+    }
+
+    /**
+     * <p>
+     * The ID of the VPC to associate with the Client VPN endpoint. If no security group IDs are specified in the
+     * request, the default security group for the VPC is applied.
+     * </p>
+     * 
+     * @param vpcId
+     *        The ID of the VPC to associate with the Client VPN endpoint. If no security group IDs are specified in the
+     *        request, the default security group for the VPC is applied.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClientVpnEndpointRequest withVpcId(String vpcId) {
+        setVpcId(vpcId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specify whether to enable the self-service portal for the Client VPN endpoint.
+     * </p>
+     * <p>
+     * Default Value: <code>enabled</code>
+     * </p>
+     * 
+     * @param selfServicePortal
+     *        Specify whether to enable the self-service portal for the Client VPN endpoint.</p>
+     *        <p>
+     *        Default Value: <code>enabled</code>
+     * @see SelfServicePortal
+     */
+
+    public void setSelfServicePortal(String selfServicePortal) {
+        this.selfServicePortal = selfServicePortal;
+    }
+
+    /**
+     * <p>
+     * Specify whether to enable the self-service portal for the Client VPN endpoint.
+     * </p>
+     * <p>
+     * Default Value: <code>enabled</code>
+     * </p>
+     * 
+     * @return Specify whether to enable the self-service portal for the Client VPN endpoint.</p>
+     *         <p>
+     *         Default Value: <code>enabled</code>
+     * @see SelfServicePortal
+     */
+
+    public String getSelfServicePortal() {
+        return this.selfServicePortal;
+    }
+
+    /**
+     * <p>
+     * Specify whether to enable the self-service portal for the Client VPN endpoint.
+     * </p>
+     * <p>
+     * Default Value: <code>enabled</code>
+     * </p>
+     * 
+     * @param selfServicePortal
+     *        Specify whether to enable the self-service portal for the Client VPN endpoint.</p>
+     *        <p>
+     *        Default Value: <code>enabled</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SelfServicePortal
+     */
+
+    public CreateClientVpnEndpointRequest withSelfServicePortal(String selfServicePortal) {
+        setSelfServicePortal(selfServicePortal);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specify whether to enable the self-service portal for the Client VPN endpoint.
+     * </p>
+     * <p>
+     * Default Value: <code>enabled</code>
+     * </p>
+     * 
+     * @param selfServicePortal
+     *        Specify whether to enable the self-service portal for the Client VPN endpoint.</p>
+     *        <p>
+     *        Default Value: <code>enabled</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SelfServicePortal
+     */
+
+    public CreateClientVpnEndpointRequest withSelfServicePortal(SelfServicePortal selfServicePortal) {
+        this.selfServicePortal = selfServicePortal.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The options for managing connection authorization for new client connections.
+     * </p>
+     * 
+     * @param clientConnectOptions
+     *        The options for managing connection authorization for new client connections.
+     */
+
+    public void setClientConnectOptions(ClientConnectOptions clientConnectOptions) {
+        this.clientConnectOptions = clientConnectOptions;
+    }
+
+    /**
+     * <p>
+     * The options for managing connection authorization for new client connections.
+     * </p>
+     * 
+     * @return The options for managing connection authorization for new client connections.
+     */
+
+    public ClientConnectOptions getClientConnectOptions() {
+        return this.clientConnectOptions;
+    }
+
+    /**
+     * <p>
+     * The options for managing connection authorization for new client connections.
+     * </p>
+     * 
+     * @param clientConnectOptions
+     *        The options for managing connection authorization for new client connections.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClientVpnEndpointRequest withClientConnectOptions(ClientConnectOptions clientConnectOptions) {
+        setClientConnectOptions(clientConnectOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The maximum VPN session duration time in hours.
+     * </p>
+     * <p>
+     * Valid values: <code>8 | 10 | 12 | 24</code>
+     * </p>
+     * <p>
+     * Default value: <code>24</code>
+     * </p>
+     * 
+     * @param sessionTimeoutHours
+     *        The maximum VPN session duration time in hours.</p>
+     *        <p>
+     *        Valid values: <code>8 | 10 | 12 | 24</code>
+     *        </p>
+     *        <p>
+     *        Default value: <code>24</code>
+     */
+
+    public void setSessionTimeoutHours(Integer sessionTimeoutHours) {
+        this.sessionTimeoutHours = sessionTimeoutHours;
+    }
+
+    /**
+     * <p>
+     * The maximum VPN session duration time in hours.
+     * </p>
+     * <p>
+     * Valid values: <code>8 | 10 | 12 | 24</code>
+     * </p>
+     * <p>
+     * Default value: <code>24</code>
+     * </p>
+     * 
+     * @return The maximum VPN session duration time in hours.</p>
+     *         <p>
+     *         Valid values: <code>8 | 10 | 12 | 24</code>
+     *         </p>
+     *         <p>
+     *         Default value: <code>24</code>
+     */
+
+    public Integer getSessionTimeoutHours() {
+        return this.sessionTimeoutHours;
+    }
+
+    /**
+     * <p>
+     * The maximum VPN session duration time in hours.
+     * </p>
+     * <p>
+     * Valid values: <code>8 | 10 | 12 | 24</code>
+     * </p>
+     * <p>
+     * Default value: <code>24</code>
+     * </p>
+     * 
+     * @param sessionTimeoutHours
+     *        The maximum VPN session duration time in hours.</p>
+     *        <p>
+     *        Valid values: <code>8 | 10 | 12 | 24</code>
+     *        </p>
+     *        <p>
+     *        Default value: <code>24</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClientVpnEndpointRequest withSessionTimeoutHours(Integer sessionTimeoutHours) {
+        setSessionTimeoutHours(sessionTimeoutHours);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Options for enabling a customizable text banner that will be displayed on Amazon Web Services provided clients
+     * when a VPN session is established.
+     * </p>
+     * 
+     * @param clientLoginBannerOptions
+     *        Options for enabling a customizable text banner that will be displayed on Amazon Web Services provided
+     *        clients when a VPN session is established.
+     */
+
+    public void setClientLoginBannerOptions(ClientLoginBannerOptions clientLoginBannerOptions) {
+        this.clientLoginBannerOptions = clientLoginBannerOptions;
+    }
+
+    /**
+     * <p>
+     * Options for enabling a customizable text banner that will be displayed on Amazon Web Services provided clients
+     * when a VPN session is established.
+     * </p>
+     * 
+     * @return Options for enabling a customizable text banner that will be displayed on Amazon Web Services provided
+     *         clients when a VPN session is established.
+     */
+
+    public ClientLoginBannerOptions getClientLoginBannerOptions() {
+        return this.clientLoginBannerOptions;
+    }
+
+    /**
+     * <p>
+     * Options for enabling a customizable text banner that will be displayed on Amazon Web Services provided clients
+     * when a VPN session is established.
+     * </p>
+     * 
+     * @param clientLoginBannerOptions
+     *        Options for enabling a customizable text banner that will be displayed on Amazon Web Services provided
+     *        clients when a VPN session is established.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClientVpnEndpointRequest withClientLoginBannerOptions(ClientLoginBannerOptions clientLoginBannerOptions) {
+        setClientLoginBannerOptions(clientLoginBannerOptions);
+        return this;
+    }
+
+    /**
      * This method is intended for internal use only. Returns the marshaled request configured with additional
      * parameters to enable operation dry-run.
      */
@@ -989,6 +1475,8 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
             sb.append("DnsServers: ").append(getDnsServers()).append(",");
         if (getTransportProtocol() != null)
             sb.append("TransportProtocol: ").append(getTransportProtocol()).append(",");
+        if (getVpnPort() != null)
+            sb.append("VpnPort: ").append(getVpnPort()).append(",");
         if (getDescription() != null)
             sb.append("Description: ").append(getDescription()).append(",");
         if (getSplitTunnel() != null)
@@ -996,7 +1484,19 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
         if (getClientToken() != null)
             sb.append("ClientToken: ").append(getClientToken()).append(",");
         if (getTagSpecifications() != null)
-            sb.append("TagSpecifications: ").append(getTagSpecifications());
+            sb.append("TagSpecifications: ").append(getTagSpecifications()).append(",");
+        if (getSecurityGroupIds() != null)
+            sb.append("SecurityGroupIds: ").append(getSecurityGroupIds()).append(",");
+        if (getVpcId() != null)
+            sb.append("VpcId: ").append(getVpcId()).append(",");
+        if (getSelfServicePortal() != null)
+            sb.append("SelfServicePortal: ").append(getSelfServicePortal()).append(",");
+        if (getClientConnectOptions() != null)
+            sb.append("ClientConnectOptions: ").append(getClientConnectOptions()).append(",");
+        if (getSessionTimeoutHours() != null)
+            sb.append("SessionTimeoutHours: ").append(getSessionTimeoutHours()).append(",");
+        if (getClientLoginBannerOptions() != null)
+            sb.append("ClientLoginBannerOptions: ").append(getClientLoginBannerOptions());
         sb.append("}");
         return sb.toString();
     }
@@ -1035,6 +1535,10 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
             return false;
         if (other.getTransportProtocol() != null && other.getTransportProtocol().equals(this.getTransportProtocol()) == false)
             return false;
+        if (other.getVpnPort() == null ^ this.getVpnPort() == null)
+            return false;
+        if (other.getVpnPort() != null && other.getVpnPort().equals(this.getVpnPort()) == false)
+            return false;
         if (other.getDescription() == null ^ this.getDescription() == null)
             return false;
         if (other.getDescription() != null && other.getDescription().equals(this.getDescription()) == false)
@@ -1051,6 +1555,30 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
             return false;
         if (other.getTagSpecifications() != null && other.getTagSpecifications().equals(this.getTagSpecifications()) == false)
             return false;
+        if (other.getSecurityGroupIds() == null ^ this.getSecurityGroupIds() == null)
+            return false;
+        if (other.getSecurityGroupIds() != null && other.getSecurityGroupIds().equals(this.getSecurityGroupIds()) == false)
+            return false;
+        if (other.getVpcId() == null ^ this.getVpcId() == null)
+            return false;
+        if (other.getVpcId() != null && other.getVpcId().equals(this.getVpcId()) == false)
+            return false;
+        if (other.getSelfServicePortal() == null ^ this.getSelfServicePortal() == null)
+            return false;
+        if (other.getSelfServicePortal() != null && other.getSelfServicePortal().equals(this.getSelfServicePortal()) == false)
+            return false;
+        if (other.getClientConnectOptions() == null ^ this.getClientConnectOptions() == null)
+            return false;
+        if (other.getClientConnectOptions() != null && other.getClientConnectOptions().equals(this.getClientConnectOptions()) == false)
+            return false;
+        if (other.getSessionTimeoutHours() == null ^ this.getSessionTimeoutHours() == null)
+            return false;
+        if (other.getSessionTimeoutHours() != null && other.getSessionTimeoutHours().equals(this.getSessionTimeoutHours()) == false)
+            return false;
+        if (other.getClientLoginBannerOptions() == null ^ this.getClientLoginBannerOptions() == null)
+            return false;
+        if (other.getClientLoginBannerOptions() != null && other.getClientLoginBannerOptions().equals(this.getClientLoginBannerOptions()) == false)
+            return false;
         return true;
     }
 
@@ -1065,10 +1593,17 @@ public class CreateClientVpnEndpointRequest extends AmazonWebServiceRequest impl
         hashCode = prime * hashCode + ((getConnectionLogOptions() == null) ? 0 : getConnectionLogOptions().hashCode());
         hashCode = prime * hashCode + ((getDnsServers() == null) ? 0 : getDnsServers().hashCode());
         hashCode = prime * hashCode + ((getTransportProtocol() == null) ? 0 : getTransportProtocol().hashCode());
+        hashCode = prime * hashCode + ((getVpnPort() == null) ? 0 : getVpnPort().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getSplitTunnel() == null) ? 0 : getSplitTunnel().hashCode());
         hashCode = prime * hashCode + ((getClientToken() == null) ? 0 : getClientToken().hashCode());
         hashCode = prime * hashCode + ((getTagSpecifications() == null) ? 0 : getTagSpecifications().hashCode());
+        hashCode = prime * hashCode + ((getSecurityGroupIds() == null) ? 0 : getSecurityGroupIds().hashCode());
+        hashCode = prime * hashCode + ((getVpcId() == null) ? 0 : getVpcId().hashCode());
+        hashCode = prime * hashCode + ((getSelfServicePortal() == null) ? 0 : getSelfServicePortal().hashCode());
+        hashCode = prime * hashCode + ((getClientConnectOptions() == null) ? 0 : getClientConnectOptions().hashCode());
+        hashCode = prime * hashCode + ((getSessionTimeoutHours() == null) ? 0 : getSessionTimeoutHours().hashCode());
+        hashCode = prime * hashCode + ((getClientLoginBannerOptions() == null) ? 0 : getClientLoginBannerOptions().hashCode());
         return hashCode;
     }
 

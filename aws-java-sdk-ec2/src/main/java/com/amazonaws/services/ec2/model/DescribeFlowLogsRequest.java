@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,8 +37,8 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
      * </li>
      * <li>
      * <p>
-     * <code>log-destination-type</code> - The type of destination to which the flow log publishes data. Possible
-     * destination types include <code>cloud-watch-logs</code> and <code>S3</code>.
+     * <code>log-destination-type</code> - The type of destination for the flow log data (<code>cloud-watch-logs</code>
+     * | <code>s3</code> | <code>kinesis-data-firehose</code>).
      * </p>
      * </li>
      * <li>
@@ -59,6 +59,20 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
      * <li>
      * <p>
      * <code>traffic-type</code> - The type of traffic (<code>ACCEPT</code> | <code>REJECT</code> | <code>ALL</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned
+     * a tag with a specific key, regardless of the tag value.
      * </p>
      * </li>
      * </ul>
@@ -75,14 +89,16 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
     private com.amazonaws.internal.SdkInternalList<String> flowLogIds;
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      */
     private Integer maxResults;
     /**
      * <p>
-     * The token for the next page of results.
+     * The token to request the next page of items. Pagination continues from the end of the items returned by the
+     * previous request.
      * </p>
      */
     private String nextToken;
@@ -99,8 +115,8 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
      * </li>
      * <li>
      * <p>
-     * <code>log-destination-type</code> - The type of destination to which the flow log publishes data. Possible
-     * destination types include <code>cloud-watch-logs</code> and <code>S3</code>.
+     * <code>log-destination-type</code> - The type of destination for the flow log data (<code>cloud-watch-logs</code>
+     * | <code>s3</code> | <code>kinesis-data-firehose</code>).
      * </p>
      * </li>
      * <li>
@@ -123,6 +139,20 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
      * <code>traffic-type</code> - The type of traffic (<code>ACCEPT</code> | <code>REJECT</code> | <code>ALL</code>).
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned
+     * a tag with a specific key, regardless of the tag value.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @return One or more filters.</p>
@@ -135,8 +165,8 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
      *         </li>
      *         <li>
      *         <p>
-     *         <code>log-destination-type</code> - The type of destination to which the flow log publishes data.
-     *         Possible destination types include <code>cloud-watch-logs</code> and <code>S3</code>.
+     *         <code>log-destination-type</code> - The type of destination for the flow log data (
+     *         <code>cloud-watch-logs</code> | <code>s3</code> | <code>kinesis-data-firehose</code>).
      *         </p>
      *         </li>
      *         <li>
@@ -160,6 +190,20 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
      *         <code>ALL</code>).
      *         </p>
      *         </li>
+     *         <li>
+     *         <p>
+     *         <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *         key in the filter name and the tag value as the filter value. For example, to find all resources that
+     *         have a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify
+     *         <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter value.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *         assigned a tag with a specific key, regardless of the tag value.
+     *         </p>
+     *         </li>
      */
 
     public java.util.List<Filter> getFilter() {
@@ -181,8 +225,8 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
      * </li>
      * <li>
      * <p>
-     * <code>log-destination-type</code> - The type of destination to which the flow log publishes data. Possible
-     * destination types include <code>cloud-watch-logs</code> and <code>S3</code>.
+     * <code>log-destination-type</code> - The type of destination for the flow log data (<code>cloud-watch-logs</code>
+     * | <code>s3</code> | <code>kinesis-data-firehose</code>).
      * </p>
      * </li>
      * <li>
@@ -205,6 +249,20 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
      * <code>traffic-type</code> - The type of traffic (<code>ACCEPT</code> | <code>REJECT</code> | <code>ALL</code>).
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned
+     * a tag with a specific key, regardless of the tag value.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @param filter
@@ -218,8 +276,8 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
      *        </li>
      *        <li>
      *        <p>
-     *        <code>log-destination-type</code> - The type of destination to which the flow log publishes data. Possible
-     *        destination types include <code>cloud-watch-logs</code> and <code>S3</code>.
+     *        <code>log-destination-type</code> - The type of destination for the flow log data (
+     *        <code>cloud-watch-logs</code> | <code>s3</code> | <code>kinesis-data-firehose</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -241,6 +299,20 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
      *        <p>
      *        <code>traffic-type</code> - The type of traffic (<code>ACCEPT</code> | <code>REJECT</code> |
      *        <code>ALL</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
+     *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
+     *        the filter name and <code>TeamA</code> for the filter value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *        assigned a tag with a specific key, regardless of the tag value.
      *        </p>
      *        </li>
      */
@@ -266,8 +338,8 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
      * </li>
      * <li>
      * <p>
-     * <code>log-destination-type</code> - The type of destination to which the flow log publishes data. Possible
-     * destination types include <code>cloud-watch-logs</code> and <code>S3</code>.
+     * <code>log-destination-type</code> - The type of destination for the flow log data (<code>cloud-watch-logs</code>
+     * | <code>s3</code> | <code>kinesis-data-firehose</code>).
      * </p>
      * </li>
      * <li>
@@ -290,6 +362,20 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
      * <code>traffic-type</code> - The type of traffic (<code>ACCEPT</code> | <code>REJECT</code> | <code>ALL</code>).
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned
+     * a tag with a specific key, regardless of the tag value.
+     * </p>
+     * </li>
      * </ul>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -308,8 +394,8 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
      *        </li>
      *        <li>
      *        <p>
-     *        <code>log-destination-type</code> - The type of destination to which the flow log publishes data. Possible
-     *        destination types include <code>cloud-watch-logs</code> and <code>S3</code>.
+     *        <code>log-destination-type</code> - The type of destination for the flow log data (
+     *        <code>cloud-watch-logs</code> | <code>s3</code> | <code>kinesis-data-firehose</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -331,6 +417,20 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
      *        <p>
      *        <code>traffic-type</code> - The type of traffic (<code>ACCEPT</code> | <code>REJECT</code> |
      *        <code>ALL</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
+     *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
+     *        the filter name and <code>TeamA</code> for the filter value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *        assigned a tag with a specific key, regardless of the tag value.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -358,8 +458,8 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
      * </li>
      * <li>
      * <p>
-     * <code>log-destination-type</code> - The type of destination to which the flow log publishes data. Possible
-     * destination types include <code>cloud-watch-logs</code> and <code>S3</code>.
+     * <code>log-destination-type</code> - The type of destination for the flow log data (<code>cloud-watch-logs</code>
+     * | <code>s3</code> | <code>kinesis-data-firehose</code>).
      * </p>
      * </li>
      * <li>
@@ -382,6 +482,20 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
      * <code>traffic-type</code> - The type of traffic (<code>ACCEPT</code> | <code>REJECT</code> | <code>ALL</code>).
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned
+     * a tag with a specific key, regardless of the tag value.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @param filter
@@ -395,8 +509,8 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
      *        </li>
      *        <li>
      *        <p>
-     *        <code>log-destination-type</code> - The type of destination to which the flow log publishes data. Possible
-     *        destination types include <code>cloud-watch-logs</code> and <code>S3</code>.
+     *        <code>log-destination-type</code> - The type of destination for the flow log data (
+     *        <code>cloud-watch-logs</code> | <code>s3</code> | <code>kinesis-data-firehose</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -418,6 +532,20 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
      *        <p>
      *        <code>traffic-type</code> - The type of traffic (<code>ACCEPT</code> | <code>REJECT</code> |
      *        <code>ALL</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
+     *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
+     *        the filter name and <code>TeamA</code> for the filter value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *        assigned a tag with a specific key, regardless of the tag value.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -523,13 +651,16 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
 
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return with a single call. To retrieve the remaining results, make
-     *        another call with the returned <code>nextToken</code> value.
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -538,12 +669,15 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
 
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
-     * @return The maximum number of results to return with a single call. To retrieve the remaining results, make
-     *         another call with the returned <code>nextToken</code> value.
+     * @return The maximum number of items to return for this request. To get the next page of items, make another
+     *         request with the token returned in the output. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *         >Pagination</a>.
      */
 
     public Integer getMaxResults() {
@@ -552,13 +686,16 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
 
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return with a single call. To retrieve the remaining results, make
-     *        another call with the returned <code>nextToken</code> value.
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -569,11 +706,13 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
 
     /**
      * <p>
-     * The token for the next page of results.
+     * The token to request the next page of items. Pagination continues from the end of the items returned by the
+     * previous request.
      * </p>
      * 
      * @param nextToken
-     *        The token for the next page of results.
+     *        The token to request the next page of items. Pagination continues from the end of the items returned by
+     *        the previous request.
      */
 
     public void setNextToken(String nextToken) {
@@ -582,10 +721,12 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
 
     /**
      * <p>
-     * The token for the next page of results.
+     * The token to request the next page of items. Pagination continues from the end of the items returned by the
+     * previous request.
      * </p>
      * 
-     * @return The token for the next page of results.
+     * @return The token to request the next page of items. Pagination continues from the end of the items returned by
+     *         the previous request.
      */
 
     public String getNextToken() {
@@ -594,11 +735,13 @@ public class DescribeFlowLogsRequest extends AmazonWebServiceRequest implements 
 
     /**
      * <p>
-     * The token for the next page of results.
+     * The token to request the next page of items. Pagination continues from the end of the items returned by the
+     * previous request.
      * </p>
      * 
      * @param nextToken
-     *        The token for the next page of results.
+     *        The token to request the next page of items. Pagination continues from the end of the items returned by
+     *        the previous request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

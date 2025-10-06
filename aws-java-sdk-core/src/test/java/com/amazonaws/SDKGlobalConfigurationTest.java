@@ -15,11 +15,15 @@
 
 package com.amazonaws;
 
+import static com.amazonaws.SDKGlobalConfiguration.AWS_ACCOUNT_ID_ENDPOINT_MODE_SYSTEM_PROPERTY;
 import static com.amazonaws.SDKGlobalConfiguration.AWS_EC2_METADATA_DISABLED_SYSTEM_PROPERTY;
+import static com.amazonaws.SDKGlobalConfiguration.AWS_EC2_METADATA_V1_DISABLED_SYSTEM_PROPERTY;
 import static com.amazonaws.SDKGlobalConfiguration.DISABLE_CERT_CHECKING_SYSTEM_PROPERTY;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import com.amazonaws.endpoints.AccountIdEndpointMode;
 import org.junit.After;
 import org.junit.Test;
 
@@ -29,6 +33,7 @@ public class SDKGlobalConfigurationTest {
     public void tearDown() {
         System.clearProperty(DISABLE_CERT_CHECKING_SYSTEM_PROPERTY);
         System.clearProperty(AWS_EC2_METADATA_DISABLED_SYSTEM_PROPERTY);
+        System.clearProperty(AWS_ACCOUNT_ID_ENDPOINT_MODE_SYSTEM_PROPERTY);
     }
 
     /**
@@ -74,5 +79,36 @@ public class SDKGlobalConfigurationTest {
     public void disableEc2Metadata_PropertySetToTrueMixedCase_turnOffEc2Metadata() {
         System.setProperty(DISABLE_CERT_CHECKING_SYSTEM_PROPERTY, "tRuE");
         assertTrue(SDKGlobalConfiguration.isCertCheckingDisabled());
+    }
+
+    public void disableEc2MetadataV1_PropertySetToFalse_turnOnEc2Metadata() {
+        System.setProperty(AWS_EC2_METADATA_V1_DISABLED_SYSTEM_PROPERTY, "false");
+        assertFalse(SDKGlobalConfiguration.isEc2MetadataV1Disabled());
+    }
+
+    @Test
+    public void disableEc2MetadataV1_PropertySetToAnything_turnOnEc2Metadata() {
+        System.setProperty(AWS_EC2_METADATA_V1_DISABLED_SYSTEM_PROPERTY, "anything");
+        assertFalse(SDKGlobalConfiguration.isEc2MetadataV1Disabled());
+    }
+
+    @Test
+    public void disableEc2MetadataV1_PropertySetToTrueMixedCase_turnOffEc2Metadata() {
+        System.setProperty(AWS_EC2_METADATA_V1_DISABLED_SYSTEM_PROPERTY, "tRuE");
+        assertTrue(SDKGlobalConfiguration.isEc2MetadataV1Disabled());
+    }
+
+    @Test
+    public void setAccountIdEndpointMode_SystemPropertySetToDisabledMixedCase_disabledAccountIdEndpointMode() {
+        System.setProperty(AWS_ACCOUNT_ID_ENDPOINT_MODE_SYSTEM_PROPERTY, "disabLed");
+        assertEquals(AccountIdEndpointMode.DISABLED,
+                AccountIdEndpointMode.fromName(System.getProperty(AWS_ACCOUNT_ID_ENDPOINT_MODE_SYSTEM_PROPERTY)));
+    }
+
+    @Test
+    public void setAccountIdEndpointMode_SystemPropertySetToPreferred_preferredAccountIdEndpointMode() {
+        System.setProperty(AWS_ACCOUNT_ID_ENDPOINT_MODE_SYSTEM_PROPERTY, "preferred");
+        assertEquals(AccountIdEndpointMode.PREFERRED,
+                AccountIdEndpointMode.fromName(System.getProperty(AWS_ACCOUNT_ID_ENDPOINT_MODE_SYSTEM_PROPERTY)));
     }
 }

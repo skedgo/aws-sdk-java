@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,42 +33,77 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
      * triggered ad avails.
      */
     private AvailBlanking availBlanking;
-    /** Settings for Event Signaling And Messaging (ESAM). */
+    /**
+     * Use 3D LUTs to specify custom color mapping behavior when you convert from one color space into another. You can
+     * include up to 8 different 3D LUTs. For more information, see:
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/3d-luts.html
+     */
+    private java.util.List<ColorConversion3DLUTSetting> colorConversion3DLUTSettings;
+    /** Settings for Event Signaling And Messaging (ESAM). If you don't do ad insertion, you can ignore these settings. */
     private EsamSettings esam;
     /**
-     * Use Inputs (inputs) to define source file used in the transcode job. There can be multiple inputs add in a job.
-     * These inputs will be concantenated together to create the output.
+     * If your source content has EIA-608 Line 21 Data Services, enable this feature to specify what MediaConvert does
+     * with the Extended Data Services (XDS) packets. You can choose to pass through XDS packets, or remove them from
+     * the output. For more information about XDS, see EIA-608 Line Data Services, section 9.5.1.5 05h Content Advisory.
+     */
+    private ExtendedDataServices extendedDataServices;
+    /**
+     * Specify the input that MediaConvert references for your default output settings. MediaConvert uses this input's
+     * Resolution, Frame rate, and Pixel aspect ratio for all outputs that you don't manually specify different output
+     * settings for. Enabling this setting will disable "Follow source" for all other inputs. If MediaConvert cannot
+     * follow your source, for example if you specify an audio-only input, MediaConvert uses the first followable input
+     * instead. In your JSON job specification, enter an integer from 1 to 150 corresponding to the order of your inputs.
+     */
+    private Integer followSource;
+    /**
+     * Use Inputs to define source file used in the transcode job. There can be multiple inputs add in a job. These
+     * inputs will be concantenated together to create the output.
      */
     private java.util.List<Input> inputs;
     /**
+     * Use these settings only when you use Kantar watermarking. Specify the values that MediaConvert uses to generate
+     * and place Kantar watermarks in your output audio. These settings apply to every output in your job. In addition
+     * to specifying these values, you also need to store your Kantar credentials in AWS Secrets Manager. For more
+     * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/kantar-watermarking.html.
+     */
+    private KantarWatermarkSettings kantarWatermark;
+    /**
      * Overlay motion graphics on top of your video. The motion graphics that you specify here appear on all outputs in
-     * all output groups.
+     * all output groups. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/motion-graphic-overlay.html.
      */
     private MotionImageInserter motionImageInserter;
     /**
      * Settings for your Nielsen configuration. If you don't do Nielsen measurement and analytics, ignore these
-     * settings. When you enable Nielsen configuration (nielsenConfiguration), MediaConvert enables PCM to ID3 tagging
-     * for all outputs in the job. To enable Nielsen configuration programmatically, include an instance of
-     * nielsenConfiguration in your JSON job specification. Even if you don't include any children of
-     * nielsenConfiguration, you still enable the setting.
+     * settings. When you enable Nielsen configuration, MediaConvert enables PCM to ID3 tagging for all outputs in the
+     * job.
      */
     private NielsenConfiguration nielsenConfiguration;
     /**
-     * (OutputGroups) contains one group of settings for each set of outputs that share a common package type. All
-     * unpackaged files (MPEG-4, MPEG-2 TS, Quicktime, MXF, and no container) are grouped in a single output group as
-     * well. Required in (OutputGroups) is a group of settings that apply to the whole group. This required object
-     * depends on the value you set for (Type) under (OutputGroups)>(OutputGroupSettings). Type, settings object pairs
-     * are as follows. * FILE_GROUP_SETTINGS, FileGroupSettings * HLS_GROUP_SETTINGS, HlsGroupSettings *
-     * DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings * MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings *
-     * CMAF_GROUP_SETTINGS, CmafGroupSettings
+     * Ignore these settings unless you are using Nielsen non-linear watermarking. Specify the values that MediaConvert
+     * uses to generate and place Nielsen watermarks in your output audio. In addition to specifying these values, you
+     * also need to set up your cloud TIC server. These settings apply to every output in your job. The MediaConvert
+     * implementation is currently with the following Nielsen versions: Nielsen Watermark SDK Version 5.2.1 Nielsen NLM
+     * Watermark Engine Version 1.2.7 Nielsen Watermark Authenticator [SID_TIC] Version [5.0.0]
+     */
+    private NielsenNonLinearWatermarkSettings nielsenNonLinearWatermark;
+    /**
+     * Contains one group of settings for each set of outputs that share a common package type. All unpackaged files
+     * (MPEG-4, MPEG-2 TS, Quicktime, MXF, and no container) are grouped in a single output group as well. Required in
+     * is a group of settings that apply to the whole group. This required object depends on the value you set for Type.
+     * Type, settings object pairs are as follows. * FILE_GROUP_SETTINGS, FileGroupSettings * HLS_GROUP_SETTINGS,
+     * HlsGroupSettings * DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings * MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings
+     * * CMAF_GROUP_SETTINGS, CmafGroupSettings
      */
     private java.util.List<OutputGroup> outputGroups;
-    /** Contains settings used to acquire and adjust timecode information from inputs. */
+    /**
+     * These settings control how the service handles timecodes throughout the job. These settings don't affect input
+     * clipping.
+     */
     private TimecodeConfig timecodeConfig;
     /**
-     * Enable Timed metadata insertion (TimedMetadataInsertion) to include ID3 tags in your job. To include timed
-     * metadata, you must enable it here, enable it in each output container, and specify tags and timecodes in ID3
-     * insertion (Id3Insertion) objects.
+     * Insert user-defined custom ID3 metadata at timecodes that you specify. In each output that you want to include
+     * this metadata, you must set ID3 metadata to Passthrough.
      */
     private TimedMetadataInsertion timedMetadataInsertion;
 
@@ -147,10 +182,89 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Settings for Event Signaling And Messaging (ESAM).
+     * Use 3D LUTs to specify custom color mapping behavior when you convert from one color space into another. You can
+     * include up to 8 different 3D LUTs. For more information, see:
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/3d-luts.html
+     * 
+     * @return Use 3D LUTs to specify custom color mapping behavior when you convert from one color space into another.
+     *         You can include up to 8 different 3D LUTs. For more information, see:
+     *         https://docs.aws.amazon.com/mediaconvert/latest/ug/3d-luts.html
+     */
+
+    public java.util.List<ColorConversion3DLUTSetting> getColorConversion3DLUTSettings() {
+        return colorConversion3DLUTSettings;
+    }
+
+    /**
+     * Use 3D LUTs to specify custom color mapping behavior when you convert from one color space into another. You can
+     * include up to 8 different 3D LUTs. For more information, see:
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/3d-luts.html
+     * 
+     * @param colorConversion3DLUTSettings
+     *        Use 3D LUTs to specify custom color mapping behavior when you convert from one color space into another.
+     *        You can include up to 8 different 3D LUTs. For more information, see:
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/3d-luts.html
+     */
+
+    public void setColorConversion3DLUTSettings(java.util.Collection<ColorConversion3DLUTSetting> colorConversion3DLUTSettings) {
+        if (colorConversion3DLUTSettings == null) {
+            this.colorConversion3DLUTSettings = null;
+            return;
+        }
+
+        this.colorConversion3DLUTSettings = new java.util.ArrayList<ColorConversion3DLUTSetting>(colorConversion3DLUTSettings);
+    }
+
+    /**
+     * Use 3D LUTs to specify custom color mapping behavior when you convert from one color space into another. You can
+     * include up to 8 different 3D LUTs. For more information, see:
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/3d-luts.html
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setColorConversion3DLUTSettings(java.util.Collection)} or
+     * {@link #withColorConversion3DLUTSettings(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param colorConversion3DLUTSettings
+     *        Use 3D LUTs to specify custom color mapping behavior when you convert from one color space into another.
+     *        You can include up to 8 different 3D LUTs. For more information, see:
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/3d-luts.html
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobSettings withColorConversion3DLUTSettings(ColorConversion3DLUTSetting... colorConversion3DLUTSettings) {
+        if (this.colorConversion3DLUTSettings == null) {
+            setColorConversion3DLUTSettings(new java.util.ArrayList<ColorConversion3DLUTSetting>(colorConversion3DLUTSettings.length));
+        }
+        for (ColorConversion3DLUTSetting ele : colorConversion3DLUTSettings) {
+            this.colorConversion3DLUTSettings.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * Use 3D LUTs to specify custom color mapping behavior when you convert from one color space into another. You can
+     * include up to 8 different 3D LUTs. For more information, see:
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/3d-luts.html
+     * 
+     * @param colorConversion3DLUTSettings
+     *        Use 3D LUTs to specify custom color mapping behavior when you convert from one color space into another.
+     *        You can include up to 8 different 3D LUTs. For more information, see:
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/3d-luts.html
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobSettings withColorConversion3DLUTSettings(java.util.Collection<ColorConversion3DLUTSetting> colorConversion3DLUTSettings) {
+        setColorConversion3DLUTSettings(colorConversion3DLUTSettings);
+        return this;
+    }
+
+    /**
+     * Settings for Event Signaling And Messaging (ESAM). If you don't do ad insertion, you can ignore these settings.
      * 
      * @param esam
-     *        Settings for Event Signaling And Messaging (ESAM).
+     *        Settings for Event Signaling And Messaging (ESAM). If you don't do ad insertion, you can ignore these
+     *        settings.
      */
 
     public void setEsam(EsamSettings esam) {
@@ -158,9 +272,10 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Settings for Event Signaling And Messaging (ESAM).
+     * Settings for Event Signaling And Messaging (ESAM). If you don't do ad insertion, you can ignore these settings.
      * 
-     * @return Settings for Event Signaling And Messaging (ESAM).
+     * @return Settings for Event Signaling And Messaging (ESAM). If you don't do ad insertion, you can ignore these
+     *         settings.
      */
 
     public EsamSettings getEsam() {
@@ -168,10 +283,11 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Settings for Event Signaling And Messaging (ESAM).
+     * Settings for Event Signaling And Messaging (ESAM). If you don't do ad insertion, you can ignore these settings.
      * 
      * @param esam
-     *        Settings for Event Signaling And Messaging (ESAM).
+     *        Settings for Event Signaling And Messaging (ESAM). If you don't do ad insertion, you can ignore these
+     *        settings.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -181,11 +297,121 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Use Inputs (inputs) to define source file used in the transcode job. There can be multiple inputs add in a job.
-     * These inputs will be concantenated together to create the output.
+     * If your source content has EIA-608 Line 21 Data Services, enable this feature to specify what MediaConvert does
+     * with the Extended Data Services (XDS) packets. You can choose to pass through XDS packets, or remove them from
+     * the output. For more information about XDS, see EIA-608 Line Data Services, section 9.5.1.5 05h Content Advisory.
      * 
-     * @return Use Inputs (inputs) to define source file used in the transcode job. There can be multiple inputs add in
-     *         a job. These inputs will be concantenated together to create the output.
+     * @param extendedDataServices
+     *        If your source content has EIA-608 Line 21 Data Services, enable this feature to specify what MediaConvert
+     *        does with the Extended Data Services (XDS) packets. You can choose to pass through XDS packets, or remove
+     *        them from the output. For more information about XDS, see EIA-608 Line Data Services, section 9.5.1.5 05h
+     *        Content Advisory.
+     */
+
+    public void setExtendedDataServices(ExtendedDataServices extendedDataServices) {
+        this.extendedDataServices = extendedDataServices;
+    }
+
+    /**
+     * If your source content has EIA-608 Line 21 Data Services, enable this feature to specify what MediaConvert does
+     * with the Extended Data Services (XDS) packets. You can choose to pass through XDS packets, or remove them from
+     * the output. For more information about XDS, see EIA-608 Line Data Services, section 9.5.1.5 05h Content Advisory.
+     * 
+     * @return If your source content has EIA-608 Line 21 Data Services, enable this feature to specify what
+     *         MediaConvert does with the Extended Data Services (XDS) packets. You can choose to pass through XDS
+     *         packets, or remove them from the output. For more information about XDS, see EIA-608 Line Data Services,
+     *         section 9.5.1.5 05h Content Advisory.
+     */
+
+    public ExtendedDataServices getExtendedDataServices() {
+        return this.extendedDataServices;
+    }
+
+    /**
+     * If your source content has EIA-608 Line 21 Data Services, enable this feature to specify what MediaConvert does
+     * with the Extended Data Services (XDS) packets. You can choose to pass through XDS packets, or remove them from
+     * the output. For more information about XDS, see EIA-608 Line Data Services, section 9.5.1.5 05h Content Advisory.
+     * 
+     * @param extendedDataServices
+     *        If your source content has EIA-608 Line 21 Data Services, enable this feature to specify what MediaConvert
+     *        does with the Extended Data Services (XDS) packets. You can choose to pass through XDS packets, or remove
+     *        them from the output. For more information about XDS, see EIA-608 Line Data Services, section 9.5.1.5 05h
+     *        Content Advisory.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobSettings withExtendedDataServices(ExtendedDataServices extendedDataServices) {
+        setExtendedDataServices(extendedDataServices);
+        return this;
+    }
+
+    /**
+     * Specify the input that MediaConvert references for your default output settings. MediaConvert uses this input's
+     * Resolution, Frame rate, and Pixel aspect ratio for all outputs that you don't manually specify different output
+     * settings for. Enabling this setting will disable "Follow source" for all other inputs. If MediaConvert cannot
+     * follow your source, for example if you specify an audio-only input, MediaConvert uses the first followable input
+     * instead. In your JSON job specification, enter an integer from 1 to 150 corresponding to the order of your inputs.
+     * 
+     * @param followSource
+     *        Specify the input that MediaConvert references for your default output settings. MediaConvert uses this
+     *        input's Resolution, Frame rate, and Pixel aspect ratio for all outputs that you don't manually specify
+     *        different output settings for. Enabling this setting will disable "Follow source" for all other inputs. If
+     *        MediaConvert cannot follow your source, for example if you specify an audio-only input, MediaConvert uses
+     *        the first followable input instead. In your JSON job specification, enter an integer from 1 to 150
+     *        corresponding to the order of your inputs.
+     */
+
+    public void setFollowSource(Integer followSource) {
+        this.followSource = followSource;
+    }
+
+    /**
+     * Specify the input that MediaConvert references for your default output settings. MediaConvert uses this input's
+     * Resolution, Frame rate, and Pixel aspect ratio for all outputs that you don't manually specify different output
+     * settings for. Enabling this setting will disable "Follow source" for all other inputs. If MediaConvert cannot
+     * follow your source, for example if you specify an audio-only input, MediaConvert uses the first followable input
+     * instead. In your JSON job specification, enter an integer from 1 to 150 corresponding to the order of your inputs.
+     * 
+     * @return Specify the input that MediaConvert references for your default output settings. MediaConvert uses this
+     *         input's Resolution, Frame rate, and Pixel aspect ratio for all outputs that you don't manually specify
+     *         different output settings for. Enabling this setting will disable "Follow source" for all other inputs.
+     *         If MediaConvert cannot follow your source, for example if you specify an audio-only input, MediaConvert
+     *         uses the first followable input instead. In your JSON job specification, enter an integer from 1 to 150
+     *         corresponding to the order of your inputs.
+     */
+
+    public Integer getFollowSource() {
+        return this.followSource;
+    }
+
+    /**
+     * Specify the input that MediaConvert references for your default output settings. MediaConvert uses this input's
+     * Resolution, Frame rate, and Pixel aspect ratio for all outputs that you don't manually specify different output
+     * settings for. Enabling this setting will disable "Follow source" for all other inputs. If MediaConvert cannot
+     * follow your source, for example if you specify an audio-only input, MediaConvert uses the first followable input
+     * instead. In your JSON job specification, enter an integer from 1 to 150 corresponding to the order of your inputs.
+     * 
+     * @param followSource
+     *        Specify the input that MediaConvert references for your default output settings. MediaConvert uses this
+     *        input's Resolution, Frame rate, and Pixel aspect ratio for all outputs that you don't manually specify
+     *        different output settings for. Enabling this setting will disable "Follow source" for all other inputs. If
+     *        MediaConvert cannot follow your source, for example if you specify an audio-only input, MediaConvert uses
+     *        the first followable input instead. In your JSON job specification, enter an integer from 1 to 150
+     *        corresponding to the order of your inputs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobSettings withFollowSource(Integer followSource) {
+        setFollowSource(followSource);
+        return this;
+    }
+
+    /**
+     * Use Inputs to define source file used in the transcode job. There can be multiple inputs add in a job. These
+     * inputs will be concantenated together to create the output.
+     * 
+     * @return Use Inputs to define source file used in the transcode job. There can be multiple inputs add in a job.
+     *         These inputs will be concantenated together to create the output.
      */
 
     public java.util.List<Input> getInputs() {
@@ -193,12 +419,12 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Use Inputs (inputs) to define source file used in the transcode job. There can be multiple inputs add in a job.
-     * These inputs will be concantenated together to create the output.
+     * Use Inputs to define source file used in the transcode job. There can be multiple inputs add in a job. These
+     * inputs will be concantenated together to create the output.
      * 
      * @param inputs
-     *        Use Inputs (inputs) to define source file used in the transcode job. There can be multiple inputs add in a
-     *        job. These inputs will be concantenated together to create the output.
+     *        Use Inputs to define source file used in the transcode job. There can be multiple inputs add in a job.
+     *        These inputs will be concantenated together to create the output.
      */
 
     public void setInputs(java.util.Collection<Input> inputs) {
@@ -211,8 +437,8 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Use Inputs (inputs) to define source file used in the transcode job. There can be multiple inputs add in a job.
-     * These inputs will be concantenated together to create the output.
+     * Use Inputs to define source file used in the transcode job. There can be multiple inputs add in a job. These
+     * inputs will be concantenated together to create the output.
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setInputs(java.util.Collection)} or {@link #withInputs(java.util.Collection)} if you want to override the
@@ -220,8 +446,8 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param inputs
-     *        Use Inputs (inputs) to define source file used in the transcode job. There can be multiple inputs add in a
-     *        job. These inputs will be concantenated together to create the output.
+     *        Use Inputs to define source file used in the transcode job. There can be multiple inputs add in a job.
+     *        These inputs will be concantenated together to create the output.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -236,12 +462,12 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Use Inputs (inputs) to define source file used in the transcode job. There can be multiple inputs add in a job.
-     * These inputs will be concantenated together to create the output.
+     * Use Inputs to define source file used in the transcode job. There can be multiple inputs add in a job. These
+     * inputs will be concantenated together to create the output.
      * 
      * @param inputs
-     *        Use Inputs (inputs) to define source file used in the transcode job. There can be multiple inputs add in a
-     *        job. These inputs will be concantenated together to create the output.
+     *        Use Inputs to define source file used in the transcode job. There can be multiple inputs add in a job.
+     *        These inputs will be concantenated together to create the output.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -251,12 +477,69 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * Use these settings only when you use Kantar watermarking. Specify the values that MediaConvert uses to generate
+     * and place Kantar watermarks in your output audio. These settings apply to every output in your job. In addition
+     * to specifying these values, you also need to store your Kantar credentials in AWS Secrets Manager. For more
+     * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/kantar-watermarking.html.
+     * 
+     * @param kantarWatermark
+     *        Use these settings only when you use Kantar watermarking. Specify the values that MediaConvert uses to
+     *        generate and place Kantar watermarks in your output audio. These settings apply to every output in your
+     *        job. In addition to specifying these values, you also need to store your Kantar credentials in AWS Secrets
+     *        Manager. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/kantar-watermarking.html.
+     */
+
+    public void setKantarWatermark(KantarWatermarkSettings kantarWatermark) {
+        this.kantarWatermark = kantarWatermark;
+    }
+
+    /**
+     * Use these settings only when you use Kantar watermarking. Specify the values that MediaConvert uses to generate
+     * and place Kantar watermarks in your output audio. These settings apply to every output in your job. In addition
+     * to specifying these values, you also need to store your Kantar credentials in AWS Secrets Manager. For more
+     * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/kantar-watermarking.html.
+     * 
+     * @return Use these settings only when you use Kantar watermarking. Specify the values that MediaConvert uses to
+     *         generate and place Kantar watermarks in your output audio. These settings apply to every output in your
+     *         job. In addition to specifying these values, you also need to store your Kantar credentials in AWS
+     *         Secrets Manager. For more information, see
+     *         https://docs.aws.amazon.com/mediaconvert/latest/ug/kantar-watermarking.html.
+     */
+
+    public KantarWatermarkSettings getKantarWatermark() {
+        return this.kantarWatermark;
+    }
+
+    /**
+     * Use these settings only when you use Kantar watermarking. Specify the values that MediaConvert uses to generate
+     * and place Kantar watermarks in your output audio. These settings apply to every output in your job. In addition
+     * to specifying these values, you also need to store your Kantar credentials in AWS Secrets Manager. For more
+     * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/kantar-watermarking.html.
+     * 
+     * @param kantarWatermark
+     *        Use these settings only when you use Kantar watermarking. Specify the values that MediaConvert uses to
+     *        generate and place Kantar watermarks in your output audio. These settings apply to every output in your
+     *        job. In addition to specifying these values, you also need to store your Kantar credentials in AWS Secrets
+     *        Manager. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/kantar-watermarking.html.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobSettings withKantarWatermark(KantarWatermarkSettings kantarWatermark) {
+        setKantarWatermark(kantarWatermark);
+        return this;
+    }
+
+    /**
      * Overlay motion graphics on top of your video. The motion graphics that you specify here appear on all outputs in
-     * all output groups.
+     * all output groups. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/motion-graphic-overlay.html.
      * 
      * @param motionImageInserter
      *        Overlay motion graphics on top of your video. The motion graphics that you specify here appear on all
-     *        outputs in all output groups.
+     *        outputs in all output groups. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/motion-graphic-overlay.html.
      */
 
     public void setMotionImageInserter(MotionImageInserter motionImageInserter) {
@@ -265,10 +548,12 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * Overlay motion graphics on top of your video. The motion graphics that you specify here appear on all outputs in
-     * all output groups.
+     * all output groups. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/motion-graphic-overlay.html.
      * 
      * @return Overlay motion graphics on top of your video. The motion graphics that you specify here appear on all
-     *         outputs in all output groups.
+     *         outputs in all output groups. For more information, see
+     *         https://docs.aws.amazon.com/mediaconvert/latest/ug/motion-graphic-overlay.html.
      */
 
     public MotionImageInserter getMotionImageInserter() {
@@ -277,11 +562,13 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * Overlay motion graphics on top of your video. The motion graphics that you specify here appear on all outputs in
-     * all output groups.
+     * all output groups. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/motion-graphic-overlay.html.
      * 
      * @param motionImageInserter
      *        Overlay motion graphics on top of your video. The motion graphics that you specify here appear on all
-     *        outputs in all output groups.
+     *        outputs in all output groups. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/motion-graphic-overlay.html.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -292,17 +579,13 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * Settings for your Nielsen configuration. If you don't do Nielsen measurement and analytics, ignore these
-     * settings. When you enable Nielsen configuration (nielsenConfiguration), MediaConvert enables PCM to ID3 tagging
-     * for all outputs in the job. To enable Nielsen configuration programmatically, include an instance of
-     * nielsenConfiguration in your JSON job specification. Even if you don't include any children of
-     * nielsenConfiguration, you still enable the setting.
+     * settings. When you enable Nielsen configuration, MediaConvert enables PCM to ID3 tagging for all outputs in the
+     * job.
      * 
      * @param nielsenConfiguration
      *        Settings for your Nielsen configuration. If you don't do Nielsen measurement and analytics, ignore these
-     *        settings. When you enable Nielsen configuration (nielsenConfiguration), MediaConvert enables PCM to ID3
-     *        tagging for all outputs in the job. To enable Nielsen configuration programmatically, include an instance
-     *        of nielsenConfiguration in your JSON job specification. Even if you don't include any children of
-     *        nielsenConfiguration, you still enable the setting.
+     *        settings. When you enable Nielsen configuration, MediaConvert enables PCM to ID3 tagging for all outputs
+     *        in the job.
      */
 
     public void setNielsenConfiguration(NielsenConfiguration nielsenConfiguration) {
@@ -311,16 +594,12 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * Settings for your Nielsen configuration. If you don't do Nielsen measurement and analytics, ignore these
-     * settings. When you enable Nielsen configuration (nielsenConfiguration), MediaConvert enables PCM to ID3 tagging
-     * for all outputs in the job. To enable Nielsen configuration programmatically, include an instance of
-     * nielsenConfiguration in your JSON job specification. Even if you don't include any children of
-     * nielsenConfiguration, you still enable the setting.
+     * settings. When you enable Nielsen configuration, MediaConvert enables PCM to ID3 tagging for all outputs in the
+     * job.
      * 
      * @return Settings for your Nielsen configuration. If you don't do Nielsen measurement and analytics, ignore these
-     *         settings. When you enable Nielsen configuration (nielsenConfiguration), MediaConvert enables PCM to ID3
-     *         tagging for all outputs in the job. To enable Nielsen configuration programmatically, include an instance
-     *         of nielsenConfiguration in your JSON job specification. Even if you don't include any children of
-     *         nielsenConfiguration, you still enable the setting.
+     *         settings. When you enable Nielsen configuration, MediaConvert enables PCM to ID3 tagging for all outputs
+     *         in the job.
      */
 
     public NielsenConfiguration getNielsenConfiguration() {
@@ -329,17 +608,13 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * Settings for your Nielsen configuration. If you don't do Nielsen measurement and analytics, ignore these
-     * settings. When you enable Nielsen configuration (nielsenConfiguration), MediaConvert enables PCM to ID3 tagging
-     * for all outputs in the job. To enable Nielsen configuration programmatically, include an instance of
-     * nielsenConfiguration in your JSON job specification. Even if you don't include any children of
-     * nielsenConfiguration, you still enable the setting.
+     * settings. When you enable Nielsen configuration, MediaConvert enables PCM to ID3 tagging for all outputs in the
+     * job.
      * 
      * @param nielsenConfiguration
      *        Settings for your Nielsen configuration. If you don't do Nielsen measurement and analytics, ignore these
-     *        settings. When you enable Nielsen configuration (nielsenConfiguration), MediaConvert enables PCM to ID3
-     *        tagging for all outputs in the job. To enable Nielsen configuration programmatically, include an instance
-     *        of nielsenConfiguration in your JSON job specification. Even if you don't include any children of
-     *        nielsenConfiguration, you still enable the setting.
+     *        settings. When you enable Nielsen configuration, MediaConvert enables PCM to ID3 tagging for all outputs
+     *        in the job.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -349,21 +624,80 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * (OutputGroups) contains one group of settings for each set of outputs that share a common package type. All
-     * unpackaged files (MPEG-4, MPEG-2 TS, Quicktime, MXF, and no container) are grouped in a single output group as
-     * well. Required in (OutputGroups) is a group of settings that apply to the whole group. This required object
-     * depends on the value you set for (Type) under (OutputGroups)>(OutputGroupSettings). Type, settings object pairs
-     * are as follows. * FILE_GROUP_SETTINGS, FileGroupSettings * HLS_GROUP_SETTINGS, HlsGroupSettings *
-     * DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings * MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings *
-     * CMAF_GROUP_SETTINGS, CmafGroupSettings
+     * Ignore these settings unless you are using Nielsen non-linear watermarking. Specify the values that MediaConvert
+     * uses to generate and place Nielsen watermarks in your output audio. In addition to specifying these values, you
+     * also need to set up your cloud TIC server. These settings apply to every output in your job. The MediaConvert
+     * implementation is currently with the following Nielsen versions: Nielsen Watermark SDK Version 5.2.1 Nielsen NLM
+     * Watermark Engine Version 1.2.7 Nielsen Watermark Authenticator [SID_TIC] Version [5.0.0]
      * 
-     * @return (OutputGroups) contains one group of settings for each set of outputs that share a common package type.
-     *         All unpackaged files (MPEG-4, MPEG-2 TS, Quicktime, MXF, and no container) are grouped in a single output
-     *         group as well. Required in (OutputGroups) is a group of settings that apply to the whole group. This
-     *         required object depends on the value you set for (Type) under (OutputGroups)>(OutputGroupSettings). Type,
-     *         settings object pairs are as follows. * FILE_GROUP_SETTINGS, FileGroupSettings * HLS_GROUP_SETTINGS,
-     *         HlsGroupSettings * DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings * MS_SMOOTH_GROUP_SETTINGS,
-     *         MsSmoothGroupSettings * CMAF_GROUP_SETTINGS, CmafGroupSettings
+     * @param nielsenNonLinearWatermark
+     *        Ignore these settings unless you are using Nielsen non-linear watermarking. Specify the values that
+     *        MediaConvert uses to generate and place Nielsen watermarks in your output audio. In addition to specifying
+     *        these values, you also need to set up your cloud TIC server. These settings apply to every output in your
+     *        job. The MediaConvert implementation is currently with the following Nielsen versions: Nielsen Watermark
+     *        SDK Version 5.2.1 Nielsen NLM Watermark Engine Version 1.2.7 Nielsen Watermark Authenticator [SID_TIC]
+     *        Version [5.0.0]
+     */
+
+    public void setNielsenNonLinearWatermark(NielsenNonLinearWatermarkSettings nielsenNonLinearWatermark) {
+        this.nielsenNonLinearWatermark = nielsenNonLinearWatermark;
+    }
+
+    /**
+     * Ignore these settings unless you are using Nielsen non-linear watermarking. Specify the values that MediaConvert
+     * uses to generate and place Nielsen watermarks in your output audio. In addition to specifying these values, you
+     * also need to set up your cloud TIC server. These settings apply to every output in your job. The MediaConvert
+     * implementation is currently with the following Nielsen versions: Nielsen Watermark SDK Version 5.2.1 Nielsen NLM
+     * Watermark Engine Version 1.2.7 Nielsen Watermark Authenticator [SID_TIC] Version [5.0.0]
+     * 
+     * @return Ignore these settings unless you are using Nielsen non-linear watermarking. Specify the values that
+     *         MediaConvert uses to generate and place Nielsen watermarks in your output audio. In addition to
+     *         specifying these values, you also need to set up your cloud TIC server. These settings apply to every
+     *         output in your job. The MediaConvert implementation is currently with the following Nielsen versions:
+     *         Nielsen Watermark SDK Version 5.2.1 Nielsen NLM Watermark Engine Version 1.2.7 Nielsen Watermark
+     *         Authenticator [SID_TIC] Version [5.0.0]
+     */
+
+    public NielsenNonLinearWatermarkSettings getNielsenNonLinearWatermark() {
+        return this.nielsenNonLinearWatermark;
+    }
+
+    /**
+     * Ignore these settings unless you are using Nielsen non-linear watermarking. Specify the values that MediaConvert
+     * uses to generate and place Nielsen watermarks in your output audio. In addition to specifying these values, you
+     * also need to set up your cloud TIC server. These settings apply to every output in your job. The MediaConvert
+     * implementation is currently with the following Nielsen versions: Nielsen Watermark SDK Version 5.2.1 Nielsen NLM
+     * Watermark Engine Version 1.2.7 Nielsen Watermark Authenticator [SID_TIC] Version [5.0.0]
+     * 
+     * @param nielsenNonLinearWatermark
+     *        Ignore these settings unless you are using Nielsen non-linear watermarking. Specify the values that
+     *        MediaConvert uses to generate and place Nielsen watermarks in your output audio. In addition to specifying
+     *        these values, you also need to set up your cloud TIC server. These settings apply to every output in your
+     *        job. The MediaConvert implementation is currently with the following Nielsen versions: Nielsen Watermark
+     *        SDK Version 5.2.1 Nielsen NLM Watermark Engine Version 1.2.7 Nielsen Watermark Authenticator [SID_TIC]
+     *        Version [5.0.0]
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobSettings withNielsenNonLinearWatermark(NielsenNonLinearWatermarkSettings nielsenNonLinearWatermark) {
+        setNielsenNonLinearWatermark(nielsenNonLinearWatermark);
+        return this;
+    }
+
+    /**
+     * Contains one group of settings for each set of outputs that share a common package type. All unpackaged files
+     * (MPEG-4, MPEG-2 TS, Quicktime, MXF, and no container) are grouped in a single output group as well. Required in
+     * is a group of settings that apply to the whole group. This required object depends on the value you set for Type.
+     * Type, settings object pairs are as follows. * FILE_GROUP_SETTINGS, FileGroupSettings * HLS_GROUP_SETTINGS,
+     * HlsGroupSettings * DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings * MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings
+     * * CMAF_GROUP_SETTINGS, CmafGroupSettings
+     * 
+     * @return Contains one group of settings for each set of outputs that share a common package type. All unpackaged
+     *         files (MPEG-4, MPEG-2 TS, Quicktime, MXF, and no container) are grouped in a single output group as well.
+     *         Required in is a group of settings that apply to the whole group. This required object depends on the
+     *         value you set for Type. Type, settings object pairs are as follows. * FILE_GROUP_SETTINGS,
+     *         FileGroupSettings * HLS_GROUP_SETTINGS, HlsGroupSettings * DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings
+     *         * MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings * CMAF_GROUP_SETTINGS, CmafGroupSettings
      */
 
     public java.util.List<OutputGroup> getOutputGroups() {
@@ -371,22 +705,20 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * (OutputGroups) contains one group of settings for each set of outputs that share a common package type. All
-     * unpackaged files (MPEG-4, MPEG-2 TS, Quicktime, MXF, and no container) are grouped in a single output group as
-     * well. Required in (OutputGroups) is a group of settings that apply to the whole group. This required object
-     * depends on the value you set for (Type) under (OutputGroups)>(OutputGroupSettings). Type, settings object pairs
-     * are as follows. * FILE_GROUP_SETTINGS, FileGroupSettings * HLS_GROUP_SETTINGS, HlsGroupSettings *
-     * DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings * MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings *
-     * CMAF_GROUP_SETTINGS, CmafGroupSettings
+     * Contains one group of settings for each set of outputs that share a common package type. All unpackaged files
+     * (MPEG-4, MPEG-2 TS, Quicktime, MXF, and no container) are grouped in a single output group as well. Required in
+     * is a group of settings that apply to the whole group. This required object depends on the value you set for Type.
+     * Type, settings object pairs are as follows. * FILE_GROUP_SETTINGS, FileGroupSettings * HLS_GROUP_SETTINGS,
+     * HlsGroupSettings * DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings * MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings
+     * * CMAF_GROUP_SETTINGS, CmafGroupSettings
      * 
      * @param outputGroups
-     *        (OutputGroups) contains one group of settings for each set of outputs that share a common package type.
-     *        All unpackaged files (MPEG-4, MPEG-2 TS, Quicktime, MXF, and no container) are grouped in a single output
-     *        group as well. Required in (OutputGroups) is a group of settings that apply to the whole group. This
-     *        required object depends on the value you set for (Type) under (OutputGroups)>(OutputGroupSettings). Type,
-     *        settings object pairs are as follows. * FILE_GROUP_SETTINGS, FileGroupSettings * HLS_GROUP_SETTINGS,
-     *        HlsGroupSettings * DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings * MS_SMOOTH_GROUP_SETTINGS,
-     *        MsSmoothGroupSettings * CMAF_GROUP_SETTINGS, CmafGroupSettings
+     *        Contains one group of settings for each set of outputs that share a common package type. All unpackaged
+     *        files (MPEG-4, MPEG-2 TS, Quicktime, MXF, and no container) are grouped in a single output group as well.
+     *        Required in is a group of settings that apply to the whole group. This required object depends on the
+     *        value you set for Type. Type, settings object pairs are as follows. * FILE_GROUP_SETTINGS,
+     *        FileGroupSettings * HLS_GROUP_SETTINGS, HlsGroupSettings * DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings *
+     *        MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings * CMAF_GROUP_SETTINGS, CmafGroupSettings
      */
 
     public void setOutputGroups(java.util.Collection<OutputGroup> outputGroups) {
@@ -399,13 +731,12 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * (OutputGroups) contains one group of settings for each set of outputs that share a common package type. All
-     * unpackaged files (MPEG-4, MPEG-2 TS, Quicktime, MXF, and no container) are grouped in a single output group as
-     * well. Required in (OutputGroups) is a group of settings that apply to the whole group. This required object
-     * depends on the value you set for (Type) under (OutputGroups)>(OutputGroupSettings). Type, settings object pairs
-     * are as follows. * FILE_GROUP_SETTINGS, FileGroupSettings * HLS_GROUP_SETTINGS, HlsGroupSettings *
-     * DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings * MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings *
-     * CMAF_GROUP_SETTINGS, CmafGroupSettings
+     * Contains one group of settings for each set of outputs that share a common package type. All unpackaged files
+     * (MPEG-4, MPEG-2 TS, Quicktime, MXF, and no container) are grouped in a single output group as well. Required in
+     * is a group of settings that apply to the whole group. This required object depends on the value you set for Type.
+     * Type, settings object pairs are as follows. * FILE_GROUP_SETTINGS, FileGroupSettings * HLS_GROUP_SETTINGS,
+     * HlsGroupSettings * DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings * MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings
+     * * CMAF_GROUP_SETTINGS, CmafGroupSettings
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setOutputGroups(java.util.Collection)} or {@link #withOutputGroups(java.util.Collection)} if you want to
@@ -413,13 +744,12 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param outputGroups
-     *        (OutputGroups) contains one group of settings for each set of outputs that share a common package type.
-     *        All unpackaged files (MPEG-4, MPEG-2 TS, Quicktime, MXF, and no container) are grouped in a single output
-     *        group as well. Required in (OutputGroups) is a group of settings that apply to the whole group. This
-     *        required object depends on the value you set for (Type) under (OutputGroups)>(OutputGroupSettings). Type,
-     *        settings object pairs are as follows. * FILE_GROUP_SETTINGS, FileGroupSettings * HLS_GROUP_SETTINGS,
-     *        HlsGroupSettings * DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings * MS_SMOOTH_GROUP_SETTINGS,
-     *        MsSmoothGroupSettings * CMAF_GROUP_SETTINGS, CmafGroupSettings
+     *        Contains one group of settings for each set of outputs that share a common package type. All unpackaged
+     *        files (MPEG-4, MPEG-2 TS, Quicktime, MXF, and no container) are grouped in a single output group as well.
+     *        Required in is a group of settings that apply to the whole group. This required object depends on the
+     *        value you set for Type. Type, settings object pairs are as follows. * FILE_GROUP_SETTINGS,
+     *        FileGroupSettings * HLS_GROUP_SETTINGS, HlsGroupSettings * DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings *
+     *        MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings * CMAF_GROUP_SETTINGS, CmafGroupSettings
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -434,22 +764,20 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * (OutputGroups) contains one group of settings for each set of outputs that share a common package type. All
-     * unpackaged files (MPEG-4, MPEG-2 TS, Quicktime, MXF, and no container) are grouped in a single output group as
-     * well. Required in (OutputGroups) is a group of settings that apply to the whole group. This required object
-     * depends on the value you set for (Type) under (OutputGroups)>(OutputGroupSettings). Type, settings object pairs
-     * are as follows. * FILE_GROUP_SETTINGS, FileGroupSettings * HLS_GROUP_SETTINGS, HlsGroupSettings *
-     * DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings * MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings *
-     * CMAF_GROUP_SETTINGS, CmafGroupSettings
+     * Contains one group of settings for each set of outputs that share a common package type. All unpackaged files
+     * (MPEG-4, MPEG-2 TS, Quicktime, MXF, and no container) are grouped in a single output group as well. Required in
+     * is a group of settings that apply to the whole group. This required object depends on the value you set for Type.
+     * Type, settings object pairs are as follows. * FILE_GROUP_SETTINGS, FileGroupSettings * HLS_GROUP_SETTINGS,
+     * HlsGroupSettings * DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings * MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings
+     * * CMAF_GROUP_SETTINGS, CmafGroupSettings
      * 
      * @param outputGroups
-     *        (OutputGroups) contains one group of settings for each set of outputs that share a common package type.
-     *        All unpackaged files (MPEG-4, MPEG-2 TS, Quicktime, MXF, and no container) are grouped in a single output
-     *        group as well. Required in (OutputGroups) is a group of settings that apply to the whole group. This
-     *        required object depends on the value you set for (Type) under (OutputGroups)>(OutputGroupSettings). Type,
-     *        settings object pairs are as follows. * FILE_GROUP_SETTINGS, FileGroupSettings * HLS_GROUP_SETTINGS,
-     *        HlsGroupSettings * DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings * MS_SMOOTH_GROUP_SETTINGS,
-     *        MsSmoothGroupSettings * CMAF_GROUP_SETTINGS, CmafGroupSettings
+     *        Contains one group of settings for each set of outputs that share a common package type. All unpackaged
+     *        files (MPEG-4, MPEG-2 TS, Quicktime, MXF, and no container) are grouped in a single output group as well.
+     *        Required in is a group of settings that apply to the whole group. This required object depends on the
+     *        value you set for Type. Type, settings object pairs are as follows. * FILE_GROUP_SETTINGS,
+     *        FileGroupSettings * HLS_GROUP_SETTINGS, HlsGroupSettings * DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings *
+     *        MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings * CMAF_GROUP_SETTINGS, CmafGroupSettings
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -459,10 +787,12 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Contains settings used to acquire and adjust timecode information from inputs.
+     * These settings control how the service handles timecodes throughout the job. These settings don't affect input
+     * clipping.
      * 
      * @param timecodeConfig
-     *        Contains settings used to acquire and adjust timecode information from inputs.
+     *        These settings control how the service handles timecodes throughout the job. These settings don't affect
+     *        input clipping.
      */
 
     public void setTimecodeConfig(TimecodeConfig timecodeConfig) {
@@ -470,9 +800,11 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Contains settings used to acquire and adjust timecode information from inputs.
+     * These settings control how the service handles timecodes throughout the job. These settings don't affect input
+     * clipping.
      * 
-     * @return Contains settings used to acquire and adjust timecode information from inputs.
+     * @return These settings control how the service handles timecodes throughout the job. These settings don't affect
+     *         input clipping.
      */
 
     public TimecodeConfig getTimecodeConfig() {
@@ -480,10 +812,12 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Contains settings used to acquire and adjust timecode information from inputs.
+     * These settings control how the service handles timecodes throughout the job. These settings don't affect input
+     * clipping.
      * 
      * @param timecodeConfig
-     *        Contains settings used to acquire and adjust timecode information from inputs.
+     *        These settings control how the service handles timecodes throughout the job. These settings don't affect
+     *        input clipping.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -493,14 +827,12 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Enable Timed metadata insertion (TimedMetadataInsertion) to include ID3 tags in your job. To include timed
-     * metadata, you must enable it here, enable it in each output container, and specify tags and timecodes in ID3
-     * insertion (Id3Insertion) objects.
+     * Insert user-defined custom ID3 metadata at timecodes that you specify. In each output that you want to include
+     * this metadata, you must set ID3 metadata to Passthrough.
      * 
      * @param timedMetadataInsertion
-     *        Enable Timed metadata insertion (TimedMetadataInsertion) to include ID3 tags in your job. To include timed
-     *        metadata, you must enable it here, enable it in each output container, and specify tags and timecodes in
-     *        ID3 insertion (Id3Insertion) objects.
+     *        Insert user-defined custom ID3 metadata at timecodes that you specify. In each output that you want to
+     *        include this metadata, you must set ID3 metadata to Passthrough.
      */
 
     public void setTimedMetadataInsertion(TimedMetadataInsertion timedMetadataInsertion) {
@@ -508,13 +840,11 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Enable Timed metadata insertion (TimedMetadataInsertion) to include ID3 tags in your job. To include timed
-     * metadata, you must enable it here, enable it in each output container, and specify tags and timecodes in ID3
-     * insertion (Id3Insertion) objects.
+     * Insert user-defined custom ID3 metadata at timecodes that you specify. In each output that you want to include
+     * this metadata, you must set ID3 metadata to Passthrough.
      * 
-     * @return Enable Timed metadata insertion (TimedMetadataInsertion) to include ID3 tags in your job. To include
-     *         timed metadata, you must enable it here, enable it in each output container, and specify tags and
-     *         timecodes in ID3 insertion (Id3Insertion) objects.
+     * @return Insert user-defined custom ID3 metadata at timecodes that you specify. In each output that you want to
+     *         include this metadata, you must set ID3 metadata to Passthrough.
      */
 
     public TimedMetadataInsertion getTimedMetadataInsertion() {
@@ -522,14 +852,12 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Enable Timed metadata insertion (TimedMetadataInsertion) to include ID3 tags in your job. To include timed
-     * metadata, you must enable it here, enable it in each output container, and specify tags and timecodes in ID3
-     * insertion (Id3Insertion) objects.
+     * Insert user-defined custom ID3 metadata at timecodes that you specify. In each output that you want to include
+     * this metadata, you must set ID3 metadata to Passthrough.
      * 
      * @param timedMetadataInsertion
-     *        Enable Timed metadata insertion (TimedMetadataInsertion) to include ID3 tags in your job. To include timed
-     *        metadata, you must enable it here, enable it in each output container, and specify tags and timecodes in
-     *        ID3 insertion (Id3Insertion) objects.
+     *        Insert user-defined custom ID3 metadata at timecodes that you specify. In each output that you want to
+     *        include this metadata, you must set ID3 metadata to Passthrough.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -554,14 +882,24 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
             sb.append("AdAvailOffset: ").append(getAdAvailOffset()).append(",");
         if (getAvailBlanking() != null)
             sb.append("AvailBlanking: ").append(getAvailBlanking()).append(",");
+        if (getColorConversion3DLUTSettings() != null)
+            sb.append("ColorConversion3DLUTSettings: ").append(getColorConversion3DLUTSettings()).append(",");
         if (getEsam() != null)
             sb.append("Esam: ").append(getEsam()).append(",");
+        if (getExtendedDataServices() != null)
+            sb.append("ExtendedDataServices: ").append(getExtendedDataServices()).append(",");
+        if (getFollowSource() != null)
+            sb.append("FollowSource: ").append(getFollowSource()).append(",");
         if (getInputs() != null)
             sb.append("Inputs: ").append(getInputs()).append(",");
+        if (getKantarWatermark() != null)
+            sb.append("KantarWatermark: ").append(getKantarWatermark()).append(",");
         if (getMotionImageInserter() != null)
             sb.append("MotionImageInserter: ").append(getMotionImageInserter()).append(",");
         if (getNielsenConfiguration() != null)
             sb.append("NielsenConfiguration: ").append(getNielsenConfiguration()).append(",");
+        if (getNielsenNonLinearWatermark() != null)
+            sb.append("NielsenNonLinearWatermark: ").append(getNielsenNonLinearWatermark()).append(",");
         if (getOutputGroups() != null)
             sb.append("OutputGroups: ").append(getOutputGroups()).append(",");
         if (getTimecodeConfig() != null)
@@ -590,13 +928,29 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getAvailBlanking() != null && other.getAvailBlanking().equals(this.getAvailBlanking()) == false)
             return false;
+        if (other.getColorConversion3DLUTSettings() == null ^ this.getColorConversion3DLUTSettings() == null)
+            return false;
+        if (other.getColorConversion3DLUTSettings() != null && other.getColorConversion3DLUTSettings().equals(this.getColorConversion3DLUTSettings()) == false)
+            return false;
         if (other.getEsam() == null ^ this.getEsam() == null)
             return false;
         if (other.getEsam() != null && other.getEsam().equals(this.getEsam()) == false)
             return false;
+        if (other.getExtendedDataServices() == null ^ this.getExtendedDataServices() == null)
+            return false;
+        if (other.getExtendedDataServices() != null && other.getExtendedDataServices().equals(this.getExtendedDataServices()) == false)
+            return false;
+        if (other.getFollowSource() == null ^ this.getFollowSource() == null)
+            return false;
+        if (other.getFollowSource() != null && other.getFollowSource().equals(this.getFollowSource()) == false)
+            return false;
         if (other.getInputs() == null ^ this.getInputs() == null)
             return false;
         if (other.getInputs() != null && other.getInputs().equals(this.getInputs()) == false)
+            return false;
+        if (other.getKantarWatermark() == null ^ this.getKantarWatermark() == null)
+            return false;
+        if (other.getKantarWatermark() != null && other.getKantarWatermark().equals(this.getKantarWatermark()) == false)
             return false;
         if (other.getMotionImageInserter() == null ^ this.getMotionImageInserter() == null)
             return false;
@@ -605,6 +959,10 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
         if (other.getNielsenConfiguration() == null ^ this.getNielsenConfiguration() == null)
             return false;
         if (other.getNielsenConfiguration() != null && other.getNielsenConfiguration().equals(this.getNielsenConfiguration()) == false)
+            return false;
+        if (other.getNielsenNonLinearWatermark() == null ^ this.getNielsenNonLinearWatermark() == null)
+            return false;
+        if (other.getNielsenNonLinearWatermark() != null && other.getNielsenNonLinearWatermark().equals(this.getNielsenNonLinearWatermark()) == false)
             return false;
         if (other.getOutputGroups() == null ^ this.getOutputGroups() == null)
             return false;
@@ -628,10 +986,15 @@ public class JobSettings implements Serializable, Cloneable, StructuredPojo {
 
         hashCode = prime * hashCode + ((getAdAvailOffset() == null) ? 0 : getAdAvailOffset().hashCode());
         hashCode = prime * hashCode + ((getAvailBlanking() == null) ? 0 : getAvailBlanking().hashCode());
+        hashCode = prime * hashCode + ((getColorConversion3DLUTSettings() == null) ? 0 : getColorConversion3DLUTSettings().hashCode());
         hashCode = prime * hashCode + ((getEsam() == null) ? 0 : getEsam().hashCode());
+        hashCode = prime * hashCode + ((getExtendedDataServices() == null) ? 0 : getExtendedDataServices().hashCode());
+        hashCode = prime * hashCode + ((getFollowSource() == null) ? 0 : getFollowSource().hashCode());
         hashCode = prime * hashCode + ((getInputs() == null) ? 0 : getInputs().hashCode());
+        hashCode = prime * hashCode + ((getKantarWatermark() == null) ? 0 : getKantarWatermark().hashCode());
         hashCode = prime * hashCode + ((getMotionImageInserter() == null) ? 0 : getMotionImageInserter().hashCode());
         hashCode = prime * hashCode + ((getNielsenConfiguration() == null) ? 0 : getNielsenConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getNielsenNonLinearWatermark() == null) ? 0 : getNielsenNonLinearWatermark().hashCode());
         hashCode = prime * hashCode + ((getOutputGroups() == null) ? 0 : getOutputGroups().hashCode());
         hashCode = prime * hashCode + ((getTimecodeConfig() == null) ? 0 : getTimecodeConfig().hashCode());
         hashCode = prime * hashCode + ((getTimedMetadataInsertion() == null) ? 0 : getTimedMetadataInsertion().hashCode());

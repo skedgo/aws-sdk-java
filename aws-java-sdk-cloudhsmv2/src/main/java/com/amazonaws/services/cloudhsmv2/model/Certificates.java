@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,7 +43,7 @@ public class Certificates implements Serializable, Cloneable, StructuredPojo {
     private String hsmCertificate;
     /**
      * <p>
-     * The HSM hardware certificate issued (signed) by AWS CloudHSM.
+     * The HSM hardware certificate issued (signed) by CloudHSM.
      * </p>
      */
     private String awsHardwareCertificate;
@@ -148,11 +148,11 @@ public class Certificates implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The HSM hardware certificate issued (signed) by AWS CloudHSM.
+     * The HSM hardware certificate issued (signed) by CloudHSM.
      * </p>
      * 
      * @param awsHardwareCertificate
-     *        The HSM hardware certificate issued (signed) by AWS CloudHSM.
+     *        The HSM hardware certificate issued (signed) by CloudHSM.
      */
 
     public void setAwsHardwareCertificate(String awsHardwareCertificate) {
@@ -161,10 +161,10 @@ public class Certificates implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The HSM hardware certificate issued (signed) by AWS CloudHSM.
+     * The HSM hardware certificate issued (signed) by CloudHSM.
      * </p>
      * 
-     * @return The HSM hardware certificate issued (signed) by AWS CloudHSM.
+     * @return The HSM hardware certificate issued (signed) by CloudHSM.
      */
 
     public String getAwsHardwareCertificate() {
@@ -173,11 +173,11 @@ public class Certificates implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The HSM hardware certificate issued (signed) by AWS CloudHSM.
+     * The HSM hardware certificate issued (signed) by CloudHSM.
      * </p>
      * 
      * @param awsHardwareCertificate
-     *        The HSM hardware certificate issued (signed) by AWS CloudHSM.
+     *        The HSM hardware certificate issued (signed) by CloudHSM.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

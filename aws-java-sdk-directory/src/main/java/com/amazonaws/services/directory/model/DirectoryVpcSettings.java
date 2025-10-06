@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,7 +37,7 @@ public class DirectoryVpcSettings implements Serializable, Cloneable, Structured
     /**
      * <p>
      * The identifiers of the subnets for the directory servers. The two subnets must be in different Availability
-     * Zones. AWS Directory Service creates a directory server and a DNS server in each of these subnets.
+     * Zones. Directory Service creates a directory server and a DNS server in each of these subnets.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> subnetIds;
@@ -85,11 +85,11 @@ public class DirectoryVpcSettings implements Serializable, Cloneable, Structured
     /**
      * <p>
      * The identifiers of the subnets for the directory servers. The two subnets must be in different Availability
-     * Zones. AWS Directory Service creates a directory server and a DNS server in each of these subnets.
+     * Zones. Directory Service creates a directory server and a DNS server in each of these subnets.
      * </p>
      * 
      * @return The identifiers of the subnets for the directory servers. The two subnets must be in different
-     *         Availability Zones. AWS Directory Service creates a directory server and a DNS server in each of these
+     *         Availability Zones. Directory Service creates a directory server and a DNS server in each of these
      *         subnets.
      */
 
@@ -103,12 +103,12 @@ public class DirectoryVpcSettings implements Serializable, Cloneable, Structured
     /**
      * <p>
      * The identifiers of the subnets for the directory servers. The two subnets must be in different Availability
-     * Zones. AWS Directory Service creates a directory server and a DNS server in each of these subnets.
+     * Zones. Directory Service creates a directory server and a DNS server in each of these subnets.
      * </p>
      * 
      * @param subnetIds
      *        The identifiers of the subnets for the directory servers. The two subnets must be in different
-     *        Availability Zones. AWS Directory Service creates a directory server and a DNS server in each of these
+     *        Availability Zones. Directory Service creates a directory server and a DNS server in each of these
      *        subnets.
      */
 
@@ -124,7 +124,7 @@ public class DirectoryVpcSettings implements Serializable, Cloneable, Structured
     /**
      * <p>
      * The identifiers of the subnets for the directory servers. The two subnets must be in different Availability
-     * Zones. AWS Directory Service creates a directory server and a DNS server in each of these subnets.
+     * Zones. Directory Service creates a directory server and a DNS server in each of these subnets.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -134,7 +134,7 @@ public class DirectoryVpcSettings implements Serializable, Cloneable, Structured
      * 
      * @param subnetIds
      *        The identifiers of the subnets for the directory servers. The two subnets must be in different
-     *        Availability Zones. AWS Directory Service creates a directory server and a DNS server in each of these
+     *        Availability Zones. Directory Service creates a directory server and a DNS server in each of these
      *        subnets.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -152,12 +152,12 @@ public class DirectoryVpcSettings implements Serializable, Cloneable, Structured
     /**
      * <p>
      * The identifiers of the subnets for the directory servers. The two subnets must be in different Availability
-     * Zones. AWS Directory Service creates a directory server and a DNS server in each of these subnets.
+     * Zones. Directory Service creates a directory server and a DNS server in each of these subnets.
      * </p>
      * 
      * @param subnetIds
      *        The identifiers of the subnets for the directory servers. The two subnets must be in different
-     *        Availability Zones. AWS Directory Service creates a directory server and a DNS server in each of these
+     *        Availability Zones. Directory Service creates a directory server and a DNS server in each of these
      *        subnets.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

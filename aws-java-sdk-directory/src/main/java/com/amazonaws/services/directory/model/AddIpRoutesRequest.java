@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,14 +34,15 @@ public class AddIpRoutesRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * IP address blocks, using CIDR format, of the traffic to route. This is often the IP address block of the DNS
-     * server used for your on-premises domain.
+     * server used for your self-managed domain.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<IpRoute> ipRoutes;
     /**
      * <p>
      * If set to true, updates the inbound and outbound rules of the security group that has the description:
-     * "AWS created security group for <i>directory ID</i> directory controllers." Following are the new rules:
+     * "Amazon Web Services created security group for <i>directory ID</i> directory controllers." Following are the new
+     * rules:
      * </p>
      * <p>
      * Inbound:
@@ -193,11 +194,11 @@ public class AddIpRoutesRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * IP address blocks, using CIDR format, of the traffic to route. This is often the IP address block of the DNS
-     * server used for your on-premises domain.
+     * server used for your self-managed domain.
      * </p>
      * 
      * @return IP address blocks, using CIDR format, of the traffic to route. This is often the IP address block of the
-     *         DNS server used for your on-premises domain.
+     *         DNS server used for your self-managed domain.
      */
 
     public java.util.List<IpRoute> getIpRoutes() {
@@ -210,12 +211,12 @@ public class AddIpRoutesRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * IP address blocks, using CIDR format, of the traffic to route. This is often the IP address block of the DNS
-     * server used for your on-premises domain.
+     * server used for your self-managed domain.
      * </p>
      * 
      * @param ipRoutes
      *        IP address blocks, using CIDR format, of the traffic to route. This is often the IP address block of the
-     *        DNS server used for your on-premises domain.
+     *        DNS server used for your self-managed domain.
      */
 
     public void setIpRoutes(java.util.Collection<IpRoute> ipRoutes) {
@@ -230,7 +231,7 @@ public class AddIpRoutesRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * IP address blocks, using CIDR format, of the traffic to route. This is often the IP address block of the DNS
-     * server used for your on-premises domain.
+     * server used for your self-managed domain.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -240,7 +241,7 @@ public class AddIpRoutesRequest extends com.amazonaws.AmazonWebServiceRequest im
      * 
      * @param ipRoutes
      *        IP address blocks, using CIDR format, of the traffic to route. This is often the IP address block of the
-     *        DNS server used for your on-premises domain.
+     *        DNS server used for your self-managed domain.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -257,12 +258,12 @@ public class AddIpRoutesRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * IP address blocks, using CIDR format, of the traffic to route. This is often the IP address block of the DNS
-     * server used for your on-premises domain.
+     * server used for your self-managed domain.
      * </p>
      * 
      * @param ipRoutes
      *        IP address blocks, using CIDR format, of the traffic to route. This is often the IP address block of the
-     *        DNS server used for your on-premises domain.
+     *        DNS server used for your self-managed domain.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -274,7 +275,8 @@ public class AddIpRoutesRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * If set to true, updates the inbound and outbound rules of the security group that has the description:
-     * "AWS created security group for <i>directory ID</i> directory controllers." Following are the new rules:
+     * "Amazon Web Services created security group for <i>directory ID</i> directory controllers." Following are the new
+     * rules:
      * </p>
      * <p>
      * Inbound:
@@ -383,8 +385,8 @@ public class AddIpRoutesRequest extends com.amazonaws.AmazonWebServiceRequest im
      * 
      * @param updateSecurityGroupForDirectoryControllers
      *        If set to true, updates the inbound and outbound rules of the security group that has the description:
-     *        "AWS created security group for <i>directory ID</i> directory controllers." Following are the new rules:
-     *        </p>
+     *        "Amazon Web Services created security group for <i>directory ID</i> directory controllers." Following are
+     *        the new rules: </p>
      *        <p>
      *        Inbound:
      *        </p>
@@ -497,7 +499,8 @@ public class AddIpRoutesRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * If set to true, updates the inbound and outbound rules of the security group that has the description:
-     * "AWS created security group for <i>directory ID</i> directory controllers." Following are the new rules:
+     * "Amazon Web Services created security group for <i>directory ID</i> directory controllers." Following are the new
+     * rules:
      * </p>
      * <p>
      * Inbound:
@@ -605,8 +608,8 @@ public class AddIpRoutesRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * 
      * @return If set to true, updates the inbound and outbound rules of the security group that has the description:
-     *         "AWS created security group for <i>directory ID</i> directory controllers." Following are the new rules:
-     *         </p>
+     *         "Amazon Web Services created security group for <i>directory ID</i> directory controllers." Following are
+     *         the new rules: </p>
      *         <p>
      *         Inbound:
      *         </p>
@@ -719,7 +722,8 @@ public class AddIpRoutesRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * If set to true, updates the inbound and outbound rules of the security group that has the description:
-     * "AWS created security group for <i>directory ID</i> directory controllers." Following are the new rules:
+     * "Amazon Web Services created security group for <i>directory ID</i> directory controllers." Following are the new
+     * rules:
      * </p>
      * <p>
      * Inbound:
@@ -828,8 +832,8 @@ public class AddIpRoutesRequest extends com.amazonaws.AmazonWebServiceRequest im
      * 
      * @param updateSecurityGroupForDirectoryControllers
      *        If set to true, updates the inbound and outbound rules of the security group that has the description:
-     *        "AWS created security group for <i>directory ID</i> directory controllers." Following are the new rules:
-     *        </p>
+     *        "Amazon Web Services created security group for <i>directory ID</i> directory controllers." Following are
+     *        the new rules: </p>
      *        <p>
      *        Inbound:
      *        </p>
@@ -944,7 +948,8 @@ public class AddIpRoutesRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * If set to true, updates the inbound and outbound rules of the security group that has the description:
-     * "AWS created security group for <i>directory ID</i> directory controllers." Following are the new rules:
+     * "Amazon Web Services created security group for <i>directory ID</i> directory controllers." Following are the new
+     * rules:
      * </p>
      * <p>
      * Inbound:
@@ -1052,8 +1057,8 @@ public class AddIpRoutesRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * 
      * @return If set to true, updates the inbound and outbound rules of the security group that has the description:
-     *         "AWS created security group for <i>directory ID</i> directory controllers." Following are the new rules:
-     *         </p>
+     *         "Amazon Web Services created security group for <i>directory ID</i> directory controllers." Following are
+     *         the new rules: </p>
      *         <p>
      *         Inbound:
      *         </p>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,22 @@ public class ListRestoreJobsRequestMarshaller {
             .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("nextToken").build();
     private static final MarshallingInfo<Integer> MAXRESULTS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("maxResults").build();
+    private static final MarshallingInfo<String> BYACCOUNTID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("accountId").build();
+    private static final MarshallingInfo<String> BYRESOURCETYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("resourceType").build();
+    private static final MarshallingInfo<java.util.Date> BYCREATEDBEFORE_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("createdBefore").timestampFormat("iso8601").build();
+    private static final MarshallingInfo<java.util.Date> BYCREATEDAFTER_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("createdAfter").timestampFormat("iso8601").build();
+    private static final MarshallingInfo<String> BYSTATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("status").build();
+    private static final MarshallingInfo<java.util.Date> BYCOMPLETEBEFORE_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("completeBefore").timestampFormat("iso8601").build();
+    private static final MarshallingInfo<java.util.Date> BYCOMPLETEAFTER_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("completeAfter").timestampFormat("iso8601").build();
+    private static final MarshallingInfo<String> BYRESTORETESTINGPLANARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("restoreTestingPlanArn").build();
 
     private static final ListRestoreJobsRequestMarshaller instance = new ListRestoreJobsRequestMarshaller();
 
@@ -50,6 +66,14 @@ public class ListRestoreJobsRequestMarshaller {
         try {
             protocolMarshaller.marshall(listRestoreJobsRequest.getNextToken(), NEXTTOKEN_BINDING);
             protocolMarshaller.marshall(listRestoreJobsRequest.getMaxResults(), MAXRESULTS_BINDING);
+            protocolMarshaller.marshall(listRestoreJobsRequest.getByAccountId(), BYACCOUNTID_BINDING);
+            protocolMarshaller.marshall(listRestoreJobsRequest.getByResourceType(), BYRESOURCETYPE_BINDING);
+            protocolMarshaller.marshall(listRestoreJobsRequest.getByCreatedBefore(), BYCREATEDBEFORE_BINDING);
+            protocolMarshaller.marshall(listRestoreJobsRequest.getByCreatedAfter(), BYCREATEDAFTER_BINDING);
+            protocolMarshaller.marshall(listRestoreJobsRequest.getByStatus(), BYSTATUS_BINDING);
+            protocolMarshaller.marshall(listRestoreJobsRequest.getByCompleteBefore(), BYCOMPLETEBEFORE_BINDING);
+            protocolMarshaller.marshall(listRestoreJobsRequest.getByCompleteAfter(), BYCOMPLETEAFTER_BINDING);
+            protocolMarshaller.marshall(listRestoreJobsRequest.getByRestoreTestingPlanArn(), BYRESTORETESTINGPLANARN_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

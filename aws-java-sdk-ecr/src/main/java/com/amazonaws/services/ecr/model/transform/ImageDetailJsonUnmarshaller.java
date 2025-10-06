@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -62,7 +62,9 @@ public class ImageDetailJsonUnmarshaller implements Unmarshaller<ImageDetail, Js
                 }
                 if (context.testExpression("imageTags", targetDepth)) {
                     context.nextToken();
-                    imageDetail.setImageTags(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    imageDetail.setImageTags(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("imageSizeInBytes", targetDepth)) {
                     context.nextToken();
@@ -71,6 +73,26 @@ public class ImageDetailJsonUnmarshaller implements Unmarshaller<ImageDetail, Js
                 if (context.testExpression("imagePushedAt", targetDepth)) {
                     context.nextToken();
                     imageDetail.setImagePushedAt(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("imageScanStatus", targetDepth)) {
+                    context.nextToken();
+                    imageDetail.setImageScanStatus(ImageScanStatusJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("imageScanFindingsSummary", targetDepth)) {
+                    context.nextToken();
+                    imageDetail.setImageScanFindingsSummary(ImageScanFindingsSummaryJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("imageManifestMediaType", targetDepth)) {
+                    context.nextToken();
+                    imageDetail.setImageManifestMediaType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("artifactMediaType", targetDepth)) {
+                    context.nextToken();
+                    imageDetail.setArtifactMediaType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("lastRecordedPullTime", targetDepth)) {
+                    context.nextToken();
+                    imageDetail.setLastRecordedPullTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

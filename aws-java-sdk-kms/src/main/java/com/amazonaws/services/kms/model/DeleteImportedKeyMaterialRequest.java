@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,11 +27,11 @@ public class DeleteImportedKeyMaterialRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Identifies the CMK from which you are deleting imported key material. The <code>Origin</code> of the CMK must be
-     * <code>EXTERNAL</code>.
+     * Identifies the KMS key from which you are deleting imported key material. The <code>Origin</code> of the KMS key
+     * must be <code>EXTERNAL</code>.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     * Specify the key ID or key ARN of the KMS key.
      * </p>
      * <p>
      * For example:
@@ -49,18 +49,18 @@ public class DeleteImportedKeyMaterialRequest extends com.amazonaws.AmazonWebSer
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      */
     private String keyId;
 
     /**
      * <p>
-     * Identifies the CMK from which you are deleting imported key material. The <code>Origin</code> of the CMK must be
-     * <code>EXTERNAL</code>.
+     * Identifies the KMS key from which you are deleting imported key material. The <code>Origin</code> of the KMS key
+     * must be <code>EXTERNAL</code>.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     * Specify the key ID or key ARN of the KMS key.
      * </p>
      * <p>
      * For example:
@@ -78,14 +78,14 @@ public class DeleteImportedKeyMaterialRequest extends com.amazonaws.AmazonWebSer
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      * 
      * @param keyId
-     *        Identifies the CMK from which you are deleting imported key material. The <code>Origin</code> of the CMK
-     *        must be <code>EXTERNAL</code>.</p>
+     *        Identifies the KMS key from which you are deleting imported key material. The <code>Origin</code> of the
+     *        KMS key must be <code>EXTERNAL</code>.</p>
      *        <p>
-     *        Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     *        Specify the key ID or key ARN of the KMS key.
      *        </p>
      *        <p>
      *        For example:
@@ -103,7 +103,7 @@ public class DeleteImportedKeyMaterialRequest extends com.amazonaws.AmazonWebSer
      *        </li>
      *        </ul>
      *        <p>
-     *        To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     *        To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      */
 
     public void setKeyId(String keyId) {
@@ -112,11 +112,11 @@ public class DeleteImportedKeyMaterialRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Identifies the CMK from which you are deleting imported key material. The <code>Origin</code> of the CMK must be
-     * <code>EXTERNAL</code>.
+     * Identifies the KMS key from which you are deleting imported key material. The <code>Origin</code> of the KMS key
+     * must be <code>EXTERNAL</code>.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     * Specify the key ID or key ARN of the KMS key.
      * </p>
      * <p>
      * For example:
@@ -134,13 +134,13 @@ public class DeleteImportedKeyMaterialRequest extends com.amazonaws.AmazonWebSer
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      * 
-     * @return Identifies the CMK from which you are deleting imported key material. The <code>Origin</code> of the CMK
-     *         must be <code>EXTERNAL</code>.</p>
+     * @return Identifies the KMS key from which you are deleting imported key material. The <code>Origin</code> of the
+     *         KMS key must be <code>EXTERNAL</code>.</p>
      *         <p>
-     *         Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     *         Specify the key ID or key ARN of the KMS key.
      *         </p>
      *         <p>
      *         For example:
@@ -158,7 +158,7 @@ public class DeleteImportedKeyMaterialRequest extends com.amazonaws.AmazonWebSer
      *         </li>
      *         </ul>
      *         <p>
-     *         To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     *         To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      */
 
     public String getKeyId() {
@@ -167,11 +167,11 @@ public class DeleteImportedKeyMaterialRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Identifies the CMK from which you are deleting imported key material. The <code>Origin</code> of the CMK must be
-     * <code>EXTERNAL</code>.
+     * Identifies the KMS key from which you are deleting imported key material. The <code>Origin</code> of the KMS key
+     * must be <code>EXTERNAL</code>.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     * Specify the key ID or key ARN of the KMS key.
      * </p>
      * <p>
      * For example:
@@ -189,14 +189,14 @@ public class DeleteImportedKeyMaterialRequest extends com.amazonaws.AmazonWebSer
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      * 
      * @param keyId
-     *        Identifies the CMK from which you are deleting imported key material. The <code>Origin</code> of the CMK
-     *        must be <code>EXTERNAL</code>.</p>
+     *        Identifies the KMS key from which you are deleting imported key material. The <code>Origin</code> of the
+     *        KMS key must be <code>EXTERNAL</code>.</p>
      *        <p>
-     *        Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     *        Specify the key ID or key ARN of the KMS key.
      *        </p>
      *        <p>
      *        For example:
@@ -214,7 +214,7 @@ public class DeleteImportedKeyMaterialRequest extends com.amazonaws.AmazonWebSer
      *        </li>
      *        </ul>
      *        <p>
-     *        To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     *        To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

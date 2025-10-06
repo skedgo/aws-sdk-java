@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A Docker container that is part of a task.
+ * A Docker container that's part of a task.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/Container" target="_top">AWS API
@@ -46,6 +46,24 @@ public class Container implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String name;
+    /**
+     * <p>
+     * The image used for the container.
+     * </p>
+     */
+    private String image;
+    /**
+     * <p>
+     * The container image manifest digest.
+     * </p>
+     */
+    private String imageDigest;
+    /**
+     * <p>
+     * The ID of the Docker container.
+     * </p>
+     */
+    private String runtimeId;
     /**
      * <p>
      * The last known status of the container.
@@ -79,14 +97,20 @@ public class Container implements Serializable, Cloneable, StructuredPojo {
     private com.amazonaws.internal.SdkInternalList<NetworkInterface> networkInterfaces;
     /**
      * <p>
-     * The health status of the container. If health checks are not configured for this container in its task
-     * definition, then it reports the health status as <code>UNKNOWN</code>.
+     * The health status of the container. If health checks aren't configured for this container in its task definition,
+     * then it reports the health status as <code>UNKNOWN</code>.
      * </p>
      */
     private String healthStatus;
     /**
      * <p>
-     * The number of CPU units set for the container. The value will be <code>0</code> if no value was specified in the
+     * The details of any Amazon ECS managed agents associated with the container.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<ManagedAgent> managedAgents;
+    /**
+     * <p>
+     * The number of CPU units set for the container. The value is <code>0</code> if no value was specified in the
      * container definition when the task definition was registered.
      * </p>
      */
@@ -227,6 +251,126 @@ public class Container implements Serializable, Cloneable, StructuredPojo {
 
     public Container withName(String name) {
         setName(name);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The image used for the container.
+     * </p>
+     * 
+     * @param image
+     *        The image used for the container.
+     */
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    /**
+     * <p>
+     * The image used for the container.
+     * </p>
+     * 
+     * @return The image used for the container.
+     */
+
+    public String getImage() {
+        return this.image;
+    }
+
+    /**
+     * <p>
+     * The image used for the container.
+     * </p>
+     * 
+     * @param image
+     *        The image used for the container.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Container withImage(String image) {
+        setImage(image);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The container image manifest digest.
+     * </p>
+     * 
+     * @param imageDigest
+     *        The container image manifest digest.
+     */
+
+    public void setImageDigest(String imageDigest) {
+        this.imageDigest = imageDigest;
+    }
+
+    /**
+     * <p>
+     * The container image manifest digest.
+     * </p>
+     * 
+     * @return The container image manifest digest.
+     */
+
+    public String getImageDigest() {
+        return this.imageDigest;
+    }
+
+    /**
+     * <p>
+     * The container image manifest digest.
+     * </p>
+     * 
+     * @param imageDigest
+     *        The container image manifest digest.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Container withImageDigest(String imageDigest) {
+        setImageDigest(imageDigest);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the Docker container.
+     * </p>
+     * 
+     * @param runtimeId
+     *        The ID of the Docker container.
+     */
+
+    public void setRuntimeId(String runtimeId) {
+        this.runtimeId = runtimeId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Docker container.
+     * </p>
+     * 
+     * @return The ID of the Docker container.
+     */
+
+    public String getRuntimeId() {
+        return this.runtimeId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Docker container.
+     * </p>
+     * 
+     * @param runtimeId
+     *        The ID of the Docker container.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Container withRuntimeId(String runtimeId) {
+        setRuntimeId(runtimeId);
         return this;
     }
 
@@ -504,12 +648,12 @@ public class Container implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The health status of the container. If health checks are not configured for this container in its task
-     * definition, then it reports the health status as <code>UNKNOWN</code>.
+     * The health status of the container. If health checks aren't configured for this container in its task definition,
+     * then it reports the health status as <code>UNKNOWN</code>.
      * </p>
      * 
      * @param healthStatus
-     *        The health status of the container. If health checks are not configured for this container in its task
+     *        The health status of the container. If health checks aren't configured for this container in its task
      *        definition, then it reports the health status as <code>UNKNOWN</code>.
      * @see HealthStatus
      */
@@ -520,11 +664,11 @@ public class Container implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The health status of the container. If health checks are not configured for this container in its task
-     * definition, then it reports the health status as <code>UNKNOWN</code>.
+     * The health status of the container. If health checks aren't configured for this container in its task definition,
+     * then it reports the health status as <code>UNKNOWN</code>.
      * </p>
      * 
-     * @return The health status of the container. If health checks are not configured for this container in its task
+     * @return The health status of the container. If health checks aren't configured for this container in its task
      *         definition, then it reports the health status as <code>UNKNOWN</code>.
      * @see HealthStatus
      */
@@ -535,12 +679,12 @@ public class Container implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The health status of the container. If health checks are not configured for this container in its task
-     * definition, then it reports the health status as <code>UNKNOWN</code>.
+     * The health status of the container. If health checks aren't configured for this container in its task definition,
+     * then it reports the health status as <code>UNKNOWN</code>.
      * </p>
      * 
      * @param healthStatus
-     *        The health status of the container. If health checks are not configured for this container in its task
+     *        The health status of the container. If health checks aren't configured for this container in its task
      *        definition, then it reports the health status as <code>UNKNOWN</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HealthStatus
@@ -553,12 +697,12 @@ public class Container implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The health status of the container. If health checks are not configured for this container in its task
-     * definition, then it reports the health status as <code>UNKNOWN</code>.
+     * The health status of the container. If health checks aren't configured for this container in its task definition,
+     * then it reports the health status as <code>UNKNOWN</code>.
      * </p>
      * 
      * @param healthStatus
-     *        The health status of the container. If health checks are not configured for this container in its task
+     *        The health status of the container. If health checks aren't configured for this container in its task
      *        definition, then it reports the health status as <code>UNKNOWN</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HealthStatus
@@ -571,13 +715,86 @@ public class Container implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The number of CPU units set for the container. The value will be <code>0</code> if no value was specified in the
+     * The details of any Amazon ECS managed agents associated with the container.
+     * </p>
+     * 
+     * @return The details of any Amazon ECS managed agents associated with the container.
+     */
+
+    public java.util.List<ManagedAgent> getManagedAgents() {
+        if (managedAgents == null) {
+            managedAgents = new com.amazonaws.internal.SdkInternalList<ManagedAgent>();
+        }
+        return managedAgents;
+    }
+
+    /**
+     * <p>
+     * The details of any Amazon ECS managed agents associated with the container.
+     * </p>
+     * 
+     * @param managedAgents
+     *        The details of any Amazon ECS managed agents associated with the container.
+     */
+
+    public void setManagedAgents(java.util.Collection<ManagedAgent> managedAgents) {
+        if (managedAgents == null) {
+            this.managedAgents = null;
+            return;
+        }
+
+        this.managedAgents = new com.amazonaws.internal.SdkInternalList<ManagedAgent>(managedAgents);
+    }
+
+    /**
+     * <p>
+     * The details of any Amazon ECS managed agents associated with the container.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setManagedAgents(java.util.Collection)} or {@link #withManagedAgents(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param managedAgents
+     *        The details of any Amazon ECS managed agents associated with the container.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Container withManagedAgents(ManagedAgent... managedAgents) {
+        if (this.managedAgents == null) {
+            setManagedAgents(new com.amazonaws.internal.SdkInternalList<ManagedAgent>(managedAgents.length));
+        }
+        for (ManagedAgent ele : managedAgents) {
+            this.managedAgents.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The details of any Amazon ECS managed agents associated with the container.
+     * </p>
+     * 
+     * @param managedAgents
+     *        The details of any Amazon ECS managed agents associated with the container.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Container withManagedAgents(java.util.Collection<ManagedAgent> managedAgents) {
+        setManagedAgents(managedAgents);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of CPU units set for the container. The value is <code>0</code> if no value was specified in the
      * container definition when the task definition was registered.
      * </p>
      * 
      * @param cpu
-     *        The number of CPU units set for the container. The value will be <code>0</code> if no value was specified
-     *        in the container definition when the task definition was registered.
+     *        The number of CPU units set for the container. The value is <code>0</code> if no value was specified in
+     *        the container definition when the task definition was registered.
      */
 
     public void setCpu(String cpu) {
@@ -586,12 +803,12 @@ public class Container implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The number of CPU units set for the container. The value will be <code>0</code> if no value was specified in the
+     * The number of CPU units set for the container. The value is <code>0</code> if no value was specified in the
      * container definition when the task definition was registered.
      * </p>
      * 
-     * @return The number of CPU units set for the container. The value will be <code>0</code> if no value was specified
-     *         in the container definition when the task definition was registered.
+     * @return The number of CPU units set for the container. The value is <code>0</code> if no value was specified in
+     *         the container definition when the task definition was registered.
      */
 
     public String getCpu() {
@@ -600,13 +817,13 @@ public class Container implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The number of CPU units set for the container. The value will be <code>0</code> if no value was specified in the
+     * The number of CPU units set for the container. The value is <code>0</code> if no value was specified in the
      * container definition when the task definition was registered.
      * </p>
      * 
      * @param cpu
-     *        The number of CPU units set for the container. The value will be <code>0</code> if no value was specified
-     *        in the container definition when the task definition was registered.
+     *        The number of CPU units set for the container. The value is <code>0</code> if no value was specified in
+     *        the container definition when the task definition was registered.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -786,6 +1003,12 @@ public class Container implements Serializable, Cloneable, StructuredPojo {
             sb.append("TaskArn: ").append(getTaskArn()).append(",");
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
+        if (getImage() != null)
+            sb.append("Image: ").append(getImage()).append(",");
+        if (getImageDigest() != null)
+            sb.append("ImageDigest: ").append(getImageDigest()).append(",");
+        if (getRuntimeId() != null)
+            sb.append("RuntimeId: ").append(getRuntimeId()).append(",");
         if (getLastStatus() != null)
             sb.append("LastStatus: ").append(getLastStatus()).append(",");
         if (getExitCode() != null)
@@ -798,6 +1021,8 @@ public class Container implements Serializable, Cloneable, StructuredPojo {
             sb.append("NetworkInterfaces: ").append(getNetworkInterfaces()).append(",");
         if (getHealthStatus() != null)
             sb.append("HealthStatus: ").append(getHealthStatus()).append(",");
+        if (getManagedAgents() != null)
+            sb.append("ManagedAgents: ").append(getManagedAgents()).append(",");
         if (getCpu() != null)
             sb.append("Cpu: ").append(getCpu()).append(",");
         if (getMemory() != null)
@@ -832,6 +1057,18 @@ public class Container implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
             return false;
+        if (other.getImage() == null ^ this.getImage() == null)
+            return false;
+        if (other.getImage() != null && other.getImage().equals(this.getImage()) == false)
+            return false;
+        if (other.getImageDigest() == null ^ this.getImageDigest() == null)
+            return false;
+        if (other.getImageDigest() != null && other.getImageDigest().equals(this.getImageDigest()) == false)
+            return false;
+        if (other.getRuntimeId() == null ^ this.getRuntimeId() == null)
+            return false;
+        if (other.getRuntimeId() != null && other.getRuntimeId().equals(this.getRuntimeId()) == false)
+            return false;
         if (other.getLastStatus() == null ^ this.getLastStatus() == null)
             return false;
         if (other.getLastStatus() != null && other.getLastStatus().equals(this.getLastStatus()) == false)
@@ -855,6 +1092,10 @@ public class Container implements Serializable, Cloneable, StructuredPojo {
         if (other.getHealthStatus() == null ^ this.getHealthStatus() == null)
             return false;
         if (other.getHealthStatus() != null && other.getHealthStatus().equals(this.getHealthStatus()) == false)
+            return false;
+        if (other.getManagedAgents() == null ^ this.getManagedAgents() == null)
+            return false;
+        if (other.getManagedAgents() != null && other.getManagedAgents().equals(this.getManagedAgents()) == false)
             return false;
         if (other.getCpu() == null ^ this.getCpu() == null)
             return false;
@@ -883,12 +1124,16 @@ public class Container implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getContainerArn() == null) ? 0 : getContainerArn().hashCode());
         hashCode = prime * hashCode + ((getTaskArn() == null) ? 0 : getTaskArn().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
+        hashCode = prime * hashCode + ((getImage() == null) ? 0 : getImage().hashCode());
+        hashCode = prime * hashCode + ((getImageDigest() == null) ? 0 : getImageDigest().hashCode());
+        hashCode = prime * hashCode + ((getRuntimeId() == null) ? 0 : getRuntimeId().hashCode());
         hashCode = prime * hashCode + ((getLastStatus() == null) ? 0 : getLastStatus().hashCode());
         hashCode = prime * hashCode + ((getExitCode() == null) ? 0 : getExitCode().hashCode());
         hashCode = prime * hashCode + ((getReason() == null) ? 0 : getReason().hashCode());
         hashCode = prime * hashCode + ((getNetworkBindings() == null) ? 0 : getNetworkBindings().hashCode());
         hashCode = prime * hashCode + ((getNetworkInterfaces() == null) ? 0 : getNetworkInterfaces().hashCode());
         hashCode = prime * hashCode + ((getHealthStatus() == null) ? 0 : getHealthStatus().hashCode());
+        hashCode = prime * hashCode + ((getManagedAgents() == null) ? 0 : getManagedAgents().hashCode());
         hashCode = prime * hashCode + ((getCpu() == null) ? 0 : getCpu().hashCode());
         hashCode = prime * hashCode + ((getMemory() == null) ? 0 : getMemory().hashCode());
         hashCode = prime * hashCode + ((getMemoryReservation() == null) ? 0 : getMemoryReservation().hashCode());

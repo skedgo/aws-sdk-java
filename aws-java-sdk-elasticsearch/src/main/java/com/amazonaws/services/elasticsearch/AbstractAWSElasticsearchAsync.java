@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,6 +28,21 @@ public class AbstractAWSElasticsearchAsync extends AbstractAWSElasticsearch impl
     }
 
     @Override
+    public java.util.concurrent.Future<AcceptInboundCrossClusterSearchConnectionResult> acceptInboundCrossClusterSearchConnectionAsync(
+            AcceptInboundCrossClusterSearchConnectionRequest request) {
+
+        return acceptInboundCrossClusterSearchConnectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AcceptInboundCrossClusterSearchConnectionResult> acceptInboundCrossClusterSearchConnectionAsync(
+            AcceptInboundCrossClusterSearchConnectionRequest request,
+            com.amazonaws.handlers.AsyncHandler<AcceptInboundCrossClusterSearchConnectionRequest, AcceptInboundCrossClusterSearchConnectionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<AddTagsResult> addTagsAsync(AddTagsRequest request) {
 
         return addTagsAsync(request, null);
@@ -36,6 +51,45 @@ public class AbstractAWSElasticsearchAsync extends AbstractAWSElasticsearch impl
     @Override
     public java.util.concurrent.Future<AddTagsResult> addTagsAsync(AddTagsRequest request,
             com.amazonaws.handlers.AsyncHandler<AddTagsRequest, AddTagsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociatePackageResult> associatePackageAsync(AssociatePackageRequest request) {
+
+        return associatePackageAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociatePackageResult> associatePackageAsync(AssociatePackageRequest request,
+            com.amazonaws.handlers.AsyncHandler<AssociatePackageRequest, AssociatePackageResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<AuthorizeVpcEndpointAccessResult> authorizeVpcEndpointAccessAsync(AuthorizeVpcEndpointAccessRequest request) {
+
+        return authorizeVpcEndpointAccessAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AuthorizeVpcEndpointAccessResult> authorizeVpcEndpointAccessAsync(AuthorizeVpcEndpointAccessRequest request,
+            com.amazonaws.handlers.AsyncHandler<AuthorizeVpcEndpointAccessRequest, AuthorizeVpcEndpointAccessResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelDomainConfigChangeResult> cancelDomainConfigChangeAsync(CancelDomainConfigChangeRequest request) {
+
+        return cancelDomainConfigChangeAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelDomainConfigChangeResult> cancelDomainConfigChangeAsync(CancelDomainConfigChangeRequest request,
+            com.amazonaws.handlers.AsyncHandler<CancelDomainConfigChangeRequest, CancelDomainConfigChangeResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -69,6 +123,47 @@ public class AbstractAWSElasticsearchAsync extends AbstractAWSElasticsearch impl
     }
 
     @Override
+    public java.util.concurrent.Future<CreateOutboundCrossClusterSearchConnectionResult> createOutboundCrossClusterSearchConnectionAsync(
+            CreateOutboundCrossClusterSearchConnectionRequest request) {
+
+        return createOutboundCrossClusterSearchConnectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateOutboundCrossClusterSearchConnectionResult> createOutboundCrossClusterSearchConnectionAsync(
+            CreateOutboundCrossClusterSearchConnectionRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateOutboundCrossClusterSearchConnectionRequest, CreateOutboundCrossClusterSearchConnectionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreatePackageResult> createPackageAsync(CreatePackageRequest request) {
+
+        return createPackageAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreatePackageResult> createPackageAsync(CreatePackageRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreatePackageRequest, CreatePackageResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateVpcEndpointResult> createVpcEndpointAsync(CreateVpcEndpointRequest request) {
+
+        return createVpcEndpointAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateVpcEndpointResult> createVpcEndpointAsync(CreateVpcEndpointRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateVpcEndpointRequest, CreateVpcEndpointResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteElasticsearchDomainResult> deleteElasticsearchDomainAsync(DeleteElasticsearchDomainRequest request) {
 
         return deleteElasticsearchDomainAsync(request, null);
@@ -90,6 +185,88 @@ public class AbstractAWSElasticsearchAsync extends AbstractAWSElasticsearch impl
     @Override
     public java.util.concurrent.Future<DeleteElasticsearchServiceRoleResult> deleteElasticsearchServiceRoleAsync(DeleteElasticsearchServiceRoleRequest request,
             com.amazonaws.handlers.AsyncHandler<DeleteElasticsearchServiceRoleRequest, DeleteElasticsearchServiceRoleResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteInboundCrossClusterSearchConnectionResult> deleteInboundCrossClusterSearchConnectionAsync(
+            DeleteInboundCrossClusterSearchConnectionRequest request) {
+
+        return deleteInboundCrossClusterSearchConnectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteInboundCrossClusterSearchConnectionResult> deleteInboundCrossClusterSearchConnectionAsync(
+            DeleteInboundCrossClusterSearchConnectionRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteInboundCrossClusterSearchConnectionRequest, DeleteInboundCrossClusterSearchConnectionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteOutboundCrossClusterSearchConnectionResult> deleteOutboundCrossClusterSearchConnectionAsync(
+            DeleteOutboundCrossClusterSearchConnectionRequest request) {
+
+        return deleteOutboundCrossClusterSearchConnectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteOutboundCrossClusterSearchConnectionResult> deleteOutboundCrossClusterSearchConnectionAsync(
+            DeleteOutboundCrossClusterSearchConnectionRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteOutboundCrossClusterSearchConnectionRequest, DeleteOutboundCrossClusterSearchConnectionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeletePackageResult> deletePackageAsync(DeletePackageRequest request) {
+
+        return deletePackageAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeletePackageResult> deletePackageAsync(DeletePackageRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeletePackageRequest, DeletePackageResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteVpcEndpointResult> deleteVpcEndpointAsync(DeleteVpcEndpointRequest request) {
+
+        return deleteVpcEndpointAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteVpcEndpointResult> deleteVpcEndpointAsync(DeleteVpcEndpointRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteVpcEndpointRequest, DeleteVpcEndpointResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDomainAutoTunesResult> describeDomainAutoTunesAsync(DescribeDomainAutoTunesRequest request) {
+
+        return describeDomainAutoTunesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDomainAutoTunesResult> describeDomainAutoTunesAsync(DescribeDomainAutoTunesRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeDomainAutoTunesRequest, DescribeDomainAutoTunesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDomainChangeProgressResult> describeDomainChangeProgressAsync(DescribeDomainChangeProgressRequest request) {
+
+        return describeDomainChangeProgressAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDomainChangeProgressResult> describeDomainChangeProgressAsync(DescribeDomainChangeProgressRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeDomainChangeProgressRequest, DescribeDomainChangeProgressResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -151,6 +328,49 @@ public class AbstractAWSElasticsearchAsync extends AbstractAWSElasticsearch impl
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeInboundCrossClusterSearchConnectionsResult> describeInboundCrossClusterSearchConnectionsAsync(
+            DescribeInboundCrossClusterSearchConnectionsRequest request) {
+
+        return describeInboundCrossClusterSearchConnectionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeInboundCrossClusterSearchConnectionsResult> describeInboundCrossClusterSearchConnectionsAsync(
+            DescribeInboundCrossClusterSearchConnectionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeInboundCrossClusterSearchConnectionsRequest, DescribeInboundCrossClusterSearchConnectionsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeOutboundCrossClusterSearchConnectionsResult> describeOutboundCrossClusterSearchConnectionsAsync(
+            DescribeOutboundCrossClusterSearchConnectionsRequest request) {
+
+        return describeOutboundCrossClusterSearchConnectionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeOutboundCrossClusterSearchConnectionsResult> describeOutboundCrossClusterSearchConnectionsAsync(
+            DescribeOutboundCrossClusterSearchConnectionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeOutboundCrossClusterSearchConnectionsRequest, DescribeOutboundCrossClusterSearchConnectionsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribePackagesResult> describePackagesAsync(DescribePackagesRequest request) {
+
+        return describePackagesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribePackagesResult> describePackagesAsync(DescribePackagesRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribePackagesRequest, DescribePackagesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeReservedElasticsearchInstanceOfferingsResult> describeReservedElasticsearchInstanceOfferingsAsync(
             DescribeReservedElasticsearchInstanceOfferingsRequest request) {
 
@@ -181,6 +401,32 @@ public class AbstractAWSElasticsearchAsync extends AbstractAWSElasticsearch impl
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeVpcEndpointsResult> describeVpcEndpointsAsync(DescribeVpcEndpointsRequest request) {
+
+        return describeVpcEndpointsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeVpcEndpointsResult> describeVpcEndpointsAsync(DescribeVpcEndpointsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeVpcEndpointsRequest, DescribeVpcEndpointsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DissociatePackageResult> dissociatePackageAsync(DissociatePackageRequest request) {
+
+        return dissociatePackageAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DissociatePackageResult> dissociatePackageAsync(DissociatePackageRequest request,
+            com.amazonaws.handlers.AsyncHandler<DissociatePackageRequest, DissociatePackageResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<GetCompatibleElasticsearchVersionsResult> getCompatibleElasticsearchVersionsAsync(
             GetCompatibleElasticsearchVersionsRequest request) {
 
@@ -191,6 +437,19 @@ public class AbstractAWSElasticsearchAsync extends AbstractAWSElasticsearch impl
     public java.util.concurrent.Future<GetCompatibleElasticsearchVersionsResult> getCompatibleElasticsearchVersionsAsync(
             GetCompatibleElasticsearchVersionsRequest request,
             com.amazonaws.handlers.AsyncHandler<GetCompatibleElasticsearchVersionsRequest, GetCompatibleElasticsearchVersionsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetPackageVersionHistoryResult> getPackageVersionHistoryAsync(GetPackageVersionHistoryRequest request) {
+
+        return getPackageVersionHistoryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetPackageVersionHistoryResult> getPackageVersionHistoryAsync(GetPackageVersionHistoryRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetPackageVersionHistoryRequest, GetPackageVersionHistoryResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -235,6 +494,19 @@ public class AbstractAWSElasticsearchAsync extends AbstractAWSElasticsearch impl
     }
 
     @Override
+    public java.util.concurrent.Future<ListDomainsForPackageResult> listDomainsForPackageAsync(ListDomainsForPackageRequest request) {
+
+        return listDomainsForPackageAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDomainsForPackageResult> listDomainsForPackageAsync(ListDomainsForPackageRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListDomainsForPackageRequest, ListDomainsForPackageResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListElasticsearchInstanceTypesResult> listElasticsearchInstanceTypesAsync(ListElasticsearchInstanceTypesRequest request) {
 
         return listElasticsearchInstanceTypesAsync(request, null);
@@ -261,6 +533,19 @@ public class AbstractAWSElasticsearchAsync extends AbstractAWSElasticsearch impl
     }
 
     @Override
+    public java.util.concurrent.Future<ListPackagesForDomainResult> listPackagesForDomainAsync(ListPackagesForDomainRequest request) {
+
+        return listPackagesForDomainAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPackagesForDomainResult> listPackagesForDomainAsync(ListPackagesForDomainRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListPackagesForDomainRequest, ListPackagesForDomainResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListTagsResult> listTagsAsync(ListTagsRequest request) {
 
         return listTagsAsync(request, null);
@@ -269,6 +554,45 @@ public class AbstractAWSElasticsearchAsync extends AbstractAWSElasticsearch impl
     @Override
     public java.util.concurrent.Future<ListTagsResult> listTagsAsync(ListTagsRequest request,
             com.amazonaws.handlers.AsyncHandler<ListTagsRequest, ListTagsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListVpcEndpointAccessResult> listVpcEndpointAccessAsync(ListVpcEndpointAccessRequest request) {
+
+        return listVpcEndpointAccessAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListVpcEndpointAccessResult> listVpcEndpointAccessAsync(ListVpcEndpointAccessRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListVpcEndpointAccessRequest, ListVpcEndpointAccessResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListVpcEndpointsResult> listVpcEndpointsAsync(ListVpcEndpointsRequest request) {
+
+        return listVpcEndpointsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListVpcEndpointsResult> listVpcEndpointsAsync(ListVpcEndpointsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListVpcEndpointsRequest, ListVpcEndpointsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListVpcEndpointsForDomainResult> listVpcEndpointsForDomainAsync(ListVpcEndpointsForDomainRequest request) {
+
+        return listVpcEndpointsForDomainAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListVpcEndpointsForDomainResult> listVpcEndpointsForDomainAsync(ListVpcEndpointsForDomainRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListVpcEndpointsForDomainRequest, ListVpcEndpointsForDomainResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -289,6 +613,21 @@ public class AbstractAWSElasticsearchAsync extends AbstractAWSElasticsearch impl
     }
 
     @Override
+    public java.util.concurrent.Future<RejectInboundCrossClusterSearchConnectionResult> rejectInboundCrossClusterSearchConnectionAsync(
+            RejectInboundCrossClusterSearchConnectionRequest request) {
+
+        return rejectInboundCrossClusterSearchConnectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RejectInboundCrossClusterSearchConnectionResult> rejectInboundCrossClusterSearchConnectionAsync(
+            RejectInboundCrossClusterSearchConnectionRequest request,
+            com.amazonaws.handlers.AsyncHandler<RejectInboundCrossClusterSearchConnectionRequest, RejectInboundCrossClusterSearchConnectionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<RemoveTagsResult> removeTagsAsync(RemoveTagsRequest request) {
 
         return removeTagsAsync(request, null);
@@ -297,6 +636,19 @@ public class AbstractAWSElasticsearchAsync extends AbstractAWSElasticsearch impl
     @Override
     public java.util.concurrent.Future<RemoveTagsResult> removeTagsAsync(RemoveTagsRequest request,
             com.amazonaws.handlers.AsyncHandler<RemoveTagsRequest, RemoveTagsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<RevokeVpcEndpointAccessResult> revokeVpcEndpointAccessAsync(RevokeVpcEndpointAccessRequest request) {
+
+        return revokeVpcEndpointAccessAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RevokeVpcEndpointAccessResult> revokeVpcEndpointAccessAsync(RevokeVpcEndpointAccessRequest request,
+            com.amazonaws.handlers.AsyncHandler<RevokeVpcEndpointAccessRequest, RevokeVpcEndpointAccessResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -327,6 +679,32 @@ public class AbstractAWSElasticsearchAsync extends AbstractAWSElasticsearch impl
     public java.util.concurrent.Future<UpdateElasticsearchDomainConfigResult> updateElasticsearchDomainConfigAsync(
             UpdateElasticsearchDomainConfigRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateElasticsearchDomainConfigRequest, UpdateElasticsearchDomainConfigResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePackageResult> updatePackageAsync(UpdatePackageRequest request) {
+
+        return updatePackageAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePackageResult> updatePackageAsync(UpdatePackageRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdatePackageRequest, UpdatePackageResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateVpcEndpointResult> updateVpcEndpointAsync(UpdateVpcEndpointRequest request) {
+
+        return updateVpcEndpointAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateVpcEndpointResult> updateVpcEndpointAsync(UpdateVpcEndpointRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateVpcEndpointRequest, UpdateVpcEndpointResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

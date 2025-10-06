@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,18 +27,18 @@ public class DeregisterManagedInstanceRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The ID assigned to the managed instance when you registered it using the activation process.
+     * The ID assigned to the managed node when you registered it using the activation process.
      * </p>
      */
     private String instanceId;
 
     /**
      * <p>
-     * The ID assigned to the managed instance when you registered it using the activation process.
+     * The ID assigned to the managed node when you registered it using the activation process.
      * </p>
      * 
      * @param instanceId
-     *        The ID assigned to the managed instance when you registered it using the activation process.
+     *        The ID assigned to the managed node when you registered it using the activation process.
      */
 
     public void setInstanceId(String instanceId) {
@@ -47,10 +47,10 @@ public class DeregisterManagedInstanceRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The ID assigned to the managed instance when you registered it using the activation process.
+     * The ID assigned to the managed node when you registered it using the activation process.
      * </p>
      * 
-     * @return The ID assigned to the managed instance when you registered it using the activation process.
+     * @return The ID assigned to the managed node when you registered it using the activation process.
      */
 
     public String getInstanceId() {
@@ -59,11 +59,11 @@ public class DeregisterManagedInstanceRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The ID assigned to the managed instance when you registered it using the activation process.
+     * The ID assigned to the managed node when you registered it using the activation process.
      * </p>
      * 
      * @param instanceId
-     *        The ID assigned to the managed instance when you registered it using the activation process.
+     *        The ID assigned to the managed node when you registered it using the activation process.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

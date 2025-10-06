@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The custom parameters to be used when the target is an AWS Batch job.
+ * The custom parameters to be used when the target is an Batch job.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/BatchParameters" target="_top">AWS API
@@ -30,14 +30,14 @@ public class BatchParameters implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The ARN or name of the job definition to use if the event target is an AWS Batch job. This job definition must
+     * The ARN or name of the job definition to use if the event target is an Batch job. This job definition must
      * already exist.
      * </p>
      */
     private String jobDefinition;
     /**
      * <p>
-     * The name to use for this execution of the job, if the target is an AWS Batch job.
+     * The name to use for this execution of the job, if the target is an Batch job.
      * </p>
      */
     private String jobName;
@@ -45,13 +45,13 @@ public class BatchParameters implements Serializable, Cloneable, StructuredPojo 
      * <p>
      * The array properties for the submitted job, such as the size of the array. The array size can be between 2 and
      * 10,000. If you specify array properties for a job, it becomes an array job. This parameter is used only if the
-     * target is an AWS Batch job.
+     * target is an Batch job.
      * </p>
      */
     private BatchArrayProperties arrayProperties;
     /**
      * <p>
-     * The retry strategy to use for failed jobs if the target is an AWS Batch job. The retry strategy is the number of
+     * The retry strategy to use for failed jobs, if the target is an Batch job. The retry strategy is the number of
      * times to retry the failed job execution. Valid values are 1–10. When you specify a retry strategy here, it
      * overrides the retry strategy defined in the job definition.
      * </p>
@@ -60,13 +60,13 @@ public class BatchParameters implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The ARN or name of the job definition to use if the event target is an AWS Batch job. This job definition must
+     * The ARN or name of the job definition to use if the event target is an Batch job. This job definition must
      * already exist.
      * </p>
      * 
      * @param jobDefinition
-     *        The ARN or name of the job definition to use if the event target is an AWS Batch job. This job definition
-     *        must already exist.
+     *        The ARN or name of the job definition to use if the event target is an Batch job. This job definition must
+     *        already exist.
      */
 
     public void setJobDefinition(String jobDefinition) {
@@ -75,11 +75,11 @@ public class BatchParameters implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The ARN or name of the job definition to use if the event target is an AWS Batch job. This job definition must
+     * The ARN or name of the job definition to use if the event target is an Batch job. This job definition must
      * already exist.
      * </p>
      * 
-     * @return The ARN or name of the job definition to use if the event target is an AWS Batch job. This job definition
+     * @return The ARN or name of the job definition to use if the event target is an Batch job. This job definition
      *         must already exist.
      */
 
@@ -89,13 +89,13 @@ public class BatchParameters implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The ARN or name of the job definition to use if the event target is an AWS Batch job. This job definition must
+     * The ARN or name of the job definition to use if the event target is an Batch job. This job definition must
      * already exist.
      * </p>
      * 
      * @param jobDefinition
-     *        The ARN or name of the job definition to use if the event target is an AWS Batch job. This job definition
-     *        must already exist.
+     *        The ARN or name of the job definition to use if the event target is an Batch job. This job definition must
+     *        already exist.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -106,11 +106,11 @@ public class BatchParameters implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The name to use for this execution of the job, if the target is an AWS Batch job.
+     * The name to use for this execution of the job, if the target is an Batch job.
      * </p>
      * 
      * @param jobName
-     *        The name to use for this execution of the job, if the target is an AWS Batch job.
+     *        The name to use for this execution of the job, if the target is an Batch job.
      */
 
     public void setJobName(String jobName) {
@@ -119,10 +119,10 @@ public class BatchParameters implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The name to use for this execution of the job, if the target is an AWS Batch job.
+     * The name to use for this execution of the job, if the target is an Batch job.
      * </p>
      * 
-     * @return The name to use for this execution of the job, if the target is an AWS Batch job.
+     * @return The name to use for this execution of the job, if the target is an Batch job.
      */
 
     public String getJobName() {
@@ -131,11 +131,11 @@ public class BatchParameters implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The name to use for this execution of the job, if the target is an AWS Batch job.
+     * The name to use for this execution of the job, if the target is an Batch job.
      * </p>
      * 
      * @param jobName
-     *        The name to use for this execution of the job, if the target is an AWS Batch job.
+     *        The name to use for this execution of the job, if the target is an Batch job.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -148,13 +148,13 @@ public class BatchParameters implements Serializable, Cloneable, StructuredPojo 
      * <p>
      * The array properties for the submitted job, such as the size of the array. The array size can be between 2 and
      * 10,000. If you specify array properties for a job, it becomes an array job. This parameter is used only if the
-     * target is an AWS Batch job.
+     * target is an Batch job.
      * </p>
      * 
      * @param arrayProperties
      *        The array properties for the submitted job, such as the size of the array. The array size can be between 2
      *        and 10,000. If you specify array properties for a job, it becomes an array job. This parameter is used
-     *        only if the target is an AWS Batch job.
+     *        only if the target is an Batch job.
      */
 
     public void setArrayProperties(BatchArrayProperties arrayProperties) {
@@ -165,12 +165,12 @@ public class BatchParameters implements Serializable, Cloneable, StructuredPojo 
      * <p>
      * The array properties for the submitted job, such as the size of the array. The array size can be between 2 and
      * 10,000. If you specify array properties for a job, it becomes an array job. This parameter is used only if the
-     * target is an AWS Batch job.
+     * target is an Batch job.
      * </p>
      * 
      * @return The array properties for the submitted job, such as the size of the array. The array size can be between
      *         2 and 10,000. If you specify array properties for a job, it becomes an array job. This parameter is used
-     *         only if the target is an AWS Batch job.
+     *         only if the target is an Batch job.
      */
 
     public BatchArrayProperties getArrayProperties() {
@@ -181,13 +181,13 @@ public class BatchParameters implements Serializable, Cloneable, StructuredPojo 
      * <p>
      * The array properties for the submitted job, such as the size of the array. The array size can be between 2 and
      * 10,000. If you specify array properties for a job, it becomes an array job. This parameter is used only if the
-     * target is an AWS Batch job.
+     * target is an Batch job.
      * </p>
      * 
      * @param arrayProperties
      *        The array properties for the submitted job, such as the size of the array. The array size can be between 2
      *        and 10,000. If you specify array properties for a job, it becomes an array job. This parameter is used
-     *        only if the target is an AWS Batch job.
+     *        only if the target is an Batch job.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -198,15 +198,15 @@ public class BatchParameters implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The retry strategy to use for failed jobs if the target is an AWS Batch job. The retry strategy is the number of
+     * The retry strategy to use for failed jobs, if the target is an Batch job. The retry strategy is the number of
      * times to retry the failed job execution. Valid values are 1–10. When you specify a retry strategy here, it
      * overrides the retry strategy defined in the job definition.
      * </p>
      * 
      * @param retryStrategy
-     *        The retry strategy to use for failed jobs if the target is an AWS Batch job. The retry strategy is the
-     *        number of times to retry the failed job execution. Valid values are 1–10. When you specify a retry
-     *        strategy here, it overrides the retry strategy defined in the job definition.
+     *        The retry strategy to use for failed jobs, if the target is an Batch job. The retry strategy is the number
+     *        of times to retry the failed job execution. Valid values are 1–10. When you specify a retry strategy here,
+     *        it overrides the retry strategy defined in the job definition.
      */
 
     public void setRetryStrategy(BatchRetryStrategy retryStrategy) {
@@ -215,12 +215,12 @@ public class BatchParameters implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The retry strategy to use for failed jobs if the target is an AWS Batch job. The retry strategy is the number of
+     * The retry strategy to use for failed jobs, if the target is an Batch job. The retry strategy is the number of
      * times to retry the failed job execution. Valid values are 1–10. When you specify a retry strategy here, it
      * overrides the retry strategy defined in the job definition.
      * </p>
      * 
-     * @return The retry strategy to use for failed jobs if the target is an AWS Batch job. The retry strategy is the
+     * @return The retry strategy to use for failed jobs, if the target is an Batch job. The retry strategy is the
      *         number of times to retry the failed job execution. Valid values are 1–10. When you specify a retry
      *         strategy here, it overrides the retry strategy defined in the job definition.
      */
@@ -231,15 +231,15 @@ public class BatchParameters implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The retry strategy to use for failed jobs if the target is an AWS Batch job. The retry strategy is the number of
+     * The retry strategy to use for failed jobs, if the target is an Batch job. The retry strategy is the number of
      * times to retry the failed job execution. Valid values are 1–10. When you specify a retry strategy here, it
      * overrides the retry strategy defined in the job definition.
      * </p>
      * 
      * @param retryStrategy
-     *        The retry strategy to use for failed jobs if the target is an AWS Batch job. The retry strategy is the
-     *        number of times to retry the failed job execution. Valid values are 1–10. When you specify a retry
-     *        strategy here, it overrides the retry strategy defined in the job definition.
+     *        The retry strategy to use for failed jobs, if the target is an Batch job. The retry strategy is the number
+     *        of times to retry the failed job execution. Valid values are 1–10. When you specify a retry strategy here,
+     *        it overrides the retry strategy defined in the job definition.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

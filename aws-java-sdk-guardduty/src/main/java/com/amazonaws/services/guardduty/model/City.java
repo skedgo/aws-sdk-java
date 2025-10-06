@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
+ * Contains information about the city associated with the IP address.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/City" target="_top">AWS API
  *      Documentation</a>
@@ -27,18 +30,18 @@ public class City implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * City name of the remote IP address.
+     * The city name of the remote IP address.
      * </p>
      */
     private String cityName;
 
     /**
      * <p>
-     * City name of the remote IP address.
+     * The city name of the remote IP address.
      * </p>
      * 
      * @param cityName
-     *        City name of the remote IP address.
+     *        The city name of the remote IP address.
      */
 
     public void setCityName(String cityName) {
@@ -47,10 +50,10 @@ public class City implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * City name of the remote IP address.
+     * The city name of the remote IP address.
      * </p>
      * 
-     * @return City name of the remote IP address.
+     * @return The city name of the remote IP address.
      */
 
     public String getCityName() {
@@ -59,11 +62,11 @@ public class City implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * City name of the remote IP address.
+     * The city name of the remote IP address.
      * </p>
      * 
      * @param cityName
-     *        City name of the remote IP address.
+     *        The city name of the remote IP address.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

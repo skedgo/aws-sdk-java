@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,17 +35,15 @@ public class CreateBackupSelectionRequest extends com.amazonaws.AmazonWebService
      * <p>
      * Specifies the body of a request to assign a set of resources to a backup plan.
      * </p>
-     * <p>
-     * It includes an array of resources, an optional array of patterns to exclude resources, an optional role to
-     * provide access to the AWS service the resource belongs to, and an optional array of tags used to identify a set
-     * of resources.
-     * </p>
      */
     private BackupSelection backupSelection;
     /**
      * <p>
-     * A unique string that identifies the request and allows failed requests to be retried without the risk of
-     * executing the operation twice.
+     * A unique string that identifies the request and allows failed requests to be retried without the risk of running
+     * the operation twice. This parameter is optional.
+     * </p>
+     * <p>
+     * If used, this parameter must contain 1 to 50 alphanumeric or '-_.' characters.
      * </p>
      */
     private String creatorRequestId;
@@ -94,18 +92,9 @@ public class CreateBackupSelectionRequest extends com.amazonaws.AmazonWebService
      * <p>
      * Specifies the body of a request to assign a set of resources to a backup plan.
      * </p>
-     * <p>
-     * It includes an array of resources, an optional array of patterns to exclude resources, an optional role to
-     * provide access to the AWS service the resource belongs to, and an optional array of tags used to identify a set
-     * of resources.
-     * </p>
      * 
      * @param backupSelection
-     *        Specifies the body of a request to assign a set of resources to a backup plan.</p>
-     *        <p>
-     *        It includes an array of resources, an optional array of patterns to exclude resources, an optional role to
-     *        provide access to the AWS service the resource belongs to, and an optional array of tags used to identify
-     *        a set of resources.
+     *        Specifies the body of a request to assign a set of resources to a backup plan.
      */
 
     public void setBackupSelection(BackupSelection backupSelection) {
@@ -116,17 +105,8 @@ public class CreateBackupSelectionRequest extends com.amazonaws.AmazonWebService
      * <p>
      * Specifies the body of a request to assign a set of resources to a backup plan.
      * </p>
-     * <p>
-     * It includes an array of resources, an optional array of patterns to exclude resources, an optional role to
-     * provide access to the AWS service the resource belongs to, and an optional array of tags used to identify a set
-     * of resources.
-     * </p>
      * 
-     * @return Specifies the body of a request to assign a set of resources to a backup plan.</p>
-     *         <p>
-     *         It includes an array of resources, an optional array of patterns to exclude resources, an optional role
-     *         to provide access to the AWS service the resource belongs to, and an optional array of tags used to
-     *         identify a set of resources.
+     * @return Specifies the body of a request to assign a set of resources to a backup plan.
      */
 
     public BackupSelection getBackupSelection() {
@@ -137,18 +117,9 @@ public class CreateBackupSelectionRequest extends com.amazonaws.AmazonWebService
      * <p>
      * Specifies the body of a request to assign a set of resources to a backup plan.
      * </p>
-     * <p>
-     * It includes an array of resources, an optional array of patterns to exclude resources, an optional role to
-     * provide access to the AWS service the resource belongs to, and an optional array of tags used to identify a set
-     * of resources.
-     * </p>
      * 
      * @param backupSelection
-     *        Specifies the body of a request to assign a set of resources to a backup plan.</p>
-     *        <p>
-     *        It includes an array of resources, an optional array of patterns to exclude resources, an optional role to
-     *        provide access to the AWS service the resource belongs to, and an optional array of tags used to identify
-     *        a set of resources.
+     *        Specifies the body of a request to assign a set of resources to a backup plan.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -159,13 +130,18 @@ public class CreateBackupSelectionRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A unique string that identifies the request and allows failed requests to be retried without the risk of
-     * executing the operation twice.
+     * A unique string that identifies the request and allows failed requests to be retried without the risk of running
+     * the operation twice. This parameter is optional.
+     * </p>
+     * <p>
+     * If used, this parameter must contain 1 to 50 alphanumeric or '-_.' characters.
      * </p>
      * 
      * @param creatorRequestId
      *        A unique string that identifies the request and allows failed requests to be retried without the risk of
-     *        executing the operation twice.
+     *        running the operation twice. This parameter is optional.</p>
+     *        <p>
+     *        If used, this parameter must contain 1 to 50 alphanumeric or '-_.' characters.
      */
 
     public void setCreatorRequestId(String creatorRequestId) {
@@ -174,12 +150,17 @@ public class CreateBackupSelectionRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A unique string that identifies the request and allows failed requests to be retried without the risk of
-     * executing the operation twice.
+     * A unique string that identifies the request and allows failed requests to be retried without the risk of running
+     * the operation twice. This parameter is optional.
+     * </p>
+     * <p>
+     * If used, this parameter must contain 1 to 50 alphanumeric or '-_.' characters.
      * </p>
      * 
      * @return A unique string that identifies the request and allows failed requests to be retried without the risk of
-     *         executing the operation twice.
+     *         running the operation twice. This parameter is optional.</p>
+     *         <p>
+     *         If used, this parameter must contain 1 to 50 alphanumeric or '-_.' characters.
      */
 
     public String getCreatorRequestId() {
@@ -188,13 +169,18 @@ public class CreateBackupSelectionRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A unique string that identifies the request and allows failed requests to be retried without the risk of
-     * executing the operation twice.
+     * A unique string that identifies the request and allows failed requests to be retried without the risk of running
+     * the operation twice. This parameter is optional.
+     * </p>
+     * <p>
+     * If used, this parameter must contain 1 to 50 alphanumeric or '-_.' characters.
      * </p>
      * 
      * @param creatorRequestId
      *        A unique string that identifies the request and allows failed requests to be retried without the risk of
-     *        executing the operation twice.
+     *        running the operation twice. This parameter is optional.</p>
+     *        <p>
+     *        If used, this parameter must contain 1 to 50 alphanumeric or '-_.' characters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

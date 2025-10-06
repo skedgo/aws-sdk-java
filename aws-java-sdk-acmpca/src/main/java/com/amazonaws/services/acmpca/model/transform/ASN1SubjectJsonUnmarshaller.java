@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -103,6 +103,12 @@ public class ASN1SubjectJsonUnmarshaller implements Unmarshaller<ASN1Subject, Js
                 if (context.testExpression("GenerationQualifier", targetDepth)) {
                     context.nextToken();
                     aSN1Subject.setGenerationQualifier(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("CustomAttributes", targetDepth)) {
+                    context.nextToken();
+                    aSN1Subject.setCustomAttributes(new ListUnmarshaller<CustomAttribute>(CustomAttributeJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

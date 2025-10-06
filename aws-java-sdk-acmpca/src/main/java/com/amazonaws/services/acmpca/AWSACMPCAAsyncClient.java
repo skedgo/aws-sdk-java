@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,22 +26,29 @@ import java.util.concurrent.ExecutorService;
  * an asynchronous operation completes.
  * <p>
  * <p>
- * This is the <i>ACM Private CA API Reference</i>. It provides descriptions, syntax, and usage examples for each of the
- * actions and data types involved in creating and managing private certificate authorities (CA) for your organization.
+ * This is the <i>Amazon Web Services Private Certificate Authority API Reference</i>. It provides descriptions, syntax,
+ * and usage examples for each of the actions and data types involved in creating and managing a private certificate
+ * authority (CA) for your organization.
  * </p>
  * <p>
- * The documentation for each action shows the Query API request parameters and the XML response. Alternatively, you can
- * use one of the AWS SDKs to access an API that's tailored to the programming language or platform that you're using.
- * For more information, see <a href="https://aws.amazon.com/tools/#SDKs">AWS SDKs</a>.
+ * The documentation for each action shows the API request parameters and the JSON response. Alternatively, you can use
+ * one of the Amazon Web Services SDKs to access an API that is tailored to the programming language or platform that
+ * you prefer. For more information, see <a href="https://aws.amazon.com/tools/#SDKs">Amazon Web Services SDKs</a>.
  * </p>
- * <note>
  * <p>
- * Each ACM Private CA API action has a throttling limit which determines the number of times the action can be called
- * per second. For more information, see <a
- * href="https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaLimits.html#PcaLimits-api">API Rate Limits in ACM
- * Private CA</a> in the ACM Private CA user guide.
+ * Each Amazon Web Services Private CA API operation has a quota that determines the number of times the operation can
+ * be called per second. Amazon Web Services Private CA throttles API requests at different rates depending on the
+ * operation. Throttling means that Amazon Web Services Private CA rejects an otherwise valid request because the
+ * request exceeds the operation's quota for the number of requests per second. When a request is throttled, Amazon Web
+ * Services Private CA returns a <a
+ * href="https://docs.aws.amazon.com/privateca/latest/APIReference/CommonErrors.html">ThrottlingException</a> error.
+ * Amazon Web Services Private CA does not guarantee a minimum request rate for APIs.
  * </p>
- * </note>
+ * <p>
+ * To see an up-to-date list of your Amazon Web Services Private CA quotas, or to request a quota increase, log into
+ * your Amazon Web Services account and visit the <a href="https://console.aws.amazon.com/servicequotas/">Service
+ * Quotas</a> console.
+ * </p>
  */
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -62,7 +69,19 @@ public class AWSACMPCAAsyncClient extends AWSACMPCAClient implements AWSACMPCAAs
      *        Object providing client parameters.
      */
     AWSACMPCAAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on ACM-PCA using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSACMPCAAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -227,6 +246,39 @@ public class AWSACMPCAAsyncClient extends AWSACMPCAClient implements AWSACMPCAAs
 
                 try {
                     result = executeDeletePermission(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeletePolicyResult> deletePolicyAsync(DeletePolicyRequest request) {
+
+        return deletePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeletePolicyResult> deletePolicyAsync(final DeletePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeletePolicyRequest, DeletePolicyResult> asyncHandler) {
+        final DeletePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeletePolicyResult>() {
+            @Override
+            public DeletePolicyResult call() throws Exception {
+                DeletePolicyResult result = null;
+
+                try {
+                    result = executeDeletePolicy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -412,6 +464,39 @@ public class AWSACMPCAAsyncClient extends AWSACMPCAClient implements AWSACMPCAAs
     }
 
     @Override
+    public java.util.concurrent.Future<GetPolicyResult> getPolicyAsync(GetPolicyRequest request) {
+
+        return getPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetPolicyResult> getPolicyAsync(final GetPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetPolicyRequest, GetPolicyResult> asyncHandler) {
+        final GetPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetPolicyResult>() {
+            @Override
+            public GetPolicyResult call() throws Exception {
+                GetPolicyResult result = null;
+
+                try {
+                    result = executeGetPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ImportCertificateAuthorityCertificateResult> importCertificateAuthorityCertificateAsync(
             ImportCertificateAuthorityCertificateRequest request) {
 
@@ -563,6 +648,39 @@ public class AWSACMPCAAsyncClient extends AWSACMPCAClient implements AWSACMPCAAs
 
                 try {
                     result = executeListTags(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutPolicyResult> putPolicyAsync(PutPolicyRequest request) {
+
+        return putPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutPolicyResult> putPolicyAsync(final PutPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutPolicyRequest, PutPolicyResult> asyncHandler) {
+        final PutPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutPolicyResult>() {
+            @Override
+            public PutPolicyResult call() throws Exception {
+                PutPolicyResult result = null;
+
+                try {
+                    result = executePutPolicy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

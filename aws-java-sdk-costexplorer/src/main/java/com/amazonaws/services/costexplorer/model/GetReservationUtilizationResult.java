@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,30 +25,30 @@ public class GetReservationUtilizationResult extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The amount of time that you used your RIs.
+     * The amount of time that you used your Reserved Instances (RIs).
      * </p>
      */
     private java.util.List<UtilizationByTime> utilizationsByTime;
     /**
      * <p>
-     * The total amount of time that you used your RIs.
+     * The total amount of time that you used your Reserved Instances (RIs).
      * </p>
      */
     private ReservationAggregates total;
     /**
      * <p>
-     * The token for the next set of retrievable results. AWS provides the token when the response from a previous call
-     * has more results than the maximum page size.
+     * The token for the next set of retrievable results. Amazon Web Services provides the token when the response from
+     * a previous call has more results than the maximum page size.
      * </p>
      */
     private String nextPageToken;
 
     /**
      * <p>
-     * The amount of time that you used your RIs.
+     * The amount of time that you used your Reserved Instances (RIs).
      * </p>
      * 
-     * @return The amount of time that you used your RIs.
+     * @return The amount of time that you used your Reserved Instances (RIs).
      */
 
     public java.util.List<UtilizationByTime> getUtilizationsByTime() {
@@ -57,11 +57,11 @@ public class GetReservationUtilizationResult extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The amount of time that you used your RIs.
+     * The amount of time that you used your Reserved Instances (RIs).
      * </p>
      * 
      * @param utilizationsByTime
-     *        The amount of time that you used your RIs.
+     *        The amount of time that you used your Reserved Instances (RIs).
      */
 
     public void setUtilizationsByTime(java.util.Collection<UtilizationByTime> utilizationsByTime) {
@@ -75,7 +75,7 @@ public class GetReservationUtilizationResult extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The amount of time that you used your RIs.
+     * The amount of time that you used your Reserved Instances (RIs).
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -84,7 +84,7 @@ public class GetReservationUtilizationResult extends com.amazonaws.AmazonWebServ
      * </p>
      * 
      * @param utilizationsByTime
-     *        The amount of time that you used your RIs.
+     *        The amount of time that you used your Reserved Instances (RIs).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -100,11 +100,11 @@ public class GetReservationUtilizationResult extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The amount of time that you used your RIs.
+     * The amount of time that you used your Reserved Instances (RIs).
      * </p>
      * 
      * @param utilizationsByTime
-     *        The amount of time that you used your RIs.
+     *        The amount of time that you used your Reserved Instances (RIs).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -115,11 +115,11 @@ public class GetReservationUtilizationResult extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The total amount of time that you used your RIs.
+     * The total amount of time that you used your Reserved Instances (RIs).
      * </p>
      * 
      * @param total
-     *        The total amount of time that you used your RIs.
+     *        The total amount of time that you used your Reserved Instances (RIs).
      */
 
     public void setTotal(ReservationAggregates total) {
@@ -128,10 +128,10 @@ public class GetReservationUtilizationResult extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The total amount of time that you used your RIs.
+     * The total amount of time that you used your Reserved Instances (RIs).
      * </p>
      * 
-     * @return The total amount of time that you used your RIs.
+     * @return The total amount of time that you used your Reserved Instances (RIs).
      */
 
     public ReservationAggregates getTotal() {
@@ -140,11 +140,11 @@ public class GetReservationUtilizationResult extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The total amount of time that you used your RIs.
+     * The total amount of time that you used your Reserved Instances (RIs).
      * </p>
      * 
      * @param total
-     *        The total amount of time that you used your RIs.
+     *        The total amount of time that you used your Reserved Instances (RIs).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -155,13 +155,13 @@ public class GetReservationUtilizationResult extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The token for the next set of retrievable results. AWS provides the token when the response from a previous call
-     * has more results than the maximum page size.
+     * The token for the next set of retrievable results. Amazon Web Services provides the token when the response from
+     * a previous call has more results than the maximum page size.
      * </p>
      * 
      * @param nextPageToken
-     *        The token for the next set of retrievable results. AWS provides the token when the response from a
-     *        previous call has more results than the maximum page size.
+     *        The token for the next set of retrievable results. Amazon Web Services provides the token when the
+     *        response from a previous call has more results than the maximum page size.
      */
 
     public void setNextPageToken(String nextPageToken) {
@@ -170,12 +170,12 @@ public class GetReservationUtilizationResult extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The token for the next set of retrievable results. AWS provides the token when the response from a previous call
-     * has more results than the maximum page size.
+     * The token for the next set of retrievable results. Amazon Web Services provides the token when the response from
+     * a previous call has more results than the maximum page size.
      * </p>
      * 
-     * @return The token for the next set of retrievable results. AWS provides the token when the response from a
-     *         previous call has more results than the maximum page size.
+     * @return The token for the next set of retrievable results. Amazon Web Services provides the token when the
+     *         response from a previous call has more results than the maximum page size.
      */
 
     public String getNextPageToken() {
@@ -184,13 +184,13 @@ public class GetReservationUtilizationResult extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The token for the next set of retrievable results. AWS provides the token when the response from a previous call
-     * has more results than the maximum page size.
+     * The token for the next set of retrievable results. Amazon Web Services provides the token when the response from
+     * a previous call has more results than the maximum page size.
      * </p>
      * 
      * @param nextPageToken
-     *        The token for the next set of retrievable results. AWS provides the token when the response from a
-     *        previous call has more results than the maximum page size.
+     *        The token for the next set of retrievable results. Amazon Web Services provides the token when the
+     *        response from a previous call has more results than the maximum page size.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

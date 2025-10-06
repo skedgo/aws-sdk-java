@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,15 +43,15 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
     /**
      * <p>
      * The <code>KmsKeyARN</code> Amazon Resource Name (ARN) associated with this cluster. This ARN was created using
-     * the <a href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in
-     * AWS Key Management Service (AWS KMS).
+     * the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in
+     * Key Management Service (KMS.
      * </p>
      */
     private String kmsKeyARN;
     /**
      * <p>
      * The role ARN associated with this cluster. This ARN was created using the <a
-     * href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API action in AWS
+     * href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API action in
      * Identity and Access Management (IAM).
      * </p>
      */
@@ -70,9 +70,13 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
     private String jobType;
     /**
      * <p>
-     * The type of AWS Snowball device to use for this cluster. The only supported device types for cluster jobs are
-     * <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     * The type of Snowcone device to use for this cluster.
      * </p>
+     * <note>
+     * <p>
+     * For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device type.
+     * </p>
+     * </note>
      */
     private String snowballType;
     /**
@@ -109,14 +113,14 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
      * </li>
      * <li>
      * <p>
-     * In the European Union (EU), you have access to express shipping. Typically, devices shipped express are delivered
-     * in about a day. In addition, most countries in the EU have access to standard shipping, which typically takes
-     * less than a week, one way.
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
+     * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
+     * takes less than a week, one way.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In India, devices are delivered in one to seven days.
+     * In India, Snow devices are delivered in one to seven days.
      * </p>
      * </li>
      * <li>
@@ -140,6 +144,18 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
      * </p>
      */
     private String forwardingAddressId;
+    /**
+     * <p>
+     * The tax documents required in your Amazon Web Services Region.
+     * </p>
+     */
+    private TaxDocuments taxDocuments;
+    /**
+     * <p>
+     * Represents metadata and configuration settings for services on an Amazon Web Services Snow Family device.
+     * </p>
+     */
+    private OnDeviceServiceConfiguration onDeviceServiceConfiguration;
 
     /**
      * <p>
@@ -224,14 +240,14 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
     /**
      * <p>
      * The <code>KmsKeyARN</code> Amazon Resource Name (ARN) associated with this cluster. This ARN was created using
-     * the <a href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in
-     * AWS Key Management Service (AWS KMS).
+     * the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in
+     * Key Management Service (KMS.
      * </p>
      * 
      * @param kmsKeyARN
      *        The <code>KmsKeyARN</code> Amazon Resource Name (ARN) associated with this cluster. This ARN was created
-     *        using the <a href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
-     *        API action in AWS Key Management Service (AWS KMS).
+     *        using the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
+     *        API action in Key Management Service (KMS.
      */
 
     public void setKmsKeyARN(String kmsKeyARN) {
@@ -241,13 +257,13 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
     /**
      * <p>
      * The <code>KmsKeyARN</code> Amazon Resource Name (ARN) associated with this cluster. This ARN was created using
-     * the <a href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in
-     * AWS Key Management Service (AWS KMS).
+     * the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in
+     * Key Management Service (KMS.
      * </p>
      * 
      * @return The <code>KmsKeyARN</code> Amazon Resource Name (ARN) associated with this cluster. This ARN was created
-     *         using the <a href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
-     *         API action in AWS Key Management Service (AWS KMS).
+     *         using the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
+     *         API action in Key Management Service (KMS.
      */
 
     public String getKmsKeyARN() {
@@ -257,14 +273,14 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
     /**
      * <p>
      * The <code>KmsKeyARN</code> Amazon Resource Name (ARN) associated with this cluster. This ARN was created using
-     * the <a href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in
-     * AWS Key Management Service (AWS KMS).
+     * the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> API action in
+     * Key Management Service (KMS.
      * </p>
      * 
      * @param kmsKeyARN
      *        The <code>KmsKeyARN</code> Amazon Resource Name (ARN) associated with this cluster. This ARN was created
-     *        using the <a href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
-     *        API action in AWS Key Management Service (AWS KMS).
+     *        using the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
+     *        API action in Key Management Service (KMS.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -276,14 +292,14 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
     /**
      * <p>
      * The role ARN associated with this cluster. This ARN was created using the <a
-     * href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API action in AWS
+     * href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API action in
      * Identity and Access Management (IAM).
      * </p>
      * 
      * @param roleARN
      *        The role ARN associated with this cluster. This ARN was created using the <a
-     *        href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API action in
-     *        AWS Identity and Access Management (IAM).
+     *        href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API action
+     *        in Identity and Access Management (IAM).
      */
 
     public void setRoleARN(String roleARN) {
@@ -293,13 +309,13 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
     /**
      * <p>
      * The role ARN associated with this cluster. This ARN was created using the <a
-     * href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API action in AWS
+     * href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API action in
      * Identity and Access Management (IAM).
      * </p>
      * 
      * @return The role ARN associated with this cluster. This ARN was created using the <a
-     *         href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API action
-     *         in AWS Identity and Access Management (IAM).
+     *         href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API action
+     *         in Identity and Access Management (IAM).
      */
 
     public String getRoleARN() {
@@ -309,14 +325,14 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
     /**
      * <p>
      * The role ARN associated with this cluster. This ARN was created using the <a
-     * href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API action in AWS
+     * href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API action in
      * Identity and Access Management (IAM).
      * </p>
      * 
      * @param roleARN
      *        The role ARN associated with this cluster. This ARN was created using the <a
-     *        href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API action in
-     *        AWS Identity and Access Management (IAM).
+     *        href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> API action
+     *        in Identity and Access Management (IAM).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -478,13 +494,20 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The type of AWS Snowball device to use for this cluster. The only supported device types for cluster jobs are
-     * <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     * The type of Snowcone device to use for this cluster.
      * </p>
+     * <note>
+     * <p>
+     * For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device type.
+     * </p>
+     * </note>
      * 
      * @param snowballType
-     *        The type of AWS Snowball device to use for this cluster. The only supported device types for cluster jobs
-     *        are <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     *        The type of Snowcone device to use for this cluster. </p> <note>
+     *        <p>
+     *        For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device
+     *        type.
+     *        </p>
      * @see SnowballType
      */
 
@@ -494,12 +517,19 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The type of AWS Snowball device to use for this cluster. The only supported device types for cluster jobs are
-     * <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     * The type of Snowcone device to use for this cluster.
      * </p>
+     * <note>
+     * <p>
+     * For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device type.
+     * </p>
+     * </note>
      * 
-     * @return The type of AWS Snowball device to use for this cluster. The only supported device types for cluster jobs
-     *         are <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     * @return The type of Snowcone device to use for this cluster. </p> <note>
+     *         <p>
+     *         For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device
+     *         type.
+     *         </p>
      * @see SnowballType
      */
 
@@ -509,13 +539,20 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The type of AWS Snowball device to use for this cluster. The only supported device types for cluster jobs are
-     * <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     * The type of Snowcone device to use for this cluster.
      * </p>
+     * <note>
+     * <p>
+     * For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device type.
+     * </p>
+     * </note>
      * 
      * @param snowballType
-     *        The type of AWS Snowball device to use for this cluster. The only supported device types for cluster jobs
-     *        are <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     *        The type of Snowcone device to use for this cluster. </p> <note>
+     *        <p>
+     *        For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device
+     *        type.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SnowballType
      */
@@ -527,13 +564,20 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The type of AWS Snowball device to use for this cluster. The only supported device types for cluster jobs are
-     * <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     * The type of Snowcone device to use for this cluster.
      * </p>
+     * <note>
+     * <p>
+     * For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device type.
+     * </p>
+     * </note>
      * 
      * @param snowballType
-     *        The type of AWS Snowball device to use for this cluster. The only supported device types for cluster jobs
-     *        are <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     *        The type of Snowcone device to use for this cluster. </p> <note>
+     *        <p>
+     *        For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device
+     *        type.
+     *        </p>
      * @see SnowballType
      */
 
@@ -543,13 +587,20 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The type of AWS Snowball device to use for this cluster. The only supported device types for cluster jobs are
-     * <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     * The type of Snowcone device to use for this cluster.
      * </p>
+     * <note>
+     * <p>
+     * For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device type.
+     * </p>
+     * </note>
      * 
      * @param snowballType
-     *        The type of AWS Snowball device to use for this cluster. The only supported device types for cluster jobs
-     *        are <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     *        The type of Snowcone device to use for this cluster. </p> <note>
+     *        <p>
+     *        For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device
+     *        type.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SnowballType
      */
@@ -700,14 +751,14 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
      * </li>
      * <li>
      * <p>
-     * In the European Union (EU), you have access to express shipping. Typically, devices shipped express are delivered
-     * in about a day. In addition, most countries in the EU have access to standard shipping, which typically takes
-     * less than a week, one way.
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
+     * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
+     * takes less than a week, one way.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In India, devices are delivered in one to seven days.
+     * In India, Snow devices are delivered in one to seven days.
      * </p>
      * </li>
      * <li>
@@ -730,14 +781,14 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
      *        </li>
      *        <li>
      *        <p>
-     *        In the European Union (EU), you have access to express shipping. Typically, devices shipped express are
-     *        delivered in about a day. In addition, most countries in the EU have access to standard shipping, which
-     *        typically takes less than a week, one way.
+     *        In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express
+     *        are delivered in about a day. In addition, most countries in the EU have access to standard shipping,
+     *        which typically takes less than a week, one way.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        In India, devices are delivered in one to seven days.
+     *        In India, Snow devices are delivered in one to seven days.
      *        </p>
      *        </li>
      *        <li>
@@ -767,14 +818,14 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
      * </li>
      * <li>
      * <p>
-     * In the European Union (EU), you have access to express shipping. Typically, devices shipped express are delivered
-     * in about a day. In addition, most countries in the EU have access to standard shipping, which typically takes
-     * less than a week, one way.
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
+     * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
+     * takes less than a week, one way.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In India, devices are delivered in one to seven days.
+     * In India, Snow devices are delivered in one to seven days.
      * </p>
      * </li>
      * <li>
@@ -796,14 +847,14 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
      *         </li>
      *         <li>
      *         <p>
-     *         In the European Union (EU), you have access to express shipping. Typically, devices shipped express are
-     *         delivered in about a day. In addition, most countries in the EU have access to standard shipping, which
-     *         typically takes less than a week, one way.
+     *         In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express
+     *         are delivered in about a day. In addition, most countries in the EU have access to standard shipping,
+     *         which typically takes less than a week, one way.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         In India, devices are delivered in one to seven days.
+     *         In India, Snow devices are delivered in one to seven days.
      *         </p>
      *         </li>
      *         <li>
@@ -833,14 +884,14 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
      * </li>
      * <li>
      * <p>
-     * In the European Union (EU), you have access to express shipping. Typically, devices shipped express are delivered
-     * in about a day. In addition, most countries in the EU have access to standard shipping, which typically takes
-     * less than a week, one way.
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
+     * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
+     * takes less than a week, one way.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In India, devices are delivered in one to seven days.
+     * In India, Snow devices are delivered in one to seven days.
      * </p>
      * </li>
      * <li>
@@ -863,14 +914,14 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
      *        </li>
      *        <li>
      *        <p>
-     *        In the European Union (EU), you have access to express shipping. Typically, devices shipped express are
-     *        delivered in about a day. In addition, most countries in the EU have access to standard shipping, which
-     *        typically takes less than a week, one way.
+     *        In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express
+     *        are delivered in about a day. In addition, most countries in the EU have access to standard shipping,
+     *        which typically takes less than a week, one way.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        In India, devices are delivered in one to seven days.
+     *        In India, Snow devices are delivered in one to seven days.
      *        </p>
      *        </li>
      *        <li>
@@ -902,14 +953,14 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
      * </li>
      * <li>
      * <p>
-     * In the European Union (EU), you have access to express shipping. Typically, devices shipped express are delivered
-     * in about a day. In addition, most countries in the EU have access to standard shipping, which typically takes
-     * less than a week, one way.
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
+     * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
+     * takes less than a week, one way.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In India, devices are delivered in one to seven days.
+     * In India, Snow devices are delivered in one to seven days.
      * </p>
      * </li>
      * <li>
@@ -932,14 +983,14 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
      *        </li>
      *        <li>
      *        <p>
-     *        In the European Union (EU), you have access to express shipping. Typically, devices shipped express are
-     *        delivered in about a day. In addition, most countries in the EU have access to standard shipping, which
-     *        typically takes less than a week, one way.
+     *        In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express
+     *        are delivered in about a day. In addition, most countries in the EU have access to standard shipping,
+     *        which typically takes less than a week, one way.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        In India, devices are delivered in one to seven days.
+     *        In India, Snow devices are delivered in one to seven days.
      *        </p>
      *        </li>
      *        <li>
@@ -969,14 +1020,14 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
      * </li>
      * <li>
      * <p>
-     * In the European Union (EU), you have access to express shipping. Typically, devices shipped express are delivered
-     * in about a day. In addition, most countries in the EU have access to standard shipping, which typically takes
-     * less than a week, one way.
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
+     * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
+     * takes less than a week, one way.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In India, devices are delivered in one to seven days.
+     * In India, Snow devices are delivered in one to seven days.
      * </p>
      * </li>
      * <li>
@@ -999,14 +1050,14 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
      *        </li>
      *        <li>
      *        <p>
-     *        In the European Union (EU), you have access to express shipping. Typically, devices shipped express are
-     *        delivered in about a day. In addition, most countries in the EU have access to standard shipping, which
-     *        typically takes less than a week, one way.
+     *        In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express
+     *        are delivered in about a day. In addition, most countries in the EU have access to standard shipping,
+     *        which typically takes less than a week, one way.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        In India, devices are delivered in one to seven days.
+     *        In India, Snow devices are delivered in one to seven days.
      *        </p>
      *        </li>
      *        <li>
@@ -1110,6 +1161,86 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
     }
 
     /**
+     * <p>
+     * The tax documents required in your Amazon Web Services Region.
+     * </p>
+     * 
+     * @param taxDocuments
+     *        The tax documents required in your Amazon Web Services Region.
+     */
+
+    public void setTaxDocuments(TaxDocuments taxDocuments) {
+        this.taxDocuments = taxDocuments;
+    }
+
+    /**
+     * <p>
+     * The tax documents required in your Amazon Web Services Region.
+     * </p>
+     * 
+     * @return The tax documents required in your Amazon Web Services Region.
+     */
+
+    public TaxDocuments getTaxDocuments() {
+        return this.taxDocuments;
+    }
+
+    /**
+     * <p>
+     * The tax documents required in your Amazon Web Services Region.
+     * </p>
+     * 
+     * @param taxDocuments
+     *        The tax documents required in your Amazon Web Services Region.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ClusterMetadata withTaxDocuments(TaxDocuments taxDocuments) {
+        setTaxDocuments(taxDocuments);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Represents metadata and configuration settings for services on an Amazon Web Services Snow Family device.
+     * </p>
+     * 
+     * @param onDeviceServiceConfiguration
+     *        Represents metadata and configuration settings for services on an Amazon Web Services Snow Family device.
+     */
+
+    public void setOnDeviceServiceConfiguration(OnDeviceServiceConfiguration onDeviceServiceConfiguration) {
+        this.onDeviceServiceConfiguration = onDeviceServiceConfiguration;
+    }
+
+    /**
+     * <p>
+     * Represents metadata and configuration settings for services on an Amazon Web Services Snow Family device.
+     * </p>
+     * 
+     * @return Represents metadata and configuration settings for services on an Amazon Web Services Snow Family device.
+     */
+
+    public OnDeviceServiceConfiguration getOnDeviceServiceConfiguration() {
+        return this.onDeviceServiceConfiguration;
+    }
+
+    /**
+     * <p>
+     * Represents metadata and configuration settings for services on an Amazon Web Services Snow Family device.
+     * </p>
+     * 
+     * @param onDeviceServiceConfiguration
+     *        Represents metadata and configuration settings for services on an Amazon Web Services Snow Family device.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ClusterMetadata withOnDeviceServiceConfiguration(OnDeviceServiceConfiguration onDeviceServiceConfiguration) {
+        setOnDeviceServiceConfiguration(onDeviceServiceConfiguration);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1146,7 +1277,11 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
         if (getNotification() != null)
             sb.append("Notification: ").append(getNotification()).append(",");
         if (getForwardingAddressId() != null)
-            sb.append("ForwardingAddressId: ").append(getForwardingAddressId());
+            sb.append("ForwardingAddressId: ").append(getForwardingAddressId()).append(",");
+        if (getTaxDocuments() != null)
+            sb.append("TaxDocuments: ").append(getTaxDocuments()).append(",");
+        if (getOnDeviceServiceConfiguration() != null)
+            sb.append("OnDeviceServiceConfiguration: ").append(getOnDeviceServiceConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -1213,6 +1348,14 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
             return false;
         if (other.getForwardingAddressId() != null && other.getForwardingAddressId().equals(this.getForwardingAddressId()) == false)
             return false;
+        if (other.getTaxDocuments() == null ^ this.getTaxDocuments() == null)
+            return false;
+        if (other.getTaxDocuments() != null && other.getTaxDocuments().equals(this.getTaxDocuments()) == false)
+            return false;
+        if (other.getOnDeviceServiceConfiguration() == null ^ this.getOnDeviceServiceConfiguration() == null)
+            return false;
+        if (other.getOnDeviceServiceConfiguration() != null && other.getOnDeviceServiceConfiguration().equals(this.getOnDeviceServiceConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -1234,6 +1377,8 @@ public class ClusterMetadata implements Serializable, Cloneable, StructuredPojo 
         hashCode = prime * hashCode + ((getShippingOption() == null) ? 0 : getShippingOption().hashCode());
         hashCode = prime * hashCode + ((getNotification() == null) ? 0 : getNotification().hashCode());
         hashCode = prime * hashCode + ((getForwardingAddressId() == null) ? 0 : getForwardingAddressId().hashCode());
+        hashCode = prime * hashCode + ((getTaxDocuments() == null) ? 0 : getTaxDocuments().hashCode());
+        hashCode = prime * hashCode + ((getOnDeviceServiceConfiguration() == null) ? 0 : getOnDeviceServiceConfiguration().hashCode());
         return hashCode;
     }
 

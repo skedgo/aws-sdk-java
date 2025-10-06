@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 /**
  * <p>
  * Information about the compliance as defined by the resource type. For example, for a patch resource type,
- * <code>Items</code> includes information about the PatchSeverity, Classification, etc.
+ * <code>Items</code> includes information about the PatchSeverity, Classification, and so on.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ComplianceItem" target="_top">AWS API
@@ -44,7 +44,7 @@ public class ComplianceItem implements Serializable, Cloneable, StructuredPojo {
     private String resourceType;
     /**
      * <p>
-     * An ID for the resource. For a managed instance, this is the instance ID.
+     * An ID for the resource. For a managed node, this is the node ID.
      * </p>
      */
     private String resourceId;
@@ -64,7 +64,8 @@ public class ComplianceItem implements Serializable, Cloneable, StructuredPojo {
     private String title;
     /**
      * <p>
-     * The status of the compliance item. An item is either COMPLIANT or NON_COMPLIANT.
+     * The status of the compliance item. An item is either COMPLIANT, NON_COMPLIANT, or an empty string (for Windows
+     * patches that aren't applicable).
      * </p>
      */
     private String status;
@@ -177,11 +178,11 @@ public class ComplianceItem implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An ID for the resource. For a managed instance, this is the instance ID.
+     * An ID for the resource. For a managed node, this is the node ID.
      * </p>
      * 
      * @param resourceId
-     *        An ID for the resource. For a managed instance, this is the instance ID.
+     *        An ID for the resource. For a managed node, this is the node ID.
      */
 
     public void setResourceId(String resourceId) {
@@ -190,10 +191,10 @@ public class ComplianceItem implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An ID for the resource. For a managed instance, this is the instance ID.
+     * An ID for the resource. For a managed node, this is the node ID.
      * </p>
      * 
-     * @return An ID for the resource. For a managed instance, this is the instance ID.
+     * @return An ID for the resource. For a managed node, this is the node ID.
      */
 
     public String getResourceId() {
@@ -202,11 +203,11 @@ public class ComplianceItem implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An ID for the resource. For a managed instance, this is the instance ID.
+     * An ID for the resource. For a managed node, this is the node ID.
      * </p>
      * 
      * @param resourceId
-     *        An ID for the resource. For a managed instance, this is the instance ID.
+     *        An ID for the resource. For a managed node, this is the node ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -312,11 +313,13 @@ public class ComplianceItem implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the compliance item. An item is either COMPLIANT or NON_COMPLIANT.
+     * The status of the compliance item. An item is either COMPLIANT, NON_COMPLIANT, or an empty string (for Windows
+     * patches that aren't applicable).
      * </p>
      * 
      * @param status
-     *        The status of the compliance item. An item is either COMPLIANT or NON_COMPLIANT.
+     *        The status of the compliance item. An item is either COMPLIANT, NON_COMPLIANT, or an empty string (for
+     *        Windows patches that aren't applicable).
      * @see ComplianceStatus
      */
 
@@ -326,10 +329,12 @@ public class ComplianceItem implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the compliance item. An item is either COMPLIANT or NON_COMPLIANT.
+     * The status of the compliance item. An item is either COMPLIANT, NON_COMPLIANT, or an empty string (for Windows
+     * patches that aren't applicable).
      * </p>
      * 
-     * @return The status of the compliance item. An item is either COMPLIANT or NON_COMPLIANT.
+     * @return The status of the compliance item. An item is either COMPLIANT, NON_COMPLIANT, or an empty string (for
+     *         Windows patches that aren't applicable).
      * @see ComplianceStatus
      */
 
@@ -339,11 +344,13 @@ public class ComplianceItem implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the compliance item. An item is either COMPLIANT or NON_COMPLIANT.
+     * The status of the compliance item. An item is either COMPLIANT, NON_COMPLIANT, or an empty string (for Windows
+     * patches that aren't applicable).
      * </p>
      * 
      * @param status
-     *        The status of the compliance item. An item is either COMPLIANT or NON_COMPLIANT.
+     *        The status of the compliance item. An item is either COMPLIANT, NON_COMPLIANT, or an empty string (for
+     *        Windows patches that aren't applicable).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ComplianceStatus
      */
@@ -355,11 +362,13 @@ public class ComplianceItem implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the compliance item. An item is either COMPLIANT or NON_COMPLIANT.
+     * The status of the compliance item. An item is either COMPLIANT, NON_COMPLIANT, or an empty string (for Windows
+     * patches that aren't applicable).
      * </p>
      * 
      * @param status
-     *        The status of the compliance item. An item is either COMPLIANT or NON_COMPLIANT.
+     *        The status of the compliance item. An item is either COMPLIANT, NON_COMPLIANT, or an empty string (for
+     *        Windows patches that aren't applicable).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ComplianceStatus
      */
@@ -521,6 +530,13 @@ public class ComplianceItem implements Serializable, Cloneable, StructuredPojo {
         setDetails(details);
         return this;
     }
+
+    /**
+     * Add a single Details entry
+     *
+     * @see ComplianceItem#withDetails
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public ComplianceItem addDetailsEntry(String key, String value) {
         if (null == this.details) {

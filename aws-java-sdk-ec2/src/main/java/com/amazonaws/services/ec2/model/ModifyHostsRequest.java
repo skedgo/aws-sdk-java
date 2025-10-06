@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,11 +40,43 @@ public class ModifyHostsRequest extends AmazonWebServiceRequest implements Seria
     /**
      * <p>
      * Indicates whether to enable or disable host recovery for the Dedicated Host. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html"> Host Recovery</a> in
-     * the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html">Host recovery</a> in the
+     * <i>Amazon EC2 User Guide</i>.
      * </p>
      */
     private String hostRecovery;
+    /**
+     * <p>
+     * Specifies the instance type to be supported by the Dedicated Host. Specify this parameter to modify a Dedicated
+     * Host to support only a specific instance type.
+     * </p>
+     * <p>
+     * If you want to modify a Dedicated Host to support multiple instance types in its current instance family, omit
+     * this parameter and specify <b>InstanceFamily</b> instead. You cannot specify <b>InstanceType</b> and
+     * <b>InstanceFamily</b> in the same request.
+     * </p>
+     */
+    private String instanceType;
+    /**
+     * <p>
+     * Specifies the instance family to be supported by the Dedicated Host. Specify this parameter to modify a Dedicated
+     * Host to support multiple instance types within its current instance family.
+     * </p>
+     * <p>
+     * If you want to modify a Dedicated Host to support a specific instance type only, omit this parameter and specify
+     * <b>InstanceType</b> instead. You cannot specify <b>InstanceFamily</b> and <b>InstanceType</b> in the same
+     * request.
+     * </p>
+     */
+    private String instanceFamily;
+    /**
+     * <p>
+     * Indicates whether to enable or disable host maintenance for the Dedicated Host. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-maintenance.html">Host maintenance</a>
+     * in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     */
+    private String hostMaintenance;
 
     /**
      * <p>
@@ -195,14 +227,14 @@ public class ModifyHostsRequest extends AmazonWebServiceRequest implements Seria
     /**
      * <p>
      * Indicates whether to enable or disable host recovery for the Dedicated Host. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html"> Host Recovery</a> in
-     * the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html">Host recovery</a> in the
+     * <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param hostRecovery
      *        Indicates whether to enable or disable host recovery for the Dedicated Host. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html"> Host
-     *        Recovery</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html">Host recovery</a>
+     *        in the <i>Amazon EC2 User Guide</i>.
      * @see HostRecovery
      */
 
@@ -213,13 +245,13 @@ public class ModifyHostsRequest extends AmazonWebServiceRequest implements Seria
     /**
      * <p>
      * Indicates whether to enable or disable host recovery for the Dedicated Host. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html"> Host Recovery</a> in
-     * the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html">Host recovery</a> in the
+     * <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @return Indicates whether to enable or disable host recovery for the Dedicated Host. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html"> Host
-     *         Recovery</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html">Host
+     *         recovery</a> in the <i>Amazon EC2 User Guide</i>.
      * @see HostRecovery
      */
 
@@ -230,14 +262,14 @@ public class ModifyHostsRequest extends AmazonWebServiceRequest implements Seria
     /**
      * <p>
      * Indicates whether to enable or disable host recovery for the Dedicated Host. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html"> Host Recovery</a> in
-     * the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html">Host recovery</a> in the
+     * <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param hostRecovery
      *        Indicates whether to enable or disable host recovery for the Dedicated Host. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html"> Host
-     *        Recovery</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html">Host recovery</a>
+     *        in the <i>Amazon EC2 User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HostRecovery
      */
@@ -250,14 +282,14 @@ public class ModifyHostsRequest extends AmazonWebServiceRequest implements Seria
     /**
      * <p>
      * Indicates whether to enable or disable host recovery for the Dedicated Host. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html"> Host Recovery</a> in
-     * the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html">Host recovery</a> in the
+     * <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param hostRecovery
      *        Indicates whether to enable or disable host recovery for the Dedicated Host. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html"> Host
-     *        Recovery</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html">Host recovery</a>
+     *        in the <i>Amazon EC2 User Guide</i>.
      * @see HostRecovery
      */
 
@@ -268,20 +300,259 @@ public class ModifyHostsRequest extends AmazonWebServiceRequest implements Seria
     /**
      * <p>
      * Indicates whether to enable or disable host recovery for the Dedicated Host. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html"> Host Recovery</a> in
-     * the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html">Host recovery</a> in the
+     * <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param hostRecovery
      *        Indicates whether to enable or disable host recovery for the Dedicated Host. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html"> Host
-     *        Recovery</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html">Host recovery</a>
+     *        in the <i>Amazon EC2 User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HostRecovery
      */
 
     public ModifyHostsRequest withHostRecovery(HostRecovery hostRecovery) {
         this.hostRecovery = hostRecovery.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the instance type to be supported by the Dedicated Host. Specify this parameter to modify a Dedicated
+     * Host to support only a specific instance type.
+     * </p>
+     * <p>
+     * If you want to modify a Dedicated Host to support multiple instance types in its current instance family, omit
+     * this parameter and specify <b>InstanceFamily</b> instead. You cannot specify <b>InstanceType</b> and
+     * <b>InstanceFamily</b> in the same request.
+     * </p>
+     * 
+     * @param instanceType
+     *        Specifies the instance type to be supported by the Dedicated Host. Specify this parameter to modify a
+     *        Dedicated Host to support only a specific instance type.</p>
+     *        <p>
+     *        If you want to modify a Dedicated Host to support multiple instance types in its current instance family,
+     *        omit this parameter and specify <b>InstanceFamily</b> instead. You cannot specify <b>InstanceType</b> and
+     *        <b>InstanceFamily</b> in the same request.
+     */
+
+    public void setInstanceType(String instanceType) {
+        this.instanceType = instanceType;
+    }
+
+    /**
+     * <p>
+     * Specifies the instance type to be supported by the Dedicated Host. Specify this parameter to modify a Dedicated
+     * Host to support only a specific instance type.
+     * </p>
+     * <p>
+     * If you want to modify a Dedicated Host to support multiple instance types in its current instance family, omit
+     * this parameter and specify <b>InstanceFamily</b> instead. You cannot specify <b>InstanceType</b> and
+     * <b>InstanceFamily</b> in the same request.
+     * </p>
+     * 
+     * @return Specifies the instance type to be supported by the Dedicated Host. Specify this parameter to modify a
+     *         Dedicated Host to support only a specific instance type.</p>
+     *         <p>
+     *         If you want to modify a Dedicated Host to support multiple instance types in its current instance family,
+     *         omit this parameter and specify <b>InstanceFamily</b> instead. You cannot specify <b>InstanceType</b> and
+     *         <b>InstanceFamily</b> in the same request.
+     */
+
+    public String getInstanceType() {
+        return this.instanceType;
+    }
+
+    /**
+     * <p>
+     * Specifies the instance type to be supported by the Dedicated Host. Specify this parameter to modify a Dedicated
+     * Host to support only a specific instance type.
+     * </p>
+     * <p>
+     * If you want to modify a Dedicated Host to support multiple instance types in its current instance family, omit
+     * this parameter and specify <b>InstanceFamily</b> instead. You cannot specify <b>InstanceType</b> and
+     * <b>InstanceFamily</b> in the same request.
+     * </p>
+     * 
+     * @param instanceType
+     *        Specifies the instance type to be supported by the Dedicated Host. Specify this parameter to modify a
+     *        Dedicated Host to support only a specific instance type.</p>
+     *        <p>
+     *        If you want to modify a Dedicated Host to support multiple instance types in its current instance family,
+     *        omit this parameter and specify <b>InstanceFamily</b> instead. You cannot specify <b>InstanceType</b> and
+     *        <b>InstanceFamily</b> in the same request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyHostsRequest withInstanceType(String instanceType) {
+        setInstanceType(instanceType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the instance family to be supported by the Dedicated Host. Specify this parameter to modify a Dedicated
+     * Host to support multiple instance types within its current instance family.
+     * </p>
+     * <p>
+     * If you want to modify a Dedicated Host to support a specific instance type only, omit this parameter and specify
+     * <b>InstanceType</b> instead. You cannot specify <b>InstanceFamily</b> and <b>InstanceType</b> in the same
+     * request.
+     * </p>
+     * 
+     * @param instanceFamily
+     *        Specifies the instance family to be supported by the Dedicated Host. Specify this parameter to modify a
+     *        Dedicated Host to support multiple instance types within its current instance family.</p>
+     *        <p>
+     *        If you want to modify a Dedicated Host to support a specific instance type only, omit this parameter and
+     *        specify <b>InstanceType</b> instead. You cannot specify <b>InstanceFamily</b> and <b>InstanceType</b> in
+     *        the same request.
+     */
+
+    public void setInstanceFamily(String instanceFamily) {
+        this.instanceFamily = instanceFamily;
+    }
+
+    /**
+     * <p>
+     * Specifies the instance family to be supported by the Dedicated Host. Specify this parameter to modify a Dedicated
+     * Host to support multiple instance types within its current instance family.
+     * </p>
+     * <p>
+     * If you want to modify a Dedicated Host to support a specific instance type only, omit this parameter and specify
+     * <b>InstanceType</b> instead. You cannot specify <b>InstanceFamily</b> and <b>InstanceType</b> in the same
+     * request.
+     * </p>
+     * 
+     * @return Specifies the instance family to be supported by the Dedicated Host. Specify this parameter to modify a
+     *         Dedicated Host to support multiple instance types within its current instance family.</p>
+     *         <p>
+     *         If you want to modify a Dedicated Host to support a specific instance type only, omit this parameter and
+     *         specify <b>InstanceType</b> instead. You cannot specify <b>InstanceFamily</b> and <b>InstanceType</b> in
+     *         the same request.
+     */
+
+    public String getInstanceFamily() {
+        return this.instanceFamily;
+    }
+
+    /**
+     * <p>
+     * Specifies the instance family to be supported by the Dedicated Host. Specify this parameter to modify a Dedicated
+     * Host to support multiple instance types within its current instance family.
+     * </p>
+     * <p>
+     * If you want to modify a Dedicated Host to support a specific instance type only, omit this parameter and specify
+     * <b>InstanceType</b> instead. You cannot specify <b>InstanceFamily</b> and <b>InstanceType</b> in the same
+     * request.
+     * </p>
+     * 
+     * @param instanceFamily
+     *        Specifies the instance family to be supported by the Dedicated Host. Specify this parameter to modify a
+     *        Dedicated Host to support multiple instance types within its current instance family.</p>
+     *        <p>
+     *        If you want to modify a Dedicated Host to support a specific instance type only, omit this parameter and
+     *        specify <b>InstanceType</b> instead. You cannot specify <b>InstanceFamily</b> and <b>InstanceType</b> in
+     *        the same request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyHostsRequest withInstanceFamily(String instanceFamily) {
+        setInstanceFamily(instanceFamily);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable or disable host maintenance for the Dedicated Host. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-maintenance.html">Host maintenance</a>
+     * in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param hostMaintenance
+     *        Indicates whether to enable or disable host maintenance for the Dedicated Host. For more information, see
+     *        <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-maintenance.html">Host
+     *        maintenance</a> in the <i>Amazon EC2 User Guide</i>.
+     * @see HostMaintenance
+     */
+
+    public void setHostMaintenance(String hostMaintenance) {
+        this.hostMaintenance = hostMaintenance;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable or disable host maintenance for the Dedicated Host. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-maintenance.html">Host maintenance</a>
+     * in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return Indicates whether to enable or disable host maintenance for the Dedicated Host. For more information, see
+     *         <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-maintenance.html">Host
+     *         maintenance</a> in the <i>Amazon EC2 User Guide</i>.
+     * @see HostMaintenance
+     */
+
+    public String getHostMaintenance() {
+        return this.hostMaintenance;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable or disable host maintenance for the Dedicated Host. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-maintenance.html">Host maintenance</a>
+     * in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param hostMaintenance
+     *        Indicates whether to enable or disable host maintenance for the Dedicated Host. For more information, see
+     *        <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-maintenance.html">Host
+     *        maintenance</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HostMaintenance
+     */
+
+    public ModifyHostsRequest withHostMaintenance(String hostMaintenance) {
+        setHostMaintenance(hostMaintenance);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable or disable host maintenance for the Dedicated Host. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-maintenance.html">Host maintenance</a>
+     * in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param hostMaintenance
+     *        Indicates whether to enable or disable host maintenance for the Dedicated Host. For more information, see
+     *        <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-maintenance.html">Host
+     *        maintenance</a> in the <i>Amazon EC2 User Guide</i>.
+     * @see HostMaintenance
+     */
+
+    public void setHostMaintenance(HostMaintenance hostMaintenance) {
+        withHostMaintenance(hostMaintenance);
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable or disable host maintenance for the Dedicated Host. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-maintenance.html">Host maintenance</a>
+     * in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param hostMaintenance
+     *        Indicates whether to enable or disable host maintenance for the Dedicated Host. For more information, see
+     *        <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-maintenance.html">Host
+     *        maintenance</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HostMaintenance
+     */
+
+    public ModifyHostsRequest withHostMaintenance(HostMaintenance hostMaintenance) {
+        this.hostMaintenance = hostMaintenance.toString();
         return this;
     }
 
@@ -313,7 +584,13 @@ public class ModifyHostsRequest extends AmazonWebServiceRequest implements Seria
         if (getHostIds() != null)
             sb.append("HostIds: ").append(getHostIds()).append(",");
         if (getHostRecovery() != null)
-            sb.append("HostRecovery: ").append(getHostRecovery());
+            sb.append("HostRecovery: ").append(getHostRecovery()).append(",");
+        if (getInstanceType() != null)
+            sb.append("InstanceType: ").append(getInstanceType()).append(",");
+        if (getInstanceFamily() != null)
+            sb.append("InstanceFamily: ").append(getInstanceFamily()).append(",");
+        if (getHostMaintenance() != null)
+            sb.append("HostMaintenance: ").append(getHostMaintenance());
         sb.append("}");
         return sb.toString();
     }
@@ -340,6 +617,18 @@ public class ModifyHostsRequest extends AmazonWebServiceRequest implements Seria
             return false;
         if (other.getHostRecovery() != null && other.getHostRecovery().equals(this.getHostRecovery()) == false)
             return false;
+        if (other.getInstanceType() == null ^ this.getInstanceType() == null)
+            return false;
+        if (other.getInstanceType() != null && other.getInstanceType().equals(this.getInstanceType()) == false)
+            return false;
+        if (other.getInstanceFamily() == null ^ this.getInstanceFamily() == null)
+            return false;
+        if (other.getInstanceFamily() != null && other.getInstanceFamily().equals(this.getInstanceFamily()) == false)
+            return false;
+        if (other.getHostMaintenance() == null ^ this.getHostMaintenance() == null)
+            return false;
+        if (other.getHostMaintenance() != null && other.getHostMaintenance().equals(this.getHostMaintenance()) == false)
+            return false;
         return true;
     }
 
@@ -351,6 +640,9 @@ public class ModifyHostsRequest extends AmazonWebServiceRequest implements Seria
         hashCode = prime * hashCode + ((getAutoPlacement() == null) ? 0 : getAutoPlacement().hashCode());
         hashCode = prime * hashCode + ((getHostIds() == null) ? 0 : getHostIds().hashCode());
         hashCode = prime * hashCode + ((getHostRecovery() == null) ? 0 : getHostRecovery().hashCode());
+        hashCode = prime * hashCode + ((getInstanceType() == null) ? 0 : getInstanceType().hashCode());
+        hashCode = prime * hashCode + ((getInstanceFamily() == null) ? 0 : getInstanceFamily().hashCode());
+        hashCode = prime * hashCode + ((getHostMaintenance() == null) ? 0 : getHostMaintenance().hashCode());
         return hashCode;
     }
 

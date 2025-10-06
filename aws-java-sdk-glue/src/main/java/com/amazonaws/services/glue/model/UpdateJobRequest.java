@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,7 +33,8 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     private String jobName;
     /**
      * <p>
-     * Specifies the values with which to update the job definition.
+     * Specifies the values with which to update the job definition. Unspecified configuration is removed or reset to
+     * default values.
      * </p>
      */
     private JobUpdate jobUpdate;
@@ -80,11 +81,13 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Specifies the values with which to update the job definition.
+     * Specifies the values with which to update the job definition. Unspecified configuration is removed or reset to
+     * default values.
      * </p>
      * 
      * @param jobUpdate
-     *        Specifies the values with which to update the job definition.
+     *        Specifies the values with which to update the job definition. Unspecified configuration is removed or
+     *        reset to default values.
      */
 
     public void setJobUpdate(JobUpdate jobUpdate) {
@@ -93,10 +96,12 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Specifies the values with which to update the job definition.
+     * Specifies the values with which to update the job definition. Unspecified configuration is removed or reset to
+     * default values.
      * </p>
      * 
-     * @return Specifies the values with which to update the job definition.
+     * @return Specifies the values with which to update the job definition. Unspecified configuration is removed or
+     *         reset to default values.
      */
 
     public JobUpdate getJobUpdate() {
@@ -105,11 +110,13 @@ public class UpdateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Specifies the values with which to update the job definition.
+     * Specifies the values with which to update the job definition. Unspecified configuration is removed or reset to
+     * default values.
      * </p>
      * 
      * @param jobUpdate
-     *        Specifies the values with which to update the job definition.
+     *        Specifies the values with which to update the job definition. Unspecified configuration is removed or
+     *        reset to default values.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

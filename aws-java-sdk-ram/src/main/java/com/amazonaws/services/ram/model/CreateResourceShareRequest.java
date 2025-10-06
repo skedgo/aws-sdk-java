@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,49 +27,118 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name of the resource share.
+     * Specifies the name of the resource share.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The Amazon Resource Names (ARN) of the resources to associate with the resource share.
+     * Specifies a list of one or more ARNs of the resources to associate with the resource share.
      * </p>
      */
     private java.util.List<String> resourceArns;
     /**
      * <p>
-     * The principals to associate with the resource share. The possible values are IDs of AWS accounts, the ARN of an
-     * OU or organization from AWS Organizations.
+     * Specifies a list of one or more principals to associate with the resource share.
      * </p>
+     * <p>
+     * You can include the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * An Amazon Web Services account ID, for example: <code>123456789012</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a> of an organization in Organizations, for example:
+     * <code>organizations::123456789012:organization/o-exampleorgid</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An ARN of an organizational unit (OU) in Organizations, for example:
+     * <code>organizations::123456789012:ou/o-exampleorgid/ou-examplerootid-exampleouid123</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An ARN of an IAM role, for example: <code>iam::123456789012:role/rolename</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An ARN of an IAM user, for example: <code>iam::123456789012user/username</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * Not all resource types can be shared with IAM roles and users. For more information, see <a href=
+     * "https://docs.aws.amazon.com/ram/latest/userguide/permissions.html#permissions-rbp-supported-resource-types"
+     * >Sharing with IAM roles and users</a> in the <i>Resource Access Manager User Guide</i>.
+     * </p>
+     * </note>
      */
     private java.util.List<String> principals;
     /**
      * <p>
-     * One or more tags.
+     * Specifies one or more tags to attach to the resource share itself. It doesn't attach the tags to the resources
+     * associated with the resource share.
      * </p>
      */
     private java.util.List<Tag> tags;
     /**
      * <p>
-     * Indicates whether principals outside your organization can be associated with a resource share.
+     * Specifies whether principals outside your organization in Organizations can be associated with a resource share.
+     * A value of <code>true</code> lets you share with individual Amazon Web Services accounts that are <i>not</i> in
+     * your organization. A value of <code>false</code> only has meaning if your account is a member of an Amazon Web
+     * Services Organization. The default value is <code>true</code>.
      * </p>
      */
     private Boolean allowExternalPrincipals;
     /**
      * <p>
-     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This
+     * lets you safely retry the request without accidentally performing the same operation a second time. Passing the
+     * same value to a later call to an operation requires that you also pass the same value for all other parameters.
+     * We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of
+     * value.</a>.
+     * </p>
+     * <p>
+     * If you don't provide this value, then Amazon Web Services generates a random one for you.
+     * </p>
+     * <p>
+     * If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails
+     * with an <code>IdempotentParameterMismatch</code> error.
      * </p>
      */
     private String clientToken;
+    /**
+     * <p>
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Names (ARNs)</a> of the RAM permission to associate with the resource share. If you do not specify an
+     * ARN for the permission, RAM automatically attaches the default version of the permission for each resource type.
+     * You can associate only one permission with each resource type included in the resource share.
+     * </p>
+     */
+    private java.util.List<String> permissionArns;
+    /**
+     * <p>
+     * Specifies from which source accounts the service principal has access to the resources in this resource share.
+     * </p>
+     */
+    private java.util.List<String> sources;
 
     /**
      * <p>
-     * The name of the resource share.
+     * Specifies the name of the resource share.
      * </p>
      * 
      * @param name
-     *        The name of the resource share.
+     *        Specifies the name of the resource share.
      */
 
     public void setName(String name) {
@@ -78,10 +147,10 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name of the resource share.
+     * Specifies the name of the resource share.
      * </p>
      * 
-     * @return The name of the resource share.
+     * @return Specifies the name of the resource share.
      */
 
     public String getName() {
@@ -90,11 +159,11 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name of the resource share.
+     * Specifies the name of the resource share.
      * </p>
      * 
      * @param name
-     *        The name of the resource share.
+     *        Specifies the name of the resource share.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -105,10 +174,10 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The Amazon Resource Names (ARN) of the resources to associate with the resource share.
+     * Specifies a list of one or more ARNs of the resources to associate with the resource share.
      * </p>
      * 
-     * @return The Amazon Resource Names (ARN) of the resources to associate with the resource share.
+     * @return Specifies a list of one or more ARNs of the resources to associate with the resource share.
      */
 
     public java.util.List<String> getResourceArns() {
@@ -117,11 +186,11 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The Amazon Resource Names (ARN) of the resources to associate with the resource share.
+     * Specifies a list of one or more ARNs of the resources to associate with the resource share.
      * </p>
      * 
      * @param resourceArns
-     *        The Amazon Resource Names (ARN) of the resources to associate with the resource share.
+     *        Specifies a list of one or more ARNs of the resources to associate with the resource share.
      */
 
     public void setResourceArns(java.util.Collection<String> resourceArns) {
@@ -135,7 +204,7 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The Amazon Resource Names (ARN) of the resources to associate with the resource share.
+     * Specifies a list of one or more ARNs of the resources to associate with the resource share.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -144,7 +213,7 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @param resourceArns
-     *        The Amazon Resource Names (ARN) of the resources to associate with the resource share.
+     *        Specifies a list of one or more ARNs of the resources to associate with the resource share.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -160,11 +229,11 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The Amazon Resource Names (ARN) of the resources to associate with the resource share.
+     * Specifies a list of one or more ARNs of the resources to associate with the resource share.
      * </p>
      * 
      * @param resourceArns
-     *        The Amazon Resource Names (ARN) of the resources to associate with the resource share.
+     *        Specifies a list of one or more ARNs of the resources to associate with the resource share.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -175,12 +244,89 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The principals to associate with the resource share. The possible values are IDs of AWS accounts, the ARN of an
-     * OU or organization from AWS Organizations.
+     * Specifies a list of one or more principals to associate with the resource share.
      * </p>
+     * <p>
+     * You can include the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * An Amazon Web Services account ID, for example: <code>123456789012</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a> of an organization in Organizations, for example:
+     * <code>organizations::123456789012:organization/o-exampleorgid</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An ARN of an organizational unit (OU) in Organizations, for example:
+     * <code>organizations::123456789012:ou/o-exampleorgid/ou-examplerootid-exampleouid123</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An ARN of an IAM role, for example: <code>iam::123456789012:role/rolename</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An ARN of an IAM user, for example: <code>iam::123456789012user/username</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * Not all resource types can be shared with IAM roles and users. For more information, see <a href=
+     * "https://docs.aws.amazon.com/ram/latest/userguide/permissions.html#permissions-rbp-supported-resource-types"
+     * >Sharing with IAM roles and users</a> in the <i>Resource Access Manager User Guide</i>.
+     * </p>
+     * </note>
      * 
-     * @return The principals to associate with the resource share. The possible values are IDs of AWS accounts, the ARN
-     *         of an OU or organization from AWS Organizations.
+     * @return Specifies a list of one or more principals to associate with the resource share.</p>
+     *         <p>
+     *         You can include the following values:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         An Amazon Web Services account ID, for example: <code>123456789012</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         An <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource
+     *         Name (ARN)</a> of an organization in Organizations, for example:
+     *         <code>organizations::123456789012:organization/o-exampleorgid</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         An ARN of an organizational unit (OU) in Organizations, for example:
+     *         <code>organizations::123456789012:ou/o-exampleorgid/ou-examplerootid-exampleouid123</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         An ARN of an IAM role, for example: <code>iam::123456789012:role/rolename</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         An ARN of an IAM user, for example: <code>iam::123456789012user/username</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <note>
+     *         <p>
+     *         Not all resource types can be shared with IAM roles and users. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/ram/latest/userguide/permissions.html#permissions-rbp-supported-resource-types"
+     *         >Sharing with IAM roles and users</a> in the <i>Resource Access Manager User Guide</i>.
+     *         </p>
      */
 
     public java.util.List<String> getPrincipals() {
@@ -189,13 +335,90 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The principals to associate with the resource share. The possible values are IDs of AWS accounts, the ARN of an
-     * OU or organization from AWS Organizations.
+     * Specifies a list of one or more principals to associate with the resource share.
      * </p>
+     * <p>
+     * You can include the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * An Amazon Web Services account ID, for example: <code>123456789012</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a> of an organization in Organizations, for example:
+     * <code>organizations::123456789012:organization/o-exampleorgid</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An ARN of an organizational unit (OU) in Organizations, for example:
+     * <code>organizations::123456789012:ou/o-exampleorgid/ou-examplerootid-exampleouid123</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An ARN of an IAM role, for example: <code>iam::123456789012:role/rolename</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An ARN of an IAM user, for example: <code>iam::123456789012user/username</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * Not all resource types can be shared with IAM roles and users. For more information, see <a href=
+     * "https://docs.aws.amazon.com/ram/latest/userguide/permissions.html#permissions-rbp-supported-resource-types"
+     * >Sharing with IAM roles and users</a> in the <i>Resource Access Manager User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @param principals
-     *        The principals to associate with the resource share. The possible values are IDs of AWS accounts, the ARN
-     *        of an OU or organization from AWS Organizations.
+     *        Specifies a list of one or more principals to associate with the resource share.</p>
+     *        <p>
+     *        You can include the following values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        An Amazon Web Services account ID, for example: <code>123456789012</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        An <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource
+     *        Name (ARN)</a> of an organization in Organizations, for example:
+     *        <code>organizations::123456789012:organization/o-exampleorgid</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        An ARN of an organizational unit (OU) in Organizations, for example:
+     *        <code>organizations::123456789012:ou/o-exampleorgid/ou-examplerootid-exampleouid123</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        An ARN of an IAM role, for example: <code>iam::123456789012:role/rolename</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        An ARN of an IAM user, for example: <code>iam::123456789012user/username</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        Not all resource types can be shared with IAM roles and users. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/ram/latest/userguide/permissions.html#permissions-rbp-supported-resource-types"
+     *        >Sharing with IAM roles and users</a> in the <i>Resource Access Manager User Guide</i>.
+     *        </p>
      */
 
     public void setPrincipals(java.util.Collection<String> principals) {
@@ -209,9 +432,48 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The principals to associate with the resource share. The possible values are IDs of AWS accounts, the ARN of an
-     * OU or organization from AWS Organizations.
+     * Specifies a list of one or more principals to associate with the resource share.
      * </p>
+     * <p>
+     * You can include the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * An Amazon Web Services account ID, for example: <code>123456789012</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a> of an organization in Organizations, for example:
+     * <code>organizations::123456789012:organization/o-exampleorgid</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An ARN of an organizational unit (OU) in Organizations, for example:
+     * <code>organizations::123456789012:ou/o-exampleorgid/ou-examplerootid-exampleouid123</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An ARN of an IAM role, for example: <code>iam::123456789012:role/rolename</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An ARN of an IAM user, for example: <code>iam::123456789012user/username</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * Not all resource types can be shared with IAM roles and users. For more information, see <a href=
+     * "https://docs.aws.amazon.com/ram/latest/userguide/permissions.html#permissions-rbp-supported-resource-types"
+     * >Sharing with IAM roles and users</a> in the <i>Resource Access Manager User Guide</i>.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setPrincipals(java.util.Collection)} or {@link #withPrincipals(java.util.Collection)} if you want to
@@ -219,8 +481,46 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @param principals
-     *        The principals to associate with the resource share. The possible values are IDs of AWS accounts, the ARN
-     *        of an OU or organization from AWS Organizations.
+     *        Specifies a list of one or more principals to associate with the resource share.</p>
+     *        <p>
+     *        You can include the following values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        An Amazon Web Services account ID, for example: <code>123456789012</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        An <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource
+     *        Name (ARN)</a> of an organization in Organizations, for example:
+     *        <code>organizations::123456789012:organization/o-exampleorgid</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        An ARN of an organizational unit (OU) in Organizations, for example:
+     *        <code>organizations::123456789012:ou/o-exampleorgid/ou-examplerootid-exampleouid123</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        An ARN of an IAM role, for example: <code>iam::123456789012:role/rolename</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        An ARN of an IAM user, for example: <code>iam::123456789012user/username</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        Not all resource types can be shared with IAM roles and users. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/ram/latest/userguide/permissions.html#permissions-rbp-supported-resource-types"
+     *        >Sharing with IAM roles and users</a> in the <i>Resource Access Manager User Guide</i>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -236,13 +536,90 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The principals to associate with the resource share. The possible values are IDs of AWS accounts, the ARN of an
-     * OU or organization from AWS Organizations.
+     * Specifies a list of one or more principals to associate with the resource share.
      * </p>
+     * <p>
+     * You can include the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * An Amazon Web Services account ID, for example: <code>123456789012</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a> of an organization in Organizations, for example:
+     * <code>organizations::123456789012:organization/o-exampleorgid</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An ARN of an organizational unit (OU) in Organizations, for example:
+     * <code>organizations::123456789012:ou/o-exampleorgid/ou-examplerootid-exampleouid123</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An ARN of an IAM role, for example: <code>iam::123456789012:role/rolename</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An ARN of an IAM user, for example: <code>iam::123456789012user/username</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * Not all resource types can be shared with IAM roles and users. For more information, see <a href=
+     * "https://docs.aws.amazon.com/ram/latest/userguide/permissions.html#permissions-rbp-supported-resource-types"
+     * >Sharing with IAM roles and users</a> in the <i>Resource Access Manager User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @param principals
-     *        The principals to associate with the resource share. The possible values are IDs of AWS accounts, the ARN
-     *        of an OU or organization from AWS Organizations.
+     *        Specifies a list of one or more principals to associate with the resource share.</p>
+     *        <p>
+     *        You can include the following values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        An Amazon Web Services account ID, for example: <code>123456789012</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        An <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource
+     *        Name (ARN)</a> of an organization in Organizations, for example:
+     *        <code>organizations::123456789012:organization/o-exampleorgid</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        An ARN of an organizational unit (OU) in Organizations, for example:
+     *        <code>organizations::123456789012:ou/o-exampleorgid/ou-examplerootid-exampleouid123</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        An ARN of an IAM role, for example: <code>iam::123456789012:role/rolename</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        An ARN of an IAM user, for example: <code>iam::123456789012user/username</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        Not all resource types can be shared with IAM roles and users. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/ram/latest/userguide/permissions.html#permissions-rbp-supported-resource-types"
+     *        >Sharing with IAM roles and users</a> in the <i>Resource Access Manager User Guide</i>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -253,10 +630,12 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * One or more tags.
+     * Specifies one or more tags to attach to the resource share itself. It doesn't attach the tags to the resources
+     * associated with the resource share.
      * </p>
      * 
-     * @return One or more tags.
+     * @return Specifies one or more tags to attach to the resource share itself. It doesn't attach the tags to the
+     *         resources associated with the resource share.
      */
 
     public java.util.List<Tag> getTags() {
@@ -265,11 +644,13 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * One or more tags.
+     * Specifies one or more tags to attach to the resource share itself. It doesn't attach the tags to the resources
+     * associated with the resource share.
      * </p>
      * 
      * @param tags
-     *        One or more tags.
+     *        Specifies one or more tags to attach to the resource share itself. It doesn't attach the tags to the
+     *        resources associated with the resource share.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -283,7 +664,8 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * One or more tags.
+     * Specifies one or more tags to attach to the resource share itself. It doesn't attach the tags to the resources
+     * associated with the resource share.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -292,7 +674,8 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @param tags
-     *        One or more tags.
+     *        Specifies one or more tags to attach to the resource share itself. It doesn't attach the tags to the
+     *        resources associated with the resource share.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -308,11 +691,13 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * One or more tags.
+     * Specifies one or more tags to attach to the resource share itself. It doesn't attach the tags to the resources
+     * associated with the resource share.
      * </p>
      * 
      * @param tags
-     *        One or more tags.
+     *        Specifies one or more tags to attach to the resource share itself. It doesn't attach the tags to the
+     *        resources associated with the resource share.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -323,11 +708,17 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Indicates whether principals outside your organization can be associated with a resource share.
+     * Specifies whether principals outside your organization in Organizations can be associated with a resource share.
+     * A value of <code>true</code> lets you share with individual Amazon Web Services accounts that are <i>not</i> in
+     * your organization. A value of <code>false</code> only has meaning if your account is a member of an Amazon Web
+     * Services Organization. The default value is <code>true</code>.
      * </p>
      * 
      * @param allowExternalPrincipals
-     *        Indicates whether principals outside your organization can be associated with a resource share.
+     *        Specifies whether principals outside your organization in Organizations can be associated with a resource
+     *        share. A value of <code>true</code> lets you share with individual Amazon Web Services accounts that are
+     *        <i>not</i> in your organization. A value of <code>false</code> only has meaning if your account is a
+     *        member of an Amazon Web Services Organization. The default value is <code>true</code>.
      */
 
     public void setAllowExternalPrincipals(Boolean allowExternalPrincipals) {
@@ -336,10 +727,16 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Indicates whether principals outside your organization can be associated with a resource share.
+     * Specifies whether principals outside your organization in Organizations can be associated with a resource share.
+     * A value of <code>true</code> lets you share with individual Amazon Web Services accounts that are <i>not</i> in
+     * your organization. A value of <code>false</code> only has meaning if your account is a member of an Amazon Web
+     * Services Organization. The default value is <code>true</code>.
      * </p>
      * 
-     * @return Indicates whether principals outside your organization can be associated with a resource share.
+     * @return Specifies whether principals outside your organization in Organizations can be associated with a resource
+     *         share. A value of <code>true</code> lets you share with individual Amazon Web Services accounts that are
+     *         <i>not</i> in your organization. A value of <code>false</code> only has meaning if your account is a
+     *         member of an Amazon Web Services Organization. The default value is <code>true</code>.
      */
 
     public Boolean getAllowExternalPrincipals() {
@@ -348,11 +745,17 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Indicates whether principals outside your organization can be associated with a resource share.
+     * Specifies whether principals outside your organization in Organizations can be associated with a resource share.
+     * A value of <code>true</code> lets you share with individual Amazon Web Services accounts that are <i>not</i> in
+     * your organization. A value of <code>false</code> only has meaning if your account is a member of an Amazon Web
+     * Services Organization. The default value is <code>true</code>.
      * </p>
      * 
      * @param allowExternalPrincipals
-     *        Indicates whether principals outside your organization can be associated with a resource share.
+     *        Specifies whether principals outside your organization in Organizations can be associated with a resource
+     *        share. A value of <code>true</code> lets you share with individual Amazon Web Services accounts that are
+     *        <i>not</i> in your organization. A value of <code>false</code> only has meaning if your account is a
+     *        member of an Amazon Web Services Organization. The default value is <code>true</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -363,10 +766,16 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Indicates whether principals outside your organization can be associated with a resource share.
+     * Specifies whether principals outside your organization in Organizations can be associated with a resource share.
+     * A value of <code>true</code> lets you share with individual Amazon Web Services accounts that are <i>not</i> in
+     * your organization. A value of <code>false</code> only has meaning if your account is a member of an Amazon Web
+     * Services Organization. The default value is <code>true</code>.
      * </p>
      * 
-     * @return Indicates whether principals outside your organization can be associated with a resource share.
+     * @return Specifies whether principals outside your organization in Organizations can be associated with a resource
+     *         share. A value of <code>true</code> lets you share with individual Amazon Web Services accounts that are
+     *         <i>not</i> in your organization. A value of <code>false</code> only has meaning if your account is a
+     *         member of an Amazon Web Services Organization. The default value is <code>true</code>.
      */
 
     public Boolean isAllowExternalPrincipals() {
@@ -375,11 +784,32 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This
+     * lets you safely retry the request without accidentally performing the same operation a second time. Passing the
+     * same value to a later call to an operation requires that you also pass the same value for all other parameters.
+     * We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of
+     * value.</a>.
+     * </p>
+     * <p>
+     * If you don't provide this value, then Amazon Web Services generates a random one for you.
+     * </p>
+     * <p>
+     * If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails
+     * with an <code>IdempotentParameterMismatch</code> error.
      * </p>
      * 
      * @param clientToken
-     *        A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     *        Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     *        This lets you safely retry the request without accidentally performing the same operation a second time.
+     *        Passing the same value to a later call to an operation requires that you also pass the same value for all
+     *        other parameters. We recommend that you use a <a
+     *        href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value.</a>.</p>
+     *        <p>
+     *        If you don't provide this value, then Amazon Web Services generates a random one for you.
+     *        </p>
+     *        <p>
+     *        If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the
+     *        retry fails with an <code>IdempotentParameterMismatch</code> error.
      */
 
     public void setClientToken(String clientToken) {
@@ -388,10 +818,31 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This
+     * lets you safely retry the request without accidentally performing the same operation a second time. Passing the
+     * same value to a later call to an operation requires that you also pass the same value for all other parameters.
+     * We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of
+     * value.</a>.
+     * </p>
+     * <p>
+     * If you don't provide this value, then Amazon Web Services generates a random one for you.
+     * </p>
+     * <p>
+     * If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails
+     * with an <code>IdempotentParameterMismatch</code> error.
      * </p>
      * 
-     * @return A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * @return Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     *         This lets you safely retry the request without accidentally performing the same operation a second time.
+     *         Passing the same value to a later call to an operation requires that you also pass the same value for all
+     *         other parameters. We recommend that you use a <a
+     *         href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value.</a>.</p>
+     *         <p>
+     *         If you don't provide this value, then Amazon Web Services generates a random one for you.
+     *         </p>
+     *         <p>
+     *         If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the
+     *         retry fails with an <code>IdempotentParameterMismatch</code> error.
      */
 
     public String getClientToken() {
@@ -400,16 +851,209 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This
+     * lets you safely retry the request without accidentally performing the same operation a second time. Passing the
+     * same value to a later call to an operation requires that you also pass the same value for all other parameters.
+     * We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of
+     * value.</a>.
+     * </p>
+     * <p>
+     * If you don't provide this value, then Amazon Web Services generates a random one for you.
+     * </p>
+     * <p>
+     * If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails
+     * with an <code>IdempotentParameterMismatch</code> error.
      * </p>
      * 
      * @param clientToken
-     *        A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     *        Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     *        This lets you safely retry the request without accidentally performing the same operation a second time.
+     *        Passing the same value to a later call to an operation requires that you also pass the same value for all
+     *        other parameters. We recommend that you use a <a
+     *        href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value.</a>.</p>
+     *        <p>
+     *        If you don't provide this value, then Amazon Web Services generates a random one for you.
+     *        </p>
+     *        <p>
+     *        If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the
+     *        retry fails with an <code>IdempotentParameterMismatch</code> error.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateResourceShareRequest withClientToken(String clientToken) {
         setClientToken(clientToken);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Names (ARNs)</a> of the RAM permission to associate with the resource share. If you do not specify an
+     * ARN for the permission, RAM automatically attaches the default version of the permission for each resource type.
+     * You can associate only one permission with each resource type included in the resource share.
+     * </p>
+     * 
+     * @return Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *         Resource Names (ARNs)</a> of the RAM permission to associate with the resource share. If you do not
+     *         specify an ARN for the permission, RAM automatically attaches the default version of the permission for
+     *         each resource type. You can associate only one permission with each resource type included in the
+     *         resource share.
+     */
+
+    public java.util.List<String> getPermissionArns() {
+        return permissionArns;
+    }
+
+    /**
+     * <p>
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Names (ARNs)</a> of the RAM permission to associate with the resource share. If you do not specify an
+     * ARN for the permission, RAM automatically attaches the default version of the permission for each resource type.
+     * You can associate only one permission with each resource type included in the resource share.
+     * </p>
+     * 
+     * @param permissionArns
+     *        Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *        Resource Names (ARNs)</a> of the RAM permission to associate with the resource share. If you do not
+     *        specify an ARN for the permission, RAM automatically attaches the default version of the permission for
+     *        each resource type. You can associate only one permission with each resource type included in the resource
+     *        share.
+     */
+
+    public void setPermissionArns(java.util.Collection<String> permissionArns) {
+        if (permissionArns == null) {
+            this.permissionArns = null;
+            return;
+        }
+
+        this.permissionArns = new java.util.ArrayList<String>(permissionArns);
+    }
+
+    /**
+     * <p>
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Names (ARNs)</a> of the RAM permission to associate with the resource share. If you do not specify an
+     * ARN for the permission, RAM automatically attaches the default version of the permission for each resource type.
+     * You can associate only one permission with each resource type included in the resource share.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setPermissionArns(java.util.Collection)} or {@link #withPermissionArns(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param permissionArns
+     *        Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *        Resource Names (ARNs)</a> of the RAM permission to associate with the resource share. If you do not
+     *        specify an ARN for the permission, RAM automatically attaches the default version of the permission for
+     *        each resource type. You can associate only one permission with each resource type included in the resource
+     *        share.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateResourceShareRequest withPermissionArns(String... permissionArns) {
+        if (this.permissionArns == null) {
+            setPermissionArns(new java.util.ArrayList<String>(permissionArns.length));
+        }
+        for (String ele : permissionArns) {
+            this.permissionArns.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Names (ARNs)</a> of the RAM permission to associate with the resource share. If you do not specify an
+     * ARN for the permission, RAM automatically attaches the default version of the permission for each resource type.
+     * You can associate only one permission with each resource type included in the resource share.
+     * </p>
+     * 
+     * @param permissionArns
+     *        Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *        Resource Names (ARNs)</a> of the RAM permission to associate with the resource share. If you do not
+     *        specify an ARN for the permission, RAM automatically attaches the default version of the permission for
+     *        each resource type. You can associate only one permission with each resource type included in the resource
+     *        share.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateResourceShareRequest withPermissionArns(java.util.Collection<String> permissionArns) {
+        setPermissionArns(permissionArns);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies from which source accounts the service principal has access to the resources in this resource share.
+     * </p>
+     * 
+     * @return Specifies from which source accounts the service principal has access to the resources in this resource
+     *         share.
+     */
+
+    public java.util.List<String> getSources() {
+        return sources;
+    }
+
+    /**
+     * <p>
+     * Specifies from which source accounts the service principal has access to the resources in this resource share.
+     * </p>
+     * 
+     * @param sources
+     *        Specifies from which source accounts the service principal has access to the resources in this resource
+     *        share.
+     */
+
+    public void setSources(java.util.Collection<String> sources) {
+        if (sources == null) {
+            this.sources = null;
+            return;
+        }
+
+        this.sources = new java.util.ArrayList<String>(sources);
+    }
+
+    /**
+     * <p>
+     * Specifies from which source accounts the service principal has access to the resources in this resource share.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSources(java.util.Collection)} or {@link #withSources(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param sources
+     *        Specifies from which source accounts the service principal has access to the resources in this resource
+     *        share.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateResourceShareRequest withSources(String... sources) {
+        if (this.sources == null) {
+            setSources(new java.util.ArrayList<String>(sources.length));
+        }
+        for (String ele : sources) {
+            this.sources.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies from which source accounts the service principal has access to the resources in this resource share.
+     * </p>
+     * 
+     * @param sources
+     *        Specifies from which source accounts the service principal has access to the resources in this resource
+     *        share.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateResourceShareRequest withSources(java.util.Collection<String> sources) {
+        setSources(sources);
         return this;
     }
 
@@ -436,7 +1080,11 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
         if (getAllowExternalPrincipals() != null)
             sb.append("AllowExternalPrincipals: ").append(getAllowExternalPrincipals()).append(",");
         if (getClientToken() != null)
-            sb.append("ClientToken: ").append(getClientToken());
+            sb.append("ClientToken: ").append(getClientToken()).append(",");
+        if (getPermissionArns() != null)
+            sb.append("PermissionArns: ").append(getPermissionArns()).append(",");
+        if (getSources() != null)
+            sb.append("Sources: ").append(getSources());
         sb.append("}");
         return sb.toString();
     }
@@ -475,6 +1123,14 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
             return false;
         if (other.getClientToken() != null && other.getClientToken().equals(this.getClientToken()) == false)
             return false;
+        if (other.getPermissionArns() == null ^ this.getPermissionArns() == null)
+            return false;
+        if (other.getPermissionArns() != null && other.getPermissionArns().equals(this.getPermissionArns()) == false)
+            return false;
+        if (other.getSources() == null ^ this.getSources() == null)
+            return false;
+        if (other.getSources() != null && other.getSources().equals(this.getSources()) == false)
+            return false;
         return true;
     }
 
@@ -489,6 +1145,8 @@ public class CreateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getAllowExternalPrincipals() == null) ? 0 : getAllowExternalPrincipals().hashCode());
         hashCode = prime * hashCode + ((getClientToken() == null) ? 0 : getClientToken().hashCode());
+        hashCode = prime * hashCode + ((getPermissionArns() == null) ? 0 : getPermissionArns().hashCode());
+        hashCode = prime * hashCode + ((getSources() == null) ? 0 : getSources().hashCode());
         return hashCode;
     }
 

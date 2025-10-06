@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -25,26 +25,50 @@ import com.amazonaws.AmazonWebServiceRequest;
  *
  * @see CreateBucketRequest
  */
-public class GetBucketLocationRequest extends AmazonWebServiceRequest implements Serializable {
+public class GetBucketLocationRequest extends AmazonWebServiceRequest implements Serializable, ExpectedBucketOwnerRequest {
 
 	/** The name of the bucket whose location is being requested. */
 	private String bucketName;
 
-	
+	private String expectedBucketOwner;
+
 	/**
 	 * Constructs a new request object to create a new bucket with the specified
 	 * name.
 	 * <p>
 	 * When choosing a bucket name, keep in mind that Amazon S3 bucket names are
 	 * globally unique.
-	 * 
+	 *
+     * <p>
+     * When using this API with an access point, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * </p>
+     * <p>
+     * When using this operation using an access point through the Amazon Web Services SDKs, you provide
+     * the access point ARN in place of the bucket name. For more information about access point
+     * ARNs, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html\">
+     * Using access points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
 	 * @param bucketName
-	 *            The name for the new bucket.
+	 *            The name for the new bucket or access point ARN.
 	 */
 	public GetBucketLocationRequest(String bucketName) {
 		this.bucketName = bucketName;
 	}
 
+	public String getExpectedBucketOwner() {
+		return expectedBucketOwner;
+	}
+
+	public GetBucketLocationRequest withExpectedBucketOwner(String expectedBucketOwner) {
+		this.expectedBucketOwner = expectedBucketOwner;
+		return this;
+	}
+
+	public void setExpectedBucketOwner(String expectedBucketOwner) {
+		withExpectedBucketOwner(expectedBucketOwner);
+	}
 	
 	/**
 	 * Returns the name of the bucket whose location is being requested.

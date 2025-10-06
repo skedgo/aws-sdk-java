@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,6 +28,32 @@ public class AbstractAmazonTranslateAsync extends AbstractAmazonTranslate implem
     }
 
     @Override
+    public java.util.concurrent.Future<CreateParallelDataResult> createParallelDataAsync(CreateParallelDataRequest request) {
+
+        return createParallelDataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateParallelDataResult> createParallelDataAsync(CreateParallelDataRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateParallelDataRequest, CreateParallelDataResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteParallelDataResult> deleteParallelDataAsync(DeleteParallelDataRequest request) {
+
+        return deleteParallelDataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteParallelDataResult> deleteParallelDataAsync(DeleteParallelDataRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteParallelDataRequest, DeleteParallelDataResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteTerminologyResult> deleteTerminologyAsync(DeleteTerminologyRequest request) {
 
         return deleteTerminologyAsync(request, null);
@@ -36,6 +62,32 @@ public class AbstractAmazonTranslateAsync extends AbstractAmazonTranslate implem
     @Override
     public java.util.concurrent.Future<DeleteTerminologyResult> deleteTerminologyAsync(DeleteTerminologyRequest request,
             com.amazonaws.handlers.AsyncHandler<DeleteTerminologyRequest, DeleteTerminologyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTextTranslationJobResult> describeTextTranslationJobAsync(DescribeTextTranslationJobRequest request) {
+
+        return describeTextTranslationJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTextTranslationJobResult> describeTextTranslationJobAsync(DescribeTextTranslationJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeTextTranslationJobRequest, DescribeTextTranslationJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetParallelDataResult> getParallelDataAsync(GetParallelDataRequest request) {
+
+        return getParallelDataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetParallelDataResult> getParallelDataAsync(GetParallelDataRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetParallelDataRequest, GetParallelDataResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -67,6 +119,45 @@ public class AbstractAmazonTranslateAsync extends AbstractAmazonTranslate implem
     }
 
     @Override
+    public java.util.concurrent.Future<ListLanguagesResult> listLanguagesAsync(ListLanguagesRequest request) {
+
+        return listLanguagesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListLanguagesResult> listLanguagesAsync(ListLanguagesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListLanguagesRequest, ListLanguagesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListParallelDataResult> listParallelDataAsync(ListParallelDataRequest request) {
+
+        return listParallelDataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListParallelDataResult> listParallelDataAsync(ListParallelDataRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListParallelDataRequest, ListParallelDataResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListTerminologiesResult> listTerminologiesAsync(ListTerminologiesRequest request) {
 
         return listTerminologiesAsync(request, null);
@@ -80,6 +171,71 @@ public class AbstractAmazonTranslateAsync extends AbstractAmazonTranslate implem
     }
 
     @Override
+    public java.util.concurrent.Future<ListTextTranslationJobsResult> listTextTranslationJobsAsync(ListTextTranslationJobsRequest request) {
+
+        return listTextTranslationJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTextTranslationJobsResult> listTextTranslationJobsAsync(ListTextTranslationJobsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListTextTranslationJobsRequest, ListTextTranslationJobsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartTextTranslationJobResult> startTextTranslationJobAsync(StartTextTranslationJobRequest request) {
+
+        return startTextTranslationJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartTextTranslationJobResult> startTextTranslationJobAsync(StartTextTranslationJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartTextTranslationJobRequest, StartTextTranslationJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopTextTranslationJobResult> stopTextTranslationJobAsync(StopTextTranslationJobRequest request) {
+
+        return stopTextTranslationJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopTextTranslationJobResult> stopTextTranslationJobAsync(StopTextTranslationJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<StopTextTranslationJobRequest, StopTextTranslationJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<TranslateDocumentResult> translateDocumentAsync(TranslateDocumentRequest request) {
+
+        return translateDocumentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TranslateDocumentResult> translateDocumentAsync(TranslateDocumentRequest request,
+            com.amazonaws.handlers.AsyncHandler<TranslateDocumentRequest, TranslateDocumentResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<TranslateTextResult> translateTextAsync(TranslateTextRequest request) {
 
         return translateTextAsync(request, null);
@@ -88,6 +244,32 @@ public class AbstractAmazonTranslateAsync extends AbstractAmazonTranslate implem
     @Override
     public java.util.concurrent.Future<TranslateTextResult> translateTextAsync(TranslateTextRequest request,
             com.amazonaws.handlers.AsyncHandler<TranslateTextRequest, TranslateTextResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateParallelDataResult> updateParallelDataAsync(UpdateParallelDataRequest request) {
+
+        return updateParallelDataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateParallelDataResult> updateParallelDataAsync(UpdateParallelDataRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateParallelDataRequest, UpdateParallelDataResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

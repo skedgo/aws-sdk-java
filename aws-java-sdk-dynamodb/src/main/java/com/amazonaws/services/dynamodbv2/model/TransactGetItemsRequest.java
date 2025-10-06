@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class TransactGetItemsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * An ordered array of up to 25 <code>TransactGetItem</code> objects, each of which contains a <code>Get</code>
+     * An ordered array of up to 100 <code>TransactGetItem</code> objects, each of which contains a <code>Get</code>
      * structure.
      * </p>
      */
@@ -42,11 +42,11 @@ public class TransactGetItemsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * An ordered array of up to 25 <code>TransactGetItem</code> objects, each of which contains a <code>Get</code>
+     * An ordered array of up to 100 <code>TransactGetItem</code> objects, each of which contains a <code>Get</code>
      * structure.
      * </p>
      * 
-     * @return An ordered array of up to 25 <code>TransactGetItem</code> objects, each of which contains a
+     * @return An ordered array of up to 100 <code>TransactGetItem</code> objects, each of which contains a
      *         <code>Get</code> structure.
      */
 
@@ -56,12 +56,12 @@ public class TransactGetItemsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * An ordered array of up to 25 <code>TransactGetItem</code> objects, each of which contains a <code>Get</code>
+     * An ordered array of up to 100 <code>TransactGetItem</code> objects, each of which contains a <code>Get</code>
      * structure.
      * </p>
      * 
      * @param transactItems
-     *        An ordered array of up to 25 <code>TransactGetItem</code> objects, each of which contains a
+     *        An ordered array of up to 100 <code>TransactGetItem</code> objects, each of which contains a
      *        <code>Get</code> structure.
      */
 
@@ -76,7 +76,7 @@ public class TransactGetItemsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * An ordered array of up to 25 <code>TransactGetItem</code> objects, each of which contains a <code>Get</code>
+     * An ordered array of up to 100 <code>TransactGetItem</code> objects, each of which contains a <code>Get</code>
      * structure.
      * </p>
      * <p>
@@ -86,7 +86,7 @@ public class TransactGetItemsRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * 
      * @param transactItems
-     *        An ordered array of up to 25 <code>TransactGetItem</code> objects, each of which contains a
+     *        An ordered array of up to 100 <code>TransactGetItem</code> objects, each of which contains a
      *        <code>Get</code> structure.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -103,12 +103,12 @@ public class TransactGetItemsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * An ordered array of up to 25 <code>TransactGetItem</code> objects, each of which contains a <code>Get</code>
+     * An ordered array of up to 100 <code>TransactGetItem</code> objects, each of which contains a <code>Get</code>
      * structure.
      * </p>
      * 
      * @param transactItems
-     *        An ordered array of up to 25 <code>TransactGetItem</code> objects, each of which contains a
+     *        An ordered array of up to 100 <code>TransactGetItem</code> objects, each of which contains a
      *        <code>Get</code> structure.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

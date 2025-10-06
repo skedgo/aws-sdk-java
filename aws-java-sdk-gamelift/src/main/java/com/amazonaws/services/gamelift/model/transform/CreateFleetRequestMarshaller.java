@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -62,6 +62,20 @@ public class CreateFleetRequestMarshaller {
             .marshallLocationName("FleetType").build();
     private static final MarshallingInfo<String> INSTANCEROLEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("InstanceRoleArn").build();
+    private static final MarshallingInfo<StructuredPojo> CERTIFICATECONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CertificateConfiguration").build();
+    private static final MarshallingInfo<List> LOCATIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Locations").build();
+    private static final MarshallingInfo<List> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Tags").build();
+    private static final MarshallingInfo<String> COMPUTETYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ComputeType").build();
+    private static final MarshallingInfo<StructuredPojo> ANYWHERECONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AnywhereConfiguration").build();
+    private static final MarshallingInfo<String> INSTANCEROLECREDENTIALSPROVIDER_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("InstanceRoleCredentialsProvider").build();
+    private static final MarshallingInfo<StructuredPojo> CONTAINERGROUPSCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ContainerGroupsConfiguration").build();
 
     private static final CreateFleetRequestMarshaller instance = new CreateFleetRequestMarshaller();
 
@@ -96,6 +110,13 @@ public class CreateFleetRequestMarshaller {
             protocolMarshaller.marshall(createFleetRequest.getPeerVpcId(), PEERVPCID_BINDING);
             protocolMarshaller.marshall(createFleetRequest.getFleetType(), FLEETTYPE_BINDING);
             protocolMarshaller.marshall(createFleetRequest.getInstanceRoleArn(), INSTANCEROLEARN_BINDING);
+            protocolMarshaller.marshall(createFleetRequest.getCertificateConfiguration(), CERTIFICATECONFIGURATION_BINDING);
+            protocolMarshaller.marshall(createFleetRequest.getLocations(), LOCATIONS_BINDING);
+            protocolMarshaller.marshall(createFleetRequest.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(createFleetRequest.getComputeType(), COMPUTETYPE_BINDING);
+            protocolMarshaller.marshall(createFleetRequest.getAnywhereConfiguration(), ANYWHERECONFIGURATION_BINDING);
+            protocolMarshaller.marshall(createFleetRequest.getInstanceRoleCredentialsProvider(), INSTANCEROLECREDENTIALSPROVIDER_BINDING);
+            protocolMarshaller.marshall(createFleetRequest.getContainerGroupsConfiguration(), CONTAINERGROUPSCONFIGURATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

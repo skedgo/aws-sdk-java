@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -59,8 +59,8 @@ public class StackEvent implements Serializable, Cloneable {
     /**
      * <p>
      * Type of resource. (For more information, go to <a
-     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"> AWS
-     * Resource Types Reference</a> in the AWS CloudFormation User Guide.)
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services Resource Types Reference</a> in the <i>CloudFormation User Guide</i>.)
      * </p>
      */
     private String resourceType;
@@ -106,6 +106,72 @@ public class StackEvent implements Serializable, Cloneable {
      * </p>
      */
     private String clientRequestToken;
+    /**
+     * <p>
+     * The name of the hook.
+     * </p>
+     */
+    private String hookType;
+    /**
+     * <p>
+     * Provides the status of the change set hook.
+     * </p>
+     */
+    private String hookStatus;
+    /**
+     * <p>
+     * Provides the reason for the hook status.
+     * </p>
+     */
+    private String hookStatusReason;
+    /**
+     * <p>
+     * Invocation points are points in provisioning logic where hooks are initiated.
+     * </p>
+     */
+    private String hookInvocationPoint;
+    /**
+     * <p>
+     * Specify the hook failure mode for non-compliant resources in the followings ways.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>FAIL</code> Stops provisioning resources.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WARN</code> Allows provisioning to continue with a warning message.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String hookFailureMode;
+    /**
+     * <p>
+     * An optional field containing information about the detailed status of the stack event.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>CONFIGURATION_COMPLETE</code> - all of the resources in the stack have reached that event. For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stack-resource-configuration-complete.html"
+     * >CloudFormation stack deployment</a> in the <i>CloudFormation User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>VALIDATION_FAILED</code> - template validation failed because of invalid properties in the template. The
+     * <code>ResourceStatusReason</code> field shows what properties are defined incorrectly.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String detailedStatus;
 
     /**
      * <p>
@@ -310,14 +376,14 @@ public class StackEvent implements Serializable, Cloneable {
     /**
      * <p>
      * Type of resource. (For more information, go to <a
-     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"> AWS
-     * Resource Types Reference</a> in the AWS CloudFormation User Guide.)
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services Resource Types Reference</a> in the <i>CloudFormation User Guide</i>.)
      * </p>
      * 
      * @param resourceType
      *        Type of resource. (For more information, go to <a href=
-     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"> AWS
-     *        Resource Types Reference</a> in the AWS CloudFormation User Guide.)
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
+     *        >Amazon Web Services Resource Types Reference</a> in the <i>CloudFormation User Guide</i>.)
      */
 
     public void setResourceType(String resourceType) {
@@ -327,13 +393,13 @@ public class StackEvent implements Serializable, Cloneable {
     /**
      * <p>
      * Type of resource. (For more information, go to <a
-     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"> AWS
-     * Resource Types Reference</a> in the AWS CloudFormation User Guide.)
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services Resource Types Reference</a> in the <i>CloudFormation User Guide</i>.)
      * </p>
      * 
      * @return Type of resource. (For more information, go to <a
      *         href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
-     *         > AWS Resource Types Reference</a> in the AWS CloudFormation User Guide.)
+     *         >Amazon Web Services Resource Types Reference</a> in the <i>CloudFormation User Guide</i>.)
      */
 
     public String getResourceType() {
@@ -343,14 +409,14 @@ public class StackEvent implements Serializable, Cloneable {
     /**
      * <p>
      * Type of resource. (For more information, go to <a
-     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"> AWS
-     * Resource Types Reference</a> in the AWS CloudFormation User Guide.)
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services Resource Types Reference</a> in the <i>CloudFormation User Guide</i>.)
      * </p>
      * 
      * @param resourceType
      *        Type of resource. (For more information, go to <a href=
-     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"> AWS
-     *        Resource Types Reference</a> in the AWS CloudFormation User Guide.)
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
+     *        >Amazon Web Services Resource Types Reference</a> in the <i>CloudFormation User Guide</i>.)
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -665,6 +731,668 @@ public class StackEvent implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The name of the hook.
+     * </p>
+     * 
+     * @param hookType
+     *        The name of the hook.
+     */
+
+    public void setHookType(String hookType) {
+        this.hookType = hookType;
+    }
+
+    /**
+     * <p>
+     * The name of the hook.
+     * </p>
+     * 
+     * @return The name of the hook.
+     */
+
+    public String getHookType() {
+        return this.hookType;
+    }
+
+    /**
+     * <p>
+     * The name of the hook.
+     * </p>
+     * 
+     * @param hookType
+     *        The name of the hook.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StackEvent withHookType(String hookType) {
+        setHookType(hookType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Provides the status of the change set hook.
+     * </p>
+     * 
+     * @param hookStatus
+     *        Provides the status of the change set hook.
+     * @see HookStatus
+     */
+
+    public void setHookStatus(String hookStatus) {
+        this.hookStatus = hookStatus;
+    }
+
+    /**
+     * <p>
+     * Provides the status of the change set hook.
+     * </p>
+     * 
+     * @return Provides the status of the change set hook.
+     * @see HookStatus
+     */
+
+    public String getHookStatus() {
+        return this.hookStatus;
+    }
+
+    /**
+     * <p>
+     * Provides the status of the change set hook.
+     * </p>
+     * 
+     * @param hookStatus
+     *        Provides the status of the change set hook.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HookStatus
+     */
+
+    public StackEvent withHookStatus(String hookStatus) {
+        setHookStatus(hookStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Provides the status of the change set hook.
+     * </p>
+     * 
+     * @param hookStatus
+     *        Provides the status of the change set hook.
+     * @see HookStatus
+     */
+
+    public void setHookStatus(HookStatus hookStatus) {
+        withHookStatus(hookStatus);
+    }
+
+    /**
+     * <p>
+     * Provides the status of the change set hook.
+     * </p>
+     * 
+     * @param hookStatus
+     *        Provides the status of the change set hook.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HookStatus
+     */
+
+    public StackEvent withHookStatus(HookStatus hookStatus) {
+        this.hookStatus = hookStatus.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Provides the reason for the hook status.
+     * </p>
+     * 
+     * @param hookStatusReason
+     *        Provides the reason for the hook status.
+     */
+
+    public void setHookStatusReason(String hookStatusReason) {
+        this.hookStatusReason = hookStatusReason;
+    }
+
+    /**
+     * <p>
+     * Provides the reason for the hook status.
+     * </p>
+     * 
+     * @return Provides the reason for the hook status.
+     */
+
+    public String getHookStatusReason() {
+        return this.hookStatusReason;
+    }
+
+    /**
+     * <p>
+     * Provides the reason for the hook status.
+     * </p>
+     * 
+     * @param hookStatusReason
+     *        Provides the reason for the hook status.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StackEvent withHookStatusReason(String hookStatusReason) {
+        setHookStatusReason(hookStatusReason);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Invocation points are points in provisioning logic where hooks are initiated.
+     * </p>
+     * 
+     * @param hookInvocationPoint
+     *        Invocation points are points in provisioning logic where hooks are initiated.
+     * @see HookInvocationPoint
+     */
+
+    public void setHookInvocationPoint(String hookInvocationPoint) {
+        this.hookInvocationPoint = hookInvocationPoint;
+    }
+
+    /**
+     * <p>
+     * Invocation points are points in provisioning logic where hooks are initiated.
+     * </p>
+     * 
+     * @return Invocation points are points in provisioning logic where hooks are initiated.
+     * @see HookInvocationPoint
+     */
+
+    public String getHookInvocationPoint() {
+        return this.hookInvocationPoint;
+    }
+
+    /**
+     * <p>
+     * Invocation points are points in provisioning logic where hooks are initiated.
+     * </p>
+     * 
+     * @param hookInvocationPoint
+     *        Invocation points are points in provisioning logic where hooks are initiated.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HookInvocationPoint
+     */
+
+    public StackEvent withHookInvocationPoint(String hookInvocationPoint) {
+        setHookInvocationPoint(hookInvocationPoint);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Invocation points are points in provisioning logic where hooks are initiated.
+     * </p>
+     * 
+     * @param hookInvocationPoint
+     *        Invocation points are points in provisioning logic where hooks are initiated.
+     * @see HookInvocationPoint
+     */
+
+    public void setHookInvocationPoint(HookInvocationPoint hookInvocationPoint) {
+        withHookInvocationPoint(hookInvocationPoint);
+    }
+
+    /**
+     * <p>
+     * Invocation points are points in provisioning logic where hooks are initiated.
+     * </p>
+     * 
+     * @param hookInvocationPoint
+     *        Invocation points are points in provisioning logic where hooks are initiated.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HookInvocationPoint
+     */
+
+    public StackEvent withHookInvocationPoint(HookInvocationPoint hookInvocationPoint) {
+        this.hookInvocationPoint = hookInvocationPoint.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specify the hook failure mode for non-compliant resources in the followings ways.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>FAIL</code> Stops provisioning resources.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WARN</code> Allows provisioning to continue with a warning message.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param hookFailureMode
+     *        Specify the hook failure mode for non-compliant resources in the followings ways.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>FAIL</code> Stops provisioning resources.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WARN</code> Allows provisioning to continue with a warning message.
+     *        </p>
+     *        </li>
+     * @see HookFailureMode
+     */
+
+    public void setHookFailureMode(String hookFailureMode) {
+        this.hookFailureMode = hookFailureMode;
+    }
+
+    /**
+     * <p>
+     * Specify the hook failure mode for non-compliant resources in the followings ways.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>FAIL</code> Stops provisioning resources.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WARN</code> Allows provisioning to continue with a warning message.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Specify the hook failure mode for non-compliant resources in the followings ways.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>FAIL</code> Stops provisioning resources.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>WARN</code> Allows provisioning to continue with a warning message.
+     *         </p>
+     *         </li>
+     * @see HookFailureMode
+     */
+
+    public String getHookFailureMode() {
+        return this.hookFailureMode;
+    }
+
+    /**
+     * <p>
+     * Specify the hook failure mode for non-compliant resources in the followings ways.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>FAIL</code> Stops provisioning resources.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WARN</code> Allows provisioning to continue with a warning message.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param hookFailureMode
+     *        Specify the hook failure mode for non-compliant resources in the followings ways.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>FAIL</code> Stops provisioning resources.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WARN</code> Allows provisioning to continue with a warning message.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HookFailureMode
+     */
+
+    public StackEvent withHookFailureMode(String hookFailureMode) {
+        setHookFailureMode(hookFailureMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specify the hook failure mode for non-compliant resources in the followings ways.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>FAIL</code> Stops provisioning resources.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WARN</code> Allows provisioning to continue with a warning message.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param hookFailureMode
+     *        Specify the hook failure mode for non-compliant resources in the followings ways.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>FAIL</code> Stops provisioning resources.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WARN</code> Allows provisioning to continue with a warning message.
+     *        </p>
+     *        </li>
+     * @see HookFailureMode
+     */
+
+    public void setHookFailureMode(HookFailureMode hookFailureMode) {
+        withHookFailureMode(hookFailureMode);
+    }
+
+    /**
+     * <p>
+     * Specify the hook failure mode for non-compliant resources in the followings ways.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>FAIL</code> Stops provisioning resources.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WARN</code> Allows provisioning to continue with a warning message.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param hookFailureMode
+     *        Specify the hook failure mode for non-compliant resources in the followings ways.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>FAIL</code> Stops provisioning resources.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WARN</code> Allows provisioning to continue with a warning message.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HookFailureMode
+     */
+
+    public StackEvent withHookFailureMode(HookFailureMode hookFailureMode) {
+        this.hookFailureMode = hookFailureMode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * An optional field containing information about the detailed status of the stack event.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>CONFIGURATION_COMPLETE</code> - all of the resources in the stack have reached that event. For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stack-resource-configuration-complete.html"
+     * >CloudFormation stack deployment</a> in the <i>CloudFormation User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>VALIDATION_FAILED</code> - template validation failed because of invalid properties in the template. The
+     * <code>ResourceStatusReason</code> field shows what properties are defined incorrectly.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param detailedStatus
+     *        An optional field containing information about the detailed status of the stack event.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>CONFIGURATION_COMPLETE</code> - all of the resources in the stack have reached that event. For more
+     *        information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stack-resource-configuration-complete.html"
+     *        >CloudFormation stack deployment</a> in the <i>CloudFormation User Guide</i>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>VALIDATION_FAILED</code> - template validation failed because of invalid properties in the template.
+     *        The <code>ResourceStatusReason</code> field shows what properties are defined incorrectly.
+     *        </p>
+     *        </li>
+     * @see DetailedStatus
+     */
+
+    public void setDetailedStatus(String detailedStatus) {
+        this.detailedStatus = detailedStatus;
+    }
+
+    /**
+     * <p>
+     * An optional field containing information about the detailed status of the stack event.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>CONFIGURATION_COMPLETE</code> - all of the resources in the stack have reached that event. For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stack-resource-configuration-complete.html"
+     * >CloudFormation stack deployment</a> in the <i>CloudFormation User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>VALIDATION_FAILED</code> - template validation failed because of invalid properties in the template. The
+     * <code>ResourceStatusReason</code> field shows what properties are defined incorrectly.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return An optional field containing information about the detailed status of the stack event.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>CONFIGURATION_COMPLETE</code> - all of the resources in the stack have reached that event. For more
+     *         information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stack-resource-configuration-complete.html"
+     *         >CloudFormation stack deployment</a> in the <i>CloudFormation User Guide</i>.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>VALIDATION_FAILED</code> - template validation failed because of invalid properties in the
+     *         template. The <code>ResourceStatusReason</code> field shows what properties are defined incorrectly.
+     *         </p>
+     *         </li>
+     * @see DetailedStatus
+     */
+
+    public String getDetailedStatus() {
+        return this.detailedStatus;
+    }
+
+    /**
+     * <p>
+     * An optional field containing information about the detailed status of the stack event.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>CONFIGURATION_COMPLETE</code> - all of the resources in the stack have reached that event. For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stack-resource-configuration-complete.html"
+     * >CloudFormation stack deployment</a> in the <i>CloudFormation User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>VALIDATION_FAILED</code> - template validation failed because of invalid properties in the template. The
+     * <code>ResourceStatusReason</code> field shows what properties are defined incorrectly.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param detailedStatus
+     *        An optional field containing information about the detailed status of the stack event.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>CONFIGURATION_COMPLETE</code> - all of the resources in the stack have reached that event. For more
+     *        information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stack-resource-configuration-complete.html"
+     *        >CloudFormation stack deployment</a> in the <i>CloudFormation User Guide</i>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>VALIDATION_FAILED</code> - template validation failed because of invalid properties in the template.
+     *        The <code>ResourceStatusReason</code> field shows what properties are defined incorrectly.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DetailedStatus
+     */
+
+    public StackEvent withDetailedStatus(String detailedStatus) {
+        setDetailedStatus(detailedStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An optional field containing information about the detailed status of the stack event.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>CONFIGURATION_COMPLETE</code> - all of the resources in the stack have reached that event. For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stack-resource-configuration-complete.html"
+     * >CloudFormation stack deployment</a> in the <i>CloudFormation User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>VALIDATION_FAILED</code> - template validation failed because of invalid properties in the template. The
+     * <code>ResourceStatusReason</code> field shows what properties are defined incorrectly.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param detailedStatus
+     *        An optional field containing information about the detailed status of the stack event.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>CONFIGURATION_COMPLETE</code> - all of the resources in the stack have reached that event. For more
+     *        information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stack-resource-configuration-complete.html"
+     *        >CloudFormation stack deployment</a> in the <i>CloudFormation User Guide</i>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>VALIDATION_FAILED</code> - template validation failed because of invalid properties in the template.
+     *        The <code>ResourceStatusReason</code> field shows what properties are defined incorrectly.
+     *        </p>
+     *        </li>
+     * @see DetailedStatus
+     */
+
+    public void setDetailedStatus(DetailedStatus detailedStatus) {
+        withDetailedStatus(detailedStatus);
+    }
+
+    /**
+     * <p>
+     * An optional field containing information about the detailed status of the stack event.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>CONFIGURATION_COMPLETE</code> - all of the resources in the stack have reached that event. For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stack-resource-configuration-complete.html"
+     * >CloudFormation stack deployment</a> in the <i>CloudFormation User Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>VALIDATION_FAILED</code> - template validation failed because of invalid properties in the template. The
+     * <code>ResourceStatusReason</code> field shows what properties are defined incorrectly.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param detailedStatus
+     *        An optional field containing information about the detailed status of the stack event.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>CONFIGURATION_COMPLETE</code> - all of the resources in the stack have reached that event. For more
+     *        information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stack-resource-configuration-complete.html"
+     *        >CloudFormation stack deployment</a> in the <i>CloudFormation User Guide</i>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>VALIDATION_FAILED</code> - template validation failed because of invalid properties in the template.
+     *        The <code>ResourceStatusReason</code> field shows what properties are defined incorrectly.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DetailedStatus
+     */
+
+    public StackEvent withDetailedStatus(DetailedStatus detailedStatus) {
+        this.detailedStatus = detailedStatus.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -697,7 +1425,19 @@ public class StackEvent implements Serializable, Cloneable {
         if (getResourceProperties() != null)
             sb.append("ResourceProperties: ").append(getResourceProperties()).append(",");
         if (getClientRequestToken() != null)
-            sb.append("ClientRequestToken: ").append(getClientRequestToken());
+            sb.append("ClientRequestToken: ").append(getClientRequestToken()).append(",");
+        if (getHookType() != null)
+            sb.append("HookType: ").append(getHookType()).append(",");
+        if (getHookStatus() != null)
+            sb.append("HookStatus: ").append(getHookStatus()).append(",");
+        if (getHookStatusReason() != null)
+            sb.append("HookStatusReason: ").append(getHookStatusReason()).append(",");
+        if (getHookInvocationPoint() != null)
+            sb.append("HookInvocationPoint: ").append(getHookInvocationPoint()).append(",");
+        if (getHookFailureMode() != null)
+            sb.append("HookFailureMode: ").append(getHookFailureMode()).append(",");
+        if (getDetailedStatus() != null)
+            sb.append("DetailedStatus: ").append(getDetailedStatus());
         sb.append("}");
         return sb.toString();
     }
@@ -756,6 +1496,30 @@ public class StackEvent implements Serializable, Cloneable {
             return false;
         if (other.getClientRequestToken() != null && other.getClientRequestToken().equals(this.getClientRequestToken()) == false)
             return false;
+        if (other.getHookType() == null ^ this.getHookType() == null)
+            return false;
+        if (other.getHookType() != null && other.getHookType().equals(this.getHookType()) == false)
+            return false;
+        if (other.getHookStatus() == null ^ this.getHookStatus() == null)
+            return false;
+        if (other.getHookStatus() != null && other.getHookStatus().equals(this.getHookStatus()) == false)
+            return false;
+        if (other.getHookStatusReason() == null ^ this.getHookStatusReason() == null)
+            return false;
+        if (other.getHookStatusReason() != null && other.getHookStatusReason().equals(this.getHookStatusReason()) == false)
+            return false;
+        if (other.getHookInvocationPoint() == null ^ this.getHookInvocationPoint() == null)
+            return false;
+        if (other.getHookInvocationPoint() != null && other.getHookInvocationPoint().equals(this.getHookInvocationPoint()) == false)
+            return false;
+        if (other.getHookFailureMode() == null ^ this.getHookFailureMode() == null)
+            return false;
+        if (other.getHookFailureMode() != null && other.getHookFailureMode().equals(this.getHookFailureMode()) == false)
+            return false;
+        if (other.getDetailedStatus() == null ^ this.getDetailedStatus() == null)
+            return false;
+        if (other.getDetailedStatus() != null && other.getDetailedStatus().equals(this.getDetailedStatus()) == false)
+            return false;
         return true;
     }
 
@@ -775,6 +1539,12 @@ public class StackEvent implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getResourceStatusReason() == null) ? 0 : getResourceStatusReason().hashCode());
         hashCode = prime * hashCode + ((getResourceProperties() == null) ? 0 : getResourceProperties().hashCode());
         hashCode = prime * hashCode + ((getClientRequestToken() == null) ? 0 : getClientRequestToken().hashCode());
+        hashCode = prime * hashCode + ((getHookType() == null) ? 0 : getHookType().hashCode());
+        hashCode = prime * hashCode + ((getHookStatus() == null) ? 0 : getHookStatus().hashCode());
+        hashCode = prime * hashCode + ((getHookStatusReason() == null) ? 0 : getHookStatusReason().hashCode());
+        hashCode = prime * hashCode + ((getHookInvocationPoint() == null) ? 0 : getHookInvocationPoint().hashCode());
+        hashCode = prime * hashCode + ((getHookFailureMode() == null) ? 0 : getHookFailureMode().hashCode());
+        hashCode = prime * hashCode + ((getDetailedStatus() == null) ? 0 : getDetailedStatus().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * The identifier of an <a>ApiKey</a> used in a <a>UsagePlan</a>.
+ * The identifier of an ApiKey used in a UsagePlan.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -25,7 +25,7 @@ public class ImportApiKeysResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * A list of all the <a>ApiKey</a> identifiers.
+     * A list of all the ApiKey identifiers.
      * </p>
      */
     private java.util.List<String> ids;
@@ -38,10 +38,10 @@ public class ImportApiKeysResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * A list of all the <a>ApiKey</a> identifiers.
+     * A list of all the ApiKey identifiers.
      * </p>
      * 
-     * @return A list of all the <a>ApiKey</a> identifiers.
+     * @return A list of all the ApiKey identifiers.
      */
 
     public java.util.List<String> getIds() {
@@ -50,11 +50,11 @@ public class ImportApiKeysResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * A list of all the <a>ApiKey</a> identifiers.
+     * A list of all the ApiKey identifiers.
      * </p>
      * 
      * @param ids
-     *        A list of all the <a>ApiKey</a> identifiers.
+     *        A list of all the ApiKey identifiers.
      */
 
     public void setIds(java.util.Collection<String> ids) {
@@ -68,7 +68,7 @@ public class ImportApiKeysResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * A list of all the <a>ApiKey</a> identifiers.
+     * A list of all the ApiKey identifiers.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -77,7 +77,7 @@ public class ImportApiKeysResult extends com.amazonaws.AmazonWebServiceResult<co
      * </p>
      * 
      * @param ids
-     *        A list of all the <a>ApiKey</a> identifiers.
+     *        A list of all the ApiKey identifiers.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -93,11 +93,11 @@ public class ImportApiKeysResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * A list of all the <a>ApiKey</a> identifiers.
+     * A list of all the ApiKey identifiers.
      * </p>
      * 
      * @param ids
-     *        A list of all the <a>ApiKey</a> identifiers.
+     *        A list of all the ApiKey identifiers.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,19 +26,14 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class TtmlDestinationSettings implements Serializable, Cloneable, StructuredPojo {
 
-    /**
-     * When set to passthrough, passes through style and position information from a TTML-like input source (TTML,
-     * SMPTE-TT, CFF-TT) to the CFF-TT output or TTML output.
-     */
+    /** This field is not currently supported and will not affect the output styling. Leave the default value. */
     private String styleControl;
 
     /**
-     * When set to passthrough, passes through style and position information from a TTML-like input source (TTML,
-     * SMPTE-TT, CFF-TT) to the CFF-TT output or TTML output.
+     * This field is not currently supported and will not affect the output styling. Leave the default value.
      * 
      * @param styleControl
-     *        When set to passthrough, passes through style and position information from a TTML-like input source
-     *        (TTML, SMPTE-TT, CFF-TT) to the CFF-TT output or TTML output.
+     *        This field is not currently supported and will not affect the output styling. Leave the default value.
      * @see TtmlDestinationStyleControl
      */
 
@@ -47,11 +42,9 @@ public class TtmlDestinationSettings implements Serializable, Cloneable, Structu
     }
 
     /**
-     * When set to passthrough, passes through style and position information from a TTML-like input source (TTML,
-     * SMPTE-TT, CFF-TT) to the CFF-TT output or TTML output.
+     * This field is not currently supported and will not affect the output styling. Leave the default value.
      * 
-     * @return When set to passthrough, passes through style and position information from a TTML-like input source
-     *         (TTML, SMPTE-TT, CFF-TT) to the CFF-TT output or TTML output.
+     * @return This field is not currently supported and will not affect the output styling. Leave the default value.
      * @see TtmlDestinationStyleControl
      */
 
@@ -60,12 +53,10 @@ public class TtmlDestinationSettings implements Serializable, Cloneable, Structu
     }
 
     /**
-     * When set to passthrough, passes through style and position information from a TTML-like input source (TTML,
-     * SMPTE-TT, CFF-TT) to the CFF-TT output or TTML output.
+     * This field is not currently supported and will not affect the output styling. Leave the default value.
      * 
      * @param styleControl
-     *        When set to passthrough, passes through style and position information from a TTML-like input source
-     *        (TTML, SMPTE-TT, CFF-TT) to the CFF-TT output or TTML output.
+     *        This field is not currently supported and will not affect the output styling. Leave the default value.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TtmlDestinationStyleControl
      */
@@ -76,12 +67,10 @@ public class TtmlDestinationSettings implements Serializable, Cloneable, Structu
     }
 
     /**
-     * When set to passthrough, passes through style and position information from a TTML-like input source (TTML,
-     * SMPTE-TT, CFF-TT) to the CFF-TT output or TTML output.
+     * This field is not currently supported and will not affect the output styling. Leave the default value.
      * 
      * @param styleControl
-     *        When set to passthrough, passes through style and position information from a TTML-like input source
-     *        (TTML, SMPTE-TT, CFF-TT) to the CFF-TT output or TTML output.
+     *        This field is not currently supported and will not affect the output styling. Leave the default value.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TtmlDestinationStyleControl
      */

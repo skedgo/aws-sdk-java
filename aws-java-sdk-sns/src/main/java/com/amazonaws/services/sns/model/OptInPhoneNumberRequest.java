@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,18 +30,18 @@ public class OptInPhoneNumberRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The phone number to opt in.
+     * The phone number to opt in. Use E.164 format.
      * </p>
      */
     private String phoneNumber;
 
     /**
      * <p>
-     * The phone number to opt in.
+     * The phone number to opt in. Use E.164 format.
      * </p>
      * 
      * @param phoneNumber
-     *        The phone number to opt in.
+     *        The phone number to opt in. Use E.164 format.
      */
 
     public void setPhoneNumber(String phoneNumber) {
@@ -50,10 +50,10 @@ public class OptInPhoneNumberRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The phone number to opt in.
+     * The phone number to opt in. Use E.164 format.
      * </p>
      * 
-     * @return The phone number to opt in.
+     * @return The phone number to opt in. Use E.164 format.
      */
 
     public String getPhoneNumber() {
@@ -62,11 +62,11 @@ public class OptInPhoneNumberRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The phone number to opt in.
+     * The phone number to opt in. Use E.164 format.
      * </p>
      * 
      * @param phoneNumber
-     *        The phone number to opt in.
+     *        The phone number to opt in. Use E.164 format.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -88,7 +88,7 @@ public class OptInPhoneNumberRequest extends com.amazonaws.AmazonWebServiceReque
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getPhoneNumber() != null)
-            sb.append("PhoneNumber: ").append(getPhoneNumber());
+            sb.append("PhoneNumber: ").append("***Sensitive Data Redacted***");
         sb.append("}");
         return sb.toString();
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
+ * <p>
+ * Contains the parameters for <code>DescribeJobDefinitions</code>.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/DescribeJobDefinitions" target="_top">AWS API
  *      Documentation</a>
@@ -27,7 +30,10 @@ public class DescribeJobDefinitionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A list of up to 100 job definition names or full Amazon Resource Name (ARN) entries.
+     * A list of up to 100 job definitions. Each entry in the list can either be an ARN in the format
+     * <code>arn:aws:batch:${Region}:${Account}:job-definition/${JobDefinitionName}:${Revision}</code> or a short
+     * version using the form <code>${JobDefinitionName}:${Revision}</code>. This parameter can't be used with other
+     * parameters.
      * </p>
      */
     private java.util.List<String> jobDefinitions;
@@ -35,10 +41,10 @@ public class DescribeJobDefinitionsRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * The maximum number of results returned by <code>DescribeJobDefinitions</code> in paginated output. When this
      * parameter is used, <code>DescribeJobDefinitions</code> only returns <code>maxResults</code> results in a single
-     * page along with a <code>nextToken</code> response element. The remaining results of the initial request can be
-     * seen by sending another <code>DescribeJobDefinitions</code> request with the returned <code>nextToken</code>
-     * value. This value can be between 1 and 100. If this parameter is not used, then
-     * <code>DescribeJobDefinitions</code> returns up to 100 results and a <code>nextToken</code> value if applicable.
+     * page and a <code>nextToken</code> response element. The remaining results of the initial request can be seen by
+     * sending another <code>DescribeJobDefinitions</code> request with the returned <code>nextToken</code> value. This
+     * value can be between 1 and 100. If this parameter isn't used, then <code>DescribeJobDefinitions</code> returns up
+     * to 100 results and a <code>nextToken</code> value if applicable.
      * </p>
      */
     private Integer maxResults;
@@ -50,7 +56,7 @@ public class DescribeJobDefinitionsRequest extends com.amazonaws.AmazonWebServic
     private String jobDefinitionName;
     /**
      * <p>
-     * The status with which to filter job definitions.
+     * The status used to filter job definitions.
      * </p>
      */
     private String status;
@@ -63,8 +69,8 @@ public class DescribeJobDefinitionsRequest extends com.amazonaws.AmazonWebServic
      * </p>
      * <note>
      * <p>
-     * This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and
-     * not for other programmatic purposes.
+     * Treat this token as an opaque identifier that's only used to retrieve the next items in a list and not for other
+     * programmatic purposes.
      * </p>
      * </note>
      */
@@ -72,10 +78,16 @@ public class DescribeJobDefinitionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A list of up to 100 job definition names or full Amazon Resource Name (ARN) entries.
+     * A list of up to 100 job definitions. Each entry in the list can either be an ARN in the format
+     * <code>arn:aws:batch:${Region}:${Account}:job-definition/${JobDefinitionName}:${Revision}</code> or a short
+     * version using the form <code>${JobDefinitionName}:${Revision}</code>. This parameter can't be used with other
+     * parameters.
      * </p>
      * 
-     * @return A list of up to 100 job definition names or full Amazon Resource Name (ARN) entries.
+     * @return A list of up to 100 job definitions. Each entry in the list can either be an ARN in the format
+     *         <code>arn:aws:batch:${Region}:${Account}:job-definition/${JobDefinitionName}:${Revision}</code> or a
+     *         short version using the form <code>${JobDefinitionName}:${Revision}</code>. This parameter can't be used
+     *         with other parameters.
      */
 
     public java.util.List<String> getJobDefinitions() {
@@ -84,11 +96,17 @@ public class DescribeJobDefinitionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A list of up to 100 job definition names or full Amazon Resource Name (ARN) entries.
+     * A list of up to 100 job definitions. Each entry in the list can either be an ARN in the format
+     * <code>arn:aws:batch:${Region}:${Account}:job-definition/${JobDefinitionName}:${Revision}</code> or a short
+     * version using the form <code>${JobDefinitionName}:${Revision}</code>. This parameter can't be used with other
+     * parameters.
      * </p>
      * 
      * @param jobDefinitions
-     *        A list of up to 100 job definition names or full Amazon Resource Name (ARN) entries.
+     *        A list of up to 100 job definitions. Each entry in the list can either be an ARN in the format
+     *        <code>arn:aws:batch:${Region}:${Account}:job-definition/${JobDefinitionName}:${Revision}</code> or a short
+     *        version using the form <code>${JobDefinitionName}:${Revision}</code>. This parameter can't be used with
+     *        other parameters.
      */
 
     public void setJobDefinitions(java.util.Collection<String> jobDefinitions) {
@@ -102,7 +120,10 @@ public class DescribeJobDefinitionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A list of up to 100 job definition names or full Amazon Resource Name (ARN) entries.
+     * A list of up to 100 job definitions. Each entry in the list can either be an ARN in the format
+     * <code>arn:aws:batch:${Region}:${Account}:job-definition/${JobDefinitionName}:${Revision}</code> or a short
+     * version using the form <code>${JobDefinitionName}:${Revision}</code>. This parameter can't be used with other
+     * parameters.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -111,7 +132,10 @@ public class DescribeJobDefinitionsRequest extends com.amazonaws.AmazonWebServic
      * </p>
      * 
      * @param jobDefinitions
-     *        A list of up to 100 job definition names or full Amazon Resource Name (ARN) entries.
+     *        A list of up to 100 job definitions. Each entry in the list can either be an ARN in the format
+     *        <code>arn:aws:batch:${Region}:${Account}:job-definition/${JobDefinitionName}:${Revision}</code> or a short
+     *        version using the form <code>${JobDefinitionName}:${Revision}</code>. This parameter can't be used with
+     *        other parameters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -127,11 +151,17 @@ public class DescribeJobDefinitionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A list of up to 100 job definition names or full Amazon Resource Name (ARN) entries.
+     * A list of up to 100 job definitions. Each entry in the list can either be an ARN in the format
+     * <code>arn:aws:batch:${Region}:${Account}:job-definition/${JobDefinitionName}:${Revision}</code> or a short
+     * version using the form <code>${JobDefinitionName}:${Revision}</code>. This parameter can't be used with other
+     * parameters.
      * </p>
      * 
      * @param jobDefinitions
-     *        A list of up to 100 job definition names or full Amazon Resource Name (ARN) entries.
+     *        A list of up to 100 job definitions. Each entry in the list can either be an ARN in the format
+     *        <code>arn:aws:batch:${Region}:${Account}:job-definition/${JobDefinitionName}:${Revision}</code> or a short
+     *        version using the form <code>${JobDefinitionName}:${Revision}</code>. This parameter can't be used with
+     *        other parameters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -144,19 +174,19 @@ public class DescribeJobDefinitionsRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * The maximum number of results returned by <code>DescribeJobDefinitions</code> in paginated output. When this
      * parameter is used, <code>DescribeJobDefinitions</code> only returns <code>maxResults</code> results in a single
-     * page along with a <code>nextToken</code> response element. The remaining results of the initial request can be
-     * seen by sending another <code>DescribeJobDefinitions</code> request with the returned <code>nextToken</code>
-     * value. This value can be between 1 and 100. If this parameter is not used, then
-     * <code>DescribeJobDefinitions</code> returns up to 100 results and a <code>nextToken</code> value if applicable.
+     * page and a <code>nextToken</code> response element. The remaining results of the initial request can be seen by
+     * sending another <code>DescribeJobDefinitions</code> request with the returned <code>nextToken</code> value. This
+     * value can be between 1 and 100. If this parameter isn't used, then <code>DescribeJobDefinitions</code> returns up
+     * to 100 results and a <code>nextToken</code> value if applicable.
      * </p>
      * 
      * @param maxResults
      *        The maximum number of results returned by <code>DescribeJobDefinitions</code> in paginated output. When
      *        this parameter is used, <code>DescribeJobDefinitions</code> only returns <code>maxResults</code> results
-     *        in a single page along with a <code>nextToken</code> response element. The remaining results of the
-     *        initial request can be seen by sending another <code>DescribeJobDefinitions</code> request with the
-     *        returned <code>nextToken</code> value. This value can be between 1 and 100. If this parameter is not used,
-     *        then <code>DescribeJobDefinitions</code> returns up to 100 results and a <code>nextToken</code> value if
+     *        in a single page and a <code>nextToken</code> response element. The remaining results of the initial
+     *        request can be seen by sending another <code>DescribeJobDefinitions</code> request with the returned
+     *        <code>nextToken</code> value. This value can be between 1 and 100. If this parameter isn't used, then
+     *        <code>DescribeJobDefinitions</code> returns up to 100 results and a <code>nextToken</code> value if
      *        applicable.
      */
 
@@ -168,19 +198,19 @@ public class DescribeJobDefinitionsRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * The maximum number of results returned by <code>DescribeJobDefinitions</code> in paginated output. When this
      * parameter is used, <code>DescribeJobDefinitions</code> only returns <code>maxResults</code> results in a single
-     * page along with a <code>nextToken</code> response element. The remaining results of the initial request can be
-     * seen by sending another <code>DescribeJobDefinitions</code> request with the returned <code>nextToken</code>
-     * value. This value can be between 1 and 100. If this parameter is not used, then
-     * <code>DescribeJobDefinitions</code> returns up to 100 results and a <code>nextToken</code> value if applicable.
+     * page and a <code>nextToken</code> response element. The remaining results of the initial request can be seen by
+     * sending another <code>DescribeJobDefinitions</code> request with the returned <code>nextToken</code> value. This
+     * value can be between 1 and 100. If this parameter isn't used, then <code>DescribeJobDefinitions</code> returns up
+     * to 100 results and a <code>nextToken</code> value if applicable.
      * </p>
      * 
      * @return The maximum number of results returned by <code>DescribeJobDefinitions</code> in paginated output. When
      *         this parameter is used, <code>DescribeJobDefinitions</code> only returns <code>maxResults</code> results
-     *         in a single page along with a <code>nextToken</code> response element. The remaining results of the
-     *         initial request can be seen by sending another <code>DescribeJobDefinitions</code> request with the
-     *         returned <code>nextToken</code> value. This value can be between 1 and 100. If this parameter is not
-     *         used, then <code>DescribeJobDefinitions</code> returns up to 100 results and a <code>nextToken</code>
-     *         value if applicable.
+     *         in a single page and a <code>nextToken</code> response element. The remaining results of the initial
+     *         request can be seen by sending another <code>DescribeJobDefinitions</code> request with the returned
+     *         <code>nextToken</code> value. This value can be between 1 and 100. If this parameter isn't used, then
+     *         <code>DescribeJobDefinitions</code> returns up to 100 results and a <code>nextToken</code> value if
+     *         applicable.
      */
 
     public Integer getMaxResults() {
@@ -191,19 +221,19 @@ public class DescribeJobDefinitionsRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * The maximum number of results returned by <code>DescribeJobDefinitions</code> in paginated output. When this
      * parameter is used, <code>DescribeJobDefinitions</code> only returns <code>maxResults</code> results in a single
-     * page along with a <code>nextToken</code> response element. The remaining results of the initial request can be
-     * seen by sending another <code>DescribeJobDefinitions</code> request with the returned <code>nextToken</code>
-     * value. This value can be between 1 and 100. If this parameter is not used, then
-     * <code>DescribeJobDefinitions</code> returns up to 100 results and a <code>nextToken</code> value if applicable.
+     * page and a <code>nextToken</code> response element. The remaining results of the initial request can be seen by
+     * sending another <code>DescribeJobDefinitions</code> request with the returned <code>nextToken</code> value. This
+     * value can be between 1 and 100. If this parameter isn't used, then <code>DescribeJobDefinitions</code> returns up
+     * to 100 results and a <code>nextToken</code> value if applicable.
      * </p>
      * 
      * @param maxResults
      *        The maximum number of results returned by <code>DescribeJobDefinitions</code> in paginated output. When
      *        this parameter is used, <code>DescribeJobDefinitions</code> only returns <code>maxResults</code> results
-     *        in a single page along with a <code>nextToken</code> response element. The remaining results of the
-     *        initial request can be seen by sending another <code>DescribeJobDefinitions</code> request with the
-     *        returned <code>nextToken</code> value. This value can be between 1 and 100. If this parameter is not used,
-     *        then <code>DescribeJobDefinitions</code> returns up to 100 results and a <code>nextToken</code> value if
+     *        in a single page and a <code>nextToken</code> response element. The remaining results of the initial
+     *        request can be seen by sending another <code>DescribeJobDefinitions</code> request with the returned
+     *        <code>nextToken</code> value. This value can be between 1 and 100. If this parameter isn't used, then
+     *        <code>DescribeJobDefinitions</code> returns up to 100 results and a <code>nextToken</code> value if
      *        applicable.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -255,11 +285,11 @@ public class DescribeJobDefinitionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The status with which to filter job definitions.
+     * The status used to filter job definitions.
      * </p>
      * 
      * @param status
-     *        The status with which to filter job definitions.
+     *        The status used to filter job definitions.
      */
 
     public void setStatus(String status) {
@@ -268,10 +298,10 @@ public class DescribeJobDefinitionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The status with which to filter job definitions.
+     * The status used to filter job definitions.
      * </p>
      * 
-     * @return The status with which to filter job definitions.
+     * @return The status used to filter job definitions.
      */
 
     public String getStatus() {
@@ -280,11 +310,11 @@ public class DescribeJobDefinitionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The status with which to filter job definitions.
+     * The status used to filter job definitions.
      * </p>
      * 
      * @param status
-     *        The status with which to filter job definitions.
+     *        The status used to filter job definitions.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -302,8 +332,8 @@ public class DescribeJobDefinitionsRequest extends com.amazonaws.AmazonWebServic
      * </p>
      * <note>
      * <p>
-     * This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and
-     * not for other programmatic purposes.
+     * Treat this token as an opaque identifier that's only used to retrieve the next items in a list and not for other
+     * programmatic purposes.
      * </p>
      * </note>
      * 
@@ -313,8 +343,8 @@ public class DescribeJobDefinitionsRequest extends com.amazonaws.AmazonWebServic
      *        Pagination continues from the end of the previous results that returned the <code>nextToken</code> value.
      *        This value is <code>null</code> when there are no more results to return.</p> <note>
      *        <p>
-     *        This token should be treated as an opaque identifier that is only used to retrieve the next items in a
-     *        list and not for other programmatic purposes.
+     *        Treat this token as an opaque identifier that's only used to retrieve the next items in a list and not for
+     *        other programmatic purposes.
      *        </p>
      */
 
@@ -331,8 +361,8 @@ public class DescribeJobDefinitionsRequest extends com.amazonaws.AmazonWebServic
      * </p>
      * <note>
      * <p>
-     * This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and
-     * not for other programmatic purposes.
+     * Treat this token as an opaque identifier that's only used to retrieve the next items in a list and not for other
+     * programmatic purposes.
      * </p>
      * </note>
      * 
@@ -341,8 +371,8 @@ public class DescribeJobDefinitionsRequest extends com.amazonaws.AmazonWebServic
      *         Pagination continues from the end of the previous results that returned the <code>nextToken</code> value.
      *         This value is <code>null</code> when there are no more results to return.</p> <note>
      *         <p>
-     *         This token should be treated as an opaque identifier that is only used to retrieve the next items in a
-     *         list and not for other programmatic purposes.
+     *         Treat this token as an opaque identifier that's only used to retrieve the next items in a list and not
+     *         for other programmatic purposes.
      *         </p>
      */
 
@@ -359,8 +389,8 @@ public class DescribeJobDefinitionsRequest extends com.amazonaws.AmazonWebServic
      * </p>
      * <note>
      * <p>
-     * This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and
-     * not for other programmatic purposes.
+     * Treat this token as an opaque identifier that's only used to retrieve the next items in a list and not for other
+     * programmatic purposes.
      * </p>
      * </note>
      * 
@@ -370,8 +400,8 @@ public class DescribeJobDefinitionsRequest extends com.amazonaws.AmazonWebServic
      *        Pagination continues from the end of the previous results that returned the <code>nextToken</code> value.
      *        This value is <code>null</code> when there are no more results to return.</p> <note>
      *        <p>
-     *        This token should be treated as an opaque identifier that is only used to retrieve the next items in a
-     *        list and not for other programmatic purposes.
+     *        Treat this token as an opaque identifier that's only used to retrieve the next items in a list and not for
+     *        other programmatic purposes.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */

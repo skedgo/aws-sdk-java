@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -53,6 +53,8 @@ public class ContainerDefinitionMarshaller {
             .marshallLocationName("command").build();
     private static final MarshallingInfo<List> ENVIRONMENT_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("environment").build();
+    private static final MarshallingInfo<List> ENVIRONMENTFILES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("environmentFiles").build();
     private static final MarshallingInfo<List> MOUNTPOINTS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("mountPoints").build();
     private static final MarshallingInfo<List> VOLUMESFROM_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
@@ -103,6 +105,10 @@ public class ContainerDefinitionMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("systemControls").build();
     private static final MarshallingInfo<List> RESOURCEREQUIREMENTS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("resourceRequirements").build();
+    private static final MarshallingInfo<StructuredPojo> FIRELENSCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("firelensConfiguration").build();
+    private static final MarshallingInfo<List> CREDENTIALSPECS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("credentialSpecs").build();
 
     private static final ContainerDefinitionMarshaller instance = new ContainerDefinitionMarshaller();
 
@@ -132,6 +138,7 @@ public class ContainerDefinitionMarshaller {
             protocolMarshaller.marshall(containerDefinition.getEntryPoint(), ENTRYPOINT_BINDING);
             protocolMarshaller.marshall(containerDefinition.getCommand(), COMMAND_BINDING);
             protocolMarshaller.marshall(containerDefinition.getEnvironment(), ENVIRONMENT_BINDING);
+            protocolMarshaller.marshall(containerDefinition.getEnvironmentFiles(), ENVIRONMENTFILES_BINDING);
             protocolMarshaller.marshall(containerDefinition.getMountPoints(), MOUNTPOINTS_BINDING);
             protocolMarshaller.marshall(containerDefinition.getVolumesFrom(), VOLUMESFROM_BINDING);
             protocolMarshaller.marshall(containerDefinition.getLinuxParameters(), LINUXPARAMETERS_BINDING);
@@ -157,6 +164,8 @@ public class ContainerDefinitionMarshaller {
             protocolMarshaller.marshall(containerDefinition.getHealthCheck(), HEALTHCHECK_BINDING);
             protocolMarshaller.marshall(containerDefinition.getSystemControls(), SYSTEMCONTROLS_BINDING);
             protocolMarshaller.marshall(containerDefinition.getResourceRequirements(), RESOURCEREQUIREMENTS_BINDING);
+            protocolMarshaller.marshall(containerDefinition.getFirelensConfiguration(), FIRELENSCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(containerDefinition.getCredentialSpecs(), CREDENTIALSPECS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,6 +35,8 @@ public class UpdateJobRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Notification").build();
     private static final MarshallingInfo<StructuredPojo> RESOURCES_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Resources").build();
+    private static final MarshallingInfo<StructuredPojo> ONDEVICESERVICECONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OnDeviceServiceConfiguration").build();
     private static final MarshallingInfo<String> ADDRESSID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("AddressId").build();
     private static final MarshallingInfo<String> SHIPPINGOPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -45,6 +47,8 @@ public class UpdateJobRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SnowballCapacityPreference").build();
     private static final MarshallingInfo<String> FORWARDINGADDRESSID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ForwardingAddressId").build();
+    private static final MarshallingInfo<StructuredPojo> PICKUPDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PickupDetails").build();
 
     private static final UpdateJobRequestMarshaller instance = new UpdateJobRequestMarshaller();
 
@@ -66,11 +70,13 @@ public class UpdateJobRequestMarshaller {
             protocolMarshaller.marshall(updateJobRequest.getRoleARN(), ROLEARN_BINDING);
             protocolMarshaller.marshall(updateJobRequest.getNotification(), NOTIFICATION_BINDING);
             protocolMarshaller.marshall(updateJobRequest.getResources(), RESOURCES_BINDING);
+            protocolMarshaller.marshall(updateJobRequest.getOnDeviceServiceConfiguration(), ONDEVICESERVICECONFIGURATION_BINDING);
             protocolMarshaller.marshall(updateJobRequest.getAddressId(), ADDRESSID_BINDING);
             protocolMarshaller.marshall(updateJobRequest.getShippingOption(), SHIPPINGOPTION_BINDING);
             protocolMarshaller.marshall(updateJobRequest.getDescription(), DESCRIPTION_BINDING);
             protocolMarshaller.marshall(updateJobRequest.getSnowballCapacityPreference(), SNOWBALLCAPACITYPREFERENCE_BINDING);
             protocolMarshaller.marshall(updateJobRequest.getForwardingAddressId(), FORWARDINGADDRESSID_BINDING);
+            protocolMarshaller.marshall(updateJobRequest.getPickupDetails(), PICKUPDETAILS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

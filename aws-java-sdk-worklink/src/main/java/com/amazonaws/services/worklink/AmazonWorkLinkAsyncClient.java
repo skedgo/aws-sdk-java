@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,12 +26,12 @@ import java.util.concurrent.ExecutorService;
  * an asynchronous operation completes.
  * <p>
  * <p>
- * Amazon WorkLink is a cloud-based service that provides secure access to internal websites and web apps from iOS
- * phones. In a single step, your users, such as employees, can access internal websites as efficiently as they access
- * any other public website. They enter a URL in their web browser, or choose a link to an internal website in an email.
- * Amazon WorkLink authenticates the user's access and securely renders authorized internal web content in a secure
- * rendering service in the AWS cloud. Amazon WorkLink doesn't download or store any internal web content on mobile
- * devices.
+ * Amazon WorkLink is a cloud-based service that provides secure access to internal websites and web apps from iOS and
+ * Android phones. In a single step, your users, such as employees, can access internal websites as efficiently as they
+ * access any other public website. They enter a URL in their web browser, or choose a link to an internal website in an
+ * email. Amazon WorkLink authenticates the user's access and securely renders authorized internal web content in a
+ * secure rendering service in the AWS cloud. Amazon WorkLink doesn't download or store any internal web content on
+ * mobile devices.
  * </p>
  */
 @ThreadSafe
@@ -53,7 +53,19 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
      *        Object providing client parameters.
      */
     AmazonWorkLinkAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on WorkLink using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonWorkLinkAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -67,12 +79,14 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<AssociateDomainResult> associateDomainAsync(AssociateDomainRequest request) {
 
         return associateDomainAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<AssociateDomainResult> associateDomainAsync(final AssociateDomainRequest request,
             final com.amazonaws.handlers.AsyncHandler<AssociateDomainRequest, AssociateDomainResult> asyncHandler) {
         final AssociateDomainRequest finalRequest = beforeClientExecution(request);
@@ -100,6 +114,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<AssociateWebsiteAuthorizationProviderResult> associateWebsiteAuthorizationProviderAsync(
             AssociateWebsiteAuthorizationProviderRequest request) {
 
@@ -107,6 +122,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<AssociateWebsiteAuthorizationProviderResult> associateWebsiteAuthorizationProviderAsync(
             final AssociateWebsiteAuthorizationProviderRequest request,
             final com.amazonaws.handlers.AsyncHandler<AssociateWebsiteAuthorizationProviderRequest, AssociateWebsiteAuthorizationProviderResult> asyncHandler) {
@@ -135,6 +151,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<AssociateWebsiteCertificateAuthorityResult> associateWebsiteCertificateAuthorityAsync(
             AssociateWebsiteCertificateAuthorityRequest request) {
 
@@ -142,6 +159,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<AssociateWebsiteCertificateAuthorityResult> associateWebsiteCertificateAuthorityAsync(
             final AssociateWebsiteCertificateAuthorityRequest request,
             final com.amazonaws.handlers.AsyncHandler<AssociateWebsiteCertificateAuthorityRequest, AssociateWebsiteCertificateAuthorityResult> asyncHandler) {
@@ -170,12 +188,14 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<CreateFleetResult> createFleetAsync(CreateFleetRequest request) {
 
         return createFleetAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<CreateFleetResult> createFleetAsync(final CreateFleetRequest request,
             final com.amazonaws.handlers.AsyncHandler<CreateFleetRequest, CreateFleetResult> asyncHandler) {
         final CreateFleetRequest finalRequest = beforeClientExecution(request);
@@ -203,12 +223,14 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DeleteFleetResult> deleteFleetAsync(DeleteFleetRequest request) {
 
         return deleteFleetAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DeleteFleetResult> deleteFleetAsync(final DeleteFleetRequest request,
             final com.amazonaws.handlers.AsyncHandler<DeleteFleetRequest, DeleteFleetResult> asyncHandler) {
         final DeleteFleetRequest finalRequest = beforeClientExecution(request);
@@ -236,6 +258,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeAuditStreamConfigurationResult> describeAuditStreamConfigurationAsync(
             DescribeAuditStreamConfigurationRequest request) {
 
@@ -243,6 +266,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeAuditStreamConfigurationResult> describeAuditStreamConfigurationAsync(
             final DescribeAuditStreamConfigurationRequest request,
             final com.amazonaws.handlers.AsyncHandler<DescribeAuditStreamConfigurationRequest, DescribeAuditStreamConfigurationResult> asyncHandler) {
@@ -271,6 +295,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeCompanyNetworkConfigurationResult> describeCompanyNetworkConfigurationAsync(
             DescribeCompanyNetworkConfigurationRequest request) {
 
@@ -278,6 +303,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeCompanyNetworkConfigurationResult> describeCompanyNetworkConfigurationAsync(
             final DescribeCompanyNetworkConfigurationRequest request,
             final com.amazonaws.handlers.AsyncHandler<DescribeCompanyNetworkConfigurationRequest, DescribeCompanyNetworkConfigurationResult> asyncHandler) {
@@ -306,12 +332,14 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeDeviceResult> describeDeviceAsync(DescribeDeviceRequest request) {
 
         return describeDeviceAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeDeviceResult> describeDeviceAsync(final DescribeDeviceRequest request,
             final com.amazonaws.handlers.AsyncHandler<DescribeDeviceRequest, DescribeDeviceResult> asyncHandler) {
         final DescribeDeviceRequest finalRequest = beforeClientExecution(request);
@@ -339,6 +367,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeDevicePolicyConfigurationResult> describeDevicePolicyConfigurationAsync(
             DescribeDevicePolicyConfigurationRequest request) {
 
@@ -346,6 +375,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeDevicePolicyConfigurationResult> describeDevicePolicyConfigurationAsync(
             final DescribeDevicePolicyConfigurationRequest request,
             final com.amazonaws.handlers.AsyncHandler<DescribeDevicePolicyConfigurationRequest, DescribeDevicePolicyConfigurationResult> asyncHandler) {
@@ -374,12 +404,14 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeDomainResult> describeDomainAsync(DescribeDomainRequest request) {
 
         return describeDomainAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeDomainResult> describeDomainAsync(final DescribeDomainRequest request,
             final com.amazonaws.handlers.AsyncHandler<DescribeDomainRequest, DescribeDomainResult> asyncHandler) {
         final DescribeDomainRequest finalRequest = beforeClientExecution(request);
@@ -407,12 +439,14 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeFleetMetadataResult> describeFleetMetadataAsync(DescribeFleetMetadataRequest request) {
 
         return describeFleetMetadataAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeFleetMetadataResult> describeFleetMetadataAsync(final DescribeFleetMetadataRequest request,
             final com.amazonaws.handlers.AsyncHandler<DescribeFleetMetadataRequest, DescribeFleetMetadataResult> asyncHandler) {
         final DescribeFleetMetadataRequest finalRequest = beforeClientExecution(request);
@@ -440,6 +474,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeIdentityProviderConfigurationResult> describeIdentityProviderConfigurationAsync(
             DescribeIdentityProviderConfigurationRequest request) {
 
@@ -447,6 +482,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeIdentityProviderConfigurationResult> describeIdentityProviderConfigurationAsync(
             final DescribeIdentityProviderConfigurationRequest request,
             final com.amazonaws.handlers.AsyncHandler<DescribeIdentityProviderConfigurationRequest, DescribeIdentityProviderConfigurationResult> asyncHandler) {
@@ -475,6 +511,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeWebsiteCertificateAuthorityResult> describeWebsiteCertificateAuthorityAsync(
             DescribeWebsiteCertificateAuthorityRequest request) {
 
@@ -482,6 +519,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeWebsiteCertificateAuthorityResult> describeWebsiteCertificateAuthorityAsync(
             final DescribeWebsiteCertificateAuthorityRequest request,
             final com.amazonaws.handlers.AsyncHandler<DescribeWebsiteCertificateAuthorityRequest, DescribeWebsiteCertificateAuthorityResult> asyncHandler) {
@@ -510,12 +548,14 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DisassociateDomainResult> disassociateDomainAsync(DisassociateDomainRequest request) {
 
         return disassociateDomainAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DisassociateDomainResult> disassociateDomainAsync(final DisassociateDomainRequest request,
             final com.amazonaws.handlers.AsyncHandler<DisassociateDomainRequest, DisassociateDomainResult> asyncHandler) {
         final DisassociateDomainRequest finalRequest = beforeClientExecution(request);
@@ -543,6 +583,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DisassociateWebsiteAuthorizationProviderResult> disassociateWebsiteAuthorizationProviderAsync(
             DisassociateWebsiteAuthorizationProviderRequest request) {
 
@@ -550,6 +591,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DisassociateWebsiteAuthorizationProviderResult> disassociateWebsiteAuthorizationProviderAsync(
             final DisassociateWebsiteAuthorizationProviderRequest request,
             final com.amazonaws.handlers.AsyncHandler<DisassociateWebsiteAuthorizationProviderRequest, DisassociateWebsiteAuthorizationProviderResult> asyncHandler) {
@@ -578,6 +620,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DisassociateWebsiteCertificateAuthorityResult> disassociateWebsiteCertificateAuthorityAsync(
             DisassociateWebsiteCertificateAuthorityRequest request) {
 
@@ -585,6 +628,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DisassociateWebsiteCertificateAuthorityResult> disassociateWebsiteCertificateAuthorityAsync(
             final DisassociateWebsiteCertificateAuthorityRequest request,
             final com.amazonaws.handlers.AsyncHandler<DisassociateWebsiteCertificateAuthorityRequest, DisassociateWebsiteCertificateAuthorityResult> asyncHandler) {
@@ -613,12 +657,14 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<ListDevicesResult> listDevicesAsync(ListDevicesRequest request) {
 
         return listDevicesAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<ListDevicesResult> listDevicesAsync(final ListDevicesRequest request,
             final com.amazonaws.handlers.AsyncHandler<ListDevicesRequest, ListDevicesResult> asyncHandler) {
         final ListDevicesRequest finalRequest = beforeClientExecution(request);
@@ -646,12 +692,14 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<ListDomainsResult> listDomainsAsync(ListDomainsRequest request) {
 
         return listDomainsAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<ListDomainsResult> listDomainsAsync(final ListDomainsRequest request,
             final com.amazonaws.handlers.AsyncHandler<ListDomainsRequest, ListDomainsResult> asyncHandler) {
         final ListDomainsRequest finalRequest = beforeClientExecution(request);
@@ -679,12 +727,14 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<ListFleetsResult> listFleetsAsync(ListFleetsRequest request) {
 
         return listFleetsAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<ListFleetsResult> listFleetsAsync(final ListFleetsRequest request,
             final com.amazonaws.handlers.AsyncHandler<ListFleetsRequest, ListFleetsResult> asyncHandler) {
         final ListFleetsRequest finalRequest = beforeClientExecution(request);
@@ -712,6 +762,42 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    @Deprecated
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(final ListTagsForResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+        final ListTagsForResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListTagsForResourceResult>() {
+            @Override
+            public ListTagsForResourceResult call() throws Exception {
+                ListTagsForResourceResult result = null;
+
+                try {
+                    result = executeListTagsForResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    @Deprecated
     public java.util.concurrent.Future<ListWebsiteAuthorizationProvidersResult> listWebsiteAuthorizationProvidersAsync(
             ListWebsiteAuthorizationProvidersRequest request) {
 
@@ -719,6 +805,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<ListWebsiteAuthorizationProvidersResult> listWebsiteAuthorizationProvidersAsync(
             final ListWebsiteAuthorizationProvidersRequest request,
             final com.amazonaws.handlers.AsyncHandler<ListWebsiteAuthorizationProvidersRequest, ListWebsiteAuthorizationProvidersResult> asyncHandler) {
@@ -747,6 +834,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<ListWebsiteCertificateAuthoritiesResult> listWebsiteCertificateAuthoritiesAsync(
             ListWebsiteCertificateAuthoritiesRequest request) {
 
@@ -754,6 +842,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<ListWebsiteCertificateAuthoritiesResult> listWebsiteCertificateAuthoritiesAsync(
             final ListWebsiteCertificateAuthoritiesRequest request,
             final com.amazonaws.handlers.AsyncHandler<ListWebsiteCertificateAuthoritiesRequest, ListWebsiteCertificateAuthoritiesResult> asyncHandler) {
@@ -782,12 +871,14 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<RestoreDomainAccessResult> restoreDomainAccessAsync(RestoreDomainAccessRequest request) {
 
         return restoreDomainAccessAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<RestoreDomainAccessResult> restoreDomainAccessAsync(final RestoreDomainAccessRequest request,
             final com.amazonaws.handlers.AsyncHandler<RestoreDomainAccessRequest, RestoreDomainAccessResult> asyncHandler) {
         final RestoreDomainAccessRequest finalRequest = beforeClientExecution(request);
@@ -815,12 +906,14 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<RevokeDomainAccessResult> revokeDomainAccessAsync(RevokeDomainAccessRequest request) {
 
         return revokeDomainAccessAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<RevokeDomainAccessResult> revokeDomainAccessAsync(final RevokeDomainAccessRequest request,
             final com.amazonaws.handlers.AsyncHandler<RevokeDomainAccessRequest, RevokeDomainAccessResult> asyncHandler) {
         final RevokeDomainAccessRequest finalRequest = beforeClientExecution(request);
@@ -848,12 +941,14 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<SignOutUserResult> signOutUserAsync(SignOutUserRequest request) {
 
         return signOutUserAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<SignOutUserResult> signOutUserAsync(final SignOutUserRequest request,
             final com.amazonaws.handlers.AsyncHandler<SignOutUserRequest, SignOutUserResult> asyncHandler) {
         final SignOutUserRequest finalRequest = beforeClientExecution(request);
@@ -881,12 +976,84 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    @Deprecated
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(final TagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+        final TagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TagResourceResult>() {
+            @Override
+            public TagResourceResult call() throws Exception {
+                TagResourceResult result = null;
+
+                try {
+                    result = executeTagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    @Deprecated
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    @Deprecated
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(final UntagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+        final UntagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UntagResourceResult>() {
+            @Override
+            public UntagResourceResult call() throws Exception {
+                UntagResourceResult result = null;
+
+                try {
+                    result = executeUntagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    @Deprecated
     public java.util.concurrent.Future<UpdateAuditStreamConfigurationResult> updateAuditStreamConfigurationAsync(UpdateAuditStreamConfigurationRequest request) {
 
         return updateAuditStreamConfigurationAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<UpdateAuditStreamConfigurationResult> updateAuditStreamConfigurationAsync(
             final UpdateAuditStreamConfigurationRequest request,
             final com.amazonaws.handlers.AsyncHandler<UpdateAuditStreamConfigurationRequest, UpdateAuditStreamConfigurationResult> asyncHandler) {
@@ -915,6 +1082,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<UpdateCompanyNetworkConfigurationResult> updateCompanyNetworkConfigurationAsync(
             UpdateCompanyNetworkConfigurationRequest request) {
 
@@ -922,6 +1090,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<UpdateCompanyNetworkConfigurationResult> updateCompanyNetworkConfigurationAsync(
             final UpdateCompanyNetworkConfigurationRequest request,
             final com.amazonaws.handlers.AsyncHandler<UpdateCompanyNetworkConfigurationRequest, UpdateCompanyNetworkConfigurationResult> asyncHandler) {
@@ -950,6 +1119,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<UpdateDevicePolicyConfigurationResult> updateDevicePolicyConfigurationAsync(
             UpdateDevicePolicyConfigurationRequest request) {
 
@@ -957,6 +1127,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<UpdateDevicePolicyConfigurationResult> updateDevicePolicyConfigurationAsync(
             final UpdateDevicePolicyConfigurationRequest request,
             final com.amazonaws.handlers.AsyncHandler<UpdateDevicePolicyConfigurationRequest, UpdateDevicePolicyConfigurationResult> asyncHandler) {
@@ -985,12 +1156,14 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<UpdateDomainMetadataResult> updateDomainMetadataAsync(UpdateDomainMetadataRequest request) {
 
         return updateDomainMetadataAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<UpdateDomainMetadataResult> updateDomainMetadataAsync(final UpdateDomainMetadataRequest request,
             final com.amazonaws.handlers.AsyncHandler<UpdateDomainMetadataRequest, UpdateDomainMetadataResult> asyncHandler) {
         final UpdateDomainMetadataRequest finalRequest = beforeClientExecution(request);
@@ -1018,12 +1191,14 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<UpdateFleetMetadataResult> updateFleetMetadataAsync(UpdateFleetMetadataRequest request) {
 
         return updateFleetMetadataAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<UpdateFleetMetadataResult> updateFleetMetadataAsync(final UpdateFleetMetadataRequest request,
             final com.amazonaws.handlers.AsyncHandler<UpdateFleetMetadataRequest, UpdateFleetMetadataResult> asyncHandler) {
         final UpdateFleetMetadataRequest finalRequest = beforeClientExecution(request);
@@ -1051,6 +1226,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<UpdateIdentityProviderConfigurationResult> updateIdentityProviderConfigurationAsync(
             UpdateIdentityProviderConfigurationRequest request) {
 
@@ -1058,6 +1234,7 @@ public class AmazonWorkLinkAsyncClient extends AmazonWorkLinkClient implements A
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<UpdateIdentityProviderConfigurationResult> updateIdentityProviderConfigurationAsync(
             final UpdateIdentityProviderConfigurationRequest request,
             final com.amazonaws.handlers.AsyncHandler<UpdateIdentityProviderConfigurationRequest, UpdateIdentityProviderConfigurationResult> asyncHandler) {

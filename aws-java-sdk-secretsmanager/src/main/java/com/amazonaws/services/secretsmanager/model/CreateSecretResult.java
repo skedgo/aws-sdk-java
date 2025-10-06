@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,53 +25,59 @@ public class CreateSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the secret that you just created.
+     * The ARN of the new secret. The ARN includes the name of the secret followed by six random characters. This
+     * ensures that if you create a new secret with the same name as a deleted secret, then users with access to the old
+     * secret don't get access to the new secret because the ARNs are different.
      * </p>
-     * <note>
-     * <p>
-     * Secrets Manager automatically adds several random characters to the name at the end of the ARN when you initially
-     * create a secret. This affects only the ARN and not the actual friendly name. This ensures that if you create a
-     * new secret with the same name as an old secret that you previously deleted, then users with access to the old
-     * secret <i>don't</i> automatically get access to the new secret because the ARNs are different.
-     * </p>
-     * </note>
      */
     private String aRN;
     /**
      * <p>
-     * The friendly name of the secret that you just created.
+     * The name of the new secret.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The unique identifier that's associated with the version of the secret you just created.
+     * The unique identifier associated with the version of the new secret.
      * </p>
      */
     private String versionId;
+    /**
+     * <p>
+     * A list of the replicas of this secret and their status:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Failed</code>, which indicates that the replica was not created.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>InProgress</code>, which indicates that Secrets Manager is in the process of creating the replica.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>InSync</code>, which indicates that the replica was created.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private java.util.List<ReplicationStatusType> replicationStatus;
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the secret that you just created.
+     * The ARN of the new secret. The ARN includes the name of the secret followed by six random characters. This
+     * ensures that if you create a new secret with the same name as a deleted secret, then users with access to the old
+     * secret don't get access to the new secret because the ARNs are different.
      * </p>
-     * <note>
-     * <p>
-     * Secrets Manager automatically adds several random characters to the name at the end of the ARN when you initially
-     * create a secret. This affects only the ARN and not the actual friendly name. This ensures that if you create a
-     * new secret with the same name as an old secret that you previously deleted, then users with access to the old
-     * secret <i>don't</i> automatically get access to the new secret because the ARNs are different.
-     * </p>
-     * </note>
      * 
      * @param aRN
-     *        The Amazon Resource Name (ARN) of the secret that you just created.</p> <note>
-     *        <p>
-     *        Secrets Manager automatically adds several random characters to the name at the end of the ARN when you
-     *        initially create a secret. This affects only the ARN and not the actual friendly name. This ensures that
-     *        if you create a new secret with the same name as an old secret that you previously deleted, then users
-     *        with access to the old secret <i>don't</i> automatically get access to the new secret because the ARNs are
-     *        different.
-     *        </p>
+     *        The ARN of the new secret. The ARN includes the name of the secret followed by six random characters. This
+     *        ensures that if you create a new secret with the same name as a deleted secret, then users with access to
+     *        the old secret don't get access to the new secret because the ARNs are different.
      */
 
     public void setARN(String aRN) {
@@ -80,25 +86,14 @@ public class CreateSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the secret that you just created.
+     * The ARN of the new secret. The ARN includes the name of the secret followed by six random characters. This
+     * ensures that if you create a new secret with the same name as a deleted secret, then users with access to the old
+     * secret don't get access to the new secret because the ARNs are different.
      * </p>
-     * <note>
-     * <p>
-     * Secrets Manager automatically adds several random characters to the name at the end of the ARN when you initially
-     * create a secret. This affects only the ARN and not the actual friendly name. This ensures that if you create a
-     * new secret with the same name as an old secret that you previously deleted, then users with access to the old
-     * secret <i>don't</i> automatically get access to the new secret because the ARNs are different.
-     * </p>
-     * </note>
      * 
-     * @return The Amazon Resource Name (ARN) of the secret that you just created.</p> <note>
-     *         <p>
-     *         Secrets Manager automatically adds several random characters to the name at the end of the ARN when you
-     *         initially create a secret. This affects only the ARN and not the actual friendly name. This ensures that
-     *         if you create a new secret with the same name as an old secret that you previously deleted, then users
-     *         with access to the old secret <i>don't</i> automatically get access to the new secret because the ARNs
-     *         are different.
-     *         </p>
+     * @return The ARN of the new secret. The ARN includes the name of the secret followed by six random characters.
+     *         This ensures that if you create a new secret with the same name as a deleted secret, then users with
+     *         access to the old secret don't get access to the new secret because the ARNs are different.
      */
 
     public String getARN() {
@@ -107,26 +102,15 @@ public class CreateSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the secret that you just created.
+     * The ARN of the new secret. The ARN includes the name of the secret followed by six random characters. This
+     * ensures that if you create a new secret with the same name as a deleted secret, then users with access to the old
+     * secret don't get access to the new secret because the ARNs are different.
      * </p>
-     * <note>
-     * <p>
-     * Secrets Manager automatically adds several random characters to the name at the end of the ARN when you initially
-     * create a secret. This affects only the ARN and not the actual friendly name. This ensures that if you create a
-     * new secret with the same name as an old secret that you previously deleted, then users with access to the old
-     * secret <i>don't</i> automatically get access to the new secret because the ARNs are different.
-     * </p>
-     * </note>
      * 
      * @param aRN
-     *        The Amazon Resource Name (ARN) of the secret that you just created.</p> <note>
-     *        <p>
-     *        Secrets Manager automatically adds several random characters to the name at the end of the ARN when you
-     *        initially create a secret. This affects only the ARN and not the actual friendly name. This ensures that
-     *        if you create a new secret with the same name as an old secret that you previously deleted, then users
-     *        with access to the old secret <i>don't</i> automatically get access to the new secret because the ARNs are
-     *        different.
-     *        </p>
+     *        The ARN of the new secret. The ARN includes the name of the secret followed by six random characters. This
+     *        ensures that if you create a new secret with the same name as a deleted secret, then users with access to
+     *        the old secret don't get access to the new secret because the ARNs are different.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -137,11 +121,11 @@ public class CreateSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The friendly name of the secret that you just created.
+     * The name of the new secret.
      * </p>
      * 
      * @param name
-     *        The friendly name of the secret that you just created.
+     *        The name of the new secret.
      */
 
     public void setName(String name) {
@@ -150,10 +134,10 @@ public class CreateSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The friendly name of the secret that you just created.
+     * The name of the new secret.
      * </p>
      * 
-     * @return The friendly name of the secret that you just created.
+     * @return The name of the new secret.
      */
 
     public String getName() {
@@ -162,11 +146,11 @@ public class CreateSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The friendly name of the secret that you just created.
+     * The name of the new secret.
      * </p>
      * 
      * @param name
-     *        The friendly name of the secret that you just created.
+     *        The name of the new secret.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -177,11 +161,11 @@ public class CreateSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The unique identifier that's associated with the version of the secret you just created.
+     * The unique identifier associated with the version of the new secret.
      * </p>
      * 
      * @param versionId
-     *        The unique identifier that's associated with the version of the secret you just created.
+     *        The unique identifier associated with the version of the new secret.
      */
 
     public void setVersionId(String versionId) {
@@ -190,10 +174,10 @@ public class CreateSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The unique identifier that's associated with the version of the secret you just created.
+     * The unique identifier associated with the version of the new secret.
      * </p>
      * 
-     * @return The unique identifier that's associated with the version of the secret you just created.
+     * @return The unique identifier associated with the version of the new secret.
      */
 
     public String getVersionId() {
@@ -202,16 +186,218 @@ public class CreateSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The unique identifier that's associated with the version of the secret you just created.
+     * The unique identifier associated with the version of the new secret.
      * </p>
      * 
      * @param versionId
-     *        The unique identifier that's associated with the version of the secret you just created.
+     *        The unique identifier associated with the version of the new secret.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateSecretResult withVersionId(String versionId) {
         setVersionId(versionId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of the replicas of this secret and their status:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Failed</code>, which indicates that the replica was not created.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>InProgress</code>, which indicates that Secrets Manager is in the process of creating the replica.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>InSync</code>, which indicates that the replica was created.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return A list of the replicas of this secret and their status:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>Failed</code>, which indicates that the replica was not created.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>InProgress</code>, which indicates that Secrets Manager is in the process of creating the replica.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>InSync</code>, which indicates that the replica was created.
+     *         </p>
+     *         </li>
+     */
+
+    public java.util.List<ReplicationStatusType> getReplicationStatus() {
+        return replicationStatus;
+    }
+
+    /**
+     * <p>
+     * A list of the replicas of this secret and their status:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Failed</code>, which indicates that the replica was not created.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>InProgress</code>, which indicates that Secrets Manager is in the process of creating the replica.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>InSync</code>, which indicates that the replica was created.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param replicationStatus
+     *        A list of the replicas of this secret and their status:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Failed</code>, which indicates that the replica was not created.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>InProgress</code>, which indicates that Secrets Manager is in the process of creating the replica.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>InSync</code>, which indicates that the replica was created.
+     *        </p>
+     *        </li>
+     */
+
+    public void setReplicationStatus(java.util.Collection<ReplicationStatusType> replicationStatus) {
+        if (replicationStatus == null) {
+            this.replicationStatus = null;
+            return;
+        }
+
+        this.replicationStatus = new java.util.ArrayList<ReplicationStatusType>(replicationStatus);
+    }
+
+    /**
+     * <p>
+     * A list of the replicas of this secret and their status:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Failed</code>, which indicates that the replica was not created.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>InProgress</code>, which indicates that Secrets Manager is in the process of creating the replica.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>InSync</code>, which indicates that the replica was created.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setReplicationStatus(java.util.Collection)} or {@link #withReplicationStatus(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param replicationStatus
+     *        A list of the replicas of this secret and their status:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Failed</code>, which indicates that the replica was not created.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>InProgress</code>, which indicates that Secrets Manager is in the process of creating the replica.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>InSync</code>, which indicates that the replica was created.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateSecretResult withReplicationStatus(ReplicationStatusType... replicationStatus) {
+        if (this.replicationStatus == null) {
+            setReplicationStatus(new java.util.ArrayList<ReplicationStatusType>(replicationStatus.length));
+        }
+        for (ReplicationStatusType ele : replicationStatus) {
+            this.replicationStatus.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of the replicas of this secret and their status:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Failed</code>, which indicates that the replica was not created.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>InProgress</code>, which indicates that Secrets Manager is in the process of creating the replica.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>InSync</code>, which indicates that the replica was created.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param replicationStatus
+     *        A list of the replicas of this secret and their status:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Failed</code>, which indicates that the replica was not created.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>InProgress</code>, which indicates that Secrets Manager is in the process of creating the replica.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>InSync</code>, which indicates that the replica was created.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateSecretResult withReplicationStatus(java.util.Collection<ReplicationStatusType> replicationStatus) {
+        setReplicationStatus(replicationStatus);
         return this;
     }
 
@@ -232,7 +418,9 @@ public class CreateSecretResult extends com.amazonaws.AmazonWebServiceResult<com
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getVersionId() != null)
-            sb.append("VersionId: ").append(getVersionId());
+            sb.append("VersionId: ").append(getVersionId()).append(",");
+        if (getReplicationStatus() != null)
+            sb.append("ReplicationStatus: ").append(getReplicationStatus());
         sb.append("}");
         return sb.toString();
     }
@@ -259,6 +447,10 @@ public class CreateSecretResult extends com.amazonaws.AmazonWebServiceResult<com
             return false;
         if (other.getVersionId() != null && other.getVersionId().equals(this.getVersionId()) == false)
             return false;
+        if (other.getReplicationStatus() == null ^ this.getReplicationStatus() == null)
+            return false;
+        if (other.getReplicationStatus() != null && other.getReplicationStatus().equals(this.getReplicationStatus()) == false)
+            return false;
         return true;
     }
 
@@ -270,6 +462,7 @@ public class CreateSecretResult extends com.amazonaws.AmazonWebServiceResult<com
         hashCode = prime * hashCode + ((getARN() == null) ? 0 : getARN().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getVersionId() == null) ? 0 : getVersionId().hashCode());
+        hashCode = prime * hashCode + ((getReplicationStatus() == null) ? 0 : getReplicationStatus().hashCode());
         return hashCode;
     }
 

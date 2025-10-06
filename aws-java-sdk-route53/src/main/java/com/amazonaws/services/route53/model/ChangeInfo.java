@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,9 @@ public class ChangeInfo implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the request.
+     * This element contains an ID that you use when performing a <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a> action to get
+     * detailed information about the change.
      * </p>
      */
     private String id;
@@ -49,12 +51,7 @@ public class ChangeInfo implements Serializable, Cloneable {
     private java.util.Date submittedAt;
     /**
      * <p>
-     * A complex type that describes change information about changes made to your hosted zone.
-     * </p>
-     * <p>
-     * This element contains an ID that you use when performing a <a
-     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a> action to get
-     * detailed information about the change.
+     * A comment you can provide.
      * </p>
      */
     private String comment;
@@ -71,7 +68,9 @@ public class ChangeInfo implements Serializable, Cloneable {
      * initialize any additional object members.
      * 
      * @param id
-     *        The ID of the request.
+     *        This element contains an ID that you use when performing a <a
+     *        href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a> action to
+     *        get detailed information about the change.
      * @param status
      *        The current state of the request. <code>PENDING</code> indicates that this request has not yet been
      *        applied to all Amazon Route 53 DNS servers.
@@ -92,7 +91,9 @@ public class ChangeInfo implements Serializable, Cloneable {
      * initialize any additional object members.
      * 
      * @param id
-     *        The ID of the request.
+     *        This element contains an ID that you use when performing a <a
+     *        href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a> action to
+     *        get detailed information about the change.
      * @param status
      *        The current state of the request. <code>PENDING</code> indicates that this request has not yet been
      *        applied to all Amazon Route 53 DNS servers.
@@ -110,11 +111,15 @@ public class ChangeInfo implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the request.
+     * This element contains an ID that you use when performing a <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a> action to get
+     * detailed information about the change.
      * </p>
      * 
      * @param id
-     *        The ID of the request.
+     *        This element contains an ID that you use when performing a <a
+     *        href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a> action to
+     *        get detailed information about the change.
      */
 
     public void setId(String id) {
@@ -123,10 +128,14 @@ public class ChangeInfo implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the request.
+     * This element contains an ID that you use when performing a <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a> action to get
+     * detailed information about the change.
      * </p>
      * 
-     * @return The ID of the request.
+     * @return This element contains an ID that you use when performing a <a
+     *         href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a> action to
+     *         get detailed information about the change.
      */
 
     public String getId() {
@@ -135,11 +144,15 @@ public class ChangeInfo implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the request.
+     * This element contains an ID that you use when performing a <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a> action to get
+     * detailed information about the change.
      * </p>
      * 
      * @param id
-     *        The ID of the request.
+     *        This element contains an ID that you use when performing a <a
+     *        href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a> action to
+     *        get detailed information about the change.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -288,20 +301,11 @@ public class ChangeInfo implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A complex type that describes change information about changes made to your hosted zone.
-     * </p>
-     * <p>
-     * This element contains an ID that you use when performing a <a
-     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a> action to get
-     * detailed information about the change.
+     * A comment you can provide.
      * </p>
      * 
      * @param comment
-     *        A complex type that describes change information about changes made to your hosted zone.</p>
-     *        <p>
-     *        This element contains an ID that you use when performing a <a
-     *        href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a> action to
-     *        get detailed information about the change.
+     *        A comment you can provide.
      */
 
     public void setComment(String comment) {
@@ -310,19 +314,10 @@ public class ChangeInfo implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A complex type that describes change information about changes made to your hosted zone.
-     * </p>
-     * <p>
-     * This element contains an ID that you use when performing a <a
-     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a> action to get
-     * detailed information about the change.
+     * A comment you can provide.
      * </p>
      * 
-     * @return A complex type that describes change information about changes made to your hosted zone.</p>
-     *         <p>
-     *         This element contains an ID that you use when performing a <a
-     *         href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a> action to
-     *         get detailed information about the change.
+     * @return A comment you can provide.
      */
 
     public String getComment() {
@@ -331,20 +326,11 @@ public class ChangeInfo implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A complex type that describes change information about changes made to your hosted zone.
-     * </p>
-     * <p>
-     * This element contains an ID that you use when performing a <a
-     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a> action to get
-     * detailed information about the change.
+     * A comment you can provide.
      * </p>
      * 
      * @param comment
-     *        A complex type that describes change information about changes made to your hosted zone.</p>
-     *        <p>
-     *        This element contains an ID that you use when performing a <a
-     *        href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a> action to
-     *        get detailed information about the change.
+     *        A comment you can provide.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

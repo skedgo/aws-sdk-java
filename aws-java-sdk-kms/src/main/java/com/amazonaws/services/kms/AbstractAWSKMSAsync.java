@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -179,6 +179,19 @@ public class AbstractAWSKMSAsync extends AbstractAWSKMS implements AWSKMSAsync {
     }
 
     @Override
+    public java.util.concurrent.Future<DeriveSharedSecretResult> deriveSharedSecretAsync(DeriveSharedSecretRequest request) {
+
+        return deriveSharedSecretAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeriveSharedSecretResult> deriveSharedSecretAsync(DeriveSharedSecretRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeriveSharedSecretRequest, DeriveSharedSecretResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeCustomKeyStoresResult> describeCustomKeyStoresAsync(DescribeCustomKeyStoresRequest request) {
 
         return describeCustomKeyStoresAsync(request, null);
@@ -296,6 +309,34 @@ public class AbstractAWSKMSAsync extends AbstractAWSKMS implements AWSKMSAsync {
     }
 
     @Override
+    public java.util.concurrent.Future<GenerateDataKeyPairResult> generateDataKeyPairAsync(GenerateDataKeyPairRequest request) {
+
+        return generateDataKeyPairAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GenerateDataKeyPairResult> generateDataKeyPairAsync(GenerateDataKeyPairRequest request,
+            com.amazonaws.handlers.AsyncHandler<GenerateDataKeyPairRequest, GenerateDataKeyPairResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GenerateDataKeyPairWithoutPlaintextResult> generateDataKeyPairWithoutPlaintextAsync(
+            GenerateDataKeyPairWithoutPlaintextRequest request) {
+
+        return generateDataKeyPairWithoutPlaintextAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GenerateDataKeyPairWithoutPlaintextResult> generateDataKeyPairWithoutPlaintextAsync(
+            GenerateDataKeyPairWithoutPlaintextRequest request,
+            com.amazonaws.handlers.AsyncHandler<GenerateDataKeyPairWithoutPlaintextRequest, GenerateDataKeyPairWithoutPlaintextResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<GenerateDataKeyWithoutPlaintextResult> generateDataKeyWithoutPlaintextAsync(
             GenerateDataKeyWithoutPlaintextRequest request) {
 
@@ -306,6 +347,19 @@ public class AbstractAWSKMSAsync extends AbstractAWSKMS implements AWSKMSAsync {
     public java.util.concurrent.Future<GenerateDataKeyWithoutPlaintextResult> generateDataKeyWithoutPlaintextAsync(
             GenerateDataKeyWithoutPlaintextRequest request,
             com.amazonaws.handlers.AsyncHandler<GenerateDataKeyWithoutPlaintextRequest, GenerateDataKeyWithoutPlaintextResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GenerateMacResult> generateMacAsync(GenerateMacRequest request) {
+
+        return generateMacAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GenerateMacResult> generateMacAsync(GenerateMacRequest request,
+            com.amazonaws.handlers.AsyncHandler<GenerateMacRequest, GenerateMacResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -386,6 +440,19 @@ public class AbstractAWSKMSAsync extends AbstractAWSKMS implements AWSKMSAsync {
     }
 
     @Override
+    public java.util.concurrent.Future<GetPublicKeyResult> getPublicKeyAsync(GetPublicKeyRequest request) {
+
+        return getPublicKeyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetPublicKeyResult> getPublicKeyAsync(GetPublicKeyRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetPublicKeyRequest, GetPublicKeyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ImportKeyMaterialResult> importKeyMaterialAsync(ImportKeyMaterialRequest request) {
 
         return importKeyMaterialAsync(request, null);
@@ -456,6 +523,19 @@ public class AbstractAWSKMSAsync extends AbstractAWSKMS implements AWSKMSAsync {
     @Override
     public java.util.concurrent.Future<ListKeyPoliciesResult> listKeyPoliciesAsync(ListKeyPoliciesRequest request,
             com.amazonaws.handlers.AsyncHandler<ListKeyPoliciesRequest, ListKeyPoliciesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListKeyRotationsResult> listKeyRotationsAsync(ListKeyRotationsRequest request) {
+
+        return listKeyRotationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListKeyRotationsResult> listKeyRotationsAsync(ListKeyRotationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListKeyRotationsRequest, ListKeyRotationsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -548,6 +628,19 @@ public class AbstractAWSKMSAsync extends AbstractAWSKMS implements AWSKMSAsync {
     }
 
     @Override
+    public java.util.concurrent.Future<ReplicateKeyResult> replicateKeyAsync(ReplicateKeyRequest request) {
+
+        return replicateKeyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ReplicateKeyResult> replicateKeyAsync(ReplicateKeyRequest request,
+            com.amazonaws.handlers.AsyncHandler<ReplicateKeyRequest, ReplicateKeyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<RetireGrantResult> retireGrantAsync(RetireGrantRequest request) {
 
         return retireGrantAsync(request, null);
@@ -597,6 +690,19 @@ public class AbstractAWSKMSAsync extends AbstractAWSKMS implements AWSKMSAsync {
     }
 
     @Override
+    public java.util.concurrent.Future<RotateKeyOnDemandResult> rotateKeyOnDemandAsync(RotateKeyOnDemandRequest request) {
+
+        return rotateKeyOnDemandAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RotateKeyOnDemandResult> rotateKeyOnDemandAsync(RotateKeyOnDemandRequest request,
+            com.amazonaws.handlers.AsyncHandler<RotateKeyOnDemandRequest, RotateKeyOnDemandResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ScheduleKeyDeletionResult> scheduleKeyDeletionAsync(ScheduleKeyDeletionRequest request) {
 
         return scheduleKeyDeletionAsync(request, null);
@@ -605,6 +711,18 @@ public class AbstractAWSKMSAsync extends AbstractAWSKMS implements AWSKMSAsync {
     @Override
     public java.util.concurrent.Future<ScheduleKeyDeletionResult> scheduleKeyDeletionAsync(ScheduleKeyDeletionRequest request,
             com.amazonaws.handlers.AsyncHandler<ScheduleKeyDeletionRequest, ScheduleKeyDeletionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<SignResult> signAsync(SignRequest request) {
+
+        return signAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SignResult> signAsync(SignRequest request, com.amazonaws.handlers.AsyncHandler<SignRequest, SignResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -670,6 +788,45 @@ public class AbstractAWSKMSAsync extends AbstractAWSKMS implements AWSKMSAsync {
     @Override
     public java.util.concurrent.Future<UpdateKeyDescriptionResult> updateKeyDescriptionAsync(UpdateKeyDescriptionRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateKeyDescriptionRequest, UpdateKeyDescriptionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePrimaryRegionResult> updatePrimaryRegionAsync(UpdatePrimaryRegionRequest request) {
+
+        return updatePrimaryRegionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePrimaryRegionResult> updatePrimaryRegionAsync(UpdatePrimaryRegionRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdatePrimaryRegionRequest, UpdatePrimaryRegionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<VerifyResult> verifyAsync(VerifyRequest request) {
+
+        return verifyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<VerifyResult> verifyAsync(VerifyRequest request,
+            com.amazonaws.handlers.AsyncHandler<VerifyRequest, VerifyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<VerifyMacResult> verifyMacAsync(VerifyMacRequest request) {
+
+        return verifyMacAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<VerifyMacResult> verifyMacAsync(VerifyMacRequest request,
+            com.amazonaws.handlers.AsyncHandler<VerifyMacRequest, VerifyMacResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

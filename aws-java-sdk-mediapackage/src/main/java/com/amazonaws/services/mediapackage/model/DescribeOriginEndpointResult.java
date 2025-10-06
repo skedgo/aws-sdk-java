@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,10 +25,14 @@ public class DescribeOriginEndpointResult extends com.amazonaws.AmazonWebService
 
     /** The Amazon Resource Name (ARN) assigned to the OriginEndpoint. */
     private String arn;
+
+    private Authorization authorization;
     /** The ID of the Channel the OriginEndpoint is associated with. */
     private String channelId;
 
     private CmafPackage cmafPackage;
+    /** The date and time the OriginEndpoint was created. */
+    private String createdAt;
 
     private DashPackage dashPackage;
     /** A short text description of the OriginEndpoint. */
@@ -41,6 +45,12 @@ public class DescribeOriginEndpointResult extends com.amazonaws.AmazonWebService
     private String manifestName;
 
     private MssPackage mssPackage;
+    /**
+     * Control whether origination of video is allowed for this OriginEndpoint. If set to ALLOW, the OriginEndpoint may
+     * by requested, pursuant to any other form of access control. If set to DENY, the OriginEndpoint may not be
+     * requested. This can be helpful for Live to VOD harvesting, or for temporarily disabling origination
+     */
+    private String origination;
     /**
      * Maximum duration (seconds) of content to retain for startover playback. If not specified, startover playback will
      * be disabled for the OriginEndpoint.
@@ -89,6 +99,32 @@ public class DescribeOriginEndpointResult extends com.amazonaws.AmazonWebService
 
     public DescribeOriginEndpointResult withArn(String arn) {
         setArn(arn);
+        return this;
+    }
+
+    /**
+     * @param authorization
+     */
+
+    public void setAuthorization(Authorization authorization) {
+        this.authorization = authorization;
+    }
+
+    /**
+     * @return
+     */
+
+    public Authorization getAuthorization() {
+        return this.authorization;
+    }
+
+    /**
+     * @param authorization
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeOriginEndpointResult withAuthorization(Authorization authorization) {
+        setAuthorization(authorization);
         return this;
     }
 
@@ -149,6 +185,40 @@ public class DescribeOriginEndpointResult extends com.amazonaws.AmazonWebService
 
     public DescribeOriginEndpointResult withCmafPackage(CmafPackage cmafPackage) {
         setCmafPackage(cmafPackage);
+        return this;
+    }
+
+    /**
+     * The date and time the OriginEndpoint was created.
+     * 
+     * @param createdAt
+     *        The date and time the OriginEndpoint was created.
+     */
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * The date and time the OriginEndpoint was created.
+     * 
+     * @return The date and time the OriginEndpoint was created.
+     */
+
+    public String getCreatedAt() {
+        return this.createdAt;
+    }
+
+    /**
+     * The date and time the OriginEndpoint was created.
+     * 
+     * @param createdAt
+     *        The date and time the OriginEndpoint was created.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeOriginEndpointResult withCreatedAt(String createdAt) {
+        setCreatedAt(createdAt);
         return this;
     }
 
@@ -333,6 +403,77 @@ public class DescribeOriginEndpointResult extends com.amazonaws.AmazonWebService
     }
 
     /**
+     * Control whether origination of video is allowed for this OriginEndpoint. If set to ALLOW, the OriginEndpoint may
+     * by requested, pursuant to any other form of access control. If set to DENY, the OriginEndpoint may not be
+     * requested. This can be helpful for Live to VOD harvesting, or for temporarily disabling origination
+     * 
+     * @param origination
+     *        Control whether origination of video is allowed for this OriginEndpoint. If set to ALLOW, the
+     *        OriginEndpoint may by requested, pursuant to any other form of access control. If set to DENY, the
+     *        OriginEndpoint may not be requested. This can be helpful for Live to VOD harvesting, or for temporarily
+     *        disabling origination
+     * @see Origination
+     */
+
+    public void setOrigination(String origination) {
+        this.origination = origination;
+    }
+
+    /**
+     * Control whether origination of video is allowed for this OriginEndpoint. If set to ALLOW, the OriginEndpoint may
+     * by requested, pursuant to any other form of access control. If set to DENY, the OriginEndpoint may not be
+     * requested. This can be helpful for Live to VOD harvesting, or for temporarily disabling origination
+     * 
+     * @return Control whether origination of video is allowed for this OriginEndpoint. If set to ALLOW, the
+     *         OriginEndpoint may by requested, pursuant to any other form of access control. If set to DENY, the
+     *         OriginEndpoint may not be requested. This can be helpful for Live to VOD harvesting, or for temporarily
+     *         disabling origination
+     * @see Origination
+     */
+
+    public String getOrigination() {
+        return this.origination;
+    }
+
+    /**
+     * Control whether origination of video is allowed for this OriginEndpoint. If set to ALLOW, the OriginEndpoint may
+     * by requested, pursuant to any other form of access control. If set to DENY, the OriginEndpoint may not be
+     * requested. This can be helpful for Live to VOD harvesting, or for temporarily disabling origination
+     * 
+     * @param origination
+     *        Control whether origination of video is allowed for this OriginEndpoint. If set to ALLOW, the
+     *        OriginEndpoint may by requested, pursuant to any other form of access control. If set to DENY, the
+     *        OriginEndpoint may not be requested. This can be helpful for Live to VOD harvesting, or for temporarily
+     *        disabling origination
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Origination
+     */
+
+    public DescribeOriginEndpointResult withOrigination(String origination) {
+        setOrigination(origination);
+        return this;
+    }
+
+    /**
+     * Control whether origination of video is allowed for this OriginEndpoint. If set to ALLOW, the OriginEndpoint may
+     * by requested, pursuant to any other form of access control. If set to DENY, the OriginEndpoint may not be
+     * requested. This can be helpful for Live to VOD harvesting, or for temporarily disabling origination
+     * 
+     * @param origination
+     *        Control whether origination of video is allowed for this OriginEndpoint. If set to ALLOW, the
+     *        OriginEndpoint may by requested, pursuant to any other form of access control. If set to DENY, the
+     *        OriginEndpoint may not be requested. This can be helpful for Live to VOD harvesting, or for temporarily
+     *        disabling origination
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Origination
+     */
+
+    public DescribeOriginEndpointResult withOrigination(Origination origination) {
+        this.origination = origination.toString();
+        return this;
+    }
+
+    /**
      * Maximum duration (seconds) of content to retain for startover playback. If not specified, startover playback will
      * be disabled for the OriginEndpoint.
      * 
@@ -397,6 +538,13 @@ public class DescribeOriginEndpointResult extends com.amazonaws.AmazonWebService
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see DescribeOriginEndpointResult#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public DescribeOriginEndpointResult addTagsEntry(String key, String value) {
         if (null == this.tags) {
@@ -569,10 +717,14 @@ public class DescribeOriginEndpointResult extends com.amazonaws.AmazonWebService
         sb.append("{");
         if (getArn() != null)
             sb.append("Arn: ").append(getArn()).append(",");
+        if (getAuthorization() != null)
+            sb.append("Authorization: ").append(getAuthorization()).append(",");
         if (getChannelId() != null)
             sb.append("ChannelId: ").append(getChannelId()).append(",");
         if (getCmafPackage() != null)
             sb.append("CmafPackage: ").append(getCmafPackage()).append(",");
+        if (getCreatedAt() != null)
+            sb.append("CreatedAt: ").append(getCreatedAt()).append(",");
         if (getDashPackage() != null)
             sb.append("DashPackage: ").append(getDashPackage()).append(",");
         if (getDescription() != null)
@@ -585,6 +737,8 @@ public class DescribeOriginEndpointResult extends com.amazonaws.AmazonWebService
             sb.append("ManifestName: ").append(getManifestName()).append(",");
         if (getMssPackage() != null)
             sb.append("MssPackage: ").append(getMssPackage()).append(",");
+        if (getOrigination() != null)
+            sb.append("Origination: ").append(getOrigination()).append(",");
         if (getStartoverWindowSeconds() != null)
             sb.append("StartoverWindowSeconds: ").append(getStartoverWindowSeconds()).append(",");
         if (getTags() != null)
@@ -613,6 +767,10 @@ public class DescribeOriginEndpointResult extends com.amazonaws.AmazonWebService
             return false;
         if (other.getArn() != null && other.getArn().equals(this.getArn()) == false)
             return false;
+        if (other.getAuthorization() == null ^ this.getAuthorization() == null)
+            return false;
+        if (other.getAuthorization() != null && other.getAuthorization().equals(this.getAuthorization()) == false)
+            return false;
         if (other.getChannelId() == null ^ this.getChannelId() == null)
             return false;
         if (other.getChannelId() != null && other.getChannelId().equals(this.getChannelId()) == false)
@@ -620,6 +778,10 @@ public class DescribeOriginEndpointResult extends com.amazonaws.AmazonWebService
         if (other.getCmafPackage() == null ^ this.getCmafPackage() == null)
             return false;
         if (other.getCmafPackage() != null && other.getCmafPackage().equals(this.getCmafPackage()) == false)
+            return false;
+        if (other.getCreatedAt() == null ^ this.getCreatedAt() == null)
+            return false;
+        if (other.getCreatedAt() != null && other.getCreatedAt().equals(this.getCreatedAt()) == false)
             return false;
         if (other.getDashPackage() == null ^ this.getDashPackage() == null)
             return false;
@@ -644,6 +806,10 @@ public class DescribeOriginEndpointResult extends com.amazonaws.AmazonWebService
         if (other.getMssPackage() == null ^ this.getMssPackage() == null)
             return false;
         if (other.getMssPackage() != null && other.getMssPackage().equals(this.getMssPackage()) == false)
+            return false;
+        if (other.getOrigination() == null ^ this.getOrigination() == null)
+            return false;
+        if (other.getOrigination() != null && other.getOrigination().equals(this.getOrigination()) == false)
             return false;
         if (other.getStartoverWindowSeconds() == null ^ this.getStartoverWindowSeconds() == null)
             return false;
@@ -674,14 +840,17 @@ public class DescribeOriginEndpointResult extends com.amazonaws.AmazonWebService
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getArn() == null) ? 0 : getArn().hashCode());
+        hashCode = prime * hashCode + ((getAuthorization() == null) ? 0 : getAuthorization().hashCode());
         hashCode = prime * hashCode + ((getChannelId() == null) ? 0 : getChannelId().hashCode());
         hashCode = prime * hashCode + ((getCmafPackage() == null) ? 0 : getCmafPackage().hashCode());
+        hashCode = prime * hashCode + ((getCreatedAt() == null) ? 0 : getCreatedAt().hashCode());
         hashCode = prime * hashCode + ((getDashPackage() == null) ? 0 : getDashPackage().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getHlsPackage() == null) ? 0 : getHlsPackage().hashCode());
         hashCode = prime * hashCode + ((getId() == null) ? 0 : getId().hashCode());
         hashCode = prime * hashCode + ((getManifestName() == null) ? 0 : getManifestName().hashCode());
         hashCode = prime * hashCode + ((getMssPackage() == null) ? 0 : getMssPackage().hashCode());
+        hashCode = prime * hashCode + ((getOrigination() == null) ? 0 : getOrigination().hashCode());
         hashCode = prime * hashCode + ((getStartoverWindowSeconds() == null) ? 0 : getStartoverWindowSeconds().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getTimeDelaySeconds() == null) ? 0 : getTimeDelaySeconds().hashCode());

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
+ * Contains information about the remote IP address of the connection.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/RemoteIpDetails" target="_top">AWS API
  *      Documentation</a>
@@ -27,42 +30,48 @@ public class RemoteIpDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * City information of the remote IP address.
+     * The city information of the remote IP address.
      * </p>
      */
     private City city;
     /**
      * <p>
-     * Country code of the remote IP address.
+     * The country code of the remote IP address.
      * </p>
      */
     private Country country;
     /**
      * <p>
-     * Location information of the remote IP address.
+     * The location information of the remote IP address.
      * </p>
      */
     private GeoLocation geoLocation;
     /**
      * <p>
-     * IPV4 remote address of the connection.
+     * The IPv4 remote address of the connection.
      * </p>
      */
     private String ipAddressV4;
     /**
      * <p>
-     * ISP Organization information of the remote IP address.
+     * The IPv6 remote address of the connection.
+     * </p>
+     */
+    private String ipAddressV6;
+    /**
+     * <p>
+     * The ISP organization information of the remote IP address.
      * </p>
      */
     private Organization organization;
 
     /**
      * <p>
-     * City information of the remote IP address.
+     * The city information of the remote IP address.
      * </p>
      * 
      * @param city
-     *        City information of the remote IP address.
+     *        The city information of the remote IP address.
      */
 
     public void setCity(City city) {
@@ -71,10 +80,10 @@ public class RemoteIpDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * City information of the remote IP address.
+     * The city information of the remote IP address.
      * </p>
      * 
-     * @return City information of the remote IP address.
+     * @return The city information of the remote IP address.
      */
 
     public City getCity() {
@@ -83,11 +92,11 @@ public class RemoteIpDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * City information of the remote IP address.
+     * The city information of the remote IP address.
      * </p>
      * 
      * @param city
-     *        City information of the remote IP address.
+     *        The city information of the remote IP address.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -98,11 +107,11 @@ public class RemoteIpDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Country code of the remote IP address.
+     * The country code of the remote IP address.
      * </p>
      * 
      * @param country
-     *        Country code of the remote IP address.
+     *        The country code of the remote IP address.
      */
 
     public void setCountry(Country country) {
@@ -111,10 +120,10 @@ public class RemoteIpDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Country code of the remote IP address.
+     * The country code of the remote IP address.
      * </p>
      * 
-     * @return Country code of the remote IP address.
+     * @return The country code of the remote IP address.
      */
 
     public Country getCountry() {
@@ -123,11 +132,11 @@ public class RemoteIpDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Country code of the remote IP address.
+     * The country code of the remote IP address.
      * </p>
      * 
      * @param country
-     *        Country code of the remote IP address.
+     *        The country code of the remote IP address.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -138,11 +147,11 @@ public class RemoteIpDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Location information of the remote IP address.
+     * The location information of the remote IP address.
      * </p>
      * 
      * @param geoLocation
-     *        Location information of the remote IP address.
+     *        The location information of the remote IP address.
      */
 
     public void setGeoLocation(GeoLocation geoLocation) {
@@ -151,10 +160,10 @@ public class RemoteIpDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Location information of the remote IP address.
+     * The location information of the remote IP address.
      * </p>
      * 
-     * @return Location information of the remote IP address.
+     * @return The location information of the remote IP address.
      */
 
     public GeoLocation getGeoLocation() {
@@ -163,11 +172,11 @@ public class RemoteIpDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Location information of the remote IP address.
+     * The location information of the remote IP address.
      * </p>
      * 
      * @param geoLocation
-     *        Location information of the remote IP address.
+     *        The location information of the remote IP address.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -178,11 +187,11 @@ public class RemoteIpDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * IPV4 remote address of the connection.
+     * The IPv4 remote address of the connection.
      * </p>
      * 
      * @param ipAddressV4
-     *        IPV4 remote address of the connection.
+     *        The IPv4 remote address of the connection.
      */
 
     public void setIpAddressV4(String ipAddressV4) {
@@ -191,10 +200,10 @@ public class RemoteIpDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * IPV4 remote address of the connection.
+     * The IPv4 remote address of the connection.
      * </p>
      * 
-     * @return IPV4 remote address of the connection.
+     * @return The IPv4 remote address of the connection.
      */
 
     public String getIpAddressV4() {
@@ -203,11 +212,11 @@ public class RemoteIpDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * IPV4 remote address of the connection.
+     * The IPv4 remote address of the connection.
      * </p>
      * 
      * @param ipAddressV4
-     *        IPV4 remote address of the connection.
+     *        The IPv4 remote address of the connection.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -218,11 +227,51 @@ public class RemoteIpDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * ISP Organization information of the remote IP address.
+     * The IPv6 remote address of the connection.
+     * </p>
+     * 
+     * @param ipAddressV6
+     *        The IPv6 remote address of the connection.
+     */
+
+    public void setIpAddressV6(String ipAddressV6) {
+        this.ipAddressV6 = ipAddressV6;
+    }
+
+    /**
+     * <p>
+     * The IPv6 remote address of the connection.
+     * </p>
+     * 
+     * @return The IPv6 remote address of the connection.
+     */
+
+    public String getIpAddressV6() {
+        return this.ipAddressV6;
+    }
+
+    /**
+     * <p>
+     * The IPv6 remote address of the connection.
+     * </p>
+     * 
+     * @param ipAddressV6
+     *        The IPv6 remote address of the connection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RemoteIpDetails withIpAddressV6(String ipAddressV6) {
+        setIpAddressV6(ipAddressV6);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ISP organization information of the remote IP address.
      * </p>
      * 
      * @param organization
-     *        ISP Organization information of the remote IP address.
+     *        The ISP organization information of the remote IP address.
      */
 
     public void setOrganization(Organization organization) {
@@ -231,10 +280,10 @@ public class RemoteIpDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * ISP Organization information of the remote IP address.
+     * The ISP organization information of the remote IP address.
      * </p>
      * 
-     * @return ISP Organization information of the remote IP address.
+     * @return The ISP organization information of the remote IP address.
      */
 
     public Organization getOrganization() {
@@ -243,11 +292,11 @@ public class RemoteIpDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * ISP Organization information of the remote IP address.
+     * The ISP organization information of the remote IP address.
      * </p>
      * 
      * @param organization
-     *        ISP Organization information of the remote IP address.
+     *        The ISP organization information of the remote IP address.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -275,7 +324,9 @@ public class RemoteIpDetails implements Serializable, Cloneable, StructuredPojo 
         if (getGeoLocation() != null)
             sb.append("GeoLocation: ").append(getGeoLocation()).append(",");
         if (getIpAddressV4() != null)
-            sb.append("IpAddressV4: ").append(getIpAddressV4()).append(",");
+            sb.append("IpAddressV4: ").append("***Sensitive Data Redacted***").append(",");
+        if (getIpAddressV6() != null)
+            sb.append("IpAddressV6: ").append("***Sensitive Data Redacted***").append(",");
         if (getOrganization() != null)
             sb.append("Organization: ").append(getOrganization());
         sb.append("}");
@@ -308,6 +359,10 @@ public class RemoteIpDetails implements Serializable, Cloneable, StructuredPojo 
             return false;
         if (other.getIpAddressV4() != null && other.getIpAddressV4().equals(this.getIpAddressV4()) == false)
             return false;
+        if (other.getIpAddressV6() == null ^ this.getIpAddressV6() == null)
+            return false;
+        if (other.getIpAddressV6() != null && other.getIpAddressV6().equals(this.getIpAddressV6()) == false)
+            return false;
         if (other.getOrganization() == null ^ this.getOrganization() == null)
             return false;
         if (other.getOrganization() != null && other.getOrganization().equals(this.getOrganization()) == false)
@@ -324,6 +379,7 @@ public class RemoteIpDetails implements Serializable, Cloneable, StructuredPojo 
         hashCode = prime * hashCode + ((getCountry() == null) ? 0 : getCountry().hashCode());
         hashCode = prime * hashCode + ((getGeoLocation() == null) ? 0 : getGeoLocation().hashCode());
         hashCode = prime * hashCode + ((getIpAddressV4() == null) ? 0 : getIpAddressV4().hashCode());
+        hashCode = prime * hashCode + ((getIpAddressV6() == null) ? 0 : getIpAddressV6().hashCode());
         hashCode = prime * hashCode + ((getOrganization() == null) ? 0 : getOrganization().hashCode());
         return hashCode;
     }

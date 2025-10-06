@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,7 +41,7 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * <p>
      * For more information about paths, see <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM Identifiers</a> in the <i>IAM
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM
      * User Guide</i>.
      * </p>
      * <p>
@@ -50,9 +50,14 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
      * characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward
-     * slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL character (\u007F),
-     * including most punctuation characters, digits, and upper and lowercased letters.
+     * slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through the DEL
+     * character (<code>\u007F</code>), including most punctuation characters, digits, and upper and lowercased letters.
      * </p>
+     * <note>
+     * <p>
+     * You cannot use an asterisk (*) in the path name.
+     * </p>
+     * </note>
      */
     private String path;
     /**
@@ -60,9 +65,20 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The JSON policy document that you want to use as the content for the new policy.
      * </p>
      * <p>
-     * You must provide policies in JSON format in IAM. However, for AWS CloudFormation templates formatted in YAML, you
-     * can provide the policy in JSON or YAML format. AWS CloudFormation always converts a YAML policy to JSON format
-     * before submitting it to IAM.
+     * You must provide policies in JSON format in IAM. However, for CloudFormation templates formatted in YAML, you can
+     * provide the policy in JSON or YAML format. CloudFormation always converts a YAML policy to JSON format before
+     * submitting it to IAM.
+     * </p>
+     * <p>
+     * The maximum length of the policy document that you can pass in this operation, including whitespace, is listed
+     * below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     * >IAM and STS character quotas</a>.
+     * </p>
+     * <p>
+     * To learn more about JSON policy grammar, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_grammar.html">Grammar of the IAM JSON
+     * policy language</a> in the <i>IAM User Guide</i>.
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of
@@ -71,17 +87,19 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -100,6 +118,21 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      */
     private String description;
+    /**
+     * <p>
+     * A list of tags that you want to attach to the new IAM customer managed policy. Each tag consists of a key name
+     * and an associated value. For more information about tagging, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the <i>IAM User
+     * Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is invalid or if you exceed the allowed maximum number of tags, then the entire request
+     * fails and the resource is not created.
+     * </p>
+     * </note>
+     */
+    private com.amazonaws.internal.SdkInternalList<Tag> tags;
 
     /**
      * <p>
@@ -168,7 +201,7 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * <p>
      * For more information about paths, see <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM Identifiers</a> in the <i>IAM
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM
      * User Guide</i>.
      * </p>
      * <p>
@@ -177,15 +210,20 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
      * characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward
-     * slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL character (\u007F),
-     * including most punctuation characters, digits, and upper and lowercased letters.
+     * slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through the DEL
+     * character (<code>\u007F</code>), including most punctuation characters, digits, and upper and lowercased letters.
      * </p>
+     * <note>
+     * <p>
+     * You cannot use an asterisk (*) in the path name.
+     * </p>
+     * </note>
      * 
      * @param path
      *        The path for the policy.</p>
      *        <p>
      *        For more information about paths, see <a
-     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM Identifiers</a> in the
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the
      *        <i>IAM User Guide</i>.
      *        </p>
      *        <p>
@@ -194,8 +232,14 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        <p>
      *        This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string
      *        of characters consisting of either a forward slash (/) by itself or a string that must begin and end with
-     *        forward slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL
-     *        character (\u007F), including most punctuation characters, digits, and upper and lowercased letters.
+     *        forward slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through
+     *        the DEL character (<code>\u007F</code>), including most punctuation characters, digits, and upper and
+     *        lowercased letters.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        You cannot use an asterisk (*) in the path name.
+     *        </p>
      */
 
     public void setPath(String path) {
@@ -208,7 +252,7 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * <p>
      * For more information about paths, see <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM Identifiers</a> in the <i>IAM
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM
      * User Guide</i>.
      * </p>
      * <p>
@@ -217,14 +261,19 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
      * characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward
-     * slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL character (\u007F),
-     * including most punctuation characters, digits, and upper and lowercased letters.
+     * slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through the DEL
+     * character (<code>\u007F</code>), including most punctuation characters, digits, and upper and lowercased letters.
      * </p>
+     * <note>
+     * <p>
+     * You cannot use an asterisk (*) in the path name.
+     * </p>
+     * </note>
      * 
      * @return The path for the policy.</p>
      *         <p>
      *         For more information about paths, see <a
-     *         href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM Identifiers</a> in the
+     *         href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the
      *         <i>IAM User Guide</i>.
      *         </p>
      *         <p>
@@ -233,8 +282,14 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      *         <p>
      *         This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string
      *         of characters consisting of either a forward slash (/) by itself or a string that must begin and end with
-     *         forward slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL
-     *         character (\u007F), including most punctuation characters, digits, and upper and lowercased letters.
+     *         forward slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through
+     *         the DEL character (<code>\u007F</code>), including most punctuation characters, digits, and upper and
+     *         lowercased letters.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         You cannot use an asterisk (*) in the path name.
+     *         </p>
      */
 
     public String getPath() {
@@ -247,7 +302,7 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * <p>
      * For more information about paths, see <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM Identifiers</a> in the <i>IAM
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the <i>IAM
      * User Guide</i>.
      * </p>
      * <p>
@@ -256,15 +311,20 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
      * characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward
-     * slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL character (\u007F),
-     * including most punctuation characters, digits, and upper and lowercased letters.
+     * slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through the DEL
+     * character (<code>\u007F</code>), including most punctuation characters, digits, and upper and lowercased letters.
      * </p>
+     * <note>
+     * <p>
+     * You cannot use an asterisk (*) in the path name.
+     * </p>
+     * </note>
      * 
      * @param path
      *        The path for the policy.</p>
      *        <p>
      *        For more information about paths, see <a
-     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM Identifiers</a> in the
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM identifiers</a> in the
      *        <i>IAM User Guide</i>.
      *        </p>
      *        <p>
@@ -273,8 +333,14 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        <p>
      *        This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string
      *        of characters consisting of either a forward slash (/) by itself or a string that must begin and end with
-     *        forward slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL
-     *        character (\u007F), including most punctuation characters, digits, and upper and lowercased letters.
+     *        forward slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through
+     *        the DEL character (<code>\u007F</code>), including most punctuation characters, digits, and upper and
+     *        lowercased letters.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        You cannot use an asterisk (*) in the path name.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -288,9 +354,20 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The JSON policy document that you want to use as the content for the new policy.
      * </p>
      * <p>
-     * You must provide policies in JSON format in IAM. However, for AWS CloudFormation templates formatted in YAML, you
-     * can provide the policy in JSON or YAML format. AWS CloudFormation always converts a YAML policy to JSON format
-     * before submitting it to IAM.
+     * You must provide policies in JSON format in IAM. However, for CloudFormation templates formatted in YAML, you can
+     * provide the policy in JSON or YAML format. CloudFormation always converts a YAML policy to JSON format before
+     * submitting it to IAM.
+     * </p>
+     * <p>
+     * The maximum length of the policy document that you can pass in this operation, including whitespace, is listed
+     * below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     * >IAM and STS character quotas</a>.
+     * </p>
+     * <p>
+     * To learn more about JSON policy grammar, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_grammar.html">Grammar of the IAM JSON
+     * policy language</a> in the <i>IAM User Guide</i>.
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of
@@ -299,17 +376,19 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -317,9 +396,20 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * @param policyDocument
      *        The JSON policy document that you want to use as the content for the new policy.</p>
      *        <p>
-     *        You must provide policies in JSON format in IAM. However, for AWS CloudFormation templates formatted in
-     *        YAML, you can provide the policy in JSON or YAML format. AWS CloudFormation always converts a YAML policy
-     *        to JSON format before submitting it to IAM.
+     *        You must provide policies in JSON format in IAM. However, for CloudFormation templates formatted in YAML,
+     *        you can provide the policy in JSON or YAML format. CloudFormation always converts a YAML policy to JSON
+     *        format before submitting it to IAM.
+     *        </p>
+     *        <p>
+     *        The maximum length of the policy document that you can pass in this operation, including whitespace, is
+     *        listed below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     *        >IAM and STS character quotas</a>.
+     *        </p>
+     *        <p>
+     *        To learn more about JSON policy grammar, see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_grammar.html">Grammar of the IAM
+     *        JSON policy language</a> in the <i>IAM User Guide</i>.
      *        </p>
      *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a
@@ -328,18 +418,20 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        <ul>
      *        <li>
      *        <p>
-     *        Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *        range
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The special characters tab ( ), line feed ( ), and carriage return ( )
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
      *        </p>
      *        </li>
      */
@@ -353,9 +445,20 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The JSON policy document that you want to use as the content for the new policy.
      * </p>
      * <p>
-     * You must provide policies in JSON format in IAM. However, for AWS CloudFormation templates formatted in YAML, you
-     * can provide the policy in JSON or YAML format. AWS CloudFormation always converts a YAML policy to JSON format
-     * before submitting it to IAM.
+     * You must provide policies in JSON format in IAM. However, for CloudFormation templates formatted in YAML, you can
+     * provide the policy in JSON or YAML format. CloudFormation always converts a YAML policy to JSON format before
+     * submitting it to IAM.
+     * </p>
+     * <p>
+     * The maximum length of the policy document that you can pass in this operation, including whitespace, is listed
+     * below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     * >IAM and STS character quotas</a>.
+     * </p>
+     * <p>
+     * To learn more about JSON policy grammar, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_grammar.html">Grammar of the IAM JSON
+     * policy language</a> in the <i>IAM User Guide</i>.
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of
@@ -364,26 +467,39 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
      * 
      * @return The JSON policy document that you want to use as the content for the new policy.</p>
      *         <p>
-     *         You must provide policies in JSON format in IAM. However, for AWS CloudFormation templates formatted in
-     *         YAML, you can provide the policy in JSON or YAML format. AWS CloudFormation always converts a YAML policy
-     *         to JSON format before submitting it to IAM.
+     *         You must provide policies in JSON format in IAM. However, for CloudFormation templates formatted in YAML,
+     *         you can provide the policy in JSON or YAML format. CloudFormation always converts a YAML policy to JSON
+     *         format before submitting it to IAM.
+     *         </p>
+     *         <p>
+     *         The maximum length of the policy document that you can pass in this operation, including whitespace, is
+     *         listed below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     *         "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     *         >IAM and STS character quotas</a>.
+     *         </p>
+     *         <p>
+     *         To learn more about JSON policy grammar, see <a
+     *         href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_grammar.html">Grammar of the
+     *         IAM JSON policy language</a> in the <i>IAM User Guide</i>.
      *         </p>
      *         <p>
      *         The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a
@@ -392,18 +508,20 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      *         <ul>
      *         <li>
      *         <p>
-     *         Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *         range
+     *         Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *         the ASCII character range
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *         The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *         <code>\u00FF</code>)
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         The special characters tab ( ), line feed ( ), and carriage return ( )
+     *         The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *         <code>\u000D</code>)
      *         </p>
      *         </li>
      */
@@ -417,9 +535,20 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The JSON policy document that you want to use as the content for the new policy.
      * </p>
      * <p>
-     * You must provide policies in JSON format in IAM. However, for AWS CloudFormation templates formatted in YAML, you
-     * can provide the policy in JSON or YAML format. AWS CloudFormation always converts a YAML policy to JSON format
-     * before submitting it to IAM.
+     * You must provide policies in JSON format in IAM. However, for CloudFormation templates formatted in YAML, you can
+     * provide the policy in JSON or YAML format. CloudFormation always converts a YAML policy to JSON format before
+     * submitting it to IAM.
+     * </p>
+     * <p>
+     * The maximum length of the policy document that you can pass in this operation, including whitespace, is listed
+     * below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     * >IAM and STS character quotas</a>.
+     * </p>
+     * <p>
+     * To learn more about JSON policy grammar, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_grammar.html">Grammar of the IAM JSON
+     * policy language</a> in the <i>IAM User Guide</i>.
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of
@@ -428,17 +557,19 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -446,9 +577,20 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * @param policyDocument
      *        The JSON policy document that you want to use as the content for the new policy.</p>
      *        <p>
-     *        You must provide policies in JSON format in IAM. However, for AWS CloudFormation templates formatted in
-     *        YAML, you can provide the policy in JSON or YAML format. AWS CloudFormation always converts a YAML policy
-     *        to JSON format before submitting it to IAM.
+     *        You must provide policies in JSON format in IAM. However, for CloudFormation templates formatted in YAML,
+     *        you can provide the policy in JSON or YAML format. CloudFormation always converts a YAML policy to JSON
+     *        format before submitting it to IAM.
+     *        </p>
+     *        <p>
+     *        The maximum length of the policy document that you can pass in this operation, including whitespace, is
+     *        listed below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     *        >IAM and STS character quotas</a>.
+     *        </p>
+     *        <p>
+     *        To learn more about JSON policy grammar, see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_grammar.html">Grammar of the IAM
+     *        JSON policy language</a> in the <i>IAM User Guide</i>.
      *        </p>
      *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a
@@ -457,18 +599,20 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        <ul>
      *        <li>
      *        <p>
-     *        Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *        range
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The special characters tab ( ), line feed ( ), and carriage return ( )
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -559,6 +703,143 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
+     * <p>
+     * A list of tags that you want to attach to the new IAM customer managed policy. Each tag consists of a key name
+     * and an associated value. For more information about tagging, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the <i>IAM User
+     * Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is invalid or if you exceed the allowed maximum number of tags, then the entire request
+     * fails and the resource is not created.
+     * </p>
+     * </note>
+     * 
+     * @return A list of tags that you want to attach to the new IAM customer managed policy. Each tag consists of a key
+     *         name and an associated value. For more information about tagging, see <a
+     *         href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the
+     *         <i>IAM User Guide</i>.</p> <note>
+     *         <p>
+     *         If any one of the tags is invalid or if you exceed the allowed maximum number of tags, then the entire
+     *         request fails and the resource is not created.
+     *         </p>
+     */
+
+    public java.util.List<Tag> getTags() {
+        if (tags == null) {
+            tags = new com.amazonaws.internal.SdkInternalList<Tag>();
+        }
+        return tags;
+    }
+
+    /**
+     * <p>
+     * A list of tags that you want to attach to the new IAM customer managed policy. Each tag consists of a key name
+     * and an associated value. For more information about tagging, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the <i>IAM User
+     * Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is invalid or if you exceed the allowed maximum number of tags, then the entire request
+     * fails and the resource is not created.
+     * </p>
+     * </note>
+     * 
+     * @param tags
+     *        A list of tags that you want to attach to the new IAM customer managed policy. Each tag consists of a key
+     *        name and an associated value. For more information about tagging, see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the
+     *        <i>IAM User Guide</i>.</p> <note>
+     *        <p>
+     *        If any one of the tags is invalid or if you exceed the allowed maximum number of tags, then the entire
+     *        request fails and the resource is not created.
+     *        </p>
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new com.amazonaws.internal.SdkInternalList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * A list of tags that you want to attach to the new IAM customer managed policy. Each tag consists of a key name
+     * and an associated value. For more information about tagging, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the <i>IAM User
+     * Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is invalid or if you exceed the allowed maximum number of tags, then the entire request
+     * fails and the resource is not created.
+     * </p>
+     * </note>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        A list of tags that you want to attach to the new IAM customer managed policy. Each tag consists of a key
+     *        name and an associated value. For more information about tagging, see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the
+     *        <i>IAM User Guide</i>.</p> <note>
+     *        <p>
+     *        If any one of the tags is invalid or if you exceed the allowed maximum number of tags, then the entire
+     *        request fails and the resource is not created.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreatePolicyRequest withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new com.amazonaws.internal.SdkInternalList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of tags that you want to attach to the new IAM customer managed policy. Each tag consists of a key name
+     * and an associated value. For more information about tagging, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the <i>IAM User
+     * Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is invalid or if you exceed the allowed maximum number of tags, then the entire request
+     * fails and the resource is not created.
+     * </p>
+     * </note>
+     * 
+     * @param tags
+     *        A list of tags that you want to attach to the new IAM customer managed policy. Each tag consists of a key
+     *        name and an associated value. For more information about tagging, see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging IAM resources</a> in the
+     *        <i>IAM User Guide</i>.</p> <note>
+     *        <p>
+     *        If any one of the tags is invalid or if you exceed the allowed maximum number of tags, then the entire
+     *        request fails and the resource is not created.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreatePolicyRequest withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -577,7 +858,9 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
         if (getPolicyDocument() != null)
             sb.append("PolicyDocument: ").append(getPolicyDocument()).append(",");
         if (getDescription() != null)
-            sb.append("Description: ").append(getDescription());
+            sb.append("Description: ").append(getDescription()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -608,6 +891,10 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
             return false;
         if (other.getDescription() != null && other.getDescription().equals(this.getDescription()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
         return true;
     }
 
@@ -620,6 +907,7 @@ public class CreatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
         hashCode = prime * hashCode + ((getPath() == null) ? 0 : getPath().hashCode());
         hashCode = prime * hashCode + ((getPolicyDocument() == null) ? 0 : getPolicyDocument().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

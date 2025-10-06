@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,6 +21,11 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * <p>
  * Represents a predefined metric for a target tracking scaling policy to use with Application Auto Scaling.
  * </p>
+ * <p>
+ * For more information, <a href=
+ * "https://docs.aws.amazon.com/autoscaling/application/userguide/monitor-cloudwatch-metrics.html#predefined-metrics"
+ * >Predefined metrics for target tracking scaling policies</a> in the <i>Application Auto Scaling User Guide</i>.
+ * </p>
  * 
  * @see <a
  *      href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/PredefinedMetricSpecification"
@@ -31,21 +36,26 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * The metric type. The <code>ALBRequestCountPerTarget</code> metric type applies only to Spot fleet requests and
-     * ECS services.
+     * The metric type. The <code>ALBRequestCountPerTarget</code> metric type applies only to Spot Fleets and ECS
+     * services.
      * </p>
      */
     private String predefinedMetricType;
     /**
      * <p>
      * Identifies the resource associated with the metric type. You can't specify a resource label unless the metric
-     * type is <code>ALBRequestCountPerTarget</code> and there is a target group attached to the Spot fleet request or
-     * ECS service.
+     * type is <code>ALBRequestCountPerTarget</code> and there is a target group attached to the Spot Fleet or ECS
+     * service.
      * </p>
      * <p>
-     * The format is
-     * app/&lt;load-balancer-name&gt;/&lt;load-balancer-id&gt;/targetgroup/&lt;target-group-name&gt;/&lt;target
-     * -group-id&gt;, where:
+     * You create the resource label by appending the final portion of the load balancer ARN and the final portion of
+     * the target group ARN into a single value, separated by a forward slash (/). The format of the resource label is:
+     * </p>
+     * <p>
+     * <code>app/my-alb/778d41231b141a0f/targetgroup/my-alb-target-group/943f017f100becff</code>.
+     * </p>
+     * <p>
+     * Where:
      * </p>
      * <ul>
      * <li>
@@ -59,18 +69,25 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable, S
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * To find the ARN for an Application Load Balancer, use the <a
+     * href="https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html"
+     * >DescribeLoadBalancers</a> API operation. To find the ARN for the target group, use the <a
+     * href="https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html"
+     * >DescribeTargetGroups</a> API operation.
+     * </p>
      */
     private String resourceLabel;
 
     /**
      * <p>
-     * The metric type. The <code>ALBRequestCountPerTarget</code> metric type applies only to Spot fleet requests and
-     * ECS services.
+     * The metric type. The <code>ALBRequestCountPerTarget</code> metric type applies only to Spot Fleets and ECS
+     * services.
      * </p>
      * 
      * @param predefinedMetricType
-     *        The metric type. The <code>ALBRequestCountPerTarget</code> metric type applies only to Spot fleet requests
-     *        and ECS services.
+     *        The metric type. The <code>ALBRequestCountPerTarget</code> metric type applies only to Spot Fleets and ECS
+     *        services.
      * @see MetricType
      */
 
@@ -80,12 +97,12 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * The metric type. The <code>ALBRequestCountPerTarget</code> metric type applies only to Spot fleet requests and
-     * ECS services.
+     * The metric type. The <code>ALBRequestCountPerTarget</code> metric type applies only to Spot Fleets and ECS
+     * services.
      * </p>
      * 
-     * @return The metric type. The <code>ALBRequestCountPerTarget</code> metric type applies only to Spot fleet
-     *         requests and ECS services.
+     * @return The metric type. The <code>ALBRequestCountPerTarget</code> metric type applies only to Spot Fleets and
+     *         ECS services.
      * @see MetricType
      */
 
@@ -95,13 +112,13 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * The metric type. The <code>ALBRequestCountPerTarget</code> metric type applies only to Spot fleet requests and
-     * ECS services.
+     * The metric type. The <code>ALBRequestCountPerTarget</code> metric type applies only to Spot Fleets and ECS
+     * services.
      * </p>
      * 
      * @param predefinedMetricType
-     *        The metric type. The <code>ALBRequestCountPerTarget</code> metric type applies only to Spot fleet requests
-     *        and ECS services.
+     *        The metric type. The <code>ALBRequestCountPerTarget</code> metric type applies only to Spot Fleets and ECS
+     *        services.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see MetricType
      */
@@ -113,13 +130,13 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * The metric type. The <code>ALBRequestCountPerTarget</code> metric type applies only to Spot fleet requests and
-     * ECS services.
+     * The metric type. The <code>ALBRequestCountPerTarget</code> metric type applies only to Spot Fleets and ECS
+     * services.
      * </p>
      * 
      * @param predefinedMetricType
-     *        The metric type. The <code>ALBRequestCountPerTarget</code> metric type applies only to Spot fleet requests
-     *        and ECS services.
+     *        The metric type. The <code>ALBRequestCountPerTarget</code> metric type applies only to Spot Fleets and ECS
+     *        services.
      * @see MetricType
      */
 
@@ -129,13 +146,13 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * The metric type. The <code>ALBRequestCountPerTarget</code> metric type applies only to Spot fleet requests and
-     * ECS services.
+     * The metric type. The <code>ALBRequestCountPerTarget</code> metric type applies only to Spot Fleets and ECS
+     * services.
      * </p>
      * 
      * @param predefinedMetricType
-     *        The metric type. The <code>ALBRequestCountPerTarget</code> metric type applies only to Spot fleet requests
-     *        and ECS services.
+     *        The metric type. The <code>ALBRequestCountPerTarget</code> metric type applies only to Spot Fleets and ECS
+     *        services.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see MetricType
      */
@@ -148,13 +165,18 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable, S
     /**
      * <p>
      * Identifies the resource associated with the metric type. You can't specify a resource label unless the metric
-     * type is <code>ALBRequestCountPerTarget</code> and there is a target group attached to the Spot fleet request or
-     * ECS service.
+     * type is <code>ALBRequestCountPerTarget</code> and there is a target group attached to the Spot Fleet or ECS
+     * service.
      * </p>
      * <p>
-     * The format is
-     * app/&lt;load-balancer-name&gt;/&lt;load-balancer-id&gt;/targetgroup/&lt;target-group-name&gt;/&lt;target
-     * -group-id&gt;, where:
+     * You create the resource label by appending the final portion of the load balancer ARN and the final portion of
+     * the target group ARN into a single value, separated by a forward slash (/). The format of the resource label is:
+     * </p>
+     * <p>
+     * <code>app/my-alb/778d41231b141a0f/targetgroup/my-alb-target-group/943f017f100becff</code>.
+     * </p>
+     * <p>
+     * Where:
      * </p>
      * <ul>
      * <li>
@@ -168,15 +190,28 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable, S
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * To find the ARN for an Application Load Balancer, use the <a
+     * href="https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html"
+     * >DescribeLoadBalancers</a> API operation. To find the ARN for the target group, use the <a
+     * href="https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html"
+     * >DescribeTargetGroups</a> API operation.
+     * </p>
      * 
      * @param resourceLabel
      *        Identifies the resource associated with the metric type. You can't specify a resource label unless the
      *        metric type is <code>ALBRequestCountPerTarget</code> and there is a target group attached to the Spot
-     *        fleet request or ECS service.</p>
+     *        Fleet or ECS service.</p>
      *        <p>
-     *        The format is
-     *        app/&lt;load-balancer-name&gt;/&lt;load-balancer-id&gt;/targetgroup/&lt;target-group-name&gt;
-     *        /&lt;target-group-id&gt;, where:
+     *        You create the resource label by appending the final portion of the load balancer ARN and the final
+     *        portion of the target group ARN into a single value, separated by a forward slash (/). The format of the
+     *        resource label is:
+     *        </p>
+     *        <p>
+     *        <code>app/my-alb/778d41231b141a0f/targetgroup/my-alb-target-group/943f017f100becff</code>.
+     *        </p>
+     *        <p>
+     *        Where:
      *        </p>
      *        <ul>
      *        <li>
@@ -190,6 +225,13 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable, S
      *        ARN.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        To find the ARN for an Application Load Balancer, use the <a href=
+     *        "https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html"
+     *        >DescribeLoadBalancers</a> API operation. To find the ARN for the target group, use the <a href=
+     *        "https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html"
+     *        >DescribeTargetGroups</a> API operation.
      */
 
     public void setResourceLabel(String resourceLabel) {
@@ -199,13 +241,18 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable, S
     /**
      * <p>
      * Identifies the resource associated with the metric type. You can't specify a resource label unless the metric
-     * type is <code>ALBRequestCountPerTarget</code> and there is a target group attached to the Spot fleet request or
-     * ECS service.
+     * type is <code>ALBRequestCountPerTarget</code> and there is a target group attached to the Spot Fleet or ECS
+     * service.
      * </p>
      * <p>
-     * The format is
-     * app/&lt;load-balancer-name&gt;/&lt;load-balancer-id&gt;/targetgroup/&lt;target-group-name&gt;/&lt;target
-     * -group-id&gt;, where:
+     * You create the resource label by appending the final portion of the load balancer ARN and the final portion of
+     * the target group ARN into a single value, separated by a forward slash (/). The format of the resource label is:
+     * </p>
+     * <p>
+     * <code>app/my-alb/778d41231b141a0f/targetgroup/my-alb-target-group/943f017f100becff</code>.
+     * </p>
+     * <p>
+     * Where:
      * </p>
      * <ul>
      * <li>
@@ -219,14 +266,27 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable, S
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * To find the ARN for an Application Load Balancer, use the <a
+     * href="https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html"
+     * >DescribeLoadBalancers</a> API operation. To find the ARN for the target group, use the <a
+     * href="https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html"
+     * >DescribeTargetGroups</a> API operation.
+     * </p>
      * 
      * @return Identifies the resource associated with the metric type. You can't specify a resource label unless the
      *         metric type is <code>ALBRequestCountPerTarget</code> and there is a target group attached to the Spot
-     *         fleet request or ECS service.</p>
+     *         Fleet or ECS service.</p>
      *         <p>
-     *         The format is
-     *         app/&lt;load-balancer-name&gt;/&lt;load-balancer-id&gt;/targetgroup/&lt;target-group-name&gt
-     *         ;/&lt;target-group-id&gt;, where:
+     *         You create the resource label by appending the final portion of the load balancer ARN and the final
+     *         portion of the target group ARN into a single value, separated by a forward slash (/). The format of the
+     *         resource label is:
+     *         </p>
+     *         <p>
+     *         <code>app/my-alb/778d41231b141a0f/targetgroup/my-alb-target-group/943f017f100becff</code>.
+     *         </p>
+     *         <p>
+     *         Where:
      *         </p>
      *         <ul>
      *         <li>
@@ -240,6 +300,13 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable, S
      *         ARN.
      *         </p>
      *         </li>
+     *         </ul>
+     *         <p>
+     *         To find the ARN for an Application Load Balancer, use the <a href=
+     *         "https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html"
+     *         >DescribeLoadBalancers</a> API operation. To find the ARN for the target group, use the <a href=
+     *         "https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html"
+     *         >DescribeTargetGroups</a> API operation.
      */
 
     public String getResourceLabel() {
@@ -249,13 +316,18 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable, S
     /**
      * <p>
      * Identifies the resource associated with the metric type. You can't specify a resource label unless the metric
-     * type is <code>ALBRequestCountPerTarget</code> and there is a target group attached to the Spot fleet request or
-     * ECS service.
+     * type is <code>ALBRequestCountPerTarget</code> and there is a target group attached to the Spot Fleet or ECS
+     * service.
      * </p>
      * <p>
-     * The format is
-     * app/&lt;load-balancer-name&gt;/&lt;load-balancer-id&gt;/targetgroup/&lt;target-group-name&gt;/&lt;target
-     * -group-id&gt;, where:
+     * You create the resource label by appending the final portion of the load balancer ARN and the final portion of
+     * the target group ARN into a single value, separated by a forward slash (/). The format of the resource label is:
+     * </p>
+     * <p>
+     * <code>app/my-alb/778d41231b141a0f/targetgroup/my-alb-target-group/943f017f100becff</code>.
+     * </p>
+     * <p>
+     * Where:
      * </p>
      * <ul>
      * <li>
@@ -269,15 +341,28 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable, S
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * To find the ARN for an Application Load Balancer, use the <a
+     * href="https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html"
+     * >DescribeLoadBalancers</a> API operation. To find the ARN for the target group, use the <a
+     * href="https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html"
+     * >DescribeTargetGroups</a> API operation.
+     * </p>
      * 
      * @param resourceLabel
      *        Identifies the resource associated with the metric type. You can't specify a resource label unless the
      *        metric type is <code>ALBRequestCountPerTarget</code> and there is a target group attached to the Spot
-     *        fleet request or ECS service.</p>
+     *        Fleet or ECS service.</p>
      *        <p>
-     *        The format is
-     *        app/&lt;load-balancer-name&gt;/&lt;load-balancer-id&gt;/targetgroup/&lt;target-group-name&gt;
-     *        /&lt;target-group-id&gt;, where:
+     *        You create the resource label by appending the final portion of the load balancer ARN and the final
+     *        portion of the target group ARN into a single value, separated by a forward slash (/). The format of the
+     *        resource label is:
+     *        </p>
+     *        <p>
+     *        <code>app/my-alb/778d41231b141a0f/targetgroup/my-alb-target-group/943f017f100becff</code>.
+     *        </p>
+     *        <p>
+     *        Where:
      *        </p>
      *        <ul>
      *        <li>
@@ -291,6 +376,13 @@ public class PredefinedMetricSpecification implements Serializable, Cloneable, S
      *        ARN.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        To find the ARN for an Application Load Balancer, use the <a href=
+     *        "https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html"
+     *        >DescribeLoadBalancers</a> API operation. To find the ARN for the target group, use the <a href=
+     *        "https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html"
+     *        >DescribeTargetGroups</a> API operation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

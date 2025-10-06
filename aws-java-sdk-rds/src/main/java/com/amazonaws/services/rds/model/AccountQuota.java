@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Describes a quota for an AWS account.
+ * Describes a quota for an Amazon Web Services account.
  * </p>
  * <p>
  * The following are account quotas:
@@ -51,9 +51,9 @@ import javax.annotation.Generated;
  * </li>
  * <li>
  * <p>
- * <code>DBClusterRoles</code> - The number of associated AWS Identity and Access Management (IAM) roles per DB cluster.
- * The used value is the highest number of associated IAM roles for a DB cluster in the account. Other DB clusters in
- * the account might have a lower number of associated IAM roles.
+ * <code>DBClusterRoles</code> - The number of associated Amazon Web Services Identity and Access Management (IAM) roles
+ * per DB cluster. The used value is the highest number of associated IAM roles for a DB cluster in the account. Other
+ * DB clusters in the account might have a lower number of associated IAM roles.
  * </p>
  * </li>
  * <li>
@@ -73,6 +73,10 @@ import javax.annotation.Generated;
  * <p>
  * <code>DBInstances</code> - The number of DB instances per account. The used value is the count of the DB instances in
  * the account.
+ * </p>
+ * <p>
+ * Amazon RDS DB instances, Amazon Aurora DB instances, Amazon Neptune instances, and Amazon DocumentDB instances apply
+ * to this quota.
  * </p>
  * </li>
  * <li>
@@ -101,8 +105,14 @@ import javax.annotation.Generated;
  * </li>
  * <li>
  * <p>
- * <code>ManualSnapshots</code> - The number of manual DB snapshots per account. The used value is the count of the
- * manual DB snapshots in the account.
+ * <code>ManualClusterSnapshots</code> - The number of manual DB cluster snapshots per account. The used value is the
+ * count of the manual DB cluster snapshots in the account.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <code>ManualSnapshots</code> - The number of manual DB instance snapshots per account. The used value is the count of
+ * the manual DB instance snapshots in the account.
  * </p>
  * </li>
  * <li>
@@ -113,9 +123,9 @@ import javax.annotation.Generated;
  * </li>
  * <li>
  * <p>
- * <code>ReadReplicasPerMaster</code> - The number of Read Replicas per DB instance. The used value is the highest
- * number of Read Replicas for a DB instance in the account. Other DB instances in the account might have a lower number
- * of Read Replicas.
+ * <code>ReadReplicasPerMaster</code> - The number of read replicas per DB instance. The used value is the highest
+ * number of read replicas for a DB instance in the account. Other DB instances in the account might have a lower number
+ * of read replicas.
  * </p>
  * </li>
  * <li>
@@ -133,9 +143,9 @@ import javax.annotation.Generated;
  * </li>
  * </ul>
  * <p>
- * For more information, see <a
- * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Limits.html">Limits</a> in the <i>Amazon RDS User
- * Guide</i> and <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_Limits.html">Limits</a> in
+ * For more information, see <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Limits.html">Quotas
+ * for Amazon RDS</a> in the <i>Amazon RDS User Guide</i> and <a
+ * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_Limits.html">Quotas for Amazon Aurora</a> in
  * the <i>Amazon Aurora User Guide</i>.
  * </p>
  * 
@@ -147,7 +157,7 @@ public class AccountQuota implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the Amazon RDS quota for this AWS account.
+     * The name of the Amazon RDS quota for this Amazon Web Services account.
      * </p>
      */
     private String accountQuotaName;
@@ -166,11 +176,11 @@ public class AccountQuota implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the Amazon RDS quota for this AWS account.
+     * The name of the Amazon RDS quota for this Amazon Web Services account.
      * </p>
      * 
      * @param accountQuotaName
-     *        The name of the Amazon RDS quota for this AWS account.
+     *        The name of the Amazon RDS quota for this Amazon Web Services account.
      */
 
     public void setAccountQuotaName(String accountQuotaName) {
@@ -179,10 +189,10 @@ public class AccountQuota implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the Amazon RDS quota for this AWS account.
+     * The name of the Amazon RDS quota for this Amazon Web Services account.
      * </p>
      * 
-     * @return The name of the Amazon RDS quota for this AWS account.
+     * @return The name of the Amazon RDS quota for this Amazon Web Services account.
      */
 
     public String getAccountQuotaName() {
@@ -191,11 +201,11 @@ public class AccountQuota implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the Amazon RDS quota for this AWS account.
+     * The name of the Amazon RDS quota for this Amazon Web Services account.
      * </p>
      * 
      * @param accountQuotaName
-     *        The name of the Amazon RDS quota for this AWS account.
+     *        The name of the Amazon RDS quota for this Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

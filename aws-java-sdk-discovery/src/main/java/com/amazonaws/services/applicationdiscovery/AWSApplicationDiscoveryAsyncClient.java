@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,67 +30,139 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * Future object representing the asynchronous operation; overloads which accept an {@code AsyncHandler} can be used to
  * receive notification when an asynchronous operation completes.
  * <p>
- * <fullname>AWS Application Discovery Service</fullname>
+ * <fullname>Amazon Web Services Application Discovery Service</fullname>
  * <p>
- * AWS Application Discovery Service helps you plan application migration projects by automatically identifying servers,
- * virtual machines (VMs), software, and software dependencies running in your on-premises data centers. Application
- * Discovery Service also collects application performance data, which can help you assess the outcome of your
- * migration. The data collected by Application Discovery Service is securely retained in an AWS-hosted and managed
- * database in the cloud. You can export the data as a CSV or XML file into your preferred visualization tool or
- * cloud-migration solution to plan your migration. For more information, see <a
- * href="http://aws.amazon.com/application-discovery/faqs/">AWS Application Discovery Service FAQ</a>.
+ * Amazon Web Services Application Discovery Service (Application Discovery Service) helps you plan application
+ * migration projects. It automatically identifies servers, virtual machines (VMs), and network dependencies in your
+ * on-premises data centers. For more information, see the <a
+ * href="http://aws.amazon.com/application-discovery/faqs/">Amazon Web Services Application Discovery Service FAQ</a>.
  * </p>
  * <p>
- * Application Discovery Service offers two modes of operation:
+ * Application Discovery Service offers three ways of performing discovery and collecting data about your on-premises
+ * servers:
  * </p>
  * <ul>
  * <li>
  * <p>
- * <b>Agentless discovery</b> mode is recommended for environments that use VMware vCenter Server. This mode doesn't
- * require you to install an agent on each host. Agentless discovery gathers server information regardless of the
- * operating systems, which minimizes the time required for initial on-premises infrastructure assessment. Agentless
- * discovery doesn't collect information about software and software dependencies. It also doesn't work in non-VMware
- * environments.
+ * <b>Agentless discovery</b> using Amazon Web Services Application Discovery Service Agentless Collector (Agentless
+ * Collector), which doesn't require you to install an agent on each host.
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * Agentless Collector gathers server information regardless of the operating systems, which minimizes the time required
+ * for initial on-premises infrastructure assessment.
  * </p>
  * </li>
  * <li>
  * <p>
- * <b>Agent-based discovery</b> mode collects a richer set of data than agentless discovery by using the AWS Application
- * Discovery Agent, which you install on one or more hosts in your data center. The agent captures infrastructure and
- * application information, including an inventory of installed software applications, system and process performance,
- * resource utilization, and network dependencies between workloads. The information collected by agents is secured at
- * rest and in transit to the Application Discovery Service database in the cloud.
+ * Agentless Collector doesn't collect information about network dependencies, only agent-based discovery collects that
+ * information.
  * </p>
  * </li>
  * </ul>
+ * </li>
+ * </ul>
+ * <ul>
+ * <li>
  * <p>
- * We recommend that you use agent-based discovery for non-VMware environments and to collect information about software
- * and software dependencies. You can also run agent-based and agentless discovery simultaneously. Use agentless
- * discovery to quickly complete the initial infrastructure assessment and then install agents on select hosts.
+ * <b>Agent-based discovery</b> using the Amazon Web Services Application Discovery Agent (Application Discovery Agent)
+ * collects a richer set of data than agentless discovery, which you install on one or more hosts in your data center.
  * </p>
+ * <ul>
+ * <li>
  * <p>
- * Application Discovery Service integrates with application discovery solutions from AWS Partner Network (APN)
- * partners. Third-party application discovery tools can query Application Discovery Service and write to the
- * Application Discovery Service database using a public API. You can then import the data into either a visualization
- * tool or cloud-migration solution.
+ * The agent captures infrastructure and application information, including an inventory of running processes, system
+ * performance information, resource utilization, and network dependencies.
  * </p>
- * <important>
+ * </li>
+ * <li>
  * <p>
- * Application Discovery Service doesn't gather sensitive information. All data is handled according to the <a
- * href="http://aws.amazon.com/privacy/">AWS Privacy Policy</a>. You can operate Application Discovery Service offline
- * to inspect collected data before it is shared with the service.
+ * The information collected by agents is secured at rest and in transit to the Application Discovery Service database
+ * in the Amazon Web Services cloud. For more information, see <a
+ * href="https://docs.aws.amazon.com/application-discovery/latest/userguide/discovery-agent.html">Amazon Web Services
+ * Application Discovery Agent</a>.
  * </p>
- * </important>
+ * </li>
+ * </ul>
+ * </li>
+ * </ul>
+ * <ul>
+ * <li>
+ * <p>
+ * <b>Amazon Web Services Partner Network (APN) solutions</b> integrate with Application Discovery Service, enabling you
+ * to import details of your on-premises environment directly into Amazon Web Services Migration Hub (Migration Hub)
+ * without using Agentless Collector or Application Discovery Agent.
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * Third-party application discovery tools can query Amazon Web Services Application Discovery Service, and they can
+ * write to the Application Discovery Service database using the public API.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * In this way, you can import data into Migration Hub and view it, so that you can associate applications with servers
+ * and track migrations.
+ * </p>
+ * </li>
+ * </ul>
+ * </li>
+ * </ul>
+ * <p>
+ * <b>Working With This Guide</b>
+ * </p>
  * <p>
  * This API reference provides descriptions, syntax, and usage examples for each of the actions and data types for
  * Application Discovery Service. The topic for each action shows the API request parameters and the response.
- * Alternatively, you can use one of the AWS SDKs to access an API that is tailored to the programming language or
- * platform that you're using. For more information, see <a href="http://aws.amazon.com/tools/#SDKs">AWS SDKs</a>.
+ * Alternatively, you can use one of the Amazon Web Services SDKs to access an API that is tailored to the programming
+ * language or platform that you're using. For more information, see <a href="http://aws.amazon.com/tools/#SDKs">Amazon
+ * Web Services SDKs</a>.
  * </p>
+ * <note>
+ * <ul>
+ * <li>
  * <p>
- * This guide is intended for use with the <a href="http://docs.aws.amazon.com/application-discovery/latest/userguide/">
- * <i>AWS Application Discovery Service User Guide</i> </a>.
+ * Remember that you must set your Migration Hub home Region before you call any of these APIs.
  * </p>
+ * </li>
+ * <li>
+ * <p>
+ * You must make API calls for write actions (create, notify, associate, disassociate, import, or put) while in your
+ * home Region, or a <code>HomeRegionNotSetException</code> error is returned.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * API calls for read actions (list, describe, stop, and delete) are permitted outside of your home Region.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Although it is unlikely, the Migration Hub home Region could change. If you call APIs outside the home Region, an
+ * <code>InvalidInputException</code> is returned.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * You must call <code>GetHomeRegion</code> to obtain the latest Migration Hub home Region.
+ * </p>
+ * </li>
+ * </ul>
+ * </note>
+ * <p>
+ * This guide is intended for use with the <a
+ * href="https://docs.aws.amazon.com/application-discovery/latest/userguide/">Amazon Web Services Application Discovery
+ * Service User Guide</a>.
+ * </p>
+ * <important>
+ * <p>
+ * All data is handled according to the <a href="https://aws.amazon.com/privacy/">Amazon Web Services Privacy
+ * Policy</a>. You can operate Application Discovery Service offline to inspect collected data before it is shared with
+ * the service.
+ * </p>
+ * </important>
  */
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -290,7 +362,20 @@ public class AWSApplicationDiscoveryAsyncClient extends AWSApplicationDiscoveryC
      *        Object providing client parameters.
      */
     AWSApplicationDiscoveryAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on AWS Application Discovery Service using the
+     * specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSApplicationDiscoveryAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -323,6 +408,39 @@ public class AWSApplicationDiscoveryAsyncClient extends AWSApplicationDiscoveryC
 
                 try {
                     result = executeAssociateConfigurationItemsToApplication(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchDeleteAgentsResult> batchDeleteAgentsAsync(BatchDeleteAgentsRequest request) {
+
+        return batchDeleteAgentsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchDeleteAgentsResult> batchDeleteAgentsAsync(final BatchDeleteAgentsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<BatchDeleteAgentsRequest, BatchDeleteAgentsResult> asyncHandler) {
+        final BatchDeleteAgentsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<BatchDeleteAgentsResult>() {
+            @Override
+            public BatchDeleteAgentsResult call() throws Exception {
+                BatchDeleteAgentsResult result = null;
+
+                try {
+                    result = executeBatchDeleteAgents(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -521,6 +639,41 @@ public class AWSApplicationDiscoveryAsyncClient extends AWSApplicationDiscoveryC
 
                 try {
                     result = executeDescribeAgents(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeBatchDeleteConfigurationTaskResult> describeBatchDeleteConfigurationTaskAsync(
+            DescribeBatchDeleteConfigurationTaskRequest request) {
+
+        return describeBatchDeleteConfigurationTaskAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeBatchDeleteConfigurationTaskResult> describeBatchDeleteConfigurationTaskAsync(
+            final DescribeBatchDeleteConfigurationTaskRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeBatchDeleteConfigurationTaskRequest, DescribeBatchDeleteConfigurationTaskResult> asyncHandler) {
+        final DescribeBatchDeleteConfigurationTaskRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeBatchDeleteConfigurationTaskResult>() {
+            @Override
+            public DescribeBatchDeleteConfigurationTaskResult call() throws Exception {
+                DescribeBatchDeleteConfigurationTaskResult result = null;
+
+                try {
+                    result = executeDescribeBatchDeleteConfigurationTask(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -890,6 +1043,41 @@ public class AWSApplicationDiscoveryAsyncClient extends AWSApplicationDiscoveryC
 
                 try {
                     result = executeListServerNeighbors(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartBatchDeleteConfigurationTaskResult> startBatchDeleteConfigurationTaskAsync(
+            StartBatchDeleteConfigurationTaskRequest request) {
+
+        return startBatchDeleteConfigurationTaskAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartBatchDeleteConfigurationTaskResult> startBatchDeleteConfigurationTaskAsync(
+            final StartBatchDeleteConfigurationTaskRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartBatchDeleteConfigurationTaskRequest, StartBatchDeleteConfigurationTaskResult> asyncHandler) {
+        final StartBatchDeleteConfigurationTaskRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartBatchDeleteConfigurationTaskResult>() {
+            @Override
+            public StartBatchDeleteConfigurationTaskResult call() throws Exception {
+                StartBatchDeleteConfigurationTaskResult result = null;
+
+                try {
+                    result = executeStartBatchDeleteConfigurationTask(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

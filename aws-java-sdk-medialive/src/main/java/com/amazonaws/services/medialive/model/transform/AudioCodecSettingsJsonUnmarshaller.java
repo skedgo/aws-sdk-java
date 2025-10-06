@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -56,6 +56,10 @@ public class AudioCodecSettingsJsonUnmarshaller implements Unmarshaller<AudioCod
                     context.nextToken();
                     audioCodecSettings.setAc3Settings(Ac3SettingsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("eac3AtmosSettings", targetDepth)) {
+                    context.nextToken();
+                    audioCodecSettings.setEac3AtmosSettings(Eac3AtmosSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("eac3Settings", targetDepth)) {
                     context.nextToken();
                     audioCodecSettings.setEac3Settings(Eac3SettingsJsonUnmarshaller.getInstance().unmarshall(context));
@@ -67,6 +71,10 @@ public class AudioCodecSettingsJsonUnmarshaller implements Unmarshaller<AudioCod
                 if (context.testExpression("passThroughSettings", targetDepth)) {
                     context.nextToken();
                     audioCodecSettings.setPassThroughSettings(PassThroughSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("wavSettings", targetDepth)) {
+                    context.nextToken();
+                    audioCodecSettings.setWavSettings(WavSettingsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

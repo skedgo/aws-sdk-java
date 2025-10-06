@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,8 @@ public class UpdateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The ID of the Data Catalog where the table resides. If none is supplied, the AWS account ID is used by default.
+     * The ID of the Data Catalog where the table resides. If none is provided, the Amazon Web Services account ID is
+     * used by default.
      * </p>
      */
     private String catalogId;
@@ -46,20 +47,45 @@ public class UpdateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
     private TableInput tableInput;
     /**
      * <p>
-     * By default, <code>UpdateTable</code> always creates an archived version of the table before updating it. If
-     * <code>skipArchive</code> is set to true, however, <code>UpdateTable</code> does not create the archived version.
+     * By default, <code>UpdateTable</code> always creates an archived version of the table before updating it. However,
+     * if <code>skipArchive</code> is set to true, <code>UpdateTable</code> does not create the archived version.
      * </p>
      */
     private Boolean skipArchive;
+    /**
+     * <p>
+     * The transaction ID at which to update the table contents.
+     * </p>
+     */
+    private String transactionId;
+    /**
+     * <p>
+     * The version ID at which to update the table contents.
+     * </p>
+     */
+    private String versionId;
+    /**
+     * <p>
+     * The operation to be performed when updating the view.
+     * </p>
+     */
+    private String viewUpdateAction;
+    /**
+     * <p>
+     * A flag that can be set to true to ignore matching storage descriptor and subobject matching requirements.
+     * </p>
+     */
+    private Boolean force;
 
     /**
      * <p>
-     * The ID of the Data Catalog where the table resides. If none is supplied, the AWS account ID is used by default.
+     * The ID of the Data Catalog where the table resides. If none is provided, the Amazon Web Services account ID is
+     * used by default.
      * </p>
      * 
      * @param catalogId
-     *        The ID of the Data Catalog where the table resides. If none is supplied, the AWS account ID is used by
-     *        default.
+     *        The ID of the Data Catalog where the table resides. If none is provided, the Amazon Web Services account
+     *        ID is used by default.
      */
 
     public void setCatalogId(String catalogId) {
@@ -68,11 +94,12 @@ public class UpdateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The ID of the Data Catalog where the table resides. If none is supplied, the AWS account ID is used by default.
+     * The ID of the Data Catalog where the table resides. If none is provided, the Amazon Web Services account ID is
+     * used by default.
      * </p>
      * 
-     * @return The ID of the Data Catalog where the table resides. If none is supplied, the AWS account ID is used by
-     *         default.
+     * @return The ID of the Data Catalog where the table resides. If none is provided, the Amazon Web Services account
+     *         ID is used by default.
      */
 
     public String getCatalogId() {
@@ -81,12 +108,13 @@ public class UpdateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The ID of the Data Catalog where the table resides. If none is supplied, the AWS account ID is used by default.
+     * The ID of the Data Catalog where the table resides. If none is provided, the Amazon Web Services account ID is
+     * used by default.
      * </p>
      * 
      * @param catalogId
-     *        The ID of the Data Catalog where the table resides. If none is supplied, the AWS account ID is used by
-     *        default.
+     *        The ID of the Data Catalog where the table resides. If none is provided, the Amazon Web Services account
+     *        ID is used by default.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -183,13 +211,13 @@ public class UpdateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * By default, <code>UpdateTable</code> always creates an archived version of the table before updating it. If
-     * <code>skipArchive</code> is set to true, however, <code>UpdateTable</code> does not create the archived version.
+     * By default, <code>UpdateTable</code> always creates an archived version of the table before updating it. However,
+     * if <code>skipArchive</code> is set to true, <code>UpdateTable</code> does not create the archived version.
      * </p>
      * 
      * @param skipArchive
      *        By default, <code>UpdateTable</code> always creates an archived version of the table before updating it.
-     *        If <code>skipArchive</code> is set to true, however, <code>UpdateTable</code> does not create the archived
+     *        However, if <code>skipArchive</code> is set to true, <code>UpdateTable</code> does not create the archived
      *        version.
      */
 
@@ -199,12 +227,12 @@ public class UpdateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * By default, <code>UpdateTable</code> always creates an archived version of the table before updating it. If
-     * <code>skipArchive</code> is set to true, however, <code>UpdateTable</code> does not create the archived version.
+     * By default, <code>UpdateTable</code> always creates an archived version of the table before updating it. However,
+     * if <code>skipArchive</code> is set to true, <code>UpdateTable</code> does not create the archived version.
      * </p>
      * 
      * @return By default, <code>UpdateTable</code> always creates an archived version of the table before updating it.
-     *         If <code>skipArchive</code> is set to true, however, <code>UpdateTable</code> does not create the
+     *         However, if <code>skipArchive</code> is set to true, <code>UpdateTable</code> does not create the
      *         archived version.
      */
 
@@ -214,13 +242,13 @@ public class UpdateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * By default, <code>UpdateTable</code> always creates an archived version of the table before updating it. If
-     * <code>skipArchive</code> is set to true, however, <code>UpdateTable</code> does not create the archived version.
+     * By default, <code>UpdateTable</code> always creates an archived version of the table before updating it. However,
+     * if <code>skipArchive</code> is set to true, <code>UpdateTable</code> does not create the archived version.
      * </p>
      * 
      * @param skipArchive
      *        By default, <code>UpdateTable</code> always creates an archived version of the table before updating it.
-     *        If <code>skipArchive</code> is set to true, however, <code>UpdateTable</code> does not create the archived
+     *        However, if <code>skipArchive</code> is set to true, <code>UpdateTable</code> does not create the archived
      *        version.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -232,17 +260,208 @@ public class UpdateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * By default, <code>UpdateTable</code> always creates an archived version of the table before updating it. If
-     * <code>skipArchive</code> is set to true, however, <code>UpdateTable</code> does not create the archived version.
+     * By default, <code>UpdateTable</code> always creates an archived version of the table before updating it. However,
+     * if <code>skipArchive</code> is set to true, <code>UpdateTable</code> does not create the archived version.
      * </p>
      * 
      * @return By default, <code>UpdateTable</code> always creates an archived version of the table before updating it.
-     *         If <code>skipArchive</code> is set to true, however, <code>UpdateTable</code> does not create the
+     *         However, if <code>skipArchive</code> is set to true, <code>UpdateTable</code> does not create the
      *         archived version.
      */
 
     public Boolean isSkipArchive() {
         return this.skipArchive;
+    }
+
+    /**
+     * <p>
+     * The transaction ID at which to update the table contents.
+     * </p>
+     * 
+     * @param transactionId
+     *        The transaction ID at which to update the table contents.
+     */
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    /**
+     * <p>
+     * The transaction ID at which to update the table contents.
+     * </p>
+     * 
+     * @return The transaction ID at which to update the table contents.
+     */
+
+    public String getTransactionId() {
+        return this.transactionId;
+    }
+
+    /**
+     * <p>
+     * The transaction ID at which to update the table contents.
+     * </p>
+     * 
+     * @param transactionId
+     *        The transaction ID at which to update the table contents.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateTableRequest withTransactionId(String transactionId) {
+        setTransactionId(transactionId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The version ID at which to update the table contents.
+     * </p>
+     * 
+     * @param versionId
+     *        The version ID at which to update the table contents.
+     */
+
+    public void setVersionId(String versionId) {
+        this.versionId = versionId;
+    }
+
+    /**
+     * <p>
+     * The version ID at which to update the table contents.
+     * </p>
+     * 
+     * @return The version ID at which to update the table contents.
+     */
+
+    public String getVersionId() {
+        return this.versionId;
+    }
+
+    /**
+     * <p>
+     * The version ID at which to update the table contents.
+     * </p>
+     * 
+     * @param versionId
+     *        The version ID at which to update the table contents.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateTableRequest withVersionId(String versionId) {
+        setVersionId(versionId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The operation to be performed when updating the view.
+     * </p>
+     * 
+     * @param viewUpdateAction
+     *        The operation to be performed when updating the view.
+     * @see ViewUpdateAction
+     */
+
+    public void setViewUpdateAction(String viewUpdateAction) {
+        this.viewUpdateAction = viewUpdateAction;
+    }
+
+    /**
+     * <p>
+     * The operation to be performed when updating the view.
+     * </p>
+     * 
+     * @return The operation to be performed when updating the view.
+     * @see ViewUpdateAction
+     */
+
+    public String getViewUpdateAction() {
+        return this.viewUpdateAction;
+    }
+
+    /**
+     * <p>
+     * The operation to be performed when updating the view.
+     * </p>
+     * 
+     * @param viewUpdateAction
+     *        The operation to be performed when updating the view.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ViewUpdateAction
+     */
+
+    public UpdateTableRequest withViewUpdateAction(String viewUpdateAction) {
+        setViewUpdateAction(viewUpdateAction);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The operation to be performed when updating the view.
+     * </p>
+     * 
+     * @param viewUpdateAction
+     *        The operation to be performed when updating the view.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ViewUpdateAction
+     */
+
+    public UpdateTableRequest withViewUpdateAction(ViewUpdateAction viewUpdateAction) {
+        this.viewUpdateAction = viewUpdateAction.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * A flag that can be set to true to ignore matching storage descriptor and subobject matching requirements.
+     * </p>
+     * 
+     * @param force
+     *        A flag that can be set to true to ignore matching storage descriptor and subobject matching requirements.
+     */
+
+    public void setForce(Boolean force) {
+        this.force = force;
+    }
+
+    /**
+     * <p>
+     * A flag that can be set to true to ignore matching storage descriptor and subobject matching requirements.
+     * </p>
+     * 
+     * @return A flag that can be set to true to ignore matching storage descriptor and subobject matching requirements.
+     */
+
+    public Boolean getForce() {
+        return this.force;
+    }
+
+    /**
+     * <p>
+     * A flag that can be set to true to ignore matching storage descriptor and subobject matching requirements.
+     * </p>
+     * 
+     * @param force
+     *        A flag that can be set to true to ignore matching storage descriptor and subobject matching requirements.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateTableRequest withForce(Boolean force) {
+        setForce(force);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A flag that can be set to true to ignore matching storage descriptor and subobject matching requirements.
+     * </p>
+     * 
+     * @return A flag that can be set to true to ignore matching storage descriptor and subobject matching requirements.
+     */
+
+    public Boolean isForce() {
+        return this.force;
     }
 
     /**
@@ -264,7 +483,15 @@ public class UpdateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (getTableInput() != null)
             sb.append("TableInput: ").append(getTableInput()).append(",");
         if (getSkipArchive() != null)
-            sb.append("SkipArchive: ").append(getSkipArchive());
+            sb.append("SkipArchive: ").append(getSkipArchive()).append(",");
+        if (getTransactionId() != null)
+            sb.append("TransactionId: ").append(getTransactionId()).append(",");
+        if (getVersionId() != null)
+            sb.append("VersionId: ").append(getVersionId()).append(",");
+        if (getViewUpdateAction() != null)
+            sb.append("ViewUpdateAction: ").append(getViewUpdateAction()).append(",");
+        if (getForce() != null)
+            sb.append("Force: ").append(getForce());
         sb.append("}");
         return sb.toString();
     }
@@ -295,6 +522,22 @@ public class UpdateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
             return false;
         if (other.getSkipArchive() != null && other.getSkipArchive().equals(this.getSkipArchive()) == false)
             return false;
+        if (other.getTransactionId() == null ^ this.getTransactionId() == null)
+            return false;
+        if (other.getTransactionId() != null && other.getTransactionId().equals(this.getTransactionId()) == false)
+            return false;
+        if (other.getVersionId() == null ^ this.getVersionId() == null)
+            return false;
+        if (other.getVersionId() != null && other.getVersionId().equals(this.getVersionId()) == false)
+            return false;
+        if (other.getViewUpdateAction() == null ^ this.getViewUpdateAction() == null)
+            return false;
+        if (other.getViewUpdateAction() != null && other.getViewUpdateAction().equals(this.getViewUpdateAction()) == false)
+            return false;
+        if (other.getForce() == null ^ this.getForce() == null)
+            return false;
+        if (other.getForce() != null && other.getForce().equals(this.getForce()) == false)
+            return false;
         return true;
     }
 
@@ -307,6 +550,10 @@ public class UpdateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
         hashCode = prime * hashCode + ((getDatabaseName() == null) ? 0 : getDatabaseName().hashCode());
         hashCode = prime * hashCode + ((getTableInput() == null) ? 0 : getTableInput().hashCode());
         hashCode = prime * hashCode + ((getSkipArchive() == null) ? 0 : getSkipArchive().hashCode());
+        hashCode = prime * hashCode + ((getTransactionId() == null) ? 0 : getTransactionId().hashCode());
+        hashCode = prime * hashCode + ((getVersionId() == null) ? 0 : getVersionId().hashCode());
+        hashCode = prime * hashCode + ((getViewUpdateAction() == null) ? 0 : getViewUpdateAction().hashCode());
+        hashCode = prime * hashCode + ((getForce() == null) ? 0 : getForce().hashCode());
         return hashCode;
     }
 

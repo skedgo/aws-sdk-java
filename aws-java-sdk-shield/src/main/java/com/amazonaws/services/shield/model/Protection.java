@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,16 +36,36 @@ public class Protection implements Serializable, Cloneable, StructuredPojo {
     private String id;
     /**
      * <p>
-     * The friendly name of the protection. For example, <code>My CloudFront distributions</code>.
+     * The name of the protection. For example, <code>My CloudFront distributions</code>.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The ARN (Amazon Resource Name) of the AWS resource that is protected.
+     * The ARN (Amazon Resource Name) of the Amazon Web Services resource that is protected.
      * </p>
      */
     private String resourceArn;
+    /**
+     * <p>
+     * The unique identifier (ID) for the Route 53 health check that's associated with the protection.
+     * </p>
+     */
+    private java.util.List<String> healthCheckIds;
+    /**
+     * <p>
+     * The ARN (Amazon Resource Name) of the protection.
+     * </p>
+     */
+    private String protectionArn;
+    /**
+     * <p>
+     * The automatic application layer DDoS mitigation settings for the protection. This configuration determines
+     * whether Shield Advanced automatically manages rules in the web ACL in order to respond to application layer
+     * events that Shield Advanced determines to be DDoS attacks.
+     * </p>
+     */
+    private ApplicationLayerAutomaticResponseConfiguration applicationLayerAutomaticResponseConfiguration;
 
     /**
      * <p>
@@ -89,11 +109,11 @@ public class Protection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The friendly name of the protection. For example, <code>My CloudFront distributions</code>.
+     * The name of the protection. For example, <code>My CloudFront distributions</code>.
      * </p>
      * 
      * @param name
-     *        The friendly name of the protection. For example, <code>My CloudFront distributions</code>.
+     *        The name of the protection. For example, <code>My CloudFront distributions</code>.
      */
 
     public void setName(String name) {
@@ -102,10 +122,10 @@ public class Protection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The friendly name of the protection. For example, <code>My CloudFront distributions</code>.
+     * The name of the protection. For example, <code>My CloudFront distributions</code>.
      * </p>
      * 
-     * @return The friendly name of the protection. For example, <code>My CloudFront distributions</code>.
+     * @return The name of the protection. For example, <code>My CloudFront distributions</code>.
      */
 
     public String getName() {
@@ -114,11 +134,11 @@ public class Protection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The friendly name of the protection. For example, <code>My CloudFront distributions</code>.
+     * The name of the protection. For example, <code>My CloudFront distributions</code>.
      * </p>
      * 
      * @param name
-     *        The friendly name of the protection. For example, <code>My CloudFront distributions</code>.
+     *        The name of the protection. For example, <code>My CloudFront distributions</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -129,11 +149,11 @@ public class Protection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN (Amazon Resource Name) of the AWS resource that is protected.
+     * The ARN (Amazon Resource Name) of the Amazon Web Services resource that is protected.
      * </p>
      * 
      * @param resourceArn
-     *        The ARN (Amazon Resource Name) of the AWS resource that is protected.
+     *        The ARN (Amazon Resource Name) of the Amazon Web Services resource that is protected.
      */
 
     public void setResourceArn(String resourceArn) {
@@ -142,10 +162,10 @@ public class Protection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN (Amazon Resource Name) of the AWS resource that is protected.
+     * The ARN (Amazon Resource Name) of the Amazon Web Services resource that is protected.
      * </p>
      * 
-     * @return The ARN (Amazon Resource Name) of the AWS resource that is protected.
+     * @return The ARN (Amazon Resource Name) of the Amazon Web Services resource that is protected.
      */
 
     public String getResourceArn() {
@@ -154,16 +174,179 @@ public class Protection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN (Amazon Resource Name) of the AWS resource that is protected.
+     * The ARN (Amazon Resource Name) of the Amazon Web Services resource that is protected.
      * </p>
      * 
      * @param resourceArn
-     *        The ARN (Amazon Resource Name) of the AWS resource that is protected.
+     *        The ARN (Amazon Resource Name) of the Amazon Web Services resource that is protected.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Protection withResourceArn(String resourceArn) {
         setResourceArn(resourceArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The unique identifier (ID) for the Route 53 health check that's associated with the protection.
+     * </p>
+     * 
+     * @return The unique identifier (ID) for the Route 53 health check that's associated with the protection.
+     */
+
+    public java.util.List<String> getHealthCheckIds() {
+        return healthCheckIds;
+    }
+
+    /**
+     * <p>
+     * The unique identifier (ID) for the Route 53 health check that's associated with the protection.
+     * </p>
+     * 
+     * @param healthCheckIds
+     *        The unique identifier (ID) for the Route 53 health check that's associated with the protection.
+     */
+
+    public void setHealthCheckIds(java.util.Collection<String> healthCheckIds) {
+        if (healthCheckIds == null) {
+            this.healthCheckIds = null;
+            return;
+        }
+
+        this.healthCheckIds = new java.util.ArrayList<String>(healthCheckIds);
+    }
+
+    /**
+     * <p>
+     * The unique identifier (ID) for the Route 53 health check that's associated with the protection.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setHealthCheckIds(java.util.Collection)} or {@link #withHealthCheckIds(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param healthCheckIds
+     *        The unique identifier (ID) for the Route 53 health check that's associated with the protection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Protection withHealthCheckIds(String... healthCheckIds) {
+        if (this.healthCheckIds == null) {
+            setHealthCheckIds(new java.util.ArrayList<String>(healthCheckIds.length));
+        }
+        for (String ele : healthCheckIds) {
+            this.healthCheckIds.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The unique identifier (ID) for the Route 53 health check that's associated with the protection.
+     * </p>
+     * 
+     * @param healthCheckIds
+     *        The unique identifier (ID) for the Route 53 health check that's associated with the protection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Protection withHealthCheckIds(java.util.Collection<String> healthCheckIds) {
+        setHealthCheckIds(healthCheckIds);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN (Amazon Resource Name) of the protection.
+     * </p>
+     * 
+     * @param protectionArn
+     *        The ARN (Amazon Resource Name) of the protection.
+     */
+
+    public void setProtectionArn(String protectionArn) {
+        this.protectionArn = protectionArn;
+    }
+
+    /**
+     * <p>
+     * The ARN (Amazon Resource Name) of the protection.
+     * </p>
+     * 
+     * @return The ARN (Amazon Resource Name) of the protection.
+     */
+
+    public String getProtectionArn() {
+        return this.protectionArn;
+    }
+
+    /**
+     * <p>
+     * The ARN (Amazon Resource Name) of the protection.
+     * </p>
+     * 
+     * @param protectionArn
+     *        The ARN (Amazon Resource Name) of the protection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Protection withProtectionArn(String protectionArn) {
+        setProtectionArn(protectionArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The automatic application layer DDoS mitigation settings for the protection. This configuration determines
+     * whether Shield Advanced automatically manages rules in the web ACL in order to respond to application layer
+     * events that Shield Advanced determines to be DDoS attacks.
+     * </p>
+     * 
+     * @param applicationLayerAutomaticResponseConfiguration
+     *        The automatic application layer DDoS mitigation settings for the protection. This configuration determines
+     *        whether Shield Advanced automatically manages rules in the web ACL in order to respond to application
+     *        layer events that Shield Advanced determines to be DDoS attacks.
+     */
+
+    public void setApplicationLayerAutomaticResponseConfiguration(ApplicationLayerAutomaticResponseConfiguration applicationLayerAutomaticResponseConfiguration) {
+        this.applicationLayerAutomaticResponseConfiguration = applicationLayerAutomaticResponseConfiguration;
+    }
+
+    /**
+     * <p>
+     * The automatic application layer DDoS mitigation settings for the protection. This configuration determines
+     * whether Shield Advanced automatically manages rules in the web ACL in order to respond to application layer
+     * events that Shield Advanced determines to be DDoS attacks.
+     * </p>
+     * 
+     * @return The automatic application layer DDoS mitigation settings for the protection. This configuration
+     *         determines whether Shield Advanced automatically manages rules in the web ACL in order to respond to
+     *         application layer events that Shield Advanced determines to be DDoS attacks.
+     */
+
+    public ApplicationLayerAutomaticResponseConfiguration getApplicationLayerAutomaticResponseConfiguration() {
+        return this.applicationLayerAutomaticResponseConfiguration;
+    }
+
+    /**
+     * <p>
+     * The automatic application layer DDoS mitigation settings for the protection. This configuration determines
+     * whether Shield Advanced automatically manages rules in the web ACL in order to respond to application layer
+     * events that Shield Advanced determines to be DDoS attacks.
+     * </p>
+     * 
+     * @param applicationLayerAutomaticResponseConfiguration
+     *        The automatic application layer DDoS mitigation settings for the protection. This configuration determines
+     *        whether Shield Advanced automatically manages rules in the web ACL in order to respond to application
+     *        layer events that Shield Advanced determines to be DDoS attacks.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Protection withApplicationLayerAutomaticResponseConfiguration(
+            ApplicationLayerAutomaticResponseConfiguration applicationLayerAutomaticResponseConfiguration) {
+        setApplicationLayerAutomaticResponseConfiguration(applicationLayerAutomaticResponseConfiguration);
         return this;
     }
 
@@ -184,7 +367,13 @@ public class Protection implements Serializable, Cloneable, StructuredPojo {
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getResourceArn() != null)
-            sb.append("ResourceArn: ").append(getResourceArn());
+            sb.append("ResourceArn: ").append(getResourceArn()).append(",");
+        if (getHealthCheckIds() != null)
+            sb.append("HealthCheckIds: ").append(getHealthCheckIds()).append(",");
+        if (getProtectionArn() != null)
+            sb.append("ProtectionArn: ").append(getProtectionArn()).append(",");
+        if (getApplicationLayerAutomaticResponseConfiguration() != null)
+            sb.append("ApplicationLayerAutomaticResponseConfiguration: ").append(getApplicationLayerAutomaticResponseConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -211,6 +400,19 @@ public class Protection implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getResourceArn() != null && other.getResourceArn().equals(this.getResourceArn()) == false)
             return false;
+        if (other.getHealthCheckIds() == null ^ this.getHealthCheckIds() == null)
+            return false;
+        if (other.getHealthCheckIds() != null && other.getHealthCheckIds().equals(this.getHealthCheckIds()) == false)
+            return false;
+        if (other.getProtectionArn() == null ^ this.getProtectionArn() == null)
+            return false;
+        if (other.getProtectionArn() != null && other.getProtectionArn().equals(this.getProtectionArn()) == false)
+            return false;
+        if (other.getApplicationLayerAutomaticResponseConfiguration() == null ^ this.getApplicationLayerAutomaticResponseConfiguration() == null)
+            return false;
+        if (other.getApplicationLayerAutomaticResponseConfiguration() != null
+                && other.getApplicationLayerAutomaticResponseConfiguration().equals(this.getApplicationLayerAutomaticResponseConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -222,6 +424,10 @@ public class Protection implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getId() == null) ? 0 : getId().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getResourceArn() == null) ? 0 : getResourceArn().hashCode());
+        hashCode = prime * hashCode + ((getHealthCheckIds() == null) ? 0 : getHealthCheckIds().hashCode());
+        hashCode = prime * hashCode + ((getProtectionArn() == null) ? 0 : getProtectionArn().hashCode());
+        hashCode = prime * hashCode
+                + ((getApplicationLayerAutomaticResponseConfiguration() == null) ? 0 : getApplicationLayerAutomaticResponseConfiguration().hashCode());
         return hashCode;
     }
 

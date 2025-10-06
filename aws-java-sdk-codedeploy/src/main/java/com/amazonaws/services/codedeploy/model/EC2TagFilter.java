@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -47,17 +47,17 @@ public class EC2TagFilter implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * KEY_ONLY: Key only.
+     * <code>KEY_ONLY</code>: Key only.
      * </p>
      * </li>
      * <li>
      * <p>
-     * VALUE_ONLY: Value only.
+     * <code>VALUE_ONLY</code>: Value only.
      * </p>
      * </li>
      * <li>
      * <p>
-     * KEY_AND_VALUE: Key and value.
+     * <code>KEY_AND_VALUE</code>: Key and value.
      * </p>
      * </li>
      * </ul>
@@ -151,17 +151,17 @@ public class EC2TagFilter implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * KEY_ONLY: Key only.
+     * <code>KEY_ONLY</code>: Key only.
      * </p>
      * </li>
      * <li>
      * <p>
-     * VALUE_ONLY: Value only.
+     * <code>VALUE_ONLY</code>: Value only.
      * </p>
      * </li>
      * <li>
      * <p>
-     * KEY_AND_VALUE: Key and value.
+     * <code>KEY_AND_VALUE</code>: Key and value.
      * </p>
      * </li>
      * </ul>
@@ -171,17 +171,17 @@ public class EC2TagFilter implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        KEY_ONLY: Key only.
+     *        <code>KEY_ONLY</code>: Key only.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        VALUE_ONLY: Value only.
+     *        <code>VALUE_ONLY</code>: Value only.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        KEY_AND_VALUE: Key and value.
+     *        <code>KEY_AND_VALUE</code>: Key and value.
      *        </p>
      *        </li>
      * @see EC2TagFilterType
@@ -198,17 +198,17 @@ public class EC2TagFilter implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * KEY_ONLY: Key only.
+     * <code>KEY_ONLY</code>: Key only.
      * </p>
      * </li>
      * <li>
      * <p>
-     * VALUE_ONLY: Value only.
+     * <code>VALUE_ONLY</code>: Value only.
      * </p>
      * </li>
      * <li>
      * <p>
-     * KEY_AND_VALUE: Key and value.
+     * <code>KEY_AND_VALUE</code>: Key and value.
      * </p>
      * </li>
      * </ul>
@@ -217,17 +217,17 @@ public class EC2TagFilter implements Serializable, Cloneable, StructuredPojo {
      *         <ul>
      *         <li>
      *         <p>
-     *         KEY_ONLY: Key only.
+     *         <code>KEY_ONLY</code>: Key only.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         VALUE_ONLY: Value only.
+     *         <code>VALUE_ONLY</code>: Value only.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         KEY_AND_VALUE: Key and value.
+     *         <code>KEY_AND_VALUE</code>: Key and value.
      *         </p>
      *         </li>
      * @see EC2TagFilterType
@@ -244,17 +244,17 @@ public class EC2TagFilter implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * KEY_ONLY: Key only.
+     * <code>KEY_ONLY</code>: Key only.
      * </p>
      * </li>
      * <li>
      * <p>
-     * VALUE_ONLY: Value only.
+     * <code>VALUE_ONLY</code>: Value only.
      * </p>
      * </li>
      * <li>
      * <p>
-     * KEY_AND_VALUE: Key and value.
+     * <code>KEY_AND_VALUE</code>: Key and value.
      * </p>
      * </li>
      * </ul>
@@ -264,17 +264,17 @@ public class EC2TagFilter implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        KEY_ONLY: Key only.
+     *        <code>KEY_ONLY</code>: Key only.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        VALUE_ONLY: Value only.
+     *        <code>VALUE_ONLY</code>: Value only.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        KEY_AND_VALUE: Key and value.
+     *        <code>KEY_AND_VALUE</code>: Key and value.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -293,17 +293,17 @@ public class EC2TagFilter implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * KEY_ONLY: Key only.
+     * <code>KEY_ONLY</code>: Key only.
      * </p>
      * </li>
      * <li>
      * <p>
-     * VALUE_ONLY: Value only.
+     * <code>VALUE_ONLY</code>: Value only.
      * </p>
      * </li>
      * <li>
      * <p>
-     * KEY_AND_VALUE: Key and value.
+     * <code>KEY_AND_VALUE</code>: Key and value.
      * </p>
      * </li>
      * </ul>
@@ -313,17 +313,17 @@ public class EC2TagFilter implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        KEY_ONLY: Key only.
+     *        <code>KEY_ONLY</code>: Key only.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        VALUE_ONLY: Value only.
+     *        <code>VALUE_ONLY</code>: Value only.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        KEY_AND_VALUE: Key and value.
+     *        <code>KEY_AND_VALUE</code>: Key and value.
      *        </p>
      *        </li>
      * @see EC2TagFilterType
@@ -340,17 +340,17 @@ public class EC2TagFilter implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * KEY_ONLY: Key only.
+     * <code>KEY_ONLY</code>: Key only.
      * </p>
      * </li>
      * <li>
      * <p>
-     * VALUE_ONLY: Value only.
+     * <code>VALUE_ONLY</code>: Value only.
      * </p>
      * </li>
      * <li>
      * <p>
-     * KEY_AND_VALUE: Key and value.
+     * <code>KEY_AND_VALUE</code>: Key and value.
      * </p>
      * </li>
      * </ul>
@@ -360,17 +360,17 @@ public class EC2TagFilter implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        KEY_ONLY: Key only.
+     *        <code>KEY_ONLY</code>: Key only.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        VALUE_ONLY: Value only.
+     *        <code>VALUE_ONLY</code>: Value only.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        KEY_AND_VALUE: Key and value.
+     *        <code>KEY_AND_VALUE</code>: Key and value.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.

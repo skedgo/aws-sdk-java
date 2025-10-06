@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -53,6 +53,14 @@ public class UpdateResolverRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * The new request mapping template.
      * </p>
+     * <p>
+     * A resolver uses a request mapping template to convert a GraphQL expression into a format that a data source can
+     * understand. Mapping templates are written in Apache Velocity Template Language (VTL).
+     * </p>
+     * <p>
+     * VTL request mapping templates are optional when using an Lambda data source. For all other data sources, VTL
+     * request and response mapping templates are required.
+     * </p>
      */
     private String requestMappingTemplate;
     /**
@@ -68,14 +76,14 @@ public class UpdateResolverRequest extends com.amazonaws.AmazonWebServiceRequest
      * <ul>
      * <li>
      * <p>
-     * <b>UNIT</b>: A UNIT resolver type. A UNIT resolver is the default resolver type. A UNIT resolver enables you to
-     * execute a GraphQL query against a single data source.
+     * <b>UNIT</b>: A UNIT resolver type. A UNIT resolver is the default resolver type. You can use a UNIT resolver to
+     * run a GraphQL query against a single data source.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>PIPELINE</b>: A PIPELINE resolver type. A PIPELINE resolver enables you to execute a series of
-     * <code>Function</code> in a serial manner. You can use a pipeline resolver to execute a GraphQL query against
+     * <b>PIPELINE</b>: A PIPELINE resolver type. You can use a PIPELINE resolver to invoke a series of
+     * <code>Function</code> objects in a serial manner. You can use a pipeline resolver to run a GraphQL query against
      * multiple data sources.
      * </p>
      * </li>
@@ -88,6 +96,45 @@ public class UpdateResolverRequest extends com.amazonaws.AmazonWebServiceRequest
      * </p>
      */
     private PipelineConfig pipelineConfig;
+    /**
+     * <p>
+     * The <code>SyncConfig</code> for a resolver attached to a versioned data source.
+     * </p>
+     */
+    private SyncConfig syncConfig;
+    /**
+     * <p>
+     * The caching configuration for the resolver.
+     * </p>
+     */
+    private CachingConfig cachingConfig;
+    /**
+     * <p>
+     * The maximum batching size for a resolver.
+     * </p>
+     */
+    private Integer maxBatchSize;
+
+    private AppSyncRuntime runtime;
+    /**
+     * <p>
+     * The <code>resolver</code> code that contains the request and response functions. When code is used, the
+     * <code>runtime</code> is required. The <code>runtime</code> value must be <code>APPSYNC_JS</code>.
+     * </p>
+     */
+    private String code;
+    /**
+     * <p>
+     * Enables or disables enhanced resolver metrics for specified resolvers. Note that <code>metricsConfig</code> won't
+     * be used unless the <code>resolverLevelMetricsBehavior</code> value is set to <code>PER_RESOLVER_METRICS</code>.
+     * If the <code>resolverLevelMetricsBehavior</code> is set to <code>FULL_REQUEST_RESOLVER_METRICS</code> instead,
+     * <code>metricsConfig</code> will be ignored. However, you can still set its value.
+     * </p>
+     * <p>
+     * <code>metricsConfig</code> can be <code>ENABLED</code> or <code>DISABLED</code>.
+     * </p>
+     */
+    private String metricsConfig;
 
     /**
      * <p>
@@ -253,9 +300,24 @@ public class UpdateResolverRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * The new request mapping template.
      * </p>
+     * <p>
+     * A resolver uses a request mapping template to convert a GraphQL expression into a format that a data source can
+     * understand. Mapping templates are written in Apache Velocity Template Language (VTL).
+     * </p>
+     * <p>
+     * VTL request mapping templates are optional when using an Lambda data source. For all other data sources, VTL
+     * request and response mapping templates are required.
+     * </p>
      * 
      * @param requestMappingTemplate
-     *        The new request mapping template.
+     *        The new request mapping template.</p>
+     *        <p>
+     *        A resolver uses a request mapping template to convert a GraphQL expression into a format that a data
+     *        source can understand. Mapping templates are written in Apache Velocity Template Language (VTL).
+     *        </p>
+     *        <p>
+     *        VTL request mapping templates are optional when using an Lambda data source. For all other data sources,
+     *        VTL request and response mapping templates are required.
      */
 
     public void setRequestMappingTemplate(String requestMappingTemplate) {
@@ -266,8 +328,23 @@ public class UpdateResolverRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * The new request mapping template.
      * </p>
+     * <p>
+     * A resolver uses a request mapping template to convert a GraphQL expression into a format that a data source can
+     * understand. Mapping templates are written in Apache Velocity Template Language (VTL).
+     * </p>
+     * <p>
+     * VTL request mapping templates are optional when using an Lambda data source. For all other data sources, VTL
+     * request and response mapping templates are required.
+     * </p>
      * 
-     * @return The new request mapping template.
+     * @return The new request mapping template.</p>
+     *         <p>
+     *         A resolver uses a request mapping template to convert a GraphQL expression into a format that a data
+     *         source can understand. Mapping templates are written in Apache Velocity Template Language (VTL).
+     *         </p>
+     *         <p>
+     *         VTL request mapping templates are optional when using an Lambda data source. For all other data sources,
+     *         VTL request and response mapping templates are required.
      */
 
     public String getRequestMappingTemplate() {
@@ -278,9 +355,24 @@ public class UpdateResolverRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * The new request mapping template.
      * </p>
+     * <p>
+     * A resolver uses a request mapping template to convert a GraphQL expression into a format that a data source can
+     * understand. Mapping templates are written in Apache Velocity Template Language (VTL).
+     * </p>
+     * <p>
+     * VTL request mapping templates are optional when using an Lambda data source. For all other data sources, VTL
+     * request and response mapping templates are required.
+     * </p>
      * 
      * @param requestMappingTemplate
-     *        The new request mapping template.
+     *        The new request mapping template.</p>
+     *        <p>
+     *        A resolver uses a request mapping template to convert a GraphQL expression into a format that a data
+     *        source can understand. Mapping templates are written in Apache Velocity Template Language (VTL).
+     *        </p>
+     *        <p>
+     *        VTL request mapping templates are optional when using an Lambda data source. For all other data sources,
+     *        VTL request and response mapping templates are required.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -336,14 +428,14 @@ public class UpdateResolverRequest extends com.amazonaws.AmazonWebServiceRequest
      * <ul>
      * <li>
      * <p>
-     * <b>UNIT</b>: A UNIT resolver type. A UNIT resolver is the default resolver type. A UNIT resolver enables you to
-     * execute a GraphQL query against a single data source.
+     * <b>UNIT</b>: A UNIT resolver type. A UNIT resolver is the default resolver type. You can use a UNIT resolver to
+     * run a GraphQL query against a single data source.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>PIPELINE</b>: A PIPELINE resolver type. A PIPELINE resolver enables you to execute a series of
-     * <code>Function</code> in a serial manner. You can use a pipeline resolver to execute a GraphQL query against
+     * <b>PIPELINE</b>: A PIPELINE resolver type. You can use a PIPELINE resolver to invoke a series of
+     * <code>Function</code> objects in a serial manner. You can use a pipeline resolver to run a GraphQL query against
      * multiple data sources.
      * </p>
      * </li>
@@ -354,14 +446,14 @@ public class UpdateResolverRequest extends com.amazonaws.AmazonWebServiceRequest
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>UNIT</b>: A UNIT resolver type. A UNIT resolver is the default resolver type. A UNIT resolver enables
-     *        you to execute a GraphQL query against a single data source.
+     *        <b>UNIT</b>: A UNIT resolver type. A UNIT resolver is the default resolver type. You can use a UNIT
+     *        resolver to run a GraphQL query against a single data source.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>PIPELINE</b>: A PIPELINE resolver type. A PIPELINE resolver enables you to execute a series of
-     *        <code>Function</code> in a serial manner. You can use a pipeline resolver to execute a GraphQL query
+     *        <b>PIPELINE</b>: A PIPELINE resolver type. You can use a PIPELINE resolver to invoke a series of
+     *        <code>Function</code> objects in a serial manner. You can use a pipeline resolver to run a GraphQL query
      *        against multiple data sources.
      *        </p>
      *        </li>
@@ -379,14 +471,14 @@ public class UpdateResolverRequest extends com.amazonaws.AmazonWebServiceRequest
      * <ul>
      * <li>
      * <p>
-     * <b>UNIT</b>: A UNIT resolver type. A UNIT resolver is the default resolver type. A UNIT resolver enables you to
-     * execute a GraphQL query against a single data source.
+     * <b>UNIT</b>: A UNIT resolver type. A UNIT resolver is the default resolver type. You can use a UNIT resolver to
+     * run a GraphQL query against a single data source.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>PIPELINE</b>: A PIPELINE resolver type. A PIPELINE resolver enables you to execute a series of
-     * <code>Function</code> in a serial manner. You can use a pipeline resolver to execute a GraphQL query against
+     * <b>PIPELINE</b>: A PIPELINE resolver type. You can use a PIPELINE resolver to invoke a series of
+     * <code>Function</code> objects in a serial manner. You can use a pipeline resolver to run a GraphQL query against
      * multiple data sources.
      * </p>
      * </li>
@@ -396,14 +488,14 @@ public class UpdateResolverRequest extends com.amazonaws.AmazonWebServiceRequest
      *         <ul>
      *         <li>
      *         <p>
-     *         <b>UNIT</b>: A UNIT resolver type. A UNIT resolver is the default resolver type. A UNIT resolver enables
-     *         you to execute a GraphQL query against a single data source.
+     *         <b>UNIT</b>: A UNIT resolver type. A UNIT resolver is the default resolver type. You can use a UNIT
+     *         resolver to run a GraphQL query against a single data source.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <b>PIPELINE</b>: A PIPELINE resolver type. A PIPELINE resolver enables you to execute a series of
-     *         <code>Function</code> in a serial manner. You can use a pipeline resolver to execute a GraphQL query
+     *         <b>PIPELINE</b>: A PIPELINE resolver type. You can use a PIPELINE resolver to invoke a series of
+     *         <code>Function</code> objects in a serial manner. You can use a pipeline resolver to run a GraphQL query
      *         against multiple data sources.
      *         </p>
      *         </li>
@@ -421,14 +513,14 @@ public class UpdateResolverRequest extends com.amazonaws.AmazonWebServiceRequest
      * <ul>
      * <li>
      * <p>
-     * <b>UNIT</b>: A UNIT resolver type. A UNIT resolver is the default resolver type. A UNIT resolver enables you to
-     * execute a GraphQL query against a single data source.
+     * <b>UNIT</b>: A UNIT resolver type. A UNIT resolver is the default resolver type. You can use a UNIT resolver to
+     * run a GraphQL query against a single data source.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>PIPELINE</b>: A PIPELINE resolver type. A PIPELINE resolver enables you to execute a series of
-     * <code>Function</code> in a serial manner. You can use a pipeline resolver to execute a GraphQL query against
+     * <b>PIPELINE</b>: A PIPELINE resolver type. You can use a PIPELINE resolver to invoke a series of
+     * <code>Function</code> objects in a serial manner. You can use a pipeline resolver to run a GraphQL query against
      * multiple data sources.
      * </p>
      * </li>
@@ -439,14 +531,14 @@ public class UpdateResolverRequest extends com.amazonaws.AmazonWebServiceRequest
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>UNIT</b>: A UNIT resolver type. A UNIT resolver is the default resolver type. A UNIT resolver enables
-     *        you to execute a GraphQL query against a single data source.
+     *        <b>UNIT</b>: A UNIT resolver type. A UNIT resolver is the default resolver type. You can use a UNIT
+     *        resolver to run a GraphQL query against a single data source.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>PIPELINE</b>: A PIPELINE resolver type. A PIPELINE resolver enables you to execute a series of
-     *        <code>Function</code> in a serial manner. You can use a pipeline resolver to execute a GraphQL query
+     *        <b>PIPELINE</b>: A PIPELINE resolver type. You can use a PIPELINE resolver to invoke a series of
+     *        <code>Function</code> objects in a serial manner. You can use a pipeline resolver to run a GraphQL query
      *        against multiple data sources.
      *        </p>
      *        </li>
@@ -466,14 +558,14 @@ public class UpdateResolverRequest extends com.amazonaws.AmazonWebServiceRequest
      * <ul>
      * <li>
      * <p>
-     * <b>UNIT</b>: A UNIT resolver type. A UNIT resolver is the default resolver type. A UNIT resolver enables you to
-     * execute a GraphQL query against a single data source.
+     * <b>UNIT</b>: A UNIT resolver type. A UNIT resolver is the default resolver type. You can use a UNIT resolver to
+     * run a GraphQL query against a single data source.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>PIPELINE</b>: A PIPELINE resolver type. A PIPELINE resolver enables you to execute a series of
-     * <code>Function</code> in a serial manner. You can use a pipeline resolver to execute a GraphQL query against
+     * <b>PIPELINE</b>: A PIPELINE resolver type. You can use a PIPELINE resolver to invoke a series of
+     * <code>Function</code> objects in a serial manner. You can use a pipeline resolver to run a GraphQL query against
      * multiple data sources.
      * </p>
      * </li>
@@ -484,14 +576,14 @@ public class UpdateResolverRequest extends com.amazonaws.AmazonWebServiceRequest
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>UNIT</b>: A UNIT resolver type. A UNIT resolver is the default resolver type. A UNIT resolver enables
-     *        you to execute a GraphQL query against a single data source.
+     *        <b>UNIT</b>: A UNIT resolver type. A UNIT resolver is the default resolver type. You can use a UNIT
+     *        resolver to run a GraphQL query against a single data source.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>PIPELINE</b>: A PIPELINE resolver type. A PIPELINE resolver enables you to execute a series of
-     *        <code>Function</code> in a serial manner. You can use a pipeline resolver to execute a GraphQL query
+     *        <b>PIPELINE</b>: A PIPELINE resolver type. You can use a PIPELINE resolver to invoke a series of
+     *        <code>Function</code> objects in a serial manner. You can use a pipeline resolver to run a GraphQL query
      *        against multiple data sources.
      *        </p>
      *        </li>
@@ -545,6 +637,305 @@ public class UpdateResolverRequest extends com.amazonaws.AmazonWebServiceRequest
     }
 
     /**
+     * <p>
+     * The <code>SyncConfig</code> for a resolver attached to a versioned data source.
+     * </p>
+     * 
+     * @param syncConfig
+     *        The <code>SyncConfig</code> for a resolver attached to a versioned data source.
+     */
+
+    public void setSyncConfig(SyncConfig syncConfig) {
+        this.syncConfig = syncConfig;
+    }
+
+    /**
+     * <p>
+     * The <code>SyncConfig</code> for a resolver attached to a versioned data source.
+     * </p>
+     * 
+     * @return The <code>SyncConfig</code> for a resolver attached to a versioned data source.
+     */
+
+    public SyncConfig getSyncConfig() {
+        return this.syncConfig;
+    }
+
+    /**
+     * <p>
+     * The <code>SyncConfig</code> for a resolver attached to a versioned data source.
+     * </p>
+     * 
+     * @param syncConfig
+     *        The <code>SyncConfig</code> for a resolver attached to a versioned data source.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateResolverRequest withSyncConfig(SyncConfig syncConfig) {
+        setSyncConfig(syncConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The caching configuration for the resolver.
+     * </p>
+     * 
+     * @param cachingConfig
+     *        The caching configuration for the resolver.
+     */
+
+    public void setCachingConfig(CachingConfig cachingConfig) {
+        this.cachingConfig = cachingConfig;
+    }
+
+    /**
+     * <p>
+     * The caching configuration for the resolver.
+     * </p>
+     * 
+     * @return The caching configuration for the resolver.
+     */
+
+    public CachingConfig getCachingConfig() {
+        return this.cachingConfig;
+    }
+
+    /**
+     * <p>
+     * The caching configuration for the resolver.
+     * </p>
+     * 
+     * @param cachingConfig
+     *        The caching configuration for the resolver.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateResolverRequest withCachingConfig(CachingConfig cachingConfig) {
+        setCachingConfig(cachingConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The maximum batching size for a resolver.
+     * </p>
+     * 
+     * @param maxBatchSize
+     *        The maximum batching size for a resolver.
+     */
+
+    public void setMaxBatchSize(Integer maxBatchSize) {
+        this.maxBatchSize = maxBatchSize;
+    }
+
+    /**
+     * <p>
+     * The maximum batching size for a resolver.
+     * </p>
+     * 
+     * @return The maximum batching size for a resolver.
+     */
+
+    public Integer getMaxBatchSize() {
+        return this.maxBatchSize;
+    }
+
+    /**
+     * <p>
+     * The maximum batching size for a resolver.
+     * </p>
+     * 
+     * @param maxBatchSize
+     *        The maximum batching size for a resolver.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateResolverRequest withMaxBatchSize(Integer maxBatchSize) {
+        setMaxBatchSize(maxBatchSize);
+        return this;
+    }
+
+    /**
+     * @param runtime
+     */
+
+    public void setRuntime(AppSyncRuntime runtime) {
+        this.runtime = runtime;
+    }
+
+    /**
+     * @return
+     */
+
+    public AppSyncRuntime getRuntime() {
+        return this.runtime;
+    }
+
+    /**
+     * @param runtime
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateResolverRequest withRuntime(AppSyncRuntime runtime) {
+        setRuntime(runtime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The <code>resolver</code> code that contains the request and response functions. When code is used, the
+     * <code>runtime</code> is required. The <code>runtime</code> value must be <code>APPSYNC_JS</code>.
+     * </p>
+     * 
+     * @param code
+     *        The <code>resolver</code> code that contains the request and response functions. When code is used, the
+     *        <code>runtime</code> is required. The <code>runtime</code> value must be <code>APPSYNC_JS</code>.
+     */
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    /**
+     * <p>
+     * The <code>resolver</code> code that contains the request and response functions. When code is used, the
+     * <code>runtime</code> is required. The <code>runtime</code> value must be <code>APPSYNC_JS</code>.
+     * </p>
+     * 
+     * @return The <code>resolver</code> code that contains the request and response functions. When code is used, the
+     *         <code>runtime</code> is required. The <code>runtime</code> value must be <code>APPSYNC_JS</code>.
+     */
+
+    public String getCode() {
+        return this.code;
+    }
+
+    /**
+     * <p>
+     * The <code>resolver</code> code that contains the request and response functions. When code is used, the
+     * <code>runtime</code> is required. The <code>runtime</code> value must be <code>APPSYNC_JS</code>.
+     * </p>
+     * 
+     * @param code
+     *        The <code>resolver</code> code that contains the request and response functions. When code is used, the
+     *        <code>runtime</code> is required. The <code>runtime</code> value must be <code>APPSYNC_JS</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateResolverRequest withCode(String code) {
+        setCode(code);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enables or disables enhanced resolver metrics for specified resolvers. Note that <code>metricsConfig</code> won't
+     * be used unless the <code>resolverLevelMetricsBehavior</code> value is set to <code>PER_RESOLVER_METRICS</code>.
+     * If the <code>resolverLevelMetricsBehavior</code> is set to <code>FULL_REQUEST_RESOLVER_METRICS</code> instead,
+     * <code>metricsConfig</code> will be ignored. However, you can still set its value.
+     * </p>
+     * <p>
+     * <code>metricsConfig</code> can be <code>ENABLED</code> or <code>DISABLED</code>.
+     * </p>
+     * 
+     * @param metricsConfig
+     *        Enables or disables enhanced resolver metrics for specified resolvers. Note that
+     *        <code>metricsConfig</code> won't be used unless the <code>resolverLevelMetricsBehavior</code> value is set
+     *        to <code>PER_RESOLVER_METRICS</code>. If the <code>resolverLevelMetricsBehavior</code> is set to
+     *        <code>FULL_REQUEST_RESOLVER_METRICS</code> instead, <code>metricsConfig</code> will be ignored. However,
+     *        you can still set its value.</p>
+     *        <p>
+     *        <code>metricsConfig</code> can be <code>ENABLED</code> or <code>DISABLED</code>.
+     * @see ResolverLevelMetricsConfig
+     */
+
+    public void setMetricsConfig(String metricsConfig) {
+        this.metricsConfig = metricsConfig;
+    }
+
+    /**
+     * <p>
+     * Enables or disables enhanced resolver metrics for specified resolvers. Note that <code>metricsConfig</code> won't
+     * be used unless the <code>resolverLevelMetricsBehavior</code> value is set to <code>PER_RESOLVER_METRICS</code>.
+     * If the <code>resolverLevelMetricsBehavior</code> is set to <code>FULL_REQUEST_RESOLVER_METRICS</code> instead,
+     * <code>metricsConfig</code> will be ignored. However, you can still set its value.
+     * </p>
+     * <p>
+     * <code>metricsConfig</code> can be <code>ENABLED</code> or <code>DISABLED</code>.
+     * </p>
+     * 
+     * @return Enables or disables enhanced resolver metrics for specified resolvers. Note that
+     *         <code>metricsConfig</code> won't be used unless the <code>resolverLevelMetricsBehavior</code> value is
+     *         set to <code>PER_RESOLVER_METRICS</code>. If the <code>resolverLevelMetricsBehavior</code> is set to
+     *         <code>FULL_REQUEST_RESOLVER_METRICS</code> instead, <code>metricsConfig</code> will be ignored. However,
+     *         you can still set its value.</p>
+     *         <p>
+     *         <code>metricsConfig</code> can be <code>ENABLED</code> or <code>DISABLED</code>.
+     * @see ResolverLevelMetricsConfig
+     */
+
+    public String getMetricsConfig() {
+        return this.metricsConfig;
+    }
+
+    /**
+     * <p>
+     * Enables or disables enhanced resolver metrics for specified resolvers. Note that <code>metricsConfig</code> won't
+     * be used unless the <code>resolverLevelMetricsBehavior</code> value is set to <code>PER_RESOLVER_METRICS</code>.
+     * If the <code>resolverLevelMetricsBehavior</code> is set to <code>FULL_REQUEST_RESOLVER_METRICS</code> instead,
+     * <code>metricsConfig</code> will be ignored. However, you can still set its value.
+     * </p>
+     * <p>
+     * <code>metricsConfig</code> can be <code>ENABLED</code> or <code>DISABLED</code>.
+     * </p>
+     * 
+     * @param metricsConfig
+     *        Enables or disables enhanced resolver metrics for specified resolvers. Note that
+     *        <code>metricsConfig</code> won't be used unless the <code>resolverLevelMetricsBehavior</code> value is set
+     *        to <code>PER_RESOLVER_METRICS</code>. If the <code>resolverLevelMetricsBehavior</code> is set to
+     *        <code>FULL_REQUEST_RESOLVER_METRICS</code> instead, <code>metricsConfig</code> will be ignored. However,
+     *        you can still set its value.</p>
+     *        <p>
+     *        <code>metricsConfig</code> can be <code>ENABLED</code> or <code>DISABLED</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ResolverLevelMetricsConfig
+     */
+
+    public UpdateResolverRequest withMetricsConfig(String metricsConfig) {
+        setMetricsConfig(metricsConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enables or disables enhanced resolver metrics for specified resolvers. Note that <code>metricsConfig</code> won't
+     * be used unless the <code>resolverLevelMetricsBehavior</code> value is set to <code>PER_RESOLVER_METRICS</code>.
+     * If the <code>resolverLevelMetricsBehavior</code> is set to <code>FULL_REQUEST_RESOLVER_METRICS</code> instead,
+     * <code>metricsConfig</code> will be ignored. However, you can still set its value.
+     * </p>
+     * <p>
+     * <code>metricsConfig</code> can be <code>ENABLED</code> or <code>DISABLED</code>.
+     * </p>
+     * 
+     * @param metricsConfig
+     *        Enables or disables enhanced resolver metrics for specified resolvers. Note that
+     *        <code>metricsConfig</code> won't be used unless the <code>resolverLevelMetricsBehavior</code> value is set
+     *        to <code>PER_RESOLVER_METRICS</code>. If the <code>resolverLevelMetricsBehavior</code> is set to
+     *        <code>FULL_REQUEST_RESOLVER_METRICS</code> instead, <code>metricsConfig</code> will be ignored. However,
+     *        you can still set its value.</p>
+     *        <p>
+     *        <code>metricsConfig</code> can be <code>ENABLED</code> or <code>DISABLED</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ResolverLevelMetricsConfig
+     */
+
+    public UpdateResolverRequest withMetricsConfig(ResolverLevelMetricsConfig metricsConfig) {
+        this.metricsConfig = metricsConfig.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -571,7 +962,19 @@ public class UpdateResolverRequest extends com.amazonaws.AmazonWebServiceRequest
         if (getKind() != null)
             sb.append("Kind: ").append(getKind()).append(",");
         if (getPipelineConfig() != null)
-            sb.append("PipelineConfig: ").append(getPipelineConfig());
+            sb.append("PipelineConfig: ").append(getPipelineConfig()).append(",");
+        if (getSyncConfig() != null)
+            sb.append("SyncConfig: ").append(getSyncConfig()).append(",");
+        if (getCachingConfig() != null)
+            sb.append("CachingConfig: ").append(getCachingConfig()).append(",");
+        if (getMaxBatchSize() != null)
+            sb.append("MaxBatchSize: ").append(getMaxBatchSize()).append(",");
+        if (getRuntime() != null)
+            sb.append("Runtime: ").append(getRuntime()).append(",");
+        if (getCode() != null)
+            sb.append("Code: ").append(getCode()).append(",");
+        if (getMetricsConfig() != null)
+            sb.append("MetricsConfig: ").append(getMetricsConfig());
         sb.append("}");
         return sb.toString();
     }
@@ -618,6 +1021,30 @@ public class UpdateResolverRequest extends com.amazonaws.AmazonWebServiceRequest
             return false;
         if (other.getPipelineConfig() != null && other.getPipelineConfig().equals(this.getPipelineConfig()) == false)
             return false;
+        if (other.getSyncConfig() == null ^ this.getSyncConfig() == null)
+            return false;
+        if (other.getSyncConfig() != null && other.getSyncConfig().equals(this.getSyncConfig()) == false)
+            return false;
+        if (other.getCachingConfig() == null ^ this.getCachingConfig() == null)
+            return false;
+        if (other.getCachingConfig() != null && other.getCachingConfig().equals(this.getCachingConfig()) == false)
+            return false;
+        if (other.getMaxBatchSize() == null ^ this.getMaxBatchSize() == null)
+            return false;
+        if (other.getMaxBatchSize() != null && other.getMaxBatchSize().equals(this.getMaxBatchSize()) == false)
+            return false;
+        if (other.getRuntime() == null ^ this.getRuntime() == null)
+            return false;
+        if (other.getRuntime() != null && other.getRuntime().equals(this.getRuntime()) == false)
+            return false;
+        if (other.getCode() == null ^ this.getCode() == null)
+            return false;
+        if (other.getCode() != null && other.getCode().equals(this.getCode()) == false)
+            return false;
+        if (other.getMetricsConfig() == null ^ this.getMetricsConfig() == null)
+            return false;
+        if (other.getMetricsConfig() != null && other.getMetricsConfig().equals(this.getMetricsConfig()) == false)
+            return false;
         return true;
     }
 
@@ -634,6 +1061,12 @@ public class UpdateResolverRequest extends com.amazonaws.AmazonWebServiceRequest
         hashCode = prime * hashCode + ((getResponseMappingTemplate() == null) ? 0 : getResponseMappingTemplate().hashCode());
         hashCode = prime * hashCode + ((getKind() == null) ? 0 : getKind().hashCode());
         hashCode = prime * hashCode + ((getPipelineConfig() == null) ? 0 : getPipelineConfig().hashCode());
+        hashCode = prime * hashCode + ((getSyncConfig() == null) ? 0 : getSyncConfig().hashCode());
+        hashCode = prime * hashCode + ((getCachingConfig() == null) ? 0 : getCachingConfig().hashCode());
+        hashCode = prime * hashCode + ((getMaxBatchSize() == null) ? 0 : getMaxBatchSize().hashCode());
+        hashCode = prime * hashCode + ((getRuntime() == null) ? 0 : getRuntime().hashCode());
+        hashCode = prime * hashCode + ((getCode() == null) ? 0 : getCode().hashCode());
+        hashCode = prime * hashCode + ((getMetricsConfig() == null) ? 0 : getMetricsConfig().hashCode());
         return hashCode;
     }
 

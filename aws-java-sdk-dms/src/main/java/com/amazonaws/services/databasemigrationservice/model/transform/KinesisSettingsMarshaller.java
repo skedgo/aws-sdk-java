@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,6 +33,20 @@ public class KinesisSettingsMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MessageFormat").build();
     private static final MarshallingInfo<String> SERVICEACCESSROLEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ServiceAccessRoleArn").build();
+    private static final MarshallingInfo<Boolean> INCLUDETRANSACTIONDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IncludeTransactionDetails").build();
+    private static final MarshallingInfo<Boolean> INCLUDEPARTITIONVALUE_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IncludePartitionValue").build();
+    private static final MarshallingInfo<Boolean> PARTITIONINCLUDESCHEMATABLE_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PartitionIncludeSchemaTable").build();
+    private static final MarshallingInfo<Boolean> INCLUDETABLEALTEROPERATIONS_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IncludeTableAlterOperations").build();
+    private static final MarshallingInfo<Boolean> INCLUDECONTROLDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IncludeControlDetails").build();
+    private static final MarshallingInfo<Boolean> INCLUDENULLANDEMPTY_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IncludeNullAndEmpty").build();
+    private static final MarshallingInfo<Boolean> NOHEXPREFIX_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("NoHexPrefix").build();
 
     private static final KinesisSettingsMarshaller instance = new KinesisSettingsMarshaller();
 
@@ -53,6 +67,13 @@ public class KinesisSettingsMarshaller {
             protocolMarshaller.marshall(kinesisSettings.getStreamArn(), STREAMARN_BINDING);
             protocolMarshaller.marshall(kinesisSettings.getMessageFormat(), MESSAGEFORMAT_BINDING);
             protocolMarshaller.marshall(kinesisSettings.getServiceAccessRoleArn(), SERVICEACCESSROLEARN_BINDING);
+            protocolMarshaller.marshall(kinesisSettings.getIncludeTransactionDetails(), INCLUDETRANSACTIONDETAILS_BINDING);
+            protocolMarshaller.marshall(kinesisSettings.getIncludePartitionValue(), INCLUDEPARTITIONVALUE_BINDING);
+            protocolMarshaller.marshall(kinesisSettings.getPartitionIncludeSchemaTable(), PARTITIONINCLUDESCHEMATABLE_BINDING);
+            protocolMarshaller.marshall(kinesisSettings.getIncludeTableAlterOperations(), INCLUDETABLEALTEROPERATIONS_BINDING);
+            protocolMarshaller.marshall(kinesisSettings.getIncludeControlDetails(), INCLUDECONTROLDETAILS_BINDING);
+            protocolMarshaller.marshall(kinesisSettings.getIncludeNullAndEmpty(), INCLUDENULLANDEMPTY_BINDING);
+            protocolMarshaller.marshall(kinesisSettings.getNoHexPrefix(), NOHEXPREFIX_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

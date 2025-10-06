@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,29 +14,32 @@
  */
 package com.amazonaws.services.s3.model;
 
+import com.amazonaws.AmazonWebServiceRequest;
+import com.amazonaws.event.ProgressListener;
 import java.io.File;
 import java.io.InputStream;
 import java.io.Serializable;
-
-import com.amazonaws.AmazonWebServiceRequest;
-import com.amazonaws.event.ProgressListener;
 
 /**
  * Contains the parameters used for the UploadPart operation on Amazon S3.
  * <p>
  * If you are uploading parts for <a
  * href="http://aws.amazon.com/kms/">KMS</a>-encrypted objects, you need to
- * specify the correct region of the bucket on your client and configure AWS
+ * specify the correct region of the bucket on your client and configure Amazon Web Services
  * Signature Version 4 for added security. For more information on how to do
  * this, see
  * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify
  * -signature-version
  * </p>
  * <p>
- * Required Parameters: BucketName, Key, UploadId, PartNumber
+ * Required Parameters: BucketName, Key, UploadId, PartNumber, PartSize
+ *
+ * <b>Note:</b>
+ * If part size is not specified, 0 will be used and could cause unexpected results.
+ *
  */
 public class UploadPartRequest extends AmazonWebServiceRequest implements
-        SSECustomerKeyProvider, S3DataSource, Serializable {
+        SSECustomerKeyProvider, S3DataSource, Serializable, ExpectedBucketOwnerRequest {
 
     private static final long serialVersionUID = 1L;
     /**
@@ -47,6 +50,18 @@ public class UploadPartRequest extends AmazonWebServiceRequest implements
     /**
      * The name of the bucket containing the initiated multipart upload with
      * which this new part will be associated.
+     *
+     * <p>
+     * When using this API with an access point, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * </p>
+     * <p>
+     * When using this operation using an access point through the Amazon Web Services SDKs, you provide
+     * the access point ARN in place of the bucket name. For more information about access point
+     * ARNs, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html\">
+     * Using access points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
      */
     private String bucketName;
 
@@ -113,6 +128,20 @@ public class UploadPartRequest extends AmazonWebServiceRequest implements
      */
     private boolean isRequesterPays;
 
+    private String expectedBucketOwner;
+
+    public String getExpectedBucketOwner() {
+        return expectedBucketOwner;
+    }
+
+    public UploadPartRequest withExpectedBucketOwner(String expectedBucketOwner) {
+        this.expectedBucketOwner = expectedBucketOwner;
+        return this;
+    }
+
+    public void setExpectedBucketOwner(String expectedBucketOwner) {
+        withExpectedBucketOwner(expectedBucketOwner);
+    }
 
     /**
      * Sets the stream containing the data to upload for the new part.
@@ -165,8 +194,20 @@ public class UploadPartRequest extends AmazonWebServiceRequest implements
      * Sets the name of the bucket containing the existing, initiated multipart
      * upload, with which this new part will be associated.
      *
+     * <p>
+     * When using this API with an access point, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * </p>
+     * <p>
+     * When using this operation using an access point through the Amazon Web Services SDKs, you provide
+     * the access point ARN in place of the bucket name. For more information about access point
+     * ARNs, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html\">
+     * Using access points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
+     *
      * @param bucketName
-     *            the name of the bucket containing the existing, initiated
+     *            the name of the bucket, or access point ARN, containing the existing, initiated
      *            multipart upload, with which this new part will be associated.
      */
     public void setBucketName(String bucketName) {
@@ -178,8 +219,20 @@ public class UploadPartRequest extends AmazonWebServiceRequest implements
      * upload, with which this new part will be associated, and returns this
      * updated object so that additional method calls can be chained together.
      *
+     * <p>
+     * When using this API with an access point, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * </p>
+     * <p>
+     * When using this operation using an access point through the Amazon Web Services SDKs, you provide
+     * the access point ARN in place of the bucket name. For more information about access point
+     * ARNs, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html\">
+     * Using access points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
+     *
      * @param bucketName
-     *            the name of the bucket containing the existing, initiated
+     *            the name of the bucket, or access point ARN, containing the existing, initiated
      *            multipart upload, with which this new part will be associated.
      *
      * @return This updated UploadPartRequest object.

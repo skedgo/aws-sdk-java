@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Specifies the physical requirements for a connection.
+ * The OAuth client app in GetConnection response.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/PhysicalConnectionRequirements"
@@ -42,8 +42,7 @@ public class PhysicalConnectionRequirements implements Serializable, Cloneable, 
     private java.util.List<String> securityGroupIdList;
     /**
      * <p>
-     * The connection's Availability Zone. This field is redundant because the specified subnet implies the Availability
-     * Zone to be used. Currently the field must be populated, but it will be deprecated in the future.
+     * The connection's Availability Zone.
      * </p>
      */
     private String availabilityZone;
@@ -160,14 +159,11 @@ public class PhysicalConnectionRequirements implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The connection's Availability Zone. This field is redundant because the specified subnet implies the Availability
-     * Zone to be used. Currently the field must be populated, but it will be deprecated in the future.
+     * The connection's Availability Zone.
      * </p>
      * 
      * @param availabilityZone
-     *        The connection's Availability Zone. This field is redundant because the specified subnet implies the
-     *        Availability Zone to be used. Currently the field must be populated, but it will be deprecated in the
-     *        future.
+     *        The connection's Availability Zone.
      */
 
     public void setAvailabilityZone(String availabilityZone) {
@@ -176,13 +172,10 @@ public class PhysicalConnectionRequirements implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The connection's Availability Zone. This field is redundant because the specified subnet implies the Availability
-     * Zone to be used. Currently the field must be populated, but it will be deprecated in the future.
+     * The connection's Availability Zone.
      * </p>
      * 
-     * @return The connection's Availability Zone. This field is redundant because the specified subnet implies the
-     *         Availability Zone to be used. Currently the field must be populated, but it will be deprecated in the
-     *         future.
+     * @return The connection's Availability Zone.
      */
 
     public String getAvailabilityZone() {
@@ -191,14 +184,11 @@ public class PhysicalConnectionRequirements implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The connection's Availability Zone. This field is redundant because the specified subnet implies the Availability
-     * Zone to be used. Currently the field must be populated, but it will be deprecated in the future.
+     * The connection's Availability Zone.
      * </p>
      * 
      * @param availabilityZone
-     *        The connection's Availability Zone. This field is redundant because the specified subnet implies the
-     *        Availability Zone to be used. Currently the field must be populated, but it will be deprecated in the
-     *        future.
+     *        The connection's Availability Zone.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

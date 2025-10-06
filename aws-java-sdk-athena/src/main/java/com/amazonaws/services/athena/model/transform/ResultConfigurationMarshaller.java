@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,10 @@ public class ResultConfigurationMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OutputLocation").build();
     private static final MarshallingInfo<StructuredPojo> ENCRYPTIONCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EncryptionConfiguration").build();
+    private static final MarshallingInfo<String> EXPECTEDBUCKETOWNER_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ExpectedBucketOwner").build();
+    private static final MarshallingInfo<StructuredPojo> ACLCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AclConfiguration").build();
 
     private static final ResultConfigurationMarshaller instance = new ResultConfigurationMarshaller();
 
@@ -50,6 +54,8 @@ public class ResultConfigurationMarshaller {
         try {
             protocolMarshaller.marshall(resultConfiguration.getOutputLocation(), OUTPUTLOCATION_BINDING);
             protocolMarshaller.marshall(resultConfiguration.getEncryptionConfiguration(), ENCRYPTIONCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(resultConfiguration.getExpectedBucketOwner(), EXPECTEDBUCKETOWNER_BINDING);
+            protocolMarshaller.marshall(resultConfiguration.getAclConfiguration(), ACLCONFIGURATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

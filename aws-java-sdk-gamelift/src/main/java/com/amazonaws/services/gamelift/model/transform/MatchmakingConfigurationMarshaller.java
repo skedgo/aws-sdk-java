@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,6 +30,8 @@ public class MatchmakingConfigurationMarshaller {
 
     private static final MarshallingInfo<String> NAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Name").build();
+    private static final MarshallingInfo<String> CONFIGURATIONARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ConfigurationArn").build();
     private static final MarshallingInfo<String> DESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Description").build();
     private static final MarshallingInfo<List> GAMESESSIONQUEUEARNS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
@@ -42,6 +44,8 @@ public class MatchmakingConfigurationMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AcceptanceRequired").build();
     private static final MarshallingInfo<String> RULESETNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RuleSetName").build();
+    private static final MarshallingInfo<String> RULESETARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RuleSetArn").build();
     private static final MarshallingInfo<String> NOTIFICATIONTARGET_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("NotificationTarget").build();
     private static final MarshallingInfo<Integer> ADDITIONALPLAYERCOUNT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
@@ -56,6 +60,8 @@ public class MatchmakingConfigurationMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("GameSessionData").build();
     private static final MarshallingInfo<String> BACKFILLMODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("BackfillMode").build();
+    private static final MarshallingInfo<String> FLEXMATCHMODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FlexMatchMode").build();
 
     private static final MatchmakingConfigurationMarshaller instance = new MatchmakingConfigurationMarshaller();
 
@@ -74,12 +80,14 @@ public class MatchmakingConfigurationMarshaller {
 
         try {
             protocolMarshaller.marshall(matchmakingConfiguration.getName(), NAME_BINDING);
+            protocolMarshaller.marshall(matchmakingConfiguration.getConfigurationArn(), CONFIGURATIONARN_BINDING);
             protocolMarshaller.marshall(matchmakingConfiguration.getDescription(), DESCRIPTION_BINDING);
             protocolMarshaller.marshall(matchmakingConfiguration.getGameSessionQueueArns(), GAMESESSIONQUEUEARNS_BINDING);
             protocolMarshaller.marshall(matchmakingConfiguration.getRequestTimeoutSeconds(), REQUESTTIMEOUTSECONDS_BINDING);
             protocolMarshaller.marshall(matchmakingConfiguration.getAcceptanceTimeoutSeconds(), ACCEPTANCETIMEOUTSECONDS_BINDING);
             protocolMarshaller.marshall(matchmakingConfiguration.getAcceptanceRequired(), ACCEPTANCEREQUIRED_BINDING);
             protocolMarshaller.marshall(matchmakingConfiguration.getRuleSetName(), RULESETNAME_BINDING);
+            protocolMarshaller.marshall(matchmakingConfiguration.getRuleSetArn(), RULESETARN_BINDING);
             protocolMarshaller.marshall(matchmakingConfiguration.getNotificationTarget(), NOTIFICATIONTARGET_BINDING);
             protocolMarshaller.marshall(matchmakingConfiguration.getAdditionalPlayerCount(), ADDITIONALPLAYERCOUNT_BINDING);
             protocolMarshaller.marshall(matchmakingConfiguration.getCustomEventData(), CUSTOMEVENTDATA_BINDING);
@@ -87,6 +95,7 @@ public class MatchmakingConfigurationMarshaller {
             protocolMarshaller.marshall(matchmakingConfiguration.getGameProperties(), GAMEPROPERTIES_BINDING);
             protocolMarshaller.marshall(matchmakingConfiguration.getGameSessionData(), GAMESESSIONDATA_BINDING);
             protocolMarshaller.marshall(matchmakingConfiguration.getBackfillMode(), BACKFILLMODE_BINDING);
+            protocolMarshaller.marshall(matchmakingConfiguration.getFlexMatchMode(), FLEXMATCHMODE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

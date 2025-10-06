@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,10 +34,9 @@ public class PutRecordsResult extends com.amazonaws.AmazonWebServiceResult<com.a
     private Integer failedRecordCount;
     /**
      * <p>
-     * An array of successfully and unsuccessfully processed record results, correlated with the request by natural
-     * ordering. A record that is successfully added to a stream includes <code>SequenceNumber</code> and
-     * <code>ShardId</code> in the result. A record that fails to be added to a stream includes <code>ErrorCode</code>
-     * and <code>ErrorMessage</code> in the result.
+     * An array of successfully and unsuccessfully processed record results. A record that is successfully added to a
+     * stream includes <code>SequenceNumber</code> and <code>ShardId</code> in the result. A record that fails to be
+     * added to a stream includes <code>ErrorCode</code> and <code>ErrorMessage</code> in the result.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<PutRecordsResultEntry> records;
@@ -53,7 +52,7 @@ public class PutRecordsResult extends com.amazonaws.AmazonWebServiceResult<com.a
      * </li>
      * <li>
      * <p>
-     * <code>KMS</code>: Use server-side encryption on the records using a customer-managed AWS KMS key.
+     * <code>KMS</code>: Use server-side encryption on the records using a customer-managed Amazon Web Services KMS key.
      * </p>
      * </li>
      * </ul>
@@ -102,16 +101,15 @@ public class PutRecordsResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * An array of successfully and unsuccessfully processed record results, correlated with the request by natural
-     * ordering. A record that is successfully added to a stream includes <code>SequenceNumber</code> and
-     * <code>ShardId</code> in the result. A record that fails to be added to a stream includes <code>ErrorCode</code>
-     * and <code>ErrorMessage</code> in the result.
+     * An array of successfully and unsuccessfully processed record results. A record that is successfully added to a
+     * stream includes <code>SequenceNumber</code> and <code>ShardId</code> in the result. A record that fails to be
+     * added to a stream includes <code>ErrorCode</code> and <code>ErrorMessage</code> in the result.
      * </p>
      * 
-     * @return An array of successfully and unsuccessfully processed record results, correlated with the request by
-     *         natural ordering. A record that is successfully added to a stream includes <code>SequenceNumber</code>
-     *         and <code>ShardId</code> in the result. A record that fails to be added to a stream includes
-     *         <code>ErrorCode</code> and <code>ErrorMessage</code> in the result.
+     * @return An array of successfully and unsuccessfully processed record results. A record that is successfully added
+     *         to a stream includes <code>SequenceNumber</code> and <code>ShardId</code> in the result. A record that
+     *         fails to be added to a stream includes <code>ErrorCode</code> and <code>ErrorMessage</code> in the
+     *         result.
      */
 
     public java.util.List<PutRecordsResultEntry> getRecords() {
@@ -123,17 +121,15 @@ public class PutRecordsResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * An array of successfully and unsuccessfully processed record results, correlated with the request by natural
-     * ordering. A record that is successfully added to a stream includes <code>SequenceNumber</code> and
-     * <code>ShardId</code> in the result. A record that fails to be added to a stream includes <code>ErrorCode</code>
-     * and <code>ErrorMessage</code> in the result.
+     * An array of successfully and unsuccessfully processed record results. A record that is successfully added to a
+     * stream includes <code>SequenceNumber</code> and <code>ShardId</code> in the result. A record that fails to be
+     * added to a stream includes <code>ErrorCode</code> and <code>ErrorMessage</code> in the result.
      * </p>
      * 
      * @param records
-     *        An array of successfully and unsuccessfully processed record results, correlated with the request by
-     *        natural ordering. A record that is successfully added to a stream includes <code>SequenceNumber</code> and
-     *        <code>ShardId</code> in the result. A record that fails to be added to a stream includes
-     *        <code>ErrorCode</code> and <code>ErrorMessage</code> in the result.
+     *        An array of successfully and unsuccessfully processed record results. A record that is successfully added
+     *        to a stream includes <code>SequenceNumber</code> and <code>ShardId</code> in the result. A record that
+     *        fails to be added to a stream includes <code>ErrorCode</code> and <code>ErrorMessage</code> in the result.
      */
 
     public void setRecords(java.util.Collection<PutRecordsResultEntry> records) {
@@ -147,10 +143,9 @@ public class PutRecordsResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * An array of successfully and unsuccessfully processed record results, correlated with the request by natural
-     * ordering. A record that is successfully added to a stream includes <code>SequenceNumber</code> and
-     * <code>ShardId</code> in the result. A record that fails to be added to a stream includes <code>ErrorCode</code>
-     * and <code>ErrorMessage</code> in the result.
+     * An array of successfully and unsuccessfully processed record results. A record that is successfully added to a
+     * stream includes <code>SequenceNumber</code> and <code>ShardId</code> in the result. A record that fails to be
+     * added to a stream includes <code>ErrorCode</code> and <code>ErrorMessage</code> in the result.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -159,10 +154,9 @@ public class PutRecordsResult extends com.amazonaws.AmazonWebServiceResult<com.a
      * </p>
      * 
      * @param records
-     *        An array of successfully and unsuccessfully processed record results, correlated with the request by
-     *        natural ordering. A record that is successfully added to a stream includes <code>SequenceNumber</code> and
-     *        <code>ShardId</code> in the result. A record that fails to be added to a stream includes
-     *        <code>ErrorCode</code> and <code>ErrorMessage</code> in the result.
+     *        An array of successfully and unsuccessfully processed record results. A record that is successfully added
+     *        to a stream includes <code>SequenceNumber</code> and <code>ShardId</code> in the result. A record that
+     *        fails to be added to a stream includes <code>ErrorCode</code> and <code>ErrorMessage</code> in the result.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -178,17 +172,15 @@ public class PutRecordsResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * An array of successfully and unsuccessfully processed record results, correlated with the request by natural
-     * ordering. A record that is successfully added to a stream includes <code>SequenceNumber</code> and
-     * <code>ShardId</code> in the result. A record that fails to be added to a stream includes <code>ErrorCode</code>
-     * and <code>ErrorMessage</code> in the result.
+     * An array of successfully and unsuccessfully processed record results. A record that is successfully added to a
+     * stream includes <code>SequenceNumber</code> and <code>ShardId</code> in the result. A record that fails to be
+     * added to a stream includes <code>ErrorCode</code> and <code>ErrorMessage</code> in the result.
      * </p>
      * 
      * @param records
-     *        An array of successfully and unsuccessfully processed record results, correlated with the request by
-     *        natural ordering. A record that is successfully added to a stream includes <code>SequenceNumber</code> and
-     *        <code>ShardId</code> in the result. A record that fails to be added to a stream includes
-     *        <code>ErrorCode</code> and <code>ErrorMessage</code> in the result.
+     *        An array of successfully and unsuccessfully processed record results. A record that is successfully added
+     *        to a stream includes <code>SequenceNumber</code> and <code>ShardId</code> in the result. A record that
+     *        fails to be added to a stream includes <code>ErrorCode</code> and <code>ErrorMessage</code> in the result.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -209,7 +201,7 @@ public class PutRecordsResult extends com.amazonaws.AmazonWebServiceResult<com.a
      * </li>
      * <li>
      * <p>
-     * <code>KMS</code>: Use server-side encryption on the records using a customer-managed AWS KMS key.
+     * <code>KMS</code>: Use server-side encryption on the records using a customer-managed Amazon Web Services KMS key.
      * </p>
      * </li>
      * </ul>
@@ -224,7 +216,8 @@ public class PutRecordsResult extends com.amazonaws.AmazonWebServiceResult<com.a
      *        </li>
      *        <li>
      *        <p>
-     *        <code>KMS</code>: Use server-side encryption on the records using a customer-managed AWS KMS key.
+     *        <code>KMS</code>: Use server-side encryption on the records using a customer-managed Amazon Web Services
+     *        KMS key.
      *        </p>
      *        </li>
      * @see EncryptionType
@@ -246,7 +239,7 @@ public class PutRecordsResult extends com.amazonaws.AmazonWebServiceResult<com.a
      * </li>
      * <li>
      * <p>
-     * <code>KMS</code>: Use server-side encryption on the records using a customer-managed AWS KMS key.
+     * <code>KMS</code>: Use server-side encryption on the records using a customer-managed Amazon Web Services KMS key.
      * </p>
      * </li>
      * </ul>
@@ -260,7 +253,8 @@ public class PutRecordsResult extends com.amazonaws.AmazonWebServiceResult<com.a
      *         </li>
      *         <li>
      *         <p>
-     *         <code>KMS</code>: Use server-side encryption on the records using a customer-managed AWS KMS key.
+     *         <code>KMS</code>: Use server-side encryption on the records using a customer-managed Amazon Web Services
+     *         KMS key.
      *         </p>
      *         </li>
      * @see EncryptionType
@@ -282,7 +276,7 @@ public class PutRecordsResult extends com.amazonaws.AmazonWebServiceResult<com.a
      * </li>
      * <li>
      * <p>
-     * <code>KMS</code>: Use server-side encryption on the records using a customer-managed AWS KMS key.
+     * <code>KMS</code>: Use server-side encryption on the records using a customer-managed Amazon Web Services KMS key.
      * </p>
      * </li>
      * </ul>
@@ -297,7 +291,8 @@ public class PutRecordsResult extends com.amazonaws.AmazonWebServiceResult<com.a
      *        </li>
      *        <li>
      *        <p>
-     *        <code>KMS</code>: Use server-side encryption on the records using a customer-managed AWS KMS key.
+     *        <code>KMS</code>: Use server-side encryption on the records using a customer-managed Amazon Web Services
+     *        KMS key.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -321,7 +316,7 @@ public class PutRecordsResult extends com.amazonaws.AmazonWebServiceResult<com.a
      * </li>
      * <li>
      * <p>
-     * <code>KMS</code>: Use server-side encryption on the records using a customer-managed AWS KMS key.
+     * <code>KMS</code>: Use server-side encryption on the records using a customer-managed Amazon Web Services KMS key.
      * </p>
      * </li>
      * </ul>
@@ -336,7 +331,8 @@ public class PutRecordsResult extends com.amazonaws.AmazonWebServiceResult<com.a
      *        </li>
      *        <li>
      *        <p>
-     *        <code>KMS</code>: Use server-side encryption on the records using a customer-managed AWS KMS key.
+     *        <code>KMS</code>: Use server-side encryption on the records using a customer-managed Amazon Web Services
+     *        KMS key.
      *        </p>
      *        </li>
      * @see EncryptionType
@@ -358,7 +354,7 @@ public class PutRecordsResult extends com.amazonaws.AmazonWebServiceResult<com.a
      * </li>
      * <li>
      * <p>
-     * <code>KMS</code>: Use server-side encryption on the records using a customer-managed AWS KMS key.
+     * <code>KMS</code>: Use server-side encryption on the records using a customer-managed Amazon Web Services KMS key.
      * </p>
      * </li>
      * </ul>
@@ -373,7 +369,8 @@ public class PutRecordsResult extends com.amazonaws.AmazonWebServiceResult<com.a
      *        </li>
      *        <li>
      *        <p>
-     *        <code>KMS</code>: Use server-side encryption on the records using a customer-managed AWS KMS key.
+     *        <code>KMS</code>: Use server-side encryption on the records using a customer-managed Amazon Web Services
+     *        KMS key.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.iot1clickdevices.AWSIoT1ClickDevicesClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.iot1clickdevices.model.*;
+
 import com.amazonaws.services.iot1clickdevices.model.transform.*;
 
 /**
@@ -77,28 +78,28 @@ public class AWSIoT1ClickDevicesClient extends AmazonWebServiceClient implements
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalFailureException").withModeledClass(
-                                    com.amazonaws.services.iot1clickdevices.model.InternalFailureException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalFailureException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot1clickdevices.model.transform.InternalFailureExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withModeledClass(
-                                    com.amazonaws.services.iot1clickdevices.model.InvalidRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot1clickdevices.model.transform.InvalidRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("PreconditionFailedException").withModeledClass(
-                                    com.amazonaws.services.iot1clickdevices.model.PreconditionFailedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("PreconditionFailedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot1clickdevices.model.transform.PreconditionFailedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.iot1clickdevices.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot1clickdevices.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RangeNotSatisfiableException").withModeledClass(
-                                    com.amazonaws.services.iot1clickdevices.model.RangeNotSatisfiableException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RangeNotSatisfiableException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot1clickdevices.model.transform.RangeNotSatisfiableExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ForbiddenException").withModeledClass(
-                                    com.amazonaws.services.iot1clickdevices.model.ForbiddenException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ForbiddenException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot1clickdevices.model.transform.ForbiddenExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceConflictException").withModeledClass(
-                                    com.amazonaws.services.iot1clickdevices.model.ResourceConflictException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iot1clickdevices.model.transform.ResourceConflictExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.iot1clickdevices.model.AWSIoT1ClickDevicesException.class));
 
     public static AWSIoT1ClickDevicesClientBuilder builder() {
@@ -189,6 +190,8 @@ public class AWSIoT1ClickDevicesClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(claimDevicesByClaimCodeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT 1Click Devices Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ClaimDevicesByClaimCode");
@@ -249,6 +252,8 @@ public class AWSIoT1ClickDevicesClient extends AmazonWebServiceClient implements
                 request = new DescribeDeviceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeDeviceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT 1Click Devices Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDevice");
@@ -318,6 +323,8 @@ public class AWSIoT1ClickDevicesClient extends AmazonWebServiceClient implements
                 request = new FinalizeDeviceClaimRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(finalizeDeviceClaimRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT 1Click Devices Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "FinalizeDeviceClaim");
@@ -377,6 +384,8 @@ public class AWSIoT1ClickDevicesClient extends AmazonWebServiceClient implements
                 request = new GetDeviceMethodsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDeviceMethodsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT 1Click Devices Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDeviceMethods");
@@ -444,6 +453,8 @@ public class AWSIoT1ClickDevicesClient extends AmazonWebServiceClient implements
                 request = new InitiateDeviceClaimRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(initiateDeviceClaimRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT 1Click Devices Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "InitiateDeviceClaim");
@@ -510,6 +521,8 @@ public class AWSIoT1ClickDevicesClient extends AmazonWebServiceClient implements
                 request = new InvokeDeviceMethodRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(invokeDeviceMethodRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT 1Click Devices Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "InvokeDeviceMethod");
@@ -571,6 +584,8 @@ public class AWSIoT1ClickDevicesClient extends AmazonWebServiceClient implements
                 request = new ListDeviceEventsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDeviceEventsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT 1Click Devices Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDeviceEvents");
@@ -630,6 +645,8 @@ public class AWSIoT1ClickDevicesClient extends AmazonWebServiceClient implements
                 request = new ListDevicesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDevicesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT 1Click Devices Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDevices");
@@ -687,6 +704,8 @@ public class AWSIoT1ClickDevicesClient extends AmazonWebServiceClient implements
                 request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT 1Click Devices Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -748,6 +767,8 @@ public class AWSIoT1ClickDevicesClient extends AmazonWebServiceClient implements
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT 1Click Devices Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -807,6 +828,8 @@ public class AWSIoT1ClickDevicesClient extends AmazonWebServiceClient implements
                 request = new UnclaimDeviceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(unclaimDeviceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT 1Click Devices Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UnclaimDevice");
@@ -866,6 +889,8 @@ public class AWSIoT1ClickDevicesClient extends AmazonWebServiceClient implements
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT 1Click Devices Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -925,6 +950,8 @@ public class AWSIoT1ClickDevicesClient extends AmazonWebServiceClient implements
                 request = new UpdateDeviceStateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateDeviceStateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT 1Click Devices Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDeviceState");
@@ -1020,6 +1047,11 @@ public class AWSIoT1ClickDevicesClient extends AmazonWebServiceClient implements
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

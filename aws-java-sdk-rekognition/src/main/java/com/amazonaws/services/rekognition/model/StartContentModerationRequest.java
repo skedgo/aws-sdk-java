@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -22,7 +22,8 @@ public class StartContentModerationRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The video in which you want to moderate content. The video must be stored in an Amazon S3 bucket.
+     * The video in which you want to detect inappropriate, unwanted, or offensive content. The video must be stored in
+     * an Amazon S3 bucket.
      * </p>
      */
     private Video video;
@@ -47,25 +48,29 @@ public class StartContentModerationRequest extends com.amazonaws.AmazonWebServic
     /**
      * <p>
      * The Amazon SNS topic ARN that you want Amazon Rekognition Video to publish the completion status of the content
-     * moderation analysis to.
+     * analysis to. The Amazon SNS topic must have a topic name that begins with <i>AmazonRekognition</i> if you are
+     * using the AmazonRekognitionServiceRole permissions policy to access the topic.
      * </p>
      */
     private NotificationChannel notificationChannel;
     /**
      * <p>
-     * Unique identifier you specify to identify the job in the completion status published to the Amazon Simple
-     * Notification Service topic.
+     * An identifier you specify that's returned in the completion notification that's published to your Amazon Simple
+     * Notification Service topic. For example, you can use <code>JobTag</code> to group related jobs and identify them
+     * in the completion notification.
      * </p>
      */
     private String jobTag;
 
     /**
      * <p>
-     * The video in which you want to moderate content. The video must be stored in an Amazon S3 bucket.
+     * The video in which you want to detect inappropriate, unwanted, or offensive content. The video must be stored in
+     * an Amazon S3 bucket.
      * </p>
      * 
      * @param video
-     *        The video in which you want to moderate content. The video must be stored in an Amazon S3 bucket.
+     *        The video in which you want to detect inappropriate, unwanted, or offensive content. The video must be
+     *        stored in an Amazon S3 bucket.
      */
 
     public void setVideo(Video video) {
@@ -74,10 +79,12 @@ public class StartContentModerationRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The video in which you want to moderate content. The video must be stored in an Amazon S3 bucket.
+     * The video in which you want to detect inappropriate, unwanted, or offensive content. The video must be stored in
+     * an Amazon S3 bucket.
      * </p>
      * 
-     * @return The video in which you want to moderate content. The video must be stored in an Amazon S3 bucket.
+     * @return The video in which you want to detect inappropriate, unwanted, or offensive content. The video must be
+     *         stored in an Amazon S3 bucket.
      */
 
     public Video getVideo() {
@@ -86,11 +93,13 @@ public class StartContentModerationRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The video in which you want to moderate content. The video must be stored in an Amazon S3 bucket.
+     * The video in which you want to detect inappropriate, unwanted, or offensive content. The video must be stored in
+     * an Amazon S3 bucket.
      * </p>
      * 
      * @param video
-     *        The video in which you want to moderate content. The video must be stored in an Amazon S3 bucket.
+     *        The video in which you want to detect inappropriate, unwanted, or offensive content. The video must be
+     *        stored in an Amazon S3 bucket.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -221,12 +230,14 @@ public class StartContentModerationRequest extends com.amazonaws.AmazonWebServic
     /**
      * <p>
      * The Amazon SNS topic ARN that you want Amazon Rekognition Video to publish the completion status of the content
-     * moderation analysis to.
+     * analysis to. The Amazon SNS topic must have a topic name that begins with <i>AmazonRekognition</i> if you are
+     * using the AmazonRekognitionServiceRole permissions policy to access the topic.
      * </p>
      * 
      * @param notificationChannel
      *        The Amazon SNS topic ARN that you want Amazon Rekognition Video to publish the completion status of the
-     *        content moderation analysis to.
+     *        content analysis to. The Amazon SNS topic must have a topic name that begins with <i>AmazonRekognition</i>
+     *        if you are using the AmazonRekognitionServiceRole permissions policy to access the topic.
      */
 
     public void setNotificationChannel(NotificationChannel notificationChannel) {
@@ -236,11 +247,14 @@ public class StartContentModerationRequest extends com.amazonaws.AmazonWebServic
     /**
      * <p>
      * The Amazon SNS topic ARN that you want Amazon Rekognition Video to publish the completion status of the content
-     * moderation analysis to.
+     * analysis to. The Amazon SNS topic must have a topic name that begins with <i>AmazonRekognition</i> if you are
+     * using the AmazonRekognitionServiceRole permissions policy to access the topic.
      * </p>
      * 
      * @return The Amazon SNS topic ARN that you want Amazon Rekognition Video to publish the completion status of the
-     *         content moderation analysis to.
+     *         content analysis to. The Amazon SNS topic must have a topic name that begins with
+     *         <i>AmazonRekognition</i> if you are using the AmazonRekognitionServiceRole permissions policy to access
+     *         the topic.
      */
 
     public NotificationChannel getNotificationChannel() {
@@ -250,12 +264,14 @@ public class StartContentModerationRequest extends com.amazonaws.AmazonWebServic
     /**
      * <p>
      * The Amazon SNS topic ARN that you want Amazon Rekognition Video to publish the completion status of the content
-     * moderation analysis to.
+     * analysis to. The Amazon SNS topic must have a topic name that begins with <i>AmazonRekognition</i> if you are
+     * using the AmazonRekognitionServiceRole permissions policy to access the topic.
      * </p>
      * 
      * @param notificationChannel
      *        The Amazon SNS topic ARN that you want Amazon Rekognition Video to publish the completion status of the
-     *        content moderation analysis to.
+     *        content analysis to. The Amazon SNS topic must have a topic name that begins with <i>AmazonRekognition</i>
+     *        if you are using the AmazonRekognitionServiceRole permissions policy to access the topic.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -266,13 +282,15 @@ public class StartContentModerationRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Unique identifier you specify to identify the job in the completion status published to the Amazon Simple
-     * Notification Service topic.
+     * An identifier you specify that's returned in the completion notification that's published to your Amazon Simple
+     * Notification Service topic. For example, you can use <code>JobTag</code> to group related jobs and identify them
+     * in the completion notification.
      * </p>
      * 
      * @param jobTag
-     *        Unique identifier you specify to identify the job in the completion status published to the Amazon Simple
-     *        Notification Service topic.
+     *        An identifier you specify that's returned in the completion notification that's published to your Amazon
+     *        Simple Notification Service topic. For example, you can use <code>JobTag</code> to group related jobs and
+     *        identify them in the completion notification.
      */
 
     public void setJobTag(String jobTag) {
@@ -281,12 +299,14 @@ public class StartContentModerationRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Unique identifier you specify to identify the job in the completion status published to the Amazon Simple
-     * Notification Service topic.
+     * An identifier you specify that's returned in the completion notification that's published to your Amazon Simple
+     * Notification Service topic. For example, you can use <code>JobTag</code> to group related jobs and identify them
+     * in the completion notification.
      * </p>
      * 
-     * @return Unique identifier you specify to identify the job in the completion status published to the Amazon Simple
-     *         Notification Service topic.
+     * @return An identifier you specify that's returned in the completion notification that's published to your Amazon
+     *         Simple Notification Service topic. For example, you can use <code>JobTag</code> to group related jobs and
+     *         identify them in the completion notification.
      */
 
     public String getJobTag() {
@@ -295,13 +315,15 @@ public class StartContentModerationRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Unique identifier you specify to identify the job in the completion status published to the Amazon Simple
-     * Notification Service topic.
+     * An identifier you specify that's returned in the completion notification that's published to your Amazon Simple
+     * Notification Service topic. For example, you can use <code>JobTag</code> to group related jobs and identify them
+     * in the completion notification.
      * </p>
      * 
      * @param jobTag
-     *        Unique identifier you specify to identify the job in the completion status published to the Amazon Simple
-     *        Notification Service topic.
+     *        An identifier you specify that's returned in the completion notification that's published to your Amazon
+     *        Simple Notification Service topic. For example, you can use <code>JobTag</code> to group related jobs and
+     *        identify them in the completion notification.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

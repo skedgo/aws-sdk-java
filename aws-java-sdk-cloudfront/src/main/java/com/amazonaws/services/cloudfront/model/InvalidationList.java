@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -23,7 +23,7 @@ import javax.annotation.Generated;
  * Distributions Only)</a> in the <i>Amazon CloudFront Developer Guide</i>.
  * </p>
  * 
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/InvalidationList" target="_top">AWS API
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/InvalidationList" target="_top">AWS API
  *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -58,14 +58,14 @@ public class InvalidationList implements Serializable, Cloneable {
     private Boolean isTruncated;
     /**
      * <p>
-     * The number of invalidation batches that were created by the current AWS account.
+     * The number of invalidation batches that were created by the current Amazon Web Services account.
      * </p>
      */
     private Integer quantity;
     /**
      * <p>
      * A complex type that contains one <code>InvalidationSummary</code> element for each invalidation batch created by
-     * the current AWS account.
+     * the current Amazon Web Services account.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<InvalidationSummary> items;
@@ -269,11 +269,11 @@ public class InvalidationList implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of invalidation batches that were created by the current AWS account.
+     * The number of invalidation batches that were created by the current Amazon Web Services account.
      * </p>
      * 
      * @param quantity
-     *        The number of invalidation batches that were created by the current AWS account.
+     *        The number of invalidation batches that were created by the current Amazon Web Services account.
      */
 
     public void setQuantity(Integer quantity) {
@@ -282,10 +282,10 @@ public class InvalidationList implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of invalidation batches that were created by the current AWS account.
+     * The number of invalidation batches that were created by the current Amazon Web Services account.
      * </p>
      * 
-     * @return The number of invalidation batches that were created by the current AWS account.
+     * @return The number of invalidation batches that were created by the current Amazon Web Services account.
      */
 
     public Integer getQuantity() {
@@ -294,11 +294,11 @@ public class InvalidationList implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of invalidation batches that were created by the current AWS account.
+     * The number of invalidation batches that were created by the current Amazon Web Services account.
      * </p>
      * 
      * @param quantity
-     *        The number of invalidation batches that were created by the current AWS account.
+     *        The number of invalidation batches that were created by the current Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -310,11 +310,11 @@ public class InvalidationList implements Serializable, Cloneable {
     /**
      * <p>
      * A complex type that contains one <code>InvalidationSummary</code> element for each invalidation batch created by
-     * the current AWS account.
+     * the current Amazon Web Services account.
      * </p>
      * 
      * @return A complex type that contains one <code>InvalidationSummary</code> element for each invalidation batch
-     *         created by the current AWS account.
+     *         created by the current Amazon Web Services account.
      */
 
     public java.util.List<InvalidationSummary> getItems() {
@@ -327,12 +327,12 @@ public class InvalidationList implements Serializable, Cloneable {
     /**
      * <p>
      * A complex type that contains one <code>InvalidationSummary</code> element for each invalidation batch created by
-     * the current AWS account.
+     * the current Amazon Web Services account.
      * </p>
      * 
      * @param items
      *        A complex type that contains one <code>InvalidationSummary</code> element for each invalidation batch
-     *        created by the current AWS account.
+     *        created by the current Amazon Web Services account.
      */
 
     public void setItems(java.util.Collection<InvalidationSummary> items) {
@@ -347,7 +347,7 @@ public class InvalidationList implements Serializable, Cloneable {
     /**
      * <p>
      * A complex type that contains one <code>InvalidationSummary</code> element for each invalidation batch created by
-     * the current AWS account.
+     * the current Amazon Web Services account.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -357,7 +357,7 @@ public class InvalidationList implements Serializable, Cloneable {
      * 
      * @param items
      *        A complex type that contains one <code>InvalidationSummary</code> element for each invalidation batch
-     *        created by the current AWS account.
+     *        created by the current Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -374,12 +374,12 @@ public class InvalidationList implements Serializable, Cloneable {
     /**
      * <p>
      * A complex type that contains one <code>InvalidationSummary</code> element for each invalidation batch created by
-     * the current AWS account.
+     * the current Amazon Web Services account.
      * </p>
      * 
      * @param items
      *        A complex type that contains one <code>InvalidationSummary</code> element for each invalidation batch
-     *        created by the current AWS account.
+     *        created by the current Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

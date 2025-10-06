@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,24 +28,24 @@ public class AcceptVpcEndpointConnectionsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The ID of the endpoint service.
+     * The ID of the VPC endpoint service.
      * </p>
      */
     private String serviceId;
     /**
      * <p>
-     * The IDs of one or more interface VPC endpoints.
+     * The IDs of the interface VPC endpoints.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> vpcEndpointIds;
 
     /**
      * <p>
-     * The ID of the endpoint service.
+     * The ID of the VPC endpoint service.
      * </p>
      * 
      * @param serviceId
-     *        The ID of the endpoint service.
+     *        The ID of the VPC endpoint service.
      */
 
     public void setServiceId(String serviceId) {
@@ -54,10 +54,10 @@ public class AcceptVpcEndpointConnectionsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The ID of the endpoint service.
+     * The ID of the VPC endpoint service.
      * </p>
      * 
-     * @return The ID of the endpoint service.
+     * @return The ID of the VPC endpoint service.
      */
 
     public String getServiceId() {
@@ -66,11 +66,11 @@ public class AcceptVpcEndpointConnectionsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The ID of the endpoint service.
+     * The ID of the VPC endpoint service.
      * </p>
      * 
      * @param serviceId
-     *        The ID of the endpoint service.
+     *        The ID of the VPC endpoint service.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -81,10 +81,10 @@ public class AcceptVpcEndpointConnectionsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The IDs of one or more interface VPC endpoints.
+     * The IDs of the interface VPC endpoints.
      * </p>
      * 
-     * @return The IDs of one or more interface VPC endpoints.
+     * @return The IDs of the interface VPC endpoints.
      */
 
     public java.util.List<String> getVpcEndpointIds() {
@@ -96,11 +96,11 @@ public class AcceptVpcEndpointConnectionsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The IDs of one or more interface VPC endpoints.
+     * The IDs of the interface VPC endpoints.
      * </p>
      * 
      * @param vpcEndpointIds
-     *        The IDs of one or more interface VPC endpoints.
+     *        The IDs of the interface VPC endpoints.
      */
 
     public void setVpcEndpointIds(java.util.Collection<String> vpcEndpointIds) {
@@ -114,7 +114,7 @@ public class AcceptVpcEndpointConnectionsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The IDs of one or more interface VPC endpoints.
+     * The IDs of the interface VPC endpoints.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -123,7 +123,7 @@ public class AcceptVpcEndpointConnectionsRequest extends AmazonWebServiceRequest
      * </p>
      * 
      * @param vpcEndpointIds
-     *        The IDs of one or more interface VPC endpoints.
+     *        The IDs of the interface VPC endpoints.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -139,11 +139,11 @@ public class AcceptVpcEndpointConnectionsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The IDs of one or more interface VPC endpoints.
+     * The IDs of the interface VPC endpoints.
      * </p>
      * 
      * @param vpcEndpointIds
-     *        The IDs of one or more interface VPC endpoints.
+     *        The IDs of the interface VPC endpoints.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

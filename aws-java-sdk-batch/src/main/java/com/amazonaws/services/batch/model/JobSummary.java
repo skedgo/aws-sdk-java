@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An object representing summary details of a job.
+ * An object that represents summary details of a job.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/JobSummary" target="_top">AWS API
@@ -30,21 +30,29 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID of the job.
+     * The Amazon Resource Name (ARN) of the job.
+     * </p>
+     */
+    private String jobArn;
+    /**
+     * <p>
+     * The job ID.
      * </p>
      */
     private String jobId;
     /**
      * <p>
-     * The name of the job.
+     * The job name.
      * </p>
      */
     private String jobName;
     /**
      * <p>
-     * The Unix timestamp for when the job was created. For non-array jobs and parent array jobs, this is when the job
-     * entered the <code>SUBMITTED</code> state (at the time <a>SubmitJob</a> was called). For array child jobs, this is
-     * when the child job was spawned by its parent and entered the <code>PENDING</code> state.
+     * The Unix timestamp (in milliseconds) for when the job was created. For non-array jobs and parent array jobs, this
+     * is when the job entered the <code>SUBMITTED</code> state (at the time <a
+     * href="https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html">SubmitJob</a> was called). For
+     * array child jobs, this is when the child job was spawned by its parent and entered the <code>PENDING</code>
+     * state.
      * </p>
      */
     private Long createdAt;
@@ -56,33 +64,33 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
     private String status;
     /**
      * <p>
-     * A short, human-readable string to provide additional details about the current status of the job.
+     * A short, human-readable string to provide more details for the current status of the job.
      * </p>
      */
     private String statusReason;
     /**
      * <p>
-     * The Unix timestamp for when the job was started (when the job transitioned from the <code>STARTING</code> state
-     * to the <code>RUNNING</code> state).
+     * The Unix timestamp for when the job was started. More specifically, it's when the job transitioned from the
+     * <code>STARTING</code> state to the <code>RUNNING</code> state.
      * </p>
      */
     private Long startedAt;
     /**
      * <p>
-     * The Unix timestamp for when the job was stopped (when the job transitioned from the <code>RUNNING</code> state to
-     * a terminal state, such as <code>SUCCEEDED</code> or <code>FAILED</code>).
+     * The Unix timestamp for when the job was stopped. More specifically, it's when the job transitioned from the
+     * <code>RUNNING</code> state to a terminal state, such as <code>SUCCEEDED</code> or <code>FAILED</code>.
      * </p>
      */
     private Long stoppedAt;
     /**
      * <p>
-     * An object representing the details of the container that is associated with the job.
+     * An object that represents the details of the container that's associated with the job.
      * </p>
      */
     private ContainerSummary container;
     /**
      * <p>
-     * The array properties of the job, if it is an array job.
+     * The array properties of the job, if it's an array job.
      * </p>
      */
     private ArrayPropertiesSummary arrayProperties;
@@ -90,16 +98,67 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The node properties for a single node in a job summary list.
      * </p>
+     * <note>
+     * <p>
+     * This isn't applicable to jobs that are running on Fargate resources.
+     * </p>
+     * </note>
      */
     private NodePropertiesSummary nodeProperties;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the job definition.
+     * </p>
+     */
+    private String jobDefinition;
 
     /**
      * <p>
-     * The ID of the job.
+     * The Amazon Resource Name (ARN) of the job.
+     * </p>
+     * 
+     * @param jobArn
+     *        The Amazon Resource Name (ARN) of the job.
+     */
+
+    public void setJobArn(String jobArn) {
+        this.jobArn = jobArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the job.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the job.
+     */
+
+    public String getJobArn() {
+        return this.jobArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the job.
+     * </p>
+     * 
+     * @param jobArn
+     *        The Amazon Resource Name (ARN) of the job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobSummary withJobArn(String jobArn) {
+        setJobArn(jobArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The job ID.
      * </p>
      * 
      * @param jobId
-     *        The ID of the job.
+     *        The job ID.
      */
 
     public void setJobId(String jobId) {
@@ -108,10 +167,10 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID of the job.
+     * The job ID.
      * </p>
      * 
-     * @return The ID of the job.
+     * @return The job ID.
      */
 
     public String getJobId() {
@@ -120,11 +179,11 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID of the job.
+     * The job ID.
      * </p>
      * 
      * @param jobId
-     *        The ID of the job.
+     *        The job ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -135,11 +194,11 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the job.
+     * The job name.
      * </p>
      * 
      * @param jobName
-     *        The name of the job.
+     *        The job name.
      */
 
     public void setJobName(String jobName) {
@@ -148,10 +207,10 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the job.
+     * The job name.
      * </p>
      * 
-     * @return The name of the job.
+     * @return The job name.
      */
 
     public String getJobName() {
@@ -160,11 +219,11 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the job.
+     * The job name.
      * </p>
      * 
      * @param jobName
-     *        The name of the job.
+     *        The job name.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -175,16 +234,19 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the job was created. For non-array jobs and parent array jobs, this is when the job
-     * entered the <code>SUBMITTED</code> state (at the time <a>SubmitJob</a> was called). For array child jobs, this is
-     * when the child job was spawned by its parent and entered the <code>PENDING</code> state.
+     * The Unix timestamp (in milliseconds) for when the job was created. For non-array jobs and parent array jobs, this
+     * is when the job entered the <code>SUBMITTED</code> state (at the time <a
+     * href="https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html">SubmitJob</a> was called). For
+     * array child jobs, this is when the child job was spawned by its parent and entered the <code>PENDING</code>
+     * state.
      * </p>
      * 
      * @param createdAt
-     *        The Unix timestamp for when the job was created. For non-array jobs and parent array jobs, this is when
-     *        the job entered the <code>SUBMITTED</code> state (at the time <a>SubmitJob</a> was called). For array
-     *        child jobs, this is when the child job was spawned by its parent and entered the <code>PENDING</code>
-     *        state.
+     *        The Unix timestamp (in milliseconds) for when the job was created. For non-array jobs and parent array
+     *        jobs, this is when the job entered the <code>SUBMITTED</code> state (at the time <a
+     *        href="https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html">SubmitJob</a> was called).
+     *        For array child jobs, this is when the child job was spawned by its parent and entered the
+     *        <code>PENDING</code> state.
      */
 
     public void setCreatedAt(Long createdAt) {
@@ -193,15 +255,18 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the job was created. For non-array jobs and parent array jobs, this is when the job
-     * entered the <code>SUBMITTED</code> state (at the time <a>SubmitJob</a> was called). For array child jobs, this is
-     * when the child job was spawned by its parent and entered the <code>PENDING</code> state.
+     * The Unix timestamp (in milliseconds) for when the job was created. For non-array jobs and parent array jobs, this
+     * is when the job entered the <code>SUBMITTED</code> state (at the time <a
+     * href="https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html">SubmitJob</a> was called). For
+     * array child jobs, this is when the child job was spawned by its parent and entered the <code>PENDING</code>
+     * state.
      * </p>
      * 
-     * @return The Unix timestamp for when the job was created. For non-array jobs and parent array jobs, this is when
-     *         the job entered the <code>SUBMITTED</code> state (at the time <a>SubmitJob</a> was called). For array
-     *         child jobs, this is when the child job was spawned by its parent and entered the <code>PENDING</code>
-     *         state.
+     * @return The Unix timestamp (in milliseconds) for when the job was created. For non-array jobs and parent array
+     *         jobs, this is when the job entered the <code>SUBMITTED</code> state (at the time <a
+     *         href="https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html">SubmitJob</a> was
+     *         called). For array child jobs, this is when the child job was spawned by its parent and entered the
+     *         <code>PENDING</code> state.
      */
 
     public Long getCreatedAt() {
@@ -210,16 +275,19 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the job was created. For non-array jobs and parent array jobs, this is when the job
-     * entered the <code>SUBMITTED</code> state (at the time <a>SubmitJob</a> was called). For array child jobs, this is
-     * when the child job was spawned by its parent and entered the <code>PENDING</code> state.
+     * The Unix timestamp (in milliseconds) for when the job was created. For non-array jobs and parent array jobs, this
+     * is when the job entered the <code>SUBMITTED</code> state (at the time <a
+     * href="https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html">SubmitJob</a> was called). For
+     * array child jobs, this is when the child job was spawned by its parent and entered the <code>PENDING</code>
+     * state.
      * </p>
      * 
      * @param createdAt
-     *        The Unix timestamp for when the job was created. For non-array jobs and parent array jobs, this is when
-     *        the job entered the <code>SUBMITTED</code> state (at the time <a>SubmitJob</a> was called). For array
-     *        child jobs, this is when the child job was spawned by its parent and entered the <code>PENDING</code>
-     *        state.
+     *        The Unix timestamp (in milliseconds) for when the job was created. For non-array jobs and parent array
+     *        jobs, this is when the job entered the <code>SUBMITTED</code> state (at the time <a
+     *        href="https://docs.aws.amazon.com/batch/latest/APIReference/API_SubmitJob.html">SubmitJob</a> was called).
+     *        For array child jobs, this is when the child job was spawned by its parent and entered the
+     *        <code>PENDING</code> state.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -289,11 +357,11 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A short, human-readable string to provide additional details about the current status of the job.
+     * A short, human-readable string to provide more details for the current status of the job.
      * </p>
      * 
      * @param statusReason
-     *        A short, human-readable string to provide additional details about the current status of the job.
+     *        A short, human-readable string to provide more details for the current status of the job.
      */
 
     public void setStatusReason(String statusReason) {
@@ -302,10 +370,10 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A short, human-readable string to provide additional details about the current status of the job.
+     * A short, human-readable string to provide more details for the current status of the job.
      * </p>
      * 
-     * @return A short, human-readable string to provide additional details about the current status of the job.
+     * @return A short, human-readable string to provide more details for the current status of the job.
      */
 
     public String getStatusReason() {
@@ -314,11 +382,11 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A short, human-readable string to provide additional details about the current status of the job.
+     * A short, human-readable string to provide more details for the current status of the job.
      * </p>
      * 
      * @param statusReason
-     *        A short, human-readable string to provide additional details about the current status of the job.
+     *        A short, human-readable string to provide more details for the current status of the job.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -329,13 +397,13 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the job was started (when the job transitioned from the <code>STARTING</code> state
-     * to the <code>RUNNING</code> state).
+     * The Unix timestamp for when the job was started. More specifically, it's when the job transitioned from the
+     * <code>STARTING</code> state to the <code>RUNNING</code> state.
      * </p>
      * 
      * @param startedAt
-     *        The Unix timestamp for when the job was started (when the job transitioned from the <code>STARTING</code>
-     *        state to the <code>RUNNING</code> state).
+     *        The Unix timestamp for when the job was started. More specifically, it's when the job transitioned from
+     *        the <code>STARTING</code> state to the <code>RUNNING</code> state.
      */
 
     public void setStartedAt(Long startedAt) {
@@ -344,12 +412,12 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the job was started (when the job transitioned from the <code>STARTING</code> state
-     * to the <code>RUNNING</code> state).
+     * The Unix timestamp for when the job was started. More specifically, it's when the job transitioned from the
+     * <code>STARTING</code> state to the <code>RUNNING</code> state.
      * </p>
      * 
-     * @return The Unix timestamp for when the job was started (when the job transitioned from the <code>STARTING</code>
-     *         state to the <code>RUNNING</code> state).
+     * @return The Unix timestamp for when the job was started. More specifically, it's when the job transitioned from
+     *         the <code>STARTING</code> state to the <code>RUNNING</code> state.
      */
 
     public Long getStartedAt() {
@@ -358,13 +426,13 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the job was started (when the job transitioned from the <code>STARTING</code> state
-     * to the <code>RUNNING</code> state).
+     * The Unix timestamp for when the job was started. More specifically, it's when the job transitioned from the
+     * <code>STARTING</code> state to the <code>RUNNING</code> state.
      * </p>
      * 
      * @param startedAt
-     *        The Unix timestamp for when the job was started (when the job transitioned from the <code>STARTING</code>
-     *        state to the <code>RUNNING</code> state).
+     *        The Unix timestamp for when the job was started. More specifically, it's when the job transitioned from
+     *        the <code>STARTING</code> state to the <code>RUNNING</code> state.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -375,13 +443,13 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the job was stopped (when the job transitioned from the <code>RUNNING</code> state to
-     * a terminal state, such as <code>SUCCEEDED</code> or <code>FAILED</code>).
+     * The Unix timestamp for when the job was stopped. More specifically, it's when the job transitioned from the
+     * <code>RUNNING</code> state to a terminal state, such as <code>SUCCEEDED</code> or <code>FAILED</code>.
      * </p>
      * 
      * @param stoppedAt
-     *        The Unix timestamp for when the job was stopped (when the job transitioned from the <code>RUNNING</code>
-     *        state to a terminal state, such as <code>SUCCEEDED</code> or <code>FAILED</code>).
+     *        The Unix timestamp for when the job was stopped. More specifically, it's when the job transitioned from
+     *        the <code>RUNNING</code> state to a terminal state, such as <code>SUCCEEDED</code> or <code>FAILED</code>.
      */
 
     public void setStoppedAt(Long stoppedAt) {
@@ -390,12 +458,13 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the job was stopped (when the job transitioned from the <code>RUNNING</code> state to
-     * a terminal state, such as <code>SUCCEEDED</code> or <code>FAILED</code>).
+     * The Unix timestamp for when the job was stopped. More specifically, it's when the job transitioned from the
+     * <code>RUNNING</code> state to a terminal state, such as <code>SUCCEEDED</code> or <code>FAILED</code>.
      * </p>
      * 
-     * @return The Unix timestamp for when the job was stopped (when the job transitioned from the <code>RUNNING</code>
-     *         state to a terminal state, such as <code>SUCCEEDED</code> or <code>FAILED</code>).
+     * @return The Unix timestamp for when the job was stopped. More specifically, it's when the job transitioned from
+     *         the <code>RUNNING</code> state to a terminal state, such as <code>SUCCEEDED</code> or <code>FAILED</code>
+     *         .
      */
 
     public Long getStoppedAt() {
@@ -404,13 +473,13 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the job was stopped (when the job transitioned from the <code>RUNNING</code> state to
-     * a terminal state, such as <code>SUCCEEDED</code> or <code>FAILED</code>).
+     * The Unix timestamp for when the job was stopped. More specifically, it's when the job transitioned from the
+     * <code>RUNNING</code> state to a terminal state, such as <code>SUCCEEDED</code> or <code>FAILED</code>.
      * </p>
      * 
      * @param stoppedAt
-     *        The Unix timestamp for when the job was stopped (when the job transitioned from the <code>RUNNING</code>
-     *        state to a terminal state, such as <code>SUCCEEDED</code> or <code>FAILED</code>).
+     *        The Unix timestamp for when the job was stopped. More specifically, it's when the job transitioned from
+     *        the <code>RUNNING</code> state to a terminal state, such as <code>SUCCEEDED</code> or <code>FAILED</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -421,11 +490,11 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An object representing the details of the container that is associated with the job.
+     * An object that represents the details of the container that's associated with the job.
      * </p>
      * 
      * @param container
-     *        An object representing the details of the container that is associated with the job.
+     *        An object that represents the details of the container that's associated with the job.
      */
 
     public void setContainer(ContainerSummary container) {
@@ -434,10 +503,10 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An object representing the details of the container that is associated with the job.
+     * An object that represents the details of the container that's associated with the job.
      * </p>
      * 
-     * @return An object representing the details of the container that is associated with the job.
+     * @return An object that represents the details of the container that's associated with the job.
      */
 
     public ContainerSummary getContainer() {
@@ -446,11 +515,11 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An object representing the details of the container that is associated with the job.
+     * An object that represents the details of the container that's associated with the job.
      * </p>
      * 
      * @param container
-     *        An object representing the details of the container that is associated with the job.
+     *        An object that represents the details of the container that's associated with the job.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -461,11 +530,11 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The array properties of the job, if it is an array job.
+     * The array properties of the job, if it's an array job.
      * </p>
      * 
      * @param arrayProperties
-     *        The array properties of the job, if it is an array job.
+     *        The array properties of the job, if it's an array job.
      */
 
     public void setArrayProperties(ArrayPropertiesSummary arrayProperties) {
@@ -474,10 +543,10 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The array properties of the job, if it is an array job.
+     * The array properties of the job, if it's an array job.
      * </p>
      * 
-     * @return The array properties of the job, if it is an array job.
+     * @return The array properties of the job, if it's an array job.
      */
 
     public ArrayPropertiesSummary getArrayProperties() {
@@ -486,11 +555,11 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The array properties of the job, if it is an array job.
+     * The array properties of the job, if it's an array job.
      * </p>
      * 
      * @param arrayProperties
-     *        The array properties of the job, if it is an array job.
+     *        The array properties of the job, if it's an array job.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -503,9 +572,17 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The node properties for a single node in a job summary list.
      * </p>
+     * <note>
+     * <p>
+     * This isn't applicable to jobs that are running on Fargate resources.
+     * </p>
+     * </note>
      * 
      * @param nodeProperties
-     *        The node properties for a single node in a job summary list.
+     *        The node properties for a single node in a job summary list.</p> <note>
+     *        <p>
+     *        This isn't applicable to jobs that are running on Fargate resources.
+     *        </p>
      */
 
     public void setNodeProperties(NodePropertiesSummary nodeProperties) {
@@ -516,8 +593,16 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The node properties for a single node in a job summary list.
      * </p>
+     * <note>
+     * <p>
+     * This isn't applicable to jobs that are running on Fargate resources.
+     * </p>
+     * </note>
      * 
-     * @return The node properties for a single node in a job summary list.
+     * @return The node properties for a single node in a job summary list.</p> <note>
+     *         <p>
+     *         This isn't applicable to jobs that are running on Fargate resources.
+     *         </p>
      */
 
     public NodePropertiesSummary getNodeProperties() {
@@ -528,14 +613,62 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The node properties for a single node in a job summary list.
      * </p>
+     * <note>
+     * <p>
+     * This isn't applicable to jobs that are running on Fargate resources.
+     * </p>
+     * </note>
      * 
      * @param nodeProperties
-     *        The node properties for a single node in a job summary list.
+     *        The node properties for a single node in a job summary list.</p> <note>
+     *        <p>
+     *        This isn't applicable to jobs that are running on Fargate resources.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public JobSummary withNodeProperties(NodePropertiesSummary nodeProperties) {
         setNodeProperties(nodeProperties);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the job definition.
+     * </p>
+     * 
+     * @param jobDefinition
+     *        The Amazon Resource Name (ARN) of the job definition.
+     */
+
+    public void setJobDefinition(String jobDefinition) {
+        this.jobDefinition = jobDefinition;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the job definition.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the job definition.
+     */
+
+    public String getJobDefinition() {
+        return this.jobDefinition;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the job definition.
+     * </p>
+     * 
+     * @param jobDefinition
+     *        The Amazon Resource Name (ARN) of the job definition.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobSummary withJobDefinition(String jobDefinition) {
+        setJobDefinition(jobDefinition);
         return this;
     }
 
@@ -551,6 +684,8 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getJobArn() != null)
+            sb.append("JobArn: ").append(getJobArn()).append(",");
         if (getJobId() != null)
             sb.append("JobId: ").append(getJobId()).append(",");
         if (getJobName() != null)
@@ -570,7 +705,9 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
         if (getArrayProperties() != null)
             sb.append("ArrayProperties: ").append(getArrayProperties()).append(",");
         if (getNodeProperties() != null)
-            sb.append("NodeProperties: ").append(getNodeProperties());
+            sb.append("NodeProperties: ").append(getNodeProperties()).append(",");
+        if (getJobDefinition() != null)
+            sb.append("JobDefinition: ").append(getJobDefinition());
         sb.append("}");
         return sb.toString();
     }
@@ -585,6 +722,10 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
         if (obj instanceof JobSummary == false)
             return false;
         JobSummary other = (JobSummary) obj;
+        if (other.getJobArn() == null ^ this.getJobArn() == null)
+            return false;
+        if (other.getJobArn() != null && other.getJobArn().equals(this.getJobArn()) == false)
+            return false;
         if (other.getJobId() == null ^ this.getJobId() == null)
             return false;
         if (other.getJobId() != null && other.getJobId().equals(this.getJobId()) == false)
@@ -625,6 +766,10 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getNodeProperties() != null && other.getNodeProperties().equals(this.getNodeProperties()) == false)
             return false;
+        if (other.getJobDefinition() == null ^ this.getJobDefinition() == null)
+            return false;
+        if (other.getJobDefinition() != null && other.getJobDefinition().equals(this.getJobDefinition()) == false)
+            return false;
         return true;
     }
 
@@ -633,6 +778,7 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getJobArn() == null) ? 0 : getJobArn().hashCode());
         hashCode = prime * hashCode + ((getJobId() == null) ? 0 : getJobId().hashCode());
         hashCode = prime * hashCode + ((getJobName() == null) ? 0 : getJobName().hashCode());
         hashCode = prime * hashCode + ((getCreatedAt() == null) ? 0 : getCreatedAt().hashCode());
@@ -643,6 +789,7 @@ public class JobSummary implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getContainer() == null) ? 0 : getContainer().hashCode());
         hashCode = prime * hashCode + ((getArrayProperties() == null) ? 0 : getArrayProperties().hashCode());
         hashCode = prime * hashCode + ((getNodeProperties() == null) ? 0 : getNodeProperties().hashCode());
+        hashCode = prime * hashCode + ((getJobDefinition() == null) ? 0 : getJobDefinition().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,6 +33,31 @@ public class AbstractAmazonEventBridge implements AmazonEventBridge {
     }
 
     @Override
+    public CancelReplayResult cancelReplay(CancelReplayRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateApiDestinationResult createApiDestination(CreateApiDestinationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateArchiveResult createArchive(CreateArchiveRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateConnectionResult createConnection(CreateConnectionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateEndpointResult createEndpoint(CreateEndpointRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateEventBusResult createEventBus(CreateEventBusRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -44,6 +69,31 @@ public class AbstractAmazonEventBridge implements AmazonEventBridge {
 
     @Override
     public DeactivateEventSourceResult deactivateEventSource(DeactivateEventSourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeauthorizeConnectionResult deauthorizeConnection(DeauthorizeConnectionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteApiDestinationResult deleteApiDestination(DeleteApiDestinationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteArchiveResult deleteArchive(DeleteArchiveRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteConnectionResult deleteConnection(DeleteConnectionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteEndpointResult deleteEndpoint(DeleteEndpointRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -63,6 +113,26 @@ public class AbstractAmazonEventBridge implements AmazonEventBridge {
     }
 
     @Override
+    public DescribeApiDestinationResult describeApiDestination(DescribeApiDestinationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeArchiveResult describeArchive(DescribeArchiveRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeConnectionResult describeConnection(DescribeConnectionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeEndpointResult describeEndpoint(DescribeEndpointRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeEventBusResult describeEventBus(DescribeEventBusRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -78,6 +148,11 @@ public class AbstractAmazonEventBridge implements AmazonEventBridge {
     }
 
     @Override
+    public DescribeReplayResult describeReplay(DescribeReplayRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeRuleResult describeRule(DescribeRuleRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -89,6 +164,26 @@ public class AbstractAmazonEventBridge implements AmazonEventBridge {
 
     @Override
     public EnableRuleResult enableRule(EnableRuleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListApiDestinationsResult listApiDestinations(ListApiDestinationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListArchivesResult listArchives(ListArchivesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListConnectionsResult listConnections(ListConnectionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListEndpointsResult listEndpoints(ListEndpointsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -109,6 +204,11 @@ public class AbstractAmazonEventBridge implements AmazonEventBridge {
 
     @Override
     public ListPartnerEventSourcesResult listPartnerEventSources(ListPartnerEventSourcesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListReplaysResult listReplays(ListReplaysRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -168,6 +268,11 @@ public class AbstractAmazonEventBridge implements AmazonEventBridge {
     }
 
     @Override
+    public StartReplayResult startReplay(StartReplayRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public TagResourceResult tagResource(TagResourceRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -179,6 +284,31 @@ public class AbstractAmazonEventBridge implements AmazonEventBridge {
 
     @Override
     public UntagResourceResult untagResource(UntagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateApiDestinationResult updateApiDestination(UpdateApiDestinationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateArchiveResult updateArchive(UpdateArchiveRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateConnectionResult updateConnection(UpdateConnectionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateEndpointResult updateEndpoint(UpdateEndpointRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateEventBusResult updateEventBus(UpdateEventBusRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

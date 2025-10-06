@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,34 +43,34 @@ public class ContinueUpdateRollbackRequest extends com.amazonaws.AmazonWebServic
     private String stackName;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that AWS CloudFormation
-     * assumes to roll back the stack. AWS CloudFormation uses the role's credentials to make calls on your behalf. AWS
-     * CloudFormation always uses this role for all future operations on the stack. As long as users have permission to
-     * operate on the stack, AWS CloudFormation uses this role even if the users don't have permission to pass it.
-     * Ensure that the role grants least privilege.
+     * The Amazon Resource Name (ARN) of an Identity and Access Management (IAM) role that CloudFormation assumes to
+     * roll back the stack. CloudFormation uses the role's credentials to make calls on your behalf. CloudFormation
+     * always uses this role for all future operations on the stack. Provided that users have permission to operate on
+     * the stack, CloudFormation uses this role even if the users don't have permission to pass it. Ensure that the role
+     * grants least permission.
      * </p>
      * <p>
-     * If you don't specify a value, AWS CloudFormation uses the role that was previously associated with the stack. If
-     * no role is available, AWS CloudFormation uses a temporary session that is generated from your user credentials.
+     * If you don't specify a value, CloudFormation uses the role that was previously associated with the stack. If no
+     * role is available, CloudFormation uses a temporary session that's generated from your user credentials.
      * </p>
      */
     private String roleARN;
     /**
      * <p>
-     * A list of the logical IDs of the resources that AWS CloudFormation skips during the continue update rollback
+     * A list of the logical IDs of the resources that CloudFormation skips during the continue update rollback
      * operation. You can specify only resources that are in the <code>UPDATE_FAILED</code> state because a rollback
      * failed. You can't specify resources that are in the <code>UPDATE_FAILED</code> state for other reasons, for
-     * example, because an update was cancelled. To check why a resource update failed, use the
+     * example, because an update was canceled. To check why a resource update failed, use the
      * <a>DescribeStackResources</a> action, and view the resource status reason.
      * </p>
      * <important>
      * <p>
-     * Specify this property to skip rolling back resources that AWS CloudFormation can't successfully roll back. We
+     * Specify this property to skip rolling back resources that CloudFormation can't successfully roll back. We
      * recommend that you <a href=
      * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html#troubleshooting-errors-update-rollback-failed"
-     * > troubleshoot</a> resources before skipping them. AWS CloudFormation sets the status of the specified resources
-     * to <code>UPDATE_COMPLETE</code> and continues to roll back the stack. After the rollback is complete, the state
-     * of the skipped resources will be inconsistent with the state of the resources in the stack template. Before
+     * > troubleshoot</a> resources before skipping them. CloudFormation sets the status of the specified resources to
+     * <code>UPDATE_COMPLETE</code> and continues to roll back the stack. After the rollback is complete, the state of
+     * the skipped resources will be inconsistent with the state of the resources in the stack template. Before
      * performing another stack update, you must update the stack or resources to be consistent with each other. If you
      * don't, subsequent stack updates might fail, and the stack will become unrecoverable.
      * </p>
@@ -100,8 +100,8 @@ public class ContinueUpdateRollbackRequest extends com.amazonaws.AmazonWebServic
     /**
      * <p>
      * A unique identifier for this <code>ContinueUpdateRollback</code> request. Specify this token if you plan to retry
-     * requests so that AWS CloudFormation knows that you're not attempting to continue the rollback to a stack with the
-     * same name. You might retry <code>ContinueUpdateRollback</code> requests to ensure that AWS CloudFormation
+     * requests so that CloudFormation knows that you're not attempting to continue the rollback to a stack with the
+     * same name. You might retry <code>ContinueUpdateRollback</code> requests to ensure that CloudFormation
      * successfully received them.
      * </p>
      */
@@ -185,27 +185,27 @@ public class ContinueUpdateRollbackRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that AWS CloudFormation
-     * assumes to roll back the stack. AWS CloudFormation uses the role's credentials to make calls on your behalf. AWS
-     * CloudFormation always uses this role for all future operations on the stack. As long as users have permission to
-     * operate on the stack, AWS CloudFormation uses this role even if the users don't have permission to pass it.
-     * Ensure that the role grants least privilege.
+     * The Amazon Resource Name (ARN) of an Identity and Access Management (IAM) role that CloudFormation assumes to
+     * roll back the stack. CloudFormation uses the role's credentials to make calls on your behalf. CloudFormation
+     * always uses this role for all future operations on the stack. Provided that users have permission to operate on
+     * the stack, CloudFormation uses this role even if the users don't have permission to pass it. Ensure that the role
+     * grants least permission.
      * </p>
      * <p>
-     * If you don't specify a value, AWS CloudFormation uses the role that was previously associated with the stack. If
-     * no role is available, AWS CloudFormation uses a temporary session that is generated from your user credentials.
+     * If you don't specify a value, CloudFormation uses the role that was previously associated with the stack. If no
+     * role is available, CloudFormation uses a temporary session that's generated from your user credentials.
      * </p>
      * 
      * @param roleARN
-     *        The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that AWS CloudFormation
-     *        assumes to roll back the stack. AWS CloudFormation uses the role's credentials to make calls on your
-     *        behalf. AWS CloudFormation always uses this role for all future operations on the stack. As long as users
-     *        have permission to operate on the stack, AWS CloudFormation uses this role even if the users don't have
-     *        permission to pass it. Ensure that the role grants least privilege.</p>
+     *        The Amazon Resource Name (ARN) of an Identity and Access Management (IAM) role that CloudFormation assumes
+     *        to roll back the stack. CloudFormation uses the role's credentials to make calls on your behalf.
+     *        CloudFormation always uses this role for all future operations on the stack. Provided that users have
+     *        permission to operate on the stack, CloudFormation uses this role even if the users don't have permission
+     *        to pass it. Ensure that the role grants least permission.</p>
      *        <p>
-     *        If you don't specify a value, AWS CloudFormation uses the role that was previously associated with the
-     *        stack. If no role is available, AWS CloudFormation uses a temporary session that is generated from your
-     *        user credentials.
+     *        If you don't specify a value, CloudFormation uses the role that was previously associated with the stack.
+     *        If no role is available, CloudFormation uses a temporary session that's generated from your user
+     *        credentials.
      */
 
     public void setRoleARN(String roleARN) {
@@ -214,26 +214,26 @@ public class ContinueUpdateRollbackRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that AWS CloudFormation
-     * assumes to roll back the stack. AWS CloudFormation uses the role's credentials to make calls on your behalf. AWS
-     * CloudFormation always uses this role for all future operations on the stack. As long as users have permission to
-     * operate on the stack, AWS CloudFormation uses this role even if the users don't have permission to pass it.
-     * Ensure that the role grants least privilege.
+     * The Amazon Resource Name (ARN) of an Identity and Access Management (IAM) role that CloudFormation assumes to
+     * roll back the stack. CloudFormation uses the role's credentials to make calls on your behalf. CloudFormation
+     * always uses this role for all future operations on the stack. Provided that users have permission to operate on
+     * the stack, CloudFormation uses this role even if the users don't have permission to pass it. Ensure that the role
+     * grants least permission.
      * </p>
      * <p>
-     * If you don't specify a value, AWS CloudFormation uses the role that was previously associated with the stack. If
-     * no role is available, AWS CloudFormation uses a temporary session that is generated from your user credentials.
+     * If you don't specify a value, CloudFormation uses the role that was previously associated with the stack. If no
+     * role is available, CloudFormation uses a temporary session that's generated from your user credentials.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that AWS
-     *         CloudFormation assumes to roll back the stack. AWS CloudFormation uses the role's credentials to make
-     *         calls on your behalf. AWS CloudFormation always uses this role for all future operations on the stack. As
-     *         long as users have permission to operate on the stack, AWS CloudFormation uses this role even if the
-     *         users don't have permission to pass it. Ensure that the role grants least privilege.</p>
+     * @return The Amazon Resource Name (ARN) of an Identity and Access Management (IAM) role that CloudFormation
+     *         assumes to roll back the stack. CloudFormation uses the role's credentials to make calls on your behalf.
+     *         CloudFormation always uses this role for all future operations on the stack. Provided that users have
+     *         permission to operate on the stack, CloudFormation uses this role even if the users don't have permission
+     *         to pass it. Ensure that the role grants least permission.</p>
      *         <p>
-     *         If you don't specify a value, AWS CloudFormation uses the role that was previously associated with the
-     *         stack. If no role is available, AWS CloudFormation uses a temporary session that is generated from your
-     *         user credentials.
+     *         If you don't specify a value, CloudFormation uses the role that was previously associated with the stack.
+     *         If no role is available, CloudFormation uses a temporary session that's generated from your user
+     *         credentials.
      */
 
     public String getRoleARN() {
@@ -242,27 +242,27 @@ public class ContinueUpdateRollbackRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that AWS CloudFormation
-     * assumes to roll back the stack. AWS CloudFormation uses the role's credentials to make calls on your behalf. AWS
-     * CloudFormation always uses this role for all future operations on the stack. As long as users have permission to
-     * operate on the stack, AWS CloudFormation uses this role even if the users don't have permission to pass it.
-     * Ensure that the role grants least privilege.
+     * The Amazon Resource Name (ARN) of an Identity and Access Management (IAM) role that CloudFormation assumes to
+     * roll back the stack. CloudFormation uses the role's credentials to make calls on your behalf. CloudFormation
+     * always uses this role for all future operations on the stack. Provided that users have permission to operate on
+     * the stack, CloudFormation uses this role even if the users don't have permission to pass it. Ensure that the role
+     * grants least permission.
      * </p>
      * <p>
-     * If you don't specify a value, AWS CloudFormation uses the role that was previously associated with the stack. If
-     * no role is available, AWS CloudFormation uses a temporary session that is generated from your user credentials.
+     * If you don't specify a value, CloudFormation uses the role that was previously associated with the stack. If no
+     * role is available, CloudFormation uses a temporary session that's generated from your user credentials.
      * </p>
      * 
      * @param roleARN
-     *        The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that AWS CloudFormation
-     *        assumes to roll back the stack. AWS CloudFormation uses the role's credentials to make calls on your
-     *        behalf. AWS CloudFormation always uses this role for all future operations on the stack. As long as users
-     *        have permission to operate on the stack, AWS CloudFormation uses this role even if the users don't have
-     *        permission to pass it. Ensure that the role grants least privilege.</p>
+     *        The Amazon Resource Name (ARN) of an Identity and Access Management (IAM) role that CloudFormation assumes
+     *        to roll back the stack. CloudFormation uses the role's credentials to make calls on your behalf.
+     *        CloudFormation always uses this role for all future operations on the stack. Provided that users have
+     *        permission to operate on the stack, CloudFormation uses this role even if the users don't have permission
+     *        to pass it. Ensure that the role grants least permission.</p>
      *        <p>
-     *        If you don't specify a value, AWS CloudFormation uses the role that was previously associated with the
-     *        stack. If no role is available, AWS CloudFormation uses a temporary session that is generated from your
-     *        user credentials.
+     *        If you don't specify a value, CloudFormation uses the role that was previously associated with the stack.
+     *        If no role is available, CloudFormation uses a temporary session that's generated from your user
+     *        credentials.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -273,20 +273,20 @@ public class ContinueUpdateRollbackRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A list of the logical IDs of the resources that AWS CloudFormation skips during the continue update rollback
+     * A list of the logical IDs of the resources that CloudFormation skips during the continue update rollback
      * operation. You can specify only resources that are in the <code>UPDATE_FAILED</code> state because a rollback
      * failed. You can't specify resources that are in the <code>UPDATE_FAILED</code> state for other reasons, for
-     * example, because an update was cancelled. To check why a resource update failed, use the
+     * example, because an update was canceled. To check why a resource update failed, use the
      * <a>DescribeStackResources</a> action, and view the resource status reason.
      * </p>
      * <important>
      * <p>
-     * Specify this property to skip rolling back resources that AWS CloudFormation can't successfully roll back. We
+     * Specify this property to skip rolling back resources that CloudFormation can't successfully roll back. We
      * recommend that you <a href=
      * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html#troubleshooting-errors-update-rollback-failed"
-     * > troubleshoot</a> resources before skipping them. AWS CloudFormation sets the status of the specified resources
-     * to <code>UPDATE_COMPLETE</code> and continues to roll back the stack. After the rollback is complete, the state
-     * of the skipped resources will be inconsistent with the state of the resources in the stack template. Before
+     * > troubleshoot</a> resources before skipping them. CloudFormation sets the status of the specified resources to
+     * <code>UPDATE_COMPLETE</code> and continues to roll back the stack. After the rollback is complete, the state of
+     * the skipped resources will be inconsistent with the state of the resources in the stack template. Before
      * performing another stack update, you must update the stack or resources to be consistent with each other. If you
      * don't, subsequent stack updates might fail, and the stack will become unrecoverable.
      * </p>
@@ -312,16 +312,16 @@ public class ContinueUpdateRollbackRequest extends com.amazonaws.AmazonWebServic
      * </p>
      * </note>
      * 
-     * @return A list of the logical IDs of the resources that AWS CloudFormation skips during the continue update
-     *         rollback operation. You can specify only resources that are in the <code>UPDATE_FAILED</code> state
-     *         because a rollback failed. You can't specify resources that are in the <code>UPDATE_FAILED</code> state
-     *         for other reasons, for example, because an update was cancelled. To check why a resource update failed,
-     *         use the <a>DescribeStackResources</a> action, and view the resource status reason. </p> <important>
+     * @return A list of the logical IDs of the resources that CloudFormation skips during the continue update rollback
+     *         operation. You can specify only resources that are in the <code>UPDATE_FAILED</code> state because a
+     *         rollback failed. You can't specify resources that are in the <code>UPDATE_FAILED</code> state for other
+     *         reasons, for example, because an update was canceled. To check why a resource update failed, use the
+     *         <a>DescribeStackResources</a> action, and view the resource status reason.</p> <important>
      *         <p>
-     *         Specify this property to skip rolling back resources that AWS CloudFormation can't successfully roll
-     *         back. We recommend that you <a href=
+     *         Specify this property to skip rolling back resources that CloudFormation can't successfully roll back. We
+     *         recommend that you <a href=
      *         "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html#troubleshooting-errors-update-rollback-failed"
-     *         > troubleshoot</a> resources before skipping them. AWS CloudFormation sets the status of the specified
+     *         > troubleshoot</a> resources before skipping them. CloudFormation sets the status of the specified
      *         resources to <code>UPDATE_COMPLETE</code> and continues to roll back the stack. After the rollback is
      *         complete, the state of the skipped resources will be inconsistent with the state of the resources in the
      *         stack template. Before performing another stack update, you must update the stack or resources to be
@@ -359,20 +359,20 @@ public class ContinueUpdateRollbackRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A list of the logical IDs of the resources that AWS CloudFormation skips during the continue update rollback
+     * A list of the logical IDs of the resources that CloudFormation skips during the continue update rollback
      * operation. You can specify only resources that are in the <code>UPDATE_FAILED</code> state because a rollback
      * failed. You can't specify resources that are in the <code>UPDATE_FAILED</code> state for other reasons, for
-     * example, because an update was cancelled. To check why a resource update failed, use the
+     * example, because an update was canceled. To check why a resource update failed, use the
      * <a>DescribeStackResources</a> action, and view the resource status reason.
      * </p>
      * <important>
      * <p>
-     * Specify this property to skip rolling back resources that AWS CloudFormation can't successfully roll back. We
+     * Specify this property to skip rolling back resources that CloudFormation can't successfully roll back. We
      * recommend that you <a href=
      * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html#troubleshooting-errors-update-rollback-failed"
-     * > troubleshoot</a> resources before skipping them. AWS CloudFormation sets the status of the specified resources
-     * to <code>UPDATE_COMPLETE</code> and continues to roll back the stack. After the rollback is complete, the state
-     * of the skipped resources will be inconsistent with the state of the resources in the stack template. Before
+     * > troubleshoot</a> resources before skipping them. CloudFormation sets the status of the specified resources to
+     * <code>UPDATE_COMPLETE</code> and continues to roll back the stack. After the rollback is complete, the state of
+     * the skipped resources will be inconsistent with the state of the resources in the stack template. Before
      * performing another stack update, you must update the stack or resources to be consistent with each other. If you
      * don't, subsequent stack updates might fail, and the stack will become unrecoverable.
      * </p>
@@ -399,16 +399,16 @@ public class ContinueUpdateRollbackRequest extends com.amazonaws.AmazonWebServic
      * </note>
      * 
      * @param resourcesToSkip
-     *        A list of the logical IDs of the resources that AWS CloudFormation skips during the continue update
-     *        rollback operation. You can specify only resources that are in the <code>UPDATE_FAILED</code> state
-     *        because a rollback failed. You can't specify resources that are in the <code>UPDATE_FAILED</code> state
-     *        for other reasons, for example, because an update was cancelled. To check why a resource update failed,
-     *        use the <a>DescribeStackResources</a> action, and view the resource status reason. </p> <important>
+     *        A list of the logical IDs of the resources that CloudFormation skips during the continue update rollback
+     *        operation. You can specify only resources that are in the <code>UPDATE_FAILED</code> state because a
+     *        rollback failed. You can't specify resources that are in the <code>UPDATE_FAILED</code> state for other
+     *        reasons, for example, because an update was canceled. To check why a resource update failed, use the
+     *        <a>DescribeStackResources</a> action, and view the resource status reason.</p> <important>
      *        <p>
-     *        Specify this property to skip rolling back resources that AWS CloudFormation can't successfully roll back.
-     *        We recommend that you <a href=
+     *        Specify this property to skip rolling back resources that CloudFormation can't successfully roll back. We
+     *        recommend that you <a href=
      *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html#troubleshooting-errors-update-rollback-failed"
-     *        > troubleshoot</a> resources before skipping them. AWS CloudFormation sets the status of the specified
+     *        > troubleshoot</a> resources before skipping them. CloudFormation sets the status of the specified
      *        resources to <code>UPDATE_COMPLETE</code> and continues to roll back the stack. After the rollback is
      *        complete, the state of the skipped resources will be inconsistent with the state of the resources in the
      *        stack template. Before performing another stack update, you must update the stack or resources to be
@@ -448,20 +448,20 @@ public class ContinueUpdateRollbackRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A list of the logical IDs of the resources that AWS CloudFormation skips during the continue update rollback
+     * A list of the logical IDs of the resources that CloudFormation skips during the continue update rollback
      * operation. You can specify only resources that are in the <code>UPDATE_FAILED</code> state because a rollback
      * failed. You can't specify resources that are in the <code>UPDATE_FAILED</code> state for other reasons, for
-     * example, because an update was cancelled. To check why a resource update failed, use the
+     * example, because an update was canceled. To check why a resource update failed, use the
      * <a>DescribeStackResources</a> action, and view the resource status reason.
      * </p>
      * <important>
      * <p>
-     * Specify this property to skip rolling back resources that AWS CloudFormation can't successfully roll back. We
+     * Specify this property to skip rolling back resources that CloudFormation can't successfully roll back. We
      * recommend that you <a href=
      * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html#troubleshooting-errors-update-rollback-failed"
-     * > troubleshoot</a> resources before skipping them. AWS CloudFormation sets the status of the specified resources
-     * to <code>UPDATE_COMPLETE</code> and continues to roll back the stack. After the rollback is complete, the state
-     * of the skipped resources will be inconsistent with the state of the resources in the stack template. Before
+     * > troubleshoot</a> resources before skipping them. CloudFormation sets the status of the specified resources to
+     * <code>UPDATE_COMPLETE</code> and continues to roll back the stack. After the rollback is complete, the state of
+     * the skipped resources will be inconsistent with the state of the resources in the stack template. Before
      * performing another stack update, you must update the stack or resources to be consistent with each other. If you
      * don't, subsequent stack updates might fail, and the stack will become unrecoverable.
      * </p>
@@ -493,16 +493,16 @@ public class ContinueUpdateRollbackRequest extends com.amazonaws.AmazonWebServic
      * </p>
      * 
      * @param resourcesToSkip
-     *        A list of the logical IDs of the resources that AWS CloudFormation skips during the continue update
-     *        rollback operation. You can specify only resources that are in the <code>UPDATE_FAILED</code> state
-     *        because a rollback failed. You can't specify resources that are in the <code>UPDATE_FAILED</code> state
-     *        for other reasons, for example, because an update was cancelled. To check why a resource update failed,
-     *        use the <a>DescribeStackResources</a> action, and view the resource status reason. </p> <important>
+     *        A list of the logical IDs of the resources that CloudFormation skips during the continue update rollback
+     *        operation. You can specify only resources that are in the <code>UPDATE_FAILED</code> state because a
+     *        rollback failed. You can't specify resources that are in the <code>UPDATE_FAILED</code> state for other
+     *        reasons, for example, because an update was canceled. To check why a resource update failed, use the
+     *        <a>DescribeStackResources</a> action, and view the resource status reason.</p> <important>
      *        <p>
-     *        Specify this property to skip rolling back resources that AWS CloudFormation can't successfully roll back.
-     *        We recommend that you <a href=
+     *        Specify this property to skip rolling back resources that CloudFormation can't successfully roll back. We
+     *        recommend that you <a href=
      *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html#troubleshooting-errors-update-rollback-failed"
-     *        > troubleshoot</a> resources before skipping them. AWS CloudFormation sets the status of the specified
+     *        > troubleshoot</a> resources before skipping them. CloudFormation sets the status of the specified
      *        resources to <code>UPDATE_COMPLETE</code> and continues to roll back the stack. After the rollback is
      *        complete, the state of the skipped resources will be inconsistent with the state of the resources in the
      *        stack template. Before performing another stack update, you must update the stack or resources to be
@@ -544,20 +544,20 @@ public class ContinueUpdateRollbackRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A list of the logical IDs of the resources that AWS CloudFormation skips during the continue update rollback
+     * A list of the logical IDs of the resources that CloudFormation skips during the continue update rollback
      * operation. You can specify only resources that are in the <code>UPDATE_FAILED</code> state because a rollback
      * failed. You can't specify resources that are in the <code>UPDATE_FAILED</code> state for other reasons, for
-     * example, because an update was cancelled. To check why a resource update failed, use the
+     * example, because an update was canceled. To check why a resource update failed, use the
      * <a>DescribeStackResources</a> action, and view the resource status reason.
      * </p>
      * <important>
      * <p>
-     * Specify this property to skip rolling back resources that AWS CloudFormation can't successfully roll back. We
+     * Specify this property to skip rolling back resources that CloudFormation can't successfully roll back. We
      * recommend that you <a href=
      * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html#troubleshooting-errors-update-rollback-failed"
-     * > troubleshoot</a> resources before skipping them. AWS CloudFormation sets the status of the specified resources
-     * to <code>UPDATE_COMPLETE</code> and continues to roll back the stack. After the rollback is complete, the state
-     * of the skipped resources will be inconsistent with the state of the resources in the stack template. Before
+     * > troubleshoot</a> resources before skipping them. CloudFormation sets the status of the specified resources to
+     * <code>UPDATE_COMPLETE</code> and continues to roll back the stack. After the rollback is complete, the state of
+     * the skipped resources will be inconsistent with the state of the resources in the stack template. Before
      * performing another stack update, you must update the stack or resources to be consistent with each other. If you
      * don't, subsequent stack updates might fail, and the stack will become unrecoverable.
      * </p>
@@ -584,16 +584,16 @@ public class ContinueUpdateRollbackRequest extends com.amazonaws.AmazonWebServic
      * </note>
      * 
      * @param resourcesToSkip
-     *        A list of the logical IDs of the resources that AWS CloudFormation skips during the continue update
-     *        rollback operation. You can specify only resources that are in the <code>UPDATE_FAILED</code> state
-     *        because a rollback failed. You can't specify resources that are in the <code>UPDATE_FAILED</code> state
-     *        for other reasons, for example, because an update was cancelled. To check why a resource update failed,
-     *        use the <a>DescribeStackResources</a> action, and view the resource status reason. </p> <important>
+     *        A list of the logical IDs of the resources that CloudFormation skips during the continue update rollback
+     *        operation. You can specify only resources that are in the <code>UPDATE_FAILED</code> state because a
+     *        rollback failed. You can't specify resources that are in the <code>UPDATE_FAILED</code> state for other
+     *        reasons, for example, because an update was canceled. To check why a resource update failed, use the
+     *        <a>DescribeStackResources</a> action, and view the resource status reason.</p> <important>
      *        <p>
-     *        Specify this property to skip rolling back resources that AWS CloudFormation can't successfully roll back.
-     *        We recommend that you <a href=
+     *        Specify this property to skip rolling back resources that CloudFormation can't successfully roll back. We
+     *        recommend that you <a href=
      *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html#troubleshooting-errors-update-rollback-failed"
-     *        > troubleshoot</a> resources before skipping them. AWS CloudFormation sets the status of the specified
+     *        > troubleshoot</a> resources before skipping them. CloudFormation sets the status of the specified
      *        resources to <code>UPDATE_COMPLETE</code> and continues to roll back the stack. After the rollback is
      *        complete, the state of the skipped resources will be inconsistent with the state of the resources in the
      *        stack template. Before performing another stack update, you must update the stack or resources to be
@@ -631,16 +631,16 @@ public class ContinueUpdateRollbackRequest extends com.amazonaws.AmazonWebServic
     /**
      * <p>
      * A unique identifier for this <code>ContinueUpdateRollback</code> request. Specify this token if you plan to retry
-     * requests so that AWS CloudFormation knows that you're not attempting to continue the rollback to a stack with the
-     * same name. You might retry <code>ContinueUpdateRollback</code> requests to ensure that AWS CloudFormation
+     * requests so that CloudFormation knows that you're not attempting to continue the rollback to a stack with the
+     * same name. You might retry <code>ContinueUpdateRollback</code> requests to ensure that CloudFormation
      * successfully received them.
      * </p>
      * 
      * @param clientRequestToken
      *        A unique identifier for this <code>ContinueUpdateRollback</code> request. Specify this token if you plan
-     *        to retry requests so that AWS CloudFormation knows that you're not attempting to continue the rollback to
-     *        a stack with the same name. You might retry <code>ContinueUpdateRollback</code> requests to ensure that
-     *        AWS CloudFormation successfully received them.
+     *        to retry requests so that CloudFormation knows that you're not attempting to continue the rollback to a
+     *        stack with the same name. You might retry <code>ContinueUpdateRollback</code> requests to ensure that
+     *        CloudFormation successfully received them.
      */
 
     public void setClientRequestToken(String clientRequestToken) {
@@ -650,15 +650,15 @@ public class ContinueUpdateRollbackRequest extends com.amazonaws.AmazonWebServic
     /**
      * <p>
      * A unique identifier for this <code>ContinueUpdateRollback</code> request. Specify this token if you plan to retry
-     * requests so that AWS CloudFormation knows that you're not attempting to continue the rollback to a stack with the
-     * same name. You might retry <code>ContinueUpdateRollback</code> requests to ensure that AWS CloudFormation
+     * requests so that CloudFormation knows that you're not attempting to continue the rollback to a stack with the
+     * same name. You might retry <code>ContinueUpdateRollback</code> requests to ensure that CloudFormation
      * successfully received them.
      * </p>
      * 
      * @return A unique identifier for this <code>ContinueUpdateRollback</code> request. Specify this token if you plan
-     *         to retry requests so that AWS CloudFormation knows that you're not attempting to continue the rollback to
-     *         a stack with the same name. You might retry <code>ContinueUpdateRollback</code> requests to ensure that
-     *         AWS CloudFormation successfully received them.
+     *         to retry requests so that CloudFormation knows that you're not attempting to continue the rollback to a
+     *         stack with the same name. You might retry <code>ContinueUpdateRollback</code> requests to ensure that
+     *         CloudFormation successfully received them.
      */
 
     public String getClientRequestToken() {
@@ -668,16 +668,16 @@ public class ContinueUpdateRollbackRequest extends com.amazonaws.AmazonWebServic
     /**
      * <p>
      * A unique identifier for this <code>ContinueUpdateRollback</code> request. Specify this token if you plan to retry
-     * requests so that AWS CloudFormation knows that you're not attempting to continue the rollback to a stack with the
-     * same name. You might retry <code>ContinueUpdateRollback</code> requests to ensure that AWS CloudFormation
+     * requests so that CloudFormation knows that you're not attempting to continue the rollback to a stack with the
+     * same name. You might retry <code>ContinueUpdateRollback</code> requests to ensure that CloudFormation
      * successfully received them.
      * </p>
      * 
      * @param clientRequestToken
      *        A unique identifier for this <code>ContinueUpdateRollback</code> request. Specify this token if you plan
-     *        to retry requests so that AWS CloudFormation knows that you're not attempting to continue the rollback to
-     *        a stack with the same name. You might retry <code>ContinueUpdateRollback</code> requests to ensure that
-     *        AWS CloudFormation successfully received them.
+     *        to retry requests so that CloudFormation knows that you're not attempting to continue the rollback to a
+     *        stack with the same name. You might retry <code>ContinueUpdateRollback</code> requests to ensure that
+     *        CloudFormation successfully received them.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,13 +30,13 @@ public class TargetInstance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Expected cost to operate this instance type on a monthly basis.
+     * The expected cost to operate this instance type on a monthly basis.
      * </p>
      */
     private String estimatedMonthlyCost;
     /**
      * <p>
-     * Estimated savings resulting from modification, on a monthly basis.
+     * The estimated savings that result from modification, on a monthly basis.
      * </p>
      */
     private String estimatedMonthlySavings;
@@ -48,7 +48,7 @@ public class TargetInstance implements Serializable, Cloneable, StructuredPojo {
     private String currencyCode;
     /**
      * <p>
-     * Indicates whether or not this recommendation is the defaulted Amazon Web Services recommendation.
+     * Determines whether this recommendation is the defaulted Amazon Web Services recommendation.
      * </p>
      */
     private Boolean defaultTargetInstance;
@@ -60,18 +60,25 @@ public class TargetInstance implements Serializable, Cloneable, StructuredPojo {
     private ResourceDetails resourceDetails;
     /**
      * <p>
-     * Expected utilization metrics for target instance type.
+     * The expected utilization metrics for target instance type.
      * </p>
      */
     private ResourceUtilization expectedResourceUtilization;
+    /**
+     * <p>
+     * Explains the actions that you might need to take to successfully migrate your workloads from the current instance
+     * type to the recommended instance type.
+     * </p>
+     */
+    private java.util.List<String> platformDifferences;
 
     /**
      * <p>
-     * Expected cost to operate this instance type on a monthly basis.
+     * The expected cost to operate this instance type on a monthly basis.
      * </p>
      * 
      * @param estimatedMonthlyCost
-     *        Expected cost to operate this instance type on a monthly basis.
+     *        The expected cost to operate this instance type on a monthly basis.
      */
 
     public void setEstimatedMonthlyCost(String estimatedMonthlyCost) {
@@ -80,10 +87,10 @@ public class TargetInstance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Expected cost to operate this instance type on a monthly basis.
+     * The expected cost to operate this instance type on a monthly basis.
      * </p>
      * 
-     * @return Expected cost to operate this instance type on a monthly basis.
+     * @return The expected cost to operate this instance type on a monthly basis.
      */
 
     public String getEstimatedMonthlyCost() {
@@ -92,11 +99,11 @@ public class TargetInstance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Expected cost to operate this instance type on a monthly basis.
+     * The expected cost to operate this instance type on a monthly basis.
      * </p>
      * 
      * @param estimatedMonthlyCost
-     *        Expected cost to operate this instance type on a monthly basis.
+     *        The expected cost to operate this instance type on a monthly basis.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -107,11 +114,11 @@ public class TargetInstance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Estimated savings resulting from modification, on a monthly basis.
+     * The estimated savings that result from modification, on a monthly basis.
      * </p>
      * 
      * @param estimatedMonthlySavings
-     *        Estimated savings resulting from modification, on a monthly basis.
+     *        The estimated savings that result from modification, on a monthly basis.
      */
 
     public void setEstimatedMonthlySavings(String estimatedMonthlySavings) {
@@ -120,10 +127,10 @@ public class TargetInstance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Estimated savings resulting from modification, on a monthly basis.
+     * The estimated savings that result from modification, on a monthly basis.
      * </p>
      * 
-     * @return Estimated savings resulting from modification, on a monthly basis.
+     * @return The estimated savings that result from modification, on a monthly basis.
      */
 
     public String getEstimatedMonthlySavings() {
@@ -132,11 +139,11 @@ public class TargetInstance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Estimated savings resulting from modification, on a monthly basis.
+     * The estimated savings that result from modification, on a monthly basis.
      * </p>
      * 
      * @param estimatedMonthlySavings
-     *        Estimated savings resulting from modification, on a monthly basis.
+     *        The estimated savings that result from modification, on a monthly basis.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -187,11 +194,11 @@ public class TargetInstance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether or not this recommendation is the defaulted Amazon Web Services recommendation.
+     * Determines whether this recommendation is the defaulted Amazon Web Services recommendation.
      * </p>
      * 
      * @param defaultTargetInstance
-     *        Indicates whether or not this recommendation is the defaulted Amazon Web Services recommendation.
+     *        Determines whether this recommendation is the defaulted Amazon Web Services recommendation.
      */
 
     public void setDefaultTargetInstance(Boolean defaultTargetInstance) {
@@ -200,10 +207,10 @@ public class TargetInstance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether or not this recommendation is the defaulted Amazon Web Services recommendation.
+     * Determines whether this recommendation is the defaulted Amazon Web Services recommendation.
      * </p>
      * 
-     * @return Indicates whether or not this recommendation is the defaulted Amazon Web Services recommendation.
+     * @return Determines whether this recommendation is the defaulted Amazon Web Services recommendation.
      */
 
     public Boolean getDefaultTargetInstance() {
@@ -212,11 +219,11 @@ public class TargetInstance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether or not this recommendation is the defaulted Amazon Web Services recommendation.
+     * Determines whether this recommendation is the defaulted Amazon Web Services recommendation.
      * </p>
      * 
      * @param defaultTargetInstance
-     *        Indicates whether or not this recommendation is the defaulted Amazon Web Services recommendation.
+     *        Determines whether this recommendation is the defaulted Amazon Web Services recommendation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -227,10 +234,10 @@ public class TargetInstance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether or not this recommendation is the defaulted Amazon Web Services recommendation.
+     * Determines whether this recommendation is the defaulted Amazon Web Services recommendation.
      * </p>
      * 
-     * @return Indicates whether or not this recommendation is the defaulted Amazon Web Services recommendation.
+     * @return Determines whether this recommendation is the defaulted Amazon Web Services recommendation.
      */
 
     public Boolean isDefaultTargetInstance() {
@@ -279,11 +286,11 @@ public class TargetInstance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Expected utilization metrics for target instance type.
+     * The expected utilization metrics for target instance type.
      * </p>
      * 
      * @param expectedResourceUtilization
-     *        Expected utilization metrics for target instance type.
+     *        The expected utilization metrics for target instance type.
      */
 
     public void setExpectedResourceUtilization(ResourceUtilization expectedResourceUtilization) {
@@ -292,10 +299,10 @@ public class TargetInstance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Expected utilization metrics for target instance type.
+     * The expected utilization metrics for target instance type.
      * </p>
      * 
-     * @return Expected utilization metrics for target instance type.
+     * @return The expected utilization metrics for target instance type.
      */
 
     public ResourceUtilization getExpectedResourceUtilization() {
@@ -304,16 +311,124 @@ public class TargetInstance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Expected utilization metrics for target instance type.
+     * The expected utilization metrics for target instance type.
      * </p>
      * 
      * @param expectedResourceUtilization
-     *        Expected utilization metrics for target instance type.
+     *        The expected utilization metrics for target instance type.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public TargetInstance withExpectedResourceUtilization(ResourceUtilization expectedResourceUtilization) {
         setExpectedResourceUtilization(expectedResourceUtilization);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Explains the actions that you might need to take to successfully migrate your workloads from the current instance
+     * type to the recommended instance type.
+     * </p>
+     * 
+     * @return Explains the actions that you might need to take to successfully migrate your workloads from the current
+     *         instance type to the recommended instance type.
+     * @see PlatformDifference
+     */
+
+    public java.util.List<String> getPlatformDifferences() {
+        return platformDifferences;
+    }
+
+    /**
+     * <p>
+     * Explains the actions that you might need to take to successfully migrate your workloads from the current instance
+     * type to the recommended instance type.
+     * </p>
+     * 
+     * @param platformDifferences
+     *        Explains the actions that you might need to take to successfully migrate your workloads from the current
+     *        instance type to the recommended instance type.
+     * @see PlatformDifference
+     */
+
+    public void setPlatformDifferences(java.util.Collection<String> platformDifferences) {
+        if (platformDifferences == null) {
+            this.platformDifferences = null;
+            return;
+        }
+
+        this.platformDifferences = new java.util.ArrayList<String>(platformDifferences);
+    }
+
+    /**
+     * <p>
+     * Explains the actions that you might need to take to successfully migrate your workloads from the current instance
+     * type to the recommended instance type.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setPlatformDifferences(java.util.Collection)} or {@link #withPlatformDifferences(java.util.Collection)}
+     * if you want to override the existing values.
+     * </p>
+     * 
+     * @param platformDifferences
+     *        Explains the actions that you might need to take to successfully migrate your workloads from the current
+     *        instance type to the recommended instance type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PlatformDifference
+     */
+
+    public TargetInstance withPlatformDifferences(String... platformDifferences) {
+        if (this.platformDifferences == null) {
+            setPlatformDifferences(new java.util.ArrayList<String>(platformDifferences.length));
+        }
+        for (String ele : platformDifferences) {
+            this.platformDifferences.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Explains the actions that you might need to take to successfully migrate your workloads from the current instance
+     * type to the recommended instance type.
+     * </p>
+     * 
+     * @param platformDifferences
+     *        Explains the actions that you might need to take to successfully migrate your workloads from the current
+     *        instance type to the recommended instance type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PlatformDifference
+     */
+
+    public TargetInstance withPlatformDifferences(java.util.Collection<String> platformDifferences) {
+        setPlatformDifferences(platformDifferences);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Explains the actions that you might need to take to successfully migrate your workloads from the current instance
+     * type to the recommended instance type.
+     * </p>
+     * 
+     * @param platformDifferences
+     *        Explains the actions that you might need to take to successfully migrate your workloads from the current
+     *        instance type to the recommended instance type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PlatformDifference
+     */
+
+    public TargetInstance withPlatformDifferences(PlatformDifference... platformDifferences) {
+        java.util.ArrayList<String> platformDifferencesCopy = new java.util.ArrayList<String>(platformDifferences.length);
+        for (PlatformDifference value : platformDifferences) {
+            platformDifferencesCopy.add(value.toString());
+        }
+        if (getPlatformDifferences() == null) {
+            setPlatformDifferences(platformDifferencesCopy);
+        } else {
+            getPlatformDifferences().addAll(platformDifferencesCopy);
+        }
         return this;
     }
 
@@ -340,7 +455,9 @@ public class TargetInstance implements Serializable, Cloneable, StructuredPojo {
         if (getResourceDetails() != null)
             sb.append("ResourceDetails: ").append(getResourceDetails()).append(",");
         if (getExpectedResourceUtilization() != null)
-            sb.append("ExpectedResourceUtilization: ").append(getExpectedResourceUtilization());
+            sb.append("ExpectedResourceUtilization: ").append(getExpectedResourceUtilization()).append(",");
+        if (getPlatformDifferences() != null)
+            sb.append("PlatformDifferences: ").append(getPlatformDifferences());
         sb.append("}");
         return sb.toString();
     }
@@ -379,6 +496,10 @@ public class TargetInstance implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getExpectedResourceUtilization() != null && other.getExpectedResourceUtilization().equals(this.getExpectedResourceUtilization()) == false)
             return false;
+        if (other.getPlatformDifferences() == null ^ this.getPlatformDifferences() == null)
+            return false;
+        if (other.getPlatformDifferences() != null && other.getPlatformDifferences().equals(this.getPlatformDifferences()) == false)
+            return false;
         return true;
     }
 
@@ -393,6 +514,7 @@ public class TargetInstance implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getDefaultTargetInstance() == null) ? 0 : getDefaultTargetInstance().hashCode());
         hashCode = prime * hashCode + ((getResourceDetails() == null) ? 0 : getResourceDetails().hashCode());
         hashCode = prime * hashCode + ((getExpectedResourceUtilization() == null) ? 0 : getExpectedResourceUtilization().hashCode());
+        hashCode = prime * hashCode + ((getPlatformDifferences() == null) ? 0 : getPlatformDifferences().hashCode());
         return hashCode;
     }
 

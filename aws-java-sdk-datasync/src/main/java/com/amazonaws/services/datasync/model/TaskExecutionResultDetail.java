@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,7 +31,7 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The total time in milliseconds that AWS DataSync spent in the PREPARING phase.
+     * The total time in milliseconds that DataSync spent in the PREPARING phase.
      * </p>
      */
     private Long prepareDuration;
@@ -43,32 +43,39 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
     private String prepareStatus;
     /**
      * <p>
-     * The total time in milliseconds that AWS DataSync spent in the TRANSFERRING phase.
+     * The total time in milliseconds that DataSync took to transfer the file from the source to the destination
+     * location.
+     * </p>
+     */
+    private Long totalDuration;
+    /**
+     * <p>
+     * The total time in milliseconds that DataSync spent in the TRANSFERRING phase.
      * </p>
      */
     private Long transferDuration;
     /**
      * <p>
-     * The status of the TRANSFERRING Phase.
+     * The status of the TRANSFERRING phase.
      * </p>
      */
     private String transferStatus;
     /**
      * <p>
-     * The total time in milliseconds that AWS DataSync spent in the VERIFYING phase.
+     * The total time in milliseconds that DataSync spent in the VERIFYING phase.
      * </p>
      */
     private Long verifyDuration;
     /**
      * <p>
-     * The status of the VERIFYING Phase.
+     * The status of the VERIFYING phase.
      * </p>
      */
     private String verifyStatus;
     /**
      * <p>
-     * Errors that AWS DataSync encountered during execution of the task. You can use this error code to help
-     * troubleshoot issues.
+     * Errors that DataSync encountered during execution of the task. You can use this error code to help troubleshoot
+     * issues.
      * </p>
      */
     private String errorCode;
@@ -82,11 +89,11 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The total time in milliseconds that AWS DataSync spent in the PREPARING phase.
+     * The total time in milliseconds that DataSync spent in the PREPARING phase.
      * </p>
      * 
      * @param prepareDuration
-     *        The total time in milliseconds that AWS DataSync spent in the PREPARING phase.
+     *        The total time in milliseconds that DataSync spent in the PREPARING phase.
      */
 
     public void setPrepareDuration(Long prepareDuration) {
@@ -95,10 +102,10 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The total time in milliseconds that AWS DataSync spent in the PREPARING phase.
+     * The total time in milliseconds that DataSync spent in the PREPARING phase.
      * </p>
      * 
-     * @return The total time in milliseconds that AWS DataSync spent in the PREPARING phase.
+     * @return The total time in milliseconds that DataSync spent in the PREPARING phase.
      */
 
     public Long getPrepareDuration() {
@@ -107,11 +114,11 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The total time in milliseconds that AWS DataSync spent in the PREPARING phase.
+     * The total time in milliseconds that DataSync spent in the PREPARING phase.
      * </p>
      * 
      * @param prepareDuration
-     *        The total time in milliseconds that AWS DataSync spent in the PREPARING phase.
+     *        The total time in milliseconds that DataSync spent in the PREPARING phase.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -181,11 +188,57 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The total time in milliseconds that AWS DataSync spent in the TRANSFERRING phase.
+     * The total time in milliseconds that DataSync took to transfer the file from the source to the destination
+     * location.
+     * </p>
+     * 
+     * @param totalDuration
+     *        The total time in milliseconds that DataSync took to transfer the file from the source to the destination
+     *        location.
+     */
+
+    public void setTotalDuration(Long totalDuration) {
+        this.totalDuration = totalDuration;
+    }
+
+    /**
+     * <p>
+     * The total time in milliseconds that DataSync took to transfer the file from the source to the destination
+     * location.
+     * </p>
+     * 
+     * @return The total time in milliseconds that DataSync took to transfer the file from the source to the destination
+     *         location.
+     */
+
+    public Long getTotalDuration() {
+        return this.totalDuration;
+    }
+
+    /**
+     * <p>
+     * The total time in milliseconds that DataSync took to transfer the file from the source to the destination
+     * location.
+     * </p>
+     * 
+     * @param totalDuration
+     *        The total time in milliseconds that DataSync took to transfer the file from the source to the destination
+     *        location.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TaskExecutionResultDetail withTotalDuration(Long totalDuration) {
+        setTotalDuration(totalDuration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The total time in milliseconds that DataSync spent in the TRANSFERRING phase.
      * </p>
      * 
      * @param transferDuration
-     *        The total time in milliseconds that AWS DataSync spent in the TRANSFERRING phase.
+     *        The total time in milliseconds that DataSync spent in the TRANSFERRING phase.
      */
 
     public void setTransferDuration(Long transferDuration) {
@@ -194,10 +247,10 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The total time in milliseconds that AWS DataSync spent in the TRANSFERRING phase.
+     * The total time in milliseconds that DataSync spent in the TRANSFERRING phase.
      * </p>
      * 
-     * @return The total time in milliseconds that AWS DataSync spent in the TRANSFERRING phase.
+     * @return The total time in milliseconds that DataSync spent in the TRANSFERRING phase.
      */
 
     public Long getTransferDuration() {
@@ -206,11 +259,11 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The total time in milliseconds that AWS DataSync spent in the TRANSFERRING phase.
+     * The total time in milliseconds that DataSync spent in the TRANSFERRING phase.
      * </p>
      * 
      * @param transferDuration
-     *        The total time in milliseconds that AWS DataSync spent in the TRANSFERRING phase.
+     *        The total time in milliseconds that DataSync spent in the TRANSFERRING phase.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -221,11 +274,11 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The status of the TRANSFERRING Phase.
+     * The status of the TRANSFERRING phase.
      * </p>
      * 
      * @param transferStatus
-     *        The status of the TRANSFERRING Phase.
+     *        The status of the TRANSFERRING phase.
      * @see PhaseStatus
      */
 
@@ -235,10 +288,10 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The status of the TRANSFERRING Phase.
+     * The status of the TRANSFERRING phase.
      * </p>
      * 
-     * @return The status of the TRANSFERRING Phase.
+     * @return The status of the TRANSFERRING phase.
      * @see PhaseStatus
      */
 
@@ -248,11 +301,11 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The status of the TRANSFERRING Phase.
+     * The status of the TRANSFERRING phase.
      * </p>
      * 
      * @param transferStatus
-     *        The status of the TRANSFERRING Phase.
+     *        The status of the TRANSFERRING phase.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PhaseStatus
      */
@@ -264,11 +317,11 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The status of the TRANSFERRING Phase.
+     * The status of the TRANSFERRING phase.
      * </p>
      * 
      * @param transferStatus
-     *        The status of the TRANSFERRING Phase.
+     *        The status of the TRANSFERRING phase.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PhaseStatus
      */
@@ -280,11 +333,11 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The total time in milliseconds that AWS DataSync spent in the VERIFYING phase.
+     * The total time in milliseconds that DataSync spent in the VERIFYING phase.
      * </p>
      * 
      * @param verifyDuration
-     *        The total time in milliseconds that AWS DataSync spent in the VERIFYING phase.
+     *        The total time in milliseconds that DataSync spent in the VERIFYING phase.
      */
 
     public void setVerifyDuration(Long verifyDuration) {
@@ -293,10 +346,10 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The total time in milliseconds that AWS DataSync spent in the VERIFYING phase.
+     * The total time in milliseconds that DataSync spent in the VERIFYING phase.
      * </p>
      * 
-     * @return The total time in milliseconds that AWS DataSync spent in the VERIFYING phase.
+     * @return The total time in milliseconds that DataSync spent in the VERIFYING phase.
      */
 
     public Long getVerifyDuration() {
@@ -305,11 +358,11 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The total time in milliseconds that AWS DataSync spent in the VERIFYING phase.
+     * The total time in milliseconds that DataSync spent in the VERIFYING phase.
      * </p>
      * 
      * @param verifyDuration
-     *        The total time in milliseconds that AWS DataSync spent in the VERIFYING phase.
+     *        The total time in milliseconds that DataSync spent in the VERIFYING phase.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -320,11 +373,11 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The status of the VERIFYING Phase.
+     * The status of the VERIFYING phase.
      * </p>
      * 
      * @param verifyStatus
-     *        The status of the VERIFYING Phase.
+     *        The status of the VERIFYING phase.
      * @see PhaseStatus
      */
 
@@ -334,10 +387,10 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The status of the VERIFYING Phase.
+     * The status of the VERIFYING phase.
      * </p>
      * 
-     * @return The status of the VERIFYING Phase.
+     * @return The status of the VERIFYING phase.
      * @see PhaseStatus
      */
 
@@ -347,11 +400,11 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The status of the VERIFYING Phase.
+     * The status of the VERIFYING phase.
      * </p>
      * 
      * @param verifyStatus
-     *        The status of the VERIFYING Phase.
+     *        The status of the VERIFYING phase.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PhaseStatus
      */
@@ -363,11 +416,11 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The status of the VERIFYING Phase.
+     * The status of the VERIFYING phase.
      * </p>
      * 
      * @param verifyStatus
-     *        The status of the VERIFYING Phase.
+     *        The status of the VERIFYING phase.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PhaseStatus
      */
@@ -379,12 +432,12 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Errors that AWS DataSync encountered during execution of the task. You can use this error code to help
-     * troubleshoot issues.
+     * Errors that DataSync encountered during execution of the task. You can use this error code to help troubleshoot
+     * issues.
      * </p>
      * 
      * @param errorCode
-     *        Errors that AWS DataSync encountered during execution of the task. You can use this error code to help
+     *        Errors that DataSync encountered during execution of the task. You can use this error code to help
      *        troubleshoot issues.
      */
 
@@ -394,11 +447,11 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Errors that AWS DataSync encountered during execution of the task. You can use this error code to help
-     * troubleshoot issues.
+     * Errors that DataSync encountered during execution of the task. You can use this error code to help troubleshoot
+     * issues.
      * </p>
      * 
-     * @return Errors that AWS DataSync encountered during execution of the task. You can use this error code to help
+     * @return Errors that DataSync encountered during execution of the task. You can use this error code to help
      *         troubleshoot issues.
      */
 
@@ -408,12 +461,12 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Errors that AWS DataSync encountered during execution of the task. You can use this error code to help
-     * troubleshoot issues.
+     * Errors that DataSync encountered during execution of the task. You can use this error code to help troubleshoot
+     * issues.
      * </p>
      * 
      * @param errorCode
-     *        Errors that AWS DataSync encountered during execution of the task. You can use this error code to help
+     *        Errors that DataSync encountered during execution of the task. You can use this error code to help
      *        troubleshoot issues.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -485,6 +538,8 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
             sb.append("PrepareDuration: ").append(getPrepareDuration()).append(",");
         if (getPrepareStatus() != null)
             sb.append("PrepareStatus: ").append(getPrepareStatus()).append(",");
+        if (getTotalDuration() != null)
+            sb.append("TotalDuration: ").append(getTotalDuration()).append(",");
         if (getTransferDuration() != null)
             sb.append("TransferDuration: ").append(getTransferDuration()).append(",");
         if (getTransferStatus() != null)
@@ -518,6 +573,10 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
         if (other.getPrepareStatus() == null ^ this.getPrepareStatus() == null)
             return false;
         if (other.getPrepareStatus() != null && other.getPrepareStatus().equals(this.getPrepareStatus()) == false)
+            return false;
+        if (other.getTotalDuration() == null ^ this.getTotalDuration() == null)
+            return false;
+        if (other.getTotalDuration() != null && other.getTotalDuration().equals(this.getTotalDuration()) == false)
             return false;
         if (other.getTransferDuration() == null ^ this.getTransferDuration() == null)
             return false;
@@ -553,6 +612,7 @@ public class TaskExecutionResultDetail implements Serializable, Cloneable, Struc
 
         hashCode = prime * hashCode + ((getPrepareDuration() == null) ? 0 : getPrepareDuration().hashCode());
         hashCode = prime * hashCode + ((getPrepareStatus() == null) ? 0 : getPrepareStatus().hashCode());
+        hashCode = prime * hashCode + ((getTotalDuration() == null) ? 0 : getTotalDuration().hashCode());
         hashCode = prime * hashCode + ((getTransferDuration() == null) ? 0 : getTransferDuration().hashCode());
         hashCode = prime * hashCode + ((getTransferStatus() == null) ? 0 : getTransferStatus().hashCode());
         hashCode = prime * hashCode + ((getVerifyDuration() == null) ? 0 : getVerifyDuration().hashCode());

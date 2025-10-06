@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class CreateDiskSnapshotRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The unique name of the source disk (e.g., <code>Disk-Virginia-1</code>).
+     * The unique name of the source disk (<code>Disk-Virginia-1</code>).
      * </p>
      * <note>
      * <p>
@@ -39,14 +39,14 @@ public class CreateDiskSnapshotRequest extends com.amazonaws.AmazonWebServiceReq
     private String diskName;
     /**
      * <p>
-     * The name of the destination disk snapshot (e.g., <code>my-disk-snapshot</code>) based on the source disk.
+     * The name of the destination disk snapshot (<code>my-disk-snapshot</code>) based on the source disk.
      * </p>
      */
     private String diskSnapshotName;
     /**
      * <p>
-     * The unique name of the source instance (e.g., <code>Amazon_Linux-512MB-Virginia-1</code>). When this is defined,
-     * a snapshot of the instance's system volume is created.
+     * The unique name of the source instance (<code>Amazon_Linux-512MB-Virginia-1</code>). When this is defined, a
+     * snapshot of the instance's system volume is created.
      * </p>
      * <note>
      * <p>
@@ -61,14 +61,14 @@ public class CreateDiskSnapshotRequest extends com.amazonaws.AmazonWebServiceReq
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      */
     private java.util.List<Tag> tags;
 
     /**
      * <p>
-     * The unique name of the source disk (e.g., <code>Disk-Virginia-1</code>).
+     * The unique name of the source disk (<code>Disk-Virginia-1</code>).
      * </p>
      * <note>
      * <p>
@@ -78,7 +78,7 @@ public class CreateDiskSnapshotRequest extends com.amazonaws.AmazonWebServiceReq
      * </note>
      * 
      * @param diskName
-     *        The unique name of the source disk (e.g., <code>Disk-Virginia-1</code>).</p> <note>
+     *        The unique name of the source disk (<code>Disk-Virginia-1</code>).</p> <note>
      *        <p>
      *        This parameter cannot be defined together with the <code>instance name</code> parameter. The
      *        <code>disk name</code> and <code>instance name</code> parameters are mutually exclusive.
@@ -91,7 +91,7 @@ public class CreateDiskSnapshotRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The unique name of the source disk (e.g., <code>Disk-Virginia-1</code>).
+     * The unique name of the source disk (<code>Disk-Virginia-1</code>).
      * </p>
      * <note>
      * <p>
@@ -100,7 +100,7 @@ public class CreateDiskSnapshotRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * </note>
      * 
-     * @return The unique name of the source disk (e.g., <code>Disk-Virginia-1</code>).</p> <note>
+     * @return The unique name of the source disk (<code>Disk-Virginia-1</code>).</p> <note>
      *         <p>
      *         This parameter cannot be defined together with the <code>instance name</code> parameter. The
      *         <code>disk name</code> and <code>instance name</code> parameters are mutually exclusive.
@@ -113,7 +113,7 @@ public class CreateDiskSnapshotRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The unique name of the source disk (e.g., <code>Disk-Virginia-1</code>).
+     * The unique name of the source disk (<code>Disk-Virginia-1</code>).
      * </p>
      * <note>
      * <p>
@@ -123,7 +123,7 @@ public class CreateDiskSnapshotRequest extends com.amazonaws.AmazonWebServiceReq
      * </note>
      * 
      * @param diskName
-     *        The unique name of the source disk (e.g., <code>Disk-Virginia-1</code>).</p> <note>
+     *        The unique name of the source disk (<code>Disk-Virginia-1</code>).</p> <note>
      *        <p>
      *        This parameter cannot be defined together with the <code>instance name</code> parameter. The
      *        <code>disk name</code> and <code>instance name</code> parameters are mutually exclusive.
@@ -138,11 +138,11 @@ public class CreateDiskSnapshotRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The name of the destination disk snapshot (e.g., <code>my-disk-snapshot</code>) based on the source disk.
+     * The name of the destination disk snapshot (<code>my-disk-snapshot</code>) based on the source disk.
      * </p>
      * 
      * @param diskSnapshotName
-     *        The name of the destination disk snapshot (e.g., <code>my-disk-snapshot</code>) based on the source disk.
+     *        The name of the destination disk snapshot (<code>my-disk-snapshot</code>) based on the source disk.
      */
 
     public void setDiskSnapshotName(String diskSnapshotName) {
@@ -151,10 +151,10 @@ public class CreateDiskSnapshotRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The name of the destination disk snapshot (e.g., <code>my-disk-snapshot</code>) based on the source disk.
+     * The name of the destination disk snapshot (<code>my-disk-snapshot</code>) based on the source disk.
      * </p>
      * 
-     * @return The name of the destination disk snapshot (e.g., <code>my-disk-snapshot</code>) based on the source disk.
+     * @return The name of the destination disk snapshot (<code>my-disk-snapshot</code>) based on the source disk.
      */
 
     public String getDiskSnapshotName() {
@@ -163,11 +163,11 @@ public class CreateDiskSnapshotRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The name of the destination disk snapshot (e.g., <code>my-disk-snapshot</code>) based on the source disk.
+     * The name of the destination disk snapshot (<code>my-disk-snapshot</code>) based on the source disk.
      * </p>
      * 
      * @param diskSnapshotName
-     *        The name of the destination disk snapshot (e.g., <code>my-disk-snapshot</code>) based on the source disk.
+     *        The name of the destination disk snapshot (<code>my-disk-snapshot</code>) based on the source disk.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -178,8 +178,8 @@ public class CreateDiskSnapshotRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The unique name of the source instance (e.g., <code>Amazon_Linux-512MB-Virginia-1</code>). When this is defined,
-     * a snapshot of the instance's system volume is created.
+     * The unique name of the source instance (<code>Amazon_Linux-512MB-Virginia-1</code>). When this is defined, a
+     * snapshot of the instance's system volume is created.
      * </p>
      * <note>
      * <p>
@@ -189,8 +189,8 @@ public class CreateDiskSnapshotRequest extends com.amazonaws.AmazonWebServiceReq
      * </note>
      * 
      * @param instanceName
-     *        The unique name of the source instance (e.g., <code>Amazon_Linux-512MB-Virginia-1</code>). When this is
-     *        defined, a snapshot of the instance's system volume is created.</p> <note>
+     *        The unique name of the source instance (<code>Amazon_Linux-512MB-Virginia-1</code>). When this is defined,
+     *        a snapshot of the instance's system volume is created.</p> <note>
      *        <p>
      *        This parameter cannot be defined together with the <code>disk name</code> parameter. The
      *        <code>instance name</code> and <code>disk name</code> parameters are mutually exclusive.
@@ -203,8 +203,8 @@ public class CreateDiskSnapshotRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The unique name of the source instance (e.g., <code>Amazon_Linux-512MB-Virginia-1</code>). When this is defined,
-     * a snapshot of the instance's system volume is created.
+     * The unique name of the source instance (<code>Amazon_Linux-512MB-Virginia-1</code>). When this is defined, a
+     * snapshot of the instance's system volume is created.
      * </p>
      * <note>
      * <p>
@@ -213,7 +213,7 @@ public class CreateDiskSnapshotRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * </note>
      * 
-     * @return The unique name of the source instance (e.g., <code>Amazon_Linux-512MB-Virginia-1</code>). When this is
+     * @return The unique name of the source instance (<code>Amazon_Linux-512MB-Virginia-1</code>). When this is
      *         defined, a snapshot of the instance's system volume is created.</p> <note>
      *         <p>
      *         This parameter cannot be defined together with the <code>disk name</code> parameter. The
@@ -227,8 +227,8 @@ public class CreateDiskSnapshotRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The unique name of the source instance (e.g., <code>Amazon_Linux-512MB-Virginia-1</code>). When this is defined,
-     * a snapshot of the instance's system volume is created.
+     * The unique name of the source instance (<code>Amazon_Linux-512MB-Virginia-1</code>). When this is defined, a
+     * snapshot of the instance's system volume is created.
      * </p>
      * <note>
      * <p>
@@ -238,8 +238,8 @@ public class CreateDiskSnapshotRequest extends com.amazonaws.AmazonWebServiceReq
      * </note>
      * 
      * @param instanceName
-     *        The unique name of the source instance (e.g., <code>Amazon_Linux-512MB-Virginia-1</code>). When this is
-     *        defined, a snapshot of the instance's system volume is created.</p> <note>
+     *        The unique name of the source instance (<code>Amazon_Linux-512MB-Virginia-1</code>). When this is defined,
+     *        a snapshot of the instance's system volume is created.</p> <note>
      *        <p>
      *        This parameter cannot be defined together with the <code>disk name</code> parameter. The
      *        <code>instance name</code> and <code>disk name</code> parameters are mutually exclusive.
@@ -257,12 +257,12 @@ public class CreateDiskSnapshotRequest extends com.amazonaws.AmazonWebServiceReq
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      * 
      * @return The tag keys and optional values to add to the resource during create.</p>
      *         <p>
-     *         To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     *         Use the <code>TagResource</code> action to tag a resource after it's created.
      */
 
     public java.util.List<Tag> getTags() {
@@ -274,13 +274,13 @@ public class CreateDiskSnapshotRequest extends com.amazonaws.AmazonWebServiceReq
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      * 
      * @param tags
      *        The tag keys and optional values to add to the resource during create.</p>
      *        <p>
-     *        To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     *        Use the <code>TagResource</code> action to tag a resource after it's created.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -297,7 +297,7 @@ public class CreateDiskSnapshotRequest extends com.amazonaws.AmazonWebServiceReq
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -308,7 +308,7 @@ public class CreateDiskSnapshotRequest extends com.amazonaws.AmazonWebServiceReq
      * @param tags
      *        The tag keys and optional values to add to the resource during create.</p>
      *        <p>
-     *        To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     *        Use the <code>TagResource</code> action to tag a resource after it's created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -327,13 +327,13 @@ public class CreateDiskSnapshotRequest extends com.amazonaws.AmazonWebServiceReq
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      * 
      * @param tags
      *        The tag keys and optional values to add to the resource during create.</p>
      *        <p>
-     *        To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     *        Use the <code>TagResource</code> action to tag a resource after it's created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

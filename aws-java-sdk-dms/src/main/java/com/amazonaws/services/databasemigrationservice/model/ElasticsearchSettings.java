@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
- * <p/>
+ * <p>
+ * Provides information that defines an OpenSearch endpoint.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ElasticsearchSettings" target="_top">AWS API
  *      Documentation</a>
@@ -28,13 +30,14 @@ public class ElasticsearchSettings implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) used by service to access the IAM role.
+     * The Amazon Resource Name (ARN) used by the service to access the IAM role. The role must allow the
+     * <code>iam:PassRole</code> action.
      * </p>
      */
     private String serviceAccessRoleArn;
     /**
      * <p>
-     * The endpoint for the Elasticsearch cluster.
+     * The endpoint for the OpenSearch cluster. DMS uses HTTPS if a transport protocol (http/https) is not specified.
      * </p>
      */
     private String endpointUri;
@@ -42,22 +45,37 @@ public class ElasticsearchSettings implements Serializable, Cloneable, Structure
      * <p>
      * The maximum percentage of records that can fail to be written before a full load operation stops.
      * </p>
+     * <p>
+     * To avoid early failure, this counter is only effective after 1000 records are transferred. OpenSearch also has
+     * the concept of error monitoring during the last 10 minutes of an Observation Window. If transfer of all records
+     * fail in the last 10 minutes, the full load operation stops.
+     * </p>
      */
     private Integer fullLoadErrorPercentage;
     /**
      * <p>
-     * The maximum number of seconds that DMS retries failed API requests to the Elasticsearch cluster.
+     * The maximum number of seconds for which DMS retries failed API requests to the OpenSearch cluster.
      * </p>
      */
     private Integer errorRetryDuration;
+    /**
+     * <p>
+     * Set this option to <code>true</code> for DMS to migrate documentation using the documentation type
+     * <code>_doc</code>. OpenSearch and an Elasticsearch cluster only support the _doc documentation type in versions
+     * 7. x and later. The default value is <code>false</code>.
+     * </p>
+     */
+    private Boolean useNewMappingType;
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) used by service to access the IAM role.
+     * The Amazon Resource Name (ARN) used by the service to access the IAM role. The role must allow the
+     * <code>iam:PassRole</code> action.
      * </p>
      * 
      * @param serviceAccessRoleArn
-     *        The Amazon Resource Name (ARN) used by service to access the IAM role.
+     *        The Amazon Resource Name (ARN) used by the service to access the IAM role. The role must allow the
+     *        <code>iam:PassRole</code> action.
      */
 
     public void setServiceAccessRoleArn(String serviceAccessRoleArn) {
@@ -66,10 +84,12 @@ public class ElasticsearchSettings implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) used by service to access the IAM role.
+     * The Amazon Resource Name (ARN) used by the service to access the IAM role. The role must allow the
+     * <code>iam:PassRole</code> action.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) used by service to access the IAM role.
+     * @return The Amazon Resource Name (ARN) used by the service to access the IAM role. The role must allow the
+     *         <code>iam:PassRole</code> action.
      */
 
     public String getServiceAccessRoleArn() {
@@ -78,11 +98,13 @@ public class ElasticsearchSettings implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) used by service to access the IAM role.
+     * The Amazon Resource Name (ARN) used by the service to access the IAM role. The role must allow the
+     * <code>iam:PassRole</code> action.
      * </p>
      * 
      * @param serviceAccessRoleArn
-     *        The Amazon Resource Name (ARN) used by service to access the IAM role.
+     *        The Amazon Resource Name (ARN) used by the service to access the IAM role. The role must allow the
+     *        <code>iam:PassRole</code> action.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -93,11 +115,12 @@ public class ElasticsearchSettings implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The endpoint for the Elasticsearch cluster.
+     * The endpoint for the OpenSearch cluster. DMS uses HTTPS if a transport protocol (http/https) is not specified.
      * </p>
      * 
      * @param endpointUri
-     *        The endpoint for the Elasticsearch cluster.
+     *        The endpoint for the OpenSearch cluster. DMS uses HTTPS if a transport protocol (http/https) is not
+     *        specified.
      */
 
     public void setEndpointUri(String endpointUri) {
@@ -106,10 +129,11 @@ public class ElasticsearchSettings implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The endpoint for the Elasticsearch cluster.
+     * The endpoint for the OpenSearch cluster. DMS uses HTTPS if a transport protocol (http/https) is not specified.
      * </p>
      * 
-     * @return The endpoint for the Elasticsearch cluster.
+     * @return The endpoint for the OpenSearch cluster. DMS uses HTTPS if a transport protocol (http/https) is not
+     *         specified.
      */
 
     public String getEndpointUri() {
@@ -118,11 +142,12 @@ public class ElasticsearchSettings implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The endpoint for the Elasticsearch cluster.
+     * The endpoint for the OpenSearch cluster. DMS uses HTTPS if a transport protocol (http/https) is not specified.
      * </p>
      * 
      * @param endpointUri
-     *        The endpoint for the Elasticsearch cluster.
+     *        The endpoint for the OpenSearch cluster. DMS uses HTTPS if a transport protocol (http/https) is not
+     *        specified.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -135,9 +160,18 @@ public class ElasticsearchSettings implements Serializable, Cloneable, Structure
      * <p>
      * The maximum percentage of records that can fail to be written before a full load operation stops.
      * </p>
+     * <p>
+     * To avoid early failure, this counter is only effective after 1000 records are transferred. OpenSearch also has
+     * the concept of error monitoring during the last 10 minutes of an Observation Window. If transfer of all records
+     * fail in the last 10 minutes, the full load operation stops.
+     * </p>
      * 
      * @param fullLoadErrorPercentage
-     *        The maximum percentage of records that can fail to be written before a full load operation stops.
+     *        The maximum percentage of records that can fail to be written before a full load operation stops.</p>
+     *        <p>
+     *        To avoid early failure, this counter is only effective after 1000 records are transferred. OpenSearch also
+     *        has the concept of error monitoring during the last 10 minutes of an Observation Window. If transfer of
+     *        all records fail in the last 10 minutes, the full load operation stops.
      */
 
     public void setFullLoadErrorPercentage(Integer fullLoadErrorPercentage) {
@@ -148,8 +182,17 @@ public class ElasticsearchSettings implements Serializable, Cloneable, Structure
      * <p>
      * The maximum percentage of records that can fail to be written before a full load operation stops.
      * </p>
+     * <p>
+     * To avoid early failure, this counter is only effective after 1000 records are transferred. OpenSearch also has
+     * the concept of error monitoring during the last 10 minutes of an Observation Window. If transfer of all records
+     * fail in the last 10 minutes, the full load operation stops.
+     * </p>
      * 
-     * @return The maximum percentage of records that can fail to be written before a full load operation stops.
+     * @return The maximum percentage of records that can fail to be written before a full load operation stops.</p>
+     *         <p>
+     *         To avoid early failure, this counter is only effective after 1000 records are transferred. OpenSearch
+     *         also has the concept of error monitoring during the last 10 minutes of an Observation Window. If transfer
+     *         of all records fail in the last 10 minutes, the full load operation stops.
      */
 
     public Integer getFullLoadErrorPercentage() {
@@ -160,9 +203,18 @@ public class ElasticsearchSettings implements Serializable, Cloneable, Structure
      * <p>
      * The maximum percentage of records that can fail to be written before a full load operation stops.
      * </p>
+     * <p>
+     * To avoid early failure, this counter is only effective after 1000 records are transferred. OpenSearch also has
+     * the concept of error monitoring during the last 10 minutes of an Observation Window. If transfer of all records
+     * fail in the last 10 minutes, the full load operation stops.
+     * </p>
      * 
      * @param fullLoadErrorPercentage
-     *        The maximum percentage of records that can fail to be written before a full load operation stops.
+     *        The maximum percentage of records that can fail to be written before a full load operation stops.</p>
+     *        <p>
+     *        To avoid early failure, this counter is only effective after 1000 records are transferred. OpenSearch also
+     *        has the concept of error monitoring during the last 10 minutes of an Observation Window. If transfer of
+     *        all records fail in the last 10 minutes, the full load operation stops.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -173,11 +225,11 @@ public class ElasticsearchSettings implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The maximum number of seconds that DMS retries failed API requests to the Elasticsearch cluster.
+     * The maximum number of seconds for which DMS retries failed API requests to the OpenSearch cluster.
      * </p>
      * 
      * @param errorRetryDuration
-     *        The maximum number of seconds that DMS retries failed API requests to the Elasticsearch cluster.
+     *        The maximum number of seconds for which DMS retries failed API requests to the OpenSearch cluster.
      */
 
     public void setErrorRetryDuration(Integer errorRetryDuration) {
@@ -186,10 +238,10 @@ public class ElasticsearchSettings implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The maximum number of seconds that DMS retries failed API requests to the Elasticsearch cluster.
+     * The maximum number of seconds for which DMS retries failed API requests to the OpenSearch cluster.
      * </p>
      * 
-     * @return The maximum number of seconds that DMS retries failed API requests to the Elasticsearch cluster.
+     * @return The maximum number of seconds for which DMS retries failed API requests to the OpenSearch cluster.
      */
 
     public Integer getErrorRetryDuration() {
@@ -198,17 +250,85 @@ public class ElasticsearchSettings implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The maximum number of seconds that DMS retries failed API requests to the Elasticsearch cluster.
+     * The maximum number of seconds for which DMS retries failed API requests to the OpenSearch cluster.
      * </p>
      * 
      * @param errorRetryDuration
-     *        The maximum number of seconds that DMS retries failed API requests to the Elasticsearch cluster.
+     *        The maximum number of seconds for which DMS retries failed API requests to the OpenSearch cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ElasticsearchSettings withErrorRetryDuration(Integer errorRetryDuration) {
         setErrorRetryDuration(errorRetryDuration);
         return this;
+    }
+
+    /**
+     * <p>
+     * Set this option to <code>true</code> for DMS to migrate documentation using the documentation type
+     * <code>_doc</code>. OpenSearch and an Elasticsearch cluster only support the _doc documentation type in versions
+     * 7. x and later. The default value is <code>false</code>.
+     * </p>
+     * 
+     * @param useNewMappingType
+     *        Set this option to <code>true</code> for DMS to migrate documentation using the documentation type
+     *        <code>_doc</code>. OpenSearch and an Elasticsearch cluster only support the _doc documentation type in
+     *        versions 7. x and later. The default value is <code>false</code>.
+     */
+
+    public void setUseNewMappingType(Boolean useNewMappingType) {
+        this.useNewMappingType = useNewMappingType;
+    }
+
+    /**
+     * <p>
+     * Set this option to <code>true</code> for DMS to migrate documentation using the documentation type
+     * <code>_doc</code>. OpenSearch and an Elasticsearch cluster only support the _doc documentation type in versions
+     * 7. x and later. The default value is <code>false</code>.
+     * </p>
+     * 
+     * @return Set this option to <code>true</code> for DMS to migrate documentation using the documentation type
+     *         <code>_doc</code>. OpenSearch and an Elasticsearch cluster only support the _doc documentation type in
+     *         versions 7. x and later. The default value is <code>false</code>.
+     */
+
+    public Boolean getUseNewMappingType() {
+        return this.useNewMappingType;
+    }
+
+    /**
+     * <p>
+     * Set this option to <code>true</code> for DMS to migrate documentation using the documentation type
+     * <code>_doc</code>. OpenSearch and an Elasticsearch cluster only support the _doc documentation type in versions
+     * 7. x and later. The default value is <code>false</code>.
+     * </p>
+     * 
+     * @param useNewMappingType
+     *        Set this option to <code>true</code> for DMS to migrate documentation using the documentation type
+     *        <code>_doc</code>. OpenSearch and an Elasticsearch cluster only support the _doc documentation type in
+     *        versions 7. x and later. The default value is <code>false</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ElasticsearchSettings withUseNewMappingType(Boolean useNewMappingType) {
+        setUseNewMappingType(useNewMappingType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Set this option to <code>true</code> for DMS to migrate documentation using the documentation type
+     * <code>_doc</code>. OpenSearch and an Elasticsearch cluster only support the _doc documentation type in versions
+     * 7. x and later. The default value is <code>false</code>.
+     * </p>
+     * 
+     * @return Set this option to <code>true</code> for DMS to migrate documentation using the documentation type
+     *         <code>_doc</code>. OpenSearch and an Elasticsearch cluster only support the _doc documentation type in
+     *         versions 7. x and later. The default value is <code>false</code>.
+     */
+
+    public Boolean isUseNewMappingType() {
+        return this.useNewMappingType;
     }
 
     /**
@@ -230,7 +350,9 @@ public class ElasticsearchSettings implements Serializable, Cloneable, Structure
         if (getFullLoadErrorPercentage() != null)
             sb.append("FullLoadErrorPercentage: ").append(getFullLoadErrorPercentage()).append(",");
         if (getErrorRetryDuration() != null)
-            sb.append("ErrorRetryDuration: ").append(getErrorRetryDuration());
+            sb.append("ErrorRetryDuration: ").append(getErrorRetryDuration()).append(",");
+        if (getUseNewMappingType() != null)
+            sb.append("UseNewMappingType: ").append(getUseNewMappingType());
         sb.append("}");
         return sb.toString();
     }
@@ -261,6 +383,10 @@ public class ElasticsearchSettings implements Serializable, Cloneable, Structure
             return false;
         if (other.getErrorRetryDuration() != null && other.getErrorRetryDuration().equals(this.getErrorRetryDuration()) == false)
             return false;
+        if (other.getUseNewMappingType() == null ^ this.getUseNewMappingType() == null)
+            return false;
+        if (other.getUseNewMappingType() != null && other.getUseNewMappingType().equals(this.getUseNewMappingType()) == false)
+            return false;
         return true;
     }
 
@@ -273,6 +399,7 @@ public class ElasticsearchSettings implements Serializable, Cloneable, Structure
         hashCode = prime * hashCode + ((getEndpointUri() == null) ? 0 : getEndpointUri().hashCode());
         hashCode = prime * hashCode + ((getFullLoadErrorPercentage() == null) ? 0 : getFullLoadErrorPercentage().hashCode());
         hashCode = prime * hashCode + ((getErrorRetryDuration() == null) ? 0 : getErrorRetryDuration().hashCode());
+        hashCode = prime * hashCode + ((getUseNewMappingType() == null) ? 0 : getUseNewMappingType().hashCode());
         return hashCode;
     }
 

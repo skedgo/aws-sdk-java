@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,8 +32,12 @@ public class HlsGroupSettingsMarshaller {
             .marshallLocationName("adMarkers").build();
     private static final MarshallingInfo<String> BASEURLCONTENT_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("baseUrlContent").build();
+    private static final MarshallingInfo<String> BASEURLCONTENT1_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("baseUrlContent1").build();
     private static final MarshallingInfo<String> BASEURLMANIFEST_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("baseUrlManifest").build();
+    private static final MarshallingInfo<String> BASEURLMANIFEST1_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("baseUrlManifest1").build();
     private static final MarshallingInfo<List> CAPTIONLANGUAGEMAPPINGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("captionLanguageMappings").build();
     private static final MarshallingInfo<String> CAPTIONLANGUAGESETTING_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -48,12 +52,18 @@ public class HlsGroupSettingsMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("destination").build();
     private static final MarshallingInfo<String> DIRECTORYSTRUCTURE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("directoryStructure").build();
+    private static final MarshallingInfo<String> DISCONTINUITYTAGS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("discontinuityTags").build();
     private static final MarshallingInfo<String> ENCRYPTIONTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("encryptionType").build();
     private static final MarshallingInfo<StructuredPojo> HLSCDNSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("hlsCdnSettings").build();
+    private static final MarshallingInfo<String> HLSID3SEGMENTTAGGING_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("hlsId3SegmentTagging").build();
     private static final MarshallingInfo<String> IFRAMEONLYPLAYLISTS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("iFrameOnlyPlaylists").build();
+    private static final MarshallingInfo<String> INCOMPLETESEGMENTBEHAVIOR_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("incompleteSegmentBehavior").build();
     private static final MarshallingInfo<Integer> INDEXNSEGMENTS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("indexNSegments").build();
     private static final MarshallingInfo<String> INPUTLOSSACTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -82,6 +92,8 @@ public class HlsGroupSettingsMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("outputSelection").build();
     private static final MarshallingInfo<String> PROGRAMDATETIME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("programDateTime").build();
+    private static final MarshallingInfo<String> PROGRAMDATETIMECLOCK_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("programDateTimeClock").build();
     private static final MarshallingInfo<Integer> PROGRAMDATETIMEPERIOD_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("programDateTimePeriod").build();
     private static final MarshallingInfo<String> REDUNDANTMANIFEST_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -121,7 +133,9 @@ public class HlsGroupSettingsMarshaller {
         try {
             protocolMarshaller.marshall(hlsGroupSettings.getAdMarkers(), ADMARKERS_BINDING);
             protocolMarshaller.marshall(hlsGroupSettings.getBaseUrlContent(), BASEURLCONTENT_BINDING);
+            protocolMarshaller.marshall(hlsGroupSettings.getBaseUrlContent1(), BASEURLCONTENT1_BINDING);
             protocolMarshaller.marshall(hlsGroupSettings.getBaseUrlManifest(), BASEURLMANIFEST_BINDING);
+            protocolMarshaller.marshall(hlsGroupSettings.getBaseUrlManifest1(), BASEURLMANIFEST1_BINDING);
             protocolMarshaller.marshall(hlsGroupSettings.getCaptionLanguageMappings(), CAPTIONLANGUAGEMAPPINGS_BINDING);
             protocolMarshaller.marshall(hlsGroupSettings.getCaptionLanguageSetting(), CAPTIONLANGUAGESETTING_BINDING);
             protocolMarshaller.marshall(hlsGroupSettings.getClientCache(), CLIENTCACHE_BINDING);
@@ -129,9 +143,12 @@ public class HlsGroupSettingsMarshaller {
             protocolMarshaller.marshall(hlsGroupSettings.getConstantIv(), CONSTANTIV_BINDING);
             protocolMarshaller.marshall(hlsGroupSettings.getDestination(), DESTINATION_BINDING);
             protocolMarshaller.marshall(hlsGroupSettings.getDirectoryStructure(), DIRECTORYSTRUCTURE_BINDING);
+            protocolMarshaller.marshall(hlsGroupSettings.getDiscontinuityTags(), DISCONTINUITYTAGS_BINDING);
             protocolMarshaller.marshall(hlsGroupSettings.getEncryptionType(), ENCRYPTIONTYPE_BINDING);
             protocolMarshaller.marshall(hlsGroupSettings.getHlsCdnSettings(), HLSCDNSETTINGS_BINDING);
+            protocolMarshaller.marshall(hlsGroupSettings.getHlsId3SegmentTagging(), HLSID3SEGMENTTAGGING_BINDING);
             protocolMarshaller.marshall(hlsGroupSettings.getIFrameOnlyPlaylists(), IFRAMEONLYPLAYLISTS_BINDING);
+            protocolMarshaller.marshall(hlsGroupSettings.getIncompleteSegmentBehavior(), INCOMPLETESEGMENTBEHAVIOR_BINDING);
             protocolMarshaller.marshall(hlsGroupSettings.getIndexNSegments(), INDEXNSEGMENTS_BINDING);
             protocolMarshaller.marshall(hlsGroupSettings.getInputLossAction(), INPUTLOSSACTION_BINDING);
             protocolMarshaller.marshall(hlsGroupSettings.getIvInManifest(), IVINMANIFEST_BINDING);
@@ -146,6 +163,7 @@ public class HlsGroupSettingsMarshaller {
             protocolMarshaller.marshall(hlsGroupSettings.getMode(), MODE_BINDING);
             protocolMarshaller.marshall(hlsGroupSettings.getOutputSelection(), OUTPUTSELECTION_BINDING);
             protocolMarshaller.marshall(hlsGroupSettings.getProgramDateTime(), PROGRAMDATETIME_BINDING);
+            protocolMarshaller.marshall(hlsGroupSettings.getProgramDateTimeClock(), PROGRAMDATETIMECLOCK_BINDING);
             protocolMarshaller.marshall(hlsGroupSettings.getProgramDateTimePeriod(), PROGRAMDATETIMEPERIOD_BINDING);
             protocolMarshaller.marshall(hlsGroupSettings.getRedundantManifest(), REDUNDANTMANIFEST_BINDING);
             protocolMarshaller.marshall(hlsGroupSettings.getSegmentLength(), SEGMENTLENGTH_BINDING);

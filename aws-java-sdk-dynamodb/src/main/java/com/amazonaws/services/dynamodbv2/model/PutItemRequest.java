@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,8 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The name of the table to contain the item.
+     * The name of the table to contain the item. You can also provide the Amazon Resource Name (ARN) of the table in
+     * this parameter.
      * </p>
      */
     private String tableName;
@@ -47,6 +48,10 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * <p>
      * If you specify any attributes that are part of an index key, then the data types for those attributes must match
      * those of the schema in the table's attribute definition.
+     * </p>
+     * <p>
+     * Empty String and Binary attribute values are allowed. Attribute values of type String and Binary must have a
+     * length greater than zero if the attribute is used as a key attribute for a table or index.
      * </p>
      * <p>
      * For more information about primary keys, see <a href=
@@ -85,6 +90,13 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * The values returned are strongly consistent.
+     * </p>
+     * <p>
+     * There is no additional cost associated with requesting a return value aside from the small network and processing
+     * overhead of receiving a larger response. No read capacity units are consumed.
+     * </p>
      * <note>
      * <p>
      * The <code>ReturnValues</code> parameter is used by several DynamoDB operations; however, <code>PutItem</code>
@@ -245,6 +257,17 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * </p>
      */
     private java.util.Map<String, AttributeValue> expressionAttributeValues;
+    /**
+     * <p>
+     * An optional parameter that returns the item attributes for a <code>PutItem</code> operation that failed a
+     * condition check.
+     * </p>
+     * <p>
+     * There is no additional cost associated with requesting a return value aside from the small network and processing
+     * overhead of receiving a larger response. No read capacity units are consumed.
+     * </p>
+     */
+    private String returnValuesOnConditionCheckFailure;
 
     /**
      * Default constructor for PutItemRequest object. Callers should use the setter or fluent setter (with...) methods
@@ -258,7 +281,8 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * initialize any additional object members.
      * 
      * @param tableName
-     *        The name of the table to contain the item.
+     *        The name of the table to contain the item. You can also provide the Amazon Resource Name (ARN) of the
+     *        table in this parameter.
      * @param item
      *        A map of attribute name/value pairs, one for each attribute. Only the primary key attributes are required;
      *        you can optionally provide other attribute name-value pairs for the item.</p>
@@ -270,6 +294,10 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      *        <p>
      *        If you specify any attributes that are part of an index key, then the data types for those attributes must
      *        match those of the schema in the table's attribute definition.
+     *        </p>
+     *        <p>
+     *        Empty String and Binary attribute values are allowed. Attribute values of type String and Binary must have
+     *        a length greater than zero if the attribute is used as a key attribute for a table or index.
      *        </p>
      *        <p>
      *        For more information about primary keys, see <a href=
@@ -289,7 +317,8 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * initialize any additional object members.
      * 
      * @param tableName
-     *        The name of the table to contain the item.
+     *        The name of the table to contain the item. You can also provide the Amazon Resource Name (ARN) of the
+     *        table in this parameter.
      * @param item
      *        A map of attribute name/value pairs, one for each attribute. Only the primary key attributes are required;
      *        you can optionally provide other attribute name-value pairs for the item.</p>
@@ -301,6 +330,10 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      *        <p>
      *        If you specify any attributes that are part of an index key, then the data types for those attributes must
      *        match those of the schema in the table's attribute definition.
+     *        </p>
+     *        <p>
+     *        Empty String and Binary attribute values are allowed. Attribute values of type String and Binary must have
+     *        a length greater than zero if the attribute is used as a key attribute for a table or index.
      *        </p>
      *        <p>
      *        For more information about primary keys, see <a href=
@@ -327,6 +360,13 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      *        </p>
      *        </li>
      *        </ul>
+     *        <p>
+     *        The values returned are strongly consistent.
+     *        </p>
+     *        <p>
+     *        There is no additional cost associated with requesting a return value aside from the small network and
+     *        processing overhead of receiving a larger response. No read capacity units are consumed.
+     *        </p>
      *        <note>
      *        <p>
      *        The <code>ReturnValues</code> parameter is used by several DynamoDB operations; however,
@@ -344,7 +384,8 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * initialize any additional object members.
      * 
      * @param tableName
-     *        The name of the table to contain the item.
+     *        The name of the table to contain the item. You can also provide the Amazon Resource Name (ARN) of the
+     *        table in this parameter.
      * @param item
      *        A map of attribute name/value pairs, one for each attribute. Only the primary key attributes are required;
      *        you can optionally provide other attribute name-value pairs for the item.</p>
@@ -356,6 +397,10 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      *        <p>
      *        If you specify any attributes that are part of an index key, then the data types for those attributes must
      *        match those of the schema in the table's attribute definition.
+     *        </p>
+     *        <p>
+     *        Empty String and Binary attribute values are allowed. Attribute values of type String and Binary must have
+     *        a length greater than zero if the attribute is used as a key attribute for a table or index.
      *        </p>
      *        <p>
      *        For more information about primary keys, see <a href=
@@ -382,6 +427,13 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      *        </p>
      *        </li>
      *        </ul>
+     *        <p>
+     *        The values returned are strongly consistent.
+     *        </p>
+     *        <p>
+     *        There is no additional cost associated with requesting a return value aside from the small network and
+     *        processing overhead of receiving a larger response. No read capacity units are consumed.
+     *        </p>
      *        <note>
      *        <p>
      *        The <code>ReturnValues</code> parameter is used by several DynamoDB operations; however,
@@ -396,11 +448,13 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The name of the table to contain the item.
+     * The name of the table to contain the item. You can also provide the Amazon Resource Name (ARN) of the table in
+     * this parameter.
      * </p>
      * 
      * @param tableName
-     *        The name of the table to contain the item.
+     *        The name of the table to contain the item. You can also provide the Amazon Resource Name (ARN) of the
+     *        table in this parameter.
      */
 
     public void setTableName(String tableName) {
@@ -409,10 +463,12 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The name of the table to contain the item.
+     * The name of the table to contain the item. You can also provide the Amazon Resource Name (ARN) of the table in
+     * this parameter.
      * </p>
      * 
-     * @return The name of the table to contain the item.
+     * @return The name of the table to contain the item. You can also provide the Amazon Resource Name (ARN) of the
+     *         table in this parameter.
      */
 
     public String getTableName() {
@@ -421,11 +477,13 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The name of the table to contain the item.
+     * The name of the table to contain the item. You can also provide the Amazon Resource Name (ARN) of the table in
+     * this parameter.
      * </p>
      * 
      * @param tableName
-     *        The name of the table to contain the item.
+     *        The name of the table to contain the item. You can also provide the Amazon Resource Name (ARN) of the
+     *        table in this parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -449,6 +507,10 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * those of the schema in the table's attribute definition.
      * </p>
      * <p>
+     * Empty String and Binary attribute values are allowed. Attribute values of type String and Binary must have a
+     * length greater than zero if the attribute is used as a key attribute for a table or index.
+     * </p>
+     * <p>
      * For more information about primary keys, see <a href=
      * "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.PrimaryKey"
      * >Primary Key</a> in the <i>Amazon DynamoDB Developer Guide</i>.
@@ -467,6 +529,10 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      *         <p>
      *         If you specify any attributes that are part of an index key, then the data types for those attributes
      *         must match those of the schema in the table's attribute definition.
+     *         </p>
+     *         <p>
+     *         Empty String and Binary attribute values are allowed. Attribute values of type String and Binary must
+     *         have a length greater than zero if the attribute is used as a key attribute for a table or index.
      *         </p>
      *         <p>
      *         For more information about primary keys, see <a href=
@@ -496,6 +562,10 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * those of the schema in the table's attribute definition.
      * </p>
      * <p>
+     * Empty String and Binary attribute values are allowed. Attribute values of type String and Binary must have a
+     * length greater than zero if the attribute is used as a key attribute for a table or index.
+     * </p>
+     * <p>
      * For more information about primary keys, see <a href=
      * "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.PrimaryKey"
      * >Primary Key</a> in the <i>Amazon DynamoDB Developer Guide</i>.
@@ -515,6 +585,10 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      *        <p>
      *        If you specify any attributes that are part of an index key, then the data types for those attributes must
      *        match those of the schema in the table's attribute definition.
+     *        </p>
+     *        <p>
+     *        Empty String and Binary attribute values are allowed. Attribute values of type String and Binary must have
+     *        a length greater than zero if the attribute is used as a key attribute for a table or index.
      *        </p>
      *        <p>
      *        For more information about primary keys, see <a href=
@@ -544,6 +618,10 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * those of the schema in the table's attribute definition.
      * </p>
      * <p>
+     * Empty String and Binary attribute values are allowed. Attribute values of type String and Binary must have a
+     * length greater than zero if the attribute is used as a key attribute for a table or index.
+     * </p>
+     * <p>
      * For more information about primary keys, see <a href=
      * "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.PrimaryKey"
      * >Primary Key</a> in the <i>Amazon DynamoDB Developer Guide</i>.
@@ -565,6 +643,10 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      *        match those of the schema in the table's attribute definition.
      *        </p>
      *        <p>
+     *        Empty String and Binary attribute values are allowed. Attribute values of type String and Binary must have
+     *        a length greater than zero if the attribute is used as a key attribute for a table or index.
+     *        </p>
+     *        <p>
      *        For more information about primary keys, see <a href=
      *        "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.PrimaryKey"
      *        >Primary Key</a> in the <i>Amazon DynamoDB Developer Guide</i>.
@@ -578,6 +660,13 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
         setItem(item);
         return this;
     }
+
+    /**
+     * Add a single Item entry
+     *
+     * @see PutItemRequest#withItem
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public PutItemRequest addItemEntry(String key, AttributeValue value) {
         if (null == this.item) {
@@ -655,6 +744,13 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
         return this;
     }
 
+    /**
+     * Add a single Expected entry
+     *
+     * @see PutItemRequest#withExpected
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public PutItemRequest addExpectedEntry(String key, ExpectedAttributeValue value) {
         if (null == this.expected) {
             this.expected = new java.util.HashMap<String, ExpectedAttributeValue>();
@@ -695,6 +791,13 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * The values returned are strongly consistent.
+     * </p>
+     * <p>
+     * There is no additional cost associated with requesting a return value aside from the small network and processing
+     * overhead of receiving a larger response. No read capacity units are consumed.
+     * </p>
      * <note>
      * <p>
      * The <code>ReturnValues</code> parameter is used by several DynamoDB operations; however, <code>PutItem</code>
@@ -719,6 +822,13 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      *        </p>
      *        </li>
      *        </ul>
+     *        <p>
+     *        The values returned are strongly consistent.
+     *        </p>
+     *        <p>
+     *        There is no additional cost associated with requesting a return value aside from the small network and
+     *        processing overhead of receiving a larger response. No read capacity units are consumed.
+     *        </p>
      *        <note>
      *        <p>
      *        The <code>ReturnValues</code> parameter is used by several DynamoDB operations; however,
@@ -750,6 +860,13 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * The values returned are strongly consistent.
+     * </p>
+     * <p>
+     * There is no additional cost associated with requesting a return value aside from the small network and processing
+     * overhead of receiving a larger response. No read capacity units are consumed.
+     * </p>
      * <note>
      * <p>
      * The <code>ReturnValues</code> parameter is used by several DynamoDB operations; however, <code>PutItem</code>
@@ -773,6 +890,13 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      *         </p>
      *         </li>
      *         </ul>
+     *         <p>
+     *         The values returned are strongly consistent.
+     *         </p>
+     *         <p>
+     *         There is no additional cost associated with requesting a return value aside from the small network and
+     *         processing overhead of receiving a larger response. No read capacity units are consumed.
+     *         </p>
      *         <note>
      *         <p>
      *         The <code>ReturnValues</code> parameter is used by several DynamoDB operations; however,
@@ -804,6 +928,13 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * The values returned are strongly consistent.
+     * </p>
+     * <p>
+     * There is no additional cost associated with requesting a return value aside from the small network and processing
+     * overhead of receiving a larger response. No read capacity units are consumed.
+     * </p>
      * <note>
      * <p>
      * The <code>ReturnValues</code> parameter is used by several DynamoDB operations; however, <code>PutItem</code>
@@ -828,6 +959,13 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      *        </p>
      *        </li>
      *        </ul>
+     *        <p>
+     *        The values returned are strongly consistent.
+     *        </p>
+     *        <p>
+     *        There is no additional cost associated with requesting a return value aside from the small network and
+     *        processing overhead of receiving a larger response. No read capacity units are consumed.
+     *        </p>
      *        <note>
      *        <p>
      *        The <code>ReturnValues</code> parameter is used by several DynamoDB operations; however,
@@ -861,6 +999,13 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * The values returned are strongly consistent.
+     * </p>
+     * <p>
+     * There is no additional cost associated with requesting a return value aside from the small network and processing
+     * overhead of receiving a larger response. No read capacity units are consumed.
+     * </p>
      * <note>
      * <p>
      * The <code>ReturnValues</code> parameter is used by several DynamoDB operations; however, <code>PutItem</code>
@@ -885,6 +1030,13 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      *        </p>
      *        </li>
      *        </ul>
+     *        <p>
+     *        The values returned are strongly consistent.
+     *        </p>
+     *        <p>
+     *        There is no additional cost associated with requesting a return value aside from the small network and
+     *        processing overhead of receiving a larger response. No read capacity units are consumed.
+     *        </p>
      *        <note>
      *        <p>
      *        The <code>ReturnValues</code> parameter is used by several DynamoDB operations; however,
@@ -916,6 +1068,13 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * The values returned are strongly consistent.
+     * </p>
+     * <p>
+     * There is no additional cost associated with requesting a return value aside from the small network and processing
+     * overhead of receiving a larger response. No read capacity units are consumed.
+     * </p>
      * <note>
      * <p>
      * The <code>ReturnValues</code> parameter is used by several DynamoDB operations; however, <code>PutItem</code>
@@ -940,6 +1099,13 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
      *        </p>
      *        </li>
      *        </ul>
+     *        <p>
+     *        The values returned are strongly consistent.
+     *        </p>
+     *        <p>
+     *        There is no additional cost associated with requesting a return value aside from the small network and
+     *        processing overhead of receiving a larger response. No read capacity units are consumed.
+     *        </p>
      *        <note>
      *        <p>
      *        The <code>ReturnValues</code> parameter is used by several DynamoDB operations; however,
@@ -1826,6 +1992,13 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
         return this;
     }
 
+    /**
+     * Add a single ExpressionAttributeNames entry
+     *
+     * @see PutItemRequest#withExpressionAttributeNames
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public PutItemRequest addExpressionAttributeNamesEntry(String key, String value) {
         if (null == this.expressionAttributeNames) {
             this.expressionAttributeNames = new java.util.HashMap<String, String>();
@@ -2031,6 +2204,13 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
         return this;
     }
 
+    /**
+     * Add a single ExpressionAttributeValues entry
+     *
+     * @see PutItemRequest#withExpressionAttributeValues
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public PutItemRequest addExpressionAttributeValuesEntry(String key, AttributeValue value) {
         if (null == this.expressionAttributeValues) {
             this.expressionAttributeValues = new java.util.HashMap<String, AttributeValue>();
@@ -2049,6 +2229,124 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     public PutItemRequest clearExpressionAttributeValuesEntries() {
         this.expressionAttributeValues = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * An optional parameter that returns the item attributes for a <code>PutItem</code> operation that failed a
+     * condition check.
+     * </p>
+     * <p>
+     * There is no additional cost associated with requesting a return value aside from the small network and processing
+     * overhead of receiving a larger response. No read capacity units are consumed.
+     * </p>
+     * 
+     * @param returnValuesOnConditionCheckFailure
+     *        An optional parameter that returns the item attributes for a <code>PutItem</code> operation that failed a
+     *        condition check.</p>
+     *        <p>
+     *        There is no additional cost associated with requesting a return value aside from the small network and
+     *        processing overhead of receiving a larger response. No read capacity units are consumed.
+     * @see ReturnValuesOnConditionCheckFailure
+     */
+
+    public void setReturnValuesOnConditionCheckFailure(String returnValuesOnConditionCheckFailure) {
+        this.returnValuesOnConditionCheckFailure = returnValuesOnConditionCheckFailure;
+    }
+
+    /**
+     * <p>
+     * An optional parameter that returns the item attributes for a <code>PutItem</code> operation that failed a
+     * condition check.
+     * </p>
+     * <p>
+     * There is no additional cost associated with requesting a return value aside from the small network and processing
+     * overhead of receiving a larger response. No read capacity units are consumed.
+     * </p>
+     * 
+     * @return An optional parameter that returns the item attributes for a <code>PutItem</code> operation that failed a
+     *         condition check.</p>
+     *         <p>
+     *         There is no additional cost associated with requesting a return value aside from the small network and
+     *         processing overhead of receiving a larger response. No read capacity units are consumed.
+     * @see ReturnValuesOnConditionCheckFailure
+     */
+
+    public String getReturnValuesOnConditionCheckFailure() {
+        return this.returnValuesOnConditionCheckFailure;
+    }
+
+    /**
+     * <p>
+     * An optional parameter that returns the item attributes for a <code>PutItem</code> operation that failed a
+     * condition check.
+     * </p>
+     * <p>
+     * There is no additional cost associated with requesting a return value aside from the small network and processing
+     * overhead of receiving a larger response. No read capacity units are consumed.
+     * </p>
+     * 
+     * @param returnValuesOnConditionCheckFailure
+     *        An optional parameter that returns the item attributes for a <code>PutItem</code> operation that failed a
+     *        condition check.</p>
+     *        <p>
+     *        There is no additional cost associated with requesting a return value aside from the small network and
+     *        processing overhead of receiving a larger response. No read capacity units are consumed.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ReturnValuesOnConditionCheckFailure
+     */
+
+    public PutItemRequest withReturnValuesOnConditionCheckFailure(String returnValuesOnConditionCheckFailure) {
+        setReturnValuesOnConditionCheckFailure(returnValuesOnConditionCheckFailure);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An optional parameter that returns the item attributes for a <code>PutItem</code> operation that failed a
+     * condition check.
+     * </p>
+     * <p>
+     * There is no additional cost associated with requesting a return value aside from the small network and processing
+     * overhead of receiving a larger response. No read capacity units are consumed.
+     * </p>
+     * 
+     * @param returnValuesOnConditionCheckFailure
+     *        An optional parameter that returns the item attributes for a <code>PutItem</code> operation that failed a
+     *        condition check.</p>
+     *        <p>
+     *        There is no additional cost associated with requesting a return value aside from the small network and
+     *        processing overhead of receiving a larger response. No read capacity units are consumed.
+     * @see ReturnValuesOnConditionCheckFailure
+     */
+
+    public void setReturnValuesOnConditionCheckFailure(ReturnValuesOnConditionCheckFailure returnValuesOnConditionCheckFailure) {
+        withReturnValuesOnConditionCheckFailure(returnValuesOnConditionCheckFailure);
+    }
+
+    /**
+     * <p>
+     * An optional parameter that returns the item attributes for a <code>PutItem</code> operation that failed a
+     * condition check.
+     * </p>
+     * <p>
+     * There is no additional cost associated with requesting a return value aside from the small network and processing
+     * overhead of receiving a larger response. No read capacity units are consumed.
+     * </p>
+     * 
+     * @param returnValuesOnConditionCheckFailure
+     *        An optional parameter that returns the item attributes for a <code>PutItem</code> operation that failed a
+     *        condition check.</p>
+     *        <p>
+     *        There is no additional cost associated with requesting a return value aside from the small network and
+     *        processing overhead of receiving a larger response. No read capacity units are consumed.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ReturnValuesOnConditionCheckFailure
+     */
+
+    public PutItemRequest withReturnValuesOnConditionCheckFailure(ReturnValuesOnConditionCheckFailure returnValuesOnConditionCheckFailure) {
+        this.returnValuesOnConditionCheckFailure = returnValuesOnConditionCheckFailure.toString();
         return this;
     }
 
@@ -2083,7 +2381,9 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
         if (getExpressionAttributeNames() != null)
             sb.append("ExpressionAttributeNames: ").append(getExpressionAttributeNames()).append(",");
         if (getExpressionAttributeValues() != null)
-            sb.append("ExpressionAttributeValues: ").append(getExpressionAttributeValues());
+            sb.append("ExpressionAttributeValues: ").append(getExpressionAttributeValues()).append(",");
+        if (getReturnValuesOnConditionCheckFailure() != null)
+            sb.append("ReturnValuesOnConditionCheckFailure: ").append(getReturnValuesOnConditionCheckFailure());
         sb.append("}");
         return sb.toString();
     }
@@ -2138,6 +2438,11 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
             return false;
         if (other.getExpressionAttributeValues() != null && other.getExpressionAttributeValues().equals(this.getExpressionAttributeValues()) == false)
             return false;
+        if (other.getReturnValuesOnConditionCheckFailure() == null ^ this.getReturnValuesOnConditionCheckFailure() == null)
+            return false;
+        if (other.getReturnValuesOnConditionCheckFailure() != null
+                && other.getReturnValuesOnConditionCheckFailure().equals(this.getReturnValuesOnConditionCheckFailure()) == false)
+            return false;
         return true;
     }
 
@@ -2156,6 +2461,7 @@ public class PutItemRequest extends com.amazonaws.AmazonWebServiceRequest implem
         hashCode = prime * hashCode + ((getConditionExpression() == null) ? 0 : getConditionExpression().hashCode());
         hashCode = prime * hashCode + ((getExpressionAttributeNames() == null) ? 0 : getExpressionAttributeNames().hashCode());
         hashCode = prime * hashCode + ((getExpressionAttributeValues() == null) ? 0 : getExpressionAttributeValues().hashCode());
+        hashCode = prime * hashCode + ((getReturnValuesOnConditionCheckFailure() == null) ? 0 : getReturnValuesOnConditionCheckFailure().hashCode());
         return hashCode;
     }
 

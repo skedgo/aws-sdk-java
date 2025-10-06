@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,13 +48,38 @@ public class PackagingGroupJsonUnmarshaller implements Unmarshaller<PackagingGro
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("approximateAssetCount", targetDepth)) {
+                    context.nextToken();
+                    packagingGroup.setApproximateAssetCount(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
                 if (context.testExpression("arn", targetDepth)) {
                     context.nextToken();
                     packagingGroup.setArn(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("authorization", targetDepth)) {
+                    context.nextToken();
+                    packagingGroup.setAuthorization(AuthorizationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("createdAt", targetDepth)) {
+                    context.nextToken();
+                    packagingGroup.setCreatedAt(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("domainName", targetDepth)) {
+                    context.nextToken();
+                    packagingGroup.setDomainName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("egressAccessLogs", targetDepth)) {
+                    context.nextToken();
+                    packagingGroup.setEgressAccessLogs(EgressAccessLogsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("id", targetDepth)) {
                     context.nextToken();
                     packagingGroup.setId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("tags", targetDepth)) {
+                    context.nextToken();
+                    packagingGroup.setTags(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context.getUnmarshaller(String.class))
+                            .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

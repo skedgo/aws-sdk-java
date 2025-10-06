@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,6 +35,12 @@ public class DownloadDefaultKeyPairResult extends com.amazonaws.AmazonWebService
      * </p>
      */
     private String privateKeyBase64;
+    /**
+     * <p>
+     * The timestamp when the default key pair was created.
+     * </p>
+     */
+    private java.util.Date createdAt;
 
     /**
      * <p>
@@ -117,6 +123,46 @@ public class DownloadDefaultKeyPairResult extends com.amazonaws.AmazonWebService
     }
 
     /**
+     * <p>
+     * The timestamp when the default key pair was created.
+     * </p>
+     * 
+     * @param createdAt
+     *        The timestamp when the default key pair was created.
+     */
+
+    public void setCreatedAt(java.util.Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * <p>
+     * The timestamp when the default key pair was created.
+     * </p>
+     * 
+     * @return The timestamp when the default key pair was created.
+     */
+
+    public java.util.Date getCreatedAt() {
+        return this.createdAt;
+    }
+
+    /**
+     * <p>
+     * The timestamp when the default key pair was created.
+     * </p>
+     * 
+     * @param createdAt
+     *        The timestamp when the default key pair was created.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DownloadDefaultKeyPairResult withCreatedAt(java.util.Date createdAt) {
+        setCreatedAt(createdAt);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -131,7 +177,9 @@ public class DownloadDefaultKeyPairResult extends com.amazonaws.AmazonWebService
         if (getPublicKeyBase64() != null)
             sb.append("PublicKeyBase64: ").append(getPublicKeyBase64()).append(",");
         if (getPrivateKeyBase64() != null)
-            sb.append("PrivateKeyBase64: ").append(getPrivateKeyBase64());
+            sb.append("PrivateKeyBase64: ").append(getPrivateKeyBase64()).append(",");
+        if (getCreatedAt() != null)
+            sb.append("CreatedAt: ").append(getCreatedAt());
         sb.append("}");
         return sb.toString();
     }
@@ -154,6 +202,10 @@ public class DownloadDefaultKeyPairResult extends com.amazonaws.AmazonWebService
             return false;
         if (other.getPrivateKeyBase64() != null && other.getPrivateKeyBase64().equals(this.getPrivateKeyBase64()) == false)
             return false;
+        if (other.getCreatedAt() == null ^ this.getCreatedAt() == null)
+            return false;
+        if (other.getCreatedAt() != null && other.getCreatedAt().equals(this.getCreatedAt()) == false)
+            return false;
         return true;
     }
 
@@ -164,6 +216,7 @@ public class DownloadDefaultKeyPairResult extends com.amazonaws.AmazonWebService
 
         hashCode = prime * hashCode + ((getPublicKeyBase64() == null) ? 0 : getPublicKeyBase64().hashCode());
         hashCode = prime * hashCode + ((getPrivateKeyBase64() == null) ? 0 : getPrivateKeyBase64().hashCode());
+        hashCode = prime * hashCode + ((getCreatedAt() == null) ? 0 : getCreatedAt().hashCode());
         return hashCode;
     }
 

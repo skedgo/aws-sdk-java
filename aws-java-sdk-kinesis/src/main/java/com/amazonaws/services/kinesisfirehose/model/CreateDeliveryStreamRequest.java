@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,9 +27,9 @@ public class CreateDeliveryStreamRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The name of the delivery stream. This name must be unique per AWS account in the same AWS Region. If the delivery
-     * streams are in different accounts or different Regions, you can have multiple delivery streams with the same
-     * name.
+     * The name of the delivery stream. This name must be unique per Amazon Web Services account in the same Amazon Web
+     * Services Region. If the delivery streams are in different accounts or different Regions, you can have multiple
+     * delivery streams with the same name.
      * </p>
      */
     private String deliveryStreamName;
@@ -61,6 +61,12 @@ public class CreateDeliveryStreamRequest extends com.amazonaws.AmazonWebServiceR
     private KinesisStreamSourceConfiguration kinesisStreamSourceConfiguration;
     /**
      * <p>
+     * Used to specify the type and Amazon Resource Name (ARN) of the KMS key needed for Server-Side Encryption (SSE).
+     * </p>
+     */
+    private DeliveryStreamEncryptionConfigurationInput deliveryStreamEncryptionConfigurationInput;
+    /**
+     * <p>
      * [Deprecated] The destination in Amazon S3. You can specify only one destination.
      * </p>
      */
@@ -86,35 +92,89 @@ public class CreateDeliveryStreamRequest extends com.amazonaws.AmazonWebServiceR
     private ElasticsearchDestinationConfiguration elasticsearchDestinationConfiguration;
     /**
      * <p>
+     * The destination in Amazon OpenSearch Service. You can specify only one destination.
+     * </p>
+     */
+    private AmazonopensearchserviceDestinationConfiguration amazonopensearchserviceDestinationConfiguration;
+    /**
+     * <p>
      * The destination in Splunk. You can specify only one destination.
      * </p>
      */
     private SplunkDestinationConfiguration splunkDestinationConfiguration;
     /**
      * <p>
-     * A set of tags to assign to the delivery stream. A tag is a key-value pair that you can define and assign to AWS
-     * resources. Tags are metadata. For example, you can add friendly names and descriptions or other types of
-     * information that can help you distinguish the delivery stream. For more information about tags, see <a
-     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost Allocation
-     * Tags</a> in the AWS Billing and Cost Management User Guide.
+     * Enables configuring Kinesis Firehose to deliver data to any HTTP endpoint destination. You can specify only one
+     * destination.
+     * </p>
+     */
+    private HttpEndpointDestinationConfiguration httpEndpointDestinationConfiguration;
+    /**
+     * <p>
+     * A set of tags to assign to the delivery stream. A tag is a key-value pair that you can define and assign to
+     * Amazon Web Services resources. Tags are metadata. For example, you can add friendly names and descriptions or
+     * other types of information that can help you distinguish the delivery stream. For more information about tags,
+     * see <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost
+     * Allocation Tags</a> in the Amazon Web Services Billing and Cost Management User Guide.
      * </p>
      * <p>
      * You can specify up to 50 tags when creating a delivery stream.
      * </p>
+     * <p>
+     * If you specify tags in the <code>CreateDeliveryStream</code> action, Amazon Data Firehose performs an additional
+     * authorization on the <code>firehose:TagDeliveryStream</code> action to verify if users have permissions to create
+     * tags. If you do not provide this permission, requests to create new Firehose delivery streams with IAM resource
+     * tags will fail with an <code>AccessDeniedException</code> such as following.
+     * </p>
+     * <p>
+     * <b>AccessDeniedException</b>
+     * </p>
+     * <p>
+     * User: arn:aws:sts::x:assumed-role/x/x is not authorized to perform: firehose:TagDeliveryStream on resource:
+     * arn:aws:firehose:us-east-1:x:deliverystream/x with an explicit deny in an identity-based policy.
+     * </p>
+     * <p>
+     * For an example IAM policy, see <a href=
+     * "https://docs.aws.amazon.com/firehose/latest/APIReference/API_CreateDeliveryStream.html#API_CreateDeliveryStream_Examples"
+     * >Tag example.</a>
+     * </p>
      */
     private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * The destination in the Serverless offering for Amazon OpenSearch Service. You can specify only one destination.
+     * </p>
+     */
+    private AmazonOpenSearchServerlessDestinationConfiguration amazonOpenSearchServerlessDestinationConfiguration;
+
+    private MSKSourceConfiguration mSKSourceConfiguration;
+    /**
+     * <p>
+     * Configure Snowflake destination
+     * </p>
+     */
+    private SnowflakeDestinationConfiguration snowflakeDestinationConfiguration;
+    /**
+     * <p>
+     * Configure Apache Iceberg Tables destination.
+     * </p>
+     * <p>
+     * Amazon Data Firehose is in preview release and is subject to change.
+     * </p>
+     */
+    private IcebergDestinationConfiguration icebergDestinationConfiguration;
 
     /**
      * <p>
-     * The name of the delivery stream. This name must be unique per AWS account in the same AWS Region. If the delivery
-     * streams are in different accounts or different Regions, you can have multiple delivery streams with the same
-     * name.
+     * The name of the delivery stream. This name must be unique per Amazon Web Services account in the same Amazon Web
+     * Services Region. If the delivery streams are in different accounts or different Regions, you can have multiple
+     * delivery streams with the same name.
      * </p>
      * 
      * @param deliveryStreamName
-     *        The name of the delivery stream. This name must be unique per AWS account in the same AWS Region. If the
-     *        delivery streams are in different accounts or different Regions, you can have multiple delivery streams
-     *        with the same name.
+     *        The name of the delivery stream. This name must be unique per Amazon Web Services account in the same
+     *        Amazon Web Services Region. If the delivery streams are in different accounts or different Regions, you
+     *        can have multiple delivery streams with the same name.
      */
 
     public void setDeliveryStreamName(String deliveryStreamName) {
@@ -123,14 +183,14 @@ public class CreateDeliveryStreamRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The name of the delivery stream. This name must be unique per AWS account in the same AWS Region. If the delivery
-     * streams are in different accounts or different Regions, you can have multiple delivery streams with the same
-     * name.
+     * The name of the delivery stream. This name must be unique per Amazon Web Services account in the same Amazon Web
+     * Services Region. If the delivery streams are in different accounts or different Regions, you can have multiple
+     * delivery streams with the same name.
      * </p>
      * 
-     * @return The name of the delivery stream. This name must be unique per AWS account in the same AWS Region. If the
-     *         delivery streams are in different accounts or different Regions, you can have multiple delivery streams
-     *         with the same name.
+     * @return The name of the delivery stream. This name must be unique per Amazon Web Services account in the same
+     *         Amazon Web Services Region. If the delivery streams are in different accounts or different Regions, you
+     *         can have multiple delivery streams with the same name.
      */
 
     public String getDeliveryStreamName() {
@@ -139,15 +199,15 @@ public class CreateDeliveryStreamRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The name of the delivery stream. This name must be unique per AWS account in the same AWS Region. If the delivery
-     * streams are in different accounts or different Regions, you can have multiple delivery streams with the same
-     * name.
+     * The name of the delivery stream. This name must be unique per Amazon Web Services account in the same Amazon Web
+     * Services Region. If the delivery streams are in different accounts or different Regions, you can have multiple
+     * delivery streams with the same name.
      * </p>
      * 
      * @param deliveryStreamName
-     *        The name of the delivery stream. This name must be unique per AWS account in the same AWS Region. If the
-     *        delivery streams are in different accounts or different Regions, you can have multiple delivery streams
-     *        with the same name.
+     *        The name of the delivery stream. This name must be unique per Amazon Web Services account in the same
+     *        Amazon Web Services Region. If the delivery streams are in different accounts or different Regions, you
+     *        can have multiple delivery streams with the same name.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -361,6 +421,50 @@ public class CreateDeliveryStreamRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
+     * Used to specify the type and Amazon Resource Name (ARN) of the KMS key needed for Server-Side Encryption (SSE).
+     * </p>
+     * 
+     * @param deliveryStreamEncryptionConfigurationInput
+     *        Used to specify the type and Amazon Resource Name (ARN) of the KMS key needed for Server-Side Encryption
+     *        (SSE).
+     */
+
+    public void setDeliveryStreamEncryptionConfigurationInput(DeliveryStreamEncryptionConfigurationInput deliveryStreamEncryptionConfigurationInput) {
+        this.deliveryStreamEncryptionConfigurationInput = deliveryStreamEncryptionConfigurationInput;
+    }
+
+    /**
+     * <p>
+     * Used to specify the type and Amazon Resource Name (ARN) of the KMS key needed for Server-Side Encryption (SSE).
+     * </p>
+     * 
+     * @return Used to specify the type and Amazon Resource Name (ARN) of the KMS key needed for Server-Side Encryption
+     *         (SSE).
+     */
+
+    public DeliveryStreamEncryptionConfigurationInput getDeliveryStreamEncryptionConfigurationInput() {
+        return this.deliveryStreamEncryptionConfigurationInput;
+    }
+
+    /**
+     * <p>
+     * Used to specify the type and Amazon Resource Name (ARN) of the KMS key needed for Server-Side Encryption (SSE).
+     * </p>
+     * 
+     * @param deliveryStreamEncryptionConfigurationInput
+     *        Used to specify the type and Amazon Resource Name (ARN) of the KMS key needed for Server-Side Encryption
+     *        (SSE).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDeliveryStreamRequest withDeliveryStreamEncryptionConfigurationInput(
+            DeliveryStreamEncryptionConfigurationInput deliveryStreamEncryptionConfigurationInput) {
+        setDeliveryStreamEncryptionConfigurationInput(deliveryStreamEncryptionConfigurationInput);
+        return this;
+    }
+
+    /**
+     * <p>
      * [Deprecated] The destination in Amazon S3. You can specify only one destination.
      * </p>
      * 
@@ -521,6 +625,48 @@ public class CreateDeliveryStreamRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
+     * The destination in Amazon OpenSearch Service. You can specify only one destination.
+     * </p>
+     * 
+     * @param amazonopensearchserviceDestinationConfiguration
+     *        The destination in Amazon OpenSearch Service. You can specify only one destination.
+     */
+
+    public void setAmazonopensearchserviceDestinationConfiguration(
+            AmazonopensearchserviceDestinationConfiguration amazonopensearchserviceDestinationConfiguration) {
+        this.amazonopensearchserviceDestinationConfiguration = amazonopensearchserviceDestinationConfiguration;
+    }
+
+    /**
+     * <p>
+     * The destination in Amazon OpenSearch Service. You can specify only one destination.
+     * </p>
+     * 
+     * @return The destination in Amazon OpenSearch Service. You can specify only one destination.
+     */
+
+    public AmazonopensearchserviceDestinationConfiguration getAmazonopensearchserviceDestinationConfiguration() {
+        return this.amazonopensearchserviceDestinationConfiguration;
+    }
+
+    /**
+     * <p>
+     * The destination in Amazon OpenSearch Service. You can specify only one destination.
+     * </p>
+     * 
+     * @param amazonopensearchserviceDestinationConfiguration
+     *        The destination in Amazon OpenSearch Service. You can specify only one destination.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDeliveryStreamRequest withAmazonopensearchserviceDestinationConfiguration(
+            AmazonopensearchserviceDestinationConfiguration amazonopensearchserviceDestinationConfiguration) {
+        setAmazonopensearchserviceDestinationConfiguration(amazonopensearchserviceDestinationConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
      * The destination in Splunk. You can specify only one destination.
      * </p>
      * 
@@ -561,23 +707,108 @@ public class CreateDeliveryStreamRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A set of tags to assign to the delivery stream. A tag is a key-value pair that you can define and assign to AWS
-     * resources. Tags are metadata. For example, you can add friendly names and descriptions or other types of
-     * information that can help you distinguish the delivery stream. For more information about tags, see <a
-     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost Allocation
-     * Tags</a> in the AWS Billing and Cost Management User Guide.
+     * Enables configuring Kinesis Firehose to deliver data to any HTTP endpoint destination. You can specify only one
+     * destination.
+     * </p>
+     * 
+     * @param httpEndpointDestinationConfiguration
+     *        Enables configuring Kinesis Firehose to deliver data to any HTTP endpoint destination. You can specify
+     *        only one destination.
+     */
+
+    public void setHttpEndpointDestinationConfiguration(HttpEndpointDestinationConfiguration httpEndpointDestinationConfiguration) {
+        this.httpEndpointDestinationConfiguration = httpEndpointDestinationConfiguration;
+    }
+
+    /**
+     * <p>
+     * Enables configuring Kinesis Firehose to deliver data to any HTTP endpoint destination. You can specify only one
+     * destination.
+     * </p>
+     * 
+     * @return Enables configuring Kinesis Firehose to deliver data to any HTTP endpoint destination. You can specify
+     *         only one destination.
+     */
+
+    public HttpEndpointDestinationConfiguration getHttpEndpointDestinationConfiguration() {
+        return this.httpEndpointDestinationConfiguration;
+    }
+
+    /**
+     * <p>
+     * Enables configuring Kinesis Firehose to deliver data to any HTTP endpoint destination. You can specify only one
+     * destination.
+     * </p>
+     * 
+     * @param httpEndpointDestinationConfiguration
+     *        Enables configuring Kinesis Firehose to deliver data to any HTTP endpoint destination. You can specify
+     *        only one destination.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDeliveryStreamRequest withHttpEndpointDestinationConfiguration(HttpEndpointDestinationConfiguration httpEndpointDestinationConfiguration) {
+        setHttpEndpointDestinationConfiguration(httpEndpointDestinationConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A set of tags to assign to the delivery stream. A tag is a key-value pair that you can define and assign to
+     * Amazon Web Services resources. Tags are metadata. For example, you can add friendly names and descriptions or
+     * other types of information that can help you distinguish the delivery stream. For more information about tags,
+     * see <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost
+     * Allocation Tags</a> in the Amazon Web Services Billing and Cost Management User Guide.
      * </p>
      * <p>
      * You can specify up to 50 tags when creating a delivery stream.
      * </p>
+     * <p>
+     * If you specify tags in the <code>CreateDeliveryStream</code> action, Amazon Data Firehose performs an additional
+     * authorization on the <code>firehose:TagDeliveryStream</code> action to verify if users have permissions to create
+     * tags. If you do not provide this permission, requests to create new Firehose delivery streams with IAM resource
+     * tags will fail with an <code>AccessDeniedException</code> such as following.
+     * </p>
+     * <p>
+     * <b>AccessDeniedException</b>
+     * </p>
+     * <p>
+     * User: arn:aws:sts::x:assumed-role/x/x is not authorized to perform: firehose:TagDeliveryStream on resource:
+     * arn:aws:firehose:us-east-1:x:deliverystream/x with an explicit deny in an identity-based policy.
+     * </p>
+     * <p>
+     * For an example IAM policy, see <a href=
+     * "https://docs.aws.amazon.com/firehose/latest/APIReference/API_CreateDeliveryStream.html#API_CreateDeliveryStream_Examples"
+     * >Tag example.</a>
+     * </p>
      * 
      * @return A set of tags to assign to the delivery stream. A tag is a key-value pair that you can define and assign
-     *         to AWS resources. Tags are metadata. For example, you can add friendly names and descriptions or other
-     *         types of information that can help you distinguish the delivery stream. For more information about tags,
-     *         see <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using
-     *         Cost Allocation Tags</a> in the AWS Billing and Cost Management User Guide.</p>
+     *         to Amazon Web Services resources. Tags are metadata. For example, you can add friendly names and
+     *         descriptions or other types of information that can help you distinguish the delivery stream. For more
+     *         information about tags, see <a
+     *         href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost
+     *         Allocation Tags</a> in the Amazon Web Services Billing and Cost Management User Guide.</p>
      *         <p>
      *         You can specify up to 50 tags when creating a delivery stream.
+     *         </p>
+     *         <p>
+     *         If you specify tags in the <code>CreateDeliveryStream</code> action, Amazon Data Firehose performs an
+     *         additional authorization on the <code>firehose:TagDeliveryStream</code> action to verify if users have
+     *         permissions to create tags. If you do not provide this permission, requests to create new Firehose
+     *         delivery streams with IAM resource tags will fail with an <code>AccessDeniedException</code> such as
+     *         following.
+     *         </p>
+     *         <p>
+     *         <b>AccessDeniedException</b>
+     *         </p>
+     *         <p>
+     *         User: arn:aws:sts::x:assumed-role/x/x is not authorized to perform: firehose:TagDeliveryStream on
+     *         resource: arn:aws:firehose:us-east-1:x:deliverystream/x with an explicit deny in an identity-based
+     *         policy.
+     *         </p>
+     *         <p>
+     *         For an example IAM policy, see <a href=
+     *         "https://docs.aws.amazon.com/firehose/latest/APIReference/API_CreateDeliveryStream.html#API_CreateDeliveryStream_Examples"
+     *         >Tag example.</a>
      */
 
     public java.util.List<Tag> getTags() {
@@ -586,24 +817,62 @@ public class CreateDeliveryStreamRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A set of tags to assign to the delivery stream. A tag is a key-value pair that you can define and assign to AWS
-     * resources. Tags are metadata. For example, you can add friendly names and descriptions or other types of
-     * information that can help you distinguish the delivery stream. For more information about tags, see <a
-     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost Allocation
-     * Tags</a> in the AWS Billing and Cost Management User Guide.
+     * A set of tags to assign to the delivery stream. A tag is a key-value pair that you can define and assign to
+     * Amazon Web Services resources. Tags are metadata. For example, you can add friendly names and descriptions or
+     * other types of information that can help you distinguish the delivery stream. For more information about tags,
+     * see <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost
+     * Allocation Tags</a> in the Amazon Web Services Billing and Cost Management User Guide.
      * </p>
      * <p>
      * You can specify up to 50 tags when creating a delivery stream.
      * </p>
+     * <p>
+     * If you specify tags in the <code>CreateDeliveryStream</code> action, Amazon Data Firehose performs an additional
+     * authorization on the <code>firehose:TagDeliveryStream</code> action to verify if users have permissions to create
+     * tags. If you do not provide this permission, requests to create new Firehose delivery streams with IAM resource
+     * tags will fail with an <code>AccessDeniedException</code> such as following.
+     * </p>
+     * <p>
+     * <b>AccessDeniedException</b>
+     * </p>
+     * <p>
+     * User: arn:aws:sts::x:assumed-role/x/x is not authorized to perform: firehose:TagDeliveryStream on resource:
+     * arn:aws:firehose:us-east-1:x:deliverystream/x with an explicit deny in an identity-based policy.
+     * </p>
+     * <p>
+     * For an example IAM policy, see <a href=
+     * "https://docs.aws.amazon.com/firehose/latest/APIReference/API_CreateDeliveryStream.html#API_CreateDeliveryStream_Examples"
+     * >Tag example.</a>
+     * </p>
      * 
      * @param tags
      *        A set of tags to assign to the delivery stream. A tag is a key-value pair that you can define and assign
-     *        to AWS resources. Tags are metadata. For example, you can add friendly names and descriptions or other
-     *        types of information that can help you distinguish the delivery stream. For more information about tags,
-     *        see <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost
-     *        Allocation Tags</a> in the AWS Billing and Cost Management User Guide.</p>
+     *        to Amazon Web Services resources. Tags are metadata. For example, you can add friendly names and
+     *        descriptions or other types of information that can help you distinguish the delivery stream. For more
+     *        information about tags, see <a
+     *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost
+     *        Allocation Tags</a> in the Amazon Web Services Billing and Cost Management User Guide.</p>
      *        <p>
      *        You can specify up to 50 tags when creating a delivery stream.
+     *        </p>
+     *        <p>
+     *        If you specify tags in the <code>CreateDeliveryStream</code> action, Amazon Data Firehose performs an
+     *        additional authorization on the <code>firehose:TagDeliveryStream</code> action to verify if users have
+     *        permissions to create tags. If you do not provide this permission, requests to create new Firehose
+     *        delivery streams with IAM resource tags will fail with an <code>AccessDeniedException</code> such as
+     *        following.
+     *        </p>
+     *        <p>
+     *        <b>AccessDeniedException</b>
+     *        </p>
+     *        <p>
+     *        User: arn:aws:sts::x:assumed-role/x/x is not authorized to perform: firehose:TagDeliveryStream on
+     *        resource: arn:aws:firehose:us-east-1:x:deliverystream/x with an explicit deny in an identity-based policy.
+     *        </p>
+     *        <p>
+     *        For an example IAM policy, see <a href=
+     *        "https://docs.aws.amazon.com/firehose/latest/APIReference/API_CreateDeliveryStream.html#API_CreateDeliveryStream_Examples"
+     *        >Tag example.</a>
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -617,14 +886,32 @@ public class CreateDeliveryStreamRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A set of tags to assign to the delivery stream. A tag is a key-value pair that you can define and assign to AWS
-     * resources. Tags are metadata. For example, you can add friendly names and descriptions or other types of
-     * information that can help you distinguish the delivery stream. For more information about tags, see <a
-     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost Allocation
-     * Tags</a> in the AWS Billing and Cost Management User Guide.
+     * A set of tags to assign to the delivery stream. A tag is a key-value pair that you can define and assign to
+     * Amazon Web Services resources. Tags are metadata. For example, you can add friendly names and descriptions or
+     * other types of information that can help you distinguish the delivery stream. For more information about tags,
+     * see <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost
+     * Allocation Tags</a> in the Amazon Web Services Billing and Cost Management User Guide.
      * </p>
      * <p>
      * You can specify up to 50 tags when creating a delivery stream.
+     * </p>
+     * <p>
+     * If you specify tags in the <code>CreateDeliveryStream</code> action, Amazon Data Firehose performs an additional
+     * authorization on the <code>firehose:TagDeliveryStream</code> action to verify if users have permissions to create
+     * tags. If you do not provide this permission, requests to create new Firehose delivery streams with IAM resource
+     * tags will fail with an <code>AccessDeniedException</code> such as following.
+     * </p>
+     * <p>
+     * <b>AccessDeniedException</b>
+     * </p>
+     * <p>
+     * User: arn:aws:sts::x:assumed-role/x/x is not authorized to perform: firehose:TagDeliveryStream on resource:
+     * arn:aws:firehose:us-east-1:x:deliverystream/x with an explicit deny in an identity-based policy.
+     * </p>
+     * <p>
+     * For an example IAM policy, see <a href=
+     * "https://docs.aws.amazon.com/firehose/latest/APIReference/API_CreateDeliveryStream.html#API_CreateDeliveryStream_Examples"
+     * >Tag example.</a>
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -634,12 +921,32 @@ public class CreateDeliveryStreamRequest extends com.amazonaws.AmazonWebServiceR
      * 
      * @param tags
      *        A set of tags to assign to the delivery stream. A tag is a key-value pair that you can define and assign
-     *        to AWS resources. Tags are metadata. For example, you can add friendly names and descriptions or other
-     *        types of information that can help you distinguish the delivery stream. For more information about tags,
-     *        see <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost
-     *        Allocation Tags</a> in the AWS Billing and Cost Management User Guide.</p>
+     *        to Amazon Web Services resources. Tags are metadata. For example, you can add friendly names and
+     *        descriptions or other types of information that can help you distinguish the delivery stream. For more
+     *        information about tags, see <a
+     *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost
+     *        Allocation Tags</a> in the Amazon Web Services Billing and Cost Management User Guide.</p>
      *        <p>
      *        You can specify up to 50 tags when creating a delivery stream.
+     *        </p>
+     *        <p>
+     *        If you specify tags in the <code>CreateDeliveryStream</code> action, Amazon Data Firehose performs an
+     *        additional authorization on the <code>firehose:TagDeliveryStream</code> action to verify if users have
+     *        permissions to create tags. If you do not provide this permission, requests to create new Firehose
+     *        delivery streams with IAM resource tags will fail with an <code>AccessDeniedException</code> such as
+     *        following.
+     *        </p>
+     *        <p>
+     *        <b>AccessDeniedException</b>
+     *        </p>
+     *        <p>
+     *        User: arn:aws:sts::x:assumed-role/x/x is not authorized to perform: firehose:TagDeliveryStream on
+     *        resource: arn:aws:firehose:us-east-1:x:deliverystream/x with an explicit deny in an identity-based policy.
+     *        </p>
+     *        <p>
+     *        For an example IAM policy, see <a href=
+     *        "https://docs.aws.amazon.com/firehose/latest/APIReference/API_CreateDeliveryStream.html#API_CreateDeliveryStream_Examples"
+     *        >Tag example.</a>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -655,29 +962,233 @@ public class CreateDeliveryStreamRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A set of tags to assign to the delivery stream. A tag is a key-value pair that you can define and assign to AWS
-     * resources. Tags are metadata. For example, you can add friendly names and descriptions or other types of
-     * information that can help you distinguish the delivery stream. For more information about tags, see <a
-     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost Allocation
-     * Tags</a> in the AWS Billing and Cost Management User Guide.
+     * A set of tags to assign to the delivery stream. A tag is a key-value pair that you can define and assign to
+     * Amazon Web Services resources. Tags are metadata. For example, you can add friendly names and descriptions or
+     * other types of information that can help you distinguish the delivery stream. For more information about tags,
+     * see <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost
+     * Allocation Tags</a> in the Amazon Web Services Billing and Cost Management User Guide.
      * </p>
      * <p>
      * You can specify up to 50 tags when creating a delivery stream.
      * </p>
+     * <p>
+     * If you specify tags in the <code>CreateDeliveryStream</code> action, Amazon Data Firehose performs an additional
+     * authorization on the <code>firehose:TagDeliveryStream</code> action to verify if users have permissions to create
+     * tags. If you do not provide this permission, requests to create new Firehose delivery streams with IAM resource
+     * tags will fail with an <code>AccessDeniedException</code> such as following.
+     * </p>
+     * <p>
+     * <b>AccessDeniedException</b>
+     * </p>
+     * <p>
+     * User: arn:aws:sts::x:assumed-role/x/x is not authorized to perform: firehose:TagDeliveryStream on resource:
+     * arn:aws:firehose:us-east-1:x:deliverystream/x with an explicit deny in an identity-based policy.
+     * </p>
+     * <p>
+     * For an example IAM policy, see <a href=
+     * "https://docs.aws.amazon.com/firehose/latest/APIReference/API_CreateDeliveryStream.html#API_CreateDeliveryStream_Examples"
+     * >Tag example.</a>
+     * </p>
      * 
      * @param tags
      *        A set of tags to assign to the delivery stream. A tag is a key-value pair that you can define and assign
-     *        to AWS resources. Tags are metadata. For example, you can add friendly names and descriptions or other
-     *        types of information that can help you distinguish the delivery stream. For more information about tags,
-     *        see <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost
-     *        Allocation Tags</a> in the AWS Billing and Cost Management User Guide.</p>
+     *        to Amazon Web Services resources. Tags are metadata. For example, you can add friendly names and
+     *        descriptions or other types of information that can help you distinguish the delivery stream. For more
+     *        information about tags, see <a
+     *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost
+     *        Allocation Tags</a> in the Amazon Web Services Billing and Cost Management User Guide.</p>
      *        <p>
      *        You can specify up to 50 tags when creating a delivery stream.
+     *        </p>
+     *        <p>
+     *        If you specify tags in the <code>CreateDeliveryStream</code> action, Amazon Data Firehose performs an
+     *        additional authorization on the <code>firehose:TagDeliveryStream</code> action to verify if users have
+     *        permissions to create tags. If you do not provide this permission, requests to create new Firehose
+     *        delivery streams with IAM resource tags will fail with an <code>AccessDeniedException</code> such as
+     *        following.
+     *        </p>
+     *        <p>
+     *        <b>AccessDeniedException</b>
+     *        </p>
+     *        <p>
+     *        User: arn:aws:sts::x:assumed-role/x/x is not authorized to perform: firehose:TagDeliveryStream on
+     *        resource: arn:aws:firehose:us-east-1:x:deliverystream/x with an explicit deny in an identity-based policy.
+     *        </p>
+     *        <p>
+     *        For an example IAM policy, see <a href=
+     *        "https://docs.aws.amazon.com/firehose/latest/APIReference/API_CreateDeliveryStream.html#API_CreateDeliveryStream_Examples"
+     *        >Tag example.</a>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateDeliveryStreamRequest withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The destination in the Serverless offering for Amazon OpenSearch Service. You can specify only one destination.
+     * </p>
+     * 
+     * @param amazonOpenSearchServerlessDestinationConfiguration
+     *        The destination in the Serverless offering for Amazon OpenSearch Service. You can specify only one
+     *        destination.
+     */
+
+    public void setAmazonOpenSearchServerlessDestinationConfiguration(
+            AmazonOpenSearchServerlessDestinationConfiguration amazonOpenSearchServerlessDestinationConfiguration) {
+        this.amazonOpenSearchServerlessDestinationConfiguration = amazonOpenSearchServerlessDestinationConfiguration;
+    }
+
+    /**
+     * <p>
+     * The destination in the Serverless offering for Amazon OpenSearch Service. You can specify only one destination.
+     * </p>
+     * 
+     * @return The destination in the Serverless offering for Amazon OpenSearch Service. You can specify only one
+     *         destination.
+     */
+
+    public AmazonOpenSearchServerlessDestinationConfiguration getAmazonOpenSearchServerlessDestinationConfiguration() {
+        return this.amazonOpenSearchServerlessDestinationConfiguration;
+    }
+
+    /**
+     * <p>
+     * The destination in the Serverless offering for Amazon OpenSearch Service. You can specify only one destination.
+     * </p>
+     * 
+     * @param amazonOpenSearchServerlessDestinationConfiguration
+     *        The destination in the Serverless offering for Amazon OpenSearch Service. You can specify only one
+     *        destination.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDeliveryStreamRequest withAmazonOpenSearchServerlessDestinationConfiguration(
+            AmazonOpenSearchServerlessDestinationConfiguration amazonOpenSearchServerlessDestinationConfiguration) {
+        setAmazonOpenSearchServerlessDestinationConfiguration(amazonOpenSearchServerlessDestinationConfiguration);
+        return this;
+    }
+
+    /**
+     * @param mSKSourceConfiguration
+     */
+
+    public void setMSKSourceConfiguration(MSKSourceConfiguration mSKSourceConfiguration) {
+        this.mSKSourceConfiguration = mSKSourceConfiguration;
+    }
+
+    /**
+     * @return
+     */
+
+    public MSKSourceConfiguration getMSKSourceConfiguration() {
+        return this.mSKSourceConfiguration;
+    }
+
+    /**
+     * @param mSKSourceConfiguration
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDeliveryStreamRequest withMSKSourceConfiguration(MSKSourceConfiguration mSKSourceConfiguration) {
+        setMSKSourceConfiguration(mSKSourceConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Configure Snowflake destination
+     * </p>
+     * 
+     * @param snowflakeDestinationConfiguration
+     *        Configure Snowflake destination
+     */
+
+    public void setSnowflakeDestinationConfiguration(SnowflakeDestinationConfiguration snowflakeDestinationConfiguration) {
+        this.snowflakeDestinationConfiguration = snowflakeDestinationConfiguration;
+    }
+
+    /**
+     * <p>
+     * Configure Snowflake destination
+     * </p>
+     * 
+     * @return Configure Snowflake destination
+     */
+
+    public SnowflakeDestinationConfiguration getSnowflakeDestinationConfiguration() {
+        return this.snowflakeDestinationConfiguration;
+    }
+
+    /**
+     * <p>
+     * Configure Snowflake destination
+     * </p>
+     * 
+     * @param snowflakeDestinationConfiguration
+     *        Configure Snowflake destination
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDeliveryStreamRequest withSnowflakeDestinationConfiguration(SnowflakeDestinationConfiguration snowflakeDestinationConfiguration) {
+        setSnowflakeDestinationConfiguration(snowflakeDestinationConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Configure Apache Iceberg Tables destination.
+     * </p>
+     * <p>
+     * Amazon Data Firehose is in preview release and is subject to change.
+     * </p>
+     * 
+     * @param icebergDestinationConfiguration
+     *        Configure Apache Iceberg Tables destination. </p>
+     *        <p>
+     *        Amazon Data Firehose is in preview release and is subject to change.
+     */
+
+    public void setIcebergDestinationConfiguration(IcebergDestinationConfiguration icebergDestinationConfiguration) {
+        this.icebergDestinationConfiguration = icebergDestinationConfiguration;
+    }
+
+    /**
+     * <p>
+     * Configure Apache Iceberg Tables destination.
+     * </p>
+     * <p>
+     * Amazon Data Firehose is in preview release and is subject to change.
+     * </p>
+     * 
+     * @return Configure Apache Iceberg Tables destination. </p>
+     *         <p>
+     *         Amazon Data Firehose is in preview release and is subject to change.
+     */
+
+    public IcebergDestinationConfiguration getIcebergDestinationConfiguration() {
+        return this.icebergDestinationConfiguration;
+    }
+
+    /**
+     * <p>
+     * Configure Apache Iceberg Tables destination.
+     * </p>
+     * <p>
+     * Amazon Data Firehose is in preview release and is subject to change.
+     * </p>
+     * 
+     * @param icebergDestinationConfiguration
+     *        Configure Apache Iceberg Tables destination. </p>
+     *        <p>
+     *        Amazon Data Firehose is in preview release and is subject to change.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDeliveryStreamRequest withIcebergDestinationConfiguration(IcebergDestinationConfiguration icebergDestinationConfiguration) {
+        setIcebergDestinationConfiguration(icebergDestinationConfiguration);
         return this;
     }
 
@@ -699,6 +1210,8 @@ public class CreateDeliveryStreamRequest extends com.amazonaws.AmazonWebServiceR
             sb.append("DeliveryStreamType: ").append(getDeliveryStreamType()).append(",");
         if (getKinesisStreamSourceConfiguration() != null)
             sb.append("KinesisStreamSourceConfiguration: ").append(getKinesisStreamSourceConfiguration()).append(",");
+        if (getDeliveryStreamEncryptionConfigurationInput() != null)
+            sb.append("DeliveryStreamEncryptionConfigurationInput: ").append(getDeliveryStreamEncryptionConfigurationInput()).append(",");
         if (getS3DestinationConfiguration() != null)
             sb.append("S3DestinationConfiguration: ").append(getS3DestinationConfiguration()).append(",");
         if (getExtendedS3DestinationConfiguration() != null)
@@ -707,10 +1220,22 @@ public class CreateDeliveryStreamRequest extends com.amazonaws.AmazonWebServiceR
             sb.append("RedshiftDestinationConfiguration: ").append(getRedshiftDestinationConfiguration()).append(",");
         if (getElasticsearchDestinationConfiguration() != null)
             sb.append("ElasticsearchDestinationConfiguration: ").append(getElasticsearchDestinationConfiguration()).append(",");
+        if (getAmazonopensearchserviceDestinationConfiguration() != null)
+            sb.append("AmazonopensearchserviceDestinationConfiguration: ").append(getAmazonopensearchserviceDestinationConfiguration()).append(",");
         if (getSplunkDestinationConfiguration() != null)
             sb.append("SplunkDestinationConfiguration: ").append(getSplunkDestinationConfiguration()).append(",");
+        if (getHttpEndpointDestinationConfiguration() != null)
+            sb.append("HttpEndpointDestinationConfiguration: ").append(getHttpEndpointDestinationConfiguration()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getAmazonOpenSearchServerlessDestinationConfiguration() != null)
+            sb.append("AmazonOpenSearchServerlessDestinationConfiguration: ").append(getAmazonOpenSearchServerlessDestinationConfiguration()).append(",");
+        if (getMSKSourceConfiguration() != null)
+            sb.append("MSKSourceConfiguration: ").append(getMSKSourceConfiguration()).append(",");
+        if (getSnowflakeDestinationConfiguration() != null)
+            sb.append("SnowflakeDestinationConfiguration: ").append(getSnowflakeDestinationConfiguration()).append(",");
+        if (getIcebergDestinationConfiguration() != null)
+            sb.append("IcebergDestinationConfiguration: ").append(getIcebergDestinationConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -738,6 +1263,11 @@ public class CreateDeliveryStreamRequest extends com.amazonaws.AmazonWebServiceR
         if (other.getKinesisStreamSourceConfiguration() != null
                 && other.getKinesisStreamSourceConfiguration().equals(this.getKinesisStreamSourceConfiguration()) == false)
             return false;
+        if (other.getDeliveryStreamEncryptionConfigurationInput() == null ^ this.getDeliveryStreamEncryptionConfigurationInput() == null)
+            return false;
+        if (other.getDeliveryStreamEncryptionConfigurationInput() != null
+                && other.getDeliveryStreamEncryptionConfigurationInput().equals(this.getDeliveryStreamEncryptionConfigurationInput()) == false)
+            return false;
         if (other.getS3DestinationConfiguration() == null ^ this.getS3DestinationConfiguration() == null)
             return false;
         if (other.getS3DestinationConfiguration() != null && other.getS3DestinationConfiguration().equals(this.getS3DestinationConfiguration()) == false)
@@ -757,14 +1287,43 @@ public class CreateDeliveryStreamRequest extends com.amazonaws.AmazonWebServiceR
         if (other.getElasticsearchDestinationConfiguration() != null
                 && other.getElasticsearchDestinationConfiguration().equals(this.getElasticsearchDestinationConfiguration()) == false)
             return false;
+        if (other.getAmazonopensearchserviceDestinationConfiguration() == null ^ this.getAmazonopensearchserviceDestinationConfiguration() == null)
+            return false;
+        if (other.getAmazonopensearchserviceDestinationConfiguration() != null
+                && other.getAmazonopensearchserviceDestinationConfiguration().equals(this.getAmazonopensearchserviceDestinationConfiguration()) == false)
+            return false;
         if (other.getSplunkDestinationConfiguration() == null ^ this.getSplunkDestinationConfiguration() == null)
             return false;
         if (other.getSplunkDestinationConfiguration() != null
                 && other.getSplunkDestinationConfiguration().equals(this.getSplunkDestinationConfiguration()) == false)
             return false;
+        if (other.getHttpEndpointDestinationConfiguration() == null ^ this.getHttpEndpointDestinationConfiguration() == null)
+            return false;
+        if (other.getHttpEndpointDestinationConfiguration() != null
+                && other.getHttpEndpointDestinationConfiguration().equals(this.getHttpEndpointDestinationConfiguration()) == false)
+            return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getAmazonOpenSearchServerlessDestinationConfiguration() == null ^ this.getAmazonOpenSearchServerlessDestinationConfiguration() == null)
+            return false;
+        if (other.getAmazonOpenSearchServerlessDestinationConfiguration() != null
+                && other.getAmazonOpenSearchServerlessDestinationConfiguration().equals(this.getAmazonOpenSearchServerlessDestinationConfiguration()) == false)
+            return false;
+        if (other.getMSKSourceConfiguration() == null ^ this.getMSKSourceConfiguration() == null)
+            return false;
+        if (other.getMSKSourceConfiguration() != null && other.getMSKSourceConfiguration().equals(this.getMSKSourceConfiguration()) == false)
+            return false;
+        if (other.getSnowflakeDestinationConfiguration() == null ^ this.getSnowflakeDestinationConfiguration() == null)
+            return false;
+        if (other.getSnowflakeDestinationConfiguration() != null
+                && other.getSnowflakeDestinationConfiguration().equals(this.getSnowflakeDestinationConfiguration()) == false)
+            return false;
+        if (other.getIcebergDestinationConfiguration() == null ^ this.getIcebergDestinationConfiguration() == null)
+            return false;
+        if (other.getIcebergDestinationConfiguration() != null
+                && other.getIcebergDestinationConfiguration().equals(this.getIcebergDestinationConfiguration()) == false)
             return false;
         return true;
     }
@@ -777,12 +1336,22 @@ public class CreateDeliveryStreamRequest extends com.amazonaws.AmazonWebServiceR
         hashCode = prime * hashCode + ((getDeliveryStreamName() == null) ? 0 : getDeliveryStreamName().hashCode());
         hashCode = prime * hashCode + ((getDeliveryStreamType() == null) ? 0 : getDeliveryStreamType().hashCode());
         hashCode = prime * hashCode + ((getKinesisStreamSourceConfiguration() == null) ? 0 : getKinesisStreamSourceConfiguration().hashCode());
+        hashCode = prime * hashCode
+                + ((getDeliveryStreamEncryptionConfigurationInput() == null) ? 0 : getDeliveryStreamEncryptionConfigurationInput().hashCode());
         hashCode = prime * hashCode + ((getS3DestinationConfiguration() == null) ? 0 : getS3DestinationConfiguration().hashCode());
         hashCode = prime * hashCode + ((getExtendedS3DestinationConfiguration() == null) ? 0 : getExtendedS3DestinationConfiguration().hashCode());
         hashCode = prime * hashCode + ((getRedshiftDestinationConfiguration() == null) ? 0 : getRedshiftDestinationConfiguration().hashCode());
         hashCode = prime * hashCode + ((getElasticsearchDestinationConfiguration() == null) ? 0 : getElasticsearchDestinationConfiguration().hashCode());
+        hashCode = prime * hashCode
+                + ((getAmazonopensearchserviceDestinationConfiguration() == null) ? 0 : getAmazonopensearchserviceDestinationConfiguration().hashCode());
         hashCode = prime * hashCode + ((getSplunkDestinationConfiguration() == null) ? 0 : getSplunkDestinationConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getHttpEndpointDestinationConfiguration() == null) ? 0 : getHttpEndpointDestinationConfiguration().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode
+                + ((getAmazonOpenSearchServerlessDestinationConfiguration() == null) ? 0 : getAmazonOpenSearchServerlessDestinationConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getMSKSourceConfiguration() == null) ? 0 : getMSKSourceConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getSnowflakeDestinationConfiguration() == null) ? 0 : getSnowflakeDestinationConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getIcebergDestinationConfiguration() == null) ? 0 : getIcebergDestinationConfiguration().hashCode());
         return hashCode;
     }
 

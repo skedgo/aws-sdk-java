@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * Request structure for a branch create request.
+ * The request structure for the create branch request.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/CreateBranch" target="_top">AWS API
@@ -30,31 +30,31 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Unique Id for an Amplify App.
+     * The unique ID for an Amplify app.
      * </p>
      */
     private String appId;
     /**
      * <p>
-     * Name for the branch.
+     * The name for the branch.
      * </p>
      */
     private String branchName;
     /**
      * <p>
-     * Description for the branch.
+     * The description for the branch.
      * </p>
      */
     private String description;
     /**
      * <p>
-     * Stage for the branch.
+     * Describes the current stage for the branch.
      * </p>
      */
     private String stage;
     /**
      * <p>
-     * Framework for the branch.
+     * The framework for the branch.
      * </p>
      */
     private String framework;
@@ -72,54 +72,98 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
     private Boolean enableAutoBuild;
     /**
      * <p>
-     * Environment Variables for the branch.
+     * The environment variables for the branch.
      * </p>
      */
     private java.util.Map<String, String> environmentVariables;
     /**
      * <p>
-     * Basic Authorization credentials for the branch.
+     * The basic authorization credentials for the branch. You must base64-encode the authorization credentials and
+     * provide them in the format <code>user:password</code>.
      * </p>
      */
     private String basicAuthCredentials;
     /**
      * <p>
-     * Enables Basic Auth for the branch.
+     * Enables basic authorization for the branch.
      * </p>
      */
     private Boolean enableBasicAuth;
     /**
      * <p>
-     * Tag for the branch.
+     * Enables performance mode for the branch.
+     * </p>
+     * <p>
+     * Performance mode optimizes for faster hosting performance by keeping content cached at the edge for a longer
+     * interval. When performance mode is enabled, hosting configuration or code changes can take up to 10 minutes to
+     * roll out.
+     * </p>
+     */
+    private Boolean enablePerformanceMode;
+    /**
+     * <p>
+     * The tag for the branch.
      * </p>
      */
     private java.util.Map<String, String> tags;
     /**
      * <p>
-     * BuildSpec for the branch.
+     * The build specification (build spec) for the branch.
      * </p>
      */
     private String buildSpec;
     /**
      * <p>
-     * The content TTL for the website in seconds.
+     * The content Time To Live (TTL) for the website in seconds.
      * </p>
      */
     private String ttl;
     /**
      * <p>
-     * Display name for a branch, will use as the default domain prefix.
+     * The display name for a branch. This is used as the default domain prefix.
      * </p>
      */
     private String displayName;
+    /**
+     * <p>
+     * Enables pull request previews for this branch.
+     * </p>
+     */
+    private Boolean enablePullRequestPreview;
+    /**
+     * <p>
+     * The Amplify environment name for the pull request.
+     * </p>
+     */
+    private String pullRequestEnvironmentName;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for a backend environment that is part of a Gen 1 Amplify app.
+     * </p>
+     * <p>
+     * This field is available to Amplify Gen 1 apps only where the backend is created using Amplify Studio or the
+     * Amplify command line interface (CLI).
+     * </p>
+     */
+    private String backendEnvironmentArn;
+    /**
+     * <p>
+     * The backend for a <code>Branch</code> of an Amplify app. Use for a backend created from an CloudFormation stack.
+     * </p>
+     * <p>
+     * This field is available to Amplify Gen 2 apps only. When you deploy an application with Amplify Gen 2, you
+     * provision the app's backend infrastructure using Typescript code.
+     * </p>
+     */
+    private Backend backend;
 
     /**
      * <p>
-     * Unique Id for an Amplify App.
+     * The unique ID for an Amplify app.
      * </p>
      * 
      * @param appId
-     *        Unique Id for an Amplify App.
+     *        The unique ID for an Amplify app.
      */
 
     public void setAppId(String appId) {
@@ -128,10 +172,10 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Unique Id for an Amplify App.
+     * The unique ID for an Amplify app.
      * </p>
      * 
-     * @return Unique Id for an Amplify App.
+     * @return The unique ID for an Amplify app.
      */
 
     public String getAppId() {
@@ -140,11 +184,11 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Unique Id for an Amplify App.
+     * The unique ID for an Amplify app.
      * </p>
      * 
      * @param appId
-     *        Unique Id for an Amplify App.
+     *        The unique ID for an Amplify app.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -155,11 +199,11 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Name for the branch.
+     * The name for the branch.
      * </p>
      * 
      * @param branchName
-     *        Name for the branch.
+     *        The name for the branch.
      */
 
     public void setBranchName(String branchName) {
@@ -168,10 +212,10 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Name for the branch.
+     * The name for the branch.
      * </p>
      * 
-     * @return Name for the branch.
+     * @return The name for the branch.
      */
 
     public String getBranchName() {
@@ -180,11 +224,11 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Name for the branch.
+     * The name for the branch.
      * </p>
      * 
      * @param branchName
-     *        Name for the branch.
+     *        The name for the branch.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -195,11 +239,11 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Description for the branch.
+     * The description for the branch.
      * </p>
      * 
      * @param description
-     *        Description for the branch.
+     *        The description for the branch.
      */
 
     public void setDescription(String description) {
@@ -208,10 +252,10 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Description for the branch.
+     * The description for the branch.
      * </p>
      * 
-     * @return Description for the branch.
+     * @return The description for the branch.
      */
 
     public String getDescription() {
@@ -220,11 +264,11 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Description for the branch.
+     * The description for the branch.
      * </p>
      * 
      * @param description
-     *        Description for the branch.
+     *        The description for the branch.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -235,11 +279,11 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Stage for the branch.
+     * Describes the current stage for the branch.
      * </p>
      * 
      * @param stage
-     *        Stage for the branch.
+     *        Describes the current stage for the branch.
      * @see Stage
      */
 
@@ -249,10 +293,10 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Stage for the branch.
+     * Describes the current stage for the branch.
      * </p>
      * 
-     * @return Stage for the branch.
+     * @return Describes the current stage for the branch.
      * @see Stage
      */
 
@@ -262,11 +306,11 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Stage for the branch.
+     * Describes the current stage for the branch.
      * </p>
      * 
      * @param stage
-     *        Stage for the branch.
+     *        Describes the current stage for the branch.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Stage
      */
@@ -278,11 +322,11 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Stage for the branch.
+     * Describes the current stage for the branch.
      * </p>
      * 
      * @param stage
-     *        Stage for the branch.
+     *        Describes the current stage for the branch.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Stage
      */
@@ -294,11 +338,11 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Framework for the branch.
+     * The framework for the branch.
      * </p>
      * 
      * @param framework
-     *        Framework for the branch.
+     *        The framework for the branch.
      */
 
     public void setFramework(String framework) {
@@ -307,10 +351,10 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Framework for the branch.
+     * The framework for the branch.
      * </p>
      * 
-     * @return Framework for the branch.
+     * @return The framework for the branch.
      */
 
     public String getFramework() {
@@ -319,11 +363,11 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Framework for the branch.
+     * The framework for the branch.
      * </p>
      * 
      * @param framework
-     *        Framework for the branch.
+     *        The framework for the branch.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -438,10 +482,10 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Environment Variables for the branch.
+     * The environment variables for the branch.
      * </p>
      * 
-     * @return Environment Variables for the branch.
+     * @return The environment variables for the branch.
      */
 
     public java.util.Map<String, String> getEnvironmentVariables() {
@@ -450,11 +494,11 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Environment Variables for the branch.
+     * The environment variables for the branch.
      * </p>
      * 
      * @param environmentVariables
-     *        Environment Variables for the branch.
+     *        The environment variables for the branch.
      */
 
     public void setEnvironmentVariables(java.util.Map<String, String> environmentVariables) {
@@ -463,11 +507,11 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Environment Variables for the branch.
+     * The environment variables for the branch.
      * </p>
      * 
      * @param environmentVariables
-     *        Environment Variables for the branch.
+     *        The environment variables for the branch.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -475,6 +519,13 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
         setEnvironmentVariables(environmentVariables);
         return this;
     }
+
+    /**
+     * Add a single EnvironmentVariables entry
+     *
+     * @see CreateBranchRequest#withEnvironmentVariables
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public CreateBranchRequest addEnvironmentVariablesEntry(String key, String value) {
         if (null == this.environmentVariables) {
@@ -499,11 +550,13 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Basic Authorization credentials for the branch.
+     * The basic authorization credentials for the branch. You must base64-encode the authorization credentials and
+     * provide them in the format <code>user:password</code>.
      * </p>
      * 
      * @param basicAuthCredentials
-     *        Basic Authorization credentials for the branch.
+     *        The basic authorization credentials for the branch. You must base64-encode the authorization credentials
+     *        and provide them in the format <code>user:password</code>.
      */
 
     public void setBasicAuthCredentials(String basicAuthCredentials) {
@@ -512,10 +565,12 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Basic Authorization credentials for the branch.
+     * The basic authorization credentials for the branch. You must base64-encode the authorization credentials and
+     * provide them in the format <code>user:password</code>.
      * </p>
      * 
-     * @return Basic Authorization credentials for the branch.
+     * @return The basic authorization credentials for the branch. You must base64-encode the authorization credentials
+     *         and provide them in the format <code>user:password</code>.
      */
 
     public String getBasicAuthCredentials() {
@@ -524,11 +579,13 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Basic Authorization credentials for the branch.
+     * The basic authorization credentials for the branch. You must base64-encode the authorization credentials and
+     * provide them in the format <code>user:password</code>.
      * </p>
      * 
      * @param basicAuthCredentials
-     *        Basic Authorization credentials for the branch.
+     *        The basic authorization credentials for the branch. You must base64-encode the authorization credentials
+     *        and provide them in the format <code>user:password</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -539,11 +596,11 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Enables Basic Auth for the branch.
+     * Enables basic authorization for the branch.
      * </p>
      * 
      * @param enableBasicAuth
-     *        Enables Basic Auth for the branch.
+     *        Enables basic authorization for the branch.
      */
 
     public void setEnableBasicAuth(Boolean enableBasicAuth) {
@@ -552,10 +609,10 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Enables Basic Auth for the branch.
+     * Enables basic authorization for the branch.
      * </p>
      * 
-     * @return Enables Basic Auth for the branch.
+     * @return Enables basic authorization for the branch.
      */
 
     public Boolean getEnableBasicAuth() {
@@ -564,11 +621,11 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Enables Basic Auth for the branch.
+     * Enables basic authorization for the branch.
      * </p>
      * 
      * @param enableBasicAuth
-     *        Enables Basic Auth for the branch.
+     *        Enables basic authorization for the branch.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -579,10 +636,10 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Enables Basic Auth for the branch.
+     * Enables basic authorization for the branch.
      * </p>
      * 
-     * @return Enables Basic Auth for the branch.
+     * @return Enables basic authorization for the branch.
      */
 
     public Boolean isEnableBasicAuth() {
@@ -591,10 +648,98 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Tag for the branch.
+     * Enables performance mode for the branch.
+     * </p>
+     * <p>
+     * Performance mode optimizes for faster hosting performance by keeping content cached at the edge for a longer
+     * interval. When performance mode is enabled, hosting configuration or code changes can take up to 10 minutes to
+     * roll out.
      * </p>
      * 
-     * @return Tag for the branch.
+     * @param enablePerformanceMode
+     *        Enables performance mode for the branch.</p>
+     *        <p>
+     *        Performance mode optimizes for faster hosting performance by keeping content cached at the edge for a
+     *        longer interval. When performance mode is enabled, hosting configuration or code changes can take up to 10
+     *        minutes to roll out.
+     */
+
+    public void setEnablePerformanceMode(Boolean enablePerformanceMode) {
+        this.enablePerformanceMode = enablePerformanceMode;
+    }
+
+    /**
+     * <p>
+     * Enables performance mode for the branch.
+     * </p>
+     * <p>
+     * Performance mode optimizes for faster hosting performance by keeping content cached at the edge for a longer
+     * interval. When performance mode is enabled, hosting configuration or code changes can take up to 10 minutes to
+     * roll out.
+     * </p>
+     * 
+     * @return Enables performance mode for the branch.</p>
+     *         <p>
+     *         Performance mode optimizes for faster hosting performance by keeping content cached at the edge for a
+     *         longer interval. When performance mode is enabled, hosting configuration or code changes can take up to
+     *         10 minutes to roll out.
+     */
+
+    public Boolean getEnablePerformanceMode() {
+        return this.enablePerformanceMode;
+    }
+
+    /**
+     * <p>
+     * Enables performance mode for the branch.
+     * </p>
+     * <p>
+     * Performance mode optimizes for faster hosting performance by keeping content cached at the edge for a longer
+     * interval. When performance mode is enabled, hosting configuration or code changes can take up to 10 minutes to
+     * roll out.
+     * </p>
+     * 
+     * @param enablePerformanceMode
+     *        Enables performance mode for the branch.</p>
+     *        <p>
+     *        Performance mode optimizes for faster hosting performance by keeping content cached at the edge for a
+     *        longer interval. When performance mode is enabled, hosting configuration or code changes can take up to 10
+     *        minutes to roll out.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBranchRequest withEnablePerformanceMode(Boolean enablePerformanceMode) {
+        setEnablePerformanceMode(enablePerformanceMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enables performance mode for the branch.
+     * </p>
+     * <p>
+     * Performance mode optimizes for faster hosting performance by keeping content cached at the edge for a longer
+     * interval. When performance mode is enabled, hosting configuration or code changes can take up to 10 minutes to
+     * roll out.
+     * </p>
+     * 
+     * @return Enables performance mode for the branch.</p>
+     *         <p>
+     *         Performance mode optimizes for faster hosting performance by keeping content cached at the edge for a
+     *         longer interval. When performance mode is enabled, hosting configuration or code changes can take up to
+     *         10 minutes to roll out.
+     */
+
+    public Boolean isEnablePerformanceMode() {
+        return this.enablePerformanceMode;
+    }
+
+    /**
+     * <p>
+     * The tag for the branch.
+     * </p>
+     * 
+     * @return The tag for the branch.
      */
 
     public java.util.Map<String, String> getTags() {
@@ -603,11 +748,11 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Tag for the branch.
+     * The tag for the branch.
      * </p>
      * 
      * @param tags
-     *        Tag for the branch.
+     *        The tag for the branch.
      */
 
     public void setTags(java.util.Map<String, String> tags) {
@@ -616,11 +761,11 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Tag for the branch.
+     * The tag for the branch.
      * </p>
      * 
      * @param tags
-     *        Tag for the branch.
+     *        The tag for the branch.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -628,6 +773,13 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateBranchRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public CreateBranchRequest addTagsEntry(String key, String value) {
         if (null == this.tags) {
@@ -652,11 +804,11 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * BuildSpec for the branch.
+     * The build specification (build spec) for the branch.
      * </p>
      * 
      * @param buildSpec
-     *        BuildSpec for the branch.
+     *        The build specification (build spec) for the branch.
      */
 
     public void setBuildSpec(String buildSpec) {
@@ -665,10 +817,10 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * BuildSpec for the branch.
+     * The build specification (build spec) for the branch.
      * </p>
      * 
-     * @return BuildSpec for the branch.
+     * @return The build specification (build spec) for the branch.
      */
 
     public String getBuildSpec() {
@@ -677,11 +829,11 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * BuildSpec for the branch.
+     * The build specification (build spec) for the branch.
      * </p>
      * 
      * @param buildSpec
-     *        BuildSpec for the branch.
+     *        The build specification (build spec) for the branch.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -692,11 +844,11 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The content TTL for the website in seconds.
+     * The content Time To Live (TTL) for the website in seconds.
      * </p>
      * 
      * @param ttl
-     *        The content TTL for the website in seconds.
+     *        The content Time To Live (TTL) for the website in seconds.
      */
 
     public void setTtl(String ttl) {
@@ -705,10 +857,10 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The content TTL for the website in seconds.
+     * The content Time To Live (TTL) for the website in seconds.
      * </p>
      * 
-     * @return The content TTL for the website in seconds.
+     * @return The content Time To Live (TTL) for the website in seconds.
      */
 
     public String getTtl() {
@@ -717,11 +869,11 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The content TTL for the website in seconds.
+     * The content Time To Live (TTL) for the website in seconds.
      * </p>
      * 
      * @param ttl
-     *        The content TTL for the website in seconds.
+     *        The content Time To Live (TTL) for the website in seconds.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -732,11 +884,11 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Display name for a branch, will use as the default domain prefix.
+     * The display name for a branch. This is used as the default domain prefix.
      * </p>
      * 
      * @param displayName
-     *        Display name for a branch, will use as the default domain prefix.
+     *        The display name for a branch. This is used as the default domain prefix.
      */
 
     public void setDisplayName(String displayName) {
@@ -745,10 +897,10 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Display name for a branch, will use as the default domain prefix.
+     * The display name for a branch. This is used as the default domain prefix.
      * </p>
      * 
-     * @return Display name for a branch, will use as the default domain prefix.
+     * @return The display name for a branch. This is used as the default domain prefix.
      */
 
     public String getDisplayName() {
@@ -757,16 +909,233 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Display name for a branch, will use as the default domain prefix.
+     * The display name for a branch. This is used as the default domain prefix.
      * </p>
      * 
      * @param displayName
-     *        Display name for a branch, will use as the default domain prefix.
+     *        The display name for a branch. This is used as the default domain prefix.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateBranchRequest withDisplayName(String displayName) {
         setDisplayName(displayName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enables pull request previews for this branch.
+     * </p>
+     * 
+     * @param enablePullRequestPreview
+     *        Enables pull request previews for this branch.
+     */
+
+    public void setEnablePullRequestPreview(Boolean enablePullRequestPreview) {
+        this.enablePullRequestPreview = enablePullRequestPreview;
+    }
+
+    /**
+     * <p>
+     * Enables pull request previews for this branch.
+     * </p>
+     * 
+     * @return Enables pull request previews for this branch.
+     */
+
+    public Boolean getEnablePullRequestPreview() {
+        return this.enablePullRequestPreview;
+    }
+
+    /**
+     * <p>
+     * Enables pull request previews for this branch.
+     * </p>
+     * 
+     * @param enablePullRequestPreview
+     *        Enables pull request previews for this branch.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBranchRequest withEnablePullRequestPreview(Boolean enablePullRequestPreview) {
+        setEnablePullRequestPreview(enablePullRequestPreview);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enables pull request previews for this branch.
+     * </p>
+     * 
+     * @return Enables pull request previews for this branch.
+     */
+
+    public Boolean isEnablePullRequestPreview() {
+        return this.enablePullRequestPreview;
+    }
+
+    /**
+     * <p>
+     * The Amplify environment name for the pull request.
+     * </p>
+     * 
+     * @param pullRequestEnvironmentName
+     *        The Amplify environment name for the pull request.
+     */
+
+    public void setPullRequestEnvironmentName(String pullRequestEnvironmentName) {
+        this.pullRequestEnvironmentName = pullRequestEnvironmentName;
+    }
+
+    /**
+     * <p>
+     * The Amplify environment name for the pull request.
+     * </p>
+     * 
+     * @return The Amplify environment name for the pull request.
+     */
+
+    public String getPullRequestEnvironmentName() {
+        return this.pullRequestEnvironmentName;
+    }
+
+    /**
+     * <p>
+     * The Amplify environment name for the pull request.
+     * </p>
+     * 
+     * @param pullRequestEnvironmentName
+     *        The Amplify environment name for the pull request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBranchRequest withPullRequestEnvironmentName(String pullRequestEnvironmentName) {
+        setPullRequestEnvironmentName(pullRequestEnvironmentName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for a backend environment that is part of a Gen 1 Amplify app.
+     * </p>
+     * <p>
+     * This field is available to Amplify Gen 1 apps only where the backend is created using Amplify Studio or the
+     * Amplify command line interface (CLI).
+     * </p>
+     * 
+     * @param backendEnvironmentArn
+     *        The Amazon Resource Name (ARN) for a backend environment that is part of a Gen 1 Amplify app. </p>
+     *        <p>
+     *        This field is available to Amplify Gen 1 apps only where the backend is created using Amplify Studio or
+     *        the Amplify command line interface (CLI).
+     */
+
+    public void setBackendEnvironmentArn(String backendEnvironmentArn) {
+        this.backendEnvironmentArn = backendEnvironmentArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for a backend environment that is part of a Gen 1 Amplify app.
+     * </p>
+     * <p>
+     * This field is available to Amplify Gen 1 apps only where the backend is created using Amplify Studio or the
+     * Amplify command line interface (CLI).
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) for a backend environment that is part of a Gen 1 Amplify app. </p>
+     *         <p>
+     *         This field is available to Amplify Gen 1 apps only where the backend is created using Amplify Studio or
+     *         the Amplify command line interface (CLI).
+     */
+
+    public String getBackendEnvironmentArn() {
+        return this.backendEnvironmentArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for a backend environment that is part of a Gen 1 Amplify app.
+     * </p>
+     * <p>
+     * This field is available to Amplify Gen 1 apps only where the backend is created using Amplify Studio or the
+     * Amplify command line interface (CLI).
+     * </p>
+     * 
+     * @param backendEnvironmentArn
+     *        The Amazon Resource Name (ARN) for a backend environment that is part of a Gen 1 Amplify app. </p>
+     *        <p>
+     *        This field is available to Amplify Gen 1 apps only where the backend is created using Amplify Studio or
+     *        the Amplify command line interface (CLI).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBranchRequest withBackendEnvironmentArn(String backendEnvironmentArn) {
+        setBackendEnvironmentArn(backendEnvironmentArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The backend for a <code>Branch</code> of an Amplify app. Use for a backend created from an CloudFormation stack.
+     * </p>
+     * <p>
+     * This field is available to Amplify Gen 2 apps only. When you deploy an application with Amplify Gen 2, you
+     * provision the app's backend infrastructure using Typescript code.
+     * </p>
+     * 
+     * @param backend
+     *        The backend for a <code>Branch</code> of an Amplify app. Use for a backend created from an CloudFormation
+     *        stack.</p>
+     *        <p>
+     *        This field is available to Amplify Gen 2 apps only. When you deploy an application with Amplify Gen 2, you
+     *        provision the app's backend infrastructure using Typescript code.
+     */
+
+    public void setBackend(Backend backend) {
+        this.backend = backend;
+    }
+
+    /**
+     * <p>
+     * The backend for a <code>Branch</code> of an Amplify app. Use for a backend created from an CloudFormation stack.
+     * </p>
+     * <p>
+     * This field is available to Amplify Gen 2 apps only. When you deploy an application with Amplify Gen 2, you
+     * provision the app's backend infrastructure using Typescript code.
+     * </p>
+     * 
+     * @return The backend for a <code>Branch</code> of an Amplify app. Use for a backend created from an CloudFormation
+     *         stack.</p>
+     *         <p>
+     *         This field is available to Amplify Gen 2 apps only. When you deploy an application with Amplify Gen 2,
+     *         you provision the app's backend infrastructure using Typescript code.
+     */
+
+    public Backend getBackend() {
+        return this.backend;
+    }
+
+    /**
+     * <p>
+     * The backend for a <code>Branch</code> of an Amplify app. Use for a backend created from an CloudFormation stack.
+     * </p>
+     * <p>
+     * This field is available to Amplify Gen 2 apps only. When you deploy an application with Amplify Gen 2, you
+     * provision the app's backend infrastructure using Typescript code.
+     * </p>
+     * 
+     * @param backend
+     *        The backend for a <code>Branch</code> of an Amplify app. Use for a backend created from an CloudFormation
+     *        stack.</p>
+     *        <p>
+     *        This field is available to Amplify Gen 2 apps only. When you deploy an application with Amplify Gen 2, you
+     *        provision the app's backend infrastructure using Typescript code.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBranchRequest withBackend(Backend backend) {
+        setBackend(backend);
         return this;
     }
 
@@ -799,17 +1168,27 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
         if (getEnvironmentVariables() != null)
             sb.append("EnvironmentVariables: ").append(getEnvironmentVariables()).append(",");
         if (getBasicAuthCredentials() != null)
-            sb.append("BasicAuthCredentials: ").append(getBasicAuthCredentials()).append(",");
+            sb.append("BasicAuthCredentials: ").append("***Sensitive Data Redacted***").append(",");
         if (getEnableBasicAuth() != null)
             sb.append("EnableBasicAuth: ").append(getEnableBasicAuth()).append(",");
+        if (getEnablePerformanceMode() != null)
+            sb.append("EnablePerformanceMode: ").append(getEnablePerformanceMode()).append(",");
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getBuildSpec() != null)
-            sb.append("BuildSpec: ").append(getBuildSpec()).append(",");
+            sb.append("BuildSpec: ").append("***Sensitive Data Redacted***").append(",");
         if (getTtl() != null)
             sb.append("Ttl: ").append(getTtl()).append(",");
         if (getDisplayName() != null)
-            sb.append("DisplayName: ").append(getDisplayName());
+            sb.append("DisplayName: ").append(getDisplayName()).append(",");
+        if (getEnablePullRequestPreview() != null)
+            sb.append("EnablePullRequestPreview: ").append(getEnablePullRequestPreview()).append(",");
+        if (getPullRequestEnvironmentName() != null)
+            sb.append("PullRequestEnvironmentName: ").append(getPullRequestEnvironmentName()).append(",");
+        if (getBackendEnvironmentArn() != null)
+            sb.append("BackendEnvironmentArn: ").append(getBackendEnvironmentArn()).append(",");
+        if (getBackend() != null)
+            sb.append("Backend: ").append(getBackend());
         sb.append("}");
         return sb.toString();
     }
@@ -864,6 +1243,10 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
             return false;
         if (other.getEnableBasicAuth() != null && other.getEnableBasicAuth().equals(this.getEnableBasicAuth()) == false)
             return false;
+        if (other.getEnablePerformanceMode() == null ^ this.getEnablePerformanceMode() == null)
+            return false;
+        if (other.getEnablePerformanceMode() != null && other.getEnablePerformanceMode().equals(this.getEnablePerformanceMode()) == false)
+            return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
@@ -879,6 +1262,22 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
         if (other.getDisplayName() == null ^ this.getDisplayName() == null)
             return false;
         if (other.getDisplayName() != null && other.getDisplayName().equals(this.getDisplayName()) == false)
+            return false;
+        if (other.getEnablePullRequestPreview() == null ^ this.getEnablePullRequestPreview() == null)
+            return false;
+        if (other.getEnablePullRequestPreview() != null && other.getEnablePullRequestPreview().equals(this.getEnablePullRequestPreview()) == false)
+            return false;
+        if (other.getPullRequestEnvironmentName() == null ^ this.getPullRequestEnvironmentName() == null)
+            return false;
+        if (other.getPullRequestEnvironmentName() != null && other.getPullRequestEnvironmentName().equals(this.getPullRequestEnvironmentName()) == false)
+            return false;
+        if (other.getBackendEnvironmentArn() == null ^ this.getBackendEnvironmentArn() == null)
+            return false;
+        if (other.getBackendEnvironmentArn() != null && other.getBackendEnvironmentArn().equals(this.getBackendEnvironmentArn()) == false)
+            return false;
+        if (other.getBackend() == null ^ this.getBackend() == null)
+            return false;
+        if (other.getBackend() != null && other.getBackend().equals(this.getBackend()) == false)
             return false;
         return true;
     }
@@ -898,10 +1297,15 @@ public class CreateBranchRequest extends com.amazonaws.AmazonWebServiceRequest i
         hashCode = prime * hashCode + ((getEnvironmentVariables() == null) ? 0 : getEnvironmentVariables().hashCode());
         hashCode = prime * hashCode + ((getBasicAuthCredentials() == null) ? 0 : getBasicAuthCredentials().hashCode());
         hashCode = prime * hashCode + ((getEnableBasicAuth() == null) ? 0 : getEnableBasicAuth().hashCode());
+        hashCode = prime * hashCode + ((getEnablePerformanceMode() == null) ? 0 : getEnablePerformanceMode().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getBuildSpec() == null) ? 0 : getBuildSpec().hashCode());
         hashCode = prime * hashCode + ((getTtl() == null) ? 0 : getTtl().hashCode());
         hashCode = prime * hashCode + ((getDisplayName() == null) ? 0 : getDisplayName().hashCode());
+        hashCode = prime * hashCode + ((getEnablePullRequestPreview() == null) ? 0 : getEnablePullRequestPreview().hashCode());
+        hashCode = prime * hashCode + ((getPullRequestEnvironmentName() == null) ? 0 : getPullRequestEnvironmentName().hashCode());
+        hashCode = prime * hashCode + ((getBackendEnvironmentArn() == null) ? 0 : getBackendEnvironmentArn().hashCode());
+        hashCode = prime * hashCode + ((getBackend() == null) ? 0 : getBackend().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Describes an enabled metric.
+ * Describes an enabled Auto Scaling group metric.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/EnabledMetric" target="_top">AWS API
@@ -71,7 +71,72 @@ public class EnabledMetric implements Serializable, Cloneable {
      * <code>GroupTotalInstances</code>
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>GroupInServiceCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupPendingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupStandbyCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupTerminatingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupTotalCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolDesiredCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolWarmedCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolPendingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolTerminatingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolTotalCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupAndWarmPoolDesiredCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupAndWarmPoolTotalCapacity</code>
+     * </p>
+     * </li>
      * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-metrics.html">Amazon CloudWatch
+     * metrics for Amazon EC2 Auto Scaling</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
      */
     private String metric;
     /**
@@ -126,7 +191,72 @@ public class EnabledMetric implements Serializable, Cloneable {
      * <code>GroupTotalInstances</code>
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>GroupInServiceCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupPendingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupStandbyCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupTerminatingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupTotalCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolDesiredCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolWarmedCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolPendingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolTerminatingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolTotalCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupAndWarmPoolDesiredCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupAndWarmPoolTotalCapacity</code>
+     * </p>
+     * </li>
      * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-metrics.html">Amazon CloudWatch
+     * metrics for Amazon EC2 Auto Scaling</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
      * 
      * @param metric
      *        One of the following metrics:</p>
@@ -171,6 +301,71 @@ public class EnabledMetric implements Serializable, Cloneable {
      *        <code>GroupTotalInstances</code>
      *        </p>
      *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupInServiceCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupPendingCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupStandbyCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupTerminatingCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupTotalCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolDesiredCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolWarmedCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolPendingCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolTerminatingCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolTotalCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupAndWarmPoolDesiredCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupAndWarmPoolTotalCapacity</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-metrics.html">Amazon
+     *        CloudWatch metrics for Amazon EC2 Auto Scaling</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      */
 
     public void setMetric(String metric) {
@@ -222,7 +417,72 @@ public class EnabledMetric implements Serializable, Cloneable {
      * <code>GroupTotalInstances</code>
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>GroupInServiceCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupPendingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupStandbyCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupTerminatingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupTotalCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolDesiredCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolWarmedCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolPendingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolTerminatingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolTotalCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupAndWarmPoolDesiredCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupAndWarmPoolTotalCapacity</code>
+     * </p>
+     * </li>
      * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-metrics.html">Amazon CloudWatch
+     * metrics for Amazon EC2 Auto Scaling</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
      * 
      * @return One of the following metrics:</p>
      *         <ul>
@@ -266,6 +526,71 @@ public class EnabledMetric implements Serializable, Cloneable {
      *         <code>GroupTotalInstances</code>
      *         </p>
      *         </li>
+     *         <li>
+     *         <p>
+     *         <code>GroupInServiceCapacity</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>GroupPendingCapacity</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>GroupStandbyCapacity</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>GroupTerminatingCapacity</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>GroupTotalCapacity</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>WarmPoolDesiredCapacity</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>WarmPoolWarmedCapacity</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>WarmPoolPendingCapacity</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>WarmPoolTerminatingCapacity</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>WarmPoolTotalCapacity</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>GroupAndWarmPoolDesiredCapacity</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>GroupAndWarmPoolTotalCapacity</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-metrics.html">Amazon
+     *         CloudWatch metrics for Amazon EC2 Auto Scaling</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      */
 
     public String getMetric() {
@@ -317,7 +642,72 @@ public class EnabledMetric implements Serializable, Cloneable {
      * <code>GroupTotalInstances</code>
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>GroupInServiceCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupPendingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupStandbyCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupTerminatingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupTotalCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolDesiredCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolWarmedCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolPendingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolTerminatingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolTotalCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupAndWarmPoolDesiredCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupAndWarmPoolTotalCapacity</code>
+     * </p>
+     * </li>
      * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-metrics.html">Amazon CloudWatch
+     * metrics for Amazon EC2 Auto Scaling</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
      * 
      * @param metric
      *        One of the following metrics:</p>
@@ -362,6 +752,71 @@ public class EnabledMetric implements Serializable, Cloneable {
      *        <code>GroupTotalInstances</code>
      *        </p>
      *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupInServiceCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupPendingCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupStandbyCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupTerminatingCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupTotalCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolDesiredCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolWarmedCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolPendingCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolTerminatingCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolTotalCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupAndWarmPoolDesiredCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupAndWarmPoolTotalCapacity</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-metrics.html">Amazon
+     *        CloudWatch metrics for Amazon EC2 Auto Scaling</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,13 +25,23 @@ import com.amazonaws.AmazonWebServiceRequest;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class DeleteTagsRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
 
-    /** The Amazon Resource Name (ARN) of the resource tag. */
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the resource tag.
+     * </p>
+     */
     private String resourceArn;
-    /** An array of tag keys to delete */
+    /**
+     * <p>
+     * An array of tag keys to delete
+     * </p>
+     */
     private java.util.List<String> tagKeys;
 
     /**
+     * <p>
      * The Amazon Resource Name (ARN) of the resource tag.
+     * </p>
      * 
      * @param resourceArn
      *        The Amazon Resource Name (ARN) of the resource tag.
@@ -42,7 +52,9 @@ public class DeleteTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * The Amazon Resource Name (ARN) of the resource tag.
+     * </p>
      * 
      * @return The Amazon Resource Name (ARN) of the resource tag.
      */
@@ -52,7 +64,9 @@ public class DeleteTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * The Amazon Resource Name (ARN) of the resource tag.
+     * </p>
      * 
      * @param resourceArn
      *        The Amazon Resource Name (ARN) of the resource tag.
@@ -65,7 +79,9 @@ public class DeleteTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * An array of tag keys to delete
+     * </p>
      * 
      * @return An array of tag keys to delete
      */
@@ -75,7 +91,9 @@ public class DeleteTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * An array of tag keys to delete
+     * </p>
      * 
      * @param tagKeys
      *        An array of tag keys to delete
@@ -91,7 +109,9 @@ public class DeleteTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * An array of tag keys to delete
+     * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setTagKeys(java.util.Collection)} or {@link #withTagKeys(java.util.Collection)} if you want to override
@@ -114,7 +134,9 @@ public class DeleteTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * An array of tag keys to delete
+     * </p>
      * 
      * @param tagKeys
      *        An array of tag keys to delete

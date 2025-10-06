@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,7 +29,7 @@ public class Image implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS account ID associated with the registry containing the image.
+     * The Amazon Web Services account ID associated with the registry containing the image.
      * </p>
      */
     private String registryId;
@@ -51,14 +51,20 @@ public class Image implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String imageManifest;
+    /**
+     * <p>
+     * The manifest media type of the image.
+     * </p>
+     */
+    private String imageManifestMediaType;
 
     /**
      * <p>
-     * The AWS account ID associated with the registry containing the image.
+     * The Amazon Web Services account ID associated with the registry containing the image.
      * </p>
      * 
      * @param registryId
-     *        The AWS account ID associated with the registry containing the image.
+     *        The Amazon Web Services account ID associated with the registry containing the image.
      */
 
     public void setRegistryId(String registryId) {
@@ -67,10 +73,10 @@ public class Image implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS account ID associated with the registry containing the image.
+     * The Amazon Web Services account ID associated with the registry containing the image.
      * </p>
      * 
-     * @return The AWS account ID associated with the registry containing the image.
+     * @return The Amazon Web Services account ID associated with the registry containing the image.
      */
 
     public String getRegistryId() {
@@ -79,11 +85,11 @@ public class Image implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS account ID associated with the registry containing the image.
+     * The Amazon Web Services account ID associated with the registry containing the image.
      * </p>
      * 
      * @param registryId
-     *        The AWS account ID associated with the registry containing the image.
+     *        The Amazon Web Services account ID associated with the registry containing the image.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -213,6 +219,46 @@ public class Image implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The manifest media type of the image.
+     * </p>
+     * 
+     * @param imageManifestMediaType
+     *        The manifest media type of the image.
+     */
+
+    public void setImageManifestMediaType(String imageManifestMediaType) {
+        this.imageManifestMediaType = imageManifestMediaType;
+    }
+
+    /**
+     * <p>
+     * The manifest media type of the image.
+     * </p>
+     * 
+     * @return The manifest media type of the image.
+     */
+
+    public String getImageManifestMediaType() {
+        return this.imageManifestMediaType;
+    }
+
+    /**
+     * <p>
+     * The manifest media type of the image.
+     * </p>
+     * 
+     * @param imageManifestMediaType
+     *        The manifest media type of the image.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Image withImageManifestMediaType(String imageManifestMediaType) {
+        setImageManifestMediaType(imageManifestMediaType);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -231,7 +277,9 @@ public class Image implements Serializable, Cloneable, StructuredPojo {
         if (getImageId() != null)
             sb.append("ImageId: ").append(getImageId()).append(",");
         if (getImageManifest() != null)
-            sb.append("ImageManifest: ").append(getImageManifest());
+            sb.append("ImageManifest: ").append(getImageManifest()).append(",");
+        if (getImageManifestMediaType() != null)
+            sb.append("ImageManifestMediaType: ").append(getImageManifestMediaType());
         sb.append("}");
         return sb.toString();
     }
@@ -262,6 +310,10 @@ public class Image implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getImageManifest() != null && other.getImageManifest().equals(this.getImageManifest()) == false)
             return false;
+        if (other.getImageManifestMediaType() == null ^ this.getImageManifestMediaType() == null)
+            return false;
+        if (other.getImageManifestMediaType() != null && other.getImageManifestMediaType().equals(this.getImageManifestMediaType()) == false)
+            return false;
         return true;
     }
 
@@ -274,6 +326,7 @@ public class Image implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getRepositoryName() == null) ? 0 : getRepositoryName().hashCode());
         hashCode = prime * hashCode + ((getImageId() == null) ? 0 : getImageId().hashCode());
         hashCode = prime * hashCode + ((getImageManifest() == null) ? 0 : getImageManifest().hashCode());
+        hashCode = prime * hashCode + ((getImageManifestMediaType() == null) ? 0 : getImageManifestMediaType().hashCode());
         return hashCode;
     }
 

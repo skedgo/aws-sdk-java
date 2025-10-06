@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,8 +42,8 @@ public class Rule implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The event pattern of the rule. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     * Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events and
+     * Event Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
      * </p>
      */
     private String eventPattern;
@@ -61,7 +61,9 @@ public class Rule implements Serializable, Cloneable, StructuredPojo {
     private String description;
     /**
      * <p>
-     * The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or <code>"rate(5 minutes)"</code>.
+     * The scheduling expression. For example, "cron(0 20 * * ? *)", "rate(5 minutes)". For more information, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html">Creating an Amazon
+     * EventBridge rule that runs on a schedule</a>.
      * </p>
      */
     private String scheduleExpression;
@@ -69,18 +71,23 @@ public class Rule implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The Amazon Resource Name (ARN) of the role that is used for target invocation.
      * </p>
+     * <p>
+     * If you're setting an event bus in another account as the target and that account granted permission to your
+     * account through an organization instead of directly by the account ID, you must specify a <code>RoleArn</code>
+     * with proper permissions in the <code>Target</code> structure, instead of here in this parameter.
+     * </p>
      */
     private String roleArn;
     /**
      * <p>
-     * If an AWS service created the rule on behalf of your account, this field displays the principal name of the
-     * service that created the rule.
+     * If the rule was created on behalf of your account by an Amazon Web Services service, this field displays the
+     * principal name of the service that created the rule.
      * </p>
      */
     private String managedBy;
     /**
      * <p>
-     * The event bus associated with the rule.
+     * The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is used.
      * </p>
      */
     private String eventBusName;
@@ -168,14 +175,14 @@ public class Rule implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The event pattern of the rule. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     * Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events and
+     * Event Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
      * </p>
      * 
      * @param eventPattern
      *        The event pattern of the rule. For more information, see <a
-     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     *        Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events
+     *        and Event Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
      */
 
     public void setEventPattern(String eventPattern) {
@@ -185,13 +192,13 @@ public class Rule implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The event pattern of the rule. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     * Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events and
+     * Event Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
      * </p>
      * 
      * @return The event pattern of the rule. For more information, see <a
-     *         href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     *         Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     *         href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html"
+     *         >Events and Event Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
      */
 
     public String getEventPattern() {
@@ -201,14 +208,14 @@ public class Rule implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The event pattern of the rule. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     * Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events and
+     * Event Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
      * </p>
      * 
      * @param eventPattern
      *        The event pattern of the rule. For more information, see <a
-     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     *        Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events
+     *        and Event Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -332,12 +339,15 @@ public class Rule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or <code>"rate(5 minutes)"</code>.
+     * The scheduling expression. For example, "cron(0 20 * * ? *)", "rate(5 minutes)". For more information, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html">Creating an Amazon
+     * EventBridge rule that runs on a schedule</a>.
      * </p>
      * 
      * @param scheduleExpression
-     *        The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or
-     *        <code>"rate(5 minutes)"</code>.
+     *        The scheduling expression. For example, "cron(0 20 * * ? *)", "rate(5 minutes)". For more information, see
+     *        <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html">Creating
+     *        an Amazon EventBridge rule that runs on a schedule</a>.
      */
 
     public void setScheduleExpression(String scheduleExpression) {
@@ -346,11 +356,15 @@ public class Rule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or <code>"rate(5 minutes)"</code>.
+     * The scheduling expression. For example, "cron(0 20 * * ? *)", "rate(5 minutes)". For more information, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html">Creating an Amazon
+     * EventBridge rule that runs on a schedule</a>.
      * </p>
      * 
-     * @return The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or
-     *         <code>"rate(5 minutes)"</code>.
+     * @return The scheduling expression. For example, "cron(0 20 * * ? *)", "rate(5 minutes)". For more information,
+     *         see <a
+     *         href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html">Creating an
+     *         Amazon EventBridge rule that runs on a schedule</a>.
      */
 
     public String getScheduleExpression() {
@@ -359,12 +373,15 @@ public class Rule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or <code>"rate(5 minutes)"</code>.
+     * The scheduling expression. For example, "cron(0 20 * * ? *)", "rate(5 minutes)". For more information, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html">Creating an Amazon
+     * EventBridge rule that runs on a schedule</a>.
      * </p>
      * 
      * @param scheduleExpression
-     *        The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or
-     *        <code>"rate(5 minutes)"</code>.
+     *        The scheduling expression. For example, "cron(0 20 * * ? *)", "rate(5 minutes)". For more information, see
+     *        <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html">Creating
+     *        an Amazon EventBridge rule that runs on a schedule</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -377,9 +394,19 @@ public class Rule implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The Amazon Resource Name (ARN) of the role that is used for target invocation.
      * </p>
+     * <p>
+     * If you're setting an event bus in another account as the target and that account granted permission to your
+     * account through an organization instead of directly by the account ID, you must specify a <code>RoleArn</code>
+     * with proper permissions in the <code>Target</code> structure, instead of here in this parameter.
+     * </p>
      * 
      * @param roleArn
-     *        The Amazon Resource Name (ARN) of the role that is used for target invocation.
+     *        The Amazon Resource Name (ARN) of the role that is used for target invocation.</p>
+     *        <p>
+     *        If you're setting an event bus in another account as the target and that account granted permission to
+     *        your account through an organization instead of directly by the account ID, you must specify a
+     *        <code>RoleArn</code> with proper permissions in the <code>Target</code> structure, instead of here in this
+     *        parameter.
      */
 
     public void setRoleArn(String roleArn) {
@@ -390,8 +417,18 @@ public class Rule implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The Amazon Resource Name (ARN) of the role that is used for target invocation.
      * </p>
+     * <p>
+     * If you're setting an event bus in another account as the target and that account granted permission to your
+     * account through an organization instead of directly by the account ID, you must specify a <code>RoleArn</code>
+     * with proper permissions in the <code>Target</code> structure, instead of here in this parameter.
+     * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the role that is used for target invocation.
+     * @return The Amazon Resource Name (ARN) of the role that is used for target invocation.</p>
+     *         <p>
+     *         If you're setting an event bus in another account as the target and that account granted permission to
+     *         your account through an organization instead of directly by the account ID, you must specify a
+     *         <code>RoleArn</code> with proper permissions in the <code>Target</code> structure, instead of here in
+     *         this parameter.
      */
 
     public String getRoleArn() {
@@ -402,9 +439,19 @@ public class Rule implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The Amazon Resource Name (ARN) of the role that is used for target invocation.
      * </p>
+     * <p>
+     * If you're setting an event bus in another account as the target and that account granted permission to your
+     * account through an organization instead of directly by the account ID, you must specify a <code>RoleArn</code>
+     * with proper permissions in the <code>Target</code> structure, instead of here in this parameter.
+     * </p>
      * 
      * @param roleArn
-     *        The Amazon Resource Name (ARN) of the role that is used for target invocation.
+     *        The Amazon Resource Name (ARN) of the role that is used for target invocation.</p>
+     *        <p>
+     *        If you're setting an event bus in another account as the target and that account granted permission to
+     *        your account through an organization instead of directly by the account ID, you must specify a
+     *        <code>RoleArn</code> with proper permissions in the <code>Target</code> structure, instead of here in this
+     *        parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -415,13 +462,13 @@ public class Rule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If an AWS service created the rule on behalf of your account, this field displays the principal name of the
-     * service that created the rule.
+     * If the rule was created on behalf of your account by an Amazon Web Services service, this field displays the
+     * principal name of the service that created the rule.
      * </p>
      * 
      * @param managedBy
-     *        If an AWS service created the rule on behalf of your account, this field displays the principal name of
-     *        the service that created the rule.
+     *        If the rule was created on behalf of your account by an Amazon Web Services service, this field displays
+     *        the principal name of the service that created the rule.
      */
 
     public void setManagedBy(String managedBy) {
@@ -430,12 +477,12 @@ public class Rule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If an AWS service created the rule on behalf of your account, this field displays the principal name of the
-     * service that created the rule.
+     * If the rule was created on behalf of your account by an Amazon Web Services service, this field displays the
+     * principal name of the service that created the rule.
      * </p>
      * 
-     * @return If an AWS service created the rule on behalf of your account, this field displays the principal name of
-     *         the service that created the rule.
+     * @return If the rule was created on behalf of your account by an Amazon Web Services service, this field displays
+     *         the principal name of the service that created the rule.
      */
 
     public String getManagedBy() {
@@ -444,13 +491,13 @@ public class Rule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If an AWS service created the rule on behalf of your account, this field displays the principal name of the
-     * service that created the rule.
+     * If the rule was created on behalf of your account by an Amazon Web Services service, this field displays the
+     * principal name of the service that created the rule.
      * </p>
      * 
      * @param managedBy
-     *        If an AWS service created the rule on behalf of your account, this field displays the principal name of
-     *        the service that created the rule.
+     *        If the rule was created on behalf of your account by an Amazon Web Services service, this field displays
+     *        the principal name of the service that created the rule.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -461,11 +508,12 @@ public class Rule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The event bus associated with the rule.
+     * The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is used.
      * </p>
      * 
      * @param eventBusName
-     *        The event bus associated with the rule.
+     *        The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is
+     *        used.
      */
 
     public void setEventBusName(String eventBusName) {
@@ -474,10 +522,11 @@ public class Rule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The event bus associated with the rule.
+     * The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is used.
      * </p>
      * 
-     * @return The event bus associated with the rule.
+     * @return The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is
+     *         used.
      */
 
     public String getEventBusName() {
@@ -486,11 +535,12 @@ public class Rule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The event bus associated with the rule.
+     * The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is used.
      * </p>
      * 
      * @param eventBusName
-     *        The event bus associated with the rule.
+     *        The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is
+     *        used.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

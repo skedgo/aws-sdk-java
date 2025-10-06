@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The filter, either channel or queues, to apply to the metric results retrieved.
+ * Contains the filter to apply when retrieving metrics.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/Filters" target="_top">AWS API
@@ -30,26 +30,41 @@ public class Filters implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of up to 100 queue IDs or queue ARNs to use to filter the metrics retrieved. You can include both IDs and
-     * ARNs in a request.
+     * The queues to use to filter the metrics. You should specify at least one queue, and can specify up to 100 queues
+     * per request. The <code>GetCurrentMetricsData</code> API in particular requires a queue when you include a
+     * <code>Filter</code> in your request.
      * </p>
      */
     private java.util.List<String> queues;
     /**
      * <p>
-     * The Channel to use as a filter for the metrics returned. Only VOICE is supported.
+     * The channel to use to filter the metrics.
      * </p>
      */
     private java.util.List<String> channels;
+    /**
+     * <p>
+     * A list of up to 100 routing profile IDs or ARNs.
+     * </p>
+     */
+    private java.util.List<String> routingProfiles;
+    /**
+     * <p>
+     * A list of expressions as a filter, in which an expression is an object of a step in a routing criteria.
+     * </p>
+     */
+    private java.util.List<String> routingStepExpressions;
 
     /**
      * <p>
-     * A list of up to 100 queue IDs or queue ARNs to use to filter the metrics retrieved. You can include both IDs and
-     * ARNs in a request.
+     * The queues to use to filter the metrics. You should specify at least one queue, and can specify up to 100 queues
+     * per request. The <code>GetCurrentMetricsData</code> API in particular requires a queue when you include a
+     * <code>Filter</code> in your request.
      * </p>
      * 
-     * @return A list of up to 100 queue IDs or queue ARNs to use to filter the metrics retrieved. You can include both
-     *         IDs and ARNs in a request.
+     * @return The queues to use to filter the metrics. You should specify at least one queue, and can specify up to 100
+     *         queues per request. The <code>GetCurrentMetricsData</code> API in particular requires a queue when you
+     *         include a <code>Filter</code> in your request.
      */
 
     public java.util.List<String> getQueues() {
@@ -58,13 +73,15 @@ public class Filters implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of up to 100 queue IDs or queue ARNs to use to filter the metrics retrieved. You can include both IDs and
-     * ARNs in a request.
+     * The queues to use to filter the metrics. You should specify at least one queue, and can specify up to 100 queues
+     * per request. The <code>GetCurrentMetricsData</code> API in particular requires a queue when you include a
+     * <code>Filter</code> in your request.
      * </p>
      * 
      * @param queues
-     *        A list of up to 100 queue IDs or queue ARNs to use to filter the metrics retrieved. You can include both
-     *        IDs and ARNs in a request.
+     *        The queues to use to filter the metrics. You should specify at least one queue, and can specify up to 100
+     *        queues per request. The <code>GetCurrentMetricsData</code> API in particular requires a queue when you
+     *        include a <code>Filter</code> in your request.
      */
 
     public void setQueues(java.util.Collection<String> queues) {
@@ -78,8 +95,9 @@ public class Filters implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of up to 100 queue IDs or queue ARNs to use to filter the metrics retrieved. You can include both IDs and
-     * ARNs in a request.
+     * The queues to use to filter the metrics. You should specify at least one queue, and can specify up to 100 queues
+     * per request. The <code>GetCurrentMetricsData</code> API in particular requires a queue when you include a
+     * <code>Filter</code> in your request.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -88,8 +106,9 @@ public class Filters implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param queues
-     *        A list of up to 100 queue IDs or queue ARNs to use to filter the metrics retrieved. You can include both
-     *        IDs and ARNs in a request.
+     *        The queues to use to filter the metrics. You should specify at least one queue, and can specify up to 100
+     *        queues per request. The <code>GetCurrentMetricsData</code> API in particular requires a queue when you
+     *        include a <code>Filter</code> in your request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -105,13 +124,15 @@ public class Filters implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of up to 100 queue IDs or queue ARNs to use to filter the metrics retrieved. You can include both IDs and
-     * ARNs in a request.
+     * The queues to use to filter the metrics. You should specify at least one queue, and can specify up to 100 queues
+     * per request. The <code>GetCurrentMetricsData</code> API in particular requires a queue when you include a
+     * <code>Filter</code> in your request.
      * </p>
      * 
      * @param queues
-     *        A list of up to 100 queue IDs or queue ARNs to use to filter the metrics retrieved. You can include both
-     *        IDs and ARNs in a request.
+     *        The queues to use to filter the metrics. You should specify at least one queue, and can specify up to 100
+     *        queues per request. The <code>GetCurrentMetricsData</code> API in particular requires a queue when you
+     *        include a <code>Filter</code> in your request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -122,10 +143,10 @@ public class Filters implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Channel to use as a filter for the metrics returned. Only VOICE is supported.
+     * The channel to use to filter the metrics.
      * </p>
      * 
-     * @return The Channel to use as a filter for the metrics returned. Only VOICE is supported.
+     * @return The channel to use to filter the metrics.
      * @see Channel
      */
 
@@ -135,11 +156,11 @@ public class Filters implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Channel to use as a filter for the metrics returned. Only VOICE is supported.
+     * The channel to use to filter the metrics.
      * </p>
      * 
      * @param channels
-     *        The Channel to use as a filter for the metrics returned. Only VOICE is supported.
+     *        The channel to use to filter the metrics.
      * @see Channel
      */
 
@@ -154,7 +175,7 @@ public class Filters implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Channel to use as a filter for the metrics returned. Only VOICE is supported.
+     * The channel to use to filter the metrics.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -163,7 +184,7 @@ public class Filters implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param channels
-     *        The Channel to use as a filter for the metrics returned. Only VOICE is supported.
+     *        The channel to use to filter the metrics.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Channel
      */
@@ -180,11 +201,11 @@ public class Filters implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Channel to use as a filter for the metrics returned. Only VOICE is supported.
+     * The channel to use to filter the metrics.
      * </p>
      * 
      * @param channels
-     *        The Channel to use as a filter for the metrics returned. Only VOICE is supported.
+     *        The channel to use to filter the metrics.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Channel
      */
@@ -196,11 +217,11 @@ public class Filters implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Channel to use as a filter for the metrics returned. Only VOICE is supported.
+     * The channel to use to filter the metrics.
      * </p>
      * 
      * @param channels
-     *        The Channel to use as a filter for the metrics returned. Only VOICE is supported.
+     *        The channel to use to filter the metrics.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Channel
      */
@@ -219,6 +240,146 @@ public class Filters implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * A list of up to 100 routing profile IDs or ARNs.
+     * </p>
+     * 
+     * @return A list of up to 100 routing profile IDs or ARNs.
+     */
+
+    public java.util.List<String> getRoutingProfiles() {
+        return routingProfiles;
+    }
+
+    /**
+     * <p>
+     * A list of up to 100 routing profile IDs or ARNs.
+     * </p>
+     * 
+     * @param routingProfiles
+     *        A list of up to 100 routing profile IDs or ARNs.
+     */
+
+    public void setRoutingProfiles(java.util.Collection<String> routingProfiles) {
+        if (routingProfiles == null) {
+            this.routingProfiles = null;
+            return;
+        }
+
+        this.routingProfiles = new java.util.ArrayList<String>(routingProfiles);
+    }
+
+    /**
+     * <p>
+     * A list of up to 100 routing profile IDs or ARNs.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setRoutingProfiles(java.util.Collection)} or {@link #withRoutingProfiles(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param routingProfiles
+     *        A list of up to 100 routing profile IDs or ARNs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Filters withRoutingProfiles(String... routingProfiles) {
+        if (this.routingProfiles == null) {
+            setRoutingProfiles(new java.util.ArrayList<String>(routingProfiles.length));
+        }
+        for (String ele : routingProfiles) {
+            this.routingProfiles.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of up to 100 routing profile IDs or ARNs.
+     * </p>
+     * 
+     * @param routingProfiles
+     *        A list of up to 100 routing profile IDs or ARNs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Filters withRoutingProfiles(java.util.Collection<String> routingProfiles) {
+        setRoutingProfiles(routingProfiles);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of expressions as a filter, in which an expression is an object of a step in a routing criteria.
+     * </p>
+     * 
+     * @return A list of expressions as a filter, in which an expression is an object of a step in a routing criteria.
+     */
+
+    public java.util.List<String> getRoutingStepExpressions() {
+        return routingStepExpressions;
+    }
+
+    /**
+     * <p>
+     * A list of expressions as a filter, in which an expression is an object of a step in a routing criteria.
+     * </p>
+     * 
+     * @param routingStepExpressions
+     *        A list of expressions as a filter, in which an expression is an object of a step in a routing criteria.
+     */
+
+    public void setRoutingStepExpressions(java.util.Collection<String> routingStepExpressions) {
+        if (routingStepExpressions == null) {
+            this.routingStepExpressions = null;
+            return;
+        }
+
+        this.routingStepExpressions = new java.util.ArrayList<String>(routingStepExpressions);
+    }
+
+    /**
+     * <p>
+     * A list of expressions as a filter, in which an expression is an object of a step in a routing criteria.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setRoutingStepExpressions(java.util.Collection)} or
+     * {@link #withRoutingStepExpressions(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param routingStepExpressions
+     *        A list of expressions as a filter, in which an expression is an object of a step in a routing criteria.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Filters withRoutingStepExpressions(String... routingStepExpressions) {
+        if (this.routingStepExpressions == null) {
+            setRoutingStepExpressions(new java.util.ArrayList<String>(routingStepExpressions.length));
+        }
+        for (String ele : routingStepExpressions) {
+            this.routingStepExpressions.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of expressions as a filter, in which an expression is an object of a step in a routing criteria.
+     * </p>
+     * 
+     * @param routingStepExpressions
+     *        A list of expressions as a filter, in which an expression is an object of a step in a routing criteria.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Filters withRoutingStepExpressions(java.util.Collection<String> routingStepExpressions) {
+        setRoutingStepExpressions(routingStepExpressions);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -233,7 +394,11 @@ public class Filters implements Serializable, Cloneable, StructuredPojo {
         if (getQueues() != null)
             sb.append("Queues: ").append(getQueues()).append(",");
         if (getChannels() != null)
-            sb.append("Channels: ").append(getChannels());
+            sb.append("Channels: ").append(getChannels()).append(",");
+        if (getRoutingProfiles() != null)
+            sb.append("RoutingProfiles: ").append(getRoutingProfiles()).append(",");
+        if (getRoutingStepExpressions() != null)
+            sb.append("RoutingStepExpressions: ").append(getRoutingStepExpressions());
         sb.append("}");
         return sb.toString();
     }
@@ -256,6 +421,14 @@ public class Filters implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getChannels() != null && other.getChannels().equals(this.getChannels()) == false)
             return false;
+        if (other.getRoutingProfiles() == null ^ this.getRoutingProfiles() == null)
+            return false;
+        if (other.getRoutingProfiles() != null && other.getRoutingProfiles().equals(this.getRoutingProfiles()) == false)
+            return false;
+        if (other.getRoutingStepExpressions() == null ^ this.getRoutingStepExpressions() == null)
+            return false;
+        if (other.getRoutingStepExpressions() != null && other.getRoutingStepExpressions().equals(this.getRoutingStepExpressions()) == false)
+            return false;
         return true;
     }
 
@@ -266,6 +439,8 @@ public class Filters implements Serializable, Cloneable, StructuredPojo {
 
         hashCode = prime * hashCode + ((getQueues() == null) ? 0 : getQueues().hashCode());
         hashCode = prime * hashCode + ((getChannels() == null) ? 0 : getChannels().hashCode());
+        hashCode = prime * hashCode + ((getRoutingProfiles() == null) ? 0 : getRoutingProfiles().hashCode());
+        hashCode = prime * hashCode + ((getRoutingStepExpressions() == null) ? 0 : getRoutingStepExpressions().hashCode());
         return hashCode;
     }
 

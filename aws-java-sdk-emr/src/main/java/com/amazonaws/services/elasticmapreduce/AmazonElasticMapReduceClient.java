@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,6 +45,7 @@ import com.amazonaws.services.elasticmapreduce.waiters.AmazonElasticMapReduceWai
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.elasticmapreduce.model.*;
+
 import com.amazonaws.services.elasticmapreduce.model.transform.*;
 
 /**
@@ -52,9 +53,9 @@ import com.amazonaws.services.elasticmapreduce.model.transform.*;
  * service call completes.
  * <p>
  * <p>
- * Amazon EMR is a web service that makes it easy to process large amounts of data efficiently. Amazon EMR uses Hadoop
- * processing combined with several AWS products to do tasks such as web indexing, data mining, log file analysis,
- * machine learning, scientific simulation, and data warehousing.
+ * Amazon EMR is a web service that makes it easier to process large amounts of data efficiently. Amazon EMR uses Hadoop
+ * processing combined with several Amazon Web Services services to do tasks such as web indexing, data mining, log file
+ * analysis, machine learning, scientific simulation, and data warehouse management.
  * </p>
  */
 @ThreadSafe
@@ -82,14 +83,14 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withModeledClass(
-                                    com.amazonaws.services.elasticmapreduce.model.InvalidRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.elasticmapreduce.model.transform.InvalidRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServerException").withModeledClass(
-                                    com.amazonaws.services.elasticmapreduce.model.InternalServerException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServerException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.elasticmapreduce.model.transform.InternalServerExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServerError").withModeledClass(
-                                    com.amazonaws.services.elasticmapreduce.model.InternalServerErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServerError").withExceptionUnmarshaller(
+                                    com.amazonaws.services.elasticmapreduce.model.transform.InternalServerErrorExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.elasticmapreduce.model.AmazonElasticMapReduceException.class));
 
     /**
@@ -297,14 +298,14 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
      * </p>
      * <note>
      * <p>
-     * The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x.
+     * The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x.
      * </p>
      * </note>
      * 
      * @param addInstanceFleetRequest
      * @return Result of the AddInstanceFleet operation returned by the service.
      * @throws InternalServerException
-     *         This exception occurs when there is an internal failure in the EMR service.
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
      * @throws InvalidRequestException
      *         This exception occurs when there is something wrong with user input.
      * @sample AmazonElasticMapReduce.AddInstanceFleet
@@ -332,6 +333,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                 request = new AddInstanceFleetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(addInstanceFleetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddInstanceFleet");
@@ -388,6 +391,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                 request = new AddInstanceGroupsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(addInstanceGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddInstanceGroups");
@@ -417,9 +422,7 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
      * If your cluster is long-running (such as a Hive data warehouse) or complex, you may require more than 256 steps
      * to process your data. You can bypass the 256-step limitation in various ways, including using SSH to connect to
      * the master node and submitting queries directly to the software running on the master node, such as Hive and
-     * Hadoop. For more information on how to do this, see <a
-     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/AddMoreThan256Steps.html">Add More than 256 Steps to
-     * a Cluster</a> in the <i>Amazon EMR Management Guide</i>.
+     * Hadoop.
      * </p>
      * <p>
      * A step specifies the location of a JAR file stored either on the master node of the cluster or in Amazon S3. Each
@@ -435,6 +438,11 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
      * You can only add steps to a cluster that is in one of the following states: STARTING, BOOTSTRAPPING, RUNNING, or
      * WAITING.
      * </p>
+     * <note>
+     * <p>
+     * The string values passed into <code>HadoopJarStep</code> object cannot exceed a total of 10240 characters.
+     * </p>
+     * </note>
      * 
      * @param addJobFlowStepsRequest
      *        The input argument to the <a>AddJobFlowSteps</a> operation.
@@ -466,6 +474,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                 request = new AddJobFlowStepsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(addJobFlowStepsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddJobFlowSteps");
@@ -489,16 +499,17 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
 
     /**
      * <p>
-     * Adds tags to an Amazon EMR resource. Tags make it easier to associate clusters in various ways, such as grouping
-     * clusters to track your Amazon EMR resource allocation costs. For more information, see <a
-     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html">Tag Clusters</a>.
+     * Adds tags to an Amazon EMR resource, such as a cluster or an Amazon EMR Studio. Tags make it easier to associate
+     * resources in various ways, such as grouping clusters to track your Amazon EMR resource allocation costs. For more
+     * information, see <a href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html">Tag
+     * Clusters</a>.
      * </p>
      * 
      * @param addTagsRequest
-     *        This input identifies a cluster and a list of tags to attach.
+     *        This input identifies an Amazon EMR resource and a list of tags to attach.
      * @return Result of the AddTags operation returned by the service.
      * @throws InternalServerException
-     *         This exception occurs when there is an internal failure in the EMR service.
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
      * @throws InvalidRequestException
      *         This exception occurs when there is something wrong with user input.
      * @sample AmazonElasticMapReduce.AddTags
@@ -526,6 +537,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                 request = new AddTagsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(addTagsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddTags");
@@ -551,8 +564,10 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
      * <p>
      * Cancels a pending step or steps in a running cluster. Available only in Amazon EMR versions 4.8.0 and later,
      * excluding version 5.0.0. A maximum of 256 steps are allowed in each CancelSteps request. CancelSteps is
-     * idempotent but asynchronous; it does not guarantee a step will be canceled, even if the request is successfully
-     * submitted. You can only cancel steps that are in a <code>PENDING</code> state.
+     * idempotent but asynchronous; it does not guarantee that a step will be canceled, even if the request is
+     * successfully submitted. When you use Amazon EMR releases 5.28.0 and later, you can cancel steps that are in a
+     * <code>PENDING</code> or <code>RUNNING</code> state. In earlier versions of Amazon EMR, you can only cancel steps
+     * that are in a <code>PENDING</code> state.
      * </p>
      * 
      * @param cancelStepsRequest
@@ -587,6 +602,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                 request = new CancelStepsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(cancelStepsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelSteps");
@@ -616,7 +633,7 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
      * @param createSecurityConfigurationRequest
      * @return Result of the CreateSecurityConfiguration operation returned by the service.
      * @throws InternalServerException
-     *         This exception occurs when there is an internal failure in the EMR service.
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
      * @throws InvalidRequestException
      *         This exception occurs when there is something wrong with user input.
      * @sample AmazonElasticMapReduce.CreateSecurityConfiguration
@@ -645,6 +662,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                         .beforeMarshalling(createSecurityConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSecurityConfiguration");
@@ -669,13 +688,138 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
 
     /**
      * <p>
+     * Creates a new Amazon EMR Studio.
+     * </p>
+     * 
+     * @param createStudioRequest
+     * @return Result of the CreateStudio operation returned by the service.
+     * @throws InternalServerException
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
+     * @throws InvalidRequestException
+     *         This exception occurs when there is something wrong with user input.
+     * @sample AmazonElasticMapReduce.CreateStudio
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/CreateStudio" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreateStudioResult createStudio(CreateStudioRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateStudio(request);
+    }
+
+    @SdkInternalApi
+    final CreateStudioResult executeCreateStudio(CreateStudioRequest createStudioRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createStudioRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateStudioRequest> request = null;
+        Response<CreateStudioResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateStudioRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createStudioRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateStudio");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateStudioResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateStudioResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Maps a user or group to the Amazon EMR Studio specified by <code>StudioId</code>, and applies a session policy to
+     * refine Studio permissions for that user or group. Use <code>CreateStudioSessionMapping</code> to assign users to
+     * a Studio when you use IAM Identity Center authentication. For instructions on how to assign users to a Studio
+     * when you use IAM authentication, see <a href=
+     * "https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-studio-manage-users.html#emr-studio-assign-users-groups"
+     * >Assign a user or group to your EMR Studio</a>.
+     * </p>
+     * 
+     * @param createStudioSessionMappingRequest
+     * @return Result of the CreateStudioSessionMapping operation returned by the service.
+     * @throws InternalServerErrorException
+     *         Indicates that an error occurred while processing the request and that the request was not completed.
+     * @throws InvalidRequestException
+     *         This exception occurs when there is something wrong with user input.
+     * @sample AmazonElasticMapReduce.CreateStudioSessionMapping
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/CreateStudioSessionMapping"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateStudioSessionMappingResult createStudioSessionMapping(CreateStudioSessionMappingRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateStudioSessionMapping(request);
+    }
+
+    @SdkInternalApi
+    final CreateStudioSessionMappingResult executeCreateStudioSessionMapping(CreateStudioSessionMappingRequest createStudioSessionMappingRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createStudioSessionMappingRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateStudioSessionMappingRequest> request = null;
+        Response<CreateStudioSessionMappingResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateStudioSessionMappingRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createStudioSessionMappingRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateStudioSessionMapping");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateStudioSessionMappingResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateStudioSessionMappingResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Deletes a security configuration.
      * </p>
      * 
      * @param deleteSecurityConfigurationRequest
      * @return Result of the DeleteSecurityConfiguration operation returned by the service.
      * @throws InternalServerException
-     *         This exception occurs when there is an internal failure in the EMR service.
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
      * @throws InvalidRequestException
      *         This exception occurs when there is something wrong with user input.
      * @sample AmazonElasticMapReduce.DeleteSecurityConfiguration
@@ -704,6 +848,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                         .beforeMarshalling(deleteSecurityConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteSecurityConfiguration");
@@ -728,6 +874,126 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
 
     /**
      * <p>
+     * Removes an Amazon EMR Studio from the Studio metadata store.
+     * </p>
+     * 
+     * @param deleteStudioRequest
+     * @return Result of the DeleteStudio operation returned by the service.
+     * @throws InternalServerException
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
+     * @throws InvalidRequestException
+     *         This exception occurs when there is something wrong with user input.
+     * @sample AmazonElasticMapReduce.DeleteStudio
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/DeleteStudio" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DeleteStudioResult deleteStudio(DeleteStudioRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteStudio(request);
+    }
+
+    @SdkInternalApi
+    final DeleteStudioResult executeDeleteStudio(DeleteStudioRequest deleteStudioRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteStudioRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteStudioRequest> request = null;
+        Response<DeleteStudioResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteStudioRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteStudioRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteStudio");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteStudioResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteStudioResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Removes a user or group from an Amazon EMR Studio.
+     * </p>
+     * 
+     * @param deleteStudioSessionMappingRequest
+     * @return Result of the DeleteStudioSessionMapping operation returned by the service.
+     * @throws InternalServerErrorException
+     *         Indicates that an error occurred while processing the request and that the request was not completed.
+     * @throws InvalidRequestException
+     *         This exception occurs when there is something wrong with user input.
+     * @sample AmazonElasticMapReduce.DeleteStudioSessionMapping
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/DeleteStudioSessionMapping"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteStudioSessionMappingResult deleteStudioSessionMapping(DeleteStudioSessionMappingRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteStudioSessionMapping(request);
+    }
+
+    @SdkInternalApi
+    final DeleteStudioSessionMappingResult executeDeleteStudioSessionMapping(DeleteStudioSessionMappingRequest deleteStudioSessionMappingRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteStudioSessionMappingRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteStudioSessionMappingRequest> request = null;
+        Response<DeleteStudioSessionMappingResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteStudioSessionMappingRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteStudioSessionMappingRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteStudioSessionMapping");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteStudioSessionMappingResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteStudioSessionMappingResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Provides cluster-level details including status, hardware and software configuration, VPC settings, and so on.
      * </p>
      * 
@@ -735,7 +1001,7 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
      *        This input determines which cluster to describe.
      * @return Result of the DescribeCluster operation returned by the service.
      * @throws InternalServerException
-     *         This exception occurs when there is an internal failure in the EMR service.
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
      * @throws InvalidRequestException
      *         This exception occurs when there is something wrong with user input.
      * @sample AmazonElasticMapReduce.DescribeCluster
@@ -763,6 +1029,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                 request = new DescribeClusterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeClusterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCluster");
@@ -786,7 +1054,7 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
 
     /**
      * <p>
-     * This API is deprecated and will eventually be removed. We recommend you use <a>ListClusters</a>,
+     * This API is no longer supported and will eventually be removed. We recommend you use <a>ListClusters</a>,
      * <a>DescribeCluster</a>, <a>ListSteps</a>, <a>ListInstanceGroups</a> and <a>ListBootstrapActions</a> instead.
      * </p>
      * <p>
@@ -847,6 +1115,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                 request = new DescribeJobFlowsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeJobFlowsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeJobFlows");
@@ -876,13 +1146,135 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
 
     /**
      * <p>
+     * Provides details of a notebook execution.
+     * </p>
+     * 
+     * @param describeNotebookExecutionRequest
+     * @return Result of the DescribeNotebookExecution operation returned by the service.
+     * @throws InternalServerErrorException
+     *         Indicates that an error occurred while processing the request and that the request was not completed.
+     * @throws InvalidRequestException
+     *         This exception occurs when there is something wrong with user input.
+     * @sample AmazonElasticMapReduce.DescribeNotebookExecution
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/DescribeNotebookExecution"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeNotebookExecutionResult describeNotebookExecution(DescribeNotebookExecutionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeNotebookExecution(request);
+    }
+
+    @SdkInternalApi
+    final DescribeNotebookExecutionResult executeDescribeNotebookExecution(DescribeNotebookExecutionRequest describeNotebookExecutionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeNotebookExecutionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeNotebookExecutionRequest> request = null;
+        Response<DescribeNotebookExecutionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeNotebookExecutionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeNotebookExecutionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeNotebookExecution");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeNotebookExecutionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeNotebookExecutionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Provides Amazon EMR release label details, such as the releases available the Region where the API request is
+     * run, and the available applications for a specific Amazon EMR release label. Can also list Amazon EMR releases
+     * that support a specified version of Spark.
+     * </p>
+     * 
+     * @param describeReleaseLabelRequest
+     * @return Result of the DescribeReleaseLabel operation returned by the service.
+     * @throws InternalServerException
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
+     * @throws InvalidRequestException
+     *         This exception occurs when there is something wrong with user input.
+     * @sample AmazonElasticMapReduce.DescribeReleaseLabel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/DescribeReleaseLabel"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeReleaseLabelResult describeReleaseLabel(DescribeReleaseLabelRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeReleaseLabel(request);
+    }
+
+    @SdkInternalApi
+    final DescribeReleaseLabelResult executeDescribeReleaseLabel(DescribeReleaseLabelRequest describeReleaseLabelRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeReleaseLabelRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeReleaseLabelRequest> request = null;
+        Response<DescribeReleaseLabelResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeReleaseLabelRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeReleaseLabelRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeReleaseLabel");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeReleaseLabelResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeReleaseLabelResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Provides the details of a security configuration by returning the configuration JSON.
      * </p>
      * 
      * @param describeSecurityConfigurationRequest
      * @return Result of the DescribeSecurityConfiguration operation returned by the service.
      * @throws InternalServerException
-     *         This exception occurs when there is an internal failure in the EMR service.
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
      * @throws InvalidRequestException
      *         This exception occurs when there is something wrong with user input.
      * @sample AmazonElasticMapReduce.DescribeSecurityConfiguration
@@ -911,6 +1303,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                         .beforeMarshalling(describeSecurityConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeSecurityConfiguration");
@@ -942,7 +1336,7 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
      *        This input determines which step to describe.
      * @return Result of the DescribeStep operation returned by the service.
      * @throws InternalServerException
-     *         This exception occurs when there is an internal failure in the EMR service.
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
      * @throws InvalidRequestException
      *         This exception occurs when there is something wrong with user input.
      * @sample AmazonElasticMapReduce.DescribeStep
@@ -970,6 +1364,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                 request = new DescribeStepRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeStepRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeStep");
@@ -993,6 +1389,369 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
 
     /**
      * <p>
+     * Returns details for the specified Amazon EMR Studio including ID, Name, VPC, Studio access URL, and so on.
+     * </p>
+     * 
+     * @param describeStudioRequest
+     * @return Result of the DescribeStudio operation returned by the service.
+     * @throws InternalServerException
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
+     * @throws InvalidRequestException
+     *         This exception occurs when there is something wrong with user input.
+     * @sample AmazonElasticMapReduce.DescribeStudio
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/DescribeStudio"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeStudioResult describeStudio(DescribeStudioRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeStudio(request);
+    }
+
+    @SdkInternalApi
+    final DescribeStudioResult executeDescribeStudio(DescribeStudioRequest describeStudioRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeStudioRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeStudioRequest> request = null;
+        Response<DescribeStudioResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeStudioRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeStudioRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeStudio");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeStudioResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeStudioResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the auto-termination policy for an Amazon EMR cluster.
+     * </p>
+     * 
+     * @param getAutoTerminationPolicyRequest
+     * @return Result of the GetAutoTerminationPolicy operation returned by the service.
+     * @sample AmazonElasticMapReduce.GetAutoTerminationPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/GetAutoTerminationPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetAutoTerminationPolicyResult getAutoTerminationPolicy(GetAutoTerminationPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetAutoTerminationPolicy(request);
+    }
+
+    @SdkInternalApi
+    final GetAutoTerminationPolicyResult executeGetAutoTerminationPolicy(GetAutoTerminationPolicyRequest getAutoTerminationPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getAutoTerminationPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetAutoTerminationPolicyRequest> request = null;
+        Response<GetAutoTerminationPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetAutoTerminationPolicyRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getAutoTerminationPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetAutoTerminationPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetAutoTerminationPolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetAutoTerminationPolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the Amazon EMR block public access configuration for your Amazon Web Services account in the current
+     * Region. For more information see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/configure-block-public-access.html">Configure Block
+     * Public Access for Amazon EMR</a> in the <i>Amazon EMR Management Guide</i>.
+     * </p>
+     * 
+     * @param getBlockPublicAccessConfigurationRequest
+     * @return Result of the GetBlockPublicAccessConfiguration operation returned by the service.
+     * @throws InternalServerException
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
+     * @throws InvalidRequestException
+     *         This exception occurs when there is something wrong with user input.
+     * @sample AmazonElasticMapReduce.GetBlockPublicAccessConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/GetBlockPublicAccessConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetBlockPublicAccessConfigurationResult getBlockPublicAccessConfiguration(GetBlockPublicAccessConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetBlockPublicAccessConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final GetBlockPublicAccessConfigurationResult executeGetBlockPublicAccessConfiguration(
+            GetBlockPublicAccessConfigurationRequest getBlockPublicAccessConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getBlockPublicAccessConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetBlockPublicAccessConfigurationRequest> request = null;
+        Response<GetBlockPublicAccessConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetBlockPublicAccessConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getBlockPublicAccessConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetBlockPublicAccessConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetBlockPublicAccessConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetBlockPublicAccessConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Provides temporary, HTTP basic credentials that are associated with a given runtime IAM role and used by a
+     * cluster with fine-grained access control activated. You can use these credentials to connect to cluster endpoints
+     * that support username and password authentication.
+     * </p>
+     * 
+     * @param getClusterSessionCredentialsRequest
+     * @return Result of the GetClusterSessionCredentials operation returned by the service.
+     * @throws InternalServerErrorException
+     *         Indicates that an error occurred while processing the request and that the request was not completed.
+     * @throws InvalidRequestException
+     *         This exception occurs when there is something wrong with user input.
+     * @sample AmazonElasticMapReduce.GetClusterSessionCredentials
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/GetClusterSessionCredentials"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetClusterSessionCredentialsResult getClusterSessionCredentials(GetClusterSessionCredentialsRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetClusterSessionCredentials(request);
+    }
+
+    @SdkInternalApi
+    final GetClusterSessionCredentialsResult executeGetClusterSessionCredentials(GetClusterSessionCredentialsRequest getClusterSessionCredentialsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getClusterSessionCredentialsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetClusterSessionCredentialsRequest> request = null;
+        Response<GetClusterSessionCredentialsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetClusterSessionCredentialsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getClusterSessionCredentialsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetClusterSessionCredentials");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetClusterSessionCredentialsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetClusterSessionCredentialsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Fetches the attached managed scaling policy for an Amazon EMR cluster.
+     * </p>
+     * 
+     * @param getManagedScalingPolicyRequest
+     * @return Result of the GetManagedScalingPolicy operation returned by the service.
+     * @sample AmazonElasticMapReduce.GetManagedScalingPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/GetManagedScalingPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetManagedScalingPolicyResult getManagedScalingPolicy(GetManagedScalingPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetManagedScalingPolicy(request);
+    }
+
+    @SdkInternalApi
+    final GetManagedScalingPolicyResult executeGetManagedScalingPolicy(GetManagedScalingPolicyRequest getManagedScalingPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getManagedScalingPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetManagedScalingPolicyRequest> request = null;
+        Response<GetManagedScalingPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetManagedScalingPolicyRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getManagedScalingPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetManagedScalingPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetManagedScalingPolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetManagedScalingPolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Fetches mapping details for the specified Amazon EMR Studio and identity (user or group).
+     * </p>
+     * 
+     * @param getStudioSessionMappingRequest
+     * @return Result of the GetStudioSessionMapping operation returned by the service.
+     * @throws InternalServerErrorException
+     *         Indicates that an error occurred while processing the request and that the request was not completed.
+     * @throws InvalidRequestException
+     *         This exception occurs when there is something wrong with user input.
+     * @sample AmazonElasticMapReduce.GetStudioSessionMapping
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/GetStudioSessionMapping"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetStudioSessionMappingResult getStudioSessionMapping(GetStudioSessionMappingRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetStudioSessionMapping(request);
+    }
+
+    @SdkInternalApi
+    final GetStudioSessionMappingResult executeGetStudioSessionMapping(GetStudioSessionMappingRequest getStudioSessionMappingRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getStudioSessionMappingRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetStudioSessionMappingRequest> request = null;
+        Response<GetStudioSessionMappingResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetStudioSessionMappingRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getStudioSessionMappingRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetStudioSessionMapping");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetStudioSessionMappingResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetStudioSessionMappingResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Provides information about the bootstrap actions associated with a cluster.
      * </p>
      * 
@@ -1000,7 +1759,7 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
      *        This input determines which bootstrap actions to retrieve.
      * @return Result of the ListBootstrapActions operation returned by the service.
      * @throws InternalServerException
-     *         This exception occurs when there is an internal failure in the EMR service.
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
      * @throws InvalidRequestException
      *         This exception occurs when there is something wrong with user input.
      * @sample AmazonElasticMapReduce.ListBootstrapActions
@@ -1028,6 +1787,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                 request = new ListBootstrapActionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listBootstrapActionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListBootstrapActions");
@@ -1051,17 +1812,17 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
 
     /**
      * <p>
-     * Provides the status of all clusters visible to this AWS account. Allows you to filter the list of clusters based
-     * on certain criteria; for example, filtering by cluster creation date and time or by status. This call returns a
-     * maximum of 50 clusters per call, but returns a marker to track the paging of the cluster list across multiple
-     * ListClusters calls.
+     * Provides the status of all clusters visible to this Amazon Web Services account. Allows you to filter the list of
+     * clusters based on certain criteria; for example, filtering by cluster creation date and time or by status. This
+     * call returns a maximum of 50 clusters in unsorted order per call, but returns a marker to track the paging of the
+     * cluster list across multiple ListClusters calls.
      * </p>
      * 
      * @param listClustersRequest
      *        This input determines how the ListClusters action filters the list of clusters that it returns.
      * @return Result of the ListClusters operation returned by the service.
      * @throws InternalServerException
-     *         This exception occurs when there is an internal failure in the EMR service.
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
      * @throws InvalidRequestException
      *         This exception occurs when there is something wrong with user input.
      * @sample AmazonElasticMapReduce.ListClusters
@@ -1089,6 +1850,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                 request = new ListClustersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listClustersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListClusters");
@@ -1121,7 +1884,7 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
      * </p>
      * <note>
      * <p>
-     * The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     * The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      * versions.
      * </p>
      * </note>
@@ -1129,7 +1892,7 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
      * @param listInstanceFleetsRequest
      * @return Result of the ListInstanceFleets operation returned by the service.
      * @throws InternalServerException
-     *         This exception occurs when there is an internal failure in the EMR service.
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
      * @throws InvalidRequestException
      *         This exception occurs when there is something wrong with user input.
      * @sample AmazonElasticMapReduce.ListInstanceFleets
@@ -1157,6 +1920,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                 request = new ListInstanceFleetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listInstanceFleetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListInstanceFleets");
@@ -1187,7 +1952,7 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
      *        This input determines which instance groups to retrieve.
      * @return Result of the ListInstanceGroups operation returned by the service.
      * @throws InternalServerException
-     *         This exception occurs when there is an internal failure in the EMR service.
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
      * @throws InvalidRequestException
      *         This exception occurs when there is something wrong with user input.
      * @sample AmazonElasticMapReduce.ListInstanceGroups
@@ -1215,6 +1980,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                 request = new ListInstanceGroupsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listInstanceGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListInstanceGroups");
@@ -1238,16 +2005,16 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
 
     /**
      * <p>
-     * Provides information for all active EC2 instances and EC2 instances terminated in the last 30 days, up to a
-     * maximum of 2,000. EC2 instances in any of the following states are considered active: AWAITING_FULFILLMENT,
-     * PROVISIONING, BOOTSTRAPPING, RUNNING.
+     * Provides information for all active Amazon EC2 instances and Amazon EC2 instances terminated in the last 30 days,
+     * up to a maximum of 2,000. Amazon EC2 instances in any of the following states are considered active:
+     * AWAITING_FULFILLMENT, PROVISIONING, BOOTSTRAPPING, RUNNING.
      * </p>
      * 
      * @param listInstancesRequest
      *        This input determines which instances to list.
      * @return Result of the ListInstances operation returned by the service.
      * @throws InternalServerException
-     *         This exception occurs when there is an internal failure in the EMR service.
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
      * @throws InvalidRequestException
      *         This exception occurs when there is something wrong with user input.
      * @sample AmazonElasticMapReduce.ListInstances
@@ -1275,6 +2042,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                 request = new ListInstancesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listInstancesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListInstances");
@@ -1298,6 +2067,127 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
 
     /**
      * <p>
+     * Provides summaries of all notebook executions. You can filter the list based on multiple criteria such as status,
+     * time range, and editor id. Returns a maximum of 50 notebook executions and a marker to track the paging of a
+     * longer notebook execution list across multiple <code>ListNotebookExecutions</code> calls.
+     * </p>
+     * 
+     * @param listNotebookExecutionsRequest
+     * @return Result of the ListNotebookExecutions operation returned by the service.
+     * @throws InternalServerErrorException
+     *         Indicates that an error occurred while processing the request and that the request was not completed.
+     * @throws InvalidRequestException
+     *         This exception occurs when there is something wrong with user input.
+     * @sample AmazonElasticMapReduce.ListNotebookExecutions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/ListNotebookExecutions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListNotebookExecutionsResult listNotebookExecutions(ListNotebookExecutionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListNotebookExecutions(request);
+    }
+
+    @SdkInternalApi
+    final ListNotebookExecutionsResult executeListNotebookExecutions(ListNotebookExecutionsRequest listNotebookExecutionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listNotebookExecutionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListNotebookExecutionsRequest> request = null;
+        Response<ListNotebookExecutionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListNotebookExecutionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listNotebookExecutionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListNotebookExecutions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListNotebookExecutionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListNotebookExecutionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves release labels of Amazon EMR services in the Region where the API is called.
+     * </p>
+     * 
+     * @param listReleaseLabelsRequest
+     * @return Result of the ListReleaseLabels operation returned by the service.
+     * @throws InternalServerException
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
+     * @throws InvalidRequestException
+     *         This exception occurs when there is something wrong with user input.
+     * @sample AmazonElasticMapReduce.ListReleaseLabels
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/ListReleaseLabels"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListReleaseLabelsResult listReleaseLabels(ListReleaseLabelsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListReleaseLabels(request);
+    }
+
+    @SdkInternalApi
+    final ListReleaseLabelsResult executeListReleaseLabels(ListReleaseLabelsRequest listReleaseLabelsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listReleaseLabelsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListReleaseLabelsRequest> request = null;
+        Response<ListReleaseLabelsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListReleaseLabelsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listReleaseLabelsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListReleaseLabels");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListReleaseLabelsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListReleaseLabelsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Lists all the security configurations visible to this account, providing their creation dates and times, and
      * their names. This call returns a maximum of 50 clusters per call, but returns a marker to track the paging of the
      * cluster list across multiple ListSecurityConfigurations calls.
@@ -1306,7 +2196,7 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
      * @param listSecurityConfigurationsRequest
      * @return Result of the ListSecurityConfigurations operation returned by the service.
      * @throws InternalServerException
-     *         This exception occurs when there is an internal failure in the EMR service.
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
      * @throws InvalidRequestException
      *         This exception occurs when there is something wrong with user input.
      * @sample AmazonElasticMapReduce.ListSecurityConfigurations
@@ -1335,6 +2225,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                         .beforeMarshalling(listSecurityConfigurationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListSecurityConfigurations");
@@ -1359,14 +2251,17 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
 
     /**
      * <p>
-     * Provides a list of steps for the cluster in reverse order unless you specify stepIds with the request.
+     * Provides a list of steps for the cluster in reverse order unless you specify <code>stepIds</code> with the
+     * request or filter by <code>StepStates</code>. You can specify a maximum of 10 <code>stepIDs</code>. The CLI
+     * automatically paginates results to return a list greater than 50 steps. To return more than 50 steps using the
+     * CLI, specify a <code>Marker</code>, which is a pagination token that indicates the next set of steps to retrieve.
      * </p>
      * 
      * @param listStepsRequest
      *        This input determines which steps to list.
      * @return Result of the ListSteps operation returned by the service.
      * @throws InternalServerException
-     *         This exception occurs when there is an internal failure in the EMR service.
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
      * @throws InvalidRequestException
      *         This exception occurs when there is something wrong with user input.
      * @sample AmazonElasticMapReduce.ListSteps
@@ -1394,6 +2289,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                 request = new ListStepsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listStepsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListSteps");
@@ -1417,12 +2314,255 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
 
     /**
      * <p>
+     * Returns a list of all user or group session mappings for the Amazon EMR Studio specified by <code>StudioId</code>
+     * .
+     * </p>
+     * 
+     * @param listStudioSessionMappingsRequest
+     * @return Result of the ListStudioSessionMappings operation returned by the service.
+     * @throws InternalServerErrorException
+     *         Indicates that an error occurred while processing the request and that the request was not completed.
+     * @throws InvalidRequestException
+     *         This exception occurs when there is something wrong with user input.
+     * @sample AmazonElasticMapReduce.ListStudioSessionMappings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/ListStudioSessionMappings"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListStudioSessionMappingsResult listStudioSessionMappings(ListStudioSessionMappingsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListStudioSessionMappings(request);
+    }
+
+    @SdkInternalApi
+    final ListStudioSessionMappingsResult executeListStudioSessionMappings(ListStudioSessionMappingsRequest listStudioSessionMappingsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listStudioSessionMappingsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListStudioSessionMappingsRequest> request = null;
+        Response<ListStudioSessionMappingsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListStudioSessionMappingsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listStudioSessionMappingsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListStudioSessionMappings");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListStudioSessionMappingsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListStudioSessionMappingsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of all Amazon EMR Studios associated with the Amazon Web Services account. The list includes
+     * details such as ID, Studio Access URL, and creation time for each Studio.
+     * </p>
+     * 
+     * @param listStudiosRequest
+     * @return Result of the ListStudios operation returned by the service.
+     * @throws InternalServerException
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
+     * @throws InvalidRequestException
+     *         This exception occurs when there is something wrong with user input.
+     * @sample AmazonElasticMapReduce.ListStudios
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/ListStudios" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListStudiosResult listStudios(ListStudiosRequest request) {
+        request = beforeClientExecution(request);
+        return executeListStudios(request);
+    }
+
+    @SdkInternalApi
+    final ListStudiosResult executeListStudios(ListStudiosRequest listStudiosRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listStudiosRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListStudiosRequest> request = null;
+        Response<ListStudiosResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListStudiosRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listStudiosRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListStudios");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListStudiosResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListStudiosResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * A list of the instance types that Amazon EMR supports. You can filter the list by Amazon Web Services Region and
+     * Amazon EMR release.
+     * </p>
+     * 
+     * @param listSupportedInstanceTypesRequest
+     * @return Result of the ListSupportedInstanceTypes operation returned by the service.
+     * @throws InternalServerException
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
+     * @throws InvalidRequestException
+     *         This exception occurs when there is something wrong with user input.
+     * @sample AmazonElasticMapReduce.ListSupportedInstanceTypes
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/ListSupportedInstanceTypes"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListSupportedInstanceTypesResult listSupportedInstanceTypes(ListSupportedInstanceTypesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListSupportedInstanceTypes(request);
+    }
+
+    @SdkInternalApi
+    final ListSupportedInstanceTypesResult executeListSupportedInstanceTypes(ListSupportedInstanceTypesRequest listSupportedInstanceTypesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listSupportedInstanceTypesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListSupportedInstanceTypesRequest> request = null;
+        Response<ListSupportedInstanceTypesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListSupportedInstanceTypesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listSupportedInstanceTypesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListSupportedInstanceTypes");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListSupportedInstanceTypesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListSupportedInstanceTypesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Modifies the number of steps that can be executed concurrently for the cluster specified using ClusterID.
+     * </p>
+     * 
+     * @param modifyClusterRequest
+     * @return Result of the ModifyCluster operation returned by the service.
+     * @throws InternalServerErrorException
+     *         Indicates that an error occurred while processing the request and that the request was not completed.
+     * @throws InvalidRequestException
+     *         This exception occurs when there is something wrong with user input.
+     * @sample AmazonElasticMapReduce.ModifyCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/ModifyCluster" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ModifyClusterResult modifyCluster(ModifyClusterRequest request) {
+        request = beforeClientExecution(request);
+        return executeModifyCluster(request);
+    }
+
+    @SdkInternalApi
+    final ModifyClusterResult executeModifyCluster(ModifyClusterRequest modifyClusterRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(modifyClusterRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ModifyClusterRequest> request = null;
+        Response<ModifyClusterResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifyClusterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(modifyClusterRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyCluster");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ModifyClusterResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ModifyClusterResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Modifies the target On-Demand and target Spot capacities for the instance fleet with the specified
      * InstanceFleetID within the cluster specified using ClusterID. The call either succeeds or fails atomically.
      * </p>
      * <note>
      * <p>
-     * The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     * The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      * versions.
      * </p>
      * </note>
@@ -1430,7 +2570,7 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
      * @param modifyInstanceFleetRequest
      * @return Result of the ModifyInstanceFleet operation returned by the service.
      * @throws InternalServerException
-     *         This exception occurs when there is an internal failure in the EMR service.
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
      * @throws InvalidRequestException
      *         This exception occurs when there is something wrong with user input.
      * @sample AmazonElasticMapReduce.ModifyInstanceFleet
@@ -1458,6 +2598,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                 request = new ModifyInstanceFleetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(modifyInstanceFleetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyInstanceFleet");
@@ -1516,6 +2658,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                 request = new ModifyInstanceGroupsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(modifyInstanceGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyInstanceGroups");
@@ -1545,8 +2689,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
     /**
      * <p>
      * Creates or updates an automatic scaling policy for a core instance group or task instance group in an Amazon EMR
-     * cluster. The automatic scaling policy defines how an instance group dynamically adds and terminates EC2 instances
-     * in response to the value of a CloudWatch metric.
+     * cluster. The automatic scaling policy defines how an instance group dynamically adds and terminates Amazon EC2
+     * instances in response to the value of a CloudWatch metric.
      * </p>
      * 
      * @param putAutoScalingPolicyRequest
@@ -1576,6 +2720,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                 request = new PutAutoScalingPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putAutoScalingPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutAutoScalingPolicy");
@@ -1598,8 +2744,201 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
     }
 
     /**
+     * <note>
      * <p>
-     * Removes an automatic scaling policy from a specified instance group within an EMR cluster.
+     * Auto-termination is supported in Amazon EMR releases 5.30.0 and 6.1.0 and later. For more information, see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-auto-termination-policy.html">Using an
+     * auto-termination policy</a>.
+     * </p>
+     * </note>
+     * <p>
+     * Creates or updates an auto-termination policy for an Amazon EMR cluster. An auto-termination policy defines the
+     * amount of idle time in seconds after which a cluster automatically terminates. For alternative cluster
+     * termination options, see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-termination.html">Control cluster
+     * termination</a>.
+     * </p>
+     * 
+     * @param putAutoTerminationPolicyRequest
+     * @return Result of the PutAutoTerminationPolicy operation returned by the service.
+     * @sample AmazonElasticMapReduce.PutAutoTerminationPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/PutAutoTerminationPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public PutAutoTerminationPolicyResult putAutoTerminationPolicy(PutAutoTerminationPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executePutAutoTerminationPolicy(request);
+    }
+
+    @SdkInternalApi
+    final PutAutoTerminationPolicyResult executePutAutoTerminationPolicy(PutAutoTerminationPolicyRequest putAutoTerminationPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putAutoTerminationPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutAutoTerminationPolicyRequest> request = null;
+        Response<PutAutoTerminationPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutAutoTerminationPolicyRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(putAutoTerminationPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutAutoTerminationPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutAutoTerminationPolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new PutAutoTerminationPolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates or updates an Amazon EMR block public access configuration for your Amazon Web Services account in the
+     * current Region. For more information see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/configure-block-public-access.html">Configure Block
+     * Public Access for Amazon EMR</a> in the <i>Amazon EMR Management Guide</i>.
+     * </p>
+     * 
+     * @param putBlockPublicAccessConfigurationRequest
+     * @return Result of the PutBlockPublicAccessConfiguration operation returned by the service.
+     * @throws InternalServerException
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
+     * @throws InvalidRequestException
+     *         This exception occurs when there is something wrong with user input.
+     * @sample AmazonElasticMapReduce.PutBlockPublicAccessConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/PutBlockPublicAccessConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public PutBlockPublicAccessConfigurationResult putBlockPublicAccessConfiguration(PutBlockPublicAccessConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executePutBlockPublicAccessConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final PutBlockPublicAccessConfigurationResult executePutBlockPublicAccessConfiguration(
+            PutBlockPublicAccessConfigurationRequest putBlockPublicAccessConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putBlockPublicAccessConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutBlockPublicAccessConfigurationRequest> request = null;
+        Response<PutBlockPublicAccessConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutBlockPublicAccessConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(putBlockPublicAccessConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutBlockPublicAccessConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutBlockPublicAccessConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new PutBlockPublicAccessConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates or updates a managed scaling policy for an Amazon EMR cluster. The managed scaling policy defines the
+     * limits for resources, such as Amazon EC2 instances that can be added or terminated from a cluster. The policy
+     * only applies to the core and task nodes. The master node cannot be scaled after initial configuration.
+     * </p>
+     * 
+     * @param putManagedScalingPolicyRequest
+     * @return Result of the PutManagedScalingPolicy operation returned by the service.
+     * @sample AmazonElasticMapReduce.PutManagedScalingPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/PutManagedScalingPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public PutManagedScalingPolicyResult putManagedScalingPolicy(PutManagedScalingPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executePutManagedScalingPolicy(request);
+    }
+
+    @SdkInternalApi
+    final PutManagedScalingPolicyResult executePutManagedScalingPolicy(PutManagedScalingPolicyRequest putManagedScalingPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putManagedScalingPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutManagedScalingPolicyRequest> request = null;
+        Response<PutManagedScalingPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutManagedScalingPolicyRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(putManagedScalingPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutManagedScalingPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutManagedScalingPolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new PutManagedScalingPolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Removes an automatic scaling policy from a specified instance group within an Amazon EMR cluster.
      * </p>
      * 
      * @param removeAutoScalingPolicyRequest
@@ -1630,6 +2969,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                         .beforeMarshalling(removeAutoScalingPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RemoveAutoScalingPolicy");
@@ -1654,8 +2995,123 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
 
     /**
      * <p>
-     * Removes tags from an Amazon EMR resource. Tags make it easier to associate clusters in various ways, such as
-     * grouping clusters to track your Amazon EMR resource allocation costs. For more information, see <a
+     * Removes an auto-termination policy from an Amazon EMR cluster.
+     * </p>
+     * 
+     * @param removeAutoTerminationPolicyRequest
+     * @return Result of the RemoveAutoTerminationPolicy operation returned by the service.
+     * @sample AmazonElasticMapReduce.RemoveAutoTerminationPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/RemoveAutoTerminationPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public RemoveAutoTerminationPolicyResult removeAutoTerminationPolicy(RemoveAutoTerminationPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeRemoveAutoTerminationPolicy(request);
+    }
+
+    @SdkInternalApi
+    final RemoveAutoTerminationPolicyResult executeRemoveAutoTerminationPolicy(RemoveAutoTerminationPolicyRequest removeAutoTerminationPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(removeAutoTerminationPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<RemoveAutoTerminationPolicyRequest> request = null;
+        Response<RemoveAutoTerminationPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RemoveAutoTerminationPolicyRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(removeAutoTerminationPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RemoveAutoTerminationPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<RemoveAutoTerminationPolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new RemoveAutoTerminationPolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Removes a managed scaling policy from a specified Amazon EMR cluster.
+     * </p>
+     * 
+     * @param removeManagedScalingPolicyRequest
+     * @return Result of the RemoveManagedScalingPolicy operation returned by the service.
+     * @sample AmazonElasticMapReduce.RemoveManagedScalingPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/RemoveManagedScalingPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public RemoveManagedScalingPolicyResult removeManagedScalingPolicy(RemoveManagedScalingPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeRemoveManagedScalingPolicy(request);
+    }
+
+    @SdkInternalApi
+    final RemoveManagedScalingPolicyResult executeRemoveManagedScalingPolicy(RemoveManagedScalingPolicyRequest removeManagedScalingPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(removeManagedScalingPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<RemoveManagedScalingPolicyRequest> request = null;
+        Response<RemoveManagedScalingPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RemoveManagedScalingPolicyRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(removeManagedScalingPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RemoveManagedScalingPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<RemoveManagedScalingPolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new RemoveManagedScalingPolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Removes tags from an Amazon EMR resource, such as a cluster or Amazon EMR Studio. Tags make it easier to
+     * associate resources in various ways, such as grouping clusters to track your Amazon EMR resource allocation
+     * costs. For more information, see <a
      * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html">Tag Clusters</a>.
      * </p>
      * <p>
@@ -1663,10 +3119,10 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
      * </p>
      * 
      * @param removeTagsRequest
-     *        This input identifies a cluster and a list of tags to remove.
+     *        This input identifies an Amazon EMR resource and a list of tags to remove.
      * @return Result of the RemoveTags operation returned by the service.
      * @throws InternalServerException
-     *         This exception occurs when there is an internal failure in the EMR service.
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
      * @throws InvalidRequestException
      *         This exception occurs when there is something wrong with user input.
      * @sample AmazonElasticMapReduce.RemoveTags
@@ -1694,6 +3150,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                 request = new RemoveTagsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(removeTagsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RemoveTags");
@@ -1735,16 +3193,14 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
      * If your cluster is long-running (such as a Hive data warehouse) or complex, you may require more than 256 steps
      * to process your data. You can bypass the 256-step limitation in various ways, including using the SSH shell to
      * connect to the master node and submitting queries directly to the software running on the master node, such as
-     * Hive and Hadoop. For more information on how to do this, see <a
-     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/AddMoreThan256Steps.html">Add More than 256 Steps to
-     * a Cluster</a> in the <i>Amazon EMR Management Guide</i>.
+     * Hive and Hadoop.
      * </p>
      * <p>
-     * For long running clusters, we recommend that you periodically store your results.
+     * For long-running clusters, we recommend that you periodically store your results.
      * </p>
      * <note>
      * <p>
-     * The instance fleets configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     * The instance fleets configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      * versions. The RunJobFlow request can contain InstanceFleets parameters or InstanceGroups parameters, but not
      * both.
      * </p>
@@ -1780,6 +3236,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                 request = new RunJobFlowRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(runJobFlowRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RunJobFlow");
@@ -1803,10 +3261,77 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
 
     /**
      * <p>
-     * SetTerminationProtection locks a cluster (job flow) so the EC2 instances in the cluster cannot be terminated by
-     * user intervention, an API call, or in the event of a job-flow error. The cluster still terminates upon successful
-     * completion of the job flow. Calling <code>SetTerminationProtection</code> on a cluster is similar to calling the
-     * Amazon EC2 <code>DisableAPITermination</code> API on all EC2 instances in a cluster.
+     * You can use the <code>SetKeepJobFlowAliveWhenNoSteps</code> to configure a cluster (job flow) to terminate after
+     * the step execution, i.e., all your steps are executed. If you want a transient cluster that shuts down after the
+     * last of the current executing steps are completed, you can configure <code>SetKeepJobFlowAliveWhenNoSteps</code>
+     * to false. If you want a long running cluster, configure <code>SetKeepJobFlowAliveWhenNoSteps</code> to true.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/UsingEMR_TerminationProtection.html">Managing
+     * Cluster Termination</a> in the <i>Amazon EMR Management Guide</i>.
+     * </p>
+     * 
+     * @param setKeepJobFlowAliveWhenNoStepsRequest
+     * @return Result of the SetKeepJobFlowAliveWhenNoSteps operation returned by the service.
+     * @throws InternalServerErrorException
+     *         Indicates that an error occurred while processing the request and that the request was not completed.
+     * @sample AmazonElasticMapReduce.SetKeepJobFlowAliveWhenNoSteps
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/SetKeepJobFlowAliveWhenNoSteps"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public SetKeepJobFlowAliveWhenNoStepsResult setKeepJobFlowAliveWhenNoSteps(SetKeepJobFlowAliveWhenNoStepsRequest request) {
+        request = beforeClientExecution(request);
+        return executeSetKeepJobFlowAliveWhenNoSteps(request);
+    }
+
+    @SdkInternalApi
+    final SetKeepJobFlowAliveWhenNoStepsResult executeSetKeepJobFlowAliveWhenNoSteps(SetKeepJobFlowAliveWhenNoStepsRequest setKeepJobFlowAliveWhenNoStepsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(setKeepJobFlowAliveWhenNoStepsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<SetKeepJobFlowAliveWhenNoStepsRequest> request = null;
+        Response<SetKeepJobFlowAliveWhenNoStepsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new SetKeepJobFlowAliveWhenNoStepsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(setKeepJobFlowAliveWhenNoStepsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SetKeepJobFlowAliveWhenNoSteps");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<SetKeepJobFlowAliveWhenNoStepsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new SetKeepJobFlowAliveWhenNoStepsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * SetTerminationProtection locks a cluster (job flow) so the Amazon EC2 instances in the cluster cannot be
+     * terminated by user intervention, an API call, or in the event of a job-flow error. The cluster still terminates
+     * upon successful completion of the job flow. Calling <code>SetTerminationProtection</code> on a cluster is similar
+     * to calling the Amazon EC2 <code>DisableAPITermination</code> API on all Amazon EC2 instances in a cluster.
      * </p>
      * <p>
      * <code>SetTerminationProtection</code> is used to prevent accidental termination of a cluster and to ensure that
@@ -1819,7 +3344,7 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
      * set the value to <code>false</code>.
      * </p>
      * <p>
-     * For more information, see<a
+     * For more information, see <a
      * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/UsingEMR_TerminationProtection.html">Managing
      * Cluster Termination</a> in the <i>Amazon EMR Management Guide</i>.
      * </p>
@@ -1855,6 +3380,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                         .beforeMarshalling(setTerminationProtectionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SetTerminationProtection");
@@ -1879,10 +3406,101 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
 
     /**
      * <p>
-     * Sets whether all AWS Identity and Access Management (IAM) users under your account can access the specified
-     * clusters (job flows). This action works on running clusters. You can also set the visibility of a cluster when
-     * you launch it using the <code>VisibleToAllUsers</code> parameter of <a>RunJobFlow</a>. The SetVisibleToAllUsers
-     * action can be called only by an IAM user who created the cluster or the AWS account that owns the cluster.
+     * Specify whether to enable unhealthy node replacement, which lets Amazon EMR gracefully replace core nodes on a
+     * cluster if any nodes become unhealthy. For example, a node becomes unhealthy if disk usage is above 90%. If
+     * unhealthy node replacement is on and <code>TerminationProtected</code> are off, Amazon EMR immediately terminates
+     * the unhealthy core nodes. To use unhealthy node replacement and retain unhealthy core nodes, use to turn on
+     * termination protection. In such cases, Amazon EMR adds the unhealthy nodes to a denylist, reducing job
+     * interruptions and failures.
+     * </p>
+     * <p>
+     * If unhealthy node replacement is on, Amazon EMR notifies YARN and other applications on the cluster to stop
+     * scheduling tasks with these nodes, moves the data, and then terminates the nodes.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-node-replacement.html">graceful node
+     * replacement</a> in the <i>Amazon EMR Management Guide</i>.
+     * </p>
+     * 
+     * @param setUnhealthyNodeReplacementRequest
+     * @return Result of the SetUnhealthyNodeReplacement operation returned by the service.
+     * @throws InternalServerErrorException
+     *         Indicates that an error occurred while processing the request and that the request was not completed.
+     * @sample AmazonElasticMapReduce.SetUnhealthyNodeReplacement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/SetUnhealthyNodeReplacement"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public SetUnhealthyNodeReplacementResult setUnhealthyNodeReplacement(SetUnhealthyNodeReplacementRequest request) {
+        request = beforeClientExecution(request);
+        return executeSetUnhealthyNodeReplacement(request);
+    }
+
+    @SdkInternalApi
+    final SetUnhealthyNodeReplacementResult executeSetUnhealthyNodeReplacement(SetUnhealthyNodeReplacementRequest setUnhealthyNodeReplacementRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(setUnhealthyNodeReplacementRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<SetUnhealthyNodeReplacementRequest> request = null;
+        Response<SetUnhealthyNodeReplacementResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new SetUnhealthyNodeReplacementRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(setUnhealthyNodeReplacementRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SetUnhealthyNodeReplacement");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<SetUnhealthyNodeReplacementResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new SetUnhealthyNodeReplacementResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <important>
+     * <p>
+     * The SetVisibleToAllUsers parameter is no longer supported. Your cluster may be visible to all users in your
+     * account. To restrict cluster access using an IAM policy, see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-access-IAM.html">Identity and Access
+     * Management for Amazon EMR</a>.
+     * </p>
+     * </important>
+     * <p>
+     * Sets the <a>Cluster$VisibleToAllUsers</a> value for an Amazon EMR cluster. When <code>true</code>, IAM principals
+     * in the Amazon Web Services account can perform Amazon EMR cluster actions that their IAM policies allow. When
+     * <code>false</code>, only the IAM principal that created the cluster and the Amazon Web Services account root user
+     * can perform Amazon EMR actions on the cluster, regardless of IAM permissions policies attached to other IAM
+     * principals.
+     * </p>
+     * <p>
+     * This action works on running clusters. When you create a cluster, use the
+     * <a>RunJobFlowInput$VisibleToAllUsers</a> parameter.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/emr/latest/ManagementGuide/security_IAM_emr-with-IAM.html#security_set_visible_to_all_users"
+     * >Understanding the Amazon EMR Cluster VisibleToAllUsers Setting</a> in the <i>Amazon EMR Management Guide</i>.
      * </p>
      * 
      * @param setVisibleToAllUsersRequest
@@ -1915,6 +3533,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                 request = new SetVisibleToAllUsersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(setVisibleToAllUsersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SetVisibleToAllUsers");
@@ -1938,8 +3558,128 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
 
     /**
      * <p>
+     * Starts a notebook execution.
+     * </p>
+     * 
+     * @param startNotebookExecutionRequest
+     * @return Result of the StartNotebookExecution operation returned by the service.
+     * @throws InternalServerException
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
+     * @throws InvalidRequestException
+     *         This exception occurs when there is something wrong with user input.
+     * @sample AmazonElasticMapReduce.StartNotebookExecution
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/StartNotebookExecution"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public StartNotebookExecutionResult startNotebookExecution(StartNotebookExecutionRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartNotebookExecution(request);
+    }
+
+    @SdkInternalApi
+    final StartNotebookExecutionResult executeStartNotebookExecution(StartNotebookExecutionRequest startNotebookExecutionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startNotebookExecutionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartNotebookExecutionRequest> request = null;
+        Response<StartNotebookExecutionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartNotebookExecutionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startNotebookExecutionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartNotebookExecution");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartNotebookExecutionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new StartNotebookExecutionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Stops a notebook execution.
+     * </p>
+     * 
+     * @param stopNotebookExecutionRequest
+     * @return Result of the StopNotebookExecution operation returned by the service.
+     * @throws InternalServerErrorException
+     *         Indicates that an error occurred while processing the request and that the request was not completed.
+     * @throws InvalidRequestException
+     *         This exception occurs when there is something wrong with user input.
+     * @sample AmazonElasticMapReduce.StopNotebookExecution
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/StopNotebookExecution"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public StopNotebookExecutionResult stopNotebookExecution(StopNotebookExecutionRequest request) {
+        request = beforeClientExecution(request);
+        return executeStopNotebookExecution(request);
+    }
+
+    @SdkInternalApi
+    final StopNotebookExecutionResult executeStopNotebookExecution(StopNotebookExecutionRequest stopNotebookExecutionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(stopNotebookExecutionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StopNotebookExecutionRequest> request = null;
+        Response<StopNotebookExecutionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StopNotebookExecutionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(stopNotebookExecutionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StopNotebookExecution");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StopNotebookExecutionResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new StopNotebookExecutionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * TerminateJobFlows shuts a list of clusters (job flows) down. When a job flow is shut down, any step not yet
-     * completed is canceled and the EC2 instances on which the cluster is running are stopped. Any log files not
+     * completed is canceled and the Amazon EC2 instances on which the cluster is running are stopped. Any log files not
      * already saved are uploaded to Amazon S3 if a LogUri was specified when the cluster was created.
      * </p>
      * <p>
@@ -1978,6 +3718,8 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
                 request = new TerminateJobFlowsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(terminateJobFlowsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TerminateJobFlows");
@@ -1989,6 +3731,126 @@ public class AmazonElasticMapReduceClient extends AmazonWebServiceClient impleme
 
             HttpResponseHandler<AmazonWebServiceResponse<TerminateJobFlowsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new TerminateJobFlowsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates an Amazon EMR Studio configuration, including attributes such as name, description, and subnets.
+     * </p>
+     * 
+     * @param updateStudioRequest
+     * @return Result of the UpdateStudio operation returned by the service.
+     * @throws InternalServerException
+     *         This exception occurs when there is an internal failure in the Amazon EMR service.
+     * @throws InvalidRequestException
+     *         This exception occurs when there is something wrong with user input.
+     * @sample AmazonElasticMapReduce.UpdateStudio
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/UpdateStudio" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public UpdateStudioResult updateStudio(UpdateStudioRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateStudio(request);
+    }
+
+    @SdkInternalApi
+    final UpdateStudioResult executeUpdateStudio(UpdateStudioRequest updateStudioRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateStudioRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateStudioRequest> request = null;
+        Response<UpdateStudioResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateStudioRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateStudioRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateStudio");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateStudioResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateStudioResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the session policy attached to the user or group for the specified Amazon EMR Studio.
+     * </p>
+     * 
+     * @param updateStudioSessionMappingRequest
+     * @return Result of the UpdateStudioSessionMapping operation returned by the service.
+     * @throws InternalServerErrorException
+     *         Indicates that an error occurred while processing the request and that the request was not completed.
+     * @throws InvalidRequestException
+     *         This exception occurs when there is something wrong with user input.
+     * @sample AmazonElasticMapReduce.UpdateStudioSessionMapping
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/UpdateStudioSessionMapping"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateStudioSessionMappingResult updateStudioSessionMapping(UpdateStudioSessionMappingRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateStudioSessionMapping(request);
+    }
+
+    @SdkInternalApi
+    final UpdateStudioSessionMappingResult executeUpdateStudioSessionMapping(UpdateStudioSessionMappingRequest updateStudioSessionMappingRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateStudioSessionMappingRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateStudioSessionMappingRequest> request = null;
+        Response<UpdateStudioSessionMappingResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateStudioSessionMappingRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateStudioSessionMappingRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "EMR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateStudioSessionMapping");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateStudioSessionMappingResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateStudioSessionMappingResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();

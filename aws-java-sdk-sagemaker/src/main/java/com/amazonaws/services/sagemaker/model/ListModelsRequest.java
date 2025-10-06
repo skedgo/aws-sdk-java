@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,8 +52,7 @@ public class ListModelsRequest extends com.amazonaws.AmazonWebServiceRequest imp
     private Integer maxResults;
     /**
      * <p>
-     * A string in the training job name. This filter returns only models in the training job whose name contains the
-     * specified string.
+     * A string in the model name. This filter returns only models whose name contains the specified string.
      * </p>
      */
     private String nameContains;
@@ -276,13 +275,11 @@ public class ListModelsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A string in the training job name. This filter returns only models in the training job whose name contains the
-     * specified string.
+     * A string in the model name. This filter returns only models whose name contains the specified string.
      * </p>
      * 
      * @param nameContains
-     *        A string in the training job name. This filter returns only models in the training job whose name contains
-     *        the specified string.
+     *        A string in the model name. This filter returns only models whose name contains the specified string.
      */
 
     public void setNameContains(String nameContains) {
@@ -291,12 +288,10 @@ public class ListModelsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A string in the training job name. This filter returns only models in the training job whose name contains the
-     * specified string.
+     * A string in the model name. This filter returns only models whose name contains the specified string.
      * </p>
      * 
-     * @return A string in the training job name. This filter returns only models in the training job whose name
-     *         contains the specified string.
+     * @return A string in the model name. This filter returns only models whose name contains the specified string.
      */
 
     public String getNameContains() {
@@ -305,13 +300,11 @@ public class ListModelsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A string in the training job name. This filter returns only models in the training job whose name contains the
-     * specified string.
+     * A string in the model name. This filter returns only models whose name contains the specified string.
      * </p>
      * 
      * @param nameContains
-     *        A string in the training job name. This filter returns only models in the training job whose name contains
-     *        the specified string.
+     *        A string in the model name. This filter returns only models whose name contains the specified string.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

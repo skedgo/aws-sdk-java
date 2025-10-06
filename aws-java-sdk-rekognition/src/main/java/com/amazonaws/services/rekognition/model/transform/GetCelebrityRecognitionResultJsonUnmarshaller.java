@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -67,7 +67,20 @@ public class GetCelebrityRecognitionResultJsonUnmarshaller implements Unmarshall
                 if (context.testExpression("Celebrities", targetDepth)) {
                     context.nextToken();
                     getCelebrityRecognitionResult.setCelebrities(new ListUnmarshaller<CelebrityRecognition>(CelebrityRecognitionJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("JobId", targetDepth)) {
+                    context.nextToken();
+                    getCelebrityRecognitionResult.setJobId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("Video", targetDepth)) {
+                    context.nextToken();
+                    getCelebrityRecognitionResult.setVideo(VideoJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("JobTag", targetDepth)) {
+                    context.nextToken();
+                    getCelebrityRecognitionResult.setJobTag(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

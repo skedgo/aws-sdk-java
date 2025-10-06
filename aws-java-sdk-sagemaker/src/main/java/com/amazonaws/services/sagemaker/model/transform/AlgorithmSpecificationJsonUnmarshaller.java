@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -63,7 +63,28 @@ public class AlgorithmSpecificationJsonUnmarshaller implements Unmarshaller<Algo
                 if (context.testExpression("MetricDefinitions", targetDepth)) {
                     context.nextToken();
                     algorithmSpecification.setMetricDefinitions(new ListUnmarshaller<MetricDefinition>(MetricDefinitionJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("EnableSageMakerMetricsTimeSeries", targetDepth)) {
+                    context.nextToken();
+                    algorithmSpecification.setEnableSageMakerMetricsTimeSeries(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("ContainerEntrypoint", targetDepth)) {
+                    context.nextToken();
+                    algorithmSpecification.setContainerEntrypoint(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("ContainerArguments", targetDepth)) {
+                    context.nextToken();
+                    algorithmSpecification.setContainerArguments(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("TrainingImageConfig", targetDepth)) {
+                    context.nextToken();
+                    algorithmSpecification.setTrainingImageConfig(TrainingImageConfigJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

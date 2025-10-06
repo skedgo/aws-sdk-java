@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,9 @@ public class ModifyInstancePlacementRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The affinity setting for the instance.
+     * The affinity setting for the instance. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/how-dedicated-hosts-work.html#dedicated-hosts-affinity">Host
+     * affinity</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      */
     private String affinity;
@@ -59,22 +61,48 @@ public class ModifyInstancePlacementRequest extends AmazonWebServiceRequest impl
      * <p>
      * The tenancy for the instance.
      * </p>
+     * <note>
+     * <p>
+     * For T3 instances, you must launch the instance on a Dedicated Host to use a tenancy of <code>host</code>. You
+     * can't change the tenancy from <code>host</code> to <code>dedicated</code> or <code>default</code>. Attempting to
+     * make one of these unsupported tenancy changes results in an <code>InvalidRequest</code> error code.
+     * </p>
+     * </note>
      */
     private String tenancy;
     /**
      * <p>
-     * Reserved for future use.
+     * The number of the partition in which to place the instance. Valid only if the placement group strategy is set to
+     * <code>partition</code>.
      * </p>
      */
     private Integer partitionNumber;
+    /**
+     * <p>
+     * The ARN of the host resource group in which to place the instance. The instance must have a tenancy of
+     * <code>host</code> to specify this parameter.
+     * </p>
+     */
+    private String hostResourceGroupArn;
+    /**
+     * <p>
+     * The Group Id of a placement group. You must specify the Placement Group <b>Group Id</b> to launch an instance in
+     * a shared placement group.
+     * </p>
+     */
+    private String groupId;
 
     /**
      * <p>
-     * The affinity setting for the instance.
+     * The affinity setting for the instance. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/how-dedicated-hosts-work.html#dedicated-hosts-affinity">Host
+     * affinity</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param affinity
-     *        The affinity setting for the instance.
+     *        The affinity setting for the instance. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/how-dedicated-hosts-work.html#dedicated-hosts-affinity"
+     *        >Host affinity</a> in the <i>Amazon EC2 User Guide</i>.
      * @see Affinity
      */
 
@@ -84,10 +112,14 @@ public class ModifyInstancePlacementRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The affinity setting for the instance.
+     * The affinity setting for the instance. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/how-dedicated-hosts-work.html#dedicated-hosts-affinity">Host
+     * affinity</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
-     * @return The affinity setting for the instance.
+     * @return The affinity setting for the instance. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/how-dedicated-hosts-work.html#dedicated-hosts-affinity"
+     *         >Host affinity</a> in the <i>Amazon EC2 User Guide</i>.
      * @see Affinity
      */
 
@@ -97,11 +129,15 @@ public class ModifyInstancePlacementRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The affinity setting for the instance.
+     * The affinity setting for the instance. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/how-dedicated-hosts-work.html#dedicated-hosts-affinity">Host
+     * affinity</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param affinity
-     *        The affinity setting for the instance.
+     *        The affinity setting for the instance. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/how-dedicated-hosts-work.html#dedicated-hosts-affinity"
+     *        >Host affinity</a> in the <i>Amazon EC2 User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Affinity
      */
@@ -113,11 +149,15 @@ public class ModifyInstancePlacementRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The affinity setting for the instance.
+     * The affinity setting for the instance. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/how-dedicated-hosts-work.html#dedicated-hosts-affinity">Host
+     * affinity</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param affinity
-     *        The affinity setting for the instance.
+     *        The affinity setting for the instance. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/how-dedicated-hosts-work.html#dedicated-hosts-affinity"
+     *        >Host affinity</a> in the <i>Amazon EC2 User Guide</i>.
      * @see Affinity
      */
 
@@ -127,11 +167,15 @@ public class ModifyInstancePlacementRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The affinity setting for the instance.
+     * The affinity setting for the instance. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/how-dedicated-hosts-work.html#dedicated-hosts-affinity">Host
+     * affinity</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param affinity
-     *        The affinity setting for the instance.
+     *        The affinity setting for the instance. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/how-dedicated-hosts-work.html#dedicated-hosts-affinity"
+     *        >Host affinity</a> in the <i>Amazon EC2 User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Affinity
      */
@@ -292,9 +336,22 @@ public class ModifyInstancePlacementRequest extends AmazonWebServiceRequest impl
      * <p>
      * The tenancy for the instance.
      * </p>
+     * <note>
+     * <p>
+     * For T3 instances, you must launch the instance on a Dedicated Host to use a tenancy of <code>host</code>. You
+     * can't change the tenancy from <code>host</code> to <code>dedicated</code> or <code>default</code>. Attempting to
+     * make one of these unsupported tenancy changes results in an <code>InvalidRequest</code> error code.
+     * </p>
+     * </note>
      * 
      * @param tenancy
-     *        The tenancy for the instance.
+     *        The tenancy for the instance.</p> <note>
+     *        <p>
+     *        For T3 instances, you must launch the instance on a Dedicated Host to use a tenancy of <code>host</code>.
+     *        You can't change the tenancy from <code>host</code> to <code>dedicated</code> or <code>default</code>.
+     *        Attempting to make one of these unsupported tenancy changes results in an <code>InvalidRequest</code>
+     *        error code.
+     *        </p>
      * @see HostTenancy
      */
 
@@ -306,8 +363,21 @@ public class ModifyInstancePlacementRequest extends AmazonWebServiceRequest impl
      * <p>
      * The tenancy for the instance.
      * </p>
+     * <note>
+     * <p>
+     * For T3 instances, you must launch the instance on a Dedicated Host to use a tenancy of <code>host</code>. You
+     * can't change the tenancy from <code>host</code> to <code>dedicated</code> or <code>default</code>. Attempting to
+     * make one of these unsupported tenancy changes results in an <code>InvalidRequest</code> error code.
+     * </p>
+     * </note>
      * 
-     * @return The tenancy for the instance.
+     * @return The tenancy for the instance.</p> <note>
+     *         <p>
+     *         For T3 instances, you must launch the instance on a Dedicated Host to use a tenancy of <code>host</code>.
+     *         You can't change the tenancy from <code>host</code> to <code>dedicated</code> or <code>default</code>.
+     *         Attempting to make one of these unsupported tenancy changes results in an <code>InvalidRequest</code>
+     *         error code.
+     *         </p>
      * @see HostTenancy
      */
 
@@ -319,9 +389,22 @@ public class ModifyInstancePlacementRequest extends AmazonWebServiceRequest impl
      * <p>
      * The tenancy for the instance.
      * </p>
+     * <note>
+     * <p>
+     * For T3 instances, you must launch the instance on a Dedicated Host to use a tenancy of <code>host</code>. You
+     * can't change the tenancy from <code>host</code> to <code>dedicated</code> or <code>default</code>. Attempting to
+     * make one of these unsupported tenancy changes results in an <code>InvalidRequest</code> error code.
+     * </p>
+     * </note>
      * 
      * @param tenancy
-     *        The tenancy for the instance.
+     *        The tenancy for the instance.</p> <note>
+     *        <p>
+     *        For T3 instances, you must launch the instance on a Dedicated Host to use a tenancy of <code>host</code>.
+     *        You can't change the tenancy from <code>host</code> to <code>dedicated</code> or <code>default</code>.
+     *        Attempting to make one of these unsupported tenancy changes results in an <code>InvalidRequest</code>
+     *        error code.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HostTenancy
      */
@@ -335,9 +418,22 @@ public class ModifyInstancePlacementRequest extends AmazonWebServiceRequest impl
      * <p>
      * The tenancy for the instance.
      * </p>
+     * <note>
+     * <p>
+     * For T3 instances, you must launch the instance on a Dedicated Host to use a tenancy of <code>host</code>. You
+     * can't change the tenancy from <code>host</code> to <code>dedicated</code> or <code>default</code>. Attempting to
+     * make one of these unsupported tenancy changes results in an <code>InvalidRequest</code> error code.
+     * </p>
+     * </note>
      * 
      * @param tenancy
-     *        The tenancy for the instance.
+     *        The tenancy for the instance.</p> <note>
+     *        <p>
+     *        For T3 instances, you must launch the instance on a Dedicated Host to use a tenancy of <code>host</code>.
+     *        You can't change the tenancy from <code>host</code> to <code>dedicated</code> or <code>default</code>.
+     *        Attempting to make one of these unsupported tenancy changes results in an <code>InvalidRequest</code>
+     *        error code.
+     *        </p>
      * @see HostTenancy
      */
 
@@ -349,9 +445,22 @@ public class ModifyInstancePlacementRequest extends AmazonWebServiceRequest impl
      * <p>
      * The tenancy for the instance.
      * </p>
+     * <note>
+     * <p>
+     * For T3 instances, you must launch the instance on a Dedicated Host to use a tenancy of <code>host</code>. You
+     * can't change the tenancy from <code>host</code> to <code>dedicated</code> or <code>default</code>. Attempting to
+     * make one of these unsupported tenancy changes results in an <code>InvalidRequest</code> error code.
+     * </p>
+     * </note>
      * 
      * @param tenancy
-     *        The tenancy for the instance.
+     *        The tenancy for the instance.</p> <note>
+     *        <p>
+     *        For T3 instances, you must launch the instance on a Dedicated Host to use a tenancy of <code>host</code>.
+     *        You can't change the tenancy from <code>host</code> to <code>dedicated</code> or <code>default</code>.
+     *        Attempting to make one of these unsupported tenancy changes results in an <code>InvalidRequest</code>
+     *        error code.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HostTenancy
      */
@@ -363,11 +472,13 @@ public class ModifyInstancePlacementRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Reserved for future use.
+     * The number of the partition in which to place the instance. Valid only if the placement group strategy is set to
+     * <code>partition</code>.
      * </p>
      * 
      * @param partitionNumber
-     *        Reserved for future use.
+     *        The number of the partition in which to place the instance. Valid only if the placement group strategy is
+     *        set to <code>partition</code>.
      */
 
     public void setPartitionNumber(Integer partitionNumber) {
@@ -376,10 +487,12 @@ public class ModifyInstancePlacementRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Reserved for future use.
+     * The number of the partition in which to place the instance. Valid only if the placement group strategy is set to
+     * <code>partition</code>.
      * </p>
      * 
-     * @return Reserved for future use.
+     * @return The number of the partition in which to place the instance. Valid only if the placement group strategy is
+     *         set to <code>partition</code>.
      */
 
     public Integer getPartitionNumber() {
@@ -388,16 +501,110 @@ public class ModifyInstancePlacementRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Reserved for future use.
+     * The number of the partition in which to place the instance. Valid only if the placement group strategy is set to
+     * <code>partition</code>.
      * </p>
      * 
      * @param partitionNumber
-     *        Reserved for future use.
+     *        The number of the partition in which to place the instance. Valid only if the placement group strategy is
+     *        set to <code>partition</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ModifyInstancePlacementRequest withPartitionNumber(Integer partitionNumber) {
         setPartitionNumber(partitionNumber);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN of the host resource group in which to place the instance. The instance must have a tenancy of
+     * <code>host</code> to specify this parameter.
+     * </p>
+     * 
+     * @param hostResourceGroupArn
+     *        The ARN of the host resource group in which to place the instance. The instance must have a tenancy of
+     *        <code>host</code> to specify this parameter.
+     */
+
+    public void setHostResourceGroupArn(String hostResourceGroupArn) {
+        this.hostResourceGroupArn = hostResourceGroupArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the host resource group in which to place the instance. The instance must have a tenancy of
+     * <code>host</code> to specify this parameter.
+     * </p>
+     * 
+     * @return The ARN of the host resource group in which to place the instance. The instance must have a tenancy of
+     *         <code>host</code> to specify this parameter.
+     */
+
+    public String getHostResourceGroupArn() {
+        return this.hostResourceGroupArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the host resource group in which to place the instance. The instance must have a tenancy of
+     * <code>host</code> to specify this parameter.
+     * </p>
+     * 
+     * @param hostResourceGroupArn
+     *        The ARN of the host resource group in which to place the instance. The instance must have a tenancy of
+     *        <code>host</code> to specify this parameter.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyInstancePlacementRequest withHostResourceGroupArn(String hostResourceGroupArn) {
+        setHostResourceGroupArn(hostResourceGroupArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Group Id of a placement group. You must specify the Placement Group <b>Group Id</b> to launch an instance in
+     * a shared placement group.
+     * </p>
+     * 
+     * @param groupId
+     *        The Group Id of a placement group. You must specify the Placement Group <b>Group Id</b> to launch an
+     *        instance in a shared placement group.
+     */
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
+    /**
+     * <p>
+     * The Group Id of a placement group. You must specify the Placement Group <b>Group Id</b> to launch an instance in
+     * a shared placement group.
+     * </p>
+     * 
+     * @return The Group Id of a placement group. You must specify the Placement Group <b>Group Id</b> to launch an
+     *         instance in a shared placement group.
+     */
+
+    public String getGroupId() {
+        return this.groupId;
+    }
+
+    /**
+     * <p>
+     * The Group Id of a placement group. You must specify the Placement Group <b>Group Id</b> to launch an instance in
+     * a shared placement group.
+     * </p>
+     * 
+     * @param groupId
+     *        The Group Id of a placement group. You must specify the Placement Group <b>Group Id</b> to launch an
+     *        instance in a shared placement group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyInstancePlacementRequest withGroupId(String groupId) {
+        setGroupId(groupId);
         return this;
     }
 
@@ -435,7 +642,11 @@ public class ModifyInstancePlacementRequest extends AmazonWebServiceRequest impl
         if (getTenancy() != null)
             sb.append("Tenancy: ").append(getTenancy()).append(",");
         if (getPartitionNumber() != null)
-            sb.append("PartitionNumber: ").append(getPartitionNumber());
+            sb.append("PartitionNumber: ").append(getPartitionNumber()).append(",");
+        if (getHostResourceGroupArn() != null)
+            sb.append("HostResourceGroupArn: ").append(getHostResourceGroupArn()).append(",");
+        if (getGroupId() != null)
+            sb.append("GroupId: ").append(getGroupId());
         sb.append("}");
         return sb.toString();
     }
@@ -474,6 +685,14 @@ public class ModifyInstancePlacementRequest extends AmazonWebServiceRequest impl
             return false;
         if (other.getPartitionNumber() != null && other.getPartitionNumber().equals(this.getPartitionNumber()) == false)
             return false;
+        if (other.getHostResourceGroupArn() == null ^ this.getHostResourceGroupArn() == null)
+            return false;
+        if (other.getHostResourceGroupArn() != null && other.getHostResourceGroupArn().equals(this.getHostResourceGroupArn()) == false)
+            return false;
+        if (other.getGroupId() == null ^ this.getGroupId() == null)
+            return false;
+        if (other.getGroupId() != null && other.getGroupId().equals(this.getGroupId()) == false)
+            return false;
         return true;
     }
 
@@ -488,6 +707,8 @@ public class ModifyInstancePlacementRequest extends AmazonWebServiceRequest impl
         hashCode = prime * hashCode + ((getInstanceId() == null) ? 0 : getInstanceId().hashCode());
         hashCode = prime * hashCode + ((getTenancy() == null) ? 0 : getTenancy().hashCode());
         hashCode = prime * hashCode + ((getPartitionNumber() == null) ? 0 : getPartitionNumber().hashCode());
+        hashCode = prime * hashCode + ((getHostResourceGroupArn() == null) ? 0 : getHostResourceGroupArn().hashCode());
+        hashCode = prime * hashCode + ((getGroupId() == null) ? 0 : getGroupId().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.mediaconvert.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -27,12 +28,18 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class CmafGroupSettingsMarshaller {
 
+    private static final MarshallingInfo<List> ADDITIONALMANIFESTS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("additionalManifests").build();
     private static final MarshallingInfo<String> BASEURL_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("baseUrl").build();
     private static final MarshallingInfo<String> CLIENTCACHE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("clientCache").build();
     private static final MarshallingInfo<String> CODECSPECIFICATION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("codecSpecification").build();
+    private static final MarshallingInfo<String> DASHIFRAMETRICKPLAYNAMEMODIFIER_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("dashIFrameTrickPlayNameModifier").build();
+    private static final MarshallingInfo<String> DASHMANIFESTSTYLE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("dashManifestStyle").build();
     private static final MarshallingInfo<String> DESTINATION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("destination").build();
     private static final MarshallingInfo<StructuredPojo> DESTINATIONSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
@@ -41,6 +48,10 @@ public class CmafGroupSettingsMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("encryption").build();
     private static final MarshallingInfo<Integer> FRAGMENTLENGTH_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("fragmentLength").build();
+    private static final MarshallingInfo<String> IMAGEBASEDTRICKPLAY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("imageBasedTrickPlay").build();
+    private static final MarshallingInfo<StructuredPojo> IMAGEBASEDTRICKPLAYSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("imageBasedTrickPlaySettings").build();
     private static final MarshallingInfo<String> MANIFESTCOMPRESSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("manifestCompression").build();
     private static final MarshallingInfo<String> MANIFESTDURATIONFORMAT_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -49,16 +60,30 @@ public class CmafGroupSettingsMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("minBufferTime").build();
     private static final MarshallingInfo<Double> MINFINALSEGMENTLENGTH_BINDING = MarshallingInfo.builder(MarshallingType.DOUBLE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("minFinalSegmentLength").build();
+    private static final MarshallingInfo<String> MPDMANIFESTBANDWIDTHTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("mpdManifestBandwidthType").build();
+    private static final MarshallingInfo<String> MPDPROFILE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("mpdProfile").build();
+    private static final MarshallingInfo<String> PTSOFFSETHANDLINGFORBFRAMES_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ptsOffsetHandlingForBFrames").build();
     private static final MarshallingInfo<String> SEGMENTCONTROL_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("segmentControl").build();
     private static final MarshallingInfo<Integer> SEGMENTLENGTH_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("segmentLength").build();
+    private static final MarshallingInfo<String> SEGMENTLENGTHCONTROL_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("segmentLengthControl").build();
     private static final MarshallingInfo<String> STREAMINFRESOLUTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("streamInfResolution").build();
+    private static final MarshallingInfo<String> TARGETDURATIONCOMPATIBILITYMODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("targetDurationCompatibilityMode").build();
+    private static final MarshallingInfo<String> VIDEOCOMPOSITIONOFFSETS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("videoCompositionOffsets").build();
     private static final MarshallingInfo<String> WRITEDASHMANIFEST_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("writeDashManifest").build();
     private static final MarshallingInfo<String> WRITEHLSMANIFEST_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("writeHlsManifest").build();
+    private static final MarshallingInfo<String> WRITESEGMENTTIMELINEINREPRESENTATION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("writeSegmentTimelineInRepresentation").build();
 
     private static final CmafGroupSettingsMarshaller instance = new CmafGroupSettingsMarshaller();
 
@@ -76,22 +101,34 @@ public class CmafGroupSettingsMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(cmafGroupSettings.getAdditionalManifests(), ADDITIONALMANIFESTS_BINDING);
             protocolMarshaller.marshall(cmafGroupSettings.getBaseUrl(), BASEURL_BINDING);
             protocolMarshaller.marshall(cmafGroupSettings.getClientCache(), CLIENTCACHE_BINDING);
             protocolMarshaller.marshall(cmafGroupSettings.getCodecSpecification(), CODECSPECIFICATION_BINDING);
+            protocolMarshaller.marshall(cmafGroupSettings.getDashIFrameTrickPlayNameModifier(), DASHIFRAMETRICKPLAYNAMEMODIFIER_BINDING);
+            protocolMarshaller.marshall(cmafGroupSettings.getDashManifestStyle(), DASHMANIFESTSTYLE_BINDING);
             protocolMarshaller.marshall(cmafGroupSettings.getDestination(), DESTINATION_BINDING);
             protocolMarshaller.marshall(cmafGroupSettings.getDestinationSettings(), DESTINATIONSETTINGS_BINDING);
             protocolMarshaller.marshall(cmafGroupSettings.getEncryption(), ENCRYPTION_BINDING);
             protocolMarshaller.marshall(cmafGroupSettings.getFragmentLength(), FRAGMENTLENGTH_BINDING);
+            protocolMarshaller.marshall(cmafGroupSettings.getImageBasedTrickPlay(), IMAGEBASEDTRICKPLAY_BINDING);
+            protocolMarshaller.marshall(cmafGroupSettings.getImageBasedTrickPlaySettings(), IMAGEBASEDTRICKPLAYSETTINGS_BINDING);
             protocolMarshaller.marshall(cmafGroupSettings.getManifestCompression(), MANIFESTCOMPRESSION_BINDING);
             protocolMarshaller.marshall(cmafGroupSettings.getManifestDurationFormat(), MANIFESTDURATIONFORMAT_BINDING);
             protocolMarshaller.marshall(cmafGroupSettings.getMinBufferTime(), MINBUFFERTIME_BINDING);
             protocolMarshaller.marshall(cmafGroupSettings.getMinFinalSegmentLength(), MINFINALSEGMENTLENGTH_BINDING);
+            protocolMarshaller.marshall(cmafGroupSettings.getMpdManifestBandwidthType(), MPDMANIFESTBANDWIDTHTYPE_BINDING);
+            protocolMarshaller.marshall(cmafGroupSettings.getMpdProfile(), MPDPROFILE_BINDING);
+            protocolMarshaller.marshall(cmafGroupSettings.getPtsOffsetHandlingForBFrames(), PTSOFFSETHANDLINGFORBFRAMES_BINDING);
             protocolMarshaller.marshall(cmafGroupSettings.getSegmentControl(), SEGMENTCONTROL_BINDING);
             protocolMarshaller.marshall(cmafGroupSettings.getSegmentLength(), SEGMENTLENGTH_BINDING);
+            protocolMarshaller.marshall(cmafGroupSettings.getSegmentLengthControl(), SEGMENTLENGTHCONTROL_BINDING);
             protocolMarshaller.marshall(cmafGroupSettings.getStreamInfResolution(), STREAMINFRESOLUTION_BINDING);
+            protocolMarshaller.marshall(cmafGroupSettings.getTargetDurationCompatibilityMode(), TARGETDURATIONCOMPATIBILITYMODE_BINDING);
+            protocolMarshaller.marshall(cmafGroupSettings.getVideoCompositionOffsets(), VIDEOCOMPOSITIONOFFSETS_BINDING);
             protocolMarshaller.marshall(cmafGroupSettings.getWriteDashManifest(), WRITEDASHMANIFEST_BINDING);
             protocolMarshaller.marshall(cmafGroupSettings.getWriteHlsManifest(), WRITEHLSMANIFEST_BINDING);
+            protocolMarshaller.marshall(cmafGroupSettings.getWriteSegmentTimelineInRepresentation(), WRITESEGMENTTIMELINEINREPRESENTATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

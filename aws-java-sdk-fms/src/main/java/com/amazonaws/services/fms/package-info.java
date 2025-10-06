@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,12 +12,16 @@
  */
 
 /**
- * <fullname>AWS Firewall Manager</fullname>
  * <p>
- * This is the <i>AWS Firewall Manager API Reference</i>. This guide is for developers who need detailed information
- * about the AWS Firewall Manager API actions, data types, and errors. For detailed information about AWS Firewall
- * Manager features, see the <a href="https://docs.aws.amazon.com/waf/latest/developerguide/fms-chapter.html">AWS
- * Firewall Manager Developer Guide</a>.
+ * This is the <i>Firewall Manager API Reference</i>. This guide is for developers who need detailed information about
+ * the Firewall Manager API actions, data types, and errors. For detailed information about Firewall Manager features,
+ * see the <a href="https://docs.aws.amazon.com/waf/latest/developerguide/fms-chapter.html">Firewall Manager Developer
+ * Guide</a>.
+ * </p>
+ * <p>
+ * Some API actions require explicit resource permissions. For information, see the developer guide topic <a href=
+ * "https://docs.aws.amazon.com/waf/latest/developerguide/fms-security_iam_service-with-iam.html#fms-security_iam_service-with-iam-roles-service"
+ * >Service roles for Firewall Manager</a>.
  * </p>
  */
 package com.amazonaws.services.fms;

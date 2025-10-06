@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,7 +31,7 @@ public class UpdatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a policy ID string requires "p-" followed by
-     * from 8 to 128 lower-case letters or digits.
+     * from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
      * </p>
      */
     private String policyId;
@@ -55,8 +55,13 @@ public class UpdatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * If provided, the new content for the policy. The text must be correctly formatted JSON that complies with the
      * syntax for the policy's type. For more information, see <a
-     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_reference_scp-syntax.html">Service Control
-     * Policy Syntax</a> in the <i>AWS Organizations User Guide.</i>
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps_syntax.html">SCP
+     * syntax</a> in the <i>Organizations User Guide</i>.
+     * </p>
+     * <p>
+     * The maximum size of a policy document depends on the policy's type. For more information, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_reference_limits.html#min-max-values"
+     * >Maximum and minimum values</a> in the <i>Organizations User Guide</i>.
      * </p>
      */
     private String content;
@@ -67,14 +72,14 @@ public class UpdatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a policy ID string requires "p-" followed by
-     * from 8 to 128 lower-case letters or digits.
+     * from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
      * </p>
      * 
      * @param policyId
      *        The unique identifier (ID) of the policy that you want to update.</p>
      *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a policy ID string requires "p-"
-     *        followed by from 8 to 128 lower-case letters or digits.
+     *        followed by from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
      */
 
     public void setPolicyId(String policyId) {
@@ -87,13 +92,13 @@ public class UpdatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a policy ID string requires "p-" followed by
-     * from 8 to 128 lower-case letters or digits.
+     * from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
      * </p>
      * 
      * @return The unique identifier (ID) of the policy that you want to update.</p>
      *         <p>
      *         The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a policy ID string requires "p-"
-     *         followed by from 8 to 128 lower-case letters or digits.
+     *         followed by from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
      */
 
     public String getPolicyId() {
@@ -106,14 +111,14 @@ public class UpdatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a policy ID string requires "p-" followed by
-     * from 8 to 128 lower-case letters or digits.
+     * from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
      * </p>
      * 
      * @param policyId
      *        The unique identifier (ID) of the policy that you want to update.</p>
      *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a policy ID string requires "p-"
-     *        followed by from 8 to 128 lower-case letters or digits.
+     *        followed by from 8 to 128 lowercase or uppercase letters, digits, or the underscore character (_).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -227,15 +232,24 @@ public class UpdatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * If provided, the new content for the policy. The text must be correctly formatted JSON that complies with the
      * syntax for the policy's type. For more information, see <a
-     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_reference_scp-syntax.html">Service Control
-     * Policy Syntax</a> in the <i>AWS Organizations User Guide.</i>
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps_syntax.html">SCP
+     * syntax</a> in the <i>Organizations User Guide</i>.
+     * </p>
+     * <p>
+     * The maximum size of a policy document depends on the policy's type. For more information, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_reference_limits.html#min-max-values"
+     * >Maximum and minimum values</a> in the <i>Organizations User Guide</i>.
      * </p>
      * 
      * @param content
      *        If provided, the new content for the policy. The text must be correctly formatted JSON that complies with
      *        the syntax for the policy's type. For more information, see <a
-     *        href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_reference_scp-syntax.html">Service
-     *        Control Policy Syntax</a> in the <i>AWS Organizations User Guide.</i>
+     *        href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps_syntax.html"
+     *        >SCP syntax</a> in the <i>Organizations User Guide</i>.</p>
+     *        <p>
+     *        The maximum size of a policy document depends on the policy's type. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_reference_limits.html#min-max-values"
+     *        >Maximum and minimum values</a> in the <i>Organizations User Guide</i>.
      */
 
     public void setContent(String content) {
@@ -246,14 +260,23 @@ public class UpdatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * If provided, the new content for the policy. The text must be correctly formatted JSON that complies with the
      * syntax for the policy's type. For more information, see <a
-     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_reference_scp-syntax.html">Service Control
-     * Policy Syntax</a> in the <i>AWS Organizations User Guide.</i>
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps_syntax.html">SCP
+     * syntax</a> in the <i>Organizations User Guide</i>.
+     * </p>
+     * <p>
+     * The maximum size of a policy document depends on the policy's type. For more information, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_reference_limits.html#min-max-values"
+     * >Maximum and minimum values</a> in the <i>Organizations User Guide</i>.
      * </p>
      * 
      * @return If provided, the new content for the policy. The text must be correctly formatted JSON that complies with
      *         the syntax for the policy's type. For more information, see <a
-     *         href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_reference_scp-syntax.html">Service
-     *         Control Policy Syntax</a> in the <i>AWS Organizations User Guide.</i>
+     *         href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps_syntax.html"
+     *         >SCP syntax</a> in the <i>Organizations User Guide</i>.</p>
+     *         <p>
+     *         The maximum size of a policy document depends on the policy's type. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_reference_limits.html#min-max-values"
+     *         >Maximum and minimum values</a> in the <i>Organizations User Guide</i>.
      */
 
     public String getContent() {
@@ -264,15 +287,24 @@ public class UpdatePolicyRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * If provided, the new content for the policy. The text must be correctly formatted JSON that complies with the
      * syntax for the policy's type. For more information, see <a
-     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_reference_scp-syntax.html">Service Control
-     * Policy Syntax</a> in the <i>AWS Organizations User Guide.</i>
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps_syntax.html">SCP
+     * syntax</a> in the <i>Organizations User Guide</i>.
+     * </p>
+     * <p>
+     * The maximum size of a policy document depends on the policy's type. For more information, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_reference_limits.html#min-max-values"
+     * >Maximum and minimum values</a> in the <i>Organizations User Guide</i>.
      * </p>
      * 
      * @param content
      *        If provided, the new content for the policy. The text must be correctly formatted JSON that complies with
      *        the syntax for the policy's type. For more information, see <a
-     *        href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_reference_scp-syntax.html">Service
-     *        Control Policy Syntax</a> in the <i>AWS Organizations User Guide.</i>
+     *        href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps_syntax.html"
+     *        >SCP syntax</a> in the <i>Organizations User Guide</i>.</p>
+     *        <p>
+     *        The maximum size of a policy document depends on the policy's type. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_reference_limits.html#min-max-values"
+     *        >Maximum and minimum values</a> in the <i>Organizations User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

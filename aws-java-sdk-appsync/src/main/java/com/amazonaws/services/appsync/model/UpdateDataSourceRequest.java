@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,7 +51,7 @@ public class UpdateDataSourceRequest extends com.amazonaws.AmazonWebServiceReque
     private String type;
     /**
      * <p>
-     * The new service role ARN for the data source.
+     * The new service role Amazon Resource Name (ARN) for the data source.
      * </p>
      */
     private String serviceRoleArn;
@@ -63,16 +63,27 @@ public class UpdateDataSourceRequest extends com.amazonaws.AmazonWebServiceReque
     private DynamodbDataSourceConfig dynamodbConfig;
     /**
      * <p>
-     * The new AWS Lambda configuration.
+     * The new Lambda configuration.
      * </p>
      */
     private LambdaDataSourceConfig lambdaConfig;
     /**
      * <p>
-     * The new Elasticsearch Service configuration.
+     * The new OpenSearch configuration.
+     * </p>
+     * <p>
+     * As of September 2021, Amazon Elasticsearch service is Amazon OpenSearch Service. This configuration is
+     * deprecated. Instead, use <a>UpdateDataSourceRequest$openSearchServiceConfig</a> to update an OpenSearch data
+     * source.
      * </p>
      */
     private ElasticsearchDataSourceConfig elasticsearchConfig;
+    /**
+     * <p>
+     * The new OpenSearch configuration.
+     * </p>
+     */
+    private OpenSearchServiceDataSourceConfig openSearchServiceConfig;
     /**
      * <p>
      * The new HTTP endpoint configuration.
@@ -85,6 +96,25 @@ public class UpdateDataSourceRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      */
     private RelationalDatabaseDataSourceConfig relationalDatabaseConfig;
+    /**
+     * <p>
+     * The new Amazon EventBridge settings.
+     * </p>
+     */
+    private EventBridgeDataSourceConfig eventBridgeConfig;
+    /**
+     * <p>
+     * Enables or disables enhanced data source metrics for specified data sources. Note that <code>metricsConfig</code>
+     * won't be used unless the <code>dataSourceLevelMetricsBehavior</code> value is set to
+     * <code>PER_DATA_SOURCE_METRICS</code>. If the <code>dataSourceLevelMetricsBehavior</code> is set to
+     * <code>FULL_REQUEST_DATA_SOURCE_METRICS</code> instead, <code>metricsConfig</code> will be ignored. However, you
+     * can still set its value.
+     * </p>
+     * <p>
+     * <code>metricsConfig</code> can be <code>ENABLED</code> or <code>DISABLED</code>.
+     * </p>
+     */
+    private String metricsConfig;
 
     /**
      * <p>
@@ -267,11 +297,11 @@ public class UpdateDataSourceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The new service role ARN for the data source.
+     * The new service role Amazon Resource Name (ARN) for the data source.
      * </p>
      * 
      * @param serviceRoleArn
-     *        The new service role ARN for the data source.
+     *        The new service role Amazon Resource Name (ARN) for the data source.
      */
 
     public void setServiceRoleArn(String serviceRoleArn) {
@@ -280,10 +310,10 @@ public class UpdateDataSourceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The new service role ARN for the data source.
+     * The new service role Amazon Resource Name (ARN) for the data source.
      * </p>
      * 
-     * @return The new service role ARN for the data source.
+     * @return The new service role Amazon Resource Name (ARN) for the data source.
      */
 
     public String getServiceRoleArn() {
@@ -292,11 +322,11 @@ public class UpdateDataSourceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The new service role ARN for the data source.
+     * The new service role Amazon Resource Name (ARN) for the data source.
      * </p>
      * 
      * @param serviceRoleArn
-     *        The new service role ARN for the data source.
+     *        The new service role Amazon Resource Name (ARN) for the data source.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -347,11 +377,11 @@ public class UpdateDataSourceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The new AWS Lambda configuration.
+     * The new Lambda configuration.
      * </p>
      * 
      * @param lambdaConfig
-     *        The new AWS Lambda configuration.
+     *        The new Lambda configuration.
      */
 
     public void setLambdaConfig(LambdaDataSourceConfig lambdaConfig) {
@@ -360,10 +390,10 @@ public class UpdateDataSourceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The new AWS Lambda configuration.
+     * The new Lambda configuration.
      * </p>
      * 
-     * @return The new AWS Lambda configuration.
+     * @return The new Lambda configuration.
      */
 
     public LambdaDataSourceConfig getLambdaConfig() {
@@ -372,11 +402,11 @@ public class UpdateDataSourceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The new AWS Lambda configuration.
+     * The new Lambda configuration.
      * </p>
      * 
      * @param lambdaConfig
-     *        The new AWS Lambda configuration.
+     *        The new Lambda configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -387,11 +417,20 @@ public class UpdateDataSourceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The new Elasticsearch Service configuration.
+     * The new OpenSearch configuration.
+     * </p>
+     * <p>
+     * As of September 2021, Amazon Elasticsearch service is Amazon OpenSearch Service. This configuration is
+     * deprecated. Instead, use <a>UpdateDataSourceRequest$openSearchServiceConfig</a> to update an OpenSearch data
+     * source.
      * </p>
      * 
      * @param elasticsearchConfig
-     *        The new Elasticsearch Service configuration.
+     *        The new OpenSearch configuration.</p>
+     *        <p>
+     *        As of September 2021, Amazon Elasticsearch service is Amazon OpenSearch Service. This configuration is
+     *        deprecated. Instead, use <a>UpdateDataSourceRequest$openSearchServiceConfig</a> to update an OpenSearch
+     *        data source.
      */
 
     public void setElasticsearchConfig(ElasticsearchDataSourceConfig elasticsearchConfig) {
@@ -400,10 +439,19 @@ public class UpdateDataSourceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The new Elasticsearch Service configuration.
+     * The new OpenSearch configuration.
+     * </p>
+     * <p>
+     * As of September 2021, Amazon Elasticsearch service is Amazon OpenSearch Service. This configuration is
+     * deprecated. Instead, use <a>UpdateDataSourceRequest$openSearchServiceConfig</a> to update an OpenSearch data
+     * source.
      * </p>
      * 
-     * @return The new Elasticsearch Service configuration.
+     * @return The new OpenSearch configuration.</p>
+     *         <p>
+     *         As of September 2021, Amazon Elasticsearch service is Amazon OpenSearch Service. This configuration is
+     *         deprecated. Instead, use <a>UpdateDataSourceRequest$openSearchServiceConfig</a> to update an OpenSearch
+     *         data source.
      */
 
     public ElasticsearchDataSourceConfig getElasticsearchConfig() {
@@ -412,16 +460,65 @@ public class UpdateDataSourceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The new Elasticsearch Service configuration.
+     * The new OpenSearch configuration.
+     * </p>
+     * <p>
+     * As of September 2021, Amazon Elasticsearch service is Amazon OpenSearch Service. This configuration is
+     * deprecated. Instead, use <a>UpdateDataSourceRequest$openSearchServiceConfig</a> to update an OpenSearch data
+     * source.
      * </p>
      * 
      * @param elasticsearchConfig
-     *        The new Elasticsearch Service configuration.
+     *        The new OpenSearch configuration.</p>
+     *        <p>
+     *        As of September 2021, Amazon Elasticsearch service is Amazon OpenSearch Service. This configuration is
+     *        deprecated. Instead, use <a>UpdateDataSourceRequest$openSearchServiceConfig</a> to update an OpenSearch
+     *        data source.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public UpdateDataSourceRequest withElasticsearchConfig(ElasticsearchDataSourceConfig elasticsearchConfig) {
         setElasticsearchConfig(elasticsearchConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The new OpenSearch configuration.
+     * </p>
+     * 
+     * @param openSearchServiceConfig
+     *        The new OpenSearch configuration.
+     */
+
+    public void setOpenSearchServiceConfig(OpenSearchServiceDataSourceConfig openSearchServiceConfig) {
+        this.openSearchServiceConfig = openSearchServiceConfig;
+    }
+
+    /**
+     * <p>
+     * The new OpenSearch configuration.
+     * </p>
+     * 
+     * @return The new OpenSearch configuration.
+     */
+
+    public OpenSearchServiceDataSourceConfig getOpenSearchServiceConfig() {
+        return this.openSearchServiceConfig;
+    }
+
+    /**
+     * <p>
+     * The new OpenSearch configuration.
+     * </p>
+     * 
+     * @param openSearchServiceConfig
+     *        The new OpenSearch configuration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateDataSourceRequest withOpenSearchServiceConfig(OpenSearchServiceDataSourceConfig openSearchServiceConfig) {
+        setOpenSearchServiceConfig(openSearchServiceConfig);
         return this;
     }
 
@@ -506,6 +603,157 @@ public class UpdateDataSourceRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
+     * <p>
+     * The new Amazon EventBridge settings.
+     * </p>
+     * 
+     * @param eventBridgeConfig
+     *        The new Amazon EventBridge settings.
+     */
+
+    public void setEventBridgeConfig(EventBridgeDataSourceConfig eventBridgeConfig) {
+        this.eventBridgeConfig = eventBridgeConfig;
+    }
+
+    /**
+     * <p>
+     * The new Amazon EventBridge settings.
+     * </p>
+     * 
+     * @return The new Amazon EventBridge settings.
+     */
+
+    public EventBridgeDataSourceConfig getEventBridgeConfig() {
+        return this.eventBridgeConfig;
+    }
+
+    /**
+     * <p>
+     * The new Amazon EventBridge settings.
+     * </p>
+     * 
+     * @param eventBridgeConfig
+     *        The new Amazon EventBridge settings.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateDataSourceRequest withEventBridgeConfig(EventBridgeDataSourceConfig eventBridgeConfig) {
+        setEventBridgeConfig(eventBridgeConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enables or disables enhanced data source metrics for specified data sources. Note that <code>metricsConfig</code>
+     * won't be used unless the <code>dataSourceLevelMetricsBehavior</code> value is set to
+     * <code>PER_DATA_SOURCE_METRICS</code>. If the <code>dataSourceLevelMetricsBehavior</code> is set to
+     * <code>FULL_REQUEST_DATA_SOURCE_METRICS</code> instead, <code>metricsConfig</code> will be ignored. However, you
+     * can still set its value.
+     * </p>
+     * <p>
+     * <code>metricsConfig</code> can be <code>ENABLED</code> or <code>DISABLED</code>.
+     * </p>
+     * 
+     * @param metricsConfig
+     *        Enables or disables enhanced data source metrics for specified data sources. Note that
+     *        <code>metricsConfig</code> won't be used unless the <code>dataSourceLevelMetricsBehavior</code> value is
+     *        set to <code>PER_DATA_SOURCE_METRICS</code>. If the <code>dataSourceLevelMetricsBehavior</code> is set to
+     *        <code>FULL_REQUEST_DATA_SOURCE_METRICS</code> instead, <code>metricsConfig</code> will be ignored.
+     *        However, you can still set its value.</p>
+     *        <p>
+     *        <code>metricsConfig</code> can be <code>ENABLED</code> or <code>DISABLED</code>.
+     * @see DataSourceLevelMetricsConfig
+     */
+
+    public void setMetricsConfig(String metricsConfig) {
+        this.metricsConfig = metricsConfig;
+    }
+
+    /**
+     * <p>
+     * Enables or disables enhanced data source metrics for specified data sources. Note that <code>metricsConfig</code>
+     * won't be used unless the <code>dataSourceLevelMetricsBehavior</code> value is set to
+     * <code>PER_DATA_SOURCE_METRICS</code>. If the <code>dataSourceLevelMetricsBehavior</code> is set to
+     * <code>FULL_REQUEST_DATA_SOURCE_METRICS</code> instead, <code>metricsConfig</code> will be ignored. However, you
+     * can still set its value.
+     * </p>
+     * <p>
+     * <code>metricsConfig</code> can be <code>ENABLED</code> or <code>DISABLED</code>.
+     * </p>
+     * 
+     * @return Enables or disables enhanced data source metrics for specified data sources. Note that
+     *         <code>metricsConfig</code> won't be used unless the <code>dataSourceLevelMetricsBehavior</code> value is
+     *         set to <code>PER_DATA_SOURCE_METRICS</code>. If the <code>dataSourceLevelMetricsBehavior</code> is set to
+     *         <code>FULL_REQUEST_DATA_SOURCE_METRICS</code> instead, <code>metricsConfig</code> will be ignored.
+     *         However, you can still set its value.</p>
+     *         <p>
+     *         <code>metricsConfig</code> can be <code>ENABLED</code> or <code>DISABLED</code>.
+     * @see DataSourceLevelMetricsConfig
+     */
+
+    public String getMetricsConfig() {
+        return this.metricsConfig;
+    }
+
+    /**
+     * <p>
+     * Enables or disables enhanced data source metrics for specified data sources. Note that <code>metricsConfig</code>
+     * won't be used unless the <code>dataSourceLevelMetricsBehavior</code> value is set to
+     * <code>PER_DATA_SOURCE_METRICS</code>. If the <code>dataSourceLevelMetricsBehavior</code> is set to
+     * <code>FULL_REQUEST_DATA_SOURCE_METRICS</code> instead, <code>metricsConfig</code> will be ignored. However, you
+     * can still set its value.
+     * </p>
+     * <p>
+     * <code>metricsConfig</code> can be <code>ENABLED</code> or <code>DISABLED</code>.
+     * </p>
+     * 
+     * @param metricsConfig
+     *        Enables or disables enhanced data source metrics for specified data sources. Note that
+     *        <code>metricsConfig</code> won't be used unless the <code>dataSourceLevelMetricsBehavior</code> value is
+     *        set to <code>PER_DATA_SOURCE_METRICS</code>. If the <code>dataSourceLevelMetricsBehavior</code> is set to
+     *        <code>FULL_REQUEST_DATA_SOURCE_METRICS</code> instead, <code>metricsConfig</code> will be ignored.
+     *        However, you can still set its value.</p>
+     *        <p>
+     *        <code>metricsConfig</code> can be <code>ENABLED</code> or <code>DISABLED</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DataSourceLevelMetricsConfig
+     */
+
+    public UpdateDataSourceRequest withMetricsConfig(String metricsConfig) {
+        setMetricsConfig(metricsConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enables or disables enhanced data source metrics for specified data sources. Note that <code>metricsConfig</code>
+     * won't be used unless the <code>dataSourceLevelMetricsBehavior</code> value is set to
+     * <code>PER_DATA_SOURCE_METRICS</code>. If the <code>dataSourceLevelMetricsBehavior</code> is set to
+     * <code>FULL_REQUEST_DATA_SOURCE_METRICS</code> instead, <code>metricsConfig</code> will be ignored. However, you
+     * can still set its value.
+     * </p>
+     * <p>
+     * <code>metricsConfig</code> can be <code>ENABLED</code> or <code>DISABLED</code>.
+     * </p>
+     * 
+     * @param metricsConfig
+     *        Enables or disables enhanced data source metrics for specified data sources. Note that
+     *        <code>metricsConfig</code> won't be used unless the <code>dataSourceLevelMetricsBehavior</code> value is
+     *        set to <code>PER_DATA_SOURCE_METRICS</code>. If the <code>dataSourceLevelMetricsBehavior</code> is set to
+     *        <code>FULL_REQUEST_DATA_SOURCE_METRICS</code> instead, <code>metricsConfig</code> will be ignored.
+     *        However, you can still set its value.</p>
+     *        <p>
+     *        <code>metricsConfig</code> can be <code>ENABLED</code> or <code>DISABLED</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DataSourceLevelMetricsConfig
+     */
+
+    public UpdateDataSourceRequest withMetricsConfig(DataSourceLevelMetricsConfig metricsConfig) {
+        this.metricsConfig = metricsConfig.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -533,10 +781,16 @@ public class UpdateDataSourceRequest extends com.amazonaws.AmazonWebServiceReque
             sb.append("LambdaConfig: ").append(getLambdaConfig()).append(",");
         if (getElasticsearchConfig() != null)
             sb.append("ElasticsearchConfig: ").append(getElasticsearchConfig()).append(",");
+        if (getOpenSearchServiceConfig() != null)
+            sb.append("OpenSearchServiceConfig: ").append(getOpenSearchServiceConfig()).append(",");
         if (getHttpConfig() != null)
             sb.append("HttpConfig: ").append(getHttpConfig()).append(",");
         if (getRelationalDatabaseConfig() != null)
-            sb.append("RelationalDatabaseConfig: ").append(getRelationalDatabaseConfig());
+            sb.append("RelationalDatabaseConfig: ").append(getRelationalDatabaseConfig()).append(",");
+        if (getEventBridgeConfig() != null)
+            sb.append("EventBridgeConfig: ").append(getEventBridgeConfig()).append(",");
+        if (getMetricsConfig() != null)
+            sb.append("MetricsConfig: ").append(getMetricsConfig());
         sb.append("}");
         return sb.toString();
     }
@@ -583,6 +837,10 @@ public class UpdateDataSourceRequest extends com.amazonaws.AmazonWebServiceReque
             return false;
         if (other.getElasticsearchConfig() != null && other.getElasticsearchConfig().equals(this.getElasticsearchConfig()) == false)
             return false;
+        if (other.getOpenSearchServiceConfig() == null ^ this.getOpenSearchServiceConfig() == null)
+            return false;
+        if (other.getOpenSearchServiceConfig() != null && other.getOpenSearchServiceConfig().equals(this.getOpenSearchServiceConfig()) == false)
+            return false;
         if (other.getHttpConfig() == null ^ this.getHttpConfig() == null)
             return false;
         if (other.getHttpConfig() != null && other.getHttpConfig().equals(this.getHttpConfig()) == false)
@@ -590,6 +848,14 @@ public class UpdateDataSourceRequest extends com.amazonaws.AmazonWebServiceReque
         if (other.getRelationalDatabaseConfig() == null ^ this.getRelationalDatabaseConfig() == null)
             return false;
         if (other.getRelationalDatabaseConfig() != null && other.getRelationalDatabaseConfig().equals(this.getRelationalDatabaseConfig()) == false)
+            return false;
+        if (other.getEventBridgeConfig() == null ^ this.getEventBridgeConfig() == null)
+            return false;
+        if (other.getEventBridgeConfig() != null && other.getEventBridgeConfig().equals(this.getEventBridgeConfig()) == false)
+            return false;
+        if (other.getMetricsConfig() == null ^ this.getMetricsConfig() == null)
+            return false;
+        if (other.getMetricsConfig() != null && other.getMetricsConfig().equals(this.getMetricsConfig()) == false)
             return false;
         return true;
     }
@@ -607,8 +873,11 @@ public class UpdateDataSourceRequest extends com.amazonaws.AmazonWebServiceReque
         hashCode = prime * hashCode + ((getDynamodbConfig() == null) ? 0 : getDynamodbConfig().hashCode());
         hashCode = prime * hashCode + ((getLambdaConfig() == null) ? 0 : getLambdaConfig().hashCode());
         hashCode = prime * hashCode + ((getElasticsearchConfig() == null) ? 0 : getElasticsearchConfig().hashCode());
+        hashCode = prime * hashCode + ((getOpenSearchServiceConfig() == null) ? 0 : getOpenSearchServiceConfig().hashCode());
         hashCode = prime * hashCode + ((getHttpConfig() == null) ? 0 : getHttpConfig().hashCode());
         hashCode = prime * hashCode + ((getRelationalDatabaseConfig() == null) ? 0 : getRelationalDatabaseConfig().hashCode());
+        hashCode = prime * hashCode + ((getEventBridgeConfig() == null) ? 0 : getEventBridgeConfig().hashCode());
+        hashCode = prime * hashCode + ((getMetricsConfig() == null) ? 0 : getMetricsConfig().hashCode());
         return hashCode;
     }
 

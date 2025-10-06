@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,34 +30,117 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * (Optional) A string of up to 64 ASCII characters that Amazon FSx uses to ensure idempotent creation. This string
-     * is automatically filled on your behalf when you use the AWS Command Line Interface (AWS CLI) or an AWS SDK.
+     * A string of up to 63 ASCII characters that Amazon FSx uses to ensure idempotent creation. This string is
+     * automatically filled on your behalf when you use the Command Line Interface (CLI) or an Amazon Web Services SDK.
      * </p>
      */
     private String clientRequestToken;
     /**
      * <p>
-     * The type of Amazon FSx file system to create.
+     * The type of Amazon FSx file system to create. Valid values are <code>WINDOWS</code>, <code>LUSTRE</code>,
+     * <code>ONTAP</code>, and <code>OPENZFS</code>.
      * </p>
      */
     private String fileSystemType;
     /**
      * <p>
-     * The storage capacity of the file system being created.
+     * Sets the storage capacity of the file system that you're creating, in gibibytes (GiB).
      * </p>
      * <p>
-     * For Windows file systems, the storage capacity has a minimum of 300 GiB, and a maximum of 65,536 GiB.
+     * <b>FSx for Lustre file systems</b> - The amount of storage capacity that you can configure depends on the value
+     * that you set for <code>StorageType</code> and the Lustre <code>DeploymentType</code>, as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For <code>SCRATCH_2</code>, <code>PERSISTENT_2</code>, and <code>PERSISTENT_1</code> deployment types using SSD
+     * storage type, the valid values are 1200 GiB, 2400 GiB, and increments of 2400 GiB.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For <code>PERSISTENT_1</code> HDD file systems, valid values are increments of 6000 GiB for 12 MB/s/TiB file
+     * systems and increments of 1800 GiB for 40 MB/s/TiB file systems.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For <code>SCRATCH_1</code> deployment type, valid values are 1200 GiB, 2400 GiB, and increments of 3600 GiB.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>FSx for ONTAP file systems</b> - The amount of storage capacity that you can configure depends on the value of
+     * the <code>HAPairs</code> property. The minimum value is calculated as 1,024 * <code>HAPairs</code> and the
+     * maximum is calculated as 524,288 * <code>HAPairs</code>.
      * </p>
      * <p>
-     * For Lustre file systems, the storage capacity has a minimum of 3,600 GiB. Storage capacity is provisioned in
-     * increments of 3,600 GiB.
+     * <b>FSx for OpenZFS file systems</b> - The amount of storage capacity that you can configure is from 64 GiB up to
+     * 524,288 GiB (512 TiB).
      * </p>
+     * <p>
+     * <b>FSx for Windows File Server file systems</b> - The amount of storage capacity that you can configure depends
+     * on the value that you set for <code>StorageType</code> as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For SSD storage, valid values are 32 GiB-65,536 GiB (64 TiB).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For HDD storage, valid values are 2000 GiB-65,536 GiB (64 TiB).
+     * </p>
+     * </li>
+     * </ul>
      */
     private Integer storageCapacity;
     /**
      * <p>
-     * The IDs of the subnets that the file system will be accessible from. File systems support only one subnet. The
-     * file server is also launched in that subnet's Availability Zone.
+     * Sets the storage type for the file system that you're creating. Valid values are <code>SSD</code> and
+     * <code>HDD</code>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Set to <code>SSD</code> to use solid state drive storage. SSD is supported on all Windows, Lustre, ONTAP, and
+     * OpenZFS deployment types.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Set to <code>HDD</code> to use hard disk drive storage. HDD is supported on <code>SINGLE_AZ_2</code> and
+     * <code>MULTI_AZ_1</code> Windows file system deployment types, and on <code>PERSISTENT_1</code> Lustre file system
+     * deployment types.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default value is <code>SSD</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/optimize-fsx-costs.html#storage-type-options"> Storage
+     * type options</a> in the <i>FSx for Windows File Server User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/what-is.html#storage-options">Multiple storage
+     * options</a> in the <i>FSx for Lustre User Guide</i>.
+     * </p>
+     */
+    private String storageType;
+    /**
+     * <p>
+     * Specifies the IDs of the subnets that the file system will be accessible from. For Windows and ONTAP
+     * <code>MULTI_AZ_1</code> deployment types,provide exactly two subnet IDs, one for the preferred file server and
+     * one for the standby file server. You specify one of these subnets as the preferred subnet using the
+     * <code>WindowsConfiguration &gt; PreferredSubnetID</code> or
+     * <code>OntapConfiguration &gt; PreferredSubnetID</code> properties. For more information about Multi-AZ file
+     * system configuration, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html"> Availability and
+     * durability: Single-AZ and Multi-AZ file systems</a> in the <i>Amazon FSx for Windows User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/high-availability-multiAZ.html"> Availability and
+     * durability</a> in the <i>Amazon FSx for ONTAP User Guide</i>.
+     * </p>
+     * <p>
+     * For Windows <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> and all Lustre deployment types, provide
+     * exactly one subnet ID. The file server is launched in that subnet's Availability Zone.
      * </p>
      */
     private java.util.List<String> subnetIds;
@@ -66,12 +149,18 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
      * A list of IDs specifying the security groups to apply to all network interfaces created for file system access.
      * This list isn't returned in later requests to describe the file system.
      * </p>
+     * <important>
+     * <p>
+     * You must specify a security group if you are creating a Multi-AZ FSx for ONTAP file system in a VPC subnet that
+     * has been shared with you.
+     * </p>
+     * </important>
      */
     private java.util.List<String> securityGroupIds;
     /**
      * <p>
-     * The tags to apply to the file system being created. The key value of the <code>Name</code> tag appears in the
-     * console as the file system name.
+     * The tags to apply to the file system that's being created. The key value of the <code>Name</code> tag appears in
+     * the console as the file system name.
      * </p>
      */
     private java.util.List<Tag> tags;
@@ -79,24 +168,73 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
     private String kmsKeyId;
     /**
      * <p>
-     * The Microsoft Windows configuration for the file system being created. This value is required if
-     * <code>FileSystemType</code> is set to <code>WINDOWS</code>.
+     * The Microsoft Windows configuration for the file system that's being created.
      * </p>
      */
     private CreateFileSystemWindowsConfiguration windowsConfiguration;
 
     private CreateFileSystemLustreConfiguration lustreConfiguration;
 
+    private CreateFileSystemOntapConfiguration ontapConfiguration;
     /**
      * <p>
-     * (Optional) A string of up to 64 ASCII characters that Amazon FSx uses to ensure idempotent creation. This string
-     * is automatically filled on your behalf when you use the AWS Command Line Interface (AWS CLI) or an AWS SDK.
+     * For FSx for Lustre file systems, sets the Lustre version for the file system that you're creating. Valid values
+     * are <code>2.10</code>, <code>2.12</code>, and <code>2.15</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>2.10</code> is supported by the Scratch and Persistent_1 Lustre deployment types.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>2.12</code> is supported by all Lustre deployment types, except for <code>PERSISTENT_2</code> with a
+     * metadata configuration mode.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>2.15</code> is supported by all Lustre deployment types and is recommended for all new file systems.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default value is <code>2.10</code>, except for the following deployments:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Default value is <code>2.12</code> when <code>DeploymentType</code> is set to <code>PERSISTENT_2</code> without a
+     * metadata configuration mode.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Default value is <code>2.15</code> when <code>DeploymentType</code> is set to <code>PERSISTENT_2</code> with a
+     * metadata configuration mode.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String fileSystemTypeVersion;
+    /**
+     * <p>
+     * The OpenZFS configuration for the file system that's being created.
+     * </p>
+     */
+    private CreateFileSystemOpenZFSConfiguration openZFSConfiguration;
+
+    /**
+     * <p>
+     * A string of up to 63 ASCII characters that Amazon FSx uses to ensure idempotent creation. This string is
+     * automatically filled on your behalf when you use the Command Line Interface (CLI) or an Amazon Web Services SDK.
      * </p>
      * 
      * @param clientRequestToken
-     *        (Optional) A string of up to 64 ASCII characters that Amazon FSx uses to ensure idempotent creation. This
-     *        string is automatically filled on your behalf when you use the AWS Command Line Interface (AWS CLI) or an
-     *        AWS SDK.
+     *        A string of up to 63 ASCII characters that Amazon FSx uses to ensure idempotent creation. This string is
+     *        automatically filled on your behalf when you use the Command Line Interface (CLI) or an Amazon Web
+     *        Services SDK.
      */
 
     public void setClientRequestToken(String clientRequestToken) {
@@ -105,13 +243,13 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * (Optional) A string of up to 64 ASCII characters that Amazon FSx uses to ensure idempotent creation. This string
-     * is automatically filled on your behalf when you use the AWS Command Line Interface (AWS CLI) or an AWS SDK.
+     * A string of up to 63 ASCII characters that Amazon FSx uses to ensure idempotent creation. This string is
+     * automatically filled on your behalf when you use the Command Line Interface (CLI) or an Amazon Web Services SDK.
      * </p>
      * 
-     * @return (Optional) A string of up to 64 ASCII characters that Amazon FSx uses to ensure idempotent creation. This
-     *         string is automatically filled on your behalf when you use the AWS Command Line Interface (AWS CLI) or an
-     *         AWS SDK.
+     * @return A string of up to 63 ASCII characters that Amazon FSx uses to ensure idempotent creation. This string is
+     *         automatically filled on your behalf when you use the Command Line Interface (CLI) or an Amazon Web
+     *         Services SDK.
      */
 
     public String getClientRequestToken() {
@@ -120,14 +258,14 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * (Optional) A string of up to 64 ASCII characters that Amazon FSx uses to ensure idempotent creation. This string
-     * is automatically filled on your behalf when you use the AWS Command Line Interface (AWS CLI) or an AWS SDK.
+     * A string of up to 63 ASCII characters that Amazon FSx uses to ensure idempotent creation. This string is
+     * automatically filled on your behalf when you use the Command Line Interface (CLI) or an Amazon Web Services SDK.
      * </p>
      * 
      * @param clientRequestToken
-     *        (Optional) A string of up to 64 ASCII characters that Amazon FSx uses to ensure idempotent creation. This
-     *        string is automatically filled on your behalf when you use the AWS Command Line Interface (AWS CLI) or an
-     *        AWS SDK.
+     *        A string of up to 63 ASCII characters that Amazon FSx uses to ensure idempotent creation. This string is
+     *        automatically filled on your behalf when you use the Command Line Interface (CLI) or an Amazon Web
+     *        Services SDK.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -138,11 +276,13 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The type of Amazon FSx file system to create.
+     * The type of Amazon FSx file system to create. Valid values are <code>WINDOWS</code>, <code>LUSTRE</code>,
+     * <code>ONTAP</code>, and <code>OPENZFS</code>.
      * </p>
      * 
      * @param fileSystemType
-     *        The type of Amazon FSx file system to create.
+     *        The type of Amazon FSx file system to create. Valid values are <code>WINDOWS</code>, <code>LUSTRE</code>,
+     *        <code>ONTAP</code>, and <code>OPENZFS</code>.
      * @see FileSystemType
      */
 
@@ -152,10 +292,12 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The type of Amazon FSx file system to create.
+     * The type of Amazon FSx file system to create. Valid values are <code>WINDOWS</code>, <code>LUSTRE</code>,
+     * <code>ONTAP</code>, and <code>OPENZFS</code>.
      * </p>
      * 
-     * @return The type of Amazon FSx file system to create.
+     * @return The type of Amazon FSx file system to create. Valid values are <code>WINDOWS</code>, <code>LUSTRE</code>,
+     *         <code>ONTAP</code>, and <code>OPENZFS</code>.
      * @see FileSystemType
      */
 
@@ -165,11 +307,13 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The type of Amazon FSx file system to create.
+     * The type of Amazon FSx file system to create. Valid values are <code>WINDOWS</code>, <code>LUSTRE</code>,
+     * <code>ONTAP</code>, and <code>OPENZFS</code>.
      * </p>
      * 
      * @param fileSystemType
-     *        The type of Amazon FSx file system to create.
+     *        The type of Amazon FSx file system to create. Valid values are <code>WINDOWS</code>, <code>LUSTRE</code>,
+     *        <code>ONTAP</code>, and <code>OPENZFS</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see FileSystemType
      */
@@ -181,11 +325,13 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The type of Amazon FSx file system to create.
+     * The type of Amazon FSx file system to create. Valid values are <code>WINDOWS</code>, <code>LUSTRE</code>,
+     * <code>ONTAP</code>, and <code>OPENZFS</code>.
      * </p>
      * 
      * @param fileSystemType
-     *        The type of Amazon FSx file system to create.
+     *        The type of Amazon FSx file system to create. Valid values are <code>WINDOWS</code>, <code>LUSTRE</code>,
+     *        <code>ONTAP</code>, and <code>OPENZFS</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see FileSystemType
      */
@@ -197,24 +343,107 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The storage capacity of the file system being created.
+     * Sets the storage capacity of the file system that you're creating, in gibibytes (GiB).
      * </p>
      * <p>
-     * For Windows file systems, the storage capacity has a minimum of 300 GiB, and a maximum of 65,536 GiB.
+     * <b>FSx for Lustre file systems</b> - The amount of storage capacity that you can configure depends on the value
+     * that you set for <code>StorageType</code> and the Lustre <code>DeploymentType</code>, as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For <code>SCRATCH_2</code>, <code>PERSISTENT_2</code>, and <code>PERSISTENT_1</code> deployment types using SSD
+     * storage type, the valid values are 1200 GiB, 2400 GiB, and increments of 2400 GiB.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For <code>PERSISTENT_1</code> HDD file systems, valid values are increments of 6000 GiB for 12 MB/s/TiB file
+     * systems and increments of 1800 GiB for 40 MB/s/TiB file systems.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For <code>SCRATCH_1</code> deployment type, valid values are 1200 GiB, 2400 GiB, and increments of 3600 GiB.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>FSx for ONTAP file systems</b> - The amount of storage capacity that you can configure depends on the value of
+     * the <code>HAPairs</code> property. The minimum value is calculated as 1,024 * <code>HAPairs</code> and the
+     * maximum is calculated as 524,288 * <code>HAPairs</code>.
      * </p>
      * <p>
-     * For Lustre file systems, the storage capacity has a minimum of 3,600 GiB. Storage capacity is provisioned in
-     * increments of 3,600 GiB.
+     * <b>FSx for OpenZFS file systems</b> - The amount of storage capacity that you can configure is from 64 GiB up to
+     * 524,288 GiB (512 TiB).
      * </p>
+     * <p>
+     * <b>FSx for Windows File Server file systems</b> - The amount of storage capacity that you can configure depends
+     * on the value that you set for <code>StorageType</code> as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For SSD storage, valid values are 32 GiB-65,536 GiB (64 TiB).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For HDD storage, valid values are 2000 GiB-65,536 GiB (64 TiB).
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param storageCapacity
-     *        The storage capacity of the file system being created.</p>
+     *        Sets the storage capacity of the file system that you're creating, in gibibytes (GiB).</p>
      *        <p>
-     *        For Windows file systems, the storage capacity has a minimum of 300 GiB, and a maximum of 65,536 GiB.
+     *        <b>FSx for Lustre file systems</b> - The amount of storage capacity that you can configure depends on the
+     *        value that you set for <code>StorageType</code> and the Lustre <code>DeploymentType</code>, as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For <code>SCRATCH_2</code>, <code>PERSISTENT_2</code>, and <code>PERSISTENT_1</code> deployment types
+     *        using SSD storage type, the valid values are 1200 GiB, 2400 GiB, and increments of 2400 GiB.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For <code>PERSISTENT_1</code> HDD file systems, valid values are increments of 6000 GiB for 12 MB/s/TiB
+     *        file systems and increments of 1800 GiB for 40 MB/s/TiB file systems.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For <code>SCRATCH_1</code> deployment type, valid values are 1200 GiB, 2400 GiB, and increments of 3600
+     *        GiB.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        <b>FSx for ONTAP file systems</b> - The amount of storage capacity that you can configure depends on the
+     *        value of the <code>HAPairs</code> property. The minimum value is calculated as 1,024 *
+     *        <code>HAPairs</code> and the maximum is calculated as 524,288 * <code>HAPairs</code>.
      *        </p>
      *        <p>
-     *        For Lustre file systems, the storage capacity has a minimum of 3,600 GiB. Storage capacity is provisioned
-     *        in increments of 3,600 GiB.
+     *        <b>FSx for OpenZFS file systems</b> - The amount of storage capacity that you can configure is from 64 GiB
+     *        up to 524,288 GiB (512 TiB).
+     *        </p>
+     *        <p>
+     *        <b>FSx for Windows File Server file systems</b> - The amount of storage capacity that you can configure
+     *        depends on the value that you set for <code>StorageType</code> as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For SSD storage, valid values are 32 GiB-65,536 GiB (64 TiB).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For HDD storage, valid values are 2000 GiB-65,536 GiB (64 TiB).
+     *        </p>
+     *        </li>
      */
 
     public void setStorageCapacity(Integer storageCapacity) {
@@ -223,23 +452,106 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The storage capacity of the file system being created.
+     * Sets the storage capacity of the file system that you're creating, in gibibytes (GiB).
      * </p>
      * <p>
-     * For Windows file systems, the storage capacity has a minimum of 300 GiB, and a maximum of 65,536 GiB.
+     * <b>FSx for Lustre file systems</b> - The amount of storage capacity that you can configure depends on the value
+     * that you set for <code>StorageType</code> and the Lustre <code>DeploymentType</code>, as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For <code>SCRATCH_2</code>, <code>PERSISTENT_2</code>, and <code>PERSISTENT_1</code> deployment types using SSD
+     * storage type, the valid values are 1200 GiB, 2400 GiB, and increments of 2400 GiB.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For <code>PERSISTENT_1</code> HDD file systems, valid values are increments of 6000 GiB for 12 MB/s/TiB file
+     * systems and increments of 1800 GiB for 40 MB/s/TiB file systems.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For <code>SCRATCH_1</code> deployment type, valid values are 1200 GiB, 2400 GiB, and increments of 3600 GiB.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>FSx for ONTAP file systems</b> - The amount of storage capacity that you can configure depends on the value of
+     * the <code>HAPairs</code> property. The minimum value is calculated as 1,024 * <code>HAPairs</code> and the
+     * maximum is calculated as 524,288 * <code>HAPairs</code>.
      * </p>
      * <p>
-     * For Lustre file systems, the storage capacity has a minimum of 3,600 GiB. Storage capacity is provisioned in
-     * increments of 3,600 GiB.
+     * <b>FSx for OpenZFS file systems</b> - The amount of storage capacity that you can configure is from 64 GiB up to
+     * 524,288 GiB (512 TiB).
      * </p>
+     * <p>
+     * <b>FSx for Windows File Server file systems</b> - The amount of storage capacity that you can configure depends
+     * on the value that you set for <code>StorageType</code> as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For SSD storage, valid values are 32 GiB-65,536 GiB (64 TiB).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For HDD storage, valid values are 2000 GiB-65,536 GiB (64 TiB).
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The storage capacity of the file system being created.</p>
+     * @return Sets the storage capacity of the file system that you're creating, in gibibytes (GiB).</p>
      *         <p>
-     *         For Windows file systems, the storage capacity has a minimum of 300 GiB, and a maximum of 65,536 GiB.
+     *         <b>FSx for Lustre file systems</b> - The amount of storage capacity that you can configure depends on the
+     *         value that you set for <code>StorageType</code> and the Lustre <code>DeploymentType</code>, as follows:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         For <code>SCRATCH_2</code>, <code>PERSISTENT_2</code>, and <code>PERSISTENT_1</code> deployment types
+     *         using SSD storage type, the valid values are 1200 GiB, 2400 GiB, and increments of 2400 GiB.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For <code>PERSISTENT_1</code> HDD file systems, valid values are increments of 6000 GiB for 12 MB/s/TiB
+     *         file systems and increments of 1800 GiB for 40 MB/s/TiB file systems.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For <code>SCRATCH_1</code> deployment type, valid values are 1200 GiB, 2400 GiB, and increments of 3600
+     *         GiB.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         <b>FSx for ONTAP file systems</b> - The amount of storage capacity that you can configure depends on the
+     *         value of the <code>HAPairs</code> property. The minimum value is calculated as 1,024 *
+     *         <code>HAPairs</code> and the maximum is calculated as 524,288 * <code>HAPairs</code>.
      *         </p>
      *         <p>
-     *         For Lustre file systems, the storage capacity has a minimum of 3,600 GiB. Storage capacity is provisioned
-     *         in increments of 3,600 GiB.
+     *         <b>FSx for OpenZFS file systems</b> - The amount of storage capacity that you can configure is from 64
+     *         GiB up to 524,288 GiB (512 TiB).
+     *         </p>
+     *         <p>
+     *         <b>FSx for Windows File Server file systems</b> - The amount of storage capacity that you can configure
+     *         depends on the value that you set for <code>StorageType</code> as follows:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         For SSD storage, valid values are 32 GiB-65,536 GiB (64 TiB).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For HDD storage, valid values are 2000 GiB-65,536 GiB (64 TiB).
+     *         </p>
+     *         </li>
      */
 
     public Integer getStorageCapacity() {
@@ -248,24 +560,107 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The storage capacity of the file system being created.
+     * Sets the storage capacity of the file system that you're creating, in gibibytes (GiB).
      * </p>
      * <p>
-     * For Windows file systems, the storage capacity has a minimum of 300 GiB, and a maximum of 65,536 GiB.
+     * <b>FSx for Lustre file systems</b> - The amount of storage capacity that you can configure depends on the value
+     * that you set for <code>StorageType</code> and the Lustre <code>DeploymentType</code>, as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For <code>SCRATCH_2</code>, <code>PERSISTENT_2</code>, and <code>PERSISTENT_1</code> deployment types using SSD
+     * storage type, the valid values are 1200 GiB, 2400 GiB, and increments of 2400 GiB.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For <code>PERSISTENT_1</code> HDD file systems, valid values are increments of 6000 GiB for 12 MB/s/TiB file
+     * systems and increments of 1800 GiB for 40 MB/s/TiB file systems.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For <code>SCRATCH_1</code> deployment type, valid values are 1200 GiB, 2400 GiB, and increments of 3600 GiB.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>FSx for ONTAP file systems</b> - The amount of storage capacity that you can configure depends on the value of
+     * the <code>HAPairs</code> property. The minimum value is calculated as 1,024 * <code>HAPairs</code> and the
+     * maximum is calculated as 524,288 * <code>HAPairs</code>.
      * </p>
      * <p>
-     * For Lustre file systems, the storage capacity has a minimum of 3,600 GiB. Storage capacity is provisioned in
-     * increments of 3,600 GiB.
+     * <b>FSx for OpenZFS file systems</b> - The amount of storage capacity that you can configure is from 64 GiB up to
+     * 524,288 GiB (512 TiB).
      * </p>
+     * <p>
+     * <b>FSx for Windows File Server file systems</b> - The amount of storage capacity that you can configure depends
+     * on the value that you set for <code>StorageType</code> as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For SSD storage, valid values are 32 GiB-65,536 GiB (64 TiB).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For HDD storage, valid values are 2000 GiB-65,536 GiB (64 TiB).
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param storageCapacity
-     *        The storage capacity of the file system being created.</p>
+     *        Sets the storage capacity of the file system that you're creating, in gibibytes (GiB).</p>
      *        <p>
-     *        For Windows file systems, the storage capacity has a minimum of 300 GiB, and a maximum of 65,536 GiB.
+     *        <b>FSx for Lustre file systems</b> - The amount of storage capacity that you can configure depends on the
+     *        value that you set for <code>StorageType</code> and the Lustre <code>DeploymentType</code>, as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For <code>SCRATCH_2</code>, <code>PERSISTENT_2</code>, and <code>PERSISTENT_1</code> deployment types
+     *        using SSD storage type, the valid values are 1200 GiB, 2400 GiB, and increments of 2400 GiB.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For <code>PERSISTENT_1</code> HDD file systems, valid values are increments of 6000 GiB for 12 MB/s/TiB
+     *        file systems and increments of 1800 GiB for 40 MB/s/TiB file systems.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For <code>SCRATCH_1</code> deployment type, valid values are 1200 GiB, 2400 GiB, and increments of 3600
+     *        GiB.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        <b>FSx for ONTAP file systems</b> - The amount of storage capacity that you can configure depends on the
+     *        value of the <code>HAPairs</code> property. The minimum value is calculated as 1,024 *
+     *        <code>HAPairs</code> and the maximum is calculated as 524,288 * <code>HAPairs</code>.
      *        </p>
      *        <p>
-     *        For Lustre file systems, the storage capacity has a minimum of 3,600 GiB. Storage capacity is provisioned
-     *        in increments of 3,600 GiB.
+     *        <b>FSx for OpenZFS file systems</b> - The amount of storage capacity that you can configure is from 64 GiB
+     *        up to 524,288 GiB (512 TiB).
+     *        </p>
+     *        <p>
+     *        <b>FSx for Windows File Server file systems</b> - The amount of storage capacity that you can configure
+     *        depends on the value that you set for <code>StorageType</code> as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For SSD storage, valid values are 32 GiB-65,536 GiB (64 TiB).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For HDD storage, valid values are 2000 GiB-65,536 GiB (64 TiB).
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -276,12 +671,274 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The IDs of the subnets that the file system will be accessible from. File systems support only one subnet. The
-     * file server is also launched in that subnet's Availability Zone.
+     * Sets the storage type for the file system that you're creating. Valid values are <code>SSD</code> and
+     * <code>HDD</code>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Set to <code>SSD</code> to use solid state drive storage. SSD is supported on all Windows, Lustre, ONTAP, and
+     * OpenZFS deployment types.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Set to <code>HDD</code> to use hard disk drive storage. HDD is supported on <code>SINGLE_AZ_2</code> and
+     * <code>MULTI_AZ_1</code> Windows file system deployment types, and on <code>PERSISTENT_1</code> Lustre file system
+     * deployment types.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default value is <code>SSD</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/optimize-fsx-costs.html#storage-type-options"> Storage
+     * type options</a> in the <i>FSx for Windows File Server User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/what-is.html#storage-options">Multiple storage
+     * options</a> in the <i>FSx for Lustre User Guide</i>.
      * </p>
      * 
-     * @return The IDs of the subnets that the file system will be accessible from. File systems support only one
-     *         subnet. The file server is also launched in that subnet's Availability Zone.
+     * @param storageType
+     *        Sets the storage type for the file system that you're creating. Valid values are <code>SSD</code> and
+     *        <code>HDD</code>.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Set to <code>SSD</code> to use solid state drive storage. SSD is supported on all Windows, Lustre, ONTAP,
+     *        and OpenZFS deployment types.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Set to <code>HDD</code> to use hard disk drive storage. HDD is supported on <code>SINGLE_AZ_2</code> and
+     *        <code>MULTI_AZ_1</code> Windows file system deployment types, and on <code>PERSISTENT_1</code> Lustre file
+     *        system deployment types.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Default value is <code>SSD</code>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/optimize-fsx-costs.html#storage-type-options">
+     *        Storage type options</a> in the <i>FSx for Windows File Server User Guide</i> and <a
+     *        href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/what-is.html#storage-options">Multiple storage
+     *        options</a> in the <i>FSx for Lustre User Guide</i>.
+     * @see StorageType
+     */
+
+    public void setStorageType(String storageType) {
+        this.storageType = storageType;
+    }
+
+    /**
+     * <p>
+     * Sets the storage type for the file system that you're creating. Valid values are <code>SSD</code> and
+     * <code>HDD</code>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Set to <code>SSD</code> to use solid state drive storage. SSD is supported on all Windows, Lustre, ONTAP, and
+     * OpenZFS deployment types.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Set to <code>HDD</code> to use hard disk drive storage. HDD is supported on <code>SINGLE_AZ_2</code> and
+     * <code>MULTI_AZ_1</code> Windows file system deployment types, and on <code>PERSISTENT_1</code> Lustre file system
+     * deployment types.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default value is <code>SSD</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/optimize-fsx-costs.html#storage-type-options"> Storage
+     * type options</a> in the <i>FSx for Windows File Server User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/what-is.html#storage-options">Multiple storage
+     * options</a> in the <i>FSx for Lustre User Guide</i>.
+     * </p>
+     * 
+     * @return Sets the storage type for the file system that you're creating. Valid values are <code>SSD</code> and
+     *         <code>HDD</code>.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Set to <code>SSD</code> to use solid state drive storage. SSD is supported on all Windows, Lustre, ONTAP,
+     *         and OpenZFS deployment types.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Set to <code>HDD</code> to use hard disk drive storage. HDD is supported on <code>SINGLE_AZ_2</code> and
+     *         <code>MULTI_AZ_1</code> Windows file system deployment types, and on <code>PERSISTENT_1</code> Lustre
+     *         file system deployment types.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Default value is <code>SSD</code>. For more information, see <a
+     *         href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/optimize-fsx-costs.html#storage-type-options">
+     *         Storage type options</a> in the <i>FSx for Windows File Server User Guide</i> and <a
+     *         href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/what-is.html#storage-options">Multiple storage
+     *         options</a> in the <i>FSx for Lustre User Guide</i>.
+     * @see StorageType
+     */
+
+    public String getStorageType() {
+        return this.storageType;
+    }
+
+    /**
+     * <p>
+     * Sets the storage type for the file system that you're creating. Valid values are <code>SSD</code> and
+     * <code>HDD</code>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Set to <code>SSD</code> to use solid state drive storage. SSD is supported on all Windows, Lustre, ONTAP, and
+     * OpenZFS deployment types.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Set to <code>HDD</code> to use hard disk drive storage. HDD is supported on <code>SINGLE_AZ_2</code> and
+     * <code>MULTI_AZ_1</code> Windows file system deployment types, and on <code>PERSISTENT_1</code> Lustre file system
+     * deployment types.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default value is <code>SSD</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/optimize-fsx-costs.html#storage-type-options"> Storage
+     * type options</a> in the <i>FSx for Windows File Server User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/what-is.html#storage-options">Multiple storage
+     * options</a> in the <i>FSx for Lustre User Guide</i>.
+     * </p>
+     * 
+     * @param storageType
+     *        Sets the storage type for the file system that you're creating. Valid values are <code>SSD</code> and
+     *        <code>HDD</code>.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Set to <code>SSD</code> to use solid state drive storage. SSD is supported on all Windows, Lustre, ONTAP,
+     *        and OpenZFS deployment types.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Set to <code>HDD</code> to use hard disk drive storage. HDD is supported on <code>SINGLE_AZ_2</code> and
+     *        <code>MULTI_AZ_1</code> Windows file system deployment types, and on <code>PERSISTENT_1</code> Lustre file
+     *        system deployment types.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Default value is <code>SSD</code>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/optimize-fsx-costs.html#storage-type-options">
+     *        Storage type options</a> in the <i>FSx for Windows File Server User Guide</i> and <a
+     *        href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/what-is.html#storage-options">Multiple storage
+     *        options</a> in the <i>FSx for Lustre User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see StorageType
+     */
+
+    public CreateFileSystemRequest withStorageType(String storageType) {
+        setStorageType(storageType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Sets the storage type for the file system that you're creating. Valid values are <code>SSD</code> and
+     * <code>HDD</code>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Set to <code>SSD</code> to use solid state drive storage. SSD is supported on all Windows, Lustre, ONTAP, and
+     * OpenZFS deployment types.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Set to <code>HDD</code> to use hard disk drive storage. HDD is supported on <code>SINGLE_AZ_2</code> and
+     * <code>MULTI_AZ_1</code> Windows file system deployment types, and on <code>PERSISTENT_1</code> Lustre file system
+     * deployment types.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default value is <code>SSD</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/optimize-fsx-costs.html#storage-type-options"> Storage
+     * type options</a> in the <i>FSx for Windows File Server User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/what-is.html#storage-options">Multiple storage
+     * options</a> in the <i>FSx for Lustre User Guide</i>.
+     * </p>
+     * 
+     * @param storageType
+     *        Sets the storage type for the file system that you're creating. Valid values are <code>SSD</code> and
+     *        <code>HDD</code>.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Set to <code>SSD</code> to use solid state drive storage. SSD is supported on all Windows, Lustre, ONTAP,
+     *        and OpenZFS deployment types.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Set to <code>HDD</code> to use hard disk drive storage. HDD is supported on <code>SINGLE_AZ_2</code> and
+     *        <code>MULTI_AZ_1</code> Windows file system deployment types, and on <code>PERSISTENT_1</code> Lustre file
+     *        system deployment types.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Default value is <code>SSD</code>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/optimize-fsx-costs.html#storage-type-options">
+     *        Storage type options</a> in the <i>FSx for Windows File Server User Guide</i> and <a
+     *        href="https://docs.aws.amazon.com/fsx/latest/LustreGuide/what-is.html#storage-options">Multiple storage
+     *        options</a> in the <i>FSx for Lustre User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see StorageType
+     */
+
+    public CreateFileSystemRequest withStorageType(StorageType storageType) {
+        this.storageType = storageType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the IDs of the subnets that the file system will be accessible from. For Windows and ONTAP
+     * <code>MULTI_AZ_1</code> deployment types,provide exactly two subnet IDs, one for the preferred file server and
+     * one for the standby file server. You specify one of these subnets as the preferred subnet using the
+     * <code>WindowsConfiguration &gt; PreferredSubnetID</code> or
+     * <code>OntapConfiguration &gt; PreferredSubnetID</code> properties. For more information about Multi-AZ file
+     * system configuration, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html"> Availability and
+     * durability: Single-AZ and Multi-AZ file systems</a> in the <i>Amazon FSx for Windows User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/high-availability-multiAZ.html"> Availability and
+     * durability</a> in the <i>Amazon FSx for ONTAP User Guide</i>.
+     * </p>
+     * <p>
+     * For Windows <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> and all Lustre deployment types, provide
+     * exactly one subnet ID. The file server is launched in that subnet's Availability Zone.
+     * </p>
+     * 
+     * @return Specifies the IDs of the subnets that the file system will be accessible from. For Windows and ONTAP
+     *         <code>MULTI_AZ_1</code> deployment types,provide exactly two subnet IDs, one for the preferred file
+     *         server and one for the standby file server. You specify one of these subnets as the preferred subnet
+     *         using the <code>WindowsConfiguration &gt; PreferredSubnetID</code> or
+     *         <code>OntapConfiguration &gt; PreferredSubnetID</code> properties. For more information about Multi-AZ
+     *         file system configuration, see <a
+     *         href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html"> Availability
+     *         and durability: Single-AZ and Multi-AZ file systems</a> in the <i>Amazon FSx for Windows User Guide</i>
+     *         and <a href="https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/high-availability-multiAZ.html">
+     *         Availability and durability</a> in the <i>Amazon FSx for ONTAP User Guide</i>.</p>
+     *         <p>
+     *         For Windows <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> and all Lustre deployment types,
+     *         provide exactly one subnet ID. The file server is launched in that subnet's Availability Zone.
      */
 
     public java.util.List<String> getSubnetIds() {
@@ -290,13 +947,36 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The IDs of the subnets that the file system will be accessible from. File systems support only one subnet. The
-     * file server is also launched in that subnet's Availability Zone.
+     * Specifies the IDs of the subnets that the file system will be accessible from. For Windows and ONTAP
+     * <code>MULTI_AZ_1</code> deployment types,provide exactly two subnet IDs, one for the preferred file server and
+     * one for the standby file server. You specify one of these subnets as the preferred subnet using the
+     * <code>WindowsConfiguration &gt; PreferredSubnetID</code> or
+     * <code>OntapConfiguration &gt; PreferredSubnetID</code> properties. For more information about Multi-AZ file
+     * system configuration, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html"> Availability and
+     * durability: Single-AZ and Multi-AZ file systems</a> in the <i>Amazon FSx for Windows User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/high-availability-multiAZ.html"> Availability and
+     * durability</a> in the <i>Amazon FSx for ONTAP User Guide</i>.
+     * </p>
+     * <p>
+     * For Windows <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> and all Lustre deployment types, provide
+     * exactly one subnet ID. The file server is launched in that subnet's Availability Zone.
      * </p>
      * 
      * @param subnetIds
-     *        The IDs of the subnets that the file system will be accessible from. File systems support only one subnet.
-     *        The file server is also launched in that subnet's Availability Zone.
+     *        Specifies the IDs of the subnets that the file system will be accessible from. For Windows and ONTAP
+     *        <code>MULTI_AZ_1</code> deployment types,provide exactly two subnet IDs, one for the preferred file server
+     *        and one for the standby file server. You specify one of these subnets as the preferred subnet using the
+     *        <code>WindowsConfiguration &gt; PreferredSubnetID</code> or
+     *        <code>OntapConfiguration &gt; PreferredSubnetID</code> properties. For more information about Multi-AZ
+     *        file system configuration, see <a
+     *        href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html"> Availability
+     *        and durability: Single-AZ and Multi-AZ file systems</a> in the <i>Amazon FSx for Windows User Guide</i>
+     *        and <a href="https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/high-availability-multiAZ.html">
+     *        Availability and durability</a> in the <i>Amazon FSx for ONTAP User Guide</i>.</p>
+     *        <p>
+     *        For Windows <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> and all Lustre deployment types, provide
+     *        exactly one subnet ID. The file server is launched in that subnet's Availability Zone.
      */
 
     public void setSubnetIds(java.util.Collection<String> subnetIds) {
@@ -310,8 +990,20 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The IDs of the subnets that the file system will be accessible from. File systems support only one subnet. The
-     * file server is also launched in that subnet's Availability Zone.
+     * Specifies the IDs of the subnets that the file system will be accessible from. For Windows and ONTAP
+     * <code>MULTI_AZ_1</code> deployment types,provide exactly two subnet IDs, one for the preferred file server and
+     * one for the standby file server. You specify one of these subnets as the preferred subnet using the
+     * <code>WindowsConfiguration &gt; PreferredSubnetID</code> or
+     * <code>OntapConfiguration &gt; PreferredSubnetID</code> properties. For more information about Multi-AZ file
+     * system configuration, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html"> Availability and
+     * durability: Single-AZ and Multi-AZ file systems</a> in the <i>Amazon FSx for Windows User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/high-availability-multiAZ.html"> Availability and
+     * durability</a> in the <i>Amazon FSx for ONTAP User Guide</i>.
+     * </p>
+     * <p>
+     * For Windows <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> and all Lustre deployment types, provide
+     * exactly one subnet ID. The file server is launched in that subnet's Availability Zone.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -320,8 +1012,19 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * 
      * @param subnetIds
-     *        The IDs of the subnets that the file system will be accessible from. File systems support only one subnet.
-     *        The file server is also launched in that subnet's Availability Zone.
+     *        Specifies the IDs of the subnets that the file system will be accessible from. For Windows and ONTAP
+     *        <code>MULTI_AZ_1</code> deployment types,provide exactly two subnet IDs, one for the preferred file server
+     *        and one for the standby file server. You specify one of these subnets as the preferred subnet using the
+     *        <code>WindowsConfiguration &gt; PreferredSubnetID</code> or
+     *        <code>OntapConfiguration &gt; PreferredSubnetID</code> properties. For more information about Multi-AZ
+     *        file system configuration, see <a
+     *        href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html"> Availability
+     *        and durability: Single-AZ and Multi-AZ file systems</a> in the <i>Amazon FSx for Windows User Guide</i>
+     *        and <a href="https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/high-availability-multiAZ.html">
+     *        Availability and durability</a> in the <i>Amazon FSx for ONTAP User Guide</i>.</p>
+     *        <p>
+     *        For Windows <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> and all Lustre deployment types, provide
+     *        exactly one subnet ID. The file server is launched in that subnet's Availability Zone.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -337,13 +1040,36 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The IDs of the subnets that the file system will be accessible from. File systems support only one subnet. The
-     * file server is also launched in that subnet's Availability Zone.
+     * Specifies the IDs of the subnets that the file system will be accessible from. For Windows and ONTAP
+     * <code>MULTI_AZ_1</code> deployment types,provide exactly two subnet IDs, one for the preferred file server and
+     * one for the standby file server. You specify one of these subnets as the preferred subnet using the
+     * <code>WindowsConfiguration &gt; PreferredSubnetID</code> or
+     * <code>OntapConfiguration &gt; PreferredSubnetID</code> properties. For more information about Multi-AZ file
+     * system configuration, see <a
+     * href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html"> Availability and
+     * durability: Single-AZ and Multi-AZ file systems</a> in the <i>Amazon FSx for Windows User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/high-availability-multiAZ.html"> Availability and
+     * durability</a> in the <i>Amazon FSx for ONTAP User Guide</i>.
+     * </p>
+     * <p>
+     * For Windows <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> and all Lustre deployment types, provide
+     * exactly one subnet ID. The file server is launched in that subnet's Availability Zone.
      * </p>
      * 
      * @param subnetIds
-     *        The IDs of the subnets that the file system will be accessible from. File systems support only one subnet.
-     *        The file server is also launched in that subnet's Availability Zone.
+     *        Specifies the IDs of the subnets that the file system will be accessible from. For Windows and ONTAP
+     *        <code>MULTI_AZ_1</code> deployment types,provide exactly two subnet IDs, one for the preferred file server
+     *        and one for the standby file server. You specify one of these subnets as the preferred subnet using the
+     *        <code>WindowsConfiguration &gt; PreferredSubnetID</code> or
+     *        <code>OntapConfiguration &gt; PreferredSubnetID</code> properties. For more information about Multi-AZ
+     *        file system configuration, see <a
+     *        href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/high-availability-multiAZ.html"> Availability
+     *        and durability: Single-AZ and Multi-AZ file systems</a> in the <i>Amazon FSx for Windows User Guide</i>
+     *        and <a href="https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/high-availability-multiAZ.html">
+     *        Availability and durability</a> in the <i>Amazon FSx for ONTAP User Guide</i>.</p>
+     *        <p>
+     *        For Windows <code>SINGLE_AZ_1</code> and <code>SINGLE_AZ_2</code> and all Lustre deployment types, provide
+     *        exactly one subnet ID. The file server is launched in that subnet's Availability Zone.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -357,9 +1083,19 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
      * A list of IDs specifying the security groups to apply to all network interfaces created for file system access.
      * This list isn't returned in later requests to describe the file system.
      * </p>
+     * <important>
+     * <p>
+     * You must specify a security group if you are creating a Multi-AZ FSx for ONTAP file system in a VPC subnet that
+     * has been shared with you.
+     * </p>
+     * </important>
      * 
      * @return A list of IDs specifying the security groups to apply to all network interfaces created for file system
-     *         access. This list isn't returned in later requests to describe the file system.
+     *         access. This list isn't returned in later requests to describe the file system.</p> <important>
+     *         <p>
+     *         You must specify a security group if you are creating a Multi-AZ FSx for ONTAP file system in a VPC
+     *         subnet that has been shared with you.
+     *         </p>
      */
 
     public java.util.List<String> getSecurityGroupIds() {
@@ -371,10 +1107,20 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
      * A list of IDs specifying the security groups to apply to all network interfaces created for file system access.
      * This list isn't returned in later requests to describe the file system.
      * </p>
+     * <important>
+     * <p>
+     * You must specify a security group if you are creating a Multi-AZ FSx for ONTAP file system in a VPC subnet that
+     * has been shared with you.
+     * </p>
+     * </important>
      * 
      * @param securityGroupIds
      *        A list of IDs specifying the security groups to apply to all network interfaces created for file system
-     *        access. This list isn't returned in later requests to describe the file system.
+     *        access. This list isn't returned in later requests to describe the file system.</p> <important>
+     *        <p>
+     *        You must specify a security group if you are creating a Multi-AZ FSx for ONTAP file system in a VPC subnet
+     *        that has been shared with you.
+     *        </p>
      */
 
     public void setSecurityGroupIds(java.util.Collection<String> securityGroupIds) {
@@ -391,6 +1137,12 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
      * A list of IDs specifying the security groups to apply to all network interfaces created for file system access.
      * This list isn't returned in later requests to describe the file system.
      * </p>
+     * <important>
+     * <p>
+     * You must specify a security group if you are creating a Multi-AZ FSx for ONTAP file system in a VPC subnet that
+     * has been shared with you.
+     * </p>
+     * </important>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setSecurityGroupIds(java.util.Collection)} or {@link #withSecurityGroupIds(java.util.Collection)} if you
@@ -399,7 +1151,11 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
      * 
      * @param securityGroupIds
      *        A list of IDs specifying the security groups to apply to all network interfaces created for file system
-     *        access. This list isn't returned in later requests to describe the file system.
+     *        access. This list isn't returned in later requests to describe the file system.</p> <important>
+     *        <p>
+     *        You must specify a security group if you are creating a Multi-AZ FSx for ONTAP file system in a VPC subnet
+     *        that has been shared with you.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -418,10 +1174,20 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
      * A list of IDs specifying the security groups to apply to all network interfaces created for file system access.
      * This list isn't returned in later requests to describe the file system.
      * </p>
+     * <important>
+     * <p>
+     * You must specify a security group if you are creating a Multi-AZ FSx for ONTAP file system in a VPC subnet that
+     * has been shared with you.
+     * </p>
+     * </important>
      * 
      * @param securityGroupIds
      *        A list of IDs specifying the security groups to apply to all network interfaces created for file system
-     *        access. This list isn't returned in later requests to describe the file system.
+     *        access. This list isn't returned in later requests to describe the file system.</p> <important>
+     *        <p>
+     *        You must specify a security group if you are creating a Multi-AZ FSx for ONTAP file system in a VPC subnet
+     *        that has been shared with you.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -432,12 +1198,12 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The tags to apply to the file system being created. The key value of the <code>Name</code> tag appears in the
-     * console as the file system name.
+     * The tags to apply to the file system that's being created. The key value of the <code>Name</code> tag appears in
+     * the console as the file system name.
      * </p>
      * 
-     * @return The tags to apply to the file system being created. The key value of the <code>Name</code> tag appears in
-     *         the console as the file system name.
+     * @return The tags to apply to the file system that's being created. The key value of the <code>Name</code> tag
+     *         appears in the console as the file system name.
      */
 
     public java.util.List<Tag> getTags() {
@@ -446,13 +1212,13 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The tags to apply to the file system being created. The key value of the <code>Name</code> tag appears in the
-     * console as the file system name.
+     * The tags to apply to the file system that's being created. The key value of the <code>Name</code> tag appears in
+     * the console as the file system name.
      * </p>
      * 
      * @param tags
-     *        The tags to apply to the file system being created. The key value of the <code>Name</code> tag appears in
-     *        the console as the file system name.
+     *        The tags to apply to the file system that's being created. The key value of the <code>Name</code> tag
+     *        appears in the console as the file system name.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -466,8 +1232,8 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The tags to apply to the file system being created. The key value of the <code>Name</code> tag appears in the
-     * console as the file system name.
+     * The tags to apply to the file system that's being created. The key value of the <code>Name</code> tag appears in
+     * the console as the file system name.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -476,8 +1242,8 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * 
      * @param tags
-     *        The tags to apply to the file system being created. The key value of the <code>Name</code> tag appears in
-     *        the console as the file system name.
+     *        The tags to apply to the file system that's being created. The key value of the <code>Name</code> tag
+     *        appears in the console as the file system name.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -493,13 +1259,13 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The tags to apply to the file system being created. The key value of the <code>Name</code> tag appears in the
-     * console as the file system name.
+     * The tags to apply to the file system that's being created. The key value of the <code>Name</code> tag appears in
+     * the console as the file system name.
      * </p>
      * 
      * @param tags
-     *        The tags to apply to the file system being created. The key value of the <code>Name</code> tag appears in
-     *        the console as the file system name.
+     *        The tags to apply to the file system that's being created. The key value of the <code>Name</code> tag
+     *        appears in the console as the file system name.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -536,13 +1302,11 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The Microsoft Windows configuration for the file system being created. This value is required if
-     * <code>FileSystemType</code> is set to <code>WINDOWS</code>.
+     * The Microsoft Windows configuration for the file system that's being created.
      * </p>
      * 
      * @param windowsConfiguration
-     *        The Microsoft Windows configuration for the file system being created. This value is required if
-     *        <code>FileSystemType</code> is set to <code>WINDOWS</code>.
+     *        The Microsoft Windows configuration for the file system that's being created.
      */
 
     public void setWindowsConfiguration(CreateFileSystemWindowsConfiguration windowsConfiguration) {
@@ -551,12 +1315,10 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The Microsoft Windows configuration for the file system being created. This value is required if
-     * <code>FileSystemType</code> is set to <code>WINDOWS</code>.
+     * The Microsoft Windows configuration for the file system that's being created.
      * </p>
      * 
-     * @return The Microsoft Windows configuration for the file system being created. This value is required if
-     *         <code>FileSystemType</code> is set to <code>WINDOWS</code>.
+     * @return The Microsoft Windows configuration for the file system that's being created.
      */
 
     public CreateFileSystemWindowsConfiguration getWindowsConfiguration() {
@@ -565,13 +1327,11 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The Microsoft Windows configuration for the file system being created. This value is required if
-     * <code>FileSystemType</code> is set to <code>WINDOWS</code>.
+     * The Microsoft Windows configuration for the file system that's being created.
      * </p>
      * 
      * @param windowsConfiguration
-     *        The Microsoft Windows configuration for the file system being created. This value is required if
-     *        <code>FileSystemType</code> is set to <code>WINDOWS</code>.
+     *        The Microsoft Windows configuration for the file system that's being created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -607,6 +1367,326 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
+     * @param ontapConfiguration
+     */
+
+    public void setOntapConfiguration(CreateFileSystemOntapConfiguration ontapConfiguration) {
+        this.ontapConfiguration = ontapConfiguration;
+    }
+
+    /**
+     * @return
+     */
+
+    public CreateFileSystemOntapConfiguration getOntapConfiguration() {
+        return this.ontapConfiguration;
+    }
+
+    /**
+     * @param ontapConfiguration
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateFileSystemRequest withOntapConfiguration(CreateFileSystemOntapConfiguration ontapConfiguration) {
+        setOntapConfiguration(ontapConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * For FSx for Lustre file systems, sets the Lustre version for the file system that you're creating. Valid values
+     * are <code>2.10</code>, <code>2.12</code>, and <code>2.15</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>2.10</code> is supported by the Scratch and Persistent_1 Lustre deployment types.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>2.12</code> is supported by all Lustre deployment types, except for <code>PERSISTENT_2</code> with a
+     * metadata configuration mode.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>2.15</code> is supported by all Lustre deployment types and is recommended for all new file systems.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default value is <code>2.10</code>, except for the following deployments:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Default value is <code>2.12</code> when <code>DeploymentType</code> is set to <code>PERSISTENT_2</code> without a
+     * metadata configuration mode.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Default value is <code>2.15</code> when <code>DeploymentType</code> is set to <code>PERSISTENT_2</code> with a
+     * metadata configuration mode.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param fileSystemTypeVersion
+     *        For FSx for Lustre file systems, sets the Lustre version for the file system that you're creating. Valid
+     *        values are <code>2.10</code>, <code>2.12</code>, and <code>2.15</code>:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>2.10</code> is supported by the Scratch and Persistent_1 Lustre deployment types.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>2.12</code> is supported by all Lustre deployment types, except for <code>PERSISTENT_2</code> with a
+     *        metadata configuration mode.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>2.15</code> is supported by all Lustre deployment types and is recommended for all new file systems.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Default value is <code>2.10</code>, except for the following deployments:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Default value is <code>2.12</code> when <code>DeploymentType</code> is set to <code>PERSISTENT_2</code>
+     *        without a metadata configuration mode.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Default value is <code>2.15</code> when <code>DeploymentType</code> is set to <code>PERSISTENT_2</code>
+     *        with a metadata configuration mode.
+     *        </p>
+     *        </li>
+     */
+
+    public void setFileSystemTypeVersion(String fileSystemTypeVersion) {
+        this.fileSystemTypeVersion = fileSystemTypeVersion;
+    }
+
+    /**
+     * <p>
+     * For FSx for Lustre file systems, sets the Lustre version for the file system that you're creating. Valid values
+     * are <code>2.10</code>, <code>2.12</code>, and <code>2.15</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>2.10</code> is supported by the Scratch and Persistent_1 Lustre deployment types.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>2.12</code> is supported by all Lustre deployment types, except for <code>PERSISTENT_2</code> with a
+     * metadata configuration mode.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>2.15</code> is supported by all Lustre deployment types and is recommended for all new file systems.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default value is <code>2.10</code>, except for the following deployments:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Default value is <code>2.12</code> when <code>DeploymentType</code> is set to <code>PERSISTENT_2</code> without a
+     * metadata configuration mode.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Default value is <code>2.15</code> when <code>DeploymentType</code> is set to <code>PERSISTENT_2</code> with a
+     * metadata configuration mode.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return For FSx for Lustre file systems, sets the Lustre version for the file system that you're creating. Valid
+     *         values are <code>2.10</code>, <code>2.12</code>, and <code>2.15</code>:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>2.10</code> is supported by the Scratch and Persistent_1 Lustre deployment types.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>2.12</code> is supported by all Lustre deployment types, except for <code>PERSISTENT_2</code> with
+     *         a metadata configuration mode.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>2.15</code> is supported by all Lustre deployment types and is recommended for all new file
+     *         systems.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Default value is <code>2.10</code>, except for the following deployments:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Default value is <code>2.12</code> when <code>DeploymentType</code> is set to <code>PERSISTENT_2</code>
+     *         without a metadata configuration mode.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Default value is <code>2.15</code> when <code>DeploymentType</code> is set to <code>PERSISTENT_2</code>
+     *         with a metadata configuration mode.
+     *         </p>
+     *         </li>
+     */
+
+    public String getFileSystemTypeVersion() {
+        return this.fileSystemTypeVersion;
+    }
+
+    /**
+     * <p>
+     * For FSx for Lustre file systems, sets the Lustre version for the file system that you're creating. Valid values
+     * are <code>2.10</code>, <code>2.12</code>, and <code>2.15</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>2.10</code> is supported by the Scratch and Persistent_1 Lustre deployment types.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>2.12</code> is supported by all Lustre deployment types, except for <code>PERSISTENT_2</code> with a
+     * metadata configuration mode.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>2.15</code> is supported by all Lustre deployment types and is recommended for all new file systems.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default value is <code>2.10</code>, except for the following deployments:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Default value is <code>2.12</code> when <code>DeploymentType</code> is set to <code>PERSISTENT_2</code> without a
+     * metadata configuration mode.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Default value is <code>2.15</code> when <code>DeploymentType</code> is set to <code>PERSISTENT_2</code> with a
+     * metadata configuration mode.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param fileSystemTypeVersion
+     *        For FSx for Lustre file systems, sets the Lustre version for the file system that you're creating. Valid
+     *        values are <code>2.10</code>, <code>2.12</code>, and <code>2.15</code>:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>2.10</code> is supported by the Scratch and Persistent_1 Lustre deployment types.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>2.12</code> is supported by all Lustre deployment types, except for <code>PERSISTENT_2</code> with a
+     *        metadata configuration mode.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>2.15</code> is supported by all Lustre deployment types and is recommended for all new file systems.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Default value is <code>2.10</code>, except for the following deployments:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Default value is <code>2.12</code> when <code>DeploymentType</code> is set to <code>PERSISTENT_2</code>
+     *        without a metadata configuration mode.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Default value is <code>2.15</code> when <code>DeploymentType</code> is set to <code>PERSISTENT_2</code>
+     *        with a metadata configuration mode.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateFileSystemRequest withFileSystemTypeVersion(String fileSystemTypeVersion) {
+        setFileSystemTypeVersion(fileSystemTypeVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The OpenZFS configuration for the file system that's being created.
+     * </p>
+     * 
+     * @param openZFSConfiguration
+     *        The OpenZFS configuration for the file system that's being created.
+     */
+
+    public void setOpenZFSConfiguration(CreateFileSystemOpenZFSConfiguration openZFSConfiguration) {
+        this.openZFSConfiguration = openZFSConfiguration;
+    }
+
+    /**
+     * <p>
+     * The OpenZFS configuration for the file system that's being created.
+     * </p>
+     * 
+     * @return The OpenZFS configuration for the file system that's being created.
+     */
+
+    public CreateFileSystemOpenZFSConfiguration getOpenZFSConfiguration() {
+        return this.openZFSConfiguration;
+    }
+
+    /**
+     * <p>
+     * The OpenZFS configuration for the file system that's being created.
+     * </p>
+     * 
+     * @param openZFSConfiguration
+     *        The OpenZFS configuration for the file system that's being created.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateFileSystemRequest withOpenZFSConfiguration(CreateFileSystemOpenZFSConfiguration openZFSConfiguration) {
+        setOpenZFSConfiguration(openZFSConfiguration);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -624,6 +1704,8 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
             sb.append("FileSystemType: ").append(getFileSystemType()).append(",");
         if (getStorageCapacity() != null)
             sb.append("StorageCapacity: ").append(getStorageCapacity()).append(",");
+        if (getStorageType() != null)
+            sb.append("StorageType: ").append(getStorageType()).append(",");
         if (getSubnetIds() != null)
             sb.append("SubnetIds: ").append(getSubnetIds()).append(",");
         if (getSecurityGroupIds() != null)
@@ -635,7 +1717,13 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
         if (getWindowsConfiguration() != null)
             sb.append("WindowsConfiguration: ").append(getWindowsConfiguration()).append(",");
         if (getLustreConfiguration() != null)
-            sb.append("LustreConfiguration: ").append(getLustreConfiguration());
+            sb.append("LustreConfiguration: ").append(getLustreConfiguration()).append(",");
+        if (getOntapConfiguration() != null)
+            sb.append("OntapConfiguration: ").append(getOntapConfiguration()).append(",");
+        if (getFileSystemTypeVersion() != null)
+            sb.append("FileSystemTypeVersion: ").append(getFileSystemTypeVersion()).append(",");
+        if (getOpenZFSConfiguration() != null)
+            sb.append("OpenZFSConfiguration: ").append(getOpenZFSConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -662,6 +1750,10 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
             return false;
         if (other.getStorageCapacity() != null && other.getStorageCapacity().equals(this.getStorageCapacity()) == false)
             return false;
+        if (other.getStorageType() == null ^ this.getStorageType() == null)
+            return false;
+        if (other.getStorageType() != null && other.getStorageType().equals(this.getStorageType()) == false)
+            return false;
         if (other.getSubnetIds() == null ^ this.getSubnetIds() == null)
             return false;
         if (other.getSubnetIds() != null && other.getSubnetIds().equals(this.getSubnetIds()) == false)
@@ -686,6 +1778,18 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
             return false;
         if (other.getLustreConfiguration() != null && other.getLustreConfiguration().equals(this.getLustreConfiguration()) == false)
             return false;
+        if (other.getOntapConfiguration() == null ^ this.getOntapConfiguration() == null)
+            return false;
+        if (other.getOntapConfiguration() != null && other.getOntapConfiguration().equals(this.getOntapConfiguration()) == false)
+            return false;
+        if (other.getFileSystemTypeVersion() == null ^ this.getFileSystemTypeVersion() == null)
+            return false;
+        if (other.getFileSystemTypeVersion() != null && other.getFileSystemTypeVersion().equals(this.getFileSystemTypeVersion()) == false)
+            return false;
+        if (other.getOpenZFSConfiguration() == null ^ this.getOpenZFSConfiguration() == null)
+            return false;
+        if (other.getOpenZFSConfiguration() != null && other.getOpenZFSConfiguration().equals(this.getOpenZFSConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -697,12 +1801,16 @@ public class CreateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
         hashCode = prime * hashCode + ((getClientRequestToken() == null) ? 0 : getClientRequestToken().hashCode());
         hashCode = prime * hashCode + ((getFileSystemType() == null) ? 0 : getFileSystemType().hashCode());
         hashCode = prime * hashCode + ((getStorageCapacity() == null) ? 0 : getStorageCapacity().hashCode());
+        hashCode = prime * hashCode + ((getStorageType() == null) ? 0 : getStorageType().hashCode());
         hashCode = prime * hashCode + ((getSubnetIds() == null) ? 0 : getSubnetIds().hashCode());
         hashCode = prime * hashCode + ((getSecurityGroupIds() == null) ? 0 : getSecurityGroupIds().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getKmsKeyId() == null) ? 0 : getKmsKeyId().hashCode());
         hashCode = prime * hashCode + ((getWindowsConfiguration() == null) ? 0 : getWindowsConfiguration().hashCode());
         hashCode = prime * hashCode + ((getLustreConfiguration() == null) ? 0 : getLustreConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getOntapConfiguration() == null) ? 0 : getOntapConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getFileSystemTypeVersion() == null) ? 0 : getFileSystemTypeVersion().hashCode());
+        hashCode = prime * hashCode + ((getOpenZFSConfiguration() == null) ? 0 : getOpenZFSConfiguration().hashCode());
         return hashCode;
     }
 

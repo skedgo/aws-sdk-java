@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,8 +28,8 @@ public class Parameter implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The key associated with the parameter. If you don't specify a key and value for a particular parameter, AWS
-     * CloudFormation uses the default value that is specified in your template.
+     * The key associated with the parameter. If you don't specify a key and value for a particular parameter,
+     * CloudFormation uses the default value that's specified in your template.
      * </p>
      */
     private String parameterKey;
@@ -48,23 +48,22 @@ public class Parameter implements Serializable, Cloneable {
     private Boolean usePreviousValue;
     /**
      * <p>
-     * Read-only. The value that corresponds to a Systems Manager parameter key. This field is returned only for <a
-     * href=
+     * Read-only. The value that corresponds to a SSM parameter key. This field is returned only for <a href=
      * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#aws-ssm-parameter-types"
-     * > <code>SSM</code> parameter types</a> in the template.
+     * > SSM</a> parameter types in the template.
      * </p>
      */
     private String resolvedValue;
 
     /**
      * <p>
-     * The key associated with the parameter. If you don't specify a key and value for a particular parameter, AWS
-     * CloudFormation uses the default value that is specified in your template.
+     * The key associated with the parameter. If you don't specify a key and value for a particular parameter,
+     * CloudFormation uses the default value that's specified in your template.
      * </p>
      * 
      * @param parameterKey
      *        The key associated with the parameter. If you don't specify a key and value for a particular parameter,
-     *        AWS CloudFormation uses the default value that is specified in your template.
+     *        CloudFormation uses the default value that's specified in your template.
      */
 
     public void setParameterKey(String parameterKey) {
@@ -73,12 +72,12 @@ public class Parameter implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The key associated with the parameter. If you don't specify a key and value for a particular parameter, AWS
-     * CloudFormation uses the default value that is specified in your template.
+     * The key associated with the parameter. If you don't specify a key and value for a particular parameter,
+     * CloudFormation uses the default value that's specified in your template.
      * </p>
      * 
      * @return The key associated with the parameter. If you don't specify a key and value for a particular parameter,
-     *         AWS CloudFormation uses the default value that is specified in your template.
+     *         CloudFormation uses the default value that's specified in your template.
      */
 
     public String getParameterKey() {
@@ -87,13 +86,13 @@ public class Parameter implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The key associated with the parameter. If you don't specify a key and value for a particular parameter, AWS
-     * CloudFormation uses the default value that is specified in your template.
+     * The key associated with the parameter. If you don't specify a key and value for a particular parameter,
+     * CloudFormation uses the default value that's specified in your template.
      * </p>
      * 
      * @param parameterKey
      *        The key associated with the parameter. If you don't specify a key and value for a particular parameter,
-     *        AWS CloudFormation uses the default value that is specified in your template.
+     *        CloudFormation uses the default value that's specified in your template.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -204,17 +203,15 @@ public class Parameter implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Read-only. The value that corresponds to a Systems Manager parameter key. This field is returned only for <a
-     * href=
+     * Read-only. The value that corresponds to a SSM parameter key. This field is returned only for <a href=
      * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#aws-ssm-parameter-types"
-     * > <code>SSM</code> parameter types</a> in the template.
+     * > SSM</a> parameter types in the template.
      * </p>
      * 
      * @param resolvedValue
-     *        Read-only. The value that corresponds to a Systems Manager parameter key. This field is returned only for
-     *        <a href=
+     *        Read-only. The value that corresponds to a SSM parameter key. This field is returned only for <a href=
      *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#aws-ssm-parameter-types"
-     *        > <code>SSM</code> parameter types</a> in the template.
+     *        > SSM</a> parameter types in the template.
      */
 
     public void setResolvedValue(String resolvedValue) {
@@ -223,16 +220,14 @@ public class Parameter implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Read-only. The value that corresponds to a Systems Manager parameter key. This field is returned only for <a
-     * href=
+     * Read-only. The value that corresponds to a SSM parameter key. This field is returned only for <a href=
      * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#aws-ssm-parameter-types"
-     * > <code>SSM</code> parameter types</a> in the template.
+     * > SSM</a> parameter types in the template.
      * </p>
      * 
-     * @return Read-only. The value that corresponds to a Systems Manager parameter key. This field is returned only for
-     *         <a href=
+     * @return Read-only. The value that corresponds to a SSM parameter key. This field is returned only for <a href=
      *         "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#aws-ssm-parameter-types"
-     *         > <code>SSM</code> parameter types</a> in the template.
+     *         > SSM</a> parameter types in the template.
      */
 
     public String getResolvedValue() {
@@ -241,17 +236,15 @@ public class Parameter implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Read-only. The value that corresponds to a Systems Manager parameter key. This field is returned only for <a
-     * href=
+     * Read-only. The value that corresponds to a SSM parameter key. This field is returned only for <a href=
      * "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#aws-ssm-parameter-types"
-     * > <code>SSM</code> parameter types</a> in the template.
+     * > SSM</a> parameter types in the template.
      * </p>
      * 
      * @param resolvedValue
-     *        Read-only. The value that corresponds to a Systems Manager parameter key. This field is returned only for
-     *        <a href=
+     *        Read-only. The value that corresponds to a SSM parameter key. This field is returned only for <a href=
      *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#aws-ssm-parameter-types"
-     *        > <code>SSM</code> parameter types</a> in the template.
+     *        > SSM</a> parameter types in the template.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

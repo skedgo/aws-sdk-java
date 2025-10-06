@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,7 +25,14 @@ public class DescribeThingResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * The default client ID.
+     * The default MQTT client ID. For a typical device, the thing name is also used as the default MQTT client ID.
+     * Although we don’t require a mapping between a thing's registry name and its use of MQTT client IDs, certificates,
+     * or shadow state, we recommend that you choose a thing name and use it as the MQTT client ID for the registry and
+     * the Device Shadow service.
+     * </p>
+     * <p>
+     * This lets you better organize your IoT fleet without removing the flexibility of the underlying device
+     * certificate model or shadows.
      * </p>
      */
     private String defaultClientId;
@@ -80,11 +87,24 @@ public class DescribeThingResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * The default client ID.
+     * The default MQTT client ID. For a typical device, the thing name is also used as the default MQTT client ID.
+     * Although we don’t require a mapping between a thing's registry name and its use of MQTT client IDs, certificates,
+     * or shadow state, we recommend that you choose a thing name and use it as the MQTT client ID for the registry and
+     * the Device Shadow service.
+     * </p>
+     * <p>
+     * This lets you better organize your IoT fleet without removing the flexibility of the underlying device
+     * certificate model or shadows.
      * </p>
      * 
      * @param defaultClientId
-     *        The default client ID.
+     *        The default MQTT client ID. For a typical device, the thing name is also used as the default MQTT client
+     *        ID. Although we don’t require a mapping between a thing's registry name and its use of MQTT client IDs,
+     *        certificates, or shadow state, we recommend that you choose a thing name and use it as the MQTT client ID
+     *        for the registry and the Device Shadow service.</p>
+     *        <p>
+     *        This lets you better organize your IoT fleet without removing the flexibility of the underlying device
+     *        certificate model or shadows.
      */
 
     public void setDefaultClientId(String defaultClientId) {
@@ -93,10 +113,23 @@ public class DescribeThingResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * The default client ID.
+     * The default MQTT client ID. For a typical device, the thing name is also used as the default MQTT client ID.
+     * Although we don’t require a mapping between a thing's registry name and its use of MQTT client IDs, certificates,
+     * or shadow state, we recommend that you choose a thing name and use it as the MQTT client ID for the registry and
+     * the Device Shadow service.
+     * </p>
+     * <p>
+     * This lets you better organize your IoT fleet without removing the flexibility of the underlying device
+     * certificate model or shadows.
      * </p>
      * 
-     * @return The default client ID.
+     * @return The default MQTT client ID. For a typical device, the thing name is also used as the default MQTT client
+     *         ID. Although we don’t require a mapping between a thing's registry name and its use of MQTT client IDs,
+     *         certificates, or shadow state, we recommend that you choose a thing name and use it as the MQTT client ID
+     *         for the registry and the Device Shadow service.</p>
+     *         <p>
+     *         This lets you better organize your IoT fleet without removing the flexibility of the underlying device
+     *         certificate model or shadows.
      */
 
     public String getDefaultClientId() {
@@ -105,11 +138,24 @@ public class DescribeThingResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * The default client ID.
+     * The default MQTT client ID. For a typical device, the thing name is also used as the default MQTT client ID.
+     * Although we don’t require a mapping between a thing's registry name and its use of MQTT client IDs, certificates,
+     * or shadow state, we recommend that you choose a thing name and use it as the MQTT client ID for the registry and
+     * the Device Shadow service.
+     * </p>
+     * <p>
+     * This lets you better organize your IoT fleet without removing the flexibility of the underlying device
+     * certificate model or shadows.
      * </p>
      * 
      * @param defaultClientId
-     *        The default client ID.
+     *        The default MQTT client ID. For a typical device, the thing name is also used as the default MQTT client
+     *        ID. Although we don’t require a mapping between a thing's registry name and its use of MQTT client IDs,
+     *        certificates, or shadow state, we recommend that you choose a thing name and use it as the MQTT client ID
+     *        for the registry and the Device Shadow service.</p>
+     *        <p>
+     *        This lets you better organize your IoT fleet without removing the flexibility of the underlying device
+     *        certificate model or shadows.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -317,6 +363,13 @@ public class DescribeThingResult extends com.amazonaws.AmazonWebServiceResult<co
         setAttributes(attributes);
         return this;
     }
+
+    /**
+     * Add a single Attributes entry
+     *
+     * @see DescribeThingResult#withAttributes
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public DescribeThingResult addAttributesEntry(String key, String value) {
         if (null == this.attributes) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The name of the Lambda function, version, or alias.
+     * The name or ARN of the Lambda function, version, or alias.
      * </p>
      * <p class="title">
      * <b>Name formats</b>
@@ -35,17 +35,17 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <ul>
      * <li>
      * <p>
-     * <b>Function name</b> - <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
+     * <b>Function name</b> – <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
+     * <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Partial ARN</b> - <code>123456789012:function:my-function</code>.
+     * <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.
      * </p>
      * </li>
      * </ul>
@@ -70,30 +70,32 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String action;
     /**
      * <p>
-     * The AWS service or account that invokes the function. If you specify a service, use <code>SourceArn</code> or
-     * <code>SourceAccount</code> to limit who can invoke the function through that service.
+     * The Amazon Web Service or Amazon Web Services account that invokes the function. If you specify a service, use
+     * <code>SourceArn</code> or <code>SourceAccount</code> to limit who can invoke the function through that service.
      * </p>
      */
     private String principal;
     /**
      * <p>
-     * For AWS services, the ARN of the AWS resource that invokes the function. For example, an Amazon S3 bucket or
-     * Amazon SNS topic.
+     * For Amazon Web Services, the ARN of the Amazon Web Services resource that invokes the function. For example, an
+     * Amazon S3 bucket or Amazon SNS topic.
+     * </p>
+     * <p>
+     * Note that Lambda configures the comparison using the <code>StringLike</code> operator.
      * </p>
      */
     private String sourceArn;
     /**
      * <p>
-     * For AWS services, the ID of the account that owns the resource. Use this instead of <code>SourceArn</code> to
-     * grant permission to resources that are owned by another account (for example, all of an account's Amazon S3
-     * buckets). Or use it together with <code>SourceArn</code> to ensure that the resource is owned by the specified
-     * account. For example, an Amazon S3 bucket could be deleted by its owner and recreated by another account.
+     * For Amazon Web Service, the ID of the Amazon Web Services account that owns the resource. Use this together with
+     * <code>SourceArn</code> to ensure that the specified account owns the resource. It is possible for an Amazon S3
+     * bucket to be deleted by its owner and recreated by another account.
      * </p>
      */
     private String sourceAccount;
     /**
      * <p>
-     * For Alexa Smart Home functions, a token that must be supplied by the invoker.
+     * For Alexa Smart Home functions, a token that the invoker must supply.
      * </p>
      */
     private String eventSourceToken;
@@ -105,15 +107,32 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String qualifier;
     /**
      * <p>
-     * Only update the policy if the revision ID matches the ID that's specified. Use this option to avoid modifying a
+     * Update the policy only if the revision ID matches the ID that's specified. Use this option to avoid modifying a
      * policy that has changed since you last read it.
      * </p>
      */
     private String revisionId;
+    /**
+     * <p>
+     * The identifier for your organization in Organizations. Use this to grant permissions to all the Amazon Web
+     * Services accounts under this organization.
+     * </p>
+     */
+    private String principalOrgID;
+    /**
+     * <p>
+     * The type of authentication that your function URL uses. Set to <code>AWS_IAM</code> if you want to restrict
+     * access to authenticated users only. Set to <code>NONE</code> if you want to bypass IAM authentication to create a
+     * public endpoint. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/urls-auth.html">Security and auth model for Lambda function
+     * URLs</a>.
+     * </p>
+     */
+    private String functionUrlAuthType;
 
     /**
      * <p>
-     * The name of the Lambda function, version, or alias.
+     * The name or ARN of the Lambda function, version, or alias.
      * </p>
      * <p class="title">
      * <b>Name formats</b>
@@ -121,17 +140,17 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <ul>
      * <li>
      * <p>
-     * <b>Function name</b> - <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
+     * <b>Function name</b> – <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
+     * <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Partial ARN</b> - <code>123456789012:function:my-function</code>.
+     * <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.
      * </p>
      * </li>
      * </ul>
@@ -141,24 +160,24 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * 
      * @param functionName
-     *        The name of the Lambda function, version, or alias.</p>
+     *        The name or ARN of the Lambda function, version, or alias.</p>
      *        <p class="title">
      *        <b>Name formats</b>
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>Function name</b> - <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
+     *        <b>Function name</b> – <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
+     *        <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>Partial ARN</b> - <code>123456789012:function:my-function</code>.
+     *        <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.
      *        </p>
      *        </li>
      *        </ul>
@@ -173,7 +192,7 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The name of the Lambda function, version, or alias.
+     * The name or ARN of the Lambda function, version, or alias.
      * </p>
      * <p class="title">
      * <b>Name formats</b>
@@ -181,17 +200,17 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <ul>
      * <li>
      * <p>
-     * <b>Function name</b> - <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
+     * <b>Function name</b> – <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
+     * <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Partial ARN</b> - <code>123456789012:function:my-function</code>.
+     * <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.
      * </p>
      * </li>
      * </ul>
@@ -200,24 +219,24 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
      * ARN. If you specify only the function name, it is limited to 64 characters in length.
      * </p>
      * 
-     * @return The name of the Lambda function, version, or alias.</p>
+     * @return The name or ARN of the Lambda function, version, or alias.</p>
      *         <p class="title">
      *         <b>Name formats</b>
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <b>Function name</b> - <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
+     *         <b>Function name</b> – <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
+     *         <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <b>Partial ARN</b> - <code>123456789012:function:my-function</code>.
+     *         <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.
      *         </p>
      *         </li>
      *         </ul>
@@ -232,7 +251,7 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The name of the Lambda function, version, or alias.
+     * The name or ARN of the Lambda function, version, or alias.
      * </p>
      * <p class="title">
      * <b>Name formats</b>
@@ -240,17 +259,17 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <ul>
      * <li>
      * <p>
-     * <b>Function name</b> - <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
+     * <b>Function name</b> – <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
+     * <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Partial ARN</b> - <code>123456789012:function:my-function</code>.
+     * <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.
      * </p>
      * </li>
      * </ul>
@@ -260,24 +279,24 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * 
      * @param functionName
-     *        The name of the Lambda function, version, or alias.</p>
+     *        The name or ARN of the Lambda function, version, or alias.</p>
      *        <p class="title">
      *        <b>Name formats</b>
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>Function name</b> - <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
+     *        <b>Function name</b> – <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
+     *        <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>Partial ARN</b> - <code>123456789012:function:my-function</code>.
+     *        <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.
      *        </p>
      *        </li>
      *        </ul>
@@ -380,13 +399,14 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The AWS service or account that invokes the function. If you specify a service, use <code>SourceArn</code> or
-     * <code>SourceAccount</code> to limit who can invoke the function through that service.
+     * The Amazon Web Service or Amazon Web Services account that invokes the function. If you specify a service, use
+     * <code>SourceArn</code> or <code>SourceAccount</code> to limit who can invoke the function through that service.
      * </p>
      * 
      * @param principal
-     *        The AWS service or account that invokes the function. If you specify a service, use <code>SourceArn</code>
-     *        or <code>SourceAccount</code> to limit who can invoke the function through that service.
+     *        The Amazon Web Service or Amazon Web Services account that invokes the function. If you specify a service,
+     *        use <code>SourceArn</code> or <code>SourceAccount</code> to limit who can invoke the function through that
+     *        service.
      */
 
     public void setPrincipal(String principal) {
@@ -395,13 +415,13 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The AWS service or account that invokes the function. If you specify a service, use <code>SourceArn</code> or
-     * <code>SourceAccount</code> to limit who can invoke the function through that service.
+     * The Amazon Web Service or Amazon Web Services account that invokes the function. If you specify a service, use
+     * <code>SourceArn</code> or <code>SourceAccount</code> to limit who can invoke the function through that service.
      * </p>
      * 
-     * @return The AWS service or account that invokes the function. If you specify a service, use
-     *         <code>SourceArn</code> or <code>SourceAccount</code> to limit who can invoke the function through that
-     *         service.
+     * @return The Amazon Web Service or Amazon Web Services account that invokes the function. If you specify a
+     *         service, use <code>SourceArn</code> or <code>SourceAccount</code> to limit who can invoke the function
+     *         through that service.
      */
 
     public String getPrincipal() {
@@ -410,13 +430,14 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The AWS service or account that invokes the function. If you specify a service, use <code>SourceArn</code> or
-     * <code>SourceAccount</code> to limit who can invoke the function through that service.
+     * The Amazon Web Service or Amazon Web Services account that invokes the function. If you specify a service, use
+     * <code>SourceArn</code> or <code>SourceAccount</code> to limit who can invoke the function through that service.
      * </p>
      * 
      * @param principal
-     *        The AWS service or account that invokes the function. If you specify a service, use <code>SourceArn</code>
-     *        or <code>SourceAccount</code> to limit who can invoke the function through that service.
+     *        The Amazon Web Service or Amazon Web Services account that invokes the function. If you specify a service,
+     *        use <code>SourceArn</code> or <code>SourceAccount</code> to limit who can invoke the function through that
+     *        service.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -427,13 +448,18 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * For AWS services, the ARN of the AWS resource that invokes the function. For example, an Amazon S3 bucket or
-     * Amazon SNS topic.
+     * For Amazon Web Services, the ARN of the Amazon Web Services resource that invokes the function. For example, an
+     * Amazon S3 bucket or Amazon SNS topic.
+     * </p>
+     * <p>
+     * Note that Lambda configures the comparison using the <code>StringLike</code> operator.
      * </p>
      * 
      * @param sourceArn
-     *        For AWS services, the ARN of the AWS resource that invokes the function. For example, an Amazon S3 bucket
-     *        or Amazon SNS topic.
+     *        For Amazon Web Services, the ARN of the Amazon Web Services resource that invokes the function. For
+     *        example, an Amazon S3 bucket or Amazon SNS topic.</p>
+     *        <p>
+     *        Note that Lambda configures the comparison using the <code>StringLike</code> operator.
      */
 
     public void setSourceArn(String sourceArn) {
@@ -442,12 +468,17 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * For AWS services, the ARN of the AWS resource that invokes the function. For example, an Amazon S3 bucket or
-     * Amazon SNS topic.
+     * For Amazon Web Services, the ARN of the Amazon Web Services resource that invokes the function. For example, an
+     * Amazon S3 bucket or Amazon SNS topic.
+     * </p>
+     * <p>
+     * Note that Lambda configures the comparison using the <code>StringLike</code> operator.
      * </p>
      * 
-     * @return For AWS services, the ARN of the AWS resource that invokes the function. For example, an Amazon S3 bucket
-     *         or Amazon SNS topic.
+     * @return For Amazon Web Services, the ARN of the Amazon Web Services resource that invokes the function. For
+     *         example, an Amazon S3 bucket or Amazon SNS topic.</p>
+     *         <p>
+     *         Note that Lambda configures the comparison using the <code>StringLike</code> operator.
      */
 
     public String getSourceArn() {
@@ -456,13 +487,18 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * For AWS services, the ARN of the AWS resource that invokes the function. For example, an Amazon S3 bucket or
-     * Amazon SNS topic.
+     * For Amazon Web Services, the ARN of the Amazon Web Services resource that invokes the function. For example, an
+     * Amazon S3 bucket or Amazon SNS topic.
+     * </p>
+     * <p>
+     * Note that Lambda configures the comparison using the <code>StringLike</code> operator.
      * </p>
      * 
      * @param sourceArn
-     *        For AWS services, the ARN of the AWS resource that invokes the function. For example, an Amazon S3 bucket
-     *        or Amazon SNS topic.
+     *        For Amazon Web Services, the ARN of the Amazon Web Services resource that invokes the function. For
+     *        example, an Amazon S3 bucket or Amazon SNS topic.</p>
+     *        <p>
+     *        Note that Lambda configures the comparison using the <code>StringLike</code> operator.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -473,18 +509,15 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * For AWS services, the ID of the account that owns the resource. Use this instead of <code>SourceArn</code> to
-     * grant permission to resources that are owned by another account (for example, all of an account's Amazon S3
-     * buckets). Or use it together with <code>SourceArn</code> to ensure that the resource is owned by the specified
-     * account. For example, an Amazon S3 bucket could be deleted by its owner and recreated by another account.
+     * For Amazon Web Service, the ID of the Amazon Web Services account that owns the resource. Use this together with
+     * <code>SourceArn</code> to ensure that the specified account owns the resource. It is possible for an Amazon S3
+     * bucket to be deleted by its owner and recreated by another account.
      * </p>
      * 
      * @param sourceAccount
-     *        For AWS services, the ID of the account that owns the resource. Use this instead of <code>SourceArn</code>
-     *        to grant permission to resources that are owned by another account (for example, all of an account's
-     *        Amazon S3 buckets). Or use it together with <code>SourceArn</code> to ensure that the resource is owned by
-     *        the specified account. For example, an Amazon S3 bucket could be deleted by its owner and recreated by
-     *        another account.
+     *        For Amazon Web Service, the ID of the Amazon Web Services account that owns the resource. Use this
+     *        together with <code>SourceArn</code> to ensure that the specified account owns the resource. It is
+     *        possible for an Amazon S3 bucket to be deleted by its owner and recreated by another account.
      */
 
     public void setSourceAccount(String sourceAccount) {
@@ -493,17 +526,14 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * For AWS services, the ID of the account that owns the resource. Use this instead of <code>SourceArn</code> to
-     * grant permission to resources that are owned by another account (for example, all of an account's Amazon S3
-     * buckets). Or use it together with <code>SourceArn</code> to ensure that the resource is owned by the specified
-     * account. For example, an Amazon S3 bucket could be deleted by its owner and recreated by another account.
+     * For Amazon Web Service, the ID of the Amazon Web Services account that owns the resource. Use this together with
+     * <code>SourceArn</code> to ensure that the specified account owns the resource. It is possible for an Amazon S3
+     * bucket to be deleted by its owner and recreated by another account.
      * </p>
      * 
-     * @return For AWS services, the ID of the account that owns the resource. Use this instead of
-     *         <code>SourceArn</code> to grant permission to resources that are owned by another account (for example,
-     *         all of an account's Amazon S3 buckets). Or use it together with <code>SourceArn</code> to ensure that the
-     *         resource is owned by the specified account. For example, an Amazon S3 bucket could be deleted by its
-     *         owner and recreated by another account.
+     * @return For Amazon Web Service, the ID of the Amazon Web Services account that owns the resource. Use this
+     *         together with <code>SourceArn</code> to ensure that the specified account owns the resource. It is
+     *         possible for an Amazon S3 bucket to be deleted by its owner and recreated by another account.
      */
 
     public String getSourceAccount() {
@@ -512,18 +542,15 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * For AWS services, the ID of the account that owns the resource. Use this instead of <code>SourceArn</code> to
-     * grant permission to resources that are owned by another account (for example, all of an account's Amazon S3
-     * buckets). Or use it together with <code>SourceArn</code> to ensure that the resource is owned by the specified
-     * account. For example, an Amazon S3 bucket could be deleted by its owner and recreated by another account.
+     * For Amazon Web Service, the ID of the Amazon Web Services account that owns the resource. Use this together with
+     * <code>SourceArn</code> to ensure that the specified account owns the resource. It is possible for an Amazon S3
+     * bucket to be deleted by its owner and recreated by another account.
      * </p>
      * 
      * @param sourceAccount
-     *        For AWS services, the ID of the account that owns the resource. Use this instead of <code>SourceArn</code>
-     *        to grant permission to resources that are owned by another account (for example, all of an account's
-     *        Amazon S3 buckets). Or use it together with <code>SourceArn</code> to ensure that the resource is owned by
-     *        the specified account. For example, an Amazon S3 bucket could be deleted by its owner and recreated by
-     *        another account.
+     *        For Amazon Web Service, the ID of the Amazon Web Services account that owns the resource. Use this
+     *        together with <code>SourceArn</code> to ensure that the specified account owns the resource. It is
+     *        possible for an Amazon S3 bucket to be deleted by its owner and recreated by another account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -534,11 +561,11 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * For Alexa Smart Home functions, a token that must be supplied by the invoker.
+     * For Alexa Smart Home functions, a token that the invoker must supply.
      * </p>
      * 
      * @param eventSourceToken
-     *        For Alexa Smart Home functions, a token that must be supplied by the invoker.
+     *        For Alexa Smart Home functions, a token that the invoker must supply.
      */
 
     public void setEventSourceToken(String eventSourceToken) {
@@ -547,10 +574,10 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * For Alexa Smart Home functions, a token that must be supplied by the invoker.
+     * For Alexa Smart Home functions, a token that the invoker must supply.
      * </p>
      * 
-     * @return For Alexa Smart Home functions, a token that must be supplied by the invoker.
+     * @return For Alexa Smart Home functions, a token that the invoker must supply.
      */
 
     public String getEventSourceToken() {
@@ -559,11 +586,11 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * For Alexa Smart Home functions, a token that must be supplied by the invoker.
+     * For Alexa Smart Home functions, a token that the invoker must supply.
      * </p>
      * 
      * @param eventSourceToken
-     *        For Alexa Smart Home functions, a token that must be supplied by the invoker.
+     *        For Alexa Smart Home functions, a token that the invoker must supply.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -614,12 +641,12 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Only update the policy if the revision ID matches the ID that's specified. Use this option to avoid modifying a
+     * Update the policy only if the revision ID matches the ID that's specified. Use this option to avoid modifying a
      * policy that has changed since you last read it.
      * </p>
      * 
      * @param revisionId
-     *        Only update the policy if the revision ID matches the ID that's specified. Use this option to avoid
+     *        Update the policy only if the revision ID matches the ID that's specified. Use this option to avoid
      *        modifying a policy that has changed since you last read it.
      */
 
@@ -629,11 +656,11 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Only update the policy if the revision ID matches the ID that's specified. Use this option to avoid modifying a
+     * Update the policy only if the revision ID matches the ID that's specified. Use this option to avoid modifying a
      * policy that has changed since you last read it.
      * </p>
      * 
-     * @return Only update the policy if the revision ID matches the ID that's specified. Use this option to avoid
+     * @return Update the policy only if the revision ID matches the ID that's specified. Use this option to avoid
      *         modifying a policy that has changed since you last read it.
      */
 
@@ -643,18 +670,155 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Only update the policy if the revision ID matches the ID that's specified. Use this option to avoid modifying a
+     * Update the policy only if the revision ID matches the ID that's specified. Use this option to avoid modifying a
      * policy that has changed since you last read it.
      * </p>
      * 
      * @param revisionId
-     *        Only update the policy if the revision ID matches the ID that's specified. Use this option to avoid
+     *        Update the policy only if the revision ID matches the ID that's specified. Use this option to avoid
      *        modifying a policy that has changed since you last read it.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public AddPermissionRequest withRevisionId(String revisionId) {
         setRevisionId(revisionId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The identifier for your organization in Organizations. Use this to grant permissions to all the Amazon Web
+     * Services accounts under this organization.
+     * </p>
+     * 
+     * @param principalOrgID
+     *        The identifier for your organization in Organizations. Use this to grant permissions to all the Amazon Web
+     *        Services accounts under this organization.
+     */
+
+    public void setPrincipalOrgID(String principalOrgID) {
+        this.principalOrgID = principalOrgID;
+    }
+
+    /**
+     * <p>
+     * The identifier for your organization in Organizations. Use this to grant permissions to all the Amazon Web
+     * Services accounts under this organization.
+     * </p>
+     * 
+     * @return The identifier for your organization in Organizations. Use this to grant permissions to all the Amazon
+     *         Web Services accounts under this organization.
+     */
+
+    public String getPrincipalOrgID() {
+        return this.principalOrgID;
+    }
+
+    /**
+     * <p>
+     * The identifier for your organization in Organizations. Use this to grant permissions to all the Amazon Web
+     * Services accounts under this organization.
+     * </p>
+     * 
+     * @param principalOrgID
+     *        The identifier for your organization in Organizations. Use this to grant permissions to all the Amazon Web
+     *        Services accounts under this organization.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AddPermissionRequest withPrincipalOrgID(String principalOrgID) {
+        setPrincipalOrgID(principalOrgID);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of authentication that your function URL uses. Set to <code>AWS_IAM</code> if you want to restrict
+     * access to authenticated users only. Set to <code>NONE</code> if you want to bypass IAM authentication to create a
+     * public endpoint. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/urls-auth.html">Security and auth model for Lambda function
+     * URLs</a>.
+     * </p>
+     * 
+     * @param functionUrlAuthType
+     *        The type of authentication that your function URL uses. Set to <code>AWS_IAM</code> if you want to
+     *        restrict access to authenticated users only. Set to <code>NONE</code> if you want to bypass IAM
+     *        authentication to create a public endpoint. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/urls-auth.html">Security and auth model for Lambda
+     *        function URLs</a>.
+     * @see FunctionUrlAuthType
+     */
+
+    public void setFunctionUrlAuthType(String functionUrlAuthType) {
+        this.functionUrlAuthType = functionUrlAuthType;
+    }
+
+    /**
+     * <p>
+     * The type of authentication that your function URL uses. Set to <code>AWS_IAM</code> if you want to restrict
+     * access to authenticated users only. Set to <code>NONE</code> if you want to bypass IAM authentication to create a
+     * public endpoint. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/urls-auth.html">Security and auth model for Lambda function
+     * URLs</a>.
+     * </p>
+     * 
+     * @return The type of authentication that your function URL uses. Set to <code>AWS_IAM</code> if you want to
+     *         restrict access to authenticated users only. Set to <code>NONE</code> if you want to bypass IAM
+     *         authentication to create a public endpoint. For more information, see <a
+     *         href="https://docs.aws.amazon.com/lambda/latest/dg/urls-auth.html">Security and auth model for Lambda
+     *         function URLs</a>.
+     * @see FunctionUrlAuthType
+     */
+
+    public String getFunctionUrlAuthType() {
+        return this.functionUrlAuthType;
+    }
+
+    /**
+     * <p>
+     * The type of authentication that your function URL uses. Set to <code>AWS_IAM</code> if you want to restrict
+     * access to authenticated users only. Set to <code>NONE</code> if you want to bypass IAM authentication to create a
+     * public endpoint. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/urls-auth.html">Security and auth model for Lambda function
+     * URLs</a>.
+     * </p>
+     * 
+     * @param functionUrlAuthType
+     *        The type of authentication that your function URL uses. Set to <code>AWS_IAM</code> if you want to
+     *        restrict access to authenticated users only. Set to <code>NONE</code> if you want to bypass IAM
+     *        authentication to create a public endpoint. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/urls-auth.html">Security and auth model for Lambda
+     *        function URLs</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see FunctionUrlAuthType
+     */
+
+    public AddPermissionRequest withFunctionUrlAuthType(String functionUrlAuthType) {
+        setFunctionUrlAuthType(functionUrlAuthType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of authentication that your function URL uses. Set to <code>AWS_IAM</code> if you want to restrict
+     * access to authenticated users only. Set to <code>NONE</code> if you want to bypass IAM authentication to create a
+     * public endpoint. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/urls-auth.html">Security and auth model for Lambda function
+     * URLs</a>.
+     * </p>
+     * 
+     * @param functionUrlAuthType
+     *        The type of authentication that your function URL uses. Set to <code>AWS_IAM</code> if you want to
+     *        restrict access to authenticated users only. Set to <code>NONE</code> if you want to bypass IAM
+     *        authentication to create a public endpoint. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/urls-auth.html">Security and auth model for Lambda
+     *        function URLs</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see FunctionUrlAuthType
+     */
+
+    public AddPermissionRequest withFunctionUrlAuthType(FunctionUrlAuthType functionUrlAuthType) {
+        this.functionUrlAuthType = functionUrlAuthType.toString();
         return this;
     }
 
@@ -687,7 +851,11 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (getQualifier() != null)
             sb.append("Qualifier: ").append(getQualifier()).append(",");
         if (getRevisionId() != null)
-            sb.append("RevisionId: ").append(getRevisionId());
+            sb.append("RevisionId: ").append(getRevisionId()).append(",");
+        if (getPrincipalOrgID() != null)
+            sb.append("PrincipalOrgID: ").append(getPrincipalOrgID()).append(",");
+        if (getFunctionUrlAuthType() != null)
+            sb.append("FunctionUrlAuthType: ").append(getFunctionUrlAuthType());
         sb.append("}");
         return sb.toString();
     }
@@ -738,6 +906,14 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getRevisionId() != null && other.getRevisionId().equals(this.getRevisionId()) == false)
             return false;
+        if (other.getPrincipalOrgID() == null ^ this.getPrincipalOrgID() == null)
+            return false;
+        if (other.getPrincipalOrgID() != null && other.getPrincipalOrgID().equals(this.getPrincipalOrgID()) == false)
+            return false;
+        if (other.getFunctionUrlAuthType() == null ^ this.getFunctionUrlAuthType() == null)
+            return false;
+        if (other.getFunctionUrlAuthType() != null && other.getFunctionUrlAuthType().equals(this.getFunctionUrlAuthType()) == false)
+            return false;
         return true;
     }
 
@@ -755,6 +931,8 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
         hashCode = prime * hashCode + ((getEventSourceToken() == null) ? 0 : getEventSourceToken().hashCode());
         hashCode = prime * hashCode + ((getQualifier() == null) ? 0 : getQualifier().hashCode());
         hashCode = prime * hashCode + ((getRevisionId() == null) ? 0 : getRevisionId().hashCode());
+        hashCode = prime * hashCode + ((getPrincipalOrgID() == null) ? 0 : getPrincipalOrgID().hashCode());
+        hashCode = prime * hashCode + ((getFunctionUrlAuthType() == null) ? 0 : getFunctionUrlAuthType().hashCode());
         return hashCode;
     }
 

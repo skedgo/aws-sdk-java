@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.mediaconvert.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -27,6 +28,8 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class MsSmoothGroupSettingsMarshaller {
 
+    private static final MarshallingInfo<List> ADDITIONALMANIFESTS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("additionalManifests").build();
     private static final MarshallingInfo<String> AUDIODEDUPLICATION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("audioDeduplication").build();
     private static final MarshallingInfo<String> DESTINATION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -37,6 +40,8 @@ public class MsSmoothGroupSettingsMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("encryption").build();
     private static final MarshallingInfo<Integer> FRAGMENTLENGTH_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("fragmentLength").build();
+    private static final MarshallingInfo<String> FRAGMENTLENGTHCONTROL_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("fragmentLengthControl").build();
     private static final MarshallingInfo<String> MANIFESTENCODING_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("manifestEncoding").build();
 
@@ -56,11 +61,13 @@ public class MsSmoothGroupSettingsMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(msSmoothGroupSettings.getAdditionalManifests(), ADDITIONALMANIFESTS_BINDING);
             protocolMarshaller.marshall(msSmoothGroupSettings.getAudioDeduplication(), AUDIODEDUPLICATION_BINDING);
             protocolMarshaller.marshall(msSmoothGroupSettings.getDestination(), DESTINATION_BINDING);
             protocolMarshaller.marshall(msSmoothGroupSettings.getDestinationSettings(), DESTINATIONSETTINGS_BINDING);
             protocolMarshaller.marshall(msSmoothGroupSettings.getEncryption(), ENCRYPTION_BINDING);
             protocolMarshaller.marshall(msSmoothGroupSettings.getFragmentLength(), FRAGMENTLENGTH_BINDING);
+            protocolMarshaller.marshall(msSmoothGroupSettings.getFragmentLengthControl(), FRAGMENTLENGTHCONTROL_BINDING);
             protocolMarshaller.marshall(msSmoothGroupSettings.getManifestEncoding(), MANIFESTENCODING_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,7 +25,7 @@ public class ListProtectedResourcesResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * An array of resources successfully backed up by AWS Backup including the time the resource was saved, an Amazon
+     * An array of resources successfully backed up by Backup including the time the resource was saved, an Amazon
      * Resource Name (ARN) of the resource, and a resource type.
      * </p>
      */
@@ -33,7 +33,7 @@ public class ListProtectedResourcesResult extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The next item following a partial list of returned items. For example, if a request is made to return
-     * <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
+     * <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
      * starting at the location pointed to by the next token.
      * </p>
      */
@@ -41,11 +41,11 @@ public class ListProtectedResourcesResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * An array of resources successfully backed up by AWS Backup including the time the resource was saved, an Amazon
+     * An array of resources successfully backed up by Backup including the time the resource was saved, an Amazon
      * Resource Name (ARN) of the resource, and a resource type.
      * </p>
      * 
-     * @return An array of resources successfully backed up by AWS Backup including the time the resource was saved, an
+     * @return An array of resources successfully backed up by Backup including the time the resource was saved, an
      *         Amazon Resource Name (ARN) of the resource, and a resource type.
      */
 
@@ -55,12 +55,12 @@ public class ListProtectedResourcesResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * An array of resources successfully backed up by AWS Backup including the time the resource was saved, an Amazon
+     * An array of resources successfully backed up by Backup including the time the resource was saved, an Amazon
      * Resource Name (ARN) of the resource, and a resource type.
      * </p>
      * 
      * @param results
-     *        An array of resources successfully backed up by AWS Backup including the time the resource was saved, an
+     *        An array of resources successfully backed up by Backup including the time the resource was saved, an
      *        Amazon Resource Name (ARN) of the resource, and a resource type.
      */
 
@@ -75,7 +75,7 @@ public class ListProtectedResourcesResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * An array of resources successfully backed up by AWS Backup including the time the resource was saved, an Amazon
+     * An array of resources successfully backed up by Backup including the time the resource was saved, an Amazon
      * Resource Name (ARN) of the resource, and a resource type.
      * </p>
      * <p>
@@ -85,7 +85,7 @@ public class ListProtectedResourcesResult extends com.amazonaws.AmazonWebService
      * </p>
      * 
      * @param results
-     *        An array of resources successfully backed up by AWS Backup including the time the resource was saved, an
+     *        An array of resources successfully backed up by Backup including the time the resource was saved, an
      *        Amazon Resource Name (ARN) of the resource, and a resource type.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -102,12 +102,12 @@ public class ListProtectedResourcesResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * An array of resources successfully backed up by AWS Backup including the time the resource was saved, an Amazon
+     * An array of resources successfully backed up by Backup including the time the resource was saved, an Amazon
      * Resource Name (ARN) of the resource, and a resource type.
      * </p>
      * 
      * @param results
-     *        An array of resources successfully backed up by AWS Backup including the time the resource was saved, an
+     *        An array of resources successfully backed up by Backup including the time the resource was saved, an
      *        Amazon Resource Name (ARN) of the resource, and a resource type.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -120,13 +120,13 @@ public class ListProtectedResourcesResult extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The next item following a partial list of returned items. For example, if a request is made to return
-     * <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
+     * <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
      * starting at the location pointed to by the next token.
      * </p>
      * 
      * @param nextToken
      *        The next item following a partial list of returned items. For example, if a request is made to return
-     *        <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
+     *        <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
      *        list starting at the location pointed to by the next token.
      */
 
@@ -137,12 +137,12 @@ public class ListProtectedResourcesResult extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The next item following a partial list of returned items. For example, if a request is made to return
-     * <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
+     * <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
      * starting at the location pointed to by the next token.
      * </p>
      * 
      * @return The next item following a partial list of returned items. For example, if a request is made to return
-     *         <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
+     *         <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
      *         list starting at the location pointed to by the next token.
      */
 
@@ -153,13 +153,13 @@ public class ListProtectedResourcesResult extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The next item following a partial list of returned items. For example, if a request is made to return
-     * <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
+     * <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your list
      * starting at the location pointed to by the next token.
      * </p>
      * 
      * @param nextToken
      *        The next item following a partial list of returned items. For example, if a request is made to return
-     *        <code>maxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
+     *        <code>MaxResults</code> number of items, <code>NextToken</code> allows you to return more items in your
      *        list starting at the location pointed to by the next token.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

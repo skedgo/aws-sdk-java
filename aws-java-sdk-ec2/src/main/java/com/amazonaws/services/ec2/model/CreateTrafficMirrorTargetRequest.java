@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -53,12 +53,17 @@ public class CreateTrafficMirrorTargetRequest extends AmazonWebServiceRequest im
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">How to ensure
+     * idempotency</a>.
      * </p>
      */
     private String clientToken;
+    /**
+     * <p>
+     * The ID of the Gateway Load Balancer endpoint.
+     * </p>
+     */
+    private String gatewayLoadBalancerEndpointId;
 
     /**
      * <p>
@@ -256,16 +261,14 @@ public class CreateTrafficMirrorTargetRequest extends AmazonWebServiceRequest im
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">How to ensure
+     * idempotency</a>.
      * </p>
      * 
      * @param clientToken
      *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     *        information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *        Idempotency</a>.
+     *        information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">How to
+     *        ensure idempotency</a>.
      */
 
     public void setClientToken(String clientToken) {
@@ -275,15 +278,13 @@ public class CreateTrafficMirrorTargetRequest extends AmazonWebServiceRequest im
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">How to ensure
+     * idempotency</a>.
      * </p>
      * 
      * @return Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     *         information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *         Idempotency</a>.
+     *         information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">How
+     *         to ensure idempotency</a>.
      */
 
     public String getClientToken() {
@@ -293,21 +294,59 @@ public class CreateTrafficMirrorTargetRequest extends AmazonWebServiceRequest im
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">How to ensure
+     * idempotency</a>.
      * </p>
      * 
      * @param clientToken
      *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     *        information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *        Idempotency</a>.
+     *        information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">How to
+     *        ensure idempotency</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateTrafficMirrorTargetRequest withClientToken(String clientToken) {
         setClientToken(clientToken);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the Gateway Load Balancer endpoint.
+     * </p>
+     * 
+     * @param gatewayLoadBalancerEndpointId
+     *        The ID of the Gateway Load Balancer endpoint.
+     */
+
+    public void setGatewayLoadBalancerEndpointId(String gatewayLoadBalancerEndpointId) {
+        this.gatewayLoadBalancerEndpointId = gatewayLoadBalancerEndpointId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Gateway Load Balancer endpoint.
+     * </p>
+     * 
+     * @return The ID of the Gateway Load Balancer endpoint.
+     */
+
+    public String getGatewayLoadBalancerEndpointId() {
+        return this.gatewayLoadBalancerEndpointId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Gateway Load Balancer endpoint.
+     * </p>
+     * 
+     * @param gatewayLoadBalancerEndpointId
+     *        The ID of the Gateway Load Balancer endpoint.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTrafficMirrorTargetRequest withGatewayLoadBalancerEndpointId(String gatewayLoadBalancerEndpointId) {
+        setGatewayLoadBalancerEndpointId(gatewayLoadBalancerEndpointId);
         return this;
     }
 
@@ -343,7 +382,9 @@ public class CreateTrafficMirrorTargetRequest extends AmazonWebServiceRequest im
         if (getTagSpecifications() != null)
             sb.append("TagSpecifications: ").append(getTagSpecifications()).append(",");
         if (getClientToken() != null)
-            sb.append("ClientToken: ").append(getClientToken());
+            sb.append("ClientToken: ").append(getClientToken()).append(",");
+        if (getGatewayLoadBalancerEndpointId() != null)
+            sb.append("GatewayLoadBalancerEndpointId: ").append(getGatewayLoadBalancerEndpointId());
         sb.append("}");
         return sb.toString();
     }
@@ -378,6 +419,11 @@ public class CreateTrafficMirrorTargetRequest extends AmazonWebServiceRequest im
             return false;
         if (other.getClientToken() != null && other.getClientToken().equals(this.getClientToken()) == false)
             return false;
+        if (other.getGatewayLoadBalancerEndpointId() == null ^ this.getGatewayLoadBalancerEndpointId() == null)
+            return false;
+        if (other.getGatewayLoadBalancerEndpointId() != null
+                && other.getGatewayLoadBalancerEndpointId().equals(this.getGatewayLoadBalancerEndpointId()) == false)
+            return false;
         return true;
     }
 
@@ -391,6 +437,7 @@ public class CreateTrafficMirrorTargetRequest extends AmazonWebServiceRequest im
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getTagSpecifications() == null) ? 0 : getTagSpecifications().hashCode());
         hashCode = prime * hashCode + ((getClientToken() == null) ? 0 : getClientToken().hashCode());
+        hashCode = prime * hashCode + ((getGatewayLoadBalancerEndpointId() == null) ? 0 : getGatewayLoadBalancerEndpointId().hashCode());
         return hashCode;
     }
 

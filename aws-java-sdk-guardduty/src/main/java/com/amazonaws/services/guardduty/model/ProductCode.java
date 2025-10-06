@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
+ * Contains information about the product code for the EC2 instance.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/ProductCode" target="_top">AWS API
  *      Documentation</a>
@@ -27,24 +30,24 @@ public class ProductCode implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Product code information.
+     * The product code information.
      * </p>
      */
     private String code;
     /**
      * <p>
-     * Product code type.
+     * The product code type.
      * </p>
      */
     private String productType;
 
     /**
      * <p>
-     * Product code information.
+     * The product code information.
      * </p>
      * 
      * @param code
-     *        Product code information.
+     *        The product code information.
      */
 
     public void setCode(String code) {
@@ -53,10 +56,10 @@ public class ProductCode implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Product code information.
+     * The product code information.
      * </p>
      * 
-     * @return Product code information.
+     * @return The product code information.
      */
 
     public String getCode() {
@@ -65,11 +68,11 @@ public class ProductCode implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Product code information.
+     * The product code information.
      * </p>
      * 
      * @param code
-     *        Product code information.
+     *        The product code information.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -80,11 +83,11 @@ public class ProductCode implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Product code type.
+     * The product code type.
      * </p>
      * 
      * @param productType
-     *        Product code type.
+     *        The product code type.
      */
 
     public void setProductType(String productType) {
@@ -93,10 +96,10 @@ public class ProductCode implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Product code type.
+     * The product code type.
      * </p>
      * 
-     * @return Product code type.
+     * @return The product code type.
      */
 
     public String getProductType() {
@@ -105,11 +108,11 @@ public class ProductCode implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Product code type.
+     * The product code type.
      * </p>
      * 
      * @param productType
-     *        Product code type.
+     *        The product code type.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

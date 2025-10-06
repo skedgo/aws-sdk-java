@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -151,6 +151,14 @@ public class ModifyDBClusterRequestMarshaller implements Marshaller<Request<Modi
             request.addParameter("DBInstanceParameterGroupName", StringUtils.fromString(modifyDBClusterRequest.getDBInstanceParameterGroupName()));
         }
 
+        if (modifyDBClusterRequest.getDomain() != null) {
+            request.addParameter("Domain", StringUtils.fromString(modifyDBClusterRequest.getDomain()));
+        }
+
+        if (modifyDBClusterRequest.getDomainIAMRoleName() != null) {
+            request.addParameter("DomainIAMRoleName", StringUtils.fromString(modifyDBClusterRequest.getDomainIAMRoleName()));
+        }
+
         {
             ScalingConfiguration scalingConfiguration = modifyDBClusterRequest.getScalingConfiguration();
             if (scalingConfiguration != null) {
@@ -174,6 +182,10 @@ public class ModifyDBClusterRequestMarshaller implements Marshaller<Request<Modi
                 if (scalingConfiguration.getTimeoutAction() != null) {
                     request.addParameter("ScalingConfiguration.TimeoutAction", StringUtils.fromString(scalingConfiguration.getTimeoutAction()));
                 }
+
+                if (scalingConfiguration.getSecondsBeforeTimeout() != null) {
+                    request.addParameter("ScalingConfiguration.SecondsBeforeTimeout", StringUtils.fromInteger(scalingConfiguration.getSecondsBeforeTimeout()));
+                }
             }
         }
 
@@ -187,6 +199,106 @@ public class ModifyDBClusterRequestMarshaller implements Marshaller<Request<Modi
 
         if (modifyDBClusterRequest.getCopyTagsToSnapshot() != null) {
             request.addParameter("CopyTagsToSnapshot", StringUtils.fromBoolean(modifyDBClusterRequest.getCopyTagsToSnapshot()));
+        }
+
+        if (modifyDBClusterRequest.getEnableGlobalWriteForwarding() != null) {
+            request.addParameter("EnableGlobalWriteForwarding", StringUtils.fromBoolean(modifyDBClusterRequest.getEnableGlobalWriteForwarding()));
+        }
+
+        if (modifyDBClusterRequest.getDBClusterInstanceClass() != null) {
+            request.addParameter("DBClusterInstanceClass", StringUtils.fromString(modifyDBClusterRequest.getDBClusterInstanceClass()));
+        }
+
+        if (modifyDBClusterRequest.getAllocatedStorage() != null) {
+            request.addParameter("AllocatedStorage", StringUtils.fromInteger(modifyDBClusterRequest.getAllocatedStorage()));
+        }
+
+        if (modifyDBClusterRequest.getStorageType() != null) {
+            request.addParameter("StorageType", StringUtils.fromString(modifyDBClusterRequest.getStorageType()));
+        }
+
+        if (modifyDBClusterRequest.getIops() != null) {
+            request.addParameter("Iops", StringUtils.fromInteger(modifyDBClusterRequest.getIops()));
+        }
+
+        if (modifyDBClusterRequest.getAutoMinorVersionUpgrade() != null) {
+            request.addParameter("AutoMinorVersionUpgrade", StringUtils.fromBoolean(modifyDBClusterRequest.getAutoMinorVersionUpgrade()));
+        }
+
+        if (modifyDBClusterRequest.getMonitoringInterval() != null) {
+            request.addParameter("MonitoringInterval", StringUtils.fromInteger(modifyDBClusterRequest.getMonitoringInterval()));
+        }
+
+        if (modifyDBClusterRequest.getMonitoringRoleArn() != null) {
+            request.addParameter("MonitoringRoleArn", StringUtils.fromString(modifyDBClusterRequest.getMonitoringRoleArn()));
+        }
+
+        if (modifyDBClusterRequest.getEnablePerformanceInsights() != null) {
+            request.addParameter("EnablePerformanceInsights", StringUtils.fromBoolean(modifyDBClusterRequest.getEnablePerformanceInsights()));
+        }
+
+        if (modifyDBClusterRequest.getPerformanceInsightsKMSKeyId() != null) {
+            request.addParameter("PerformanceInsightsKMSKeyId", StringUtils.fromString(modifyDBClusterRequest.getPerformanceInsightsKMSKeyId()));
+        }
+
+        if (modifyDBClusterRequest.getPerformanceInsightsRetentionPeriod() != null) {
+            request.addParameter("PerformanceInsightsRetentionPeriod", StringUtils.fromInteger(modifyDBClusterRequest.getPerformanceInsightsRetentionPeriod()));
+        }
+
+        {
+            ServerlessV2ScalingConfiguration serverlessV2ScalingConfiguration = modifyDBClusterRequest.getServerlessV2ScalingConfiguration();
+            if (serverlessV2ScalingConfiguration != null) {
+
+                if (serverlessV2ScalingConfiguration.getMinCapacity() != null) {
+                    request.addParameter("ServerlessV2ScalingConfiguration.MinCapacity",
+                            StringUtils.fromDouble(serverlessV2ScalingConfiguration.getMinCapacity()));
+                }
+
+                if (serverlessV2ScalingConfiguration.getMaxCapacity() != null) {
+                    request.addParameter("ServerlessV2ScalingConfiguration.MaxCapacity",
+                            StringUtils.fromDouble(serverlessV2ScalingConfiguration.getMaxCapacity()));
+                }
+            }
+        }
+
+        if (modifyDBClusterRequest.getNetworkType() != null) {
+            request.addParameter("NetworkType", StringUtils.fromString(modifyDBClusterRequest.getNetworkType()));
+        }
+
+        if (modifyDBClusterRequest.getManageMasterUserPassword() != null) {
+            request.addParameter("ManageMasterUserPassword", StringUtils.fromBoolean(modifyDBClusterRequest.getManageMasterUserPassword()));
+        }
+
+        if (modifyDBClusterRequest.getRotateMasterUserPassword() != null) {
+            request.addParameter("RotateMasterUserPassword", StringUtils.fromBoolean(modifyDBClusterRequest.getRotateMasterUserPassword()));
+        }
+
+        if (modifyDBClusterRequest.getMasterUserSecretKmsKeyId() != null) {
+            request.addParameter("MasterUserSecretKmsKeyId", StringUtils.fromString(modifyDBClusterRequest.getMasterUserSecretKmsKeyId()));
+        }
+
+        if (modifyDBClusterRequest.getEngineMode() != null) {
+            request.addParameter("EngineMode", StringUtils.fromString(modifyDBClusterRequest.getEngineMode()));
+        }
+
+        if (modifyDBClusterRequest.getAllowEngineModeChange() != null) {
+            request.addParameter("AllowEngineModeChange", StringUtils.fromBoolean(modifyDBClusterRequest.getAllowEngineModeChange()));
+        }
+
+        if (modifyDBClusterRequest.getEnableLocalWriteForwarding() != null) {
+            request.addParameter("EnableLocalWriteForwarding", StringUtils.fromBoolean(modifyDBClusterRequest.getEnableLocalWriteForwarding()));
+        }
+
+        if (modifyDBClusterRequest.getAwsBackupRecoveryPointArn() != null) {
+            request.addParameter("AwsBackupRecoveryPointArn", StringUtils.fromString(modifyDBClusterRequest.getAwsBackupRecoveryPointArn()));
+        }
+
+        if (modifyDBClusterRequest.getEnableLimitlessDatabase() != null) {
+            request.addParameter("EnableLimitlessDatabase", StringUtils.fromBoolean(modifyDBClusterRequest.getEnableLimitlessDatabase()));
+        }
+
+        if (modifyDBClusterRequest.getCACertificateIdentifier() != null) {
+            request.addParameter("CACertificateIdentifier", StringUtils.fromString(modifyDBClusterRequest.getCACertificateIdentifier()));
         }
 
         return request;

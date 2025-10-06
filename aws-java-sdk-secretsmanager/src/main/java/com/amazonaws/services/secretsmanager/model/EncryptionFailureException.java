@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,10 +16,9 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Secrets Manager can't encrypt the protected secret text using the provided KMS key. Check that the customer master
- * key (CMK) is available, enabled, and not in an invalid state. For more information, see <a
- * href="http://docs.aws.amazon.com/kms/latest/developerguide/key-state.html">How Key State Affects Use of a Customer
- * Master Key</a>.
+ * Secrets Manager can't encrypt the protected secret text using the provided KMS key. Check that the KMS key is
+ * available, enabled, and not in an invalid state. For more information, see <a
+ * href="https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html">Key state: Effect on your KMS key</a>.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

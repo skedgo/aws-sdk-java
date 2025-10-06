@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,8 +27,8 @@ public class DescribeUsersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
-     * accessing the API using AWS credentials.
+     * Amazon WorkDocs authentication token. Not required when using Amazon Web Services administrator credentials to
+     * access the API.
      * </p>
      */
     private String authenticationToken;
@@ -46,8 +46,36 @@ public class DescribeUsersRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String userIds;
     /**
      * <p>
-     * A query to filter users by user name.
+     * A query to filter users by user name. Remember the following about the <code>Userids</code> and
+     * <code>Query</code> parameters:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you don't use either parameter, the API returns a paginated list of all users on the site.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you use both parameters, the API ignores the <code>Query</code> parameter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The <code>Userid</code> parameter only returns user names that match a corresponding user ID.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The <code>Query</code> parameter runs a "prefix" search for users by the <code>GivenName</code>,
+     * <code>SurName</code>, or <code>UserName</code> fields included in a <a
+     * href="https://docs.aws.amazon.com/workdocs/latest/APIReference/API_CreateUser.html">CreateUser</a> API call. For
+     * example, querying on <code>Ma</code> returns Márcia Oliveira, María García, and Mateo Jackson. If you use
+     * multiple characters, the API only returns data that matches all characters. For example, querying on
+     * <code>Ma J</code> only returns Mateo Jackson.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String query;
     /**
@@ -90,13 +118,13 @@ public class DescribeUsersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
-     * accessing the API using AWS credentials.
+     * Amazon WorkDocs authentication token. Not required when using Amazon Web Services administrator credentials to
+     * access the API.
      * </p>
      * 
      * @param authenticationToken
-     *        Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
-     *        accessing the API using AWS credentials.
+     *        Amazon WorkDocs authentication token. Not required when using Amazon Web Services administrator
+     *        credentials to access the API.
      */
 
     public void setAuthenticationToken(String authenticationToken) {
@@ -105,12 +133,12 @@ public class DescribeUsersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
-     * accessing the API using AWS credentials.
+     * Amazon WorkDocs authentication token. Not required when using Amazon Web Services administrator credentials to
+     * access the API.
      * </p>
      * 
-     * @return Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
-     *         accessing the API using AWS credentials.
+     * @return Amazon WorkDocs authentication token. Not required when using Amazon Web Services administrator
+     *         credentials to access the API.
      */
 
     public String getAuthenticationToken() {
@@ -119,13 +147,13 @@ public class DescribeUsersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
-     * accessing the API using AWS credentials.
+     * Amazon WorkDocs authentication token. Not required when using Amazon Web Services administrator credentials to
+     * access the API.
      * </p>
      * 
      * @param authenticationToken
-     *        Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
-     *        accessing the API using AWS credentials.
+     *        Amazon WorkDocs authentication token. Not required when using Amazon Web Services administrator
+     *        credentials to access the API.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -216,11 +244,66 @@ public class DescribeUsersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * A query to filter users by user name.
+     * A query to filter users by user name. Remember the following about the <code>Userids</code> and
+     * <code>Query</code> parameters:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you don't use either parameter, the API returns a paginated list of all users on the site.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you use both parameters, the API ignores the <code>Query</code> parameter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The <code>Userid</code> parameter only returns user names that match a corresponding user ID.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The <code>Query</code> parameter runs a "prefix" search for users by the <code>GivenName</code>,
+     * <code>SurName</code>, or <code>UserName</code> fields included in a <a
+     * href="https://docs.aws.amazon.com/workdocs/latest/APIReference/API_CreateUser.html">CreateUser</a> API call. For
+     * example, querying on <code>Ma</code> returns Márcia Oliveira, María García, and Mateo Jackson. If you use
+     * multiple characters, the API only returns data that matches all characters. For example, querying on
+     * <code>Ma J</code> only returns Mateo Jackson.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param query
-     *        A query to filter users by user name.
+     *        A query to filter users by user name. Remember the following about the <code>Userids</code> and
+     *        <code>Query</code> parameters:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If you don't use either parameter, the API returns a paginated list of all users on the site.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you use both parameters, the API ignores the <code>Query</code> parameter.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The <code>Userid</code> parameter only returns user names that match a corresponding user ID.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The <code>Query</code> parameter runs a "prefix" search for users by the <code>GivenName</code>,
+     *        <code>SurName</code>, or <code>UserName</code> fields included in a <a
+     *        href="https://docs.aws.amazon.com/workdocs/latest/APIReference/API_CreateUser.html">CreateUser</a> API
+     *        call. For example, querying on <code>Ma</code> returns Márcia Oliveira, María García, and Mateo Jackson.
+     *        If you use multiple characters, the API only returns data that matches all characters. For example,
+     *        querying on <code>Ma J</code> only returns Mateo Jackson.
+     *        </p>
+     *        </li>
      */
 
     public void setQuery(String query) {
@@ -229,10 +312,65 @@ public class DescribeUsersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * A query to filter users by user name.
+     * A query to filter users by user name. Remember the following about the <code>Userids</code> and
+     * <code>Query</code> parameters:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you don't use either parameter, the API returns a paginated list of all users on the site.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you use both parameters, the API ignores the <code>Query</code> parameter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The <code>Userid</code> parameter only returns user names that match a corresponding user ID.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The <code>Query</code> parameter runs a "prefix" search for users by the <code>GivenName</code>,
+     * <code>SurName</code>, or <code>UserName</code> fields included in a <a
+     * href="https://docs.aws.amazon.com/workdocs/latest/APIReference/API_CreateUser.html">CreateUser</a> API call. For
+     * example, querying on <code>Ma</code> returns Márcia Oliveira, María García, and Mateo Jackson. If you use
+     * multiple characters, the API only returns data that matches all characters. For example, querying on
+     * <code>Ma J</code> only returns Mateo Jackson.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return A query to filter users by user name.
+     * @return A query to filter users by user name. Remember the following about the <code>Userids</code> and
+     *         <code>Query</code> parameters:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If you don't use either parameter, the API returns a paginated list of all users on the site.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If you use both parameters, the API ignores the <code>Query</code> parameter.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The <code>Userid</code> parameter only returns user names that match a corresponding user ID.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The <code>Query</code> parameter runs a "prefix" search for users by the <code>GivenName</code>,
+     *         <code>SurName</code>, or <code>UserName</code> fields included in a <a
+     *         href="https://docs.aws.amazon.com/workdocs/latest/APIReference/API_CreateUser.html">CreateUser</a> API
+     *         call. For example, querying on <code>Ma</code> returns Márcia Oliveira, María García, and Mateo Jackson.
+     *         If you use multiple characters, the API only returns data that matches all characters. For example,
+     *         querying on <code>Ma J</code> only returns Mateo Jackson.
+     *         </p>
+     *         </li>
      */
 
     public String getQuery() {
@@ -241,11 +379,66 @@ public class DescribeUsersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * A query to filter users by user name.
+     * A query to filter users by user name. Remember the following about the <code>Userids</code> and
+     * <code>Query</code> parameters:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you don't use either parameter, the API returns a paginated list of all users on the site.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you use both parameters, the API ignores the <code>Query</code> parameter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The <code>Userid</code> parameter only returns user names that match a corresponding user ID.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The <code>Query</code> parameter runs a "prefix" search for users by the <code>GivenName</code>,
+     * <code>SurName</code>, or <code>UserName</code> fields included in a <a
+     * href="https://docs.aws.amazon.com/workdocs/latest/APIReference/API_CreateUser.html">CreateUser</a> API call. For
+     * example, querying on <code>Ma</code> returns Márcia Oliveira, María García, and Mateo Jackson. If you use
+     * multiple characters, the API only returns data that matches all characters. For example, querying on
+     * <code>Ma J</code> only returns Mateo Jackson.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param query
-     *        A query to filter users by user name.
+     *        A query to filter users by user name. Remember the following about the <code>Userids</code> and
+     *        <code>Query</code> parameters:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If you don't use either parameter, the API returns a paginated list of all users on the site.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you use both parameters, the API ignores the <code>Query</code> parameter.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The <code>Userid</code> parameter only returns user names that match a corresponding user ID.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The <code>Query</code> parameter runs a "prefix" search for users by the <code>GivenName</code>,
+     *        <code>SurName</code>, or <code>UserName</code> fields included in a <a
+     *        href="https://docs.aws.amazon.com/workdocs/latest/APIReference/API_CreateUser.html">CreateUser</a> API
+     *        call. For example, querying on <code>Ma</code> returns Márcia Oliveira, María García, and Mateo Jackson.
+     *        If you use multiple characters, the API only returns data that matches all characters. For example,
+     *        querying on <code>Ma J</code> only returns Mateo Jackson.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

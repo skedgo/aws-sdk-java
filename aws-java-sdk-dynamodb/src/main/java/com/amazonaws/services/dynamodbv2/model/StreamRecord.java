@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,7 +31,7 @@ public class StreamRecord implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The approximate date and time when the stream record was created, in <a
-     * href="http://www.epochconverter.com/">UNIX epoch time</a> format.
+     * href="http://www.epochconverter.com/">UNIX epoch time</a> format and rounded down to the closest second.
      * </p>
      */
     private java.util.Date approximateCreationDateTime;
@@ -97,12 +97,12 @@ public class StreamRecord implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The approximate date and time when the stream record was created, in <a
-     * href="http://www.epochconverter.com/">UNIX epoch time</a> format.
+     * href="http://www.epochconverter.com/">UNIX epoch time</a> format and rounded down to the closest second.
      * </p>
      * 
      * @param approximateCreationDateTime
      *        The approximate date and time when the stream record was created, in <a
-     *        href="http://www.epochconverter.com/">UNIX epoch time</a> format.
+     *        href="http://www.epochconverter.com/">UNIX epoch time</a> format and rounded down to the closest second.
      */
 
     public void setApproximateCreationDateTime(java.util.Date approximateCreationDateTime) {
@@ -112,11 +112,11 @@ public class StreamRecord implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The approximate date and time when the stream record was created, in <a
-     * href="http://www.epochconverter.com/">UNIX epoch time</a> format.
+     * href="http://www.epochconverter.com/">UNIX epoch time</a> format and rounded down to the closest second.
      * </p>
      * 
      * @return The approximate date and time when the stream record was created, in <a
-     *         href="http://www.epochconverter.com/">UNIX epoch time</a> format.
+     *         href="http://www.epochconverter.com/">UNIX epoch time</a> format and rounded down to the closest second.
      */
 
     public java.util.Date getApproximateCreationDateTime() {
@@ -126,12 +126,12 @@ public class StreamRecord implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The approximate date and time when the stream record was created, in <a
-     * href="http://www.epochconverter.com/">UNIX epoch time</a> format.
+     * href="http://www.epochconverter.com/">UNIX epoch time</a> format and rounded down to the closest second.
      * </p>
      * 
      * @param approximateCreationDateTime
      *        The approximate date and time when the stream record was created, in <a
-     *        href="http://www.epochconverter.com/">UNIX epoch time</a> format.
+     *        href="http://www.epochconverter.com/">UNIX epoch time</a> format and rounded down to the closest second.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -179,6 +179,13 @@ public class StreamRecord implements Serializable, Cloneable, StructuredPojo {
         setKeys(keys);
         return this;
     }
+
+    /**
+     * Add a single Keys entry
+     *
+     * @see StreamRecord#withKeys
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public StreamRecord addKeysEntry(String key, AttributeValue value) {
         if (null == this.keys) {
@@ -241,6 +248,13 @@ public class StreamRecord implements Serializable, Cloneable, StructuredPojo {
         return this;
     }
 
+    /**
+     * Add a single NewImage entry
+     *
+     * @see StreamRecord#withNewImage
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public StreamRecord addNewImageEntry(String key, AttributeValue value) {
         if (null == this.newImage) {
             this.newImage = new java.util.HashMap<String, AttributeValue>();
@@ -301,6 +315,13 @@ public class StreamRecord implements Serializable, Cloneable, StructuredPojo {
         setOldImage(oldImage);
         return this;
     }
+
+    /**
+     * Add a single OldImage entry
+     *
+     * @see StreamRecord#withOldImage
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public StreamRecord addOldImageEntry(String key, AttributeValue value) {
         if (null == this.oldImage) {

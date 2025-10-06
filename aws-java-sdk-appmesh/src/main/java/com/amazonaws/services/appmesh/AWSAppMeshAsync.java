@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,21 +26,22 @@ import com.amazonaws.services.appmesh.model.*;
  * </p>
  * <p>
  * <p>
- * AWS App Mesh is a service mesh based on the Envoy proxy that makes it easy to monitor and control microservices. App
- * Mesh standardizes how your microservices communicate, giving you end-to-end visibility and helping to ensure high
+ * App Mesh is a service mesh based on the Envoy proxy that makes it easy to monitor and control microservices. App Mesh
+ * standardizes how your microservices communicate, giving you end-to-end visibility and helping to ensure high
  * availability for your applications.
  * </p>
  * <p>
  * App Mesh gives you consistent visibility and network traffic controls for every microservice in an application. You
- * can use App Mesh with AWS Fargate, Amazon ECS, Amazon EKS, Kubernetes on AWS, and Amazon EC2.
+ * can use App Mesh with Amazon Web Services Fargate, Amazon ECS, Amazon EKS, Kubernetes on Amazon Web Services, and
+ * Amazon EC2.
  * </p>
  * <note>
  * <p>
  * App Mesh supports microservice applications that use service discovery naming for their components. For more
  * information about service discovery on Amazon ECS, see <a
- * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html">Service Discovery</a> in the
- * <i>Amazon Elastic Container Service Developer Guide</i>. Kubernetes <code>kube-dns</code> and <code>coredns</code>
- * are supported. For more information, see <a
+ * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html">Service Discovery</a> in
+ * the <i>Amazon Elastic Container Service Developer Guide</i>. Kubernetes <code>kube-dns</code> and
+ * <code>coredns</code> are supported. For more information, see <a
  * href="https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/">DNS for Services and Pods</a> in the
  * Kubernetes documentation.
  * </p>
@@ -51,12 +52,63 @@ public interface AWSAppMeshAsync extends AWSAppMesh {
 
     /**
      * <p>
-     * Creates a service mesh. A service mesh is a logical boundary for network traffic between the services that reside
-     * within it.
+     * Creates a gateway route.
      * </p>
      * <p>
-     * After you create your service mesh, you can create virtual services, virtual nodes, virtual routers, and routes
-     * to distribute traffic between the applications in your mesh.
+     * A gateway route is attached to a virtual gateway and routes traffic to an existing virtual service. If a route
+     * matches a request, it can distribute traffic to a target virtual service.
+     * </p>
+     * <p>
+     * For more information about gateway routes, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/gateway-routes.html">Gateway routes</a>.
+     * </p>
+     * 
+     * @param createGatewayRouteRequest
+     * @return A Java Future containing the result of the CreateGatewayRoute operation returned by the service.
+     * @sample AWSAppMeshAsync.CreateGatewayRoute
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/CreateGatewayRoute" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateGatewayRouteResult> createGatewayRouteAsync(CreateGatewayRouteRequest createGatewayRouteRequest);
+
+    /**
+     * <p>
+     * Creates a gateway route.
+     * </p>
+     * <p>
+     * A gateway route is attached to a virtual gateway and routes traffic to an existing virtual service. If a route
+     * matches a request, it can distribute traffic to a target virtual service.
+     * </p>
+     * <p>
+     * For more information about gateway routes, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/gateway-routes.html">Gateway routes</a>.
+     * </p>
+     * 
+     * @param createGatewayRouteRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateGatewayRoute operation returned by the service.
+     * @sample AWSAppMeshAsyncHandler.CreateGatewayRoute
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/CreateGatewayRoute" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateGatewayRouteResult> createGatewayRouteAsync(CreateGatewayRouteRequest createGatewayRouteRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateGatewayRouteRequest, CreateGatewayRouteResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a service mesh.
+     * </p>
+     * <p>
+     * A service mesh is a logical boundary for network traffic between services that are represented by resources
+     * within the mesh. After you create your service mesh, you can create virtual services, virtual nodes, virtual
+     * routers, and routes to distribute traffic between the applications in your mesh.
+     * </p>
+     * <p>
+     * For more information about service meshes, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/meshes.html">Service meshes</a>.
      * </p>
      * 
      * @param createMeshRequest
@@ -69,12 +121,16 @@ public interface AWSAppMeshAsync extends AWSAppMesh {
 
     /**
      * <p>
-     * Creates a service mesh. A service mesh is a logical boundary for network traffic between the services that reside
-     * within it.
+     * Creates a service mesh.
      * </p>
      * <p>
-     * After you create your service mesh, you can create virtual services, virtual nodes, virtual routers, and routes
-     * to distribute traffic between the applications in your mesh.
+     * A service mesh is a logical boundary for network traffic between services that are represented by resources
+     * within the mesh. After you create your service mesh, you can create virtual services, virtual nodes, virtual
+     * routers, and routes to distribute traffic between the applications in your mesh.
+     * </p>
+     * <p>
+     * For more information about service meshes, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/meshes.html">Service meshes</a>.
      * </p>
      * 
      * @param createMeshRequest
@@ -95,13 +151,12 @@ public interface AWSAppMeshAsync extends AWSAppMesh {
      * Creates a route that is associated with a virtual router.
      * </p>
      * <p>
-     * You can use the <code>prefix</code> parameter in your route specification for path-based routing of requests. For
-     * example, if your virtual service name is <code>my-service.local</code> and you want the route to match requests
-     * to <code>my-service.local/metrics</code>, your prefix should be <code>/metrics</code>.
+     * You can route several different protocols and define a retry policy for a route. Traffic can be routed to one or
+     * more virtual nodes.
      * </p>
      * <p>
-     * If your route matches a request, you can distribute traffic to one or more target virtual nodes with relative
-     * weighting.
+     * For more information about routes, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/routes.html">Routes</a>.
      * </p>
      * 
      * @param createRouteRequest
@@ -117,13 +172,12 @@ public interface AWSAppMeshAsync extends AWSAppMesh {
      * Creates a route that is associated with a virtual router.
      * </p>
      * <p>
-     * You can use the <code>prefix</code> parameter in your route specification for path-based routing of requests. For
-     * example, if your virtual service name is <code>my-service.local</code> and you want the route to match requests
-     * to <code>my-service.local/metrics</code>, your prefix should be <code>/metrics</code>.
+     * You can route several different protocols and define a retry policy for a route. Traffic can be routed to one or
+     * more virtual nodes.
      * </p>
      * <p>
-     * If your route matches a request, you can distribute traffic to one or more target virtual nodes with relative
-     * weighting.
+     * For more information about routes, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/routes.html">Routes</a>.
      * </p>
      * 
      * @param createRouteRequest
@@ -141,31 +195,91 @@ public interface AWSAppMeshAsync extends AWSAppMesh {
 
     /**
      * <p>
+     * Creates a virtual gateway.
+     * </p>
+     * <p>
+     * A virtual gateway allows resources outside your mesh to communicate to resources that are inside your mesh. The
+     * virtual gateway represents an Envoy proxy running in an Amazon ECS task, in a Kubernetes service, or on an Amazon
+     * EC2 instance. Unlike a virtual node, which represents an Envoy running with an application, a virtual gateway
+     * represents Envoy deployed by itself.
+     * </p>
+     * <p>
+     * For more information about virtual gateways, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/virtual_gateways.html">Virtual gateways</a>.
+     * </p>
+     * 
+     * @param createVirtualGatewayRequest
+     * @return A Java Future containing the result of the CreateVirtualGateway operation returned by the service.
+     * @sample AWSAppMeshAsync.CreateVirtualGateway
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/CreateVirtualGateway" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateVirtualGatewayResult> createVirtualGatewayAsync(CreateVirtualGatewayRequest createVirtualGatewayRequest);
+
+    /**
+     * <p>
+     * Creates a virtual gateway.
+     * </p>
+     * <p>
+     * A virtual gateway allows resources outside your mesh to communicate to resources that are inside your mesh. The
+     * virtual gateway represents an Envoy proxy running in an Amazon ECS task, in a Kubernetes service, or on an Amazon
+     * EC2 instance. Unlike a virtual node, which represents an Envoy running with an application, a virtual gateway
+     * represents Envoy deployed by itself.
+     * </p>
+     * <p>
+     * For more information about virtual gateways, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/virtual_gateways.html">Virtual gateways</a>.
+     * </p>
+     * 
+     * @param createVirtualGatewayRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateVirtualGateway operation returned by the service.
+     * @sample AWSAppMeshAsyncHandler.CreateVirtualGateway
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/CreateVirtualGateway" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateVirtualGatewayResult> createVirtualGatewayAsync(CreateVirtualGatewayRequest createVirtualGatewayRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateVirtualGatewayRequest, CreateVirtualGatewayResult> asyncHandler);
+
+    /**
+     * <p>
      * Creates a virtual node within a service mesh.
      * </p>
      * <p>
      * A virtual node acts as a logical pointer to a particular task group, such as an Amazon ECS service or a
      * Kubernetes deployment. When you create a virtual node, you can specify the service discovery information for your
-     * task group.
+     * task group, and whether the proxy running in a task group will communicate with other proxies using Transport
+     * Layer Security (TLS).
      * </p>
      * <p>
-     * Any inbound traffic that your virtual node expects should be specified as a <code>listener</code>. Any outbound
-     * traffic that your virtual node expects to reach should be specified as a <code>backend</code>.
+     * You define a <code>listener</code> for any inbound traffic that your virtual node expects. Any virtual service
+     * that your virtual node expects to communicate to is specified as a <code>backend</code>.
      * </p>
      * <p>
      * The response metadata for your new virtual node contains the <code>arn</code> that is associated with the virtual
-     * node. Set this value (either the full ARN or the truncated resource name: for example,
-     * <code>mesh/default/virtualNode/simpleapp</code>) as the <code>APPMESH_VIRTUAL_NODE_NAME</code> environment
-     * variable for your task group's Envoy proxy container in your task definition or pod spec. This is then mapped to
-     * the <code>node.id</code> and <code>node.cluster</code> Envoy parameters.
+     * node. Set this value to the full ARN; for example,
+     * <code>arn:aws:appmesh:us-west-2:123456789012:myMesh/default/virtualNode/myApp</code>) as the
+     * <code>APPMESH_RESOURCE_ARN</code> environment variable for your task group's Envoy proxy container in your task
+     * definition or pod spec. This is then mapped to the <code>node.id</code> and <code>node.cluster</code> Envoy
+     * parameters.
      * </p>
      * <note>
      * <p>
-     * If you require your Envoy stats or tracing to use a different name, you can override the
-     * <code>node.cluster</code> value that is set by <code>APPMESH_VIRTUAL_NODE_NAME</code> with the
-     * <code>APPMESH_VIRTUAL_NODE_CLUSTER</code> environment variable.
+     * By default, App Mesh uses the name of the resource you specified in <code>APPMESH_RESOURCE_ARN</code> when Envoy
+     * is referring to itself in metrics and traces. You can override this behavior by setting the
+     * <code>APPMESH_RESOURCE_CLUSTER</code> environment variable with your own name.
      * </p>
      * </note>
+     * <p>
+     * For more information about virtual nodes, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/virtual_nodes.html">Virtual nodes</a>. You must be
+     * using <code>1.15.0</code> or later of the Envoy image when setting these variables. For more information aboutApp
+     * Mesh Envoy variables, see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/envoy.html">Envoy
+     * image</a> in the App Mesh User Guide.
+     * </p>
      * 
      * @param createVirtualNodeRequest
      * @return A Java Future containing the result of the CreateVirtualNode operation returned by the service.
@@ -182,26 +296,35 @@ public interface AWSAppMeshAsync extends AWSAppMesh {
      * <p>
      * A virtual node acts as a logical pointer to a particular task group, such as an Amazon ECS service or a
      * Kubernetes deployment. When you create a virtual node, you can specify the service discovery information for your
-     * task group.
+     * task group, and whether the proxy running in a task group will communicate with other proxies using Transport
+     * Layer Security (TLS).
      * </p>
      * <p>
-     * Any inbound traffic that your virtual node expects should be specified as a <code>listener</code>. Any outbound
-     * traffic that your virtual node expects to reach should be specified as a <code>backend</code>.
+     * You define a <code>listener</code> for any inbound traffic that your virtual node expects. Any virtual service
+     * that your virtual node expects to communicate to is specified as a <code>backend</code>.
      * </p>
      * <p>
      * The response metadata for your new virtual node contains the <code>arn</code> that is associated with the virtual
-     * node. Set this value (either the full ARN or the truncated resource name: for example,
-     * <code>mesh/default/virtualNode/simpleapp</code>) as the <code>APPMESH_VIRTUAL_NODE_NAME</code> environment
-     * variable for your task group's Envoy proxy container in your task definition or pod spec. This is then mapped to
-     * the <code>node.id</code> and <code>node.cluster</code> Envoy parameters.
+     * node. Set this value to the full ARN; for example,
+     * <code>arn:aws:appmesh:us-west-2:123456789012:myMesh/default/virtualNode/myApp</code>) as the
+     * <code>APPMESH_RESOURCE_ARN</code> environment variable for your task group's Envoy proxy container in your task
+     * definition or pod spec. This is then mapped to the <code>node.id</code> and <code>node.cluster</code> Envoy
+     * parameters.
      * </p>
      * <note>
      * <p>
-     * If you require your Envoy stats or tracing to use a different name, you can override the
-     * <code>node.cluster</code> value that is set by <code>APPMESH_VIRTUAL_NODE_NAME</code> with the
-     * <code>APPMESH_VIRTUAL_NODE_CLUSTER</code> environment variable.
+     * By default, App Mesh uses the name of the resource you specified in <code>APPMESH_RESOURCE_ARN</code> when Envoy
+     * is referring to itself in metrics and traces. You can override this behavior by setting the
+     * <code>APPMESH_RESOURCE_CLUSTER</code> environment variable with your own name.
      * </p>
      * </note>
+     * <p>
+     * For more information about virtual nodes, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/virtual_nodes.html">Virtual nodes</a>. You must be
+     * using <code>1.15.0</code> or later of the Envoy image when setting these variables. For more information aboutApp
+     * Mesh Envoy variables, see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/envoy.html">Envoy
+     * image</a> in the App Mesh User Guide.
+     * </p>
      * 
      * @param createVirtualNodeRequest
      * @param asyncHandler
@@ -221,12 +344,14 @@ public interface AWSAppMeshAsync extends AWSAppMesh {
      * Creates a virtual router within a service mesh.
      * </p>
      * <p>
-     * Any inbound traffic that your virtual router expects should be specified as a <code>listener</code>.
+     * Specify a <code>listener</code> for any inbound traffic that your virtual router receives. Create a virtual
+     * router for each protocol and port that you need to route. Virtual routers handle traffic for one or more virtual
+     * services within your mesh. After you create your virtual router, create and associate routes for your virtual
+     * router that direct incoming requests to different virtual nodes.
      * </p>
      * <p>
-     * Virtual routers handle traffic for one or more virtual services within your mesh. After you create your virtual
-     * router, create and associate routes for your virtual router that direct incoming requests to different virtual
-     * nodes.
+     * For more information about virtual routers, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/virtual_routers.html">Virtual routers</a>.
      * </p>
      * 
      * @param createVirtualRouterRequest
@@ -242,12 +367,14 @@ public interface AWSAppMeshAsync extends AWSAppMesh {
      * Creates a virtual router within a service mesh.
      * </p>
      * <p>
-     * Any inbound traffic that your virtual router expects should be specified as a <code>listener</code>.
+     * Specify a <code>listener</code> for any inbound traffic that your virtual router receives. Create a virtual
+     * router for each protocol and port that you need to route. Virtual routers handle traffic for one or more virtual
+     * services within your mesh. After you create your virtual router, create and associate routes for your virtual
+     * router that direct incoming requests to different virtual nodes.
      * </p>
      * <p>
-     * Virtual routers handle traffic for one or more virtual services within your mesh. After you create your virtual
-     * router, create and associate routes for your virtual router that direct incoming requests to different virtual
-     * nodes.
+     * For more information about virtual routers, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/virtual_routers.html">Virtual routers</a>.
      * </p>
      * 
      * @param createVirtualRouterRequest
@@ -273,6 +400,10 @@ public interface AWSAppMeshAsync extends AWSAppMesh {
      * , and those requests are routed to the virtual node or virtual router that is specified as the provider for the
      * virtual service.
      * </p>
+     * <p>
+     * For more information about virtual services, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/virtual_services.html">Virtual services</a>.
+     * </p>
      * 
      * @param createVirtualServiceRequest
      * @return A Java Future containing the result of the CreateVirtualService operation returned by the service.
@@ -292,6 +423,10 @@ public interface AWSAppMeshAsync extends AWSAppMesh {
      * , and those requests are routed to the virtual node or virtual router that is specified as the provider for the
      * virtual service.
      * </p>
+     * <p>
+     * For more information about virtual services, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/virtual_services.html">Virtual services</a>.
+     * </p>
      * 
      * @param createVirtualServiceRequest
      * @param asyncHandler
@@ -305,6 +440,37 @@ public interface AWSAppMeshAsync extends AWSAppMesh {
      */
     java.util.concurrent.Future<CreateVirtualServiceResult> createVirtualServiceAsync(CreateVirtualServiceRequest createVirtualServiceRequest,
             com.amazonaws.handlers.AsyncHandler<CreateVirtualServiceRequest, CreateVirtualServiceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes an existing gateway route.
+     * </p>
+     * 
+     * @param deleteGatewayRouteRequest
+     * @return A Java Future containing the result of the DeleteGatewayRoute operation returned by the service.
+     * @sample AWSAppMeshAsync.DeleteGatewayRoute
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/DeleteGatewayRoute" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteGatewayRouteResult> deleteGatewayRouteAsync(DeleteGatewayRouteRequest deleteGatewayRouteRequest);
+
+    /**
+     * <p>
+     * Deletes an existing gateway route.
+     * </p>
+     * 
+     * @param deleteGatewayRouteRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteGatewayRoute operation returned by the service.
+     * @sample AWSAppMeshAsyncHandler.DeleteGatewayRoute
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/DeleteGatewayRoute" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteGatewayRouteResult> deleteGatewayRouteAsync(DeleteGatewayRouteRequest deleteGatewayRouteRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteGatewayRouteRequest, DeleteGatewayRouteResult> asyncHandler);
 
     /**
      * <p>
@@ -378,6 +544,39 @@ public interface AWSAppMeshAsync extends AWSAppMesh {
 
     /**
      * <p>
+     * Deletes an existing virtual gateway. You cannot delete a virtual gateway if any gateway routes are associated to
+     * it.
+     * </p>
+     * 
+     * @param deleteVirtualGatewayRequest
+     * @return A Java Future containing the result of the DeleteVirtualGateway operation returned by the service.
+     * @sample AWSAppMeshAsync.DeleteVirtualGateway
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/DeleteVirtualGateway" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteVirtualGatewayResult> deleteVirtualGatewayAsync(DeleteVirtualGatewayRequest deleteVirtualGatewayRequest);
+
+    /**
+     * <p>
+     * Deletes an existing virtual gateway. You cannot delete a virtual gateway if any gateway routes are associated to
+     * it.
+     * </p>
+     * 
+     * @param deleteVirtualGatewayRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteVirtualGateway operation returned by the service.
+     * @sample AWSAppMeshAsyncHandler.DeleteVirtualGateway
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/DeleteVirtualGateway" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteVirtualGatewayResult> deleteVirtualGatewayAsync(DeleteVirtualGatewayRequest deleteVirtualGatewayRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteVirtualGatewayRequest, DeleteVirtualGatewayResult> asyncHandler);
+
+    /**
+     * <p>
      * Deletes an existing virtual node.
      * </p>
      * <p>
@@ -386,6 +585,7 @@ public interface AWSAppMeshAsync extends AWSAppMesh {
      * </p>
      * 
      * @param deleteVirtualNodeRequest
+     *        Deletes a virtual node input.
      * @return A Java Future containing the result of the DeleteVirtualNode operation returned by the service.
      * @sample AWSAppMeshAsync.DeleteVirtualNode
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/DeleteVirtualNode" target="_top">AWS API
@@ -403,6 +603,7 @@ public interface AWSAppMeshAsync extends AWSAppMesh {
      * </p>
      * 
      * @param deleteVirtualNodeRequest
+     *        Deletes a virtual node input.
      * @param asyncHandler
      *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
      *        implementation of the callback methods in this interface to receive notification of successful or
@@ -485,6 +686,37 @@ public interface AWSAppMeshAsync extends AWSAppMesh {
 
     /**
      * <p>
+     * Describes an existing gateway route.
+     * </p>
+     * 
+     * @param describeGatewayRouteRequest
+     * @return A Java Future containing the result of the DescribeGatewayRoute operation returned by the service.
+     * @sample AWSAppMeshAsync.DescribeGatewayRoute
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/DescribeGatewayRoute" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeGatewayRouteResult> describeGatewayRouteAsync(DescribeGatewayRouteRequest describeGatewayRouteRequest);
+
+    /**
+     * <p>
+     * Describes an existing gateway route.
+     * </p>
+     * 
+     * @param describeGatewayRouteRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeGatewayRoute operation returned by the service.
+     * @sample AWSAppMeshAsyncHandler.DescribeGatewayRoute
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/DescribeGatewayRoute" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeGatewayRouteResult> describeGatewayRouteAsync(DescribeGatewayRouteRequest describeGatewayRouteRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeGatewayRouteRequest, DescribeGatewayRouteResult> asyncHandler);
+
+    /**
+     * <p>
      * Describes an existing service mesh.
      * </p>
      * 
@@ -544,6 +776,37 @@ public interface AWSAppMeshAsync extends AWSAppMesh {
      */
     java.util.concurrent.Future<DescribeRouteResult> describeRouteAsync(DescribeRouteRequest describeRouteRequest,
             com.amazonaws.handlers.AsyncHandler<DescribeRouteRequest, DescribeRouteResult> asyncHandler);
+
+    /**
+     * <p>
+     * Describes an existing virtual gateway.
+     * </p>
+     * 
+     * @param describeVirtualGatewayRequest
+     * @return A Java Future containing the result of the DescribeVirtualGateway operation returned by the service.
+     * @sample AWSAppMeshAsync.DescribeVirtualGateway
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/DescribeVirtualGateway" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeVirtualGatewayResult> describeVirtualGatewayAsync(DescribeVirtualGatewayRequest describeVirtualGatewayRequest);
+
+    /**
+     * <p>
+     * Describes an existing virtual gateway.
+     * </p>
+     * 
+     * @param describeVirtualGatewayRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeVirtualGateway operation returned by the service.
+     * @sample AWSAppMeshAsyncHandler.DescribeVirtualGateway
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/DescribeVirtualGateway" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeVirtualGatewayResult> describeVirtualGatewayAsync(DescribeVirtualGatewayRequest describeVirtualGatewayRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeVirtualGatewayRequest, DescribeVirtualGatewayResult> asyncHandler);
 
     /**
      * <p>
@@ -640,6 +903,37 @@ public interface AWSAppMeshAsync extends AWSAppMesh {
 
     /**
      * <p>
+     * Returns a list of existing gateway routes that are associated to a virtual gateway.
+     * </p>
+     * 
+     * @param listGatewayRoutesRequest
+     * @return A Java Future containing the result of the ListGatewayRoutes operation returned by the service.
+     * @sample AWSAppMeshAsync.ListGatewayRoutes
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/ListGatewayRoutes" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListGatewayRoutesResult> listGatewayRoutesAsync(ListGatewayRoutesRequest listGatewayRoutesRequest);
+
+    /**
+     * <p>
+     * Returns a list of existing gateway routes that are associated to a virtual gateway.
+     * </p>
+     * 
+     * @param listGatewayRoutesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListGatewayRoutes operation returned by the service.
+     * @sample AWSAppMeshAsyncHandler.ListGatewayRoutes
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/ListGatewayRoutes" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListGatewayRoutesResult> listGatewayRoutesAsync(ListGatewayRoutesRequest listGatewayRoutesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListGatewayRoutesRequest, ListGatewayRoutesResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns a list of existing service meshes.
      * </p>
      * 
@@ -730,6 +1024,37 @@ public interface AWSAppMeshAsync extends AWSAppMesh {
      */
     java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest listTagsForResourceRequest,
             com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of existing virtual gateways in a service mesh.
+     * </p>
+     * 
+     * @param listVirtualGatewaysRequest
+     * @return A Java Future containing the result of the ListVirtualGateways operation returned by the service.
+     * @sample AWSAppMeshAsync.ListVirtualGateways
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/ListVirtualGateways" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListVirtualGatewaysResult> listVirtualGatewaysAsync(ListVirtualGatewaysRequest listVirtualGatewaysRequest);
+
+    /**
+     * <p>
+     * Returns a list of existing virtual gateways in a service mesh.
+     * </p>
+     * 
+     * @param listVirtualGatewaysRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListVirtualGateways operation returned by the service.
+     * @sample AWSAppMeshAsyncHandler.ListVirtualGateways
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/ListVirtualGateways" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListVirtualGatewaysResult> listVirtualGatewaysAsync(ListVirtualGatewaysRequest listVirtualGatewaysRequest,
+            com.amazonaws.handlers.AsyncHandler<ListVirtualGatewaysRequest, ListVirtualGatewaysResult> asyncHandler);
 
     /**
      * <p>
@@ -892,6 +1217,37 @@ public interface AWSAppMeshAsync extends AWSAppMesh {
 
     /**
      * <p>
+     * Updates an existing gateway route that is associated to a specified virtual gateway in a service mesh.
+     * </p>
+     * 
+     * @param updateGatewayRouteRequest
+     * @return A Java Future containing the result of the UpdateGatewayRoute operation returned by the service.
+     * @sample AWSAppMeshAsync.UpdateGatewayRoute
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/UpdateGatewayRoute" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateGatewayRouteResult> updateGatewayRouteAsync(UpdateGatewayRouteRequest updateGatewayRouteRequest);
+
+    /**
+     * <p>
+     * Updates an existing gateway route that is associated to a specified virtual gateway in a service mesh.
+     * </p>
+     * 
+     * @param updateGatewayRouteRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateGatewayRoute operation returned by the service.
+     * @sample AWSAppMeshAsyncHandler.UpdateGatewayRoute
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/UpdateGatewayRoute" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateGatewayRouteResult> updateGatewayRouteAsync(UpdateGatewayRouteRequest updateGatewayRouteRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateGatewayRouteRequest, UpdateGatewayRouteResult> asyncHandler);
+
+    /**
+     * <p>
      * Updates an existing service mesh.
      * </p>
      * 
@@ -951,6 +1307,37 @@ public interface AWSAppMeshAsync extends AWSAppMesh {
      */
     java.util.concurrent.Future<UpdateRouteResult> updateRouteAsync(UpdateRouteRequest updateRouteRequest,
             com.amazonaws.handlers.AsyncHandler<UpdateRouteRequest, UpdateRouteResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates an existing virtual gateway in a specified service mesh.
+     * </p>
+     * 
+     * @param updateVirtualGatewayRequest
+     * @return A Java Future containing the result of the UpdateVirtualGateway operation returned by the service.
+     * @sample AWSAppMeshAsync.UpdateVirtualGateway
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/UpdateVirtualGateway" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateVirtualGatewayResult> updateVirtualGatewayAsync(UpdateVirtualGatewayRequest updateVirtualGatewayRequest);
+
+    /**
+     * <p>
+     * Updates an existing virtual gateway in a specified service mesh.
+     * </p>
+     * 
+     * @param updateVirtualGatewayRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateVirtualGateway operation returned by the service.
+     * @sample AWSAppMeshAsyncHandler.UpdateVirtualGateway
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/UpdateVirtualGateway" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateVirtualGatewayResult> updateVirtualGatewayAsync(UpdateVirtualGatewayRequest updateVirtualGatewayRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateVirtualGatewayRequest, UpdateVirtualGatewayResult> asyncHandler);
 
     /**
      * <p>

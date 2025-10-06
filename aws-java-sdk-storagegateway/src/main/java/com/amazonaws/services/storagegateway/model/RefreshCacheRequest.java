@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,17 +38,24 @@ public class RefreshCacheRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * A comma-separated list of the paths of folders to refresh in the cache. The default is [<code>"/"</code>]. The
      * default refreshes objects and folders at the root of the Amazon S3 bucket. If <code>Recursive</code> is set to
-     * "true", the entire S3 bucket that the file share has access to is refreshed.
+     * <code>true</code>, the entire S3 bucket that the file share has access to is refreshed.
+     * </p>
+     * <p>
+     * Do not include <code>/</code> when specifying folder names. For example, you would specify
+     * <code>samplefolder</code> rather than <code>samplefolder/</code>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> folderList;
     /**
      * <p>
      * A value that specifies whether to recursively refresh folders in the cache. The refresh includes folders that
-     * were in the cache the last time the gateway listed the folder's contents. If this value set to "true", each
-     * folder that is listed in <code>FolderList</code> is recursively updated. Otherwise, subfolders listed in
+     * were in the cache the last time the gateway listed the folder's contents. If this value set to <code>true</code>,
+     * each folder that is listed in <code>FolderList</code> is recursively updated. Otherwise, subfolders listed in
      * <code>FolderList</code> are not refreshed. Only objects that are in folders listed directly under
-     * <code>FolderList</code> are found and used for the update. The default is "true".
+     * <code>FolderList</code> are found and used for the update. The default is <code>true</code>.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      */
     private Boolean recursive;
@@ -97,13 +104,20 @@ public class RefreshCacheRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * A comma-separated list of the paths of folders to refresh in the cache. The default is [<code>"/"</code>]. The
      * default refreshes objects and folders at the root of the Amazon S3 bucket. If <code>Recursive</code> is set to
-     * "true", the entire S3 bucket that the file share has access to is refreshed.
+     * <code>true</code>, the entire S3 bucket that the file share has access to is refreshed.
+     * </p>
+     * <p>
+     * Do not include <code>/</code> when specifying folder names. For example, you would specify
+     * <code>samplefolder</code> rather than <code>samplefolder/</code>.
      * </p>
      * 
      * @return A comma-separated list of the paths of folders to refresh in the cache. The default is [<code>"/"</code>
      *         ]. The default refreshes objects and folders at the root of the Amazon S3 bucket. If
-     *         <code>Recursive</code> is set to "true", the entire S3 bucket that the file share has access to is
-     *         refreshed.
+     *         <code>Recursive</code> is set to <code>true</code>, the entire S3 bucket that the file share has access
+     *         to is refreshed.</p>
+     *         <p>
+     *         Do not include <code>/</code> when specifying folder names. For example, you would specify
+     *         <code>samplefolder</code> rather than <code>samplefolder/</code>.
      */
 
     public java.util.List<String> getFolderList() {
@@ -117,13 +131,20 @@ public class RefreshCacheRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * A comma-separated list of the paths of folders to refresh in the cache. The default is [<code>"/"</code>]. The
      * default refreshes objects and folders at the root of the Amazon S3 bucket. If <code>Recursive</code> is set to
-     * "true", the entire S3 bucket that the file share has access to is refreshed.
+     * <code>true</code>, the entire S3 bucket that the file share has access to is refreshed.
+     * </p>
+     * <p>
+     * Do not include <code>/</code> when specifying folder names. For example, you would specify
+     * <code>samplefolder</code> rather than <code>samplefolder/</code>.
      * </p>
      * 
      * @param folderList
      *        A comma-separated list of the paths of folders to refresh in the cache. The default is [<code>"/"</code>].
      *        The default refreshes objects and folders at the root of the Amazon S3 bucket. If <code>Recursive</code>
-     *        is set to "true", the entire S3 bucket that the file share has access to is refreshed.
+     *        is set to <code>true</code>, the entire S3 bucket that the file share has access to is refreshed.</p>
+     *        <p>
+     *        Do not include <code>/</code> when specifying folder names. For example, you would specify
+     *        <code>samplefolder</code> rather than <code>samplefolder/</code>.
      */
 
     public void setFolderList(java.util.Collection<String> folderList) {
@@ -139,7 +160,11 @@ public class RefreshCacheRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * A comma-separated list of the paths of folders to refresh in the cache. The default is [<code>"/"</code>]. The
      * default refreshes objects and folders at the root of the Amazon S3 bucket. If <code>Recursive</code> is set to
-     * "true", the entire S3 bucket that the file share has access to is refreshed.
+     * <code>true</code>, the entire S3 bucket that the file share has access to is refreshed.
+     * </p>
+     * <p>
+     * Do not include <code>/</code> when specifying folder names. For example, you would specify
+     * <code>samplefolder</code> rather than <code>samplefolder/</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -150,7 +175,10 @@ public class RefreshCacheRequest extends com.amazonaws.AmazonWebServiceRequest i
      * @param folderList
      *        A comma-separated list of the paths of folders to refresh in the cache. The default is [<code>"/"</code>].
      *        The default refreshes objects and folders at the root of the Amazon S3 bucket. If <code>Recursive</code>
-     *        is set to "true", the entire S3 bucket that the file share has access to is refreshed.
+     *        is set to <code>true</code>, the entire S3 bucket that the file share has access to is refreshed.</p>
+     *        <p>
+     *        Do not include <code>/</code> when specifying folder names. For example, you would specify
+     *        <code>samplefolder</code> rather than <code>samplefolder/</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -168,13 +196,20 @@ public class RefreshCacheRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * A comma-separated list of the paths of folders to refresh in the cache. The default is [<code>"/"</code>]. The
      * default refreshes objects and folders at the root of the Amazon S3 bucket. If <code>Recursive</code> is set to
-     * "true", the entire S3 bucket that the file share has access to is refreshed.
+     * <code>true</code>, the entire S3 bucket that the file share has access to is refreshed.
+     * </p>
+     * <p>
+     * Do not include <code>/</code> when specifying folder names. For example, you would specify
+     * <code>samplefolder</code> rather than <code>samplefolder/</code>.
      * </p>
      * 
      * @param folderList
      *        A comma-separated list of the paths of folders to refresh in the cache. The default is [<code>"/"</code>].
      *        The default refreshes objects and folders at the root of the Amazon S3 bucket. If <code>Recursive</code>
-     *        is set to "true", the entire S3 bucket that the file share has access to is refreshed.
+     *        is set to <code>true</code>, the entire S3 bucket that the file share has access to is refreshed.</p>
+     *        <p>
+     *        Do not include <code>/</code> when specifying folder names. For example, you would specify
+     *        <code>samplefolder</code> rather than <code>samplefolder/</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -186,18 +221,24 @@ public class RefreshCacheRequest extends com.amazonaws.AmazonWebServiceRequest i
     /**
      * <p>
      * A value that specifies whether to recursively refresh folders in the cache. The refresh includes folders that
-     * were in the cache the last time the gateway listed the folder's contents. If this value set to "true", each
-     * folder that is listed in <code>FolderList</code> is recursively updated. Otherwise, subfolders listed in
+     * were in the cache the last time the gateway listed the folder's contents. If this value set to <code>true</code>,
+     * each folder that is listed in <code>FolderList</code> is recursively updated. Otherwise, subfolders listed in
      * <code>FolderList</code> are not refreshed. Only objects that are in folders listed directly under
-     * <code>FolderList</code> are found and used for the update. The default is "true".
+     * <code>FolderList</code> are found and used for the update. The default is <code>true</code>.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      * 
      * @param recursive
      *        A value that specifies whether to recursively refresh folders in the cache. The refresh includes folders
      *        that were in the cache the last time the gateway listed the folder's contents. If this value set to
-     *        "true", each folder that is listed in <code>FolderList</code> is recursively updated. Otherwise,
-     *        subfolders listed in <code>FolderList</code> are not refreshed. Only objects that are in folders listed
-     *        directly under <code>FolderList</code> are found and used for the update. The default is "true".
+     *        <code>true</code>, each folder that is listed in <code>FolderList</code> is recursively updated.
+     *        Otherwise, subfolders listed in <code>FolderList</code> are not refreshed. Only objects that are in
+     *        folders listed directly under <code>FolderList</code> are found and used for the update. The default is
+     *        <code>true</code>.</p>
+     *        <p>
+     *        Valid Values: <code>true</code> | <code>false</code>
      */
 
     public void setRecursive(Boolean recursive) {
@@ -207,17 +248,23 @@ public class RefreshCacheRequest extends com.amazonaws.AmazonWebServiceRequest i
     /**
      * <p>
      * A value that specifies whether to recursively refresh folders in the cache. The refresh includes folders that
-     * were in the cache the last time the gateway listed the folder's contents. If this value set to "true", each
-     * folder that is listed in <code>FolderList</code> is recursively updated. Otherwise, subfolders listed in
+     * were in the cache the last time the gateway listed the folder's contents. If this value set to <code>true</code>,
+     * each folder that is listed in <code>FolderList</code> is recursively updated. Otherwise, subfolders listed in
      * <code>FolderList</code> are not refreshed. Only objects that are in folders listed directly under
-     * <code>FolderList</code> are found and used for the update. The default is "true".
+     * <code>FolderList</code> are found and used for the update. The default is <code>true</code>.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      * 
      * @return A value that specifies whether to recursively refresh folders in the cache. The refresh includes folders
      *         that were in the cache the last time the gateway listed the folder's contents. If this value set to
-     *         "true", each folder that is listed in <code>FolderList</code> is recursively updated. Otherwise,
-     *         subfolders listed in <code>FolderList</code> are not refreshed. Only objects that are in folders listed
-     *         directly under <code>FolderList</code> are found and used for the update. The default is "true".
+     *         <code>true</code>, each folder that is listed in <code>FolderList</code> is recursively updated.
+     *         Otherwise, subfolders listed in <code>FolderList</code> are not refreshed. Only objects that are in
+     *         folders listed directly under <code>FolderList</code> are found and used for the update. The default is
+     *         <code>true</code>.</p>
+     *         <p>
+     *         Valid Values: <code>true</code> | <code>false</code>
      */
 
     public Boolean getRecursive() {
@@ -227,18 +274,24 @@ public class RefreshCacheRequest extends com.amazonaws.AmazonWebServiceRequest i
     /**
      * <p>
      * A value that specifies whether to recursively refresh folders in the cache. The refresh includes folders that
-     * were in the cache the last time the gateway listed the folder's contents. If this value set to "true", each
-     * folder that is listed in <code>FolderList</code> is recursively updated. Otherwise, subfolders listed in
+     * were in the cache the last time the gateway listed the folder's contents. If this value set to <code>true</code>,
+     * each folder that is listed in <code>FolderList</code> is recursively updated. Otherwise, subfolders listed in
      * <code>FolderList</code> are not refreshed. Only objects that are in folders listed directly under
-     * <code>FolderList</code> are found and used for the update. The default is "true".
+     * <code>FolderList</code> are found and used for the update. The default is <code>true</code>.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      * 
      * @param recursive
      *        A value that specifies whether to recursively refresh folders in the cache. The refresh includes folders
      *        that were in the cache the last time the gateway listed the folder's contents. If this value set to
-     *        "true", each folder that is listed in <code>FolderList</code> is recursively updated. Otherwise,
-     *        subfolders listed in <code>FolderList</code> are not refreshed. Only objects that are in folders listed
-     *        directly under <code>FolderList</code> are found and used for the update. The default is "true".
+     *        <code>true</code>, each folder that is listed in <code>FolderList</code> is recursively updated.
+     *        Otherwise, subfolders listed in <code>FolderList</code> are not refreshed. Only objects that are in
+     *        folders listed directly under <code>FolderList</code> are found and used for the update. The default is
+     *        <code>true</code>.</p>
+     *        <p>
+     *        Valid Values: <code>true</code> | <code>false</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -250,17 +303,23 @@ public class RefreshCacheRequest extends com.amazonaws.AmazonWebServiceRequest i
     /**
      * <p>
      * A value that specifies whether to recursively refresh folders in the cache. The refresh includes folders that
-     * were in the cache the last time the gateway listed the folder's contents. If this value set to "true", each
-     * folder that is listed in <code>FolderList</code> is recursively updated. Otherwise, subfolders listed in
+     * were in the cache the last time the gateway listed the folder's contents. If this value set to <code>true</code>,
+     * each folder that is listed in <code>FolderList</code> is recursively updated. Otherwise, subfolders listed in
      * <code>FolderList</code> are not refreshed. Only objects that are in folders listed directly under
-     * <code>FolderList</code> are found and used for the update. The default is "true".
+     * <code>FolderList</code> are found and used for the update. The default is <code>true</code>.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      * 
      * @return A value that specifies whether to recursively refresh folders in the cache. The refresh includes folders
      *         that were in the cache the last time the gateway listed the folder's contents. If this value set to
-     *         "true", each folder that is listed in <code>FolderList</code> is recursively updated. Otherwise,
-     *         subfolders listed in <code>FolderList</code> are not refreshed. Only objects that are in folders listed
-     *         directly under <code>FolderList</code> are found and used for the update. The default is "true".
+     *         <code>true</code>, each folder that is listed in <code>FolderList</code> is recursively updated.
+     *         Otherwise, subfolders listed in <code>FolderList</code> are not refreshed. Only objects that are in
+     *         folders listed directly under <code>FolderList</code> are found and used for the update. The default is
+     *         <code>true</code>.</p>
+     *         <p>
+     *         Valid Values: <code>true</code> | <code>false</code>
      */
 
     public Boolean isRecursive() {

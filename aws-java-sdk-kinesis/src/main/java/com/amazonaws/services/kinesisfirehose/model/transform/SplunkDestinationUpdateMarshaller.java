@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,6 +45,10 @@ public class SplunkDestinationUpdateMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ProcessingConfiguration").build();
     private static final MarshallingInfo<StructuredPojo> CLOUDWATCHLOGGINGOPTIONS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CloudWatchLoggingOptions").build();
+    private static final MarshallingInfo<StructuredPojo> BUFFERINGHINTS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("BufferingHints").build();
+    private static final MarshallingInfo<StructuredPojo> SECRETSMANAGERCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SecretsManagerConfiguration").build();
 
     private static final SplunkDestinationUpdateMarshaller instance = new SplunkDestinationUpdateMarshaller();
 
@@ -71,6 +75,8 @@ public class SplunkDestinationUpdateMarshaller {
             protocolMarshaller.marshall(splunkDestinationUpdate.getS3Update(), S3UPDATE_BINDING);
             protocolMarshaller.marshall(splunkDestinationUpdate.getProcessingConfiguration(), PROCESSINGCONFIGURATION_BINDING);
             protocolMarshaller.marshall(splunkDestinationUpdate.getCloudWatchLoggingOptions(), CLOUDWATCHLOGGINGOPTIONS_BINDING);
+            protocolMarshaller.marshall(splunkDestinationUpdate.getBufferingHints(), BUFFERINGHINTS_BINDING);
+            protocolMarshaller.marshall(splunkDestinationUpdate.getSecretsManagerConfiguration(), SECRETSMANAGERCONFIGURATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

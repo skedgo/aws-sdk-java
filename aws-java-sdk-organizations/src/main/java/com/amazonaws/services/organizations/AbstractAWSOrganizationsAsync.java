@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -62,6 +62,19 @@ public class AbstractAWSOrganizationsAsync extends AbstractAWSOrganizations impl
     @Override
     public java.util.concurrent.Future<CancelHandshakeResult> cancelHandshakeAsync(CancelHandshakeRequest request,
             com.amazonaws.handlers.AsyncHandler<CancelHandshakeRequest, CancelHandshakeResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CloseAccountResult> closeAccountAsync(CloseAccountRequest request) {
+
+        return closeAccountAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CloseAccountResult> closeAccountAsync(CloseAccountRequest request,
+            com.amazonaws.handlers.AsyncHandler<CloseAccountRequest, CloseAccountResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -184,6 +197,34 @@ public class AbstractAWSOrganizationsAsync extends AbstractAWSOrganizations impl
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(DeleteResourcePolicyRequest request) {
+
+        return deleteResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(DeleteResourcePolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteResourcePolicyRequest, DeleteResourcePolicyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeregisterDelegatedAdministratorResult> deregisterDelegatedAdministratorAsync(
+            DeregisterDelegatedAdministratorRequest request) {
+
+        return deregisterDelegatedAdministratorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeregisterDelegatedAdministratorResult> deregisterDelegatedAdministratorAsync(
+            DeregisterDelegatedAdministratorRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeregisterDelegatedAdministratorRequest, DeregisterDelegatedAdministratorResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeAccountResult> describeAccountAsync(DescribeAccountRequest request) {
 
         return describeAccountAsync(request, null);
@@ -205,6 +246,19 @@ public class AbstractAWSOrganizationsAsync extends AbstractAWSOrganizations impl
     @Override
     public java.util.concurrent.Future<DescribeCreateAccountStatusResult> describeCreateAccountStatusAsync(DescribeCreateAccountStatusRequest request,
             com.amazonaws.handlers.AsyncHandler<DescribeCreateAccountStatusRequest, DescribeCreateAccountStatusResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeEffectivePolicyResult> describeEffectivePolicyAsync(DescribeEffectivePolicyRequest request) {
+
+        return describeEffectivePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeEffectivePolicyResult> describeEffectivePolicyAsync(DescribeEffectivePolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeEffectivePolicyRequest, DescribeEffectivePolicyResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -257,6 +311,19 @@ public class AbstractAWSOrganizationsAsync extends AbstractAWSOrganizations impl
     @Override
     public java.util.concurrent.Future<DescribePolicyResult> describePolicyAsync(DescribePolicyRequest request,
             com.amazonaws.handlers.AsyncHandler<DescribePolicyRequest, DescribePolicyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeResourcePolicyResult> describeResourcePolicyAsync(DescribeResourcePolicyRequest request) {
+
+        return describeResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeResourcePolicyResult> describeResourcePolicyAsync(DescribeResourcePolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeResourcePolicyRequest, DescribeResourcePolicyResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -433,6 +500,34 @@ public class AbstractAWSOrganizationsAsync extends AbstractAWSOrganizations impl
     }
 
     @Override
+    public java.util.concurrent.Future<ListDelegatedAdministratorsResult> listDelegatedAdministratorsAsync(ListDelegatedAdministratorsRequest request) {
+
+        return listDelegatedAdministratorsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDelegatedAdministratorsResult> listDelegatedAdministratorsAsync(ListDelegatedAdministratorsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListDelegatedAdministratorsRequest, ListDelegatedAdministratorsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDelegatedServicesForAccountResult> listDelegatedServicesForAccountAsync(
+            ListDelegatedServicesForAccountRequest request) {
+
+        return listDelegatedServicesForAccountAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDelegatedServicesForAccountResult> listDelegatedServicesForAccountAsync(
+            ListDelegatedServicesForAccountRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListDelegatedServicesForAccountRequest, ListDelegatedServicesForAccountResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListHandshakesForAccountResult> listHandshakesForAccountAsync(ListHandshakesForAccountRequest request) {
 
         return listHandshakesForAccountAsync(request, null);
@@ -560,6 +655,32 @@ public class AbstractAWSOrganizationsAsync extends AbstractAWSOrganizations impl
     @Override
     public java.util.concurrent.Future<MoveAccountResult> moveAccountAsync(MoveAccountRequest request,
             com.amazonaws.handlers.AsyncHandler<MoveAccountRequest, MoveAccountResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(PutResourcePolicyRequest request) {
+
+        return putResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(PutResourcePolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<PutResourcePolicyRequest, PutResourcePolicyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<RegisterDelegatedAdministratorResult> registerDelegatedAdministratorAsync(RegisterDelegatedAdministratorRequest request) {
+
+        return registerDelegatedAdministratorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RegisterDelegatedAdministratorResult> registerDelegatedAdministratorAsync(RegisterDelegatedAdministratorRequest request,
+            com.amazonaws.handlers.AsyncHandler<RegisterDelegatedAdministratorRequest, RegisterDelegatedAdministratorResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

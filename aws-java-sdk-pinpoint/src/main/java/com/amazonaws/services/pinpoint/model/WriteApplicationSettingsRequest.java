@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,10 +30,12 @@ public class WriteApplicationSettingsRequest implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The settings for the AWS Lambda function to use by default as a code hook for campaigns in the application. To
-     * override these settings for a specific campaign, use the <link
-     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to define custom Lambda function
-     * settings for the campaign.
+     * The settings for the AWS Lambda function to invoke by default as a code hook for campaigns in the application.
+     * You can use this hook to customize segments that are used by campaigns in the application.
+     * </p>
+     * <p>
+     * To override these settings and define custom settings for a specific campaign, use the CampaignHook object of the
+     * <link linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource.
      * </p>
      */
     private CampaignHook campaignHook;
@@ -43,18 +45,21 @@ public class WriteApplicationSettingsRequest implements Serializable, Cloneable,
      * </p>
      */
     private Boolean cloudWatchMetricsEnabled;
+
+    private Boolean eventTaggingEnabled;
     /**
      * <p>
-     * The default sending limits for campaigns in the application. To override these limits for a specific campaign,
-     * use the <link linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to define custom
-     * limits for the campaign.
+     * The default sending limits for campaigns in the application. To override these limits and define custom limits
+     * for a specific campaign or journey, use the <link
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource or the <link
+     * linkend="apps-application-id-journeys-journey-id">Journey</link> resource, respectively.
      * </p>
      */
     private CampaignLimits limits;
     /**
      * <p>
-     * The default quiet time for campaigns in the application. Quiet time is a specific time range when campaigns don't
-     * send messages to endpoints, if all the following conditions are met:
+     * The default quiet time for campaigns in the application. Quiet time is a specific time range when messages aren't
+     * sent to endpoints, if all the following conditions are met:
      * </p>
      * <ul>
      * <li>
@@ -65,41 +70,53 @@ public class WriteApplicationSettingsRequest implements Serializable, Cloneable,
      * <li>
      * <p>
      * The current time in the endpoint's time zone is later than or equal to the time specified by the QuietTime.Start
-     * property for the application (or a campaign that has custom quiet time settings).
+     * property for the application (or a campaign or journey that has custom quiet time settings).
      * </p>
      * </li>
      * <li>
      * <p>
      * The current time in the endpoint's time zone is earlier than or equal to the time specified by the QuietTime.End
-     * property for the application (or a campaign that has custom quiet time settings).
+     * property for the application (or a campaign or journey that has custom quiet time settings).
      * </p>
      * </li>
      * </ul>
      * <p>
-     * If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign, even if quiet
-     * time is enabled.
+     * If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign or journey, even
+     * if quiet time is enabled.
      * </p>
      * <p>
-     * To override the default quiet time settings for a specific campaign, use the <link
-     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to define a custom quiet time for
-     * the campaign.
+     * To override the default quiet time settings for a specific campaign or journey, use the <link
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource or the <link
+     * linkend="apps-application-id-journeys-journey-id">Journey</link> resource to define a custom quiet time for the
+     * campaign or journey.
      * </p>
      */
     private QuietTime quietTime;
+    /**
+     * <p>
+     * The default sending limits for journeys in the application. These limits apply to each journey for the
+     * application but can be overridden, on a per journey basis, with the JourneyLimits resource.
+     * </p>
+     */
+    private ApplicationSettingsJourneyLimits journeyLimits;
 
     /**
      * <p>
-     * The settings for the AWS Lambda function to use by default as a code hook for campaigns in the application. To
-     * override these settings for a specific campaign, use the <link
-     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to define custom Lambda function
-     * settings for the campaign.
+     * The settings for the AWS Lambda function to invoke by default as a code hook for campaigns in the application.
+     * You can use this hook to customize segments that are used by campaigns in the application.
+     * </p>
+     * <p>
+     * To override these settings and define custom settings for a specific campaign, use the CampaignHook object of the
+     * <link linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource.
      * </p>
      * 
      * @param campaignHook
-     *        The settings for the AWS Lambda function to use by default as a code hook for campaigns in the
-     *        application. To override these settings for a specific campaign, use the <link
-     *        linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to define custom Lambda
-     *        function settings for the campaign.
+     *        The settings for the AWS Lambda function to invoke by default as a code hook for campaigns in the
+     *        application. You can use this hook to customize segments that are used by campaigns in the
+     *        application.</p>
+     *        <p>
+     *        To override these settings and define custom settings for a specific campaign, use the CampaignHook object
+     *        of the <link linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource.
      */
 
     public void setCampaignHook(CampaignHook campaignHook) {
@@ -108,16 +125,20 @@ public class WriteApplicationSettingsRequest implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The settings for the AWS Lambda function to use by default as a code hook for campaigns in the application. To
-     * override these settings for a specific campaign, use the <link
-     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to define custom Lambda function
-     * settings for the campaign.
+     * The settings for the AWS Lambda function to invoke by default as a code hook for campaigns in the application.
+     * You can use this hook to customize segments that are used by campaigns in the application.
+     * </p>
+     * <p>
+     * To override these settings and define custom settings for a specific campaign, use the CampaignHook object of the
+     * <link linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource.
      * </p>
      * 
-     * @return The settings for the AWS Lambda function to use by default as a code hook for campaigns in the
-     *         application. To override these settings for a specific campaign, use the <link
-     *         linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to define custom Lambda
-     *         function settings for the campaign.
+     * @return The settings for the AWS Lambda function to invoke by default as a code hook for campaigns in the
+     *         application. You can use this hook to customize segments that are used by campaigns in the
+     *         application.</p>
+     *         <p>
+     *         To override these settings and define custom settings for a specific campaign, use the CampaignHook
+     *         object of the <link linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource.
      */
 
     public CampaignHook getCampaignHook() {
@@ -126,17 +147,21 @@ public class WriteApplicationSettingsRequest implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The settings for the AWS Lambda function to use by default as a code hook for campaigns in the application. To
-     * override these settings for a specific campaign, use the <link
-     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to define custom Lambda function
-     * settings for the campaign.
+     * The settings for the AWS Lambda function to invoke by default as a code hook for campaigns in the application.
+     * You can use this hook to customize segments that are used by campaigns in the application.
+     * </p>
+     * <p>
+     * To override these settings and define custom settings for a specific campaign, use the CampaignHook object of the
+     * <link linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource.
      * </p>
      * 
      * @param campaignHook
-     *        The settings for the AWS Lambda function to use by default as a code hook for campaigns in the
-     *        application. To override these settings for a specific campaign, use the <link
-     *        linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to define custom Lambda
-     *        function settings for the campaign.
+     *        The settings for the AWS Lambda function to invoke by default as a code hook for campaigns in the
+     *        application. You can use this hook to customize segments that are used by campaigns in the
+     *        application.</p>
+     *        <p>
+     *        To override these settings and define custom settings for a specific campaign, use the CampaignHook object
+     *        of the <link linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -198,16 +223,52 @@ public class WriteApplicationSettingsRequest implements Serializable, Cloneable,
     }
 
     /**
+     * @param eventTaggingEnabled
+     */
+
+    public void setEventTaggingEnabled(Boolean eventTaggingEnabled) {
+        this.eventTaggingEnabled = eventTaggingEnabled;
+    }
+
+    /**
+     * @return
+     */
+
+    public Boolean getEventTaggingEnabled() {
+        return this.eventTaggingEnabled;
+    }
+
+    /**
+     * @param eventTaggingEnabled
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteApplicationSettingsRequest withEventTaggingEnabled(Boolean eventTaggingEnabled) {
+        setEventTaggingEnabled(eventTaggingEnabled);
+        return this;
+    }
+
+    /**
+     * @return
+     */
+
+    public Boolean isEventTaggingEnabled() {
+        return this.eventTaggingEnabled;
+    }
+
+    /**
      * <p>
-     * The default sending limits for campaigns in the application. To override these limits for a specific campaign,
-     * use the <link linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to define custom
-     * limits for the campaign.
+     * The default sending limits for campaigns in the application. To override these limits and define custom limits
+     * for a specific campaign or journey, use the <link
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource or the <link
+     * linkend="apps-application-id-journeys-journey-id">Journey</link> resource, respectively.
      * </p>
      * 
      * @param limits
-     *        The default sending limits for campaigns in the application. To override these limits for a specific
-     *        campaign, use the <link linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to
-     *        define custom limits for the campaign.
+     *        The default sending limits for campaigns in the application. To override these limits and define custom
+     *        limits for a specific campaign or journey, use the <link
+     *        linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource or the <link
+     *        linkend="apps-application-id-journeys-journey-id">Journey</link> resource, respectively.
      */
 
     public void setLimits(CampaignLimits limits) {
@@ -216,14 +277,16 @@ public class WriteApplicationSettingsRequest implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The default sending limits for campaigns in the application. To override these limits for a specific campaign,
-     * use the <link linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to define custom
-     * limits for the campaign.
+     * The default sending limits for campaigns in the application. To override these limits and define custom limits
+     * for a specific campaign or journey, use the <link
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource or the <link
+     * linkend="apps-application-id-journeys-journey-id">Journey</link> resource, respectively.
      * </p>
      * 
-     * @return The default sending limits for campaigns in the application. To override these limits for a specific
-     *         campaign, use the <link linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to
-     *         define custom limits for the campaign.
+     * @return The default sending limits for campaigns in the application. To override these limits and define custom
+     *         limits for a specific campaign or journey, use the <link
+     *         linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource or the <link
+     *         linkend="apps-application-id-journeys-journey-id">Journey</link> resource, respectively.
      */
 
     public CampaignLimits getLimits() {
@@ -232,15 +295,17 @@ public class WriteApplicationSettingsRequest implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The default sending limits for campaigns in the application. To override these limits for a specific campaign,
-     * use the <link linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to define custom
-     * limits for the campaign.
+     * The default sending limits for campaigns in the application. To override these limits and define custom limits
+     * for a specific campaign or journey, use the <link
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource or the <link
+     * linkend="apps-application-id-journeys-journey-id">Journey</link> resource, respectively.
      * </p>
      * 
      * @param limits
-     *        The default sending limits for campaigns in the application. To override these limits for a specific
-     *        campaign, use the <link linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to
-     *        define custom limits for the campaign.
+     *        The default sending limits for campaigns in the application. To override these limits and define custom
+     *        limits for a specific campaign or journey, use the <link
+     *        linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource or the <link
+     *        linkend="apps-application-id-journeys-journey-id">Journey</link> resource, respectively.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -251,8 +316,8 @@ public class WriteApplicationSettingsRequest implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The default quiet time for campaigns in the application. Quiet time is a specific time range when campaigns don't
-     * send messages to endpoints, if all the following conditions are met:
+     * The default quiet time for campaigns in the application. Quiet time is a specific time range when messages aren't
+     * sent to endpoints, if all the following conditions are met:
      * </p>
      * <ul>
      * <li>
@@ -263,29 +328,30 @@ public class WriteApplicationSettingsRequest implements Serializable, Cloneable,
      * <li>
      * <p>
      * The current time in the endpoint's time zone is later than or equal to the time specified by the QuietTime.Start
-     * property for the application (or a campaign that has custom quiet time settings).
+     * property for the application (or a campaign or journey that has custom quiet time settings).
      * </p>
      * </li>
      * <li>
      * <p>
      * The current time in the endpoint's time zone is earlier than or equal to the time specified by the QuietTime.End
-     * property for the application (or a campaign that has custom quiet time settings).
+     * property for the application (or a campaign or journey that has custom quiet time settings).
      * </p>
      * </li>
      * </ul>
      * <p>
-     * If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign, even if quiet
-     * time is enabled.
+     * If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign or journey, even
+     * if quiet time is enabled.
      * </p>
      * <p>
-     * To override the default quiet time settings for a specific campaign, use the <link
-     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to define a custom quiet time for
-     * the campaign.
+     * To override the default quiet time settings for a specific campaign or journey, use the <link
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource or the <link
+     * linkend="apps-application-id-journeys-journey-id">Journey</link> resource to define a custom quiet time for the
+     * campaign or journey.
      * </p>
      * 
      * @param quietTime
-     *        The default quiet time for campaigns in the application. Quiet time is a specific time range when
-     *        campaigns don't send messages to endpoints, if all the following conditions are met:</p>
+     *        The default quiet time for campaigns in the application. Quiet time is a specific time range when messages
+     *        aren't sent to endpoints, if all the following conditions are met:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -295,24 +361,26 @@ public class WriteApplicationSettingsRequest implements Serializable, Cloneable,
      *        <li>
      *        <p>
      *        The current time in the endpoint's time zone is later than or equal to the time specified by the
-     *        QuietTime.Start property for the application (or a campaign that has custom quiet time settings).
+     *        QuietTime.Start property for the application (or a campaign or journey that has custom quiet time
+     *        settings).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        The current time in the endpoint's time zone is earlier than or equal to the time specified by the
-     *        QuietTime.End property for the application (or a campaign that has custom quiet time settings).
+     *        QuietTime.End property for the application (or a campaign or journey that has custom quiet time settings).
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
-     *        If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign, even if
-     *        quiet time is enabled.
+     *        If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign or
+     *        journey, even if quiet time is enabled.
      *        </p>
      *        <p>
-     *        To override the default quiet time settings for a specific campaign, use the <link
-     *        linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to define a custom quiet time
-     *        for the campaign.
+     *        To override the default quiet time settings for a specific campaign or journey, use the <link
+     *        linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource or the <link
+     *        linkend="apps-application-id-journeys-journey-id">Journey</link> resource to define a custom quiet time
+     *        for the campaign or journey.
      */
 
     public void setQuietTime(QuietTime quietTime) {
@@ -321,8 +389,8 @@ public class WriteApplicationSettingsRequest implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The default quiet time for campaigns in the application. Quiet time is a specific time range when campaigns don't
-     * send messages to endpoints, if all the following conditions are met:
+     * The default quiet time for campaigns in the application. Quiet time is a specific time range when messages aren't
+     * sent to endpoints, if all the following conditions are met:
      * </p>
      * <ul>
      * <li>
@@ -333,28 +401,29 @@ public class WriteApplicationSettingsRequest implements Serializable, Cloneable,
      * <li>
      * <p>
      * The current time in the endpoint's time zone is later than or equal to the time specified by the QuietTime.Start
-     * property for the application (or a campaign that has custom quiet time settings).
+     * property for the application (or a campaign or journey that has custom quiet time settings).
      * </p>
      * </li>
      * <li>
      * <p>
      * The current time in the endpoint's time zone is earlier than or equal to the time specified by the QuietTime.End
-     * property for the application (or a campaign that has custom quiet time settings).
+     * property for the application (or a campaign or journey that has custom quiet time settings).
      * </p>
      * </li>
      * </ul>
      * <p>
-     * If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign, even if quiet
-     * time is enabled.
+     * If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign or journey, even
+     * if quiet time is enabled.
      * </p>
      * <p>
-     * To override the default quiet time settings for a specific campaign, use the <link
-     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to define a custom quiet time for
-     * the campaign.
+     * To override the default quiet time settings for a specific campaign or journey, use the <link
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource or the <link
+     * linkend="apps-application-id-journeys-journey-id">Journey</link> resource to define a custom quiet time for the
+     * campaign or journey.
      * </p>
      * 
      * @return The default quiet time for campaigns in the application. Quiet time is a specific time range when
-     *         campaigns don't send messages to endpoints, if all the following conditions are met:</p>
+     *         messages aren't sent to endpoints, if all the following conditions are met:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -364,24 +433,27 @@ public class WriteApplicationSettingsRequest implements Serializable, Cloneable,
      *         <li>
      *         <p>
      *         The current time in the endpoint's time zone is later than or equal to the time specified by the
-     *         QuietTime.Start property for the application (or a campaign that has custom quiet time settings).
+     *         QuietTime.Start property for the application (or a campaign or journey that has custom quiet time
+     *         settings).
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         The current time in the endpoint's time zone is earlier than or equal to the time specified by the
-     *         QuietTime.End property for the application (or a campaign that has custom quiet time settings).
+     *         QuietTime.End property for the application (or a campaign or journey that has custom quiet time
+     *         settings).
      *         </p>
      *         </li>
      *         </ul>
      *         <p>
-     *         If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign, even if
-     *         quiet time is enabled.
+     *         If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign or
+     *         journey, even if quiet time is enabled.
      *         </p>
      *         <p>
-     *         To override the default quiet time settings for a specific campaign, use the <link
-     *         linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to define a custom quiet
-     *         time for the campaign.
+     *         To override the default quiet time settings for a specific campaign or journey, use the <link
+     *         linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource or the <link
+     *         linkend="apps-application-id-journeys-journey-id">Journey</link> resource to define a custom quiet time
+     *         for the campaign or journey.
      */
 
     public QuietTime getQuietTime() {
@@ -390,8 +462,8 @@ public class WriteApplicationSettingsRequest implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The default quiet time for campaigns in the application. Quiet time is a specific time range when campaigns don't
-     * send messages to endpoints, if all the following conditions are met:
+     * The default quiet time for campaigns in the application. Quiet time is a specific time range when messages aren't
+     * sent to endpoints, if all the following conditions are met:
      * </p>
      * <ul>
      * <li>
@@ -402,29 +474,30 @@ public class WriteApplicationSettingsRequest implements Serializable, Cloneable,
      * <li>
      * <p>
      * The current time in the endpoint's time zone is later than or equal to the time specified by the QuietTime.Start
-     * property for the application (or a campaign that has custom quiet time settings).
+     * property for the application (or a campaign or journey that has custom quiet time settings).
      * </p>
      * </li>
      * <li>
      * <p>
      * The current time in the endpoint's time zone is earlier than or equal to the time specified by the QuietTime.End
-     * property for the application (or a campaign that has custom quiet time settings).
+     * property for the application (or a campaign or journey that has custom quiet time settings).
      * </p>
      * </li>
      * </ul>
      * <p>
-     * If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign, even if quiet
-     * time is enabled.
+     * If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign or journey, even
+     * if quiet time is enabled.
      * </p>
      * <p>
-     * To override the default quiet time settings for a specific campaign, use the <link
-     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to define a custom quiet time for
-     * the campaign.
+     * To override the default quiet time settings for a specific campaign or journey, use the <link
+     * linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource or the <link
+     * linkend="apps-application-id-journeys-journey-id">Journey</link> resource to define a custom quiet time for the
+     * campaign or journey.
      * </p>
      * 
      * @param quietTime
-     *        The default quiet time for campaigns in the application. Quiet time is a specific time range when
-     *        campaigns don't send messages to endpoints, if all the following conditions are met:</p>
+     *        The default quiet time for campaigns in the application. Quiet time is a specific time range when messages
+     *        aren't sent to endpoints, if all the following conditions are met:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -434,29 +507,77 @@ public class WriteApplicationSettingsRequest implements Serializable, Cloneable,
      *        <li>
      *        <p>
      *        The current time in the endpoint's time zone is later than or equal to the time specified by the
-     *        QuietTime.Start property for the application (or a campaign that has custom quiet time settings).
+     *        QuietTime.Start property for the application (or a campaign or journey that has custom quiet time
+     *        settings).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        The current time in the endpoint's time zone is earlier than or equal to the time specified by the
-     *        QuietTime.End property for the application (or a campaign that has custom quiet time settings).
+     *        QuietTime.End property for the application (or a campaign or journey that has custom quiet time settings).
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
-     *        If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign, even if
-     *        quiet time is enabled.
+     *        If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign or
+     *        journey, even if quiet time is enabled.
      *        </p>
      *        <p>
-     *        To override the default quiet time settings for a specific campaign, use the <link
-     *        linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource to define a custom quiet time
-     *        for the campaign.
+     *        To override the default quiet time settings for a specific campaign or journey, use the <link
+     *        linkend="apps-application-id-campaigns-campaign-id">Campaign</link> resource or the <link
+     *        linkend="apps-application-id-journeys-journey-id">Journey</link> resource to define a custom quiet time
+     *        for the campaign or journey.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public WriteApplicationSettingsRequest withQuietTime(QuietTime quietTime) {
         setQuietTime(quietTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The default sending limits for journeys in the application. These limits apply to each journey for the
+     * application but can be overridden, on a per journey basis, with the JourneyLimits resource.
+     * </p>
+     * 
+     * @param journeyLimits
+     *        The default sending limits for journeys in the application. These limits apply to each journey for the
+     *        application but can be overridden, on a per journey basis, with the JourneyLimits resource.
+     */
+
+    public void setJourneyLimits(ApplicationSettingsJourneyLimits journeyLimits) {
+        this.journeyLimits = journeyLimits;
+    }
+
+    /**
+     * <p>
+     * The default sending limits for journeys in the application. These limits apply to each journey for the
+     * application but can be overridden, on a per journey basis, with the JourneyLimits resource.
+     * </p>
+     * 
+     * @return The default sending limits for journeys in the application. These limits apply to each journey for the
+     *         application but can be overridden, on a per journey basis, with the JourneyLimits resource.
+     */
+
+    public ApplicationSettingsJourneyLimits getJourneyLimits() {
+        return this.journeyLimits;
+    }
+
+    /**
+     * <p>
+     * The default sending limits for journeys in the application. These limits apply to each journey for the
+     * application but can be overridden, on a per journey basis, with the JourneyLimits resource.
+     * </p>
+     * 
+     * @param journeyLimits
+     *        The default sending limits for journeys in the application. These limits apply to each journey for the
+     *        application but can be overridden, on a per journey basis, with the JourneyLimits resource.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WriteApplicationSettingsRequest withJourneyLimits(ApplicationSettingsJourneyLimits journeyLimits) {
+        setJourneyLimits(journeyLimits);
         return this;
     }
 
@@ -476,10 +597,14 @@ public class WriteApplicationSettingsRequest implements Serializable, Cloneable,
             sb.append("CampaignHook: ").append(getCampaignHook()).append(",");
         if (getCloudWatchMetricsEnabled() != null)
             sb.append("CloudWatchMetricsEnabled: ").append(getCloudWatchMetricsEnabled()).append(",");
+        if (getEventTaggingEnabled() != null)
+            sb.append("EventTaggingEnabled: ").append(getEventTaggingEnabled()).append(",");
         if (getLimits() != null)
             sb.append("Limits: ").append(getLimits()).append(",");
         if (getQuietTime() != null)
-            sb.append("QuietTime: ").append(getQuietTime());
+            sb.append("QuietTime: ").append(getQuietTime()).append(",");
+        if (getJourneyLimits() != null)
+            sb.append("JourneyLimits: ").append(getJourneyLimits());
         sb.append("}");
         return sb.toString();
     }
@@ -502,6 +627,10 @@ public class WriteApplicationSettingsRequest implements Serializable, Cloneable,
             return false;
         if (other.getCloudWatchMetricsEnabled() != null && other.getCloudWatchMetricsEnabled().equals(this.getCloudWatchMetricsEnabled()) == false)
             return false;
+        if (other.getEventTaggingEnabled() == null ^ this.getEventTaggingEnabled() == null)
+            return false;
+        if (other.getEventTaggingEnabled() != null && other.getEventTaggingEnabled().equals(this.getEventTaggingEnabled()) == false)
+            return false;
         if (other.getLimits() == null ^ this.getLimits() == null)
             return false;
         if (other.getLimits() != null && other.getLimits().equals(this.getLimits()) == false)
@@ -509,6 +638,10 @@ public class WriteApplicationSettingsRequest implements Serializable, Cloneable,
         if (other.getQuietTime() == null ^ this.getQuietTime() == null)
             return false;
         if (other.getQuietTime() != null && other.getQuietTime().equals(this.getQuietTime()) == false)
+            return false;
+        if (other.getJourneyLimits() == null ^ this.getJourneyLimits() == null)
+            return false;
+        if (other.getJourneyLimits() != null && other.getJourneyLimits().equals(this.getJourneyLimits()) == false)
             return false;
         return true;
     }
@@ -520,8 +653,10 @@ public class WriteApplicationSettingsRequest implements Serializable, Cloneable,
 
         hashCode = prime * hashCode + ((getCampaignHook() == null) ? 0 : getCampaignHook().hashCode());
         hashCode = prime * hashCode + ((getCloudWatchMetricsEnabled() == null) ? 0 : getCloudWatchMetricsEnabled().hashCode());
+        hashCode = prime * hashCode + ((getEventTaggingEnabled() == null) ? 0 : getEventTaggingEnabled().hashCode());
         hashCode = prime * hashCode + ((getLimits() == null) ? 0 : getLimits().hashCode());
         hashCode = prime * hashCode + ((getQuietTime() == null) ? 0 : getQuietTime().hashCode());
+        hashCode = prime * hashCode + ((getJourneyLimits() == null) ? 0 : getJourneyLimits().hashCode());
         return hashCode;
     }
 

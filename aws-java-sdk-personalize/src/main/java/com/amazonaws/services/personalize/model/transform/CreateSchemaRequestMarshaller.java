@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,8 @@ public class CreateSchemaRequestMarshaller {
             .marshallLocationName("name").build();
     private static final MarshallingInfo<String> SCHEMA_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("schema").build();
+    private static final MarshallingInfo<String> DOMAIN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("domain").build();
 
     private static final CreateSchemaRequestMarshaller instance = new CreateSchemaRequestMarshaller();
 
@@ -50,6 +52,7 @@ public class CreateSchemaRequestMarshaller {
         try {
             protocolMarshaller.marshall(createSchemaRequest.getName(), NAME_BINDING);
             protocolMarshaller.marshall(createSchemaRequest.getSchema(), SCHEMA_BINDING);
+            protocolMarshaller.marshall(createSchemaRequest.getDomain(), DOMAIN_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

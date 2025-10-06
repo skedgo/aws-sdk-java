@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,6 +33,8 @@ public class RecoveryPointByBackupVaultMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("BackupVaultName").build();
     private static final MarshallingInfo<String> BACKUPVAULTARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("BackupVaultArn").build();
+    private static final MarshallingInfo<String> SOURCEBACKUPVAULTARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SourceBackupVaultArn").build();
     private static final MarshallingInfo<String> RESOURCEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceArn").build();
     private static final MarshallingInfo<String> RESOURCETYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -43,6 +45,8 @@ public class RecoveryPointByBackupVaultMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IamRoleArn").build();
     private static final MarshallingInfo<String> STATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Status").build();
+    private static final MarshallingInfo<String> STATUSMESSAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StatusMessage").build();
     private static final MarshallingInfo<java.util.Date> CREATIONDATE_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CreationDate").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<java.util.Date> COMPLETIONDATE_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
@@ -59,6 +63,16 @@ public class RecoveryPointByBackupVaultMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IsEncrypted").build();
     private static final MarshallingInfo<java.util.Date> LASTRESTORETIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LastRestoreTime").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<String> PARENTRECOVERYPOINTARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ParentRecoveryPointArn").build();
+    private static final MarshallingInfo<String> COMPOSITEMEMBERIDENTIFIER_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CompositeMemberIdentifier").build();
+    private static final MarshallingInfo<Boolean> ISPARENT_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IsParent").build();
+    private static final MarshallingInfo<String> RESOURCENAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceName").build();
+    private static final MarshallingInfo<String> VAULTTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("VaultType").build();
 
     private static final RecoveryPointByBackupVaultMarshaller instance = new RecoveryPointByBackupVaultMarshaller();
 
@@ -79,11 +93,13 @@ public class RecoveryPointByBackupVaultMarshaller {
             protocolMarshaller.marshall(recoveryPointByBackupVault.getRecoveryPointArn(), RECOVERYPOINTARN_BINDING);
             protocolMarshaller.marshall(recoveryPointByBackupVault.getBackupVaultName(), BACKUPVAULTNAME_BINDING);
             protocolMarshaller.marshall(recoveryPointByBackupVault.getBackupVaultArn(), BACKUPVAULTARN_BINDING);
+            protocolMarshaller.marshall(recoveryPointByBackupVault.getSourceBackupVaultArn(), SOURCEBACKUPVAULTARN_BINDING);
             protocolMarshaller.marshall(recoveryPointByBackupVault.getResourceArn(), RESOURCEARN_BINDING);
             protocolMarshaller.marshall(recoveryPointByBackupVault.getResourceType(), RESOURCETYPE_BINDING);
             protocolMarshaller.marshall(recoveryPointByBackupVault.getCreatedBy(), CREATEDBY_BINDING);
             protocolMarshaller.marshall(recoveryPointByBackupVault.getIamRoleArn(), IAMROLEARN_BINDING);
             protocolMarshaller.marshall(recoveryPointByBackupVault.getStatus(), STATUS_BINDING);
+            protocolMarshaller.marshall(recoveryPointByBackupVault.getStatusMessage(), STATUSMESSAGE_BINDING);
             protocolMarshaller.marshall(recoveryPointByBackupVault.getCreationDate(), CREATIONDATE_BINDING);
             protocolMarshaller.marshall(recoveryPointByBackupVault.getCompletionDate(), COMPLETIONDATE_BINDING);
             protocolMarshaller.marshall(recoveryPointByBackupVault.getBackupSizeInBytes(), BACKUPSIZEINBYTES_BINDING);
@@ -92,6 +108,11 @@ public class RecoveryPointByBackupVaultMarshaller {
             protocolMarshaller.marshall(recoveryPointByBackupVault.getEncryptionKeyArn(), ENCRYPTIONKEYARN_BINDING);
             protocolMarshaller.marshall(recoveryPointByBackupVault.getIsEncrypted(), ISENCRYPTED_BINDING);
             protocolMarshaller.marshall(recoveryPointByBackupVault.getLastRestoreTime(), LASTRESTORETIME_BINDING);
+            protocolMarshaller.marshall(recoveryPointByBackupVault.getParentRecoveryPointArn(), PARENTRECOVERYPOINTARN_BINDING);
+            protocolMarshaller.marshall(recoveryPointByBackupVault.getCompositeMemberIdentifier(), COMPOSITEMEMBERIDENTIFIER_BINDING);
+            protocolMarshaller.marshall(recoveryPointByBackupVault.getIsParent(), ISPARENT_BINDING);
+            protocolMarshaller.marshall(recoveryPointByBackupVault.getResourceName(), RESOURCENAME_BINDING);
+            protocolMarshaller.marshall(recoveryPointByBackupVault.getVaultType(), VAULTTYPE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

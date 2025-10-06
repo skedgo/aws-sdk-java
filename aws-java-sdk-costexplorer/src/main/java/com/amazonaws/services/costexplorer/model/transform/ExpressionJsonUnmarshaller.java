@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,11 +50,15 @@ public class ExpressionJsonUnmarshaller implements Unmarshaller<Expression, Json
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("Or", targetDepth)) {
                     context.nextToken();
-                    expression.setOr(new ListUnmarshaller<Expression>(ExpressionJsonUnmarshaller.getInstance()).unmarshall(context));
+                    expression.setOr(new ListUnmarshaller<Expression>(ExpressionJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("And", targetDepth)) {
                     context.nextToken();
-                    expression.setAnd(new ListUnmarshaller<Expression>(ExpressionJsonUnmarshaller.getInstance()).unmarshall(context));
+                    expression.setAnd(new ListUnmarshaller<Expression>(ExpressionJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("Not", targetDepth)) {
                     context.nextToken();
@@ -67,6 +71,10 @@ public class ExpressionJsonUnmarshaller implements Unmarshaller<Expression, Json
                 if (context.testExpression("Tags", targetDepth)) {
                     context.nextToken();
                     expression.setTags(TagValuesJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("CostCategories", targetDepth)) {
+                    context.nextToken();
+                    expression.setCostCategories(CostCategoryValuesJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

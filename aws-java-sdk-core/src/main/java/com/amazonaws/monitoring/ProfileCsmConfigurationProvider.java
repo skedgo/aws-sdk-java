@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -133,7 +133,7 @@ public final class ProfileCsmConfigurationProvider implements CsmConfigurationPr
     }
 
     private synchronized BasicProfile getProfile(String profileName) {
-        return getProfilesConfigFile().getAllBasicProfiles().get(profileName);
+        return getProfilesConfigFile().getBasicProfile(profileName);
     }
 
     // ProfilesConfigFile immediately loads the profiles at construction time

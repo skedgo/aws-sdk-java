@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,14 +42,16 @@ public class GetResourceConfigHistoryRequest extends com.amazonaws.AmazonWebServ
     private String resourceId;
     /**
      * <p>
-     * The time stamp that indicates a later time. If not specified, current time is taken.
+     * The chronologically latest time in the time range for which the history requested. If not specified, current time
+     * is taken.
      * </p>
      */
     private java.util.Date laterTime;
     /**
      * <p>
-     * The time stamp that indicates an earlier time. If not specified, the action returns paginated results that
-     * contain configuration items that start when the first configuration item was recorded.
+     * The chronologically earliest time in the time range for which the history requested. If not specified, the action
+     * returns paginated results that contain configuration items that start when the first configuration item was
+     * recorded.
      * </p>
      */
     private java.util.Date earlierTime;
@@ -63,7 +65,7 @@ public class GetResourceConfigHistoryRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * The maximum number of configuration items returned on each page. The default is 10. You cannot specify a number
-     * greater than 100. If you specify 0, AWS Config uses the default.
+     * greater than 100. If you specify 0, Config uses the default.
      * </p>
      */
     private Integer limit;
@@ -190,11 +192,13 @@ public class GetResourceConfigHistoryRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The time stamp that indicates a later time. If not specified, current time is taken.
+     * The chronologically latest time in the time range for which the history requested. If not specified, current time
+     * is taken.
      * </p>
      * 
      * @param laterTime
-     *        The time stamp that indicates a later time. If not specified, current time is taken.
+     *        The chronologically latest time in the time range for which the history requested. If not specified,
+     *        current time is taken.
      */
 
     public void setLaterTime(java.util.Date laterTime) {
@@ -203,10 +207,12 @@ public class GetResourceConfigHistoryRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The time stamp that indicates a later time. If not specified, current time is taken.
+     * The chronologically latest time in the time range for which the history requested. If not specified, current time
+     * is taken.
      * </p>
      * 
-     * @return The time stamp that indicates a later time. If not specified, current time is taken.
+     * @return The chronologically latest time in the time range for which the history requested. If not specified,
+     *         current time is taken.
      */
 
     public java.util.Date getLaterTime() {
@@ -215,11 +221,13 @@ public class GetResourceConfigHistoryRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The time stamp that indicates a later time. If not specified, current time is taken.
+     * The chronologically latest time in the time range for which the history requested. If not specified, current time
+     * is taken.
      * </p>
      * 
      * @param laterTime
-     *        The time stamp that indicates a later time. If not specified, current time is taken.
+     *        The chronologically latest time in the time range for which the history requested. If not specified,
+     *        current time is taken.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -230,13 +238,15 @@ public class GetResourceConfigHistoryRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The time stamp that indicates an earlier time. If not specified, the action returns paginated results that
-     * contain configuration items that start when the first configuration item was recorded.
+     * The chronologically earliest time in the time range for which the history requested. If not specified, the action
+     * returns paginated results that contain configuration items that start when the first configuration item was
+     * recorded.
      * </p>
      * 
      * @param earlierTime
-     *        The time stamp that indicates an earlier time. If not specified, the action returns paginated results that
-     *        contain configuration items that start when the first configuration item was recorded.
+     *        The chronologically earliest time in the time range for which the history requested. If not specified, the
+     *        action returns paginated results that contain configuration items that start when the first configuration
+     *        item was recorded.
      */
 
     public void setEarlierTime(java.util.Date earlierTime) {
@@ -245,12 +255,14 @@ public class GetResourceConfigHistoryRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The time stamp that indicates an earlier time. If not specified, the action returns paginated results that
-     * contain configuration items that start when the first configuration item was recorded.
+     * The chronologically earliest time in the time range for which the history requested. If not specified, the action
+     * returns paginated results that contain configuration items that start when the first configuration item was
+     * recorded.
      * </p>
      * 
-     * @return The time stamp that indicates an earlier time. If not specified, the action returns paginated results
-     *         that contain configuration items that start when the first configuration item was recorded.
+     * @return The chronologically earliest time in the time range for which the history requested. If not specified,
+     *         the action returns paginated results that contain configuration items that start when the first
+     *         configuration item was recorded.
      */
 
     public java.util.Date getEarlierTime() {
@@ -259,13 +271,15 @@ public class GetResourceConfigHistoryRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The time stamp that indicates an earlier time. If not specified, the action returns paginated results that
-     * contain configuration items that start when the first configuration item was recorded.
+     * The chronologically earliest time in the time range for which the history requested. If not specified, the action
+     * returns paginated results that contain configuration items that start when the first configuration item was
+     * recorded.
      * </p>
      * 
      * @param earlierTime
-     *        The time stamp that indicates an earlier time. If not specified, the action returns paginated results that
-     *        contain configuration items that start when the first configuration item was recorded.
+     *        The chronologically earliest time in the time range for which the history requested. If not specified, the
+     *        action returns paginated results that contain configuration items that start when the first configuration
+     *        item was recorded.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -360,12 +374,12 @@ public class GetResourceConfigHistoryRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * The maximum number of configuration items returned on each page. The default is 10. You cannot specify a number
-     * greater than 100. If you specify 0, AWS Config uses the default.
+     * greater than 100. If you specify 0, Config uses the default.
      * </p>
      * 
      * @param limit
      *        The maximum number of configuration items returned on each page. The default is 10. You cannot specify a
-     *        number greater than 100. If you specify 0, AWS Config uses the default.
+     *        number greater than 100. If you specify 0, Config uses the default.
      */
 
     public void setLimit(Integer limit) {
@@ -375,11 +389,11 @@ public class GetResourceConfigHistoryRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * The maximum number of configuration items returned on each page. The default is 10. You cannot specify a number
-     * greater than 100. If you specify 0, AWS Config uses the default.
+     * greater than 100. If you specify 0, Config uses the default.
      * </p>
      * 
      * @return The maximum number of configuration items returned on each page. The default is 10. You cannot specify a
-     *         number greater than 100. If you specify 0, AWS Config uses the default.
+     *         number greater than 100. If you specify 0, Config uses the default.
      */
 
     public Integer getLimit() {
@@ -389,12 +403,12 @@ public class GetResourceConfigHistoryRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * The maximum number of configuration items returned on each page. The default is 10. You cannot specify a number
-     * greater than 100. If you specify 0, AWS Config uses the default.
+     * greater than 100. If you specify 0, Config uses the default.
      * </p>
      * 
      * @param limit
      *        The maximum number of configuration items returned on each page. The default is 10. You cannot specify a
-     *        number greater than 100. If you specify 0, AWS Config uses the default.
+     *        number greater than 100. If you specify 0, Config uses the default.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

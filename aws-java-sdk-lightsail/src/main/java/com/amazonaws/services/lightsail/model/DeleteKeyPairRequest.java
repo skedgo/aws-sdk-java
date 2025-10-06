@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,18 @@ public class DeleteKeyPairRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      */
     private String keyPairName;
+    /**
+     * <p>
+     * The RSA fingerprint of the Lightsail default key pair to delete.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>expectedFingerprint</code> parameter is required only when specifying to delete a Lightsail default key
+     * pair.
+     * </p>
+     * </note>
+     */
+    private String expectedFingerprint;
 
     /**
      * <p>
@@ -73,6 +85,76 @@ public class DeleteKeyPairRequest extends com.amazonaws.AmazonWebServiceRequest 
     }
 
     /**
+     * <p>
+     * The RSA fingerprint of the Lightsail default key pair to delete.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>expectedFingerprint</code> parameter is required only when specifying to delete a Lightsail default key
+     * pair.
+     * </p>
+     * </note>
+     * 
+     * @param expectedFingerprint
+     *        The RSA fingerprint of the Lightsail default key pair to delete.</p> <note>
+     *        <p>
+     *        The <code>expectedFingerprint</code> parameter is required only when specifying to delete a Lightsail
+     *        default key pair.
+     *        </p>
+     */
+
+    public void setExpectedFingerprint(String expectedFingerprint) {
+        this.expectedFingerprint = expectedFingerprint;
+    }
+
+    /**
+     * <p>
+     * The RSA fingerprint of the Lightsail default key pair to delete.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>expectedFingerprint</code> parameter is required only when specifying to delete a Lightsail default key
+     * pair.
+     * </p>
+     * </note>
+     * 
+     * @return The RSA fingerprint of the Lightsail default key pair to delete.</p> <note>
+     *         <p>
+     *         The <code>expectedFingerprint</code> parameter is required only when specifying to delete a Lightsail
+     *         default key pair.
+     *         </p>
+     */
+
+    public String getExpectedFingerprint() {
+        return this.expectedFingerprint;
+    }
+
+    /**
+     * <p>
+     * The RSA fingerprint of the Lightsail default key pair to delete.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>expectedFingerprint</code> parameter is required only when specifying to delete a Lightsail default key
+     * pair.
+     * </p>
+     * </note>
+     * 
+     * @param expectedFingerprint
+     *        The RSA fingerprint of the Lightsail default key pair to delete.</p> <note>
+     *        <p>
+     *        The <code>expectedFingerprint</code> parameter is required only when specifying to delete a Lightsail
+     *        default key pair.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DeleteKeyPairRequest withExpectedFingerprint(String expectedFingerprint) {
+        setExpectedFingerprint(expectedFingerprint);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -85,7 +167,9 @@ public class DeleteKeyPairRequest extends com.amazonaws.AmazonWebServiceRequest 
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getKeyPairName() != null)
-            sb.append("KeyPairName: ").append(getKeyPairName());
+            sb.append("KeyPairName: ").append(getKeyPairName()).append(",");
+        if (getExpectedFingerprint() != null)
+            sb.append("ExpectedFingerprint: ").append(getExpectedFingerprint());
         sb.append("}");
         return sb.toString();
     }
@@ -104,6 +188,10 @@ public class DeleteKeyPairRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getKeyPairName() != null && other.getKeyPairName().equals(this.getKeyPairName()) == false)
             return false;
+        if (other.getExpectedFingerprint() == null ^ this.getExpectedFingerprint() == null)
+            return false;
+        if (other.getExpectedFingerprint() != null && other.getExpectedFingerprint().equals(this.getExpectedFingerprint()) == false)
+            return false;
         return true;
     }
 
@@ -113,6 +201,7 @@ public class DeleteKeyPairRequest extends com.amazonaws.AmazonWebServiceRequest 
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getKeyPairName() == null) ? 0 : getKeyPairName().hashCode());
+        hashCode = prime * hashCode + ((getExpectedFingerprint() == null) ? 0 : getExpectedFingerprint().hashCode());
         return hashCode;
     }
 

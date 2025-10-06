@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,6 +46,10 @@ public class ModifyVpnConnectionRequestMarshaller implements Marshaller<Request<
 
         if (modifyVpnConnectionRequest.getTransitGatewayId() != null) {
             request.addParameter("TransitGatewayId", StringUtils.fromString(modifyVpnConnectionRequest.getTransitGatewayId()));
+        }
+
+        if (modifyVpnConnectionRequest.getCustomerGatewayId() != null) {
+            request.addParameter("CustomerGatewayId", StringUtils.fromString(modifyVpnConnectionRequest.getCustomerGatewayId()));
         }
 
         if (modifyVpnConnectionRequest.getVpnGatewayId() != null) {

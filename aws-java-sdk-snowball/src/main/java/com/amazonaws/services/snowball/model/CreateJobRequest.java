@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -49,62 +49,76 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     private JobResource resources;
     /**
      * <p>
+     * Specifies the service or services on the Snow Family device that your transferred data will be exported from or
+     * imported into. Amazon Web Services Snow Family supports Amazon S3 and NFS (Network File System) and the Amazon
+     * Web Services Storage Gateway service Tape Gateway type.
+     * </p>
+     */
+    private OnDeviceServiceConfiguration onDeviceServiceConfiguration;
+    /**
+     * <p>
      * Defines an optional description of this specific job, for example <code>Important Photos 2016-08-11</code>.
      * </p>
      */
     private String description;
     /**
      * <p>
-     * The ID for the address that you want the Snowball shipped to.
+     * The ID for the address that you want the Snow device shipped to.
      * </p>
      */
     private String addressId;
     /**
      * <p>
      * The <code>KmsKeyARN</code> that you want to associate with this job. <code>KmsKeyARN</code>s are created using
-     * the <a href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> AWS Key
-     * Management Service (KMS) API action.
+     * the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> Key Management
+     * Service (KMS) API action.
      * </p>
      */
     private String kmsKeyARN;
     /**
      * <p>
      * The <code>RoleARN</code> that you want to associate with this job. <code>RoleArn</code>s are created using the <a
-     * href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> AWS Identity and
-     * Access Management (IAM) API action.
+     * href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> Identity and Access
+     * Management (IAM) API action.
      * </p>
      */
     private String roleARN;
     /**
      * <p>
-     * If your job is being created in one of the US regions, you have the option of specifying what size Snowball you'd
-     * like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     * If your job is being created in one of the US regions, you have the option of specifying what size Snow device
+     * you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
      * </p>
      */
     private String snowballCapacityPreference;
     /**
      * <p>
-     * The shipping speed for this job. This speed doesn't dictate how soon you'll get the Snowball, rather it
-     * represents how quickly the Snowball moves to its destination while in transit. Regional shipping speeds are as
+     * The shipping speed for this job. This speed doesn't dictate how soon you'll get the Snow device, rather it
+     * represents how quickly the Snow device moves to its destination while in transit. Regional shipping speeds are as
      * follows:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * In Australia, you have access to express shipping. Typically, Snowballs shipped express are delivered in about a
-     * day.
+     * In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered in about
+     * a day.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In the European Union (EU), you have access to express shipping. Typically, Snowballs shipped express are
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
      * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
      * takes less than a week, one way.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In India, Snowballs are delivered in one to seven days.
+     * In India, Snow devices are delivered in one to seven days.
      * </p>
      * </li>
      * <li>
@@ -130,17 +144,81 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     private String clusterId;
     /**
      * <p>
-     * The type of AWS Snowball device to use for this job. The only supported device types for cluster jobs are
-     * <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     * The type of Snow Family devices to use for this job.
+     * </p>
+     * <note>
+     * <p>
+     * For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device type.
+     * </p>
+     * </note>
+     * <p>
+     * The type of Amazon Web Services Snow device to use for this job. Currently, the only supported device type for
+     * cluster jobs is <code>EDGE</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/snowball/latest/developer-guide/device-differences.html">Snowball Edge Device
+     * Options</a> in the Snowball Edge Developer Guide.
+     * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
      * </p>
      */
     private String snowballType;
     /**
      * <p>
-     * The forwarding address ID for a job. This field is not supported in most regions.
+     * The forwarding address ID for a job. This field is not supported in most Regions.
      * </p>
      */
     private String forwardingAddressId;
+    /**
+     * <p>
+     * The tax documents required in your Amazon Web Services Region.
+     * </p>
+     */
+    private TaxDocuments taxDocuments;
+    /**
+     * <p>
+     * Defines the device configuration for an Snowcone job.
+     * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
+     * </p>
+     */
+    private DeviceConfiguration deviceConfiguration;
+    /**
+     * <p>
+     * Allows you to securely operate and manage Snowcone devices remotely from outside of your internal network. When
+     * set to <code>INSTALLED_AUTOSTART</code>, remote management will automatically be available when the device
+     * arrives at your location. Otherwise, you need to use the Snowball Edge client to manage the device. When set to
+     * <code>NOT_INSTALLED</code>, remote management will not be available on the device.
+     * </p>
+     */
+    private String remoteManagement;
+    /**
+     * <p>
+     * The ID of the long-term pricing type for the device.
+     * </p>
+     */
+    private String longTermPricingId;
+    /**
+     * <p>
+     * The highest impact level of data that will be stored or processed on the device, provided at job creation.
+     * </p>
+     */
+    private String impactLevel;
+    /**
+     * <p>
+     * Information identifying the person picking up the device.
+     * </p>
+     */
+    private PickupDetails pickupDetails;
 
     /**
      * <p>
@@ -314,6 +392,58 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
+     * Specifies the service or services on the Snow Family device that your transferred data will be exported from or
+     * imported into. Amazon Web Services Snow Family supports Amazon S3 and NFS (Network File System) and the Amazon
+     * Web Services Storage Gateway service Tape Gateway type.
+     * </p>
+     * 
+     * @param onDeviceServiceConfiguration
+     *        Specifies the service or services on the Snow Family device that your transferred data will be exported
+     *        from or imported into. Amazon Web Services Snow Family supports Amazon S3 and NFS (Network File System)
+     *        and the Amazon Web Services Storage Gateway service Tape Gateway type.
+     */
+
+    public void setOnDeviceServiceConfiguration(OnDeviceServiceConfiguration onDeviceServiceConfiguration) {
+        this.onDeviceServiceConfiguration = onDeviceServiceConfiguration;
+    }
+
+    /**
+     * <p>
+     * Specifies the service or services on the Snow Family device that your transferred data will be exported from or
+     * imported into. Amazon Web Services Snow Family supports Amazon S3 and NFS (Network File System) and the Amazon
+     * Web Services Storage Gateway service Tape Gateway type.
+     * </p>
+     * 
+     * @return Specifies the service or services on the Snow Family device that your transferred data will be exported
+     *         from or imported into. Amazon Web Services Snow Family supports Amazon S3 and NFS (Network File System)
+     *         and the Amazon Web Services Storage Gateway service Tape Gateway type.
+     */
+
+    public OnDeviceServiceConfiguration getOnDeviceServiceConfiguration() {
+        return this.onDeviceServiceConfiguration;
+    }
+
+    /**
+     * <p>
+     * Specifies the service or services on the Snow Family device that your transferred data will be exported from or
+     * imported into. Amazon Web Services Snow Family supports Amazon S3 and NFS (Network File System) and the Amazon
+     * Web Services Storage Gateway service Tape Gateway type.
+     * </p>
+     * 
+     * @param onDeviceServiceConfiguration
+     *        Specifies the service or services on the Snow Family device that your transferred data will be exported
+     *        from or imported into. Amazon Web Services Snow Family supports Amazon S3 and NFS (Network File System)
+     *        and the Amazon Web Services Storage Gateway service Tape Gateway type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobRequest withOnDeviceServiceConfiguration(OnDeviceServiceConfiguration onDeviceServiceConfiguration) {
+        setOnDeviceServiceConfiguration(onDeviceServiceConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
      * Defines an optional description of this specific job, for example <code>Important Photos 2016-08-11</code>.
      * </p>
      * 
@@ -357,11 +487,11 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The ID for the address that you want the Snowball shipped to.
+     * The ID for the address that you want the Snow device shipped to.
      * </p>
      * 
      * @param addressId
-     *        The ID for the address that you want the Snowball shipped to.
+     *        The ID for the address that you want the Snow device shipped to.
      */
 
     public void setAddressId(String addressId) {
@@ -370,10 +500,10 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The ID for the address that you want the Snowball shipped to.
+     * The ID for the address that you want the Snow device shipped to.
      * </p>
      * 
-     * @return The ID for the address that you want the Snowball shipped to.
+     * @return The ID for the address that you want the Snow device shipped to.
      */
 
     public String getAddressId() {
@@ -382,11 +512,11 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The ID for the address that you want the Snowball shipped to.
+     * The ID for the address that you want the Snow device shipped to.
      * </p>
      * 
      * @param addressId
-     *        The ID for the address that you want the Snowball shipped to.
+     *        The ID for the address that you want the Snow device shipped to.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -398,14 +528,14 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     /**
      * <p>
      * The <code>KmsKeyARN</code> that you want to associate with this job. <code>KmsKeyARN</code>s are created using
-     * the <a href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> AWS Key
-     * Management Service (KMS) API action.
+     * the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> Key Management
+     * Service (KMS) API action.
      * </p>
      * 
      * @param kmsKeyARN
      *        The <code>KmsKeyARN</code> that you want to associate with this job. <code>KmsKeyARN</code>s are created
-     *        using the <a href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
-     *        AWS Key Management Service (KMS) API action.
+     *        using the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
+     *        Key Management Service (KMS) API action.
      */
 
     public void setKmsKeyARN(String kmsKeyARN) {
@@ -415,13 +545,13 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     /**
      * <p>
      * The <code>KmsKeyARN</code> that you want to associate with this job. <code>KmsKeyARN</code>s are created using
-     * the <a href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> AWS Key
-     * Management Service (KMS) API action.
+     * the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> Key Management
+     * Service (KMS) API action.
      * </p>
      * 
      * @return The <code>KmsKeyARN</code> that you want to associate with this job. <code>KmsKeyARN</code>s are created
-     *         using the <a href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
-     *         AWS Key Management Service (KMS) API action.
+     *         using the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
+     *         Key Management Service (KMS) API action.
      */
 
     public String getKmsKeyARN() {
@@ -431,14 +561,14 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     /**
      * <p>
      * The <code>KmsKeyARN</code> that you want to associate with this job. <code>KmsKeyARN</code>s are created using
-     * the <a href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> AWS Key
-     * Management Service (KMS) API action.
+     * the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> Key Management
+     * Service (KMS) API action.
      * </p>
      * 
      * @param kmsKeyARN
      *        The <code>KmsKeyARN</code> that you want to associate with this job. <code>KmsKeyARN</code>s are created
-     *        using the <a href="http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
-     *        AWS Key Management Service (KMS) API action.
+     *        using the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
+     *        Key Management Service (KMS) API action.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -450,13 +580,13 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     /**
      * <p>
      * The <code>RoleARN</code> that you want to associate with this job. <code>RoleArn</code>s are created using the <a
-     * href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> AWS Identity and
-     * Access Management (IAM) API action.
+     * href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> Identity and Access
+     * Management (IAM) API action.
      * </p>
      * 
      * @param roleARN
      *        The <code>RoleARN</code> that you want to associate with this job. <code>RoleArn</code>s are created using
-     *        the <a href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> AWS
+     *        the <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>
      *        Identity and Access Management (IAM) API action.
      */
 
@@ -467,13 +597,14 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     /**
      * <p>
      * The <code>RoleARN</code> that you want to associate with this job. <code>RoleArn</code>s are created using the <a
-     * href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> AWS Identity and
-     * Access Management (IAM) API action.
+     * href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> Identity and Access
+     * Management (IAM) API action.
      * </p>
      * 
      * @return The <code>RoleARN</code> that you want to associate with this job. <code>RoleArn</code>s are created
-     *         using the <a href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>
-     *         AWS Identity and Access Management (IAM) API action.
+     *         using the <a
+     *         href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> Identity
+     *         and Access Management (IAM) API action.
      */
 
     public String getRoleARN() {
@@ -483,13 +614,13 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     /**
      * <p>
      * The <code>RoleARN</code> that you want to associate with this job. <code>RoleArn</code>s are created using the <a
-     * href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> AWS Identity and
-     * Access Management (IAM) API action.
+     * href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> Identity and Access
+     * Management (IAM) API action.
      * </p>
      * 
      * @param roleARN
      *        The <code>RoleARN</code> that you want to associate with this job. <code>RoleArn</code>s are created using
-     *        the <a href="http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> AWS
+     *        the <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a>
      *        Identity and Access Management (IAM) API action.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -501,13 +632,25 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * If your job is being created in one of the US regions, you have the option of specifying what size Snowball you'd
-     * like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     * If your job is being created in one of the US regions, you have the option of specifying what size Snow device
+     * you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
      * </p>
      * 
      * @param snowballCapacityPreference
-     *        If your job is being created in one of the US regions, you have the option of specifying what size
-     *        Snowball you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     *        If your job is being created in one of the US regions, you have the option of specifying what size Snow
+     *        device you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.</p>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
      * @see SnowballCapacity
      */
 
@@ -517,12 +660,24 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * If your job is being created in one of the US regions, you have the option of specifying what size Snowball you'd
-     * like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     * If your job is being created in one of the US regions, you have the option of specifying what size Snow device
+     * you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
      * </p>
      * 
-     * @return If your job is being created in one of the US regions, you have the option of specifying what size
-     *         Snowball you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     * @return If your job is being created in one of the US regions, you have the option of specifying what size Snow
+     *         device you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.</p>
+     *         <p>
+     *         For more information, see
+     *         "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *         and Capacity) in the <i>Snowcone User Guide</i> or
+     *         "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *         and Capacity) in the <i>Snowcone User Guide</i>.
      * @see SnowballCapacity
      */
 
@@ -532,13 +687,25 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * If your job is being created in one of the US regions, you have the option of specifying what size Snowball you'd
-     * like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     * If your job is being created in one of the US regions, you have the option of specifying what size Snow device
+     * you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
      * </p>
      * 
      * @param snowballCapacityPreference
-     *        If your job is being created in one of the US regions, you have the option of specifying what size
-     *        Snowball you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     *        If your job is being created in one of the US regions, you have the option of specifying what size Snow
+     *        device you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.</p>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SnowballCapacity
      */
@@ -550,13 +717,25 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * If your job is being created in one of the US regions, you have the option of specifying what size Snowball you'd
-     * like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     * If your job is being created in one of the US regions, you have the option of specifying what size Snow device
+     * you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
      * </p>
      * 
      * @param snowballCapacityPreference
-     *        If your job is being created in one of the US regions, you have the option of specifying what size
-     *        Snowball you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     *        If your job is being created in one of the US regions, you have the option of specifying what size Snow
+     *        device you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.</p>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
      * @see SnowballCapacity
      */
 
@@ -566,13 +745,25 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * If your job is being created in one of the US regions, you have the option of specifying what size Snowball you'd
-     * like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     * If your job is being created in one of the US regions, you have the option of specifying what size Snow device
+     * you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
      * </p>
      * 
      * @param snowballCapacityPreference
-     *        If your job is being created in one of the US regions, you have the option of specifying what size
-     *        Snowball you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.
+     *        If your job is being created in one of the US regions, you have the option of specifying what size Snow
+     *        device you'd like for this job. In all other regions, Snowballs come with 80 TB in storage capacity.</p>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SnowballCapacity
      */
@@ -584,27 +775,27 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The shipping speed for this job. This speed doesn't dictate how soon you'll get the Snowball, rather it
-     * represents how quickly the Snowball moves to its destination while in transit. Regional shipping speeds are as
+     * The shipping speed for this job. This speed doesn't dictate how soon you'll get the Snow device, rather it
+     * represents how quickly the Snow device moves to its destination while in transit. Regional shipping speeds are as
      * follows:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * In Australia, you have access to express shipping. Typically, Snowballs shipped express are delivered in about a
-     * day.
+     * In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered in about
+     * a day.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In the European Union (EU), you have access to express shipping. Typically, Snowballs shipped express are
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
      * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
      * takes less than a week, one way.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In India, Snowballs are delivered in one to seven days.
+     * In India, Snow devices are delivered in one to seven days.
      * </p>
      * </li>
      * <li>
@@ -615,26 +806,26 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </ul>
      * 
      * @param shippingOption
-     *        The shipping speed for this job. This speed doesn't dictate how soon you'll get the Snowball, rather it
-     *        represents how quickly the Snowball moves to its destination while in transit. Regional shipping speeds
+     *        The shipping speed for this job. This speed doesn't dictate how soon you'll get the Snow device, rather it
+     *        represents how quickly the Snow device moves to its destination while in transit. Regional shipping speeds
      *        are as follows:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        In Australia, you have access to express shipping. Typically, Snowballs shipped express are delivered in
-     *        about a day.
+     *        In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered
+     *        in about a day.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        In the European Union (EU), you have access to express shipping. Typically, Snowballs shipped express are
-     *        delivered in about a day. In addition, most countries in the EU have access to standard shipping, which
-     *        typically takes less than a week, one way.
+     *        In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express
+     *        are delivered in about a day. In addition, most countries in the EU have access to standard shipping,
+     *        which typically takes less than a week, one way.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        In India, Snowballs are delivered in one to seven days.
+     *        In India, Snow devices are delivered in one to seven days.
      *        </p>
      *        </li>
      *        <li>
@@ -651,27 +842,27 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The shipping speed for this job. This speed doesn't dictate how soon you'll get the Snowball, rather it
-     * represents how quickly the Snowball moves to its destination while in transit. Regional shipping speeds are as
+     * The shipping speed for this job. This speed doesn't dictate how soon you'll get the Snow device, rather it
+     * represents how quickly the Snow device moves to its destination while in transit. Regional shipping speeds are as
      * follows:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * In Australia, you have access to express shipping. Typically, Snowballs shipped express are delivered in about a
-     * day.
+     * In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered in about
+     * a day.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In the European Union (EU), you have access to express shipping. Typically, Snowballs shipped express are
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
      * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
      * takes less than a week, one way.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In India, Snowballs are delivered in one to seven days.
+     * In India, Snow devices are delivered in one to seven days.
      * </p>
      * </li>
      * <li>
@@ -681,26 +872,26 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </li>
      * </ul>
      * 
-     * @return The shipping speed for this job. This speed doesn't dictate how soon you'll get the Snowball, rather it
-     *         represents how quickly the Snowball moves to its destination while in transit. Regional shipping speeds
-     *         are as follows:</p>
+     * @return The shipping speed for this job. This speed doesn't dictate how soon you'll get the Snow device, rather
+     *         it represents how quickly the Snow device moves to its destination while in transit. Regional shipping
+     *         speeds are as follows:</p>
      *         <ul>
      *         <li>
      *         <p>
-     *         In Australia, you have access to express shipping. Typically, Snowballs shipped express are delivered in
-     *         about a day.
+     *         In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered
+     *         in about a day.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         In the European Union (EU), you have access to express shipping. Typically, Snowballs shipped express are
-     *         delivered in about a day. In addition, most countries in the EU have access to standard shipping, which
-     *         typically takes less than a week, one way.
+     *         In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express
+     *         are delivered in about a day. In addition, most countries in the EU have access to standard shipping,
+     *         which typically takes less than a week, one way.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         In India, Snowballs are delivered in one to seven days.
+     *         In India, Snow devices are delivered in one to seven days.
      *         </p>
      *         </li>
      *         <li>
@@ -717,27 +908,27 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The shipping speed for this job. This speed doesn't dictate how soon you'll get the Snowball, rather it
-     * represents how quickly the Snowball moves to its destination while in transit. Regional shipping speeds are as
+     * The shipping speed for this job. This speed doesn't dictate how soon you'll get the Snow device, rather it
+     * represents how quickly the Snow device moves to its destination while in transit. Regional shipping speeds are as
      * follows:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * In Australia, you have access to express shipping. Typically, Snowballs shipped express are delivered in about a
-     * day.
+     * In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered in about
+     * a day.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In the European Union (EU), you have access to express shipping. Typically, Snowballs shipped express are
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
      * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
      * takes less than a week, one way.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In India, Snowballs are delivered in one to seven days.
+     * In India, Snow devices are delivered in one to seven days.
      * </p>
      * </li>
      * <li>
@@ -748,26 +939,26 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </ul>
      * 
      * @param shippingOption
-     *        The shipping speed for this job. This speed doesn't dictate how soon you'll get the Snowball, rather it
-     *        represents how quickly the Snowball moves to its destination while in transit. Regional shipping speeds
+     *        The shipping speed for this job. This speed doesn't dictate how soon you'll get the Snow device, rather it
+     *        represents how quickly the Snow device moves to its destination while in transit. Regional shipping speeds
      *        are as follows:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        In Australia, you have access to express shipping. Typically, Snowballs shipped express are delivered in
-     *        about a day.
+     *        In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered
+     *        in about a day.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        In the European Union (EU), you have access to express shipping. Typically, Snowballs shipped express are
-     *        delivered in about a day. In addition, most countries in the EU have access to standard shipping, which
-     *        typically takes less than a week, one way.
+     *        In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express
+     *        are delivered in about a day. In addition, most countries in the EU have access to standard shipping,
+     *        which typically takes less than a week, one way.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        In India, Snowballs are delivered in one to seven days.
+     *        In India, Snow devices are delivered in one to seven days.
      *        </p>
      *        </li>
      *        <li>
@@ -786,27 +977,27 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The shipping speed for this job. This speed doesn't dictate how soon you'll get the Snowball, rather it
-     * represents how quickly the Snowball moves to its destination while in transit. Regional shipping speeds are as
+     * The shipping speed for this job. This speed doesn't dictate how soon you'll get the Snow device, rather it
+     * represents how quickly the Snow device moves to its destination while in transit. Regional shipping speeds are as
      * follows:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * In Australia, you have access to express shipping. Typically, Snowballs shipped express are delivered in about a
-     * day.
+     * In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered in about
+     * a day.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In the European Union (EU), you have access to express shipping. Typically, Snowballs shipped express are
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
      * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
      * takes less than a week, one way.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In India, Snowballs are delivered in one to seven days.
+     * In India, Snow devices are delivered in one to seven days.
      * </p>
      * </li>
      * <li>
@@ -817,26 +1008,26 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </ul>
      * 
      * @param shippingOption
-     *        The shipping speed for this job. This speed doesn't dictate how soon you'll get the Snowball, rather it
-     *        represents how quickly the Snowball moves to its destination while in transit. Regional shipping speeds
+     *        The shipping speed for this job. This speed doesn't dictate how soon you'll get the Snow device, rather it
+     *        represents how quickly the Snow device moves to its destination while in transit. Regional shipping speeds
      *        are as follows:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        In Australia, you have access to express shipping. Typically, Snowballs shipped express are delivered in
-     *        about a day.
+     *        In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered
+     *        in about a day.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        In the European Union (EU), you have access to express shipping. Typically, Snowballs shipped express are
-     *        delivered in about a day. In addition, most countries in the EU have access to standard shipping, which
-     *        typically takes less than a week, one way.
+     *        In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express
+     *        are delivered in about a day. In addition, most countries in the EU have access to standard shipping,
+     *        which typically takes less than a week, one way.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        In India, Snowballs are delivered in one to seven days.
+     *        In India, Snow devices are delivered in one to seven days.
      *        </p>
      *        </li>
      *        <li>
@@ -853,27 +1044,27 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The shipping speed for this job. This speed doesn't dictate how soon you'll get the Snowball, rather it
-     * represents how quickly the Snowball moves to its destination while in transit. Regional shipping speeds are as
+     * The shipping speed for this job. This speed doesn't dictate how soon you'll get the Snow device, rather it
+     * represents how quickly the Snow device moves to its destination while in transit. Regional shipping speeds are as
      * follows:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * In Australia, you have access to express shipping. Typically, Snowballs shipped express are delivered in about a
-     * day.
+     * In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered in about
+     * a day.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In the European Union (EU), you have access to express shipping. Typically, Snowballs shipped express are
+     * In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express are
      * delivered in about a day. In addition, most countries in the EU have access to standard shipping, which typically
      * takes less than a week, one way.
      * </p>
      * </li>
      * <li>
      * <p>
-     * In India, Snowballs are delivered in one to seven days.
+     * In India, Snow devices are delivered in one to seven days.
      * </p>
      * </li>
      * <li>
@@ -884,26 +1075,26 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </ul>
      * 
      * @param shippingOption
-     *        The shipping speed for this job. This speed doesn't dictate how soon you'll get the Snowball, rather it
-     *        represents how quickly the Snowball moves to its destination while in transit. Regional shipping speeds
+     *        The shipping speed for this job. This speed doesn't dictate how soon you'll get the Snow device, rather it
+     *        represents how quickly the Snow device moves to its destination while in transit. Regional shipping speeds
      *        are as follows:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        In Australia, you have access to express shipping. Typically, Snowballs shipped express are delivered in
-     *        about a day.
+     *        In Australia, you have access to express shipping. Typically, Snow devices shipped express are delivered
+     *        in about a day.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        In the European Union (EU), you have access to express shipping. Typically, Snowballs shipped express are
-     *        delivered in about a day. In addition, most countries in the EU have access to standard shipping, which
-     *        typically takes less than a week, one way.
+     *        In the European Union (EU), you have access to express shipping. Typically, Snow devices shipped express
+     *        are delivered in about a day. In addition, most countries in the EU have access to standard shipping,
+     *        which typically takes less than a week, one way.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        In India, Snowballs are delivered in one to seven days.
+     *        In India, Snow devices are delivered in one to seven days.
      *        </p>
      *        </li>
      *        <li>
@@ -1008,13 +1199,51 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The type of AWS Snowball device to use for this job. The only supported device types for cluster jobs are
-     * <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     * The type of Snow Family devices to use for this job.
+     * </p>
+     * <note>
+     * <p>
+     * For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device type.
+     * </p>
+     * </note>
+     * <p>
+     * The type of Amazon Web Services Snow device to use for this job. Currently, the only supported device type for
+     * cluster jobs is <code>EDGE</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/snowball/latest/developer-guide/device-differences.html">Snowball Edge Device
+     * Options</a> in the Snowball Edge Developer Guide.
+     * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
      * </p>
      * 
      * @param snowballType
-     *        The type of AWS Snowball device to use for this job. The only supported device types for cluster jobs are
-     *        <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     *        The type of Snow Family devices to use for this job. </p> <note>
+     *        <p>
+     *        For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device
+     *        type.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        The type of Amazon Web Services Snow device to use for this job. Currently, the only supported device type
+     *        for cluster jobs is <code>EDGE</code>.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/snowball/latest/developer-guide/device-differences.html">Snowball Edge
+     *        Device Options</a> in the Snowball Edge Developer Guide.
+     *        </p>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
      * @see SnowballType
      */
 
@@ -1024,12 +1253,50 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The type of AWS Snowball device to use for this job. The only supported device types for cluster jobs are
-     * <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     * The type of Snow Family devices to use for this job.
+     * </p>
+     * <note>
+     * <p>
+     * For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device type.
+     * </p>
+     * </note>
+     * <p>
+     * The type of Amazon Web Services Snow device to use for this job. Currently, the only supported device type for
+     * cluster jobs is <code>EDGE</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/snowball/latest/developer-guide/device-differences.html">Snowball Edge Device
+     * Options</a> in the Snowball Edge Developer Guide.
+     * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
      * </p>
      * 
-     * @return The type of AWS Snowball device to use for this job. The only supported device types for cluster jobs are
-     *         <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     * @return The type of Snow Family devices to use for this job. </p> <note>
+     *         <p>
+     *         For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device
+     *         type.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         The type of Amazon Web Services Snow device to use for this job. Currently, the only supported device
+     *         type for cluster jobs is <code>EDGE</code>.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/snowball/latest/developer-guide/device-differences.html">Snowball Edge
+     *         Device Options</a> in the Snowball Edge Developer Guide.
+     *         </p>
+     *         <p>
+     *         For more information, see
+     *         "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *         and Capacity) in the <i>Snowcone User Guide</i> or
+     *         "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *         and Capacity) in the <i>Snowcone User Guide</i>.
      * @see SnowballType
      */
 
@@ -1039,13 +1306,51 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The type of AWS Snowball device to use for this job. The only supported device types for cluster jobs are
-     * <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     * The type of Snow Family devices to use for this job.
+     * </p>
+     * <note>
+     * <p>
+     * For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device type.
+     * </p>
+     * </note>
+     * <p>
+     * The type of Amazon Web Services Snow device to use for this job. Currently, the only supported device type for
+     * cluster jobs is <code>EDGE</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/snowball/latest/developer-guide/device-differences.html">Snowball Edge Device
+     * Options</a> in the Snowball Edge Developer Guide.
+     * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
      * </p>
      * 
      * @param snowballType
-     *        The type of AWS Snowball device to use for this job. The only supported device types for cluster jobs are
-     *        <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     *        The type of Snow Family devices to use for this job. </p> <note>
+     *        <p>
+     *        For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device
+     *        type.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        The type of Amazon Web Services Snow device to use for this job. Currently, the only supported device type
+     *        for cluster jobs is <code>EDGE</code>.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/snowball/latest/developer-guide/device-differences.html">Snowball Edge
+     *        Device Options</a> in the Snowball Edge Developer Guide.
+     *        </p>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SnowballType
      */
@@ -1057,13 +1362,51 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The type of AWS Snowball device to use for this job. The only supported device types for cluster jobs are
-     * <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     * The type of Snow Family devices to use for this job.
+     * </p>
+     * <note>
+     * <p>
+     * For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device type.
+     * </p>
+     * </note>
+     * <p>
+     * The type of Amazon Web Services Snow device to use for this job. Currently, the only supported device type for
+     * cluster jobs is <code>EDGE</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/snowball/latest/developer-guide/device-differences.html">Snowball Edge Device
+     * Options</a> in the Snowball Edge Developer Guide.
+     * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
      * </p>
      * 
      * @param snowballType
-     *        The type of AWS Snowball device to use for this job. The only supported device types for cluster jobs are
-     *        <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     *        The type of Snow Family devices to use for this job. </p> <note>
+     *        <p>
+     *        For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device
+     *        type.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        The type of Amazon Web Services Snow device to use for this job. Currently, the only supported device type
+     *        for cluster jobs is <code>EDGE</code>.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/snowball/latest/developer-guide/device-differences.html">Snowball Edge
+     *        Device Options</a> in the Snowball Edge Developer Guide.
+     *        </p>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
      * @see SnowballType
      */
 
@@ -1073,13 +1416,51 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The type of AWS Snowball device to use for this job. The only supported device types for cluster jobs are
-     * <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     * The type of Snow Family devices to use for this job.
+     * </p>
+     * <note>
+     * <p>
+     * For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device type.
+     * </p>
+     * </note>
+     * <p>
+     * The type of Amazon Web Services Snow device to use for this job. Currently, the only supported device type for
+     * cluster jobs is <code>EDGE</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/snowball/latest/developer-guide/device-differences.html">Snowball Edge Device
+     * Options</a> in the Snowball Edge Developer Guide.
+     * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
      * </p>
      * 
      * @param snowballType
-     *        The type of AWS Snowball device to use for this job. The only supported device types for cluster jobs are
-     *        <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>.
+     *        The type of Snow Family devices to use for this job. </p> <note>
+     *        <p>
+     *        For cluster jobs, Amazon Web Services Snow Family currently supports only the <code>EDGE</code> device
+     *        type.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        The type of Amazon Web Services Snow device to use for this job. Currently, the only supported device type
+     *        for cluster jobs is <code>EDGE</code>.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/snowball/latest/developer-guide/device-differences.html">Snowball Edge
+     *        Device Options</a> in the Snowball Edge Developer Guide.
+     *        </p>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SnowballType
      */
@@ -1091,11 +1472,11 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The forwarding address ID for a job. This field is not supported in most regions.
+     * The forwarding address ID for a job. This field is not supported in most Regions.
      * </p>
      * 
      * @param forwardingAddressId
-     *        The forwarding address ID for a job. This field is not supported in most regions.
+     *        The forwarding address ID for a job. This field is not supported in most Regions.
      */
 
     public void setForwardingAddressId(String forwardingAddressId) {
@@ -1104,10 +1485,10 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The forwarding address ID for a job. This field is not supported in most regions.
+     * The forwarding address ID for a job. This field is not supported in most Regions.
      * </p>
      * 
-     * @return The forwarding address ID for a job. This field is not supported in most regions.
+     * @return The forwarding address ID for a job. This field is not supported in most Regions.
      */
 
     public String getForwardingAddressId() {
@@ -1116,16 +1497,390 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The forwarding address ID for a job. This field is not supported in most regions.
+     * The forwarding address ID for a job. This field is not supported in most Regions.
      * </p>
      * 
      * @param forwardingAddressId
-     *        The forwarding address ID for a job. This field is not supported in most regions.
+     *        The forwarding address ID for a job. This field is not supported in most Regions.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateJobRequest withForwardingAddressId(String forwardingAddressId) {
         setForwardingAddressId(forwardingAddressId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tax documents required in your Amazon Web Services Region.
+     * </p>
+     * 
+     * @param taxDocuments
+     *        The tax documents required in your Amazon Web Services Region.
+     */
+
+    public void setTaxDocuments(TaxDocuments taxDocuments) {
+        this.taxDocuments = taxDocuments;
+    }
+
+    /**
+     * <p>
+     * The tax documents required in your Amazon Web Services Region.
+     * </p>
+     * 
+     * @return The tax documents required in your Amazon Web Services Region.
+     */
+
+    public TaxDocuments getTaxDocuments() {
+        return this.taxDocuments;
+    }
+
+    /**
+     * <p>
+     * The tax documents required in your Amazon Web Services Region.
+     * </p>
+     * 
+     * @param taxDocuments
+     *        The tax documents required in your Amazon Web Services Region.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobRequest withTaxDocuments(TaxDocuments taxDocuments) {
+        setTaxDocuments(taxDocuments);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Defines the device configuration for an Snowcone job.
+     * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
+     * </p>
+     * 
+     * @param deviceConfiguration
+     *        Defines the device configuration for an Snowcone job.</p>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
+     */
+
+    public void setDeviceConfiguration(DeviceConfiguration deviceConfiguration) {
+        this.deviceConfiguration = deviceConfiguration;
+    }
+
+    /**
+     * <p>
+     * Defines the device configuration for an Snowcone job.
+     * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
+     * </p>
+     * 
+     * @return Defines the device configuration for an Snowcone job.</p>
+     *         <p>
+     *         For more information, see
+     *         "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *         and Capacity) in the <i>Snowcone User Guide</i> or
+     *         "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *         and Capacity) in the <i>Snowcone User Guide</i>.
+     */
+
+    public DeviceConfiguration getDeviceConfiguration() {
+        return this.deviceConfiguration;
+    }
+
+    /**
+     * <p>
+     * Defines the device configuration for an Snowcone job.
+     * </p>
+     * <p>
+     * For more information, see "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html"
+     * (Snow Family Devices and Capacity) in the <i>Snowcone User Guide</i> or
+     * "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices and
+     * Capacity) in the <i>Snowcone User Guide</i>.
+     * </p>
+     * 
+     * @param deviceConfiguration
+     *        Defines the device configuration for an Snowcone job.</p>
+     *        <p>
+     *        For more information, see
+     *        "https://docs.aws.amazon.com/snowball/latest/snowcone-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i> or
+     *        "https://docs.aws.amazon.com/snowball/latest/developer-guide/snow-device-types.html" (Snow Family Devices
+     *        and Capacity) in the <i>Snowcone User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobRequest withDeviceConfiguration(DeviceConfiguration deviceConfiguration) {
+        setDeviceConfiguration(deviceConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Allows you to securely operate and manage Snowcone devices remotely from outside of your internal network. When
+     * set to <code>INSTALLED_AUTOSTART</code>, remote management will automatically be available when the device
+     * arrives at your location. Otherwise, you need to use the Snowball Edge client to manage the device. When set to
+     * <code>NOT_INSTALLED</code>, remote management will not be available on the device.
+     * </p>
+     * 
+     * @param remoteManagement
+     *        Allows you to securely operate and manage Snowcone devices remotely from outside of your internal network.
+     *        When set to <code>INSTALLED_AUTOSTART</code>, remote management will automatically be available when the
+     *        device arrives at your location. Otherwise, you need to use the Snowball Edge client to manage the device.
+     *        When set to <code>NOT_INSTALLED</code>, remote management will not be available on the device.
+     * @see RemoteManagement
+     */
+
+    public void setRemoteManagement(String remoteManagement) {
+        this.remoteManagement = remoteManagement;
+    }
+
+    /**
+     * <p>
+     * Allows you to securely operate and manage Snowcone devices remotely from outside of your internal network. When
+     * set to <code>INSTALLED_AUTOSTART</code>, remote management will automatically be available when the device
+     * arrives at your location. Otherwise, you need to use the Snowball Edge client to manage the device. When set to
+     * <code>NOT_INSTALLED</code>, remote management will not be available on the device.
+     * </p>
+     * 
+     * @return Allows you to securely operate and manage Snowcone devices remotely from outside of your internal
+     *         network. When set to <code>INSTALLED_AUTOSTART</code>, remote management will automatically be available
+     *         when the device arrives at your location. Otherwise, you need to use the Snowball Edge client to manage
+     *         the device. When set to <code>NOT_INSTALLED</code>, remote management will not be available on the
+     *         device.
+     * @see RemoteManagement
+     */
+
+    public String getRemoteManagement() {
+        return this.remoteManagement;
+    }
+
+    /**
+     * <p>
+     * Allows you to securely operate and manage Snowcone devices remotely from outside of your internal network. When
+     * set to <code>INSTALLED_AUTOSTART</code>, remote management will automatically be available when the device
+     * arrives at your location. Otherwise, you need to use the Snowball Edge client to manage the device. When set to
+     * <code>NOT_INSTALLED</code>, remote management will not be available on the device.
+     * </p>
+     * 
+     * @param remoteManagement
+     *        Allows you to securely operate and manage Snowcone devices remotely from outside of your internal network.
+     *        When set to <code>INSTALLED_AUTOSTART</code>, remote management will automatically be available when the
+     *        device arrives at your location. Otherwise, you need to use the Snowball Edge client to manage the device.
+     *        When set to <code>NOT_INSTALLED</code>, remote management will not be available on the device.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see RemoteManagement
+     */
+
+    public CreateJobRequest withRemoteManagement(String remoteManagement) {
+        setRemoteManagement(remoteManagement);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Allows you to securely operate and manage Snowcone devices remotely from outside of your internal network. When
+     * set to <code>INSTALLED_AUTOSTART</code>, remote management will automatically be available when the device
+     * arrives at your location. Otherwise, you need to use the Snowball Edge client to manage the device. When set to
+     * <code>NOT_INSTALLED</code>, remote management will not be available on the device.
+     * </p>
+     * 
+     * @param remoteManagement
+     *        Allows you to securely operate and manage Snowcone devices remotely from outside of your internal network.
+     *        When set to <code>INSTALLED_AUTOSTART</code>, remote management will automatically be available when the
+     *        device arrives at your location. Otherwise, you need to use the Snowball Edge client to manage the device.
+     *        When set to <code>NOT_INSTALLED</code>, remote management will not be available on the device.
+     * @see RemoteManagement
+     */
+
+    public void setRemoteManagement(RemoteManagement remoteManagement) {
+        withRemoteManagement(remoteManagement);
+    }
+
+    /**
+     * <p>
+     * Allows you to securely operate and manage Snowcone devices remotely from outside of your internal network. When
+     * set to <code>INSTALLED_AUTOSTART</code>, remote management will automatically be available when the device
+     * arrives at your location. Otherwise, you need to use the Snowball Edge client to manage the device. When set to
+     * <code>NOT_INSTALLED</code>, remote management will not be available on the device.
+     * </p>
+     * 
+     * @param remoteManagement
+     *        Allows you to securely operate and manage Snowcone devices remotely from outside of your internal network.
+     *        When set to <code>INSTALLED_AUTOSTART</code>, remote management will automatically be available when the
+     *        device arrives at your location. Otherwise, you need to use the Snowball Edge client to manage the device.
+     *        When set to <code>NOT_INSTALLED</code>, remote management will not be available on the device.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see RemoteManagement
+     */
+
+    public CreateJobRequest withRemoteManagement(RemoteManagement remoteManagement) {
+        this.remoteManagement = remoteManagement.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the long-term pricing type for the device.
+     * </p>
+     * 
+     * @param longTermPricingId
+     *        The ID of the long-term pricing type for the device.
+     */
+
+    public void setLongTermPricingId(String longTermPricingId) {
+        this.longTermPricingId = longTermPricingId;
+    }
+
+    /**
+     * <p>
+     * The ID of the long-term pricing type for the device.
+     * </p>
+     * 
+     * @return The ID of the long-term pricing type for the device.
+     */
+
+    public String getLongTermPricingId() {
+        return this.longTermPricingId;
+    }
+
+    /**
+     * <p>
+     * The ID of the long-term pricing type for the device.
+     * </p>
+     * 
+     * @param longTermPricingId
+     *        The ID of the long-term pricing type for the device.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobRequest withLongTermPricingId(String longTermPricingId) {
+        setLongTermPricingId(longTermPricingId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The highest impact level of data that will be stored or processed on the device, provided at job creation.
+     * </p>
+     * 
+     * @param impactLevel
+     *        The highest impact level of data that will be stored or processed on the device, provided at job creation.
+     * @see ImpactLevel
+     */
+
+    public void setImpactLevel(String impactLevel) {
+        this.impactLevel = impactLevel;
+    }
+
+    /**
+     * <p>
+     * The highest impact level of data that will be stored or processed on the device, provided at job creation.
+     * </p>
+     * 
+     * @return The highest impact level of data that will be stored or processed on the device, provided at job
+     *         creation.
+     * @see ImpactLevel
+     */
+
+    public String getImpactLevel() {
+        return this.impactLevel;
+    }
+
+    /**
+     * <p>
+     * The highest impact level of data that will be stored or processed on the device, provided at job creation.
+     * </p>
+     * 
+     * @param impactLevel
+     *        The highest impact level of data that will be stored or processed on the device, provided at job creation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ImpactLevel
+     */
+
+    public CreateJobRequest withImpactLevel(String impactLevel) {
+        setImpactLevel(impactLevel);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The highest impact level of data that will be stored or processed on the device, provided at job creation.
+     * </p>
+     * 
+     * @param impactLevel
+     *        The highest impact level of data that will be stored or processed on the device, provided at job creation.
+     * @see ImpactLevel
+     */
+
+    public void setImpactLevel(ImpactLevel impactLevel) {
+        withImpactLevel(impactLevel);
+    }
+
+    /**
+     * <p>
+     * The highest impact level of data that will be stored or processed on the device, provided at job creation.
+     * </p>
+     * 
+     * @param impactLevel
+     *        The highest impact level of data that will be stored or processed on the device, provided at job creation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ImpactLevel
+     */
+
+    public CreateJobRequest withImpactLevel(ImpactLevel impactLevel) {
+        this.impactLevel = impactLevel.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information identifying the person picking up the device.
+     * </p>
+     * 
+     * @param pickupDetails
+     *        Information identifying the person picking up the device.
+     */
+
+    public void setPickupDetails(PickupDetails pickupDetails) {
+        this.pickupDetails = pickupDetails;
+    }
+
+    /**
+     * <p>
+     * Information identifying the person picking up the device.
+     * </p>
+     * 
+     * @return Information identifying the person picking up the device.
+     */
+
+    public PickupDetails getPickupDetails() {
+        return this.pickupDetails;
+    }
+
+    /**
+     * <p>
+     * Information identifying the person picking up the device.
+     * </p>
+     * 
+     * @param pickupDetails
+     *        Information identifying the person picking up the device.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobRequest withPickupDetails(PickupDetails pickupDetails) {
+        setPickupDetails(pickupDetails);
         return this;
     }
 
@@ -1145,6 +1900,8 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
             sb.append("JobType: ").append(getJobType()).append(",");
         if (getResources() != null)
             sb.append("Resources: ").append(getResources()).append(",");
+        if (getOnDeviceServiceConfiguration() != null)
+            sb.append("OnDeviceServiceConfiguration: ").append(getOnDeviceServiceConfiguration()).append(",");
         if (getDescription() != null)
             sb.append("Description: ").append(getDescription()).append(",");
         if (getAddressId() != null)
@@ -1164,7 +1921,19 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
         if (getSnowballType() != null)
             sb.append("SnowballType: ").append(getSnowballType()).append(",");
         if (getForwardingAddressId() != null)
-            sb.append("ForwardingAddressId: ").append(getForwardingAddressId());
+            sb.append("ForwardingAddressId: ").append(getForwardingAddressId()).append(",");
+        if (getTaxDocuments() != null)
+            sb.append("TaxDocuments: ").append(getTaxDocuments()).append(",");
+        if (getDeviceConfiguration() != null)
+            sb.append("DeviceConfiguration: ").append(getDeviceConfiguration()).append(",");
+        if (getRemoteManagement() != null)
+            sb.append("RemoteManagement: ").append(getRemoteManagement()).append(",");
+        if (getLongTermPricingId() != null)
+            sb.append("LongTermPricingId: ").append(getLongTermPricingId()).append(",");
+        if (getImpactLevel() != null)
+            sb.append("ImpactLevel: ").append(getImpactLevel()).append(",");
+        if (getPickupDetails() != null)
+            sb.append("PickupDetails: ").append(getPickupDetails());
         sb.append("}");
         return sb.toString();
     }
@@ -1186,6 +1955,10 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
         if (other.getResources() == null ^ this.getResources() == null)
             return false;
         if (other.getResources() != null && other.getResources().equals(this.getResources()) == false)
+            return false;
+        if (other.getOnDeviceServiceConfiguration() == null ^ this.getOnDeviceServiceConfiguration() == null)
+            return false;
+        if (other.getOnDeviceServiceConfiguration() != null && other.getOnDeviceServiceConfiguration().equals(this.getOnDeviceServiceConfiguration()) == false)
             return false;
         if (other.getDescription() == null ^ this.getDescription() == null)
             return false;
@@ -1227,6 +2000,30 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
             return false;
         if (other.getForwardingAddressId() != null && other.getForwardingAddressId().equals(this.getForwardingAddressId()) == false)
             return false;
+        if (other.getTaxDocuments() == null ^ this.getTaxDocuments() == null)
+            return false;
+        if (other.getTaxDocuments() != null && other.getTaxDocuments().equals(this.getTaxDocuments()) == false)
+            return false;
+        if (other.getDeviceConfiguration() == null ^ this.getDeviceConfiguration() == null)
+            return false;
+        if (other.getDeviceConfiguration() != null && other.getDeviceConfiguration().equals(this.getDeviceConfiguration()) == false)
+            return false;
+        if (other.getRemoteManagement() == null ^ this.getRemoteManagement() == null)
+            return false;
+        if (other.getRemoteManagement() != null && other.getRemoteManagement().equals(this.getRemoteManagement()) == false)
+            return false;
+        if (other.getLongTermPricingId() == null ^ this.getLongTermPricingId() == null)
+            return false;
+        if (other.getLongTermPricingId() != null && other.getLongTermPricingId().equals(this.getLongTermPricingId()) == false)
+            return false;
+        if (other.getImpactLevel() == null ^ this.getImpactLevel() == null)
+            return false;
+        if (other.getImpactLevel() != null && other.getImpactLevel().equals(this.getImpactLevel()) == false)
+            return false;
+        if (other.getPickupDetails() == null ^ this.getPickupDetails() == null)
+            return false;
+        if (other.getPickupDetails() != null && other.getPickupDetails().equals(this.getPickupDetails()) == false)
+            return false;
         return true;
     }
 
@@ -1237,6 +2034,7 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
         hashCode = prime * hashCode + ((getJobType() == null) ? 0 : getJobType().hashCode());
         hashCode = prime * hashCode + ((getResources() == null) ? 0 : getResources().hashCode());
+        hashCode = prime * hashCode + ((getOnDeviceServiceConfiguration() == null) ? 0 : getOnDeviceServiceConfiguration().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getAddressId() == null) ? 0 : getAddressId().hashCode());
         hashCode = prime * hashCode + ((getKmsKeyARN() == null) ? 0 : getKmsKeyARN().hashCode());
@@ -1247,6 +2045,12 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
         hashCode = prime * hashCode + ((getClusterId() == null) ? 0 : getClusterId().hashCode());
         hashCode = prime * hashCode + ((getSnowballType() == null) ? 0 : getSnowballType().hashCode());
         hashCode = prime * hashCode + ((getForwardingAddressId() == null) ? 0 : getForwardingAddressId().hashCode());
+        hashCode = prime * hashCode + ((getTaxDocuments() == null) ? 0 : getTaxDocuments().hashCode());
+        hashCode = prime * hashCode + ((getDeviceConfiguration() == null) ? 0 : getDeviceConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getRemoteManagement() == null) ? 0 : getRemoteManagement().hashCode());
+        hashCode = prime * hashCode + ((getLongTermPricingId() == null) ? 0 : getLongTermPricingId().hashCode());
+        hashCode = prime * hashCode + ((getImpactLevel() == null) ? 0 : getImpactLevel().hashCode());
+        hashCode = prime * hashCode + ((getPickupDetails() == null) ? 0 : getPickupDetails().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,9 +27,31 @@ public class CreateImageRequest extends AmazonWebServiceRequest implements Seria
 
     /**
      * <p>
-     * The block device mappings. This parameter cannot be used to modify the encryption status of existing volumes or
-     * snapshots. To create an AMI with encrypted snapshots, use the <a>CopyImage</a> action.
+     * The block device mappings.
      * </p>
+     * <p>
+     * When using the CreateImage action:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You can't change the volume size using the VolumeSize parameter. If you want a different volume size, you must
+     * first change the volume size of the source instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You can't modify the encryption status of existing volumes or snapshots. To create an AMI with volumes or
+     * snapshots that have a different encryption status (for example, where the source volume and snapshots are
+     * unencrypted, and you want to create an AMI with encrypted volumes or snapshots), use the <a>CopyImage</a> action.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The only option that can be changed for existing mappings or snapshots is <code>DeleteOnTermination</code>.
+     * </p>
+     * </li>
+     * </ul>
      */
     private com.amazonaws.internal.SdkInternalList<BlockDeviceMapping> blockDeviceMappings;
     /**
@@ -56,12 +78,56 @@ public class CreateImageRequest extends AmazonWebServiceRequest implements Seria
     private String name;
     /**
      * <p>
-     * By default, Amazon EC2 attempts to shut down and reboot the instance before creating the image. If the 'No
-     * Reboot' option is set, Amazon EC2 doesn't shut down the instance before creating the image. When this option is
-     * used, file system integrity on the created image can't be guaranteed.
+     * Indicates whether or not the instance should be automatically rebooted before creating the image. Specify one of
+     * the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>true</code> - The instance is not rebooted before creating the image. This creates crash-consistent
+     * snapshots that include only the data that has been written to the volumes at the time the snapshots are created.
+     * Buffered data and data in memory that has not yet been written to the volumes is not included in the snapshots.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>false</code> - The instance is rebooted before creating the image. This ensures that all buffered data and
+     * data in memory is written to the volumes before the snapshots are created.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default: <code>false</code>
      * </p>
      */
     private Boolean noReboot;
+    /**
+     * <p>
+     * The tags to apply to the AMI and snapshots on creation. You can tag the AMI, the snapshots, or both.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * To tag the AMI, the value for <code>ResourceType</code> must be <code>image</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * To tag the snapshots that are created of the root volume and of other Amazon EBS volumes that are attached to the
+     * instance, the value for <code>ResourceType</code> must be <code>snapshot</code>. The same tag is applied to all
+     * of the snapshots that are created.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you specify other values for <code>ResourceType</code>, the request fails.
+     * </p>
+     * <p>
+     * To tag an AMI or snapshot after it has been created, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<TagSpecification> tagSpecifications;
 
     /**
      * Default constructor for CreateImageRequest object. Callers should use the setter or fluent setter (with...)
@@ -89,12 +155,57 @@ public class CreateImageRequest extends AmazonWebServiceRequest implements Seria
 
     /**
      * <p>
-     * The block device mappings. This parameter cannot be used to modify the encryption status of existing volumes or
-     * snapshots. To create an AMI with encrypted snapshots, use the <a>CopyImage</a> action.
+     * The block device mappings.
      * </p>
+     * <p>
+     * When using the CreateImage action:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You can't change the volume size using the VolumeSize parameter. If you want a different volume size, you must
+     * first change the volume size of the source instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You can't modify the encryption status of existing volumes or snapshots. To create an AMI with volumes or
+     * snapshots that have a different encryption status (for example, where the source volume and snapshots are
+     * unencrypted, and you want to create an AMI with encrypted volumes or snapshots), use the <a>CopyImage</a> action.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The only option that can be changed for existing mappings or snapshots is <code>DeleteOnTermination</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The block device mappings. This parameter cannot be used to modify the encryption status of existing
-     *         volumes or snapshots. To create an AMI with encrypted snapshots, use the <a>CopyImage</a> action.
+     * @return The block device mappings.</p>
+     *         <p>
+     *         When using the CreateImage action:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You can't change the volume size using the VolumeSize parameter. If you want a different volume size, you
+     *         must first change the volume size of the source instance.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You can't modify the encryption status of existing volumes or snapshots. To create an AMI with volumes or
+     *         snapshots that have a different encryption status (for example, where the source volume and snapshots are
+     *         unencrypted, and you want to create an AMI with encrypted volumes or snapshots), use the <a>CopyImage</a>
+     *         action.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The only option that can be changed for existing mappings or snapshots is
+     *         <code>DeleteOnTermination</code>.
+     *         </p>
+     *         </li>
      */
 
     public java.util.List<BlockDeviceMapping> getBlockDeviceMappings() {
@@ -106,13 +217,58 @@ public class CreateImageRequest extends AmazonWebServiceRequest implements Seria
 
     /**
      * <p>
-     * The block device mappings. This parameter cannot be used to modify the encryption status of existing volumes or
-     * snapshots. To create an AMI with encrypted snapshots, use the <a>CopyImage</a> action.
+     * The block device mappings.
      * </p>
+     * <p>
+     * When using the CreateImage action:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You can't change the volume size using the VolumeSize parameter. If you want a different volume size, you must
+     * first change the volume size of the source instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You can't modify the encryption status of existing volumes or snapshots. To create an AMI with volumes or
+     * snapshots that have a different encryption status (for example, where the source volume and snapshots are
+     * unencrypted, and you want to create an AMI with encrypted volumes or snapshots), use the <a>CopyImage</a> action.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The only option that can be changed for existing mappings or snapshots is <code>DeleteOnTermination</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param blockDeviceMappings
-     *        The block device mappings. This parameter cannot be used to modify the encryption status of existing
-     *        volumes or snapshots. To create an AMI with encrypted snapshots, use the <a>CopyImage</a> action.
+     *        The block device mappings.</p>
+     *        <p>
+     *        When using the CreateImage action:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        You can't change the volume size using the VolumeSize parameter. If you want a different volume size, you
+     *        must first change the volume size of the source instance.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        You can't modify the encryption status of existing volumes or snapshots. To create an AMI with volumes or
+     *        snapshots that have a different encryption status (for example, where the source volume and snapshots are
+     *        unencrypted, and you want to create an AMI with encrypted volumes or snapshots), use the <a>CopyImage</a>
+     *        action.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The only option that can be changed for existing mappings or snapshots is <code>DeleteOnTermination</code>
+     *        .
+     *        </p>
+     *        </li>
      */
 
     public void setBlockDeviceMappings(java.util.Collection<BlockDeviceMapping> blockDeviceMappings) {
@@ -126,9 +282,31 @@ public class CreateImageRequest extends AmazonWebServiceRequest implements Seria
 
     /**
      * <p>
-     * The block device mappings. This parameter cannot be used to modify the encryption status of existing volumes or
-     * snapshots. To create an AMI with encrypted snapshots, use the <a>CopyImage</a> action.
+     * The block device mappings.
      * </p>
+     * <p>
+     * When using the CreateImage action:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You can't change the volume size using the VolumeSize parameter. If you want a different volume size, you must
+     * first change the volume size of the source instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You can't modify the encryption status of existing volumes or snapshots. To create an AMI with volumes or
+     * snapshots that have a different encryption status (for example, where the source volume and snapshots are
+     * unencrypted, and you want to create an AMI with encrypted volumes or snapshots), use the <a>CopyImage</a> action.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The only option that can be changed for existing mappings or snapshots is <code>DeleteOnTermination</code>.
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setBlockDeviceMappings(java.util.Collection)} or {@link #withBlockDeviceMappings(java.util.Collection)}
@@ -136,8 +314,31 @@ public class CreateImageRequest extends AmazonWebServiceRequest implements Seria
      * </p>
      * 
      * @param blockDeviceMappings
-     *        The block device mappings. This parameter cannot be used to modify the encryption status of existing
-     *        volumes or snapshots. To create an AMI with encrypted snapshots, use the <a>CopyImage</a> action.
+     *        The block device mappings.</p>
+     *        <p>
+     *        When using the CreateImage action:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        You can't change the volume size using the VolumeSize parameter. If you want a different volume size, you
+     *        must first change the volume size of the source instance.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        You can't modify the encryption status of existing volumes or snapshots. To create an AMI with volumes or
+     *        snapshots that have a different encryption status (for example, where the source volume and snapshots are
+     *        unencrypted, and you want to create an AMI with encrypted volumes or snapshots), use the <a>CopyImage</a>
+     *        action.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The only option that can be changed for existing mappings or snapshots is <code>DeleteOnTermination</code>
+     *        .
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -153,13 +354,58 @@ public class CreateImageRequest extends AmazonWebServiceRequest implements Seria
 
     /**
      * <p>
-     * The block device mappings. This parameter cannot be used to modify the encryption status of existing volumes or
-     * snapshots. To create an AMI with encrypted snapshots, use the <a>CopyImage</a> action.
+     * The block device mappings.
      * </p>
+     * <p>
+     * When using the CreateImage action:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You can't change the volume size using the VolumeSize parameter. If you want a different volume size, you must
+     * first change the volume size of the source instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You can't modify the encryption status of existing volumes or snapshots. To create an AMI with volumes or
+     * snapshots that have a different encryption status (for example, where the source volume and snapshots are
+     * unencrypted, and you want to create an AMI with encrypted volumes or snapshots), use the <a>CopyImage</a> action.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The only option that can be changed for existing mappings or snapshots is <code>DeleteOnTermination</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param blockDeviceMappings
-     *        The block device mappings. This parameter cannot be used to modify the encryption status of existing
-     *        volumes or snapshots. To create an AMI with encrypted snapshots, use the <a>CopyImage</a> action.
+     *        The block device mappings.</p>
+     *        <p>
+     *        When using the CreateImage action:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        You can't change the volume size using the VolumeSize parameter. If you want a different volume size, you
+     *        must first change the volume size of the source instance.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        You can't modify the encryption status of existing volumes or snapshots. To create an AMI with volumes or
+     *        snapshots that have a different encryption status (for example, where the source volume and snapshots are
+     *        unencrypted, and you want to create an AMI with encrypted volumes or snapshots), use the <a>CopyImage</a>
+     *        action.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The only option that can be changed for existing mappings or snapshots is <code>DeleteOnTermination</code>
+     *        .
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -311,15 +557,49 @@ public class CreateImageRequest extends AmazonWebServiceRequest implements Seria
 
     /**
      * <p>
-     * By default, Amazon EC2 attempts to shut down and reboot the instance before creating the image. If the 'No
-     * Reboot' option is set, Amazon EC2 doesn't shut down the instance before creating the image. When this option is
-     * used, file system integrity on the created image can't be guaranteed.
+     * Indicates whether or not the instance should be automatically rebooted before creating the image. Specify one of
+     * the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>true</code> - The instance is not rebooted before creating the image. This creates crash-consistent
+     * snapshots that include only the data that has been written to the volumes at the time the snapshots are created.
+     * Buffered data and data in memory that has not yet been written to the volumes is not included in the snapshots.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>false</code> - The instance is rebooted before creating the image. This ensures that all buffered data and
+     * data in memory is written to the volumes before the snapshots are created.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default: <code>false</code>
      * </p>
      * 
      * @param noReboot
-     *        By default, Amazon EC2 attempts to shut down and reboot the instance before creating the image. If the 'No
-     *        Reboot' option is set, Amazon EC2 doesn't shut down the instance before creating the image. When this
-     *        option is used, file system integrity on the created image can't be guaranteed.
+     *        Indicates whether or not the instance should be automatically rebooted before creating the image. Specify
+     *        one of the following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>true</code> - The instance is not rebooted before creating the image. This creates crash-consistent
+     *        snapshots that include only the data that has been written to the volumes at the time the snapshots are
+     *        created. Buffered data and data in memory that has not yet been written to the volumes is not included in
+     *        the snapshots.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>false</code> - The instance is rebooted before creating the image. This ensures that all buffered
+     *        data and data in memory is written to the volumes before the snapshots are created.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Default: <code>false</code>
      */
 
     public void setNoReboot(Boolean noReboot) {
@@ -328,14 +608,48 @@ public class CreateImageRequest extends AmazonWebServiceRequest implements Seria
 
     /**
      * <p>
-     * By default, Amazon EC2 attempts to shut down and reboot the instance before creating the image. If the 'No
-     * Reboot' option is set, Amazon EC2 doesn't shut down the instance before creating the image. When this option is
-     * used, file system integrity on the created image can't be guaranteed.
+     * Indicates whether or not the instance should be automatically rebooted before creating the image. Specify one of
+     * the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>true</code> - The instance is not rebooted before creating the image. This creates crash-consistent
+     * snapshots that include only the data that has been written to the volumes at the time the snapshots are created.
+     * Buffered data and data in memory that has not yet been written to the volumes is not included in the snapshots.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>false</code> - The instance is rebooted before creating the image. This ensures that all buffered data and
+     * data in memory is written to the volumes before the snapshots are created.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default: <code>false</code>
      * </p>
      * 
-     * @return By default, Amazon EC2 attempts to shut down and reboot the instance before creating the image. If the
-     *         'No Reboot' option is set, Amazon EC2 doesn't shut down the instance before creating the image. When this
-     *         option is used, file system integrity on the created image can't be guaranteed.
+     * @return Indicates whether or not the instance should be automatically rebooted before creating the image. Specify
+     *         one of the following values:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>true</code> - The instance is not rebooted before creating the image. This creates crash-consistent
+     *         snapshots that include only the data that has been written to the volumes at the time the snapshots are
+     *         created. Buffered data and data in memory that has not yet been written to the volumes is not included in
+     *         the snapshots.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>false</code> - The instance is rebooted before creating the image. This ensures that all buffered
+     *         data and data in memory is written to the volumes before the snapshots are created.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Default: <code>false</code>
      */
 
     public Boolean getNoReboot() {
@@ -344,15 +658,49 @@ public class CreateImageRequest extends AmazonWebServiceRequest implements Seria
 
     /**
      * <p>
-     * By default, Amazon EC2 attempts to shut down and reboot the instance before creating the image. If the 'No
-     * Reboot' option is set, Amazon EC2 doesn't shut down the instance before creating the image. When this option is
-     * used, file system integrity on the created image can't be guaranteed.
+     * Indicates whether or not the instance should be automatically rebooted before creating the image. Specify one of
+     * the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>true</code> - The instance is not rebooted before creating the image. This creates crash-consistent
+     * snapshots that include only the data that has been written to the volumes at the time the snapshots are created.
+     * Buffered data and data in memory that has not yet been written to the volumes is not included in the snapshots.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>false</code> - The instance is rebooted before creating the image. This ensures that all buffered data and
+     * data in memory is written to the volumes before the snapshots are created.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default: <code>false</code>
      * </p>
      * 
      * @param noReboot
-     *        By default, Amazon EC2 attempts to shut down and reboot the instance before creating the image. If the 'No
-     *        Reboot' option is set, Amazon EC2 doesn't shut down the instance before creating the image. When this
-     *        option is used, file system integrity on the created image can't be guaranteed.
+     *        Indicates whether or not the instance should be automatically rebooted before creating the image. Specify
+     *        one of the following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>true</code> - The instance is not rebooted before creating the image. This creates crash-consistent
+     *        snapshots that include only the data that has been written to the volumes at the time the snapshots are
+     *        created. Buffered data and data in memory that has not yet been written to the volumes is not included in
+     *        the snapshots.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>false</code> - The instance is rebooted before creating the image. This ensures that all buffered
+     *        data and data in memory is written to the volumes before the snapshots are created.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Default: <code>false</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -363,18 +711,289 @@ public class CreateImageRequest extends AmazonWebServiceRequest implements Seria
 
     /**
      * <p>
-     * By default, Amazon EC2 attempts to shut down and reboot the instance before creating the image. If the 'No
-     * Reboot' option is set, Amazon EC2 doesn't shut down the instance before creating the image. When this option is
-     * used, file system integrity on the created image can't be guaranteed.
+     * Indicates whether or not the instance should be automatically rebooted before creating the image. Specify one of
+     * the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>true</code> - The instance is not rebooted before creating the image. This creates crash-consistent
+     * snapshots that include only the data that has been written to the volumes at the time the snapshots are created.
+     * Buffered data and data in memory that has not yet been written to the volumes is not included in the snapshots.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>false</code> - The instance is rebooted before creating the image. This ensures that all buffered data and
+     * data in memory is written to the volumes before the snapshots are created.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default: <code>false</code>
      * </p>
      * 
-     * @return By default, Amazon EC2 attempts to shut down and reboot the instance before creating the image. If the
-     *         'No Reboot' option is set, Amazon EC2 doesn't shut down the instance before creating the image. When this
-     *         option is used, file system integrity on the created image can't be guaranteed.
+     * @return Indicates whether or not the instance should be automatically rebooted before creating the image. Specify
+     *         one of the following values:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>true</code> - The instance is not rebooted before creating the image. This creates crash-consistent
+     *         snapshots that include only the data that has been written to the volumes at the time the snapshots are
+     *         created. Buffered data and data in memory that has not yet been written to the volumes is not included in
+     *         the snapshots.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>false</code> - The instance is rebooted before creating the image. This ensures that all buffered
+     *         data and data in memory is written to the volumes before the snapshots are created.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Default: <code>false</code>
      */
 
     public Boolean isNoReboot() {
         return this.noReboot;
+    }
+
+    /**
+     * <p>
+     * The tags to apply to the AMI and snapshots on creation. You can tag the AMI, the snapshots, or both.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * To tag the AMI, the value for <code>ResourceType</code> must be <code>image</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * To tag the snapshots that are created of the root volume and of other Amazon EBS volumes that are attached to the
+     * instance, the value for <code>ResourceType</code> must be <code>snapshot</code>. The same tag is applied to all
+     * of the snapshots that are created.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you specify other values for <code>ResourceType</code>, the request fails.
+     * </p>
+     * <p>
+     * To tag an AMI or snapshot after it has been created, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * </p>
+     * 
+     * @return The tags to apply to the AMI and snapshots on creation. You can tag the AMI, the snapshots, or both.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         To tag the AMI, the value for <code>ResourceType</code> must be <code>image</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         To tag the snapshots that are created of the root volume and of other Amazon EBS volumes that are
+     *         attached to the instance, the value for <code>ResourceType</code> must be <code>snapshot</code>. The same
+     *         tag is applied to all of the snapshots that are created.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         If you specify other values for <code>ResourceType</code>, the request fails.
+     *         </p>
+     *         <p>
+     *         To tag an AMI or snapshot after it has been created, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     */
+
+    public java.util.List<TagSpecification> getTagSpecifications() {
+        if (tagSpecifications == null) {
+            tagSpecifications = new com.amazonaws.internal.SdkInternalList<TagSpecification>();
+        }
+        return tagSpecifications;
+    }
+
+    /**
+     * <p>
+     * The tags to apply to the AMI and snapshots on creation. You can tag the AMI, the snapshots, or both.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * To tag the AMI, the value for <code>ResourceType</code> must be <code>image</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * To tag the snapshots that are created of the root volume and of other Amazon EBS volumes that are attached to the
+     * instance, the value for <code>ResourceType</code> must be <code>snapshot</code>. The same tag is applied to all
+     * of the snapshots that are created.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you specify other values for <code>ResourceType</code>, the request fails.
+     * </p>
+     * <p>
+     * To tag an AMI or snapshot after it has been created, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to apply to the AMI and snapshots on creation. You can tag the AMI, the snapshots, or both.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        To tag the AMI, the value for <code>ResourceType</code> must be <code>image</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        To tag the snapshots that are created of the root volume and of other Amazon EBS volumes that are attached
+     *        to the instance, the value for <code>ResourceType</code> must be <code>snapshot</code>. The same tag is
+     *        applied to all of the snapshots that are created.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you specify other values for <code>ResourceType</code>, the request fails.
+     *        </p>
+     *        <p>
+     *        To tag an AMI or snapshot after it has been created, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     */
+
+    public void setTagSpecifications(java.util.Collection<TagSpecification> tagSpecifications) {
+        if (tagSpecifications == null) {
+            this.tagSpecifications = null;
+            return;
+        }
+
+        this.tagSpecifications = new com.amazonaws.internal.SdkInternalList<TagSpecification>(tagSpecifications);
+    }
+
+    /**
+     * <p>
+     * The tags to apply to the AMI and snapshots on creation. You can tag the AMI, the snapshots, or both.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * To tag the AMI, the value for <code>ResourceType</code> must be <code>image</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * To tag the snapshots that are created of the root volume and of other Amazon EBS volumes that are attached to the
+     * instance, the value for <code>ResourceType</code> must be <code>snapshot</code>. The same tag is applied to all
+     * of the snapshots that are created.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you specify other values for <code>ResourceType</code>, the request fails.
+     * </p>
+     * <p>
+     * To tag an AMI or snapshot after it has been created, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTagSpecifications(java.util.Collection)} or {@link #withTagSpecifications(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to apply to the AMI and snapshots on creation. You can tag the AMI, the snapshots, or both.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        To tag the AMI, the value for <code>ResourceType</code> must be <code>image</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        To tag the snapshots that are created of the root volume and of other Amazon EBS volumes that are attached
+     *        to the instance, the value for <code>ResourceType</code> must be <code>snapshot</code>. The same tag is
+     *        applied to all of the snapshots that are created.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you specify other values for <code>ResourceType</code>, the request fails.
+     *        </p>
+     *        <p>
+     *        To tag an AMI or snapshot after it has been created, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateImageRequest withTagSpecifications(TagSpecification... tagSpecifications) {
+        if (this.tagSpecifications == null) {
+            setTagSpecifications(new com.amazonaws.internal.SdkInternalList<TagSpecification>(tagSpecifications.length));
+        }
+        for (TagSpecification ele : tagSpecifications) {
+            this.tagSpecifications.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags to apply to the AMI and snapshots on creation. You can tag the AMI, the snapshots, or both.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * To tag the AMI, the value for <code>ResourceType</code> must be <code>image</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * To tag the snapshots that are created of the root volume and of other Amazon EBS volumes that are attached to the
+     * instance, the value for <code>ResourceType</code> must be <code>snapshot</code>. The same tag is applied to all
+     * of the snapshots that are created.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you specify other values for <code>ResourceType</code>, the request fails.
+     * </p>
+     * <p>
+     * To tag an AMI or snapshot after it has been created, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to apply to the AMI and snapshots on creation. You can tag the AMI, the snapshots, or both.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        To tag the AMI, the value for <code>ResourceType</code> must be <code>image</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        To tag the snapshots that are created of the root volume and of other Amazon EBS volumes that are attached
+     *        to the instance, the value for <code>ResourceType</code> must be <code>snapshot</code>. The same tag is
+     *        applied to all of the snapshots that are created.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you specify other values for <code>ResourceType</code>, the request fails.
+     *        </p>
+     *        <p>
+     *        To tag an AMI or snapshot after it has been created, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateImageRequest withTagSpecifications(java.util.Collection<TagSpecification> tagSpecifications) {
+        setTagSpecifications(tagSpecifications);
+        return this;
     }
 
     /**
@@ -409,7 +1028,9 @@ public class CreateImageRequest extends AmazonWebServiceRequest implements Seria
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getNoReboot() != null)
-            sb.append("NoReboot: ").append(getNoReboot());
+            sb.append("NoReboot: ").append(getNoReboot()).append(",");
+        if (getTagSpecifications() != null)
+            sb.append("TagSpecifications: ").append(getTagSpecifications());
         sb.append("}");
         return sb.toString();
     }
@@ -444,6 +1065,10 @@ public class CreateImageRequest extends AmazonWebServiceRequest implements Seria
             return false;
         if (other.getNoReboot() != null && other.getNoReboot().equals(this.getNoReboot()) == false)
             return false;
+        if (other.getTagSpecifications() == null ^ this.getTagSpecifications() == null)
+            return false;
+        if (other.getTagSpecifications() != null && other.getTagSpecifications().equals(this.getTagSpecifications()) == false)
+            return false;
         return true;
     }
 
@@ -457,6 +1082,7 @@ public class CreateImageRequest extends AmazonWebServiceRequest implements Seria
         hashCode = prime * hashCode + ((getInstanceId() == null) ? 0 : getInstanceId().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getNoReboot() == null) ? 0 : getNoReboot().hashCode());
+        hashCode = prime * hashCode + ((getTagSpecifications() == null) ? 0 : getTagSpecifications().hashCode());
         return hashCode;
     }
 

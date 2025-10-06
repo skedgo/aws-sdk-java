@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,7 +45,7 @@ public class GetTimeSeriesServiceStatisticsRequest extends com.amazonaws.AmazonW
     private String groupName;
     /**
      * <p>
-     * The ARN of the group for which to pull statistics from.
+     * The Amazon Resource Name (ARN) of the group for which to pull statistics from.
      * </p>
      */
     private String groupARN;
@@ -64,7 +64,14 @@ public class GetTimeSeriesServiceStatisticsRequest extends com.amazonaws.AmazonW
     private Integer period;
     /**
      * <p>
-     * Pagination token. Not used.
+     * The forecasted high and low fault count values. Forecast enabled requests require the EntitySelectorExpression ID
+     * be provided.
+     * </p>
+     */
+    private Boolean forecastStatistics;
+    /**
+     * <p>
+     * Pagination token.
      * </p>
      */
     private String nextToken;
@@ -191,11 +198,11 @@ public class GetTimeSeriesServiceStatisticsRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The ARN of the group for which to pull statistics from.
+     * The Amazon Resource Name (ARN) of the group for which to pull statistics from.
      * </p>
      * 
      * @param groupARN
-     *        The ARN of the group for which to pull statistics from.
+     *        The Amazon Resource Name (ARN) of the group for which to pull statistics from.
      */
 
     public void setGroupARN(String groupARN) {
@@ -204,10 +211,10 @@ public class GetTimeSeriesServiceStatisticsRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The ARN of the group for which to pull statistics from.
+     * The Amazon Resource Name (ARN) of the group for which to pull statistics from.
      * </p>
      * 
-     * @return The ARN of the group for which to pull statistics from.
+     * @return The Amazon Resource Name (ARN) of the group for which to pull statistics from.
      */
 
     public String getGroupARN() {
@@ -216,11 +223,11 @@ public class GetTimeSeriesServiceStatisticsRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The ARN of the group for which to pull statistics from.
+     * The Amazon Resource Name (ARN) of the group for which to pull statistics from.
      * </p>
      * 
      * @param groupARN
-     *        The ARN of the group for which to pull statistics from.
+     *        The Amazon Resource Name (ARN) of the group for which to pull statistics from.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -317,11 +324,71 @@ public class GetTimeSeriesServiceStatisticsRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Pagination token. Not used.
+     * The forecasted high and low fault count values. Forecast enabled requests require the EntitySelectorExpression ID
+     * be provided.
+     * </p>
+     * 
+     * @param forecastStatistics
+     *        The forecasted high and low fault count values. Forecast enabled requests require the
+     *        EntitySelectorExpression ID be provided.
+     */
+
+    public void setForecastStatistics(Boolean forecastStatistics) {
+        this.forecastStatistics = forecastStatistics;
+    }
+
+    /**
+     * <p>
+     * The forecasted high and low fault count values. Forecast enabled requests require the EntitySelectorExpression ID
+     * be provided.
+     * </p>
+     * 
+     * @return The forecasted high and low fault count values. Forecast enabled requests require the
+     *         EntitySelectorExpression ID be provided.
+     */
+
+    public Boolean getForecastStatistics() {
+        return this.forecastStatistics;
+    }
+
+    /**
+     * <p>
+     * The forecasted high and low fault count values. Forecast enabled requests require the EntitySelectorExpression ID
+     * be provided.
+     * </p>
+     * 
+     * @param forecastStatistics
+     *        The forecasted high and low fault count values. Forecast enabled requests require the
+     *        EntitySelectorExpression ID be provided.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetTimeSeriesServiceStatisticsRequest withForecastStatistics(Boolean forecastStatistics) {
+        setForecastStatistics(forecastStatistics);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The forecasted high and low fault count values. Forecast enabled requests require the EntitySelectorExpression ID
+     * be provided.
+     * </p>
+     * 
+     * @return The forecasted high and low fault count values. Forecast enabled requests require the
+     *         EntitySelectorExpression ID be provided.
+     */
+
+    public Boolean isForecastStatistics() {
+        return this.forecastStatistics;
+    }
+
+    /**
+     * <p>
+     * Pagination token.
      * </p>
      * 
      * @param nextToken
-     *        Pagination token. Not used.
+     *        Pagination token.
      */
 
     public void setNextToken(String nextToken) {
@@ -330,10 +397,10 @@ public class GetTimeSeriesServiceStatisticsRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Pagination token. Not used.
+     * Pagination token.
      * </p>
      * 
-     * @return Pagination token. Not used.
+     * @return Pagination token.
      */
 
     public String getNextToken() {
@@ -342,11 +409,11 @@ public class GetTimeSeriesServiceStatisticsRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Pagination token. Not used.
+     * Pagination token.
      * </p>
      * 
      * @param nextToken
-     *        Pagination token. Not used.
+     *        Pagination token.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -379,6 +446,8 @@ public class GetTimeSeriesServiceStatisticsRequest extends com.amazonaws.AmazonW
             sb.append("EntitySelectorExpression: ").append(getEntitySelectorExpression()).append(",");
         if (getPeriod() != null)
             sb.append("Period: ").append(getPeriod()).append(",");
+        if (getForecastStatistics() != null)
+            sb.append("ForecastStatistics: ").append(getForecastStatistics()).append(",");
         if (getNextToken() != null)
             sb.append("NextToken: ").append(getNextToken());
         sb.append("}");
@@ -419,6 +488,10 @@ public class GetTimeSeriesServiceStatisticsRequest extends com.amazonaws.AmazonW
             return false;
         if (other.getPeriod() != null && other.getPeriod().equals(this.getPeriod()) == false)
             return false;
+        if (other.getForecastStatistics() == null ^ this.getForecastStatistics() == null)
+            return false;
+        if (other.getForecastStatistics() != null && other.getForecastStatistics().equals(this.getForecastStatistics()) == false)
+            return false;
         if (other.getNextToken() == null ^ this.getNextToken() == null)
             return false;
         if (other.getNextToken() != null && other.getNextToken().equals(this.getNextToken()) == false)
@@ -437,6 +510,7 @@ public class GetTimeSeriesServiceStatisticsRequest extends com.amazonaws.AmazonW
         hashCode = prime * hashCode + ((getGroupARN() == null) ? 0 : getGroupARN().hashCode());
         hashCode = prime * hashCode + ((getEntitySelectorExpression() == null) ? 0 : getEntitySelectorExpression().hashCode());
         hashCode = prime * hashCode + ((getPeriod() == null) ? 0 : getPeriod().hashCode());
+        hashCode = prime * hashCode + ((getForecastStatistics() == null) ? 0 : getForecastStatistics().hashCode());
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
         return hashCode;
     }

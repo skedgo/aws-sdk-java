@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,8 +25,8 @@ public class ListNotebookInstancesResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * If the response to the previous <code>ListNotebookInstances</code> request was truncated, Amazon SageMaker
-     * returns this token. To retrieve the next set of notebook instances, use the token in the next request.
+     * If the response to the previous <code>ListNotebookInstances</code> request was truncated, SageMaker returns this
+     * token. To retrieve the next set of notebook instances, use the token in the next request.
      * </p>
      */
     private String nextToken;
@@ -39,12 +39,12 @@ public class ListNotebookInstancesResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * If the response to the previous <code>ListNotebookInstances</code> request was truncated, Amazon SageMaker
-     * returns this token. To retrieve the next set of notebook instances, use the token in the next request.
+     * If the response to the previous <code>ListNotebookInstances</code> request was truncated, SageMaker returns this
+     * token. To retrieve the next set of notebook instances, use the token in the next request.
      * </p>
      * 
      * @param nextToken
-     *        If the response to the previous <code>ListNotebookInstances</code> request was truncated, Amazon SageMaker
+     *        If the response to the previous <code>ListNotebookInstances</code> request was truncated, SageMaker
      *        returns this token. To retrieve the next set of notebook instances, use the token in the next request.
      */
 
@@ -54,13 +54,12 @@ public class ListNotebookInstancesResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * If the response to the previous <code>ListNotebookInstances</code> request was truncated, Amazon SageMaker
-     * returns this token. To retrieve the next set of notebook instances, use the token in the next request.
+     * If the response to the previous <code>ListNotebookInstances</code> request was truncated, SageMaker returns this
+     * token. To retrieve the next set of notebook instances, use the token in the next request.
      * </p>
      * 
-     * @return If the response to the previous <code>ListNotebookInstances</code> request was truncated, Amazon
-     *         SageMaker returns this token. To retrieve the next set of notebook instances, use the token in the next
-     *         request.
+     * @return If the response to the previous <code>ListNotebookInstances</code> request was truncated, SageMaker
+     *         returns this token. To retrieve the next set of notebook instances, use the token in the next request.
      */
 
     public String getNextToken() {
@@ -69,12 +68,12 @@ public class ListNotebookInstancesResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * If the response to the previous <code>ListNotebookInstances</code> request was truncated, Amazon SageMaker
-     * returns this token. To retrieve the next set of notebook instances, use the token in the next request.
+     * If the response to the previous <code>ListNotebookInstances</code> request was truncated, SageMaker returns this
+     * token. To retrieve the next set of notebook instances, use the token in the next request.
      * </p>
      * 
      * @param nextToken
-     *        If the response to the previous <code>ListNotebookInstances</code> request was truncated, Amazon SageMaker
+     *        If the response to the previous <code>ListNotebookInstances</code> request was truncated, SageMaker
      *        returns this token. To retrieve the next set of notebook instances, use the token in the next request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

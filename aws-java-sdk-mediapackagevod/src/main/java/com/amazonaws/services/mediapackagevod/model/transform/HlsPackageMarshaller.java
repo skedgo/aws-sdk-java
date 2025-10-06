@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,6 +32,8 @@ public class HlsPackageMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("encryption").build();
     private static final MarshallingInfo<List> HLSMANIFESTS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("hlsManifests").build();
+    private static final MarshallingInfo<Boolean> INCLUDEDVBSUBTITLES_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("includeDvbSubtitles").build();
     private static final MarshallingInfo<Integer> SEGMENTDURATIONSECONDS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("segmentDurationSeconds").build();
     private static final MarshallingInfo<Boolean> USEAUDIORENDITIONGROUP_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
@@ -55,6 +57,7 @@ public class HlsPackageMarshaller {
         try {
             protocolMarshaller.marshall(hlsPackage.getEncryption(), ENCRYPTION_BINDING);
             protocolMarshaller.marshall(hlsPackage.getHlsManifests(), HLSMANIFESTS_BINDING);
+            protocolMarshaller.marshall(hlsPackage.getIncludeDvbSubtitles(), INCLUDEDVBSUBTITLES_BINDING);
             protocolMarshaller.marshall(hlsPackage.getSegmentDurationSeconds(), SEGMENTDURATIONSECONDS_BINDING);
             protocolMarshaller.marshall(hlsPackage.getUseAudioRenditionGroup(), USEAUDIORENDITIONGROUP_BINDING);
         } catch (Exception e) {

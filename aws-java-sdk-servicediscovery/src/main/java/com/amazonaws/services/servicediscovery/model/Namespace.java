@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,7 +36,7 @@ public class Namespace implements Serializable, Cloneable, StructuredPojo {
     private String id;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the namespace when you create it.
+     * The Amazon Resource Name (ARN) that Cloud Map assigns to the namespace when you create it.
      * </p>
      */
     private String arn;
@@ -48,8 +48,28 @@ public class Namespace implements Serializable, Cloneable, StructuredPojo {
     private String name;
     /**
      * <p>
-     * The type of the namespace. Valid values are <code>DNS_PUBLIC</code> and <code>DNS_PRIVATE</code>.
+     * The type of the namespace. The methods for discovering instances depends on the value that you specify:
      * </p>
+     * <dl>
+     * <dt>HTTP</dt>
+     * <dd>
+     * <p>
+     * Instances can be discovered only programmatically, using the Cloud Map <code>DiscoverInstances</code> API.
+     * </p>
+     * </dd>
+     * <dt>DNS_PUBLIC</dt>
+     * <dd>
+     * <p>
+     * Instances can be discovered using public DNS queries and using the <code>DiscoverInstances</code> API.
+     * </p>
+     * </dd>
+     * <dt>DNS_PRIVATE</dt>
+     * <dd>
+     * <p>
+     * Instances can be discovered using DNS queries in VPCs and using the <code>DiscoverInstances</code> API.
+     * </p>
+     * </dd>
+     * </dl>
      */
     private String type;
     /**
@@ -81,7 +101,7 @@ public class Namespace implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * A unique string that identifies the request and that allows failed requests to be retried without the risk of
-     * executing an operation twice.
+     * running an operation twice.
      * </p>
      */
     private String creatorRequestId;
@@ -128,11 +148,11 @@ public class Namespace implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the namespace when you create it.
+     * The Amazon Resource Name (ARN) that Cloud Map assigns to the namespace when you create it.
      * </p>
      * 
      * @param arn
-     *        The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the namespace when you create it.
+     *        The Amazon Resource Name (ARN) that Cloud Map assigns to the namespace when you create it.
      */
 
     public void setArn(String arn) {
@@ -141,10 +161,10 @@ public class Namespace implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the namespace when you create it.
+     * The Amazon Resource Name (ARN) that Cloud Map assigns to the namespace when you create it.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the namespace when you create it.
+     * @return The Amazon Resource Name (ARN) that Cloud Map assigns to the namespace when you create it.
      */
 
     public String getArn() {
@@ -153,11 +173,11 @@ public class Namespace implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the namespace when you create it.
+     * The Amazon Resource Name (ARN) that Cloud Map assigns to the namespace when you create it.
      * </p>
      * 
      * @param arn
-     *        The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the namespace when you create it.
+     *        The Amazon Resource Name (ARN) that Cloud Map assigns to the namespace when you create it.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -208,11 +228,51 @@ public class Namespace implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of the namespace. Valid values are <code>DNS_PUBLIC</code> and <code>DNS_PRIVATE</code>.
+     * The type of the namespace. The methods for discovering instances depends on the value that you specify:
      * </p>
+     * <dl>
+     * <dt>HTTP</dt>
+     * <dd>
+     * <p>
+     * Instances can be discovered only programmatically, using the Cloud Map <code>DiscoverInstances</code> API.
+     * </p>
+     * </dd>
+     * <dt>DNS_PUBLIC</dt>
+     * <dd>
+     * <p>
+     * Instances can be discovered using public DNS queries and using the <code>DiscoverInstances</code> API.
+     * </p>
+     * </dd>
+     * <dt>DNS_PRIVATE</dt>
+     * <dd>
+     * <p>
+     * Instances can be discovered using DNS queries in VPCs and using the <code>DiscoverInstances</code> API.
+     * </p>
+     * </dd>
+     * </dl>
      * 
      * @param type
-     *        The type of the namespace. Valid values are <code>DNS_PUBLIC</code> and <code>DNS_PRIVATE</code>.
+     *        The type of the namespace. The methods for discovering instances depends on the value that you
+     *        specify:</p>
+     *        <dl>
+     *        <dt>HTTP</dt>
+     *        <dd>
+     *        <p>
+     *        Instances can be discovered only programmatically, using the Cloud Map <code>DiscoverInstances</code> API.
+     *        </p>
+     *        </dd>
+     *        <dt>DNS_PUBLIC</dt>
+     *        <dd>
+     *        <p>
+     *        Instances can be discovered using public DNS queries and using the <code>DiscoverInstances</code> API.
+     *        </p>
+     *        </dd>
+     *        <dt>DNS_PRIVATE</dt>
+     *        <dd>
+     *        <p>
+     *        Instances can be discovered using DNS queries in VPCs and using the <code>DiscoverInstances</code> API.
+     *        </p>
+     *        </dd>
      * @see NamespaceType
      */
 
@@ -222,10 +282,51 @@ public class Namespace implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of the namespace. Valid values are <code>DNS_PUBLIC</code> and <code>DNS_PRIVATE</code>.
+     * The type of the namespace. The methods for discovering instances depends on the value that you specify:
      * </p>
+     * <dl>
+     * <dt>HTTP</dt>
+     * <dd>
+     * <p>
+     * Instances can be discovered only programmatically, using the Cloud Map <code>DiscoverInstances</code> API.
+     * </p>
+     * </dd>
+     * <dt>DNS_PUBLIC</dt>
+     * <dd>
+     * <p>
+     * Instances can be discovered using public DNS queries and using the <code>DiscoverInstances</code> API.
+     * </p>
+     * </dd>
+     * <dt>DNS_PRIVATE</dt>
+     * <dd>
+     * <p>
+     * Instances can be discovered using DNS queries in VPCs and using the <code>DiscoverInstances</code> API.
+     * </p>
+     * </dd>
+     * </dl>
      * 
-     * @return The type of the namespace. Valid values are <code>DNS_PUBLIC</code> and <code>DNS_PRIVATE</code>.
+     * @return The type of the namespace. The methods for discovering instances depends on the value that you
+     *         specify:</p>
+     *         <dl>
+     *         <dt>HTTP</dt>
+     *         <dd>
+     *         <p>
+     *         Instances can be discovered only programmatically, using the Cloud Map <code>DiscoverInstances</code>
+     *         API.
+     *         </p>
+     *         </dd>
+     *         <dt>DNS_PUBLIC</dt>
+     *         <dd>
+     *         <p>
+     *         Instances can be discovered using public DNS queries and using the <code>DiscoverInstances</code> API.
+     *         </p>
+     *         </dd>
+     *         <dt>DNS_PRIVATE</dt>
+     *         <dd>
+     *         <p>
+     *         Instances can be discovered using DNS queries in VPCs and using the <code>DiscoverInstances</code> API.
+     *         </p>
+     *         </dd>
      * @see NamespaceType
      */
 
@@ -235,11 +336,51 @@ public class Namespace implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of the namespace. Valid values are <code>DNS_PUBLIC</code> and <code>DNS_PRIVATE</code>.
+     * The type of the namespace. The methods for discovering instances depends on the value that you specify:
      * </p>
+     * <dl>
+     * <dt>HTTP</dt>
+     * <dd>
+     * <p>
+     * Instances can be discovered only programmatically, using the Cloud Map <code>DiscoverInstances</code> API.
+     * </p>
+     * </dd>
+     * <dt>DNS_PUBLIC</dt>
+     * <dd>
+     * <p>
+     * Instances can be discovered using public DNS queries and using the <code>DiscoverInstances</code> API.
+     * </p>
+     * </dd>
+     * <dt>DNS_PRIVATE</dt>
+     * <dd>
+     * <p>
+     * Instances can be discovered using DNS queries in VPCs and using the <code>DiscoverInstances</code> API.
+     * </p>
+     * </dd>
+     * </dl>
      * 
      * @param type
-     *        The type of the namespace. Valid values are <code>DNS_PUBLIC</code> and <code>DNS_PRIVATE</code>.
+     *        The type of the namespace. The methods for discovering instances depends on the value that you
+     *        specify:</p>
+     *        <dl>
+     *        <dt>HTTP</dt>
+     *        <dd>
+     *        <p>
+     *        Instances can be discovered only programmatically, using the Cloud Map <code>DiscoverInstances</code> API.
+     *        </p>
+     *        </dd>
+     *        <dt>DNS_PUBLIC</dt>
+     *        <dd>
+     *        <p>
+     *        Instances can be discovered using public DNS queries and using the <code>DiscoverInstances</code> API.
+     *        </p>
+     *        </dd>
+     *        <dt>DNS_PRIVATE</dt>
+     *        <dd>
+     *        <p>
+     *        Instances can be discovered using DNS queries in VPCs and using the <code>DiscoverInstances</code> API.
+     *        </p>
+     *        </dd>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see NamespaceType
      */
@@ -251,11 +392,51 @@ public class Namespace implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of the namespace. Valid values are <code>DNS_PUBLIC</code> and <code>DNS_PRIVATE</code>.
+     * The type of the namespace. The methods for discovering instances depends on the value that you specify:
      * </p>
+     * <dl>
+     * <dt>HTTP</dt>
+     * <dd>
+     * <p>
+     * Instances can be discovered only programmatically, using the Cloud Map <code>DiscoverInstances</code> API.
+     * </p>
+     * </dd>
+     * <dt>DNS_PUBLIC</dt>
+     * <dd>
+     * <p>
+     * Instances can be discovered using public DNS queries and using the <code>DiscoverInstances</code> API.
+     * </p>
+     * </dd>
+     * <dt>DNS_PRIVATE</dt>
+     * <dd>
+     * <p>
+     * Instances can be discovered using DNS queries in VPCs and using the <code>DiscoverInstances</code> API.
+     * </p>
+     * </dd>
+     * </dl>
      * 
      * @param type
-     *        The type of the namespace. Valid values are <code>DNS_PUBLIC</code> and <code>DNS_PRIVATE</code>.
+     *        The type of the namespace. The methods for discovering instances depends on the value that you
+     *        specify:</p>
+     *        <dl>
+     *        <dt>HTTP</dt>
+     *        <dd>
+     *        <p>
+     *        Instances can be discovered only programmatically, using the Cloud Map <code>DiscoverInstances</code> API.
+     *        </p>
+     *        </dd>
+     *        <dt>DNS_PUBLIC</dt>
+     *        <dd>
+     *        <p>
+     *        Instances can be discovered using public DNS queries and using the <code>DiscoverInstances</code> API.
+     *        </p>
+     *        </dd>
+     *        <dt>DNS_PRIVATE</dt>
+     *        <dd>
+     *        <p>
+     *        Instances can be discovered using DNS queries in VPCs and using the <code>DiscoverInstances</code> API.
+     *        </p>
+     *        </dd>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see NamespaceType
      */
@@ -440,12 +621,12 @@ public class Namespace implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * A unique string that identifies the request and that allows failed requests to be retried without the risk of
-     * executing an operation twice.
+     * running an operation twice.
      * </p>
      * 
      * @param creatorRequestId
      *        A unique string that identifies the request and that allows failed requests to be retried without the risk
-     *        of executing an operation twice.
+     *        of running an operation twice.
      */
 
     public void setCreatorRequestId(String creatorRequestId) {
@@ -455,11 +636,11 @@ public class Namespace implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * A unique string that identifies the request and that allows failed requests to be retried without the risk of
-     * executing an operation twice.
+     * running an operation twice.
      * </p>
      * 
      * @return A unique string that identifies the request and that allows failed requests to be retried without the
-     *         risk of executing an operation twice.
+     *         risk of running an operation twice.
      */
 
     public String getCreatorRequestId() {
@@ -469,12 +650,12 @@ public class Namespace implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * A unique string that identifies the request and that allows failed requests to be retried without the risk of
-     * executing an operation twice.
+     * running an operation twice.
      * </p>
      * 
      * @param creatorRequestId
      *        A unique string that identifies the request and that allows failed requests to be retried without the risk
-     *        of executing an operation twice.
+     *        of running an operation twice.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

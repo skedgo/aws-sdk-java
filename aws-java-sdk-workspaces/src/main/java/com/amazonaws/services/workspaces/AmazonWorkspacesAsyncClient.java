@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,8 +32,27 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * <p>
  * <fullname>Amazon WorkSpaces Service</fullname>
  * <p>
- * Amazon WorkSpaces enables you to provision virtual, cloud-based Microsoft Windows and Amazon Linux desktops for your
- * users.
+ * Amazon WorkSpaces enables you to provision virtual, cloud-based Microsoft Windows or Amazon Linux desktops for your
+ * users, known as <i>WorkSpaces</i>. WorkSpaces eliminates the need to procure and deploy hardware or install complex
+ * software. You can quickly add or remove users as your needs change. Users can access their virtual desktops from
+ * multiple devices or web browsers.
+ * </p>
+ * <p>
+ * This API Reference provides detailed information about the actions, data types, parameters, and errors of the
+ * WorkSpaces service. For more information about the supported Amazon Web Services Regions, endpoints, and service
+ * quotas of the Amazon WorkSpaces service, see <a
+ * href="https://docs.aws.amazon.com/general/latest/gr/wsp.html">WorkSpaces endpoints and quotas</a> in the <i>Amazon
+ * Web Services General Reference</i>.
+ * </p>
+ * <p>
+ * You can also manage your WorkSpaces resources using the WorkSpaces console, Command Line Interface (CLI), and SDKs.
+ * For more information about administering WorkSpaces, see the <a
+ * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/">Amazon WorkSpaces Administration Guide</a>. For more
+ * information about using the Amazon WorkSpaces client application or web browser to access provisioned WorkSpaces, see
+ * the <a href="https://docs.aws.amazon.com/workspaces/latest/userguide/">Amazon WorkSpaces User Guide</a>. For more
+ * information about using the CLI to manage your WorkSpaces resources, see the <a
+ * href="https://docs.aws.amazon.com/cli/latest/reference/workspaces/index.html">WorkSpaces section of the CLI
+ * Reference</a>.
  * </p>
  */
 @ThreadSafe
@@ -233,7 +252,20 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
      *        Object providing client parameters.
      */
     AmazonWorkspacesAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Amazon WorkSpaces using the specified
+     * parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonWorkspacesAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -244,6 +276,72 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
      */
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public java.util.concurrent.Future<AcceptAccountLinkInvitationResult> acceptAccountLinkInvitationAsync(AcceptAccountLinkInvitationRequest request) {
+
+        return acceptAccountLinkInvitationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AcceptAccountLinkInvitationResult> acceptAccountLinkInvitationAsync(final AcceptAccountLinkInvitationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AcceptAccountLinkInvitationRequest, AcceptAccountLinkInvitationResult> asyncHandler) {
+        final AcceptAccountLinkInvitationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AcceptAccountLinkInvitationResult>() {
+            @Override
+            public AcceptAccountLinkInvitationResult call() throws Exception {
+                AcceptAccountLinkInvitationResult result = null;
+
+                try {
+                    result = executeAcceptAccountLinkInvitation(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateConnectionAliasResult> associateConnectionAliasAsync(AssociateConnectionAliasRequest request) {
+
+        return associateConnectionAliasAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateConnectionAliasResult> associateConnectionAliasAsync(final AssociateConnectionAliasRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AssociateConnectionAliasRequest, AssociateConnectionAliasResult> asyncHandler) {
+        final AssociateConnectionAliasRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AssociateConnectionAliasResult>() {
+            @Override
+            public AssociateConnectionAliasResult call() throws Exception {
+                AssociateConnectionAliasResult result = null;
+
+                try {
+                    result = executeAssociateConnectionAlias(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -264,6 +362,40 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
 
                 try {
                     result = executeAssociateIpGroups(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateWorkspaceApplicationResult> associateWorkspaceApplicationAsync(AssociateWorkspaceApplicationRequest request) {
+
+        return associateWorkspaceApplicationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateWorkspaceApplicationResult> associateWorkspaceApplicationAsync(
+            final AssociateWorkspaceApplicationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AssociateWorkspaceApplicationRequest, AssociateWorkspaceApplicationResult> asyncHandler) {
+        final AssociateWorkspaceApplicationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AssociateWorkspaceApplicationResult>() {
+            @Override
+            public AssociateWorkspaceApplicationResult call() throws Exception {
+                AssociateWorkspaceApplicationResult result = null;
+
+                try {
+                    result = executeAssociateWorkspaceApplication(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -346,6 +478,105 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<CreateAccountLinkInvitationResult> createAccountLinkInvitationAsync(CreateAccountLinkInvitationRequest request) {
+
+        return createAccountLinkInvitationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateAccountLinkInvitationResult> createAccountLinkInvitationAsync(final CreateAccountLinkInvitationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateAccountLinkInvitationRequest, CreateAccountLinkInvitationResult> asyncHandler) {
+        final CreateAccountLinkInvitationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateAccountLinkInvitationResult>() {
+            @Override
+            public CreateAccountLinkInvitationResult call() throws Exception {
+                CreateAccountLinkInvitationResult result = null;
+
+                try {
+                    result = executeCreateAccountLinkInvitation(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateConnectClientAddInResult> createConnectClientAddInAsync(CreateConnectClientAddInRequest request) {
+
+        return createConnectClientAddInAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateConnectClientAddInResult> createConnectClientAddInAsync(final CreateConnectClientAddInRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateConnectClientAddInRequest, CreateConnectClientAddInResult> asyncHandler) {
+        final CreateConnectClientAddInRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateConnectClientAddInResult>() {
+            @Override
+            public CreateConnectClientAddInResult call() throws Exception {
+                CreateConnectClientAddInResult result = null;
+
+                try {
+                    result = executeCreateConnectClientAddIn(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateConnectionAliasResult> createConnectionAliasAsync(CreateConnectionAliasRequest request) {
+
+        return createConnectionAliasAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateConnectionAliasResult> createConnectionAliasAsync(final CreateConnectionAliasRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateConnectionAliasRequest, CreateConnectionAliasResult> asyncHandler) {
+        final CreateConnectionAliasRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateConnectionAliasResult>() {
+            @Override
+            public CreateConnectionAliasResult call() throws Exception {
+                CreateConnectionAliasResult result = null;
+
+                try {
+                    result = executeCreateConnectionAlias(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateIpGroupResult> createIpGroupAsync(CreateIpGroupRequest request) {
 
         return createIpGroupAsync(request, null);
@@ -363,6 +594,39 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
 
                 try {
                     result = executeCreateIpGroup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateStandbyWorkspacesResult> createStandbyWorkspacesAsync(CreateStandbyWorkspacesRequest request) {
+
+        return createStandbyWorkspacesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateStandbyWorkspacesResult> createStandbyWorkspacesAsync(final CreateStandbyWorkspacesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateStandbyWorkspacesRequest, CreateStandbyWorkspacesResult> asyncHandler) {
+        final CreateStandbyWorkspacesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateStandbyWorkspacesResult>() {
+            @Override
+            public CreateStandbyWorkspacesResult call() throws Exception {
+                CreateStandbyWorkspacesResult result = null;
+
+                try {
+                    result = executeCreateStandbyWorkspaces(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -412,6 +676,105 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<CreateUpdatedWorkspaceImageResult> createUpdatedWorkspaceImageAsync(CreateUpdatedWorkspaceImageRequest request) {
+
+        return createUpdatedWorkspaceImageAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateUpdatedWorkspaceImageResult> createUpdatedWorkspaceImageAsync(final CreateUpdatedWorkspaceImageRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateUpdatedWorkspaceImageRequest, CreateUpdatedWorkspaceImageResult> asyncHandler) {
+        final CreateUpdatedWorkspaceImageRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateUpdatedWorkspaceImageResult>() {
+            @Override
+            public CreateUpdatedWorkspaceImageResult call() throws Exception {
+                CreateUpdatedWorkspaceImageResult result = null;
+
+                try {
+                    result = executeCreateUpdatedWorkspaceImage(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateWorkspaceBundleResult> createWorkspaceBundleAsync(CreateWorkspaceBundleRequest request) {
+
+        return createWorkspaceBundleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateWorkspaceBundleResult> createWorkspaceBundleAsync(final CreateWorkspaceBundleRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateWorkspaceBundleRequest, CreateWorkspaceBundleResult> asyncHandler) {
+        final CreateWorkspaceBundleRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateWorkspaceBundleResult>() {
+            @Override
+            public CreateWorkspaceBundleResult call() throws Exception {
+                CreateWorkspaceBundleResult result = null;
+
+                try {
+                    result = executeCreateWorkspaceBundle(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateWorkspaceImageResult> createWorkspaceImageAsync(CreateWorkspaceImageRequest request) {
+
+        return createWorkspaceImageAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateWorkspaceImageResult> createWorkspaceImageAsync(final CreateWorkspaceImageRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateWorkspaceImageRequest, CreateWorkspaceImageResult> asyncHandler) {
+        final CreateWorkspaceImageRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateWorkspaceImageResult>() {
+            @Override
+            public CreateWorkspaceImageResult call() throws Exception {
+                CreateWorkspaceImageResult result = null;
+
+                try {
+                    result = executeCreateWorkspaceImage(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateWorkspacesResult> createWorkspacesAsync(CreateWorkspacesRequest request) {
 
         return createWorkspacesAsync(request, null);
@@ -429,6 +792,171 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
 
                 try {
                     result = executeCreateWorkspaces(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateWorkspacesPoolResult> createWorkspacesPoolAsync(CreateWorkspacesPoolRequest request) {
+
+        return createWorkspacesPoolAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateWorkspacesPoolResult> createWorkspacesPoolAsync(final CreateWorkspacesPoolRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateWorkspacesPoolRequest, CreateWorkspacesPoolResult> asyncHandler) {
+        final CreateWorkspacesPoolRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateWorkspacesPoolResult>() {
+            @Override
+            public CreateWorkspacesPoolResult call() throws Exception {
+                CreateWorkspacesPoolResult result = null;
+
+                try {
+                    result = executeCreateWorkspacesPool(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAccountLinkInvitationResult> deleteAccountLinkInvitationAsync(DeleteAccountLinkInvitationRequest request) {
+
+        return deleteAccountLinkInvitationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAccountLinkInvitationResult> deleteAccountLinkInvitationAsync(final DeleteAccountLinkInvitationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteAccountLinkInvitationRequest, DeleteAccountLinkInvitationResult> asyncHandler) {
+        final DeleteAccountLinkInvitationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteAccountLinkInvitationResult>() {
+            @Override
+            public DeleteAccountLinkInvitationResult call() throws Exception {
+                DeleteAccountLinkInvitationResult result = null;
+
+                try {
+                    result = executeDeleteAccountLinkInvitation(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteClientBrandingResult> deleteClientBrandingAsync(DeleteClientBrandingRequest request) {
+
+        return deleteClientBrandingAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteClientBrandingResult> deleteClientBrandingAsync(final DeleteClientBrandingRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteClientBrandingRequest, DeleteClientBrandingResult> asyncHandler) {
+        final DeleteClientBrandingRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteClientBrandingResult>() {
+            @Override
+            public DeleteClientBrandingResult call() throws Exception {
+                DeleteClientBrandingResult result = null;
+
+                try {
+                    result = executeDeleteClientBranding(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteConnectClientAddInResult> deleteConnectClientAddInAsync(DeleteConnectClientAddInRequest request) {
+
+        return deleteConnectClientAddInAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteConnectClientAddInResult> deleteConnectClientAddInAsync(final DeleteConnectClientAddInRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteConnectClientAddInRequest, DeleteConnectClientAddInResult> asyncHandler) {
+        final DeleteConnectClientAddInRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteConnectClientAddInResult>() {
+            @Override
+            public DeleteConnectClientAddInResult call() throws Exception {
+                DeleteConnectClientAddInResult result = null;
+
+                try {
+                    result = executeDeleteConnectClientAddIn(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteConnectionAliasResult> deleteConnectionAliasAsync(DeleteConnectionAliasRequest request) {
+
+        return deleteConnectionAliasAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteConnectionAliasResult> deleteConnectionAliasAsync(final DeleteConnectionAliasRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteConnectionAliasRequest, DeleteConnectionAliasResult> asyncHandler) {
+        final DeleteConnectionAliasRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteConnectionAliasResult>() {
+            @Override
+            public DeleteConnectionAliasResult call() throws Exception {
+                DeleteConnectionAliasResult result = null;
+
+                try {
+                    result = executeDeleteConnectionAlias(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -511,6 +1039,39 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteWorkspaceBundleResult> deleteWorkspaceBundleAsync(DeleteWorkspaceBundleRequest request) {
+
+        return deleteWorkspaceBundleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteWorkspaceBundleResult> deleteWorkspaceBundleAsync(final DeleteWorkspaceBundleRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteWorkspaceBundleRequest, DeleteWorkspaceBundleResult> asyncHandler) {
+        final DeleteWorkspaceBundleRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteWorkspaceBundleResult>() {
+            @Override
+            public DeleteWorkspaceBundleResult call() throws Exception {
+                DeleteWorkspaceBundleResult result = null;
+
+                try {
+                    result = executeDeleteWorkspaceBundle(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteWorkspaceImageResult> deleteWorkspaceImageAsync(DeleteWorkspaceImageRequest request) {
 
         return deleteWorkspaceImageAsync(request, null);
@@ -528,6 +1089,72 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
 
                 try {
                     result = executeDeleteWorkspaceImage(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeployWorkspaceApplicationsResult> deployWorkspaceApplicationsAsync(DeployWorkspaceApplicationsRequest request) {
+
+        return deployWorkspaceApplicationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeployWorkspaceApplicationsResult> deployWorkspaceApplicationsAsync(final DeployWorkspaceApplicationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeployWorkspaceApplicationsRequest, DeployWorkspaceApplicationsResult> asyncHandler) {
+        final DeployWorkspaceApplicationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeployWorkspaceApplicationsResult>() {
+            @Override
+            public DeployWorkspaceApplicationsResult call() throws Exception {
+                DeployWorkspaceApplicationsResult result = null;
+
+                try {
+                    result = executeDeployWorkspaceApplications(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeregisterWorkspaceDirectoryResult> deregisterWorkspaceDirectoryAsync(DeregisterWorkspaceDirectoryRequest request) {
+
+        return deregisterWorkspaceDirectoryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeregisterWorkspaceDirectoryResult> deregisterWorkspaceDirectoryAsync(final DeregisterWorkspaceDirectoryRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeregisterWorkspaceDirectoryRequest, DeregisterWorkspaceDirectoryResult> asyncHandler) {
+        final DeregisterWorkspaceDirectoryRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeregisterWorkspaceDirectoryResult>() {
+            @Override
+            public DeregisterWorkspaceDirectoryResult call() throws Exception {
+                DeregisterWorkspaceDirectoryResult result = null;
+
+                try {
+                    result = executeDeregisterWorkspaceDirectory(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -610,6 +1237,140 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeApplicationAssociationsResult> describeApplicationAssociationsAsync(
+            DescribeApplicationAssociationsRequest request) {
+
+        return describeApplicationAssociationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeApplicationAssociationsResult> describeApplicationAssociationsAsync(
+            final DescribeApplicationAssociationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeApplicationAssociationsRequest, DescribeApplicationAssociationsResult> asyncHandler) {
+        final DescribeApplicationAssociationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeApplicationAssociationsResult>() {
+            @Override
+            public DescribeApplicationAssociationsResult call() throws Exception {
+                DescribeApplicationAssociationsResult result = null;
+
+                try {
+                    result = executeDescribeApplicationAssociations(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeApplicationsResult> describeApplicationsAsync(DescribeApplicationsRequest request) {
+
+        return describeApplicationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeApplicationsResult> describeApplicationsAsync(final DescribeApplicationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeApplicationsRequest, DescribeApplicationsResult> asyncHandler) {
+        final DescribeApplicationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeApplicationsResult>() {
+            @Override
+            public DescribeApplicationsResult call() throws Exception {
+                DescribeApplicationsResult result = null;
+
+                try {
+                    result = executeDescribeApplications(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeBundleAssociationsResult> describeBundleAssociationsAsync(DescribeBundleAssociationsRequest request) {
+
+        return describeBundleAssociationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeBundleAssociationsResult> describeBundleAssociationsAsync(final DescribeBundleAssociationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeBundleAssociationsRequest, DescribeBundleAssociationsResult> asyncHandler) {
+        final DescribeBundleAssociationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeBundleAssociationsResult>() {
+            @Override
+            public DescribeBundleAssociationsResult call() throws Exception {
+                DescribeBundleAssociationsResult result = null;
+
+                try {
+                    result = executeDescribeBundleAssociations(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeClientBrandingResult> describeClientBrandingAsync(DescribeClientBrandingRequest request) {
+
+        return describeClientBrandingAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeClientBrandingResult> describeClientBrandingAsync(final DescribeClientBrandingRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeClientBrandingRequest, DescribeClientBrandingResult> asyncHandler) {
+        final DescribeClientBrandingRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeClientBrandingResult>() {
+            @Override
+            public DescribeClientBrandingResult call() throws Exception {
+                DescribeClientBrandingResult result = null;
+
+                try {
+                    result = executeDescribeClientBranding(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeClientPropertiesResult> describeClientPropertiesAsync(DescribeClientPropertiesRequest request) {
 
         return describeClientPropertiesAsync(request, null);
@@ -627,6 +1388,140 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
 
                 try {
                     result = executeDescribeClientProperties(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeConnectClientAddInsResult> describeConnectClientAddInsAsync(DescribeConnectClientAddInsRequest request) {
+
+        return describeConnectClientAddInsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeConnectClientAddInsResult> describeConnectClientAddInsAsync(final DescribeConnectClientAddInsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeConnectClientAddInsRequest, DescribeConnectClientAddInsResult> asyncHandler) {
+        final DescribeConnectClientAddInsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeConnectClientAddInsResult>() {
+            @Override
+            public DescribeConnectClientAddInsResult call() throws Exception {
+                DescribeConnectClientAddInsResult result = null;
+
+                try {
+                    result = executeDescribeConnectClientAddIns(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeConnectionAliasPermissionsResult> describeConnectionAliasPermissionsAsync(
+            DescribeConnectionAliasPermissionsRequest request) {
+
+        return describeConnectionAliasPermissionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeConnectionAliasPermissionsResult> describeConnectionAliasPermissionsAsync(
+            final DescribeConnectionAliasPermissionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeConnectionAliasPermissionsRequest, DescribeConnectionAliasPermissionsResult> asyncHandler) {
+        final DescribeConnectionAliasPermissionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeConnectionAliasPermissionsResult>() {
+            @Override
+            public DescribeConnectionAliasPermissionsResult call() throws Exception {
+                DescribeConnectionAliasPermissionsResult result = null;
+
+                try {
+                    result = executeDescribeConnectionAliasPermissions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeConnectionAliasesResult> describeConnectionAliasesAsync(DescribeConnectionAliasesRequest request) {
+
+        return describeConnectionAliasesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeConnectionAliasesResult> describeConnectionAliasesAsync(final DescribeConnectionAliasesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeConnectionAliasesRequest, DescribeConnectionAliasesResult> asyncHandler) {
+        final DescribeConnectionAliasesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeConnectionAliasesResult>() {
+            @Override
+            public DescribeConnectionAliasesResult call() throws Exception {
+                DescribeConnectionAliasesResult result = null;
+
+                try {
+                    result = executeDescribeConnectionAliases(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeImageAssociationsResult> describeImageAssociationsAsync(DescribeImageAssociationsRequest request) {
+
+        return describeImageAssociationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeImageAssociationsResult> describeImageAssociationsAsync(final DescribeImageAssociationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeImageAssociationsRequest, DescribeImageAssociationsResult> asyncHandler) {
+        final DescribeImageAssociationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeImageAssociationsResult>() {
+            @Override
+            public DescribeImageAssociationsResult call() throws Exception {
+                DescribeImageAssociationsResult result = null;
+
+                try {
+                    result = executeDescribeImageAssociations(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -693,6 +1588,40 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
 
                 try {
                     result = executeDescribeTags(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorkspaceAssociationsResult> describeWorkspaceAssociationsAsync(DescribeWorkspaceAssociationsRequest request) {
+
+        return describeWorkspaceAssociationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorkspaceAssociationsResult> describeWorkspaceAssociationsAsync(
+            final DescribeWorkspaceAssociationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeWorkspaceAssociationsRequest, DescribeWorkspaceAssociationsResult> asyncHandler) {
+        final DescribeWorkspaceAssociationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeWorkspaceAssociationsResult>() {
+            @Override
+            public DescribeWorkspaceAssociationsResult call() throws Exception {
+                DescribeWorkspaceAssociationsResult result = null;
+
+                try {
+                    result = executeDescribeWorkspaceAssociations(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -821,6 +1750,41 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeWorkspaceImagePermissionsResult> describeWorkspaceImagePermissionsAsync(
+            DescribeWorkspaceImagePermissionsRequest request) {
+
+        return describeWorkspaceImagePermissionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorkspaceImagePermissionsResult> describeWorkspaceImagePermissionsAsync(
+            final DescribeWorkspaceImagePermissionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeWorkspaceImagePermissionsRequest, DescribeWorkspaceImagePermissionsResult> asyncHandler) {
+        final DescribeWorkspaceImagePermissionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeWorkspaceImagePermissionsResult>() {
+            @Override
+            public DescribeWorkspaceImagePermissionsResult call() throws Exception {
+                DescribeWorkspaceImagePermissionsResult result = null;
+
+                try {
+                    result = executeDescribeWorkspaceImagePermissions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeWorkspaceImagesResult> describeWorkspaceImagesAsync(DescribeWorkspaceImagesRequest request) {
 
         return describeWorkspaceImagesAsync(request, null);
@@ -838,6 +1802,39 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
 
                 try {
                     result = executeDescribeWorkspaceImages(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorkspaceSnapshotsResult> describeWorkspaceSnapshotsAsync(DescribeWorkspaceSnapshotsRequest request) {
+
+        return describeWorkspaceSnapshotsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorkspaceSnapshotsResult> describeWorkspaceSnapshotsAsync(final DescribeWorkspaceSnapshotsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeWorkspaceSnapshotsRequest, DescribeWorkspaceSnapshotsResult> asyncHandler) {
+        final DescribeWorkspaceSnapshotsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeWorkspaceSnapshotsResult>() {
+            @Override
+            public DescribeWorkspaceSnapshotsResult call() throws Exception {
+                DescribeWorkspaceSnapshotsResult result = null;
+
+                try {
+                    result = executeDescribeWorkspaceSnapshots(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -945,6 +1942,106 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeWorkspacesPoolSessionsResult> describeWorkspacesPoolSessionsAsync(DescribeWorkspacesPoolSessionsRequest request) {
+
+        return describeWorkspacesPoolSessionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorkspacesPoolSessionsResult> describeWorkspacesPoolSessionsAsync(
+            final DescribeWorkspacesPoolSessionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeWorkspacesPoolSessionsRequest, DescribeWorkspacesPoolSessionsResult> asyncHandler) {
+        final DescribeWorkspacesPoolSessionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeWorkspacesPoolSessionsResult>() {
+            @Override
+            public DescribeWorkspacesPoolSessionsResult call() throws Exception {
+                DescribeWorkspacesPoolSessionsResult result = null;
+
+                try {
+                    result = executeDescribeWorkspacesPoolSessions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorkspacesPoolsResult> describeWorkspacesPoolsAsync(DescribeWorkspacesPoolsRequest request) {
+
+        return describeWorkspacesPoolsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorkspacesPoolsResult> describeWorkspacesPoolsAsync(final DescribeWorkspacesPoolsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeWorkspacesPoolsRequest, DescribeWorkspacesPoolsResult> asyncHandler) {
+        final DescribeWorkspacesPoolsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeWorkspacesPoolsResult>() {
+            @Override
+            public DescribeWorkspacesPoolsResult call() throws Exception {
+                DescribeWorkspacesPoolsResult result = null;
+
+                try {
+                    result = executeDescribeWorkspacesPools(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateConnectionAliasResult> disassociateConnectionAliasAsync(DisassociateConnectionAliasRequest request) {
+
+        return disassociateConnectionAliasAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateConnectionAliasResult> disassociateConnectionAliasAsync(final DisassociateConnectionAliasRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisassociateConnectionAliasRequest, DisassociateConnectionAliasResult> asyncHandler) {
+        final DisassociateConnectionAliasRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisassociateConnectionAliasResult>() {
+            @Override
+            public DisassociateConnectionAliasResult call() throws Exception {
+                DisassociateConnectionAliasResult result = null;
+
+                try {
+                    result = executeDisassociateConnectionAlias(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DisassociateIpGroupsResult> disassociateIpGroupsAsync(DisassociateIpGroupsRequest request) {
 
         return disassociateIpGroupsAsync(request, null);
@@ -978,6 +2075,107 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DisassociateWorkspaceApplicationResult> disassociateWorkspaceApplicationAsync(
+            DisassociateWorkspaceApplicationRequest request) {
+
+        return disassociateWorkspaceApplicationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateWorkspaceApplicationResult> disassociateWorkspaceApplicationAsync(
+            final DisassociateWorkspaceApplicationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisassociateWorkspaceApplicationRequest, DisassociateWorkspaceApplicationResult> asyncHandler) {
+        final DisassociateWorkspaceApplicationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisassociateWorkspaceApplicationResult>() {
+            @Override
+            public DisassociateWorkspaceApplicationResult call() throws Exception {
+                DisassociateWorkspaceApplicationResult result = null;
+
+                try {
+                    result = executeDisassociateWorkspaceApplication(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetAccountLinkResult> getAccountLinkAsync(GetAccountLinkRequest request) {
+
+        return getAccountLinkAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetAccountLinkResult> getAccountLinkAsync(final GetAccountLinkRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetAccountLinkRequest, GetAccountLinkResult> asyncHandler) {
+        final GetAccountLinkRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetAccountLinkResult>() {
+            @Override
+            public GetAccountLinkResult call() throws Exception {
+                GetAccountLinkResult result = null;
+
+                try {
+                    result = executeGetAccountLink(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ImportClientBrandingResult> importClientBrandingAsync(ImportClientBrandingRequest request) {
+
+        return importClientBrandingAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ImportClientBrandingResult> importClientBrandingAsync(final ImportClientBrandingRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ImportClientBrandingRequest, ImportClientBrandingResult> asyncHandler) {
+        final ImportClientBrandingRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ImportClientBrandingResult>() {
+            @Override
+            public ImportClientBrandingResult call() throws Exception {
+                ImportClientBrandingResult result = null;
+
+                try {
+                    result = executeImportClientBranding(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ImportWorkspaceImageResult> importWorkspaceImageAsync(ImportWorkspaceImageRequest request) {
 
         return importWorkspaceImageAsync(request, null);
@@ -995,6 +2193,39 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
 
                 try {
                     result = executeImportWorkspaceImage(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAccountLinksResult> listAccountLinksAsync(ListAccountLinksRequest request) {
+
+        return listAccountLinksAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAccountLinksResult> listAccountLinksAsync(final ListAccountLinksRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListAccountLinksRequest, ListAccountLinksResult> asyncHandler) {
+        final ListAccountLinksRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListAccountLinksResult>() {
+            @Override
+            public ListAccountLinksResult call() throws Exception {
+                ListAccountLinksResult result = null;
+
+                try {
+                    result = executeListAccountLinks(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1046,6 +2277,39 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<MigrateWorkspaceResult> migrateWorkspaceAsync(MigrateWorkspaceRequest request) {
+
+        return migrateWorkspaceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<MigrateWorkspaceResult> migrateWorkspaceAsync(final MigrateWorkspaceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<MigrateWorkspaceRequest, MigrateWorkspaceResult> asyncHandler) {
+        final MigrateWorkspaceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<MigrateWorkspaceResult>() {
+            @Override
+            public MigrateWorkspaceResult call() throws Exception {
+                MigrateWorkspaceResult result = null;
+
+                try {
+                    result = executeMigrateWorkspace(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ModifyAccountResult> modifyAccountAsync(ModifyAccountRequest request) {
 
         return modifyAccountAsync(request, null);
@@ -1079,6 +2343,41 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<ModifyCertificateBasedAuthPropertiesResult> modifyCertificateBasedAuthPropertiesAsync(
+            ModifyCertificateBasedAuthPropertiesRequest request) {
+
+        return modifyCertificateBasedAuthPropertiesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyCertificateBasedAuthPropertiesResult> modifyCertificateBasedAuthPropertiesAsync(
+            final ModifyCertificateBasedAuthPropertiesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyCertificateBasedAuthPropertiesRequest, ModifyCertificateBasedAuthPropertiesResult> asyncHandler) {
+        final ModifyCertificateBasedAuthPropertiesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyCertificateBasedAuthPropertiesResult>() {
+            @Override
+            public ModifyCertificateBasedAuthPropertiesResult call() throws Exception {
+                ModifyCertificateBasedAuthPropertiesResult result = null;
+
+                try {
+                    result = executeModifyCertificateBasedAuthProperties(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ModifyClientPropertiesResult> modifyClientPropertiesAsync(ModifyClientPropertiesRequest request) {
 
         return modifyClientPropertiesAsync(request, null);
@@ -1096,6 +2395,175 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
 
                 try {
                     result = executeModifyClientProperties(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifySamlPropertiesResult> modifySamlPropertiesAsync(ModifySamlPropertiesRequest request) {
+
+        return modifySamlPropertiesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifySamlPropertiesResult> modifySamlPropertiesAsync(final ModifySamlPropertiesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifySamlPropertiesRequest, ModifySamlPropertiesResult> asyncHandler) {
+        final ModifySamlPropertiesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifySamlPropertiesResult>() {
+            @Override
+            public ModifySamlPropertiesResult call() throws Exception {
+                ModifySamlPropertiesResult result = null;
+
+                try {
+                    result = executeModifySamlProperties(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifySelfservicePermissionsResult> modifySelfservicePermissionsAsync(ModifySelfservicePermissionsRequest request) {
+
+        return modifySelfservicePermissionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifySelfservicePermissionsResult> modifySelfservicePermissionsAsync(final ModifySelfservicePermissionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifySelfservicePermissionsRequest, ModifySelfservicePermissionsResult> asyncHandler) {
+        final ModifySelfservicePermissionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifySelfservicePermissionsResult>() {
+            @Override
+            public ModifySelfservicePermissionsResult call() throws Exception {
+                ModifySelfservicePermissionsResult result = null;
+
+                try {
+                    result = executeModifySelfservicePermissions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyStreamingPropertiesResult> modifyStreamingPropertiesAsync(ModifyStreamingPropertiesRequest request) {
+
+        return modifyStreamingPropertiesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyStreamingPropertiesResult> modifyStreamingPropertiesAsync(final ModifyStreamingPropertiesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyStreamingPropertiesRequest, ModifyStreamingPropertiesResult> asyncHandler) {
+        final ModifyStreamingPropertiesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyStreamingPropertiesResult>() {
+            @Override
+            public ModifyStreamingPropertiesResult call() throws Exception {
+                ModifyStreamingPropertiesResult result = null;
+
+                try {
+                    result = executeModifyStreamingProperties(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyWorkspaceAccessPropertiesResult> modifyWorkspaceAccessPropertiesAsync(
+            ModifyWorkspaceAccessPropertiesRequest request) {
+
+        return modifyWorkspaceAccessPropertiesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyWorkspaceAccessPropertiesResult> modifyWorkspaceAccessPropertiesAsync(
+            final ModifyWorkspaceAccessPropertiesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyWorkspaceAccessPropertiesRequest, ModifyWorkspaceAccessPropertiesResult> asyncHandler) {
+        final ModifyWorkspaceAccessPropertiesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyWorkspaceAccessPropertiesResult>() {
+            @Override
+            public ModifyWorkspaceAccessPropertiesResult call() throws Exception {
+                ModifyWorkspaceAccessPropertiesResult result = null;
+
+                try {
+                    result = executeModifyWorkspaceAccessProperties(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyWorkspaceCreationPropertiesResult> modifyWorkspaceCreationPropertiesAsync(
+            ModifyWorkspaceCreationPropertiesRequest request) {
+
+        return modifyWorkspaceCreationPropertiesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyWorkspaceCreationPropertiesResult> modifyWorkspaceCreationPropertiesAsync(
+            final ModifyWorkspaceCreationPropertiesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyWorkspaceCreationPropertiesRequest, ModifyWorkspaceCreationPropertiesResult> asyncHandler) {
+        final ModifyWorkspaceCreationPropertiesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyWorkspaceCreationPropertiesResult>() {
+            @Override
+            public ModifyWorkspaceCreationPropertiesResult call() throws Exception {
+                ModifyWorkspaceCreationPropertiesResult result = null;
+
+                try {
+                    result = executeModifyWorkspaceCreationProperties(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1244,6 +2712,105 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<RegisterWorkspaceDirectoryResult> registerWorkspaceDirectoryAsync(RegisterWorkspaceDirectoryRequest request) {
+
+        return registerWorkspaceDirectoryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RegisterWorkspaceDirectoryResult> registerWorkspaceDirectoryAsync(final RegisterWorkspaceDirectoryRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RegisterWorkspaceDirectoryRequest, RegisterWorkspaceDirectoryResult> asyncHandler) {
+        final RegisterWorkspaceDirectoryRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RegisterWorkspaceDirectoryResult>() {
+            @Override
+            public RegisterWorkspaceDirectoryResult call() throws Exception {
+                RegisterWorkspaceDirectoryResult result = null;
+
+                try {
+                    result = executeRegisterWorkspaceDirectory(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RejectAccountLinkInvitationResult> rejectAccountLinkInvitationAsync(RejectAccountLinkInvitationRequest request) {
+
+        return rejectAccountLinkInvitationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RejectAccountLinkInvitationResult> rejectAccountLinkInvitationAsync(final RejectAccountLinkInvitationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RejectAccountLinkInvitationRequest, RejectAccountLinkInvitationResult> asyncHandler) {
+        final RejectAccountLinkInvitationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RejectAccountLinkInvitationResult>() {
+            @Override
+            public RejectAccountLinkInvitationResult call() throws Exception {
+                RejectAccountLinkInvitationResult result = null;
+
+                try {
+                    result = executeRejectAccountLinkInvitation(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RestoreWorkspaceResult> restoreWorkspaceAsync(RestoreWorkspaceRequest request) {
+
+        return restoreWorkspaceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RestoreWorkspaceResult> restoreWorkspaceAsync(final RestoreWorkspaceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RestoreWorkspaceRequest, RestoreWorkspaceResult> asyncHandler) {
+        final RestoreWorkspaceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RestoreWorkspaceResult>() {
+            @Override
+            public RestoreWorkspaceResult call() throws Exception {
+                RestoreWorkspaceResult result = null;
+
+                try {
+                    result = executeRestoreWorkspace(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<RevokeIpRulesResult> revokeIpRulesAsync(RevokeIpRulesRequest request) {
 
         return revokeIpRulesAsync(request, null);
@@ -1310,6 +2877,39 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<StartWorkspacesPoolResult> startWorkspacesPoolAsync(StartWorkspacesPoolRequest request) {
+
+        return startWorkspacesPoolAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartWorkspacesPoolResult> startWorkspacesPoolAsync(final StartWorkspacesPoolRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartWorkspacesPoolRequest, StartWorkspacesPoolResult> asyncHandler) {
+        final StartWorkspacesPoolRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartWorkspacesPoolResult>() {
+            @Override
+            public StartWorkspacesPoolResult call() throws Exception {
+                StartWorkspacesPoolResult result = null;
+
+                try {
+                    result = executeStartWorkspacesPool(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<StopWorkspacesResult> stopWorkspacesAsync(StopWorkspacesRequest request) {
 
         return stopWorkspacesAsync(request, null);
@@ -1327,6 +2927,39 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
 
                 try {
                     result = executeStopWorkspaces(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopWorkspacesPoolResult> stopWorkspacesPoolAsync(StopWorkspacesPoolRequest request) {
+
+        return stopWorkspacesPoolAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopWorkspacesPoolResult> stopWorkspacesPoolAsync(final StopWorkspacesPoolRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StopWorkspacesPoolRequest, StopWorkspacesPoolResult> asyncHandler) {
+        final StopWorkspacesPoolRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StopWorkspacesPoolResult>() {
+            @Override
+            public StopWorkspacesPoolResult call() throws Exception {
+                StopWorkspacesPoolResult result = null;
+
+                try {
+                    result = executeStopWorkspacesPool(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1376,6 +3009,141 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<TerminateWorkspacesPoolResult> terminateWorkspacesPoolAsync(TerminateWorkspacesPoolRequest request) {
+
+        return terminateWorkspacesPoolAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TerminateWorkspacesPoolResult> terminateWorkspacesPoolAsync(final TerminateWorkspacesPoolRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TerminateWorkspacesPoolRequest, TerminateWorkspacesPoolResult> asyncHandler) {
+        final TerminateWorkspacesPoolRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TerminateWorkspacesPoolResult>() {
+            @Override
+            public TerminateWorkspacesPoolResult call() throws Exception {
+                TerminateWorkspacesPoolResult result = null;
+
+                try {
+                    result = executeTerminateWorkspacesPool(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<TerminateWorkspacesPoolSessionResult> terminateWorkspacesPoolSessionAsync(TerminateWorkspacesPoolSessionRequest request) {
+
+        return terminateWorkspacesPoolSessionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TerminateWorkspacesPoolSessionResult> terminateWorkspacesPoolSessionAsync(
+            final TerminateWorkspacesPoolSessionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TerminateWorkspacesPoolSessionRequest, TerminateWorkspacesPoolSessionResult> asyncHandler) {
+        final TerminateWorkspacesPoolSessionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TerminateWorkspacesPoolSessionResult>() {
+            @Override
+            public TerminateWorkspacesPoolSessionResult call() throws Exception {
+                TerminateWorkspacesPoolSessionResult result = null;
+
+                try {
+                    result = executeTerminateWorkspacesPoolSession(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateConnectClientAddInResult> updateConnectClientAddInAsync(UpdateConnectClientAddInRequest request) {
+
+        return updateConnectClientAddInAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateConnectClientAddInResult> updateConnectClientAddInAsync(final UpdateConnectClientAddInRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateConnectClientAddInRequest, UpdateConnectClientAddInResult> asyncHandler) {
+        final UpdateConnectClientAddInRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateConnectClientAddInResult>() {
+            @Override
+            public UpdateConnectClientAddInResult call() throws Exception {
+                UpdateConnectClientAddInResult result = null;
+
+                try {
+                    result = executeUpdateConnectClientAddIn(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateConnectionAliasPermissionResult> updateConnectionAliasPermissionAsync(
+            UpdateConnectionAliasPermissionRequest request) {
+
+        return updateConnectionAliasPermissionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateConnectionAliasPermissionResult> updateConnectionAliasPermissionAsync(
+            final UpdateConnectionAliasPermissionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateConnectionAliasPermissionRequest, UpdateConnectionAliasPermissionResult> asyncHandler) {
+        final UpdateConnectionAliasPermissionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateConnectionAliasPermissionResult>() {
+            @Override
+            public UpdateConnectionAliasPermissionResult call() throws Exception {
+                UpdateConnectionAliasPermissionResult result = null;
+
+                try {
+                    result = executeUpdateConnectionAliasPermission(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateRulesOfIpGroupResult> updateRulesOfIpGroupAsync(UpdateRulesOfIpGroupRequest request) {
 
         return updateRulesOfIpGroupAsync(request, null);
@@ -1393,6 +3161,106 @@ public class AmazonWorkspacesAsyncClient extends AmazonWorkspacesClient implemen
 
                 try {
                     result = executeUpdateRulesOfIpGroup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateWorkspaceBundleResult> updateWorkspaceBundleAsync(UpdateWorkspaceBundleRequest request) {
+
+        return updateWorkspaceBundleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateWorkspaceBundleResult> updateWorkspaceBundleAsync(final UpdateWorkspaceBundleRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateWorkspaceBundleRequest, UpdateWorkspaceBundleResult> asyncHandler) {
+        final UpdateWorkspaceBundleRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateWorkspaceBundleResult>() {
+            @Override
+            public UpdateWorkspaceBundleResult call() throws Exception {
+                UpdateWorkspaceBundleResult result = null;
+
+                try {
+                    result = executeUpdateWorkspaceBundle(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateWorkspaceImagePermissionResult> updateWorkspaceImagePermissionAsync(UpdateWorkspaceImagePermissionRequest request) {
+
+        return updateWorkspaceImagePermissionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateWorkspaceImagePermissionResult> updateWorkspaceImagePermissionAsync(
+            final UpdateWorkspaceImagePermissionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateWorkspaceImagePermissionRequest, UpdateWorkspaceImagePermissionResult> asyncHandler) {
+        final UpdateWorkspaceImagePermissionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateWorkspaceImagePermissionResult>() {
+            @Override
+            public UpdateWorkspaceImagePermissionResult call() throws Exception {
+                UpdateWorkspaceImagePermissionResult result = null;
+
+                try {
+                    result = executeUpdateWorkspaceImagePermission(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateWorkspacesPoolResult> updateWorkspacesPoolAsync(UpdateWorkspacesPoolRequest request) {
+
+        return updateWorkspacesPoolAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateWorkspacesPoolResult> updateWorkspacesPoolAsync(final UpdateWorkspacesPoolRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateWorkspacesPoolRequest, UpdateWorkspacesPoolResult> asyncHandler) {
+        final UpdateWorkspacesPoolRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateWorkspacesPoolResult>() {
+            @Override
+            public UpdateWorkspacesPoolResult call() throws Exception {
+                UpdateWorkspacesPoolResult result = null;
+
+                try {
+                    result = executeUpdateWorkspacesPool(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

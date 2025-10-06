@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,20 +25,18 @@ import java.util.concurrent.ExecutorService;
  * representing the asynchronous operation; overloads which accept an {@code AsyncHandler} can be used to receive
  * notification when an asynchronous operation completes.
  * <p>
- * <fullname>Amazon CloudWatch Application Insights for .NET and SQL Server</fullname>
+ * <fullname>Amazon CloudWatch Application Insights</fullname>
  * <p>
- * Amazon CloudWatch Application Insights for .NET and SQL Server is a service that helps you detect common problems
- * with your .NET and SQL Server-based applications. It enables you to pinpoint the source of issues in your
- * applications (built with technologies such as Microsoft IIS, .NET, and Microsoft SQL Server), by providing key
- * insights into detected problems.
+ * Amazon CloudWatch Application Insights is a service that helps you detect common problems with your applications. It
+ * enables you to pinpoint the source of issues in your applications (built with technologies such as Microsoft IIS,
+ * .NET, and Microsoft SQL Server), by providing key insights into detected problems.
  * </p>
  * <p>
- * After you onboard your application, CloudWatch Application Insights for .NET and SQL Server identifies, recommends,
- * and sets up metrics and logs. It continuously analyzes and correlates your metrics and logs for unusual behavior to
- * surface actionable problems with your application. For example, if your application is slow and unresponsive and
- * leading to HTTP 500 errors in your Application Load Balancer (ALB), Application Insights informs you that a memory
- * pressure problem with your SQL Server database is occurring. It bases this analysis on impactful metrics and log
- * errors.
+ * After you onboard your application, CloudWatch Application Insights identifies, recommends, and sets up metrics and
+ * logs. It continuously analyzes and correlates your metrics and logs for unusual behavior to surface actionable
+ * problems with your application. For example, if your application is slow and unresponsive and leading to HTTP 500
+ * errors in your Application Load Balancer (ALB), Application Insights informs you that a memory pressure problem with
+ * your SQL Server database is occurring. It bases this analysis on impactful metrics and log errors.
  * </p>
  */
 @ThreadSafe
@@ -61,7 +59,20 @@ public class AmazonApplicationInsightsAsyncClient extends AmazonApplicationInsig
      *        Object providing client parameters.
      */
     AmazonApplicationInsightsAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Application Insights using the specified
+     * parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonApplicationInsightsAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -72,6 +83,39 @@ public class AmazonApplicationInsightsAsyncClient extends AmazonApplicationInsig
      */
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public java.util.concurrent.Future<AddWorkloadResult> addWorkloadAsync(AddWorkloadRequest request) {
+
+        return addWorkloadAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AddWorkloadResult> addWorkloadAsync(final AddWorkloadRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AddWorkloadRequest, AddWorkloadResult> asyncHandler) {
+        final AddWorkloadRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AddWorkloadResult>() {
+            @Override
+            public AddWorkloadResult call() throws Exception {
+                AddWorkloadResult result = null;
+
+                try {
+                    result = executeAddWorkload(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -141,6 +185,39 @@ public class AmazonApplicationInsightsAsyncClient extends AmazonApplicationInsig
     }
 
     @Override
+    public java.util.concurrent.Future<CreateLogPatternResult> createLogPatternAsync(CreateLogPatternRequest request) {
+
+        return createLogPatternAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLogPatternResult> createLogPatternAsync(final CreateLogPatternRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateLogPatternRequest, CreateLogPatternResult> asyncHandler) {
+        final CreateLogPatternRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateLogPatternResult>() {
+            @Override
+            public CreateLogPatternResult call() throws Exception {
+                CreateLogPatternResult result = null;
+
+                try {
+                    result = executeCreateLogPattern(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteApplicationResult> deleteApplicationAsync(DeleteApplicationRequest request) {
 
         return deleteApplicationAsync(request, null);
@@ -191,6 +268,39 @@ public class AmazonApplicationInsightsAsyncClient extends AmazonApplicationInsig
 
                 try {
                     result = executeDeleteComponent(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteLogPatternResult> deleteLogPatternAsync(DeleteLogPatternRequest request) {
+
+        return deleteLogPatternAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteLogPatternResult> deleteLogPatternAsync(final DeleteLogPatternRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteLogPatternRequest, DeleteLogPatternResult> asyncHandler) {
+        final DeleteLogPatternRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteLogPatternResult>() {
+            @Override
+            public DeleteLogPatternResult call() throws Exception {
+                DeleteLogPatternResult result = null;
+
+                try {
+                    result = executeDeleteLogPattern(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -342,6 +452,39 @@ public class AmazonApplicationInsightsAsyncClient extends AmazonApplicationInsig
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeLogPatternResult> describeLogPatternAsync(DescribeLogPatternRequest request) {
+
+        return describeLogPatternAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeLogPatternResult> describeLogPatternAsync(final DescribeLogPatternRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeLogPatternRequest, DescribeLogPatternResult> asyncHandler) {
+        final DescribeLogPatternRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeLogPatternResult>() {
+            @Override
+            public DescribeLogPatternResult call() throws Exception {
+                DescribeLogPatternResult result = null;
+
+                try {
+                    result = executeDescribeLogPattern(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeObservationResult> describeObservationAsync(DescribeObservationRequest request) {
 
         return describeObservationAsync(request, null);
@@ -441,6 +584,39 @@ public class AmazonApplicationInsightsAsyncClient extends AmazonApplicationInsig
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeWorkloadResult> describeWorkloadAsync(DescribeWorkloadRequest request) {
+
+        return describeWorkloadAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorkloadResult> describeWorkloadAsync(final DescribeWorkloadRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeWorkloadRequest, DescribeWorkloadResult> asyncHandler) {
+        final DescribeWorkloadRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeWorkloadResult>() {
+            @Override
+            public DescribeWorkloadResult call() throws Exception {
+                DescribeWorkloadResult result = null;
+
+                try {
+                    result = executeDescribeWorkload(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListApplicationsResult> listApplicationsAsync(ListApplicationsRequest request) {
 
         return listApplicationsAsync(request, null);
@@ -507,6 +683,105 @@ public class AmazonApplicationInsightsAsyncClient extends AmazonApplicationInsig
     }
 
     @Override
+    public java.util.concurrent.Future<ListConfigurationHistoryResult> listConfigurationHistoryAsync(ListConfigurationHistoryRequest request) {
+
+        return listConfigurationHistoryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListConfigurationHistoryResult> listConfigurationHistoryAsync(final ListConfigurationHistoryRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListConfigurationHistoryRequest, ListConfigurationHistoryResult> asyncHandler) {
+        final ListConfigurationHistoryRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListConfigurationHistoryResult>() {
+            @Override
+            public ListConfigurationHistoryResult call() throws Exception {
+                ListConfigurationHistoryResult result = null;
+
+                try {
+                    result = executeListConfigurationHistory(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListLogPatternSetsResult> listLogPatternSetsAsync(ListLogPatternSetsRequest request) {
+
+        return listLogPatternSetsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListLogPatternSetsResult> listLogPatternSetsAsync(final ListLogPatternSetsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListLogPatternSetsRequest, ListLogPatternSetsResult> asyncHandler) {
+        final ListLogPatternSetsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListLogPatternSetsResult>() {
+            @Override
+            public ListLogPatternSetsResult call() throws Exception {
+                ListLogPatternSetsResult result = null;
+
+                try {
+                    result = executeListLogPatternSets(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListLogPatternsResult> listLogPatternsAsync(ListLogPatternsRequest request) {
+
+        return listLogPatternsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListLogPatternsResult> listLogPatternsAsync(final ListLogPatternsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListLogPatternsRequest, ListLogPatternsResult> asyncHandler) {
+        final ListLogPatternsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListLogPatternsResult>() {
+            @Override
+            public ListLogPatternsResult call() throws Exception {
+                ListLogPatternsResult result = null;
+
+                try {
+                    result = executeListLogPatterns(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListProblemsResult> listProblemsAsync(ListProblemsRequest request) {
 
         return listProblemsAsync(request, null);
@@ -524,6 +799,171 @@ public class AmazonApplicationInsightsAsyncClient extends AmazonApplicationInsig
 
                 try {
                     result = executeListProblems(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(final ListTagsForResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+        final ListTagsForResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListTagsForResourceResult>() {
+            @Override
+            public ListTagsForResourceResult call() throws Exception {
+                ListTagsForResourceResult result = null;
+
+                try {
+                    result = executeListTagsForResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListWorkloadsResult> listWorkloadsAsync(ListWorkloadsRequest request) {
+
+        return listWorkloadsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListWorkloadsResult> listWorkloadsAsync(final ListWorkloadsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListWorkloadsRequest, ListWorkloadsResult> asyncHandler) {
+        final ListWorkloadsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListWorkloadsResult>() {
+            @Override
+            public ListWorkloadsResult call() throws Exception {
+                ListWorkloadsResult result = null;
+
+                try {
+                    result = executeListWorkloads(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RemoveWorkloadResult> removeWorkloadAsync(RemoveWorkloadRequest request) {
+
+        return removeWorkloadAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RemoveWorkloadResult> removeWorkloadAsync(final RemoveWorkloadRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RemoveWorkloadRequest, RemoveWorkloadResult> asyncHandler) {
+        final RemoveWorkloadRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RemoveWorkloadResult>() {
+            @Override
+            public RemoveWorkloadResult call() throws Exception {
+                RemoveWorkloadResult result = null;
+
+                try {
+                    result = executeRemoveWorkload(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(final TagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+        final TagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TagResourceResult>() {
+            @Override
+            public TagResourceResult call() throws Exception {
+                TagResourceResult result = null;
+
+                try {
+                    result = executeTagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(final UntagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+        final UntagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UntagResourceResult>() {
+            @Override
+            public UntagResourceResult call() throws Exception {
+                UntagResourceResult result = null;
+
+                try {
+                    result = executeUntagResource(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -623,6 +1063,105 @@ public class AmazonApplicationInsightsAsyncClient extends AmazonApplicationInsig
 
                 try {
                     result = executeUpdateComponentConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateLogPatternResult> updateLogPatternAsync(UpdateLogPatternRequest request) {
+
+        return updateLogPatternAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateLogPatternResult> updateLogPatternAsync(final UpdateLogPatternRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateLogPatternRequest, UpdateLogPatternResult> asyncHandler) {
+        final UpdateLogPatternRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateLogPatternResult>() {
+            @Override
+            public UpdateLogPatternResult call() throws Exception {
+                UpdateLogPatternResult result = null;
+
+                try {
+                    result = executeUpdateLogPattern(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateProblemResult> updateProblemAsync(UpdateProblemRequest request) {
+
+        return updateProblemAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateProblemResult> updateProblemAsync(final UpdateProblemRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateProblemRequest, UpdateProblemResult> asyncHandler) {
+        final UpdateProblemRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateProblemResult>() {
+            @Override
+            public UpdateProblemResult call() throws Exception {
+                UpdateProblemResult result = null;
+
+                try {
+                    result = executeUpdateProblem(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateWorkloadResult> updateWorkloadAsync(UpdateWorkloadRequest request) {
+
+        return updateWorkloadAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateWorkloadResult> updateWorkloadAsync(final UpdateWorkloadRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateWorkloadRequest, UpdateWorkloadResult> asyncHandler) {
+        final UpdateWorkloadRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateWorkloadResult>() {
+            @Override
+            public UpdateWorkloadResult call() throws Exception {
+                UpdateWorkloadResult result = null;
+
+                try {
+                    result = executeUpdateWorkload(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

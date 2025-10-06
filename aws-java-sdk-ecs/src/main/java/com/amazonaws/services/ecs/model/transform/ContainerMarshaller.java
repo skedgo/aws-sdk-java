@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,6 +34,12 @@ public class ContainerMarshaller {
             .marshallLocationName("taskArn").build();
     private static final MarshallingInfo<String> NAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("name").build();
+    private static final MarshallingInfo<String> IMAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("image").build();
+    private static final MarshallingInfo<String> IMAGEDIGEST_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("imageDigest").build();
+    private static final MarshallingInfo<String> RUNTIMEID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("runtimeId").build();
     private static final MarshallingInfo<String> LASTSTATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("lastStatus").build();
     private static final MarshallingInfo<Integer> EXITCODE_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
@@ -46,6 +52,8 @@ public class ContainerMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("networkInterfaces").build();
     private static final MarshallingInfo<String> HEALTHSTATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("healthStatus").build();
+    private static final MarshallingInfo<List> MANAGEDAGENTS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("managedAgents").build();
     private static final MarshallingInfo<String> CPU_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("cpu").build();
     private static final MarshallingInfo<String> MEMORY_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -74,12 +82,16 @@ public class ContainerMarshaller {
             protocolMarshaller.marshall(container.getContainerArn(), CONTAINERARN_BINDING);
             protocolMarshaller.marshall(container.getTaskArn(), TASKARN_BINDING);
             protocolMarshaller.marshall(container.getName(), NAME_BINDING);
+            protocolMarshaller.marshall(container.getImage(), IMAGE_BINDING);
+            protocolMarshaller.marshall(container.getImageDigest(), IMAGEDIGEST_BINDING);
+            protocolMarshaller.marshall(container.getRuntimeId(), RUNTIMEID_BINDING);
             protocolMarshaller.marshall(container.getLastStatus(), LASTSTATUS_BINDING);
             protocolMarshaller.marshall(container.getExitCode(), EXITCODE_BINDING);
             protocolMarshaller.marshall(container.getReason(), REASON_BINDING);
             protocolMarshaller.marshall(container.getNetworkBindings(), NETWORKBINDINGS_BINDING);
             protocolMarshaller.marshall(container.getNetworkInterfaces(), NETWORKINTERFACES_BINDING);
             protocolMarshaller.marshall(container.getHealthStatus(), HEALTHSTATUS_BINDING);
+            protocolMarshaller.marshall(container.getManagedAgents(), MANAGEDAGENTS_BINDING);
             protocolMarshaller.marshall(container.getCpu(), CPU_BINDING);
             protocolMarshaller.marshall(container.getMemory(), MEMORY_BINDING);
             protocolMarshaller.marshall(container.getMemoryReservation(), MEMORYRESERVATION_BINDING);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,12 +27,16 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class DashManifestMarshaller {
 
+    private static final MarshallingInfo<String> MANIFESTLAYOUT_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("manifestLayout").build();
     private static final MarshallingInfo<String> MANIFESTNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("manifestName").build();
     private static final MarshallingInfo<Integer> MINBUFFERTIMESECONDS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("minBufferTimeSeconds").build();
     private static final MarshallingInfo<String> PROFILE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("profile").build();
+    private static final MarshallingInfo<String> SCTEMARKERSSOURCE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("scteMarkersSource").build();
     private static final MarshallingInfo<StructuredPojo> STREAMSELECTION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("streamSelection").build();
 
@@ -52,9 +56,11 @@ public class DashManifestMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(dashManifest.getManifestLayout(), MANIFESTLAYOUT_BINDING);
             protocolMarshaller.marshall(dashManifest.getManifestName(), MANIFESTNAME_BINDING);
             protocolMarshaller.marshall(dashManifest.getMinBufferTimeSeconds(), MINBUFFERTIMESECONDS_BINDING);
             protocolMarshaller.marshall(dashManifest.getProfile(), PROFILE_BINDING);
+            protocolMarshaller.marshall(dashManifest.getScteMarkersSource(), SCTEMARKERSSOURCE_BINDING);
             protocolMarshaller.marshall(dashManifest.getStreamSelection(), STREAMSELECTION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);

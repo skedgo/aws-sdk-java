@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,13 +36,13 @@ public class CreateNetworkInterfacePermissionRequest extends AmazonWebServiceReq
     private String networkInterfaceId;
     /**
      * <p>
-     * The AWS account ID.
+     * The Amazon Web Services account ID.
      * </p>
      */
     private String awsAccountId;
     /**
      * <p>
-     * The AWS service. Currently not supported.
+     * The Amazon Web Service. Currently not supported.
      * </p>
      */
     private String awsService;
@@ -95,11 +95,11 @@ public class CreateNetworkInterfacePermissionRequest extends AmazonWebServiceReq
 
     /**
      * <p>
-     * The AWS account ID.
+     * The Amazon Web Services account ID.
      * </p>
      * 
      * @param awsAccountId
-     *        The AWS account ID.
+     *        The Amazon Web Services account ID.
      */
 
     public void setAwsAccountId(String awsAccountId) {
@@ -108,10 +108,10 @@ public class CreateNetworkInterfacePermissionRequest extends AmazonWebServiceReq
 
     /**
      * <p>
-     * The AWS account ID.
+     * The Amazon Web Services account ID.
      * </p>
      * 
-     * @return The AWS account ID.
+     * @return The Amazon Web Services account ID.
      */
 
     public String getAwsAccountId() {
@@ -120,11 +120,11 @@ public class CreateNetworkInterfacePermissionRequest extends AmazonWebServiceReq
 
     /**
      * <p>
-     * The AWS account ID.
+     * The Amazon Web Services account ID.
      * </p>
      * 
      * @param awsAccountId
-     *        The AWS account ID.
+     *        The Amazon Web Services account ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -135,11 +135,11 @@ public class CreateNetworkInterfacePermissionRequest extends AmazonWebServiceReq
 
     /**
      * <p>
-     * The AWS service. Currently not supported.
+     * The Amazon Web Service. Currently not supported.
      * </p>
      * 
      * @param awsService
-     *        The AWS service. Currently not supported.
+     *        The Amazon Web Service. Currently not supported.
      */
 
     public void setAwsService(String awsService) {
@@ -148,10 +148,10 @@ public class CreateNetworkInterfacePermissionRequest extends AmazonWebServiceReq
 
     /**
      * <p>
-     * The AWS service. Currently not supported.
+     * The Amazon Web Service. Currently not supported.
      * </p>
      * 
-     * @return The AWS service. Currently not supported.
+     * @return The Amazon Web Service. Currently not supported.
      */
 
     public String getAwsService() {
@@ -160,11 +160,11 @@ public class CreateNetworkInterfacePermissionRequest extends AmazonWebServiceReq
 
     /**
      * <p>
-     * The AWS service. Currently not supported.
+     * The Amazon Web Service. Currently not supported.
      * </p>
      * 
      * @param awsService
-     *        The AWS service. Currently not supported.
+     *        The Amazon Web Service. Currently not supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

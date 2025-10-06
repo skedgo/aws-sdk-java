@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,14 +30,15 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The individual bandwidth of the physical connections bundled by the LAG. The possible values are 1Gbps and
-     * 10Gbps.
+     * The individual bandwidth of the physical connections bundled by the LAG. The possible values are 1Gbps, 10Gbps,
+     * 100Gbps, or 400 Gbps..
      * </p>
      */
     private String connectionsBandwidth;
     /**
      * <p>
-     * The number of physical connections bundled by the LAG, up to a maximum of 10.
+     * The number of physical dedicated connections initially provisioned and bundled by the LAG. You can have a maximum
+     * of four connections when the port speed is 1 Gbps or 10 Gbps, or two when the port speed is 100 Gbps or 400 Gbps.
      * </p>
      */
     private Integer numberOfConnections;
@@ -49,7 +50,7 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
     private String lagId;
     /**
      * <p>
-     * The ID of the AWS account that owns the LAG.
+     * The ID of the Amazon Web Services account that owns the LAG.
      * </p>
      */
     private String ownerAccount;
@@ -111,28 +112,36 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
     private String location;
     /**
      * <p>
-     * The AWS Region where the connection is located.
+     * The Amazon Web Services Region where the connection is located.
      * </p>
      */
     private String region;
     /**
      * <p>
-     * The minimum number of physical connections that must be operational for the LAG itself to be operational.
+     * The minimum number of physical dedicated connections that must be operational for the LAG itself to be
+     * operational.
      * </p>
      */
     private Integer minimumLinks;
     /**
      * <p>
-     * The AWS Direct Connect endpoint that hosts the LAG.
+     * The Direct Connect endpoint that hosts the LAG.
      * </p>
      */
     private String awsDevice;
     /**
      * <p>
-     * The AWS Direct Connect endpoint that hosts the LAG.
+     * The Direct Connect endpoint that hosts the LAG.
      * </p>
      */
     private String awsDeviceV2;
+    /**
+     * <p>
+     * The Direct Connect endpoint that terminates the logical connection. This device might be different than the
+     * device that terminates the physical connection.
+     * </p>
+     */
+    private String awsLogicalDeviceId;
     /**
      * <p>
      * The connections bundled by the LAG.
@@ -147,7 +156,7 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
     private Boolean allowsHostedConnections;
     /**
      * <p>
-     * Indicates whether jumbo frames (9001 MTU) are supported.
+     * Indicates whether jumbo frames are supported.
      * </p>
      */
     private Boolean jumboFrameCapable;
@@ -159,20 +168,47 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
     private String hasLogicalRedundancy;
     /**
      * <p>
-     * Any tags assigned to link aggregation group (LAG).
+     * The tags associated with the LAG.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
+    /**
+     * <p>
+     * The name of the service provider associated with the LAG.
+     * </p>
+     */
+    private String providerName;
+    /**
+     * <p>
+     * Indicates whether the LAG supports MAC Security (MACsec).
+     * </p>
+     */
+    private Boolean macSecCapable;
+    /**
+     * <p>
+     * The LAG MAC Security (MACsec) encryption mode.
+     * </p>
+     * <p>
+     * The valid values are <code>no_encrypt</code>, <code>should_encrypt</code>, and <code>must_encrypt</code>.
+     * </p>
+     */
+    private String encryptionMode;
+    /**
+     * <p>
+     * The MAC Security (MACsec) security keys associated with the LAG.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<MacSecKey> macSecKeys;
 
     /**
      * <p>
-     * The individual bandwidth of the physical connections bundled by the LAG. The possible values are 1Gbps and
-     * 10Gbps.
+     * The individual bandwidth of the physical connections bundled by the LAG. The possible values are 1Gbps, 10Gbps,
+     * 100Gbps, or 400 Gbps..
      * </p>
      * 
      * @param connectionsBandwidth
-     *        The individual bandwidth of the physical connections bundled by the LAG. The possible values are 1Gbps and
-     *        10Gbps.
+     *        The individual bandwidth of the physical connections bundled by the LAG. The possible values are 1Gbps,
+     *        10Gbps, 100Gbps, or 400 Gbps..
      */
 
     public void setConnectionsBandwidth(String connectionsBandwidth) {
@@ -181,12 +217,12 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The individual bandwidth of the physical connections bundled by the LAG. The possible values are 1Gbps and
-     * 10Gbps.
+     * The individual bandwidth of the physical connections bundled by the LAG. The possible values are 1Gbps, 10Gbps,
+     * 100Gbps, or 400 Gbps..
      * </p>
      * 
-     * @return The individual bandwidth of the physical connections bundled by the LAG. The possible values are 1Gbps
-     *         and 10Gbps.
+     * @return The individual bandwidth of the physical connections bundled by the LAG. The possible values are 1Gbps,
+     *         10Gbps, 100Gbps, or 400 Gbps..
      */
 
     public String getConnectionsBandwidth() {
@@ -195,13 +231,13 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The individual bandwidth of the physical connections bundled by the LAG. The possible values are 1Gbps and
-     * 10Gbps.
+     * The individual bandwidth of the physical connections bundled by the LAG. The possible values are 1Gbps, 10Gbps,
+     * 100Gbps, or 400 Gbps..
      * </p>
      * 
      * @param connectionsBandwidth
-     *        The individual bandwidth of the physical connections bundled by the LAG. The possible values are 1Gbps and
-     *        10Gbps.
+     *        The individual bandwidth of the physical connections bundled by the LAG. The possible values are 1Gbps,
+     *        10Gbps, 100Gbps, or 400 Gbps..
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -212,11 +248,14 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The number of physical connections bundled by the LAG, up to a maximum of 10.
+     * The number of physical dedicated connections initially provisioned and bundled by the LAG. You can have a maximum
+     * of four connections when the port speed is 1 Gbps or 10 Gbps, or two when the port speed is 100 Gbps or 400 Gbps.
      * </p>
      * 
      * @param numberOfConnections
-     *        The number of physical connections bundled by the LAG, up to a maximum of 10.
+     *        The number of physical dedicated connections initially provisioned and bundled by the LAG. You can have a
+     *        maximum of four connections when the port speed is 1 Gbps or 10 Gbps, or two when the port speed is 100
+     *        Gbps or 400 Gbps.
      */
 
     public void setNumberOfConnections(Integer numberOfConnections) {
@@ -225,10 +264,13 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The number of physical connections bundled by the LAG, up to a maximum of 10.
+     * The number of physical dedicated connections initially provisioned and bundled by the LAG. You can have a maximum
+     * of four connections when the port speed is 1 Gbps or 10 Gbps, or two when the port speed is 100 Gbps or 400 Gbps.
      * </p>
      * 
-     * @return The number of physical connections bundled by the LAG, up to a maximum of 10.
+     * @return The number of physical dedicated connections initially provisioned and bundled by the LAG. You can have a
+     *         maximum of four connections when the port speed is 1 Gbps or 10 Gbps, or two when the port speed is 100
+     *         Gbps or 400 Gbps.
      */
 
     public Integer getNumberOfConnections() {
@@ -237,11 +279,14 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The number of physical connections bundled by the LAG, up to a maximum of 10.
+     * The number of physical dedicated connections initially provisioned and bundled by the LAG. You can have a maximum
+     * of four connections when the port speed is 1 Gbps or 10 Gbps, or two when the port speed is 100 Gbps or 400 Gbps.
      * </p>
      * 
      * @param numberOfConnections
-     *        The number of physical connections bundled by the LAG, up to a maximum of 10.
+     *        The number of physical dedicated connections initially provisioned and bundled by the LAG. You can have a
+     *        maximum of four connections when the port speed is 1 Gbps or 10 Gbps, or two when the port speed is 100
+     *        Gbps or 400 Gbps.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -292,11 +337,11 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the LAG.
+     * The ID of the Amazon Web Services account that owns the LAG.
      * </p>
      * 
      * @param ownerAccount
-     *        The ID of the AWS account that owns the LAG.
+     *        The ID of the Amazon Web Services account that owns the LAG.
      */
 
     public void setOwnerAccount(String ownerAccount) {
@@ -305,10 +350,10 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the LAG.
+     * The ID of the Amazon Web Services account that owns the LAG.
      * </p>
      * 
-     * @return The ID of the AWS account that owns the LAG.
+     * @return The ID of the Amazon Web Services account that owns the LAG.
      */
 
     public String getOwnerAccount() {
@@ -317,11 +362,11 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the LAG.
+     * The ID of the Amazon Web Services account that owns the LAG.
      * </p>
      * 
      * @param ownerAccount
-     *        The ID of the AWS account that owns the LAG.
+     *        The ID of the Amazon Web Services account that owns the LAG.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -860,11 +905,11 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Region where the connection is located.
+     * The Amazon Web Services Region where the connection is located.
      * </p>
      * 
      * @param region
-     *        The AWS Region where the connection is located.
+     *        The Amazon Web Services Region where the connection is located.
      */
 
     public void setRegion(String region) {
@@ -873,10 +918,10 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Region where the connection is located.
+     * The Amazon Web Services Region where the connection is located.
      * </p>
      * 
-     * @return The AWS Region where the connection is located.
+     * @return The Amazon Web Services Region where the connection is located.
      */
 
     public String getRegion() {
@@ -885,11 +930,11 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Region where the connection is located.
+     * The Amazon Web Services Region where the connection is located.
      * </p>
      * 
      * @param region
-     *        The AWS Region where the connection is located.
+     *        The Amazon Web Services Region where the connection is located.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -900,11 +945,13 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The minimum number of physical connections that must be operational for the LAG itself to be operational.
+     * The minimum number of physical dedicated connections that must be operational for the LAG itself to be
+     * operational.
      * </p>
      * 
      * @param minimumLinks
-     *        The minimum number of physical connections that must be operational for the LAG itself to be operational.
+     *        The minimum number of physical dedicated connections that must be operational for the LAG itself to be
+     *        operational.
      */
 
     public void setMinimumLinks(Integer minimumLinks) {
@@ -913,10 +960,12 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The minimum number of physical connections that must be operational for the LAG itself to be operational.
+     * The minimum number of physical dedicated connections that must be operational for the LAG itself to be
+     * operational.
      * </p>
      * 
-     * @return The minimum number of physical connections that must be operational for the LAG itself to be operational.
+     * @return The minimum number of physical dedicated connections that must be operational for the LAG itself to be
+     *         operational.
      */
 
     public Integer getMinimumLinks() {
@@ -925,11 +974,13 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The minimum number of physical connections that must be operational for the LAG itself to be operational.
+     * The minimum number of physical dedicated connections that must be operational for the LAG itself to be
+     * operational.
      * </p>
      * 
      * @param minimumLinks
-     *        The minimum number of physical connections that must be operational for the LAG itself to be operational.
+     *        The minimum number of physical dedicated connections that must be operational for the LAG itself to be
+     *        operational.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -940,11 +991,11 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Direct Connect endpoint that hosts the LAG.
+     * The Direct Connect endpoint that hosts the LAG.
      * </p>
      * 
      * @param awsDevice
-     *        The AWS Direct Connect endpoint that hosts the LAG.
+     *        The Direct Connect endpoint that hosts the LAG.
      */
 
     public void setAwsDevice(String awsDevice) {
@@ -953,10 +1004,10 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Direct Connect endpoint that hosts the LAG.
+     * The Direct Connect endpoint that hosts the LAG.
      * </p>
      * 
-     * @return The AWS Direct Connect endpoint that hosts the LAG.
+     * @return The Direct Connect endpoint that hosts the LAG.
      */
 
     public String getAwsDevice() {
@@ -965,11 +1016,11 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Direct Connect endpoint that hosts the LAG.
+     * The Direct Connect endpoint that hosts the LAG.
      * </p>
      * 
      * @param awsDevice
-     *        The AWS Direct Connect endpoint that hosts the LAG.
+     *        The Direct Connect endpoint that hosts the LAG.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -980,11 +1031,11 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Direct Connect endpoint that hosts the LAG.
+     * The Direct Connect endpoint that hosts the LAG.
      * </p>
      * 
      * @param awsDeviceV2
-     *        The AWS Direct Connect endpoint that hosts the LAG.
+     *        The Direct Connect endpoint that hosts the LAG.
      */
 
     public void setAwsDeviceV2(String awsDeviceV2) {
@@ -993,10 +1044,10 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Direct Connect endpoint that hosts the LAG.
+     * The Direct Connect endpoint that hosts the LAG.
      * </p>
      * 
-     * @return The AWS Direct Connect endpoint that hosts the LAG.
+     * @return The Direct Connect endpoint that hosts the LAG.
      */
 
     public String getAwsDeviceV2() {
@@ -1005,16 +1056,62 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Direct Connect endpoint that hosts the LAG.
+     * The Direct Connect endpoint that hosts the LAG.
      * </p>
      * 
      * @param awsDeviceV2
-     *        The AWS Direct Connect endpoint that hosts the LAG.
+     *        The Direct Connect endpoint that hosts the LAG.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Lag withAwsDeviceV2(String awsDeviceV2) {
         setAwsDeviceV2(awsDeviceV2);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Direct Connect endpoint that terminates the logical connection. This device might be different than the
+     * device that terminates the physical connection.
+     * </p>
+     * 
+     * @param awsLogicalDeviceId
+     *        The Direct Connect endpoint that terminates the logical connection. This device might be different than
+     *        the device that terminates the physical connection.
+     */
+
+    public void setAwsLogicalDeviceId(String awsLogicalDeviceId) {
+        this.awsLogicalDeviceId = awsLogicalDeviceId;
+    }
+
+    /**
+     * <p>
+     * The Direct Connect endpoint that terminates the logical connection. This device might be different than the
+     * device that terminates the physical connection.
+     * </p>
+     * 
+     * @return The Direct Connect endpoint that terminates the logical connection. This device might be different than
+     *         the device that terminates the physical connection.
+     */
+
+    public String getAwsLogicalDeviceId() {
+        return this.awsLogicalDeviceId;
+    }
+
+    /**
+     * <p>
+     * The Direct Connect endpoint that terminates the logical connection. This device might be different than the
+     * device that terminates the physical connection.
+     * </p>
+     * 
+     * @param awsLogicalDeviceId
+     *        The Direct Connect endpoint that terminates the logical connection. This device might be different than
+     *        the device that terminates the physical connection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Lag withAwsLogicalDeviceId(String awsLogicalDeviceId) {
+        setAwsLogicalDeviceId(awsLogicalDeviceId);
         return this;
     }
 
@@ -1145,11 +1242,11 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether jumbo frames (9001 MTU) are supported.
+     * Indicates whether jumbo frames are supported.
      * </p>
      * 
      * @param jumboFrameCapable
-     *        Indicates whether jumbo frames (9001 MTU) are supported.
+     *        Indicates whether jumbo frames are supported.
      */
 
     public void setJumboFrameCapable(Boolean jumboFrameCapable) {
@@ -1158,10 +1255,10 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether jumbo frames (9001 MTU) are supported.
+     * Indicates whether jumbo frames are supported.
      * </p>
      * 
-     * @return Indicates whether jumbo frames (9001 MTU) are supported.
+     * @return Indicates whether jumbo frames are supported.
      */
 
     public Boolean getJumboFrameCapable() {
@@ -1170,11 +1267,11 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether jumbo frames (9001 MTU) are supported.
+     * Indicates whether jumbo frames are supported.
      * </p>
      * 
      * @param jumboFrameCapable
-     *        Indicates whether jumbo frames (9001 MTU) are supported.
+     *        Indicates whether jumbo frames are supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1185,10 +1282,10 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether jumbo frames (9001 MTU) are supported.
+     * Indicates whether jumbo frames are supported.
      * </p>
      * 
-     * @return Indicates whether jumbo frames (9001 MTU) are supported.
+     * @return Indicates whether jumbo frames are supported.
      */
 
     public Boolean isJumboFrameCapable() {
@@ -1270,10 +1367,10 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Any tags assigned to link aggregation group (LAG).
+     * The tags associated with the LAG.
      * </p>
      * 
-     * @return Any tags assigned to link aggregation group (LAG).
+     * @return The tags associated with the LAG.
      */
 
     public java.util.List<Tag> getTags() {
@@ -1285,11 +1382,11 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Any tags assigned to link aggregation group (LAG).
+     * The tags associated with the LAG.
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to link aggregation group (LAG).
+     *        The tags associated with the LAG.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -1303,7 +1400,7 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Any tags assigned to link aggregation group (LAG).
+     * The tags associated with the LAG.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1312,7 +1409,7 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to link aggregation group (LAG).
+     *        The tags associated with the LAG.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1328,16 +1425,236 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Any tags assigned to link aggregation group (LAG).
+     * The tags associated with the LAG.
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to link aggregation group (LAG).
+     *        The tags associated with the LAG.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Lag withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the service provider associated with the LAG.
+     * </p>
+     * 
+     * @param providerName
+     *        The name of the service provider associated with the LAG.
+     */
+
+    public void setProviderName(String providerName) {
+        this.providerName = providerName;
+    }
+
+    /**
+     * <p>
+     * The name of the service provider associated with the LAG.
+     * </p>
+     * 
+     * @return The name of the service provider associated with the LAG.
+     */
+
+    public String getProviderName() {
+        return this.providerName;
+    }
+
+    /**
+     * <p>
+     * The name of the service provider associated with the LAG.
+     * </p>
+     * 
+     * @param providerName
+     *        The name of the service provider associated with the LAG.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Lag withProviderName(String providerName) {
+        setProviderName(providerName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the LAG supports MAC Security (MACsec).
+     * </p>
+     * 
+     * @param macSecCapable
+     *        Indicates whether the LAG supports MAC Security (MACsec).
+     */
+
+    public void setMacSecCapable(Boolean macSecCapable) {
+        this.macSecCapable = macSecCapable;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the LAG supports MAC Security (MACsec).
+     * </p>
+     * 
+     * @return Indicates whether the LAG supports MAC Security (MACsec).
+     */
+
+    public Boolean getMacSecCapable() {
+        return this.macSecCapable;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the LAG supports MAC Security (MACsec).
+     * </p>
+     * 
+     * @param macSecCapable
+     *        Indicates whether the LAG supports MAC Security (MACsec).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Lag withMacSecCapable(Boolean macSecCapable) {
+        setMacSecCapable(macSecCapable);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the LAG supports MAC Security (MACsec).
+     * </p>
+     * 
+     * @return Indicates whether the LAG supports MAC Security (MACsec).
+     */
+
+    public Boolean isMacSecCapable() {
+        return this.macSecCapable;
+    }
+
+    /**
+     * <p>
+     * The LAG MAC Security (MACsec) encryption mode.
+     * </p>
+     * <p>
+     * The valid values are <code>no_encrypt</code>, <code>should_encrypt</code>, and <code>must_encrypt</code>.
+     * </p>
+     * 
+     * @param encryptionMode
+     *        The LAG MAC Security (MACsec) encryption mode.</p>
+     *        <p>
+     *        The valid values are <code>no_encrypt</code>, <code>should_encrypt</code>, and <code>must_encrypt</code>.
+     */
+
+    public void setEncryptionMode(String encryptionMode) {
+        this.encryptionMode = encryptionMode;
+    }
+
+    /**
+     * <p>
+     * The LAG MAC Security (MACsec) encryption mode.
+     * </p>
+     * <p>
+     * The valid values are <code>no_encrypt</code>, <code>should_encrypt</code>, and <code>must_encrypt</code>.
+     * </p>
+     * 
+     * @return The LAG MAC Security (MACsec) encryption mode.</p>
+     *         <p>
+     *         The valid values are <code>no_encrypt</code>, <code>should_encrypt</code>, and <code>must_encrypt</code>.
+     */
+
+    public String getEncryptionMode() {
+        return this.encryptionMode;
+    }
+
+    /**
+     * <p>
+     * The LAG MAC Security (MACsec) encryption mode.
+     * </p>
+     * <p>
+     * The valid values are <code>no_encrypt</code>, <code>should_encrypt</code>, and <code>must_encrypt</code>.
+     * </p>
+     * 
+     * @param encryptionMode
+     *        The LAG MAC Security (MACsec) encryption mode.</p>
+     *        <p>
+     *        The valid values are <code>no_encrypt</code>, <code>should_encrypt</code>, and <code>must_encrypt</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Lag withEncryptionMode(String encryptionMode) {
+        setEncryptionMode(encryptionMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The MAC Security (MACsec) security keys associated with the LAG.
+     * </p>
+     * 
+     * @return The MAC Security (MACsec) security keys associated with the LAG.
+     */
+
+    public java.util.List<MacSecKey> getMacSecKeys() {
+        if (macSecKeys == null) {
+            macSecKeys = new com.amazonaws.internal.SdkInternalList<MacSecKey>();
+        }
+        return macSecKeys;
+    }
+
+    /**
+     * <p>
+     * The MAC Security (MACsec) security keys associated with the LAG.
+     * </p>
+     * 
+     * @param macSecKeys
+     *        The MAC Security (MACsec) security keys associated with the LAG.
+     */
+
+    public void setMacSecKeys(java.util.Collection<MacSecKey> macSecKeys) {
+        if (macSecKeys == null) {
+            this.macSecKeys = null;
+            return;
+        }
+
+        this.macSecKeys = new com.amazonaws.internal.SdkInternalList<MacSecKey>(macSecKeys);
+    }
+
+    /**
+     * <p>
+     * The MAC Security (MACsec) security keys associated with the LAG.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setMacSecKeys(java.util.Collection)} or {@link #withMacSecKeys(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param macSecKeys
+     *        The MAC Security (MACsec) security keys associated with the LAG.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Lag withMacSecKeys(MacSecKey... macSecKeys) {
+        if (this.macSecKeys == null) {
+            setMacSecKeys(new com.amazonaws.internal.SdkInternalList<MacSecKey>(macSecKeys.length));
+        }
+        for (MacSecKey ele : macSecKeys) {
+            this.macSecKeys.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The MAC Security (MACsec) security keys associated with the LAG.
+     * </p>
+     * 
+     * @param macSecKeys
+     *        The MAC Security (MACsec) security keys associated with the LAG.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Lag withMacSecKeys(java.util.Collection<MacSecKey> macSecKeys) {
+        setMacSecKeys(macSecKeys);
         return this;
     }
 
@@ -1375,6 +1692,8 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
             sb.append("AwsDevice: ").append(getAwsDevice()).append(",");
         if (getAwsDeviceV2() != null)
             sb.append("AwsDeviceV2: ").append(getAwsDeviceV2()).append(",");
+        if (getAwsLogicalDeviceId() != null)
+            sb.append("AwsLogicalDeviceId: ").append(getAwsLogicalDeviceId()).append(",");
         if (getConnections() != null)
             sb.append("Connections: ").append(getConnections()).append(",");
         if (getAllowsHostedConnections() != null)
@@ -1384,7 +1703,15 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
         if (getHasLogicalRedundancy() != null)
             sb.append("HasLogicalRedundancy: ").append(getHasLogicalRedundancy()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getProviderName() != null)
+            sb.append("ProviderName: ").append(getProviderName()).append(",");
+        if (getMacSecCapable() != null)
+            sb.append("MacSecCapable: ").append(getMacSecCapable()).append(",");
+        if (getEncryptionMode() != null)
+            sb.append("EncryptionMode: ").append(getEncryptionMode()).append(",");
+        if (getMacSecKeys() != null)
+            sb.append("MacSecKeys: ").append(getMacSecKeys());
         sb.append("}");
         return sb.toString();
     }
@@ -1443,6 +1770,10 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getAwsDeviceV2() != null && other.getAwsDeviceV2().equals(this.getAwsDeviceV2()) == false)
             return false;
+        if (other.getAwsLogicalDeviceId() == null ^ this.getAwsLogicalDeviceId() == null)
+            return false;
+        if (other.getAwsLogicalDeviceId() != null && other.getAwsLogicalDeviceId().equals(this.getAwsLogicalDeviceId()) == false)
+            return false;
         if (other.getConnections() == null ^ this.getConnections() == null)
             return false;
         if (other.getConnections() != null && other.getConnections().equals(this.getConnections()) == false)
@@ -1463,6 +1794,22 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getProviderName() == null ^ this.getProviderName() == null)
+            return false;
+        if (other.getProviderName() != null && other.getProviderName().equals(this.getProviderName()) == false)
+            return false;
+        if (other.getMacSecCapable() == null ^ this.getMacSecCapable() == null)
+            return false;
+        if (other.getMacSecCapable() != null && other.getMacSecCapable().equals(this.getMacSecCapable()) == false)
+            return false;
+        if (other.getEncryptionMode() == null ^ this.getEncryptionMode() == null)
+            return false;
+        if (other.getEncryptionMode() != null && other.getEncryptionMode().equals(this.getEncryptionMode()) == false)
+            return false;
+        if (other.getMacSecKeys() == null ^ this.getMacSecKeys() == null)
+            return false;
+        if (other.getMacSecKeys() != null && other.getMacSecKeys().equals(this.getMacSecKeys()) == false)
+            return false;
         return true;
     }
 
@@ -1482,11 +1829,16 @@ public class Lag implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getMinimumLinks() == null) ? 0 : getMinimumLinks().hashCode());
         hashCode = prime * hashCode + ((getAwsDevice() == null) ? 0 : getAwsDevice().hashCode());
         hashCode = prime * hashCode + ((getAwsDeviceV2() == null) ? 0 : getAwsDeviceV2().hashCode());
+        hashCode = prime * hashCode + ((getAwsLogicalDeviceId() == null) ? 0 : getAwsLogicalDeviceId().hashCode());
         hashCode = prime * hashCode + ((getConnections() == null) ? 0 : getConnections().hashCode());
         hashCode = prime * hashCode + ((getAllowsHostedConnections() == null) ? 0 : getAllowsHostedConnections().hashCode());
         hashCode = prime * hashCode + ((getJumboFrameCapable() == null) ? 0 : getJumboFrameCapable().hashCode());
         hashCode = prime * hashCode + ((getHasLogicalRedundancy() == null) ? 0 : getHasLogicalRedundancy().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getProviderName() == null) ? 0 : getProviderName().hashCode());
+        hashCode = prime * hashCode + ((getMacSecCapable() == null) ? 0 : getMacSecCapable().hashCode());
+        hashCode = prime * hashCode + ((getEncryptionMode() == null) ? 0 : getEncryptionMode().hashCode());
+        hashCode = prime * hashCode + ((getMacSecKeys() == null) ? 0 : getMacSecKeys().hashCode());
         return hashCode;
     }
 

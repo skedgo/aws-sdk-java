@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,11 +46,18 @@ public class CreateBackupPlanResult extends com.amazonaws.AmazonWebServiceResult
     private java.util.Date creationDate;
     /**
      * <p>
-     * Unique, randomly generated, Unicode, UTF-8 encoded strings that are at most 1024 bytes long. They cannot be
+     * Unique, randomly generated, Unicode, UTF-8 encoded strings that are at most 1,024 bytes long. They cannot be
      * edited.
      * </p>
      */
     private String versionId;
+    /**
+     * <p>
+     * A list of <code>BackupOptions</code> settings for a resource type. This option is only available for Windows
+     * Volume Shadow Copy Service (VSS) backup jobs.
+     * </p>
+     */
+    private java.util.List<AdvancedBackupSetting> advancedBackupSettings;
 
     /**
      * <p>
@@ -192,12 +199,12 @@ public class CreateBackupPlanResult extends com.amazonaws.AmazonWebServiceResult
 
     /**
      * <p>
-     * Unique, randomly generated, Unicode, UTF-8 encoded strings that are at most 1024 bytes long. They cannot be
+     * Unique, randomly generated, Unicode, UTF-8 encoded strings that are at most 1,024 bytes long. They cannot be
      * edited.
      * </p>
      * 
      * @param versionId
-     *        Unique, randomly generated, Unicode, UTF-8 encoded strings that are at most 1024 bytes long. They cannot
+     *        Unique, randomly generated, Unicode, UTF-8 encoded strings that are at most 1,024 bytes long. They cannot
      *        be edited.
      */
 
@@ -207,11 +214,11 @@ public class CreateBackupPlanResult extends com.amazonaws.AmazonWebServiceResult
 
     /**
      * <p>
-     * Unique, randomly generated, Unicode, UTF-8 encoded strings that are at most 1024 bytes long. They cannot be
+     * Unique, randomly generated, Unicode, UTF-8 encoded strings that are at most 1,024 bytes long. They cannot be
      * edited.
      * </p>
      * 
-     * @return Unique, randomly generated, Unicode, UTF-8 encoded strings that are at most 1024 bytes long. They cannot
+     * @return Unique, randomly generated, Unicode, UTF-8 encoded strings that are at most 1,024 bytes long. They cannot
      *         be edited.
      */
 
@@ -221,18 +228,96 @@ public class CreateBackupPlanResult extends com.amazonaws.AmazonWebServiceResult
 
     /**
      * <p>
-     * Unique, randomly generated, Unicode, UTF-8 encoded strings that are at most 1024 bytes long. They cannot be
+     * Unique, randomly generated, Unicode, UTF-8 encoded strings that are at most 1,024 bytes long. They cannot be
      * edited.
      * </p>
      * 
      * @param versionId
-     *        Unique, randomly generated, Unicode, UTF-8 encoded strings that are at most 1024 bytes long. They cannot
+     *        Unique, randomly generated, Unicode, UTF-8 encoded strings that are at most 1,024 bytes long. They cannot
      *        be edited.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateBackupPlanResult withVersionId(String versionId) {
         setVersionId(versionId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of <code>BackupOptions</code> settings for a resource type. This option is only available for Windows
+     * Volume Shadow Copy Service (VSS) backup jobs.
+     * </p>
+     * 
+     * @return A list of <code>BackupOptions</code> settings for a resource type. This option is only available for
+     *         Windows Volume Shadow Copy Service (VSS) backup jobs.
+     */
+
+    public java.util.List<AdvancedBackupSetting> getAdvancedBackupSettings() {
+        return advancedBackupSettings;
+    }
+
+    /**
+     * <p>
+     * A list of <code>BackupOptions</code> settings for a resource type. This option is only available for Windows
+     * Volume Shadow Copy Service (VSS) backup jobs.
+     * </p>
+     * 
+     * @param advancedBackupSettings
+     *        A list of <code>BackupOptions</code> settings for a resource type. This option is only available for
+     *        Windows Volume Shadow Copy Service (VSS) backup jobs.
+     */
+
+    public void setAdvancedBackupSettings(java.util.Collection<AdvancedBackupSetting> advancedBackupSettings) {
+        if (advancedBackupSettings == null) {
+            this.advancedBackupSettings = null;
+            return;
+        }
+
+        this.advancedBackupSettings = new java.util.ArrayList<AdvancedBackupSetting>(advancedBackupSettings);
+    }
+
+    /**
+     * <p>
+     * A list of <code>BackupOptions</code> settings for a resource type. This option is only available for Windows
+     * Volume Shadow Copy Service (VSS) backup jobs.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAdvancedBackupSettings(java.util.Collection)} or
+     * {@link #withAdvancedBackupSettings(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param advancedBackupSettings
+     *        A list of <code>BackupOptions</code> settings for a resource type. This option is only available for
+     *        Windows Volume Shadow Copy Service (VSS) backup jobs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBackupPlanResult withAdvancedBackupSettings(AdvancedBackupSetting... advancedBackupSettings) {
+        if (this.advancedBackupSettings == null) {
+            setAdvancedBackupSettings(new java.util.ArrayList<AdvancedBackupSetting>(advancedBackupSettings.length));
+        }
+        for (AdvancedBackupSetting ele : advancedBackupSettings) {
+            this.advancedBackupSettings.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of <code>BackupOptions</code> settings for a resource type. This option is only available for Windows
+     * Volume Shadow Copy Service (VSS) backup jobs.
+     * </p>
+     * 
+     * @param advancedBackupSettings
+     *        A list of <code>BackupOptions</code> settings for a resource type. This option is only available for
+     *        Windows Volume Shadow Copy Service (VSS) backup jobs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBackupPlanResult withAdvancedBackupSettings(java.util.Collection<AdvancedBackupSetting> advancedBackupSettings) {
+        setAdvancedBackupSettings(advancedBackupSettings);
         return this;
     }
 
@@ -255,7 +340,9 @@ public class CreateBackupPlanResult extends com.amazonaws.AmazonWebServiceResult
         if (getCreationDate() != null)
             sb.append("CreationDate: ").append(getCreationDate()).append(",");
         if (getVersionId() != null)
-            sb.append("VersionId: ").append(getVersionId());
+            sb.append("VersionId: ").append(getVersionId()).append(",");
+        if (getAdvancedBackupSettings() != null)
+            sb.append("AdvancedBackupSettings: ").append(getAdvancedBackupSettings());
         sb.append("}");
         return sb.toString();
     }
@@ -286,6 +373,10 @@ public class CreateBackupPlanResult extends com.amazonaws.AmazonWebServiceResult
             return false;
         if (other.getVersionId() != null && other.getVersionId().equals(this.getVersionId()) == false)
             return false;
+        if (other.getAdvancedBackupSettings() == null ^ this.getAdvancedBackupSettings() == null)
+            return false;
+        if (other.getAdvancedBackupSettings() != null && other.getAdvancedBackupSettings().equals(this.getAdvancedBackupSettings()) == false)
+            return false;
         return true;
     }
 
@@ -298,6 +389,7 @@ public class CreateBackupPlanResult extends com.amazonaws.AmazonWebServiceResult
         hashCode = prime * hashCode + ((getBackupPlanArn() == null) ? 0 : getBackupPlanArn().hashCode());
         hashCode = prime * hashCode + ((getCreationDate() == null) ? 0 : getCreationDate().hashCode());
         hashCode = prime * hashCode + ((getVersionId() == null) ? 0 : getVersionId().hashCode());
+        hashCode = prime * hashCode + ((getAdvancedBackupSettings() == null) ? 0 : getAdvancedBackupSettings().hashCode());
         return hashCode;
     }
 

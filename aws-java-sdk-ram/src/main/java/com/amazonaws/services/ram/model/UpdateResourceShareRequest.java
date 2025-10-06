@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,36 +27,50 @@ public class UpdateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resource share.
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Name (ARN)</a> of the resource share that you want to modify.
      * </p>
      */
     private String resourceShareArn;
     /**
      * <p>
-     * The name of the resource share.
+     * If specified, the new name that you want to attach to the resource share.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * Indicates whether principals outside your organization can be associated with a resource share.
+     * Specifies whether principals outside your organization in Organizations can be associated with a resource share.
      * </p>
      */
     private Boolean allowExternalPrincipals;
     /**
      * <p>
-     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This
+     * lets you safely retry the request without accidentally performing the same operation a second time. Passing the
+     * same value to a later call to an operation requires that you also pass the same value for all other parameters.
+     * We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of
+     * value.</a>.
+     * </p>
+     * <p>
+     * If you don't provide this value, then Amazon Web Services generates a random one for you.
+     * </p>
+     * <p>
+     * If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails
+     * with an <code>IdempotentParameterMismatch</code> error.
      * </p>
      */
     private String clientToken;
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resource share.
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Name (ARN)</a> of the resource share that you want to modify.
      * </p>
      * 
      * @param resourceShareArn
-     *        The Amazon Resource Name (ARN) of the resource share.
+     *        Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *        Resource Name (ARN)</a> of the resource share that you want to modify.
      */
 
     public void setResourceShareArn(String resourceShareArn) {
@@ -65,10 +79,12 @@ public class UpdateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resource share.
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Name (ARN)</a> of the resource share that you want to modify.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the resource share.
+     * @return Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *         Resource Name (ARN)</a> of the resource share that you want to modify.
      */
 
     public String getResourceShareArn() {
@@ -77,11 +93,13 @@ public class UpdateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resource share.
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Name (ARN)</a> of the resource share that you want to modify.
      * </p>
      * 
      * @param resourceShareArn
-     *        The Amazon Resource Name (ARN) of the resource share.
+     *        Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *        Resource Name (ARN)</a> of the resource share that you want to modify.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -92,11 +110,11 @@ public class UpdateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name of the resource share.
+     * If specified, the new name that you want to attach to the resource share.
      * </p>
      * 
      * @param name
-     *        The name of the resource share.
+     *        If specified, the new name that you want to attach to the resource share.
      */
 
     public void setName(String name) {
@@ -105,10 +123,10 @@ public class UpdateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name of the resource share.
+     * If specified, the new name that you want to attach to the resource share.
      * </p>
      * 
-     * @return The name of the resource share.
+     * @return If specified, the new name that you want to attach to the resource share.
      */
 
     public String getName() {
@@ -117,11 +135,11 @@ public class UpdateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name of the resource share.
+     * If specified, the new name that you want to attach to the resource share.
      * </p>
      * 
      * @param name
-     *        The name of the resource share.
+     *        If specified, the new name that you want to attach to the resource share.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -132,11 +150,12 @@ public class UpdateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Indicates whether principals outside your organization can be associated with a resource share.
+     * Specifies whether principals outside your organization in Organizations can be associated with a resource share.
      * </p>
      * 
      * @param allowExternalPrincipals
-     *        Indicates whether principals outside your organization can be associated with a resource share.
+     *        Specifies whether principals outside your organization in Organizations can be associated with a resource
+     *        share.
      */
 
     public void setAllowExternalPrincipals(Boolean allowExternalPrincipals) {
@@ -145,10 +164,11 @@ public class UpdateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Indicates whether principals outside your organization can be associated with a resource share.
+     * Specifies whether principals outside your organization in Organizations can be associated with a resource share.
      * </p>
      * 
-     * @return Indicates whether principals outside your organization can be associated with a resource share.
+     * @return Specifies whether principals outside your organization in Organizations can be associated with a resource
+     *         share.
      */
 
     public Boolean getAllowExternalPrincipals() {
@@ -157,11 +177,12 @@ public class UpdateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Indicates whether principals outside your organization can be associated with a resource share.
+     * Specifies whether principals outside your organization in Organizations can be associated with a resource share.
      * </p>
      * 
      * @param allowExternalPrincipals
-     *        Indicates whether principals outside your organization can be associated with a resource share.
+     *        Specifies whether principals outside your organization in Organizations can be associated with a resource
+     *        share.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -172,10 +193,11 @@ public class UpdateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Indicates whether principals outside your organization can be associated with a resource share.
+     * Specifies whether principals outside your organization in Organizations can be associated with a resource share.
      * </p>
      * 
-     * @return Indicates whether principals outside your organization can be associated with a resource share.
+     * @return Specifies whether principals outside your organization in Organizations can be associated with a resource
+     *         share.
      */
 
     public Boolean isAllowExternalPrincipals() {
@@ -184,11 +206,32 @@ public class UpdateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This
+     * lets you safely retry the request without accidentally performing the same operation a second time. Passing the
+     * same value to a later call to an operation requires that you also pass the same value for all other parameters.
+     * We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of
+     * value.</a>.
+     * </p>
+     * <p>
+     * If you don't provide this value, then Amazon Web Services generates a random one for you.
+     * </p>
+     * <p>
+     * If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails
+     * with an <code>IdempotentParameterMismatch</code> error.
      * </p>
      * 
      * @param clientToken
-     *        A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     *        Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     *        This lets you safely retry the request without accidentally performing the same operation a second time.
+     *        Passing the same value to a later call to an operation requires that you also pass the same value for all
+     *        other parameters. We recommend that you use a <a
+     *        href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value.</a>.</p>
+     *        <p>
+     *        If you don't provide this value, then Amazon Web Services generates a random one for you.
+     *        </p>
+     *        <p>
+     *        If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the
+     *        retry fails with an <code>IdempotentParameterMismatch</code> error.
      */
 
     public void setClientToken(String clientToken) {
@@ -197,10 +240,31 @@ public class UpdateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This
+     * lets you safely retry the request without accidentally performing the same operation a second time. Passing the
+     * same value to a later call to an operation requires that you also pass the same value for all other parameters.
+     * We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of
+     * value.</a>.
+     * </p>
+     * <p>
+     * If you don't provide this value, then Amazon Web Services generates a random one for you.
+     * </p>
+     * <p>
+     * If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails
+     * with an <code>IdempotentParameterMismatch</code> error.
      * </p>
      * 
-     * @return A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * @return Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     *         This lets you safely retry the request without accidentally performing the same operation a second time.
+     *         Passing the same value to a later call to an operation requires that you also pass the same value for all
+     *         other parameters. We recommend that you use a <a
+     *         href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value.</a>.</p>
+     *         <p>
+     *         If you don't provide this value, then Amazon Web Services generates a random one for you.
+     *         </p>
+     *         <p>
+     *         If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the
+     *         retry fails with an <code>IdempotentParameterMismatch</code> error.
      */
 
     public String getClientToken() {
@@ -209,11 +273,32 @@ public class UpdateResourceShareRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This
+     * lets you safely retry the request without accidentally performing the same operation a second time. Passing the
+     * same value to a later call to an operation requires that you also pass the same value for all other parameters.
+     * We recommend that you use a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of
+     * value.</a>.
+     * </p>
+     * <p>
+     * If you don't provide this value, then Amazon Web Services generates a random one for you.
+     * </p>
+     * <p>
+     * If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the retry fails
+     * with an <code>IdempotentParameterMismatch</code> error.
      * </p>
      * 
      * @param clientToken
-     *        A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     *        Specifies a unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     *        This lets you safely retry the request without accidentally performing the same operation a second time.
+     *        Passing the same value to a later call to an operation requires that you also pass the same value for all
+     *        other parameters. We recommend that you use a <a
+     *        href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID type of value.</a>.</p>
+     *        <p>
+     *        If you don't provide this value, then Amazon Web Services generates a random one for you.
+     *        </p>
+     *        <p>
+     *        If you retry the operation with the same <code>ClientToken</code>, but with different parameters, the
+     *        retry fails with an <code>IdempotentParameterMismatch</code> error.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

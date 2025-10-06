@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,7 +21,7 @@ import javax.annotation.Generated;
  * to track and manage content delivery.
  * </p>
  * 
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/StreamingDistribution" target="_top">AWS
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/StreamingDistribution" target="_top">AWS
  *      API Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -37,7 +37,7 @@ public class StreamingDistribution implements Serializable, Cloneable {
      * <p>
      * The ARN (Amazon Resource Name) for the distribution. For example:
      * <code>arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5</code>, where <code>123456789012</code> is
-     * your AWS account ID.
+     * your Amazon Web Services account ID.
      * </p>
      */
     private String aRN;
@@ -63,15 +63,16 @@ public class StreamingDistribution implements Serializable, Cloneable {
     private String domainName;
     /**
      * <p>
-     * A complex type that lists the AWS accounts, if any, that you included in the <code>TrustedSigners</code> complex
-     * type for this distribution. These are the accounts that you want to allow to create signed URLs for private
-     * content.
+     * A complex type that lists the Amazon Web Services accounts, if any, that you included in the
+     * <code>TrustedSigners</code> complex type for this distribution. These are the accounts that you want to allow to
+     * create signed URLs for private content.
      * </p>
      * <p>
-     * The <code>Signer</code> complex type lists the AWS account number of the trusted signer or <code>self</code> if
-     * the signer is the AWS account that created the distribution. The <code>Signer</code> element also includes the
-     * IDs of any active CloudFront key pairs that are associated with the trusted signer's AWS account. If no
-     * <code>KeyPairId</code> element appears for a <code>Signer</code>, that signer can't create signed URLs.
+     * The <code>Signer</code> complex type lists the Amazon Web Services account number of the trusted signer or
+     * <code>self</code> if the signer is the Amazon Web Services account that created the distribution. The
+     * <code>Signer</code> element also includes the IDs of any active CloudFront key pairs that are associated with the
+     * trusted signer's Amazon Web Services account. If no <code>KeyPairId</code> element appears for a
+     * <code>Signer</code>, that signer can't create signed URLs.
      * </p>
      * <p>
      * For more information, see <a
@@ -131,13 +132,13 @@ public class StreamingDistribution implements Serializable, Cloneable {
      * <p>
      * The ARN (Amazon Resource Name) for the distribution. For example:
      * <code>arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5</code>, where <code>123456789012</code> is
-     * your AWS account ID.
+     * your Amazon Web Services account ID.
      * </p>
      * 
      * @param aRN
      *        The ARN (Amazon Resource Name) for the distribution. For example:
      *        <code>arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5</code>, where
-     *        <code>123456789012</code> is your AWS account ID.
+     *        <code>123456789012</code> is your Amazon Web Services account ID.
      */
 
     public void setARN(String aRN) {
@@ -148,12 +149,12 @@ public class StreamingDistribution implements Serializable, Cloneable {
      * <p>
      * The ARN (Amazon Resource Name) for the distribution. For example:
      * <code>arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5</code>, where <code>123456789012</code> is
-     * your AWS account ID.
+     * your Amazon Web Services account ID.
      * </p>
      * 
      * @return The ARN (Amazon Resource Name) for the distribution. For example:
      *         <code>arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5</code>, where
-     *         <code>123456789012</code> is your AWS account ID.
+     *         <code>123456789012</code> is your Amazon Web Services account ID.
      */
 
     public String getARN() {
@@ -164,13 +165,13 @@ public class StreamingDistribution implements Serializable, Cloneable {
      * <p>
      * The ARN (Amazon Resource Name) for the distribution. For example:
      * <code>arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5</code>, where <code>123456789012</code> is
-     * your AWS account ID.
+     * your Amazon Web Services account ID.
      * </p>
      * 
      * @param aRN
      *        The ARN (Amazon Resource Name) for the distribution. For example:
      *        <code>arn:aws:cloudfront::123456789012:distribution/EDFDVBD632BHDS5</code>, where
-     *        <code>123456789012</code> is your AWS account ID.
+     *        <code>123456789012</code> is your Amazon Web Services account ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -313,15 +314,16 @@ public class StreamingDistribution implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A complex type that lists the AWS accounts, if any, that you included in the <code>TrustedSigners</code> complex
-     * type for this distribution. These are the accounts that you want to allow to create signed URLs for private
-     * content.
+     * A complex type that lists the Amazon Web Services accounts, if any, that you included in the
+     * <code>TrustedSigners</code> complex type for this distribution. These are the accounts that you want to allow to
+     * create signed URLs for private content.
      * </p>
      * <p>
-     * The <code>Signer</code> complex type lists the AWS account number of the trusted signer or <code>self</code> if
-     * the signer is the AWS account that created the distribution. The <code>Signer</code> element also includes the
-     * IDs of any active CloudFront key pairs that are associated with the trusted signer's AWS account. If no
-     * <code>KeyPairId</code> element appears for a <code>Signer</code>, that signer can't create signed URLs.
+     * The <code>Signer</code> complex type lists the Amazon Web Services account number of the trusted signer or
+     * <code>self</code> if the signer is the Amazon Web Services account that created the distribution. The
+     * <code>Signer</code> element also includes the IDs of any active CloudFront key pairs that are associated with the
+     * trusted signer's Amazon Web Services account. If no <code>KeyPairId</code> element appears for a
+     * <code>Signer</code>, that signer can't create signed URLs.
      * </p>
      * <p>
      * For more information, see <a
@@ -330,15 +332,15 @@ public class StreamingDistribution implements Serializable, Cloneable {
      * </p>
      * 
      * @param activeTrustedSigners
-     *        A complex type that lists the AWS accounts, if any, that you included in the <code>TrustedSigners</code>
-     *        complex type for this distribution. These are the accounts that you want to allow to create signed URLs
-     *        for private content.</p>
+     *        A complex type that lists the Amazon Web Services accounts, if any, that you included in the
+     *        <code>TrustedSigners</code> complex type for this distribution. These are the accounts that you want to
+     *        allow to create signed URLs for private content.</p>
      *        <p>
-     *        The <code>Signer</code> complex type lists the AWS account number of the trusted signer or
-     *        <code>self</code> if the signer is the AWS account that created the distribution. The <code>Signer</code>
-     *        element also includes the IDs of any active CloudFront key pairs that are associated with the trusted
-     *        signer's AWS account. If no <code>KeyPairId</code> element appears for a <code>Signer</code>, that signer
-     *        can't create signed URLs.
+     *        The <code>Signer</code> complex type lists the Amazon Web Services account number of the trusted signer or
+     *        <code>self</code> if the signer is the Amazon Web Services account that created the distribution. The
+     *        <code>Signer</code> element also includes the IDs of any active CloudFront key pairs that are associated
+     *        with the trusted signer's Amazon Web Services account. If no <code>KeyPairId</code> element appears for a
+     *        <code>Signer</code>, that signer can't create signed URLs.
      *        </p>
      *        <p>
      *        For more information, see <a
@@ -352,15 +354,16 @@ public class StreamingDistribution implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A complex type that lists the AWS accounts, if any, that you included in the <code>TrustedSigners</code> complex
-     * type for this distribution. These are the accounts that you want to allow to create signed URLs for private
-     * content.
+     * A complex type that lists the Amazon Web Services accounts, if any, that you included in the
+     * <code>TrustedSigners</code> complex type for this distribution. These are the accounts that you want to allow to
+     * create signed URLs for private content.
      * </p>
      * <p>
-     * The <code>Signer</code> complex type lists the AWS account number of the trusted signer or <code>self</code> if
-     * the signer is the AWS account that created the distribution. The <code>Signer</code> element also includes the
-     * IDs of any active CloudFront key pairs that are associated with the trusted signer's AWS account. If no
-     * <code>KeyPairId</code> element appears for a <code>Signer</code>, that signer can't create signed URLs.
+     * The <code>Signer</code> complex type lists the Amazon Web Services account number of the trusted signer or
+     * <code>self</code> if the signer is the Amazon Web Services account that created the distribution. The
+     * <code>Signer</code> element also includes the IDs of any active CloudFront key pairs that are associated with the
+     * trusted signer's Amazon Web Services account. If no <code>KeyPairId</code> element appears for a
+     * <code>Signer</code>, that signer can't create signed URLs.
      * </p>
      * <p>
      * For more information, see <a
@@ -368,15 +371,15 @@ public class StreamingDistribution implements Serializable, Cloneable {
      * Content through CloudFront</a> in the <i>Amazon CloudFront Developer Guide</i>.
      * </p>
      * 
-     * @return A complex type that lists the AWS accounts, if any, that you included in the <code>TrustedSigners</code>
-     *         complex type for this distribution. These are the accounts that you want to allow to create signed URLs
-     *         for private content.</p>
+     * @return A complex type that lists the Amazon Web Services accounts, if any, that you included in the
+     *         <code>TrustedSigners</code> complex type for this distribution. These are the accounts that you want to
+     *         allow to create signed URLs for private content.</p>
      *         <p>
-     *         The <code>Signer</code> complex type lists the AWS account number of the trusted signer or
-     *         <code>self</code> if the signer is the AWS account that created the distribution. The <code>Signer</code>
-     *         element also includes the IDs of any active CloudFront key pairs that are associated with the trusted
-     *         signer's AWS account. If no <code>KeyPairId</code> element appears for a <code>Signer</code>, that signer
-     *         can't create signed URLs.
+     *         The <code>Signer</code> complex type lists the Amazon Web Services account number of the trusted signer
+     *         or <code>self</code> if the signer is the Amazon Web Services account that created the distribution. The
+     *         <code>Signer</code> element also includes the IDs of any active CloudFront key pairs that are associated
+     *         with the trusted signer's Amazon Web Services account. If no <code>KeyPairId</code> element appears for a
+     *         <code>Signer</code>, that signer can't create signed URLs.
      *         </p>
      *         <p>
      *         For more information, see <a
@@ -390,15 +393,16 @@ public class StreamingDistribution implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A complex type that lists the AWS accounts, if any, that you included in the <code>TrustedSigners</code> complex
-     * type for this distribution. These are the accounts that you want to allow to create signed URLs for private
-     * content.
+     * A complex type that lists the Amazon Web Services accounts, if any, that you included in the
+     * <code>TrustedSigners</code> complex type for this distribution. These are the accounts that you want to allow to
+     * create signed URLs for private content.
      * </p>
      * <p>
-     * The <code>Signer</code> complex type lists the AWS account number of the trusted signer or <code>self</code> if
-     * the signer is the AWS account that created the distribution. The <code>Signer</code> element also includes the
-     * IDs of any active CloudFront key pairs that are associated with the trusted signer's AWS account. If no
-     * <code>KeyPairId</code> element appears for a <code>Signer</code>, that signer can't create signed URLs.
+     * The <code>Signer</code> complex type lists the Amazon Web Services account number of the trusted signer or
+     * <code>self</code> if the signer is the Amazon Web Services account that created the distribution. The
+     * <code>Signer</code> element also includes the IDs of any active CloudFront key pairs that are associated with the
+     * trusted signer's Amazon Web Services account. If no <code>KeyPairId</code> element appears for a
+     * <code>Signer</code>, that signer can't create signed URLs.
      * </p>
      * <p>
      * For more information, see <a
@@ -407,15 +411,15 @@ public class StreamingDistribution implements Serializable, Cloneable {
      * </p>
      * 
      * @param activeTrustedSigners
-     *        A complex type that lists the AWS accounts, if any, that you included in the <code>TrustedSigners</code>
-     *        complex type for this distribution. These are the accounts that you want to allow to create signed URLs
-     *        for private content.</p>
+     *        A complex type that lists the Amazon Web Services accounts, if any, that you included in the
+     *        <code>TrustedSigners</code> complex type for this distribution. These are the accounts that you want to
+     *        allow to create signed URLs for private content.</p>
      *        <p>
-     *        The <code>Signer</code> complex type lists the AWS account number of the trusted signer or
-     *        <code>self</code> if the signer is the AWS account that created the distribution. The <code>Signer</code>
-     *        element also includes the IDs of any active CloudFront key pairs that are associated with the trusted
-     *        signer's AWS account. If no <code>KeyPairId</code> element appears for a <code>Signer</code>, that signer
-     *        can't create signed URLs.
+     *        The <code>Signer</code> complex type lists the Amazon Web Services account number of the trusted signer or
+     *        <code>self</code> if the signer is the Amazon Web Services account that created the distribution. The
+     *        <code>Signer</code> element also includes the IDs of any active CloudFront key pairs that are associated
+     *        with the trusted signer's Amazon Web Services account. If no <code>KeyPairId</code> element appears for a
+     *        <code>Signer</code>, that signer can't create signed URLs.
      *        </p>
      *        <p>
      *        For more information, see <a

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,24 +27,24 @@ public class GetIPSetRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * The unique ID of the detector the ipSet is associated with.
+     * The unique ID of the detector that the IPSet is associated with.
      * </p>
      */
     private String detectorId;
     /**
      * <p>
-     * The unique ID of the ipSet you want to get.
+     * The unique ID of the IPSet to retrieve.
      * </p>
      */
     private String ipSetId;
 
     /**
      * <p>
-     * The unique ID of the detector the ipSet is associated with.
+     * The unique ID of the detector that the IPSet is associated with.
      * </p>
      * 
      * @param detectorId
-     *        The unique ID of the detector the ipSet is associated with.
+     *        The unique ID of the detector that the IPSet is associated with.
      */
 
     public void setDetectorId(String detectorId) {
@@ -53,10 +53,10 @@ public class GetIPSetRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * The unique ID of the detector the ipSet is associated with.
+     * The unique ID of the detector that the IPSet is associated with.
      * </p>
      * 
-     * @return The unique ID of the detector the ipSet is associated with.
+     * @return The unique ID of the detector that the IPSet is associated with.
      */
 
     public String getDetectorId() {
@@ -65,11 +65,11 @@ public class GetIPSetRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * The unique ID of the detector the ipSet is associated with.
+     * The unique ID of the detector that the IPSet is associated with.
      * </p>
      * 
      * @param detectorId
-     *        The unique ID of the detector the ipSet is associated with.
+     *        The unique ID of the detector that the IPSet is associated with.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -80,11 +80,11 @@ public class GetIPSetRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * The unique ID of the ipSet you want to get.
+     * The unique ID of the IPSet to retrieve.
      * </p>
      * 
      * @param ipSetId
-     *        The unique ID of the ipSet you want to get.
+     *        The unique ID of the IPSet to retrieve.
      */
 
     public void setIpSetId(String ipSetId) {
@@ -93,10 +93,10 @@ public class GetIPSetRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * The unique ID of the ipSet you want to get.
+     * The unique ID of the IPSet to retrieve.
      * </p>
      * 
-     * @return The unique ID of the ipSet you want to get.
+     * @return The unique ID of the IPSet to retrieve.
      */
 
     public String getIpSetId() {
@@ -105,11 +105,11 @@ public class GetIPSetRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * The unique ID of the ipSet you want to get.
+     * The unique ID of the IPSet to retrieve.
      * </p>
      * 
      * @param ipSetId
-     *        The unique ID of the ipSet you want to get.
+     *        The unique ID of the IPSet to retrieve.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

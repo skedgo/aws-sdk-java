@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,8 +17,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Contains information about the last time an AWS access key was used since IAM began tracking this information on
- * April 22, 2015.
+ * Contains information about the last time an Amazon Web Services access key was used since IAM began tracking this
+ * information on April 22, 2015.
  * </p>
  * <p>
  * This data type is used as a response element in the <a>GetAccessKeyLastUsed</a> operation.
@@ -56,8 +56,8 @@ public class AccessKeyLastUsed implements Serializable, Cloneable {
     private java.util.Date lastUsedDate;
     /**
      * <p>
-     * The name of the AWS service with which this access key was most recently used. The value of this field is "N/A"
-     * in the following situations:
+     * The name of the Amazon Web Services service with which this access key was most recently used. The value of this
+     * field is "N/A" in the following situations:
      * </p>
      * <ul>
      * <li>
@@ -80,8 +80,8 @@ public class AccessKeyLastUsed implements Serializable, Cloneable {
     private String serviceName;
     /**
      * <p>
-     * The AWS Region where this access key was most recently used. The value for this field is "N/A" in the following
-     * situations:
+     * The Amazon Web Services Region where this access key was most recently used. The value for this field is "N/A" in
+     * the following situations:
      * </p>
      * <ul>
      * <li>
@@ -101,8 +101,8 @@ public class AccessKeyLastUsed implements Serializable, Cloneable {
      * </li>
      * </ul>
      * <p>
-     * For more information about AWS Regions, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and Endpoints</a> in the Amazon Web
+     * For more information about Amazon Web Services Regions, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and endpoints</a> in the Amazon Web
      * Services General Reference.
      * </p>
      */
@@ -255,8 +255,8 @@ public class AccessKeyLastUsed implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the AWS service with which this access key was most recently used. The value of this field is "N/A"
-     * in the following situations:
+     * The name of the Amazon Web Services service with which this access key was most recently used. The value of this
+     * field is "N/A" in the following situations:
      * </p>
      * <ul>
      * <li>
@@ -277,8 +277,8 @@ public class AccessKeyLastUsed implements Serializable, Cloneable {
      * </ul>
      * 
      * @param serviceName
-     *        The name of the AWS service with which this access key was most recently used. The value of this field is
-     *        "N/A" in the following situations:</p>
+     *        The name of the Amazon Web Services service with which this access key was most recently used. The value
+     *        of this field is "N/A" in the following situations:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -303,8 +303,8 @@ public class AccessKeyLastUsed implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the AWS service with which this access key was most recently used. The value of this field is "N/A"
-     * in the following situations:
+     * The name of the Amazon Web Services service with which this access key was most recently used. The value of this
+     * field is "N/A" in the following situations:
      * </p>
      * <ul>
      * <li>
@@ -324,8 +324,8 @@ public class AccessKeyLastUsed implements Serializable, Cloneable {
      * </li>
      * </ul>
      * 
-     * @return The name of the AWS service with which this access key was most recently used. The value of this field is
-     *         "N/A" in the following situations:</p>
+     * @return The name of the Amazon Web Services service with which this access key was most recently used. The value
+     *         of this field is "N/A" in the following situations:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -350,8 +350,8 @@ public class AccessKeyLastUsed implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the AWS service with which this access key was most recently used. The value of this field is "N/A"
-     * in the following situations:
+     * The name of the Amazon Web Services service with which this access key was most recently used. The value of this
+     * field is "N/A" in the following situations:
      * </p>
      * <ul>
      * <li>
@@ -372,8 +372,8 @@ public class AccessKeyLastUsed implements Serializable, Cloneable {
      * </ul>
      * 
      * @param serviceName
-     *        The name of the AWS service with which this access key was most recently used. The value of this field is
-     *        "N/A" in the following situations:</p>
+     *        The name of the Amazon Web Services service with which this access key was most recently used. The value
+     *        of this field is "N/A" in the following situations:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -400,8 +400,8 @@ public class AccessKeyLastUsed implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Region where this access key was most recently used. The value for this field is "N/A" in the following
-     * situations:
+     * The Amazon Web Services Region where this access key was most recently used. The value for this field is "N/A" in
+     * the following situations:
      * </p>
      * <ul>
      * <li>
@@ -421,14 +421,14 @@ public class AccessKeyLastUsed implements Serializable, Cloneable {
      * </li>
      * </ul>
      * <p>
-     * For more information about AWS Regions, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and Endpoints</a> in the Amazon Web
+     * For more information about Amazon Web Services Regions, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and endpoints</a> in the Amazon Web
      * Services General Reference.
      * </p>
      * 
      * @param region
-     *        The AWS Region where this access key was most recently used. The value for this field is "N/A" in the
-     *        following situations:</p>
+     *        The Amazon Web Services Region where this access key was most recently used. The value for this field is
+     *        "N/A" in the following situations:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -447,8 +447,8 @@ public class AccessKeyLastUsed implements Serializable, Cloneable {
      *        </li>
      *        </ul>
      *        <p>
-     *        For more information about AWS Regions, see <a
-     *        href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and Endpoints</a> in the Amazon
+     *        For more information about Amazon Web Services Regions, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and endpoints</a> in the Amazon
      *        Web Services General Reference.
      */
 
@@ -458,8 +458,8 @@ public class AccessKeyLastUsed implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Region where this access key was most recently used. The value for this field is "N/A" in the following
-     * situations:
+     * The Amazon Web Services Region where this access key was most recently used. The value for this field is "N/A" in
+     * the following situations:
      * </p>
      * <ul>
      * <li>
@@ -479,13 +479,13 @@ public class AccessKeyLastUsed implements Serializable, Cloneable {
      * </li>
      * </ul>
      * <p>
-     * For more information about AWS Regions, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and Endpoints</a> in the Amazon Web
+     * For more information about Amazon Web Services Regions, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and endpoints</a> in the Amazon Web
      * Services General Reference.
      * </p>
      * 
-     * @return The AWS Region where this access key was most recently used. The value for this field is "N/A" in the
-     *         following situations:</p>
+     * @return The Amazon Web Services Region where this access key was most recently used. The value for this field is
+     *         "N/A" in the following situations:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -504,8 +504,8 @@ public class AccessKeyLastUsed implements Serializable, Cloneable {
      *         </li>
      *         </ul>
      *         <p>
-     *         For more information about AWS Regions, see <a
-     *         href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and Endpoints</a> in the Amazon
+     *         For more information about Amazon Web Services Regions, see <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and endpoints</a> in the Amazon
      *         Web Services General Reference.
      */
 
@@ -515,8 +515,8 @@ public class AccessKeyLastUsed implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Region where this access key was most recently used. The value for this field is "N/A" in the following
-     * situations:
+     * The Amazon Web Services Region where this access key was most recently used. The value for this field is "N/A" in
+     * the following situations:
      * </p>
      * <ul>
      * <li>
@@ -536,14 +536,14 @@ public class AccessKeyLastUsed implements Serializable, Cloneable {
      * </li>
      * </ul>
      * <p>
-     * For more information about AWS Regions, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and Endpoints</a> in the Amazon Web
+     * For more information about Amazon Web Services Regions, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and endpoints</a> in the Amazon Web
      * Services General Reference.
      * </p>
      * 
      * @param region
-     *        The AWS Region where this access key was most recently used. The value for this field is "N/A" in the
-     *        following situations:</p>
+     *        The Amazon Web Services Region where this access key was most recently used. The value for this field is
+     *        "N/A" in the following situations:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -562,8 +562,8 @@ public class AccessKeyLastUsed implements Serializable, Cloneable {
      *        </li>
      *        </ul>
      *        <p>
-     *        For more information about AWS Regions, see <a
-     *        href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and Endpoints</a> in the Amazon
+     *        For more information about Amazon Web Services Regions, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/rande.html">Regions and endpoints</a> in the Amazon
      *        Web Services General Reference.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

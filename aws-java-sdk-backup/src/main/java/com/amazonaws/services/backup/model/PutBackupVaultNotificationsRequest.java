@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,8 +28,8 @@ public class PutBackupVaultNotificationsRequest extends com.amazonaws.AmazonWebS
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      */
     private String backupVaultName;
@@ -44,20 +44,57 @@ public class PutBackupVaultNotificationsRequest extends com.amazonaws.AmazonWebS
      * <p>
      * An array of events that indicate the status of jobs to back up resources to the backup vault.
      * </p>
+     * <p>
+     * For common use cases and code samples, see <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/sns-notifications.html">Using Amazon SNS to track
+     * Backup events</a>.
+     * </p>
+     * <p>
+     * The following events are supported:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>BACKUP_JOB_STARTED</code> | <code>BACKUP_JOB_COMPLETED</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>COPY_JOB_STARTED</code> | <code>COPY_JOB_SUCCESSFUL</code> | <code>COPY_JOB_FAILED</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESTORE_JOB_STARTED</code> | <code>RESTORE_JOB_COMPLETED</code> | <code>RECOVERY_POINT_MODIFIED</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>S3_BACKUP_OBJECT_FAILED</code> | <code>S3_RESTORE_OBJECT_FAILED</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * The list below shows items that are deprecated events (for reference) and are no longer in use. They are no
+     * longer supported and will not return statuses or notifications. Refer to the list above for current supported
+     * events.
+     * </p>
+     * </note>
      */
     private java.util.List<String> backupVaultEvents;
 
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      * 
      * @param backupVaultName
      *        The name of a logical container where backups are stored. Backup vaults are identified by names that are
-     *        unique to the account used to create them and the AWS Region where they are created. They consist of
-     *        lowercase letters, numbers, and hyphens.
+     *        unique to the account used to create them and the Amazon Web Services Region where they are created. They
+     *        consist of lowercase letters, numbers, and hyphens.
      */
 
     public void setBackupVaultName(String backupVaultName) {
@@ -67,13 +104,13 @@ public class PutBackupVaultNotificationsRequest extends com.amazonaws.AmazonWebS
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      * 
      * @return The name of a logical container where backups are stored. Backup vaults are identified by names that are
-     *         unique to the account used to create them and the AWS Region where they are created. They consist of
-     *         lowercase letters, numbers, and hyphens.
+     *         unique to the account used to create them and the Amazon Web Services Region where they are created. They
+     *         consist of lowercase letters, numbers, and hyphens.
      */
 
     public String getBackupVaultName() {
@@ -83,14 +120,14 @@ public class PutBackupVaultNotificationsRequest extends com.amazonaws.AmazonWebS
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      * 
      * @param backupVaultName
      *        The name of a logical container where backups are stored. Backup vaults are identified by names that are
-     *        unique to the account used to create them and the AWS Region where they are created. They consist of
-     *        lowercase letters, numbers, and hyphens.
+     *        unique to the account used to create them and the Amazon Web Services Region where they are created. They
+     *        consist of lowercase letters, numbers, and hyphens.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -149,8 +186,82 @@ public class PutBackupVaultNotificationsRequest extends com.amazonaws.AmazonWebS
      * <p>
      * An array of events that indicate the status of jobs to back up resources to the backup vault.
      * </p>
+     * <p>
+     * For common use cases and code samples, see <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/sns-notifications.html">Using Amazon SNS to track
+     * Backup events</a>.
+     * </p>
+     * <p>
+     * The following events are supported:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>BACKUP_JOB_STARTED</code> | <code>BACKUP_JOB_COMPLETED</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>COPY_JOB_STARTED</code> | <code>COPY_JOB_SUCCESSFUL</code> | <code>COPY_JOB_FAILED</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESTORE_JOB_STARTED</code> | <code>RESTORE_JOB_COMPLETED</code> | <code>RECOVERY_POINT_MODIFIED</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>S3_BACKUP_OBJECT_FAILED</code> | <code>S3_RESTORE_OBJECT_FAILED</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * The list below shows items that are deprecated events (for reference) and are no longer in use. They are no
+     * longer supported and will not return statuses or notifications. Refer to the list above for current supported
+     * events.
+     * </p>
+     * </note>
      * 
-     * @return An array of events that indicate the status of jobs to back up resources to the backup vault.
+     * @return An array of events that indicate the status of jobs to back up resources to the backup vault.</p>
+     *         <p>
+     *         For common use cases and code samples, see <a
+     *         href="https://docs.aws.amazon.com/aws-backup/latest/devguide/sns-notifications.html">Using Amazon SNS to
+     *         track Backup events</a>.
+     *         </p>
+     *         <p>
+     *         The following events are supported:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>BACKUP_JOB_STARTED</code> | <code>BACKUP_JOB_COMPLETED</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>COPY_JOB_STARTED</code> | <code>COPY_JOB_SUCCESSFUL</code> | <code>COPY_JOB_FAILED</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>RESTORE_JOB_STARTED</code> | <code>RESTORE_JOB_COMPLETED</code> |
+     *         <code>RECOVERY_POINT_MODIFIED</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>S3_BACKUP_OBJECT_FAILED</code> | <code>S3_RESTORE_OBJECT_FAILED</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <note>
+     *         <p>
+     *         The list below shows items that are deprecated events (for reference) and are no longer in use. They are
+     *         no longer supported and will not return statuses or notifications. Refer to the list above for current
+     *         supported events.
+     *         </p>
      * @see BackupVaultEvent
      */
 
@@ -162,9 +273,83 @@ public class PutBackupVaultNotificationsRequest extends com.amazonaws.AmazonWebS
      * <p>
      * An array of events that indicate the status of jobs to back up resources to the backup vault.
      * </p>
+     * <p>
+     * For common use cases and code samples, see <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/sns-notifications.html">Using Amazon SNS to track
+     * Backup events</a>.
+     * </p>
+     * <p>
+     * The following events are supported:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>BACKUP_JOB_STARTED</code> | <code>BACKUP_JOB_COMPLETED</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>COPY_JOB_STARTED</code> | <code>COPY_JOB_SUCCESSFUL</code> | <code>COPY_JOB_FAILED</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESTORE_JOB_STARTED</code> | <code>RESTORE_JOB_COMPLETED</code> | <code>RECOVERY_POINT_MODIFIED</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>S3_BACKUP_OBJECT_FAILED</code> | <code>S3_RESTORE_OBJECT_FAILED</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * The list below shows items that are deprecated events (for reference) and are no longer in use. They are no
+     * longer supported and will not return statuses or notifications. Refer to the list above for current supported
+     * events.
+     * </p>
+     * </note>
      * 
      * @param backupVaultEvents
-     *        An array of events that indicate the status of jobs to back up resources to the backup vault.
+     *        An array of events that indicate the status of jobs to back up resources to the backup vault.</p>
+     *        <p>
+     *        For common use cases and code samples, see <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/sns-notifications.html">Using Amazon SNS to
+     *        track Backup events</a>.
+     *        </p>
+     *        <p>
+     *        The following events are supported:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>BACKUP_JOB_STARTED</code> | <code>BACKUP_JOB_COMPLETED</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>COPY_JOB_STARTED</code> | <code>COPY_JOB_SUCCESSFUL</code> | <code>COPY_JOB_FAILED</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RESTORE_JOB_STARTED</code> | <code>RESTORE_JOB_COMPLETED</code> |
+     *        <code>RECOVERY_POINT_MODIFIED</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>S3_BACKUP_OBJECT_FAILED</code> | <code>S3_RESTORE_OBJECT_FAILED</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        The list below shows items that are deprecated events (for reference) and are no longer in use. They are
+     *        no longer supported and will not return statuses or notifications. Refer to the list above for current
+     *        supported events.
+     *        </p>
      * @see BackupVaultEvent
      */
 
@@ -182,13 +367,87 @@ public class PutBackupVaultNotificationsRequest extends com.amazonaws.AmazonWebS
      * An array of events that indicate the status of jobs to back up resources to the backup vault.
      * </p>
      * <p>
+     * For common use cases and code samples, see <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/sns-notifications.html">Using Amazon SNS to track
+     * Backup events</a>.
+     * </p>
+     * <p>
+     * The following events are supported:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>BACKUP_JOB_STARTED</code> | <code>BACKUP_JOB_COMPLETED</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>COPY_JOB_STARTED</code> | <code>COPY_JOB_SUCCESSFUL</code> | <code>COPY_JOB_FAILED</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESTORE_JOB_STARTED</code> | <code>RESTORE_JOB_COMPLETED</code> | <code>RECOVERY_POINT_MODIFIED</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>S3_BACKUP_OBJECT_FAILED</code> | <code>S3_RESTORE_OBJECT_FAILED</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * The list below shows items that are deprecated events (for reference) and are no longer in use. They are no
+     * longer supported and will not return statuses or notifications. Refer to the list above for current supported
+     * events.
+     * </p>
+     * </note>
+     * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setBackupVaultEvents(java.util.Collection)} or {@link #withBackupVaultEvents(java.util.Collection)} if
      * you want to override the existing values.
      * </p>
      * 
      * @param backupVaultEvents
-     *        An array of events that indicate the status of jobs to back up resources to the backup vault.
+     *        An array of events that indicate the status of jobs to back up resources to the backup vault.</p>
+     *        <p>
+     *        For common use cases and code samples, see <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/sns-notifications.html">Using Amazon SNS to
+     *        track Backup events</a>.
+     *        </p>
+     *        <p>
+     *        The following events are supported:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>BACKUP_JOB_STARTED</code> | <code>BACKUP_JOB_COMPLETED</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>COPY_JOB_STARTED</code> | <code>COPY_JOB_SUCCESSFUL</code> | <code>COPY_JOB_FAILED</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RESTORE_JOB_STARTED</code> | <code>RESTORE_JOB_COMPLETED</code> |
+     *        <code>RECOVERY_POINT_MODIFIED</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>S3_BACKUP_OBJECT_FAILED</code> | <code>S3_RESTORE_OBJECT_FAILED</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        The list below shows items that are deprecated events (for reference) and are no longer in use. They are
+     *        no longer supported and will not return statuses or notifications. Refer to the list above for current
+     *        supported events.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see BackupVaultEvent
      */
@@ -207,9 +466,83 @@ public class PutBackupVaultNotificationsRequest extends com.amazonaws.AmazonWebS
      * <p>
      * An array of events that indicate the status of jobs to back up resources to the backup vault.
      * </p>
+     * <p>
+     * For common use cases and code samples, see <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/sns-notifications.html">Using Amazon SNS to track
+     * Backup events</a>.
+     * </p>
+     * <p>
+     * The following events are supported:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>BACKUP_JOB_STARTED</code> | <code>BACKUP_JOB_COMPLETED</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>COPY_JOB_STARTED</code> | <code>COPY_JOB_SUCCESSFUL</code> | <code>COPY_JOB_FAILED</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESTORE_JOB_STARTED</code> | <code>RESTORE_JOB_COMPLETED</code> | <code>RECOVERY_POINT_MODIFIED</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>S3_BACKUP_OBJECT_FAILED</code> | <code>S3_RESTORE_OBJECT_FAILED</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * The list below shows items that are deprecated events (for reference) and are no longer in use. They are no
+     * longer supported and will not return statuses or notifications. Refer to the list above for current supported
+     * events.
+     * </p>
+     * </note>
      * 
      * @param backupVaultEvents
-     *        An array of events that indicate the status of jobs to back up resources to the backup vault.
+     *        An array of events that indicate the status of jobs to back up resources to the backup vault.</p>
+     *        <p>
+     *        For common use cases and code samples, see <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/sns-notifications.html">Using Amazon SNS to
+     *        track Backup events</a>.
+     *        </p>
+     *        <p>
+     *        The following events are supported:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>BACKUP_JOB_STARTED</code> | <code>BACKUP_JOB_COMPLETED</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>COPY_JOB_STARTED</code> | <code>COPY_JOB_SUCCESSFUL</code> | <code>COPY_JOB_FAILED</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RESTORE_JOB_STARTED</code> | <code>RESTORE_JOB_COMPLETED</code> |
+     *        <code>RECOVERY_POINT_MODIFIED</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>S3_BACKUP_OBJECT_FAILED</code> | <code>S3_RESTORE_OBJECT_FAILED</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        The list below shows items that are deprecated events (for reference) and are no longer in use. They are
+     *        no longer supported and will not return statuses or notifications. Refer to the list above for current
+     *        supported events.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see BackupVaultEvent
      */
@@ -223,9 +556,83 @@ public class PutBackupVaultNotificationsRequest extends com.amazonaws.AmazonWebS
      * <p>
      * An array of events that indicate the status of jobs to back up resources to the backup vault.
      * </p>
+     * <p>
+     * For common use cases and code samples, see <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/sns-notifications.html">Using Amazon SNS to track
+     * Backup events</a>.
+     * </p>
+     * <p>
+     * The following events are supported:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>BACKUP_JOB_STARTED</code> | <code>BACKUP_JOB_COMPLETED</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>COPY_JOB_STARTED</code> | <code>COPY_JOB_SUCCESSFUL</code> | <code>COPY_JOB_FAILED</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESTORE_JOB_STARTED</code> | <code>RESTORE_JOB_COMPLETED</code> | <code>RECOVERY_POINT_MODIFIED</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>S3_BACKUP_OBJECT_FAILED</code> | <code>S3_RESTORE_OBJECT_FAILED</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * The list below shows items that are deprecated events (for reference) and are no longer in use. They are no
+     * longer supported and will not return statuses or notifications. Refer to the list above for current supported
+     * events.
+     * </p>
+     * </note>
      * 
      * @param backupVaultEvents
-     *        An array of events that indicate the status of jobs to back up resources to the backup vault.
+     *        An array of events that indicate the status of jobs to back up resources to the backup vault.</p>
+     *        <p>
+     *        For common use cases and code samples, see <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/sns-notifications.html">Using Amazon SNS to
+     *        track Backup events</a>.
+     *        </p>
+     *        <p>
+     *        The following events are supported:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>BACKUP_JOB_STARTED</code> | <code>BACKUP_JOB_COMPLETED</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>COPY_JOB_STARTED</code> | <code>COPY_JOB_SUCCESSFUL</code> | <code>COPY_JOB_FAILED</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RESTORE_JOB_STARTED</code> | <code>RESTORE_JOB_COMPLETED</code> |
+     *        <code>RECOVERY_POINT_MODIFIED</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>S3_BACKUP_OBJECT_FAILED</code> | <code>S3_RESTORE_OBJECT_FAILED</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        The list below shows items that are deprecated events (for reference) and are no longer in use. They are
+     *        no longer supported and will not return statuses or notifications. Refer to the list above for current
+     *        supported events.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see BackupVaultEvent
      */

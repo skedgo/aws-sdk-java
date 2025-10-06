@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,12 +29,17 @@ public class LabelParameterVersionRequest extends com.amazonaws.AmazonWebService
      * <p>
      * The parameter name on which you want to attach one or more labels.
      * </p>
+     * <note>
+     * <p>
+     * You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     * </p>
+     * </note>
      */
     private String name;
     /**
      * <p>
      * The specific version of the parameter on which you want to attach one or more labels. If no version is specified,
-     * the system attaches the label to the latest version.)
+     * the system attaches the label to the latest version.
      * </p>
      */
     private Long parameterVersion;
@@ -49,9 +54,17 @@ public class LabelParameterVersionRequest extends com.amazonaws.AmazonWebService
      * <p>
      * The parameter name on which you want to attach one or more labels.
      * </p>
+     * <note>
+     * <p>
+     * You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     * </p>
+     * </note>
      * 
      * @param name
-     *        The parameter name on which you want to attach one or more labels.
+     *        The parameter name on which you want to attach one or more labels.</p> <note>
+     *        <p>
+     *        You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     *        </p>
      */
 
     public void setName(String name) {
@@ -62,8 +75,16 @@ public class LabelParameterVersionRequest extends com.amazonaws.AmazonWebService
      * <p>
      * The parameter name on which you want to attach one or more labels.
      * </p>
+     * <note>
+     * <p>
+     * You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     * </p>
+     * </note>
      * 
-     * @return The parameter name on which you want to attach one or more labels.
+     * @return The parameter name on which you want to attach one or more labels.</p> <note>
+     *         <p>
+     *         You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     *         </p>
      */
 
     public String getName() {
@@ -74,9 +95,17 @@ public class LabelParameterVersionRequest extends com.amazonaws.AmazonWebService
      * <p>
      * The parameter name on which you want to attach one or more labels.
      * </p>
+     * <note>
+     * <p>
+     * You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     * </p>
+     * </note>
      * 
      * @param name
-     *        The parameter name on which you want to attach one or more labels.
+     *        The parameter name on which you want to attach one or more labels.</p> <note>
+     *        <p>
+     *        You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -88,12 +117,12 @@ public class LabelParameterVersionRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The specific version of the parameter on which you want to attach one or more labels. If no version is specified,
-     * the system attaches the label to the latest version.)
+     * the system attaches the label to the latest version.
      * </p>
      * 
      * @param parameterVersion
      *        The specific version of the parameter on which you want to attach one or more labels. If no version is
-     *        specified, the system attaches the label to the latest version.)
+     *        specified, the system attaches the label to the latest version.
      */
 
     public void setParameterVersion(Long parameterVersion) {
@@ -103,11 +132,11 @@ public class LabelParameterVersionRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The specific version of the parameter on which you want to attach one or more labels. If no version is specified,
-     * the system attaches the label to the latest version.)
+     * the system attaches the label to the latest version.
      * </p>
      * 
      * @return The specific version of the parameter on which you want to attach one or more labels. If no version is
-     *         specified, the system attaches the label to the latest version.)
+     *         specified, the system attaches the label to the latest version.
      */
 
     public Long getParameterVersion() {
@@ -117,12 +146,12 @@ public class LabelParameterVersionRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The specific version of the parameter on which you want to attach one or more labels. If no version is specified,
-     * the system attaches the label to the latest version.)
+     * the system attaches the label to the latest version.
      * </p>
      * 
      * @param parameterVersion
      *        The specific version of the parameter on which you want to attach one or more labels. If no version is
-     *        specified, the system attaches the label to the latest version.)
+     *        specified, the system attaches the label to the latest version.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

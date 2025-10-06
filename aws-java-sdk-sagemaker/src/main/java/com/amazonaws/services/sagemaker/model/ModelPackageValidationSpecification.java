@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Specifies batch transform jobs that Amazon SageMaker runs to validate your model package.
+ * Specifies batch transform jobs that SageMaker runs to validate your model package.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ModelPackageValidationSpecification"
@@ -37,7 +37,7 @@ public class ModelPackageValidationSpecification implements Serializable, Clonea
     /**
      * <p>
      * An array of <code>ModelPackageValidationProfile</code> objects, each of which specifies a batch transform job
-     * that Amazon SageMaker runs to validate your model package.
+     * that SageMaker runs to validate your model package.
      * </p>
      */
     private java.util.List<ModelPackageValidationProfile> validationProfiles;
@@ -85,11 +85,11 @@ public class ModelPackageValidationSpecification implements Serializable, Clonea
     /**
      * <p>
      * An array of <code>ModelPackageValidationProfile</code> objects, each of which specifies a batch transform job
-     * that Amazon SageMaker runs to validate your model package.
+     * that SageMaker runs to validate your model package.
      * </p>
      * 
      * @return An array of <code>ModelPackageValidationProfile</code> objects, each of which specifies a batch transform
-     *         job that Amazon SageMaker runs to validate your model package.
+     *         job that SageMaker runs to validate your model package.
      */
 
     public java.util.List<ModelPackageValidationProfile> getValidationProfiles() {
@@ -99,12 +99,12 @@ public class ModelPackageValidationSpecification implements Serializable, Clonea
     /**
      * <p>
      * An array of <code>ModelPackageValidationProfile</code> objects, each of which specifies a batch transform job
-     * that Amazon SageMaker runs to validate your model package.
+     * that SageMaker runs to validate your model package.
      * </p>
      * 
      * @param validationProfiles
      *        An array of <code>ModelPackageValidationProfile</code> objects, each of which specifies a batch transform
-     *        job that Amazon SageMaker runs to validate your model package.
+     *        job that SageMaker runs to validate your model package.
      */
 
     public void setValidationProfiles(java.util.Collection<ModelPackageValidationProfile> validationProfiles) {
@@ -119,7 +119,7 @@ public class ModelPackageValidationSpecification implements Serializable, Clonea
     /**
      * <p>
      * An array of <code>ModelPackageValidationProfile</code> objects, each of which specifies a batch transform job
-     * that Amazon SageMaker runs to validate your model package.
+     * that SageMaker runs to validate your model package.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -129,7 +129,7 @@ public class ModelPackageValidationSpecification implements Serializable, Clonea
      * 
      * @param validationProfiles
      *        An array of <code>ModelPackageValidationProfile</code> objects, each of which specifies a batch transform
-     *        job that Amazon SageMaker runs to validate your model package.
+     *        job that SageMaker runs to validate your model package.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -146,12 +146,12 @@ public class ModelPackageValidationSpecification implements Serializable, Clonea
     /**
      * <p>
      * An array of <code>ModelPackageValidationProfile</code> objects, each of which specifies a batch transform job
-     * that Amazon SageMaker runs to validate your model package.
+     * that SageMaker runs to validate your model package.
      * </p>
      * 
      * @param validationProfiles
      *        An array of <code>ModelPackageValidationProfile</code> objects, each of which specifies a batch transform
-     *        job that Amazon SageMaker runs to validate your model package.
+     *        job that SageMaker runs to validate your model package.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

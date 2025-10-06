@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,10 +30,10 @@ public class GetTemplateResult extends com.amazonaws.AmazonWebServiceResult<com.
      * <p>
      * Structure containing the template body. (For more information, go to <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html">Template Anatomy</a>
-     * in the AWS CloudFormation User Guide.)
+     * in the <i>CloudFormation User Guide</i>.)
      * </p>
      * <p>
-     * AWS CloudFormation returns the same template that was used when the stack was created.
+     * CloudFormation returns the same template that was used when the stack was created.
      * </p>
      */
     private String templateBody;
@@ -41,7 +41,7 @@ public class GetTemplateResult extends com.amazonaws.AmazonWebServiceResult<com.
      * <p>
      * The stage of the template that you can retrieve. For stacks, the <code>Original</code> and <code>Processed</code>
      * templates are always available. For change sets, the <code>Original</code> template is always available. After
-     * AWS CloudFormation finishes creating the change set, the <code>Processed</code> template becomes available.
+     * CloudFormation finishes creating the change set, the <code>Processed</code> template becomes available.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> stagesAvailable;
@@ -50,18 +50,18 @@ public class GetTemplateResult extends com.amazonaws.AmazonWebServiceResult<com.
      * <p>
      * Structure containing the template body. (For more information, go to <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html">Template Anatomy</a>
-     * in the AWS CloudFormation User Guide.)
+     * in the <i>CloudFormation User Guide</i>.)
      * </p>
      * <p>
-     * AWS CloudFormation returns the same template that was used when the stack was created.
+     * CloudFormation returns the same template that was used when the stack was created.
      * </p>
      * 
      * @param templateBody
      *        Structure containing the template body. (For more information, go to <a
      *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html">Template
-     *        Anatomy</a> in the AWS CloudFormation User Guide.)</p>
+     *        Anatomy</a> in the <i>CloudFormation User Guide</i>.)</p>
      *        <p>
-     *        AWS CloudFormation returns the same template that was used when the stack was created.
+     *        CloudFormation returns the same template that was used when the stack was created.
      */
 
     public void setTemplateBody(String templateBody) {
@@ -72,17 +72,17 @@ public class GetTemplateResult extends com.amazonaws.AmazonWebServiceResult<com.
      * <p>
      * Structure containing the template body. (For more information, go to <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html">Template Anatomy</a>
-     * in the AWS CloudFormation User Guide.)
+     * in the <i>CloudFormation User Guide</i>.)
      * </p>
      * <p>
-     * AWS CloudFormation returns the same template that was used when the stack was created.
+     * CloudFormation returns the same template that was used when the stack was created.
      * </p>
      * 
      * @return Structure containing the template body. (For more information, go to <a
      *         href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html">Template
-     *         Anatomy</a> in the AWS CloudFormation User Guide.)</p>
+     *         Anatomy</a> in the <i>CloudFormation User Guide</i>.)</p>
      *         <p>
-     *         AWS CloudFormation returns the same template that was used when the stack was created.
+     *         CloudFormation returns the same template that was used when the stack was created.
      */
 
     public String getTemplateBody() {
@@ -93,18 +93,18 @@ public class GetTemplateResult extends com.amazonaws.AmazonWebServiceResult<com.
      * <p>
      * Structure containing the template body. (For more information, go to <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html">Template Anatomy</a>
-     * in the AWS CloudFormation User Guide.)
+     * in the <i>CloudFormation User Guide</i>.)
      * </p>
      * <p>
-     * AWS CloudFormation returns the same template that was used when the stack was created.
+     * CloudFormation returns the same template that was used when the stack was created.
      * </p>
      * 
      * @param templateBody
      *        Structure containing the template body. (For more information, go to <a
      *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html">Template
-     *        Anatomy</a> in the AWS CloudFormation User Guide.)</p>
+     *        Anatomy</a> in the <i>CloudFormation User Guide</i>.)</p>
      *        <p>
-     *        AWS CloudFormation returns the same template that was used when the stack was created.
+     *        CloudFormation returns the same template that was used when the stack was created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -117,12 +117,12 @@ public class GetTemplateResult extends com.amazonaws.AmazonWebServiceResult<com.
      * <p>
      * The stage of the template that you can retrieve. For stacks, the <code>Original</code> and <code>Processed</code>
      * templates are always available. For change sets, the <code>Original</code> template is always available. After
-     * AWS CloudFormation finishes creating the change set, the <code>Processed</code> template becomes available.
+     * CloudFormation finishes creating the change set, the <code>Processed</code> template becomes available.
      * </p>
      * 
      * @return The stage of the template that you can retrieve. For stacks, the <code>Original</code> and
      *         <code>Processed</code> templates are always available. For change sets, the <code>Original</code>
-     *         template is always available. After AWS CloudFormation finishes creating the change set, the
+     *         template is always available. After CloudFormation finishes creating the change set, the
      *         <code>Processed</code> template becomes available.
      * @see TemplateStage
      */
@@ -138,13 +138,13 @@ public class GetTemplateResult extends com.amazonaws.AmazonWebServiceResult<com.
      * <p>
      * The stage of the template that you can retrieve. For stacks, the <code>Original</code> and <code>Processed</code>
      * templates are always available. For change sets, the <code>Original</code> template is always available. After
-     * AWS CloudFormation finishes creating the change set, the <code>Processed</code> template becomes available.
+     * CloudFormation finishes creating the change set, the <code>Processed</code> template becomes available.
      * </p>
      * 
      * @param stagesAvailable
      *        The stage of the template that you can retrieve. For stacks, the <code>Original</code> and
      *        <code>Processed</code> templates are always available. For change sets, the <code>Original</code> template
-     *        is always available. After AWS CloudFormation finishes creating the change set, the <code>Processed</code>
+     *        is always available. After CloudFormation finishes creating the change set, the <code>Processed</code>
      *        template becomes available.
      * @see TemplateStage
      */
@@ -162,7 +162,7 @@ public class GetTemplateResult extends com.amazonaws.AmazonWebServiceResult<com.
      * <p>
      * The stage of the template that you can retrieve. For stacks, the <code>Original</code> and <code>Processed</code>
      * templates are always available. For change sets, the <code>Original</code> template is always available. After
-     * AWS CloudFormation finishes creating the change set, the <code>Processed</code> template becomes available.
+     * CloudFormation finishes creating the change set, the <code>Processed</code> template becomes available.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -173,7 +173,7 @@ public class GetTemplateResult extends com.amazonaws.AmazonWebServiceResult<com.
      * @param stagesAvailable
      *        The stage of the template that you can retrieve. For stacks, the <code>Original</code> and
      *        <code>Processed</code> templates are always available. For change sets, the <code>Original</code> template
-     *        is always available. After AWS CloudFormation finishes creating the change set, the <code>Processed</code>
+     *        is always available. After CloudFormation finishes creating the change set, the <code>Processed</code>
      *        template becomes available.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TemplateStage
@@ -193,13 +193,13 @@ public class GetTemplateResult extends com.amazonaws.AmazonWebServiceResult<com.
      * <p>
      * The stage of the template that you can retrieve. For stacks, the <code>Original</code> and <code>Processed</code>
      * templates are always available. For change sets, the <code>Original</code> template is always available. After
-     * AWS CloudFormation finishes creating the change set, the <code>Processed</code> template becomes available.
+     * CloudFormation finishes creating the change set, the <code>Processed</code> template becomes available.
      * </p>
      * 
      * @param stagesAvailable
      *        The stage of the template that you can retrieve. For stacks, the <code>Original</code> and
      *        <code>Processed</code> templates are always available. For change sets, the <code>Original</code> template
-     *        is always available. After AWS CloudFormation finishes creating the change set, the <code>Processed</code>
+     *        is always available. After CloudFormation finishes creating the change set, the <code>Processed</code>
      *        template becomes available.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TemplateStage
@@ -214,13 +214,13 @@ public class GetTemplateResult extends com.amazonaws.AmazonWebServiceResult<com.
      * <p>
      * The stage of the template that you can retrieve. For stacks, the <code>Original</code> and <code>Processed</code>
      * templates are always available. For change sets, the <code>Original</code> template is always available. After
-     * AWS CloudFormation finishes creating the change set, the <code>Processed</code> template becomes available.
+     * CloudFormation finishes creating the change set, the <code>Processed</code> template becomes available.
      * </p>
      * 
      * @param stagesAvailable
      *        The stage of the template that you can retrieve. For stacks, the <code>Original</code> and
      *        <code>Processed</code> templates are always available. For change sets, the <code>Original</code> template
-     *        is always available. After AWS CloudFormation finishes creating the change set, the <code>Processed</code>
+     *        is always available. After CloudFormation finishes creating the change set, the <code>Processed</code>
      *        template becomes available.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TemplateStage

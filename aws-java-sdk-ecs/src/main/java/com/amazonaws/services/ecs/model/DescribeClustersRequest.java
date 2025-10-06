@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,50 +34,25 @@ public class DescribeClustersRequest extends com.amazonaws.AmazonWebServiceReque
     private com.amazonaws.internal.SdkInternalList<String> clusters;
     /**
      * <p>
-     * Additional information about your clusters to be separated by launch type, including:
+     * Determines whether to include additional information about the clusters in the response. If this field is
+     * omitted, this information isn't included.
      * </p>
-     * <ul>
-     * <li>
      * <p>
-     * runningEC2TasksCount
+     * If <code>ATTACHMENTS</code> is specified, the attachments for the container instances or tasks within the cluster
+     * are included, for example the capacity providers.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * runningFargateTasksCount
+     * If <code>SETTINGS</code> is specified, the settings for the cluster are included.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * pendingEC2TasksCount
+     * If <code>CONFIGURATIONS</code> is specified, the configuration for the cluster is included.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * pendingFargateTasksCount
+     * If <code>STATISTICS</code> is specified, the task and service count is included, separated by launch type.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * activeEC2ServiceCount
+     * If <code>TAGS</code> is specified, the metadata tags associated with the cluster are included.
      * </p>
-     * </li>
-     * <li>
-     * <p>
-     * activeFargateServiceCount
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * drainingEC2ServiceCount
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * drainingFargateServiceCount
-     * </p>
-     * </li>
-     * </ul>
      */
     private com.amazonaws.internal.SdkInternalList<String> include;
 
@@ -164,93 +139,44 @@ public class DescribeClustersRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Additional information about your clusters to be separated by launch type, including:
+     * Determines whether to include additional information about the clusters in the response. If this field is
+     * omitted, this information isn't included.
      * </p>
-     * <ul>
-     * <li>
      * <p>
-     * runningEC2TasksCount
+     * If <code>ATTACHMENTS</code> is specified, the attachments for the container instances or tasks within the cluster
+     * are included, for example the capacity providers.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * runningFargateTasksCount
+     * If <code>SETTINGS</code> is specified, the settings for the cluster are included.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * pendingEC2TasksCount
+     * If <code>CONFIGURATIONS</code> is specified, the configuration for the cluster is included.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * pendingFargateTasksCount
+     * If <code>STATISTICS</code> is specified, the task and service count is included, separated by launch type.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * activeEC2ServiceCount
+     * If <code>TAGS</code> is specified, the metadata tags associated with the cluster are included.
      * </p>
-     * </li>
-     * <li>
-     * <p>
-     * activeFargateServiceCount
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * drainingEC2ServiceCount
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * drainingFargateServiceCount
-     * </p>
-     * </li>
-     * </ul>
      * 
-     * @return Additional information about your clusters to be separated by launch type, including:</p>
-     *         <ul>
-     *         <li>
+     * @return Determines whether to include additional information about the clusters in the response. If this field is
+     *         omitted, this information isn't included.</p>
      *         <p>
-     *         runningEC2TasksCount
+     *         If <code>ATTACHMENTS</code> is specified, the attachments for the container instances or tasks within the
+     *         cluster are included, for example the capacity providers.
      *         </p>
-     *         </li>
-     *         <li>
      *         <p>
-     *         runningFargateTasksCount
+     *         If <code>SETTINGS</code> is specified, the settings for the cluster are included.
      *         </p>
-     *         </li>
-     *         <li>
      *         <p>
-     *         pendingEC2TasksCount
+     *         If <code>CONFIGURATIONS</code> is specified, the configuration for the cluster is included.
      *         </p>
-     *         </li>
-     *         <li>
      *         <p>
-     *         pendingFargateTasksCount
+     *         If <code>STATISTICS</code> is specified, the task and service count is included, separated by launch
+     *         type.
      *         </p>
-     *         </li>
-     *         <li>
      *         <p>
-     *         activeEC2ServiceCount
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         activeFargateServiceCount
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         drainingEC2ServiceCount
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         drainingFargateServiceCount
-     *         </p>
-     *         </li>
+     *         If <code>TAGS</code> is specified, the metadata tags associated with the cluster are included.
      * @see ClusterField
      */
 
@@ -263,94 +189,44 @@ public class DescribeClustersRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Additional information about your clusters to be separated by launch type, including:
+     * Determines whether to include additional information about the clusters in the response. If this field is
+     * omitted, this information isn't included.
      * </p>
-     * <ul>
-     * <li>
      * <p>
-     * runningEC2TasksCount
+     * If <code>ATTACHMENTS</code> is specified, the attachments for the container instances or tasks within the cluster
+     * are included, for example the capacity providers.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * runningFargateTasksCount
+     * If <code>SETTINGS</code> is specified, the settings for the cluster are included.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * pendingEC2TasksCount
+     * If <code>CONFIGURATIONS</code> is specified, the configuration for the cluster is included.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * pendingFargateTasksCount
+     * If <code>STATISTICS</code> is specified, the task and service count is included, separated by launch type.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * activeEC2ServiceCount
+     * If <code>TAGS</code> is specified, the metadata tags associated with the cluster are included.
      * </p>
-     * </li>
-     * <li>
-     * <p>
-     * activeFargateServiceCount
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * drainingEC2ServiceCount
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * drainingFargateServiceCount
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @param include
-     *        Additional information about your clusters to be separated by launch type, including:</p>
-     *        <ul>
-     *        <li>
+     *        Determines whether to include additional information about the clusters in the response. If this field is
+     *        omitted, this information isn't included.</p>
      *        <p>
-     *        runningEC2TasksCount
+     *        If <code>ATTACHMENTS</code> is specified, the attachments for the container instances or tasks within the
+     *        cluster are included, for example the capacity providers.
      *        </p>
-     *        </li>
-     *        <li>
      *        <p>
-     *        runningFargateTasksCount
+     *        If <code>SETTINGS</code> is specified, the settings for the cluster are included.
      *        </p>
-     *        </li>
-     *        <li>
      *        <p>
-     *        pendingEC2TasksCount
+     *        If <code>CONFIGURATIONS</code> is specified, the configuration for the cluster is included.
      *        </p>
-     *        </li>
-     *        <li>
      *        <p>
-     *        pendingFargateTasksCount
+     *        If <code>STATISTICS</code> is specified, the task and service count is included, separated by launch type.
      *        </p>
-     *        </li>
-     *        <li>
      *        <p>
-     *        activeEC2ServiceCount
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        activeFargateServiceCount
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        drainingEC2ServiceCount
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        drainingFargateServiceCount
-     *        </p>
-     *        </li>
+     *        If <code>TAGS</code> is specified, the metadata tags associated with the cluster are included.
      * @see ClusterField
      */
 
@@ -365,50 +241,25 @@ public class DescribeClustersRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Additional information about your clusters to be separated by launch type, including:
+     * Determines whether to include additional information about the clusters in the response. If this field is
+     * omitted, this information isn't included.
      * </p>
-     * <ul>
-     * <li>
      * <p>
-     * runningEC2TasksCount
+     * If <code>ATTACHMENTS</code> is specified, the attachments for the container instances or tasks within the cluster
+     * are included, for example the capacity providers.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * runningFargateTasksCount
+     * If <code>SETTINGS</code> is specified, the settings for the cluster are included.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * pendingEC2TasksCount
+     * If <code>CONFIGURATIONS</code> is specified, the configuration for the cluster is included.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * pendingFargateTasksCount
+     * If <code>STATISTICS</code> is specified, the task and service count is included, separated by launch type.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * activeEC2ServiceCount
+     * If <code>TAGS</code> is specified, the metadata tags associated with the cluster are included.
      * </p>
-     * </li>
-     * <li>
-     * <p>
-     * activeFargateServiceCount
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * drainingEC2ServiceCount
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * drainingFargateServiceCount
-     * </p>
-     * </li>
-     * </ul>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setInclude(java.util.Collection)} or {@link #withInclude(java.util.Collection)} if you want to override
@@ -416,48 +267,23 @@ public class DescribeClustersRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * 
      * @param include
-     *        Additional information about your clusters to be separated by launch type, including:</p>
-     *        <ul>
-     *        <li>
+     *        Determines whether to include additional information about the clusters in the response. If this field is
+     *        omitted, this information isn't included.</p>
      *        <p>
-     *        runningEC2TasksCount
+     *        If <code>ATTACHMENTS</code> is specified, the attachments for the container instances or tasks within the
+     *        cluster are included, for example the capacity providers.
      *        </p>
-     *        </li>
-     *        <li>
      *        <p>
-     *        runningFargateTasksCount
+     *        If <code>SETTINGS</code> is specified, the settings for the cluster are included.
      *        </p>
-     *        </li>
-     *        <li>
      *        <p>
-     *        pendingEC2TasksCount
+     *        If <code>CONFIGURATIONS</code> is specified, the configuration for the cluster is included.
      *        </p>
-     *        </li>
-     *        <li>
      *        <p>
-     *        pendingFargateTasksCount
+     *        If <code>STATISTICS</code> is specified, the task and service count is included, separated by launch type.
      *        </p>
-     *        </li>
-     *        <li>
      *        <p>
-     *        activeEC2ServiceCount
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        activeFargateServiceCount
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        drainingEC2ServiceCount
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        drainingFargateServiceCount
-     *        </p>
-     *        </li>
+     *        If <code>TAGS</code> is specified, the metadata tags associated with the cluster are included.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ClusterField
      */
@@ -474,94 +300,44 @@ public class DescribeClustersRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Additional information about your clusters to be separated by launch type, including:
+     * Determines whether to include additional information about the clusters in the response. If this field is
+     * omitted, this information isn't included.
      * </p>
-     * <ul>
-     * <li>
      * <p>
-     * runningEC2TasksCount
+     * If <code>ATTACHMENTS</code> is specified, the attachments for the container instances or tasks within the cluster
+     * are included, for example the capacity providers.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * runningFargateTasksCount
+     * If <code>SETTINGS</code> is specified, the settings for the cluster are included.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * pendingEC2TasksCount
+     * If <code>CONFIGURATIONS</code> is specified, the configuration for the cluster is included.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * pendingFargateTasksCount
+     * If <code>STATISTICS</code> is specified, the task and service count is included, separated by launch type.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * activeEC2ServiceCount
+     * If <code>TAGS</code> is specified, the metadata tags associated with the cluster are included.
      * </p>
-     * </li>
-     * <li>
-     * <p>
-     * activeFargateServiceCount
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * drainingEC2ServiceCount
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * drainingFargateServiceCount
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @param include
-     *        Additional information about your clusters to be separated by launch type, including:</p>
-     *        <ul>
-     *        <li>
+     *        Determines whether to include additional information about the clusters in the response. If this field is
+     *        omitted, this information isn't included.</p>
      *        <p>
-     *        runningEC2TasksCount
+     *        If <code>ATTACHMENTS</code> is specified, the attachments for the container instances or tasks within the
+     *        cluster are included, for example the capacity providers.
      *        </p>
-     *        </li>
-     *        <li>
      *        <p>
-     *        runningFargateTasksCount
+     *        If <code>SETTINGS</code> is specified, the settings for the cluster are included.
      *        </p>
-     *        </li>
-     *        <li>
      *        <p>
-     *        pendingEC2TasksCount
+     *        If <code>CONFIGURATIONS</code> is specified, the configuration for the cluster is included.
      *        </p>
-     *        </li>
-     *        <li>
      *        <p>
-     *        pendingFargateTasksCount
+     *        If <code>STATISTICS</code> is specified, the task and service count is included, separated by launch type.
      *        </p>
-     *        </li>
-     *        <li>
      *        <p>
-     *        activeEC2ServiceCount
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        activeFargateServiceCount
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        drainingEC2ServiceCount
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        drainingFargateServiceCount
-     *        </p>
-     *        </li>
+     *        If <code>TAGS</code> is specified, the metadata tags associated with the cluster are included.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ClusterField
      */
@@ -573,94 +349,44 @@ public class DescribeClustersRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Additional information about your clusters to be separated by launch type, including:
+     * Determines whether to include additional information about the clusters in the response. If this field is
+     * omitted, this information isn't included.
      * </p>
-     * <ul>
-     * <li>
      * <p>
-     * runningEC2TasksCount
+     * If <code>ATTACHMENTS</code> is specified, the attachments for the container instances or tasks within the cluster
+     * are included, for example the capacity providers.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * runningFargateTasksCount
+     * If <code>SETTINGS</code> is specified, the settings for the cluster are included.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * pendingEC2TasksCount
+     * If <code>CONFIGURATIONS</code> is specified, the configuration for the cluster is included.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * pendingFargateTasksCount
+     * If <code>STATISTICS</code> is specified, the task and service count is included, separated by launch type.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * activeEC2ServiceCount
+     * If <code>TAGS</code> is specified, the metadata tags associated with the cluster are included.
      * </p>
-     * </li>
-     * <li>
-     * <p>
-     * activeFargateServiceCount
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * drainingEC2ServiceCount
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * drainingFargateServiceCount
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @param include
-     *        Additional information about your clusters to be separated by launch type, including:</p>
-     *        <ul>
-     *        <li>
+     *        Determines whether to include additional information about the clusters in the response. If this field is
+     *        omitted, this information isn't included.</p>
      *        <p>
-     *        runningEC2TasksCount
+     *        If <code>ATTACHMENTS</code> is specified, the attachments for the container instances or tasks within the
+     *        cluster are included, for example the capacity providers.
      *        </p>
-     *        </li>
-     *        <li>
      *        <p>
-     *        runningFargateTasksCount
+     *        If <code>SETTINGS</code> is specified, the settings for the cluster are included.
      *        </p>
-     *        </li>
-     *        <li>
      *        <p>
-     *        pendingEC2TasksCount
+     *        If <code>CONFIGURATIONS</code> is specified, the configuration for the cluster is included.
      *        </p>
-     *        </li>
-     *        <li>
      *        <p>
-     *        pendingFargateTasksCount
+     *        If <code>STATISTICS</code> is specified, the task and service count is included, separated by launch type.
      *        </p>
-     *        </li>
-     *        <li>
      *        <p>
-     *        activeEC2ServiceCount
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        activeFargateServiceCount
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        drainingEC2ServiceCount
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        drainingFargateServiceCount
-     *        </p>
-     *        </li>
+     *        If <code>TAGS</code> is specified, the metadata tags associated with the cluster are included.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ClusterField
      */

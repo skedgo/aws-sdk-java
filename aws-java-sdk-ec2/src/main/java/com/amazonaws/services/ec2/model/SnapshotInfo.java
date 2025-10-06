@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -86,6 +86,20 @@ public class SnapshotInfo implements Serializable, Cloneable {
      * </p>
      */
     private String snapshotId;
+    /**
+     * <p>
+     * The ARN of the Outpost on which the snapshot is stored. For more information, see <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html">Amazon EBS local snapshots on
+     * Outposts</a> in the <i>Amazon EBS User Guide</i>.
+     * </p>
+     */
+    private String outpostArn;
+    /**
+     * <p>
+     * Reserved for future use.
+     * </p>
+     */
+    private String sseType;
 
     /**
      * <p>
@@ -552,6 +566,117 @@ public class SnapshotInfo implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The ARN of the Outpost on which the snapshot is stored. For more information, see <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html">Amazon EBS local snapshots on
+     * Outposts</a> in the <i>Amazon EBS User Guide</i>.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The ARN of the Outpost on which the snapshot is stored. For more information, see <a
+     *        href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html">Amazon EBS local snapshots
+     *        on Outposts</a> in the <i>Amazon EBS User Guide</i>.
+     */
+
+    public void setOutpostArn(String outpostArn) {
+        this.outpostArn = outpostArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the Outpost on which the snapshot is stored. For more information, see <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html">Amazon EBS local snapshots on
+     * Outposts</a> in the <i>Amazon EBS User Guide</i>.
+     * </p>
+     * 
+     * @return The ARN of the Outpost on which the snapshot is stored. For more information, see <a
+     *         href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html">Amazon EBS local
+     *         snapshots on Outposts</a> in the <i>Amazon EBS User Guide</i>.
+     */
+
+    public String getOutpostArn() {
+        return this.outpostArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the Outpost on which the snapshot is stored. For more information, see <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html">Amazon EBS local snapshots on
+     * Outposts</a> in the <i>Amazon EBS User Guide</i>.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The ARN of the Outpost on which the snapshot is stored. For more information, see <a
+     *        href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html">Amazon EBS local snapshots
+     *        on Outposts</a> in the <i>Amazon EBS User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SnapshotInfo withOutpostArn(String outpostArn) {
+        setOutpostArn(outpostArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Reserved for future use.
+     * </p>
+     * 
+     * @param sseType
+     *        Reserved for future use.
+     * @see SSEType
+     */
+
+    public void setSseType(String sseType) {
+        this.sseType = sseType;
+    }
+
+    /**
+     * <p>
+     * Reserved for future use.
+     * </p>
+     * 
+     * @return Reserved for future use.
+     * @see SSEType
+     */
+
+    public String getSseType() {
+        return this.sseType;
+    }
+
+    /**
+     * <p>
+     * Reserved for future use.
+     * </p>
+     * 
+     * @param sseType
+     *        Reserved for future use.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SSEType
+     */
+
+    public SnapshotInfo withSseType(String sseType) {
+        setSseType(sseType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Reserved for future use.
+     * </p>
+     * 
+     * @param sseType
+     *        Reserved for future use.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SSEType
+     */
+
+    public SnapshotInfo withSseType(SSEType sseType) {
+        this.sseType = sseType.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -582,7 +707,11 @@ public class SnapshotInfo implements Serializable, Cloneable {
         if (getOwnerId() != null)
             sb.append("OwnerId: ").append(getOwnerId()).append(",");
         if (getSnapshotId() != null)
-            sb.append("SnapshotId: ").append(getSnapshotId());
+            sb.append("SnapshotId: ").append(getSnapshotId()).append(",");
+        if (getOutpostArn() != null)
+            sb.append("OutpostArn: ").append(getOutpostArn()).append(",");
+        if (getSseType() != null)
+            sb.append("SseType: ").append(getSseType());
         sb.append("}");
         return sb.toString();
     }
@@ -637,6 +766,14 @@ public class SnapshotInfo implements Serializable, Cloneable {
             return false;
         if (other.getSnapshotId() != null && other.getSnapshotId().equals(this.getSnapshotId()) == false)
             return false;
+        if (other.getOutpostArn() == null ^ this.getOutpostArn() == null)
+            return false;
+        if (other.getOutpostArn() != null && other.getOutpostArn().equals(this.getOutpostArn()) == false)
+            return false;
+        if (other.getSseType() == null ^ this.getSseType() == null)
+            return false;
+        if (other.getSseType() != null && other.getSseType().equals(this.getSseType()) == false)
+            return false;
         return true;
     }
 
@@ -655,6 +792,8 @@ public class SnapshotInfo implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getProgress() == null) ? 0 : getProgress().hashCode());
         hashCode = prime * hashCode + ((getOwnerId() == null) ? 0 : getOwnerId().hashCode());
         hashCode = prime * hashCode + ((getSnapshotId() == null) ? 0 : getSnapshotId().hashCode());
+        hashCode = prime * hashCode + ((getOutpostArn() == null) ? 0 : getOutpostArn().hashCode());
+        hashCode = prime * hashCode + ((getSseType() == null) ? 0 : getSseType().hashCode());
         return hashCode;
     }
 

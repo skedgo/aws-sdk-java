@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -23,7 +23,10 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * </p>
  * <p>
  * An endpoint uniquely identifies a mobile device, email address, or phone number that can receive messages from Amazon
- * Pinpoint analytics.
+ * Pinpoint analytics. For more information about Amazon Web Services Regions that can contain Amazon Pinpoint resources
+ * for use with Amazon Cognito user pools, see <a
+ * href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-pinpoint-integration.html">Using
+ * Amazon Pinpoint analytics with Amazon Cognito user pools</a>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AnalyticsMetadataType" target="_top">AWS

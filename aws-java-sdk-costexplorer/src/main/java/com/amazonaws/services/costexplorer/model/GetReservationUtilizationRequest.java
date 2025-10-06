@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,8 +27,8 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Sets the start and end dates for retrieving RI utilization. The start date is inclusive, but the end date is
-     * exclusive. For example, if <code>start</code> is <code>2017-01-01</code> and <code>end</code> is
+     * Sets the start and end dates for retrieving Reserved Instance (RI) utilization. The start date is inclusive, but
+     * the end date is exclusive. For example, if <code>start</code> is <code>2017-01-01</code> and <code>end</code> is
      * <code>2017-05-01</code>, then the cost and usage data is retrieved from <code>2017-01-01</code> up to and
      * including <code>2017-04-30</code> but not including <code>2017-05-01</code>.
      * </p>
@@ -66,11 +66,6 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
      * <li>
      * <p>
      * CACHE_ENGINE
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * DATABASE_ENGINE
      * </p>
      * </li>
      * <li>
@@ -121,7 +116,7 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
      * </ul>
      * <p>
      * <code>GetReservationUtilization</code> uses the same <a
-     * href="http://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html">Expression</a>
+     * href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html">Expression</a>
      * object as the other operations, but only <code>AND</code> is supported among each dimension, and nesting is
      * supported up to only one level deep. If there are multiple values for a dimension, they are OR'd together.
      * </p>
@@ -129,25 +124,133 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
     private Expression filter;
     /**
      * <p>
-     * The token to retrieve the next set of results. AWS provides the token when the response from a previous call has
-     * more results than the maximum page size.
+     * The value that you want to sort the data by.
+     * </p>
+     * <p>
+     * The following values are supported for <code>Key</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>UtilizationPercentage</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UtilizationPercentageInUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PurchasedHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PurchasedUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalActualHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalActualUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UnusedHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UnusedUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OnDemandCostOfRIHoursUsed</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NetRISavings</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalPotentialRISavings</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AmortizedUpfrontFee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AmortizedRecurringFee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalAmortizedFee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RICostForUnusedHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RealizedSavings</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UnrealizedSavings</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The supported values for <code>SortOrder</code> are <code>ASCENDING</code> and <code>DESCENDING</code>.
+     * </p>
+     */
+    private SortDefinition sortBy;
+    /**
+     * <p>
+     * The token to retrieve the next set of results. Amazon Web Services provides the token when the response from a
+     * previous call has more results than the maximum page size.
      * </p>
      */
     private String nextPageToken;
+    /**
+     * <p>
+     * The maximum number of objects that you returned for this request. If more objects are available, in the response,
+     * Amazon Web Services provides a NextPageToken value that you can use in a subsequent call to get the next batch of
+     * objects.
+     * </p>
+     */
+    private Integer maxResults;
 
     /**
      * <p>
-     * Sets the start and end dates for retrieving RI utilization. The start date is inclusive, but the end date is
-     * exclusive. For example, if <code>start</code> is <code>2017-01-01</code> and <code>end</code> is
+     * Sets the start and end dates for retrieving Reserved Instance (RI) utilization. The start date is inclusive, but
+     * the end date is exclusive. For example, if <code>start</code> is <code>2017-01-01</code> and <code>end</code> is
      * <code>2017-05-01</code>, then the cost and usage data is retrieved from <code>2017-01-01</code> up to and
      * including <code>2017-04-30</code> but not including <code>2017-05-01</code>.
      * </p>
      * 
      * @param timePeriod
-     *        Sets the start and end dates for retrieving RI utilization. The start date is inclusive, but the end date
-     *        is exclusive. For example, if <code>start</code> is <code>2017-01-01</code> and <code>end</code> is
-     *        <code>2017-05-01</code>, then the cost and usage data is retrieved from <code>2017-01-01</code> up to and
-     *        including <code>2017-04-30</code> but not including <code>2017-05-01</code>.
+     *        Sets the start and end dates for retrieving Reserved Instance (RI) utilization. The start date is
+     *        inclusive, but the end date is exclusive. For example, if <code>start</code> is <code>2017-01-01</code>
+     *        and <code>end</code> is <code>2017-05-01</code>, then the cost and usage data is retrieved from
+     *        <code>2017-01-01</code> up to and including <code>2017-04-30</code> but not including
+     *        <code>2017-05-01</code>.
      */
 
     public void setTimePeriod(DateInterval timePeriod) {
@@ -156,16 +259,17 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Sets the start and end dates for retrieving RI utilization. The start date is inclusive, but the end date is
-     * exclusive. For example, if <code>start</code> is <code>2017-01-01</code> and <code>end</code> is
+     * Sets the start and end dates for retrieving Reserved Instance (RI) utilization. The start date is inclusive, but
+     * the end date is exclusive. For example, if <code>start</code> is <code>2017-01-01</code> and <code>end</code> is
      * <code>2017-05-01</code>, then the cost and usage data is retrieved from <code>2017-01-01</code> up to and
      * including <code>2017-04-30</code> but not including <code>2017-05-01</code>.
      * </p>
      * 
-     * @return Sets the start and end dates for retrieving RI utilization. The start date is inclusive, but the end date
-     *         is exclusive. For example, if <code>start</code> is <code>2017-01-01</code> and <code>end</code> is
-     *         <code>2017-05-01</code>, then the cost and usage data is retrieved from <code>2017-01-01</code> up to and
-     *         including <code>2017-04-30</code> but not including <code>2017-05-01</code>.
+     * @return Sets the start and end dates for retrieving Reserved Instance (RI) utilization. The start date is
+     *         inclusive, but the end date is exclusive. For example, if <code>start</code> is <code>2017-01-01</code>
+     *         and <code>end</code> is <code>2017-05-01</code>, then the cost and usage data is retrieved from
+     *         <code>2017-01-01</code> up to and including <code>2017-04-30</code> but not including
+     *         <code>2017-05-01</code>.
      */
 
     public DateInterval getTimePeriod() {
@@ -174,17 +278,18 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Sets the start and end dates for retrieving RI utilization. The start date is inclusive, but the end date is
-     * exclusive. For example, if <code>start</code> is <code>2017-01-01</code> and <code>end</code> is
+     * Sets the start and end dates for retrieving Reserved Instance (RI) utilization. The start date is inclusive, but
+     * the end date is exclusive. For example, if <code>start</code> is <code>2017-01-01</code> and <code>end</code> is
      * <code>2017-05-01</code>, then the cost and usage data is retrieved from <code>2017-01-01</code> up to and
      * including <code>2017-04-30</code> but not including <code>2017-05-01</code>.
      * </p>
      * 
      * @param timePeriod
-     *        Sets the start and end dates for retrieving RI utilization. The start date is inclusive, but the end date
-     *        is exclusive. For example, if <code>start</code> is <code>2017-01-01</code> and <code>end</code> is
-     *        <code>2017-05-01</code>, then the cost and usage data is retrieved from <code>2017-01-01</code> up to and
-     *        including <code>2017-04-30</code> but not including <code>2017-05-01</code>.
+     *        Sets the start and end dates for retrieving Reserved Instance (RI) utilization. The start date is
+     *        inclusive, but the end date is exclusive. For example, if <code>start</code> is <code>2017-01-01</code>
+     *        and <code>end</code> is <code>2017-05-01</code>, then the cost and usage data is retrieved from
+     *        <code>2017-01-01</code> up to and including <code>2017-04-30</code> but not including
+     *        <code>2017-05-01</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -391,11 +496,6 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
      * </li>
      * <li>
      * <p>
-     * DATABASE_ENGINE
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * DEPLOYMENT_OPTION
      * </p>
      * </li>
@@ -442,7 +542,7 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
      * </ul>
      * <p>
      * <code>GetReservationUtilization</code> uses the same <a
-     * href="http://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html">Expression</a>
+     * href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html">Expression</a>
      * object as the other operations, but only <code>AND</code> is supported among each dimension, and nesting is
      * supported up to only one level deep. If there are multiple values for a dimension, they are OR'd together.
      * </p>
@@ -458,11 +558,6 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
      *        <li>
      *        <p>
      *        CACHE_ENGINE
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        DATABASE_ENGINE
      *        </p>
      *        </li>
      *        <li>
@@ -513,7 +608,7 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
      *        </ul>
      *        <p>
      *        <code>GetReservationUtilization</code> uses the same <a
-     *        href="http://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html"
+     *        href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html"
      *        >Expression</a> object as the other operations, but only <code>AND</code> is supported among each
      *        dimension, and nesting is supported up to only one level deep. If there are multiple values for a
      *        dimension, they are OR'd together.
@@ -536,11 +631,6 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
      * <li>
      * <p>
      * CACHE_ENGINE
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * DATABASE_ENGINE
      * </p>
      * </li>
      * <li>
@@ -591,7 +681,7 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
      * </ul>
      * <p>
      * <code>GetReservationUtilization</code> uses the same <a
-     * href="http://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html">Expression</a>
+     * href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html">Expression</a>
      * object as the other operations, but only <code>AND</code> is supported among each dimension, and nesting is
      * supported up to only one level deep. If there are multiple values for a dimension, they are OR'd together.
      * </p>
@@ -606,11 +696,6 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
      *         <li>
      *         <p>
      *         CACHE_ENGINE
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         DATABASE_ENGINE
      *         </p>
      *         </li>
      *         <li>
@@ -661,7 +746,7 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
      *         </ul>
      *         <p>
      *         <code>GetReservationUtilization</code> uses the same <a
-     *         href="http://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html"
+     *         href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html"
      *         >Expression</a> object as the other operations, but only <code>AND</code> is supported among each
      *         dimension, and nesting is supported up to only one level deep. If there are multiple values for a
      *         dimension, they are OR'd together.
@@ -684,11 +769,6 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
      * <li>
      * <p>
      * CACHE_ENGINE
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * DATABASE_ENGINE
      * </p>
      * </li>
      * <li>
@@ -739,7 +819,7 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
      * </ul>
      * <p>
      * <code>GetReservationUtilization</code> uses the same <a
-     * href="http://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html">Expression</a>
+     * href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html">Expression</a>
      * object as the other operations, but only <code>AND</code> is supported among each dimension, and nesting is
      * supported up to only one level deep. If there are multiple values for a dimension, they are OR'd together.
      * </p>
@@ -755,11 +835,6 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
      *        <li>
      *        <p>
      *        CACHE_ENGINE
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        DATABASE_ENGINE
      *        </p>
      *        </li>
      *        <li>
@@ -810,7 +885,7 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
      *        </ul>
      *        <p>
      *        <code>GetReservationUtilization</code> uses the same <a
-     *        href="http://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html"
+     *        href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html"
      *        >Expression</a> object as the other operations, but only <code>AND</code> is supported among each
      *        dimension, and nesting is supported up to only one level deep. If there are multiple values for a
      *        dimension, they are OR'd together.
@@ -824,13 +899,608 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The token to retrieve the next set of results. AWS provides the token when the response from a previous call has
-     * more results than the maximum page size.
+     * The value that you want to sort the data by.
+     * </p>
+     * <p>
+     * The following values are supported for <code>Key</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>UtilizationPercentage</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UtilizationPercentageInUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PurchasedHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PurchasedUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalActualHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalActualUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UnusedHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UnusedUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OnDemandCostOfRIHoursUsed</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NetRISavings</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalPotentialRISavings</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AmortizedUpfrontFee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AmortizedRecurringFee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalAmortizedFee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RICostForUnusedHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RealizedSavings</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UnrealizedSavings</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The supported values for <code>SortOrder</code> are <code>ASCENDING</code> and <code>DESCENDING</code>.
+     * </p>
+     * 
+     * @param sortBy
+     *        The value that you want to sort the data by.</p>
+     *        <p>
+     *        The following values are supported for <code>Key</code>:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>UtilizationPercentage</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UtilizationPercentageInUnits</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>PurchasedHours</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>PurchasedUnits</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TotalActualHours</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TotalActualUnits</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UnusedHours</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UnusedUnits</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>OnDemandCostOfRIHoursUsed</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NetRISavings</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TotalPotentialRISavings</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AmortizedUpfrontFee</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AmortizedRecurringFee</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TotalAmortizedFee</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RICostForUnusedHours</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RealizedSavings</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UnrealizedSavings</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The supported values for <code>SortOrder</code> are <code>ASCENDING</code> and <code>DESCENDING</code>.
+     */
+
+    public void setSortBy(SortDefinition sortBy) {
+        this.sortBy = sortBy;
+    }
+
+    /**
+     * <p>
+     * The value that you want to sort the data by.
+     * </p>
+     * <p>
+     * The following values are supported for <code>Key</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>UtilizationPercentage</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UtilizationPercentageInUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PurchasedHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PurchasedUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalActualHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalActualUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UnusedHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UnusedUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OnDemandCostOfRIHoursUsed</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NetRISavings</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalPotentialRISavings</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AmortizedUpfrontFee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AmortizedRecurringFee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalAmortizedFee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RICostForUnusedHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RealizedSavings</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UnrealizedSavings</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The supported values for <code>SortOrder</code> are <code>ASCENDING</code> and <code>DESCENDING</code>.
+     * </p>
+     * 
+     * @return The value that you want to sort the data by.</p>
+     *         <p>
+     *         The following values are supported for <code>Key</code>:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>UtilizationPercentage</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>UtilizationPercentageInUnits</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>PurchasedHours</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>PurchasedUnits</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>TotalActualHours</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>TotalActualUnits</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>UnusedHours</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>UnusedUnits</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>OnDemandCostOfRIHoursUsed</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>NetRISavings</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>TotalPotentialRISavings</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>AmortizedUpfrontFee</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>AmortizedRecurringFee</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>TotalAmortizedFee</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>RICostForUnusedHours</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>RealizedSavings</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>UnrealizedSavings</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         The supported values for <code>SortOrder</code> are <code>ASCENDING</code> and <code>DESCENDING</code>.
+     */
+
+    public SortDefinition getSortBy() {
+        return this.sortBy;
+    }
+
+    /**
+     * <p>
+     * The value that you want to sort the data by.
+     * </p>
+     * <p>
+     * The following values are supported for <code>Key</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>UtilizationPercentage</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UtilizationPercentageInUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PurchasedHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PurchasedUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalActualHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalActualUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UnusedHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UnusedUnits</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OnDemandCostOfRIHoursUsed</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NetRISavings</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalPotentialRISavings</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AmortizedUpfrontFee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AmortizedRecurringFee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TotalAmortizedFee</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RICostForUnusedHours</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RealizedSavings</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UnrealizedSavings</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The supported values for <code>SortOrder</code> are <code>ASCENDING</code> and <code>DESCENDING</code>.
+     * </p>
+     * 
+     * @param sortBy
+     *        The value that you want to sort the data by.</p>
+     *        <p>
+     *        The following values are supported for <code>Key</code>:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>UtilizationPercentage</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UtilizationPercentageInUnits</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>PurchasedHours</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>PurchasedUnits</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TotalActualHours</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TotalActualUnits</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UnusedHours</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UnusedUnits</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>OnDemandCostOfRIHoursUsed</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NetRISavings</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TotalPotentialRISavings</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AmortizedUpfrontFee</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AmortizedRecurringFee</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TotalAmortizedFee</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RICostForUnusedHours</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RealizedSavings</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UnrealizedSavings</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The supported values for <code>SortOrder</code> are <code>ASCENDING</code> and <code>DESCENDING</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetReservationUtilizationRequest withSortBy(SortDefinition sortBy) {
+        setSortBy(sortBy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The token to retrieve the next set of results. Amazon Web Services provides the token when the response from a
+     * previous call has more results than the maximum page size.
      * </p>
      * 
      * @param nextPageToken
-     *        The token to retrieve the next set of results. AWS provides the token when the response from a previous
-     *        call has more results than the maximum page size.
+     *        The token to retrieve the next set of results. Amazon Web Services provides the token when the response
+     *        from a previous call has more results than the maximum page size.
      */
 
     public void setNextPageToken(String nextPageToken) {
@@ -839,12 +1509,12 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The token to retrieve the next set of results. AWS provides the token when the response from a previous call has
-     * more results than the maximum page size.
+     * The token to retrieve the next set of results. Amazon Web Services provides the token when the response from a
+     * previous call has more results than the maximum page size.
      * </p>
      * 
-     * @return The token to retrieve the next set of results. AWS provides the token when the response from a previous
-     *         call has more results than the maximum page size.
+     * @return The token to retrieve the next set of results. Amazon Web Services provides the token when the response
+     *         from a previous call has more results than the maximum page size.
      */
 
     public String getNextPageToken() {
@@ -853,18 +1523,70 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The token to retrieve the next set of results. AWS provides the token when the response from a previous call has
-     * more results than the maximum page size.
+     * The token to retrieve the next set of results. Amazon Web Services provides the token when the response from a
+     * previous call has more results than the maximum page size.
      * </p>
      * 
      * @param nextPageToken
-     *        The token to retrieve the next set of results. AWS provides the token when the response from a previous
-     *        call has more results than the maximum page size.
+     *        The token to retrieve the next set of results. Amazon Web Services provides the token when the response
+     *        from a previous call has more results than the maximum page size.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public GetReservationUtilizationRequest withNextPageToken(String nextPageToken) {
         setNextPageToken(nextPageToken);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The maximum number of objects that you returned for this request. If more objects are available, in the response,
+     * Amazon Web Services provides a NextPageToken value that you can use in a subsequent call to get the next batch of
+     * objects.
+     * </p>
+     * 
+     * @param maxResults
+     *        The maximum number of objects that you returned for this request. If more objects are available, in the
+     *        response, Amazon Web Services provides a NextPageToken value that you can use in a subsequent call to get
+     *        the next batch of objects.
+     */
+
+    public void setMaxResults(Integer maxResults) {
+        this.maxResults = maxResults;
+    }
+
+    /**
+     * <p>
+     * The maximum number of objects that you returned for this request. If more objects are available, in the response,
+     * Amazon Web Services provides a NextPageToken value that you can use in a subsequent call to get the next batch of
+     * objects.
+     * </p>
+     * 
+     * @return The maximum number of objects that you returned for this request. If more objects are available, in the
+     *         response, Amazon Web Services provides a NextPageToken value that you can use in a subsequent call to get
+     *         the next batch of objects.
+     */
+
+    public Integer getMaxResults() {
+        return this.maxResults;
+    }
+
+    /**
+     * <p>
+     * The maximum number of objects that you returned for this request. If more objects are available, in the response,
+     * Amazon Web Services provides a NextPageToken value that you can use in a subsequent call to get the next batch of
+     * objects.
+     * </p>
+     * 
+     * @param maxResults
+     *        The maximum number of objects that you returned for this request. If more objects are available, in the
+     *        response, Amazon Web Services provides a NextPageToken value that you can use in a subsequent call to get
+     *        the next batch of objects.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetReservationUtilizationRequest withMaxResults(Integer maxResults) {
+        setMaxResults(maxResults);
         return this;
     }
 
@@ -888,8 +1610,12 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
             sb.append("Granularity: ").append(getGranularity()).append(",");
         if (getFilter() != null)
             sb.append("Filter: ").append(getFilter()).append(",");
+        if (getSortBy() != null)
+            sb.append("SortBy: ").append(getSortBy()).append(",");
         if (getNextPageToken() != null)
-            sb.append("NextPageToken: ").append(getNextPageToken());
+            sb.append("NextPageToken: ").append(getNextPageToken()).append(",");
+        if (getMaxResults() != null)
+            sb.append("MaxResults: ").append(getMaxResults());
         sb.append("}");
         return sb.toString();
     }
@@ -920,9 +1646,17 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
             return false;
         if (other.getFilter() != null && other.getFilter().equals(this.getFilter()) == false)
             return false;
+        if (other.getSortBy() == null ^ this.getSortBy() == null)
+            return false;
+        if (other.getSortBy() != null && other.getSortBy().equals(this.getSortBy()) == false)
+            return false;
         if (other.getNextPageToken() == null ^ this.getNextPageToken() == null)
             return false;
         if (other.getNextPageToken() != null && other.getNextPageToken().equals(this.getNextPageToken()) == false)
+            return false;
+        if (other.getMaxResults() == null ^ this.getMaxResults() == null)
+            return false;
+        if (other.getMaxResults() != null && other.getMaxResults().equals(this.getMaxResults()) == false)
             return false;
         return true;
     }
@@ -936,7 +1670,9 @@ public class GetReservationUtilizationRequest extends com.amazonaws.AmazonWebSer
         hashCode = prime * hashCode + ((getGroupBy() == null) ? 0 : getGroupBy().hashCode());
         hashCode = prime * hashCode + ((getGranularity() == null) ? 0 : getGranularity().hashCode());
         hashCode = prime * hashCode + ((getFilter() == null) ? 0 : getFilter().hashCode());
+        hashCode = prime * hashCode + ((getSortBy() == null) ? 0 : getSortBy().hashCode());
         hashCode = prime * hashCode + ((getNextPageToken() == null) ? 0 : getNextPageToken().hashCode());
+        hashCode = prime * hashCode + ((getMaxResults() == null) ? 0 : getMaxResults().hashCode());
         return hashCode;
     }
 

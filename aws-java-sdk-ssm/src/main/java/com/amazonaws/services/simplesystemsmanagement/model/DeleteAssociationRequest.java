@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,14 +27,24 @@ public class DeleteAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
+     * <note>
+     * <p>
+     * <code>InstanceId</code> has been deprecated. To specify a managed node ID for an association, use the
+     * <code>Targets</code> parameter. Requests that include the parameter <code>InstanceID</code> with Systems Manager
+     * documents (SSM documents) that use schema version 2.0 or later will fail. In addition, if you use the parameter
+     * <code>InstanceId</code>, you can't use the parameters <code>AssociationName</code>, <code>DocumentVersion</code>,
+     * <code>MaxErrors</code>, <code>MaxConcurrency</code>, <code>OutputLocation</code>, or
+     * <code>ScheduleExpression</code>. To use these parameters, you must use the <code>Targets</code> parameter.
+     * </p>
+     * </note>
      */
     private String instanceId;
     /**
@@ -46,11 +56,11 @@ public class DeleteAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
      * @param name
-     *        The name of the Systems Manager document.
+     *        The name of the SSM document.
      */
 
     public void setName(String name) {
@@ -59,10 +69,10 @@ public class DeleteAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
-     * @return The name of the Systems Manager document.
+     * @return The name of the SSM document.
      */
 
     public String getName() {
@@ -71,11 +81,11 @@ public class DeleteAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
      * @param name
-     *        The name of the Systems Manager document.
+     *        The name of the SSM document.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -86,11 +96,30 @@ public class DeleteAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
+     * <note>
+     * <p>
+     * <code>InstanceId</code> has been deprecated. To specify a managed node ID for an association, use the
+     * <code>Targets</code> parameter. Requests that include the parameter <code>InstanceID</code> with Systems Manager
+     * documents (SSM documents) that use schema version 2.0 or later will fail. In addition, if you use the parameter
+     * <code>InstanceId</code>, you can't use the parameters <code>AssociationName</code>, <code>DocumentVersion</code>,
+     * <code>MaxErrors</code>, <code>MaxConcurrency</code>, <code>OutputLocation</code>, or
+     * <code>ScheduleExpression</code>. To use these parameters, you must use the <code>Targets</code> parameter.
+     * </p>
+     * </note>
      * 
      * @param instanceId
-     *        The ID of the instance.
+     *        The managed node ID.</p> <note>
+     *        <p>
+     *        <code>InstanceId</code> has been deprecated. To specify a managed node ID for an association, use the
+     *        <code>Targets</code> parameter. Requests that include the parameter <code>InstanceID</code> with Systems
+     *        Manager documents (SSM documents) that use schema version 2.0 or later will fail. In addition, if you use
+     *        the parameter <code>InstanceId</code>, you can't use the parameters <code>AssociationName</code>,
+     *        <code>DocumentVersion</code>, <code>MaxErrors</code>, <code>MaxConcurrency</code>,
+     *        <code>OutputLocation</code>, or <code>ScheduleExpression</code>. To use these parameters, you must use the
+     *        <code>Targets</code> parameter.
+     *        </p>
      */
 
     public void setInstanceId(String instanceId) {
@@ -99,10 +128,29 @@ public class DeleteAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
+     * <note>
+     * <p>
+     * <code>InstanceId</code> has been deprecated. To specify a managed node ID for an association, use the
+     * <code>Targets</code> parameter. Requests that include the parameter <code>InstanceID</code> with Systems Manager
+     * documents (SSM documents) that use schema version 2.0 or later will fail. In addition, if you use the parameter
+     * <code>InstanceId</code>, you can't use the parameters <code>AssociationName</code>, <code>DocumentVersion</code>,
+     * <code>MaxErrors</code>, <code>MaxConcurrency</code>, <code>OutputLocation</code>, or
+     * <code>ScheduleExpression</code>. To use these parameters, you must use the <code>Targets</code> parameter.
+     * </p>
+     * </note>
      * 
-     * @return The ID of the instance.
+     * @return The managed node ID.</p> <note>
+     *         <p>
+     *         <code>InstanceId</code> has been deprecated. To specify a managed node ID for an association, use the
+     *         <code>Targets</code> parameter. Requests that include the parameter <code>InstanceID</code> with Systems
+     *         Manager documents (SSM documents) that use schema version 2.0 or later will fail. In addition, if you use
+     *         the parameter <code>InstanceId</code>, you can't use the parameters <code>AssociationName</code>,
+     *         <code>DocumentVersion</code>, <code>MaxErrors</code>, <code>MaxConcurrency</code>,
+     *         <code>OutputLocation</code>, or <code>ScheduleExpression</code>. To use these parameters, you must use
+     *         the <code>Targets</code> parameter.
+     *         </p>
      */
 
     public String getInstanceId() {
@@ -111,11 +159,30 @@ public class DeleteAssociationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
+     * <note>
+     * <p>
+     * <code>InstanceId</code> has been deprecated. To specify a managed node ID for an association, use the
+     * <code>Targets</code> parameter. Requests that include the parameter <code>InstanceID</code> with Systems Manager
+     * documents (SSM documents) that use schema version 2.0 or later will fail. In addition, if you use the parameter
+     * <code>InstanceId</code>, you can't use the parameters <code>AssociationName</code>, <code>DocumentVersion</code>,
+     * <code>MaxErrors</code>, <code>MaxConcurrency</code>, <code>OutputLocation</code>, or
+     * <code>ScheduleExpression</code>. To use these parameters, you must use the <code>Targets</code> parameter.
+     * </p>
+     * </note>
      * 
      * @param instanceId
-     *        The ID of the instance.
+     *        The managed node ID.</p> <note>
+     *        <p>
+     *        <code>InstanceId</code> has been deprecated. To specify a managed node ID for an association, use the
+     *        <code>Targets</code> parameter. Requests that include the parameter <code>InstanceID</code> with Systems
+     *        Manager documents (SSM documents) that use schema version 2.0 or later will fail. In addition, if you use
+     *        the parameter <code>InstanceId</code>, you can't use the parameters <code>AssociationName</code>,
+     *        <code>DocumentVersion</code>, <code>MaxErrors</code>, <code>MaxConcurrency</code>,
+     *        <code>OutputLocation</code>, or <code>ScheduleExpression</code>. To use these parameters, you must use the
+     *        <code>Targets</code> parameter.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

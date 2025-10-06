@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,7 +50,19 @@ public class HlsGroupSettingsJsonUnmarshaller implements Unmarshaller<HlsGroupSe
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("adMarkers", targetDepth)) {
                     context.nextToken();
-                    hlsGroupSettings.setAdMarkers(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    hlsGroupSettings.setAdMarkers(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("additionalManifests", targetDepth)) {
+                    context.nextToken();
+                    hlsGroupSettings.setAdditionalManifests(new ListUnmarshaller<HlsAdditionalManifest>(HlsAdditionalManifestJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("audioOnlyHeader", targetDepth)) {
+                    context.nextToken();
+                    hlsGroupSettings.setAudioOnlyHeader(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("baseUrl", targetDepth)) {
                     context.nextToken();
@@ -59,11 +71,17 @@ public class HlsGroupSettingsJsonUnmarshaller implements Unmarshaller<HlsGroupSe
                 if (context.testExpression("captionLanguageMappings", targetDepth)) {
                     context.nextToken();
                     hlsGroupSettings.setCaptionLanguageMappings(new ListUnmarshaller<HlsCaptionLanguageMapping>(HlsCaptionLanguageMappingJsonUnmarshaller
-                            .getInstance()).unmarshall(context));
+                            .getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("captionLanguageSetting", targetDepth)) {
                     context.nextToken();
                     hlsGroupSettings.setCaptionLanguageSetting(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("captionSegmentLengthControl", targetDepth)) {
+                    context.nextToken();
+                    hlsGroupSettings.setCaptionSegmentLengthControl(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("clientCache", targetDepth)) {
                     context.nextToken();
@@ -88,6 +106,14 @@ public class HlsGroupSettingsJsonUnmarshaller implements Unmarshaller<HlsGroupSe
                 if (context.testExpression("encryption", targetDepth)) {
                     context.nextToken();
                     hlsGroupSettings.setEncryption(HlsEncryptionSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("imageBasedTrickPlay", targetDepth)) {
+                    context.nextToken();
+                    hlsGroupSettings.setImageBasedTrickPlay(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("imageBasedTrickPlaySettings", targetDepth)) {
+                    context.nextToken();
+                    hlsGroupSettings.setImageBasedTrickPlaySettings(HlsImageBasedTrickPlaySettingsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("manifestCompression", targetDepth)) {
                     context.nextToken();
@@ -117,6 +143,10 @@ public class HlsGroupSettingsJsonUnmarshaller implements Unmarshaller<HlsGroupSe
                     context.nextToken();
                     hlsGroupSettings.setProgramDateTimePeriod(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
+                if (context.testExpression("progressiveWriteHlsManifest", targetDepth)) {
+                    context.nextToken();
+                    hlsGroupSettings.setProgressiveWriteHlsManifest(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("segmentControl", targetDepth)) {
                     context.nextToken();
                     hlsGroupSettings.setSegmentControl(context.getUnmarshaller(String.class).unmarshall(context));
@@ -125,6 +155,10 @@ public class HlsGroupSettingsJsonUnmarshaller implements Unmarshaller<HlsGroupSe
                     context.nextToken();
                     hlsGroupSettings.setSegmentLength(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
+                if (context.testExpression("segmentLengthControl", targetDepth)) {
+                    context.nextToken();
+                    hlsGroupSettings.setSegmentLengthControl(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("segmentsPerSubdirectory", targetDepth)) {
                     context.nextToken();
                     hlsGroupSettings.setSegmentsPerSubdirectory(context.getUnmarshaller(Integer.class).unmarshall(context));
@@ -132,6 +166,10 @@ public class HlsGroupSettingsJsonUnmarshaller implements Unmarshaller<HlsGroupSe
                 if (context.testExpression("streamInfResolution", targetDepth)) {
                     context.nextToken();
                     hlsGroupSettings.setStreamInfResolution(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("targetDurationCompatibilityMode", targetDepth)) {
+                    context.nextToken();
+                    hlsGroupSettings.setTargetDurationCompatibilityMode(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("timedMetadataId3Frame", targetDepth)) {
                     context.nextToken();

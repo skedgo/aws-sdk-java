@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,7 +26,14 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class H264Settings implements Serializable, Cloneable, StructuredPojo {
 
-    /** Adaptive quantization. Allows intra-frame quantizers to vary to improve visual quality. */
+    /**
+     * Enables or disables adaptive quantization, which is a technique MediaLive can apply to video on a frame-by-frame
+     * basis to produce more compression without losing quality. There are three types of adaptive quantization:
+     * flicker, spatial, and temporal. Set the field in one of these ways: Set to Auto. Recommended. For each type of AQ,
+     * MediaLive will determine if AQ is needed, and if so, the appropriate strength. Set a strength (a value other than
+     * Auto or Disable). This strength will apply to any of the AQ fields that you choose to enable. Set to Disabled to
+     * disable all types of adaptive quantization.
+     */
     private String adaptiveQuantization;
     /**
      * Indicates that AFD values will be written into the output stream. If afdSignaling is "auto", the system will try
@@ -42,19 +49,48 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     private Integer bitrate;
     /** Percentage of the buffer that should initially be filled (HRD buffer model). */
     private Integer bufFillPct;
-    /** Size of buffer (HRD buffer model) in bits/second. */
+    /** Size of buffer (HRD buffer model) in bits. */
     private Integer bufSize;
     /** Includes colorspace metadata in the output. */
     private String colorMetadata;
+    /** Color Space settings */
+    private H264ColorSpaceSettings colorSpaceSettings;
     /** Entropy encoding mode. Use cabac (must be in Main or High profile) or cavlc. */
     private String entropyEncoding;
+    /**
+     * Optional. Both filters reduce bandwidth by removing imperceptible details. You can enable one of the filters. We
+     * recommend that you try both filters and observe the results to decide which one to use.
+     * 
+     * The Temporal Filter reduces bandwidth by removing imperceptible details in the content. It combines perceptual
+     * filtering and motion compensated temporal filtering (MCTF). It operates independently of the compression level.
+     * 
+     * The Bandwidth Reduction filter is a perceptual filter located within the encoding loop. It adapts to the current
+     * compression level to filter imperceptible signals. This filter works only when the resolution is 1080p or lower.
+     */
+    private H264FilterSettings filterSettings;
     /**
      * Four bit AFD value to write on all frames of video in the output stream. Only valid when afdSignaling is set to
      * 'Fixed'.
      */
     private String fixedAfd;
-    /** If set to enabled, adjust quantization within each frame to reduce flicker or 'pop' on I-frames. */
+    /**
+     * Flicker AQ makes adjustments within each frame to reduce flicker or 'pop' on I-frames. The value to enter in this
+     * field depends on the value in the Adaptive quantization field: If you have set the Adaptive quantization field to
+     * Auto, MediaLive ignores any value in this field. MediaLive will determine if flicker AQ is appropriate and will
+     * apply the appropriate strength. If you have set the Adaptive quantization field to a strength, you can set this
+     * field to Enabled or Disabled. Enabled: MediaLive will apply flicker AQ using the specified strength. Disabled:
+     * MediaLive won't apply flicker AQ. If you have set the Adaptive quantization to Disabled, MediaLive ignores any
+     * value in this field and doesn't apply flicker AQ.
+     */
     private String flickerAq;
+    /**
+     * This setting applies only when scan type is "interlaced." It controls whether coding is performed on a field
+     * basis or on a frame basis. (When the video is progressive, the coding is always performed on a frame basis.)
+     * enabled: Force MediaLive to code on a field basis, so that odd and even sets of fields are coded separately.
+     * disabled: Code the two sets of fields separately (on a field basis) or together (on a frame basis using PAFF),
+     * depending on what is most appropriate for the content.
+     */
+    private String forceFieldPictures;
     /**
      * This field indicates how the output video frame rate is specified. If "specified" is selected then the output
      * video frame rate is determined by framerateNumerator and framerateDenominator, else if "initializeFromSource" is
@@ -75,7 +111,11 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     private Integer gopClosedCadence;
     /** Number of B-frames between reference frames. */
     private Integer gopNumBFrames;
-    /** GOP size (keyframe interval) in units of either frames or seconds per gopSizeUnits. Must be greater than zero. */
+    /**
+     * GOP size (keyframe interval) in units of either frames or seconds per gopSizeUnits. If gopSizeUnits is frames,
+     * gopSize must be an integer and must be greater than or equal to 1. If gopSizeUnits is seconds, gopSize must be
+     * greater than 0, but need not be an integer.
+     */
     private Double gopSize;
     /**
      * Indicates if the gopSize is specified in frames or seconds. If seconds the system will convert the gopSize into a
@@ -96,11 +136,11 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
      */
     private Integer maxBitrate;
     /**
-     * Only meaningful if sceneChangeDetect is set to enabled. Enforces separation between repeated (cadence) I-frames
-     * and I-frames inserted by Scene Change Detection. If a scene change I-frame is within I-interval frames of a
-     * cadence I-frame, the GOP is shrunk and/or stretched to the scene change I-frame. GOP stretch requires enabling
-     * lookahead as well as setting I-interval. The normal cadence resumes for the next GOP. Note: Maximum GOP stretch =
-     * GOP size + Min-I-interval - 1
+     * Only meaningful if sceneChangeDetect is set to enabled. Defaults to 5 if multiplex rate control is used. Enforces
+     * separation between repeated (cadence) I-frames and I-frames inserted by Scene Change Detection. If a scene change
+     * I-frame is within I-interval frames of a cadence I-frame, the GOP is shrunk and/or stretched to the scene change
+     * I-frame. GOP stretch requires enabling lookahead as well as setting I-interval. The normal cadence resumes for the
+     * next GOP. Note: Maximum GOP stretch = GOP size + Min-I-interval - 1
      */
     private Integer minIInterval;
     /**
@@ -122,10 +162,20 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     /** H.264 Profile. */
     private String profile;
     /**
-     * Controls the target quality for the video encode. Applies only when the rate control mode is QVBR. Set values for
-     * the QVBR quality level field and Max bitrate field that suit your most important viewing devices. Recommended
-     * values are: - Primary screen: Quality level: 8 to 10. Max bitrate: 4M - PC or tablet: Quality level: 7. Max
-     * bitrate: 1.5M to 3M - Smartphone: Quality level: 6. Max bitrate: 1M to 1.5M
+     * Leave as STANDARD_QUALITY or choose a different value (which might result in additional costs to run the
+     * channel). - ENHANCED_QUALITY: Produces a slightly better video quality without an increase in the bitrate. Has an
+     * effect only when the Rate control mode is QVBR or CBR. If this channel is in a MediaLive multiplex, the value
+     * must be ENHANCED_QUALITY. - STANDARD_QUALITY: Valid for any Rate control mode.
+     */
+    private String qualityLevel;
+    /**
+     * Controls the target quality for the video encode. Applies only when the rate control mode is QVBR. You can set a
+     * target quality or you can let MediaLive determine the best quality. To set a target quality, enter values in the
+     * QVBR quality level field and the Max bitrate field. Enter values that suit your most important viewing devices.
+     * Recommended values are: - Primary screen: Quality level: 8 to 10. Max bitrate: 4M - PC or tablet: Quality level:
+     * 7. Max bitrate: 1.5M to 3M - Smartphone: Quality level: 6. Max bitrate: 1M to 1.5M To let MediaLive decide, leave
+     * the QVBR quality level field empty, and in Max bitrate enter the maximum rate you want in the video. For more
+     * information, see the section called "Video - rate control mode" in the MediaLive user guide
      */
     private Integer qvbrQualityLevel;
     /**
@@ -139,6 +189,10 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
      * 
      * CBR: Quality varies, depending on the video complexity. Recommended only if you distribute your assets to devices
      * that cannot handle variable bitrates.
+     * 
+     * Multiplex: This rate control mode is only supported (and is required) when the video is being delivered to a
+     * MediaLive Multiplex in which case the rate control configuration is controlled by the properties within the
+     * Multiplex Program.
      */
     private String rateControlMode;
     /** Sets the scan type of the output to progressive or top-field-first interlaced. */
@@ -156,9 +210,20 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
      * optional; when no value is specified the encoder will choose the number of slices based on encode resolution.
      */
     private Integer slices;
-    /** Softness. Selects quantizer matrix, larger values reduce high-frequency content in the encoded image. */
+    /**
+     * Softness. Selects quantizer matrix, larger values reduce high-frequency content in the encoded image. If not set
+     * to zero, must be greater than 15.
+     */
     private Integer softness;
-    /** If set to enabled, adjust quantization within each frame based on spatial variation of content complexity. */
+    /**
+     * Spatial AQ makes adjustments within each frame based on spatial variation of content complexity. The value to
+     * enter in this field depends on the value in the Adaptive quantization field: If you have set the Adaptive
+     * quantization field to Auto, MediaLive ignores any value in this field. MediaLive will determine if spatial AQ is
+     * appropriate and will apply the appropriate strength. If you have set the Adaptive quantization field to a
+     * strength, you can set this field to Enabled or Disabled. Enabled: MediaLive will apply spatial AQ using the
+     * specified strength. Disabled: MediaLive won't apply spatial AQ. If you have set the Adaptive quantization to
+     * Disabled, MediaLive ignores any value in this field and doesn't apply spatial AQ.
+     */
     private String spatialAq;
     /**
      * If set to fixed, use gopNumBFrames B-frames per sub-GOP. If set to dynamic, optimize the number of B-frames used
@@ -167,19 +232,39 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     private String subgopLength;
     /** Produces a bitstream compliant with SMPTE RP-2027. */
     private String syntax;
-    /** If set to enabled, adjust quantization within each frame based on temporal variation of content complexity. */
+    /**
+     * Temporal makes adjustments within each frame based on temporal variation of content complexity. The value to
+     * enter in this field depends on the value in the Adaptive quantization field: If you have set the Adaptive
+     * quantization field to Auto, MediaLive ignores any value in this field. MediaLive will determine if temporal AQ is
+     * appropriate and will apply the appropriate strength. If you have set the Adaptive quantization field to a
+     * strength, you can set this field to Enabled or Disabled. Enabled: MediaLive will apply temporal AQ using the
+     * specified strength. Disabled: MediaLive won't apply temporal AQ. If you have set the Adaptive quantization to
+     * Disabled, MediaLive ignores any value in this field and doesn't apply temporal AQ.
+     */
     private String temporalAq;
     /**
      * Determines how timecodes should be inserted into the video elementary stream. - 'disabled': Do not include
      * timecodes - 'picTimingSei': Pass through picture timing SEI messages from the source specified in Timecode Config
      */
     private String timecodeInsertion;
+    /** Timecode burn-in settings */
+    private TimecodeBurninSettings timecodeBurninSettings;
 
     /**
-     * Adaptive quantization. Allows intra-frame quantizers to vary to improve visual quality.
+     * Enables or disables adaptive quantization, which is a technique MediaLive can apply to video on a frame-by-frame
+     * basis to produce more compression without losing quality. There are three types of adaptive quantization:
+     * flicker, spatial, and temporal. Set the field in one of these ways: Set to Auto. Recommended. For each type of AQ,
+     * MediaLive will determine if AQ is needed, and if so, the appropriate strength. Set a strength (a value other than
+     * Auto or Disable). This strength will apply to any of the AQ fields that you choose to enable. Set to Disabled to
+     * disable all types of adaptive quantization.
      * 
      * @param adaptiveQuantization
-     *        Adaptive quantization. Allows intra-frame quantizers to vary to improve visual quality.
+     *        Enables or disables adaptive quantization, which is a technique MediaLive can apply to video on a
+     *        frame-by-frame basis to produce more compression without losing quality. There are three types of adaptive
+     *        quantization: flicker, spatial, and temporal. Set the field in one of these ways: Set to Auto.
+     *        Recommended. For each type of AQ, MediaLive will determine if AQ is needed, and if so, the appropriate
+     *        strength. Set a strength (a value other than Auto or Disable). This strength will apply to any of the AQ
+     *        fields that you choose to enable. Set to Disabled to disable all types of adaptive quantization.
      * @see H264AdaptiveQuantization
      */
 
@@ -188,9 +273,19 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Adaptive quantization. Allows intra-frame quantizers to vary to improve visual quality.
+     * Enables or disables adaptive quantization, which is a technique MediaLive can apply to video on a frame-by-frame
+     * basis to produce more compression without losing quality. There are three types of adaptive quantization:
+     * flicker, spatial, and temporal. Set the field in one of these ways: Set to Auto. Recommended. For each type of AQ,
+     * MediaLive will determine if AQ is needed, and if so, the appropriate strength. Set a strength (a value other than
+     * Auto or Disable). This strength will apply to any of the AQ fields that you choose to enable. Set to Disabled to
+     * disable all types of adaptive quantization.
      * 
-     * @return Adaptive quantization. Allows intra-frame quantizers to vary to improve visual quality.
+     * @return Enables or disables adaptive quantization, which is a technique MediaLive can apply to video on a
+     *         frame-by-frame basis to produce more compression without losing quality. There are three types of
+     *         adaptive quantization: flicker, spatial, and temporal. Set the field in one of these ways: Set to Auto.
+     *         Recommended. For each type of AQ, MediaLive will determine if AQ is needed, and if so, the appropriate
+     *         strength. Set a strength (a value other than Auto or Disable). This strength will apply to any of the AQ
+     *         fields that you choose to enable. Set to Disabled to disable all types of adaptive quantization.
      * @see H264AdaptiveQuantization
      */
 
@@ -199,10 +294,20 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Adaptive quantization. Allows intra-frame quantizers to vary to improve visual quality.
+     * Enables or disables adaptive quantization, which is a technique MediaLive can apply to video on a frame-by-frame
+     * basis to produce more compression without losing quality. There are three types of adaptive quantization:
+     * flicker, spatial, and temporal. Set the field in one of these ways: Set to Auto. Recommended. For each type of AQ,
+     * MediaLive will determine if AQ is needed, and if so, the appropriate strength. Set a strength (a value other than
+     * Auto or Disable). This strength will apply to any of the AQ fields that you choose to enable. Set to Disabled to
+     * disable all types of adaptive quantization.
      * 
      * @param adaptiveQuantization
-     *        Adaptive quantization. Allows intra-frame quantizers to vary to improve visual quality.
+     *        Enables or disables adaptive quantization, which is a technique MediaLive can apply to video on a
+     *        frame-by-frame basis to produce more compression without losing quality. There are three types of adaptive
+     *        quantization: flicker, spatial, and temporal. Set the field in one of these ways: Set to Auto.
+     *        Recommended. For each type of AQ, MediaLive will determine if AQ is needed, and if so, the appropriate
+     *        strength. Set a strength (a value other than Auto or Disable). This strength will apply to any of the AQ
+     *        fields that you choose to enable. Set to Disabled to disable all types of adaptive quantization.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H264AdaptiveQuantization
      */
@@ -213,10 +318,20 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Adaptive quantization. Allows intra-frame quantizers to vary to improve visual quality.
+     * Enables or disables adaptive quantization, which is a technique MediaLive can apply to video on a frame-by-frame
+     * basis to produce more compression without losing quality. There are three types of adaptive quantization:
+     * flicker, spatial, and temporal. Set the field in one of these ways: Set to Auto. Recommended. For each type of AQ,
+     * MediaLive will determine if AQ is needed, and if so, the appropriate strength. Set a strength (a value other than
+     * Auto or Disable). This strength will apply to any of the AQ fields that you choose to enable. Set to Disabled to
+     * disable all types of adaptive quantization.
      * 
      * @param adaptiveQuantization
-     *        Adaptive quantization. Allows intra-frame quantizers to vary to improve visual quality.
+     *        Enables or disables adaptive quantization, which is a technique MediaLive can apply to video on a
+     *        frame-by-frame basis to produce more compression without losing quality. There are three types of adaptive
+     *        quantization: flicker, spatial, and temporal. Set the field in one of these ways: Set to Auto.
+     *        Recommended. For each type of AQ, MediaLive will determine if AQ is needed, and if so, the appropriate
+     *        strength. Set a strength (a value other than Auto or Disable). This strength will apply to any of the AQ
+     *        fields that you choose to enable. Set to Disabled to disable all types of adaptive quantization.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H264AdaptiveQuantization
      */
@@ -374,10 +489,10 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Size of buffer (HRD buffer model) in bits/second.
+     * Size of buffer (HRD buffer model) in bits.
      * 
      * @param bufSize
-     *        Size of buffer (HRD buffer model) in bits/second.
+     *        Size of buffer (HRD buffer model) in bits.
      */
 
     public void setBufSize(Integer bufSize) {
@@ -385,9 +500,9 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Size of buffer (HRD buffer model) in bits/second.
+     * Size of buffer (HRD buffer model) in bits.
      * 
-     * @return Size of buffer (HRD buffer model) in bits/second.
+     * @return Size of buffer (HRD buffer model) in bits.
      */
 
     public Integer getBufSize() {
@@ -395,10 +510,10 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Size of buffer (HRD buffer model) in bits/second.
+     * Size of buffer (HRD buffer model) in bits.
      * 
      * @param bufSize
-     *        Size of buffer (HRD buffer model) in bits/second.
+     *        Size of buffer (HRD buffer model) in bits.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -459,6 +574,40 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * Color Space settings
+     * 
+     * @param colorSpaceSettings
+     *        Color Space settings
+     */
+
+    public void setColorSpaceSettings(H264ColorSpaceSettings colorSpaceSettings) {
+        this.colorSpaceSettings = colorSpaceSettings;
+    }
+
+    /**
+     * Color Space settings
+     * 
+     * @return Color Space settings
+     */
+
+    public H264ColorSpaceSettings getColorSpaceSettings() {
+        return this.colorSpaceSettings;
+    }
+
+    /**
+     * Color Space settings
+     * 
+     * @param colorSpaceSettings
+     *        Color Space settings
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public H264Settings withColorSpaceSettings(H264ColorSpaceSettings colorSpaceSettings) {
+        setColorSpaceSettings(colorSpaceSettings);
+        return this;
+    }
+
+    /**
      * Entropy encoding mode. Use cabac (must be in Main or High profile) or cavlc.
      * 
      * @param entropyEncoding
@@ -506,6 +655,88 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
 
     public H264Settings withEntropyEncoding(H264EntropyEncoding entropyEncoding) {
         this.entropyEncoding = entropyEncoding.toString();
+        return this;
+    }
+
+    /**
+     * Optional. Both filters reduce bandwidth by removing imperceptible details. You can enable one of the filters. We
+     * recommend that you try both filters and observe the results to decide which one to use.
+     * 
+     * The Temporal Filter reduces bandwidth by removing imperceptible details in the content. It combines perceptual
+     * filtering and motion compensated temporal filtering (MCTF). It operates independently of the compression level.
+     * 
+     * The Bandwidth Reduction filter is a perceptual filter located within the encoding loop. It adapts to the current
+     * compression level to filter imperceptible signals. This filter works only when the resolution is 1080p or lower.
+     * 
+     * @param filterSettings
+     *        Optional. Both filters reduce bandwidth by removing imperceptible details. You can enable one of the
+     *        filters. We recommend that you try both filters and observe the results to decide which one to use.
+     * 
+     *        The Temporal Filter reduces bandwidth by removing imperceptible details in the content. It combines
+     *        perceptual filtering and motion compensated temporal filtering (MCTF). It operates independently of the
+     *        compression level.
+     * 
+     *        The Bandwidth Reduction filter is a perceptual filter located within the encoding loop. It adapts to the
+     *        current compression level to filter imperceptible signals. This filter works only when the resolution is
+     *        1080p or lower.
+     */
+
+    public void setFilterSettings(H264FilterSettings filterSettings) {
+        this.filterSettings = filterSettings;
+    }
+
+    /**
+     * Optional. Both filters reduce bandwidth by removing imperceptible details. You can enable one of the filters. We
+     * recommend that you try both filters and observe the results to decide which one to use.
+     * 
+     * The Temporal Filter reduces bandwidth by removing imperceptible details in the content. It combines perceptual
+     * filtering and motion compensated temporal filtering (MCTF). It operates independently of the compression level.
+     * 
+     * The Bandwidth Reduction filter is a perceptual filter located within the encoding loop. It adapts to the current
+     * compression level to filter imperceptible signals. This filter works only when the resolution is 1080p or lower.
+     * 
+     * @return Optional. Both filters reduce bandwidth by removing imperceptible details. You can enable one of the
+     *         filters. We recommend that you try both filters and observe the results to decide which one to use.
+     * 
+     *         The Temporal Filter reduces bandwidth by removing imperceptible details in the content. It combines
+     *         perceptual filtering and motion compensated temporal filtering (MCTF). It operates independently of the
+     *         compression level.
+     * 
+     *         The Bandwidth Reduction filter is a perceptual filter located within the encoding loop. It adapts to the
+     *         current compression level to filter imperceptible signals. This filter works only when the resolution is
+     *         1080p or lower.
+     */
+
+    public H264FilterSettings getFilterSettings() {
+        return this.filterSettings;
+    }
+
+    /**
+     * Optional. Both filters reduce bandwidth by removing imperceptible details. You can enable one of the filters. We
+     * recommend that you try both filters and observe the results to decide which one to use.
+     * 
+     * The Temporal Filter reduces bandwidth by removing imperceptible details in the content. It combines perceptual
+     * filtering and motion compensated temporal filtering (MCTF). It operates independently of the compression level.
+     * 
+     * The Bandwidth Reduction filter is a perceptual filter located within the encoding loop. It adapts to the current
+     * compression level to filter imperceptible signals. This filter works only when the resolution is 1080p or lower.
+     * 
+     * @param filterSettings
+     *        Optional. Both filters reduce bandwidth by removing imperceptible details. You can enable one of the
+     *        filters. We recommend that you try both filters and observe the results to decide which one to use.
+     * 
+     *        The Temporal Filter reduces bandwidth by removing imperceptible details in the content. It combines
+     *        perceptual filtering and motion compensated temporal filtering (MCTF). It operates independently of the
+     *        compression level.
+     * 
+     *        The Bandwidth Reduction filter is a perceptual filter located within the encoding loop. It adapts to the
+     *        current compression level to filter imperceptible signals. This filter works only when the resolution is
+     *        1080p or lower.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public H264Settings withFilterSettings(H264FilterSettings filterSettings) {
+        setFilterSettings(filterSettings);
         return this;
     }
 
@@ -569,10 +800,22 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If set to enabled, adjust quantization within each frame to reduce flicker or 'pop' on I-frames.
+     * Flicker AQ makes adjustments within each frame to reduce flicker or 'pop' on I-frames. The value to enter in this
+     * field depends on the value in the Adaptive quantization field: If you have set the Adaptive quantization field to
+     * Auto, MediaLive ignores any value in this field. MediaLive will determine if flicker AQ is appropriate and will
+     * apply the appropriate strength. If you have set the Adaptive quantization field to a strength, you can set this
+     * field to Enabled or Disabled. Enabled: MediaLive will apply flicker AQ using the specified strength. Disabled:
+     * MediaLive won't apply flicker AQ. If you have set the Adaptive quantization to Disabled, MediaLive ignores any
+     * value in this field and doesn't apply flicker AQ.
      * 
      * @param flickerAq
-     *        If set to enabled, adjust quantization within each frame to reduce flicker or 'pop' on I-frames.
+     *        Flicker AQ makes adjustments within each frame to reduce flicker or 'pop' on I-frames. The value to enter
+     *        in this field depends on the value in the Adaptive quantization field: If you have set the Adaptive
+     *        quantization field to Auto, MediaLive ignores any value in this field. MediaLive will determine if flicker
+     *        AQ is appropriate and will apply the appropriate strength. If you have set the Adaptive quantization field
+     *        to a strength, you can set this field to Enabled or Disabled. Enabled: MediaLive will apply flicker AQ
+     *        using the specified strength. Disabled: MediaLive won't apply flicker AQ. If you have set the Adaptive
+     *        quantization to Disabled, MediaLive ignores any value in this field and doesn't apply flicker AQ.
      * @see H264FlickerAq
      */
 
@@ -581,9 +824,22 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If set to enabled, adjust quantization within each frame to reduce flicker or 'pop' on I-frames.
+     * Flicker AQ makes adjustments within each frame to reduce flicker or 'pop' on I-frames. The value to enter in this
+     * field depends on the value in the Adaptive quantization field: If you have set the Adaptive quantization field to
+     * Auto, MediaLive ignores any value in this field. MediaLive will determine if flicker AQ is appropriate and will
+     * apply the appropriate strength. If you have set the Adaptive quantization field to a strength, you can set this
+     * field to Enabled or Disabled. Enabled: MediaLive will apply flicker AQ using the specified strength. Disabled:
+     * MediaLive won't apply flicker AQ. If you have set the Adaptive quantization to Disabled, MediaLive ignores any
+     * value in this field and doesn't apply flicker AQ.
      * 
-     * @return If set to enabled, adjust quantization within each frame to reduce flicker or 'pop' on I-frames.
+     * @return Flicker AQ makes adjustments within each frame to reduce flicker or 'pop' on I-frames. The value to enter
+     *         in this field depends on the value in the Adaptive quantization field: If you have set the Adaptive
+     *         quantization field to Auto, MediaLive ignores any value in this field. MediaLive will determine if
+     *         flicker AQ is appropriate and will apply the appropriate strength. If you have set the Adaptive
+     *         quantization field to a strength, you can set this field to Enabled or Disabled. Enabled: MediaLive will
+     *         apply flicker AQ using the specified strength. Disabled: MediaLive won't apply flicker AQ. If you have
+     *         set the Adaptive quantization to Disabled, MediaLive ignores any value in this field and doesn't apply
+     *         flicker AQ.
      * @see H264FlickerAq
      */
 
@@ -592,10 +848,22 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If set to enabled, adjust quantization within each frame to reduce flicker or 'pop' on I-frames.
+     * Flicker AQ makes adjustments within each frame to reduce flicker or 'pop' on I-frames. The value to enter in this
+     * field depends on the value in the Adaptive quantization field: If you have set the Adaptive quantization field to
+     * Auto, MediaLive ignores any value in this field. MediaLive will determine if flicker AQ is appropriate and will
+     * apply the appropriate strength. If you have set the Adaptive quantization field to a strength, you can set this
+     * field to Enabled or Disabled. Enabled: MediaLive will apply flicker AQ using the specified strength. Disabled:
+     * MediaLive won't apply flicker AQ. If you have set the Adaptive quantization to Disabled, MediaLive ignores any
+     * value in this field and doesn't apply flicker AQ.
      * 
      * @param flickerAq
-     *        If set to enabled, adjust quantization within each frame to reduce flicker or 'pop' on I-frames.
+     *        Flicker AQ makes adjustments within each frame to reduce flicker or 'pop' on I-frames. The value to enter
+     *        in this field depends on the value in the Adaptive quantization field: If you have set the Adaptive
+     *        quantization field to Auto, MediaLive ignores any value in this field. MediaLive will determine if flicker
+     *        AQ is appropriate and will apply the appropriate strength. If you have set the Adaptive quantization field
+     *        to a strength, you can set this field to Enabled or Disabled. Enabled: MediaLive will apply flicker AQ
+     *        using the specified strength. Disabled: MediaLive won't apply flicker AQ. If you have set the Adaptive
+     *        quantization to Disabled, MediaLive ignores any value in this field and doesn't apply flicker AQ.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H264FlickerAq
      */
@@ -606,16 +874,111 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If set to enabled, adjust quantization within each frame to reduce flicker or 'pop' on I-frames.
+     * Flicker AQ makes adjustments within each frame to reduce flicker or 'pop' on I-frames. The value to enter in this
+     * field depends on the value in the Adaptive quantization field: If you have set the Adaptive quantization field to
+     * Auto, MediaLive ignores any value in this field. MediaLive will determine if flicker AQ is appropriate and will
+     * apply the appropriate strength. If you have set the Adaptive quantization field to a strength, you can set this
+     * field to Enabled or Disabled. Enabled: MediaLive will apply flicker AQ using the specified strength. Disabled:
+     * MediaLive won't apply flicker AQ. If you have set the Adaptive quantization to Disabled, MediaLive ignores any
+     * value in this field and doesn't apply flicker AQ.
      * 
      * @param flickerAq
-     *        If set to enabled, adjust quantization within each frame to reduce flicker or 'pop' on I-frames.
+     *        Flicker AQ makes adjustments within each frame to reduce flicker or 'pop' on I-frames. The value to enter
+     *        in this field depends on the value in the Adaptive quantization field: If you have set the Adaptive
+     *        quantization field to Auto, MediaLive ignores any value in this field. MediaLive will determine if flicker
+     *        AQ is appropriate and will apply the appropriate strength. If you have set the Adaptive quantization field
+     *        to a strength, you can set this field to Enabled or Disabled. Enabled: MediaLive will apply flicker AQ
+     *        using the specified strength. Disabled: MediaLive won't apply flicker AQ. If you have set the Adaptive
+     *        quantization to Disabled, MediaLive ignores any value in this field and doesn't apply flicker AQ.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H264FlickerAq
      */
 
     public H264Settings withFlickerAq(H264FlickerAq flickerAq) {
         this.flickerAq = flickerAq.toString();
+        return this;
+    }
+
+    /**
+     * This setting applies only when scan type is "interlaced." It controls whether coding is performed on a field
+     * basis or on a frame basis. (When the video is progressive, the coding is always performed on a frame basis.)
+     * enabled: Force MediaLive to code on a field basis, so that odd and even sets of fields are coded separately.
+     * disabled: Code the two sets of fields separately (on a field basis) or together (on a frame basis using PAFF),
+     * depending on what is most appropriate for the content.
+     * 
+     * @param forceFieldPictures
+     *        This setting applies only when scan type is "interlaced." It controls whether coding is performed on a
+     *        field basis or on a frame basis. (When the video is progressive, the coding is always performed on a frame
+     *        basis.) enabled: Force MediaLive to code on a field basis, so that odd and even sets of fields are coded
+     *        separately. disabled: Code the two sets of fields separately (on a field basis) or together (on a frame
+     *        basis using PAFF), depending on what is most appropriate for the content.
+     * @see H264ForceFieldPictures
+     */
+
+    public void setForceFieldPictures(String forceFieldPictures) {
+        this.forceFieldPictures = forceFieldPictures;
+    }
+
+    /**
+     * This setting applies only when scan type is "interlaced." It controls whether coding is performed on a field
+     * basis or on a frame basis. (When the video is progressive, the coding is always performed on a frame basis.)
+     * enabled: Force MediaLive to code on a field basis, so that odd and even sets of fields are coded separately.
+     * disabled: Code the two sets of fields separately (on a field basis) or together (on a frame basis using PAFF),
+     * depending on what is most appropriate for the content.
+     * 
+     * @return This setting applies only when scan type is "interlaced." It controls whether coding is performed on a
+     *         field basis or on a frame basis. (When the video is progressive, the coding is always performed on a
+     *         frame basis.) enabled: Force MediaLive to code on a field basis, so that odd and even sets of fields are
+     *         coded separately. disabled: Code the two sets of fields separately (on a field basis) or together (on a
+     *         frame basis using PAFF), depending on what is most appropriate for the content.
+     * @see H264ForceFieldPictures
+     */
+
+    public String getForceFieldPictures() {
+        return this.forceFieldPictures;
+    }
+
+    /**
+     * This setting applies only when scan type is "interlaced." It controls whether coding is performed on a field
+     * basis or on a frame basis. (When the video is progressive, the coding is always performed on a frame basis.)
+     * enabled: Force MediaLive to code on a field basis, so that odd and even sets of fields are coded separately.
+     * disabled: Code the two sets of fields separately (on a field basis) or together (on a frame basis using PAFF),
+     * depending on what is most appropriate for the content.
+     * 
+     * @param forceFieldPictures
+     *        This setting applies only when scan type is "interlaced." It controls whether coding is performed on a
+     *        field basis or on a frame basis. (When the video is progressive, the coding is always performed on a frame
+     *        basis.) enabled: Force MediaLive to code on a field basis, so that odd and even sets of fields are coded
+     *        separately. disabled: Code the two sets of fields separately (on a field basis) or together (on a frame
+     *        basis using PAFF), depending on what is most appropriate for the content.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see H264ForceFieldPictures
+     */
+
+    public H264Settings withForceFieldPictures(String forceFieldPictures) {
+        setForceFieldPictures(forceFieldPictures);
+        return this;
+    }
+
+    /**
+     * This setting applies only when scan type is "interlaced." It controls whether coding is performed on a field
+     * basis or on a frame basis. (When the video is progressive, the coding is always performed on a frame basis.)
+     * enabled: Force MediaLive to code on a field basis, so that odd and even sets of fields are coded separately.
+     * disabled: Code the two sets of fields separately (on a field basis) or together (on a frame basis using PAFF),
+     * depending on what is most appropriate for the content.
+     * 
+     * @param forceFieldPictures
+     *        This setting applies only when scan type is "interlaced." It controls whether coding is performed on a
+     *        field basis or on a frame basis. (When the video is progressive, the coding is always performed on a frame
+     *        basis.) enabled: Force MediaLive to code on a field basis, so that odd and even sets of fields are coded
+     *        separately. disabled: Code the two sets of fields separately (on a field basis) or together (on a frame
+     *        basis using PAFF), depending on what is most appropriate for the content.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see H264ForceFieldPictures
+     */
+
+    public H264Settings withForceFieldPictures(H264ForceFieldPictures forceFieldPictures) {
+        this.forceFieldPictures = forceFieldPictures.toString();
         return this;
     }
 
@@ -890,11 +1253,14 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * GOP size (keyframe interval) in units of either frames or seconds per gopSizeUnits. Must be greater than zero.
+     * GOP size (keyframe interval) in units of either frames or seconds per gopSizeUnits. If gopSizeUnits is frames,
+     * gopSize must be an integer and must be greater than or equal to 1. If gopSizeUnits is seconds, gopSize must be
+     * greater than 0, but need not be an integer.
      * 
      * @param gopSize
-     *        GOP size (keyframe interval) in units of either frames or seconds per gopSizeUnits. Must be greater than
-     *        zero.
+     *        GOP size (keyframe interval) in units of either frames or seconds per gopSizeUnits. If gopSizeUnits is
+     *        frames, gopSize must be an integer and must be greater than or equal to 1. If gopSizeUnits is seconds,
+     *        gopSize must be greater than 0, but need not be an integer.
      */
 
     public void setGopSize(Double gopSize) {
@@ -902,10 +1268,13 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * GOP size (keyframe interval) in units of either frames or seconds per gopSizeUnits. Must be greater than zero.
+     * GOP size (keyframe interval) in units of either frames or seconds per gopSizeUnits. If gopSizeUnits is frames,
+     * gopSize must be an integer and must be greater than or equal to 1. If gopSizeUnits is seconds, gopSize must be
+     * greater than 0, but need not be an integer.
      * 
-     * @return GOP size (keyframe interval) in units of either frames or seconds per gopSizeUnits. Must be greater than
-     *         zero.
+     * @return GOP size (keyframe interval) in units of either frames or seconds per gopSizeUnits. If gopSizeUnits is
+     *         frames, gopSize must be an integer and must be greater than or equal to 1. If gopSizeUnits is seconds,
+     *         gopSize must be greater than 0, but need not be an integer.
      */
 
     public Double getGopSize() {
@@ -913,11 +1282,14 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * GOP size (keyframe interval) in units of either frames or seconds per gopSizeUnits. Must be greater than zero.
+     * GOP size (keyframe interval) in units of either frames or seconds per gopSizeUnits. If gopSizeUnits is frames,
+     * gopSize must be an integer and must be greater than or equal to 1. If gopSizeUnits is seconds, gopSize must be
+     * greater than 0, but need not be an integer.
      * 
      * @param gopSize
-     *        GOP size (keyframe interval) in units of either frames or seconds per gopSizeUnits. Must be greater than
-     *        zero.
+     *        GOP size (keyframe interval) in units of either frames or seconds per gopSizeUnits. If gopSizeUnits is
+     *        frames, gopSize must be an integer and must be greater than or equal to 1. If gopSizeUnits is seconds,
+     *        gopSize must be greater than 0, but need not be an integer.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1142,18 +1514,19 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Only meaningful if sceneChangeDetect is set to enabled. Enforces separation between repeated (cadence) I-frames
-     * and I-frames inserted by Scene Change Detection. If a scene change I-frame is within I-interval frames of a
-     * cadence I-frame, the GOP is shrunk and/or stretched to the scene change I-frame. GOP stretch requires enabling
-     * lookahead as well as setting I-interval. The normal cadence resumes for the next GOP. Note: Maximum GOP stretch =
-     * GOP size + Min-I-interval - 1
+     * Only meaningful if sceneChangeDetect is set to enabled. Defaults to 5 if multiplex rate control is used. Enforces
+     * separation between repeated (cadence) I-frames and I-frames inserted by Scene Change Detection. If a scene change
+     * I-frame is within I-interval frames of a cadence I-frame, the GOP is shrunk and/or stretched to the scene change
+     * I-frame. GOP stretch requires enabling lookahead as well as setting I-interval. The normal cadence resumes for the
+     * next GOP. Note: Maximum GOP stretch = GOP size + Min-I-interval - 1
      * 
      * @param minIInterval
-     *        Only meaningful if sceneChangeDetect is set to enabled. Enforces separation between repeated (cadence)
-     *        I-frames and I-frames inserted by Scene Change Detection. If a scene change I-frame is within I-interval
-     *        frames of a cadence I-frame, the GOP is shrunk and/or stretched to the scene change I-frame. GOP stretch
-     *        requires enabling lookahead as well as setting I-interval. The normal cadence resumes for the next GOP.
-     *        Note: Maximum GOP stretch = GOP size + Min-I-interval - 1
+     *        Only meaningful if sceneChangeDetect is set to enabled. Defaults to 5 if multiplex rate control is used.
+     *        Enforces separation between repeated (cadence) I-frames and I-frames inserted by Scene Change Detection.
+     *        If a scene change I-frame is within I-interval frames of a cadence I-frame, the GOP is shrunk and/or
+     *        stretched to the scene change I-frame. GOP stretch requires enabling lookahead as well as setting
+     *        I-interval. The normal cadence resumes for the next GOP. Note: Maximum GOP stretch = GOP size +
+     *        Min-I-interval - 1
      */
 
     public void setMinIInterval(Integer minIInterval) {
@@ -1161,17 +1534,18 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Only meaningful if sceneChangeDetect is set to enabled. Enforces separation between repeated (cadence) I-frames
-     * and I-frames inserted by Scene Change Detection. If a scene change I-frame is within I-interval frames of a
-     * cadence I-frame, the GOP is shrunk and/or stretched to the scene change I-frame. GOP stretch requires enabling
-     * lookahead as well as setting I-interval. The normal cadence resumes for the next GOP. Note: Maximum GOP stretch =
-     * GOP size + Min-I-interval - 1
+     * Only meaningful if sceneChangeDetect is set to enabled. Defaults to 5 if multiplex rate control is used. Enforces
+     * separation between repeated (cadence) I-frames and I-frames inserted by Scene Change Detection. If a scene change
+     * I-frame is within I-interval frames of a cadence I-frame, the GOP is shrunk and/or stretched to the scene change
+     * I-frame. GOP stretch requires enabling lookahead as well as setting I-interval. The normal cadence resumes for the
+     * next GOP. Note: Maximum GOP stretch = GOP size + Min-I-interval - 1
      * 
-     * @return Only meaningful if sceneChangeDetect is set to enabled. Enforces separation between repeated (cadence)
-     *         I-frames and I-frames inserted by Scene Change Detection. If a scene change I-frame is within I-interval
-     *         frames of a cadence I-frame, the GOP is shrunk and/or stretched to the scene change I-frame. GOP stretch
-     *         requires enabling lookahead as well as setting I-interval. The normal cadence resumes for the next GOP.
-     *         Note: Maximum GOP stretch = GOP size + Min-I-interval - 1
+     * @return Only meaningful if sceneChangeDetect is set to enabled. Defaults to 5 if multiplex rate control is used.
+     *         Enforces separation between repeated (cadence) I-frames and I-frames inserted by Scene Change Detection.
+     *         If a scene change I-frame is within I-interval frames of a cadence I-frame, the GOP is shrunk and/or
+     *         stretched to the scene change I-frame. GOP stretch requires enabling lookahead as well as setting
+     *         I-interval. The normal cadence resumes for the next GOP. Note: Maximum GOP stretch = GOP size +
+     *         Min-I-interval - 1
      */
 
     public Integer getMinIInterval() {
@@ -1179,18 +1553,19 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Only meaningful if sceneChangeDetect is set to enabled. Enforces separation between repeated (cadence) I-frames
-     * and I-frames inserted by Scene Change Detection. If a scene change I-frame is within I-interval frames of a
-     * cadence I-frame, the GOP is shrunk and/or stretched to the scene change I-frame. GOP stretch requires enabling
-     * lookahead as well as setting I-interval. The normal cadence resumes for the next GOP. Note: Maximum GOP stretch =
-     * GOP size + Min-I-interval - 1
+     * Only meaningful if sceneChangeDetect is set to enabled. Defaults to 5 if multiplex rate control is used. Enforces
+     * separation between repeated (cadence) I-frames and I-frames inserted by Scene Change Detection. If a scene change
+     * I-frame is within I-interval frames of a cadence I-frame, the GOP is shrunk and/or stretched to the scene change
+     * I-frame. GOP stretch requires enabling lookahead as well as setting I-interval. The normal cadence resumes for the
+     * next GOP. Note: Maximum GOP stretch = GOP size + Min-I-interval - 1
      * 
      * @param minIInterval
-     *        Only meaningful if sceneChangeDetect is set to enabled. Enforces separation between repeated (cadence)
-     *        I-frames and I-frames inserted by Scene Change Detection. If a scene change I-frame is within I-interval
-     *        frames of a cadence I-frame, the GOP is shrunk and/or stretched to the scene change I-frame. GOP stretch
-     *        requires enabling lookahead as well as setting I-interval. The normal cadence resumes for the next GOP.
-     *        Note: Maximum GOP stretch = GOP size + Min-I-interval - 1
+     *        Only meaningful if sceneChangeDetect is set to enabled. Defaults to 5 if multiplex rate control is used.
+     *        Enforces separation between repeated (cadence) I-frames and I-frames inserted by Scene Change Detection.
+     *        If a scene change I-frame is within I-interval frames of a cadence I-frame, the GOP is shrunk and/or
+     *        stretched to the scene change I-frame. GOP stretch requires enabling lookahead as well as setting
+     *        I-interval. The normal cadence resumes for the next GOP. Note: Maximum GOP stretch = GOP size +
+     *        Min-I-interval - 1
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1434,16 +1809,98 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Controls the target quality for the video encode. Applies only when the rate control mode is QVBR. Set values for
-     * the QVBR quality level field and Max bitrate field that suit your most important viewing devices. Recommended
-     * values are: - Primary screen: Quality level: 8 to 10. Max bitrate: 4M - PC or tablet: Quality level: 7. Max
-     * bitrate: 1.5M to 3M - Smartphone: Quality level: 6. Max bitrate: 1M to 1.5M
+     * Leave as STANDARD_QUALITY or choose a different value (which might result in additional costs to run the
+     * channel). - ENHANCED_QUALITY: Produces a slightly better video quality without an increase in the bitrate. Has an
+     * effect only when the Rate control mode is QVBR or CBR. If this channel is in a MediaLive multiplex, the value
+     * must be ENHANCED_QUALITY. - STANDARD_QUALITY: Valid for any Rate control mode.
+     * 
+     * @param qualityLevel
+     *        Leave as STANDARD_QUALITY or choose a different value (which might result in additional costs to run the
+     *        channel). - ENHANCED_QUALITY: Produces a slightly better video quality without an increase in the bitrate.
+     *        Has an effect only when the Rate control mode is QVBR or CBR. If this channel is in a MediaLive multiplex,
+     *        the value must be ENHANCED_QUALITY. - STANDARD_QUALITY: Valid for any Rate control mode.
+     * @see H264QualityLevel
+     */
+
+    public void setQualityLevel(String qualityLevel) {
+        this.qualityLevel = qualityLevel;
+    }
+
+    /**
+     * Leave as STANDARD_QUALITY or choose a different value (which might result in additional costs to run the
+     * channel). - ENHANCED_QUALITY: Produces a slightly better video quality without an increase in the bitrate. Has an
+     * effect only when the Rate control mode is QVBR or CBR. If this channel is in a MediaLive multiplex, the value
+     * must be ENHANCED_QUALITY. - STANDARD_QUALITY: Valid for any Rate control mode.
+     * 
+     * @return Leave as STANDARD_QUALITY or choose a different value (which might result in additional costs to run the
+     *         channel). - ENHANCED_QUALITY: Produces a slightly better video quality without an increase in the
+     *         bitrate. Has an effect only when the Rate control mode is QVBR or CBR. If this channel is in a MediaLive
+     *         multiplex, the value must be ENHANCED_QUALITY. - STANDARD_QUALITY: Valid for any Rate control mode.
+     * @see H264QualityLevel
+     */
+
+    public String getQualityLevel() {
+        return this.qualityLevel;
+    }
+
+    /**
+     * Leave as STANDARD_QUALITY or choose a different value (which might result in additional costs to run the
+     * channel). - ENHANCED_QUALITY: Produces a slightly better video quality without an increase in the bitrate. Has an
+     * effect only when the Rate control mode is QVBR or CBR. If this channel is in a MediaLive multiplex, the value
+     * must be ENHANCED_QUALITY. - STANDARD_QUALITY: Valid for any Rate control mode.
+     * 
+     * @param qualityLevel
+     *        Leave as STANDARD_QUALITY or choose a different value (which might result in additional costs to run the
+     *        channel). - ENHANCED_QUALITY: Produces a slightly better video quality without an increase in the bitrate.
+     *        Has an effect only when the Rate control mode is QVBR or CBR. If this channel is in a MediaLive multiplex,
+     *        the value must be ENHANCED_QUALITY. - STANDARD_QUALITY: Valid for any Rate control mode.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see H264QualityLevel
+     */
+
+    public H264Settings withQualityLevel(String qualityLevel) {
+        setQualityLevel(qualityLevel);
+        return this;
+    }
+
+    /**
+     * Leave as STANDARD_QUALITY or choose a different value (which might result in additional costs to run the
+     * channel). - ENHANCED_QUALITY: Produces a slightly better video quality without an increase in the bitrate. Has an
+     * effect only when the Rate control mode is QVBR or CBR. If this channel is in a MediaLive multiplex, the value
+     * must be ENHANCED_QUALITY. - STANDARD_QUALITY: Valid for any Rate control mode.
+     * 
+     * @param qualityLevel
+     *        Leave as STANDARD_QUALITY or choose a different value (which might result in additional costs to run the
+     *        channel). - ENHANCED_QUALITY: Produces a slightly better video quality without an increase in the bitrate.
+     *        Has an effect only when the Rate control mode is QVBR or CBR. If this channel is in a MediaLive multiplex,
+     *        the value must be ENHANCED_QUALITY. - STANDARD_QUALITY: Valid for any Rate control mode.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see H264QualityLevel
+     */
+
+    public H264Settings withQualityLevel(H264QualityLevel qualityLevel) {
+        this.qualityLevel = qualityLevel.toString();
+        return this;
+    }
+
+    /**
+     * Controls the target quality for the video encode. Applies only when the rate control mode is QVBR. You can set a
+     * target quality or you can let MediaLive determine the best quality. To set a target quality, enter values in the
+     * QVBR quality level field and the Max bitrate field. Enter values that suit your most important viewing devices.
+     * Recommended values are: - Primary screen: Quality level: 8 to 10. Max bitrate: 4M - PC or tablet: Quality level:
+     * 7. Max bitrate: 1.5M to 3M - Smartphone: Quality level: 6. Max bitrate: 1M to 1.5M To let MediaLive decide, leave
+     * the QVBR quality level field empty, and in Max bitrate enter the maximum rate you want in the video. For more
+     * information, see the section called "Video - rate control mode" in the MediaLive user guide
      * 
      * @param qvbrQualityLevel
-     *        Controls the target quality for the video encode. Applies only when the rate control mode is QVBR. Set
-     *        values for the QVBR quality level field and Max bitrate field that suit your most important viewing
-     *        devices. Recommended values are: - Primary screen: Quality level: 8 to 10. Max bitrate: 4M - PC or tablet:
-     *        Quality level: 7. Max bitrate: 1.5M to 3M - Smartphone: Quality level: 6. Max bitrate: 1M to 1.5M
+     *        Controls the target quality for the video encode. Applies only when the rate control mode is QVBR. You can
+     *        set a target quality or you can let MediaLive determine the best quality. To set a target quality, enter
+     *        values in the QVBR quality level field and the Max bitrate field. Enter values that suit your most
+     *        important viewing devices. Recommended values are: - Primary screen: Quality level: 8 to 10. Max bitrate:
+     *        4M - PC or tablet: Quality level: 7. Max bitrate: 1.5M to 3M - Smartphone: Quality level: 6. Max bitrate:
+     *        1M to 1.5M To let MediaLive decide, leave the QVBR quality level field empty, and in Max bitrate enter the
+     *        maximum rate you want in the video. For more information, see the section called
+     *        "Video - rate control mode" in the MediaLive user guide
      */
 
     public void setQvbrQualityLevel(Integer qvbrQualityLevel) {
@@ -1451,15 +1908,22 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Controls the target quality for the video encode. Applies only when the rate control mode is QVBR. Set values for
-     * the QVBR quality level field and Max bitrate field that suit your most important viewing devices. Recommended
-     * values are: - Primary screen: Quality level: 8 to 10. Max bitrate: 4M - PC or tablet: Quality level: 7. Max
-     * bitrate: 1.5M to 3M - Smartphone: Quality level: 6. Max bitrate: 1M to 1.5M
+     * Controls the target quality for the video encode. Applies only when the rate control mode is QVBR. You can set a
+     * target quality or you can let MediaLive determine the best quality. To set a target quality, enter values in the
+     * QVBR quality level field and the Max bitrate field. Enter values that suit your most important viewing devices.
+     * Recommended values are: - Primary screen: Quality level: 8 to 10. Max bitrate: 4M - PC or tablet: Quality level:
+     * 7. Max bitrate: 1.5M to 3M - Smartphone: Quality level: 6. Max bitrate: 1M to 1.5M To let MediaLive decide, leave
+     * the QVBR quality level field empty, and in Max bitrate enter the maximum rate you want in the video. For more
+     * information, see the section called "Video - rate control mode" in the MediaLive user guide
      * 
-     * @return Controls the target quality for the video encode. Applies only when the rate control mode is QVBR. Set
-     *         values for the QVBR quality level field and Max bitrate field that suit your most important viewing
-     *         devices. Recommended values are: - Primary screen: Quality level: 8 to 10. Max bitrate: 4M - PC or
-     *         tablet: Quality level: 7. Max bitrate: 1.5M to 3M - Smartphone: Quality level: 6. Max bitrate: 1M to 1.5M
+     * @return Controls the target quality for the video encode. Applies only when the rate control mode is QVBR. You
+     *         can set a target quality or you can let MediaLive determine the best quality. To set a target quality,
+     *         enter values in the QVBR quality level field and the Max bitrate field. Enter values that suit your most
+     *         important viewing devices. Recommended values are: - Primary screen: Quality level: 8 to 10. Max bitrate:
+     *         4M - PC or tablet: Quality level: 7. Max bitrate: 1.5M to 3M - Smartphone: Quality level: 6. Max bitrate:
+     *         1M to 1.5M To let MediaLive decide, leave the QVBR quality level field empty, and in Max bitrate enter
+     *         the maximum rate you want in the video. For more information, see the section called
+     *         "Video - rate control mode" in the MediaLive user guide
      */
 
     public Integer getQvbrQualityLevel() {
@@ -1467,16 +1931,23 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Controls the target quality for the video encode. Applies only when the rate control mode is QVBR. Set values for
-     * the QVBR quality level field and Max bitrate field that suit your most important viewing devices. Recommended
-     * values are: - Primary screen: Quality level: 8 to 10. Max bitrate: 4M - PC or tablet: Quality level: 7. Max
-     * bitrate: 1.5M to 3M - Smartphone: Quality level: 6. Max bitrate: 1M to 1.5M
+     * Controls the target quality for the video encode. Applies only when the rate control mode is QVBR. You can set a
+     * target quality or you can let MediaLive determine the best quality. To set a target quality, enter values in the
+     * QVBR quality level field and the Max bitrate field. Enter values that suit your most important viewing devices.
+     * Recommended values are: - Primary screen: Quality level: 8 to 10. Max bitrate: 4M - PC or tablet: Quality level:
+     * 7. Max bitrate: 1.5M to 3M - Smartphone: Quality level: 6. Max bitrate: 1M to 1.5M To let MediaLive decide, leave
+     * the QVBR quality level field empty, and in Max bitrate enter the maximum rate you want in the video. For more
+     * information, see the section called "Video - rate control mode" in the MediaLive user guide
      * 
      * @param qvbrQualityLevel
-     *        Controls the target quality for the video encode. Applies only when the rate control mode is QVBR. Set
-     *        values for the QVBR quality level field and Max bitrate field that suit your most important viewing
-     *        devices. Recommended values are: - Primary screen: Quality level: 8 to 10. Max bitrate: 4M - PC or tablet:
-     *        Quality level: 7. Max bitrate: 1.5M to 3M - Smartphone: Quality level: 6. Max bitrate: 1M to 1.5M
+     *        Controls the target quality for the video encode. Applies only when the rate control mode is QVBR. You can
+     *        set a target quality or you can let MediaLive determine the best quality. To set a target quality, enter
+     *        values in the QVBR quality level field and the Max bitrate field. Enter values that suit your most
+     *        important viewing devices. Recommended values are: - Primary screen: Quality level: 8 to 10. Max bitrate:
+     *        4M - PC or tablet: Quality level: 7. Max bitrate: 1.5M to 3M - Smartphone: Quality level: 6. Max bitrate:
+     *        1M to 1.5M To let MediaLive decide, leave the QVBR quality level field empty, and in Max bitrate enter the
+     *        maximum rate you want in the video. For more information, see the section called
+     *        "Video - rate control mode" in the MediaLive user guide
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1497,6 +1968,10 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
      * CBR: Quality varies, depending on the video complexity. Recommended only if you distribute your assets to devices
      * that cannot handle variable bitrates.
      * 
+     * Multiplex: This rate control mode is only supported (and is required) when the video is being delivered to a
+     * MediaLive Multiplex in which case the rate control configuration is controlled by the properties within the
+     * Multiplex Program.
+     * 
      * @param rateControlMode
      *        Rate control mode.
      * 
@@ -1508,6 +1983,10 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
      * 
      *        CBR: Quality varies, depending on the video complexity. Recommended only if you distribute your assets to
      *        devices that cannot handle variable bitrates.
+     * 
+     *        Multiplex: This rate control mode is only supported (and is required) when the video is being delivered to
+     *        a MediaLive Multiplex in which case the rate control configuration is controlled by the properties within
+     *        the Multiplex Program.
      * @see H264RateControlMode
      */
 
@@ -1527,6 +2006,10 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
      * CBR: Quality varies, depending on the video complexity. Recommended only if you distribute your assets to devices
      * that cannot handle variable bitrates.
      * 
+     * Multiplex: This rate control mode is only supported (and is required) when the video is being delivered to a
+     * MediaLive Multiplex in which case the rate control configuration is controlled by the properties within the
+     * Multiplex Program.
+     * 
      * @return Rate control mode.
      * 
      *         QVBR: Quality will match the specified quality level except when it is constrained by the maximum
@@ -1537,6 +2020,10 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
      * 
      *         CBR: Quality varies, depending on the video complexity. Recommended only if you distribute your assets to
      *         devices that cannot handle variable bitrates.
+     * 
+     *         Multiplex: This rate control mode is only supported (and is required) when the video is being delivered
+     *         to a MediaLive Multiplex in which case the rate control configuration is controlled by the properties
+     *         within the Multiplex Program.
      * @see H264RateControlMode
      */
 
@@ -1556,6 +2043,10 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
      * CBR: Quality varies, depending on the video complexity. Recommended only if you distribute your assets to devices
      * that cannot handle variable bitrates.
      * 
+     * Multiplex: This rate control mode is only supported (and is required) when the video is being delivered to a
+     * MediaLive Multiplex in which case the rate control configuration is controlled by the properties within the
+     * Multiplex Program.
+     * 
      * @param rateControlMode
      *        Rate control mode.
      * 
@@ -1567,6 +2058,10 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
      * 
      *        CBR: Quality varies, depending on the video complexity. Recommended only if you distribute your assets to
      *        devices that cannot handle variable bitrates.
+     * 
+     *        Multiplex: This rate control mode is only supported (and is required) when the video is being delivered to
+     *        a MediaLive Multiplex in which case the rate control configuration is controlled by the properties within
+     *        the Multiplex Program.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H264RateControlMode
      */
@@ -1588,6 +2083,10 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
      * CBR: Quality varies, depending on the video complexity. Recommended only if you distribute your assets to devices
      * that cannot handle variable bitrates.
      * 
+     * Multiplex: This rate control mode is only supported (and is required) when the video is being delivered to a
+     * MediaLive Multiplex in which case the rate control configuration is controlled by the properties within the
+     * Multiplex Program.
+     * 
      * @param rateControlMode
      *        Rate control mode.
      * 
@@ -1599,6 +2098,10 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
      * 
      *        CBR: Quality varies, depending on the video complexity. Recommended only if you distribute your assets to
      *        devices that cannot handle variable bitrates.
+     * 
+     *        Multiplex: This rate control mode is only supported (and is required) when the video is being delivered to
+     *        a MediaLive Multiplex in which case the rate control configuration is controlled by the properties within
+     *        the Multiplex Program.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H264RateControlMode
      */
@@ -1784,10 +2287,12 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Softness. Selects quantizer matrix, larger values reduce high-frequency content in the encoded image.
+     * Softness. Selects quantizer matrix, larger values reduce high-frequency content in the encoded image. If not set
+     * to zero, must be greater than 15.
      * 
      * @param softness
-     *        Softness. Selects quantizer matrix, larger values reduce high-frequency content in the encoded image.
+     *        Softness. Selects quantizer matrix, larger values reduce high-frequency content in the encoded image. If
+     *        not set to zero, must be greater than 15.
      */
 
     public void setSoftness(Integer softness) {
@@ -1795,9 +2300,11 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Softness. Selects quantizer matrix, larger values reduce high-frequency content in the encoded image.
+     * Softness. Selects quantizer matrix, larger values reduce high-frequency content in the encoded image. If not set
+     * to zero, must be greater than 15.
      * 
-     * @return Softness. Selects quantizer matrix, larger values reduce high-frequency content in the encoded image.
+     * @return Softness. Selects quantizer matrix, larger values reduce high-frequency content in the encoded image. If
+     *         not set to zero, must be greater than 15.
      */
 
     public Integer getSoftness() {
@@ -1805,10 +2312,12 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Softness. Selects quantizer matrix, larger values reduce high-frequency content in the encoded image.
+     * Softness. Selects quantizer matrix, larger values reduce high-frequency content in the encoded image. If not set
+     * to zero, must be greater than 15.
      * 
      * @param softness
-     *        Softness. Selects quantizer matrix, larger values reduce high-frequency content in the encoded image.
+     *        Softness. Selects quantizer matrix, larger values reduce high-frequency content in the encoded image. If
+     *        not set to zero, must be greater than 15.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1818,10 +2327,23 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If set to enabled, adjust quantization within each frame based on spatial variation of content complexity.
+     * Spatial AQ makes adjustments within each frame based on spatial variation of content complexity. The value to
+     * enter in this field depends on the value in the Adaptive quantization field: If you have set the Adaptive
+     * quantization field to Auto, MediaLive ignores any value in this field. MediaLive will determine if spatial AQ is
+     * appropriate and will apply the appropriate strength. If you have set the Adaptive quantization field to a
+     * strength, you can set this field to Enabled or Disabled. Enabled: MediaLive will apply spatial AQ using the
+     * specified strength. Disabled: MediaLive won't apply spatial AQ. If you have set the Adaptive quantization to
+     * Disabled, MediaLive ignores any value in this field and doesn't apply spatial AQ.
      * 
      * @param spatialAq
-     *        If set to enabled, adjust quantization within each frame based on spatial variation of content complexity.
+     *        Spatial AQ makes adjustments within each frame based on spatial variation of content complexity. The value
+     *        to enter in this field depends on the value in the Adaptive quantization field: If you have set the
+     *        Adaptive quantization field to Auto, MediaLive ignores any value in this field. MediaLive will determine
+     *        if spatial AQ is appropriate and will apply the appropriate strength. If you have set the Adaptive
+     *        quantization field to a strength, you can set this field to Enabled or Disabled. Enabled: MediaLive will
+     *        apply spatial AQ using the specified strength. Disabled: MediaLive won't apply spatial AQ. If you have set
+     *        the Adaptive quantization to Disabled, MediaLive ignores any value in this field and doesn't apply spatial
+     *        AQ.
      * @see H264SpatialAq
      */
 
@@ -1830,10 +2352,22 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If set to enabled, adjust quantization within each frame based on spatial variation of content complexity.
+     * Spatial AQ makes adjustments within each frame based on spatial variation of content complexity. The value to
+     * enter in this field depends on the value in the Adaptive quantization field: If you have set the Adaptive
+     * quantization field to Auto, MediaLive ignores any value in this field. MediaLive will determine if spatial AQ is
+     * appropriate and will apply the appropriate strength. If you have set the Adaptive quantization field to a
+     * strength, you can set this field to Enabled or Disabled. Enabled: MediaLive will apply spatial AQ using the
+     * specified strength. Disabled: MediaLive won't apply spatial AQ. If you have set the Adaptive quantization to
+     * Disabled, MediaLive ignores any value in this field and doesn't apply spatial AQ.
      * 
-     * @return If set to enabled, adjust quantization within each frame based on spatial variation of content
-     *         complexity.
+     * @return Spatial AQ makes adjustments within each frame based on spatial variation of content complexity. The
+     *         value to enter in this field depends on the value in the Adaptive quantization field: If you have set the
+     *         Adaptive quantization field to Auto, MediaLive ignores any value in this field. MediaLive will determine
+     *         if spatial AQ is appropriate and will apply the appropriate strength. If you have set the Adaptive
+     *         quantization field to a strength, you can set this field to Enabled or Disabled. Enabled: MediaLive will
+     *         apply spatial AQ using the specified strength. Disabled: MediaLive won't apply spatial AQ. If you have
+     *         set the Adaptive quantization to Disabled, MediaLive ignores any value in this field and doesn't apply
+     *         spatial AQ.
      * @see H264SpatialAq
      */
 
@@ -1842,10 +2376,23 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If set to enabled, adjust quantization within each frame based on spatial variation of content complexity.
+     * Spatial AQ makes adjustments within each frame based on spatial variation of content complexity. The value to
+     * enter in this field depends on the value in the Adaptive quantization field: If you have set the Adaptive
+     * quantization field to Auto, MediaLive ignores any value in this field. MediaLive will determine if spatial AQ is
+     * appropriate and will apply the appropriate strength. If you have set the Adaptive quantization field to a
+     * strength, you can set this field to Enabled or Disabled. Enabled: MediaLive will apply spatial AQ using the
+     * specified strength. Disabled: MediaLive won't apply spatial AQ. If you have set the Adaptive quantization to
+     * Disabled, MediaLive ignores any value in this field and doesn't apply spatial AQ.
      * 
      * @param spatialAq
-     *        If set to enabled, adjust quantization within each frame based on spatial variation of content complexity.
+     *        Spatial AQ makes adjustments within each frame based on spatial variation of content complexity. The value
+     *        to enter in this field depends on the value in the Adaptive quantization field: If you have set the
+     *        Adaptive quantization field to Auto, MediaLive ignores any value in this field. MediaLive will determine
+     *        if spatial AQ is appropriate and will apply the appropriate strength. If you have set the Adaptive
+     *        quantization field to a strength, you can set this field to Enabled or Disabled. Enabled: MediaLive will
+     *        apply spatial AQ using the specified strength. Disabled: MediaLive won't apply spatial AQ. If you have set
+     *        the Adaptive quantization to Disabled, MediaLive ignores any value in this field and doesn't apply spatial
+     *        AQ.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H264SpatialAq
      */
@@ -1856,10 +2403,23 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If set to enabled, adjust quantization within each frame based on spatial variation of content complexity.
+     * Spatial AQ makes adjustments within each frame based on spatial variation of content complexity. The value to
+     * enter in this field depends on the value in the Adaptive quantization field: If you have set the Adaptive
+     * quantization field to Auto, MediaLive ignores any value in this field. MediaLive will determine if spatial AQ is
+     * appropriate and will apply the appropriate strength. If you have set the Adaptive quantization field to a
+     * strength, you can set this field to Enabled or Disabled. Enabled: MediaLive will apply spatial AQ using the
+     * specified strength. Disabled: MediaLive won't apply spatial AQ. If you have set the Adaptive quantization to
+     * Disabled, MediaLive ignores any value in this field and doesn't apply spatial AQ.
      * 
      * @param spatialAq
-     *        If set to enabled, adjust quantization within each frame based on spatial variation of content complexity.
+     *        Spatial AQ makes adjustments within each frame based on spatial variation of content complexity. The value
+     *        to enter in this field depends on the value in the Adaptive quantization field: If you have set the
+     *        Adaptive quantization field to Auto, MediaLive ignores any value in this field. MediaLive will determine
+     *        if spatial AQ is appropriate and will apply the appropriate strength. If you have set the Adaptive
+     *        quantization field to a strength, you can set this field to Enabled or Disabled. Enabled: MediaLive will
+     *        apply spatial AQ using the specified strength. Disabled: MediaLive won't apply spatial AQ. If you have set
+     *        the Adaptive quantization to Disabled, MediaLive ignores any value in this field and doesn't apply spatial
+     *        AQ.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H264SpatialAq
      */
@@ -1980,11 +2540,23 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If set to enabled, adjust quantization within each frame based on temporal variation of content complexity.
+     * Temporal makes adjustments within each frame based on temporal variation of content complexity. The value to
+     * enter in this field depends on the value in the Adaptive quantization field: If you have set the Adaptive
+     * quantization field to Auto, MediaLive ignores any value in this field. MediaLive will determine if temporal AQ is
+     * appropriate and will apply the appropriate strength. If you have set the Adaptive quantization field to a
+     * strength, you can set this field to Enabled or Disabled. Enabled: MediaLive will apply temporal AQ using the
+     * specified strength. Disabled: MediaLive won't apply temporal AQ. If you have set the Adaptive quantization to
+     * Disabled, MediaLive ignores any value in this field and doesn't apply temporal AQ.
      * 
      * @param temporalAq
-     *        If set to enabled, adjust quantization within each frame based on temporal variation of content
-     *        complexity.
+     *        Temporal makes adjustments within each frame based on temporal variation of content complexity. The value
+     *        to enter in this field depends on the value in the Adaptive quantization field: If you have set the
+     *        Adaptive quantization field to Auto, MediaLive ignores any value in this field. MediaLive will determine
+     *        if temporal AQ is appropriate and will apply the appropriate strength. If you have set the Adaptive
+     *        quantization field to a strength, you can set this field to Enabled or Disabled. Enabled: MediaLive will
+     *        apply temporal AQ using the specified strength. Disabled: MediaLive won't apply temporal AQ. If you have
+     *        set the Adaptive quantization to Disabled, MediaLive ignores any value in this field and doesn't apply
+     *        temporal AQ.
      * @see H264TemporalAq
      */
 
@@ -1993,10 +2565,22 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If set to enabled, adjust quantization within each frame based on temporal variation of content complexity.
+     * Temporal makes adjustments within each frame based on temporal variation of content complexity. The value to
+     * enter in this field depends on the value in the Adaptive quantization field: If you have set the Adaptive
+     * quantization field to Auto, MediaLive ignores any value in this field. MediaLive will determine if temporal AQ is
+     * appropriate and will apply the appropriate strength. If you have set the Adaptive quantization field to a
+     * strength, you can set this field to Enabled or Disabled. Enabled: MediaLive will apply temporal AQ using the
+     * specified strength. Disabled: MediaLive won't apply temporal AQ. If you have set the Adaptive quantization to
+     * Disabled, MediaLive ignores any value in this field and doesn't apply temporal AQ.
      * 
-     * @return If set to enabled, adjust quantization within each frame based on temporal variation of content
-     *         complexity.
+     * @return Temporal makes adjustments within each frame based on temporal variation of content complexity. The value
+     *         to enter in this field depends on the value in the Adaptive quantization field: If you have set the
+     *         Adaptive quantization field to Auto, MediaLive ignores any value in this field. MediaLive will determine
+     *         if temporal AQ is appropriate and will apply the appropriate strength. If you have set the Adaptive
+     *         quantization field to a strength, you can set this field to Enabled or Disabled. Enabled: MediaLive will
+     *         apply temporal AQ using the specified strength. Disabled: MediaLive won't apply temporal AQ. If you have
+     *         set the Adaptive quantization to Disabled, MediaLive ignores any value in this field and doesn't apply
+     *         temporal AQ.
      * @see H264TemporalAq
      */
 
@@ -2005,11 +2589,23 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If set to enabled, adjust quantization within each frame based on temporal variation of content complexity.
+     * Temporal makes adjustments within each frame based on temporal variation of content complexity. The value to
+     * enter in this field depends on the value in the Adaptive quantization field: If you have set the Adaptive
+     * quantization field to Auto, MediaLive ignores any value in this field. MediaLive will determine if temporal AQ is
+     * appropriate and will apply the appropriate strength. If you have set the Adaptive quantization field to a
+     * strength, you can set this field to Enabled or Disabled. Enabled: MediaLive will apply temporal AQ using the
+     * specified strength. Disabled: MediaLive won't apply temporal AQ. If you have set the Adaptive quantization to
+     * Disabled, MediaLive ignores any value in this field and doesn't apply temporal AQ.
      * 
      * @param temporalAq
-     *        If set to enabled, adjust quantization within each frame based on temporal variation of content
-     *        complexity.
+     *        Temporal makes adjustments within each frame based on temporal variation of content complexity. The value
+     *        to enter in this field depends on the value in the Adaptive quantization field: If you have set the
+     *        Adaptive quantization field to Auto, MediaLive ignores any value in this field. MediaLive will determine
+     *        if temporal AQ is appropriate and will apply the appropriate strength. If you have set the Adaptive
+     *        quantization field to a strength, you can set this field to Enabled or Disabled. Enabled: MediaLive will
+     *        apply temporal AQ using the specified strength. Disabled: MediaLive won't apply temporal AQ. If you have
+     *        set the Adaptive quantization to Disabled, MediaLive ignores any value in this field and doesn't apply
+     *        temporal AQ.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H264TemporalAq
      */
@@ -2020,11 +2616,23 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If set to enabled, adjust quantization within each frame based on temporal variation of content complexity.
+     * Temporal makes adjustments within each frame based on temporal variation of content complexity. The value to
+     * enter in this field depends on the value in the Adaptive quantization field: If you have set the Adaptive
+     * quantization field to Auto, MediaLive ignores any value in this field. MediaLive will determine if temporal AQ is
+     * appropriate and will apply the appropriate strength. If you have set the Adaptive quantization field to a
+     * strength, you can set this field to Enabled or Disabled. Enabled: MediaLive will apply temporal AQ using the
+     * specified strength. Disabled: MediaLive won't apply temporal AQ. If you have set the Adaptive quantization to
+     * Disabled, MediaLive ignores any value in this field and doesn't apply temporal AQ.
      * 
      * @param temporalAq
-     *        If set to enabled, adjust quantization within each frame based on temporal variation of content
-     *        complexity.
+     *        Temporal makes adjustments within each frame based on temporal variation of content complexity. The value
+     *        to enter in this field depends on the value in the Adaptive quantization field: If you have set the
+     *        Adaptive quantization field to Auto, MediaLive ignores any value in this field. MediaLive will determine
+     *        if temporal AQ is appropriate and will apply the appropriate strength. If you have set the Adaptive
+     *        quantization field to a strength, you can set this field to Enabled or Disabled. Enabled: MediaLive will
+     *        apply temporal AQ using the specified strength. Disabled: MediaLive won't apply temporal AQ. If you have
+     *        set the Adaptive quantization to Disabled, MediaLive ignores any value in this field and doesn't apply
+     *        temporal AQ.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H264TemporalAq
      */
@@ -2098,6 +2706,40 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * Timecode burn-in settings
+     * 
+     * @param timecodeBurninSettings
+     *        Timecode burn-in settings
+     */
+
+    public void setTimecodeBurninSettings(TimecodeBurninSettings timecodeBurninSettings) {
+        this.timecodeBurninSettings = timecodeBurninSettings;
+    }
+
+    /**
+     * Timecode burn-in settings
+     * 
+     * @return Timecode burn-in settings
+     */
+
+    public TimecodeBurninSettings getTimecodeBurninSettings() {
+        return this.timecodeBurninSettings;
+    }
+
+    /**
+     * Timecode burn-in settings
+     * 
+     * @param timecodeBurninSettings
+     *        Timecode burn-in settings
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public H264Settings withTimecodeBurninSettings(TimecodeBurninSettings timecodeBurninSettings) {
+        setTimecodeBurninSettings(timecodeBurninSettings);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -2121,12 +2763,18 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
             sb.append("BufSize: ").append(getBufSize()).append(",");
         if (getColorMetadata() != null)
             sb.append("ColorMetadata: ").append(getColorMetadata()).append(",");
+        if (getColorSpaceSettings() != null)
+            sb.append("ColorSpaceSettings: ").append(getColorSpaceSettings()).append(",");
         if (getEntropyEncoding() != null)
             sb.append("EntropyEncoding: ").append(getEntropyEncoding()).append(",");
+        if (getFilterSettings() != null)
+            sb.append("FilterSettings: ").append(getFilterSettings()).append(",");
         if (getFixedAfd() != null)
             sb.append("FixedAfd: ").append(getFixedAfd()).append(",");
         if (getFlickerAq() != null)
             sb.append("FlickerAq: ").append(getFlickerAq()).append(",");
+        if (getForceFieldPictures() != null)
+            sb.append("ForceFieldPictures: ").append(getForceFieldPictures()).append(",");
         if (getFramerateControl() != null)
             sb.append("FramerateControl: ").append(getFramerateControl()).append(",");
         if (getFramerateDenominator() != null)
@@ -2161,6 +2809,8 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
             sb.append("ParNumerator: ").append(getParNumerator()).append(",");
         if (getProfile() != null)
             sb.append("Profile: ").append(getProfile()).append(",");
+        if (getQualityLevel() != null)
+            sb.append("QualityLevel: ").append(getQualityLevel()).append(",");
         if (getQvbrQualityLevel() != null)
             sb.append("QvbrQualityLevel: ").append(getQvbrQualityLevel()).append(",");
         if (getRateControlMode() != null)
@@ -2182,7 +2832,9 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
         if (getTemporalAq() != null)
             sb.append("TemporalAq: ").append(getTemporalAq()).append(",");
         if (getTimecodeInsertion() != null)
-            sb.append("TimecodeInsertion: ").append(getTimecodeInsertion());
+            sb.append("TimecodeInsertion: ").append(getTimecodeInsertion()).append(",");
+        if (getTimecodeBurninSettings() != null)
+            sb.append("TimecodeBurninSettings: ").append(getTimecodeBurninSettings());
         sb.append("}");
         return sb.toString();
     }
@@ -2221,9 +2873,17 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getColorMetadata() != null && other.getColorMetadata().equals(this.getColorMetadata()) == false)
             return false;
+        if (other.getColorSpaceSettings() == null ^ this.getColorSpaceSettings() == null)
+            return false;
+        if (other.getColorSpaceSettings() != null && other.getColorSpaceSettings().equals(this.getColorSpaceSettings()) == false)
+            return false;
         if (other.getEntropyEncoding() == null ^ this.getEntropyEncoding() == null)
             return false;
         if (other.getEntropyEncoding() != null && other.getEntropyEncoding().equals(this.getEntropyEncoding()) == false)
+            return false;
+        if (other.getFilterSettings() == null ^ this.getFilterSettings() == null)
+            return false;
+        if (other.getFilterSettings() != null && other.getFilterSettings().equals(this.getFilterSettings()) == false)
             return false;
         if (other.getFixedAfd() == null ^ this.getFixedAfd() == null)
             return false;
@@ -2232,6 +2892,10 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
         if (other.getFlickerAq() == null ^ this.getFlickerAq() == null)
             return false;
         if (other.getFlickerAq() != null && other.getFlickerAq().equals(this.getFlickerAq()) == false)
+            return false;
+        if (other.getForceFieldPictures() == null ^ this.getForceFieldPictures() == null)
+            return false;
+        if (other.getForceFieldPictures() != null && other.getForceFieldPictures().equals(this.getForceFieldPictures()) == false)
             return false;
         if (other.getFramerateControl() == null ^ this.getFramerateControl() == null)
             return false;
@@ -2301,6 +2965,10 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getProfile() != null && other.getProfile().equals(this.getProfile()) == false)
             return false;
+        if (other.getQualityLevel() == null ^ this.getQualityLevel() == null)
+            return false;
+        if (other.getQualityLevel() != null && other.getQualityLevel().equals(this.getQualityLevel()) == false)
+            return false;
         if (other.getQvbrQualityLevel() == null ^ this.getQvbrQualityLevel() == null)
             return false;
         if (other.getQvbrQualityLevel() != null && other.getQvbrQualityLevel().equals(this.getQvbrQualityLevel()) == false)
@@ -2345,6 +3013,10 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getTimecodeInsertion() != null && other.getTimecodeInsertion().equals(this.getTimecodeInsertion()) == false)
             return false;
+        if (other.getTimecodeBurninSettings() == null ^ this.getTimecodeBurninSettings() == null)
+            return false;
+        if (other.getTimecodeBurninSettings() != null && other.getTimecodeBurninSettings().equals(this.getTimecodeBurninSettings()) == false)
+            return false;
         return true;
     }
 
@@ -2359,9 +3031,12 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getBufFillPct() == null) ? 0 : getBufFillPct().hashCode());
         hashCode = prime * hashCode + ((getBufSize() == null) ? 0 : getBufSize().hashCode());
         hashCode = prime * hashCode + ((getColorMetadata() == null) ? 0 : getColorMetadata().hashCode());
+        hashCode = prime * hashCode + ((getColorSpaceSettings() == null) ? 0 : getColorSpaceSettings().hashCode());
         hashCode = prime * hashCode + ((getEntropyEncoding() == null) ? 0 : getEntropyEncoding().hashCode());
+        hashCode = prime * hashCode + ((getFilterSettings() == null) ? 0 : getFilterSettings().hashCode());
         hashCode = prime * hashCode + ((getFixedAfd() == null) ? 0 : getFixedAfd().hashCode());
         hashCode = prime * hashCode + ((getFlickerAq() == null) ? 0 : getFlickerAq().hashCode());
+        hashCode = prime * hashCode + ((getForceFieldPictures() == null) ? 0 : getForceFieldPictures().hashCode());
         hashCode = prime * hashCode + ((getFramerateControl() == null) ? 0 : getFramerateControl().hashCode());
         hashCode = prime * hashCode + ((getFramerateDenominator() == null) ? 0 : getFramerateDenominator().hashCode());
         hashCode = prime * hashCode + ((getFramerateNumerator() == null) ? 0 : getFramerateNumerator().hashCode());
@@ -2379,6 +3054,7 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getParDenominator() == null) ? 0 : getParDenominator().hashCode());
         hashCode = prime * hashCode + ((getParNumerator() == null) ? 0 : getParNumerator().hashCode());
         hashCode = prime * hashCode + ((getProfile() == null) ? 0 : getProfile().hashCode());
+        hashCode = prime * hashCode + ((getQualityLevel() == null) ? 0 : getQualityLevel().hashCode());
         hashCode = prime * hashCode + ((getQvbrQualityLevel() == null) ? 0 : getQvbrQualityLevel().hashCode());
         hashCode = prime * hashCode + ((getRateControlMode() == null) ? 0 : getRateControlMode().hashCode());
         hashCode = prime * hashCode + ((getScanType() == null) ? 0 : getScanType().hashCode());
@@ -2390,6 +3066,7 @@ public class H264Settings implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getSyntax() == null) ? 0 : getSyntax().hashCode());
         hashCode = prime * hashCode + ((getTemporalAq() == null) ? 0 : getTemporalAq().hashCode());
         hashCode = prime * hashCode + ((getTimecodeInsertion() == null) ? 0 : getTimecodeInsertion().hashCode());
+        hashCode = prime * hashCode + ((getTimecodeBurninSettings() == null) ? 0 : getTimecodeBurninSettings().hashCode());
         return hashCode;
     }
 

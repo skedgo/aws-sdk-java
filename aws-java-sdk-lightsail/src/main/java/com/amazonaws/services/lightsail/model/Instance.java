@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,13 +30,13 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name the user gave the instance (e.g., <code>Amazon_Linux-1GB-Ohio-1</code>).
+     * The name the user gave the instance (<code>Amazon_Linux_2023-1</code>).
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the instance (e.g.,
+     * The Amazon Resource Name (ARN) of the instance (
      * <code>arn:aws:lightsail:us-east-2:123456789101:Instance/244ad76f-8aad-4741-809f-12345EXAMPLE</code>).
      * </p>
      */
@@ -50,7 +50,7 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
     private String supportCode;
     /**
      * <p>
-     * The timestamp when the instance was created (e.g., <code>1479734909.17</code>).
+     * The timestamp when the instance was created (<code>1479734909.17</code>) in Unix time format.
      * </p>
      */
     private java.util.Date createdAt;
@@ -69,28 +69,35 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      */
     private java.util.List<Tag> tags;
     /**
      * <p>
-     * The blueprint ID (e.g., <code>os_amlinux_2016_03</code>).
+     * The blueprint ID (<code>amazon_linux_2023</code>).
      * </p>
      */
     private String blueprintId;
     /**
      * <p>
-     * The friendly name of the blueprint (e.g., <code>Amazon Linux</code>).
+     * The friendly name of the blueprint (<code>Amazon Linux 2023</code>).
      * </p>
      */
     private String blueprintName;
     /**
      * <p>
-     * The bundle for the instance (e.g., <code>micro_1_0</code>).
+     * The bundle for the instance (<code>micro_x_x</code>).
      * </p>
      */
     private String bundleId;
+    /**
+     * <p>
+     * An array of objects representing the add-ons enabled on the instance.
+     * </p>
+     */
+    private java.util.List<AddOn> addOns;
     /**
      * <p>
      * A Boolean value indicating whether this instance has a static IP assigned to it.
@@ -111,10 +118,20 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
     private String publicIpAddress;
     /**
      * <p>
-     * The IPv6 address of the instance.
+     * The IPv6 addresses of the instance.
      * </p>
      */
-    private String ipv6Address;
+    private java.util.List<String> ipv6Addresses;
+    /**
+     * <p>
+     * The IP address type of the instance.
+     * </p>
+     * <p>
+     * The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     * <code>dualstack</code> for IPv4 and IPv6.
+     * </p>
+     */
+    private String ipAddressType;
     /**
      * <p>
      * The size of the vCPU and the amount of RAM for the instance.
@@ -129,30 +146,36 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
     private InstanceNetworking networking;
     /**
      * <p>
-     * The status code and the state (e.g., <code>running</code>) for the instance.
+     * The status code and the state (<code>running</code>) for the instance.
      * </p>
      */
     private InstanceState state;
     /**
      * <p>
-     * The user name for connecting to the instance (e.g., <code>ec2-user</code>).
+     * The user name for connecting to the instance (<code>ec2-user</code>).
      * </p>
      */
     private String username;
     /**
      * <p>
-     * The name of the SSH key being used to connect to the instance (e.g., <code>LightsailDefaultKeyPair</code>).
+     * The name of the SSH key being used to connect to the instance (<code>LightsailDefaultKeyPair</code>).
      * </p>
      */
     private String sshKeyName;
+    /**
+     * <p>
+     * The metadata options for the Amazon Lightsail instance.
+     * </p>
+     */
+    private InstanceMetadataOptions metadataOptions;
 
     /**
      * <p>
-     * The name the user gave the instance (e.g., <code>Amazon_Linux-1GB-Ohio-1</code>).
+     * The name the user gave the instance (<code>Amazon_Linux_2023-1</code>).
      * </p>
      * 
      * @param name
-     *        The name the user gave the instance (e.g., <code>Amazon_Linux-1GB-Ohio-1</code>).
+     *        The name the user gave the instance (<code>Amazon_Linux_2023-1</code>).
      */
 
     public void setName(String name) {
@@ -161,10 +184,10 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name the user gave the instance (e.g., <code>Amazon_Linux-1GB-Ohio-1</code>).
+     * The name the user gave the instance (<code>Amazon_Linux_2023-1</code>).
      * </p>
      * 
-     * @return The name the user gave the instance (e.g., <code>Amazon_Linux-1GB-Ohio-1</code>).
+     * @return The name the user gave the instance (<code>Amazon_Linux_2023-1</code>).
      */
 
     public String getName() {
@@ -173,11 +196,11 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name the user gave the instance (e.g., <code>Amazon_Linux-1GB-Ohio-1</code>).
+     * The name the user gave the instance (<code>Amazon_Linux_2023-1</code>).
      * </p>
      * 
      * @param name
-     *        The name the user gave the instance (e.g., <code>Amazon_Linux-1GB-Ohio-1</code>).
+     *        The name the user gave the instance (<code>Amazon_Linux_2023-1</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -188,12 +211,12 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the instance (e.g.,
+     * The Amazon Resource Name (ARN) of the instance (
      * <code>arn:aws:lightsail:us-east-2:123456789101:Instance/244ad76f-8aad-4741-809f-12345EXAMPLE</code>).
      * </p>
      * 
      * @param arn
-     *        The Amazon Resource Name (ARN) of the instance (e.g.,
+     *        The Amazon Resource Name (ARN) of the instance (
      *        <code>arn:aws:lightsail:us-east-2:123456789101:Instance/244ad76f-8aad-4741-809f-12345EXAMPLE</code>).
      */
 
@@ -203,11 +226,11 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the instance (e.g.,
+     * The Amazon Resource Name (ARN) of the instance (
      * <code>arn:aws:lightsail:us-east-2:123456789101:Instance/244ad76f-8aad-4741-809f-12345EXAMPLE</code>).
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the instance (e.g.,
+     * @return The Amazon Resource Name (ARN) of the instance (
      *         <code>arn:aws:lightsail:us-east-2:123456789101:Instance/244ad76f-8aad-4741-809f-12345EXAMPLE</code>).
      */
 
@@ -217,12 +240,12 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the instance (e.g.,
+     * The Amazon Resource Name (ARN) of the instance (
      * <code>arn:aws:lightsail:us-east-2:123456789101:Instance/244ad76f-8aad-4741-809f-12345EXAMPLE</code>).
      * </p>
      * 
      * @param arn
-     *        The Amazon Resource Name (ARN) of the instance (e.g.,
+     *        The Amazon Resource Name (ARN) of the instance (
      *        <code>arn:aws:lightsail:us-east-2:123456789101:Instance/244ad76f-8aad-4741-809f-12345EXAMPLE</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -283,11 +306,11 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The timestamp when the instance was created (e.g., <code>1479734909.17</code>).
+     * The timestamp when the instance was created (<code>1479734909.17</code>) in Unix time format.
      * </p>
      * 
      * @param createdAt
-     *        The timestamp when the instance was created (e.g., <code>1479734909.17</code>).
+     *        The timestamp when the instance was created (<code>1479734909.17</code>) in Unix time format.
      */
 
     public void setCreatedAt(java.util.Date createdAt) {
@@ -296,10 +319,10 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The timestamp when the instance was created (e.g., <code>1479734909.17</code>).
+     * The timestamp when the instance was created (<code>1479734909.17</code>) in Unix time format.
      * </p>
      * 
-     * @return The timestamp when the instance was created (e.g., <code>1479734909.17</code>).
+     * @return The timestamp when the instance was created (<code>1479734909.17</code>) in Unix time format.
      */
 
     public java.util.Date getCreatedAt() {
@@ -308,11 +331,11 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The timestamp when the instance was created (e.g., <code>1479734909.17</code>).
+     * The timestamp when the instance was created (<code>1479734909.17</code>) in Unix time format.
      * </p>
      * 
      * @param createdAt
-     *        The timestamp when the instance was created (e.g., <code>1479734909.17</code>).
+     *        The timestamp when the instance was created (<code>1479734909.17</code>) in Unix time format.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -437,12 +460,13 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      * 
      * @return The tag keys and optional values for the resource. For more information about tags in Lightsail, see the
-     *         <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev
-     *         Guide</a>.
+     *         <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail
+     *         Developer Guide</a>.
      */
 
     public java.util.List<Tag> getTags() {
@@ -452,13 +476,14 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      * 
      * @param tags
      *        The tag keys and optional values for the resource. For more information about tags in Lightsail, see the
-     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev
-     *        Guide</a>.
+     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail
+     *        Developer Guide</a>.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -473,7 +498,8 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -483,8 +509,8 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
      * 
      * @param tags
      *        The tag keys and optional values for the resource. For more information about tags in Lightsail, see the
-     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev
-     *        Guide</a>.
+     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail
+     *        Developer Guide</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -501,13 +527,14 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      * 
      * @param tags
      *        The tag keys and optional values for the resource. For more information about tags in Lightsail, see the
-     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev
-     *        Guide</a>.
+     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail
+     *        Developer Guide</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -518,11 +545,11 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The blueprint ID (e.g., <code>os_amlinux_2016_03</code>).
+     * The blueprint ID (<code>amazon_linux_2023</code>).
      * </p>
      * 
      * @param blueprintId
-     *        The blueprint ID (e.g., <code>os_amlinux_2016_03</code>).
+     *        The blueprint ID (<code>amazon_linux_2023</code>).
      */
 
     public void setBlueprintId(String blueprintId) {
@@ -531,10 +558,10 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The blueprint ID (e.g., <code>os_amlinux_2016_03</code>).
+     * The blueprint ID (<code>amazon_linux_2023</code>).
      * </p>
      * 
-     * @return The blueprint ID (e.g., <code>os_amlinux_2016_03</code>).
+     * @return The blueprint ID (<code>amazon_linux_2023</code>).
      */
 
     public String getBlueprintId() {
@@ -543,11 +570,11 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The blueprint ID (e.g., <code>os_amlinux_2016_03</code>).
+     * The blueprint ID (<code>amazon_linux_2023</code>).
      * </p>
      * 
      * @param blueprintId
-     *        The blueprint ID (e.g., <code>os_amlinux_2016_03</code>).
+     *        The blueprint ID (<code>amazon_linux_2023</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -558,11 +585,11 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The friendly name of the blueprint (e.g., <code>Amazon Linux</code>).
+     * The friendly name of the blueprint (<code>Amazon Linux 2023</code>).
      * </p>
      * 
      * @param blueprintName
-     *        The friendly name of the blueprint (e.g., <code>Amazon Linux</code>).
+     *        The friendly name of the blueprint (<code>Amazon Linux 2023</code>).
      */
 
     public void setBlueprintName(String blueprintName) {
@@ -571,10 +598,10 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The friendly name of the blueprint (e.g., <code>Amazon Linux</code>).
+     * The friendly name of the blueprint (<code>Amazon Linux 2023</code>).
      * </p>
      * 
-     * @return The friendly name of the blueprint (e.g., <code>Amazon Linux</code>).
+     * @return The friendly name of the blueprint (<code>Amazon Linux 2023</code>).
      */
 
     public String getBlueprintName() {
@@ -583,11 +610,11 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The friendly name of the blueprint (e.g., <code>Amazon Linux</code>).
+     * The friendly name of the blueprint (<code>Amazon Linux 2023</code>).
      * </p>
      * 
      * @param blueprintName
-     *        The friendly name of the blueprint (e.g., <code>Amazon Linux</code>).
+     *        The friendly name of the blueprint (<code>Amazon Linux 2023</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -598,11 +625,11 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The bundle for the instance (e.g., <code>micro_1_0</code>).
+     * The bundle for the instance (<code>micro_x_x</code>).
      * </p>
      * 
      * @param bundleId
-     *        The bundle for the instance (e.g., <code>micro_1_0</code>).
+     *        The bundle for the instance (<code>micro_x_x</code>).
      */
 
     public void setBundleId(String bundleId) {
@@ -611,10 +638,10 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The bundle for the instance (e.g., <code>micro_1_0</code>).
+     * The bundle for the instance (<code>micro_x_x</code>).
      * </p>
      * 
-     * @return The bundle for the instance (e.g., <code>micro_1_0</code>).
+     * @return The bundle for the instance (<code>micro_x_x</code>).
      */
 
     public String getBundleId() {
@@ -623,16 +650,86 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The bundle for the instance (e.g., <code>micro_1_0</code>).
+     * The bundle for the instance (<code>micro_x_x</code>).
      * </p>
      * 
      * @param bundleId
-     *        The bundle for the instance (e.g., <code>micro_1_0</code>).
+     *        The bundle for the instance (<code>micro_x_x</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Instance withBundleId(String bundleId) {
         setBundleId(bundleId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of objects representing the add-ons enabled on the instance.
+     * </p>
+     * 
+     * @return An array of objects representing the add-ons enabled on the instance.
+     */
+
+    public java.util.List<AddOn> getAddOns() {
+        return addOns;
+    }
+
+    /**
+     * <p>
+     * An array of objects representing the add-ons enabled on the instance.
+     * </p>
+     * 
+     * @param addOns
+     *        An array of objects representing the add-ons enabled on the instance.
+     */
+
+    public void setAddOns(java.util.Collection<AddOn> addOns) {
+        if (addOns == null) {
+            this.addOns = null;
+            return;
+        }
+
+        this.addOns = new java.util.ArrayList<AddOn>(addOns);
+    }
+
+    /**
+     * <p>
+     * An array of objects representing the add-ons enabled on the instance.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAddOns(java.util.Collection)} or {@link #withAddOns(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param addOns
+     *        An array of objects representing the add-ons enabled on the instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withAddOns(AddOn... addOns) {
+        if (this.addOns == null) {
+            setAddOns(new java.util.ArrayList<AddOn>(addOns.length));
+        }
+        for (AddOn ele : addOns) {
+            this.addOns.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of objects representing the add-ons enabled on the instance.
+     * </p>
+     * 
+     * @param addOns
+     *        An array of objects representing the add-ons enabled on the instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withAddOns(java.util.Collection<AddOn> addOns) {
+        setAddOns(addOns);
         return this;
     }
 
@@ -770,41 +867,179 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The IPv6 address of the instance.
+     * The IPv6 addresses of the instance.
      * </p>
      * 
-     * @param ipv6Address
-     *        The IPv6 address of the instance.
+     * @return The IPv6 addresses of the instance.
      */
 
-    public void setIpv6Address(String ipv6Address) {
-        this.ipv6Address = ipv6Address;
+    public java.util.List<String> getIpv6Addresses() {
+        return ipv6Addresses;
     }
 
     /**
      * <p>
-     * The IPv6 address of the instance.
+     * The IPv6 addresses of the instance.
      * </p>
      * 
-     * @return The IPv6 address of the instance.
+     * @param ipv6Addresses
+     *        The IPv6 addresses of the instance.
      */
 
-    public String getIpv6Address() {
-        return this.ipv6Address;
+    public void setIpv6Addresses(java.util.Collection<String> ipv6Addresses) {
+        if (ipv6Addresses == null) {
+            this.ipv6Addresses = null;
+            return;
+        }
+
+        this.ipv6Addresses = new java.util.ArrayList<String>(ipv6Addresses);
     }
 
     /**
      * <p>
-     * The IPv6 address of the instance.
+     * The IPv6 addresses of the instance.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setIpv6Addresses(java.util.Collection)} or {@link #withIpv6Addresses(java.util.Collection)} if you want
+     * to override the existing values.
      * </p>
      * 
-     * @param ipv6Address
-     *        The IPv6 address of the instance.
+     * @param ipv6Addresses
+     *        The IPv6 addresses of the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
-    public Instance withIpv6Address(String ipv6Address) {
-        setIpv6Address(ipv6Address);
+    public Instance withIpv6Addresses(String... ipv6Addresses) {
+        if (this.ipv6Addresses == null) {
+            setIpv6Addresses(new java.util.ArrayList<String>(ipv6Addresses.length));
+        }
+        for (String ele : ipv6Addresses) {
+            this.ipv6Addresses.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv6 addresses of the instance.
+     * </p>
+     * 
+     * @param ipv6Addresses
+     *        The IPv6 addresses of the instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withIpv6Addresses(java.util.Collection<String> ipv6Addresses) {
+        setIpv6Addresses(ipv6Addresses);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IP address type of the instance.
+     * </p>
+     * <p>
+     * The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     * <code>dualstack</code> for IPv4 and IPv6.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The IP address type of the instance.</p>
+     *        <p>
+     *        The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     *        <code>dualstack</code> for IPv4 and IPv6.
+     * @see IpAddressType
+     */
+
+    public void setIpAddressType(String ipAddressType) {
+        this.ipAddressType = ipAddressType;
+    }
+
+    /**
+     * <p>
+     * The IP address type of the instance.
+     * </p>
+     * <p>
+     * The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     * <code>dualstack</code> for IPv4 and IPv6.
+     * </p>
+     * 
+     * @return The IP address type of the instance.</p>
+     *         <p>
+     *         The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     *         <code>dualstack</code> for IPv4 and IPv6.
+     * @see IpAddressType
+     */
+
+    public String getIpAddressType() {
+        return this.ipAddressType;
+    }
+
+    /**
+     * <p>
+     * The IP address type of the instance.
+     * </p>
+     * <p>
+     * The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     * <code>dualstack</code> for IPv4 and IPv6.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The IP address type of the instance.</p>
+     *        <p>
+     *        The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     *        <code>dualstack</code> for IPv4 and IPv6.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see IpAddressType
+     */
+
+    public Instance withIpAddressType(String ipAddressType) {
+        setIpAddressType(ipAddressType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IP address type of the instance.
+     * </p>
+     * <p>
+     * The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     * <code>dualstack</code> for IPv4 and IPv6.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The IP address type of the instance.</p>
+     *        <p>
+     *        The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     *        <code>dualstack</code> for IPv4 and IPv6.
+     * @see IpAddressType
+     */
+
+    public void setIpAddressType(IpAddressType ipAddressType) {
+        withIpAddressType(ipAddressType);
+    }
+
+    /**
+     * <p>
+     * The IP address type of the instance.
+     * </p>
+     * <p>
+     * The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     * <code>dualstack</code> for IPv4 and IPv6.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The IP address type of the instance.</p>
+     *        <p>
+     *        The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     *        <code>dualstack</code> for IPv4 and IPv6.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see IpAddressType
+     */
+
+    public Instance withIpAddressType(IpAddressType ipAddressType) {
+        this.ipAddressType = ipAddressType.toString();
         return this;
     }
 
@@ -890,11 +1125,11 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status code and the state (e.g., <code>running</code>) for the instance.
+     * The status code and the state (<code>running</code>) for the instance.
      * </p>
      * 
      * @param state
-     *        The status code and the state (e.g., <code>running</code>) for the instance.
+     *        The status code and the state (<code>running</code>) for the instance.
      */
 
     public void setState(InstanceState state) {
@@ -903,10 +1138,10 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status code and the state (e.g., <code>running</code>) for the instance.
+     * The status code and the state (<code>running</code>) for the instance.
      * </p>
      * 
-     * @return The status code and the state (e.g., <code>running</code>) for the instance.
+     * @return The status code and the state (<code>running</code>) for the instance.
      */
 
     public InstanceState getState() {
@@ -915,11 +1150,11 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status code and the state (e.g., <code>running</code>) for the instance.
+     * The status code and the state (<code>running</code>) for the instance.
      * </p>
      * 
      * @param state
-     *        The status code and the state (e.g., <code>running</code>) for the instance.
+     *        The status code and the state (<code>running</code>) for the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -930,11 +1165,11 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The user name for connecting to the instance (e.g., <code>ec2-user</code>).
+     * The user name for connecting to the instance (<code>ec2-user</code>).
      * </p>
      * 
      * @param username
-     *        The user name for connecting to the instance (e.g., <code>ec2-user</code>).
+     *        The user name for connecting to the instance (<code>ec2-user</code>).
      */
 
     public void setUsername(String username) {
@@ -943,10 +1178,10 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The user name for connecting to the instance (e.g., <code>ec2-user</code>).
+     * The user name for connecting to the instance (<code>ec2-user</code>).
      * </p>
      * 
-     * @return The user name for connecting to the instance (e.g., <code>ec2-user</code>).
+     * @return The user name for connecting to the instance (<code>ec2-user</code>).
      */
 
     public String getUsername() {
@@ -955,11 +1190,11 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The user name for connecting to the instance (e.g., <code>ec2-user</code>).
+     * The user name for connecting to the instance (<code>ec2-user</code>).
      * </p>
      * 
      * @param username
-     *        The user name for connecting to the instance (e.g., <code>ec2-user</code>).
+     *        The user name for connecting to the instance (<code>ec2-user</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -970,12 +1205,11 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the SSH key being used to connect to the instance (e.g., <code>LightsailDefaultKeyPair</code>).
+     * The name of the SSH key being used to connect to the instance (<code>LightsailDefaultKeyPair</code>).
      * </p>
      * 
      * @param sshKeyName
-     *        The name of the SSH key being used to connect to the instance (e.g., <code>LightsailDefaultKeyPair</code>
-     *        ).
+     *        The name of the SSH key being used to connect to the instance (<code>LightsailDefaultKeyPair</code>).
      */
 
     public void setSshKeyName(String sshKeyName) {
@@ -984,11 +1218,10 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the SSH key being used to connect to the instance (e.g., <code>LightsailDefaultKeyPair</code>).
+     * The name of the SSH key being used to connect to the instance (<code>LightsailDefaultKeyPair</code>).
      * </p>
      * 
-     * @return The name of the SSH key being used to connect to the instance (e.g., <code>LightsailDefaultKeyPair</code>
-     *         ).
+     * @return The name of the SSH key being used to connect to the instance (<code>LightsailDefaultKeyPair</code>).
      */
 
     public String getSshKeyName() {
@@ -997,17 +1230,56 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the SSH key being used to connect to the instance (e.g., <code>LightsailDefaultKeyPair</code>).
+     * The name of the SSH key being used to connect to the instance (<code>LightsailDefaultKeyPair</code>).
      * </p>
      * 
      * @param sshKeyName
-     *        The name of the SSH key being used to connect to the instance (e.g., <code>LightsailDefaultKeyPair</code>
-     *        ).
+     *        The name of the SSH key being used to connect to the instance (<code>LightsailDefaultKeyPair</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Instance withSshKeyName(String sshKeyName) {
         setSshKeyName(sshKeyName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The metadata options for the Amazon Lightsail instance.
+     * </p>
+     * 
+     * @param metadataOptions
+     *        The metadata options for the Amazon Lightsail instance.
+     */
+
+    public void setMetadataOptions(InstanceMetadataOptions metadataOptions) {
+        this.metadataOptions = metadataOptions;
+    }
+
+    /**
+     * <p>
+     * The metadata options for the Amazon Lightsail instance.
+     * </p>
+     * 
+     * @return The metadata options for the Amazon Lightsail instance.
+     */
+
+    public InstanceMetadataOptions getMetadataOptions() {
+        return this.metadataOptions;
+    }
+
+    /**
+     * <p>
+     * The metadata options for the Amazon Lightsail instance.
+     * </p>
+     * 
+     * @param metadataOptions
+     *        The metadata options for the Amazon Lightsail instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withMetadataOptions(InstanceMetadataOptions metadataOptions) {
+        setMetadataOptions(metadataOptions);
         return this;
     }
 
@@ -1043,14 +1315,18 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
             sb.append("BlueprintName: ").append(getBlueprintName()).append(",");
         if (getBundleId() != null)
             sb.append("BundleId: ").append(getBundleId()).append(",");
+        if (getAddOns() != null)
+            sb.append("AddOns: ").append(getAddOns()).append(",");
         if (getIsStaticIp() != null)
             sb.append("IsStaticIp: ").append(getIsStaticIp()).append(",");
         if (getPrivateIpAddress() != null)
             sb.append("PrivateIpAddress: ").append(getPrivateIpAddress()).append(",");
         if (getPublicIpAddress() != null)
             sb.append("PublicIpAddress: ").append(getPublicIpAddress()).append(",");
-        if (getIpv6Address() != null)
-            sb.append("Ipv6Address: ").append(getIpv6Address()).append(",");
+        if (getIpv6Addresses() != null)
+            sb.append("Ipv6Addresses: ").append(getIpv6Addresses()).append(",");
+        if (getIpAddressType() != null)
+            sb.append("IpAddressType: ").append(getIpAddressType()).append(",");
         if (getHardware() != null)
             sb.append("Hardware: ").append(getHardware()).append(",");
         if (getNetworking() != null)
@@ -1060,7 +1336,9 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
         if (getUsername() != null)
             sb.append("Username: ").append(getUsername()).append(",");
         if (getSshKeyName() != null)
-            sb.append("SshKeyName: ").append(getSshKeyName());
+            sb.append("SshKeyName: ").append(getSshKeyName()).append(",");
+        if (getMetadataOptions() != null)
+            sb.append("MetadataOptions: ").append(getMetadataOptions());
         sb.append("}");
         return sb.toString();
     }
@@ -1115,6 +1393,10 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getBundleId() != null && other.getBundleId().equals(this.getBundleId()) == false)
             return false;
+        if (other.getAddOns() == null ^ this.getAddOns() == null)
+            return false;
+        if (other.getAddOns() != null && other.getAddOns().equals(this.getAddOns()) == false)
+            return false;
         if (other.getIsStaticIp() == null ^ this.getIsStaticIp() == null)
             return false;
         if (other.getIsStaticIp() != null && other.getIsStaticIp().equals(this.getIsStaticIp()) == false)
@@ -1127,9 +1409,13 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getPublicIpAddress() != null && other.getPublicIpAddress().equals(this.getPublicIpAddress()) == false)
             return false;
-        if (other.getIpv6Address() == null ^ this.getIpv6Address() == null)
+        if (other.getIpv6Addresses() == null ^ this.getIpv6Addresses() == null)
             return false;
-        if (other.getIpv6Address() != null && other.getIpv6Address().equals(this.getIpv6Address()) == false)
+        if (other.getIpv6Addresses() != null && other.getIpv6Addresses().equals(this.getIpv6Addresses()) == false)
+            return false;
+        if (other.getIpAddressType() == null ^ this.getIpAddressType() == null)
+            return false;
+        if (other.getIpAddressType() != null && other.getIpAddressType().equals(this.getIpAddressType()) == false)
             return false;
         if (other.getHardware() == null ^ this.getHardware() == null)
             return false;
@@ -1151,6 +1437,10 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getSshKeyName() != null && other.getSshKeyName().equals(this.getSshKeyName()) == false)
             return false;
+        if (other.getMetadataOptions() == null ^ this.getMetadataOptions() == null)
+            return false;
+        if (other.getMetadataOptions() != null && other.getMetadataOptions().equals(this.getMetadataOptions()) == false)
+            return false;
         return true;
     }
 
@@ -1169,15 +1459,18 @@ public class Instance implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getBlueprintId() == null) ? 0 : getBlueprintId().hashCode());
         hashCode = prime * hashCode + ((getBlueprintName() == null) ? 0 : getBlueprintName().hashCode());
         hashCode = prime * hashCode + ((getBundleId() == null) ? 0 : getBundleId().hashCode());
+        hashCode = prime * hashCode + ((getAddOns() == null) ? 0 : getAddOns().hashCode());
         hashCode = prime * hashCode + ((getIsStaticIp() == null) ? 0 : getIsStaticIp().hashCode());
         hashCode = prime * hashCode + ((getPrivateIpAddress() == null) ? 0 : getPrivateIpAddress().hashCode());
         hashCode = prime * hashCode + ((getPublicIpAddress() == null) ? 0 : getPublicIpAddress().hashCode());
-        hashCode = prime * hashCode + ((getIpv6Address() == null) ? 0 : getIpv6Address().hashCode());
+        hashCode = prime * hashCode + ((getIpv6Addresses() == null) ? 0 : getIpv6Addresses().hashCode());
+        hashCode = prime * hashCode + ((getIpAddressType() == null) ? 0 : getIpAddressType().hashCode());
         hashCode = prime * hashCode + ((getHardware() == null) ? 0 : getHardware().hashCode());
         hashCode = prime * hashCode + ((getNetworking() == null) ? 0 : getNetworking().hashCode());
         hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
         hashCode = prime * hashCode + ((getUsername() == null) ? 0 : getUsername().hashCode());
         hashCode = prime * hashCode + ((getSshKeyName() == null) ? 0 : getSshKeyName().hashCode());
+        hashCode = prime * hashCode + ((getMetadataOptions() == null) ? 0 : getMetadataOptions().hashCode());
         return hashCode;
     }
 

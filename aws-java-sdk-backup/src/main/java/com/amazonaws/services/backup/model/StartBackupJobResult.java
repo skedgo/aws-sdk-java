@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,11 +25,14 @@ public class StartBackupJobResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * Uniquely identifies a request to AWS Backup to back up a resource.
+     * Uniquely identifies a request to Backup to back up a resource.
      * </p>
      */
     private String backupJobId;
     /**
+     * <p>
+     * <i>Note: This field is only returned for Amazon EFS and Advanced DynamoDB resources.</i>
+     * </p>
      * <p>
      * An ARN that uniquely identifies a recovery point; for example,
      * <code>arn:aws:backup:us-east-1:123456789012:recovery-point:1EB3B5E7-9EB0-435A-A80B-108B488B0D45</code>.
@@ -38,20 +41,26 @@ public class StartBackupJobResult extends com.amazonaws.AmazonWebServiceResult<c
     private String recoveryPointArn;
     /**
      * <p>
-     * The date and time that a backup job is started, in Unix format and Coordinated Universal Time (UTC). The value of
+     * The date and time that a backup job is created, in Unix format and Coordinated Universal Time (UTC). The value of
      * <code>CreationDate</code> is accurate to milliseconds. For example, the value 1516925490.087 represents Friday,
      * January 26, 2018 12:11:30.087 AM.
      * </p>
      */
     private java.util.Date creationDate;
+    /**
+     * <p>
+     * This is a returned boolean value indicating this is a parent (composite) backup job.
+     * </p>
+     */
+    private Boolean isParent;
 
     /**
      * <p>
-     * Uniquely identifies a request to AWS Backup to back up a resource.
+     * Uniquely identifies a request to Backup to back up a resource.
      * </p>
      * 
      * @param backupJobId
-     *        Uniquely identifies a request to AWS Backup to back up a resource.
+     *        Uniquely identifies a request to Backup to back up a resource.
      */
 
     public void setBackupJobId(String backupJobId) {
@@ -60,10 +69,10 @@ public class StartBackupJobResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * Uniquely identifies a request to AWS Backup to back up a resource.
+     * Uniquely identifies a request to Backup to back up a resource.
      * </p>
      * 
-     * @return Uniquely identifies a request to AWS Backup to back up a resource.
+     * @return Uniquely identifies a request to Backup to back up a resource.
      */
 
     public String getBackupJobId() {
@@ -72,11 +81,11 @@ public class StartBackupJobResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * Uniquely identifies a request to AWS Backup to back up a resource.
+     * Uniquely identifies a request to Backup to back up a resource.
      * </p>
      * 
      * @param backupJobId
-     *        Uniquely identifies a request to AWS Backup to back up a resource.
+     *        Uniquely identifies a request to Backup to back up a resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -87,11 +96,16 @@ public class StartBackupJobResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
+     * <i>Note: This field is only returned for Amazon EFS and Advanced DynamoDB resources.</i>
+     * </p>
+     * <p>
      * An ARN that uniquely identifies a recovery point; for example,
      * <code>arn:aws:backup:us-east-1:123456789012:recovery-point:1EB3B5E7-9EB0-435A-A80B-108B488B0D45</code>.
      * </p>
      * 
      * @param recoveryPointArn
+     *        <i>Note: This field is only returned for Amazon EFS and Advanced DynamoDB resources.</i> </p>
+     *        <p>
      *        An ARN that uniquely identifies a recovery point; for example,
      *        <code>arn:aws:backup:us-east-1:123456789012:recovery-point:1EB3B5E7-9EB0-435A-A80B-108B488B0D45</code>.
      */
@@ -102,11 +116,16 @@ public class StartBackupJobResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
+     * <i>Note: This field is only returned for Amazon EFS and Advanced DynamoDB resources.</i>
+     * </p>
+     * <p>
      * An ARN that uniquely identifies a recovery point; for example,
      * <code>arn:aws:backup:us-east-1:123456789012:recovery-point:1EB3B5E7-9EB0-435A-A80B-108B488B0D45</code>.
      * </p>
      * 
-     * @return An ARN that uniquely identifies a recovery point; for example,
+     * @return <i>Note: This field is only returned for Amazon EFS and Advanced DynamoDB resources.</i> </p>
+     *         <p>
+     *         An ARN that uniquely identifies a recovery point; for example,
      *         <code>arn:aws:backup:us-east-1:123456789012:recovery-point:1EB3B5E7-9EB0-435A-A80B-108B488B0D45</code>.
      */
 
@@ -116,11 +135,16 @@ public class StartBackupJobResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
+     * <i>Note: This field is only returned for Amazon EFS and Advanced DynamoDB resources.</i>
+     * </p>
+     * <p>
      * An ARN that uniquely identifies a recovery point; for example,
      * <code>arn:aws:backup:us-east-1:123456789012:recovery-point:1EB3B5E7-9EB0-435A-A80B-108B488B0D45</code>.
      * </p>
      * 
      * @param recoveryPointArn
+     *        <i>Note: This field is only returned for Amazon EFS and Advanced DynamoDB resources.</i> </p>
+     *        <p>
      *        An ARN that uniquely identifies a recovery point; for example,
      *        <code>arn:aws:backup:us-east-1:123456789012:recovery-point:1EB3B5E7-9EB0-435A-A80B-108B488B0D45</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -133,13 +157,13 @@ public class StartBackupJobResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The date and time that a backup job is started, in Unix format and Coordinated Universal Time (UTC). The value of
+     * The date and time that a backup job is created, in Unix format and Coordinated Universal Time (UTC). The value of
      * <code>CreationDate</code> is accurate to milliseconds. For example, the value 1516925490.087 represents Friday,
      * January 26, 2018 12:11:30.087 AM.
      * </p>
      * 
      * @param creationDate
-     *        The date and time that a backup job is started, in Unix format and Coordinated Universal Time (UTC). The
+     *        The date and time that a backup job is created, in Unix format and Coordinated Universal Time (UTC). The
      *        value of <code>CreationDate</code> is accurate to milliseconds. For example, the value 1516925490.087
      *        represents Friday, January 26, 2018 12:11:30.087 AM.
      */
@@ -150,12 +174,12 @@ public class StartBackupJobResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The date and time that a backup job is started, in Unix format and Coordinated Universal Time (UTC). The value of
+     * The date and time that a backup job is created, in Unix format and Coordinated Universal Time (UTC). The value of
      * <code>CreationDate</code> is accurate to milliseconds. For example, the value 1516925490.087 represents Friday,
      * January 26, 2018 12:11:30.087 AM.
      * </p>
      * 
-     * @return The date and time that a backup job is started, in Unix format and Coordinated Universal Time (UTC). The
+     * @return The date and time that a backup job is created, in Unix format and Coordinated Universal Time (UTC). The
      *         value of <code>CreationDate</code> is accurate to milliseconds. For example, the value 1516925490.087
      *         represents Friday, January 26, 2018 12:11:30.087 AM.
      */
@@ -166,13 +190,13 @@ public class StartBackupJobResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The date and time that a backup job is started, in Unix format and Coordinated Universal Time (UTC). The value of
+     * The date and time that a backup job is created, in Unix format and Coordinated Universal Time (UTC). The value of
      * <code>CreationDate</code> is accurate to milliseconds. For example, the value 1516925490.087 represents Friday,
      * January 26, 2018 12:11:30.087 AM.
      * </p>
      * 
      * @param creationDate
-     *        The date and time that a backup job is started, in Unix format and Coordinated Universal Time (UTC). The
+     *        The date and time that a backup job is created, in Unix format and Coordinated Universal Time (UTC). The
      *        value of <code>CreationDate</code> is accurate to milliseconds. For example, the value 1516925490.087
      *        represents Friday, January 26, 2018 12:11:30.087 AM.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -181,6 +205,58 @@ public class StartBackupJobResult extends com.amazonaws.AmazonWebServiceResult<c
     public StartBackupJobResult withCreationDate(java.util.Date creationDate) {
         setCreationDate(creationDate);
         return this;
+    }
+
+    /**
+     * <p>
+     * This is a returned boolean value indicating this is a parent (composite) backup job.
+     * </p>
+     * 
+     * @param isParent
+     *        This is a returned boolean value indicating this is a parent (composite) backup job.
+     */
+
+    public void setIsParent(Boolean isParent) {
+        this.isParent = isParent;
+    }
+
+    /**
+     * <p>
+     * This is a returned boolean value indicating this is a parent (composite) backup job.
+     * </p>
+     * 
+     * @return This is a returned boolean value indicating this is a parent (composite) backup job.
+     */
+
+    public Boolean getIsParent() {
+        return this.isParent;
+    }
+
+    /**
+     * <p>
+     * This is a returned boolean value indicating this is a parent (composite) backup job.
+     * </p>
+     * 
+     * @param isParent
+     *        This is a returned boolean value indicating this is a parent (composite) backup job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartBackupJobResult withIsParent(Boolean isParent) {
+        setIsParent(isParent);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This is a returned boolean value indicating this is a parent (composite) backup job.
+     * </p>
+     * 
+     * @return This is a returned boolean value indicating this is a parent (composite) backup job.
+     */
+
+    public Boolean isParent() {
+        return this.isParent;
     }
 
     /**
@@ -200,7 +276,9 @@ public class StartBackupJobResult extends com.amazonaws.AmazonWebServiceResult<c
         if (getRecoveryPointArn() != null)
             sb.append("RecoveryPointArn: ").append(getRecoveryPointArn()).append(",");
         if (getCreationDate() != null)
-            sb.append("CreationDate: ").append(getCreationDate());
+            sb.append("CreationDate: ").append(getCreationDate()).append(",");
+        if (getIsParent() != null)
+            sb.append("IsParent: ").append(getIsParent());
         sb.append("}");
         return sb.toString();
     }
@@ -227,6 +305,10 @@ public class StartBackupJobResult extends com.amazonaws.AmazonWebServiceResult<c
             return false;
         if (other.getCreationDate() != null && other.getCreationDate().equals(this.getCreationDate()) == false)
             return false;
+        if (other.getIsParent() == null ^ this.getIsParent() == null)
+            return false;
+        if (other.getIsParent() != null && other.getIsParent().equals(this.getIsParent()) == false)
+            return false;
         return true;
     }
 
@@ -238,6 +320,7 @@ public class StartBackupJobResult extends com.amazonaws.AmazonWebServiceResult<c
         hashCode = prime * hashCode + ((getBackupJobId() == null) ? 0 : getBackupJobId().hashCode());
         hashCode = prime * hashCode + ((getRecoveryPointArn() == null) ? 0 : getRecoveryPointArn().hashCode());
         hashCode = prime * hashCode + ((getCreationDate() == null) ? 0 : getCreationDate().hashCode());
+        hashCode = prime * hashCode + ((getIsParent() == null) ? 0 : getIsParent().hashCode());
         return hashCode;
     }
 

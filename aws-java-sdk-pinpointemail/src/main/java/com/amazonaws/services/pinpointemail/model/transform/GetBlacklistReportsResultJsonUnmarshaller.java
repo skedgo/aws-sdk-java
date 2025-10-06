@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,8 +51,9 @@ public class GetBlacklistReportsResultJsonUnmarshaller implements Unmarshaller<G
                 if (context.testExpression("BlacklistReport", targetDepth)) {
                     context.nextToken();
                     getBlacklistReportsResult.setBlacklistReport(new MapUnmarshaller<String, java.util.List<BlacklistEntry>>(context
-                            .getUnmarshaller(String.class), new ListUnmarshaller<BlacklistEntry>(BlacklistEntryJsonUnmarshaller.getInstance()))
-                            .unmarshall(context));
+                            .getUnmarshaller(String.class), new ListUnmarshaller<BlacklistEntry>(BlacklistEntryJsonUnmarshaller.getInstance())
+
+                    ).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

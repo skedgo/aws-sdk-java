@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,13 +42,19 @@ public class ComplianceViolator implements Serializable, Cloneable, StructuredPo
     private String violationReason;
     /**
      * <p>
-     * The resource type. This is in the format shown in <a
-     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
-     * <code>AWS::CloudFront::Distribution</code>.
+     * The resource type. This is in the format shown in the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>,
+     * <code>AWS::CloudFront::Distribution</code>, or <code>AWS::NetworkFirewall::FirewallPolicy</code>.
      * </p>
      */
     private String resourceType;
+    /**
+     * <p>
+     * Metadata about the resource that doesn't comply with the policy scope.
+     * </p>
+     */
+    private java.util.Map<String, String> metadata;
 
     /**
      * <p>
@@ -151,17 +157,18 @@ public class ComplianceViolator implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The resource type. This is in the format shown in <a
-     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
-     * <code>AWS::CloudFront::Distribution</code>.
+     * The resource type. This is in the format shown in the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>,
+     * <code>AWS::CloudFront::Distribution</code>, or <code>AWS::NetworkFirewall::FirewallPolicy</code>.
      * </p>
      * 
      * @param resourceType
-     *        The resource type. This is in the format shown in <a href=
-     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     *        Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
-     *        <code>AWS::CloudFront::Distribution</code>.
+     *        The resource type. This is in the format shown in the <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
+     *        >Amazon Web Services Resource Types Reference</a>. For example:
+     *        <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>, <code>AWS::CloudFront::Distribution</code>, or
+     *        <code>AWS::NetworkFirewall::FirewallPolicy</code>.
      */
 
     public void setResourceType(String resourceType) {
@@ -170,16 +177,17 @@ public class ComplianceViolator implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The resource type. This is in the format shown in <a
-     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
-     * <code>AWS::CloudFront::Distribution</code>.
+     * The resource type. This is in the format shown in the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>,
+     * <code>AWS::CloudFront::Distribution</code>, or <code>AWS::NetworkFirewall::FirewallPolicy</code>.
      * </p>
      * 
-     * @return The resource type. This is in the format shown in <a
+     * @return The resource type. This is in the format shown in the <a
      *         href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
-     *         >AWS Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
-     *         <code>AWS::CloudFront::Distribution</code>.
+     *         >Amazon Web Services Resource Types Reference</a>. For example:
+     *         <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>, <code>AWS::CloudFront::Distribution</code>, or
+     *         <code>AWS::NetworkFirewall::FirewallPolicy</code>.
      */
 
     public String getResourceType() {
@@ -188,22 +196,91 @@ public class ComplianceViolator implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The resource type. This is in the format shown in <a
-     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
-     * <code>AWS::CloudFront::Distribution</code>.
+     * The resource type. This is in the format shown in the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>,
+     * <code>AWS::CloudFront::Distribution</code>, or <code>AWS::NetworkFirewall::FirewallPolicy</code>.
      * </p>
      * 
      * @param resourceType
-     *        The resource type. This is in the format shown in <a href=
-     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     *        Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
-     *        <code>AWS::CloudFront::Distribution</code>.
+     *        The resource type. This is in the format shown in the <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
+     *        >Amazon Web Services Resource Types Reference</a>. For example:
+     *        <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>, <code>AWS::CloudFront::Distribution</code>, or
+     *        <code>AWS::NetworkFirewall::FirewallPolicy</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ComplianceViolator withResourceType(String resourceType) {
         setResourceType(resourceType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Metadata about the resource that doesn't comply with the policy scope.
+     * </p>
+     * 
+     * @return Metadata about the resource that doesn't comply with the policy scope.
+     */
+
+    public java.util.Map<String, String> getMetadata() {
+        return metadata;
+    }
+
+    /**
+     * <p>
+     * Metadata about the resource that doesn't comply with the policy scope.
+     * </p>
+     * 
+     * @param metadata
+     *        Metadata about the resource that doesn't comply with the policy scope.
+     */
+
+    public void setMetadata(java.util.Map<String, String> metadata) {
+        this.metadata = metadata;
+    }
+
+    /**
+     * <p>
+     * Metadata about the resource that doesn't comply with the policy scope.
+     * </p>
+     * 
+     * @param metadata
+     *        Metadata about the resource that doesn't comply with the policy scope.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ComplianceViolator withMetadata(java.util.Map<String, String> metadata) {
+        setMetadata(metadata);
+        return this;
+    }
+
+    /**
+     * Add a single Metadata entry
+     *
+     * @see ComplianceViolator#withMetadata
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ComplianceViolator addMetadataEntry(String key, String value) {
+        if (null == this.metadata) {
+            this.metadata = new java.util.HashMap<String, String>();
+        }
+        if (this.metadata.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.metadata.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Metadata.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ComplianceViolator clearMetadataEntries() {
+        this.metadata = null;
         return this;
     }
 
@@ -224,7 +301,9 @@ public class ComplianceViolator implements Serializable, Cloneable, StructuredPo
         if (getViolationReason() != null)
             sb.append("ViolationReason: ").append(getViolationReason()).append(",");
         if (getResourceType() != null)
-            sb.append("ResourceType: ").append(getResourceType());
+            sb.append("ResourceType: ").append(getResourceType()).append(",");
+        if (getMetadata() != null)
+            sb.append("Metadata: ").append(getMetadata());
         sb.append("}");
         return sb.toString();
     }
@@ -251,6 +330,10 @@ public class ComplianceViolator implements Serializable, Cloneable, StructuredPo
             return false;
         if (other.getResourceType() != null && other.getResourceType().equals(this.getResourceType()) == false)
             return false;
+        if (other.getMetadata() == null ^ this.getMetadata() == null)
+            return false;
+        if (other.getMetadata() != null && other.getMetadata().equals(this.getMetadata()) == false)
+            return false;
         return true;
     }
 
@@ -262,6 +345,7 @@ public class ComplianceViolator implements Serializable, Cloneable, StructuredPo
         hashCode = prime * hashCode + ((getResourceId() == null) ? 0 : getResourceId().hashCode());
         hashCode = prime * hashCode + ((getViolationReason() == null) ? 0 : getViolationReason().hashCode());
         hashCode = prime * hashCode + ((getResourceType() == null) ? 0 : getResourceType().hashCode());
+        hashCode = prime * hashCode + ((getMetadata() == null) ? 0 : getMetadata().hashCode());
         return hashCode;
     }
 

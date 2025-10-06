@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,11 +45,12 @@ public class IndexFacesRequest extends com.amazonaws.AmazonWebServiceRequest imp
     private String externalImageId;
     /**
      * <p>
-     * An array of facial attributes that you want to be returned. This can be the default list of attributes or all
-     * attributes. If you don't specify a value for <code>Attributes</code> or if you specify <code>["DEFAULT"]</code>,
-     * the API returns the following subset of facial attributes: <code>BoundingBox</code>, <code>Confidence</code>,
-     * <code>Pose</code>, <code>Quality</code>, and <code>Landmarks</code>. If you provide <code>["ALL"]</code>, all
-     * facial attributes are returned, but the operation takes longer to complete.
+     * An array of facial attributes you want to be returned. A <code>DEFAULT</code> subset of facial attributes -
+     * <code>BoundingBox</code>, <code>Confidence</code>, <code>Pose</code>, <code>Quality</code>, and
+     * <code>Landmarks</code> - will always be returned. You can request for specific facial attributes (in addition to
+     * the default list) - by using <code>["DEFAULT", "FACE_OCCLUDED"]</code> or just <code>["FACE_OCCLUDED"]</code>.
+     * You can request for all facial attributes by using <code>["ALL"]</code>. Requesting more attributes may increase
+     * response time.
      * </p>
      * <p>
      * If you provide both, <code>["ALL", "DEFAULT"]</code>, the service uses a logical AND operator to determine which
@@ -81,15 +82,17 @@ public class IndexFacesRequest extends com.amazonaws.AmazonWebServiceRequest imp
     private Integer maxFaces;
     /**
      * <p>
-     * A filter that specifies how much filtering is done to identify faces that are detected with low quality. Filtered
-     * faces aren't indexed. If you specify <code>AUTO</code>, filtering prioritizes the identification of faces that
-     * don’t meet the required quality bar chosen by Amazon Rekognition. The quality bar is based on a variety of common
-     * use cases. Low-quality detections can occur for a number of reasons. Some examples are an object that's
-     * misidentified as a face, a face that's too blurry, or a face with a pose that's too extreme to use. If you
-     * specify <code>NONE</code>, no filtering is performed. The default value is AUTO.
+     * A filter that specifies a quality bar for how much filtering is done to identify faces. Filtered faces aren't
+     * indexed. If you specify <code>AUTO</code>, Amazon Rekognition chooses the quality bar. If you specify
+     * <code>LOW</code>, <code>MEDIUM</code>, or <code>HIGH</code>, filtering removes all faces that don’t meet the
+     * chosen quality bar. The default value is <code>AUTO</code>. The quality bar is based on a variety of common use
+     * cases. Low-quality detections can occur for a number of reasons. Some examples are an object that's misidentified
+     * as a face, a face that's too blurry, or a face with a pose that's too extreme to use. If you specify
+     * <code>NONE</code>, no filtering is performed.
      * </p>
      * <p>
-     * To use quality filtering, the collection you are using must be associated with version 3 of the face model.
+     * To use quality filtering, the collection you are using must be associated with version 3 of the face model or
+     * higher.
      * </p>
      */
     private String qualityFilter;
@@ -247,23 +250,24 @@ public class IndexFacesRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * An array of facial attributes that you want to be returned. This can be the default list of attributes or all
-     * attributes. If you don't specify a value for <code>Attributes</code> or if you specify <code>["DEFAULT"]</code>,
-     * the API returns the following subset of facial attributes: <code>BoundingBox</code>, <code>Confidence</code>,
-     * <code>Pose</code>, <code>Quality</code>, and <code>Landmarks</code>. If you provide <code>["ALL"]</code>, all
-     * facial attributes are returned, but the operation takes longer to complete.
+     * An array of facial attributes you want to be returned. A <code>DEFAULT</code> subset of facial attributes -
+     * <code>BoundingBox</code>, <code>Confidence</code>, <code>Pose</code>, <code>Quality</code>, and
+     * <code>Landmarks</code> - will always be returned. You can request for specific facial attributes (in addition to
+     * the default list) - by using <code>["DEFAULT", "FACE_OCCLUDED"]</code> or just <code>["FACE_OCCLUDED"]</code>.
+     * You can request for all facial attributes by using <code>["ALL"]</code>. Requesting more attributes may increase
+     * response time.
      * </p>
      * <p>
      * If you provide both, <code>["ALL", "DEFAULT"]</code>, the service uses a logical AND operator to determine which
      * attributes to return (in this case, all attributes).
      * </p>
      * 
-     * @return An array of facial attributes that you want to be returned. This can be the default list of attributes or
-     *         all attributes. If you don't specify a value for <code>Attributes</code> or if you specify
-     *         <code>["DEFAULT"]</code>, the API returns the following subset of facial attributes:
-     *         <code>BoundingBox</code>, <code>Confidence</code>, <code>Pose</code>, <code>Quality</code>, and
-     *         <code>Landmarks</code>. If you provide <code>["ALL"]</code>, all facial attributes are returned, but the
-     *         operation takes longer to complete.</p>
+     * @return An array of facial attributes you want to be returned. A <code>DEFAULT</code> subset of facial attributes
+     *         - <code>BoundingBox</code>, <code>Confidence</code>, <code>Pose</code>, <code>Quality</code>, and
+     *         <code>Landmarks</code> - will always be returned. You can request for specific facial attributes (in
+     *         addition to the default list) - by using <code>["DEFAULT", "FACE_OCCLUDED"]</code> or just
+     *         <code>["FACE_OCCLUDED"]</code>. You can request for all facial attributes by using <code>["ALL"]</code>.
+     *         Requesting more attributes may increase response time.</p>
      *         <p>
      *         If you provide both, <code>["ALL", "DEFAULT"]</code>, the service uses a logical AND operator to
      *         determine which attributes to return (in this case, all attributes).
@@ -276,11 +280,12 @@ public class IndexFacesRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * An array of facial attributes that you want to be returned. This can be the default list of attributes or all
-     * attributes. If you don't specify a value for <code>Attributes</code> or if you specify <code>["DEFAULT"]</code>,
-     * the API returns the following subset of facial attributes: <code>BoundingBox</code>, <code>Confidence</code>,
-     * <code>Pose</code>, <code>Quality</code>, and <code>Landmarks</code>. If you provide <code>["ALL"]</code>, all
-     * facial attributes are returned, but the operation takes longer to complete.
+     * An array of facial attributes you want to be returned. A <code>DEFAULT</code> subset of facial attributes -
+     * <code>BoundingBox</code>, <code>Confidence</code>, <code>Pose</code>, <code>Quality</code>, and
+     * <code>Landmarks</code> - will always be returned. You can request for specific facial attributes (in addition to
+     * the default list) - by using <code>["DEFAULT", "FACE_OCCLUDED"]</code> or just <code>["FACE_OCCLUDED"]</code>.
+     * You can request for all facial attributes by using <code>["ALL"]</code>. Requesting more attributes may increase
+     * response time.
      * </p>
      * <p>
      * If you provide both, <code>["ALL", "DEFAULT"]</code>, the service uses a logical AND operator to determine which
@@ -288,12 +293,12 @@ public class IndexFacesRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </p>
      * 
      * @param detectionAttributes
-     *        An array of facial attributes that you want to be returned. This can be the default list of attributes or
-     *        all attributes. If you don't specify a value for <code>Attributes</code> or if you specify
-     *        <code>["DEFAULT"]</code>, the API returns the following subset of facial attributes:
-     *        <code>BoundingBox</code>, <code>Confidence</code>, <code>Pose</code>, <code>Quality</code>, and
-     *        <code>Landmarks</code>. If you provide <code>["ALL"]</code>, all facial attributes are returned, but the
-     *        operation takes longer to complete.</p>
+     *        An array of facial attributes you want to be returned. A <code>DEFAULT</code> subset of facial attributes
+     *        - <code>BoundingBox</code>, <code>Confidence</code>, <code>Pose</code>, <code>Quality</code>, and
+     *        <code>Landmarks</code> - will always be returned. You can request for specific facial attributes (in
+     *        addition to the default list) - by using <code>["DEFAULT", "FACE_OCCLUDED"]</code> or just
+     *        <code>["FACE_OCCLUDED"]</code>. You can request for all facial attributes by using <code>["ALL"]</code>.
+     *        Requesting more attributes may increase response time.</p>
      *        <p>
      *        If you provide both, <code>["ALL", "DEFAULT"]</code>, the service uses a logical AND operator to determine
      *        which attributes to return (in this case, all attributes).
@@ -311,11 +316,12 @@ public class IndexFacesRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * An array of facial attributes that you want to be returned. This can be the default list of attributes or all
-     * attributes. If you don't specify a value for <code>Attributes</code> or if you specify <code>["DEFAULT"]</code>,
-     * the API returns the following subset of facial attributes: <code>BoundingBox</code>, <code>Confidence</code>,
-     * <code>Pose</code>, <code>Quality</code>, and <code>Landmarks</code>. If you provide <code>["ALL"]</code>, all
-     * facial attributes are returned, but the operation takes longer to complete.
+     * An array of facial attributes you want to be returned. A <code>DEFAULT</code> subset of facial attributes -
+     * <code>BoundingBox</code>, <code>Confidence</code>, <code>Pose</code>, <code>Quality</code>, and
+     * <code>Landmarks</code> - will always be returned. You can request for specific facial attributes (in addition to
+     * the default list) - by using <code>["DEFAULT", "FACE_OCCLUDED"]</code> or just <code>["FACE_OCCLUDED"]</code>.
+     * You can request for all facial attributes by using <code>["ALL"]</code>. Requesting more attributes may increase
+     * response time.
      * </p>
      * <p>
      * If you provide both, <code>["ALL", "DEFAULT"]</code>, the service uses a logical AND operator to determine which
@@ -328,12 +334,12 @@ public class IndexFacesRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </p>
      * 
      * @param detectionAttributes
-     *        An array of facial attributes that you want to be returned. This can be the default list of attributes or
-     *        all attributes. If you don't specify a value for <code>Attributes</code> or if you specify
-     *        <code>["DEFAULT"]</code>, the API returns the following subset of facial attributes:
-     *        <code>BoundingBox</code>, <code>Confidence</code>, <code>Pose</code>, <code>Quality</code>, and
-     *        <code>Landmarks</code>. If you provide <code>["ALL"]</code>, all facial attributes are returned, but the
-     *        operation takes longer to complete.</p>
+     *        An array of facial attributes you want to be returned. A <code>DEFAULT</code> subset of facial attributes
+     *        - <code>BoundingBox</code>, <code>Confidence</code>, <code>Pose</code>, <code>Quality</code>, and
+     *        <code>Landmarks</code> - will always be returned. You can request for specific facial attributes (in
+     *        addition to the default list) - by using <code>["DEFAULT", "FACE_OCCLUDED"]</code> or just
+     *        <code>["FACE_OCCLUDED"]</code>. You can request for all facial attributes by using <code>["ALL"]</code>.
+     *        Requesting more attributes may increase response time.</p>
      *        <p>
      *        If you provide both, <code>["ALL", "DEFAULT"]</code>, the service uses a logical AND operator to determine
      *        which attributes to return (in this case, all attributes).
@@ -353,11 +359,12 @@ public class IndexFacesRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * An array of facial attributes that you want to be returned. This can be the default list of attributes or all
-     * attributes. If you don't specify a value for <code>Attributes</code> or if you specify <code>["DEFAULT"]</code>,
-     * the API returns the following subset of facial attributes: <code>BoundingBox</code>, <code>Confidence</code>,
-     * <code>Pose</code>, <code>Quality</code>, and <code>Landmarks</code>. If you provide <code>["ALL"]</code>, all
-     * facial attributes are returned, but the operation takes longer to complete.
+     * An array of facial attributes you want to be returned. A <code>DEFAULT</code> subset of facial attributes -
+     * <code>BoundingBox</code>, <code>Confidence</code>, <code>Pose</code>, <code>Quality</code>, and
+     * <code>Landmarks</code> - will always be returned. You can request for specific facial attributes (in addition to
+     * the default list) - by using <code>["DEFAULT", "FACE_OCCLUDED"]</code> or just <code>["FACE_OCCLUDED"]</code>.
+     * You can request for all facial attributes by using <code>["ALL"]</code>. Requesting more attributes may increase
+     * response time.
      * </p>
      * <p>
      * If you provide both, <code>["ALL", "DEFAULT"]</code>, the service uses a logical AND operator to determine which
@@ -365,12 +372,12 @@ public class IndexFacesRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </p>
      * 
      * @param detectionAttributes
-     *        An array of facial attributes that you want to be returned. This can be the default list of attributes or
-     *        all attributes. If you don't specify a value for <code>Attributes</code> or if you specify
-     *        <code>["DEFAULT"]</code>, the API returns the following subset of facial attributes:
-     *        <code>BoundingBox</code>, <code>Confidence</code>, <code>Pose</code>, <code>Quality</code>, and
-     *        <code>Landmarks</code>. If you provide <code>["ALL"]</code>, all facial attributes are returned, but the
-     *        operation takes longer to complete.</p>
+     *        An array of facial attributes you want to be returned. A <code>DEFAULT</code> subset of facial attributes
+     *        - <code>BoundingBox</code>, <code>Confidence</code>, <code>Pose</code>, <code>Quality</code>, and
+     *        <code>Landmarks</code> - will always be returned. You can request for specific facial attributes (in
+     *        addition to the default list) - by using <code>["DEFAULT", "FACE_OCCLUDED"]</code> or just
+     *        <code>["FACE_OCCLUDED"]</code>. You can request for all facial attributes by using <code>["ALL"]</code>.
+     *        Requesting more attributes may increase response time.</p>
      *        <p>
      *        If you provide both, <code>["ALL", "DEFAULT"]</code>, the service uses a logical AND operator to determine
      *        which attributes to return (in this case, all attributes).
@@ -385,11 +392,12 @@ public class IndexFacesRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * An array of facial attributes that you want to be returned. This can be the default list of attributes or all
-     * attributes. If you don't specify a value for <code>Attributes</code> or if you specify <code>["DEFAULT"]</code>,
-     * the API returns the following subset of facial attributes: <code>BoundingBox</code>, <code>Confidence</code>,
-     * <code>Pose</code>, <code>Quality</code>, and <code>Landmarks</code>. If you provide <code>["ALL"]</code>, all
-     * facial attributes are returned, but the operation takes longer to complete.
+     * An array of facial attributes you want to be returned. A <code>DEFAULT</code> subset of facial attributes -
+     * <code>BoundingBox</code>, <code>Confidence</code>, <code>Pose</code>, <code>Quality</code>, and
+     * <code>Landmarks</code> - will always be returned. You can request for specific facial attributes (in addition to
+     * the default list) - by using <code>["DEFAULT", "FACE_OCCLUDED"]</code> or just <code>["FACE_OCCLUDED"]</code>.
+     * You can request for all facial attributes by using <code>["ALL"]</code>. Requesting more attributes may increase
+     * response time.
      * </p>
      * <p>
      * If you provide both, <code>["ALL", "DEFAULT"]</code>, the service uses a logical AND operator to determine which
@@ -397,12 +405,12 @@ public class IndexFacesRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </p>
      * 
      * @param detectionAttributes
-     *        An array of facial attributes that you want to be returned. This can be the default list of attributes or
-     *        all attributes. If you don't specify a value for <code>Attributes</code> or if you specify
-     *        <code>["DEFAULT"]</code>, the API returns the following subset of facial attributes:
-     *        <code>BoundingBox</code>, <code>Confidence</code>, <code>Pose</code>, <code>Quality</code>, and
-     *        <code>Landmarks</code>. If you provide <code>["ALL"]</code>, all facial attributes are returned, but the
-     *        operation takes longer to complete.</p>
+     *        An array of facial attributes you want to be returned. A <code>DEFAULT</code> subset of facial attributes
+     *        - <code>BoundingBox</code>, <code>Confidence</code>, <code>Pose</code>, <code>Quality</code>, and
+     *        <code>Landmarks</code> - will always be returned. You can request for specific facial attributes (in
+     *        addition to the default list) - by using <code>["DEFAULT", "FACE_OCCLUDED"]</code> or just
+     *        <code>["FACE_OCCLUDED"]</code>. You can request for all facial attributes by using <code>["ALL"]</code>.
+     *        Requesting more attributes may increase response time.</p>
      *        <p>
      *        If you provide both, <code>["ALL", "DEFAULT"]</code>, the service uses a logical AND operator to determine
      *        which attributes to return (in this case, all attributes).
@@ -558,28 +566,30 @@ public class IndexFacesRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A filter that specifies how much filtering is done to identify faces that are detected with low quality. Filtered
-     * faces aren't indexed. If you specify <code>AUTO</code>, filtering prioritizes the identification of faces that
-     * don’t meet the required quality bar chosen by Amazon Rekognition. The quality bar is based on a variety of common
-     * use cases. Low-quality detections can occur for a number of reasons. Some examples are an object that's
-     * misidentified as a face, a face that's too blurry, or a face with a pose that's too extreme to use. If you
-     * specify <code>NONE</code>, no filtering is performed. The default value is AUTO.
+     * A filter that specifies a quality bar for how much filtering is done to identify faces. Filtered faces aren't
+     * indexed. If you specify <code>AUTO</code>, Amazon Rekognition chooses the quality bar. If you specify
+     * <code>LOW</code>, <code>MEDIUM</code>, or <code>HIGH</code>, filtering removes all faces that don’t meet the
+     * chosen quality bar. The default value is <code>AUTO</code>. The quality bar is based on a variety of common use
+     * cases. Low-quality detections can occur for a number of reasons. Some examples are an object that's misidentified
+     * as a face, a face that's too blurry, or a face with a pose that's too extreme to use. If you specify
+     * <code>NONE</code>, no filtering is performed.
      * </p>
      * <p>
-     * To use quality filtering, the collection you are using must be associated with version 3 of the face model.
+     * To use quality filtering, the collection you are using must be associated with version 3 of the face model or
+     * higher.
      * </p>
      * 
      * @param qualityFilter
-     *        A filter that specifies how much filtering is done to identify faces that are detected with low quality.
-     *        Filtered faces aren't indexed. If you specify <code>AUTO</code>, filtering prioritizes the identification
-     *        of faces that don’t meet the required quality bar chosen by Amazon Rekognition. The quality bar is based
-     *        on a variety of common use cases. Low-quality detections can occur for a number of reasons. Some examples
-     *        are an object that's misidentified as a face, a face that's too blurry, or a face with a pose that's too
-     *        extreme to use. If you specify <code>NONE</code>, no filtering is performed. The default value is
-     *        AUTO.</p>
+     *        A filter that specifies a quality bar for how much filtering is done to identify faces. Filtered faces
+     *        aren't indexed. If you specify <code>AUTO</code>, Amazon Rekognition chooses the quality bar. If you
+     *        specify <code>LOW</code>, <code>MEDIUM</code>, or <code>HIGH</code>, filtering removes all faces that
+     *        don’t meet the chosen quality bar. The default value is <code>AUTO</code>. The quality bar is based on a
+     *        variety of common use cases. Low-quality detections can occur for a number of reasons. Some examples are
+     *        an object that's misidentified as a face, a face that's too blurry, or a face with a pose that's too
+     *        extreme to use. If you specify <code>NONE</code>, no filtering is performed. </p>
      *        <p>
-     *        To use quality filtering, the collection you are using must be associated with version 3 of the face
-     *        model.
+     *        To use quality filtering, the collection you are using must be associated with version 3 of the face model
+     *        or higher.
      * @see QualityFilter
      */
 
@@ -589,27 +599,29 @@ public class IndexFacesRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A filter that specifies how much filtering is done to identify faces that are detected with low quality. Filtered
-     * faces aren't indexed. If you specify <code>AUTO</code>, filtering prioritizes the identification of faces that
-     * don’t meet the required quality bar chosen by Amazon Rekognition. The quality bar is based on a variety of common
-     * use cases. Low-quality detections can occur for a number of reasons. Some examples are an object that's
-     * misidentified as a face, a face that's too blurry, or a face with a pose that's too extreme to use. If you
-     * specify <code>NONE</code>, no filtering is performed. The default value is AUTO.
+     * A filter that specifies a quality bar for how much filtering is done to identify faces. Filtered faces aren't
+     * indexed. If you specify <code>AUTO</code>, Amazon Rekognition chooses the quality bar. If you specify
+     * <code>LOW</code>, <code>MEDIUM</code>, or <code>HIGH</code>, filtering removes all faces that don’t meet the
+     * chosen quality bar. The default value is <code>AUTO</code>. The quality bar is based on a variety of common use
+     * cases. Low-quality detections can occur for a number of reasons. Some examples are an object that's misidentified
+     * as a face, a face that's too blurry, or a face with a pose that's too extreme to use. If you specify
+     * <code>NONE</code>, no filtering is performed.
      * </p>
      * <p>
-     * To use quality filtering, the collection you are using must be associated with version 3 of the face model.
+     * To use quality filtering, the collection you are using must be associated with version 3 of the face model or
+     * higher.
      * </p>
      * 
-     * @return A filter that specifies how much filtering is done to identify faces that are detected with low quality.
-     *         Filtered faces aren't indexed. If you specify <code>AUTO</code>, filtering prioritizes the identification
-     *         of faces that don’t meet the required quality bar chosen by Amazon Rekognition. The quality bar is based
-     *         on a variety of common use cases. Low-quality detections can occur for a number of reasons. Some examples
-     *         are an object that's misidentified as a face, a face that's too blurry, or a face with a pose that's too
-     *         extreme to use. If you specify <code>NONE</code>, no filtering is performed. The default value is
-     *         AUTO.</p>
+     * @return A filter that specifies a quality bar for how much filtering is done to identify faces. Filtered faces
+     *         aren't indexed. If you specify <code>AUTO</code>, Amazon Rekognition chooses the quality bar. If you
+     *         specify <code>LOW</code>, <code>MEDIUM</code>, or <code>HIGH</code>, filtering removes all faces that
+     *         don’t meet the chosen quality bar. The default value is <code>AUTO</code>. The quality bar is based on a
+     *         variety of common use cases. Low-quality detections can occur for a number of reasons. Some examples are
+     *         an object that's misidentified as a face, a face that's too blurry, or a face with a pose that's too
+     *         extreme to use. If you specify <code>NONE</code>, no filtering is performed. </p>
      *         <p>
      *         To use quality filtering, the collection you are using must be associated with version 3 of the face
-     *         model.
+     *         model or higher.
      * @see QualityFilter
      */
 
@@ -619,28 +631,30 @@ public class IndexFacesRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A filter that specifies how much filtering is done to identify faces that are detected with low quality. Filtered
-     * faces aren't indexed. If you specify <code>AUTO</code>, filtering prioritizes the identification of faces that
-     * don’t meet the required quality bar chosen by Amazon Rekognition. The quality bar is based on a variety of common
-     * use cases. Low-quality detections can occur for a number of reasons. Some examples are an object that's
-     * misidentified as a face, a face that's too blurry, or a face with a pose that's too extreme to use. If you
-     * specify <code>NONE</code>, no filtering is performed. The default value is AUTO.
+     * A filter that specifies a quality bar for how much filtering is done to identify faces. Filtered faces aren't
+     * indexed. If you specify <code>AUTO</code>, Amazon Rekognition chooses the quality bar. If you specify
+     * <code>LOW</code>, <code>MEDIUM</code>, or <code>HIGH</code>, filtering removes all faces that don’t meet the
+     * chosen quality bar. The default value is <code>AUTO</code>. The quality bar is based on a variety of common use
+     * cases. Low-quality detections can occur for a number of reasons. Some examples are an object that's misidentified
+     * as a face, a face that's too blurry, or a face with a pose that's too extreme to use. If you specify
+     * <code>NONE</code>, no filtering is performed.
      * </p>
      * <p>
-     * To use quality filtering, the collection you are using must be associated with version 3 of the face model.
+     * To use quality filtering, the collection you are using must be associated with version 3 of the face model or
+     * higher.
      * </p>
      * 
      * @param qualityFilter
-     *        A filter that specifies how much filtering is done to identify faces that are detected with low quality.
-     *        Filtered faces aren't indexed. If you specify <code>AUTO</code>, filtering prioritizes the identification
-     *        of faces that don’t meet the required quality bar chosen by Amazon Rekognition. The quality bar is based
-     *        on a variety of common use cases. Low-quality detections can occur for a number of reasons. Some examples
-     *        are an object that's misidentified as a face, a face that's too blurry, or a face with a pose that's too
-     *        extreme to use. If you specify <code>NONE</code>, no filtering is performed. The default value is
-     *        AUTO.</p>
+     *        A filter that specifies a quality bar for how much filtering is done to identify faces. Filtered faces
+     *        aren't indexed. If you specify <code>AUTO</code>, Amazon Rekognition chooses the quality bar. If you
+     *        specify <code>LOW</code>, <code>MEDIUM</code>, or <code>HIGH</code>, filtering removes all faces that
+     *        don’t meet the chosen quality bar. The default value is <code>AUTO</code>. The quality bar is based on a
+     *        variety of common use cases. Low-quality detections can occur for a number of reasons. Some examples are
+     *        an object that's misidentified as a face, a face that's too blurry, or a face with a pose that's too
+     *        extreme to use. If you specify <code>NONE</code>, no filtering is performed. </p>
      *        <p>
-     *        To use quality filtering, the collection you are using must be associated with version 3 of the face
-     *        model.
+     *        To use quality filtering, the collection you are using must be associated with version 3 of the face model
+     *        or higher.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see QualityFilter
      */
@@ -652,28 +666,30 @@ public class IndexFacesRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A filter that specifies how much filtering is done to identify faces that are detected with low quality. Filtered
-     * faces aren't indexed. If you specify <code>AUTO</code>, filtering prioritizes the identification of faces that
-     * don’t meet the required quality bar chosen by Amazon Rekognition. The quality bar is based on a variety of common
-     * use cases. Low-quality detections can occur for a number of reasons. Some examples are an object that's
-     * misidentified as a face, a face that's too blurry, or a face with a pose that's too extreme to use. If you
-     * specify <code>NONE</code>, no filtering is performed. The default value is AUTO.
+     * A filter that specifies a quality bar for how much filtering is done to identify faces. Filtered faces aren't
+     * indexed. If you specify <code>AUTO</code>, Amazon Rekognition chooses the quality bar. If you specify
+     * <code>LOW</code>, <code>MEDIUM</code>, or <code>HIGH</code>, filtering removes all faces that don’t meet the
+     * chosen quality bar. The default value is <code>AUTO</code>. The quality bar is based on a variety of common use
+     * cases. Low-quality detections can occur for a number of reasons. Some examples are an object that's misidentified
+     * as a face, a face that's too blurry, or a face with a pose that's too extreme to use. If you specify
+     * <code>NONE</code>, no filtering is performed.
      * </p>
      * <p>
-     * To use quality filtering, the collection you are using must be associated with version 3 of the face model.
+     * To use quality filtering, the collection you are using must be associated with version 3 of the face model or
+     * higher.
      * </p>
      * 
      * @param qualityFilter
-     *        A filter that specifies how much filtering is done to identify faces that are detected with low quality.
-     *        Filtered faces aren't indexed. If you specify <code>AUTO</code>, filtering prioritizes the identification
-     *        of faces that don’t meet the required quality bar chosen by Amazon Rekognition. The quality bar is based
-     *        on a variety of common use cases. Low-quality detections can occur for a number of reasons. Some examples
-     *        are an object that's misidentified as a face, a face that's too blurry, or a face with a pose that's too
-     *        extreme to use. If you specify <code>NONE</code>, no filtering is performed. The default value is
-     *        AUTO.</p>
+     *        A filter that specifies a quality bar for how much filtering is done to identify faces. Filtered faces
+     *        aren't indexed. If you specify <code>AUTO</code>, Amazon Rekognition chooses the quality bar. If you
+     *        specify <code>LOW</code>, <code>MEDIUM</code>, or <code>HIGH</code>, filtering removes all faces that
+     *        don’t meet the chosen quality bar. The default value is <code>AUTO</code>. The quality bar is based on a
+     *        variety of common use cases. Low-quality detections can occur for a number of reasons. Some examples are
+     *        an object that's misidentified as a face, a face that's too blurry, or a face with a pose that's too
+     *        extreme to use. If you specify <code>NONE</code>, no filtering is performed. </p>
      *        <p>
-     *        To use quality filtering, the collection you are using must be associated with version 3 of the face
-     *        model.
+     *        To use quality filtering, the collection you are using must be associated with version 3 of the face model
+     *        or higher.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see QualityFilter
      */

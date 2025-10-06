@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,16 +27,16 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A string that indicates that additional data is available. Leave this value empty for your initial request. If
-     * the response includes a <code>PaginationToken</code>, use that string for this value to request an additional
-     * page of data.
+     * Specifies a <code>PaginationToken</code> response value from a previous request to indicate that you want the
+     * next page of results. Leave this parameter empty in your initial request.
      * </p>
      */
     private String paginationToken;
     /**
      * <p>
-     * A list of TagFilters (keys and values). Each TagFilter specified must contain a key with values as optional. A
-     * request can include up to 50 keys, and each key can include up to 20 values.
+     * Specifies a list of TagFilters (keys and values) to restrict the output to only those resources that have tags
+     * with the specified keys and, if included, the specified values. Each <code>TagFilter</code> must contain a key
+     * with values optional. A request can include up to 50 keys, and each key can include up to 20 values.
      * </p>
      * <p>
      * Note the following when deciding how to use TagFilters:
@@ -44,59 +44,54 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <ul>
      * <li>
      * <p>
-     * If you <i>do</i> specify a TagFilter, the response returns only those resources that are currently associated
-     * with the specified tag.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * If you <i>don't</i> specify a TagFilter, the response includes all resources that were ever associated with tags.
-     * Resources that currently don't have associated tags are shown with an empty tag set, like this:
+     * If you <i>don't</i> specify a <code>TagFilter</code>, the response includes all resources that are currently
+     * tagged or ever had a tag. Resources that currently don't have tags are shown with an empty tag set, like this:
      * <code>"Tags": []</code>.
      * </p>
      * </li>
      * <li>
      * <p>
      * If you specify more than one filter in a single request, the response returns only those resources that satisfy
-     * all specified filters.
+     * all filters.
      * </p>
      * </li>
      * <li>
      * <p>
      * If you specify a filter that contains more than one value for a key, the response returns resources that match
-     * any of the specified values for that key.
+     * <i>any</i> of the specified values for that key.
      * </p>
      * </li>
      * <li>
      * <p>
-     * If you don't specify any values for a key, the response returns resources that are tagged with that key
-     * irrespective of the value.
+     * If you don't specify a value for a key, the response returns all resources that are tagged with that key, with
+     * any or no value.
      * </p>
      * <p>
-     * For example, for filters: filter1 = {key1, {value1}}, filter2 = {key2, {value2,value3,value4}} , filter3 =
-     * {key3}:
+     * For example, for the following filters: <code>filter1= {keyA,{value1}}</code>,
+     * <code>filter2={keyB,{value2,value3,value4}}</code>, <code>filter3= {keyC}</code>:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * GetResources( {filter1} ) returns resources tagged with key1=value1
+     * <code>GetResources({filter1})</code> returns resources tagged with <code>key1=value1</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * GetResources( {filter2} ) returns resources tagged with key2=value2 or key2=value3 or key2=value4
+     * <code>GetResources({filter2})</code> returns resources tagged with <code>key2=value2</code> or
+     * <code>key2=value3</code> or <code>key2=value4</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * GetResources( {filter3} ) returns resources tagged with any tag containing key3 as its tag key, irrespective of
-     * its value
+     * <code>GetResources({filter3})</code> returns resources tagged with any tag with the key <code>key3</code>, and
+     * with any or no value
      * </p>
      * </li>
      * <li>
      * <p>
-     * GetResources( {filter1,filter2,filter3} ) returns resources tagged with ( key1=value1) and ( key2=value2 or
-     * key2=value3 or key2=value4) and (key3, irrespective of the value)
+     * <code>GetResources({filter1,filter2,filter3})</code> returns resources tagged with
+     * <code>(key1=value1) and (key2=value2 or key2=value3 or key2=value4) and (key3, any or no value)</code>
      * </p>
      * </li>
      * </ul>
@@ -106,81 +101,103 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
     private java.util.List<TagFilter> tagFilters;
     /**
      * <p>
-     * A limit that restricts the number of resources returned by GetResources in paginated output. You can set
-     * ResourcesPerPage to a minimum of 1 item and the maximum of 100 items.
+     * Specifies the maximum number of results to be returned in each page. A query can return fewer than this maximum,
+     * even if there are more results still to return. You should always check the <code>PaginationToken</code> response
+     * value to see if there are more results. You can specify a minimum of 1 and a maximum value of 100.
      * </p>
      */
     private Integer resourcesPerPage;
     /**
      * <p>
-     * A limit that restricts the number of tags (key and value pairs) returned by GetResources in paginated output. A
-     * resource with no tags is counted as having one tag (one key and value pair).
+     * Amazon Web Services recommends using <code>ResourcesPerPage</code> instead of this parameter.
+     * </p>
+     * <p>
+     * A limit that restricts the number of tags (key and value pairs) returned by <code>GetResources</code> in
+     * paginated output. A resource with no tags is counted as having one tag (one key and value pair).
      * </p>
      * <p>
      * <code>GetResources</code> does not split a resource and its associated tags across pages. If the specified
      * <code>TagsPerPage</code> would cause such a break, a <code>PaginationToken</code> is returned in place of the
      * affected resource and its tags. Use that token in another request to get the remaining data. For example, if you
      * specify a <code>TagsPerPage</code> of <code>100</code> and the account has 22 resources with 10 tags each
-     * (meaning that each resource has 10 key and value pairs), the output will consist of 3 pages, with the first page
-     * displaying the first 10 resources, each with its 10 tags, the second page displaying the next 10 resources each
-     * with its 10 tags, and the third page displaying the remaining 2 resources, each with its 10 tags.
+     * (meaning that each resource has 10 key and value pairs), the output will consist of three pages. The first page
+     * displays the first 10 resources, each with its 10 tags. The second page displays the next 10 resources, each with
+     * its 10 tags. The third page displays the remaining 2 resources, each with its 10 tags.
      * </p>
      * <p>
-     * You can set <code>TagsPerPage</code> to a minimum of 100 items and the maximum of 500 items.
+     * You can set <code>TagsPerPage</code> to a minimum of 100 items up to a maximum of 500 items.
      * </p>
      */
     private Integer tagsPerPage;
     /**
      * <p>
-     * The constraints on the resources that you want returned. The format of each resource type is
+     * Specifies the resource types that you want included in the response. The format of each resource type is
      * <code>service[:resourceType]</code>. For example, specifying a resource type of <code>ec2</code> returns all
      * Amazon EC2 resources (which includes EC2 instances). Specifying a resource type of <code>ec2:instance</code>
      * returns only EC2 instances.
      * </p>
      * <p>
      * The string for each service name and resource type is the same as that embedded in a resource's Amazon Resource
-     * Name (ARN). Consult the <i>AWS General Reference</i> for the following:
+     * Name (ARN). For the list of services whose resources you can use in this parameter, see <a
+     * href="https://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/supported-services.html">Services
+     * that support the Resource Groups Tagging API</a>.
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * For a list of service name strings, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * For resource type strings, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arns-syntax">Example ARNs</a>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * For more information about ARNs, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and
-     * AWS Service Namespaces</a>.
-     * </p>
-     * </li>
-     * </ul>
      * <p>
      * You can specify multiple resource types by using an array. The array can include up to 100 items. Note that the
-     * length constraint requirement applies to each resource type filter.
+     * length constraint requirement applies to each resource type filter. For example, the following string would limit
+     * the response to only Amazon EC2 instances, Amazon S3 buckets, or any Audit Manager resource:
+     * </p>
+     * <p>
+     * <code>ec2:instance,s3:bucket,auditmanager</code>
      * </p>
      */
     private java.util.List<String> resourceTypeFilters;
+    /**
+     * <p>
+     * Specifies whether to include details regarding the compliance with the effective tag policy. Set this to
+     * <code>true</code> to determine whether resources are compliant with the tag policy and to get details.
+     * </p>
+     */
+    private Boolean includeComplianceDetails;
+    /**
+     * <p>
+     * Specifies whether to exclude resources that are compliant with the tag policy. Set this to <code>true</code> if
+     * you are interested in retrieving information on noncompliant resources only.
+     * </p>
+     * <p>
+     * You can use this parameter only if the <code>IncludeComplianceDetails</code> parameter is also set to
+     * <code>true</code>.
+     * </p>
+     */
+    private Boolean excludeCompliantResources;
+    /**
+     * <p>
+     * Specifies a list of ARNs of resources for which you want to retrieve tag data. You can't specify both this
+     * parameter and any of the pagination parameters (<code>ResourcesPerPage</code>, <code>TagsPerPage</code>,
+     * <code>PaginationToken</code>) in the same request. If you specify both, you get an <code>Invalid Parameter</code>
+     * exception.
+     * </p>
+     * <p>
+     * If a resource specified by this parameter doesn't exist, it doesn't generate an error; it simply isn't included
+     * in the response.
+     * </p>
+     * <p>
+     * An ARN (Amazon Resource Name) uniquely identifies a resource. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
+     * and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     * </p>
+     */
+    private java.util.List<String> resourceARNList;
 
     /**
      * <p>
-     * A string that indicates that additional data is available. Leave this value empty for your initial request. If
-     * the response includes a <code>PaginationToken</code>, use that string for this value to request an additional
-     * page of data.
+     * Specifies a <code>PaginationToken</code> response value from a previous request to indicate that you want the
+     * next page of results. Leave this parameter empty in your initial request.
      * </p>
      * 
      * @param paginationToken
-     *        A string that indicates that additional data is available. Leave this value empty for your initial
-     *        request. If the response includes a <code>PaginationToken</code>, use that string for this value to
-     *        request an additional page of data.
+     *        Specifies a <code>PaginationToken</code> response value from a previous request to indicate that you want
+     *        the next page of results. Leave this parameter empty in your initial request.
      */
 
     public void setPaginationToken(String paginationToken) {
@@ -189,14 +206,12 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A string that indicates that additional data is available. Leave this value empty for your initial request. If
-     * the response includes a <code>PaginationToken</code>, use that string for this value to request an additional
-     * page of data.
+     * Specifies a <code>PaginationToken</code> response value from a previous request to indicate that you want the
+     * next page of results. Leave this parameter empty in your initial request.
      * </p>
      * 
-     * @return A string that indicates that additional data is available. Leave this value empty for your initial
-     *         request. If the response includes a <code>PaginationToken</code>, use that string for this value to
-     *         request an additional page of data.
+     * @return Specifies a <code>PaginationToken</code> response value from a previous request to indicate that you want
+     *         the next page of results. Leave this parameter empty in your initial request.
      */
 
     public String getPaginationToken() {
@@ -205,15 +220,13 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A string that indicates that additional data is available. Leave this value empty for your initial request. If
-     * the response includes a <code>PaginationToken</code>, use that string for this value to request an additional
-     * page of data.
+     * Specifies a <code>PaginationToken</code> response value from a previous request to indicate that you want the
+     * next page of results. Leave this parameter empty in your initial request.
      * </p>
      * 
      * @param paginationToken
-     *        A string that indicates that additional data is available. Leave this value empty for your initial
-     *        request. If the response includes a <code>PaginationToken</code>, use that string for this value to
-     *        request an additional page of data.
+     *        Specifies a <code>PaginationToken</code> response value from a previous request to indicate that you want
+     *        the next page of results. Leave this parameter empty in your initial request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -224,8 +237,9 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A list of TagFilters (keys and values). Each TagFilter specified must contain a key with values as optional. A
-     * request can include up to 50 keys, and each key can include up to 20 values.
+     * Specifies a list of TagFilters (keys and values) to restrict the output to only those resources that have tags
+     * with the specified keys and, if included, the specified values. Each <code>TagFilter</code> must contain a key
+     * with values optional. A request can include up to 50 keys, and each key can include up to 20 values.
      * </p>
      * <p>
      * Note the following when deciding how to use TagFilters:
@@ -233,126 +247,118 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <ul>
      * <li>
      * <p>
-     * If you <i>do</i> specify a TagFilter, the response returns only those resources that are currently associated
-     * with the specified tag.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * If you <i>don't</i> specify a TagFilter, the response includes all resources that were ever associated with tags.
-     * Resources that currently don't have associated tags are shown with an empty tag set, like this:
+     * If you <i>don't</i> specify a <code>TagFilter</code>, the response includes all resources that are currently
+     * tagged or ever had a tag. Resources that currently don't have tags are shown with an empty tag set, like this:
      * <code>"Tags": []</code>.
      * </p>
      * </li>
      * <li>
      * <p>
      * If you specify more than one filter in a single request, the response returns only those resources that satisfy
-     * all specified filters.
+     * all filters.
      * </p>
      * </li>
      * <li>
      * <p>
      * If you specify a filter that contains more than one value for a key, the response returns resources that match
-     * any of the specified values for that key.
+     * <i>any</i> of the specified values for that key.
      * </p>
      * </li>
      * <li>
      * <p>
-     * If you don't specify any values for a key, the response returns resources that are tagged with that key
-     * irrespective of the value.
+     * If you don't specify a value for a key, the response returns all resources that are tagged with that key, with
+     * any or no value.
      * </p>
      * <p>
-     * For example, for filters: filter1 = {key1, {value1}}, filter2 = {key2, {value2,value3,value4}} , filter3 =
-     * {key3}:
+     * For example, for the following filters: <code>filter1= {keyA,{value1}}</code>,
+     * <code>filter2={keyB,{value2,value3,value4}}</code>, <code>filter3= {keyC}</code>:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * GetResources( {filter1} ) returns resources tagged with key1=value1
+     * <code>GetResources({filter1})</code> returns resources tagged with <code>key1=value1</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * GetResources( {filter2} ) returns resources tagged with key2=value2 or key2=value3 or key2=value4
+     * <code>GetResources({filter2})</code> returns resources tagged with <code>key2=value2</code> or
+     * <code>key2=value3</code> or <code>key2=value4</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * GetResources( {filter3} ) returns resources tagged with any tag containing key3 as its tag key, irrespective of
-     * its value
+     * <code>GetResources({filter3})</code> returns resources tagged with any tag with the key <code>key3</code>, and
+     * with any or no value
      * </p>
      * </li>
      * <li>
      * <p>
-     * GetResources( {filter1,filter2,filter3} ) returns resources tagged with ( key1=value1) and ( key2=value2 or
-     * key2=value3 or key2=value4) and (key3, irrespective of the value)
+     * <code>GetResources({filter1,filter2,filter3})</code> returns resources tagged with
+     * <code>(key1=value1) and (key2=value2 or key2=value3 or key2=value4) and (key3, any or no value)</code>
      * </p>
      * </li>
      * </ul>
      * </li>
      * </ul>
      * 
-     * @return A list of TagFilters (keys and values). Each TagFilter specified must contain a key with values as
-     *         optional. A request can include up to 50 keys, and each key can include up to 20 values. </p>
+     * @return Specifies a list of TagFilters (keys and values) to restrict the output to only those resources that have
+     *         tags with the specified keys and, if included, the specified values. Each <code>TagFilter</code> must
+     *         contain a key with values optional. A request can include up to 50 keys, and each key can include up to
+     *         20 values. </p>
      *         <p>
      *         Note the following when deciding how to use TagFilters:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         If you <i>do</i> specify a TagFilter, the response returns only those resources that are currently
-     *         associated with the specified tag.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         If you <i>don't</i> specify a TagFilter, the response includes all resources that were ever associated
-     *         with tags. Resources that currently don't have associated tags are shown with an empty tag set, like
-     *         this: <code>"Tags": []</code>.
+     *         If you <i>don't</i> specify a <code>TagFilter</code>, the response includes all resources that are
+     *         currently tagged or ever had a tag. Resources that currently don't have tags are shown with an empty tag
+     *         set, like this: <code>"Tags": []</code>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         If you specify more than one filter in a single request, the response returns only those resources that
-     *         satisfy all specified filters.
+     *         satisfy all filters.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         If you specify a filter that contains more than one value for a key, the response returns resources that
-     *         match any of the specified values for that key.
+     *         match <i>any</i> of the specified values for that key.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         If you don't specify any values for a key, the response returns resources that are tagged with that key
-     *         irrespective of the value.
+     *         If you don't specify a value for a key, the response returns all resources that are tagged with that key,
+     *         with any or no value.
      *         </p>
      *         <p>
-     *         For example, for filters: filter1 = {key1, {value1}}, filter2 = {key2, {value2,value3,value4}} , filter3
-     *         = {key3}:
+     *         For example, for the following filters: <code>filter1= {keyA,{value1}}</code>,
+     *         <code>filter2={keyB,{value2,value3,value4}}</code>, <code>filter3= {keyC}</code>:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         GetResources( {filter1} ) returns resources tagged with key1=value1
+     *         <code>GetResources({filter1})</code> returns resources tagged with <code>key1=value1</code>
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         GetResources( {filter2} ) returns resources tagged with key2=value2 or key2=value3 or key2=value4
+     *         <code>GetResources({filter2})</code> returns resources tagged with <code>key2=value2</code> or
+     *         <code>key2=value3</code> or <code>key2=value4</code>
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         GetResources( {filter3} ) returns resources tagged with any tag containing key3 as its tag key,
-     *         irrespective of its value
+     *         <code>GetResources({filter3})</code> returns resources tagged with any tag with the key <code>key3</code>
+     *         , and with any or no value
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         GetResources( {filter1,filter2,filter3} ) returns resources tagged with ( key1=value1) and ( key2=value2
-     *         or key2=value3 or key2=value4) and (key3, irrespective of the value)
+     *         <code>GetResources({filter1,filter2,filter3})</code> returns resources tagged with
+     *         <code>(key1=value1) and (key2=value2 or key2=value3 or key2=value4) and (key3, any or no value)</code>
      *         </p>
      *         </li>
      *         </ul>
@@ -365,8 +371,9 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A list of TagFilters (keys and values). Each TagFilter specified must contain a key with values as optional. A
-     * request can include up to 50 keys, and each key can include up to 20 values.
+     * Specifies a list of TagFilters (keys and values) to restrict the output to only those resources that have tags
+     * with the specified keys and, if included, the specified values. Each <code>TagFilter</code> must contain a key
+     * with values optional. A request can include up to 50 keys, and each key can include up to 20 values.
      * </p>
      * <p>
      * Note the following when deciding how to use TagFilters:
@@ -374,59 +381,54 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <ul>
      * <li>
      * <p>
-     * If you <i>do</i> specify a TagFilter, the response returns only those resources that are currently associated
-     * with the specified tag.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * If you <i>don't</i> specify a TagFilter, the response includes all resources that were ever associated with tags.
-     * Resources that currently don't have associated tags are shown with an empty tag set, like this:
+     * If you <i>don't</i> specify a <code>TagFilter</code>, the response includes all resources that are currently
+     * tagged or ever had a tag. Resources that currently don't have tags are shown with an empty tag set, like this:
      * <code>"Tags": []</code>.
      * </p>
      * </li>
      * <li>
      * <p>
      * If you specify more than one filter in a single request, the response returns only those resources that satisfy
-     * all specified filters.
+     * all filters.
      * </p>
      * </li>
      * <li>
      * <p>
      * If you specify a filter that contains more than one value for a key, the response returns resources that match
-     * any of the specified values for that key.
+     * <i>any</i> of the specified values for that key.
      * </p>
      * </li>
      * <li>
      * <p>
-     * If you don't specify any values for a key, the response returns resources that are tagged with that key
-     * irrespective of the value.
+     * If you don't specify a value for a key, the response returns all resources that are tagged with that key, with
+     * any or no value.
      * </p>
      * <p>
-     * For example, for filters: filter1 = {key1, {value1}}, filter2 = {key2, {value2,value3,value4}} , filter3 =
-     * {key3}:
+     * For example, for the following filters: <code>filter1= {keyA,{value1}}</code>,
+     * <code>filter2={keyB,{value2,value3,value4}}</code>, <code>filter3= {keyC}</code>:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * GetResources( {filter1} ) returns resources tagged with key1=value1
+     * <code>GetResources({filter1})</code> returns resources tagged with <code>key1=value1</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * GetResources( {filter2} ) returns resources tagged with key2=value2 or key2=value3 or key2=value4
+     * <code>GetResources({filter2})</code> returns resources tagged with <code>key2=value2</code> or
+     * <code>key2=value3</code> or <code>key2=value4</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * GetResources( {filter3} ) returns resources tagged with any tag containing key3 as its tag key, irrespective of
-     * its value
+     * <code>GetResources({filter3})</code> returns resources tagged with any tag with the key <code>key3</code>, and
+     * with any or no value
      * </p>
      * </li>
      * <li>
      * <p>
-     * GetResources( {filter1,filter2,filter3} ) returns resources tagged with ( key1=value1) and ( key2=value2 or
-     * key2=value3 or key2=value4) and (key3, irrespective of the value)
+     * <code>GetResources({filter1,filter2,filter3})</code> returns resources tagged with
+     * <code>(key1=value1) and (key2=value2 or key2=value3 or key2=value4) and (key3, any or no value)</code>
      * </p>
      * </li>
      * </ul>
@@ -434,67 +436,64 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </ul>
      * 
      * @param tagFilters
-     *        A list of TagFilters (keys and values). Each TagFilter specified must contain a key with values as
-     *        optional. A request can include up to 50 keys, and each key can include up to 20 values. </p>
+     *        Specifies a list of TagFilters (keys and values) to restrict the output to only those resources that have
+     *        tags with the specified keys and, if included, the specified values. Each <code>TagFilter</code> must
+     *        contain a key with values optional. A request can include up to 50 keys, and each key can include up to 20
+     *        values. </p>
      *        <p>
      *        Note the following when deciding how to use TagFilters:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        If you <i>do</i> specify a TagFilter, the response returns only those resources that are currently
-     *        associated with the specified tag.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        If you <i>don't</i> specify a TagFilter, the response includes all resources that were ever associated
-     *        with tags. Resources that currently don't have associated tags are shown with an empty tag set, like this:
-     *        <code>"Tags": []</code>.
+     *        If you <i>don't</i> specify a <code>TagFilter</code>, the response includes all resources that are
+     *        currently tagged or ever had a tag. Resources that currently don't have tags are shown with an empty tag
+     *        set, like this: <code>"Tags": []</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        If you specify more than one filter in a single request, the response returns only those resources that
-     *        satisfy all specified filters.
+     *        satisfy all filters.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        If you specify a filter that contains more than one value for a key, the response returns resources that
-     *        match any of the specified values for that key.
+     *        match <i>any</i> of the specified values for that key.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        If you don't specify any values for a key, the response returns resources that are tagged with that key
-     *        irrespective of the value.
+     *        If you don't specify a value for a key, the response returns all resources that are tagged with that key,
+     *        with any or no value.
      *        </p>
      *        <p>
-     *        For example, for filters: filter1 = {key1, {value1}}, filter2 = {key2, {value2,value3,value4}} , filter3 =
-     *        {key3}:
+     *        For example, for the following filters: <code>filter1= {keyA,{value1}}</code>,
+     *        <code>filter2={keyB,{value2,value3,value4}}</code>, <code>filter3= {keyC}</code>:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        GetResources( {filter1} ) returns resources tagged with key1=value1
+     *        <code>GetResources({filter1})</code> returns resources tagged with <code>key1=value1</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        GetResources( {filter2} ) returns resources tagged with key2=value2 or key2=value3 or key2=value4
+     *        <code>GetResources({filter2})</code> returns resources tagged with <code>key2=value2</code> or
+     *        <code>key2=value3</code> or <code>key2=value4</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        GetResources( {filter3} ) returns resources tagged with any tag containing key3 as its tag key,
-     *        irrespective of its value
+     *        <code>GetResources({filter3})</code> returns resources tagged with any tag with the key <code>key3</code>,
+     *        and with any or no value
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        GetResources( {filter1,filter2,filter3} ) returns resources tagged with ( key1=value1) and ( key2=value2
-     *        or key2=value3 or key2=value4) and (key3, irrespective of the value)
+     *        <code>GetResources({filter1,filter2,filter3})</code> returns resources tagged with
+     *        <code>(key1=value1) and (key2=value2 or key2=value3 or key2=value4) and (key3, any or no value)</code>
      *        </p>
      *        </li>
      *        </ul>
@@ -512,8 +511,9 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A list of TagFilters (keys and values). Each TagFilter specified must contain a key with values as optional. A
-     * request can include up to 50 keys, and each key can include up to 20 values.
+     * Specifies a list of TagFilters (keys and values) to restrict the output to only those resources that have tags
+     * with the specified keys and, if included, the specified values. Each <code>TagFilter</code> must contain a key
+     * with values optional. A request can include up to 50 keys, and each key can include up to 20 values.
      * </p>
      * <p>
      * Note the following when deciding how to use TagFilters:
@@ -521,59 +521,54 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <ul>
      * <li>
      * <p>
-     * If you <i>do</i> specify a TagFilter, the response returns only those resources that are currently associated
-     * with the specified tag.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * If you <i>don't</i> specify a TagFilter, the response includes all resources that were ever associated with tags.
-     * Resources that currently don't have associated tags are shown with an empty tag set, like this:
+     * If you <i>don't</i> specify a <code>TagFilter</code>, the response includes all resources that are currently
+     * tagged or ever had a tag. Resources that currently don't have tags are shown with an empty tag set, like this:
      * <code>"Tags": []</code>.
      * </p>
      * </li>
      * <li>
      * <p>
      * If you specify more than one filter in a single request, the response returns only those resources that satisfy
-     * all specified filters.
+     * all filters.
      * </p>
      * </li>
      * <li>
      * <p>
      * If you specify a filter that contains more than one value for a key, the response returns resources that match
-     * any of the specified values for that key.
+     * <i>any</i> of the specified values for that key.
      * </p>
      * </li>
      * <li>
      * <p>
-     * If you don't specify any values for a key, the response returns resources that are tagged with that key
-     * irrespective of the value.
+     * If you don't specify a value for a key, the response returns all resources that are tagged with that key, with
+     * any or no value.
      * </p>
      * <p>
-     * For example, for filters: filter1 = {key1, {value1}}, filter2 = {key2, {value2,value3,value4}} , filter3 =
-     * {key3}:
+     * For example, for the following filters: <code>filter1= {keyA,{value1}}</code>,
+     * <code>filter2={keyB,{value2,value3,value4}}</code>, <code>filter3= {keyC}</code>:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * GetResources( {filter1} ) returns resources tagged with key1=value1
+     * <code>GetResources({filter1})</code> returns resources tagged with <code>key1=value1</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * GetResources( {filter2} ) returns resources tagged with key2=value2 or key2=value3 or key2=value4
+     * <code>GetResources({filter2})</code> returns resources tagged with <code>key2=value2</code> or
+     * <code>key2=value3</code> or <code>key2=value4</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * GetResources( {filter3} ) returns resources tagged with any tag containing key3 as its tag key, irrespective of
-     * its value
+     * <code>GetResources({filter3})</code> returns resources tagged with any tag with the key <code>key3</code>, and
+     * with any or no value
      * </p>
      * </li>
      * <li>
      * <p>
-     * GetResources( {filter1,filter2,filter3} ) returns resources tagged with ( key1=value1) and ( key2=value2 or
-     * key2=value3 or key2=value4) and (key3, irrespective of the value)
+     * <code>GetResources({filter1,filter2,filter3})</code> returns resources tagged with
+     * <code>(key1=value1) and (key2=value2 or key2=value3 or key2=value4) and (key3, any or no value)</code>
      * </p>
      * </li>
      * </ul>
@@ -586,67 +581,64 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * 
      * @param tagFilters
-     *        A list of TagFilters (keys and values). Each TagFilter specified must contain a key with values as
-     *        optional. A request can include up to 50 keys, and each key can include up to 20 values. </p>
+     *        Specifies a list of TagFilters (keys and values) to restrict the output to only those resources that have
+     *        tags with the specified keys and, if included, the specified values. Each <code>TagFilter</code> must
+     *        contain a key with values optional. A request can include up to 50 keys, and each key can include up to 20
+     *        values. </p>
      *        <p>
      *        Note the following when deciding how to use TagFilters:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        If you <i>do</i> specify a TagFilter, the response returns only those resources that are currently
-     *        associated with the specified tag.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        If you <i>don't</i> specify a TagFilter, the response includes all resources that were ever associated
-     *        with tags. Resources that currently don't have associated tags are shown with an empty tag set, like this:
-     *        <code>"Tags": []</code>.
+     *        If you <i>don't</i> specify a <code>TagFilter</code>, the response includes all resources that are
+     *        currently tagged or ever had a tag. Resources that currently don't have tags are shown with an empty tag
+     *        set, like this: <code>"Tags": []</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        If you specify more than one filter in a single request, the response returns only those resources that
-     *        satisfy all specified filters.
+     *        satisfy all filters.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        If you specify a filter that contains more than one value for a key, the response returns resources that
-     *        match any of the specified values for that key.
+     *        match <i>any</i> of the specified values for that key.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        If you don't specify any values for a key, the response returns resources that are tagged with that key
-     *        irrespective of the value.
+     *        If you don't specify a value for a key, the response returns all resources that are tagged with that key,
+     *        with any or no value.
      *        </p>
      *        <p>
-     *        For example, for filters: filter1 = {key1, {value1}}, filter2 = {key2, {value2,value3,value4}} , filter3 =
-     *        {key3}:
+     *        For example, for the following filters: <code>filter1= {keyA,{value1}}</code>,
+     *        <code>filter2={keyB,{value2,value3,value4}}</code>, <code>filter3= {keyC}</code>:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        GetResources( {filter1} ) returns resources tagged with key1=value1
+     *        <code>GetResources({filter1})</code> returns resources tagged with <code>key1=value1</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        GetResources( {filter2} ) returns resources tagged with key2=value2 or key2=value3 or key2=value4
+     *        <code>GetResources({filter2})</code> returns resources tagged with <code>key2=value2</code> or
+     *        <code>key2=value3</code> or <code>key2=value4</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        GetResources( {filter3} ) returns resources tagged with any tag containing key3 as its tag key,
-     *        irrespective of its value
+     *        <code>GetResources({filter3})</code> returns resources tagged with any tag with the key <code>key3</code>,
+     *        and with any or no value
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        GetResources( {filter1,filter2,filter3} ) returns resources tagged with ( key1=value1) and ( key2=value2
-     *        or key2=value3 or key2=value4) and (key3, irrespective of the value)
+     *        <code>GetResources({filter1,filter2,filter3})</code> returns resources tagged with
+     *        <code>(key1=value1) and (key2=value2 or key2=value3 or key2=value4) and (key3, any or no value)</code>
      *        </p>
      *        </li>
      *        </ul>
@@ -666,8 +658,9 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A list of TagFilters (keys and values). Each TagFilter specified must contain a key with values as optional. A
-     * request can include up to 50 keys, and each key can include up to 20 values.
+     * Specifies a list of TagFilters (keys and values) to restrict the output to only those resources that have tags
+     * with the specified keys and, if included, the specified values. Each <code>TagFilter</code> must contain a key
+     * with values optional. A request can include up to 50 keys, and each key can include up to 20 values.
      * </p>
      * <p>
      * Note the following when deciding how to use TagFilters:
@@ -675,59 +668,54 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <ul>
      * <li>
      * <p>
-     * If you <i>do</i> specify a TagFilter, the response returns only those resources that are currently associated
-     * with the specified tag.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * If you <i>don't</i> specify a TagFilter, the response includes all resources that were ever associated with tags.
-     * Resources that currently don't have associated tags are shown with an empty tag set, like this:
+     * If you <i>don't</i> specify a <code>TagFilter</code>, the response includes all resources that are currently
+     * tagged or ever had a tag. Resources that currently don't have tags are shown with an empty tag set, like this:
      * <code>"Tags": []</code>.
      * </p>
      * </li>
      * <li>
      * <p>
      * If you specify more than one filter in a single request, the response returns only those resources that satisfy
-     * all specified filters.
+     * all filters.
      * </p>
      * </li>
      * <li>
      * <p>
      * If you specify a filter that contains more than one value for a key, the response returns resources that match
-     * any of the specified values for that key.
+     * <i>any</i> of the specified values for that key.
      * </p>
      * </li>
      * <li>
      * <p>
-     * If you don't specify any values for a key, the response returns resources that are tagged with that key
-     * irrespective of the value.
+     * If you don't specify a value for a key, the response returns all resources that are tagged with that key, with
+     * any or no value.
      * </p>
      * <p>
-     * For example, for filters: filter1 = {key1, {value1}}, filter2 = {key2, {value2,value3,value4}} , filter3 =
-     * {key3}:
+     * For example, for the following filters: <code>filter1= {keyA,{value1}}</code>,
+     * <code>filter2={keyB,{value2,value3,value4}}</code>, <code>filter3= {keyC}</code>:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * GetResources( {filter1} ) returns resources tagged with key1=value1
+     * <code>GetResources({filter1})</code> returns resources tagged with <code>key1=value1</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * GetResources( {filter2} ) returns resources tagged with key2=value2 or key2=value3 or key2=value4
+     * <code>GetResources({filter2})</code> returns resources tagged with <code>key2=value2</code> or
+     * <code>key2=value3</code> or <code>key2=value4</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * GetResources( {filter3} ) returns resources tagged with any tag containing key3 as its tag key, irrespective of
-     * its value
+     * <code>GetResources({filter3})</code> returns resources tagged with any tag with the key <code>key3</code>, and
+     * with any or no value
      * </p>
      * </li>
      * <li>
      * <p>
-     * GetResources( {filter1,filter2,filter3} ) returns resources tagged with ( key1=value1) and ( key2=value2 or
-     * key2=value3 or key2=value4) and (key3, irrespective of the value)
+     * <code>GetResources({filter1,filter2,filter3})</code> returns resources tagged with
+     * <code>(key1=value1) and (key2=value2 or key2=value3 or key2=value4) and (key3, any or no value)</code>
      * </p>
      * </li>
      * </ul>
@@ -735,67 +723,64 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </ul>
      * 
      * @param tagFilters
-     *        A list of TagFilters (keys and values). Each TagFilter specified must contain a key with values as
-     *        optional. A request can include up to 50 keys, and each key can include up to 20 values. </p>
+     *        Specifies a list of TagFilters (keys and values) to restrict the output to only those resources that have
+     *        tags with the specified keys and, if included, the specified values. Each <code>TagFilter</code> must
+     *        contain a key with values optional. A request can include up to 50 keys, and each key can include up to 20
+     *        values. </p>
      *        <p>
      *        Note the following when deciding how to use TagFilters:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        If you <i>do</i> specify a TagFilter, the response returns only those resources that are currently
-     *        associated with the specified tag.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        If you <i>don't</i> specify a TagFilter, the response includes all resources that were ever associated
-     *        with tags. Resources that currently don't have associated tags are shown with an empty tag set, like this:
-     *        <code>"Tags": []</code>.
+     *        If you <i>don't</i> specify a <code>TagFilter</code>, the response includes all resources that are
+     *        currently tagged or ever had a tag. Resources that currently don't have tags are shown with an empty tag
+     *        set, like this: <code>"Tags": []</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        If you specify more than one filter in a single request, the response returns only those resources that
-     *        satisfy all specified filters.
+     *        satisfy all filters.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        If you specify a filter that contains more than one value for a key, the response returns resources that
-     *        match any of the specified values for that key.
+     *        match <i>any</i> of the specified values for that key.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        If you don't specify any values for a key, the response returns resources that are tagged with that key
-     *        irrespective of the value.
+     *        If you don't specify a value for a key, the response returns all resources that are tagged with that key,
+     *        with any or no value.
      *        </p>
      *        <p>
-     *        For example, for filters: filter1 = {key1, {value1}}, filter2 = {key2, {value2,value3,value4}} , filter3 =
-     *        {key3}:
+     *        For example, for the following filters: <code>filter1= {keyA,{value1}}</code>,
+     *        <code>filter2={keyB,{value2,value3,value4}}</code>, <code>filter3= {keyC}</code>:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        GetResources( {filter1} ) returns resources tagged with key1=value1
+     *        <code>GetResources({filter1})</code> returns resources tagged with <code>key1=value1</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        GetResources( {filter2} ) returns resources tagged with key2=value2 or key2=value3 or key2=value4
+     *        <code>GetResources({filter2})</code> returns resources tagged with <code>key2=value2</code> or
+     *        <code>key2=value3</code> or <code>key2=value4</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        GetResources( {filter3} ) returns resources tagged with any tag containing key3 as its tag key,
-     *        irrespective of its value
+     *        <code>GetResources({filter3})</code> returns resources tagged with any tag with the key <code>key3</code>,
+     *        and with any or no value
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        GetResources( {filter1,filter2,filter3} ) returns resources tagged with ( key1=value1) and ( key2=value2
-     *        or key2=value3 or key2=value4) and (key3, irrespective of the value)
+     *        <code>GetResources({filter1,filter2,filter3})</code> returns resources tagged with
+     *        <code>(key1=value1) and (key2=value2 or key2=value3 or key2=value4) and (key3, any or no value)</code>
      *        </p>
      *        </li>
      *        </ul>
@@ -810,13 +795,16 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A limit that restricts the number of resources returned by GetResources in paginated output. You can set
-     * ResourcesPerPage to a minimum of 1 item and the maximum of 100 items.
+     * Specifies the maximum number of results to be returned in each page. A query can return fewer than this maximum,
+     * even if there are more results still to return. You should always check the <code>PaginationToken</code> response
+     * value to see if there are more results. You can specify a minimum of 1 and a maximum value of 100.
      * </p>
      * 
      * @param resourcesPerPage
-     *        A limit that restricts the number of resources returned by GetResources in paginated output. You can set
-     *        ResourcesPerPage to a minimum of 1 item and the maximum of 100 items.
+     *        Specifies the maximum number of results to be returned in each page. A query can return fewer than this
+     *        maximum, even if there are more results still to return. You should always check the
+     *        <code>PaginationToken</code> response value to see if there are more results. You can specify a minimum of
+     *        1 and a maximum value of 100.
      */
 
     public void setResourcesPerPage(Integer resourcesPerPage) {
@@ -825,12 +813,15 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A limit that restricts the number of resources returned by GetResources in paginated output. You can set
-     * ResourcesPerPage to a minimum of 1 item and the maximum of 100 items.
+     * Specifies the maximum number of results to be returned in each page. A query can return fewer than this maximum,
+     * even if there are more results still to return. You should always check the <code>PaginationToken</code> response
+     * value to see if there are more results. You can specify a minimum of 1 and a maximum value of 100.
      * </p>
      * 
-     * @return A limit that restricts the number of resources returned by GetResources in paginated output. You can set
-     *         ResourcesPerPage to a minimum of 1 item and the maximum of 100 items.
+     * @return Specifies the maximum number of results to be returned in each page. A query can return fewer than this
+     *         maximum, even if there are more results still to return. You should always check the
+     *         <code>PaginationToken</code> response value to see if there are more results. You can specify a minimum
+     *         of 1 and a maximum value of 100.
      */
 
     public Integer getResourcesPerPage() {
@@ -839,13 +830,16 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A limit that restricts the number of resources returned by GetResources in paginated output. You can set
-     * ResourcesPerPage to a minimum of 1 item and the maximum of 100 items.
+     * Specifies the maximum number of results to be returned in each page. A query can return fewer than this maximum,
+     * even if there are more results still to return. You should always check the <code>PaginationToken</code> response
+     * value to see if there are more results. You can specify a minimum of 1 and a maximum value of 100.
      * </p>
      * 
      * @param resourcesPerPage
-     *        A limit that restricts the number of resources returned by GetResources in paginated output. You can set
-     *        ResourcesPerPage to a minimum of 1 item and the maximum of 100 items.
+     *        Specifies the maximum number of results to be returned in each page. A query can return fewer than this
+     *        maximum, even if there are more results still to return. You should always check the
+     *        <code>PaginationToken</code> response value to see if there are more results. You can specify a minimum of
+     *        1 and a maximum value of 100.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -856,37 +850,43 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A limit that restricts the number of tags (key and value pairs) returned by GetResources in paginated output. A
-     * resource with no tags is counted as having one tag (one key and value pair).
+     * Amazon Web Services recommends using <code>ResourcesPerPage</code> instead of this parameter.
+     * </p>
+     * <p>
+     * A limit that restricts the number of tags (key and value pairs) returned by <code>GetResources</code> in
+     * paginated output. A resource with no tags is counted as having one tag (one key and value pair).
      * </p>
      * <p>
      * <code>GetResources</code> does not split a resource and its associated tags across pages. If the specified
      * <code>TagsPerPage</code> would cause such a break, a <code>PaginationToken</code> is returned in place of the
      * affected resource and its tags. Use that token in another request to get the remaining data. For example, if you
      * specify a <code>TagsPerPage</code> of <code>100</code> and the account has 22 resources with 10 tags each
-     * (meaning that each resource has 10 key and value pairs), the output will consist of 3 pages, with the first page
-     * displaying the first 10 resources, each with its 10 tags, the second page displaying the next 10 resources each
-     * with its 10 tags, and the third page displaying the remaining 2 resources, each with its 10 tags.
+     * (meaning that each resource has 10 key and value pairs), the output will consist of three pages. The first page
+     * displays the first 10 resources, each with its 10 tags. The second page displays the next 10 resources, each with
+     * its 10 tags. The third page displays the remaining 2 resources, each with its 10 tags.
      * </p>
      * <p>
-     * You can set <code>TagsPerPage</code> to a minimum of 100 items and the maximum of 500 items.
+     * You can set <code>TagsPerPage</code> to a minimum of 100 items up to a maximum of 500 items.
      * </p>
      * 
      * @param tagsPerPage
-     *        A limit that restricts the number of tags (key and value pairs) returned by GetResources in paginated
-     *        output. A resource with no tags is counted as having one tag (one key and value pair).</p>
+     *        Amazon Web Services recommends using <code>ResourcesPerPage</code> instead of this parameter.</p>
+     *        <p>
+     *        A limit that restricts the number of tags (key and value pairs) returned by <code>GetResources</code> in
+     *        paginated output. A resource with no tags is counted as having one tag (one key and value pair).
+     *        </p>
      *        <p>
      *        <code>GetResources</code> does not split a resource and its associated tags across pages. If the specified
      *        <code>TagsPerPage</code> would cause such a break, a <code>PaginationToken</code> is returned in place of
      *        the affected resource and its tags. Use that token in another request to get the remaining data. For
      *        example, if you specify a <code>TagsPerPage</code> of <code>100</code> and the account has 22 resources
-     *        with 10 tags each (meaning that each resource has 10 key and value pairs), the output will consist of 3
-     *        pages, with the first page displaying the first 10 resources, each with its 10 tags, the second page
-     *        displaying the next 10 resources each with its 10 tags, and the third page displaying the remaining 2
-     *        resources, each with its 10 tags.
+     *        with 10 tags each (meaning that each resource has 10 key and value pairs), the output will consist of
+     *        three pages. The first page displays the first 10 resources, each with its 10 tags. The second page
+     *        displays the next 10 resources, each with its 10 tags. The third page displays the remaining 2 resources,
+     *        each with its 10 tags.
      *        </p>
      *        <p>
-     *        You can set <code>TagsPerPage</code> to a minimum of 100 items and the maximum of 500 items.
+     *        You can set <code>TagsPerPage</code> to a minimum of 100 items up to a maximum of 500 items.
      */
 
     public void setTagsPerPage(Integer tagsPerPage) {
@@ -895,36 +895,42 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A limit that restricts the number of tags (key and value pairs) returned by GetResources in paginated output. A
-     * resource with no tags is counted as having one tag (one key and value pair).
+     * Amazon Web Services recommends using <code>ResourcesPerPage</code> instead of this parameter.
+     * </p>
+     * <p>
+     * A limit that restricts the number of tags (key and value pairs) returned by <code>GetResources</code> in
+     * paginated output. A resource with no tags is counted as having one tag (one key and value pair).
      * </p>
      * <p>
      * <code>GetResources</code> does not split a resource and its associated tags across pages. If the specified
      * <code>TagsPerPage</code> would cause such a break, a <code>PaginationToken</code> is returned in place of the
      * affected resource and its tags. Use that token in another request to get the remaining data. For example, if you
      * specify a <code>TagsPerPage</code> of <code>100</code> and the account has 22 resources with 10 tags each
-     * (meaning that each resource has 10 key and value pairs), the output will consist of 3 pages, with the first page
-     * displaying the first 10 resources, each with its 10 tags, the second page displaying the next 10 resources each
-     * with its 10 tags, and the third page displaying the remaining 2 resources, each with its 10 tags.
+     * (meaning that each resource has 10 key and value pairs), the output will consist of three pages. The first page
+     * displays the first 10 resources, each with its 10 tags. The second page displays the next 10 resources, each with
+     * its 10 tags. The third page displays the remaining 2 resources, each with its 10 tags.
      * </p>
      * <p>
-     * You can set <code>TagsPerPage</code> to a minimum of 100 items and the maximum of 500 items.
+     * You can set <code>TagsPerPage</code> to a minimum of 100 items up to a maximum of 500 items.
      * </p>
      * 
-     * @return A limit that restricts the number of tags (key and value pairs) returned by GetResources in paginated
-     *         output. A resource with no tags is counted as having one tag (one key and value pair).</p>
+     * @return Amazon Web Services recommends using <code>ResourcesPerPage</code> instead of this parameter.</p>
+     *         <p>
+     *         A limit that restricts the number of tags (key and value pairs) returned by <code>GetResources</code> in
+     *         paginated output. A resource with no tags is counted as having one tag (one key and value pair).
+     *         </p>
      *         <p>
      *         <code>GetResources</code> does not split a resource and its associated tags across pages. If the
      *         specified <code>TagsPerPage</code> would cause such a break, a <code>PaginationToken</code> is returned
      *         in place of the affected resource and its tags. Use that token in another request to get the remaining
      *         data. For example, if you specify a <code>TagsPerPage</code> of <code>100</code> and the account has 22
      *         resources with 10 tags each (meaning that each resource has 10 key and value pairs), the output will
-     *         consist of 3 pages, with the first page displaying the first 10 resources, each with its 10 tags, the
-     *         second page displaying the next 10 resources each with its 10 tags, and the third page displaying the
-     *         remaining 2 resources, each with its 10 tags.
+     *         consist of three pages. The first page displays the first 10 resources, each with its 10 tags. The second
+     *         page displays the next 10 resources, each with its 10 tags. The third page displays the remaining 2
+     *         resources, each with its 10 tags.
      *         </p>
      *         <p>
-     *         You can set <code>TagsPerPage</code> to a minimum of 100 items and the maximum of 500 items.
+     *         You can set <code>TagsPerPage</code> to a minimum of 100 items up to a maximum of 500 items.
      */
 
     public Integer getTagsPerPage() {
@@ -933,37 +939,43 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A limit that restricts the number of tags (key and value pairs) returned by GetResources in paginated output. A
-     * resource with no tags is counted as having one tag (one key and value pair).
+     * Amazon Web Services recommends using <code>ResourcesPerPage</code> instead of this parameter.
+     * </p>
+     * <p>
+     * A limit that restricts the number of tags (key and value pairs) returned by <code>GetResources</code> in
+     * paginated output. A resource with no tags is counted as having one tag (one key and value pair).
      * </p>
      * <p>
      * <code>GetResources</code> does not split a resource and its associated tags across pages. If the specified
      * <code>TagsPerPage</code> would cause such a break, a <code>PaginationToken</code> is returned in place of the
      * affected resource and its tags. Use that token in another request to get the remaining data. For example, if you
      * specify a <code>TagsPerPage</code> of <code>100</code> and the account has 22 resources with 10 tags each
-     * (meaning that each resource has 10 key and value pairs), the output will consist of 3 pages, with the first page
-     * displaying the first 10 resources, each with its 10 tags, the second page displaying the next 10 resources each
-     * with its 10 tags, and the third page displaying the remaining 2 resources, each with its 10 tags.
+     * (meaning that each resource has 10 key and value pairs), the output will consist of three pages. The first page
+     * displays the first 10 resources, each with its 10 tags. The second page displays the next 10 resources, each with
+     * its 10 tags. The third page displays the remaining 2 resources, each with its 10 tags.
      * </p>
      * <p>
-     * You can set <code>TagsPerPage</code> to a minimum of 100 items and the maximum of 500 items.
+     * You can set <code>TagsPerPage</code> to a minimum of 100 items up to a maximum of 500 items.
      * </p>
      * 
      * @param tagsPerPage
-     *        A limit that restricts the number of tags (key and value pairs) returned by GetResources in paginated
-     *        output. A resource with no tags is counted as having one tag (one key and value pair).</p>
+     *        Amazon Web Services recommends using <code>ResourcesPerPage</code> instead of this parameter.</p>
+     *        <p>
+     *        A limit that restricts the number of tags (key and value pairs) returned by <code>GetResources</code> in
+     *        paginated output. A resource with no tags is counted as having one tag (one key and value pair).
+     *        </p>
      *        <p>
      *        <code>GetResources</code> does not split a resource and its associated tags across pages. If the specified
      *        <code>TagsPerPage</code> would cause such a break, a <code>PaginationToken</code> is returned in place of
      *        the affected resource and its tags. Use that token in another request to get the remaining data. For
      *        example, if you specify a <code>TagsPerPage</code> of <code>100</code> and the account has 22 resources
-     *        with 10 tags each (meaning that each resource has 10 key and value pairs), the output will consist of 3
-     *        pages, with the first page displaying the first 10 resources, each with its 10 tags, the second page
-     *        displaying the next 10 resources each with its 10 tags, and the third page displaying the remaining 2
-     *        resources, each with its 10 tags.
+     *        with 10 tags each (meaning that each resource has 10 key and value pairs), the output will consist of
+     *        three pages. The first page displays the first 10 resources, each with its 10 tags. The second page
+     *        displays the next 10 resources, each with its 10 tags. The third page displays the remaining 2 resources,
+     *        each with its 10 tags.
      *        </p>
      *        <p>
-     *        You can set <code>TagsPerPage</code> to a minimum of 100 items and the maximum of 500 items.
+     *        You can set <code>TagsPerPage</code> to a minimum of 100 items up to a maximum of 500 items.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -974,76 +986,44 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The constraints on the resources that you want returned. The format of each resource type is
+     * Specifies the resource types that you want included in the response. The format of each resource type is
      * <code>service[:resourceType]</code>. For example, specifying a resource type of <code>ec2</code> returns all
      * Amazon EC2 resources (which includes EC2 instances). Specifying a resource type of <code>ec2:instance</code>
      * returns only EC2 instances.
      * </p>
      * <p>
      * The string for each service name and resource type is the same as that embedded in a resource's Amazon Resource
-     * Name (ARN). Consult the <i>AWS General Reference</i> for the following:
+     * Name (ARN). For the list of services whose resources you can use in this parameter, see <a
+     * href="https://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/supported-services.html">Services
+     * that support the Resource Groups Tagging API</a>.
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * For a list of service name strings, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * For resource type strings, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arns-syntax">Example ARNs</a>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * For more information about ARNs, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and
-     * AWS Service Namespaces</a>.
-     * </p>
-     * </li>
-     * </ul>
      * <p>
      * You can specify multiple resource types by using an array. The array can include up to 100 items. Note that the
-     * length constraint requirement applies to each resource type filter.
+     * length constraint requirement applies to each resource type filter. For example, the following string would limit
+     * the response to only Amazon EC2 instances, Amazon S3 buckets, or any Audit Manager resource:
+     * </p>
+     * <p>
+     * <code>ec2:instance,s3:bucket,auditmanager</code>
      * </p>
      * 
-     * @return The constraints on the resources that you want returned. The format of each resource type is
+     * @return Specifies the resource types that you want included in the response. The format of each resource type is
      *         <code>service[:resourceType]</code>. For example, specifying a resource type of <code>ec2</code> returns
      *         all Amazon EC2 resources (which includes EC2 instances). Specifying a resource type of
      *         <code>ec2:instance</code> returns only EC2 instances. </p>
      *         <p>
      *         The string for each service name and resource type is the same as that embedded in a resource's Amazon
-     *         Resource Name (ARN). Consult the <i>AWS General Reference</i> for the following:
+     *         Resource Name (ARN). For the list of services whose resources you can use in this parameter, see <a
+     *         href="https://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/supported-services.html"
+     *         >Services that support the Resource Groups Tagging API</a>.
      *         </p>
-     *         <ul>
-     *         <li>
-     *         <p>
-     *         For a list of service name strings, see <a href=
-     *         "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     *         >AWS Service Namespaces</a>.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         For resource type strings, see <a
-     *         href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arns-syntax">Example
-     *         ARNs</a>.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         For more information about ARNs, see <a
-     *         href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *         (ARNs) and AWS Service Namespaces</a>.
-     *         </p>
-     *         </li>
-     *         </ul>
      *         <p>
      *         You can specify multiple resource types by using an array. The array can include up to 100 items. Note
-     *         that the length constraint requirement applies to each resource type filter.
+     *         that the length constraint requirement applies to each resource type filter. For example, the following
+     *         string would limit the response to only Amazon EC2 instances, Amazon S3 buckets, or any Audit Manager
+     *         resource:
+     *         </p>
+     *         <p>
+     *         <code>ec2:instance,s3:bucket,auditmanager</code>
      */
 
     public java.util.List<String> getResourceTypeFilters() {
@@ -1052,77 +1032,45 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The constraints on the resources that you want returned. The format of each resource type is
+     * Specifies the resource types that you want included in the response. The format of each resource type is
      * <code>service[:resourceType]</code>. For example, specifying a resource type of <code>ec2</code> returns all
      * Amazon EC2 resources (which includes EC2 instances). Specifying a resource type of <code>ec2:instance</code>
      * returns only EC2 instances.
      * </p>
      * <p>
      * The string for each service name and resource type is the same as that embedded in a resource's Amazon Resource
-     * Name (ARN). Consult the <i>AWS General Reference</i> for the following:
+     * Name (ARN). For the list of services whose resources you can use in this parameter, see <a
+     * href="https://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/supported-services.html">Services
+     * that support the Resource Groups Tagging API</a>.
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * For a list of service name strings, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * For resource type strings, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arns-syntax">Example ARNs</a>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * For more information about ARNs, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and
-     * AWS Service Namespaces</a>.
-     * </p>
-     * </li>
-     * </ul>
      * <p>
      * You can specify multiple resource types by using an array. The array can include up to 100 items. Note that the
-     * length constraint requirement applies to each resource type filter.
+     * length constraint requirement applies to each resource type filter. For example, the following string would limit
+     * the response to only Amazon EC2 instances, Amazon S3 buckets, or any Audit Manager resource:
+     * </p>
+     * <p>
+     * <code>ec2:instance,s3:bucket,auditmanager</code>
      * </p>
      * 
      * @param resourceTypeFilters
-     *        The constraints on the resources that you want returned. The format of each resource type is
+     *        Specifies the resource types that you want included in the response. The format of each resource type is
      *        <code>service[:resourceType]</code>. For example, specifying a resource type of <code>ec2</code> returns
      *        all Amazon EC2 resources (which includes EC2 instances). Specifying a resource type of
      *        <code>ec2:instance</code> returns only EC2 instances. </p>
      *        <p>
      *        The string for each service name and resource type is the same as that embedded in a resource's Amazon
-     *        Resource Name (ARN). Consult the <i>AWS General Reference</i> for the following:
+     *        Resource Name (ARN). For the list of services whose resources you can use in this parameter, see <a
+     *        href="https://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/supported-services.html"
+     *        >Services that support the Resource Groups Tagging API</a>.
      *        </p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        For a list of service name strings, see <a href=
-     *        "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     *        >AWS Service Namespaces</a>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        For resource type strings, see <a
-     *        href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arns-syntax">Example
-     *        ARNs</a>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        For more information about ARNs, see <a
-     *        href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *        (ARNs) and AWS Service Namespaces</a>.
-     *        </p>
-     *        </li>
-     *        </ul>
      *        <p>
      *        You can specify multiple resource types by using an array. The array can include up to 100 items. Note
-     *        that the length constraint requirement applies to each resource type filter.
+     *        that the length constraint requirement applies to each resource type filter. For example, the following
+     *        string would limit the response to only Amazon EC2 instances, Amazon S3 buckets, or any Audit Manager
+     *        resource:
+     *        </p>
+     *        <p>
+     *        <code>ec2:instance,s3:bucket,auditmanager</code>
      */
 
     public void setResourceTypeFilters(java.util.Collection<String> resourceTypeFilters) {
@@ -1136,40 +1084,24 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The constraints on the resources that you want returned. The format of each resource type is
+     * Specifies the resource types that you want included in the response. The format of each resource type is
      * <code>service[:resourceType]</code>. For example, specifying a resource type of <code>ec2</code> returns all
      * Amazon EC2 resources (which includes EC2 instances). Specifying a resource type of <code>ec2:instance</code>
      * returns only EC2 instances.
      * </p>
      * <p>
      * The string for each service name and resource type is the same as that embedded in a resource's Amazon Resource
-     * Name (ARN). Consult the <i>AWS General Reference</i> for the following:
+     * Name (ARN). For the list of services whose resources you can use in this parameter, see <a
+     * href="https://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/supported-services.html">Services
+     * that support the Resource Groups Tagging API</a>.
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * For a list of service name strings, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * For resource type strings, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arns-syntax">Example ARNs</a>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * For more information about ARNs, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and
-     * AWS Service Namespaces</a>.
-     * </p>
-     * </li>
-     * </ul>
      * <p>
      * You can specify multiple resource types by using an array. The array can include up to 100 items. Note that the
-     * length constraint requirement applies to each resource type filter.
+     * length constraint requirement applies to each resource type filter. For example, the following string would limit
+     * the response to only Amazon EC2 instances, Amazon S3 buckets, or any Audit Manager resource:
+     * </p>
+     * <p>
+     * <code>ec2:instance,s3:bucket,auditmanager</code>
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1178,40 +1110,24 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * 
      * @param resourceTypeFilters
-     *        The constraints on the resources that you want returned. The format of each resource type is
+     *        Specifies the resource types that you want included in the response. The format of each resource type is
      *        <code>service[:resourceType]</code>. For example, specifying a resource type of <code>ec2</code> returns
      *        all Amazon EC2 resources (which includes EC2 instances). Specifying a resource type of
      *        <code>ec2:instance</code> returns only EC2 instances. </p>
      *        <p>
      *        The string for each service name and resource type is the same as that embedded in a resource's Amazon
-     *        Resource Name (ARN). Consult the <i>AWS General Reference</i> for the following:
+     *        Resource Name (ARN). For the list of services whose resources you can use in this parameter, see <a
+     *        href="https://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/supported-services.html"
+     *        >Services that support the Resource Groups Tagging API</a>.
      *        </p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        For a list of service name strings, see <a href=
-     *        "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     *        >AWS Service Namespaces</a>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        For resource type strings, see <a
-     *        href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arns-syntax">Example
-     *        ARNs</a>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        For more information about ARNs, see <a
-     *        href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *        (ARNs) and AWS Service Namespaces</a>.
-     *        </p>
-     *        </li>
-     *        </ul>
      *        <p>
      *        You can specify multiple resource types by using an array. The array can include up to 100 items. Note
-     *        that the length constraint requirement applies to each resource type filter.
+     *        that the length constraint requirement applies to each resource type filter. For example, the following
+     *        string would limit the response to only Amazon EC2 instances, Amazon S3 buckets, or any Audit Manager
+     *        resource:
+     *        </p>
+     *        <p>
+     *        <code>ec2:instance,s3:bucket,auditmanager</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1227,82 +1143,361 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The constraints on the resources that you want returned. The format of each resource type is
+     * Specifies the resource types that you want included in the response. The format of each resource type is
      * <code>service[:resourceType]</code>. For example, specifying a resource type of <code>ec2</code> returns all
      * Amazon EC2 resources (which includes EC2 instances). Specifying a resource type of <code>ec2:instance</code>
      * returns only EC2 instances.
      * </p>
      * <p>
      * The string for each service name and resource type is the same as that embedded in a resource's Amazon Resource
-     * Name (ARN). Consult the <i>AWS General Reference</i> for the following:
+     * Name (ARN). For the list of services whose resources you can use in this parameter, see <a
+     * href="https://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/supported-services.html">Services
+     * that support the Resource Groups Tagging API</a>.
      * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * For a list of service name strings, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     * >AWS Service Namespaces</a>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * For resource type strings, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arns-syntax">Example ARNs</a>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * For more information about ARNs, see <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and
-     * AWS Service Namespaces</a>.
-     * </p>
-     * </li>
-     * </ul>
      * <p>
      * You can specify multiple resource types by using an array. The array can include up to 100 items. Note that the
-     * length constraint requirement applies to each resource type filter.
+     * length constraint requirement applies to each resource type filter. For example, the following string would limit
+     * the response to only Amazon EC2 instances, Amazon S3 buckets, or any Audit Manager resource:
+     * </p>
+     * <p>
+     * <code>ec2:instance,s3:bucket,auditmanager</code>
      * </p>
      * 
      * @param resourceTypeFilters
-     *        The constraints on the resources that you want returned. The format of each resource type is
+     *        Specifies the resource types that you want included in the response. The format of each resource type is
      *        <code>service[:resourceType]</code>. For example, specifying a resource type of <code>ec2</code> returns
      *        all Amazon EC2 resources (which includes EC2 instances). Specifying a resource type of
      *        <code>ec2:instance</code> returns only EC2 instances. </p>
      *        <p>
      *        The string for each service name and resource type is the same as that embedded in a resource's Amazon
-     *        Resource Name (ARN). Consult the <i>AWS General Reference</i> for the following:
+     *        Resource Name (ARN). For the list of services whose resources you can use in this parameter, see <a
+     *        href="https://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/supported-services.html"
+     *        >Services that support the Resource Groups Tagging API</a>.
      *        </p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        For a list of service name strings, see <a href=
-     *        "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
-     *        >AWS Service Namespaces</a>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        For resource type strings, see <a
-     *        href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arns-syntax">Example
-     *        ARNs</a>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        For more information about ARNs, see <a
-     *        href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *        (ARNs) and AWS Service Namespaces</a>.
-     *        </p>
-     *        </li>
-     *        </ul>
      *        <p>
      *        You can specify multiple resource types by using an array. The array can include up to 100 items. Note
-     *        that the length constraint requirement applies to each resource type filter.
+     *        that the length constraint requirement applies to each resource type filter. For example, the following
+     *        string would limit the response to only Amazon EC2 instances, Amazon S3 buckets, or any Audit Manager
+     *        resource:
+     *        </p>
+     *        <p>
+     *        <code>ec2:instance,s3:bucket,auditmanager</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public GetResourcesRequest withResourceTypeFilters(java.util.Collection<String> resourceTypeFilters) {
         setResourceTypeFilters(resourceTypeFilters);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to include details regarding the compliance with the effective tag policy. Set this to
+     * <code>true</code> to determine whether resources are compliant with the tag policy and to get details.
+     * </p>
+     * 
+     * @param includeComplianceDetails
+     *        Specifies whether to include details regarding the compliance with the effective tag policy. Set this to
+     *        <code>true</code> to determine whether resources are compliant with the tag policy and to get details.
+     */
+
+    public void setIncludeComplianceDetails(Boolean includeComplianceDetails) {
+        this.includeComplianceDetails = includeComplianceDetails;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to include details regarding the compliance with the effective tag policy. Set this to
+     * <code>true</code> to determine whether resources are compliant with the tag policy and to get details.
+     * </p>
+     * 
+     * @return Specifies whether to include details regarding the compliance with the effective tag policy. Set this to
+     *         <code>true</code> to determine whether resources are compliant with the tag policy and to get details.
+     */
+
+    public Boolean getIncludeComplianceDetails() {
+        return this.includeComplianceDetails;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to include details regarding the compliance with the effective tag policy. Set this to
+     * <code>true</code> to determine whether resources are compliant with the tag policy and to get details.
+     * </p>
+     * 
+     * @param includeComplianceDetails
+     *        Specifies whether to include details regarding the compliance with the effective tag policy. Set this to
+     *        <code>true</code> to determine whether resources are compliant with the tag policy and to get details.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetResourcesRequest withIncludeComplianceDetails(Boolean includeComplianceDetails) {
+        setIncludeComplianceDetails(includeComplianceDetails);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to include details regarding the compliance with the effective tag policy. Set this to
+     * <code>true</code> to determine whether resources are compliant with the tag policy and to get details.
+     * </p>
+     * 
+     * @return Specifies whether to include details regarding the compliance with the effective tag policy. Set this to
+     *         <code>true</code> to determine whether resources are compliant with the tag policy and to get details.
+     */
+
+    public Boolean isIncludeComplianceDetails() {
+        return this.includeComplianceDetails;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to exclude resources that are compliant with the tag policy. Set this to <code>true</code> if
+     * you are interested in retrieving information on noncompliant resources only.
+     * </p>
+     * <p>
+     * You can use this parameter only if the <code>IncludeComplianceDetails</code> parameter is also set to
+     * <code>true</code>.
+     * </p>
+     * 
+     * @param excludeCompliantResources
+     *        Specifies whether to exclude resources that are compliant with the tag policy. Set this to
+     *        <code>true</code> if you are interested in retrieving information on noncompliant resources only.</p>
+     *        <p>
+     *        You can use this parameter only if the <code>IncludeComplianceDetails</code> parameter is also set to
+     *        <code>true</code>.
+     */
+
+    public void setExcludeCompliantResources(Boolean excludeCompliantResources) {
+        this.excludeCompliantResources = excludeCompliantResources;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to exclude resources that are compliant with the tag policy. Set this to <code>true</code> if
+     * you are interested in retrieving information on noncompliant resources only.
+     * </p>
+     * <p>
+     * You can use this parameter only if the <code>IncludeComplianceDetails</code> parameter is also set to
+     * <code>true</code>.
+     * </p>
+     * 
+     * @return Specifies whether to exclude resources that are compliant with the tag policy. Set this to
+     *         <code>true</code> if you are interested in retrieving information on noncompliant resources only.</p>
+     *         <p>
+     *         You can use this parameter only if the <code>IncludeComplianceDetails</code> parameter is also set to
+     *         <code>true</code>.
+     */
+
+    public Boolean getExcludeCompliantResources() {
+        return this.excludeCompliantResources;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to exclude resources that are compliant with the tag policy. Set this to <code>true</code> if
+     * you are interested in retrieving information on noncompliant resources only.
+     * </p>
+     * <p>
+     * You can use this parameter only if the <code>IncludeComplianceDetails</code> parameter is also set to
+     * <code>true</code>.
+     * </p>
+     * 
+     * @param excludeCompliantResources
+     *        Specifies whether to exclude resources that are compliant with the tag policy. Set this to
+     *        <code>true</code> if you are interested in retrieving information on noncompliant resources only.</p>
+     *        <p>
+     *        You can use this parameter only if the <code>IncludeComplianceDetails</code> parameter is also set to
+     *        <code>true</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetResourcesRequest withExcludeCompliantResources(Boolean excludeCompliantResources) {
+        setExcludeCompliantResources(excludeCompliantResources);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to exclude resources that are compliant with the tag policy. Set this to <code>true</code> if
+     * you are interested in retrieving information on noncompliant resources only.
+     * </p>
+     * <p>
+     * You can use this parameter only if the <code>IncludeComplianceDetails</code> parameter is also set to
+     * <code>true</code>.
+     * </p>
+     * 
+     * @return Specifies whether to exclude resources that are compliant with the tag policy. Set this to
+     *         <code>true</code> if you are interested in retrieving information on noncompliant resources only.</p>
+     *         <p>
+     *         You can use this parameter only if the <code>IncludeComplianceDetails</code> parameter is also set to
+     *         <code>true</code>.
+     */
+
+    public Boolean isExcludeCompliantResources() {
+        return this.excludeCompliantResources;
+    }
+
+    /**
+     * <p>
+     * Specifies a list of ARNs of resources for which you want to retrieve tag data. You can't specify both this
+     * parameter and any of the pagination parameters (<code>ResourcesPerPage</code>, <code>TagsPerPage</code>,
+     * <code>PaginationToken</code>) in the same request. If you specify both, you get an <code>Invalid Parameter</code>
+     * exception.
+     * </p>
+     * <p>
+     * If a resource specified by this parameter doesn't exist, it doesn't generate an error; it simply isn't included
+     * in the response.
+     * </p>
+     * <p>
+     * An ARN (Amazon Resource Name) uniquely identifies a resource. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
+     * and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     * </p>
+     * 
+     * @return Specifies a list of ARNs of resources for which you want to retrieve tag data. You can't specify both
+     *         this parameter and any of the pagination parameters (<code>ResourcesPerPage</code>,
+     *         <code>TagsPerPage</code>, <code>PaginationToken</code>) in the same request. If you specify both, you get
+     *         an <code>Invalid Parameter</code> exception.</p>
+     *         <p>
+     *         If a resource specified by this parameter doesn't exist, it doesn't generate an error; it simply isn't
+     *         included in the response.
+     *         </p>
+     *         <p>
+     *         An ARN (Amazon Resource Name) uniquely identifies a resource. For more information, see <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     *         (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General
+     *         Reference</i>.
+     */
+
+    public java.util.List<String> getResourceARNList() {
+        return resourceARNList;
+    }
+
+    /**
+     * <p>
+     * Specifies a list of ARNs of resources for which you want to retrieve tag data. You can't specify both this
+     * parameter and any of the pagination parameters (<code>ResourcesPerPage</code>, <code>TagsPerPage</code>,
+     * <code>PaginationToken</code>) in the same request. If you specify both, you get an <code>Invalid Parameter</code>
+     * exception.
+     * </p>
+     * <p>
+     * If a resource specified by this parameter doesn't exist, it doesn't generate an error; it simply isn't included
+     * in the response.
+     * </p>
+     * <p>
+     * An ARN (Amazon Resource Name) uniquely identifies a resource. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
+     * and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     * </p>
+     * 
+     * @param resourceARNList
+     *        Specifies a list of ARNs of resources for which you want to retrieve tag data. You can't specify both this
+     *        parameter and any of the pagination parameters (<code>ResourcesPerPage</code>, <code>TagsPerPage</code>,
+     *        <code>PaginationToken</code>) in the same request. If you specify both, you get an
+     *        <code>Invalid Parameter</code> exception.</p>
+     *        <p>
+     *        If a resource specified by this parameter doesn't exist, it doesn't generate an error; it simply isn't
+     *        included in the response.
+     *        </p>
+     *        <p>
+     *        An ARN (Amazon Resource Name) uniquely identifies a resource. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     *        (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     */
+
+    public void setResourceARNList(java.util.Collection<String> resourceARNList) {
+        if (resourceARNList == null) {
+            this.resourceARNList = null;
+            return;
+        }
+
+        this.resourceARNList = new java.util.ArrayList<String>(resourceARNList);
+    }
+
+    /**
+     * <p>
+     * Specifies a list of ARNs of resources for which you want to retrieve tag data. You can't specify both this
+     * parameter and any of the pagination parameters (<code>ResourcesPerPage</code>, <code>TagsPerPage</code>,
+     * <code>PaginationToken</code>) in the same request. If you specify both, you get an <code>Invalid Parameter</code>
+     * exception.
+     * </p>
+     * <p>
+     * If a resource specified by this parameter doesn't exist, it doesn't generate an error; it simply isn't included
+     * in the response.
+     * </p>
+     * <p>
+     * An ARN (Amazon Resource Name) uniquely identifies a resource. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
+     * and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setResourceARNList(java.util.Collection)} or {@link #withResourceARNList(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param resourceARNList
+     *        Specifies a list of ARNs of resources for which you want to retrieve tag data. You can't specify both this
+     *        parameter and any of the pagination parameters (<code>ResourcesPerPage</code>, <code>TagsPerPage</code>,
+     *        <code>PaginationToken</code>) in the same request. If you specify both, you get an
+     *        <code>Invalid Parameter</code> exception.</p>
+     *        <p>
+     *        If a resource specified by this parameter doesn't exist, it doesn't generate an error; it simply isn't
+     *        included in the response.
+     *        </p>
+     *        <p>
+     *        An ARN (Amazon Resource Name) uniquely identifies a resource. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     *        (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetResourcesRequest withResourceARNList(String... resourceARNList) {
+        if (this.resourceARNList == null) {
+            setResourceARNList(new java.util.ArrayList<String>(resourceARNList.length));
+        }
+        for (String ele : resourceARNList) {
+            this.resourceARNList.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies a list of ARNs of resources for which you want to retrieve tag data. You can't specify both this
+     * parameter and any of the pagination parameters (<code>ResourcesPerPage</code>, <code>TagsPerPage</code>,
+     * <code>PaginationToken</code>) in the same request. If you specify both, you get an <code>Invalid Parameter</code>
+     * exception.
+     * </p>
+     * <p>
+     * If a resource specified by this parameter doesn't exist, it doesn't generate an error; it simply isn't included
+     * in the response.
+     * </p>
+     * <p>
+     * An ARN (Amazon Resource Name) uniquely identifies a resource. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
+     * and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     * </p>
+     * 
+     * @param resourceARNList
+     *        Specifies a list of ARNs of resources for which you want to retrieve tag data. You can't specify both this
+     *        parameter and any of the pagination parameters (<code>ResourcesPerPage</code>, <code>TagsPerPage</code>,
+     *        <code>PaginationToken</code>) in the same request. If you specify both, you get an
+     *        <code>Invalid Parameter</code> exception.</p>
+     *        <p>
+     *        If a resource specified by this parameter doesn't exist, it doesn't generate an error; it simply isn't
+     *        included in the response.
+     *        </p>
+     *        <p>
+     *        An ARN (Amazon Resource Name) uniquely identifies a resource. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     *        (ARNs) and Amazon Web Services Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetResourcesRequest withResourceARNList(java.util.Collection<String> resourceARNList) {
+        setResourceARNList(resourceARNList);
         return this;
     }
 
@@ -1327,7 +1522,13 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
         if (getTagsPerPage() != null)
             sb.append("TagsPerPage: ").append(getTagsPerPage()).append(",");
         if (getResourceTypeFilters() != null)
-            sb.append("ResourceTypeFilters: ").append(getResourceTypeFilters());
+            sb.append("ResourceTypeFilters: ").append(getResourceTypeFilters()).append(",");
+        if (getIncludeComplianceDetails() != null)
+            sb.append("IncludeComplianceDetails: ").append(getIncludeComplianceDetails()).append(",");
+        if (getExcludeCompliantResources() != null)
+            sb.append("ExcludeCompliantResources: ").append(getExcludeCompliantResources()).append(",");
+        if (getResourceARNList() != null)
+            sb.append("ResourceARNList: ").append(getResourceARNList());
         sb.append("}");
         return sb.toString();
     }
@@ -1362,6 +1563,18 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
             return false;
         if (other.getResourceTypeFilters() != null && other.getResourceTypeFilters().equals(this.getResourceTypeFilters()) == false)
             return false;
+        if (other.getIncludeComplianceDetails() == null ^ this.getIncludeComplianceDetails() == null)
+            return false;
+        if (other.getIncludeComplianceDetails() != null && other.getIncludeComplianceDetails().equals(this.getIncludeComplianceDetails()) == false)
+            return false;
+        if (other.getExcludeCompliantResources() == null ^ this.getExcludeCompliantResources() == null)
+            return false;
+        if (other.getExcludeCompliantResources() != null && other.getExcludeCompliantResources().equals(this.getExcludeCompliantResources()) == false)
+            return false;
+        if (other.getResourceARNList() == null ^ this.getResourceARNList() == null)
+            return false;
+        if (other.getResourceARNList() != null && other.getResourceARNList().equals(this.getResourceARNList()) == false)
+            return false;
         return true;
     }
 
@@ -1375,6 +1588,9 @@ public class GetResourcesRequest extends com.amazonaws.AmazonWebServiceRequest i
         hashCode = prime * hashCode + ((getResourcesPerPage() == null) ? 0 : getResourcesPerPage().hashCode());
         hashCode = prime * hashCode + ((getTagsPerPage() == null) ? 0 : getTagsPerPage().hashCode());
         hashCode = prime * hashCode + ((getResourceTypeFilters() == null) ? 0 : getResourceTypeFilters().hashCode());
+        hashCode = prime * hashCode + ((getIncludeComplianceDetails() == null) ? 0 : getIncludeComplianceDetails().hashCode());
+        hashCode = prime * hashCode + ((getExcludeCompliantResources() == null) ? 0 : getExcludeCompliantResources().hashCode());
+        hashCode = prime * hashCode + ((getResourceARNList() == null) ? 0 : getResourceARNList().hashCode());
         return hashCode;
     }
 

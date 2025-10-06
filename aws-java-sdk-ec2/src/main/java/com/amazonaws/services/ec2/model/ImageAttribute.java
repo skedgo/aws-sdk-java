@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -74,6 +74,59 @@ public class ImageAttribute implements Serializable, Cloneable {
      * </p>
      */
     private String sriovNetSupport;
+    /**
+     * <p>
+     * The boot mode.
+     * </p>
+     */
+    private String bootMode;
+    /**
+     * <p>
+     * If the image is configured for NitroTPM support, the value is <code>v2.0</code>.
+     * </p>
+     */
+    private String tpmSupport;
+    /**
+     * <p>
+     * Base64 representation of the non-volatile UEFI variable store. To retrieve the UEFI data, use the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetInstanceUefiData">GetInstanceUefiData</a>
+     * command. You can inspect and modify the UEFI data by using the <a
+     * href="https://github.com/awslabs/python-uefivars">python-uefivars tool</a> on GitHub. For more information, see
+     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/uefi-secure-boot.html">UEFI Secure Boot</a> in the
+     * <i>Amazon EC2 User Guide</i>.
+     * </p>
+     */
+    private String uefiData;
+    /**
+     * <p>
+     * The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the AMI was
+     * last used to launch an EC2 instance. When the AMI is used to launch an instance, there is a 24-hour delay before
+     * that usage is reported.
+     * </p>
+     * <note>
+     * <p>
+     * <code>lastLaunchedTime</code> data is available starting April 2017.
+     * </p>
+     * </note>
+     */
+    private String lastLaunchedTime;
+    /**
+     * <p>
+     * If <code>v2.0</code>, it indicates that IMDSv2 is specified in the AMI. Instances launched from this AMI will
+     * have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the instance
+     * requires that IMDSv2 is used when requesting instance metadata. In addition, <code>HttpPutResponseHopLimit</code>
+     * is set to <code>2</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     * >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     */
+    private String imdsSupport;
+    /**
+     * <p>
+     * Indicates whether deregistration protection is enabled for the AMI.
+     * </p>
+     */
+    private String deregistrationProtection;
 
     /**
      * <p>
@@ -495,6 +548,343 @@ public class ImageAttribute implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The boot mode.
+     * </p>
+     * 
+     * @param bootMode
+     *        The boot mode.
+     */
+
+    public void setBootMode(String bootMode) {
+        this.bootMode = bootMode;
+    }
+
+    /**
+     * <p>
+     * The boot mode.
+     * </p>
+     * 
+     * @return The boot mode.
+     */
+
+    public String getBootMode() {
+        return this.bootMode;
+    }
+
+    /**
+     * <p>
+     * The boot mode.
+     * </p>
+     * 
+     * @param bootMode
+     *        The boot mode.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ImageAttribute withBootMode(String bootMode) {
+        setBootMode(bootMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If the image is configured for NitroTPM support, the value is <code>v2.0</code>.
+     * </p>
+     * 
+     * @param tpmSupport
+     *        If the image is configured for NitroTPM support, the value is <code>v2.0</code>.
+     */
+
+    public void setTpmSupport(String tpmSupport) {
+        this.tpmSupport = tpmSupport;
+    }
+
+    /**
+     * <p>
+     * If the image is configured for NitroTPM support, the value is <code>v2.0</code>.
+     * </p>
+     * 
+     * @return If the image is configured for NitroTPM support, the value is <code>v2.0</code>.
+     */
+
+    public String getTpmSupport() {
+        return this.tpmSupport;
+    }
+
+    /**
+     * <p>
+     * If the image is configured for NitroTPM support, the value is <code>v2.0</code>.
+     * </p>
+     * 
+     * @param tpmSupport
+     *        If the image is configured for NitroTPM support, the value is <code>v2.0</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ImageAttribute withTpmSupport(String tpmSupport) {
+        setTpmSupport(tpmSupport);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Base64 representation of the non-volatile UEFI variable store. To retrieve the UEFI data, use the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetInstanceUefiData">GetInstanceUefiData</a>
+     * command. You can inspect and modify the UEFI data by using the <a
+     * href="https://github.com/awslabs/python-uefivars">python-uefivars tool</a> on GitHub. For more information, see
+     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/uefi-secure-boot.html">UEFI Secure Boot</a> in the
+     * <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param uefiData
+     *        Base64 representation of the non-volatile UEFI variable store. To retrieve the UEFI data, use the <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetInstanceUefiData"
+     *        >GetInstanceUefiData</a> command. You can inspect and modify the UEFI data by using the <a
+     *        href="https://github.com/awslabs/python-uefivars">python-uefivars tool</a> on GitHub. For more
+     *        information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/uefi-secure-boot.html">UEFI
+     *        Secure Boot</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public void setUefiData(String uefiData) {
+        this.uefiData = uefiData;
+    }
+
+    /**
+     * <p>
+     * Base64 representation of the non-volatile UEFI variable store. To retrieve the UEFI data, use the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetInstanceUefiData">GetInstanceUefiData</a>
+     * command. You can inspect and modify the UEFI data by using the <a
+     * href="https://github.com/awslabs/python-uefivars">python-uefivars tool</a> on GitHub. For more information, see
+     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/uefi-secure-boot.html">UEFI Secure Boot</a> in the
+     * <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return Base64 representation of the non-volatile UEFI variable store. To retrieve the UEFI data, use the <a
+     *         href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetInstanceUefiData">GetInstanceUefiData</a>
+     *         command. You can inspect and modify the UEFI data by using the <a
+     *         href="https://github.com/awslabs/python-uefivars">python-uefivars tool</a> on GitHub. For more
+     *         information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/uefi-secure-boot.html">UEFI
+     *         Secure Boot</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public String getUefiData() {
+        return this.uefiData;
+    }
+
+    /**
+     * <p>
+     * Base64 representation of the non-volatile UEFI variable store. To retrieve the UEFI data, use the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetInstanceUefiData">GetInstanceUefiData</a>
+     * command. You can inspect and modify the UEFI data by using the <a
+     * href="https://github.com/awslabs/python-uefivars">python-uefivars tool</a> on GitHub. For more information, see
+     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/uefi-secure-boot.html">UEFI Secure Boot</a> in the
+     * <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param uefiData
+     *        Base64 representation of the non-volatile UEFI variable store. To retrieve the UEFI data, use the <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetInstanceUefiData"
+     *        >GetInstanceUefiData</a> command. You can inspect and modify the UEFI data by using the <a
+     *        href="https://github.com/awslabs/python-uefivars">python-uefivars tool</a> on GitHub. For more
+     *        information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/uefi-secure-boot.html">UEFI
+     *        Secure Boot</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ImageAttribute withUefiData(String uefiData) {
+        setUefiData(uefiData);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the AMI was
+     * last used to launch an EC2 instance. When the AMI is used to launch an instance, there is a 24-hour delay before
+     * that usage is reported.
+     * </p>
+     * <note>
+     * <p>
+     * <code>lastLaunchedTime</code> data is available starting April 2017.
+     * </p>
+     * </note>
+     * 
+     * @param lastLaunchedTime
+     *        The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the AMI
+     *        was last used to launch an EC2 instance. When the AMI is used to launch an instance, there is a 24-hour
+     *        delay before that usage is reported.</p> <note>
+     *        <p>
+     *        <code>lastLaunchedTime</code> data is available starting April 2017.
+     *        </p>
+     */
+
+    public void setLastLaunchedTime(String lastLaunchedTime) {
+        this.lastLaunchedTime = lastLaunchedTime;
+    }
+
+    /**
+     * <p>
+     * The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the AMI was
+     * last used to launch an EC2 instance. When the AMI is used to launch an instance, there is a 24-hour delay before
+     * that usage is reported.
+     * </p>
+     * <note>
+     * <p>
+     * <code>lastLaunchedTime</code> data is available starting April 2017.
+     * </p>
+     * </note>
+     * 
+     * @return The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the
+     *         AMI was last used to launch an EC2 instance. When the AMI is used to launch an instance, there is a
+     *         24-hour delay before that usage is reported.</p> <note>
+     *         <p>
+     *         <code>lastLaunchedTime</code> data is available starting April 2017.
+     *         </p>
+     */
+
+    public String getLastLaunchedTime() {
+        return this.lastLaunchedTime;
+    }
+
+    /**
+     * <p>
+     * The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the AMI was
+     * last used to launch an EC2 instance. When the AMI is used to launch an instance, there is a 24-hour delay before
+     * that usage is reported.
+     * </p>
+     * <note>
+     * <p>
+     * <code>lastLaunchedTime</code> data is available starting April 2017.
+     * </p>
+     * </note>
+     * 
+     * @param lastLaunchedTime
+     *        The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the AMI
+     *        was last used to launch an EC2 instance. When the AMI is used to launch an instance, there is a 24-hour
+     *        delay before that usage is reported.</p> <note>
+     *        <p>
+     *        <code>lastLaunchedTime</code> data is available starting April 2017.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ImageAttribute withLastLaunchedTime(String lastLaunchedTime) {
+        setLastLaunchedTime(lastLaunchedTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If <code>v2.0</code>, it indicates that IMDSv2 is specified in the AMI. Instances launched from this AMI will
+     * have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the instance
+     * requires that IMDSv2 is used when requesting instance metadata. In addition, <code>HttpPutResponseHopLimit</code>
+     * is set to <code>2</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     * >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param imdsSupport
+     *        If <code>v2.0</code>, it indicates that IMDSv2 is specified in the AMI. Instances launched from this AMI
+     *        will have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the
+     *        instance requires that IMDSv2 is used when requesting instance metadata. In addition,
+     *        <code>HttpPutResponseHopLimit</code> is set to <code>2</code>. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     *        >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public void setImdsSupport(String imdsSupport) {
+        this.imdsSupport = imdsSupport;
+    }
+
+    /**
+     * <p>
+     * If <code>v2.0</code>, it indicates that IMDSv2 is specified in the AMI. Instances launched from this AMI will
+     * have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the instance
+     * requires that IMDSv2 is used when requesting instance metadata. In addition, <code>HttpPutResponseHopLimit</code>
+     * is set to <code>2</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     * >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return If <code>v2.0</code>, it indicates that IMDSv2 is specified in the AMI. Instances launched from this AMI
+     *         will have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the
+     *         instance requires that IMDSv2 is used when requesting instance metadata. In addition,
+     *         <code>HttpPutResponseHopLimit</code> is set to <code>2</code>. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     *         >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public String getImdsSupport() {
+        return this.imdsSupport;
+    }
+
+    /**
+     * <p>
+     * If <code>v2.0</code>, it indicates that IMDSv2 is specified in the AMI. Instances launched from this AMI will
+     * have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the instance
+     * requires that IMDSv2 is used when requesting instance metadata. In addition, <code>HttpPutResponseHopLimit</code>
+     * is set to <code>2</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     * >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param imdsSupport
+     *        If <code>v2.0</code>, it indicates that IMDSv2 is specified in the AMI. Instances launched from this AMI
+     *        will have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the
+     *        instance requires that IMDSv2 is used when requesting instance metadata. In addition,
+     *        <code>HttpPutResponseHopLimit</code> is set to <code>2</code>. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     *        >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ImageAttribute withImdsSupport(String imdsSupport) {
+        setImdsSupport(imdsSupport);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether deregistration protection is enabled for the AMI.
+     * </p>
+     * 
+     * @param deregistrationProtection
+     *        Indicates whether deregistration protection is enabled for the AMI.
+     */
+
+    public void setDeregistrationProtection(String deregistrationProtection) {
+        this.deregistrationProtection = deregistrationProtection;
+    }
+
+    /**
+     * <p>
+     * Indicates whether deregistration protection is enabled for the AMI.
+     * </p>
+     * 
+     * @return Indicates whether deregistration protection is enabled for the AMI.
+     */
+
+    public String getDeregistrationProtection() {
+        return this.deregistrationProtection;
+    }
+
+    /**
+     * <p>
+     * Indicates whether deregistration protection is enabled for the AMI.
+     * </p>
+     * 
+     * @param deregistrationProtection
+     *        Indicates whether deregistration protection is enabled for the AMI.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ImageAttribute withDeregistrationProtection(String deregistrationProtection) {
+        setDeregistrationProtection(deregistrationProtection);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -521,7 +911,19 @@ public class ImageAttribute implements Serializable, Cloneable {
         if (getRamdiskId() != null)
             sb.append("RamdiskId: ").append(getRamdiskId()).append(",");
         if (getSriovNetSupport() != null)
-            sb.append("SriovNetSupport: ").append(getSriovNetSupport());
+            sb.append("SriovNetSupport: ").append(getSriovNetSupport()).append(",");
+        if (getBootMode() != null)
+            sb.append("BootMode: ").append(getBootMode()).append(",");
+        if (getTpmSupport() != null)
+            sb.append("TpmSupport: ").append(getTpmSupport()).append(",");
+        if (getUefiData() != null)
+            sb.append("UefiData: ").append(getUefiData()).append(",");
+        if (getLastLaunchedTime() != null)
+            sb.append("LastLaunchedTime: ").append(getLastLaunchedTime()).append(",");
+        if (getImdsSupport() != null)
+            sb.append("ImdsSupport: ").append(getImdsSupport()).append(",");
+        if (getDeregistrationProtection() != null)
+            sb.append("DeregistrationProtection: ").append(getDeregistrationProtection());
         sb.append("}");
         return sb.toString();
     }
@@ -568,6 +970,30 @@ public class ImageAttribute implements Serializable, Cloneable {
             return false;
         if (other.getSriovNetSupport() != null && other.getSriovNetSupport().equals(this.getSriovNetSupport()) == false)
             return false;
+        if (other.getBootMode() == null ^ this.getBootMode() == null)
+            return false;
+        if (other.getBootMode() != null && other.getBootMode().equals(this.getBootMode()) == false)
+            return false;
+        if (other.getTpmSupport() == null ^ this.getTpmSupport() == null)
+            return false;
+        if (other.getTpmSupport() != null && other.getTpmSupport().equals(this.getTpmSupport()) == false)
+            return false;
+        if (other.getUefiData() == null ^ this.getUefiData() == null)
+            return false;
+        if (other.getUefiData() != null && other.getUefiData().equals(this.getUefiData()) == false)
+            return false;
+        if (other.getLastLaunchedTime() == null ^ this.getLastLaunchedTime() == null)
+            return false;
+        if (other.getLastLaunchedTime() != null && other.getLastLaunchedTime().equals(this.getLastLaunchedTime()) == false)
+            return false;
+        if (other.getImdsSupport() == null ^ this.getImdsSupport() == null)
+            return false;
+        if (other.getImdsSupport() != null && other.getImdsSupport().equals(this.getImdsSupport()) == false)
+            return false;
+        if (other.getDeregistrationProtection() == null ^ this.getDeregistrationProtection() == null)
+            return false;
+        if (other.getDeregistrationProtection() != null && other.getDeregistrationProtection().equals(this.getDeregistrationProtection()) == false)
+            return false;
         return true;
     }
 
@@ -584,6 +1010,12 @@ public class ImageAttribute implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getKernelId() == null) ? 0 : getKernelId().hashCode());
         hashCode = prime * hashCode + ((getRamdiskId() == null) ? 0 : getRamdiskId().hashCode());
         hashCode = prime * hashCode + ((getSriovNetSupport() == null) ? 0 : getSriovNetSupport().hashCode());
+        hashCode = prime * hashCode + ((getBootMode() == null) ? 0 : getBootMode().hashCode());
+        hashCode = prime * hashCode + ((getTpmSupport() == null) ? 0 : getTpmSupport().hashCode());
+        hashCode = prime * hashCode + ((getUefiData() == null) ? 0 : getUefiData().hashCode());
+        hashCode = prime * hashCode + ((getLastLaunchedTime() == null) ? 0 : getLastLaunchedTime().hashCode());
+        hashCode = prime * hashCode + ((getImdsSupport() == null) ? 0 : getImdsSupport().hashCode());
+        hashCode = prime * hashCode + ((getDeregistrationProtection() == null) ? 0 : getDeregistrationProtection().hashCode());
         return hashCode;
     }
 

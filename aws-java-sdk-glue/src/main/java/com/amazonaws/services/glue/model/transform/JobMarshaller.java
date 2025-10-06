@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,8 @@ public class JobMarshaller {
 
     private static final MarshallingInfo<String> NAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Name").build();
+    private static final MarshallingInfo<String> JOBMODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("JobMode").build();
     private static final MarshallingInfo<String> DESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Description").build();
     private static final MarshallingInfo<String> LOGURI_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -47,6 +49,8 @@ public class JobMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Command").build();
     private static final MarshallingInfo<Map> DEFAULTARGUMENTS_BINDING = MarshallingInfo.builder(MarshallingType.MAP)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DefaultArguments").build();
+    private static final MarshallingInfo<Map> NONOVERRIDABLEARGUMENTS_BINDING = MarshallingInfo.builder(MarshallingType.MAP)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("NonOverridableArguments").build();
     private static final MarshallingInfo<StructuredPojo> CONNECTIONS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Connections").build();
     private static final MarshallingInfo<Integer> MAXRETRIES_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
@@ -67,6 +71,16 @@ public class JobMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("NotificationProperty").build();
     private static final MarshallingInfo<String> GLUEVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("GlueVersion").build();
+    private static final MarshallingInfo<Map> CODEGENCONFIGURATIONNODES_BINDING = MarshallingInfo.builder(MarshallingType.MAP)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CodeGenConfigurationNodes").build();
+    private static final MarshallingInfo<String> EXECUTIONCLASS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ExecutionClass").build();
+    private static final MarshallingInfo<StructuredPojo> SOURCECONTROLDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SourceControlDetails").build();
+    private static final MarshallingInfo<String> MAINTENANCEWINDOW_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MaintenanceWindow").build();
+    private static final MarshallingInfo<String> PROFILENAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ProfileName").build();
 
     private static final JobMarshaller instance = new JobMarshaller();
 
@@ -85,6 +99,7 @@ public class JobMarshaller {
 
         try {
             protocolMarshaller.marshall(job.getName(), NAME_BINDING);
+            protocolMarshaller.marshall(job.getJobMode(), JOBMODE_BINDING);
             protocolMarshaller.marshall(job.getDescription(), DESCRIPTION_BINDING);
             protocolMarshaller.marshall(job.getLogUri(), LOGURI_BINDING);
             protocolMarshaller.marshall(job.getRole(), ROLE_BINDING);
@@ -93,6 +108,7 @@ public class JobMarshaller {
             protocolMarshaller.marshall(job.getExecutionProperty(), EXECUTIONPROPERTY_BINDING);
             protocolMarshaller.marshall(job.getCommand(), COMMAND_BINDING);
             protocolMarshaller.marshall(job.getDefaultArguments(), DEFAULTARGUMENTS_BINDING);
+            protocolMarshaller.marshall(job.getNonOverridableArguments(), NONOVERRIDABLEARGUMENTS_BINDING);
             protocolMarshaller.marshall(job.getConnections(), CONNECTIONS_BINDING);
             protocolMarshaller.marshall(job.getMaxRetries(), MAXRETRIES_BINDING);
             protocolMarshaller.marshall(job.getAllocatedCapacity(), ALLOCATEDCAPACITY_BINDING);
@@ -103,6 +119,11 @@ public class JobMarshaller {
             protocolMarshaller.marshall(job.getSecurityConfiguration(), SECURITYCONFIGURATION_BINDING);
             protocolMarshaller.marshall(job.getNotificationProperty(), NOTIFICATIONPROPERTY_BINDING);
             protocolMarshaller.marshall(job.getGlueVersion(), GLUEVERSION_BINDING);
+            protocolMarshaller.marshall(job.getCodeGenConfigurationNodes(), CODEGENCONFIGURATIONNODES_BINDING);
+            protocolMarshaller.marshall(job.getExecutionClass(), EXECUTIONCLASS_BINDING);
+            protocolMarshaller.marshall(job.getSourceControlDetails(), SOURCECONTROLDETAILS_BINDING);
+            protocolMarshaller.marshall(job.getMaintenanceWindow(), MAINTENANCEWINDOW_BINDING);
+            protocolMarshaller.marshall(job.getProfileName(), PROFILENAME_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

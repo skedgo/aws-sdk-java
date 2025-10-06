@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,11 +30,24 @@ public class ListDomainsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
+     * A complex type that contains information about the filters applied during the <code>ListDomains</code> request.
+     * The filter conditions can include domain name and domain expiration.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<FilterCondition> filterConditions;
+    /**
+     * <p>
+     * A complex type that contains information about the requested ordering of domains in the returned list.
+     * </p>
+     */
+    private SortCondition sortCondition;
+    /**
+     * <p>
      * For an initial request for a list of domains, omit this element. If the number of domains that are associated
-     * with the current AWS account is greater than the value that you specified for <code>MaxItems</code>, you can use
-     * <code>Marker</code> to return additional domains. Get the value of <code>NextPageMarker</code> from the previous
-     * response, and submit another request that includes the value of <code>NextPageMarker</code> in the
-     * <code>Marker</code> element.
+     * with the current Amazon Web Services account is greater than the value that you specified for
+     * <code>MaxItems</code>, you can use <code>Marker</code> to return additional domains. Get the value of
+     * <code>NextPageMarker</code> from the previous response, and submit another request that includes the value of
+     * <code>NextPageMarker</code> in the <code>Marker</code> element.
      * </p>
      * <p>
      * Constraints: The marker must match the value specified in the previous request.
@@ -53,11 +66,132 @@ public class ListDomainsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
+     * A complex type that contains information about the filters applied during the <code>ListDomains</code> request.
+     * The filter conditions can include domain name and domain expiration.
+     * </p>
+     * 
+     * @return A complex type that contains information about the filters applied during the <code>ListDomains</code>
+     *         request. The filter conditions can include domain name and domain expiration.
+     */
+
+    public java.util.List<FilterCondition> getFilterConditions() {
+        if (filterConditions == null) {
+            filterConditions = new com.amazonaws.internal.SdkInternalList<FilterCondition>();
+        }
+        return filterConditions;
+    }
+
+    /**
+     * <p>
+     * A complex type that contains information about the filters applied during the <code>ListDomains</code> request.
+     * The filter conditions can include domain name and domain expiration.
+     * </p>
+     * 
+     * @param filterConditions
+     *        A complex type that contains information about the filters applied during the <code>ListDomains</code>
+     *        request. The filter conditions can include domain name and domain expiration.
+     */
+
+    public void setFilterConditions(java.util.Collection<FilterCondition> filterConditions) {
+        if (filterConditions == null) {
+            this.filterConditions = null;
+            return;
+        }
+
+        this.filterConditions = new com.amazonaws.internal.SdkInternalList<FilterCondition>(filterConditions);
+    }
+
+    /**
+     * <p>
+     * A complex type that contains information about the filters applied during the <code>ListDomains</code> request.
+     * The filter conditions can include domain name and domain expiration.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setFilterConditions(java.util.Collection)} or {@link #withFilterConditions(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param filterConditions
+     *        A complex type that contains information about the filters applied during the <code>ListDomains</code>
+     *        request. The filter conditions can include domain name and domain expiration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListDomainsRequest withFilterConditions(FilterCondition... filterConditions) {
+        if (this.filterConditions == null) {
+            setFilterConditions(new com.amazonaws.internal.SdkInternalList<FilterCondition>(filterConditions.length));
+        }
+        for (FilterCondition ele : filterConditions) {
+            this.filterConditions.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A complex type that contains information about the filters applied during the <code>ListDomains</code> request.
+     * The filter conditions can include domain name and domain expiration.
+     * </p>
+     * 
+     * @param filterConditions
+     *        A complex type that contains information about the filters applied during the <code>ListDomains</code>
+     *        request. The filter conditions can include domain name and domain expiration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListDomainsRequest withFilterConditions(java.util.Collection<FilterCondition> filterConditions) {
+        setFilterConditions(filterConditions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A complex type that contains information about the requested ordering of domains in the returned list.
+     * </p>
+     * 
+     * @param sortCondition
+     *        A complex type that contains information about the requested ordering of domains in the returned list.
+     */
+
+    public void setSortCondition(SortCondition sortCondition) {
+        this.sortCondition = sortCondition;
+    }
+
+    /**
+     * <p>
+     * A complex type that contains information about the requested ordering of domains in the returned list.
+     * </p>
+     * 
+     * @return A complex type that contains information about the requested ordering of domains in the returned list.
+     */
+
+    public SortCondition getSortCondition() {
+        return this.sortCondition;
+    }
+
+    /**
+     * <p>
+     * A complex type that contains information about the requested ordering of domains in the returned list.
+     * </p>
+     * 
+     * @param sortCondition
+     *        A complex type that contains information about the requested ordering of domains in the returned list.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListDomainsRequest withSortCondition(SortCondition sortCondition) {
+        setSortCondition(sortCondition);
+        return this;
+    }
+
+    /**
+     * <p>
      * For an initial request for a list of domains, omit this element. If the number of domains that are associated
-     * with the current AWS account is greater than the value that you specified for <code>MaxItems</code>, you can use
-     * <code>Marker</code> to return additional domains. Get the value of <code>NextPageMarker</code> from the previous
-     * response, and submit another request that includes the value of <code>NextPageMarker</code> in the
-     * <code>Marker</code> element.
+     * with the current Amazon Web Services account is greater than the value that you specified for
+     * <code>MaxItems</code>, you can use <code>Marker</code> to return additional domains. Get the value of
+     * <code>NextPageMarker</code> from the previous response, and submit another request that includes the value of
+     * <code>NextPageMarker</code> in the <code>Marker</code> element.
      * </p>
      * <p>
      * Constraints: The marker must match the value specified in the previous request.
@@ -65,7 +199,7 @@ public class ListDomainsRequest extends com.amazonaws.AmazonWebServiceRequest im
      * 
      * @param marker
      *        For an initial request for a list of domains, omit this element. If the number of domains that are
-     *        associated with the current AWS account is greater than the value that you specified for
+     *        associated with the current Amazon Web Services account is greater than the value that you specified for
      *        <code>MaxItems</code>, you can use <code>Marker</code> to return additional domains. Get the value of
      *        <code>NextPageMarker</code> from the previous response, and submit another request that includes the value
      *        of <code>NextPageMarker</code> in the <code>Marker</code> element.</p>
@@ -80,17 +214,17 @@ public class ListDomainsRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * For an initial request for a list of domains, omit this element. If the number of domains that are associated
-     * with the current AWS account is greater than the value that you specified for <code>MaxItems</code>, you can use
-     * <code>Marker</code> to return additional domains. Get the value of <code>NextPageMarker</code> from the previous
-     * response, and submit another request that includes the value of <code>NextPageMarker</code> in the
-     * <code>Marker</code> element.
+     * with the current Amazon Web Services account is greater than the value that you specified for
+     * <code>MaxItems</code>, you can use <code>Marker</code> to return additional domains. Get the value of
+     * <code>NextPageMarker</code> from the previous response, and submit another request that includes the value of
+     * <code>NextPageMarker</code> in the <code>Marker</code> element.
      * </p>
      * <p>
      * Constraints: The marker must match the value specified in the previous request.
      * </p>
      * 
      * @return For an initial request for a list of domains, omit this element. If the number of domains that are
-     *         associated with the current AWS account is greater than the value that you specified for
+     *         associated with the current Amazon Web Services account is greater than the value that you specified for
      *         <code>MaxItems</code>, you can use <code>Marker</code> to return additional domains. Get the value of
      *         <code>NextPageMarker</code> from the previous response, and submit another request that includes the
      *         value of <code>NextPageMarker</code> in the <code>Marker</code> element.</p>
@@ -105,10 +239,10 @@ public class ListDomainsRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * For an initial request for a list of domains, omit this element. If the number of domains that are associated
-     * with the current AWS account is greater than the value that you specified for <code>MaxItems</code>, you can use
-     * <code>Marker</code> to return additional domains. Get the value of <code>NextPageMarker</code> from the previous
-     * response, and submit another request that includes the value of <code>NextPageMarker</code> in the
-     * <code>Marker</code> element.
+     * with the current Amazon Web Services account is greater than the value that you specified for
+     * <code>MaxItems</code>, you can use <code>Marker</code> to return additional domains. Get the value of
+     * <code>NextPageMarker</code> from the previous response, and submit another request that includes the value of
+     * <code>NextPageMarker</code> in the <code>Marker</code> element.
      * </p>
      * <p>
      * Constraints: The marker must match the value specified in the previous request.
@@ -116,7 +250,7 @@ public class ListDomainsRequest extends com.amazonaws.AmazonWebServiceRequest im
      * 
      * @param marker
      *        For an initial request for a list of domains, omit this element. If the number of domains that are
-     *        associated with the current AWS account is greater than the value that you specified for
+     *        associated with the current Amazon Web Services account is greater than the value that you specified for
      *        <code>MaxItems</code>, you can use <code>Marker</code> to return additional domains. Get the value of
      *        <code>NextPageMarker</code> from the previous response, and submit another request that includes the value
      *        of <code>NextPageMarker</code> in the <code>Marker</code> element.</p>
@@ -197,6 +331,10 @@ public class ListDomainsRequest extends com.amazonaws.AmazonWebServiceRequest im
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getFilterConditions() != null)
+            sb.append("FilterConditions: ").append(getFilterConditions()).append(",");
+        if (getSortCondition() != null)
+            sb.append("SortCondition: ").append(getSortCondition()).append(",");
         if (getMarker() != null)
             sb.append("Marker: ").append(getMarker()).append(",");
         if (getMaxItems() != null)
@@ -215,6 +353,14 @@ public class ListDomainsRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (obj instanceof ListDomainsRequest == false)
             return false;
         ListDomainsRequest other = (ListDomainsRequest) obj;
+        if (other.getFilterConditions() == null ^ this.getFilterConditions() == null)
+            return false;
+        if (other.getFilterConditions() != null && other.getFilterConditions().equals(this.getFilterConditions()) == false)
+            return false;
+        if (other.getSortCondition() == null ^ this.getSortCondition() == null)
+            return false;
+        if (other.getSortCondition() != null && other.getSortCondition().equals(this.getSortCondition()) == false)
+            return false;
         if (other.getMarker() == null ^ this.getMarker() == null)
             return false;
         if (other.getMarker() != null && other.getMarker().equals(this.getMarker()) == false)
@@ -231,6 +377,8 @@ public class ListDomainsRequest extends com.amazonaws.AmazonWebServiceRequest im
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getFilterConditions() == null) ? 0 : getFilterConditions().hashCode());
+        hashCode = prime * hashCode + ((getSortCondition() == null) ? 0 : getSortCondition().hashCode());
         hashCode = prime * hashCode + ((getMarker() == null) ? 0 : getMarker().hashCode());
         hashCode = prime * hashCode + ((getMaxItems() == null) ? 0 : getMaxItems().hashCode());
         return hashCode;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -106,15 +106,14 @@ public class Index implements QueryApi, ScanApi {
             String filterExpression, Map<String, String> nameMap,
             Map<String, Object> valueMap) {
         return queryDelegate.query(hashKey, rangeKeyCondition,
-                projectionExpression, filterExpression, nameMap, valueMap);
+                                   filterExpression, projectionExpression, nameMap, valueMap);
     }
 
     @Beta
     public ItemCollection<QueryOutcome> query(KeyAttribute hashKey,
             RangeKeyCondition rangeKeyCondition, QueryExpressionSpec queryExpressions) {
         return queryDelegate.query(hashKey, rangeKeyCondition,
-                queryExpressions.getProjectionExpression(),
-                queryExpressions.getFilterExpression(),
+                queryExpressions.getFilterExpression(), queryExpressions.getProjectionExpression(),
                 queryExpressions.getNameMap(), queryExpressions.getValueMap());
     }
 

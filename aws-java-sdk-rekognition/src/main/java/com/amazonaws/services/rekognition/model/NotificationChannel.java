@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,12 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 /**
  * <p>
  * The Amazon Simple Notification Service topic to which Amazon Rekognition publishes the completion status of a video
- * analysis operation. For more information, see <a>api-video</a>.
+ * analysis operation. For more information, see <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/dg/api-video.html">Calling Amazon Rekognition Video
+ * operations</a>. Note that the Amazon SNS topic must have a topic name that begins with <i>AmazonRekognition</i> if
+ * you are using the AmazonRekognitionServiceRole permissions policy to access the topic. For more information, see <a
+ * href="https://docs.aws.amazon.com/rekognition/latest/dg/api-video-roles.html#api-video-roles-all-topics">Giving
+ * access to multiple Amazon SNS topics</a>.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -28,7 +33,7 @@ public class NotificationChannel implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon SNS topic to which Amazon Rekognition to posts the completion status.
+     * The Amazon SNS topic to which Amazon Rekognition posts the completion status.
      * </p>
      */
     private String sNSTopicArn;
@@ -41,11 +46,11 @@ public class NotificationChannel implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon SNS topic to which Amazon Rekognition to posts the completion status.
+     * The Amazon SNS topic to which Amazon Rekognition posts the completion status.
      * </p>
      * 
      * @param sNSTopicArn
-     *        The Amazon SNS topic to which Amazon Rekognition to posts the completion status.
+     *        The Amazon SNS topic to which Amazon Rekognition posts the completion status.
      */
 
     public void setSNSTopicArn(String sNSTopicArn) {
@@ -54,10 +59,10 @@ public class NotificationChannel implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon SNS topic to which Amazon Rekognition to posts the completion status.
+     * The Amazon SNS topic to which Amazon Rekognition posts the completion status.
      * </p>
      * 
-     * @return The Amazon SNS topic to which Amazon Rekognition to posts the completion status.
+     * @return The Amazon SNS topic to which Amazon Rekognition posts the completion status.
      */
 
     public String getSNSTopicArn() {
@@ -66,11 +71,11 @@ public class NotificationChannel implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon SNS topic to which Amazon Rekognition to posts the completion status.
+     * The Amazon SNS topic to which Amazon Rekognition posts the completion status.
      * </p>
      * 
      * @param sNSTopicArn
-     *        The Amazon SNS topic to which Amazon Rekognition to posts the completion status.
+     *        The Amazon SNS topic to which Amazon Rekognition posts the completion status.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

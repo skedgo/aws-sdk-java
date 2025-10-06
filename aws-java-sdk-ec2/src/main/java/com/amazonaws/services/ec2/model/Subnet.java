@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -58,10 +58,35 @@ public class Subnet implements Serializable, Cloneable {
     private Boolean defaultForAz;
     /**
      * <p>
+     * Indicates the device position for local network interfaces in this subnet. For example, <code>1</code> indicates
+     * local network interfaces in this subnet are the secondary network interface (eth1).
+     * </p>
+     */
+    private Integer enableLniAtDeviceIndex;
+    /**
+     * <p>
      * Indicates whether instances launched in this subnet receive a public IPv4 address.
+     * </p>
+     * <p>
+     * Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with
+     * running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the
+     * <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
      * </p>
      */
     private Boolean mapPublicIpOnLaunch;
+    /**
+     * <p>
+     * Indicates whether a network interface created in this subnet (including a network interface created by
+     * <a>RunInstances</a>) receives a customer-owned IPv4 address.
+     * </p>
+     */
+    private Boolean mapCustomerOwnedIpOnLaunch;
+    /**
+     * <p>
+     * The customer-owned IPv4 address pool associated with the subnet.
+     * </p>
+     */
+    private String customerOwnedIpv4Pool;
     /**
      * <p>
      * The current state of the subnet.
@@ -82,7 +107,7 @@ public class Subnet implements Serializable, Cloneable {
     private String vpcId;
     /**
      * <p>
-     * The ID of the AWS account that owns the subnet.
+     * The ID of the Amazon Web Services account that owns the subnet.
      * </p>
      */
     private String ownerId;
@@ -111,6 +136,32 @@ public class Subnet implements Serializable, Cloneable {
      * </p>
      */
     private String subnetArn;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost.
+     * </p>
+     */
+    private String outpostArn;
+    /**
+     * <p>
+     * Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet should return synthetic
+     * IPv6 addresses for IPv4-only destinations.
+     * </p>
+     */
+    private Boolean enableDns64;
+    /**
+     * <p>
+     * Indicates whether this is an IPv6 only subnet.
+     * </p>
+     */
+    private Boolean ipv6Native;
+    /**
+     * <p>
+     * The type of hostnames to assign to instances in the subnet at launch. An instance hostname is based on the IPv4
+     * address or ID of the instance.
+     * </p>
+     */
+    private PrivateDnsNameOptionsOnLaunch privateDnsNameOptionsOnLaunch;
 
     /**
      * <p>
@@ -332,11 +383,66 @@ public class Subnet implements Serializable, Cloneable {
 
     /**
      * <p>
+     * Indicates the device position for local network interfaces in this subnet. For example, <code>1</code> indicates
+     * local network interfaces in this subnet are the secondary network interface (eth1).
+     * </p>
+     * 
+     * @param enableLniAtDeviceIndex
+     *        Indicates the device position for local network interfaces in this subnet. For example, <code>1</code>
+     *        indicates local network interfaces in this subnet are the secondary network interface (eth1).
+     */
+
+    public void setEnableLniAtDeviceIndex(Integer enableLniAtDeviceIndex) {
+        this.enableLniAtDeviceIndex = enableLniAtDeviceIndex;
+    }
+
+    /**
+     * <p>
+     * Indicates the device position for local network interfaces in this subnet. For example, <code>1</code> indicates
+     * local network interfaces in this subnet are the secondary network interface (eth1).
+     * </p>
+     * 
+     * @return Indicates the device position for local network interfaces in this subnet. For example, <code>1</code>
+     *         indicates local network interfaces in this subnet are the secondary network interface (eth1).
+     */
+
+    public Integer getEnableLniAtDeviceIndex() {
+        return this.enableLniAtDeviceIndex;
+    }
+
+    /**
+     * <p>
+     * Indicates the device position for local network interfaces in this subnet. For example, <code>1</code> indicates
+     * local network interfaces in this subnet are the secondary network interface (eth1).
+     * </p>
+     * 
+     * @param enableLniAtDeviceIndex
+     *        Indicates the device position for local network interfaces in this subnet. For example, <code>1</code>
+     *        indicates local network interfaces in this subnet are the secondary network interface (eth1).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Subnet withEnableLniAtDeviceIndex(Integer enableLniAtDeviceIndex) {
+        setEnableLniAtDeviceIndex(enableLniAtDeviceIndex);
+        return this;
+    }
+
+    /**
+     * <p>
      * Indicates whether instances launched in this subnet receive a public IPv4 address.
+     * </p>
+     * <p>
+     * Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with
+     * running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the
+     * <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
      * </p>
      * 
      * @param mapPublicIpOnLaunch
-     *        Indicates whether instances launched in this subnet receive a public IPv4 address.
+     *        Indicates whether instances launched in this subnet receive a public IPv4 address.</p>
+     *        <p>
+     *        Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with
+     *        running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab
+     *        on the <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
      */
 
     public void setMapPublicIpOnLaunch(Boolean mapPublicIpOnLaunch) {
@@ -347,8 +453,17 @@ public class Subnet implements Serializable, Cloneable {
      * <p>
      * Indicates whether instances launched in this subnet receive a public IPv4 address.
      * </p>
+     * <p>
+     * Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with
+     * running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the
+     * <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
+     * </p>
      * 
-     * @return Indicates whether instances launched in this subnet receive a public IPv4 address.
+     * @return Indicates whether instances launched in this subnet receive a public IPv4 address.</p>
+     *         <p>
+     *         Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated
+     *         with running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i>
+     *         tab on the <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
      */
 
     public Boolean getMapPublicIpOnLaunch() {
@@ -359,9 +474,18 @@ public class Subnet implements Serializable, Cloneable {
      * <p>
      * Indicates whether instances launched in this subnet receive a public IPv4 address.
      * </p>
+     * <p>
+     * Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with
+     * running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the
+     * <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
+     * </p>
      * 
      * @param mapPublicIpOnLaunch
-     *        Indicates whether instances launched in this subnet receive a public IPv4 address.
+     *        Indicates whether instances launched in this subnet receive a public IPv4 address.</p>
+     *        <p>
+     *        Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with
+     *        running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab
+     *        on the <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -374,12 +498,121 @@ public class Subnet implements Serializable, Cloneable {
      * <p>
      * Indicates whether instances launched in this subnet receive a public IPv4 address.
      * </p>
+     * <p>
+     * Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with
+     * running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i> tab on the
+     * <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
+     * </p>
      * 
-     * @return Indicates whether instances launched in this subnet receive a public IPv4 address.
+     * @return Indicates whether instances launched in this subnet receive a public IPv4 address.</p>
+     *         <p>
+     *         Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated
+     *         with running instances and Elastic IP addresses. For more information, see the <i>Public IPv4 Address</i>
+     *         tab on the <a href="http://aws.amazon.com/vpc/pricing/">Amazon VPC pricing page</a>.
      */
 
     public Boolean isMapPublicIpOnLaunch() {
         return this.mapPublicIpOnLaunch;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a network interface created in this subnet (including a network interface created by
+     * <a>RunInstances</a>) receives a customer-owned IPv4 address.
+     * </p>
+     * 
+     * @param mapCustomerOwnedIpOnLaunch
+     *        Indicates whether a network interface created in this subnet (including a network interface created by
+     *        <a>RunInstances</a>) receives a customer-owned IPv4 address.
+     */
+
+    public void setMapCustomerOwnedIpOnLaunch(Boolean mapCustomerOwnedIpOnLaunch) {
+        this.mapCustomerOwnedIpOnLaunch = mapCustomerOwnedIpOnLaunch;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a network interface created in this subnet (including a network interface created by
+     * <a>RunInstances</a>) receives a customer-owned IPv4 address.
+     * </p>
+     * 
+     * @return Indicates whether a network interface created in this subnet (including a network interface created by
+     *         <a>RunInstances</a>) receives a customer-owned IPv4 address.
+     */
+
+    public Boolean getMapCustomerOwnedIpOnLaunch() {
+        return this.mapCustomerOwnedIpOnLaunch;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a network interface created in this subnet (including a network interface created by
+     * <a>RunInstances</a>) receives a customer-owned IPv4 address.
+     * </p>
+     * 
+     * @param mapCustomerOwnedIpOnLaunch
+     *        Indicates whether a network interface created in this subnet (including a network interface created by
+     *        <a>RunInstances</a>) receives a customer-owned IPv4 address.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Subnet withMapCustomerOwnedIpOnLaunch(Boolean mapCustomerOwnedIpOnLaunch) {
+        setMapCustomerOwnedIpOnLaunch(mapCustomerOwnedIpOnLaunch);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a network interface created in this subnet (including a network interface created by
+     * <a>RunInstances</a>) receives a customer-owned IPv4 address.
+     * </p>
+     * 
+     * @return Indicates whether a network interface created in this subnet (including a network interface created by
+     *         <a>RunInstances</a>) receives a customer-owned IPv4 address.
+     */
+
+    public Boolean isMapCustomerOwnedIpOnLaunch() {
+        return this.mapCustomerOwnedIpOnLaunch;
+    }
+
+    /**
+     * <p>
+     * The customer-owned IPv4 address pool associated with the subnet.
+     * </p>
+     * 
+     * @param customerOwnedIpv4Pool
+     *        The customer-owned IPv4 address pool associated with the subnet.
+     */
+
+    public void setCustomerOwnedIpv4Pool(String customerOwnedIpv4Pool) {
+        this.customerOwnedIpv4Pool = customerOwnedIpv4Pool;
+    }
+
+    /**
+     * <p>
+     * The customer-owned IPv4 address pool associated with the subnet.
+     * </p>
+     * 
+     * @return The customer-owned IPv4 address pool associated with the subnet.
+     */
+
+    public String getCustomerOwnedIpv4Pool() {
+        return this.customerOwnedIpv4Pool;
+    }
+
+    /**
+     * <p>
+     * The customer-owned IPv4 address pool associated with the subnet.
+     * </p>
+     * 
+     * @param customerOwnedIpv4Pool
+     *        The customer-owned IPv4 address pool associated with the subnet.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Subnet withCustomerOwnedIpv4Pool(String customerOwnedIpv4Pool) {
+        setCustomerOwnedIpv4Pool(customerOwnedIpv4Pool);
+        return this;
     }
 
     /**
@@ -537,11 +770,11 @@ public class Subnet implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the subnet.
+     * The ID of the Amazon Web Services account that owns the subnet.
      * </p>
      * 
      * @param ownerId
-     *        The ID of the AWS account that owns the subnet.
+     *        The ID of the Amazon Web Services account that owns the subnet.
      */
 
     public void setOwnerId(String ownerId) {
@@ -550,10 +783,10 @@ public class Subnet implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the subnet.
+     * The ID of the Amazon Web Services account that owns the subnet.
      * </p>
      * 
-     * @return The ID of the AWS account that owns the subnet.
+     * @return The ID of the Amazon Web Services account that owns the subnet.
      */
 
     public String getOwnerId() {
@@ -562,11 +795,11 @@ public class Subnet implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the subnet.
+     * The ID of the Amazon Web Services account that owns the subnet.
      * </p>
      * 
      * @param ownerId
-     *        The ID of the AWS account that owns the subnet.
+     *        The ID of the Amazon Web Services account that owns the subnet.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -822,6 +1055,204 @@ public class Subnet implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The Amazon Resource Name (ARN) of the Outpost.
+     */
+
+    public void setOutpostArn(String outpostArn) {
+        this.outpostArn = outpostArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the Outpost.
+     */
+
+    public String getOutpostArn() {
+        return this.outpostArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The Amazon Resource Name (ARN) of the Outpost.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Subnet withOutpostArn(String outpostArn) {
+        setOutpostArn(outpostArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet should return synthetic
+     * IPv6 addresses for IPv4-only destinations.
+     * </p>
+     * 
+     * @param enableDns64
+     *        Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet should return
+     *        synthetic IPv6 addresses for IPv4-only destinations.
+     */
+
+    public void setEnableDns64(Boolean enableDns64) {
+        this.enableDns64 = enableDns64;
+    }
+
+    /**
+     * <p>
+     * Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet should return synthetic
+     * IPv6 addresses for IPv4-only destinations.
+     * </p>
+     * 
+     * @return Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet should return
+     *         synthetic IPv6 addresses for IPv4-only destinations.
+     */
+
+    public Boolean getEnableDns64() {
+        return this.enableDns64;
+    }
+
+    /**
+     * <p>
+     * Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet should return synthetic
+     * IPv6 addresses for IPv4-only destinations.
+     * </p>
+     * 
+     * @param enableDns64
+     *        Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet should return
+     *        synthetic IPv6 addresses for IPv4-only destinations.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Subnet withEnableDns64(Boolean enableDns64) {
+        setEnableDns64(enableDns64);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet should return synthetic
+     * IPv6 addresses for IPv4-only destinations.
+     * </p>
+     * 
+     * @return Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet should return
+     *         synthetic IPv6 addresses for IPv4-only destinations.
+     */
+
+    public Boolean isEnableDns64() {
+        return this.enableDns64;
+    }
+
+    /**
+     * <p>
+     * Indicates whether this is an IPv6 only subnet.
+     * </p>
+     * 
+     * @param ipv6Native
+     *        Indicates whether this is an IPv6 only subnet.
+     */
+
+    public void setIpv6Native(Boolean ipv6Native) {
+        this.ipv6Native = ipv6Native;
+    }
+
+    /**
+     * <p>
+     * Indicates whether this is an IPv6 only subnet.
+     * </p>
+     * 
+     * @return Indicates whether this is an IPv6 only subnet.
+     */
+
+    public Boolean getIpv6Native() {
+        return this.ipv6Native;
+    }
+
+    /**
+     * <p>
+     * Indicates whether this is an IPv6 only subnet.
+     * </p>
+     * 
+     * @param ipv6Native
+     *        Indicates whether this is an IPv6 only subnet.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Subnet withIpv6Native(Boolean ipv6Native) {
+        setIpv6Native(ipv6Native);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether this is an IPv6 only subnet.
+     * </p>
+     * 
+     * @return Indicates whether this is an IPv6 only subnet.
+     */
+
+    public Boolean isIpv6Native() {
+        return this.ipv6Native;
+    }
+
+    /**
+     * <p>
+     * The type of hostnames to assign to instances in the subnet at launch. An instance hostname is based on the IPv4
+     * address or ID of the instance.
+     * </p>
+     * 
+     * @param privateDnsNameOptionsOnLaunch
+     *        The type of hostnames to assign to instances in the subnet at launch. An instance hostname is based on the
+     *        IPv4 address or ID of the instance.
+     */
+
+    public void setPrivateDnsNameOptionsOnLaunch(PrivateDnsNameOptionsOnLaunch privateDnsNameOptionsOnLaunch) {
+        this.privateDnsNameOptionsOnLaunch = privateDnsNameOptionsOnLaunch;
+    }
+
+    /**
+     * <p>
+     * The type of hostnames to assign to instances in the subnet at launch. An instance hostname is based on the IPv4
+     * address or ID of the instance.
+     * </p>
+     * 
+     * @return The type of hostnames to assign to instances in the subnet at launch. An instance hostname is based on
+     *         the IPv4 address or ID of the instance.
+     */
+
+    public PrivateDnsNameOptionsOnLaunch getPrivateDnsNameOptionsOnLaunch() {
+        return this.privateDnsNameOptionsOnLaunch;
+    }
+
+    /**
+     * <p>
+     * The type of hostnames to assign to instances in the subnet at launch. An instance hostname is based on the IPv4
+     * address or ID of the instance.
+     * </p>
+     * 
+     * @param privateDnsNameOptionsOnLaunch
+     *        The type of hostnames to assign to instances in the subnet at launch. An instance hostname is based on the
+     *        IPv4 address or ID of the instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Subnet withPrivateDnsNameOptionsOnLaunch(PrivateDnsNameOptionsOnLaunch privateDnsNameOptionsOnLaunch) {
+        setPrivateDnsNameOptionsOnLaunch(privateDnsNameOptionsOnLaunch);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -843,8 +1274,14 @@ public class Subnet implements Serializable, Cloneable {
             sb.append("CidrBlock: ").append(getCidrBlock()).append(",");
         if (getDefaultForAz() != null)
             sb.append("DefaultForAz: ").append(getDefaultForAz()).append(",");
+        if (getEnableLniAtDeviceIndex() != null)
+            sb.append("EnableLniAtDeviceIndex: ").append(getEnableLniAtDeviceIndex()).append(",");
         if (getMapPublicIpOnLaunch() != null)
             sb.append("MapPublicIpOnLaunch: ").append(getMapPublicIpOnLaunch()).append(",");
+        if (getMapCustomerOwnedIpOnLaunch() != null)
+            sb.append("MapCustomerOwnedIpOnLaunch: ").append(getMapCustomerOwnedIpOnLaunch()).append(",");
+        if (getCustomerOwnedIpv4Pool() != null)
+            sb.append("CustomerOwnedIpv4Pool: ").append(getCustomerOwnedIpv4Pool()).append(",");
         if (getState() != null)
             sb.append("State: ").append(getState()).append(",");
         if (getSubnetId() != null)
@@ -860,7 +1297,15 @@ public class Subnet implements Serializable, Cloneable {
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getSubnetArn() != null)
-            sb.append("SubnetArn: ").append(getSubnetArn());
+            sb.append("SubnetArn: ").append(getSubnetArn()).append(",");
+        if (getOutpostArn() != null)
+            sb.append("OutpostArn: ").append(getOutpostArn()).append(",");
+        if (getEnableDns64() != null)
+            sb.append("EnableDns64: ").append(getEnableDns64()).append(",");
+        if (getIpv6Native() != null)
+            sb.append("Ipv6Native: ").append(getIpv6Native()).append(",");
+        if (getPrivateDnsNameOptionsOnLaunch() != null)
+            sb.append("PrivateDnsNameOptionsOnLaunch: ").append(getPrivateDnsNameOptionsOnLaunch());
         sb.append("}");
         return sb.toString();
     }
@@ -895,9 +1340,21 @@ public class Subnet implements Serializable, Cloneable {
             return false;
         if (other.getDefaultForAz() != null && other.getDefaultForAz().equals(this.getDefaultForAz()) == false)
             return false;
+        if (other.getEnableLniAtDeviceIndex() == null ^ this.getEnableLniAtDeviceIndex() == null)
+            return false;
+        if (other.getEnableLniAtDeviceIndex() != null && other.getEnableLniAtDeviceIndex().equals(this.getEnableLniAtDeviceIndex()) == false)
+            return false;
         if (other.getMapPublicIpOnLaunch() == null ^ this.getMapPublicIpOnLaunch() == null)
             return false;
         if (other.getMapPublicIpOnLaunch() != null && other.getMapPublicIpOnLaunch().equals(this.getMapPublicIpOnLaunch()) == false)
+            return false;
+        if (other.getMapCustomerOwnedIpOnLaunch() == null ^ this.getMapCustomerOwnedIpOnLaunch() == null)
+            return false;
+        if (other.getMapCustomerOwnedIpOnLaunch() != null && other.getMapCustomerOwnedIpOnLaunch().equals(this.getMapCustomerOwnedIpOnLaunch()) == false)
+            return false;
+        if (other.getCustomerOwnedIpv4Pool() == null ^ this.getCustomerOwnedIpv4Pool() == null)
+            return false;
+        if (other.getCustomerOwnedIpv4Pool() != null && other.getCustomerOwnedIpv4Pool().equals(this.getCustomerOwnedIpv4Pool()) == false)
             return false;
         if (other.getState() == null ^ this.getState() == null)
             return false;
@@ -931,6 +1388,23 @@ public class Subnet implements Serializable, Cloneable {
             return false;
         if (other.getSubnetArn() != null && other.getSubnetArn().equals(this.getSubnetArn()) == false)
             return false;
+        if (other.getOutpostArn() == null ^ this.getOutpostArn() == null)
+            return false;
+        if (other.getOutpostArn() != null && other.getOutpostArn().equals(this.getOutpostArn()) == false)
+            return false;
+        if (other.getEnableDns64() == null ^ this.getEnableDns64() == null)
+            return false;
+        if (other.getEnableDns64() != null && other.getEnableDns64().equals(this.getEnableDns64()) == false)
+            return false;
+        if (other.getIpv6Native() == null ^ this.getIpv6Native() == null)
+            return false;
+        if (other.getIpv6Native() != null && other.getIpv6Native().equals(this.getIpv6Native()) == false)
+            return false;
+        if (other.getPrivateDnsNameOptionsOnLaunch() == null ^ this.getPrivateDnsNameOptionsOnLaunch() == null)
+            return false;
+        if (other.getPrivateDnsNameOptionsOnLaunch() != null
+                && other.getPrivateDnsNameOptionsOnLaunch().equals(this.getPrivateDnsNameOptionsOnLaunch()) == false)
+            return false;
         return true;
     }
 
@@ -944,7 +1418,10 @@ public class Subnet implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getAvailableIpAddressCount() == null) ? 0 : getAvailableIpAddressCount().hashCode());
         hashCode = prime * hashCode + ((getCidrBlock() == null) ? 0 : getCidrBlock().hashCode());
         hashCode = prime * hashCode + ((getDefaultForAz() == null) ? 0 : getDefaultForAz().hashCode());
+        hashCode = prime * hashCode + ((getEnableLniAtDeviceIndex() == null) ? 0 : getEnableLniAtDeviceIndex().hashCode());
         hashCode = prime * hashCode + ((getMapPublicIpOnLaunch() == null) ? 0 : getMapPublicIpOnLaunch().hashCode());
+        hashCode = prime * hashCode + ((getMapCustomerOwnedIpOnLaunch() == null) ? 0 : getMapCustomerOwnedIpOnLaunch().hashCode());
+        hashCode = prime * hashCode + ((getCustomerOwnedIpv4Pool() == null) ? 0 : getCustomerOwnedIpv4Pool().hashCode());
         hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
         hashCode = prime * hashCode + ((getSubnetId() == null) ? 0 : getSubnetId().hashCode());
         hashCode = prime * hashCode + ((getVpcId() == null) ? 0 : getVpcId().hashCode());
@@ -953,6 +1430,10 @@ public class Subnet implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getIpv6CidrBlockAssociationSet() == null) ? 0 : getIpv6CidrBlockAssociationSet().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getSubnetArn() == null) ? 0 : getSubnetArn().hashCode());
+        hashCode = prime * hashCode + ((getOutpostArn() == null) ? 0 : getOutpostArn().hashCode());
+        hashCode = prime * hashCode + ((getEnableDns64() == null) ? 0 : getEnableDns64().hashCode());
+        hashCode = prime * hashCode + ((getIpv6Native() == null) ? 0 : getIpv6Native().hashCode());
+        hashCode = prime * hashCode + ((getPrivateDnsNameOptionsOnLaunch() == null) ? 0 : getPrivateDnsNameOptionsOnLaunch().hashCode());
         return hashCode;
     }
 

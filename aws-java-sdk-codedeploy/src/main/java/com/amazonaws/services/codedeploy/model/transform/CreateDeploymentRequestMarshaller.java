@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -47,6 +47,8 @@ public class CreateDeploymentRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("updateOutdatedInstancesOnly").build();
     private static final MarshallingInfo<String> FILEEXISTSBEHAVIOR_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("fileExistsBehavior").build();
+    private static final MarshallingInfo<StructuredPojo> OVERRIDEALARMCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("overrideAlarmConfiguration").build();
 
     private static final CreateDeploymentRequestMarshaller instance = new CreateDeploymentRequestMarshaller();
 
@@ -74,6 +76,7 @@ public class CreateDeploymentRequestMarshaller {
             protocolMarshaller.marshall(createDeploymentRequest.getAutoRollbackConfiguration(), AUTOROLLBACKCONFIGURATION_BINDING);
             protocolMarshaller.marshall(createDeploymentRequest.getUpdateOutdatedInstancesOnly(), UPDATEOUTDATEDINSTANCESONLY_BINDING);
             protocolMarshaller.marshall(createDeploymentRequest.getFileExistsBehavior(), FILEEXISTSBEHAVIOR_BINDING);
+            protocolMarshaller.marshall(createDeploymentRequest.getOverrideAlarmConfiguration(), OVERRIDEALARMCONFIGURATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

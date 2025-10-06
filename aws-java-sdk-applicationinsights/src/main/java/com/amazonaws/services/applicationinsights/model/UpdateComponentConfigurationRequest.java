@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,8 +45,7 @@ public class UpdateComponentConfigurationRequest extends com.amazonaws.AmazonWeb
     private Boolean monitor;
     /**
      * <p>
-     * The tier of the application component. Supported tiers include <code>DOT_NET_WORKER</code>,
-     * <code>DOT_NET_WEB</code>, <code>SQL_SERVER</code>, and <code>DEFAULT</code>.
+     * The tier of the application component.
      * </p>
      */
     private String tier;
@@ -56,10 +55,18 @@ public class UpdateComponentConfigurationRequest extends com.amazonaws.AmazonWeb
      * information about the JSON format, see <a
      * href="https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/working-with-json.html">Working with
      * JSON</a>. You can send a request to <code>DescribeComponentConfigurationRecommendation</code> to see the
-     * recommended configuration for a component.
+     * recommended configuration for a component. For the complete format of the component configuration file, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/component-config.html">Component
+     * Configuration</a>.
      * </p>
      */
     private String componentConfiguration;
+    /**
+     * <p>
+     * Automatically configures the component by applying the recommended configurations.
+     * </p>
+     */
+    private Boolean autoConfigEnabled;
 
     /**
      * <p>
@@ -195,13 +202,12 @@ public class UpdateComponentConfigurationRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The tier of the application component. Supported tiers include <code>DOT_NET_WORKER</code>,
-     * <code>DOT_NET_WEB</code>, <code>SQL_SERVER</code>, and <code>DEFAULT</code>.
+     * The tier of the application component.
      * </p>
      * 
      * @param tier
-     *        The tier of the application component. Supported tiers include <code>DOT_NET_WORKER</code>,
-     *        <code>DOT_NET_WEB</code>, <code>SQL_SERVER</code>, and <code>DEFAULT</code>.
+     *        The tier of the application component.
+     * @see Tier
      */
 
     public void setTier(String tier) {
@@ -210,12 +216,11 @@ public class UpdateComponentConfigurationRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The tier of the application component. Supported tiers include <code>DOT_NET_WORKER</code>,
-     * <code>DOT_NET_WEB</code>, <code>SQL_SERVER</code>, and <code>DEFAULT</code>.
+     * The tier of the application component.
      * </p>
      * 
-     * @return The tier of the application component. Supported tiers include <code>DOT_NET_WORKER</code>,
-     *         <code>DOT_NET_WEB</code>, <code>SQL_SERVER</code>, and <code>DEFAULT</code>.
+     * @return The tier of the application component.
+     * @see Tier
      */
 
     public String getTier() {
@@ -224,14 +229,13 @@ public class UpdateComponentConfigurationRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The tier of the application component. Supported tiers include <code>DOT_NET_WORKER</code>,
-     * <code>DOT_NET_WEB</code>, <code>SQL_SERVER</code>, and <code>DEFAULT</code>.
+     * The tier of the application component.
      * </p>
      * 
      * @param tier
-     *        The tier of the application component. Supported tiers include <code>DOT_NET_WORKER</code>,
-     *        <code>DOT_NET_WEB</code>, <code>SQL_SERVER</code>, and <code>DEFAULT</code>.
+     *        The tier of the application component.
      * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Tier
      */
 
     public UpdateComponentConfigurationRequest withTier(String tier) {
@@ -241,11 +245,29 @@ public class UpdateComponentConfigurationRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
+     * The tier of the application component.
+     * </p>
+     * 
+     * @param tier
+     *        The tier of the application component.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Tier
+     */
+
+    public UpdateComponentConfigurationRequest withTier(Tier tier) {
+        this.tier = tier.toString();
+        return this;
+    }
+
+    /**
+     * <p>
      * The configuration settings of the component. The value is the escaped JSON of the configuration. For more
      * information about the JSON format, see <a
      * href="https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/working-with-json.html">Working with
      * JSON</a>. You can send a request to <code>DescribeComponentConfigurationRecommendation</code> to see the
-     * recommended configuration for a component.
+     * recommended configuration for a component. For the complete format of the component configuration file, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/component-config.html">Component
+     * Configuration</a>.
      * </p>
      * 
      * @param componentConfiguration
@@ -253,7 +275,10 @@ public class UpdateComponentConfigurationRequest extends com.amazonaws.AmazonWeb
      *        information about the JSON format, see <a
      *        href="https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/working-with-json.html">Working
      *        with JSON</a>. You can send a request to <code>DescribeComponentConfigurationRecommendation</code> to see
-     *        the recommended configuration for a component.
+     *        the recommended configuration for a component. For the complete format of the component configuration
+     *        file, see <a
+     *        href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/component-config.html">Component
+     *        Configuration</a>.
      */
 
     public void setComponentConfiguration(String componentConfiguration) {
@@ -266,14 +291,19 @@ public class UpdateComponentConfigurationRequest extends com.amazonaws.AmazonWeb
      * information about the JSON format, see <a
      * href="https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/working-with-json.html">Working with
      * JSON</a>. You can send a request to <code>DescribeComponentConfigurationRecommendation</code> to see the
-     * recommended configuration for a component.
+     * recommended configuration for a component. For the complete format of the component configuration file, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/component-config.html">Component
+     * Configuration</a>.
      * </p>
      * 
      * @return The configuration settings of the component. The value is the escaped JSON of the configuration. For more
      *         information about the JSON format, see <a
      *         href="https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/working-with-json.html">Working
      *         with JSON</a>. You can send a request to <code>DescribeComponentConfigurationRecommendation</code> to see
-     *         the recommended configuration for a component.
+     *         the recommended configuration for a component. For the complete format of the component configuration
+     *         file, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/component-config.html">Component
+     *         Configuration</a>.
      */
 
     public String getComponentConfiguration() {
@@ -286,7 +316,9 @@ public class UpdateComponentConfigurationRequest extends com.amazonaws.AmazonWeb
      * information about the JSON format, see <a
      * href="https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/working-with-json.html">Working with
      * JSON</a>. You can send a request to <code>DescribeComponentConfigurationRecommendation</code> to see the
-     * recommended configuration for a component.
+     * recommended configuration for a component. For the complete format of the component configuration file, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/component-config.html">Component
+     * Configuration</a>.
      * </p>
      * 
      * @param componentConfiguration
@@ -294,13 +326,68 @@ public class UpdateComponentConfigurationRequest extends com.amazonaws.AmazonWeb
      *        information about the JSON format, see <a
      *        href="https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/working-with-json.html">Working
      *        with JSON</a>. You can send a request to <code>DescribeComponentConfigurationRecommendation</code> to see
-     *        the recommended configuration for a component.
+     *        the recommended configuration for a component. For the complete format of the component configuration
+     *        file, see <a
+     *        href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/component-config.html">Component
+     *        Configuration</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public UpdateComponentConfigurationRequest withComponentConfiguration(String componentConfiguration) {
         setComponentConfiguration(componentConfiguration);
         return this;
+    }
+
+    /**
+     * <p>
+     * Automatically configures the component by applying the recommended configurations.
+     * </p>
+     * 
+     * @param autoConfigEnabled
+     *        Automatically configures the component by applying the recommended configurations.
+     */
+
+    public void setAutoConfigEnabled(Boolean autoConfigEnabled) {
+        this.autoConfigEnabled = autoConfigEnabled;
+    }
+
+    /**
+     * <p>
+     * Automatically configures the component by applying the recommended configurations.
+     * </p>
+     * 
+     * @return Automatically configures the component by applying the recommended configurations.
+     */
+
+    public Boolean getAutoConfigEnabled() {
+        return this.autoConfigEnabled;
+    }
+
+    /**
+     * <p>
+     * Automatically configures the component by applying the recommended configurations.
+     * </p>
+     * 
+     * @param autoConfigEnabled
+     *        Automatically configures the component by applying the recommended configurations.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateComponentConfigurationRequest withAutoConfigEnabled(Boolean autoConfigEnabled) {
+        setAutoConfigEnabled(autoConfigEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Automatically configures the component by applying the recommended configurations.
+     * </p>
+     * 
+     * @return Automatically configures the component by applying the recommended configurations.
+     */
+
+    public Boolean isAutoConfigEnabled() {
+        return this.autoConfigEnabled;
     }
 
     /**
@@ -324,7 +411,9 @@ public class UpdateComponentConfigurationRequest extends com.amazonaws.AmazonWeb
         if (getTier() != null)
             sb.append("Tier: ").append(getTier()).append(",");
         if (getComponentConfiguration() != null)
-            sb.append("ComponentConfiguration: ").append(getComponentConfiguration());
+            sb.append("ComponentConfiguration: ").append(getComponentConfiguration()).append(",");
+        if (getAutoConfigEnabled() != null)
+            sb.append("AutoConfigEnabled: ").append(getAutoConfigEnabled());
         sb.append("}");
         return sb.toString();
     }
@@ -359,6 +448,10 @@ public class UpdateComponentConfigurationRequest extends com.amazonaws.AmazonWeb
             return false;
         if (other.getComponentConfiguration() != null && other.getComponentConfiguration().equals(this.getComponentConfiguration()) == false)
             return false;
+        if (other.getAutoConfigEnabled() == null ^ this.getAutoConfigEnabled() == null)
+            return false;
+        if (other.getAutoConfigEnabled() != null && other.getAutoConfigEnabled().equals(this.getAutoConfigEnabled()) == false)
+            return false;
         return true;
     }
 
@@ -372,6 +465,7 @@ public class UpdateComponentConfigurationRequest extends com.amazonaws.AmazonWeb
         hashCode = prime * hashCode + ((getMonitor() == null) ? 0 : getMonitor().hashCode());
         hashCode = prime * hashCode + ((getTier() == null) ? 0 : getTier().hashCode());
         hashCode = prime * hashCode + ((getComponentConfiguration() == null) ? 0 : getComponentConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getAutoConfigEnabled() == null) ? 0 : getAutoConfigEnabled().hashCode());
         return hashCode;
     }
 

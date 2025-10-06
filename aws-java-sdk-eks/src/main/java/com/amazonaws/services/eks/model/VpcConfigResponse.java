@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,10 +37,17 @@ public class VpcConfigResponse implements Serializable, Cloneable, StructuredPoj
     /**
      * <p>
      * The security groups associated with the cross-account elastic network interfaces that are used to allow
-     * communication between your worker nodes and the Kubernetes control plane.
+     * communication between your nodes and the Kubernetes control plane.
      * </p>
      */
     private java.util.List<String> securityGroupIds;
+    /**
+     * <p>
+     * The cluster security group that was created by Amazon EKS for the cluster. Managed node groups use this security
+     * group for control-plane-to-data-plane communication.
+     * </p>
+     */
+    private String clusterSecurityGroupId;
     /**
      * <p>
      * The VPC associated with your cluster.
@@ -49,9 +56,7 @@ public class VpcConfigResponse implements Serializable, Cloneable, StructuredPoj
     private String vpcId;
     /**
      * <p>
-     * This parameter indicates whether the Amazon EKS public API server endpoint is enabled. If the Amazon EKS public
-     * API server endpoint is disabled, your cluster's Kubernetes API server can receive only requests that originate
-     * from within the cluster VPC.
+     * Whether the public API server endpoint is enabled.
      * </p>
      */
     private Boolean endpointPublicAccess;
@@ -59,10 +64,20 @@ public class VpcConfigResponse implements Serializable, Cloneable, StructuredPoj
      * <p>
      * This parameter indicates whether the Amazon EKS private API server endpoint is enabled. If the Amazon EKS private
      * API server endpoint is enabled, Kubernetes API requests that originate from within your cluster's VPC use the
-     * private VPC endpoint instead of traversing the internet.
+     * private VPC endpoint instead of traversing the internet. If this value is disabled and you have nodes or Fargate
+     * pods in the cluster, then ensure that <code>publicAccessCidrs</code> includes the necessary CIDR blocks for
+     * communication with the nodes or Fargate pods. For more information, see <a
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html">Amazon EKS cluster endpoint access
+     * control</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      * </p>
      */
     private Boolean endpointPrivateAccess;
+    /**
+     * <p>
+     * The CIDR blocks that are allowed access to your cluster's public Kubernetes API server endpoint.
+     * </p>
+     */
+    private java.util.List<String> publicAccessCidrs;
 
     /**
      * <p>
@@ -137,11 +152,11 @@ public class VpcConfigResponse implements Serializable, Cloneable, StructuredPoj
     /**
      * <p>
      * The security groups associated with the cross-account elastic network interfaces that are used to allow
-     * communication between your worker nodes and the Kubernetes control plane.
+     * communication between your nodes and the Kubernetes control plane.
      * </p>
      * 
      * @return The security groups associated with the cross-account elastic network interfaces that are used to allow
-     *         communication between your worker nodes and the Kubernetes control plane.
+     *         communication between your nodes and the Kubernetes control plane.
      */
 
     public java.util.List<String> getSecurityGroupIds() {
@@ -151,12 +166,12 @@ public class VpcConfigResponse implements Serializable, Cloneable, StructuredPoj
     /**
      * <p>
      * The security groups associated with the cross-account elastic network interfaces that are used to allow
-     * communication between your worker nodes and the Kubernetes control plane.
+     * communication between your nodes and the Kubernetes control plane.
      * </p>
      * 
      * @param securityGroupIds
      *        The security groups associated with the cross-account elastic network interfaces that are used to allow
-     *        communication between your worker nodes and the Kubernetes control plane.
+     *        communication between your nodes and the Kubernetes control plane.
      */
 
     public void setSecurityGroupIds(java.util.Collection<String> securityGroupIds) {
@@ -171,7 +186,7 @@ public class VpcConfigResponse implements Serializable, Cloneable, StructuredPoj
     /**
      * <p>
      * The security groups associated with the cross-account elastic network interfaces that are used to allow
-     * communication between your worker nodes and the Kubernetes control plane.
+     * communication between your nodes and the Kubernetes control plane.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -181,7 +196,7 @@ public class VpcConfigResponse implements Serializable, Cloneable, StructuredPoj
      * 
      * @param securityGroupIds
      *        The security groups associated with the cross-account elastic network interfaces that are used to allow
-     *        communication between your worker nodes and the Kubernetes control plane.
+     *        communication between your nodes and the Kubernetes control plane.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -198,17 +213,63 @@ public class VpcConfigResponse implements Serializable, Cloneable, StructuredPoj
     /**
      * <p>
      * The security groups associated with the cross-account elastic network interfaces that are used to allow
-     * communication between your worker nodes and the Kubernetes control plane.
+     * communication between your nodes and the Kubernetes control plane.
      * </p>
      * 
      * @param securityGroupIds
      *        The security groups associated with the cross-account elastic network interfaces that are used to allow
-     *        communication between your worker nodes and the Kubernetes control plane.
+     *        communication between your nodes and the Kubernetes control plane.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public VpcConfigResponse withSecurityGroupIds(java.util.Collection<String> securityGroupIds) {
         setSecurityGroupIds(securityGroupIds);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The cluster security group that was created by Amazon EKS for the cluster. Managed node groups use this security
+     * group for control-plane-to-data-plane communication.
+     * </p>
+     * 
+     * @param clusterSecurityGroupId
+     *        The cluster security group that was created by Amazon EKS for the cluster. Managed node groups use this
+     *        security group for control-plane-to-data-plane communication.
+     */
+
+    public void setClusterSecurityGroupId(String clusterSecurityGroupId) {
+        this.clusterSecurityGroupId = clusterSecurityGroupId;
+    }
+
+    /**
+     * <p>
+     * The cluster security group that was created by Amazon EKS for the cluster. Managed node groups use this security
+     * group for control-plane-to-data-plane communication.
+     * </p>
+     * 
+     * @return The cluster security group that was created by Amazon EKS for the cluster. Managed node groups use this
+     *         security group for control-plane-to-data-plane communication.
+     */
+
+    public String getClusterSecurityGroupId() {
+        return this.clusterSecurityGroupId;
+    }
+
+    /**
+     * <p>
+     * The cluster security group that was created by Amazon EKS for the cluster. Managed node groups use this security
+     * group for control-plane-to-data-plane communication.
+     * </p>
+     * 
+     * @param clusterSecurityGroupId
+     *        The cluster security group that was created by Amazon EKS for the cluster. Managed node groups use this
+     *        security group for control-plane-to-data-plane communication.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VpcConfigResponse withClusterSecurityGroupId(String clusterSecurityGroupId) {
+        setClusterSecurityGroupId(clusterSecurityGroupId);
         return this;
     }
 
@@ -254,15 +315,11 @@ public class VpcConfigResponse implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * This parameter indicates whether the Amazon EKS public API server endpoint is enabled. If the Amazon EKS public
-     * API server endpoint is disabled, your cluster's Kubernetes API server can receive only requests that originate
-     * from within the cluster VPC.
+     * Whether the public API server endpoint is enabled.
      * </p>
      * 
      * @param endpointPublicAccess
-     *        This parameter indicates whether the Amazon EKS public API server endpoint is enabled. If the Amazon EKS
-     *        public API server endpoint is disabled, your cluster's Kubernetes API server can receive only requests
-     *        that originate from within the cluster VPC.
+     *        Whether the public API server endpoint is enabled.
      */
 
     public void setEndpointPublicAccess(Boolean endpointPublicAccess) {
@@ -271,14 +328,10 @@ public class VpcConfigResponse implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * This parameter indicates whether the Amazon EKS public API server endpoint is enabled. If the Amazon EKS public
-     * API server endpoint is disabled, your cluster's Kubernetes API server can receive only requests that originate
-     * from within the cluster VPC.
+     * Whether the public API server endpoint is enabled.
      * </p>
      * 
-     * @return This parameter indicates whether the Amazon EKS public API server endpoint is enabled. If the Amazon EKS
-     *         public API server endpoint is disabled, your cluster's Kubernetes API server can receive only requests
-     *         that originate from within the cluster VPC.
+     * @return Whether the public API server endpoint is enabled.
      */
 
     public Boolean getEndpointPublicAccess() {
@@ -287,15 +340,11 @@ public class VpcConfigResponse implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * This parameter indicates whether the Amazon EKS public API server endpoint is enabled. If the Amazon EKS public
-     * API server endpoint is disabled, your cluster's Kubernetes API server can receive only requests that originate
-     * from within the cluster VPC.
+     * Whether the public API server endpoint is enabled.
      * </p>
      * 
      * @param endpointPublicAccess
-     *        This parameter indicates whether the Amazon EKS public API server endpoint is enabled. If the Amazon EKS
-     *        public API server endpoint is disabled, your cluster's Kubernetes API server can receive only requests
-     *        that originate from within the cluster VPC.
+     *        Whether the public API server endpoint is enabled.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -306,14 +355,10 @@ public class VpcConfigResponse implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * This parameter indicates whether the Amazon EKS public API server endpoint is enabled. If the Amazon EKS public
-     * API server endpoint is disabled, your cluster's Kubernetes API server can receive only requests that originate
-     * from within the cluster VPC.
+     * Whether the public API server endpoint is enabled.
      * </p>
      * 
-     * @return This parameter indicates whether the Amazon EKS public API server endpoint is enabled. If the Amazon EKS
-     *         public API server endpoint is disabled, your cluster's Kubernetes API server can receive only requests
-     *         that originate from within the cluster VPC.
+     * @return Whether the public API server endpoint is enabled.
      */
 
     public Boolean isEndpointPublicAccess() {
@@ -324,13 +369,21 @@ public class VpcConfigResponse implements Serializable, Cloneable, StructuredPoj
      * <p>
      * This parameter indicates whether the Amazon EKS private API server endpoint is enabled. If the Amazon EKS private
      * API server endpoint is enabled, Kubernetes API requests that originate from within your cluster's VPC use the
-     * private VPC endpoint instead of traversing the internet.
+     * private VPC endpoint instead of traversing the internet. If this value is disabled and you have nodes or Fargate
+     * pods in the cluster, then ensure that <code>publicAccessCidrs</code> includes the necessary CIDR blocks for
+     * communication with the nodes or Fargate pods. For more information, see <a
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html">Amazon EKS cluster endpoint access
+     * control</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      * </p>
      * 
      * @param endpointPrivateAccess
      *        This parameter indicates whether the Amazon EKS private API server endpoint is enabled. If the Amazon EKS
      *        private API server endpoint is enabled, Kubernetes API requests that originate from within your cluster's
-     *        VPC use the private VPC endpoint instead of traversing the internet.
+     *        VPC use the private VPC endpoint instead of traversing the internet. If this value is disabled and you
+     *        have nodes or Fargate pods in the cluster, then ensure that <code>publicAccessCidrs</code> includes the
+     *        necessary CIDR blocks for communication with the nodes or Fargate pods. For more information, see <a
+     *        href="https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html">Amazon EKS cluster endpoint
+     *        access control</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      */
 
     public void setEndpointPrivateAccess(Boolean endpointPrivateAccess) {
@@ -341,12 +394,20 @@ public class VpcConfigResponse implements Serializable, Cloneable, StructuredPoj
      * <p>
      * This parameter indicates whether the Amazon EKS private API server endpoint is enabled. If the Amazon EKS private
      * API server endpoint is enabled, Kubernetes API requests that originate from within your cluster's VPC use the
-     * private VPC endpoint instead of traversing the internet.
+     * private VPC endpoint instead of traversing the internet. If this value is disabled and you have nodes or Fargate
+     * pods in the cluster, then ensure that <code>publicAccessCidrs</code> includes the necessary CIDR blocks for
+     * communication with the nodes or Fargate pods. For more information, see <a
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html">Amazon EKS cluster endpoint access
+     * control</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      * </p>
      * 
      * @return This parameter indicates whether the Amazon EKS private API server endpoint is enabled. If the Amazon EKS
      *         private API server endpoint is enabled, Kubernetes API requests that originate from within your cluster's
-     *         VPC use the private VPC endpoint instead of traversing the internet.
+     *         VPC use the private VPC endpoint instead of traversing the internet. If this value is disabled and you
+     *         have nodes or Fargate pods in the cluster, then ensure that <code>publicAccessCidrs</code> includes the
+     *         necessary CIDR blocks for communication with the nodes or Fargate pods. For more information, see <a
+     *         href="https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html">Amazon EKS cluster endpoint
+     *         access control</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      */
 
     public Boolean getEndpointPrivateAccess() {
@@ -357,13 +418,21 @@ public class VpcConfigResponse implements Serializable, Cloneable, StructuredPoj
      * <p>
      * This parameter indicates whether the Amazon EKS private API server endpoint is enabled. If the Amazon EKS private
      * API server endpoint is enabled, Kubernetes API requests that originate from within your cluster's VPC use the
-     * private VPC endpoint instead of traversing the internet.
+     * private VPC endpoint instead of traversing the internet. If this value is disabled and you have nodes or Fargate
+     * pods in the cluster, then ensure that <code>publicAccessCidrs</code> includes the necessary CIDR blocks for
+     * communication with the nodes or Fargate pods. For more information, see <a
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html">Amazon EKS cluster endpoint access
+     * control</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      * </p>
      * 
      * @param endpointPrivateAccess
      *        This parameter indicates whether the Amazon EKS private API server endpoint is enabled. If the Amazon EKS
      *        private API server endpoint is enabled, Kubernetes API requests that originate from within your cluster's
-     *        VPC use the private VPC endpoint instead of traversing the internet.
+     *        VPC use the private VPC endpoint instead of traversing the internet. If this value is disabled and you
+     *        have nodes or Fargate pods in the cluster, then ensure that <code>publicAccessCidrs</code> includes the
+     *        necessary CIDR blocks for communication with the nodes or Fargate pods. For more information, see <a
+     *        href="https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html">Amazon EKS cluster endpoint
+     *        access control</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -376,16 +445,94 @@ public class VpcConfigResponse implements Serializable, Cloneable, StructuredPoj
      * <p>
      * This parameter indicates whether the Amazon EKS private API server endpoint is enabled. If the Amazon EKS private
      * API server endpoint is enabled, Kubernetes API requests that originate from within your cluster's VPC use the
-     * private VPC endpoint instead of traversing the internet.
+     * private VPC endpoint instead of traversing the internet. If this value is disabled and you have nodes or Fargate
+     * pods in the cluster, then ensure that <code>publicAccessCidrs</code> includes the necessary CIDR blocks for
+     * communication with the nodes or Fargate pods. For more information, see <a
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html">Amazon EKS cluster endpoint access
+     * control</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      * </p>
      * 
      * @return This parameter indicates whether the Amazon EKS private API server endpoint is enabled. If the Amazon EKS
      *         private API server endpoint is enabled, Kubernetes API requests that originate from within your cluster's
-     *         VPC use the private VPC endpoint instead of traversing the internet.
+     *         VPC use the private VPC endpoint instead of traversing the internet. If this value is disabled and you
+     *         have nodes or Fargate pods in the cluster, then ensure that <code>publicAccessCidrs</code> includes the
+     *         necessary CIDR blocks for communication with the nodes or Fargate pods. For more information, see <a
+     *         href="https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html">Amazon EKS cluster endpoint
+     *         access control</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      */
 
     public Boolean isEndpointPrivateAccess() {
         return this.endpointPrivateAccess;
+    }
+
+    /**
+     * <p>
+     * The CIDR blocks that are allowed access to your cluster's public Kubernetes API server endpoint.
+     * </p>
+     * 
+     * @return The CIDR blocks that are allowed access to your cluster's public Kubernetes API server endpoint.
+     */
+
+    public java.util.List<String> getPublicAccessCidrs() {
+        return publicAccessCidrs;
+    }
+
+    /**
+     * <p>
+     * The CIDR blocks that are allowed access to your cluster's public Kubernetes API server endpoint.
+     * </p>
+     * 
+     * @param publicAccessCidrs
+     *        The CIDR blocks that are allowed access to your cluster's public Kubernetes API server endpoint.
+     */
+
+    public void setPublicAccessCidrs(java.util.Collection<String> publicAccessCidrs) {
+        if (publicAccessCidrs == null) {
+            this.publicAccessCidrs = null;
+            return;
+        }
+
+        this.publicAccessCidrs = new java.util.ArrayList<String>(publicAccessCidrs);
+    }
+
+    /**
+     * <p>
+     * The CIDR blocks that are allowed access to your cluster's public Kubernetes API server endpoint.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setPublicAccessCidrs(java.util.Collection)} or {@link #withPublicAccessCidrs(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param publicAccessCidrs
+     *        The CIDR blocks that are allowed access to your cluster's public Kubernetes API server endpoint.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VpcConfigResponse withPublicAccessCidrs(String... publicAccessCidrs) {
+        if (this.publicAccessCidrs == null) {
+            setPublicAccessCidrs(new java.util.ArrayList<String>(publicAccessCidrs.length));
+        }
+        for (String ele : publicAccessCidrs) {
+            this.publicAccessCidrs.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The CIDR blocks that are allowed access to your cluster's public Kubernetes API server endpoint.
+     * </p>
+     * 
+     * @param publicAccessCidrs
+     *        The CIDR blocks that are allowed access to your cluster's public Kubernetes API server endpoint.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VpcConfigResponse withPublicAccessCidrs(java.util.Collection<String> publicAccessCidrs) {
+        setPublicAccessCidrs(publicAccessCidrs);
+        return this;
     }
 
     /**
@@ -404,12 +551,16 @@ public class VpcConfigResponse implements Serializable, Cloneable, StructuredPoj
             sb.append("SubnetIds: ").append(getSubnetIds()).append(",");
         if (getSecurityGroupIds() != null)
             sb.append("SecurityGroupIds: ").append(getSecurityGroupIds()).append(",");
+        if (getClusterSecurityGroupId() != null)
+            sb.append("ClusterSecurityGroupId: ").append(getClusterSecurityGroupId()).append(",");
         if (getVpcId() != null)
             sb.append("VpcId: ").append(getVpcId()).append(",");
         if (getEndpointPublicAccess() != null)
             sb.append("EndpointPublicAccess: ").append(getEndpointPublicAccess()).append(",");
         if (getEndpointPrivateAccess() != null)
-            sb.append("EndpointPrivateAccess: ").append(getEndpointPrivateAccess());
+            sb.append("EndpointPrivateAccess: ").append(getEndpointPrivateAccess()).append(",");
+        if (getPublicAccessCidrs() != null)
+            sb.append("PublicAccessCidrs: ").append(getPublicAccessCidrs());
         sb.append("}");
         return sb.toString();
     }
@@ -432,6 +583,10 @@ public class VpcConfigResponse implements Serializable, Cloneable, StructuredPoj
             return false;
         if (other.getSecurityGroupIds() != null && other.getSecurityGroupIds().equals(this.getSecurityGroupIds()) == false)
             return false;
+        if (other.getClusterSecurityGroupId() == null ^ this.getClusterSecurityGroupId() == null)
+            return false;
+        if (other.getClusterSecurityGroupId() != null && other.getClusterSecurityGroupId().equals(this.getClusterSecurityGroupId()) == false)
+            return false;
         if (other.getVpcId() == null ^ this.getVpcId() == null)
             return false;
         if (other.getVpcId() != null && other.getVpcId().equals(this.getVpcId()) == false)
@@ -444,6 +599,10 @@ public class VpcConfigResponse implements Serializable, Cloneable, StructuredPoj
             return false;
         if (other.getEndpointPrivateAccess() != null && other.getEndpointPrivateAccess().equals(this.getEndpointPrivateAccess()) == false)
             return false;
+        if (other.getPublicAccessCidrs() == null ^ this.getPublicAccessCidrs() == null)
+            return false;
+        if (other.getPublicAccessCidrs() != null && other.getPublicAccessCidrs().equals(this.getPublicAccessCidrs()) == false)
+            return false;
         return true;
     }
 
@@ -454,9 +613,11 @@ public class VpcConfigResponse implements Serializable, Cloneable, StructuredPoj
 
         hashCode = prime * hashCode + ((getSubnetIds() == null) ? 0 : getSubnetIds().hashCode());
         hashCode = prime * hashCode + ((getSecurityGroupIds() == null) ? 0 : getSecurityGroupIds().hashCode());
+        hashCode = prime * hashCode + ((getClusterSecurityGroupId() == null) ? 0 : getClusterSecurityGroupId().hashCode());
         hashCode = prime * hashCode + ((getVpcId() == null) ? 0 : getVpcId().hashCode());
         hashCode = prime * hashCode + ((getEndpointPublicAccess() == null) ? 0 : getEndpointPublicAccess().hashCode());
         hashCode = prime * hashCode + ((getEndpointPrivateAccess() == null) ? 0 : getEndpointPrivateAccess().hashCode());
+        hashCode = prime * hashCode + ((getPublicAccessCidrs() == null) ? 0 : getPublicAccessCidrs().hashCode());
         return hashCode;
     }
 

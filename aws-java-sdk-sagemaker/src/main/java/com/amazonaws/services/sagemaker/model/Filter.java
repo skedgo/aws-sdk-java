@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,17 +19,12 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A conditional statement for a search expression that includes a Boolean operator, a resource property, and a value.
+ * A conditional statement for a search expression that includes a resource property, a Boolean operator, and a value.
+ * Resources that match the statement are returned in the results from the <a
+ * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Search.html">Search</a> API.
  * </p>
  * <p>
- * If you don't specify an <code>Operator</code> and a <code>Value</code>, the filter searches for only the specified
- * property. For example, defining a <code>Filter</code> for the <code>FailureReason</code> for the
- * <code>TrainingJob</code> <code>Resource</code> searches for training job objects that have a value in the
- * <code>FailureReason</code> field.
- * </p>
- * <p>
- * If you specify a <code>Value</code>, but not an <code>Operator</code>, Amazon SageMaker uses the equals operator as
- * the default.
+ * If you specify a <code>Value</code>, but not an <code>Operator</code>, SageMaker uses the equals operator.
  * </p>
  * <p>
  * In search, there are several property types:
@@ -49,7 +44,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * <code>"Name": "Metrics.accuracy",</code>
  * </p>
  * <p>
- * <code>"Operator": "GREATER_THAN",</code>
+ * <code>"Operator": "GreaterThan",</code>
  * </p>
  * <p>
  * <code>"Value": "0.9"</code>
@@ -74,7 +69,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * <code> "Name": "HyperParameters.learning_rate",</code>
  * </p>
  * <p>
- * <code> "Operator": "LESS_THAN",</code>
+ * <code> "Operator": "LessThan",</code>
  * </p>
  * <p>
  * <code> "Value": "0.5"</code>
@@ -86,7 +81,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * <dt>Tags</dt>
  * <dd>
  * <p>
- * To define a tag filter, enter a value with the form <code>"Tags.&lt;key&gt;"</code>.
+ * To define a tag filter, enter a value with the form <code>Tags.&lt;key&gt;</code>.
  * </p>
  * </dd>
  * </dl>
@@ -99,9 +94,9 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A property name. For example, <code>TrainingJobName</code>. For the list of valid property names returned in a
-     * search result for each supported resource, see <a>TrainingJob</a> properties. You must specify a valid property
-     * name for the resource.
+     * A resource property name. For example, <code>TrainingJobName</code>. For valid property names, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_SearchRecord.html">SearchRecord</a>. You must
+     * specify a valid property for the resource.
      * </p>
      */
     private String name;
@@ -114,59 +109,137 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
      * <dt>Equals</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> equals the specified <code>Value</code>.
+     * The value of <code>Name</code> equals <code>Value</code>.
      * </p>
      * </dd>
      * <dt>NotEquals</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> does not equal the specified <code>Value</code>.
+     * The value of <code>Name</code> doesn't equal <code>Value</code>.
+     * </p>
+     * </dd>
+     * <dt>Exists</dt>
+     * <dd>
+     * <p>
+     * The <code>Name</code> property exists.
+     * </p>
+     * </dd>
+     * <dt>NotExists</dt>
+     * <dd>
+     * <p>
+     * The <code>Name</code> property does not exist.
      * </p>
      * </dd>
      * <dt>GreaterThan</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> is greater than the specified <code>Value</code>. Not supported for
-     * text-based properties.
+     * The value of <code>Name</code> is greater than <code>Value</code>. Not supported for text properties.
      * </p>
      * </dd>
      * <dt>GreaterThanOrEqualTo</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> is greater than or equal to the specified <code>Value</code>. Not
-     * supported for text-based properties.
+     * The value of <code>Name</code> is greater than or equal to <code>Value</code>. Not supported for text properties.
      * </p>
      * </dd>
      * <dt>LessThan</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> is less than the specified <code>Value</code>. Not supported for
-     * text-based properties.
+     * The value of <code>Name</code> is less than <code>Value</code>. Not supported for text properties.
      * </p>
      * </dd>
      * <dt>LessThanOrEqualTo</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> is less than or equal to the specified <code>Value</code>. Not
-     * supported for text-based properties.
+     * The value of <code>Name</code> is less than or equal to <code>Value</code>. Not supported for text properties.
+     * </p>
+     * </dd>
+     * <dt>In</dt>
+     * <dd>
+     * <p>
+     * The value of <code>Name</code> is one of the comma delimited strings in <code>Value</code>. Only supported for
+     * text properties.
      * </p>
      * </dd>
      * <dt>Contains</dt>
      * <dd>
      * <p>
-     * Only supported for text-based properties. The word-list of the property contains the specified <code>Value</code>
-     * .
+     * The value of <code>Name</code> contains the string <code>Value</code>. Only supported for text properties.
+     * </p>
+     * <p>
+     * A <code>SearchExpression</code> can include the <code>Contains</code> operator multiple times when the value of
+     * <code>Name</code> is one of the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Experiment.DisplayName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Experiment.ExperimentName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Experiment.Tags</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Trial.DisplayName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Trial.TrialName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Trial.Tags</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.DisplayName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.TrialComponentName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.Tags</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.InputArtifacts</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.OutputArtifacts</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * A <code>SearchExpression</code> can include only one <code>Contains</code> operator for all other values of
+     * <code>Name</code>. In these cases, if you include multiple <code>Contains</code> operators in the
+     * <code>SearchExpression</code>, the result is the following error message: "
+     * <code>'CONTAINS' operator usage limit of 1 exceeded.</code>"
      * </p>
      * </dd>
      * </dl>
-     * <p>
-     * If you have specified a filter <code>Value</code>, the default is <code>Equals</code>.
-     * </p>
      */
     private String operator;
     /**
      * <p>
-     * A value used with <code>Resource</code> and <code>Operator</code> to determine if objects satisfy the filter's
+     * A value used with <code>Name</code> and <code>Operator</code> to determine which resources satisfy the filter's
      * condition. For numerical properties, <code>Value</code> must be an integer or floating-point decimal. For
      * timestamp properties, <code>Value</code> must be an ISO 8601 date-time string of the following format:
      * <code>YYYY-mm-dd'T'HH:MM:SS</code>.
@@ -176,15 +249,15 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A property name. For example, <code>TrainingJobName</code>. For the list of valid property names returned in a
-     * search result for each supported resource, see <a>TrainingJob</a> properties. You must specify a valid property
-     * name for the resource.
+     * A resource property name. For example, <code>TrainingJobName</code>. For valid property names, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_SearchRecord.html">SearchRecord</a>. You must
+     * specify a valid property for the resource.
      * </p>
      * 
      * @param name
-     *        A property name. For example, <code>TrainingJobName</code>. For the list of valid property names returned
-     *        in a search result for each supported resource, see <a>TrainingJob</a> properties. You must specify a
-     *        valid property name for the resource.
+     *        A resource property name. For example, <code>TrainingJobName</code>. For valid property names, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_SearchRecord.html">SearchRecord</a>.
+     *        You must specify a valid property for the resource.
      */
 
     public void setName(String name) {
@@ -193,14 +266,14 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A property name. For example, <code>TrainingJobName</code>. For the list of valid property names returned in a
-     * search result for each supported resource, see <a>TrainingJob</a> properties. You must specify a valid property
-     * name for the resource.
+     * A resource property name. For example, <code>TrainingJobName</code>. For valid property names, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_SearchRecord.html">SearchRecord</a>. You must
+     * specify a valid property for the resource.
      * </p>
      * 
-     * @return A property name. For example, <code>TrainingJobName</code>. For the list of valid property names returned
-     *         in a search result for each supported resource, see <a>TrainingJob</a> properties. You must specify a
-     *         valid property name for the resource.
+     * @return A resource property name. For example, <code>TrainingJobName</code>. For valid property names, see <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_SearchRecord.html">SearchRecord</a>.
+     *         You must specify a valid property for the resource.
      */
 
     public String getName() {
@@ -209,15 +282,15 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A property name. For example, <code>TrainingJobName</code>. For the list of valid property names returned in a
-     * search result for each supported resource, see <a>TrainingJob</a> properties. You must specify a valid property
-     * name for the resource.
+     * A resource property name. For example, <code>TrainingJobName</code>. For valid property names, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_SearchRecord.html">SearchRecord</a>. You must
+     * specify a valid property for the resource.
      * </p>
      * 
      * @param name
-     *        A property name. For example, <code>TrainingJobName</code>. For the list of valid property names returned
-     *        in a search result for each supported resource, see <a>TrainingJob</a> properties. You must specify a
-     *        valid property name for the resource.
+     *        A resource property name. For example, <code>TrainingJobName</code>. For valid property names, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_SearchRecord.html">SearchRecord</a>.
+     *        You must specify a valid property for the resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -235,54 +308,132 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
      * <dt>Equals</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> equals the specified <code>Value</code>.
+     * The value of <code>Name</code> equals <code>Value</code>.
      * </p>
      * </dd>
      * <dt>NotEquals</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> does not equal the specified <code>Value</code>.
+     * The value of <code>Name</code> doesn't equal <code>Value</code>.
+     * </p>
+     * </dd>
+     * <dt>Exists</dt>
+     * <dd>
+     * <p>
+     * The <code>Name</code> property exists.
+     * </p>
+     * </dd>
+     * <dt>NotExists</dt>
+     * <dd>
+     * <p>
+     * The <code>Name</code> property does not exist.
      * </p>
      * </dd>
      * <dt>GreaterThan</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> is greater than the specified <code>Value</code>. Not supported for
-     * text-based properties.
+     * The value of <code>Name</code> is greater than <code>Value</code>. Not supported for text properties.
      * </p>
      * </dd>
      * <dt>GreaterThanOrEqualTo</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> is greater than or equal to the specified <code>Value</code>. Not
-     * supported for text-based properties.
+     * The value of <code>Name</code> is greater than or equal to <code>Value</code>. Not supported for text properties.
      * </p>
      * </dd>
      * <dt>LessThan</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> is less than the specified <code>Value</code>. Not supported for
-     * text-based properties.
+     * The value of <code>Name</code> is less than <code>Value</code>. Not supported for text properties.
      * </p>
      * </dd>
      * <dt>LessThanOrEqualTo</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> is less than or equal to the specified <code>Value</code>. Not
-     * supported for text-based properties.
+     * The value of <code>Name</code> is less than or equal to <code>Value</code>. Not supported for text properties.
+     * </p>
+     * </dd>
+     * <dt>In</dt>
+     * <dd>
+     * <p>
+     * The value of <code>Name</code> is one of the comma delimited strings in <code>Value</code>. Only supported for
+     * text properties.
      * </p>
      * </dd>
      * <dt>Contains</dt>
      * <dd>
      * <p>
-     * Only supported for text-based properties. The word-list of the property contains the specified <code>Value</code>
-     * .
+     * The value of <code>Name</code> contains the string <code>Value</code>. Only supported for text properties.
+     * </p>
+     * <p>
+     * A <code>SearchExpression</code> can include the <code>Contains</code> operator multiple times when the value of
+     * <code>Name</code> is one of the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Experiment.DisplayName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Experiment.ExperimentName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Experiment.Tags</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Trial.DisplayName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Trial.TrialName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Trial.Tags</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.DisplayName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.TrialComponentName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.Tags</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.InputArtifacts</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.OutputArtifacts</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * A <code>SearchExpression</code> can include only one <code>Contains</code> operator for all other values of
+     * <code>Name</code>. In these cases, if you include multiple <code>Contains</code> operators in the
+     * <code>SearchExpression</code>, the result is the following error message: "
+     * <code>'CONTAINS' operator usage limit of 1 exceeded.</code>"
      * </p>
      * </dd>
      * </dl>
-     * <p>
-     * If you have specified a filter <code>Value</code>, the default is <code>Equals</code>.
-     * </p>
      * 
      * @param operator
      *        A Boolean binary operator that is used to evaluate the filter. The operator field contains one of the
@@ -291,53 +442,133 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
      *        <dt>Equals</dt>
      *        <dd>
      *        <p>
-     *        The specified resource in <code>Name</code> equals the specified <code>Value</code>.
+     *        The value of <code>Name</code> equals <code>Value</code>.
      *        </p>
      *        </dd>
      *        <dt>NotEquals</dt>
      *        <dd>
      *        <p>
-     *        The specified resource in <code>Name</code> does not equal the specified <code>Value</code>.
+     *        The value of <code>Name</code> doesn't equal <code>Value</code>.
+     *        </p>
+     *        </dd>
+     *        <dt>Exists</dt>
+     *        <dd>
+     *        <p>
+     *        The <code>Name</code> property exists.
+     *        </p>
+     *        </dd>
+     *        <dt>NotExists</dt>
+     *        <dd>
+     *        <p>
+     *        The <code>Name</code> property does not exist.
      *        </p>
      *        </dd>
      *        <dt>GreaterThan</dt>
      *        <dd>
      *        <p>
-     *        The specified resource in <code>Name</code> is greater than the specified <code>Value</code>. Not
-     *        supported for text-based properties.
+     *        The value of <code>Name</code> is greater than <code>Value</code>. Not supported for text properties.
      *        </p>
      *        </dd>
      *        <dt>GreaterThanOrEqualTo</dt>
      *        <dd>
      *        <p>
-     *        The specified resource in <code>Name</code> is greater than or equal to the specified <code>Value</code>.
-     *        Not supported for text-based properties.
+     *        The value of <code>Name</code> is greater than or equal to <code>Value</code>. Not supported for text
+     *        properties.
      *        </p>
      *        </dd>
      *        <dt>LessThan</dt>
      *        <dd>
      *        <p>
-     *        The specified resource in <code>Name</code> is less than the specified <code>Value</code>. Not supported
-     *        for text-based properties.
+     *        The value of <code>Name</code> is less than <code>Value</code>. Not supported for text properties.
      *        </p>
      *        </dd>
      *        <dt>LessThanOrEqualTo</dt>
      *        <dd>
      *        <p>
-     *        The specified resource in <code>Name</code> is less than or equal to the specified <code>Value</code>. Not
-     *        supported for text-based properties.
+     *        The value of <code>Name</code> is less than or equal to <code>Value</code>. Not supported for text
+     *        properties.
+     *        </p>
+     *        </dd>
+     *        <dt>In</dt>
+     *        <dd>
+     *        <p>
+     *        The value of <code>Name</code> is one of the comma delimited strings in <code>Value</code>. Only supported
+     *        for text properties.
      *        </p>
      *        </dd>
      *        <dt>Contains</dt>
      *        <dd>
      *        <p>
-     *        Only supported for text-based properties. The word-list of the property contains the specified
-     *        <code>Value</code>.
+     *        The value of <code>Name</code> contains the string <code>Value</code>. Only supported for text properties.
+     *        </p>
+     *        <p>
+     *        A <code>SearchExpression</code> can include the <code>Contains</code> operator multiple times when the
+     *        value of <code>Name</code> is one of the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Experiment.DisplayName</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Experiment.ExperimentName</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Experiment.Tags</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Trial.DisplayName</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Trial.TrialName</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Trial.Tags</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TrialComponent.DisplayName</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TrialComponent.TrialComponentName</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TrialComponent.Tags</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TrialComponent.InputArtifacts</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TrialComponent.OutputArtifacts</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        A <code>SearchExpression</code> can include only one <code>Contains</code> operator for all other values
+     *        of <code>Name</code>. In these cases, if you include multiple <code>Contains</code> operators in the
+     *        <code>SearchExpression</code>, the result is the following error message: "
+     *        <code>'CONTAINS' operator usage limit of 1 exceeded.</code>"
      *        </p>
      *        </dd>
-     *        </dl>
-     *        <p>
-     *        If you have specified a filter <code>Value</code>, the default is <code>Equals</code>.
      * @see Operator
      */
 
@@ -354,54 +585,132 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
      * <dt>Equals</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> equals the specified <code>Value</code>.
+     * The value of <code>Name</code> equals <code>Value</code>.
      * </p>
      * </dd>
      * <dt>NotEquals</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> does not equal the specified <code>Value</code>.
+     * The value of <code>Name</code> doesn't equal <code>Value</code>.
+     * </p>
+     * </dd>
+     * <dt>Exists</dt>
+     * <dd>
+     * <p>
+     * The <code>Name</code> property exists.
+     * </p>
+     * </dd>
+     * <dt>NotExists</dt>
+     * <dd>
+     * <p>
+     * The <code>Name</code> property does not exist.
      * </p>
      * </dd>
      * <dt>GreaterThan</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> is greater than the specified <code>Value</code>. Not supported for
-     * text-based properties.
+     * The value of <code>Name</code> is greater than <code>Value</code>. Not supported for text properties.
      * </p>
      * </dd>
      * <dt>GreaterThanOrEqualTo</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> is greater than or equal to the specified <code>Value</code>. Not
-     * supported for text-based properties.
+     * The value of <code>Name</code> is greater than or equal to <code>Value</code>. Not supported for text properties.
      * </p>
      * </dd>
      * <dt>LessThan</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> is less than the specified <code>Value</code>. Not supported for
-     * text-based properties.
+     * The value of <code>Name</code> is less than <code>Value</code>. Not supported for text properties.
      * </p>
      * </dd>
      * <dt>LessThanOrEqualTo</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> is less than or equal to the specified <code>Value</code>. Not
-     * supported for text-based properties.
+     * The value of <code>Name</code> is less than or equal to <code>Value</code>. Not supported for text properties.
+     * </p>
+     * </dd>
+     * <dt>In</dt>
+     * <dd>
+     * <p>
+     * The value of <code>Name</code> is one of the comma delimited strings in <code>Value</code>. Only supported for
+     * text properties.
      * </p>
      * </dd>
      * <dt>Contains</dt>
      * <dd>
      * <p>
-     * Only supported for text-based properties. The word-list of the property contains the specified <code>Value</code>
-     * .
+     * The value of <code>Name</code> contains the string <code>Value</code>. Only supported for text properties.
+     * </p>
+     * <p>
+     * A <code>SearchExpression</code> can include the <code>Contains</code> operator multiple times when the value of
+     * <code>Name</code> is one of the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Experiment.DisplayName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Experiment.ExperimentName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Experiment.Tags</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Trial.DisplayName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Trial.TrialName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Trial.Tags</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.DisplayName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.TrialComponentName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.Tags</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.InputArtifacts</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.OutputArtifacts</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * A <code>SearchExpression</code> can include only one <code>Contains</code> operator for all other values of
+     * <code>Name</code>. In these cases, if you include multiple <code>Contains</code> operators in the
+     * <code>SearchExpression</code>, the result is the following error message: "
+     * <code>'CONTAINS' operator usage limit of 1 exceeded.</code>"
      * </p>
      * </dd>
      * </dl>
-     * <p>
-     * If you have specified a filter <code>Value</code>, the default is <code>Equals</code>.
-     * </p>
      * 
      * @return A Boolean binary operator that is used to evaluate the filter. The operator field contains one of the
      *         following values:</p>
@@ -409,53 +718,134 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
      *         <dt>Equals</dt>
      *         <dd>
      *         <p>
-     *         The specified resource in <code>Name</code> equals the specified <code>Value</code>.
+     *         The value of <code>Name</code> equals <code>Value</code>.
      *         </p>
      *         </dd>
      *         <dt>NotEquals</dt>
      *         <dd>
      *         <p>
-     *         The specified resource in <code>Name</code> does not equal the specified <code>Value</code>.
+     *         The value of <code>Name</code> doesn't equal <code>Value</code>.
+     *         </p>
+     *         </dd>
+     *         <dt>Exists</dt>
+     *         <dd>
+     *         <p>
+     *         The <code>Name</code> property exists.
+     *         </p>
+     *         </dd>
+     *         <dt>NotExists</dt>
+     *         <dd>
+     *         <p>
+     *         The <code>Name</code> property does not exist.
      *         </p>
      *         </dd>
      *         <dt>GreaterThan</dt>
      *         <dd>
      *         <p>
-     *         The specified resource in <code>Name</code> is greater than the specified <code>Value</code>. Not
-     *         supported for text-based properties.
+     *         The value of <code>Name</code> is greater than <code>Value</code>. Not supported for text properties.
      *         </p>
      *         </dd>
      *         <dt>GreaterThanOrEqualTo</dt>
      *         <dd>
      *         <p>
-     *         The specified resource in <code>Name</code> is greater than or equal to the specified <code>Value</code>.
-     *         Not supported for text-based properties.
+     *         The value of <code>Name</code> is greater than or equal to <code>Value</code>. Not supported for text
+     *         properties.
      *         </p>
      *         </dd>
      *         <dt>LessThan</dt>
      *         <dd>
      *         <p>
-     *         The specified resource in <code>Name</code> is less than the specified <code>Value</code>. Not supported
-     *         for text-based properties.
+     *         The value of <code>Name</code> is less than <code>Value</code>. Not supported for text properties.
      *         </p>
      *         </dd>
      *         <dt>LessThanOrEqualTo</dt>
      *         <dd>
      *         <p>
-     *         The specified resource in <code>Name</code> is less than or equal to the specified <code>Value</code>.
-     *         Not supported for text-based properties.
+     *         The value of <code>Name</code> is less than or equal to <code>Value</code>. Not supported for text
+     *         properties.
+     *         </p>
+     *         </dd>
+     *         <dt>In</dt>
+     *         <dd>
+     *         <p>
+     *         The value of <code>Name</code> is one of the comma delimited strings in <code>Value</code>. Only
+     *         supported for text properties.
      *         </p>
      *         </dd>
      *         <dt>Contains</dt>
      *         <dd>
      *         <p>
-     *         Only supported for text-based properties. The word-list of the property contains the specified
-     *         <code>Value</code>.
+     *         The value of <code>Name</code> contains the string <code>Value</code>. Only supported for text
+     *         properties.
+     *         </p>
+     *         <p>
+     *         A <code>SearchExpression</code> can include the <code>Contains</code> operator multiple times when the
+     *         value of <code>Name</code> is one of the following:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>Experiment.DisplayName</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Experiment.ExperimentName</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Experiment.Tags</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Trial.DisplayName</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Trial.TrialName</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Trial.Tags</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>TrialComponent.DisplayName</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>TrialComponent.TrialComponentName</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>TrialComponent.Tags</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>TrialComponent.InputArtifacts</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>TrialComponent.OutputArtifacts</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         A <code>SearchExpression</code> can include only one <code>Contains</code> operator for all other values
+     *         of <code>Name</code>. In these cases, if you include multiple <code>Contains</code> operators in the
+     *         <code>SearchExpression</code>, the result is the following error message: "
+     *         <code>'CONTAINS' operator usage limit of 1 exceeded.</code>"
      *         </p>
      *         </dd>
-     *         </dl>
-     *         <p>
-     *         If you have specified a filter <code>Value</code>, the default is <code>Equals</code>.
      * @see Operator
      */
 
@@ -472,54 +862,132 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
      * <dt>Equals</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> equals the specified <code>Value</code>.
+     * The value of <code>Name</code> equals <code>Value</code>.
      * </p>
      * </dd>
      * <dt>NotEquals</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> does not equal the specified <code>Value</code>.
+     * The value of <code>Name</code> doesn't equal <code>Value</code>.
+     * </p>
+     * </dd>
+     * <dt>Exists</dt>
+     * <dd>
+     * <p>
+     * The <code>Name</code> property exists.
+     * </p>
+     * </dd>
+     * <dt>NotExists</dt>
+     * <dd>
+     * <p>
+     * The <code>Name</code> property does not exist.
      * </p>
      * </dd>
      * <dt>GreaterThan</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> is greater than the specified <code>Value</code>. Not supported for
-     * text-based properties.
+     * The value of <code>Name</code> is greater than <code>Value</code>. Not supported for text properties.
      * </p>
      * </dd>
      * <dt>GreaterThanOrEqualTo</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> is greater than or equal to the specified <code>Value</code>. Not
-     * supported for text-based properties.
+     * The value of <code>Name</code> is greater than or equal to <code>Value</code>. Not supported for text properties.
      * </p>
      * </dd>
      * <dt>LessThan</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> is less than the specified <code>Value</code>. Not supported for
-     * text-based properties.
+     * The value of <code>Name</code> is less than <code>Value</code>. Not supported for text properties.
      * </p>
      * </dd>
      * <dt>LessThanOrEqualTo</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> is less than or equal to the specified <code>Value</code>. Not
-     * supported for text-based properties.
+     * The value of <code>Name</code> is less than or equal to <code>Value</code>. Not supported for text properties.
+     * </p>
+     * </dd>
+     * <dt>In</dt>
+     * <dd>
+     * <p>
+     * The value of <code>Name</code> is one of the comma delimited strings in <code>Value</code>. Only supported for
+     * text properties.
      * </p>
      * </dd>
      * <dt>Contains</dt>
      * <dd>
      * <p>
-     * Only supported for text-based properties. The word-list of the property contains the specified <code>Value</code>
-     * .
+     * The value of <code>Name</code> contains the string <code>Value</code>. Only supported for text properties.
+     * </p>
+     * <p>
+     * A <code>SearchExpression</code> can include the <code>Contains</code> operator multiple times when the value of
+     * <code>Name</code> is one of the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Experiment.DisplayName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Experiment.ExperimentName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Experiment.Tags</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Trial.DisplayName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Trial.TrialName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Trial.Tags</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.DisplayName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.TrialComponentName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.Tags</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.InputArtifacts</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.OutputArtifacts</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * A <code>SearchExpression</code> can include only one <code>Contains</code> operator for all other values of
+     * <code>Name</code>. In these cases, if you include multiple <code>Contains</code> operators in the
+     * <code>SearchExpression</code>, the result is the following error message: "
+     * <code>'CONTAINS' operator usage limit of 1 exceeded.</code>"
      * </p>
      * </dd>
      * </dl>
-     * <p>
-     * If you have specified a filter <code>Value</code>, the default is <code>Equals</code>.
-     * </p>
      * 
      * @param operator
      *        A Boolean binary operator that is used to evaluate the filter. The operator field contains one of the
@@ -528,53 +996,133 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
      *        <dt>Equals</dt>
      *        <dd>
      *        <p>
-     *        The specified resource in <code>Name</code> equals the specified <code>Value</code>.
+     *        The value of <code>Name</code> equals <code>Value</code>.
      *        </p>
      *        </dd>
      *        <dt>NotEquals</dt>
      *        <dd>
      *        <p>
-     *        The specified resource in <code>Name</code> does not equal the specified <code>Value</code>.
+     *        The value of <code>Name</code> doesn't equal <code>Value</code>.
+     *        </p>
+     *        </dd>
+     *        <dt>Exists</dt>
+     *        <dd>
+     *        <p>
+     *        The <code>Name</code> property exists.
+     *        </p>
+     *        </dd>
+     *        <dt>NotExists</dt>
+     *        <dd>
+     *        <p>
+     *        The <code>Name</code> property does not exist.
      *        </p>
      *        </dd>
      *        <dt>GreaterThan</dt>
      *        <dd>
      *        <p>
-     *        The specified resource in <code>Name</code> is greater than the specified <code>Value</code>. Not
-     *        supported for text-based properties.
+     *        The value of <code>Name</code> is greater than <code>Value</code>. Not supported for text properties.
      *        </p>
      *        </dd>
      *        <dt>GreaterThanOrEqualTo</dt>
      *        <dd>
      *        <p>
-     *        The specified resource in <code>Name</code> is greater than or equal to the specified <code>Value</code>.
-     *        Not supported for text-based properties.
+     *        The value of <code>Name</code> is greater than or equal to <code>Value</code>. Not supported for text
+     *        properties.
      *        </p>
      *        </dd>
      *        <dt>LessThan</dt>
      *        <dd>
      *        <p>
-     *        The specified resource in <code>Name</code> is less than the specified <code>Value</code>. Not supported
-     *        for text-based properties.
+     *        The value of <code>Name</code> is less than <code>Value</code>. Not supported for text properties.
      *        </p>
      *        </dd>
      *        <dt>LessThanOrEqualTo</dt>
      *        <dd>
      *        <p>
-     *        The specified resource in <code>Name</code> is less than or equal to the specified <code>Value</code>. Not
-     *        supported for text-based properties.
+     *        The value of <code>Name</code> is less than or equal to <code>Value</code>. Not supported for text
+     *        properties.
+     *        </p>
+     *        </dd>
+     *        <dt>In</dt>
+     *        <dd>
+     *        <p>
+     *        The value of <code>Name</code> is one of the comma delimited strings in <code>Value</code>. Only supported
+     *        for text properties.
      *        </p>
      *        </dd>
      *        <dt>Contains</dt>
      *        <dd>
      *        <p>
-     *        Only supported for text-based properties. The word-list of the property contains the specified
-     *        <code>Value</code>.
+     *        The value of <code>Name</code> contains the string <code>Value</code>. Only supported for text properties.
+     *        </p>
+     *        <p>
+     *        A <code>SearchExpression</code> can include the <code>Contains</code> operator multiple times when the
+     *        value of <code>Name</code> is one of the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Experiment.DisplayName</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Experiment.ExperimentName</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Experiment.Tags</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Trial.DisplayName</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Trial.TrialName</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Trial.Tags</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TrialComponent.DisplayName</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TrialComponent.TrialComponentName</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TrialComponent.Tags</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TrialComponent.InputArtifacts</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TrialComponent.OutputArtifacts</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        A <code>SearchExpression</code> can include only one <code>Contains</code> operator for all other values
+     *        of <code>Name</code>. In these cases, if you include multiple <code>Contains</code> operators in the
+     *        <code>SearchExpression</code>, the result is the following error message: "
+     *        <code>'CONTAINS' operator usage limit of 1 exceeded.</code>"
      *        </p>
      *        </dd>
-     *        </dl>
-     *        <p>
-     *        If you have specified a filter <code>Value</code>, the default is <code>Equals</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Operator
      */
@@ -593,54 +1141,132 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
      * <dt>Equals</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> equals the specified <code>Value</code>.
+     * The value of <code>Name</code> equals <code>Value</code>.
      * </p>
      * </dd>
      * <dt>NotEquals</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> does not equal the specified <code>Value</code>.
+     * The value of <code>Name</code> doesn't equal <code>Value</code>.
+     * </p>
+     * </dd>
+     * <dt>Exists</dt>
+     * <dd>
+     * <p>
+     * The <code>Name</code> property exists.
+     * </p>
+     * </dd>
+     * <dt>NotExists</dt>
+     * <dd>
+     * <p>
+     * The <code>Name</code> property does not exist.
      * </p>
      * </dd>
      * <dt>GreaterThan</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> is greater than the specified <code>Value</code>. Not supported for
-     * text-based properties.
+     * The value of <code>Name</code> is greater than <code>Value</code>. Not supported for text properties.
      * </p>
      * </dd>
      * <dt>GreaterThanOrEqualTo</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> is greater than or equal to the specified <code>Value</code>. Not
-     * supported for text-based properties.
+     * The value of <code>Name</code> is greater than or equal to <code>Value</code>. Not supported for text properties.
      * </p>
      * </dd>
      * <dt>LessThan</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> is less than the specified <code>Value</code>. Not supported for
-     * text-based properties.
+     * The value of <code>Name</code> is less than <code>Value</code>. Not supported for text properties.
      * </p>
      * </dd>
      * <dt>LessThanOrEqualTo</dt>
      * <dd>
      * <p>
-     * The specified resource in <code>Name</code> is less than or equal to the specified <code>Value</code>. Not
-     * supported for text-based properties.
+     * The value of <code>Name</code> is less than or equal to <code>Value</code>. Not supported for text properties.
+     * </p>
+     * </dd>
+     * <dt>In</dt>
+     * <dd>
+     * <p>
+     * The value of <code>Name</code> is one of the comma delimited strings in <code>Value</code>. Only supported for
+     * text properties.
      * </p>
      * </dd>
      * <dt>Contains</dt>
      * <dd>
      * <p>
-     * Only supported for text-based properties. The word-list of the property contains the specified <code>Value</code>
-     * .
+     * The value of <code>Name</code> contains the string <code>Value</code>. Only supported for text properties.
+     * </p>
+     * <p>
+     * A <code>SearchExpression</code> can include the <code>Contains</code> operator multiple times when the value of
+     * <code>Name</code> is one of the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Experiment.DisplayName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Experiment.ExperimentName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Experiment.Tags</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Trial.DisplayName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Trial.TrialName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Trial.Tags</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.DisplayName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.TrialComponentName</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.Tags</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.InputArtifacts</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TrialComponent.OutputArtifacts</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * A <code>SearchExpression</code> can include only one <code>Contains</code> operator for all other values of
+     * <code>Name</code>. In these cases, if you include multiple <code>Contains</code> operators in the
+     * <code>SearchExpression</code>, the result is the following error message: "
+     * <code>'CONTAINS' operator usage limit of 1 exceeded.</code>"
      * </p>
      * </dd>
      * </dl>
-     * <p>
-     * If you have specified a filter <code>Value</code>, the default is <code>Equals</code>.
-     * </p>
      * 
      * @param operator
      *        A Boolean binary operator that is used to evaluate the filter. The operator field contains one of the
@@ -649,53 +1275,133 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
      *        <dt>Equals</dt>
      *        <dd>
      *        <p>
-     *        The specified resource in <code>Name</code> equals the specified <code>Value</code>.
+     *        The value of <code>Name</code> equals <code>Value</code>.
      *        </p>
      *        </dd>
      *        <dt>NotEquals</dt>
      *        <dd>
      *        <p>
-     *        The specified resource in <code>Name</code> does not equal the specified <code>Value</code>.
+     *        The value of <code>Name</code> doesn't equal <code>Value</code>.
+     *        </p>
+     *        </dd>
+     *        <dt>Exists</dt>
+     *        <dd>
+     *        <p>
+     *        The <code>Name</code> property exists.
+     *        </p>
+     *        </dd>
+     *        <dt>NotExists</dt>
+     *        <dd>
+     *        <p>
+     *        The <code>Name</code> property does not exist.
      *        </p>
      *        </dd>
      *        <dt>GreaterThan</dt>
      *        <dd>
      *        <p>
-     *        The specified resource in <code>Name</code> is greater than the specified <code>Value</code>. Not
-     *        supported for text-based properties.
+     *        The value of <code>Name</code> is greater than <code>Value</code>. Not supported for text properties.
      *        </p>
      *        </dd>
      *        <dt>GreaterThanOrEqualTo</dt>
      *        <dd>
      *        <p>
-     *        The specified resource in <code>Name</code> is greater than or equal to the specified <code>Value</code>.
-     *        Not supported for text-based properties.
+     *        The value of <code>Name</code> is greater than or equal to <code>Value</code>. Not supported for text
+     *        properties.
      *        </p>
      *        </dd>
      *        <dt>LessThan</dt>
      *        <dd>
      *        <p>
-     *        The specified resource in <code>Name</code> is less than the specified <code>Value</code>. Not supported
-     *        for text-based properties.
+     *        The value of <code>Name</code> is less than <code>Value</code>. Not supported for text properties.
      *        </p>
      *        </dd>
      *        <dt>LessThanOrEqualTo</dt>
      *        <dd>
      *        <p>
-     *        The specified resource in <code>Name</code> is less than or equal to the specified <code>Value</code>. Not
-     *        supported for text-based properties.
+     *        The value of <code>Name</code> is less than or equal to <code>Value</code>. Not supported for text
+     *        properties.
+     *        </p>
+     *        </dd>
+     *        <dt>In</dt>
+     *        <dd>
+     *        <p>
+     *        The value of <code>Name</code> is one of the comma delimited strings in <code>Value</code>. Only supported
+     *        for text properties.
      *        </p>
      *        </dd>
      *        <dt>Contains</dt>
      *        <dd>
      *        <p>
-     *        Only supported for text-based properties. The word-list of the property contains the specified
-     *        <code>Value</code>.
+     *        The value of <code>Name</code> contains the string <code>Value</code>. Only supported for text properties.
+     *        </p>
+     *        <p>
+     *        A <code>SearchExpression</code> can include the <code>Contains</code> operator multiple times when the
+     *        value of <code>Name</code> is one of the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Experiment.DisplayName</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Experiment.ExperimentName</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Experiment.Tags</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Trial.DisplayName</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Trial.TrialName</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Trial.Tags</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TrialComponent.DisplayName</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TrialComponent.TrialComponentName</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TrialComponent.Tags</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TrialComponent.InputArtifacts</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TrialComponent.OutputArtifacts</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        A <code>SearchExpression</code> can include only one <code>Contains</code> operator for all other values
+     *        of <code>Name</code>. In these cases, if you include multiple <code>Contains</code> operators in the
+     *        <code>SearchExpression</code>, the result is the following error message: "
+     *        <code>'CONTAINS' operator usage limit of 1 exceeded.</code>"
      *        </p>
      *        </dd>
-     *        </dl>
-     *        <p>
-     *        If you have specified a filter <code>Value</code>, the default is <code>Equals</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Operator
      */
@@ -707,14 +1413,14 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A value used with <code>Resource</code> and <code>Operator</code> to determine if objects satisfy the filter's
+     * A value used with <code>Name</code> and <code>Operator</code> to determine which resources satisfy the filter's
      * condition. For numerical properties, <code>Value</code> must be an integer or floating-point decimal. For
      * timestamp properties, <code>Value</code> must be an ISO 8601 date-time string of the following format:
      * <code>YYYY-mm-dd'T'HH:MM:SS</code>.
      * </p>
      * 
      * @param value
-     *        A value used with <code>Resource</code> and <code>Operator</code> to determine if objects satisfy the
+     *        A value used with <code>Name</code> and <code>Operator</code> to determine which resources satisfy the
      *        filter's condition. For numerical properties, <code>Value</code> must be an integer or floating-point
      *        decimal. For timestamp properties, <code>Value</code> must be an ISO 8601 date-time string of the
      *        following format: <code>YYYY-mm-dd'T'HH:MM:SS</code>.
@@ -726,13 +1432,13 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A value used with <code>Resource</code> and <code>Operator</code> to determine if objects satisfy the filter's
+     * A value used with <code>Name</code> and <code>Operator</code> to determine which resources satisfy the filter's
      * condition. For numerical properties, <code>Value</code> must be an integer or floating-point decimal. For
      * timestamp properties, <code>Value</code> must be an ISO 8601 date-time string of the following format:
      * <code>YYYY-mm-dd'T'HH:MM:SS</code>.
      * </p>
      * 
-     * @return A value used with <code>Resource</code> and <code>Operator</code> to determine if objects satisfy the
+     * @return A value used with <code>Name</code> and <code>Operator</code> to determine which resources satisfy the
      *         filter's condition. For numerical properties, <code>Value</code> must be an integer or floating-point
      *         decimal. For timestamp properties, <code>Value</code> must be an ISO 8601 date-time string of the
      *         following format: <code>YYYY-mm-dd'T'HH:MM:SS</code>.
@@ -744,14 +1450,14 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A value used with <code>Resource</code> and <code>Operator</code> to determine if objects satisfy the filter's
+     * A value used with <code>Name</code> and <code>Operator</code> to determine which resources satisfy the filter's
      * condition. For numerical properties, <code>Value</code> must be an integer or floating-point decimal. For
      * timestamp properties, <code>Value</code> must be an ISO 8601 date-time string of the following format:
      * <code>YYYY-mm-dd'T'HH:MM:SS</code>.
      * </p>
      * 
      * @param value
-     *        A value used with <code>Resource</code> and <code>Operator</code> to determine if objects satisfy the
+     *        A value used with <code>Name</code> and <code>Operator</code> to determine which resources satisfy the
      *        filter's condition. For numerical properties, <code>Value</code> must be an integer or floating-point
      *        decimal. For timestamp properties, <code>Value</code> must be an ISO 8601 date-time string of the
      *        following format: <code>YYYY-mm-dd'T'HH:MM:SS</code>.

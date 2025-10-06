@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,7 +51,8 @@ public class MutableClusterInfoJsonUnmarshaller implements Unmarshaller<MutableC
                 if (context.testExpression("brokerEBSVolumeInfo", targetDepth)) {
                     context.nextToken();
                     mutableClusterInfo.setBrokerEBSVolumeInfo(new ListUnmarshaller<BrokerEBSVolumeInfo>(BrokerEBSVolumeInfoJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("configurationInfo", targetDepth)) {
                     context.nextToken();
@@ -60,6 +61,46 @@ public class MutableClusterInfoJsonUnmarshaller implements Unmarshaller<MutableC
                 if (context.testExpression("numberOfBrokerNodes", targetDepth)) {
                     context.nextToken();
                     mutableClusterInfo.setNumberOfBrokerNodes(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("enhancedMonitoring", targetDepth)) {
+                    context.nextToken();
+                    mutableClusterInfo.setEnhancedMonitoring(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("openMonitoring", targetDepth)) {
+                    context.nextToken();
+                    mutableClusterInfo.setOpenMonitoring(OpenMonitoringJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("kafkaVersion", targetDepth)) {
+                    context.nextToken();
+                    mutableClusterInfo.setKafkaVersion(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("loggingInfo", targetDepth)) {
+                    context.nextToken();
+                    mutableClusterInfo.setLoggingInfo(LoggingInfoJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("instanceType", targetDepth)) {
+                    context.nextToken();
+                    mutableClusterInfo.setInstanceType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("clientAuthentication", targetDepth)) {
+                    context.nextToken();
+                    mutableClusterInfo.setClientAuthentication(ClientAuthenticationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("encryptionInfo", targetDepth)) {
+                    context.nextToken();
+                    mutableClusterInfo.setEncryptionInfo(EncryptionInfoJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("connectivityInfo", targetDepth)) {
+                    context.nextToken();
+                    mutableClusterInfo.setConnectivityInfo(ConnectivityInfoJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("storageMode", targetDepth)) {
+                    context.nextToken();
+                    mutableClusterInfo.setStorageMode(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("brokerCountUpdateInfo", targetDepth)) {
+                    context.nextToken();
+                    mutableClusterInfo.setBrokerCountUpdateInfo(BrokerCountUpdateInfoJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

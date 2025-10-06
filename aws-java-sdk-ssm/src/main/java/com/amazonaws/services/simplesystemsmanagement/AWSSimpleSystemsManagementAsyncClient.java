@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,29 +30,53 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * representing the asynchronous operation; overloads which accept an {@code AsyncHandler} can be used to receive
  * notification when an asynchronous operation completes.
  * <p>
- * <fullname>AWS Systems Manager</fullname>
  * <p>
- * AWS Systems Manager is a collection of capabilities that helps you automate management tasks such as collecting
- * system inventory, applying operating system (OS) patches, automating the creation of Amazon Machine Images (AMIs),
- * and configuring operating systems (OSs) and applications at scale. Systems Manager lets you remotely and securely
- * manage the configuration of your managed instances. A <i>managed instance</i> is any Amazon EC2 instance or
- * on-premises machine in your hybrid environment that has been configured for Systems Manager.
+ * Amazon Web Services Systems Manager is the operations hub for your Amazon Web Services applications and resources and
+ * a secure end-to-end management solution for hybrid cloud environments that enables safe and secure operations at
+ * scale.
  * </p>
  * <p>
  * This reference is intended to be used with the <a
- * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/">AWS Systems Manager User Guide</a>.
+ * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/">Amazon Web Services Systems Manager User
+ * Guide</a>. To get started, see <a
+ * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-setting-up.html">Setting up Amazon
+ * Web Services Systems Manager</a>.
  * </p>
+ * <p class="title">
+ * <b>Related resources</b>
+ * </p>
+ * <ul>
+ * <li>
  * <p>
- * To get started, verify prerequisites and configure managed instances. For more information, see <a
- * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-setting-up.html">Setting Up AWS
- * Systems Manager</a> in the <i>AWS Systems Manager User Guide</i>.
+ * For information about each of the capabilities that comprise Systems Manager, see <a href=
+ * "https://docs.aws.amazon.com/systems-manager/latest/userguide/what-is-systems-manager.html#systems-manager-capabilities"
+ * >Systems Manager capabilities</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
  * </p>
+ * </li>
+ * <li>
  * <p>
- * For information about other API actions you can perform on Amazon EC2 instances, see the <a
- * href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/">Amazon EC2 API Reference</a>. For information about how
- * to use a Query API, see <a
- * href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/making-api-requests.html">Making API Requests</a>.
+ * For details about predefined runbooks for Automation, a capability of Amazon Web Services Systems Manager, see the
+ * <i> <a href=
+ * "https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-runbook-reference.html"
+ * >Systems Manager Automation runbook reference</a> </i>.
  * </p>
+ * </li>
+ * <li>
+ * <p>
+ * For information about AppConfig, a capability of Systems Manager, see the <i> <a
+ * href="https://docs.aws.amazon.com/appconfig/latest/userguide/">AppConfig User Guide</a> </i> and the <i> <a
+ * href="https://docs.aws.amazon.com/appconfig/2019-10-09/APIReference/">AppConfig API Reference</a> </i>.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * For information about Incident Manager, a capability of Systems Manager, see the <i> <a
+ * href="https://docs.aws.amazon.com/incident-manager/latest/userguide/">Systems Manager Incident Manager User Guide</a>
+ * </i> and the <i> <a href="https://docs.aws.amazon.com/incident-manager/latest/APIReference/">Systems Manager Incident
+ * Manager API Reference</a> </i>.
+ * </p>
+ * </li>
+ * </ul>
  */
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -251,7 +275,19 @@ public class AWSSimpleSystemsManagementAsyncClient extends AWSSimpleSystemsManag
      *        Object providing client parameters.
      */
     AWSSimpleSystemsManagementAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Amazon SSM using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSSimpleSystemsManagementAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -282,6 +318,39 @@ public class AWSSimpleSystemsManagementAsyncClient extends AWSSimpleSystemsManag
 
                 try {
                     result = executeAddTagsToResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateOpsItemRelatedItemResult> associateOpsItemRelatedItemAsync(AssociateOpsItemRelatedItemRequest request) {
+
+        return associateOpsItemRelatedItemAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateOpsItemRelatedItemResult> associateOpsItemRelatedItemAsync(final AssociateOpsItemRelatedItemRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AssociateOpsItemRelatedItemRequest, AssociateOpsItemRelatedItemResult> asyncHandler) {
+        final AssociateOpsItemRelatedItemRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AssociateOpsItemRelatedItemResult>() {
+            @Override
+            public AssociateOpsItemRelatedItemResult call() throws Exception {
+                AssociateOpsItemRelatedItemResult result = null;
+
+                try {
+                    result = executeAssociateOpsItemRelatedItem(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -564,6 +633,39 @@ public class AWSSimpleSystemsManagementAsyncClient extends AWSSimpleSystemsManag
     }
 
     @Override
+    public java.util.concurrent.Future<CreateOpsMetadataResult> createOpsMetadataAsync(CreateOpsMetadataRequest request) {
+
+        return createOpsMetadataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateOpsMetadataResult> createOpsMetadataAsync(final CreateOpsMetadataRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateOpsMetadataRequest, CreateOpsMetadataResult> asyncHandler) {
+        final CreateOpsMetadataRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateOpsMetadataResult>() {
+            @Override
+            public CreateOpsMetadataResult call() throws Exception {
+                CreateOpsMetadataResult result = null;
+
+                try {
+                    result = executeCreateOpsMetadata(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<CreatePatchBaselineResult> createPatchBaselineAsync(CreatePatchBaselineRequest request) {
 
         return createPatchBaselineAsync(request, null);
@@ -795,6 +897,72 @@ public class AWSSimpleSystemsManagementAsyncClient extends AWSSimpleSystemsManag
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteOpsItemResult> deleteOpsItemAsync(DeleteOpsItemRequest request) {
+
+        return deleteOpsItemAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteOpsItemResult> deleteOpsItemAsync(final DeleteOpsItemRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteOpsItemRequest, DeleteOpsItemResult> asyncHandler) {
+        final DeleteOpsItemRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteOpsItemResult>() {
+            @Override
+            public DeleteOpsItemResult call() throws Exception {
+                DeleteOpsItemResult result = null;
+
+                try {
+                    result = executeDeleteOpsItem(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteOpsMetadataResult> deleteOpsMetadataAsync(DeleteOpsMetadataRequest request) {
+
+        return deleteOpsMetadataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteOpsMetadataResult> deleteOpsMetadataAsync(final DeleteOpsMetadataRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteOpsMetadataRequest, DeleteOpsMetadataResult> asyncHandler) {
+        final DeleteOpsMetadataRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteOpsMetadataResult>() {
+            @Override
+            public DeleteOpsMetadataResult call() throws Exception {
+                DeleteOpsMetadataResult result = null;
+
+                try {
+                    result = executeDeleteOpsMetadata(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteParameterResult> deleteParameterAsync(DeleteParameterRequest request) {
 
         return deleteParameterAsync(request, null);
@@ -911,6 +1079,39 @@ public class AWSSimpleSystemsManagementAsyncClient extends AWSSimpleSystemsManag
 
                 try {
                     result = executeDeleteResourceDataSync(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(DeleteResourcePolicyRequest request) {
+
+        return deleteResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(final DeleteResourcePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteResourcePolicyRequest, DeleteResourcePolicyResult> asyncHandler) {
+        final DeleteResourcePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteResourcePolicyResult>() {
+            @Override
+            public DeleteResourcePolicyResult call() throws Exception {
+                DeleteResourcePolicyResult result = null;
+
+                try {
+                    result = executeDeleteResourcePolicy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1606,6 +1807,39 @@ public class AWSSimpleSystemsManagementAsyncClient extends AWSSimpleSystemsManag
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeInstancePropertiesResult> describeInstancePropertiesAsync(DescribeInstancePropertiesRequest request) {
+
+        return describeInstancePropertiesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeInstancePropertiesResult> describeInstancePropertiesAsync(final DescribeInstancePropertiesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeInstancePropertiesRequest, DescribeInstancePropertiesResult> asyncHandler) {
+        final DescribeInstancePropertiesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeInstancePropertiesResult>() {
+            @Override
+            public DescribeInstancePropertiesResult call() throws Exception {
+                DescribeInstancePropertiesResult result = null;
+
+                try {
+                    result = executeDescribeInstanceProperties(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeInventoryDeletionsResult> describeInventoryDeletionsAsync(DescribeInventoryDeletionsRequest request) {
 
         return describeInventoryDeletionsAsync(request, null);
@@ -2147,6 +2381,40 @@ public class AWSSimpleSystemsManagementAsyncClient extends AWSSimpleSystemsManag
     }
 
     @Override
+    public java.util.concurrent.Future<DisassociateOpsItemRelatedItemResult> disassociateOpsItemRelatedItemAsync(DisassociateOpsItemRelatedItemRequest request) {
+
+        return disassociateOpsItemRelatedItemAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateOpsItemRelatedItemResult> disassociateOpsItemRelatedItemAsync(
+            final DisassociateOpsItemRelatedItemRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisassociateOpsItemRelatedItemRequest, DisassociateOpsItemRelatedItemResult> asyncHandler) {
+        final DisassociateOpsItemRelatedItemRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisassociateOpsItemRelatedItemResult>() {
+            @Override
+            public DisassociateOpsItemRelatedItemResult call() throws Exception {
+                DisassociateOpsItemRelatedItemResult result = null;
+
+                try {
+                    result = executeDisassociateOpsItemRelatedItem(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetAutomationExecutionResult> getAutomationExecutionAsync(GetAutomationExecutionRequest request) {
 
         return getAutomationExecutionAsync(request, null);
@@ -2164,6 +2432,39 @@ public class AWSSimpleSystemsManagementAsyncClient extends AWSSimpleSystemsManag
 
                 try {
                     result = executeGetAutomationExecution(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCalendarStateResult> getCalendarStateAsync(GetCalendarStateRequest request) {
+
+        return getCalendarStateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCalendarStateResult> getCalendarStateAsync(final GetCalendarStateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetCalendarStateRequest, GetCalendarStateResult> asyncHandler) {
+        final GetCalendarStateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetCalendarStateResult>() {
+            @Override
+            public GetCalendarStateResult call() throws Exception {
+                GetCalendarStateResult result = null;
+
+                try {
+                    result = executeGetCalendarState(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -2616,6 +2917,39 @@ public class AWSSimpleSystemsManagementAsyncClient extends AWSSimpleSystemsManag
     }
 
     @Override
+    public java.util.concurrent.Future<GetOpsMetadataResult> getOpsMetadataAsync(GetOpsMetadataRequest request) {
+
+        return getOpsMetadataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetOpsMetadataResult> getOpsMetadataAsync(final GetOpsMetadataRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetOpsMetadataRequest, GetOpsMetadataResult> asyncHandler) {
+        final GetOpsMetadataRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetOpsMetadataResult>() {
+            @Override
+            public GetOpsMetadataResult call() throws Exception {
+                GetOpsMetadataResult result = null;
+
+                try {
+                    result = executeGetOpsMetadata(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetOpsSummaryResult> getOpsSummaryAsync(GetOpsSummaryRequest request) {
 
         return getOpsSummaryAsync(request, null);
@@ -2832,6 +3166,39 @@ public class AWSSimpleSystemsManagementAsyncClient extends AWSSimpleSystemsManag
 
                 try {
                     result = executeGetPatchBaselineForPatchGroup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetResourcePoliciesResult> getResourcePoliciesAsync(GetResourcePoliciesRequest request) {
+
+        return getResourcePoliciesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetResourcePoliciesResult> getResourcePoliciesAsync(final GetResourcePoliciesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetResourcePoliciesRequest, GetResourcePoliciesResult> asyncHandler) {
+        final GetResourcePoliciesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetResourcePoliciesResult>() {
+            @Override
+            public GetResourcePoliciesResult call() throws Exception {
+                GetResourcePoliciesResult result = null;
+
+                try {
+                    result = executeGetResourcePolicies(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -3112,6 +3479,39 @@ public class AWSSimpleSystemsManagementAsyncClient extends AWSSimpleSystemsManag
     }
 
     @Override
+    public java.util.concurrent.Future<ListDocumentMetadataHistoryResult> listDocumentMetadataHistoryAsync(ListDocumentMetadataHistoryRequest request) {
+
+        return listDocumentMetadataHistoryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDocumentMetadataHistoryResult> listDocumentMetadataHistoryAsync(final ListDocumentMetadataHistoryRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListDocumentMetadataHistoryRequest, ListDocumentMetadataHistoryResult> asyncHandler) {
+        final ListDocumentMetadataHistoryRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListDocumentMetadataHistoryResult>() {
+            @Override
+            public ListDocumentMetadataHistoryResult call() throws Exception {
+                ListDocumentMetadataHistoryResult result = null;
+
+                try {
+                    result = executeListDocumentMetadataHistory(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListDocumentVersionsResult> listDocumentVersionsAsync(ListDocumentVersionsRequest request) {
 
         return listDocumentVersionsAsync(request, null);
@@ -3218,6 +3618,105 @@ public class AWSSimpleSystemsManagementAsyncClient extends AWSSimpleSystemsManag
 
                 try {
                     result = executeListInventoryEntries(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListOpsItemEventsResult> listOpsItemEventsAsync(ListOpsItemEventsRequest request) {
+
+        return listOpsItemEventsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListOpsItemEventsResult> listOpsItemEventsAsync(final ListOpsItemEventsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListOpsItemEventsRequest, ListOpsItemEventsResult> asyncHandler) {
+        final ListOpsItemEventsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListOpsItemEventsResult>() {
+            @Override
+            public ListOpsItemEventsResult call() throws Exception {
+                ListOpsItemEventsResult result = null;
+
+                try {
+                    result = executeListOpsItemEvents(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListOpsItemRelatedItemsResult> listOpsItemRelatedItemsAsync(ListOpsItemRelatedItemsRequest request) {
+
+        return listOpsItemRelatedItemsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListOpsItemRelatedItemsResult> listOpsItemRelatedItemsAsync(final ListOpsItemRelatedItemsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListOpsItemRelatedItemsRequest, ListOpsItemRelatedItemsResult> asyncHandler) {
+        final ListOpsItemRelatedItemsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListOpsItemRelatedItemsResult>() {
+            @Override
+            public ListOpsItemRelatedItemsResult call() throws Exception {
+                ListOpsItemRelatedItemsResult result = null;
+
+                try {
+                    result = executeListOpsItemRelatedItems(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListOpsMetadataResult> listOpsMetadataAsync(ListOpsMetadataRequest request) {
+
+        return listOpsMetadataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListOpsMetadataResult> listOpsMetadataAsync(final ListOpsMetadataRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListOpsMetadataRequest, ListOpsMetadataResult> asyncHandler) {
+        final ListOpsMetadataRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListOpsMetadataResult>() {
+            @Override
+            public ListOpsMetadataResult call() throws Exception {
+                ListOpsMetadataResult result = null;
+
+                try {
+                    result = executeListOpsMetadata(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -3451,6 +3950,39 @@ public class AWSSimpleSystemsManagementAsyncClient extends AWSSimpleSystemsManag
 
                 try {
                     result = executePutParameter(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(PutResourcePolicyRequest request) {
+
+        return putResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(final PutResourcePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutResourcePolicyRequest, PutResourcePolicyResult> asyncHandler) {
+        final PutResourcePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutResourcePolicyResult>() {
+            @Override
+            public PutResourcePolicyResult call() throws Exception {
+                PutResourcePolicyResult result = null;
+
+                try {
+                    result = executePutResourcePolicy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -3836,6 +4368,39 @@ public class AWSSimpleSystemsManagementAsyncClient extends AWSSimpleSystemsManag
     }
 
     @Override
+    public java.util.concurrent.Future<StartChangeRequestExecutionResult> startChangeRequestExecutionAsync(StartChangeRequestExecutionRequest request) {
+
+        return startChangeRequestExecutionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartChangeRequestExecutionResult> startChangeRequestExecutionAsync(final StartChangeRequestExecutionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartChangeRequestExecutionRequest, StartChangeRequestExecutionResult> asyncHandler) {
+        final StartChangeRequestExecutionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartChangeRequestExecutionResult>() {
+            @Override
+            public StartChangeRequestExecutionResult call() throws Exception {
+                StartChangeRequestExecutionResult result = null;
+
+                try {
+                    result = executeStartChangeRequestExecution(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<StartSessionResult> startSessionAsync(StartSessionRequest request) {
 
         return startSessionAsync(request, null);
@@ -3919,6 +4484,39 @@ public class AWSSimpleSystemsManagementAsyncClient extends AWSSimpleSystemsManag
 
                 try {
                     result = executeTerminateSession(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UnlabelParameterVersionResult> unlabelParameterVersionAsync(UnlabelParameterVersionRequest request) {
+
+        return unlabelParameterVersionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UnlabelParameterVersionResult> unlabelParameterVersionAsync(final UnlabelParameterVersionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UnlabelParameterVersionRequest, UnlabelParameterVersionResult> asyncHandler) {
+        final UnlabelParameterVersionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UnlabelParameterVersionResult>() {
+            @Override
+            public UnlabelParameterVersionResult call() throws Exception {
+                UnlabelParameterVersionResult result = null;
+
+                try {
+                    result = executeUnlabelParameterVersion(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -4051,6 +4649,39 @@ public class AWSSimpleSystemsManagementAsyncClient extends AWSSimpleSystemsManag
 
                 try {
                     result = executeUpdateDocumentDefaultVersion(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDocumentMetadataResult> updateDocumentMetadataAsync(UpdateDocumentMetadataRequest request) {
+
+        return updateDocumentMetadataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDocumentMetadataResult> updateDocumentMetadataAsync(final UpdateDocumentMetadataRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateDocumentMetadataRequest, UpdateDocumentMetadataResult> asyncHandler) {
+        final UpdateDocumentMetadataRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateDocumentMetadataResult>() {
+            @Override
+            public UpdateDocumentMetadataResult call() throws Exception {
+                UpdateDocumentMetadataResult result = null;
+
+                try {
+                    result = executeUpdateDocumentMetadata(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -4233,6 +4864,39 @@ public class AWSSimpleSystemsManagementAsyncClient extends AWSSimpleSystemsManag
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateOpsMetadataResult> updateOpsMetadataAsync(UpdateOpsMetadataRequest request) {
+
+        return updateOpsMetadataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateOpsMetadataResult> updateOpsMetadataAsync(final UpdateOpsMetadataRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateOpsMetadataRequest, UpdateOpsMetadataResult> asyncHandler) {
+        final UpdateOpsMetadataRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateOpsMetadataResult>() {
+            @Override
+            public UpdateOpsMetadataResult call() throws Exception {
+                UpdateOpsMetadataResult result = null;
+
+                try {
+                    result = executeUpdateOpsMetadata(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdatePatchBaselineResult> updatePatchBaselineAsync(UpdatePatchBaselineRequest request) {
 
         return updatePatchBaselineAsync(request, null);
@@ -4250,6 +4914,39 @@ public class AWSSimpleSystemsManagementAsyncClient extends AWSSimpleSystemsManag
 
                 try {
                     result = executeUpdatePatchBaseline(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateResourceDataSyncResult> updateResourceDataSyncAsync(UpdateResourceDataSyncRequest request) {
+
+        return updateResourceDataSyncAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateResourceDataSyncResult> updateResourceDataSyncAsync(final UpdateResourceDataSyncRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateResourceDataSyncRequest, UpdateResourceDataSyncResult> asyncHandler) {
+        final UpdateResourceDataSyncRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateResourceDataSyncResult>() {
+            @Override
+            public UpdateResourceDataSyncResult call() throws Exception {
+                UpdateResourceDataSyncResult result = null;
+
+                try {
+                    result = executeUpdateResourceDataSync(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

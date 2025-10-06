@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -58,6 +58,10 @@ public class DescribeOrderableDBInstanceOptionsRequestMarshaller implements
             request.addParameter("LicenseModel", StringUtils.fromString(describeOrderableDBInstanceOptionsRequest.getLicenseModel()));
         }
 
+        if (describeOrderableDBInstanceOptionsRequest.getAvailabilityZoneGroup() != null) {
+            request.addParameter("AvailabilityZoneGroup", StringUtils.fromString(describeOrderableDBInstanceOptionsRequest.getAvailabilityZoneGroup()));
+        }
+
         if (describeOrderableDBInstanceOptionsRequest.getVpc() != null) {
             request.addParameter("Vpc", StringUtils.fromBoolean(describeOrderableDBInstanceOptionsRequest.getVpc()));
         }
@@ -69,22 +73,25 @@ public class DescribeOrderableDBInstanceOptionsRequestMarshaller implements
             int filtersListIndex = 1;
 
             for (Filter filtersListValue : filtersList) {
+                if (filtersListValue != null) {
 
-                if (filtersListValue.getName() != null) {
-                    request.addParameter("Filters.Filter." + filtersListIndex + ".Name", StringUtils.fromString(filtersListValue.getName()));
-                }
+                    if (filtersListValue.getName() != null) {
+                        request.addParameter("Filters.Filter." + filtersListIndex + ".Name", StringUtils.fromString(filtersListValue.getName()));
+                    }
 
-                if (!filtersListValue.getValues().isEmpty()
-                        || !((com.amazonaws.internal.SdkInternalList<String>) filtersListValue.getValues()).isAutoConstruct()) {
-                    com.amazonaws.internal.SdkInternalList<String> valuesList = (com.amazonaws.internal.SdkInternalList<String>) filtersListValue.getValues();
-                    int valuesListIndex = 1;
+                    if (!filtersListValue.getValues().isEmpty()
+                            || !((com.amazonaws.internal.SdkInternalList<String>) filtersListValue.getValues()).isAutoConstruct()) {
+                        com.amazonaws.internal.SdkInternalList<String> valuesList = (com.amazonaws.internal.SdkInternalList<String>) filtersListValue
+                                .getValues();
+                        int valuesListIndex = 1;
 
-                    for (String valuesListValue : valuesList) {
-                        if (valuesListValue != null) {
-                            request.addParameter("Filters.Filter." + filtersListIndex + ".Values.Value." + valuesListIndex,
-                                    StringUtils.fromString(valuesListValue));
+                        for (String valuesListValue : valuesList) {
+                            if (valuesListValue != null) {
+                                request.addParameter("Filters.Filter." + filtersListIndex + ".Values.Value." + valuesListIndex,
+                                        StringUtils.fromString(valuesListValue));
+                            }
+                            valuesListIndex++;
                         }
-                        valuesListIndex++;
                     }
                 }
                 filtersListIndex++;

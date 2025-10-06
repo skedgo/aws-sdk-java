@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A complex type that contains information about an operation that matches the criteria that you specified in a
- * <a>ListOperations</a> request.
+ * A complex type that contains information about an operation that matches the criteria that you specified in a <a
+ * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_ListOperations.html">ListOperations</a> request.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/OperationSummary" target="_top">AWS
@@ -47,7 +47,7 @@ public class OperationSummary implements Serializable, Cloneable, StructuredPojo
      * </li>
      * <li>
      * <p>
-     * <b>PENDING</b>: AWS Cloud Map is performing the operation.
+     * <b>PENDING</b>: Cloud Map is performing the operation.
      * </p>
      * </li>
      * <li>
@@ -116,7 +116,7 @@ public class OperationSummary implements Serializable, Cloneable, StructuredPojo
      * </li>
      * <li>
      * <p>
-     * <b>PENDING</b>: AWS Cloud Map is performing the operation.
+     * <b>PENDING</b>: Cloud Map is performing the operation.
      * </p>
      * </li>
      * <li>
@@ -141,7 +141,7 @@ public class OperationSummary implements Serializable, Cloneable, StructuredPojo
      *        </li>
      *        <li>
      *        <p>
-     *        <b>PENDING</b>: AWS Cloud Map is performing the operation.
+     *        <b>PENDING</b>: Cloud Map is performing the operation.
      *        </p>
      *        </li>
      *        <li>
@@ -173,7 +173,7 @@ public class OperationSummary implements Serializable, Cloneable, StructuredPojo
      * </li>
      * <li>
      * <p>
-     * <b>PENDING</b>: AWS Cloud Map is performing the operation.
+     * <b>PENDING</b>: Cloud Map is performing the operation.
      * </p>
      * </li>
      * <li>
@@ -197,7 +197,7 @@ public class OperationSummary implements Serializable, Cloneable, StructuredPojo
      *         </li>
      *         <li>
      *         <p>
-     *         <b>PENDING</b>: AWS Cloud Map is performing the operation.
+     *         <b>PENDING</b>: Cloud Map is performing the operation.
      *         </p>
      *         </li>
      *         <li>
@@ -229,7 +229,7 @@ public class OperationSummary implements Serializable, Cloneable, StructuredPojo
      * </li>
      * <li>
      * <p>
-     * <b>PENDING</b>: AWS Cloud Map is performing the operation.
+     * <b>PENDING</b>: Cloud Map is performing the operation.
      * </p>
      * </li>
      * <li>
@@ -254,7 +254,7 @@ public class OperationSummary implements Serializable, Cloneable, StructuredPojo
      *        </li>
      *        <li>
      *        <p>
-     *        <b>PENDING</b>: AWS Cloud Map is performing the operation.
+     *        <b>PENDING</b>: Cloud Map is performing the operation.
      *        </p>
      *        </li>
      *        <li>
@@ -288,7 +288,7 @@ public class OperationSummary implements Serializable, Cloneable, StructuredPojo
      * </li>
      * <li>
      * <p>
-     * <b>PENDING</b>: AWS Cloud Map is performing the operation.
+     * <b>PENDING</b>: Cloud Map is performing the operation.
      * </p>
      * </li>
      * <li>
@@ -313,7 +313,7 @@ public class OperationSummary implements Serializable, Cloneable, StructuredPojo
      *        </li>
      *        <li>
      *        <p>
-     *        <b>PENDING</b>: AWS Cloud Map is performing the operation.
+     *        <b>PENDING</b>: Cloud Map is performing the operation.
      *        </p>
      *        </li>
      *        <li>

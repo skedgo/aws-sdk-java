@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,7 +36,7 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
     private String automationExecutionId;
     /**
      * <p>
-     * The name of the Automation document used during execution.
+     * The name of the Automation runbook used during execution.
      * </p>
      */
     private String documentName;
@@ -48,37 +48,37 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
     private String documentVersion;
     /**
      * <p>
-     * The status of the execution. Valid values include: Running, Succeeded, Failed, Timed out, or Cancelled.
+     * The status of the execution.
      * </p>
      */
     private String automationExecutionStatus;
     /**
      * <p>
-     * The time the execution started.&gt;
+     * The time the execution started.
      * </p>
      */
     private java.util.Date executionStartTime;
     /**
      * <p>
-     * The time the execution finished. This is not populated if the execution is still in progress.
+     * The time the execution finished. This isn't populated if the execution is still in progress.
      * </p>
      */
     private java.util.Date executionEndTime;
     /**
      * <p>
-     * The IAM role ARN of the user who ran the Automation.
+     * The IAM role ARN of the user who ran the automation.
      * </p>
      */
     private String executedBy;
     /**
      * <p>
-     * An Amazon S3 bucket where execution information is stored.
+     * An S3 bucket where execution information is stored.
      * </p>
      */
     private String logFile;
     /**
      * <p>
-     * The list of execution outputs as defined in the Automation document.
+     * The list of execution outputs as defined in the Automation runbook.
      * </p>
      */
     private java.util.Map<String, java.util.List<String>> outputs;
@@ -90,7 +90,7 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
     private String mode;
     /**
      * <p>
-     * The ExecutionId of the parent Automation.
+     * The execution ID of the parent automation.
      * </p>
      */
     private String parentAutomationExecutionId;
@@ -108,19 +108,19 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
     private String currentAction;
     /**
      * <p>
-     * The list of execution outputs as defined in the Automation document.
+     * The list of execution outputs as defined in the Automation runbook.
      * </p>
      */
     private String failureMessage;
     /**
      * <p>
-     * The list of execution outputs as defined in the Automation document.
+     * The list of execution outputs as defined in the Automation runbook.
      * </p>
      */
     private String targetParameterName;
     /**
      * <p>
-     * The targets defined by the user when starting the Automation.
+     * The targets defined by the user when starting the automation.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Target> targets;
@@ -138,31 +138,87 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
     private ResolvedTargets resolvedTargets;
     /**
      * <p>
-     * The MaxConcurrency value specified by the user when starting the Automation.
+     * The <code>MaxConcurrency</code> value specified by the user when starting the automation.
      * </p>
      */
     private String maxConcurrency;
     /**
      * <p>
-     * The MaxErrors value specified by the user when starting the Automation.
+     * The <code>MaxErrors</code> value specified by the user when starting the automation.
      * </p>
      */
     private String maxErrors;
     /**
      * <p>
-     * The list of execution outputs as defined in the Automation document.
+     * The list of execution outputs as defined in the Automation runbook.
      * </p>
      */
     private String target;
     /**
      * <p>
      * Use this filter with <a>DescribeAutomationExecutions</a>. Specify either Local or CrossAccount. CrossAccount is
-     * an Automation that runs in multiple AWS Regions and accounts. For more information, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
-     * >Executing Automations in Multiple AWS Regions and Accounts</a> in the <i>AWS Systems Manager User Guide</i>.
+     * an Automation that runs in multiple Amazon Web Services Regions and Amazon Web Services accounts. For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
+     * >Running Automation workflows in multiple Amazon Web Services Regions and accounts</a> in the <i>Amazon Web
+     * Services Systems Manager User Guide</i>.
      * </p>
      */
     private String automationType;
+    /**
+     * <p>
+     * The details for the CloudWatch alarm applied to your automation.
+     * </p>
+     */
+    private AlarmConfiguration alarmConfiguration;
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked by the automation.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<AlarmStateInformation> triggeredAlarms;
+    /**
+     * <p>
+     * The subtype of the Automation operation. Currently, the only supported value is <code>ChangeRequest</code>.
+     * </p>
+     */
+    private String automationSubtype;
+    /**
+     * <p>
+     * The date and time the Automation operation is scheduled to start.
+     * </p>
+     */
+    private java.util.Date scheduledTime;
+    /**
+     * <p>
+     * Information about the Automation runbooks that are run during a runbook workflow in Change Manager.
+     * </p>
+     * <note>
+     * <p>
+     * The Automation runbooks specified for the runbook workflow can't run until all required approvals for the change
+     * request have been received.
+     * </p>
+     * </note>
+     */
+    private com.amazonaws.internal.SdkInternalList<Runbook> runbooks;
+    /**
+     * <p>
+     * The ID of an OpsItem that is created to represent a Change Manager change request.
+     * </p>
+     */
+    private String opsItemId;
+    /**
+     * <p>
+     * The ID of a State Manager association used in the Automation operation.
+     * </p>
+     */
+    private String associationId;
+    /**
+     * <p>
+     * The name of the Change Manager change request.
+     * </p>
+     */
+    private String changeRequestName;
 
     /**
      * <p>
@@ -206,11 +262,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The name of the Automation document used during execution.
+     * The name of the Automation runbook used during execution.
      * </p>
      * 
      * @param documentName
-     *        The name of the Automation document used during execution.
+     *        The name of the Automation runbook used during execution.
      */
 
     public void setDocumentName(String documentName) {
@@ -219,10 +275,10 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The name of the Automation document used during execution.
+     * The name of the Automation runbook used during execution.
      * </p>
      * 
-     * @return The name of the Automation document used during execution.
+     * @return The name of the Automation runbook used during execution.
      */
 
     public String getDocumentName() {
@@ -231,11 +287,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The name of the Automation document used during execution.
+     * The name of the Automation runbook used during execution.
      * </p>
      * 
      * @param documentName
-     *        The name of the Automation document used during execution.
+     *        The name of the Automation runbook used during execution.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -286,11 +342,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The status of the execution. Valid values include: Running, Succeeded, Failed, Timed out, or Cancelled.
+     * The status of the execution.
      * </p>
      * 
      * @param automationExecutionStatus
-     *        The status of the execution. Valid values include: Running, Succeeded, Failed, Timed out, or Cancelled.
+     *        The status of the execution.
      * @see AutomationExecutionStatus
      */
 
@@ -300,10 +356,10 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The status of the execution. Valid values include: Running, Succeeded, Failed, Timed out, or Cancelled.
+     * The status of the execution.
      * </p>
      * 
-     * @return The status of the execution. Valid values include: Running, Succeeded, Failed, Timed out, or Cancelled.
+     * @return The status of the execution.
      * @see AutomationExecutionStatus
      */
 
@@ -313,11 +369,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The status of the execution. Valid values include: Running, Succeeded, Failed, Timed out, or Cancelled.
+     * The status of the execution.
      * </p>
      * 
      * @param automationExecutionStatus
-     *        The status of the execution. Valid values include: Running, Succeeded, Failed, Timed out, or Cancelled.
+     *        The status of the execution.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AutomationExecutionStatus
      */
@@ -329,11 +385,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The status of the execution. Valid values include: Running, Succeeded, Failed, Timed out, or Cancelled.
+     * The status of the execution.
      * </p>
      * 
      * @param automationExecutionStatus
-     *        The status of the execution. Valid values include: Running, Succeeded, Failed, Timed out, or Cancelled.
+     *        The status of the execution.
      * @see AutomationExecutionStatus
      */
 
@@ -343,11 +399,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The status of the execution. Valid values include: Running, Succeeded, Failed, Timed out, or Cancelled.
+     * The status of the execution.
      * </p>
      * 
      * @param automationExecutionStatus
-     *        The status of the execution. Valid values include: Running, Succeeded, Failed, Timed out, or Cancelled.
+     *        The status of the execution.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AutomationExecutionStatus
      */
@@ -359,11 +415,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The time the execution started.&gt;
+     * The time the execution started.
      * </p>
      * 
      * @param executionStartTime
-     *        The time the execution started.&gt;
+     *        The time the execution started.
      */
 
     public void setExecutionStartTime(java.util.Date executionStartTime) {
@@ -372,10 +428,10 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The time the execution started.&gt;
+     * The time the execution started.
      * </p>
      * 
-     * @return The time the execution started.&gt;
+     * @return The time the execution started.
      */
 
     public java.util.Date getExecutionStartTime() {
@@ -384,11 +440,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The time the execution started.&gt;
+     * The time the execution started.
      * </p>
      * 
      * @param executionStartTime
-     *        The time the execution started.&gt;
+     *        The time the execution started.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -399,11 +455,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The time the execution finished. This is not populated if the execution is still in progress.
+     * The time the execution finished. This isn't populated if the execution is still in progress.
      * </p>
      * 
      * @param executionEndTime
-     *        The time the execution finished. This is not populated if the execution is still in progress.
+     *        The time the execution finished. This isn't populated if the execution is still in progress.
      */
 
     public void setExecutionEndTime(java.util.Date executionEndTime) {
@@ -412,10 +468,10 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The time the execution finished. This is not populated if the execution is still in progress.
+     * The time the execution finished. This isn't populated if the execution is still in progress.
      * </p>
      * 
-     * @return The time the execution finished. This is not populated if the execution is still in progress.
+     * @return The time the execution finished. This isn't populated if the execution is still in progress.
      */
 
     public java.util.Date getExecutionEndTime() {
@@ -424,11 +480,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The time the execution finished. This is not populated if the execution is still in progress.
+     * The time the execution finished. This isn't populated if the execution is still in progress.
      * </p>
      * 
      * @param executionEndTime
-     *        The time the execution finished. This is not populated if the execution is still in progress.
+     *        The time the execution finished. This isn't populated if the execution is still in progress.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -439,11 +495,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The IAM role ARN of the user who ran the Automation.
+     * The IAM role ARN of the user who ran the automation.
      * </p>
      * 
      * @param executedBy
-     *        The IAM role ARN of the user who ran the Automation.
+     *        The IAM role ARN of the user who ran the automation.
      */
 
     public void setExecutedBy(String executedBy) {
@@ -452,10 +508,10 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The IAM role ARN of the user who ran the Automation.
+     * The IAM role ARN of the user who ran the automation.
      * </p>
      * 
-     * @return The IAM role ARN of the user who ran the Automation.
+     * @return The IAM role ARN of the user who ran the automation.
      */
 
     public String getExecutedBy() {
@@ -464,11 +520,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The IAM role ARN of the user who ran the Automation.
+     * The IAM role ARN of the user who ran the automation.
      * </p>
      * 
      * @param executedBy
-     *        The IAM role ARN of the user who ran the Automation.
+     *        The IAM role ARN of the user who ran the automation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -479,11 +535,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * An Amazon S3 bucket where execution information is stored.
+     * An S3 bucket where execution information is stored.
      * </p>
      * 
      * @param logFile
-     *        An Amazon S3 bucket where execution information is stored.
+     *        An S3 bucket where execution information is stored.
      */
 
     public void setLogFile(String logFile) {
@@ -492,10 +548,10 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * An Amazon S3 bucket where execution information is stored.
+     * An S3 bucket where execution information is stored.
      * </p>
      * 
-     * @return An Amazon S3 bucket where execution information is stored.
+     * @return An S3 bucket where execution information is stored.
      */
 
     public String getLogFile() {
@@ -504,11 +560,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * An Amazon S3 bucket where execution information is stored.
+     * An S3 bucket where execution information is stored.
      * </p>
      * 
      * @param logFile
-     *        An Amazon S3 bucket where execution information is stored.
+     *        An S3 bucket where execution information is stored.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -519,10 +575,10 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The list of execution outputs as defined in the Automation document.
+     * The list of execution outputs as defined in the Automation runbook.
      * </p>
      * 
-     * @return The list of execution outputs as defined in the Automation document.
+     * @return The list of execution outputs as defined in the Automation runbook.
      */
 
     public java.util.Map<String, java.util.List<String>> getOutputs() {
@@ -531,11 +587,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The list of execution outputs as defined in the Automation document.
+     * The list of execution outputs as defined in the Automation runbook.
      * </p>
      * 
      * @param outputs
-     *        The list of execution outputs as defined in the Automation document.
+     *        The list of execution outputs as defined in the Automation runbook.
      */
 
     public void setOutputs(java.util.Map<String, java.util.List<String>> outputs) {
@@ -544,11 +600,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The list of execution outputs as defined in the Automation document.
+     * The list of execution outputs as defined in the Automation runbook.
      * </p>
      * 
      * @param outputs
-     *        The list of execution outputs as defined in the Automation document.
+     *        The list of execution outputs as defined in the Automation runbook.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -556,6 +612,13 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
         setOutputs(outputs);
         return this;
     }
+
+    /**
+     * Add a single Outputs entry
+     *
+     * @see AutomationExecutionMetadata#withOutputs
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public AutomationExecutionMetadata addOutputsEntry(String key, java.util.List<String> value) {
         if (null == this.outputs) {
@@ -653,11 +716,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The ExecutionId of the parent Automation.
+     * The execution ID of the parent automation.
      * </p>
      * 
      * @param parentAutomationExecutionId
-     *        The ExecutionId of the parent Automation.
+     *        The execution ID of the parent automation.
      */
 
     public void setParentAutomationExecutionId(String parentAutomationExecutionId) {
@@ -666,10 +729,10 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The ExecutionId of the parent Automation.
+     * The execution ID of the parent automation.
      * </p>
      * 
-     * @return The ExecutionId of the parent Automation.
+     * @return The execution ID of the parent automation.
      */
 
     public String getParentAutomationExecutionId() {
@@ -678,11 +741,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The ExecutionId of the parent Automation.
+     * The execution ID of the parent automation.
      * </p>
      * 
      * @param parentAutomationExecutionId
-     *        The ExecutionId of the parent Automation.
+     *        The execution ID of the parent automation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -773,11 +836,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The list of execution outputs as defined in the Automation document.
+     * The list of execution outputs as defined in the Automation runbook.
      * </p>
      * 
      * @param failureMessage
-     *        The list of execution outputs as defined in the Automation document.
+     *        The list of execution outputs as defined in the Automation runbook.
      */
 
     public void setFailureMessage(String failureMessage) {
@@ -786,10 +849,10 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The list of execution outputs as defined in the Automation document.
+     * The list of execution outputs as defined in the Automation runbook.
      * </p>
      * 
-     * @return The list of execution outputs as defined in the Automation document.
+     * @return The list of execution outputs as defined in the Automation runbook.
      */
 
     public String getFailureMessage() {
@@ -798,11 +861,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The list of execution outputs as defined in the Automation document.
+     * The list of execution outputs as defined in the Automation runbook.
      * </p>
      * 
      * @param failureMessage
-     *        The list of execution outputs as defined in the Automation document.
+     *        The list of execution outputs as defined in the Automation runbook.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -813,11 +876,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The list of execution outputs as defined in the Automation document.
+     * The list of execution outputs as defined in the Automation runbook.
      * </p>
      * 
      * @param targetParameterName
-     *        The list of execution outputs as defined in the Automation document.
+     *        The list of execution outputs as defined in the Automation runbook.
      */
 
     public void setTargetParameterName(String targetParameterName) {
@@ -826,10 +889,10 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The list of execution outputs as defined in the Automation document.
+     * The list of execution outputs as defined in the Automation runbook.
      * </p>
      * 
-     * @return The list of execution outputs as defined in the Automation document.
+     * @return The list of execution outputs as defined in the Automation runbook.
      */
 
     public String getTargetParameterName() {
@@ -838,11 +901,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The list of execution outputs as defined in the Automation document.
+     * The list of execution outputs as defined in the Automation runbook.
      * </p>
      * 
      * @param targetParameterName
-     *        The list of execution outputs as defined in the Automation document.
+     *        The list of execution outputs as defined in the Automation runbook.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -853,10 +916,10 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The targets defined by the user when starting the Automation.
+     * The targets defined by the user when starting the automation.
      * </p>
      * 
-     * @return The targets defined by the user when starting the Automation.
+     * @return The targets defined by the user when starting the automation.
      */
 
     public java.util.List<Target> getTargets() {
@@ -868,11 +931,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The targets defined by the user when starting the Automation.
+     * The targets defined by the user when starting the automation.
      * </p>
      * 
      * @param targets
-     *        The targets defined by the user when starting the Automation.
+     *        The targets defined by the user when starting the automation.
      */
 
     public void setTargets(java.util.Collection<Target> targets) {
@@ -886,7 +949,7 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The targets defined by the user when starting the Automation.
+     * The targets defined by the user when starting the automation.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -895,7 +958,7 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
      * </p>
      * 
      * @param targets
-     *        The targets defined by the user when starting the Automation.
+     *        The targets defined by the user when starting the automation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -911,11 +974,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The targets defined by the user when starting the Automation.
+     * The targets defined by the user when starting the automation.
      * </p>
      * 
      * @param targets
-     *        The targets defined by the user when starting the Automation.
+     *        The targets defined by the user when starting the automation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1039,11 +1102,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The MaxConcurrency value specified by the user when starting the Automation.
+     * The <code>MaxConcurrency</code> value specified by the user when starting the automation.
      * </p>
      * 
      * @param maxConcurrency
-     *        The MaxConcurrency value specified by the user when starting the Automation.
+     *        The <code>MaxConcurrency</code> value specified by the user when starting the automation.
      */
 
     public void setMaxConcurrency(String maxConcurrency) {
@@ -1052,10 +1115,10 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The MaxConcurrency value specified by the user when starting the Automation.
+     * The <code>MaxConcurrency</code> value specified by the user when starting the automation.
      * </p>
      * 
-     * @return The MaxConcurrency value specified by the user when starting the Automation.
+     * @return The <code>MaxConcurrency</code> value specified by the user when starting the automation.
      */
 
     public String getMaxConcurrency() {
@@ -1064,11 +1127,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The MaxConcurrency value specified by the user when starting the Automation.
+     * The <code>MaxConcurrency</code> value specified by the user when starting the automation.
      * </p>
      * 
      * @param maxConcurrency
-     *        The MaxConcurrency value specified by the user when starting the Automation.
+     *        The <code>MaxConcurrency</code> value specified by the user when starting the automation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1079,11 +1142,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The MaxErrors value specified by the user when starting the Automation.
+     * The <code>MaxErrors</code> value specified by the user when starting the automation.
      * </p>
      * 
      * @param maxErrors
-     *        The MaxErrors value specified by the user when starting the Automation.
+     *        The <code>MaxErrors</code> value specified by the user when starting the automation.
      */
 
     public void setMaxErrors(String maxErrors) {
@@ -1092,10 +1155,10 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The MaxErrors value specified by the user when starting the Automation.
+     * The <code>MaxErrors</code> value specified by the user when starting the automation.
      * </p>
      * 
-     * @return The MaxErrors value specified by the user when starting the Automation.
+     * @return The <code>MaxErrors</code> value specified by the user when starting the automation.
      */
 
     public String getMaxErrors() {
@@ -1104,11 +1167,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The MaxErrors value specified by the user when starting the Automation.
+     * The <code>MaxErrors</code> value specified by the user when starting the automation.
      * </p>
      * 
      * @param maxErrors
-     *        The MaxErrors value specified by the user when starting the Automation.
+     *        The <code>MaxErrors</code> value specified by the user when starting the automation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1119,11 +1182,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The list of execution outputs as defined in the Automation document.
+     * The list of execution outputs as defined in the Automation runbook.
      * </p>
      * 
      * @param target
-     *        The list of execution outputs as defined in the Automation document.
+     *        The list of execution outputs as defined in the Automation runbook.
      */
 
     public void setTarget(String target) {
@@ -1132,10 +1195,10 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The list of execution outputs as defined in the Automation document.
+     * The list of execution outputs as defined in the Automation runbook.
      * </p>
      * 
-     * @return The list of execution outputs as defined in the Automation document.
+     * @return The list of execution outputs as defined in the Automation runbook.
      */
 
     public String getTarget() {
@@ -1144,11 +1207,11 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The list of execution outputs as defined in the Automation document.
+     * The list of execution outputs as defined in the Automation runbook.
      * </p>
      * 
      * @param target
-     *        The list of execution outputs as defined in the Automation document.
+     *        The list of execution outputs as defined in the Automation runbook.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1160,18 +1223,20 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
     /**
      * <p>
      * Use this filter with <a>DescribeAutomationExecutions</a>. Specify either Local or CrossAccount. CrossAccount is
-     * an Automation that runs in multiple AWS Regions and accounts. For more information, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
-     * >Executing Automations in Multiple AWS Regions and Accounts</a> in the <i>AWS Systems Manager User Guide</i>.
+     * an Automation that runs in multiple Amazon Web Services Regions and Amazon Web Services accounts. For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
+     * >Running Automation workflows in multiple Amazon Web Services Regions and accounts</a> in the <i>Amazon Web
+     * Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param automationType
      *        Use this filter with <a>DescribeAutomationExecutions</a>. Specify either Local or CrossAccount.
-     *        CrossAccount is an Automation that runs in multiple AWS Regions and accounts. For more information, see <a
-     *        href=
-     *        "http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
-     *        >Executing Automations in Multiple AWS Regions and Accounts</a> in the <i>AWS Systems Manager User
-     *        Guide</i>.
+     *        CrossAccount is an Automation that runs in multiple Amazon Web Services Regions and Amazon Web Services
+     *        accounts. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
+     *        >Running Automation workflows in multiple Amazon Web Services Regions and accounts</a> in the <i>Amazon
+     *        Web Services Systems Manager User Guide</i>.
      * @see AutomationType
      */
 
@@ -1182,17 +1247,19 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
     /**
      * <p>
      * Use this filter with <a>DescribeAutomationExecutions</a>. Specify either Local or CrossAccount. CrossAccount is
-     * an Automation that runs in multiple AWS Regions and accounts. For more information, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
-     * >Executing Automations in Multiple AWS Regions and Accounts</a> in the <i>AWS Systems Manager User Guide</i>.
+     * an Automation that runs in multiple Amazon Web Services Regions and Amazon Web Services accounts. For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
+     * >Running Automation workflows in multiple Amazon Web Services Regions and accounts</a> in the <i>Amazon Web
+     * Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @return Use this filter with <a>DescribeAutomationExecutions</a>. Specify either Local or CrossAccount.
-     *         CrossAccount is an Automation that runs in multiple AWS Regions and accounts. For more information, see
-     *         <a href=
-     *         "http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
-     *         >Executing Automations in Multiple AWS Regions and Accounts</a> in the <i>AWS Systems Manager User
-     *         Guide</i>.
+     *         CrossAccount is an Automation that runs in multiple Amazon Web Services Regions and Amazon Web Services
+     *         accounts. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
+     *         >Running Automation workflows in multiple Amazon Web Services Regions and accounts</a> in the <i>Amazon
+     *         Web Services Systems Manager User Guide</i>.
      * @see AutomationType
      */
 
@@ -1203,18 +1270,20 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
     /**
      * <p>
      * Use this filter with <a>DescribeAutomationExecutions</a>. Specify either Local or CrossAccount. CrossAccount is
-     * an Automation that runs in multiple AWS Regions and accounts. For more information, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
-     * >Executing Automations in Multiple AWS Regions and Accounts</a> in the <i>AWS Systems Manager User Guide</i>.
+     * an Automation that runs in multiple Amazon Web Services Regions and Amazon Web Services accounts. For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
+     * >Running Automation workflows in multiple Amazon Web Services Regions and accounts</a> in the <i>Amazon Web
+     * Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param automationType
      *        Use this filter with <a>DescribeAutomationExecutions</a>. Specify either Local or CrossAccount.
-     *        CrossAccount is an Automation that runs in multiple AWS Regions and accounts. For more information, see <a
-     *        href=
-     *        "http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
-     *        >Executing Automations in Multiple AWS Regions and Accounts</a> in the <i>AWS Systems Manager User
-     *        Guide</i>.
+     *        CrossAccount is an Automation that runs in multiple Amazon Web Services Regions and Amazon Web Services
+     *        accounts. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
+     *        >Running Automation workflows in multiple Amazon Web Services Regions and accounts</a> in the <i>Amazon
+     *        Web Services Systems Manager User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AutomationType
      */
@@ -1227,18 +1296,20 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
     /**
      * <p>
      * Use this filter with <a>DescribeAutomationExecutions</a>. Specify either Local or CrossAccount. CrossAccount is
-     * an Automation that runs in multiple AWS Regions and accounts. For more information, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
-     * >Executing Automations in Multiple AWS Regions and Accounts</a> in the <i>AWS Systems Manager User Guide</i>.
+     * an Automation that runs in multiple Amazon Web Services Regions and Amazon Web Services accounts. For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
+     * >Running Automation workflows in multiple Amazon Web Services Regions and accounts</a> in the <i>Amazon Web
+     * Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param automationType
      *        Use this filter with <a>DescribeAutomationExecutions</a>. Specify either Local or CrossAccount.
-     *        CrossAccount is an Automation that runs in multiple AWS Regions and accounts. For more information, see <a
-     *        href=
-     *        "http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
-     *        >Executing Automations in Multiple AWS Regions and Accounts</a> in the <i>AWS Systems Manager User
-     *        Guide</i>.
+     *        CrossAccount is an Automation that runs in multiple Amazon Web Services Regions and Amazon Web Services
+     *        accounts. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
+     *        >Running Automation workflows in multiple Amazon Web Services Regions and accounts</a> in the <i>Amazon
+     *        Web Services Systems Manager User Guide</i>.
      * @see AutomationType
      */
 
@@ -1249,24 +1320,494 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
     /**
      * <p>
      * Use this filter with <a>DescribeAutomationExecutions</a>. Specify either Local or CrossAccount. CrossAccount is
-     * an Automation that runs in multiple AWS Regions and accounts. For more information, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
-     * >Executing Automations in Multiple AWS Regions and Accounts</a> in the <i>AWS Systems Manager User Guide</i>.
+     * an Automation that runs in multiple Amazon Web Services Regions and Amazon Web Services accounts. For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
+     * >Running Automation workflows in multiple Amazon Web Services Regions and accounts</a> in the <i>Amazon Web
+     * Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param automationType
      *        Use this filter with <a>DescribeAutomationExecutions</a>. Specify either Local or CrossAccount.
-     *        CrossAccount is an Automation that runs in multiple AWS Regions and accounts. For more information, see <a
-     *        href=
-     *        "http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
-     *        >Executing Automations in Multiple AWS Regions and Accounts</a> in the <i>AWS Systems Manager User
-     *        Guide</i>.
+     *        CrossAccount is an Automation that runs in multiple Amazon Web Services Regions and Amazon Web Services
+     *        accounts. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
+     *        >Running Automation workflows in multiple Amazon Web Services Regions and accounts</a> in the <i>Amazon
+     *        Web Services Systems Manager User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AutomationType
      */
 
     public AutomationExecutionMetadata withAutomationType(AutomationType automationType) {
         this.automationType = automationType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The details for the CloudWatch alarm applied to your automation.
+     * </p>
+     * 
+     * @param alarmConfiguration
+     *        The details for the CloudWatch alarm applied to your automation.
+     */
+
+    public void setAlarmConfiguration(AlarmConfiguration alarmConfiguration) {
+        this.alarmConfiguration = alarmConfiguration;
+    }
+
+    /**
+     * <p>
+     * The details for the CloudWatch alarm applied to your automation.
+     * </p>
+     * 
+     * @return The details for the CloudWatch alarm applied to your automation.
+     */
+
+    public AlarmConfiguration getAlarmConfiguration() {
+        return this.alarmConfiguration;
+    }
+
+    /**
+     * <p>
+     * The details for the CloudWatch alarm applied to your automation.
+     * </p>
+     * 
+     * @param alarmConfiguration
+     *        The details for the CloudWatch alarm applied to your automation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutomationExecutionMetadata withAlarmConfiguration(AlarmConfiguration alarmConfiguration) {
+        setAlarmConfiguration(alarmConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked by the automation.
+     * </p>
+     * 
+     * @return The CloudWatch alarm that was invoked by the automation.
+     */
+
+    public java.util.List<AlarmStateInformation> getTriggeredAlarms() {
+        if (triggeredAlarms == null) {
+            triggeredAlarms = new com.amazonaws.internal.SdkInternalList<AlarmStateInformation>();
+        }
+        return triggeredAlarms;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked by the automation.
+     * </p>
+     * 
+     * @param triggeredAlarms
+     *        The CloudWatch alarm that was invoked by the automation.
+     */
+
+    public void setTriggeredAlarms(java.util.Collection<AlarmStateInformation> triggeredAlarms) {
+        if (triggeredAlarms == null) {
+            this.triggeredAlarms = null;
+            return;
+        }
+
+        this.triggeredAlarms = new com.amazonaws.internal.SdkInternalList<AlarmStateInformation>(triggeredAlarms);
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked by the automation.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTriggeredAlarms(java.util.Collection)} or {@link #withTriggeredAlarms(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param triggeredAlarms
+     *        The CloudWatch alarm that was invoked by the automation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutomationExecutionMetadata withTriggeredAlarms(AlarmStateInformation... triggeredAlarms) {
+        if (this.triggeredAlarms == null) {
+            setTriggeredAlarms(new com.amazonaws.internal.SdkInternalList<AlarmStateInformation>(triggeredAlarms.length));
+        }
+        for (AlarmStateInformation ele : triggeredAlarms) {
+            this.triggeredAlarms.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked by the automation.
+     * </p>
+     * 
+     * @param triggeredAlarms
+     *        The CloudWatch alarm that was invoked by the automation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutomationExecutionMetadata withTriggeredAlarms(java.util.Collection<AlarmStateInformation> triggeredAlarms) {
+        setTriggeredAlarms(triggeredAlarms);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The subtype of the Automation operation. Currently, the only supported value is <code>ChangeRequest</code>.
+     * </p>
+     * 
+     * @param automationSubtype
+     *        The subtype of the Automation operation. Currently, the only supported value is <code>ChangeRequest</code>
+     *        .
+     * @see AutomationSubtype
+     */
+
+    public void setAutomationSubtype(String automationSubtype) {
+        this.automationSubtype = automationSubtype;
+    }
+
+    /**
+     * <p>
+     * The subtype of the Automation operation. Currently, the only supported value is <code>ChangeRequest</code>.
+     * </p>
+     * 
+     * @return The subtype of the Automation operation. Currently, the only supported value is
+     *         <code>ChangeRequest</code>.
+     * @see AutomationSubtype
+     */
+
+    public String getAutomationSubtype() {
+        return this.automationSubtype;
+    }
+
+    /**
+     * <p>
+     * The subtype of the Automation operation. Currently, the only supported value is <code>ChangeRequest</code>.
+     * </p>
+     * 
+     * @param automationSubtype
+     *        The subtype of the Automation operation. Currently, the only supported value is <code>ChangeRequest</code>
+     *        .
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AutomationSubtype
+     */
+
+    public AutomationExecutionMetadata withAutomationSubtype(String automationSubtype) {
+        setAutomationSubtype(automationSubtype);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The subtype of the Automation operation. Currently, the only supported value is <code>ChangeRequest</code>.
+     * </p>
+     * 
+     * @param automationSubtype
+     *        The subtype of the Automation operation. Currently, the only supported value is <code>ChangeRequest</code>
+     *        .
+     * @see AutomationSubtype
+     */
+
+    public void setAutomationSubtype(AutomationSubtype automationSubtype) {
+        withAutomationSubtype(automationSubtype);
+    }
+
+    /**
+     * <p>
+     * The subtype of the Automation operation. Currently, the only supported value is <code>ChangeRequest</code>.
+     * </p>
+     * 
+     * @param automationSubtype
+     *        The subtype of the Automation operation. Currently, the only supported value is <code>ChangeRequest</code>
+     *        .
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AutomationSubtype
+     */
+
+    public AutomationExecutionMetadata withAutomationSubtype(AutomationSubtype automationSubtype) {
+        this.automationSubtype = automationSubtype.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The date and time the Automation operation is scheduled to start.
+     * </p>
+     * 
+     * @param scheduledTime
+     *        The date and time the Automation operation is scheduled to start.
+     */
+
+    public void setScheduledTime(java.util.Date scheduledTime) {
+        this.scheduledTime = scheduledTime;
+    }
+
+    /**
+     * <p>
+     * The date and time the Automation operation is scheduled to start.
+     * </p>
+     * 
+     * @return The date and time the Automation operation is scheduled to start.
+     */
+
+    public java.util.Date getScheduledTime() {
+        return this.scheduledTime;
+    }
+
+    /**
+     * <p>
+     * The date and time the Automation operation is scheduled to start.
+     * </p>
+     * 
+     * @param scheduledTime
+     *        The date and time the Automation operation is scheduled to start.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutomationExecutionMetadata withScheduledTime(java.util.Date scheduledTime) {
+        setScheduledTime(scheduledTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information about the Automation runbooks that are run during a runbook workflow in Change Manager.
+     * </p>
+     * <note>
+     * <p>
+     * The Automation runbooks specified for the runbook workflow can't run until all required approvals for the change
+     * request have been received.
+     * </p>
+     * </note>
+     * 
+     * @return Information about the Automation runbooks that are run during a runbook workflow in Change Manager.</p>
+     *         <note>
+     *         <p>
+     *         The Automation runbooks specified for the runbook workflow can't run until all required approvals for the
+     *         change request have been received.
+     *         </p>
+     */
+
+    public java.util.List<Runbook> getRunbooks() {
+        if (runbooks == null) {
+            runbooks = new com.amazonaws.internal.SdkInternalList<Runbook>();
+        }
+        return runbooks;
+    }
+
+    /**
+     * <p>
+     * Information about the Automation runbooks that are run during a runbook workflow in Change Manager.
+     * </p>
+     * <note>
+     * <p>
+     * The Automation runbooks specified for the runbook workflow can't run until all required approvals for the change
+     * request have been received.
+     * </p>
+     * </note>
+     * 
+     * @param runbooks
+     *        Information about the Automation runbooks that are run during a runbook workflow in Change Manager.</p>
+     *        <note>
+     *        <p>
+     *        The Automation runbooks specified for the runbook workflow can't run until all required approvals for the
+     *        change request have been received.
+     *        </p>
+     */
+
+    public void setRunbooks(java.util.Collection<Runbook> runbooks) {
+        if (runbooks == null) {
+            this.runbooks = null;
+            return;
+        }
+
+        this.runbooks = new com.amazonaws.internal.SdkInternalList<Runbook>(runbooks);
+    }
+
+    /**
+     * <p>
+     * Information about the Automation runbooks that are run during a runbook workflow in Change Manager.
+     * </p>
+     * <note>
+     * <p>
+     * The Automation runbooks specified for the runbook workflow can't run until all required approvals for the change
+     * request have been received.
+     * </p>
+     * </note>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setRunbooks(java.util.Collection)} or {@link #withRunbooks(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param runbooks
+     *        Information about the Automation runbooks that are run during a runbook workflow in Change Manager.</p>
+     *        <note>
+     *        <p>
+     *        The Automation runbooks specified for the runbook workflow can't run until all required approvals for the
+     *        change request have been received.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutomationExecutionMetadata withRunbooks(Runbook... runbooks) {
+        if (this.runbooks == null) {
+            setRunbooks(new com.amazonaws.internal.SdkInternalList<Runbook>(runbooks.length));
+        }
+        for (Runbook ele : runbooks) {
+            this.runbooks.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information about the Automation runbooks that are run during a runbook workflow in Change Manager.
+     * </p>
+     * <note>
+     * <p>
+     * The Automation runbooks specified for the runbook workflow can't run until all required approvals for the change
+     * request have been received.
+     * </p>
+     * </note>
+     * 
+     * @param runbooks
+     *        Information about the Automation runbooks that are run during a runbook workflow in Change Manager.</p>
+     *        <note>
+     *        <p>
+     *        The Automation runbooks specified for the runbook workflow can't run until all required approvals for the
+     *        change request have been received.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutomationExecutionMetadata withRunbooks(java.util.Collection<Runbook> runbooks) {
+        setRunbooks(runbooks);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of an OpsItem that is created to represent a Change Manager change request.
+     * </p>
+     * 
+     * @param opsItemId
+     *        The ID of an OpsItem that is created to represent a Change Manager change request.
+     */
+
+    public void setOpsItemId(String opsItemId) {
+        this.opsItemId = opsItemId;
+    }
+
+    /**
+     * <p>
+     * The ID of an OpsItem that is created to represent a Change Manager change request.
+     * </p>
+     * 
+     * @return The ID of an OpsItem that is created to represent a Change Manager change request.
+     */
+
+    public String getOpsItemId() {
+        return this.opsItemId;
+    }
+
+    /**
+     * <p>
+     * The ID of an OpsItem that is created to represent a Change Manager change request.
+     * </p>
+     * 
+     * @param opsItemId
+     *        The ID of an OpsItem that is created to represent a Change Manager change request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutomationExecutionMetadata withOpsItemId(String opsItemId) {
+        setOpsItemId(opsItemId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of a State Manager association used in the Automation operation.
+     * </p>
+     * 
+     * @param associationId
+     *        The ID of a State Manager association used in the Automation operation.
+     */
+
+    public void setAssociationId(String associationId) {
+        this.associationId = associationId;
+    }
+
+    /**
+     * <p>
+     * The ID of a State Manager association used in the Automation operation.
+     * </p>
+     * 
+     * @return The ID of a State Manager association used in the Automation operation.
+     */
+
+    public String getAssociationId() {
+        return this.associationId;
+    }
+
+    /**
+     * <p>
+     * The ID of a State Manager association used in the Automation operation.
+     * </p>
+     * 
+     * @param associationId
+     *        The ID of a State Manager association used in the Automation operation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutomationExecutionMetadata withAssociationId(String associationId) {
+        setAssociationId(associationId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the Change Manager change request.
+     * </p>
+     * 
+     * @param changeRequestName
+     *        The name of the Change Manager change request.
+     */
+
+    public void setChangeRequestName(String changeRequestName) {
+        this.changeRequestName = changeRequestName;
+    }
+
+    /**
+     * <p>
+     * The name of the Change Manager change request.
+     * </p>
+     * 
+     * @return The name of the Change Manager change request.
+     */
+
+    public String getChangeRequestName() {
+        return this.changeRequestName;
+    }
+
+    /**
+     * <p>
+     * The name of the Change Manager change request.
+     * </p>
+     * 
+     * @param changeRequestName
+     *        The name of the Change Manager change request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutomationExecutionMetadata withChangeRequestName(String changeRequestName) {
+        setChangeRequestName(changeRequestName);
         return this;
     }
 
@@ -1325,7 +1866,23 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
         if (getTarget() != null)
             sb.append("Target: ").append(getTarget()).append(",");
         if (getAutomationType() != null)
-            sb.append("AutomationType: ").append(getAutomationType());
+            sb.append("AutomationType: ").append(getAutomationType()).append(",");
+        if (getAlarmConfiguration() != null)
+            sb.append("AlarmConfiguration: ").append(getAlarmConfiguration()).append(",");
+        if (getTriggeredAlarms() != null)
+            sb.append("TriggeredAlarms: ").append(getTriggeredAlarms()).append(",");
+        if (getAutomationSubtype() != null)
+            sb.append("AutomationSubtype: ").append(getAutomationSubtype()).append(",");
+        if (getScheduledTime() != null)
+            sb.append("ScheduledTime: ").append(getScheduledTime()).append(",");
+        if (getRunbooks() != null)
+            sb.append("Runbooks: ").append(getRunbooks()).append(",");
+        if (getOpsItemId() != null)
+            sb.append("OpsItemId: ").append(getOpsItemId()).append(",");
+        if (getAssociationId() != null)
+            sb.append("AssociationId: ").append(getAssociationId()).append(",");
+        if (getChangeRequestName() != null)
+            sb.append("ChangeRequestName: ").append(getChangeRequestName());
         sb.append("}");
         return sb.toString();
     }
@@ -1428,6 +1985,38 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
             return false;
         if (other.getAutomationType() != null && other.getAutomationType().equals(this.getAutomationType()) == false)
             return false;
+        if (other.getAlarmConfiguration() == null ^ this.getAlarmConfiguration() == null)
+            return false;
+        if (other.getAlarmConfiguration() != null && other.getAlarmConfiguration().equals(this.getAlarmConfiguration()) == false)
+            return false;
+        if (other.getTriggeredAlarms() == null ^ this.getTriggeredAlarms() == null)
+            return false;
+        if (other.getTriggeredAlarms() != null && other.getTriggeredAlarms().equals(this.getTriggeredAlarms()) == false)
+            return false;
+        if (other.getAutomationSubtype() == null ^ this.getAutomationSubtype() == null)
+            return false;
+        if (other.getAutomationSubtype() != null && other.getAutomationSubtype().equals(this.getAutomationSubtype()) == false)
+            return false;
+        if (other.getScheduledTime() == null ^ this.getScheduledTime() == null)
+            return false;
+        if (other.getScheduledTime() != null && other.getScheduledTime().equals(this.getScheduledTime()) == false)
+            return false;
+        if (other.getRunbooks() == null ^ this.getRunbooks() == null)
+            return false;
+        if (other.getRunbooks() != null && other.getRunbooks().equals(this.getRunbooks()) == false)
+            return false;
+        if (other.getOpsItemId() == null ^ this.getOpsItemId() == null)
+            return false;
+        if (other.getOpsItemId() != null && other.getOpsItemId().equals(this.getOpsItemId()) == false)
+            return false;
+        if (other.getAssociationId() == null ^ this.getAssociationId() == null)
+            return false;
+        if (other.getAssociationId() != null && other.getAssociationId().equals(this.getAssociationId()) == false)
+            return false;
+        if (other.getChangeRequestName() == null ^ this.getChangeRequestName() == null)
+            return false;
+        if (other.getChangeRequestName() != null && other.getChangeRequestName().equals(this.getChangeRequestName()) == false)
+            return false;
         return true;
     }
 
@@ -1458,6 +2047,14 @@ public class AutomationExecutionMetadata implements Serializable, Cloneable, Str
         hashCode = prime * hashCode + ((getMaxErrors() == null) ? 0 : getMaxErrors().hashCode());
         hashCode = prime * hashCode + ((getTarget() == null) ? 0 : getTarget().hashCode());
         hashCode = prime * hashCode + ((getAutomationType() == null) ? 0 : getAutomationType().hashCode());
+        hashCode = prime * hashCode + ((getAlarmConfiguration() == null) ? 0 : getAlarmConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getTriggeredAlarms() == null) ? 0 : getTriggeredAlarms().hashCode());
+        hashCode = prime * hashCode + ((getAutomationSubtype() == null) ? 0 : getAutomationSubtype().hashCode());
+        hashCode = prime * hashCode + ((getScheduledTime() == null) ? 0 : getScheduledTime().hashCode());
+        hashCode = prime * hashCode + ((getRunbooks() == null) ? 0 : getRunbooks().hashCode());
+        hashCode = prime * hashCode + ((getOpsItemId() == null) ? 0 : getOpsItemId().hashCode());
+        hashCode = prime * hashCode + ((getAssociationId() == null) ? 0 : getAssociationId().hashCode());
+        hashCode = prime * hashCode + ((getChangeRequestName() == null) ? 0 : getChangeRequestName().hashCode());
         return hashCode;
     }
 

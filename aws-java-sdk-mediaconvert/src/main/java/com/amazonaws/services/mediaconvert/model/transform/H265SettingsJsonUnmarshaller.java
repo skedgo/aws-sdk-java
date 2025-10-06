@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -56,6 +56,10 @@ public class H265SettingsJsonUnmarshaller implements Unmarshaller<H265Settings, 
                     context.nextToken();
                     h265Settings.setAlternateTransferFunctionSei(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("bandwidthReductionFilter", targetDepth)) {
+                    context.nextToken();
+                    h265Settings.setBandwidthReductionFilter(BandwidthReductionFilterJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("bitrate", targetDepth)) {
                     context.nextToken();
                     h265Settings.setBitrate(context.getUnmarshaller(Integer.class).unmarshall(context));
@@ -71,6 +75,10 @@ public class H265SettingsJsonUnmarshaller implements Unmarshaller<H265Settings, 
                 if (context.testExpression("dynamicSubGop", targetDepth)) {
                     context.nextToken();
                     h265Settings.setDynamicSubGop(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("endOfStreamMarkers", targetDepth)) {
+                    context.nextToken();
+                    h265Settings.setEndOfStreamMarkers(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("flickerAdaptiveQuantization", targetDepth)) {
                     context.nextToken();
@@ -107,6 +115,10 @@ public class H265SettingsJsonUnmarshaller implements Unmarshaller<H265Settings, 
                 if (context.testExpression("gopSizeUnits", targetDepth)) {
                     context.nextToken();
                     h265Settings.setGopSizeUnits(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("hrdBufferFinalFillPercentage", targetDepth)) {
+                    context.nextToken();
+                    h265Settings.setHrdBufferFinalFillPercentage(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
                 if (context.testExpression("hrdBufferInitialFillPercentage", targetDepth)) {
                     context.nextToken();
@@ -163,6 +175,10 @@ public class H265SettingsJsonUnmarshaller implements Unmarshaller<H265Settings, 
                 if (context.testExpression("sampleAdaptiveOffsetFilterMode", targetDepth)) {
                     context.nextToken();
                     h265Settings.setSampleAdaptiveOffsetFilterMode(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("scanTypeConversionMode", targetDepth)) {
+                    context.nextToken();
+                    h265Settings.setScanTypeConversionMode(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("sceneChangeDetect", targetDepth)) {
                     context.nextToken();

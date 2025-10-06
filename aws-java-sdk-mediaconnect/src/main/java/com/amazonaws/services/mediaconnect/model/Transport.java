@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,17 +31,40 @@ public class Transport implements Serializable, Cloneable, StructuredPojo {
      * should be in the form of a Classless Inter-Domain Routing (CIDR) block; for example, 10.0.0.0/16.
      */
     private java.util.List<String> cidrAllowList;
-    /** The smoothing max bitrate for RTP and RTP-FEC streams. */
+    /** The smoothing max bitrate (in bps) for RIST, RTP, and RTP-FEC streams. */
     private Integer maxBitrate;
-    /** The maximum latency in milliseconds for Zixi-based streams. */
+    /**
+     * The maximum latency in milliseconds. This parameter applies only to RIST-based, Zixi-based, and Fujitsu-based
+     * streams.
+     */
     private Integer maxLatency;
+    /** The size of the buffer (in milliseconds) to use to sync incoming source data. */
+    private Integer maxSyncBuffer;
+    /**
+     * The minimum latency in milliseconds for SRT-based streams. In streams that use the SRT protocol, this value that
+     * you set on your MediaConnect source or output represents the minimal potential latency of that connection. The
+     * latency of the stream is set to the highest number between the sender’s minimum latency and the receiver’s minimum
+     * latency.
+     */
+    private Integer minLatency;
     /** The protocol that is used by the source or output. */
     private String protocol;
     /** The remote ID for the Zixi-pull stream. */
     private String remoteId;
-    /** The smoothing latency in milliseconds for RTP and RTP-FEC streams. */
+    /** The port that the flow uses to send outbound requests to initiate connection with the sender. */
+    private Integer senderControlPort;
+    /** The IP address that the flow communicates with to initiate connection with the sender. */
+    private String senderIpAddress;
+    /** The smoothing latency in milliseconds for RIST, RTP, and RTP-FEC streams. */
     private Integer smoothingLatency;
-    /** The stream ID that you want to use for this transport. This parameter applies only to Zixi-based streams. */
+    /** Source IP or domain name for SRT-caller protocol. */
+    private String sourceListenerAddress;
+    /** Source port for SRT-caller protocol. */
+    private Integer sourceListenerPort;
+    /**
+     * The stream ID that you want to use for this transport. This parameter applies only to Zixi and SRT caller-based
+     * streams.
+     */
     private String streamId;
 
     /**
@@ -119,10 +142,10 @@ public class Transport implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The smoothing max bitrate for RTP and RTP-FEC streams.
+     * The smoothing max bitrate (in bps) for RIST, RTP, and RTP-FEC streams.
      * 
      * @param maxBitrate
-     *        The smoothing max bitrate for RTP and RTP-FEC streams.
+     *        The smoothing max bitrate (in bps) for RIST, RTP, and RTP-FEC streams.
      */
 
     public void setMaxBitrate(Integer maxBitrate) {
@@ -130,9 +153,9 @@ public class Transport implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The smoothing max bitrate for RTP and RTP-FEC streams.
+     * The smoothing max bitrate (in bps) for RIST, RTP, and RTP-FEC streams.
      * 
-     * @return The smoothing max bitrate for RTP and RTP-FEC streams.
+     * @return The smoothing max bitrate (in bps) for RIST, RTP, and RTP-FEC streams.
      */
 
     public Integer getMaxBitrate() {
@@ -140,10 +163,10 @@ public class Transport implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The smoothing max bitrate for RTP and RTP-FEC streams.
+     * The smoothing max bitrate (in bps) for RIST, RTP, and RTP-FEC streams.
      * 
      * @param maxBitrate
-     *        The smoothing max bitrate for RTP and RTP-FEC streams.
+     *        The smoothing max bitrate (in bps) for RIST, RTP, and RTP-FEC streams.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -153,10 +176,12 @@ public class Transport implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The maximum latency in milliseconds for Zixi-based streams.
+     * The maximum latency in milliseconds. This parameter applies only to RIST-based, Zixi-based, and Fujitsu-based
+     * streams.
      * 
      * @param maxLatency
-     *        The maximum latency in milliseconds for Zixi-based streams.
+     *        The maximum latency in milliseconds. This parameter applies only to RIST-based, Zixi-based, and
+     *        Fujitsu-based streams.
      */
 
     public void setMaxLatency(Integer maxLatency) {
@@ -164,9 +189,11 @@ public class Transport implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The maximum latency in milliseconds for Zixi-based streams.
+     * The maximum latency in milliseconds. This parameter applies only to RIST-based, Zixi-based, and Fujitsu-based
+     * streams.
      * 
-     * @return The maximum latency in milliseconds for Zixi-based streams.
+     * @return The maximum latency in milliseconds. This parameter applies only to RIST-based, Zixi-based, and
+     *         Fujitsu-based streams.
      */
 
     public Integer getMaxLatency() {
@@ -174,15 +201,103 @@ public class Transport implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The maximum latency in milliseconds for Zixi-based streams.
+     * The maximum latency in milliseconds. This parameter applies only to RIST-based, Zixi-based, and Fujitsu-based
+     * streams.
      * 
      * @param maxLatency
-     *        The maximum latency in milliseconds for Zixi-based streams.
+     *        The maximum latency in milliseconds. This parameter applies only to RIST-based, Zixi-based, and
+     *        Fujitsu-based streams.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Transport withMaxLatency(Integer maxLatency) {
         setMaxLatency(maxLatency);
+        return this;
+    }
+
+    /**
+     * The size of the buffer (in milliseconds) to use to sync incoming source data.
+     * 
+     * @param maxSyncBuffer
+     *        The size of the buffer (in milliseconds) to use to sync incoming source data.
+     */
+
+    public void setMaxSyncBuffer(Integer maxSyncBuffer) {
+        this.maxSyncBuffer = maxSyncBuffer;
+    }
+
+    /**
+     * The size of the buffer (in milliseconds) to use to sync incoming source data.
+     * 
+     * @return The size of the buffer (in milliseconds) to use to sync incoming source data.
+     */
+
+    public Integer getMaxSyncBuffer() {
+        return this.maxSyncBuffer;
+    }
+
+    /**
+     * The size of the buffer (in milliseconds) to use to sync incoming source data.
+     * 
+     * @param maxSyncBuffer
+     *        The size of the buffer (in milliseconds) to use to sync incoming source data.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Transport withMaxSyncBuffer(Integer maxSyncBuffer) {
+        setMaxSyncBuffer(maxSyncBuffer);
+        return this;
+    }
+
+    /**
+     * The minimum latency in milliseconds for SRT-based streams. In streams that use the SRT protocol, this value that
+     * you set on your MediaConnect source or output represents the minimal potential latency of that connection. The
+     * latency of the stream is set to the highest number between the sender’s minimum latency and the receiver’s minimum
+     * latency.
+     * 
+     * @param minLatency
+     *        The minimum latency in milliseconds for SRT-based streams. In streams that use the SRT protocol, this
+     *        value that you set on your MediaConnect source or output represents the minimal potential latency of that
+     *        connection. The latency of the stream is set to the highest number between the sender’s minimum latency
+     *        and the receiver’s minimum latency.
+     */
+
+    public void setMinLatency(Integer minLatency) {
+        this.minLatency = minLatency;
+    }
+
+    /**
+     * The minimum latency in milliseconds for SRT-based streams. In streams that use the SRT protocol, this value that
+     * you set on your MediaConnect source or output represents the minimal potential latency of that connection. The
+     * latency of the stream is set to the highest number between the sender’s minimum latency and the receiver’s minimum
+     * latency.
+     * 
+     * @return The minimum latency in milliseconds for SRT-based streams. In streams that use the SRT protocol, this
+     *         value that you set on your MediaConnect source or output represents the minimal potential latency of that
+     *         connection. The latency of the stream is set to the highest number between the sender’s minimum latency
+     *         and the receiver’s minimum latency.
+     */
+
+    public Integer getMinLatency() {
+        return this.minLatency;
+    }
+
+    /**
+     * The minimum latency in milliseconds for SRT-based streams. In streams that use the SRT protocol, this value that
+     * you set on your MediaConnect source or output represents the minimal potential latency of that connection. The
+     * latency of the stream is set to the highest number between the sender’s minimum latency and the receiver’s minimum
+     * latency.
+     * 
+     * @param minLatency
+     *        The minimum latency in milliseconds for SRT-based streams. In streams that use the SRT protocol, this
+     *        value that you set on your MediaConnect source or output represents the minimal potential latency of that
+     *        connection. The latency of the stream is set to the highest number between the sender’s minimum latency
+     *        and the receiver’s minimum latency.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Transport withMinLatency(Integer minLatency) {
+        setMinLatency(minLatency);
         return this;
     }
 
@@ -272,10 +387,78 @@ public class Transport implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The smoothing latency in milliseconds for RTP and RTP-FEC streams.
+     * The port that the flow uses to send outbound requests to initiate connection with the sender.
+     * 
+     * @param senderControlPort
+     *        The port that the flow uses to send outbound requests to initiate connection with the sender.
+     */
+
+    public void setSenderControlPort(Integer senderControlPort) {
+        this.senderControlPort = senderControlPort;
+    }
+
+    /**
+     * The port that the flow uses to send outbound requests to initiate connection with the sender.
+     * 
+     * @return The port that the flow uses to send outbound requests to initiate connection with the sender.
+     */
+
+    public Integer getSenderControlPort() {
+        return this.senderControlPort;
+    }
+
+    /**
+     * The port that the flow uses to send outbound requests to initiate connection with the sender.
+     * 
+     * @param senderControlPort
+     *        The port that the flow uses to send outbound requests to initiate connection with the sender.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Transport withSenderControlPort(Integer senderControlPort) {
+        setSenderControlPort(senderControlPort);
+        return this;
+    }
+
+    /**
+     * The IP address that the flow communicates with to initiate connection with the sender.
+     * 
+     * @param senderIpAddress
+     *        The IP address that the flow communicates with to initiate connection with the sender.
+     */
+
+    public void setSenderIpAddress(String senderIpAddress) {
+        this.senderIpAddress = senderIpAddress;
+    }
+
+    /**
+     * The IP address that the flow communicates with to initiate connection with the sender.
+     * 
+     * @return The IP address that the flow communicates with to initiate connection with the sender.
+     */
+
+    public String getSenderIpAddress() {
+        return this.senderIpAddress;
+    }
+
+    /**
+     * The IP address that the flow communicates with to initiate connection with the sender.
+     * 
+     * @param senderIpAddress
+     *        The IP address that the flow communicates with to initiate connection with the sender.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Transport withSenderIpAddress(String senderIpAddress) {
+        setSenderIpAddress(senderIpAddress);
+        return this;
+    }
+
+    /**
+     * The smoothing latency in milliseconds for RIST, RTP, and RTP-FEC streams.
      * 
      * @param smoothingLatency
-     *        The smoothing latency in milliseconds for RTP and RTP-FEC streams.
+     *        The smoothing latency in milliseconds for RIST, RTP, and RTP-FEC streams.
      */
 
     public void setSmoothingLatency(Integer smoothingLatency) {
@@ -283,9 +466,9 @@ public class Transport implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The smoothing latency in milliseconds for RTP and RTP-FEC streams.
+     * The smoothing latency in milliseconds for RIST, RTP, and RTP-FEC streams.
      * 
-     * @return The smoothing latency in milliseconds for RTP and RTP-FEC streams.
+     * @return The smoothing latency in milliseconds for RIST, RTP, and RTP-FEC streams.
      */
 
     public Integer getSmoothingLatency() {
@@ -293,10 +476,10 @@ public class Transport implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The smoothing latency in milliseconds for RTP and RTP-FEC streams.
+     * The smoothing latency in milliseconds for RIST, RTP, and RTP-FEC streams.
      * 
      * @param smoothingLatency
-     *        The smoothing latency in milliseconds for RTP and RTP-FEC streams.
+     *        The smoothing latency in milliseconds for RIST, RTP, and RTP-FEC streams.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -306,10 +489,80 @@ public class Transport implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The stream ID that you want to use for this transport. This parameter applies only to Zixi-based streams.
+     * Source IP or domain name for SRT-caller protocol.
+     * 
+     * @param sourceListenerAddress
+     *        Source IP or domain name for SRT-caller protocol.
+     */
+
+    public void setSourceListenerAddress(String sourceListenerAddress) {
+        this.sourceListenerAddress = sourceListenerAddress;
+    }
+
+    /**
+     * Source IP or domain name for SRT-caller protocol.
+     * 
+     * @return Source IP or domain name for SRT-caller protocol.
+     */
+
+    public String getSourceListenerAddress() {
+        return this.sourceListenerAddress;
+    }
+
+    /**
+     * Source IP or domain name for SRT-caller protocol.
+     * 
+     * @param sourceListenerAddress
+     *        Source IP or domain name for SRT-caller protocol.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Transport withSourceListenerAddress(String sourceListenerAddress) {
+        setSourceListenerAddress(sourceListenerAddress);
+        return this;
+    }
+
+    /**
+     * Source port for SRT-caller protocol.
+     * 
+     * @param sourceListenerPort
+     *        Source port for SRT-caller protocol.
+     */
+
+    public void setSourceListenerPort(Integer sourceListenerPort) {
+        this.sourceListenerPort = sourceListenerPort;
+    }
+
+    /**
+     * Source port for SRT-caller protocol.
+     * 
+     * @return Source port for SRT-caller protocol.
+     */
+
+    public Integer getSourceListenerPort() {
+        return this.sourceListenerPort;
+    }
+
+    /**
+     * Source port for SRT-caller protocol.
+     * 
+     * @param sourceListenerPort
+     *        Source port for SRT-caller protocol.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Transport withSourceListenerPort(Integer sourceListenerPort) {
+        setSourceListenerPort(sourceListenerPort);
+        return this;
+    }
+
+    /**
+     * The stream ID that you want to use for this transport. This parameter applies only to Zixi and SRT caller-based
+     * streams.
      * 
      * @param streamId
-     *        The stream ID that you want to use for this transport. This parameter applies only to Zixi-based streams.
+     *        The stream ID that you want to use for this transport. This parameter applies only to Zixi and SRT
+     *        caller-based streams.
      */
 
     public void setStreamId(String streamId) {
@@ -317,9 +570,11 @@ public class Transport implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The stream ID that you want to use for this transport. This parameter applies only to Zixi-based streams.
+     * The stream ID that you want to use for this transport. This parameter applies only to Zixi and SRT caller-based
+     * streams.
      * 
-     * @return The stream ID that you want to use for this transport. This parameter applies only to Zixi-based streams.
+     * @return The stream ID that you want to use for this transport. This parameter applies only to Zixi and SRT
+     *         caller-based streams.
      */
 
     public String getStreamId() {
@@ -327,10 +582,12 @@ public class Transport implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The stream ID that you want to use for this transport. This parameter applies only to Zixi-based streams.
+     * The stream ID that you want to use for this transport. This parameter applies only to Zixi and SRT caller-based
+     * streams.
      * 
      * @param streamId
-     *        The stream ID that you want to use for this transport. This parameter applies only to Zixi-based streams.
+     *        The stream ID that you want to use for this transport. This parameter applies only to Zixi and SRT
+     *        caller-based streams.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -357,12 +614,24 @@ public class Transport implements Serializable, Cloneable, StructuredPojo {
             sb.append("MaxBitrate: ").append(getMaxBitrate()).append(",");
         if (getMaxLatency() != null)
             sb.append("MaxLatency: ").append(getMaxLatency()).append(",");
+        if (getMaxSyncBuffer() != null)
+            sb.append("MaxSyncBuffer: ").append(getMaxSyncBuffer()).append(",");
+        if (getMinLatency() != null)
+            sb.append("MinLatency: ").append(getMinLatency()).append(",");
         if (getProtocol() != null)
             sb.append("Protocol: ").append(getProtocol()).append(",");
         if (getRemoteId() != null)
             sb.append("RemoteId: ").append(getRemoteId()).append(",");
+        if (getSenderControlPort() != null)
+            sb.append("SenderControlPort: ").append(getSenderControlPort()).append(",");
+        if (getSenderIpAddress() != null)
+            sb.append("SenderIpAddress: ").append(getSenderIpAddress()).append(",");
         if (getSmoothingLatency() != null)
             sb.append("SmoothingLatency: ").append(getSmoothingLatency()).append(",");
+        if (getSourceListenerAddress() != null)
+            sb.append("SourceListenerAddress: ").append(getSourceListenerAddress()).append(",");
+        if (getSourceListenerPort() != null)
+            sb.append("SourceListenerPort: ").append(getSourceListenerPort()).append(",");
         if (getStreamId() != null)
             sb.append("StreamId: ").append(getStreamId());
         sb.append("}");
@@ -391,6 +660,14 @@ public class Transport implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getMaxLatency() != null && other.getMaxLatency().equals(this.getMaxLatency()) == false)
             return false;
+        if (other.getMaxSyncBuffer() == null ^ this.getMaxSyncBuffer() == null)
+            return false;
+        if (other.getMaxSyncBuffer() != null && other.getMaxSyncBuffer().equals(this.getMaxSyncBuffer()) == false)
+            return false;
+        if (other.getMinLatency() == null ^ this.getMinLatency() == null)
+            return false;
+        if (other.getMinLatency() != null && other.getMinLatency().equals(this.getMinLatency()) == false)
+            return false;
         if (other.getProtocol() == null ^ this.getProtocol() == null)
             return false;
         if (other.getProtocol() != null && other.getProtocol().equals(this.getProtocol()) == false)
@@ -399,9 +676,25 @@ public class Transport implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getRemoteId() != null && other.getRemoteId().equals(this.getRemoteId()) == false)
             return false;
+        if (other.getSenderControlPort() == null ^ this.getSenderControlPort() == null)
+            return false;
+        if (other.getSenderControlPort() != null && other.getSenderControlPort().equals(this.getSenderControlPort()) == false)
+            return false;
+        if (other.getSenderIpAddress() == null ^ this.getSenderIpAddress() == null)
+            return false;
+        if (other.getSenderIpAddress() != null && other.getSenderIpAddress().equals(this.getSenderIpAddress()) == false)
+            return false;
         if (other.getSmoothingLatency() == null ^ this.getSmoothingLatency() == null)
             return false;
         if (other.getSmoothingLatency() != null && other.getSmoothingLatency().equals(this.getSmoothingLatency()) == false)
+            return false;
+        if (other.getSourceListenerAddress() == null ^ this.getSourceListenerAddress() == null)
+            return false;
+        if (other.getSourceListenerAddress() != null && other.getSourceListenerAddress().equals(this.getSourceListenerAddress()) == false)
+            return false;
+        if (other.getSourceListenerPort() == null ^ this.getSourceListenerPort() == null)
+            return false;
+        if (other.getSourceListenerPort() != null && other.getSourceListenerPort().equals(this.getSourceListenerPort()) == false)
             return false;
         if (other.getStreamId() == null ^ this.getStreamId() == null)
             return false;
@@ -418,9 +711,15 @@ public class Transport implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getCidrAllowList() == null) ? 0 : getCidrAllowList().hashCode());
         hashCode = prime * hashCode + ((getMaxBitrate() == null) ? 0 : getMaxBitrate().hashCode());
         hashCode = prime * hashCode + ((getMaxLatency() == null) ? 0 : getMaxLatency().hashCode());
+        hashCode = prime * hashCode + ((getMaxSyncBuffer() == null) ? 0 : getMaxSyncBuffer().hashCode());
+        hashCode = prime * hashCode + ((getMinLatency() == null) ? 0 : getMinLatency().hashCode());
         hashCode = prime * hashCode + ((getProtocol() == null) ? 0 : getProtocol().hashCode());
         hashCode = prime * hashCode + ((getRemoteId() == null) ? 0 : getRemoteId().hashCode());
+        hashCode = prime * hashCode + ((getSenderControlPort() == null) ? 0 : getSenderControlPort().hashCode());
+        hashCode = prime * hashCode + ((getSenderIpAddress() == null) ? 0 : getSenderIpAddress().hashCode());
         hashCode = prime * hashCode + ((getSmoothingLatency() == null) ? 0 : getSmoothingLatency().hashCode());
+        hashCode = prime * hashCode + ((getSourceListenerAddress() == null) ? 0 : getSourceListenerAddress().hashCode());
+        hashCode = prime * hashCode + ((getSourceListenerPort() == null) ? 0 : getSourceListenerPort().hashCode());
         hashCode = prime * hashCode + ((getStreamId() == null) ? 0 : getStreamId().hashCode());
         return hashCode;
     }

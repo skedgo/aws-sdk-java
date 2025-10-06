@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,23 +27,25 @@ public class CreateScriptRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Descriptive label that is associated with a script. Script names do not need to be unique. You can use
-     * <a>UpdateScript</a> to change this value later.
+     * A descriptive label that is associated with a script. Script names don't need to be unique. You can use <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateScript.html">UpdateScript</a> to change
+     * this value later.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * Version that is associated with a build or script. Version strings do not need to be unique. You can use
-     * <a>UpdateScript</a> to change this value later.
+     * Version information associated with a build or script. Version strings don't need to be unique. You can use <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateScript.html">UpdateScript</a> to change
+     * this value later.
      * </p>
      */
     private String version;
     /**
      * <p>
-     * Location of the Amazon S3 bucket where a zipped file containing your Realtime scripts is stored. The storage
+     * The location of the Amazon S3 bucket where a zipped file containing your Realtime scripts is stored. The storage
      * location must specify the Amazon S3 bucket name, the zip file name (the "key"), and a role ARN that allows Amazon
-     * GameLift to access the Amazon S3 storage location. The S3 bucket must be in the same region where you want to
+     * GameLift to access the Amazon S3 storage location. The S3 bucket must be in the same Region where you want to
      * create a new script. By default, Amazon GameLift uploads the latest version of the zip file; if you have S3
      * object versioning turned on, you can use the <code>ObjectVersion</code> parameter to specify an earlier version.
      * </p>
@@ -51,26 +53,43 @@ public class CreateScriptRequest extends com.amazonaws.AmazonWebServiceRequest i
     private S3Location storageLocation;
     /**
      * <p>
-     * Data object containing your Realtime scripts and dependencies as a zip file. The zip file can have one or
+     * A data object containing your Realtime scripts and dependencies as a zip file. The zip file can have one or
      * multiple files. Maximum size of a zip file is 5 MB.
      * </p>
      * <p>
-     * When using the AWS CLI tool to create a script, this parameter is set to the zip file name. It must be prepended
-     * with the string "fileb://" to indicate that the file data is a binary object. For example:
+     * When using the Amazon Web Services CLI tool to create a script, this parameter is set to the zip file name. It
+     * must be prepended with the string "fileb://" to indicate that the file data is a binary object. For example:
      * <code>--zip-file fileb://myRealtimeScript.zip</code>.
      * </p>
      */
     private java.nio.ByteBuffer zipFile;
+    /**
+     * <p>
+     * A list of labels to assign to the new script resource. Tags are developer-defined key-value pairs. Tagging Amazon
+     * Web Services resources are useful for resource management, access management and cost allocation. For more
+     * information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html"> Tagging Amazon Web
+     * Services Resources</a> in the <i>Amazon Web Services General Reference</i>. Once the resource is created, you can
+     * use <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_TagResource.html">TagResource</a>, <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UntagResource.html">UntagResource</a>, and <a
+     * href
+     * ="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ListTagsForResource.html">ListTagsForResource</a>
+     * to add, remove, and view tags. The maximum tag limit may be lower than stated. See the Amazon Web Services
+     * General Reference for actual tagging limits.
+     * </p>
+     */
+    private java.util.List<Tag> tags;
 
     /**
      * <p>
-     * Descriptive label that is associated with a script. Script names do not need to be unique. You can use
-     * <a>UpdateScript</a> to change this value later.
+     * A descriptive label that is associated with a script. Script names don't need to be unique. You can use <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateScript.html">UpdateScript</a> to change
+     * this value later.
      * </p>
      * 
      * @param name
-     *        Descriptive label that is associated with a script. Script names do not need to be unique. You can use
-     *        <a>UpdateScript</a> to change this value later.
+     *        A descriptive label that is associated with a script. Script names don't need to be unique. You can use <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateScript.html">UpdateScript</a> to
+     *        change this value later.
      */
 
     public void setName(String name) {
@@ -79,12 +98,14 @@ public class CreateScriptRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Descriptive label that is associated with a script. Script names do not need to be unique. You can use
-     * <a>UpdateScript</a> to change this value later.
+     * A descriptive label that is associated with a script. Script names don't need to be unique. You can use <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateScript.html">UpdateScript</a> to change
+     * this value later.
      * </p>
      * 
-     * @return Descriptive label that is associated with a script. Script names do not need to be unique. You can use
-     *         <a>UpdateScript</a> to change this value later.
+     * @return A descriptive label that is associated with a script. Script names don't need to be unique. You can use
+     *         <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateScript.html">UpdateScript</a>
+     *         to change this value later.
      */
 
     public String getName() {
@@ -93,13 +114,15 @@ public class CreateScriptRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Descriptive label that is associated with a script. Script names do not need to be unique. You can use
-     * <a>UpdateScript</a> to change this value later.
+     * A descriptive label that is associated with a script. Script names don't need to be unique. You can use <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateScript.html">UpdateScript</a> to change
+     * this value later.
      * </p>
      * 
      * @param name
-     *        Descriptive label that is associated with a script. Script names do not need to be unique. You can use
-     *        <a>UpdateScript</a> to change this value later.
+     *        A descriptive label that is associated with a script. Script names don't need to be unique. You can use <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateScript.html">UpdateScript</a> to
+     *        change this value later.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -110,13 +133,16 @@ public class CreateScriptRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Version that is associated with a build or script. Version strings do not need to be unique. You can use
-     * <a>UpdateScript</a> to change this value later.
+     * Version information associated with a build or script. Version strings don't need to be unique. You can use <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateScript.html">UpdateScript</a> to change
+     * this value later.
      * </p>
      * 
      * @param version
-     *        Version that is associated with a build or script. Version strings do not need to be unique. You can use
-     *        <a>UpdateScript</a> to change this value later.
+     *        Version information associated with a build or script. Version strings don't need to be unique. You can
+     *        use <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateScript.html">UpdateScript</a> to
+     *        change this value later.
      */
 
     public void setVersion(String version) {
@@ -125,12 +151,15 @@ public class CreateScriptRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Version that is associated with a build or script. Version strings do not need to be unique. You can use
-     * <a>UpdateScript</a> to change this value later.
+     * Version information associated with a build or script. Version strings don't need to be unique. You can use <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateScript.html">UpdateScript</a> to change
+     * this value later.
      * </p>
      * 
-     * @return Version that is associated with a build or script. Version strings do not need to be unique. You can use
-     *         <a>UpdateScript</a> to change this value later.
+     * @return Version information associated with a build or script. Version strings don't need to be unique. You can
+     *         use <a
+     *         href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateScript.html">UpdateScript</a> to
+     *         change this value later.
      */
 
     public String getVersion() {
@@ -139,13 +168,16 @@ public class CreateScriptRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Version that is associated with a build or script. Version strings do not need to be unique. You can use
-     * <a>UpdateScript</a> to change this value later.
+     * Version information associated with a build or script. Version strings don't need to be unique. You can use <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateScript.html">UpdateScript</a> to change
+     * this value later.
      * </p>
      * 
      * @param version
-     *        Version that is associated with a build or script. Version strings do not need to be unique. You can use
-     *        <a>UpdateScript</a> to change this value later.
+     *        Version information associated with a build or script. Version strings don't need to be unique. You can
+     *        use <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateScript.html">UpdateScript</a> to
+     *        change this value later.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -156,18 +188,18 @@ public class CreateScriptRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Location of the Amazon S3 bucket where a zipped file containing your Realtime scripts is stored. The storage
+     * The location of the Amazon S3 bucket where a zipped file containing your Realtime scripts is stored. The storage
      * location must specify the Amazon S3 bucket name, the zip file name (the "key"), and a role ARN that allows Amazon
-     * GameLift to access the Amazon S3 storage location. The S3 bucket must be in the same region where you want to
+     * GameLift to access the Amazon S3 storage location. The S3 bucket must be in the same Region where you want to
      * create a new script. By default, Amazon GameLift uploads the latest version of the zip file; if you have S3
      * object versioning turned on, you can use the <code>ObjectVersion</code> parameter to specify an earlier version.
      * </p>
      * 
      * @param storageLocation
-     *        Location of the Amazon S3 bucket where a zipped file containing your Realtime scripts is stored. The
+     *        The location of the Amazon S3 bucket where a zipped file containing your Realtime scripts is stored. The
      *        storage location must specify the Amazon S3 bucket name, the zip file name (the "key"), and a role ARN
      *        that allows Amazon GameLift to access the Amazon S3 storage location. The S3 bucket must be in the same
-     *        region where you want to create a new script. By default, Amazon GameLift uploads the latest version of
+     *        Region where you want to create a new script. By default, Amazon GameLift uploads the latest version of
      *        the zip file; if you have S3 object versioning turned on, you can use the <code>ObjectVersion</code>
      *        parameter to specify an earlier version.
      */
@@ -178,17 +210,17 @@ public class CreateScriptRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Location of the Amazon S3 bucket where a zipped file containing your Realtime scripts is stored. The storage
+     * The location of the Amazon S3 bucket where a zipped file containing your Realtime scripts is stored. The storage
      * location must specify the Amazon S3 bucket name, the zip file name (the "key"), and a role ARN that allows Amazon
-     * GameLift to access the Amazon S3 storage location. The S3 bucket must be in the same region where you want to
+     * GameLift to access the Amazon S3 storage location. The S3 bucket must be in the same Region where you want to
      * create a new script. By default, Amazon GameLift uploads the latest version of the zip file; if you have S3
      * object versioning turned on, you can use the <code>ObjectVersion</code> parameter to specify an earlier version.
      * </p>
      * 
-     * @return Location of the Amazon S3 bucket where a zipped file containing your Realtime scripts is stored. The
+     * @return The location of the Amazon S3 bucket where a zipped file containing your Realtime scripts is stored. The
      *         storage location must specify the Amazon S3 bucket name, the zip file name (the "key"), and a role ARN
      *         that allows Amazon GameLift to access the Amazon S3 storage location. The S3 bucket must be in the same
-     *         region where you want to create a new script. By default, Amazon GameLift uploads the latest version of
+     *         Region where you want to create a new script. By default, Amazon GameLift uploads the latest version of
      *         the zip file; if you have S3 object versioning turned on, you can use the <code>ObjectVersion</code>
      *         parameter to specify an earlier version.
      */
@@ -199,18 +231,18 @@ public class CreateScriptRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Location of the Amazon S3 bucket where a zipped file containing your Realtime scripts is stored. The storage
+     * The location of the Amazon S3 bucket where a zipped file containing your Realtime scripts is stored. The storage
      * location must specify the Amazon S3 bucket name, the zip file name (the "key"), and a role ARN that allows Amazon
-     * GameLift to access the Amazon S3 storage location. The S3 bucket must be in the same region where you want to
+     * GameLift to access the Amazon S3 storage location. The S3 bucket must be in the same Region where you want to
      * create a new script. By default, Amazon GameLift uploads the latest version of the zip file; if you have S3
      * object versioning turned on, you can use the <code>ObjectVersion</code> parameter to specify an earlier version.
      * </p>
      * 
      * @param storageLocation
-     *        Location of the Amazon S3 bucket where a zipped file containing your Realtime scripts is stored. The
+     *        The location of the Amazon S3 bucket where a zipped file containing your Realtime scripts is stored. The
      *        storage location must specify the Amazon S3 bucket name, the zip file name (the "key"), and a role ARN
      *        that allows Amazon GameLift to access the Amazon S3 storage location. The S3 bucket must be in the same
-     *        region where you want to create a new script. By default, Amazon GameLift uploads the latest version of
+     *        Region where you want to create a new script. By default, Amazon GameLift uploads the latest version of
      *        the zip file; if you have S3 object versioning turned on, you can use the <code>ObjectVersion</code>
      *        parameter to specify an earlier version.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -223,12 +255,12 @@ public class CreateScriptRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Data object containing your Realtime scripts and dependencies as a zip file. The zip file can have one or
+     * A data object containing your Realtime scripts and dependencies as a zip file. The zip file can have one or
      * multiple files. Maximum size of a zip file is 5 MB.
      * </p>
      * <p>
-     * When using the AWS CLI tool to create a script, this parameter is set to the zip file name. It must be prepended
-     * with the string "fileb://" to indicate that the file data is a binary object. For example:
+     * When using the Amazon Web Services CLI tool to create a script, this parameter is set to the zip file name. It
+     * must be prepended with the string "fileb://" to indicate that the file data is a binary object. For example:
      * <code>--zip-file fileb://myRealtimeScript.zip</code>.
      * </p>
      * <p>
@@ -243,12 +275,12 @@ public class CreateScriptRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * 
      * @param zipFile
-     *        Data object containing your Realtime scripts and dependencies as a zip file. The zip file can have one or
-     *        multiple files. Maximum size of a zip file is 5 MB.</p>
+     *        A data object containing your Realtime scripts and dependencies as a zip file. The zip file can have one
+     *        or multiple files. Maximum size of a zip file is 5 MB.</p>
      *        <p>
-     *        When using the AWS CLI tool to create a script, this parameter is set to the zip file name. It must be
-     *        prepended with the string "fileb://" to indicate that the file data is a binary object. For example:
-     *        <code>--zip-file fileb://myRealtimeScript.zip</code>.
+     *        When using the Amazon Web Services CLI tool to create a script, this parameter is set to the zip file
+     *        name. It must be prepended with the string "fileb://" to indicate that the file data is a binary object.
+     *        For example: <code>--zip-file fileb://myRealtimeScript.zip</code>.
      */
 
     public void setZipFile(java.nio.ByteBuffer zipFile) {
@@ -257,12 +289,12 @@ public class CreateScriptRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Data object containing your Realtime scripts and dependencies as a zip file. The zip file can have one or
+     * A data object containing your Realtime scripts and dependencies as a zip file. The zip file can have one or
      * multiple files. Maximum size of a zip file is 5 MB.
      * </p>
      * <p>
-     * When using the AWS CLI tool to create a script, this parameter is set to the zip file name. It must be prepended
-     * with the string "fileb://" to indicate that the file data is a binary object. For example:
+     * When using the Amazon Web Services CLI tool to create a script, this parameter is set to the zip file name. It
+     * must be prepended with the string "fileb://" to indicate that the file data is a binary object. For example:
      * <code>--zip-file fileb://myRealtimeScript.zip</code>.
      * </p>
      * <p>
@@ -273,12 +305,12 @@ public class CreateScriptRequest extends com.amazonaws.AmazonWebServiceRequest i
      * {@code position}.
      * </p>
      * 
-     * @return Data object containing your Realtime scripts and dependencies as a zip file. The zip file can have one or
-     *         multiple files. Maximum size of a zip file is 5 MB.</p>
+     * @return A data object containing your Realtime scripts and dependencies as a zip file. The zip file can have one
+     *         or multiple files. Maximum size of a zip file is 5 MB.</p>
      *         <p>
-     *         When using the AWS CLI tool to create a script, this parameter is set to the zip file name. It must be
-     *         prepended with the string "fileb://" to indicate that the file data is a binary object. For example:
-     *         <code>--zip-file fileb://myRealtimeScript.zip</code>.
+     *         When using the Amazon Web Services CLI tool to create a script, this parameter is set to the zip file
+     *         name. It must be prepended with the string "fileb://" to indicate that the file data is a binary object.
+     *         For example: <code>--zip-file fileb://myRealtimeScript.zip</code>.
      */
 
     public java.nio.ByteBuffer getZipFile() {
@@ -287,12 +319,12 @@ public class CreateScriptRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Data object containing your Realtime scripts and dependencies as a zip file. The zip file can have one or
+     * A data object containing your Realtime scripts and dependencies as a zip file. The zip file can have one or
      * multiple files. Maximum size of a zip file is 5 MB.
      * </p>
      * <p>
-     * When using the AWS CLI tool to create a script, this parameter is set to the zip file name. It must be prepended
-     * with the string "fileb://" to indicate that the file data is a binary object. For example:
+     * When using the Amazon Web Services CLI tool to create a script, this parameter is set to the zip file name. It
+     * must be prepended with the string "fileb://" to indicate that the file data is a binary object. For example:
      * <code>--zip-file fileb://myRealtimeScript.zip</code>.
      * </p>
      * <p>
@@ -307,17 +339,160 @@ public class CreateScriptRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * 
      * @param zipFile
-     *        Data object containing your Realtime scripts and dependencies as a zip file. The zip file can have one or
-     *        multiple files. Maximum size of a zip file is 5 MB.</p>
+     *        A data object containing your Realtime scripts and dependencies as a zip file. The zip file can have one
+     *        or multiple files. Maximum size of a zip file is 5 MB.</p>
      *        <p>
-     *        When using the AWS CLI tool to create a script, this parameter is set to the zip file name. It must be
-     *        prepended with the string "fileb://" to indicate that the file data is a binary object. For example:
-     *        <code>--zip-file fileb://myRealtimeScript.zip</code>.
+     *        When using the Amazon Web Services CLI tool to create a script, this parameter is set to the zip file
+     *        name. It must be prepended with the string "fileb://" to indicate that the file data is a binary object.
+     *        For example: <code>--zip-file fileb://myRealtimeScript.zip</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateScriptRequest withZipFile(java.nio.ByteBuffer zipFile) {
         setZipFile(zipFile);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of labels to assign to the new script resource. Tags are developer-defined key-value pairs. Tagging Amazon
+     * Web Services resources are useful for resource management, access management and cost allocation. For more
+     * information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html"> Tagging Amazon Web
+     * Services Resources</a> in the <i>Amazon Web Services General Reference</i>. Once the resource is created, you can
+     * use <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_TagResource.html">TagResource</a>, <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UntagResource.html">UntagResource</a>, and <a
+     * href
+     * ="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ListTagsForResource.html">ListTagsForResource</a>
+     * to add, remove, and view tags. The maximum tag limit may be lower than stated. See the Amazon Web Services
+     * General Reference for actual tagging limits.
+     * </p>
+     * 
+     * @return A list of labels to assign to the new script resource. Tags are developer-defined key-value pairs.
+     *         Tagging Amazon Web Services resources are useful for resource management, access management and cost
+     *         allocation. For more information, see <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html"> Tagging Amazon Web Services
+     *         Resources</a> in the <i>Amazon Web Services General Reference</i>. Once the resource is created, you can
+     *         use <a
+     *         href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_TagResource.html">TagResource</a>, <a
+     *         href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UntagResource.html">UntagResource</a>,
+     *         and <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ListTagsForResource.html">
+     *         ListTagsForResource</a> to add, remove, and view tags. The maximum tag limit may be lower than stated.
+     *         See the Amazon Web Services General Reference for actual tagging limits.
+     */
+
+    public java.util.List<Tag> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * A list of labels to assign to the new script resource. Tags are developer-defined key-value pairs. Tagging Amazon
+     * Web Services resources are useful for resource management, access management and cost allocation. For more
+     * information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html"> Tagging Amazon Web
+     * Services Resources</a> in the <i>Amazon Web Services General Reference</i>. Once the resource is created, you can
+     * use <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_TagResource.html">TagResource</a>, <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UntagResource.html">UntagResource</a>, and <a
+     * href
+     * ="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ListTagsForResource.html">ListTagsForResource</a>
+     * to add, remove, and view tags. The maximum tag limit may be lower than stated. See the Amazon Web Services
+     * General Reference for actual tagging limits.
+     * </p>
+     * 
+     * @param tags
+     *        A list of labels to assign to the new script resource. Tags are developer-defined key-value pairs. Tagging
+     *        Amazon Web Services resources are useful for resource management, access management and cost allocation.
+     *        For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">
+     *        Tagging Amazon Web Services Resources</a> in the <i>Amazon Web Services General Reference</i>. Once the
+     *        resource is created, you can use <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_TagResource.html">TagResource</a>, <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UntagResource.html">UntagResource</a>,
+     *        and <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ListTagsForResource.html">
+     *        ListTagsForResource</a> to add, remove, and view tags. The maximum tag limit may be lower than stated. See
+     *        the Amazon Web Services General Reference for actual tagging limits.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new java.util.ArrayList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * A list of labels to assign to the new script resource. Tags are developer-defined key-value pairs. Tagging Amazon
+     * Web Services resources are useful for resource management, access management and cost allocation. For more
+     * information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html"> Tagging Amazon Web
+     * Services Resources</a> in the <i>Amazon Web Services General Reference</i>. Once the resource is created, you can
+     * use <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_TagResource.html">TagResource</a>, <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UntagResource.html">UntagResource</a>, and <a
+     * href
+     * ="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ListTagsForResource.html">ListTagsForResource</a>
+     * to add, remove, and view tags. The maximum tag limit may be lower than stated. See the Amazon Web Services
+     * General Reference for actual tagging limits.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        A list of labels to assign to the new script resource. Tags are developer-defined key-value pairs. Tagging
+     *        Amazon Web Services resources are useful for resource management, access management and cost allocation.
+     *        For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">
+     *        Tagging Amazon Web Services Resources</a> in the <i>Amazon Web Services General Reference</i>. Once the
+     *        resource is created, you can use <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_TagResource.html">TagResource</a>, <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UntagResource.html">UntagResource</a>,
+     *        and <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ListTagsForResource.html">
+     *        ListTagsForResource</a> to add, remove, and view tags. The maximum tag limit may be lower than stated. See
+     *        the Amazon Web Services General Reference for actual tagging limits.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateScriptRequest withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new java.util.ArrayList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of labels to assign to the new script resource. Tags are developer-defined key-value pairs. Tagging Amazon
+     * Web Services resources are useful for resource management, access management and cost allocation. For more
+     * information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html"> Tagging Amazon Web
+     * Services Resources</a> in the <i>Amazon Web Services General Reference</i>. Once the resource is created, you can
+     * use <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_TagResource.html">TagResource</a>, <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UntagResource.html">UntagResource</a>, and <a
+     * href
+     * ="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ListTagsForResource.html">ListTagsForResource</a>
+     * to add, remove, and view tags. The maximum tag limit may be lower than stated. See the Amazon Web Services
+     * General Reference for actual tagging limits.
+     * </p>
+     * 
+     * @param tags
+     *        A list of labels to assign to the new script resource. Tags are developer-defined key-value pairs. Tagging
+     *        Amazon Web Services resources are useful for resource management, access management and cost allocation.
+     *        For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">
+     *        Tagging Amazon Web Services Resources</a> in the <i>Amazon Web Services General Reference</i>. Once the
+     *        resource is created, you can use <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_TagResource.html">TagResource</a>, <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_UntagResource.html">UntagResource</a>,
+     *        and <a href="https://docs.aws.amazon.com/gamelift/latest/apireference/API_ListTagsForResource.html">
+     *        ListTagsForResource</a> to add, remove, and view tags. The maximum tag limit may be lower than stated. See
+     *        the Amazon Web Services General Reference for actual tagging limits.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateScriptRequest withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
         return this;
     }
 
@@ -340,7 +515,9 @@ public class CreateScriptRequest extends com.amazonaws.AmazonWebServiceRequest i
         if (getStorageLocation() != null)
             sb.append("StorageLocation: ").append(getStorageLocation()).append(",");
         if (getZipFile() != null)
-            sb.append("ZipFile: ").append(getZipFile());
+            sb.append("ZipFile: ").append(getZipFile()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -371,6 +548,10 @@ public class CreateScriptRequest extends com.amazonaws.AmazonWebServiceRequest i
             return false;
         if (other.getZipFile() != null && other.getZipFile().equals(this.getZipFile()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
         return true;
     }
 
@@ -383,6 +564,7 @@ public class CreateScriptRequest extends com.amazonaws.AmazonWebServiceRequest i
         hashCode = prime * hashCode + ((getVersion() == null) ? 0 : getVersion().hashCode());
         hashCode = prime * hashCode + ((getStorageLocation() == null) ? 0 : getStorageLocation().hashCode());
         hashCode = prime * hashCode + ((getZipFile() == null) ? 0 : getZipFile().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

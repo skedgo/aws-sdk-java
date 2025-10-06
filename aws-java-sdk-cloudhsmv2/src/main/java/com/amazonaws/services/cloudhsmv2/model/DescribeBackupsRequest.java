@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -57,9 +57,35 @@ public class DescribeBackupsRequest extends com.amazonaws.AmazonWebServiceReques
      * <p>
      * Use the <code>states</code> filter to return only backups that match the specified state.
      * </p>
+     * <p>
+     * Use the <code>neverExpires</code> filter to return backups filtered by the value in the <code>neverExpires</code>
+     * parameter. <code>True</code> returns all backups exempt from the backup retention policy. <code>False</code>
+     * returns all backups with a backup retention policy defined at the cluster.
+     * </p>
      */
     private java.util.Map<String, java.util.List<String>> filters;
-
+    /**
+     * <p>
+     * Describe backups that are shared with you.
+     * </p>
+     * <note>
+     * <p>
+     * By default when using this option, the command returns backups that have been shared using a standard Resource
+     * Access Manager resource share. In order for a backup that was shared using the PutResourcePolicy command to be
+     * returned, the share must be promoted to a standard resource share using the RAM <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/ram/promote-resource-share-created-from-policy.html"
+     * >PromoteResourceShareCreatedFromPolicy</a> API operation. For more information about sharing backups, see <a
+     * href="https://docs.aws.amazon.com/cloudhsm/latest/userguide/sharing.html"> Working with shared backups</a> in the
+     * CloudHSM User Guide.
+     * </p>
+     * </note>
+     */
+    private Boolean shared;
+    /**
+     * <p>
+     * Designates whether or not to sort the return backups by ascending chronological order of generation.
+     * </p>
+     */
     private Boolean sortAscending;
 
     /**
@@ -170,6 +196,11 @@ public class DescribeBackupsRequest extends com.amazonaws.AmazonWebServiceReques
      * <p>
      * Use the <code>states</code> filter to return only backups that match the specified state.
      * </p>
+     * <p>
+     * Use the <code>neverExpires</code> filter to return backups filtered by the value in the <code>neverExpires</code>
+     * parameter. <code>True</code> returns all backups exempt from the backup retention policy. <code>False</code>
+     * returns all backups with a backup retention policy defined at the cluster.
+     * </p>
      * 
      * @return One or more filters to limit the items returned in the response.</p>
      *         <p>
@@ -186,6 +217,12 @@ public class DescribeBackupsRequest extends com.amazonaws.AmazonWebServiceReques
      *         </p>
      *         <p>
      *         Use the <code>states</code> filter to return only backups that match the specified state.
+     *         </p>
+     *         <p>
+     *         Use the <code>neverExpires</code> filter to return backups filtered by the value in the
+     *         <code>neverExpires</code> parameter. <code>True</code> returns all backups exempt from the backup
+     *         retention policy. <code>False</code> returns all backups with a backup retention policy defined at the
+     *         cluster.
      */
 
     public java.util.Map<String, java.util.List<String>> getFilters() {
@@ -211,6 +248,11 @@ public class DescribeBackupsRequest extends com.amazonaws.AmazonWebServiceReques
      * <p>
      * Use the <code>states</code> filter to return only backups that match the specified state.
      * </p>
+     * <p>
+     * Use the <code>neverExpires</code> filter to return backups filtered by the value in the <code>neverExpires</code>
+     * parameter. <code>True</code> returns all backups exempt from the backup retention policy. <code>False</code>
+     * returns all backups with a backup retention policy defined at the cluster.
+     * </p>
      * 
      * @param filters
      *        One or more filters to limit the items returned in the response.</p>
@@ -228,6 +270,12 @@ public class DescribeBackupsRequest extends com.amazonaws.AmazonWebServiceReques
      *        </p>
      *        <p>
      *        Use the <code>states</code> filter to return only backups that match the specified state.
+     *        </p>
+     *        <p>
+     *        Use the <code>neverExpires</code> filter to return backups filtered by the value in the
+     *        <code>neverExpires</code> parameter. <code>True</code> returns all backups exempt from the backup
+     *        retention policy. <code>False</code> returns all backups with a backup retention policy defined at the
+     *        cluster.
      */
 
     public void setFilters(java.util.Map<String, java.util.List<String>> filters) {
@@ -253,6 +301,11 @@ public class DescribeBackupsRequest extends com.amazonaws.AmazonWebServiceReques
      * <p>
      * Use the <code>states</code> filter to return only backups that match the specified state.
      * </p>
+     * <p>
+     * Use the <code>neverExpires</code> filter to return backups filtered by the value in the <code>neverExpires</code>
+     * parameter. <code>True</code> returns all backups exempt from the backup retention policy. <code>False</code>
+     * returns all backups with a backup retention policy defined at the cluster.
+     * </p>
      * 
      * @param filters
      *        One or more filters to limit the items returned in the response.</p>
@@ -270,6 +323,12 @@ public class DescribeBackupsRequest extends com.amazonaws.AmazonWebServiceReques
      *        </p>
      *        <p>
      *        Use the <code>states</code> filter to return only backups that match the specified state.
+     *        </p>
+     *        <p>
+     *        Use the <code>neverExpires</code> filter to return backups filtered by the value in the
+     *        <code>neverExpires</code> parameter. <code>True</code> returns all backups exempt from the backup
+     *        retention policy. <code>False</code> returns all backups with a backup retention policy defined at the
+     *        cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -277,6 +336,13 @@ public class DescribeBackupsRequest extends com.amazonaws.AmazonWebServiceReques
         setFilters(filters);
         return this;
     }
+
+    /**
+     * Add a single Filters entry
+     *
+     * @see DescribeBackupsRequest#withFilters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public DescribeBackupsRequest addFiltersEntry(String key, java.util.List<String> value) {
         if (null == this.filters) {
@@ -300,7 +366,144 @@ public class DescribeBackupsRequest extends com.amazonaws.AmazonWebServiceReques
     }
 
     /**
+     * <p>
+     * Describe backups that are shared with you.
+     * </p>
+     * <note>
+     * <p>
+     * By default when using this option, the command returns backups that have been shared using a standard Resource
+     * Access Manager resource share. In order for a backup that was shared using the PutResourcePolicy command to be
+     * returned, the share must be promoted to a standard resource share using the RAM <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/ram/promote-resource-share-created-from-policy.html"
+     * >PromoteResourceShareCreatedFromPolicy</a> API operation. For more information about sharing backups, see <a
+     * href="https://docs.aws.amazon.com/cloudhsm/latest/userguide/sharing.html"> Working with shared backups</a> in the
+     * CloudHSM User Guide.
+     * </p>
+     * </note>
+     * 
+     * @param shared
+     *        Describe backups that are shared with you.</p> <note>
+     *        <p>
+     *        By default when using this option, the command returns backups that have been shared using a standard
+     *        Resource Access Manager resource share. In order for a backup that was shared using the PutResourcePolicy
+     *        command to be returned, the share must be promoted to a standard resource share using the RAM <a href=
+     *        "https://docs.aws.amazon.com/cli/latest/reference/ram/promote-resource-share-created-from-policy.html"
+     *        >PromoteResourceShareCreatedFromPolicy</a> API operation. For more information about sharing backups, see
+     *        <a href="https://docs.aws.amazon.com/cloudhsm/latest/userguide/sharing.html"> Working with shared
+     *        backups</a> in the CloudHSM User Guide.
+     *        </p>
+     */
+
+    public void setShared(Boolean shared) {
+        this.shared = shared;
+    }
+
+    /**
+     * <p>
+     * Describe backups that are shared with you.
+     * </p>
+     * <note>
+     * <p>
+     * By default when using this option, the command returns backups that have been shared using a standard Resource
+     * Access Manager resource share. In order for a backup that was shared using the PutResourcePolicy command to be
+     * returned, the share must be promoted to a standard resource share using the RAM <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/ram/promote-resource-share-created-from-policy.html"
+     * >PromoteResourceShareCreatedFromPolicy</a> API operation. For more information about sharing backups, see <a
+     * href="https://docs.aws.amazon.com/cloudhsm/latest/userguide/sharing.html"> Working with shared backups</a> in the
+     * CloudHSM User Guide.
+     * </p>
+     * </note>
+     * 
+     * @return Describe backups that are shared with you.</p> <note>
+     *         <p>
+     *         By default when using this option, the command returns backups that have been shared using a standard
+     *         Resource Access Manager resource share. In order for a backup that was shared using the PutResourcePolicy
+     *         command to be returned, the share must be promoted to a standard resource share using the RAM <a href=
+     *         "https://docs.aws.amazon.com/cli/latest/reference/ram/promote-resource-share-created-from-policy.html"
+     *         >PromoteResourceShareCreatedFromPolicy</a> API operation. For more information about sharing backups, see
+     *         <a href="https://docs.aws.amazon.com/cloudhsm/latest/userguide/sharing.html"> Working with shared
+     *         backups</a> in the CloudHSM User Guide.
+     *         </p>
+     */
+
+    public Boolean getShared() {
+        return this.shared;
+    }
+
+    /**
+     * <p>
+     * Describe backups that are shared with you.
+     * </p>
+     * <note>
+     * <p>
+     * By default when using this option, the command returns backups that have been shared using a standard Resource
+     * Access Manager resource share. In order for a backup that was shared using the PutResourcePolicy command to be
+     * returned, the share must be promoted to a standard resource share using the RAM <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/ram/promote-resource-share-created-from-policy.html"
+     * >PromoteResourceShareCreatedFromPolicy</a> API operation. For more information about sharing backups, see <a
+     * href="https://docs.aws.amazon.com/cloudhsm/latest/userguide/sharing.html"> Working with shared backups</a> in the
+     * CloudHSM User Guide.
+     * </p>
+     * </note>
+     * 
+     * @param shared
+     *        Describe backups that are shared with you.</p> <note>
+     *        <p>
+     *        By default when using this option, the command returns backups that have been shared using a standard
+     *        Resource Access Manager resource share. In order for a backup that was shared using the PutResourcePolicy
+     *        command to be returned, the share must be promoted to a standard resource share using the RAM <a href=
+     *        "https://docs.aws.amazon.com/cli/latest/reference/ram/promote-resource-share-created-from-policy.html"
+     *        >PromoteResourceShareCreatedFromPolicy</a> API operation. For more information about sharing backups, see
+     *        <a href="https://docs.aws.amazon.com/cloudhsm/latest/userguide/sharing.html"> Working with shared
+     *        backups</a> in the CloudHSM User Guide.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeBackupsRequest withShared(Boolean shared) {
+        setShared(shared);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Describe backups that are shared with you.
+     * </p>
+     * <note>
+     * <p>
+     * By default when using this option, the command returns backups that have been shared using a standard Resource
+     * Access Manager resource share. In order for a backup that was shared using the PutResourcePolicy command to be
+     * returned, the share must be promoted to a standard resource share using the RAM <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/ram/promote-resource-share-created-from-policy.html"
+     * >PromoteResourceShareCreatedFromPolicy</a> API operation. For more information about sharing backups, see <a
+     * href="https://docs.aws.amazon.com/cloudhsm/latest/userguide/sharing.html"> Working with shared backups</a> in the
+     * CloudHSM User Guide.
+     * </p>
+     * </note>
+     * 
+     * @return Describe backups that are shared with you.</p> <note>
+     *         <p>
+     *         By default when using this option, the command returns backups that have been shared using a standard
+     *         Resource Access Manager resource share. In order for a backup that was shared using the PutResourcePolicy
+     *         command to be returned, the share must be promoted to a standard resource share using the RAM <a href=
+     *         "https://docs.aws.amazon.com/cli/latest/reference/ram/promote-resource-share-created-from-policy.html"
+     *         >PromoteResourceShareCreatedFromPolicy</a> API operation. For more information about sharing backups, see
+     *         <a href="https://docs.aws.amazon.com/cloudhsm/latest/userguide/sharing.html"> Working with shared
+     *         backups</a> in the CloudHSM User Guide.
+     *         </p>
+     */
+
+    public Boolean isShared() {
+        return this.shared;
+    }
+
+    /**
+     * <p>
+     * Designates whether or not to sort the return backups by ascending chronological order of generation.
+     * </p>
+     * 
      * @param sortAscending
+     *        Designates whether or not to sort the return backups by ascending chronological order of generation.
      */
 
     public void setSortAscending(Boolean sortAscending) {
@@ -308,7 +511,11 @@ public class DescribeBackupsRequest extends com.amazonaws.AmazonWebServiceReques
     }
 
     /**
-     * @return
+     * <p>
+     * Designates whether or not to sort the return backups by ascending chronological order of generation.
+     * </p>
+     * 
+     * @return Designates whether or not to sort the return backups by ascending chronological order of generation.
      */
 
     public Boolean getSortAscending() {
@@ -316,7 +523,12 @@ public class DescribeBackupsRequest extends com.amazonaws.AmazonWebServiceReques
     }
 
     /**
+     * <p>
+     * Designates whether or not to sort the return backups by ascending chronological order of generation.
+     * </p>
+     * 
      * @param sortAscending
+     *        Designates whether or not to sort the return backups by ascending chronological order of generation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -326,7 +538,11 @@ public class DescribeBackupsRequest extends com.amazonaws.AmazonWebServiceReques
     }
 
     /**
-     * @return
+     * <p>
+     * Designates whether or not to sort the return backups by ascending chronological order of generation.
+     * </p>
+     * 
+     * @return Designates whether or not to sort the return backups by ascending chronological order of generation.
      */
 
     public Boolean isSortAscending() {
@@ -351,6 +567,8 @@ public class DescribeBackupsRequest extends com.amazonaws.AmazonWebServiceReques
             sb.append("MaxResults: ").append(getMaxResults()).append(",");
         if (getFilters() != null)
             sb.append("Filters: ").append(getFilters()).append(",");
+        if (getShared() != null)
+            sb.append("Shared: ").append(getShared()).append(",");
         if (getSortAscending() != null)
             sb.append("SortAscending: ").append(getSortAscending());
         sb.append("}");
@@ -379,6 +597,10 @@ public class DescribeBackupsRequest extends com.amazonaws.AmazonWebServiceReques
             return false;
         if (other.getFilters() != null && other.getFilters().equals(this.getFilters()) == false)
             return false;
+        if (other.getShared() == null ^ this.getShared() == null)
+            return false;
+        if (other.getShared() != null && other.getShared().equals(this.getShared()) == false)
+            return false;
         if (other.getSortAscending() == null ^ this.getSortAscending() == null)
             return false;
         if (other.getSortAscending() != null && other.getSortAscending().equals(this.getSortAscending()) == false)
@@ -394,6 +616,7 @@ public class DescribeBackupsRequest extends com.amazonaws.AmazonWebServiceReques
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
         hashCode = prime * hashCode + ((getMaxResults() == null) ? 0 : getMaxResults().hashCode());
         hashCode = prime * hashCode + ((getFilters() == null) ? 0 : getFilters().hashCode());
+        hashCode = prime * hashCode + ((getShared() == null) ? 0 : getShared().hashCode());
         hashCode = prime * hashCode + ((getSortAscending() == null) ? 0 : getSortAscending().hashCode());
         return hashCode;
     }

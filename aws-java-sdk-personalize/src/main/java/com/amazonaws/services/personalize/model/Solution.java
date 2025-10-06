@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,9 +18,23 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <important>
  * <p>
- * An object that provides information about a solution. A solution is a trained model that can be deployed as a
- * campaign.
+ * After you create a solution, you can’t change its configuration. By default, all new solutions use automatic
+ * training. With automatic training, you incur training costs while your solution is active. You can't stop automatic
+ * training for a solution. To avoid unnecessary costs, make sure to delete the solution when you are finished. For
+ * information about training costs, see <a href="https://aws.amazon.com/personalize/pricing/">Amazon Personalize
+ * pricing</a>.
+ * </p>
+ * </important>
+ * <p>
+ * An object that provides information about a solution. A solution includes the custom recipe, customized parameters,
+ * and trained models (Solution Versions) that Amazon Personalize uses to generate recommendations.
+ * </p>
+ * <p>
+ * After you create a solution, you can’t change its configuration. If you need to make changes, you can <a
+ * href="https://docs.aws.amazon.com/personalize/latest/dg/cloning-solution.html">clone the solution</a> with the Amazon
+ * Personalize console or create a new one.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/Solution" target="_top">AWS API
@@ -48,6 +62,13 @@ public class Solution implements Serializable, Cloneable, StructuredPojo {
      */
     private Boolean performHPO;
     /**
+     * <important>
+     * <p>
+     * We don't recommend enabling automated machine learning. Instead, match your use case to the available Amazon
+     * Personalize recipes. For more information, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/determining-use-case.html">Determining your use case.</a>
+     * </p>
+     * </important>
      * <p>
      * When true, Amazon Personalize performs a search for the best USER_PERSONALIZATION recipe from the list specified
      * in the solution configuration (<code>recipeArn</code> must not be specified). When false (the default), Amazon
@@ -57,7 +78,19 @@ public class Solution implements Serializable, Cloneable, StructuredPojo {
     private Boolean performAutoML;
     /**
      * <p>
-     * The ARN of the recipe used to create the solution.
+     * Specifies whether the solution automatically creates solution versions. The default is <code>True</code> and the
+     * solution automatically creates new solution versions every 7 days.
+     * </p>
+     * <p>
+     * For more information about auto training, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/customizing-solution-config.html">Creating and
+     * configuring a solution</a>.
+     * </p>
+     */
+    private Boolean performAutoTraining;
+    /**
+     * <p>
+     * The ARN of the recipe used to create the solution. This is required when <code>performAutoML</code> is false.
      * </p>
      */
     private String recipeArn;
@@ -69,7 +102,8 @@ public class Solution implements Serializable, Cloneable, StructuredPojo {
     private String datasetGroupArn;
     /**
      * <p>
-     * The event type (for example, 'click' or 'like') that is used for training the model.
+     * The event type (for example, 'click' or 'like') that is used for training the model. If no <code>eventType</code>
+     * is provided, Amazon Personalize uses all interactions for training with equal weight regardless of type.
      * </p>
      */
     private String eventType;
@@ -262,6 +296,13 @@ public class Solution implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <important>
+     * <p>
+     * We don't recommend enabling automated machine learning. Instead, match your use case to the available Amazon
+     * Personalize recipes. For more information, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/determining-use-case.html">Determining your use case.</a>
+     * </p>
+     * </important>
      * <p>
      * When true, Amazon Personalize performs a search for the best USER_PERSONALIZATION recipe from the list specified
      * in the solution configuration (<code>recipeArn</code> must not be specified). When false (the default), Amazon
@@ -269,6 +310,14 @@ public class Solution implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param performAutoML
+     *        <p>
+     *        We don't recommend enabling automated machine learning. Instead, match your use case to the available
+     *        Amazon Personalize recipes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/determining-use-case.html">Determining your use
+     *        case.</a>
+     *        </p>
+     *        </important>
+     *        <p>
      *        When true, Amazon Personalize performs a search for the best USER_PERSONALIZATION recipe from the list
      *        specified in the solution configuration (<code>recipeArn</code> must not be specified). When false (the
      *        default), Amazon Personalize uses <code>recipeArn</code> for training.
@@ -279,13 +328,28 @@ public class Solution implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <important>
+     * <p>
+     * We don't recommend enabling automated machine learning. Instead, match your use case to the available Amazon
+     * Personalize recipes. For more information, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/determining-use-case.html">Determining your use case.</a>
+     * </p>
+     * </important>
      * <p>
      * When true, Amazon Personalize performs a search for the best USER_PERSONALIZATION recipe from the list specified
      * in the solution configuration (<code>recipeArn</code> must not be specified). When false (the default), Amazon
      * Personalize uses <code>recipeArn</code> for training.
      * </p>
      * 
-     * @return When true, Amazon Personalize performs a search for the best USER_PERSONALIZATION recipe from the list
+     * @return <p>
+     *         We don't recommend enabling automated machine learning. Instead, match your use case to the available
+     *         Amazon Personalize recipes. For more information, see <a
+     *         href="https://docs.aws.amazon.com/personalize/latest/dg/determining-use-case.html">Determining your use
+     *         case.</a>
+     *         </p>
+     *         </important>
+     *         <p>
+     *         When true, Amazon Personalize performs a search for the best USER_PERSONALIZATION recipe from the list
      *         specified in the solution configuration (<code>recipeArn</code> must not be specified). When false (the
      *         default), Amazon Personalize uses <code>recipeArn</code> for training.
      */
@@ -295,6 +359,13 @@ public class Solution implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <important>
+     * <p>
+     * We don't recommend enabling automated machine learning. Instead, match your use case to the available Amazon
+     * Personalize recipes. For more information, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/determining-use-case.html">Determining your use case.</a>
+     * </p>
+     * </important>
      * <p>
      * When true, Amazon Personalize performs a search for the best USER_PERSONALIZATION recipe from the list specified
      * in the solution configuration (<code>recipeArn</code> must not be specified). When false (the default), Amazon
@@ -302,6 +373,14 @@ public class Solution implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param performAutoML
+     *        <p>
+     *        We don't recommend enabling automated machine learning. Instead, match your use case to the available
+     *        Amazon Personalize recipes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/determining-use-case.html">Determining your use
+     *        case.</a>
+     *        </p>
+     *        </important>
+     *        <p>
      *        When true, Amazon Personalize performs a search for the best USER_PERSONALIZATION recipe from the list
      *        specified in the solution configuration (<code>recipeArn</code> must not be specified). When false (the
      *        default), Amazon Personalize uses <code>recipeArn</code> for training.
@@ -314,13 +393,28 @@ public class Solution implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <important>
+     * <p>
+     * We don't recommend enabling automated machine learning. Instead, match your use case to the available Amazon
+     * Personalize recipes. For more information, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/determining-use-case.html">Determining your use case.</a>
+     * </p>
+     * </important>
      * <p>
      * When true, Amazon Personalize performs a search for the best USER_PERSONALIZATION recipe from the list specified
      * in the solution configuration (<code>recipeArn</code> must not be specified). When false (the default), Amazon
      * Personalize uses <code>recipeArn</code> for training.
      * </p>
      * 
-     * @return When true, Amazon Personalize performs a search for the best USER_PERSONALIZATION recipe from the list
+     * @return <p>
+     *         We don't recommend enabling automated machine learning. Instead, match your use case to the available
+     *         Amazon Personalize recipes. For more information, see <a
+     *         href="https://docs.aws.amazon.com/personalize/latest/dg/determining-use-case.html">Determining your use
+     *         case.</a>
+     *         </p>
+     *         </important>
+     *         <p>
+     *         When true, Amazon Personalize performs a search for the best USER_PERSONALIZATION recipe from the list
      *         specified in the solution configuration (<code>recipeArn</code> must not be specified). When false (the
      *         default), Amazon Personalize uses <code>recipeArn</code> for training.
      */
@@ -331,11 +425,108 @@ public class Solution implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN of the recipe used to create the solution.
+     * Specifies whether the solution automatically creates solution versions. The default is <code>True</code> and the
+     * solution automatically creates new solution versions every 7 days.
+     * </p>
+     * <p>
+     * For more information about auto training, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/customizing-solution-config.html">Creating and
+     * configuring a solution</a>.
+     * </p>
+     * 
+     * @param performAutoTraining
+     *        Specifies whether the solution automatically creates solution versions. The default is <code>True</code>
+     *        and the solution automatically creates new solution versions every 7 days.</p>
+     *        <p>
+     *        For more information about auto training, see <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/customizing-solution-config.html">Creating and
+     *        configuring a solution</a>.
+     */
+
+    public void setPerformAutoTraining(Boolean performAutoTraining) {
+        this.performAutoTraining = performAutoTraining;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the solution automatically creates solution versions. The default is <code>True</code> and the
+     * solution automatically creates new solution versions every 7 days.
+     * </p>
+     * <p>
+     * For more information about auto training, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/customizing-solution-config.html">Creating and
+     * configuring a solution</a>.
+     * </p>
+     * 
+     * @return Specifies whether the solution automatically creates solution versions. The default is <code>True</code>
+     *         and the solution automatically creates new solution versions every 7 days.</p>
+     *         <p>
+     *         For more information about auto training, see <a
+     *         href="https://docs.aws.amazon.com/personalize/latest/dg/customizing-solution-config.html">Creating and
+     *         configuring a solution</a>.
+     */
+
+    public Boolean getPerformAutoTraining() {
+        return this.performAutoTraining;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the solution automatically creates solution versions. The default is <code>True</code> and the
+     * solution automatically creates new solution versions every 7 days.
+     * </p>
+     * <p>
+     * For more information about auto training, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/customizing-solution-config.html">Creating and
+     * configuring a solution</a>.
+     * </p>
+     * 
+     * @param performAutoTraining
+     *        Specifies whether the solution automatically creates solution versions. The default is <code>True</code>
+     *        and the solution automatically creates new solution versions every 7 days.</p>
+     *        <p>
+     *        For more information about auto training, see <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/customizing-solution-config.html">Creating and
+     *        configuring a solution</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Solution withPerformAutoTraining(Boolean performAutoTraining) {
+        setPerformAutoTraining(performAutoTraining);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the solution automatically creates solution versions. The default is <code>True</code> and the
+     * solution automatically creates new solution versions every 7 days.
+     * </p>
+     * <p>
+     * For more information about auto training, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/customizing-solution-config.html">Creating and
+     * configuring a solution</a>.
+     * </p>
+     * 
+     * @return Specifies whether the solution automatically creates solution versions. The default is <code>True</code>
+     *         and the solution automatically creates new solution versions every 7 days.</p>
+     *         <p>
+     *         For more information about auto training, see <a
+     *         href="https://docs.aws.amazon.com/personalize/latest/dg/customizing-solution-config.html">Creating and
+     *         configuring a solution</a>.
+     */
+
+    public Boolean isPerformAutoTraining() {
+        return this.performAutoTraining;
+    }
+
+    /**
+     * <p>
+     * The ARN of the recipe used to create the solution. This is required when <code>performAutoML</code> is false.
      * </p>
      * 
      * @param recipeArn
-     *        The ARN of the recipe used to create the solution.
+     *        The ARN of the recipe used to create the solution. This is required when <code>performAutoML</code> is
+     *        false.
      */
 
     public void setRecipeArn(String recipeArn) {
@@ -344,10 +535,11 @@ public class Solution implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN of the recipe used to create the solution.
+     * The ARN of the recipe used to create the solution. This is required when <code>performAutoML</code> is false.
      * </p>
      * 
-     * @return The ARN of the recipe used to create the solution.
+     * @return The ARN of the recipe used to create the solution. This is required when <code>performAutoML</code> is
+     *         false.
      */
 
     public String getRecipeArn() {
@@ -356,11 +548,12 @@ public class Solution implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN of the recipe used to create the solution.
+     * The ARN of the recipe used to create the solution. This is required when <code>performAutoML</code> is false.
      * </p>
      * 
      * @param recipeArn
-     *        The ARN of the recipe used to create the solution.
+     *        The ARN of the recipe used to create the solution. This is required when <code>performAutoML</code> is
+     *        false.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -411,11 +604,14 @@ public class Solution implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The event type (for example, 'click' or 'like') that is used for training the model.
+     * The event type (for example, 'click' or 'like') that is used for training the model. If no <code>eventType</code>
+     * is provided, Amazon Personalize uses all interactions for training with equal weight regardless of type.
      * </p>
      * 
      * @param eventType
-     *        The event type (for example, 'click' or 'like') that is used for training the model.
+     *        The event type (for example, 'click' or 'like') that is used for training the model. If no
+     *        <code>eventType</code> is provided, Amazon Personalize uses all interactions for training with equal
+     *        weight regardless of type.
      */
 
     public void setEventType(String eventType) {
@@ -424,10 +620,13 @@ public class Solution implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The event type (for example, 'click' or 'like') that is used for training the model.
+     * The event type (for example, 'click' or 'like') that is used for training the model. If no <code>eventType</code>
+     * is provided, Amazon Personalize uses all interactions for training with equal weight regardless of type.
      * </p>
      * 
-     * @return The event type (for example, 'click' or 'like') that is used for training the model.
+     * @return The event type (for example, 'click' or 'like') that is used for training the model. If no
+     *         <code>eventType</code> is provided, Amazon Personalize uses all interactions for training with equal
+     *         weight regardless of type.
      */
 
     public String getEventType() {
@@ -436,11 +635,14 @@ public class Solution implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The event type (for example, 'click' or 'like') that is used for training the model.
+     * The event type (for example, 'click' or 'like') that is used for training the model. If no <code>eventType</code>
+     * is provided, Amazon Personalize uses all interactions for training with equal weight regardless of type.
      * </p>
      * 
      * @param eventType
-     *        The event type (for example, 'click' or 'like') that is used for training the model.
+     *        The event type (for example, 'click' or 'like') that is used for training the model. If no
+     *        <code>eventType</code> is provided, Amazon Personalize uses all interactions for training with equal
+     *        weight regardless of type.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -796,6 +998,8 @@ public class Solution implements Serializable, Cloneable, StructuredPojo {
             sb.append("PerformHPO: ").append(getPerformHPO()).append(",");
         if (getPerformAutoML() != null)
             sb.append("PerformAutoML: ").append(getPerformAutoML()).append(",");
+        if (getPerformAutoTraining() != null)
+            sb.append("PerformAutoTraining: ").append(getPerformAutoTraining()).append(",");
         if (getRecipeArn() != null)
             sb.append("RecipeArn: ").append(getRecipeArn()).append(",");
         if (getDatasetGroupArn() != null)
@@ -843,6 +1047,10 @@ public class Solution implements Serializable, Cloneable, StructuredPojo {
         if (other.getPerformAutoML() == null ^ this.getPerformAutoML() == null)
             return false;
         if (other.getPerformAutoML() != null && other.getPerformAutoML().equals(this.getPerformAutoML()) == false)
+            return false;
+        if (other.getPerformAutoTraining() == null ^ this.getPerformAutoTraining() == null)
+            return false;
+        if (other.getPerformAutoTraining() != null && other.getPerformAutoTraining().equals(this.getPerformAutoTraining()) == false)
             return false;
         if (other.getRecipeArn() == null ^ this.getRecipeArn() == null)
             return false;
@@ -892,6 +1100,7 @@ public class Solution implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getSolutionArn() == null) ? 0 : getSolutionArn().hashCode());
         hashCode = prime * hashCode + ((getPerformHPO() == null) ? 0 : getPerformHPO().hashCode());
         hashCode = prime * hashCode + ((getPerformAutoML() == null) ? 0 : getPerformAutoML().hashCode());
+        hashCode = prime * hashCode + ((getPerformAutoTraining() == null) ? 0 : getPerformAutoTraining().hashCode());
         hashCode = prime * hashCode + ((getRecipeArn() == null) ? 0 : getRecipeArn().hashCode());
         hashCode = prime * hashCode + ((getDatasetGroupArn() == null) ? 0 : getDatasetGroupArn().hashCode());
         hashCode = prime * hashCode + ((getEventType() == null) ? 0 : getEventType().hashCode());

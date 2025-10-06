@@ -1,0 +1,384 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.iotwireless.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
+
+/**
+ * <p>
+ * LoRaWANServiceProfile object.
+ * </p>
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/iotwireless-2020-11-22/LoRaWANServiceProfile" target="_top">AWS
+ *      API Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class LoRaWANServiceProfile implements Serializable, Cloneable, StructuredPojo {
+
+    /**
+     * <p>
+     * The AddGWMetaData value.
+     * </p>
+     */
+    private Boolean addGwMetadata;
+    /**
+     * <p>
+     * The DrMin value.
+     * </p>
+     */
+    private Integer drMin;
+    /**
+     * <p>
+     * The DrMax value.
+     * </p>
+     */
+    private Integer drMax;
+    /**
+     * <p>
+     * The PRAllowed value that describes whether passive roaming is allowed.
+     * </p>
+     */
+    private Boolean prAllowed;
+    /**
+     * <p>
+     * The RAAllowed value that describes whether roaming activation is allowed.
+     * </p>
+     */
+    private Boolean raAllowed;
+
+    /**
+     * <p>
+     * The AddGWMetaData value.
+     * </p>
+     * 
+     * @param addGwMetadata
+     *        The AddGWMetaData value.
+     */
+
+    public void setAddGwMetadata(Boolean addGwMetadata) {
+        this.addGwMetadata = addGwMetadata;
+    }
+
+    /**
+     * <p>
+     * The AddGWMetaData value.
+     * </p>
+     * 
+     * @return The AddGWMetaData value.
+     */
+
+    public Boolean getAddGwMetadata() {
+        return this.addGwMetadata;
+    }
+
+    /**
+     * <p>
+     * The AddGWMetaData value.
+     * </p>
+     * 
+     * @param addGwMetadata
+     *        The AddGWMetaData value.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LoRaWANServiceProfile withAddGwMetadata(Boolean addGwMetadata) {
+        setAddGwMetadata(addGwMetadata);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The AddGWMetaData value.
+     * </p>
+     * 
+     * @return The AddGWMetaData value.
+     */
+
+    public Boolean isAddGwMetadata() {
+        return this.addGwMetadata;
+    }
+
+    /**
+     * <p>
+     * The DrMin value.
+     * </p>
+     * 
+     * @param drMin
+     *        The DrMin value.
+     */
+
+    public void setDrMin(Integer drMin) {
+        this.drMin = drMin;
+    }
+
+    /**
+     * <p>
+     * The DrMin value.
+     * </p>
+     * 
+     * @return The DrMin value.
+     */
+
+    public Integer getDrMin() {
+        return this.drMin;
+    }
+
+    /**
+     * <p>
+     * The DrMin value.
+     * </p>
+     * 
+     * @param drMin
+     *        The DrMin value.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LoRaWANServiceProfile withDrMin(Integer drMin) {
+        setDrMin(drMin);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The DrMax value.
+     * </p>
+     * 
+     * @param drMax
+     *        The DrMax value.
+     */
+
+    public void setDrMax(Integer drMax) {
+        this.drMax = drMax;
+    }
+
+    /**
+     * <p>
+     * The DrMax value.
+     * </p>
+     * 
+     * @return The DrMax value.
+     */
+
+    public Integer getDrMax() {
+        return this.drMax;
+    }
+
+    /**
+     * <p>
+     * The DrMax value.
+     * </p>
+     * 
+     * @param drMax
+     *        The DrMax value.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LoRaWANServiceProfile withDrMax(Integer drMax) {
+        setDrMax(drMax);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The PRAllowed value that describes whether passive roaming is allowed.
+     * </p>
+     * 
+     * @param prAllowed
+     *        The PRAllowed value that describes whether passive roaming is allowed.
+     */
+
+    public void setPrAllowed(Boolean prAllowed) {
+        this.prAllowed = prAllowed;
+    }
+
+    /**
+     * <p>
+     * The PRAllowed value that describes whether passive roaming is allowed.
+     * </p>
+     * 
+     * @return The PRAllowed value that describes whether passive roaming is allowed.
+     */
+
+    public Boolean getPrAllowed() {
+        return this.prAllowed;
+    }
+
+    /**
+     * <p>
+     * The PRAllowed value that describes whether passive roaming is allowed.
+     * </p>
+     * 
+     * @param prAllowed
+     *        The PRAllowed value that describes whether passive roaming is allowed.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LoRaWANServiceProfile withPrAllowed(Boolean prAllowed) {
+        setPrAllowed(prAllowed);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The PRAllowed value that describes whether passive roaming is allowed.
+     * </p>
+     * 
+     * @return The PRAllowed value that describes whether passive roaming is allowed.
+     */
+
+    public Boolean isPrAllowed() {
+        return this.prAllowed;
+    }
+
+    /**
+     * <p>
+     * The RAAllowed value that describes whether roaming activation is allowed.
+     * </p>
+     * 
+     * @param raAllowed
+     *        The RAAllowed value that describes whether roaming activation is allowed.
+     */
+
+    public void setRaAllowed(Boolean raAllowed) {
+        this.raAllowed = raAllowed;
+    }
+
+    /**
+     * <p>
+     * The RAAllowed value that describes whether roaming activation is allowed.
+     * </p>
+     * 
+     * @return The RAAllowed value that describes whether roaming activation is allowed.
+     */
+
+    public Boolean getRaAllowed() {
+        return this.raAllowed;
+    }
+
+    /**
+     * <p>
+     * The RAAllowed value that describes whether roaming activation is allowed.
+     * </p>
+     * 
+     * @param raAllowed
+     *        The RAAllowed value that describes whether roaming activation is allowed.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LoRaWANServiceProfile withRaAllowed(Boolean raAllowed) {
+        setRaAllowed(raAllowed);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The RAAllowed value that describes whether roaming activation is allowed.
+     * </p>
+     * 
+     * @return The RAAllowed value that describes whether roaming activation is allowed.
+     */
+
+    public Boolean isRaAllowed() {
+        return this.raAllowed;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getAddGwMetadata() != null)
+            sb.append("AddGwMetadata: ").append(getAddGwMetadata()).append(",");
+        if (getDrMin() != null)
+            sb.append("DrMin: ").append(getDrMin()).append(",");
+        if (getDrMax() != null)
+            sb.append("DrMax: ").append(getDrMax()).append(",");
+        if (getPrAllowed() != null)
+            sb.append("PrAllowed: ").append(getPrAllowed()).append(",");
+        if (getRaAllowed() != null)
+            sb.append("RaAllowed: ").append(getRaAllowed());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof LoRaWANServiceProfile == false)
+            return false;
+        LoRaWANServiceProfile other = (LoRaWANServiceProfile) obj;
+        if (other.getAddGwMetadata() == null ^ this.getAddGwMetadata() == null)
+            return false;
+        if (other.getAddGwMetadata() != null && other.getAddGwMetadata().equals(this.getAddGwMetadata()) == false)
+            return false;
+        if (other.getDrMin() == null ^ this.getDrMin() == null)
+            return false;
+        if (other.getDrMin() != null && other.getDrMin().equals(this.getDrMin()) == false)
+            return false;
+        if (other.getDrMax() == null ^ this.getDrMax() == null)
+            return false;
+        if (other.getDrMax() != null && other.getDrMax().equals(this.getDrMax()) == false)
+            return false;
+        if (other.getPrAllowed() == null ^ this.getPrAllowed() == null)
+            return false;
+        if (other.getPrAllowed() != null && other.getPrAllowed().equals(this.getPrAllowed()) == false)
+            return false;
+        if (other.getRaAllowed() == null ^ this.getRaAllowed() == null)
+            return false;
+        if (other.getRaAllowed() != null && other.getRaAllowed().equals(this.getRaAllowed()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getAddGwMetadata() == null) ? 0 : getAddGwMetadata().hashCode());
+        hashCode = prime * hashCode + ((getDrMin() == null) ? 0 : getDrMin().hashCode());
+        hashCode = prime * hashCode + ((getDrMax() == null) ? 0 : getDrMax().hashCode());
+        hashCode = prime * hashCode + ((getPrAllowed() == null) ? 0 : getPrAllowed().hashCode());
+        hashCode = prime * hashCode + ((getRaAllowed() == null) ? 0 : getRaAllowed().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public LoRaWANServiceProfile clone() {
+        try {
+            return (LoRaWANServiceProfile) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.iotwireless.model.transform.LoRaWANServiceProfileMarshaller.getInstance().marshall(this, protocolMarshaller);
+    }
+}

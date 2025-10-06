@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,6 +45,7 @@ import com.amazonaws.services.signer.waiters.AWSsignerWaiters;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.signer.model.*;
+
 import com.amazonaws.services.signer.model.transform.*;
 
 /**
@@ -52,13 +53,31 @@ import com.amazonaws.services.signer.model.transform.*;
  * service call completes.
  * <p>
  * <p>
- * You can use Code Signing for Amazon FreeRTOS (AWS Signer) to sign code that you created for any of the IoT devices
- * that Amazon Web Services supports. AWS Signer is integrated with Amazon FreeRTOS, AWS Certificate Manager, and AWS
- * CloudTrail. Amazon FreeRTOS customers can use AWS Signer to sign code images before making them available for
- * microcontrollers. You can use ACM to import third-party certificates to be used by AWS Signer. For general
- * information about using AWS Signer, see the <a
- * href="http://docs.aws.amazon.com/signer/latest/developerguide/Welcome.html">Code Signing for Amazon FreeRTOS
- * Developer Guide</a>.
+ * AWS Signer is a fully managed code-signing service to help you ensure the trust and integrity of your code.
+ * </p>
+ * <p>
+ * Signer supports the following applications:
+ * </p>
+ * <p>
+ * With code signing for AWS Lambda, you can sign <a href="http://docs.aws.amazon.com/lambda/latest/dg/">AWS Lambda</a>
+ * deployment packages. Integrated support is provided for <a
+ * href="http://docs.aws.amazon.com/AmazonS3/latest/gsg/">Amazon S3</a>, <a
+ * href="http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/">Amazon CloudWatch</a>, and <a
+ * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/">AWS CloudTrail</a>. In order to sign code, you
+ * create a signing profile and then use Signer to sign Lambda zip files in S3.
+ * </p>
+ * <p>
+ * With code signing for IoT, you can sign code for any IoT device that is supported by AWS. IoT code signing is
+ * available for <a href="http://docs.aws.amazon.com/freertos/latest/userguide/">Amazon FreeRTOS</a> and <a
+ * href="http://docs.aws.amazon.com/iot/latest/developerguide/">AWS IoT Device Management</a>, and is integrated with <a
+ * href="http://docs.aws.amazon.com/acm/latest/userguide/">AWS Certificate Manager (ACM)</a>. In order to sign code, you
+ * Project</a>, you can sign container images stored in a container registry such as Amazon Elastic Container Registry
+ * (ECR). The signatures are stored in the registry alongside the images, where they are available for verifying image
+ * authenticity and integrity.
+ * </p>
+ * <p>
+ * For more information about Signer, see the <a
+ * href="https://docs.aws.amazon.com/signer/latest/developerguide/Welcome.html">AWS Signer Developer Guide</a>.
  * </p>
  */
 @ThreadSafe
@@ -85,22 +104,37 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AccessDeniedException").withModeledClass(
-                                    com.amazonaws.services.signer.model.AccessDeniedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("AccessDeniedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.signer.model.transform.AccessDeniedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ValidationException").withModeledClass(
-                                    com.amazonaws.services.signer.model.ValidationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.signer.model.transform.ConflictExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServiceErrorException").withModeledClass(
-                                    com.amazonaws.services.signer.model.InternalServiceErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ServiceLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.signer.model.transform.ServiceLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.signer.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.signer.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ThrottlingException").withModeledClass(
-                                    com.amazonaws.services.signer.model.ThrottlingException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ThrottlingException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.signer.model.transform.ThrottlingExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ValidationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.signer.model.transform.ValidationExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.signer.model.transform.NotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServiceErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.signer.model.transform.InternalServiceErrorExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.signer.model.transform.TooManyRequestsExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.signer.model.transform.BadRequestExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.signer.model.AWSsignerException.class));
 
     public static AWSsignerClientBuilder builder() {
@@ -151,6 +185,77 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
 
     /**
      * <p>
+     * Adds cross-account permissions to a signing profile.
+     * </p>
+     * 
+     * @param addProfilePermissionRequest
+     * @return Result of the AddProfilePermission operation returned by the service.
+     * @throws ValidationException
+     *         You signing certificate could not be validated.
+     * @throws ResourceNotFoundException
+     *         A specified resource could not be found.
+     * @throws AccessDeniedException
+     *         You do not have sufficient access to perform this action.
+     * @throws ServiceLimitExceededException
+     *         The client is making a request that exceeds service limits.
+     * @throws ConflictException
+     *         The resource encountered a conflicting state.
+     * @throws TooManyRequestsException
+     *         The allowed number of job-signing requests has been exceeded.</p>
+     *         <p>
+     *         This error supersedes the error <code>ThrottlingException</code>.
+     * @throws InternalServiceErrorException
+     *         An internal error occurred.
+     * @sample AWSsigner.AddProfilePermission
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/signer-2017-08-25/AddProfilePermission" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public AddProfilePermissionResult addProfilePermission(AddProfilePermissionRequest request) {
+        request = beforeClientExecution(request);
+        return executeAddProfilePermission(request);
+    }
+
+    @SdkInternalApi
+    final AddProfilePermissionResult executeAddProfilePermission(AddProfilePermissionRequest addProfilePermissionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(addProfilePermissionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<AddProfilePermissionRequest> request = null;
+        Response<AddProfilePermissionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new AddProfilePermissionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(addProfilePermissionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "signer");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddProfilePermission");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<AddProfilePermissionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new AddProfilePermissionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Changes the state of an <code>ACTIVE</code> signing profile to <code>CANCELED</code>. A canceled profile is still
      * viewable with the <code>ListSigningProfiles</code> operation, but it cannot perform new signing jobs, and is
      * deleted two years after cancelation.
@@ -162,8 +267,10 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
      *         A specified resource could not be found.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
-     * @throws ThrottlingException
-     *         The signing job has been throttled.
+     * @throws TooManyRequestsException
+     *         The allowed number of job-signing requests has been exceeded.</p>
+     *         <p>
+     *         This error supersedes the error <code>ThrottlingException</code>.
      * @throws InternalServiceErrorException
      *         An internal error occurred.
      * @sample AWSsigner.CancelSigningProfile
@@ -191,6 +298,8 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
                 request = new CancelSigningProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(cancelSigningProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "signer");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelSigningProfile");
@@ -224,6 +333,10 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
      *         A specified resource could not be found.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
+     * @throws TooManyRequestsException
+     *         The allowed number of job-signing requests has been exceeded.</p>
+     *         <p>
+     *         This error supersedes the error <code>ThrottlingException</code>.
      * @throws InternalServiceErrorException
      *         An internal error occurred.
      * @sample AWSsigner.DescribeSigningJob
@@ -251,6 +364,8 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
                 request = new DescribeSigningJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeSigningJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "signer");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeSigningJob");
@@ -274,6 +389,80 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
 
     /**
      * <p>
+     * Retrieves the revocation status of one or more of the signing profile, signing job, and signing certificate.
+     * </p>
+     * 
+     * @param getRevocationStatusRequest
+     * @return Result of the GetRevocationStatus operation returned by the service.
+     * @throws ValidationException
+     *         You signing certificate could not be validated.
+     * @throws AccessDeniedException
+     *         You do not have sufficient access to perform this action.
+     * @throws TooManyRequestsException
+     *         The allowed number of job-signing requests has been exceeded.</p>
+     *         <p>
+     *         This error supersedes the error <code>ThrottlingException</code>.
+     * @throws InternalServiceErrorException
+     *         An internal error occurred.
+     * @sample AWSsigner.GetRevocationStatus
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/signer-2017-08-25/GetRevocationStatus" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetRevocationStatusResult getRevocationStatus(GetRevocationStatusRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetRevocationStatus(request);
+    }
+
+    @SdkInternalApi
+    final GetRevocationStatusResult executeGetRevocationStatus(GetRevocationStatusRequest getRevocationStatusRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getRevocationStatusRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetRevocationStatusRequest> request = null;
+        Response<GetRevocationStatusResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetRevocationStatusRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRevocationStatusRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "signer");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRevocationStatus");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            URI endpointTraitHost = null;
+            if (!clientConfiguration.isDisableHostPrefixInjection()) {
+
+                String hostPrefix = "verification.";
+                String resolvedHostPrefix = String.format("verification.");
+
+                endpointTraitHost = UriResourcePathUtils.updateUriHost(endpoint, resolvedHostPrefix);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetRevocationStatusResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetRevocationStatusResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext, null, endpointTraitHost);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Returns information on a specific signing platform.
      * </p>
      * 
@@ -283,6 +472,10 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
      *         A specified resource could not be found.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
+     * @throws TooManyRequestsException
+     *         The allowed number of job-signing requests has been exceeded.</p>
+     *         <p>
+     *         This error supersedes the error <code>ThrottlingException</code>.
      * @throws InternalServiceErrorException
      *         An internal error occurred.
      * @sample AWSsigner.GetSigningPlatform
@@ -310,6 +503,8 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
                 request = new GetSigningPlatformRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getSigningPlatformRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "signer");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSigningPlatform");
@@ -342,8 +537,10 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
      *         A specified resource could not be found.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
-     * @throws ThrottlingException
-     *         The signing job has been throttled.
+     * @throws TooManyRequestsException
+     *         The allowed number of job-signing requests has been exceeded.</p>
+     *         <p>
+     *         This error supersedes the error <code>ThrottlingException</code>.
      * @throws InternalServiceErrorException
      *         An internal error occurred.
      * @sample AWSsigner.GetSigningProfile
@@ -371,6 +568,8 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
                 request = new GetSigningProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getSigningProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "signer");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSigningProfile");
@@ -394,11 +593,79 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
 
     /**
      * <p>
+     * Lists the cross-account permissions associated with a signing profile.
+     * </p>
+     * 
+     * @param listProfilePermissionsRequest
+     * @return Result of the ListProfilePermissions operation returned by the service.
+     * @throws ValidationException
+     *         You signing certificate could not be validated.
+     * @throws ResourceNotFoundException
+     *         A specified resource could not be found.
+     * @throws AccessDeniedException
+     *         You do not have sufficient access to perform this action.
+     * @throws TooManyRequestsException
+     *         The allowed number of job-signing requests has been exceeded.</p>
+     *         <p>
+     *         This error supersedes the error <code>ThrottlingException</code>.
+     * @throws InternalServiceErrorException
+     *         An internal error occurred.
+     * @sample AWSsigner.ListProfilePermissions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/signer-2017-08-25/ListProfilePermissions" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListProfilePermissionsResult listProfilePermissions(ListProfilePermissionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListProfilePermissions(request);
+    }
+
+    @SdkInternalApi
+    final ListProfilePermissionsResult executeListProfilePermissions(ListProfilePermissionsRequest listProfilePermissionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listProfilePermissionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListProfilePermissionsRequest> request = null;
+        Response<ListProfilePermissionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListProfilePermissionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listProfilePermissionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "signer");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListProfilePermissions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListProfilePermissionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListProfilePermissionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Lists all your signing jobs. You can use the <code>maxResults</code> parameter to limit the number of signing
      * jobs that are returned in the response. If additional jobs remain to be listed, AWS Signer returns a
      * <code>nextToken</code> value. Use this value in subsequent calls to <code>ListSigningJobs</code> to fetch the
      * remaining values. You can continue calling <code>ListSigningJobs</code> with your <code>maxResults</code>
-     * parameter and with new values that AWS Signer returns in the <code>nextToken</code> parameter until all of your
+     * parameter and with new values that Signer returns in the <code>nextToken</code> parameter until all of your
      * signing jobs have been returned.
      * </p>
      * 
@@ -408,8 +675,10 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
      *         You signing certificate could not be validated.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
-     * @throws ThrottlingException
-     *         The signing job has been throttled.
+     * @throws TooManyRequestsException
+     *         The allowed number of job-signing requests has been exceeded.</p>
+     *         <p>
+     *         This error supersedes the error <code>ThrottlingException</code>.
      * @throws InternalServiceErrorException
      *         An internal error occurred.
      * @sample AWSsigner.ListSigningJobs
@@ -437,6 +706,8 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
                 request = new ListSigningJobsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listSigningJobsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "signer");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListSigningJobs");
@@ -461,10 +732,10 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
     /**
      * <p>
      * Lists all signing platforms available in AWS Signer that match the request parameters. If additional jobs remain
-     * to be listed, AWS Signer returns a <code>nextToken</code> value. Use this value in subsequent calls to
+     * to be listed, Signer returns a <code>nextToken</code> value. Use this value in subsequent calls to
      * <code>ListSigningJobs</code> to fetch the remaining values. You can continue calling <code>ListSigningJobs</code>
-     * with your <code>maxResults</code> parameter and with new values that AWS Signer returns in the
-     * <code>nextToken</code> parameter until all of your signing jobs have been returned.
+     * with your <code>maxResults</code> parameter and with new values that Signer returns in the <code>nextToken</code>
+     * parameter until all of your signing jobs have been returned.
      * </p>
      * 
      * @param listSigningPlatformsRequest
@@ -473,8 +744,10 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
      *         You signing certificate could not be validated.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
-     * @throws ThrottlingException
-     *         The signing job has been throttled.
+     * @throws TooManyRequestsException
+     *         The allowed number of job-signing requests has been exceeded.</p>
+     *         <p>
+     *         This error supersedes the error <code>ThrottlingException</code>.
      * @throws InternalServiceErrorException
      *         An internal error occurred.
      * @sample AWSsigner.ListSigningPlatforms
@@ -502,6 +775,8 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
                 request = new ListSigningPlatformsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listSigningPlatformsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "signer");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListSigningPlatforms");
@@ -529,16 +804,18 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
      * status unless the <code>includeCanceled</code> request field is set to <code>true</code>. If additional jobs
      * remain to be listed, AWS Signer returns a <code>nextToken</code> value. Use this value in subsequent calls to
      * <code>ListSigningJobs</code> to fetch the remaining values. You can continue calling <code>ListSigningJobs</code>
-     * with your <code>maxResults</code> parameter and with new values that AWS Signer returns in the
-     * <code>nextToken</code> parameter until all of your signing jobs have been returned.
+     * with your <code>maxResults</code> parameter and with new values that Signer returns in the <code>nextToken</code>
+     * parameter until all of your signing jobs have been returned.
      * </p>
      * 
      * @param listSigningProfilesRequest
      * @return Result of the ListSigningProfiles operation returned by the service.
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
-     * @throws ThrottlingException
-     *         The signing job has been throttled.
+     * @throws TooManyRequestsException
+     *         The allowed number of job-signing requests has been exceeded.</p>
+     *         <p>
+     *         This error supersedes the error <code>ThrottlingException</code>.
      * @throws InternalServiceErrorException
      *         An internal error occurred.
      * @sample AWSsigner.ListSigningProfiles
@@ -566,6 +843,8 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
                 request = new ListSigningProfilesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listSigningProfilesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "signer");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListSigningProfiles");
@@ -589,10 +868,74 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
 
     /**
      * <p>
-     * Creates a signing profile. A signing profile is an AWS Signer template that can be used to carry out a
-     * pre-defined signing job. For more information, see <a
-     * href="http://docs.aws.amazon.com/signer/latest/developerguide/gs-profile.html"
-     * >http://docs.aws.amazon.com/signer/latest/developerguide/gs-profile.html</a>
+     * Returns a list of the tags associated with a signing profile resource.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws InternalServiceErrorException
+     *         An internal error occurred.
+     * @throws BadRequestException
+     *         The request contains invalid parameters for the ARN or tags. This exception also occurs when you call a
+     *         tagging API on a cancelled signing profile.
+     * @throws NotFoundException
+     *         The signing profile was not found.
+     * @throws TooManyRequestsException
+     *         The allowed number of job-signing requests has been exceeded.</p>
+     *         <p>
+     *         This error supersedes the error <code>ThrottlingException</code>.
+     * @sample AWSsigner.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/signer-2017-08-25/ListTagsForResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeListTagsForResource(request);
+    }
+
+    @SdkInternalApi
+    final ListTagsForResourceResult executeListTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listTagsForResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListTagsForResourceRequest> request = null;
+        Response<ListTagsForResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "signer");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListTagsForResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListTagsForResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a signing profile. A signing profile is a code-signing template that can be used to carry out a
+     * pre-defined signing job.
      * </p>
      * 
      * @param putSigningProfileRequest
@@ -603,8 +946,10 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
      *         You do not have sufficient access to perform this action.
      * @throws ValidationException
      *         You signing certificate could not be validated.
-     * @throws ThrottlingException
-     *         The signing job has been throttled.
+     * @throws TooManyRequestsException
+     *         The allowed number of job-signing requests has been exceeded.</p>
+     *         <p>
+     *         This error supersedes the error <code>ThrottlingException</code>.
      * @throws InternalServiceErrorException
      *         An internal error occurred.
      * @sample AWSsigner.PutSigningProfile
@@ -632,6 +977,8 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
                 request = new PutSigningProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putSigningProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "signer");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutSigningProfile");
@@ -655,6 +1002,279 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
 
     /**
      * <p>
+     * Removes cross-account permissions from a signing profile.
+     * </p>
+     * 
+     * @param removeProfilePermissionRequest
+     * @return Result of the RemoveProfilePermission operation returned by the service.
+     * @throws ValidationException
+     *         You signing certificate could not be validated.
+     * @throws ResourceNotFoundException
+     *         A specified resource could not be found.
+     * @throws AccessDeniedException
+     *         You do not have sufficient access to perform this action.
+     * @throws ConflictException
+     *         The resource encountered a conflicting state.
+     * @throws TooManyRequestsException
+     *         The allowed number of job-signing requests has been exceeded.</p>
+     *         <p>
+     *         This error supersedes the error <code>ThrottlingException</code>.
+     * @throws InternalServiceErrorException
+     *         An internal error occurred.
+     * @sample AWSsigner.RemoveProfilePermission
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/signer-2017-08-25/RemoveProfilePermission" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public RemoveProfilePermissionResult removeProfilePermission(RemoveProfilePermissionRequest request) {
+        request = beforeClientExecution(request);
+        return executeRemoveProfilePermission(request);
+    }
+
+    @SdkInternalApi
+    final RemoveProfilePermissionResult executeRemoveProfilePermission(RemoveProfilePermissionRequest removeProfilePermissionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(removeProfilePermissionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<RemoveProfilePermissionRequest> request = null;
+        Response<RemoveProfilePermissionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RemoveProfilePermissionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(removeProfilePermissionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "signer");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RemoveProfilePermission");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<RemoveProfilePermissionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new RemoveProfilePermissionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Changes the state of a signing job to REVOKED. This indicates that the signature is no longer valid.
+     * </p>
+     * 
+     * @param revokeSignatureRequest
+     * @return Result of the RevokeSignature operation returned by the service.
+     * @throws ValidationException
+     *         You signing certificate could not be validated.
+     * @throws AccessDeniedException
+     *         You do not have sufficient access to perform this action.
+     * @throws ResourceNotFoundException
+     *         A specified resource could not be found.
+     * @throws TooManyRequestsException
+     *         The allowed number of job-signing requests has been exceeded.</p>
+     *         <p>
+     *         This error supersedes the error <code>ThrottlingException</code>.
+     * @throws InternalServiceErrorException
+     *         An internal error occurred.
+     * @sample AWSsigner.RevokeSignature
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/signer-2017-08-25/RevokeSignature" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public RevokeSignatureResult revokeSignature(RevokeSignatureRequest request) {
+        request = beforeClientExecution(request);
+        return executeRevokeSignature(request);
+    }
+
+    @SdkInternalApi
+    final RevokeSignatureResult executeRevokeSignature(RevokeSignatureRequest revokeSignatureRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(revokeSignatureRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<RevokeSignatureRequest> request = null;
+        Response<RevokeSignatureResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RevokeSignatureRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(revokeSignatureRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "signer");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RevokeSignature");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<RevokeSignatureResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new RevokeSignatureResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Changes the state of a signing profile to REVOKED. This indicates that signatures generated using the signing
+     * profile after an effective start date are no longer valid.
+     * </p>
+     * 
+     * @param revokeSigningProfileRequest
+     * @return Result of the RevokeSigningProfile operation returned by the service.
+     * @throws ValidationException
+     *         You signing certificate could not be validated.
+     * @throws AccessDeniedException
+     *         You do not have sufficient access to perform this action.
+     * @throws ResourceNotFoundException
+     *         A specified resource could not be found.
+     * @throws TooManyRequestsException
+     *         The allowed number of job-signing requests has been exceeded.</p>
+     *         <p>
+     *         This error supersedes the error <code>ThrottlingException</code>.
+     * @throws InternalServiceErrorException
+     *         An internal error occurred.
+     * @sample AWSsigner.RevokeSigningProfile
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/signer-2017-08-25/RevokeSigningProfile" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public RevokeSigningProfileResult revokeSigningProfile(RevokeSigningProfileRequest request) {
+        request = beforeClientExecution(request);
+        return executeRevokeSigningProfile(request);
+    }
+
+    @SdkInternalApi
+    final RevokeSigningProfileResult executeRevokeSigningProfile(RevokeSigningProfileRequest revokeSigningProfileRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(revokeSigningProfileRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<RevokeSigningProfileRequest> request = null;
+        Response<RevokeSigningProfileResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RevokeSigningProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(revokeSigningProfileRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "signer");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RevokeSigningProfile");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<RevokeSigningProfileResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new RevokeSigningProfileResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Signs a binary payload and returns a signature envelope.
+     * </p>
+     * 
+     * @param signPayloadRequest
+     * @return Result of the SignPayload operation returned by the service.
+     * @throws ValidationException
+     *         You signing certificate could not be validated.
+     * @throws ResourceNotFoundException
+     *         A specified resource could not be found.
+     * @throws AccessDeniedException
+     *         You do not have sufficient access to perform this action.
+     * @throws TooManyRequestsException
+     *         The allowed number of job-signing requests has been exceeded.</p>
+     *         <p>
+     *         This error supersedes the error <code>ThrottlingException</code>.
+     * @throws InternalServiceErrorException
+     *         An internal error occurred.
+     * @sample AWSsigner.SignPayload
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/signer-2017-08-25/SignPayload" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public SignPayloadResult signPayload(SignPayloadRequest request) {
+        request = beforeClientExecution(request);
+        return executeSignPayload(request);
+    }
+
+    @SdkInternalApi
+    final SignPayloadResult executeSignPayload(SignPayloadRequest signPayloadRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(signPayloadRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<SignPayloadRequest> request = null;
+        Response<SignPayloadResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new SignPayloadRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(signPayloadRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "signer");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SignPayload");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<SignPayloadResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new SignPayloadResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Initiates a signing job to be performed on the code provided. Signing jobs are viewable by the
      * <code>ListSigningJobs</code> operation for two years after they are performed. Note the following requirements:
      * </p>
@@ -662,7 +1282,7 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
      * <li>
      * <p>
      * You must create an Amazon S3 source bucket. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html">Create a Bucket</a> in the <i>Amazon
+     * href="http://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html">Creating a Bucket</a> in the <i>Amazon
      * S3 Getting Started Guide</i>.
      * </p>
      * </li>
@@ -684,7 +1304,13 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
      * </li>
      * <li>
      * <p>
-     * You must also specify a request token that identifies your request to AWS Signer.
+     * You must ensure the S3 buckets are from the same Region as the signing profile. Cross-Region signing isn't
+     * supported.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You must also specify a request token that identifies your request to Signer.
      * </p>
      * </li>
      * </ul>
@@ -694,7 +1320,7 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
      * </p>
      * <p>
      * For a Java example that shows how to use this action, see <a
-     * href="http://docs.aws.amazon.com/acm/latest/userguide/">http://docs.aws.amazon.com/acm/latest/userguide/</a>
+     * href="https://docs.aws.amazon.com/signer/latest/developerguide/api-startsigningjob.html">StartSigningJob</a>.
      * </p>
      * 
      * @param startSigningJobRequest
@@ -706,7 +1332,14 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
      * @throws AccessDeniedException
      *         You do not have sufficient access to perform this action.
      * @throws ThrottlingException
-     *         The signing job has been throttled.
+     *         The request was denied due to request throttling.</p>
+     *         <p>
+     *         Instead of this error, <code>TooManyRequestsException</code> should be used.
+     * @throws TooManyRequestsException
+     *         The allowed number of job-signing requests has been exceeded.
+     *         </p>
+     *         <p>
+     *         This error supersedes the error <code>ThrottlingException</code>.
      * @throws InternalServiceErrorException
      *         An internal error occurred.
      * @sample AWSsigner.StartSigningJob
@@ -734,6 +1367,8 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
                 request = new StartSigningJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startSigningJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "signer");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartSigningJob");
@@ -745,6 +1380,140 @@ public class AWSsignerClient extends AmazonWebServiceClient implements AWSsigner
 
             HttpResponseHandler<AmazonWebServiceResponse<StartSigningJobResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new StartSigningJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Adds one or more tags to a signing profile. Tags are labels that you can use to identify and organize your AWS
+     * resources. Each tag consists of a key and an optional value. To specify the signing profile, use its Amazon
+     * Resource Name (ARN). To specify the tag, use a key-value pair.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws InternalServiceErrorException
+     *         An internal error occurred.
+     * @throws BadRequestException
+     *         The request contains invalid parameters for the ARN or tags. This exception also occurs when you call a
+     *         tagging API on a cancelled signing profile.
+     * @throws NotFoundException
+     *         The signing profile was not found.
+     * @throws TooManyRequestsException
+     *         The allowed number of job-signing requests has been exceeded.</p>
+     *         <p>
+     *         This error supersedes the error <code>ThrottlingException</code>.
+     * @sample AWSsigner.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/signer-2017-08-25/TagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeTagResource(request);
+    }
+
+    @SdkInternalApi
+    final TagResourceResult executeTagResource(TagResourceRequest tagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(tagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TagResourceRequest> request = null;
+        Response<TagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "signer");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<TagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new TagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Removes one or more tags from a signing profile. To remove the tags, specify a list of tag keys.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws InternalServiceErrorException
+     *         An internal error occurred.
+     * @throws BadRequestException
+     *         The request contains invalid parameters for the ARN or tags. This exception also occurs when you call a
+     *         tagging API on a cancelled signing profile.
+     * @throws NotFoundException
+     *         The signing profile was not found.
+     * @throws TooManyRequestsException
+     *         The allowed number of job-signing requests has been exceeded.</p>
+     *         <p>
+     *         This error supersedes the error <code>ThrottlingException</code>.
+     * @sample AWSsigner.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/signer-2017-08-25/UntagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeUntagResource(request);
+    }
+
+    @SdkInternalApi
+    final UntagResourceResult executeUntagResource(UntagResourceRequest untagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(untagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UntagResourceRequest> request = null;
+        Response<UntagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "signer");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UntagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UntagResourceResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();

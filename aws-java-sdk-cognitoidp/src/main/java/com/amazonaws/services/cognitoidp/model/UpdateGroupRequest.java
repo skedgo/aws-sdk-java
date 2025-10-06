@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,14 +45,16 @@ public class UpdateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
     private String description;
     /**
      * <p>
-     * The new role ARN for the group. This is used for setting the <code>cognito:roles</code> and
-     * <code>cognito:preferred_role</code> claims in the token.
+     * The new role Amazon Resource Name (ARN) for the group. This is used for setting the <code>cognito:roles</code>
+     * and <code>cognito:preferred_role</code> claims in the token.
      * </p>
      */
     private String roleArn;
     /**
      * <p>
-     * The new precedence value for the group. For more information about this parameter, see .
+     * The new precedence value for the group. For more information about this parameter, see <a
+     * href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateGroup.html"
+     * >CreateGroup</a>.
      * </p>
      */
     private Integer precedence;
@@ -179,13 +181,13 @@ public class UpdateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The new role ARN for the group. This is used for setting the <code>cognito:roles</code> and
-     * <code>cognito:preferred_role</code> claims in the token.
+     * The new role Amazon Resource Name (ARN) for the group. This is used for setting the <code>cognito:roles</code>
+     * and <code>cognito:preferred_role</code> claims in the token.
      * </p>
      * 
      * @param roleArn
-     *        The new role ARN for the group. This is used for setting the <code>cognito:roles</code> and
-     *        <code>cognito:preferred_role</code> claims in the token.
+     *        The new role Amazon Resource Name (ARN) for the group. This is used for setting the
+     *        <code>cognito:roles</code> and <code>cognito:preferred_role</code> claims in the token.
      */
 
     public void setRoleArn(String roleArn) {
@@ -194,12 +196,12 @@ public class UpdateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The new role ARN for the group. This is used for setting the <code>cognito:roles</code> and
-     * <code>cognito:preferred_role</code> claims in the token.
+     * The new role Amazon Resource Name (ARN) for the group. This is used for setting the <code>cognito:roles</code>
+     * and <code>cognito:preferred_role</code> claims in the token.
      * </p>
      * 
-     * @return The new role ARN for the group. This is used for setting the <code>cognito:roles</code> and
-     *         <code>cognito:preferred_role</code> claims in the token.
+     * @return The new role Amazon Resource Name (ARN) for the group. This is used for setting the
+     *         <code>cognito:roles</code> and <code>cognito:preferred_role</code> claims in the token.
      */
 
     public String getRoleArn() {
@@ -208,13 +210,13 @@ public class UpdateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The new role ARN for the group. This is used for setting the <code>cognito:roles</code> and
-     * <code>cognito:preferred_role</code> claims in the token.
+     * The new role Amazon Resource Name (ARN) for the group. This is used for setting the <code>cognito:roles</code>
+     * and <code>cognito:preferred_role</code> claims in the token.
      * </p>
      * 
      * @param roleArn
-     *        The new role ARN for the group. This is used for setting the <code>cognito:roles</code> and
-     *        <code>cognito:preferred_role</code> claims in the token.
+     *        The new role Amazon Resource Name (ARN) for the group. This is used for setting the
+     *        <code>cognito:roles</code> and <code>cognito:preferred_role</code> claims in the token.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -225,11 +227,15 @@ public class UpdateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The new precedence value for the group. For more information about this parameter, see .
+     * The new precedence value for the group. For more information about this parameter, see <a
+     * href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateGroup.html"
+     * >CreateGroup</a>.
      * </p>
      * 
      * @param precedence
-     *        The new precedence value for the group. For more information about this parameter, see .
+     *        The new precedence value for the group. For more information about this parameter, see <a
+     *        href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateGroup.html"
+     *        >CreateGroup</a>.
      */
 
     public void setPrecedence(Integer precedence) {
@@ -238,10 +244,14 @@ public class UpdateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The new precedence value for the group. For more information about this parameter, see .
+     * The new precedence value for the group. For more information about this parameter, see <a
+     * href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateGroup.html"
+     * >CreateGroup</a>.
      * </p>
      * 
-     * @return The new precedence value for the group. For more information about this parameter, see .
+     * @return The new precedence value for the group. For more information about this parameter, see <a
+     *         href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateGroup.html"
+     *         >CreateGroup</a>.
      */
 
     public Integer getPrecedence() {
@@ -250,11 +260,15 @@ public class UpdateGroupRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The new precedence value for the group. For more information about this parameter, see .
+     * The new precedence value for the group. For more information about this parameter, see <a
+     * href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateGroup.html"
+     * >CreateGroup</a>.
      * </p>
      * 
      * @param precedence
-     *        The new precedence value for the group. For more information about this parameter, see .
+     *        The new precedence value for the group. For more information about this parameter, see <a
+     *        href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateGroup.html"
+     *        >CreateGroup</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

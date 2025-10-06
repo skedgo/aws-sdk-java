@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -49,12 +49,12 @@ import com.amazonaws.AmazonWebServiceRequest;
  * </li>
  * <li>
  * <p>
- * <a>ActivateGatewayInput$TapeDriveType</a>
+ * <a>ActivateGatewayInput$MediumChangerType</a>
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>ActivateGatewayInput$MediumChangerType</a>
+ * <a>ActivateGatewayInput$TapeDriveType</a>
  * </p>
  * </li>
  * </ul>
@@ -74,8 +74,9 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * <code>ActivateGateway</code> API call determine the actual configuration of your gateway.
      * </p>
      * <p>
-     * For more information, see https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html in
-     * the Storage Gateway User Guide.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html">Getting activation
+     * key</a> in the <i>Storage Gateway User Guide</i>.
      * </p>
      */
     private String activationKey;
@@ -87,24 +88,24 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
     private String gatewayName;
     /**
      * <p>
-     * A value that indicates the time zone you want to set for the gateway. The time zone is of the format "GMT-hr:mm"
-     * or "GMT+hr:mm". For example, GMT-4:00 indicates the time is 4 hours behind GMT. GMT+2:00 indicates the time is 2
-     * hours ahead of GMT. The time zone is used, for example, for scheduling snapshots and your gateway's maintenance
-     * schedule.
+     * A value that indicates the time zone you want to set for the gateway. The time zone is of the format "GMT",
+     * "GMT-hr:mm", or "GMT+hr:mm". For example, GMT indicates Greenwich Mean Time without any offset. GMT-4:00
+     * indicates the time is 4 hours behind GMT. GMT+2:00 indicates the time is 2 hours ahead of GMT. The time zone is
+     * used, for example, for scheduling snapshots and your gateway's maintenance schedule.
      * </p>
      */
     private String gatewayTimezone;
     /**
      * <p>
-     * A value that indicates the region where you want to store your data. The gateway region specified must be the
-     * same region as the region in your <code>Host</code> header in the request. For more information about available
-     * regions and endpoints for AWS Storage Gateway, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region">Regions and Endpoints</a> in the
-     * <i>Amazon Web Services Glossary</i>.
+     * A value that indicates the Amazon Web Services Region where you want to store your data. The gateway Amazon Web
+     * Services Region specified must be the same Amazon Web Services Region as the Amazon Web Services Region in your
+     * <code>Host</code> header in the request. For more information about available Amazon Web Services Regions and
+     * endpoints for Storage Gateway, see <a href="https://docs.aws.amazon.com/general/latest/gr/sg.html"> Storage
+     * Gateway endpoints and quotas</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * <p>
-     * Valid Values: See <a href="https://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region">AWS Storage
-     * Gateway Regions and Endpoints</a> in the AWS General Reference.
+     * Valid Values: See <a href="https://docs.aws.amazon.com/general/latest/gr/sg.html"> Storage Gateway endpoints and
+     * quotas</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      */
     private String gatewayRegion;
@@ -114,7 +115,8 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * the gateway and cannot be changed after activation. The default value is <code>CACHED</code>.
      * </p>
      * <p>
-     * Valid Values: "STORED", "CACHED", "VTL", "FILE_S3"
+     * Valid Values: <code>STORED</code> | <code>CACHED</code> | <code>VTL</code> | <code>FILE_S3</code> |
+     * <code>FILE_FSX_SMB</code>
      * </p>
      */
     private String gatewayType;
@@ -123,7 +125,7 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * The value that indicates the type of tape drive to use for tape gateway. This field is optional.
      * </p>
      * <p>
-     * Valid Values: "IBM-ULT3580-TD5"
+     * Valid Values: <code>IBM-ULT3580-TD5</code>
      * </p>
      */
     private String tapeDriveType;
@@ -132,19 +134,19 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * The value that indicates the type of medium changer to use for tape gateway. This field is optional.
      * </p>
      * <p>
-     * Valid Values: "STK-L700", "AWS-Gateway-VTL"
+     * Valid Values: <code>STK-L700</code> | <code>AWS-Gateway-VTL</code> | <code>IBM-03584L32-0402</code>
      * </p>
      */
     private String mediumChangerType;
     /**
      * <p>
-     * A list of up to 50 tags that can be assigned to the gateway. Each tag is a key-value pair.
+     * A list of up to 50 tags that you can assign to the gateway. Each tag is a key-value pair.
      * </p>
      * <note>
      * <p>
-     * Valid characters for key and value are letters, spaces, and numbers representable in UTF-8 format, and the
-     * following special characters: + - = . _ : / @. The maximum length of a tag's key is 128 characters, and the
-     * maximum length for a tag's value is 256.
+     * Valid characters for key and value are letters, spaces, and numbers that can be represented in UTF-8 format, and
+     * the following special characters: + - = . _ : / @. The maximum length of a tag's key is 128 characters, and the
+     * maximum length for a tag's value is 256 characters.
      * </p>
      * </note>
      */
@@ -159,8 +161,9 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * <code>ActivateGateway</code> API call determine the actual configuration of your gateway.
      * </p>
      * <p>
-     * For more information, see https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html in
-     * the Storage Gateway User Guide.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html">Getting activation
+     * key</a> in the <i>Storage Gateway User Guide</i>.
      * </p>
      * 
      * @param activationKey
@@ -168,11 +171,11 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      *        redirects enabled to the gateway IP address (port 80). The redirect URL returned in the response provides
      *        you the activation key for your gateway in the query string parameter <code>activationKey</code>. It may
      *        also include other activation-related parameters, however, these are merely defaults -- the arguments you
-     *        pass to the <code>ActivateGateway</code> API call determine the actual configuration of your gateway. </p>
+     *        pass to the <code>ActivateGateway</code> API call determine the actual configuration of your gateway.</p>
      *        <p>
-     *        For more information, see
-     *        https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html in the Storage Gateway
-     *        User Guide.
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html">Getting
+     *        activation key</a> in the <i>Storage Gateway User Guide</i>.
      */
 
     public void setActivationKey(String activationKey) {
@@ -188,20 +191,20 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * <code>ActivateGateway</code> API call determine the actual configuration of your gateway.
      * </p>
      * <p>
-     * For more information, see https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html in
-     * the Storage Gateway User Guide.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html">Getting activation
+     * key</a> in the <i>Storage Gateway User Guide</i>.
      * </p>
      * 
      * @return Your gateway activation key. You can obtain the activation key by sending an HTTP GET request with
      *         redirects enabled to the gateway IP address (port 80). The redirect URL returned in the response provides
      *         you the activation key for your gateway in the query string parameter <code>activationKey</code>. It may
      *         also include other activation-related parameters, however, these are merely defaults -- the arguments you
-     *         pass to the <code>ActivateGateway</code> API call determine the actual configuration of your gateway.
-     *         </p>
+     *         pass to the <code>ActivateGateway</code> API call determine the actual configuration of your gateway.</p>
      *         <p>
-     *         For more information, see
-     *         https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html in the Storage
-     *         Gateway User Guide.
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html">Getting
+     *         activation key</a> in the <i>Storage Gateway User Guide</i>.
      */
 
     public String getActivationKey() {
@@ -217,8 +220,9 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * <code>ActivateGateway</code> API call determine the actual configuration of your gateway.
      * </p>
      * <p>
-     * For more information, see https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html in
-     * the Storage Gateway User Guide.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html">Getting activation
+     * key</a> in the <i>Storage Gateway User Guide</i>.
      * </p>
      * 
      * @param activationKey
@@ -226,11 +230,11 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      *        redirects enabled to the gateway IP address (port 80). The redirect URL returned in the response provides
      *        you the activation key for your gateway in the query string parameter <code>activationKey</code>. It may
      *        also include other activation-related parameters, however, these are merely defaults -- the arguments you
-     *        pass to the <code>ActivateGateway</code> API call determine the actual configuration of your gateway. </p>
+     *        pass to the <code>ActivateGateway</code> API call determine the actual configuration of your gateway.</p>
      *        <p>
-     *        For more information, see
-     *        https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html in the Storage Gateway
-     *        User Guide.
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html">Getting
+     *        activation key</a> in the <i>Storage Gateway User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -281,17 +285,17 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates the time zone you want to set for the gateway. The time zone is of the format "GMT-hr:mm"
-     * or "GMT+hr:mm". For example, GMT-4:00 indicates the time is 4 hours behind GMT. GMT+2:00 indicates the time is 2
-     * hours ahead of GMT. The time zone is used, for example, for scheduling snapshots and your gateway's maintenance
-     * schedule.
+     * A value that indicates the time zone you want to set for the gateway. The time zone is of the format "GMT",
+     * "GMT-hr:mm", or "GMT+hr:mm". For example, GMT indicates Greenwich Mean Time without any offset. GMT-4:00
+     * indicates the time is 4 hours behind GMT. GMT+2:00 indicates the time is 2 hours ahead of GMT. The time zone is
+     * used, for example, for scheduling snapshots and your gateway's maintenance schedule.
      * </p>
      * 
      * @param gatewayTimezone
      *        A value that indicates the time zone you want to set for the gateway. The time zone is of the format
-     *        "GMT-hr:mm" or "GMT+hr:mm". For example, GMT-4:00 indicates the time is 4 hours behind GMT. GMT+2:00
-     *        indicates the time is 2 hours ahead of GMT. The time zone is used, for example, for scheduling snapshots
-     *        and your gateway's maintenance schedule.
+     *        "GMT", "GMT-hr:mm", or "GMT+hr:mm". For example, GMT indicates Greenwich Mean Time without any offset.
+     *        GMT-4:00 indicates the time is 4 hours behind GMT. GMT+2:00 indicates the time is 2 hours ahead of GMT.
+     *        The time zone is used, for example, for scheduling snapshots and your gateway's maintenance schedule.
      */
 
     public void setGatewayTimezone(String gatewayTimezone) {
@@ -300,16 +304,16 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates the time zone you want to set for the gateway. The time zone is of the format "GMT-hr:mm"
-     * or "GMT+hr:mm". For example, GMT-4:00 indicates the time is 4 hours behind GMT. GMT+2:00 indicates the time is 2
-     * hours ahead of GMT. The time zone is used, for example, for scheduling snapshots and your gateway's maintenance
-     * schedule.
+     * A value that indicates the time zone you want to set for the gateway. The time zone is of the format "GMT",
+     * "GMT-hr:mm", or "GMT+hr:mm". For example, GMT indicates Greenwich Mean Time without any offset. GMT-4:00
+     * indicates the time is 4 hours behind GMT. GMT+2:00 indicates the time is 2 hours ahead of GMT. The time zone is
+     * used, for example, for scheduling snapshots and your gateway's maintenance schedule.
      * </p>
      * 
      * @return A value that indicates the time zone you want to set for the gateway. The time zone is of the format
-     *         "GMT-hr:mm" or "GMT+hr:mm". For example, GMT-4:00 indicates the time is 4 hours behind GMT. GMT+2:00
-     *         indicates the time is 2 hours ahead of GMT. The time zone is used, for example, for scheduling snapshots
-     *         and your gateway's maintenance schedule.
+     *         "GMT", "GMT-hr:mm", or "GMT+hr:mm". For example, GMT indicates Greenwich Mean Time without any offset.
+     *         GMT-4:00 indicates the time is 4 hours behind GMT. GMT+2:00 indicates the time is 2 hours ahead of GMT.
+     *         The time zone is used, for example, for scheduling snapshots and your gateway's maintenance schedule.
      */
 
     public String getGatewayTimezone() {
@@ -318,17 +322,17 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates the time zone you want to set for the gateway. The time zone is of the format "GMT-hr:mm"
-     * or "GMT+hr:mm". For example, GMT-4:00 indicates the time is 4 hours behind GMT. GMT+2:00 indicates the time is 2
-     * hours ahead of GMT. The time zone is used, for example, for scheduling snapshots and your gateway's maintenance
-     * schedule.
+     * A value that indicates the time zone you want to set for the gateway. The time zone is of the format "GMT",
+     * "GMT-hr:mm", or "GMT+hr:mm". For example, GMT indicates Greenwich Mean Time without any offset. GMT-4:00
+     * indicates the time is 4 hours behind GMT. GMT+2:00 indicates the time is 2 hours ahead of GMT. The time zone is
+     * used, for example, for scheduling snapshots and your gateway's maintenance schedule.
      * </p>
      * 
      * @param gatewayTimezone
      *        A value that indicates the time zone you want to set for the gateway. The time zone is of the format
-     *        "GMT-hr:mm" or "GMT+hr:mm". For example, GMT-4:00 indicates the time is 4 hours behind GMT. GMT+2:00
-     *        indicates the time is 2 hours ahead of GMT. The time zone is used, for example, for scheduling snapshots
-     *        and your gateway's maintenance schedule.
+     *        "GMT", "GMT-hr:mm", or "GMT+hr:mm". For example, GMT indicates Greenwich Mean Time without any offset.
+     *        GMT-4:00 indicates the time is 4 hours behind GMT. GMT+2:00 indicates the time is 2 hours ahead of GMT.
+     *        The time zone is used, for example, for scheduling snapshots and your gateway's maintenance schedule.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -339,26 +343,27 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates the region where you want to store your data. The gateway region specified must be the
-     * same region as the region in your <code>Host</code> header in the request. For more information about available
-     * regions and endpoints for AWS Storage Gateway, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region">Regions and Endpoints</a> in the
-     * <i>Amazon Web Services Glossary</i>.
+     * A value that indicates the Amazon Web Services Region where you want to store your data. The gateway Amazon Web
+     * Services Region specified must be the same Amazon Web Services Region as the Amazon Web Services Region in your
+     * <code>Host</code> header in the request. For more information about available Amazon Web Services Regions and
+     * endpoints for Storage Gateway, see <a href="https://docs.aws.amazon.com/general/latest/gr/sg.html"> Storage
+     * Gateway endpoints and quotas</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * <p>
-     * Valid Values: See <a href="https://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region">AWS Storage
-     * Gateway Regions and Endpoints</a> in the AWS General Reference.
+     * Valid Values: See <a href="https://docs.aws.amazon.com/general/latest/gr/sg.html"> Storage Gateway endpoints and
+     * quotas</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @param gatewayRegion
-     *        A value that indicates the region where you want to store your data. The gateway region specified must be
-     *        the same region as the region in your <code>Host</code> header in the request. For more information about
-     *        available regions and endpoints for AWS Storage Gateway, see <a
-     *        href="https://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region">Regions and Endpoints</a> in the
-     *        <i>Amazon Web Services Glossary</i>.</p>
+     *        A value that indicates the Amazon Web Services Region where you want to store your data. The gateway
+     *        Amazon Web Services Region specified must be the same Amazon Web Services Region as the Amazon Web
+     *        Services Region in your <code>Host</code> header in the request. For more information about available
+     *        Amazon Web Services Regions and endpoints for Storage Gateway, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/sg.html"> Storage Gateway endpoints and quotas</a> in
+     *        the <i>Amazon Web Services General Reference</i>.</p>
      *        <p>
-     *        Valid Values: See <a href="https://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region">AWS Storage
-     *        Gateway Regions and Endpoints</a> in the AWS General Reference.
+     *        Valid Values: See <a href="https://docs.aws.amazon.com/general/latest/gr/sg.html"> Storage Gateway
+     *        endpoints and quotas</a> in the <i>Amazon Web Services General Reference</i>.
      */
 
     public void setGatewayRegion(String gatewayRegion) {
@@ -367,25 +372,26 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates the region where you want to store your data. The gateway region specified must be the
-     * same region as the region in your <code>Host</code> header in the request. For more information about available
-     * regions and endpoints for AWS Storage Gateway, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region">Regions and Endpoints</a> in the
-     * <i>Amazon Web Services Glossary</i>.
+     * A value that indicates the Amazon Web Services Region where you want to store your data. The gateway Amazon Web
+     * Services Region specified must be the same Amazon Web Services Region as the Amazon Web Services Region in your
+     * <code>Host</code> header in the request. For more information about available Amazon Web Services Regions and
+     * endpoints for Storage Gateway, see <a href="https://docs.aws.amazon.com/general/latest/gr/sg.html"> Storage
+     * Gateway endpoints and quotas</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * <p>
-     * Valid Values: See <a href="https://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region">AWS Storage
-     * Gateway Regions and Endpoints</a> in the AWS General Reference.
+     * Valid Values: See <a href="https://docs.aws.amazon.com/general/latest/gr/sg.html"> Storage Gateway endpoints and
+     * quotas</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
-     * @return A value that indicates the region where you want to store your data. The gateway region specified must be
-     *         the same region as the region in your <code>Host</code> header in the request. For more information about
-     *         available regions and endpoints for AWS Storage Gateway, see <a
-     *         href="https://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region">Regions and Endpoints</a> in
-     *         the <i>Amazon Web Services Glossary</i>.</p>
+     * @return A value that indicates the Amazon Web Services Region where you want to store your data. The gateway
+     *         Amazon Web Services Region specified must be the same Amazon Web Services Region as the Amazon Web
+     *         Services Region in your <code>Host</code> header in the request. For more information about available
+     *         Amazon Web Services Regions and endpoints for Storage Gateway, see <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/sg.html"> Storage Gateway endpoints and quotas</a> in
+     *         the <i>Amazon Web Services General Reference</i>.</p>
      *         <p>
-     *         Valid Values: See <a href="https://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region">AWS
-     *         Storage Gateway Regions and Endpoints</a> in the AWS General Reference.
+     *         Valid Values: See <a href="https://docs.aws.amazon.com/general/latest/gr/sg.html"> Storage Gateway
+     *         endpoints and quotas</a> in the <i>Amazon Web Services General Reference</i>.
      */
 
     public String getGatewayRegion() {
@@ -394,26 +400,27 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates the region where you want to store your data. The gateway region specified must be the
-     * same region as the region in your <code>Host</code> header in the request. For more information about available
-     * regions and endpoints for AWS Storage Gateway, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region">Regions and Endpoints</a> in the
-     * <i>Amazon Web Services Glossary</i>.
+     * A value that indicates the Amazon Web Services Region where you want to store your data. The gateway Amazon Web
+     * Services Region specified must be the same Amazon Web Services Region as the Amazon Web Services Region in your
+     * <code>Host</code> header in the request. For more information about available Amazon Web Services Regions and
+     * endpoints for Storage Gateway, see <a href="https://docs.aws.amazon.com/general/latest/gr/sg.html"> Storage
+     * Gateway endpoints and quotas</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * <p>
-     * Valid Values: See <a href="https://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region">AWS Storage
-     * Gateway Regions and Endpoints</a> in the AWS General Reference.
+     * Valid Values: See <a href="https://docs.aws.amazon.com/general/latest/gr/sg.html"> Storage Gateway endpoints and
+     * quotas</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @param gatewayRegion
-     *        A value that indicates the region where you want to store your data. The gateway region specified must be
-     *        the same region as the region in your <code>Host</code> header in the request. For more information about
-     *        available regions and endpoints for AWS Storage Gateway, see <a
-     *        href="https://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region">Regions and Endpoints</a> in the
-     *        <i>Amazon Web Services Glossary</i>.</p>
+     *        A value that indicates the Amazon Web Services Region where you want to store your data. The gateway
+     *        Amazon Web Services Region specified must be the same Amazon Web Services Region as the Amazon Web
+     *        Services Region in your <code>Host</code> header in the request. For more information about available
+     *        Amazon Web Services Regions and endpoints for Storage Gateway, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/sg.html"> Storage Gateway endpoints and quotas</a> in
+     *        the <i>Amazon Web Services General Reference</i>.</p>
      *        <p>
-     *        Valid Values: See <a href="https://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region">AWS Storage
-     *        Gateway Regions and Endpoints</a> in the AWS General Reference.
+     *        Valid Values: See <a href="https://docs.aws.amazon.com/general/latest/gr/sg.html"> Storage Gateway
+     *        endpoints and quotas</a> in the <i>Amazon Web Services General Reference</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -428,15 +435,17 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * the gateway and cannot be changed after activation. The default value is <code>CACHED</code>.
      * </p>
      * <p>
-     * Valid Values: "STORED", "CACHED", "VTL", "FILE_S3"
+     * Valid Values: <code>STORED</code> | <code>CACHED</code> | <code>VTL</code> | <code>FILE_S3</code> |
+     * <code>FILE_FSX_SMB</code>
      * </p>
      * 
      * @param gatewayType
      *        A value that defines the type of gateway to activate. The type specified is critical to all later
-     *        functions of the gateway and cannot be changed after activation. The default value is <code>CACHED</code>.
-     *        </p>
+     *        functions of the gateway and cannot be changed after activation. The default value is <code>CACHED</code>
+     *        .</p>
      *        <p>
-     *        Valid Values: "STORED", "CACHED", "VTL", "FILE_S3"
+     *        Valid Values: <code>STORED</code> | <code>CACHED</code> | <code>VTL</code> | <code>FILE_S3</code> |
+     *        <code>FILE_FSX_SMB</code>
      */
 
     public void setGatewayType(String gatewayType) {
@@ -449,14 +458,16 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * the gateway and cannot be changed after activation. The default value is <code>CACHED</code>.
      * </p>
      * <p>
-     * Valid Values: "STORED", "CACHED", "VTL", "FILE_S3"
+     * Valid Values: <code>STORED</code> | <code>CACHED</code> | <code>VTL</code> | <code>FILE_S3</code> |
+     * <code>FILE_FSX_SMB</code>
      * </p>
      * 
      * @return A value that defines the type of gateway to activate. The type specified is critical to all later
      *         functions of the gateway and cannot be changed after activation. The default value is <code>CACHED</code>
-     *         . </p>
+     *         .</p>
      *         <p>
-     *         Valid Values: "STORED", "CACHED", "VTL", "FILE_S3"
+     *         Valid Values: <code>STORED</code> | <code>CACHED</code> | <code>VTL</code> | <code>FILE_S3</code> |
+     *         <code>FILE_FSX_SMB</code>
      */
 
     public String getGatewayType() {
@@ -469,15 +480,17 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * the gateway and cannot be changed after activation. The default value is <code>CACHED</code>.
      * </p>
      * <p>
-     * Valid Values: "STORED", "CACHED", "VTL", "FILE_S3"
+     * Valid Values: <code>STORED</code> | <code>CACHED</code> | <code>VTL</code> | <code>FILE_S3</code> |
+     * <code>FILE_FSX_SMB</code>
      * </p>
      * 
      * @param gatewayType
      *        A value that defines the type of gateway to activate. The type specified is critical to all later
-     *        functions of the gateway and cannot be changed after activation. The default value is <code>CACHED</code>.
-     *        </p>
+     *        functions of the gateway and cannot be changed after activation. The default value is <code>CACHED</code>
+     *        .</p>
      *        <p>
-     *        Valid Values: "STORED", "CACHED", "VTL", "FILE_S3"
+     *        Valid Values: <code>STORED</code> | <code>CACHED</code> | <code>VTL</code> | <code>FILE_S3</code> |
+     *        <code>FILE_FSX_SMB</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -491,13 +504,13 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * The value that indicates the type of tape drive to use for tape gateway. This field is optional.
      * </p>
      * <p>
-     * Valid Values: "IBM-ULT3580-TD5"
+     * Valid Values: <code>IBM-ULT3580-TD5</code>
      * </p>
      * 
      * @param tapeDriveType
      *        The value that indicates the type of tape drive to use for tape gateway. This field is optional.</p>
      *        <p>
-     *        Valid Values: "IBM-ULT3580-TD5"
+     *        Valid Values: <code>IBM-ULT3580-TD5</code>
      */
 
     public void setTapeDriveType(String tapeDriveType) {
@@ -509,12 +522,12 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * The value that indicates the type of tape drive to use for tape gateway. This field is optional.
      * </p>
      * <p>
-     * Valid Values: "IBM-ULT3580-TD5"
+     * Valid Values: <code>IBM-ULT3580-TD5</code>
      * </p>
      * 
      * @return The value that indicates the type of tape drive to use for tape gateway. This field is optional.</p>
      *         <p>
-     *         Valid Values: "IBM-ULT3580-TD5"
+     *         Valid Values: <code>IBM-ULT3580-TD5</code>
      */
 
     public String getTapeDriveType() {
@@ -526,13 +539,13 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * The value that indicates the type of tape drive to use for tape gateway. This field is optional.
      * </p>
      * <p>
-     * Valid Values: "IBM-ULT3580-TD5"
+     * Valid Values: <code>IBM-ULT3580-TD5</code>
      * </p>
      * 
      * @param tapeDriveType
      *        The value that indicates the type of tape drive to use for tape gateway. This field is optional.</p>
      *        <p>
-     *        Valid Values: "IBM-ULT3580-TD5"
+     *        Valid Values: <code>IBM-ULT3580-TD5</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -546,13 +559,13 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * The value that indicates the type of medium changer to use for tape gateway. This field is optional.
      * </p>
      * <p>
-     * Valid Values: "STK-L700", "AWS-Gateway-VTL"
+     * Valid Values: <code>STK-L700</code> | <code>AWS-Gateway-VTL</code> | <code>IBM-03584L32-0402</code>
      * </p>
      * 
      * @param mediumChangerType
      *        The value that indicates the type of medium changer to use for tape gateway. This field is optional.</p>
      *        <p>
-     *        Valid Values: "STK-L700", "AWS-Gateway-VTL"
+     *        Valid Values: <code>STK-L700</code> | <code>AWS-Gateway-VTL</code> | <code>IBM-03584L32-0402</code>
      */
 
     public void setMediumChangerType(String mediumChangerType) {
@@ -564,12 +577,12 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * The value that indicates the type of medium changer to use for tape gateway. This field is optional.
      * </p>
      * <p>
-     * Valid Values: "STK-L700", "AWS-Gateway-VTL"
+     * Valid Values: <code>STK-L700</code> | <code>AWS-Gateway-VTL</code> | <code>IBM-03584L32-0402</code>
      * </p>
      * 
      * @return The value that indicates the type of medium changer to use for tape gateway. This field is optional.</p>
      *         <p>
-     *         Valid Values: "STK-L700", "AWS-Gateway-VTL"
+     *         Valid Values: <code>STK-L700</code> | <code>AWS-Gateway-VTL</code> | <code>IBM-03584L32-0402</code>
      */
 
     public String getMediumChangerType() {
@@ -581,13 +594,13 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * The value that indicates the type of medium changer to use for tape gateway. This field is optional.
      * </p>
      * <p>
-     * Valid Values: "STK-L700", "AWS-Gateway-VTL"
+     * Valid Values: <code>STK-L700</code> | <code>AWS-Gateway-VTL</code> | <code>IBM-03584L32-0402</code>
      * </p>
      * 
      * @param mediumChangerType
      *        The value that indicates the type of medium changer to use for tape gateway. This field is optional.</p>
      *        <p>
-     *        Valid Values: "STK-L700", "AWS-Gateway-VTL"
+     *        Valid Values: <code>STK-L700</code> | <code>AWS-Gateway-VTL</code> | <code>IBM-03584L32-0402</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -598,21 +611,21 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A list of up to 50 tags that can be assigned to the gateway. Each tag is a key-value pair.
+     * A list of up to 50 tags that you can assign to the gateway. Each tag is a key-value pair.
      * </p>
      * <note>
      * <p>
-     * Valid characters for key and value are letters, spaces, and numbers representable in UTF-8 format, and the
-     * following special characters: + - = . _ : / @. The maximum length of a tag's key is 128 characters, and the
-     * maximum length for a tag's value is 256.
+     * Valid characters for key and value are letters, spaces, and numbers that can be represented in UTF-8 format, and
+     * the following special characters: + - = . _ : / @. The maximum length of a tag's key is 128 characters, and the
+     * maximum length for a tag's value is 256 characters.
      * </p>
      * </note>
      * 
-     * @return A list of up to 50 tags that can be assigned to the gateway. Each tag is a key-value pair.</p> <note>
+     * @return A list of up to 50 tags that you can assign to the gateway. Each tag is a key-value pair.</p> <note>
      *         <p>
-     *         Valid characters for key and value are letters, spaces, and numbers representable in UTF-8 format, and
-     *         the following special characters: + - = . _ : / @. The maximum length of a tag's key is 128 characters,
-     *         and the maximum length for a tag's value is 256.
+     *         Valid characters for key and value are letters, spaces, and numbers that can be represented in UTF-8
+     *         format, and the following special characters: + - = . _ : / @. The maximum length of a tag's key is 128
+     *         characters, and the maximum length for a tag's value is 256 characters.
      *         </p>
      */
 
@@ -625,22 +638,22 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A list of up to 50 tags that can be assigned to the gateway. Each tag is a key-value pair.
+     * A list of up to 50 tags that you can assign to the gateway. Each tag is a key-value pair.
      * </p>
      * <note>
      * <p>
-     * Valid characters for key and value are letters, spaces, and numbers representable in UTF-8 format, and the
-     * following special characters: + - = . _ : / @. The maximum length of a tag's key is 128 characters, and the
-     * maximum length for a tag's value is 256.
+     * Valid characters for key and value are letters, spaces, and numbers that can be represented in UTF-8 format, and
+     * the following special characters: + - = . _ : / @. The maximum length of a tag's key is 128 characters, and the
+     * maximum length for a tag's value is 256 characters.
      * </p>
      * </note>
      * 
      * @param tags
-     *        A list of up to 50 tags that can be assigned to the gateway. Each tag is a key-value pair.</p> <note>
+     *        A list of up to 50 tags that you can assign to the gateway. Each tag is a key-value pair.</p> <note>
      *        <p>
-     *        Valid characters for key and value are letters, spaces, and numbers representable in UTF-8 format, and the
-     *        following special characters: + - = . _ : / @. The maximum length of a tag's key is 128 characters, and
-     *        the maximum length for a tag's value is 256.
+     *        Valid characters for key and value are letters, spaces, and numbers that can be represented in UTF-8
+     *        format, and the following special characters: + - = . _ : / @. The maximum length of a tag's key is 128
+     *        characters, and the maximum length for a tag's value is 256 characters.
      *        </p>
      */
 
@@ -655,13 +668,13 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A list of up to 50 tags that can be assigned to the gateway. Each tag is a key-value pair.
+     * A list of up to 50 tags that you can assign to the gateway. Each tag is a key-value pair.
      * </p>
      * <note>
      * <p>
-     * Valid characters for key and value are letters, spaces, and numbers representable in UTF-8 format, and the
-     * following special characters: + - = . _ : / @. The maximum length of a tag's key is 128 characters, and the
-     * maximum length for a tag's value is 256.
+     * Valid characters for key and value are letters, spaces, and numbers that can be represented in UTF-8 format, and
+     * the following special characters: + - = . _ : / @. The maximum length of a tag's key is 128 characters, and the
+     * maximum length for a tag's value is 256 characters.
      * </p>
      * </note>
      * <p>
@@ -671,11 +684,11 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * </p>
      * 
      * @param tags
-     *        A list of up to 50 tags that can be assigned to the gateway. Each tag is a key-value pair.</p> <note>
+     *        A list of up to 50 tags that you can assign to the gateway. Each tag is a key-value pair.</p> <note>
      *        <p>
-     *        Valid characters for key and value are letters, spaces, and numbers representable in UTF-8 format, and the
-     *        following special characters: + - = . _ : / @. The maximum length of a tag's key is 128 characters, and
-     *        the maximum length for a tag's value is 256.
+     *        Valid characters for key and value are letters, spaces, and numbers that can be represented in UTF-8
+     *        format, and the following special characters: + - = . _ : / @. The maximum length of a tag's key is 128
+     *        characters, and the maximum length for a tag's value is 256 characters.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -692,22 +705,22 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A list of up to 50 tags that can be assigned to the gateway. Each tag is a key-value pair.
+     * A list of up to 50 tags that you can assign to the gateway. Each tag is a key-value pair.
      * </p>
      * <note>
      * <p>
-     * Valid characters for key and value are letters, spaces, and numbers representable in UTF-8 format, and the
-     * following special characters: + - = . _ : / @. The maximum length of a tag's key is 128 characters, and the
-     * maximum length for a tag's value is 256.
+     * Valid characters for key and value are letters, spaces, and numbers that can be represented in UTF-8 format, and
+     * the following special characters: + - = . _ : / @. The maximum length of a tag's key is 128 characters, and the
+     * maximum length for a tag's value is 256 characters.
      * </p>
      * </note>
      * 
      * @param tags
-     *        A list of up to 50 tags that can be assigned to the gateway. Each tag is a key-value pair.</p> <note>
+     *        A list of up to 50 tags that you can assign to the gateway. Each tag is a key-value pair.</p> <note>
      *        <p>
-     *        Valid characters for key and value are letters, spaces, and numbers representable in UTF-8 format, and the
-     *        following special characters: + - = . _ : / @. The maximum length of a tag's key is 128 characters, and
-     *        the maximum length for a tag's value is 256.
+     *        Valid characters for key and value are letters, spaces, and numbers that can be represented in UTF-8
+     *        format, and the following special characters: + - = . _ : / @. The maximum length of a tag's key is 128
+     *        characters, and the maximum length for a tag's value is 256 characters.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */

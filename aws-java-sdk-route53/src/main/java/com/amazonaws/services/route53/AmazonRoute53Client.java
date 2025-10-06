@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,6 +45,7 @@ import com.amazonaws.services.route53.waiters.AmazonRoute53Waiters;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.route53.model.*;
+
 import com.amazonaws.services.route53.model.transform.*;
 
 /**
@@ -52,8 +53,43 @@ import com.amazonaws.services.route53.model.transform.*;
  * service call completes.
  * <p>
  * <p>
- * Amazon Route 53 is a highly available and scalable Domain Name System (DNS) web service.
+ * Amazon Route 53 is a highly available and scalable Domain Name System (DNS) web service.
  * </p>
+ * <p>
+ * You can use Route 53 to:
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * Register domain names.
+ * </p>
+ * <p>
+ * For more information, see <a
+ * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/welcome-domain-registration.html">How domain
+ * registration works</a>.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Route internet traffic to the resources for your domain
+ * </p>
+ * <p>
+ * For more information, see <a
+ * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/welcome-dns-service.html">How internet traffic is
+ * routed to your website or web application</a>.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Check the health of your resources.
+ * </p>
+ * <p>
+ * For more information, see <a
+ * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/welcome-health-checks.html">How Route 53 checks the
+ * health of your resources</a>.
+ * </p>
+ * </li>
+ * </ul>
  */
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -75,9 +111,18 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
     private final AdvancedConfig advancedConfig;
 
     /**
-     * List of exception unmarshallers for all modeled exceptions
+     * Map of exception unmarshallers for all modeled exceptions
+     */
+    private final Map<String, Unmarshaller<AmazonServiceException, Node>> exceptionUnmarshallersMap = new HashMap<String, Unmarshaller<AmazonServiceException, Node>>();
+
+    /**
+     * List of exception unmarshallers for all modeled exceptions Even though this exceptionUnmarshallers is not used in
+     * Clients, this is not removed since this was directly used by Client extended classes. Using this list can cause
+     * performance impact.
      */
     protected final List<Unmarshaller<AmazonServiceException, Node>> exceptionUnmarshallers = new ArrayList<Unmarshaller<AmazonServiceException, Node>>();
+
+    protected Unmarshaller<AmazonServiceException, Node> defaultUnmarshaller;
 
     /**
      * Constructs a new client to invoke service methods on Route 53. A credentials provider chain will be used that
@@ -268,57 +313,284 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
     }
 
     private void init() {
+        if (exceptionUnmarshallersMap.get("ConcurrentModification") == null) {
+            exceptionUnmarshallersMap.put("ConcurrentModification", new ConcurrentModificationExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new ConcurrentModificationExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidKeySigningKeyName") == null) {
+            exceptionUnmarshallersMap.put("InvalidKeySigningKeyName", new InvalidKeySigningKeyNameExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidKeySigningKeyNameExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyTrafficPolicyVersionsForCurrentPolicy") == null) {
+            exceptionUnmarshallersMap.put("TooManyTrafficPolicyVersionsForCurrentPolicy",
+                    new TooManyTrafficPolicyVersionsForCurrentPolicyExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TooManyTrafficPolicyVersionsForCurrentPolicyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchCidrLocationException") == null) {
+            exceptionUnmarshallersMap.put("NoSuchCidrLocationException", new NoSuchCidrLocationExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new NoSuchCidrLocationExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("IncompatibleVersion") == null) {
+            exceptionUnmarshallersMap.put("IncompatibleVersion", new IncompatibleVersionExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new IncompatibleVersionExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchTrafficPolicy") == null) {
+            exceptionUnmarshallersMap.put("NoSuchTrafficPolicy", new NoSuchTrafficPolicyExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NoSuchTrafficPolicyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyTrafficPolicies") == null) {
+            exceptionUnmarshallersMap.put("TooManyTrafficPolicies", new TooManyTrafficPoliciesExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TooManyTrafficPoliciesExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("DelegationSetAlreadyCreated") == null) {
+            exceptionUnmarshallersMap.put("DelegationSetAlreadyCreated", new DelegationSetAlreadyCreatedExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new DelegationSetAlreadyCreatedExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchHostedZone") == null) {
+            exceptionUnmarshallersMap.put("NoSuchHostedZone", new NoSuchHostedZoneExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NoSuchHostedZoneExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("QueryLoggingConfigAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("QueryLoggingConfigAlreadyExists", new QueryLoggingConfigAlreadyExistsExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new QueryLoggingConfigAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("VPCAssociationNotFound") == null) {
+            exceptionUnmarshallersMap.put("VPCAssociationNotFound", new VPCAssociationNotFoundExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new VPCAssociationNotFoundExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("HostedZoneNotPrivate") == null) {
+            exceptionUnmarshallersMap.put("HostedZoneNotPrivate", new HostedZoneNotPrivateExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new HostedZoneNotPrivateExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("PublicZoneVPCAssociation") == null) {
+            exceptionUnmarshallersMap.put("PublicZoneVPCAssociation", new PublicZoneVPCAssociationExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new PublicZoneVPCAssociationExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchGeoLocation") == null) {
+            exceptionUnmarshallersMap.put("NoSuchGeoLocation", new NoSuchGeoLocationExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NoSuchGeoLocationExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("KeySigningKeyInUse") == null) {
+            exceptionUnmarshallersMap.put("KeySigningKeyInUse", new KeySigningKeyInUseExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new KeySigningKeyInUseExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("KeySigningKeyAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("KeySigningKeyAlreadyExists", new KeySigningKeyAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new KeySigningKeyAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("KeySigningKeyWithActiveStatusNotFound") == null) {
+            exceptionUnmarshallersMap.put("KeySigningKeyWithActiveStatusNotFound", new KeySigningKeyWithActiveStatusNotFoundExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new KeySigningKeyWithActiveStatusNotFoundExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CidrCollectionInUseException") == null) {
+            exceptionUnmarshallersMap.put("CidrCollectionInUseException", new CidrCollectionInUseExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new CidrCollectionInUseExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InsufficientCloudWatchLogsResourcePolicy") == null) {
+            exceptionUnmarshallersMap.put("InsufficientCloudWatchLogsResourcePolicy", new InsufficientCloudWatchLogsResourcePolicyExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InsufficientCloudWatchLogsResourcePolicyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("KeySigningKeyInParentDSRecord") == null) {
+            exceptionUnmarshallersMap.put("KeySigningKeyInParentDSRecord", new KeySigningKeyInParentDSRecordExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new KeySigningKeyInParentDSRecordExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("HealthCheckVersionMismatch") == null) {
+            exceptionUnmarshallersMap.put("HealthCheckVersionMismatch", new HealthCheckVersionMismatchExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new HealthCheckVersionMismatchExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("HealthCheckAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("HealthCheckAlreadyExists", new HealthCheckAlreadyExistsExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new HealthCheckAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchDelegationSet") == null) {
+            exceptionUnmarshallersMap.put("NoSuchDelegationSet", new NoSuchDelegationSetExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NoSuchDelegationSetExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NotAuthorizedException") == null) {
+            exceptionUnmarshallersMap.put("NotAuthorizedException", new NotAuthorizedExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NotAuthorizedExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CidrBlockInUseException") == null) {
+            exceptionUnmarshallersMap.put("CidrBlockInUseException", new CidrBlockInUseExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new CidrBlockInUseExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyTrafficPolicyInstances") == null) {
+            exceptionUnmarshallersMap.put("TooManyTrafficPolicyInstances", new TooManyTrafficPolicyInstancesExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TooManyTrafficPolicyInstancesExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CidrCollectionVersionMismatchException") == null) {
+            exceptionUnmarshallersMap.put("CidrCollectionVersionMismatchException", new CidrCollectionVersionMismatchExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new CidrCollectionVersionMismatchExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidPaginationToken") == null) {
+            exceptionUnmarshallersMap.put("InvalidPaginationToken", new InvalidPaginationTokenExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidPaginationTokenExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("DelegationSetNotAvailable") == null) {
+            exceptionUnmarshallersMap.put("DelegationSetNotAvailable", new DelegationSetNotAvailableExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new DelegationSetNotAvailableExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchTrafficPolicyInstance") == null) {
+            exceptionUnmarshallersMap.put("NoSuchTrafficPolicyInstance", new NoSuchTrafficPolicyInstanceExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NoSuchTrafficPolicyInstanceExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("HostedZoneNotEmpty") == null) {
+            exceptionUnmarshallersMap.put("HostedZoneNotEmpty", new HostedZoneNotEmptyExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new HostedZoneNotEmptyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("VPCAssociationAuthorizationNotFound") == null) {
+            exceptionUnmarshallersMap.put("VPCAssociationAuthorizationNotFound", new VPCAssociationAuthorizationNotFoundExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new VPCAssociationAuthorizationNotFoundExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidDomainName") == null) {
+            exceptionUnmarshallersMap.put("InvalidDomainName", new InvalidDomainNameExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidDomainNameExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyHealthChecks") == null) {
+            exceptionUnmarshallersMap.put("TooManyHealthChecks", new TooManyHealthChecksExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TooManyHealthChecksExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("DNSSECNotFound") == null) {
+            exceptionUnmarshallersMap.put("DNSSECNotFound", new DNSSECNotFoundExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new DNSSECNotFoundExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("HealthCheckInUse") == null) {
+            exceptionUnmarshallersMap.put("HealthCheckInUse", new HealthCheckInUseExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new HealthCheckInUseExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidChangeBatch") == null) {
+            exceptionUnmarshallersMap.put("InvalidChangeBatch", new InvalidChangeBatchExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidChangeBatchExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("HostedZoneAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("HostedZoneAlreadyExists", new HostedZoneAlreadyExistsExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new HostedZoneAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidTrafficPolicyDocument") == null) {
+            exceptionUnmarshallersMap.put("InvalidTrafficPolicyDocument", new InvalidTrafficPolicyDocumentExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidTrafficPolicyDocumentExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ThrottlingException") == null) {
+            exceptionUnmarshallersMap.put("ThrottlingException", new ThrottlingExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new ThrottlingExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TrafficPolicyAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("TrafficPolicyAlreadyExists", new TrafficPolicyAlreadyExistsExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TrafficPolicyAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("DelegationSetAlreadyReusable") == null) {
+            exceptionUnmarshallersMap.put("DelegationSetAlreadyReusable", new DelegationSetAlreadyReusableExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new DelegationSetAlreadyReusableExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidVPCId") == null) {
+            exceptionUnmarshallersMap.put("InvalidVPCId", new InvalidVPCIdExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidVPCIdExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TrafficPolicyInUse") == null) {
+            exceptionUnmarshallersMap.put("TrafficPolicyInUse", new TrafficPolicyInUseExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TrafficPolicyInUseExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyHostedZones") == null) {
+            exceptionUnmarshallersMap.put("TooManyHostedZones", new TooManyHostedZonesExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TooManyHostedZonesExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("HostedZonePartiallyDelegated") == null) {
+            exceptionUnmarshallersMap.put("HostedZonePartiallyDelegated", new HostedZonePartiallyDelegatedExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new HostedZonePartiallyDelegatedExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TrafficPolicyInstanceAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("TrafficPolicyInstanceAlreadyExists", new TrafficPolicyInstanceAlreadyExistsExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TrafficPolicyInstanceAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchChange") == null) {
+            exceptionUnmarshallersMap.put("NoSuchChange", new NoSuchChangeExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NoSuchChangeExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidKeySigningKeyStatus") == null) {
+            exceptionUnmarshallersMap.put("InvalidKeySigningKeyStatus", new InvalidKeySigningKeyStatusExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidKeySigningKeyStatusExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidKMSArn") == null) {
+            exceptionUnmarshallersMap.put("InvalidKMSArn", new InvalidKMSArnExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidKMSArnExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ConflictingTypes") == null) {
+            exceptionUnmarshallersMap.put("ConflictingTypes", new ConflictingTypesExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new ConflictingTypesExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("LastVPCAssociation") == null) {
+            exceptionUnmarshallersMap.put("LastVPCAssociation", new LastVPCAssociationExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new LastVPCAssociationExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("DelegationSetNotReusable") == null) {
+            exceptionUnmarshallersMap.put("DelegationSetNotReusable", new DelegationSetNotReusableExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new DelegationSetNotReusableExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("PriorRequestNotComplete") == null) {
+            exceptionUnmarshallersMap.put("PriorRequestNotComplete", new PriorRequestNotCompleteExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new PriorRequestNotCompleteExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("HostedZoneNotFound") == null) {
+            exceptionUnmarshallersMap.put("HostedZoneNotFound", new HostedZoneNotFoundExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new HostedZoneNotFoundExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidArgument") == null) {
+            exceptionUnmarshallersMap.put("InvalidArgument", new InvalidArgumentExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidArgumentExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchKeySigningKey") == null) {
+            exceptionUnmarshallersMap.put("NoSuchKeySigningKey", new NoSuchKeySigningKeyExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new NoSuchKeySigningKeyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidInput") == null) {
+            exceptionUnmarshallersMap.put("InvalidInput", new InvalidInputExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidInputExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ConflictingDomainExists") == null) {
+            exceptionUnmarshallersMap.put("ConflictingDomainExists", new ConflictingDomainExistsExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new ConflictingDomainExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CidrCollectionAlreadyExistsException") == null) {
+            exceptionUnmarshallersMap.put("CidrCollectionAlreadyExistsException", new CidrCollectionAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new CidrCollectionAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidSigningStatus") == null) {
+            exceptionUnmarshallersMap.put("InvalidSigningStatus", new InvalidSigningStatusExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidSigningStatusExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("DelegationSetInUse") == null) {
+            exceptionUnmarshallersMap.put("DelegationSetInUse", new DelegationSetInUseExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new DelegationSetInUseExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchQueryLoggingConfig") == null) {
+            exceptionUnmarshallersMap.put("NoSuchQueryLoggingConfig", new NoSuchQueryLoggingConfigExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NoSuchQueryLoggingConfigExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchHealthCheck") == null) {
+            exceptionUnmarshallersMap.put("NoSuchHealthCheck", new NoSuchHealthCheckExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NoSuchHealthCheckExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyVPCAssociationAuthorizations") == null) {
+            exceptionUnmarshallersMap.put("TooManyVPCAssociationAuthorizations", new TooManyVPCAssociationAuthorizationsExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TooManyVPCAssociationAuthorizationsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchCloudWatchLogsLogGroup") == null) {
+            exceptionUnmarshallersMap.put("NoSuchCloudWatchLogsLogGroup", new NoSuchCloudWatchLogsLogGroupExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NoSuchCloudWatchLogsLogGroupExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyKeySigningKeys") == null) {
+            exceptionUnmarshallersMap.put("TooManyKeySigningKeys", new TooManyKeySigningKeysExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyKeySigningKeysExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("LimitsExceeded") == null) {
+            exceptionUnmarshallersMap.put("LimitsExceeded", new LimitsExceededExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new LimitsExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchCidrCollectionException") == null) {
+            exceptionUnmarshallersMap.put("NoSuchCidrCollectionException", new NoSuchCidrCollectionExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new NoSuchCidrCollectionExceptionUnmarshaller());
+        defaultUnmarshaller = new StandardErrorUnmarshaller(com.amazonaws.services.route53.model.AmazonRoute53Exception.class);
         exceptionUnmarshallers.add(new StandardErrorUnmarshaller(com.amazonaws.services.route53.model.AmazonRoute53Exception.class));
 
         setServiceNameIntern(DEFAULT_SIGNING_NAME);
@@ -333,6 +605,77 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
     /**
      * <p>
+     * Activates a key-signing key (KSK) so that it can be used for signing by DNSSEC. This operation changes the KSK
+     * status to <code>ACTIVE</code>.
+     * </p>
+     * 
+     * @param activateKeySigningKeyRequest
+     * @return Result of the ActivateKeySigningKey operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         Another user submitted a request to create, update, or delete the object at the same time that you did.
+     *         Retry the request.
+     * @throws NoSuchKeySigningKeyException
+     *         The specified key-signing key (KSK) doesn't exist.
+     * @throws InvalidKeySigningKeyStatusException
+     *         The key-signing key (KSK) status isn't valid or another KSK has the status <code>INTERNAL_FAILURE</code>.
+     * @throws InvalidSigningStatusException
+     *         Your hosted zone status isn't valid for this operation. In the hosted zone, change the status to enable
+     *         <code>DNSSEC</code> or disable <code>DNSSEC</code>.
+     * @throws InvalidKMSArnException
+     *         The KeyManagementServiceArn that you specified isn't valid to use with DNSSEC signing.
+     * @throws InvalidInputException
+     *         The input is not valid.
+     * @sample AmazonRoute53.ActivateKeySigningKey
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ActivateKeySigningKey" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ActivateKeySigningKeyResult activateKeySigningKey(ActivateKeySigningKeyRequest request) {
+        request = beforeClientExecution(request);
+        return executeActivateKeySigningKey(request);
+    }
+
+    @SdkInternalApi
+    final ActivateKeySigningKeyResult executeActivateKeySigningKey(ActivateKeySigningKeyRequest activateKeySigningKeyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(activateKeySigningKeyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ActivateKeySigningKeyRequest> request = null;
+        Response<ActivateKeySigningKeyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ActivateKeySigningKeyRequestMarshaller().marshall(super.beforeMarshalling(activateKeySigningKeyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ActivateKeySigningKey");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ActivateKeySigningKeyResult> responseHandler = new StaxResponseHandler<ActivateKeySigningKeyResult>(
+                    new ActivateKeySigningKeyResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Associates an Amazon VPC with a private hosted zone.
      * </p>
      * <important>
@@ -342,10 +685,40 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * </p>
      * </important> <note>
      * <p>
-     * If you want to associate a VPC that was created by using one AWS account with a private hosted zone that was
-     * created by using a different account, the AWS account that created the private hosted zone must first submit a
-     * <code>CreateVPCAssociationAuthorization</code> request. Then the account that created the VPC must submit an
-     * <code>AssociateVPCWithHostedZone</code> request.
+     * If you want to associate a VPC that was created by using one Amazon Web Services account with a private hosted
+     * zone that was created by using a different account, the Amazon Web Services account that created the private
+     * hosted zone must first submit a <code>CreateVPCAssociationAuthorization</code> request. Then the account that
+     * created the VPC must submit an <code>AssociateVPCWithHostedZone</code> request.
+     * </p>
+     * </note> <note>
+     * <p>
+     * When granting access, the hosted zone and the Amazon VPC must belong to the same partition. A partition is a
+     * group of Amazon Web Services Regions. Each Amazon Web Services account is scoped to one partition.
+     * </p>
+     * <p>
+     * The following are the supported partitions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>aws</code> - Amazon Web Services Regions
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aws-cn</code> - China Regions
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aws-us-gov</code> - Amazon Web Services GovCloud (US) Region
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Access Management</a> in the
+     * <i>Amazon Web Services General Reference</i>.
      * </p>
      * </note>
      * 
@@ -365,11 +738,11 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      *         You're trying to associate a VPC with a public hosted zone. Amazon Route 53 doesn't support associating a
      *         VPC with a public hosted zone.
      * @throws ConflictingDomainExistsException
-     *         The cause of this error depends on whether you're trying to create a public or a private hosted zone:</p>
+     *         The cause of this error depends on the operation that you're performing:</p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <b>Public hosted zone:</b> Two hosted zones that have the same name or that have a parent/child
+     *         <b>Create a public hosted zone:</b> Two hosted zones that have the same name or that have a parent/child
      *         relationship (example.com and test.example.com) can't have any common name servers. You tried to create a
      *         hosted zone that has the same name as an existing hosted zone or that's the parent or child of an
      *         existing hosted zone, and you specified a delegation set that shares one or more name servers with the
@@ -380,23 +753,25 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      *         </li>
      *         <li>
      *         <p>
-     *         <b>Private hosted zone:</b> You specified an Amazon VPC that you're already using for another hosted
-     *         zone, and the domain that you specified for one of the hosted zones is a subdomain of the domain that you
-     *         specified for the other hosted zone. For example, you can't use the same Amazon VPC for the hosted zones
-     *         for example.com and test.example.com.
+     *         <b>Create a private hosted zone:</b> A hosted zone with the specified name already exists and is already
+     *         associated with the Amazon VPC that you specified.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b>Associate VPCs with a private hosted zone:</b> The VPC that you specified is already associated with
+     *         another hosted zone that has the same name.
      *         </p>
      *         </li>
      * @throws LimitsExceededException
-     *         This operation can't be completed either because the current account has reached the limit on reusable
-     *         delegation sets that it can create or because you've reached the limit on the number of Amazon VPCs that
-     *         you can associate with a private hosted zone. To get the current limit on the number of reusable
-     *         delegation sets, see <a
-     *         href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetAccountLimit.html"
-     *         >GetAccountLimit</a>. To get the current limit on the number of Amazon VPCs that you can associate with a
-     *         private hosted zone, see <a
-     *         href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetHostedZoneLimit.html"
-     *         >GetHostedZoneLimit</a>. To request a higher limit, <a
-     *         href="http://aws.amazon.com/route53-request">create a case</a> with the AWS Support Center.
+     *         This operation can't be completed because the current account has reached the limit on the resource you
+     *         are trying to create. To request a higher limit, <a href="http://aws.amazon.com/route53-request">create a
+     *         case</a> with the Amazon Web Services Support Center.
+     * @throws PriorRequestNotCompleteException
+     *         If Amazon Route 53 can't process a request before the next request arrives, it will reject subsequent
+     *         requests for the same hosted zone and return an <code>HTTP 400 error</code> (<code>Bad request</code>).
+     *         If Route 53 returns this error repeatedly for the same request, we recommend that you wait, in intervals
+     *         of increasing duration, before you try the request again.
      * @sample AmazonRoute53.AssociateVPCWithHostedZone
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/AssociateVPCWithHostedZone"
      *      target="_top">AWS API Documentation</a>
@@ -422,6 +797,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new AssociateVPCWithHostedZoneRequestMarshaller().marshall(super.beforeMarshalling(associateVPCWithHostedZoneRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateVPCWithHostedZone");
@@ -433,6 +810,109 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<AssociateVPCWithHostedZoneResult> responseHandler = new StaxResponseHandler<AssociateVPCWithHostedZoneResult>(
                     new AssociateVPCWithHostedZoneResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates, changes, or deletes CIDR blocks within a collection. Contains authoritative IP information mapping
+     * blocks to one or multiple locations.
+     * </p>
+     * <p>
+     * A change request can update multiple locations in a collection at a time, which is helpful if you want to move
+     * one or more CIDR blocks from one location to another in one transaction, without downtime.
+     * </p>
+     * <p>
+     * <b>Limits</b>
+     * </p>
+     * <p>
+     * The max number of CIDR blocks included in the request is 1000. As a result, big updates require multiple API
+     * calls.
+     * </p>
+     * <p>
+     * <b> PUT and DELETE_IF_EXISTS</b>
+     * </p>
+     * <p>
+     * Use <code>ChangeCidrCollection</code> to perform the following actions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PUT</code>: Create a CIDR block within the specified collection.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code> DELETE_IF_EXISTS</code>: Delete an existing CIDR block from the collection.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param changeCidrCollectionRequest
+     * @return Result of the ChangeCidrCollection operation returned by the service.
+     * @throws NoSuchCidrCollectionException
+     *         The CIDR collection you specified, doesn't exist.
+     * @throws CidrCollectionVersionMismatchException
+     *         The CIDR collection version you provided, doesn't match the one in the <code>ListCidrCollections</code>
+     *         operation.
+     * @throws InvalidInputException
+     *         The input is not valid.
+     * @throws CidrBlockInUseException
+     *         This CIDR block is already in use.
+     * @throws LimitsExceededException
+     *         This operation can't be completed because the current account has reached the limit on the resource you
+     *         are trying to create. To request a higher limit, <a href="http://aws.amazon.com/route53-request">create a
+     *         case</a> with the Amazon Web Services Support Center.
+     * @throws ConcurrentModificationException
+     *         Another user submitted a request to create, update, or delete the object at the same time that you did.
+     *         Retry the request.
+     * @sample AmazonRoute53.ChangeCidrCollection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ChangeCidrCollection" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ChangeCidrCollectionResult changeCidrCollection(ChangeCidrCollectionRequest request) {
+        request = beforeClientExecution(request);
+        return executeChangeCidrCollection(request);
+    }
+
+    @SdkInternalApi
+    final ChangeCidrCollectionResult executeChangeCidrCollection(ChangeCidrCollectionRequest changeCidrCollectionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(changeCidrCollectionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ChangeCidrCollectionRequest> request = null;
+        Response<ChangeCidrCollectionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ChangeCidrCollectionRequestMarshaller().marshall(super.beforeMarshalling(changeCidrCollectionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ChangeCidrCollection");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ChangeCidrCollectionResult> responseHandler = new StaxResponseHandler<ChangeCidrCollectionResult>(
+                    new ChangeCidrCollectionResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -451,29 +931,34 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * 192.0.2.44.
      * </p>
      * <p>
+     * <b>Deleting Resource Record Sets</b>
+     * </p>
+     * <p>
+     * To delete a resource record set, you must specify all the same values that you specified when you created it.
+     * </p>
+     * <p>
      * <b>Change Batches and Transactional Changes</b>
      * </p>
      * <p>
      * The request body must include a document with a <code>ChangeResourceRecordSetsRequest</code> element. The request
      * body contains a list of change items, known as a change batch. Change batches are considered transactional
-     * changes. When using the Amazon Route 53 API to change resource record sets, Route 53 either makes all or none of
-     * the changes in a change batch request. This ensures that Route 53 never partially implements the intended changes
-     * to the resource record sets in a hosted zone.
+     * changes. Route 53 validates the changes in the request and then either makes all or none of the changes in the
+     * change batch request. This ensures that DNS routing isn't adversely affected by partial changes to the resource
+     * record sets in a hosted zone.
      * </p>
      * <p>
-     * For example, a change batch request that deletes the <code>CNAME</code> record for www.example.com and creates an
-     * alias resource record set for www.example.com. Route 53 deletes the first resource record set and creates the
-     * second resource record set in a single operation. If either the <code>DELETE</code> or the <code>CREATE</code>
-     * action fails, then both changes (plus any other changes in the batch) fail, and the original <code>CNAME</code>
-     * record continues to exist.
+     * For example, suppose a change batch request contains two changes: it deletes the <code>CNAME</code> resource
+     * record set for www.example.com and creates an alias resource record set for www.example.com. If validation for
+     * both records succeeds, Route 53 deletes the first resource record set and creates the second resource record set
+     * in a single operation. If validation for either the <code>DELETE</code> or the <code>CREATE</code> action fails,
+     * then the request is canceled, and the original <code>CNAME</code> record continues to exist.
      * </p>
-     * <important>
+     * <note>
      * <p>
-     * Due to the nature of transactional changes, you can't delete the same resource record set more than once in a
-     * single change batch. If you attempt to delete the same change batch more than once, Route 53 returns an
+     * If you try to delete the same resource record set more than once in a single change batch, Route 53 returns an
      * <code>InvalidChangeBatch</code> error.
      * </p>
-     * </important>
+     * </note>
      * <p>
      * <b>Traffic Flow</b>
      * </p>
@@ -483,8 +968,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * as a traffic policy, then associate the traffic policy with one or more domain names (such as example.com) or
      * subdomain names (such as www.example.com), in the same hosted zone or in multiple hosted zones. You can roll back
      * the updates if the new configuration isn't performing as expected. For more information, see <a
-     * href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/traffic-flow.html">Using Traffic Flow to Route DNS
-     * Traffic</a> in the <i>Amazon Route 53 Developer Guide</i>.
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/traffic-flow.html">Using Traffic Flow to Route
+     * DNS Traffic</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * <p>
      * <b>Create, Delete, and Upsert</b>
@@ -505,8 +990,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * </li>
      * <li>
      * <p>
-     * <code>UPSERT</code>: If a resource record set does not already exist, AWS creates it. If a resource set does
-     * exist, Route 53 updates it with the values in the request.
+     * <code>UPSERT</code>: If a resource set doesn't exist, Route 53 creates it. If a resource set exists Route 53
+     * updates it with the values in the request.
      * </p>
      * </li>
      * </ul>
@@ -530,10 +1015,10 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * </p>
      * <p>
      * When you submit a <code>ChangeResourceRecordSets</code> request, Route 53 propagates your changes to all of the
-     * Route 53 authoritative DNS servers. While your changes are propagating, <code>GetChange</code> returns a status
-     * of <code>PENDING</code>. When propagation is complete, <code>GetChange</code> returns a status of
-     * <code>INSYNC</code>. Changes generally propagate to all Route 53 name servers within 60 seconds. For more
-     * information, see <a
+     * Route 53 authoritative DNS servers managing the hosted zone. While your changes are propagating,
+     * <code>GetChange</code> returns a status of <code>PENDING</code>. When propagation is complete,
+     * <code>GetChange</code> returns a status of <code>INSYNC</code>. Changes generally propagate to all Route 53 name
+     * servers managing the hosted zone within 60 seconds. For more information, see <a
      * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a>.
      * </p>
      * <p>
@@ -587,6 +1072,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new ChangeResourceRecordSetsRequestMarshaller().marshall(super.beforeMarshalling(changeResourceRecordSetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ChangeResourceRecordSets");
@@ -598,6 +1085,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<ChangeResourceRecordSetsResult> responseHandler = new StaxResponseHandler<ChangeResourceRecordSetsResult>(
                     new ChangeResourceRecordSetsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -615,7 +1103,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * <p>
      * For information about using tags for cost allocation, see <a
      * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost Allocation
-     * Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     * Tags</a> in the <i>Billing and Cost Management User Guide</i>.
      * </p>
      * 
      * @param changeTagsForResourceRequest
@@ -659,6 +1147,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new ChangeTagsForResourceRequestMarshaller().marshall(super.beforeMarshalling(changeTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ChangeTagsForResource");
@@ -670,6 +1160,74 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<ChangeTagsForResourceResult> responseHandler = new StaxResponseHandler<ChangeTagsForResourceResult>(
                     new ChangeTagsForResourceResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a CIDR collection in the current Amazon Web Services account.
+     * </p>
+     * 
+     * @param createCidrCollectionRequest
+     * @return Result of the CreateCidrCollection operation returned by the service.
+     * @throws LimitsExceededException
+     *         This operation can't be completed because the current account has reached the limit on the resource you
+     *         are trying to create. To request a higher limit, <a href="http://aws.amazon.com/route53-request">create a
+     *         case</a> with the Amazon Web Services Support Center.
+     * @throws InvalidInputException
+     *         The input is not valid.
+     * @throws CidrCollectionAlreadyExistsException
+     *         A CIDR collection with this name and a different caller reference already exists in this account.
+     * @throws ConcurrentModificationException
+     *         Another user submitted a request to create, update, or delete the object at the same time that you did.
+     *         Retry the request.
+     * @sample AmazonRoute53.CreateCidrCollection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/CreateCidrCollection" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreateCidrCollectionResult createCidrCollection(CreateCidrCollectionRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateCidrCollection(request);
+    }
+
+    @SdkInternalApi
+    final CreateCidrCollectionResult executeCreateCidrCollection(CreateCidrCollectionRequest createCidrCollectionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createCidrCollectionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateCidrCollectionRequest> request = null;
+        Response<CreateCidrCollectionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateCidrCollectionRequestMarshaller().marshall(super.beforeMarshalling(createCidrCollectionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCidrCollection");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<CreateCidrCollectionResult> responseHandler = new StaxResponseHandler<CreateCidrCollectionResult>(
+                    new CreateCidrCollectionResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -725,7 +1283,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * Amazon EC2 <code>StatusCheckFailed</code> metric, add an alarm to the metric, and then create a health check that
      * is based on the state of the alarm. For information about creating CloudWatch metrics and alarms by using the
      * CloudWatch console, see the <a
-     * href="http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/WhatIsCloudWatch.html">Amazon CloudWatch
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/WhatIsCloudWatch.html">Amazon CloudWatch
      * User Guide</a>.
      * </p>
      * </li>
@@ -746,11 +1304,12 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      *         For information about how to get the current limit for an account, see <a
      *         href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetAccountLimit.html"
      *         >GetAccountLimit</a>. To request a higher limit, <a href="http://aws.amazon.com/route53-request">create a
-     *         case</a> with the AWS Support Center.
+     *         case</a> with the Amazon Web Services Support Center.
      *         </p>
      *         <p>
-     *         You have reached the maximum number of active health checks for an AWS account. To request a higher
-     *         limit, <a href="http://aws.amazon.com/route53-request">create a case</a> with the AWS Support Center.
+     *         You have reached the maximum number of active health checks for an Amazon Web Services account. To
+     *         request a higher limit, <a href="http://aws.amazon.com/route53-request">create a case</a> with the Amazon
+     *         Web Services Support Center.
      * @throws HealthCheckAlreadyExistsException
      *         The health check you're attempting to create already exists. Amazon Route 53 returns this error when you
      *         submit a request that has the following values:
@@ -795,6 +1354,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new CreateHealthCheckRequestMarshaller().marshall(super.beforeMarshalling(createHealthCheckRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateHealthCheck");
@@ -806,6 +1367,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<CreateHealthCheckResult> responseHandler = new StaxResponseHandler<CreateHealthCheckResult>(
                     new CreateHealthCheckResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -831,7 +1393,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * </important>
      * <p>
      * For more information about charges for hosted zones, see <a href="http://aws.amazon.com/route53/pricing/">Amazon
-     * Route 53 Pricing</a>.
+     * Route 53 Pricing</a>.
      * </p>
      * <p>
      * Note the following:
@@ -844,10 +1406,10 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * </li>
      * <li>
      * <p>
-     * For public hosted zones, Amazon Route 53 automatically creates a default SOA record and four NS records for the
-     * zone. For more information about SOA and NS records, see <a
-     * href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/SOA-NSrecords.html">NS and SOA Records that Route
-     * 53 Creates for a Hosted Zone</a> in the <i>Amazon Route 53 Developer Guide</i>.
+     * For public hosted zones, Route 53 automatically creates a default SOA record and four NS records for the zone.
+     * For more information about SOA and NS records, see <a
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/SOA-NSrecords.html">NS and SOA Records that
+     * Route 53 Creates for a Hosted Zone</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * <p>
      * If you want to use the same name servers for multiple public hosted zones, you can optionally associate a
@@ -856,19 +1418,55 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * </li>
      * <li>
      * <p>
-     * If your domain is registered with a registrar other than Route 53, you must update the name servers with your
+     * If your domain is registered with a registrar other than Route 53, you must update the name servers with your
      * registrar to make Route 53 the DNS service for the domain. For more information, see <a
-     * href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/MigratingDNS.html">Migrating DNS Service for an
-     * Existing Domain to Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/MigratingDNS.html">Migrating DNS Service for an
+     * Existing Domain to Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * </li>
      * </ul>
      * <p>
      * When you submit a <code>CreateHostedZone</code> request, the initial status of the hosted zone is
      * <code>PENDING</code>. For public hosted zones, this means that the NS and SOA records are not yet available on
-     * all Route 53 DNS servers. When the NS and SOA records are available, the status of the zone changes to
+     * all Route 53 DNS servers. When the NS and SOA records are available, the status of the zone changes to
      * <code>INSYNC</code>.
      * </p>
+     * <p>
+     * The <code>CreateHostedZone</code> request requires the caller to have an <code>ec2:DescribeVpcs</code>
+     * permission.
+     * </p>
+     * <note>
+     * <p>
+     * When creating private hosted zones, the Amazon VPC must belong to the same partition where the hosted zone is
+     * created. A partition is a group of Amazon Web Services Regions. Each Amazon Web Services account is scoped to one
+     * partition.
+     * </p>
+     * <p>
+     * The following are the supported partitions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>aws</code> - Amazon Web Services Regions
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aws-cn</code> - China Regions
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aws-us-gov</code> - Amazon Web Services GovCloud (US) Region
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Access Management</a> in the
+     * <i>Amazon Web Services General Reference</i>.
+     * </p>
+     * </note>
      * 
      * @param createHostedZoneRequest
      *        A complex type that contains information about the request to create a public or private hosted zone.
@@ -898,8 +1496,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      *         GetReusableDelegationSetLimit</a>.
      *         </p>
      *         <p>
-     *         To request a higher limit, <a href="http://aws.amazon.com/route53-request">create a case</a> with the AWS
-     *         Support Center.
+     *         To request a higher limit, <a href="http://aws.amazon.com/route53-request">create a case</a> with the
+     *         Amazon Web Services Support Center.
      * @throws InvalidVPCIdException
      *         The VPC ID that you specified either isn't a valid ID or the current account is not authorized to access
      *         this VPC.
@@ -911,12 +1509,12 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      *         Route 53 has reached that limit. If you own the domain name and Route 53 generates this error, contact
      *         Customer Support.
      * @throws ConflictingDomainExistsException
-     *         The cause of this error depends on whether you're trying to create a public or a private hosted zone:
+     *         The cause of this error depends on the operation that you're performing:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <b>Public hosted zone:</b> Two hosted zones that have the same name or that have a parent/child
+     *         <b>Create a public hosted zone:</b> Two hosted zones that have the same name or that have a parent/child
      *         relationship (example.com and test.example.com) can't have any common name servers. You tried to create a
      *         hosted zone that has the same name as an existing hosted zone or that's the parent or child of an
      *         existing hosted zone, and you specified a delegation set that shares one or more name servers with the
@@ -927,10 +1525,14 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      *         </li>
      *         <li>
      *         <p>
-     *         <b>Private hosted zone:</b> You specified an Amazon VPC that you're already using for another hosted
-     *         zone, and the domain that you specified for one of the hosted zones is a subdomain of the domain that you
-     *         specified for the other hosted zone. For example, you can't use the same Amazon VPC for the hosted zones
-     *         for example.com and test.example.com.
+     *         <b>Create a private hosted zone:</b> A hosted zone with the specified name already exists and is already
+     *         associated with the Amazon VPC that you specified.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b>Associate VPCs with a private hosted zone:</b> The VPC that you specified is already associated with
+     *         another hosted zone that has the same name.
      *         </p>
      *         </li>
      * @throws NoSuchDelegationSetException
@@ -962,6 +1564,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new CreateHostedZoneRequestMarshaller().marshall(super.beforeMarshalling(createHostedZoneRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateHostedZone");
@@ -973,6 +1577,86 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<CreateHostedZoneResult> responseHandler = new StaxResponseHandler<CreateHostedZoneResult>(
                     new CreateHostedZoneResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a new key-signing key (KSK) associated with a hosted zone. You can only have two KSKs per hosted zone.
+     * </p>
+     * 
+     * @param createKeySigningKeyRequest
+     * @return Result of the CreateKeySigningKey operation returned by the service.
+     * @throws NoSuchHostedZoneException
+     *         No hosted zone exists with the ID that you specified.
+     * @throws InvalidArgumentException
+     *         Parameter name is not valid.
+     * @throws InvalidInputException
+     *         The input is not valid.
+     * @throws InvalidKMSArnException
+     *         The KeyManagementServiceArn that you specified isn't valid to use with DNSSEC signing.
+     * @throws InvalidKeySigningKeyStatusException
+     *         The key-signing key (KSK) status isn't valid or another KSK has the status <code>INTERNAL_FAILURE</code>.
+     * @throws InvalidSigningStatusException
+     *         Your hosted zone status isn't valid for this operation. In the hosted zone, change the status to enable
+     *         <code>DNSSEC</code> or disable <code>DNSSEC</code>.
+     * @throws InvalidKeySigningKeyNameException
+     *         The key-signing key (KSK) name that you specified isn't a valid name.
+     * @throws KeySigningKeyAlreadyExistsException
+     *         You've already created a key-signing key (KSK) with this name or with the same customer managed key ARN.
+     * @throws TooManyKeySigningKeysException
+     *         You've reached the limit for the number of key-signing keys (KSKs). Remove at least one KSK, and then try
+     *         again.
+     * @throws ConcurrentModificationException
+     *         Another user submitted a request to create, update, or delete the object at the same time that you did.
+     *         Retry the request.
+     * @sample AmazonRoute53.CreateKeySigningKey
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/CreateKeySigningKey" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreateKeySigningKeyResult createKeySigningKey(CreateKeySigningKeyRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateKeySigningKey(request);
+    }
+
+    @SdkInternalApi
+    final CreateKeySigningKeyResult executeCreateKeySigningKey(CreateKeySigningKeyRequest createKeySigningKeyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createKeySigningKeyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateKeySigningKeyRequest> request = null;
+        Response<CreateKeySigningKeyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateKeySigningKeyRequestMarshaller().marshall(super.beforeMarshalling(createKeySigningKeyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateKeySigningKey");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<CreateKeySigningKeyResult> responseHandler = new StaxResponseHandler<CreateKeySigningKeyResult>(
+                    new CreateKeySigningKeyResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1040,8 +1724,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * </li>
      * <li>
      * <p>
-     * You must use the same AWS account to create the log group and the hosted zone that you want to configure query
-     * logging for.
+     * You must use the same Amazon Web Services account to create the log group and the hosted zone that you want to
+     * configure query logging for.
      * </p>
      * </li>
      * <li>
@@ -1053,9 +1737,9 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * </p>
      * <p>
      * In the next step, you'll create a resource policy, which controls access to one or more log groups and the
-     * associated AWS resources, such as Route 53 hosted zones. There's a limit on the number of resource policies that
-     * you can create, so we recommend that you use a consistent prefix so you can use the same resource policy for all
-     * the log groups that you create for query logging.
+     * associated Amazon Web Services resources, such as Route 53 hosted zones. There's a limit on the number of
+     * resource policies that you can create, so we recommend that you use a consistent prefix so you can use the same
+     * resource policy for all the log groups that you create for query logging.
      * </p>
      * </li>
      * </ul>
@@ -1070,10 +1754,33 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * <p>
      * <code>arn:aws:logs:us-east-1:123412341234:log-group:/aws/route53/*</code>
      * </p>
+     * <p>
+     * To avoid the confused deputy problem, a security issue where an entity without a permission for an action can
+     * coerce a more-privileged entity to perform it, you can optionally limit the permissions that a service has to a
+     * resource in a resource-based policy by supplying the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For <code>aws:SourceArn</code>, supply the hosted zone ARN used in creating the query logging configuration. For
+     * example, <code>aws:SourceArn: arn:aws:route53:::hostedzone/hosted zone ID</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For <code>aws:SourceAccount</code>, supply the account ID for the account that creates the query logging
+     * configuration. For example, <code>aws:SourceAccount:111111111111</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html">The
+     * confused deputy problem</a> in the <i>Amazon Web Services IAM User Guide</i>.
+     * </p>
      * <note>
      * <p>
      * You can't use the CloudWatch console to create or edit a resource policy. You must use the CloudWatch API, one of
-     * the AWS SDKs, or the AWS CLI.
+     * the Amazon Web Services SDKs, or the CLI.
      * </p>
      * </note></li>
      * </ol>
@@ -1184,6 +1891,18 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      *         The resource policy hasn't finished propagating yet.
      *         </p>
      *         </li>
+     *         <li>
+     *         <p>
+     *         The Key management service (KMS) key you specified doesn’t exist or it can’t be used with the log group
+     *         associated with query log. Update or provide a resource policy to grant permissions for the KMS key.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The Key management service (KMS) key you specified is marked as disabled for the log group associated
+     *         with query log. Update or provide a resource policy to grant permissions for the KMS key.
+     *         </p>
+     *         </li>
      * @sample AmazonRoute53.CreateQueryLoggingConfig
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/CreateQueryLoggingConfig"
      *      target="_top">AWS API Documentation</a>
@@ -1209,6 +1928,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new CreateQueryLoggingConfigRequestMarshaller().marshall(super.beforeMarshalling(createQueryLoggingConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateQueryLoggingConfig");
@@ -1220,6 +1941,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<CreateQueryLoggingConfigResult> responseHandler = new StaxResponseHandler<CreateQueryLoggingConfigResult>(
                     new CreateQueryLoggingConfigResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1232,9 +1954,12 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
     /**
      * <p>
-     * Creates a delegation set (a group of four name servers) that can be reused by multiple hosted zones. If a hosted
-     * zoned ID is specified, <code>CreateReusableDelegationSet</code> marks the delegation set associated with that
-     * zone as reusable.
+     * Creates a delegation set (a group of four name servers) that can be reused by multiple hosted zones that were
+     * created by the same Amazon Web Services account.
+     * </p>
+     * <p>
+     * You can also create a reusable delegation set that uses the four name servers that are associated with an
+     * existing hosted zone. Specify the hosted zone ID in the <code>CreateReusableDelegationSet</code> request.
      * </p>
      * <note>
      * <p>
@@ -1243,7 +1968,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * </note>
      * <p>
      * For information about using a reusable delegation set to configure white label name servers, see <a
-     * href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/white-label-name-servers.html">Configuring White
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/white-label-name-servers.html">Configuring White
      * Label Name Servers</a>.
      * </p>
      * <p>
@@ -1314,20 +2039,13 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * @throws DelegationSetAlreadyCreatedException
      *         A delegation set with the same owner and caller reference combination has already been created.
      * @throws LimitsExceededException
-     *         This operation can't be completed either because the current account has reached the limit on reusable
-     *         delegation sets that it can create or because you've reached the limit on the number of Amazon VPCs that
-     *         you can associate with a private hosted zone. To get the current limit on the number of reusable
-     *         delegation sets, see <a
-     *         href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetAccountLimit.html"
-     *         >GetAccountLimit</a>. To get the current limit on the number of Amazon VPCs that you can associate with a
-     *         private hosted zone, see <a
-     *         href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetHostedZoneLimit.html"
-     *         >GetHostedZoneLimit</a>. To request a higher limit, <a
-     *         href="http://aws.amazon.com/route53-request">create a case</a> with the AWS Support Center.
+     *         This operation can't be completed because the current account has reached the limit on the resource you
+     *         are trying to create. To request a higher limit, <a href="http://aws.amazon.com/route53-request">create a
+     *         case</a> with the Amazon Web Services Support Center.
      * @throws HostedZoneNotFoundException
      *         The specified HostedZone can't be found.
      * @throws InvalidArgumentException
-     *         Parameter name is invalid.
+     *         Parameter name is not valid.
      * @throws InvalidInputException
      *         The input is not valid.
      * @throws DelegationSetNotAvailableException
@@ -1362,6 +2080,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new CreateReusableDelegationSetRequestMarshaller().marshall(super.beforeMarshalling(createReusableDelegationSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateReusableDelegationSet");
@@ -1373,6 +2093,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<CreateReusableDelegationSetResult> responseHandler = new StaxResponseHandler<CreateReusableDelegationSetResult>(
                     new CreateReusableDelegationSetResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1408,13 +2129,13 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      *         >GetAccountLimit</a>.
      *         </p>
      *         <p>
-     *         To request a higher limit, <a href="http://aws.amazon.com/route53-request">create a case</a> with the AWS
-     *         Support Center.
+     *         To request a higher limit, <a href="http://aws.amazon.com/route53-request">create a case</a> with the
+     *         Amazon Web Services Support Center.
      * @throws TrafficPolicyAlreadyExistsException
      *         A traffic policy that has the same value for <code>Name</code> already exists.
      * @throws InvalidTrafficPolicyDocumentException
-     *         The format of the traffic policy document that you specified in the <code>Document</code> element is
-     *         invalid.
+     *         The format of the traffic policy document that you specified in the <code>Document</code> element is not
+     *         valid.
      * @sample AmazonRoute53.CreateTrafficPolicy
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/CreateTrafficPolicy" target="_top">AWS
      *      API Documentation</a>
@@ -1440,6 +2161,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new CreateTrafficPolicyRequestMarshaller().marshall(super.beforeMarshalling(createTrafficPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateTrafficPolicy");
@@ -1451,6 +2174,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<CreateTrafficPolicyResult> responseHandler = new StaxResponseHandler<CreateTrafficPolicyResult>(
                     new CreateTrafficPolicyResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1469,6 +2193,15 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * to DNS queries for the domain or subdomain name by using the resource record sets that
      * <code>CreateTrafficPolicyInstance</code> created.
      * </p>
+     * <note>
+     * <p>
+     * After you submit an <code>CreateTrafficPolicyInstance</code> request, there's a brief delay while Amazon Route 53
+     * creates the resource record sets that are specified in the traffic policy definition. Use
+     * <code>GetTrafficPolicyInstance</code> with the <code>id</code> of new traffic policy instance to confirm that the
+     * <code>CreateTrafficPolicyInstance</code> request completed successfully. For more information, see the
+     * <code>State</code> response element.
+     * </p>
+     * </note>
      * 
      * @param createTrafficPolicyInstanceRequest
      *        A complex type that contains information about the resource record sets that you want to create based on a
@@ -1492,8 +2225,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      *         >GetAccountLimit</a>.
      *         </p>
      *         <p>
-     *         To request a higher limit, <a href="http://aws.amazon.com/route53-request">create a case</a> with the AWS
-     *         Support Center.
+     *         To request a higher limit, <a href="http://aws.amazon.com/route53-request">create a case</a> with the
+     *         Amazon Web Services Support Center.
      * @throws NoSuchTrafficPolicyException
      *         No traffic policy exists with the specified ID.
      * @throws TrafficPolicyInstanceAlreadyExistsException
@@ -1523,6 +2256,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new CreateTrafficPolicyInstanceRequestMarshaller().marshall(super.beforeMarshalling(createTrafficPolicyInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateTrafficPolicyInstance");
@@ -1534,6 +2269,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<CreateTrafficPolicyInstanceResult> responseHandler = new StaxResponseHandler<CreateTrafficPolicyInstanceResult>(
                     new CreateTrafficPolicyInstanceResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1575,8 +2311,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      *         Another user submitted a request to create, update, or delete the object at the same time that you did.
      *         Retry the request.
      * @throws InvalidTrafficPolicyDocumentException
-     *         The format of the traffic policy document that you specified in the <code>Document</code> element is
-     *         invalid.
+     *         The format of the traffic policy document that you specified in the <code>Document</code> element is not
+     *         valid.
      * @sample AmazonRoute53.CreateTrafficPolicyVersion
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/CreateTrafficPolicyVersion"
      *      target="_top">AWS API Documentation</a>
@@ -1602,6 +2338,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new CreateTrafficPolicyVersionRequestMarshaller().marshall(super.beforeMarshalling(createTrafficPolicyVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateTrafficPolicyVersion");
@@ -1613,6 +2351,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<CreateTrafficPolicyVersionResult> responseHandler = new StaxResponseHandler<CreateTrafficPolicyVersionResult>(
                     new CreateTrafficPolicyVersionResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1625,11 +2364,11 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
     /**
      * <p>
-     * Authorizes the AWS account that created a specified VPC to submit an <code>AssociateVPCWithHostedZone</code>
-     * request to associate the VPC with a specified hosted zone that was created by a different account. To submit a
-     * <code>CreateVPCAssociationAuthorization</code> request, you must use the account that created the hosted zone.
-     * After you authorize the association, use the account that created the VPC to submit an
-     * <code>AssociateVPCWithHostedZone</code> request.
+     * Authorizes the Amazon Web Services account that created a specified VPC to submit an
+     * <code>AssociateVPCWithHostedZone</code> request to associate the VPC with a specified hosted zone that was
+     * created by a different account. To submit a <code>CreateVPCAssociationAuthorization</code> request, you must use
+     * the account that created the hosted zone. After you authorize the association, use the account that created the
+     * VPC to submit an <code>AssociateVPCWithHostedZone</code> request.
      * </p>
      * <note>
      * <p>
@@ -1684,6 +2423,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new CreateVPCAssociationAuthorizationRequestMarshaller().marshall(super.beforeMarshalling(createVPCAssociationAuthorizationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateVPCAssociationAuthorization");
@@ -1695,6 +2436,147 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<CreateVPCAssociationAuthorizationResult> responseHandler = new StaxResponseHandler<CreateVPCAssociationAuthorizationResult>(
                     new CreateVPCAssociationAuthorizationResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deactivates a key-signing key (KSK) so that it will not be used for signing by DNSSEC. This operation changes the
+     * KSK status to <code>INACTIVE</code>.
+     * </p>
+     * 
+     * @param deactivateKeySigningKeyRequest
+     * @return Result of the DeactivateKeySigningKey operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         Another user submitted a request to create, update, or delete the object at the same time that you did.
+     *         Retry the request.
+     * @throws NoSuchKeySigningKeyException
+     *         The specified key-signing key (KSK) doesn't exist.
+     * @throws InvalidKeySigningKeyStatusException
+     *         The key-signing key (KSK) status isn't valid or another KSK has the status <code>INTERNAL_FAILURE</code>.
+     * @throws InvalidSigningStatusException
+     *         Your hosted zone status isn't valid for this operation. In the hosted zone, change the status to enable
+     *         <code>DNSSEC</code> or disable <code>DNSSEC</code>.
+     * @throws KeySigningKeyInUseException
+     *         The key-signing key (KSK) that you specified can't be deactivated because it's the only KSK for a
+     *         currently-enabled DNSSEC. Disable DNSSEC signing, or add or enable another KSK.
+     * @throws KeySigningKeyInParentDSRecordException
+     *         The key-signing key (KSK) is specified in a parent DS record.
+     * @throws InvalidInputException
+     *         The input is not valid.
+     * @sample AmazonRoute53.DeactivateKeySigningKey
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/DeactivateKeySigningKey"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeactivateKeySigningKeyResult deactivateKeySigningKey(DeactivateKeySigningKeyRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeactivateKeySigningKey(request);
+    }
+
+    @SdkInternalApi
+    final DeactivateKeySigningKeyResult executeDeactivateKeySigningKey(DeactivateKeySigningKeyRequest deactivateKeySigningKeyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deactivateKeySigningKeyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeactivateKeySigningKeyRequest> request = null;
+        Response<DeactivateKeySigningKeyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeactivateKeySigningKeyRequestMarshaller().marshall(super.beforeMarshalling(deactivateKeySigningKeyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeactivateKeySigningKey");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DeactivateKeySigningKeyResult> responseHandler = new StaxResponseHandler<DeactivateKeySigningKeyResult>(
+                    new DeactivateKeySigningKeyResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a CIDR collection in the current Amazon Web Services account. The collection must be empty before it can
+     * be deleted.
+     * </p>
+     * 
+     * @param deleteCidrCollectionRequest
+     * @return Result of the DeleteCidrCollection operation returned by the service.
+     * @throws NoSuchCidrCollectionException
+     *         The CIDR collection you specified, doesn't exist.
+     * @throws CidrCollectionInUseException
+     *         This CIDR collection is in use, and isn't empty.
+     * @throws InvalidInputException
+     *         The input is not valid.
+     * @throws ConcurrentModificationException
+     *         Another user submitted a request to create, update, or delete the object at the same time that you did.
+     *         Retry the request.
+     * @sample AmazonRoute53.DeleteCidrCollection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/DeleteCidrCollection" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DeleteCidrCollectionResult deleteCidrCollection(DeleteCidrCollectionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteCidrCollection(request);
+    }
+
+    @SdkInternalApi
+    final DeleteCidrCollectionResult executeDeleteCidrCollection(DeleteCidrCollectionRequest deleteCidrCollectionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteCidrCollectionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteCidrCollectionRequest> request = null;
+        Response<DeleteCidrCollectionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteCidrCollectionRequestMarshaller().marshall(super.beforeMarshalling(deleteCidrCollectionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCidrCollection");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DeleteCidrCollectionResult> responseHandler = new StaxResponseHandler<DeleteCidrCollectionResult>(
+                    new DeleteCidrCollectionResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1715,10 +2597,16 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * or more resource record sets. If you delete a health check and you don't update the associated resource record
      * sets, the future status of the health check can't be predicted and may change. This will affect the routing of
      * DNS queries for your DNS failover configuration. For more information, see <a href=
-     * "http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/health-checks-creating-deleting.html#health-checks-deleting.html"
+     * "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/health-checks-creating-deleting.html#health-checks-deleting.html"
      * >Replacing and Deleting Health Checks</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * </important>
+     * <p>
+     * If you're using Cloud Map and you configured Cloud Map to create a Route 53 health check when you register an
+     * instance, you can't use the Route 53 <code>DeleteHealthCheck</code> command to delete the health check. The
+     * health check is deleted automatically when you deregister the instance; there can be a delay of several hours
+     * before the health check is deleted from Route 53.
+     * </p>
      * 
      * @param deleteHealthCheckRequest
      *        This action deletes a health check.
@@ -1754,6 +2642,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new DeleteHealthCheckRequestMarshaller().marshall(super.beforeMarshalling(deleteHealthCheckRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteHealthCheck");
@@ -1765,6 +2655,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<DeleteHealthCheckResult> responseHandler = new StaxResponseHandler<DeleteHealthCheckResult>(
                     new DeleteHealthCheckResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1780,9 +2671,9 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * Deletes a hosted zone.
      * </p>
      * <p>
-     * If the hosted zone was created by another service, such as AWS Cloud Map, see <a href=
+     * If the hosted zone was created by another service, such as Cloud Map, see <a href=
      * "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DeleteHostedZone.html#delete-public-hosted-zone-created-by-another-service"
-     * >Deleting Public Hosted Zones That Were Created by Another Service</a> in the <i>Amazon Route 53 Developer
+     * >Deleting Public Hosted Zones That Were Created by Another Service</a> in the <i>Amazon Route 53 Developer
      * Guide</i> for information about how to delete it. (The process is the same for public and private hosted zones
      * that were created by another service.)
      * </p>
@@ -1803,9 +2694,9 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * <p>
      * If you want to avoid the monthly charge for the hosted zone, you can transfer DNS service for the domain to a
      * free DNS service. When you transfer DNS service, you have to update the name servers for the domain registration.
-     * If the domain is registered with Route 53, see <a
+     * If the domain is registered with Route 53, see <a
      * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_UpdateDomainNameservers.html"
-     * >UpdateDomainNameservers</a> for information about how to replace Route 53 name servers with name servers for the
+     * >UpdateDomainNameservers</a> for information about how to replace Route 53 name servers with name servers for the
      * new DNS service. If the domain is registered with another registrar, use the method provided by the registrar to
      * update name servers for the domain registration. For more information, perform an internet search on
      * "free DNS service."
@@ -1813,7 +2704,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * <p>
      * You can delete a hosted zone only if it contains only the default SOA record and NS resource record sets. If the
      * hosted zone contains other resource record sets, you must delete them before you can delete the hosted zone. If
-     * you try to delete a hosted zone that contains other resource record sets, the request fails, and Route 53 returns
+     * you try to delete a hosted zone that contains other resource record sets, the request fails, and Route 53 returns
      * a <code>HostedZoneNotEmpty</code> error. For information about deleting records from your hosted zone, see <a
      * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_ChangeResourceRecordSets.html">
      * ChangeResourceRecordSets</a>.
@@ -1829,8 +2720,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * </li>
      * <li>
      * <p>
-     * Use the <code>ListHostedZones</code> action to get a list of the hosted zones associated with the current AWS
-     * account.
+     * Use the <code>ListHostedZones</code> action to get a list of the hosted zones associated with the current Amazon
+     * Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -1876,6 +2767,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new DeleteHostedZoneRequestMarshaller().marshall(super.beforeMarshalling(deleteHostedZoneRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteHostedZone");
@@ -1887,6 +2780,86 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<DeleteHostedZoneResult> responseHandler = new StaxResponseHandler<DeleteHostedZoneResult>(
                     new DeleteHostedZoneResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a key-signing key (KSK). Before you can delete a KSK, you must deactivate it. The KSK must be deactivated
+     * before you can delete it regardless of whether the hosted zone is enabled for DNSSEC signing.
+     * </p>
+     * <p>
+     * You can use <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_DeactivateKeySigningKey.html">
+     * DeactivateKeySigningKey</a> to deactivate the key before you delete it.
+     * </p>
+     * <p>
+     * Use <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetDNSSEC.html">GetDNSSEC</a> to verify
+     * that the KSK is in an <code>INACTIVE</code> status.
+     * </p>
+     * 
+     * @param deleteKeySigningKeyRequest
+     * @return Result of the DeleteKeySigningKey operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         Another user submitted a request to create, update, or delete the object at the same time that you did.
+     *         Retry the request.
+     * @throws NoSuchKeySigningKeyException
+     *         The specified key-signing key (KSK) doesn't exist.
+     * @throws InvalidKeySigningKeyStatusException
+     *         The key-signing key (KSK) status isn't valid or another KSK has the status <code>INTERNAL_FAILURE</code>.
+     * @throws InvalidSigningStatusException
+     *         Your hosted zone status isn't valid for this operation. In the hosted zone, change the status to enable
+     *         <code>DNSSEC</code> or disable <code>DNSSEC</code>.
+     * @throws InvalidKMSArnException
+     *         The KeyManagementServiceArn that you specified isn't valid to use with DNSSEC signing.
+     * @throws InvalidInputException
+     *         The input is not valid.
+     * @sample AmazonRoute53.DeleteKeySigningKey
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/DeleteKeySigningKey" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DeleteKeySigningKeyResult deleteKeySigningKey(DeleteKeySigningKeyRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteKeySigningKey(request);
+    }
+
+    @SdkInternalApi
+    final DeleteKeySigningKeyResult executeDeleteKeySigningKey(DeleteKeySigningKeyRequest deleteKeySigningKeyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteKeySigningKeyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteKeySigningKeyRequest> request = null;
+        Response<DeleteKeySigningKeyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteKeySigningKeyRequestMarshaller().marshall(super.beforeMarshalling(deleteKeySigningKeyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteKeySigningKey");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DeleteKeySigningKeyResult> responseHandler = new StaxResponseHandler<DeleteKeySigningKeyResult>(
+                    new DeleteKeySigningKeyResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1942,6 +2915,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new DeleteQueryLoggingConfigRequestMarshaller().marshall(super.beforeMarshalling(deleteQueryLoggingConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteQueryLoggingConfig");
@@ -1953,6 +2928,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<DeleteQueryLoggingConfigResult> responseHandler = new StaxResponseHandler<DeleteQueryLoggingConfigResult>(
                     new DeleteQueryLoggingConfigResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2015,6 +2991,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new DeleteReusableDelegationSetRequestMarshaller().marshall(super.beforeMarshalling(deleteReusableDelegationSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteReusableDelegationSet");
@@ -2026,6 +3004,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<DeleteReusableDelegationSetResult> responseHandler = new StaxResponseHandler<DeleteReusableDelegationSetResult>(
                     new DeleteReusableDelegationSetResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2040,6 +3019,31 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * <p>
      * Deletes a traffic policy.
      * </p>
+     * <p>
+     * When you delete a traffic policy, Route 53 sets a flag on the policy to indicate that it has been deleted.
+     * However, Route 53 never fully deletes the traffic policy. Note the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Deleted traffic policies aren't listed if you run <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListTrafficPolicies.html"
+     * >ListTrafficPolicies</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * There's no way to get a list of deleted policies.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you retain the ID of the policy, you can get information about the policy, including the traffic policy
+     * document, by running <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetTrafficPolicy.html">GetTrafficPolicy</a>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param deleteTrafficPolicyRequest
      *        A request to delete a specified traffic policy version.
@@ -2078,6 +3082,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new DeleteTrafficPolicyRequestMarshaller().marshall(super.beforeMarshalling(deleteTrafficPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteTrafficPolicy");
@@ -2089,6 +3095,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<DeleteTrafficPolicyResult> responseHandler = new StaxResponseHandler<DeleteTrafficPolicyResult>(
                     new DeleteTrafficPolicyResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2147,6 +3154,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new DeleteTrafficPolicyInstanceRequestMarshaller().marshall(super.beforeMarshalling(deleteTrafficPolicyInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteTrafficPolicyInstance");
@@ -2158,6 +3167,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<DeleteTrafficPolicyInstanceResult> responseHandler = new StaxResponseHandler<DeleteTrafficPolicyInstanceResult>(
                     new DeleteTrafficPolicyInstanceResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2176,8 +3186,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * </p>
      * <important>
      * <p>
-     * Sending this request only prevents the AWS account that created the VPC from associating the VPC with the Amazon
-     * Route 53 hosted zone in the future. If the VPC is already associated with the hosted zone,
+     * Sending this request only prevents the Amazon Web Services account that created the VPC from associating the VPC
+     * with the Amazon Route 53 hosted zone in the future. If the VPC is already associated with the hosted zone,
      * <code>DeleteVPCAssociationAuthorization</code> won't disassociate the VPC from the hosted zone. If you want to
      * delete an existing association, use <code>DisassociateVPCFromHostedZone</code>.
      * </p>
@@ -2185,7 +3195,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * 
      * @param deleteVPCAssociationAuthorizationRequest
      *        A complex type that contains information about the request to remove authorization to associate a VPC that
-     *        was created by one AWS account with a hosted zone that was created with a different AWS account.
+     *        was created by one Amazon Web Services account with a hosted zone that was created with a different Amazon
+     *        Web Services account.
      * @return Result of the DeleteVPCAssociationAuthorization operation returned by the service.
      * @throws ConcurrentModificationException
      *         Another user submitted a request to create, update, or delete the object at the same time that you did.
@@ -2225,6 +3236,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new DeleteVPCAssociationAuthorizationRequestMarshaller().marshall(super.beforeMarshalling(deleteVPCAssociationAuthorizationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteVPCAssociationAuthorization");
@@ -2236,6 +3249,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<DeleteVPCAssociationAuthorizationResult> responseHandler = new StaxResponseHandler<DeleteVPCAssociationAuthorizationResult>(
                     new DeleteVPCAssociationAuthorizationResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2248,12 +3262,87 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
     /**
      * <p>
-     * Disassociates a VPC from a Amazon Route 53 private hosted zone. Note the following:
+     * Disables DNSSEC signing in a specific hosted zone. This action does not deactivate any key-signing keys (KSKs)
+     * that are active in the hosted zone.
+     * </p>
+     * 
+     * @param disableHostedZoneDNSSECRequest
+     * @return Result of the DisableHostedZoneDNSSEC operation returned by the service.
+     * @throws NoSuchHostedZoneException
+     *         No hosted zone exists with the ID that you specified.
+     * @throws InvalidArgumentException
+     *         Parameter name is not valid.
+     * @throws ConcurrentModificationException
+     *         Another user submitted a request to create, update, or delete the object at the same time that you did.
+     *         Retry the request.
+     * @throws KeySigningKeyInParentDSRecordException
+     *         The key-signing key (KSK) is specified in a parent DS record.
+     * @throws DNSSECNotFoundException
+     *         The hosted zone doesn't have any DNSSEC resources.
+     * @throws InvalidKeySigningKeyStatusException
+     *         The key-signing key (KSK) status isn't valid or another KSK has the status <code>INTERNAL_FAILURE</code>.
+     * @throws InvalidKMSArnException
+     *         The KeyManagementServiceArn that you specified isn't valid to use with DNSSEC signing.
+     * @throws InvalidInputException
+     *         The input is not valid.
+     * @sample AmazonRoute53.DisableHostedZoneDNSSEC
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/DisableHostedZoneDNSSEC"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DisableHostedZoneDNSSECResult disableHostedZoneDNSSEC(DisableHostedZoneDNSSECRequest request) {
+        request = beforeClientExecution(request);
+        return executeDisableHostedZoneDNSSEC(request);
+    }
+
+    @SdkInternalApi
+    final DisableHostedZoneDNSSECResult executeDisableHostedZoneDNSSEC(DisableHostedZoneDNSSECRequest disableHostedZoneDNSSECRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(disableHostedZoneDNSSECRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DisableHostedZoneDNSSECRequest> request = null;
+        Response<DisableHostedZoneDNSSECResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DisableHostedZoneDNSSECRequestMarshaller().marshall(super.beforeMarshalling(disableHostedZoneDNSSECRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisableHostedZoneDNSSEC");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DisableHostedZoneDNSSECResult> responseHandler = new StaxResponseHandler<DisableHostedZoneDNSSECResult>(
+                    new DisableHostedZoneDNSSECResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Disassociates an Amazon Virtual Private Cloud (Amazon VPC) from an Amazon Route 53 private hosted zone. Note the
+     * following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * You can't disassociate the last VPC from a private hosted zone.
+     * You can't disassociate the last Amazon VPC from a private hosted zone.
      * </p>
      * </li>
      * <li>
@@ -2264,10 +3353,55 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * <li>
      * <p>
      * You can submit a <code>DisassociateVPCFromHostedZone</code> request using either the account that created the
-     * hosted zone or the account that created the VPC.
+     * hosted zone or the account that created the Amazon VPC.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Some services, such as Cloud Map and Amazon Elastic File System (Amazon EFS) automatically create hosted zones
+     * and associate VPCs with the hosted zones. A service can create a hosted zone using your account or using its own
+     * account. You can disassociate a VPC from a hosted zone only if the service created the hosted zone using your
+     * account.
+     * </p>
+     * <p>
+     * When you run <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListHostedZonesByVPC.html">
+     * DisassociateVPCFromHostedZone</a>, if the hosted zone has a value for <code>OwningAccount</code>, you can use
+     * <code>DisassociateVPCFromHostedZone</code>. If the hosted zone has a value for <code>OwningService</code>, you
+     * can't use <code>DisassociateVPCFromHostedZone</code>.
      * </p>
      * </li>
      * </ul>
+     * <note>
+     * <p>
+     * When revoking access, the hosted zone and the Amazon VPC must belong to the same partition. A partition is a
+     * group of Amazon Web Services Regions. Each Amazon Web Services account is scoped to one partition.
+     * </p>
+     * <p>
+     * The following are the supported partitions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>aws</code> - Amazon Web Services Regions
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aws-cn</code> - China Regions
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aws-us-gov</code> - Amazon Web Services GovCloud (US) Region
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Access Management</a> in the
+     * <i>Amazon Web Services General Reference</i>.
+     * </p>
+     * </note>
      * 
      * @param disassociateVPCFromHostedZoneRequest
      *        A complex type that contains information about the VPC that you want to disassociate from a specified
@@ -2311,6 +3445,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new DisassociateVPCFromHostedZoneRequestMarshaller().marshall(super.beforeMarshalling(disassociateVPCFromHostedZoneRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateVPCFromHostedZone");
@@ -2322,6 +3458,83 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<DisassociateVPCFromHostedZoneResult> responseHandler = new StaxResponseHandler<DisassociateVPCFromHostedZoneResult>(
                     new DisassociateVPCFromHostedZoneResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Enables DNSSEC signing in a specific hosted zone.
+     * </p>
+     * 
+     * @param enableHostedZoneDNSSECRequest
+     * @return Result of the EnableHostedZoneDNSSEC operation returned by the service.
+     * @throws NoSuchHostedZoneException
+     *         No hosted zone exists with the ID that you specified.
+     * @throws InvalidArgumentException
+     *         Parameter name is not valid.
+     * @throws ConcurrentModificationException
+     *         Another user submitted a request to create, update, or delete the object at the same time that you did.
+     *         Retry the request.
+     * @throws KeySigningKeyWithActiveStatusNotFoundException
+     *         A key-signing key (KSK) with <code>ACTIVE</code> status wasn't found.
+     * @throws InvalidKMSArnException
+     *         The KeyManagementServiceArn that you specified isn't valid to use with DNSSEC signing.
+     * @throws HostedZonePartiallyDelegatedException
+     *         The hosted zone nameservers don't match the parent nameservers. The hosted zone and parent must have the
+     *         same nameservers.
+     * @throws DNSSECNotFoundException
+     *         The hosted zone doesn't have any DNSSEC resources.
+     * @throws InvalidKeySigningKeyStatusException
+     *         The key-signing key (KSK) status isn't valid or another KSK has the status <code>INTERNAL_FAILURE</code>.
+     * @throws InvalidInputException
+     *         The input is not valid.
+     * @sample AmazonRoute53.EnableHostedZoneDNSSEC
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/EnableHostedZoneDNSSEC" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public EnableHostedZoneDNSSECResult enableHostedZoneDNSSEC(EnableHostedZoneDNSSECRequest request) {
+        request = beforeClientExecution(request);
+        return executeEnableHostedZoneDNSSEC(request);
+    }
+
+    @SdkInternalApi
+    final EnableHostedZoneDNSSECResult executeEnableHostedZoneDNSSEC(EnableHostedZoneDNSSECRequest enableHostedZoneDNSSECRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(enableHostedZoneDNSSECRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<EnableHostedZoneDNSSECRequest> request = null;
+        Response<EnableHostedZoneDNSSECResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new EnableHostedZoneDNSSECRequestMarshaller().marshall(super.beforeMarshalling(enableHostedZoneDNSSECRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "EnableHostedZoneDNSSEC");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<EnableHostedZoneDNSSECResult> responseHandler = new StaxResponseHandler<EnableHostedZoneDNSSECResult>(
+                    new EnableHostedZoneDNSSECResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2346,8 +3559,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * </p>
      * <note>
      * <p>
-     * You can also view account limits in AWS Trusted Advisor. Sign in to the AWS Management Console and open the
-     * Trusted Advisor console at <a
+     * You can also view account limits in Amazon Web Services Trusted Advisor. Sign in to the Amazon Web Services
+     * Management Console and open the Trusted Advisor console at <a
      * href="https://console.aws.amazon.com/trustedadvisor">https://console.aws.amazon.com/trustedadvisor/</a>. Then
      * choose <b>Service limits</b> in the navigation pane.
      * </p>
@@ -2383,6 +3596,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new GetAccountLimitRequestMarshaller().marshall(super.beforeMarshalling(getAccountLimitRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetAccountLimit");
@@ -2394,6 +3609,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<GetAccountLimitResult> responseHandler = new StaxResponseHandler<GetAccountLimitResult>(
                     new GetAccountLimitResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2412,12 +3628,13 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * <li>
      * <p>
      * <code>PENDING</code> indicates that the changes in this request have not propagated to all Amazon Route 53 DNS
-     * servers. This is the initial status of all change batch requests.
+     * servers managing the hosted zone. This is the initial status of all change batch requests.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>INSYNC</code> indicates that the changes have propagated to all Route 53 DNS servers.
+     * <code>INSYNC</code> indicates that the changes have propagated to all Route 53 DNS servers managing the hosted
+     * zone.
      * </p>
      * </li>
      * </ul>
@@ -2454,6 +3671,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new GetChangeRequestMarshaller().marshall(super.beforeMarshalling(getChangeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetChange");
@@ -2464,6 +3683,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
             }
 
             StaxResponseHandler<GetChangeResult> responseHandler = new StaxResponseHandler<GetChangeResult>(new GetChangeResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2475,11 +3695,15 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
     }
 
     /**
+     * <p>
+     * Route 53 does not perform authorization for this API because it retrieves information that is already available
+     * to the public.
+     * </p>
      * <important>
      * <p>
      * <code>GetCheckerIpRanges</code> still works, but we recommend that you download ip-ranges.json, which includes IP
-     * address ranges for all AWS services. For more information, see <a
-     * href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/route-53-ip-addresses.html">IP Address Ranges of
+     * address ranges for all Amazon Web Services services. For more information, see <a
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/route-53-ip-addresses.html">IP Address Ranges of
      * Amazon Route 53 Servers</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * </important>
@@ -2512,6 +3736,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new GetCheckerIpRangesRequestMarshaller().marshall(super.beforeMarshalling(getCheckerIpRangesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetCheckerIpRanges");
@@ -2523,6 +3749,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<GetCheckerIpRangesResult> responseHandler = new StaxResponseHandler<GetCheckerIpRangesResult>(
                     new GetCheckerIpRangesResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2540,8 +3767,74 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
     /**
      * <p>
+     * Returns information about DNSSEC for a specific hosted zone, including the key-signing keys (KSKs) in the hosted
+     * zone.
+     * </p>
+     * 
+     * @param getDNSSECRequest
+     * @return Result of the GetDNSSEC operation returned by the service.
+     * @throws NoSuchHostedZoneException
+     *         No hosted zone exists with the ID that you specified.
+     * @throws InvalidArgumentException
+     *         Parameter name is not valid.
+     * @throws InvalidInputException
+     *         The input is not valid.
+     * @sample AmazonRoute53.GetDNSSEC
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetDNSSEC" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetDNSSECResult getDNSSEC(GetDNSSECRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetDNSSEC(request);
+    }
+
+    @SdkInternalApi
+    final GetDNSSECResult executeGetDNSSEC(GetDNSSECRequest getDNSSECRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getDNSSECRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetDNSSECRequest> request = null;
+        Response<GetDNSSECResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetDNSSECRequestMarshaller().marshall(super.beforeMarshalling(getDNSSECRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDNSSEC");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GetDNSSECResult> responseHandler = new StaxResponseHandler<GetDNSSECResult>(new GetDNSSECResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Gets information about whether a specified geographic location is supported for Amazon Route 53 geolocation
      * resource record sets.
+     * </p>
+     * <p>
+     * Route 53 does not perform authorization for this API because it retrieves information that is already available
+     * to the public.
      * </p>
      * <p>
      * Use the following syntax to determine whether a continent is supported for geolocation:
@@ -2567,7 +3860,10 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      *        geolocation resource record sets.
      * @return Result of the GetGeoLocation operation returned by the service.
      * @throws NoSuchGeoLocationException
-     *         Amazon Route 53 doesn't support the specified geographic location.
+     *         Amazon Route 53 doesn't support the specified geographic location. For a list of supported geolocation
+     *         codes, see the <a
+     *         href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GeoLocation.html">GeoLocation</a> data
+     *         type.
      * @throws InvalidInputException
      *         The input is not valid.
      * @sample AmazonRoute53.GetGeoLocation
@@ -2595,6 +3891,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new GetGeoLocationRequestMarshaller().marshall(super.beforeMarshalling(getGeoLocationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetGeoLocation");
@@ -2606,6 +3904,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<GetGeoLocationResult> responseHandler = new StaxResponseHandler<GetGeoLocationResult>(
                     new GetGeoLocationResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2660,6 +3959,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new GetHealthCheckRequestMarshaller().marshall(super.beforeMarshalling(getHealthCheckRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetHealthCheck");
@@ -2671,6 +3972,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<GetHealthCheckResult> responseHandler = new StaxResponseHandler<GetHealthCheckResult>(
                     new GetHealthCheckResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2683,11 +3985,12 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
     /**
      * <p>
-     * Retrieves the number of health checks that are associated with the current AWS account.
+     * Retrieves the number of health checks that are associated with the current Amazon Web Services account.
      * </p>
      * 
      * @param getHealthCheckCountRequest
-     *        A request for the number of health checks that are associated with the current AWS account.
+     *        A request for the number of health checks that are associated with the current Amazon Web Services
+     *        account.
      * @return Result of the GetHealthCheckCount operation returned by the service.
      * @sample AmazonRoute53.GetHealthCheckCount
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetHealthCheckCount" target="_top">AWS
@@ -2714,6 +4017,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new GetHealthCheckCountRequestMarshaller().marshall(super.beforeMarshalling(getHealthCheckCountRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetHealthCheckCount");
@@ -2725,6 +4030,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<GetHealthCheckCountResult> responseHandler = new StaxResponseHandler<GetHealthCheckCountResult>(
                     new GetHealthCheckCountResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2778,6 +4084,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new GetHealthCheckLastFailureReasonRequestMarshaller().marshall(super.beforeMarshalling(getHealthCheckLastFailureReasonRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetHealthCheckLastFailureReason");
@@ -2789,6 +4097,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<GetHealthCheckLastFailureReasonResult> responseHandler = new StaxResponseHandler<GetHealthCheckLastFailureReasonResult>(
                     new GetHealthCheckLastFailureReasonResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2803,6 +4112,12 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * <p>
      * Gets status of a specified health check.
      * </p>
+     * <important>
+     * <p>
+     * This API is intended for use during development to diagnose behavior. It doesn’t support production use-cases
+     * with high query rates that require immediate and actionable responses.
+     * </p>
+     * </important>
      * 
      * @param getHealthCheckStatusRequest
      *        A request to get the status for a health check.
@@ -2836,6 +4151,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new GetHealthCheckStatusRequestMarshaller().marshall(super.beforeMarshalling(getHealthCheckStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetHealthCheckStatus");
@@ -2847,6 +4164,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<GetHealthCheckStatusResult> responseHandler = new StaxResponseHandler<GetHealthCheckStatusResult>(
                     new GetHealthCheckStatusResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2894,6 +4212,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new GetHostedZoneRequestMarshaller().marshall(super.beforeMarshalling(getHostedZoneRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetHostedZone");
@@ -2904,6 +4224,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
             }
 
             StaxResponseHandler<GetHostedZoneResult> responseHandler = new StaxResponseHandler<GetHostedZoneResult>(new GetHostedZoneResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2916,11 +4237,12 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
     /**
      * <p>
-     * Retrieves the number of hosted zones that are associated with the current AWS account.
+     * Retrieves the number of hosted zones that are associated with the current Amazon Web Services account.
      * </p>
      * 
      * @param getHostedZoneCountRequest
-     *        A request to retrieve a count of all the hosted zones that are associated with the current AWS account.
+     *        A request to retrieve a count of all the hosted zones that are associated with the current Amazon Web
+     *        Services account.
      * @return Result of the GetHostedZoneCount operation returned by the service.
      * @throws InvalidInputException
      *         The input is not valid.
@@ -2949,6 +4271,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new GetHostedZoneCountRequestMarshaller().marshall(super.beforeMarshalling(getHostedZoneCountRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetHostedZoneCount");
@@ -2960,6 +4284,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<GetHostedZoneCountResult> responseHandler = new StaxResponseHandler<GetHostedZoneCountResult>(
                     new GetHostedZoneCountResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3022,6 +4347,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new GetHostedZoneLimitRequestMarshaller().marshall(super.beforeMarshalling(getHostedZoneLimitRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetHostedZoneLimit");
@@ -3033,6 +4360,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<GetHostedZoneLimitResult> responseHandler = new StaxResponseHandler<GetHostedZoneLimitResult>(
                     new GetHostedZoneLimitResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3085,6 +4413,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new GetQueryLoggingConfigRequestMarshaller().marshall(super.beforeMarshalling(getQueryLoggingConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetQueryLoggingConfig");
@@ -3096,6 +4426,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<GetQueryLoggingConfigResult> responseHandler = new StaxResponseHandler<GetQueryLoggingConfigResult>(
                     new GetQueryLoggingConfigResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3146,6 +4477,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new GetReusableDelegationSetRequestMarshaller().marshall(super.beforeMarshalling(getReusableDelegationSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetReusableDelegationSet");
@@ -3157,6 +4490,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<GetReusableDelegationSetResult> responseHandler = new StaxResponseHandler<GetReusableDelegationSetResult>(
                     new GetReusableDelegationSetResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3211,6 +4545,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new GetReusableDelegationSetLimitRequestMarshaller().marshall(super.beforeMarshalling(getReusableDelegationSetLimitRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetReusableDelegationSetLimit");
@@ -3222,6 +4558,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<GetReusableDelegationSetLimitResult> responseHandler = new StaxResponseHandler<GetReusableDelegationSetLimitResult>(
                     new GetReusableDelegationSetLimitResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3235,6 +4572,12 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
     /**
      * <p>
      * Gets information about a specific traffic policy version.
+     * </p>
+     * <p>
+     * For information about how of deleting a traffic policy affects the response from <code>GetTrafficPolicy</code>,
+     * see <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_DeleteTrafficPolicy.html">DeleteTrafficPolicy
+     * </a>.
      * </p>
      * 
      * @param getTrafficPolicyRequest
@@ -3269,6 +4612,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new GetTrafficPolicyRequestMarshaller().marshall(super.beforeMarshalling(getTrafficPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetTrafficPolicy");
@@ -3280,6 +4625,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<GetTrafficPolicyResult> responseHandler = new StaxResponseHandler<GetTrafficPolicyResult>(
                     new GetTrafficPolicyResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3296,9 +4642,9 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * </p>
      * <note>
      * <p>
-     * After you submit a <code>CreateTrafficPolicyInstance</code> or an <code>UpdateTrafficPolicyInstance</code>
-     * request, there's a brief delay while Amazon Route 53 creates the resource record sets that are specified in the
-     * traffic policy definition. For more information, see the <code>State</code> response element.
+     * Use <code>GetTrafficPolicyInstance</code> with the <code>id</code> of new traffic policy instance to confirm that
+     * the <code>CreateTrafficPolicyInstance</code> or an <code>UpdateTrafficPolicyInstance</code> request completed
+     * successfully. For more information, see the <code>State</code> response element.
      * </p>
      * </note> <note>
      * <p>
@@ -3338,6 +4684,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new GetTrafficPolicyInstanceRequestMarshaller().marshall(super.beforeMarshalling(getTrafficPolicyInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetTrafficPolicyInstance");
@@ -3349,6 +4697,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<GetTrafficPolicyInstanceResult> responseHandler = new StaxResponseHandler<GetTrafficPolicyInstanceResult>(
                     new GetTrafficPolicyInstanceResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3361,11 +4710,12 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
     /**
      * <p>
-     * Gets the number of traffic policy instances that are associated with the current AWS account.
+     * Gets the number of traffic policy instances that are associated with the current Amazon Web Services account.
      * </p>
      * 
      * @param getTrafficPolicyInstanceCountRequest
-     *        Request to get the number of traffic policy instances that are associated with the current AWS account.
+     *        Request to get the number of traffic policy instances that are associated with the current Amazon Web
+     *        Services account.
      * @return Result of the GetTrafficPolicyInstanceCount operation returned by the service.
      * @sample AmazonRoute53.GetTrafficPolicyInstanceCount
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetTrafficPolicyInstanceCount"
@@ -3392,6 +4742,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new GetTrafficPolicyInstanceCountRequestMarshaller().marshall(super.beforeMarshalling(getTrafficPolicyInstanceCountRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetTrafficPolicyInstanceCount");
@@ -3403,6 +4755,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<GetTrafficPolicyInstanceCountResult> responseHandler = new StaxResponseHandler<GetTrafficPolicyInstanceCountResult>(
                     new GetTrafficPolicyInstanceCountResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3420,12 +4773,201 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
     /**
      * <p>
+     * Returns a paginated list of location objects and their CIDR blocks.
+     * </p>
+     * 
+     * @param listCidrBlocksRequest
+     * @return Result of the ListCidrBlocks operation returned by the service.
+     * @throws NoSuchCidrCollectionException
+     *         The CIDR collection you specified, doesn't exist.
+     * @throws NoSuchCidrLocationException
+     *         The CIDR collection location doesn't match any locations in your account.
+     * @throws InvalidInputException
+     *         The input is not valid.
+     * @sample AmazonRoute53.ListCidrBlocks
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListCidrBlocks" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListCidrBlocksResult listCidrBlocks(ListCidrBlocksRequest request) {
+        request = beforeClientExecution(request);
+        return executeListCidrBlocks(request);
+    }
+
+    @SdkInternalApi
+    final ListCidrBlocksResult executeListCidrBlocks(ListCidrBlocksRequest listCidrBlocksRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listCidrBlocksRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListCidrBlocksRequest> request = null;
+        Response<ListCidrBlocksResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListCidrBlocksRequestMarshaller().marshall(super.beforeMarshalling(listCidrBlocksRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCidrBlocks");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ListCidrBlocksResult> responseHandler = new StaxResponseHandler<ListCidrBlocksResult>(
+                    new ListCidrBlocksResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a paginated list of CIDR collections in the Amazon Web Services account (metadata only).
+     * </p>
+     * 
+     * @param listCidrCollectionsRequest
+     * @return Result of the ListCidrCollections operation returned by the service.
+     * @throws InvalidInputException
+     *         The input is not valid.
+     * @sample AmazonRoute53.ListCidrCollections
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListCidrCollections" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListCidrCollectionsResult listCidrCollections(ListCidrCollectionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListCidrCollections(request);
+    }
+
+    @SdkInternalApi
+    final ListCidrCollectionsResult executeListCidrCollections(ListCidrCollectionsRequest listCidrCollectionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listCidrCollectionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListCidrCollectionsRequest> request = null;
+        Response<ListCidrCollectionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListCidrCollectionsRequestMarshaller().marshall(super.beforeMarshalling(listCidrCollectionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCidrCollections");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ListCidrCollectionsResult> responseHandler = new StaxResponseHandler<ListCidrCollectionsResult>(
+                    new ListCidrCollectionsResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a paginated list of CIDR locations for the given collection (metadata only, does not include CIDR
+     * blocks).
+     * </p>
+     * 
+     * @param listCidrLocationsRequest
+     * @return Result of the ListCidrLocations operation returned by the service.
+     * @throws NoSuchCidrCollectionException
+     *         The CIDR collection you specified, doesn't exist.
+     * @throws InvalidInputException
+     *         The input is not valid.
+     * @sample AmazonRoute53.ListCidrLocations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListCidrLocations" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListCidrLocationsResult listCidrLocations(ListCidrLocationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListCidrLocations(request);
+    }
+
+    @SdkInternalApi
+    final ListCidrLocationsResult executeListCidrLocations(ListCidrLocationsRequest listCidrLocationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listCidrLocationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListCidrLocationsRequest> request = null;
+        Response<ListCidrLocationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListCidrLocationsRequestMarshaller().marshall(super.beforeMarshalling(listCidrLocationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCidrLocations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ListCidrLocationsResult> responseHandler = new StaxResponseHandler<ListCidrLocationsResult>(
+                    new ListCidrLocationsResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Retrieves a list of supported geographic locations.
      * </p>
      * <p>
      * Countries are listed first, and continents are listed last. If Amazon Route 53 supports subdivisions for a
      * country (for example, states or provinces), the subdivisions for that country are listed in alphabetical order
      * immediately after the corresponding country.
+     * </p>
+     * <p>
+     * Route 53 does not perform authorization for this API because it retrieves information that is already available
+     * to the public.
+     * </p>
+     * <p>
+     * For a list of supported geolocation codes, see the <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GeoLocation.html">GeoLocation</a> data type.
      * </p>
      * 
      * @param listGeoLocationsRequest
@@ -3459,6 +5001,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new ListGeoLocationsRequestMarshaller().marshall(super.beforeMarshalling(listGeoLocationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListGeoLocations");
@@ -3470,6 +5014,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<ListGeoLocationsResult> responseHandler = new StaxResponseHandler<ListGeoLocationsResult>(
                     new ListGeoLocationsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3487,11 +5032,12 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
     /**
      * <p>
-     * Retrieve a list of the health checks that are associated with the current AWS account.
+     * Retrieve a list of the health checks that are associated with the current Amazon Web Services account.
      * </p>
      * 
      * @param listHealthChecksRequest
-     *        A request to retrieve a list of the health checks that are associated with the current AWS account.
+     *        A request to retrieve a list of the health checks that are associated with the current Amazon Web Services
+     *        account.
      * @return Result of the ListHealthChecks operation returned by the service.
      * @throws InvalidInputException
      *         The input is not valid.
@@ -3522,6 +5068,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new ListHealthChecksRequestMarshaller().marshall(super.beforeMarshalling(listHealthChecksRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListHealthChecks");
@@ -3533,6 +5081,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<ListHealthChecksResult> responseHandler = new StaxResponseHandler<ListHealthChecksResult>(
                     new ListHealthChecksResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3550,8 +5099,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
     /**
      * <p>
-     * Retrieves a list of the public and private hosted zones that are associated with the current AWS account. The
-     * response includes a <code>HostedZones</code> child element for each hosted zone.
+     * Retrieves a list of the public and private hosted zones that are associated with the current Amazon Web Services
+     * account. The response includes a <code>HostedZones</code> child element for each hosted zone.
      * </p>
      * <p>
      * Amazon Route 53 returns a maximum of 100 items in each response. If you have a lot of hosted zones, you can use
@@ -3560,7 +5109,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * 
      * @param listHostedZonesRequest
      *        A request to retrieve a list of the public and private hosted zones that are associated with the current
-     *        AWS account.
+     *        Amazon Web Services account.
      * @return Result of the ListHostedZones operation returned by the service.
      * @throws InvalidInputException
      *         The input is not valid.
@@ -3593,6 +5142,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new ListHostedZonesRequestMarshaller().marshall(super.beforeMarshalling(listHostedZonesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListHostedZones");
@@ -3604,6 +5155,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<ListHostedZonesResult> responseHandler = new StaxResponseHandler<ListHostedZonesResult>(
                     new ListHostedZonesResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3622,7 +5174,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
     /**
      * <p>
      * Retrieves a list of your hosted zones in lexicographic order. The response includes a <code>HostedZones</code>
-     * child element for each hosted zone created by the current AWS account.
+     * child element for each hosted zone created by the current Amazon Web Services account.
      * </p>
      * <p>
      * <code>ListHostedZonesByName</code> sorts hosted zones by name with the labels reversed. For example:
@@ -3645,7 +5197,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * <p>
      * The labels are reversed and alphabetized using the escaped value. For more information about valid domain name
      * formats, including internationalized domain names, see <a
-     * href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html">DNS Domain Name Format</a>
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html">DNS Domain Name Format</a>
      * in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * <p>
@@ -3670,7 +5222,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * <li>
      * <p>
      * If the value of <code>IsTruncated</code> in the response is true, there are more hosted zones associated with the
-     * current AWS account.
+     * current Amazon Web Services account.
      * </p>
      * <p>
      * If <code>IsTruncated</code> is false, this response includes the last hosted zone that is associated with the
@@ -3681,17 +5233,17 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * <li>
      * <p>
      * The <code>NextDNSName</code> and <code>NextHostedZoneId</code> elements in the response contain the domain name
-     * and the hosted zone ID of the next hosted zone that is associated with the current AWS account. If you want to
-     * list more hosted zones, make another call to <code>ListHostedZonesByName</code>, and specify the value of
-     * <code>NextDNSName</code> and <code>NextHostedZoneId</code> in the <code>dnsname</code> and
+     * and the hosted zone ID of the next hosted zone that is associated with the current Amazon Web Services account.
+     * If you want to list more hosted zones, make another call to <code>ListHostedZonesByName</code>, and specify the
+     * value of <code>NextDNSName</code> and <code>NextHostedZoneId</code> in the <code>dnsname</code> and
      * <code>hostedzoneid</code> parameters, respectively.
      * </p>
      * </li>
      * </ul>
      * 
      * @param listHostedZonesByNameRequest
-     *        Retrieves a list of the public and private hosted zones that are associated with the current AWS account
-     *        in ASCII order by domain name.
+     *        Retrieves a list of the public and private hosted zones that are associated with the current Amazon Web
+     *        Services account in ASCII order by domain name.
      * @return Result of the ListHostedZonesByName operation returned by the service.
      * @throws InvalidInputException
      *         The input is not valid.
@@ -3722,6 +5274,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new ListHostedZonesByNameRequestMarshaller().marshall(super.beforeMarshalling(listHostedZonesByNameRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListHostedZonesByName");
@@ -3733,6 +5287,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<ListHostedZonesByNameResult> responseHandler = new StaxResponseHandler<ListHostedZonesByNameResult>(
                     new ListHostedZonesByNameResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3750,8 +5305,120 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
     /**
      * <p>
-     * Lists the configurations for DNS query logging that are associated with the current AWS account or the
-     * configuration that is associated with a specified hosted zone.
+     * Lists all the private hosted zones that a specified VPC is associated with, regardless of which Amazon Web
+     * Services account or Amazon Web Services service owns the hosted zones. The <code>HostedZoneOwner</code> structure
+     * in the response contains one of the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * An <code>OwningAccount</code> element, which contains the account number of either the current Amazon Web
+     * Services account or another Amazon Web Services account. Some services, such as Cloud Map, create hosted zones
+     * using the current account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An <code>OwningService</code> element, which identifies the Amazon Web Services service that created and owns the
+     * hosted zone. For example, if a hosted zone was created by Amazon Elastic File System (Amazon EFS), the value of
+     * <code>Owner</code> is <code>efs.amazonaws.com</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * When listing private hosted zones, the hosted zone and the Amazon VPC must belong to the same partition where the
+     * hosted zones were created. A partition is a group of Amazon Web Services Regions. Each Amazon Web Services
+     * account is scoped to one partition.
+     * </p>
+     * <p>
+     * The following are the supported partitions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>aws</code> - Amazon Web Services Regions
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aws-cn</code> - China Regions
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aws-us-gov</code> - Amazon Web Services GovCloud (US) Region
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Access Management</a> in the
+     * <i>Amazon Web Services General Reference</i>.
+     * </p>
+     * </note>
+     * 
+     * @param listHostedZonesByVPCRequest
+     *        Lists all the private hosted zones that a specified VPC is associated with, regardless of which Amazon Web
+     *        Services account created the hosted zones.
+     * @return Result of the ListHostedZonesByVPC operation returned by the service.
+     * @throws InvalidInputException
+     *         The input is not valid.
+     * @throws InvalidPaginationTokenException
+     *         The value that you specified to get the second or subsequent page of results is invalid.
+     * @sample AmazonRoute53.ListHostedZonesByVPC
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListHostedZonesByVPC" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListHostedZonesByVPCResult listHostedZonesByVPC(ListHostedZonesByVPCRequest request) {
+        request = beforeClientExecution(request);
+        return executeListHostedZonesByVPC(request);
+    }
+
+    @SdkInternalApi
+    final ListHostedZonesByVPCResult executeListHostedZonesByVPC(ListHostedZonesByVPCRequest listHostedZonesByVPCRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listHostedZonesByVPCRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListHostedZonesByVPCRequest> request = null;
+        Response<ListHostedZonesByVPCResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListHostedZonesByVPCRequestMarshaller().marshall(super.beforeMarshalling(listHostedZonesByVPCRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListHostedZonesByVPC");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ListHostedZonesByVPCResult> responseHandler = new StaxResponseHandler<ListHostedZonesByVPCResult>(
+                    new ListHostedZonesByVPCResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists the configurations for DNS query logging that are associated with the current Amazon Web Services account
+     * or the configuration that is associated with a specified hosted zone.
      * </p>
      * <p>
      * For more information about DNS query logs, see <a
@@ -3794,6 +5461,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new ListQueryLoggingConfigsRequestMarshaller().marshall(super.beforeMarshalling(listQueryLoggingConfigsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListQueryLoggingConfigs");
@@ -3805,6 +5474,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<ListQueryLoggingConfigsResult> responseHandler = new StaxResponseHandler<ListQueryLoggingConfigsResult>(
                     new ListQueryLoggingConfigsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3820,7 +5490,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * Lists the resource record sets in a specified hosted zone.
      * </p>
      * <p>
-     * <code>ListResourceRecordSets</code> returns up to 100 resource record sets at a time in ASCII order, beginning at
+     * <code>ListResourceRecordSets</code> returns up to 300 resource record sets at a time in ASCII order, beginning at
      * a position specified by the <code>name</code> and <code>type</code> elements.
      * </p>
      * <p>
@@ -3934,6 +5604,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new ListResourceRecordSetsRequestMarshaller().marshall(super.beforeMarshalling(listResourceRecordSetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListResourceRecordSets");
@@ -3945,6 +5617,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<ListResourceRecordSetsResult> responseHandler = new StaxResponseHandler<ListResourceRecordSetsResult>(
                     new ListResourceRecordSetsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3957,11 +5630,13 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
     /**
      * <p>
-     * Retrieves a list of the reusable delegation sets that are associated with the current AWS account.
+     * Retrieves a list of the reusable delegation sets that are associated with the current Amazon Web Services
+     * account.
      * </p>
      * 
      * @param listReusableDelegationSetsRequest
-     *        A request to get a list of the reusable delegation sets that are associated with the current AWS account.
+     *        A request to get a list of the reusable delegation sets that are associated with the current Amazon Web
+     *        Services account.
      * @return Result of the ListReusableDelegationSets operation returned by the service.
      * @throws InvalidInputException
      *         The input is not valid.
@@ -3990,6 +5665,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new ListReusableDelegationSetsRequestMarshaller().marshall(super.beforeMarshalling(listReusableDelegationSetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListReusableDelegationSets");
@@ -4001,6 +5678,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<ListReusableDelegationSetsResult> responseHandler = new StaxResponseHandler<ListReusableDelegationSetsResult>(
                     new ListReusableDelegationSetsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -4023,7 +5701,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * <p>
      * For information about using tags for cost allocation, see <a
      * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost Allocation
-     * Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     * Tags</a> in the <i>Billing and Cost Management User Guide</i>.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -4068,6 +5746,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new ListTagsForResourceRequestMarshaller().marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -4079,6 +5759,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<ListTagsForResourceResult> responseHandler = new StaxResponseHandler<ListTagsForResourceResult>(
                     new ListTagsForResourceResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -4096,7 +5777,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * <p>
      * For information about using tags for cost allocation, see <a
      * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost Allocation
-     * Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     * Tags</a> in the <i>Billing and Cost Management User Guide</i>.
      * </p>
      * 
      * @param listTagsForResourcesRequest
@@ -4141,6 +5822,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new ListTagsForResourcesRequestMarshaller().marshall(super.beforeMarshalling(listTagsForResourcesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResources");
@@ -4152,6 +5835,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<ListTagsForResourcesResult> responseHandler = new StaxResponseHandler<ListTagsForResourcesResult>(
                     new ListTagsForResourcesResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -4164,13 +5848,19 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
     /**
      * <p>
-     * Gets information about the latest version for every traffic policy that is associated with the current AWS
-     * account. Policies are listed in the order that they were created in.
+     * Gets information about the latest version for every traffic policy that is associated with the current Amazon Web
+     * Services account. Policies are listed in the order that they were created in.
+     * </p>
+     * <p>
+     * For information about how of deleting a traffic policy affects the response from <code>ListTrafficPolicies</code>
+     * , see <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_DeleteTrafficPolicy.html">DeleteTrafficPolicy
+     * </a>.
      * </p>
      * 
      * @param listTrafficPoliciesRequest
      *        A complex type that contains the information about the request to list the traffic policies that are
-     *        associated with the current AWS account.
+     *        associated with the current Amazon Web Services account.
      * @return Result of the ListTrafficPolicies operation returned by the service.
      * @throws InvalidInputException
      *         The input is not valid.
@@ -4199,6 +5889,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new ListTrafficPoliciesRequestMarshaller().marshall(super.beforeMarshalling(listTrafficPoliciesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTrafficPolicies");
@@ -4210,6 +5902,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<ListTrafficPoliciesResult> responseHandler = new StaxResponseHandler<ListTrafficPoliciesResult>(
                     new ListTrafficPoliciesResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -4227,7 +5920,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
     /**
      * <p>
-     * Gets information about the traffic policy instances that you created by using the current AWS account.
+     * Gets information about the traffic policy instances that you created by using the current Amazon Web Services
+     * account.
      * </p>
      * <note>
      * <p>
@@ -4242,8 +5936,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * </p>
      * 
      * @param listTrafficPolicyInstancesRequest
-     *        A request to get information about the traffic policy instances that you created by using the current AWS
-     *        account.
+     *        A request to get information about the traffic policy instances that you created by using the current
+     *        Amazon Web Services account.
      * @return Result of the ListTrafficPolicyInstances operation returned by the service.
      * @throws InvalidInputException
      *         The input is not valid.
@@ -4274,6 +5968,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new ListTrafficPolicyInstancesRequestMarshaller().marshall(super.beforeMarshalling(listTrafficPolicyInstancesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTrafficPolicyInstances");
@@ -4285,6 +5981,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<ListTrafficPolicyInstancesResult> responseHandler = new StaxResponseHandler<ListTrafficPolicyInstancesResult>(
                     new ListTrafficPolicyInstancesResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -4352,6 +6049,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                         .beforeMarshalling(listTrafficPolicyInstancesByHostedZoneRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTrafficPolicyInstancesByHostedZone");
@@ -4363,6 +6062,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<ListTrafficPolicyInstancesByHostedZoneResult> responseHandler = new StaxResponseHandler<ListTrafficPolicyInstancesByHostedZoneResult>(
                     new ListTrafficPolicyInstancesByHostedZoneResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -4425,6 +6125,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                         .marshall(super.beforeMarshalling(listTrafficPolicyInstancesByPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTrafficPolicyInstancesByPolicy");
@@ -4436,6 +6138,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<ListTrafficPolicyInstancesByPolicyResult> responseHandler = new StaxResponseHandler<ListTrafficPolicyInstancesByPolicyResult>(
                     new ListTrafficPolicyInstancesByPolicyResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -4486,6 +6189,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new ListTrafficPolicyVersionsRequestMarshaller().marshall(super.beforeMarshalling(listTrafficPolicyVersionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTrafficPolicyVersions");
@@ -4497,6 +6202,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<ListTrafficPolicyVersionsResult> responseHandler = new StaxResponseHandler<ListTrafficPolicyVersionsResult>(
                     new ListTrafficPolicyVersionsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -4552,6 +6258,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new ListVPCAssociationAuthorizationsRequestMarshaller().marshall(super.beforeMarshalling(listVPCAssociationAuthorizationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListVPCAssociationAuthorizations");
@@ -4563,6 +6271,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<ListVPCAssociationAuthorizationsResult> responseHandler = new StaxResponseHandler<ListVPCAssociationAuthorizationsResult>(
                     new ListVPCAssociationAuthorizationsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -4579,6 +6288,16 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * You can optionally specify the IP address of a DNS resolver, an EDNS0 client subnet IP address, and a subnet
      * mask.
      * </p>
+     * <p>
+     * This call only supports querying public hosted zones.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>TestDnsAnswer </code> returns information similar to what you would expect from the answer section of
+     * the <code>dig</code> command. Therefore, if you query for the name servers of a subdomain that point to the
+     * parent name servers, those will not be returned.
+     * </p>
+     * </note>
      * 
      * @param testDNSAnswerRequest
      *        Gets the value that Amazon Route 53 returns in response to a DNS request for a specified record name and
@@ -4614,6 +6333,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new TestDNSAnswerRequestMarshaller().marshall(super.beforeMarshalling(testDNSAnswerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TestDNSAnswer");
@@ -4624,6 +6345,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
             }
 
             StaxResponseHandler<TestDNSAnswerResult> responseHandler = new StaxResponseHandler<TestDNSAnswerResult>(new TestDNSAnswerResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -4640,7 +6362,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      * </p>
      * <p>
      * For more information about updating health checks, see <a
-     * href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/health-checks-creating-deleting.html">Creating,
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/health-checks-creating-deleting.html">Creating,
      * Updating, and Deleting Health Checks</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * 
@@ -4679,6 +6401,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new UpdateHealthCheckRequestMarshaller().marshall(super.beforeMarshalling(updateHealthCheckRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateHealthCheck");
@@ -4690,6 +6414,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<UpdateHealthCheckResult> responseHandler = new StaxResponseHandler<UpdateHealthCheckResult>(
                     new UpdateHealthCheckResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -4712,6 +6437,11 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
      *         No hosted zone exists with the ID that you specified.
      * @throws InvalidInputException
      *         The input is not valid.
+     * @throws PriorRequestNotCompleteException
+     *         If Amazon Route 53 can't process a request before the next request arrives, it will reject subsequent
+     *         requests for the same hosted zone and return an <code>HTTP 400 error</code> (<code>Bad request</code>).
+     *         If Route 53 returns this error repeatedly for the same request, we recommend that you wait, in intervals
+     *         of increasing duration, before you try the request again.
      * @sample AmazonRoute53.UpdateHostedZoneComment
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/UpdateHostedZoneComment"
      *      target="_top">AWS API Documentation</a>
@@ -4737,6 +6467,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new UpdateHostedZoneCommentRequestMarshaller().marshall(super.beforeMarshalling(updateHostedZoneCommentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateHostedZoneComment");
@@ -4748,6 +6480,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<UpdateHostedZoneCommentResult> responseHandler = new StaxResponseHandler<UpdateHostedZoneCommentResult>(
                     new UpdateHostedZoneCommentResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -4798,6 +6531,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new UpdateTrafficPolicyCommentRequestMarshaller().marshall(super.beforeMarshalling(updateTrafficPolicyCommentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateTrafficPolicyComment");
@@ -4809,6 +6544,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<UpdateTrafficPolicyCommentResult> responseHandler = new StaxResponseHandler<UpdateTrafficPolicyCommentResult>(
                     new UpdateTrafficPolicyCommentResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -4820,6 +6556,15 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
     }
 
     /**
+     * <note>
+     * <p>
+     * After you submit a <code>UpdateTrafficPolicyInstance</code> request, there's a brief delay while Route 53 creates
+     * the resource record sets that are specified in the traffic policy definition. Use
+     * <code>GetTrafficPolicyInstance</code> with the <code>id</code> of updated traffic policy instance confirm that
+     * the <code>UpdateTrafficPolicyInstance</code> request completed successfully. For more information, see the
+     * <code>State</code> response element.
+     * </p>
+     * </note>
      * <p>
      * Updates the resource record sets in a specified hosted zone that were created based on the settings in a
      * specified traffic policy version.
@@ -4895,6 +6640,8 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
                 request = new UpdateTrafficPolicyInstanceRequestMarshaller().marshall(super.beforeMarshalling(updateTrafficPolicyInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Route 53");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateTrafficPolicyInstance");
@@ -4906,6 +6653,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
             StaxResponseHandler<UpdateTrafficPolicyInstanceResult> responseHandler = new StaxResponseHandler<UpdateTrafficPolicyInstanceResult>(
                     new UpdateTrafficPolicyInstanceResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -4982,7 +6730,7 @@ public class AmazonRoute53Client extends AmazonWebServiceClient implements Amazo
 
         request.setTimeOffset(timeOffset);
 
-        DefaultErrorResponseHandler errorResponseHandler = new DefaultErrorResponseHandler(exceptionUnmarshallers);
+        DefaultErrorResponseHandler errorResponseHandler = new DefaultErrorResponseHandler(exceptionUnmarshallersMap, defaultUnmarshaller);
 
         return client.execute(request, responseHandler, errorResponseHandler, executionContext);
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,6 +48,10 @@ public class DescribeBackupJobResultJsonUnmarshaller implements Unmarshaller<Des
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("AccountId", targetDepth)) {
+                    context.nextToken();
+                    describeBackupJobResult.setAccountId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("BackupJobId", targetDepth)) {
                     context.nextToken();
                     describeBackupJobResult.setBackupJobId(context.getUnmarshaller(String.class).unmarshall(context));
@@ -115,6 +119,44 @@ public class DescribeBackupJobResultJsonUnmarshaller implements Unmarshaller<Des
                 if (context.testExpression("StartBy", targetDepth)) {
                     context.nextToken();
                     describeBackupJobResult.setStartBy(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("BackupOptions", targetDepth)) {
+                    context.nextToken();
+                    describeBackupJobResult.setBackupOptions(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context
+                            .getUnmarshaller(String.class)).unmarshall(context));
+                }
+                if (context.testExpression("BackupType", targetDepth)) {
+                    context.nextToken();
+                    describeBackupJobResult.setBackupType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ParentJobId", targetDepth)) {
+                    context.nextToken();
+                    describeBackupJobResult.setParentJobId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("IsParent", targetDepth)) {
+                    context.nextToken();
+                    describeBackupJobResult.setIsParent(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("NumberOfChildJobs", targetDepth)) {
+                    context.nextToken();
+                    describeBackupJobResult.setNumberOfChildJobs(context.getUnmarshaller(Long.class).unmarshall(context));
+                }
+                if (context.testExpression("ChildJobsInState", targetDepth)) {
+                    context.nextToken();
+                    describeBackupJobResult.setChildJobsInState(new MapUnmarshaller<String, Long>(context.getUnmarshaller(String.class), context
+                            .getUnmarshaller(Long.class)).unmarshall(context));
+                }
+                if (context.testExpression("ResourceName", targetDepth)) {
+                    context.nextToken();
+                    describeBackupJobResult.setResourceName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("InitiationDate", targetDepth)) {
+                    context.nextToken();
+                    describeBackupJobResult.setInitiationDate(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("MessageCategory", targetDepth)) {
+                    context.nextToken();
+                    describeBackupJobResult.setMessageCategory(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

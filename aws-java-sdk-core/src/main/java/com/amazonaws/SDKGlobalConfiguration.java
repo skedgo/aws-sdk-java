@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws;
+
+import com.amazonaws.retry.RetryMode;
 
 /**
  * SDKGlobalConfiguration is to configure any global settings
@@ -50,6 +52,9 @@ public class SDKGlobalConfiguration {
     /** System property name for the AWS secret key */
     public  static final String SECRET_KEY_SYSTEM_PROPERTY = "aws.secretKey";
 
+    /** System property name for the AWS account ID */
+    public static final String AWS_ACCOUNT_ID_SYSTEM_PROPERTY = "aws.accountId";
+
     /**
      * System property name for the AWS session token
      */
@@ -67,6 +72,20 @@ public class SDKGlobalConfiguration {
      */
     public static final String EC2_METADATA_SERVICE_OVERRIDE_SYSTEM_PROPERTY =
         "com.amazonaws.sdk.ec2MetadataServiceEndpointOverride";
+
+    /**
+     * Environment variable for overriding the Amazon EC2 Instance Metadata Service
+     * endpoint.
+     */
+    public static final String EC2_METADATA_SERVICE_OVERRIDE_ENV_VAR =
+        "AWS_EC2_METADATA_SERVICE_ENDPOINT";
+
+    /**
+     * The number of seconds (either as an integer or double) before a connection to the instance
+     * metadata service should time out. This is used for both the socket connect and read timeouts.
+     */
+    public static final String AWS_METADATA_SERVICE_TIMEOUT_ENV_VAR =
+        "AWS_METADATA_SERVICE_TIMEOUT";
 
     /**
      * System property for enabling retry throttling.
@@ -255,6 +274,9 @@ public class SDKGlobalConfiguration {
     /** Alternate environment variable name for the AWS secret key */
     public static final String ALTERNATE_SECRET_KEY_ENV_VAR = "AWS_SECRET_ACCESS_KEY";
 
+    /** Environment variable name for the AWS account ID */
+    public static final String AWS_ACCOUNT_ID_ENV_VAR = "AWS_ACCOUNT_ID";
+
     /** Environment variable name for the AWS session token */
     public static final String AWS_SESSION_TOKEN_ENV_VAR = "AWS_SESSION_TOKEN";
 
@@ -313,6 +335,22 @@ public class SDKGlobalConfiguration {
     public static final String AWS_EC2_METADATA_DISABLED_SYSTEM_PROPERTY = "com.amazonaws.sdk.disableEc2Metadata";
 
     /**
+     * Environment variable to disable fallback to IMDS v1.
+     */
+    public static final String AWS_EC2_METADATA_V1_DISABLED_ENV_VAR = "AWS_EC2_METADATA_V1_DISABLED";
+
+    /**
+     * System property to disable fallback to IMDS v1.
+     */
+    public static final String AWS_EC2_METADATA_V1_DISABLED_SYSTEM_PROPERTY = "com.amazonaws.sdk.disableEc2MetadataV1";
+
+    /**
+     * Profile file property to disable fallback to IMDS v1.
+     */
+    public static final String AWS_EC2_METADATA_V1_DISABLED_PROFILE_PROPERTY = "ec2_metadata_v1_disabled";
+
+
+    /**
      * Environment variable to enable/disable client side monitoring.
      */
     public static final String AWS_CSM_ENABLED_ENV_VAR = "AWS_CSM_ENABLED";
@@ -333,6 +371,37 @@ public class SDKGlobalConfiguration {
      * monitoring events.
      */
     public static final String AWS_CSM_CLIENT_ID_ENV_VAR = "AWS_CSM_CLIENT_ID";
+
+    /**
+     * System properties to set the retry mode to use. See {@link RetryMode} for available values
+     */
+    public static final String AWS_RETRY_MODE_SYSTEM_PROPERTY = "com.amazonaws.sdk.retryMode";
+
+    /**
+     * Environment variable to set the retry mode to use. See {@link RetryMode} for available values
+     */
+    public static final String AWS_RETRY_MODE_ENV_VAR = "AWS_RETRY_MODE";
+
+    /**
+     * System properties to set the account id endpoint mode to use. See {@link com.amazonaws.endpoints.AccountIdEndpointMode} for available values
+     */
+    public static final String AWS_ACCOUNT_ID_ENDPOINT_MODE_SYSTEM_PROPERTY = "com.amazonaws.sdk.accountIdEndpointMode";
+
+    /**
+     * Environment variable to set the account id endpoint mode to use. See {@link com.amazonaws.endpoints.AccountIdEndpointMode} for available values
+     */
+    public static final String AWS_ACCOUNT_ID_ENDPOINT_MODE_ENV_VAR = "AWS_ACCOUNT_ID_ENDPOINT_MODE";
+
+
+    /**
+     * System properties to set the retry max attempts
+     */
+    public static final String AWS_MAX_ATTEMPTS_SYSTEM_PROPERTY = "com.amazonaws.sdk.maxAttempts";
+
+    /**
+     * Environment variable to set the retry max attempts
+     */
+    public static final String AWS_MAX_ATTEMPTS_ENV_VAR= "AWS_MAX_ATTEMPTS";
 
     /**
      * @deprecated by {@link SDKGlobalTime#setGlobalTimeOffset(int)}
@@ -371,6 +440,11 @@ public class SDKGlobalConfiguration {
     public static boolean isEc2MetadataDisabled() {
         return isPropertyTrue(System.getProperty(AWS_EC2_METADATA_DISABLED_SYSTEM_PROPERTY)) ||
                isPropertyTrue(System.getenv(AWS_EC2_METADATA_DISABLED_ENV_VAR));
+    }
+
+    public static boolean isEc2MetadataV1Disabled() {
+        return isPropertyTrue(System.getProperty(AWS_EC2_METADATA_V1_DISABLED_SYSTEM_PROPERTY)) ||
+                isPropertyTrue(System.getenv(AWS_EC2_METADATA_V1_DISABLED_ENV_VAR));
     }
 
     private static boolean isPropertyEnabled(final String property) {

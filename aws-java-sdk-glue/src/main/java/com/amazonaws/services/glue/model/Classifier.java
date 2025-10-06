@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -24,7 +24,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * format.
  * </p>
  * <p>
- * You can use the standard classifiers that AWS Glue provides, or you can write your own classifiers to best categorize
+ * You can use the standard classifiers that Glue provides, or you can write your own classifiers to best categorize
  * your data sources and specify the appropriate schemas to use for them. A classifier can be a <code>grok</code>
  * classifier, an <code>XML</code> classifier, a <code>JSON</code> classifier, or a custom <code>CSV</code> classifier,
  * as specified in one of the fields in the <code>Classifier</code> object.

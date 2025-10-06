@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,11 +33,32 @@ public class TransitGatewayVpcAttachmentOptions implements Serializable, Cloneab
      */
     private String dnsSupport;
     /**
+     * <note>
      * <p>
-     * Indicates whether IPv6 support is enabled.
+     * This parameter is in preview and may not be available for your account.
+     * </p>
+     * </note>
+     * <p>
+     * Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to simplify
+     * security group management and control of instance-to-instance traffic across VPCs that are connected by transit
+     * gateway. You can also use this option to migrate from VPC peering (which was the only option that supported
+     * security group referencing) to transit gateways (which now also support security group referencing). This option
+     * is disabled by default and there are no additional costs to use this feature.
+     * </p>
+     */
+    private String securityGroupReferencingSupport;
+    /**
+     * <p>
+     * Indicates whether IPv6 support is disabled.
      * </p>
      */
     private String ipv6Support;
+    /**
+     * <p>
+     * Indicates whether appliance mode support is enabled.
+     * </p>
+     */
+    private String applianceModeSupport;
 
     /**
      * <p>
@@ -99,12 +120,147 @@ public class TransitGatewayVpcAttachmentOptions implements Serializable, Cloneab
     }
 
     /**
+     * <note>
      * <p>
-     * Indicates whether IPv6 support is enabled.
+     * This parameter is in preview and may not be available for your account.
+     * </p>
+     * </note>
+     * <p>
+     * Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to simplify
+     * security group management and control of instance-to-instance traffic across VPCs that are connected by transit
+     * gateway. You can also use this option to migrate from VPC peering (which was the only option that supported
+     * security group referencing) to transit gateways (which now also support security group referencing). This option
+     * is disabled by default and there are no additional costs to use this feature.
+     * </p>
+     * 
+     * @param securityGroupReferencingSupport
+     *        <p>
+     *        This parameter is in preview and may not be available for your account.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to
+     *        simplify security group management and control of instance-to-instance traffic across VPCs that are
+     *        connected by transit gateway. You can also use this option to migrate from VPC peering (which was the only
+     *        option that supported security group referencing) to transit gateways (which now also support security
+     *        group referencing). This option is disabled by default and there are no additional costs to use this
+     *        feature.
+     * @see SecurityGroupReferencingSupportValue
+     */
+
+    public void setSecurityGroupReferencingSupport(String securityGroupReferencingSupport) {
+        this.securityGroupReferencingSupport = securityGroupReferencingSupport;
+    }
+
+    /**
+     * <note>
+     * <p>
+     * This parameter is in preview and may not be available for your account.
+     * </p>
+     * </note>
+     * <p>
+     * Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to simplify
+     * security group management and control of instance-to-instance traffic across VPCs that are connected by transit
+     * gateway. You can also use this option to migrate from VPC peering (which was the only option that supported
+     * security group referencing) to transit gateways (which now also support security group referencing). This option
+     * is disabled by default and there are no additional costs to use this feature.
+     * </p>
+     * 
+     * @return <p>
+     *         This parameter is in preview and may not be available for your account.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to
+     *         simplify security group management and control of instance-to-instance traffic across VPCs that are
+     *         connected by transit gateway. You can also use this option to migrate from VPC peering (which was the
+     *         only option that supported security group referencing) to transit gateways (which now also support
+     *         security group referencing). This option is disabled by default and there are no additional costs to use
+     *         this feature.
+     * @see SecurityGroupReferencingSupportValue
+     */
+
+    public String getSecurityGroupReferencingSupport() {
+        return this.securityGroupReferencingSupport;
+    }
+
+    /**
+     * <note>
+     * <p>
+     * This parameter is in preview and may not be available for your account.
+     * </p>
+     * </note>
+     * <p>
+     * Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to simplify
+     * security group management and control of instance-to-instance traffic across VPCs that are connected by transit
+     * gateway. You can also use this option to migrate from VPC peering (which was the only option that supported
+     * security group referencing) to transit gateways (which now also support security group referencing). This option
+     * is disabled by default and there are no additional costs to use this feature.
+     * </p>
+     * 
+     * @param securityGroupReferencingSupport
+     *        <p>
+     *        This parameter is in preview and may not be available for your account.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to
+     *        simplify security group management and control of instance-to-instance traffic across VPCs that are
+     *        connected by transit gateway. You can also use this option to migrate from VPC peering (which was the only
+     *        option that supported security group referencing) to transit gateways (which now also support security
+     *        group referencing). This option is disabled by default and there are no additional costs to use this
+     *        feature.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SecurityGroupReferencingSupportValue
+     */
+
+    public TransitGatewayVpcAttachmentOptions withSecurityGroupReferencingSupport(String securityGroupReferencingSupport) {
+        setSecurityGroupReferencingSupport(securityGroupReferencingSupport);
+        return this;
+    }
+
+    /**
+     * <note>
+     * <p>
+     * This parameter is in preview and may not be available for your account.
+     * </p>
+     * </note>
+     * <p>
+     * Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to simplify
+     * security group management and control of instance-to-instance traffic across VPCs that are connected by transit
+     * gateway. You can also use this option to migrate from VPC peering (which was the only option that supported
+     * security group referencing) to transit gateways (which now also support security group referencing). This option
+     * is disabled by default and there are no additional costs to use this feature.
+     * </p>
+     * 
+     * @param securityGroupReferencingSupport
+     *        <p>
+     *        This parameter is in preview and may not be available for your account.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to
+     *        simplify security group management and control of instance-to-instance traffic across VPCs that are
+     *        connected by transit gateway. You can also use this option to migrate from VPC peering (which was the only
+     *        option that supported security group referencing) to transit gateways (which now also support security
+     *        group referencing). This option is disabled by default and there are no additional costs to use this
+     *        feature.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SecurityGroupReferencingSupportValue
+     */
+
+    public TransitGatewayVpcAttachmentOptions withSecurityGroupReferencingSupport(SecurityGroupReferencingSupportValue securityGroupReferencingSupport) {
+        this.securityGroupReferencingSupport = securityGroupReferencingSupport.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether IPv6 support is disabled.
      * </p>
      * 
      * @param ipv6Support
-     *        Indicates whether IPv6 support is enabled.
+     *        Indicates whether IPv6 support is disabled.
      * @see Ipv6SupportValue
      */
 
@@ -114,10 +270,10 @@ public class TransitGatewayVpcAttachmentOptions implements Serializable, Cloneab
 
     /**
      * <p>
-     * Indicates whether IPv6 support is enabled.
+     * Indicates whether IPv6 support is disabled.
      * </p>
      * 
-     * @return Indicates whether IPv6 support is enabled.
+     * @return Indicates whether IPv6 support is disabled.
      * @see Ipv6SupportValue
      */
 
@@ -127,11 +283,11 @@ public class TransitGatewayVpcAttachmentOptions implements Serializable, Cloneab
 
     /**
      * <p>
-     * Indicates whether IPv6 support is enabled.
+     * Indicates whether IPv6 support is disabled.
      * </p>
      * 
      * @param ipv6Support
-     *        Indicates whether IPv6 support is enabled.
+     *        Indicates whether IPv6 support is disabled.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Ipv6SupportValue
      */
@@ -143,17 +299,76 @@ public class TransitGatewayVpcAttachmentOptions implements Serializable, Cloneab
 
     /**
      * <p>
-     * Indicates whether IPv6 support is enabled.
+     * Indicates whether IPv6 support is disabled.
      * </p>
      * 
      * @param ipv6Support
-     *        Indicates whether IPv6 support is enabled.
+     *        Indicates whether IPv6 support is disabled.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Ipv6SupportValue
      */
 
     public TransitGatewayVpcAttachmentOptions withIpv6Support(Ipv6SupportValue ipv6Support) {
         this.ipv6Support = ipv6Support.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether appliance mode support is enabled.
+     * </p>
+     * 
+     * @param applianceModeSupport
+     *        Indicates whether appliance mode support is enabled.
+     * @see ApplianceModeSupportValue
+     */
+
+    public void setApplianceModeSupport(String applianceModeSupport) {
+        this.applianceModeSupport = applianceModeSupport;
+    }
+
+    /**
+     * <p>
+     * Indicates whether appliance mode support is enabled.
+     * </p>
+     * 
+     * @return Indicates whether appliance mode support is enabled.
+     * @see ApplianceModeSupportValue
+     */
+
+    public String getApplianceModeSupport() {
+        return this.applianceModeSupport;
+    }
+
+    /**
+     * <p>
+     * Indicates whether appliance mode support is enabled.
+     * </p>
+     * 
+     * @param applianceModeSupport
+     *        Indicates whether appliance mode support is enabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ApplianceModeSupportValue
+     */
+
+    public TransitGatewayVpcAttachmentOptions withApplianceModeSupport(String applianceModeSupport) {
+        setApplianceModeSupport(applianceModeSupport);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether appliance mode support is enabled.
+     * </p>
+     * 
+     * @param applianceModeSupport
+     *        Indicates whether appliance mode support is enabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ApplianceModeSupportValue
+     */
+
+    public TransitGatewayVpcAttachmentOptions withApplianceModeSupport(ApplianceModeSupportValue applianceModeSupport) {
+        this.applianceModeSupport = applianceModeSupport.toString();
         return this;
     }
 
@@ -171,8 +386,12 @@ public class TransitGatewayVpcAttachmentOptions implements Serializable, Cloneab
         sb.append("{");
         if (getDnsSupport() != null)
             sb.append("DnsSupport: ").append(getDnsSupport()).append(",");
+        if (getSecurityGroupReferencingSupport() != null)
+            sb.append("SecurityGroupReferencingSupport: ").append(getSecurityGroupReferencingSupport()).append(",");
         if (getIpv6Support() != null)
-            sb.append("Ipv6Support: ").append(getIpv6Support());
+            sb.append("Ipv6Support: ").append(getIpv6Support()).append(",");
+        if (getApplianceModeSupport() != null)
+            sb.append("ApplianceModeSupport: ").append(getApplianceModeSupport());
         sb.append("}");
         return sb.toString();
     }
@@ -191,9 +410,18 @@ public class TransitGatewayVpcAttachmentOptions implements Serializable, Cloneab
             return false;
         if (other.getDnsSupport() != null && other.getDnsSupport().equals(this.getDnsSupport()) == false)
             return false;
+        if (other.getSecurityGroupReferencingSupport() == null ^ this.getSecurityGroupReferencingSupport() == null)
+            return false;
+        if (other.getSecurityGroupReferencingSupport() != null
+                && other.getSecurityGroupReferencingSupport().equals(this.getSecurityGroupReferencingSupport()) == false)
+            return false;
         if (other.getIpv6Support() == null ^ this.getIpv6Support() == null)
             return false;
         if (other.getIpv6Support() != null && other.getIpv6Support().equals(this.getIpv6Support()) == false)
+            return false;
+        if (other.getApplianceModeSupport() == null ^ this.getApplianceModeSupport() == null)
+            return false;
+        if (other.getApplianceModeSupport() != null && other.getApplianceModeSupport().equals(this.getApplianceModeSupport()) == false)
             return false;
         return true;
     }
@@ -204,7 +432,9 @@ public class TransitGatewayVpcAttachmentOptions implements Serializable, Cloneab
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getDnsSupport() == null) ? 0 : getDnsSupport().hashCode());
+        hashCode = prime * hashCode + ((getSecurityGroupReferencingSupport() == null) ? 0 : getSecurityGroupReferencingSupport().hashCode());
         hashCode = prime * hashCode + ((getIpv6Support() == null) ? 0 : getIpv6Support().hashCode());
+        hashCode = prime * hashCode + ((getApplianceModeSupport() == null) ? 0 : getApplianceModeSupport().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,7 +45,7 @@ public class ConditionalForwarder implements Serializable, Cloneable, Structured
     /**
      * <p>
      * The replication scope of the conditional forwarder. The only allowed value is <code>Domain</code>, which will
-     * replicate the conditional forwarder to all of the domain controllers for your AWS directory.
+     * replicate the conditional forwarder to all of the domain controllers for your Amazon Web Services directory.
      * </p>
      */
     private String replicationScope;
@@ -174,12 +174,13 @@ public class ConditionalForwarder implements Serializable, Cloneable, Structured
     /**
      * <p>
      * The replication scope of the conditional forwarder. The only allowed value is <code>Domain</code>, which will
-     * replicate the conditional forwarder to all of the domain controllers for your AWS directory.
+     * replicate the conditional forwarder to all of the domain controllers for your Amazon Web Services directory.
      * </p>
      * 
      * @param replicationScope
      *        The replication scope of the conditional forwarder. The only allowed value is <code>Domain</code>, which
-     *        will replicate the conditional forwarder to all of the domain controllers for your AWS directory.
+     *        will replicate the conditional forwarder to all of the domain controllers for your Amazon Web Services
+     *        directory.
      * @see ReplicationScope
      */
 
@@ -190,11 +191,12 @@ public class ConditionalForwarder implements Serializable, Cloneable, Structured
     /**
      * <p>
      * The replication scope of the conditional forwarder. The only allowed value is <code>Domain</code>, which will
-     * replicate the conditional forwarder to all of the domain controllers for your AWS directory.
+     * replicate the conditional forwarder to all of the domain controllers for your Amazon Web Services directory.
      * </p>
      * 
      * @return The replication scope of the conditional forwarder. The only allowed value is <code>Domain</code>, which
-     *         will replicate the conditional forwarder to all of the domain controllers for your AWS directory.
+     *         will replicate the conditional forwarder to all of the domain controllers for your Amazon Web Services
+     *         directory.
      * @see ReplicationScope
      */
 
@@ -205,12 +207,13 @@ public class ConditionalForwarder implements Serializable, Cloneable, Structured
     /**
      * <p>
      * The replication scope of the conditional forwarder. The only allowed value is <code>Domain</code>, which will
-     * replicate the conditional forwarder to all of the domain controllers for your AWS directory.
+     * replicate the conditional forwarder to all of the domain controllers for your Amazon Web Services directory.
      * </p>
      * 
      * @param replicationScope
      *        The replication scope of the conditional forwarder. The only allowed value is <code>Domain</code>, which
-     *        will replicate the conditional forwarder to all of the domain controllers for your AWS directory.
+     *        will replicate the conditional forwarder to all of the domain controllers for your Amazon Web Services
+     *        directory.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ReplicationScope
      */
@@ -223,12 +226,13 @@ public class ConditionalForwarder implements Serializable, Cloneable, Structured
     /**
      * <p>
      * The replication scope of the conditional forwarder. The only allowed value is <code>Domain</code>, which will
-     * replicate the conditional forwarder to all of the domain controllers for your AWS directory.
+     * replicate the conditional forwarder to all of the domain controllers for your Amazon Web Services directory.
      * </p>
      * 
      * @param replicationScope
      *        The replication scope of the conditional forwarder. The only allowed value is <code>Domain</code>, which
-     *        will replicate the conditional forwarder to all of the domain controllers for your AWS directory.
+     *        will replicate the conditional forwarder to all of the domain controllers for your Amazon Web Services
+     *        directory.
      * @see ReplicationScope
      */
 
@@ -239,12 +243,13 @@ public class ConditionalForwarder implements Serializable, Cloneable, Structured
     /**
      * <p>
      * The replication scope of the conditional forwarder. The only allowed value is <code>Domain</code>, which will
-     * replicate the conditional forwarder to all of the domain controllers for your AWS directory.
+     * replicate the conditional forwarder to all of the domain controllers for your Amazon Web Services directory.
      * </p>
      * 
      * @param replicationScope
      *        The replication scope of the conditional forwarder. The only allowed value is <code>Domain</code>, which
-     *        will replicate the conditional forwarder to all of the domain controllers for your AWS directory.
+     *        will replicate the conditional forwarder to all of the domain controllers for your Amazon Web Services
+     *        directory.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ReplicationScope
      */

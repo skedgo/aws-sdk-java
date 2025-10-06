@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,11 +28,17 @@ public class AbstractAWSRoboMaker implements AWSRoboMaker {
     }
 
     @Override
+    public BatchDeleteWorldsResult batchDeleteWorlds(BatchDeleteWorldsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public BatchDescribeSimulationJobResult batchDescribeSimulationJob(BatchDescribeSimulationJobRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    @Deprecated
     public CancelDeploymentJobResult cancelDeploymentJob(CancelDeploymentJobRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -43,16 +49,34 @@ public class AbstractAWSRoboMaker implements AWSRoboMaker {
     }
 
     @Override
+    public CancelSimulationJobBatchResult cancelSimulationJobBatch(CancelSimulationJobBatchRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CancelWorldExportJobResult cancelWorldExportJob(CancelWorldExportJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CancelWorldGenerationJobResult cancelWorldGenerationJob(CancelWorldGenerationJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    @Deprecated
     public CreateDeploymentJobResult createDeploymentJob(CreateDeploymentJobRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    @Deprecated
     public CreateFleetResult createFleet(CreateFleetRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    @Deprecated
     public CreateRobotResult createRobot(CreateRobotRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -83,11 +107,28 @@ public class AbstractAWSRoboMaker implements AWSRoboMaker {
     }
 
     @Override
+    public CreateWorldExportJobResult createWorldExportJob(CreateWorldExportJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateWorldGenerationJobResult createWorldGenerationJob(CreateWorldGenerationJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateWorldTemplateResult createWorldTemplate(CreateWorldTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    @Deprecated
     public DeleteFleetResult deleteFleet(DeleteFleetRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    @Deprecated
     public DeleteRobotResult deleteRobot(DeleteRobotRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -103,21 +144,30 @@ public class AbstractAWSRoboMaker implements AWSRoboMaker {
     }
 
     @Override
+    public DeleteWorldTemplateResult deleteWorldTemplate(DeleteWorldTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    @Deprecated
     public DeregisterRobotResult deregisterRobot(DeregisterRobotRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    @Deprecated
     public DescribeDeploymentJobResult describeDeploymentJob(DescribeDeploymentJobRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    @Deprecated
     public DescribeFleetResult describeFleet(DescribeFleetRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    @Deprecated
     public DescribeRobotResult describeRobot(DescribeRobotRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -138,11 +188,43 @@ public class AbstractAWSRoboMaker implements AWSRoboMaker {
     }
 
     @Override
+    public DescribeSimulationJobBatchResult describeSimulationJobBatch(DescribeSimulationJobBatchRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeWorldResult describeWorld(DescribeWorldRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeWorldExportJobResult describeWorldExportJob(DescribeWorldExportJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeWorldGenerationJobResult describeWorldGenerationJob(DescribeWorldGenerationJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeWorldTemplateResult describeWorldTemplate(DescribeWorldTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetWorldTemplateBodyResult getWorldTemplateBody(GetWorldTemplateBodyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    @Deprecated
     public ListDeploymentJobsResult listDeploymentJobs(ListDeploymentJobsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    @Deprecated
     public ListFleetsResult listFleets(ListFleetsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -153,12 +235,18 @@ public class AbstractAWSRoboMaker implements AWSRoboMaker {
     }
 
     @Override
+    @Deprecated
     public ListRobotsResult listRobots(ListRobotsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public ListSimulationApplicationsResult listSimulationApplications(ListSimulationApplicationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListSimulationJobBatchesResult listSimulationJobBatches(ListSimulationJobBatchesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -173,6 +261,27 @@ public class AbstractAWSRoboMaker implements AWSRoboMaker {
     }
 
     @Override
+    public ListWorldExportJobsResult listWorldExportJobs(ListWorldExportJobsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListWorldGenerationJobsResult listWorldGenerationJobs(ListWorldGenerationJobsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListWorldTemplatesResult listWorldTemplates(ListWorldTemplatesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListWorldsResult listWorlds(ListWorldsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    @Deprecated
     public RegisterRobotResult registerRobot(RegisterRobotRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -183,6 +292,12 @@ public class AbstractAWSRoboMaker implements AWSRoboMaker {
     }
 
     @Override
+    public StartSimulationJobBatchResult startSimulationJobBatch(StartSimulationJobBatchRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    @Deprecated
     public SyncDeploymentJobResult syncDeploymentJob(SyncDeploymentJobRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -204,6 +319,11 @@ public class AbstractAWSRoboMaker implements AWSRoboMaker {
 
     @Override
     public UpdateSimulationApplicationResult updateSimulationApplication(UpdateSimulationApplicationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateWorldTemplateResult updateWorldTemplate(UpdateWorldTemplateRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

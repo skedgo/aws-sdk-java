@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The values to use to filter results from the <a>DescribeEventTypes</a> operation.
+ * The values to use to filter results from the <a
+ * href="https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeEventTypes.html">DescribeEventTypes</a>
+ * operation.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/health-2016-08-04/EventTypeFilter" target="_top">AWS API
@@ -36,14 +38,14 @@ public class EventTypeFilter implements Serializable, Cloneable, StructuredPojo 
     private java.util.List<String> eventTypeCodes;
     /**
      * <p>
-     * The AWS services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
+     * The Amazon Web Services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
      * </p>
      */
     private java.util.List<String> services;
     /**
      * <p>
-     * A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     * <code>accountNotification</code>).
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      */
     private java.util.List<String> eventTypeCategories;
@@ -120,10 +122,10 @@ public class EventTypeFilter implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The AWS services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
+     * The Amazon Web Services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
      * </p>
      * 
-     * @return The AWS services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
+     * @return The Amazon Web Services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
      */
 
     public java.util.List<String> getServices() {
@@ -132,11 +134,11 @@ public class EventTypeFilter implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The AWS services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
+     * The Amazon Web Services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
      * </p>
      * 
      * @param services
-     *        The AWS services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
+     *        The Amazon Web Services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
      */
 
     public void setServices(java.util.Collection<String> services) {
@@ -150,7 +152,7 @@ public class EventTypeFilter implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The AWS services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
+     * The Amazon Web Services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -159,7 +161,7 @@ public class EventTypeFilter implements Serializable, Cloneable, StructuredPojo 
      * </p>
      * 
      * @param services
-     *        The AWS services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
+     *        The Amazon Web Services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -175,11 +177,11 @@ public class EventTypeFilter implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The AWS services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
+     * The Amazon Web Services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
      * </p>
      * 
      * @param services
-     *        The AWS services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
+     *        The Amazon Web Services associated with the event. For example, <code>EC2</code>, <code>RDS</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -190,12 +192,13 @@ public class EventTypeFilter implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     * <code>accountNotification</code>).
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      * 
-     * @return A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     *         <code>accountNotification</code>).
+     * @return A list of event type category codes. Possible values are <code>issue</code>,
+     *         <code>accountNotification</code>, or <code>scheduledChange</code>. Currently, the
+     *         <code>investigation</code> value isn't supported at this time.
      * @see EventTypeCategory
      */
 
@@ -205,13 +208,14 @@ public class EventTypeFilter implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     * <code>accountNotification</code>).
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      * 
      * @param eventTypeCategories
-     *        A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     *        <code>accountNotification</code>).
+     *        A list of event type category codes. Possible values are <code>issue</code>,
+     *        <code>accountNotification</code>, or <code>scheduledChange</code>. Currently, the
+     *        <code>investigation</code> value isn't supported at this time.
      * @see EventTypeCategory
      */
 
@@ -226,8 +230,8 @@ public class EventTypeFilter implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     * <code>accountNotification</code>).
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -236,8 +240,9 @@ public class EventTypeFilter implements Serializable, Cloneable, StructuredPojo 
      * </p>
      * 
      * @param eventTypeCategories
-     *        A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     *        <code>accountNotification</code>).
+     *        A list of event type category codes. Possible values are <code>issue</code>,
+     *        <code>accountNotification</code>, or <code>scheduledChange</code>. Currently, the
+     *        <code>investigation</code> value isn't supported at this time.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EventTypeCategory
      */
@@ -254,13 +259,14 @@ public class EventTypeFilter implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     * <code>accountNotification</code>).
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      * 
      * @param eventTypeCategories
-     *        A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     *        <code>accountNotification</code>).
+     *        A list of event type category codes. Possible values are <code>issue</code>,
+     *        <code>accountNotification</code>, or <code>scheduledChange</code>. Currently, the
+     *        <code>investigation</code> value isn't supported at this time.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EventTypeCategory
      */
@@ -272,13 +278,14 @@ public class EventTypeFilter implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     * <code>accountNotification</code>).
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      * 
      * @param eventTypeCategories
-     *        A list of event type category codes (<code>issue</code>, <code>scheduledChange</code>, or
-     *        <code>accountNotification</code>).
+     *        A list of event type category codes. Possible values are <code>issue</code>,
+     *        <code>accountNotification</code>, or <code>scheduledChange</code>. Currently, the
+     *        <code>investigation</code> value isn't supported at this time.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EventTypeCategory
      */

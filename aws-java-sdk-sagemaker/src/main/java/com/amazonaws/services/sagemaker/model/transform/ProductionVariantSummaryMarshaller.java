@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,6 +40,16 @@ public class ProductionVariantSummaryMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CurrentInstanceCount").build();
     private static final MarshallingInfo<Integer> DESIREDINSTANCECOUNT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DesiredInstanceCount").build();
+    private static final MarshallingInfo<List> VARIANTSTATUS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("VariantStatus").build();
+    private static final MarshallingInfo<StructuredPojo> CURRENTSERVERLESSCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CurrentServerlessConfig").build();
+    private static final MarshallingInfo<StructuredPojo> DESIREDSERVERLESSCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DesiredServerlessConfig").build();
+    private static final MarshallingInfo<StructuredPojo> MANAGEDINSTANCESCALING_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ManagedInstanceScaling").build();
+    private static final MarshallingInfo<StructuredPojo> ROUTINGCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RoutingConfig").build();
 
     private static final ProductionVariantSummaryMarshaller instance = new ProductionVariantSummaryMarshaller();
 
@@ -63,6 +73,11 @@ public class ProductionVariantSummaryMarshaller {
             protocolMarshaller.marshall(productionVariantSummary.getDesiredWeight(), DESIREDWEIGHT_BINDING);
             protocolMarshaller.marshall(productionVariantSummary.getCurrentInstanceCount(), CURRENTINSTANCECOUNT_BINDING);
             protocolMarshaller.marshall(productionVariantSummary.getDesiredInstanceCount(), DESIREDINSTANCECOUNT_BINDING);
+            protocolMarshaller.marshall(productionVariantSummary.getVariantStatus(), VARIANTSTATUS_BINDING);
+            protocolMarshaller.marshall(productionVariantSummary.getCurrentServerlessConfig(), CURRENTSERVERLESSCONFIG_BINDING);
+            protocolMarshaller.marshall(productionVariantSummary.getDesiredServerlessConfig(), DESIREDSERVERLESSCONFIG_BINDING);
+            protocolMarshaller.marshall(productionVariantSummary.getManagedInstanceScaling(), MANAGEDINSTANCESCALING_BINDING);
+            protocolMarshaller.marshall(productionVariantSummary.getRoutingConfig(), ROUTINGCONFIG_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

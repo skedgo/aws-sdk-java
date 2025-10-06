@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,11 +46,17 @@ public class HlsEncryptionSettings implements Serializable, Cloneable, Structure
      * Apple HLS FairPlay content protection.
      */
     private String offlineEncrypted;
-    /** Settings for use with a SPEKE key provider */
+    /**
+     * If your output group type is HLS, DASH, or Microsoft Smooth, use these settings when doing DRM encryption with a
+     * SPEKE-compliant key provider. If your output group type is CMAF, use the SpekeKeyProviderCmaf settings instead.
+     */
     private SpekeKeyProvider spekeKeyProvider;
     /** Use these settings to set up encryption with a static key provider. */
     private StaticKeyProvider staticKeyProvider;
-    /** Indicates which type of key provider is used for encryption. */
+    /**
+     * Specify whether your DRM encryption key is static or from a key provider that follows the SPEKE standard. For
+     * more information about SPEKE, see https://docs.aws.amazon.com/speke/latest/documentation/what-is-speke.html.
+     */
     private String type;
 
     /**
@@ -275,10 +281,13 @@ public class HlsEncryptionSettings implements Serializable, Cloneable, Structure
     }
 
     /**
-     * Settings for use with a SPEKE key provider
+     * If your output group type is HLS, DASH, or Microsoft Smooth, use these settings when doing DRM encryption with a
+     * SPEKE-compliant key provider. If your output group type is CMAF, use the SpekeKeyProviderCmaf settings instead.
      * 
      * @param spekeKeyProvider
-     *        Settings for use with a SPEKE key provider
+     *        If your output group type is HLS, DASH, or Microsoft Smooth, use these settings when doing DRM encryption
+     *        with a SPEKE-compliant key provider. If your output group type is CMAF, use the SpekeKeyProviderCmaf
+     *        settings instead.
      */
 
     public void setSpekeKeyProvider(SpekeKeyProvider spekeKeyProvider) {
@@ -286,9 +295,12 @@ public class HlsEncryptionSettings implements Serializable, Cloneable, Structure
     }
 
     /**
-     * Settings for use with a SPEKE key provider
+     * If your output group type is HLS, DASH, or Microsoft Smooth, use these settings when doing DRM encryption with a
+     * SPEKE-compliant key provider. If your output group type is CMAF, use the SpekeKeyProviderCmaf settings instead.
      * 
-     * @return Settings for use with a SPEKE key provider
+     * @return If your output group type is HLS, DASH, or Microsoft Smooth, use these settings when doing DRM encryption
+     *         with a SPEKE-compliant key provider. If your output group type is CMAF, use the SpekeKeyProviderCmaf
+     *         settings instead.
      */
 
     public SpekeKeyProvider getSpekeKeyProvider() {
@@ -296,10 +308,13 @@ public class HlsEncryptionSettings implements Serializable, Cloneable, Structure
     }
 
     /**
-     * Settings for use with a SPEKE key provider
+     * If your output group type is HLS, DASH, or Microsoft Smooth, use these settings when doing DRM encryption with a
+     * SPEKE-compliant key provider. If your output group type is CMAF, use the SpekeKeyProviderCmaf settings instead.
      * 
      * @param spekeKeyProvider
-     *        Settings for use with a SPEKE key provider
+     *        If your output group type is HLS, DASH, or Microsoft Smooth, use these settings when doing DRM encryption
+     *        with a SPEKE-compliant key provider. If your output group type is CMAF, use the SpekeKeyProviderCmaf
+     *        settings instead.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -343,10 +358,13 @@ public class HlsEncryptionSettings implements Serializable, Cloneable, Structure
     }
 
     /**
-     * Indicates which type of key provider is used for encryption.
+     * Specify whether your DRM encryption key is static or from a key provider that follows the SPEKE standard. For
+     * more information about SPEKE, see https://docs.aws.amazon.com/speke/latest/documentation/what-is-speke.html.
      * 
      * @param type
-     *        Indicates which type of key provider is used for encryption.
+     *        Specify whether your DRM encryption key is static or from a key provider that follows the SPEKE standard.
+     *        For more information about SPEKE, see
+     *        https://docs.aws.amazon.com/speke/latest/documentation/what-is-speke.html.
      * @see HlsKeyProviderType
      */
 
@@ -355,9 +373,12 @@ public class HlsEncryptionSettings implements Serializable, Cloneable, Structure
     }
 
     /**
-     * Indicates which type of key provider is used for encryption.
+     * Specify whether your DRM encryption key is static or from a key provider that follows the SPEKE standard. For
+     * more information about SPEKE, see https://docs.aws.amazon.com/speke/latest/documentation/what-is-speke.html.
      * 
-     * @return Indicates which type of key provider is used for encryption.
+     * @return Specify whether your DRM encryption key is static or from a key provider that follows the SPEKE standard.
+     *         For more information about SPEKE, see
+     *         https://docs.aws.amazon.com/speke/latest/documentation/what-is-speke.html.
      * @see HlsKeyProviderType
      */
 
@@ -366,10 +387,13 @@ public class HlsEncryptionSettings implements Serializable, Cloneable, Structure
     }
 
     /**
-     * Indicates which type of key provider is used for encryption.
+     * Specify whether your DRM encryption key is static or from a key provider that follows the SPEKE standard. For
+     * more information about SPEKE, see https://docs.aws.amazon.com/speke/latest/documentation/what-is-speke.html.
      * 
      * @param type
-     *        Indicates which type of key provider is used for encryption.
+     *        Specify whether your DRM encryption key is static or from a key provider that follows the SPEKE standard.
+     *        For more information about SPEKE, see
+     *        https://docs.aws.amazon.com/speke/latest/documentation/what-is-speke.html.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HlsKeyProviderType
      */
@@ -380,10 +404,13 @@ public class HlsEncryptionSettings implements Serializable, Cloneable, Structure
     }
 
     /**
-     * Indicates which type of key provider is used for encryption.
+     * Specify whether your DRM encryption key is static or from a key provider that follows the SPEKE standard. For
+     * more information about SPEKE, see https://docs.aws.amazon.com/speke/latest/documentation/what-is-speke.html.
      * 
      * @param type
-     *        Indicates which type of key provider is used for encryption.
+     *        Specify whether your DRM encryption key is static or from a key provider that follows the SPEKE standard.
+     *        For more information about SPEKE, see
+     *        https://docs.aws.amazon.com/speke/latest/documentation/what-is-speke.html.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HlsKeyProviderType
      */

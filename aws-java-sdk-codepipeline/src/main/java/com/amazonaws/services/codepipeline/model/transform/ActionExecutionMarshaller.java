@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,6 +27,8 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class ActionExecutionMarshaller {
 
+    private static final MarshallingInfo<String> ACTIONEXECUTIONID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("actionExecutionId").build();
     private static final MarshallingInfo<String> STATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("status").build();
     private static final MarshallingInfo<String> SUMMARY_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -62,6 +64,7 @@ public class ActionExecutionMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(actionExecution.getActionExecutionId(), ACTIONEXECUTIONID_BINDING);
             protocolMarshaller.marshall(actionExecution.getStatus(), STATUS_BINDING);
             protocolMarshaller.marshall(actionExecution.getSummary(), SUMMARY_BINDING);
             protocolMarshaller.marshall(actionExecution.getLastStatusChange(), LASTSTATUSCHANGE_BINDING);

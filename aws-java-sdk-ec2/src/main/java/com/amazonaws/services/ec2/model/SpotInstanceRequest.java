@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,8 +28,7 @@ public class SpotInstanceRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If you specified a duration and your Spot Instance request was fulfilled, this is the fixed hourly price in
-     * effect for the Spot Instance while it runs.
+     * Deprecated.
      * </p>
      */
     private String actualBlockHourlyPrice;
@@ -42,7 +41,7 @@ public class SpotInstanceRequest implements Serializable, Cloneable {
     private String availabilityZoneGroup;
     /**
      * <p>
-     * The duration for the Spot Instance, in minutes.
+     * Deprecated.
      * </p>
      */
     private Integer blockDurationMinutes;
@@ -97,15 +96,24 @@ public class SpotInstanceRequest implements Serializable, Cloneable {
     private String spotInstanceRequestId;
     /**
      * <p>
-     * The maximum price per hour that you are willing to pay for a Spot Instance.
+     * The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using this
+     * parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the
+     * current Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify
+     * this parameter.
+     * </p>
+     * </important>
      */
     private String spotPrice;
     /**
      * <p>
-     * The state of the Spot Instance request. Spot status information helps track your Spot Instance requests. For more
-     * information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html">Spot
-     * Status</a> in the <i>Amazon EC2 User Guide for Linux Instances</i>.
+     * The state of the Spot Instance request. Spot request status information helps track your Spot Instance requests.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html">Spot request status</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      */
     private String state;
@@ -137,12 +145,23 @@ public class SpotInstanceRequest implements Serializable, Cloneable {
     private java.util.Date validFrom;
     /**
      * <p>
-     * The end date of the request, in UTC format (for example,
-     * <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). If this is a one-time request, it remains active
-     * until all instances launch, the request is canceled, or this date is reached. If the request is persistent, it
-     * remains active until it is canceled or this date is reached. The default end date is 7 days from the current
-     * date.
+     * The end date of the request, in UTC format (<i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z).
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For a persistent request, the request remains active until the <code>validUntil</code> date and time is reached.
+     * Otherwise, the request remains active until you cancel it.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For a one-time request, the request remains active until all instances launch, the request is canceled, or the
+     * <code>validUntil</code> date and time is reached. By default, the request is valid for 7 days from the date the
+     * request was created.
+     * </p>
+     * </li>
+     * </ul>
      */
     private java.util.Date validUntil;
     /**
@@ -154,13 +173,11 @@ public class SpotInstanceRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If you specified a duration and your Spot Instance request was fulfilled, this is the fixed hourly price in
-     * effect for the Spot Instance while it runs.
+     * Deprecated.
      * </p>
      * 
      * @param actualBlockHourlyPrice
-     *        If you specified a duration and your Spot Instance request was fulfilled, this is the fixed hourly price
-     *        in effect for the Spot Instance while it runs.
+     *        Deprecated.
      */
 
     public void setActualBlockHourlyPrice(String actualBlockHourlyPrice) {
@@ -169,12 +186,10 @@ public class SpotInstanceRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If you specified a duration and your Spot Instance request was fulfilled, this is the fixed hourly price in
-     * effect for the Spot Instance while it runs.
+     * Deprecated.
      * </p>
      * 
-     * @return If you specified a duration and your Spot Instance request was fulfilled, this is the fixed hourly price
-     *         in effect for the Spot Instance while it runs.
+     * @return Deprecated.
      */
 
     public String getActualBlockHourlyPrice() {
@@ -183,13 +198,11 @@ public class SpotInstanceRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If you specified a duration and your Spot Instance request was fulfilled, this is the fixed hourly price in
-     * effect for the Spot Instance while it runs.
+     * Deprecated.
      * </p>
      * 
      * @param actualBlockHourlyPrice
-     *        If you specified a duration and your Spot Instance request was fulfilled, this is the fixed hourly price
-     *        in effect for the Spot Instance while it runs.
+     *        Deprecated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -246,11 +259,11 @@ public class SpotInstanceRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The duration for the Spot Instance, in minutes.
+     * Deprecated.
      * </p>
      * 
      * @param blockDurationMinutes
-     *        The duration for the Spot Instance, in minutes.
+     *        Deprecated.
      */
 
     public void setBlockDurationMinutes(Integer blockDurationMinutes) {
@@ -259,10 +272,10 @@ public class SpotInstanceRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The duration for the Spot Instance, in minutes.
+     * Deprecated.
      * </p>
      * 
-     * @return The duration for the Spot Instance, in minutes.
+     * @return Deprecated.
      */
 
     public Integer getBlockDurationMinutes() {
@@ -271,11 +284,11 @@ public class SpotInstanceRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The duration for the Spot Instance, in minutes.
+     * Deprecated.
      * </p>
      * 
      * @param blockDurationMinutes
-     *        The duration for the Spot Instance, in minutes.
+     *        Deprecated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -645,11 +658,25 @@ public class SpotInstanceRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum price per hour that you are willing to pay for a Spot Instance.
+     * The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using this
+     * parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the
+     * current Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify
+     * this parameter.
+     * </p>
+     * </important>
      * 
      * @param spotPrice
-     *        The maximum price per hour that you are willing to pay for a Spot Instance.
+     *        The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using
+     *        this parameter because it can lead to increased interruptions. If you do not specify this parameter, you
+     *        will pay the current Spot price.</p> <important>
+     *        <p>
+     *        If you specify a maximum price, your instances will be interrupted more frequently than if you do not
+     *        specify this parameter.
+     *        </p>
      */
 
     public void setSpotPrice(String spotPrice) {
@@ -658,10 +685,24 @@ public class SpotInstanceRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum price per hour that you are willing to pay for a Spot Instance.
+     * The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using this
+     * parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the
+     * current Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify
+     * this parameter.
+     * </p>
+     * </important>
      * 
-     * @return The maximum price per hour that you are willing to pay for a Spot Instance.
+     * @return The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend
+     *         using this parameter because it can lead to increased interruptions. If you do not specify this
+     *         parameter, you will pay the current Spot price.</p> <important>
+     *         <p>
+     *         If you specify a maximum price, your instances will be interrupted more frequently than if you do not
+     *         specify this parameter.
+     *         </p>
      */
 
     public String getSpotPrice() {
@@ -670,11 +711,25 @@ public class SpotInstanceRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The maximum price per hour that you are willing to pay for a Spot Instance.
+     * The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using this
+     * parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the
+     * current Spot price.
      * </p>
+     * <important>
+     * <p>
+     * If you specify a maximum price, your instances will be interrupted more frequently than if you do not specify
+     * this parameter.
+     * </p>
+     * </important>
      * 
      * @param spotPrice
-     *        The maximum price per hour that you are willing to pay for a Spot Instance.
+     *        The maximum price per unit hour that you are willing to pay for a Spot Instance. We do not recommend using
+     *        this parameter because it can lead to increased interruptions. If you do not specify this parameter, you
+     *        will pay the current Spot price.</p> <important>
+     *        <p>
+     *        If you specify a maximum price, your instances will be interrupted more frequently than if you do not
+     *        specify this parameter.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -685,16 +740,17 @@ public class SpotInstanceRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The state of the Spot Instance request. Spot status information helps track your Spot Instance requests. For more
-     * information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html">Spot
-     * Status</a> in the <i>Amazon EC2 User Guide for Linux Instances</i>.
+     * The state of the Spot Instance request. Spot request status information helps track your Spot Instance requests.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html">Spot request status</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param state
-     *        The state of the Spot Instance request. Spot status information helps track your Spot Instance requests.
-     *        For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html">Spot Status</a> in the
-     *        <i>Amazon EC2 User Guide for Linux Instances</i>.
+     *        The state of the Spot Instance request. Spot request status information helps track your Spot Instance
+     *        requests. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html">Spot request
+     *        status</a> in the <i>Amazon EC2 User Guide</i>.
      * @see SpotInstanceState
      */
 
@@ -704,15 +760,16 @@ public class SpotInstanceRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The state of the Spot Instance request. Spot status information helps track your Spot Instance requests. For more
-     * information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html">Spot
-     * Status</a> in the <i>Amazon EC2 User Guide for Linux Instances</i>.
+     * The state of the Spot Instance request. Spot request status information helps track your Spot Instance requests.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html">Spot request status</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
-     * @return The state of the Spot Instance request. Spot status information helps track your Spot Instance requests.
-     *         For more information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html">Spot Status</a> in the
-     *         <i>Amazon EC2 User Guide for Linux Instances</i>.
+     * @return The state of the Spot Instance request. Spot request status information helps track your Spot Instance
+     *         requests. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html">Spot request
+     *         status</a> in the <i>Amazon EC2 User Guide</i>.
      * @see SpotInstanceState
      */
 
@@ -722,16 +779,17 @@ public class SpotInstanceRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The state of the Spot Instance request. Spot status information helps track your Spot Instance requests. For more
-     * information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html">Spot
-     * Status</a> in the <i>Amazon EC2 User Guide for Linux Instances</i>.
+     * The state of the Spot Instance request. Spot request status information helps track your Spot Instance requests.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html">Spot request status</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param state
-     *        The state of the Spot Instance request. Spot status information helps track your Spot Instance requests.
-     *        For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html">Spot Status</a> in the
-     *        <i>Amazon EC2 User Guide for Linux Instances</i>.
+     *        The state of the Spot Instance request. Spot request status information helps track your Spot Instance
+     *        requests. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html">Spot request
+     *        status</a> in the <i>Amazon EC2 User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SpotInstanceState
      */
@@ -743,16 +801,17 @@ public class SpotInstanceRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The state of the Spot Instance request. Spot status information helps track your Spot Instance requests. For more
-     * information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html">Spot
-     * Status</a> in the <i>Amazon EC2 User Guide for Linux Instances</i>.
+     * The state of the Spot Instance request. Spot request status information helps track your Spot Instance requests.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html">Spot request status</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param state
-     *        The state of the Spot Instance request. Spot status information helps track your Spot Instance requests.
-     *        For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html">Spot Status</a> in the
-     *        <i>Amazon EC2 User Guide for Linux Instances</i>.
+     *        The state of the Spot Instance request. Spot request status information helps track your Spot Instance
+     *        requests. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html">Spot request
+     *        status</a> in the <i>Amazon EC2 User Guide</i>.
      * @see SpotInstanceState
      */
 
@@ -762,16 +821,17 @@ public class SpotInstanceRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The state of the Spot Instance request. Spot status information helps track your Spot Instance requests. For more
-     * information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html">Spot
-     * Status</a> in the <i>Amazon EC2 User Guide for Linux Instances</i>.
+     * The state of the Spot Instance request. Spot request status information helps track your Spot Instance requests.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html">Spot request status</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param state
-     *        The state of the Spot Instance request. Spot status information helps track your Spot Instance requests.
-     *        For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html">Spot Status</a> in the
-     *        <i>Amazon EC2 User Guide for Linux Instances</i>.
+     *        The state of the Spot Instance request. Spot request status information helps track your Spot Instance
+     *        requests. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html">Spot request
+     *        status</a> in the <i>Amazon EC2 User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SpotInstanceState
      */
@@ -1021,19 +1081,41 @@ public class SpotInstanceRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The end date of the request, in UTC format (for example,
-     * <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). If this is a one-time request, it remains active
-     * until all instances launch, the request is canceled, or this date is reached. If the request is persistent, it
-     * remains active until it is canceled or this date is reached. The default end date is 7 days from the current
-     * date.
+     * The end date of the request, in UTC format (<i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z).
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For a persistent request, the request remains active until the <code>validUntil</code> date and time is reached.
+     * Otherwise, the request remains active until you cancel it.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For a one-time request, the request remains active until all instances launch, the request is canceled, or the
+     * <code>validUntil</code> date and time is reached. By default, the request is valid for 7 days from the date the
+     * request was created.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param validUntil
-     *        The end date of the request, in UTC format (for example,
-     *        <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). If this is a one-time request, it remains
-     *        active until all instances launch, the request is canceled, or this date is reached. If the request is
-     *        persistent, it remains active until it is canceled or this date is reached. The default end date is 7 days
-     *        from the current date.
+     *        The end date of the request, in UTC format
+     *        (<i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z).</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For a persistent request, the request remains active until the <code>validUntil</code> date and time is
+     *        reached. Otherwise, the request remains active until you cancel it.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For a one-time request, the request remains active until all instances launch, the request is canceled, or
+     *        the <code>validUntil</code> date and time is reached. By default, the request is valid for 7 days from the
+     *        date the request was created.
+     *        </p>
+     *        </li>
      */
 
     public void setValidUntil(java.util.Date validUntil) {
@@ -1042,18 +1124,40 @@ public class SpotInstanceRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The end date of the request, in UTC format (for example,
-     * <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). If this is a one-time request, it remains active
-     * until all instances launch, the request is canceled, or this date is reached. If the request is persistent, it
-     * remains active until it is canceled or this date is reached. The default end date is 7 days from the current
-     * date.
+     * The end date of the request, in UTC format (<i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z).
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For a persistent request, the request remains active until the <code>validUntil</code> date and time is reached.
+     * Otherwise, the request remains active until you cancel it.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For a one-time request, the request remains active until all instances launch, the request is canceled, or the
+     * <code>validUntil</code> date and time is reached. By default, the request is valid for 7 days from the date the
+     * request was created.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The end date of the request, in UTC format (for example,
-     *         <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). If this is a one-time request, it
-     *         remains active until all instances launch, the request is canceled, or this date is reached. If the
-     *         request is persistent, it remains active until it is canceled or this date is reached. The default end
-     *         date is 7 days from the current date.
+     * @return The end date of the request, in UTC format
+     *         (<i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z).</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         For a persistent request, the request remains active until the <code>validUntil</code> date and time is
+     *         reached. Otherwise, the request remains active until you cancel it.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For a one-time request, the request remains active until all instances launch, the request is canceled,
+     *         or the <code>validUntil</code> date and time is reached. By default, the request is valid for 7 days from
+     *         the date the request was created.
+     *         </p>
+     *         </li>
      */
 
     public java.util.Date getValidUntil() {
@@ -1062,19 +1166,41 @@ public class SpotInstanceRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The end date of the request, in UTC format (for example,
-     * <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). If this is a one-time request, it remains active
-     * until all instances launch, the request is canceled, or this date is reached. If the request is persistent, it
-     * remains active until it is canceled or this date is reached. The default end date is 7 days from the current
-     * date.
+     * The end date of the request, in UTC format (<i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z).
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For a persistent request, the request remains active until the <code>validUntil</code> date and time is reached.
+     * Otherwise, the request remains active until you cancel it.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For a one-time request, the request remains active until all instances launch, the request is canceled, or the
+     * <code>validUntil</code> date and time is reached. By default, the request is valid for 7 days from the date the
+     * request was created.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param validUntil
-     *        The end date of the request, in UTC format (for example,
-     *        <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). If this is a one-time request, it remains
-     *        active until all instances launch, the request is canceled, or this date is reached. If the request is
-     *        persistent, it remains active until it is canceled or this date is reached. The default end date is 7 days
-     *        from the current date.
+     *        The end date of the request, in UTC format
+     *        (<i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z).</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For a persistent request, the request remains active until the <code>validUntil</code> date and time is
+     *        reached. Otherwise, the request remains active until you cancel it.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For a one-time request, the request remains active until all instances launch, the request is canceled, or
+     *        the <code>validUntil</code> date and time is reached. By default, the request is valid for 7 days from the
+     *        date the request was created.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

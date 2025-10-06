@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2019 Amazon Technologies, Inc.
+ * Copyright 2015-2025 Amazon Technologies, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,18 +22,44 @@ import com.amazonaws.services.s3.AmazonS3;
  *
  * @see AmazonS3#getBucketLifecycleConfiguration(GetBucketLifecycleConfigurationRequest)
  */
-public class GetBucketLifecycleConfigurationRequest extends GenericBucketRequest implements Serializable {
+public class GetBucketLifecycleConfigurationRequest extends GenericBucketRequest implements Serializable, ExpectedBucketOwnerRequest {
+
+    private String expectedBucketOwner;
 
     /**
      * Creates a request object, ready to be executed to fetch the lifecycle
      * configuration for the specified bucket.
      *
+     * <p>
+     * When using this API with an access point, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * </p>
+     * <p>
+     * When using this operation using an access point through the Amazon Web Services SDKs, you provide
+     * the access point ARN in place of the bucket name. For more information about access point
+     * ARNs, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html\">
+     * Using access points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
      * @param bucketName
-     *            The name of the bucket whose lifecycle configuration is being
+     *            The name of the bucket, or access point ARN, whose lifecycle configuration is being
      *            fetched.
      */
     public GetBucketLifecycleConfigurationRequest(String bucketName) {
         super(bucketName);
+    }
+
+    public String getExpectedBucketOwner() {
+        return expectedBucketOwner;
+    }
+
+    public GetBucketLifecycleConfigurationRequest withExpectedBucketOwner(String expectedBucketOwner) {
+        this.expectedBucketOwner = expectedBucketOwner;
+        return this;
+    }
+
+    public void setExpectedBucketOwner(String expectedBucketOwner) {
+        withExpectedBucketOwner(expectedBucketOwner);
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -121,8 +121,64 @@ public class InstanceNetworkInterfaceSpecificationStaxUnmarshaller implements Un
                     continue;
                 }
 
+                if (context.testExpression("AssociateCarrierIpAddress", targetDepth)) {
+                    instanceNetworkInterfaceSpecification.setAssociateCarrierIpAddress(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("InterfaceType", targetDepth)) {
                     instanceNetworkInterfaceSpecification.setInterfaceType(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("NetworkCardIndex", targetDepth)) {
+                    instanceNetworkInterfaceSpecification.setNetworkCardIndex(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("Ipv4Prefix", targetDepth)) {
+                    instanceNetworkInterfaceSpecification.withIpv4Prefixes(new ArrayList<Ipv4PrefixSpecificationRequest>());
+                    continue;
+                }
+
+                if (context.testExpression("Ipv4Prefix/item", targetDepth)) {
+                    instanceNetworkInterfaceSpecification.withIpv4Prefixes(Ipv4PrefixSpecificationRequestStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("Ipv4PrefixCount", targetDepth)) {
+                    instanceNetworkInterfaceSpecification.setIpv4PrefixCount(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("Ipv6Prefix", targetDepth)) {
+                    instanceNetworkInterfaceSpecification.withIpv6Prefixes(new ArrayList<Ipv6PrefixSpecificationRequest>());
+                    continue;
+                }
+
+                if (context.testExpression("Ipv6Prefix/item", targetDepth)) {
+                    instanceNetworkInterfaceSpecification.withIpv6Prefixes(Ipv6PrefixSpecificationRequestStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("Ipv6PrefixCount", targetDepth)) {
+                    instanceNetworkInterfaceSpecification.setIpv6PrefixCount(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("PrimaryIpv6", targetDepth)) {
+                    instanceNetworkInterfaceSpecification.setPrimaryIpv6(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("EnaSrdSpecification", targetDepth)) {
+                    instanceNetworkInterfaceSpecification.setEnaSrdSpecification(EnaSrdSpecificationRequestStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ConnectionTrackingSpecification", targetDepth)) {
+                    instanceNetworkInterfaceSpecification.setConnectionTrackingSpecification(ConnectionTrackingSpecificationRequestStaxUnmarshaller
+                            .getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

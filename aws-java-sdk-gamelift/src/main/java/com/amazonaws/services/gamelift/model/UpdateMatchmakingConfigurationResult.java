@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,9 +16,6 @@ import java.io.Serializable;
 import javax.annotation.Generated;
 
 /**
- * <p>
- * Represents the returned data in response to a request action.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/UpdateMatchmakingConfiguration"
  *      target="_top">AWS API Documentation</a>
@@ -29,18 +26,18 @@ public class UpdateMatchmakingConfigurationResult extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * Object that describes the updated matchmaking configuration.
+     * The updated matchmaking configuration.
      * </p>
      */
     private MatchmakingConfiguration configuration;
 
     /**
      * <p>
-     * Object that describes the updated matchmaking configuration.
+     * The updated matchmaking configuration.
      * </p>
      * 
      * @param configuration
-     *        Object that describes the updated matchmaking configuration.
+     *        The updated matchmaking configuration.
      */
 
     public void setConfiguration(MatchmakingConfiguration configuration) {
@@ -49,10 +46,10 @@ public class UpdateMatchmakingConfigurationResult extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * Object that describes the updated matchmaking configuration.
+     * The updated matchmaking configuration.
      * </p>
      * 
-     * @return Object that describes the updated matchmaking configuration.
+     * @return The updated matchmaking configuration.
      */
 
     public MatchmakingConfiguration getConfiguration() {
@@ -61,11 +58,11 @@ public class UpdateMatchmakingConfigurationResult extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * Object that describes the updated matchmaking configuration.
+     * The updated matchmaking configuration.
      * </p>
      * 
      * @param configuration
-     *        Object that describes the updated matchmaking configuration.
+     *        The updated matchmaking configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

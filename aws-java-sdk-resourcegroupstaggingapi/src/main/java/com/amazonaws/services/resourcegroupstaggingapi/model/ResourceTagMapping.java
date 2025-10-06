@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,10 +36,17 @@ public class ResourceTagMapping implements Serializable, Cloneable, StructuredPo
     private String resourceARN;
     /**
      * <p>
-     * The tags that have been applied to one or more AWS resources.
+     * The tags that have been applied to one or more Amazon Web Services resources.
      * </p>
      */
     private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * Information that shows whether a resource is compliant with the effective tag policy, including details on any
+     * noncompliant tag keys.
+     * </p>
+     */
+    private ComplianceDetails complianceDetails;
 
     /**
      * <p>
@@ -83,10 +90,10 @@ public class ResourceTagMapping implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The tags that have been applied to one or more AWS resources.
+     * The tags that have been applied to one or more Amazon Web Services resources.
      * </p>
      * 
-     * @return The tags that have been applied to one or more AWS resources.
+     * @return The tags that have been applied to one or more Amazon Web Services resources.
      */
 
     public java.util.List<Tag> getTags() {
@@ -95,11 +102,11 @@ public class ResourceTagMapping implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The tags that have been applied to one or more AWS resources.
+     * The tags that have been applied to one or more Amazon Web Services resources.
      * </p>
      * 
      * @param tags
-     *        The tags that have been applied to one or more AWS resources.
+     *        The tags that have been applied to one or more Amazon Web Services resources.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -113,7 +120,7 @@ public class ResourceTagMapping implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The tags that have been applied to one or more AWS resources.
+     * The tags that have been applied to one or more Amazon Web Services resources.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -122,7 +129,7 @@ public class ResourceTagMapping implements Serializable, Cloneable, StructuredPo
      * </p>
      * 
      * @param tags
-     *        The tags that have been applied to one or more AWS resources.
+     *        The tags that have been applied to one or more Amazon Web Services resources.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -138,16 +145,62 @@ public class ResourceTagMapping implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The tags that have been applied to one or more AWS resources.
+     * The tags that have been applied to one or more Amazon Web Services resources.
      * </p>
      * 
      * @param tags
-     *        The tags that have been applied to one or more AWS resources.
+     *        The tags that have been applied to one or more Amazon Web Services resources.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ResourceTagMapping withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information that shows whether a resource is compliant with the effective tag policy, including details on any
+     * noncompliant tag keys.
+     * </p>
+     * 
+     * @param complianceDetails
+     *        Information that shows whether a resource is compliant with the effective tag policy, including details on
+     *        any noncompliant tag keys.
+     */
+
+    public void setComplianceDetails(ComplianceDetails complianceDetails) {
+        this.complianceDetails = complianceDetails;
+    }
+
+    /**
+     * <p>
+     * Information that shows whether a resource is compliant with the effective tag policy, including details on any
+     * noncompliant tag keys.
+     * </p>
+     * 
+     * @return Information that shows whether a resource is compliant with the effective tag policy, including details
+     *         on any noncompliant tag keys.
+     */
+
+    public ComplianceDetails getComplianceDetails() {
+        return this.complianceDetails;
+    }
+
+    /**
+     * <p>
+     * Information that shows whether a resource is compliant with the effective tag policy, including details on any
+     * noncompliant tag keys.
+     * </p>
+     * 
+     * @param complianceDetails
+     *        Information that shows whether a resource is compliant with the effective tag policy, including details on
+     *        any noncompliant tag keys.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResourceTagMapping withComplianceDetails(ComplianceDetails complianceDetails) {
+        setComplianceDetails(complianceDetails);
         return this;
     }
 
@@ -166,7 +219,9 @@ public class ResourceTagMapping implements Serializable, Cloneable, StructuredPo
         if (getResourceARN() != null)
             sb.append("ResourceARN: ").append(getResourceARN()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getComplianceDetails() != null)
+            sb.append("ComplianceDetails: ").append(getComplianceDetails());
         sb.append("}");
         return sb.toString();
     }
@@ -189,6 +244,10 @@ public class ResourceTagMapping implements Serializable, Cloneable, StructuredPo
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getComplianceDetails() == null ^ this.getComplianceDetails() == null)
+            return false;
+        if (other.getComplianceDetails() != null && other.getComplianceDetails().equals(this.getComplianceDetails()) == false)
+            return false;
         return true;
     }
 
@@ -199,6 +258,7 @@ public class ResourceTagMapping implements Serializable, Cloneable, StructuredPo
 
         hashCode = prime * hashCode + ((getResourceARN() == null) ? 0 : getResourceARN().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getComplianceDetails() == null) ? 0 : getComplianceDetails().hashCode());
         return hashCode;
     }
 

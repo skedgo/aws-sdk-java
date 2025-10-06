@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A complex type for the endpoint group. An AWS Region can have only one endpoint group for a specific listener.
+ * A complex type for the endpoint group. An Amazon Web Services Region can have only one endpoint group for a specific
+ * listener.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/EndpointGroup" target="_top">AWS
@@ -36,7 +37,7 @@ public class EndpointGroup implements Serializable, Cloneable, StructuredPojo {
     private String endpointGroupArn;
     /**
      * <p>
-     * The AWS Region that this endpoint group belongs.
+     * The Amazon Web Services Region where the endpoint group is located.
      * </p>
      */
     private String endpointGroupRegion;
@@ -48,8 +49,8 @@ public class EndpointGroup implements Serializable, Cloneable, StructuredPojo {
     private java.util.List<EndpointDescription> endpointDescriptions;
     /**
      * <p>
-     * The percentage of traffic to send to an AWS Region. Additional traffic is distributed to other endpoint groups
-     * for this listener.
+     * The percentage of traffic to send to an Amazon Web Services Region. Additional traffic is distributed to other
+     * endpoint groups for this listener.
      * </p>
      * <p>
      * Use this action to increase (dial up) or decrease (dial down) traffic to a specific Region. The percentage is
@@ -97,6 +98,14 @@ public class EndpointGroup implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private Integer thresholdCount;
+    /**
+     * <p>
+     * Allows you to override the destination ports used to route traffic to an endpoint. Using a port override lets you
+     * map a list of external destination ports (that your users send traffic to) to a list of internal destination
+     * ports that you want an application endpoint to receive traffic on.
+     * </p>
+     */
+    private java.util.List<PortOverride> portOverrides;
 
     /**
      * <p>
@@ -140,11 +149,11 @@ public class EndpointGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Region that this endpoint group belongs.
+     * The Amazon Web Services Region where the endpoint group is located.
      * </p>
      * 
      * @param endpointGroupRegion
-     *        The AWS Region that this endpoint group belongs.
+     *        The Amazon Web Services Region where the endpoint group is located.
      */
 
     public void setEndpointGroupRegion(String endpointGroupRegion) {
@@ -153,10 +162,10 @@ public class EndpointGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Region that this endpoint group belongs.
+     * The Amazon Web Services Region where the endpoint group is located.
      * </p>
      * 
-     * @return The AWS Region that this endpoint group belongs.
+     * @return The Amazon Web Services Region where the endpoint group is located.
      */
 
     public String getEndpointGroupRegion() {
@@ -165,11 +174,11 @@ public class EndpointGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Region that this endpoint group belongs.
+     * The Amazon Web Services Region where the endpoint group is located.
      * </p>
      * 
      * @param endpointGroupRegion
-     *        The AWS Region that this endpoint group belongs.
+     *        The Amazon Web Services Region where the endpoint group is located.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -250,8 +259,8 @@ public class EndpointGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The percentage of traffic to send to an AWS Region. Additional traffic is distributed to other endpoint groups
-     * for this listener.
+     * The percentage of traffic to send to an Amazon Web Services Region. Additional traffic is distributed to other
+     * endpoint groups for this listener.
      * </p>
      * <p>
      * Use this action to increase (dial up) or decrease (dial down) traffic to a specific Region. The percentage is
@@ -262,8 +271,8 @@ public class EndpointGroup implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param trafficDialPercentage
-     *        The percentage of traffic to send to an AWS Region. Additional traffic is distributed to other endpoint
-     *        groups for this listener. </p>
+     *        The percentage of traffic to send to an Amazon Web Services Region. Additional traffic is distributed to
+     *        other endpoint groups for this listener. </p>
      *        <p>
      *        Use this action to increase (dial up) or decrease (dial down) traffic to a specific Region. The percentage
      *        is applied to the traffic that would otherwise have been routed to the Region based on optimal routing.
@@ -278,8 +287,8 @@ public class EndpointGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The percentage of traffic to send to an AWS Region. Additional traffic is distributed to other endpoint groups
-     * for this listener.
+     * The percentage of traffic to send to an Amazon Web Services Region. Additional traffic is distributed to other
+     * endpoint groups for this listener.
      * </p>
      * <p>
      * Use this action to increase (dial up) or decrease (dial down) traffic to a specific Region. The percentage is
@@ -289,8 +298,8 @@ public class EndpointGroup implements Serializable, Cloneable, StructuredPojo {
      * The default value is 100.
      * </p>
      * 
-     * @return The percentage of traffic to send to an AWS Region. Additional traffic is distributed to other endpoint
-     *         groups for this listener. </p>
+     * @return The percentage of traffic to send to an Amazon Web Services Region. Additional traffic is distributed to
+     *         other endpoint groups for this listener. </p>
      *         <p>
      *         Use this action to increase (dial up) or decrease (dial down) traffic to a specific Region. The
      *         percentage is applied to the traffic that would otherwise have been routed to the Region based on optimal
@@ -306,8 +315,8 @@ public class EndpointGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The percentage of traffic to send to an AWS Region. Additional traffic is distributed to other endpoint groups
-     * for this listener.
+     * The percentage of traffic to send to an Amazon Web Services Region. Additional traffic is distributed to other
+     * endpoint groups for this listener.
      * </p>
      * <p>
      * Use this action to increase (dial up) or decrease (dial down) traffic to a specific Region. The percentage is
@@ -318,8 +327,8 @@ public class EndpointGroup implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param trafficDialPercentage
-     *        The percentage of traffic to send to an AWS Region. Additional traffic is distributed to other endpoint
-     *        groups for this listener. </p>
+     *        The percentage of traffic to send to an Amazon Web Services Region. Additional traffic is distributed to
+     *        other endpoint groups for this listener. </p>
      *        <p>
      *        Use this action to increase (dial up) or decrease (dial down) traffic to a specific Region. The percentage
      *        is applied to the traffic that would otherwise have been routed to the Region based on optimal routing.
@@ -598,6 +607,92 @@ public class EndpointGroup implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * Allows you to override the destination ports used to route traffic to an endpoint. Using a port override lets you
+     * map a list of external destination ports (that your users send traffic to) to a list of internal destination
+     * ports that you want an application endpoint to receive traffic on.
+     * </p>
+     * 
+     * @return Allows you to override the destination ports used to route traffic to an endpoint. Using a port override
+     *         lets you map a list of external destination ports (that your users send traffic to) to a list of internal
+     *         destination ports that you want an application endpoint to receive traffic on.
+     */
+
+    public java.util.List<PortOverride> getPortOverrides() {
+        return portOverrides;
+    }
+
+    /**
+     * <p>
+     * Allows you to override the destination ports used to route traffic to an endpoint. Using a port override lets you
+     * map a list of external destination ports (that your users send traffic to) to a list of internal destination
+     * ports that you want an application endpoint to receive traffic on.
+     * </p>
+     * 
+     * @param portOverrides
+     *        Allows you to override the destination ports used to route traffic to an endpoint. Using a port override
+     *        lets you map a list of external destination ports (that your users send traffic to) to a list of internal
+     *        destination ports that you want an application endpoint to receive traffic on.
+     */
+
+    public void setPortOverrides(java.util.Collection<PortOverride> portOverrides) {
+        if (portOverrides == null) {
+            this.portOverrides = null;
+            return;
+        }
+
+        this.portOverrides = new java.util.ArrayList<PortOverride>(portOverrides);
+    }
+
+    /**
+     * <p>
+     * Allows you to override the destination ports used to route traffic to an endpoint. Using a port override lets you
+     * map a list of external destination ports (that your users send traffic to) to a list of internal destination
+     * ports that you want an application endpoint to receive traffic on.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setPortOverrides(java.util.Collection)} or {@link #withPortOverrides(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param portOverrides
+     *        Allows you to override the destination ports used to route traffic to an endpoint. Using a port override
+     *        lets you map a list of external destination ports (that your users send traffic to) to a list of internal
+     *        destination ports that you want an application endpoint to receive traffic on.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EndpointGroup withPortOverrides(PortOverride... portOverrides) {
+        if (this.portOverrides == null) {
+            setPortOverrides(new java.util.ArrayList<PortOverride>(portOverrides.length));
+        }
+        for (PortOverride ele : portOverrides) {
+            this.portOverrides.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Allows you to override the destination ports used to route traffic to an endpoint. Using a port override lets you
+     * map a list of external destination ports (that your users send traffic to) to a list of internal destination
+     * ports that you want an application endpoint to receive traffic on.
+     * </p>
+     * 
+     * @param portOverrides
+     *        Allows you to override the destination ports used to route traffic to an endpoint. Using a port override
+     *        lets you map a list of external destination ports (that your users send traffic to) to a list of internal
+     *        destination ports that you want an application endpoint to receive traffic on.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EndpointGroup withPortOverrides(java.util.Collection<PortOverride> portOverrides) {
+        setPortOverrides(portOverrides);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -626,7 +721,9 @@ public class EndpointGroup implements Serializable, Cloneable, StructuredPojo {
         if (getHealthCheckIntervalSeconds() != null)
             sb.append("HealthCheckIntervalSeconds: ").append(getHealthCheckIntervalSeconds()).append(",");
         if (getThresholdCount() != null)
-            sb.append("ThresholdCount: ").append(getThresholdCount());
+            sb.append("ThresholdCount: ").append(getThresholdCount()).append(",");
+        if (getPortOverrides() != null)
+            sb.append("PortOverrides: ").append(getPortOverrides());
         sb.append("}");
         return sb.toString();
     }
@@ -677,6 +774,10 @@ public class EndpointGroup implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getThresholdCount() != null && other.getThresholdCount().equals(this.getThresholdCount()) == false)
             return false;
+        if (other.getPortOverrides() == null ^ this.getPortOverrides() == null)
+            return false;
+        if (other.getPortOverrides() != null && other.getPortOverrides().equals(this.getPortOverrides()) == false)
+            return false;
         return true;
     }
 
@@ -694,6 +795,7 @@ public class EndpointGroup implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getHealthCheckPath() == null) ? 0 : getHealthCheckPath().hashCode());
         hashCode = prime * hashCode + ((getHealthCheckIntervalSeconds() == null) ? 0 : getHealthCheckIntervalSeconds().hashCode());
         hashCode = prime * hashCode + ((getThresholdCount() == null) ? 0 : getThresholdCount().hashCode());
+        hashCode = prime * hashCode + ((getPortOverrides() == null) ? 0 : getPortOverrides().hashCode());
         return hashCode;
     }
 

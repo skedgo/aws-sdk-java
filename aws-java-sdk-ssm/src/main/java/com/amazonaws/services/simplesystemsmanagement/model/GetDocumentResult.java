@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,14 +25,27 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The version of the artifact associated with the document. For example, "Release 12, Update 6". This value is
-     * unique across all versions of a document, and cannot be changed.
+     * The date the SSM document was created.
+     * </p>
+     */
+    private java.util.Date createdDate;
+    /**
+     * <p>
+     * The friendly name of the SSM document. This value can differ for each version of the document. If you want to
+     * update this value, see <a>UpdateDocument</a>.
+     * </p>
+     */
+    private String displayName;
+    /**
+     * <p>
+     * The version of the artifact associated with the document. For example, 12.6. This value is unique across all
+     * versions of a document, and can't be changed.
      * </p>
      */
     private String versionName;
@@ -44,22 +57,22 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
     private String documentVersion;
     /**
      * <p>
-     * The status of the Systems Manager document, such as <code>Creating</code>, <code>Active</code>,
-     * <code>Updating</code>, <code>Failed</code>, and <code>Deleting</code>.
+     * The status of the SSM document, such as <code>Creating</code>, <code>Active</code>, <code>Updating</code>,
+     * <code>Failed</code>, and <code>Deleting</code>.
      * </p>
      */
     private String status;
     /**
      * <p>
-     * A message returned by AWS Systems Manager that explains the <code>Status</code> value. For example, a
-     * <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
-     * "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+     * A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value. For
+     * example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
+     * "The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct."
      * </p>
      */
     private String statusInformation;
     /**
      * <p>
-     * The contents of the Systems Manager document.
+     * The contents of the SSM document.
      * </p>
      */
     private String content;
@@ -77,18 +90,39 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
     private String documentFormat;
     /**
      * <p>
-     * A description of the document attachments, including names, locations, sizes, etc.
+     * A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code> document
+     * requires an <code>ApplicationConfigurationSchema</code> document.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<DocumentRequires> requires;
+    /**
+     * <p>
+     * A description of the document attachments, including names, locations, sizes, and so on.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<AttachmentContent> attachmentsContent;
+    /**
+     * <p>
+     * The current review status of a new custom Systems Manager document (SSM document) created by a member of your
+     * organization, or of the latest version of an existing SSM document.
+     * </p>
+     * <p>
+     * Only one version of an SSM document can be in the APPROVED state at a time. When a new version is approved, the
+     * status of the previous version changes to REJECTED.
+     * </p>
+     * <p>
+     * Only one version of an SSM document can be in review, or PENDING, at a time.
+     * </p>
+     */
+    private String reviewStatus;
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
      * @param name
-     *        The name of the Systems Manager document.
+     *        The name of the SSM document.
      */
 
     public void setName(String name) {
@@ -97,10 +131,10 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
-     * @return The name of the Systems Manager document.
+     * @return The name of the SSM document.
      */
 
     public String getName() {
@@ -109,11 +143,11 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
      * @param name
-     *        The name of the Systems Manager document.
+     *        The name of the SSM document.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -124,13 +158,99 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The version of the artifact associated with the document. For example, "Release 12, Update 6". This value is
-     * unique across all versions of a document, and cannot be changed.
+     * The date the SSM document was created.
+     * </p>
+     * 
+     * @param createdDate
+     *        The date the SSM document was created.
+     */
+
+    public void setCreatedDate(java.util.Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    /**
+     * <p>
+     * The date the SSM document was created.
+     * </p>
+     * 
+     * @return The date the SSM document was created.
+     */
+
+    public java.util.Date getCreatedDate() {
+        return this.createdDate;
+    }
+
+    /**
+     * <p>
+     * The date the SSM document was created.
+     * </p>
+     * 
+     * @param createdDate
+     *        The date the SSM document was created.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetDocumentResult withCreatedDate(java.util.Date createdDate) {
+        setCreatedDate(createdDate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The friendly name of the SSM document. This value can differ for each version of the document. If you want to
+     * update this value, see <a>UpdateDocument</a>.
+     * </p>
+     * 
+     * @param displayName
+     *        The friendly name of the SSM document. This value can differ for each version of the document. If you want
+     *        to update this value, see <a>UpdateDocument</a>.
+     */
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    /**
+     * <p>
+     * The friendly name of the SSM document. This value can differ for each version of the document. If you want to
+     * update this value, see <a>UpdateDocument</a>.
+     * </p>
+     * 
+     * @return The friendly name of the SSM document. This value can differ for each version of the document. If you
+     *         want to update this value, see <a>UpdateDocument</a>.
+     */
+
+    public String getDisplayName() {
+        return this.displayName;
+    }
+
+    /**
+     * <p>
+     * The friendly name of the SSM document. This value can differ for each version of the document. If you want to
+     * update this value, see <a>UpdateDocument</a>.
+     * </p>
+     * 
+     * @param displayName
+     *        The friendly name of the SSM document. This value can differ for each version of the document. If you want
+     *        to update this value, see <a>UpdateDocument</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetDocumentResult withDisplayName(String displayName) {
+        setDisplayName(displayName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The version of the artifact associated with the document. For example, 12.6. This value is unique across all
+     * versions of a document, and can't be changed.
      * </p>
      * 
      * @param versionName
-     *        The version of the artifact associated with the document. For example, "Release 12, Update 6". This value
-     *        is unique across all versions of a document, and cannot be changed.
+     *        The version of the artifact associated with the document. For example, 12.6. This value is unique across
+     *        all versions of a document, and can't be changed.
      */
 
     public void setVersionName(String versionName) {
@@ -139,12 +259,12 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The version of the artifact associated with the document. For example, "Release 12, Update 6". This value is
-     * unique across all versions of a document, and cannot be changed.
+     * The version of the artifact associated with the document. For example, 12.6. This value is unique across all
+     * versions of a document, and can't be changed.
      * </p>
      * 
-     * @return The version of the artifact associated with the document. For example, "Release 12, Update 6". This value
-     *         is unique across all versions of a document, and cannot be changed.
+     * @return The version of the artifact associated with the document. For example, 12.6. This value is unique across
+     *         all versions of a document, and can't be changed.
      */
 
     public String getVersionName() {
@@ -153,13 +273,13 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The version of the artifact associated with the document. For example, "Release 12, Update 6". This value is
-     * unique across all versions of a document, and cannot be changed.
+     * The version of the artifact associated with the document. For example, 12.6. This value is unique across all
+     * versions of a document, and can't be changed.
      * </p>
      * 
      * @param versionName
-     *        The version of the artifact associated with the document. For example, "Release 12, Update 6". This value
-     *        is unique across all versions of a document, and cannot be changed.
+     *        The version of the artifact associated with the document. For example, 12.6. This value is unique across
+     *        all versions of a document, and can't be changed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -210,13 +330,13 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The status of the Systems Manager document, such as <code>Creating</code>, <code>Active</code>,
-     * <code>Updating</code>, <code>Failed</code>, and <code>Deleting</code>.
+     * The status of the SSM document, such as <code>Creating</code>, <code>Active</code>, <code>Updating</code>,
+     * <code>Failed</code>, and <code>Deleting</code>.
      * </p>
      * 
      * @param status
-     *        The status of the Systems Manager document, such as <code>Creating</code>, <code>Active</code>,
-     *        <code>Updating</code>, <code>Failed</code>, and <code>Deleting</code>.
+     *        The status of the SSM document, such as <code>Creating</code>, <code>Active</code>, <code>Updating</code>,
+     *        <code>Failed</code>, and <code>Deleting</code>.
      * @see DocumentStatus
      */
 
@@ -226,12 +346,12 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The status of the Systems Manager document, such as <code>Creating</code>, <code>Active</code>,
-     * <code>Updating</code>, <code>Failed</code>, and <code>Deleting</code>.
+     * The status of the SSM document, such as <code>Creating</code>, <code>Active</code>, <code>Updating</code>,
+     * <code>Failed</code>, and <code>Deleting</code>.
      * </p>
      * 
-     * @return The status of the Systems Manager document, such as <code>Creating</code>, <code>Active</code>,
-     *         <code>Updating</code>, <code>Failed</code>, and <code>Deleting</code>.
+     * @return The status of the SSM document, such as <code>Creating</code>, <code>Active</code>, <code>Updating</code>
+     *         , <code>Failed</code>, and <code>Deleting</code>.
      * @see DocumentStatus
      */
 
@@ -241,13 +361,13 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The status of the Systems Manager document, such as <code>Creating</code>, <code>Active</code>,
-     * <code>Updating</code>, <code>Failed</code>, and <code>Deleting</code>.
+     * The status of the SSM document, such as <code>Creating</code>, <code>Active</code>, <code>Updating</code>,
+     * <code>Failed</code>, and <code>Deleting</code>.
      * </p>
      * 
      * @param status
-     *        The status of the Systems Manager document, such as <code>Creating</code>, <code>Active</code>,
-     *        <code>Updating</code>, <code>Failed</code>, and <code>Deleting</code>.
+     *        The status of the SSM document, such as <code>Creating</code>, <code>Active</code>, <code>Updating</code>,
+     *        <code>Failed</code>, and <code>Deleting</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DocumentStatus
      */
@@ -259,13 +379,13 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The status of the Systems Manager document, such as <code>Creating</code>, <code>Active</code>,
-     * <code>Updating</code>, <code>Failed</code>, and <code>Deleting</code>.
+     * The status of the SSM document, such as <code>Creating</code>, <code>Active</code>, <code>Updating</code>,
+     * <code>Failed</code>, and <code>Deleting</code>.
      * </p>
      * 
      * @param status
-     *        The status of the Systems Manager document, such as <code>Creating</code>, <code>Active</code>,
-     *        <code>Updating</code>, <code>Failed</code>, and <code>Deleting</code>.
+     *        The status of the SSM document, such as <code>Creating</code>, <code>Active</code>, <code>Updating</code>,
+     *        <code>Failed</code>, and <code>Deleting</code>.
      * @see DocumentStatus
      */
 
@@ -275,13 +395,13 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The status of the Systems Manager document, such as <code>Creating</code>, <code>Active</code>,
-     * <code>Updating</code>, <code>Failed</code>, and <code>Deleting</code>.
+     * The status of the SSM document, such as <code>Creating</code>, <code>Active</code>, <code>Updating</code>,
+     * <code>Failed</code>, and <code>Deleting</code>.
      * </p>
      * 
      * @param status
-     *        The status of the Systems Manager document, such as <code>Creating</code>, <code>Active</code>,
-     *        <code>Updating</code>, <code>Failed</code>, and <code>Deleting</code>.
+     *        The status of the SSM document, such as <code>Creating</code>, <code>Active</code>, <code>Updating</code>,
+     *        <code>Failed</code>, and <code>Deleting</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DocumentStatus
      */
@@ -293,15 +413,15 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * A message returned by AWS Systems Manager that explains the <code>Status</code> value. For example, a
-     * <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
-     * "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+     * A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value. For
+     * example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
+     * "The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct."
      * </p>
      * 
      * @param statusInformation
-     *        A message returned by AWS Systems Manager that explains the <code>Status</code> value. For example, a
-     *        <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
-     *        "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+     *        A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value. For
+     *        example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
+     *        "The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct."
      */
 
     public void setStatusInformation(String statusInformation) {
@@ -310,14 +430,14 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * A message returned by AWS Systems Manager that explains the <code>Status</code> value. For example, a
-     * <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
-     * "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+     * A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value. For
+     * example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
+     * "The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct."
      * </p>
      * 
-     * @return A message returned by AWS Systems Manager that explains the <code>Status</code> value. For example, a
-     *         <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
-     *         "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+     * @return A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value.
+     *         For example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code>
+     *         message, "The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct."
      */
 
     public String getStatusInformation() {
@@ -326,15 +446,15 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * A message returned by AWS Systems Manager that explains the <code>Status</code> value. For example, a
-     * <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
-     * "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+     * A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value. For
+     * example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
+     * "The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct."
      * </p>
      * 
      * @param statusInformation
-     *        A message returned by AWS Systems Manager that explains the <code>Status</code> value. For example, a
-     *        <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
-     *        "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+     *        A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value. For
+     *        example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
+     *        "The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct."
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -345,11 +465,11 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The contents of the Systems Manager document.
+     * The contents of the SSM document.
      * </p>
      * 
      * @param content
-     *        The contents of the Systems Manager document.
+     *        The contents of the SSM document.
      */
 
     public void setContent(String content) {
@@ -358,10 +478,10 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The contents of the Systems Manager document.
+     * The contents of the SSM document.
      * </p>
      * 
-     * @return The contents of the Systems Manager document.
+     * @return The contents of the SSM document.
      */
 
     public String getContent() {
@@ -370,11 +490,11 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The contents of the Systems Manager document.
+     * The contents of the SSM document.
      * </p>
      * 
      * @param content
-     *        The contents of the Systems Manager document.
+     *        The contents of the SSM document.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -531,10 +651,91 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * A description of the document attachments, including names, locations, sizes, etc.
+     * A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code> document
+     * requires an <code>ApplicationConfigurationSchema</code> document.
      * </p>
      * 
-     * @return A description of the document attachments, including names, locations, sizes, etc.
+     * @return A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code>
+     *         document requires an <code>ApplicationConfigurationSchema</code> document.
+     */
+
+    public java.util.List<DocumentRequires> getRequires() {
+        if (requires == null) {
+            requires = new com.amazonaws.internal.SdkInternalList<DocumentRequires>();
+        }
+        return requires;
+    }
+
+    /**
+     * <p>
+     * A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code> document
+     * requires an <code>ApplicationConfigurationSchema</code> document.
+     * </p>
+     * 
+     * @param requires
+     *        A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code>
+     *        document requires an <code>ApplicationConfigurationSchema</code> document.
+     */
+
+    public void setRequires(java.util.Collection<DocumentRequires> requires) {
+        if (requires == null) {
+            this.requires = null;
+            return;
+        }
+
+        this.requires = new com.amazonaws.internal.SdkInternalList<DocumentRequires>(requires);
+    }
+
+    /**
+     * <p>
+     * A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code> document
+     * requires an <code>ApplicationConfigurationSchema</code> document.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setRequires(java.util.Collection)} or {@link #withRequires(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param requires
+     *        A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code>
+     *        document requires an <code>ApplicationConfigurationSchema</code> document.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetDocumentResult withRequires(DocumentRequires... requires) {
+        if (this.requires == null) {
+            setRequires(new com.amazonaws.internal.SdkInternalList<DocumentRequires>(requires.length));
+        }
+        for (DocumentRequires ele : requires) {
+            this.requires.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code> document
+     * requires an <code>ApplicationConfigurationSchema</code> document.
+     * </p>
+     * 
+     * @param requires
+     *        A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code>
+     *        document requires an <code>ApplicationConfigurationSchema</code> document.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetDocumentResult withRequires(java.util.Collection<DocumentRequires> requires) {
+        setRequires(requires);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A description of the document attachments, including names, locations, sizes, and so on.
+     * </p>
+     * 
+     * @return A description of the document attachments, including names, locations, sizes, and so on.
      */
 
     public java.util.List<AttachmentContent> getAttachmentsContent() {
@@ -546,11 +747,11 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * A description of the document attachments, including names, locations, sizes, etc.
+     * A description of the document attachments, including names, locations, sizes, and so on.
      * </p>
      * 
      * @param attachmentsContent
-     *        A description of the document attachments, including names, locations, sizes, etc.
+     *        A description of the document attachments, including names, locations, sizes, and so on.
      */
 
     public void setAttachmentsContent(java.util.Collection<AttachmentContent> attachmentsContent) {
@@ -564,7 +765,7 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * A description of the document attachments, including names, locations, sizes, etc.
+     * A description of the document attachments, including names, locations, sizes, and so on.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -573,7 +774,7 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
      * </p>
      * 
      * @param attachmentsContent
-     *        A description of the document attachments, including names, locations, sizes, etc.
+     *        A description of the document attachments, including names, locations, sizes, and so on.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -589,16 +790,164 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * A description of the document attachments, including names, locations, sizes, etc.
+     * A description of the document attachments, including names, locations, sizes, and so on.
      * </p>
      * 
      * @param attachmentsContent
-     *        A description of the document attachments, including names, locations, sizes, etc.
+     *        A description of the document attachments, including names, locations, sizes, and so on.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public GetDocumentResult withAttachmentsContent(java.util.Collection<AttachmentContent> attachmentsContent) {
         setAttachmentsContent(attachmentsContent);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The current review status of a new custom Systems Manager document (SSM document) created by a member of your
+     * organization, or of the latest version of an existing SSM document.
+     * </p>
+     * <p>
+     * Only one version of an SSM document can be in the APPROVED state at a time. When a new version is approved, the
+     * status of the previous version changes to REJECTED.
+     * </p>
+     * <p>
+     * Only one version of an SSM document can be in review, or PENDING, at a time.
+     * </p>
+     * 
+     * @param reviewStatus
+     *        The current review status of a new custom Systems Manager document (SSM document) created by a member of
+     *        your organization, or of the latest version of an existing SSM document.</p>
+     *        <p>
+     *        Only one version of an SSM document can be in the APPROVED state at a time. When a new version is
+     *        approved, the status of the previous version changes to REJECTED.
+     *        </p>
+     *        <p>
+     *        Only one version of an SSM document can be in review, or PENDING, at a time.
+     * @see ReviewStatus
+     */
+
+    public void setReviewStatus(String reviewStatus) {
+        this.reviewStatus = reviewStatus;
+    }
+
+    /**
+     * <p>
+     * The current review status of a new custom Systems Manager document (SSM document) created by a member of your
+     * organization, or of the latest version of an existing SSM document.
+     * </p>
+     * <p>
+     * Only one version of an SSM document can be in the APPROVED state at a time. When a new version is approved, the
+     * status of the previous version changes to REJECTED.
+     * </p>
+     * <p>
+     * Only one version of an SSM document can be in review, or PENDING, at a time.
+     * </p>
+     * 
+     * @return The current review status of a new custom Systems Manager document (SSM document) created by a member of
+     *         your organization, or of the latest version of an existing SSM document.</p>
+     *         <p>
+     *         Only one version of an SSM document can be in the APPROVED state at a time. When a new version is
+     *         approved, the status of the previous version changes to REJECTED.
+     *         </p>
+     *         <p>
+     *         Only one version of an SSM document can be in review, or PENDING, at a time.
+     * @see ReviewStatus
+     */
+
+    public String getReviewStatus() {
+        return this.reviewStatus;
+    }
+
+    /**
+     * <p>
+     * The current review status of a new custom Systems Manager document (SSM document) created by a member of your
+     * organization, or of the latest version of an existing SSM document.
+     * </p>
+     * <p>
+     * Only one version of an SSM document can be in the APPROVED state at a time. When a new version is approved, the
+     * status of the previous version changes to REJECTED.
+     * </p>
+     * <p>
+     * Only one version of an SSM document can be in review, or PENDING, at a time.
+     * </p>
+     * 
+     * @param reviewStatus
+     *        The current review status of a new custom Systems Manager document (SSM document) created by a member of
+     *        your organization, or of the latest version of an existing SSM document.</p>
+     *        <p>
+     *        Only one version of an SSM document can be in the APPROVED state at a time. When a new version is
+     *        approved, the status of the previous version changes to REJECTED.
+     *        </p>
+     *        <p>
+     *        Only one version of an SSM document can be in review, or PENDING, at a time.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ReviewStatus
+     */
+
+    public GetDocumentResult withReviewStatus(String reviewStatus) {
+        setReviewStatus(reviewStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The current review status of a new custom Systems Manager document (SSM document) created by a member of your
+     * organization, or of the latest version of an existing SSM document.
+     * </p>
+     * <p>
+     * Only one version of an SSM document can be in the APPROVED state at a time. When a new version is approved, the
+     * status of the previous version changes to REJECTED.
+     * </p>
+     * <p>
+     * Only one version of an SSM document can be in review, or PENDING, at a time.
+     * </p>
+     * 
+     * @param reviewStatus
+     *        The current review status of a new custom Systems Manager document (SSM document) created by a member of
+     *        your organization, or of the latest version of an existing SSM document.</p>
+     *        <p>
+     *        Only one version of an SSM document can be in the APPROVED state at a time. When a new version is
+     *        approved, the status of the previous version changes to REJECTED.
+     *        </p>
+     *        <p>
+     *        Only one version of an SSM document can be in review, or PENDING, at a time.
+     * @see ReviewStatus
+     */
+
+    public void setReviewStatus(ReviewStatus reviewStatus) {
+        withReviewStatus(reviewStatus);
+    }
+
+    /**
+     * <p>
+     * The current review status of a new custom Systems Manager document (SSM document) created by a member of your
+     * organization, or of the latest version of an existing SSM document.
+     * </p>
+     * <p>
+     * Only one version of an SSM document can be in the APPROVED state at a time. When a new version is approved, the
+     * status of the previous version changes to REJECTED.
+     * </p>
+     * <p>
+     * Only one version of an SSM document can be in review, or PENDING, at a time.
+     * </p>
+     * 
+     * @param reviewStatus
+     *        The current review status of a new custom Systems Manager document (SSM document) created by a member of
+     *        your organization, or of the latest version of an existing SSM document.</p>
+     *        <p>
+     *        Only one version of an SSM document can be in the APPROVED state at a time. When a new version is
+     *        approved, the status of the previous version changes to REJECTED.
+     *        </p>
+     *        <p>
+     *        Only one version of an SSM document can be in review, or PENDING, at a time.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ReviewStatus
+     */
+
+    public GetDocumentResult withReviewStatus(ReviewStatus reviewStatus) {
+        this.reviewStatus = reviewStatus.toString();
         return this;
     }
 
@@ -616,6 +965,10 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
         sb.append("{");
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
+        if (getCreatedDate() != null)
+            sb.append("CreatedDate: ").append(getCreatedDate()).append(",");
+        if (getDisplayName() != null)
+            sb.append("DisplayName: ").append(getDisplayName()).append(",");
         if (getVersionName() != null)
             sb.append("VersionName: ").append(getVersionName()).append(",");
         if (getDocumentVersion() != null)
@@ -630,8 +983,12 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
             sb.append("DocumentType: ").append(getDocumentType()).append(",");
         if (getDocumentFormat() != null)
             sb.append("DocumentFormat: ").append(getDocumentFormat()).append(",");
+        if (getRequires() != null)
+            sb.append("Requires: ").append(getRequires()).append(",");
         if (getAttachmentsContent() != null)
-            sb.append("AttachmentsContent: ").append(getAttachmentsContent());
+            sb.append("AttachmentsContent: ").append(getAttachmentsContent()).append(",");
+        if (getReviewStatus() != null)
+            sb.append("ReviewStatus: ").append(getReviewStatus());
         sb.append("}");
         return sb.toString();
     }
@@ -649,6 +1006,14 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
         if (other.getName() == null ^ this.getName() == null)
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
+            return false;
+        if (other.getCreatedDate() == null ^ this.getCreatedDate() == null)
+            return false;
+        if (other.getCreatedDate() != null && other.getCreatedDate().equals(this.getCreatedDate()) == false)
+            return false;
+        if (other.getDisplayName() == null ^ this.getDisplayName() == null)
+            return false;
+        if (other.getDisplayName() != null && other.getDisplayName().equals(this.getDisplayName()) == false)
             return false;
         if (other.getVersionName() == null ^ this.getVersionName() == null)
             return false;
@@ -678,9 +1043,17 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
             return false;
         if (other.getDocumentFormat() != null && other.getDocumentFormat().equals(this.getDocumentFormat()) == false)
             return false;
+        if (other.getRequires() == null ^ this.getRequires() == null)
+            return false;
+        if (other.getRequires() != null && other.getRequires().equals(this.getRequires()) == false)
+            return false;
         if (other.getAttachmentsContent() == null ^ this.getAttachmentsContent() == null)
             return false;
         if (other.getAttachmentsContent() != null && other.getAttachmentsContent().equals(this.getAttachmentsContent()) == false)
+            return false;
+        if (other.getReviewStatus() == null ^ this.getReviewStatus() == null)
+            return false;
+        if (other.getReviewStatus() != null && other.getReviewStatus().equals(this.getReviewStatus()) == false)
             return false;
         return true;
     }
@@ -691,6 +1064,8 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
+        hashCode = prime * hashCode + ((getCreatedDate() == null) ? 0 : getCreatedDate().hashCode());
+        hashCode = prime * hashCode + ((getDisplayName() == null) ? 0 : getDisplayName().hashCode());
         hashCode = prime * hashCode + ((getVersionName() == null) ? 0 : getVersionName().hashCode());
         hashCode = prime * hashCode + ((getDocumentVersion() == null) ? 0 : getDocumentVersion().hashCode());
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
@@ -698,7 +1073,9 @@ public class GetDocumentResult extends com.amazonaws.AmazonWebServiceResult<com.
         hashCode = prime * hashCode + ((getContent() == null) ? 0 : getContent().hashCode());
         hashCode = prime * hashCode + ((getDocumentType() == null) ? 0 : getDocumentType().hashCode());
         hashCode = prime * hashCode + ((getDocumentFormat() == null) ? 0 : getDocumentFormat().hashCode());
+        hashCode = prime * hashCode + ((getRequires() == null) ? 0 : getRequires().hashCode());
         hashCode = prime * hashCode + ((getAttachmentsContent() == null) ? 0 : getAttachmentsContent().hashCode());
+        hashCode = prime * hashCode + ((getReviewStatus() == null) ? 0 : getReviewStatus().hashCode());
         return hashCode;
     }
 

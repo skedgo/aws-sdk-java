@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -14,6 +14,8 @@ package com.amazonaws.services.sqs.model;
 
 import java.io.Serializable;
 import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
@@ -24,7 +26,7 @@ import javax.annotation.Generated;
  *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
-public class BatchResultErrorEntry implements Serializable, Cloneable {
+public class BatchResultErrorEntry implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
@@ -34,7 +36,7 @@ public class BatchResultErrorEntry implements Serializable, Cloneable {
     private String id;
     /**
      * <p>
-     * Specifies whether the error happened due to the producer.
+     * Specifies whether the error happened due to the caller of the batch API action.
      * </p>
      */
     private Boolean senderFault;
@@ -93,11 +95,11 @@ public class BatchResultErrorEntry implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the error happened due to the producer.
+     * Specifies whether the error happened due to the caller of the batch API action.
      * </p>
      * 
      * @param senderFault
-     *        Specifies whether the error happened due to the producer.
+     *        Specifies whether the error happened due to the caller of the batch API action.
      */
 
     public void setSenderFault(Boolean senderFault) {
@@ -106,10 +108,10 @@ public class BatchResultErrorEntry implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the error happened due to the producer.
+     * Specifies whether the error happened due to the caller of the batch API action.
      * </p>
      * 
-     * @return Specifies whether the error happened due to the producer.
+     * @return Specifies whether the error happened due to the caller of the batch API action.
      */
 
     public Boolean getSenderFault() {
@@ -118,11 +120,11 @@ public class BatchResultErrorEntry implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the error happened due to the producer.
+     * Specifies whether the error happened due to the caller of the batch API action.
      * </p>
      * 
      * @param senderFault
-     *        Specifies whether the error happened due to the producer.
+     *        Specifies whether the error happened due to the caller of the batch API action.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -133,10 +135,10 @@ public class BatchResultErrorEntry implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the error happened due to the producer.
+     * Specifies whether the error happened due to the caller of the batch API action.
      * </p>
      * 
-     * @return Specifies whether the error happened due to the producer.
+     * @return Specifies whether the error happened due to the caller of the batch API action.
      */
 
     public Boolean isSenderFault() {
@@ -297,4 +299,9 @@ public class BatchResultErrorEntry implements Serializable, Cloneable {
         }
     }
 
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.sqs.model.transform.BatchResultErrorEntryMarshaller.getInstance().marshall(this, protocolMarshaller);
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,8 +28,8 @@ public class DetectStackDriftResult extends com.amazonaws.AmazonWebServiceResult
      * The ID of the drift detection results of this operation.
      * </p>
      * <p>
-     * AWS CloudFormation generates new results, with a new drift detection ID, each time this operation is run.
-     * However, the number of drift results AWS CloudFormation retains for any given stack, and for how long, may vary.
+     * CloudFormation generates new results, with a new drift detection ID, each time this operation is run. However,
+     * the number of drift results CloudFormation retains for any given stack, and for how long, may vary.
      * </p>
      */
     private String stackDriftDetectionId;
@@ -39,15 +39,15 @@ public class DetectStackDriftResult extends com.amazonaws.AmazonWebServiceResult
      * The ID of the drift detection results of this operation.
      * </p>
      * <p>
-     * AWS CloudFormation generates new results, with a new drift detection ID, each time this operation is run.
-     * However, the number of drift results AWS CloudFormation retains for any given stack, and for how long, may vary.
+     * CloudFormation generates new results, with a new drift detection ID, each time this operation is run. However,
+     * the number of drift results CloudFormation retains for any given stack, and for how long, may vary.
      * </p>
      * 
      * @param stackDriftDetectionId
-     *        The ID of the drift detection results of this operation. </p>
+     *        The ID of the drift detection results of this operation.</p>
      *        <p>
-     *        AWS CloudFormation generates new results, with a new drift detection ID, each time this operation is run.
-     *        However, the number of drift results AWS CloudFormation retains for any given stack, and for how long, may
+     *        CloudFormation generates new results, with a new drift detection ID, each time this operation is run.
+     *        However, the number of drift results CloudFormation retains for any given stack, and for how long, may
      *        vary.
      */
 
@@ -60,15 +60,15 @@ public class DetectStackDriftResult extends com.amazonaws.AmazonWebServiceResult
      * The ID of the drift detection results of this operation.
      * </p>
      * <p>
-     * AWS CloudFormation generates new results, with a new drift detection ID, each time this operation is run.
-     * However, the number of drift results AWS CloudFormation retains for any given stack, and for how long, may vary.
+     * CloudFormation generates new results, with a new drift detection ID, each time this operation is run. However,
+     * the number of drift results CloudFormation retains for any given stack, and for how long, may vary.
      * </p>
      * 
-     * @return The ID of the drift detection results of this operation. </p>
+     * @return The ID of the drift detection results of this operation.</p>
      *         <p>
-     *         AWS CloudFormation generates new results, with a new drift detection ID, each time this operation is run.
-     *         However, the number of drift results AWS CloudFormation retains for any given stack, and for how long,
-     *         may vary.
+     *         CloudFormation generates new results, with a new drift detection ID, each time this operation is run.
+     *         However, the number of drift results CloudFormation retains for any given stack, and for how long, may
+     *         vary.
      */
 
     public String getStackDriftDetectionId() {
@@ -80,15 +80,15 @@ public class DetectStackDriftResult extends com.amazonaws.AmazonWebServiceResult
      * The ID of the drift detection results of this operation.
      * </p>
      * <p>
-     * AWS CloudFormation generates new results, with a new drift detection ID, each time this operation is run.
-     * However, the number of drift results AWS CloudFormation retains for any given stack, and for how long, may vary.
+     * CloudFormation generates new results, with a new drift detection ID, each time this operation is run. However,
+     * the number of drift results CloudFormation retains for any given stack, and for how long, may vary.
      * </p>
      * 
      * @param stackDriftDetectionId
-     *        The ID of the drift detection results of this operation. </p>
+     *        The ID of the drift detection results of this operation.</p>
      *        <p>
-     *        AWS CloudFormation generates new results, with a new drift detection ID, each time this operation is run.
-     *        However, the number of drift results AWS CloudFormation retains for any given stack, and for how long, may
+     *        CloudFormation generates new results, with a new drift detection ID, each time this operation is run.
+     *        However, the number of drift results CloudFormation retains for any given stack, and for how long, may
      *        vary.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

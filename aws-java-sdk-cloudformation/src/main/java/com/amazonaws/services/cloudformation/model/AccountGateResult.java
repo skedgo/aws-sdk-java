@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,15 +17,15 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Structure that contains the results of the account gate function which AWS CloudFormation invokes, if present, before
- * proceeding with a stack set operation in an account and region.
+ * Structure that contains the results of the account gate function which CloudFormation invokes, if present, before
+ * proceeding with a stack set operation in an account and Region.
  * </p>
  * <p>
- * For each account and region, AWS CloudFormation lets you specify a Lamdba function that encapsulates any requirements
- * that must be met before CloudFormation can proceed with a stack set operation in that account and region.
- * CloudFormation invokes the function each time a stack set operation is requested for that account and region; if the
- * function returns <code>FAILED</code>, CloudFormation cancels the operation in that account and region, and sets the
- * stack set operation result status for that account and region to <code>FAILED</code>.
+ * For each account and Region, CloudFormation lets you specify a Lambda function that encapsulates any requirements
+ * that must be met before CloudFormation can proceed with a stack set operation in that account and Region.
+ * CloudFormation invokes the function each time a stack set operation is requested for that account and Region; if the
+ * function returns <code>FAILED</code>, CloudFormation cancels the operation in that account and Region, and sets the
+ * stack set operation result status for that account and Region to <code>FAILED</code>.
  * </p>
  * <p>
  * For more information, see <a
@@ -46,41 +46,40 @@ public class AccountGateResult implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * <code>SUCCEEDED</code>: The account gate function has determined that the account and region passes any
-     * requirements for a stack set operation to occur. AWS CloudFormation proceeds with the stack operation in that
-     * account and region.
+     * <code>SUCCEEDED</code>: The account gate function has determined that the account and Region passes any
+     * requirements for a stack set operation to occur. CloudFormation proceeds with the stack operation in that account
+     * and Region.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>FAILED</code>: The account gate function has determined that the account and region does not meet the
-     * requirements for a stack set operation to occur. AWS CloudFormation cancels the stack set operation in that
-     * account and region, and sets the stack set operation result status for that account and region to
-     * <code>FAILED</code>.
+     * <code>FAILED</code>: The account gate function has determined that the account and Region doesn't meet the
+     * requirements for a stack set operation to occur. CloudFormation cancels the stack set operation in that account
+     * and Region, and sets the stack set operation result status for that account and Region to <code>FAILED</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SKIPPED</code>: AWS CloudFormation has skipped calling the account gate function for this account and
-     * region, for one of the following reasons:
+     * <code>SKIPPED</code>: CloudFormation has skipped calling the account gate function for this account and Region,
+     * for one of the following reasons:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * An account gate function has not been specified for the account and region. AWS CloudFormation proceeds with the
-     * stack set operation in this account and region.
+     * An account gate function hasn't been specified for the account and Region. CloudFormation proceeds with the stack
+     * set operation in this account and Region.
      * </p>
      * </li>
      * <li>
      * <p>
-     * The <code>AWSCloudFormationStackSetExecutionRole</code> of the stack set adminstration account lacks permissions
-     * to invoke the function. AWS CloudFormation proceeds with the stack set operation in this account and region.
+     * The <code>AWSCloudFormationStackSetExecutionRole</code> of the stack set administration account lacks permissions
+     * to invoke the function. CloudFormation proceeds with the stack set operation in this account and Region.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Either no action is necessary, or no action is possible, on the stack. AWS CloudFormation skips the stack set
-     * operation in this account and region.
+     * Either no action is necessary, or no action is possible, on the stack. CloudFormation skips the stack set
+     * operation in this account and Region.
      * </p>
      * </li>
      * </ul>
@@ -90,7 +89,7 @@ public class AccountGateResult implements Serializable, Cloneable {
     private String status;
     /**
      * <p>
-     * The reason for the account gate status assigned to this account and region for the stack set operation.
+     * The reason for the account gate status assigned to this account and Region for the stack set operation.
      * </p>
      */
     private String statusReason;
@@ -102,41 +101,40 @@ public class AccountGateResult implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * <code>SUCCEEDED</code>: The account gate function has determined that the account and region passes any
-     * requirements for a stack set operation to occur. AWS CloudFormation proceeds with the stack operation in that
-     * account and region.
+     * <code>SUCCEEDED</code>: The account gate function has determined that the account and Region passes any
+     * requirements for a stack set operation to occur. CloudFormation proceeds with the stack operation in that account
+     * and Region.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>FAILED</code>: The account gate function has determined that the account and region does not meet the
-     * requirements for a stack set operation to occur. AWS CloudFormation cancels the stack set operation in that
-     * account and region, and sets the stack set operation result status for that account and region to
-     * <code>FAILED</code>.
+     * <code>FAILED</code>: The account gate function has determined that the account and Region doesn't meet the
+     * requirements for a stack set operation to occur. CloudFormation cancels the stack set operation in that account
+     * and Region, and sets the stack set operation result status for that account and Region to <code>FAILED</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SKIPPED</code>: AWS CloudFormation has skipped calling the account gate function for this account and
-     * region, for one of the following reasons:
+     * <code>SKIPPED</code>: CloudFormation has skipped calling the account gate function for this account and Region,
+     * for one of the following reasons:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * An account gate function has not been specified for the account and region. AWS CloudFormation proceeds with the
-     * stack set operation in this account and region.
+     * An account gate function hasn't been specified for the account and Region. CloudFormation proceeds with the stack
+     * set operation in this account and Region.
      * </p>
      * </li>
      * <li>
      * <p>
-     * The <code>AWSCloudFormationStackSetExecutionRole</code> of the stack set adminstration account lacks permissions
-     * to invoke the function. AWS CloudFormation proceeds with the stack set operation in this account and region.
+     * The <code>AWSCloudFormationStackSetExecutionRole</code> of the stack set administration account lacks permissions
+     * to invoke the function. CloudFormation proceeds with the stack set operation in this account and Region.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Either no action is necessary, or no action is possible, on the stack. AWS CloudFormation skips the stack set
-     * operation in this account and region.
+     * Either no action is necessary, or no action is possible, on the stack. CloudFormation skips the stack set
+     * operation in this account and Region.
      * </p>
      * </li>
      * </ul>
@@ -148,42 +146,42 @@ public class AccountGateResult implements Serializable, Cloneable {
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>SUCCEEDED</code>: The account gate function has determined that the account and region passes any
-     *        requirements for a stack set operation to occur. AWS CloudFormation proceeds with the stack operation in
-     *        that account and region.
+     *        <code>SUCCEEDED</code>: The account gate function has determined that the account and Region passes any
+     *        requirements for a stack set operation to occur. CloudFormation proceeds with the stack operation in that
+     *        account and Region.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>FAILED</code>: The account gate function has determined that the account and region does not meet
-     *        the requirements for a stack set operation to occur. AWS CloudFormation cancels the stack set operation in
-     *        that account and region, and sets the stack set operation result status for that account and region to
+     *        <code>FAILED</code>: The account gate function has determined that the account and Region doesn't meet the
+     *        requirements for a stack set operation to occur. CloudFormation cancels the stack set operation in that
+     *        account and Region, and sets the stack set operation result status for that account and Region to
      *        <code>FAILED</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>SKIPPED</code>: AWS CloudFormation has skipped calling the account gate function for this account
-     *        and region, for one of the following reasons:
+     *        <code>SKIPPED</code>: CloudFormation has skipped calling the account gate function for this account and
+     *        Region, for one of the following reasons:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        An account gate function has not been specified for the account and region. AWS CloudFormation proceeds
-     *        with the stack set operation in this account and region.
+     *        An account gate function hasn't been specified for the account and Region. CloudFormation proceeds with
+     *        the stack set operation in this account and Region.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The <code>AWSCloudFormationStackSetExecutionRole</code> of the stack set adminstration account lacks
-     *        permissions to invoke the function. AWS CloudFormation proceeds with the stack set operation in this
-     *        account and region.
+     *        The <code>AWSCloudFormationStackSetExecutionRole</code> of the stack set administration account lacks
+     *        permissions to invoke the function. CloudFormation proceeds with the stack set operation in this account
+     *        and Region.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Either no action is necessary, or no action is possible, on the stack. AWS CloudFormation skips the stack
-     *        set operation in this account and region.
+     *        Either no action is necessary, or no action is possible, on the stack. CloudFormation skips the stack set
+     *        operation in this account and Region.
      *        </p>
      *        </li>
      *        </ul>
@@ -202,41 +200,40 @@ public class AccountGateResult implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * <code>SUCCEEDED</code>: The account gate function has determined that the account and region passes any
-     * requirements for a stack set operation to occur. AWS CloudFormation proceeds with the stack operation in that
-     * account and region.
+     * <code>SUCCEEDED</code>: The account gate function has determined that the account and Region passes any
+     * requirements for a stack set operation to occur. CloudFormation proceeds with the stack operation in that account
+     * and Region.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>FAILED</code>: The account gate function has determined that the account and region does not meet the
-     * requirements for a stack set operation to occur. AWS CloudFormation cancels the stack set operation in that
-     * account and region, and sets the stack set operation result status for that account and region to
-     * <code>FAILED</code>.
+     * <code>FAILED</code>: The account gate function has determined that the account and Region doesn't meet the
+     * requirements for a stack set operation to occur. CloudFormation cancels the stack set operation in that account
+     * and Region, and sets the stack set operation result status for that account and Region to <code>FAILED</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SKIPPED</code>: AWS CloudFormation has skipped calling the account gate function for this account and
-     * region, for one of the following reasons:
+     * <code>SKIPPED</code>: CloudFormation has skipped calling the account gate function for this account and Region,
+     * for one of the following reasons:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * An account gate function has not been specified for the account and region. AWS CloudFormation proceeds with the
-     * stack set operation in this account and region.
+     * An account gate function hasn't been specified for the account and Region. CloudFormation proceeds with the stack
+     * set operation in this account and Region.
      * </p>
      * </li>
      * <li>
      * <p>
-     * The <code>AWSCloudFormationStackSetExecutionRole</code> of the stack set adminstration account lacks permissions
-     * to invoke the function. AWS CloudFormation proceeds with the stack set operation in this account and region.
+     * The <code>AWSCloudFormationStackSetExecutionRole</code> of the stack set administration account lacks permissions
+     * to invoke the function. CloudFormation proceeds with the stack set operation in this account and Region.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Either no action is necessary, or no action is possible, on the stack. AWS CloudFormation skips the stack set
-     * operation in this account and region.
+     * Either no action is necessary, or no action is possible, on the stack. CloudFormation skips the stack set
+     * operation in this account and Region.
      * </p>
      * </li>
      * </ul>
@@ -247,42 +244,42 @@ public class AccountGateResult implements Serializable, Cloneable {
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>SUCCEEDED</code>: The account gate function has determined that the account and region passes any
-     *         requirements for a stack set operation to occur. AWS CloudFormation proceeds with the stack operation in
-     *         that account and region.
+     *         <code>SUCCEEDED</code>: The account gate function has determined that the account and Region passes any
+     *         requirements for a stack set operation to occur. CloudFormation proceeds with the stack operation in that
+     *         account and Region.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>FAILED</code>: The account gate function has determined that the account and region does not meet
-     *         the requirements for a stack set operation to occur. AWS CloudFormation cancels the stack set operation
-     *         in that account and region, and sets the stack set operation result status for that account and region to
+     *         <code>FAILED</code>: The account gate function has determined that the account and Region doesn't meet
+     *         the requirements for a stack set operation to occur. CloudFormation cancels the stack set operation in
+     *         that account and Region, and sets the stack set operation result status for that account and Region to
      *         <code>FAILED</code>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>SKIPPED</code>: AWS CloudFormation has skipped calling the account gate function for this account
-     *         and region, for one of the following reasons:
+     *         <code>SKIPPED</code>: CloudFormation has skipped calling the account gate function for this account and
+     *         Region, for one of the following reasons:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         An account gate function has not been specified for the account and region. AWS CloudFormation proceeds
-     *         with the stack set operation in this account and region.
+     *         An account gate function hasn't been specified for the account and Region. CloudFormation proceeds with
+     *         the stack set operation in this account and Region.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         The <code>AWSCloudFormationStackSetExecutionRole</code> of the stack set adminstration account lacks
-     *         permissions to invoke the function. AWS CloudFormation proceeds with the stack set operation in this
-     *         account and region.
+     *         The <code>AWSCloudFormationStackSetExecutionRole</code> of the stack set administration account lacks
+     *         permissions to invoke the function. CloudFormation proceeds with the stack set operation in this account
+     *         and Region.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Either no action is necessary, or no action is possible, on the stack. AWS CloudFormation skips the stack
-     *         set operation in this account and region.
+     *         Either no action is necessary, or no action is possible, on the stack. CloudFormation skips the stack set
+     *         operation in this account and Region.
      *         </p>
      *         </li>
      *         </ul>
@@ -301,41 +298,40 @@ public class AccountGateResult implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * <code>SUCCEEDED</code>: The account gate function has determined that the account and region passes any
-     * requirements for a stack set operation to occur. AWS CloudFormation proceeds with the stack operation in that
-     * account and region.
+     * <code>SUCCEEDED</code>: The account gate function has determined that the account and Region passes any
+     * requirements for a stack set operation to occur. CloudFormation proceeds with the stack operation in that account
+     * and Region.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>FAILED</code>: The account gate function has determined that the account and region does not meet the
-     * requirements for a stack set operation to occur. AWS CloudFormation cancels the stack set operation in that
-     * account and region, and sets the stack set operation result status for that account and region to
-     * <code>FAILED</code>.
+     * <code>FAILED</code>: The account gate function has determined that the account and Region doesn't meet the
+     * requirements for a stack set operation to occur. CloudFormation cancels the stack set operation in that account
+     * and Region, and sets the stack set operation result status for that account and Region to <code>FAILED</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SKIPPED</code>: AWS CloudFormation has skipped calling the account gate function for this account and
-     * region, for one of the following reasons:
+     * <code>SKIPPED</code>: CloudFormation has skipped calling the account gate function for this account and Region,
+     * for one of the following reasons:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * An account gate function has not been specified for the account and region. AWS CloudFormation proceeds with the
-     * stack set operation in this account and region.
+     * An account gate function hasn't been specified for the account and Region. CloudFormation proceeds with the stack
+     * set operation in this account and Region.
      * </p>
      * </li>
      * <li>
      * <p>
-     * The <code>AWSCloudFormationStackSetExecutionRole</code> of the stack set adminstration account lacks permissions
-     * to invoke the function. AWS CloudFormation proceeds with the stack set operation in this account and region.
+     * The <code>AWSCloudFormationStackSetExecutionRole</code> of the stack set administration account lacks permissions
+     * to invoke the function. CloudFormation proceeds with the stack set operation in this account and Region.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Either no action is necessary, or no action is possible, on the stack. AWS CloudFormation skips the stack set
-     * operation in this account and region.
+     * Either no action is necessary, or no action is possible, on the stack. CloudFormation skips the stack set
+     * operation in this account and Region.
      * </p>
      * </li>
      * </ul>
@@ -347,42 +343,42 @@ public class AccountGateResult implements Serializable, Cloneable {
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>SUCCEEDED</code>: The account gate function has determined that the account and region passes any
-     *        requirements for a stack set operation to occur. AWS CloudFormation proceeds with the stack operation in
-     *        that account and region.
+     *        <code>SUCCEEDED</code>: The account gate function has determined that the account and Region passes any
+     *        requirements for a stack set operation to occur. CloudFormation proceeds with the stack operation in that
+     *        account and Region.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>FAILED</code>: The account gate function has determined that the account and region does not meet
-     *        the requirements for a stack set operation to occur. AWS CloudFormation cancels the stack set operation in
-     *        that account and region, and sets the stack set operation result status for that account and region to
+     *        <code>FAILED</code>: The account gate function has determined that the account and Region doesn't meet the
+     *        requirements for a stack set operation to occur. CloudFormation cancels the stack set operation in that
+     *        account and Region, and sets the stack set operation result status for that account and Region to
      *        <code>FAILED</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>SKIPPED</code>: AWS CloudFormation has skipped calling the account gate function for this account
-     *        and region, for one of the following reasons:
+     *        <code>SKIPPED</code>: CloudFormation has skipped calling the account gate function for this account and
+     *        Region, for one of the following reasons:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        An account gate function has not been specified for the account and region. AWS CloudFormation proceeds
-     *        with the stack set operation in this account and region.
+     *        An account gate function hasn't been specified for the account and Region. CloudFormation proceeds with
+     *        the stack set operation in this account and Region.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The <code>AWSCloudFormationStackSetExecutionRole</code> of the stack set adminstration account lacks
-     *        permissions to invoke the function. AWS CloudFormation proceeds with the stack set operation in this
-     *        account and region.
+     *        The <code>AWSCloudFormationStackSetExecutionRole</code> of the stack set administration account lacks
+     *        permissions to invoke the function. CloudFormation proceeds with the stack set operation in this account
+     *        and Region.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Either no action is necessary, or no action is possible, on the stack. AWS CloudFormation skips the stack
-     *        set operation in this account and region.
+     *        Either no action is necessary, or no action is possible, on the stack. CloudFormation skips the stack set
+     *        operation in this account and Region.
      *        </p>
      *        </li>
      *        </ul>
@@ -403,41 +399,40 @@ public class AccountGateResult implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * <code>SUCCEEDED</code>: The account gate function has determined that the account and region passes any
-     * requirements for a stack set operation to occur. AWS CloudFormation proceeds with the stack operation in that
-     * account and region.
+     * <code>SUCCEEDED</code>: The account gate function has determined that the account and Region passes any
+     * requirements for a stack set operation to occur. CloudFormation proceeds with the stack operation in that account
+     * and Region.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>FAILED</code>: The account gate function has determined that the account and region does not meet the
-     * requirements for a stack set operation to occur. AWS CloudFormation cancels the stack set operation in that
-     * account and region, and sets the stack set operation result status for that account and region to
-     * <code>FAILED</code>.
+     * <code>FAILED</code>: The account gate function has determined that the account and Region doesn't meet the
+     * requirements for a stack set operation to occur. CloudFormation cancels the stack set operation in that account
+     * and Region, and sets the stack set operation result status for that account and Region to <code>FAILED</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SKIPPED</code>: AWS CloudFormation has skipped calling the account gate function for this account and
-     * region, for one of the following reasons:
+     * <code>SKIPPED</code>: CloudFormation has skipped calling the account gate function for this account and Region,
+     * for one of the following reasons:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * An account gate function has not been specified for the account and region. AWS CloudFormation proceeds with the
-     * stack set operation in this account and region.
+     * An account gate function hasn't been specified for the account and Region. CloudFormation proceeds with the stack
+     * set operation in this account and Region.
      * </p>
      * </li>
      * <li>
      * <p>
-     * The <code>AWSCloudFormationStackSetExecutionRole</code> of the stack set adminstration account lacks permissions
-     * to invoke the function. AWS CloudFormation proceeds with the stack set operation in this account and region.
+     * The <code>AWSCloudFormationStackSetExecutionRole</code> of the stack set administration account lacks permissions
+     * to invoke the function. CloudFormation proceeds with the stack set operation in this account and Region.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Either no action is necessary, or no action is possible, on the stack. AWS CloudFormation skips the stack set
-     * operation in this account and region.
+     * Either no action is necessary, or no action is possible, on the stack. CloudFormation skips the stack set
+     * operation in this account and Region.
      * </p>
      * </li>
      * </ul>
@@ -449,42 +444,42 @@ public class AccountGateResult implements Serializable, Cloneable {
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>SUCCEEDED</code>: The account gate function has determined that the account and region passes any
-     *        requirements for a stack set operation to occur. AWS CloudFormation proceeds with the stack operation in
-     *        that account and region.
+     *        <code>SUCCEEDED</code>: The account gate function has determined that the account and Region passes any
+     *        requirements for a stack set operation to occur. CloudFormation proceeds with the stack operation in that
+     *        account and Region.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>FAILED</code>: The account gate function has determined that the account and region does not meet
-     *        the requirements for a stack set operation to occur. AWS CloudFormation cancels the stack set operation in
-     *        that account and region, and sets the stack set operation result status for that account and region to
+     *        <code>FAILED</code>: The account gate function has determined that the account and Region doesn't meet the
+     *        requirements for a stack set operation to occur. CloudFormation cancels the stack set operation in that
+     *        account and Region, and sets the stack set operation result status for that account and Region to
      *        <code>FAILED</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>SKIPPED</code>: AWS CloudFormation has skipped calling the account gate function for this account
-     *        and region, for one of the following reasons:
+     *        <code>SKIPPED</code>: CloudFormation has skipped calling the account gate function for this account and
+     *        Region, for one of the following reasons:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        An account gate function has not been specified for the account and region. AWS CloudFormation proceeds
-     *        with the stack set operation in this account and region.
+     *        An account gate function hasn't been specified for the account and Region. CloudFormation proceeds with
+     *        the stack set operation in this account and Region.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The <code>AWSCloudFormationStackSetExecutionRole</code> of the stack set adminstration account lacks
-     *        permissions to invoke the function. AWS CloudFormation proceeds with the stack set operation in this
-     *        account and region.
+     *        The <code>AWSCloudFormationStackSetExecutionRole</code> of the stack set administration account lacks
+     *        permissions to invoke the function. CloudFormation proceeds with the stack set operation in this account
+     *        and Region.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Either no action is necessary, or no action is possible, on the stack. AWS CloudFormation skips the stack
-     *        set operation in this account and region.
+     *        Either no action is necessary, or no action is possible, on the stack. CloudFormation skips the stack set
+     *        operation in this account and Region.
      *        </p>
      *        </li>
      *        </ul>
@@ -503,41 +498,40 @@ public class AccountGateResult implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * <code>SUCCEEDED</code>: The account gate function has determined that the account and region passes any
-     * requirements for a stack set operation to occur. AWS CloudFormation proceeds with the stack operation in that
-     * account and region.
+     * <code>SUCCEEDED</code>: The account gate function has determined that the account and Region passes any
+     * requirements for a stack set operation to occur. CloudFormation proceeds with the stack operation in that account
+     * and Region.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>FAILED</code>: The account gate function has determined that the account and region does not meet the
-     * requirements for a stack set operation to occur. AWS CloudFormation cancels the stack set operation in that
-     * account and region, and sets the stack set operation result status for that account and region to
-     * <code>FAILED</code>.
+     * <code>FAILED</code>: The account gate function has determined that the account and Region doesn't meet the
+     * requirements for a stack set operation to occur. CloudFormation cancels the stack set operation in that account
+     * and Region, and sets the stack set operation result status for that account and Region to <code>FAILED</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SKIPPED</code>: AWS CloudFormation has skipped calling the account gate function for this account and
-     * region, for one of the following reasons:
+     * <code>SKIPPED</code>: CloudFormation has skipped calling the account gate function for this account and Region,
+     * for one of the following reasons:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * An account gate function has not been specified for the account and region. AWS CloudFormation proceeds with the
-     * stack set operation in this account and region.
+     * An account gate function hasn't been specified for the account and Region. CloudFormation proceeds with the stack
+     * set operation in this account and Region.
      * </p>
      * </li>
      * <li>
      * <p>
-     * The <code>AWSCloudFormationStackSetExecutionRole</code> of the stack set adminstration account lacks permissions
-     * to invoke the function. AWS CloudFormation proceeds with the stack set operation in this account and region.
+     * The <code>AWSCloudFormationStackSetExecutionRole</code> of the stack set administration account lacks permissions
+     * to invoke the function. CloudFormation proceeds with the stack set operation in this account and Region.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Either no action is necessary, or no action is possible, on the stack. AWS CloudFormation skips the stack set
-     * operation in this account and region.
+     * Either no action is necessary, or no action is possible, on the stack. CloudFormation skips the stack set
+     * operation in this account and Region.
      * </p>
      * </li>
      * </ul>
@@ -549,42 +543,42 @@ public class AccountGateResult implements Serializable, Cloneable {
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>SUCCEEDED</code>: The account gate function has determined that the account and region passes any
-     *        requirements for a stack set operation to occur. AWS CloudFormation proceeds with the stack operation in
-     *        that account and region.
+     *        <code>SUCCEEDED</code>: The account gate function has determined that the account and Region passes any
+     *        requirements for a stack set operation to occur. CloudFormation proceeds with the stack operation in that
+     *        account and Region.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>FAILED</code>: The account gate function has determined that the account and region does not meet
-     *        the requirements for a stack set operation to occur. AWS CloudFormation cancels the stack set operation in
-     *        that account and region, and sets the stack set operation result status for that account and region to
+     *        <code>FAILED</code>: The account gate function has determined that the account and Region doesn't meet the
+     *        requirements for a stack set operation to occur. CloudFormation cancels the stack set operation in that
+     *        account and Region, and sets the stack set operation result status for that account and Region to
      *        <code>FAILED</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>SKIPPED</code>: AWS CloudFormation has skipped calling the account gate function for this account
-     *        and region, for one of the following reasons:
+     *        <code>SKIPPED</code>: CloudFormation has skipped calling the account gate function for this account and
+     *        Region, for one of the following reasons:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        An account gate function has not been specified for the account and region. AWS CloudFormation proceeds
-     *        with the stack set operation in this account and region.
+     *        An account gate function hasn't been specified for the account and Region. CloudFormation proceeds with
+     *        the stack set operation in this account and Region.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The <code>AWSCloudFormationStackSetExecutionRole</code> of the stack set adminstration account lacks
-     *        permissions to invoke the function. AWS CloudFormation proceeds with the stack set operation in this
-     *        account and region.
+     *        The <code>AWSCloudFormationStackSetExecutionRole</code> of the stack set administration account lacks
+     *        permissions to invoke the function. CloudFormation proceeds with the stack set operation in this account
+     *        and Region.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Either no action is necessary, or no action is possible, on the stack. AWS CloudFormation skips the stack
-     *        set operation in this account and region.
+     *        Either no action is necessary, or no action is possible, on the stack. CloudFormation skips the stack set
+     *        operation in this account and Region.
      *        </p>
      *        </li>
      *        </ul>
@@ -600,11 +594,11 @@ public class AccountGateResult implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The reason for the account gate status assigned to this account and region for the stack set operation.
+     * The reason for the account gate status assigned to this account and Region for the stack set operation.
      * </p>
      * 
      * @param statusReason
-     *        The reason for the account gate status assigned to this account and region for the stack set operation.
+     *        The reason for the account gate status assigned to this account and Region for the stack set operation.
      */
 
     public void setStatusReason(String statusReason) {
@@ -613,10 +607,10 @@ public class AccountGateResult implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The reason for the account gate status assigned to this account and region for the stack set operation.
+     * The reason for the account gate status assigned to this account and Region for the stack set operation.
      * </p>
      * 
-     * @return The reason for the account gate status assigned to this account and region for the stack set operation.
+     * @return The reason for the account gate status assigned to this account and Region for the stack set operation.
      */
 
     public String getStatusReason() {
@@ -625,11 +619,11 @@ public class AccountGateResult implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The reason for the account gate status assigned to this account and region for the stack set operation.
+     * The reason for the account gate status assigned to this account and Region for the stack set operation.
      * </p>
      * 
      * @param statusReason
-     *        The reason for the account gate status assigned to this account and region for the stack set operation.
+     *        The reason for the account gate status assigned to this account and Region for the stack set operation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

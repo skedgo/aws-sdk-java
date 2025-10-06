@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,30 +30,30 @@ public class LoggingOptions implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN of the role that grants permission to AWS IoT Analytics to perform logging.
+     * The ARN of the role that grants permission to IoT Analytics to perform logging.
      * </p>
      */
     private String roleArn;
     /**
      * <p>
-     * The logging level. Currently, only "ERROR" is supported.
+     * The logging level. Currently, only ERROR is supported.
      * </p>
      */
     private String level;
     /**
      * <p>
-     * If true, logging is enabled for AWS IoT Analytics.
+     * If true, logging is enabled for IoT Analytics.
      * </p>
      */
     private Boolean enabled;
 
     /**
      * <p>
-     * The ARN of the role that grants permission to AWS IoT Analytics to perform logging.
+     * The ARN of the role that grants permission to IoT Analytics to perform logging.
      * </p>
      * 
      * @param roleArn
-     *        The ARN of the role that grants permission to AWS IoT Analytics to perform logging.
+     *        The ARN of the role that grants permission to IoT Analytics to perform logging.
      */
 
     public void setRoleArn(String roleArn) {
@@ -62,10 +62,10 @@ public class LoggingOptions implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN of the role that grants permission to AWS IoT Analytics to perform logging.
+     * The ARN of the role that grants permission to IoT Analytics to perform logging.
      * </p>
      * 
-     * @return The ARN of the role that grants permission to AWS IoT Analytics to perform logging.
+     * @return The ARN of the role that grants permission to IoT Analytics to perform logging.
      */
 
     public String getRoleArn() {
@@ -74,11 +74,11 @@ public class LoggingOptions implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN of the role that grants permission to AWS IoT Analytics to perform logging.
+     * The ARN of the role that grants permission to IoT Analytics to perform logging.
      * </p>
      * 
      * @param roleArn
-     *        The ARN of the role that grants permission to AWS IoT Analytics to perform logging.
+     *        The ARN of the role that grants permission to IoT Analytics to perform logging.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -89,11 +89,11 @@ public class LoggingOptions implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The logging level. Currently, only "ERROR" is supported.
+     * The logging level. Currently, only ERROR is supported.
      * </p>
      * 
      * @param level
-     *        The logging level. Currently, only "ERROR" is supported.
+     *        The logging level. Currently, only ERROR is supported.
      * @see LoggingLevel
      */
 
@@ -103,10 +103,10 @@ public class LoggingOptions implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The logging level. Currently, only "ERROR" is supported.
+     * The logging level. Currently, only ERROR is supported.
      * </p>
      * 
-     * @return The logging level. Currently, only "ERROR" is supported.
+     * @return The logging level. Currently, only ERROR is supported.
      * @see LoggingLevel
      */
 
@@ -116,11 +116,11 @@ public class LoggingOptions implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The logging level. Currently, only "ERROR" is supported.
+     * The logging level. Currently, only ERROR is supported.
      * </p>
      * 
      * @param level
-     *        The logging level. Currently, only "ERROR" is supported.
+     *        The logging level. Currently, only ERROR is supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LoggingLevel
      */
@@ -132,11 +132,11 @@ public class LoggingOptions implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The logging level. Currently, only "ERROR" is supported.
+     * The logging level. Currently, only ERROR is supported.
      * </p>
      * 
      * @param level
-     *        The logging level. Currently, only "ERROR" is supported.
+     *        The logging level. Currently, only ERROR is supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LoggingLevel
      */
@@ -148,11 +148,11 @@ public class LoggingOptions implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If true, logging is enabled for AWS IoT Analytics.
+     * If true, logging is enabled for IoT Analytics.
      * </p>
      * 
      * @param enabled
-     *        If true, logging is enabled for AWS IoT Analytics.
+     *        If true, logging is enabled for IoT Analytics.
      */
 
     public void setEnabled(Boolean enabled) {
@@ -161,10 +161,10 @@ public class LoggingOptions implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If true, logging is enabled for AWS IoT Analytics.
+     * If true, logging is enabled for IoT Analytics.
      * </p>
      * 
-     * @return If true, logging is enabled for AWS IoT Analytics.
+     * @return If true, logging is enabled for IoT Analytics.
      */
 
     public Boolean getEnabled() {
@@ -173,11 +173,11 @@ public class LoggingOptions implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If true, logging is enabled for AWS IoT Analytics.
+     * If true, logging is enabled for IoT Analytics.
      * </p>
      * 
      * @param enabled
-     *        If true, logging is enabled for AWS IoT Analytics.
+     *        If true, logging is enabled for IoT Analytics.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -188,10 +188,10 @@ public class LoggingOptions implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If true, logging is enabled for AWS IoT Analytics.
+     * If true, logging is enabled for IoT Analytics.
      * </p>
      * 
-     * @return If true, logging is enabled for AWS IoT Analytics.
+     * @return If true, logging is enabled for IoT Analytics.
      */
 
     public Boolean isEnabled() {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.globalaccelerator.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -33,6 +34,8 @@ public class UpdateAcceleratorRequestMarshaller {
             .marshallLocationName("Name").build();
     private static final MarshallingInfo<String> IPADDRESSTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IpAddressType").build();
+    private static final MarshallingInfo<List> IPADDRESSES_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("IpAddresses").build();
     private static final MarshallingInfo<Boolean> ENABLED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Enabled").build();
 
@@ -55,6 +58,7 @@ public class UpdateAcceleratorRequestMarshaller {
             protocolMarshaller.marshall(updateAcceleratorRequest.getAcceleratorArn(), ACCELERATORARN_BINDING);
             protocolMarshaller.marshall(updateAcceleratorRequest.getName(), NAME_BINDING);
             protocolMarshaller.marshall(updateAcceleratorRequest.getIpAddressType(), IPADDRESSTYPE_BINDING);
+            protocolMarshaller.marshall(updateAcceleratorRequest.getIpAddresses(), IPADDRESSES_BINDING);
             protocolMarshaller.marshall(updateAcceleratorRequest.getEnabled(), ENABLED_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);

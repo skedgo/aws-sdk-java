@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.dlm.AmazonDLMClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.dlm.model.*;
+
 import com.amazonaws.services.dlm.model.transform.*;
 
 /**
@@ -52,13 +53,14 @@ import com.amazonaws.services.dlm.model.transform.*;
  * <p>
  * <fullname>Amazon Data Lifecycle Manager</fullname>
  * <p>
- * With Amazon Data Lifecycle Manager, you can manage the lifecycle of your AWS resources. You create lifecycle
- * policies, which are used to automate operations on the specified resources.
+ * With Amazon Data Lifecycle Manager, you can manage the lifecycle of your Amazon Web Services resources. You create
+ * lifecycle policies, which are used to automate operations on the specified resources.
  * </p>
  * <p>
- * Amazon DLM supports Amazon EBS volumes and snapshots. For information about using Amazon DLM with Amazon EBS, see <a
- * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshot-lifecycle.html">Automating the Amazon EBS Snapshot
- * Lifecycle</a> in the <i>Amazon EC2 User Guide</i>.
+ * Amazon Data Lifecycle Manager supports Amazon EBS volumes and snapshots. For information about using Amazon Data
+ * Lifecycle Manager with Amazon EBS, see <a
+ * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshot-lifecycle.html"> Amazon Data Lifecycle Manager</a>
+ * in the <i>Amazon EC2 User Guide</i>.
  * </p>
  */
 @ThreadSafe
@@ -83,19 +85,19 @@ public class AmazonDLMClient extends AmazonWebServiceClient implements AmazonDLM
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withModeledClass(
-                                    com.amazonaws.services.dlm.model.InvalidRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.dlm.model.transform.InvalidRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.dlm.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.dlm.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServerException").withModeledClass(
-                                    com.amazonaws.services.dlm.model.InternalServerException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServerException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.dlm.model.transform.InternalServerExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withModeledClass(
-                                    com.amazonaws.services.dlm.model.LimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.dlm.model.transform.LimitExceededExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.dlm.model.AmazonDLMException.class));
 
     public static AmazonDLMClientBuilder builder() {
@@ -146,9 +148,46 @@ public class AmazonDLMClient extends AmazonWebServiceClient implements AmazonDLM
 
     /**
      * <p>
-     * Creates a policy to manage the lifecycle of the specified AWS resources. You can create up to 100 lifecycle
-     * policies.
+     * Creates an Amazon Data Lifecycle Manager lifecycle policy. Amazon Data Lifecycle Manager supports the following
+     * policy types:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Custom EBS snapshot policy
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Custom EBS-backed AMI policy
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Cross-account copy event policy
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Default policy for EBS snapshots
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Default policy for EBS-backed AMIs
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/policy-differences.html">
+     * Default policies vs custom policies</a>.
+     * </p>
+     * <important>
+     * <p>
+     * If you create a default policy, you can specify the request parameters either in the request body, or in the
+     * PolicyDetails request structure, but not both.
+     * </p>
+     * </important>
      * 
      * @param createLifecyclePolicyRequest
      * @return Result of the CreateLifecyclePolicy operation returned by the service.
@@ -183,6 +222,8 @@ public class AmazonDLMClient extends AmazonWebServiceClient implements AmazonDLM
                 request = new CreateLifecyclePolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createLifecyclePolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "DLM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateLifecyclePolicy");
@@ -208,6 +249,11 @@ public class AmazonDLMClient extends AmazonWebServiceClient implements AmazonDLM
     /**
      * <p>
      * Deletes the specified lifecycle policy and halts the automated operations that the policy specified.
+     * </p>
+     * <p>
+     * For more information about deleting a policy, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/view-modify-delete.html#delete">Delete lifecycle
+     * policies</a>.
      * </p>
      * 
      * @param deleteLifecyclePolicyRequest
@@ -243,6 +289,8 @@ public class AmazonDLMClient extends AmazonWebServiceClient implements AmazonDLM
                 request = new DeleteLifecyclePolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteLifecyclePolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "DLM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteLifecyclePolicy");
@@ -270,7 +318,8 @@ public class AmazonDLMClient extends AmazonWebServiceClient implements AmazonDLM
      * Gets summary information about all or the specified data lifecycle policies.
      * </p>
      * <p>
-     * To get complete information about a policy, use <a>GetLifecyclePolicy</a>.
+     * To get complete information about a policy, use <a
+     * href="https://docs.aws.amazon.com/dlm/latest/APIReference/API_GetLifecyclePolicy.html">GetLifecyclePolicy</a>.
      * </p>
      * 
      * @param getLifecyclePoliciesRequest
@@ -308,6 +357,8 @@ public class AmazonDLMClient extends AmazonWebServiceClient implements AmazonDLM
                 request = new GetLifecyclePoliciesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getLifecyclePoliciesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "DLM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetLifecyclePolicies");
@@ -367,6 +418,8 @@ public class AmazonDLMClient extends AmazonWebServiceClient implements AmazonDLM
                 request = new GetLifecyclePolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getLifecyclePolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "DLM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetLifecyclePolicy");
@@ -390,7 +443,195 @@ public class AmazonDLMClient extends AmazonWebServiceClient implements AmazonDLM
 
     /**
      * <p>
+     * Lists the tags for the specified resource.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws InternalServerException
+     *         The service failed in an unexpected way.
+     * @throws InvalidRequestException
+     *         Bad request. The request is missing required parameters or has invalid parameters.
+     * @throws ResourceNotFoundException
+     *         A requested resource was not found.
+     * @sample AmazonDLM.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dlm-2018-01-12/ListTagsForResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeListTagsForResource(request);
+    }
+
+    @SdkInternalApi
+    final ListTagsForResourceResult executeListTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listTagsForResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListTagsForResourceRequest> request = null;
+        Response<ListTagsForResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "DLM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListTagsForResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListTagsForResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Adds the specified tags to the specified resource.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws InternalServerException
+     *         The service failed in an unexpected way.
+     * @throws InvalidRequestException
+     *         Bad request. The request is missing required parameters or has invalid parameters.
+     * @throws ResourceNotFoundException
+     *         A requested resource was not found.
+     * @sample AmazonDLM.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dlm-2018-01-12/TagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeTagResource(request);
+    }
+
+    @SdkInternalApi
+    final TagResourceResult executeTagResource(TagResourceRequest tagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(tagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TagResourceRequest> request = null;
+        Response<TagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "DLM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<TagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new TagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Removes the specified tags from the specified resource.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws InternalServerException
+     *         The service failed in an unexpected way.
+     * @throws InvalidRequestException
+     *         Bad request. The request is missing required parameters or has invalid parameters.
+     * @throws ResourceNotFoundException
+     *         A requested resource was not found.
+     * @sample AmazonDLM.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dlm-2018-01-12/UntagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeUntagResource(request);
+    }
+
+    @SdkInternalApi
+    final UntagResourceResult executeUntagResource(UntagResourceRequest untagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(untagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UntagResourceRequest> request = null;
+        Response<UntagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "DLM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UntagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UntagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Updates the specified lifecycle policy.
+     * </p>
+     * <p>
+     * For more information about updating a policy, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/view-modify-delete.html#modify">Modify lifecycle
+     * policies</a>.
      * </p>
      * 
      * @param updateLifecyclePolicyRequest
@@ -428,6 +669,8 @@ public class AmazonDLMClient extends AmazonWebServiceClient implements AmazonDLM
                 request = new UpdateLifecyclePolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateLifecyclePolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "DLM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateLifecyclePolicy");
@@ -524,6 +767,11 @@ public class AmazonDLMClient extends AmazonWebServiceClient implements AmazonDLM
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

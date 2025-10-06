@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,8 +30,8 @@ public class EmailChannelRequest implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The configuration set that you want to apply to email that you send through the channel by using the <a
-     * href="emailAPIreference.html">Amazon Pinpoint Email API</a>.
+     * The <a href="https://docs.aws.amazon.com/ses/latest/APIReference/API_ConfigurationSet.html">Amazon SES
+     * configuration set</a> that you want to apply to messages that you send through the channel.
      * </p>
      */
     private String configurationSet;
@@ -61,16 +61,23 @@ public class EmailChannelRequest implements Serializable, Cloneable, StructuredP
      * </p>
      */
     private String roleArn;
+    /**
+     * <p>
+     * The ARN of an IAM role for Amazon Pinpoint to use to send email from your campaigns or journeys through Amazon
+     * SES.
+     * </p>
+     */
+    private String orchestrationSendingRoleArn;
 
     /**
      * <p>
-     * The configuration set that you want to apply to email that you send through the channel by using the <a
-     * href="emailAPIreference.html">Amazon Pinpoint Email API</a>.
+     * The <a href="https://docs.aws.amazon.com/ses/latest/APIReference/API_ConfigurationSet.html">Amazon SES
+     * configuration set</a> that you want to apply to messages that you send through the channel.
      * </p>
      * 
      * @param configurationSet
-     *        The configuration set that you want to apply to email that you send through the channel by using the <a
-     *        href="emailAPIreference.html">Amazon Pinpoint Email API</a>.
+     *        The <a href="https://docs.aws.amazon.com/ses/latest/APIReference/API_ConfigurationSet.html">Amazon SES
+     *        configuration set</a> that you want to apply to messages that you send through the channel.
      */
 
     public void setConfigurationSet(String configurationSet) {
@@ -79,12 +86,12 @@ public class EmailChannelRequest implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The configuration set that you want to apply to email that you send through the channel by using the <a
-     * href="emailAPIreference.html">Amazon Pinpoint Email API</a>.
+     * The <a href="https://docs.aws.amazon.com/ses/latest/APIReference/API_ConfigurationSet.html">Amazon SES
+     * configuration set</a> that you want to apply to messages that you send through the channel.
      * </p>
      * 
-     * @return The configuration set that you want to apply to email that you send through the channel by using the <a
-     *         href="emailAPIreference.html">Amazon Pinpoint Email API</a>.
+     * @return The <a href="https://docs.aws.amazon.com/ses/latest/APIReference/API_ConfigurationSet.html">Amazon SES
+     *         configuration set</a> that you want to apply to messages that you send through the channel.
      */
 
     public String getConfigurationSet() {
@@ -93,13 +100,13 @@ public class EmailChannelRequest implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The configuration set that you want to apply to email that you send through the channel by using the <a
-     * href="emailAPIreference.html">Amazon Pinpoint Email API</a>.
+     * The <a href="https://docs.aws.amazon.com/ses/latest/APIReference/API_ConfigurationSet.html">Amazon SES
+     * configuration set</a> that you want to apply to messages that you send through the channel.
      * </p>
      * 
      * @param configurationSet
-     *        The configuration set that you want to apply to email that you send through the channel by using the <a
-     *        href="emailAPIreference.html">Amazon Pinpoint Email API</a>.
+     *        The <a href="https://docs.aws.amazon.com/ses/latest/APIReference/API_ConfigurationSet.html">Amazon SES
+     *        configuration set</a> that you want to apply to messages that you send through the channel.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -311,6 +318,52 @@ public class EmailChannelRequest implements Serializable, Cloneable, StructuredP
     }
 
     /**
+     * <p>
+     * The ARN of an IAM role for Amazon Pinpoint to use to send email from your campaigns or journeys through Amazon
+     * SES.
+     * </p>
+     * 
+     * @param orchestrationSendingRoleArn
+     *        The ARN of an IAM role for Amazon Pinpoint to use to send email from your campaigns or journeys through
+     *        Amazon SES.
+     */
+
+    public void setOrchestrationSendingRoleArn(String orchestrationSendingRoleArn) {
+        this.orchestrationSendingRoleArn = orchestrationSendingRoleArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of an IAM role for Amazon Pinpoint to use to send email from your campaigns or journeys through Amazon
+     * SES.
+     * </p>
+     * 
+     * @return The ARN of an IAM role for Amazon Pinpoint to use to send email from your campaigns or journeys through
+     *         Amazon SES.
+     */
+
+    public String getOrchestrationSendingRoleArn() {
+        return this.orchestrationSendingRoleArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of an IAM role for Amazon Pinpoint to use to send email from your campaigns or journeys through Amazon
+     * SES.
+     * </p>
+     * 
+     * @param orchestrationSendingRoleArn
+     *        The ARN of an IAM role for Amazon Pinpoint to use to send email from your campaigns or journeys through
+     *        Amazon SES.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EmailChannelRequest withOrchestrationSendingRoleArn(String orchestrationSendingRoleArn) {
+        setOrchestrationSendingRoleArn(orchestrationSendingRoleArn);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -331,7 +384,9 @@ public class EmailChannelRequest implements Serializable, Cloneable, StructuredP
         if (getIdentity() != null)
             sb.append("Identity: ").append(getIdentity()).append(",");
         if (getRoleArn() != null)
-            sb.append("RoleArn: ").append(getRoleArn());
+            sb.append("RoleArn: ").append(getRoleArn()).append(",");
+        if (getOrchestrationSendingRoleArn() != null)
+            sb.append("OrchestrationSendingRoleArn: ").append(getOrchestrationSendingRoleArn());
         sb.append("}");
         return sb.toString();
     }
@@ -366,6 +421,10 @@ public class EmailChannelRequest implements Serializable, Cloneable, StructuredP
             return false;
         if (other.getRoleArn() != null && other.getRoleArn().equals(this.getRoleArn()) == false)
             return false;
+        if (other.getOrchestrationSendingRoleArn() == null ^ this.getOrchestrationSendingRoleArn() == null)
+            return false;
+        if (other.getOrchestrationSendingRoleArn() != null && other.getOrchestrationSendingRoleArn().equals(this.getOrchestrationSendingRoleArn()) == false)
+            return false;
         return true;
     }
 
@@ -379,6 +438,7 @@ public class EmailChannelRequest implements Serializable, Cloneable, StructuredP
         hashCode = prime * hashCode + ((getFromAddress() == null) ? 0 : getFromAddress().hashCode());
         hashCode = prime * hashCode + ((getIdentity() == null) ? 0 : getIdentity().hashCode());
         hashCode = prime * hashCode + ((getRoleArn() == null) ? 0 : getRoleArn().hashCode());
+        hashCode = prime * hashCode + ((getOrchestrationSendingRoleArn() == null) ? 0 : getOrchestrationSendingRoleArn().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,9 +26,9 @@ import java.util.concurrent.ExecutorService;
  * notification when an asynchronous operation completes.
  * <p>
  * <p>
- * The Cost Explorer API enables you to programmatically query your cost and usage data. You can query for aggregated
- * data such as total monthly costs or total daily usage. You can also query for granular data, such as the number of
- * daily write operations for Amazon DynamoDB database tables in your production environment.
+ * You can use the Cost Explorer API to programmatically query your cost and usage data. You can query for aggregated
+ * data such as total monthly costs or total daily usage. You can also query for granular data. This might include the
+ * number of daily write operations for Amazon DynamoDB database tables in your production environment.
  * </p>
  * <p>
  * Service Endpoint
@@ -44,8 +44,8 @@ import java.util.concurrent.ExecutorService;
  * </li>
  * </ul>
  * <p>
- * For information about costs associated with the Cost Explorer API, see <a
- * href="https://aws.amazon.com/aws-cost-management/pricing/">AWS Cost Management Pricing</a>.
+ * For information about the costs that are associated with the Cost Explorer API, see <a
+ * href="http://aws.amazon.com/aws-cost-management/pricing/">Amazon Web Services Cost Management Pricing</a>.
  * </p>
  */
 @ThreadSafe
@@ -68,7 +68,20 @@ public class AWSCostExplorerAsyncClient extends AWSCostExplorerClient implements
      *        Object providing client parameters.
      */
     AWSCostExplorerAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on AWS Cost Explorer using the specified
+     * parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSCostExplorerAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -79,6 +92,370 @@ public class AWSCostExplorerAsyncClient extends AWSCostExplorerClient implements
      */
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateAnomalyMonitorResult> createAnomalyMonitorAsync(CreateAnomalyMonitorRequest request) {
+
+        return createAnomalyMonitorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateAnomalyMonitorResult> createAnomalyMonitorAsync(final CreateAnomalyMonitorRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateAnomalyMonitorRequest, CreateAnomalyMonitorResult> asyncHandler) {
+        final CreateAnomalyMonitorRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateAnomalyMonitorResult>() {
+            @Override
+            public CreateAnomalyMonitorResult call() throws Exception {
+                CreateAnomalyMonitorResult result = null;
+
+                try {
+                    result = executeCreateAnomalyMonitor(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateAnomalySubscriptionResult> createAnomalySubscriptionAsync(CreateAnomalySubscriptionRequest request) {
+
+        return createAnomalySubscriptionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateAnomalySubscriptionResult> createAnomalySubscriptionAsync(final CreateAnomalySubscriptionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateAnomalySubscriptionRequest, CreateAnomalySubscriptionResult> asyncHandler) {
+        final CreateAnomalySubscriptionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateAnomalySubscriptionResult>() {
+            @Override
+            public CreateAnomalySubscriptionResult call() throws Exception {
+                CreateAnomalySubscriptionResult result = null;
+
+                try {
+                    result = executeCreateAnomalySubscription(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCostCategoryDefinitionResult> createCostCategoryDefinitionAsync(CreateCostCategoryDefinitionRequest request) {
+
+        return createCostCategoryDefinitionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCostCategoryDefinitionResult> createCostCategoryDefinitionAsync(final CreateCostCategoryDefinitionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateCostCategoryDefinitionRequest, CreateCostCategoryDefinitionResult> asyncHandler) {
+        final CreateCostCategoryDefinitionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateCostCategoryDefinitionResult>() {
+            @Override
+            public CreateCostCategoryDefinitionResult call() throws Exception {
+                CreateCostCategoryDefinitionResult result = null;
+
+                try {
+                    result = executeCreateCostCategoryDefinition(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAnomalyMonitorResult> deleteAnomalyMonitorAsync(DeleteAnomalyMonitorRequest request) {
+
+        return deleteAnomalyMonitorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAnomalyMonitorResult> deleteAnomalyMonitorAsync(final DeleteAnomalyMonitorRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteAnomalyMonitorRequest, DeleteAnomalyMonitorResult> asyncHandler) {
+        final DeleteAnomalyMonitorRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteAnomalyMonitorResult>() {
+            @Override
+            public DeleteAnomalyMonitorResult call() throws Exception {
+                DeleteAnomalyMonitorResult result = null;
+
+                try {
+                    result = executeDeleteAnomalyMonitor(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAnomalySubscriptionResult> deleteAnomalySubscriptionAsync(DeleteAnomalySubscriptionRequest request) {
+
+        return deleteAnomalySubscriptionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAnomalySubscriptionResult> deleteAnomalySubscriptionAsync(final DeleteAnomalySubscriptionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteAnomalySubscriptionRequest, DeleteAnomalySubscriptionResult> asyncHandler) {
+        final DeleteAnomalySubscriptionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteAnomalySubscriptionResult>() {
+            @Override
+            public DeleteAnomalySubscriptionResult call() throws Exception {
+                DeleteAnomalySubscriptionResult result = null;
+
+                try {
+                    result = executeDeleteAnomalySubscription(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCostCategoryDefinitionResult> deleteCostCategoryDefinitionAsync(DeleteCostCategoryDefinitionRequest request) {
+
+        return deleteCostCategoryDefinitionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCostCategoryDefinitionResult> deleteCostCategoryDefinitionAsync(final DeleteCostCategoryDefinitionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteCostCategoryDefinitionRequest, DeleteCostCategoryDefinitionResult> asyncHandler) {
+        final DeleteCostCategoryDefinitionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteCostCategoryDefinitionResult>() {
+            @Override
+            public DeleteCostCategoryDefinitionResult call() throws Exception {
+                DeleteCostCategoryDefinitionResult result = null;
+
+                try {
+                    result = executeDeleteCostCategoryDefinition(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCostCategoryDefinitionResult> describeCostCategoryDefinitionAsync(DescribeCostCategoryDefinitionRequest request) {
+
+        return describeCostCategoryDefinitionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCostCategoryDefinitionResult> describeCostCategoryDefinitionAsync(
+            final DescribeCostCategoryDefinitionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeCostCategoryDefinitionRequest, DescribeCostCategoryDefinitionResult> asyncHandler) {
+        final DescribeCostCategoryDefinitionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeCostCategoryDefinitionResult>() {
+            @Override
+            public DescribeCostCategoryDefinitionResult call() throws Exception {
+                DescribeCostCategoryDefinitionResult result = null;
+
+                try {
+                    result = executeDescribeCostCategoryDefinition(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetAnomaliesResult> getAnomaliesAsync(GetAnomaliesRequest request) {
+
+        return getAnomaliesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetAnomaliesResult> getAnomaliesAsync(final GetAnomaliesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetAnomaliesRequest, GetAnomaliesResult> asyncHandler) {
+        final GetAnomaliesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetAnomaliesResult>() {
+            @Override
+            public GetAnomaliesResult call() throws Exception {
+                GetAnomaliesResult result = null;
+
+                try {
+                    result = executeGetAnomalies(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetAnomalyMonitorsResult> getAnomalyMonitorsAsync(GetAnomalyMonitorsRequest request) {
+
+        return getAnomalyMonitorsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetAnomalyMonitorsResult> getAnomalyMonitorsAsync(final GetAnomalyMonitorsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetAnomalyMonitorsRequest, GetAnomalyMonitorsResult> asyncHandler) {
+        final GetAnomalyMonitorsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetAnomalyMonitorsResult>() {
+            @Override
+            public GetAnomalyMonitorsResult call() throws Exception {
+                GetAnomalyMonitorsResult result = null;
+
+                try {
+                    result = executeGetAnomalyMonitors(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetAnomalySubscriptionsResult> getAnomalySubscriptionsAsync(GetAnomalySubscriptionsRequest request) {
+
+        return getAnomalySubscriptionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetAnomalySubscriptionsResult> getAnomalySubscriptionsAsync(final GetAnomalySubscriptionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetAnomalySubscriptionsRequest, GetAnomalySubscriptionsResult> asyncHandler) {
+        final GetAnomalySubscriptionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetAnomalySubscriptionsResult>() {
+            @Override
+            public GetAnomalySubscriptionsResult call() throws Exception {
+                GetAnomalySubscriptionsResult result = null;
+
+                try {
+                    result = executeGetAnomalySubscriptions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetApproximateUsageRecordsResult> getApproximateUsageRecordsAsync(GetApproximateUsageRecordsRequest request) {
+
+        return getApproximateUsageRecordsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetApproximateUsageRecordsResult> getApproximateUsageRecordsAsync(final GetApproximateUsageRecordsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetApproximateUsageRecordsRequest, GetApproximateUsageRecordsResult> asyncHandler) {
+        final GetApproximateUsageRecordsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetApproximateUsageRecordsResult>() {
+            @Override
+            public GetApproximateUsageRecordsResult call() throws Exception {
+                GetApproximateUsageRecordsResult result = null;
+
+                try {
+                    result = executeGetApproximateUsageRecords(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -99,6 +476,72 @@ public class AWSCostExplorerAsyncClient extends AWSCostExplorerClient implements
 
                 try {
                     result = executeGetCostAndUsage(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCostAndUsageWithResourcesResult> getCostAndUsageWithResourcesAsync(GetCostAndUsageWithResourcesRequest request) {
+
+        return getCostAndUsageWithResourcesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCostAndUsageWithResourcesResult> getCostAndUsageWithResourcesAsync(final GetCostAndUsageWithResourcesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetCostAndUsageWithResourcesRequest, GetCostAndUsageWithResourcesResult> asyncHandler) {
+        final GetCostAndUsageWithResourcesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetCostAndUsageWithResourcesResult>() {
+            @Override
+            public GetCostAndUsageWithResourcesResult call() throws Exception {
+                GetCostAndUsageWithResourcesResult result = null;
+
+                try {
+                    result = executeGetCostAndUsageWithResources(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCostCategoriesResult> getCostCategoriesAsync(GetCostCategoriesRequest request) {
+
+        return getCostCategoriesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCostCategoriesResult> getCostCategoriesAsync(final GetCostCategoriesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetCostCategoriesRequest, GetCostCategoriesResult> asyncHandler) {
+        final GetCostCategoriesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetCostCategoriesResult>() {
+            @Override
+            public GetCostCategoriesResult call() throws Exception {
+                GetCostCategoriesResult result = null;
+
+                try {
+                    result = executeGetCostCategories(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -315,6 +758,177 @@ public class AWSCostExplorerAsyncClient extends AWSCostExplorerClient implements
     }
 
     @Override
+    public java.util.concurrent.Future<GetSavingsPlanPurchaseRecommendationDetailsResult> getSavingsPlanPurchaseRecommendationDetailsAsync(
+            GetSavingsPlanPurchaseRecommendationDetailsRequest request) {
+
+        return getSavingsPlanPurchaseRecommendationDetailsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSavingsPlanPurchaseRecommendationDetailsResult> getSavingsPlanPurchaseRecommendationDetailsAsync(
+            final GetSavingsPlanPurchaseRecommendationDetailsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetSavingsPlanPurchaseRecommendationDetailsRequest, GetSavingsPlanPurchaseRecommendationDetailsResult> asyncHandler) {
+        final GetSavingsPlanPurchaseRecommendationDetailsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetSavingsPlanPurchaseRecommendationDetailsResult>() {
+            @Override
+            public GetSavingsPlanPurchaseRecommendationDetailsResult call() throws Exception {
+                GetSavingsPlanPurchaseRecommendationDetailsResult result = null;
+
+                try {
+                    result = executeGetSavingsPlanPurchaseRecommendationDetails(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSavingsPlansCoverageResult> getSavingsPlansCoverageAsync(GetSavingsPlansCoverageRequest request) {
+
+        return getSavingsPlansCoverageAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSavingsPlansCoverageResult> getSavingsPlansCoverageAsync(final GetSavingsPlansCoverageRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetSavingsPlansCoverageRequest, GetSavingsPlansCoverageResult> asyncHandler) {
+        final GetSavingsPlansCoverageRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetSavingsPlansCoverageResult>() {
+            @Override
+            public GetSavingsPlansCoverageResult call() throws Exception {
+                GetSavingsPlansCoverageResult result = null;
+
+                try {
+                    result = executeGetSavingsPlansCoverage(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSavingsPlansPurchaseRecommendationResult> getSavingsPlansPurchaseRecommendationAsync(
+            GetSavingsPlansPurchaseRecommendationRequest request) {
+
+        return getSavingsPlansPurchaseRecommendationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSavingsPlansPurchaseRecommendationResult> getSavingsPlansPurchaseRecommendationAsync(
+            final GetSavingsPlansPurchaseRecommendationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetSavingsPlansPurchaseRecommendationRequest, GetSavingsPlansPurchaseRecommendationResult> asyncHandler) {
+        final GetSavingsPlansPurchaseRecommendationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetSavingsPlansPurchaseRecommendationResult>() {
+            @Override
+            public GetSavingsPlansPurchaseRecommendationResult call() throws Exception {
+                GetSavingsPlansPurchaseRecommendationResult result = null;
+
+                try {
+                    result = executeGetSavingsPlansPurchaseRecommendation(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSavingsPlansUtilizationResult> getSavingsPlansUtilizationAsync(GetSavingsPlansUtilizationRequest request) {
+
+        return getSavingsPlansUtilizationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSavingsPlansUtilizationResult> getSavingsPlansUtilizationAsync(final GetSavingsPlansUtilizationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetSavingsPlansUtilizationRequest, GetSavingsPlansUtilizationResult> asyncHandler) {
+        final GetSavingsPlansUtilizationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetSavingsPlansUtilizationResult>() {
+            @Override
+            public GetSavingsPlansUtilizationResult call() throws Exception {
+                GetSavingsPlansUtilizationResult result = null;
+
+                try {
+                    result = executeGetSavingsPlansUtilization(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSavingsPlansUtilizationDetailsResult> getSavingsPlansUtilizationDetailsAsync(
+            GetSavingsPlansUtilizationDetailsRequest request) {
+
+        return getSavingsPlansUtilizationDetailsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSavingsPlansUtilizationDetailsResult> getSavingsPlansUtilizationDetailsAsync(
+            final GetSavingsPlansUtilizationDetailsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetSavingsPlansUtilizationDetailsRequest, GetSavingsPlansUtilizationDetailsResult> asyncHandler) {
+        final GetSavingsPlansUtilizationDetailsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetSavingsPlansUtilizationDetailsResult>() {
+            @Override
+            public GetSavingsPlansUtilizationDetailsResult call() throws Exception {
+                GetSavingsPlansUtilizationDetailsResult result = null;
+
+                try {
+                    result = executeGetSavingsPlansUtilizationDetails(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetTagsResult> getTagsAsync(GetTagsRequest request) {
 
         return getTagsAsync(request, null);
@@ -365,6 +979,476 @@ public class AWSCostExplorerAsyncClient extends AWSCostExplorerClient implements
 
                 try {
                     result = executeGetUsageForecast(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCostAllocationTagBackfillHistoryResult> listCostAllocationTagBackfillHistoryAsync(
+            ListCostAllocationTagBackfillHistoryRequest request) {
+
+        return listCostAllocationTagBackfillHistoryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCostAllocationTagBackfillHistoryResult> listCostAllocationTagBackfillHistoryAsync(
+            final ListCostAllocationTagBackfillHistoryRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListCostAllocationTagBackfillHistoryRequest, ListCostAllocationTagBackfillHistoryResult> asyncHandler) {
+        final ListCostAllocationTagBackfillHistoryRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListCostAllocationTagBackfillHistoryResult>() {
+            @Override
+            public ListCostAllocationTagBackfillHistoryResult call() throws Exception {
+                ListCostAllocationTagBackfillHistoryResult result = null;
+
+                try {
+                    result = executeListCostAllocationTagBackfillHistory(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCostAllocationTagsResult> listCostAllocationTagsAsync(ListCostAllocationTagsRequest request) {
+
+        return listCostAllocationTagsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCostAllocationTagsResult> listCostAllocationTagsAsync(final ListCostAllocationTagsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListCostAllocationTagsRequest, ListCostAllocationTagsResult> asyncHandler) {
+        final ListCostAllocationTagsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListCostAllocationTagsResult>() {
+            @Override
+            public ListCostAllocationTagsResult call() throws Exception {
+                ListCostAllocationTagsResult result = null;
+
+                try {
+                    result = executeListCostAllocationTags(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCostCategoryDefinitionsResult> listCostCategoryDefinitionsAsync(ListCostCategoryDefinitionsRequest request) {
+
+        return listCostCategoryDefinitionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCostCategoryDefinitionsResult> listCostCategoryDefinitionsAsync(final ListCostCategoryDefinitionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListCostCategoryDefinitionsRequest, ListCostCategoryDefinitionsResult> asyncHandler) {
+        final ListCostCategoryDefinitionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListCostCategoryDefinitionsResult>() {
+            @Override
+            public ListCostCategoryDefinitionsResult call() throws Exception {
+                ListCostCategoryDefinitionsResult result = null;
+
+                try {
+                    result = executeListCostCategoryDefinitions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSavingsPlansPurchaseRecommendationGenerationResult> listSavingsPlansPurchaseRecommendationGenerationAsync(
+            ListSavingsPlansPurchaseRecommendationGenerationRequest request) {
+
+        return listSavingsPlansPurchaseRecommendationGenerationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSavingsPlansPurchaseRecommendationGenerationResult> listSavingsPlansPurchaseRecommendationGenerationAsync(
+            final ListSavingsPlansPurchaseRecommendationGenerationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListSavingsPlansPurchaseRecommendationGenerationRequest, ListSavingsPlansPurchaseRecommendationGenerationResult> asyncHandler) {
+        final ListSavingsPlansPurchaseRecommendationGenerationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListSavingsPlansPurchaseRecommendationGenerationResult>() {
+            @Override
+            public ListSavingsPlansPurchaseRecommendationGenerationResult call() throws Exception {
+                ListSavingsPlansPurchaseRecommendationGenerationResult result = null;
+
+                try {
+                    result = executeListSavingsPlansPurchaseRecommendationGeneration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(final ListTagsForResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+        final ListTagsForResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListTagsForResourceResult>() {
+            @Override
+            public ListTagsForResourceResult call() throws Exception {
+                ListTagsForResourceResult result = null;
+
+                try {
+                    result = executeListTagsForResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ProvideAnomalyFeedbackResult> provideAnomalyFeedbackAsync(ProvideAnomalyFeedbackRequest request) {
+
+        return provideAnomalyFeedbackAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ProvideAnomalyFeedbackResult> provideAnomalyFeedbackAsync(final ProvideAnomalyFeedbackRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ProvideAnomalyFeedbackRequest, ProvideAnomalyFeedbackResult> asyncHandler) {
+        final ProvideAnomalyFeedbackRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ProvideAnomalyFeedbackResult>() {
+            @Override
+            public ProvideAnomalyFeedbackResult call() throws Exception {
+                ProvideAnomalyFeedbackResult result = null;
+
+                try {
+                    result = executeProvideAnomalyFeedback(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartCostAllocationTagBackfillResult> startCostAllocationTagBackfillAsync(StartCostAllocationTagBackfillRequest request) {
+
+        return startCostAllocationTagBackfillAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartCostAllocationTagBackfillResult> startCostAllocationTagBackfillAsync(
+            final StartCostAllocationTagBackfillRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartCostAllocationTagBackfillRequest, StartCostAllocationTagBackfillResult> asyncHandler) {
+        final StartCostAllocationTagBackfillRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartCostAllocationTagBackfillResult>() {
+            @Override
+            public StartCostAllocationTagBackfillResult call() throws Exception {
+                StartCostAllocationTagBackfillResult result = null;
+
+                try {
+                    result = executeStartCostAllocationTagBackfill(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartSavingsPlansPurchaseRecommendationGenerationResult> startSavingsPlansPurchaseRecommendationGenerationAsync(
+            StartSavingsPlansPurchaseRecommendationGenerationRequest request) {
+
+        return startSavingsPlansPurchaseRecommendationGenerationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartSavingsPlansPurchaseRecommendationGenerationResult> startSavingsPlansPurchaseRecommendationGenerationAsync(
+            final StartSavingsPlansPurchaseRecommendationGenerationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartSavingsPlansPurchaseRecommendationGenerationRequest, StartSavingsPlansPurchaseRecommendationGenerationResult> asyncHandler) {
+        final StartSavingsPlansPurchaseRecommendationGenerationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartSavingsPlansPurchaseRecommendationGenerationResult>() {
+            @Override
+            public StartSavingsPlansPurchaseRecommendationGenerationResult call() throws Exception {
+                StartSavingsPlansPurchaseRecommendationGenerationResult result = null;
+
+                try {
+                    result = executeStartSavingsPlansPurchaseRecommendationGeneration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(final TagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+        final TagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TagResourceResult>() {
+            @Override
+            public TagResourceResult call() throws Exception {
+                TagResourceResult result = null;
+
+                try {
+                    result = executeTagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(final UntagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+        final UntagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UntagResourceResult>() {
+            @Override
+            public UntagResourceResult call() throws Exception {
+                UntagResourceResult result = null;
+
+                try {
+                    result = executeUntagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateAnomalyMonitorResult> updateAnomalyMonitorAsync(UpdateAnomalyMonitorRequest request) {
+
+        return updateAnomalyMonitorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateAnomalyMonitorResult> updateAnomalyMonitorAsync(final UpdateAnomalyMonitorRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateAnomalyMonitorRequest, UpdateAnomalyMonitorResult> asyncHandler) {
+        final UpdateAnomalyMonitorRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateAnomalyMonitorResult>() {
+            @Override
+            public UpdateAnomalyMonitorResult call() throws Exception {
+                UpdateAnomalyMonitorResult result = null;
+
+                try {
+                    result = executeUpdateAnomalyMonitor(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateAnomalySubscriptionResult> updateAnomalySubscriptionAsync(UpdateAnomalySubscriptionRequest request) {
+
+        return updateAnomalySubscriptionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateAnomalySubscriptionResult> updateAnomalySubscriptionAsync(final UpdateAnomalySubscriptionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateAnomalySubscriptionRequest, UpdateAnomalySubscriptionResult> asyncHandler) {
+        final UpdateAnomalySubscriptionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateAnomalySubscriptionResult>() {
+            @Override
+            public UpdateAnomalySubscriptionResult call() throws Exception {
+                UpdateAnomalySubscriptionResult result = null;
+
+                try {
+                    result = executeUpdateAnomalySubscription(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCostAllocationTagsStatusResult> updateCostAllocationTagsStatusAsync(UpdateCostAllocationTagsStatusRequest request) {
+
+        return updateCostAllocationTagsStatusAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCostAllocationTagsStatusResult> updateCostAllocationTagsStatusAsync(
+            final UpdateCostAllocationTagsStatusRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateCostAllocationTagsStatusRequest, UpdateCostAllocationTagsStatusResult> asyncHandler) {
+        final UpdateCostAllocationTagsStatusRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateCostAllocationTagsStatusResult>() {
+            @Override
+            public UpdateCostAllocationTagsStatusResult call() throws Exception {
+                UpdateCostAllocationTagsStatusResult result = null;
+
+                try {
+                    result = executeUpdateCostAllocationTagsStatus(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCostCategoryDefinitionResult> updateCostCategoryDefinitionAsync(UpdateCostCategoryDefinitionRequest request) {
+
+        return updateCostCategoryDefinitionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCostCategoryDefinitionResult> updateCostCategoryDefinitionAsync(final UpdateCostCategoryDefinitionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateCostCategoryDefinitionRequest, UpdateCostCategoryDefinitionResult> asyncHandler) {
+        final UpdateCostCategoryDefinitionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateCostCategoryDefinitionResult>() {
+            @Override
+            public UpdateCostCategoryDefinitionResult call() throws Exception {
+                UpdateCostCategoryDefinitionResult result = null;
+
+                try {
+                    result = executeUpdateCostCategoryDefinition(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

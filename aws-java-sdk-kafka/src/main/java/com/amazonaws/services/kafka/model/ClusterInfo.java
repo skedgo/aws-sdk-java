@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -67,7 +67,7 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
     private java.util.Date creationTime;
     /**
      * <p>
-     * Information about the version of software currently deployed on the Kafka brokers in the cluster.
+     * Information about the version of software currently deployed on the Apache Kafka brokers in the cluster.
      * </p>
      */
     private BrokerSoftwareInfo currentBrokerSoftwareInfo;
@@ -85,12 +85,21 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
     private EncryptionInfo encryptionInfo;
     /**
      * <p>
-     * Specifies which metrics are gathered for the MSK cluster. This property has three possible values: DEFAULT,
-     * PER_BROKER, and PER_TOPIC_PER_BROKER. For a list of the metrics associated with each of these three levels of
-     * monitoring, see <a href="https://docs.aws.amazon.com/msk/latest/developerguide/monitoring.html">Monitoring</a>.
+     * Specifies which metrics are gathered for the MSK cluster. This property has the following possible values:
+     * DEFAULT, PER_BROKER, PER_TOPIC_PER_BROKER, and PER_TOPIC_PER_PARTITION. For a list of the metrics associated with
+     * each of these levels of monitoring, see <a
+     * href="https://docs.aws.amazon.com/msk/latest/developerguide/monitoring.html">Monitoring</a>.
      * </p>
      */
     private String enhancedMonitoring;
+    /**
+     * <p>
+     * Settings for open monitoring using Prometheus.
+     * </p>
+     */
+    private OpenMonitoring openMonitoring;
+
+    private LoggingInfo loggingInfo;
     /**
      * <p>
      * The number of broker nodes in the cluster.
@@ -99,10 +108,13 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
     private Integer numberOfBrokerNodes;
     /**
      * <p>
-     * The state of the cluster. The possible states are CREATING, ACTIVE, and FAILED.
+     * The state of the cluster. The possible states are ACTIVE, CREATING, DELETING, FAILED, HEALING, MAINTENANCE,
+     * REBOOTING_BROKER, and UPDATING.
      * </p>
      */
     private String state;
+
+    private StateInfo stateInfo;
     /**
      * <p>
      * Tags attached to the cluster.
@@ -115,6 +127,24 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String zookeeperConnectString;
+    /**
+     * <p>
+     * The connection string to use to connect to zookeeper cluster on Tls port.
+     * </p>
+     */
+    private String zookeeperConnectStringTls;
+    /**
+     * <p>
+     * This controls storage mode for supported storage tiers.
+     * </p>
+     */
+    private String storageMode;
+    /**
+     * <p>
+     * Determines if there is an action required from the customer.
+     * </p>
+     */
+    private String customerActionStatus;
 
     /**
      * <p>
@@ -394,12 +424,12 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Information about the version of software currently deployed on the Kafka brokers in the cluster.
+     * Information about the version of software currently deployed on the Apache Kafka brokers in the cluster.
      * </p>
      * 
      * @param currentBrokerSoftwareInfo
      *        <p>
-     *        Information about the version of software currently deployed on the Kafka brokers in the cluster.
+     *        Information about the version of software currently deployed on the Apache Kafka brokers in the cluster.
      *        </p>
      */
 
@@ -409,11 +439,11 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Information about the version of software currently deployed on the Kafka brokers in the cluster.
+     * Information about the version of software currently deployed on the Apache Kafka brokers in the cluster.
      * </p>
      * 
      * @return <p>
-     *         Information about the version of software currently deployed on the Kafka brokers in the cluster.
+     *         Information about the version of software currently deployed on the Apache Kafka brokers in the cluster.
      *         </p>
      */
 
@@ -423,12 +453,12 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Information about the version of software currently deployed on the Kafka brokers in the cluster.
+     * Information about the version of software currently deployed on the Apache Kafka brokers in the cluster.
      * </p>
      * 
      * @param currentBrokerSoftwareInfo
      *        <p>
-     *        Information about the version of software currently deployed on the Kafka brokers in the cluster.
+     *        Information about the version of software currently deployed on the Apache Kafka brokers in the cluster.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -532,16 +562,17 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies which metrics are gathered for the MSK cluster. This property has three possible values: DEFAULT,
-     * PER_BROKER, and PER_TOPIC_PER_BROKER. For a list of the metrics associated with each of these three levels of
-     * monitoring, see <a href="https://docs.aws.amazon.com/msk/latest/developerguide/monitoring.html">Monitoring</a>.
+     * Specifies which metrics are gathered for the MSK cluster. This property has the following possible values:
+     * DEFAULT, PER_BROKER, PER_TOPIC_PER_BROKER, and PER_TOPIC_PER_PARTITION. For a list of the metrics associated with
+     * each of these levels of monitoring, see <a
+     * href="https://docs.aws.amazon.com/msk/latest/developerguide/monitoring.html">Monitoring</a>.
      * </p>
      * 
      * @param enhancedMonitoring
      *        <p>
-     *        Specifies which metrics are gathered for the MSK cluster. This property has three possible values:
-     *        DEFAULT, PER_BROKER, and PER_TOPIC_PER_BROKER. For a list of the metrics associated with each of these
-     *        three levels of monitoring, see <a
+     *        Specifies which metrics are gathered for the MSK cluster. This property has the following possible values:
+     *        DEFAULT, PER_BROKER, PER_TOPIC_PER_BROKER, and PER_TOPIC_PER_PARTITION. For a list of the metrics
+     *        associated with each of these levels of monitoring, see <a
      *        href="https://docs.aws.amazon.com/msk/latest/developerguide/monitoring.html">Monitoring</a>.
      *        </p>
      * @see EnhancedMonitoring
@@ -553,15 +584,16 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies which metrics are gathered for the MSK cluster. This property has three possible values: DEFAULT,
-     * PER_BROKER, and PER_TOPIC_PER_BROKER. For a list of the metrics associated with each of these three levels of
-     * monitoring, see <a href="https://docs.aws.amazon.com/msk/latest/developerguide/monitoring.html">Monitoring</a>.
+     * Specifies which metrics are gathered for the MSK cluster. This property has the following possible values:
+     * DEFAULT, PER_BROKER, PER_TOPIC_PER_BROKER, and PER_TOPIC_PER_PARTITION. For a list of the metrics associated with
+     * each of these levels of monitoring, see <a
+     * href="https://docs.aws.amazon.com/msk/latest/developerguide/monitoring.html">Monitoring</a>.
      * </p>
      * 
      * @return <p>
-     *         Specifies which metrics are gathered for the MSK cluster. This property has three possible values:
-     *         DEFAULT, PER_BROKER, and PER_TOPIC_PER_BROKER. For a list of the metrics associated with each of these
-     *         three levels of monitoring, see <a
+     *         Specifies which metrics are gathered for the MSK cluster. This property has the following possible
+     *         values: DEFAULT, PER_BROKER, PER_TOPIC_PER_BROKER, and PER_TOPIC_PER_PARTITION. For a list of the metrics
+     *         associated with each of these levels of monitoring, see <a
      *         href="https://docs.aws.amazon.com/msk/latest/developerguide/monitoring.html">Monitoring</a>.
      *         </p>
      * @see EnhancedMonitoring
@@ -573,16 +605,17 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies which metrics are gathered for the MSK cluster. This property has three possible values: DEFAULT,
-     * PER_BROKER, and PER_TOPIC_PER_BROKER. For a list of the metrics associated with each of these three levels of
-     * monitoring, see <a href="https://docs.aws.amazon.com/msk/latest/developerguide/monitoring.html">Monitoring</a>.
+     * Specifies which metrics are gathered for the MSK cluster. This property has the following possible values:
+     * DEFAULT, PER_BROKER, PER_TOPIC_PER_BROKER, and PER_TOPIC_PER_PARTITION. For a list of the metrics associated with
+     * each of these levels of monitoring, see <a
+     * href="https://docs.aws.amazon.com/msk/latest/developerguide/monitoring.html">Monitoring</a>.
      * </p>
      * 
      * @param enhancedMonitoring
      *        <p>
-     *        Specifies which metrics are gathered for the MSK cluster. This property has three possible values:
-     *        DEFAULT, PER_BROKER, and PER_TOPIC_PER_BROKER. For a list of the metrics associated with each of these
-     *        three levels of monitoring, see <a
+     *        Specifies which metrics are gathered for the MSK cluster. This property has the following possible values:
+     *        DEFAULT, PER_BROKER, PER_TOPIC_PER_BROKER, and PER_TOPIC_PER_PARTITION. For a list of the metrics
+     *        associated with each of these levels of monitoring, see <a
      *        href="https://docs.aws.amazon.com/msk/latest/developerguide/monitoring.html">Monitoring</a>.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -596,16 +629,17 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies which metrics are gathered for the MSK cluster. This property has three possible values: DEFAULT,
-     * PER_BROKER, and PER_TOPIC_PER_BROKER. For a list of the metrics associated with each of these three levels of
-     * monitoring, see <a href="https://docs.aws.amazon.com/msk/latest/developerguide/monitoring.html">Monitoring</a>.
+     * Specifies which metrics are gathered for the MSK cluster. This property has the following possible values:
+     * DEFAULT, PER_BROKER, PER_TOPIC_PER_BROKER, and PER_TOPIC_PER_PARTITION. For a list of the metrics associated with
+     * each of these levels of monitoring, see <a
+     * href="https://docs.aws.amazon.com/msk/latest/developerguide/monitoring.html">Monitoring</a>.
      * </p>
      * 
      * @param enhancedMonitoring
      *        <p>
-     *        Specifies which metrics are gathered for the MSK cluster. This property has three possible values:
-     *        DEFAULT, PER_BROKER, and PER_TOPIC_PER_BROKER. For a list of the metrics associated with each of these
-     *        three levels of monitoring, see <a
+     *        Specifies which metrics are gathered for the MSK cluster. This property has the following possible values:
+     *        DEFAULT, PER_BROKER, PER_TOPIC_PER_BROKER, and PER_TOPIC_PER_PARTITION. For a list of the metrics
+     *        associated with each of these levels of monitoring, see <a
      *        href="https://docs.aws.amazon.com/msk/latest/developerguide/monitoring.html">Monitoring</a>.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -614,6 +648,78 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
 
     public ClusterInfo withEnhancedMonitoring(EnhancedMonitoring enhancedMonitoring) {
         this.enhancedMonitoring = enhancedMonitoring.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Settings for open monitoring using Prometheus.
+     * </p>
+     * 
+     * @param openMonitoring
+     *        <p>
+     *        Settings for open monitoring using Prometheus.
+     *        </p>
+     */
+
+    public void setOpenMonitoring(OpenMonitoring openMonitoring) {
+        this.openMonitoring = openMonitoring;
+    }
+
+    /**
+     * <p>
+     * Settings for open monitoring using Prometheus.
+     * </p>
+     * 
+     * @return <p>
+     *         Settings for open monitoring using Prometheus.
+     *         </p>
+     */
+
+    public OpenMonitoring getOpenMonitoring() {
+        return this.openMonitoring;
+    }
+
+    /**
+     * <p>
+     * Settings for open monitoring using Prometheus.
+     * </p>
+     * 
+     * @param openMonitoring
+     *        <p>
+     *        Settings for open monitoring using Prometheus.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ClusterInfo withOpenMonitoring(OpenMonitoring openMonitoring) {
+        setOpenMonitoring(openMonitoring);
+        return this;
+    }
+
+    /**
+     * @param loggingInfo
+     */
+
+    public void setLoggingInfo(LoggingInfo loggingInfo) {
+        this.loggingInfo = loggingInfo;
+    }
+
+    /**
+     * @return
+     */
+
+    public LoggingInfo getLoggingInfo() {
+        return this.loggingInfo;
+    }
+
+    /**
+     * @param loggingInfo
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ClusterInfo withLoggingInfo(LoggingInfo loggingInfo) {
+        setLoggingInfo(loggingInfo);
         return this;
     }
 
@@ -665,12 +771,14 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The state of the cluster. The possible states are CREATING, ACTIVE, and FAILED.
+     * The state of the cluster. The possible states are ACTIVE, CREATING, DELETING, FAILED, HEALING, MAINTENANCE,
+     * REBOOTING_BROKER, and UPDATING.
      * </p>
      * 
      * @param state
      *        <p>
-     *        The state of the cluster. The possible states are CREATING, ACTIVE, and FAILED.
+     *        The state of the cluster. The possible states are ACTIVE, CREATING, DELETING, FAILED, HEALING,
+     *        MAINTENANCE, REBOOTING_BROKER, and UPDATING.
      *        </p>
      * @see ClusterState
      */
@@ -681,11 +789,13 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The state of the cluster. The possible states are CREATING, ACTIVE, and FAILED.
+     * The state of the cluster. The possible states are ACTIVE, CREATING, DELETING, FAILED, HEALING, MAINTENANCE,
+     * REBOOTING_BROKER, and UPDATING.
      * </p>
      * 
      * @return <p>
-     *         The state of the cluster. The possible states are CREATING, ACTIVE, and FAILED.
+     *         The state of the cluster. The possible states are ACTIVE, CREATING, DELETING, FAILED, HEALING,
+     *         MAINTENANCE, REBOOTING_BROKER, and UPDATING.
      *         </p>
      * @see ClusterState
      */
@@ -696,12 +806,14 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The state of the cluster. The possible states are CREATING, ACTIVE, and FAILED.
+     * The state of the cluster. The possible states are ACTIVE, CREATING, DELETING, FAILED, HEALING, MAINTENANCE,
+     * REBOOTING_BROKER, and UPDATING.
      * </p>
      * 
      * @param state
      *        <p>
-     *        The state of the cluster. The possible states are CREATING, ACTIVE, and FAILED.
+     *        The state of the cluster. The possible states are ACTIVE, CREATING, DELETING, FAILED, HEALING,
+     *        MAINTENANCE, REBOOTING_BROKER, and UPDATING.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ClusterState
@@ -714,12 +826,14 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The state of the cluster. The possible states are CREATING, ACTIVE, and FAILED.
+     * The state of the cluster. The possible states are ACTIVE, CREATING, DELETING, FAILED, HEALING, MAINTENANCE,
+     * REBOOTING_BROKER, and UPDATING.
      * </p>
      * 
      * @param state
      *        <p>
-     *        The state of the cluster. The possible states are CREATING, ACTIVE, and FAILED.
+     *        The state of the cluster. The possible states are ACTIVE, CREATING, DELETING, FAILED, HEALING,
+     *        MAINTENANCE, REBOOTING_BROKER, and UPDATING.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ClusterState
@@ -727,6 +841,32 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
 
     public ClusterInfo withState(ClusterState state) {
         this.state = state.toString();
+        return this;
+    }
+
+    /**
+     * @param stateInfo
+     */
+
+    public void setStateInfo(StateInfo stateInfo) {
+        this.stateInfo = stateInfo;
+    }
+
+    /**
+     * @return
+     */
+
+    public StateInfo getStateInfo() {
+        return this.stateInfo;
+    }
+
+    /**
+     * @param stateInfo
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ClusterInfo withStateInfo(StateInfo stateInfo) {
+        setStateInfo(stateInfo);
         return this;
     }
 
@@ -775,6 +915,13 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see ClusterInfo#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public ClusterInfo addTagsEntry(String key, String value) {
         if (null == this.tags) {
@@ -844,6 +991,186 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The connection string to use to connect to zookeeper cluster on Tls port.
+     * </p>
+     * 
+     * @param zookeeperConnectStringTls
+     *        <p>
+     *        The connection string to use to connect to zookeeper cluster on Tls port.
+     *        </p>
+     */
+
+    public void setZookeeperConnectStringTls(String zookeeperConnectStringTls) {
+        this.zookeeperConnectStringTls = zookeeperConnectStringTls;
+    }
+
+    /**
+     * <p>
+     * The connection string to use to connect to zookeeper cluster on Tls port.
+     * </p>
+     * 
+     * @return <p>
+     *         The connection string to use to connect to zookeeper cluster on Tls port.
+     *         </p>
+     */
+
+    public String getZookeeperConnectStringTls() {
+        return this.zookeeperConnectStringTls;
+    }
+
+    /**
+     * <p>
+     * The connection string to use to connect to zookeeper cluster on Tls port.
+     * </p>
+     * 
+     * @param zookeeperConnectStringTls
+     *        <p>
+     *        The connection string to use to connect to zookeeper cluster on Tls port.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ClusterInfo withZookeeperConnectStringTls(String zookeeperConnectStringTls) {
+        setZookeeperConnectStringTls(zookeeperConnectStringTls);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This controls storage mode for supported storage tiers.
+     * </p>
+     * 
+     * @param storageMode
+     *        <p>
+     *        This controls storage mode for supported storage tiers.
+     *        </p>
+     * @see StorageMode
+     */
+
+    public void setStorageMode(String storageMode) {
+        this.storageMode = storageMode;
+    }
+
+    /**
+     * <p>
+     * This controls storage mode for supported storage tiers.
+     * </p>
+     * 
+     * @return <p>
+     *         This controls storage mode for supported storage tiers.
+     *         </p>
+     * @see StorageMode
+     */
+
+    public String getStorageMode() {
+        return this.storageMode;
+    }
+
+    /**
+     * <p>
+     * This controls storage mode for supported storage tiers.
+     * </p>
+     * 
+     * @param storageMode
+     *        <p>
+     *        This controls storage mode for supported storage tiers.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see StorageMode
+     */
+
+    public ClusterInfo withStorageMode(String storageMode) {
+        setStorageMode(storageMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This controls storage mode for supported storage tiers.
+     * </p>
+     * 
+     * @param storageMode
+     *        <p>
+     *        This controls storage mode for supported storage tiers.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see StorageMode
+     */
+
+    public ClusterInfo withStorageMode(StorageMode storageMode) {
+        this.storageMode = storageMode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Determines if there is an action required from the customer.
+     * </p>
+     * 
+     * @param customerActionStatus
+     *        <p>
+     *        Determines if there is an action required from the customer.
+     *        </p>
+     * @see CustomerActionStatus
+     */
+
+    public void setCustomerActionStatus(String customerActionStatus) {
+        this.customerActionStatus = customerActionStatus;
+    }
+
+    /**
+     * <p>
+     * Determines if there is an action required from the customer.
+     * </p>
+     * 
+     * @return <p>
+     *         Determines if there is an action required from the customer.
+     *         </p>
+     * @see CustomerActionStatus
+     */
+
+    public String getCustomerActionStatus() {
+        return this.customerActionStatus;
+    }
+
+    /**
+     * <p>
+     * Determines if there is an action required from the customer.
+     * </p>
+     * 
+     * @param customerActionStatus
+     *        <p>
+     *        Determines if there is an action required from the customer.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CustomerActionStatus
+     */
+
+    public ClusterInfo withCustomerActionStatus(String customerActionStatus) {
+        setCustomerActionStatus(customerActionStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Determines if there is an action required from the customer.
+     * </p>
+     * 
+     * @param customerActionStatus
+     *        <p>
+     *        Determines if there is an action required from the customer.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CustomerActionStatus
+     */
+
+    public ClusterInfo withCustomerActionStatus(CustomerActionStatus customerActionStatus) {
+        this.customerActionStatus = customerActionStatus.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -875,14 +1202,26 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
             sb.append("EncryptionInfo: ").append(getEncryptionInfo()).append(",");
         if (getEnhancedMonitoring() != null)
             sb.append("EnhancedMonitoring: ").append(getEnhancedMonitoring()).append(",");
+        if (getOpenMonitoring() != null)
+            sb.append("OpenMonitoring: ").append(getOpenMonitoring()).append(",");
+        if (getLoggingInfo() != null)
+            sb.append("LoggingInfo: ").append(getLoggingInfo()).append(",");
         if (getNumberOfBrokerNodes() != null)
             sb.append("NumberOfBrokerNodes: ").append(getNumberOfBrokerNodes()).append(",");
         if (getState() != null)
             sb.append("State: ").append(getState()).append(",");
+        if (getStateInfo() != null)
+            sb.append("StateInfo: ").append(getStateInfo()).append(",");
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getZookeeperConnectString() != null)
-            sb.append("ZookeeperConnectString: ").append(getZookeeperConnectString());
+            sb.append("ZookeeperConnectString: ").append(getZookeeperConnectString()).append(",");
+        if (getZookeeperConnectStringTls() != null)
+            sb.append("ZookeeperConnectStringTls: ").append(getZookeeperConnectStringTls()).append(",");
+        if (getStorageMode() != null)
+            sb.append("StorageMode: ").append(getStorageMode()).append(",");
+        if (getCustomerActionStatus() != null)
+            sb.append("CustomerActionStatus: ").append(getCustomerActionStatus());
         sb.append("}");
         return sb.toString();
     }
@@ -937,6 +1276,14 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getEnhancedMonitoring() != null && other.getEnhancedMonitoring().equals(this.getEnhancedMonitoring()) == false)
             return false;
+        if (other.getOpenMonitoring() == null ^ this.getOpenMonitoring() == null)
+            return false;
+        if (other.getOpenMonitoring() != null && other.getOpenMonitoring().equals(this.getOpenMonitoring()) == false)
+            return false;
+        if (other.getLoggingInfo() == null ^ this.getLoggingInfo() == null)
+            return false;
+        if (other.getLoggingInfo() != null && other.getLoggingInfo().equals(this.getLoggingInfo()) == false)
+            return false;
         if (other.getNumberOfBrokerNodes() == null ^ this.getNumberOfBrokerNodes() == null)
             return false;
         if (other.getNumberOfBrokerNodes() != null && other.getNumberOfBrokerNodes().equals(this.getNumberOfBrokerNodes()) == false)
@@ -945,6 +1292,10 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getState() != null && other.getState().equals(this.getState()) == false)
             return false;
+        if (other.getStateInfo() == null ^ this.getStateInfo() == null)
+            return false;
+        if (other.getStateInfo() != null && other.getStateInfo().equals(this.getStateInfo()) == false)
+            return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
@@ -952,6 +1303,18 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
         if (other.getZookeeperConnectString() == null ^ this.getZookeeperConnectString() == null)
             return false;
         if (other.getZookeeperConnectString() != null && other.getZookeeperConnectString().equals(this.getZookeeperConnectString()) == false)
+            return false;
+        if (other.getZookeeperConnectStringTls() == null ^ this.getZookeeperConnectStringTls() == null)
+            return false;
+        if (other.getZookeeperConnectStringTls() != null && other.getZookeeperConnectStringTls().equals(this.getZookeeperConnectStringTls()) == false)
+            return false;
+        if (other.getStorageMode() == null ^ this.getStorageMode() == null)
+            return false;
+        if (other.getStorageMode() != null && other.getStorageMode().equals(this.getStorageMode()) == false)
+            return false;
+        if (other.getCustomerActionStatus() == null ^ this.getCustomerActionStatus() == null)
+            return false;
+        if (other.getCustomerActionStatus() != null && other.getCustomerActionStatus().equals(this.getCustomerActionStatus()) == false)
             return false;
         return true;
     }
@@ -971,10 +1334,16 @@ public class ClusterInfo implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getCurrentVersion() == null) ? 0 : getCurrentVersion().hashCode());
         hashCode = prime * hashCode + ((getEncryptionInfo() == null) ? 0 : getEncryptionInfo().hashCode());
         hashCode = prime * hashCode + ((getEnhancedMonitoring() == null) ? 0 : getEnhancedMonitoring().hashCode());
+        hashCode = prime * hashCode + ((getOpenMonitoring() == null) ? 0 : getOpenMonitoring().hashCode());
+        hashCode = prime * hashCode + ((getLoggingInfo() == null) ? 0 : getLoggingInfo().hashCode());
         hashCode = prime * hashCode + ((getNumberOfBrokerNodes() == null) ? 0 : getNumberOfBrokerNodes().hashCode());
         hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
+        hashCode = prime * hashCode + ((getStateInfo() == null) ? 0 : getStateInfo().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getZookeeperConnectString() == null) ? 0 : getZookeeperConnectString().hashCode());
+        hashCode = prime * hashCode + ((getZookeeperConnectStringTls() == null) ? 0 : getZookeeperConnectStringTls().hashCode());
+        hashCode = prime * hashCode + ((getStorageMode() == null) ? 0 : getStorageMode().hashCode());
+        hashCode = prime * hashCode + ((getCustomerActionStatus() == null) ? 0 : getCustomerActionStatus().hashCode());
         return hashCode;
     }
 

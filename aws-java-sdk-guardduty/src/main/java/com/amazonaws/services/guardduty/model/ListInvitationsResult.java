@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,7 +31,7 @@ public class ListInvitationsResult extends com.amazonaws.AmazonWebServiceResult<
     private java.util.List<Invitation> invitations;
     /**
      * <p>
-     * Pagination parameter to be used on the next list operation to retrieve more items.
+     * The pagination parameter to be used on the next list operation to retrieve more items.
      * </p>
      */
     private String nextToken;
@@ -108,11 +108,11 @@ public class ListInvitationsResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Pagination parameter to be used on the next list operation to retrieve more items.
+     * The pagination parameter to be used on the next list operation to retrieve more items.
      * </p>
      * 
      * @param nextToken
-     *        Pagination parameter to be used on the next list operation to retrieve more items.
+     *        The pagination parameter to be used on the next list operation to retrieve more items.
      */
 
     public void setNextToken(String nextToken) {
@@ -121,10 +121,10 @@ public class ListInvitationsResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Pagination parameter to be used on the next list operation to retrieve more items.
+     * The pagination parameter to be used on the next list operation to retrieve more items.
      * </p>
      * 
-     * @return Pagination parameter to be used on the next list operation to retrieve more items.
+     * @return The pagination parameter to be used on the next list operation to retrieve more items.
      */
 
     public String getNextToken() {
@@ -133,11 +133,11 @@ public class ListInvitationsResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Pagination parameter to be used on the next list operation to retrieve more items.
+     * The pagination parameter to be used on the next list operation to retrieve more items.
      * </p>
      * 
      * @param nextToken
-     *        Pagination parameter to be used on the next list operation to retrieve more items.
+     *        The pagination parameter to be used on the next list operation to retrieve more items.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

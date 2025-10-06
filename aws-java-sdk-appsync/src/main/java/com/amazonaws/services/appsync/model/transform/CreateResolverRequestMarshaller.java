@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,6 +43,18 @@ public class CreateResolverRequestMarshaller {
             .marshallLocationName("kind").build();
     private static final MarshallingInfo<StructuredPojo> PIPELINECONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("pipelineConfig").build();
+    private static final MarshallingInfo<StructuredPojo> SYNCCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("syncConfig").build();
+    private static final MarshallingInfo<StructuredPojo> CACHINGCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("cachingConfig").build();
+    private static final MarshallingInfo<Integer> MAXBATCHSIZE_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("maxBatchSize").build();
+    private static final MarshallingInfo<StructuredPojo> RUNTIME_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("runtime").build();
+    private static final MarshallingInfo<String> CODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("code").build();
+    private static final MarshallingInfo<String> METRICSCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("metricsConfig").build();
 
     private static final CreateResolverRequestMarshaller instance = new CreateResolverRequestMarshaller();
 
@@ -68,6 +80,12 @@ public class CreateResolverRequestMarshaller {
             protocolMarshaller.marshall(createResolverRequest.getResponseMappingTemplate(), RESPONSEMAPPINGTEMPLATE_BINDING);
             protocolMarshaller.marshall(createResolverRequest.getKind(), KIND_BINDING);
             protocolMarshaller.marshall(createResolverRequest.getPipelineConfig(), PIPELINECONFIG_BINDING);
+            protocolMarshaller.marshall(createResolverRequest.getSyncConfig(), SYNCCONFIG_BINDING);
+            protocolMarshaller.marshall(createResolverRequest.getCachingConfig(), CACHINGCONFIG_BINDING);
+            protocolMarshaller.marshall(createResolverRequest.getMaxBatchSize(), MAXBATCHSIZE_BINDING);
+            protocolMarshaller.marshall(createResolverRequest.getRuntime(), RUNTIME_BINDING);
+            protocolMarshaller.marshall(createResolverRequest.getCode(), CODE_BINDING);
+            protocolMarshaller.marshall(createResolverRequest.getMetricsConfig(), METRICSCONFIG_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

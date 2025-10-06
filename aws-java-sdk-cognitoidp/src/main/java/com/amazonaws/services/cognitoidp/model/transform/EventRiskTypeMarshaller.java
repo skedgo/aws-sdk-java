@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,8 @@ public class EventRiskTypeMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RiskDecision").build();
     private static final MarshallingInfo<String> RISKLEVEL_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("RiskLevel").build();
+    private static final MarshallingInfo<Boolean> COMPROMISEDCREDENTIALSDETECTED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CompromisedCredentialsDetected").build();
 
     private static final EventRiskTypeMarshaller instance = new EventRiskTypeMarshaller();
 
@@ -50,6 +52,7 @@ public class EventRiskTypeMarshaller {
         try {
             protocolMarshaller.marshall(eventRiskType.getRiskDecision(), RISKDECISION_BINDING);
             protocolMarshaller.marshall(eventRiskType.getRiskLevel(), RISKLEVEL_BINDING);
+            protocolMarshaller.marshall(eventRiskType.getCompromisedCredentialsDetected(), COMPROMISEDCREDENTIALSDETECTED_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

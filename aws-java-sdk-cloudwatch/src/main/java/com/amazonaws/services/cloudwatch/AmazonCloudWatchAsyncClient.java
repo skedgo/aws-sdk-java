@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,9 +31,9 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * notification when an asynchronous operation completes.
  * <p>
  * <p>
- * Amazon CloudWatch monitors your Amazon Web Services (AWS) resources and the applications you run on AWS in real time.
- * You can use CloudWatch to collect and track metrics, which are the variables you want to measure for your resources
- * and applications.
+ * Amazon CloudWatch monitors your Amazon Web Services (Amazon Web Services) resources and the applications you run on
+ * Amazon Web Services in real time. You can use CloudWatch to collect and track metrics, which are the variables you
+ * want to measure for your resources and applications.
  * </p>
  * <p>
  * CloudWatch alarms send notifications or automatically change the resources you are monitoring based on rules that you
@@ -42,9 +42,9 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * data to stop under-used instances to save money.
  * </p>
  * <p>
- * In addition to monitoring the built-in metrics that come with AWS, you can monitor your own custom metrics. With
- * CloudWatch, you gain system-wide visibility into resource utilization, application performance, and operational
- * health.
+ * In addition to monitoring the built-in metrics that come with Amazon Web Services, you can monitor your own custom
+ * metrics. With CloudWatch, you gain system-wide visibility into resource utilization, application performance, and
+ * operational health.
  * </p>
  */
 @ThreadSafe
@@ -243,7 +243,19 @@ public class AmazonCloudWatchAsyncClient extends AmazonCloudWatchClient implemen
      *        Object providing client parameters.
      */
     AmazonCloudWatchAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on CloudWatch using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonCloudWatchAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -340,6 +352,72 @@ public class AmazonCloudWatchAsyncClient extends AmazonCloudWatchClient implemen
 
                 try {
                     result = executeDeleteDashboards(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteInsightRulesResult> deleteInsightRulesAsync(DeleteInsightRulesRequest request) {
+
+        return deleteInsightRulesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteInsightRulesResult> deleteInsightRulesAsync(final DeleteInsightRulesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteInsightRulesRequest, DeleteInsightRulesResult> asyncHandler) {
+        final DeleteInsightRulesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteInsightRulesResult>() {
+            @Override
+            public DeleteInsightRulesResult call() throws Exception {
+                DeleteInsightRulesResult result = null;
+
+                try {
+                    result = executeDeleteInsightRules(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteMetricStreamResult> deleteMetricStreamAsync(DeleteMetricStreamRequest request) {
+
+        return deleteMetricStreamAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteMetricStreamResult> deleteMetricStreamAsync(final DeleteMetricStreamRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteMetricStreamRequest, DeleteMetricStreamResult> asyncHandler) {
+        final DeleteMetricStreamRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteMetricStreamResult>() {
+            @Override
+            public DeleteMetricStreamResult call() throws Exception {
+                DeleteMetricStreamResult result = null;
+
+                try {
+                    result = executeDeleteMetricStream(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -534,6 +612,39 @@ public class AmazonCloudWatchAsyncClient extends AmazonCloudWatchClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeInsightRulesResult> describeInsightRulesAsync(DescribeInsightRulesRequest request) {
+
+        return describeInsightRulesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeInsightRulesResult> describeInsightRulesAsync(final DescribeInsightRulesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeInsightRulesRequest, DescribeInsightRulesResult> asyncHandler) {
+        final DescribeInsightRulesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeInsightRulesResult>() {
+            @Override
+            public DescribeInsightRulesResult call() throws Exception {
+                DescribeInsightRulesResult result = null;
+
+                try {
+                    result = executeDescribeInsightRules(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DisableAlarmActionsResult> disableAlarmActionsAsync(DisableAlarmActionsRequest request) {
 
         return disableAlarmActionsAsync(request, null);
@@ -551,6 +662,39 @@ public class AmazonCloudWatchAsyncClient extends AmazonCloudWatchClient implemen
 
                 try {
                     result = executeDisableAlarmActions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisableInsightRulesResult> disableInsightRulesAsync(DisableInsightRulesRequest request) {
+
+        return disableInsightRulesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisableInsightRulesResult> disableInsightRulesAsync(final DisableInsightRulesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisableInsightRulesRequest, DisableInsightRulesResult> asyncHandler) {
+        final DisableInsightRulesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisableInsightRulesResult>() {
+            @Override
+            public DisableInsightRulesResult call() throws Exception {
+                DisableInsightRulesResult result = null;
+
+                try {
+                    result = executeDisableInsightRules(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -600,6 +744,39 @@ public class AmazonCloudWatchAsyncClient extends AmazonCloudWatchClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<EnableInsightRulesResult> enableInsightRulesAsync(EnableInsightRulesRequest request) {
+
+        return enableInsightRulesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<EnableInsightRulesResult> enableInsightRulesAsync(final EnableInsightRulesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<EnableInsightRulesRequest, EnableInsightRulesResult> asyncHandler) {
+        final EnableInsightRulesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<EnableInsightRulesResult>() {
+            @Override
+            public EnableInsightRulesResult call() throws Exception {
+                EnableInsightRulesResult result = null;
+
+                try {
+                    result = executeEnableInsightRules(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetDashboardResult> getDashboardAsync(GetDashboardRequest request) {
 
         return getDashboardAsync(request, null);
@@ -617,6 +794,39 @@ public class AmazonCloudWatchAsyncClient extends AmazonCloudWatchClient implemen
 
                 try {
                     result = executeGetDashboard(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetInsightRuleReportResult> getInsightRuleReportAsync(GetInsightRuleReportRequest request) {
+
+        return getInsightRuleReportAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetInsightRuleReportResult> getInsightRuleReportAsync(final GetInsightRuleReportRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetInsightRuleReportRequest, GetInsightRuleReportResult> asyncHandler) {
+        final GetInsightRuleReportRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetInsightRuleReportResult>() {
+            @Override
+            public GetInsightRuleReportResult call() throws Exception {
+                GetInsightRuleReportResult result = null;
+
+                try {
+                    result = executeGetInsightRuleReport(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -699,6 +909,39 @@ public class AmazonCloudWatchAsyncClient extends AmazonCloudWatchClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<GetMetricStreamResult> getMetricStreamAsync(GetMetricStreamRequest request) {
+
+        return getMetricStreamAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetMetricStreamResult> getMetricStreamAsync(final GetMetricStreamRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetMetricStreamRequest, GetMetricStreamResult> asyncHandler) {
+        final GetMetricStreamRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetMetricStreamResult>() {
+            @Override
+            public GetMetricStreamResult call() throws Exception {
+                GetMetricStreamResult result = null;
+
+                try {
+                    result = executeGetMetricStream(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetMetricWidgetImageResult> getMetricWidgetImageAsync(GetMetricWidgetImageRequest request) {
 
         return getMetricWidgetImageAsync(request, null);
@@ -749,6 +992,72 @@ public class AmazonCloudWatchAsyncClient extends AmazonCloudWatchClient implemen
 
                 try {
                     result = executeListDashboards(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListManagedInsightRulesResult> listManagedInsightRulesAsync(ListManagedInsightRulesRequest request) {
+
+        return listManagedInsightRulesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListManagedInsightRulesResult> listManagedInsightRulesAsync(final ListManagedInsightRulesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListManagedInsightRulesRequest, ListManagedInsightRulesResult> asyncHandler) {
+        final ListManagedInsightRulesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListManagedInsightRulesResult>() {
+            @Override
+            public ListManagedInsightRulesResult call() throws Exception {
+                ListManagedInsightRulesResult result = null;
+
+                try {
+                    result = executeListManagedInsightRules(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListMetricStreamsResult> listMetricStreamsAsync(ListMetricStreamsRequest request) {
+
+        return listMetricStreamsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListMetricStreamsResult> listMetricStreamsAsync(final ListMetricStreamsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListMetricStreamsRequest, ListMetricStreamsResult> asyncHandler) {
+        final ListMetricStreamsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListMetricStreamsResult>() {
+            @Override
+            public ListMetricStreamsResult call() throws Exception {
+                ListMetricStreamsResult result = null;
+
+                try {
+                    result = executeListMetricStreams(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -887,6 +1196,39 @@ public class AmazonCloudWatchAsyncClient extends AmazonCloudWatchClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<PutCompositeAlarmResult> putCompositeAlarmAsync(PutCompositeAlarmRequest request) {
+
+        return putCompositeAlarmAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutCompositeAlarmResult> putCompositeAlarmAsync(final PutCompositeAlarmRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutCompositeAlarmRequest, PutCompositeAlarmResult> asyncHandler) {
+        final PutCompositeAlarmRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutCompositeAlarmResult>() {
+            @Override
+            public PutCompositeAlarmResult call() throws Exception {
+                PutCompositeAlarmResult result = null;
+
+                try {
+                    result = executePutCompositeAlarm(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<PutDashboardResult> putDashboardAsync(PutDashboardRequest request) {
 
         return putDashboardAsync(request, null);
@@ -904,6 +1246,72 @@ public class AmazonCloudWatchAsyncClient extends AmazonCloudWatchClient implemen
 
                 try {
                     result = executePutDashboard(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutInsightRuleResult> putInsightRuleAsync(PutInsightRuleRequest request) {
+
+        return putInsightRuleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutInsightRuleResult> putInsightRuleAsync(final PutInsightRuleRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutInsightRuleRequest, PutInsightRuleResult> asyncHandler) {
+        final PutInsightRuleRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutInsightRuleResult>() {
+            @Override
+            public PutInsightRuleResult call() throws Exception {
+                PutInsightRuleResult result = null;
+
+                try {
+                    result = executePutInsightRule(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutManagedInsightRulesResult> putManagedInsightRulesAsync(PutManagedInsightRulesRequest request) {
+
+        return putManagedInsightRulesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutManagedInsightRulesResult> putManagedInsightRulesAsync(final PutManagedInsightRulesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutManagedInsightRulesRequest, PutManagedInsightRulesResult> asyncHandler) {
+        final PutManagedInsightRulesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutManagedInsightRulesResult>() {
+            @Override
+            public PutManagedInsightRulesResult call() throws Exception {
+                PutManagedInsightRulesResult result = null;
+
+                try {
+                    result = executePutManagedInsightRules(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -986,6 +1394,39 @@ public class AmazonCloudWatchAsyncClient extends AmazonCloudWatchClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<PutMetricStreamResult> putMetricStreamAsync(PutMetricStreamRequest request) {
+
+        return putMetricStreamAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutMetricStreamResult> putMetricStreamAsync(final PutMetricStreamRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutMetricStreamRequest, PutMetricStreamResult> asyncHandler) {
+        final PutMetricStreamRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutMetricStreamResult>() {
+            @Override
+            public PutMetricStreamResult call() throws Exception {
+                PutMetricStreamResult result = null;
+
+                try {
+                    result = executePutMetricStream(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<SetAlarmStateResult> setAlarmStateAsync(SetAlarmStateRequest request) {
 
         return setAlarmStateAsync(request, null);
@@ -1003,6 +1444,72 @@ public class AmazonCloudWatchAsyncClient extends AmazonCloudWatchClient implemen
 
                 try {
                     result = executeSetAlarmState(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartMetricStreamsResult> startMetricStreamsAsync(StartMetricStreamsRequest request) {
+
+        return startMetricStreamsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartMetricStreamsResult> startMetricStreamsAsync(final StartMetricStreamsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartMetricStreamsRequest, StartMetricStreamsResult> asyncHandler) {
+        final StartMetricStreamsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartMetricStreamsResult>() {
+            @Override
+            public StartMetricStreamsResult call() throws Exception {
+                StartMetricStreamsResult result = null;
+
+                try {
+                    result = executeStartMetricStreams(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopMetricStreamsResult> stopMetricStreamsAsync(StopMetricStreamsRequest request) {
+
+        return stopMetricStreamsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopMetricStreamsResult> stopMetricStreamsAsync(final StopMetricStreamsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StopMetricStreamsRequest, StopMetricStreamsResult> asyncHandler) {
+        final StopMetricStreamsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StopMetricStreamsResult>() {
+            @Override
+            public StopMetricStreamsResult call() throws Exception {
+                StopMetricStreamsResult result = null;
+
+                try {
+                    result = executeStopMetricStreams(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

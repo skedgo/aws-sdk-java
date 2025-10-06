@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Default implementation of the {@linkplain com.amazonaws.Request} interface.
@@ -53,7 +54,7 @@ public class DefaultRequest<T> implements Request<T> {
     private Map<String, List<String>> parameters = new LinkedHashMap<String, List<String>>();
 
     /** Map of the headers included in this request */
-    private Map<String, String> headers = new HashMap<String, String>();
+    private Map<String, String> headers = new TreeMap<String, String>(String.CASE_INSENSITIVE_ORDER);
 
     /** The service endpoint to which this request should be sent */
     private URI endpoint;
@@ -295,20 +296,6 @@ public class DefaultRequest<T> implements Request<T> {
                 builder.append("/");
             }
             builder.append(resourcePath);
-        }
-        builder.append(" ");
-        if (!getParameters().isEmpty()) {
-            builder.append("Parameters: (")
-                   .append(Jackson.toJsonString(parameters));
-        }
-
-        if (!getHeaders().isEmpty()) {
-            builder.append("Headers: (");
-            for (String key : getHeaders().keySet()) {
-                String value = getHeaders().get(key);
-                builder.append(key).append(": ").append(value).append(", ");
-            }
-            builder.append(") ");
         }
 
         return builder.toString();

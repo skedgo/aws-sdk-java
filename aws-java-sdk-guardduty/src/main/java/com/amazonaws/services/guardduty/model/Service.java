@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
+ * Contains additional information about the generated finding.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/Service" target="_top">AWS API
  *      Documentation</a>
@@ -27,10 +30,16 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Information about the activity described in a finding.
+     * Information about the activity that is described in a finding.
      * </p>
      */
     private Action action;
+    /**
+     * <p>
+     * An evidence object associated with the service.
+     * </p>
+     */
+    private Evidence evidence;
     /**
      * <p>
      * Indicates whether this finding is archived.
@@ -39,54 +48,90 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
     private Boolean archived;
     /**
      * <p>
-     * Total count of the occurrences of this finding type.
+     * The total count of the occurrences of this finding type.
      * </p>
      */
     private Integer count;
     /**
      * <p>
-     * Detector ID for the GuardDuty service.
+     * The detector ID for the GuardDuty service.
      * </p>
      */
     private String detectorId;
     /**
      * <p>
-     * First seen timestamp of the activity that prompted GuardDuty to generate this finding.
+     * The first-seen timestamp of the activity that prompted GuardDuty to generate this finding.
      * </p>
      */
     private String eventFirstSeen;
     /**
      * <p>
-     * Last seen timestamp of the activity that prompted GuardDuty to generate this finding.
+     * The last-seen timestamp of the activity that prompted GuardDuty to generate this finding.
      * </p>
      */
     private String eventLastSeen;
     /**
      * <p>
-     * Resource role information for this finding.
+     * The resource role information for this finding.
      * </p>
      */
     private String resourceRole;
     /**
      * <p>
-     * The name of the AWS service (GuardDuty) that generated a finding.
+     * The name of the Amazon Web Services service (GuardDuty) that generated a finding.
      * </p>
      */
     private String serviceName;
     /**
      * <p>
-     * Feedback left about the finding.
+     * Feedback that was submitted about the finding.
      * </p>
      */
     private String userFeedback;
+    /**
+     * <p>
+     * Contains additional information about the generated finding.
+     * </p>
+     */
+    private ServiceAdditionalInfo additionalInfo;
+    /**
+     * <p>
+     * The name of the feature that generated a finding.
+     * </p>
+     */
+    private String featureName;
+    /**
+     * <p>
+     * Returns details from the malware scan that created a finding.
+     * </p>
+     */
+    private EbsVolumeScanDetails ebsVolumeScanDetails;
+    /**
+     * <p>
+     * Information about the process and any required context values for a specific finding
+     * </p>
+     */
+    private RuntimeDetails runtimeDetails;
+    /**
+     * <p>
+     * Contains information about the detected unusual behavior.
+     * </p>
+     */
+    private Detection detection;
+    /**
+     * <p>
+     * Returns details from the malware scan that generated a GuardDuty finding.
+     * </p>
+     */
+    private MalwareScanDetails malwareScanDetails;
 
     /**
      * <p>
-     * Information about the activity described in a finding.
+     * Information about the activity that is described in a finding.
      * </p>
      * 
      * @param action
-     *        Information about the activity described in a finding.
+     *        Information about the activity that is described in a finding.
      */
 
     public void setAction(Action action) {
@@ -95,10 +140,10 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Information about the activity described in a finding.
+     * Information about the activity that is described in a finding.
      * </p>
      * 
-     * @return Information about the activity described in a finding.
+     * @return Information about the activity that is described in a finding.
      */
 
     public Action getAction() {
@@ -107,16 +152,56 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Information about the activity described in a finding.
+     * Information about the activity that is described in a finding.
      * </p>
      * 
      * @param action
-     *        Information about the activity described in a finding.
+     *        Information about the activity that is described in a finding.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Service withAction(Action action) {
         setAction(action);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An evidence object associated with the service.
+     * </p>
+     * 
+     * @param evidence
+     *        An evidence object associated with the service.
+     */
+
+    public void setEvidence(Evidence evidence) {
+        this.evidence = evidence;
+    }
+
+    /**
+     * <p>
+     * An evidence object associated with the service.
+     * </p>
+     * 
+     * @return An evidence object associated with the service.
+     */
+
+    public Evidence getEvidence() {
+        return this.evidence;
+    }
+
+    /**
+     * <p>
+     * An evidence object associated with the service.
+     * </p>
+     * 
+     * @param evidence
+     *        An evidence object associated with the service.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Service withEvidence(Evidence evidence) {
+        setEvidence(evidence);
         return this;
     }
 
@@ -174,11 +259,11 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Total count of the occurrences of this finding type.
+     * The total count of the occurrences of this finding type.
      * </p>
      * 
      * @param count
-     *        Total count of the occurrences of this finding type.
+     *        The total count of the occurrences of this finding type.
      */
 
     public void setCount(Integer count) {
@@ -187,10 +272,10 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Total count of the occurrences of this finding type.
+     * The total count of the occurrences of this finding type.
      * </p>
      * 
-     * @return Total count of the occurrences of this finding type.
+     * @return The total count of the occurrences of this finding type.
      */
 
     public Integer getCount() {
@@ -199,11 +284,11 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Total count of the occurrences of this finding type.
+     * The total count of the occurrences of this finding type.
      * </p>
      * 
      * @param count
-     *        Total count of the occurrences of this finding type.
+     *        The total count of the occurrences of this finding type.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -214,11 +299,11 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Detector ID for the GuardDuty service.
+     * The detector ID for the GuardDuty service.
      * </p>
      * 
      * @param detectorId
-     *        Detector ID for the GuardDuty service.
+     *        The detector ID for the GuardDuty service.
      */
 
     public void setDetectorId(String detectorId) {
@@ -227,10 +312,10 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Detector ID for the GuardDuty service.
+     * The detector ID for the GuardDuty service.
      * </p>
      * 
-     * @return Detector ID for the GuardDuty service.
+     * @return The detector ID for the GuardDuty service.
      */
 
     public String getDetectorId() {
@@ -239,11 +324,11 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Detector ID for the GuardDuty service.
+     * The detector ID for the GuardDuty service.
      * </p>
      * 
      * @param detectorId
-     *        Detector ID for the GuardDuty service.
+     *        The detector ID for the GuardDuty service.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -254,11 +339,11 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * First seen timestamp of the activity that prompted GuardDuty to generate this finding.
+     * The first-seen timestamp of the activity that prompted GuardDuty to generate this finding.
      * </p>
      * 
      * @param eventFirstSeen
-     *        First seen timestamp of the activity that prompted GuardDuty to generate this finding.
+     *        The first-seen timestamp of the activity that prompted GuardDuty to generate this finding.
      */
 
     public void setEventFirstSeen(String eventFirstSeen) {
@@ -267,10 +352,10 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * First seen timestamp of the activity that prompted GuardDuty to generate this finding.
+     * The first-seen timestamp of the activity that prompted GuardDuty to generate this finding.
      * </p>
      * 
-     * @return First seen timestamp of the activity that prompted GuardDuty to generate this finding.
+     * @return The first-seen timestamp of the activity that prompted GuardDuty to generate this finding.
      */
 
     public String getEventFirstSeen() {
@@ -279,11 +364,11 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * First seen timestamp of the activity that prompted GuardDuty to generate this finding.
+     * The first-seen timestamp of the activity that prompted GuardDuty to generate this finding.
      * </p>
      * 
      * @param eventFirstSeen
-     *        First seen timestamp of the activity that prompted GuardDuty to generate this finding.
+     *        The first-seen timestamp of the activity that prompted GuardDuty to generate this finding.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -294,11 +379,11 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Last seen timestamp of the activity that prompted GuardDuty to generate this finding.
+     * The last-seen timestamp of the activity that prompted GuardDuty to generate this finding.
      * </p>
      * 
      * @param eventLastSeen
-     *        Last seen timestamp of the activity that prompted GuardDuty to generate this finding.
+     *        The last-seen timestamp of the activity that prompted GuardDuty to generate this finding.
      */
 
     public void setEventLastSeen(String eventLastSeen) {
@@ -307,10 +392,10 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Last seen timestamp of the activity that prompted GuardDuty to generate this finding.
+     * The last-seen timestamp of the activity that prompted GuardDuty to generate this finding.
      * </p>
      * 
-     * @return Last seen timestamp of the activity that prompted GuardDuty to generate this finding.
+     * @return The last-seen timestamp of the activity that prompted GuardDuty to generate this finding.
      */
 
     public String getEventLastSeen() {
@@ -319,11 +404,11 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Last seen timestamp of the activity that prompted GuardDuty to generate this finding.
+     * The last-seen timestamp of the activity that prompted GuardDuty to generate this finding.
      * </p>
      * 
      * @param eventLastSeen
-     *        Last seen timestamp of the activity that prompted GuardDuty to generate this finding.
+     *        The last-seen timestamp of the activity that prompted GuardDuty to generate this finding.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -334,11 +419,11 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Resource role information for this finding.
+     * The resource role information for this finding.
      * </p>
      * 
      * @param resourceRole
-     *        Resource role information for this finding.
+     *        The resource role information for this finding.
      */
 
     public void setResourceRole(String resourceRole) {
@@ -347,10 +432,10 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Resource role information for this finding.
+     * The resource role information for this finding.
      * </p>
      * 
-     * @return Resource role information for this finding.
+     * @return The resource role information for this finding.
      */
 
     public String getResourceRole() {
@@ -359,11 +444,11 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Resource role information for this finding.
+     * The resource role information for this finding.
      * </p>
      * 
      * @param resourceRole
-     *        Resource role information for this finding.
+     *        The resource role information for this finding.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -374,11 +459,11 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the AWS service (GuardDuty) that generated a finding.
+     * The name of the Amazon Web Services service (GuardDuty) that generated a finding.
      * </p>
      * 
      * @param serviceName
-     *        The name of the AWS service (GuardDuty) that generated a finding.
+     *        The name of the Amazon Web Services service (GuardDuty) that generated a finding.
      */
 
     public void setServiceName(String serviceName) {
@@ -387,10 +472,10 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the AWS service (GuardDuty) that generated a finding.
+     * The name of the Amazon Web Services service (GuardDuty) that generated a finding.
      * </p>
      * 
-     * @return The name of the AWS service (GuardDuty) that generated a finding.
+     * @return The name of the Amazon Web Services service (GuardDuty) that generated a finding.
      */
 
     public String getServiceName() {
@@ -399,11 +484,11 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the AWS service (GuardDuty) that generated a finding.
+     * The name of the Amazon Web Services service (GuardDuty) that generated a finding.
      * </p>
      * 
      * @param serviceName
-     *        The name of the AWS service (GuardDuty) that generated a finding.
+     *        The name of the Amazon Web Services service (GuardDuty) that generated a finding.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -414,11 +499,11 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Feedback left about the finding.
+     * Feedback that was submitted about the finding.
      * </p>
      * 
      * @param userFeedback
-     *        Feedback left about the finding.
+     *        Feedback that was submitted about the finding.
      */
 
     public void setUserFeedback(String userFeedback) {
@@ -427,10 +512,10 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Feedback left about the finding.
+     * Feedback that was submitted about the finding.
      * </p>
      * 
-     * @return Feedback left about the finding.
+     * @return Feedback that was submitted about the finding.
      */
 
     public String getUserFeedback() {
@@ -439,16 +524,256 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Feedback left about the finding.
+     * Feedback that was submitted about the finding.
      * </p>
      * 
      * @param userFeedback
-     *        Feedback left about the finding.
+     *        Feedback that was submitted about the finding.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Service withUserFeedback(String userFeedback) {
         setUserFeedback(userFeedback);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Contains additional information about the generated finding.
+     * </p>
+     * 
+     * @param additionalInfo
+     *        Contains additional information about the generated finding.
+     */
+
+    public void setAdditionalInfo(ServiceAdditionalInfo additionalInfo) {
+        this.additionalInfo = additionalInfo;
+    }
+
+    /**
+     * <p>
+     * Contains additional information about the generated finding.
+     * </p>
+     * 
+     * @return Contains additional information about the generated finding.
+     */
+
+    public ServiceAdditionalInfo getAdditionalInfo() {
+        return this.additionalInfo;
+    }
+
+    /**
+     * <p>
+     * Contains additional information about the generated finding.
+     * </p>
+     * 
+     * @param additionalInfo
+     *        Contains additional information about the generated finding.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Service withAdditionalInfo(ServiceAdditionalInfo additionalInfo) {
+        setAdditionalInfo(additionalInfo);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the feature that generated a finding.
+     * </p>
+     * 
+     * @param featureName
+     *        The name of the feature that generated a finding.
+     */
+
+    public void setFeatureName(String featureName) {
+        this.featureName = featureName;
+    }
+
+    /**
+     * <p>
+     * The name of the feature that generated a finding.
+     * </p>
+     * 
+     * @return The name of the feature that generated a finding.
+     */
+
+    public String getFeatureName() {
+        return this.featureName;
+    }
+
+    /**
+     * <p>
+     * The name of the feature that generated a finding.
+     * </p>
+     * 
+     * @param featureName
+     *        The name of the feature that generated a finding.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Service withFeatureName(String featureName) {
+        setFeatureName(featureName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Returns details from the malware scan that created a finding.
+     * </p>
+     * 
+     * @param ebsVolumeScanDetails
+     *        Returns details from the malware scan that created a finding.
+     */
+
+    public void setEbsVolumeScanDetails(EbsVolumeScanDetails ebsVolumeScanDetails) {
+        this.ebsVolumeScanDetails = ebsVolumeScanDetails;
+    }
+
+    /**
+     * <p>
+     * Returns details from the malware scan that created a finding.
+     * </p>
+     * 
+     * @return Returns details from the malware scan that created a finding.
+     */
+
+    public EbsVolumeScanDetails getEbsVolumeScanDetails() {
+        return this.ebsVolumeScanDetails;
+    }
+
+    /**
+     * <p>
+     * Returns details from the malware scan that created a finding.
+     * </p>
+     * 
+     * @param ebsVolumeScanDetails
+     *        Returns details from the malware scan that created a finding.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Service withEbsVolumeScanDetails(EbsVolumeScanDetails ebsVolumeScanDetails) {
+        setEbsVolumeScanDetails(ebsVolumeScanDetails);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information about the process and any required context values for a specific finding
+     * </p>
+     * 
+     * @param runtimeDetails
+     *        Information about the process and any required context values for a specific finding
+     */
+
+    public void setRuntimeDetails(RuntimeDetails runtimeDetails) {
+        this.runtimeDetails = runtimeDetails;
+    }
+
+    /**
+     * <p>
+     * Information about the process and any required context values for a specific finding
+     * </p>
+     * 
+     * @return Information about the process and any required context values for a specific finding
+     */
+
+    public RuntimeDetails getRuntimeDetails() {
+        return this.runtimeDetails;
+    }
+
+    /**
+     * <p>
+     * Information about the process and any required context values for a specific finding
+     * </p>
+     * 
+     * @param runtimeDetails
+     *        Information about the process and any required context values for a specific finding
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Service withRuntimeDetails(RuntimeDetails runtimeDetails) {
+        setRuntimeDetails(runtimeDetails);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Contains information about the detected unusual behavior.
+     * </p>
+     * 
+     * @param detection
+     *        Contains information about the detected unusual behavior.
+     */
+
+    public void setDetection(Detection detection) {
+        this.detection = detection;
+    }
+
+    /**
+     * <p>
+     * Contains information about the detected unusual behavior.
+     * </p>
+     * 
+     * @return Contains information about the detected unusual behavior.
+     */
+
+    public Detection getDetection() {
+        return this.detection;
+    }
+
+    /**
+     * <p>
+     * Contains information about the detected unusual behavior.
+     * </p>
+     * 
+     * @param detection
+     *        Contains information about the detected unusual behavior.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Service withDetection(Detection detection) {
+        setDetection(detection);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Returns details from the malware scan that generated a GuardDuty finding.
+     * </p>
+     * 
+     * @param malwareScanDetails
+     *        Returns details from the malware scan that generated a GuardDuty finding.
+     */
+
+    public void setMalwareScanDetails(MalwareScanDetails malwareScanDetails) {
+        this.malwareScanDetails = malwareScanDetails;
+    }
+
+    /**
+     * <p>
+     * Returns details from the malware scan that generated a GuardDuty finding.
+     * </p>
+     * 
+     * @return Returns details from the malware scan that generated a GuardDuty finding.
+     */
+
+    public MalwareScanDetails getMalwareScanDetails() {
+        return this.malwareScanDetails;
+    }
+
+    /**
+     * <p>
+     * Returns details from the malware scan that generated a GuardDuty finding.
+     * </p>
+     * 
+     * @param malwareScanDetails
+     *        Returns details from the malware scan that generated a GuardDuty finding.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Service withMalwareScanDetails(MalwareScanDetails malwareScanDetails) {
+        setMalwareScanDetails(malwareScanDetails);
         return this;
     }
 
@@ -466,6 +791,8 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
         sb.append("{");
         if (getAction() != null)
             sb.append("Action: ").append(getAction()).append(",");
+        if (getEvidence() != null)
+            sb.append("Evidence: ").append(getEvidence()).append(",");
         if (getArchived() != null)
             sb.append("Archived: ").append(getArchived()).append(",");
         if (getCount() != null)
@@ -481,7 +808,19 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
         if (getServiceName() != null)
             sb.append("ServiceName: ").append(getServiceName()).append(",");
         if (getUserFeedback() != null)
-            sb.append("UserFeedback: ").append(getUserFeedback());
+            sb.append("UserFeedback: ").append(getUserFeedback()).append(",");
+        if (getAdditionalInfo() != null)
+            sb.append("AdditionalInfo: ").append(getAdditionalInfo()).append(",");
+        if (getFeatureName() != null)
+            sb.append("FeatureName: ").append(getFeatureName()).append(",");
+        if (getEbsVolumeScanDetails() != null)
+            sb.append("EbsVolumeScanDetails: ").append(getEbsVolumeScanDetails()).append(",");
+        if (getRuntimeDetails() != null)
+            sb.append("RuntimeDetails: ").append(getRuntimeDetails()).append(",");
+        if (getDetection() != null)
+            sb.append("Detection: ").append(getDetection()).append(",");
+        if (getMalwareScanDetails() != null)
+            sb.append("MalwareScanDetails: ").append(getMalwareScanDetails());
         sb.append("}");
         return sb.toString();
     }
@@ -499,6 +838,10 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
         if (other.getAction() == null ^ this.getAction() == null)
             return false;
         if (other.getAction() != null && other.getAction().equals(this.getAction()) == false)
+            return false;
+        if (other.getEvidence() == null ^ this.getEvidence() == null)
+            return false;
+        if (other.getEvidence() != null && other.getEvidence().equals(this.getEvidence()) == false)
             return false;
         if (other.getArchived() == null ^ this.getArchived() == null)
             return false;
@@ -532,6 +875,30 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getUserFeedback() != null && other.getUserFeedback().equals(this.getUserFeedback()) == false)
             return false;
+        if (other.getAdditionalInfo() == null ^ this.getAdditionalInfo() == null)
+            return false;
+        if (other.getAdditionalInfo() != null && other.getAdditionalInfo().equals(this.getAdditionalInfo()) == false)
+            return false;
+        if (other.getFeatureName() == null ^ this.getFeatureName() == null)
+            return false;
+        if (other.getFeatureName() != null && other.getFeatureName().equals(this.getFeatureName()) == false)
+            return false;
+        if (other.getEbsVolumeScanDetails() == null ^ this.getEbsVolumeScanDetails() == null)
+            return false;
+        if (other.getEbsVolumeScanDetails() != null && other.getEbsVolumeScanDetails().equals(this.getEbsVolumeScanDetails()) == false)
+            return false;
+        if (other.getRuntimeDetails() == null ^ this.getRuntimeDetails() == null)
+            return false;
+        if (other.getRuntimeDetails() != null && other.getRuntimeDetails().equals(this.getRuntimeDetails()) == false)
+            return false;
+        if (other.getDetection() == null ^ this.getDetection() == null)
+            return false;
+        if (other.getDetection() != null && other.getDetection().equals(this.getDetection()) == false)
+            return false;
+        if (other.getMalwareScanDetails() == null ^ this.getMalwareScanDetails() == null)
+            return false;
+        if (other.getMalwareScanDetails() != null && other.getMalwareScanDetails().equals(this.getMalwareScanDetails()) == false)
+            return false;
         return true;
     }
 
@@ -541,6 +908,7 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getAction() == null) ? 0 : getAction().hashCode());
+        hashCode = prime * hashCode + ((getEvidence() == null) ? 0 : getEvidence().hashCode());
         hashCode = prime * hashCode + ((getArchived() == null) ? 0 : getArchived().hashCode());
         hashCode = prime * hashCode + ((getCount() == null) ? 0 : getCount().hashCode());
         hashCode = prime * hashCode + ((getDetectorId() == null) ? 0 : getDetectorId().hashCode());
@@ -549,6 +917,12 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getResourceRole() == null) ? 0 : getResourceRole().hashCode());
         hashCode = prime * hashCode + ((getServiceName() == null) ? 0 : getServiceName().hashCode());
         hashCode = prime * hashCode + ((getUserFeedback() == null) ? 0 : getUserFeedback().hashCode());
+        hashCode = prime * hashCode + ((getAdditionalInfo() == null) ? 0 : getAdditionalInfo().hashCode());
+        hashCode = prime * hashCode + ((getFeatureName() == null) ? 0 : getFeatureName().hashCode());
+        hashCode = prime * hashCode + ((getEbsVolumeScanDetails() == null) ? 0 : getEbsVolumeScanDetails().hashCode());
+        hashCode = prime * hashCode + ((getRuntimeDetails() == null) ? 0 : getRuntimeDetails().hashCode());
+        hashCode = prime * hashCode + ((getDetection() == null) ? 0 : getDetection().hashCode());
+        hashCode = prime * hashCode + ((getMalwareScanDetails() == null) ? 0 : getMalwareScanDetails().hashCode());
         return hashCode;
     }
 

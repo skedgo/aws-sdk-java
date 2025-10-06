@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -55,6 +55,51 @@ public class LustreFileSystemConfigurationJsonUnmarshaller implements Unmarshall
                 if (context.testExpression("DataRepositoryConfiguration", targetDepth)) {
                     context.nextToken();
                     lustreFileSystemConfiguration.setDataRepositoryConfiguration(DataRepositoryConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("DeploymentType", targetDepth)) {
+                    context.nextToken();
+                    lustreFileSystemConfiguration.setDeploymentType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("PerUnitStorageThroughput", targetDepth)) {
+                    context.nextToken();
+                    lustreFileSystemConfiguration.setPerUnitStorageThroughput(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("MountName", targetDepth)) {
+                    context.nextToken();
+                    lustreFileSystemConfiguration.setMountName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("DailyAutomaticBackupStartTime", targetDepth)) {
+                    context.nextToken();
+                    lustreFileSystemConfiguration.setDailyAutomaticBackupStartTime(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("AutomaticBackupRetentionDays", targetDepth)) {
+                    context.nextToken();
+                    lustreFileSystemConfiguration.setAutomaticBackupRetentionDays(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("CopyTagsToBackups", targetDepth)) {
+                    context.nextToken();
+                    lustreFileSystemConfiguration.setCopyTagsToBackups(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("DriveCacheType", targetDepth)) {
+                    context.nextToken();
+                    lustreFileSystemConfiguration.setDriveCacheType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("DataCompressionType", targetDepth)) {
+                    context.nextToken();
+                    lustreFileSystemConfiguration.setDataCompressionType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("LogConfiguration", targetDepth)) {
+                    context.nextToken();
+                    lustreFileSystemConfiguration.setLogConfiguration(LustreLogConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("RootSquashConfiguration", targetDepth)) {
+                    context.nextToken();
+                    lustreFileSystemConfiguration.setRootSquashConfiguration(LustreRootSquashConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("MetadataConfiguration", targetDepth)) {
+                    context.nextToken();
+                    lustreFileSystemConfiguration.setMetadataConfiguration(FileSystemLustreMetadataConfigurationJsonUnmarshaller.getInstance().unmarshall(
+                            context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,12 @@ public class ListLayerVersionsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A runtime identifier. For example, <code>go1.x</code>.
+     * A runtime identifier. For example, <code>java21</code>.
+     * </p>
+     * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
      * </p>
      */
     private String compatibleRuntime;
@@ -49,14 +54,30 @@ public class ListLayerVersionsRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      */
     private Integer maxItems;
+    /**
+     * <p>
+     * The compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     * architecture</a>.
+     * </p>
+     */
+    private String compatibleArchitecture;
 
     /**
      * <p>
-     * A runtime identifier. For example, <code>go1.x</code>.
+     * A runtime identifier. For example, <code>java21</code>.
+     * </p>
+     * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
      * </p>
      * 
      * @param compatibleRuntime
-     *        A runtime identifier. For example, <code>go1.x</code>.
+     *        A runtime identifier. For example, <code>java21</code>.</p>
+     *        <p>
+     *        The following list includes deprecated runtimes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     *        deprecation policy</a>.
      * @see Runtime
      */
 
@@ -66,10 +87,19 @@ public class ListLayerVersionsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A runtime identifier. For example, <code>go1.x</code>.
+     * A runtime identifier. For example, <code>java21</code>.
+     * </p>
+     * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
      * </p>
      * 
-     * @return A runtime identifier. For example, <code>go1.x</code>.
+     * @return A runtime identifier. For example, <code>java21</code>.</p>
+     *         <p>
+     *         The following list includes deprecated runtimes. For more information, see <a
+     *         href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     *         deprecation policy</a>.
      * @see Runtime
      */
 
@@ -79,11 +109,20 @@ public class ListLayerVersionsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A runtime identifier. For example, <code>go1.x</code>.
+     * A runtime identifier. For example, <code>java21</code>.
+     * </p>
+     * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
      * </p>
      * 
      * @param compatibleRuntime
-     *        A runtime identifier. For example, <code>go1.x</code>.
+     *        A runtime identifier. For example, <code>java21</code>.</p>
+     *        <p>
+     *        The following list includes deprecated runtimes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     *        deprecation policy</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Runtime
      */
@@ -95,11 +134,20 @@ public class ListLayerVersionsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A runtime identifier. For example, <code>go1.x</code>.
+     * A runtime identifier. For example, <code>java21</code>.
+     * </p>
+     * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
      * </p>
      * 
      * @param compatibleRuntime
-     *        A runtime identifier. For example, <code>go1.x</code>.
+     *        A runtime identifier. For example, <code>java21</code>.</p>
+     *        <p>
+     *        The following list includes deprecated runtimes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     *        deprecation policy</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Runtime
      */
@@ -230,6 +278,73 @@ public class ListLayerVersionsRequest extends com.amazonaws.AmazonWebServiceRequ
     }
 
     /**
+     * <p>
+     * The compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     * architecture</a>.
+     * </p>
+     * 
+     * @param compatibleArchitecture
+     *        The compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     *        architecture</a>.
+     * @see Architecture
+     */
+
+    public void setCompatibleArchitecture(String compatibleArchitecture) {
+        this.compatibleArchitecture = compatibleArchitecture;
+    }
+
+    /**
+     * <p>
+     * The compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     * architecture</a>.
+     * </p>
+     * 
+     * @return The compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction
+     *         set architecture</a>.
+     * @see Architecture
+     */
+
+    public String getCompatibleArchitecture() {
+        return this.compatibleArchitecture;
+    }
+
+    /**
+     * <p>
+     * The compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     * architecture</a>.
+     * </p>
+     * 
+     * @param compatibleArchitecture
+     *        The compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     *        architecture</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Architecture
+     */
+
+    public ListLayerVersionsRequest withCompatibleArchitecture(String compatibleArchitecture) {
+        setCompatibleArchitecture(compatibleArchitecture);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     * architecture</a>.
+     * </p>
+     * 
+     * @param compatibleArchitecture
+     *        The compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     *        architecture</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Architecture
+     */
+
+    public ListLayerVersionsRequest withCompatibleArchitecture(Architecture compatibleArchitecture) {
+        this.compatibleArchitecture = compatibleArchitecture.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -248,7 +363,9 @@ public class ListLayerVersionsRequest extends com.amazonaws.AmazonWebServiceRequ
         if (getMarker() != null)
             sb.append("Marker: ").append(getMarker()).append(",");
         if (getMaxItems() != null)
-            sb.append("MaxItems: ").append(getMaxItems());
+            sb.append("MaxItems: ").append(getMaxItems()).append(",");
+        if (getCompatibleArchitecture() != null)
+            sb.append("CompatibleArchitecture: ").append(getCompatibleArchitecture());
         sb.append("}");
         return sb.toString();
     }
@@ -279,6 +396,10 @@ public class ListLayerVersionsRequest extends com.amazonaws.AmazonWebServiceRequ
             return false;
         if (other.getMaxItems() != null && other.getMaxItems().equals(this.getMaxItems()) == false)
             return false;
+        if (other.getCompatibleArchitecture() == null ^ this.getCompatibleArchitecture() == null)
+            return false;
+        if (other.getCompatibleArchitecture() != null && other.getCompatibleArchitecture().equals(this.getCompatibleArchitecture()) == false)
+            return false;
         return true;
     }
 
@@ -291,6 +412,7 @@ public class ListLayerVersionsRequest extends com.amazonaws.AmazonWebServiceRequ
         hashCode = prime * hashCode + ((getLayerName() == null) ? 0 : getLayerName().hashCode());
         hashCode = prime * hashCode + ((getMarker() == null) ? 0 : getMarker().hashCode());
         hashCode = prime * hashCode + ((getMaxItems() == null) ? 0 : getMaxItems().hashCode());
+        hashCode = prime * hashCode + ((getCompatibleArchitecture() == null) ? 0 : getCompatibleArchitecture().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,10 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class InputTemplateMarshaller {
 
+    private static final MarshallingInfo<String> ADVANCEDINPUTFILTER_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("advancedInputFilter").build();
+    private static final MarshallingInfo<StructuredPojo> ADVANCEDINPUTFILTERSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("advancedInputFilterSettings").build();
     private static final MarshallingInfo<Map> AUDIOSELECTORGROUPS_BINDING = MarshallingInfo.builder(MarshallingType.MAP)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("audioSelectorGroups").build();
     private static final MarshallingInfo<Map> AUDIOSELECTORS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
@@ -41,6 +45,8 @@ public class InputTemplateMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("deblockFilter").build();
     private static final MarshallingInfo<String> DENOISEFILTER_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("denoiseFilter").build();
+    private static final MarshallingInfo<String> DOLBYVISIONMETADATAXML_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("dolbyVisionMetadataXml").build();
     private static final MarshallingInfo<String> FILTERENABLE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("filterEnable").build();
     private static final MarshallingInfo<Integer> FILTERSTRENGTH_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
@@ -49,6 +55,8 @@ public class InputTemplateMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("imageInserter").build();
     private static final MarshallingInfo<List> INPUTCLIPPINGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("inputClippings").build();
+    private static final MarshallingInfo<String> INPUTSCANTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("inputScanType").build();
     private static final MarshallingInfo<StructuredPojo> POSITION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("position").build();
     private static final MarshallingInfo<Integer> PROGRAMNUMBER_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
@@ -57,6 +65,10 @@ public class InputTemplateMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("psiControl").build();
     private static final MarshallingInfo<String> TIMECODESOURCE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("timecodeSource").build();
+    private static final MarshallingInfo<String> TIMECODESTART_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("timecodeStart").build();
+    private static final MarshallingInfo<List> VIDEOOVERLAYS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("videoOverlays").build();
     private static final MarshallingInfo<StructuredPojo> VIDEOSELECTOR_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("videoSelector").build();
 
@@ -76,20 +88,26 @@ public class InputTemplateMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(inputTemplate.getAdvancedInputFilter(), ADVANCEDINPUTFILTER_BINDING);
+            protocolMarshaller.marshall(inputTemplate.getAdvancedInputFilterSettings(), ADVANCEDINPUTFILTERSETTINGS_BINDING);
             protocolMarshaller.marshall(inputTemplate.getAudioSelectorGroups(), AUDIOSELECTORGROUPS_BINDING);
             protocolMarshaller.marshall(inputTemplate.getAudioSelectors(), AUDIOSELECTORS_BINDING);
             protocolMarshaller.marshall(inputTemplate.getCaptionSelectors(), CAPTIONSELECTORS_BINDING);
             protocolMarshaller.marshall(inputTemplate.getCrop(), CROP_BINDING);
             protocolMarshaller.marshall(inputTemplate.getDeblockFilter(), DEBLOCKFILTER_BINDING);
             protocolMarshaller.marshall(inputTemplate.getDenoiseFilter(), DENOISEFILTER_BINDING);
+            protocolMarshaller.marshall(inputTemplate.getDolbyVisionMetadataXml(), DOLBYVISIONMETADATAXML_BINDING);
             protocolMarshaller.marshall(inputTemplate.getFilterEnable(), FILTERENABLE_BINDING);
             protocolMarshaller.marshall(inputTemplate.getFilterStrength(), FILTERSTRENGTH_BINDING);
             protocolMarshaller.marshall(inputTemplate.getImageInserter(), IMAGEINSERTER_BINDING);
             protocolMarshaller.marshall(inputTemplate.getInputClippings(), INPUTCLIPPINGS_BINDING);
+            protocolMarshaller.marshall(inputTemplate.getInputScanType(), INPUTSCANTYPE_BINDING);
             protocolMarshaller.marshall(inputTemplate.getPosition(), POSITION_BINDING);
             protocolMarshaller.marshall(inputTemplate.getProgramNumber(), PROGRAMNUMBER_BINDING);
             protocolMarshaller.marshall(inputTemplate.getPsiControl(), PSICONTROL_BINDING);
             protocolMarshaller.marshall(inputTemplate.getTimecodeSource(), TIMECODESOURCE_BINDING);
+            protocolMarshaller.marshall(inputTemplate.getTimecodeStart(), TIMECODESTART_BINDING);
+            protocolMarshaller.marshall(inputTemplate.getVideoOverlays(), VIDEOOVERLAYS_BINDING);
             protocolMarshaller.marshall(inputTemplate.getVideoSelector(), VIDEOSELECTOR_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);

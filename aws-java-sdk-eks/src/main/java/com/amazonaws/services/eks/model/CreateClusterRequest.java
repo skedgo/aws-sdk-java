@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,15 +33,20 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String name;
     /**
      * <p>
-     * The desired Kubernetes version for your cluster. If you don't specify a value here, the latest version available
+     * The desired Kubernetes version for your cluster. If you don't specify a value here, the default version available
      * in Amazon EKS is used.
      * </p>
+     * <note>
+     * <p>
+     * The default version might not be the latest version available.
+     * </p>
+     * </note>
      */
     private String version;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the IAM role that provides permissions for Amazon EKS to make calls to other
-     * AWS API operations on your behalf. For more information, see <a
+     * The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane to make
+     * calls to Amazon Web Services API operations on your behalf. For more information, see <a
      * href="https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html">Amazon EKS Service IAM Role</a> in
      * the <i> <i>Amazon EKS User Guide</i> </i>.
      * </p>
@@ -49,36 +54,93 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String roleArn;
     /**
      * <p>
-     * The VPC configuration used by the cluster control plane. Amazon EKS VPC resources have specific requirements to
-     * work properly with Kubernetes. For more information, see <a
+     * The VPC configuration that's used by the cluster control plane. Amazon EKS VPC resources have specific
+     * requirements to work properly with Kubernetes. For more information, see <a
      * href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC Considerations</a> and <a
      * href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster Security Group
      * Considerations</a> in the <i>Amazon EKS User Guide</i>. You must specify at least two subnets. You can specify up
-     * to five security groups, but we recommend that you use a dedicated security group for your cluster control plane.
+     * to five security groups. However, we recommend that you use a dedicated security group for your cluster control
+     * plane.
      * </p>
      */
     private VpcConfigRequest resourcesVpcConfig;
     /**
      * <p>
+     * The Kubernetes network configuration for the cluster.
+     * </p>
+     */
+    private KubernetesNetworkConfigRequest kubernetesNetworkConfig;
+    /**
+     * <p>
      * Enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs. By default,
      * cluster control plane logs aren't exported to CloudWatch Logs. For more information, see <a
-     * href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS Cluster Control Plane
-     * Logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS Cluster control plane
+     * logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      * </p>
      * <note>
      * <p>
      * CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs. For
-     * more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">Amazon CloudWatch Pricing</a>.
+     * more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">CloudWatch Pricing</a>.
      * </p>
      * </note>
      */
     private Logging logging;
     /**
      * <p>
-     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
      * </p>
      */
     private String clientRequestToken;
+    /**
+     * <p>
+     * Metadata that assists with categorization and organization. Each tag consists of a key and an optional value. You
+     * define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
+     * </p>
+     */
+    private java.util.Map<String, String> tags;
+    /**
+     * <p>
+     * The encryption configuration for the cluster.
+     * </p>
+     */
+    private java.util.List<EncryptionConfig> encryptionConfig;
+    /**
+     * <p>
+     * An object representing the configuration of your local Amazon EKS cluster on an Amazon Web Services Outpost.
+     * Before creating a local cluster on an Outpost, review <a
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/eks-outposts-local-cluster-overview.html">Local clusters
+     * for Amazon EKS on Amazon Web Services Outposts</a> in the <i>Amazon EKS User Guide</i>. This object isn't
+     * available for creating Amazon EKS clusters on the Amazon Web Services cloud.
+     * </p>
+     */
+    private OutpostConfigRequest outpostConfig;
+    /**
+     * <p>
+     * The access configuration for the cluster.
+     * </p>
+     */
+    private CreateAccessConfigRequest accessConfig;
+    /**
+     * <p>
+     * If you set this value to <code>False</code> when creating a cluster, the default networking add-ons will not be
+     * installed.
+     * </p>
+     * <p>
+     * The default networking addons include vpc-cni, coredns, and kube-proxy.
+     * </p>
+     * <p>
+     * Use this option when you plan to install third-party alternative add-ons or self-manage the default networking
+     * add-ons.
+     * </p>
+     */
+    private Boolean bootstrapSelfManagedAddons;
+    /**
+     * <p>
+     * New clusters, by default, have extended support enabled. You can disable extended support when creating a cluster
+     * by setting this value to <code>STANDARD</code>.
+     * </p>
+     */
+    private UpgradePolicyRequest upgradePolicy;
 
     /**
      * <p>
@@ -122,13 +184,21 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The desired Kubernetes version for your cluster. If you don't specify a value here, the latest version available
+     * The desired Kubernetes version for your cluster. If you don't specify a value here, the default version available
      * in Amazon EKS is used.
      * </p>
+     * <note>
+     * <p>
+     * The default version might not be the latest version available.
+     * </p>
+     * </note>
      * 
      * @param version
-     *        The desired Kubernetes version for your cluster. If you don't specify a value here, the latest version
-     *        available in Amazon EKS is used.
+     *        The desired Kubernetes version for your cluster. If you don't specify a value here, the default version
+     *        available in Amazon EKS is used.</p> <note>
+     *        <p>
+     *        The default version might not be the latest version available.
+     *        </p>
      */
 
     public void setVersion(String version) {
@@ -137,12 +207,20 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The desired Kubernetes version for your cluster. If you don't specify a value here, the latest version available
+     * The desired Kubernetes version for your cluster. If you don't specify a value here, the default version available
      * in Amazon EKS is used.
      * </p>
+     * <note>
+     * <p>
+     * The default version might not be the latest version available.
+     * </p>
+     * </note>
      * 
-     * @return The desired Kubernetes version for your cluster. If you don't specify a value here, the latest version
-     *         available in Amazon EKS is used.
+     * @return The desired Kubernetes version for your cluster. If you don't specify a value here, the default version
+     *         available in Amazon EKS is used.</p> <note>
+     *         <p>
+     *         The default version might not be the latest version available.
+     *         </p>
      */
 
     public String getVersion() {
@@ -151,13 +229,21 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The desired Kubernetes version for your cluster. If you don't specify a value here, the latest version available
+     * The desired Kubernetes version for your cluster. If you don't specify a value here, the default version available
      * in Amazon EKS is used.
      * </p>
+     * <note>
+     * <p>
+     * The default version might not be the latest version available.
+     * </p>
+     * </note>
      * 
      * @param version
-     *        The desired Kubernetes version for your cluster. If you don't specify a value here, the latest version
-     *        available in Amazon EKS is used.
+     *        The desired Kubernetes version for your cluster. If you don't specify a value here, the default version
+     *        available in Amazon EKS is used.</p> <note>
+     *        <p>
+     *        The default version might not be the latest version available.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -168,15 +254,15 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the IAM role that provides permissions for Amazon EKS to make calls to other
-     * AWS API operations on your behalf. For more information, see <a
+     * The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane to make
+     * calls to Amazon Web Services API operations on your behalf. For more information, see <a
      * href="https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html">Amazon EKS Service IAM Role</a> in
      * the <i> <i>Amazon EKS User Guide</i> </i>.
      * </p>
      * 
      * @param roleArn
-     *        The Amazon Resource Name (ARN) of the IAM role that provides permissions for Amazon EKS to make calls to
-     *        other AWS API operations on your behalf. For more information, see <a
+     *        The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane
+     *        to make calls to Amazon Web Services API operations on your behalf. For more information, see <a
      *        href="https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html">Amazon EKS Service IAM
      *        Role</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      */
@@ -187,14 +273,14 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the IAM role that provides permissions for Amazon EKS to make calls to other
-     * AWS API operations on your behalf. For more information, see <a
+     * The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane to make
+     * calls to Amazon Web Services API operations on your behalf. For more information, see <a
      * href="https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html">Amazon EKS Service IAM Role</a> in
      * the <i> <i>Amazon EKS User Guide</i> </i>.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the IAM role that provides permissions for Amazon EKS to make calls to
-     *         other AWS API operations on your behalf. For more information, see <a
+     * @return The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane
+     *         to make calls to Amazon Web Services API operations on your behalf. For more information, see <a
      *         href="https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html">Amazon EKS Service IAM
      *         Role</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      */
@@ -205,15 +291,15 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the IAM role that provides permissions for Amazon EKS to make calls to other
-     * AWS API operations on your behalf. For more information, see <a
+     * The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane to make
+     * calls to Amazon Web Services API operations on your behalf. For more information, see <a
      * href="https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html">Amazon EKS Service IAM Role</a> in
      * the <i> <i>Amazon EKS User Guide</i> </i>.
      * </p>
      * 
      * @param roleArn
-     *        The Amazon Resource Name (ARN) of the IAM role that provides permissions for Amazon EKS to make calls to
-     *        other AWS API operations on your behalf. For more information, see <a
+     *        The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane
+     *        to make calls to Amazon Web Services API operations on your behalf. For more information, see <a
      *        href="https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html">Amazon EKS Service IAM
      *        Role</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -226,21 +312,22 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The VPC configuration used by the cluster control plane. Amazon EKS VPC resources have specific requirements to
-     * work properly with Kubernetes. For more information, see <a
+     * The VPC configuration that's used by the cluster control plane. Amazon EKS VPC resources have specific
+     * requirements to work properly with Kubernetes. For more information, see <a
      * href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC Considerations</a> and <a
      * href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster Security Group
      * Considerations</a> in the <i>Amazon EKS User Guide</i>. You must specify at least two subnets. You can specify up
-     * to five security groups, but we recommend that you use a dedicated security group for your cluster control plane.
+     * to five security groups. However, we recommend that you use a dedicated security group for your cluster control
+     * plane.
      * </p>
      * 
      * @param resourcesVpcConfig
-     *        The VPC configuration used by the cluster control plane. Amazon EKS VPC resources have specific
+     *        The VPC configuration that's used by the cluster control plane. Amazon EKS VPC resources have specific
      *        requirements to work properly with Kubernetes. For more information, see <a
      *        href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC Considerations</a>
      *        and <a href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster Security Group
      *        Considerations</a> in the <i>Amazon EKS User Guide</i>. You must specify at least two subnets. You can
-     *        specify up to five security groups, but we recommend that you use a dedicated security group for your
+     *        specify up to five security groups. However, we recommend that you use a dedicated security group for your
      *        cluster control plane.
      */
 
@@ -250,21 +337,22 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The VPC configuration used by the cluster control plane. Amazon EKS VPC resources have specific requirements to
-     * work properly with Kubernetes. For more information, see <a
+     * The VPC configuration that's used by the cluster control plane. Amazon EKS VPC resources have specific
+     * requirements to work properly with Kubernetes. For more information, see <a
      * href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC Considerations</a> and <a
      * href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster Security Group
      * Considerations</a> in the <i>Amazon EKS User Guide</i>. You must specify at least two subnets. You can specify up
-     * to five security groups, but we recommend that you use a dedicated security group for your cluster control plane.
+     * to five security groups. However, we recommend that you use a dedicated security group for your cluster control
+     * plane.
      * </p>
      * 
-     * @return The VPC configuration used by the cluster control plane. Amazon EKS VPC resources have specific
+     * @return The VPC configuration that's used by the cluster control plane. Amazon EKS VPC resources have specific
      *         requirements to work properly with Kubernetes. For more information, see <a
      *         href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC Considerations</a>
      *         and <a href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster Security Group
      *         Considerations</a> in the <i>Amazon EKS User Guide</i>. You must specify at least two subnets. You can
-     *         specify up to five security groups, but we recommend that you use a dedicated security group for your
-     *         cluster control plane.
+     *         specify up to five security groups. However, we recommend that you use a dedicated security group for
+     *         your cluster control plane.
      */
 
     public VpcConfigRequest getResourcesVpcConfig() {
@@ -273,21 +361,22 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The VPC configuration used by the cluster control plane. Amazon EKS VPC resources have specific requirements to
-     * work properly with Kubernetes. For more information, see <a
+     * The VPC configuration that's used by the cluster control plane. Amazon EKS VPC resources have specific
+     * requirements to work properly with Kubernetes. For more information, see <a
      * href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC Considerations</a> and <a
      * href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster Security Group
      * Considerations</a> in the <i>Amazon EKS User Guide</i>. You must specify at least two subnets. You can specify up
-     * to five security groups, but we recommend that you use a dedicated security group for your cluster control plane.
+     * to five security groups. However, we recommend that you use a dedicated security group for your cluster control
+     * plane.
      * </p>
      * 
      * @param resourcesVpcConfig
-     *        The VPC configuration used by the cluster control plane. Amazon EKS VPC resources have specific
+     *        The VPC configuration that's used by the cluster control plane. Amazon EKS VPC resources have specific
      *        requirements to work properly with Kubernetes. For more information, see <a
      *        href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC Considerations</a>
      *        and <a href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster Security Group
      *        Considerations</a> in the <i>Amazon EKS User Guide</i>. You must specify at least two subnets. You can
-     *        specify up to five security groups, but we recommend that you use a dedicated security group for your
+     *        specify up to five security groups. However, we recommend that you use a dedicated security group for your
      *        cluster control plane.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -299,27 +388,66 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
+     * The Kubernetes network configuration for the cluster.
+     * </p>
+     * 
+     * @param kubernetesNetworkConfig
+     *        The Kubernetes network configuration for the cluster.
+     */
+
+    public void setKubernetesNetworkConfig(KubernetesNetworkConfigRequest kubernetesNetworkConfig) {
+        this.kubernetesNetworkConfig = kubernetesNetworkConfig;
+    }
+
+    /**
+     * <p>
+     * The Kubernetes network configuration for the cluster.
+     * </p>
+     * 
+     * @return The Kubernetes network configuration for the cluster.
+     */
+
+    public KubernetesNetworkConfigRequest getKubernetesNetworkConfig() {
+        return this.kubernetesNetworkConfig;
+    }
+
+    /**
+     * <p>
+     * The Kubernetes network configuration for the cluster.
+     * </p>
+     * 
+     * @param kubernetesNetworkConfig
+     *        The Kubernetes network configuration for the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withKubernetesNetworkConfig(KubernetesNetworkConfigRequest kubernetesNetworkConfig) {
+        setKubernetesNetworkConfig(kubernetesNetworkConfig);
+        return this;
+    }
+
+    /**
+     * <p>
      * Enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs. By default,
      * cluster control plane logs aren't exported to CloudWatch Logs. For more information, see <a
-     * href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS Cluster Control Plane
-     * Logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS Cluster control plane
+     * logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      * </p>
      * <note>
      * <p>
      * CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs. For
-     * more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">Amazon CloudWatch Pricing</a>.
+     * more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">CloudWatch Pricing</a>.
      * </p>
      * </note>
      * 
      * @param logging
      *        Enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs. By
      *        default, cluster control plane logs aren't exported to CloudWatch Logs. For more information, see <a
-     *        href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS Cluster Control
-     *        Plane Logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.</p> <note>
+     *        href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS Cluster control
+     *        plane logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.</p> <note>
      *        <p>
      *        CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs.
-     *        For more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">Amazon CloudWatch
-     *        Pricing</a>.
+     *        For more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">CloudWatch Pricing</a>.
      *        </p>
      */
 
@@ -331,24 +459,23 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * Enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs. By default,
      * cluster control plane logs aren't exported to CloudWatch Logs. For more information, see <a
-     * href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS Cluster Control Plane
-     * Logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS Cluster control plane
+     * logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      * </p>
      * <note>
      * <p>
      * CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs. For
-     * more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">Amazon CloudWatch Pricing</a>.
+     * more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">CloudWatch Pricing</a>.
      * </p>
      * </note>
      * 
      * @return Enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs. By
      *         default, cluster control plane logs aren't exported to CloudWatch Logs. For more information, see <a
      *         href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS Cluster
-     *         Control Plane Logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.</p> <note>
+     *         control plane logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.</p> <note>
      *         <p>
      *         CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs.
-     *         For more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">Amazon CloudWatch
-     *         Pricing</a>.
+     *         For more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">CloudWatch Pricing</a>.
      *         </p>
      */
 
@@ -360,25 +487,24 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * Enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs. By default,
      * cluster control plane logs aren't exported to CloudWatch Logs. For more information, see <a
-     * href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS Cluster Control Plane
-     * Logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS Cluster control plane
+     * logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      * </p>
      * <note>
      * <p>
      * CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs. For
-     * more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">Amazon CloudWatch Pricing</a>.
+     * more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">CloudWatch Pricing</a>.
      * </p>
      * </note>
      * 
      * @param logging
      *        Enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs. By
      *        default, cluster control plane logs aren't exported to CloudWatch Logs. For more information, see <a
-     *        href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS Cluster Control
-     *        Plane Logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.</p> <note>
+     *        href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS Cluster control
+     *        plane logs</a> in the <i> <i>Amazon EKS User Guide</i> </i>.</p> <note>
      *        <p>
      *        CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs.
-     *        For more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">Amazon CloudWatch
-     *        Pricing</a>.
+     *        For more information, see <a href="http://aws.amazon.com/cloudwatch/pricing/">CloudWatch Pricing</a>.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -390,11 +516,11 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
      * </p>
      * 
      * @param clientRequestToken
-     *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     *        A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
      */
 
     public void setClientRequestToken(String clientRequestToken) {
@@ -403,10 +529,10 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
      * </p>
      * 
-     * @return Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * @return A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
      */
 
     public String getClientRequestToken() {
@@ -415,16 +541,422 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
      * </p>
      * 
      * @param clientRequestToken
-     *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     *        A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateClusterRequest withClientRequestToken(String clientRequestToken) {
         setClientRequestToken(clientRequestToken);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Metadata that assists with categorization and organization. Each tag consists of a key and an optional value. You
+     * define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
+     * </p>
+     * 
+     * @return Metadata that assists with categorization and organization. Each tag consists of a key and an optional
+     *         value. You define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
+     */
+
+    public java.util.Map<String, String> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * Metadata that assists with categorization and organization. Each tag consists of a key and an optional value. You
+     * define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
+     * </p>
+     * 
+     * @param tags
+     *        Metadata that assists with categorization and organization. Each tag consists of a key and an optional
+     *        value. You define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
+     */
+
+    public void setTags(java.util.Map<String, String> tags) {
+        this.tags = tags;
+    }
+
+    /**
+     * <p>
+     * Metadata that assists with categorization and organization. Each tag consists of a key and an optional value. You
+     * define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
+     * </p>
+     * 
+     * @param tags
+     *        Metadata that assists with categorization and organization. Each tag consists of a key and an optional
+     *        value. You define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withTags(java.util.Map<String, String> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateClusterRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest addTagsEntry(String key, String value) {
+        if (null == this.tags) {
+            this.tags = new java.util.HashMap<String, String>();
+        }
+        if (this.tags.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.tags.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Tags.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest clearTagsEntries() {
+        this.tags = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * The encryption configuration for the cluster.
+     * </p>
+     * 
+     * @return The encryption configuration for the cluster.
+     */
+
+    public java.util.List<EncryptionConfig> getEncryptionConfig() {
+        return encryptionConfig;
+    }
+
+    /**
+     * <p>
+     * The encryption configuration for the cluster.
+     * </p>
+     * 
+     * @param encryptionConfig
+     *        The encryption configuration for the cluster.
+     */
+
+    public void setEncryptionConfig(java.util.Collection<EncryptionConfig> encryptionConfig) {
+        if (encryptionConfig == null) {
+            this.encryptionConfig = null;
+            return;
+        }
+
+        this.encryptionConfig = new java.util.ArrayList<EncryptionConfig>(encryptionConfig);
+    }
+
+    /**
+     * <p>
+     * The encryption configuration for the cluster.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setEncryptionConfig(java.util.Collection)} or {@link #withEncryptionConfig(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param encryptionConfig
+     *        The encryption configuration for the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withEncryptionConfig(EncryptionConfig... encryptionConfig) {
+        if (this.encryptionConfig == null) {
+            setEncryptionConfig(new java.util.ArrayList<EncryptionConfig>(encryptionConfig.length));
+        }
+        for (EncryptionConfig ele : encryptionConfig) {
+            this.encryptionConfig.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The encryption configuration for the cluster.
+     * </p>
+     * 
+     * @param encryptionConfig
+     *        The encryption configuration for the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withEncryptionConfig(java.util.Collection<EncryptionConfig> encryptionConfig) {
+        setEncryptionConfig(encryptionConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An object representing the configuration of your local Amazon EKS cluster on an Amazon Web Services Outpost.
+     * Before creating a local cluster on an Outpost, review <a
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/eks-outposts-local-cluster-overview.html">Local clusters
+     * for Amazon EKS on Amazon Web Services Outposts</a> in the <i>Amazon EKS User Guide</i>. This object isn't
+     * available for creating Amazon EKS clusters on the Amazon Web Services cloud.
+     * </p>
+     * 
+     * @param outpostConfig
+     *        An object representing the configuration of your local Amazon EKS cluster on an Amazon Web Services
+     *        Outpost. Before creating a local cluster on an Outpost, review <a
+     *        href="https://docs.aws.amazon.com/eks/latest/userguide/eks-outposts-local-cluster-overview.html">Local
+     *        clusters for Amazon EKS on Amazon Web Services Outposts</a> in the <i>Amazon EKS User Guide</i>. This
+     *        object isn't available for creating Amazon EKS clusters on the Amazon Web Services cloud.
+     */
+
+    public void setOutpostConfig(OutpostConfigRequest outpostConfig) {
+        this.outpostConfig = outpostConfig;
+    }
+
+    /**
+     * <p>
+     * An object representing the configuration of your local Amazon EKS cluster on an Amazon Web Services Outpost.
+     * Before creating a local cluster on an Outpost, review <a
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/eks-outposts-local-cluster-overview.html">Local clusters
+     * for Amazon EKS on Amazon Web Services Outposts</a> in the <i>Amazon EKS User Guide</i>. This object isn't
+     * available for creating Amazon EKS clusters on the Amazon Web Services cloud.
+     * </p>
+     * 
+     * @return An object representing the configuration of your local Amazon EKS cluster on an Amazon Web Services
+     *         Outpost. Before creating a local cluster on an Outpost, review <a
+     *         href="https://docs.aws.amazon.com/eks/latest/userguide/eks-outposts-local-cluster-overview.html">Local
+     *         clusters for Amazon EKS on Amazon Web Services Outposts</a> in the <i>Amazon EKS User Guide</i>. This
+     *         object isn't available for creating Amazon EKS clusters on the Amazon Web Services cloud.
+     */
+
+    public OutpostConfigRequest getOutpostConfig() {
+        return this.outpostConfig;
+    }
+
+    /**
+     * <p>
+     * An object representing the configuration of your local Amazon EKS cluster on an Amazon Web Services Outpost.
+     * Before creating a local cluster on an Outpost, review <a
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/eks-outposts-local-cluster-overview.html">Local clusters
+     * for Amazon EKS on Amazon Web Services Outposts</a> in the <i>Amazon EKS User Guide</i>. This object isn't
+     * available for creating Amazon EKS clusters on the Amazon Web Services cloud.
+     * </p>
+     * 
+     * @param outpostConfig
+     *        An object representing the configuration of your local Amazon EKS cluster on an Amazon Web Services
+     *        Outpost. Before creating a local cluster on an Outpost, review <a
+     *        href="https://docs.aws.amazon.com/eks/latest/userguide/eks-outposts-local-cluster-overview.html">Local
+     *        clusters for Amazon EKS on Amazon Web Services Outposts</a> in the <i>Amazon EKS User Guide</i>. This
+     *        object isn't available for creating Amazon EKS clusters on the Amazon Web Services cloud.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withOutpostConfig(OutpostConfigRequest outpostConfig) {
+        setOutpostConfig(outpostConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The access configuration for the cluster.
+     * </p>
+     * 
+     * @param accessConfig
+     *        The access configuration for the cluster.
+     */
+
+    public void setAccessConfig(CreateAccessConfigRequest accessConfig) {
+        this.accessConfig = accessConfig;
+    }
+
+    /**
+     * <p>
+     * The access configuration for the cluster.
+     * </p>
+     * 
+     * @return The access configuration for the cluster.
+     */
+
+    public CreateAccessConfigRequest getAccessConfig() {
+        return this.accessConfig;
+    }
+
+    /**
+     * <p>
+     * The access configuration for the cluster.
+     * </p>
+     * 
+     * @param accessConfig
+     *        The access configuration for the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withAccessConfig(CreateAccessConfigRequest accessConfig) {
+        setAccessConfig(accessConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If you set this value to <code>False</code> when creating a cluster, the default networking add-ons will not be
+     * installed.
+     * </p>
+     * <p>
+     * The default networking addons include vpc-cni, coredns, and kube-proxy.
+     * </p>
+     * <p>
+     * Use this option when you plan to install third-party alternative add-ons or self-manage the default networking
+     * add-ons.
+     * </p>
+     * 
+     * @param bootstrapSelfManagedAddons
+     *        If you set this value to <code>False</code> when creating a cluster, the default networking add-ons will
+     *        not be installed.</p>
+     *        <p>
+     *        The default networking addons include vpc-cni, coredns, and kube-proxy.
+     *        </p>
+     *        <p>
+     *        Use this option when you plan to install third-party alternative add-ons or self-manage the default
+     *        networking add-ons.
+     */
+
+    public void setBootstrapSelfManagedAddons(Boolean bootstrapSelfManagedAddons) {
+        this.bootstrapSelfManagedAddons = bootstrapSelfManagedAddons;
+    }
+
+    /**
+     * <p>
+     * If you set this value to <code>False</code> when creating a cluster, the default networking add-ons will not be
+     * installed.
+     * </p>
+     * <p>
+     * The default networking addons include vpc-cni, coredns, and kube-proxy.
+     * </p>
+     * <p>
+     * Use this option when you plan to install third-party alternative add-ons or self-manage the default networking
+     * add-ons.
+     * </p>
+     * 
+     * @return If you set this value to <code>False</code> when creating a cluster, the default networking add-ons will
+     *         not be installed.</p>
+     *         <p>
+     *         The default networking addons include vpc-cni, coredns, and kube-proxy.
+     *         </p>
+     *         <p>
+     *         Use this option when you plan to install third-party alternative add-ons or self-manage the default
+     *         networking add-ons.
+     */
+
+    public Boolean getBootstrapSelfManagedAddons() {
+        return this.bootstrapSelfManagedAddons;
+    }
+
+    /**
+     * <p>
+     * If you set this value to <code>False</code> when creating a cluster, the default networking add-ons will not be
+     * installed.
+     * </p>
+     * <p>
+     * The default networking addons include vpc-cni, coredns, and kube-proxy.
+     * </p>
+     * <p>
+     * Use this option when you plan to install third-party alternative add-ons or self-manage the default networking
+     * add-ons.
+     * </p>
+     * 
+     * @param bootstrapSelfManagedAddons
+     *        If you set this value to <code>False</code> when creating a cluster, the default networking add-ons will
+     *        not be installed.</p>
+     *        <p>
+     *        The default networking addons include vpc-cni, coredns, and kube-proxy.
+     *        </p>
+     *        <p>
+     *        Use this option when you plan to install third-party alternative add-ons or self-manage the default
+     *        networking add-ons.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withBootstrapSelfManagedAddons(Boolean bootstrapSelfManagedAddons) {
+        setBootstrapSelfManagedAddons(bootstrapSelfManagedAddons);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If you set this value to <code>False</code> when creating a cluster, the default networking add-ons will not be
+     * installed.
+     * </p>
+     * <p>
+     * The default networking addons include vpc-cni, coredns, and kube-proxy.
+     * </p>
+     * <p>
+     * Use this option when you plan to install third-party alternative add-ons or self-manage the default networking
+     * add-ons.
+     * </p>
+     * 
+     * @return If you set this value to <code>False</code> when creating a cluster, the default networking add-ons will
+     *         not be installed.</p>
+     *         <p>
+     *         The default networking addons include vpc-cni, coredns, and kube-proxy.
+     *         </p>
+     *         <p>
+     *         Use this option when you plan to install third-party alternative add-ons or self-manage the default
+     *         networking add-ons.
+     */
+
+    public Boolean isBootstrapSelfManagedAddons() {
+        return this.bootstrapSelfManagedAddons;
+    }
+
+    /**
+     * <p>
+     * New clusters, by default, have extended support enabled. You can disable extended support when creating a cluster
+     * by setting this value to <code>STANDARD</code>.
+     * </p>
+     * 
+     * @param upgradePolicy
+     *        New clusters, by default, have extended support enabled. You can disable extended support when creating a
+     *        cluster by setting this value to <code>STANDARD</code>.
+     */
+
+    public void setUpgradePolicy(UpgradePolicyRequest upgradePolicy) {
+        this.upgradePolicy = upgradePolicy;
+    }
+
+    /**
+     * <p>
+     * New clusters, by default, have extended support enabled. You can disable extended support when creating a cluster
+     * by setting this value to <code>STANDARD</code>.
+     * </p>
+     * 
+     * @return New clusters, by default, have extended support enabled. You can disable extended support when creating a
+     *         cluster by setting this value to <code>STANDARD</code>.
+     */
+
+    public UpgradePolicyRequest getUpgradePolicy() {
+        return this.upgradePolicy;
+    }
+
+    /**
+     * <p>
+     * New clusters, by default, have extended support enabled. You can disable extended support when creating a cluster
+     * by setting this value to <code>STANDARD</code>.
+     * </p>
+     * 
+     * @param upgradePolicy
+     *        New clusters, by default, have extended support enabled. You can disable extended support when creating a
+     *        cluster by setting this value to <code>STANDARD</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withUpgradePolicy(UpgradePolicyRequest upgradePolicy) {
+        setUpgradePolicy(upgradePolicy);
         return this;
     }
 
@@ -448,10 +980,24 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
             sb.append("RoleArn: ").append(getRoleArn()).append(",");
         if (getResourcesVpcConfig() != null)
             sb.append("ResourcesVpcConfig: ").append(getResourcesVpcConfig()).append(",");
+        if (getKubernetesNetworkConfig() != null)
+            sb.append("KubernetesNetworkConfig: ").append(getKubernetesNetworkConfig()).append(",");
         if (getLogging() != null)
             sb.append("Logging: ").append(getLogging()).append(",");
         if (getClientRequestToken() != null)
-            sb.append("ClientRequestToken: ").append(getClientRequestToken());
+            sb.append("ClientRequestToken: ").append(getClientRequestToken()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getEncryptionConfig() != null)
+            sb.append("EncryptionConfig: ").append(getEncryptionConfig()).append(",");
+        if (getOutpostConfig() != null)
+            sb.append("OutpostConfig: ").append(getOutpostConfig()).append(",");
+        if (getAccessConfig() != null)
+            sb.append("AccessConfig: ").append(getAccessConfig()).append(",");
+        if (getBootstrapSelfManagedAddons() != null)
+            sb.append("BootstrapSelfManagedAddons: ").append(getBootstrapSelfManagedAddons()).append(",");
+        if (getUpgradePolicy() != null)
+            sb.append("UpgradePolicy: ").append(getUpgradePolicy());
         sb.append("}");
         return sb.toString();
     }
@@ -482,6 +1028,10 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getResourcesVpcConfig() != null && other.getResourcesVpcConfig().equals(this.getResourcesVpcConfig()) == false)
             return false;
+        if (other.getKubernetesNetworkConfig() == null ^ this.getKubernetesNetworkConfig() == null)
+            return false;
+        if (other.getKubernetesNetworkConfig() != null && other.getKubernetesNetworkConfig().equals(this.getKubernetesNetworkConfig()) == false)
+            return false;
         if (other.getLogging() == null ^ this.getLogging() == null)
             return false;
         if (other.getLogging() != null && other.getLogging().equals(this.getLogging()) == false)
@@ -489,6 +1039,30 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (other.getClientRequestToken() == null ^ this.getClientRequestToken() == null)
             return false;
         if (other.getClientRequestToken() != null && other.getClientRequestToken().equals(this.getClientRequestToken()) == false)
+            return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getEncryptionConfig() == null ^ this.getEncryptionConfig() == null)
+            return false;
+        if (other.getEncryptionConfig() != null && other.getEncryptionConfig().equals(this.getEncryptionConfig()) == false)
+            return false;
+        if (other.getOutpostConfig() == null ^ this.getOutpostConfig() == null)
+            return false;
+        if (other.getOutpostConfig() != null && other.getOutpostConfig().equals(this.getOutpostConfig()) == false)
+            return false;
+        if (other.getAccessConfig() == null ^ this.getAccessConfig() == null)
+            return false;
+        if (other.getAccessConfig() != null && other.getAccessConfig().equals(this.getAccessConfig()) == false)
+            return false;
+        if (other.getBootstrapSelfManagedAddons() == null ^ this.getBootstrapSelfManagedAddons() == null)
+            return false;
+        if (other.getBootstrapSelfManagedAddons() != null && other.getBootstrapSelfManagedAddons().equals(this.getBootstrapSelfManagedAddons()) == false)
+            return false;
+        if (other.getUpgradePolicy() == null ^ this.getUpgradePolicy() == null)
+            return false;
+        if (other.getUpgradePolicy() != null && other.getUpgradePolicy().equals(this.getUpgradePolicy()) == false)
             return false;
         return true;
     }
@@ -502,8 +1076,15 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
         hashCode = prime * hashCode + ((getVersion() == null) ? 0 : getVersion().hashCode());
         hashCode = prime * hashCode + ((getRoleArn() == null) ? 0 : getRoleArn().hashCode());
         hashCode = prime * hashCode + ((getResourcesVpcConfig() == null) ? 0 : getResourcesVpcConfig().hashCode());
+        hashCode = prime * hashCode + ((getKubernetesNetworkConfig() == null) ? 0 : getKubernetesNetworkConfig().hashCode());
         hashCode = prime * hashCode + ((getLogging() == null) ? 0 : getLogging().hashCode());
         hashCode = prime * hashCode + ((getClientRequestToken() == null) ? 0 : getClientRequestToken().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getEncryptionConfig() == null) ? 0 : getEncryptionConfig().hashCode());
+        hashCode = prime * hashCode + ((getOutpostConfig() == null) ? 0 : getOutpostConfig().hashCode());
+        hashCode = prime * hashCode + ((getAccessConfig() == null) ? 0 : getAccessConfig().hashCode());
+        hashCode = prime * hashCode + ((getBootstrapSelfManagedAddons() == null) ? 0 : getBootstrapSelfManagedAddons().hashCode());
+        hashCode = prime * hashCode + ((getUpgradePolicy() == null) ? 0 : getUpgradePolicy().hashCode());
         return hashCode;
     }
 

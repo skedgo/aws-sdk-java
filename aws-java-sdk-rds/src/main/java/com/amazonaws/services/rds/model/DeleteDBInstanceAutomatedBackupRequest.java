@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,18 +30,31 @@ public class DeleteDBInstanceAutomatedBackupRequest extends com.amazonaws.Amazon
 
     /**
      * <p>
-     * The identifier for the source DB instance, which can't be changed and which is unique to an AWS Region.
+     * The identifier for the source DB instance, which can't be changed and which is unique to an Amazon Web Services
+     * Region.
      * </p>
      */
     private String dbiResourceId;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the automated backups to delete, for example,
+     * <code>arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE</code>.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     */
+    private String dBInstanceAutomatedBackupsArn;
 
     /**
      * <p>
-     * The identifier for the source DB instance, which can't be changed and which is unique to an AWS Region.
+     * The identifier for the source DB instance, which can't be changed and which is unique to an Amazon Web Services
+     * Region.
      * </p>
      * 
      * @param dbiResourceId
-     *        The identifier for the source DB instance, which can't be changed and which is unique to an AWS Region.
+     *        The identifier for the source DB instance, which can't be changed and which is unique to an Amazon Web
+     *        Services Region.
      */
 
     public void setDbiResourceId(String dbiResourceId) {
@@ -50,10 +63,12 @@ public class DeleteDBInstanceAutomatedBackupRequest extends com.amazonaws.Amazon
 
     /**
      * <p>
-     * The identifier for the source DB instance, which can't be changed and which is unique to an AWS Region.
+     * The identifier for the source DB instance, which can't be changed and which is unique to an Amazon Web Services
+     * Region.
      * </p>
      * 
-     * @return The identifier for the source DB instance, which can't be changed and which is unique to an AWS Region.
+     * @return The identifier for the source DB instance, which can't be changed and which is unique to an Amazon Web
+     *         Services Region.
      */
 
     public String getDbiResourceId() {
@@ -62,16 +77,79 @@ public class DeleteDBInstanceAutomatedBackupRequest extends com.amazonaws.Amazon
 
     /**
      * <p>
-     * The identifier for the source DB instance, which can't be changed and which is unique to an AWS Region.
+     * The identifier for the source DB instance, which can't be changed and which is unique to an Amazon Web Services
+     * Region.
      * </p>
      * 
      * @param dbiResourceId
-     *        The identifier for the source DB instance, which can't be changed and which is unique to an AWS Region.
+     *        The identifier for the source DB instance, which can't be changed and which is unique to an Amazon Web
+     *        Services Region.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DeleteDBInstanceAutomatedBackupRequest withDbiResourceId(String dbiResourceId) {
         setDbiResourceId(dbiResourceId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the automated backups to delete, for example,
+     * <code>arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE</code>.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     * 
+     * @param dBInstanceAutomatedBackupsArn
+     *        The Amazon Resource Name (ARN) of the automated backups to delete, for example,
+     *        <code>arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE</code>.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
+     */
+
+    public void setDBInstanceAutomatedBackupsArn(String dBInstanceAutomatedBackupsArn) {
+        this.dBInstanceAutomatedBackupsArn = dBInstanceAutomatedBackupsArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the automated backups to delete, for example,
+     * <code>arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE</code>.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the automated backups to delete, for example,
+     *         <code>arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE</code>.</p>
+     *         <p>
+     *         This setting doesn't apply to RDS Custom.
+     */
+
+    public String getDBInstanceAutomatedBackupsArn() {
+        return this.dBInstanceAutomatedBackupsArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the automated backups to delete, for example,
+     * <code>arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE</code>.
+     * </p>
+     * <p>
+     * This setting doesn't apply to RDS Custom.
+     * </p>
+     * 
+     * @param dBInstanceAutomatedBackupsArn
+     *        The Amazon Resource Name (ARN) of the automated backups to delete, for example,
+     *        <code>arn:aws:rds:us-east-1:123456789012:auto-backup:ab-L2IJCEXJP7XQ7HOJ4SIEXAMPLE</code>.</p>
+     *        <p>
+     *        This setting doesn't apply to RDS Custom.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DeleteDBInstanceAutomatedBackupRequest withDBInstanceAutomatedBackupsArn(String dBInstanceAutomatedBackupsArn) {
+        setDBInstanceAutomatedBackupsArn(dBInstanceAutomatedBackupsArn);
         return this;
     }
 
@@ -88,7 +166,9 @@ public class DeleteDBInstanceAutomatedBackupRequest extends com.amazonaws.Amazon
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getDbiResourceId() != null)
-            sb.append("DbiResourceId: ").append(getDbiResourceId());
+            sb.append("DbiResourceId: ").append(getDbiResourceId()).append(",");
+        if (getDBInstanceAutomatedBackupsArn() != null)
+            sb.append("DBInstanceAutomatedBackupsArn: ").append(getDBInstanceAutomatedBackupsArn());
         sb.append("}");
         return sb.toString();
     }
@@ -107,6 +187,11 @@ public class DeleteDBInstanceAutomatedBackupRequest extends com.amazonaws.Amazon
             return false;
         if (other.getDbiResourceId() != null && other.getDbiResourceId().equals(this.getDbiResourceId()) == false)
             return false;
+        if (other.getDBInstanceAutomatedBackupsArn() == null ^ this.getDBInstanceAutomatedBackupsArn() == null)
+            return false;
+        if (other.getDBInstanceAutomatedBackupsArn() != null
+                && other.getDBInstanceAutomatedBackupsArn().equals(this.getDBInstanceAutomatedBackupsArn()) == false)
+            return false;
         return true;
     }
 
@@ -116,6 +201,7 @@ public class DeleteDBInstanceAutomatedBackupRequest extends com.amazonaws.Amazon
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getDbiResourceId() == null) ? 0 : getDbiResourceId().hashCode());
+        hashCode = prime * hashCode + ((getDBInstanceAutomatedBackupsArn() == null) ? 0 : getDBInstanceAutomatedBackupsArn().hashCode());
         return hashCode;
     }
 

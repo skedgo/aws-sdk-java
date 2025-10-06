@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,11 +28,21 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The DB cluster identifier for the cluster being modified. This parameter is not case-sensitive.
+     * The DB cluster identifier for the cluster being modified. This parameter isn't case-sensitive.
      * </p>
      * <p>
-     * Constraints: This identifier must match the identifier of an existing DB cluster.
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must match the identifier of an existing DB cluster.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String dBClusterIdentifier;
     /**
@@ -41,22 +51,25 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * string.
      * </p>
      * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
      * Constraints:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 letters, numbers, or hyphens
+     * Must contain from 1 to 63 letters, numbers, or hyphens.
      * </p>
      * </li>
      * <li>
      * <p>
-     * The first character must be a letter
+     * The first character must be a letter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Can't end with a hyphen or contain two consecutive hyphens
+     * Can't end with a hyphen or contain two consecutive hyphens.
      * </p>
      * </li>
      * </ul>
@@ -67,29 +80,32 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
     private String newDBClusterIdentifier;
     /**
      * <p>
-     * A value that indicates whether the modifications in this request and any pending modifications are asynchronously
-     * applied as soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB
-     * cluster. If this parameter is disabled, changes to the DB cluster are applied during the next maintenance window.
+     * Specifies whether the modifications in this request and any pending modifications are asynchronously applied as
+     * soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB cluster. If this
+     * parameter is disabled, changes to the DB cluster are applied during the next maintenance window.
      * </p>
      * <p>
-     * The <code>ApplyImmediately</code> parameter only affects the <code>EnableIAMDatabaseAuthentication</code>,
-     * <code>MasterUserPassword</code>, and <code>NewDBClusterIdentifier</code> values. If the
-     * <code>ApplyImmediately</code> parameter is disabled, then changes to the
-     * <code>EnableIAMDatabaseAuthentication</code>, <code>MasterUserPassword</code>, and
-     * <code>NewDBClusterIdentifier</code> values are applied during the next maintenance window. All other changes are
-     * applied immediately, regardless of the value of the <code>ApplyImmediately</code> parameter.
+     * Most modifications can be applied immediately or during the next scheduled maintenance window. Some
+     * modifications, such as turning on deletion protection and changing the master password, are applied
+     * immediately—regardless of when you choose to apply them.
      * </p>
      * <p>
      * By default, this parameter is disabled.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      */
     private Boolean applyImmediately;
     /**
      * <p>
-     * The number of days for which automated backups are retained. You must specify a minimum value of 1.
+     * The number of days for which automated backups are retained. Specify a minimum value of <code>1</code>.
      * </p>
      * <p>
-     * Default: 1
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
+     * Default: <code>1</code>
      * </p>
      * <p>
      * Constraints:
@@ -97,7 +113,7 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
-     * Must be a value from 1 to 35
+     * Must be a value from 1 to 35.
      * </p>
      * </li>
      * </ul>
@@ -107,11 +123,17 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <p>
      * The name of the DB cluster parameter group to use for the DB cluster.
      * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      */
     private String dBClusterParameterGroupName;
     /**
      * <p>
-     * A list of VPC security groups that the DB cluster will belong to.
+     * A list of EC2 VPC security groups to associate with this DB cluster.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> vpcSecurityGroupIds;
@@ -120,7 +142,10 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The port number on which the DB cluster accepts connections.
      * </p>
      * <p>
-     * Constraints: Value must be <code>1150-65535</code>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     * <p>
+     * Valid Values: <code>1150-65535</code>
      * </p>
      * <p>
      * Default: The same port as the original DB cluster.
@@ -129,25 +154,39 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
     private Integer port;
     /**
      * <p>
-     * The new password for the master database user. This password can contain any printable ASCII character except
-     * "/", """, or "@".
+     * The new password for the master database user.
      * </p>
      * <p>
-     * Constraints: Must contain from 8 to 41 characters.
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must contain from 8 to 41 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can contain any printable ASCII character except "/", """, or "@".
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be specified if <code>ManageMasterUserPassword</code> is turned on.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String masterUserPassword;
     /**
      * <p>
-     * A value that indicates that the DB cluster should be associated with the specified option group. Changing this
-     * parameter doesn't result in an outage except in the following case, and the change is applied during the next
-     * maintenance window unless the <code>ApplyImmediately</code> is enabled for this request. If the parameter change
-     * results in an option group that enables OEM, this change can cause a brief (sub-second) period during which new
-     * connections are rejected but existing connections are not interrupted.
+     * The option group to associate the DB cluster with.
      * </p>
      * <p>
-     * Permanent options can't be removed from an option group. The option group can't be removed from a DB cluster once
-     * it is associated with a DB cluster.
+     * DB clusters are associated with a default option group that can't be modified.
      * </p>
      */
     private String optionGroupName;
@@ -157,10 +196,13 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <code>BackupRetentionPeriod</code> parameter.
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To see the
-     * time blocks available, see <a href=
-     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
-     * > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services
+     * Region. To view the time blocks available, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.Backups.BackupWindow"
+     * > Backup window</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * <p>
      * Constraints:
@@ -194,35 +236,65 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC).
      * </p>
      * <p>
-     * Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring
-     * on a random day of the week. To see the time blocks available, see <a href=
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services
+     * Region, occurring on a random day of the week. To see the time blocks available, see <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
-     * > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
+     * > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <p>
-     * Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Constraints: Minimum 30-minute window.
+     * Must be in the format <code>ddd:hh24:mi-ddd:hh24:mi</code>.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Days must be one of <code>Mon | Tue | Wed | Thu | Fri | Sat | Sun</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be in Universal Coordinated Time (UTC).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be at least 30 minutes.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String preferredMaintenanceWindow;
     /**
      * <p>
-     * A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts. By default, mapping is disabled.
+     * Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     * database accounts. By default, mapping isn't enabled.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     * Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
      * </p>
      */
     private Boolean enableIAMDatabaseAuthentication;
     /**
      * <p>
-     * The target backtrack window, in seconds. To disable backtracking, set this value to 0.
+     * The target backtrack window, in seconds. To disable backtracking, set this value to <code>0</code>.
      * </p>
      * <p>
-     * Default: 0
+     * Valid for Cluster Type: Aurora MySQL DB clusters only
+     * </p>
+     * <p>
+     * Default: <code>0</code>
      * </p>
      * <p>
      * Constraints:
@@ -241,6 +313,44 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The configuration setting for the log types to be enabled for export to CloudWatch Logs for a specific DB
      * cluster.
      * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
+     * The following values are valid for each DB engine:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Aurora MySQL - <code>audit | error | general | slowquery</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Aurora PostgreSQL - <code>postgresql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MySQL - <code>error | general | slowquery</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for PostgreSQL - <code>postgresql | upgrade</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information about exporting CloudWatch Logs for Amazon RDS, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * > Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about exporting CloudWatch Logs for Amazon Aurora, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
      */
     private CloudwatchLogsExportConfiguration cloudwatchLogsExportConfiguration;
     /**
@@ -249,18 +359,56 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * outage. The change is applied during the next maintenance window unless <code>ApplyImmediately</code> is enabled.
      * </p>
      * <p>
-     * For a list of valid engine versions, use <a>DescribeDBEngineVersions</a>.
+     * If the cluster that you're modifying has one or more read replicas, all replicas must be running an engine
+     * version that's the same or later than the version you specify.
+     * </p>
+     * <p>
+     * To list all of the available engine versions for Aurora MySQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine aurora-mysql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for Aurora PostgreSQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine aurora-postgresql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for RDS for MySQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine mysql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for RDS for PostgreSQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine postgres --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      */
     private String engineVersion;
     /**
      * <p>
-     * A value that indicates whether major version upgrades are allowed.
+     * Specifies whether major version upgrades are allowed.
      * </p>
      * <p>
-     * Constraints: You must allow major version upgrades when specifying a value for the <code>EngineVersion</code>
-     * parameter that is a different major version than the DB cluster's current version.
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You must allow major version upgrades when specifying a value for the <code>EngineVersion</code> parameter that
+     * is a different major version than the DB cluster's current version.
+     * </p>
+     * </li>
+     * </ul>
      */
     private Boolean allowMajorVersionUpgrade;
     /**
@@ -270,10 +418,13 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <note>
      * <p>
      * When you apply a parameter group using the <code>DBInstanceParameterGroupName</code> parameter, the DB cluster
-     * isn't rebooted automatically. Also, parameter changes aren't applied during the next maintenance window but
-     * instead are applied immediately.
+     * isn't rebooted automatically. Also, parameter changes are applied immediately rather than during the next
+     * maintenance window.
      * </p>
      * </note>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
      * <p>
      * Default: The existing name setting
      * </p>
@@ -288,8 +439,8 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * The <code>DBInstanceParameterGroupName</code> parameter is only valid in combination with the
-     * <code>AllowMajorVersionUpgrade</code> parameter.
+     * The <code>DBInstanceParameterGroupName</code> parameter is valid in combination with the
+     * <code>AllowMajorVersionUpgrade</code> parameter for a major version upgrade only.
      * </p>
      * </li>
      * </ul>
@@ -297,54 +448,552 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
     private String dBInstanceParameterGroupName;
     /**
      * <p>
+     * The Active Directory directory ID to move the DB cluster to. Specify <code>none</code> to remove the cluster from
+     * its current domain. The domain must be created prior to this operation.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/kerberos-authentication.html">Kerberos
+     * Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     */
+    private String domain;
+    /**
+     * <p>
+     * The name of the IAM role to use when making API calls to the Directory Service.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     */
+    private String domainIAMRoleName;
+    /**
+     * <p>
      * The scaling properties of the DB cluster. You can only modify scaling properties for DB clusters in
      * <code>serverless</code> DB engine mode.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
      * </p>
      */
     private ScalingConfiguration scalingConfiguration;
     /**
      * <p>
-     * A value that indicates whether the DB cluster has deletion protection enabled. The database can't be deleted when
-     * deletion protection is enabled. By default, deletion protection is disabled.
+     * Specifies whether the DB cluster has deletion protection enabled. The database can't be deleted when deletion
+     * protection is enabled. By default, deletion protection isn't enabled.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      */
     private Boolean deletionProtection;
     /**
      * <p>
-     * A value that indicates whether to enable the HTTP endpoint for an Aurora Serverless DB cluster. By default, the
-     * HTTP endpoint is disabled.
+     * Specifies whether to enable the HTTP endpoint for an Aurora Serverless v1 DB cluster. By default, the HTTP
+     * endpoint isn't enabled.
      * </p>
      * <p>
-     * When enabled, the HTTP endpoint provides a connectionless web service API for running SQL queries on the Aurora
-     * Serverless DB cluster. You can also query your database from inside the RDS console with the query editor.
+     * When enabled, the HTTP endpoint provides a connectionless web service API (RDS Data API) for running SQL queries
+     * on the Aurora Serverless v1 DB cluster. You can also query your database from inside the RDS console with the RDS
+     * query editor.
      * </p>
      * <p>
      * For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using the Data API for Aurora
-     * Serverless</a> in the <i>Amazon Aurora User Guide</i>.
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using RDS Data API</a> in the
+     * <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter applies only to Aurora Serverless v1 DB clusters. To enable or disable the HTTP endpoint for an
+     * Aurora PostgreSQL Serverless v2 or provisioned DB cluster, use the <code>EnableHttpEndpoint</code> and
+     * <code>DisableHttpEndpoint</code> operations.
+     * </p>
+     * </note>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
      * </p>
      */
     private Boolean enableHttpEndpoint;
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the DB cluster to snapshots of the DB cluster. The default
-     * is not to copy them.
+     * Specifies whether to copy all tags from the DB cluster to snapshots of the DB cluster. The default is not to copy
+     * them.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      */
     private Boolean copyTagsToSnapshot;
+    /**
+     * <p>
+     * Specifies whether to enable this DB cluster to forward write operations to the primary cluster of a global
+     * cluster (Aurora global database). By default, write operations are not allowed on Aurora DB clusters that are
+     * secondary clusters in an Aurora global database.
+     * </p>
+     * <p>
+     * You can set this value only on Aurora DB clusters that are members of an Aurora global database. With this
+     * parameter enabled, a secondary cluster can forward writes to the current primary cluster, and the resulting
+     * changes are replicated back to this cluster. For the primary DB cluster of an Aurora global database, this value
+     * is used immediately if the primary is demoted by a global cluster API operation, but it does nothing until then.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     */
+    private Boolean enableGlobalWriteForwarding;
+    /**
+     * <p>
+     * The compute and memory capacity of each DB instance in the Multi-AZ DB cluster, for example
+     * <code>db.m6gd.xlarge</code>. Not all DB instance classes are available in all Amazon Web Services Regions, or for
+     * all database engines.
+     * </p>
+     * <p>
+     * For the full list of DB instance classes and availability for your engine, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html"> DB Instance
+     * Class</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     */
+    private String dBClusterInstanceClass;
+    /**
+     * <p>
+     * The amount of storage in gibibytes (GiB) to allocate to each DB instance in the Multi-AZ DB cluster.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     */
+    private Integer allocatedStorage;
+    /**
+     * <p>
+     * The storage type to associate with the DB cluster.
+     * </p>
+     * <p>
+     * For information on storage types for Aurora DB clusters, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Overview.StorageReliability.html#aurora-storage-type"
+     * >Storage configurations for Amazon Aurora DB clusters</a>. For information on storage types for Multi-AZ DB
+     * clusters, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/create-multi-az-db-cluster.html#create-multi-az-db-cluster-settings"
+     * >Settings for creating Multi-AZ DB clusters</a>.
+     * </p>
+     * <p>
+     * When specified for a Multi-AZ DB cluster, a value for the <code>Iops</code> parameter is required.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Aurora DB clusters - <code>aurora | aurora-iopt1</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Multi-AZ DB clusters - <code>io1 | io2 | gp3</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Aurora DB clusters - <code>aurora</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Multi-AZ DB clusters - <code>io1</code>
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String storageType;
+    /**
+     * <p>
+     * The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for each DB
+     * instance in the Multi-AZ DB cluster.
+     * </p>
+     * <p>
+     * For information about valid IOPS values, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS">Amazon RDS Provisioned
+     * IOPS storage</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must be a multiple between .5 and 50 of the storage amount for the DB cluster.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private Integer iops;
+    /**
+     * <p>
+     * Specifies whether minor engine upgrades are applied automatically to the DB cluster during the maintenance
+     * window. By default, minor engine upgrades are applied automatically.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     */
+    private Boolean autoMinorVersionUpgrade;
+    /**
+     * <p>
+     * The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB cluster. To
+     * turn off collecting Enhanced Monitoring metrics, specify <code>0</code>.
+     * </p>
+     * <p>
+     * If <code>MonitoringRoleArn</code> is specified, also set <code>MonitoringInterval</code> to a value other than
+     * <code>0</code>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * <p>
+     * Valid Values: <code>0 | 1 | 5 | 10 | 15 | 30 | 60</code>
+     * </p>
+     * <p>
+     * Default: <code>0</code>
+     * </p>
+     */
+    private Integer monitoringInterval;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the IAM role that permits RDS to send Enhanced Monitoring metrics to Amazon
+     * CloudWatch Logs. An example is <code>arn:aws:iam:123456789012:role/emaccess</code>. For information on creating a
+     * monitoring role, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole">To
+     * create an IAM role for Amazon RDS Enhanced Monitoring</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * If <code>MonitoringInterval</code> is set to a value other than <code>0</code>, supply a
+     * <code>MonitoringRoleArn</code> value.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     */
+    private String monitoringRoleArn;
+    /**
+     * <p>
+     * Specifies whether to turn on Performance Insights for the DB cluster.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html"> Using Amazon Performance
+     * Insights</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     */
+    private Boolean enablePerformanceInsights;
+    /**
+     * <p>
+     * The Amazon Web Services KMS key identifier for encryption of Performance Insights data.
+     * </p>
+     * <p>
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
+     * </p>
+     * <p>
+     * If you don't specify a value for <code>PerformanceInsightsKMSKeyId</code>, then Amazon RDS uses your default KMS
+     * key. There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a
+     * different default KMS key for each Amazon Web Services Region.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     */
+    private String performanceInsightsKMSKeyId;
+    /**
+     * <p>
+     * The number of days to retain Performance Insights data.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>7</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>month</i> * 31, where <i>month</i> is a number of months from 1-23. Examples: <code>93</code> (3 months * 31),
+     * <code>341</code> (11 months * 31), <code>589</code> (19 months * 31)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>731</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default: <code>7</code> days
+     * </p>
+     * <p>
+     * If you specify a retention period that isn't valid, such as <code>94</code>, Amazon RDS issues an error.
+     * </p>
+     */
+    private Integer performanceInsightsRetentionPeriod;
+
+    private ServerlessV2ScalingConfiguration serverlessV2ScalingConfiguration;
+    /**
+     * <p>
+     * The network type of the DB cluster.
+     * </p>
+     * <p>
+     * The network type is determined by the <code>DBSubnetGroup</code> specified for the DB cluster. A
+     * <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     * <code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     * Working with a DB instance in a VPC</a> in the <i>Amazon Aurora User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     * <p>
+     * Valid Values: <code>IPV4 | DUAL</code>
+     * </p>
+     */
+    private String networkType;
+    /**
+     * <p>
+     * Specifies whether to manage the master user password with Amazon Web Services Secrets Manager.
+     * </p>
+     * <p>
+     * If the DB cluster doesn't manage the master user password with Amazon Web Services Secrets Manager, you can turn
+     * on this management. In this case, you can't specify <code>MasterUserPassword</code>.
+     * </p>
+     * <p>
+     * If the DB cluster already manages the master user password with Amazon Web Services Secrets Manager, and you
+     * specify that the master user password is not managed with Amazon Web Services Secrets Manager, then you must
+     * specify <code>MasterUserPassword</code>. In this case, RDS deletes the secret and uses the new password for the
+     * master user specified by <code>MasterUserPassword</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management with
+     * Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/rds-secrets-manager.html">Password management
+     * with Amazon Web Services Secrets Manager</a> in the <i>Amazon Aurora User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     */
+    private Boolean manageMasterUserPassword;
+    /**
+     * <p>
+     * Specifies whether to rotate the secret managed by Amazon Web Services Secrets Manager for the master user
+     * password.
+     * </p>
+     * <p>
+     * This setting is valid only if the master user password is managed by RDS in Amazon Web Services Secrets Manager
+     * for the DB cluster. The secret value contains the updated password.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management with
+     * Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/rds-secrets-manager.html">Password management
+     * with Amazon Web Services Secrets Manager</a> in the <i>Amazon Aurora User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You must apply the change immediately when rotating the master user password.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private Boolean rotateMasterUserPassword;
+    /**
+     * <p>
+     * The Amazon Web Services KMS key identifier to encrypt a secret that is automatically generated and managed in
+     * Amazon Web Services Secrets Manager.
+     * </p>
+     * <p>
+     * This setting is valid only if both of the following conditions are met:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The DB cluster doesn't manage the master user password in Amazon Web Services Secrets Manager.
+     * </p>
+     * <p>
+     * If the DB cluster already manages the master user password in Amazon Web Services Secrets Manager, you can't
+     * change the KMS key that is used to encrypt the secret.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You are turning on <code>ManageMasterUserPassword</code> to manage the master user password in Amazon Web
+     * Services Secrets Manager.
+     * </p>
+     * <p>
+     * If you are turning on <code>ManageMasterUserPassword</code> and don't specify
+     * <code>MasterUserSecretKmsKeyId</code>, then the <code>aws/secretsmanager</code> KMS key is used to encrypt the
+     * secret. If the secret is in a different Amazon Web Services account, then you can't use the
+     * <code>aws/secretsmanager</code> KMS key to encrypt the secret, and you must use a customer managed KMS key.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key. To
+     * use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
+     * </p>
+     * <p>
+     * There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a different
+     * default KMS key for each Amazon Web Services Region.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     */
+    private String masterUserSecretKmsKeyId;
+    /**
+     * <p>
+     * The DB engine mode of the DB cluster, either <code>provisioned</code> or <code>serverless</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The DB engine mode can be modified only from <code>serverless</code> to <code>provisioned</code>.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBCluster.html"> CreateDBCluster</a>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     */
+    private String engineMode;
+    /**
+     * <p>
+     * Specifies whether engine mode changes from <code>serverless</code> to <code>provisioned</code> are allowed.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora Serverless v1 DB clusters only
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You must allow engine mode changes when specifying a different value for the <code>EngineMode</code> parameter
+     * from the DB cluster's current engine mode.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private Boolean allowEngineModeChange;
+    /**
+     * <p>
+     * Specifies whether read replicas can forward write operations to the writer DB instance in the DB cluster. By
+     * default, write operations aren't allowed on reader DB instances.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     */
+    private Boolean enableLocalWriteForwarding;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the recovery point in Amazon Web Services Backup.
+     * </p>
+     */
+    private String awsBackupRecoveryPointArn;
+    /**
+     * <p>
+     * Specifies whether to enable Aurora Limitless Database. You must enable Aurora Limitless Database to create a DB
+     * shard group.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     */
+    private Boolean enableLimitlessDatabase;
+    /**
+     * <p>
+     * The CA certificate identifier to use for the DB cluster's server certificate.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a
+     * connection to a DB instance</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters
+     * </p>
+     */
+    private String cACertificateIdentifier;
 
     /**
      * <p>
-     * The DB cluster identifier for the cluster being modified. This parameter is not case-sensitive.
+     * The DB cluster identifier for the cluster being modified. This parameter isn't case-sensitive.
      * </p>
      * <p>
-     * Constraints: This identifier must match the identifier of an existing DB cluster.
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must match the identifier of an existing DB cluster.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param dBClusterIdentifier
-     *        The DB cluster identifier for the cluster being modified. This parameter is not case-sensitive.</p>
+     *        The DB cluster identifier for the cluster being modified. This parameter isn't case-sensitive.</p>
      *        <p>
-     *        Constraints: This identifier must match the identifier of an existing DB cluster.
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Must match the identifier of an existing DB cluster.
+     *        </p>
+     *        </li>
      */
 
     public void setDBClusterIdentifier(String dBClusterIdentifier) {
@@ -353,15 +1002,35 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The DB cluster identifier for the cluster being modified. This parameter is not case-sensitive.
+     * The DB cluster identifier for the cluster being modified. This parameter isn't case-sensitive.
      * </p>
      * <p>
-     * Constraints: This identifier must match the identifier of an existing DB cluster.
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must match the identifier of an existing DB cluster.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The DB cluster identifier for the cluster being modified. This parameter is not case-sensitive.</p>
+     * @return The DB cluster identifier for the cluster being modified. This parameter isn't case-sensitive.</p>
      *         <p>
-     *         Constraints: This identifier must match the identifier of an existing DB cluster.
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *         </p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Must match the identifier of an existing DB cluster.
+     *         </p>
+     *         </li>
      */
 
     public String getDBClusterIdentifier() {
@@ -370,16 +1039,36 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The DB cluster identifier for the cluster being modified. This parameter is not case-sensitive.
+     * The DB cluster identifier for the cluster being modified. This parameter isn't case-sensitive.
      * </p>
      * <p>
-     * Constraints: This identifier must match the identifier of an existing DB cluster.
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must match the identifier of an existing DB cluster.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param dBClusterIdentifier
-     *        The DB cluster identifier for the cluster being modified. This parameter is not case-sensitive.</p>
+     *        The DB cluster identifier for the cluster being modified. This parameter isn't case-sensitive.</p>
      *        <p>
-     *        Constraints: This identifier must match the identifier of an existing DB cluster.
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Must match the identifier of an existing DB cluster.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -394,22 +1083,25 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * string.
      * </p>
      * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
      * Constraints:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 letters, numbers, or hyphens
+     * Must contain from 1 to 63 letters, numbers, or hyphens.
      * </p>
      * </li>
      * <li>
      * <p>
-     * The first character must be a letter
+     * The first character must be a letter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Can't end with a hyphen or contain two consecutive hyphens
+     * Can't end with a hyphen or contain two consecutive hyphens.
      * </p>
      * </li>
      * </ul>
@@ -421,22 +1113,25 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        The new DB cluster identifier for the DB cluster when renaming a DB cluster. This value is stored as a
      *        lowercase string.</p>
      *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *        </p>
+     *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 63 letters, numbers, or hyphens
+     *        Must contain from 1 to 63 letters, numbers, or hyphens.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The first character must be a letter
+     *        The first character must be a letter.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Can't end with a hyphen or contain two consecutive hyphens
+     *        Can't end with a hyphen or contain two consecutive hyphens.
      *        </p>
      *        </li>
      *        </ul>
@@ -454,22 +1149,25 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * string.
      * </p>
      * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
      * Constraints:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 letters, numbers, or hyphens
+     * Must contain from 1 to 63 letters, numbers, or hyphens.
      * </p>
      * </li>
      * <li>
      * <p>
-     * The first character must be a letter
+     * The first character must be a letter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Can't end with a hyphen or contain two consecutive hyphens
+     * Can't end with a hyphen or contain two consecutive hyphens.
      * </p>
      * </li>
      * </ul>
@@ -480,22 +1178,25 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * @return The new DB cluster identifier for the DB cluster when renaming a DB cluster. This value is stored as a
      *         lowercase string.</p>
      *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *         </p>
+     *         <p>
      *         Constraints:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         Must contain from 1 to 63 letters, numbers, or hyphens
+     *         Must contain from 1 to 63 letters, numbers, or hyphens.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         The first character must be a letter
+     *         The first character must be a letter.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Can't end with a hyphen or contain two consecutive hyphens
+     *         Can't end with a hyphen or contain two consecutive hyphens.
      *         </p>
      *         </li>
      *         </ul>
@@ -513,22 +1214,25 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * string.
      * </p>
      * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
      * Constraints:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 letters, numbers, or hyphens
+     * Must contain from 1 to 63 letters, numbers, or hyphens.
      * </p>
      * </li>
      * <li>
      * <p>
-     * The first character must be a letter
+     * The first character must be a letter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Can't end with a hyphen or contain two consecutive hyphens
+     * Can't end with a hyphen or contain two consecutive hyphens.
      * </p>
      * </li>
      * </ul>
@@ -540,22 +1244,25 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        The new DB cluster identifier for the DB cluster when renaming a DB cluster. This value is stored as a
      *        lowercase string.</p>
      *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *        </p>
+     *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 63 letters, numbers, or hyphens
+     *        Must contain from 1 to 63 letters, numbers, or hyphens.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The first character must be a letter
+     *        The first character must be a letter.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Can't end with a hyphen or contain two consecutive hyphens
+     *        Can't end with a hyphen or contain two consecutive hyphens.
      *        </p>
      *        </li>
      *        </ul>
@@ -571,37 +1278,37 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether the modifications in this request and any pending modifications are asynchronously
-     * applied as soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB
-     * cluster. If this parameter is disabled, changes to the DB cluster are applied during the next maintenance window.
+     * Specifies whether the modifications in this request and any pending modifications are asynchronously applied as
+     * soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB cluster. If this
+     * parameter is disabled, changes to the DB cluster are applied during the next maintenance window.
      * </p>
      * <p>
-     * The <code>ApplyImmediately</code> parameter only affects the <code>EnableIAMDatabaseAuthentication</code>,
-     * <code>MasterUserPassword</code>, and <code>NewDBClusterIdentifier</code> values. If the
-     * <code>ApplyImmediately</code> parameter is disabled, then changes to the
-     * <code>EnableIAMDatabaseAuthentication</code>, <code>MasterUserPassword</code>, and
-     * <code>NewDBClusterIdentifier</code> values are applied during the next maintenance window. All other changes are
-     * applied immediately, regardless of the value of the <code>ApplyImmediately</code> parameter.
+     * Most modifications can be applied immediately or during the next scheduled maintenance window. Some
+     * modifications, such as turning on deletion protection and changing the master password, are applied
+     * immediately—regardless of when you choose to apply them.
      * </p>
      * <p>
      * By default, this parameter is disabled.
      * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @param applyImmediately
-     *        A value that indicates whether the modifications in this request and any pending modifications are
-     *        asynchronously applied as soon as possible, regardless of the <code>PreferredMaintenanceWindow</code>
-     *        setting for the DB cluster. If this parameter is disabled, changes to the DB cluster are applied during
-     *        the next maintenance window.</p>
+     *        Specifies whether the modifications in this request and any pending modifications are asynchronously
+     *        applied as soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB
+     *        cluster. If this parameter is disabled, changes to the DB cluster are applied during the next maintenance
+     *        window.</p>
      *        <p>
-     *        The <code>ApplyImmediately</code> parameter only affects the <code>EnableIAMDatabaseAuthentication</code>,
-     *        <code>MasterUserPassword</code>, and <code>NewDBClusterIdentifier</code> values. If the
-     *        <code>ApplyImmediately</code> parameter is disabled, then changes to the
-     *        <code>EnableIAMDatabaseAuthentication</code>, <code>MasterUserPassword</code>, and
-     *        <code>NewDBClusterIdentifier</code> values are applied during the next maintenance window. All other
-     *        changes are applied immediately, regardless of the value of the <code>ApplyImmediately</code> parameter.
+     *        Most modifications can be applied immediately or during the next scheduled maintenance window. Some
+     *        modifications, such as turning on deletion protection and changing the master password, are applied
+     *        immediately—regardless of when you choose to apply them.
      *        </p>
      *        <p>
      *        By default, this parameter is disabled.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public void setApplyImmediately(Boolean applyImmediately) {
@@ -610,35 +1317,36 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether the modifications in this request and any pending modifications are asynchronously
-     * applied as soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB
-     * cluster. If this parameter is disabled, changes to the DB cluster are applied during the next maintenance window.
+     * Specifies whether the modifications in this request and any pending modifications are asynchronously applied as
+     * soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB cluster. If this
+     * parameter is disabled, changes to the DB cluster are applied during the next maintenance window.
      * </p>
      * <p>
-     * The <code>ApplyImmediately</code> parameter only affects the <code>EnableIAMDatabaseAuthentication</code>,
-     * <code>MasterUserPassword</code>, and <code>NewDBClusterIdentifier</code> values. If the
-     * <code>ApplyImmediately</code> parameter is disabled, then changes to the
-     * <code>EnableIAMDatabaseAuthentication</code>, <code>MasterUserPassword</code>, and
-     * <code>NewDBClusterIdentifier</code> values are applied during the next maintenance window. All other changes are
-     * applied immediately, regardless of the value of the <code>ApplyImmediately</code> parameter.
+     * Most modifications can be applied immediately or during the next scheduled maintenance window. Some
+     * modifications, such as turning on deletion protection and changing the master password, are applied
+     * immediately—regardless of when you choose to apply them.
      * </p>
      * <p>
      * By default, this parameter is disabled.
      * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
-     * @return A value that indicates whether the modifications in this request and any pending modifications are
-     *         asynchronously applied as soon as possible, regardless of the <code>PreferredMaintenanceWindow</code>
-     *         setting for the DB cluster. If this parameter is disabled, changes to the DB cluster are applied during
-     *         the next maintenance window.</p>
+     * @return Specifies whether the modifications in this request and any pending modifications are asynchronously
+     *         applied as soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB
+     *         cluster. If this parameter is disabled, changes to the DB cluster are applied during the next maintenance
+     *         window.</p>
      *         <p>
-     *         The <code>ApplyImmediately</code> parameter only affects the <code>EnableIAMDatabaseAuthentication</code>, <code>MasterUserPassword</code>, and <code>NewDBClusterIdentifier</code> values. If the
-     *         <code>ApplyImmediately</code> parameter is disabled, then changes to the
-     *         <code>EnableIAMDatabaseAuthentication</code>, <code>MasterUserPassword</code>, and
-     *         <code>NewDBClusterIdentifier</code> values are applied during the next maintenance window. All other
-     *         changes are applied immediately, regardless of the value of the <code>ApplyImmediately</code> parameter.
+     *         Most modifications can be applied immediately or during the next scheduled maintenance window. Some
+     *         modifications, such as turning on deletion protection and changing the master password, are applied
+     *         immediately—regardless of when you choose to apply them.
      *         </p>
      *         <p>
      *         By default, this parameter is disabled.
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public Boolean getApplyImmediately() {
@@ -647,37 +1355,37 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether the modifications in this request and any pending modifications are asynchronously
-     * applied as soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB
-     * cluster. If this parameter is disabled, changes to the DB cluster are applied during the next maintenance window.
+     * Specifies whether the modifications in this request and any pending modifications are asynchronously applied as
+     * soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB cluster. If this
+     * parameter is disabled, changes to the DB cluster are applied during the next maintenance window.
      * </p>
      * <p>
-     * The <code>ApplyImmediately</code> parameter only affects the <code>EnableIAMDatabaseAuthentication</code>,
-     * <code>MasterUserPassword</code>, and <code>NewDBClusterIdentifier</code> values. If the
-     * <code>ApplyImmediately</code> parameter is disabled, then changes to the
-     * <code>EnableIAMDatabaseAuthentication</code>, <code>MasterUserPassword</code>, and
-     * <code>NewDBClusterIdentifier</code> values are applied during the next maintenance window. All other changes are
-     * applied immediately, regardless of the value of the <code>ApplyImmediately</code> parameter.
+     * Most modifications can be applied immediately or during the next scheduled maintenance window. Some
+     * modifications, such as turning on deletion protection and changing the master password, are applied
+     * immediately—regardless of when you choose to apply them.
      * </p>
      * <p>
      * By default, this parameter is disabled.
      * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @param applyImmediately
-     *        A value that indicates whether the modifications in this request and any pending modifications are
-     *        asynchronously applied as soon as possible, regardless of the <code>PreferredMaintenanceWindow</code>
-     *        setting for the DB cluster. If this parameter is disabled, changes to the DB cluster are applied during
-     *        the next maintenance window.</p>
+     *        Specifies whether the modifications in this request and any pending modifications are asynchronously
+     *        applied as soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB
+     *        cluster. If this parameter is disabled, changes to the DB cluster are applied during the next maintenance
+     *        window.</p>
      *        <p>
-     *        The <code>ApplyImmediately</code> parameter only affects the <code>EnableIAMDatabaseAuthentication</code>,
-     *        <code>MasterUserPassword</code>, and <code>NewDBClusterIdentifier</code> values. If the
-     *        <code>ApplyImmediately</code> parameter is disabled, then changes to the
-     *        <code>EnableIAMDatabaseAuthentication</code>, <code>MasterUserPassword</code>, and
-     *        <code>NewDBClusterIdentifier</code> values are applied during the next maintenance window. All other
-     *        changes are applied immediately, regardless of the value of the <code>ApplyImmediately</code> parameter.
+     *        Most modifications can be applied immediately or during the next scheduled maintenance window. Some
+     *        modifications, such as turning on deletion protection and changing the master password, are applied
+     *        immediately—regardless of when you choose to apply them.
      *        </p>
      *        <p>
      *        By default, this parameter is disabled.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -688,35 +1396,36 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether the modifications in this request and any pending modifications are asynchronously
-     * applied as soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB
-     * cluster. If this parameter is disabled, changes to the DB cluster are applied during the next maintenance window.
+     * Specifies whether the modifications in this request and any pending modifications are asynchronously applied as
+     * soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB cluster. If this
+     * parameter is disabled, changes to the DB cluster are applied during the next maintenance window.
      * </p>
      * <p>
-     * The <code>ApplyImmediately</code> parameter only affects the <code>EnableIAMDatabaseAuthentication</code>,
-     * <code>MasterUserPassword</code>, and <code>NewDBClusterIdentifier</code> values. If the
-     * <code>ApplyImmediately</code> parameter is disabled, then changes to the
-     * <code>EnableIAMDatabaseAuthentication</code>, <code>MasterUserPassword</code>, and
-     * <code>NewDBClusterIdentifier</code> values are applied during the next maintenance window. All other changes are
-     * applied immediately, regardless of the value of the <code>ApplyImmediately</code> parameter.
+     * Most modifications can be applied immediately or during the next scheduled maintenance window. Some
+     * modifications, such as turning on deletion protection and changing the master password, are applied
+     * immediately—regardless of when you choose to apply them.
      * </p>
      * <p>
      * By default, this parameter is disabled.
      * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
-     * @return A value that indicates whether the modifications in this request and any pending modifications are
-     *         asynchronously applied as soon as possible, regardless of the <code>PreferredMaintenanceWindow</code>
-     *         setting for the DB cluster. If this parameter is disabled, changes to the DB cluster are applied during
-     *         the next maintenance window.</p>
+     * @return Specifies whether the modifications in this request and any pending modifications are asynchronously
+     *         applied as soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB
+     *         cluster. If this parameter is disabled, changes to the DB cluster are applied during the next maintenance
+     *         window.</p>
      *         <p>
-     *         The <code>ApplyImmediately</code> parameter only affects the <code>EnableIAMDatabaseAuthentication</code>, <code>MasterUserPassword</code>, and <code>NewDBClusterIdentifier</code> values. If the
-     *         <code>ApplyImmediately</code> parameter is disabled, then changes to the
-     *         <code>EnableIAMDatabaseAuthentication</code>, <code>MasterUserPassword</code>, and
-     *         <code>NewDBClusterIdentifier</code> values are applied during the next maintenance window. All other
-     *         changes are applied immediately, regardless of the value of the <code>ApplyImmediately</code> parameter.
+     *         Most modifications can be applied immediately or during the next scheduled maintenance window. Some
+     *         modifications, such as turning on deletion protection and changing the master password, are applied
+     *         immediately—regardless of when you choose to apply them.
      *         </p>
      *         <p>
      *         By default, this parameter is disabled.
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public Boolean isApplyImmediately() {
@@ -725,10 +1434,13 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The number of days for which automated backups are retained. You must specify a minimum value of 1.
+     * The number of days for which automated backups are retained. Specify a minimum value of <code>1</code>.
      * </p>
      * <p>
-     * Default: 1
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
+     * Default: <code>1</code>
      * </p>
      * <p>
      * Constraints:
@@ -736,15 +1448,19 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
-     * Must be a value from 1 to 35
+     * Must be a value from 1 to 35.
      * </p>
      * </li>
      * </ul>
      * 
      * @param backupRetentionPeriod
-     *        The number of days for which automated backups are retained. You must specify a minimum value of 1.</p>
+     *        The number of days for which automated backups are retained. Specify a minimum value of <code>1</code>
+     *        .</p>
      *        <p>
-     *        Default: 1
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *        </p>
+     *        <p>
+     *        Default: <code>1</code>
      *        </p>
      *        <p>
      *        Constraints:
@@ -752,7 +1468,7 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        <ul>
      *        <li>
      *        <p>
-     *        Must be a value from 1 to 35
+     *        Must be a value from 1 to 35.
      *        </p>
      *        </li>
      */
@@ -763,10 +1479,13 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The number of days for which automated backups are retained. You must specify a minimum value of 1.
+     * The number of days for which automated backups are retained. Specify a minimum value of <code>1</code>.
      * </p>
      * <p>
-     * Default: 1
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
+     * Default: <code>1</code>
      * </p>
      * <p>
      * Constraints:
@@ -774,14 +1493,18 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
-     * Must be a value from 1 to 35
+     * Must be a value from 1 to 35.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return The number of days for which automated backups are retained. You must specify a minimum value of 1.</p>
+     * @return The number of days for which automated backups are retained. Specify a minimum value of <code>1</code>
+     *         .</p>
      *         <p>
-     *         Default: 1
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *         </p>
+     *         <p>
+     *         Default: <code>1</code>
      *         </p>
      *         <p>
      *         Constraints:
@@ -789,7 +1512,7 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *         <ul>
      *         <li>
      *         <p>
-     *         Must be a value from 1 to 35
+     *         Must be a value from 1 to 35.
      *         </p>
      *         </li>
      */
@@ -800,10 +1523,13 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The number of days for which automated backups are retained. You must specify a minimum value of 1.
+     * The number of days for which automated backups are retained. Specify a minimum value of <code>1</code>.
      * </p>
      * <p>
-     * Default: 1
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
+     * Default: <code>1</code>
      * </p>
      * <p>
      * Constraints:
@@ -811,15 +1537,19 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
-     * Must be a value from 1 to 35
+     * Must be a value from 1 to 35.
      * </p>
      * </li>
      * </ul>
      * 
      * @param backupRetentionPeriod
-     *        The number of days for which automated backups are retained. You must specify a minimum value of 1.</p>
+     *        The number of days for which automated backups are retained. Specify a minimum value of <code>1</code>
+     *        .</p>
      *        <p>
-     *        Default: 1
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *        </p>
+     *        <p>
+     *        Default: <code>1</code>
      *        </p>
      *        <p>
      *        Constraints:
@@ -827,7 +1557,7 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        <ul>
      *        <li>
      *        <p>
-     *        Must be a value from 1 to 35
+     *        Must be a value from 1 to 35.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -842,9 +1572,14 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <p>
      * The name of the DB cluster parameter group to use for the DB cluster.
      * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @param dBClusterParameterGroupName
-     *        The name of the DB cluster parameter group to use for the DB cluster.
+     *        The name of the DB cluster parameter group to use for the DB cluster.</p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public void setDBClusterParameterGroupName(String dBClusterParameterGroupName) {
@@ -855,8 +1590,13 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <p>
      * The name of the DB cluster parameter group to use for the DB cluster.
      * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
-     * @return The name of the DB cluster parameter group to use for the DB cluster.
+     * @return The name of the DB cluster parameter group to use for the DB cluster.</p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public String getDBClusterParameterGroupName() {
@@ -867,9 +1607,14 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <p>
      * The name of the DB cluster parameter group to use for the DB cluster.
      * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @param dBClusterParameterGroupName
-     *        The name of the DB cluster parameter group to use for the DB cluster.
+     *        The name of the DB cluster parameter group to use for the DB cluster.</p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -880,10 +1625,15 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A list of VPC security groups that the DB cluster will belong to.
+     * A list of EC2 VPC security groups to associate with this DB cluster.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
-     * @return A list of VPC security groups that the DB cluster will belong to.
+     * @return A list of EC2 VPC security groups to associate with this DB cluster.</p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public java.util.List<String> getVpcSecurityGroupIds() {
@@ -895,11 +1645,16 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A list of VPC security groups that the DB cluster will belong to.
+     * A list of EC2 VPC security groups to associate with this DB cluster.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
      * @param vpcSecurityGroupIds
-     *        A list of VPC security groups that the DB cluster will belong to.
+     *        A list of EC2 VPC security groups to associate with this DB cluster.</p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public void setVpcSecurityGroupIds(java.util.Collection<String> vpcSecurityGroupIds) {
@@ -913,7 +1668,10 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A list of VPC security groups that the DB cluster will belong to.
+     * A list of EC2 VPC security groups to associate with this DB cluster.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -922,7 +1680,9 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * </p>
      * 
      * @param vpcSecurityGroupIds
-     *        A list of VPC security groups that the DB cluster will belong to.
+     *        A list of EC2 VPC security groups to associate with this DB cluster.</p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -938,11 +1698,16 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A list of VPC security groups that the DB cluster will belong to.
+     * A list of EC2 VPC security groups to associate with this DB cluster.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
      * @param vpcSecurityGroupIds
-     *        A list of VPC security groups that the DB cluster will belong to.
+     *        A list of EC2 VPC security groups to associate with this DB cluster.</p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -956,7 +1721,10 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The port number on which the DB cluster accepts connections.
      * </p>
      * <p>
-     * Constraints: Value must be <code>1150-65535</code>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     * <p>
+     * Valid Values: <code>1150-65535</code>
      * </p>
      * <p>
      * Default: The same port as the original DB cluster.
@@ -965,7 +1733,10 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * @param port
      *        The port number on which the DB cluster accepts connections.</p>
      *        <p>
-     *        Constraints: Value must be <code>1150-65535</code>
+     *        Valid for Cluster Type: Aurora DB clusters only
+     *        </p>
+     *        <p>
+     *        Valid Values: <code>1150-65535</code>
      *        </p>
      *        <p>
      *        Default: The same port as the original DB cluster.
@@ -980,7 +1751,10 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The port number on which the DB cluster accepts connections.
      * </p>
      * <p>
-     * Constraints: Value must be <code>1150-65535</code>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     * <p>
+     * Valid Values: <code>1150-65535</code>
      * </p>
      * <p>
      * Default: The same port as the original DB cluster.
@@ -988,7 +1762,10 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * 
      * @return The port number on which the DB cluster accepts connections.</p>
      *         <p>
-     *         Constraints: Value must be <code>1150-65535</code>
+     *         Valid for Cluster Type: Aurora DB clusters only
+     *         </p>
+     *         <p>
+     *         Valid Values: <code>1150-65535</code>
      *         </p>
      *         <p>
      *         Default: The same port as the original DB cluster.
@@ -1003,7 +1780,10 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The port number on which the DB cluster accepts connections.
      * </p>
      * <p>
-     * Constraints: Value must be <code>1150-65535</code>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     * <p>
+     * Valid Values: <code>1150-65535</code>
      * </p>
      * <p>
      * Default: The same port as the original DB cluster.
@@ -1012,7 +1792,10 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * @param port
      *        The port number on which the DB cluster accepts connections.</p>
      *        <p>
-     *        Constraints: Value must be <code>1150-65535</code>
+     *        Valid for Cluster Type: Aurora DB clusters only
+     *        </p>
+     *        <p>
+     *        Valid Values: <code>1150-65535</code>
      *        </p>
      *        <p>
      *        Default: The same port as the original DB cluster.
@@ -1026,18 +1809,56 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The new password for the master database user. This password can contain any printable ASCII character except
-     * "/", """, or "@".
+     * The new password for the master database user.
      * </p>
      * <p>
-     * Constraints: Must contain from 8 to 41 characters.
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must contain from 8 to 41 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can contain any printable ASCII character except "/", """, or "@".
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be specified if <code>ManageMasterUserPassword</code> is turned on.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param masterUserPassword
-     *        The new password for the master database user. This password can contain any printable ASCII character
-     *        except "/", """, or "@".</p>
+     *        The new password for the master database user.</p>
      *        <p>
-     *        Constraints: Must contain from 8 to 41 characters.
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Must contain from 8 to 41 characters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Can contain any printable ASCII character except "/", """, or "@".
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Can't be specified if <code>ManageMasterUserPassword</code> is turned on.
+     *        </p>
+     *        </li>
      */
 
     public void setMasterUserPassword(String masterUserPassword) {
@@ -1046,17 +1867,55 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The new password for the master database user. This password can contain any printable ASCII character except
-     * "/", """, or "@".
+     * The new password for the master database user.
      * </p>
      * <p>
-     * Constraints: Must contain from 8 to 41 characters.
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must contain from 8 to 41 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can contain any printable ASCII character except "/", """, or "@".
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be specified if <code>ManageMasterUserPassword</code> is turned on.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The new password for the master database user. This password can contain any printable ASCII character
-     *         except "/", """, or "@".</p>
+     * @return The new password for the master database user.</p>
      *         <p>
-     *         Constraints: Must contain from 8 to 41 characters.
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *         </p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Must contain from 8 to 41 characters.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Can contain any printable ASCII character except "/", """, or "@".
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Can't be specified if <code>ManageMasterUserPassword</code> is turned on.
+     *         </p>
+     *         </li>
      */
 
     public String getMasterUserPassword() {
@@ -1065,18 +1924,56 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The new password for the master database user. This password can contain any printable ASCII character except
-     * "/", """, or "@".
+     * The new password for the master database user.
      * </p>
      * <p>
-     * Constraints: Must contain from 8 to 41 characters.
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must contain from 8 to 41 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can contain any printable ASCII character except "/", """, or "@".
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be specified if <code>ManageMasterUserPassword</code> is turned on.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param masterUserPassword
-     *        The new password for the master database user. This password can contain any printable ASCII character
-     *        except "/", """, or "@".</p>
+     *        The new password for the master database user.</p>
      *        <p>
-     *        Constraints: Must contain from 8 to 41 characters.
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Must contain from 8 to 41 characters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Can contain any printable ASCII character except "/", """, or "@".
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Can't be specified if <code>ManageMasterUserPassword</code> is turned on.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1087,26 +1984,16 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates that the DB cluster should be associated with the specified option group. Changing this
-     * parameter doesn't result in an outage except in the following case, and the change is applied during the next
-     * maintenance window unless the <code>ApplyImmediately</code> is enabled for this request. If the parameter change
-     * results in an option group that enables OEM, this change can cause a brief (sub-second) period during which new
-     * connections are rejected but existing connections are not interrupted.
+     * The option group to associate the DB cluster with.
      * </p>
      * <p>
-     * Permanent options can't be removed from an option group. The option group can't be removed from a DB cluster once
-     * it is associated with a DB cluster.
+     * DB clusters are associated with a default option group that can't be modified.
      * </p>
      * 
      * @param optionGroupName
-     *        A value that indicates that the DB cluster should be associated with the specified option group. Changing
-     *        this parameter doesn't result in an outage except in the following case, and the change is applied during
-     *        the next maintenance window unless the <code>ApplyImmediately</code> is enabled for this request. If the
-     *        parameter change results in an option group that enables OEM, this change can cause a brief (sub-second)
-     *        period during which new connections are rejected but existing connections are not interrupted. </p>
+     *        The option group to associate the DB cluster with.</p>
      *        <p>
-     *        Permanent options can't be removed from an option group. The option group can't be removed from a DB
-     *        cluster once it is associated with a DB cluster.
+     *        DB clusters are associated with a default option group that can't be modified.
      */
 
     public void setOptionGroupName(String optionGroupName) {
@@ -1115,25 +2002,15 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates that the DB cluster should be associated with the specified option group. Changing this
-     * parameter doesn't result in an outage except in the following case, and the change is applied during the next
-     * maintenance window unless the <code>ApplyImmediately</code> is enabled for this request. If the parameter change
-     * results in an option group that enables OEM, this change can cause a brief (sub-second) period during which new
-     * connections are rejected but existing connections are not interrupted.
+     * The option group to associate the DB cluster with.
      * </p>
      * <p>
-     * Permanent options can't be removed from an option group. The option group can't be removed from a DB cluster once
-     * it is associated with a DB cluster.
+     * DB clusters are associated with a default option group that can't be modified.
      * </p>
      * 
-     * @return A value that indicates that the DB cluster should be associated with the specified option group. Changing
-     *         this parameter doesn't result in an outage except in the following case, and the change is applied during
-     *         the next maintenance window unless the <code>ApplyImmediately</code> is enabled for this request. If the
-     *         parameter change results in an option group that enables OEM, this change can cause a brief (sub-second)
-     *         period during which new connections are rejected but existing connections are not interrupted. </p>
+     * @return The option group to associate the DB cluster with.</p>
      *         <p>
-     *         Permanent options can't be removed from an option group. The option group can't be removed from a DB
-     *         cluster once it is associated with a DB cluster.
+     *         DB clusters are associated with a default option group that can't be modified.
      */
 
     public String getOptionGroupName() {
@@ -1142,26 +2019,16 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates that the DB cluster should be associated with the specified option group. Changing this
-     * parameter doesn't result in an outage except in the following case, and the change is applied during the next
-     * maintenance window unless the <code>ApplyImmediately</code> is enabled for this request. If the parameter change
-     * results in an option group that enables OEM, this change can cause a brief (sub-second) period during which new
-     * connections are rejected but existing connections are not interrupted.
+     * The option group to associate the DB cluster with.
      * </p>
      * <p>
-     * Permanent options can't be removed from an option group. The option group can't be removed from a DB cluster once
-     * it is associated with a DB cluster.
+     * DB clusters are associated with a default option group that can't be modified.
      * </p>
      * 
      * @param optionGroupName
-     *        A value that indicates that the DB cluster should be associated with the specified option group. Changing
-     *        this parameter doesn't result in an outage except in the following case, and the change is applied during
-     *        the next maintenance window unless the <code>ApplyImmediately</code> is enabled for this request. If the
-     *        parameter change results in an option group that enables OEM, this change can cause a brief (sub-second)
-     *        period during which new connections are rejected but existing connections are not interrupted. </p>
+     *        The option group to associate the DB cluster with.</p>
      *        <p>
-     *        Permanent options can't be removed from an option group. The option group can't be removed from a DB
-     *        cluster once it is associated with a DB cluster.
+     *        DB clusters are associated with a default option group that can't be modified.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1176,10 +2043,13 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <code>BackupRetentionPeriod</code> parameter.
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To see the
-     * time blocks available, see <a href=
-     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
-     * > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services
+     * Region. To view the time blocks available, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.Backups.BackupWindow"
+     * > Backup window</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * <p>
      * Constraints:
@@ -1209,12 +2079,15 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * 
      * @param preferredBackupWindow
      *        The daily time range during which automated backups are created if automated backups are enabled, using
-     *        the <code>BackupRetentionPeriod</code> parameter. </p>
+     *        the <code>BackupRetentionPeriod</code> parameter.</p>
      *        <p>
-     *        The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To
-     *        see the time blocks available, see <a href=
-     *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
-     *        > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
+     *        The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web
+     *        Services Region. To view the time blocks available, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.Backups.BackupWindow"
+     *        > Backup window</a> in the <i>Amazon Aurora User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      *        </p>
      *        <p>
      *        Constraints:
@@ -1252,10 +2125,13 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <code>BackupRetentionPeriod</code> parameter.
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To see the
-     * time blocks available, see <a href=
-     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
-     * > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services
+     * Region. To view the time blocks available, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.Backups.BackupWindow"
+     * > Backup window</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * <p>
      * Constraints:
@@ -1284,12 +2160,15 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * </ul>
      * 
      * @return The daily time range during which automated backups are created if automated backups are enabled, using
-     *         the <code>BackupRetentionPeriod</code> parameter. </p>
+     *         the <code>BackupRetentionPeriod</code> parameter.</p>
      *         <p>
-     *         The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To
-     *         see the time blocks available, see <a href=
-     *         "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
-     *         > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
+     *         The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web
+     *         Services Region. To view the time blocks available, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.Backups.BackupWindow"
+     *         > Backup window</a> in the <i>Amazon Aurora User Guide</i>.
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      *         </p>
      *         <p>
      *         Constraints:
@@ -1327,10 +2206,13 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <code>BackupRetentionPeriod</code> parameter.
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To see the
-     * time blocks available, see <a href=
-     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
-     * > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services
+     * Region. To view the time blocks available, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.Backups.BackupWindow"
+     * > Backup window</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * <p>
      * Constraints:
@@ -1360,12 +2242,15 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * 
      * @param preferredBackupWindow
      *        The daily time range during which automated backups are created if automated backups are enabled, using
-     *        the <code>BackupRetentionPeriod</code> parameter. </p>
+     *        the <code>BackupRetentionPeriod</code> parameter.</p>
      *        <p>
-     *        The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To
-     *        see the time blocks available, see <a href=
-     *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
-     *        > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
+     *        The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web
+     *        Services Region. To view the time blocks available, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.Backups.BackupWindow"
+     *        > Backup window</a> in the <i>Amazon Aurora User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      *        </p>
      *        <p>
      *        Constraints:
@@ -1404,37 +2289,75 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC).
      * </p>
      * <p>
-     * Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring
-     * on a random day of the week. To see the time blocks available, see <a href=
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services
+     * Region, occurring on a random day of the week. To see the time blocks available, see <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
-     * > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
+     * > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <p>
-     * Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Constraints: Minimum 30-minute window.
+     * Must be in the format <code>ddd:hh24:mi-ddd:hh24:mi</code>.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Days must be one of <code>Mon | Tue | Wed | Thu | Fri | Sat | Sun</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be in Universal Coordinated Time (UTC).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be at least 30 minutes.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param preferredMaintenanceWindow
      *        The weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC).</p>
      *        <p>
-     *        Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      *        </p>
      *        <p>
-     *        The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region,
-     *        occurring on a random day of the week. To see the time blocks available, see <a href=
+     *        The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web
+     *        Services Region, occurring on a random day of the week. To see the time blocks available, see <a href=
      *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
-     *        > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
+     *        > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide</i>.
      *        </p>
      *        <p>
-     *        Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
+     *        Constraints:
      *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        Constraints: Minimum 30-minute window.
+     *        Must be in the format <code>ddd:hh24:mi-ddd:hh24:mi</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Days must be one of <code>Mon | Tue | Wed | Thu | Fri | Sat | Sun</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Must be in Universal Coordinated Time (UTC).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Must be at least 30 minutes.
+     *        </p>
+     *        </li>
      */
 
     public void setPreferredMaintenanceWindow(String preferredMaintenanceWindow) {
@@ -1446,36 +2369,74 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC).
      * </p>
      * <p>
-     * Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring
-     * on a random day of the week. To see the time blocks available, see <a href=
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services
+     * Region, occurring on a random day of the week. To see the time blocks available, see <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
-     * > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
+     * > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <p>
-     * Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Constraints: Minimum 30-minute window.
+     * Must be in the format <code>ddd:hh24:mi-ddd:hh24:mi</code>.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Days must be one of <code>Mon | Tue | Wed | Thu | Fri | Sat | Sun</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be in Universal Coordinated Time (UTC).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be at least 30 minutes.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @return The weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC).</p>
      *         <p>
-     *         Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      *         </p>
      *         <p>
-     *         The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region,
-     *         occurring on a random day of the week. To see the time blocks available, see <a href=
+     *         The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web
+     *         Services Region, occurring on a random day of the week. To see the time blocks available, see <a href=
      *         "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
-     *         > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
+     *         > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide</i>.
      *         </p>
      *         <p>
-     *         Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
+     *         Constraints:
      *         </p>
+     *         <ul>
+     *         <li>
      *         <p>
-     *         Constraints: Minimum 30-minute window.
+     *         Must be in the format <code>ddd:hh24:mi-ddd:hh24:mi</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Days must be one of <code>Mon | Tue | Wed | Thu | Fri | Sat | Sun</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Must be in Universal Coordinated Time (UTC).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Must be at least 30 minutes.
+     *         </p>
+     *         </li>
      */
 
     public String getPreferredMaintenanceWindow() {
@@ -1487,37 +2448,75 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC).
      * </p>
      * <p>
-     * Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring
-     * on a random day of the week. To see the time blocks available, see <a href=
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services
+     * Region, occurring on a random day of the week. To see the time blocks available, see <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
-     * > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
+     * > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <p>
-     * Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Constraints: Minimum 30-minute window.
+     * Must be in the format <code>ddd:hh24:mi-ddd:hh24:mi</code>.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Days must be one of <code>Mon | Tue | Wed | Thu | Fri | Sat | Sun</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be in Universal Coordinated Time (UTC).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be at least 30 minutes.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param preferredMaintenanceWindow
      *        The weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC).</p>
      *        <p>
-     *        Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      *        </p>
      *        <p>
-     *        The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region,
-     *        occurring on a random day of the week. To see the time blocks available, see <a href=
+     *        The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web
+     *        Services Region, occurring on a random day of the week. To see the time blocks available, see <a href=
      *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
-     *        > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
+     *        > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide</i>.
      *        </p>
      *        <p>
-     *        Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
+     *        Constraints:
      *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        Constraints: Minimum 30-minute window.
+     *        Must be in the format <code>ddd:hh24:mi-ddd:hh24:mi</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Days must be one of <code>Mon | Tue | Wed | Thu | Fri | Sat | Sun</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Must be in Universal Coordinated Time (UTC).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Must be at least 30 minutes.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1528,13 +2527,28 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts. By default, mapping is disabled.
+     * Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     * database accounts. By default, mapping isn't enabled.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     * Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
      * </p>
      * 
      * @param enableIAMDatabaseAuthentication
-     *        A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *        database accounts. By default, mapping is disabled.
+     *        Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts
+     *        to database accounts. By default, mapping isn't enabled.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html"> IAM
+     *        Database Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters only
      */
 
     public void setEnableIAMDatabaseAuthentication(Boolean enableIAMDatabaseAuthentication) {
@@ -1543,12 +2557,27 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts. By default, mapping is disabled.
+     * Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     * database accounts. By default, mapping isn't enabled.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     * Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
      * </p>
      * 
-     * @return A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *         database accounts. By default, mapping is disabled.
+     * @return Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts
+     *         to database accounts. By default, mapping isn't enabled.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html"> IAM
+     *         Database Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters only
      */
 
     public Boolean getEnableIAMDatabaseAuthentication() {
@@ -1557,13 +2586,28 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts. By default, mapping is disabled.
+     * Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     * database accounts. By default, mapping isn't enabled.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     * Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
      * </p>
      * 
      * @param enableIAMDatabaseAuthentication
-     *        A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *        database accounts. By default, mapping is disabled.
+     *        Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts
+     *        to database accounts. By default, mapping isn't enabled.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html"> IAM
+     *        Database Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters only
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1574,12 +2618,27 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts. By default, mapping is disabled.
+     * Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     * database accounts. By default, mapping isn't enabled.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     * Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
      * </p>
      * 
-     * @return A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *         database accounts. By default, mapping is disabled.
+     * @return Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts
+     *         to database accounts. By default, mapping isn't enabled.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html"> IAM
+     *         Database Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters only
      */
 
     public Boolean isEnableIAMDatabaseAuthentication() {
@@ -1588,10 +2647,13 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The target backtrack window, in seconds. To disable backtracking, set this value to 0.
+     * The target backtrack window, in seconds. To disable backtracking, set this value to <code>0</code>.
      * </p>
      * <p>
-     * Default: 0
+     * Valid for Cluster Type: Aurora MySQL DB clusters only
+     * </p>
+     * <p>
+     * Default: <code>0</code>
      * </p>
      * <p>
      * Constraints:
@@ -1605,9 +2667,12 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * </ul>
      * 
      * @param backtrackWindow
-     *        The target backtrack window, in seconds. To disable backtracking, set this value to 0.</p>
+     *        The target backtrack window, in seconds. To disable backtracking, set this value to <code>0</code>.</p>
      *        <p>
-     *        Default: 0
+     *        Valid for Cluster Type: Aurora MySQL DB clusters only
+     *        </p>
+     *        <p>
+     *        Default: <code>0</code>
      *        </p>
      *        <p>
      *        Constraints:
@@ -1626,10 +2691,13 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The target backtrack window, in seconds. To disable backtracking, set this value to 0.
+     * The target backtrack window, in seconds. To disable backtracking, set this value to <code>0</code>.
      * </p>
      * <p>
-     * Default: 0
+     * Valid for Cluster Type: Aurora MySQL DB clusters only
+     * </p>
+     * <p>
+     * Default: <code>0</code>
      * </p>
      * <p>
      * Constraints:
@@ -1642,9 +2710,12 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * </li>
      * </ul>
      * 
-     * @return The target backtrack window, in seconds. To disable backtracking, set this value to 0.</p>
+     * @return The target backtrack window, in seconds. To disable backtracking, set this value to <code>0</code>.</p>
      *         <p>
-     *         Default: 0
+     *         Valid for Cluster Type: Aurora MySQL DB clusters only
+     *         </p>
+     *         <p>
+     *         Default: <code>0</code>
      *         </p>
      *         <p>
      *         Constraints:
@@ -1663,10 +2734,13 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The target backtrack window, in seconds. To disable backtracking, set this value to 0.
+     * The target backtrack window, in seconds. To disable backtracking, set this value to <code>0</code>.
      * </p>
      * <p>
-     * Default: 0
+     * Valid for Cluster Type: Aurora MySQL DB clusters only
+     * </p>
+     * <p>
+     * Default: <code>0</code>
      * </p>
      * <p>
      * Constraints:
@@ -1680,9 +2754,12 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * </ul>
      * 
      * @param backtrackWindow
-     *        The target backtrack window, in seconds. To disable backtracking, set this value to 0.</p>
+     *        The target backtrack window, in seconds. To disable backtracking, set this value to <code>0</code>.</p>
      *        <p>
-     *        Default: 0
+     *        Valid for Cluster Type: Aurora MySQL DB clusters only
+     *        </p>
+     *        <p>
+     *        Default: <code>0</code>
      *        </p>
      *        <p>
      *        Constraints:
@@ -1706,10 +2783,85 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The configuration setting for the log types to be enabled for export to CloudWatch Logs for a specific DB
      * cluster.
      * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
+     * The following values are valid for each DB engine:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Aurora MySQL - <code>audit | error | general | slowquery</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Aurora PostgreSQL - <code>postgresql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MySQL - <code>error | general | slowquery</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for PostgreSQL - <code>postgresql | upgrade</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information about exporting CloudWatch Logs for Amazon RDS, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * > Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about exporting CloudWatch Logs for Amazon Aurora, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
      * 
      * @param cloudwatchLogsExportConfiguration
      *        The configuration setting for the log types to be enabled for export to CloudWatch Logs for a specific DB
-     *        cluster.
+     *        cluster.</p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *        </p>
+     *        <p>
+     *        The following values are valid for each DB engine:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Aurora MySQL - <code>audit | error | general | slowquery</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Aurora PostgreSQL - <code>postgresql</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for MySQL - <code>error | general | slowquery</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for PostgreSQL - <code>postgresql | upgrade</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information about exporting CloudWatch Logs for Amazon RDS, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     *        > Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        For more information about exporting CloudWatch Logs for Amazon Aurora, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     *        >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
      */
 
     public void setCloudwatchLogsExportConfiguration(CloudwatchLogsExportConfiguration cloudwatchLogsExportConfiguration) {
@@ -1721,9 +2873,84 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The configuration setting for the log types to be enabled for export to CloudWatch Logs for a specific DB
      * cluster.
      * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
+     * The following values are valid for each DB engine:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Aurora MySQL - <code>audit | error | general | slowquery</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Aurora PostgreSQL - <code>postgresql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MySQL - <code>error | general | slowquery</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for PostgreSQL - <code>postgresql | upgrade</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information about exporting CloudWatch Logs for Amazon RDS, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * > Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about exporting CloudWatch Logs for Amazon Aurora, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
      * 
      * @return The configuration setting for the log types to be enabled for export to CloudWatch Logs for a specific DB
-     *         cluster.
+     *         cluster.</p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *         </p>
+     *         <p>
+     *         The following values are valid for each DB engine:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Aurora MySQL - <code>audit | error | general | slowquery</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Aurora PostgreSQL - <code>postgresql</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         RDS for MySQL - <code>error | general | slowquery</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         RDS for PostgreSQL - <code>postgresql | upgrade</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For more information about exporting CloudWatch Logs for Amazon RDS, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     *         > Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
+     *         </p>
+     *         <p>
+     *         For more information about exporting CloudWatch Logs for Amazon Aurora, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     *         >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
      */
 
     public CloudwatchLogsExportConfiguration getCloudwatchLogsExportConfiguration() {
@@ -1735,10 +2962,85 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The configuration setting for the log types to be enabled for export to CloudWatch Logs for a specific DB
      * cluster.
      * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
+     * The following values are valid for each DB engine:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Aurora MySQL - <code>audit | error | general | slowquery</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Aurora PostgreSQL - <code>postgresql</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for MySQL - <code>error | general | slowquery</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RDS for PostgreSQL - <code>postgresql | upgrade</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information about exporting CloudWatch Logs for Amazon RDS, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * > Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about exporting CloudWatch Logs for Amazon Aurora, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
      * 
      * @param cloudwatchLogsExportConfiguration
      *        The configuration setting for the log types to be enabled for export to CloudWatch Logs for a specific DB
-     *        cluster.
+     *        cluster.</p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *        </p>
+     *        <p>
+     *        The following values are valid for each DB engine:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Aurora MySQL - <code>audit | error | general | slowquery</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Aurora PostgreSQL - <code>postgresql</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for MySQL - <code>error | general | slowquery</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RDS for PostgreSQL - <code>postgresql | upgrade</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information about exporting CloudWatch Logs for Amazon RDS, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     *        > Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        For more information about exporting CloudWatch Logs for Amazon Aurora, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     *        >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1753,7 +3055,35 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * outage. The change is applied during the next maintenance window unless <code>ApplyImmediately</code> is enabled.
      * </p>
      * <p>
-     * For a list of valid engine versions, use <a>DescribeDBEngineVersions</a>.
+     * If the cluster that you're modifying has one or more read replicas, all replicas must be running an engine
+     * version that's the same or later than the version you specify.
+     * </p>
+     * <p>
+     * To list all of the available engine versions for Aurora MySQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine aurora-mysql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for Aurora PostgreSQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine aurora-postgresql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for RDS for MySQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine mysql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for RDS for PostgreSQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine postgres --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
      * @param engineVersion
@@ -1761,7 +3091,35 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        an outage. The change is applied during the next maintenance window unless <code>ApplyImmediately</code>
      *        is enabled.</p>
      *        <p>
-     *        For a list of valid engine versions, use <a>DescribeDBEngineVersions</a>.
+     *        If the cluster that you're modifying has one or more read replicas, all replicas must be running an engine
+     *        version that's the same or later than the version you specify.
+     *        </p>
+     *        <p>
+     *        To list all of the available engine versions for Aurora MySQL, use the following command:
+     *        </p>
+     *        <p>
+     *        <code>aws rds describe-db-engine-versions --engine aurora-mysql --query "DBEngineVersions[].EngineVersion"</code>
+     *        </p>
+     *        <p>
+     *        To list all of the available engine versions for Aurora PostgreSQL, use the following command:
+     *        </p>
+     *        <p>
+     *        <code>aws rds describe-db-engine-versions --engine aurora-postgresql --query "DBEngineVersions[].EngineVersion"</code>
+     *        </p>
+     *        <p>
+     *        To list all of the available engine versions for RDS for MySQL, use the following command:
+     *        </p>
+     *        <p>
+     *        <code>aws rds describe-db-engine-versions --engine mysql --query "DBEngineVersions[].EngineVersion"</code>
+     *        </p>
+     *        <p>
+     *        To list all of the available engine versions for RDS for PostgreSQL, use the following command:
+     *        </p>
+     *        <p>
+     *        <code>aws rds describe-db-engine-versions --engine postgres --query "DBEngineVersions[].EngineVersion"</code>
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public void setEngineVersion(String engineVersion) {
@@ -1774,14 +3132,70 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * outage. The change is applied during the next maintenance window unless <code>ApplyImmediately</code> is enabled.
      * </p>
      * <p>
-     * For a list of valid engine versions, use <a>DescribeDBEngineVersions</a>.
+     * If the cluster that you're modifying has one or more read replicas, all replicas must be running an engine
+     * version that's the same or later than the version you specify.
+     * </p>
+     * <p>
+     * To list all of the available engine versions for Aurora MySQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine aurora-mysql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for Aurora PostgreSQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine aurora-postgresql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for RDS for MySQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine mysql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for RDS for PostgreSQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine postgres --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
      * @return The version number of the database engine to which you want to upgrade. Changing this parameter results
      *         in an outage. The change is applied during the next maintenance window unless
      *         <code>ApplyImmediately</code> is enabled.</p>
      *         <p>
-     *         For a list of valid engine versions, use <a>DescribeDBEngineVersions</a>.
+     *         If the cluster that you're modifying has one or more read replicas, all replicas must be running an
+     *         engine version that's the same or later than the version you specify.
+     *         </p>
+     *         <p>
+     *         To list all of the available engine versions for Aurora MySQL, use the following command:
+     *         </p>
+     *         <p>
+     *         <code>aws rds describe-db-engine-versions --engine aurora-mysql --query "DBEngineVersions[].EngineVersion"</code>
+     *         </p>
+     *         <p>
+     *         To list all of the available engine versions for Aurora PostgreSQL, use the following command:
+     *         </p>
+     *         <p>
+     *         <code>aws rds describe-db-engine-versions --engine aurora-postgresql --query "DBEngineVersions[].EngineVersion"</code>
+     *         </p>
+     *         <p>
+     *         To list all of the available engine versions for RDS for MySQL, use the following command:
+     *         </p>
+     *         <p>
+     *         <code>aws rds describe-db-engine-versions --engine mysql --query "DBEngineVersions[].EngineVersion"</code>
+     *         </p>
+     *         <p>
+     *         To list all of the available engine versions for RDS for PostgreSQL, use the following command:
+     *         </p>
+     *         <p>
+     *         <code>aws rds describe-db-engine-versions --engine postgres --query "DBEngineVersions[].EngineVersion"</code>
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public String getEngineVersion() {
@@ -1794,7 +3208,35 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * outage. The change is applied during the next maintenance window unless <code>ApplyImmediately</code> is enabled.
      * </p>
      * <p>
-     * For a list of valid engine versions, use <a>DescribeDBEngineVersions</a>.
+     * If the cluster that you're modifying has one or more read replicas, all replicas must be running an engine
+     * version that's the same or later than the version you specify.
+     * </p>
+     * <p>
+     * To list all of the available engine versions for Aurora MySQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine aurora-mysql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for Aurora PostgreSQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine aurora-postgresql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for RDS for MySQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine mysql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for RDS for PostgreSQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine postgres --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
      * @param engineVersion
@@ -1802,7 +3244,35 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        an outage. The change is applied during the next maintenance window unless <code>ApplyImmediately</code>
      *        is enabled.</p>
      *        <p>
-     *        For a list of valid engine versions, use <a>DescribeDBEngineVersions</a>.
+     *        If the cluster that you're modifying has one or more read replicas, all replicas must be running an engine
+     *        version that's the same or later than the version you specify.
+     *        </p>
+     *        <p>
+     *        To list all of the available engine versions for Aurora MySQL, use the following command:
+     *        </p>
+     *        <p>
+     *        <code>aws rds describe-db-engine-versions --engine aurora-mysql --query "DBEngineVersions[].EngineVersion"</code>
+     *        </p>
+     *        <p>
+     *        To list all of the available engine versions for Aurora PostgreSQL, use the following command:
+     *        </p>
+     *        <p>
+     *        <code>aws rds describe-db-engine-versions --engine aurora-postgresql --query "DBEngineVersions[].EngineVersion"</code>
+     *        </p>
+     *        <p>
+     *        To list all of the available engine versions for RDS for MySQL, use the following command:
+     *        </p>
+     *        <p>
+     *        <code>aws rds describe-db-engine-versions --engine mysql --query "DBEngineVersions[].EngineVersion"</code>
+     *        </p>
+     *        <p>
+     *        To list all of the available engine versions for RDS for PostgreSQL, use the following command:
+     *        </p>
+     *        <p>
+     *        <code>aws rds describe-db-engine-versions --engine postgres --query "DBEngineVersions[].EngineVersion"</code>
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1813,19 +3283,38 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether major version upgrades are allowed.
+     * Specifies whether major version upgrades are allowed.
      * </p>
      * <p>
-     * Constraints: You must allow major version upgrades when specifying a value for the <code>EngineVersion</code>
-     * parameter that is a different major version than the DB cluster's current version.
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You must allow major version upgrades when specifying a value for the <code>EngineVersion</code> parameter that
+     * is a different major version than the DB cluster's current version.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param allowMajorVersionUpgrade
-     *        A value that indicates whether major version upgrades are allowed.</p>
+     *        Specifies whether major version upgrades are allowed.</p>
      *        <p>
-     *        Constraints: You must allow major version upgrades when specifying a value for the
-     *        <code>EngineVersion</code> parameter that is a different major version than the DB cluster's current
-     *        version.
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        You must allow major version upgrades when specifying a value for the <code>EngineVersion</code> parameter
+     *        that is a different major version than the DB cluster's current version.
+     *        </p>
+     *        </li>
      */
 
     public void setAllowMajorVersionUpgrade(Boolean allowMajorVersionUpgrade) {
@@ -1834,18 +3323,37 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether major version upgrades are allowed.
+     * Specifies whether major version upgrades are allowed.
      * </p>
      * <p>
-     * Constraints: You must allow major version upgrades when specifying a value for the <code>EngineVersion</code>
-     * parameter that is a different major version than the DB cluster's current version.
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You must allow major version upgrades when specifying a value for the <code>EngineVersion</code> parameter that
+     * is a different major version than the DB cluster's current version.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return A value that indicates whether major version upgrades are allowed.</p>
+     * @return Specifies whether major version upgrades are allowed.</p>
      *         <p>
-     *         Constraints: You must allow major version upgrades when specifying a value for the
-     *         <code>EngineVersion</code> parameter that is a different major version than the DB cluster's current
-     *         version.
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *         </p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You must allow major version upgrades when specifying a value for the <code>EngineVersion</code>
+     *         parameter that is a different major version than the DB cluster's current version.
+     *         </p>
+     *         </li>
      */
 
     public Boolean getAllowMajorVersionUpgrade() {
@@ -1854,19 +3362,38 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether major version upgrades are allowed.
+     * Specifies whether major version upgrades are allowed.
      * </p>
      * <p>
-     * Constraints: You must allow major version upgrades when specifying a value for the <code>EngineVersion</code>
-     * parameter that is a different major version than the DB cluster's current version.
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You must allow major version upgrades when specifying a value for the <code>EngineVersion</code> parameter that
+     * is a different major version than the DB cluster's current version.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param allowMajorVersionUpgrade
-     *        A value that indicates whether major version upgrades are allowed.</p>
+     *        Specifies whether major version upgrades are allowed.</p>
      *        <p>
-     *        Constraints: You must allow major version upgrades when specifying a value for the
-     *        <code>EngineVersion</code> parameter that is a different major version than the DB cluster's current
-     *        version.
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        You must allow major version upgrades when specifying a value for the <code>EngineVersion</code> parameter
+     *        that is a different major version than the DB cluster's current version.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1877,18 +3404,37 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether major version upgrades are allowed.
+     * Specifies whether major version upgrades are allowed.
      * </p>
      * <p>
-     * Constraints: You must allow major version upgrades when specifying a value for the <code>EngineVersion</code>
-     * parameter that is a different major version than the DB cluster's current version.
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You must allow major version upgrades when specifying a value for the <code>EngineVersion</code> parameter that
+     * is a different major version than the DB cluster's current version.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return A value that indicates whether major version upgrades are allowed.</p>
+     * @return Specifies whether major version upgrades are allowed.</p>
      *         <p>
-     *         Constraints: You must allow major version upgrades when specifying a value for the
-     *         <code>EngineVersion</code> parameter that is a different major version than the DB cluster's current
-     *         version.
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *         </p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You must allow major version upgrades when specifying a value for the <code>EngineVersion</code>
+     *         parameter that is a different major version than the DB cluster's current version.
+     *         </p>
+     *         </li>
      */
 
     public Boolean isAllowMajorVersionUpgrade() {
@@ -1902,10 +3448,13 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <note>
      * <p>
      * When you apply a parameter group using the <code>DBInstanceParameterGroupName</code> parameter, the DB cluster
-     * isn't rebooted automatically. Also, parameter changes aren't applied during the next maintenance window but
-     * instead are applied immediately.
+     * isn't rebooted automatically. Also, parameter changes are applied immediately rather than during the next
+     * maintenance window.
      * </p>
      * </note>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
      * <p>
      * Default: The existing name setting
      * </p>
@@ -1920,20 +3469,23 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * The <code>DBInstanceParameterGroupName</code> parameter is only valid in combination with the
-     * <code>AllowMajorVersionUpgrade</code> parameter.
+     * The <code>DBInstanceParameterGroupName</code> parameter is valid in combination with the
+     * <code>AllowMajorVersionUpgrade</code> parameter for a major version upgrade only.
      * </p>
      * </li>
      * </ul>
      * 
      * @param dBInstanceParameterGroupName
-     *        The name of the DB parameter group to apply to all instances of the DB cluster. </p> <note>
+     *        The name of the DB parameter group to apply to all instances of the DB cluster.</p> <note>
      *        <p>
      *        When you apply a parameter group using the <code>DBInstanceParameterGroupName</code> parameter, the DB
-     *        cluster isn't rebooted automatically. Also, parameter changes aren't applied during the next maintenance
-     *        window but instead are applied immediately.
+     *        cluster isn't rebooted automatically. Also, parameter changes are applied immediately rather than during
+     *        the next maintenance window.
      *        </p>
      *        </note>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters only
+     *        </p>
      *        <p>
      *        Default: The existing name setting
      *        </p>
@@ -1948,8 +3500,8 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        </li>
      *        <li>
      *        <p>
-     *        The <code>DBInstanceParameterGroupName</code> parameter is only valid in combination with the
-     *        <code>AllowMajorVersionUpgrade</code> parameter.
+     *        The <code>DBInstanceParameterGroupName</code> parameter is valid in combination with the
+     *        <code>AllowMajorVersionUpgrade</code> parameter for a major version upgrade only.
      *        </p>
      *        </li>
      */
@@ -1965,10 +3517,13 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <note>
      * <p>
      * When you apply a parameter group using the <code>DBInstanceParameterGroupName</code> parameter, the DB cluster
-     * isn't rebooted automatically. Also, parameter changes aren't applied during the next maintenance window but
-     * instead are applied immediately.
+     * isn't rebooted automatically. Also, parameter changes are applied immediately rather than during the next
+     * maintenance window.
      * </p>
      * </note>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
      * <p>
      * Default: The existing name setting
      * </p>
@@ -1983,19 +3538,22 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * The <code>DBInstanceParameterGroupName</code> parameter is only valid in combination with the
-     * <code>AllowMajorVersionUpgrade</code> parameter.
+     * The <code>DBInstanceParameterGroupName</code> parameter is valid in combination with the
+     * <code>AllowMajorVersionUpgrade</code> parameter for a major version upgrade only.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return The name of the DB parameter group to apply to all instances of the DB cluster. </p> <note>
+     * @return The name of the DB parameter group to apply to all instances of the DB cluster.</p> <note>
      *         <p>
      *         When you apply a parameter group using the <code>DBInstanceParameterGroupName</code> parameter, the DB
-     *         cluster isn't rebooted automatically. Also, parameter changes aren't applied during the next maintenance
-     *         window but instead are applied immediately.
+     *         cluster isn't rebooted automatically. Also, parameter changes are applied immediately rather than during
+     *         the next maintenance window.
      *         </p>
      *         </note>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters only
+     *         </p>
      *         <p>
      *         Default: The existing name setting
      *         </p>
@@ -2010,8 +3568,8 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *         </li>
      *         <li>
      *         <p>
-     *         The <code>DBInstanceParameterGroupName</code> parameter is only valid in combination with the
-     *         <code>AllowMajorVersionUpgrade</code> parameter.
+     *         The <code>DBInstanceParameterGroupName</code> parameter is valid in combination with the
+     *         <code>AllowMajorVersionUpgrade</code> parameter for a major version upgrade only.
      *         </p>
      *         </li>
      */
@@ -2027,10 +3585,13 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <note>
      * <p>
      * When you apply a parameter group using the <code>DBInstanceParameterGroupName</code> parameter, the DB cluster
-     * isn't rebooted automatically. Also, parameter changes aren't applied during the next maintenance window but
-     * instead are applied immediately.
+     * isn't rebooted automatically. Also, parameter changes are applied immediately rather than during the next
+     * maintenance window.
      * </p>
      * </note>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
      * <p>
      * Default: The existing name setting
      * </p>
@@ -2045,20 +3606,23 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * The <code>DBInstanceParameterGroupName</code> parameter is only valid in combination with the
-     * <code>AllowMajorVersionUpgrade</code> parameter.
+     * The <code>DBInstanceParameterGroupName</code> parameter is valid in combination with the
+     * <code>AllowMajorVersionUpgrade</code> parameter for a major version upgrade only.
      * </p>
      * </li>
      * </ul>
      * 
      * @param dBInstanceParameterGroupName
-     *        The name of the DB parameter group to apply to all instances of the DB cluster. </p> <note>
+     *        The name of the DB parameter group to apply to all instances of the DB cluster.</p> <note>
      *        <p>
      *        When you apply a parameter group using the <code>DBInstanceParameterGroupName</code> parameter, the DB
-     *        cluster isn't rebooted automatically. Also, parameter changes aren't applied during the next maintenance
-     *        window but instead are applied immediately.
+     *        cluster isn't rebooted automatically. Also, parameter changes are applied immediately rather than during
+     *        the next maintenance window.
      *        </p>
      *        </note>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters only
+     *        </p>
      *        <p>
      *        Default: The existing name setting
      *        </p>
@@ -2073,8 +3637,8 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        </li>
      *        <li>
      *        <p>
-     *        The <code>DBInstanceParameterGroupName</code> parameter is only valid in combination with the
-     *        <code>AllowMajorVersionUpgrade</code> parameter.
+     *        The <code>DBInstanceParameterGroupName</code> parameter is valid in combination with the
+     *        <code>AllowMajorVersionUpgrade</code> parameter for a major version upgrade only.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -2087,13 +3651,164 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
+     * The Active Directory directory ID to move the DB cluster to. Specify <code>none</code> to remove the cluster from
+     * its current domain. The domain must be created prior to this operation.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/kerberos-authentication.html">Kerberos
+     * Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     * 
+     * @param domain
+     *        The Active Directory directory ID to move the DB cluster to. Specify <code>none</code> to remove the
+     *        cluster from its current domain. The domain must be created prior to this operation.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/kerberos-authentication.html">Kerberos
+     *        Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters only
+     */
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
+    /**
+     * <p>
+     * The Active Directory directory ID to move the DB cluster to. Specify <code>none</code> to remove the cluster from
+     * its current domain. The domain must be created prior to this operation.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/kerberos-authentication.html">Kerberos
+     * Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     * 
+     * @return The Active Directory directory ID to move the DB cluster to. Specify <code>none</code> to remove the
+     *         cluster from its current domain. The domain must be created prior to this operation.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/kerberos-authentication.html">Kerberos
+     *         Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters only
+     */
+
+    public String getDomain() {
+        return this.domain;
+    }
+
+    /**
+     * <p>
+     * The Active Directory directory ID to move the DB cluster to. Specify <code>none</code> to remove the cluster from
+     * its current domain. The domain must be created prior to this operation.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/kerberos-authentication.html">Kerberos
+     * Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     * 
+     * @param domain
+     *        The Active Directory directory ID to move the DB cluster to. Specify <code>none</code> to remove the
+     *        cluster from its current domain. The domain must be created prior to this operation.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/kerberos-authentication.html">Kerberos
+     *        Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters only
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withDomain(String domain) {
+        setDomain(domain);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the IAM role to use when making API calls to the Directory Service.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     * 
+     * @param domainIAMRoleName
+     *        The name of the IAM role to use when making API calls to the Directory Service.</p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters only
+     */
+
+    public void setDomainIAMRoleName(String domainIAMRoleName) {
+        this.domainIAMRoleName = domainIAMRoleName;
+    }
+
+    /**
+     * <p>
+     * The name of the IAM role to use when making API calls to the Directory Service.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     * 
+     * @return The name of the IAM role to use when making API calls to the Directory Service.</p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters only
+     */
+
+    public String getDomainIAMRoleName() {
+        return this.domainIAMRoleName;
+    }
+
+    /**
+     * <p>
+     * The name of the IAM role to use when making API calls to the Directory Service.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     * 
+     * @param domainIAMRoleName
+     *        The name of the IAM role to use when making API calls to the Directory Service.</p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters only
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withDomainIAMRoleName(String domainIAMRoleName) {
+        setDomainIAMRoleName(domainIAMRoleName);
+        return this;
+    }
+
+    /**
+     * <p>
      * The scaling properties of the DB cluster. You can only modify scaling properties for DB clusters in
      * <code>serverless</code> DB engine mode.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
      * </p>
      * 
      * @param scalingConfiguration
      *        The scaling properties of the DB cluster. You can only modify scaling properties for DB clusters in
-     *        <code>serverless</code> DB engine mode.
+     *        <code>serverless</code> DB engine mode.</p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters only
      */
 
     public void setScalingConfiguration(ScalingConfiguration scalingConfiguration) {
@@ -2105,9 +3820,14 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The scaling properties of the DB cluster. You can only modify scaling properties for DB clusters in
      * <code>serverless</code> DB engine mode.
      * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
      * 
      * @return The scaling properties of the DB cluster. You can only modify scaling properties for DB clusters in
-     *         <code>serverless</code> DB engine mode.
+     *         <code>serverless</code> DB engine mode.</p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters only
      */
 
     public ScalingConfiguration getScalingConfiguration() {
@@ -2119,10 +3839,15 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The scaling properties of the DB cluster. You can only modify scaling properties for DB clusters in
      * <code>serverless</code> DB engine mode.
      * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
      * 
      * @param scalingConfiguration
      *        The scaling properties of the DB cluster. You can only modify scaling properties for DB clusters in
-     *        <code>serverless</code> DB engine mode.
+     *        <code>serverless</code> DB engine mode.</p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters only
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2133,13 +3858,18 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether the DB cluster has deletion protection enabled. The database can't be deleted when
-     * deletion protection is enabled. By default, deletion protection is disabled.
+     * Specifies whether the DB cluster has deletion protection enabled. The database can't be deleted when deletion
+     * protection is enabled. By default, deletion protection isn't enabled.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
      * @param deletionProtection
-     *        A value that indicates whether the DB cluster has deletion protection enabled. The database can't be
-     *        deleted when deletion protection is enabled. By default, deletion protection is disabled.
+     *        Specifies whether the DB cluster has deletion protection enabled. The database can't be deleted when
+     *        deletion protection is enabled. By default, deletion protection isn't enabled.</p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public void setDeletionProtection(Boolean deletionProtection) {
@@ -2148,12 +3878,17 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether the DB cluster has deletion protection enabled. The database can't be deleted when
-     * deletion protection is enabled. By default, deletion protection is disabled.
+     * Specifies whether the DB cluster has deletion protection enabled. The database can't be deleted when deletion
+     * protection is enabled. By default, deletion protection isn't enabled.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
-     * @return A value that indicates whether the DB cluster has deletion protection enabled. The database can't be
-     *         deleted when deletion protection is enabled. By default, deletion protection is disabled.
+     * @return Specifies whether the DB cluster has deletion protection enabled. The database can't be deleted when
+     *         deletion protection is enabled. By default, deletion protection isn't enabled.</p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public Boolean getDeletionProtection() {
@@ -2162,13 +3897,18 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether the DB cluster has deletion protection enabled. The database can't be deleted when
-     * deletion protection is enabled. By default, deletion protection is disabled.
+     * Specifies whether the DB cluster has deletion protection enabled. The database can't be deleted when deletion
+     * protection is enabled. By default, deletion protection isn't enabled.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
      * @param deletionProtection
-     *        A value that indicates whether the DB cluster has deletion protection enabled. The database can't be
-     *        deleted when deletion protection is enabled. By default, deletion protection is disabled.
+     *        Specifies whether the DB cluster has deletion protection enabled. The database can't be deleted when
+     *        deletion protection is enabled. By default, deletion protection isn't enabled.</p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2179,12 +3919,17 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether the DB cluster has deletion protection enabled. The database can't be deleted when
-     * deletion protection is enabled. By default, deletion protection is disabled.
+     * Specifies whether the DB cluster has deletion protection enabled. The database can't be deleted when deletion
+     * protection is enabled. By default, deletion protection isn't enabled.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
-     * @return A value that indicates whether the DB cluster has deletion protection enabled. The database can't be
-     *         deleted when deletion protection is enabled. By default, deletion protection is disabled.
+     * @return Specifies whether the DB cluster has deletion protection enabled. The database can't be deleted when
+     *         deletion protection is enabled. By default, deletion protection isn't enabled.</p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public Boolean isDeletionProtection() {
@@ -2193,31 +3938,52 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether to enable the HTTP endpoint for an Aurora Serverless DB cluster. By default, the
-     * HTTP endpoint is disabled.
+     * Specifies whether to enable the HTTP endpoint for an Aurora Serverless v1 DB cluster. By default, the HTTP
+     * endpoint isn't enabled.
      * </p>
      * <p>
-     * When enabled, the HTTP endpoint provides a connectionless web service API for running SQL queries on the Aurora
-     * Serverless DB cluster. You can also query your database from inside the RDS console with the query editor.
+     * When enabled, the HTTP endpoint provides a connectionless web service API (RDS Data API) for running SQL queries
+     * on the Aurora Serverless v1 DB cluster. You can also query your database from inside the RDS console with the RDS
+     * query editor.
      * </p>
      * <p>
      * For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using the Data API for Aurora
-     * Serverless</a> in the <i>Amazon Aurora User Guide</i>.
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using RDS Data API</a> in the
+     * <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter applies only to Aurora Serverless v1 DB clusters. To enable or disable the HTTP endpoint for an
+     * Aurora PostgreSQL Serverless v2 or provisioned DB cluster, use the <code>EnableHttpEndpoint</code> and
+     * <code>DisableHttpEndpoint</code> operations.
+     * </p>
+     * </note>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
      * </p>
      * 
      * @param enableHttpEndpoint
-     *        A value that indicates whether to enable the HTTP endpoint for an Aurora Serverless DB cluster. By
-     *        default, the HTTP endpoint is disabled.</p>
+     *        Specifies whether to enable the HTTP endpoint for an Aurora Serverless v1 DB cluster. By default, the HTTP
+     *        endpoint isn't enabled.</p>
      *        <p>
-     *        When enabled, the HTTP endpoint provides a connectionless web service API for running SQL queries on the
-     *        Aurora Serverless DB cluster. You can also query your database from inside the RDS console with the query
-     *        editor.
+     *        When enabled, the HTTP endpoint provides a connectionless web service API (RDS Data API) for running SQL
+     *        queries on the Aurora Serverless v1 DB cluster. You can also query your database from inside the RDS
+     *        console with the RDS query editor.
      *        </p>
      *        <p>
      *        For more information, see <a
-     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using the Data API for
-     *        Aurora Serverless</a> in the <i>Amazon Aurora User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using RDS Data API</a>
+     *        in the <i>Amazon Aurora User Guide</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        This parameter applies only to Aurora Serverless v1 DB clusters. To enable or disable the HTTP endpoint
+     *        for an Aurora PostgreSQL Serverless v2 or provisioned DB cluster, use the <code>EnableHttpEndpoint</code>
+     *        and <code>DisableHttpEndpoint</code> operations.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters only
      */
 
     public void setEnableHttpEndpoint(Boolean enableHttpEndpoint) {
@@ -2226,30 +3992,51 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether to enable the HTTP endpoint for an Aurora Serverless DB cluster. By default, the
-     * HTTP endpoint is disabled.
+     * Specifies whether to enable the HTTP endpoint for an Aurora Serverless v1 DB cluster. By default, the HTTP
+     * endpoint isn't enabled.
      * </p>
      * <p>
-     * When enabled, the HTTP endpoint provides a connectionless web service API for running SQL queries on the Aurora
-     * Serverless DB cluster. You can also query your database from inside the RDS console with the query editor.
+     * When enabled, the HTTP endpoint provides a connectionless web service API (RDS Data API) for running SQL queries
+     * on the Aurora Serverless v1 DB cluster. You can also query your database from inside the RDS console with the RDS
+     * query editor.
      * </p>
      * <p>
      * For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using the Data API for Aurora
-     * Serverless</a> in the <i>Amazon Aurora User Guide</i>.
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using RDS Data API</a> in the
+     * <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter applies only to Aurora Serverless v1 DB clusters. To enable or disable the HTTP endpoint for an
+     * Aurora PostgreSQL Serverless v2 or provisioned DB cluster, use the <code>EnableHttpEndpoint</code> and
+     * <code>DisableHttpEndpoint</code> operations.
+     * </p>
+     * </note>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
      * </p>
      * 
-     * @return A value that indicates whether to enable the HTTP endpoint for an Aurora Serverless DB cluster. By
-     *         default, the HTTP endpoint is disabled.</p>
+     * @return Specifies whether to enable the HTTP endpoint for an Aurora Serverless v1 DB cluster. By default, the
+     *         HTTP endpoint isn't enabled.</p>
      *         <p>
-     *         When enabled, the HTTP endpoint provides a connectionless web service API for running SQL queries on the
-     *         Aurora Serverless DB cluster. You can also query your database from inside the RDS console with the query
-     *         editor.
+     *         When enabled, the HTTP endpoint provides a connectionless web service API (RDS Data API) for running SQL
+     *         queries on the Aurora Serverless v1 DB cluster. You can also query your database from inside the RDS
+     *         console with the RDS query editor.
      *         </p>
      *         <p>
      *         For more information, see <a
-     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using the Data API for
-     *         Aurora Serverless</a> in the <i>Amazon Aurora User Guide</i>.
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using RDS Data API</a>
+     *         in the <i>Amazon Aurora User Guide</i>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         This parameter applies only to Aurora Serverless v1 DB clusters. To enable or disable the HTTP endpoint
+     *         for an Aurora PostgreSQL Serverless v2 or provisioned DB cluster, use the <code>EnableHttpEndpoint</code>
+     *         and <code>DisableHttpEndpoint</code> operations.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters only
      */
 
     public Boolean getEnableHttpEndpoint() {
@@ -2258,31 +4045,52 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether to enable the HTTP endpoint for an Aurora Serverless DB cluster. By default, the
-     * HTTP endpoint is disabled.
+     * Specifies whether to enable the HTTP endpoint for an Aurora Serverless v1 DB cluster. By default, the HTTP
+     * endpoint isn't enabled.
      * </p>
      * <p>
-     * When enabled, the HTTP endpoint provides a connectionless web service API for running SQL queries on the Aurora
-     * Serverless DB cluster. You can also query your database from inside the RDS console with the query editor.
+     * When enabled, the HTTP endpoint provides a connectionless web service API (RDS Data API) for running SQL queries
+     * on the Aurora Serverless v1 DB cluster. You can also query your database from inside the RDS console with the RDS
+     * query editor.
      * </p>
      * <p>
      * For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using the Data API for Aurora
-     * Serverless</a> in the <i>Amazon Aurora User Guide</i>.
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using RDS Data API</a> in the
+     * <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter applies only to Aurora Serverless v1 DB clusters. To enable or disable the HTTP endpoint for an
+     * Aurora PostgreSQL Serverless v2 or provisioned DB cluster, use the <code>EnableHttpEndpoint</code> and
+     * <code>DisableHttpEndpoint</code> operations.
+     * </p>
+     * </note>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
      * </p>
      * 
      * @param enableHttpEndpoint
-     *        A value that indicates whether to enable the HTTP endpoint for an Aurora Serverless DB cluster. By
-     *        default, the HTTP endpoint is disabled.</p>
+     *        Specifies whether to enable the HTTP endpoint for an Aurora Serverless v1 DB cluster. By default, the HTTP
+     *        endpoint isn't enabled.</p>
      *        <p>
-     *        When enabled, the HTTP endpoint provides a connectionless web service API for running SQL queries on the
-     *        Aurora Serverless DB cluster. You can also query your database from inside the RDS console with the query
-     *        editor.
+     *        When enabled, the HTTP endpoint provides a connectionless web service API (RDS Data API) for running SQL
+     *        queries on the Aurora Serverless v1 DB cluster. You can also query your database from inside the RDS
+     *        console with the RDS query editor.
      *        </p>
      *        <p>
      *        For more information, see <a
-     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using the Data API for
-     *        Aurora Serverless</a> in the <i>Amazon Aurora User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using RDS Data API</a>
+     *        in the <i>Amazon Aurora User Guide</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        This parameter applies only to Aurora Serverless v1 DB clusters. To enable or disable the HTTP endpoint
+     *        for an Aurora PostgreSQL Serverless v2 or provisioned DB cluster, use the <code>EnableHttpEndpoint</code>
+     *        and <code>DisableHttpEndpoint</code> operations.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters only
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2293,30 +4101,51 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether to enable the HTTP endpoint for an Aurora Serverless DB cluster. By default, the
-     * HTTP endpoint is disabled.
+     * Specifies whether to enable the HTTP endpoint for an Aurora Serverless v1 DB cluster. By default, the HTTP
+     * endpoint isn't enabled.
      * </p>
      * <p>
-     * When enabled, the HTTP endpoint provides a connectionless web service API for running SQL queries on the Aurora
-     * Serverless DB cluster. You can also query your database from inside the RDS console with the query editor.
+     * When enabled, the HTTP endpoint provides a connectionless web service API (RDS Data API) for running SQL queries
+     * on the Aurora Serverless v1 DB cluster. You can also query your database from inside the RDS console with the RDS
+     * query editor.
      * </p>
      * <p>
      * For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using the Data API for Aurora
-     * Serverless</a> in the <i>Amazon Aurora User Guide</i>.
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using RDS Data API</a> in the
+     * <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter applies only to Aurora Serverless v1 DB clusters. To enable or disable the HTTP endpoint for an
+     * Aurora PostgreSQL Serverless v2 or provisioned DB cluster, use the <code>EnableHttpEndpoint</code> and
+     * <code>DisableHttpEndpoint</code> operations.
+     * </p>
+     * </note>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
      * </p>
      * 
-     * @return A value that indicates whether to enable the HTTP endpoint for an Aurora Serverless DB cluster. By
-     *         default, the HTTP endpoint is disabled.</p>
+     * @return Specifies whether to enable the HTTP endpoint for an Aurora Serverless v1 DB cluster. By default, the
+     *         HTTP endpoint isn't enabled.</p>
      *         <p>
-     *         When enabled, the HTTP endpoint provides a connectionless web service API for running SQL queries on the
-     *         Aurora Serverless DB cluster. You can also query your database from inside the RDS console with the query
-     *         editor.
+     *         When enabled, the HTTP endpoint provides a connectionless web service API (RDS Data API) for running SQL
+     *         queries on the Aurora Serverless v1 DB cluster. You can also query your database from inside the RDS
+     *         console with the RDS query editor.
      *         </p>
      *         <p>
      *         For more information, see <a
-     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using the Data API for
-     *         Aurora Serverless</a> in the <i>Amazon Aurora User Guide</i>.
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using RDS Data API</a>
+     *         in the <i>Amazon Aurora User Guide</i>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         This parameter applies only to Aurora Serverless v1 DB clusters. To enable or disable the HTTP endpoint
+     *         for an Aurora PostgreSQL Serverless v2 or provisioned DB cluster, use the <code>EnableHttpEndpoint</code>
+     *         and <code>DisableHttpEndpoint</code> operations.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters only
      */
 
     public Boolean isEnableHttpEndpoint() {
@@ -2325,13 +4154,18 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the DB cluster to snapshots of the DB cluster. The default
-     * is not to copy them.
+     * Specifies whether to copy all tags from the DB cluster to snapshots of the DB cluster. The default is not to copy
+     * them.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
      * @param copyTagsToSnapshot
-     *        A value that indicates whether to copy all tags from the DB cluster to snapshots of the DB cluster. The
-     *        default is not to copy them.
+     *        Specifies whether to copy all tags from the DB cluster to snapshots of the DB cluster. The default is not
+     *        to copy them.</p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public void setCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
@@ -2340,12 +4174,17 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the DB cluster to snapshots of the DB cluster. The default
-     * is not to copy them.
+     * Specifies whether to copy all tags from the DB cluster to snapshots of the DB cluster. The default is not to copy
+     * them.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
-     * @return A value that indicates whether to copy all tags from the DB cluster to snapshots of the DB cluster. The
-     *         default is not to copy them.
+     * @return Specifies whether to copy all tags from the DB cluster to snapshots of the DB cluster. The default is not
+     *         to copy them.</p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public Boolean getCopyTagsToSnapshot() {
@@ -2354,13 +4193,18 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the DB cluster to snapshots of the DB cluster. The default
-     * is not to copy them.
+     * Specifies whether to copy all tags from the DB cluster to snapshots of the DB cluster. The default is not to copy
+     * them.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
      * @param copyTagsToSnapshot
-     *        A value that indicates whether to copy all tags from the DB cluster to snapshots of the DB cluster. The
-     *        default is not to copy them.
+     *        Specifies whether to copy all tags from the DB cluster to snapshots of the DB cluster. The default is not
+     *        to copy them.</p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2371,16 +4215,2948 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the DB cluster to snapshots of the DB cluster. The default
-     * is not to copy them.
+     * Specifies whether to copy all tags from the DB cluster to snapshots of the DB cluster. The default is not to copy
+     * them.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
-     * @return A value that indicates whether to copy all tags from the DB cluster to snapshots of the DB cluster. The
-     *         default is not to copy them.
+     * @return Specifies whether to copy all tags from the DB cluster to snapshots of the DB cluster. The default is not
+     *         to copy them.</p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public Boolean isCopyTagsToSnapshot() {
         return this.copyTagsToSnapshot;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to enable this DB cluster to forward write operations to the primary cluster of a global
+     * cluster (Aurora global database). By default, write operations are not allowed on Aurora DB clusters that are
+     * secondary clusters in an Aurora global database.
+     * </p>
+     * <p>
+     * You can set this value only on Aurora DB clusters that are members of an Aurora global database. With this
+     * parameter enabled, a secondary cluster can forward writes to the current primary cluster, and the resulting
+     * changes are replicated back to this cluster. For the primary DB cluster of an Aurora global database, this value
+     * is used immediately if the primary is demoted by a global cluster API operation, but it does nothing until then.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     * 
+     * @param enableGlobalWriteForwarding
+     *        Specifies whether to enable this DB cluster to forward write operations to the primary cluster of a global
+     *        cluster (Aurora global database). By default, write operations are not allowed on Aurora DB clusters that
+     *        are secondary clusters in an Aurora global database.</p>
+     *        <p>
+     *        You can set this value only on Aurora DB clusters that are members of an Aurora global database. With this
+     *        parameter enabled, a secondary cluster can forward writes to the current primary cluster, and the
+     *        resulting changes are replicated back to this cluster. For the primary DB cluster of an Aurora global
+     *        database, this value is used immediately if the primary is demoted by a global cluster API operation, but
+     *        it does nothing until then.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters only
+     */
+
+    public void setEnableGlobalWriteForwarding(Boolean enableGlobalWriteForwarding) {
+        this.enableGlobalWriteForwarding = enableGlobalWriteForwarding;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to enable this DB cluster to forward write operations to the primary cluster of a global
+     * cluster (Aurora global database). By default, write operations are not allowed on Aurora DB clusters that are
+     * secondary clusters in an Aurora global database.
+     * </p>
+     * <p>
+     * You can set this value only on Aurora DB clusters that are members of an Aurora global database. With this
+     * parameter enabled, a secondary cluster can forward writes to the current primary cluster, and the resulting
+     * changes are replicated back to this cluster. For the primary DB cluster of an Aurora global database, this value
+     * is used immediately if the primary is demoted by a global cluster API operation, but it does nothing until then.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     * 
+     * @return Specifies whether to enable this DB cluster to forward write operations to the primary cluster of a
+     *         global cluster (Aurora global database). By default, write operations are not allowed on Aurora DB
+     *         clusters that are secondary clusters in an Aurora global database.</p>
+     *         <p>
+     *         You can set this value only on Aurora DB clusters that are members of an Aurora global database. With
+     *         this parameter enabled, a secondary cluster can forward writes to the current primary cluster, and the
+     *         resulting changes are replicated back to this cluster. For the primary DB cluster of an Aurora global
+     *         database, this value is used immediately if the primary is demoted by a global cluster API operation, but
+     *         it does nothing until then.
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters only
+     */
+
+    public Boolean getEnableGlobalWriteForwarding() {
+        return this.enableGlobalWriteForwarding;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to enable this DB cluster to forward write operations to the primary cluster of a global
+     * cluster (Aurora global database). By default, write operations are not allowed on Aurora DB clusters that are
+     * secondary clusters in an Aurora global database.
+     * </p>
+     * <p>
+     * You can set this value only on Aurora DB clusters that are members of an Aurora global database. With this
+     * parameter enabled, a secondary cluster can forward writes to the current primary cluster, and the resulting
+     * changes are replicated back to this cluster. For the primary DB cluster of an Aurora global database, this value
+     * is used immediately if the primary is demoted by a global cluster API operation, but it does nothing until then.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     * 
+     * @param enableGlobalWriteForwarding
+     *        Specifies whether to enable this DB cluster to forward write operations to the primary cluster of a global
+     *        cluster (Aurora global database). By default, write operations are not allowed on Aurora DB clusters that
+     *        are secondary clusters in an Aurora global database.</p>
+     *        <p>
+     *        You can set this value only on Aurora DB clusters that are members of an Aurora global database. With this
+     *        parameter enabled, a secondary cluster can forward writes to the current primary cluster, and the
+     *        resulting changes are replicated back to this cluster. For the primary DB cluster of an Aurora global
+     *        database, this value is used immediately if the primary is demoted by a global cluster API operation, but
+     *        it does nothing until then.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters only
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withEnableGlobalWriteForwarding(Boolean enableGlobalWriteForwarding) {
+        setEnableGlobalWriteForwarding(enableGlobalWriteForwarding);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to enable this DB cluster to forward write operations to the primary cluster of a global
+     * cluster (Aurora global database). By default, write operations are not allowed on Aurora DB clusters that are
+     * secondary clusters in an Aurora global database.
+     * </p>
+     * <p>
+     * You can set this value only on Aurora DB clusters that are members of an Aurora global database. With this
+     * parameter enabled, a secondary cluster can forward writes to the current primary cluster, and the resulting
+     * changes are replicated back to this cluster. For the primary DB cluster of an Aurora global database, this value
+     * is used immediately if the primary is demoted by a global cluster API operation, but it does nothing until then.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     * 
+     * @return Specifies whether to enable this DB cluster to forward write operations to the primary cluster of a
+     *         global cluster (Aurora global database). By default, write operations are not allowed on Aurora DB
+     *         clusters that are secondary clusters in an Aurora global database.</p>
+     *         <p>
+     *         You can set this value only on Aurora DB clusters that are members of an Aurora global database. With
+     *         this parameter enabled, a secondary cluster can forward writes to the current primary cluster, and the
+     *         resulting changes are replicated back to this cluster. For the primary DB cluster of an Aurora global
+     *         database, this value is used immediately if the primary is demoted by a global cluster API operation, but
+     *         it does nothing until then.
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters only
+     */
+
+    public Boolean isEnableGlobalWriteForwarding() {
+        return this.enableGlobalWriteForwarding;
+    }
+
+    /**
+     * <p>
+     * The compute and memory capacity of each DB instance in the Multi-AZ DB cluster, for example
+     * <code>db.m6gd.xlarge</code>. Not all DB instance classes are available in all Amazon Web Services Regions, or for
+     * all database engines.
+     * </p>
+     * <p>
+     * For the full list of DB instance classes and availability for your engine, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html"> DB Instance
+     * Class</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @param dBClusterInstanceClass
+     *        The compute and memory capacity of each DB instance in the Multi-AZ DB cluster, for example
+     *        <code>db.m6gd.xlarge</code>. Not all DB instance classes are available in all Amazon Web Services Regions,
+     *        or for all database engines.</p>
+     *        <p>
+     *        For the full list of DB instance classes and availability for your engine, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html"> DB Instance
+     *        Class</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Multi-AZ DB clusters only
+     */
+
+    public void setDBClusterInstanceClass(String dBClusterInstanceClass) {
+        this.dBClusterInstanceClass = dBClusterInstanceClass;
+    }
+
+    /**
+     * <p>
+     * The compute and memory capacity of each DB instance in the Multi-AZ DB cluster, for example
+     * <code>db.m6gd.xlarge</code>. Not all DB instance classes are available in all Amazon Web Services Regions, or for
+     * all database engines.
+     * </p>
+     * <p>
+     * For the full list of DB instance classes and availability for your engine, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html"> DB Instance
+     * Class</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @return The compute and memory capacity of each DB instance in the Multi-AZ DB cluster, for example
+     *         <code>db.m6gd.xlarge</code>. Not all DB instance classes are available in all Amazon Web Services
+     *         Regions, or for all database engines.</p>
+     *         <p>
+     *         For the full list of DB instance classes and availability for your engine, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html"> DB Instance
+     *         Class</a> in the <i>Amazon RDS User Guide</i>.
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Multi-AZ DB clusters only
+     */
+
+    public String getDBClusterInstanceClass() {
+        return this.dBClusterInstanceClass;
+    }
+
+    /**
+     * <p>
+     * The compute and memory capacity of each DB instance in the Multi-AZ DB cluster, for example
+     * <code>db.m6gd.xlarge</code>. Not all DB instance classes are available in all Amazon Web Services Regions, or for
+     * all database engines.
+     * </p>
+     * <p>
+     * For the full list of DB instance classes and availability for your engine, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html"> DB Instance
+     * Class</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @param dBClusterInstanceClass
+     *        The compute and memory capacity of each DB instance in the Multi-AZ DB cluster, for example
+     *        <code>db.m6gd.xlarge</code>. Not all DB instance classes are available in all Amazon Web Services Regions,
+     *        or for all database engines.</p>
+     *        <p>
+     *        For the full list of DB instance classes and availability for your engine, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html"> DB Instance
+     *        Class</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Multi-AZ DB clusters only
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withDBClusterInstanceClass(String dBClusterInstanceClass) {
+        setDBClusterInstanceClass(dBClusterInstanceClass);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The amount of storage in gibibytes (GiB) to allocate to each DB instance in the Multi-AZ DB cluster.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @param allocatedStorage
+     *        The amount of storage in gibibytes (GiB) to allocate to each DB instance in the Multi-AZ DB cluster.</p>
+     *        <p>
+     *        Valid for Cluster Type: Multi-AZ DB clusters only
+     */
+
+    public void setAllocatedStorage(Integer allocatedStorage) {
+        this.allocatedStorage = allocatedStorage;
+    }
+
+    /**
+     * <p>
+     * The amount of storage in gibibytes (GiB) to allocate to each DB instance in the Multi-AZ DB cluster.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @return The amount of storage in gibibytes (GiB) to allocate to each DB instance in the Multi-AZ DB cluster.</p>
+     *         <p>
+     *         Valid for Cluster Type: Multi-AZ DB clusters only
+     */
+
+    public Integer getAllocatedStorage() {
+        return this.allocatedStorage;
+    }
+
+    /**
+     * <p>
+     * The amount of storage in gibibytes (GiB) to allocate to each DB instance in the Multi-AZ DB cluster.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @param allocatedStorage
+     *        The amount of storage in gibibytes (GiB) to allocate to each DB instance in the Multi-AZ DB cluster.</p>
+     *        <p>
+     *        Valid for Cluster Type: Multi-AZ DB clusters only
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withAllocatedStorage(Integer allocatedStorage) {
+        setAllocatedStorage(allocatedStorage);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The storage type to associate with the DB cluster.
+     * </p>
+     * <p>
+     * For information on storage types for Aurora DB clusters, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Overview.StorageReliability.html#aurora-storage-type"
+     * >Storage configurations for Amazon Aurora DB clusters</a>. For information on storage types for Multi-AZ DB
+     * clusters, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/create-multi-az-db-cluster.html#create-multi-az-db-cluster-settings"
+     * >Settings for creating Multi-AZ DB clusters</a>.
+     * </p>
+     * <p>
+     * When specified for a Multi-AZ DB cluster, a value for the <code>Iops</code> parameter is required.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Aurora DB clusters - <code>aurora | aurora-iopt1</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Multi-AZ DB clusters - <code>io1 | io2 | gp3</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Aurora DB clusters - <code>aurora</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Multi-AZ DB clusters - <code>io1</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param storageType
+     *        The storage type to associate with the DB cluster.</p>
+     *        <p>
+     *        For information on storage types for Aurora DB clusters, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Overview.StorageReliability.html#aurora-storage-type"
+     *        >Storage configurations for Amazon Aurora DB clusters</a>. For information on storage types for Multi-AZ
+     *        DB clusters, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/create-multi-az-db-cluster.html#create-multi-az-db-cluster-settings"
+     *        >Settings for creating Multi-AZ DB clusters</a>.
+     *        </p>
+     *        <p>
+     *        When specified for a Multi-AZ DB cluster, a value for the <code>Iops</code> parameter is required.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *        </p>
+     *        <p>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Aurora DB clusters - <code>aurora | aurora-iopt1</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Multi-AZ DB clusters - <code>io1 | io2 | gp3</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Default:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Aurora DB clusters - <code>aurora</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Multi-AZ DB clusters - <code>io1</code>
+     *        </p>
+     *        </li>
+     */
+
+    public void setStorageType(String storageType) {
+        this.storageType = storageType;
+    }
+
+    /**
+     * <p>
+     * The storage type to associate with the DB cluster.
+     * </p>
+     * <p>
+     * For information on storage types for Aurora DB clusters, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Overview.StorageReliability.html#aurora-storage-type"
+     * >Storage configurations for Amazon Aurora DB clusters</a>. For information on storage types for Multi-AZ DB
+     * clusters, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/create-multi-az-db-cluster.html#create-multi-az-db-cluster-settings"
+     * >Settings for creating Multi-AZ DB clusters</a>.
+     * </p>
+     * <p>
+     * When specified for a Multi-AZ DB cluster, a value for the <code>Iops</code> parameter is required.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Aurora DB clusters - <code>aurora | aurora-iopt1</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Multi-AZ DB clusters - <code>io1 | io2 | gp3</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Aurora DB clusters - <code>aurora</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Multi-AZ DB clusters - <code>io1</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The storage type to associate with the DB cluster.</p>
+     *         <p>
+     *         For information on storage types for Aurora DB clusters, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Overview.StorageReliability.html#aurora-storage-type"
+     *         >Storage configurations for Amazon Aurora DB clusters</a>. For information on storage types for Multi-AZ
+     *         DB clusters, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/create-multi-az-db-cluster.html#create-multi-az-db-cluster-settings"
+     *         >Settings for creating Multi-AZ DB clusters</a>.
+     *         </p>
+     *         <p>
+     *         When specified for a Multi-AZ DB cluster, a value for the <code>Iops</code> parameter is required.
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *         </p>
+     *         <p>
+     *         Valid Values:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Aurora DB clusters - <code>aurora | aurora-iopt1</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Multi-AZ DB clusters - <code>io1 | io2 | gp3</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Default:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Aurora DB clusters - <code>aurora</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Multi-AZ DB clusters - <code>io1</code>
+     *         </p>
+     *         </li>
+     */
+
+    public String getStorageType() {
+        return this.storageType;
+    }
+
+    /**
+     * <p>
+     * The storage type to associate with the DB cluster.
+     * </p>
+     * <p>
+     * For information on storage types for Aurora DB clusters, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Overview.StorageReliability.html#aurora-storage-type"
+     * >Storage configurations for Amazon Aurora DB clusters</a>. For information on storage types for Multi-AZ DB
+     * clusters, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/create-multi-az-db-cluster.html#create-multi-az-db-cluster-settings"
+     * >Settings for creating Multi-AZ DB clusters</a>.
+     * </p>
+     * <p>
+     * When specified for a Multi-AZ DB cluster, a value for the <code>Iops</code> parameter is required.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Aurora DB clusters - <code>aurora | aurora-iopt1</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Multi-AZ DB clusters - <code>io1 | io2 | gp3</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Aurora DB clusters - <code>aurora</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Multi-AZ DB clusters - <code>io1</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param storageType
+     *        The storage type to associate with the DB cluster.</p>
+     *        <p>
+     *        For information on storage types for Aurora DB clusters, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Overview.StorageReliability.html#aurora-storage-type"
+     *        >Storage configurations for Amazon Aurora DB clusters</a>. For information on storage types for Multi-AZ
+     *        DB clusters, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/create-multi-az-db-cluster.html#create-multi-az-db-cluster-settings"
+     *        >Settings for creating Multi-AZ DB clusters</a>.
+     *        </p>
+     *        <p>
+     *        When specified for a Multi-AZ DB cluster, a value for the <code>Iops</code> parameter is required.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *        </p>
+     *        <p>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Aurora DB clusters - <code>aurora | aurora-iopt1</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Multi-AZ DB clusters - <code>io1 | io2 | gp3</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Default:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Aurora DB clusters - <code>aurora</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Multi-AZ DB clusters - <code>io1</code>
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withStorageType(String storageType) {
+        setStorageType(storageType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for each DB
+     * instance in the Multi-AZ DB cluster.
+     * </p>
+     * <p>
+     * For information about valid IOPS values, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS">Amazon RDS Provisioned
+     * IOPS storage</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must be a multiple between .5 and 50 of the storage amount for the DB cluster.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param iops
+     *        The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for each DB
+     *        instance in the Multi-AZ DB cluster.</p>
+     *        <p>
+     *        For information about valid IOPS values, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS">Amazon RDS
+     *        Provisioned IOPS storage</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Multi-AZ DB clusters only
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Must be a multiple between .5 and 50 of the storage amount for the DB cluster.
+     *        </p>
+     *        </li>
+     */
+
+    public void setIops(Integer iops) {
+        this.iops = iops;
+    }
+
+    /**
+     * <p>
+     * The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for each DB
+     * instance in the Multi-AZ DB cluster.
+     * </p>
+     * <p>
+     * For information about valid IOPS values, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS">Amazon RDS Provisioned
+     * IOPS storage</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must be a multiple between .5 and 50 of the storage amount for the DB cluster.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for each DB
+     *         instance in the Multi-AZ DB cluster.</p>
+     *         <p>
+     *         For information about valid IOPS values, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS">Amazon RDS
+     *         Provisioned IOPS storage</a> in the <i>Amazon RDS User Guide</i>.
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Multi-AZ DB clusters only
+     *         </p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Must be a multiple between .5 and 50 of the storage amount for the DB cluster.
+     *         </p>
+     *         </li>
+     */
+
+    public Integer getIops() {
+        return this.iops;
+    }
+
+    /**
+     * <p>
+     * The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for each DB
+     * instance in the Multi-AZ DB cluster.
+     * </p>
+     * <p>
+     * For information about valid IOPS values, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS">Amazon RDS Provisioned
+     * IOPS storage</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must be a multiple between .5 and 50 of the storage amount for the DB cluster.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param iops
+     *        The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for each DB
+     *        instance in the Multi-AZ DB cluster.</p>
+     *        <p>
+     *        For information about valid IOPS values, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS">Amazon RDS
+     *        Provisioned IOPS storage</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Multi-AZ DB clusters only
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Must be a multiple between .5 and 50 of the storage amount for the DB cluster.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withIops(Integer iops) {
+        setIops(iops);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether minor engine upgrades are applied automatically to the DB cluster during the maintenance
+     * window. By default, minor engine upgrades are applied automatically.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @param autoMinorVersionUpgrade
+     *        Specifies whether minor engine upgrades are applied automatically to the DB cluster during the maintenance
+     *        window. By default, minor engine upgrades are applied automatically.</p>
+     *        <p>
+     *        Valid for Cluster Type: Multi-AZ DB clusters only
+     */
+
+    public void setAutoMinorVersionUpgrade(Boolean autoMinorVersionUpgrade) {
+        this.autoMinorVersionUpgrade = autoMinorVersionUpgrade;
+    }
+
+    /**
+     * <p>
+     * Specifies whether minor engine upgrades are applied automatically to the DB cluster during the maintenance
+     * window. By default, minor engine upgrades are applied automatically.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @return Specifies whether minor engine upgrades are applied automatically to the DB cluster during the
+     *         maintenance window. By default, minor engine upgrades are applied automatically.</p>
+     *         <p>
+     *         Valid for Cluster Type: Multi-AZ DB clusters only
+     */
+
+    public Boolean getAutoMinorVersionUpgrade() {
+        return this.autoMinorVersionUpgrade;
+    }
+
+    /**
+     * <p>
+     * Specifies whether minor engine upgrades are applied automatically to the DB cluster during the maintenance
+     * window. By default, minor engine upgrades are applied automatically.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @param autoMinorVersionUpgrade
+     *        Specifies whether minor engine upgrades are applied automatically to the DB cluster during the maintenance
+     *        window. By default, minor engine upgrades are applied automatically.</p>
+     *        <p>
+     *        Valid for Cluster Type: Multi-AZ DB clusters only
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withAutoMinorVersionUpgrade(Boolean autoMinorVersionUpgrade) {
+        setAutoMinorVersionUpgrade(autoMinorVersionUpgrade);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether minor engine upgrades are applied automatically to the DB cluster during the maintenance
+     * window. By default, minor engine upgrades are applied automatically.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @return Specifies whether minor engine upgrades are applied automatically to the DB cluster during the
+     *         maintenance window. By default, minor engine upgrades are applied automatically.</p>
+     *         <p>
+     *         Valid for Cluster Type: Multi-AZ DB clusters only
+     */
+
+    public Boolean isAutoMinorVersionUpgrade() {
+        return this.autoMinorVersionUpgrade;
+    }
+
+    /**
+     * <p>
+     * The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB cluster. To
+     * turn off collecting Enhanced Monitoring metrics, specify <code>0</code>.
+     * </p>
+     * <p>
+     * If <code>MonitoringRoleArn</code> is specified, also set <code>MonitoringInterval</code> to a value other than
+     * <code>0</code>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * <p>
+     * Valid Values: <code>0 | 1 | 5 | 10 | 15 | 30 | 60</code>
+     * </p>
+     * <p>
+     * Default: <code>0</code>
+     * </p>
+     * 
+     * @param monitoringInterval
+     *        The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB
+     *        cluster. To turn off collecting Enhanced Monitoring metrics, specify <code>0</code>.</p>
+     *        <p>
+     *        If <code>MonitoringRoleArn</code> is specified, also set <code>MonitoringInterval</code> to a value other
+     *        than <code>0</code>.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Multi-AZ DB clusters only
+     *        </p>
+     *        <p>
+     *        Valid Values: <code>0 | 1 | 5 | 10 | 15 | 30 | 60</code>
+     *        </p>
+     *        <p>
+     *        Default: <code>0</code>
+     */
+
+    public void setMonitoringInterval(Integer monitoringInterval) {
+        this.monitoringInterval = monitoringInterval;
+    }
+
+    /**
+     * <p>
+     * The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB cluster. To
+     * turn off collecting Enhanced Monitoring metrics, specify <code>0</code>.
+     * </p>
+     * <p>
+     * If <code>MonitoringRoleArn</code> is specified, also set <code>MonitoringInterval</code> to a value other than
+     * <code>0</code>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * <p>
+     * Valid Values: <code>0 | 1 | 5 | 10 | 15 | 30 | 60</code>
+     * </p>
+     * <p>
+     * Default: <code>0</code>
+     * </p>
+     * 
+     * @return The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB
+     *         cluster. To turn off collecting Enhanced Monitoring metrics, specify <code>0</code>.</p>
+     *         <p>
+     *         If <code>MonitoringRoleArn</code> is specified, also set <code>MonitoringInterval</code> to a value other
+     *         than <code>0</code>.
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Multi-AZ DB clusters only
+     *         </p>
+     *         <p>
+     *         Valid Values: <code>0 | 1 | 5 | 10 | 15 | 30 | 60</code>
+     *         </p>
+     *         <p>
+     *         Default: <code>0</code>
+     */
+
+    public Integer getMonitoringInterval() {
+        return this.monitoringInterval;
+    }
+
+    /**
+     * <p>
+     * The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB cluster. To
+     * turn off collecting Enhanced Monitoring metrics, specify <code>0</code>.
+     * </p>
+     * <p>
+     * If <code>MonitoringRoleArn</code> is specified, also set <code>MonitoringInterval</code> to a value other than
+     * <code>0</code>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * <p>
+     * Valid Values: <code>0 | 1 | 5 | 10 | 15 | 30 | 60</code>
+     * </p>
+     * <p>
+     * Default: <code>0</code>
+     * </p>
+     * 
+     * @param monitoringInterval
+     *        The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB
+     *        cluster. To turn off collecting Enhanced Monitoring metrics, specify <code>0</code>.</p>
+     *        <p>
+     *        If <code>MonitoringRoleArn</code> is specified, also set <code>MonitoringInterval</code> to a value other
+     *        than <code>0</code>.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Multi-AZ DB clusters only
+     *        </p>
+     *        <p>
+     *        Valid Values: <code>0 | 1 | 5 | 10 | 15 | 30 | 60</code>
+     *        </p>
+     *        <p>
+     *        Default: <code>0</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withMonitoringInterval(Integer monitoringInterval) {
+        setMonitoringInterval(monitoringInterval);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the IAM role that permits RDS to send Enhanced Monitoring metrics to Amazon
+     * CloudWatch Logs. An example is <code>arn:aws:iam:123456789012:role/emaccess</code>. For information on creating a
+     * monitoring role, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole">To
+     * create an IAM role for Amazon RDS Enhanced Monitoring</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * If <code>MonitoringInterval</code> is set to a value other than <code>0</code>, supply a
+     * <code>MonitoringRoleArn</code> value.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @param monitoringRoleArn
+     *        The Amazon Resource Name (ARN) for the IAM role that permits RDS to send Enhanced Monitoring metrics to
+     *        Amazon CloudWatch Logs. An example is <code>arn:aws:iam:123456789012:role/emaccess</code>. For information
+     *        on creating a monitoring role, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole"
+     *        >To create an IAM role for Amazon RDS Enhanced Monitoring</a> in the <i>Amazon RDS User Guide.</i> </p>
+     *        <p>
+     *        If <code>MonitoringInterval</code> is set to a value other than <code>0</code>, supply a
+     *        <code>MonitoringRoleArn</code> value.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Multi-AZ DB clusters only
+     */
+
+    public void setMonitoringRoleArn(String monitoringRoleArn) {
+        this.monitoringRoleArn = monitoringRoleArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the IAM role that permits RDS to send Enhanced Monitoring metrics to Amazon
+     * CloudWatch Logs. An example is <code>arn:aws:iam:123456789012:role/emaccess</code>. For information on creating a
+     * monitoring role, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole">To
+     * create an IAM role for Amazon RDS Enhanced Monitoring</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * If <code>MonitoringInterval</code> is set to a value other than <code>0</code>, supply a
+     * <code>MonitoringRoleArn</code> value.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) for the IAM role that permits RDS to send Enhanced Monitoring metrics to
+     *         Amazon CloudWatch Logs. An example is <code>arn:aws:iam:123456789012:role/emaccess</code>. For
+     *         information on creating a monitoring role, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole"
+     *         >To create an IAM role for Amazon RDS Enhanced Monitoring</a> in the <i>Amazon RDS User Guide.</i> </p>
+     *         <p>
+     *         If <code>MonitoringInterval</code> is set to a value other than <code>0</code>, supply a
+     *         <code>MonitoringRoleArn</code> value.
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Multi-AZ DB clusters only
+     */
+
+    public String getMonitoringRoleArn() {
+        return this.monitoringRoleArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the IAM role that permits RDS to send Enhanced Monitoring metrics to Amazon
+     * CloudWatch Logs. An example is <code>arn:aws:iam:123456789012:role/emaccess</code>. For information on creating a
+     * monitoring role, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole">To
+     * create an IAM role for Amazon RDS Enhanced Monitoring</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * If <code>MonitoringInterval</code> is set to a value other than <code>0</code>, supply a
+     * <code>MonitoringRoleArn</code> value.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @param monitoringRoleArn
+     *        The Amazon Resource Name (ARN) for the IAM role that permits RDS to send Enhanced Monitoring metrics to
+     *        Amazon CloudWatch Logs. An example is <code>arn:aws:iam:123456789012:role/emaccess</code>. For information
+     *        on creating a monitoring role, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole"
+     *        >To create an IAM role for Amazon RDS Enhanced Monitoring</a> in the <i>Amazon RDS User Guide.</i> </p>
+     *        <p>
+     *        If <code>MonitoringInterval</code> is set to a value other than <code>0</code>, supply a
+     *        <code>MonitoringRoleArn</code> value.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Multi-AZ DB clusters only
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withMonitoringRoleArn(String monitoringRoleArn) {
+        setMonitoringRoleArn(monitoringRoleArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to turn on Performance Insights for the DB cluster.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html"> Using Amazon Performance
+     * Insights</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @param enablePerformanceInsights
+     *        Specifies whether to turn on Performance Insights for the DB cluster.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html"> Using Amazon
+     *        Performance Insights</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Multi-AZ DB clusters only
+     */
+
+    public void setEnablePerformanceInsights(Boolean enablePerformanceInsights) {
+        this.enablePerformanceInsights = enablePerformanceInsights;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to turn on Performance Insights for the DB cluster.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html"> Using Amazon Performance
+     * Insights</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @return Specifies whether to turn on Performance Insights for the DB cluster.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html"> Using Amazon
+     *         Performance Insights</a> in the <i>Amazon RDS User Guide</i>.
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Multi-AZ DB clusters only
+     */
+
+    public Boolean getEnablePerformanceInsights() {
+        return this.enablePerformanceInsights;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to turn on Performance Insights for the DB cluster.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html"> Using Amazon Performance
+     * Insights</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @param enablePerformanceInsights
+     *        Specifies whether to turn on Performance Insights for the DB cluster.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html"> Using Amazon
+     *        Performance Insights</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Multi-AZ DB clusters only
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withEnablePerformanceInsights(Boolean enablePerformanceInsights) {
+        setEnablePerformanceInsights(enablePerformanceInsights);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to turn on Performance Insights for the DB cluster.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html"> Using Amazon Performance
+     * Insights</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @return Specifies whether to turn on Performance Insights for the DB cluster.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html"> Using Amazon
+     *         Performance Insights</a> in the <i>Amazon RDS User Guide</i>.
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Multi-AZ DB clusters only
+     */
+
+    public Boolean isEnablePerformanceInsights() {
+        return this.enablePerformanceInsights;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services KMS key identifier for encryption of Performance Insights data.
+     * </p>
+     * <p>
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
+     * </p>
+     * <p>
+     * If you don't specify a value for <code>PerformanceInsightsKMSKeyId</code>, then Amazon RDS uses your default KMS
+     * key. There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a
+     * different default KMS key for each Amazon Web Services Region.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @param performanceInsightsKMSKeyId
+     *        The Amazon Web Services KMS key identifier for encryption of Performance Insights data.</p>
+     *        <p>
+     *        The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS
+     *        key.
+     *        </p>
+     *        <p>
+     *        If you don't specify a value for <code>PerformanceInsightsKMSKeyId</code>, then Amazon RDS uses your
+     *        default KMS key. There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services
+     *        account has a different default KMS key for each Amazon Web Services Region.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Multi-AZ DB clusters only
+     */
+
+    public void setPerformanceInsightsKMSKeyId(String performanceInsightsKMSKeyId) {
+        this.performanceInsightsKMSKeyId = performanceInsightsKMSKeyId;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services KMS key identifier for encryption of Performance Insights data.
+     * </p>
+     * <p>
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
+     * </p>
+     * <p>
+     * If you don't specify a value for <code>PerformanceInsightsKMSKeyId</code>, then Amazon RDS uses your default KMS
+     * key. There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a
+     * different default KMS key for each Amazon Web Services Region.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @return The Amazon Web Services KMS key identifier for encryption of Performance Insights data.</p>
+     *         <p>
+     *         The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS
+     *         key.
+     *         </p>
+     *         <p>
+     *         If you don't specify a value for <code>PerformanceInsightsKMSKeyId</code>, then Amazon RDS uses your
+     *         default KMS key. There is a default KMS key for your Amazon Web Services account. Your Amazon Web
+     *         Services account has a different default KMS key for each Amazon Web Services Region.
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Multi-AZ DB clusters only
+     */
+
+    public String getPerformanceInsightsKMSKeyId() {
+        return this.performanceInsightsKMSKeyId;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services KMS key identifier for encryption of Performance Insights data.
+     * </p>
+     * <p>
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
+     * </p>
+     * <p>
+     * If you don't specify a value for <code>PerformanceInsightsKMSKeyId</code>, then Amazon RDS uses your default KMS
+     * key. There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a
+     * different default KMS key for each Amazon Web Services Region.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @param performanceInsightsKMSKeyId
+     *        The Amazon Web Services KMS key identifier for encryption of Performance Insights data.</p>
+     *        <p>
+     *        The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS
+     *        key.
+     *        </p>
+     *        <p>
+     *        If you don't specify a value for <code>PerformanceInsightsKMSKeyId</code>, then Amazon RDS uses your
+     *        default KMS key. There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services
+     *        account has a different default KMS key for each Amazon Web Services Region.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Multi-AZ DB clusters only
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withPerformanceInsightsKMSKeyId(String performanceInsightsKMSKeyId) {
+        setPerformanceInsightsKMSKeyId(performanceInsightsKMSKeyId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of days to retain Performance Insights data.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>7</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>month</i> * 31, where <i>month</i> is a number of months from 1-23. Examples: <code>93</code> (3 months * 31),
+     * <code>341</code> (11 months * 31), <code>589</code> (19 months * 31)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>731</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default: <code>7</code> days
+     * </p>
+     * <p>
+     * If you specify a retention period that isn't valid, such as <code>94</code>, Amazon RDS issues an error.
+     * </p>
+     * 
+     * @param performanceInsightsRetentionPeriod
+     *        The number of days to retain Performance Insights data.</p>
+     *        <p>
+     *        Valid for Cluster Type: Multi-AZ DB clusters only
+     *        </p>
+     *        <p>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>7</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>month</i> * 31, where <i>month</i> is a number of months from 1-23. Examples: <code>93</code> (3 months
+     *        * 31), <code>341</code> (11 months * 31), <code>589</code> (19 months * 31)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>731</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Default: <code>7</code> days
+     *        </p>
+     *        <p>
+     *        If you specify a retention period that isn't valid, such as <code>94</code>, Amazon RDS issues an error.
+     */
+
+    public void setPerformanceInsightsRetentionPeriod(Integer performanceInsightsRetentionPeriod) {
+        this.performanceInsightsRetentionPeriod = performanceInsightsRetentionPeriod;
+    }
+
+    /**
+     * <p>
+     * The number of days to retain Performance Insights data.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>7</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>month</i> * 31, where <i>month</i> is a number of months from 1-23. Examples: <code>93</code> (3 months * 31),
+     * <code>341</code> (11 months * 31), <code>589</code> (19 months * 31)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>731</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default: <code>7</code> days
+     * </p>
+     * <p>
+     * If you specify a retention period that isn't valid, such as <code>94</code>, Amazon RDS issues an error.
+     * </p>
+     * 
+     * @return The number of days to retain Performance Insights data.</p>
+     *         <p>
+     *         Valid for Cluster Type: Multi-AZ DB clusters only
+     *         </p>
+     *         <p>
+     *         Valid Values:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>7</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <i>month</i> * 31, where <i>month</i> is a number of months from 1-23. Examples: <code>93</code> (3
+     *         months * 31), <code>341</code> (11 months * 31), <code>589</code> (19 months * 31)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>731</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Default: <code>7</code> days
+     *         </p>
+     *         <p>
+     *         If you specify a retention period that isn't valid, such as <code>94</code>, Amazon RDS issues an error.
+     */
+
+    public Integer getPerformanceInsightsRetentionPeriod() {
+        return this.performanceInsightsRetentionPeriod;
+    }
+
+    /**
+     * <p>
+     * The number of days to retain Performance Insights data.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters only
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>7</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>month</i> * 31, where <i>month</i> is a number of months from 1-23. Examples: <code>93</code> (3 months * 31),
+     * <code>341</code> (11 months * 31), <code>589</code> (19 months * 31)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>731</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default: <code>7</code> days
+     * </p>
+     * <p>
+     * If you specify a retention period that isn't valid, such as <code>94</code>, Amazon RDS issues an error.
+     * </p>
+     * 
+     * @param performanceInsightsRetentionPeriod
+     *        The number of days to retain Performance Insights data.</p>
+     *        <p>
+     *        Valid for Cluster Type: Multi-AZ DB clusters only
+     *        </p>
+     *        <p>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>7</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>month</i> * 31, where <i>month</i> is a number of months from 1-23. Examples: <code>93</code> (3 months
+     *        * 31), <code>341</code> (11 months * 31), <code>589</code> (19 months * 31)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>731</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Default: <code>7</code> days
+     *        </p>
+     *        <p>
+     *        If you specify a retention period that isn't valid, such as <code>94</code>, Amazon RDS issues an error.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withPerformanceInsightsRetentionPeriod(Integer performanceInsightsRetentionPeriod) {
+        setPerformanceInsightsRetentionPeriod(performanceInsightsRetentionPeriod);
+        return this;
+    }
+
+    /**
+     * @param serverlessV2ScalingConfiguration
+     */
+
+    public void setServerlessV2ScalingConfiguration(ServerlessV2ScalingConfiguration serverlessV2ScalingConfiguration) {
+        this.serverlessV2ScalingConfiguration = serverlessV2ScalingConfiguration;
+    }
+
+    /**
+     * @return
+     */
+
+    public ServerlessV2ScalingConfiguration getServerlessV2ScalingConfiguration() {
+        return this.serverlessV2ScalingConfiguration;
+    }
+
+    /**
+     * @param serverlessV2ScalingConfiguration
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withServerlessV2ScalingConfiguration(ServerlessV2ScalingConfiguration serverlessV2ScalingConfiguration) {
+        setServerlessV2ScalingConfiguration(serverlessV2ScalingConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The network type of the DB cluster.
+     * </p>
+     * <p>
+     * The network type is determined by the <code>DBSubnetGroup</code> specified for the DB cluster. A
+     * <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     * <code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     * Working with a DB instance in a VPC</a> in the <i>Amazon Aurora User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     * <p>
+     * Valid Values: <code>IPV4 | DUAL</code>
+     * </p>
+     * 
+     * @param networkType
+     *        The network type of the DB cluster.</p>
+     *        <p>
+     *        The network type is determined by the <code>DBSubnetGroup</code> specified for the DB cluster. A
+     *        <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     *        <code>DUAL</code>).
+     *        </p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     *        Working with a DB instance in a VPC</a> in the <i>Amazon Aurora User Guide.</i>
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters only
+     *        </p>
+     *        <p>
+     *        Valid Values: <code>IPV4 | DUAL</code>
+     */
+
+    public void setNetworkType(String networkType) {
+        this.networkType = networkType;
+    }
+
+    /**
+     * <p>
+     * The network type of the DB cluster.
+     * </p>
+     * <p>
+     * The network type is determined by the <code>DBSubnetGroup</code> specified for the DB cluster. A
+     * <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     * <code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     * Working with a DB instance in a VPC</a> in the <i>Amazon Aurora User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     * <p>
+     * Valid Values: <code>IPV4 | DUAL</code>
+     * </p>
+     * 
+     * @return The network type of the DB cluster.</p>
+     *         <p>
+     *         The network type is determined by the <code>DBSubnetGroup</code> specified for the DB cluster. A
+     *         <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     *         <code>DUAL</code>).
+     *         </p>
+     *         <p>
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"
+     *         > Working with a DB instance in a VPC</a> in the <i>Amazon Aurora User Guide.</i>
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters only
+     *         </p>
+     *         <p>
+     *         Valid Values: <code>IPV4 | DUAL</code>
+     */
+
+    public String getNetworkType() {
+        return this.networkType;
+    }
+
+    /**
+     * <p>
+     * The network type of the DB cluster.
+     * </p>
+     * <p>
+     * The network type is determined by the <code>DBSubnetGroup</code> specified for the DB cluster. A
+     * <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     * <code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     * Working with a DB instance in a VPC</a> in the <i>Amazon Aurora User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     * <p>
+     * Valid Values: <code>IPV4 | DUAL</code>
+     * </p>
+     * 
+     * @param networkType
+     *        The network type of the DB cluster.</p>
+     *        <p>
+     *        The network type is determined by the <code>DBSubnetGroup</code> specified for the DB cluster. A
+     *        <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     *        <code>DUAL</code>).
+     *        </p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     *        Working with a DB instance in a VPC</a> in the <i>Amazon Aurora User Guide.</i>
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters only
+     *        </p>
+     *        <p>
+     *        Valid Values: <code>IPV4 | DUAL</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withNetworkType(String networkType) {
+        setNetworkType(networkType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to manage the master user password with Amazon Web Services Secrets Manager.
+     * </p>
+     * <p>
+     * If the DB cluster doesn't manage the master user password with Amazon Web Services Secrets Manager, you can turn
+     * on this management. In this case, you can't specify <code>MasterUserPassword</code>.
+     * </p>
+     * <p>
+     * If the DB cluster already manages the master user password with Amazon Web Services Secrets Manager, and you
+     * specify that the master user password is not managed with Amazon Web Services Secrets Manager, then you must
+     * specify <code>MasterUserPassword</code>. In this case, RDS deletes the secret and uses the new password for the
+     * master user specified by <code>MasterUserPassword</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management with
+     * Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/rds-secrets-manager.html">Password management
+     * with Amazon Web Services Secrets Manager</a> in the <i>Amazon Aurora User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * 
+     * @param manageMasterUserPassword
+     *        Specifies whether to manage the master user password with Amazon Web Services Secrets Manager.</p>
+     *        <p>
+     *        If the DB cluster doesn't manage the master user password with Amazon Web Services Secrets Manager, you
+     *        can turn on this management. In this case, you can't specify <code>MasterUserPassword</code>.
+     *        </p>
+     *        <p>
+     *        If the DB cluster already manages the master user password with Amazon Web Services Secrets Manager, and
+     *        you specify that the master user password is not managed with Amazon Web Services Secrets Manager, then
+     *        you must specify <code>MasterUserPassword</code>. In this case, RDS deletes the secret and uses the new
+     *        password for the master user specified by <code>MasterUserPassword</code>.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management
+     *        with Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide</i> and <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/rds-secrets-manager.html">Password
+     *        management with Amazon Web Services Secrets Manager</a> in the <i>Amazon Aurora User Guide.</i>
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     */
+
+    public void setManageMasterUserPassword(Boolean manageMasterUserPassword) {
+        this.manageMasterUserPassword = manageMasterUserPassword;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to manage the master user password with Amazon Web Services Secrets Manager.
+     * </p>
+     * <p>
+     * If the DB cluster doesn't manage the master user password with Amazon Web Services Secrets Manager, you can turn
+     * on this management. In this case, you can't specify <code>MasterUserPassword</code>.
+     * </p>
+     * <p>
+     * If the DB cluster already manages the master user password with Amazon Web Services Secrets Manager, and you
+     * specify that the master user password is not managed with Amazon Web Services Secrets Manager, then you must
+     * specify <code>MasterUserPassword</code>. In this case, RDS deletes the secret and uses the new password for the
+     * master user specified by <code>MasterUserPassword</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management with
+     * Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/rds-secrets-manager.html">Password management
+     * with Amazon Web Services Secrets Manager</a> in the <i>Amazon Aurora User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * 
+     * @return Specifies whether to manage the master user password with Amazon Web Services Secrets Manager.</p>
+     *         <p>
+     *         If the DB cluster doesn't manage the master user password with Amazon Web Services Secrets Manager, you
+     *         can turn on this management. In this case, you can't specify <code>MasterUserPassword</code>.
+     *         </p>
+     *         <p>
+     *         If the DB cluster already manages the master user password with Amazon Web Services Secrets Manager, and
+     *         you specify that the master user password is not managed with Amazon Web Services Secrets Manager, then
+     *         you must specify <code>MasterUserPassword</code>. In this case, RDS deletes the secret and uses the new
+     *         password for the master user specified by <code>MasterUserPassword</code>.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password
+     *         management with Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide</i> and <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/rds-secrets-manager.html">Password
+     *         management with Amazon Web Services Secrets Manager</a> in the <i>Amazon Aurora User Guide.</i>
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     */
+
+    public Boolean getManageMasterUserPassword() {
+        return this.manageMasterUserPassword;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to manage the master user password with Amazon Web Services Secrets Manager.
+     * </p>
+     * <p>
+     * If the DB cluster doesn't manage the master user password with Amazon Web Services Secrets Manager, you can turn
+     * on this management. In this case, you can't specify <code>MasterUserPassword</code>.
+     * </p>
+     * <p>
+     * If the DB cluster already manages the master user password with Amazon Web Services Secrets Manager, and you
+     * specify that the master user password is not managed with Amazon Web Services Secrets Manager, then you must
+     * specify <code>MasterUserPassword</code>. In this case, RDS deletes the secret and uses the new password for the
+     * master user specified by <code>MasterUserPassword</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management with
+     * Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/rds-secrets-manager.html">Password management
+     * with Amazon Web Services Secrets Manager</a> in the <i>Amazon Aurora User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * 
+     * @param manageMasterUserPassword
+     *        Specifies whether to manage the master user password with Amazon Web Services Secrets Manager.</p>
+     *        <p>
+     *        If the DB cluster doesn't manage the master user password with Amazon Web Services Secrets Manager, you
+     *        can turn on this management. In this case, you can't specify <code>MasterUserPassword</code>.
+     *        </p>
+     *        <p>
+     *        If the DB cluster already manages the master user password with Amazon Web Services Secrets Manager, and
+     *        you specify that the master user password is not managed with Amazon Web Services Secrets Manager, then
+     *        you must specify <code>MasterUserPassword</code>. In this case, RDS deletes the secret and uses the new
+     *        password for the master user specified by <code>MasterUserPassword</code>.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management
+     *        with Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide</i> and <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/rds-secrets-manager.html">Password
+     *        management with Amazon Web Services Secrets Manager</a> in the <i>Amazon Aurora User Guide.</i>
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withManageMasterUserPassword(Boolean manageMasterUserPassword) {
+        setManageMasterUserPassword(manageMasterUserPassword);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to manage the master user password with Amazon Web Services Secrets Manager.
+     * </p>
+     * <p>
+     * If the DB cluster doesn't manage the master user password with Amazon Web Services Secrets Manager, you can turn
+     * on this management. In this case, you can't specify <code>MasterUserPassword</code>.
+     * </p>
+     * <p>
+     * If the DB cluster already manages the master user password with Amazon Web Services Secrets Manager, and you
+     * specify that the master user password is not managed with Amazon Web Services Secrets Manager, then you must
+     * specify <code>MasterUserPassword</code>. In this case, RDS deletes the secret and uses the new password for the
+     * master user specified by <code>MasterUserPassword</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management with
+     * Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/rds-secrets-manager.html">Password management
+     * with Amazon Web Services Secrets Manager</a> in the <i>Amazon Aurora User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * 
+     * @return Specifies whether to manage the master user password with Amazon Web Services Secrets Manager.</p>
+     *         <p>
+     *         If the DB cluster doesn't manage the master user password with Amazon Web Services Secrets Manager, you
+     *         can turn on this management. In this case, you can't specify <code>MasterUserPassword</code>.
+     *         </p>
+     *         <p>
+     *         If the DB cluster already manages the master user password with Amazon Web Services Secrets Manager, and
+     *         you specify that the master user password is not managed with Amazon Web Services Secrets Manager, then
+     *         you must specify <code>MasterUserPassword</code>. In this case, RDS deletes the secret and uses the new
+     *         password for the master user specified by <code>MasterUserPassword</code>.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password
+     *         management with Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide</i> and <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/rds-secrets-manager.html">Password
+     *         management with Amazon Web Services Secrets Manager</a> in the <i>Amazon Aurora User Guide.</i>
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     */
+
+    public Boolean isManageMasterUserPassword() {
+        return this.manageMasterUserPassword;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to rotate the secret managed by Amazon Web Services Secrets Manager for the master user
+     * password.
+     * </p>
+     * <p>
+     * This setting is valid only if the master user password is managed by RDS in Amazon Web Services Secrets Manager
+     * for the DB cluster. The secret value contains the updated password.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management with
+     * Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/rds-secrets-manager.html">Password management
+     * with Amazon Web Services Secrets Manager</a> in the <i>Amazon Aurora User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You must apply the change immediately when rotating the master user password.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param rotateMasterUserPassword
+     *        Specifies whether to rotate the secret managed by Amazon Web Services Secrets Manager for the master user
+     *        password.</p>
+     *        <p>
+     *        This setting is valid only if the master user password is managed by RDS in Amazon Web Services Secrets
+     *        Manager for the DB cluster. The secret value contains the updated password.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management
+     *        with Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide</i> and <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/rds-secrets-manager.html">Password
+     *        management with Amazon Web Services Secrets Manager</a> in the <i>Amazon Aurora User Guide.</i>
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        You must apply the change immediately when rotating the master user password.
+     *        </p>
+     *        </li>
+     */
+
+    public void setRotateMasterUserPassword(Boolean rotateMasterUserPassword) {
+        this.rotateMasterUserPassword = rotateMasterUserPassword;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to rotate the secret managed by Amazon Web Services Secrets Manager for the master user
+     * password.
+     * </p>
+     * <p>
+     * This setting is valid only if the master user password is managed by RDS in Amazon Web Services Secrets Manager
+     * for the DB cluster. The secret value contains the updated password.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management with
+     * Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/rds-secrets-manager.html">Password management
+     * with Amazon Web Services Secrets Manager</a> in the <i>Amazon Aurora User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You must apply the change immediately when rotating the master user password.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Specifies whether to rotate the secret managed by Amazon Web Services Secrets Manager for the master user
+     *         password.</p>
+     *         <p>
+     *         This setting is valid only if the master user password is managed by RDS in Amazon Web Services Secrets
+     *         Manager for the DB cluster. The secret value contains the updated password.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password
+     *         management with Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide</i> and <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/rds-secrets-manager.html">Password
+     *         management with Amazon Web Services Secrets Manager</a> in the <i>Amazon Aurora User Guide.</i>
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *         </p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You must apply the change immediately when rotating the master user password.
+     *         </p>
+     *         </li>
+     */
+
+    public Boolean getRotateMasterUserPassword() {
+        return this.rotateMasterUserPassword;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to rotate the secret managed by Amazon Web Services Secrets Manager for the master user
+     * password.
+     * </p>
+     * <p>
+     * This setting is valid only if the master user password is managed by RDS in Amazon Web Services Secrets Manager
+     * for the DB cluster. The secret value contains the updated password.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management with
+     * Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/rds-secrets-manager.html">Password management
+     * with Amazon Web Services Secrets Manager</a> in the <i>Amazon Aurora User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You must apply the change immediately when rotating the master user password.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param rotateMasterUserPassword
+     *        Specifies whether to rotate the secret managed by Amazon Web Services Secrets Manager for the master user
+     *        password.</p>
+     *        <p>
+     *        This setting is valid only if the master user password is managed by RDS in Amazon Web Services Secrets
+     *        Manager for the DB cluster. The secret value contains the updated password.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management
+     *        with Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide</i> and <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/rds-secrets-manager.html">Password
+     *        management with Amazon Web Services Secrets Manager</a> in the <i>Amazon Aurora User Guide.</i>
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        You must apply the change immediately when rotating the master user password.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withRotateMasterUserPassword(Boolean rotateMasterUserPassword) {
+        setRotateMasterUserPassword(rotateMasterUserPassword);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to rotate the secret managed by Amazon Web Services Secrets Manager for the master user
+     * password.
+     * </p>
+     * <p>
+     * This setting is valid only if the master user password is managed by RDS in Amazon Web Services Secrets Manager
+     * for the DB cluster. The secret value contains the updated password.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password management with
+     * Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide</i> and <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/rds-secrets-manager.html">Password management
+     * with Amazon Web Services Secrets Manager</a> in the <i>Amazon Aurora User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You must apply the change immediately when rotating the master user password.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Specifies whether to rotate the secret managed by Amazon Web Services Secrets Manager for the master user
+     *         password.</p>
+     *         <p>
+     *         This setting is valid only if the master user password is managed by RDS in Amazon Web Services Secrets
+     *         Manager for the DB cluster. The secret value contains the updated password.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html">Password
+     *         management with Amazon Web Services Secrets Manager</a> in the <i>Amazon RDS User Guide</i> and <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/rds-secrets-manager.html">Password
+     *         management with Amazon Web Services Secrets Manager</a> in the <i>Amazon Aurora User Guide.</i>
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *         </p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You must apply the change immediately when rotating the master user password.
+     *         </p>
+     *         </li>
+     */
+
+    public Boolean isRotateMasterUserPassword() {
+        return this.rotateMasterUserPassword;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services KMS key identifier to encrypt a secret that is automatically generated and managed in
+     * Amazon Web Services Secrets Manager.
+     * </p>
+     * <p>
+     * This setting is valid only if both of the following conditions are met:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The DB cluster doesn't manage the master user password in Amazon Web Services Secrets Manager.
+     * </p>
+     * <p>
+     * If the DB cluster already manages the master user password in Amazon Web Services Secrets Manager, you can't
+     * change the KMS key that is used to encrypt the secret.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You are turning on <code>ManageMasterUserPassword</code> to manage the master user password in Amazon Web
+     * Services Secrets Manager.
+     * </p>
+     * <p>
+     * If you are turning on <code>ManageMasterUserPassword</code> and don't specify
+     * <code>MasterUserSecretKmsKeyId</code>, then the <code>aws/secretsmanager</code> KMS key is used to encrypt the
+     * secret. If the secret is in a different Amazon Web Services account, then you can't use the
+     * <code>aws/secretsmanager</code> KMS key to encrypt the secret, and you must use a customer managed KMS key.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key. To
+     * use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
+     * </p>
+     * <p>
+     * There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a different
+     * default KMS key for each Amazon Web Services Region.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * 
+     * @param masterUserSecretKmsKeyId
+     *        The Amazon Web Services KMS key identifier to encrypt a secret that is automatically generated and managed
+     *        in Amazon Web Services Secrets Manager.</p>
+     *        <p>
+     *        This setting is valid only if both of the following conditions are met:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The DB cluster doesn't manage the master user password in Amazon Web Services Secrets Manager.
+     *        </p>
+     *        <p>
+     *        If the DB cluster already manages the master user password in Amazon Web Services Secrets Manager, you
+     *        can't change the KMS key that is used to encrypt the secret.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        You are turning on <code>ManageMasterUserPassword</code> to manage the master user password in Amazon Web
+     *        Services Secrets Manager.
+     *        </p>
+     *        <p>
+     *        If you are turning on <code>ManageMasterUserPassword</code> and don't specify
+     *        <code>MasterUserSecretKmsKeyId</code>, then the <code>aws/secretsmanager</code> KMS key is used to encrypt
+     *        the secret. If the secret is in a different Amazon Web Services account, then you can't use the
+     *        <code>aws/secretsmanager</code> KMS key to encrypt the secret, and you must use a customer managed KMS
+     *        key.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS
+     *        key. To use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
+     *        </p>
+     *        <p>
+     *        There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a
+     *        different default KMS key for each Amazon Web Services Region.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     */
+
+    public void setMasterUserSecretKmsKeyId(String masterUserSecretKmsKeyId) {
+        this.masterUserSecretKmsKeyId = masterUserSecretKmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services KMS key identifier to encrypt a secret that is automatically generated and managed in
+     * Amazon Web Services Secrets Manager.
+     * </p>
+     * <p>
+     * This setting is valid only if both of the following conditions are met:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The DB cluster doesn't manage the master user password in Amazon Web Services Secrets Manager.
+     * </p>
+     * <p>
+     * If the DB cluster already manages the master user password in Amazon Web Services Secrets Manager, you can't
+     * change the KMS key that is used to encrypt the secret.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You are turning on <code>ManageMasterUserPassword</code> to manage the master user password in Amazon Web
+     * Services Secrets Manager.
+     * </p>
+     * <p>
+     * If you are turning on <code>ManageMasterUserPassword</code> and don't specify
+     * <code>MasterUserSecretKmsKeyId</code>, then the <code>aws/secretsmanager</code> KMS key is used to encrypt the
+     * secret. If the secret is in a different Amazon Web Services account, then you can't use the
+     * <code>aws/secretsmanager</code> KMS key to encrypt the secret, and you must use a customer managed KMS key.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key. To
+     * use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
+     * </p>
+     * <p>
+     * There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a different
+     * default KMS key for each Amazon Web Services Region.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * 
+     * @return The Amazon Web Services KMS key identifier to encrypt a secret that is automatically generated and
+     *         managed in Amazon Web Services Secrets Manager.</p>
+     *         <p>
+     *         This setting is valid only if both of the following conditions are met:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         The DB cluster doesn't manage the master user password in Amazon Web Services Secrets Manager.
+     *         </p>
+     *         <p>
+     *         If the DB cluster already manages the master user password in Amazon Web Services Secrets Manager, you
+     *         can't change the KMS key that is used to encrypt the secret.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You are turning on <code>ManageMasterUserPassword</code> to manage the master user password in Amazon Web
+     *         Services Secrets Manager.
+     *         </p>
+     *         <p>
+     *         If you are turning on <code>ManageMasterUserPassword</code> and don't specify
+     *         <code>MasterUserSecretKmsKeyId</code>, then the <code>aws/secretsmanager</code> KMS key is used to
+     *         encrypt the secret. If the secret is in a different Amazon Web Services account, then you can't use the
+     *         <code>aws/secretsmanager</code> KMS key to encrypt the secret, and you must use a customer managed KMS
+     *         key.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS
+     *         key. To use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
+     *         </p>
+     *         <p>
+     *         There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a
+     *         different default KMS key for each Amazon Web Services Region.
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     */
+
+    public String getMasterUserSecretKmsKeyId() {
+        return this.masterUserSecretKmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services KMS key identifier to encrypt a secret that is automatically generated and managed in
+     * Amazon Web Services Secrets Manager.
+     * </p>
+     * <p>
+     * This setting is valid only if both of the following conditions are met:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The DB cluster doesn't manage the master user password in Amazon Web Services Secrets Manager.
+     * </p>
+     * <p>
+     * If the DB cluster already manages the master user password in Amazon Web Services Secrets Manager, you can't
+     * change the KMS key that is used to encrypt the secret.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You are turning on <code>ManageMasterUserPassword</code> to manage the master user password in Amazon Web
+     * Services Secrets Manager.
+     * </p>
+     * <p>
+     * If you are turning on <code>ManageMasterUserPassword</code> and don't specify
+     * <code>MasterUserSecretKmsKeyId</code>, then the <code>aws/secretsmanager</code> KMS key is used to encrypt the
+     * secret. If the secret is in a different Amazon Web Services account, then you can't use the
+     * <code>aws/secretsmanager</code> KMS key to encrypt the secret, and you must use a customer managed KMS key.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key. To
+     * use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
+     * </p>
+     * <p>
+     * There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a different
+     * default KMS key for each Amazon Web Services Region.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * 
+     * @param masterUserSecretKmsKeyId
+     *        The Amazon Web Services KMS key identifier to encrypt a secret that is automatically generated and managed
+     *        in Amazon Web Services Secrets Manager.</p>
+     *        <p>
+     *        This setting is valid only if both of the following conditions are met:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The DB cluster doesn't manage the master user password in Amazon Web Services Secrets Manager.
+     *        </p>
+     *        <p>
+     *        If the DB cluster already manages the master user password in Amazon Web Services Secrets Manager, you
+     *        can't change the KMS key that is used to encrypt the secret.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        You are turning on <code>ManageMasterUserPassword</code> to manage the master user password in Amazon Web
+     *        Services Secrets Manager.
+     *        </p>
+     *        <p>
+     *        If you are turning on <code>ManageMasterUserPassword</code> and don't specify
+     *        <code>MasterUserSecretKmsKeyId</code>, then the <code>aws/secretsmanager</code> KMS key is used to encrypt
+     *        the secret. If the secret is in a different Amazon Web Services account, then you can't use the
+     *        <code>aws/secretsmanager</code> KMS key to encrypt the secret, and you must use a customer managed KMS
+     *        key.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS
+     *        key. To use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
+     *        </p>
+     *        <p>
+     *        There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a
+     *        different default KMS key for each Amazon Web Services Region.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withMasterUserSecretKmsKeyId(String masterUserSecretKmsKeyId) {
+        setMasterUserSecretKmsKeyId(masterUserSecretKmsKeyId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The DB engine mode of the DB cluster, either <code>provisioned</code> or <code>serverless</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The DB engine mode can be modified only from <code>serverless</code> to <code>provisioned</code>.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBCluster.html"> CreateDBCluster</a>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     * 
+     * @param engineMode
+     *        The DB engine mode of the DB cluster, either <code>provisioned</code> or <code>serverless</code>.</p>
+     *        <note>
+     *        <p>
+     *        The DB engine mode can be modified only from <code>serverless</code> to <code>provisioned</code>.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBCluster.html">
+     *        CreateDBCluster</a>.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters only
+     */
+
+    public void setEngineMode(String engineMode) {
+        this.engineMode = engineMode;
+    }
+
+    /**
+     * <p>
+     * The DB engine mode of the DB cluster, either <code>provisioned</code> or <code>serverless</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The DB engine mode can be modified only from <code>serverless</code> to <code>provisioned</code>.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBCluster.html"> CreateDBCluster</a>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     * 
+     * @return The DB engine mode of the DB cluster, either <code>provisioned</code> or <code>serverless</code>.</p>
+     *         <note>
+     *         <p>
+     *         The DB engine mode can be modified only from <code>serverless</code> to <code>provisioned</code>.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBCluster.html">
+     *         CreateDBCluster</a>.
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters only
+     */
+
+    public String getEngineMode() {
+        return this.engineMode;
+    }
+
+    /**
+     * <p>
+     * The DB engine mode of the DB cluster, either <code>provisioned</code> or <code>serverless</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The DB engine mode can be modified only from <code>serverless</code> to <code>provisioned</code>.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBCluster.html"> CreateDBCluster</a>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters only
+     * </p>
+     * 
+     * @param engineMode
+     *        The DB engine mode of the DB cluster, either <code>provisioned</code> or <code>serverless</code>.</p>
+     *        <note>
+     *        <p>
+     *        The DB engine mode can be modified only from <code>serverless</code> to <code>provisioned</code>.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBCluster.html">
+     *        CreateDBCluster</a>.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters only
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withEngineMode(String engineMode) {
+        setEngineMode(engineMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether engine mode changes from <code>serverless</code> to <code>provisioned</code> are allowed.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora Serverless v1 DB clusters only
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You must allow engine mode changes when specifying a different value for the <code>EngineMode</code> parameter
+     * from the DB cluster's current engine mode.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param allowEngineModeChange
+     *        Specifies whether engine mode changes from <code>serverless</code> to <code>provisioned</code> are
+     *        allowed.</p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora Serverless v1 DB clusters only
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        You must allow engine mode changes when specifying a different value for the <code>EngineMode</code>
+     *        parameter from the DB cluster's current engine mode.
+     *        </p>
+     *        </li>
+     */
+
+    public void setAllowEngineModeChange(Boolean allowEngineModeChange) {
+        this.allowEngineModeChange = allowEngineModeChange;
+    }
+
+    /**
+     * <p>
+     * Specifies whether engine mode changes from <code>serverless</code> to <code>provisioned</code> are allowed.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora Serverless v1 DB clusters only
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You must allow engine mode changes when specifying a different value for the <code>EngineMode</code> parameter
+     * from the DB cluster's current engine mode.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Specifies whether engine mode changes from <code>serverless</code> to <code>provisioned</code> are
+     *         allowed.</p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora Serverless v1 DB clusters only
+     *         </p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You must allow engine mode changes when specifying a different value for the <code>EngineMode</code>
+     *         parameter from the DB cluster's current engine mode.
+     *         </p>
+     *         </li>
+     */
+
+    public Boolean getAllowEngineModeChange() {
+        return this.allowEngineModeChange;
+    }
+
+    /**
+     * <p>
+     * Specifies whether engine mode changes from <code>serverless</code> to <code>provisioned</code> are allowed.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora Serverless v1 DB clusters only
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You must allow engine mode changes when specifying a different value for the <code>EngineMode</code> parameter
+     * from the DB cluster's current engine mode.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param allowEngineModeChange
+     *        Specifies whether engine mode changes from <code>serverless</code> to <code>provisioned</code> are
+     *        allowed.</p>
+     *        <p>
+     *        Valid for Cluster Type: Aurora Serverless v1 DB clusters only
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        You must allow engine mode changes when specifying a different value for the <code>EngineMode</code>
+     *        parameter from the DB cluster's current engine mode.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withAllowEngineModeChange(Boolean allowEngineModeChange) {
+        setAllowEngineModeChange(allowEngineModeChange);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether engine mode changes from <code>serverless</code> to <code>provisioned</code> are allowed.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Aurora Serverless v1 DB clusters only
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You must allow engine mode changes when specifying a different value for the <code>EngineMode</code> parameter
+     * from the DB cluster's current engine mode.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Specifies whether engine mode changes from <code>serverless</code> to <code>provisioned</code> are
+     *         allowed.</p>
+     *         <p>
+     *         Valid for Cluster Type: Aurora Serverless v1 DB clusters only
+     *         </p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You must allow engine mode changes when specifying a different value for the <code>EngineMode</code>
+     *         parameter from the DB cluster's current engine mode.
+     *         </p>
+     *         </li>
+     */
+
+    public Boolean isAllowEngineModeChange() {
+        return this.allowEngineModeChange;
+    }
+
+    /**
+     * <p>
+     * Specifies whether read replicas can forward write operations to the writer DB instance in the DB cluster. By
+     * default, write operations aren't allowed on reader DB instances.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @param enableLocalWriteForwarding
+     *        Specifies whether read replicas can forward write operations to the writer DB instance in the DB cluster.
+     *        By default, write operations aren't allowed on reader DB instances.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
+     */
+
+    public void setEnableLocalWriteForwarding(Boolean enableLocalWriteForwarding) {
+        this.enableLocalWriteForwarding = enableLocalWriteForwarding;
+    }
+
+    /**
+     * <p>
+     * Specifies whether read replicas can forward write operations to the writer DB instance in the DB cluster. By
+     * default, write operations aren't allowed on reader DB instances.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @return Specifies whether read replicas can forward write operations to the writer DB instance in the DB cluster.
+     *         By default, write operations aren't allowed on reader DB instances.</p>
+     *         <p>
+     *         Valid for: Aurora DB clusters only
+     */
+
+    public Boolean getEnableLocalWriteForwarding() {
+        return this.enableLocalWriteForwarding;
+    }
+
+    /**
+     * <p>
+     * Specifies whether read replicas can forward write operations to the writer DB instance in the DB cluster. By
+     * default, write operations aren't allowed on reader DB instances.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @param enableLocalWriteForwarding
+     *        Specifies whether read replicas can forward write operations to the writer DB instance in the DB cluster.
+     *        By default, write operations aren't allowed on reader DB instances.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withEnableLocalWriteForwarding(Boolean enableLocalWriteForwarding) {
+        setEnableLocalWriteForwarding(enableLocalWriteForwarding);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether read replicas can forward write operations to the writer DB instance in the DB cluster. By
+     * default, write operations aren't allowed on reader DB instances.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @return Specifies whether read replicas can forward write operations to the writer DB instance in the DB cluster.
+     *         By default, write operations aren't allowed on reader DB instances.</p>
+     *         <p>
+     *         Valid for: Aurora DB clusters only
+     */
+
+    public Boolean isEnableLocalWriteForwarding() {
+        return this.enableLocalWriteForwarding;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the recovery point in Amazon Web Services Backup.
+     * </p>
+     * 
+     * @param awsBackupRecoveryPointArn
+     *        The Amazon Resource Name (ARN) of the recovery point in Amazon Web Services Backup.
+     */
+
+    public void setAwsBackupRecoveryPointArn(String awsBackupRecoveryPointArn) {
+        this.awsBackupRecoveryPointArn = awsBackupRecoveryPointArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the recovery point in Amazon Web Services Backup.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the recovery point in Amazon Web Services Backup.
+     */
+
+    public String getAwsBackupRecoveryPointArn() {
+        return this.awsBackupRecoveryPointArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the recovery point in Amazon Web Services Backup.
+     * </p>
+     * 
+     * @param awsBackupRecoveryPointArn
+     *        The Amazon Resource Name (ARN) of the recovery point in Amazon Web Services Backup.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withAwsBackupRecoveryPointArn(String awsBackupRecoveryPointArn) {
+        setAwsBackupRecoveryPointArn(awsBackupRecoveryPointArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to enable Aurora Limitless Database. You must enable Aurora Limitless Database to create a DB
+     * shard group.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @param enableLimitlessDatabase
+     *        Specifies whether to enable Aurora Limitless Database. You must enable Aurora Limitless Database to create
+     *        a DB shard group.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
+     */
+
+    public void setEnableLimitlessDatabase(Boolean enableLimitlessDatabase) {
+        this.enableLimitlessDatabase = enableLimitlessDatabase;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to enable Aurora Limitless Database. You must enable Aurora Limitless Database to create a DB
+     * shard group.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @return Specifies whether to enable Aurora Limitless Database. You must enable Aurora Limitless Database to
+     *         create a DB shard group.</p>
+     *         <p>
+     *         Valid for: Aurora DB clusters only
+     */
+
+    public Boolean getEnableLimitlessDatabase() {
+        return this.enableLimitlessDatabase;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to enable Aurora Limitless Database. You must enable Aurora Limitless Database to create a DB
+     * shard group.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @param enableLimitlessDatabase
+     *        Specifies whether to enable Aurora Limitless Database. You must enable Aurora Limitless Database to create
+     *        a DB shard group.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withEnableLimitlessDatabase(Boolean enableLimitlessDatabase) {
+        setEnableLimitlessDatabase(enableLimitlessDatabase);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to enable Aurora Limitless Database. You must enable Aurora Limitless Database to create a DB
+     * shard group.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @return Specifies whether to enable Aurora Limitless Database. You must enable Aurora Limitless Database to
+     *         create a DB shard group.</p>
+     *         <p>
+     *         Valid for: Aurora DB clusters only
+     */
+
+    public Boolean isEnableLimitlessDatabase() {
+        return this.enableLimitlessDatabase;
+    }
+
+    /**
+     * <p>
+     * The CA certificate identifier to use for the DB cluster's server certificate.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a
+     * connection to a DB instance</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters
+     * </p>
+     * 
+     * @param cACertificateIdentifier
+     *        The CA certificate identifier to use for the DB cluster's server certificate.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to
+     *        encrypt a connection to a DB instance</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Multi-AZ DB clusters
+     */
+
+    public void setCACertificateIdentifier(String cACertificateIdentifier) {
+        this.cACertificateIdentifier = cACertificateIdentifier;
+    }
+
+    /**
+     * <p>
+     * The CA certificate identifier to use for the DB cluster's server certificate.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a
+     * connection to a DB instance</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters
+     * </p>
+     * 
+     * @return The CA certificate identifier to use for the DB cluster's server certificate.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to
+     *         encrypt a connection to a DB instance</a> in the <i>Amazon RDS User Guide</i>.
+     *         </p>
+     *         <p>
+     *         Valid for Cluster Type: Multi-AZ DB clusters
+     */
+
+    public String getCACertificateIdentifier() {
+        return this.cACertificateIdentifier;
+    }
+
+    /**
+     * <p>
+     * The CA certificate identifier to use for the DB cluster's server certificate.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to encrypt a
+     * connection to a DB instance</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for Cluster Type: Multi-AZ DB clusters
+     * </p>
+     * 
+     * @param cACertificateIdentifier
+     *        The CA certificate identifier to use for the DB cluster's server certificate.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html">Using SSL/TLS to
+     *        encrypt a connection to a DB instance</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid for Cluster Type: Multi-AZ DB clusters
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withCACertificateIdentifier(String cACertificateIdentifier) {
+        setCACertificateIdentifier(cACertificateIdentifier);
+        return this;
     }
 
     /**
@@ -2429,6 +7205,10 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
             sb.append("AllowMajorVersionUpgrade: ").append(getAllowMajorVersionUpgrade()).append(",");
         if (getDBInstanceParameterGroupName() != null)
             sb.append("DBInstanceParameterGroupName: ").append(getDBInstanceParameterGroupName()).append(",");
+        if (getDomain() != null)
+            sb.append("Domain: ").append(getDomain()).append(",");
+        if (getDomainIAMRoleName() != null)
+            sb.append("DomainIAMRoleName: ").append(getDomainIAMRoleName()).append(",");
         if (getScalingConfiguration() != null)
             sb.append("ScalingConfiguration: ").append(getScalingConfiguration()).append(",");
         if (getDeletionProtection() != null)
@@ -2436,7 +7216,51 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
         if (getEnableHttpEndpoint() != null)
             sb.append("EnableHttpEndpoint: ").append(getEnableHttpEndpoint()).append(",");
         if (getCopyTagsToSnapshot() != null)
-            sb.append("CopyTagsToSnapshot: ").append(getCopyTagsToSnapshot());
+            sb.append("CopyTagsToSnapshot: ").append(getCopyTagsToSnapshot()).append(",");
+        if (getEnableGlobalWriteForwarding() != null)
+            sb.append("EnableGlobalWriteForwarding: ").append(getEnableGlobalWriteForwarding()).append(",");
+        if (getDBClusterInstanceClass() != null)
+            sb.append("DBClusterInstanceClass: ").append(getDBClusterInstanceClass()).append(",");
+        if (getAllocatedStorage() != null)
+            sb.append("AllocatedStorage: ").append(getAllocatedStorage()).append(",");
+        if (getStorageType() != null)
+            sb.append("StorageType: ").append(getStorageType()).append(",");
+        if (getIops() != null)
+            sb.append("Iops: ").append(getIops()).append(",");
+        if (getAutoMinorVersionUpgrade() != null)
+            sb.append("AutoMinorVersionUpgrade: ").append(getAutoMinorVersionUpgrade()).append(",");
+        if (getMonitoringInterval() != null)
+            sb.append("MonitoringInterval: ").append(getMonitoringInterval()).append(",");
+        if (getMonitoringRoleArn() != null)
+            sb.append("MonitoringRoleArn: ").append(getMonitoringRoleArn()).append(",");
+        if (getEnablePerformanceInsights() != null)
+            sb.append("EnablePerformanceInsights: ").append(getEnablePerformanceInsights()).append(",");
+        if (getPerformanceInsightsKMSKeyId() != null)
+            sb.append("PerformanceInsightsKMSKeyId: ").append(getPerformanceInsightsKMSKeyId()).append(",");
+        if (getPerformanceInsightsRetentionPeriod() != null)
+            sb.append("PerformanceInsightsRetentionPeriod: ").append(getPerformanceInsightsRetentionPeriod()).append(",");
+        if (getServerlessV2ScalingConfiguration() != null)
+            sb.append("ServerlessV2ScalingConfiguration: ").append(getServerlessV2ScalingConfiguration()).append(",");
+        if (getNetworkType() != null)
+            sb.append("NetworkType: ").append(getNetworkType()).append(",");
+        if (getManageMasterUserPassword() != null)
+            sb.append("ManageMasterUserPassword: ").append(getManageMasterUserPassword()).append(",");
+        if (getRotateMasterUserPassword() != null)
+            sb.append("RotateMasterUserPassword: ").append(getRotateMasterUserPassword()).append(",");
+        if (getMasterUserSecretKmsKeyId() != null)
+            sb.append("MasterUserSecretKmsKeyId: ").append(getMasterUserSecretKmsKeyId()).append(",");
+        if (getEngineMode() != null)
+            sb.append("EngineMode: ").append(getEngineMode()).append(",");
+        if (getAllowEngineModeChange() != null)
+            sb.append("AllowEngineModeChange: ").append(getAllowEngineModeChange()).append(",");
+        if (getEnableLocalWriteForwarding() != null)
+            sb.append("EnableLocalWriteForwarding: ").append(getEnableLocalWriteForwarding()).append(",");
+        if (getAwsBackupRecoveryPointArn() != null)
+            sb.append("AwsBackupRecoveryPointArn: ").append(getAwsBackupRecoveryPointArn()).append(",");
+        if (getEnableLimitlessDatabase() != null)
+            sb.append("EnableLimitlessDatabase: ").append(getEnableLimitlessDatabase()).append(",");
+        if (getCACertificateIdentifier() != null)
+            sb.append("CACertificateIdentifier: ").append(getCACertificateIdentifier());
         sb.append("}");
         return sb.toString();
     }
@@ -2521,6 +7345,14 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
             return false;
         if (other.getDBInstanceParameterGroupName() != null && other.getDBInstanceParameterGroupName().equals(this.getDBInstanceParameterGroupName()) == false)
             return false;
+        if (other.getDomain() == null ^ this.getDomain() == null)
+            return false;
+        if (other.getDomain() != null && other.getDomain().equals(this.getDomain()) == false)
+            return false;
+        if (other.getDomainIAMRoleName() == null ^ this.getDomainIAMRoleName() == null)
+            return false;
+        if (other.getDomainIAMRoleName() != null && other.getDomainIAMRoleName().equals(this.getDomainIAMRoleName()) == false)
+            return false;
         if (other.getScalingConfiguration() == null ^ this.getScalingConfiguration() == null)
             return false;
         if (other.getScalingConfiguration() != null && other.getScalingConfiguration().equals(this.getScalingConfiguration()) == false)
@@ -2536,6 +7368,96 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
         if (other.getCopyTagsToSnapshot() == null ^ this.getCopyTagsToSnapshot() == null)
             return false;
         if (other.getCopyTagsToSnapshot() != null && other.getCopyTagsToSnapshot().equals(this.getCopyTagsToSnapshot()) == false)
+            return false;
+        if (other.getEnableGlobalWriteForwarding() == null ^ this.getEnableGlobalWriteForwarding() == null)
+            return false;
+        if (other.getEnableGlobalWriteForwarding() != null && other.getEnableGlobalWriteForwarding().equals(this.getEnableGlobalWriteForwarding()) == false)
+            return false;
+        if (other.getDBClusterInstanceClass() == null ^ this.getDBClusterInstanceClass() == null)
+            return false;
+        if (other.getDBClusterInstanceClass() != null && other.getDBClusterInstanceClass().equals(this.getDBClusterInstanceClass()) == false)
+            return false;
+        if (other.getAllocatedStorage() == null ^ this.getAllocatedStorage() == null)
+            return false;
+        if (other.getAllocatedStorage() != null && other.getAllocatedStorage().equals(this.getAllocatedStorage()) == false)
+            return false;
+        if (other.getStorageType() == null ^ this.getStorageType() == null)
+            return false;
+        if (other.getStorageType() != null && other.getStorageType().equals(this.getStorageType()) == false)
+            return false;
+        if (other.getIops() == null ^ this.getIops() == null)
+            return false;
+        if (other.getIops() != null && other.getIops().equals(this.getIops()) == false)
+            return false;
+        if (other.getAutoMinorVersionUpgrade() == null ^ this.getAutoMinorVersionUpgrade() == null)
+            return false;
+        if (other.getAutoMinorVersionUpgrade() != null && other.getAutoMinorVersionUpgrade().equals(this.getAutoMinorVersionUpgrade()) == false)
+            return false;
+        if (other.getMonitoringInterval() == null ^ this.getMonitoringInterval() == null)
+            return false;
+        if (other.getMonitoringInterval() != null && other.getMonitoringInterval().equals(this.getMonitoringInterval()) == false)
+            return false;
+        if (other.getMonitoringRoleArn() == null ^ this.getMonitoringRoleArn() == null)
+            return false;
+        if (other.getMonitoringRoleArn() != null && other.getMonitoringRoleArn().equals(this.getMonitoringRoleArn()) == false)
+            return false;
+        if (other.getEnablePerformanceInsights() == null ^ this.getEnablePerformanceInsights() == null)
+            return false;
+        if (other.getEnablePerformanceInsights() != null && other.getEnablePerformanceInsights().equals(this.getEnablePerformanceInsights()) == false)
+            return false;
+        if (other.getPerformanceInsightsKMSKeyId() == null ^ this.getPerformanceInsightsKMSKeyId() == null)
+            return false;
+        if (other.getPerformanceInsightsKMSKeyId() != null && other.getPerformanceInsightsKMSKeyId().equals(this.getPerformanceInsightsKMSKeyId()) == false)
+            return false;
+        if (other.getPerformanceInsightsRetentionPeriod() == null ^ this.getPerformanceInsightsRetentionPeriod() == null)
+            return false;
+        if (other.getPerformanceInsightsRetentionPeriod() != null
+                && other.getPerformanceInsightsRetentionPeriod().equals(this.getPerformanceInsightsRetentionPeriod()) == false)
+            return false;
+        if (other.getServerlessV2ScalingConfiguration() == null ^ this.getServerlessV2ScalingConfiguration() == null)
+            return false;
+        if (other.getServerlessV2ScalingConfiguration() != null
+                && other.getServerlessV2ScalingConfiguration().equals(this.getServerlessV2ScalingConfiguration()) == false)
+            return false;
+        if (other.getNetworkType() == null ^ this.getNetworkType() == null)
+            return false;
+        if (other.getNetworkType() != null && other.getNetworkType().equals(this.getNetworkType()) == false)
+            return false;
+        if (other.getManageMasterUserPassword() == null ^ this.getManageMasterUserPassword() == null)
+            return false;
+        if (other.getManageMasterUserPassword() != null && other.getManageMasterUserPassword().equals(this.getManageMasterUserPassword()) == false)
+            return false;
+        if (other.getRotateMasterUserPassword() == null ^ this.getRotateMasterUserPassword() == null)
+            return false;
+        if (other.getRotateMasterUserPassword() != null && other.getRotateMasterUserPassword().equals(this.getRotateMasterUserPassword()) == false)
+            return false;
+        if (other.getMasterUserSecretKmsKeyId() == null ^ this.getMasterUserSecretKmsKeyId() == null)
+            return false;
+        if (other.getMasterUserSecretKmsKeyId() != null && other.getMasterUserSecretKmsKeyId().equals(this.getMasterUserSecretKmsKeyId()) == false)
+            return false;
+        if (other.getEngineMode() == null ^ this.getEngineMode() == null)
+            return false;
+        if (other.getEngineMode() != null && other.getEngineMode().equals(this.getEngineMode()) == false)
+            return false;
+        if (other.getAllowEngineModeChange() == null ^ this.getAllowEngineModeChange() == null)
+            return false;
+        if (other.getAllowEngineModeChange() != null && other.getAllowEngineModeChange().equals(this.getAllowEngineModeChange()) == false)
+            return false;
+        if (other.getEnableLocalWriteForwarding() == null ^ this.getEnableLocalWriteForwarding() == null)
+            return false;
+        if (other.getEnableLocalWriteForwarding() != null && other.getEnableLocalWriteForwarding().equals(this.getEnableLocalWriteForwarding()) == false)
+            return false;
+        if (other.getAwsBackupRecoveryPointArn() == null ^ this.getAwsBackupRecoveryPointArn() == null)
+            return false;
+        if (other.getAwsBackupRecoveryPointArn() != null && other.getAwsBackupRecoveryPointArn().equals(this.getAwsBackupRecoveryPointArn()) == false)
+            return false;
+        if (other.getEnableLimitlessDatabase() == null ^ this.getEnableLimitlessDatabase() == null)
+            return false;
+        if (other.getEnableLimitlessDatabase() != null && other.getEnableLimitlessDatabase().equals(this.getEnableLimitlessDatabase()) == false)
+            return false;
+        if (other.getCACertificateIdentifier() == null ^ this.getCACertificateIdentifier() == null)
+            return false;
+        if (other.getCACertificateIdentifier() != null && other.getCACertificateIdentifier().equals(this.getCACertificateIdentifier()) == false)
             return false;
         return true;
     }
@@ -2562,10 +7484,34 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
         hashCode = prime * hashCode + ((getEngineVersion() == null) ? 0 : getEngineVersion().hashCode());
         hashCode = prime * hashCode + ((getAllowMajorVersionUpgrade() == null) ? 0 : getAllowMajorVersionUpgrade().hashCode());
         hashCode = prime * hashCode + ((getDBInstanceParameterGroupName() == null) ? 0 : getDBInstanceParameterGroupName().hashCode());
+        hashCode = prime * hashCode + ((getDomain() == null) ? 0 : getDomain().hashCode());
+        hashCode = prime * hashCode + ((getDomainIAMRoleName() == null) ? 0 : getDomainIAMRoleName().hashCode());
         hashCode = prime * hashCode + ((getScalingConfiguration() == null) ? 0 : getScalingConfiguration().hashCode());
         hashCode = prime * hashCode + ((getDeletionProtection() == null) ? 0 : getDeletionProtection().hashCode());
         hashCode = prime * hashCode + ((getEnableHttpEndpoint() == null) ? 0 : getEnableHttpEndpoint().hashCode());
         hashCode = prime * hashCode + ((getCopyTagsToSnapshot() == null) ? 0 : getCopyTagsToSnapshot().hashCode());
+        hashCode = prime * hashCode + ((getEnableGlobalWriteForwarding() == null) ? 0 : getEnableGlobalWriteForwarding().hashCode());
+        hashCode = prime * hashCode + ((getDBClusterInstanceClass() == null) ? 0 : getDBClusterInstanceClass().hashCode());
+        hashCode = prime * hashCode + ((getAllocatedStorage() == null) ? 0 : getAllocatedStorage().hashCode());
+        hashCode = prime * hashCode + ((getStorageType() == null) ? 0 : getStorageType().hashCode());
+        hashCode = prime * hashCode + ((getIops() == null) ? 0 : getIops().hashCode());
+        hashCode = prime * hashCode + ((getAutoMinorVersionUpgrade() == null) ? 0 : getAutoMinorVersionUpgrade().hashCode());
+        hashCode = prime * hashCode + ((getMonitoringInterval() == null) ? 0 : getMonitoringInterval().hashCode());
+        hashCode = prime * hashCode + ((getMonitoringRoleArn() == null) ? 0 : getMonitoringRoleArn().hashCode());
+        hashCode = prime * hashCode + ((getEnablePerformanceInsights() == null) ? 0 : getEnablePerformanceInsights().hashCode());
+        hashCode = prime * hashCode + ((getPerformanceInsightsKMSKeyId() == null) ? 0 : getPerformanceInsightsKMSKeyId().hashCode());
+        hashCode = prime * hashCode + ((getPerformanceInsightsRetentionPeriod() == null) ? 0 : getPerformanceInsightsRetentionPeriod().hashCode());
+        hashCode = prime * hashCode + ((getServerlessV2ScalingConfiguration() == null) ? 0 : getServerlessV2ScalingConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getNetworkType() == null) ? 0 : getNetworkType().hashCode());
+        hashCode = prime * hashCode + ((getManageMasterUserPassword() == null) ? 0 : getManageMasterUserPassword().hashCode());
+        hashCode = prime * hashCode + ((getRotateMasterUserPassword() == null) ? 0 : getRotateMasterUserPassword().hashCode());
+        hashCode = prime * hashCode + ((getMasterUserSecretKmsKeyId() == null) ? 0 : getMasterUserSecretKmsKeyId().hashCode());
+        hashCode = prime * hashCode + ((getEngineMode() == null) ? 0 : getEngineMode().hashCode());
+        hashCode = prime * hashCode + ((getAllowEngineModeChange() == null) ? 0 : getAllowEngineModeChange().hashCode());
+        hashCode = prime * hashCode + ((getEnableLocalWriteForwarding() == null) ? 0 : getEnableLocalWriteForwarding().hashCode());
+        hashCode = prime * hashCode + ((getAwsBackupRecoveryPointArn() == null) ? 0 : getAwsBackupRecoveryPointArn().hashCode());
+        hashCode = prime * hashCode + ((getEnableLimitlessDatabase() == null) ? 0 : getEnableLimitlessDatabase().hashCode());
+        hashCode = prime * hashCode + ((getCACertificateIdentifier() == null) ? 0 : getCACertificateIdentifier().hashCode());
         return hashCode;
     }
 

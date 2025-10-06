@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,6 +43,14 @@ public class FunctionConfigurationMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("responseMappingTemplate").build();
     private static final MarshallingInfo<String> FUNCTIONVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("functionVersion").build();
+    private static final MarshallingInfo<StructuredPojo> SYNCCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("syncConfig").build();
+    private static final MarshallingInfo<Integer> MAXBATCHSIZE_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("maxBatchSize").build();
+    private static final MarshallingInfo<StructuredPojo> RUNTIME_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("runtime").build();
+    private static final MarshallingInfo<String> CODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("code").build();
 
     private static final FunctionConfigurationMarshaller instance = new FunctionConfigurationMarshaller();
 
@@ -68,6 +76,10 @@ public class FunctionConfigurationMarshaller {
             protocolMarshaller.marshall(functionConfiguration.getRequestMappingTemplate(), REQUESTMAPPINGTEMPLATE_BINDING);
             protocolMarshaller.marshall(functionConfiguration.getResponseMappingTemplate(), RESPONSEMAPPINGTEMPLATE_BINDING);
             protocolMarshaller.marshall(functionConfiguration.getFunctionVersion(), FUNCTIONVERSION_BINDING);
+            protocolMarshaller.marshall(functionConfiguration.getSyncConfig(), SYNCCONFIG_BINDING);
+            protocolMarshaller.marshall(functionConfiguration.getMaxBatchSize(), MAXBATCHSIZE_BINDING);
+            protocolMarshaller.marshall(functionConfiguration.getRuntime(), RUNTIME_BINDING);
+            protocolMarshaller.marshall(functionConfiguration.getCode(), CODE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

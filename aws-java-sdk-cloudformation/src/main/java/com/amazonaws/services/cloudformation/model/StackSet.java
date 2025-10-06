@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,9 +17,9 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * A structure that contains information about a stack set. A stack set enables you to provision stacks into AWS
- * accounts and across regions by using a single CloudFormation template. In the stack set, you specify the template to
- * use, as well as any parameters and capabilities that the template requires.
+ * A structure that contains information about a stack set. A stack set enables you to provision stacks into Amazon Web
+ * Services accounts and across Regions by using a single CloudFormation template. In the stack set, you specify the
+ * template to use, in addition to any parameters and capabilities that the template requires.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/StackSet" target="_top">AWS API
@@ -67,10 +67,10 @@ public class StackSet implements Serializable, Cloneable {
     /**
      * <p>
      * The capabilities that are allowed in the stack set. Some stack set templates might include resources that can
-     * affect permissions in your AWS account—for example, by creating new AWS Identity and Access Management (IAM)
-     * users. For more information, see <a
+     * affect permissions in your Amazon Web Services account—for example, by creating new Identity and Access
+     * Management (IAM) users. For more information, see <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities"
-     * >Acknowledging IAM Resources in AWS CloudFormation Templates.</a>
+     * >Acknowledging IAM Resources in CloudFormation Templates.</a>
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> capabilities;
@@ -82,19 +82,19 @@ public class StackSet implements Serializable, Cloneable {
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
     /**
      * <p>
-     * The Amazon Resource Number (ARN) of the stack set.
+     * The Amazon Resource Name (ARN) of the stack set.
      * </p>
      */
     private String stackSetARN;
     /**
      * <p>
-     * The Amazon Resource Number (ARN) of the IAM role used to create or update the stack set.
+     * The Amazon Resource Name (ARN) of the IAM role used to create or update the stack set.
      * </p>
      * <p>
      * Use customized administrator roles to control which users or groups can manage specific stack sets within the
      * same administrator account. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html">Prerequisites:
-     * Granting Permissions for Stack Set Operations</a> in the <i>AWS CloudFormation User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html">Prerequisites:
+     * Granting Permissions for Stack Set Operations</a> in the <i>CloudFormation User Guide</i>.
      * </p>
      */
     private String administrationRoleARN;
@@ -107,6 +107,68 @@ public class StackSet implements Serializable, Cloneable {
      * </p>
      */
     private String executionRoleName;
+    /**
+     * <p>
+     * Detailed information about the drift status of the stack set.
+     * </p>
+     * <p>
+     * For stack sets, contains information about the last <i>completed</i> drift operation performed on the stack set.
+     * Information about drift operations currently in progress isn't included.
+     * </p>
+     */
+    private StackSetDriftDetectionDetails stackSetDriftDetectionDetails;
+    /**
+     * <p>
+     * [Service-managed permissions] Describes whether StackSets automatically deploys to Organizations accounts that
+     * are added to a target organization or organizational unit (OU).
+     * </p>
+     */
+    private AutoDeployment autoDeployment;
+    /**
+     * <p>
+     * Describes how the IAM roles required for stack set operations are created.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * With <code>self-managed</code> permissions, you must create the administrator and execution roles required to
+     * deploy to target accounts. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-self-managed.html">Grant
+     * Self-Managed Stack Set Permissions</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * With <code>service-managed</code> permissions, StackSets automatically creates the IAM roles required to deploy
+     * to accounts managed by Organizations. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-service-managed.html"
+     * >Grant Service-Managed Stack Set Permissions</a>.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String permissionModel;
+    /**
+     * <p>
+     * [Service-managed permissions] The organization root ID or organizational unit (OU) IDs that you specified for <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html">
+     * DeploymentTargets</a>.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> organizationalUnitIds;
+    /**
+     * <p>
+     * Describes whether StackSets performs non-conflicting operations concurrently and queues conflicting operations.
+     * </p>
+     */
+    private ManagedExecution managedExecution;
+    /**
+     * <p>
+     * Returns a list of all Amazon Web Services Regions the given StackSet has stack instances deployed in. The Amazon
+     * Web Services Regions list output is in no particular order.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> regions;
 
     /**
      * <p>
@@ -417,17 +479,17 @@ public class StackSet implements Serializable, Cloneable {
     /**
      * <p>
      * The capabilities that are allowed in the stack set. Some stack set templates might include resources that can
-     * affect permissions in your AWS account—for example, by creating new AWS Identity and Access Management (IAM)
-     * users. For more information, see <a
+     * affect permissions in your Amazon Web Services account—for example, by creating new Identity and Access
+     * Management (IAM) users. For more information, see <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities"
-     * >Acknowledging IAM Resources in AWS CloudFormation Templates.</a>
+     * >Acknowledging IAM Resources in CloudFormation Templates.</a>
      * </p>
      * 
      * @return The capabilities that are allowed in the stack set. Some stack set templates might include resources that
-     *         can affect permissions in your AWS account—for example, by creating new AWS Identity and Access
-     *         Management (IAM) users. For more information, see <a href=
+     *         can affect permissions in your Amazon Web Services account—for example, by creating new Identity and
+     *         Access Management (IAM) users. For more information, see <a href=
      *         "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities"
-     *         >Acknowledging IAM Resources in AWS CloudFormation Templates.</a>
+     *         >Acknowledging IAM Resources in CloudFormation Templates.</a>
      * @see Capability
      */
 
@@ -441,18 +503,18 @@ public class StackSet implements Serializable, Cloneable {
     /**
      * <p>
      * The capabilities that are allowed in the stack set. Some stack set templates might include resources that can
-     * affect permissions in your AWS account—for example, by creating new AWS Identity and Access Management (IAM)
-     * users. For more information, see <a
+     * affect permissions in your Amazon Web Services account—for example, by creating new Identity and Access
+     * Management (IAM) users. For more information, see <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities"
-     * >Acknowledging IAM Resources in AWS CloudFormation Templates.</a>
+     * >Acknowledging IAM Resources in CloudFormation Templates.</a>
      * </p>
      * 
      * @param capabilities
      *        The capabilities that are allowed in the stack set. Some stack set templates might include resources that
-     *        can affect permissions in your AWS account—for example, by creating new AWS Identity and Access Management
-     *        (IAM) users. For more information, see <a href=
+     *        can affect permissions in your Amazon Web Services account—for example, by creating new Identity and
+     *        Access Management (IAM) users. For more information, see <a href=
      *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities"
-     *        >Acknowledging IAM Resources in AWS CloudFormation Templates.</a>
+     *        >Acknowledging IAM Resources in CloudFormation Templates.</a>
      * @see Capability
      */
 
@@ -468,10 +530,10 @@ public class StackSet implements Serializable, Cloneable {
     /**
      * <p>
      * The capabilities that are allowed in the stack set. Some stack set templates might include resources that can
-     * affect permissions in your AWS account—for example, by creating new AWS Identity and Access Management (IAM)
-     * users. For more information, see <a
+     * affect permissions in your Amazon Web Services account—for example, by creating new Identity and Access
+     * Management (IAM) users. For more information, see <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities"
-     * >Acknowledging IAM Resources in AWS CloudFormation Templates.</a>
+     * >Acknowledging IAM Resources in CloudFormation Templates.</a>
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -481,10 +543,10 @@ public class StackSet implements Serializable, Cloneable {
      * 
      * @param capabilities
      *        The capabilities that are allowed in the stack set. Some stack set templates might include resources that
-     *        can affect permissions in your AWS account—for example, by creating new AWS Identity and Access Management
-     *        (IAM) users. For more information, see <a href=
+     *        can affect permissions in your Amazon Web Services account—for example, by creating new Identity and
+     *        Access Management (IAM) users. For more information, see <a href=
      *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities"
-     *        >Acknowledging IAM Resources in AWS CloudFormation Templates.</a>
+     *        >Acknowledging IAM Resources in CloudFormation Templates.</a>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Capability
      */
@@ -502,18 +564,18 @@ public class StackSet implements Serializable, Cloneable {
     /**
      * <p>
      * The capabilities that are allowed in the stack set. Some stack set templates might include resources that can
-     * affect permissions in your AWS account—for example, by creating new AWS Identity and Access Management (IAM)
-     * users. For more information, see <a
+     * affect permissions in your Amazon Web Services account—for example, by creating new Identity and Access
+     * Management (IAM) users. For more information, see <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities"
-     * >Acknowledging IAM Resources in AWS CloudFormation Templates.</a>
+     * >Acknowledging IAM Resources in CloudFormation Templates.</a>
      * </p>
      * 
      * @param capabilities
      *        The capabilities that are allowed in the stack set. Some stack set templates might include resources that
-     *        can affect permissions in your AWS account—for example, by creating new AWS Identity and Access Management
-     *        (IAM) users. For more information, see <a href=
+     *        can affect permissions in your Amazon Web Services account—for example, by creating new Identity and
+     *        Access Management (IAM) users. For more information, see <a href=
      *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities"
-     *        >Acknowledging IAM Resources in AWS CloudFormation Templates.</a>
+     *        >Acknowledging IAM Resources in CloudFormation Templates.</a>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Capability
      */
@@ -526,18 +588,18 @@ public class StackSet implements Serializable, Cloneable {
     /**
      * <p>
      * The capabilities that are allowed in the stack set. Some stack set templates might include resources that can
-     * affect permissions in your AWS account—for example, by creating new AWS Identity and Access Management (IAM)
-     * users. For more information, see <a
+     * affect permissions in your Amazon Web Services account—for example, by creating new Identity and Access
+     * Management (IAM) users. For more information, see <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities"
-     * >Acknowledging IAM Resources in AWS CloudFormation Templates.</a>
+     * >Acknowledging IAM Resources in CloudFormation Templates.</a>
      * </p>
      * 
      * @param capabilities
      *        The capabilities that are allowed in the stack set. Some stack set templates might include resources that
-     *        can affect permissions in your AWS account—for example, by creating new AWS Identity and Access Management
-     *        (IAM) users. For more information, see <a href=
+     *        can affect permissions in your Amazon Web Services account—for example, by creating new Identity and
+     *        Access Management (IAM) users. For more information, see <a href=
      *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities"
-     *        >Acknowledging IAM Resources in AWS CloudFormation Templates.</a>
+     *        >Acknowledging IAM Resources in CloudFormation Templates.</a>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Capability
      */
@@ -631,11 +693,11 @@ public class StackSet implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Number (ARN) of the stack set.
+     * The Amazon Resource Name (ARN) of the stack set.
      * </p>
      * 
      * @param stackSetARN
-     *        The Amazon Resource Number (ARN) of the stack set.
+     *        The Amazon Resource Name (ARN) of the stack set.
      */
 
     public void setStackSetARN(String stackSetARN) {
@@ -644,10 +706,10 @@ public class StackSet implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Number (ARN) of the stack set.
+     * The Amazon Resource Name (ARN) of the stack set.
      * </p>
      * 
-     * @return The Amazon Resource Number (ARN) of the stack set.
+     * @return The Amazon Resource Name (ARN) of the stack set.
      */
 
     public String getStackSetARN() {
@@ -656,11 +718,11 @@ public class StackSet implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Number (ARN) of the stack set.
+     * The Amazon Resource Name (ARN) of the stack set.
      * </p>
      * 
      * @param stackSetARN
-     *        The Amazon Resource Number (ARN) of the stack set.
+     *        The Amazon Resource Name (ARN) of the stack set.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -671,22 +733,22 @@ public class StackSet implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Number (ARN) of the IAM role used to create or update the stack set.
+     * The Amazon Resource Name (ARN) of the IAM role used to create or update the stack set.
      * </p>
      * <p>
      * Use customized administrator roles to control which users or groups can manage specific stack sets within the
      * same administrator account. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html">Prerequisites:
-     * Granting Permissions for Stack Set Operations</a> in the <i>AWS CloudFormation User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html">Prerequisites:
+     * Granting Permissions for Stack Set Operations</a> in the <i>CloudFormation User Guide</i>.
      * </p>
      * 
      * @param administrationRoleARN
-     *        The Amazon Resource Number (ARN) of the IAM role used to create or update the stack set.</p>
+     *        The Amazon Resource Name (ARN) of the IAM role used to create or update the stack set.</p>
      *        <p>
      *        Use customized administrator roles to control which users or groups can manage specific stack sets within
      *        the same administrator account. For more information, see <a
-     *        href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html">Prerequisites:
-     *        Granting Permissions for Stack Set Operations</a> in the <i>AWS CloudFormation User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html"
+     *        >Prerequisites: Granting Permissions for Stack Set Operations</a> in the <i>CloudFormation User Guide</i>.
      */
 
     public void setAdministrationRoleARN(String administrationRoleARN) {
@@ -695,21 +757,21 @@ public class StackSet implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Number (ARN) of the IAM role used to create or update the stack set.
+     * The Amazon Resource Name (ARN) of the IAM role used to create or update the stack set.
      * </p>
      * <p>
      * Use customized administrator roles to control which users or groups can manage specific stack sets within the
      * same administrator account. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html">Prerequisites:
-     * Granting Permissions for Stack Set Operations</a> in the <i>AWS CloudFormation User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html">Prerequisites:
+     * Granting Permissions for Stack Set Operations</a> in the <i>CloudFormation User Guide</i>.
      * </p>
      * 
-     * @return The Amazon Resource Number (ARN) of the IAM role used to create or update the stack set.</p>
+     * @return The Amazon Resource Name (ARN) of the IAM role used to create or update the stack set.</p>
      *         <p>
      *         Use customized administrator roles to control which users or groups can manage specific stack sets within
      *         the same administrator account. For more information, see <a
-     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html"
-     *         >Prerequisites: Granting Permissions for Stack Set Operations</a> in the <i>AWS CloudFormation User
+     *         href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html"
+     *         >Prerequisites: Granting Permissions for Stack Set Operations</a> in the <i>CloudFormation User
      *         Guide</i>.
      */
 
@@ -719,22 +781,22 @@ public class StackSet implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Number (ARN) of the IAM role used to create or update the stack set.
+     * The Amazon Resource Name (ARN) of the IAM role used to create or update the stack set.
      * </p>
      * <p>
      * Use customized administrator roles to control which users or groups can manage specific stack sets within the
      * same administrator account. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html">Prerequisites:
-     * Granting Permissions for Stack Set Operations</a> in the <i>AWS CloudFormation User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html">Prerequisites:
+     * Granting Permissions for Stack Set Operations</a> in the <i>CloudFormation User Guide</i>.
      * </p>
      * 
      * @param administrationRoleARN
-     *        The Amazon Resource Number (ARN) of the IAM role used to create or update the stack set.</p>
+     *        The Amazon Resource Name (ARN) of the IAM role used to create or update the stack set.</p>
      *        <p>
      *        Use customized administrator roles to control which users or groups can manage specific stack sets within
      *        the same administrator account. For more information, see <a
-     *        href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html">Prerequisites:
-     *        Granting Permissions for Stack Set Operations</a> in the <i>AWS CloudFormation User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html"
+     *        >Prerequisites: Granting Permissions for Stack Set Operations</a> in the <i>CloudFormation User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -752,7 +814,7 @@ public class StackSet implements Serializable, Cloneable {
      * </p>
      * 
      * @param executionRoleName
-     *        The name of the IAM execution role used to create or update the stack set. </p>
+     *        The name of the IAM execution role used to create or update the stack set.</p>
      *        <p>
      *        Use customized execution roles to control which stack resources users and groups can include in their
      *        stack sets.
@@ -770,7 +832,7 @@ public class StackSet implements Serializable, Cloneable {
      * Use customized execution roles to control which stack resources users and groups can include in their stack sets.
      * </p>
      * 
-     * @return The name of the IAM execution role used to create or update the stack set. </p>
+     * @return The name of the IAM execution role used to create or update the stack set.</p>
      *         <p>
      *         Use customized execution roles to control which stack resources users and groups can include in their
      *         stack sets.
@@ -789,7 +851,7 @@ public class StackSet implements Serializable, Cloneable {
      * </p>
      * 
      * @param executionRoleName
-     *        The name of the IAM execution role used to create or update the stack set. </p>
+     *        The name of the IAM execution role used to create or update the stack set.</p>
      *        <p>
      *        Use customized execution roles to control which stack resources users and groups can include in their
      *        stack sets.
@@ -798,6 +860,578 @@ public class StackSet implements Serializable, Cloneable {
 
     public StackSet withExecutionRoleName(String executionRoleName) {
         setExecutionRoleName(executionRoleName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Detailed information about the drift status of the stack set.
+     * </p>
+     * <p>
+     * For stack sets, contains information about the last <i>completed</i> drift operation performed on the stack set.
+     * Information about drift operations currently in progress isn't included.
+     * </p>
+     * 
+     * @param stackSetDriftDetectionDetails
+     *        Detailed information about the drift status of the stack set.</p>
+     *        <p>
+     *        For stack sets, contains information about the last <i>completed</i> drift operation performed on the
+     *        stack set. Information about drift operations currently in progress isn't included.
+     */
+
+    public void setStackSetDriftDetectionDetails(StackSetDriftDetectionDetails stackSetDriftDetectionDetails) {
+        this.stackSetDriftDetectionDetails = stackSetDriftDetectionDetails;
+    }
+
+    /**
+     * <p>
+     * Detailed information about the drift status of the stack set.
+     * </p>
+     * <p>
+     * For stack sets, contains information about the last <i>completed</i> drift operation performed on the stack set.
+     * Information about drift operations currently in progress isn't included.
+     * </p>
+     * 
+     * @return Detailed information about the drift status of the stack set.</p>
+     *         <p>
+     *         For stack sets, contains information about the last <i>completed</i> drift operation performed on the
+     *         stack set. Information about drift operations currently in progress isn't included.
+     */
+
+    public StackSetDriftDetectionDetails getStackSetDriftDetectionDetails() {
+        return this.stackSetDriftDetectionDetails;
+    }
+
+    /**
+     * <p>
+     * Detailed information about the drift status of the stack set.
+     * </p>
+     * <p>
+     * For stack sets, contains information about the last <i>completed</i> drift operation performed on the stack set.
+     * Information about drift operations currently in progress isn't included.
+     * </p>
+     * 
+     * @param stackSetDriftDetectionDetails
+     *        Detailed information about the drift status of the stack set.</p>
+     *        <p>
+     *        For stack sets, contains information about the last <i>completed</i> drift operation performed on the
+     *        stack set. Information about drift operations currently in progress isn't included.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StackSet withStackSetDriftDetectionDetails(StackSetDriftDetectionDetails stackSetDriftDetectionDetails) {
+        setStackSetDriftDetectionDetails(stackSetDriftDetectionDetails);
+        return this;
+    }
+
+    /**
+     * <p>
+     * [Service-managed permissions] Describes whether StackSets automatically deploys to Organizations accounts that
+     * are added to a target organization or organizational unit (OU).
+     * </p>
+     * 
+     * @param autoDeployment
+     *        [Service-managed permissions] Describes whether StackSets automatically deploys to Organizations accounts
+     *        that are added to a target organization or organizational unit (OU).
+     */
+
+    public void setAutoDeployment(AutoDeployment autoDeployment) {
+        this.autoDeployment = autoDeployment;
+    }
+
+    /**
+     * <p>
+     * [Service-managed permissions] Describes whether StackSets automatically deploys to Organizations accounts that
+     * are added to a target organization or organizational unit (OU).
+     * </p>
+     * 
+     * @return [Service-managed permissions] Describes whether StackSets automatically deploys to Organizations accounts
+     *         that are added to a target organization or organizational unit (OU).
+     */
+
+    public AutoDeployment getAutoDeployment() {
+        return this.autoDeployment;
+    }
+
+    /**
+     * <p>
+     * [Service-managed permissions] Describes whether StackSets automatically deploys to Organizations accounts that
+     * are added to a target organization or organizational unit (OU).
+     * </p>
+     * 
+     * @param autoDeployment
+     *        [Service-managed permissions] Describes whether StackSets automatically deploys to Organizations accounts
+     *        that are added to a target organization or organizational unit (OU).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StackSet withAutoDeployment(AutoDeployment autoDeployment) {
+        setAutoDeployment(autoDeployment);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Describes how the IAM roles required for stack set operations are created.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * With <code>self-managed</code> permissions, you must create the administrator and execution roles required to
+     * deploy to target accounts. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-self-managed.html">Grant
+     * Self-Managed Stack Set Permissions</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * With <code>service-managed</code> permissions, StackSets automatically creates the IAM roles required to deploy
+     * to accounts managed by Organizations. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-service-managed.html"
+     * >Grant Service-Managed Stack Set Permissions</a>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param permissionModel
+     *        Describes how the IAM roles required for stack set operations are created.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        With <code>self-managed</code> permissions, you must create the administrator and execution roles required
+     *        to deploy to target accounts. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-self-managed.html">Grant
+     *        Self-Managed Stack Set Permissions</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        With <code>service-managed</code> permissions, StackSets automatically creates the IAM roles required to
+     *        deploy to accounts managed by Organizations. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-service-managed.html"
+     *        >Grant Service-Managed Stack Set Permissions</a>.
+     *        </p>
+     *        </li>
+     * @see PermissionModels
+     */
+
+    public void setPermissionModel(String permissionModel) {
+        this.permissionModel = permissionModel;
+    }
+
+    /**
+     * <p>
+     * Describes how the IAM roles required for stack set operations are created.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * With <code>self-managed</code> permissions, you must create the administrator and execution roles required to
+     * deploy to target accounts. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-self-managed.html">Grant
+     * Self-Managed Stack Set Permissions</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * With <code>service-managed</code> permissions, StackSets automatically creates the IAM roles required to deploy
+     * to accounts managed by Organizations. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-service-managed.html"
+     * >Grant Service-Managed Stack Set Permissions</a>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Describes how the IAM roles required for stack set operations are created.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         With <code>self-managed</code> permissions, you must create the administrator and execution roles
+     *         required to deploy to target accounts. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-self-managed.html"
+     *         >Grant Self-Managed Stack Set Permissions</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         With <code>service-managed</code> permissions, StackSets automatically creates the IAM roles required to
+     *         deploy to accounts managed by Organizations. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-service-managed.html"
+     *         >Grant Service-Managed Stack Set Permissions</a>.
+     *         </p>
+     *         </li>
+     * @see PermissionModels
+     */
+
+    public String getPermissionModel() {
+        return this.permissionModel;
+    }
+
+    /**
+     * <p>
+     * Describes how the IAM roles required for stack set operations are created.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * With <code>self-managed</code> permissions, you must create the administrator and execution roles required to
+     * deploy to target accounts. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-self-managed.html">Grant
+     * Self-Managed Stack Set Permissions</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * With <code>service-managed</code> permissions, StackSets automatically creates the IAM roles required to deploy
+     * to accounts managed by Organizations. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-service-managed.html"
+     * >Grant Service-Managed Stack Set Permissions</a>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param permissionModel
+     *        Describes how the IAM roles required for stack set operations are created.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        With <code>self-managed</code> permissions, you must create the administrator and execution roles required
+     *        to deploy to target accounts. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-self-managed.html">Grant
+     *        Self-Managed Stack Set Permissions</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        With <code>service-managed</code> permissions, StackSets automatically creates the IAM roles required to
+     *        deploy to accounts managed by Organizations. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-service-managed.html"
+     *        >Grant Service-Managed Stack Set Permissions</a>.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PermissionModels
+     */
+
+    public StackSet withPermissionModel(String permissionModel) {
+        setPermissionModel(permissionModel);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Describes how the IAM roles required for stack set operations are created.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * With <code>self-managed</code> permissions, you must create the administrator and execution roles required to
+     * deploy to target accounts. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-self-managed.html">Grant
+     * Self-Managed Stack Set Permissions</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * With <code>service-managed</code> permissions, StackSets automatically creates the IAM roles required to deploy
+     * to accounts managed by Organizations. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-service-managed.html"
+     * >Grant Service-Managed Stack Set Permissions</a>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param permissionModel
+     *        Describes how the IAM roles required for stack set operations are created.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        With <code>self-managed</code> permissions, you must create the administrator and execution roles required
+     *        to deploy to target accounts. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-self-managed.html">Grant
+     *        Self-Managed Stack Set Permissions</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        With <code>service-managed</code> permissions, StackSets automatically creates the IAM roles required to
+     *        deploy to accounts managed by Organizations. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-service-managed.html"
+     *        >Grant Service-Managed Stack Set Permissions</a>.
+     *        </p>
+     *        </li>
+     * @see PermissionModels
+     */
+
+    public void setPermissionModel(PermissionModels permissionModel) {
+        withPermissionModel(permissionModel);
+    }
+
+    /**
+     * <p>
+     * Describes how the IAM roles required for stack set operations are created.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * With <code>self-managed</code> permissions, you must create the administrator and execution roles required to
+     * deploy to target accounts. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-self-managed.html">Grant
+     * Self-Managed Stack Set Permissions</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * With <code>service-managed</code> permissions, StackSets automatically creates the IAM roles required to deploy
+     * to accounts managed by Organizations. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-service-managed.html"
+     * >Grant Service-Managed Stack Set Permissions</a>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param permissionModel
+     *        Describes how the IAM roles required for stack set operations are created.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        With <code>self-managed</code> permissions, you must create the administrator and execution roles required
+     *        to deploy to target accounts. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-self-managed.html">Grant
+     *        Self-Managed Stack Set Permissions</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        With <code>service-managed</code> permissions, StackSets automatically creates the IAM roles required to
+     *        deploy to accounts managed by Organizations. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-service-managed.html"
+     *        >Grant Service-Managed Stack Set Permissions</a>.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PermissionModels
+     */
+
+    public StackSet withPermissionModel(PermissionModels permissionModel) {
+        this.permissionModel = permissionModel.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * [Service-managed permissions] The organization root ID or organizational unit (OU) IDs that you specified for <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html">
+     * DeploymentTargets</a>.
+     * </p>
+     * 
+     * @return [Service-managed permissions] The organization root ID or organizational unit (OU) IDs that you specified
+     *         for <a
+     *         href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html"
+     *         >DeploymentTargets</a>.
+     */
+
+    public java.util.List<String> getOrganizationalUnitIds() {
+        if (organizationalUnitIds == null) {
+            organizationalUnitIds = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return organizationalUnitIds;
+    }
+
+    /**
+     * <p>
+     * [Service-managed permissions] The organization root ID or organizational unit (OU) IDs that you specified for <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html">
+     * DeploymentTargets</a>.
+     * </p>
+     * 
+     * @param organizationalUnitIds
+     *        [Service-managed permissions] The organization root ID or organizational unit (OU) IDs that you specified
+     *        for <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html">
+     *        DeploymentTargets</a>.
+     */
+
+    public void setOrganizationalUnitIds(java.util.Collection<String> organizationalUnitIds) {
+        if (organizationalUnitIds == null) {
+            this.organizationalUnitIds = null;
+            return;
+        }
+
+        this.organizationalUnitIds = new com.amazonaws.internal.SdkInternalList<String>(organizationalUnitIds);
+    }
+
+    /**
+     * <p>
+     * [Service-managed permissions] The organization root ID or organizational unit (OU) IDs that you specified for <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html">
+     * DeploymentTargets</a>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setOrganizationalUnitIds(java.util.Collection)} or
+     * {@link #withOrganizationalUnitIds(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param organizationalUnitIds
+     *        [Service-managed permissions] The organization root ID or organizational unit (OU) IDs that you specified
+     *        for <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html">
+     *        DeploymentTargets</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StackSet withOrganizationalUnitIds(String... organizationalUnitIds) {
+        if (this.organizationalUnitIds == null) {
+            setOrganizationalUnitIds(new com.amazonaws.internal.SdkInternalList<String>(organizationalUnitIds.length));
+        }
+        for (String ele : organizationalUnitIds) {
+            this.organizationalUnitIds.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * [Service-managed permissions] The organization root ID or organizational unit (OU) IDs that you specified for <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html">
+     * DeploymentTargets</a>.
+     * </p>
+     * 
+     * @param organizationalUnitIds
+     *        [Service-managed permissions] The organization root ID or organizational unit (OU) IDs that you specified
+     *        for <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html">
+     *        DeploymentTargets</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StackSet withOrganizationalUnitIds(java.util.Collection<String> organizationalUnitIds) {
+        setOrganizationalUnitIds(organizationalUnitIds);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Describes whether StackSets performs non-conflicting operations concurrently and queues conflicting operations.
+     * </p>
+     * 
+     * @param managedExecution
+     *        Describes whether StackSets performs non-conflicting operations concurrently and queues conflicting
+     *        operations.
+     */
+
+    public void setManagedExecution(ManagedExecution managedExecution) {
+        this.managedExecution = managedExecution;
+    }
+
+    /**
+     * <p>
+     * Describes whether StackSets performs non-conflicting operations concurrently and queues conflicting operations.
+     * </p>
+     * 
+     * @return Describes whether StackSets performs non-conflicting operations concurrently and queues conflicting
+     *         operations.
+     */
+
+    public ManagedExecution getManagedExecution() {
+        return this.managedExecution;
+    }
+
+    /**
+     * <p>
+     * Describes whether StackSets performs non-conflicting operations concurrently and queues conflicting operations.
+     * </p>
+     * 
+     * @param managedExecution
+     *        Describes whether StackSets performs non-conflicting operations concurrently and queues conflicting
+     *        operations.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StackSet withManagedExecution(ManagedExecution managedExecution) {
+        setManagedExecution(managedExecution);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Returns a list of all Amazon Web Services Regions the given StackSet has stack instances deployed in. The Amazon
+     * Web Services Regions list output is in no particular order.
+     * </p>
+     * 
+     * @return Returns a list of all Amazon Web Services Regions the given StackSet has stack instances deployed in. The
+     *         Amazon Web Services Regions list output is in no particular order.
+     */
+
+    public java.util.List<String> getRegions() {
+        if (regions == null) {
+            regions = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return regions;
+    }
+
+    /**
+     * <p>
+     * Returns a list of all Amazon Web Services Regions the given StackSet has stack instances deployed in. The Amazon
+     * Web Services Regions list output is in no particular order.
+     * </p>
+     * 
+     * @param regions
+     *        Returns a list of all Amazon Web Services Regions the given StackSet has stack instances deployed in. The
+     *        Amazon Web Services Regions list output is in no particular order.
+     */
+
+    public void setRegions(java.util.Collection<String> regions) {
+        if (regions == null) {
+            this.regions = null;
+            return;
+        }
+
+        this.regions = new com.amazonaws.internal.SdkInternalList<String>(regions);
+    }
+
+    /**
+     * <p>
+     * Returns a list of all Amazon Web Services Regions the given StackSet has stack instances deployed in. The Amazon
+     * Web Services Regions list output is in no particular order.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setRegions(java.util.Collection)} or {@link #withRegions(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param regions
+     *        Returns a list of all Amazon Web Services Regions the given StackSet has stack instances deployed in. The
+     *        Amazon Web Services Regions list output is in no particular order.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StackSet withRegions(String... regions) {
+        if (this.regions == null) {
+            setRegions(new com.amazonaws.internal.SdkInternalList<String>(regions.length));
+        }
+        for (String ele : regions) {
+            this.regions.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Returns a list of all Amazon Web Services Regions the given StackSet has stack instances deployed in. The Amazon
+     * Web Services Regions list output is in no particular order.
+     * </p>
+     * 
+     * @param regions
+     *        Returns a list of all Amazon Web Services Regions the given StackSet has stack instances deployed in. The
+     *        Amazon Web Services Regions list output is in no particular order.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StackSet withRegions(java.util.Collection<String> regions) {
+        setRegions(regions);
         return this;
     }
 
@@ -834,7 +1468,19 @@ public class StackSet implements Serializable, Cloneable {
         if (getAdministrationRoleARN() != null)
             sb.append("AdministrationRoleARN: ").append(getAdministrationRoleARN()).append(",");
         if (getExecutionRoleName() != null)
-            sb.append("ExecutionRoleName: ").append(getExecutionRoleName());
+            sb.append("ExecutionRoleName: ").append(getExecutionRoleName()).append(",");
+        if (getStackSetDriftDetectionDetails() != null)
+            sb.append("StackSetDriftDetectionDetails: ").append(getStackSetDriftDetectionDetails()).append(",");
+        if (getAutoDeployment() != null)
+            sb.append("AutoDeployment: ").append(getAutoDeployment()).append(",");
+        if (getPermissionModel() != null)
+            sb.append("PermissionModel: ").append(getPermissionModel()).append(",");
+        if (getOrganizationalUnitIds() != null)
+            sb.append("OrganizationalUnitIds: ").append(getOrganizationalUnitIds()).append(",");
+        if (getManagedExecution() != null)
+            sb.append("ManagedExecution: ").append(getManagedExecution()).append(",");
+        if (getRegions() != null)
+            sb.append("Regions: ").append(getRegions());
         sb.append("}");
         return sb.toString();
     }
@@ -893,6 +1539,31 @@ public class StackSet implements Serializable, Cloneable {
             return false;
         if (other.getExecutionRoleName() != null && other.getExecutionRoleName().equals(this.getExecutionRoleName()) == false)
             return false;
+        if (other.getStackSetDriftDetectionDetails() == null ^ this.getStackSetDriftDetectionDetails() == null)
+            return false;
+        if (other.getStackSetDriftDetectionDetails() != null
+                && other.getStackSetDriftDetectionDetails().equals(this.getStackSetDriftDetectionDetails()) == false)
+            return false;
+        if (other.getAutoDeployment() == null ^ this.getAutoDeployment() == null)
+            return false;
+        if (other.getAutoDeployment() != null && other.getAutoDeployment().equals(this.getAutoDeployment()) == false)
+            return false;
+        if (other.getPermissionModel() == null ^ this.getPermissionModel() == null)
+            return false;
+        if (other.getPermissionModel() != null && other.getPermissionModel().equals(this.getPermissionModel()) == false)
+            return false;
+        if (other.getOrganizationalUnitIds() == null ^ this.getOrganizationalUnitIds() == null)
+            return false;
+        if (other.getOrganizationalUnitIds() != null && other.getOrganizationalUnitIds().equals(this.getOrganizationalUnitIds()) == false)
+            return false;
+        if (other.getManagedExecution() == null ^ this.getManagedExecution() == null)
+            return false;
+        if (other.getManagedExecution() != null && other.getManagedExecution().equals(this.getManagedExecution()) == false)
+            return false;
+        if (other.getRegions() == null ^ this.getRegions() == null)
+            return false;
+        if (other.getRegions() != null && other.getRegions().equals(this.getRegions()) == false)
+            return false;
         return true;
     }
 
@@ -912,6 +1583,12 @@ public class StackSet implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getStackSetARN() == null) ? 0 : getStackSetARN().hashCode());
         hashCode = prime * hashCode + ((getAdministrationRoleARN() == null) ? 0 : getAdministrationRoleARN().hashCode());
         hashCode = prime * hashCode + ((getExecutionRoleName() == null) ? 0 : getExecutionRoleName().hashCode());
+        hashCode = prime * hashCode + ((getStackSetDriftDetectionDetails() == null) ? 0 : getStackSetDriftDetectionDetails().hashCode());
+        hashCode = prime * hashCode + ((getAutoDeployment() == null) ? 0 : getAutoDeployment().hashCode());
+        hashCode = prime * hashCode + ((getPermissionModel() == null) ? 0 : getPermissionModel().hashCode());
+        hashCode = prime * hashCode + ((getOrganizationalUnitIds() == null) ? 0 : getOrganizationalUnitIds().hashCode());
+        hashCode = prime * hashCode + ((getManagedExecution() == null) ? 0 : getManagedExecution().hashCode());
+        hashCode = prime * hashCode + ((getRegions() == null) ? 0 : getRegions().hashCode());
         return hashCode;
     }
 

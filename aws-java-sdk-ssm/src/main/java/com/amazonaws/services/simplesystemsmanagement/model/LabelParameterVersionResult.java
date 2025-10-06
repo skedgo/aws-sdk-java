@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,23 +25,29 @@ public class LabelParameterVersionResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The label does not meet the requirements. For information about parameter label requirements, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html">Labeling
-     * Parameters</a> in the <i>AWS Systems Manager User Guide</i>.
+     * The label doesn't meet the requirements. For information about parameter label requirements, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html">Working with
+     * parameter labels</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> invalidLabels;
+    /**
+     * <p>
+     * The version of the parameter that has been labeled.
+     * </p>
+     */
+    private Long parameterVersion;
 
     /**
      * <p>
-     * The label does not meet the requirements. For information about parameter label requirements, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html">Labeling
-     * Parameters</a> in the <i>AWS Systems Manager User Guide</i>.
+     * The label doesn't meet the requirements. For information about parameter label requirements, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html">Working with
+     * parameter labels</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
-     * @return The label does not meet the requirements. For information about parameter label requirements, see <a
-     *         href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html">Labeling
-     *         Parameters</a> in the <i>AWS Systems Manager User Guide</i>.
+     * @return The label doesn't meet the requirements. For information about parameter label requirements, see <a
+     *         href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html">Working
+     *         with parameter labels</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      */
 
     public java.util.List<String> getInvalidLabels() {
@@ -53,15 +59,15 @@ public class LabelParameterVersionResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The label does not meet the requirements. For information about parameter label requirements, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html">Labeling
-     * Parameters</a> in the <i>AWS Systems Manager User Guide</i>.
+     * The label doesn't meet the requirements. For information about parameter label requirements, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html">Working with
+     * parameter labels</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param invalidLabels
-     *        The label does not meet the requirements. For information about parameter label requirements, see <a
-     *        href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html">Labeling
-     *        Parameters</a> in the <i>AWS Systems Manager User Guide</i>.
+     *        The label doesn't meet the requirements. For information about parameter label requirements, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html">Working
+     *        with parameter labels</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      */
 
     public void setInvalidLabels(java.util.Collection<String> invalidLabels) {
@@ -75,9 +81,9 @@ public class LabelParameterVersionResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The label does not meet the requirements. For information about parameter label requirements, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html">Labeling
-     * Parameters</a> in the <i>AWS Systems Manager User Guide</i>.
+     * The label doesn't meet the requirements. For information about parameter label requirements, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html">Working with
+     * parameter labels</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -86,9 +92,9 @@ public class LabelParameterVersionResult extends com.amazonaws.AmazonWebServiceR
      * </p>
      * 
      * @param invalidLabels
-     *        The label does not meet the requirements. For information about parameter label requirements, see <a
-     *        href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html">Labeling
-     *        Parameters</a> in the <i>AWS Systems Manager User Guide</i>.
+     *        The label doesn't meet the requirements. For information about parameter label requirements, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html">Working
+     *        with parameter labels</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -104,20 +110,60 @@ public class LabelParameterVersionResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The label does not meet the requirements. For information about parameter label requirements, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html">Labeling
-     * Parameters</a> in the <i>AWS Systems Manager User Guide</i>.
+     * The label doesn't meet the requirements. For information about parameter label requirements, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html">Working with
+     * parameter labels</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param invalidLabels
-     *        The label does not meet the requirements. For information about parameter label requirements, see <a
-     *        href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html">Labeling
-     *        Parameters</a> in the <i>AWS Systems Manager User Guide</i>.
+     *        The label doesn't meet the requirements. For information about parameter label requirements, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html">Working
+     *        with parameter labels</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public LabelParameterVersionResult withInvalidLabels(java.util.Collection<String> invalidLabels) {
         setInvalidLabels(invalidLabels);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The version of the parameter that has been labeled.
+     * </p>
+     * 
+     * @param parameterVersion
+     *        The version of the parameter that has been labeled.
+     */
+
+    public void setParameterVersion(Long parameterVersion) {
+        this.parameterVersion = parameterVersion;
+    }
+
+    /**
+     * <p>
+     * The version of the parameter that has been labeled.
+     * </p>
+     * 
+     * @return The version of the parameter that has been labeled.
+     */
+
+    public Long getParameterVersion() {
+        return this.parameterVersion;
+    }
+
+    /**
+     * <p>
+     * The version of the parameter that has been labeled.
+     * </p>
+     * 
+     * @param parameterVersion
+     *        The version of the parameter that has been labeled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LabelParameterVersionResult withParameterVersion(Long parameterVersion) {
+        setParameterVersion(parameterVersion);
         return this;
     }
 
@@ -134,7 +180,9 @@ public class LabelParameterVersionResult extends com.amazonaws.AmazonWebServiceR
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getInvalidLabels() != null)
-            sb.append("InvalidLabels: ").append(getInvalidLabels());
+            sb.append("InvalidLabels: ").append(getInvalidLabels()).append(",");
+        if (getParameterVersion() != null)
+            sb.append("ParameterVersion: ").append(getParameterVersion());
         sb.append("}");
         return sb.toString();
     }
@@ -153,6 +201,10 @@ public class LabelParameterVersionResult extends com.amazonaws.AmazonWebServiceR
             return false;
         if (other.getInvalidLabels() != null && other.getInvalidLabels().equals(this.getInvalidLabels()) == false)
             return false;
+        if (other.getParameterVersion() == null ^ this.getParameterVersion() == null)
+            return false;
+        if (other.getParameterVersion() != null && other.getParameterVersion().equals(this.getParameterVersion()) == false)
+            return false;
         return true;
     }
 
@@ -162,6 +214,7 @@ public class LabelParameterVersionResult extends com.amazonaws.AmazonWebServiceR
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getInvalidLabels() == null) ? 0 : getInvalidLabels().hashCode());
+        hashCode = prime * hashCode + ((getParameterVersion() == null) ? 0 : getParameterVersion().hashCode());
         return hashCode;
     }
 

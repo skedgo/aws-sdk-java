@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.cloudhsmv2.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -29,6 +30,8 @@ public class BackupMarshaller {
 
     private static final MarshallingInfo<String> BACKUPID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("BackupId").build();
+    private static final MarshallingInfo<String> BACKUPARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("BackupArn").build();
     private static final MarshallingInfo<String> BACKUPSTATE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("BackupState").build();
     private static final MarshallingInfo<String> CLUSTERID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -37,6 +40,8 @@ public class BackupMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CreateTimestamp").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<java.util.Date> COPYTIMESTAMP_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CopyTimestamp").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<Boolean> NEVEREXPIRES_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("NeverExpires").build();
     private static final MarshallingInfo<String> SOURCEREGION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SourceRegion").build();
     private static final MarshallingInfo<String> SOURCEBACKUP_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -45,6 +50,12 @@ public class BackupMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SourceCluster").build();
     private static final MarshallingInfo<java.util.Date> DELETETIMESTAMP_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DeleteTimestamp").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<List> TAGLIST_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("TagList").build();
+    private static final MarshallingInfo<String> HSMTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("HsmType").build();
+    private static final MarshallingInfo<String> MODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Mode").build();
 
     private static final BackupMarshaller instance = new BackupMarshaller();
 
@@ -63,14 +74,19 @@ public class BackupMarshaller {
 
         try {
             protocolMarshaller.marshall(backup.getBackupId(), BACKUPID_BINDING);
+            protocolMarshaller.marshall(backup.getBackupArn(), BACKUPARN_BINDING);
             protocolMarshaller.marshall(backup.getBackupState(), BACKUPSTATE_BINDING);
             protocolMarshaller.marshall(backup.getClusterId(), CLUSTERID_BINDING);
             protocolMarshaller.marshall(backup.getCreateTimestamp(), CREATETIMESTAMP_BINDING);
             protocolMarshaller.marshall(backup.getCopyTimestamp(), COPYTIMESTAMP_BINDING);
+            protocolMarshaller.marshall(backup.getNeverExpires(), NEVEREXPIRES_BINDING);
             protocolMarshaller.marshall(backup.getSourceRegion(), SOURCEREGION_BINDING);
             protocolMarshaller.marshall(backup.getSourceBackup(), SOURCEBACKUP_BINDING);
             protocolMarshaller.marshall(backup.getSourceCluster(), SOURCECLUSTER_BINDING);
             protocolMarshaller.marshall(backup.getDeleteTimestamp(), DELETETIMESTAMP_BINDING);
+            protocolMarshaller.marshall(backup.getTagList(), TAGLIST_BINDING);
+            protocolMarshaller.marshall(backup.getHsmType(), HSMTYPE_BINDING);
+            protocolMarshaller.marshall(backup.getMode(), MODE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

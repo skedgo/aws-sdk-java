@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -109,13 +109,15 @@ public class RestoreDBClusterFromSnapshotRequestMarshaller implements
             int tagsListIndex = 1;
 
             for (Tag tagsListValue : tagsList) {
+                if (tagsListValue != null) {
 
-                if (tagsListValue.getKey() != null) {
-                    request.addParameter("Tags.Tag." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
-                }
+                    if (tagsListValue.getKey() != null) {
+                        request.addParameter("Tags.Tag." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
+                    }
 
-                if (tagsListValue.getValue() != null) {
-                    request.addParameter("Tags.Tag." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                    if (tagsListValue.getValue() != null) {
+                        request.addParameter("Tags.Tag." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                    }
                 }
                 tagsListIndex++;
             }
@@ -176,6 +178,10 @@ public class RestoreDBClusterFromSnapshotRequestMarshaller implements
                 if (scalingConfiguration.getTimeoutAction() != null) {
                     request.addParameter("ScalingConfiguration.TimeoutAction", StringUtils.fromString(scalingConfiguration.getTimeoutAction()));
                 }
+
+                if (scalingConfiguration.getSecondsBeforeTimeout() != null) {
+                    request.addParameter("ScalingConfiguration.SecondsBeforeTimeout", StringUtils.fromInteger(scalingConfiguration.getSecondsBeforeTimeout()));
+                }
             }
         }
 
@@ -189,6 +195,74 @@ public class RestoreDBClusterFromSnapshotRequestMarshaller implements
 
         if (restoreDBClusterFromSnapshotRequest.getCopyTagsToSnapshot() != null) {
             request.addParameter("CopyTagsToSnapshot", StringUtils.fromBoolean(restoreDBClusterFromSnapshotRequest.getCopyTagsToSnapshot()));
+        }
+
+        if (restoreDBClusterFromSnapshotRequest.getDomain() != null) {
+            request.addParameter("Domain", StringUtils.fromString(restoreDBClusterFromSnapshotRequest.getDomain()));
+        }
+
+        if (restoreDBClusterFromSnapshotRequest.getDomainIAMRoleName() != null) {
+            request.addParameter("DomainIAMRoleName", StringUtils.fromString(restoreDBClusterFromSnapshotRequest.getDomainIAMRoleName()));
+        }
+
+        if (restoreDBClusterFromSnapshotRequest.getDBClusterInstanceClass() != null) {
+            request.addParameter("DBClusterInstanceClass", StringUtils.fromString(restoreDBClusterFromSnapshotRequest.getDBClusterInstanceClass()));
+        }
+
+        if (restoreDBClusterFromSnapshotRequest.getStorageType() != null) {
+            request.addParameter("StorageType", StringUtils.fromString(restoreDBClusterFromSnapshotRequest.getStorageType()));
+        }
+
+        if (restoreDBClusterFromSnapshotRequest.getIops() != null) {
+            request.addParameter("Iops", StringUtils.fromInteger(restoreDBClusterFromSnapshotRequest.getIops()));
+        }
+
+        if (restoreDBClusterFromSnapshotRequest.getPubliclyAccessible() != null) {
+            request.addParameter("PubliclyAccessible", StringUtils.fromBoolean(restoreDBClusterFromSnapshotRequest.getPubliclyAccessible()));
+        }
+
+        {
+            ServerlessV2ScalingConfiguration serverlessV2ScalingConfiguration = restoreDBClusterFromSnapshotRequest.getServerlessV2ScalingConfiguration();
+            if (serverlessV2ScalingConfiguration != null) {
+
+                if (serverlessV2ScalingConfiguration.getMinCapacity() != null) {
+                    request.addParameter("ServerlessV2ScalingConfiguration.MinCapacity",
+                            StringUtils.fromDouble(serverlessV2ScalingConfiguration.getMinCapacity()));
+                }
+
+                if (serverlessV2ScalingConfiguration.getMaxCapacity() != null) {
+                    request.addParameter("ServerlessV2ScalingConfiguration.MaxCapacity",
+                            StringUtils.fromDouble(serverlessV2ScalingConfiguration.getMaxCapacity()));
+                }
+            }
+        }
+
+        if (restoreDBClusterFromSnapshotRequest.getNetworkType() != null) {
+            request.addParameter("NetworkType", StringUtils.fromString(restoreDBClusterFromSnapshotRequest.getNetworkType()));
+        }
+
+        {
+            RdsCustomClusterConfiguration rdsCustomClusterConfiguration = restoreDBClusterFromSnapshotRequest.getRdsCustomClusterConfiguration();
+            if (rdsCustomClusterConfiguration != null) {
+
+                if (rdsCustomClusterConfiguration.getInterconnectSubnetId() != null) {
+                    request.addParameter("RdsCustomClusterConfiguration.InterconnectSubnetId",
+                            StringUtils.fromString(rdsCustomClusterConfiguration.getInterconnectSubnetId()));
+                }
+
+                if (rdsCustomClusterConfiguration.getTransitGatewayMulticastDomainId() != null) {
+                    request.addParameter("RdsCustomClusterConfiguration.TransitGatewayMulticastDomainId",
+                            StringUtils.fromString(rdsCustomClusterConfiguration.getTransitGatewayMulticastDomainId()));
+                }
+
+                if (rdsCustomClusterConfiguration.getReplicaMode() != null) {
+                    request.addParameter("RdsCustomClusterConfiguration.ReplicaMode", StringUtils.fromString(rdsCustomClusterConfiguration.getReplicaMode()));
+                }
+            }
+        }
+
+        if (restoreDBClusterFromSnapshotRequest.getEngineLifecycleSupport() != null) {
+            request.addParameter("EngineLifecycleSupport", StringUtils.fromString(restoreDBClusterFromSnapshotRequest.getEngineLifecycleSupport()));
         }
 
         return request;

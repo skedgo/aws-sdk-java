@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Represents a single entry in a list of task executions. <code>TaskExecutionListEntry</code> returns an array that
- * contains a list of specific invocations of a task when <a>ListTaskExecutions</a> operation is called.
+ * Represents a single entry in a list of DataSync task executions that's returned with the <a
+ * href="https://docs.aws.amazon.com/datasync/latest/userguide/API_ListTaskExecutions.html">ListTaskExecutions</a>
+ * operation.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/datasync-2018-11-09/TaskExecutionListEntry" target="_top">AWS
@@ -31,24 +32,26 @@ public class TaskExecutionListEntry implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the task that was executed.
+     * The Amazon Resource Name (ARN) of a task execution.
      * </p>
      */
     private String taskExecutionArn;
     /**
      * <p>
-     * The status of a task execution.
+     * The status of a task execution. For more information, see <a href=
+     * "https://docs.aws.amazon.com/datasync/latest/userguide/understand-task-statuses.html#understand-task-execution-statuses"
+     * >Task execution statuses</a>.
      * </p>
      */
     private String status;
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the task that was executed.
+     * The Amazon Resource Name (ARN) of a task execution.
      * </p>
      * 
      * @param taskExecutionArn
-     *        The Amazon Resource Name (ARN) of the task that was executed.
+     *        The Amazon Resource Name (ARN) of a task execution.
      */
 
     public void setTaskExecutionArn(String taskExecutionArn) {
@@ -57,10 +60,10 @@ public class TaskExecutionListEntry implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the task that was executed.
+     * The Amazon Resource Name (ARN) of a task execution.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the task that was executed.
+     * @return The Amazon Resource Name (ARN) of a task execution.
      */
 
     public String getTaskExecutionArn() {
@@ -69,11 +72,11 @@ public class TaskExecutionListEntry implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the task that was executed.
+     * The Amazon Resource Name (ARN) of a task execution.
      * </p>
      * 
      * @param taskExecutionArn
-     *        The Amazon Resource Name (ARN) of the task that was executed.
+     *        The Amazon Resource Name (ARN) of a task execution.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -84,11 +87,15 @@ public class TaskExecutionListEntry implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The status of a task execution.
+     * The status of a task execution. For more information, see <a href=
+     * "https://docs.aws.amazon.com/datasync/latest/userguide/understand-task-statuses.html#understand-task-execution-statuses"
+     * >Task execution statuses</a>.
      * </p>
      * 
      * @param status
-     *        The status of a task execution.
+     *        The status of a task execution. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/datasync/latest/userguide/understand-task-statuses.html#understand-task-execution-statuses"
+     *        >Task execution statuses</a>.
      * @see TaskExecutionStatus
      */
 
@@ -98,10 +105,14 @@ public class TaskExecutionListEntry implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The status of a task execution.
+     * The status of a task execution. For more information, see <a href=
+     * "https://docs.aws.amazon.com/datasync/latest/userguide/understand-task-statuses.html#understand-task-execution-statuses"
+     * >Task execution statuses</a>.
      * </p>
      * 
-     * @return The status of a task execution.
+     * @return The status of a task execution. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/datasync/latest/userguide/understand-task-statuses.html#understand-task-execution-statuses"
+     *         >Task execution statuses</a>.
      * @see TaskExecutionStatus
      */
 
@@ -111,11 +122,15 @@ public class TaskExecutionListEntry implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The status of a task execution.
+     * The status of a task execution. For more information, see <a href=
+     * "https://docs.aws.amazon.com/datasync/latest/userguide/understand-task-statuses.html#understand-task-execution-statuses"
+     * >Task execution statuses</a>.
      * </p>
      * 
      * @param status
-     *        The status of a task execution.
+     *        The status of a task execution. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/datasync/latest/userguide/understand-task-statuses.html#understand-task-execution-statuses"
+     *        >Task execution statuses</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TaskExecutionStatus
      */
@@ -127,11 +142,15 @@ public class TaskExecutionListEntry implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The status of a task execution.
+     * The status of a task execution. For more information, see <a href=
+     * "https://docs.aws.amazon.com/datasync/latest/userguide/understand-task-statuses.html#understand-task-execution-statuses"
+     * >Task execution statuses</a>.
      * </p>
      * 
      * @param status
-     *        The status of a task execution.
+     *        The status of a task execution. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/datasync/latest/userguide/understand-task-statuses.html#understand-task-execution-statuses"
+     *        >Task execution statuses</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TaskExecutionStatus
      */

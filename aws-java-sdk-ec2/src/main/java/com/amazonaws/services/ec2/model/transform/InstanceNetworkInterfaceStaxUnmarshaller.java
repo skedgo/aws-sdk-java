@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -137,6 +137,32 @@ public class InstanceNetworkInterfaceStaxUnmarshaller implements Unmarshaller<In
 
                 if (context.testExpression("interfaceType", targetDepth)) {
                     instanceNetworkInterface.setInterfaceType(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ipv4PrefixSet", targetDepth)) {
+                    instanceNetworkInterface.withIpv4Prefixes(new ArrayList<InstanceIpv4Prefix>());
+                    continue;
+                }
+
+                if (context.testExpression("ipv4PrefixSet/item", targetDepth)) {
+                    instanceNetworkInterface.withIpv4Prefixes(InstanceIpv4PrefixStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ipv6PrefixSet", targetDepth)) {
+                    instanceNetworkInterface.withIpv6Prefixes(new ArrayList<InstanceIpv6Prefix>());
+                    continue;
+                }
+
+                if (context.testExpression("ipv6PrefixSet/item", targetDepth)) {
+                    instanceNetworkInterface.withIpv6Prefixes(InstanceIpv6PrefixStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("connectionTrackingConfiguration", targetDepth)) {
+                    instanceNetworkInterface.setConnectionTrackingConfiguration(ConnectionTrackingSpecificationResponseStaxUnmarshaller.getInstance()
+                            .unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

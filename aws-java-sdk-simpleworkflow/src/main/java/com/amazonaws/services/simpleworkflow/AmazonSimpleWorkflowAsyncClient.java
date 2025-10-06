@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -243,7 +243,19 @@ public class AmazonSimpleWorkflowAsyncClient extends AmazonSimpleWorkflowClient 
      *        Object providing client parameters.
      */
     AmazonSimpleWorkflowAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Amazon SWF using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonSimpleWorkflowAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -373,6 +385,72 @@ public class AmazonSimpleWorkflowAsyncClient extends AmazonSimpleWorkflowClient 
 
                 try {
                     result = executeCountPendingDecisionTasks(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<Void> deleteActivityTypeAsync(DeleteActivityTypeRequest request) {
+
+        return deleteActivityTypeAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<Void> deleteActivityTypeAsync(final DeleteActivityTypeRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteActivityTypeRequest, Void> asyncHandler) {
+        final DeleteActivityTypeRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<Void>() {
+            @Override
+            public Void call() throws Exception {
+                Void result = null;
+
+                try {
+                    executeDeleteActivityType(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<Void> deleteWorkflowTypeAsync(DeleteWorkflowTypeRequest request) {
+
+        return deleteWorkflowTypeAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<Void> deleteWorkflowTypeAsync(final DeleteWorkflowTypeRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteWorkflowTypeRequest, Void> asyncHandler) {
+        final DeleteWorkflowTypeRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<Void>() {
+            @Override
+            public Void call() throws Exception {
+                Void result = null;
+
+                try {
+                    executeDeleteWorkflowType(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

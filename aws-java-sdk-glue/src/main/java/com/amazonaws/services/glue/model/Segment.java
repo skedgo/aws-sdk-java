@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Defines a non-overlapping region of a table's partitions, allowing multiple requests to be executed in parallel.
+ * Defines a non-overlapping region of a table's partitions, allowing multiple requests to be run in parallel.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/Segment" target="_top">AWS API Documentation</a>
@@ -29,27 +29,27 @@ public class Segment implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The zero-based index number of the this segment. For example, if the total number of segments is 4, SegmentNumber
-     * values will range from zero through three.
+     * The zero-based index number of the segment. For example, if the total number of segments is 4,
+     * <code>SegmentNumber</code> values range from 0 through 3.
      * </p>
      */
     private Integer segmentNumber;
     /**
      * <p>
-     * The total numer of segments.
+     * The total number of segments.
      * </p>
      */
     private Integer totalSegments;
 
     /**
      * <p>
-     * The zero-based index number of the this segment. For example, if the total number of segments is 4, SegmentNumber
-     * values will range from zero through three.
+     * The zero-based index number of the segment. For example, if the total number of segments is 4,
+     * <code>SegmentNumber</code> values range from 0 through 3.
      * </p>
      * 
      * @param segmentNumber
-     *        The zero-based index number of the this segment. For example, if the total number of segments is 4,
-     *        SegmentNumber values will range from zero through three.
+     *        The zero-based index number of the segment. For example, if the total number of segments is 4,
+     *        <code>SegmentNumber</code> values range from 0 through 3.
      */
 
     public void setSegmentNumber(Integer segmentNumber) {
@@ -58,12 +58,12 @@ public class Segment implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The zero-based index number of the this segment. For example, if the total number of segments is 4, SegmentNumber
-     * values will range from zero through three.
+     * The zero-based index number of the segment. For example, if the total number of segments is 4,
+     * <code>SegmentNumber</code> values range from 0 through 3.
      * </p>
      * 
-     * @return The zero-based index number of the this segment. For example, if the total number of segments is 4,
-     *         SegmentNumber values will range from zero through three.
+     * @return The zero-based index number of the segment. For example, if the total number of segments is 4,
+     *         <code>SegmentNumber</code> values range from 0 through 3.
      */
 
     public Integer getSegmentNumber() {
@@ -72,13 +72,13 @@ public class Segment implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The zero-based index number of the this segment. For example, if the total number of segments is 4, SegmentNumber
-     * values will range from zero through three.
+     * The zero-based index number of the segment. For example, if the total number of segments is 4,
+     * <code>SegmentNumber</code> values range from 0 through 3.
      * </p>
      * 
      * @param segmentNumber
-     *        The zero-based index number of the this segment. For example, if the total number of segments is 4,
-     *        SegmentNumber values will range from zero through three.
+     *        The zero-based index number of the segment. For example, if the total number of segments is 4,
+     *        <code>SegmentNumber</code> values range from 0 through 3.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -89,11 +89,11 @@ public class Segment implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The total numer of segments.
+     * The total number of segments.
      * </p>
      * 
      * @param totalSegments
-     *        The total numer of segments.
+     *        The total number of segments.
      */
 
     public void setTotalSegments(Integer totalSegments) {
@@ -102,10 +102,10 @@ public class Segment implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The total numer of segments.
+     * The total number of segments.
      * </p>
      * 
-     * @return The total numer of segments.
+     * @return The total number of segments.
      */
 
     public Integer getTotalSegments() {
@@ -114,11 +114,11 @@ public class Segment implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The total numer of segments.
+     * The total number of segments.
      * </p>
      * 
      * @param totalSegments
-     *        The total numer of segments.
+     *        The total number of segments.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

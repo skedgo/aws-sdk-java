@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,27 +31,27 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Unique identifier for a fleet event.
+     * A unique identifier for a fleet event.
      * </p>
      */
     private String eventId;
     /**
      * <p>
-     * Unique identifier for an event resource, such as a fleet ID.
+     * A unique identifier for an event resource, such as a fleet ID.
      * </p>
      */
     private String resourceId;
     /**
      * <p>
-     * Type of event being logged. The following events are currently in use:
+     * The type of event being logged.
      * </p>
      * <p>
-     * <b>Fleet creation events:</b>
+     * <b>Fleet state transition events:</b>
      * </p>
      * <ul>
      * <li>
      * <p>
-     * FLEET_CREATED -- A fleet record was successfully created with a status of <code>NEW</code>. Event messaging
+     * FLEET_CREATED -- A fleet resource was successfully created with a status of <code>NEW</code>. Event messaging
      * includes the fleet ID.
      * </p>
      * </li>
@@ -63,74 +63,108 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * FLEET_BINARY_DOWNLOAD_FAILED -- The build failed to download to the fleet instance.
+     * FLEET_STATE_VALIDATING -- Fleet status changed from <code>DOWNLOADING</code> to <code>VALIDATING</code>. Amazon
+     * GameLift has successfully downloaded the build and is now validating the build files.
      * </p>
      * </li>
      * <li>
      * <p>
-     * FLEET_CREATION_EXTRACTING_BUILD – The game server build was successfully downloaded to an instance, and the build
-     * files are now being extracted from the uploaded build and saved to an instance. Failure at this stage prevents a
-     * fleet from moving to <code>ACTIVE</code> status. Logs for this stage display a list of the files that are
-     * extracted and saved on the instance. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     * FLEET_STATE_BUILDING -- Fleet status changed from <code>VALIDATING</code> to <code>BUILDING</code>. Amazon
+     * GameLift has successfully verified the build files and is now running the installation scripts.
      * </p>
      * </li>
      * <li>
      * <p>
-     * FLEET_CREATION_RUNNING_INSTALLER – The game server build files were successfully extracted, and the Amazon
-     * GameLift is now running the build's install script (if one is included). Failure in this stage prevents a fleet
-     * from moving to <code>ACTIVE</code> status. Logs for this stage list the installation steps and whether or not the
-     * install completed successfully. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_CREATION_VALIDATING_RUNTIME_CONFIG -- The build process was successful, and the Amazon GameLift is now
-     * verifying that the game server launch paths, which are specified in the fleet's run-time configuration, exist. If
-     * any listed launch path exists, Amazon GameLift tries to launch a game server process and waits for the process to
-     * report ready. Failures in this stage prevent a fleet from moving to <code>ACTIVE</code> status. Logs for this
-     * stage list the launch paths in the run-time configuration and indicate whether each is found. Access the logs by
-     * using the URL in <i>PreSignedLogUrl</i>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_STATE_VALIDATING -- Fleet status changed from <code>DOWNLOADING</code> to <code>VALIDATING</code>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND -- Validation of the run-time configuration failed because the executable
-     * specified in a launch path does not exist on the instance.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_STATE_BUILDING -- Fleet status changed from <code>VALIDATING</code> to <code>BUILDING</code>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE -- Validation of the run-time configuration failed because the
-     * executable specified in a launch path failed to run on the fleet instance.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_STATE_ACTIVATING -- Fleet status changed from <code>BUILDING</code> to <code>ACTIVATING</code>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_ACTIVATION_FAILED - The fleet failed to successfully complete one of the steps in the fleet activation
-     * process. This event code indicates that the game build was successfully downloaded to a fleet instance, built,
-     * and validated, but was not able to start a server process. A possible reason for failure is that the game server
-     * is not reporting "process ready" to the Amazon GameLift service.
+     * FLEET_STATE_ACTIVATING -- Fleet status changed from <code>BUILDING</code> to <code>ACTIVATING</code>. Amazon
+     * GameLift is trying to launch an instance and test the connectivity between the build and the Amazon GameLift
+     * Service via the Server SDK.
      * </p>
      * </li>
      * <li>
      * <p>
      * FLEET_STATE_ACTIVE -- The fleet's status changed from <code>ACTIVATING</code> to <code>ACTIVE</code>. The fleet
      * is now ready to host game sessions.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_STATE_ERROR -- The Fleet's status changed to <code>ERROR</code>. Describe the fleet event message for more
+     * details.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Fleet creation events (ordered by fleet creation activity):</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * FLEET_BINARY_DOWNLOAD_FAILED -- The build failed to download to the fleet instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_CREATION_EXTRACTING_BUILD -- The game server build was successfully downloaded to an instance, and the
+     * build files are now being extracted from the uploaded build and saved to an instance. Failure at this stage
+     * prevents a fleet from moving to ACTIVE status. Logs for this stage display a list of the files that are extracted
+     * and saved on the instance. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_CREATION_RUNNING_INSTALLER -- The game server build files were successfully extracted, and the GameLift is
+     * now running the build's install script (if one is included). Failure in this stage prevents a fleet from moving
+     * to ACTIVE status. Logs for this stage list the installation steps and whether or not the install completed
+     * successfully. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_CREATION_VALIDATING_RUNTIME_CONFIG -- The build process was successful, and the GameLift is now verifying
+     * that the game server launch paths, which are specified in the fleet's runtime configuration, exist. If any listed
+     * launch path exists, Amazon GameLift tries to launch a game server process and waits for the process to report
+     * ready. Failures in this stage prevent a fleet from moving to <code>ACTIVE</code> status. Logs for this stage list
+     * the launch paths in the runtime configuration and indicate whether each is found. Access the logs by using the
+     * URL in <i>PreSignedLogUrl</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND -- Validation of the runtime configuration failed because the executable
+     * specified in a launch path does not exist on the instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE -- Validation of the runtime configuration failed because the
+     * executable specified in a launch path failed to run on the fleet instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_VALIDATION_TIMED_OUT -- Validation of the fleet at the end of creation timed out. Try fleet creation again.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_ACTIVATION_FAILED -- The fleet failed to successfully complete one of the steps in the fleet activation
+     * process. This event code indicates that the game build was successfully downloaded to a fleet instance, built,
+     * and validated, but was not able to start a server process. For more information, see <a href=
+     * "https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-creating-debug.html#fleets-creating-debug-creation"
+     * >Debug Fleet Creation Issues</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_ACTIVATION_FAILED_NO_INSTANCES -- Fleet creation was not able to obtain any instances based on the input
+     * fleet attributes. Try again at a different time or choose a different combination of fleet attributes such as
+     * fleet type, instance type, etc.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_INITIALIZATION_FAILED -- A generic exception occurred during fleet creation. Describe the fleet event
+     * message for more details.
      * </p>
      * </li>
      * </ul>
@@ -141,15 +175,15 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * <li>
      * <p>
      * FLEET_VPC_PEERING_SUCCEEDED -- A VPC peering connection has been established between the VPC for an Amazon
-     * GameLift fleet and a VPC in your AWS account.
+     * GameLift fleet and a VPC in your Amazon Web Services account.
      * </p>
      * </li>
      * <li>
      * <p>
      * FLEET_VPC_PEERING_FAILED -- A requested VPC peering connection has failed. Event details and status information
-     * (see <a>DescribeVpcPeeringConnections</a>) provide additional detail. A common reason for peering failure is that
-     * the two VPCs have overlapping CIDR blocks of IPv4 addresses. To resolve this, change the CIDR block for the VPC
-     * in your AWS account. For more information on VPC peering failures, see <a
+     * provide additional detail. A common reason for peering failure is that the two VPCs have overlapping CIDR blocks
+     * of IPv4 addresses. To resolve this, change the CIDR block for the VPC in your Amazon Web Services account. For
+     * more information on VPC peering failures, see <a
      * href="https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html"
      * >https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html</a>
      * </p>
@@ -167,6 +201,74 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * <li>
      * <p>
      * INSTANCE_INTERRUPTED -- A spot instance was interrupted by EC2 with a two-minute notification.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * INSTANCE_RECYCLED -- A spot instance was determined to have a high risk of interruption and is scheduled to be
+     * recycled once it has no active game sessions.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Server process events:</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_INVALID_PATH -- The game server executable or script could not be found based on the Fleet runtime
+     * configuration. Check that the launch path is correct based on the operating system of the Fleet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_SDK_INITIALIZATION_TIMEOUT -- The server process did not call <code>InitSDK()</code> within the
+     * time expected (5 minutes). Check your game session log to see why <code>InitSDK()</code> was not called in time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_PROCESS_READY_TIMEOUT -- The server process did not call <code>ProcessReady()</code> within the
+     * time expected (5 minutes) after calling <code>InitSDK()</code>. Check your game session log to see why
+     * <code>ProcessReady()</code> was not called in time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_CRASHED -- The server process exited without calling <code>ProcessEnding()</code>. Check your game
+     * session log to see why <code>ProcessEnding()</code> was not called.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_TERMINATED_UNHEALTHY -- The server process did not report a valid health check for too long and
+     * was therefore terminated by GameLift. Check your game session log to see if the thread became stuck processing a
+     * synchronous task for too long.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_FORCE_TERMINATED -- The server process did not exit cleanly within the time expected after
+     * <code>OnProcessTerminate()</code> was sent. Check your game session log to see why termination took longer than
+     * expected.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_PROCESS_EXIT_TIMEOUT -- The server process did not exit cleanly within the time expected (30
+     * seconds) after calling <code>ProcessEnding()</code>. Check your game session log to see why termination took
+     * longer than expected.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Game session events:</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * GAME_SESSION_ACTIVATION_TIMEOUT -- GameSession failed to activate within the expected time. Check your game
+     * session log to see why <code>ActivateGameSession()</code> took longer to complete than expected.
      * </p>
      * </li>
      * </ul>
@@ -208,7 +310,7 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Time stamp indicating when this event occurred. Format is a number expressed in Unix time as milliseconds (for
-     * example "1469498468.057").
+     * example <code>"1469498468.057"</code>).
      * </p>
      */
     private java.util.Date eventTime;
@@ -219,14 +321,20 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String preSignedLogUrl;
+    /**
+     * <p>
+     * The number of times that this event occurred.
+     * </p>
+     */
+    private Long count;
 
     /**
      * <p>
-     * Unique identifier for a fleet event.
+     * A unique identifier for a fleet event.
      * </p>
      * 
      * @param eventId
-     *        Unique identifier for a fleet event.
+     *        A unique identifier for a fleet event.
      */
 
     public void setEventId(String eventId) {
@@ -235,10 +343,10 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Unique identifier for a fleet event.
+     * A unique identifier for a fleet event.
      * </p>
      * 
-     * @return Unique identifier for a fleet event.
+     * @return A unique identifier for a fleet event.
      */
 
     public String getEventId() {
@@ -247,11 +355,11 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Unique identifier for a fleet event.
+     * A unique identifier for a fleet event.
      * </p>
      * 
      * @param eventId
-     *        Unique identifier for a fleet event.
+     *        A unique identifier for a fleet event.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -262,11 +370,11 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Unique identifier for an event resource, such as a fleet ID.
+     * A unique identifier for an event resource, such as a fleet ID.
      * </p>
      * 
      * @param resourceId
-     *        Unique identifier for an event resource, such as a fleet ID.
+     *        A unique identifier for an event resource, such as a fleet ID.
      */
 
     public void setResourceId(String resourceId) {
@@ -275,10 +383,10 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Unique identifier for an event resource, such as a fleet ID.
+     * A unique identifier for an event resource, such as a fleet ID.
      * </p>
      * 
-     * @return Unique identifier for an event resource, such as a fleet ID.
+     * @return A unique identifier for an event resource, such as a fleet ID.
      */
 
     public String getResourceId() {
@@ -287,11 +395,11 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Unique identifier for an event resource, such as a fleet ID.
+     * A unique identifier for an event resource, such as a fleet ID.
      * </p>
      * 
      * @param resourceId
-     *        Unique identifier for an event resource, such as a fleet ID.
+     *        A unique identifier for an event resource, such as a fleet ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -302,15 +410,15 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Type of event being logged. The following events are currently in use:
+     * The type of event being logged.
      * </p>
      * <p>
-     * <b>Fleet creation events:</b>
+     * <b>Fleet state transition events:</b>
      * </p>
      * <ul>
      * <li>
      * <p>
-     * FLEET_CREATED -- A fleet record was successfully created with a status of <code>NEW</code>. Event messaging
+     * FLEET_CREATED -- A fleet resource was successfully created with a status of <code>NEW</code>. Event messaging
      * includes the fleet ID.
      * </p>
      * </li>
@@ -322,74 +430,108 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * FLEET_BINARY_DOWNLOAD_FAILED -- The build failed to download to the fleet instance.
+     * FLEET_STATE_VALIDATING -- Fleet status changed from <code>DOWNLOADING</code> to <code>VALIDATING</code>. Amazon
+     * GameLift has successfully downloaded the build and is now validating the build files.
      * </p>
      * </li>
      * <li>
      * <p>
-     * FLEET_CREATION_EXTRACTING_BUILD – The game server build was successfully downloaded to an instance, and the build
-     * files are now being extracted from the uploaded build and saved to an instance. Failure at this stage prevents a
-     * fleet from moving to <code>ACTIVE</code> status. Logs for this stage display a list of the files that are
-     * extracted and saved on the instance. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     * FLEET_STATE_BUILDING -- Fleet status changed from <code>VALIDATING</code> to <code>BUILDING</code>. Amazon
+     * GameLift has successfully verified the build files and is now running the installation scripts.
      * </p>
      * </li>
      * <li>
      * <p>
-     * FLEET_CREATION_RUNNING_INSTALLER – The game server build files were successfully extracted, and the Amazon
-     * GameLift is now running the build's install script (if one is included). Failure in this stage prevents a fleet
-     * from moving to <code>ACTIVE</code> status. Logs for this stage list the installation steps and whether or not the
-     * install completed successfully. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_CREATION_VALIDATING_RUNTIME_CONFIG -- The build process was successful, and the Amazon GameLift is now
-     * verifying that the game server launch paths, which are specified in the fleet's run-time configuration, exist. If
-     * any listed launch path exists, Amazon GameLift tries to launch a game server process and waits for the process to
-     * report ready. Failures in this stage prevent a fleet from moving to <code>ACTIVE</code> status. Logs for this
-     * stage list the launch paths in the run-time configuration and indicate whether each is found. Access the logs by
-     * using the URL in <i>PreSignedLogUrl</i>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_STATE_VALIDATING -- Fleet status changed from <code>DOWNLOADING</code> to <code>VALIDATING</code>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND -- Validation of the run-time configuration failed because the executable
-     * specified in a launch path does not exist on the instance.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_STATE_BUILDING -- Fleet status changed from <code>VALIDATING</code> to <code>BUILDING</code>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE -- Validation of the run-time configuration failed because the
-     * executable specified in a launch path failed to run on the fleet instance.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_STATE_ACTIVATING -- Fleet status changed from <code>BUILDING</code> to <code>ACTIVATING</code>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_ACTIVATION_FAILED - The fleet failed to successfully complete one of the steps in the fleet activation
-     * process. This event code indicates that the game build was successfully downloaded to a fleet instance, built,
-     * and validated, but was not able to start a server process. A possible reason for failure is that the game server
-     * is not reporting "process ready" to the Amazon GameLift service.
+     * FLEET_STATE_ACTIVATING -- Fleet status changed from <code>BUILDING</code> to <code>ACTIVATING</code>. Amazon
+     * GameLift is trying to launch an instance and test the connectivity between the build and the Amazon GameLift
+     * Service via the Server SDK.
      * </p>
      * </li>
      * <li>
      * <p>
      * FLEET_STATE_ACTIVE -- The fleet's status changed from <code>ACTIVATING</code> to <code>ACTIVE</code>. The fleet
      * is now ready to host game sessions.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_STATE_ERROR -- The Fleet's status changed to <code>ERROR</code>. Describe the fleet event message for more
+     * details.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Fleet creation events (ordered by fleet creation activity):</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * FLEET_BINARY_DOWNLOAD_FAILED -- The build failed to download to the fleet instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_CREATION_EXTRACTING_BUILD -- The game server build was successfully downloaded to an instance, and the
+     * build files are now being extracted from the uploaded build and saved to an instance. Failure at this stage
+     * prevents a fleet from moving to ACTIVE status. Logs for this stage display a list of the files that are extracted
+     * and saved on the instance. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_CREATION_RUNNING_INSTALLER -- The game server build files were successfully extracted, and the GameLift is
+     * now running the build's install script (if one is included). Failure in this stage prevents a fleet from moving
+     * to ACTIVE status. Logs for this stage list the installation steps and whether or not the install completed
+     * successfully. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_CREATION_VALIDATING_RUNTIME_CONFIG -- The build process was successful, and the GameLift is now verifying
+     * that the game server launch paths, which are specified in the fleet's runtime configuration, exist. If any listed
+     * launch path exists, Amazon GameLift tries to launch a game server process and waits for the process to report
+     * ready. Failures in this stage prevent a fleet from moving to <code>ACTIVE</code> status. Logs for this stage list
+     * the launch paths in the runtime configuration and indicate whether each is found. Access the logs by using the
+     * URL in <i>PreSignedLogUrl</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND -- Validation of the runtime configuration failed because the executable
+     * specified in a launch path does not exist on the instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE -- Validation of the runtime configuration failed because the
+     * executable specified in a launch path failed to run on the fleet instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_VALIDATION_TIMED_OUT -- Validation of the fleet at the end of creation timed out. Try fleet creation again.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_ACTIVATION_FAILED -- The fleet failed to successfully complete one of the steps in the fleet activation
+     * process. This event code indicates that the game build was successfully downloaded to a fleet instance, built,
+     * and validated, but was not able to start a server process. For more information, see <a href=
+     * "https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-creating-debug.html#fleets-creating-debug-creation"
+     * >Debug Fleet Creation Issues</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_ACTIVATION_FAILED_NO_INSTANCES -- Fleet creation was not able to obtain any instances based on the input
+     * fleet attributes. Try again at a different time or choose a different combination of fleet attributes such as
+     * fleet type, instance type, etc.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_INITIALIZATION_FAILED -- A generic exception occurred during fleet creation. Describe the fleet event
+     * message for more details.
      * </p>
      * </li>
      * </ul>
@@ -400,15 +542,15 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * <li>
      * <p>
      * FLEET_VPC_PEERING_SUCCEEDED -- A VPC peering connection has been established between the VPC for an Amazon
-     * GameLift fleet and a VPC in your AWS account.
+     * GameLift fleet and a VPC in your Amazon Web Services account.
      * </p>
      * </li>
      * <li>
      * <p>
      * FLEET_VPC_PEERING_FAILED -- A requested VPC peering connection has failed. Event details and status information
-     * (see <a>DescribeVpcPeeringConnections</a>) provide additional detail. A common reason for peering failure is that
-     * the two VPCs have overlapping CIDR blocks of IPv4 addresses. To resolve this, change the CIDR block for the VPC
-     * in your AWS account. For more information on VPC peering failures, see <a
+     * provide additional detail. A common reason for peering failure is that the two VPCs have overlapping CIDR blocks
+     * of IPv4 addresses. To resolve this, change the CIDR block for the VPC in your Amazon Web Services account. For
+     * more information on VPC peering failures, see <a
      * href="https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html"
      * >https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html</a>
      * </p>
@@ -426,6 +568,74 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * <li>
      * <p>
      * INSTANCE_INTERRUPTED -- A spot instance was interrupted by EC2 with a two-minute notification.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * INSTANCE_RECYCLED -- A spot instance was determined to have a high risk of interruption and is scheduled to be
+     * recycled once it has no active game sessions.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Server process events:</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_INVALID_PATH -- The game server executable or script could not be found based on the Fleet runtime
+     * configuration. Check that the launch path is correct based on the operating system of the Fleet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_SDK_INITIALIZATION_TIMEOUT -- The server process did not call <code>InitSDK()</code> within the
+     * time expected (5 minutes). Check your game session log to see why <code>InitSDK()</code> was not called in time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_PROCESS_READY_TIMEOUT -- The server process did not call <code>ProcessReady()</code> within the
+     * time expected (5 minutes) after calling <code>InitSDK()</code>. Check your game session log to see why
+     * <code>ProcessReady()</code> was not called in time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_CRASHED -- The server process exited without calling <code>ProcessEnding()</code>. Check your game
+     * session log to see why <code>ProcessEnding()</code> was not called.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_TERMINATED_UNHEALTHY -- The server process did not report a valid health check for too long and
+     * was therefore terminated by GameLift. Check your game session log to see if the thread became stuck processing a
+     * synchronous task for too long.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_FORCE_TERMINATED -- The server process did not exit cleanly within the time expected after
+     * <code>OnProcessTerminate()</code> was sent. Check your game session log to see why termination took longer than
+     * expected.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_PROCESS_EXIT_TIMEOUT -- The server process did not exit cleanly within the time expected (30
+     * seconds) after calling <code>ProcessEnding()</code>. Check your game session log to see why termination took
+     * longer than expected.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Game session events:</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * GAME_SESSION_ACTIVATION_TIMEOUT -- GameSession failed to activate within the expected time. Check your game
+     * session log to see why <code>ActivateGameSession()</code> took longer to complete than expected.
      * </p>
      * </li>
      * </ul>
@@ -458,14 +668,14 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * </ul>
      * 
      * @param eventCode
-     *        Type of event being logged. The following events are currently in use:</p>
+     *        The type of event being logged. </p>
      *        <p>
-     *        <b>Fleet creation events:</b>
+     *        <b>Fleet state transition events:</b>
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        FLEET_CREATED -- A fleet record was successfully created with a status of <code>NEW</code>. Event
+     *        FLEET_CREATED -- A fleet resource was successfully created with a status of <code>NEW</code>. Event
      *        messaging includes the fleet ID.
      *        </p>
      *        </li>
@@ -477,76 +687,110 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        FLEET_BINARY_DOWNLOAD_FAILED -- The build failed to download to the fleet instance.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_CREATION_EXTRACTING_BUILD – The game server build was successfully downloaded to an instance, and
-     *        the build files are now being extracted from the uploaded build and saved to an instance. Failure at this
-     *        stage prevents a fleet from moving to <code>ACTIVE</code> status. Logs for this stage display a list of
-     *        the files that are extracted and saved on the instance. Access the logs by using the URL in
-     *        <i>PreSignedLogUrl</i>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_CREATION_RUNNING_INSTALLER – The game server build files were successfully extracted, and the Amazon
-     *        GameLift is now running the build's install script (if one is included). Failure in this stage prevents a
-     *        fleet from moving to <code>ACTIVE</code> status. Logs for this stage list the installation steps and
-     *        whether or not the install completed successfully. Access the logs by using the URL in
-     *        <i>PreSignedLogUrl</i>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_CREATION_VALIDATING_RUNTIME_CONFIG -- The build process was successful, and the Amazon GameLift is
-     *        now verifying that the game server launch paths, which are specified in the fleet's run-time
-     *        configuration, exist. If any listed launch path exists, Amazon GameLift tries to launch a game server
-     *        process and waits for the process to report ready. Failures in this stage prevent a fleet from moving to
-     *        <code>ACTIVE</code> status. Logs for this stage list the launch paths in the run-time configuration and
-     *        indicate whether each is found. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
      *        FLEET_STATE_VALIDATING -- Fleet status changed from <code>DOWNLOADING</code> to <code>VALIDATING</code>.
+     *        Amazon GameLift has successfully downloaded the build and is now validating the build files.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND -- Validation of the run-time configuration failed because the
-     *        executable specified in a launch path does not exist on the instance.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_STATE_BUILDING -- Fleet status changed from <code>VALIDATING</code> to <code>BUILDING</code>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE -- Validation of the run-time configuration failed because the
-     *        executable specified in a launch path failed to run on the fleet instance.
+     *        FLEET_STATE_BUILDING -- Fleet status changed from <code>VALIDATING</code> to <code>BUILDING</code>. Amazon
+     *        GameLift has successfully verified the build files and is now running the installation scripts.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        FLEET_STATE_ACTIVATING -- Fleet status changed from <code>BUILDING</code> to <code>ACTIVATING</code>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_ACTIVATION_FAILED - The fleet failed to successfully complete one of the steps in the fleet
-     *        activation process. This event code indicates that the game build was successfully downloaded to a fleet
-     *        instance, built, and validated, but was not able to start a server process. A possible reason for failure
-     *        is that the game server is not reporting "process ready" to the Amazon GameLift service.
+     *        Amazon GameLift is trying to launch an instance and test the connectivity between the build and the Amazon
+     *        GameLift Service via the Server SDK.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        FLEET_STATE_ACTIVE -- The fleet's status changed from <code>ACTIVATING</code> to <code>ACTIVE</code>. The
      *        fleet is now ready to host game sessions.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_STATE_ERROR -- The Fleet's status changed to <code>ERROR</code>. Describe the fleet event message
+     *        for more details.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        <b>Fleet creation events (ordered by fleet creation activity):</b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        FLEET_BINARY_DOWNLOAD_FAILED -- The build failed to download to the fleet instance.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_CREATION_EXTRACTING_BUILD -- The game server build was successfully downloaded to an instance, and
+     *        the build files are now being extracted from the uploaded build and saved to an instance. Failure at this
+     *        stage prevents a fleet from moving to ACTIVE status. Logs for this stage display a list of the files that
+     *        are extracted and saved on the instance. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_CREATION_RUNNING_INSTALLER -- The game server build files were successfully extracted, and the
+     *        GameLift is now running the build's install script (if one is included). Failure in this stage prevents a
+     *        fleet from moving to ACTIVE status. Logs for this stage list the installation steps and whether or not the
+     *        install completed successfully. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_CREATION_VALIDATING_RUNTIME_CONFIG -- The build process was successful, and the GameLift is now
+     *        verifying that the game server launch paths, which are specified in the fleet's runtime configuration,
+     *        exist. If any listed launch path exists, Amazon GameLift tries to launch a game server process and waits
+     *        for the process to report ready. Failures in this stage prevent a fleet from moving to <code>ACTIVE</code>
+     *        status. Logs for this stage list the launch paths in the runtime configuration and indicate whether each
+     *        is found. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND -- Validation of the runtime configuration failed because the
+     *        executable specified in a launch path does not exist on the instance.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE -- Validation of the runtime configuration failed because the
+     *        executable specified in a launch path failed to run on the fleet instance.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_VALIDATION_TIMED_OUT -- Validation of the fleet at the end of creation timed out. Try fleet creation
+     *        again.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_ACTIVATION_FAILED -- The fleet failed to successfully complete one of the steps in the fleet
+     *        activation process. This event code indicates that the game build was successfully downloaded to a fleet
+     *        instance, built, and validated, but was not able to start a server process. For more information, see <a
+     *        href=
+     *        "https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-creating-debug.html#fleets-creating-debug-creation"
+     *        >Debug Fleet Creation Issues</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_ACTIVATION_FAILED_NO_INSTANCES -- Fleet creation was not able to obtain any instances based on the
+     *        input fleet attributes. Try again at a different time or choose a different combination of fleet
+     *        attributes such as fleet type, instance type, etc.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_INITIALIZATION_FAILED -- A generic exception occurred during fleet creation. Describe the fleet
+     *        event message for more details.
      *        </p>
      *        </li>
      *        </ul>
@@ -557,17 +801,17 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      *        <li>
      *        <p>
      *        FLEET_VPC_PEERING_SUCCEEDED -- A VPC peering connection has been established between the VPC for an Amazon
-     *        GameLift fleet and a VPC in your AWS account.
+     *        GameLift fleet and a VPC in your Amazon Web Services account.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        FLEET_VPC_PEERING_FAILED -- A requested VPC peering connection has failed. Event details and status
-     *        information (see <a>DescribeVpcPeeringConnections</a>) provide additional detail. A common reason for
-     *        peering failure is that the two VPCs have overlapping CIDR blocks of IPv4 addresses. To resolve this,
-     *        change the CIDR block for the VPC in your AWS account. For more information on VPC peering failures, see
-     *        <a href="https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html">
-     *        https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html</a>
+     *        information provide additional detail. A common reason for peering failure is that the two VPCs have
+     *        overlapping CIDR blocks of IPv4 addresses. To resolve this, change the CIDR block for the VPC in your
+     *        Amazon Web Services account. For more information on VPC peering failures, see <a
+     *        href="https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html"
+     *        >https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html</a>
      *        </p>
      *        </li>
      *        <li>
@@ -583,6 +827,75 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      *        <li>
      *        <p>
      *        INSTANCE_INTERRUPTED -- A spot instance was interrupted by EC2 with a two-minute notification.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        INSTANCE_RECYCLED -- A spot instance was determined to have a high risk of interruption and is scheduled
+     *        to be recycled once it has no active game sessions.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        <b>Server process events:</b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_INVALID_PATH -- The game server executable or script could not be found based on the Fleet
+     *        runtime configuration. Check that the launch path is correct based on the operating system of the Fleet.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_SDK_INITIALIZATION_TIMEOUT -- The server process did not call <code>InitSDK()</code> within
+     *        the time expected (5 minutes). Check your game session log to see why <code>InitSDK()</code> was not
+     *        called in time.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_PROCESS_READY_TIMEOUT -- The server process did not call <code>ProcessReady()</code> within
+     *        the time expected (5 minutes) after calling <code>InitSDK()</code>. Check your game session log to see why
+     *        <code>ProcessReady()</code> was not called in time.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_CRASHED -- The server process exited without calling <code>ProcessEnding()</code>. Check
+     *        your game session log to see why <code>ProcessEnding()</code> was not called.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_TERMINATED_UNHEALTHY -- The server process did not report a valid health check for too long
+     *        and was therefore terminated by GameLift. Check your game session log to see if the thread became stuck
+     *        processing a synchronous task for too long.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_FORCE_TERMINATED -- The server process did not exit cleanly within the time expected after
+     *        <code>OnProcessTerminate()</code> was sent. Check your game session log to see why termination took longer
+     *        than expected.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_PROCESS_EXIT_TIMEOUT -- The server process did not exit cleanly within the time expected
+     *        (30 seconds) after calling <code>ProcessEnding()</code>. Check your game session log to see why
+     *        termination took longer than expected.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        <b>Game session events:</b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        GAME_SESSION_ACTIVATION_TIMEOUT -- GameSession failed to activate within the expected time. Check your
+     *        game session log to see why <code>ActivateGameSession()</code> took longer to complete than expected.
      *        </p>
      *        </li>
      *        </ul>
@@ -621,15 +934,15 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Type of event being logged. The following events are currently in use:
+     * The type of event being logged.
      * </p>
      * <p>
-     * <b>Fleet creation events:</b>
+     * <b>Fleet state transition events:</b>
      * </p>
      * <ul>
      * <li>
      * <p>
-     * FLEET_CREATED -- A fleet record was successfully created with a status of <code>NEW</code>. Event messaging
+     * FLEET_CREATED -- A fleet resource was successfully created with a status of <code>NEW</code>. Event messaging
      * includes the fleet ID.
      * </p>
      * </li>
@@ -641,74 +954,108 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * FLEET_BINARY_DOWNLOAD_FAILED -- The build failed to download to the fleet instance.
+     * FLEET_STATE_VALIDATING -- Fleet status changed from <code>DOWNLOADING</code> to <code>VALIDATING</code>. Amazon
+     * GameLift has successfully downloaded the build and is now validating the build files.
      * </p>
      * </li>
      * <li>
      * <p>
-     * FLEET_CREATION_EXTRACTING_BUILD – The game server build was successfully downloaded to an instance, and the build
-     * files are now being extracted from the uploaded build and saved to an instance. Failure at this stage prevents a
-     * fleet from moving to <code>ACTIVE</code> status. Logs for this stage display a list of the files that are
-     * extracted and saved on the instance. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     * FLEET_STATE_BUILDING -- Fleet status changed from <code>VALIDATING</code> to <code>BUILDING</code>. Amazon
+     * GameLift has successfully verified the build files and is now running the installation scripts.
      * </p>
      * </li>
      * <li>
      * <p>
-     * FLEET_CREATION_RUNNING_INSTALLER – The game server build files were successfully extracted, and the Amazon
-     * GameLift is now running the build's install script (if one is included). Failure in this stage prevents a fleet
-     * from moving to <code>ACTIVE</code> status. Logs for this stage list the installation steps and whether or not the
-     * install completed successfully. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_CREATION_VALIDATING_RUNTIME_CONFIG -- The build process was successful, and the Amazon GameLift is now
-     * verifying that the game server launch paths, which are specified in the fleet's run-time configuration, exist. If
-     * any listed launch path exists, Amazon GameLift tries to launch a game server process and waits for the process to
-     * report ready. Failures in this stage prevent a fleet from moving to <code>ACTIVE</code> status. Logs for this
-     * stage list the launch paths in the run-time configuration and indicate whether each is found. Access the logs by
-     * using the URL in <i>PreSignedLogUrl</i>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_STATE_VALIDATING -- Fleet status changed from <code>DOWNLOADING</code> to <code>VALIDATING</code>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND -- Validation of the run-time configuration failed because the executable
-     * specified in a launch path does not exist on the instance.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_STATE_BUILDING -- Fleet status changed from <code>VALIDATING</code> to <code>BUILDING</code>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE -- Validation of the run-time configuration failed because the
-     * executable specified in a launch path failed to run on the fleet instance.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_STATE_ACTIVATING -- Fleet status changed from <code>BUILDING</code> to <code>ACTIVATING</code>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_ACTIVATION_FAILED - The fleet failed to successfully complete one of the steps in the fleet activation
-     * process. This event code indicates that the game build was successfully downloaded to a fleet instance, built,
-     * and validated, but was not able to start a server process. A possible reason for failure is that the game server
-     * is not reporting "process ready" to the Amazon GameLift service.
+     * FLEET_STATE_ACTIVATING -- Fleet status changed from <code>BUILDING</code> to <code>ACTIVATING</code>. Amazon
+     * GameLift is trying to launch an instance and test the connectivity between the build and the Amazon GameLift
+     * Service via the Server SDK.
      * </p>
      * </li>
      * <li>
      * <p>
      * FLEET_STATE_ACTIVE -- The fleet's status changed from <code>ACTIVATING</code> to <code>ACTIVE</code>. The fleet
      * is now ready to host game sessions.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_STATE_ERROR -- The Fleet's status changed to <code>ERROR</code>. Describe the fleet event message for more
+     * details.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Fleet creation events (ordered by fleet creation activity):</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * FLEET_BINARY_DOWNLOAD_FAILED -- The build failed to download to the fleet instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_CREATION_EXTRACTING_BUILD -- The game server build was successfully downloaded to an instance, and the
+     * build files are now being extracted from the uploaded build and saved to an instance. Failure at this stage
+     * prevents a fleet from moving to ACTIVE status. Logs for this stage display a list of the files that are extracted
+     * and saved on the instance. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_CREATION_RUNNING_INSTALLER -- The game server build files were successfully extracted, and the GameLift is
+     * now running the build's install script (if one is included). Failure in this stage prevents a fleet from moving
+     * to ACTIVE status. Logs for this stage list the installation steps and whether or not the install completed
+     * successfully. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_CREATION_VALIDATING_RUNTIME_CONFIG -- The build process was successful, and the GameLift is now verifying
+     * that the game server launch paths, which are specified in the fleet's runtime configuration, exist. If any listed
+     * launch path exists, Amazon GameLift tries to launch a game server process and waits for the process to report
+     * ready. Failures in this stage prevent a fleet from moving to <code>ACTIVE</code> status. Logs for this stage list
+     * the launch paths in the runtime configuration and indicate whether each is found. Access the logs by using the
+     * URL in <i>PreSignedLogUrl</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND -- Validation of the runtime configuration failed because the executable
+     * specified in a launch path does not exist on the instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE -- Validation of the runtime configuration failed because the
+     * executable specified in a launch path failed to run on the fleet instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_VALIDATION_TIMED_OUT -- Validation of the fleet at the end of creation timed out. Try fleet creation again.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_ACTIVATION_FAILED -- The fleet failed to successfully complete one of the steps in the fleet activation
+     * process. This event code indicates that the game build was successfully downloaded to a fleet instance, built,
+     * and validated, but was not able to start a server process. For more information, see <a href=
+     * "https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-creating-debug.html#fleets-creating-debug-creation"
+     * >Debug Fleet Creation Issues</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_ACTIVATION_FAILED_NO_INSTANCES -- Fleet creation was not able to obtain any instances based on the input
+     * fleet attributes. Try again at a different time or choose a different combination of fleet attributes such as
+     * fleet type, instance type, etc.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_INITIALIZATION_FAILED -- A generic exception occurred during fleet creation. Describe the fleet event
+     * message for more details.
      * </p>
      * </li>
      * </ul>
@@ -719,15 +1066,15 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * <li>
      * <p>
      * FLEET_VPC_PEERING_SUCCEEDED -- A VPC peering connection has been established between the VPC for an Amazon
-     * GameLift fleet and a VPC in your AWS account.
+     * GameLift fleet and a VPC in your Amazon Web Services account.
      * </p>
      * </li>
      * <li>
      * <p>
      * FLEET_VPC_PEERING_FAILED -- A requested VPC peering connection has failed. Event details and status information
-     * (see <a>DescribeVpcPeeringConnections</a>) provide additional detail. A common reason for peering failure is that
-     * the two VPCs have overlapping CIDR blocks of IPv4 addresses. To resolve this, change the CIDR block for the VPC
-     * in your AWS account. For more information on VPC peering failures, see <a
+     * provide additional detail. A common reason for peering failure is that the two VPCs have overlapping CIDR blocks
+     * of IPv4 addresses. To resolve this, change the CIDR block for the VPC in your Amazon Web Services account. For
+     * more information on VPC peering failures, see <a
      * href="https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html"
      * >https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html</a>
      * </p>
@@ -745,6 +1092,74 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * <li>
      * <p>
      * INSTANCE_INTERRUPTED -- A spot instance was interrupted by EC2 with a two-minute notification.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * INSTANCE_RECYCLED -- A spot instance was determined to have a high risk of interruption and is scheduled to be
+     * recycled once it has no active game sessions.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Server process events:</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_INVALID_PATH -- The game server executable or script could not be found based on the Fleet runtime
+     * configuration. Check that the launch path is correct based on the operating system of the Fleet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_SDK_INITIALIZATION_TIMEOUT -- The server process did not call <code>InitSDK()</code> within the
+     * time expected (5 minutes). Check your game session log to see why <code>InitSDK()</code> was not called in time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_PROCESS_READY_TIMEOUT -- The server process did not call <code>ProcessReady()</code> within the
+     * time expected (5 minutes) after calling <code>InitSDK()</code>. Check your game session log to see why
+     * <code>ProcessReady()</code> was not called in time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_CRASHED -- The server process exited without calling <code>ProcessEnding()</code>. Check your game
+     * session log to see why <code>ProcessEnding()</code> was not called.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_TERMINATED_UNHEALTHY -- The server process did not report a valid health check for too long and
+     * was therefore terminated by GameLift. Check your game session log to see if the thread became stuck processing a
+     * synchronous task for too long.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_FORCE_TERMINATED -- The server process did not exit cleanly within the time expected after
+     * <code>OnProcessTerminate()</code> was sent. Check your game session log to see why termination took longer than
+     * expected.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_PROCESS_EXIT_TIMEOUT -- The server process did not exit cleanly within the time expected (30
+     * seconds) after calling <code>ProcessEnding()</code>. Check your game session log to see why termination took
+     * longer than expected.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Game session events:</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * GAME_SESSION_ACTIVATION_TIMEOUT -- GameSession failed to activate within the expected time. Check your game
+     * session log to see why <code>ActivateGameSession()</code> took longer to complete than expected.
      * </p>
      * </li>
      * </ul>
@@ -776,14 +1191,14 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * </ul>
      * 
-     * @return Type of event being logged. The following events are currently in use:</p>
+     * @return The type of event being logged. </p>
      *         <p>
-     *         <b>Fleet creation events:</b>
+     *         <b>Fleet state transition events:</b>
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         FLEET_CREATED -- A fleet record was successfully created with a status of <code>NEW</code>. Event
+     *         FLEET_CREATED -- A fleet resource was successfully created with a status of <code>NEW</code>. Event
      *         messaging includes the fleet ID.
      *         </p>
      *         </li>
@@ -795,76 +1210,110 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      *         </li>
      *         <li>
      *         <p>
-     *         FLEET_BINARY_DOWNLOAD_FAILED -- The build failed to download to the fleet instance.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         FLEET_CREATION_EXTRACTING_BUILD – The game server build was successfully downloaded to an instance, and
-     *         the build files are now being extracted from the uploaded build and saved to an instance. Failure at this
-     *         stage prevents a fleet from moving to <code>ACTIVE</code> status. Logs for this stage display a list of
-     *         the files that are extracted and saved on the instance. Access the logs by using the URL in
-     *         <i>PreSignedLogUrl</i>.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         FLEET_CREATION_RUNNING_INSTALLER – The game server build files were successfully extracted, and the
-     *         Amazon GameLift is now running the build's install script (if one is included). Failure in this stage
-     *         prevents a fleet from moving to <code>ACTIVE</code> status. Logs for this stage list the installation
-     *         steps and whether or not the install completed successfully. Access the logs by using the URL in
-     *         <i>PreSignedLogUrl</i>.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         FLEET_CREATION_VALIDATING_RUNTIME_CONFIG -- The build process was successful, and the Amazon GameLift is
-     *         now verifying that the game server launch paths, which are specified in the fleet's run-time
-     *         configuration, exist. If any listed launch path exists, Amazon GameLift tries to launch a game server
-     *         process and waits for the process to report ready. Failures in this stage prevent a fleet from moving to
-     *         <code>ACTIVE</code> status. Logs for this stage list the launch paths in the run-time configuration and
-     *         indicate whether each is found. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
      *         FLEET_STATE_VALIDATING -- Fleet status changed from <code>DOWNLOADING</code> to <code>VALIDATING</code>.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND -- Validation of the run-time configuration failed because the
-     *         executable specified in a launch path does not exist on the instance.
+     *         Amazon GameLift has successfully downloaded the build and is now validating the build files.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         FLEET_STATE_BUILDING -- Fleet status changed from <code>VALIDATING</code> to <code>BUILDING</code>.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE -- Validation of the run-time configuration failed because
-     *         the executable specified in a launch path failed to run on the fleet instance.
+     *         Amazon GameLift has successfully verified the build files and is now running the installation scripts.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         FLEET_STATE_ACTIVATING -- Fleet status changed from <code>BUILDING</code> to <code>ACTIVATING</code>.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         FLEET_ACTIVATION_FAILED - The fleet failed to successfully complete one of the steps in the fleet
-     *         activation process. This event code indicates that the game build was successfully downloaded to a fleet
-     *         instance, built, and validated, but was not able to start a server process. A possible reason for failure
-     *         is that the game server is not reporting "process ready" to the Amazon GameLift service.
+     *         Amazon GameLift is trying to launch an instance and test the connectivity between the build and the
+     *         Amazon GameLift Service via the Server SDK.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         FLEET_STATE_ACTIVE -- The fleet's status changed from <code>ACTIVATING</code> to <code>ACTIVE</code>. The
      *         fleet is now ready to host game sessions.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         FLEET_STATE_ERROR -- The Fleet's status changed to <code>ERROR</code>. Describe the fleet event message
+     *         for more details.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         <b>Fleet creation events (ordered by fleet creation activity):</b>
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         FLEET_BINARY_DOWNLOAD_FAILED -- The build failed to download to the fleet instance.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         FLEET_CREATION_EXTRACTING_BUILD -- The game server build was successfully downloaded to an instance, and
+     *         the build files are now being extracted from the uploaded build and saved to an instance. Failure at this
+     *         stage prevents a fleet from moving to ACTIVE status. Logs for this stage display a list of the files that
+     *         are extracted and saved on the instance. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         FLEET_CREATION_RUNNING_INSTALLER -- The game server build files were successfully extracted, and the
+     *         GameLift is now running the build's install script (if one is included). Failure in this stage prevents a
+     *         fleet from moving to ACTIVE status. Logs for this stage list the installation steps and whether or not
+     *         the install completed successfully. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         FLEET_CREATION_VALIDATING_RUNTIME_CONFIG -- The build process was successful, and the GameLift is now
+     *         verifying that the game server launch paths, which are specified in the fleet's runtime configuration,
+     *         exist. If any listed launch path exists, Amazon GameLift tries to launch a game server process and waits
+     *         for the process to report ready. Failures in this stage prevent a fleet from moving to
+     *         <code>ACTIVE</code> status. Logs for this stage list the launch paths in the runtime configuration and
+     *         indicate whether each is found. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND -- Validation of the runtime configuration failed because the
+     *         executable specified in a launch path does not exist on the instance.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE -- Validation of the runtime configuration failed because the
+     *         executable specified in a launch path failed to run on the fleet instance.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         FLEET_VALIDATION_TIMED_OUT -- Validation of the fleet at the end of creation timed out. Try fleet
+     *         creation again.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         FLEET_ACTIVATION_FAILED -- The fleet failed to successfully complete one of the steps in the fleet
+     *         activation process. This event code indicates that the game build was successfully downloaded to a fleet
+     *         instance, built, and validated, but was not able to start a server process. For more information, see <a
+     *         href=
+     *         "https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-creating-debug.html#fleets-creating-debug-creation"
+     *         >Debug Fleet Creation Issues</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         FLEET_ACTIVATION_FAILED_NO_INSTANCES -- Fleet creation was not able to obtain any instances based on the
+     *         input fleet attributes. Try again at a different time or choose a different combination of fleet
+     *         attributes such as fleet type, instance type, etc.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         FLEET_INITIALIZATION_FAILED -- A generic exception occurred during fleet creation. Describe the fleet
+     *         event message for more details.
      *         </p>
      *         </li>
      *         </ul>
@@ -875,17 +1324,17 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      *         <li>
      *         <p>
      *         FLEET_VPC_PEERING_SUCCEEDED -- A VPC peering connection has been established between the VPC for an
-     *         Amazon GameLift fleet and a VPC in your AWS account.
+     *         Amazon GameLift fleet and a VPC in your Amazon Web Services account.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         FLEET_VPC_PEERING_FAILED -- A requested VPC peering connection has failed. Event details and status
-     *         information (see <a>DescribeVpcPeeringConnections</a>) provide additional detail. A common reason for
-     *         peering failure is that the two VPCs have overlapping CIDR blocks of IPv4 addresses. To resolve this,
-     *         change the CIDR block for the VPC in your AWS account. For more information on VPC peering failures, see
-     *         <a href="https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html">
-     *         https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html</a>
+     *         information provide additional detail. A common reason for peering failure is that the two VPCs have
+     *         overlapping CIDR blocks of IPv4 addresses. To resolve this, change the CIDR block for the VPC in your
+     *         Amazon Web Services account. For more information on VPC peering failures, see <a
+     *         href="https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html"
+     *         >https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html</a>
      *         </p>
      *         </li>
      *         <li>
@@ -901,6 +1350,75 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      *         <li>
      *         <p>
      *         INSTANCE_INTERRUPTED -- A spot instance was interrupted by EC2 with a two-minute notification.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         INSTANCE_RECYCLED -- A spot instance was determined to have a high risk of interruption and is scheduled
+     *         to be recycled once it has no active game sessions.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         <b>Server process events:</b>
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         SERVER_PROCESS_INVALID_PATH -- The game server executable or script could not be found based on the Fleet
+     *         runtime configuration. Check that the launch path is correct based on the operating system of the Fleet.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         SERVER_PROCESS_SDK_INITIALIZATION_TIMEOUT -- The server process did not call <code>InitSDK()</code>
+     *         within the time expected (5 minutes). Check your game session log to see why <code>InitSDK()</code> was
+     *         not called in time.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         SERVER_PROCESS_PROCESS_READY_TIMEOUT -- The server process did not call <code>ProcessReady()</code>
+     *         within the time expected (5 minutes) after calling <code>InitSDK()</code>. Check your game session log to
+     *         see why <code>ProcessReady()</code> was not called in time.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         SERVER_PROCESS_CRASHED -- The server process exited without calling <code>ProcessEnding()</code>. Check
+     *         your game session log to see why <code>ProcessEnding()</code> was not called.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         SERVER_PROCESS_TERMINATED_UNHEALTHY -- The server process did not report a valid health check for too
+     *         long and was therefore terminated by GameLift. Check your game session log to see if the thread became
+     *         stuck processing a synchronous task for too long.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         SERVER_PROCESS_FORCE_TERMINATED -- The server process did not exit cleanly within the time expected after
+     *         <code>OnProcessTerminate()</code> was sent. Check your game session log to see why termination took
+     *         longer than expected.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         SERVER_PROCESS_PROCESS_EXIT_TIMEOUT -- The server process did not exit cleanly within the time expected
+     *         (30 seconds) after calling <code>ProcessEnding()</code>. Check your game session log to see why
+     *         termination took longer than expected.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         <b>Game session events:</b>
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         GAME_SESSION_ACTIVATION_TIMEOUT -- GameSession failed to activate within the expected time. Check your
+     *         game session log to see why <code>ActivateGameSession()</code> took longer to complete than expected.
      *         </p>
      *         </li>
      *         </ul>
@@ -939,15 +1457,15 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Type of event being logged. The following events are currently in use:
+     * The type of event being logged.
      * </p>
      * <p>
-     * <b>Fleet creation events:</b>
+     * <b>Fleet state transition events:</b>
      * </p>
      * <ul>
      * <li>
      * <p>
-     * FLEET_CREATED -- A fleet record was successfully created with a status of <code>NEW</code>. Event messaging
+     * FLEET_CREATED -- A fleet resource was successfully created with a status of <code>NEW</code>. Event messaging
      * includes the fleet ID.
      * </p>
      * </li>
@@ -959,74 +1477,108 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * FLEET_BINARY_DOWNLOAD_FAILED -- The build failed to download to the fleet instance.
+     * FLEET_STATE_VALIDATING -- Fleet status changed from <code>DOWNLOADING</code> to <code>VALIDATING</code>. Amazon
+     * GameLift has successfully downloaded the build and is now validating the build files.
      * </p>
      * </li>
      * <li>
      * <p>
-     * FLEET_CREATION_EXTRACTING_BUILD – The game server build was successfully downloaded to an instance, and the build
-     * files are now being extracted from the uploaded build and saved to an instance. Failure at this stage prevents a
-     * fleet from moving to <code>ACTIVE</code> status. Logs for this stage display a list of the files that are
-     * extracted and saved on the instance. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     * FLEET_STATE_BUILDING -- Fleet status changed from <code>VALIDATING</code> to <code>BUILDING</code>. Amazon
+     * GameLift has successfully verified the build files and is now running the installation scripts.
      * </p>
      * </li>
      * <li>
      * <p>
-     * FLEET_CREATION_RUNNING_INSTALLER – The game server build files were successfully extracted, and the Amazon
-     * GameLift is now running the build's install script (if one is included). Failure in this stage prevents a fleet
-     * from moving to <code>ACTIVE</code> status. Logs for this stage list the installation steps and whether or not the
-     * install completed successfully. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_CREATION_VALIDATING_RUNTIME_CONFIG -- The build process was successful, and the Amazon GameLift is now
-     * verifying that the game server launch paths, which are specified in the fleet's run-time configuration, exist. If
-     * any listed launch path exists, Amazon GameLift tries to launch a game server process and waits for the process to
-     * report ready. Failures in this stage prevent a fleet from moving to <code>ACTIVE</code> status. Logs for this
-     * stage list the launch paths in the run-time configuration and indicate whether each is found. Access the logs by
-     * using the URL in <i>PreSignedLogUrl</i>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_STATE_VALIDATING -- Fleet status changed from <code>DOWNLOADING</code> to <code>VALIDATING</code>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND -- Validation of the run-time configuration failed because the executable
-     * specified in a launch path does not exist on the instance.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_STATE_BUILDING -- Fleet status changed from <code>VALIDATING</code> to <code>BUILDING</code>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE -- Validation of the run-time configuration failed because the
-     * executable specified in a launch path failed to run on the fleet instance.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_STATE_ACTIVATING -- Fleet status changed from <code>BUILDING</code> to <code>ACTIVATING</code>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_ACTIVATION_FAILED - The fleet failed to successfully complete one of the steps in the fleet activation
-     * process. This event code indicates that the game build was successfully downloaded to a fleet instance, built,
-     * and validated, but was not able to start a server process. A possible reason for failure is that the game server
-     * is not reporting "process ready" to the Amazon GameLift service.
+     * FLEET_STATE_ACTIVATING -- Fleet status changed from <code>BUILDING</code> to <code>ACTIVATING</code>. Amazon
+     * GameLift is trying to launch an instance and test the connectivity between the build and the Amazon GameLift
+     * Service via the Server SDK.
      * </p>
      * </li>
      * <li>
      * <p>
      * FLEET_STATE_ACTIVE -- The fleet's status changed from <code>ACTIVATING</code> to <code>ACTIVE</code>. The fleet
      * is now ready to host game sessions.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_STATE_ERROR -- The Fleet's status changed to <code>ERROR</code>. Describe the fleet event message for more
+     * details.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Fleet creation events (ordered by fleet creation activity):</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * FLEET_BINARY_DOWNLOAD_FAILED -- The build failed to download to the fleet instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_CREATION_EXTRACTING_BUILD -- The game server build was successfully downloaded to an instance, and the
+     * build files are now being extracted from the uploaded build and saved to an instance. Failure at this stage
+     * prevents a fleet from moving to ACTIVE status. Logs for this stage display a list of the files that are extracted
+     * and saved on the instance. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_CREATION_RUNNING_INSTALLER -- The game server build files were successfully extracted, and the GameLift is
+     * now running the build's install script (if one is included). Failure in this stage prevents a fleet from moving
+     * to ACTIVE status. Logs for this stage list the installation steps and whether or not the install completed
+     * successfully. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_CREATION_VALIDATING_RUNTIME_CONFIG -- The build process was successful, and the GameLift is now verifying
+     * that the game server launch paths, which are specified in the fleet's runtime configuration, exist. If any listed
+     * launch path exists, Amazon GameLift tries to launch a game server process and waits for the process to report
+     * ready. Failures in this stage prevent a fleet from moving to <code>ACTIVE</code> status. Logs for this stage list
+     * the launch paths in the runtime configuration and indicate whether each is found. Access the logs by using the
+     * URL in <i>PreSignedLogUrl</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND -- Validation of the runtime configuration failed because the executable
+     * specified in a launch path does not exist on the instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE -- Validation of the runtime configuration failed because the
+     * executable specified in a launch path failed to run on the fleet instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_VALIDATION_TIMED_OUT -- Validation of the fleet at the end of creation timed out. Try fleet creation again.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_ACTIVATION_FAILED -- The fleet failed to successfully complete one of the steps in the fleet activation
+     * process. This event code indicates that the game build was successfully downloaded to a fleet instance, built,
+     * and validated, but was not able to start a server process. For more information, see <a href=
+     * "https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-creating-debug.html#fleets-creating-debug-creation"
+     * >Debug Fleet Creation Issues</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_ACTIVATION_FAILED_NO_INSTANCES -- Fleet creation was not able to obtain any instances based on the input
+     * fleet attributes. Try again at a different time or choose a different combination of fleet attributes such as
+     * fleet type, instance type, etc.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_INITIALIZATION_FAILED -- A generic exception occurred during fleet creation. Describe the fleet event
+     * message for more details.
      * </p>
      * </li>
      * </ul>
@@ -1037,15 +1589,15 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * <li>
      * <p>
      * FLEET_VPC_PEERING_SUCCEEDED -- A VPC peering connection has been established between the VPC for an Amazon
-     * GameLift fleet and a VPC in your AWS account.
+     * GameLift fleet and a VPC in your Amazon Web Services account.
      * </p>
      * </li>
      * <li>
      * <p>
      * FLEET_VPC_PEERING_FAILED -- A requested VPC peering connection has failed. Event details and status information
-     * (see <a>DescribeVpcPeeringConnections</a>) provide additional detail. A common reason for peering failure is that
-     * the two VPCs have overlapping CIDR blocks of IPv4 addresses. To resolve this, change the CIDR block for the VPC
-     * in your AWS account. For more information on VPC peering failures, see <a
+     * provide additional detail. A common reason for peering failure is that the two VPCs have overlapping CIDR blocks
+     * of IPv4 addresses. To resolve this, change the CIDR block for the VPC in your Amazon Web Services account. For
+     * more information on VPC peering failures, see <a
      * href="https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html"
      * >https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html</a>
      * </p>
@@ -1063,6 +1615,74 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * <li>
      * <p>
      * INSTANCE_INTERRUPTED -- A spot instance was interrupted by EC2 with a two-minute notification.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * INSTANCE_RECYCLED -- A spot instance was determined to have a high risk of interruption and is scheduled to be
+     * recycled once it has no active game sessions.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Server process events:</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_INVALID_PATH -- The game server executable or script could not be found based on the Fleet runtime
+     * configuration. Check that the launch path is correct based on the operating system of the Fleet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_SDK_INITIALIZATION_TIMEOUT -- The server process did not call <code>InitSDK()</code> within the
+     * time expected (5 minutes). Check your game session log to see why <code>InitSDK()</code> was not called in time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_PROCESS_READY_TIMEOUT -- The server process did not call <code>ProcessReady()</code> within the
+     * time expected (5 minutes) after calling <code>InitSDK()</code>. Check your game session log to see why
+     * <code>ProcessReady()</code> was not called in time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_CRASHED -- The server process exited without calling <code>ProcessEnding()</code>. Check your game
+     * session log to see why <code>ProcessEnding()</code> was not called.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_TERMINATED_UNHEALTHY -- The server process did not report a valid health check for too long and
+     * was therefore terminated by GameLift. Check your game session log to see if the thread became stuck processing a
+     * synchronous task for too long.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_FORCE_TERMINATED -- The server process did not exit cleanly within the time expected after
+     * <code>OnProcessTerminate()</code> was sent. Check your game session log to see why termination took longer than
+     * expected.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_PROCESS_EXIT_TIMEOUT -- The server process did not exit cleanly within the time expected (30
+     * seconds) after calling <code>ProcessEnding()</code>. Check your game session log to see why termination took
+     * longer than expected.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Game session events:</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * GAME_SESSION_ACTIVATION_TIMEOUT -- GameSession failed to activate within the expected time. Check your game
+     * session log to see why <code>ActivateGameSession()</code> took longer to complete than expected.
      * </p>
      * </li>
      * </ul>
@@ -1095,14 +1715,14 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * </ul>
      * 
      * @param eventCode
-     *        Type of event being logged. The following events are currently in use:</p>
+     *        The type of event being logged. </p>
      *        <p>
-     *        <b>Fleet creation events:</b>
+     *        <b>Fleet state transition events:</b>
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        FLEET_CREATED -- A fleet record was successfully created with a status of <code>NEW</code>. Event
+     *        FLEET_CREATED -- A fleet resource was successfully created with a status of <code>NEW</code>. Event
      *        messaging includes the fleet ID.
      *        </p>
      *        </li>
@@ -1114,76 +1734,110 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        FLEET_BINARY_DOWNLOAD_FAILED -- The build failed to download to the fleet instance.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_CREATION_EXTRACTING_BUILD – The game server build was successfully downloaded to an instance, and
-     *        the build files are now being extracted from the uploaded build and saved to an instance. Failure at this
-     *        stage prevents a fleet from moving to <code>ACTIVE</code> status. Logs for this stage display a list of
-     *        the files that are extracted and saved on the instance. Access the logs by using the URL in
-     *        <i>PreSignedLogUrl</i>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_CREATION_RUNNING_INSTALLER – The game server build files were successfully extracted, and the Amazon
-     *        GameLift is now running the build's install script (if one is included). Failure in this stage prevents a
-     *        fleet from moving to <code>ACTIVE</code> status. Logs for this stage list the installation steps and
-     *        whether or not the install completed successfully. Access the logs by using the URL in
-     *        <i>PreSignedLogUrl</i>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_CREATION_VALIDATING_RUNTIME_CONFIG -- The build process was successful, and the Amazon GameLift is
-     *        now verifying that the game server launch paths, which are specified in the fleet's run-time
-     *        configuration, exist. If any listed launch path exists, Amazon GameLift tries to launch a game server
-     *        process and waits for the process to report ready. Failures in this stage prevent a fleet from moving to
-     *        <code>ACTIVE</code> status. Logs for this stage list the launch paths in the run-time configuration and
-     *        indicate whether each is found. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
      *        FLEET_STATE_VALIDATING -- Fleet status changed from <code>DOWNLOADING</code> to <code>VALIDATING</code>.
+     *        Amazon GameLift has successfully downloaded the build and is now validating the build files.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND -- Validation of the run-time configuration failed because the
-     *        executable specified in a launch path does not exist on the instance.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_STATE_BUILDING -- Fleet status changed from <code>VALIDATING</code> to <code>BUILDING</code>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE -- Validation of the run-time configuration failed because the
-     *        executable specified in a launch path failed to run on the fleet instance.
+     *        FLEET_STATE_BUILDING -- Fleet status changed from <code>VALIDATING</code> to <code>BUILDING</code>. Amazon
+     *        GameLift has successfully verified the build files and is now running the installation scripts.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        FLEET_STATE_ACTIVATING -- Fleet status changed from <code>BUILDING</code> to <code>ACTIVATING</code>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_ACTIVATION_FAILED - The fleet failed to successfully complete one of the steps in the fleet
-     *        activation process. This event code indicates that the game build was successfully downloaded to a fleet
-     *        instance, built, and validated, but was not able to start a server process. A possible reason for failure
-     *        is that the game server is not reporting "process ready" to the Amazon GameLift service.
+     *        Amazon GameLift is trying to launch an instance and test the connectivity between the build and the Amazon
+     *        GameLift Service via the Server SDK.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        FLEET_STATE_ACTIVE -- The fleet's status changed from <code>ACTIVATING</code> to <code>ACTIVE</code>. The
      *        fleet is now ready to host game sessions.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_STATE_ERROR -- The Fleet's status changed to <code>ERROR</code>. Describe the fleet event message
+     *        for more details.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        <b>Fleet creation events (ordered by fleet creation activity):</b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        FLEET_BINARY_DOWNLOAD_FAILED -- The build failed to download to the fleet instance.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_CREATION_EXTRACTING_BUILD -- The game server build was successfully downloaded to an instance, and
+     *        the build files are now being extracted from the uploaded build and saved to an instance. Failure at this
+     *        stage prevents a fleet from moving to ACTIVE status. Logs for this stage display a list of the files that
+     *        are extracted and saved on the instance. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_CREATION_RUNNING_INSTALLER -- The game server build files were successfully extracted, and the
+     *        GameLift is now running the build's install script (if one is included). Failure in this stage prevents a
+     *        fleet from moving to ACTIVE status. Logs for this stage list the installation steps and whether or not the
+     *        install completed successfully. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_CREATION_VALIDATING_RUNTIME_CONFIG -- The build process was successful, and the GameLift is now
+     *        verifying that the game server launch paths, which are specified in the fleet's runtime configuration,
+     *        exist. If any listed launch path exists, Amazon GameLift tries to launch a game server process and waits
+     *        for the process to report ready. Failures in this stage prevent a fleet from moving to <code>ACTIVE</code>
+     *        status. Logs for this stage list the launch paths in the runtime configuration and indicate whether each
+     *        is found. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND -- Validation of the runtime configuration failed because the
+     *        executable specified in a launch path does not exist on the instance.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE -- Validation of the runtime configuration failed because the
+     *        executable specified in a launch path failed to run on the fleet instance.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_VALIDATION_TIMED_OUT -- Validation of the fleet at the end of creation timed out. Try fleet creation
+     *        again.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_ACTIVATION_FAILED -- The fleet failed to successfully complete one of the steps in the fleet
+     *        activation process. This event code indicates that the game build was successfully downloaded to a fleet
+     *        instance, built, and validated, but was not able to start a server process. For more information, see <a
+     *        href=
+     *        "https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-creating-debug.html#fleets-creating-debug-creation"
+     *        >Debug Fleet Creation Issues</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_ACTIVATION_FAILED_NO_INSTANCES -- Fleet creation was not able to obtain any instances based on the
+     *        input fleet attributes. Try again at a different time or choose a different combination of fleet
+     *        attributes such as fleet type, instance type, etc.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_INITIALIZATION_FAILED -- A generic exception occurred during fleet creation. Describe the fleet
+     *        event message for more details.
      *        </p>
      *        </li>
      *        </ul>
@@ -1194,17 +1848,17 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      *        <li>
      *        <p>
      *        FLEET_VPC_PEERING_SUCCEEDED -- A VPC peering connection has been established between the VPC for an Amazon
-     *        GameLift fleet and a VPC in your AWS account.
+     *        GameLift fleet and a VPC in your Amazon Web Services account.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        FLEET_VPC_PEERING_FAILED -- A requested VPC peering connection has failed. Event details and status
-     *        information (see <a>DescribeVpcPeeringConnections</a>) provide additional detail. A common reason for
-     *        peering failure is that the two VPCs have overlapping CIDR blocks of IPv4 addresses. To resolve this,
-     *        change the CIDR block for the VPC in your AWS account. For more information on VPC peering failures, see
-     *        <a href="https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html">
-     *        https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html</a>
+     *        information provide additional detail. A common reason for peering failure is that the two VPCs have
+     *        overlapping CIDR blocks of IPv4 addresses. To resolve this, change the CIDR block for the VPC in your
+     *        Amazon Web Services account. For more information on VPC peering failures, see <a
+     *        href="https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html"
+     *        >https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html</a>
      *        </p>
      *        </li>
      *        <li>
@@ -1220,6 +1874,75 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      *        <li>
      *        <p>
      *        INSTANCE_INTERRUPTED -- A spot instance was interrupted by EC2 with a two-minute notification.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        INSTANCE_RECYCLED -- A spot instance was determined to have a high risk of interruption and is scheduled
+     *        to be recycled once it has no active game sessions.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        <b>Server process events:</b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_INVALID_PATH -- The game server executable or script could not be found based on the Fleet
+     *        runtime configuration. Check that the launch path is correct based on the operating system of the Fleet.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_SDK_INITIALIZATION_TIMEOUT -- The server process did not call <code>InitSDK()</code> within
+     *        the time expected (5 minutes). Check your game session log to see why <code>InitSDK()</code> was not
+     *        called in time.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_PROCESS_READY_TIMEOUT -- The server process did not call <code>ProcessReady()</code> within
+     *        the time expected (5 minutes) after calling <code>InitSDK()</code>. Check your game session log to see why
+     *        <code>ProcessReady()</code> was not called in time.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_CRASHED -- The server process exited without calling <code>ProcessEnding()</code>. Check
+     *        your game session log to see why <code>ProcessEnding()</code> was not called.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_TERMINATED_UNHEALTHY -- The server process did not report a valid health check for too long
+     *        and was therefore terminated by GameLift. Check your game session log to see if the thread became stuck
+     *        processing a synchronous task for too long.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_FORCE_TERMINATED -- The server process did not exit cleanly within the time expected after
+     *        <code>OnProcessTerminate()</code> was sent. Check your game session log to see why termination took longer
+     *        than expected.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_PROCESS_EXIT_TIMEOUT -- The server process did not exit cleanly within the time expected
+     *        (30 seconds) after calling <code>ProcessEnding()</code>. Check your game session log to see why
+     *        termination took longer than expected.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        <b>Game session events:</b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        GAME_SESSION_ACTIVATION_TIMEOUT -- GameSession failed to activate within the expected time. Check your
+     *        game session log to see why <code>ActivateGameSession()</code> took longer to complete than expected.
      *        </p>
      *        </li>
      *        </ul>
@@ -1260,15 +1983,15 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Type of event being logged. The following events are currently in use:
+     * The type of event being logged.
      * </p>
      * <p>
-     * <b>Fleet creation events:</b>
+     * <b>Fleet state transition events:</b>
      * </p>
      * <ul>
      * <li>
      * <p>
-     * FLEET_CREATED -- A fleet record was successfully created with a status of <code>NEW</code>. Event messaging
+     * FLEET_CREATED -- A fleet resource was successfully created with a status of <code>NEW</code>. Event messaging
      * includes the fleet ID.
      * </p>
      * </li>
@@ -1280,74 +2003,108 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * FLEET_BINARY_DOWNLOAD_FAILED -- The build failed to download to the fleet instance.
+     * FLEET_STATE_VALIDATING -- Fleet status changed from <code>DOWNLOADING</code> to <code>VALIDATING</code>. Amazon
+     * GameLift has successfully downloaded the build and is now validating the build files.
      * </p>
      * </li>
      * <li>
      * <p>
-     * FLEET_CREATION_EXTRACTING_BUILD – The game server build was successfully downloaded to an instance, and the build
-     * files are now being extracted from the uploaded build and saved to an instance. Failure at this stage prevents a
-     * fleet from moving to <code>ACTIVE</code> status. Logs for this stage display a list of the files that are
-     * extracted and saved on the instance. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     * FLEET_STATE_BUILDING -- Fleet status changed from <code>VALIDATING</code> to <code>BUILDING</code>. Amazon
+     * GameLift has successfully verified the build files and is now running the installation scripts.
      * </p>
      * </li>
      * <li>
      * <p>
-     * FLEET_CREATION_RUNNING_INSTALLER – The game server build files were successfully extracted, and the Amazon
-     * GameLift is now running the build's install script (if one is included). Failure in this stage prevents a fleet
-     * from moving to <code>ACTIVE</code> status. Logs for this stage list the installation steps and whether or not the
-     * install completed successfully. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_CREATION_VALIDATING_RUNTIME_CONFIG -- The build process was successful, and the Amazon GameLift is now
-     * verifying that the game server launch paths, which are specified in the fleet's run-time configuration, exist. If
-     * any listed launch path exists, Amazon GameLift tries to launch a game server process and waits for the process to
-     * report ready. Failures in this stage prevent a fleet from moving to <code>ACTIVE</code> status. Logs for this
-     * stage list the launch paths in the run-time configuration and indicate whether each is found. Access the logs by
-     * using the URL in <i>PreSignedLogUrl</i>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_STATE_VALIDATING -- Fleet status changed from <code>DOWNLOADING</code> to <code>VALIDATING</code>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND -- Validation of the run-time configuration failed because the executable
-     * specified in a launch path does not exist on the instance.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_STATE_BUILDING -- Fleet status changed from <code>VALIDATING</code> to <code>BUILDING</code>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE -- Validation of the run-time configuration failed because the
-     * executable specified in a launch path failed to run on the fleet instance.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_STATE_ACTIVATING -- Fleet status changed from <code>BUILDING</code> to <code>ACTIVATING</code>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_ACTIVATION_FAILED - The fleet failed to successfully complete one of the steps in the fleet activation
-     * process. This event code indicates that the game build was successfully downloaded to a fleet instance, built,
-     * and validated, but was not able to start a server process. A possible reason for failure is that the game server
-     * is not reporting "process ready" to the Amazon GameLift service.
+     * FLEET_STATE_ACTIVATING -- Fleet status changed from <code>BUILDING</code> to <code>ACTIVATING</code>. Amazon
+     * GameLift is trying to launch an instance and test the connectivity between the build and the Amazon GameLift
+     * Service via the Server SDK.
      * </p>
      * </li>
      * <li>
      * <p>
      * FLEET_STATE_ACTIVE -- The fleet's status changed from <code>ACTIVATING</code> to <code>ACTIVE</code>. The fleet
      * is now ready to host game sessions.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_STATE_ERROR -- The Fleet's status changed to <code>ERROR</code>. Describe the fleet event message for more
+     * details.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Fleet creation events (ordered by fleet creation activity):</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * FLEET_BINARY_DOWNLOAD_FAILED -- The build failed to download to the fleet instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_CREATION_EXTRACTING_BUILD -- The game server build was successfully downloaded to an instance, and the
+     * build files are now being extracted from the uploaded build and saved to an instance. Failure at this stage
+     * prevents a fleet from moving to ACTIVE status. Logs for this stage display a list of the files that are extracted
+     * and saved on the instance. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_CREATION_RUNNING_INSTALLER -- The game server build files were successfully extracted, and the GameLift is
+     * now running the build's install script (if one is included). Failure in this stage prevents a fleet from moving
+     * to ACTIVE status. Logs for this stage list the installation steps and whether or not the install completed
+     * successfully. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_CREATION_VALIDATING_RUNTIME_CONFIG -- The build process was successful, and the GameLift is now verifying
+     * that the game server launch paths, which are specified in the fleet's runtime configuration, exist. If any listed
+     * launch path exists, Amazon GameLift tries to launch a game server process and waits for the process to report
+     * ready. Failures in this stage prevent a fleet from moving to <code>ACTIVE</code> status. Logs for this stage list
+     * the launch paths in the runtime configuration and indicate whether each is found. Access the logs by using the
+     * URL in <i>PreSignedLogUrl</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND -- Validation of the runtime configuration failed because the executable
+     * specified in a launch path does not exist on the instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE -- Validation of the runtime configuration failed because the
+     * executable specified in a launch path failed to run on the fleet instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_VALIDATION_TIMED_OUT -- Validation of the fleet at the end of creation timed out. Try fleet creation again.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_ACTIVATION_FAILED -- The fleet failed to successfully complete one of the steps in the fleet activation
+     * process. This event code indicates that the game build was successfully downloaded to a fleet instance, built,
+     * and validated, but was not able to start a server process. For more information, see <a href=
+     * "https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-creating-debug.html#fleets-creating-debug-creation"
+     * >Debug Fleet Creation Issues</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_ACTIVATION_FAILED_NO_INSTANCES -- Fleet creation was not able to obtain any instances based on the input
+     * fleet attributes. Try again at a different time or choose a different combination of fleet attributes such as
+     * fleet type, instance type, etc.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_INITIALIZATION_FAILED -- A generic exception occurred during fleet creation. Describe the fleet event
+     * message for more details.
      * </p>
      * </li>
      * </ul>
@@ -1358,15 +2115,15 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * <li>
      * <p>
      * FLEET_VPC_PEERING_SUCCEEDED -- A VPC peering connection has been established between the VPC for an Amazon
-     * GameLift fleet and a VPC in your AWS account.
+     * GameLift fleet and a VPC in your Amazon Web Services account.
      * </p>
      * </li>
      * <li>
      * <p>
      * FLEET_VPC_PEERING_FAILED -- A requested VPC peering connection has failed. Event details and status information
-     * (see <a>DescribeVpcPeeringConnections</a>) provide additional detail. A common reason for peering failure is that
-     * the two VPCs have overlapping CIDR blocks of IPv4 addresses. To resolve this, change the CIDR block for the VPC
-     * in your AWS account. For more information on VPC peering failures, see <a
+     * provide additional detail. A common reason for peering failure is that the two VPCs have overlapping CIDR blocks
+     * of IPv4 addresses. To resolve this, change the CIDR block for the VPC in your Amazon Web Services account. For
+     * more information on VPC peering failures, see <a
      * href="https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html"
      * >https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html</a>
      * </p>
@@ -1384,6 +2141,74 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * <li>
      * <p>
      * INSTANCE_INTERRUPTED -- A spot instance was interrupted by EC2 with a two-minute notification.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * INSTANCE_RECYCLED -- A spot instance was determined to have a high risk of interruption and is scheduled to be
+     * recycled once it has no active game sessions.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Server process events:</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_INVALID_PATH -- The game server executable or script could not be found based on the Fleet runtime
+     * configuration. Check that the launch path is correct based on the operating system of the Fleet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_SDK_INITIALIZATION_TIMEOUT -- The server process did not call <code>InitSDK()</code> within the
+     * time expected (5 minutes). Check your game session log to see why <code>InitSDK()</code> was not called in time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_PROCESS_READY_TIMEOUT -- The server process did not call <code>ProcessReady()</code> within the
+     * time expected (5 minutes) after calling <code>InitSDK()</code>. Check your game session log to see why
+     * <code>ProcessReady()</code> was not called in time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_CRASHED -- The server process exited without calling <code>ProcessEnding()</code>. Check your game
+     * session log to see why <code>ProcessEnding()</code> was not called.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_TERMINATED_UNHEALTHY -- The server process did not report a valid health check for too long and
+     * was therefore terminated by GameLift. Check your game session log to see if the thread became stuck processing a
+     * synchronous task for too long.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_FORCE_TERMINATED -- The server process did not exit cleanly within the time expected after
+     * <code>OnProcessTerminate()</code> was sent. Check your game session log to see why termination took longer than
+     * expected.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_PROCESS_EXIT_TIMEOUT -- The server process did not exit cleanly within the time expected (30
+     * seconds) after calling <code>ProcessEnding()</code>. Check your game session log to see why termination took
+     * longer than expected.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Game session events:</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * GAME_SESSION_ACTIVATION_TIMEOUT -- GameSession failed to activate within the expected time. Check your game
+     * session log to see why <code>ActivateGameSession()</code> took longer to complete than expected.
      * </p>
      * </li>
      * </ul>
@@ -1416,14 +2241,14 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * </ul>
      * 
      * @param eventCode
-     *        Type of event being logged. The following events are currently in use:</p>
+     *        The type of event being logged. </p>
      *        <p>
-     *        <b>Fleet creation events:</b>
+     *        <b>Fleet state transition events:</b>
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        FLEET_CREATED -- A fleet record was successfully created with a status of <code>NEW</code>. Event
+     *        FLEET_CREATED -- A fleet resource was successfully created with a status of <code>NEW</code>. Event
      *        messaging includes the fleet ID.
      *        </p>
      *        </li>
@@ -1435,76 +2260,110 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        FLEET_BINARY_DOWNLOAD_FAILED -- The build failed to download to the fleet instance.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_CREATION_EXTRACTING_BUILD – The game server build was successfully downloaded to an instance, and
-     *        the build files are now being extracted from the uploaded build and saved to an instance. Failure at this
-     *        stage prevents a fleet from moving to <code>ACTIVE</code> status. Logs for this stage display a list of
-     *        the files that are extracted and saved on the instance. Access the logs by using the URL in
-     *        <i>PreSignedLogUrl</i>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_CREATION_RUNNING_INSTALLER – The game server build files were successfully extracted, and the Amazon
-     *        GameLift is now running the build's install script (if one is included). Failure in this stage prevents a
-     *        fleet from moving to <code>ACTIVE</code> status. Logs for this stage list the installation steps and
-     *        whether or not the install completed successfully. Access the logs by using the URL in
-     *        <i>PreSignedLogUrl</i>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_CREATION_VALIDATING_RUNTIME_CONFIG -- The build process was successful, and the Amazon GameLift is
-     *        now verifying that the game server launch paths, which are specified in the fleet's run-time
-     *        configuration, exist. If any listed launch path exists, Amazon GameLift tries to launch a game server
-     *        process and waits for the process to report ready. Failures in this stage prevent a fleet from moving to
-     *        <code>ACTIVE</code> status. Logs for this stage list the launch paths in the run-time configuration and
-     *        indicate whether each is found. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
      *        FLEET_STATE_VALIDATING -- Fleet status changed from <code>DOWNLOADING</code> to <code>VALIDATING</code>.
+     *        Amazon GameLift has successfully downloaded the build and is now validating the build files.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND -- Validation of the run-time configuration failed because the
-     *        executable specified in a launch path does not exist on the instance.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_STATE_BUILDING -- Fleet status changed from <code>VALIDATING</code> to <code>BUILDING</code>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE -- Validation of the run-time configuration failed because the
-     *        executable specified in a launch path failed to run on the fleet instance.
+     *        FLEET_STATE_BUILDING -- Fleet status changed from <code>VALIDATING</code> to <code>BUILDING</code>. Amazon
+     *        GameLift has successfully verified the build files and is now running the installation scripts.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        FLEET_STATE_ACTIVATING -- Fleet status changed from <code>BUILDING</code> to <code>ACTIVATING</code>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_ACTIVATION_FAILED - The fleet failed to successfully complete one of the steps in the fleet
-     *        activation process. This event code indicates that the game build was successfully downloaded to a fleet
-     *        instance, built, and validated, but was not able to start a server process. A possible reason for failure
-     *        is that the game server is not reporting "process ready" to the Amazon GameLift service.
+     *        Amazon GameLift is trying to launch an instance and test the connectivity between the build and the Amazon
+     *        GameLift Service via the Server SDK.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        FLEET_STATE_ACTIVE -- The fleet's status changed from <code>ACTIVATING</code> to <code>ACTIVE</code>. The
      *        fleet is now ready to host game sessions.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_STATE_ERROR -- The Fleet's status changed to <code>ERROR</code>. Describe the fleet event message
+     *        for more details.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        <b>Fleet creation events (ordered by fleet creation activity):</b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        FLEET_BINARY_DOWNLOAD_FAILED -- The build failed to download to the fleet instance.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_CREATION_EXTRACTING_BUILD -- The game server build was successfully downloaded to an instance, and
+     *        the build files are now being extracted from the uploaded build and saved to an instance. Failure at this
+     *        stage prevents a fleet from moving to ACTIVE status. Logs for this stage display a list of the files that
+     *        are extracted and saved on the instance. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_CREATION_RUNNING_INSTALLER -- The game server build files were successfully extracted, and the
+     *        GameLift is now running the build's install script (if one is included). Failure in this stage prevents a
+     *        fleet from moving to ACTIVE status. Logs for this stage list the installation steps and whether or not the
+     *        install completed successfully. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_CREATION_VALIDATING_RUNTIME_CONFIG -- The build process was successful, and the GameLift is now
+     *        verifying that the game server launch paths, which are specified in the fleet's runtime configuration,
+     *        exist. If any listed launch path exists, Amazon GameLift tries to launch a game server process and waits
+     *        for the process to report ready. Failures in this stage prevent a fleet from moving to <code>ACTIVE</code>
+     *        status. Logs for this stage list the launch paths in the runtime configuration and indicate whether each
+     *        is found. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND -- Validation of the runtime configuration failed because the
+     *        executable specified in a launch path does not exist on the instance.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE -- Validation of the runtime configuration failed because the
+     *        executable specified in a launch path failed to run on the fleet instance.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_VALIDATION_TIMED_OUT -- Validation of the fleet at the end of creation timed out. Try fleet creation
+     *        again.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_ACTIVATION_FAILED -- The fleet failed to successfully complete one of the steps in the fleet
+     *        activation process. This event code indicates that the game build was successfully downloaded to a fleet
+     *        instance, built, and validated, but was not able to start a server process. For more information, see <a
+     *        href=
+     *        "https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-creating-debug.html#fleets-creating-debug-creation"
+     *        >Debug Fleet Creation Issues</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_ACTIVATION_FAILED_NO_INSTANCES -- Fleet creation was not able to obtain any instances based on the
+     *        input fleet attributes. Try again at a different time or choose a different combination of fleet
+     *        attributes such as fleet type, instance type, etc.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_INITIALIZATION_FAILED -- A generic exception occurred during fleet creation. Describe the fleet
+     *        event message for more details.
      *        </p>
      *        </li>
      *        </ul>
@@ -1515,17 +2374,17 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      *        <li>
      *        <p>
      *        FLEET_VPC_PEERING_SUCCEEDED -- A VPC peering connection has been established between the VPC for an Amazon
-     *        GameLift fleet and a VPC in your AWS account.
+     *        GameLift fleet and a VPC in your Amazon Web Services account.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        FLEET_VPC_PEERING_FAILED -- A requested VPC peering connection has failed. Event details and status
-     *        information (see <a>DescribeVpcPeeringConnections</a>) provide additional detail. A common reason for
-     *        peering failure is that the two VPCs have overlapping CIDR blocks of IPv4 addresses. To resolve this,
-     *        change the CIDR block for the VPC in your AWS account. For more information on VPC peering failures, see
-     *        <a href="https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html">
-     *        https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html</a>
+     *        information provide additional detail. A common reason for peering failure is that the two VPCs have
+     *        overlapping CIDR blocks of IPv4 addresses. To resolve this, change the CIDR block for the VPC in your
+     *        Amazon Web Services account. For more information on VPC peering failures, see <a
+     *        href="https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html"
+     *        >https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html</a>
      *        </p>
      *        </li>
      *        <li>
@@ -1541,6 +2400,75 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      *        <li>
      *        <p>
      *        INSTANCE_INTERRUPTED -- A spot instance was interrupted by EC2 with a two-minute notification.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        INSTANCE_RECYCLED -- A spot instance was determined to have a high risk of interruption and is scheduled
+     *        to be recycled once it has no active game sessions.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        <b>Server process events:</b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_INVALID_PATH -- The game server executable or script could not be found based on the Fleet
+     *        runtime configuration. Check that the launch path is correct based on the operating system of the Fleet.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_SDK_INITIALIZATION_TIMEOUT -- The server process did not call <code>InitSDK()</code> within
+     *        the time expected (5 minutes). Check your game session log to see why <code>InitSDK()</code> was not
+     *        called in time.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_PROCESS_READY_TIMEOUT -- The server process did not call <code>ProcessReady()</code> within
+     *        the time expected (5 minutes) after calling <code>InitSDK()</code>. Check your game session log to see why
+     *        <code>ProcessReady()</code> was not called in time.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_CRASHED -- The server process exited without calling <code>ProcessEnding()</code>. Check
+     *        your game session log to see why <code>ProcessEnding()</code> was not called.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_TERMINATED_UNHEALTHY -- The server process did not report a valid health check for too long
+     *        and was therefore terminated by GameLift. Check your game session log to see if the thread became stuck
+     *        processing a synchronous task for too long.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_FORCE_TERMINATED -- The server process did not exit cleanly within the time expected after
+     *        <code>OnProcessTerminate()</code> was sent. Check your game session log to see why termination took longer
+     *        than expected.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_PROCESS_EXIT_TIMEOUT -- The server process did not exit cleanly within the time expected
+     *        (30 seconds) after calling <code>ProcessEnding()</code>. Check your game session log to see why
+     *        termination took longer than expected.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        <b>Game session events:</b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        GAME_SESSION_ACTIVATION_TIMEOUT -- GameSession failed to activate within the expected time. Check your
+     *        game session log to see why <code>ActivateGameSession()</code> took longer to complete than expected.
      *        </p>
      *        </li>
      *        </ul>
@@ -1579,15 +2507,15 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Type of event being logged. The following events are currently in use:
+     * The type of event being logged.
      * </p>
      * <p>
-     * <b>Fleet creation events:</b>
+     * <b>Fleet state transition events:</b>
      * </p>
      * <ul>
      * <li>
      * <p>
-     * FLEET_CREATED -- A fleet record was successfully created with a status of <code>NEW</code>. Event messaging
+     * FLEET_CREATED -- A fleet resource was successfully created with a status of <code>NEW</code>. Event messaging
      * includes the fleet ID.
      * </p>
      * </li>
@@ -1599,74 +2527,108 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * FLEET_BINARY_DOWNLOAD_FAILED -- The build failed to download to the fleet instance.
+     * FLEET_STATE_VALIDATING -- Fleet status changed from <code>DOWNLOADING</code> to <code>VALIDATING</code>. Amazon
+     * GameLift has successfully downloaded the build and is now validating the build files.
      * </p>
      * </li>
      * <li>
      * <p>
-     * FLEET_CREATION_EXTRACTING_BUILD – The game server build was successfully downloaded to an instance, and the build
-     * files are now being extracted from the uploaded build and saved to an instance. Failure at this stage prevents a
-     * fleet from moving to <code>ACTIVE</code> status. Logs for this stage display a list of the files that are
-     * extracted and saved on the instance. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     * FLEET_STATE_BUILDING -- Fleet status changed from <code>VALIDATING</code> to <code>BUILDING</code>. Amazon
+     * GameLift has successfully verified the build files and is now running the installation scripts.
      * </p>
      * </li>
      * <li>
      * <p>
-     * FLEET_CREATION_RUNNING_INSTALLER – The game server build files were successfully extracted, and the Amazon
-     * GameLift is now running the build's install script (if one is included). Failure in this stage prevents a fleet
-     * from moving to <code>ACTIVE</code> status. Logs for this stage list the installation steps and whether or not the
-     * install completed successfully. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_CREATION_VALIDATING_RUNTIME_CONFIG -- The build process was successful, and the Amazon GameLift is now
-     * verifying that the game server launch paths, which are specified in the fleet's run-time configuration, exist. If
-     * any listed launch path exists, Amazon GameLift tries to launch a game server process and waits for the process to
-     * report ready. Failures in this stage prevent a fleet from moving to <code>ACTIVE</code> status. Logs for this
-     * stage list the launch paths in the run-time configuration and indicate whether each is found. Access the logs by
-     * using the URL in <i>PreSignedLogUrl</i>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_STATE_VALIDATING -- Fleet status changed from <code>DOWNLOADING</code> to <code>VALIDATING</code>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND -- Validation of the run-time configuration failed because the executable
-     * specified in a launch path does not exist on the instance.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_STATE_BUILDING -- Fleet status changed from <code>VALIDATING</code> to <code>BUILDING</code>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE -- Validation of the run-time configuration failed because the
-     * executable specified in a launch path failed to run on the fleet instance.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_STATE_ACTIVATING -- Fleet status changed from <code>BUILDING</code> to <code>ACTIVATING</code>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * FLEET_ACTIVATION_FAILED - The fleet failed to successfully complete one of the steps in the fleet activation
-     * process. This event code indicates that the game build was successfully downloaded to a fleet instance, built,
-     * and validated, but was not able to start a server process. A possible reason for failure is that the game server
-     * is not reporting "process ready" to the Amazon GameLift service.
+     * FLEET_STATE_ACTIVATING -- Fleet status changed from <code>BUILDING</code> to <code>ACTIVATING</code>. Amazon
+     * GameLift is trying to launch an instance and test the connectivity between the build and the Amazon GameLift
+     * Service via the Server SDK.
      * </p>
      * </li>
      * <li>
      * <p>
      * FLEET_STATE_ACTIVE -- The fleet's status changed from <code>ACTIVATING</code> to <code>ACTIVE</code>. The fleet
      * is now ready to host game sessions.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_STATE_ERROR -- The Fleet's status changed to <code>ERROR</code>. Describe the fleet event message for more
+     * details.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Fleet creation events (ordered by fleet creation activity):</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * FLEET_BINARY_DOWNLOAD_FAILED -- The build failed to download to the fleet instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_CREATION_EXTRACTING_BUILD -- The game server build was successfully downloaded to an instance, and the
+     * build files are now being extracted from the uploaded build and saved to an instance. Failure at this stage
+     * prevents a fleet from moving to ACTIVE status. Logs for this stage display a list of the files that are extracted
+     * and saved on the instance. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_CREATION_RUNNING_INSTALLER -- The game server build files were successfully extracted, and the GameLift is
+     * now running the build's install script (if one is included). Failure in this stage prevents a fleet from moving
+     * to ACTIVE status. Logs for this stage list the installation steps and whether or not the install completed
+     * successfully. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_CREATION_VALIDATING_RUNTIME_CONFIG -- The build process was successful, and the GameLift is now verifying
+     * that the game server launch paths, which are specified in the fleet's runtime configuration, exist. If any listed
+     * launch path exists, Amazon GameLift tries to launch a game server process and waits for the process to report
+     * ready. Failures in this stage prevent a fleet from moving to <code>ACTIVE</code> status. Logs for this stage list
+     * the launch paths in the runtime configuration and indicate whether each is found. Access the logs by using the
+     * URL in <i>PreSignedLogUrl</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND -- Validation of the runtime configuration failed because the executable
+     * specified in a launch path does not exist on the instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE -- Validation of the runtime configuration failed because the
+     * executable specified in a launch path failed to run on the fleet instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_VALIDATION_TIMED_OUT -- Validation of the fleet at the end of creation timed out. Try fleet creation again.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_ACTIVATION_FAILED -- The fleet failed to successfully complete one of the steps in the fleet activation
+     * process. This event code indicates that the game build was successfully downloaded to a fleet instance, built,
+     * and validated, but was not able to start a server process. For more information, see <a href=
+     * "https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-creating-debug.html#fleets-creating-debug-creation"
+     * >Debug Fleet Creation Issues</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_ACTIVATION_FAILED_NO_INSTANCES -- Fleet creation was not able to obtain any instances based on the input
+     * fleet attributes. Try again at a different time or choose a different combination of fleet attributes such as
+     * fleet type, instance type, etc.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FLEET_INITIALIZATION_FAILED -- A generic exception occurred during fleet creation. Describe the fleet event
+     * message for more details.
      * </p>
      * </li>
      * </ul>
@@ -1677,15 +2639,15 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * <li>
      * <p>
      * FLEET_VPC_PEERING_SUCCEEDED -- A VPC peering connection has been established between the VPC for an Amazon
-     * GameLift fleet and a VPC in your AWS account.
+     * GameLift fleet and a VPC in your Amazon Web Services account.
      * </p>
      * </li>
      * <li>
      * <p>
      * FLEET_VPC_PEERING_FAILED -- A requested VPC peering connection has failed. Event details and status information
-     * (see <a>DescribeVpcPeeringConnections</a>) provide additional detail. A common reason for peering failure is that
-     * the two VPCs have overlapping CIDR blocks of IPv4 addresses. To resolve this, change the CIDR block for the VPC
-     * in your AWS account. For more information on VPC peering failures, see <a
+     * provide additional detail. A common reason for peering failure is that the two VPCs have overlapping CIDR blocks
+     * of IPv4 addresses. To resolve this, change the CIDR block for the VPC in your Amazon Web Services account. For
+     * more information on VPC peering failures, see <a
      * href="https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html"
      * >https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html</a>
      * </p>
@@ -1703,6 +2665,74 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * <li>
      * <p>
      * INSTANCE_INTERRUPTED -- A spot instance was interrupted by EC2 with a two-minute notification.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * INSTANCE_RECYCLED -- A spot instance was determined to have a high risk of interruption and is scheduled to be
+     * recycled once it has no active game sessions.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Server process events:</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_INVALID_PATH -- The game server executable or script could not be found based on the Fleet runtime
+     * configuration. Check that the launch path is correct based on the operating system of the Fleet.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_SDK_INITIALIZATION_TIMEOUT -- The server process did not call <code>InitSDK()</code> within the
+     * time expected (5 minutes). Check your game session log to see why <code>InitSDK()</code> was not called in time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_PROCESS_READY_TIMEOUT -- The server process did not call <code>ProcessReady()</code> within the
+     * time expected (5 minutes) after calling <code>InitSDK()</code>. Check your game session log to see why
+     * <code>ProcessReady()</code> was not called in time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_CRASHED -- The server process exited without calling <code>ProcessEnding()</code>. Check your game
+     * session log to see why <code>ProcessEnding()</code> was not called.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_TERMINATED_UNHEALTHY -- The server process did not report a valid health check for too long and
+     * was therefore terminated by GameLift. Check your game session log to see if the thread became stuck processing a
+     * synchronous task for too long.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_FORCE_TERMINATED -- The server process did not exit cleanly within the time expected after
+     * <code>OnProcessTerminate()</code> was sent. Check your game session log to see why termination took longer than
+     * expected.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SERVER_PROCESS_PROCESS_EXIT_TIMEOUT -- The server process did not exit cleanly within the time expected (30
+     * seconds) after calling <code>ProcessEnding()</code>. Check your game session log to see why termination took
+     * longer than expected.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Game session events:</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * GAME_SESSION_ACTIVATION_TIMEOUT -- GameSession failed to activate within the expected time. Check your game
+     * session log to see why <code>ActivateGameSession()</code> took longer to complete than expected.
      * </p>
      * </li>
      * </ul>
@@ -1735,14 +2765,14 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * </ul>
      * 
      * @param eventCode
-     *        Type of event being logged. The following events are currently in use:</p>
+     *        The type of event being logged. </p>
      *        <p>
-     *        <b>Fleet creation events:</b>
+     *        <b>Fleet state transition events:</b>
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        FLEET_CREATED -- A fleet record was successfully created with a status of <code>NEW</code>. Event
+     *        FLEET_CREATED -- A fleet resource was successfully created with a status of <code>NEW</code>. Event
      *        messaging includes the fleet ID.
      *        </p>
      *        </li>
@@ -1754,76 +2784,110 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        FLEET_BINARY_DOWNLOAD_FAILED -- The build failed to download to the fleet instance.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_CREATION_EXTRACTING_BUILD – The game server build was successfully downloaded to an instance, and
-     *        the build files are now being extracted from the uploaded build and saved to an instance. Failure at this
-     *        stage prevents a fleet from moving to <code>ACTIVE</code> status. Logs for this stage display a list of
-     *        the files that are extracted and saved on the instance. Access the logs by using the URL in
-     *        <i>PreSignedLogUrl</i>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_CREATION_RUNNING_INSTALLER – The game server build files were successfully extracted, and the Amazon
-     *        GameLift is now running the build's install script (if one is included). Failure in this stage prevents a
-     *        fleet from moving to <code>ACTIVE</code> status. Logs for this stage list the installation steps and
-     *        whether or not the install completed successfully. Access the logs by using the URL in
-     *        <i>PreSignedLogUrl</i>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_CREATION_VALIDATING_RUNTIME_CONFIG -- The build process was successful, and the Amazon GameLift is
-     *        now verifying that the game server launch paths, which are specified in the fleet's run-time
-     *        configuration, exist. If any listed launch path exists, Amazon GameLift tries to launch a game server
-     *        process and waits for the process to report ready. Failures in this stage prevent a fleet from moving to
-     *        <code>ACTIVE</code> status. Logs for this stage list the launch paths in the run-time configuration and
-     *        indicate whether each is found. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
      *        FLEET_STATE_VALIDATING -- Fleet status changed from <code>DOWNLOADING</code> to <code>VALIDATING</code>.
+     *        Amazon GameLift has successfully downloaded the build and is now validating the build files.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND -- Validation of the run-time configuration failed because the
-     *        executable specified in a launch path does not exist on the instance.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_STATE_BUILDING -- Fleet status changed from <code>VALIDATING</code> to <code>BUILDING</code>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE -- Validation of the run-time configuration failed because the
-     *        executable specified in a launch path failed to run on the fleet instance.
+     *        FLEET_STATE_BUILDING -- Fleet status changed from <code>VALIDATING</code> to <code>BUILDING</code>. Amazon
+     *        GameLift has successfully verified the build files and is now running the installation scripts.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        FLEET_STATE_ACTIVATING -- Fleet status changed from <code>BUILDING</code> to <code>ACTIVATING</code>.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        FLEET_ACTIVATION_FAILED - The fleet failed to successfully complete one of the steps in the fleet
-     *        activation process. This event code indicates that the game build was successfully downloaded to a fleet
-     *        instance, built, and validated, but was not able to start a server process. A possible reason for failure
-     *        is that the game server is not reporting "process ready" to the Amazon GameLift service.
+     *        Amazon GameLift is trying to launch an instance and test the connectivity between the build and the Amazon
+     *        GameLift Service via the Server SDK.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        FLEET_STATE_ACTIVE -- The fleet's status changed from <code>ACTIVATING</code> to <code>ACTIVE</code>. The
      *        fleet is now ready to host game sessions.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_STATE_ERROR -- The Fleet's status changed to <code>ERROR</code>. Describe the fleet event message
+     *        for more details.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        <b>Fleet creation events (ordered by fleet creation activity):</b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        FLEET_BINARY_DOWNLOAD_FAILED -- The build failed to download to the fleet instance.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_CREATION_EXTRACTING_BUILD -- The game server build was successfully downloaded to an instance, and
+     *        the build files are now being extracted from the uploaded build and saved to an instance. Failure at this
+     *        stage prevents a fleet from moving to ACTIVE status. Logs for this stage display a list of the files that
+     *        are extracted and saved on the instance. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_CREATION_RUNNING_INSTALLER -- The game server build files were successfully extracted, and the
+     *        GameLift is now running the build's install script (if one is included). Failure in this stage prevents a
+     *        fleet from moving to ACTIVE status. Logs for this stage list the installation steps and whether or not the
+     *        install completed successfully. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_CREATION_VALIDATING_RUNTIME_CONFIG -- The build process was successful, and the GameLift is now
+     *        verifying that the game server launch paths, which are specified in the fleet's runtime configuration,
+     *        exist. If any listed launch path exists, Amazon GameLift tries to launch a game server process and waits
+     *        for the process to report ready. Failures in this stage prevent a fleet from moving to <code>ACTIVE</code>
+     *        status. Logs for this stage list the launch paths in the runtime configuration and indicate whether each
+     *        is found. Access the logs by using the URL in <i>PreSignedLogUrl</i>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND -- Validation of the runtime configuration failed because the
+     *        executable specified in a launch path does not exist on the instance.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE -- Validation of the runtime configuration failed because the
+     *        executable specified in a launch path failed to run on the fleet instance.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_VALIDATION_TIMED_OUT -- Validation of the fleet at the end of creation timed out. Try fleet creation
+     *        again.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_ACTIVATION_FAILED -- The fleet failed to successfully complete one of the steps in the fleet
+     *        activation process. This event code indicates that the game build was successfully downloaded to a fleet
+     *        instance, built, and validated, but was not able to start a server process. For more information, see <a
+     *        href=
+     *        "https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-creating-debug.html#fleets-creating-debug-creation"
+     *        >Debug Fleet Creation Issues</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_ACTIVATION_FAILED_NO_INSTANCES -- Fleet creation was not able to obtain any instances based on the
+     *        input fleet attributes. Try again at a different time or choose a different combination of fleet
+     *        attributes such as fleet type, instance type, etc.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        FLEET_INITIALIZATION_FAILED -- A generic exception occurred during fleet creation. Describe the fleet
+     *        event message for more details.
      *        </p>
      *        </li>
      *        </ul>
@@ -1834,17 +2898,17 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      *        <li>
      *        <p>
      *        FLEET_VPC_PEERING_SUCCEEDED -- A VPC peering connection has been established between the VPC for an Amazon
-     *        GameLift fleet and a VPC in your AWS account.
+     *        GameLift fleet and a VPC in your Amazon Web Services account.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        FLEET_VPC_PEERING_FAILED -- A requested VPC peering connection has failed. Event details and status
-     *        information (see <a>DescribeVpcPeeringConnections</a>) provide additional detail. A common reason for
-     *        peering failure is that the two VPCs have overlapping CIDR blocks of IPv4 addresses. To resolve this,
-     *        change the CIDR block for the VPC in your AWS account. For more information on VPC peering failures, see
-     *        <a href="https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html">
-     *        https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html</a>
+     *        information provide additional detail. A common reason for peering failure is that the two VPCs have
+     *        overlapping CIDR blocks of IPv4 addresses. To resolve this, change the CIDR block for the VPC in your
+     *        Amazon Web Services account. For more information on VPC peering failures, see <a
+     *        href="https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html"
+     *        >https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/invalid-peering-configurations.html</a>
      *        </p>
      *        </li>
      *        <li>
@@ -1860,6 +2924,75 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      *        <li>
      *        <p>
      *        INSTANCE_INTERRUPTED -- A spot instance was interrupted by EC2 with a two-minute notification.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        INSTANCE_RECYCLED -- A spot instance was determined to have a high risk of interruption and is scheduled
+     *        to be recycled once it has no active game sessions.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        <b>Server process events:</b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_INVALID_PATH -- The game server executable or script could not be found based on the Fleet
+     *        runtime configuration. Check that the launch path is correct based on the operating system of the Fleet.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_SDK_INITIALIZATION_TIMEOUT -- The server process did not call <code>InitSDK()</code> within
+     *        the time expected (5 minutes). Check your game session log to see why <code>InitSDK()</code> was not
+     *        called in time.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_PROCESS_READY_TIMEOUT -- The server process did not call <code>ProcessReady()</code> within
+     *        the time expected (5 minutes) after calling <code>InitSDK()</code>. Check your game session log to see why
+     *        <code>ProcessReady()</code> was not called in time.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_CRASHED -- The server process exited without calling <code>ProcessEnding()</code>. Check
+     *        your game session log to see why <code>ProcessEnding()</code> was not called.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_TERMINATED_UNHEALTHY -- The server process did not report a valid health check for too long
+     *        and was therefore terminated by GameLift. Check your game session log to see if the thread became stuck
+     *        processing a synchronous task for too long.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_FORCE_TERMINATED -- The server process did not exit cleanly within the time expected after
+     *        <code>OnProcessTerminate()</code> was sent. Check your game session log to see why termination took longer
+     *        than expected.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SERVER_PROCESS_PROCESS_EXIT_TIMEOUT -- The server process did not exit cleanly within the time expected
+     *        (30 seconds) after calling <code>ProcessEnding()</code>. Check your game session log to see why
+     *        termination took longer than expected.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        <b>Game session events:</b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        GAME_SESSION_ACTIVATION_TIMEOUT -- GameSession failed to activate within the expected time. Check your
+     *        game session log to see why <code>ActivateGameSession()</code> took longer to complete than expected.
      *        </p>
      *        </li>
      *        </ul>
@@ -1941,12 +3074,12 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Time stamp indicating when this event occurred. Format is a number expressed in Unix time as milliseconds (for
-     * example "1469498468.057").
+     * example <code>"1469498468.057"</code>).
      * </p>
      * 
      * @param eventTime
      *        Time stamp indicating when this event occurred. Format is a number expressed in Unix time as milliseconds
-     *        (for example "1469498468.057").
+     *        (for example <code>"1469498468.057"</code>).
      */
 
     public void setEventTime(java.util.Date eventTime) {
@@ -1956,11 +3089,11 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Time stamp indicating when this event occurred. Format is a number expressed in Unix time as milliseconds (for
-     * example "1469498468.057").
+     * example <code>"1469498468.057"</code>).
      * </p>
      * 
      * @return Time stamp indicating when this event occurred. Format is a number expressed in Unix time as milliseconds
-     *         (for example "1469498468.057").
+     *         (for example <code>"1469498468.057"</code>).
      */
 
     public java.util.Date getEventTime() {
@@ -1970,12 +3103,12 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Time stamp indicating when this event occurred. Format is a number expressed in Unix time as milliseconds (for
-     * example "1469498468.057").
+     * example <code>"1469498468.057"</code>).
      * </p>
      * 
      * @param eventTime
      *        Time stamp indicating when this event occurred. Format is a number expressed in Unix time as milliseconds
-     *        (for example "1469498468.057").
+     *        (for example <code>"1469498468.057"</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2034,6 +3167,46 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The number of times that this event occurred.
+     * </p>
+     * 
+     * @param count
+     *        The number of times that this event occurred.
+     */
+
+    public void setCount(Long count) {
+        this.count = count;
+    }
+
+    /**
+     * <p>
+     * The number of times that this event occurred.
+     * </p>
+     * 
+     * @return The number of times that this event occurred.
+     */
+
+    public Long getCount() {
+        return this.count;
+    }
+
+    /**
+     * <p>
+     * The number of times that this event occurred.
+     * </p>
+     * 
+     * @param count
+     *        The number of times that this event occurred.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Event withCount(Long count) {
+        setCount(count);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -2056,7 +3229,9 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
         if (getEventTime() != null)
             sb.append("EventTime: ").append(getEventTime()).append(",");
         if (getPreSignedLogUrl() != null)
-            sb.append("PreSignedLogUrl: ").append(getPreSignedLogUrl());
+            sb.append("PreSignedLogUrl: ").append(getPreSignedLogUrl()).append(",");
+        if (getCount() != null)
+            sb.append("Count: ").append(getCount());
         sb.append("}");
         return sb.toString();
     }
@@ -2095,6 +3270,10 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getPreSignedLogUrl() != null && other.getPreSignedLogUrl().equals(this.getPreSignedLogUrl()) == false)
             return false;
+        if (other.getCount() == null ^ this.getCount() == null)
+            return false;
+        if (other.getCount() != null && other.getCount().equals(this.getCount()) == false)
+            return false;
         return true;
     }
 
@@ -2109,6 +3288,7 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getMessage() == null) ? 0 : getMessage().hashCode());
         hashCode = prime * hashCode + ((getEventTime() == null) ? 0 : getEventTime().hashCode());
         hashCode = prime * hashCode + ((getPreSignedLogUrl() == null) ? 0 : getPreSignedLogUrl().hashCode());
+        hashCode = prime * hashCode + ((getCount() == null) ? 0 : getCount().hashCode());
         return hashCode;
     }
 

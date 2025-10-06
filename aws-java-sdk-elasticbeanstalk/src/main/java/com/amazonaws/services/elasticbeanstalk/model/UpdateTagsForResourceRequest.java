@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,25 +30,25 @@ public class UpdateTagsForResourceRequest extends com.amazonaws.AmazonWebService
      * The Amazon Resource Name (ARN) of the resouce to be updated.
      * </p>
      * <p>
-     * Must be the ARN of an Elastic Beanstalk environment.
+     * Must be the ARN of an Elastic Beanstalk resource.
      * </p>
      */
     private String resourceArn;
     /**
      * <p>
-     * A list of tags to add or update.
+     * A list of tags to add or update. If a key of an existing tag is added, the tag's value is updated.
      * </p>
      * <p>
-     * If a key of an existing tag is added, the tag's value is updated.
+     * Specify at least one of these parameters: <code>TagsToAdd</code>, <code>TagsToRemove</code>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tagsToAdd;
     /**
      * <p>
-     * A list of tag keys to remove.
+     * A list of tag keys to remove. If a tag key doesn't exist, it is silently ignored.
      * </p>
      * <p>
-     * If a tag key doesn't exist, it is silently ignored.
+     * Specify at least one of these parameters: <code>TagsToAdd</code>, <code>TagsToRemove</code>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> tagsToRemove;
@@ -58,13 +58,13 @@ public class UpdateTagsForResourceRequest extends com.amazonaws.AmazonWebService
      * The Amazon Resource Name (ARN) of the resouce to be updated.
      * </p>
      * <p>
-     * Must be the ARN of an Elastic Beanstalk environment.
+     * Must be the ARN of an Elastic Beanstalk resource.
      * </p>
      * 
      * @param resourceArn
      *        The Amazon Resource Name (ARN) of the resouce to be updated.</p>
      *        <p>
-     *        Must be the ARN of an Elastic Beanstalk environment.
+     *        Must be the ARN of an Elastic Beanstalk resource.
      */
 
     public void setResourceArn(String resourceArn) {
@@ -76,12 +76,12 @@ public class UpdateTagsForResourceRequest extends com.amazonaws.AmazonWebService
      * The Amazon Resource Name (ARN) of the resouce to be updated.
      * </p>
      * <p>
-     * Must be the ARN of an Elastic Beanstalk environment.
+     * Must be the ARN of an Elastic Beanstalk resource.
      * </p>
      * 
      * @return The Amazon Resource Name (ARN) of the resouce to be updated.</p>
      *         <p>
-     *         Must be the ARN of an Elastic Beanstalk environment.
+     *         Must be the ARN of an Elastic Beanstalk resource.
      */
 
     public String getResourceArn() {
@@ -93,13 +93,13 @@ public class UpdateTagsForResourceRequest extends com.amazonaws.AmazonWebService
      * The Amazon Resource Name (ARN) of the resouce to be updated.
      * </p>
      * <p>
-     * Must be the ARN of an Elastic Beanstalk environment.
+     * Must be the ARN of an Elastic Beanstalk resource.
      * </p>
      * 
      * @param resourceArn
      *        The Amazon Resource Name (ARN) of the resouce to be updated.</p>
      *        <p>
-     *        Must be the ARN of an Elastic Beanstalk environment.
+     *        Must be the ARN of an Elastic Beanstalk resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -110,15 +110,15 @@ public class UpdateTagsForResourceRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A list of tags to add or update.
+     * A list of tags to add or update. If a key of an existing tag is added, the tag's value is updated.
      * </p>
      * <p>
-     * If a key of an existing tag is added, the tag's value is updated.
+     * Specify at least one of these parameters: <code>TagsToAdd</code>, <code>TagsToRemove</code>.
      * </p>
      * 
-     * @return A list of tags to add or update.</p>
+     * @return A list of tags to add or update. If a key of an existing tag is added, the tag's value is updated.</p>
      *         <p>
-     *         If a key of an existing tag is added, the tag's value is updated.
+     *         Specify at least one of these parameters: <code>TagsToAdd</code>, <code>TagsToRemove</code>.
      */
 
     public java.util.List<Tag> getTagsToAdd() {
@@ -130,16 +130,16 @@ public class UpdateTagsForResourceRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A list of tags to add or update.
+     * A list of tags to add or update. If a key of an existing tag is added, the tag's value is updated.
      * </p>
      * <p>
-     * If a key of an existing tag is added, the tag's value is updated.
+     * Specify at least one of these parameters: <code>TagsToAdd</code>, <code>TagsToRemove</code>.
      * </p>
      * 
      * @param tagsToAdd
-     *        A list of tags to add or update.</p>
+     *        A list of tags to add or update. If a key of an existing tag is added, the tag's value is updated.</p>
      *        <p>
-     *        If a key of an existing tag is added, the tag's value is updated.
+     *        Specify at least one of these parameters: <code>TagsToAdd</code>, <code>TagsToRemove</code>.
      */
 
     public void setTagsToAdd(java.util.Collection<Tag> tagsToAdd) {
@@ -153,10 +153,10 @@ public class UpdateTagsForResourceRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A list of tags to add or update.
+     * A list of tags to add or update. If a key of an existing tag is added, the tag's value is updated.
      * </p>
      * <p>
-     * If a key of an existing tag is added, the tag's value is updated.
+     * Specify at least one of these parameters: <code>TagsToAdd</code>, <code>TagsToRemove</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -165,9 +165,9 @@ public class UpdateTagsForResourceRequest extends com.amazonaws.AmazonWebService
      * </p>
      * 
      * @param tagsToAdd
-     *        A list of tags to add or update.</p>
+     *        A list of tags to add or update. If a key of an existing tag is added, the tag's value is updated.</p>
      *        <p>
-     *        If a key of an existing tag is added, the tag's value is updated.
+     *        Specify at least one of these parameters: <code>TagsToAdd</code>, <code>TagsToRemove</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -183,16 +183,16 @@ public class UpdateTagsForResourceRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A list of tags to add or update.
+     * A list of tags to add or update. If a key of an existing tag is added, the tag's value is updated.
      * </p>
      * <p>
-     * If a key of an existing tag is added, the tag's value is updated.
+     * Specify at least one of these parameters: <code>TagsToAdd</code>, <code>TagsToRemove</code>.
      * </p>
      * 
      * @param tagsToAdd
-     *        A list of tags to add or update.</p>
+     *        A list of tags to add or update. If a key of an existing tag is added, the tag's value is updated.</p>
      *        <p>
-     *        If a key of an existing tag is added, the tag's value is updated.
+     *        Specify at least one of these parameters: <code>TagsToAdd</code>, <code>TagsToRemove</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -203,15 +203,15 @@ public class UpdateTagsForResourceRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A list of tag keys to remove.
+     * A list of tag keys to remove. If a tag key doesn't exist, it is silently ignored.
      * </p>
      * <p>
-     * If a tag key doesn't exist, it is silently ignored.
+     * Specify at least one of these parameters: <code>TagsToAdd</code>, <code>TagsToRemove</code>.
      * </p>
      * 
-     * @return A list of tag keys to remove.</p>
+     * @return A list of tag keys to remove. If a tag key doesn't exist, it is silently ignored.</p>
      *         <p>
-     *         If a tag key doesn't exist, it is silently ignored.
+     *         Specify at least one of these parameters: <code>TagsToAdd</code>, <code>TagsToRemove</code>.
      */
 
     public java.util.List<String> getTagsToRemove() {
@@ -223,16 +223,16 @@ public class UpdateTagsForResourceRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A list of tag keys to remove.
+     * A list of tag keys to remove. If a tag key doesn't exist, it is silently ignored.
      * </p>
      * <p>
-     * If a tag key doesn't exist, it is silently ignored.
+     * Specify at least one of these parameters: <code>TagsToAdd</code>, <code>TagsToRemove</code>.
      * </p>
      * 
      * @param tagsToRemove
-     *        A list of tag keys to remove.</p>
+     *        A list of tag keys to remove. If a tag key doesn't exist, it is silently ignored.</p>
      *        <p>
-     *        If a tag key doesn't exist, it is silently ignored.
+     *        Specify at least one of these parameters: <code>TagsToAdd</code>, <code>TagsToRemove</code>.
      */
 
     public void setTagsToRemove(java.util.Collection<String> tagsToRemove) {
@@ -246,10 +246,10 @@ public class UpdateTagsForResourceRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A list of tag keys to remove.
+     * A list of tag keys to remove. If a tag key doesn't exist, it is silently ignored.
      * </p>
      * <p>
-     * If a tag key doesn't exist, it is silently ignored.
+     * Specify at least one of these parameters: <code>TagsToAdd</code>, <code>TagsToRemove</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -258,9 +258,9 @@ public class UpdateTagsForResourceRequest extends com.amazonaws.AmazonWebService
      * </p>
      * 
      * @param tagsToRemove
-     *        A list of tag keys to remove.</p>
+     *        A list of tag keys to remove. If a tag key doesn't exist, it is silently ignored.</p>
      *        <p>
-     *        If a tag key doesn't exist, it is silently ignored.
+     *        Specify at least one of these parameters: <code>TagsToAdd</code>, <code>TagsToRemove</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -276,16 +276,16 @@ public class UpdateTagsForResourceRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A list of tag keys to remove.
+     * A list of tag keys to remove. If a tag key doesn't exist, it is silently ignored.
      * </p>
      * <p>
-     * If a tag key doesn't exist, it is silently ignored.
+     * Specify at least one of these parameters: <code>TagsToAdd</code>, <code>TagsToRemove</code>.
      * </p>
      * 
      * @param tagsToRemove
-     *        A list of tag keys to remove.</p>
+     *        A list of tag keys to remove. If a tag key doesn't exist, it is silently ignored.</p>
      *        <p>
-     *        If a tag key doesn't exist, it is silently ignored.
+     *        Specify at least one of these parameters: <code>TagsToAdd</code>, <code>TagsToRemove</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

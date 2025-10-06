@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -59,12 +59,12 @@ public class DomainValidation implements Serializable, Cloneable, StructuredPojo
      * </li>
      * <li>
      * <p>
-     * <code/>SUCCESS
+     * <code>SUCCESS</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code/>FAILED
+     * <code>FAILED</code>
      * </p>
      * </li>
      * </ul>
@@ -75,6 +75,11 @@ public class DomainValidation implements Serializable, Cloneable, StructuredPojo
      * Contains the CNAME record that you add to your DNS database for domain validation. For more information, see <a
      * href="https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html">Use DNS to Validate Domain
      * Ownership</a>.
+     * </p>
+     * <p>
+     * Note: The CNAME information that you need does not include the name of your domain. If you include&#x2028; your
+     * domain name in the DNS database CNAME record, validation fails.&#x2028; For example, if the name is
+     * "_a79865eb4cd1a6ab990a45779b4e0b96.yourdomain.com", only "_a79865eb4cd1a6ab990a45779b4e0b96" must be used.
      * </p>
      */
     private ResourceRecord resourceRecord;
@@ -253,12 +258,12 @@ public class DomainValidation implements Serializable, Cloneable, StructuredPojo
      * </li>
      * <li>
      * <p>
-     * <code/>SUCCESS
+     * <code>SUCCESS</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code/>FAILED
+     * <code>FAILED</code>
      * </p>
      * </li>
      * </ul>
@@ -273,12 +278,12 @@ public class DomainValidation implements Serializable, Cloneable, StructuredPojo
      *        </li>
      *        <li>
      *        <p>
-     *        <code/>SUCCESS
+     *        <code>SUCCESS</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code/>FAILED
+     *        <code>FAILED</code>
      *        </p>
      *        </li>
      * @see DomainStatus
@@ -300,12 +305,12 @@ public class DomainValidation implements Serializable, Cloneable, StructuredPojo
      * </li>
      * <li>
      * <p>
-     * <code/>SUCCESS
+     * <code>SUCCESS</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code/>FAILED
+     * <code>FAILED</code>
      * </p>
      * </li>
      * </ul>
@@ -319,12 +324,12 @@ public class DomainValidation implements Serializable, Cloneable, StructuredPojo
      *         </li>
      *         <li>
      *         <p>
-     *         <code/>SUCCESS
+     *         <code>SUCCESS</code>
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code/>FAILED
+     *         <code>FAILED</code>
      *         </p>
      *         </li>
      * @see DomainStatus
@@ -346,12 +351,12 @@ public class DomainValidation implements Serializable, Cloneable, StructuredPojo
      * </li>
      * <li>
      * <p>
-     * <code/>SUCCESS
+     * <code>SUCCESS</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code/>FAILED
+     * <code>FAILED</code>
      * </p>
      * </li>
      * </ul>
@@ -366,12 +371,12 @@ public class DomainValidation implements Serializable, Cloneable, StructuredPojo
      *        </li>
      *        <li>
      *        <p>
-     *        <code/>SUCCESS
+     *        <code>SUCCESS</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code/>FAILED
+     *        <code>FAILED</code>
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -395,12 +400,12 @@ public class DomainValidation implements Serializable, Cloneable, StructuredPojo
      * </li>
      * <li>
      * <p>
-     * <code/>SUCCESS
+     * <code>SUCCESS</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code/>FAILED
+     * <code>FAILED</code>
      * </p>
      * </li>
      * </ul>
@@ -415,12 +420,12 @@ public class DomainValidation implements Serializable, Cloneable, StructuredPojo
      *        </li>
      *        <li>
      *        <p>
-     *        <code/>SUCCESS
+     *        <code>SUCCESS</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code/>FAILED
+     *        <code>FAILED</code>
      *        </p>
      *        </li>
      * @see DomainStatus
@@ -442,12 +447,12 @@ public class DomainValidation implements Serializable, Cloneable, StructuredPojo
      * </li>
      * <li>
      * <p>
-     * <code/>SUCCESS
+     * <code>SUCCESS</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code/>FAILED
+     * <code>FAILED</code>
      * </p>
      * </li>
      * </ul>
@@ -462,12 +467,12 @@ public class DomainValidation implements Serializable, Cloneable, StructuredPojo
      *        </li>
      *        <li>
      *        <p>
-     *        <code/>SUCCESS
+     *        <code>SUCCESS</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code/>FAILED
+     *        <code>FAILED</code>
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -485,11 +490,20 @@ public class DomainValidation implements Serializable, Cloneable, StructuredPojo
      * href="https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html">Use DNS to Validate Domain
      * Ownership</a>.
      * </p>
+     * <p>
+     * Note: The CNAME information that you need does not include the name of your domain. If you include&#x2028; your
+     * domain name in the DNS database CNAME record, validation fails.&#x2028; For example, if the name is
+     * "_a79865eb4cd1a6ab990a45779b4e0b96.yourdomain.com", only "_a79865eb4cd1a6ab990a45779b4e0b96" must be used.
+     * </p>
      * 
      * @param resourceRecord
      *        Contains the CNAME record that you add to your DNS database for domain validation. For more information,
      *        see <a href="https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html">Use DNS to
-     *        Validate Domain Ownership</a>.
+     *        Validate Domain Ownership</a>.</p>
+     *        <p>
+     *        Note: The CNAME information that you need does not include the name of your domain. If you include&#x2028;
+     *        your domain name in the DNS database CNAME record, validation fails.&#x2028; For example, if the name is
+     *        "_a79865eb4cd1a6ab990a45779b4e0b96.yourdomain.com", only "_a79865eb4cd1a6ab990a45779b4e0b96" must be used.
      */
 
     public void setResourceRecord(ResourceRecord resourceRecord) {
@@ -502,10 +516,20 @@ public class DomainValidation implements Serializable, Cloneable, StructuredPojo
      * href="https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html">Use DNS to Validate Domain
      * Ownership</a>.
      * </p>
+     * <p>
+     * Note: The CNAME information that you need does not include the name of your domain. If you include&#x2028; your
+     * domain name in the DNS database CNAME record, validation fails.&#x2028; For example, if the name is
+     * "_a79865eb4cd1a6ab990a45779b4e0b96.yourdomain.com", only "_a79865eb4cd1a6ab990a45779b4e0b96" must be used.
+     * </p>
      * 
      * @return Contains the CNAME record that you add to your DNS database for domain validation. For more information,
      *         see <a href="https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html">Use DNS to
-     *         Validate Domain Ownership</a>.
+     *         Validate Domain Ownership</a>.</p>
+     *         <p>
+     *         Note: The CNAME information that you need does not include the name of your domain. If you
+     *         include&#x2028; your domain name in the DNS database CNAME record, validation fails.&#x2028; For example,
+     *         if the name is "_a79865eb4cd1a6ab990a45779b4e0b96.yourdomain.com", only
+     *         "_a79865eb4cd1a6ab990a45779b4e0b96" must be used.
      */
 
     public ResourceRecord getResourceRecord() {
@@ -518,11 +542,20 @@ public class DomainValidation implements Serializable, Cloneable, StructuredPojo
      * href="https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html">Use DNS to Validate Domain
      * Ownership</a>.
      * </p>
+     * <p>
+     * Note: The CNAME information that you need does not include the name of your domain. If you include&#x2028; your
+     * domain name in the DNS database CNAME record, validation fails.&#x2028; For example, if the name is
+     * "_a79865eb4cd1a6ab990a45779b4e0b96.yourdomain.com", only "_a79865eb4cd1a6ab990a45779b4e0b96" must be used.
+     * </p>
      * 
      * @param resourceRecord
      *        Contains the CNAME record that you add to your DNS database for domain validation. For more information,
      *        see <a href="https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html">Use DNS to
-     *        Validate Domain Ownership</a>.
+     *        Validate Domain Ownership</a>.</p>
+     *        <p>
+     *        Note: The CNAME information that you need does not include the name of your domain. If you include&#x2028;
+     *        your domain name in the DNS database CNAME record, validation fails.&#x2028; For example, if the name is
+     *        "_a79865eb4cd1a6ab990a45779b4e0b96.yourdomain.com", only "_a79865eb4cd1a6ab990a45779b4e0b96" must be used.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

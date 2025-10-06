@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,8 +17,16 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * The tags to apply to a resource when the resource is being created.
+ * The tags to apply to a resource when the resource is being created. When you specify a tag, you must specify the
+ * resource type to tag, otherwise the request will fail.
  * </p>
+ * <note>
+ * <p>
+ * The <code>Valid Values</code> lists all the resource types that can be tagged. However, the action you're using might
+ * not support tagging all of these resource types. If you try to tag a resource type that is unsupported for the action
+ * you're using, you'll get an error.
+ * </p>
+ * </note>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/TagSpecification" target="_top">AWS API
  *      Documentation</a>
@@ -28,14 +36,7 @@ public class TagSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of resource to tag. Currently, the resource types that support tagging on creation are:
-     * <code>capacity-reservation</code> | <code>client-vpn-endpoint</code> | <code>dedicated-host</code> |
-     * <code>fleet</code> | <code>instance</code> | <code>launch-template</code> | <code>snapshot</code> |
-     * <code>transit-gateway</code> | <code>transit-gateway-attachment</code> | <code>transit-gateway-route-table</code>
-     * | <code>volume</code>.
-     * </p>
-     * <p>
-     * To tag a resource after it has been created, see <a>CreateTags</a>.
+     * The type of resource to tag on creation.
      * </p>
      */
     private String resourceType;
@@ -48,24 +49,11 @@ public class TagSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of resource to tag. Currently, the resource types that support tagging on creation are:
-     * <code>capacity-reservation</code> | <code>client-vpn-endpoint</code> | <code>dedicated-host</code> |
-     * <code>fleet</code> | <code>instance</code> | <code>launch-template</code> | <code>snapshot</code> |
-     * <code>transit-gateway</code> | <code>transit-gateway-attachment</code> | <code>transit-gateway-route-table</code>
-     * | <code>volume</code>.
-     * </p>
-     * <p>
-     * To tag a resource after it has been created, see <a>CreateTags</a>.
+     * The type of resource to tag on creation.
      * </p>
      * 
      * @param resourceType
-     *        The type of resource to tag. Currently, the resource types that support tagging on creation are:
-     *        <code>capacity-reservation</code> | <code>client-vpn-endpoint</code> | <code>dedicated-host</code> |
-     *        <code>fleet</code> | <code>instance</code> | <code>launch-template</code> | <code>snapshot</code> |
-     *        <code>transit-gateway</code> | <code>transit-gateway-attachment</code> |
-     *        <code>transit-gateway-route-table</code> | <code>volume</code>.</p>
-     *        <p>
-     *        To tag a resource after it has been created, see <a>CreateTags</a>.
+     *        The type of resource to tag on creation.
      * @see ResourceType
      */
 
@@ -75,23 +63,10 @@ public class TagSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of resource to tag. Currently, the resource types that support tagging on creation are:
-     * <code>capacity-reservation</code> | <code>client-vpn-endpoint</code> | <code>dedicated-host</code> |
-     * <code>fleet</code> | <code>instance</code> | <code>launch-template</code> | <code>snapshot</code> |
-     * <code>transit-gateway</code> | <code>transit-gateway-attachment</code> | <code>transit-gateway-route-table</code>
-     * | <code>volume</code>.
-     * </p>
-     * <p>
-     * To tag a resource after it has been created, see <a>CreateTags</a>.
+     * The type of resource to tag on creation.
      * </p>
      * 
-     * @return The type of resource to tag. Currently, the resource types that support tagging on creation are:
-     *         <code>capacity-reservation</code> | <code>client-vpn-endpoint</code> | <code>dedicated-host</code> |
-     *         <code>fleet</code> | <code>instance</code> | <code>launch-template</code> | <code>snapshot</code> |
-     *         <code>transit-gateway</code> | <code>transit-gateway-attachment</code> |
-     *         <code>transit-gateway-route-table</code> | <code>volume</code>.</p>
-     *         <p>
-     *         To tag a resource after it has been created, see <a>CreateTags</a>.
+     * @return The type of resource to tag on creation.
      * @see ResourceType
      */
 
@@ -101,24 +76,11 @@ public class TagSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of resource to tag. Currently, the resource types that support tagging on creation are:
-     * <code>capacity-reservation</code> | <code>client-vpn-endpoint</code> | <code>dedicated-host</code> |
-     * <code>fleet</code> | <code>instance</code> | <code>launch-template</code> | <code>snapshot</code> |
-     * <code>transit-gateway</code> | <code>transit-gateway-attachment</code> | <code>transit-gateway-route-table</code>
-     * | <code>volume</code>.
-     * </p>
-     * <p>
-     * To tag a resource after it has been created, see <a>CreateTags</a>.
+     * The type of resource to tag on creation.
      * </p>
      * 
      * @param resourceType
-     *        The type of resource to tag. Currently, the resource types that support tagging on creation are:
-     *        <code>capacity-reservation</code> | <code>client-vpn-endpoint</code> | <code>dedicated-host</code> |
-     *        <code>fleet</code> | <code>instance</code> | <code>launch-template</code> | <code>snapshot</code> |
-     *        <code>transit-gateway</code> | <code>transit-gateway-attachment</code> |
-     *        <code>transit-gateway-route-table</code> | <code>volume</code>.</p>
-     *        <p>
-     *        To tag a resource after it has been created, see <a>CreateTags</a>.
+     *        The type of resource to tag on creation.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceType
      */
@@ -130,24 +92,11 @@ public class TagSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of resource to tag. Currently, the resource types that support tagging on creation are:
-     * <code>capacity-reservation</code> | <code>client-vpn-endpoint</code> | <code>dedicated-host</code> |
-     * <code>fleet</code> | <code>instance</code> | <code>launch-template</code> | <code>snapshot</code> |
-     * <code>transit-gateway</code> | <code>transit-gateway-attachment</code> | <code>transit-gateway-route-table</code>
-     * | <code>volume</code>.
-     * </p>
-     * <p>
-     * To tag a resource after it has been created, see <a>CreateTags</a>.
+     * The type of resource to tag on creation.
      * </p>
      * 
      * @param resourceType
-     *        The type of resource to tag. Currently, the resource types that support tagging on creation are:
-     *        <code>capacity-reservation</code> | <code>client-vpn-endpoint</code> | <code>dedicated-host</code> |
-     *        <code>fleet</code> | <code>instance</code> | <code>launch-template</code> | <code>snapshot</code> |
-     *        <code>transit-gateway</code> | <code>transit-gateway-attachment</code> |
-     *        <code>transit-gateway-route-table</code> | <code>volume</code>.</p>
-     *        <p>
-     *        To tag a resource after it has been created, see <a>CreateTags</a>.
+     *        The type of resource to tag on creation.
      * @see ResourceType
      */
 
@@ -157,24 +106,11 @@ public class TagSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of resource to tag. Currently, the resource types that support tagging on creation are:
-     * <code>capacity-reservation</code> | <code>client-vpn-endpoint</code> | <code>dedicated-host</code> |
-     * <code>fleet</code> | <code>instance</code> | <code>launch-template</code> | <code>snapshot</code> |
-     * <code>transit-gateway</code> | <code>transit-gateway-attachment</code> | <code>transit-gateway-route-table</code>
-     * | <code>volume</code>.
-     * </p>
-     * <p>
-     * To tag a resource after it has been created, see <a>CreateTags</a>.
+     * The type of resource to tag on creation.
      * </p>
      * 
      * @param resourceType
-     *        The type of resource to tag. Currently, the resource types that support tagging on creation are:
-     *        <code>capacity-reservation</code> | <code>client-vpn-endpoint</code> | <code>dedicated-host</code> |
-     *        <code>fleet</code> | <code>instance</code> | <code>launch-template</code> | <code>snapshot</code> |
-     *        <code>transit-gateway</code> | <code>transit-gateway-attachment</code> |
-     *        <code>transit-gateway-route-table</code> | <code>volume</code>.</p>
-     *        <p>
-     *        To tag a resource after it has been created, see <a>CreateTags</a>.
+     *        The type of resource to tag on creation.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceType
      */

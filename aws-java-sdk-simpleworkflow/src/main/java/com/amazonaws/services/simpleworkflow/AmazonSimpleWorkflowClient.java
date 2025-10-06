@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.simpleworkflow.model.*;
+
 import com.amazonaws.services.simpleworkflow.model.transform.*;
 
 /**
@@ -89,35 +90,38 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DomainAlreadyExistsFault").withModeledClass(
-                                    com.amazonaws.services.simpleworkflow.model.DomainAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TypeNotDeprecatedFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.simpleworkflow.model.transform.TypeNotDeprecatedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TypeAlreadyExistsFault").withModeledClass(
-                                    com.amazonaws.services.simpleworkflow.model.TypeAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DomainAlreadyExistsFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.simpleworkflow.model.transform.DomainAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("OperationNotPermittedFault").withModeledClass(
-                                    com.amazonaws.services.simpleworkflow.model.OperationNotPermittedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TypeAlreadyExistsFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.simpleworkflow.model.transform.TypeAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TypeDeprecatedFault").withModeledClass(
-                                    com.amazonaws.services.simpleworkflow.model.TypeDeprecatedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("OperationNotPermittedFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.simpleworkflow.model.transform.OperationNotPermittedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededFault").withModeledClass(
-                                    com.amazonaws.services.simpleworkflow.model.LimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TypeDeprecatedFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.simpleworkflow.model.transform.TypeDeprecatedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("WorkflowExecutionAlreadyStartedFault").withModeledClass(
-                                    com.amazonaws.services.simpleworkflow.model.WorkflowExecutionAlreadyStartedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.simpleworkflow.model.transform.LimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TooManyTagsFault").withModeledClass(
-                                    com.amazonaws.services.simpleworkflow.model.TooManyTagsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("WorkflowExecutionAlreadyStartedFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.simpleworkflow.model.transform.WorkflowExecutionAlreadyStartedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("UnknownResourceFault").withModeledClass(
-                                    com.amazonaws.services.simpleworkflow.model.UnknownResourceException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TooManyTagsFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.simpleworkflow.model.transform.TooManyTagsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DomainDeprecatedFault").withModeledClass(
-                                    com.amazonaws.services.simpleworkflow.model.DomainDeprecatedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("UnknownResourceFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.simpleworkflow.model.transform.UnknownResourceExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DefaultUndefinedFault").withModeledClass(
-                                    com.amazonaws.services.simpleworkflow.model.DefaultUndefinedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DomainDeprecatedFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.simpleworkflow.model.transform.DomainDeprecatedExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("DefaultUndefinedFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.simpleworkflow.model.transform.DefaultUndefinedExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.simpleworkflow.model.AmazonSimpleWorkflowException.class));
 
     /**
@@ -411,6 +415,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(countClosedWorkflowExecutionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CountClosedWorkflowExecutions");
@@ -524,6 +530,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(countOpenWorkflowExecutionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CountOpenWorkflowExecutions");
@@ -616,6 +624,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(countPendingActivityTasksRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CountPendingActivityTasks");
@@ -708,6 +718,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(countPendingDecisionTasksRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CountPendingDecisionTasks");
@@ -731,16 +743,226 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
 
     /**
      * <p>
+     * Deletes the specified <i>activity type</i>.
+     * </p>
+     * <p>
+     * Note: Prior to deletion, activity types must first be <b>deprecated</b>.
+     * </p>
+     * <p>
+     * After an activity type has been deleted, you cannot schedule new activities of that type. Activities that started
+     * before the type was deleted will continue to run.
+     * </p>
+     * <p>
+     * <b>Access Control</b>
+     * </p>
+     * <p>
+     * You can use IAM policies to control this action's access to Amazon SWF resources as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Use a <code>Resource</code> element with the domain name to limit the action to only specified domains.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use an <code>Action</code> element to allow or deny permission to call this action.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Constrain the following parameters by using a <code>Condition</code> element with the appropriate keys.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>activityType.name</code>: String constraint. The key is <code>swf:activityType.name</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>activityType.version</code>: String constraint. The key is <code>swf:activityType.version</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
+     * <p>
+     * If the caller doesn't have sufficient permissions to invoke the action, or the parameter values fall outside the
+     * specified constraints, the action fails. The associated event attribute's <code>cause</code> parameter is set to
+     * <code>OPERATION_NOT_PERMITTED</code>. For details and example IAM policies, see <a
+     * href="https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">Using IAM to Manage Access to
+     * Amazon SWF Workflows</a> in the <i>Amazon SWF Developer Guide</i>.
+     * </p>
+     * 
+     * @param deleteActivityTypeRequest
+     * @throws UnknownResourceException
+     *         Returned when the named resource cannot be found with in the scope of this operation (region or domain).
+     *         This could happen if the named resource was never created or is no longer available for this operation.
+     * @throws TypeNotDeprecatedException
+     *         Returned when the resource type has not been deprecated.
+     * @throws OperationNotPermittedException
+     *         Returned when the caller doesn't have sufficient permissions to invoke the action.
+     * @sample AmazonSimpleWorkflow.DeleteActivityType
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/swf-2012-01-25/DeleteActivityType" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public void deleteActivityType(DeleteActivityTypeRequest request) {
+        request = beforeClientExecution(request);
+        executeDeleteActivityType(request);
+    }
+
+    @SdkInternalApi
+    final void executeDeleteActivityType(DeleteActivityTypeRequest deleteActivityTypeRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteActivityTypeRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteActivityTypeRequest> request = null;
+        Response<Void> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteActivityTypeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteActivityTypeRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteActivityType");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<Void>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), null);
+            invoke(request, responseHandler, executionContext);
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the specified <i>workflow type</i>.
+     * </p>
+     * <p>
+     * Note: Prior to deletion, workflow types must first be <b>deprecated</b>.
+     * </p>
+     * <p>
+     * After a workflow type has been deleted, you cannot create new executions of that type. Executions that started
+     * before the type was deleted will continue to run.
+     * </p>
+     * <p>
+     * <b>Access Control</b>
+     * </p>
+     * <p>
+     * You can use IAM policies to control this action's access to Amazon SWF resources as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Use a <code>Resource</code> element with the domain name to limit the action to only specified domains.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use an <code>Action</code> element to allow or deny permission to call this action.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Constrain the following parameters by using a <code>Condition</code> element with the appropriate keys.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>workflowType.name</code>: String constraint. The key is <code>swf:workflowType.name</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>workflowType.version</code>: String constraint. The key is <code>swf:workflowType.version</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
+     * <p>
+     * If the caller doesn't have sufficient permissions to invoke the action, or the parameter values fall outside the
+     * specified constraints, the action fails. The associated event attribute's <code>cause</code> parameter is set to
+     * <code>OPERATION_NOT_PERMITTED</code>. For details and example IAM policies, see <a
+     * href="https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">Using IAM to Manage Access to
+     * Amazon SWF Workflows</a> in the <i>Amazon SWF Developer Guide</i>.
+     * </p>
+     * 
+     * @param deleteWorkflowTypeRequest
+     * @throws UnknownResourceException
+     *         Returned when the named resource cannot be found with in the scope of this operation (region or domain).
+     *         This could happen if the named resource was never created or is no longer available for this operation.
+     * @throws TypeNotDeprecatedException
+     *         Returned when the resource type has not been deprecated.
+     * @throws OperationNotPermittedException
+     *         Returned when the caller doesn't have sufficient permissions to invoke the action.
+     * @sample AmazonSimpleWorkflow.DeleteWorkflowType
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/swf-2012-01-25/DeleteWorkflowType" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public void deleteWorkflowType(DeleteWorkflowTypeRequest request) {
+        request = beforeClientExecution(request);
+        executeDeleteWorkflowType(request);
+    }
+
+    @SdkInternalApi
+    final void executeDeleteWorkflowType(DeleteWorkflowTypeRequest deleteWorkflowTypeRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteWorkflowTypeRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteWorkflowTypeRequest> request = null;
+        Response<Void> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteWorkflowTypeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteWorkflowTypeRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteWorkflowType");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<Void>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), null);
+            invoke(request, responseHandler, executionContext);
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Deprecates the specified <i>activity type</i>. After an activity type has been deprecated, you cannot create new
      * tasks of that activity type. Tasks of this type that were scheduled before the type was deprecated continue to
      * run.
      * </p>
-     * <note>
-     * <p>
-     * This operation is eventually consistent. The results are best effort and may not exactly reflect recent updates
-     * and changes.
-     * </p>
-     * </note>
      * <p>
      * <b>Access Control</b>
      * </p>
@@ -817,6 +1039,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                 request = new DeprecateActivityTypeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deprecateActivityTypeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeprecateActivityType");
@@ -913,6 +1137,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                 request = new DeprecateDomainRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deprecateDomainRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeprecateDomain");
@@ -1020,6 +1246,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                 request = new DeprecateWorkflowTypeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deprecateWorkflowTypeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeprecateWorkflowType");
@@ -1119,6 +1347,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                 request = new DescribeActivityTypeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeActivityTypeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeActivityType");
@@ -1207,6 +1437,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                 request = new DescribeDomainRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeDomainRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDomain");
@@ -1302,6 +1534,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(describeWorkflowExecutionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeWorkflowExecution");
@@ -1403,6 +1637,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                 request = new DescribeWorkflowTypeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeWorkflowTypeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeWorkflowType");
@@ -1499,6 +1735,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(getWorkflowExecutionHistoryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetWorkflowExecutionHistory");
@@ -1590,6 +1828,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                 request = new ListActivityTypesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listActivityTypesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListActivityTypes");
@@ -1704,6 +1944,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(listClosedWorkflowExecutionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListClosedWorkflowExecutions");
@@ -1798,6 +2040,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                 request = new ListDomainsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDomainsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDomains");
@@ -1912,6 +2156,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(listOpenWorkflowExecutionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListOpenWorkflowExecutions");
@@ -1973,6 +2219,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                 request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -2062,6 +2310,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                 request = new ListWorkflowTypesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listWorkflowTypesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListWorkflowTypes");
@@ -2165,6 +2415,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                 request = new PollForActivityTaskRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(pollForActivityTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PollForActivityTask");
@@ -2279,6 +2531,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                 request = new PollForDecisionTaskRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(pollForDecisionTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PollForDecisionTask");
@@ -2400,6 +2654,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(recordActivityTaskHeartbeatRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RecordActivityTaskHeartbeat");
@@ -2517,6 +2773,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                 request = new RegisterActivityTypeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(registerActivityTypeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterActivityType");
@@ -2608,6 +2866,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                 request = new RegisterDomainRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(registerDomainRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterDomain");
@@ -2726,6 +2986,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                 request = new RegisterWorkflowTypeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(registerWorkflowTypeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterWorkflowType");
@@ -2826,6 +3088,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(requestCancelWorkflowExecutionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RequestCancelWorkflowExecution");
@@ -2931,6 +3195,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(respondActivityTaskCanceledRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RespondActivityTaskCanceled");
@@ -3035,6 +3301,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(respondActivityTaskCompletedRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RespondActivityTaskCompleted");
@@ -3131,6 +3399,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(respondActivityTaskFailedRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RespondActivityTaskFailed");
@@ -3206,6 +3476,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(respondDecisionTaskCompletedRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RespondDecisionTaskCompleted");
@@ -3304,6 +3576,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(signalWorkflowExecutionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SignalWorkflowExecution");
@@ -3457,6 +3731,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                 request = new StartWorkflowExecutionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startWorkflowExecutionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartWorkflowExecution");
@@ -3524,6 +3800,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -3627,6 +3905,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(terminateWorkflowExecutionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TerminateWorkflowExecution");
@@ -3736,6 +4016,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(undeprecateActivityTypeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UndeprecateActivityType");
@@ -3831,6 +4113,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                 request = new UndeprecateDomainRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(undeprecateDomainRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UndeprecateDomain");
@@ -3940,6 +4224,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(undeprecateWorkflowTypeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UndeprecateWorkflowType");
@@ -3998,6 +4284,8 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SWF");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -4091,6 +4379,11 @@ public class AmazonSimpleWorkflowClient extends AmazonWebServiceClient implement
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

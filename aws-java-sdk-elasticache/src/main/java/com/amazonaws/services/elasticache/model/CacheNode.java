@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,7 @@ import javax.annotation.Generated;
 /**
  * <p>
  * Represents an individual cache node within a cluster. Each cache node runs its own instance of the cluster's
- * protocol-compliant caching software - either Memcached or Redis.
+ * protocol-compliant caching software - either Memcached or Redis OSS.
  * </p>
  * <p>
  * The following node types are supported by ElastiCache. Generally speaking, the current generation types provide more
@@ -35,6 +35,24 @@ import javax.annotation.Generated;
  * Current generation:
  * </p>
  * <p>
+ * <b>M7g node types</b>: <code>cache.m7g.large</code>, <code>cache.m7g.xlarge</code>, <code>cache.m7g.2xlarge</code>,
+ * <code>cache.m7g.4xlarge</code>, <code>cache.m7g.8xlarge</code>, <code>cache.m7g.12xlarge</code>,
+ * <code>cache.m7g.16xlarge</code>
+ * </p>
+ * <note>
+ * <p>
+ * For region availability, see <a href=
+ * "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+ * >Supported Node Types</a>
+ * </p>
+ * </note>
+ * <p>
+ * <b>M6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine version
+ * 1.5.16 onward): <code>cache.m6g.large</code>, <code>cache.m6g.xlarge</code>, <code>cache.m6g.2xlarge</code>,
+ * <code>cache.m6g.4xlarge</code>, <code>cache.m6g.8xlarge</code>, <code>cache.m6g.12xlarge</code>,
+ * <code>cache.m6g.16xlarge</code>
+ * </p>
+ * <p>
  * <b>M5 node types:</b> <code>cache.m5.large</code>, <code>cache.m5.xlarge</code>, <code>cache.m5.2xlarge</code>,
  * <code>cache.m5.4xlarge</code>, <code>cache.m5.12xlarge</code>, <code>cache.m5.24xlarge</code>
  * </p>
@@ -43,12 +61,20 @@ import javax.annotation.Generated;
  * <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
  * </p>
  * <p>
+ * <b>T4g node types</b> (available only for Redis OSS engine version 5.0.6 onward and Memcached engine version 1.5.16
+ * onward): <code>cache.t4g.micro</code>, <code>cache.t4g.small</code>, <code>cache.t4g.medium</code>
+ * </p>
+ * <p>
+ * <b>T3 node types:</b> <code>cache.t3.micro</code>, <code>cache.t3.small</code>, <code>cache.t3.medium</code>
+ * </p>
+ * <p>
  * <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>
  * </p>
  * </li>
  * <li>
  * <p>
- * Previous generation: (not recommended)
+ * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+ * supported for these types.)
  * </p>
  * <p>
  * <b>T1 node types:</b> <code>cache.t1.micro</code>
@@ -71,7 +97,8 @@ import javax.annotation.Generated;
  * <ul>
  * <li>
  * <p>
- * Previous generation: (not recommended)
+ * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+ * supported for these types.)
  * </p>
  * <p>
  * <b>C1 node types:</b> <code>cache.c1.xlarge</code>
@@ -89,6 +116,24 @@ import javax.annotation.Generated;
  * Current generation:
  * </p>
  * <p>
+ * <b>R7g node types</b>: <code>cache.r7g.large</code>, <code>cache.r7g.xlarge</code>, <code>cache.r7g.2xlarge</code>,
+ * <code>cache.r7g.4xlarge</code>, <code>cache.r7g.8xlarge</code>, <code>cache.r7g.12xlarge</code>,
+ * <code>cache.r7g.16xlarge</code>
+ * </p>
+ * <note>
+ * <p>
+ * For region availability, see <a href=
+ * "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+ * >Supported Node Types</a>
+ * </p>
+ * </note>
+ * <p>
+ * <b>R6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine version
+ * 1.5.16 onward): <code>cache.r6g.large</code>, <code>cache.r6g.xlarge</code>, <code>cache.r6g.2xlarge</code>,
+ * <code>cache.r6g.4xlarge</code>, <code>cache.r6g.8xlarge</code>, <code>cache.r6g.12xlarge</code>,
+ * <code>cache.r6g.16xlarge</code>
+ * </p>
+ * <p>
  * <b>R5 node types:</b> <code>cache.r5.large</code>, <code>cache.r5.xlarge</code>, <code>cache.r5.2xlarge</code>,
  * <code>cache.r5.4xlarge</code>, <code>cache.r5.12xlarge</code>, <code>cache.r5.24xlarge</code>
  * </p>
@@ -99,7 +144,8 @@ import javax.annotation.Generated;
  * </li>
  * <li>
  * <p>
- * Previous generation: (not recommended)
+ * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+ * supported for these types.)
  * </p>
  * <p>
  * <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
@@ -123,18 +169,18 @@ import javax.annotation.Generated;
  * </li>
  * <li>
  * <p>
- * Redis append-only files (AOF) are not supported for T1 or T2 instances.
+ * Redis OSS append-only files (AOF) are not supported for T1 or T2 instances.
  * </p>
  * </li>
  * <li>
  * <p>
- * Redis Multi-AZ with automatic failover is not supported on T1 instances.
+ * Redis OSS Multi-AZ with automatic failover is not supported on T1 instances.
  * </p>
  * </li>
  * <li>
  * <p>
- * Redis configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on Redis version
- * 2.8.22 and later.
+ * Redis OSS configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on Redis OSS
+ * version 2.8.22 and later.
  * </p>
  * </li>
  * </ul>
@@ -148,13 +194,14 @@ public class CacheNode implements Serializable, Cloneable {
     /**
      * <p>
      * The cache node identifier. A node ID is a numeric identifier (0001, 0002, etc.). The combination of cluster ID
-     * and node ID uniquely identifies every cache node used in a customer's AWS account.
+     * and node ID uniquely identifies every cache node used in a customer's Amazon account.
      * </p>
      */
     private String cacheNodeId;
     /**
      * <p>
-     * The current state of this cache node.
+     * The current state of this cache node, one of the following values: <code>available</code>, <code>creating</code>,
+     * <code>rebooting</code>, or <code>deleting</code>.
      * </p>
      */
     private String cacheNodeStatus;
@@ -189,16 +236,22 @@ public class CacheNode implements Serializable, Cloneable {
      * </p>
      */
     private String customerAvailabilityZone;
+    /**
+     * <p>
+     * The customer outpost ARN of the cache node.
+     * </p>
+     */
+    private String customerOutpostArn;
 
     /**
      * <p>
      * The cache node identifier. A node ID is a numeric identifier (0001, 0002, etc.). The combination of cluster ID
-     * and node ID uniquely identifies every cache node used in a customer's AWS account.
+     * and node ID uniquely identifies every cache node used in a customer's Amazon account.
      * </p>
      * 
      * @param cacheNodeId
      *        The cache node identifier. A node ID is a numeric identifier (0001, 0002, etc.). The combination of
-     *        cluster ID and node ID uniquely identifies every cache node used in a customer's AWS account.
+     *        cluster ID and node ID uniquely identifies every cache node used in a customer's Amazon account.
      */
 
     public void setCacheNodeId(String cacheNodeId) {
@@ -208,11 +261,11 @@ public class CacheNode implements Serializable, Cloneable {
     /**
      * <p>
      * The cache node identifier. A node ID is a numeric identifier (0001, 0002, etc.). The combination of cluster ID
-     * and node ID uniquely identifies every cache node used in a customer's AWS account.
+     * and node ID uniquely identifies every cache node used in a customer's Amazon account.
      * </p>
      * 
      * @return The cache node identifier. A node ID is a numeric identifier (0001, 0002, etc.). The combination of
-     *         cluster ID and node ID uniquely identifies every cache node used in a customer's AWS account.
+     *         cluster ID and node ID uniquely identifies every cache node used in a customer's Amazon account.
      */
 
     public String getCacheNodeId() {
@@ -222,12 +275,12 @@ public class CacheNode implements Serializable, Cloneable {
     /**
      * <p>
      * The cache node identifier. A node ID is a numeric identifier (0001, 0002, etc.). The combination of cluster ID
-     * and node ID uniquely identifies every cache node used in a customer's AWS account.
+     * and node ID uniquely identifies every cache node used in a customer's Amazon account.
      * </p>
      * 
      * @param cacheNodeId
      *        The cache node identifier. A node ID is a numeric identifier (0001, 0002, etc.). The combination of
-     *        cluster ID and node ID uniquely identifies every cache node used in a customer's AWS account.
+     *        cluster ID and node ID uniquely identifies every cache node used in a customer's Amazon account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -238,11 +291,13 @@ public class CacheNode implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The current state of this cache node.
+     * The current state of this cache node, one of the following values: <code>available</code>, <code>creating</code>,
+     * <code>rebooting</code>, or <code>deleting</code>.
      * </p>
      * 
      * @param cacheNodeStatus
-     *        The current state of this cache node.
+     *        The current state of this cache node, one of the following values: <code>available</code>,
+     *        <code>creating</code>, <code>rebooting</code>, or <code>deleting</code>.
      */
 
     public void setCacheNodeStatus(String cacheNodeStatus) {
@@ -251,10 +306,12 @@ public class CacheNode implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The current state of this cache node.
+     * The current state of this cache node, one of the following values: <code>available</code>, <code>creating</code>,
+     * <code>rebooting</code>, or <code>deleting</code>.
      * </p>
      * 
-     * @return The current state of this cache node.
+     * @return The current state of this cache node, one of the following values: <code>available</code>,
+     *         <code>creating</code>, <code>rebooting</code>, or <code>deleting</code>.
      */
 
     public String getCacheNodeStatus() {
@@ -263,11 +320,13 @@ public class CacheNode implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The current state of this cache node.
+     * The current state of this cache node, one of the following values: <code>available</code>, <code>creating</code>,
+     * <code>rebooting</code>, or <code>deleting</code>.
      * </p>
      * 
      * @param cacheNodeStatus
-     *        The current state of this cache node.
+     *        The current state of this cache node, one of the following values: <code>available</code>,
+     *        <code>creating</code>, <code>rebooting</code>, or <code>deleting</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -483,6 +542,46 @@ public class CacheNode implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The customer outpost ARN of the cache node.
+     * </p>
+     * 
+     * @param customerOutpostArn
+     *        The customer outpost ARN of the cache node.
+     */
+
+    public void setCustomerOutpostArn(String customerOutpostArn) {
+        this.customerOutpostArn = customerOutpostArn;
+    }
+
+    /**
+     * <p>
+     * The customer outpost ARN of the cache node.
+     * </p>
+     * 
+     * @return The customer outpost ARN of the cache node.
+     */
+
+    public String getCustomerOutpostArn() {
+        return this.customerOutpostArn;
+    }
+
+    /**
+     * <p>
+     * The customer outpost ARN of the cache node.
+     * </p>
+     * 
+     * @param customerOutpostArn
+     *        The customer outpost ARN of the cache node.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CacheNode withCustomerOutpostArn(String customerOutpostArn) {
+        setCustomerOutpostArn(customerOutpostArn);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -507,7 +606,9 @@ public class CacheNode implements Serializable, Cloneable {
         if (getSourceCacheNodeId() != null)
             sb.append("SourceCacheNodeId: ").append(getSourceCacheNodeId()).append(",");
         if (getCustomerAvailabilityZone() != null)
-            sb.append("CustomerAvailabilityZone: ").append(getCustomerAvailabilityZone());
+            sb.append("CustomerAvailabilityZone: ").append(getCustomerAvailabilityZone()).append(",");
+        if (getCustomerOutpostArn() != null)
+            sb.append("CustomerOutpostArn: ").append(getCustomerOutpostArn());
         sb.append("}");
         return sb.toString();
     }
@@ -550,6 +651,10 @@ public class CacheNode implements Serializable, Cloneable {
             return false;
         if (other.getCustomerAvailabilityZone() != null && other.getCustomerAvailabilityZone().equals(this.getCustomerAvailabilityZone()) == false)
             return false;
+        if (other.getCustomerOutpostArn() == null ^ this.getCustomerOutpostArn() == null)
+            return false;
+        if (other.getCustomerOutpostArn() != null && other.getCustomerOutpostArn().equals(this.getCustomerOutpostArn()) == false)
+            return false;
         return true;
     }
 
@@ -565,6 +670,7 @@ public class CacheNode implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getParameterGroupStatus() == null) ? 0 : getParameterGroupStatus().hashCode());
         hashCode = prime * hashCode + ((getSourceCacheNodeId() == null) ? 0 : getSourceCacheNodeId().hashCode());
         hashCode = prime * hashCode + ((getCustomerAvailabilityZone() == null) ? 0 : getCustomerAvailabilityZone().hashCode());
+        hashCode = prime * hashCode + ((getCustomerOutpostArn() == null) ? 0 : getCustomerOutpostArn().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -23,7 +23,12 @@ import javax.annotation.Generated;
 public enum FilterName {
 
     FileSystemId("file-system-id"),
-    BackupType("backup-type");
+    BackupType("backup-type"),
+    FileSystemType("file-system-type"),
+    VolumeId("volume-id"),
+    DataRepositoryType("data-repository-type"),
+    FileCacheId("file-cache-id"),
+    FileCacheType("file-cache-type");
 
     private String value;
 

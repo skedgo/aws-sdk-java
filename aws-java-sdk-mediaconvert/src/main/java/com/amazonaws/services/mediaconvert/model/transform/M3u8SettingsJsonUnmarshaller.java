@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,13 +48,27 @@ public class M3u8SettingsJsonUnmarshaller implements Unmarshaller<M3u8Settings, 
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("audioDuration", targetDepth)) {
+                    context.nextToken();
+                    m3u8Settings.setAudioDuration(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("audioFramesPerPes", targetDepth)) {
                     context.nextToken();
                     m3u8Settings.setAudioFramesPerPes(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
                 if (context.testExpression("audioPids", targetDepth)) {
                     context.nextToken();
-                    m3u8Settings.setAudioPids(new ListUnmarshaller<Integer>(context.getUnmarshaller(Integer.class)).unmarshall(context));
+                    m3u8Settings.setAudioPids(new ListUnmarshaller<Integer>(context.getUnmarshaller(Integer.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("dataPTSControl", targetDepth)) {
+                    context.nextToken();
+                    m3u8Settings.setDataPTSControl(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("maxPcrInterval", targetDepth)) {
+                    context.nextToken();
+                    m3u8Settings.setMaxPcrInterval(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
                 if (context.testExpression("nielsenId3", targetDepth)) {
                     context.nextToken();
@@ -87,6 +101,14 @@ public class M3u8SettingsJsonUnmarshaller implements Unmarshaller<M3u8Settings, 
                 if (context.testExpression("programNumber", targetDepth)) {
                     context.nextToken();
                     m3u8Settings.setProgramNumber(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("ptsOffset", targetDepth)) {
+                    context.nextToken();
+                    m3u8Settings.setPtsOffset(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("ptsOffsetMode", targetDepth)) {
+                    context.nextToken();
+                    m3u8Settings.setPtsOffsetMode(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("scte35Pid", targetDepth)) {
                     context.nextToken();

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,13 +28,16 @@ public class DescribeEventSubscriptionsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The name of the AWS DMS event subscription to be described.
+     * The name of the DMS event subscription to be described.
      * </p>
      */
     private String subscriptionName;
     /**
      * <p>
-     * Filters applied to the action.
+     * Filters applied to event subscriptions.
+     * </p>
+     * <p>
+     * Valid filter names: event-subscription-arn | event-subscription-id
      * </p>
      */
     private java.util.List<Filter> filters;
@@ -62,11 +65,11 @@ public class DescribeEventSubscriptionsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The name of the AWS DMS event subscription to be described.
+     * The name of the DMS event subscription to be described.
      * </p>
      * 
      * @param subscriptionName
-     *        The name of the AWS DMS event subscription to be described.
+     *        The name of the DMS event subscription to be described.
      */
 
     public void setSubscriptionName(String subscriptionName) {
@@ -75,10 +78,10 @@ public class DescribeEventSubscriptionsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The name of the AWS DMS event subscription to be described.
+     * The name of the DMS event subscription to be described.
      * </p>
      * 
-     * @return The name of the AWS DMS event subscription to be described.
+     * @return The name of the DMS event subscription to be described.
      */
 
     public String getSubscriptionName() {
@@ -87,11 +90,11 @@ public class DescribeEventSubscriptionsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The name of the AWS DMS event subscription to be described.
+     * The name of the DMS event subscription to be described.
      * </p>
      * 
      * @param subscriptionName
-     *        The name of the AWS DMS event subscription to be described.
+     *        The name of the DMS event subscription to be described.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -102,10 +105,15 @@ public class DescribeEventSubscriptionsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Filters applied to the action.
+     * Filters applied to event subscriptions.
+     * </p>
+     * <p>
+     * Valid filter names: event-subscription-arn | event-subscription-id
      * </p>
      * 
-     * @return Filters applied to the action.
+     * @return Filters applied to event subscriptions.</p>
+     *         <p>
+     *         Valid filter names: event-subscription-arn | event-subscription-id
      */
 
     public java.util.List<Filter> getFilters() {
@@ -114,11 +122,16 @@ public class DescribeEventSubscriptionsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Filters applied to the action.
+     * Filters applied to event subscriptions.
+     * </p>
+     * <p>
+     * Valid filter names: event-subscription-arn | event-subscription-id
      * </p>
      * 
      * @param filters
-     *        Filters applied to the action.
+     *        Filters applied to event subscriptions.</p>
+     *        <p>
+     *        Valid filter names: event-subscription-arn | event-subscription-id
      */
 
     public void setFilters(java.util.Collection<Filter> filters) {
@@ -132,7 +145,10 @@ public class DescribeEventSubscriptionsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Filters applied to the action.
+     * Filters applied to event subscriptions.
+     * </p>
+     * <p>
+     * Valid filter names: event-subscription-arn | event-subscription-id
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -141,7 +157,9 @@ public class DescribeEventSubscriptionsRequest extends com.amazonaws.AmazonWebSe
      * </p>
      * 
      * @param filters
-     *        Filters applied to the action.
+     *        Filters applied to event subscriptions.</p>
+     *        <p>
+     *        Valid filter names: event-subscription-arn | event-subscription-id
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -157,11 +175,16 @@ public class DescribeEventSubscriptionsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Filters applied to the action.
+     * Filters applied to event subscriptions.
+     * </p>
+     * <p>
+     * Valid filter names: event-subscription-arn | event-subscription-id
      * </p>
      * 
      * @param filters
-     *        Filters applied to the action.
+     *        Filters applied to event subscriptions.</p>
+     *        <p>
+     *        Valid filter names: event-subscription-arn | event-subscription-id
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

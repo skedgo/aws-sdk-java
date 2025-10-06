@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,8 +31,8 @@ public class ListEntitiesForPolicyRequest extends com.amazonaws.AmazonWebService
      * </p>
      * <p>
      * For more information about ARNs, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
-     * and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     * (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      */
     private String policyArn;
@@ -55,8 +55,8 @@ public class ListEntitiesForPolicyRequest extends com.amazonaws.AmazonWebService
      * <p>
      * This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
      * characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward
-     * slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL character (\u007F),
-     * including most punctuation characters, digits, and upper and lowercased letters.
+     * slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through the DEL
+     * character (<code>\u007F</code>), including most punctuation characters, digits, and upper and lowercased letters.
      * </p>
      */
     private String pathPrefix;
@@ -102,8 +102,8 @@ public class ListEntitiesForPolicyRequest extends com.amazonaws.AmazonWebService
      * </p>
      * <p>
      * For more information about ARNs, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
-     * and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     * (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @param policyArn
@@ -111,7 +111,7 @@ public class ListEntitiesForPolicyRequest extends com.amazonaws.AmazonWebService
      *        <p>
      *        For more information about ARNs, see <a
      *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *        (ARNs) and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     *        (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      */
 
     public void setPolicyArn(String policyArn) {
@@ -124,15 +124,15 @@ public class ListEntitiesForPolicyRequest extends com.amazonaws.AmazonWebService
      * </p>
      * <p>
      * For more information about ARNs, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
-     * and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     * (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @return The Amazon Resource Name (ARN) of the IAM policy for which you want the versions.</p>
      *         <p>
      *         For more information about ARNs, see <a
      *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *         (ARNs) and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     *         (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      */
 
     public String getPolicyArn() {
@@ -145,8 +145,8 @@ public class ListEntitiesForPolicyRequest extends com.amazonaws.AmazonWebService
      * </p>
      * <p>
      * For more information about ARNs, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
-     * and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     * (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @param policyArn
@@ -154,7 +154,7 @@ public class ListEntitiesForPolicyRequest extends com.amazonaws.AmazonWebService
      *        <p>
      *        For more information about ARNs, see <a
      *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *        (ARNs) and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     *        (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -294,8 +294,8 @@ public class ListEntitiesForPolicyRequest extends com.amazonaws.AmazonWebService
      * <p>
      * This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
      * characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward
-     * slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL character (\u007F),
-     * including most punctuation characters, digits, and upper and lowercased letters.
+     * slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through the DEL
+     * character (<code>\u007F</code>), including most punctuation characters, digits, and upper and lowercased letters.
      * </p>
      * 
      * @param pathPrefix
@@ -304,8 +304,9 @@ public class ListEntitiesForPolicyRequest extends com.amazonaws.AmazonWebService
      *        <p>
      *        This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string
      *        of characters consisting of either a forward slash (/) by itself or a string that must begin and end with
-     *        forward slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL
-     *        character (\u007F), including most punctuation characters, digits, and upper and lowercased letters.
+     *        forward slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through
+     *        the DEL character (<code>\u007F</code>), including most punctuation characters, digits, and upper and
+     *        lowercased letters.
      */
 
     public void setPathPrefix(String pathPrefix) {
@@ -320,8 +321,8 @@ public class ListEntitiesForPolicyRequest extends com.amazonaws.AmazonWebService
      * <p>
      * This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
      * characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward
-     * slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL character (\u007F),
-     * including most punctuation characters, digits, and upper and lowercased letters.
+     * slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through the DEL
+     * character (<code>\u007F</code>), including most punctuation characters, digits, and upper and lowercased letters.
      * </p>
      * 
      * @return The path prefix for filtering the results. This parameter is optional. If it is not included, it defaults
@@ -329,8 +330,9 @@ public class ListEntitiesForPolicyRequest extends com.amazonaws.AmazonWebService
      *         <p>
      *         This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string
      *         of characters consisting of either a forward slash (/) by itself or a string that must begin and end with
-     *         forward slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL
-     *         character (\u007F), including most punctuation characters, digits, and upper and lowercased letters.
+     *         forward slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through
+     *         the DEL character (<code>\u007F</code>), including most punctuation characters, digits, and upper and
+     *         lowercased letters.
      */
 
     public String getPathPrefix() {
@@ -345,8 +347,8 @@ public class ListEntitiesForPolicyRequest extends com.amazonaws.AmazonWebService
      * <p>
      * This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
      * characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward
-     * slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL character (\u007F),
-     * including most punctuation characters, digits, and upper and lowercased letters.
+     * slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through the DEL
+     * character (<code>\u007F</code>), including most punctuation characters, digits, and upper and lowercased letters.
      * </p>
      * 
      * @param pathPrefix
@@ -355,8 +357,9 @@ public class ListEntitiesForPolicyRequest extends com.amazonaws.AmazonWebService
      *        <p>
      *        This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string
      *        of characters consisting of either a forward slash (/) by itself or a string that must begin and end with
-     *        forward slashes. In addition, it can contain any ASCII character from the ! (\u0021) through the DEL
-     *        character (\u007F), including most punctuation characters, digits, and upper and lowercased letters.
+     *        forward slashes. In addition, it can contain any ASCII character from the ! (<code>\u0021</code>) through
+     *        the DEL character (<code>\u007F</code>), including most punctuation characters, digits, and upper and
+     *        lowercased letters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

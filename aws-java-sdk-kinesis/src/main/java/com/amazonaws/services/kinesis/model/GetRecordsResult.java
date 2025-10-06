@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -47,6 +47,13 @@ public class GetRecordsResult extends com.amazonaws.AmazonWebServiceResult<com.a
      * </p>
      */
     private Long millisBehindLatest;
+    /**
+     * <p>
+     * The list of the current shard's child shards, returned in the <code>GetRecords</code> API's response only when
+     * the end of the current shard is reached.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<ChildShard> childShards;
 
     /**
      * <p>
@@ -220,6 +227,87 @@ public class GetRecordsResult extends com.amazonaws.AmazonWebServiceResult<com.a
     }
 
     /**
+     * <p>
+     * The list of the current shard's child shards, returned in the <code>GetRecords</code> API's response only when
+     * the end of the current shard is reached.
+     * </p>
+     * 
+     * @return The list of the current shard's child shards, returned in the <code>GetRecords</code> API's response only
+     *         when the end of the current shard is reached.
+     */
+
+    public java.util.List<ChildShard> getChildShards() {
+        if (childShards == null) {
+            childShards = new com.amazonaws.internal.SdkInternalList<ChildShard>();
+        }
+        return childShards;
+    }
+
+    /**
+     * <p>
+     * The list of the current shard's child shards, returned in the <code>GetRecords</code> API's response only when
+     * the end of the current shard is reached.
+     * </p>
+     * 
+     * @param childShards
+     *        The list of the current shard's child shards, returned in the <code>GetRecords</code> API's response only
+     *        when the end of the current shard is reached.
+     */
+
+    public void setChildShards(java.util.Collection<ChildShard> childShards) {
+        if (childShards == null) {
+            this.childShards = null;
+            return;
+        }
+
+        this.childShards = new com.amazonaws.internal.SdkInternalList<ChildShard>(childShards);
+    }
+
+    /**
+     * <p>
+     * The list of the current shard's child shards, returned in the <code>GetRecords</code> API's response only when
+     * the end of the current shard is reached.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setChildShards(java.util.Collection)} or {@link #withChildShards(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param childShards
+     *        The list of the current shard's child shards, returned in the <code>GetRecords</code> API's response only
+     *        when the end of the current shard is reached.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetRecordsResult withChildShards(ChildShard... childShards) {
+        if (this.childShards == null) {
+            setChildShards(new com.amazonaws.internal.SdkInternalList<ChildShard>(childShards.length));
+        }
+        for (ChildShard ele : childShards) {
+            this.childShards.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of the current shard's child shards, returned in the <code>GetRecords</code> API's response only when
+     * the end of the current shard is reached.
+     * </p>
+     * 
+     * @param childShards
+     *        The list of the current shard's child shards, returned in the <code>GetRecords</code> API's response only
+     *        when the end of the current shard is reached.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetRecordsResult withChildShards(java.util.Collection<ChildShard> childShards) {
+        setChildShards(childShards);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -236,7 +324,9 @@ public class GetRecordsResult extends com.amazonaws.AmazonWebServiceResult<com.a
         if (getNextShardIterator() != null)
             sb.append("NextShardIterator: ").append(getNextShardIterator()).append(",");
         if (getMillisBehindLatest() != null)
-            sb.append("MillisBehindLatest: ").append(getMillisBehindLatest());
+            sb.append("MillisBehindLatest: ").append(getMillisBehindLatest()).append(",");
+        if (getChildShards() != null)
+            sb.append("ChildShards: ").append(getChildShards());
         sb.append("}");
         return sb.toString();
     }
@@ -263,6 +353,10 @@ public class GetRecordsResult extends com.amazonaws.AmazonWebServiceResult<com.a
             return false;
         if (other.getMillisBehindLatest() != null && other.getMillisBehindLatest().equals(this.getMillisBehindLatest()) == false)
             return false;
+        if (other.getChildShards() == null ^ this.getChildShards() == null)
+            return false;
+        if (other.getChildShards() != null && other.getChildShards().equals(this.getChildShards()) == false)
+            return false;
         return true;
     }
 
@@ -274,6 +368,7 @@ public class GetRecordsResult extends com.amazonaws.AmazonWebServiceResult<com.a
         hashCode = prime * hashCode + ((getRecords() == null) ? 0 : getRecords().hashCode());
         hashCode = prime * hashCode + ((getNextShardIterator() == null) ? 0 : getNextShardIterator().hashCode());
         hashCode = prime * hashCode + ((getMillisBehindLatest() == null) ? 0 : getMillisBehindLatest().hashCode());
+        hashCode = prime * hashCode + ((getChildShards() == null) ? 0 : getChildShards().hashCode());
         return hashCode;
     }
 

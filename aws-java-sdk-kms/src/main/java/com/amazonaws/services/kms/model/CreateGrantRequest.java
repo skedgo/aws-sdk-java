@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,11 +27,11 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The unique identifier for the customer master key (CMK) that the grant applies to.
+     * Identifies the KMS key for the grant. The grant gives principals permission to use this KMS key.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS account, you
-     * must use the key ARN.
+     * Specify the key ID or key ARN of the KMS key. To specify a KMS key in a different Amazon Web Services account,
+     * you must use the key ARN.
      * </p>
      * <p>
      * For example:
@@ -49,35 +49,40 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      */
     private String keyId;
     /**
      * <p>
-     * The principal that is given permission to perform the operations that the grant permits.
+     * The identity that gets the permissions specified in the grant.
      * </p>
      * <p>
-     * To specify the principal, use the <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a>
-     * of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, IAM roles, federated users, and
-     * assumed role users. For examples of the ARN syntax to use for specifying a principal, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS Identity and
-     * Access Management (IAM)</a> in the Example ARNs section of the <i>AWS General Reference</i>.
+     * To specify the grantee principal, use the Amazon Resource Name (ARN) of an Amazon Web Services principal. Valid
+     * principals include Amazon Web Services accounts, IAM users, IAM roles, federated users, and assumed role users.
+     * For help with the ARN syntax for a principal, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">IAM ARNs</a>
+     * in the <i> <i>Identity and Access Management User Guide</i> </i>.
      * </p>
      */
     private String granteePrincipal;
     /**
      * <p>
-     * The principal that is given permission to retire the grant by using <a>RetireGrant</a> operation.
+     * The principal that has permission to use the <a>RetireGrant</a> operation to retire the grant.
      * </p>
      * <p>
      * To specify the principal, use the <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a>
-     * of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, federated users, and assumed
-     * role users. For examples of the ARN syntax to use for specifying a principal, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS Identity and
-     * Access Management (IAM)</a> in the Example ARNs section of the <i>AWS General Reference</i>.
+     * of an Amazon Web Services principal. Valid principals include Amazon Web Services accounts, IAM users, IAM roles,
+     * federated users, and assumed role users. For help with the ARN syntax for a principal, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">IAM ARNs</a>
+     * in the <i> <i>Identity and Access Management User Guide</i> </i>.
+     * </p>
+     * <p>
+     * The grant determines the retiring principal. Other principals might have permission to retire the grant or revoke
+     * the grant. For details, see <a>RevokeGrant</a> and <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#grant-delete">Retiring and revoking
+     * grants</a> in the <i>Key Management Service Developer Guide</i>.
      * </p>
      */
     private String retiringPrincipal;
@@ -85,14 +90,53 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * A list of operations that the grant permits.
      * </p>
+     * <p>
+     * This list must include only operations that are permitted in a grant. Also, the operation must be supported on
+     * the KMS key. For example, you cannot create a grant for a symmetric encryption KMS key that allows the
+     * <a>Sign</a> operation, or a grant for an asymmetric KMS key that allows the <a>GenerateDataKey</a> operation. If
+     * you try, KMS returns a <code>ValidationError</code> exception. For details, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#terms-grant-operations">Grant
+     * operations</a> in the <i>Key Management Service Developer Guide</i>.
+     * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> operations;
     /**
      * <p>
-     * Allows a cryptographic operation only when the encryption context matches or includes the encryption context
-     * specified in this structure. For more information about encryption context, see <a
-     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context">Encryption Context</a>
-     * in the <i> <i>AWS Key Management Service Developer Guide</i> </i>.
+     * Specifies a grant constraint.
+     * </p>
+     * <important>
+     * <p>
+     * Do not include confidential or sensitive information in this field. This field may be displayed in plaintext in
+     * CloudTrail logs and other output.
+     * </p>
+     * </important>
+     * <p>
+     * KMS supports the <code>EncryptionContextEquals</code> and <code>EncryptionContextSubset</code> grant constraints,
+     * which allow the permissions in the grant only when the encryption context in the request matches (
+     * <code>EncryptionContextEquals</code>) or includes (<code>EncryptionContextSubset</code>) the encryption context
+     * specified in the constraint.
+     * </p>
+     * <p>
+     * The encryption context grant constraints are supported only on <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#terms-grant-operations">grant
+     * operations</a> that include an <code>EncryptionContext</code> parameter, such as cryptographic operations on
+     * symmetric encryption KMS keys. Grants with grant constraints can include the <a>DescribeKey</a> and
+     * <a>RetireGrant</a> operations, but the constraint doesn't apply to these operations. If a grant with a grant
+     * constraint includes the <code>CreateGrant</code> operation, the constraint requires that any grants created with
+     * the <code>CreateGrant</code> permission have an equally strict or stricter encryption context constraint.
+     * </p>
+     * <p>
+     * You cannot use an encryption context grant constraint for cryptographic operations with asymmetric KMS keys or
+     * HMAC KMS keys. Operations with these keys don't support an encryption context.
+     * </p>
+     * <p>
+     * Each constraint value can include up to 8 encryption context pairs. The encryption context value in each
+     * constraint cannot exceed 384 characters. For information about grant constraints, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/create-grant-overview.html#grant-constraints">Using
+     * grant constraints</a> in the <i>Key Management Service Developer Guide</i>. For more information about encryption
+     * context, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context">Encryption context</a>
+     * in the <i> <i>Key Management Service Developer Guide</i> </i>.
      * </p>
      */
     private GrantConstraints constraints;
@@ -101,17 +145,25 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      * A list of grant tokens.
      * </p>
      * <p>
-     * For more information, see <a
-     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant Tokens</a> in the
-     * <i>AWS Key Management Service Developer Guide</i>.
+     * Use a grant token when your permission to call this operation comes from a new grant that has not yet achieved
+     * <i>eventual consistency</i>. For more information, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#grant_token">Grant token</a> and <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#using-grant-token">Using a grant
+     * token</a> in the <i>Key Management Service Developer Guide</i>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> grantTokens;
     /**
      * <p>
-     * A friendly name for identifying the grant. Use this value to prevent the unintended creation of duplicate grants
-     * when retrying this request.
+     * A friendly name for the grant. Use this value to prevent the unintended creation of duplicate grants when
+     * retrying this request.
      * </p>
+     * <important>
+     * <p>
+     * Do not include confidential or sensitive information in this field. This field may be displayed in plaintext in
+     * CloudTrail logs and other output.
+     * </p>
+     * </important>
      * <p>
      * When this value is absent, all <code>CreateGrant</code> requests result in a new grant with a unique
      * <code>GrantId</code> even if all the supplied parameters are identical. This can result in unintended duplicates
@@ -121,18 +173,29 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      * When this value is present, you can retry a <code>CreateGrant</code> request with identical parameters; if the
      * grant already exists, the original <code>GrantId</code> is returned without creating a new grant. Note that the
      * returned grant token is unique with every <code>CreateGrant</code> request, even when a duplicate
-     * <code>GrantId</code> is returned. All grant tokens obtained in this way can be used interchangeably.
+     * <code>GrantId</code> is returned. All grant tokens for the same grant ID can be used interchangeably.
      * </p>
      */
     private String name;
+    /**
+     * <p>
+     * Checks if your request will succeed. <code>DryRun</code> is an optional parameter.
+     * </p>
+     * <p>
+     * To learn more about how to use this parameter, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/programming-dryrun.html">Testing your KMS API
+     * calls</a> in the <i>Key Management Service Developer Guide</i>.
+     * </p>
+     */
+    private Boolean dryRun;
 
     /**
      * <p>
-     * The unique identifier for the customer master key (CMK) that the grant applies to.
+     * Identifies the KMS key for the grant. The grant gives principals permission to use this KMS key.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS account, you
-     * must use the key ARN.
+     * Specify the key ID or key ARN of the KMS key. To specify a KMS key in a different Amazon Web Services account,
+     * you must use the key ARN.
      * </p>
      * <p>
      * For example:
@@ -150,13 +213,13 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      * 
      * @param keyId
-     *        The unique identifier for the customer master key (CMK) that the grant applies to.</p>
+     *        Identifies the KMS key for the grant. The grant gives principals permission to use this KMS key.</p>
      *        <p>
-     *        Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS
+     *        Specify the key ID or key ARN of the KMS key. To specify a KMS key in a different Amazon Web Services
      *        account, you must use the key ARN.
      *        </p>
      *        <p>
@@ -175,7 +238,7 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        </li>
      *        </ul>
      *        <p>
-     *        To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     *        To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      */
 
     public void setKeyId(String keyId) {
@@ -184,11 +247,11 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The unique identifier for the customer master key (CMK) that the grant applies to.
+     * Identifies the KMS key for the grant. The grant gives principals permission to use this KMS key.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS account, you
-     * must use the key ARN.
+     * Specify the key ID or key ARN of the KMS key. To specify a KMS key in a different Amazon Web Services account,
+     * you must use the key ARN.
      * </p>
      * <p>
      * For example:
@@ -206,12 +269,12 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      * 
-     * @return The unique identifier for the customer master key (CMK) that the grant applies to.</p>
+     * @return Identifies the KMS key for the grant. The grant gives principals permission to use this KMS key.</p>
      *         <p>
-     *         Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS
+     *         Specify the key ID or key ARN of the KMS key. To specify a KMS key in a different Amazon Web Services
      *         account, you must use the key ARN.
      *         </p>
      *         <p>
@@ -230,7 +293,7 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      *         </li>
      *         </ul>
      *         <p>
-     *         To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     *         To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      */
 
     public String getKeyId() {
@@ -239,11 +302,11 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The unique identifier for the customer master key (CMK) that the grant applies to.
+     * Identifies the KMS key for the grant. The grant gives principals permission to use this KMS key.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS account, you
-     * must use the key ARN.
+     * Specify the key ID or key ARN of the KMS key. To specify a KMS key in a different Amazon Web Services account,
+     * you must use the key ARN.
      * </p>
      * <p>
      * For example:
@@ -261,13 +324,13 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      * 
      * @param keyId
-     *        The unique identifier for the customer master key (CMK) that the grant applies to.</p>
+     *        Identifies the KMS key for the grant. The grant gives principals permission to use this KMS key.</p>
      *        <p>
-     *        Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS
+     *        Specify the key ID or key ARN of the KMS key. To specify a KMS key in a different Amazon Web Services
      *        account, you must use the key ARN.
      *        </p>
      *        <p>
@@ -286,7 +349,7 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        </li>
      *        </ul>
      *        <p>
-     *        To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     *        To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -297,27 +360,24 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The principal that is given permission to perform the operations that the grant permits.
+     * The identity that gets the permissions specified in the grant.
      * </p>
      * <p>
-     * To specify the principal, use the <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a>
-     * of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, IAM roles, federated users, and
-     * assumed role users. For examples of the ARN syntax to use for specifying a principal, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS Identity and
-     * Access Management (IAM)</a> in the Example ARNs section of the <i>AWS General Reference</i>.
+     * To specify the grantee principal, use the Amazon Resource Name (ARN) of an Amazon Web Services principal. Valid
+     * principals include Amazon Web Services accounts, IAM users, IAM roles, federated users, and assumed role users.
+     * For help with the ARN syntax for a principal, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">IAM ARNs</a>
+     * in the <i> <i>Identity and Access Management User Guide</i> </i>.
      * </p>
      * 
      * @param granteePrincipal
-     *        The principal that is given permission to perform the operations that the grant permits.</p>
+     *        The identity that gets the permissions specified in the grant.</p>
      *        <p>
-     *        To specify the principal, use the <a
-     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
-     *        (ARN)</a> of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, IAM roles,
-     *        federated users, and assumed role users. For examples of the ARN syntax to use for specifying a principal,
-     *        see <a
-     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS
-     *        Identity and Access Management (IAM)</a> in the Example ARNs section of the <i>AWS General Reference</i>.
+     *        To specify the grantee principal, use the Amazon Resource Name (ARN) of an Amazon Web Services principal.
+     *        Valid principals include Amazon Web Services accounts, IAM users, IAM roles, federated users, and assumed
+     *        role users. For help with the ARN syntax for a principal, see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">IAM
+     *        ARNs</a> in the <i> <i>Identity and Access Management User Guide</i> </i>.
      */
 
     public void setGranteePrincipal(String granteePrincipal) {
@@ -326,26 +386,23 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The principal that is given permission to perform the operations that the grant permits.
+     * The identity that gets the permissions specified in the grant.
      * </p>
      * <p>
-     * To specify the principal, use the <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a>
-     * of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, IAM roles, federated users, and
-     * assumed role users. For examples of the ARN syntax to use for specifying a principal, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS Identity and
-     * Access Management (IAM)</a> in the Example ARNs section of the <i>AWS General Reference</i>.
+     * To specify the grantee principal, use the Amazon Resource Name (ARN) of an Amazon Web Services principal. Valid
+     * principals include Amazon Web Services accounts, IAM users, IAM roles, federated users, and assumed role users.
+     * For help with the ARN syntax for a principal, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">IAM ARNs</a>
+     * in the <i> <i>Identity and Access Management User Guide</i> </i>.
      * </p>
      * 
-     * @return The principal that is given permission to perform the operations that the grant permits.</p>
+     * @return The identity that gets the permissions specified in the grant.</p>
      *         <p>
-     *         To specify the principal, use the <a
-     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
-     *         (ARN)</a> of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, IAM roles,
-     *         federated users, and assumed role users. For examples of the ARN syntax to use for specifying a
-     *         principal, see <a
-     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS
-     *         Identity and Access Management (IAM)</a> in the Example ARNs section of the <i>AWS General Reference</i>.
+     *         To specify the grantee principal, use the Amazon Resource Name (ARN) of an Amazon Web Services principal.
+     *         Valid principals include Amazon Web Services accounts, IAM users, IAM roles, federated users, and assumed
+     *         role users. For help with the ARN syntax for a principal, see <a
+     *         href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">IAM
+     *         ARNs</a> in the <i> <i>Identity and Access Management User Guide</i> </i>.
      */
 
     public String getGranteePrincipal() {
@@ -354,27 +411,24 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The principal that is given permission to perform the operations that the grant permits.
+     * The identity that gets the permissions specified in the grant.
      * </p>
      * <p>
-     * To specify the principal, use the <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a>
-     * of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, IAM roles, federated users, and
-     * assumed role users. For examples of the ARN syntax to use for specifying a principal, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS Identity and
-     * Access Management (IAM)</a> in the Example ARNs section of the <i>AWS General Reference</i>.
+     * To specify the grantee principal, use the Amazon Resource Name (ARN) of an Amazon Web Services principal. Valid
+     * principals include Amazon Web Services accounts, IAM users, IAM roles, federated users, and assumed role users.
+     * For help with the ARN syntax for a principal, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">IAM ARNs</a>
+     * in the <i> <i>Identity and Access Management User Guide</i> </i>.
      * </p>
      * 
      * @param granteePrincipal
-     *        The principal that is given permission to perform the operations that the grant permits.</p>
+     *        The identity that gets the permissions specified in the grant.</p>
      *        <p>
-     *        To specify the principal, use the <a
-     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
-     *        (ARN)</a> of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, IAM roles,
-     *        federated users, and assumed role users. For examples of the ARN syntax to use for specifying a principal,
-     *        see <a
-     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS
-     *        Identity and Access Management (IAM)</a> in the Example ARNs section of the <i>AWS General Reference</i>.
+     *        To specify the grantee principal, use the Amazon Resource Name (ARN) of an Amazon Web Services principal.
+     *        Valid principals include Amazon Web Services accounts, IAM users, IAM roles, federated users, and assumed
+     *        role users. For help with the ARN syntax for a principal, see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">IAM
+     *        ARNs</a> in the <i> <i>Identity and Access Management User Guide</i> </i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -385,26 +439,39 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The principal that is given permission to retire the grant by using <a>RetireGrant</a> operation.
+     * The principal that has permission to use the <a>RetireGrant</a> operation to retire the grant.
      * </p>
      * <p>
      * To specify the principal, use the <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a>
-     * of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, federated users, and assumed
-     * role users. For examples of the ARN syntax to use for specifying a principal, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS Identity and
-     * Access Management (IAM)</a> in the Example ARNs section of the <i>AWS General Reference</i>.
+     * of an Amazon Web Services principal. Valid principals include Amazon Web Services accounts, IAM users, IAM roles,
+     * federated users, and assumed role users. For help with the ARN syntax for a principal, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">IAM ARNs</a>
+     * in the <i> <i>Identity and Access Management User Guide</i> </i>.
+     * </p>
+     * <p>
+     * The grant determines the retiring principal. Other principals might have permission to retire the grant or revoke
+     * the grant. For details, see <a>RevokeGrant</a> and <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#grant-delete">Retiring and revoking
+     * grants</a> in the <i>Key Management Service Developer Guide</i>.
      * </p>
      * 
      * @param retiringPrincipal
-     *        The principal that is given permission to retire the grant by using <a>RetireGrant</a> operation.</p>
+     *        The principal that has permission to use the <a>RetireGrant</a> operation to retire the grant. </p>
      *        <p>
      *        To specify the principal, use the <a
      *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
-     *        (ARN)</a> of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, federated
-     *        users, and assumed role users. For examples of the ARN syntax to use for specifying a principal, see <a
-     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS
-     *        Identity and Access Management (IAM)</a> in the Example ARNs section of the <i>AWS General Reference</i>.
+     *        (ARN)</a> of an Amazon Web Services principal. Valid principals include Amazon Web Services accounts, IAM
+     *        users, IAM roles, federated users, and assumed role users. For help with the ARN syntax for a principal,
+     *        see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">IAM
+     *        ARNs</a> in the <i> <i>Identity and Access Management User Guide</i> </i>.
+     *        </p>
+     *        <p>
+     *        The grant determines the retiring principal. Other principals might have permission to retire the grant or
+     *        revoke the grant. For details, see <a>RevokeGrant</a> and <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#grant-delete">Retiring and
+     *        revoking grants</a> in the <i>Key Management Service Developer Guide</i>.
      */
 
     public void setRetiringPrincipal(String retiringPrincipal) {
@@ -413,25 +480,38 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The principal that is given permission to retire the grant by using <a>RetireGrant</a> operation.
+     * The principal that has permission to use the <a>RetireGrant</a> operation to retire the grant.
      * </p>
      * <p>
      * To specify the principal, use the <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a>
-     * of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, federated users, and assumed
-     * role users. For examples of the ARN syntax to use for specifying a principal, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS Identity and
-     * Access Management (IAM)</a> in the Example ARNs section of the <i>AWS General Reference</i>.
+     * of an Amazon Web Services principal. Valid principals include Amazon Web Services accounts, IAM users, IAM roles,
+     * federated users, and assumed role users. For help with the ARN syntax for a principal, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">IAM ARNs</a>
+     * in the <i> <i>Identity and Access Management User Guide</i> </i>.
+     * </p>
+     * <p>
+     * The grant determines the retiring principal. Other principals might have permission to retire the grant or revoke
+     * the grant. For details, see <a>RevokeGrant</a> and <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#grant-delete">Retiring and revoking
+     * grants</a> in the <i>Key Management Service Developer Guide</i>.
      * </p>
      * 
-     * @return The principal that is given permission to retire the grant by using <a>RetireGrant</a> operation.</p>
+     * @return The principal that has permission to use the <a>RetireGrant</a> operation to retire the grant. </p>
      *         <p>
      *         To specify the principal, use the <a
      *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
-     *         (ARN)</a> of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, federated
-     *         users, and assumed role users. For examples of the ARN syntax to use for specifying a principal, see <a
-     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS
-     *         Identity and Access Management (IAM)</a> in the Example ARNs section of the <i>AWS General Reference</i>.
+     *         (ARN)</a> of an Amazon Web Services principal. Valid principals include Amazon Web Services accounts, IAM
+     *         users, IAM roles, federated users, and assumed role users. For help with the ARN syntax for a principal,
+     *         see <a
+     *         href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">IAM
+     *         ARNs</a> in the <i> <i>Identity and Access Management User Guide</i> </i>.
+     *         </p>
+     *         <p>
+     *         The grant determines the retiring principal. Other principals might have permission to retire the grant
+     *         or revoke the grant. For details, see <a>RevokeGrant</a> and <a
+     *         href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#grant-delete">Retiring and
+     *         revoking grants</a> in the <i>Key Management Service Developer Guide</i>.
      */
 
     public String getRetiringPrincipal() {
@@ -440,26 +520,39 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The principal that is given permission to retire the grant by using <a>RetireGrant</a> operation.
+     * The principal that has permission to use the <a>RetireGrant</a> operation to retire the grant.
      * </p>
      * <p>
      * To specify the principal, use the <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a>
-     * of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, federated users, and assumed
-     * role users. For examples of the ARN syntax to use for specifying a principal, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS Identity and
-     * Access Management (IAM)</a> in the Example ARNs section of the <i>AWS General Reference</i>.
+     * of an Amazon Web Services principal. Valid principals include Amazon Web Services accounts, IAM users, IAM roles,
+     * federated users, and assumed role users. For help with the ARN syntax for a principal, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">IAM ARNs</a>
+     * in the <i> <i>Identity and Access Management User Guide</i> </i>.
+     * </p>
+     * <p>
+     * The grant determines the retiring principal. Other principals might have permission to retire the grant or revoke
+     * the grant. For details, see <a>RevokeGrant</a> and <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#grant-delete">Retiring and revoking
+     * grants</a> in the <i>Key Management Service Developer Guide</i>.
      * </p>
      * 
      * @param retiringPrincipal
-     *        The principal that is given permission to retire the grant by using <a>RetireGrant</a> operation.</p>
+     *        The principal that has permission to use the <a>RetireGrant</a> operation to retire the grant. </p>
      *        <p>
      *        To specify the principal, use the <a
      *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
-     *        (ARN)</a> of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, federated
-     *        users, and assumed role users. For examples of the ARN syntax to use for specifying a principal, see <a
-     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS
-     *        Identity and Access Management (IAM)</a> in the Example ARNs section of the <i>AWS General Reference</i>.
+     *        (ARN)</a> of an Amazon Web Services principal. Valid principals include Amazon Web Services accounts, IAM
+     *        users, IAM roles, federated users, and assumed role users. For help with the ARN syntax for a principal,
+     *        see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">IAM
+     *        ARNs</a> in the <i> <i>Identity and Access Management User Guide</i> </i>.
+     *        </p>
+     *        <p>
+     *        The grant determines the retiring principal. Other principals might have permission to retire the grant or
+     *        revoke the grant. For details, see <a>RevokeGrant</a> and <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#grant-delete">Retiring and
+     *        revoking grants</a> in the <i>Key Management Service Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -472,8 +565,24 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * A list of operations that the grant permits.
      * </p>
+     * <p>
+     * This list must include only operations that are permitted in a grant. Also, the operation must be supported on
+     * the KMS key. For example, you cannot create a grant for a symmetric encryption KMS key that allows the
+     * <a>Sign</a> operation, or a grant for an asymmetric KMS key that allows the <a>GenerateDataKey</a> operation. If
+     * you try, KMS returns a <code>ValidationError</code> exception. For details, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#terms-grant-operations">Grant
+     * operations</a> in the <i>Key Management Service Developer Guide</i>.
+     * </p>
      * 
-     * @return A list of operations that the grant permits.
+     * @return A list of operations that the grant permits. </p>
+     *         <p>
+     *         This list must include only operations that are permitted in a grant. Also, the operation must be
+     *         supported on the KMS key. For example, you cannot create a grant for a symmetric encryption KMS key that
+     *         allows the <a>Sign</a> operation, or a grant for an asymmetric KMS key that allows the
+     *         <a>GenerateDataKey</a> operation. If you try, KMS returns a <code>ValidationError</code> exception. For
+     *         details, see <a
+     *         href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#terms-grant-operations">Grant
+     *         operations</a> in the <i>Key Management Service Developer Guide</i>.
      * @see GrantOperation
      */
 
@@ -488,9 +597,25 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * A list of operations that the grant permits.
      * </p>
+     * <p>
+     * This list must include only operations that are permitted in a grant. Also, the operation must be supported on
+     * the KMS key. For example, you cannot create a grant for a symmetric encryption KMS key that allows the
+     * <a>Sign</a> operation, or a grant for an asymmetric KMS key that allows the <a>GenerateDataKey</a> operation. If
+     * you try, KMS returns a <code>ValidationError</code> exception. For details, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#terms-grant-operations">Grant
+     * operations</a> in the <i>Key Management Service Developer Guide</i>.
+     * </p>
      * 
      * @param operations
-     *        A list of operations that the grant permits.
+     *        A list of operations that the grant permits. </p>
+     *        <p>
+     *        This list must include only operations that are permitted in a grant. Also, the operation must be
+     *        supported on the KMS key. For example, you cannot create a grant for a symmetric encryption KMS key that
+     *        allows the <a>Sign</a> operation, or a grant for an asymmetric KMS key that allows the
+     *        <a>GenerateDataKey</a> operation. If you try, KMS returns a <code>ValidationError</code> exception. For
+     *        details, see <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#terms-grant-operations">Grant
+     *        operations</a> in the <i>Key Management Service Developer Guide</i>.
      * @see GrantOperation
      */
 
@@ -508,13 +633,29 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      * A list of operations that the grant permits.
      * </p>
      * <p>
+     * This list must include only operations that are permitted in a grant. Also, the operation must be supported on
+     * the KMS key. For example, you cannot create a grant for a symmetric encryption KMS key that allows the
+     * <a>Sign</a> operation, or a grant for an asymmetric KMS key that allows the <a>GenerateDataKey</a> operation. If
+     * you try, KMS returns a <code>ValidationError</code> exception. For details, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#terms-grant-operations">Grant
+     * operations</a> in the <i>Key Management Service Developer Guide</i>.
+     * </p>
+     * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setOperations(java.util.Collection)} or {@link #withOperations(java.util.Collection)} if you want to
      * override the existing values.
      * </p>
      * 
      * @param operations
-     *        A list of operations that the grant permits.
+     *        A list of operations that the grant permits. </p>
+     *        <p>
+     *        This list must include only operations that are permitted in a grant. Also, the operation must be
+     *        supported on the KMS key. For example, you cannot create a grant for a symmetric encryption KMS key that
+     *        allows the <a>Sign</a> operation, or a grant for an asymmetric KMS key that allows the
+     *        <a>GenerateDataKey</a> operation. If you try, KMS returns a <code>ValidationError</code> exception. For
+     *        details, see <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#terms-grant-operations">Grant
+     *        operations</a> in the <i>Key Management Service Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see GrantOperation
      */
@@ -533,9 +674,25 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * A list of operations that the grant permits.
      * </p>
+     * <p>
+     * This list must include only operations that are permitted in a grant. Also, the operation must be supported on
+     * the KMS key. For example, you cannot create a grant for a symmetric encryption KMS key that allows the
+     * <a>Sign</a> operation, or a grant for an asymmetric KMS key that allows the <a>GenerateDataKey</a> operation. If
+     * you try, KMS returns a <code>ValidationError</code> exception. For details, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#terms-grant-operations">Grant
+     * operations</a> in the <i>Key Management Service Developer Guide</i>.
+     * </p>
      * 
      * @param operations
-     *        A list of operations that the grant permits.
+     *        A list of operations that the grant permits. </p>
+     *        <p>
+     *        This list must include only operations that are permitted in a grant. Also, the operation must be
+     *        supported on the KMS key. For example, you cannot create a grant for a symmetric encryption KMS key that
+     *        allows the <a>Sign</a> operation, or a grant for an asymmetric KMS key that allows the
+     *        <a>GenerateDataKey</a> operation. If you try, KMS returns a <code>ValidationError</code> exception. For
+     *        details, see <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#terms-grant-operations">Grant
+     *        operations</a> in the <i>Key Management Service Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see GrantOperation
      */
@@ -549,9 +706,25 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <p>
      * A list of operations that the grant permits.
      * </p>
+     * <p>
+     * This list must include only operations that are permitted in a grant. Also, the operation must be supported on
+     * the KMS key. For example, you cannot create a grant for a symmetric encryption KMS key that allows the
+     * <a>Sign</a> operation, or a grant for an asymmetric KMS key that allows the <a>GenerateDataKey</a> operation. If
+     * you try, KMS returns a <code>ValidationError</code> exception. For details, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#terms-grant-operations">Grant
+     * operations</a> in the <i>Key Management Service Developer Guide</i>.
+     * </p>
      * 
      * @param operations
-     *        A list of operations that the grant permits.
+     *        A list of operations that the grant permits. </p>
+     *        <p>
+     *        This list must include only operations that are permitted in a grant. Also, the operation must be
+     *        supported on the KMS key. For example, you cannot create a grant for a symmetric encryption KMS key that
+     *        allows the <a>Sign</a> operation, or a grant for an asymmetric KMS key that allows the
+     *        <a>GenerateDataKey</a> operation. If you try, KMS returns a <code>ValidationError</code> exception. For
+     *        details, see <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#terms-grant-operations">Grant
+     *        operations</a> in the <i>Key Management Service Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see GrantOperation
      */
@@ -571,17 +744,78 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Allows a cryptographic operation only when the encryption context matches or includes the encryption context
-     * specified in this structure. For more information about encryption context, see <a
-     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context">Encryption Context</a>
-     * in the <i> <i>AWS Key Management Service Developer Guide</i> </i>.
+     * Specifies a grant constraint.
+     * </p>
+     * <important>
+     * <p>
+     * Do not include confidential or sensitive information in this field. This field may be displayed in plaintext in
+     * CloudTrail logs and other output.
+     * </p>
+     * </important>
+     * <p>
+     * KMS supports the <code>EncryptionContextEquals</code> and <code>EncryptionContextSubset</code> grant constraints,
+     * which allow the permissions in the grant only when the encryption context in the request matches (
+     * <code>EncryptionContextEquals</code>) or includes (<code>EncryptionContextSubset</code>) the encryption context
+     * specified in the constraint.
+     * </p>
+     * <p>
+     * The encryption context grant constraints are supported only on <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#terms-grant-operations">grant
+     * operations</a> that include an <code>EncryptionContext</code> parameter, such as cryptographic operations on
+     * symmetric encryption KMS keys. Grants with grant constraints can include the <a>DescribeKey</a> and
+     * <a>RetireGrant</a> operations, but the constraint doesn't apply to these operations. If a grant with a grant
+     * constraint includes the <code>CreateGrant</code> operation, the constraint requires that any grants created with
+     * the <code>CreateGrant</code> permission have an equally strict or stricter encryption context constraint.
+     * </p>
+     * <p>
+     * You cannot use an encryption context grant constraint for cryptographic operations with asymmetric KMS keys or
+     * HMAC KMS keys. Operations with these keys don't support an encryption context.
+     * </p>
+     * <p>
+     * Each constraint value can include up to 8 encryption context pairs. The encryption context value in each
+     * constraint cannot exceed 384 characters. For information about grant constraints, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/create-grant-overview.html#grant-constraints">Using
+     * grant constraints</a> in the <i>Key Management Service Developer Guide</i>. For more information about encryption
+     * context, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context">Encryption context</a>
+     * in the <i> <i>Key Management Service Developer Guide</i> </i>.
      * </p>
      * 
      * @param constraints
-     *        Allows a cryptographic operation only when the encryption context matches or includes the encryption
-     *        context specified in this structure. For more information about encryption context, see <a
+     *        Specifies a grant constraint.</p> <important>
+     *        <p>
+     *        Do not include confidential or sensitive information in this field. This field may be displayed in
+     *        plaintext in CloudTrail logs and other output.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        KMS supports the <code>EncryptionContextEquals</code> and <code>EncryptionContextSubset</code> grant
+     *        constraints, which allow the permissions in the grant only when the encryption context in the request
+     *        matches (<code>EncryptionContextEquals</code>) or includes (<code>EncryptionContextSubset</code>) the
+     *        encryption context specified in the constraint.
+     *        </p>
+     *        <p>
+     *        The encryption context grant constraints are supported only on <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#terms-grant-operations">grant
+     *        operations</a> that include an <code>EncryptionContext</code> parameter, such as cryptographic operations
+     *        on symmetric encryption KMS keys. Grants with grant constraints can include the <a>DescribeKey</a> and
+     *        <a>RetireGrant</a> operations, but the constraint doesn't apply to these operations. If a grant with a
+     *        grant constraint includes the <code>CreateGrant</code> operation, the constraint requires that any grants
+     *        created with the <code>CreateGrant</code> permission have an equally strict or stricter encryption context
+     *        constraint.
+     *        </p>
+     *        <p>
+     *        You cannot use an encryption context grant constraint for cryptographic operations with asymmetric KMS
+     *        keys or HMAC KMS keys. Operations with these keys don't support an encryption context.
+     *        </p>
+     *        <p>
+     *        Each constraint value can include up to 8 encryption context pairs. The encryption context value in each
+     *        constraint cannot exceed 384 characters. For information about grant constraints, see <a href=
+     *        "https://docs.aws.amazon.com/kms/latest/developerguide/create-grant-overview.html#grant-constraints">Using
+     *        grant constraints</a> in the <i>Key Management Service Developer Guide</i>. For more information about
+     *        encryption context, see <a
      *        href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context">Encryption
-     *        Context</a> in the <i> <i>AWS Key Management Service Developer Guide</i> </i>.
+     *        context</a> in the <i> <i>Key Management Service Developer Guide</i> </i>.
      */
 
     public void setConstraints(GrantConstraints constraints) {
@@ -590,16 +824,77 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Allows a cryptographic operation only when the encryption context matches or includes the encryption context
-     * specified in this structure. For more information about encryption context, see <a
-     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context">Encryption Context</a>
-     * in the <i> <i>AWS Key Management Service Developer Guide</i> </i>.
+     * Specifies a grant constraint.
+     * </p>
+     * <important>
+     * <p>
+     * Do not include confidential or sensitive information in this field. This field may be displayed in plaintext in
+     * CloudTrail logs and other output.
+     * </p>
+     * </important>
+     * <p>
+     * KMS supports the <code>EncryptionContextEquals</code> and <code>EncryptionContextSubset</code> grant constraints,
+     * which allow the permissions in the grant only when the encryption context in the request matches (
+     * <code>EncryptionContextEquals</code>) or includes (<code>EncryptionContextSubset</code>) the encryption context
+     * specified in the constraint.
+     * </p>
+     * <p>
+     * The encryption context grant constraints are supported only on <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#terms-grant-operations">grant
+     * operations</a> that include an <code>EncryptionContext</code> parameter, such as cryptographic operations on
+     * symmetric encryption KMS keys. Grants with grant constraints can include the <a>DescribeKey</a> and
+     * <a>RetireGrant</a> operations, but the constraint doesn't apply to these operations. If a grant with a grant
+     * constraint includes the <code>CreateGrant</code> operation, the constraint requires that any grants created with
+     * the <code>CreateGrant</code> permission have an equally strict or stricter encryption context constraint.
+     * </p>
+     * <p>
+     * You cannot use an encryption context grant constraint for cryptographic operations with asymmetric KMS keys or
+     * HMAC KMS keys. Operations with these keys don't support an encryption context.
+     * </p>
+     * <p>
+     * Each constraint value can include up to 8 encryption context pairs. The encryption context value in each
+     * constraint cannot exceed 384 characters. For information about grant constraints, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/create-grant-overview.html#grant-constraints">Using
+     * grant constraints</a> in the <i>Key Management Service Developer Guide</i>. For more information about encryption
+     * context, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context">Encryption context</a>
+     * in the <i> <i>Key Management Service Developer Guide</i> </i>.
      * </p>
      * 
-     * @return Allows a cryptographic operation only when the encryption context matches or includes the encryption
-     *         context specified in this structure. For more information about encryption context, see <a
+     * @return Specifies a grant constraint.</p> <important>
+     *         <p>
+     *         Do not include confidential or sensitive information in this field. This field may be displayed in
+     *         plaintext in CloudTrail logs and other output.
+     *         </p>
+     *         </important>
+     *         <p>
+     *         KMS supports the <code>EncryptionContextEquals</code> and <code>EncryptionContextSubset</code> grant
+     *         constraints, which allow the permissions in the grant only when the encryption context in the request
+     *         matches (<code>EncryptionContextEquals</code>) or includes (<code>EncryptionContextSubset</code>) the
+     *         encryption context specified in the constraint.
+     *         </p>
+     *         <p>
+     *         The encryption context grant constraints are supported only on <a
+     *         href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#terms-grant-operations">grant
+     *         operations</a> that include an <code>EncryptionContext</code> parameter, such as cryptographic operations
+     *         on symmetric encryption KMS keys. Grants with grant constraints can include the <a>DescribeKey</a> and
+     *         <a>RetireGrant</a> operations, but the constraint doesn't apply to these operations. If a grant with a
+     *         grant constraint includes the <code>CreateGrant</code> operation, the constraint requires that any grants
+     *         created with the <code>CreateGrant</code> permission have an equally strict or stricter encryption
+     *         context constraint.
+     *         </p>
+     *         <p>
+     *         You cannot use an encryption context grant constraint for cryptographic operations with asymmetric KMS
+     *         keys or HMAC KMS keys. Operations with these keys don't support an encryption context.
+     *         </p>
+     *         <p>
+     *         Each constraint value can include up to 8 encryption context pairs. The encryption context value in each
+     *         constraint cannot exceed 384 characters. For information about grant constraints, see <a href=
+     *         "https://docs.aws.amazon.com/kms/latest/developerguide/create-grant-overview.html#grant-constraints"
+     *         >Using grant constraints</a> in the <i>Key Management Service Developer Guide</i>. For more information
+     *         about encryption context, see <a
      *         href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context">Encryption
-     *         Context</a> in the <i> <i>AWS Key Management Service Developer Guide</i> </i>.
+     *         context</a> in the <i> <i>Key Management Service Developer Guide</i> </i>.
      */
 
     public GrantConstraints getConstraints() {
@@ -608,17 +903,78 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Allows a cryptographic operation only when the encryption context matches or includes the encryption context
-     * specified in this structure. For more information about encryption context, see <a
-     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context">Encryption Context</a>
-     * in the <i> <i>AWS Key Management Service Developer Guide</i> </i>.
+     * Specifies a grant constraint.
+     * </p>
+     * <important>
+     * <p>
+     * Do not include confidential or sensitive information in this field. This field may be displayed in plaintext in
+     * CloudTrail logs and other output.
+     * </p>
+     * </important>
+     * <p>
+     * KMS supports the <code>EncryptionContextEquals</code> and <code>EncryptionContextSubset</code> grant constraints,
+     * which allow the permissions in the grant only when the encryption context in the request matches (
+     * <code>EncryptionContextEquals</code>) or includes (<code>EncryptionContextSubset</code>) the encryption context
+     * specified in the constraint.
+     * </p>
+     * <p>
+     * The encryption context grant constraints are supported only on <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#terms-grant-operations">grant
+     * operations</a> that include an <code>EncryptionContext</code> parameter, such as cryptographic operations on
+     * symmetric encryption KMS keys. Grants with grant constraints can include the <a>DescribeKey</a> and
+     * <a>RetireGrant</a> operations, but the constraint doesn't apply to these operations. If a grant with a grant
+     * constraint includes the <code>CreateGrant</code> operation, the constraint requires that any grants created with
+     * the <code>CreateGrant</code> permission have an equally strict or stricter encryption context constraint.
+     * </p>
+     * <p>
+     * You cannot use an encryption context grant constraint for cryptographic operations with asymmetric KMS keys or
+     * HMAC KMS keys. Operations with these keys don't support an encryption context.
+     * </p>
+     * <p>
+     * Each constraint value can include up to 8 encryption context pairs. The encryption context value in each
+     * constraint cannot exceed 384 characters. For information about grant constraints, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/create-grant-overview.html#grant-constraints">Using
+     * grant constraints</a> in the <i>Key Management Service Developer Guide</i>. For more information about encryption
+     * context, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context">Encryption context</a>
+     * in the <i> <i>Key Management Service Developer Guide</i> </i>.
      * </p>
      * 
      * @param constraints
-     *        Allows a cryptographic operation only when the encryption context matches or includes the encryption
-     *        context specified in this structure. For more information about encryption context, see <a
+     *        Specifies a grant constraint.</p> <important>
+     *        <p>
+     *        Do not include confidential or sensitive information in this field. This field may be displayed in
+     *        plaintext in CloudTrail logs and other output.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        KMS supports the <code>EncryptionContextEquals</code> and <code>EncryptionContextSubset</code> grant
+     *        constraints, which allow the permissions in the grant only when the encryption context in the request
+     *        matches (<code>EncryptionContextEquals</code>) or includes (<code>EncryptionContextSubset</code>) the
+     *        encryption context specified in the constraint.
+     *        </p>
+     *        <p>
+     *        The encryption context grant constraints are supported only on <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#terms-grant-operations">grant
+     *        operations</a> that include an <code>EncryptionContext</code> parameter, such as cryptographic operations
+     *        on symmetric encryption KMS keys. Grants with grant constraints can include the <a>DescribeKey</a> and
+     *        <a>RetireGrant</a> operations, but the constraint doesn't apply to these operations. If a grant with a
+     *        grant constraint includes the <code>CreateGrant</code> operation, the constraint requires that any grants
+     *        created with the <code>CreateGrant</code> permission have an equally strict or stricter encryption context
+     *        constraint.
+     *        </p>
+     *        <p>
+     *        You cannot use an encryption context grant constraint for cryptographic operations with asymmetric KMS
+     *        keys or HMAC KMS keys. Operations with these keys don't support an encryption context.
+     *        </p>
+     *        <p>
+     *        Each constraint value can include up to 8 encryption context pairs. The encryption context value in each
+     *        constraint cannot exceed 384 characters. For information about grant constraints, see <a href=
+     *        "https://docs.aws.amazon.com/kms/latest/developerguide/create-grant-overview.html#grant-constraints">Using
+     *        grant constraints</a> in the <i>Key Management Service Developer Guide</i>. For more information about
+     *        encryption context, see <a
      *        href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context">Encryption
-     *        Context</a> in the <i> <i>AWS Key Management Service Developer Guide</i> </i>.
+     *        context</a> in the <i> <i>Key Management Service Developer Guide</i> </i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -632,16 +988,20 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      * A list of grant tokens.
      * </p>
      * <p>
-     * For more information, see <a
-     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant Tokens</a> in the
-     * <i>AWS Key Management Service Developer Guide</i>.
+     * Use a grant token when your permission to call this operation comes from a new grant that has not yet achieved
+     * <i>eventual consistency</i>. For more information, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#grant_token">Grant token</a> and <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#using-grant-token">Using a grant
+     * token</a> in the <i>Key Management Service Developer Guide</i>.
      * </p>
      * 
-     * @return A list of grant tokens.</p>
+     * @return A list of grant tokens. </p>
      *         <p>
-     *         For more information, see <a
-     *         href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant Tokens</a>
-     *         in the <i>AWS Key Management Service Developer Guide</i>.
+     *         Use a grant token when your permission to call this operation comes from a new grant that has not yet
+     *         achieved <i>eventual consistency</i>. For more information, see <a
+     *         href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#grant_token">Grant token</a> and
+     *         <a href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#using-grant-token">Using
+     *         a grant token</a> in the <i>Key Management Service Developer Guide</i>.
      */
 
     public java.util.List<String> getGrantTokens() {
@@ -656,17 +1016,21 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      * A list of grant tokens.
      * </p>
      * <p>
-     * For more information, see <a
-     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant Tokens</a> in the
-     * <i>AWS Key Management Service Developer Guide</i>.
+     * Use a grant token when your permission to call this operation comes from a new grant that has not yet achieved
+     * <i>eventual consistency</i>. For more information, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#grant_token">Grant token</a> and <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#using-grant-token">Using a grant
+     * token</a> in the <i>Key Management Service Developer Guide</i>.
      * </p>
      * 
      * @param grantTokens
-     *        A list of grant tokens.</p>
+     *        A list of grant tokens. </p>
      *        <p>
-     *        For more information, see <a
-     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant Tokens</a> in
-     *        the <i>AWS Key Management Service Developer Guide</i>.
+     *        Use a grant token when your permission to call this operation comes from a new grant that has not yet
+     *        achieved <i>eventual consistency</i>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#grant_token">Grant token</a> and
+     *        <a href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#using-grant-token">Using
+     *        a grant token</a> in the <i>Key Management Service Developer Guide</i>.
      */
 
     public void setGrantTokens(java.util.Collection<String> grantTokens) {
@@ -683,9 +1047,11 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      * A list of grant tokens.
      * </p>
      * <p>
-     * For more information, see <a
-     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant Tokens</a> in the
-     * <i>AWS Key Management Service Developer Guide</i>.
+     * Use a grant token when your permission to call this operation comes from a new grant that has not yet achieved
+     * <i>eventual consistency</i>. For more information, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#grant_token">Grant token</a> and <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#using-grant-token">Using a grant
+     * token</a> in the <i>Key Management Service Developer Guide</i>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -694,11 +1060,13 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * 
      * @param grantTokens
-     *        A list of grant tokens.</p>
+     *        A list of grant tokens. </p>
      *        <p>
-     *        For more information, see <a
-     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant Tokens</a> in
-     *        the <i>AWS Key Management Service Developer Guide</i>.
+     *        Use a grant token when your permission to call this operation comes from a new grant that has not yet
+     *        achieved <i>eventual consistency</i>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#grant_token">Grant token</a> and
+     *        <a href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#using-grant-token">Using
+     *        a grant token</a> in the <i>Key Management Service Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -717,17 +1085,21 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      * A list of grant tokens.
      * </p>
      * <p>
-     * For more information, see <a
-     * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant Tokens</a> in the
-     * <i>AWS Key Management Service Developer Guide</i>.
+     * Use a grant token when your permission to call this operation comes from a new grant that has not yet achieved
+     * <i>eventual consistency</i>. For more information, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#grant_token">Grant token</a> and <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#using-grant-token">Using a grant
+     * token</a> in the <i>Key Management Service Developer Guide</i>.
      * </p>
      * 
      * @param grantTokens
-     *        A list of grant tokens.</p>
+     *        A list of grant tokens. </p>
      *        <p>
-     *        For more information, see <a
-     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant Tokens</a> in
-     *        the <i>AWS Key Management Service Developer Guide</i>.
+     *        Use a grant token when your permission to call this operation comes from a new grant that has not yet
+     *        achieved <i>eventual consistency</i>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#grant_token">Grant token</a> and
+     *        <a href="https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#using-grant-token">Using
+     *        a grant token</a> in the <i>Key Management Service Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -738,9 +1110,15 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * A friendly name for identifying the grant. Use this value to prevent the unintended creation of duplicate grants
-     * when retrying this request.
+     * A friendly name for the grant. Use this value to prevent the unintended creation of duplicate grants when
+     * retrying this request.
      * </p>
+     * <important>
+     * <p>
+     * Do not include confidential or sensitive information in this field. This field may be displayed in plaintext in
+     * CloudTrail logs and other output.
+     * </p>
+     * </important>
      * <p>
      * When this value is absent, all <code>CreateGrant</code> requests result in a new grant with a unique
      * <code>GrantId</code> even if all the supplied parameters are identical. This can result in unintended duplicates
@@ -750,12 +1128,17 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      * When this value is present, you can retry a <code>CreateGrant</code> request with identical parameters; if the
      * grant already exists, the original <code>GrantId</code> is returned without creating a new grant. Note that the
      * returned grant token is unique with every <code>CreateGrant</code> request, even when a duplicate
-     * <code>GrantId</code> is returned. All grant tokens obtained in this way can be used interchangeably.
+     * <code>GrantId</code> is returned. All grant tokens for the same grant ID can be used interchangeably.
      * </p>
      * 
      * @param name
-     *        A friendly name for identifying the grant. Use this value to prevent the unintended creation of duplicate
-     *        grants when retrying this request.</p>
+     *        A friendly name for the grant. Use this value to prevent the unintended creation of duplicate grants when
+     *        retrying this request.</p> <important>
+     *        <p>
+     *        Do not include confidential or sensitive information in this field. This field may be displayed in
+     *        plaintext in CloudTrail logs and other output.
+     *        </p>
+     *        </important>
      *        <p>
      *        When this value is absent, all <code>CreateGrant</code> requests result in a new grant with a unique
      *        <code>GrantId</code> even if all the supplied parameters are identical. This can result in unintended
@@ -765,7 +1148,7 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        When this value is present, you can retry a <code>CreateGrant</code> request with identical parameters; if
      *        the grant already exists, the original <code>GrantId</code> is returned without creating a new grant. Note
      *        that the returned grant token is unique with every <code>CreateGrant</code> request, even when a duplicate
-     *        <code>GrantId</code> is returned. All grant tokens obtained in this way can be used interchangeably.
+     *        <code>GrantId</code> is returned. All grant tokens for the same grant ID can be used interchangeably.
      */
 
     public void setName(String name) {
@@ -774,9 +1157,15 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * A friendly name for identifying the grant. Use this value to prevent the unintended creation of duplicate grants
-     * when retrying this request.
+     * A friendly name for the grant. Use this value to prevent the unintended creation of duplicate grants when
+     * retrying this request.
      * </p>
+     * <important>
+     * <p>
+     * Do not include confidential or sensitive information in this field. This field may be displayed in plaintext in
+     * CloudTrail logs and other output.
+     * </p>
+     * </important>
      * <p>
      * When this value is absent, all <code>CreateGrant</code> requests result in a new grant with a unique
      * <code>GrantId</code> even if all the supplied parameters are identical. This can result in unintended duplicates
@@ -786,11 +1175,16 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      * When this value is present, you can retry a <code>CreateGrant</code> request with identical parameters; if the
      * grant already exists, the original <code>GrantId</code> is returned without creating a new grant. Note that the
      * returned grant token is unique with every <code>CreateGrant</code> request, even when a duplicate
-     * <code>GrantId</code> is returned. All grant tokens obtained in this way can be used interchangeably.
+     * <code>GrantId</code> is returned. All grant tokens for the same grant ID can be used interchangeably.
      * </p>
      * 
-     * @return A friendly name for identifying the grant. Use this value to prevent the unintended creation of duplicate
-     *         grants when retrying this request.</p>
+     * @return A friendly name for the grant. Use this value to prevent the unintended creation of duplicate grants when
+     *         retrying this request.</p> <important>
+     *         <p>
+     *         Do not include confidential or sensitive information in this field. This field may be displayed in
+     *         plaintext in CloudTrail logs and other output.
+     *         </p>
+     *         </important>
      *         <p>
      *         When this value is absent, all <code>CreateGrant</code> requests result in a new grant with a unique
      *         <code>GrantId</code> even if all the supplied parameters are identical. This can result in unintended
@@ -800,7 +1194,7 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      *         When this value is present, you can retry a <code>CreateGrant</code> request with identical parameters;
      *         if the grant already exists, the original <code>GrantId</code> is returned without creating a new grant.
      *         Note that the returned grant token is unique with every <code>CreateGrant</code> request, even when a
-     *         duplicate <code>GrantId</code> is returned. All grant tokens obtained in this way can be used
+     *         duplicate <code>GrantId</code> is returned. All grant tokens for the same grant ID can be used
      *         interchangeably.
      */
 
@@ -810,9 +1204,15 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * A friendly name for identifying the grant. Use this value to prevent the unintended creation of duplicate grants
-     * when retrying this request.
+     * A friendly name for the grant. Use this value to prevent the unintended creation of duplicate grants when
+     * retrying this request.
      * </p>
+     * <important>
+     * <p>
+     * Do not include confidential or sensitive information in this field. This field may be displayed in plaintext in
+     * CloudTrail logs and other output.
+     * </p>
+     * </important>
      * <p>
      * When this value is absent, all <code>CreateGrant</code> requests result in a new grant with a unique
      * <code>GrantId</code> even if all the supplied parameters are identical. This can result in unintended duplicates
@@ -822,12 +1222,17 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      * When this value is present, you can retry a <code>CreateGrant</code> request with identical parameters; if the
      * grant already exists, the original <code>GrantId</code> is returned without creating a new grant. Note that the
      * returned grant token is unique with every <code>CreateGrant</code> request, even when a duplicate
-     * <code>GrantId</code> is returned. All grant tokens obtained in this way can be used interchangeably.
+     * <code>GrantId</code> is returned. All grant tokens for the same grant ID can be used interchangeably.
      * </p>
      * 
      * @param name
-     *        A friendly name for identifying the grant. Use this value to prevent the unintended creation of duplicate
-     *        grants when retrying this request.</p>
+     *        A friendly name for the grant. Use this value to prevent the unintended creation of duplicate grants when
+     *        retrying this request.</p> <important>
+     *        <p>
+     *        Do not include confidential or sensitive information in this field. This field may be displayed in
+     *        plaintext in CloudTrail logs and other output.
+     *        </p>
+     *        </important>
      *        <p>
      *        When this value is absent, all <code>CreateGrant</code> requests result in a new grant with a unique
      *        <code>GrantId</code> even if all the supplied parameters are identical. This can result in unintended
@@ -837,13 +1242,101 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        When this value is present, you can retry a <code>CreateGrant</code> request with identical parameters; if
      *        the grant already exists, the original <code>GrantId</code> is returned without creating a new grant. Note
      *        that the returned grant token is unique with every <code>CreateGrant</code> request, even when a duplicate
-     *        <code>GrantId</code> is returned. All grant tokens obtained in this way can be used interchangeably.
+     *        <code>GrantId</code> is returned. All grant tokens for the same grant ID can be used interchangeably.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateGrantRequest withName(String name) {
         setName(name);
         return this;
+    }
+
+    /**
+     * <p>
+     * Checks if your request will succeed. <code>DryRun</code> is an optional parameter.
+     * </p>
+     * <p>
+     * To learn more about how to use this parameter, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/programming-dryrun.html">Testing your KMS API
+     * calls</a> in the <i>Key Management Service Developer Guide</i>.
+     * </p>
+     * 
+     * @param dryRun
+     *        Checks if your request will succeed. <code>DryRun</code> is an optional parameter. </p>
+     *        <p>
+     *        To learn more about how to use this parameter, see <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/programming-dryrun.html">Testing your KMS API
+     *        calls</a> in the <i>Key Management Service Developer Guide</i>.
+     */
+
+    public void setDryRun(Boolean dryRun) {
+        this.dryRun = dryRun;
+    }
+
+    /**
+     * <p>
+     * Checks if your request will succeed. <code>DryRun</code> is an optional parameter.
+     * </p>
+     * <p>
+     * To learn more about how to use this parameter, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/programming-dryrun.html">Testing your KMS API
+     * calls</a> in the <i>Key Management Service Developer Guide</i>.
+     * </p>
+     * 
+     * @return Checks if your request will succeed. <code>DryRun</code> is an optional parameter. </p>
+     *         <p>
+     *         To learn more about how to use this parameter, see <a
+     *         href="https://docs.aws.amazon.com/kms/latest/developerguide/programming-dryrun.html">Testing your KMS API
+     *         calls</a> in the <i>Key Management Service Developer Guide</i>.
+     */
+
+    public Boolean getDryRun() {
+        return this.dryRun;
+    }
+
+    /**
+     * <p>
+     * Checks if your request will succeed. <code>DryRun</code> is an optional parameter.
+     * </p>
+     * <p>
+     * To learn more about how to use this parameter, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/programming-dryrun.html">Testing your KMS API
+     * calls</a> in the <i>Key Management Service Developer Guide</i>.
+     * </p>
+     * 
+     * @param dryRun
+     *        Checks if your request will succeed. <code>DryRun</code> is an optional parameter. </p>
+     *        <p>
+     *        To learn more about how to use this parameter, see <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/programming-dryrun.html">Testing your KMS API
+     *        calls</a> in the <i>Key Management Service Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateGrantRequest withDryRun(Boolean dryRun) {
+        setDryRun(dryRun);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Checks if your request will succeed. <code>DryRun</code> is an optional parameter.
+     * </p>
+     * <p>
+     * To learn more about how to use this parameter, see <a
+     * href="https://docs.aws.amazon.com/kms/latest/developerguide/programming-dryrun.html">Testing your KMS API
+     * calls</a> in the <i>Key Management Service Developer Guide</i>.
+     * </p>
+     * 
+     * @return Checks if your request will succeed. <code>DryRun</code> is an optional parameter. </p>
+     *         <p>
+     *         To learn more about how to use this parameter, see <a
+     *         href="https://docs.aws.amazon.com/kms/latest/developerguide/programming-dryrun.html">Testing your KMS API
+     *         calls</a> in the <i>Key Management Service Developer Guide</i>.
+     */
+
+    public Boolean isDryRun() {
+        return this.dryRun;
     }
 
     /**
@@ -871,7 +1364,9 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (getGrantTokens() != null)
             sb.append("GrantTokens: ").append(getGrantTokens()).append(",");
         if (getName() != null)
-            sb.append("Name: ").append(getName());
+            sb.append("Name: ").append(getName()).append(",");
+        if (getDryRun() != null)
+            sb.append("DryRun: ").append(getDryRun());
         sb.append("}");
         return sb.toString();
     }
@@ -914,6 +1409,10 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
             return false;
+        if (other.getDryRun() == null ^ this.getDryRun() == null)
+            return false;
+        if (other.getDryRun() != null && other.getDryRun().equals(this.getDryRun()) == false)
+            return false;
         return true;
     }
 
@@ -929,6 +1428,7 @@ public class CreateGrantRequest extends com.amazonaws.AmazonWebServiceRequest im
         hashCode = prime * hashCode + ((getConstraints() == null) ? 0 : getConstraints().hashCode());
         hashCode = prime * hashCode + ((getGrantTokens() == null) ? 0 : getGrantTokens().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
+        hashCode = prime * hashCode + ((getDryRun() == null) ? 0 : getDryRun().hashCode());
         return hashCode;
     }
 

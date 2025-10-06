@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,8 +27,8 @@ public class BatchDeletePartitionRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The ID of the Data Catalog where the partition to be deleted resides. If none is supplied, the AWS account ID is
-     * used by default.
+     * The ID of the Data Catalog where the partition to be deleted resides. If none is provided, the Amazon Web
+     * Services account ID is used by default.
      * </p>
      */
     private String catalogId;
@@ -40,7 +40,7 @@ public class BatchDeletePartitionRequest extends com.amazonaws.AmazonWebServiceR
     private String databaseName;
     /**
      * <p>
-     * The name of the table where the partitions to be deleted is located.
+     * The name of the table that contains the partitions to be deleted.
      * </p>
      */
     private String tableName;
@@ -53,13 +53,13 @@ public class BatchDeletePartitionRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The ID of the Data Catalog where the partition to be deleted resides. If none is supplied, the AWS account ID is
-     * used by default.
+     * The ID of the Data Catalog where the partition to be deleted resides. If none is provided, the Amazon Web
+     * Services account ID is used by default.
      * </p>
      * 
      * @param catalogId
-     *        The ID of the Data Catalog where the partition to be deleted resides. If none is supplied, the AWS account
-     *        ID is used by default.
+     *        The ID of the Data Catalog where the partition to be deleted resides. If none is provided, the Amazon Web
+     *        Services account ID is used by default.
      */
 
     public void setCatalogId(String catalogId) {
@@ -68,12 +68,12 @@ public class BatchDeletePartitionRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The ID of the Data Catalog where the partition to be deleted resides. If none is supplied, the AWS account ID is
-     * used by default.
+     * The ID of the Data Catalog where the partition to be deleted resides. If none is provided, the Amazon Web
+     * Services account ID is used by default.
      * </p>
      * 
-     * @return The ID of the Data Catalog where the partition to be deleted resides. If none is supplied, the AWS
-     *         account ID is used by default.
+     * @return The ID of the Data Catalog where the partition to be deleted resides. If none is provided, the Amazon Web
+     *         Services account ID is used by default.
      */
 
     public String getCatalogId() {
@@ -82,13 +82,13 @@ public class BatchDeletePartitionRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The ID of the Data Catalog where the partition to be deleted resides. If none is supplied, the AWS account ID is
-     * used by default.
+     * The ID of the Data Catalog where the partition to be deleted resides. If none is provided, the Amazon Web
+     * Services account ID is used by default.
      * </p>
      * 
      * @param catalogId
-     *        The ID of the Data Catalog where the partition to be deleted resides. If none is supplied, the AWS account
-     *        ID is used by default.
+     *        The ID of the Data Catalog where the partition to be deleted resides. If none is provided, the Amazon Web
+     *        Services account ID is used by default.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -139,11 +139,11 @@ public class BatchDeletePartitionRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The name of the table where the partitions to be deleted is located.
+     * The name of the table that contains the partitions to be deleted.
      * </p>
      * 
      * @param tableName
-     *        The name of the table where the partitions to be deleted is located.
+     *        The name of the table that contains the partitions to be deleted.
      */
 
     public void setTableName(String tableName) {
@@ -152,10 +152,10 @@ public class BatchDeletePartitionRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The name of the table where the partitions to be deleted is located.
+     * The name of the table that contains the partitions to be deleted.
      * </p>
      * 
-     * @return The name of the table where the partitions to be deleted is located.
+     * @return The name of the table that contains the partitions to be deleted.
      */
 
     public String getTableName() {
@@ -164,11 +164,11 @@ public class BatchDeletePartitionRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The name of the table where the partitions to be deleted is located.
+     * The name of the table that contains the partitions to be deleted.
      * </p>
      * 
      * @param tableName
-     *        The name of the table where the partitions to be deleted is located.
+     *        The name of the table that contains the partitions to be deleted.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

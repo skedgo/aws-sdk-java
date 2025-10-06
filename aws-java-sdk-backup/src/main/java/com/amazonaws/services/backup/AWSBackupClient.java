@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,15 +44,16 @@ import com.amazonaws.services.backup.AWSBackupClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.backup.model.*;
+
 import com.amazonaws.services.backup.model.transform.*;
 
 /**
  * Client for accessing AWS Backup. All service calls made using this client are blocking, and will not return until the
  * service call completes.
  * <p>
- * <fullname>AWS Backup</fullname>
+ * <fullname>Backup</fullname>
  * <p>
- * AWS Backup is a unified backup service designed to protect AWS services and their associated data. AWS Backup
+ * Backup is a unified backup service designed to protect Amazon Web Services services and their associated data. Backup
  * simplifies the creation, migration, restoration, and deletion of backups, while also providing reporting and
  * auditing.
  * </p>
@@ -79,31 +80,37 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MissingParameterValueException").withModeledClass(
-                                    com.amazonaws.services.backup.model.MissingParameterValueException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MissingParameterValueException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.backup.model.transform.MissingParameterValueExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterValueException").withModeledClass(
-                                    com.amazonaws.services.backup.model.InvalidParameterValueException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.backup.model.transform.InvalidRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withModeledClass(
-                                    com.amazonaws.services.backup.model.InvalidRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.backup.model.transform.LimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withModeledClass(
-                                    com.amazonaws.services.backup.model.LimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DependencyFailureException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.backup.model.transform.DependencyFailureExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DependencyFailureException").withModeledClass(
-                                    com.amazonaws.services.backup.model.DependencyFailureException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.backup.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.backup.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("AlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.backup.model.transform.AlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.backup.model.AlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterValueException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.backup.model.transform.InvalidParameterValueExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableException").withModeledClass(
-                                    com.amazonaws.services.backup.model.ServiceUnavailableException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.backup.model.transform.ConflictExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidResourceStateException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.backup.model.transform.InvalidResourceStateExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.backup.model.transform.ServiceUnavailableExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.backup.model.AWSBackupException.class));
 
     public static AWSBackupClientBuilder builder() {
@@ -154,12 +161,79 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
 
     /**
      * <p>
-     * Backup plans are documents that contain information that AWS Backup uses to schedule tasks that create recovery
-     * points of resources.
+     * This action removes the specified legal hold on a recovery point. This action can only be performed by a user
+     * with sufficient permissions.
+     * </p>
+     * 
+     * @param cancelLegalHoldRequest
+     * @return Result of the CancelLegalHold operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws InvalidResourceStateException
+     *         Backup is already performing an action on this recovery point. It can't perform the action you requested
+     *         until the first action finishes. Try again later.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @sample AWSBackup.CancelLegalHold
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CancelLegalHold" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public CancelLegalHoldResult cancelLegalHold(CancelLegalHoldRequest request) {
+        request = beforeClientExecution(request);
+        return executeCancelLegalHold(request);
+    }
+
+    @SdkInternalApi
+    final CancelLegalHoldResult executeCancelLegalHold(CancelLegalHoldRequest cancelLegalHoldRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(cancelLegalHoldRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CancelLegalHoldRequest> request = null;
+        Response<CancelLegalHoldResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CancelLegalHoldRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(cancelLegalHoldRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelLegalHold");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CancelLegalHoldResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CancelLegalHoldResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a backup plan using a backup plan name and backup rules. A backup plan is a document that contains
+     * information that Backup uses to schedule tasks that create recovery points for resources.
      * </p>
      * <p>
-     * If you call <code>CreateBackupPlan</code> with a plan that already exists, the existing <code>backupPlanId</code>
-     * is returned.
+     * If you call <code>CreateBackupPlan</code> with a plan that already exists, you receive an
+     * <code>AlreadyExistsException</code> exception.
      * </p>
      * 
      * @param createBackupPlanRequest
@@ -199,6 +273,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new CreateBackupPlanRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createBackupPlanRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateBackupPlan");
@@ -222,50 +298,9 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
 
     /**
      * <p>
-     * Creates a JSON document that specifies a set of resources to assign to a backup plan. Resources can be included
-     * by specifying patterns for a <code>ListOfTags</code> and selected <code>Resources</code>.
-     * </p>
-     * <p>
-     * For example, consider the following patterns:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <code>Resources: "arn:aws:ec2:region:account-id:volume/volume-id"</code>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>ConditionKey:"department"</code>
-     * </p>
-     * <p>
-     * <code>ConditionValue:"finance"</code>
-     * </p>
-     * <p>
-     * <code>ConditionType:"StringEquals"</code>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>ConditionKey:"importance"</code>
-     * </p>
-     * <p>
-     * <code>ConditionValue:"critical"</code>
-     * </p>
-     * <p>
-     * <code>ConditionType:"StringEquals"</code>
-     * </p>
-     * </li>
-     * </ul>
-     * <p>
-     * Using these patterns would back up all Amazon Elastic Block Store (Amazon EBS) volumes that are tagged as
-     * <code>"department=finance"</code>, <code>"importance=critical"</code>, in addition to an EBS volume with the
-     * specified volume Id.
-     * </p>
-     * <p>
-     * Resources and conditions are additive in that all resources that match the pattern are selected. This shouldn't
-     * be confused with a logical AND, where all conditions must match. The matching patterns are logically 'put
-     * together using the OR operator. In other words, all patterns that match are selected for backup.
+     * Creates a JSON document that specifies a set of resources to assign to a backup plan. For examples, see <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/assigning-resources.html#assigning-resources-json"
+     * >Assigning resources programmatically</a>.
      * </p>
      * 
      * @param createBackupSelectionRequest
@@ -305,6 +340,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new CreateBackupSelectionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createBackupSelectionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateBackupSelection");
@@ -334,7 +371,7 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
      * </p>
      * <note>
      * <p>
-     * Sensitive data, such as passport numbers, should not be included the name of a backup vault.
+     * Do not include sensitive data, such as passport numbers, in the name of a backup vault.
      * </p>
      * </note>
      * 
@@ -375,6 +412,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new CreateBackupVaultRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createBackupVaultRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateBackupVault");
@@ -386,6 +425,459 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
 
             HttpResponseHandler<AmazonWebServiceResponse<CreateBackupVaultResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateBackupVaultResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a framework with one or more controls. A framework is a collection of controls that you can use to
+     * evaluate your backup practices. By using pre-built customizable controls to define your policies, you can
+     * evaluate whether your backup practices comply with your policies and which resources are not yet in compliance.
+     * </p>
+     * 
+     * @param createFrameworkRequest
+     * @return Result of the CreateFramework operation returned by the service.
+     * @throws AlreadyExistsException
+     *         The required resource already exists.
+     * @throws LimitExceededException
+     *         A limit in the request has been exceeded; for example, a maximum number of items allowed in a request.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.CreateFramework
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CreateFramework" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public CreateFrameworkResult createFramework(CreateFrameworkRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateFramework(request);
+    }
+
+    @SdkInternalApi
+    final CreateFrameworkResult executeCreateFramework(CreateFrameworkRequest createFrameworkRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createFrameworkRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateFrameworkRequest> request = null;
+        Response<CreateFrameworkResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateFrameworkRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createFrameworkRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateFramework");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateFrameworkResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateFrameworkResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * This action creates a legal hold on a recovery point (backup). A legal hold is a restraint on altering or
+     * deleting a backup until an authorized user cancels the legal hold. Any actions to delete or disassociate a
+     * recovery point will fail with an error if one or more active legal holds are on the recovery point.
+     * </p>
+     * 
+     * @param createLegalHoldRequest
+     * @return Result of the CreateLegalHold operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @throws LimitExceededException
+     *         A limit in the request has been exceeded; for example, a maximum number of items allowed in a request.
+     * @sample AWSBackup.CreateLegalHold
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CreateLegalHold" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public CreateLegalHoldResult createLegalHold(CreateLegalHoldRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateLegalHold(request);
+    }
+
+    @SdkInternalApi
+    final CreateLegalHoldResult executeCreateLegalHold(CreateLegalHoldRequest createLegalHoldRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createLegalHoldRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateLegalHoldRequest> request = null;
+        Response<CreateLegalHoldResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateLegalHoldRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createLegalHoldRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateLegalHold");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateLegalHoldResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateLegalHoldResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * This request creates a logical container to where backups may be copied.
+     * </p>
+     * <p>
+     * This request includes a name, the Region, the maximum number of retention days, the minimum number of retention
+     * days, and optionally can include tags and a creator request ID.
+     * </p>
+     * <note>
+     * <p>
+     * Do not include sensitive data, such as passport numbers, in the name of a backup vault.
+     * </p>
+     * </note>
+     * 
+     * @param createLogicallyAirGappedBackupVaultRequest
+     * @return Result of the CreateLogicallyAirGappedBackupVault operation returned by the service.
+     * @throws AlreadyExistsException
+     *         The required resource already exists.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws LimitExceededException
+     *         A limit in the request has been exceeded; for example, a maximum number of items allowed in a request.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @throws InvalidRequestException
+     *         Indicates that something is wrong with the input to the request. For example, a parameter is of the wrong
+     *         type.
+     * @sample AWSBackup.CreateLogicallyAirGappedBackupVault
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CreateLogicallyAirGappedBackupVault"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateLogicallyAirGappedBackupVaultResult createLogicallyAirGappedBackupVault(CreateLogicallyAirGappedBackupVaultRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateLogicallyAirGappedBackupVault(request);
+    }
+
+    @SdkInternalApi
+    final CreateLogicallyAirGappedBackupVaultResult executeCreateLogicallyAirGappedBackupVault(
+            CreateLogicallyAirGappedBackupVaultRequest createLogicallyAirGappedBackupVaultRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createLogicallyAirGappedBackupVaultRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateLogicallyAirGappedBackupVaultRequest> request = null;
+        Response<CreateLogicallyAirGappedBackupVaultResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateLogicallyAirGappedBackupVaultRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createLogicallyAirGappedBackupVaultRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateLogicallyAirGappedBackupVault");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateLogicallyAirGappedBackupVaultResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateLogicallyAirGappedBackupVaultResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a report plan. A report plan is a document that contains information about the contents of the report and
+     * where Backup will deliver it.
+     * </p>
+     * <p>
+     * If you call <code>CreateReportPlan</code> with a plan that already exists, you receive an
+     * <code>AlreadyExistsException</code> exception.
+     * </p>
+     * 
+     * @param createReportPlanRequest
+     * @return Result of the CreateReportPlan operation returned by the service.
+     * @throws AlreadyExistsException
+     *         The required resource already exists.
+     * @throws LimitExceededException
+     *         A limit in the request has been exceeded; for example, a maximum number of items allowed in a request.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @sample AWSBackup.CreateReportPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CreateReportPlan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public CreateReportPlanResult createReportPlan(CreateReportPlanRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateReportPlan(request);
+    }
+
+    @SdkInternalApi
+    final CreateReportPlanResult executeCreateReportPlan(CreateReportPlanRequest createReportPlanRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createReportPlanRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateReportPlanRequest> request = null;
+        Response<CreateReportPlanResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateReportPlanRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createReportPlanRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateReportPlan");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateReportPlanResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateReportPlanResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * This is the first of two steps to create a restore testing plan; once this request is successful, finish the
+     * procedure with request CreateRestoreTestingSelection.
+     * </p>
+     * <p>
+     * You must include the parameter RestoreTestingPlan. You may optionally include CreatorRequestId and Tags.
+     * </p>
+     * 
+     * @param createRestoreTestingPlanRequest
+     * @return Result of the CreateRestoreTestingPlan operation returned by the service.
+     * @throws AlreadyExistsException
+     *         The required resource already exists.
+     * @throws ConflictException
+     *         Backup can't perform the action that you requested until it finishes performing a previous action. Try
+     *         again later.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws LimitExceededException
+     *         A limit in the request has been exceeded; for example, a maximum number of items allowed in a request.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.CreateRestoreTestingPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CreateRestoreTestingPlan"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateRestoreTestingPlanResult createRestoreTestingPlan(CreateRestoreTestingPlanRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateRestoreTestingPlan(request);
+    }
+
+    @SdkInternalApi
+    final CreateRestoreTestingPlanResult executeCreateRestoreTestingPlan(CreateRestoreTestingPlanRequest createRestoreTestingPlanRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createRestoreTestingPlanRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateRestoreTestingPlanRequest> request = null;
+        Response<CreateRestoreTestingPlanResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateRestoreTestingPlanRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createRestoreTestingPlanRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateRestoreTestingPlan");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateRestoreTestingPlanResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateRestoreTestingPlanResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * This request can be sent after CreateRestoreTestingPlan request returns successfully. This is the second part of
+     * creating a resource testing plan, and it must be completed sequentially.
+     * </p>
+     * <p>
+     * This consists of <code>RestoreTestingSelectionName</code>, <code>ProtectedResourceType</code>, and one of the
+     * following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ProtectedResourceArns</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ProtectedResourceConditions</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Each protected resource type can have one single value.
+     * </p>
+     * <p>
+     * A restore testing selection can include a wildcard value ("*") for <code>ProtectedResourceArns</code> along with
+     * <code>ProtectedResourceConditions</code>. Alternatively, you can include up to 30 specific protected resource
+     * ARNs in <code>ProtectedResourceArns</code>.
+     * </p>
+     * <p>
+     * Cannot select by both protected resource types AND specific ARNs. Request will fail if both are included.
+     * </p>
+     * 
+     * @param createRestoreTestingSelectionRequest
+     * @return Result of the CreateRestoreTestingSelection operation returned by the service.
+     * @throws AlreadyExistsException
+     *         The required resource already exists.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws LimitExceededException
+     *         A limit in the request has been exceeded; for example, a maximum number of items allowed in a request.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.CreateRestoreTestingSelection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CreateRestoreTestingSelection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateRestoreTestingSelectionResult createRestoreTestingSelection(CreateRestoreTestingSelectionRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateRestoreTestingSelection(request);
+    }
+
+    @SdkInternalApi
+    final CreateRestoreTestingSelectionResult executeCreateRestoreTestingSelection(CreateRestoreTestingSelectionRequest createRestoreTestingSelectionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createRestoreTestingSelectionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateRestoreTestingSelectionRequest> request = null;
+        Response<CreateRestoreTestingSelectionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateRestoreTestingSelectionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createRestoreTestingSelectionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateRestoreTestingSelection");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateRestoreTestingSelectionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateRestoreTestingSelectionResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -441,6 +933,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new DeleteBackupPlanRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteBackupPlanRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteBackupPlan");
@@ -502,6 +996,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new DeleteBackupSelectionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteBackupSelectionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteBackupSelection");
@@ -567,6 +1063,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new DeleteBackupVaultRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteBackupVaultRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteBackupVault");
@@ -629,6 +1127,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                         .beforeMarshalling(deleteBackupVaultAccessPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteBackupVaultAccessPolicy");
@@ -641,6 +1141,81 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
             HttpResponseHandler<AmazonWebServiceResponse<DeleteBackupVaultAccessPolicyResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new DeleteBackupVaultAccessPolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes Backup Vault Lock from a backup vault specified by a backup vault name.
+     * </p>
+     * <p>
+     * If the Vault Lock configuration is immutable, then you cannot delete Vault Lock using API operations, and you
+     * will receive an <code>InvalidRequestException</code> if you attempt to do so. For more information, see <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/vault-lock.html">Vault Lock</a> in the <i>Backup
+     * Developer Guide</i>.
+     * </p>
+     * 
+     * @param deleteBackupVaultLockConfigurationRequest
+     * @return Result of the DeleteBackupVaultLockConfiguration operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws InvalidRequestException
+     *         Indicates that something is wrong with the input to the request. For example, a parameter is of the wrong
+     *         type.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.DeleteBackupVaultLockConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DeleteBackupVaultLockConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteBackupVaultLockConfigurationResult deleteBackupVaultLockConfiguration(DeleteBackupVaultLockConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteBackupVaultLockConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final DeleteBackupVaultLockConfigurationResult executeDeleteBackupVaultLockConfiguration(
+            DeleteBackupVaultLockConfigurationRequest deleteBackupVaultLockConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteBackupVaultLockConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteBackupVaultLockConfigurationRequest> request = null;
+        Response<DeleteBackupVaultLockConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteBackupVaultLockConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteBackupVaultLockConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteBackupVaultLockConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteBackupVaultLockConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteBackupVaultLockConfigurationResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -692,6 +1267,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                         .beforeMarshalling(deleteBackupVaultNotificationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteBackupVaultNotifications");
@@ -716,7 +1293,91 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
 
     /**
      * <p>
+     * Deletes the framework specified by a framework name.
+     * </p>
+     * 
+     * @param deleteFrameworkRequest
+     * @return Result of the DeleteFramework operation returned by the service.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @throws ConflictException
+     *         Backup can't perform the action that you requested until it finishes performing a previous action. Try
+     *         again later.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @sample AWSBackup.DeleteFramework
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DeleteFramework" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteFrameworkResult deleteFramework(DeleteFrameworkRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteFramework(request);
+    }
+
+    @SdkInternalApi
+    final DeleteFrameworkResult executeDeleteFramework(DeleteFrameworkRequest deleteFrameworkRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteFrameworkRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteFrameworkRequest> request = null;
+        Response<DeleteFrameworkResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteFrameworkRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteFrameworkRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteFramework");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteFrameworkResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteFrameworkResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Deletes the recovery point specified by a recovery point ID.
+     * </p>
+     * <p>
+     * If the recovery point ID belongs to a continuous backup, calling this endpoint deletes the existing continuous
+     * backup and stops future continuous backup.
+     * </p>
+     * <p>
+     * When an IAM role's permissions are insufficient to call this API, the service sends back an HTTP 200 response
+     * with an empty HTTP body, but the recovery point is not deleted. Instead, it enters an <code>EXPIRED</code> state.
+     * </p>
+     * <p>
+     * <code>EXPIRED</code> recovery points can be deleted with this API once the IAM role has the
+     * <code>iam:CreateServiceLinkedRole</code> action. To learn more about adding this role, see <a href=
+     * "https://docs.aws.amazon.com/aws-backup/latest/devguide/deleting-backups.html#deleting-backups-troubleshooting">
+     * Troubleshooting manual deletions</a>.
+     * </p>
+     * <p>
+     * If the user or role is deleted or the permission within the role is removed, the deletion will not be successful
+     * and will enter an <code>EXPIRED</code> state.
      * </p>
      * 
      * @param deleteRecoveryPointRequest
@@ -727,6 +1388,9 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
      *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
      * @throws MissingParameterValueException
      *         Indicates that a required parameter is missing.
+     * @throws InvalidResourceStateException
+     *         Backup is already performing an action on this recovery point. It can't perform the action you requested
+     *         until the first action finishes. Try again later.
      * @throws ServiceUnavailableException
      *         The request failed due to a temporary failure of the server.
      * @throws InvalidRequestException
@@ -757,6 +1421,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new DeleteRecoveryPointRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteRecoveryPointRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRecoveryPoint");
@@ -780,7 +1446,203 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
 
     /**
      * <p>
-     * Returns metadata associated with creating a backup of a resource.
+     * Deletes the report plan specified by a report plan name.
+     * </p>
+     * 
+     * @param deleteReportPlanRequest
+     * @return Result of the DeleteReportPlan operation returned by the service.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws ConflictException
+     *         Backup can't perform the action that you requested until it finishes performing a previous action. Try
+     *         again later.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @sample AWSBackup.DeleteReportPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DeleteReportPlan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteReportPlanResult deleteReportPlan(DeleteReportPlanRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteReportPlan(request);
+    }
+
+    @SdkInternalApi
+    final DeleteReportPlanResult executeDeleteReportPlan(DeleteReportPlanRequest deleteReportPlanRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteReportPlanRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteReportPlanRequest> request = null;
+        Response<DeleteReportPlanResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteReportPlanRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteReportPlanRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteReportPlan");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteReportPlanResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteReportPlanResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * This request deletes the specified restore testing plan.
+     * </p>
+     * <p>
+     * Deletion can only successfully occur if all associated restore testing selections are deleted first.
+     * </p>
+     * 
+     * @param deleteRestoreTestingPlanRequest
+     * @return Result of the DeleteRestoreTestingPlan operation returned by the service.
+     * @throws InvalidRequestException
+     *         Indicates that something is wrong with the input to the request. For example, a parameter is of the wrong
+     *         type.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.DeleteRestoreTestingPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DeleteRestoreTestingPlan"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteRestoreTestingPlanResult deleteRestoreTestingPlan(DeleteRestoreTestingPlanRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteRestoreTestingPlan(request);
+    }
+
+    @SdkInternalApi
+    final DeleteRestoreTestingPlanResult executeDeleteRestoreTestingPlan(DeleteRestoreTestingPlanRequest deleteRestoreTestingPlanRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteRestoreTestingPlanRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteRestoreTestingPlanRequest> request = null;
+        Response<DeleteRestoreTestingPlanResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteRestoreTestingPlanRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteRestoreTestingPlanRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRestoreTestingPlan");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteRestoreTestingPlanResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteRestoreTestingPlanResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Input the Restore Testing Plan name and Restore Testing Selection name.
+     * </p>
+     * <p>
+     * All testing selections associated with a restore testing plan must be deleted before the restore testing plan can
+     * be deleted.
+     * </p>
+     * 
+     * @param deleteRestoreTestingSelectionRequest
+     * @return Result of the DeleteRestoreTestingSelection operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.DeleteRestoreTestingSelection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DeleteRestoreTestingSelection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteRestoreTestingSelectionResult deleteRestoreTestingSelection(DeleteRestoreTestingSelectionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteRestoreTestingSelection(request);
+    }
+
+    @SdkInternalApi
+    final DeleteRestoreTestingSelectionResult executeDeleteRestoreTestingSelection(DeleteRestoreTestingSelectionRequest deleteRestoreTestingSelectionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteRestoreTestingSelectionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteRestoreTestingSelectionRequest> request = null;
+        Response<DeleteRestoreTestingSelectionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteRestoreTestingSelectionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteRestoreTestingSelectionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRestoreTestingSelection");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteRestoreTestingSelectionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteRestoreTestingSelectionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns backup job details for the specified <code>BackupJobId</code>.
      * </p>
      * 
      * @param describeBackupJobRequest
@@ -794,8 +1656,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
      * @throws ServiceUnavailableException
      *         The request failed due to a temporary failure of the server.
      * @throws DependencyFailureException
-     *         A dependent AWS service or resource returned an error to the AWS Backup service, and the action cannot be
-     *         completed.
+     *         A dependent Amazon Web Services service or resource returned an error to the Backup service, and the
+     *         action cannot be completed.
      * @sample AWSBackup.DescribeBackupJob
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeBackupJob" target="_top">AWS API
      *      Documentation</a>
@@ -821,6 +1683,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new DescribeBackupJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeBackupJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBackupJob");
@@ -882,6 +1746,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new DescribeBackupVaultRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeBackupVaultRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBackupVault");
@@ -905,8 +1771,197 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
 
     /**
      * <p>
-     * Returns information about a saved resource, including the last time it was backed-up, its Amazon Resource Name
-     * (ARN), and the AWS service type of the saved resource.
+     * Returns metadata associated with creating a copy of a resource.
+     * </p>
+     * 
+     * @param describeCopyJobRequest
+     * @return Result of the DescribeCopyJob operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.DescribeCopyJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeCopyJob" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DescribeCopyJobResult describeCopyJob(DescribeCopyJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeCopyJob(request);
+    }
+
+    @SdkInternalApi
+    final DescribeCopyJobResult executeDescribeCopyJob(DescribeCopyJobRequest describeCopyJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeCopyJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeCopyJobRequest> request = null;
+        Response<DescribeCopyJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeCopyJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeCopyJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCopyJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeCopyJobResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeCopyJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the framework details for the specified <code>FrameworkName</code>.
+     * </p>
+     * 
+     * @param describeFrameworkRequest
+     * @return Result of the DescribeFramework operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.DescribeFramework
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeFramework" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DescribeFrameworkResult describeFramework(DescribeFrameworkRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeFramework(request);
+    }
+
+    @SdkInternalApi
+    final DescribeFrameworkResult executeDescribeFramework(DescribeFrameworkRequest describeFrameworkRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeFrameworkRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeFrameworkRequest> request = null;
+        Response<DescribeFrameworkResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeFrameworkRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeFrameworkRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeFramework");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeFrameworkResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeFrameworkResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes whether the Amazon Web Services account is opted in to cross-account backup. Returns an error if the
+     * account is not a member of an Organizations organization. Example:
+     * <code>describe-global-settings --region us-west-2</code>
+     * </p>
+     * 
+     * @param describeGlobalSettingsRequest
+     * @return Result of the DescribeGlobalSettings operation returned by the service.
+     * @throws InvalidRequestException
+     *         Indicates that something is wrong with the input to the request. For example, a parameter is of the wrong
+     *         type.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.DescribeGlobalSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeGlobalSettings" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DescribeGlobalSettingsResult describeGlobalSettings(DescribeGlobalSettingsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeGlobalSettings(request);
+    }
+
+    @SdkInternalApi
+    final DescribeGlobalSettingsResult executeDescribeGlobalSettings(DescribeGlobalSettingsRequest describeGlobalSettingsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeGlobalSettingsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeGlobalSettingsRequest> request = null;
+        Response<DescribeGlobalSettingsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeGlobalSettingsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeGlobalSettingsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeGlobalSettings");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeGlobalSettingsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeGlobalSettingsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns information about a saved resource, including the last time it was backed up, its Amazon Resource Name
+     * (ARN), and the Amazon Web Services service type of the saved resource.
      * </p>
      * 
      * @param describeProtectedResourceRequest
@@ -945,6 +2000,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                         .beforeMarshalling(describeProtectedResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeProtectedResource");
@@ -1007,6 +2064,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new DescribeRecoveryPointRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeRecoveryPointRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeRecoveryPoint");
@@ -1019,6 +2078,190 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
             HttpResponseHandler<AmazonWebServiceResponse<DescribeRecoveryPointResult>> responseHandler = protocolFactory
                     .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                             new DescribeRecoveryPointResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the current service opt-in settings for the Region. If service opt-in is enabled for a service, Backup
+     * tries to protect that service's resources in this Region, when the resource is included in an on-demand backup or
+     * scheduled backup plan. Otherwise, Backup does not try to protect that service's resources in this Region.
+     * </p>
+     * 
+     * @param describeRegionSettingsRequest
+     * @return Result of the DescribeRegionSettings operation returned by the service.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.DescribeRegionSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeRegionSettings" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DescribeRegionSettingsResult describeRegionSettings(DescribeRegionSettingsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeRegionSettings(request);
+    }
+
+    @SdkInternalApi
+    final DescribeRegionSettingsResult executeDescribeRegionSettings(DescribeRegionSettingsRequest describeRegionSettingsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeRegionSettingsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeRegionSettingsRequest> request = null;
+        Response<DescribeRegionSettingsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeRegionSettingsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeRegionSettingsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeRegionSettings");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeRegionSettingsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeRegionSettingsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the details associated with creating a report as specified by its <code>ReportJobId</code>.
+     * </p>
+     * 
+     * @param describeReportJobRequest
+     * @return Result of the DescribeReportJob operation returned by the service.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @sample AWSBackup.DescribeReportJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeReportJob" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DescribeReportJobResult describeReportJob(DescribeReportJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeReportJob(request);
+    }
+
+    @SdkInternalApi
+    final DescribeReportJobResult executeDescribeReportJob(DescribeReportJobRequest describeReportJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeReportJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeReportJobRequest> request = null;
+        Response<DescribeReportJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeReportJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeReportJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeReportJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeReportJobResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeReportJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of all report plans for an Amazon Web Services account and Amazon Web Services Region.
+     * </p>
+     * 
+     * @param describeReportPlanRequest
+     * @return Result of the DescribeReportPlan operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.DescribeReportPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeReportPlan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DescribeReportPlanResult describeReportPlan(DescribeReportPlanRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeReportPlan(request);
+    }
+
+    @SdkInternalApi
+    final DescribeReportPlanResult executeDescribeReportPlan(DescribeReportPlanRequest describeReportPlanRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeReportPlanRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeReportPlanRequest> request = null;
+        Response<DescribeReportPlanResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeReportPlanRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeReportPlanRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeReportPlan");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeReportPlanResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeReportPlanResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1045,8 +2288,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
      * @throws ServiceUnavailableException
      *         The request failed due to a temporary failure of the server.
      * @throws DependencyFailureException
-     *         A dependent AWS service or resource returned an error to the AWS Backup service, and the action cannot be
-     *         completed.
+     *         A dependent Amazon Web Services service or resource returned an error to the Backup service, and the
+     *         action cannot be completed.
      * @sample AWSBackup.DescribeRestoreJob
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeRestoreJob" target="_top">AWS API
      *      Documentation</a>
@@ -1072,6 +2315,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new DescribeRestoreJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeRestoreJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeRestoreJob");
@@ -1083,6 +2328,152 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
 
             HttpResponseHandler<AmazonWebServiceResponse<DescribeRestoreJobResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeRestoreJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the specified continuous backup recovery point from Backup and releases control of that continuous backup
+     * to the source service, such as Amazon RDS. The source service will continue to create and retain continuous
+     * backups using the lifecycle that you specified in your original backup plan.
+     * </p>
+     * <p>
+     * Does not support snapshot backup recovery points.
+     * </p>
+     * 
+     * @param disassociateRecoveryPointRequest
+     * @return Result of the DisassociateRecoveryPoint operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws InvalidResourceStateException
+     *         Backup is already performing an action on this recovery point. It can't perform the action you requested
+     *         until the first action finishes. Try again later.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @throws InvalidRequestException
+     *         Indicates that something is wrong with the input to the request. For example, a parameter is of the wrong
+     *         type.
+     * @sample AWSBackup.DisassociateRecoveryPoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DisassociateRecoveryPoint"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DisassociateRecoveryPointResult disassociateRecoveryPoint(DisassociateRecoveryPointRequest request) {
+        request = beforeClientExecution(request);
+        return executeDisassociateRecoveryPoint(request);
+    }
+
+    @SdkInternalApi
+    final DisassociateRecoveryPointResult executeDisassociateRecoveryPoint(DisassociateRecoveryPointRequest disassociateRecoveryPointRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(disassociateRecoveryPointRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DisassociateRecoveryPointRequest> request = null;
+        Response<DisassociateRecoveryPointResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DisassociateRecoveryPointRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(disassociateRecoveryPointRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateRecoveryPoint");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DisassociateRecoveryPointResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DisassociateRecoveryPointResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * This action to a specific child (nested) recovery point removes the relationship between the specified recovery
+     * point and its parent (composite) recovery point.
+     * </p>
+     * 
+     * @param disassociateRecoveryPointFromParentRequest
+     * @return Result of the DisassociateRecoveryPointFromParent operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @throws InvalidRequestException
+     *         Indicates that something is wrong with the input to the request. For example, a parameter is of the wrong
+     *         type.
+     * @sample AWSBackup.DisassociateRecoveryPointFromParent
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DisassociateRecoveryPointFromParent"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DisassociateRecoveryPointFromParentResult disassociateRecoveryPointFromParent(DisassociateRecoveryPointFromParentRequest request) {
+        request = beforeClientExecution(request);
+        return executeDisassociateRecoveryPointFromParent(request);
+    }
+
+    @SdkInternalApi
+    final DisassociateRecoveryPointFromParentResult executeDisassociateRecoveryPointFromParent(
+            DisassociateRecoveryPointFromParentRequest disassociateRecoveryPointFromParentRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(disassociateRecoveryPointFromParentRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DisassociateRecoveryPointFromParentRequest> request = null;
+        Response<DisassociateRecoveryPointFromParentResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DisassociateRecoveryPointFromParentRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(disassociateRecoveryPointFromParentRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateRecoveryPointFromParent");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DisassociateRecoveryPointFromParentResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DisassociateRecoveryPointFromParentResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1134,6 +2525,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                         .beforeMarshalling(exportBackupPlanTemplateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ExportBackupPlanTemplate");
@@ -1158,7 +2551,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
 
     /**
      * <p>
-     * Returns the body of a backup plan in JSON format, in addition to plan metadata.
+     * Returns <code>BackupPlan</code> details for the specified <code>BackupPlanId</code>. The details are the body of
+     * a backup plan in JSON format, in addition to plan metadata.
      * </p>
      * 
      * @param getBackupPlanRequest
@@ -1196,6 +2590,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new GetBackupPlanRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getBackupPlanRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetBackupPlan");
@@ -1260,6 +2656,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new GetBackupPlanFromJSONRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getBackupPlanFromJSONRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetBackupPlanFromJSON");
@@ -1323,6 +2721,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                         .beforeMarshalling(getBackupPlanFromTemplateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetBackupPlanFromTemplate");
@@ -1386,6 +2786,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new GetBackupSelectionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getBackupSelectionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetBackupSelection");
@@ -1448,6 +2850,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                         .beforeMarshalling(getBackupVaultAccessPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetBackupVaultAccessPolicy");
@@ -1511,6 +2915,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                         .beforeMarshalling(getBackupVaultNotificationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetBackupVaultNotifications");
@@ -1535,13 +2941,71 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
 
     /**
      * <p>
-     * Returns two sets of metadata key-value pairs. The first set lists the metadata that the recovery point was
-     * created with. The second set lists the metadata key-value pairs that are required to restore the recovery point.
+     * This action returns details for a specified legal hold. The details are the body of a legal hold in JSON format,
+     * in addition to metadata.
      * </p>
+     * 
+     * @param getLegalHoldRequest
+     * @return Result of the GetLegalHold operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @sample AWSBackup.GetLegalHold
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/GetLegalHold" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetLegalHoldResult getLegalHold(GetLegalHoldRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetLegalHold(request);
+    }
+
+    @SdkInternalApi
+    final GetLegalHoldResult executeGetLegalHold(GetLegalHoldRequest getLegalHoldRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getLegalHoldRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetLegalHoldRequest> request = null;
+        Response<GetLegalHoldResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetLegalHoldRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getLegalHoldRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetLegalHold");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetLegalHoldResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetLegalHoldResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
      * <p>
-     * These sets can be the same, or the restore metadata set can contain different values if the target service to be
-     * restored has changed since the recovery point was created and now requires additional or different information in
-     * order to be restored.
+     * Returns a set of metadata key-value pairs that were used to create the backup.
      * </p>
      * 
      * @param getRecoveryPointRestoreMetadataRequest
@@ -1581,6 +3045,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                         .beforeMarshalling(getRecoveryPointRestoreMetadataRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRecoveryPointRestoreMetadata");
@@ -1605,7 +3071,261 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
 
     /**
      * <p>
-     * Returns the AWS resource types supported by AWS Backup.
+     * This request returns the metadata for the specified restore job.
+     * </p>
+     * 
+     * @param getRestoreJobMetadataRequest
+     * @return Result of the GetRestoreJobMetadata operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.GetRestoreJobMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/GetRestoreJobMetadata" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public GetRestoreJobMetadataResult getRestoreJobMetadata(GetRestoreJobMetadataRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetRestoreJobMetadata(request);
+    }
+
+    @SdkInternalApi
+    final GetRestoreJobMetadataResult executeGetRestoreJobMetadata(GetRestoreJobMetadataRequest getRestoreJobMetadataRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getRestoreJobMetadataRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetRestoreJobMetadataRequest> request = null;
+        Response<GetRestoreJobMetadataResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetRestoreJobMetadataRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRestoreJobMetadataRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRestoreJobMetadata");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetRestoreJobMetadataResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new GetRestoreJobMetadataResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * This request returns the minimal required set of metadata needed to start a restore job with secure default
+     * settings. <code>BackupVaultName</code> and <code>RecoveryPointArn</code> are required parameters.
+     * <code>BackupVaultAccountId</code> is an optional parameter.
+     * </p>
+     * 
+     * @param getRestoreTestingInferredMetadataRequest
+     * @return Result of the GetRestoreTestingInferredMetadata operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.GetRestoreTestingInferredMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/GetRestoreTestingInferredMetadata"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetRestoreTestingInferredMetadataResult getRestoreTestingInferredMetadata(GetRestoreTestingInferredMetadataRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetRestoreTestingInferredMetadata(request);
+    }
+
+    @SdkInternalApi
+    final GetRestoreTestingInferredMetadataResult executeGetRestoreTestingInferredMetadata(
+            GetRestoreTestingInferredMetadataRequest getRestoreTestingInferredMetadataRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getRestoreTestingInferredMetadataRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetRestoreTestingInferredMetadataRequest> request = null;
+        Response<GetRestoreTestingInferredMetadataResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetRestoreTestingInferredMetadataRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getRestoreTestingInferredMetadataRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRestoreTestingInferredMetadata");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetRestoreTestingInferredMetadataResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetRestoreTestingInferredMetadataResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns <code>RestoreTestingPlan</code> details for the specified <code>RestoreTestingPlanName</code>. The
+     * details are the body of a restore testing plan in JSON format, in addition to plan metadata.
+     * </p>
+     * 
+     * @param getRestoreTestingPlanRequest
+     * @return Result of the GetRestoreTestingPlan operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.GetRestoreTestingPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/GetRestoreTestingPlan" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public GetRestoreTestingPlanResult getRestoreTestingPlan(GetRestoreTestingPlanRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetRestoreTestingPlan(request);
+    }
+
+    @SdkInternalApi
+    final GetRestoreTestingPlanResult executeGetRestoreTestingPlan(GetRestoreTestingPlanRequest getRestoreTestingPlanRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getRestoreTestingPlanRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetRestoreTestingPlanRequest> request = null;
+        Response<GetRestoreTestingPlanResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetRestoreTestingPlanRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRestoreTestingPlanRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRestoreTestingPlan");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetRestoreTestingPlanResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new GetRestoreTestingPlanResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns RestoreTestingSelection, which displays resources and elements of the restore testing plan.
+     * </p>
+     * 
+     * @param getRestoreTestingSelectionRequest
+     * @return Result of the GetRestoreTestingSelection operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.GetRestoreTestingSelection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/GetRestoreTestingSelection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetRestoreTestingSelectionResult getRestoreTestingSelection(GetRestoreTestingSelectionRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetRestoreTestingSelection(request);
+    }
+
+    @SdkInternalApi
+    final GetRestoreTestingSelectionResult executeGetRestoreTestingSelection(GetRestoreTestingSelectionRequest getRestoreTestingSelectionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getRestoreTestingSelectionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetRestoreTestingSelectionRequest> request = null;
+        Response<GetRestoreTestingSelectionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetRestoreTestingSelectionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getRestoreTestingSelectionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRestoreTestingSelection");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetRestoreTestingSelectionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetRestoreTestingSelectionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the Amazon Web Services resource types supported by Backup.
      * </p>
      * 
      * @param getSupportedResourceTypesRequest
@@ -1638,6 +3358,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                         .beforeMarshalling(getSupportedResourceTypesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSupportedResourceTypes");
@@ -1662,7 +3384,75 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
 
     /**
      * <p>
-     * Returns metadata about your backup jobs.
+     * This is a request for a summary of backup jobs created or running within the most recent 30 days. You can include
+     * parameters AccountID, State, ResourceType, MessageCategory, AggregationPeriod, MaxResults, or NextToken to filter
+     * results.
+     * </p>
+     * <p>
+     * This request returns a summary that contains Region, Account, State, ResourceType, MessageCategory, StartTime,
+     * EndTime, and Count of included jobs.
+     * </p>
+     * 
+     * @param listBackupJobSummariesRequest
+     * @return Result of the ListBackupJobSummaries operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.ListBackupJobSummaries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListBackupJobSummaries" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListBackupJobSummariesResult listBackupJobSummaries(ListBackupJobSummariesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListBackupJobSummaries(request);
+    }
+
+    @SdkInternalApi
+    final ListBackupJobSummariesResult executeListBackupJobSummaries(ListBackupJobSummariesRequest listBackupJobSummariesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listBackupJobSummariesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListBackupJobSummariesRequest> request = null;
+        Response<ListBackupJobSummariesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListBackupJobSummariesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listBackupJobSummariesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListBackupJobSummaries");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListBackupJobSummariesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListBackupJobSummariesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of existing backup jobs for an authenticated account for the last 30 days. For a longer period of
+     * time, consider using these <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html">monitoring tools</a>.
      * </p>
      * 
      * @param listBackupJobsRequest
@@ -1696,6 +3486,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new ListBackupJobsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listBackupJobsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListBackupJobs");
@@ -1759,6 +3551,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                         .beforeMarshalling(listBackupPlanTemplatesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListBackupPlanTemplates");
@@ -1822,6 +3616,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new ListBackupPlanVersionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listBackupPlanVersionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListBackupPlanVersions");
@@ -1846,8 +3642,9 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
 
     /**
      * <p>
-     * Returns metadata of your saved backup plans, including Amazon Resource Names (ARNs), plan IDs, creation and
-     * deletion dates, version IDs, plan names, and creator request IDs.
+     * Returns a list of all active backup plans for an authenticated account. The list contains information such as
+     * Amazon Resource Names (ARNs), plan IDs, creation and deletion dates, version IDs, plan names, and creator request
+     * IDs.
      * </p>
      * 
      * @param listBackupPlansRequest
@@ -1885,6 +3682,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new ListBackupPlansRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listBackupPlansRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListBackupPlans");
@@ -1946,6 +3745,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new ListBackupSelectionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listBackupSelectionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListBackupSelections");
@@ -2007,6 +3808,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new ListBackupVaultsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listBackupVaultsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListBackupVaults");
@@ -2030,7 +3833,249 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
 
     /**
      * <p>
-     * Returns an array of resources successfully backed up by AWS Backup, including the time the resource was saved, an
+     * This request obtains a list of copy jobs created or running within the the most recent 30 days. You can include
+     * parameters AccountID, State, ResourceType, MessageCategory, AggregationPeriod, MaxResults, or NextToken to filter
+     * results.
+     * </p>
+     * <p>
+     * This request returns a summary that contains Region, Account, State, RestourceType, MessageCategory, StartTime,
+     * EndTime, and Count of included jobs.
+     * </p>
+     * 
+     * @param listCopyJobSummariesRequest
+     * @return Result of the ListCopyJobSummaries operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.ListCopyJobSummaries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListCopyJobSummaries" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListCopyJobSummariesResult listCopyJobSummaries(ListCopyJobSummariesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListCopyJobSummaries(request);
+    }
+
+    @SdkInternalApi
+    final ListCopyJobSummariesResult executeListCopyJobSummaries(ListCopyJobSummariesRequest listCopyJobSummariesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listCopyJobSummariesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListCopyJobSummariesRequest> request = null;
+        Response<ListCopyJobSummariesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListCopyJobSummariesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listCopyJobSummariesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCopyJobSummaries");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListCopyJobSummariesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListCopyJobSummariesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns metadata about your copy jobs.
+     * </p>
+     * 
+     * @param listCopyJobsRequest
+     * @return Result of the ListCopyJobs operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.ListCopyJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListCopyJobs" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListCopyJobsResult listCopyJobs(ListCopyJobsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListCopyJobs(request);
+    }
+
+    @SdkInternalApi
+    final ListCopyJobsResult executeListCopyJobs(ListCopyJobsRequest listCopyJobsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listCopyJobsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListCopyJobsRequest> request = null;
+        Response<ListCopyJobsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListCopyJobsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listCopyJobsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCopyJobs");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListCopyJobsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListCopyJobsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of all frameworks for an Amazon Web Services account and Amazon Web Services Region.
+     * </p>
+     * 
+     * @param listFrameworksRequest
+     * @return Result of the ListFrameworks operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.ListFrameworks
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListFrameworks" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListFrameworksResult listFrameworks(ListFrameworksRequest request) {
+        request = beforeClientExecution(request);
+        return executeListFrameworks(request);
+    }
+
+    @SdkInternalApi
+    final ListFrameworksResult executeListFrameworks(ListFrameworksRequest listFrameworksRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listFrameworksRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListFrameworksRequest> request = null;
+        Response<ListFrameworksResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListFrameworksRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listFrameworksRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListFrameworks");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListFrameworksResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListFrameworksResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * This action returns metadata about active and previous legal holds.
+     * </p>
+     * 
+     * @param listLegalHoldsRequest
+     * @return Result of the ListLegalHolds operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.ListLegalHolds
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListLegalHolds" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListLegalHoldsResult listLegalHolds(ListLegalHoldsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListLegalHolds(request);
+    }
+
+    @SdkInternalApi
+    final ListLegalHoldsResult executeListLegalHolds(ListLegalHoldsRequest listLegalHoldsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listLegalHoldsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListLegalHoldsRequest> request = null;
+        Response<ListLegalHoldsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListLegalHoldsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listLegalHoldsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListLegalHolds");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListLegalHoldsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListLegalHoldsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns an array of resources successfully backed up by Backup, including the time the resource was saved, an
      * Amazon Resource Name (ARN) of the resource, and a resource type.
      * </p>
      * 
@@ -2065,6 +4110,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new ListProtectedResourcesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listProtectedResourcesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListProtectedResources");
@@ -2077,6 +4124,70 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
             HttpResponseHandler<AmazonWebServiceResponse<ListProtectedResourcesResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new ListProtectedResourcesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * This request lists the protected resources corresponding to each backup vault.
+     * </p>
+     * 
+     * @param listProtectedResourcesByBackupVaultRequest
+     * @return Result of the ListProtectedResourcesByBackupVault operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.ListProtectedResourcesByBackupVault
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListProtectedResourcesByBackupVault"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListProtectedResourcesByBackupVaultResult listProtectedResourcesByBackupVault(ListProtectedResourcesByBackupVaultRequest request) {
+        request = beforeClientExecution(request);
+        return executeListProtectedResourcesByBackupVault(request);
+    }
+
+    @SdkInternalApi
+    final ListProtectedResourcesByBackupVaultResult executeListProtectedResourcesByBackupVault(
+            ListProtectedResourcesByBackupVaultRequest listProtectedResourcesByBackupVaultRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listProtectedResourcesByBackupVaultRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListProtectedResourcesByBackupVaultRequest> request = null;
+        Response<ListProtectedResourcesByBackupVaultResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListProtectedResourcesByBackupVaultRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listProtectedResourcesByBackupVaultRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListProtectedResourcesByBackupVault");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListProtectedResourcesByBackupVaultResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListProtectedResourcesByBackupVaultResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2129,6 +4240,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                         .beforeMarshalling(listRecoveryPointsByBackupVaultRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRecoveryPointsByBackupVault");
@@ -2153,9 +4266,77 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
 
     /**
      * <p>
-     * Returns detailed information about recovery points of the type specified by a resource Amazon Resource Name
-     * (ARN).
+     * This action returns recovery point ARNs (Amazon Resource Names) of the specified legal hold.
      * </p>
+     * 
+     * @param listRecoveryPointsByLegalHoldRequest
+     * @return Result of the ListRecoveryPointsByLegalHold operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.ListRecoveryPointsByLegalHold
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListRecoveryPointsByLegalHold"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListRecoveryPointsByLegalHoldResult listRecoveryPointsByLegalHold(ListRecoveryPointsByLegalHoldRequest request) {
+        request = beforeClientExecution(request);
+        return executeListRecoveryPointsByLegalHold(request);
+    }
+
+    @SdkInternalApi
+    final ListRecoveryPointsByLegalHoldResult executeListRecoveryPointsByLegalHold(ListRecoveryPointsByLegalHoldRequest listRecoveryPointsByLegalHoldRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listRecoveryPointsByLegalHoldRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListRecoveryPointsByLegalHoldRequest> request = null;
+        Response<ListRecoveryPointsByLegalHoldResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListRecoveryPointsByLegalHoldRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listRecoveryPointsByLegalHoldRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRecoveryPointsByLegalHold");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListRecoveryPointsByLegalHoldResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListRecoveryPointsByLegalHoldResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns detailed information about all the recovery points of the type specified by a resource Amazon Resource
+     * Name (ARN).
+     * </p>
+     * <note>
+     * <p>
+     * For Amazon EFS and Amazon EC2, this action only lists recovery points created by Backup.
+     * </p>
+     * </note>
      * 
      * @param listRecoveryPointsByResourceRequest
      * @return Result of the ListRecoveryPointsByResource operation returned by the service.
@@ -2193,6 +4374,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                         .beforeMarshalling(listRecoveryPointsByResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRecoveryPointsByResource");
@@ -2217,8 +4400,195 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
 
     /**
      * <p>
-     * Returns a list of jobs that AWS Backup initiated to restore a saved resource, including metadata about the
-     * recovery process.
+     * Returns details about your report jobs.
+     * </p>
+     * 
+     * @param listReportJobsRequest
+     * @return Result of the ListReportJobs operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @sample AWSBackup.ListReportJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListReportJobs" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListReportJobsResult listReportJobs(ListReportJobsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListReportJobs(request);
+    }
+
+    @SdkInternalApi
+    final ListReportJobsResult executeListReportJobs(ListReportJobsRequest listReportJobsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listReportJobsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListReportJobsRequest> request = null;
+        Response<ListReportJobsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListReportJobsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listReportJobsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListReportJobs");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListReportJobsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListReportJobsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of your report plans. For detailed information about a single report plan, use
+     * <code>DescribeReportPlan</code>.
+     * </p>
+     * 
+     * @param listReportPlansRequest
+     * @return Result of the ListReportPlans operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.ListReportPlans
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListReportPlans" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListReportPlansResult listReportPlans(ListReportPlansRequest request) {
+        request = beforeClientExecution(request);
+        return executeListReportPlans(request);
+    }
+
+    @SdkInternalApi
+    final ListReportPlansResult executeListReportPlans(ListReportPlansRequest listReportPlansRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listReportPlansRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListReportPlansRequest> request = null;
+        Response<ListReportPlansResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListReportPlansRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listReportPlansRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListReportPlans");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListReportPlansResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListReportPlansResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * This request obtains a summary of restore jobs created or running within the the most recent 30 days. You can
+     * include parameters AccountID, State, ResourceType, AggregationPeriod, MaxResults, or NextToken to filter results.
+     * </p>
+     * <p>
+     * This request returns a summary that contains Region, Account, State, RestourceType, MessageCategory, StartTime,
+     * EndTime, and Count of included jobs.
+     * </p>
+     * 
+     * @param listRestoreJobSummariesRequest
+     * @return Result of the ListRestoreJobSummaries operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.ListRestoreJobSummaries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListRestoreJobSummaries" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListRestoreJobSummariesResult listRestoreJobSummaries(ListRestoreJobSummariesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListRestoreJobSummaries(request);
+    }
+
+    @SdkInternalApi
+    final ListRestoreJobSummariesResult executeListRestoreJobSummaries(ListRestoreJobSummariesRequest listRestoreJobSummariesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listRestoreJobSummariesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListRestoreJobSummariesRequest> request = null;
+        Response<ListRestoreJobSummariesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListRestoreJobSummariesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listRestoreJobSummariesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRestoreJobSummaries");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListRestoreJobSummariesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListRestoreJobSummariesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of jobs that Backup initiated to restore a saved resource, including details about the recovery
+     * process.
      * </p>
      * 
      * @param listRestoreJobsRequest
@@ -2256,6 +4626,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new ListRestoreJobsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listRestoreJobsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRestoreJobs");
@@ -2279,7 +4651,209 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
 
     /**
      * <p>
+     * This returns restore jobs that contain the specified protected resource.
+     * </p>
+     * <p>
+     * You must include <code>ResourceArn</code>. You can optionally include <code>NextToken</code>,
+     * <code>ByStatus</code>, <code>MaxResults</code>, <code>ByRecoveryPointCreationDateAfter</code> , and
+     * <code>ByRecoveryPointCreationDateBefore</code>.
+     * </p>
+     * 
+     * @param listRestoreJobsByProtectedResourceRequest
+     * @return Result of the ListRestoreJobsByProtectedResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.ListRestoreJobsByProtectedResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListRestoreJobsByProtectedResource"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListRestoreJobsByProtectedResourceResult listRestoreJobsByProtectedResource(ListRestoreJobsByProtectedResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeListRestoreJobsByProtectedResource(request);
+    }
+
+    @SdkInternalApi
+    final ListRestoreJobsByProtectedResourceResult executeListRestoreJobsByProtectedResource(
+            ListRestoreJobsByProtectedResourceRequest listRestoreJobsByProtectedResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listRestoreJobsByProtectedResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListRestoreJobsByProtectedResourceRequest> request = null;
+        Response<ListRestoreJobsByProtectedResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListRestoreJobsByProtectedResourceRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listRestoreJobsByProtectedResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRestoreJobsByProtectedResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListRestoreJobsByProtectedResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListRestoreJobsByProtectedResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of restore testing plans.
+     * </p>
+     * 
+     * @param listRestoreTestingPlansRequest
+     * @return Result of the ListRestoreTestingPlans operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.ListRestoreTestingPlans
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListRestoreTestingPlans" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListRestoreTestingPlansResult listRestoreTestingPlans(ListRestoreTestingPlansRequest request) {
+        request = beforeClientExecution(request);
+        return executeListRestoreTestingPlans(request);
+    }
+
+    @SdkInternalApi
+    final ListRestoreTestingPlansResult executeListRestoreTestingPlans(ListRestoreTestingPlansRequest listRestoreTestingPlansRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listRestoreTestingPlansRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListRestoreTestingPlansRequest> request = null;
+        Response<ListRestoreTestingPlansResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListRestoreTestingPlansRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listRestoreTestingPlansRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRestoreTestingPlans");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListRestoreTestingPlansResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListRestoreTestingPlansResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of restore testing selections. Can be filtered by <code>MaxResults</code> and
+     * <code>RestoreTestingPlanName</code>.
+     * </p>
+     * 
+     * @param listRestoreTestingSelectionsRequest
+     * @return Result of the ListRestoreTestingSelections operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.ListRestoreTestingSelections
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListRestoreTestingSelections"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListRestoreTestingSelectionsResult listRestoreTestingSelections(ListRestoreTestingSelectionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListRestoreTestingSelections(request);
+    }
+
+    @SdkInternalApi
+    final ListRestoreTestingSelectionsResult executeListRestoreTestingSelections(ListRestoreTestingSelectionsRequest listRestoreTestingSelectionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listRestoreTestingSelectionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListRestoreTestingSelectionsRequest> request = null;
+        Response<ListRestoreTestingSelectionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListRestoreTestingSelectionsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listRestoreTestingSelectionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRestoreTestingSelections");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListRestoreTestingSelectionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListRestoreTestingSelectionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Returns a list of key-value pairs assigned to a target recovery point, backup plan, or backup vault.
+     * </p>
+     * <p>
+     * <code>ListTags</code> only works for resource types that support full Backup management of their backups. Those
+     * resource types are listed in the "Full Backup management" section of the <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource"> Feature
+     * availability by resource</a> table.
      * </p>
      * 
      * @param listTagsRequest
@@ -2317,6 +4891,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new ListTagsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTags");
@@ -2380,6 +4956,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                         .beforeMarshalling(putBackupVaultAccessPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutBackupVaultAccessPolicy");
@@ -2392,6 +4970,85 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
             HttpResponseHandler<AmazonWebServiceResponse<PutBackupVaultAccessPolicyResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new PutBackupVaultAccessPolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Applies Backup Vault Lock to a backup vault, preventing attempts to delete any recovery point stored in or
+     * created in a backup vault. Vault Lock also prevents attempts to update the lifecycle policy that controls the
+     * retention period of any recovery point currently stored in a backup vault. If specified, Vault Lock enforces a
+     * minimum and maximum retention period for future backup and copy jobs that target a backup vault.
+     * </p>
+     * <note>
+     * <p>
+     * Backup Vault Lock has been assessed by Cohasset Associates for use in environments that are subject to SEC 17a-4,
+     * CFTC, and FINRA regulations. For more information about how Backup Vault Lock relates to these regulations, see
+     * the <a href="samples/cohassetreport.zip">Cohasset Associates Compliance Assessment.</a>
+     * </p>
+     * </note>
+     * 
+     * @param putBackupVaultLockConfigurationRequest
+     * @return Result of the PutBackupVaultLockConfiguration operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws InvalidRequestException
+     *         Indicates that something is wrong with the input to the request. For example, a parameter is of the wrong
+     *         type.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.PutBackupVaultLockConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/PutBackupVaultLockConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public PutBackupVaultLockConfigurationResult putBackupVaultLockConfiguration(PutBackupVaultLockConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executePutBackupVaultLockConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final PutBackupVaultLockConfigurationResult executePutBackupVaultLockConfiguration(
+            PutBackupVaultLockConfigurationRequest putBackupVaultLockConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putBackupVaultLockConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutBackupVaultLockConfigurationRequest> request = null;
+        Response<PutBackupVaultLockConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutBackupVaultLockConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(putBackupVaultLockConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutBackupVaultLockConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutBackupVaultLockConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new PutBackupVaultLockConfigurationResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2443,6 +5100,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                         .beforeMarshalling(putBackupVaultNotificationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutBackupVaultNotifications");
@@ -2467,7 +5126,77 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
 
     /**
      * <p>
-     * Starts a job to create a one-time backup of the specified resource.
+     * This request allows you to send your independent self-run restore test validation results.
+     * <code>RestoreJobId</code> and <code>ValidationStatus</code> are required. Optionally, you can input a
+     * <code>ValidationStatusMessage</code>.
+     * </p>
+     * 
+     * @param putRestoreValidationResultRequest
+     * @return Result of the PutRestoreValidationResult operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws InvalidRequestException
+     *         Indicates that something is wrong with the input to the request. For example, a parameter is of the wrong
+     *         type.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.PutRestoreValidationResult
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/PutRestoreValidationResult"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public PutRestoreValidationResultResult putRestoreValidationResult(PutRestoreValidationResultRequest request) {
+        request = beforeClientExecution(request);
+        return executePutRestoreValidationResult(request);
+    }
+
+    @SdkInternalApi
+    final PutRestoreValidationResultResult executePutRestoreValidationResult(PutRestoreValidationResultRequest putRestoreValidationResultRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putRestoreValidationResultRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutRestoreValidationResultRequest> request = null;
+        Response<PutRestoreValidationResultResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutRestoreValidationResultRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(putRestoreValidationResultRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutRestoreValidationResult");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutRestoreValidationResultResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new PutRestoreValidationResultResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Starts an on-demand backup job for the specified resource.
      * </p>
      * 
      * @param startBackupJobRequest
@@ -2478,6 +5207,9 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
      *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
      * @throws MissingParameterValueException
      *         Indicates that a required parameter is missing.
+     * @throws InvalidRequestException
+     *         Indicates that something is wrong with the input to the request. For example, a parameter is of the wrong
+     *         type.
      * @throws ServiceUnavailableException
      *         The request failed due to a temporary failure of the server.
      * @throws LimitExceededException
@@ -2507,6 +5239,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new StartBackupJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startBackupJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartBackupJob");
@@ -2530,11 +5264,141 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
 
     /**
      * <p>
-     * Recovers the saved resource identified by an Amazon Resource Name (ARN).
+     * Starts a job to create a one-time copy of the specified resource.
      * </p>
      * <p>
-     * If the resource ARN is included in the request, then the last complete backup of that resource is recovered. If
-     * the ARN of a recovery point is supplied, then that recovery point is restored.
+     * Does not support continuous backups.
+     * </p>
+     * 
+     * @param startCopyJobRequest
+     * @return Result of the StartCopyJob operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @throws LimitExceededException
+     *         A limit in the request has been exceeded; for example, a maximum number of items allowed in a request.
+     * @throws InvalidRequestException
+     *         Indicates that something is wrong with the input to the request. For example, a parameter is of the wrong
+     *         type.
+     * @sample AWSBackup.StartCopyJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/StartCopyJob" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public StartCopyJobResult startCopyJob(StartCopyJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartCopyJob(request);
+    }
+
+    @SdkInternalApi
+    final StartCopyJobResult executeStartCopyJob(StartCopyJobRequest startCopyJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startCopyJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartCopyJobRequest> request = null;
+        Response<StartCopyJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartCopyJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startCopyJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartCopyJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartCopyJobResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new StartCopyJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Starts an on-demand report job for the specified report plan.
+     * </p>
+     * 
+     * @param startReportJobRequest
+     * @return Result of the StartReportJob operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @sample AWSBackup.StartReportJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/StartReportJob" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public StartReportJobResult startReportJob(StartReportJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartReportJob(request);
+    }
+
+    @SdkInternalApi
+    final StartReportJobResult executeStartReportJob(StartReportJobRequest startReportJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startReportJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartReportJobRequest> request = null;
+        Response<StartReportJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartReportJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startReportJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartReportJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartReportJobResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new StartReportJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Recovers the saved resource identified by an Amazon Resource Name (ARN).
      * </p>
      * 
      * @param startRestoreJobRequest
@@ -2547,6 +5411,9 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
      *         Indicates that a required parameter is missing.
      * @throws ServiceUnavailableException
      *         The request failed due to a temporary failure of the server.
+     * @throws InvalidRequestException
+     *         Indicates that something is wrong with the input to the request. For example, a parameter is of the wrong
+     *         type.
      * @sample AWSBackup.StartRestoreJob
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/StartRestoreJob" target="_top">AWS API
      *      Documentation</a>
@@ -2572,6 +5439,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new StartRestoreJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startRestoreJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartRestoreJob");
@@ -2596,6 +5465,11 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
     /**
      * <p>
      * Attempts to cancel a job to create a one-time backup of a resource.
+     * </p>
+     * <p>
+     * This action is not supported for the following services: Amazon FSx for Windows File Server, Amazon FSx for
+     * Lustre, Amazon FSx for NetApp ONTAP , Amazon FSx for OpenZFS, Amazon DocumentDB (with MongoDB compatibility),
+     * Amazon RDS, Amazon Aurora, and Amazon Neptune.
      * </p>
      * 
      * @param stopBackupJobRequest
@@ -2636,6 +5510,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new StopBackupJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(stopBackupJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StopBackupJob");
@@ -2700,6 +5576,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -2762,6 +5640,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -2785,8 +5665,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
 
     /**
      * <p>
-     * Replaces the body of a saved backup plan identified by its <code>backupPlanId</code> with the input document in
-     * JSON format. The new version is uniquely identified by a <code>VersionId</code>.
+     * Updates an existing backup plan identified by its <code>backupPlanId</code> with the input document in JSON
+     * format. The new version is uniquely identified by a <code>VersionId</code>.
      * </p>
      * 
      * @param updateBackupPlanRequest
@@ -2824,6 +5704,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                 request = new UpdateBackupPlanRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateBackupPlanRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateBackupPlan");
@@ -2847,16 +5729,162 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
 
     /**
      * <p>
+     * Updates an existing framework identified by its <code>FrameworkName</code> with the input document in JSON
+     * format.
+     * </p>
+     * 
+     * @param updateFrameworkRequest
+     * @return Result of the UpdateFramework operation returned by the service.
+     * @throws AlreadyExistsException
+     *         The required resource already exists.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @throws LimitExceededException
+     *         A limit in the request has been exceeded; for example, a maximum number of items allowed in a request.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ConflictException
+     *         Backup can't perform the action that you requested until it finishes performing a previous action. Try
+     *         again later.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.UpdateFramework
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/UpdateFramework" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UpdateFrameworkResult updateFramework(UpdateFrameworkRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateFramework(request);
+    }
+
+    @SdkInternalApi
+    final UpdateFrameworkResult executeUpdateFramework(UpdateFrameworkRequest updateFrameworkRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateFrameworkRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateFrameworkRequest> request = null;
+        Response<UpdateFrameworkResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateFrameworkRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateFrameworkRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateFramework");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateFrameworkResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateFrameworkResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates whether the Amazon Web Services account is opted in to cross-account backup. Returns an error if the
+     * account is not an Organizations management account. Use the <code>DescribeGlobalSettings</code> API to determine
+     * the current settings.
+     * </p>
+     * 
+     * @param updateGlobalSettingsRequest
+     * @return Result of the UpdateGlobalSettings operation returned by the service.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws InvalidRequestException
+     *         Indicates that something is wrong with the input to the request. For example, a parameter is of the wrong
+     *         type.
+     * @sample AWSBackup.UpdateGlobalSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/UpdateGlobalSettings" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public UpdateGlobalSettingsResult updateGlobalSettings(UpdateGlobalSettingsRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateGlobalSettings(request);
+    }
+
+    @SdkInternalApi
+    final UpdateGlobalSettingsResult executeUpdateGlobalSettings(UpdateGlobalSettingsRequest updateGlobalSettingsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateGlobalSettingsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateGlobalSettingsRequest> request = null;
+        Response<UpdateGlobalSettingsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateGlobalSettingsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateGlobalSettingsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateGlobalSettings");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateGlobalSettingsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateGlobalSettingsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Sets the transition lifecycle of a recovery point.
      * </p>
      * <p>
-     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS Backup
+     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. Backup
      * transitions and expires backups automatically according to the lifecycle that you define.
      * </p>
      * <p>
      * Backups transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore, the
-     * “expire after days” setting must be 90 days greater than the “transition to cold after days” setting. The
-     * “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * “retention” setting must be 90 days greater than the “transition to cold after days” setting. The “transition to
+     * cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * </p>
+     * <p>
+     * Resource types that are able to be transitioned to cold storage are listed in the "Lifecycle to cold storage"
+     * section of the <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource"> Feature
+     * availability by resource</a> table. Backup ignores this expression for other resource types.
+     * </p>
+     * <p>
+     * This operation does not support continuous backups.
      * </p>
      * 
      * @param updateRecoveryPointLifecycleRequest
@@ -2865,6 +5893,9 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
      *         A resource that is required for the action doesn't exist.
      * @throws InvalidParameterValueException
      *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws InvalidRequestException
+     *         Indicates that something is wrong with the input to the request. For example, a parameter is of the wrong
+     *         type.
      * @throws MissingParameterValueException
      *         Indicates that a required parameter is missing.
      * @throws ServiceUnavailableException
@@ -2895,6 +5926,8 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
                         .beforeMarshalling(updateRecoveryPointLifecycleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRecoveryPointLifecycle");
@@ -2907,6 +5940,309 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
             HttpResponseHandler<AmazonWebServiceResponse<UpdateRecoveryPointLifecycleResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new UpdateRecoveryPointLifecycleResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the current service opt-in settings for the Region.
+     * </p>
+     * <p>
+     * Use the <code>DescribeRegionSettings</code> API to determine the resource types that are supported.
+     * </p>
+     * 
+     * @param updateRegionSettingsRequest
+     * @return Result of the UpdateRegionSettings operation returned by the service.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @sample AWSBackup.UpdateRegionSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/UpdateRegionSettings" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public UpdateRegionSettingsResult updateRegionSettings(UpdateRegionSettingsRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateRegionSettings(request);
+    }
+
+    @SdkInternalApi
+    final UpdateRegionSettingsResult executeUpdateRegionSettings(UpdateRegionSettingsRequest updateRegionSettingsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateRegionSettingsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateRegionSettingsRequest> request = null;
+        Response<UpdateRegionSettingsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateRegionSettingsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateRegionSettingsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRegionSettings");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateRegionSettingsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateRegionSettingsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates an existing report plan identified by its <code>ReportPlanName</code> with the input document in JSON
+     * format.
+     * </p>
+     * 
+     * @param updateReportPlanRequest
+     * @return Result of the UpdateReportPlan operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ConflictException
+     *         Backup can't perform the action that you requested until it finishes performing a previous action. Try
+     *         again later.
+     * @sample AWSBackup.UpdateReportPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/UpdateReportPlan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UpdateReportPlanResult updateReportPlan(UpdateReportPlanRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateReportPlan(request);
+    }
+
+    @SdkInternalApi
+    final UpdateReportPlanResult executeUpdateReportPlan(UpdateReportPlanRequest updateReportPlanRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateReportPlanRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateReportPlanRequest> request = null;
+        Response<UpdateReportPlanResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateReportPlanRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateReportPlanRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateReportPlan");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateReportPlanResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateReportPlanResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * This request will send changes to your specified restore testing plan. <code>RestoreTestingPlanName</code> cannot
+     * be updated after it is created.
+     * </p>
+     * <p>
+     * <code>RecoveryPointSelection</code> can contain:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Algorithm</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ExcludeVaults</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>IncludeVaults</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RecoveryPointTypes</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SelectionWindowDays</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param updateRestoreTestingPlanRequest
+     * @return Result of the UpdateRestoreTestingPlan operation returned by the service.
+     * @throws ConflictException
+     *         Backup can't perform the action that you requested until it finishes performing a previous action. Try
+     *         again later.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.UpdateRestoreTestingPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/UpdateRestoreTestingPlan"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateRestoreTestingPlanResult updateRestoreTestingPlan(UpdateRestoreTestingPlanRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateRestoreTestingPlan(request);
+    }
+
+    @SdkInternalApi
+    final UpdateRestoreTestingPlanResult executeUpdateRestoreTestingPlan(UpdateRestoreTestingPlanRequest updateRestoreTestingPlanRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateRestoreTestingPlanRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateRestoreTestingPlanRequest> request = null;
+        Response<UpdateRestoreTestingPlanResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateRestoreTestingPlanRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateRestoreTestingPlanRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRestoreTestingPlan");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateRestoreTestingPlanResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateRestoreTestingPlanResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Most elements except the <code>RestoreTestingSelectionName</code> can be updated with this request.
+     * </p>
+     * <p>
+     * <code>RestoreTestingSelection</code> can use either protected resource ARNs or conditions, but not both. That is,
+     * if your selection has <code>ProtectedResourceArns</code>, requesting an update with the parameter
+     * <code>ProtectedResourceConditions</code> will be unsuccessful.
+     * </p>
+     * 
+     * @param updateRestoreTestingSelectionRequest
+     * @return Result of the UpdateRestoreTestingSelection operation returned by the service.
+     * @throws ConflictException
+     *         Backup can't perform the action that you requested until it finishes performing a previous action. Try
+     *         again later.
+     * @throws InvalidParameterValueException
+     *         Indicates that something is wrong with a parameter's value. For example, the value is out of range.
+     * @throws MissingParameterValueException
+     *         Indicates that a required parameter is missing.
+     * @throws ResourceNotFoundException
+     *         A resource that is required for the action doesn't exist.
+     * @throws ServiceUnavailableException
+     *         The request failed due to a temporary failure of the server.
+     * @sample AWSBackup.UpdateRestoreTestingSelection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/UpdateRestoreTestingSelection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateRestoreTestingSelectionResult updateRestoreTestingSelection(UpdateRestoreTestingSelectionRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateRestoreTestingSelection(request);
+    }
+
+    @SdkInternalApi
+    final UpdateRestoreTestingSelectionResult executeUpdateRestoreTestingSelection(UpdateRestoreTestingSelectionRequest updateRestoreTestingSelectionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateRestoreTestingSelectionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateRestoreTestingSelectionRequest> request = null;
+        Response<UpdateRestoreTestingSelectionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateRestoreTestingSelectionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateRestoreTestingSelectionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Backup");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRestoreTestingSelection");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateRestoreTestingSelectionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateRestoreTestingSelectionResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2991,6 +6327,11 @@ public class AWSBackupClient extends AmazonWebServiceClient implements AWSBackup
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

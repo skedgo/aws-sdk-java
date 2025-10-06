@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -125,6 +125,40 @@ public class PendingModifiedValuesStaxUnmarshaller implements Unmarshaller<Pendi
                     continue;
                 }
 
+                if (context.testExpression("IAMDatabaseAuthenticationEnabled", targetDepth)) {
+                    pendingModifiedValues.setIAMDatabaseAuthenticationEnabled(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("AutomationMode", targetDepth)) {
+                    pendingModifiedValues.setAutomationMode(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ResumeFullAutomationModeTime", targetDepth)) {
+                    pendingModifiedValues.setResumeFullAutomationModeTime(DateStaxUnmarshallerFactory.getInstance("iso8601").unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("StorageThroughput", targetDepth)) {
+                    pendingModifiedValues.setStorageThroughput(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("Engine", targetDepth)) {
+                    pendingModifiedValues.setEngine(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("DedicatedLogVolume", targetDepth)) {
+                    pendingModifiedValues.setDedicatedLogVolume(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("MultiTenant", targetDepth)) {
+                    pendingModifiedValues.setMultiTenant(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
             } else if (xmlEvent.isEndElement()) {
                 if (context.getCurrentDepth() < originalDepth) {
                     return pendingModifiedValues;

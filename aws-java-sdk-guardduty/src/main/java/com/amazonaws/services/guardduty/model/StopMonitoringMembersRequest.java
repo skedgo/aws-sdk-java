@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,26 +27,27 @@ public class StopMonitoringMembersRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The unique ID of the detector of the GuardDuty account that you want to stop from monitor members' findings.
+     * The unique ID of the detector associated with the GuardDuty administrator account that is monitoring member
+     * accounts.
      * </p>
      */
     private String detectorId;
     /**
      * <p>
-     * A list of account IDs of the GuardDuty member accounts whose findings you want the master account to stop
-     * monitoring.
+     * A list of account IDs for the member accounts to stop monitoring.
      * </p>
      */
     private java.util.List<String> accountIds;
 
     /**
      * <p>
-     * The unique ID of the detector of the GuardDuty account that you want to stop from monitor members' findings.
+     * The unique ID of the detector associated with the GuardDuty administrator account that is monitoring member
+     * accounts.
      * </p>
      * 
      * @param detectorId
-     *        The unique ID of the detector of the GuardDuty account that you want to stop from monitor members'
-     *        findings.
+     *        The unique ID of the detector associated with the GuardDuty administrator account that is monitoring
+     *        member accounts.
      */
 
     public void setDetectorId(String detectorId) {
@@ -55,11 +56,12 @@ public class StopMonitoringMembersRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The unique ID of the detector of the GuardDuty account that you want to stop from monitor members' findings.
+     * The unique ID of the detector associated with the GuardDuty administrator account that is monitoring member
+     * accounts.
      * </p>
      * 
-     * @return The unique ID of the detector of the GuardDuty account that you want to stop from monitor members'
-     *         findings.
+     * @return The unique ID of the detector associated with the GuardDuty administrator account that is monitoring
+     *         member accounts.
      */
 
     public String getDetectorId() {
@@ -68,12 +70,13 @@ public class StopMonitoringMembersRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The unique ID of the detector of the GuardDuty account that you want to stop from monitor members' findings.
+     * The unique ID of the detector associated with the GuardDuty administrator account that is monitoring member
+     * accounts.
      * </p>
      * 
      * @param detectorId
-     *        The unique ID of the detector of the GuardDuty account that you want to stop from monitor members'
-     *        findings.
+     *        The unique ID of the detector associated with the GuardDuty administrator account that is monitoring
+     *        member accounts.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -84,12 +87,10 @@ public class StopMonitoringMembersRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A list of account IDs of the GuardDuty member accounts whose findings you want the master account to stop
-     * monitoring.
+     * A list of account IDs for the member accounts to stop monitoring.
      * </p>
      * 
-     * @return A list of account IDs of the GuardDuty member accounts whose findings you want the master account to stop
-     *         monitoring.
+     * @return A list of account IDs for the member accounts to stop monitoring.
      */
 
     public java.util.List<String> getAccountIds() {
@@ -98,13 +99,11 @@ public class StopMonitoringMembersRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A list of account IDs of the GuardDuty member accounts whose findings you want the master account to stop
-     * monitoring.
+     * A list of account IDs for the member accounts to stop monitoring.
      * </p>
      * 
      * @param accountIds
-     *        A list of account IDs of the GuardDuty member accounts whose findings you want the master account to stop
-     *        monitoring.
+     *        A list of account IDs for the member accounts to stop monitoring.
      */
 
     public void setAccountIds(java.util.Collection<String> accountIds) {
@@ -118,8 +117,7 @@ public class StopMonitoringMembersRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A list of account IDs of the GuardDuty member accounts whose findings you want the master account to stop
-     * monitoring.
+     * A list of account IDs for the member accounts to stop monitoring.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -128,8 +126,7 @@ public class StopMonitoringMembersRequest extends com.amazonaws.AmazonWebService
      * </p>
      * 
      * @param accountIds
-     *        A list of account IDs of the GuardDuty member accounts whose findings you want the master account to stop
-     *        monitoring.
+     *        A list of account IDs for the member accounts to stop monitoring.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -145,13 +142,11 @@ public class StopMonitoringMembersRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A list of account IDs of the GuardDuty member accounts whose findings you want the master account to stop
-     * monitoring.
+     * A list of account IDs for the member accounts to stop monitoring.
      * </p>
      * 
      * @param accountIds
-     *        A list of account IDs of the GuardDuty member accounts whose findings you want the master account to stop
-     *        monitoring.
+     *        A list of account IDs for the member accounts to stop monitoring.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

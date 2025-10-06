@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,17 +34,37 @@ public class AuthorizeSnapshotAccessRequest extends com.amazonaws.AmazonWebServi
     private String snapshotIdentifier;
     /**
      * <p>
-     * The identifier of the cluster the snapshot was created from. This parameter is required if your IAM user has a
-     * policy containing a snapshot resource element that specifies anything other than * for the cluster name.
+     * The Amazon Resource Name (ARN) of the snapshot to authorize access to.
      * </p>
+     */
+    private String snapshotArn;
+    /**
+     * <p>
+     * The identifier of the cluster the snapshot was created from.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <i>If the snapshot to access doesn't exist and the associated IAM policy doesn't allow access to all (*)
+     * snapshots</i> - This parameter is required. Otherwise, permissions aren't available to check if the snapshot
+     * exists.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>If the snapshot to access exists</i> - This parameter isn't required. Redshift can retrieve the cluster
+     * identifier and use it to validate snapshot authorization.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String snapshotClusterIdentifier;
     /**
      * <p>
-     * The identifier of the AWS customer account authorized to restore the specified snapshot.
+     * The identifier of the Amazon Web Services account authorized to restore the specified snapshot.
      * </p>
      * <p>
-     * To share a snapshot with AWS support, specify amazon-redshift-support.
+     * To share a snapshot with Amazon Web Services Support, specify amazon-redshift-support.
      * </p>
      */
     private String accountWithRestoreAccess;
@@ -91,14 +111,80 @@ public class AuthorizeSnapshotAccessRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The identifier of the cluster the snapshot was created from. This parameter is required if your IAM user has a
-     * policy containing a snapshot resource element that specifies anything other than * for the cluster name.
+     * The Amazon Resource Name (ARN) of the snapshot to authorize access to.
      * </p>
      * 
+     * @param snapshotArn
+     *        The Amazon Resource Name (ARN) of the snapshot to authorize access to.
+     */
+
+    public void setSnapshotArn(String snapshotArn) {
+        this.snapshotArn = snapshotArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the snapshot to authorize access to.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the snapshot to authorize access to.
+     */
+
+    public String getSnapshotArn() {
+        return this.snapshotArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the snapshot to authorize access to.
+     * </p>
+     * 
+     * @param snapshotArn
+     *        The Amazon Resource Name (ARN) of the snapshot to authorize access to.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AuthorizeSnapshotAccessRequest withSnapshotArn(String snapshotArn) {
+        setSnapshotArn(snapshotArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The identifier of the cluster the snapshot was created from.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <i>If the snapshot to access doesn't exist and the associated IAM policy doesn't allow access to all (*)
+     * snapshots</i> - This parameter is required. Otherwise, permissions aren't available to check if the snapshot
+     * exists.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>If the snapshot to access exists</i> - This parameter isn't required. Redshift can retrieve the cluster
+     * identifier and use it to validate snapshot authorization.
+     * </p>
+     * </li>
+     * </ul>
+     * 
      * @param snapshotClusterIdentifier
-     *        The identifier of the cluster the snapshot was created from. This parameter is required if your IAM user
-     *        has a policy containing a snapshot resource element that specifies anything other than * for the cluster
-     *        name.
+     *        The identifier of the cluster the snapshot was created from.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <i>If the snapshot to access doesn't exist and the associated IAM policy doesn't allow access to all (*)
+     *        snapshots</i> - This parameter is required. Otherwise, permissions aren't available to check if the
+     *        snapshot exists.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>If the snapshot to access exists</i> - This parameter isn't required. Redshift can retrieve the cluster
+     *        identifier and use it to validate snapshot authorization.
+     *        </p>
+     *        </li>
      */
 
     public void setSnapshotClusterIdentifier(String snapshotClusterIdentifier) {
@@ -107,13 +193,39 @@ public class AuthorizeSnapshotAccessRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The identifier of the cluster the snapshot was created from. This parameter is required if your IAM user has a
-     * policy containing a snapshot resource element that specifies anything other than * for the cluster name.
+     * The identifier of the cluster the snapshot was created from.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <i>If the snapshot to access doesn't exist and the associated IAM policy doesn't allow access to all (*)
+     * snapshots</i> - This parameter is required. Otherwise, permissions aren't available to check if the snapshot
+     * exists.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>If the snapshot to access exists</i> - This parameter isn't required. Redshift can retrieve the cluster
+     * identifier and use it to validate snapshot authorization.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The identifier of the cluster the snapshot was created from. This parameter is required if your IAM user
-     *         has a policy containing a snapshot resource element that specifies anything other than * for the cluster
-     *         name.
+     * @return The identifier of the cluster the snapshot was created from.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <i>If the snapshot to access doesn't exist and the associated IAM policy doesn't allow access to all (*)
+     *         snapshots</i> - This parameter is required. Otherwise, permissions aren't available to check if the
+     *         snapshot exists.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <i>If the snapshot to access exists</i> - This parameter isn't required. Redshift can retrieve the
+     *         cluster identifier and use it to validate snapshot authorization.
+     *         </p>
+     *         </li>
      */
 
     public String getSnapshotClusterIdentifier() {
@@ -122,14 +234,40 @@ public class AuthorizeSnapshotAccessRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The identifier of the cluster the snapshot was created from. This parameter is required if your IAM user has a
-     * policy containing a snapshot resource element that specifies anything other than * for the cluster name.
+     * The identifier of the cluster the snapshot was created from.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <i>If the snapshot to access doesn't exist and the associated IAM policy doesn't allow access to all (*)
+     * snapshots</i> - This parameter is required. Otherwise, permissions aren't available to check if the snapshot
+     * exists.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <i>If the snapshot to access exists</i> - This parameter isn't required. Redshift can retrieve the cluster
+     * identifier and use it to validate snapshot authorization.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param snapshotClusterIdentifier
-     *        The identifier of the cluster the snapshot was created from. This parameter is required if your IAM user
-     *        has a policy containing a snapshot resource element that specifies anything other than * for the cluster
-     *        name.
+     *        The identifier of the cluster the snapshot was created from.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <i>If the snapshot to access doesn't exist and the associated IAM policy doesn't allow access to all (*)
+     *        snapshots</i> - This parameter is required. Otherwise, permissions aren't available to check if the
+     *        snapshot exists.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>If the snapshot to access exists</i> - This parameter isn't required. Redshift can retrieve the cluster
+     *        identifier and use it to validate snapshot authorization.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -140,16 +278,16 @@ public class AuthorizeSnapshotAccessRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The identifier of the AWS customer account authorized to restore the specified snapshot.
+     * The identifier of the Amazon Web Services account authorized to restore the specified snapshot.
      * </p>
      * <p>
-     * To share a snapshot with AWS support, specify amazon-redshift-support.
+     * To share a snapshot with Amazon Web Services Support, specify amazon-redshift-support.
      * </p>
      * 
      * @param accountWithRestoreAccess
-     *        The identifier of the AWS customer account authorized to restore the specified snapshot.</p>
+     *        The identifier of the Amazon Web Services account authorized to restore the specified snapshot.</p>
      *        <p>
-     *        To share a snapshot with AWS support, specify amazon-redshift-support.
+     *        To share a snapshot with Amazon Web Services Support, specify amazon-redshift-support.
      */
 
     public void setAccountWithRestoreAccess(String accountWithRestoreAccess) {
@@ -158,15 +296,15 @@ public class AuthorizeSnapshotAccessRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The identifier of the AWS customer account authorized to restore the specified snapshot.
+     * The identifier of the Amazon Web Services account authorized to restore the specified snapshot.
      * </p>
      * <p>
-     * To share a snapshot with AWS support, specify amazon-redshift-support.
+     * To share a snapshot with Amazon Web Services Support, specify amazon-redshift-support.
      * </p>
      * 
-     * @return The identifier of the AWS customer account authorized to restore the specified snapshot.</p>
+     * @return The identifier of the Amazon Web Services account authorized to restore the specified snapshot.</p>
      *         <p>
-     *         To share a snapshot with AWS support, specify amazon-redshift-support.
+     *         To share a snapshot with Amazon Web Services Support, specify amazon-redshift-support.
      */
 
     public String getAccountWithRestoreAccess() {
@@ -175,16 +313,16 @@ public class AuthorizeSnapshotAccessRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The identifier of the AWS customer account authorized to restore the specified snapshot.
+     * The identifier of the Amazon Web Services account authorized to restore the specified snapshot.
      * </p>
      * <p>
-     * To share a snapshot with AWS support, specify amazon-redshift-support.
+     * To share a snapshot with Amazon Web Services Support, specify amazon-redshift-support.
      * </p>
      * 
      * @param accountWithRestoreAccess
-     *        The identifier of the AWS customer account authorized to restore the specified snapshot.</p>
+     *        The identifier of the Amazon Web Services account authorized to restore the specified snapshot.</p>
      *        <p>
-     *        To share a snapshot with AWS support, specify amazon-redshift-support.
+     *        To share a snapshot with Amazon Web Services Support, specify amazon-redshift-support.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -207,6 +345,8 @@ public class AuthorizeSnapshotAccessRequest extends com.amazonaws.AmazonWebServi
         sb.append("{");
         if (getSnapshotIdentifier() != null)
             sb.append("SnapshotIdentifier: ").append(getSnapshotIdentifier()).append(",");
+        if (getSnapshotArn() != null)
+            sb.append("SnapshotArn: ").append(getSnapshotArn()).append(",");
         if (getSnapshotClusterIdentifier() != null)
             sb.append("SnapshotClusterIdentifier: ").append(getSnapshotClusterIdentifier()).append(",");
         if (getAccountWithRestoreAccess() != null)
@@ -229,6 +369,10 @@ public class AuthorizeSnapshotAccessRequest extends com.amazonaws.AmazonWebServi
             return false;
         if (other.getSnapshotIdentifier() != null && other.getSnapshotIdentifier().equals(this.getSnapshotIdentifier()) == false)
             return false;
+        if (other.getSnapshotArn() == null ^ this.getSnapshotArn() == null)
+            return false;
+        if (other.getSnapshotArn() != null && other.getSnapshotArn().equals(this.getSnapshotArn()) == false)
+            return false;
         if (other.getSnapshotClusterIdentifier() == null ^ this.getSnapshotClusterIdentifier() == null)
             return false;
         if (other.getSnapshotClusterIdentifier() != null && other.getSnapshotClusterIdentifier().equals(this.getSnapshotClusterIdentifier()) == false)
@@ -246,6 +390,7 @@ public class AuthorizeSnapshotAccessRequest extends com.amazonaws.AmazonWebServi
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getSnapshotIdentifier() == null) ? 0 : getSnapshotIdentifier().hashCode());
+        hashCode = prime * hashCode + ((getSnapshotArn() == null) ? 0 : getSnapshotArn().hashCode());
         hashCode = prime * hashCode + ((getSnapshotClusterIdentifier() == null) ? 0 : getSnapshotClusterIdentifier().hashCode());
         hashCode = prime * hashCode + ((getAccountWithRestoreAccess() == null) ? 0 : getAccountWithRestoreAccess().hashCode());
         return hashCode;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,12 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Describes the input media file in a transcription request.
+ * Describes the Amazon S3 location of the media file you want to use in your request.
+ * </p>
+ * <p>
+ * For information on supported media formats, refer to the <code>MediaFormat</code> parameter or the <a
+ * href="https://docs.aws.amazon.com/transcribe/latest/dg/how-input.html#how-input-audio">Media formats</a> section in
+ * the Amazon S3 Developer Guide.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/transcribe-2017-10-26/Media" target="_top">AWS API
@@ -30,71 +35,93 @@ public class Media implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The S3 location of the input media file. The URI must be in the same region as the API endpoint that you are
-     * calling. The general form is:
+     * The Amazon S3 location of the media file you want to transcribe. For example:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * <code> https://s3-&lt;aws-region&gt;.amazonaws.com/&lt;bucket-name&gt;/&lt;keyprefix&gt;/&lt;objectkey&gt; </code>
+     * <code>s3://DOC-EXAMPLE-BUCKET/my-media-file.flac</code>
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * For example:
+     * <code>s3://DOC-EXAMPLE-BUCKET/media-files/my-media-file.flac</code>
      * </p>
+     * </li>
+     * </ul>
      * <p>
-     * <code>https://s3-us-east-1.amazonaws.com/examplebucket/example.mp4</code>
-     * </p>
-     * <p>
-     * <code>https://s3-us-east-1.amazonaws.com/examplebucket/mediadocs/example.mp4</code>
-     * </p>
-     * <p>
-     * For more information about S3 object names, see <a
-     * href="http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#object-keys">Object Keys</a> in the
-     * <i>Amazon S3 Developer Guide</i>.
+     * Note that the Amazon S3 bucket that contains your input media must be located in the same Amazon Web Services
+     * Region where you're making your transcription request.
      * </p>
      */
     private String mediaFileUri;
+    /**
+     * <p>
+     * The Amazon S3 location of the media file you want to redact. For example:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>s3://DOC-EXAMPLE-BUCKET/my-media-file.flac</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>s3://DOC-EXAMPLE-BUCKET/media-files/my-media-file.flac</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Note that the Amazon S3 bucket that contains your input media must be located in the same Amazon Web Services
+     * Region where you're making your transcription request.
+     * </p>
+     * <important>
+     * <p>
+     * <code>RedactedMediaFileUri</code> produces a redacted audio file in addition to a redacted transcript. It is only
+     * supported for Call Analytics (<code>StartCallAnalyticsJob</code>) transcription requests.
+     * </p>
+     * </important>
+     */
+    private String redactedMediaFileUri;
 
     /**
      * <p>
-     * The S3 location of the input media file. The URI must be in the same region as the API endpoint that you are
-     * calling. The general form is:
+     * The Amazon S3 location of the media file you want to transcribe. For example:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * <code> https://s3-&lt;aws-region&gt;.amazonaws.com/&lt;bucket-name&gt;/&lt;keyprefix&gt;/&lt;objectkey&gt; </code>
+     * <code>s3://DOC-EXAMPLE-BUCKET/my-media-file.flac</code>
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * For example:
+     * <code>s3://DOC-EXAMPLE-BUCKET/media-files/my-media-file.flac</code>
      * </p>
+     * </li>
+     * </ul>
      * <p>
-     * <code>https://s3-us-east-1.amazonaws.com/examplebucket/example.mp4</code>
-     * </p>
-     * <p>
-     * <code>https://s3-us-east-1.amazonaws.com/examplebucket/mediadocs/example.mp4</code>
-     * </p>
-     * <p>
-     * For more information about S3 object names, see <a
-     * href="http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#object-keys">Object Keys</a> in the
-     * <i>Amazon S3 Developer Guide</i>.
+     * Note that the Amazon S3 bucket that contains your input media must be located in the same Amazon Web Services
+     * Region where you're making your transcription request.
      * </p>
      * 
      * @param mediaFileUri
-     *        The S3 location of the input media file. The URI must be in the same region as the API endpoint that you
-     *        are calling. The general form is:</p>
+     *        The Amazon S3 location of the media file you want to transcribe. For example:</p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        <code> https://s3-&lt;aws-region&gt;.amazonaws.com/&lt;bucket-name&gt;/&lt;keyprefix&gt;/&lt;objectkey&gt; </code>
+     *        <code>s3://DOC-EXAMPLE-BUCKET/my-media-file.flac</code>
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        For example:
+     *        <code>s3://DOC-EXAMPLE-BUCKET/media-files/my-media-file.flac</code>
      *        </p>
+     *        </li>
+     *        </ul>
      *        <p>
-     *        <code>https://s3-us-east-1.amazonaws.com/examplebucket/example.mp4</code>
-     *        </p>
-     *        <p>
-     *        <code>https://s3-us-east-1.amazonaws.com/examplebucket/mediadocs/example.mp4</code>
-     *        </p>
-     *        <p>
-     *        For more information about S3 object names, see <a
-     *        href="http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#object-keys">Object Keys</a> in
-     *        the <i>Amazon S3 Developer Guide</i>.
+     *        Note that the Amazon S3 bucket that contains your input media must be located in the same Amazon Web
+     *        Services Region where you're making your transcription request.
      */
 
     public void setMediaFileUri(String mediaFileUri) {
@@ -103,45 +130,41 @@ public class Media implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The S3 location of the input media file. The URI must be in the same region as the API endpoint that you are
-     * calling. The general form is:
+     * The Amazon S3 location of the media file you want to transcribe. For example:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * <code> https://s3-&lt;aws-region&gt;.amazonaws.com/&lt;bucket-name&gt;/&lt;keyprefix&gt;/&lt;objectkey&gt; </code>
+     * <code>s3://DOC-EXAMPLE-BUCKET/my-media-file.flac</code>
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * For example:
+     * <code>s3://DOC-EXAMPLE-BUCKET/media-files/my-media-file.flac</code>
      * </p>
+     * </li>
+     * </ul>
      * <p>
-     * <code>https://s3-us-east-1.amazonaws.com/examplebucket/example.mp4</code>
-     * </p>
-     * <p>
-     * <code>https://s3-us-east-1.amazonaws.com/examplebucket/mediadocs/example.mp4</code>
-     * </p>
-     * <p>
-     * For more information about S3 object names, see <a
-     * href="http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#object-keys">Object Keys</a> in the
-     * <i>Amazon S3 Developer Guide</i>.
+     * Note that the Amazon S3 bucket that contains your input media must be located in the same Amazon Web Services
+     * Region where you're making your transcription request.
      * </p>
      * 
-     * @return The S3 location of the input media file. The URI must be in the same region as the API endpoint that you
-     *         are calling. The general form is:</p>
+     * @return The Amazon S3 location of the media file you want to transcribe. For example:</p>
+     *         <ul>
+     *         <li>
      *         <p>
-     *         <code> https://s3-&lt;aws-region&gt;.amazonaws.com/&lt;bucket-name&gt;/&lt;keyprefix&gt;/&lt;objectkey&gt; </code>
+     *         <code>s3://DOC-EXAMPLE-BUCKET/my-media-file.flac</code>
      *         </p>
+     *         </li>
+     *         <li>
      *         <p>
-     *         For example:
+     *         <code>s3://DOC-EXAMPLE-BUCKET/media-files/my-media-file.flac</code>
      *         </p>
+     *         </li>
+     *         </ul>
      *         <p>
-     *         <code>https://s3-us-east-1.amazonaws.com/examplebucket/example.mp4</code>
-     *         </p>
-     *         <p>
-     *         <code>https://s3-us-east-1.amazonaws.com/examplebucket/mediadocs/example.mp4</code>
-     *         </p>
-     *         <p>
-     *         For more information about S3 object names, see <a
-     *         href="http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#object-keys">Object Keys</a> in
-     *         the <i>Amazon S3 Developer Guide</i>.
+     *         Note that the Amazon S3 bucket that contains your input media must be located in the same Amazon Web
+     *         Services Region where you're making your transcription request.
      */
 
     public String getMediaFileUri() {
@@ -150,51 +173,216 @@ public class Media implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The S3 location of the input media file. The URI must be in the same region as the API endpoint that you are
-     * calling. The general form is:
+     * The Amazon S3 location of the media file you want to transcribe. For example:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * <code> https://s3-&lt;aws-region&gt;.amazonaws.com/&lt;bucket-name&gt;/&lt;keyprefix&gt;/&lt;objectkey&gt; </code>
+     * <code>s3://DOC-EXAMPLE-BUCKET/my-media-file.flac</code>
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * For example:
+     * <code>s3://DOC-EXAMPLE-BUCKET/media-files/my-media-file.flac</code>
      * </p>
+     * </li>
+     * </ul>
      * <p>
-     * <code>https://s3-us-east-1.amazonaws.com/examplebucket/example.mp4</code>
-     * </p>
-     * <p>
-     * <code>https://s3-us-east-1.amazonaws.com/examplebucket/mediadocs/example.mp4</code>
-     * </p>
-     * <p>
-     * For more information about S3 object names, see <a
-     * href="http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#object-keys">Object Keys</a> in the
-     * <i>Amazon S3 Developer Guide</i>.
+     * Note that the Amazon S3 bucket that contains your input media must be located in the same Amazon Web Services
+     * Region where you're making your transcription request.
      * </p>
      * 
      * @param mediaFileUri
-     *        The S3 location of the input media file. The URI must be in the same region as the API endpoint that you
-     *        are calling. The general form is:</p>
+     *        The Amazon S3 location of the media file you want to transcribe. For example:</p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        <code> https://s3-&lt;aws-region&gt;.amazonaws.com/&lt;bucket-name&gt;/&lt;keyprefix&gt;/&lt;objectkey&gt; </code>
+     *        <code>s3://DOC-EXAMPLE-BUCKET/my-media-file.flac</code>
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        For example:
+     *        <code>s3://DOC-EXAMPLE-BUCKET/media-files/my-media-file.flac</code>
      *        </p>
+     *        </li>
+     *        </ul>
      *        <p>
-     *        <code>https://s3-us-east-1.amazonaws.com/examplebucket/example.mp4</code>
-     *        </p>
-     *        <p>
-     *        <code>https://s3-us-east-1.amazonaws.com/examplebucket/mediadocs/example.mp4</code>
-     *        </p>
-     *        <p>
-     *        For more information about S3 object names, see <a
-     *        href="http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#object-keys">Object Keys</a> in
-     *        the <i>Amazon S3 Developer Guide</i>.
+     *        Note that the Amazon S3 bucket that contains your input media must be located in the same Amazon Web
+     *        Services Region where you're making your transcription request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Media withMediaFileUri(String mediaFileUri) {
         setMediaFileUri(mediaFileUri);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon S3 location of the media file you want to redact. For example:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>s3://DOC-EXAMPLE-BUCKET/my-media-file.flac</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>s3://DOC-EXAMPLE-BUCKET/media-files/my-media-file.flac</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Note that the Amazon S3 bucket that contains your input media must be located in the same Amazon Web Services
+     * Region where you're making your transcription request.
+     * </p>
+     * <important>
+     * <p>
+     * <code>RedactedMediaFileUri</code> produces a redacted audio file in addition to a redacted transcript. It is only
+     * supported for Call Analytics (<code>StartCallAnalyticsJob</code>) transcription requests.
+     * </p>
+     * </important>
+     * 
+     * @param redactedMediaFileUri
+     *        The Amazon S3 location of the media file you want to redact. For example:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>s3://DOC-EXAMPLE-BUCKET/my-media-file.flac</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>s3://DOC-EXAMPLE-BUCKET/media-files/my-media-file.flac</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Note that the Amazon S3 bucket that contains your input media must be located in the same Amazon Web
+     *        Services Region where you're making your transcription request.
+     *        </p>
+     *        <important>
+     *        <p>
+     *        <code>RedactedMediaFileUri</code> produces a redacted audio file in addition to a redacted transcript. It
+     *        is only supported for Call Analytics (<code>StartCallAnalyticsJob</code>) transcription requests.
+     *        </p>
+     */
+
+    public void setRedactedMediaFileUri(String redactedMediaFileUri) {
+        this.redactedMediaFileUri = redactedMediaFileUri;
+    }
+
+    /**
+     * <p>
+     * The Amazon S3 location of the media file you want to redact. For example:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>s3://DOC-EXAMPLE-BUCKET/my-media-file.flac</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>s3://DOC-EXAMPLE-BUCKET/media-files/my-media-file.flac</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Note that the Amazon S3 bucket that contains your input media must be located in the same Amazon Web Services
+     * Region where you're making your transcription request.
+     * </p>
+     * <important>
+     * <p>
+     * <code>RedactedMediaFileUri</code> produces a redacted audio file in addition to a redacted transcript. It is only
+     * supported for Call Analytics (<code>StartCallAnalyticsJob</code>) transcription requests.
+     * </p>
+     * </important>
+     * 
+     * @return The Amazon S3 location of the media file you want to redact. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>s3://DOC-EXAMPLE-BUCKET/my-media-file.flac</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>s3://DOC-EXAMPLE-BUCKET/media-files/my-media-file.flac</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Note that the Amazon S3 bucket that contains your input media must be located in the same Amazon Web
+     *         Services Region where you're making your transcription request.
+     *         </p>
+     *         <important>
+     *         <p>
+     *         <code>RedactedMediaFileUri</code> produces a redacted audio file in addition to a redacted transcript. It
+     *         is only supported for Call Analytics (<code>StartCallAnalyticsJob</code>) transcription requests.
+     *         </p>
+     */
+
+    public String getRedactedMediaFileUri() {
+        return this.redactedMediaFileUri;
+    }
+
+    /**
+     * <p>
+     * The Amazon S3 location of the media file you want to redact. For example:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>s3://DOC-EXAMPLE-BUCKET/my-media-file.flac</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>s3://DOC-EXAMPLE-BUCKET/media-files/my-media-file.flac</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Note that the Amazon S3 bucket that contains your input media must be located in the same Amazon Web Services
+     * Region where you're making your transcription request.
+     * </p>
+     * <important>
+     * <p>
+     * <code>RedactedMediaFileUri</code> produces a redacted audio file in addition to a redacted transcript. It is only
+     * supported for Call Analytics (<code>StartCallAnalyticsJob</code>) transcription requests.
+     * </p>
+     * </important>
+     * 
+     * @param redactedMediaFileUri
+     *        The Amazon S3 location of the media file you want to redact. For example:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>s3://DOC-EXAMPLE-BUCKET/my-media-file.flac</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>s3://DOC-EXAMPLE-BUCKET/media-files/my-media-file.flac</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Note that the Amazon S3 bucket that contains your input media must be located in the same Amazon Web
+     *        Services Region where you're making your transcription request.
+     *        </p>
+     *        <important>
+     *        <p>
+     *        <code>RedactedMediaFileUri</code> produces a redacted audio file in addition to a redacted transcript. It
+     *        is only supported for Call Analytics (<code>StartCallAnalyticsJob</code>) transcription requests.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Media withRedactedMediaFileUri(String redactedMediaFileUri) {
+        setRedactedMediaFileUri(redactedMediaFileUri);
         return this;
     }
 
@@ -211,7 +399,9 @@ public class Media implements Serializable, Cloneable, StructuredPojo {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getMediaFileUri() != null)
-            sb.append("MediaFileUri: ").append(getMediaFileUri());
+            sb.append("MediaFileUri: ").append(getMediaFileUri()).append(",");
+        if (getRedactedMediaFileUri() != null)
+            sb.append("RedactedMediaFileUri: ").append(getRedactedMediaFileUri());
         sb.append("}");
         return sb.toString();
     }
@@ -230,6 +420,10 @@ public class Media implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getMediaFileUri() != null && other.getMediaFileUri().equals(this.getMediaFileUri()) == false)
             return false;
+        if (other.getRedactedMediaFileUri() == null ^ this.getRedactedMediaFileUri() == null)
+            return false;
+        if (other.getRedactedMediaFileUri() != null && other.getRedactedMediaFileUri().equals(this.getRedactedMediaFileUri()) == false)
+            return false;
         return true;
     }
 
@@ -239,6 +433,7 @@ public class Media implements Serializable, Cloneable, StructuredPojo {
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getMediaFileUri() == null) ? 0 : getMediaFileUri().hashCode());
+        hashCode = prime * hashCode + ((getRedactedMediaFileUri() == null) ? 0 : getRedactedMediaFileUri().hashCode());
         return hashCode;
     }
 

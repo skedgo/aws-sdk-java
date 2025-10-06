@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,11 +41,10 @@ public class StartTopicsDetectionJobRequest extends com.amazonaws.AmazonWebServi
     private OutputDataConfig outputDataConfig;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that grants Amazon Comprehend
-     * read access to your input data. For more information, see <a href=
-     * "https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions.html#auth-role-permissions"
-     * >https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions.html#auth-role-permissions<
-     * /a>.
+     * The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data. For
+     * more information, see <a href=
+     * "https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_id-based-policy-examples.html#auth-role-permissions"
+     * >Role-based permissions</a>.
      * </p>
      */
     private String dataAccessRoleArn;
@@ -69,9 +68,9 @@ public class StartTopicsDetectionJobRequest extends com.amazonaws.AmazonWebServi
     private String clientRequestToken;
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume
-     * attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the
-     * following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on
+     * the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can
+     * be either of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -96,6 +95,14 @@ public class StartTopicsDetectionJobRequest extends com.amazonaws.AmazonWebServi
      * </p>
      */
     private VpcConfig vpcConfig;
+    /**
+     * <p>
+     * Tags to associate with the topics detection job. A tag is a key-value pair that adds metadata to a resource used
+     * by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate its use
+     * by the sales department.
+     * </p>
+     */
+    private java.util.List<Tag> tags;
 
     /**
      * <p>
@@ -191,19 +198,17 @@ public class StartTopicsDetectionJobRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that grants Amazon Comprehend
-     * read access to your input data. For more information, see <a href=
-     * "https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions.html#auth-role-permissions"
-     * >https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions.html#auth-role-permissions<
-     * /a>.
+     * The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data. For
+     * more information, see <a href=
+     * "https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_id-based-policy-examples.html#auth-role-permissions"
+     * >Role-based permissions</a>.
      * </p>
      * 
      * @param dataAccessRoleArn
-     *        The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that grants Amazon
-     *        Comprehend read access to your input data. For more information, see <a href=
-     *        "https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions.html#auth-role-permissions"
-     *        >https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions.html#auth-role-
-     *        permissions</a>.
+     *        The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input
+     *        data. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_id-based-policy-examples.html#auth-role-permissions"
+     *        >Role-based permissions</a>.
      */
 
     public void setDataAccessRoleArn(String dataAccessRoleArn) {
@@ -212,18 +217,16 @@ public class StartTopicsDetectionJobRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that grants Amazon Comprehend
-     * read access to your input data. For more information, see <a href=
-     * "https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions.html#auth-role-permissions"
-     * >https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions.html#auth-role-permissions<
-     * /a>.
+     * The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data. For
+     * more information, see <a href=
+     * "https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_id-based-policy-examples.html#auth-role-permissions"
+     * >Role-based permissions</a>.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that grants Amazon
-     *         Comprehend read access to your input data. For more information, see <a href=
-     *         "https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions.html#auth-role-permissions"
-     *         >https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions.html#auth-role-
-     *         permissions</a>.
+     * @return The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input
+     *         data. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_id-based-policy-examples.html#auth-role-permissions"
+     *         >Role-based permissions</a>.
      */
 
     public String getDataAccessRoleArn() {
@@ -232,19 +235,17 @@ public class StartTopicsDetectionJobRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that grants Amazon Comprehend
-     * read access to your input data. For more information, see <a href=
-     * "https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions.html#auth-role-permissions"
-     * >https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions.html#auth-role-permissions<
-     * /a>.
+     * The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data. For
+     * more information, see <a href=
+     * "https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_id-based-policy-examples.html#auth-role-permissions"
+     * >Role-based permissions</a>.
      * </p>
      * 
      * @param dataAccessRoleArn
-     *        The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that grants Amazon
-     *        Comprehend read access to your input data. For more information, see <a href=
-     *        "https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions.html#auth-role-permissions"
-     *        >https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions.html#auth-role-
-     *        permissions</a>.
+     *        The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input
+     *        data. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_id-based-policy-examples.html#auth-role-permissions"
+     *        >Role-based permissions</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -378,9 +379,9 @@ public class StartTopicsDetectionJobRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume
-     * attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the
-     * following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on
+     * the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can
+     * be either of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -397,9 +398,9 @@ public class StartTopicsDetectionJobRequest extends com.amazonaws.AmazonWebServi
      * </ul>
      * 
      * @param volumeKmsKeyId
-     *        ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage
-     *        volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be
-     *        either of the following formats:</p>
+     *        ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt
+     *        data on the storage volume attached to the ML compute instance(s) that process the analysis job. The
+     *        VolumeKmsKeyId can be either of the following formats:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -420,9 +421,9 @@ public class StartTopicsDetectionJobRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume
-     * attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the
-     * following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on
+     * the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can
+     * be either of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -438,9 +439,9 @@ public class StartTopicsDetectionJobRequest extends com.amazonaws.AmazonWebServi
      * </li>
      * </ul>
      * 
-     * @return ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the
-     *         storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId
-     *         can be either of the following formats:</p>
+     * @return ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt
+     *         data on the storage volume attached to the ML compute instance(s) that process the analysis job. The
+     *         VolumeKmsKeyId can be either of the following formats:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -461,9 +462,9 @@ public class StartTopicsDetectionJobRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume
-     * attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the
-     * following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on
+     * the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can
+     * be either of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -480,9 +481,9 @@ public class StartTopicsDetectionJobRequest extends com.amazonaws.AmazonWebServi
      * </ul>
      * 
      * @param volumeKmsKeyId
-     *        ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage
-     *        volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be
-     *        either of the following formats:</p>
+     *        ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt
+     *        data on the storage volume attached to the ML compute instance(s) that process the analysis job. The
+     *        VolumeKmsKeyId can be either of the following formats:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -556,6 +557,92 @@ public class StartTopicsDetectionJobRequest extends com.amazonaws.AmazonWebServi
     }
 
     /**
+     * <p>
+     * Tags to associate with the topics detection job. A tag is a key-value pair that adds metadata to a resource used
+     * by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate its use
+     * by the sales department.
+     * </p>
+     * 
+     * @return Tags to associate with the topics detection job. A tag is a key-value pair that adds metadata to a
+     *         resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a
+     *         resource to indicate its use by the sales department.
+     */
+
+    public java.util.List<Tag> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * Tags to associate with the topics detection job. A tag is a key-value pair that adds metadata to a resource used
+     * by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate its use
+     * by the sales department.
+     * </p>
+     * 
+     * @param tags
+     *        Tags to associate with the topics detection job. A tag is a key-value pair that adds metadata to a
+     *        resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a
+     *        resource to indicate its use by the sales department.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new java.util.ArrayList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * Tags to associate with the topics detection job. A tag is a key-value pair that adds metadata to a resource used
+     * by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate its use
+     * by the sales department.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        Tags to associate with the topics detection job. A tag is a key-value pair that adds metadata to a
+     *        resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a
+     *        resource to indicate its use by the sales department.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartTopicsDetectionJobRequest withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new java.util.ArrayList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Tags to associate with the topics detection job. A tag is a key-value pair that adds metadata to a resource used
+     * by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate its use
+     * by the sales department.
+     * </p>
+     * 
+     * @param tags
+     *        Tags to associate with the topics detection job. A tag is a key-value pair that adds metadata to a
+     *        resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a
+     *        resource to indicate its use by the sales department.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartTopicsDetectionJobRequest withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -582,7 +669,9 @@ public class StartTopicsDetectionJobRequest extends com.amazonaws.AmazonWebServi
         if (getVolumeKmsKeyId() != null)
             sb.append("VolumeKmsKeyId: ").append(getVolumeKmsKeyId()).append(",");
         if (getVpcConfig() != null)
-            sb.append("VpcConfig: ").append(getVpcConfig());
+            sb.append("VpcConfig: ").append(getVpcConfig()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -629,6 +718,10 @@ public class StartTopicsDetectionJobRequest extends com.amazonaws.AmazonWebServi
             return false;
         if (other.getVpcConfig() != null && other.getVpcConfig().equals(this.getVpcConfig()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
         return true;
     }
 
@@ -645,6 +738,7 @@ public class StartTopicsDetectionJobRequest extends com.amazonaws.AmazonWebServi
         hashCode = prime * hashCode + ((getClientRequestToken() == null) ? 0 : getClientRequestToken().hashCode());
         hashCode = prime * hashCode + ((getVolumeKmsKeyId() == null) ? 0 : getVolumeKmsKeyId().hashCode());
         hashCode = prime * hashCode + ((getVpcConfig() == null) ? 0 : getVpcConfig().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

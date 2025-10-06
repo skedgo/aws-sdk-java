@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,20 +44,35 @@ import com.amazonaws.services.waf.AWSWAFRegionalClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.waf.model.*;
+
 import com.amazonaws.services.waf.model.waf_regional.transform.*;
 
 /**
  * Client for accessing WAF Regional. All service calls made using this client are blocking, and will not return until
  * the service call completes.
  * <p>
+ * <note>
  * <p>
- * This is the <i>AWS WAF Regional API Reference</i> for using AWS WAF with Elastic Load Balancing (ELB) Application
- * Load Balancers. The AWS WAF actions and data types listed in the reference are available for protecting Application
- * Load Balancers. You can use these actions and data types by means of the endpoints listed in <a
+ * This is <b>AWS WAF Classic Regional</b> documentation. For more information, see <a
+ * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+ * developer guide.
+ * </p>
+ * <p>
+ * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+ * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With the
+ * latest version, AWS WAF has a single set of endpoints for regional and global use.
+ * </p>
+ * </note>
+ * <p>
+ * This is the <i>AWS WAF Regional Classic API Reference</i> for using AWS WAF Classic with the AWS resources, Elastic
+ * Load Balancing (ELB) Application Load Balancers and API Gateway APIs. The AWS WAF Classic actions and data types
+ * listed in the reference are available for protecting Elastic Load Balancing (ELB) Application Load Balancers and API
+ * Gateway APIs. You can use these actions and data types by means of the endpoints listed in <a
  * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#waf_region">AWS Regions and Endpoints</a>. This guide
- * is for developers who need detailed information about the AWS WAF API actions, data types, and errors. For detailed
- * information about AWS WAF features and an overview of how to use the AWS WAF API, see the <a
- * href="https://docs.aws.amazon.com/waf/latest/developerguide/">AWS WAF Developer Guide</a>.
+ * is for developers who need detailed information about the AWS WAF Classic API actions, data types, and errors. For
+ * detailed information about AWS WAF Classic features and an overview of how to use the AWS WAF Classic API, see the <a
+ * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+ * developer guide.
  * </p>
  */
 @ThreadSafe
@@ -83,62 +98,65 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("WAFLimitsExceededException").withModeledClass(
-                                    com.amazonaws.services.waf.model.WAFLimitsExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("WAFLimitsExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.waf.model.waf_regional.transform.WAFLimitsExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("WAFStaleDataException").withModeledClass(
-                                    com.amazonaws.services.waf.model.WAFStaleDataException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("WAFStaleDataException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.waf.model.waf_regional.transform.WAFStaleDataExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("WAFInvalidPermissionPolicyException").withModeledClass(
-                                    com.amazonaws.services.waf.model.WAFInvalidPermissionPolicyException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("WAFInvalidPermissionPolicyException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.waf.model.waf_regional.transform.WAFInvalidPermissionPolicyExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("WAFBadRequestException").withModeledClass(
-                                    com.amazonaws.services.waf.model.WAFBadRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("WAFBadRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.waf.model.waf_regional.transform.WAFBadRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("WAFInvalidParameterException").withModeledClass(
-                                    com.amazonaws.services.waf.model.WAFInvalidParameterException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("WAFInvalidParameterException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.waf.model.waf_regional.transform.WAFInvalidParameterExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("WAFTagOperationException").withModeledClass(
-                                    com.amazonaws.services.waf.model.WAFTagOperationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("WAFTagOperationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.waf.model.waf_regional.transform.WAFTagOperationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("WAFTagOperationInternalErrorException").withModeledClass(
-                                    com.amazonaws.services.waf.model.WAFTagOperationInternalErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("WAFTagOperationInternalErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.waf.model.waf_regional.transform.WAFTagOperationInternalErrorExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("WAFSubscriptionNotFoundException").withModeledClass(
-                                    com.amazonaws.services.waf.model.WAFSubscriptionNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("WAFSubscriptionNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.waf.model.waf_regional.transform.WAFSubscriptionNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("WAFNonEmptyEntityException").withModeledClass(
-                                    com.amazonaws.services.waf.model.WAFNonEmptyEntityException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("WAFNonEmptyEntityException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.waf.model.waf_regional.transform.WAFNonEmptyEntityExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("WAFReferencedItemException").withModeledClass(
-                                    com.amazonaws.services.waf.model.WAFReferencedItemException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("WAFReferencedItemException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.waf.model.waf_regional.transform.WAFReferencedItemExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("WAFNonexistentItemException").withModeledClass(
-                                    com.amazonaws.services.waf.model.WAFNonexistentItemException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("WAFNonexistentItemException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.waf.model.waf_regional.transform.WAFNonexistentItemExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("WAFServiceLinkedRoleErrorException").withModeledClass(
-                                    com.amazonaws.services.waf.model.WAFServiceLinkedRoleErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("WAFServiceLinkedRoleErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.waf.model.waf_regional.transform.WAFServiceLinkedRoleErrorExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("WAFInternalErrorException").withModeledClass(
-                                    com.amazonaws.services.waf.model.WAFInternalErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("WAFInternalErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.waf.model.waf_regional.transform.WAFInternalErrorExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("WAFInvalidAccountException").withModeledClass(
-                                    com.amazonaws.services.waf.model.WAFInvalidAccountException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("WAFInvalidAccountException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.waf.model.waf_regional.transform.WAFInvalidAccountExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("WAFDisallowedNameException").withModeledClass(
-                                    com.amazonaws.services.waf.model.WAFDisallowedNameException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("WAFDisallowedNameException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.waf.model.waf_regional.transform.WAFDisallowedNameExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("WAFInvalidOperationException").withModeledClass(
-                                    com.amazonaws.services.waf.model.WAFInvalidOperationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("WAFInvalidOperationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.waf.model.waf_regional.transform.WAFInvalidOperationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("WAFInvalidRegexPatternException").withModeledClass(
-                                    com.amazonaws.services.waf.model.WAFInvalidRegexPatternException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("WAFInvalidRegexPatternException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.waf.model.waf_regional.transform.WAFInvalidRegexPatternExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("WAFNonexistentContainerException").withModeledClass(
-                                    com.amazonaws.services.waf.model.WAFNonexistentContainerException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("WAFNonexistentContainerException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.waf.model.waf_regional.transform.WAFNonexistentContainerExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("WAFUnavailableEntityException").withModeledClass(
-                                    com.amazonaws.services.waf.model.WAFUnavailableEntityException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("WAFUnavailableEntityException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.waf.model.waf_regional.transform.WAFUnavailableEntityExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("WAFEntityMigrationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.waf.model.waf_regional.transform.WAFEntityMigrationExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.waf.model.AWSWAFException.class));
 
     /**
@@ -341,6 +359,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic Regional</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Associates a web ACL with a resource, either an application load balancer or Amazon API Gateway stage.
      * </p>
@@ -436,6 +466,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new AssociateWebACLRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(associateWebACLRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateWebACL");
@@ -458,6 +490,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Creates a <code>ByteMatchSet</code>. You then use <a>UpdateByteMatchSet</a> to identify the part of a web request
      * that you want AWS WAF to inspect, such as the values of the <code>User-Agent</code> header or the query string.
@@ -594,6 +638,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new CreateByteMatchSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createByteMatchSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateByteMatchSet");
@@ -616,6 +662,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Creates an <a>GeoMatchSet</a>, which you use to specify which web requests you want to allow or block based on
      * the country that the requests originate from. For example, if you're receiving a lot of requests from one or more
@@ -751,6 +809,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new CreateGeoMatchSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createGeoMatchSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateGeoMatchSet");
@@ -773,6 +833,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Creates an <a>IPSet</a>, which you use to specify which web requests that you want to allow or block based on the
      * IP addresses that the requests originate from. For example, if you're receiving a lot of requests from one or
@@ -908,6 +980,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new CreateIPSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createIPSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateIPSet");
@@ -930,6 +1004,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Creates a <a>RateBasedRule</a>. The <code>RateBasedRule</code> contains a <code>RateLimit</code>, which specifies
      * the maximum number of requests that AWS WAF allows from a specified IP address in a five-minute period. The
@@ -939,8 +1025,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
      * </p>
      * <p>
      * If you add more than one predicate to a <code>RateBasedRule</code>, a request not only must exceed the
-     * <code>RateLimit</code>, but it also must match all the specifications to be counted or blocked. For example,
-     * suppose you add the following to a <code>RateBasedRule</code>:
+     * <code>RateLimit</code>, but it also must match all the conditions to be counted or blocked. For example, suppose
+     * you add the following to a <code>RateBasedRule</code>:
      * </p>
      * <ul>
      * <li>
@@ -955,15 +1041,15 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
      * </li>
      * </ul>
      * <p>
-     * Further, you specify a <code>RateLimit</code> of 15,000.
+     * Further, you specify a <code>RateLimit</code> of 1,000.
      * </p>
      * <p>
      * You then add the <code>RateBasedRule</code> to a <code>WebACL</code> and specify that you want to block requests
      * that meet the conditions in the rule. For a request to be blocked, it must come from the IP address 192.0.2.44
      * <i>and</i> the <code>User-Agent</code> header in the request must contain the value <code>BadBot</code>. Further,
-     * requests that match these two conditions must be received at a rate of more than 15,000 requests every five
+     * requests that match these two conditions must be received at a rate of more than 1,000 requests every five
      * minutes. If both conditions are met and the rate is exceeded, AWS WAF blocks the requests. If the rate drops
-     * below 15,000 for a five-minute period, AWS WAF no longer blocks the requests.
+     * below 1,000 for a five-minute period, AWS WAF no longer blocks the requests.
      * </p>
      * <p>
      * As a second example, suppose you want to limit requests to a particular page on your site. To do this, you could
@@ -987,7 +1073,7 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
      * </li>
      * </ul>
      * <p>
-     * Further, you specify a <code>RateLimit</code> of 15,000.
+     * Further, you specify a <code>RateLimit</code> of 1,000.
      * </p>
      * <p>
      * By adding this <code>RateBasedRule</code> to a <code>WebACL</code>, you could limit requests to your login page
@@ -1135,6 +1221,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new CreateRateBasedRuleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createRateBasedRuleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateRateBasedRule");
@@ -1157,6 +1245,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Creates a <a>RegexMatchSet</a>. You then use <a>UpdateRegexMatchSet</a> to identify the part of a web request
      * that you want AWS WAF to inspect, such as the values of the <code>User-Agent</code> header or the query string.
@@ -1237,6 +1337,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new CreateRegexMatchSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createRegexMatchSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateRegexMatchSet");
@@ -1259,6 +1361,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Creates a <code>RegexPatternSet</code>. You then use <a>UpdateRegexPatternSet</a> to specify the regular
      * expression (regex) pattern that you want AWS WAF to search for, such as <code>B[a@]dB[o0]t</code>. You can then
@@ -1335,6 +1449,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new CreateRegexPatternSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createRegexPatternSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateRegexPatternSet");
@@ -1358,6 +1474,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Creates a <code>Rule</code>, which contains the <code>IPSet</code> objects, <code>ByteMatchSet</code> objects,
      * and other predicates that identify the requests that you want to block. If you add more than one predicate to a
@@ -1523,6 +1651,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new CreateRuleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createRuleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateRule");
@@ -1545,6 +1675,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Creates a <code>RuleGroup</code>. A rule group is a collection of predefined rules that you add to a web ACL. You
      * use <a>UpdateRuleGroup</a> to add rules to the rule group.
@@ -1616,6 +1758,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new CreateRuleGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createRuleGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateRuleGroup");
@@ -1638,6 +1782,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Creates a <code>SizeConstraintSet</code>. You then use <a>UpdateSizeConstraintSet</a> to identify the part of a
      * web request that you want AWS WAF to check for length, such as the length of the <code>User-Agent</code> header
@@ -1776,6 +1932,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                         .beforeMarshalling(createSizeConstraintSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSizeConstraintSet");
@@ -1799,6 +1957,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Creates a <a>SqlInjectionMatchSet</a>, which you use to allow, block, or count requests that contain snippets of
      * SQL code in a specified part of web requests. AWS WAF searches for character sequences that are likely to be
@@ -1936,6 +2106,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                         .beforeMarshalling(createSqlInjectionMatchSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSqlInjectionMatchSet");
@@ -1959,6 +2131,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Creates a <code>WebACL</code>, which contains the <code>Rules</code> that identify the CloudFront web requests
      * that you want to allow, block, or count. AWS WAF evaluates <code>Rules</code> in order based on the value of
@@ -2116,6 +2300,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new CreateWebACLRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createWebACLRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateWebACL");
@@ -2138,6 +2324,220 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <p>
+     * Creates an AWS CloudFormation WAFV2 template for the specified web ACL in the specified Amazon S3 bucket. Then,
+     * in CloudFormation, you create a stack from the template, to create the web ACL and its resources in AWS WAFV2.
+     * Use this to migrate your AWS WAF Classic web ACL to the latest version of AWS WAF.
+     * </p>
+     * <p>
+     * This is part of a larger migration procedure for web ACLs from AWS WAF Classic to the latest version of AWS WAF.
+     * For the full procedure, including caveats and manual steps to complete the migration and switch over to the new
+     * web ACL, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-migrating-from-classic.html">Migrating your AWS
+     * WAF Classic resources to AWS WAF</a> in the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>.
+     * </p>
+     * 
+     * @param createWebACLMigrationStackRequest
+     * @return Result of the CreateWebACLMigrationStack operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because AWS WAF didn't recognize a parameter in the request. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified an invalid parameter name.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You specified an invalid value.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update an object (<code>ByteMatchSet</code>, <code>IPSet</code>, <code>Rule</code>, or
+     *         <code>WebACL</code>) using an action other than <code>INSERT</code> or <code>DELETE</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to create a <code>WebACL</code> with a <code>DefaultAction</code> <code>Type</code> other than
+     *         <code>ALLOW</code>, <code>BLOCK</code>, or <code>COUNT</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to create a <code>RateBasedRule</code> with a <code>RateKey</code> value other than
+     *         <code>IP</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>WafAction</code> <code>Type</code> other than
+     *         <code>ALLOW</code>, <code>BLOCK</code>, or <code>COUNT</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>ByteMatchSet</code> with a <code>Field</code> of <code>HEADER</code> but no
+     *         value for <code>Data</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL
+     *         cannot be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidOperationException
+     *         The operation failed because there was nothing to do. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You tried to remove a <code>Rule</code> from a <code>WebACL</code>, but the <code>Rule</code> isn't in
+     *         the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to remove an IP address from an <code>IPSet</code>, but the IP address isn't in the specified
+     *         <code>IPSet</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to remove a <code>ByteMatchTuple</code> from a <code>ByteMatchSet</code>, but the
+     *         <code>ByteMatchTuple</code> isn't in the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>Rule</code> to a <code>WebACL</code>, but the <code>Rule</code> already exists
+     *         in the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>ByteMatchTuple</code> to a <code>ByteMatchSet</code>, but the
+     *         <code>ByteMatchTuple</code> already exists in the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         The operation failed because the referenced object doesn't exist.
+     * @throws WAFEntityMigrationException
+     *         The operation failed due to a problem with the migration. The failure cause is provided in the exception,
+     *         in the <code>MigrationErrorType</code>: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>ENTITY_NOT_SUPPORTED</code> - The web ACL has an unsupported entity but the
+     *         <code>IgnoreUnsupportedType</code> is not set to true.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ENTITY_NOT_FOUND</code> - The web ACL doesn't exist.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>S3_BUCKET_NO_PERMISSION</code> - You don't have permission to perform the <code>PutObject</code>
+     *         action to the specified Amazon S3 bucket.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>S3_BUCKET_NOT_ACCESSIBLE</code> - The bucket policy doesn't allow AWS WAF to perform the
+     *         <code>PutObject</code> action in the bucket.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>S3_BUCKET_NOT_FOUND</code> - The S3 bucket doesn't exist.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>S3_BUCKET_INVALID_REGION</code> - The S3 bucket is not in the same Region as the web ACL.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>S3_INTERNAL_ERROR</code> - AWS WAF failed to create the template in the S3 bucket for another
+     *         reason.
+     *         </p>
+     *         </li>
+     * @sample AWSWAFRegional.CreateWebACLMigrationStack
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateWebACLMigrationStack"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateWebACLMigrationStackResult createWebACLMigrationStack(CreateWebACLMigrationStackRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateWebACLMigrationStack(request);
+    }
+
+    @SdkInternalApi
+    final CreateWebACLMigrationStackResult executeCreateWebACLMigrationStack(CreateWebACLMigrationStackRequest createWebACLMigrationStackRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createWebACLMigrationStackRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateWebACLMigrationStackRequest> request = null;
+        Response<CreateWebACLMigrationStackResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateWebACLMigrationStackRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createWebACLMigrationStackRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateWebACLMigrationStack");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateWebACLMigrationStackResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateWebACLMigrationStackResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Creates an <a>XssMatchSet</a>, which you use to allow, block, or count requests that contain cross-site scripting
      * attacks in the specified part of web requests. AWS WAF searches for character sequences that are likely to be
@@ -2274,6 +2674,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new CreateXssMatchSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createXssMatchSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateXssMatchSet");
@@ -2296,6 +2698,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Permanently deletes a <a>ByteMatchSet</a>. You can't delete a <code>ByteMatchSet</code> if it's still used in any
      * <code>Rules</code> or if it still includes any <a>ByteMatchTuple</a> objects (any filters).
@@ -2401,6 +2815,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new DeleteByteMatchSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteByteMatchSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteByteMatchSet");
@@ -2423,6 +2839,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Permanently deletes a <a>GeoMatchSet</a>. You can't delete a <code>GeoMatchSet</code> if it's still used in any
      * <code>Rules</code> or if it still includes any countries.
@@ -2527,6 +2955,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new DeleteGeoMatchSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteGeoMatchSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteGeoMatchSet");
@@ -2549,6 +2979,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Permanently deletes an <a>IPSet</a>. You can't delete an <code>IPSet</code> if it's still used in any
      * <code>Rules</code> or if it still includes any IP addresses.
@@ -2653,6 +3095,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new DeleteIPSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteIPSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteIPSet");
@@ -2675,6 +3119,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Permanently deletes the <a>LoggingConfiguration</a> from the specified web ACL.
      * </p>
@@ -2714,6 +3170,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                         .beforeMarshalling(deleteLoggingConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteLoggingConfiguration");
@@ -2737,6 +3195,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Permanently deletes an IAM policy from the specified RuleGroup.
      * </p>
@@ -2778,6 +3248,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new DeletePermissionPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deletePermissionPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeletePermissionPolicy");
@@ -2801,6 +3273,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Permanently deletes a <a>RateBasedRule</a>. You can't delete a rule if it's still used in any <code>WebACL</code>
      * objects or if it still includes any predicates, such as <code>ByteMatchSet</code> objects.
@@ -2908,6 +3392,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new DeleteRateBasedRuleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteRateBasedRuleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRateBasedRule");
@@ -2930,6 +3416,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Permanently deletes a <a>RegexMatchSet</a>. You can't delete a <code>RegexMatchSet</code> if it's still used in
      * any <code>Rules</code> or if it still includes any <code>RegexMatchTuples</code> objects (any filters).
@@ -3035,6 +3533,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new DeleteRegexMatchSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteRegexMatchSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRegexMatchSet");
@@ -3057,6 +3557,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Permanently deletes a <a>RegexPatternSet</a>. You can't delete a <code>RegexPatternSet</code> if it's still used
      * in any <code>RegexMatchSet</code> or if the <code>RegexPatternSet</code> is not empty.
@@ -3137,6 +3649,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new DeleteRegexPatternSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteRegexPatternSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRegexPatternSet");
@@ -3160,6 +3674,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Permanently deletes a <a>Rule</a>. You can't delete a <code>Rule</code> if it's still used in any
      * <code>WebACL</code> objects or if it still includes any predicates, such as <code>ByteMatchSet</code> objects.
@@ -3266,6 +3792,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new DeleteRuleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteRuleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRule");
@@ -3288,6 +3816,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Permanently deletes a <a>RuleGroup</a>. You can't delete a <code>RuleGroup</code> if it's still used in any
      * <code>WebACL</code> objects or if it still includes any rules.
@@ -3424,6 +3964,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new DeleteRuleGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteRuleGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRuleGroup");
@@ -3446,6 +3988,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Permanently deletes a <a>SizeConstraintSet</a>. You can't delete a <code>SizeConstraintSet</code> if it's still
      * used in any <code>Rules</code> or if it still includes any <a>SizeConstraint</a> objects (any filters).
@@ -3552,6 +4106,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                         .beforeMarshalling(deleteSizeConstraintSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteSizeConstraintSet");
@@ -3575,6 +4131,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Permanently deletes a <a>SqlInjectionMatchSet</a>. You can't delete a <code>SqlInjectionMatchSet</code> if it's
      * still used in any <code>Rules</code> or if it still contains any <a>SqlInjectionMatchTuple</a> objects.
@@ -3682,6 +4250,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                         .beforeMarshalling(deleteSqlInjectionMatchSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteSqlInjectionMatchSet");
@@ -3705,6 +4275,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Permanently deletes a <a>WebACL</a>. You can't delete a <code>WebACL</code> if it still contains any
      * <code>Rules</code>.
@@ -3809,6 +4391,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new DeleteWebACLRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteWebACLRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteWebACL");
@@ -3831,6 +4415,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Permanently deletes an <a>XssMatchSet</a>. You can't delete an <code>XssMatchSet</code> if it's still used in any
      * <code>Rules</code> or if it still contains any <a>XssMatchTuple</a> objects.
@@ -3937,6 +4533,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new DeleteXssMatchSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteXssMatchSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteXssMatchSet");
@@ -3959,6 +4557,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic Regional</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Removes a web ACL from the specified resource, either an application load balancer or Amazon API Gateway stage.
      * </p>
@@ -4052,6 +4662,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new DisassociateWebACLRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(disassociateWebACLRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateWebACL");
@@ -4074,6 +4686,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns the <a>ByteMatchSet</a> specified by <code>ByteMatchSetId</code>.
      * </p>
@@ -4112,6 +4736,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new GetByteMatchSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getByteMatchSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetByteMatchSet");
@@ -4134,6 +4760,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * When you want to create, update, or delete AWS WAF objects, get a change token and include the change token in
      * the create, update, or delete request. Change tokens ensure that your application doesn't submit conflicting
@@ -4180,6 +4818,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new GetChangeTokenRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getChangeTokenRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetChangeToken");
@@ -4202,6 +4842,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns the status of a <code>ChangeToken</code> that you got by calling <a>GetChangeToken</a>.
      * <code>ChangeTokenStatus</code> is one of the following values:
@@ -4256,6 +4908,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new GetChangeTokenStatusRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getChangeTokenStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetChangeTokenStatus");
@@ -4278,6 +4932,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns the <a>GeoMatchSet</a> that is specified by <code>GeoMatchSetId</code>.
      * </p>
@@ -4316,6 +4982,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new GetGeoMatchSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getGeoMatchSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetGeoMatchSet");
@@ -4338,6 +5006,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns the <a>IPSet</a> that is specified by <code>IPSetId</code>.
      * </p>
@@ -4376,6 +5056,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new GetIPSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getIPSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetIPSet");
@@ -4398,6 +5080,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns the <a>LoggingConfiguration</a> for the specified web ACL.
      * </p>
@@ -4434,6 +5128,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                         .beforeMarshalling(getLoggingConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetLoggingConfiguration");
@@ -4457,6 +5153,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns the IAM policy attached to the RuleGroup.
      * </p>
@@ -4492,6 +5200,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new GetPermissionPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getPermissionPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPermissionPolicy");
@@ -4514,6 +5224,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns the <a>RateBasedRule</a> that is specified by the <code>RuleId</code> that you included in the
      * <code>GetRateBasedRule</code> request.
@@ -4553,6 +5275,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new GetRateBasedRuleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRateBasedRuleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRateBasedRule");
@@ -4575,6 +5299,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns an array of IP addresses currently being blocked by the <a>RateBasedRule</a> that is specified by the
      * <code>RuleId</code>. The maximum number of managed keys that will be blocked is 10,000. If more than 10,000
@@ -4671,6 +5407,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                         .beforeMarshalling(getRateBasedRuleManagedKeysRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRateBasedRuleManagedKeys");
@@ -4694,6 +5432,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns the <a>RegexMatchSet</a> specified by <code>RegexMatchSetId</code>.
      * </p>
@@ -4732,6 +5482,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new GetRegexMatchSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRegexMatchSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRegexMatchSet");
@@ -4754,6 +5506,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns the <a>RegexPatternSet</a> specified by <code>RegexPatternSetId</code>.
      * </p>
@@ -4792,6 +5556,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new GetRegexPatternSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRegexPatternSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRegexPatternSet");
@@ -4814,6 +5580,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns the <a>Rule</a> that is specified by the <code>RuleId</code> that you included in the
      * <code>GetRule</code> request.
@@ -4853,6 +5631,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new GetRuleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRuleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRule");
@@ -4875,6 +5655,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns the <a>RuleGroup</a> that is specified by the <code>RuleGroupId</code> that you included in the
      * <code>GetRuleGroup</code> request.
@@ -4914,6 +5706,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new GetRuleGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRuleGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRuleGroup");
@@ -4936,6 +5730,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Gets detailed information about a specified number of requests--a sample--that AWS WAF randomly selects from
      * among the first 5,000 requests that your AWS resource received during a time range that you choose. You can
@@ -4979,6 +5785,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new GetSampledRequestsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getSampledRequestsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSampledRequests");
@@ -5001,6 +5809,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns the <a>SizeConstraintSet</a> specified by <code>SizeConstraintSetId</code>.
      * </p>
@@ -5039,6 +5859,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new GetSizeConstraintSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getSizeConstraintSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSizeConstraintSet");
@@ -5061,6 +5883,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns the <a>SqlInjectionMatchSet</a> that is specified by <code>SqlInjectionMatchSetId</code>.
      * </p>
@@ -5101,6 +5935,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                         .beforeMarshalling(getSqlInjectionMatchSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSqlInjectionMatchSet");
@@ -5124,6 +5960,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns the <a>WebACL</a> that is specified by <code>WebACLId</code>.
      * </p>
@@ -5162,6 +6010,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new GetWebACLRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getWebACLRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetWebACL");
@@ -5184,6 +6034,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic Regional</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns the web ACL for the specified resource, either an application load balancer or Amazon API Gateway stage.
      * </p>
@@ -5279,6 +6141,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new GetWebACLForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getWebACLForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetWebACLForResource");
@@ -5301,6 +6165,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns the <a>XssMatchSet</a> that is specified by <code>XssMatchSetId</code>.
      * </p>
@@ -5340,6 +6216,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new GetXssMatchSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getXssMatchSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetXssMatchSet");
@@ -5362,6 +6240,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns an array of <a>ActivatedRule</a> objects.
      * </p>
@@ -5453,6 +6343,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                         .beforeMarshalling(listActivatedRulesInRuleGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListActivatedRulesInRuleGroup");
@@ -5476,6 +6368,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns an array of <a>ByteMatchSetSummary</a> objects.
      * </p>
@@ -5512,6 +6416,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new ListByteMatchSetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listByteMatchSetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListByteMatchSets");
@@ -5534,6 +6440,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns an array of <a>GeoMatchSetSummary</a> objects in the response.
      * </p>
@@ -5570,6 +6488,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new ListGeoMatchSetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listGeoMatchSetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListGeoMatchSets");
@@ -5592,6 +6512,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns an array of <a>IPSetSummary</a> objects in the response.
      * </p>
@@ -5628,6 +6560,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new ListIPSetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listIPSetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListIPSets");
@@ -5650,6 +6584,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns an array of <a>LoggingConfiguration</a> objects.
      * </p>
@@ -5741,6 +6687,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                         .beforeMarshalling(listLoggingConfigurationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListLoggingConfigurations");
@@ -5764,6 +6712,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns an array of <a>RuleSummary</a> objects.
      * </p>
@@ -5800,6 +6760,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new ListRateBasedRulesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listRateBasedRulesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRateBasedRules");
@@ -5822,6 +6784,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns an array of <a>RegexMatchSetSummary</a> objects.
      * </p>
@@ -5858,6 +6832,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new ListRegexMatchSetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listRegexMatchSetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRegexMatchSets");
@@ -5880,6 +6856,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns an array of <a>RegexPatternSetSummary</a> objects.
      * </p>
@@ -5916,6 +6904,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new ListRegexPatternSetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listRegexPatternSetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRegexPatternSets");
@@ -5938,6 +6928,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic Regional</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns an array of resources associated with the specified web ACL.
      * </p>
@@ -6031,6 +7033,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new ListResourcesForWebACLRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listResourcesForWebACLRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListResourcesForWebACL");
@@ -6054,6 +7058,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns an array of <a>RuleGroup</a> objects.
      * </p>
@@ -6087,6 +7103,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new ListRuleGroupsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listRuleGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRuleGroups");
@@ -6109,6 +7127,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns an array of <a>RuleSummary</a> objects.
      * </p>
@@ -6145,6 +7175,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new ListRulesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listRulesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRules");
@@ -6167,6 +7199,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns an array of <a>SizeConstraintSetSummary</a> objects.
      * </p>
@@ -6203,6 +7247,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new ListSizeConstraintSetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listSizeConstraintSetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListSizeConstraintSets");
@@ -6226,6 +7272,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns an array of <a>SqlInjectionMatchSet</a> objects.
      * </p>
@@ -6264,6 +7322,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                         .beforeMarshalling(listSqlInjectionMatchSetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListSqlInjectionMatchSets");
@@ -6287,6 +7347,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns an array of <a>RuleGroup</a> objects that you are subscribed to.
      * </p>
@@ -6323,6 +7395,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                         .beforeMarshalling(listSubscribedRuleGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListSubscribedRuleGroups");
@@ -6346,6 +7420,30 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
+     * <p>
+     * Retrieves the tags associated with the specified AWS resource. Tags are key:value pairs that you can use to
+     * categorize and manage your resources, for purposes like billing. For example, you might set the tag key to
+     * "customer" and the value to the customer name or ID. You can specify one or more tags to add to each AWS
+     * resource, up to 50 tags for a resource.
+     * </p>
+     * <p>
+     * Tagging is only available through the API, SDKs, and CLI. You can't manage or view tags through the AWS WAF
+     * Classic console. You can tag the AWS resources that you manage through AWS WAF Classic: web ACLs, rule groups,
+     * and rules.
+     * </p>
+     * 
      * @param listTagsForResourceRequest
      * @return Result of the ListTagsForResource operation returned by the service.
      * @throws WAFInternalErrorException
@@ -6435,6 +7533,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -6457,6 +7557,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns an array of <a>WebACLSummary</a> objects in the response.
      * </p>
@@ -6493,6 +7605,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new ListWebACLsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listWebACLsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListWebACLs");
@@ -6515,6 +7629,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Returns an array of <a>XssMatchSet</a> objects.
      * </p>
@@ -6552,6 +7678,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new ListXssMatchSetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listXssMatchSetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListXssMatchSets");
@@ -6574,6 +7702,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Associates a <a>LoggingConfiguration</a> with a specified web ACL.
      * </p>
@@ -6583,7 +7723,7 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
      * <ol>
      * <li>
      * <p>
-     * Create an Amazon Kinesis Data Firehose .
+     * Create an Amazon Kinesis Data Firehose.
      * </p>
      * <p>
      * Create the data firehose with a PUT source and in the region that you are operating. However, if you are
@@ -6650,6 +7790,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                         .beforeMarshalling(putLoggingConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutLoggingConfiguration");
@@ -6673,8 +7815,20 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
      * <p>
-     * Attaches a IAM policy to the specified resource. The only supported use for this action is to share a RuleGroup
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
+     * <p>
+     * Attaches an IAM policy to the specified resource. The only supported use for this action is to share a RuleGroup
      * across accounts.
      * </p>
      * <p>
@@ -6814,6 +7968,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new PutPermissionPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putPermissionPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutPermissionPolicy");
@@ -6836,6 +7992,30 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
+     * <p>
+     * Associates tags with the specified AWS resource. Tags are key:value pairs that you can use to categorize and
+     * manage your resources, for purposes like billing. For example, you might set the tag key to "customer" and the
+     * value to the customer name or ID. You can specify one or more tags to add to each AWS resource, up to 50 tags for
+     * a resource.
+     * </p>
+     * <p>
+     * Tagging is only available through the API, SDKs, and CLI. You can't manage or view tags through the AWS WAF
+     * Classic console. You can use this action to tag the AWS resources that you manage through AWS WAF Classic: web
+     * ACLs, rule groups, and rules.
+     * </p>
+     * 
      * @param tagResourceRequest
      * @return Result of the TagResource operation returned by the service.
      * @throws WAFInternalErrorException
@@ -6930,6 +8110,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -6952,12 +8134,27 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
+     * <p/>
+     * 
      * @param untagResourceRequest
      * @return Result of the UntagResource operation returned by the service.
      * @throws WAFInternalErrorException
      *         The operation failed because of a system problem, even though the request was valid. Retry your request.
      * @throws WAFInvalidParameterException
-     *         The operation failed because AWS WAF didn't recognize a parameter in the request. For example:</p>
+     *         The operation failed because AWS WAF didn't recognize a parameter in the request. For example:
+     *         </p>
      *         <ul>
      *         <li>
      *         <p>
@@ -7041,6 +8238,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -7063,6 +8262,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Inserts or deletes <a>ByteMatchTuple</a> objects (filters) in a <a>ByteMatchSet</a>. For each
      * <code>ByteMatchTuple</code> object, you specify the following values:
@@ -7288,6 +8499,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new UpdateByteMatchSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateByteMatchSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateByteMatchSet");
@@ -7310,6 +8523,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Inserts or deletes <a>GeoMatchConstraint</a> objects in an <code>GeoMatchSet</code>. For each
      * <code>GeoMatchConstraint</code> object, you specify the following values:
@@ -7533,6 +8758,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new UpdateGeoMatchSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateGeoMatchSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateGeoMatchSet");
@@ -7555,6 +8782,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Inserts or deletes <a>IPSetDescriptor</a> objects in an <code>IPSet</code>. For each <code>IPSetDescriptor</code>
      * object, you specify the following values:
@@ -7819,6 +9058,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new UpdateIPSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateIPSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateIPSet");
@@ -7841,6 +9082,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Inserts or deletes <a>Predicate</a> objects in a rule and updates the <code>RateLimit</code> in the rule.
      * </p>
@@ -7867,13 +9120,13 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
      * </li>
      * </ul>
      * <p>
-     * Further, you specify a <code>RateLimit</code> of 15,000.
+     * Further, you specify a <code>RateLimit</code> of 1,000.
      * </p>
      * <p>
      * You then add the <code>RateBasedRule</code> to a <code>WebACL</code> and specify that you want to block requests
      * that satisfy the rule. For a request to be blocked, it must come from the IP address 192.0.2.44 <i>and</i> the
      * <code>User-Agent</code> header in the request must contain the value <code>BadBot</code>. Further, requests that
-     * match these two conditions much be received at a rate of more than 15,000 every five minutes. If the rate drops
+     * match these two conditions much be received at a rate of more than 1,000 every five minutes. If the rate drops
      * below this limit, AWS WAF no longer blocks the requests.
      * </p>
      * <p>
@@ -7898,7 +9151,7 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
      * </li>
      * </ul>
      * <p>
-     * Further, you specify a <code>RateLimit</code> of 15,000.
+     * Further, you specify a <code>RateLimit</code> of 1,000.
      * </p>
      * <p>
      * By adding this <code>RateBasedRule</code> to a <code>WebACL</code>, you could limit requests to your login page
@@ -8075,6 +9328,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new UpdateRateBasedRuleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateRateBasedRuleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRateBasedRule");
@@ -8097,6 +9352,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Inserts or deletes <a>RegexMatchTuple</a> objects (filters) in a <a>RegexMatchSet</a>. For each
      * <code>RegexMatchSetUpdate</code> object, you specify the following values:
@@ -8264,6 +9531,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new UpdateRegexMatchSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateRegexMatchSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRegexMatchSet");
@@ -8286,6 +9555,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Inserts or deletes <code>RegexPatternString</code> objects in a <a>RegexPatternSet</a>. For each
      * <code>RegexPatternString</code> object, you specify the following values:
@@ -8460,6 +9741,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new UpdateRegexPatternSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateRegexPatternSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRegexPatternSet");
@@ -8483,6 +9766,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Inserts or deletes <a>Predicate</a> objects in a <code>Rule</code>. Each <code>Predicate</code> object identifies
      * a predicate, such as a <a>ByteMatchSet</a> or an <a>IPSet</a>, that specifies the web requests that you want to
@@ -8717,6 +10012,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new UpdateRuleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateRuleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRule");
@@ -8739,6 +10036,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Inserts or deletes <a>ActivatedRule</a> objects in a <code>RuleGroup</code>.
      * </p>
@@ -8937,6 +10246,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new UpdateRuleGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateRuleGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRuleGroup");
@@ -8959,6 +10270,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Inserts or deletes <a>SizeConstraint</a> objects (filters) in a <a>SizeConstraintSet</a>. For each
      * <code>SizeConstraint</code> object, you specify the following values:
@@ -9202,6 +10525,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                         .beforeMarshalling(updateSizeConstraintSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateSizeConstraintSet");
@@ -9225,6 +10550,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Inserts or deletes <a>SqlInjectionMatchTuple</a> objects (filters) in a <a>SqlInjectionMatchSet</a>. For each
      * <code>SqlInjectionMatchTuple</code> object, you specify the following values:
@@ -9444,6 +10781,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                         .beforeMarshalling(updateSqlInjectionMatchSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateSqlInjectionMatchSet");
@@ -9467,6 +10806,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Inserts or deletes <a>ActivatedRule</a> objects in a <code>WebACL</code>. Each <code>Rule</code> identifies web
      * requests that you want to allow, block, or count. When you update a <code>WebACL</code>, you specify the
@@ -9540,12 +10891,12 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
      * </p>
      * <p>
      * The <code>ActivatedRule</code> can be a rule group. If you specify a rule group as your
-     * <code>ActivatedRule</code>, you can exclude specific rules from that rule group.
+     * <code>ActivatedRule</code> , you can exclude specific rules from that rule group.
      * </p>
      * <p>
      * If you already have a rule group associated with a web ACL and want to submit an <code>UpdateWebACL</code>
      * request to exclude certain rules from that rule group, you must first remove the rule group from the web ACL, the
-     * re-insert it again, specifying the excluded rules. For details, see <a>ActivatedRule$ExcludedRules</a>.
+     * re-insert it again, specifying the excluded rules. For details, see <a>ActivatedRule$ExcludedRules</a> .
      * </p>
      * </li>
      * </ol>
@@ -9731,6 +11082,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new UpdateWebACLRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateWebACLRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateWebACL");
@@ -9753,6 +11106,18 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     }
 
     /**
+     * <note>
+     * <p>
+     * This is <b>AWS WAF Classic</b> documentation. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html">AWS WAF Classic</a> in the
+     * developer guide.
+     * </p>
+     * <p>
+     * <b>For the latest version of AWS WAF</b>, use the AWS WAFV2 API and see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a>. With
+     * the latest version, AWS WAF has a single set of endpoints for regional and global use.
+     * </p>
+     * </note>
      * <p>
      * Inserts or deletes <a>XssMatchTuple</a> objects (filters) in an <a>XssMatchSet</a>. For each
      * <code>XssMatchTuple</code> object, you specify the following values:
@@ -9971,6 +11336,8 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
                 request = new UpdateXssMatchSetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateXssMatchSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WAF Regional");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateXssMatchSet");
@@ -10066,6 +11433,11 @@ public class AWSWAFRegionalClient extends AmazonWebServiceClient implements AWSW
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

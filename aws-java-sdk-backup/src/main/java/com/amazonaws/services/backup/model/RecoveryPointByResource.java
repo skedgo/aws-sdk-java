@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,6 +51,12 @@ public class RecoveryPointByResource implements Serializable, Cloneable, Structu
     private String status;
     /**
      * <p>
+     * A message explaining the reason of the recovery point deletion failure.
+     * </p>
+     */
+    private String statusMessage;
+    /**
+     * <p>
      * The server-side encryption key that is used to protect your backups; for example,
      * <code>arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>.
      * </p>
@@ -65,11 +71,35 @@ public class RecoveryPointByResource implements Serializable, Cloneable, Structu
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      */
     private String backupVaultName;
+    /**
+     * <p>
+     * This is a boolean value indicating this is a parent (composite) recovery point.
+     * </p>
+     */
+    private Boolean isParent;
+    /**
+     * <p>
+     * This is the Amazon Resource Name (ARN) of the parent (composite) recovery point.
+     * </p>
+     */
+    private String parentRecoveryPointArn;
+    /**
+     * <p>
+     * This is the non-unique name of the resource that belongs to the specified backup.
+     * </p>
+     */
+    private String resourceName;
+    /**
+     * <p>
+     * This is the type of vault in which the described recovery point is stored.
+     * </p>
+     */
+    private String vaultType;
 
     /**
      * <p>
@@ -230,6 +260,46 @@ public class RecoveryPointByResource implements Serializable, Cloneable, Structu
 
     /**
      * <p>
+     * A message explaining the reason of the recovery point deletion failure.
+     * </p>
+     * 
+     * @param statusMessage
+     *        A message explaining the reason of the recovery point deletion failure.
+     */
+
+    public void setStatusMessage(String statusMessage) {
+        this.statusMessage = statusMessage;
+    }
+
+    /**
+     * <p>
+     * A message explaining the reason of the recovery point deletion failure.
+     * </p>
+     * 
+     * @return A message explaining the reason of the recovery point deletion failure.
+     */
+
+    public String getStatusMessage() {
+        return this.statusMessage;
+    }
+
+    /**
+     * <p>
+     * A message explaining the reason of the recovery point deletion failure.
+     * </p>
+     * 
+     * @param statusMessage
+     *        A message explaining the reason of the recovery point deletion failure.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RecoveryPointByResource withStatusMessage(String statusMessage) {
+        setStatusMessage(statusMessage);
+        return this;
+    }
+
+    /**
+     * <p>
      * The server-side encryption key that is used to protect your backups; for example,
      * <code>arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>.
      * </p>
@@ -317,14 +387,14 @@ public class RecoveryPointByResource implements Serializable, Cloneable, Structu
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      * 
      * @param backupVaultName
      *        The name of a logical container where backups are stored. Backup vaults are identified by names that are
-     *        unique to the account used to create them and the AWS Region where they are created. They consist of
-     *        lowercase letters, numbers, and hyphens.
+     *        unique to the account used to create them and the Amazon Web Services Region where they are created. They
+     *        consist of lowercase letters, numbers, and hyphens.
      */
 
     public void setBackupVaultName(String backupVaultName) {
@@ -334,13 +404,13 @@ public class RecoveryPointByResource implements Serializable, Cloneable, Structu
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      * 
      * @return The name of a logical container where backups are stored. Backup vaults are identified by names that are
-     *         unique to the account used to create them and the AWS Region where they are created. They consist of
-     *         lowercase letters, numbers, and hyphens.
+     *         unique to the account used to create them and the Amazon Web Services Region where they are created. They
+     *         consist of lowercase letters, numbers, and hyphens.
      */
 
     public String getBackupVaultName() {
@@ -350,19 +420,210 @@ public class RecoveryPointByResource implements Serializable, Cloneable, Structu
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      * 
      * @param backupVaultName
      *        The name of a logical container where backups are stored. Backup vaults are identified by names that are
-     *        unique to the account used to create them and the AWS Region where they are created. They consist of
-     *        lowercase letters, numbers, and hyphens.
+     *        unique to the account used to create them and the Amazon Web Services Region where they are created. They
+     *        consist of lowercase letters, numbers, and hyphens.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public RecoveryPointByResource withBackupVaultName(String backupVaultName) {
         setBackupVaultName(backupVaultName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This is a boolean value indicating this is a parent (composite) recovery point.
+     * </p>
+     * 
+     * @param isParent
+     *        This is a boolean value indicating this is a parent (composite) recovery point.
+     */
+
+    public void setIsParent(Boolean isParent) {
+        this.isParent = isParent;
+    }
+
+    /**
+     * <p>
+     * This is a boolean value indicating this is a parent (composite) recovery point.
+     * </p>
+     * 
+     * @return This is a boolean value indicating this is a parent (composite) recovery point.
+     */
+
+    public Boolean getIsParent() {
+        return this.isParent;
+    }
+
+    /**
+     * <p>
+     * This is a boolean value indicating this is a parent (composite) recovery point.
+     * </p>
+     * 
+     * @param isParent
+     *        This is a boolean value indicating this is a parent (composite) recovery point.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RecoveryPointByResource withIsParent(Boolean isParent) {
+        setIsParent(isParent);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This is a boolean value indicating this is a parent (composite) recovery point.
+     * </p>
+     * 
+     * @return This is a boolean value indicating this is a parent (composite) recovery point.
+     */
+
+    public Boolean isParent() {
+        return this.isParent;
+    }
+
+    /**
+     * <p>
+     * This is the Amazon Resource Name (ARN) of the parent (composite) recovery point.
+     * </p>
+     * 
+     * @param parentRecoveryPointArn
+     *        This is the Amazon Resource Name (ARN) of the parent (composite) recovery point.
+     */
+
+    public void setParentRecoveryPointArn(String parentRecoveryPointArn) {
+        this.parentRecoveryPointArn = parentRecoveryPointArn;
+    }
+
+    /**
+     * <p>
+     * This is the Amazon Resource Name (ARN) of the parent (composite) recovery point.
+     * </p>
+     * 
+     * @return This is the Amazon Resource Name (ARN) of the parent (composite) recovery point.
+     */
+
+    public String getParentRecoveryPointArn() {
+        return this.parentRecoveryPointArn;
+    }
+
+    /**
+     * <p>
+     * This is the Amazon Resource Name (ARN) of the parent (composite) recovery point.
+     * </p>
+     * 
+     * @param parentRecoveryPointArn
+     *        This is the Amazon Resource Name (ARN) of the parent (composite) recovery point.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RecoveryPointByResource withParentRecoveryPointArn(String parentRecoveryPointArn) {
+        setParentRecoveryPointArn(parentRecoveryPointArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This is the non-unique name of the resource that belongs to the specified backup.
+     * </p>
+     * 
+     * @param resourceName
+     *        This is the non-unique name of the resource that belongs to the specified backup.
+     */
+
+    public void setResourceName(String resourceName) {
+        this.resourceName = resourceName;
+    }
+
+    /**
+     * <p>
+     * This is the non-unique name of the resource that belongs to the specified backup.
+     * </p>
+     * 
+     * @return This is the non-unique name of the resource that belongs to the specified backup.
+     */
+
+    public String getResourceName() {
+        return this.resourceName;
+    }
+
+    /**
+     * <p>
+     * This is the non-unique name of the resource that belongs to the specified backup.
+     * </p>
+     * 
+     * @param resourceName
+     *        This is the non-unique name of the resource that belongs to the specified backup.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RecoveryPointByResource withResourceName(String resourceName) {
+        setResourceName(resourceName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This is the type of vault in which the described recovery point is stored.
+     * </p>
+     * 
+     * @param vaultType
+     *        This is the type of vault in which the described recovery point is stored.
+     * @see VaultType
+     */
+
+    public void setVaultType(String vaultType) {
+        this.vaultType = vaultType;
+    }
+
+    /**
+     * <p>
+     * This is the type of vault in which the described recovery point is stored.
+     * </p>
+     * 
+     * @return This is the type of vault in which the described recovery point is stored.
+     * @see VaultType
+     */
+
+    public String getVaultType() {
+        return this.vaultType;
+    }
+
+    /**
+     * <p>
+     * This is the type of vault in which the described recovery point is stored.
+     * </p>
+     * 
+     * @param vaultType
+     *        This is the type of vault in which the described recovery point is stored.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see VaultType
+     */
+
+    public RecoveryPointByResource withVaultType(String vaultType) {
+        setVaultType(vaultType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This is the type of vault in which the described recovery point is stored.
+     * </p>
+     * 
+     * @param vaultType
+     *        This is the type of vault in which the described recovery point is stored.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see VaultType
+     */
+
+    public RecoveryPointByResource withVaultType(VaultType vaultType) {
+        this.vaultType = vaultType.toString();
         return this;
     }
 
@@ -384,12 +645,22 @@ public class RecoveryPointByResource implements Serializable, Cloneable, Structu
             sb.append("CreationDate: ").append(getCreationDate()).append(",");
         if (getStatus() != null)
             sb.append("Status: ").append(getStatus()).append(",");
+        if (getStatusMessage() != null)
+            sb.append("StatusMessage: ").append(getStatusMessage()).append(",");
         if (getEncryptionKeyArn() != null)
             sb.append("EncryptionKeyArn: ").append(getEncryptionKeyArn()).append(",");
         if (getBackupSizeBytes() != null)
             sb.append("BackupSizeBytes: ").append(getBackupSizeBytes()).append(",");
         if (getBackupVaultName() != null)
-            sb.append("BackupVaultName: ").append(getBackupVaultName());
+            sb.append("BackupVaultName: ").append(getBackupVaultName()).append(",");
+        if (getIsParent() != null)
+            sb.append("IsParent: ").append(getIsParent()).append(",");
+        if (getParentRecoveryPointArn() != null)
+            sb.append("ParentRecoveryPointArn: ").append(getParentRecoveryPointArn()).append(",");
+        if (getResourceName() != null)
+            sb.append("ResourceName: ").append(getResourceName()).append(",");
+        if (getVaultType() != null)
+            sb.append("VaultType: ").append(getVaultType());
         sb.append("}");
         return sb.toString();
     }
@@ -416,6 +687,10 @@ public class RecoveryPointByResource implements Serializable, Cloneable, Structu
             return false;
         if (other.getStatus() != null && other.getStatus().equals(this.getStatus()) == false)
             return false;
+        if (other.getStatusMessage() == null ^ this.getStatusMessage() == null)
+            return false;
+        if (other.getStatusMessage() != null && other.getStatusMessage().equals(this.getStatusMessage()) == false)
+            return false;
         if (other.getEncryptionKeyArn() == null ^ this.getEncryptionKeyArn() == null)
             return false;
         if (other.getEncryptionKeyArn() != null && other.getEncryptionKeyArn().equals(this.getEncryptionKeyArn()) == false)
@@ -428,6 +703,22 @@ public class RecoveryPointByResource implements Serializable, Cloneable, Structu
             return false;
         if (other.getBackupVaultName() != null && other.getBackupVaultName().equals(this.getBackupVaultName()) == false)
             return false;
+        if (other.getIsParent() == null ^ this.getIsParent() == null)
+            return false;
+        if (other.getIsParent() != null && other.getIsParent().equals(this.getIsParent()) == false)
+            return false;
+        if (other.getParentRecoveryPointArn() == null ^ this.getParentRecoveryPointArn() == null)
+            return false;
+        if (other.getParentRecoveryPointArn() != null && other.getParentRecoveryPointArn().equals(this.getParentRecoveryPointArn()) == false)
+            return false;
+        if (other.getResourceName() == null ^ this.getResourceName() == null)
+            return false;
+        if (other.getResourceName() != null && other.getResourceName().equals(this.getResourceName()) == false)
+            return false;
+        if (other.getVaultType() == null ^ this.getVaultType() == null)
+            return false;
+        if (other.getVaultType() != null && other.getVaultType().equals(this.getVaultType()) == false)
+            return false;
         return true;
     }
 
@@ -439,9 +730,14 @@ public class RecoveryPointByResource implements Serializable, Cloneable, Structu
         hashCode = prime * hashCode + ((getRecoveryPointArn() == null) ? 0 : getRecoveryPointArn().hashCode());
         hashCode = prime * hashCode + ((getCreationDate() == null) ? 0 : getCreationDate().hashCode());
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        hashCode = prime * hashCode + ((getStatusMessage() == null) ? 0 : getStatusMessage().hashCode());
         hashCode = prime * hashCode + ((getEncryptionKeyArn() == null) ? 0 : getEncryptionKeyArn().hashCode());
         hashCode = prime * hashCode + ((getBackupSizeBytes() == null) ? 0 : getBackupSizeBytes().hashCode());
         hashCode = prime * hashCode + ((getBackupVaultName() == null) ? 0 : getBackupVaultName().hashCode());
+        hashCode = prime * hashCode + ((getIsParent() == null) ? 0 : getIsParent().hashCode());
+        hashCode = prime * hashCode + ((getParentRecoveryPointArn() == null) ? 0 : getParentRecoveryPointArn().hashCode());
+        hashCode = prime * hashCode + ((getResourceName() == null) ? 0 : getResourceName().hashCode());
+        hashCode = prime * hashCode + ((getVaultType() == null) ? 0 : getVaultType().hashCode());
         return hashCode;
     }
 

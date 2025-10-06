@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -14,6 +14,7 @@ package com.amazonaws.services.sns.message;
 
 import com.amazonaws.SdkClientException;
 import com.amazonaws.annotation.SdkInternalApi;
+import com.amazonaws.util.StringUtils;
 import java.net.URI;
 
 /**

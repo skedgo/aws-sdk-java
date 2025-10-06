@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,12 +30,12 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * representing the asynchronous operation; overloads which accept an {@code AsyncHandler} can be used to receive
  * notification when an asynchronous operation completes.
  * <p>
- * <fullname>AWS Shield Advanced</fullname>
+ * <fullname>Shield Advanced</fullname>
  * <p>
- * This is the <i>AWS Shield Advanced API Reference</i>. This guide is for developers who need detailed information
- * about the AWS Shield Advanced API actions, data types, and errors. For detailed information about AWS WAF and AWS
- * Shield Advanced features and an overview of how to use the AWS WAF and AWS Shield Advanced APIs, see the <a
- * href="https://docs.aws.amazon.com/waf/latest/developerguide/">AWS WAF and AWS Shield Developer Guide</a>.
+ * This is the <i>Shield Advanced API Reference</i>. This guide is for developers who need detailed information about
+ * the Shield Advanced API actions, data types, and errors. For detailed information about WAF and Shield Advanced
+ * features and an overview of how to use the WAF and Shield Advanced APIs, see the <a
+ * href="https://docs.aws.amazon.com/waf/latest/developerguide/">WAF and Shield Developer Guide</a>.
  * </p>
  */
 @ThreadSafe
@@ -234,7 +234,19 @@ public class AWSShieldAsyncClient extends AWSShieldClient implements AWSShieldAs
      *        Object providing client parameters.
      */
     AWSShieldAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on AWS Shield using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSShieldAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -314,6 +326,74 @@ public class AWSShieldAsyncClient extends AWSShieldClient implements AWSShieldAs
     }
 
     @Override
+    public java.util.concurrent.Future<AssociateHealthCheckResult> associateHealthCheckAsync(AssociateHealthCheckRequest request) {
+
+        return associateHealthCheckAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateHealthCheckResult> associateHealthCheckAsync(final AssociateHealthCheckRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AssociateHealthCheckRequest, AssociateHealthCheckResult> asyncHandler) {
+        final AssociateHealthCheckRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AssociateHealthCheckResult>() {
+            @Override
+            public AssociateHealthCheckResult call() throws Exception {
+                AssociateHealthCheckResult result = null;
+
+                try {
+                    result = executeAssociateHealthCheck(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateProactiveEngagementDetailsResult> associateProactiveEngagementDetailsAsync(
+            AssociateProactiveEngagementDetailsRequest request) {
+
+        return associateProactiveEngagementDetailsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateProactiveEngagementDetailsResult> associateProactiveEngagementDetailsAsync(
+            final AssociateProactiveEngagementDetailsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AssociateProactiveEngagementDetailsRequest, AssociateProactiveEngagementDetailsResult> asyncHandler) {
+        final AssociateProactiveEngagementDetailsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AssociateProactiveEngagementDetailsResult>() {
+            @Override
+            public AssociateProactiveEngagementDetailsResult call() throws Exception {
+                AssociateProactiveEngagementDetailsResult result = null;
+
+                try {
+                    result = executeAssociateProactiveEngagementDetails(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateProtectionResult> createProtectionAsync(CreateProtectionRequest request) {
 
         return createProtectionAsync(request, null);
@@ -331,6 +411,39 @@ public class AWSShieldAsyncClient extends AWSShieldClient implements AWSShieldAs
 
                 try {
                     result = executeCreateProtection(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateProtectionGroupResult> createProtectionGroupAsync(CreateProtectionGroupRequest request) {
+
+        return createProtectionGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateProtectionGroupResult> createProtectionGroupAsync(final CreateProtectionGroupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateProtectionGroupRequest, CreateProtectionGroupResult> asyncHandler) {
+        final CreateProtectionGroupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateProtectionGroupResult>() {
+            @Override
+            public CreateProtectionGroupResult call() throws Exception {
+                CreateProtectionGroupResult result = null;
+
+                try {
+                    result = executeCreateProtectionGroup(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -413,6 +526,39 @@ public class AWSShieldAsyncClient extends AWSShieldClient implements AWSShieldAs
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteProtectionGroupResult> deleteProtectionGroupAsync(DeleteProtectionGroupRequest request) {
+
+        return deleteProtectionGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteProtectionGroupResult> deleteProtectionGroupAsync(final DeleteProtectionGroupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteProtectionGroupRequest, DeleteProtectionGroupResult> asyncHandler) {
+        final DeleteProtectionGroupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteProtectionGroupResult>() {
+            @Override
+            public DeleteProtectionGroupResult call() throws Exception {
+                DeleteProtectionGroupResult result = null;
+
+                try {
+                    result = executeDeleteProtectionGroup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     @Deprecated
     public java.util.concurrent.Future<DeleteSubscriptionResult> deleteSubscriptionAsync(DeleteSubscriptionRequest request) {
 
@@ -465,6 +611,39 @@ public class AWSShieldAsyncClient extends AWSShieldClient implements AWSShieldAs
 
                 try {
                     result = executeDescribeAttack(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeAttackStatisticsResult> describeAttackStatisticsAsync(DescribeAttackStatisticsRequest request) {
+
+        return describeAttackStatisticsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeAttackStatisticsResult> describeAttackStatisticsAsync(final DescribeAttackStatisticsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeAttackStatisticsRequest, DescribeAttackStatisticsResult> asyncHandler) {
+        final DescribeAttackStatisticsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeAttackStatisticsResult>() {
+            @Override
+            public DescribeAttackStatisticsResult call() throws Exception {
+                DescribeAttackStatisticsResult result = null;
+
+                try {
+                    result = executeDescribeAttackStatistics(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -582,6 +761,39 @@ public class AWSShieldAsyncClient extends AWSShieldClient implements AWSShieldAs
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeProtectionGroupResult> describeProtectionGroupAsync(DescribeProtectionGroupRequest request) {
+
+        return describeProtectionGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeProtectionGroupResult> describeProtectionGroupAsync(final DescribeProtectionGroupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeProtectionGroupRequest, DescribeProtectionGroupResult> asyncHandler) {
+        final DescribeProtectionGroupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeProtectionGroupResult>() {
+            @Override
+            public DescribeProtectionGroupResult call() throws Exception {
+                DescribeProtectionGroupResult result = null;
+
+                try {
+                    result = executeDescribeProtectionGroup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeSubscriptionResult> describeSubscriptionAsync(DescribeSubscriptionRequest request) {
 
         return describeSubscriptionAsync(request, null);
@@ -599,6 +811,74 @@ public class AWSShieldAsyncClient extends AWSShieldClient implements AWSShieldAs
 
                 try {
                     result = executeDescribeSubscription(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisableApplicationLayerAutomaticResponseResult> disableApplicationLayerAutomaticResponseAsync(
+            DisableApplicationLayerAutomaticResponseRequest request) {
+
+        return disableApplicationLayerAutomaticResponseAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisableApplicationLayerAutomaticResponseResult> disableApplicationLayerAutomaticResponseAsync(
+            final DisableApplicationLayerAutomaticResponseRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisableApplicationLayerAutomaticResponseRequest, DisableApplicationLayerAutomaticResponseResult> asyncHandler) {
+        final DisableApplicationLayerAutomaticResponseRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisableApplicationLayerAutomaticResponseResult>() {
+            @Override
+            public DisableApplicationLayerAutomaticResponseResult call() throws Exception {
+                DisableApplicationLayerAutomaticResponseResult result = null;
+
+                try {
+                    result = executeDisableApplicationLayerAutomaticResponse(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisableProactiveEngagementResult> disableProactiveEngagementAsync(DisableProactiveEngagementRequest request) {
+
+        return disableProactiveEngagementAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisableProactiveEngagementResult> disableProactiveEngagementAsync(final DisableProactiveEngagementRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisableProactiveEngagementRequest, DisableProactiveEngagementResult> asyncHandler) {
+        final DisableProactiveEngagementRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisableProactiveEngagementResult>() {
+            @Override
+            public DisableProactiveEngagementResult call() throws Exception {
+                DisableProactiveEngagementResult result = null;
+
+                try {
+                    result = executeDisableProactiveEngagement(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -681,6 +961,107 @@ public class AWSShieldAsyncClient extends AWSShieldClient implements AWSShieldAs
     }
 
     @Override
+    public java.util.concurrent.Future<DisassociateHealthCheckResult> disassociateHealthCheckAsync(DisassociateHealthCheckRequest request) {
+
+        return disassociateHealthCheckAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateHealthCheckResult> disassociateHealthCheckAsync(final DisassociateHealthCheckRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisassociateHealthCheckRequest, DisassociateHealthCheckResult> asyncHandler) {
+        final DisassociateHealthCheckRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisassociateHealthCheckResult>() {
+            @Override
+            public DisassociateHealthCheckResult call() throws Exception {
+                DisassociateHealthCheckResult result = null;
+
+                try {
+                    result = executeDisassociateHealthCheck(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<EnableApplicationLayerAutomaticResponseResult> enableApplicationLayerAutomaticResponseAsync(
+            EnableApplicationLayerAutomaticResponseRequest request) {
+
+        return enableApplicationLayerAutomaticResponseAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<EnableApplicationLayerAutomaticResponseResult> enableApplicationLayerAutomaticResponseAsync(
+            final EnableApplicationLayerAutomaticResponseRequest request,
+            final com.amazonaws.handlers.AsyncHandler<EnableApplicationLayerAutomaticResponseRequest, EnableApplicationLayerAutomaticResponseResult> asyncHandler) {
+        final EnableApplicationLayerAutomaticResponseRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<EnableApplicationLayerAutomaticResponseResult>() {
+            @Override
+            public EnableApplicationLayerAutomaticResponseResult call() throws Exception {
+                EnableApplicationLayerAutomaticResponseResult result = null;
+
+                try {
+                    result = executeEnableApplicationLayerAutomaticResponse(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<EnableProactiveEngagementResult> enableProactiveEngagementAsync(EnableProactiveEngagementRequest request) {
+
+        return enableProactiveEngagementAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<EnableProactiveEngagementResult> enableProactiveEngagementAsync(final EnableProactiveEngagementRequest request,
+            final com.amazonaws.handlers.AsyncHandler<EnableProactiveEngagementRequest, EnableProactiveEngagementResult> asyncHandler) {
+        final EnableProactiveEngagementRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<EnableProactiveEngagementResult>() {
+            @Override
+            public EnableProactiveEngagementResult call() throws Exception {
+                EnableProactiveEngagementResult result = null;
+
+                try {
+                    result = executeEnableProactiveEngagement(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetSubscriptionStateResult> getSubscriptionStateAsync(GetSubscriptionStateRequest request) {
 
         return getSubscriptionStateAsync(request, null);
@@ -747,6 +1128,39 @@ public class AWSShieldAsyncClient extends AWSShieldClient implements AWSShieldAs
     }
 
     @Override
+    public java.util.concurrent.Future<ListProtectionGroupsResult> listProtectionGroupsAsync(ListProtectionGroupsRequest request) {
+
+        return listProtectionGroupsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListProtectionGroupsResult> listProtectionGroupsAsync(final ListProtectionGroupsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListProtectionGroupsRequest, ListProtectionGroupsResult> asyncHandler) {
+        final ListProtectionGroupsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListProtectionGroupsResult>() {
+            @Override
+            public ListProtectionGroupsResult call() throws Exception {
+                ListProtectionGroupsResult result = null;
+
+                try {
+                    result = executeListProtectionGroups(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListProtectionsResult> listProtectionsAsync(ListProtectionsRequest request) {
 
         return listProtectionsAsync(request, null);
@@ -764,6 +1178,174 @@ public class AWSShieldAsyncClient extends AWSShieldClient implements AWSShieldAs
 
                 try {
                     result = executeListProtections(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListResourcesInProtectionGroupResult> listResourcesInProtectionGroupAsync(ListResourcesInProtectionGroupRequest request) {
+
+        return listResourcesInProtectionGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListResourcesInProtectionGroupResult> listResourcesInProtectionGroupAsync(
+            final ListResourcesInProtectionGroupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListResourcesInProtectionGroupRequest, ListResourcesInProtectionGroupResult> asyncHandler) {
+        final ListResourcesInProtectionGroupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListResourcesInProtectionGroupResult>() {
+            @Override
+            public ListResourcesInProtectionGroupResult call() throws Exception {
+                ListResourcesInProtectionGroupResult result = null;
+
+                try {
+                    result = executeListResourcesInProtectionGroup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(final ListTagsForResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+        final ListTagsForResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListTagsForResourceResult>() {
+            @Override
+            public ListTagsForResourceResult call() throws Exception {
+                ListTagsForResourceResult result = null;
+
+                try {
+                    result = executeListTagsForResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(final TagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+        final TagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TagResourceResult>() {
+            @Override
+            public TagResourceResult call() throws Exception {
+                TagResourceResult result = null;
+
+                try {
+                    result = executeTagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(final UntagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+        final UntagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UntagResourceResult>() {
+            @Override
+            public UntagResourceResult call() throws Exception {
+                UntagResourceResult result = null;
+
+                try {
+                    result = executeUntagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateApplicationLayerAutomaticResponseResult> updateApplicationLayerAutomaticResponseAsync(
+            UpdateApplicationLayerAutomaticResponseRequest request) {
+
+        return updateApplicationLayerAutomaticResponseAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateApplicationLayerAutomaticResponseResult> updateApplicationLayerAutomaticResponseAsync(
+            final UpdateApplicationLayerAutomaticResponseRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateApplicationLayerAutomaticResponseRequest, UpdateApplicationLayerAutomaticResponseResult> asyncHandler) {
+        final UpdateApplicationLayerAutomaticResponseRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateApplicationLayerAutomaticResponseResult>() {
+            @Override
+            public UpdateApplicationLayerAutomaticResponseResult call() throws Exception {
+                UpdateApplicationLayerAutomaticResponseResult result = null;
+
+                try {
+                    result = executeUpdateApplicationLayerAutomaticResponse(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -798,6 +1380,39 @@ public class AWSShieldAsyncClient extends AWSShieldClient implements AWSShieldAs
 
                 try {
                     result = executeUpdateEmergencyContactSettings(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateProtectionGroupResult> updateProtectionGroupAsync(UpdateProtectionGroupRequest request) {
+
+        return updateProtectionGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateProtectionGroupResult> updateProtectionGroupAsync(final UpdateProtectionGroupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateProtectionGroupRequest, UpdateProtectionGroupResult> asyncHandler) {
+        final UpdateProtectionGroupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateProtectionGroupResult>() {
+            @Override
+            public UpdateProtectionGroupResult call() throws Exception {
+                UpdateProtectionGroupResult result = null;
+
+                try {
+                    result = executeUpdateProtectionGroup(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

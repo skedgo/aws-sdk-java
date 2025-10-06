@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,6 +34,23 @@ public class EntitiesDetectionJobProperties implements Serializable, Cloneable, 
      * </p>
      */
     private String jobId;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the entities detection job. It is a unique, fully qualified identifier for the
+     * job. It includes the Amazon Web Services account, Amazon Web Services Region, and the job ID. The format of the
+     * ARN is as follows:
+     * </p>
+     * <p>
+     * <code>arn:&lt;partition&gt;:comprehend:&lt;region&gt;:&lt;account-id&gt;:entities-detection-job/&lt;job-id&gt;</code>
+     * </p>
+     * <p>
+     * The following is an example job ARN:
+     * </p>
+     * <p>
+     * <code>arn:aws:comprehend:us-west-2:111122223333:entities-detection-job/1234abcd12ab34cd56ef1234567890ab</code>
+     * </p>
+     */
+    private String jobArn;
     /**
      * <p>
      * The name that you assigned the entities detection job.
@@ -91,15 +108,15 @@ public class EntitiesDetectionJobProperties implements Serializable, Cloneable, 
     private String languageCode;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) that gives Amazon Comprehend read access to your input data.
+     * The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data.
      * </p>
      */
     private String dataAccessRoleArn;
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume
-     * attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the
-     * following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on
+     * the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can
+     * be either of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -124,6 +141,12 @@ public class EntitiesDetectionJobProperties implements Serializable, Cloneable, 
      * </p>
      */
     private VpcConfig vpcConfig;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the flywheel associated with this job.
+     * </p>
+     */
+    private String flywheelArn;
 
     /**
      * <p>
@@ -162,6 +185,109 @@ public class EntitiesDetectionJobProperties implements Serializable, Cloneable, 
 
     public EntitiesDetectionJobProperties withJobId(String jobId) {
         setJobId(jobId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the entities detection job. It is a unique, fully qualified identifier for the
+     * job. It includes the Amazon Web Services account, Amazon Web Services Region, and the job ID. The format of the
+     * ARN is as follows:
+     * </p>
+     * <p>
+     * <code>arn:&lt;partition&gt;:comprehend:&lt;region&gt;:&lt;account-id&gt;:entities-detection-job/&lt;job-id&gt;</code>
+     * </p>
+     * <p>
+     * The following is an example job ARN:
+     * </p>
+     * <p>
+     * <code>arn:aws:comprehend:us-west-2:111122223333:entities-detection-job/1234abcd12ab34cd56ef1234567890ab</code>
+     * </p>
+     * 
+     * @param jobArn
+     *        The Amazon Resource Name (ARN) of the entities detection job. It is a unique, fully qualified identifier
+     *        for the job. It includes the Amazon Web Services account, Amazon Web Services Region, and the job ID. The
+     *        format of the ARN is as follows:</p>
+     *        <p>
+     *        <code>arn:&lt;partition&gt;:comprehend:&lt;region&gt;:&lt;account-id&gt;:entities-detection-job/&lt;job-id&gt;</code>
+     *        </p>
+     *        <p>
+     *        The following is an example job ARN:
+     *        </p>
+     *        <p>
+     *        <code>arn:aws:comprehend:us-west-2:111122223333:entities-detection-job/1234abcd12ab34cd56ef1234567890ab</code>
+     */
+
+    public void setJobArn(String jobArn) {
+        this.jobArn = jobArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the entities detection job. It is a unique, fully qualified identifier for the
+     * job. It includes the Amazon Web Services account, Amazon Web Services Region, and the job ID. The format of the
+     * ARN is as follows:
+     * </p>
+     * <p>
+     * <code>arn:&lt;partition&gt;:comprehend:&lt;region&gt;:&lt;account-id&gt;:entities-detection-job/&lt;job-id&gt;</code>
+     * </p>
+     * <p>
+     * The following is an example job ARN:
+     * </p>
+     * <p>
+     * <code>arn:aws:comprehend:us-west-2:111122223333:entities-detection-job/1234abcd12ab34cd56ef1234567890ab</code>
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the entities detection job. It is a unique, fully qualified identifier
+     *         for the job. It includes the Amazon Web Services account, Amazon Web Services Region, and the job ID. The
+     *         format of the ARN is as follows:</p>
+     *         <p>
+     *         <code>arn:&lt;partition&gt;:comprehend:&lt;region&gt;:&lt;account-id&gt;:entities-detection-job/&lt;job-id&gt;</code>
+     *         </p>
+     *         <p>
+     *         The following is an example job ARN:
+     *         </p>
+     *         <p>
+     *         <code>arn:aws:comprehend:us-west-2:111122223333:entities-detection-job/1234abcd12ab34cd56ef1234567890ab</code>
+     */
+
+    public String getJobArn() {
+        return this.jobArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the entities detection job. It is a unique, fully qualified identifier for the
+     * job. It includes the Amazon Web Services account, Amazon Web Services Region, and the job ID. The format of the
+     * ARN is as follows:
+     * </p>
+     * <p>
+     * <code>arn:&lt;partition&gt;:comprehend:&lt;region&gt;:&lt;account-id&gt;:entities-detection-job/&lt;job-id&gt;</code>
+     * </p>
+     * <p>
+     * The following is an example job ARN:
+     * </p>
+     * <p>
+     * <code>arn:aws:comprehend:us-west-2:111122223333:entities-detection-job/1234abcd12ab34cd56ef1234567890ab</code>
+     * </p>
+     * 
+     * @param jobArn
+     *        The Amazon Resource Name (ARN) of the entities detection job. It is a unique, fully qualified identifier
+     *        for the job. It includes the Amazon Web Services account, Amazon Web Services Region, and the job ID. The
+     *        format of the ARN is as follows:</p>
+     *        <p>
+     *        <code>arn:&lt;partition&gt;:comprehend:&lt;region&gt;:&lt;account-id&gt;:entities-detection-job/&lt;job-id&gt;</code>
+     *        </p>
+     *        <p>
+     *        The following is an example job ARN:
+     *        </p>
+     *        <p>
+     *        <code>arn:aws:comprehend:us-west-2:111122223333:entities-detection-job/1234abcd12ab34cd56ef1234567890ab</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EntitiesDetectionJobProperties withJobArn(String jobArn) {
+        setJobArn(jobArn);
         return this;
     }
 
@@ -573,11 +699,12 @@ public class EntitiesDetectionJobProperties implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) that gives Amazon Comprehend read access to your input data.
+     * The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data.
      * </p>
      * 
      * @param dataAccessRoleArn
-     *        The Amazon Resource Name (ARN) that gives Amazon Comprehend read access to your input data.
+     *        The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input
+     *        data.
      */
 
     public void setDataAccessRoleArn(String dataAccessRoleArn) {
@@ -586,10 +713,11 @@ public class EntitiesDetectionJobProperties implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) that gives Amazon Comprehend read access to your input data.
+     * The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) that gives Amazon Comprehend read access to your input data.
+     * @return The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input
+     *         data.
      */
 
     public String getDataAccessRoleArn() {
@@ -598,11 +726,12 @@ public class EntitiesDetectionJobProperties implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) that gives Amazon Comprehend read access to your input data.
+     * The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data.
      * </p>
      * 
      * @param dataAccessRoleArn
-     *        The Amazon Resource Name (ARN) that gives Amazon Comprehend read access to your input data.
+     *        The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input
+     *        data.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -613,9 +742,9 @@ public class EntitiesDetectionJobProperties implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume
-     * attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the
-     * following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on
+     * the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can
+     * be either of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -632,9 +761,9 @@ public class EntitiesDetectionJobProperties implements Serializable, Cloneable, 
      * </ul>
      * 
      * @param volumeKmsKeyId
-     *        ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage
-     *        volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be
-     *        either of the following formats:</p>
+     *        ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt
+     *        data on the storage volume attached to the ML compute instance(s) that process the analysis job. The
+     *        VolumeKmsKeyId can be either of the following formats:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -655,9 +784,9 @@ public class EntitiesDetectionJobProperties implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume
-     * attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the
-     * following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on
+     * the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can
+     * be either of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -673,9 +802,9 @@ public class EntitiesDetectionJobProperties implements Serializable, Cloneable, 
      * </li>
      * </ul>
      * 
-     * @return ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the
-     *         storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId
-     *         can be either of the following formats:</p>
+     * @return ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt
+     *         data on the storage volume attached to the ML compute instance(s) that process the analysis job. The
+     *         VolumeKmsKeyId can be either of the following formats:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -696,9 +825,9 @@ public class EntitiesDetectionJobProperties implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume
-     * attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the
-     * following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on
+     * the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can
+     * be either of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -715,9 +844,9 @@ public class EntitiesDetectionJobProperties implements Serializable, Cloneable, 
      * </ul>
      * 
      * @param volumeKmsKeyId
-     *        ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage
-     *        volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be
-     *        either of the following formats:</p>
+     *        ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt
+     *        data on the storage volume attached to the ML compute instance(s) that process the analysis job. The
+     *        VolumeKmsKeyId can be either of the following formats:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -791,6 +920,46 @@ public class EntitiesDetectionJobProperties implements Serializable, Cloneable, 
     }
 
     /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the flywheel associated with this job.
+     * </p>
+     * 
+     * @param flywheelArn
+     *        The Amazon Resource Name (ARN) of the flywheel associated with this job.
+     */
+
+    public void setFlywheelArn(String flywheelArn) {
+        this.flywheelArn = flywheelArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the flywheel associated with this job.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the flywheel associated with this job.
+     */
+
+    public String getFlywheelArn() {
+        return this.flywheelArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the flywheel associated with this job.
+     * </p>
+     * 
+     * @param flywheelArn
+     *        The Amazon Resource Name (ARN) of the flywheel associated with this job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EntitiesDetectionJobProperties withFlywheelArn(String flywheelArn) {
+        setFlywheelArn(flywheelArn);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -804,6 +973,8 @@ public class EntitiesDetectionJobProperties implements Serializable, Cloneable, 
         sb.append("{");
         if (getJobId() != null)
             sb.append("JobId: ").append(getJobId()).append(",");
+        if (getJobArn() != null)
+            sb.append("JobArn: ").append(getJobArn()).append(",");
         if (getJobName() != null)
             sb.append("JobName: ").append(getJobName()).append(",");
         if (getJobStatus() != null)
@@ -827,7 +998,9 @@ public class EntitiesDetectionJobProperties implements Serializable, Cloneable, 
         if (getVolumeKmsKeyId() != null)
             sb.append("VolumeKmsKeyId: ").append(getVolumeKmsKeyId()).append(",");
         if (getVpcConfig() != null)
-            sb.append("VpcConfig: ").append(getVpcConfig());
+            sb.append("VpcConfig: ").append(getVpcConfig()).append(",");
+        if (getFlywheelArn() != null)
+            sb.append("FlywheelArn: ").append(getFlywheelArn());
         sb.append("}");
         return sb.toString();
     }
@@ -845,6 +1018,10 @@ public class EntitiesDetectionJobProperties implements Serializable, Cloneable, 
         if (other.getJobId() == null ^ this.getJobId() == null)
             return false;
         if (other.getJobId() != null && other.getJobId().equals(this.getJobId()) == false)
+            return false;
+        if (other.getJobArn() == null ^ this.getJobArn() == null)
+            return false;
+        if (other.getJobArn() != null && other.getJobArn().equals(this.getJobArn()) == false)
             return false;
         if (other.getJobName() == null ^ this.getJobName() == null)
             return false;
@@ -894,6 +1071,10 @@ public class EntitiesDetectionJobProperties implements Serializable, Cloneable, 
             return false;
         if (other.getVpcConfig() != null && other.getVpcConfig().equals(this.getVpcConfig()) == false)
             return false;
+        if (other.getFlywheelArn() == null ^ this.getFlywheelArn() == null)
+            return false;
+        if (other.getFlywheelArn() != null && other.getFlywheelArn().equals(this.getFlywheelArn()) == false)
+            return false;
         return true;
     }
 
@@ -903,6 +1084,7 @@ public class EntitiesDetectionJobProperties implements Serializable, Cloneable, 
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getJobId() == null) ? 0 : getJobId().hashCode());
+        hashCode = prime * hashCode + ((getJobArn() == null) ? 0 : getJobArn().hashCode());
         hashCode = prime * hashCode + ((getJobName() == null) ? 0 : getJobName().hashCode());
         hashCode = prime * hashCode + ((getJobStatus() == null) ? 0 : getJobStatus().hashCode());
         hashCode = prime * hashCode + ((getMessage() == null) ? 0 : getMessage().hashCode());
@@ -915,6 +1097,7 @@ public class EntitiesDetectionJobProperties implements Serializable, Cloneable, 
         hashCode = prime * hashCode + ((getDataAccessRoleArn() == null) ? 0 : getDataAccessRoleArn().hashCode());
         hashCode = prime * hashCode + ((getVolumeKmsKeyId() == null) ? 0 : getVolumeKmsKeyId().hashCode());
         hashCode = prime * hashCode + ((getVpcConfig() == null) ? 0 : getVpcConfig().hashCode());
+        hashCode = prime * hashCode + ((getFlywheelArn() == null) ? 0 : getFlywheelArn().hashCode());
         return hashCode;
     }
 

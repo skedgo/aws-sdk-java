@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -60,8 +60,10 @@ public class WorkspaceImage implements Serializable, Cloneable, StructuredPojo {
     private String state;
     /**
      * <p>
-     * Specifies whether the image is running on dedicated hardware. When bring your own license (BYOL) is enabled, this
-     * value is set to DEDICATED.
+     * Specifies whether the image is running on dedicated hardware. When Bring Your Own License (BYOL) is enabled, this
+     * value is set to <code>DEDICATED</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own Windows
+     * Desktop Images</a>.
      * </p>
      */
     private String requiredTenancy;
@@ -77,6 +79,32 @@ public class WorkspaceImage implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String errorMessage;
+    /**
+     * <p>
+     * The date when the image was created. If the image has been shared, the Amazon Web Services account that the image
+     * has been shared with sees the original creation date of the image.
+     * </p>
+     */
+    private java.util.Date created;
+    /**
+     * <p>
+     * The identifier of the Amazon Web Services account that owns the image.
+     * </p>
+     */
+    private String ownerAccountId;
+    /**
+     * <p>
+     * The updates (if any) that are available for the specified image.
+     * </p>
+     */
+    private UpdateResult updates;
+    /**
+     * <p>
+     * Additional details of the error returned for the image, including the possible causes of the errors and
+     * troubleshooting information.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<ErrorDetails> errorDetails;
 
     /**
      * <p>
@@ -299,13 +327,17 @@ public class WorkspaceImage implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies whether the image is running on dedicated hardware. When bring your own license (BYOL) is enabled, this
-     * value is set to DEDICATED.
+     * Specifies whether the image is running on dedicated hardware. When Bring Your Own License (BYOL) is enabled, this
+     * value is set to <code>DEDICATED</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own Windows
+     * Desktop Images</a>.
      * </p>
      * 
      * @param requiredTenancy
-     *        Specifies whether the image is running on dedicated hardware. When bring your own license (BYOL) is
-     *        enabled, this value is set to DEDICATED.
+     *        Specifies whether the image is running on dedicated hardware. When Bring Your Own License (BYOL) is
+     *        enabled, this value is set to <code>DEDICATED</code>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own
+     *        Windows Desktop Images</a>.
      * @see WorkspaceImageRequiredTenancy
      */
 
@@ -315,12 +347,16 @@ public class WorkspaceImage implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies whether the image is running on dedicated hardware. When bring your own license (BYOL) is enabled, this
-     * value is set to DEDICATED.
+     * Specifies whether the image is running on dedicated hardware. When Bring Your Own License (BYOL) is enabled, this
+     * value is set to <code>DEDICATED</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own Windows
+     * Desktop Images</a>.
      * </p>
      * 
-     * @return Specifies whether the image is running on dedicated hardware. When bring your own license (BYOL) is
-     *         enabled, this value is set to DEDICATED.
+     * @return Specifies whether the image is running on dedicated hardware. When Bring Your Own License (BYOL) is
+     *         enabled, this value is set to <code>DEDICATED</code>. For more information, see <a
+     *         href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own
+     *         Windows Desktop Images</a>.
      * @see WorkspaceImageRequiredTenancy
      */
 
@@ -330,13 +366,17 @@ public class WorkspaceImage implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies whether the image is running on dedicated hardware. When bring your own license (BYOL) is enabled, this
-     * value is set to DEDICATED.
+     * Specifies whether the image is running on dedicated hardware. When Bring Your Own License (BYOL) is enabled, this
+     * value is set to <code>DEDICATED</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own Windows
+     * Desktop Images</a>.
      * </p>
      * 
      * @param requiredTenancy
-     *        Specifies whether the image is running on dedicated hardware. When bring your own license (BYOL) is
-     *        enabled, this value is set to DEDICATED.
+     *        Specifies whether the image is running on dedicated hardware. When Bring Your Own License (BYOL) is
+     *        enabled, this value is set to <code>DEDICATED</code>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own
+     *        Windows Desktop Images</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see WorkspaceImageRequiredTenancy
      */
@@ -348,13 +388,17 @@ public class WorkspaceImage implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies whether the image is running on dedicated hardware. When bring your own license (BYOL) is enabled, this
-     * value is set to DEDICATED.
+     * Specifies whether the image is running on dedicated hardware. When Bring Your Own License (BYOL) is enabled, this
+     * value is set to <code>DEDICATED</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own Windows
+     * Desktop Images</a>.
      * </p>
      * 
      * @param requiredTenancy
-     *        Specifies whether the image is running on dedicated hardware. When bring your own license (BYOL) is
-     *        enabled, this value is set to DEDICATED.
+     *        Specifies whether the image is running on dedicated hardware. When Bring Your Own License (BYOL) is
+     *        enabled, this value is set to <code>DEDICATED</code>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html">Bring Your Own
+     *        Windows Desktop Images</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see WorkspaceImageRequiredTenancy
      */
@@ -445,6 +489,213 @@ public class WorkspaceImage implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The date when the image was created. If the image has been shared, the Amazon Web Services account that the image
+     * has been shared with sees the original creation date of the image.
+     * </p>
+     * 
+     * @param created
+     *        The date when the image was created. If the image has been shared, the Amazon Web Services account that
+     *        the image has been shared with sees the original creation date of the image.
+     */
+
+    public void setCreated(java.util.Date created) {
+        this.created = created;
+    }
+
+    /**
+     * <p>
+     * The date when the image was created. If the image has been shared, the Amazon Web Services account that the image
+     * has been shared with sees the original creation date of the image.
+     * </p>
+     * 
+     * @return The date when the image was created. If the image has been shared, the Amazon Web Services account that
+     *         the image has been shared with sees the original creation date of the image.
+     */
+
+    public java.util.Date getCreated() {
+        return this.created;
+    }
+
+    /**
+     * <p>
+     * The date when the image was created. If the image has been shared, the Amazon Web Services account that the image
+     * has been shared with sees the original creation date of the image.
+     * </p>
+     * 
+     * @param created
+     *        The date when the image was created. If the image has been shared, the Amazon Web Services account that
+     *        the image has been shared with sees the original creation date of the image.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkspaceImage withCreated(java.util.Date created) {
+        setCreated(created);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The identifier of the Amazon Web Services account that owns the image.
+     * </p>
+     * 
+     * @param ownerAccountId
+     *        The identifier of the Amazon Web Services account that owns the image.
+     */
+
+    public void setOwnerAccountId(String ownerAccountId) {
+        this.ownerAccountId = ownerAccountId;
+    }
+
+    /**
+     * <p>
+     * The identifier of the Amazon Web Services account that owns the image.
+     * </p>
+     * 
+     * @return The identifier of the Amazon Web Services account that owns the image.
+     */
+
+    public String getOwnerAccountId() {
+        return this.ownerAccountId;
+    }
+
+    /**
+     * <p>
+     * The identifier of the Amazon Web Services account that owns the image.
+     * </p>
+     * 
+     * @param ownerAccountId
+     *        The identifier of the Amazon Web Services account that owns the image.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkspaceImage withOwnerAccountId(String ownerAccountId) {
+        setOwnerAccountId(ownerAccountId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The updates (if any) that are available for the specified image.
+     * </p>
+     * 
+     * @param updates
+     *        The updates (if any) that are available for the specified image.
+     */
+
+    public void setUpdates(UpdateResult updates) {
+        this.updates = updates;
+    }
+
+    /**
+     * <p>
+     * The updates (if any) that are available for the specified image.
+     * </p>
+     * 
+     * @return The updates (if any) that are available for the specified image.
+     */
+
+    public UpdateResult getUpdates() {
+        return this.updates;
+    }
+
+    /**
+     * <p>
+     * The updates (if any) that are available for the specified image.
+     * </p>
+     * 
+     * @param updates
+     *        The updates (if any) that are available for the specified image.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkspaceImage withUpdates(UpdateResult updates) {
+        setUpdates(updates);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Additional details of the error returned for the image, including the possible causes of the errors and
+     * troubleshooting information.
+     * </p>
+     * 
+     * @return Additional details of the error returned for the image, including the possible causes of the errors and
+     *         troubleshooting information.
+     */
+
+    public java.util.List<ErrorDetails> getErrorDetails() {
+        if (errorDetails == null) {
+            errorDetails = new com.amazonaws.internal.SdkInternalList<ErrorDetails>();
+        }
+        return errorDetails;
+    }
+
+    /**
+     * <p>
+     * Additional details of the error returned for the image, including the possible causes of the errors and
+     * troubleshooting information.
+     * </p>
+     * 
+     * @param errorDetails
+     *        Additional details of the error returned for the image, including the possible causes of the errors and
+     *        troubleshooting information.
+     */
+
+    public void setErrorDetails(java.util.Collection<ErrorDetails> errorDetails) {
+        if (errorDetails == null) {
+            this.errorDetails = null;
+            return;
+        }
+
+        this.errorDetails = new com.amazonaws.internal.SdkInternalList<ErrorDetails>(errorDetails);
+    }
+
+    /**
+     * <p>
+     * Additional details of the error returned for the image, including the possible causes of the errors and
+     * troubleshooting information.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setErrorDetails(java.util.Collection)} or {@link #withErrorDetails(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param errorDetails
+     *        Additional details of the error returned for the image, including the possible causes of the errors and
+     *        troubleshooting information.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkspaceImage withErrorDetails(ErrorDetails... errorDetails) {
+        if (this.errorDetails == null) {
+            setErrorDetails(new com.amazonaws.internal.SdkInternalList<ErrorDetails>(errorDetails.length));
+        }
+        for (ErrorDetails ele : errorDetails) {
+            this.errorDetails.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Additional details of the error returned for the image, including the possible causes of the errors and
+     * troubleshooting information.
+     * </p>
+     * 
+     * @param errorDetails
+     *        Additional details of the error returned for the image, including the possible causes of the errors and
+     *        troubleshooting information.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkspaceImage withErrorDetails(java.util.Collection<ErrorDetails> errorDetails) {
+        setErrorDetails(errorDetails);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -471,7 +722,15 @@ public class WorkspaceImage implements Serializable, Cloneable, StructuredPojo {
         if (getErrorCode() != null)
             sb.append("ErrorCode: ").append(getErrorCode()).append(",");
         if (getErrorMessage() != null)
-            sb.append("ErrorMessage: ").append(getErrorMessage());
+            sb.append("ErrorMessage: ").append(getErrorMessage()).append(",");
+        if (getCreated() != null)
+            sb.append("Created: ").append(getCreated()).append(",");
+        if (getOwnerAccountId() != null)
+            sb.append("OwnerAccountId: ").append(getOwnerAccountId()).append(",");
+        if (getUpdates() != null)
+            sb.append("Updates: ").append(getUpdates()).append(",");
+        if (getErrorDetails() != null)
+            sb.append("ErrorDetails: ").append(getErrorDetails());
         sb.append("}");
         return sb.toString();
     }
@@ -518,6 +777,22 @@ public class WorkspaceImage implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getErrorMessage() != null && other.getErrorMessage().equals(this.getErrorMessage()) == false)
             return false;
+        if (other.getCreated() == null ^ this.getCreated() == null)
+            return false;
+        if (other.getCreated() != null && other.getCreated().equals(this.getCreated()) == false)
+            return false;
+        if (other.getOwnerAccountId() == null ^ this.getOwnerAccountId() == null)
+            return false;
+        if (other.getOwnerAccountId() != null && other.getOwnerAccountId().equals(this.getOwnerAccountId()) == false)
+            return false;
+        if (other.getUpdates() == null ^ this.getUpdates() == null)
+            return false;
+        if (other.getUpdates() != null && other.getUpdates().equals(this.getUpdates()) == false)
+            return false;
+        if (other.getErrorDetails() == null ^ this.getErrorDetails() == null)
+            return false;
+        if (other.getErrorDetails() != null && other.getErrorDetails().equals(this.getErrorDetails()) == false)
+            return false;
         return true;
     }
 
@@ -534,6 +809,10 @@ public class WorkspaceImage implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getRequiredTenancy() == null) ? 0 : getRequiredTenancy().hashCode());
         hashCode = prime * hashCode + ((getErrorCode() == null) ? 0 : getErrorCode().hashCode());
         hashCode = prime * hashCode + ((getErrorMessage() == null) ? 0 : getErrorMessage().hashCode());
+        hashCode = prime * hashCode + ((getCreated() == null) ? 0 : getCreated().hashCode());
+        hashCode = prime * hashCode + ((getOwnerAccountId() == null) ? 0 : getOwnerAccountId().hashCode());
+        hashCode = prime * hashCode + ((getUpdates() == null) ? 0 : getUpdates().hashCode());
+        hashCode = prime * hashCode + ((getErrorDetails() == null) ? 0 : getErrorDetails().hashCode());
         return hashCode;
     }
 

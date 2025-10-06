@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Information about an AWS Direct Connect location.
+ * Information about an Direct Connect location.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/Location" target="_top">AWS API
@@ -42,7 +42,7 @@ public class Location implements Serializable, Cloneable, StructuredPojo {
     private String locationName;
     /**
      * <p>
-     * The AWS Region for the location.
+     * The Amazon Web Services Region for the location.
      * </p>
      */
     private String region;
@@ -52,6 +52,18 @@ public class Location implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> availablePortSpeeds;
+    /**
+     * <p>
+     * The name of the service provider for the location.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> availableProviders;
+    /**
+     * <p>
+     * The available MAC Security (MACsec) port speeds for the location.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> availableMacSecPortSpeeds;
 
     /**
      * <p>
@@ -138,11 +150,11 @@ public class Location implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Region for the location.
+     * The Amazon Web Services Region for the location.
      * </p>
      * 
      * @param region
-     *        The AWS Region for the location.
+     *        The Amazon Web Services Region for the location.
      */
 
     public void setRegion(String region) {
@@ -151,10 +163,10 @@ public class Location implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Region for the location.
+     * The Amazon Web Services Region for the location.
      * </p>
      * 
-     * @return The AWS Region for the location.
+     * @return The Amazon Web Services Region for the location.
      */
 
     public String getRegion() {
@@ -163,11 +175,11 @@ public class Location implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Region for the location.
+     * The Amazon Web Services Region for the location.
      * </p>
      * 
      * @param region
-     *        The AWS Region for the location.
+     *        The Amazon Web Services Region for the location.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -250,6 +262,152 @@ public class Location implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The name of the service provider for the location.
+     * </p>
+     * 
+     * @return The name of the service provider for the location.
+     */
+
+    public java.util.List<String> getAvailableProviders() {
+        if (availableProviders == null) {
+            availableProviders = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return availableProviders;
+    }
+
+    /**
+     * <p>
+     * The name of the service provider for the location.
+     * </p>
+     * 
+     * @param availableProviders
+     *        The name of the service provider for the location.
+     */
+
+    public void setAvailableProviders(java.util.Collection<String> availableProviders) {
+        if (availableProviders == null) {
+            this.availableProviders = null;
+            return;
+        }
+
+        this.availableProviders = new com.amazonaws.internal.SdkInternalList<String>(availableProviders);
+    }
+
+    /**
+     * <p>
+     * The name of the service provider for the location.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAvailableProviders(java.util.Collection)} or {@link #withAvailableProviders(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param availableProviders
+     *        The name of the service provider for the location.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Location withAvailableProviders(String... availableProviders) {
+        if (this.availableProviders == null) {
+            setAvailableProviders(new com.amazonaws.internal.SdkInternalList<String>(availableProviders.length));
+        }
+        for (String ele : availableProviders) {
+            this.availableProviders.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the service provider for the location.
+     * </p>
+     * 
+     * @param availableProviders
+     *        The name of the service provider for the location.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Location withAvailableProviders(java.util.Collection<String> availableProviders) {
+        setAvailableProviders(availableProviders);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The available MAC Security (MACsec) port speeds for the location.
+     * </p>
+     * 
+     * @return The available MAC Security (MACsec) port speeds for the location.
+     */
+
+    public java.util.List<String> getAvailableMacSecPortSpeeds() {
+        if (availableMacSecPortSpeeds == null) {
+            availableMacSecPortSpeeds = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return availableMacSecPortSpeeds;
+    }
+
+    /**
+     * <p>
+     * The available MAC Security (MACsec) port speeds for the location.
+     * </p>
+     * 
+     * @param availableMacSecPortSpeeds
+     *        The available MAC Security (MACsec) port speeds for the location.
+     */
+
+    public void setAvailableMacSecPortSpeeds(java.util.Collection<String> availableMacSecPortSpeeds) {
+        if (availableMacSecPortSpeeds == null) {
+            this.availableMacSecPortSpeeds = null;
+            return;
+        }
+
+        this.availableMacSecPortSpeeds = new com.amazonaws.internal.SdkInternalList<String>(availableMacSecPortSpeeds);
+    }
+
+    /**
+     * <p>
+     * The available MAC Security (MACsec) port speeds for the location.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAvailableMacSecPortSpeeds(java.util.Collection)} or
+     * {@link #withAvailableMacSecPortSpeeds(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param availableMacSecPortSpeeds
+     *        The available MAC Security (MACsec) port speeds for the location.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Location withAvailableMacSecPortSpeeds(String... availableMacSecPortSpeeds) {
+        if (this.availableMacSecPortSpeeds == null) {
+            setAvailableMacSecPortSpeeds(new com.amazonaws.internal.SdkInternalList<String>(availableMacSecPortSpeeds.length));
+        }
+        for (String ele : availableMacSecPortSpeeds) {
+            this.availableMacSecPortSpeeds.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The available MAC Security (MACsec) port speeds for the location.
+     * </p>
+     * 
+     * @param availableMacSecPortSpeeds
+     *        The available MAC Security (MACsec) port speeds for the location.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Location withAvailableMacSecPortSpeeds(java.util.Collection<String> availableMacSecPortSpeeds) {
+        setAvailableMacSecPortSpeeds(availableMacSecPortSpeeds);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -268,7 +426,11 @@ public class Location implements Serializable, Cloneable, StructuredPojo {
         if (getRegion() != null)
             sb.append("Region: ").append(getRegion()).append(",");
         if (getAvailablePortSpeeds() != null)
-            sb.append("AvailablePortSpeeds: ").append(getAvailablePortSpeeds());
+            sb.append("AvailablePortSpeeds: ").append(getAvailablePortSpeeds()).append(",");
+        if (getAvailableProviders() != null)
+            sb.append("AvailableProviders: ").append(getAvailableProviders()).append(",");
+        if (getAvailableMacSecPortSpeeds() != null)
+            sb.append("AvailableMacSecPortSpeeds: ").append(getAvailableMacSecPortSpeeds());
         sb.append("}");
         return sb.toString();
     }
@@ -299,6 +461,14 @@ public class Location implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getAvailablePortSpeeds() != null && other.getAvailablePortSpeeds().equals(this.getAvailablePortSpeeds()) == false)
             return false;
+        if (other.getAvailableProviders() == null ^ this.getAvailableProviders() == null)
+            return false;
+        if (other.getAvailableProviders() != null && other.getAvailableProviders().equals(this.getAvailableProviders()) == false)
+            return false;
+        if (other.getAvailableMacSecPortSpeeds() == null ^ this.getAvailableMacSecPortSpeeds() == null)
+            return false;
+        if (other.getAvailableMacSecPortSpeeds() != null && other.getAvailableMacSecPortSpeeds().equals(this.getAvailableMacSecPortSpeeds()) == false)
+            return false;
         return true;
     }
 
@@ -311,6 +481,8 @@ public class Location implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getLocationName() == null) ? 0 : getLocationName().hashCode());
         hashCode = prime * hashCode + ((getRegion() == null) ? 0 : getRegion().hashCode());
         hashCode = prime * hashCode + ((getAvailablePortSpeeds() == null) ? 0 : getAvailablePortSpeeds().hashCode());
+        hashCode = prime * hashCode + ((getAvailableProviders() == null) ? 0 : getAvailableProviders().hashCode());
+        hashCode = prime * hashCode + ((getAvailableMacSecPortSpeeds() == null) ? 0 : getAvailableMacSecPortSpeeds().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,8 +32,10 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      * *.example.com protects www.example.com, site.example.com, and images.example.com.
      * </p>
      * <p>
-     * The first domain name you enter cannot exceed 63 octets, including periods. Each subsequent Subject Alternative
-     * Name (SAN), however, can be up to 253 octets in length.
+     * In compliance with <a href="https://datatracker.ietf.org/doc/html/rfc5280">RFC 5280</a>, the length of the domain
+     * name (technically, the Common Name) that you provide cannot exceed 64 octets (characters), including periods. To
+     * add a longer domain name, specify it in the Subject Alternative Name field, which supports names up to 253 octets
+     * in length.
      * </p>
      */
     private String domainName;
@@ -51,9 +53,9 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      * Additional FQDNs to be included in the Subject Alternative Name extension of the ACM certificate. For example,
      * add the name www.example.net to a certificate for which the <code>DomainName</code> field is www.example.com if
      * users can reach your site by using either name. The maximum number of domain names that you can add to an ACM
-     * certificate is 100. However, the initial limit is 10 domain names. If you need more than 10 names, you must
-     * request a limit increase. For more information, see <a
-     * href="https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html">Limits</a>.
+     * certificate is 100. However, the initial quota is 10 domain names. If you need more than 10 names, you must
+     * request a quota increase. For more information, see <a
+     * href="https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html">Quotas</a>.
      * </p>
      * <p>
      * The maximum length of a SAN DNS name is 253 octets. The name is made up of multiple labels separated by periods.
@@ -113,14 +115,66 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      * The Amazon Resource Name (ARN) of the private certificate authority (CA) that will be used to issue the
      * certificate. If you do not provide an ARN and you are trying to request a private certificate, ACM will attempt
      * to issue a public certificate. For more information about private CAs, see the <a
-     * href="https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaWelcome.html">AWS Certificate Manager Private
-     * Certificate Authority (PCA)</a> user guide. The ARN must have the following form:
+     * href="https://docs.aws.amazon.com/privateca/latest/userguide/PcaWelcome.html">Amazon Web Services Private
+     * Certificate Authority</a> user guide. The ARN must have the following form:
      * </p>
      * <p>
      * <code>arn:aws:acm-pca:region:account:certificate-authority/12345678-1234-1234-1234-123456789012</code>
      * </p>
      */
     private String certificateAuthorityArn;
+    /**
+     * <p>
+     * One or more resource tags to associate with the certificate.
+     * </p>
+     */
+    private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * Specifies the algorithm of the public and private key pair that your certificate uses to encrypt data. RSA is the
+     * default key algorithm for ACM certificates. Elliptic Curve Digital Signature Algorithm (ECDSA) keys are smaller,
+     * offering security comparable to RSA keys but with greater computing efficiency. However, ECDSA is not supported
+     * by all network clients. Some Amazon Web Services services may require RSA keys, or only support ECDSA keys of a
+     * particular size, while others allow the use of either RSA and ECDSA keys to ensure that compatibility is not
+     * broken. Check the requirements for the Amazon Web Services service where you plan to deploy your certificate. For
+     * more information about selecting an algorithm, see <a
+     * href="https://docs.aws.amazon.com/acm/latest/userguide/acm-certificate.html#algorithms">Key algorithms</a>.
+     * </p>
+     * <note>
+     * <p>
+     * Algorithms supported for an ACM certificate request include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>RSA_2048</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EC_prime256v1</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EC_secp384r1</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Other listed algorithms are for imported certificates only.
+     * </p>
+     * </note> <note>
+     * <p>
+     * When you request a private PKI certificate signed by a CA from Amazon Web Services Private CA, the specified
+     * signing algorithm family (RSA or ECDSA) must match the algorithm family of the CA's secret key.
+     * </p>
+     * </note>
+     * <p>
+     * Default: RSA_2048
+     * </p>
+     */
+    private String keyAlgorithm;
 
     /**
      * <p>
@@ -129,8 +183,10 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      * *.example.com protects www.example.com, site.example.com, and images.example.com.
      * </p>
      * <p>
-     * The first domain name you enter cannot exceed 63 octets, including periods. Each subsequent Subject Alternative
-     * Name (SAN), however, can be up to 253 octets in length.
+     * In compliance with <a href="https://datatracker.ietf.org/doc/html/rfc5280">RFC 5280</a>, the length of the domain
+     * name (technically, the Common Name) that you provide cannot exceed 64 octets (characters), including periods. To
+     * add a longer domain name, specify it in the Subject Alternative Name field, which supports names up to 253 octets
+     * in length.
      * </p>
      * 
      * @param domainName
@@ -139,8 +195,10 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      *        domain. For example, *.example.com protects www.example.com, site.example.com, and images.example.com.
      *        </p>
      *        <p>
-     *        The first domain name you enter cannot exceed 63 octets, including periods. Each subsequent Subject
-     *        Alternative Name (SAN), however, can be up to 253 octets in length.
+     *        In compliance with <a href="https://datatracker.ietf.org/doc/html/rfc5280">RFC 5280</a>, the length of the
+     *        domain name (technically, the Common Name) that you provide cannot exceed 64 octets (characters),
+     *        including periods. To add a longer domain name, specify it in the Subject Alternative Name field, which
+     *        supports names up to 253 octets in length.
      */
 
     public void setDomainName(String domainName) {
@@ -154,8 +212,10 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      * *.example.com protects www.example.com, site.example.com, and images.example.com.
      * </p>
      * <p>
-     * The first domain name you enter cannot exceed 63 octets, including periods. Each subsequent Subject Alternative
-     * Name (SAN), however, can be up to 253 octets in length.
+     * In compliance with <a href="https://datatracker.ietf.org/doc/html/rfc5280">RFC 5280</a>, the length of the domain
+     * name (technically, the Common Name) that you provide cannot exceed 64 octets (characters), including periods. To
+     * add a longer domain name, specify it in the Subject Alternative Name field, which supports names up to 253 octets
+     * in length.
      * </p>
      * 
      * @return Fully qualified domain name (FQDN), such as www.example.com, that you want to secure with an ACM
@@ -163,8 +223,10 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      *         domain. For example, *.example.com protects www.example.com, site.example.com, and images.example.com.
      *         </p>
      *         <p>
-     *         The first domain name you enter cannot exceed 63 octets, including periods. Each subsequent Subject
-     *         Alternative Name (SAN), however, can be up to 253 octets in length.
+     *         In compliance with <a href="https://datatracker.ietf.org/doc/html/rfc5280">RFC 5280</a>, the length of
+     *         the domain name (technically, the Common Name) that you provide cannot exceed 64 octets (characters),
+     *         including periods. To add a longer domain name, specify it in the Subject Alternative Name field, which
+     *         supports names up to 253 octets in length.
      */
 
     public String getDomainName() {
@@ -178,8 +240,10 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      * *.example.com protects www.example.com, site.example.com, and images.example.com.
      * </p>
      * <p>
-     * The first domain name you enter cannot exceed 63 octets, including periods. Each subsequent Subject Alternative
-     * Name (SAN), however, can be up to 253 octets in length.
+     * In compliance with <a href="https://datatracker.ietf.org/doc/html/rfc5280">RFC 5280</a>, the length of the domain
+     * name (technically, the Common Name) that you provide cannot exceed 64 octets (characters), including periods. To
+     * add a longer domain name, specify it in the Subject Alternative Name field, which supports names up to 253 octets
+     * in length.
      * </p>
      * 
      * @param domainName
@@ -188,8 +252,10 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      *        domain. For example, *.example.com protects www.example.com, site.example.com, and images.example.com.
      *        </p>
      *        <p>
-     *        The first domain name you enter cannot exceed 63 octets, including periods. Each subsequent Subject
-     *        Alternative Name (SAN), however, can be up to 253 octets in length.
+     *        In compliance with <a href="https://datatracker.ietf.org/doc/html/rfc5280">RFC 5280</a>, the length of the
+     *        domain name (technically, the Common Name) that you provide cannot exceed 64 octets (characters),
+     *        including periods. To add a longer domain name, specify it in the Subject Alternative Name field, which
+     *        supports names up to 253 octets in length.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -290,9 +356,9 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      * Additional FQDNs to be included in the Subject Alternative Name extension of the ACM certificate. For example,
      * add the name www.example.net to a certificate for which the <code>DomainName</code> field is www.example.com if
      * users can reach your site by using either name. The maximum number of domain names that you can add to an ACM
-     * certificate is 100. However, the initial limit is 10 domain names. If you need more than 10 names, you must
-     * request a limit increase. For more information, see <a
-     * href="https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html">Limits</a>.
+     * certificate is 100. However, the initial quota is 10 domain names. If you need more than 10 names, you must
+     * request a quota increase. For more information, see <a
+     * href="https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html">Quotas</a>.
      * </p>
      * <p>
      * The maximum length of a SAN DNS name is 253 octets. The name is made up of multiple labels separated by periods.
@@ -322,9 +388,9 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      * @return Additional FQDNs to be included in the Subject Alternative Name extension of the ACM certificate. For
      *         example, add the name www.example.net to a certificate for which the <code>DomainName</code> field is
      *         www.example.com if users can reach your site by using either name. The maximum number of domain names
-     *         that you can add to an ACM certificate is 100. However, the initial limit is 10 domain names. If you need
-     *         more than 10 names, you must request a limit increase. For more information, see <a
-     *         href="https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html">Limits</a>.</p>
+     *         that you can add to an ACM certificate is 100. However, the initial quota is 10 domain names. If you need
+     *         more than 10 names, you must request a quota increase. For more information, see <a
+     *         href="https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html">Quotas</a>.</p>
      *         <p>
      *         The maximum length of a SAN DNS name is 253 octets. The name is made up of multiple labels separated by
      *         periods. No label can be longer than 63 octets. Consider the following examples:
@@ -359,9 +425,9 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      * Additional FQDNs to be included in the Subject Alternative Name extension of the ACM certificate. For example,
      * add the name www.example.net to a certificate for which the <code>DomainName</code> field is www.example.com if
      * users can reach your site by using either name. The maximum number of domain names that you can add to an ACM
-     * certificate is 100. However, the initial limit is 10 domain names. If you need more than 10 names, you must
-     * request a limit increase. For more information, see <a
-     * href="https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html">Limits</a>.
+     * certificate is 100. However, the initial quota is 10 domain names. If you need more than 10 names, you must
+     * request a quota increase. For more information, see <a
+     * href="https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html">Quotas</a>.
      * </p>
      * <p>
      * The maximum length of a SAN DNS name is 253 octets. The name is made up of multiple labels separated by periods.
@@ -392,9 +458,9 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      *        Additional FQDNs to be included in the Subject Alternative Name extension of the ACM certificate. For
      *        example, add the name www.example.net to a certificate for which the <code>DomainName</code> field is
      *        www.example.com if users can reach your site by using either name. The maximum number of domain names that
-     *        you can add to an ACM certificate is 100. However, the initial limit is 10 domain names. If you need more
-     *        than 10 names, you must request a limit increase. For more information, see <a
-     *        href="https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html">Limits</a>.</p>
+     *        you can add to an ACM certificate is 100. However, the initial quota is 10 domain names. If you need more
+     *        than 10 names, you must request a quota increase. For more information, see <a
+     *        href="https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html">Quotas</a>.</p>
      *        <p>
      *        The maximum length of a SAN DNS name is 253 octets. The name is made up of multiple labels separated by
      *        periods. No label can be longer than 63 octets. Consider the following examples:
@@ -434,9 +500,9 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      * Additional FQDNs to be included in the Subject Alternative Name extension of the ACM certificate. For example,
      * add the name www.example.net to a certificate for which the <code>DomainName</code> field is www.example.com if
      * users can reach your site by using either name. The maximum number of domain names that you can add to an ACM
-     * certificate is 100. However, the initial limit is 10 domain names. If you need more than 10 names, you must
-     * request a limit increase. For more information, see <a
-     * href="https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html">Limits</a>.
+     * certificate is 100. However, the initial quota is 10 domain names. If you need more than 10 names, you must
+     * request a quota increase. For more information, see <a
+     * href="https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html">Quotas</a>.
      * </p>
      * <p>
      * The maximum length of a SAN DNS name is 253 octets. The name is made up of multiple labels separated by periods.
@@ -472,9 +538,9 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      *        Additional FQDNs to be included in the Subject Alternative Name extension of the ACM certificate. For
      *        example, add the name www.example.net to a certificate for which the <code>DomainName</code> field is
      *        www.example.com if users can reach your site by using either name. The maximum number of domain names that
-     *        you can add to an ACM certificate is 100. However, the initial limit is 10 domain names. If you need more
-     *        than 10 names, you must request a limit increase. For more information, see <a
-     *        href="https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html">Limits</a>.</p>
+     *        you can add to an ACM certificate is 100. However, the initial quota is 10 domain names. If you need more
+     *        than 10 names, you must request a quota increase. For more information, see <a
+     *        href="https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html">Quotas</a>.</p>
      *        <p>
      *        The maximum length of a SAN DNS name is 253 octets. The name is made up of multiple labels separated by
      *        periods. No label can be longer than 63 octets. Consider the following examples:
@@ -516,9 +582,9 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      * Additional FQDNs to be included in the Subject Alternative Name extension of the ACM certificate. For example,
      * add the name www.example.net to a certificate for which the <code>DomainName</code> field is www.example.com if
      * users can reach your site by using either name. The maximum number of domain names that you can add to an ACM
-     * certificate is 100. However, the initial limit is 10 domain names. If you need more than 10 names, you must
-     * request a limit increase. For more information, see <a
-     * href="https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html">Limits</a>.
+     * certificate is 100. However, the initial quota is 10 domain names. If you need more than 10 names, you must
+     * request a quota increase. For more information, see <a
+     * href="https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html">Quotas</a>.
      * </p>
      * <p>
      * The maximum length of a SAN DNS name is 253 octets. The name is made up of multiple labels separated by periods.
@@ -549,9 +615,9 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      *        Additional FQDNs to be included in the Subject Alternative Name extension of the ACM certificate. For
      *        example, add the name www.example.net to a certificate for which the <code>DomainName</code> field is
      *        www.example.com if users can reach your site by using either name. The maximum number of domain names that
-     *        you can add to an ACM certificate is 100. However, the initial limit is 10 domain names. If you need more
-     *        than 10 names, you must request a limit increase. For more information, see <a
-     *        href="https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html">Limits</a>.</p>
+     *        you can add to an ACM certificate is 100. However, the initial quota is 10 domain names. If you need more
+     *        than 10 names, you must request a quota increase. For more information, see <a
+     *        href="https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html">Quotas</a>.</p>
      *        <p>
      *        The maximum length of a SAN DNS name is 253 octets. The name is made up of multiple labels separated by
      *        periods. No label can be longer than 63 octets. Consider the following examples:
@@ -792,8 +858,8 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      * The Amazon Resource Name (ARN) of the private certificate authority (CA) that will be used to issue the
      * certificate. If you do not provide an ARN and you are trying to request a private certificate, ACM will attempt
      * to issue a public certificate. For more information about private CAs, see the <a
-     * href="https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaWelcome.html">AWS Certificate Manager Private
-     * Certificate Authority (PCA)</a> user guide. The ARN must have the following form:
+     * href="https://docs.aws.amazon.com/privateca/latest/userguide/PcaWelcome.html">Amazon Web Services Private
+     * Certificate Authority</a> user guide. The ARN must have the following form:
      * </p>
      * <p>
      * <code>arn:aws:acm-pca:region:account:certificate-authority/12345678-1234-1234-1234-123456789012</code>
@@ -803,8 +869,8 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      *        The Amazon Resource Name (ARN) of the private certificate authority (CA) that will be used to issue the
      *        certificate. If you do not provide an ARN and you are trying to request a private certificate, ACM will
      *        attempt to issue a public certificate. For more information about private CAs, see the <a
-     *        href="https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaWelcome.html">AWS Certificate Manager
-     *        Private Certificate Authority (PCA)</a> user guide. The ARN must have the following form: </p>
+     *        href="https://docs.aws.amazon.com/privateca/latest/userguide/PcaWelcome.html">Amazon Web Services Private
+     *        Certificate Authority</a> user guide. The ARN must have the following form: </p>
      *        <p>
      *        <code>arn:aws:acm-pca:region:account:certificate-authority/12345678-1234-1234-1234-123456789012</code>
      */
@@ -818,8 +884,8 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      * The Amazon Resource Name (ARN) of the private certificate authority (CA) that will be used to issue the
      * certificate. If you do not provide an ARN and you are trying to request a private certificate, ACM will attempt
      * to issue a public certificate. For more information about private CAs, see the <a
-     * href="https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaWelcome.html">AWS Certificate Manager Private
-     * Certificate Authority (PCA)</a> user guide. The ARN must have the following form:
+     * href="https://docs.aws.amazon.com/privateca/latest/userguide/PcaWelcome.html">Amazon Web Services Private
+     * Certificate Authority</a> user guide. The ARN must have the following form:
      * </p>
      * <p>
      * <code>arn:aws:acm-pca:region:account:certificate-authority/12345678-1234-1234-1234-123456789012</code>
@@ -828,8 +894,8 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      * @return The Amazon Resource Name (ARN) of the private certificate authority (CA) that will be used to issue the
      *         certificate. If you do not provide an ARN and you are trying to request a private certificate, ACM will
      *         attempt to issue a public certificate. For more information about private CAs, see the <a
-     *         href="https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaWelcome.html">AWS Certificate Manager
-     *         Private Certificate Authority (PCA)</a> user guide. The ARN must have the following form: </p>
+     *         href="https://docs.aws.amazon.com/privateca/latest/userguide/PcaWelcome.html">Amazon Web Services Private
+     *         Certificate Authority</a> user guide. The ARN must have the following form: </p>
      *         <p>
      *         <code>arn:aws:acm-pca:region:account:certificate-authority/12345678-1234-1234-1234-123456789012</code>
      */
@@ -843,8 +909,8 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      * The Amazon Resource Name (ARN) of the private certificate authority (CA) that will be used to issue the
      * certificate. If you do not provide an ARN and you are trying to request a private certificate, ACM will attempt
      * to issue a public certificate. For more information about private CAs, see the <a
-     * href="https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaWelcome.html">AWS Certificate Manager Private
-     * Certificate Authority (PCA)</a> user guide. The ARN must have the following form:
+     * href="https://docs.aws.amazon.com/privateca/latest/userguide/PcaWelcome.html">Amazon Web Services Private
+     * Certificate Authority</a> user guide. The ARN must have the following form:
      * </p>
      * <p>
      * <code>arn:aws:acm-pca:region:account:certificate-authority/12345678-1234-1234-1234-123456789012</code>
@@ -854,8 +920,8 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
      *        The Amazon Resource Name (ARN) of the private certificate authority (CA) that will be used to issue the
      *        certificate. If you do not provide an ARN and you are trying to request a private certificate, ACM will
      *        attempt to issue a public certificate. For more information about private CAs, see the <a
-     *        href="https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaWelcome.html">AWS Certificate Manager
-     *        Private Certificate Authority (PCA)</a> user guide. The ARN must have the following form: </p>
+     *        href="https://docs.aws.amazon.com/privateca/latest/userguide/PcaWelcome.html">Amazon Web Services Private
+     *        Certificate Authority</a> user guide. The ARN must have the following form: </p>
      *        <p>
      *        <code>arn:aws:acm-pca:region:account:certificate-authority/12345678-1234-1234-1234-123456789012</code>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -863,6 +929,451 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
 
     public RequestCertificateRequest withCertificateAuthorityArn(String certificateAuthorityArn) {
         setCertificateAuthorityArn(certificateAuthorityArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * One or more resource tags to associate with the certificate.
+     * </p>
+     * 
+     * @return One or more resource tags to associate with the certificate.
+     */
+
+    public java.util.List<Tag> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * One or more resource tags to associate with the certificate.
+     * </p>
+     * 
+     * @param tags
+     *        One or more resource tags to associate with the certificate.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new java.util.ArrayList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * One or more resource tags to associate with the certificate.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        One or more resource tags to associate with the certificate.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RequestCertificateRequest withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new java.util.ArrayList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * One or more resource tags to associate with the certificate.
+     * </p>
+     * 
+     * @param tags
+     *        One or more resource tags to associate with the certificate.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RequestCertificateRequest withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the algorithm of the public and private key pair that your certificate uses to encrypt data. RSA is the
+     * default key algorithm for ACM certificates. Elliptic Curve Digital Signature Algorithm (ECDSA) keys are smaller,
+     * offering security comparable to RSA keys but with greater computing efficiency. However, ECDSA is not supported
+     * by all network clients. Some Amazon Web Services services may require RSA keys, or only support ECDSA keys of a
+     * particular size, while others allow the use of either RSA and ECDSA keys to ensure that compatibility is not
+     * broken. Check the requirements for the Amazon Web Services service where you plan to deploy your certificate. For
+     * more information about selecting an algorithm, see <a
+     * href="https://docs.aws.amazon.com/acm/latest/userguide/acm-certificate.html#algorithms">Key algorithms</a>.
+     * </p>
+     * <note>
+     * <p>
+     * Algorithms supported for an ACM certificate request include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>RSA_2048</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EC_prime256v1</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EC_secp384r1</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Other listed algorithms are for imported certificates only.
+     * </p>
+     * </note> <note>
+     * <p>
+     * When you request a private PKI certificate signed by a CA from Amazon Web Services Private CA, the specified
+     * signing algorithm family (RSA or ECDSA) must match the algorithm family of the CA's secret key.
+     * </p>
+     * </note>
+     * <p>
+     * Default: RSA_2048
+     * </p>
+     * 
+     * @param keyAlgorithm
+     *        Specifies the algorithm of the public and private key pair that your certificate uses to encrypt data. RSA
+     *        is the default key algorithm for ACM certificates. Elliptic Curve Digital Signature Algorithm (ECDSA) keys
+     *        are smaller, offering security comparable to RSA keys but with greater computing efficiency. However,
+     *        ECDSA is not supported by all network clients. Some Amazon Web Services services may require RSA keys, or
+     *        only support ECDSA keys of a particular size, while others allow the use of either RSA and ECDSA keys to
+     *        ensure that compatibility is not broken. Check the requirements for the Amazon Web Services service where
+     *        you plan to deploy your certificate. For more information about selecting an algorithm, see <a
+     *        href="https://docs.aws.amazon.com/acm/latest/userguide/acm-certificate.html#algorithms">Key
+     *        algorithms</a>.</p> <note>
+     *        <p>
+     *        Algorithms supported for an ACM certificate request include:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>RSA_2048</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EC_prime256v1</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EC_secp384r1</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Other listed algorithms are for imported certificates only.
+     *        </p>
+     *        </note> <note>
+     *        <p>
+     *        When you request a private PKI certificate signed by a CA from Amazon Web Services Private CA, the
+     *        specified signing algorithm family (RSA or ECDSA) must match the algorithm family of the CA's secret key.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        Default: RSA_2048
+     * @see KeyAlgorithm
+     */
+
+    public void setKeyAlgorithm(String keyAlgorithm) {
+        this.keyAlgorithm = keyAlgorithm;
+    }
+
+    /**
+     * <p>
+     * Specifies the algorithm of the public and private key pair that your certificate uses to encrypt data. RSA is the
+     * default key algorithm for ACM certificates. Elliptic Curve Digital Signature Algorithm (ECDSA) keys are smaller,
+     * offering security comparable to RSA keys but with greater computing efficiency. However, ECDSA is not supported
+     * by all network clients. Some Amazon Web Services services may require RSA keys, or only support ECDSA keys of a
+     * particular size, while others allow the use of either RSA and ECDSA keys to ensure that compatibility is not
+     * broken. Check the requirements for the Amazon Web Services service where you plan to deploy your certificate. For
+     * more information about selecting an algorithm, see <a
+     * href="https://docs.aws.amazon.com/acm/latest/userguide/acm-certificate.html#algorithms">Key algorithms</a>.
+     * </p>
+     * <note>
+     * <p>
+     * Algorithms supported for an ACM certificate request include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>RSA_2048</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EC_prime256v1</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EC_secp384r1</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Other listed algorithms are for imported certificates only.
+     * </p>
+     * </note> <note>
+     * <p>
+     * When you request a private PKI certificate signed by a CA from Amazon Web Services Private CA, the specified
+     * signing algorithm family (RSA or ECDSA) must match the algorithm family of the CA's secret key.
+     * </p>
+     * </note>
+     * <p>
+     * Default: RSA_2048
+     * </p>
+     * 
+     * @return Specifies the algorithm of the public and private key pair that your certificate uses to encrypt data.
+     *         RSA is the default key algorithm for ACM certificates. Elliptic Curve Digital Signature Algorithm (ECDSA)
+     *         keys are smaller, offering security comparable to RSA keys but with greater computing efficiency.
+     *         However, ECDSA is not supported by all network clients. Some Amazon Web Services services may require RSA
+     *         keys, or only support ECDSA keys of a particular size, while others allow the use of either RSA and ECDSA
+     *         keys to ensure that compatibility is not broken. Check the requirements for the Amazon Web Services
+     *         service where you plan to deploy your certificate. For more information about selecting an algorithm, see
+     *         <a href="https://docs.aws.amazon.com/acm/latest/userguide/acm-certificate.html#algorithms">Key
+     *         algorithms</a>.</p> <note>
+     *         <p>
+     *         Algorithms supported for an ACM certificate request include:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>RSA_2048</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>EC_prime256v1</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>EC_secp384r1</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Other listed algorithms are for imported certificates only.
+     *         </p>
+     *         </note> <note>
+     *         <p>
+     *         When you request a private PKI certificate signed by a CA from Amazon Web Services Private CA, the
+     *         specified signing algorithm family (RSA or ECDSA) must match the algorithm family of the CA's secret key.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         Default: RSA_2048
+     * @see KeyAlgorithm
+     */
+
+    public String getKeyAlgorithm() {
+        return this.keyAlgorithm;
+    }
+
+    /**
+     * <p>
+     * Specifies the algorithm of the public and private key pair that your certificate uses to encrypt data. RSA is the
+     * default key algorithm for ACM certificates. Elliptic Curve Digital Signature Algorithm (ECDSA) keys are smaller,
+     * offering security comparable to RSA keys but with greater computing efficiency. However, ECDSA is not supported
+     * by all network clients. Some Amazon Web Services services may require RSA keys, or only support ECDSA keys of a
+     * particular size, while others allow the use of either RSA and ECDSA keys to ensure that compatibility is not
+     * broken. Check the requirements for the Amazon Web Services service where you plan to deploy your certificate. For
+     * more information about selecting an algorithm, see <a
+     * href="https://docs.aws.amazon.com/acm/latest/userguide/acm-certificate.html#algorithms">Key algorithms</a>.
+     * </p>
+     * <note>
+     * <p>
+     * Algorithms supported for an ACM certificate request include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>RSA_2048</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EC_prime256v1</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EC_secp384r1</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Other listed algorithms are for imported certificates only.
+     * </p>
+     * </note> <note>
+     * <p>
+     * When you request a private PKI certificate signed by a CA from Amazon Web Services Private CA, the specified
+     * signing algorithm family (RSA or ECDSA) must match the algorithm family of the CA's secret key.
+     * </p>
+     * </note>
+     * <p>
+     * Default: RSA_2048
+     * </p>
+     * 
+     * @param keyAlgorithm
+     *        Specifies the algorithm of the public and private key pair that your certificate uses to encrypt data. RSA
+     *        is the default key algorithm for ACM certificates. Elliptic Curve Digital Signature Algorithm (ECDSA) keys
+     *        are smaller, offering security comparable to RSA keys but with greater computing efficiency. However,
+     *        ECDSA is not supported by all network clients. Some Amazon Web Services services may require RSA keys, or
+     *        only support ECDSA keys of a particular size, while others allow the use of either RSA and ECDSA keys to
+     *        ensure that compatibility is not broken. Check the requirements for the Amazon Web Services service where
+     *        you plan to deploy your certificate. For more information about selecting an algorithm, see <a
+     *        href="https://docs.aws.amazon.com/acm/latest/userguide/acm-certificate.html#algorithms">Key
+     *        algorithms</a>.</p> <note>
+     *        <p>
+     *        Algorithms supported for an ACM certificate request include:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>RSA_2048</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EC_prime256v1</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EC_secp384r1</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Other listed algorithms are for imported certificates only.
+     *        </p>
+     *        </note> <note>
+     *        <p>
+     *        When you request a private PKI certificate signed by a CA from Amazon Web Services Private CA, the
+     *        specified signing algorithm family (RSA or ECDSA) must match the algorithm family of the CA's secret key.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        Default: RSA_2048
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see KeyAlgorithm
+     */
+
+    public RequestCertificateRequest withKeyAlgorithm(String keyAlgorithm) {
+        setKeyAlgorithm(keyAlgorithm);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the algorithm of the public and private key pair that your certificate uses to encrypt data. RSA is the
+     * default key algorithm for ACM certificates. Elliptic Curve Digital Signature Algorithm (ECDSA) keys are smaller,
+     * offering security comparable to RSA keys but with greater computing efficiency. However, ECDSA is not supported
+     * by all network clients. Some Amazon Web Services services may require RSA keys, or only support ECDSA keys of a
+     * particular size, while others allow the use of either RSA and ECDSA keys to ensure that compatibility is not
+     * broken. Check the requirements for the Amazon Web Services service where you plan to deploy your certificate. For
+     * more information about selecting an algorithm, see <a
+     * href="https://docs.aws.amazon.com/acm/latest/userguide/acm-certificate.html#algorithms">Key algorithms</a>.
+     * </p>
+     * <note>
+     * <p>
+     * Algorithms supported for an ACM certificate request include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>RSA_2048</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EC_prime256v1</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EC_secp384r1</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Other listed algorithms are for imported certificates only.
+     * </p>
+     * </note> <note>
+     * <p>
+     * When you request a private PKI certificate signed by a CA from Amazon Web Services Private CA, the specified
+     * signing algorithm family (RSA or ECDSA) must match the algorithm family of the CA's secret key.
+     * </p>
+     * </note>
+     * <p>
+     * Default: RSA_2048
+     * </p>
+     * 
+     * @param keyAlgorithm
+     *        Specifies the algorithm of the public and private key pair that your certificate uses to encrypt data. RSA
+     *        is the default key algorithm for ACM certificates. Elliptic Curve Digital Signature Algorithm (ECDSA) keys
+     *        are smaller, offering security comparable to RSA keys but with greater computing efficiency. However,
+     *        ECDSA is not supported by all network clients. Some Amazon Web Services services may require RSA keys, or
+     *        only support ECDSA keys of a particular size, while others allow the use of either RSA and ECDSA keys to
+     *        ensure that compatibility is not broken. Check the requirements for the Amazon Web Services service where
+     *        you plan to deploy your certificate. For more information about selecting an algorithm, see <a
+     *        href="https://docs.aws.amazon.com/acm/latest/userguide/acm-certificate.html#algorithms">Key
+     *        algorithms</a>.</p> <note>
+     *        <p>
+     *        Algorithms supported for an ACM certificate request include:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>RSA_2048</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EC_prime256v1</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EC_secp384r1</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Other listed algorithms are for imported certificates only.
+     *        </p>
+     *        </note> <note>
+     *        <p>
+     *        When you request a private PKI certificate signed by a CA from Amazon Web Services Private CA, the
+     *        specified signing algorithm family (RSA or ECDSA) must match the algorithm family of the CA's secret key.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        Default: RSA_2048
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see KeyAlgorithm
+     */
+
+    public RequestCertificateRequest withKeyAlgorithm(KeyAlgorithm keyAlgorithm) {
+        this.keyAlgorithm = keyAlgorithm.toString();
         return this;
     }
 
@@ -891,7 +1402,11 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
         if (getOptions() != null)
             sb.append("Options: ").append(getOptions()).append(",");
         if (getCertificateAuthorityArn() != null)
-            sb.append("CertificateAuthorityArn: ").append(getCertificateAuthorityArn());
+            sb.append("CertificateAuthorityArn: ").append(getCertificateAuthorityArn()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getKeyAlgorithm() != null)
+            sb.append("KeyAlgorithm: ").append(getKeyAlgorithm());
         sb.append("}");
         return sb.toString();
     }
@@ -934,6 +1449,14 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
             return false;
         if (other.getCertificateAuthorityArn() != null && other.getCertificateAuthorityArn().equals(this.getCertificateAuthorityArn()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getKeyAlgorithm() == null ^ this.getKeyAlgorithm() == null)
+            return false;
+        if (other.getKeyAlgorithm() != null && other.getKeyAlgorithm().equals(this.getKeyAlgorithm()) == false)
+            return false;
         return true;
     }
 
@@ -949,6 +1472,8 @@ public class RequestCertificateRequest extends com.amazonaws.AmazonWebServiceReq
         hashCode = prime * hashCode + ((getDomainValidationOptions() == null) ? 0 : getDomainValidationOptions().hashCode());
         hashCode = prime * hashCode + ((getOptions() == null) ? 0 : getOptions().hashCode());
         hashCode = prime * hashCode + ((getCertificateAuthorityArn() == null) ? 0 : getCertificateAuthorityArn().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getKeyAlgorithm() == null) ? 0 : getKeyAlgorithm().hashCode());
         return hashCode;
     }
 

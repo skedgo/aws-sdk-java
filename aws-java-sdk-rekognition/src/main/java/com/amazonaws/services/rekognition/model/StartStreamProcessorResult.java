@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,6 +19,53 @@ import javax.annotation.Generated;
 public class StartStreamProcessorResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {
 
     /**
+     * <p>
+     * A unique identifier for the stream processing session.
+     * </p>
+     */
+    private String sessionId;
+
+    /**
+     * <p>
+     * A unique identifier for the stream processing session.
+     * </p>
+     * 
+     * @param sessionId
+     *        A unique identifier for the stream processing session.
+     */
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    /**
+     * <p>
+     * A unique identifier for the stream processing session.
+     * </p>
+     * 
+     * @return A unique identifier for the stream processing session.
+     */
+
+    public String getSessionId() {
+        return this.sessionId;
+    }
+
+    /**
+     * <p>
+     * A unique identifier for the stream processing session.
+     * </p>
+     * 
+     * @param sessionId
+     *        A unique identifier for the stream processing session.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartStreamProcessorResult withSessionId(String sessionId) {
+        setSessionId(sessionId);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -30,6 +77,8 @@ public class StartStreamProcessorResult extends com.amazonaws.AmazonWebServiceRe
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getSessionId() != null)
+            sb.append("SessionId: ").append(getSessionId());
         sb.append("}");
         return sb.toString();
     }
@@ -44,6 +93,10 @@ public class StartStreamProcessorResult extends com.amazonaws.AmazonWebServiceRe
         if (obj instanceof StartStreamProcessorResult == false)
             return false;
         StartStreamProcessorResult other = (StartStreamProcessorResult) obj;
+        if (other.getSessionId() == null ^ this.getSessionId() == null)
+            return false;
+        if (other.getSessionId() != null && other.getSessionId().equals(this.getSessionId()) == false)
+            return false;
         return true;
     }
 
@@ -52,6 +105,7 @@ public class StartStreamProcessorResult extends com.amazonaws.AmazonWebServiceRe
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getSessionId() == null) ? 0 : getSessionId().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Contains information about an AWS Directory Service directory.
+ * Contains information about an Directory Service directory.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DirectoryDescription" target="_top">AWS API
@@ -75,7 +75,7 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
     private String accessUrl;
     /**
      * <p>
-     * The textual description for the directory.
+     * The description for the directory.
      * </p>
      */
     private String description;
@@ -83,7 +83,7 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
      * <p>
      * The IP addresses of the DNS servers for the directory. For a Simple AD or Microsoft AD directory, these are the
      * IP addresses of the Simple AD or Microsoft AD directory servers. For an AD Connector directory, these are the IP
-     * addresses of the DNS servers or domain controllers in the on-premises directory to which the AD Connector is
+     * addresses of the DNS servers or domain controllers in your self-managed directory to which the AD Connector is
      * connected.
      * </p>
      */
@@ -96,15 +96,15 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
     private String stage;
     /**
      * <p>
-     * Current directory status of the shared AWS Managed Microsoft AD directory.
+     * Current directory status of the shared Managed Microsoft AD directory.
      * </p>
      */
     private String shareStatus;
     /**
      * <p>
-     * The method used when sharing a directory to determine whether the directory should be shared within your AWS
-     * organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a shared directory request (
-     * <code>HANDSHAKE</code>).
+     * The method used when sharing a directory to determine whether the directory should be shared within your Amazon
+     * Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by sending a
+     * shared directory request (<code>HANDSHAKE</code>).
      * </p>
      */
     private String shareMethod;
@@ -137,7 +137,7 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
     /**
      * <p>
      * A <a>DirectoryVpcSettingsDescription</a> object that contains additional information about a directory. This
-     * member is only present if the directory is a Simple AD or Managed AD directory.
+     * member is only present if the directory is a Simple AD or Managed Microsoft AD directory.
      * </p>
      */
     private DirectoryVpcSettingsDescription vpcSettings;
@@ -181,10 +181,22 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
     private Integer desiredNumberOfDomainControllers;
     /**
      * <p>
-     * Describes the AWS Managed Microsoft AD directory in the directory owner account.
+     * Describes the Managed Microsoft AD directory in the directory owner account.
      * </p>
      */
     private OwnerDirectoryDescription ownerDirectoryDescription;
+    /**
+     * <p>
+     * Lists the Regions where the directory has replicated.
+     * </p>
+     */
+    private RegionsInfo regionsInfo;
+    /**
+     * <p>
+     * The operating system (OS) version of the directory.
+     * </p>
+     */
+    private String osVersion;
 
     /**
      * <p>
@@ -552,11 +564,11 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The textual description for the directory.
+     * The description for the directory.
      * </p>
      * 
      * @param description
-     *        The textual description for the directory.
+     *        The description for the directory.
      */
 
     public void setDescription(String description) {
@@ -565,10 +577,10 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The textual description for the directory.
+     * The description for the directory.
      * </p>
      * 
-     * @return The textual description for the directory.
+     * @return The description for the directory.
      */
 
     public String getDescription() {
@@ -577,11 +589,11 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The textual description for the directory.
+     * The description for the directory.
      * </p>
      * 
      * @param description
-     *        The textual description for the directory.
+     *        The description for the directory.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -594,14 +606,14 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
      * <p>
      * The IP addresses of the DNS servers for the directory. For a Simple AD or Microsoft AD directory, these are the
      * IP addresses of the Simple AD or Microsoft AD directory servers. For an AD Connector directory, these are the IP
-     * addresses of the DNS servers or domain controllers in the on-premises directory to which the AD Connector is
+     * addresses of the DNS servers or domain controllers in your self-managed directory to which the AD Connector is
      * connected.
      * </p>
      * 
      * @return The IP addresses of the DNS servers for the directory. For a Simple AD or Microsoft AD directory, these
      *         are the IP addresses of the Simple AD or Microsoft AD directory servers. For an AD Connector directory,
-     *         these are the IP addresses of the DNS servers or domain controllers in the on-premises directory to which
-     *         the AD Connector is connected.
+     *         these are the IP addresses of the DNS servers or domain controllers in your self-managed directory to
+     *         which the AD Connector is connected.
      */
 
     public java.util.List<String> getDnsIpAddrs() {
@@ -615,15 +627,15 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
      * <p>
      * The IP addresses of the DNS servers for the directory. For a Simple AD or Microsoft AD directory, these are the
      * IP addresses of the Simple AD or Microsoft AD directory servers. For an AD Connector directory, these are the IP
-     * addresses of the DNS servers or domain controllers in the on-premises directory to which the AD Connector is
+     * addresses of the DNS servers or domain controllers in your self-managed directory to which the AD Connector is
      * connected.
      * </p>
      * 
      * @param dnsIpAddrs
      *        The IP addresses of the DNS servers for the directory. For a Simple AD or Microsoft AD directory, these
      *        are the IP addresses of the Simple AD or Microsoft AD directory servers. For an AD Connector directory,
-     *        these are the IP addresses of the DNS servers or domain controllers in the on-premises directory to which
-     *        the AD Connector is connected.
+     *        these are the IP addresses of the DNS servers or domain controllers in your self-managed directory to
+     *        which the AD Connector is connected.
      */
 
     public void setDnsIpAddrs(java.util.Collection<String> dnsIpAddrs) {
@@ -639,7 +651,7 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
      * <p>
      * The IP addresses of the DNS servers for the directory. For a Simple AD or Microsoft AD directory, these are the
      * IP addresses of the Simple AD or Microsoft AD directory servers. For an AD Connector directory, these are the IP
-     * addresses of the DNS servers or domain controllers in the on-premises directory to which the AD Connector is
+     * addresses of the DNS servers or domain controllers in your self-managed directory to which the AD Connector is
      * connected.
      * </p>
      * <p>
@@ -651,8 +663,8 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
      * @param dnsIpAddrs
      *        The IP addresses of the DNS servers for the directory. For a Simple AD or Microsoft AD directory, these
      *        are the IP addresses of the Simple AD or Microsoft AD directory servers. For an AD Connector directory,
-     *        these are the IP addresses of the DNS servers or domain controllers in the on-premises directory to which
-     *        the AD Connector is connected.
+     *        these are the IP addresses of the DNS servers or domain controllers in your self-managed directory to
+     *        which the AD Connector is connected.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -670,15 +682,15 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
      * <p>
      * The IP addresses of the DNS servers for the directory. For a Simple AD or Microsoft AD directory, these are the
      * IP addresses of the Simple AD or Microsoft AD directory servers. For an AD Connector directory, these are the IP
-     * addresses of the DNS servers or domain controllers in the on-premises directory to which the AD Connector is
+     * addresses of the DNS servers or domain controllers in your self-managed directory to which the AD Connector is
      * connected.
      * </p>
      * 
      * @param dnsIpAddrs
      *        The IP addresses of the DNS servers for the directory. For a Simple AD or Microsoft AD directory, these
      *        are the IP addresses of the Simple AD or Microsoft AD directory servers. For an AD Connector directory,
-     *        these are the IP addresses of the DNS servers or domain controllers in the on-premises directory to which
-     *        the AD Connector is connected.
+     *        these are the IP addresses of the DNS servers or domain controllers in your self-managed directory to
+     *        which the AD Connector is connected.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -762,11 +774,11 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Current directory status of the shared AWS Managed Microsoft AD directory.
+     * Current directory status of the shared Managed Microsoft AD directory.
      * </p>
      * 
      * @param shareStatus
-     *        Current directory status of the shared AWS Managed Microsoft AD directory.
+     *        Current directory status of the shared Managed Microsoft AD directory.
      * @see ShareStatus
      */
 
@@ -776,10 +788,10 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Current directory status of the shared AWS Managed Microsoft AD directory.
+     * Current directory status of the shared Managed Microsoft AD directory.
      * </p>
      * 
-     * @return Current directory status of the shared AWS Managed Microsoft AD directory.
+     * @return Current directory status of the shared Managed Microsoft AD directory.
      * @see ShareStatus
      */
 
@@ -789,11 +801,11 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Current directory status of the shared AWS Managed Microsoft AD directory.
+     * Current directory status of the shared Managed Microsoft AD directory.
      * </p>
      * 
      * @param shareStatus
-     *        Current directory status of the shared AWS Managed Microsoft AD directory.
+     *        Current directory status of the shared Managed Microsoft AD directory.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ShareStatus
      */
@@ -805,11 +817,11 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Current directory status of the shared AWS Managed Microsoft AD directory.
+     * Current directory status of the shared Managed Microsoft AD directory.
      * </p>
      * 
      * @param shareStatus
-     *        Current directory status of the shared AWS Managed Microsoft AD directory.
+     *        Current directory status of the shared Managed Microsoft AD directory.
      * @see ShareStatus
      */
 
@@ -819,11 +831,11 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Current directory status of the shared AWS Managed Microsoft AD directory.
+     * Current directory status of the shared Managed Microsoft AD directory.
      * </p>
      * 
      * @param shareStatus
-     *        Current directory status of the shared AWS Managed Microsoft AD directory.
+     *        Current directory status of the shared Managed Microsoft AD directory.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ShareStatus
      */
@@ -835,15 +847,15 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The method used when sharing a directory to determine whether the directory should be shared within your AWS
-     * organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a shared directory request (
-     * <code>HANDSHAKE</code>).
+     * The method used when sharing a directory to determine whether the directory should be shared within your Amazon
+     * Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by sending a
+     * shared directory request (<code>HANDSHAKE</code>).
      * </p>
      * 
      * @param shareMethod
      *        The method used when sharing a directory to determine whether the directory should be shared within your
-     *        AWS organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a shared directory
-     *        request (<code>HANDSHAKE</code>).
+     *        Amazon Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by
+     *        sending a shared directory request (<code>HANDSHAKE</code>).
      * @see ShareMethod
      */
 
@@ -853,14 +865,14 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The method used when sharing a directory to determine whether the directory should be shared within your AWS
-     * organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a shared directory request (
-     * <code>HANDSHAKE</code>).
+     * The method used when sharing a directory to determine whether the directory should be shared within your Amazon
+     * Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by sending a
+     * shared directory request (<code>HANDSHAKE</code>).
      * </p>
      * 
      * @return The method used when sharing a directory to determine whether the directory should be shared within your
-     *         AWS organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a shared directory
-     *         request (<code>HANDSHAKE</code>).
+     *         Amazon Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by
+     *         sending a shared directory request (<code>HANDSHAKE</code>).
      * @see ShareMethod
      */
 
@@ -870,15 +882,15 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The method used when sharing a directory to determine whether the directory should be shared within your AWS
-     * organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a shared directory request (
-     * <code>HANDSHAKE</code>).
+     * The method used when sharing a directory to determine whether the directory should be shared within your Amazon
+     * Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by sending a
+     * shared directory request (<code>HANDSHAKE</code>).
      * </p>
      * 
      * @param shareMethod
      *        The method used when sharing a directory to determine whether the directory should be shared within your
-     *        AWS organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a shared directory
-     *        request (<code>HANDSHAKE</code>).
+     *        Amazon Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by
+     *        sending a shared directory request (<code>HANDSHAKE</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ShareMethod
      */
@@ -890,15 +902,15 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The method used when sharing a directory to determine whether the directory should be shared within your AWS
-     * organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a shared directory request (
-     * <code>HANDSHAKE</code>).
+     * The method used when sharing a directory to determine whether the directory should be shared within your Amazon
+     * Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by sending a
+     * shared directory request (<code>HANDSHAKE</code>).
      * </p>
      * 
      * @param shareMethod
      *        The method used when sharing a directory to determine whether the directory should be shared within your
-     *        AWS organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a shared directory
-     *        request (<code>HANDSHAKE</code>).
+     *        Amazon Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by
+     *        sending a shared directory request (<code>HANDSHAKE</code>).
      * @see ShareMethod
      */
 
@@ -908,15 +920,15 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The method used when sharing a directory to determine whether the directory should be shared within your AWS
-     * organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a shared directory request (
-     * <code>HANDSHAKE</code>).
+     * The method used when sharing a directory to determine whether the directory should be shared within your Amazon
+     * Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by sending a
+     * shared directory request (<code>HANDSHAKE</code>).
      * </p>
      * 
      * @param shareMethod
      *        The method used when sharing a directory to determine whether the directory should be shared within your
-     *        AWS organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a shared directory
-     *        request (<code>HANDSHAKE</code>).
+     *        Amazon Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by
+     *        sending a shared directory request (<code>HANDSHAKE</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ShareMethod
      */
@@ -1134,12 +1146,12 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
     /**
      * <p>
      * A <a>DirectoryVpcSettingsDescription</a> object that contains additional information about a directory. This
-     * member is only present if the directory is a Simple AD or Managed AD directory.
+     * member is only present if the directory is a Simple AD or Managed Microsoft AD directory.
      * </p>
      * 
      * @param vpcSettings
      *        A <a>DirectoryVpcSettingsDescription</a> object that contains additional information about a directory.
-     *        This member is only present if the directory is a Simple AD or Managed AD directory.
+     *        This member is only present if the directory is a Simple AD or Managed Microsoft AD directory.
      */
 
     public void setVpcSettings(DirectoryVpcSettingsDescription vpcSettings) {
@@ -1149,11 +1161,11 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
     /**
      * <p>
      * A <a>DirectoryVpcSettingsDescription</a> object that contains additional information about a directory. This
-     * member is only present if the directory is a Simple AD or Managed AD directory.
+     * member is only present if the directory is a Simple AD or Managed Microsoft AD directory.
      * </p>
      * 
      * @return A <a>DirectoryVpcSettingsDescription</a> object that contains additional information about a directory.
-     *         This member is only present if the directory is a Simple AD or Managed AD directory.
+     *         This member is only present if the directory is a Simple AD or Managed Microsoft AD directory.
      */
 
     public DirectoryVpcSettingsDescription getVpcSettings() {
@@ -1163,12 +1175,12 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
     /**
      * <p>
      * A <a>DirectoryVpcSettingsDescription</a> object that contains additional information about a directory. This
-     * member is only present if the directory is a Simple AD or Managed AD directory.
+     * member is only present if the directory is a Simple AD or Managed Microsoft AD directory.
      * </p>
      * 
      * @param vpcSettings
      *        A <a>DirectoryVpcSettingsDescription</a> object that contains additional information about a directory.
-     *        This member is only present if the directory is a Simple AD or Managed AD directory.
+     *        This member is only present if the directory is a Simple AD or Managed Microsoft AD directory.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1481,11 +1493,11 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Describes the AWS Managed Microsoft AD directory in the directory owner account.
+     * Describes the Managed Microsoft AD directory in the directory owner account.
      * </p>
      * 
      * @param ownerDirectoryDescription
-     *        Describes the AWS Managed Microsoft AD directory in the directory owner account.
+     *        Describes the Managed Microsoft AD directory in the directory owner account.
      */
 
     public void setOwnerDirectoryDescription(OwnerDirectoryDescription ownerDirectoryDescription) {
@@ -1494,10 +1506,10 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Describes the AWS Managed Microsoft AD directory in the directory owner account.
+     * Describes the Managed Microsoft AD directory in the directory owner account.
      * </p>
      * 
-     * @return Describes the AWS Managed Microsoft AD directory in the directory owner account.
+     * @return Describes the Managed Microsoft AD directory in the directory owner account.
      */
 
     public OwnerDirectoryDescription getOwnerDirectoryDescription() {
@@ -1506,16 +1518,129 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Describes the AWS Managed Microsoft AD directory in the directory owner account.
+     * Describes the Managed Microsoft AD directory in the directory owner account.
      * </p>
      * 
      * @param ownerDirectoryDescription
-     *        Describes the AWS Managed Microsoft AD directory in the directory owner account.
+     *        Describes the Managed Microsoft AD directory in the directory owner account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DirectoryDescription withOwnerDirectoryDescription(OwnerDirectoryDescription ownerDirectoryDescription) {
         setOwnerDirectoryDescription(ownerDirectoryDescription);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Lists the Regions where the directory has replicated.
+     * </p>
+     * 
+     * @param regionsInfo
+     *        Lists the Regions where the directory has replicated.
+     */
+
+    public void setRegionsInfo(RegionsInfo regionsInfo) {
+        this.regionsInfo = regionsInfo;
+    }
+
+    /**
+     * <p>
+     * Lists the Regions where the directory has replicated.
+     * </p>
+     * 
+     * @return Lists the Regions where the directory has replicated.
+     */
+
+    public RegionsInfo getRegionsInfo() {
+        return this.regionsInfo;
+    }
+
+    /**
+     * <p>
+     * Lists the Regions where the directory has replicated.
+     * </p>
+     * 
+     * @param regionsInfo
+     *        Lists the Regions where the directory has replicated.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DirectoryDescription withRegionsInfo(RegionsInfo regionsInfo) {
+        setRegionsInfo(regionsInfo);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The operating system (OS) version of the directory.
+     * </p>
+     * 
+     * @param osVersion
+     *        The operating system (OS) version of the directory.
+     * @see OSVersion
+     */
+
+    public void setOsVersion(String osVersion) {
+        this.osVersion = osVersion;
+    }
+
+    /**
+     * <p>
+     * The operating system (OS) version of the directory.
+     * </p>
+     * 
+     * @return The operating system (OS) version of the directory.
+     * @see OSVersion
+     */
+
+    public String getOsVersion() {
+        return this.osVersion;
+    }
+
+    /**
+     * <p>
+     * The operating system (OS) version of the directory.
+     * </p>
+     * 
+     * @param osVersion
+     *        The operating system (OS) version of the directory.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see OSVersion
+     */
+
+    public DirectoryDescription withOsVersion(String osVersion) {
+        setOsVersion(osVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The operating system (OS) version of the directory.
+     * </p>
+     * 
+     * @param osVersion
+     *        The operating system (OS) version of the directory.
+     * @see OSVersion
+     */
+
+    public void setOsVersion(OSVersion osVersion) {
+        withOsVersion(osVersion);
+    }
+
+    /**
+     * <p>
+     * The operating system (OS) version of the directory.
+     * </p>
+     * 
+     * @param osVersion
+     *        The operating system (OS) version of the directory.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see OSVersion
+     */
+
+    public DirectoryDescription withOsVersion(OSVersion osVersion) {
+        this.osVersion = osVersion.toString();
         return this;
     }
 
@@ -1578,7 +1703,11 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
         if (getDesiredNumberOfDomainControllers() != null)
             sb.append("DesiredNumberOfDomainControllers: ").append(getDesiredNumberOfDomainControllers()).append(",");
         if (getOwnerDirectoryDescription() != null)
-            sb.append("OwnerDirectoryDescription: ").append(getOwnerDirectoryDescription());
+            sb.append("OwnerDirectoryDescription: ").append(getOwnerDirectoryDescription()).append(",");
+        if (getRegionsInfo() != null)
+            sb.append("RegionsInfo: ").append(getRegionsInfo()).append(",");
+        if (getOsVersion() != null)
+            sb.append("OsVersion: ").append(getOsVersion());
         sb.append("}");
         return sb.toString();
     }
@@ -1690,6 +1819,14 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
             return false;
         if (other.getOwnerDirectoryDescription() != null && other.getOwnerDirectoryDescription().equals(this.getOwnerDirectoryDescription()) == false)
             return false;
+        if (other.getRegionsInfo() == null ^ this.getRegionsInfo() == null)
+            return false;
+        if (other.getRegionsInfo() != null && other.getRegionsInfo().equals(this.getRegionsInfo()) == false)
+            return false;
+        if (other.getOsVersion() == null ^ this.getOsVersion() == null)
+            return false;
+        if (other.getOsVersion() != null && other.getOsVersion().equals(this.getOsVersion()) == false)
+            return false;
         return true;
     }
 
@@ -1722,6 +1859,8 @@ public class DirectoryDescription implements Serializable, Cloneable, Structured
         hashCode = prime * hashCode + ((getSsoEnabled() == null) ? 0 : getSsoEnabled().hashCode());
         hashCode = prime * hashCode + ((getDesiredNumberOfDomainControllers() == null) ? 0 : getDesiredNumberOfDomainControllers().hashCode());
         hashCode = prime * hashCode + ((getOwnerDirectoryDescription() == null) ? 0 : getOwnerDirectoryDescription().hashCode());
+        hashCode = prime * hashCode + ((getRegionsInfo() == null) ? 0 : getRegionsInfo().hashCode());
+        hashCode = prime * hashCode + ((getOsVersion() == null) ? 0 : getOsVersion().hashCode());
         return hashCode;
     }
 

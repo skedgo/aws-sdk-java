@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -24,6 +24,11 @@ public class AddThingToBillingGroupRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * The name of the billing group.
      * </p>
+     * <note>
+     * <p>
+     * This call is asynchronous. It might take several seconds for the detachment to propagate.
+     * </p>
+     * </note>
      */
     private String billingGroupName;
     /**
@@ -49,9 +54,17 @@ public class AddThingToBillingGroupRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * The name of the billing group.
      * </p>
+     * <note>
+     * <p>
+     * This call is asynchronous. It might take several seconds for the detachment to propagate.
+     * </p>
+     * </note>
      * 
      * @param billingGroupName
-     *        The name of the billing group.
+     *        The name of the billing group.</p> <note>
+     *        <p>
+     *        This call is asynchronous. It might take several seconds for the detachment to propagate.
+     *        </p>
      */
 
     public void setBillingGroupName(String billingGroupName) {
@@ -62,8 +75,16 @@ public class AddThingToBillingGroupRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * The name of the billing group.
      * </p>
+     * <note>
+     * <p>
+     * This call is asynchronous. It might take several seconds for the detachment to propagate.
+     * </p>
+     * </note>
      * 
-     * @return The name of the billing group.
+     * @return The name of the billing group.</p> <note>
+     *         <p>
+     *         This call is asynchronous. It might take several seconds for the detachment to propagate.
+     *         </p>
      */
 
     public String getBillingGroupName() {
@@ -74,9 +95,17 @@ public class AddThingToBillingGroupRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * The name of the billing group.
      * </p>
+     * <note>
+     * <p>
+     * This call is asynchronous. It might take several seconds for the detachment to propagate.
+     * </p>
+     * </note>
      * 
      * @param billingGroupName
-     *        The name of the billing group.
+     *        The name of the billing group.</p> <note>
+     *        <p>
+     *        This call is asynchronous. It might take several seconds for the detachment to propagate.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

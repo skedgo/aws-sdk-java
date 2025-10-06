@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,8 +41,8 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>INCLUDE</code> - Only the specified table attributes are projected into the index. The list of projected
-     * attributes are in <code>NonKeyAttributes</code>.
+     * <code>INCLUDE</code> - In addition to the attributes described in <code>KEYS_ONLY</code>, the secondary index
+     * will include other non-key attributes that you specify.
      * </p>
      * </li>
      * <li>
@@ -51,6 +51,9 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * When using the DynamoDB console, <code>ALL</code> is selected by default.
+     * </p>
      */
     private String projectionType;
     /**
@@ -59,7 +62,7 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * <p>
      * For local secondary indexes, the total count of <code>NonKeyAttributes</code> summed across all of the local
-     * secondary indexes, must not exceed 20. If you project the same attribute into two different indexes, this counts
+     * secondary indexes, must not exceed 100. If you project the same attribute into two different indexes, this counts
      * as two distinct attributes when determining the total.
      * </p>
      */
@@ -77,8 +80,8 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>INCLUDE</code> - Only the specified table attributes are projected into the index. The list of projected
-     * attributes are in <code>NonKeyAttributes</code>.
+     * <code>INCLUDE</code> - In addition to the attributes described in <code>KEYS_ONLY</code>, the secondary index
+     * will include other non-key attributes that you specify.
      * </p>
      * </li>
      * <li>
@@ -87,6 +90,9 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * When using the DynamoDB console, <code>ALL</code> is selected by default.
+     * </p>
      * 
      * @param projectionType
      *        The set of attributes that are projected into the index:</p>
@@ -98,8 +104,8 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>INCLUDE</code> - Only the specified table attributes are projected into the index. The list of
-     *        projected attributes are in <code>NonKeyAttributes</code>.
+     *        <code>INCLUDE</code> - In addition to the attributes described in <code>KEYS_ONLY</code>, the secondary
+     *        index will include other non-key attributes that you specify.
      *        </p>
      *        </li>
      *        <li>
@@ -107,6 +113,9 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      *        <code>ALL</code> - All of the table attributes are projected into the index.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        When using the DynamoDB console, <code>ALL</code> is selected by default.
      * @see ProjectionType
      */
 
@@ -126,8 +135,8 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>INCLUDE</code> - Only the specified table attributes are projected into the index. The list of projected
-     * attributes are in <code>NonKeyAttributes</code>.
+     * <code>INCLUDE</code> - In addition to the attributes described in <code>KEYS_ONLY</code>, the secondary index
+     * will include other non-key attributes that you specify.
      * </p>
      * </li>
      * <li>
@@ -136,6 +145,9 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * When using the DynamoDB console, <code>ALL</code> is selected by default.
+     * </p>
      * 
      * @return The set of attributes that are projected into the index:</p>
      *         <ul>
@@ -146,8 +158,8 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      *         </li>
      *         <li>
      *         <p>
-     *         <code>INCLUDE</code> - Only the specified table attributes are projected into the index. The list of
-     *         projected attributes are in <code>NonKeyAttributes</code>.
+     *         <code>INCLUDE</code> - In addition to the attributes described in <code>KEYS_ONLY</code>, the secondary
+     *         index will include other non-key attributes that you specify.
      *         </p>
      *         </li>
      *         <li>
@@ -155,6 +167,9 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      *         <code>ALL</code> - All of the table attributes are projected into the index.
      *         </p>
      *         </li>
+     *         </ul>
+     *         <p>
+     *         When using the DynamoDB console, <code>ALL</code> is selected by default.
      * @see ProjectionType
      */
 
@@ -174,8 +189,8 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>INCLUDE</code> - Only the specified table attributes are projected into the index. The list of projected
-     * attributes are in <code>NonKeyAttributes</code>.
+     * <code>INCLUDE</code> - In addition to the attributes described in <code>KEYS_ONLY</code>, the secondary index
+     * will include other non-key attributes that you specify.
      * </p>
      * </li>
      * <li>
@@ -184,6 +199,9 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * When using the DynamoDB console, <code>ALL</code> is selected by default.
+     * </p>
      * 
      * @param projectionType
      *        The set of attributes that are projected into the index:</p>
@@ -195,8 +213,8 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>INCLUDE</code> - Only the specified table attributes are projected into the index. The list of
-     *        projected attributes are in <code>NonKeyAttributes</code>.
+     *        <code>INCLUDE</code> - In addition to the attributes described in <code>KEYS_ONLY</code>, the secondary
+     *        index will include other non-key attributes that you specify.
      *        </p>
      *        </li>
      *        <li>
@@ -204,6 +222,9 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      *        <code>ALL</code> - All of the table attributes are projected into the index.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        When using the DynamoDB console, <code>ALL</code> is selected by default.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ProjectionType
      */
@@ -225,8 +246,8 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>INCLUDE</code> - Only the specified table attributes are projected into the index. The list of projected
-     * attributes are in <code>NonKeyAttributes</code>.
+     * <code>INCLUDE</code> - In addition to the attributes described in <code>KEYS_ONLY</code>, the secondary index
+     * will include other non-key attributes that you specify.
      * </p>
      * </li>
      * <li>
@@ -235,6 +256,9 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * When using the DynamoDB console, <code>ALL</code> is selected by default.
+     * </p>
      * 
      * @param projectionType
      *        The set of attributes that are projected into the index:</p>
@@ -246,8 +270,8 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>INCLUDE</code> - Only the specified table attributes are projected into the index. The list of
-     *        projected attributes are in <code>NonKeyAttributes</code>.
+     *        <code>INCLUDE</code> - In addition to the attributes described in <code>KEYS_ONLY</code>, the secondary
+     *        index will include other non-key attributes that you specify.
      *        </p>
      *        </li>
      *        <li>
@@ -255,6 +279,9 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      *        <code>ALL</code> - All of the table attributes are projected into the index.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        When using the DynamoDB console, <code>ALL</code> is selected by default.
      * @see ProjectionType
      */
 
@@ -274,8 +301,8 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * <code>INCLUDE</code> - Only the specified table attributes are projected into the index. The list of projected
-     * attributes are in <code>NonKeyAttributes</code>.
+     * <code>INCLUDE</code> - In addition to the attributes described in <code>KEYS_ONLY</code>, the secondary index
+     * will include other non-key attributes that you specify.
      * </p>
      * </li>
      * <li>
@@ -284,6 +311,9 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * When using the DynamoDB console, <code>ALL</code> is selected by default.
+     * </p>
      * 
      * @param projectionType
      *        The set of attributes that are projected into the index:</p>
@@ -295,8 +325,8 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>INCLUDE</code> - Only the specified table attributes are projected into the index. The list of
-     *        projected attributes are in <code>NonKeyAttributes</code>.
+     *        <code>INCLUDE</code> - In addition to the attributes described in <code>KEYS_ONLY</code>, the secondary
+     *        index will include other non-key attributes that you specify.
      *        </p>
      *        </li>
      *        <li>
@@ -304,6 +334,9 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      *        <code>ALL</code> - All of the table attributes are projected into the index.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        When using the DynamoDB console, <code>ALL</code> is selected by default.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ProjectionType
      */
@@ -319,14 +352,14 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * <p>
      * For local secondary indexes, the total count of <code>NonKeyAttributes</code> summed across all of the local
-     * secondary indexes, must not exceed 20. If you project the same attribute into two different indexes, this counts
+     * secondary indexes, must not exceed 100. If you project the same attribute into two different indexes, this counts
      * as two distinct attributes when determining the total.
      * </p>
      * 
      * @return Represents the non-key attribute names which will be projected into the index.</p>
      *         <p>
      *         For local secondary indexes, the total count of <code>NonKeyAttributes</code> summed across all of the
-     *         local secondary indexes, must not exceed 20. If you project the same attribute into two different
+     *         local secondary indexes, must not exceed 100. If you project the same attribute into two different
      *         indexes, this counts as two distinct attributes when determining the total.
      */
 
@@ -340,7 +373,7 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * <p>
      * For local secondary indexes, the total count of <code>NonKeyAttributes</code> summed across all of the local
-     * secondary indexes, must not exceed 20. If you project the same attribute into two different indexes, this counts
+     * secondary indexes, must not exceed 100. If you project the same attribute into two different indexes, this counts
      * as two distinct attributes when determining the total.
      * </p>
      * 
@@ -348,8 +381,8 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      *        Represents the non-key attribute names which will be projected into the index.</p>
      *        <p>
      *        For local secondary indexes, the total count of <code>NonKeyAttributes</code> summed across all of the
-     *        local secondary indexes, must not exceed 20. If you project the same attribute into two different indexes,
-     *        this counts as two distinct attributes when determining the total.
+     *        local secondary indexes, must not exceed 100. If you project the same attribute into two different
+     *        indexes, this counts as two distinct attributes when determining the total.
      */
 
     public void setNonKeyAttributes(java.util.Collection<String> nonKeyAttributes) {
@@ -367,7 +400,7 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * <p>
      * For local secondary indexes, the total count of <code>NonKeyAttributes</code> summed across all of the local
-     * secondary indexes, must not exceed 20. If you project the same attribute into two different indexes, this counts
+     * secondary indexes, must not exceed 100. If you project the same attribute into two different indexes, this counts
      * as two distinct attributes when determining the total.
      * </p>
      * <p>
@@ -380,8 +413,8 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      *        Represents the non-key attribute names which will be projected into the index.</p>
      *        <p>
      *        For local secondary indexes, the total count of <code>NonKeyAttributes</code> summed across all of the
-     *        local secondary indexes, must not exceed 20. If you project the same attribute into two different indexes,
-     *        this counts as two distinct attributes when determining the total.
+     *        local secondary indexes, must not exceed 100. If you project the same attribute into two different
+     *        indexes, this counts as two distinct attributes when determining the total.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -401,7 +434,7 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * <p>
      * For local secondary indexes, the total count of <code>NonKeyAttributes</code> summed across all of the local
-     * secondary indexes, must not exceed 20. If you project the same attribute into two different indexes, this counts
+     * secondary indexes, must not exceed 100. If you project the same attribute into two different indexes, this counts
      * as two distinct attributes when determining the total.
      * </p>
      * 
@@ -409,8 +442,8 @@ public class Projection implements Serializable, Cloneable, StructuredPojo {
      *        Represents the non-key attribute names which will be projected into the index.</p>
      *        <p>
      *        For local secondary indexes, the total count of <code>NonKeyAttributes</code> summed across all of the
-     *        local secondary indexes, must not exceed 20. If you project the same attribute into two different indexes,
-     *        this counts as two distinct attributes when determining the total.
+     *        local secondary indexes, must not exceed 100. If you project the same attribute into two different
+     *        indexes, this counts as two distinct attributes when determining the total.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

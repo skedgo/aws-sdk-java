@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,14 +36,14 @@ public class CreateOrganizationalUnitRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * Root: a string that begins with "r-" followed by from 4 to 32 lower-case letters or digits.
+     * <b>Root</b> - A string that begins with "r-" followed by from 4 to 32 lowercase letters or digits.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Organizational unit (OU): a string that begins with "ou-" followed by from 4 to 32 lower-case letters or digits
-     * (the ID of the root that the OU is in) followed by a second "-" dash and from 8 to 32 additional lower-case
-     * letters or digits.
+     * <b>Organizational unit (OU)</b> - A string that begins with "ou-" followed by from 4 to 32 lowercase letters or
+     * digits (the ID of the root that the OU is in). This string is followed by a second "-" dash and from 8 to 32
+     * additional lowercase letters or digits.
      * </p>
      * </li>
      * </ul>
@@ -55,6 +55,22 @@ public class CreateOrganizationalUnitRequest extends com.amazonaws.AmazonWebServ
      * </p>
      */
     private String name;
+    /**
+     * <p>
+     * A list of tags that you want to attach to the newly created OU. For each tag in the list, you must specify both a
+     * tag key and a value. You can set the value to an empty string, but you can't set it to <code>null</code>. For
+     * more information about tagging, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html">Tagging Organizations
+     * resources</a> in the Organizations User Guide.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is not valid or if you exceed the allowed number of tags for an OU, then the entire
+     * request fails and the OU is not created.
+     * </p>
+     * </note>
+     */
+    private java.util.List<Tag> tags;
 
     /**
      * <p>
@@ -67,14 +83,14 @@ public class CreateOrganizationalUnitRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * Root: a string that begins with "r-" followed by from 4 to 32 lower-case letters or digits.
+     * <b>Root</b> - A string that begins with "r-" followed by from 4 to 32 lowercase letters or digits.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Organizational unit (OU): a string that begins with "ou-" followed by from 4 to 32 lower-case letters or digits
-     * (the ID of the root that the OU is in) followed by a second "-" dash and from 8 to 32 additional lower-case
-     * letters or digits.
+     * <b>Organizational unit (OU)</b> - A string that begins with "ou-" followed by from 4 to 32 lowercase letters or
+     * digits (the ID of the root that the OU is in). This string is followed by a second "-" dash and from 8 to 32
+     * additional lowercase letters or digits.
      * </p>
      * </li>
      * </ul>
@@ -88,14 +104,14 @@ public class CreateOrganizationalUnitRequest extends com.amazonaws.AmazonWebServ
      *        <ul>
      *        <li>
      *        <p>
-     *        Root: a string that begins with "r-" followed by from 4 to 32 lower-case letters or digits.
+     *        <b>Root</b> - A string that begins with "r-" followed by from 4 to 32 lowercase letters or digits.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Organizational unit (OU): a string that begins with "ou-" followed by from 4 to 32 lower-case letters or
-     *        digits (the ID of the root that the OU is in) followed by a second "-" dash and from 8 to 32 additional
-     *        lower-case letters or digits.
+     *        <b>Organizational unit (OU)</b> - A string that begins with "ou-" followed by from 4 to 32 lowercase
+     *        letters or digits (the ID of the root that the OU is in). This string is followed by a second "-" dash and
+     *        from 8 to 32 additional lowercase letters or digits.
      *        </p>
      *        </li>
      */
@@ -115,14 +131,14 @@ public class CreateOrganizationalUnitRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * Root: a string that begins with "r-" followed by from 4 to 32 lower-case letters or digits.
+     * <b>Root</b> - A string that begins with "r-" followed by from 4 to 32 lowercase letters or digits.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Organizational unit (OU): a string that begins with "ou-" followed by from 4 to 32 lower-case letters or digits
-     * (the ID of the root that the OU is in) followed by a second "-" dash and from 8 to 32 additional lower-case
-     * letters or digits.
+     * <b>Organizational unit (OU)</b> - A string that begins with "ou-" followed by from 4 to 32 lowercase letters or
+     * digits (the ID of the root that the OU is in). This string is followed by a second "-" dash and from 8 to 32
+     * additional lowercase letters or digits.
      * </p>
      * </li>
      * </ul>
@@ -135,14 +151,14 @@ public class CreateOrganizationalUnitRequest extends com.amazonaws.AmazonWebServ
      *         <ul>
      *         <li>
      *         <p>
-     *         Root: a string that begins with "r-" followed by from 4 to 32 lower-case letters or digits.
+     *         <b>Root</b> - A string that begins with "r-" followed by from 4 to 32 lowercase letters or digits.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Organizational unit (OU): a string that begins with "ou-" followed by from 4 to 32 lower-case letters or
-     *         digits (the ID of the root that the OU is in) followed by a second "-" dash and from 8 to 32 additional
-     *         lower-case letters or digits.
+     *         <b>Organizational unit (OU)</b> - A string that begins with "ou-" followed by from 4 to 32 lowercase
+     *         letters or digits (the ID of the root that the OU is in). This string is followed by a second "-" dash
+     *         and from 8 to 32 additional lowercase letters or digits.
      *         </p>
      *         </li>
      */
@@ -162,14 +178,14 @@ public class CreateOrganizationalUnitRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * Root: a string that begins with "r-" followed by from 4 to 32 lower-case letters or digits.
+     * <b>Root</b> - A string that begins with "r-" followed by from 4 to 32 lowercase letters or digits.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Organizational unit (OU): a string that begins with "ou-" followed by from 4 to 32 lower-case letters or digits
-     * (the ID of the root that the OU is in) followed by a second "-" dash and from 8 to 32 additional lower-case
-     * letters or digits.
+     * <b>Organizational unit (OU)</b> - A string that begins with "ou-" followed by from 4 to 32 lowercase letters or
+     * digits (the ID of the root that the OU is in). This string is followed by a second "-" dash and from 8 to 32
+     * additional lowercase letters or digits.
      * </p>
      * </li>
      * </ul>
@@ -183,14 +199,14 @@ public class CreateOrganizationalUnitRequest extends com.amazonaws.AmazonWebServ
      *        <ul>
      *        <li>
      *        <p>
-     *        Root: a string that begins with "r-" followed by from 4 to 32 lower-case letters or digits.
+     *        <b>Root</b> - A string that begins with "r-" followed by from 4 to 32 lowercase letters or digits.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Organizational unit (OU): a string that begins with "ou-" followed by from 4 to 32 lower-case letters or
-     *        digits (the ID of the root that the OU is in) followed by a second "-" dash and from 8 to 32 additional
-     *        lower-case letters or digits.
+     *        <b>Organizational unit (OU)</b> - A string that begins with "ou-" followed by from 4 to 32 lowercase
+     *        letters or digits (the ID of the root that the OU is in). This string is followed by a second "-" dash and
+     *        from 8 to 32 additional lowercase letters or digits.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -242,6 +258,148 @@ public class CreateOrganizationalUnitRequest extends com.amazonaws.AmazonWebServ
     }
 
     /**
+     * <p>
+     * A list of tags that you want to attach to the newly created OU. For each tag in the list, you must specify both a
+     * tag key and a value. You can set the value to an empty string, but you can't set it to <code>null</code>. For
+     * more information about tagging, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html">Tagging Organizations
+     * resources</a> in the Organizations User Guide.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is not valid or if you exceed the allowed number of tags for an OU, then the entire
+     * request fails and the OU is not created.
+     * </p>
+     * </note>
+     * 
+     * @return A list of tags that you want to attach to the newly created OU. For each tag in the list, you must
+     *         specify both a tag key and a value. You can set the value to an empty string, but you can't set it to
+     *         <code>null</code>. For more information about tagging, see <a
+     *         href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html">Tagging Organizations
+     *         resources</a> in the Organizations User Guide.</p> <note>
+     *         <p>
+     *         If any one of the tags is not valid or if you exceed the allowed number of tags for an OU, then the
+     *         entire request fails and the OU is not created.
+     *         </p>
+     */
+
+    public java.util.List<Tag> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * A list of tags that you want to attach to the newly created OU. For each tag in the list, you must specify both a
+     * tag key and a value. You can set the value to an empty string, but you can't set it to <code>null</code>. For
+     * more information about tagging, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html">Tagging Organizations
+     * resources</a> in the Organizations User Guide.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is not valid or if you exceed the allowed number of tags for an OU, then the entire
+     * request fails and the OU is not created.
+     * </p>
+     * </note>
+     * 
+     * @param tags
+     *        A list of tags that you want to attach to the newly created OU. For each tag in the list, you must specify
+     *        both a tag key and a value. You can set the value to an empty string, but you can't set it to
+     *        <code>null</code>. For more information about tagging, see <a
+     *        href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html">Tagging Organizations
+     *        resources</a> in the Organizations User Guide.</p> <note>
+     *        <p>
+     *        If any one of the tags is not valid or if you exceed the allowed number of tags for an OU, then the entire
+     *        request fails and the OU is not created.
+     *        </p>
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new java.util.ArrayList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * A list of tags that you want to attach to the newly created OU. For each tag in the list, you must specify both a
+     * tag key and a value. You can set the value to an empty string, but you can't set it to <code>null</code>. For
+     * more information about tagging, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html">Tagging Organizations
+     * resources</a> in the Organizations User Guide.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is not valid or if you exceed the allowed number of tags for an OU, then the entire
+     * request fails and the OU is not created.
+     * </p>
+     * </note>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        A list of tags that you want to attach to the newly created OU. For each tag in the list, you must specify
+     *        both a tag key and a value. You can set the value to an empty string, but you can't set it to
+     *        <code>null</code>. For more information about tagging, see <a
+     *        href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html">Tagging Organizations
+     *        resources</a> in the Organizations User Guide.</p> <note>
+     *        <p>
+     *        If any one of the tags is not valid or if you exceed the allowed number of tags for an OU, then the entire
+     *        request fails and the OU is not created.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateOrganizationalUnitRequest withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new java.util.ArrayList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of tags that you want to attach to the newly created OU. For each tag in the list, you must specify both a
+     * tag key and a value. You can set the value to an empty string, but you can't set it to <code>null</code>. For
+     * more information about tagging, see <a
+     * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html">Tagging Organizations
+     * resources</a> in the Organizations User Guide.
+     * </p>
+     * <note>
+     * <p>
+     * If any one of the tags is not valid or if you exceed the allowed number of tags for an OU, then the entire
+     * request fails and the OU is not created.
+     * </p>
+     * </note>
+     * 
+     * @param tags
+     *        A list of tags that you want to attach to the newly created OU. For each tag in the list, you must specify
+     *        both a tag key and a value. You can set the value to an empty string, but you can't set it to
+     *        <code>null</code>. For more information about tagging, see <a
+     *        href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html">Tagging Organizations
+     *        resources</a> in the Organizations User Guide.</p> <note>
+     *        <p>
+     *        If any one of the tags is not valid or if you exceed the allowed number of tags for an OU, then the entire
+     *        request fails and the OU is not created.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateOrganizationalUnitRequest withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -256,7 +414,9 @@ public class CreateOrganizationalUnitRequest extends com.amazonaws.AmazonWebServ
         if (getParentId() != null)
             sb.append("ParentId: ").append(getParentId()).append(",");
         if (getName() != null)
-            sb.append("Name: ").append(getName());
+            sb.append("Name: ").append(getName()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -279,6 +439,10 @@ public class CreateOrganizationalUnitRequest extends com.amazonaws.AmazonWebServ
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
         return true;
     }
 
@@ -289,6 +453,7 @@ public class CreateOrganizationalUnitRequest extends com.amazonaws.AmazonWebServ
 
         hashCode = prime * hashCode + ((getParentId() == null) ? 0 : getParentId().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

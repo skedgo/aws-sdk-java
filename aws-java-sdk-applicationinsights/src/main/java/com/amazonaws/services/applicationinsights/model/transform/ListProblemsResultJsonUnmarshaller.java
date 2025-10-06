@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,11 +50,21 @@ public class ListProblemsResultJsonUnmarshaller implements Unmarshaller<ListProb
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("ProblemList", targetDepth)) {
                     context.nextToken();
-                    listProblemsResult.setProblemList(new ListUnmarshaller<Problem>(ProblemJsonUnmarshaller.getInstance()).unmarshall(context));
+                    listProblemsResult.setProblemList(new ListUnmarshaller<Problem>(ProblemJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("NextToken", targetDepth)) {
                     context.nextToken();
                     listProblemsResult.setNextToken(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ResourceGroupName", targetDepth)) {
+                    context.nextToken();
+                    listProblemsResult.setResourceGroupName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("AccountId", targetDepth)) {
+                    context.nextToken();
+                    listProblemsResult.setAccountId(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

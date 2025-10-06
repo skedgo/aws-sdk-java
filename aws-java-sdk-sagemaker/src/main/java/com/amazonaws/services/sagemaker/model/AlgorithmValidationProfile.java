@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,10 +19,10 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Defines a training job and a batch transform job that Amazon SageMaker runs to validate your algorithm.
+ * Defines a training job and a batch transform job that SageMaker runs to validate your algorithm.
  * </p>
  * <p>
- * The data provided in the validation profile is made available to your buyers on AWS Marketplace.
+ * The data provided in the validation profile is made available to your buyers on Amazon Web Services Marketplace.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/AlgorithmValidationProfile"
@@ -40,15 +40,15 @@ public class AlgorithmValidationProfile implements Serializable, Cloneable, Stru
     private String profileName;
     /**
      * <p>
-     * The <code>TrainingJobDefinition</code> object that describes the training job that Amazon SageMaker runs to
-     * validate your algorithm.
+     * The <code>TrainingJobDefinition</code> object that describes the training job that SageMaker runs to validate
+     * your algorithm.
      * </p>
      */
     private TrainingJobDefinition trainingJobDefinition;
     /**
      * <p>
-     * The <code>TransformJobDefinition</code> object that describes the transform job that Amazon SageMaker runs to
-     * validate your algorithm.
+     * The <code>TransformJobDefinition</code> object that describes the transform job that SageMaker runs to validate
+     * your algorithm.
      * </p>
      */
     private TransformJobDefinition transformJobDefinition;
@@ -101,13 +101,13 @@ public class AlgorithmValidationProfile implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The <code>TrainingJobDefinition</code> object that describes the training job that Amazon SageMaker runs to
-     * validate your algorithm.
+     * The <code>TrainingJobDefinition</code> object that describes the training job that SageMaker runs to validate
+     * your algorithm.
      * </p>
      * 
      * @param trainingJobDefinition
-     *        The <code>TrainingJobDefinition</code> object that describes the training job that Amazon SageMaker runs
-     *        to validate your algorithm.
+     *        The <code>TrainingJobDefinition</code> object that describes the training job that SageMaker runs to
+     *        validate your algorithm.
      */
 
     public void setTrainingJobDefinition(TrainingJobDefinition trainingJobDefinition) {
@@ -116,12 +116,12 @@ public class AlgorithmValidationProfile implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The <code>TrainingJobDefinition</code> object that describes the training job that Amazon SageMaker runs to
-     * validate your algorithm.
+     * The <code>TrainingJobDefinition</code> object that describes the training job that SageMaker runs to validate
+     * your algorithm.
      * </p>
      * 
-     * @return The <code>TrainingJobDefinition</code> object that describes the training job that Amazon SageMaker runs
-     *         to validate your algorithm.
+     * @return The <code>TrainingJobDefinition</code> object that describes the training job that SageMaker runs to
+     *         validate your algorithm.
      */
 
     public TrainingJobDefinition getTrainingJobDefinition() {
@@ -130,13 +130,13 @@ public class AlgorithmValidationProfile implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The <code>TrainingJobDefinition</code> object that describes the training job that Amazon SageMaker runs to
-     * validate your algorithm.
+     * The <code>TrainingJobDefinition</code> object that describes the training job that SageMaker runs to validate
+     * your algorithm.
      * </p>
      * 
      * @param trainingJobDefinition
-     *        The <code>TrainingJobDefinition</code> object that describes the training job that Amazon SageMaker runs
-     *        to validate your algorithm.
+     *        The <code>TrainingJobDefinition</code> object that describes the training job that SageMaker runs to
+     *        validate your algorithm.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -147,13 +147,13 @@ public class AlgorithmValidationProfile implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The <code>TransformJobDefinition</code> object that describes the transform job that Amazon SageMaker runs to
-     * validate your algorithm.
+     * The <code>TransformJobDefinition</code> object that describes the transform job that SageMaker runs to validate
+     * your algorithm.
      * </p>
      * 
      * @param transformJobDefinition
-     *        The <code>TransformJobDefinition</code> object that describes the transform job that Amazon SageMaker runs
-     *        to validate your algorithm.
+     *        The <code>TransformJobDefinition</code> object that describes the transform job that SageMaker runs to
+     *        validate your algorithm.
      */
 
     public void setTransformJobDefinition(TransformJobDefinition transformJobDefinition) {
@@ -162,12 +162,12 @@ public class AlgorithmValidationProfile implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The <code>TransformJobDefinition</code> object that describes the transform job that Amazon SageMaker runs to
-     * validate your algorithm.
+     * The <code>TransformJobDefinition</code> object that describes the transform job that SageMaker runs to validate
+     * your algorithm.
      * </p>
      * 
-     * @return The <code>TransformJobDefinition</code> object that describes the transform job that Amazon SageMaker
-     *         runs to validate your algorithm.
+     * @return The <code>TransformJobDefinition</code> object that describes the transform job that SageMaker runs to
+     *         validate your algorithm.
      */
 
     public TransformJobDefinition getTransformJobDefinition() {
@@ -176,13 +176,13 @@ public class AlgorithmValidationProfile implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The <code>TransformJobDefinition</code> object that describes the transform job that Amazon SageMaker runs to
-     * validate your algorithm.
+     * The <code>TransformJobDefinition</code> object that describes the transform job that SageMaker runs to validate
+     * your algorithm.
      * </p>
      * 
      * @param transformJobDefinition
-     *        The <code>TransformJobDefinition</code> object that describes the transform job that Amazon SageMaker runs
-     *        to validate your algorithm.
+     *        The <code>TransformJobDefinition</code> object that describes the transform job that SageMaker runs to
+     *        validate your algorithm.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

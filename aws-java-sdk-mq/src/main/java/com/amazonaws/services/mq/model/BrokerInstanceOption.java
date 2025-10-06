@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
  * Option for host instance type.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/BrokerInstanceOption" target="_top">AWS API
  *      Documentation</a>
@@ -26,17 +28,47 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class BrokerInstanceOption implements Serializable, Cloneable, StructuredPojo {
 
-    /** The list of available az. */
+    /**
+     * <p>
+     * The list of available az.
+     * </p>
+     */
     private java.util.List<AvailabilityZone> availabilityZones;
-    /** The type of broker engine. */
+    /**
+     * <p>
+     * The broker's engine type.
+     * </p>
+     */
     private String engineType;
-    /** The type of broker instance. */
+    /**
+     * <p>
+     * The broker's instance type.
+     * </p>
+     */
     private String hostInstanceType;
-    /** The list of supported engine versions. */
+    /**
+     * <p>
+     * The broker's storage type.
+     * </p>
+     */
+    private String storageType;
+    /**
+     * <p>
+     * The list of supported deployment modes.
+     * </p>
+     */
+    private java.util.List<String> supportedDeploymentModes;
+    /**
+     * <p>
+     * The list of supported engine versions.
+     * </p>
+     */
     private java.util.List<String> supportedEngineVersions;
 
     /**
+     * <p>
      * The list of available az.
+     * </p>
      * 
      * @return The list of available az.
      */
@@ -46,7 +78,9 @@ public class BrokerInstanceOption implements Serializable, Cloneable, Structured
     }
 
     /**
+     * <p>
      * The list of available az.
+     * </p>
      * 
      * @param availabilityZones
      *        The list of available az.
@@ -62,7 +96,9 @@ public class BrokerInstanceOption implements Serializable, Cloneable, Structured
     }
 
     /**
+     * <p>
      * The list of available az.
+     * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setAvailabilityZones(java.util.Collection)} or {@link #withAvailabilityZones(java.util.Collection)} if
@@ -85,7 +121,9 @@ public class BrokerInstanceOption implements Serializable, Cloneable, Structured
     }
 
     /**
+     * <p>
      * The list of available az.
+     * </p>
      * 
      * @param availabilityZones
      *        The list of available az.
@@ -98,10 +136,12 @@ public class BrokerInstanceOption implements Serializable, Cloneable, Structured
     }
 
     /**
-     * The type of broker engine.
+     * <p>
+     * The broker's engine type.
+     * </p>
      * 
      * @param engineType
-     *        The type of broker engine.
+     *        The broker's engine type.
      * @see EngineType
      */
 
@@ -110,9 +150,11 @@ public class BrokerInstanceOption implements Serializable, Cloneable, Structured
     }
 
     /**
-     * The type of broker engine.
+     * <p>
+     * The broker's engine type.
+     * </p>
      * 
-     * @return The type of broker engine.
+     * @return The broker's engine type.
      * @see EngineType
      */
 
@@ -121,10 +163,12 @@ public class BrokerInstanceOption implements Serializable, Cloneable, Structured
     }
 
     /**
-     * The type of broker engine.
+     * <p>
+     * The broker's engine type.
+     * </p>
      * 
      * @param engineType
-     *        The type of broker engine.
+     *        The broker's engine type.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EngineType
      */
@@ -135,10 +179,12 @@ public class BrokerInstanceOption implements Serializable, Cloneable, Structured
     }
 
     /**
-     * The type of broker engine.
+     * <p>
+     * The broker's engine type.
+     * </p>
      * 
      * @param engineType
-     *        The type of broker engine.
+     *        The broker's engine type.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EngineType
      */
@@ -149,10 +195,12 @@ public class BrokerInstanceOption implements Serializable, Cloneable, Structured
     }
 
     /**
-     * The type of broker instance.
+     * <p>
+     * The broker's instance type.
+     * </p>
      * 
      * @param hostInstanceType
-     *        The type of broker instance.
+     *        The broker's instance type.
      */
 
     public void setHostInstanceType(String hostInstanceType) {
@@ -160,9 +208,11 @@ public class BrokerInstanceOption implements Serializable, Cloneable, Structured
     }
 
     /**
-     * The type of broker instance.
+     * <p>
+     * The broker's instance type.
+     * </p>
      * 
-     * @return The type of broker instance.
+     * @return The broker's instance type.
      */
 
     public String getHostInstanceType() {
@@ -170,10 +220,12 @@ public class BrokerInstanceOption implements Serializable, Cloneable, Structured
     }
 
     /**
-     * The type of broker instance.
+     * <p>
+     * The broker's instance type.
+     * </p>
      * 
      * @param hostInstanceType
-     *        The type of broker instance.
+     *        The broker's instance type.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -183,7 +235,166 @@ public class BrokerInstanceOption implements Serializable, Cloneable, Structured
     }
 
     /**
+     * <p>
+     * The broker's storage type.
+     * </p>
+     * 
+     * @param storageType
+     *        The broker's storage type.
+     * @see BrokerStorageType
+     */
+
+    public void setStorageType(String storageType) {
+        this.storageType = storageType;
+    }
+
+    /**
+     * <p>
+     * The broker's storage type.
+     * </p>
+     * 
+     * @return The broker's storage type.
+     * @see BrokerStorageType
+     */
+
+    public String getStorageType() {
+        return this.storageType;
+    }
+
+    /**
+     * <p>
+     * The broker's storage type.
+     * </p>
+     * 
+     * @param storageType
+     *        The broker's storage type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see BrokerStorageType
+     */
+
+    public BrokerInstanceOption withStorageType(String storageType) {
+        setStorageType(storageType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The broker's storage type.
+     * </p>
+     * 
+     * @param storageType
+     *        The broker's storage type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see BrokerStorageType
+     */
+
+    public BrokerInstanceOption withStorageType(BrokerStorageType storageType) {
+        this.storageType = storageType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of supported deployment modes.
+     * </p>
+     * 
+     * @return The list of supported deployment modes.
+     * @see DeploymentMode
+     */
+
+    public java.util.List<String> getSupportedDeploymentModes() {
+        return supportedDeploymentModes;
+    }
+
+    /**
+     * <p>
+     * The list of supported deployment modes.
+     * </p>
+     * 
+     * @param supportedDeploymentModes
+     *        The list of supported deployment modes.
+     * @see DeploymentMode
+     */
+
+    public void setSupportedDeploymentModes(java.util.Collection<String> supportedDeploymentModes) {
+        if (supportedDeploymentModes == null) {
+            this.supportedDeploymentModes = null;
+            return;
+        }
+
+        this.supportedDeploymentModes = new java.util.ArrayList<String>(supportedDeploymentModes);
+    }
+
+    /**
+     * <p>
+     * The list of supported deployment modes.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSupportedDeploymentModes(java.util.Collection)} or
+     * {@link #withSupportedDeploymentModes(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param supportedDeploymentModes
+     *        The list of supported deployment modes.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DeploymentMode
+     */
+
+    public BrokerInstanceOption withSupportedDeploymentModes(String... supportedDeploymentModes) {
+        if (this.supportedDeploymentModes == null) {
+            setSupportedDeploymentModes(new java.util.ArrayList<String>(supportedDeploymentModes.length));
+        }
+        for (String ele : supportedDeploymentModes) {
+            this.supportedDeploymentModes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of supported deployment modes.
+     * </p>
+     * 
+     * @param supportedDeploymentModes
+     *        The list of supported deployment modes.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DeploymentMode
+     */
+
+    public BrokerInstanceOption withSupportedDeploymentModes(java.util.Collection<String> supportedDeploymentModes) {
+        setSupportedDeploymentModes(supportedDeploymentModes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of supported deployment modes.
+     * </p>
+     * 
+     * @param supportedDeploymentModes
+     *        The list of supported deployment modes.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DeploymentMode
+     */
+
+    public BrokerInstanceOption withSupportedDeploymentModes(DeploymentMode... supportedDeploymentModes) {
+        java.util.ArrayList<String> supportedDeploymentModesCopy = new java.util.ArrayList<String>(supportedDeploymentModes.length);
+        for (DeploymentMode value : supportedDeploymentModes) {
+            supportedDeploymentModesCopy.add(value.toString());
+        }
+        if (getSupportedDeploymentModes() == null) {
+            setSupportedDeploymentModes(supportedDeploymentModesCopy);
+        } else {
+            getSupportedDeploymentModes().addAll(supportedDeploymentModesCopy);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
      * The list of supported engine versions.
+     * </p>
      * 
      * @return The list of supported engine versions.
      */
@@ -193,7 +404,9 @@ public class BrokerInstanceOption implements Serializable, Cloneable, Structured
     }
 
     /**
+     * <p>
      * The list of supported engine versions.
+     * </p>
      * 
      * @param supportedEngineVersions
      *        The list of supported engine versions.
@@ -209,7 +422,9 @@ public class BrokerInstanceOption implements Serializable, Cloneable, Structured
     }
 
     /**
+     * <p>
      * The list of supported engine versions.
+     * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setSupportedEngineVersions(java.util.Collection)} or
@@ -232,7 +447,9 @@ public class BrokerInstanceOption implements Serializable, Cloneable, Structured
     }
 
     /**
+     * <p>
      * The list of supported engine versions.
+     * </p>
      * 
      * @param supportedEngineVersions
      *        The list of supported engine versions.
@@ -262,6 +479,10 @@ public class BrokerInstanceOption implements Serializable, Cloneable, Structured
             sb.append("EngineType: ").append(getEngineType()).append(",");
         if (getHostInstanceType() != null)
             sb.append("HostInstanceType: ").append(getHostInstanceType()).append(",");
+        if (getStorageType() != null)
+            sb.append("StorageType: ").append(getStorageType()).append(",");
+        if (getSupportedDeploymentModes() != null)
+            sb.append("SupportedDeploymentModes: ").append(getSupportedDeploymentModes()).append(",");
         if (getSupportedEngineVersions() != null)
             sb.append("SupportedEngineVersions: ").append(getSupportedEngineVersions());
         sb.append("}");
@@ -290,6 +511,14 @@ public class BrokerInstanceOption implements Serializable, Cloneable, Structured
             return false;
         if (other.getHostInstanceType() != null && other.getHostInstanceType().equals(this.getHostInstanceType()) == false)
             return false;
+        if (other.getStorageType() == null ^ this.getStorageType() == null)
+            return false;
+        if (other.getStorageType() != null && other.getStorageType().equals(this.getStorageType()) == false)
+            return false;
+        if (other.getSupportedDeploymentModes() == null ^ this.getSupportedDeploymentModes() == null)
+            return false;
+        if (other.getSupportedDeploymentModes() != null && other.getSupportedDeploymentModes().equals(this.getSupportedDeploymentModes()) == false)
+            return false;
         if (other.getSupportedEngineVersions() == null ^ this.getSupportedEngineVersions() == null)
             return false;
         if (other.getSupportedEngineVersions() != null && other.getSupportedEngineVersions().equals(this.getSupportedEngineVersions()) == false)
@@ -305,6 +534,8 @@ public class BrokerInstanceOption implements Serializable, Cloneable, Structured
         hashCode = prime * hashCode + ((getAvailabilityZones() == null) ? 0 : getAvailabilityZones().hashCode());
         hashCode = prime * hashCode + ((getEngineType() == null) ? 0 : getEngineType().hashCode());
         hashCode = prime * hashCode + ((getHostInstanceType() == null) ? 0 : getHostInstanceType().hashCode());
+        hashCode = prime * hashCode + ((getStorageType() == null) ? 0 : getStorageType().hashCode());
+        hashCode = prime * hashCode + ((getSupportedDeploymentModes() == null) ? 0 : getSupportedDeploymentModes().hashCode());
         hashCode = prime * hashCode + ((getSupportedEngineVersions() == null) ? 0 : getSupportedEngineVersions().hashCode());
         return hashCode;
     }
